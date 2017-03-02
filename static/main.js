@@ -131,3 +131,9 @@ resize();
 
 window.onresize = resize;
 window.onfocus = focus;
+
+if(pausePollFromFile)
+{
+	pausePoll = true;
+	document.getElementById('pauseImage').src="static/images/Play.png";
+}

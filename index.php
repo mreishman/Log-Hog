@@ -7,7 +7,10 @@
 <body>
 	<div id="menu">
 		<div onclick="pausePollAction();" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">
-			<img id="pauseImage" src="static/images/Pause.png" height="20px" style="position: absolute; top: 21px; left: 15px;">
+			<img id="pauseImage" class="menuImage" src="static/images/Pause.png" height="20px">
+		</div>
+		<div onclick="refreshAction();" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">
+			<img id="refreshImage" class="menuImage" src="static/images/Refresh.png" height="20px">
 		</div>
 	</div>
 	
@@ -28,6 +31,7 @@
 	<script>
 		var pollingRate = <?php echo $config['pollingRate'] ?>;
 		var pausePoll = false;
+		var pausePollFromFile = <?php echo $config['pollingRate'] ?>;
 	</script>
 	
 	<script src="static/main.js"></script>

@@ -39,6 +39,10 @@ div {
 	background-color: #912A2C;
 }
 
+.menuImage{
+	vertical-align: middle;
+}
+
 #main {
 	position: fixed;
 	bottom: 0;
