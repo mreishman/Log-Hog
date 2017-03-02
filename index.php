@@ -5,7 +5,11 @@
 	<link rel="stylesheet" type="text/css" href="static/theme.css">
 </head>
 <body>
-	<div id="menu"></div>
+	<div id="menu">
+		<div onclick="pausePollAction();" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">
+			<img id="pauseImage" src="static/images/Pause.png" height="20px" style="position: absolute; top: 21px; left: 15px;">
+		</div>
+	</div>
 	
 	<div id="main">
 		<div id="log"></div>
@@ -23,6 +27,7 @@
 	
 	<script>
 		var pollingRate = <?php echo $config['pollingRate'] ?>;
+		var pausePoll = false;
 	</script>
 	
 	<script src="static/main.js"></script>

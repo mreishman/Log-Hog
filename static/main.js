@@ -7,10 +7,27 @@ var fresh = true;
 var flasher;
 
 function poll() {
+	if(!pausePoll)
+	{
 	$.getJSON('poll.php', {}, function(data) {
 		update(data);
 		fresh = false;
 	});
+	}
+}
+
+function pausePollAction()
+{
+	if(pausePoll)
+	{
+		pausePoll = false;
+		document.getElementById('pauseImage').src="static/images/Pause.png";
+	}
+	else
+	{
+		pausePoll = true;
+		document.getElementById('pauseImage').src="static/images/Play.png";
+	}
 }
 
 function update(data) {
