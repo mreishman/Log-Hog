@@ -30,6 +30,23 @@ function pausePollAction()
 	}
 }
 
+function refreshAction()
+{
+
+	document.getElementById('refreshImage').src="static/images/refresh-animated.gif";
+	if(pausePoll)
+	{
+		pausePoll = false;
+		poll();
+		setTimeout(function(){pausePoll = true;}, 1000);
+	}
+	else
+	{
+		poll();
+	}
+	setTimeout(function(){document.getElementById('refreshImage').src="static/images/Refresh.png";}, 1500);
+}
+
 function update(data) {
 	var menu = $('#menu');
 	var blank = $('#storage .menuItem').html();

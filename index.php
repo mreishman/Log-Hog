@@ -7,10 +7,10 @@
 <body>
 	<div id="menu">
 		<div onclick="pausePollAction();" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">
-			<img id="pauseImage" class="menuImage" src="static/images/Pause.png" height="20px">
+			<img id="pauseImage" class="menuImage" src="static/images/Pause.png" height="30px">
 		</div>
 		<div onclick="refreshAction();" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">
-			<img id="refreshImage" class="menuImage" src="static/images/Refresh.png" height="20px">
+			<img id="refreshImage" class="menuImage" src="static/images/Refresh.png" height="30px">
 		</div>
 	</div>
 	
