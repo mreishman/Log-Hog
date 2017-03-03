@@ -40,6 +40,7 @@
 		var refreshActionVar;
 		var refreshPauseActionVar;
 		var userPaused = false;
+		var refreshing = false;
 	</script>
 	
 	<script src="static/main.js"></script>

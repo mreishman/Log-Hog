@@ -9,6 +9,14 @@ var flasher;
 function poll() {
 	if(!pausePoll)
 	{
+		if(refreshing)
+		{
+			document.title = "Log Hog | Refreshing";
+		}
+		else
+		{
+			document.title = "Log Hog | Index";
+		}
 	$.getJSON('poll.php', {}, function(data) {
 		update(data);
 		fresh = false;
@@ -27,8 +35,7 @@ function pausePollAction()
 	else
 	{
 		userPaused = true;
-		pausePoll = true;
-		document.getElementById('pauseImage').src="static/images/Play.png";
+		pausePollFunction();
 	}
 }
 
@@ -36,6 +43,7 @@ function refreshAction()
 {
 	clearTimeout(refreshActionVar);
 	document.getElementById('refreshImage').src="static/images/refresh-animated.gif";
+	refreshing = true;
 	if(pausePoll)
 	{
 		clearTimeout(refreshPauseActionVar);
@@ -47,7 +55,21 @@ function refreshAction()
 	{
 		poll();
 	}
-	refreshActionVar = setTimeout(function(){document.getElementById('refreshImage').src="static/images/Refresh.png";}, 1500);
+	refreshActionVar = setTimeout(function(){endRefreshAction()}, 1500);
+}
+
+function endRefreshAction()
+{
+	document.getElementById('refreshImage').src="static/images/Refresh.png"; 
+	refreshing = false;
+	if(pausePoll)
+	{
+		document.title = "Log Hog | Paused";
+	}
+	else
+	{
+		document.title = "Log Hog | Index";
+	}
 }
 
 function update(data) {
@@ -168,13 +190,15 @@ function checkIfPageHidden()
 	if(isPageHidden())
 	{
 		//hidden
-		pausePoll = true;
-		document.getElementById('pauseImage').src="static/images/Play.png";
+		if(!pausePoll)
+		{
+			pausePollFunction();
+		}
 	}
 	else
 	{
 		//not hidden
-		if(!userPaused)
+		if(!userPaused && pausePoll)
 		{
 			pausePoll = false;
 			document.getElementById('pauseImage').src="static/images/Pause.png";
@@ -182,7 +206,13 @@ function checkIfPageHidden()
 	}
 }
 
+function pausePollFunction()
+{
+	pausePoll = true;
+	document.getElementById('pauseImage').src="static/images/Play.png";
+	document.title = "Log Hog | Paused";
+}
+
 function isPageHidden(){
      return document.hidden || document.msHidden || document.webkitHidden || document.mozHidden;
  }
-
