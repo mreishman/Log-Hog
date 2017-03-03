@@ -32,19 +32,20 @@ function pausePollAction()
 
 function refreshAction()
 {
-
+	clearTimeout(refreshActionVar);
 	document.getElementById('refreshImage').src="static/images/refresh-animated.gif";
 	if(pausePoll)
 	{
+		clearTimeout(refreshPauseActionVar);
 		pausePoll = false;
 		poll();
-		setTimeout(function(){pausePoll = true;}, 1000);
+		refreshPauseActionVar = setTimeout(function(){pausePoll = true;}, 1000);
 	}
 	else
 	{
 		poll();
 	}
-	setTimeout(function(){document.getElementById('refreshImage').src="static/images/Refresh.png";}, 1500);
+	refreshActionVar = setTimeout(function(){document.getElementById('refreshImage').src="static/images/Refresh.png";}, 1500);
 }
 
 function update(data) {

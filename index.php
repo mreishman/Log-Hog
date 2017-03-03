@@ -32,6 +32,8 @@
 		var pollingRate = <?php echo $config['pollingRate'] ?>;
 		var pausePoll = false;
 		var pausePollFromFile = <?php echo $config['pausePoll'] ?>;
+		var refreshActionVar;
+		var refreshPauseActionVar;
 	</script>
 	
 	<script src="static/main.js"></script>
