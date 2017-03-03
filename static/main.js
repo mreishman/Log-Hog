@@ -160,9 +160,7 @@ if(pausePollFromFile)
 
 if(pausePollOnNotFocus && !pausePollFromFile)
 {
-	Visibility.every(250, 1000, function () {
-    checkIfPageHidden();
-	});
+	Visibility.every(250, 1000, function () { checkIfPageHidden(); });
 }
 
 function checkIfPageHidden()
