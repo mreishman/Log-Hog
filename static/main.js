@@ -20,11 +20,13 @@ function pausePollAction()
 {
 	if(pausePoll)
 	{
+		userPaused = false;
 		pausePoll = false;
 		document.getElementById('pauseImage').src="static/images/Pause.png";
 	}
 	else
 	{
+		userPaused = true;
 		pausePoll = true;
 		document.getElementById('pauseImage').src="static/images/Play.png";
 	}
@@ -155,3 +157,34 @@ if(pausePollFromFile)
 	pausePoll = true;
 	document.getElementById('pauseImage').src="static/images/Play.png";
 }
+
+if(pausePollOnNotFocus && !pausePollFromFile)
+{
+	Visibility.every(250, 1000, function () {
+    checkIfPageHidden();
+	});
+}
+
+function checkIfPageHidden()
+{
+	if(isPageHidden())
+	{
+		//hidden
+		pausePoll = true;
+		document.getElementById('pauseImage').src="static/images/Play.png";
+	}
+	else
+	{
+		//not hidden
+		if(!userPaused)
+		{
+			pausePoll = false;
+			document.getElementById('pauseImage').src="static/images/Pause.png";
+		}
+	}
+}
+
+function isPageHidden(){
+     return document.hidden || document.msHidden || document.webkitHidden || document.mozHidden;
+ }
+

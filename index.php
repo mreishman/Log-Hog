@@ -1,8 +1,14 @@
 <?php require_once('config/config.php'); ?>
 <!doctype html>
 <head>
-	<title>Log Hog</title>
+	<title>Log Hog | Index</title>
 	<link rel="stylesheet" type="text/css" href="static/theme.css">
+	<link rel="icon" type="image/png" href="static/images/favicon.png" />
+	<script src="static/jquery.js"></script>
+	<script src="static/visibility.core.js"></script>
+	<script src="static/visibility.fallback.js"></script>
+	<script src="static/visibility.js"></script>
+	<script src="static/visibility.timers.js"></script>
 </head>
 <body>
 	<div id="menu">
@@ -26,14 +32,14 @@
 	
 	<div id="title">&nbsp;</div>
 	
-	<script src="static/jquery.js"></script>
-	
 	<script>
 		var pollingRate = <?php echo $config['pollingRate'] ?>;
 		var pausePoll = false;
 		var pausePollFromFile = <?php echo $config['pausePoll'] ?>;
+		var pausePollOnNotFocus = <?php echo $config['pauseOnNotFocus'] ?>;
 		var refreshActionVar;
 		var refreshPauseActionVar;
+		var userPaused = false;
 	</script>
 	
 	<script src="static/main.js"></script>
