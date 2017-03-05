@@ -203,6 +203,10 @@ function checkIfPageHidden()
 			pausePoll = false;
 			document.getElementById('pauseImage').src="static/images/Pause.png";
 		}
+		if(userPaused)
+		{
+			document.title = "Log Hog | Paused";
+		}
 	}
 }
 
