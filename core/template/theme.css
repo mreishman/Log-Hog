@@ -71,3 +71,35 @@ div {
 	padding: 0 1em;
 	line-height: 2em;
 }
+
+#settingsUl
+{
+	list-style: none;
+}
+
+#settingsUl li
+{
+	padding: 10px;
+}
+
+.settingsDiv
+{
+	background-color: #444444;
+	border: 1px solid white;
+	margin: 10px;
+	margin-top: 0px;
+}
+
+.settingsHeader
+{
+	background-color: white;
+	margin: 10px;
+	margin-bottom: 0px;
+	color: black;
+	padding: 5px;
+}
+
+.settingsDiv p a
+{
+	color: white;
+}

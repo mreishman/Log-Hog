@@ -27,6 +27,9 @@ require_once($baseUrl.'conf/config.php'); ?>
 		<div onclick="refreshAction();" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">
 			<img id="refreshImage" class="menuImage" src="core/img/Refresh.png" height="30px">
 		</div>
+		<div onclick="window.location.href = './settings/main.php';" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">
+			<img id="refreshImage" class="menuImage" src="core/img/Gear.png" height="30px">
+		</div>
 	</div>
 	
 	<div id="main">
