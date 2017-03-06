@@ -65,6 +65,24 @@ require_once('../core/php/configStatic.php');
 				</li>
 			</ul>
 		</div>
+		<div id="releaseNotesHeader" style="display: none;" class="settingsHeader">
+			Update - Release Notes
+		</div>
+		<div id="releaseNotesBody" style="display: none;" class="settingsDiv" >
+			<ul id="settingsUl">
+				<li>
+					<h2>Changelog For X.X update</h2>
+				</li>
+				<li>
+					X.X
+					<ul>
+						<li>
+							...
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
 		<div class="settingsHeader">
 			Changelog
 		</div>
@@ -72,6 +90,20 @@ require_once('../core/php/configStatic.php');
 			<ul id="settingsUl">
 				<li>
 					<h2>Changelog</h2>
+				</li>
+				<li>
+					2.0
+					<ul>
+						<li>
+							Changed directory structure
+						</li>
+						<li>
+							Added settings page
+						</li>
+						<li>
+							Added upgrade page
+						</li>
+					</ul>
 				</li>
 				<li>
 					1.3
@@ -116,6 +148,6 @@ require_once('../core/php/configStatic.php');
 <script type="text/javascript">
 function checkForUpdates()
 {
-	
+
 }
 </script>

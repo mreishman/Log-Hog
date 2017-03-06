@@ -58,10 +58,17 @@ require_once($baseUrl.'conf/config.php'); ?>
 					</select>
 			</li>
 			<li>
-				pauseOnNotFocus
-				<select name="pauseOnNotFocus">
+				pauseOnNotFocus:
+					<select name="pauseOnNotFocus">
   						<option <?php if($config['pauseOnNotFocus'] == 'true'){echo "selected";} ?> value="true">True</option>
   						<option <?php if($config['pauseOnNotFocus'] == 'false'){echo "selected";} ?> value="false">False</option>
+					</select>
+			</li>
+			<li>
+				autoCheckUpdate:
+					<select name="autoCheckUpdate">
+  						<option <?php if($config['autoCheckUpdate'] == 'true'){echo "selected";} ?> value="true">True</option>
+  						<option <?php if($config['autoCheckUpdate'] == 'false'){echo "selected";} ?> value="false">False</option>
 					</select>
 			</li>
 		</ul>
