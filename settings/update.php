@@ -7,12 +7,15 @@ if(file_exists('../local/layout.php'))
 	require_once('../local/layout.php');
 	$baseUrl .= $currentSelectedTheme."/";
 }
-require_once($baseUrl.'conf/config.php'); ?>
+require_once($baseUrl.'conf/config.php');
+require_once('../core/php/configStatic.php');
+//$timestamp = date('m-d-Y');
+ ?>
 <!doctype html>
 <head>
 	<title>Log Hog | Settings</title>
 	<link rel="stylesheet" type="text/css" href="<?php echo $baseUrl ?>template/theme.css">
-	<link rel="icon" type="image/png" href="core/img/favicon.png" />
+	<link rel="icon" type="image/png" href="../core/img/favicon.png" />
 	<script src="../core/js/jquery.js"></script>
 </head>
 <body>
@@ -43,7 +46,22 @@ require_once($baseUrl.'conf/config.php'); ?>
 		<div class="settingsDiv" >
 			<ul id="settingsUl">
 				<li>
-					<h2>Check for updates</h2>
+					<h2>Current Version - <?php echo $configStatic['version'];?></h2>
+				</li>	
+				<li>
+					<h2>Last Check for updates -  <?php echo $configStatic['lastCheck'];?></h2>
+				</li>
+				<li>
+					<button onclick="checkForUpdates();">Check for updates</button>
+				</li>
+				<li id="noUpdate" style="display: none;">
+					<h2><img id="statusImage1" src="../core/img/greenCheck.png" height="15px"> &nbsp; No new updates - You are on the current version!</h2>
+				</li>
+				<li id="minorUpdate" style="display: none;">
+					<h2><img id="statusImage2" src="../core/img/yellowWarning.png" height="15px"> &nbsp; Minor Updates - bug fixes </h2>
+				</li>
+				<li id="majorUpdate" style="display: none;">
+					<h2><img id="statusImage3" src="../core/img/redWarning.png" height="15px"> &nbsp; Major Updates - new features!</h2>
 				</li>
 			</ul>
 		</div>
@@ -95,3 +113,9 @@ require_once($baseUrl.'conf/config.php'); ?>
 	</div>
 </body>
 <script src="../core/js/settings.js"></script>
+<script type="text/javascript">
+function checkForUpdates()
+{
+	
+}
+</script>

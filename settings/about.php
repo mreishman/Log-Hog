@@ -7,12 +7,13 @@ if(file_exists('../local/layout.php'))
 	require_once('../local/layout.php');
 	$baseUrl .= $currentSelectedTheme."/";
 }
-require_once($baseUrl.'conf/config.php'); ?>
+require_once($baseUrl.'conf/config.php'); 
+require_once('../core/php/configStatic.php'); ?>
 <!doctype html>
 <head>
 	<title>Log Hog | Settings</title>
 	<link rel="stylesheet" type="text/css" href="<?php echo $baseUrl ?>template/theme.css">
-	<link rel="icon" type="image/png" href="core/img/favicon.png" />
+	<link rel="icon" type="image/png" href="../core/img/favicon.png" />
 	<script src="../core/js/jquery.js"></script>
 </head>
 <body>
@@ -27,6 +28,16 @@ require_once($baseUrl.'conf/config.php'); ?>
 	<div id="main">
 		<div class="settingsHeader">
 			About
+		</div>
+		<div class="settingsDiv" >
+			<ul id="settingsUl">
+				<li>
+					<h2>Version - <?php echo $configStatic['version'];?></h2>
+				</li>
+			</ul>
+		</div>
+		<div class="settingsHeader">
+			Info
 		</div>
 		<div class="settingsDiv" >
 			<ul id="settingsUl">

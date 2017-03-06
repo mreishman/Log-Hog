@@ -12,7 +12,7 @@ require_once($baseUrl.'conf/config.php'); ?>
 <head>
 	<title>Log Hog | Settings</title>
 	<link rel="stylesheet" type="text/css" href="<?php echo $baseUrl ?>template/theme.css">
-	<link rel="icon" type="image/png" href="core/img/favicon.png" />
+	<link rel="icon" type="image/png" href="../core/img/favicon.png" />
 	<script src="../core/js/jquery.js"></script>
 </head>
 <body>
@@ -75,11 +75,19 @@ require_once($baseUrl.'conf/config.php'); ?>
 				$i = 0;
 				foreach($config['watchList'] as $key => $item): $i++; ?>
 			<li>
-				File #<?php echo $i; ?>: 
- 				<input type='text' name='watchListKey<?php echo $i; ?>' value='<?php echo $key; ?>'>
+				File #<?php if($i < 10){echo "0";} ?><?php echo $i; ?>: 
+ 				<input style='width: 500px;' type='text' name='watchListKey<?php echo $i; ?>' value='<?php echo $key; ?>'>
  				<input type='text' name='watchListItem<?php echo $i; ?>' value='<?php echo $item; ?>'>
 			</li>
+
 		<?php endforeach; ?>
+		<div id="newRowLocationForWatchList">
+		</div>
+		</ul>
+		<ul id="settingsUl">
+			<li>
+				<button onclick="addRowFunction()">Add New File / Folder</button>
+			</li>
 		</ul>
 		</div>
 			
@@ -88,3 +96,20 @@ require_once($baseUrl.'conf/config.php'); ?>
 	
 </body>
 <script src="../core/js/settings.js"></script>
+<script type="text/javascript"> 
+var countOfWatchList = <?php echo $i+1; ?>
+
+function addRowFunction()
+{
+	if(countOfWatchList < 10)
+	{
+		document.getElementById('newRowLocationForWatchList').innerHTML += "<li>File #0" + countOfWatchList+ ": <input type='text' style='width: 500px;' name='watchListKey" + countOfWatchList + "' > <input type='text' name='watchListItem" + countOfWatchList + "' ></li>";
+	}
+	else
+	{
+		document.getElementById('newRowLocationForWatchList').innerHTML += "<li>File #" + countOfWatchList+ ": <input type='text' style='width: 500px;' name='watchListKey" + countOfWatchList + "' > <input type='text' name='watchListItem" + countOfWatchList + "' ></li>";
+	}
+	
+	countOfWatchList++;
+}	
+</script>
