@@ -1,22 +1,31 @@
-<?php require_once('config/config.php'); ?>
+<?php
+$baseUrl = "core/";
+if(file_exists('local/layout.php'))
+{
+	$baseUrl = "local/";
+	//there is custom information, use this
+	require_once('local/layout.php');
+	$baseUrl .= $currentSelectedTheme."/";
+}
+require_once($baseUrl.'conf/config.php'); ?>
 <!doctype html>
 <head>
 	<title>Log Hog | Index</title>
-	<link rel="stylesheet" type="text/css" href="static/theme.css">
-	<link rel="icon" type="image/png" href="static/images/favicon.png" />
-	<script src="static/jquery.js"></script>
-	<script src="static/visibility.core.js"></script>
-	<script src="static/visibility.fallback.js"></script>
-	<script src="static/visibility.js"></script>
-	<script src="static/visibility.timers.js"></script>
+	<link rel="stylesheet" type="text/css" href="<?php echo $baseUrl ?>template/theme.css">
+	<link rel="icon" type="image/png" href="core/img/favicon.png" />
+	<script src="core/js/jquery.js"></script>
+	<script src="core/js/visibility.core.js"></script>
+	<script src="core/js/visibility.fallback.js"></script>
+	<script src="core/js/visibility.js"></script>
+	<script src="core/js/visibility.timers.js"></script>
 </head>
 <body>
 	<div id="menu">
 		<div onclick="pausePollAction();" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">
-			<img id="pauseImage" class="menuImage" src="static/images/Pause.png" height="30px">
+			<img id="pauseImage" class="menuImage" src="core/img/Pause.png" height="30px">
 		</div>
 		<div onclick="refreshAction();" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">
-			<img id="refreshImage" class="menuImage" src="static/images/Refresh.png" height="30px">
+			<img id="refreshImage" class="menuImage" src="core/img/Refresh.png" height="30px">
 		</div>
 	</div>
 	
@@ -43,5 +52,5 @@
 		var refreshing = false;
 	</script>
 	
-	<script src="static/main.js"></script>
+	<script src="core/js/main.js"></script>
 </body>

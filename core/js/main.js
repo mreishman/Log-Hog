@@ -17,7 +17,7 @@ function poll() {
 		{
 			document.title = "Log Hog | Index";
 		}
-	$.getJSON('poll.php', {}, function(data) {
+	$.getJSON('core/php/poll.php', {}, function(data) {
 		update(data);
 		fresh = false;
 	});
@@ -30,7 +30,7 @@ function pausePollAction()
 	{
 		userPaused = false;
 		pausePoll = false;
-		document.getElementById('pauseImage').src="static/images/Pause.png";
+		document.getElementById('pauseImage').src="core/img/Pause.png";
 	}
 	else
 	{
@@ -42,7 +42,7 @@ function pausePollAction()
 function refreshAction()
 {
 	clearTimeout(refreshActionVar);
-	document.getElementById('refreshImage').src="static/images/refresh-animated.gif";
+	document.getElementById('refreshImage').src="core/img/refresh-animated.gif";
 	refreshing = true;
 	if(pausePoll)
 	{
@@ -60,7 +60,7 @@ function refreshAction()
 
 function endRefreshAction()
 {
-	document.getElementById('refreshImage').src="static/images/Refresh.png"; 
+	document.getElementById('refreshImage').src="core/img/Refresh.png"; 
 	refreshing = false;
 	if(pausePoll)
 	{
@@ -177,7 +177,7 @@ window.onfocus = focus;
 if(pausePollFromFile)
 {
 	pausePoll = true;
-	document.getElementById('pauseImage').src="static/images/Play.png";
+	document.getElementById('pauseImage').src="core/img/Play.png";
 }
 
 if(pausePollOnNotFocus && !pausePollFromFile)
@@ -201,7 +201,7 @@ function checkIfPageHidden()
 		if(!userPaused && pausePoll)
 		{
 			pausePoll = false;
-			document.getElementById('pauseImage').src="static/images/Pause.png";
+			document.getElementById('pauseImage').src="core/img/Pause.png";
 		}
 		if(userPaused)
 		{
@@ -213,7 +213,7 @@ function checkIfPageHidden()
 function pausePollFunction()
 {
 	pausePoll = true;
-	document.getElementById('pauseImage').src="static/images/Play.png";
+	document.getElementById('pauseImage').src="core/img/Play.png";
 	document.title = "Log Hog | Paused";
 }
 

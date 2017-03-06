@@ -1,6 +1,13 @@
 <?php
-
-require_once('config/config.php');
+$baseUrl = "../../core/";
+if(file_exists('../../local/layout.php'))
+{
+	$baseUrl = "../../local/";
+	//there is custom information, use this
+	require_once('../../local/layout.php');
+	$baseUrl .= $currentSelectedTheme."/";
+}
+require_once($baseUrl.'conf/config.php'); 
 
 function tail($filename, $sliceSize) {
 	$filename = preg_replace('/([()"])/S', '$1', $filename);
