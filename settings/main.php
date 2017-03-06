@@ -67,7 +67,7 @@ require_once($baseUrl.'conf/config.php'); ?>
 		</ul>
 		</div>
 		<div class="settingsHeader">
-		WatchList
+			WatchList
 		</div>
 		<div class="settingsDiv" >	
 		<ul id="settingsUl">
@@ -87,3 +87,4 @@ require_once($baseUrl.'conf/config.php'); ?>
 	</div>
 	
 </body>
+<script src="../core/js/settings.js"></script>
