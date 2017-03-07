@@ -16,6 +16,10 @@ Copy all of the files, except for config.php
 When upgrading, look at the config.php to compair var's 
 copy missing var's from the new file into the old file
 
+## Version 2.0
+
+Copy all of the files, except for config.php file (located in local/default/conf/
+Move the config.php file from the conf dir to the local/default/conf .
 
 ## Version 2.0+
 
