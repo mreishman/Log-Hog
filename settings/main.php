@@ -71,8 +71,9 @@ else
 	
 
 	<div id="main">
+		<form id="settingsMainVars" action="../core/php/settingsMainUpdateVars.php" method="post">
 		<div class="settingsHeader">
-		Main Settings
+		Main Settings <button>Save Changes</button>
 		</div>
 		<div class="settingsDiv" >
 		<ul id="settingsUl">
@@ -105,8 +106,10 @@ else
 			</li>
 		</ul>
 		</div>
+		</form>
+		<form id="settingsMainWatch" action="../core/php/settingsMainUpdateWatchList.php" method="post">
 		<div class="settingsHeader">
-			WatchList
+			WatchList <button>Save Changes</button>
 		</div>
 		<div class="settingsDiv" >	
 		<ul id="settingsUl">
@@ -125,21 +128,23 @@ else
 		</ul>
 		<ul id="settingsUl">
 			<li>
-				<button onclick="addRowFunction()">Add New File / Folder</button>
+				<a style="cursor: pointer;" onclick="addRowFunction()">Add New File / Folder</a>
 			</li>
 		</ul>
 		</div>
-			
-		
-	</div>
-	
+		<div id="hidden" style="display: none">
+			<input id="numberOfRows" type="text" name="numberOfRows" value="<?php echo $i;?>">
+		</div>	
+		</form>
+	</div>	
 </body>
 <script src="../core/js/settings.js"></script>
 <script type="text/javascript"> 
-var countOfWatchList = <?php echo $i+1; ?>
+var countOfWatchList = <?php echo $i; ?>
 
 function addRowFunction()
 {
+	countOfWatchList++;
 	if(countOfWatchList < 10)
 	{
 		document.getElementById('newRowLocationForWatchList').innerHTML += "<li>File #0" + countOfWatchList+ ": <input type='text' style='width: 500px;' name='watchListKey" + countOfWatchList + "' > <input type='text' name='watchListItem" + countOfWatchList + "' ></li>";
@@ -148,7 +153,6 @@ function addRowFunction()
 	{
 		document.getElementById('newRowLocationForWatchList').innerHTML += "<li>File #" + countOfWatchList+ ": <input type='text' style='width: 500px;' name='watchListKey" + countOfWatchList + "' > <input type='text' name='watchListItem" + countOfWatchList + "' ></li>";
 	}
-	
-	countOfWatchList++;
+	document.getElementById('numberOfRows').value = countOfWatchList;
 }	
 </script>

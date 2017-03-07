@@ -7,7 +7,8 @@ if(file_exists('../../local/layout.php'))
 	require_once('../../local/layout.php');
 	$baseUrl .= $currentSelectedTheme."/";
 }
-require_once($baseUrl.'conf/config.php'); 
+require_once($baseUrl.'conf/config.php');
+require_once('../../core/conf/config.php'); 
 
 function tail($filename, $sliceSize) {
 	$filename = preg_replace('/([()"])/S', '$1', $filename);
