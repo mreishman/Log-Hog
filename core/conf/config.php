@@ -1,6 +1,6 @@
 <?php
 
-$config = array(
+$defaultConfig = array(
 	'sliceSize'		=> 500,
 	'pollingRate'	=> 500,
 	'pausePoll'		=> 'false',

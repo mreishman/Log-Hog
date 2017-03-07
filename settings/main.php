@@ -25,17 +25,49 @@ require_once($baseUrl.'conf/config.php'); ?>
 		<a onclick="window.location.href = 'update.php';">Update</a>
 	</div>
 	
+<?php
+if(array_key_exists('sliceSize', $config))
+{
+	$sliceSize = $config['sliceSize'];
+}
+else
+{
+	$sliceSize = $defaultConfig['sliceSize'];
+} 
+if(array_key_exists('pollingRate', $config))
+{
+	$pollingRate = $config['pollingRate'];
+}
+else
+{
+	$pollingRate = $defaultConfig['pollingRate'];
+} 
+if(array_key_exists('pausePoll', $config))
+{
+	$pausePoll = $config['pausePoll'];
+}
+else
+{
+	$pausePoll = $defaultConfig['pausePoll'];
+}
+if(array_key_exists('pauseOnNotFocus', $config))
+{
+	$pauseOnNotFocus = $config['pauseOnNotFocus'];
+}
+else
+{
+	$pauseOnNotFocus = $defaultConfig['pauseOnNotFocus'];
+}
+if(array_key_exists('autoCheckUpdate', $config))
+{
+	$autoCheckUpdate = $config['autoCheckUpdate'];
+}
+else
+{
+	$autoCheckUpdate = $defaultConfig['autoCheckUpdate'];
+}
+?>
 	
-	<script>
-		var pollingRate = <?php echo $config['pollingRate'] ?>;
-		var pausePoll = false;
-		var pausePollFromFile = <?php echo $config['pausePoll'] ?>;
-		var pausePollOnNotFocus = <?php echo $config['pauseOnNotFocus'] ?>;
-		var refreshActionVar;
-		var refreshPauseActionVar;
-		var userPaused = false;
-		var refreshing = false;
-	</script>
 	
 
 	<div id="main">
@@ -45,30 +77,30 @@ require_once($baseUrl.'conf/config.php'); ?>
 		<div class="settingsDiv" >
 		<ul id="settingsUl">
 			<li>
-				sliceSize:  <input type="text" name="sliceSize" value="<?php echo $config['sliceSize'];?>" >
+				sliceSize:  <input type="text" name="sliceSize" value="<?php echo $sliceSize;?>" >
 			</li>
 			<li>
-				pollingRate: <input type="text" name="pollingRate" value="<?php echo $config['pollingRate'];?>" >
+				pollingRate: <input type="text" name="pollingRate" value="<?php echo $pollingRate;?>" >
 			</li>
 			<li>
 				pausePoll: 
 					<select name="pausePoll">
-  						<option <?php if($config['pausePoll'] == 'true'){echo "selected";} ?> value="true">True</option>
-  						<option <?php if($config['pausePoll'] == 'false'){echo "selected";} ?> value="false">False</option>
+  						<option <?php if($pausePoll == 'true'){echo "selected";} ?> value="true">True</option>
+  						<option <?php if($pausePoll == 'false'){echo "selected";} ?> value="false">False</option>
 					</select>
 			</li>
 			<li>
 				pauseOnNotFocus:
 					<select name="pauseOnNotFocus">
-  						<option <?php if($config['pauseOnNotFocus'] == 'true'){echo "selected";} ?> value="true">True</option>
-  						<option <?php if($config['pauseOnNotFocus'] == 'false'){echo "selected";} ?> value="false">False</option>
+  						<option <?php if($pauseOnNotFocus == 'true'){echo "selected";} ?> value="true">True</option>
+  						<option <?php if($pauseOnNotFocus == 'false'){echo "selected";} ?> value="false">False</option>
 					</select>
 			</li>
 			<li>
 				autoCheckUpdate:
 					<select name="autoCheckUpdate">
-  						<option <?php if($config['autoCheckUpdate'] == 'true'){echo "selected";} ?> value="true">True</option>
-  						<option <?php if($config['autoCheckUpdate'] == 'false'){echo "selected";} ?> value="false">False</option>
+  						<option <?php if($autoCheckUpdate == 'true'){echo "selected";} ?> value="true">True</option>
+  						<option <?php if($autoCheckUpdate == 'false'){echo "selected";} ?> value="false">False</option>
 					</select>
 			</li>
 		</ul>

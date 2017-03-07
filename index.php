@@ -7,7 +7,8 @@ if(file_exists('local/layout.php'))
 	require_once('local/layout.php');
 	$baseUrl .= $currentSelectedTheme."/";
 }
-require_once($baseUrl.'conf/config.php'); ?>
+require_once($baseUrl.'conf/config.php'); 
+require_once('core/conf/config.php'); ?>
 <!doctype html>
 <head>
 	<title>Log Hog | Index</title>
@@ -45,10 +46,33 @@ require_once($baseUrl.'conf/config.php'); ?>
 	<div id="title">&nbsp;</div>
 	
 	<script>
-		var pollingRate = <?php echo $config['pollingRate'] ?>;
+		<?php
+			if(array_key_exists('pollingRate', $config))
+			{
+				echo "var pollingRate = ".$config['pollingRate'].";";
+			}
+			else
+			{
+				echo "var pollingRate = ".$defaultConfig['pollingRate'].";";
+			} 
+			if(array_key_exists('pausePoll', $config))
+			{
+				echo "var pausePollFromFile = ".$config['pausePoll'].";";
+			}
+			else
+			{
+				echo "var pausePollFromFile = ".$defaultConfig['pausePoll'].";";
+			}
+			if(array_key_exists('pauseOnNotFocus', $config))
+			{
+				echo "var pausePollOnNotFocus = ".$config['pauseOnNotFocus'].";";
+			}
+			else
+			{
+				echo "var pausePollOnNotFocus = ".$defaultConfig['pauseOnNotFocus'].";";
+			}
+		?>
 		var pausePoll = false;
-		var pausePollFromFile = <?php echo $config['pausePoll'] ?>;
-		var pausePollOnNotFocus = <?php echo $config['pauseOnNotFocus'] ?>;
 		var refreshActionVar;
 		var refreshPauseActionVar;
 		var userPaused = false;
