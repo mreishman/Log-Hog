@@ -103,6 +103,11 @@ for($i = 0; $i < $newestVersionCount; $i++)
 					<form id="settingsCheckForUpdate" action="../core/php/settingsCheckForUpdate.php" method="post">
 					<button onclick="checkForUpdates();">Check for updates</button>
 					</form>
+					<form id="settingsCheckForUpdate" action="../core/php/settingsInstallUpdate.php" method="post">
+					<?php
+					if($levelOfUpdate != 0){echo '<button onclick="installUpdates();">Install '.$configStatic["newestVersion"].' Update</button>';}
+					?>
+					</form>
 				</li>
 				<li id="noUpdate" <?php if($levelOfUpdate != 0){echo "style='display: none;'";} ?> >
 					<h2><img id="statusImage1" src="../core/img/greenCheck.png" height="15px"> &nbsp; No new updates - You are on the current version!</h2>

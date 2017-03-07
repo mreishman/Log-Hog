@@ -1,4 +1,6 @@
 <?php
+require_once('../core/php/configStatic.php');
+
 
 file_put_contents("../../update/downloads/versionCheck/versionCheck.zip", 
 file_get_contents("https://github.com/mreishman/Log-Hog/archive/versionCheck.zip")
