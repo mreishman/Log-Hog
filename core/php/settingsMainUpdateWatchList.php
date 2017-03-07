@@ -56,7 +56,7 @@ else
 require_once($baseUrl.'conf/config.php');
 require_once('../../core/conf/config.php'); 
 	
-	$arrayWatchList;
+	$arrayWatchList = "";
 	for($i = 1; $i <= $_POST['numberOfRows']; $i++ )
 	{
 		$arrayWatchList .= "'".$_POST['watchListKey'.$i]."' => '".$_POST['watchListItem'.$i]."'";
@@ -80,7 +80,7 @@ require_once('../../core/conf/config.php');
 			".$arrayWatchList.")
 		);
 	?>";
-	
+
 	file_put_contents($fileName, $newInfoForConfig);
 
 	header('Location: ' . $_SERVER['HTTP_REFERER']);

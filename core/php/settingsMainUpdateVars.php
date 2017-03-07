@@ -22,7 +22,7 @@ require_once('../../core/conf/config.php');
 	}
 
 
-	$arrayWatchList;
+	$arrayWatchList = "";
 	$numberOfRows = count($watchList);
 	$i = 0;
 	foreach ($watchList as $key => $value) 
