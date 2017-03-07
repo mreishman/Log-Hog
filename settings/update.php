@@ -10,7 +10,64 @@ if(file_exists('../local/layout.php'))
 require_once($baseUrl.'conf/config.php');
 require_once('../core/php/configStatic.php');
 //$timestamp = date('m-d-Y');
- ?>
+
+$version = explode('.', $configStatic['version']);
+$newestVersion = explode('.', $configStatic['newestVersion']);
+
+$levelOfUpdate = 0; // 0 is no updated, 1 is minor update and 2 is major update
+
+$newestVersionCount = count($newestVersion);
+$versionCount = count($version);
+
+for($i = 0; $i < $newestVersionCount; $i++)
+{
+	if($i < $versionCount)
+	{
+		if($i == 0)
+		{
+			if($newestVersion[$i] > $version[$i])
+			{
+				$levelOfUpdate = 3;
+				break;
+			}
+			elseif($newestVersion[$i] < $version[$i])
+			{
+				break;
+			}
+		}
+		elseif($i == 1)
+		{
+			if($newestVersion[$i] > $version[$i])
+			{
+				$levelOfUpdate = 2;
+				break;
+			}
+			elseif($newestVersion[$i] < $version[$i])
+			{
+				break;
+			}
+		}
+		else
+		{
+			if($newestVersion[$i] > $version[$i])
+			{
+				$levelOfUpdate = 1;
+				break;
+			}
+			elseif($newestVersion[$i] < $version[$i])
+			{
+				break;
+			}
+		}
+	}
+	else
+	{
+		$levelOfUpdate = 1;
+		break;
+	}
+}
+
+?>
 <!doctype html>
 <head>
 	<title>Log Hog | Settings</title>
@@ -29,16 +86,7 @@ require_once('../core/php/configStatic.php');
 	</div>
 	
 	
-	<script>
-		var pollingRate = <?php echo $config['pollingRate'] ?>;
-		var pausePoll = false;
-		var pausePollFromFile = <?php echo $config['pausePoll'] ?>;
-		var pausePollOnNotFocus = <?php echo $config['pauseOnNotFocus'] ?>;
-		var refreshActionVar;
-		var refreshPauseActionVar;
-		var userPaused = false;
-		var refreshing = false;
-	</script>
+
 	<div id="main">
 		<div class="settingsHeader">
 			Update
@@ -52,16 +100,21 @@ require_once('../core/php/configStatic.php');
 					<h2>Last Check for updates -  <?php echo $configStatic['lastCheck'];?></h2>
 				</li>
 				<li>
+					<form id="settingsCheckForUpdate" action="../core/php/settingsCheckForUpdate.php" method="post">
 					<button onclick="checkForUpdates();">Check for updates</button>
+					</form>
 				</li>
-				<li id="noUpdate" style="display: none;">
+				<li id="noUpdate" <?php if($levelOfUpdate != 0){echo "style='display: none;'";} ?> >
 					<h2><img id="statusImage1" src="../core/img/greenCheck.png" height="15px"> &nbsp; No new updates - You are on the current version!</h2>
 				</li>
-				<li id="minorUpdate" style="display: none;">
-					<h2><img id="statusImage2" src="../core/img/yellowWarning.png" height="15px"> &nbsp; Minor Updates - bug fixes </h2>
+				<li id="minorUpdate" <?php if($levelOfUpdate != 1){echo "style='display: none;'";} ?> >
+					<h2><img id="statusImage2" src="../core/img/yellowWarning.png" height="15px"> &nbsp; Minor Updates - <?php echo $configStatic['newestVersion'];?> - bug fixes </h2>
 				</li>
-				<li id="majorUpdate" style="display: none;">
-					<h2><img id="statusImage3" src="../core/img/redWarning.png" height="15px"> &nbsp; Major Updates - new features!</h2>
+				<li id="majorUpdate" <?php if($levelOfUpdate != 2){echo "style='display: none;'";} ?> >
+					<h2><img id="statusImage3" src="../core/img/redWarning.png" height="15px"> &nbsp; Major Updates - <?php echo $configStatic['newestVersion'];?> - new features!</h2>
+				</li>
+				<li id="NewXReleaseUpdate" <?php if($levelOfUpdate != 3){echo "style='display: none;'";} ?> >
+					<h2><img id="statusImage3" src="../core/img/redWarning.png" height="15px"><img id="statusImage3" src="../core/img/redWarning.png" height="15px"><img id="statusImage3" src="../core/img/redWarning.png" height="15px"> &nbsp; Very Major Updates - <?php echo $configStatic['newestVersion'];?> - a lot of new features!</h2>
 				</li>
 			</ul>
 		</div>
