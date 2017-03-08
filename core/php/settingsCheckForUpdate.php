@@ -43,13 +43,40 @@ unlink("../../update/downloads/versionCheck/versionCheck.zip");
 
 require_once('../../update/downloads/versionCheck/extracted/versionsCheckFile.php');
 
+$arrayForVersionList = "";
+$countOfArray = count($versionCheckArray['versionList']);
+$i = 0;
+foreach ($versionCheckArray['versionList'] as $key => $value) {
+  $i++;
+  $arrayForVersionList .= "'".$key."' => array(";
+  $countOfArraySub = count($value);
+  $j = 0;
+  foreach ($value as $keySub => $valueSub) 
+  {
+    $j++;
+    $arrayForVersionList .= "'".$keySub."' => '".$valueSub."'";
+    if($j != $countOfArraySub)
+    {
+      $arrayForVersionList .= ",";
+    }
+  }
+  $arrayForVersionList .= ")";
+  if($i != $countOfArray)
+  {
+    $arrayForVersionList .= ",";
+  }
+}
+
 $newInfoForConfig = "
 <?php
 
 $"."configStatic = array(
   'version'   => '2.0',
   'lastCheck'   => '03-06-2017',
-  'newestVersion' => '".$versionCheckArray['version']."'
+  'newestVersion' => '".$versionCheckArray['version']."',
+  'versionList' => array(
+  ".$arrayForVersionList."
+  )
 );
 ";
 

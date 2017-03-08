@@ -128,17 +128,17 @@ for($i = 0; $i < $newestVersionCount; $i++)
 		</div>
 		<div id="releaseNotesBody" <?php if($levelOfUpdate == 0){echo "style='display: none;'";} ?> class="settingsDiv" >
 			<ul id="settingsUl">
-				<li>
-					<h2>Changelog For X.X update</h2>
-				</li>
-				<li>
-					X.X
-					<ul>
-						<li>
-							...
-						</li>
-					</ul>
-				</li>
+			<?php 
+			if(array_key_exists('versionList', $configStatic))
+			{
+				foreach ($configStatic['versionList'] as $key => $value) 
+				{
+					echo "<li><h2>Changelog For ".$key." update</h2></li>";
+					echo $value['releaseNotes'];
+				}
+			}
+			
+			?>
 			</ul>
 		</div>
 		<div class="settingsHeader">
