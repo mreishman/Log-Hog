@@ -100,10 +100,10 @@ for($i = 0; $i < $newestVersionCount; $i++)
 					<h2>Last Check for updates -  <?php echo $configStatic['lastCheck'];?></h2>
 				</li>
 				<li>
-					<form id="settingsCheckForUpdate" action="../core/php/settingsCheckForUpdate.php" method="post">
+					<form id="settingsCheckForUpdate" action="../core/php/settingsCheckForUpdate.php" method="post" style="float: left; padding: 10px;">
 					<button onclick="checkForUpdates();">Check for updates</button>
 					</form>
-					<form id="settingsCheckForUpdate" action="../core/php/settingsInstallUpdate.php" method="post">
+					<form id="settingsCheckForUpdate" action="../core/php/settingsInstallUpdate.php" method="post" style="padding: 10px;">
 					<?php
 					if($levelOfUpdate != 0){echo '<button onclick="installUpdates();">Install '.$configStatic["newestVersion"].' Update</button>';}
 					?>
@@ -123,10 +123,10 @@ for($i = 0; $i < $newestVersionCount; $i++)
 				</li>
 			</ul>
 		</div>
-		<div id="releaseNotesHeader" style="display: none;" class="settingsHeader">
+		<div id="releaseNotesHeader" <?php if($levelOfUpdate == 0){echo "style='display: none;'";} ?> class="settingsHeader">
 			Update - Release Notes
 		</div>
-		<div id="releaseNotesBody" style="display: none;" class="settingsDiv" >
+		<div id="releaseNotesBody" <?php if($levelOfUpdate == 0){echo "style='display: none;'";} ?> class="settingsDiv" >
 			<ul id="settingsUl">
 				<li>
 					<h2>Changelog For X.X update</h2>
