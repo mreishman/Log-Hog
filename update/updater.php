@@ -9,7 +9,115 @@ if(file_exists('../local/layout.php'))
 }
 require_once($baseUrl.'conf/config.php');
 require_once('../core/php/configStatic.php');
+require_once('../core/php/updateProgressFile.php');
+
+$noUpdateNeeded = true;
+$versionToUpdate = "";
+
+//find next version to update to
+if($configStatic['newestVersion'] != $configStatic['version'])
+{
+	$noUpdateNeeded = false;
+	foreach ($configStatic['versionList'] as $key => $value) {
+		
+
+		$version = explode('.', $configStatic['version']);
+		$newestVersion = explode('.', $key);
+
+		$levelOfUpdate = 0; // 0 is no updated, 1 is minor update and 2 is major update
+
+		$newestVersionCount = count($newestVersion);
+		$versionCount = count($version);
+
+		for($i = 0; $i < $newestVersionCount; $i++)
+		{
+			if($i < $versionCount)
+			{
+				if($i == 0)
+				{
+					if($newestVersion[$i] > $version[$i])
+					{
+						$levelOfUpdate = 3;
+						$versionToUpdate = $key;
+						break;
+					}
+					elseif($newestVersion[$i] < $version[$i])
+					{
+						break;
+					}
+				}
+				elseif($i == 1)
+				{
+					if($newestVersion[$i] > $version[$i])
+					{
+						$levelOfUpdate = 2;
+						$versionToUpdate = $key;
+						break;
+					}
+					elseif($newestVersion[$i] < $version[$i])
+					{
+						break;
+					}
+				}
+				else
+				{
+					if($newestVersion[$i] > $version[$i])
+					{
+						$levelOfUpdate = 1;
+						$versionToUpdate = $key;
+						break;
+					}
+					elseif($newestVersion[$i] < $version[$i])
+					{
+						break;
+					}
+				}
+			}
+			else
+			{
+				$levelOfUpdate = 1;
+				$versionToUpdate = $key;
+				break;
+			}
+		}
+
+		if($levelOfUpdate != 0)
+		{
+			break;
+		}
+
+	}
+}
+
+
 ?>
+
+
+
+<?php if(!$noUpdateNeeded)
+{
+	//determin what step you're on
+	if($updateProgress['currentStep'] == "Finished Updating to ")
+	{
+		//just starting update, switch to download
+	}
+	elseif($updateProgress['currentStep'] == "Downloading Zip Files For ")
+	{
+		//just downloaded update, switch to unzipping
+	}
+	elseif($updateProgress['currentStep'] == "Extracting Zip Files For ")
+	{
+		//just finished extracting, switch to removing zip file
+	}
+	else
+	{
+		//other
+	}
+}
+?>
+
+
+
 
 <!doctype html>
 <head>
@@ -23,18 +131,24 @@ require_once('../core/php/configStatic.php');
 
 <div id="main">
 	<div class="settingsHeader" style="text-align: center;" >
+	<?php if($noUpdateNeeded): ?>
+		<h1>Finished Updating!</h1>
+	<?php else: ?>
 		<h1>Updating to version <?php echo $configStatic['newestVersion'] ; ?></h1>
+	<?php endif; ?>
 	</div>
 	<div class="settingsDiv" >
 		<div class="updatingDiv">
-		<p id="headerForUpdate">Downloading files for _____ update. </p>
-		<p style="border-bottom: 1px solid white;"></p>
-		<p> Other stuff here </p>
+			<?php require_once('../core/php/updateProgressLogHead.php'); ?>
+			<p style="border-bottom: 1px solid white;"></p>
+			<?php require_once('../core/php/updateProgressLog.php'); ?>
 		</div>
 	</div>
 </div>
 <script src="../core/js/settings.js"></script>
-<script type="text/javascript"> 
-var headerForUpdate = document.getElementById('headerForUpdate');
-setInterval(function() {headerForUpdate.innerHTML = headerForUpdate.innerHTML + '.';}, '100');
-</script>  
+<?php if(!$noUpdateNeeded): ?>
+	<script type="text/javascript"> 
+		var headerForUpdate = document.getElementById('headerForUpdate');
+		setInterval(function() {headerForUpdate.innerHTML = headerForUpdate.innerHTML + '.';}, '100');
+	</script> 
+<?php endif; ?>
