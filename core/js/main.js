@@ -207,10 +207,6 @@ function checkIfPageHidden()
 		{
 			document.title = "Log Hog | Paused";
 		}
-		if(userPaused)
-		{
-			document.title = "Log Hog | Paused";
-		}
 	}
 }
 
