@@ -101,9 +101,9 @@ for($i = 0; $i < $newestVersionCount; $i++)
 				</li>
 				<li>
 					<form id="settingsCheckForUpdate" action="../core/php/settingsCheckForUpdate.php" method="post" style="float: left; padding: 10px;">
-					<button onclick="checkForUpdates();">Check for updates</button>
+					<button>Check for updates</button>
 					</form>
-					<form id="settingsCheckForUpdate" action="../core/php/settingsInstallUpdate.php" method="post" style="padding: 10px;">
+					<form id="settingsCheckForUpdate" action="../update/updater.php" method="post" style="padding: 10px;">
 					<?php
 					if($levelOfUpdate != 0){echo '<button onclick="installUpdates();">Install '.$configStatic["newestVersion"].' Update</button>';}
 					?>
@@ -203,9 +203,3 @@ for($i = 0; $i < $newestVersionCount; $i++)
 	</div>
 </body>
 <script src="../core/js/settings.js"></script>
-<script type="text/javascript">
-function checkForUpdates()
-{
-
-}
-</script>

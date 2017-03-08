@@ -103,3 +103,10 @@ div {
 {
 	color: white;
 }
+
+.updatingDiv p
+{
+	margin: 2px;
+	padding-left: 10px;
+	word-wrap: break-word;
+}
