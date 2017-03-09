@@ -91,7 +91,7 @@ function removeUnZippedFiles()
 
 function handOffToUpdate()
 {
-	require_once('../../update/downloads/test.php');
+	require_once('../../update/downloads/updateFiles/extracted/updateScript.php');
 }
 
 ?>

@@ -139,6 +139,47 @@ if($configStatic['newestVersion'] != $configStatic['version'])
 		//just finished runing update script, remove files 
 		$updateStatus = "Finished Updating to ";
 		$updateAction = "Finished Updating to ";
+		//change version in configStatic to updated version number
+
+		$arrayForVersionList = "";
+		$countOfArray = count($configStatic['versionList']);
+		$i = 0;
+		foreach ($configStatic['versionList'] as $key => $value) {
+		  $i++;
+		  $arrayForVersionList .= "'".$key."' => array(";
+		  $countOfArraySub = count($value);
+		  $j = 0;
+		  foreach ($value as $keySub => $valueSub) 
+		  {
+		    $j++;
+		    $arrayForVersionList .= "'".$keySub."' => '".$valueSub."'";
+		    if($j != $countOfArraySub)
+		    {
+		      $arrayForVersionList .= ",";
+		    }
+		  }
+		  $arrayForVersionList .= ")";
+		  if($i != $countOfArray)
+		  {
+		    $arrayForVersionList .= ",";
+		  }
+		}
+
+		$newInfoForConfig = "
+		<?php
+
+		$"."configStatic = array(
+		  'version'   => '".$configStatic['version']."',
+		  'lastCheck'   => '".date('m-d-Y')."',
+		  'newestVersion' => '".$configStatic['newestVersion']."',
+		  'versionList' => array(
+		  ".$arrayForVersionList."
+		  )
+		);
+		";
+
+		file_put_contents("../core/php/configStatic.php", $newInfoForConfig);
+
 	}
 	else
 	{

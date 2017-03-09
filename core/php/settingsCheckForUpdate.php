@@ -42,6 +42,7 @@ if ($res === TRUE) {
 unlink("../../update/downloads/versionCheck/versionCheck.zip");
 
 require_once('../../update/downloads/versionCheck/extracted/versionsCheckFile.php');
+require_once('configStatic.php');
 
 $arrayForVersionList = "";
 $countOfArray = count($versionCheckArray['versionList']);
@@ -71,8 +72,8 @@ $newInfoForConfig = "
 <?php
 
 $"."configStatic = array(
-  'version'   => '2.0',
-  'lastCheck'   => '03-06-2017',
+  'version'   => '".$configStatic['version']."',
+  'lastCheck'   => '".date('m-d-Y')."',
   'newestVersion' => '".$versionCheckArray['version']."',
   'versionList' => array(
   ".$arrayForVersionList."
