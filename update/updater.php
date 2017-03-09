@@ -138,7 +138,7 @@ if($configStatic['newestVersion'] != $configStatic['version'])
 	{
 		//just finished runing update script, remove files 
 		$updateStatus = "Finished Updating to ";
-		$updateAction = "Finished Updating to ";
+		$updateAction = "finishedUpdate";
 		//change version in configStatic to updated version number
 
 		$arrayForVersionList = "";
@@ -169,7 +169,7 @@ if($configStatic['newestVersion'] != $configStatic['version'])
 		<?php
 
 		$"."configStatic = array(
-		  'version'   => '".$configStatic['version']."',
+		  'version'   => '".$versionToUpdate."',
 		  'lastCheck'   => '".date('m-d-Y')."',
 		  'newestVersion' => '".$configStatic['newestVersion']."',
 		  'versionList' => array(
@@ -218,7 +218,11 @@ require_once('../core/php/updateProgressFileNext.php');
 	</div>
 	<div class="settingsDiv" >
 		<div class="updatingDiv">
-			<?php require_once('../core/php/updateProgressLogHead.php'); ?>
+			<?php if("Finished Updating to " != $updateAction || $configStatic['newestVersion'] != $configStatic['version'])
+			{
+				require_once('../core/php/updateProgressLogHead.php');
+			}
+			?>
 			<p style="border-bottom: 1px solid white;"></p>
 			<?php require_once('../core/php/updateProgressLog.php'); ?>
 		</div>
@@ -233,7 +237,7 @@ require_once('../core/php/updateProgressFileNext.php');
 	<script type="text/javascript"> 
 		var headerForUpdate = document.getElementById('headerForUpdate');
 		setInterval(function() {headerForUpdate.innerHTML = headerForUpdate.innerHTML + ' .';}, '100');
-		if("Finished Updating to " != "<?php echo $updateAction;?>" && "<?php echo $configStatic['newestVersion'] ;?>" == "<?php echo $configStatic['version']; ?>")
+		if("Finished Updating to " != "<?php echo $updateAction;?>" || "<?php echo $configStatic['newestVersion'] ;?>" != "<?php echo $configStatic['version']; ?>")
 		{
 		document.getElementById("formForAction").submit();
 		}

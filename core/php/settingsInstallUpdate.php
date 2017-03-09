@@ -94,4 +94,9 @@ function handOffToUpdate()
 	require_once('../../update/downloads/updateFiles/extracted/updateScript.php');
 }
 
+function finishedUpdate()
+{
+	//nothing!
+}
+
 ?>
