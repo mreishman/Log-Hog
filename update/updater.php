@@ -233,7 +233,7 @@ require_once('../core/php/updateProgressFileNext.php');
 	<script type="text/javascript"> 
 		var headerForUpdate = document.getElementById('headerForUpdate');
 		setInterval(function() {headerForUpdate.innerHTML = headerForUpdate.innerHTML + ' .';}, '100');
-		if("Finished Updating to " != "<?php echo $updateAction;?>")
+		if("Finished Updating to " != "<?php echo $updateAction;?>" && <?php echo $configStatic['newestVersion'] ;?> == <?php echo $configStatic['version']; ?>)
 		{
 		document.getElementById("formForAction").submit();
 		}
