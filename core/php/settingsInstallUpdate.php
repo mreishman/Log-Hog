@@ -1,14 +1,53 @@
 <?php
 
-function updateUpdateFunctionLog()
+function updateUpdateFunctionLog($message, $dotsTime)
+{
+	updateMainProgressLogFile($dotsTime);
+
+	updateHeadProgressLogFile($message);
+}
+
+function updateMainProgressLogFile($dotsTime)
+{
+	$dots = "";
+	while($dotsTime > 0.1)
+	{
+		$dots .= " .";
+		$dotsTime -= 0.1;
+	}
+	$dots .= "</p>";
+	$headerFileContents = file_get_contents("updateProgressLogHead.php");
+	$headerFileContents = str_replace('id="headerForUpdate"', "", $headerFileContents);
+	$headerFileContents = str_replace('.</p>', $dots, $headerFileContents);
+	$mainFileContents = file_get_contents("updateProgressLog.php");
+	$mainFileContents = $headerFileContents.$mainFileContents;
+	file_put_contents("updateProgressLog.php", $mainFileContents);
+}
+
+function updateHeadProgressLogFile($message)
 {
 
 }
 
-function downloadFile()
+function updateProgressFile($status, $pathToFile, $typeOfProgress, $action)
 {
-	file_put_contents("../../update/downloads/versionCheck/versionCheck.zip", 
-	file_get_contents("https://github.com/mreishman/Log-Hog/archive/versionCheck.zip")
+	$writtenTextTofile = "<?php
+	$"."updateProgress = array(
+  	'currentStep'   => '".$status."',
+  	'action' => '".$action."'
+	);
+	?>
+	";
+
+	$fileToPutContent = $pathToFile.$typeOfProgress;
+
+	file_put_contents($fileToPutContent, $writtenTextTofile);
+}
+
+function downloadFile($file)
+{
+	file_put_contents("../../update/downloads/updateFiles/updateFiles.zip", 
+	file_get_contents("https://github.com/mreishman/Log-Hog/archive/".$file.".zip")
 	);
 }
 
@@ -16,9 +55,9 @@ function unzipFile()
 {
 
 
-	mkdir("../../update/downloads/versionCheck/extracted/");
+	mkdir("../../update/downloads/updateFiles/extracted/");
 	$zip = new ZipArchive;
-	$path = "../../update/downloads/versionCheck/versionCheck.zip";
+	$path = "../../update/downloads/updateFiles/updateFiles.zip";
 	$res = $zip->open($path);
 	if ($res === TRUE)
 	{
@@ -42,19 +81,19 @@ function unzipFile()
 
 function removeZipFile()
 {
-	unlink("../../update/downloads/versionCheck/versionCheck.zip");
+	unlink("../../update/downloads/updateFiles/updateFiles.zip");
 }
 
 
 function removeUnZippedFiles()
 {
-	$files = glob("../../update/downloads/versionCheck/extracted/*"); // get all file names
+	$files = glob("../../update/downloads/updateFiles/extracted/*"); // get all file names
 	foreach($files as $file){ // iterate files
 	  if(is_file($file))
 	    unlink($file); // delete file
 	}
 
-	rmdir("../../update/downloads/versionCheck/extracted/");
+	rmdir("../../update/downloads/updateFiles/extracted/");
 
 }
 

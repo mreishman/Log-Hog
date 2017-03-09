@@ -10,6 +10,7 @@ if(file_exists('../local/layout.php'))
 require_once($baseUrl.'conf/config.php');
 require_once('../core/php/configStatic.php');
 require_once('../core/php/updateProgressFile.php');
+require_once('../core/php/settingsInstallUpdate.php'); 
 
 $noUpdateNeeded = true;
 $versionToUpdate = "";
@@ -96,24 +97,41 @@ if($configStatic['newestVersion'] != $configStatic['version'])
 
 <?php if(!$noUpdateNeeded)
 {
+
+	$updateStatus = "";
+	$updateAction = "";
+	$requiredVars = "";
+
 	//determin what step you're on
 	if($updateProgress['currentStep'] == "Finished Updating to ")
 	{
 		//just starting update, switch to download
+		$updateStatus = "Downloading Zip Files For ";
+		$updateAction = "downloadFile";
+		$requiredVars = $versionToUpdate;
 	}
 	elseif($updateProgress['currentStep'] == "Downloading Zip Files For ")
 	{
 		//just downloaded update, switch to unzipping
+		$updateStatus = "Extracting Zip Files For ";
+		$updateAction = "unzipFile";
 	}
 	elseif($updateProgress['currentStep'] == "Extracting Zip Files For ")
 	{
 		//just finished extracting, switch to removing zip file
+		$updateStatus = "";
+		$updateAction = "";
 	}
 	else
 	{
-		//other
+		//other?
 	}
+
+
+	updateProgressFile($updateStatus, "../core/php/", "updateProgressFileNext.php", $updateAction);
+	updateProgressFile($updateStatus, "../core/php/", "updateProgressFile.php", $updateAction);
 }
+require_once('../core/php/updateProgressFileNext.php');
 ?>
 
 
@@ -145,10 +163,16 @@ if($configStatic['newestVersion'] != $configStatic['version'])
 		</div>
 	</div>
 </div>
+<form id="formForAction" method="post" action="../core/php/updateActionFile.php" style="display: none;">
+	<input type="text" name="actionVar" value="<?php echo $updateAction ;?>">
+	<input type="text" name="requiredVars" value="<?php echo $requiredVars ;?>">
+</form>
 <script src="../core/js/settings.js"></script>
 <?php if(!$noUpdateNeeded): ?>
 	<script type="text/javascript"> 
 		var headerForUpdate = document.getElementById('headerForUpdate');
-		setInterval(function() {headerForUpdate.innerHTML = headerForUpdate.innerHTML + '.';}, '100');
+		setInterval(function() {headerForUpdate.innerHTML = headerForUpdate.innerHTML + ' .';}, '100');
+		document.getElementById("formForAction").submit();
 	</script> 
 <?php endif; ?>
+
