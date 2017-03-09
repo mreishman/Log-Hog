@@ -1,14 +1,10 @@
 <?php
 
-function updateUpdateFunctionLog($message, $dotsTime)
-{
-	updateMainProgressLogFile($dotsTime);
-
-	updateHeadProgressLogFile($message);
-}
 
 function updateMainProgressLogFile($dotsTime)
 {
+	require_once('updateProgressFileNext.php');
+
 	$dots = "";
 	while($dotsTime > 0.1)
 	{
@@ -16,8 +12,11 @@ function updateMainProgressLogFile($dotsTime)
 		$dotsTime -= 0.1;
 	}
 	$dots .= "</p>";
+	$varForHeader = '"'.$updateProgress['currentStep'].'"';
+	$stringToFindHead = "$"."updateProgress['currentStep']";
 	$headerFileContents = file_get_contents("updateProgressLogHead.php");
 	$headerFileContents = str_replace('id="headerForUpdate"', "", $headerFileContents);
+	$headerFileContents = str_replace($stringToFindHead, $varForHeader , $headerFileContents);
 	$headerFileContents = str_replace('.</p>', $dots, $headerFileContents);
 	$mainFileContents = file_get_contents("updateProgressLog.php");
 	$mainFileContents = $headerFileContents.$mainFileContents;
@@ -59,24 +58,17 @@ function unzipFile()
 	$zip = new ZipArchive;
 	$path = "../../update/downloads/updateFiles/updateFiles.zip";
 	$res = $zip->open($path);
-	if ($res === TRUE)
-	{
+	if ($res === TRUE) {
 	  for($i = 0; $i < $zip->numFiles; $i++) {
-	  		echo $i;
-	  		echo "   --    ";
 	        $filename = $zip->getNameIndex($i);
-	        echo $filename;
-	        echo "   --    ";
 	        $fileinfo = pathinfo($filename);
-	        echo $fileinfo['basename'];
-	        echo "   --    ";
-	        copy("zip://".$path."#".$filename, "../../update/downloads/versionCheck/extracted/".$fileinfo['basename']);
+	        if (strpos($fileinfo['basename'], '.php') !== false) 
+	        {
+	          copy("zip://".$path."#".$filename, "../../update/downloads/updateFiles/extracted/".$fileinfo['basename']);
+	        }
 	    }                   
 	    $zip->close();  
 	}
-
-
-
 }
 
 function removeZipFile()
@@ -95,6 +87,11 @@ function removeUnZippedFiles()
 
 	rmdir("../../update/downloads/updateFiles/extracted/");
 
+}
+
+function handOffToUpdate()
+{
+	require_once('../../update/downloads/test.php');
 }
 
 ?>

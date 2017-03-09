@@ -19,9 +19,9 @@ $action($requiredVars);
 $time_end = microtime_float();
 $time = $time_end - $time_start;
 //update log
-updateUpdateFunctionLog($updateStatus, $time);
+updateMainProgressLogFile($time);
 
-//header('Location: ' . $_SERVER['HTTP_REFERER']);
+header('Location: ' . $_SERVER['HTTP_REFERER']);
 exit();
 
 ?>

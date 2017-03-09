@@ -119,12 +119,32 @@ if($configStatic['newestVersion'] != $configStatic['version'])
 	elseif($updateProgress['currentStep'] == "Extracting Zip Files For ")
 	{
 		//just finished extracting, switch to removing zip file
-		$updateStatus = "";
-		$updateAction = "";
+		$updateStatus = "Running Update Script For ";
+		$updateAction = "handOffToUpdate";
+	}
+	elseif($updateProgress['currentStep'] == "Finished Running Update Script")
+	{
+		//just finished runing update script, remove files 
+		$updateStatus = "Removing Extracted Files";
+		$updateAction = "removeUnZippedFiles";
+	}
+	elseif($updateProgress['currentStep'] == "Removing Extracted Files")
+	{
+		//just finished runing update script, remove files 
+		$updateStatus = "Removing Zip File";
+		$updateAction = "removeZipFile";
+	}
+	elseif($updateProgress['currentStep'] == "Removing Zip File")
+	{
+		//just finished runing update script, remove files 
+		$updateStatus = "Finished Updating to ";
+		$updateAction = "Finished Updating to ";
 	}
 	else
 	{
-		//other?
+		//anything else will be passed to update script 
+		$updateStatus = "Running Update Script For ";
+		$updateAction = "handOffToUpdate";
 	}
 
 
@@ -172,7 +192,10 @@ require_once('../core/php/updateProgressFileNext.php');
 	<script type="text/javascript"> 
 		var headerForUpdate = document.getElementById('headerForUpdate');
 		setInterval(function() {headerForUpdate.innerHTML = headerForUpdate.innerHTML + ' .';}, '100');
+		if("Finished Updating to " != "<?php echo $updateAction;?>")
+		{
 		document.getElementById("formForAction").submit();
+		}
 	</script> 
 <?php endif; ?>
 
