@@ -13,6 +13,7 @@ require_once('../../core/conf/config.php');
 function tail($filename, $sliceSize) {
 	$filename = preg_replace('/([()"])/S', '$1', $filename);
 	//echo $filename, "\n";
+	//return trim(file_get_contents($filename));
 	return trim(shell_exec('tail -n ' . $sliceSize . ' "' . $filename . '"'));
 }
 
