@@ -1,7 +1,7 @@
 <?php
 
 $versionCheckArray = array(
-	'version'		=> '2.0.1',
+	'version'		=> '2.0',
 	'versionList'		=> array(
 		'2.0.1'	        => array(
 			'branchName'	=> 'testUpdate',
