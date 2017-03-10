@@ -6,6 +6,8 @@
 			'pausePoll' => 'false',
 			'pauseOnNotFocus' => 'true',
 			'autoCheckUpdate' => 'true',
+			'developmentTabEnabled' => 'false',
+			'enableDevBranchDownload' => 'false',
 			'watchList' => array(
 			'/var/www/html/var/log/system.log' => '','/var/log/hhvm/error.log' => '','/var/log/apache2' => '\.log$','/var/www/html/var/log/exception.log' => '')
 		);

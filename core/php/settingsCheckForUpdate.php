@@ -7,11 +7,11 @@ if(file_exists('../../local/layout.php'))
 {
   $baseUrl = "../../local/";
   //there is custom information, use this
-  require_once('local/layout.php');
+  require_once('../../local/layout.php');
   $baseUrl .= $currentSelectedTheme."/";
 }
 require_once($baseUrl.'conf/config.php'); 
-require_once('config.php');
+require_once('../conf/config.php');
 
 
 if(file_exists("../../update/downloads/versionCheck/extracted/"))
