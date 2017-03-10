@@ -1,6 +1,6 @@
 <?php
 
-$baseUrl = "../";
+$baseUrl = "../../core/";
 if(file_exists('../../local/layout.php'))
 {
 	$baseUrl = "../../local/";
@@ -9,10 +9,18 @@ if(file_exists('../../local/layout.php'))
 	$baseUrl .= $currentSelectedTheme."/";
 }
 
-require_once($baseUrl.'conf/config.php'); 
-require_once('../conf/config.php');
-
-if(array_key_exists('sliceSize', $config))
+require_once($baseUrl.'conf/config.php');
+require_once('../../core/conf/config.php'); 
+	
+if(array_key_exists('watchList', $config))
+{
+	$watchList = $config['watchList'];
+}
+else
+{
+	$watchList = $defaultConfig['watchList'];
+}
+	if(array_key_exists('sliceSize', $config))
 {
 	$sliceSize = $config['sliceSize'];
 }
@@ -52,23 +60,17 @@ else
 {
 	$autoCheckUpdate = $defaultConfig['autoCheckUpdate'];
 }
-if(array_key_exists('developmentTabEnabled', $config))
-{
-	$developmentTabEnabled = $config['developmentTabEnabled'];
-}
-else
-{
-	$developmentTabEnabled = $defaultConfig['developmentTabEnabled'];
-}
 
-require_once($baseUrl.'conf/config.php');
-require_once('../../core/conf/config.php'); 
-	
+
+
 	$arrayWatchList = "";
-	for($i = 1; $i <= $_POST['numberOfRows']; $i++ )
+	$numberOfRows = count($watchList);
+	$i = 0;
+	foreach ($watchList as $key => $value) 
 	{
-		$arrayWatchList .= "'".$_POST['watchListKey'.$i]."' => '".$_POST['watchListItem'.$i]."'";
-		if($i != $_POST['numberOfRows'])
+		$i++;
+		$arrayWatchList .= "'".$key."' => '".$value."'";
+		if($i != $numberOfRows)
 		{
 			$arrayWatchList .= ",";
 		}
@@ -84,7 +86,7 @@ require_once('../../core/conf/config.php');
 			'pausePoll' => '".$pausePoll."',
 			'pauseOnNotFocus' => '".$pauseOnNotFocus."',
 			'autoCheckUpdate' => '".$autoCheckUpdate."',
-			'developmentTabEnabled' => '".$developmentTabEnabled."',
+			'developmentTabEnabled' => '".$_POST['developmentTabEnabled']."',
 			'watchList' => array(
 			".$arrayWatchList.")
 		);

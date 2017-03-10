@@ -82,6 +82,11 @@ for($i = 0; $i < $newestVersionCount; $i++)
 		<a class="active" >Main</a>
 		<a onclick="window.location.href = 'about.php';">About</a>
 		<a onclick="window.location.href = 'update.php';"><?php  if($levelOfUpdate == 1){echo '<img src="../core/img/yellowWarning.png" height="10px">';} ?> <?php if($levelOfUpdate == 2){echo '<img src="../core/img/redWarning.png" height="10px">';} ?>Update</a>
+		<a onclick="window.location.href = 'advanced.php';">Advanced</a>
+		<?php
+		if($developmentTabEnabled == 'true'):?>
+			<a onclick="window.location.href = 'devTools.php';"> Dev Tools </a>
+		<?php endif; ?>
 	</div>
 	
 <?php

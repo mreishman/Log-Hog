@@ -6,6 +6,7 @@ $defaultConfig = array(
 	'pausePoll'		=> 'false',
 	'pauseOnNotFocus' => 'true',
 	'autoCheckUpdate' => 'true',
+	'developmentTabEnabled' => 'false',
 	'watchList'		=> array(
 		'/var/www/html/var/log/system.log'	        => '',
 		'/var/log/hhvm/error.log'	=> '',

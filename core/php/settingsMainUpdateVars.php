@@ -20,6 +20,14 @@ require_once('../../core/conf/config.php');
 	{
 		$watchList = $defaultConfig['watchList'];
 	}
+	if(array_key_exists('developmentTabEnabled', $config))
+	{
+		$developmentTabEnabled = $config['developmentTabEnabled'];
+	}
+	else
+	{
+		$developmentTabEnabled = $defaultConfig['developmentTabEnabled'];
+	}
 
 
 	$arrayWatchList = "";
@@ -45,6 +53,7 @@ require_once('../../core/conf/config.php');
 			'pausePoll' => '".$_POST['pausePoll']."',
 			'pauseOnNotFocus' => '".$_POST['pauseOnNotFocus']."',
 			'autoCheckUpdate' => '".$_POST['autoCheckUpdate']."',
+			'developmentTabEnabled' => '".$developmentTabEnabled."',
 			'watchList' => array(
 			".$arrayWatchList.")
 		);
