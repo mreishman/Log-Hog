@@ -193,6 +193,8 @@ if($configStatic['newestVersion'] != $configStatic['version'])
 	updateProgressFile($updateStatus, "../core/php/", "updateProgressFile.php", $updateAction);
 }
 require_once('../core/php/updateProgressFileNext.php');
+$newestVersionCheck = '"'.$configStatic['newestVersion'].'"';
+$versionCheck = '"'.$configStatic['version'].'"';
 ?>
 
 
@@ -219,8 +221,6 @@ require_once('../core/php/updateProgressFileNext.php');
 	<div class="settingsDiv" >
 		<div class="updatingDiv">
 			<?php 
-			$newestVersionCheck = '"'.$configStatic['newestVersion'].'"';
-			$versionCheck = '"'.$configStatic['version'].'"';
 			if( $newestVersionCheck != $versionCheck)
 			{
 				require_once('../core/php/updateProgressLogHead.php');
@@ -230,6 +230,12 @@ require_once('../core/php/updateProgressFileNext.php');
 			<?php require_once('../core/php/updateProgressLog.php'); ?>
 		</div>
 	</div>
+	<?php 
+	if($newestVersionCheck == $versionCheck): ?>
+	<div id="menu" style="margin-right: auto; margin-left: auto;">
+		<a onclick="window.location.href = '../settings/update.php'">Back to Log-Hog</a>
+	</div>
+	<?php endif; ?>
 </div>
 <form id="formForAction" method="post" action="../core/php/updateActionFile.php" style="display: none;">
 	<input type="text" name="actionVar" value="<?php echo $updateAction ;?>">
@@ -249,8 +255,6 @@ require_once('../core/php/updateProgressFileNext.php');
 
 
 <?php 
-$newestVersionCheck = '"'.$configStatic['newestVersion'].'"';
-$versionCheck = '"'.$configStatic['version'].'"';
 if($newestVersionCheck == $versionCheck)
 {
 	file_put_contents("../core/php/updateProgressLog.php", "<p> Loading update file list. </p>");
