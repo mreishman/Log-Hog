@@ -8,7 +8,66 @@ if(file_exists('local/layout.php'))
 	$baseUrl .= $currentSelectedTheme."/";
 }
 require_once($baseUrl.'conf/config.php'); 
-require_once('core/conf/config.php'); ?>
+require_once('core/conf/config.php');
+require_once('core/php/configStatic.php');  
+
+$version = explode('.', $configStatic['version']);
+$newestVersion = explode('.', $configStatic['newestVersion']);
+
+$levelOfUpdate = 0; // 0 is no updated, 1 is minor update and 2 is major update
+
+$newestVersionCount = count($newestVersion);
+$versionCount = count($version);
+
+for($i = 0; $i < $newestVersionCount; $i++)
+{
+	if($i < $versionCount)
+	{
+		if($i == 0)
+		{
+			if($newestVersion[$i] > $version[$i])
+			{
+				$levelOfUpdate = 3;
+				break;
+			}
+			elseif($newestVersion[$i] < $version[$i])
+			{
+				break;
+			}
+		}
+		elseif($i == 1)
+		{
+			if($newestVersion[$i] > $version[$i])
+			{
+				$levelOfUpdate = 2;
+				break;
+			}
+			elseif($newestVersion[$i] < $version[$i])
+			{
+				break;
+			}
+		}
+		else
+		{
+			if($newestVersion[$i] > $version[$i])
+			{
+				$levelOfUpdate = 1;
+				break;
+			}
+			elseif($newestVersion[$i] < $version[$i])
+			{
+				break;
+			}
+		}
+	}
+	else
+	{
+		$levelOfUpdate = 1;
+		break;
+	}
+}
+
+?>
 <!doctype html>
 <head>
 	<title>Log Hog | Index</title>
@@ -29,7 +88,8 @@ require_once('core/conf/config.php'); ?>
 			<img id="refreshImage" class="menuImage" src="core/img/Refresh.png" height="30px">
 		</div>
 		<div onclick="window.location.href = './settings/main.php';" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">
-			<img id="refreshImage" class="menuImage" src="core/img/Gear.png" height="30px">
+			<img id="gear" class="menuImage" src="core/img/Gear.png" height="30px">
+			<?php  if($levelOfUpdate == 1){echo '<img src="core/img/yellowWarning.png" height="15px" style="position: absolute;margin-left: 13px;margin-top: -34px;">';} ?> <?php if($levelOfUpdate == 2){echo '<img src="core/img/redWarning.png" height="15px" style="position: absolute;margin-left: 13px;margin-top: -34px;">';} ?>
 		</div>
 	</div>
 	
@@ -71,7 +131,17 @@ require_once('core/conf/config.php'); ?>
 			{
 				echo "var pausePollOnNotFocus = ".$defaultConfig['pauseOnNotFocus'].";";
 			}
+			if(array_key_exists('autoCheckUpdate', $config))
+			{
+				echo "var autoCheckUpdate = ".$config['autoCheckUpdate'].";";
+			}
+			else
+			{
+				echo "var autoCheckUpdate = ".$defaultConfig['autoCheckUpdate'].";";
+			}
+		echo "var dateOfLastUpdate = '".$configStatic['lastCheck']."';";
 		?>
+
 		var pausePoll = false;
 		var refreshActionVar;
 		var refreshPauseActionVar;

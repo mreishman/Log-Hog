@@ -5,8 +5,47 @@ var titles = {};
 var lastLogs = {};
 var fresh = true;
 var flasher;
+var updating = false;
 
 function poll() {
+
+	if (autoCheckUpdate == true && !updating)
+	{
+		var today = new Date();
+		var dd = today.getDate();
+		var mm = today.getMonth()+1; //January is 0!
+		var yyyy = today.getFullYear();
+
+		if(dd<10) {
+		    dd='0'+dd
+		} 
+
+		if(mm<10) {
+		    mm='0'+mm
+		} 
+
+		today = mm+'-'+dd+'-'+yyyy;
+		if(today != dateOfLastUpdate)
+		{
+			updating = true;
+			window.location.href = "core/php/settingsCheckForUpdate.php";
+		}
+		else
+		{
+			pollTwo();
+		}
+
+	}
+	else
+	{
+		pollTwo();
+	}
+
+	
+}
+
+function pollTwo()
+{
 	if(!pausePoll)
 	{
 		if(refreshing)
@@ -168,6 +207,36 @@ function focus() {
 
 
 poll();
+if (autoCheckUpdate == true)
+{
+	var today = new Date();
+		var dd = today.getDate();
+		var mm = today.getMonth()+1; //January is 0!
+		var yyyy = today.getFullYear();
+
+		if(dd<10) {
+		    dd='0'+dd
+		} 
+
+		if(mm<10) {
+		    mm='0'+mm
+		} 
+
+		today = mm+'-'+dd+'-'+yyyy;
+		if(today != dateOfLastUpdate && !updating)
+		{
+			updating = true;
+			window.location.href = "core/php/settingsCheckForUpdate.php";
+		}
+		else
+		{
+			setInterval(poll, pollingRate);
+		}
+}
+else
+{
+	setInterval(poll, pollingRate);
+}
 setInterval(poll, pollingRate);
 resize();
 
