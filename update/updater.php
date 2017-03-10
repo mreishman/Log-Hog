@@ -244,3 +244,10 @@ require_once('../core/php/updateProgressFileNext.php');
 	</script> 
 <?php endif; ?>
 
+<?php 
+if("Finished Updating to " != $updateAction || $configStatic['newestVersion'] != $configStatic['version'])
+{
+	//reset main log back to prevous state
+	file_put_contents("../core/php/updateProgressLog.php", "<p> Loading update file list. </p>");
+}
+?>

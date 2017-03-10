@@ -13,10 +13,13 @@ function updateMainProgressLogFile($dotsTime)
 	}
 	$dots .= "</p>";
 	$varForHeader = '"'.$updateProgress['currentStep'].'"';
+	$varForHeaderTwo = '"'.$versionToUpdate.'"';
 	$stringToFindHead = "$"."updateProgress['currentStep']";
+	$stringToFindHeadTwo = "$"."versionToUpdate";
 	$headerFileContents = file_get_contents("updateProgressLogHead.php");
 	$headerFileContents = str_replace('id="headerForUpdate"', "", $headerFileContents);
 	$headerFileContents = str_replace($stringToFindHead, $varForHeader , $headerFileContents);
+	$headerFileContents = str_replace($stringToFindHeadTwo, $varForHeaderTwo , $headerFileContents);
 	$headerFileContents = str_replace('.</p>', $dots, $headerFileContents);
 	$mainFileContents = file_get_contents("updateProgressLog.php");
 	$mainFileContents = $headerFileContents.$mainFileContents;
