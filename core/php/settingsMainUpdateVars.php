@@ -28,6 +28,14 @@ require_once('../../core/conf/config.php');
 	{
 		$developmentTabEnabled = $defaultConfig['developmentTabEnabled'];
 	}
+	if(array_key_exists('enableDevBranchDownload', $config))
+	{
+		$enableDevBranchDownload = $config['enableDevBranchDownload'];
+	}
+	else
+	{
+		$enableDevBranchDownload = $defaultConfig['enableDevBranchDownload'];
+	}
 
 
 	$arrayWatchList = "";
@@ -54,6 +62,7 @@ require_once('../../core/conf/config.php');
 			'pauseOnNotFocus' => '".$_POST['pauseOnNotFocus']."',
 			'autoCheckUpdate' => '".$_POST['autoCheckUpdate']."',
 			'developmentTabEnabled' => '".$developmentTabEnabled."',
+			'enableDevBranchDownload' => '".$enableDevBranchDownload."',
 			'watchList' => array(
 			".$arrayWatchList.")
 		);

@@ -2,6 +2,17 @@
 
 //check for previous update, if failed
 
+$baseUrl = "../../core/";
+if(file_exists('../../local/layout.php'))
+{
+  $baseUrl = "../../local/";
+  //there is custom information, use this
+  require_once('local/layout.php');
+  $baseUrl .= $currentSelectedTheme."/";
+}
+require_once($baseUrl.'conf/config.php'); 
+require_once('config.php');
+
 
 if(file_exists("../../update/downloads/versionCheck/extracted/"))
 {
@@ -20,9 +31,31 @@ if(file_exists("../../update/downloads/versionCheck/extracted/"))
 
 }
 
-file_put_contents("../../update/downloads/versionCheck/versionCheck.zip", 
-file_get_contents("https://github.com/mreishman/Log-Hog/archive/versionCheck.zip")
-);
+if(array_key_exists('enableDevBranchDownload', $config))
+{
+  $enableDevBranchDownload = $config['enableDevBranchDownload'];
+}
+else
+{
+  $enableDevBranchDownload = $defaultConfig['enableDevBranchDownload'];
+}
+
+if($enableDevBranchDownload == "true")
+{
+  file_put_contents("../../update/downloads/versionCheck/versionCheck.zip", 
+  file_get_contents("https://github.com/mreishman/Log-Hog/archive/versionCheckDev.zip")
+  );
+}
+else
+{
+  file_put_contents("../../update/downloads/versionCheck/versionCheck.zip", 
+  file_get_contents("https://github.com/mreishman/Log-Hog/archive/versionCheck.zip")
+  );
+}
+
+
+
+
 mkdir("../../update/downloads/versionCheck/extracted/");
 $zip = new ZipArchive;
 $path = "../../update/downloads/versionCheck/versionCheck.zip";

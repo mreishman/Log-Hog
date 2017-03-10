@@ -60,6 +60,14 @@ else
 {
 	$autoCheckUpdate = $defaultConfig['autoCheckUpdate'];
 }
+if(array_key_exists('enableDevBranchDownload', $config))
+{
+	$enableDevBranchDownload = $config['enableDevBranchDownload'];
+}
+else
+{
+	$enableDevBranchDownload = $defaultConfig['enableDevBranchDownload'];
+}
 
 
 
@@ -87,6 +95,7 @@ else
 			'pauseOnNotFocus' => '".$pauseOnNotFocus."',
 			'autoCheckUpdate' => '".$autoCheckUpdate."',
 			'developmentTabEnabled' => '".$_POST['developmentTabEnabled']."',
+			'enableDevBranchDownload' => '".$enableDevBranchDownload."',
 			'watchList' => array(
 			".$arrayWatchList.")
 		);

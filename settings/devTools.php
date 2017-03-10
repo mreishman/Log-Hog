@@ -67,6 +67,14 @@ for($i = 0; $i < $newestVersionCount; $i++)
 	}
 }
 
+if(array_key_exists('enableDevBranchDownload', $config))
+{
+	$enableDevBranchDownload = $config['enableDevBranchDownload'];
+}
+else
+{
+	$enableDevBranchDownload = $defaultConfig['enableDevBranchDownload'];
+} 
 
 ?>
 <!doctype html>
@@ -89,7 +97,7 @@ for($i = 0; $i < $newestVersionCount; $i++)
 
 	</div>	
 	<div id="main">
-	<form id="devAdvanced" action="../core/php/settingsdevAdvancedSave.php" method="post">
+	<form id="devAdvanced" action="../core/php/settingsDevBranch.php" method="post">
 		<div class="settingsHeader">
 			Branch Settings  <button>Save Changes</button>
 		</div>
@@ -97,9 +105,9 @@ for($i = 0; $i < $newestVersionCount; $i++)
 			<ul id="settingsUl">
 				<li>
 					Enable Development Branch:
-						<select name="developmentTabEnabled">
-  						<option <?php if($developmentTabEnabled == 'true'){echo "selected";} ?> value="true">True</option>
-  						<option <?php if($developmentTabEnabled == 'false'){echo "selected";} ?> value="false">False</option>
+						<select name="enableDevBranchDownload">
+  						<option <?php if($enableDevBranchDownload == 'true'){echo "selected";} ?> value="true">True</option>
+  						<option <?php if($enableDevBranchDownload == 'false'){echo "selected";} ?> value="false">False</option>
 					</select>
 				</li>
 			</ul>
