@@ -1,8 +1,7 @@
-
 <?php
-
-$updateProgress = array(
-  'currentStep'   => 'Finished Updating to '
-);
-
-?>
+	$updateProgress = array(
+  	'currentStep'   => 'Finished Updating to ',
+  	'action' => 'finishedUpdate'
+	);
+	?>
+	

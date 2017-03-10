@@ -45,8 +45,12 @@ function updateProgressFile($status, $pathToFile, $typeOfProgress, $action)
 
 function downloadFile($file)
 {
+	require_once('configStatic.php');
+
+	$arrayForFile = $configStatic['versionList'];
+	$arrayForFile = $arrayForFile[$file];
 	file_put_contents("../../update/downloads/updateFiles/updateFiles.zip", 
-	file_get_contents("https://github.com/mreishman/Log-Hog/archive/".$file.".zip")
+	file_get_contents("https://github.com/mreishman/Log-Hog/archive/".$arrayForFile['branchName'].".zip")
 	);
 }
 

@@ -8,6 +8,7 @@ if(file_exists('../local/layout.php'))
 	$baseUrl .= $currentSelectedTheme."/";
 }
 require_once($baseUrl.'conf/config.php');
+require_once('../core/conf/config.php');
 require_once('../core/php/configStatic.php');
 
 $version = explode('.', $configStatic['version']);
@@ -65,6 +66,15 @@ for($i = 0; $i < $newestVersionCount; $i++)
 		break;
 	}
 }
+
+if(array_key_exists('developmentTabEnabled', $config))
+{
+	$developmentTabEnabled = $config['developmentTabEnabled'];
+}
+else
+{
+	$developmentTabEnabled = $defaultConfig['developmentTabEnabled'];
+} 
 
 ?>
 <!doctype html>
