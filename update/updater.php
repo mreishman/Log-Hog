@@ -218,7 +218,10 @@ require_once('../core/php/updateProgressFileNext.php');
 	</div>
 	<div class="settingsDiv" >
 		<div class="updatingDiv">
-			<?php if("Finished Updating to " != $updateAction || $configStatic['newestVersion'] != $configStatic['version'])
+			<?php 
+			$newestVersionCheck = '"'.$configStatic['newestVersion'].'"';
+			$versionCheck = '"'.$configStatic['version'].'"';
+			if( $newestVersionCheck != $versionCheck)
 			{
 				require_once('../core/php/updateProgressLogHead.php');
 			}
@@ -244,10 +247,13 @@ require_once('../core/php/updateProgressFileNext.php');
 	</script> 
 <?php endif; ?>
 
+
 <?php 
-if("Finished Updating to " != $updateAction || $configStatic['newestVersion'] != $configStatic['version'])
+$newestVersionCheck = '"'.$configStatic['newestVersion'].'"';
+$versionCheck = '"'.$configStatic['version'].'"';
+if($newestVersionCheck == $versionCheck)
 {
-	//reset main log back to prevous state
 	file_put_contents("../core/php/updateProgressLog.php", "<p> Loading update file list. </p>");
 }
 ?>
+
