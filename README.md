@@ -27,6 +27,6 @@ Go to settings (gear icon) and then click update.
 This will download the latested version from github and copy over only the changed files / new vars.
 
 
-Includes files from the following project:
+## Includes files from the following project:
 
 https://github.com/ai/visibilityjs  
