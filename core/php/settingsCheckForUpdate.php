@@ -127,6 +127,9 @@ file_put_contents("configStatic.php", $newInfoForConfig);
 
 rmdir("../../update/downloads/versionCheck/extracted/");
 
-header('Location: ' . $_SERVER['HTTP_REFERER']);
+if(array_key_exists('HTTP_REFERER', $_SERVER))
+{
+  header('Location: ' . $_SERVER['HTTP_REFERER']);
+}
 exit();
 ?>
