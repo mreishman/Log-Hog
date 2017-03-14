@@ -162,6 +162,20 @@ else
 					<h2>Changelog</h2>
 				</li>
 				<li>
+					2.0.1
+					<ul>
+						<li>
+							Adds check for header redirect
+						</li>
+						<li>
+							Fixed Unpause - on focus (if default paused) Bug
+						</li>
+						<li>
+							Adds remove directory / watch folder button
+						</li>
+					</ul>
+				</li>
+				<li>
 					2.0
 					<ul>
 						<li>
