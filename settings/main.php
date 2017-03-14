@@ -190,10 +190,11 @@ else
 			<?php 
 				$i = 0;
 				foreach($config['watchList'] as $key => $item): $i++; ?>
-			<li>
+			<li id="rowNumber<?php echo $i; ?>" >
 				File #<?php if($i < 10){echo "0";} ?><?php echo $i; ?>: 
  				<input style='width: 500px;' type='text' name='watchListKey<?php echo $i; ?>' value='<?php echo $key; ?>'>
  				<input type='text' name='watchListItem<?php echo $i; ?>' value='<?php echo $item; ?>'>
+ 				<a style="cursor: pointer;" onclick="deleteRowFunction(<?php echo $i; ?>)">Remove File / Folder</a>
 			</li>
 
 		<?php endforeach; ?>
@@ -228,5 +229,12 @@ function addRowFunction()
 		document.getElementById('newRowLocationForWatchList').innerHTML += "<li>File #" + countOfWatchList+ ": <input type='text' style='width: 500px;' name='watchListKey" + countOfWatchList + "' > <input type='text' name='watchListItem" + countOfWatchList + "' ></li>";
 	}
 	document.getElementById('numberOfRows').value = countOfWatchList;
+}
+
+function deleteRowFunction(currentRow)
+{
+	var elementToFind = "rowNumber" + currentRow;
+	document.getElementById(elementToFind).outerHTML = "";
 }	
+
 </script>

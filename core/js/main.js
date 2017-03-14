@@ -6,8 +6,14 @@ var lastLogs = {};
 var fresh = true;
 var flasher;
 var updating = false;
+var startedPauseOnNonFocus = false;
 
 function poll() {
+
+	if(!startedPauseOnNonFocus)
+	{
+		startPauseOnNotFocus();
+	}
 
 	if (autoCheckUpdate == true && !updating)
 	{
@@ -251,6 +257,12 @@ if(pausePollFromFile)
 
 if(pausePollOnNotFocus && !pausePollFromFile)
 {
+	startPauseOnNotFocus();
+}
+
+function startPauseOnNotFocus()
+{
+	startedPauseOnNonFocus = true;
 	Visibility.every(250, 1000, function () { checkIfPageHidden(); });
 }
 
