@@ -29,7 +29,7 @@ $sizeOfCurrentFileArray = sizeOf($currentFileArray);
 
 $nameOfFile = $currentFileArray[$sizeOfCurrentFileArray - 1];
 
-$directoryPath = "../../";
+$directoryPath = "";
   
 for($i = 0; $i < $sizeOfCurrentFileArray - 1; $i++)
 {
@@ -48,6 +48,21 @@ $string = "Updating file ".$newCount." of ".sizeOf($arrayOfFiles). " - Updating 
 updateProgressFile($string, "", "updateProgressFileNext.php", "");
 updateProgressFile($string, "", "updateProgressFile.php", "");   
   
+  
+  
+//update innerUpgradeStatus.php
+  
+$writtenTextTofile = "<?php
+	$"."innerUpdateProgress = array(
+  	'currentFile'   => '".$newCount."'
+	);
+	?>
+";
+
+
+
+file_put_contents($varToIndexDir.$indexToExtracted."innerUpgradeStatus.php", $writtenTextTofile);  
+
   
 }
 else
