@@ -47,7 +47,10 @@ $string = "Updating file ".$newCount." of ".sizeOf($arrayOfFiles). " - Updating 
 updateProgressFile($string, "", "updateProgressFileNext.php", "");
 updateProgressFile($string, "", "updateProgressFile.php", "");   
   
-  
+$mainFileContents = file_get_contents("updateProgressLog.php");
+$mainFileContents = $string.$mainFileContents;	
+file_put_contents("updateProgressLog.php", $mainFileContents);	
+	
   
 //update innerUpgradeStatus.php
   
