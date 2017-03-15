@@ -11,7 +11,7 @@ $currentFile = $arrayOfFiles[$innerUpdateProgress['currentFile']];
 $indexToExtracted = "update/downloads/updateFiles/extracted/";  
 $varToIndexDir = "";
 $countOfSlash = 0;
-while($countOfSlash < 20 && !file_exists ($varToIndexDir."index.php"))
+while($countOfSlash < 20 && !file_exists($varToIndexDir."index.php"))
 {
   $varToIndexDir .= "../";        
 }
