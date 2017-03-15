@@ -2,7 +2,7 @@
   
 $arrayOfFiles = array("core_js_main.js", "core_php_settingsCheckForUpdate.php","settings_main.php","settings_update.php");
 
-require_once(innerUpgradeStatus.php);
+require_once("innerUpgradeStatus.php");
 
 if($innerUpdateProgress['currentFile'] < sizeOf($arrayOfFiles))
 {
