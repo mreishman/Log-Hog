@@ -28,7 +28,7 @@ $newFile = $directoryPath.$nameOfFile;
 
 file_put_contents($newFile, file_get_contents("../../update/downloads/updateFiles/extracted/".$currentFile));  
   
-$string = "Updating file ".$newCount." of ".$sizeOf($arrayOfFiles). " "; 
+$string = "Updating file ".$newCount." of ".sizeOf($arrayOfFiles). " "; 
   
 //update message for update  
   
