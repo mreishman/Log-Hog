@@ -39,9 +39,9 @@ for($i = 0; $i < $sizeOfCurrentFileArray - 1; $i++)
 $currentFileTransfer = '"'.$currentFile.'"';  
 $newFile = $directoryPath.$nameOfFile;
 $fileTransfer = file_get_contents($varToIndexDir.$indexToExtracted.$currentFileTransfer);
-file_put_contents($varToIndexDir.$indexToExtracted.$newFile,$fileTransfer);  
+file_put_contents($varToIndexDir.$newFile,$fileTransfer);  
   
-$string = "Updating file ".$newCount." of ".sizeOf($arrayOfFiles). " - Updating this file -  ".$varToIndexDir.$indexToExtracted.$newFile." - with this file - ".$varToIndexDir.$indexToExtracted.$currentFile; 
+$string = "Updating file ".$newCount." of ".sizeOf($arrayOfFiles). " - Updating this file -  ".$varToIndexDir.$newFile." - with this file - ".$varToIndexDir.$indexToExtracted.$currentFile; 
   
 //update message for update  
   
