@@ -24,8 +24,9 @@ for($i = 0; $i < $sizeOfCurrentFileArray - 1; $i++)
   $directoryPath .= $currentFileArray[$i]."/"; 
 }
 
+$currentFileTransfer = '"'.$currentFile.'"';  
 $newFile = $directoryPath.$nameOfFile;
-$fileTransfer = file_get_contents($currentFile);
+$fileTransfer = file_get_contents($currentFileTransfer);
 file_put_contents($newFile,$fileTransfer);  
   
 $string = "Updating file ".$newCount." of ".sizeOf($arrayOfFiles). " -  ".$newFile." - ".$currentFile; 
