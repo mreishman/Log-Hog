@@ -8,10 +8,17 @@ if($innerUpdateProgress['currentFile'] < sizeOf($arrayOfFiles))
 {
  
 $currentFile = $arrayOfFiles[$innerUpdateProgress['currentFile']]; 
+$indexToExtracted = "update/downloads/updateFiles/extracted/";  
+$varToIndexDir = "";
+$countOfSlash = 0;
+while($countOfSlash < 20 && !file_exists ($varToIndexDir."index.php")
+{
+  $varToIndexDir .= "../"        
+}
   
 if($currentFile == "core_js_main.js")
 {
-   rename("/core_js_main.php", "/core_js_main.js");
+   rename($varToIndexDir.$indexToExtracted."core_js_main.php", $varToIndexDir.$indexToExtracted."core_js_main.js");
 }
   
 //update innerUpgradeStatus file
@@ -31,10 +38,10 @@ for($i = 0; $i < $sizeOfCurrentFileArray - 1; $i++)
 
 $currentFileTransfer = '"'.$currentFile.'"';  
 $newFile = $directoryPath.$nameOfFile;
-$fileTransfer = file_get_contents($currentFileTransfer);
-file_put_contents($newFile,$fileTransfer);  
+$fileTransfer = file_get_contents($varToIndexDir.$indexToExtracted.$currentFileTransfer);
+file_put_contents($varToIndexDir.$indexToExtracted.$newFile,$fileTransfer);  
   
-$string = "Updating file ".$newCount." of ".sizeOf($arrayOfFiles). " - Updating this file -  ".$newFile." - with this file - ".$currentFile; 
+$string = "Updating file ".$newCount." of ".sizeOf($arrayOfFiles). " - Updating this file -  ".$varToIndexDir.$indexToExtracted.$newFile." - with this file - ".$varToIndexDir.$indexToExtracted.$currentFile; 
   
 //update message for update  
   
