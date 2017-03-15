@@ -13,7 +13,7 @@ $varToIndexDir = "";
 $countOfSlash = 0;
 while($countOfSlash < 20 && !file_exists ($varToIndexDir."index.php")
 {
-  $varToIndexDir .= "../"        
+  $varToIndexDir .= "../";        
 }
   
 if($currentFile == "core_js_main.js")
