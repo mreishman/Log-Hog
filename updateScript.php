@@ -11,7 +11,7 @@ $currentFile = $arrayOfFiles[$innerUpdateProgress['currentFile']];
   
 if($currentFile == "core_js_main.js")
 {
-   rename("core_js_main.php", "core_js_main.js")
+   rename("core_js_main.php", "core_js_main.js");
 }
   
 //update innerUpgradeStatus file
