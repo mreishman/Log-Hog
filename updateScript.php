@@ -9,6 +9,11 @@ if($innerUpdateProgress['currentFile'] < sizeOf($arrayOfFiles))
  
 $currentFile = $arrayOfFiles[$innerUpdateProgress['currentFile']]; 
   
+if($currentFile == "core_js_main.js")
+{
+   rename("core_js_main.php", "core_js_main.js")
+}
+  
 //update innerUpgradeStatus file
 $newCount = $innerUpdateProgress['currentFile'] + 1;
 
@@ -29,7 +34,7 @@ $newFile = $directoryPath.$nameOfFile;
 $fileTransfer = file_get_contents($currentFileTransfer);
 file_put_contents($newFile,$fileTransfer);  
   
-$string = "Updating file ".$newCount." of ".sizeOf($arrayOfFiles). " -  ".$newFile." - ".$currentFile; 
+$string = "Updating file ".$newCount." of ".sizeOf($arrayOfFiles). " - Updating this file -  ".$newFile." - with this file - ".$currentFile; 
   
 //update message for update  
   
