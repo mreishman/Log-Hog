@@ -28,7 +28,7 @@ $newFile = $directoryPath.$nameOfFile;
 $fileTransfer = file_get_contents($currentFile);
 file_put_contents($newFile,$fileTransfer);  
   
-$string = "Updating file ".$newCount." of ".sizeOf($arrayOfFiles). " "; 
+$string = "Updating file ".$newCount." of ".sizeOf($arrayOfFiles). " -  ".$newFile." - ".$currentFile; 
   
 //update message for update  
   
