@@ -25,7 +25,7 @@ for($i = 0; $i < $sizeOfCurrentFileArray - 1; $i++)
 }
 
 $newFile = $directoryPath.$nameOfFile;
-$fileTransfer = file_get_contents("../../update/downloads/updateFiles/extracted/".$currentFile);
+$fileTransfer = file_get_contents($currentFile);
 file_put_contents($newFile,$fileTransfer);  
   
 $string = "Updating file ".$newCount." of ".sizeOf($arrayOfFiles). " "; 
