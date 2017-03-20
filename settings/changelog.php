@@ -12,6 +12,20 @@
 				<li>
 					Moved changelog info from update page to seperate php file. 
 				</li>
+				<li>
+					File extractor now extracts files other than php, includes:
+					<ul>
+						<li>.css</li>
+						<li>.html</li>
+						<li>.js</li>
+						<li>.png</li>
+						<li>.jpg</li>
+						<li>.jpeg</li>
+					</ul>
+				</li>
+				<li>
+					Moved var loading part in update scripts to seperate file. Helps updating vars in future. 
+				</li>
 			</ul>
 		</li>
 		<li>
