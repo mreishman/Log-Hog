@@ -65,17 +65,26 @@ function unzipFile()
 	$zip = new ZipArchive;
 	$path = "../../update/downloads/updateFiles/updateFiles.zip";
 	$res = $zip->open($path);
+	$arrayOfExtensions = array('.php','.js','.css','.html','.png','.jpg','.jpeg');
 	if ($res === TRUE) {
 	  for($i = 0; $i < $zip->numFiles; $i++) {
 	        $filename = $zip->getNameIndex($i);
 	        $fileinfo = pathinfo($filename);
-	        if (strpos($fileinfo['basename'], '.php') !== false) 
+	        if (strposa($fileinfo['basename'], $arrayOfExtensions, 1)) 
 	        {
 	          copy("zip://".$path."#".$filename, "../../update/downloads/updateFiles/extracted/".$fileinfo['basename']);
 	        }
 	    }                   
 	    $zip->close();  
 	}
+}
+
+function strposa($haystack, $needle, $offset=0) {
+    if(!is_array($needle)) $needle = array($needle);
+    foreach($needle as $query) {
+        if(strpos($haystack, $query, $offset) !== false) return true; // stop on first true result
+    }
+    return false;
 }
 
 function removeZipFile()
