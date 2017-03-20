@@ -156,76 +156,7 @@ else
 		<div class="settingsHeader">
 			Changelog
 		</div>
-		<div class="settingsDiv" >
-			<ul id="settingsUl">
-				<li>
-					<h2>Changelog</h2>
-				</li>
-				<li>
-					2.0.1
-					<ul>
-						<li>
-							Adds check for header redirect
-						</li>
-						<li>
-							Fixed Unpause - on focus (if default paused) Bug
-						</li>
-						<li>
-							Adds remove directory / watch folder button
-						</li>
-					</ul>
-				</li>
-				<li>
-					2.0
-					<ul>
-						<li>
-							Changed directory structure
-						</li>
-						<li>
-							Added settings page
-						</li>
-						<li>
-							Added upgrade page
-						</li>
-					</ul>
-				</li>
-				<li>
-					1.3
-					<ul>
-						<li>
-							Added Un-pause on focus
-						</li>
-						<li>
-							Dynamic title of page (reflects status of paused and refreshing)
-						</li>
-					</ul>
-				</li>
-				<li>
-					1.2
-					<ul>
-						<li>
-							Added Refresh button
-						</li>
-					</ul>
-				</li>
-				<li>
-					1.1
-					<ul>
-						<li>
-							Added Pause / Play button
-						</li>
-					</ul>
-				</li>
-				<li>
-					1.0
-					<ul>
-						<li>
-							Initial Forked version from craig-russell
-						</li>
-					</ul>
-				</li>
-			</ul>
-		</div>
+		<?php require_once('changelog.php') ?>
 	</div>
 </body>
 <script src="../core/js/settings.js"></script>
