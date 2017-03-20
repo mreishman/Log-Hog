@@ -1,6 +1,6 @@
 <?php
   
-$arrayOfFiles = array("core_js_main.js", "core_php_settingsCheckForUpdate.php","settings_main.php","settings_update.php");
+$arrayOfFiles = array("core_php_loadVars.php", "core_php_settingsdevAdvancedSave.php","core_php_settingsDevBranch.php","core_php_settingsInstallUpdate.php","core_php_settingsMainUpdateVars.php","core_php_settingsMainUpdateWatchList.php","settings_about.php","settings_advanced.php","settings_changelog.php","settings_devTools.php","settings_main.php","settings_update.php");
 
 require_once("innerUpgradeStatus.php");
 
