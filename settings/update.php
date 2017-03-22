@@ -145,8 +145,61 @@ else
 			{
 				foreach ($configStatic['versionList'] as $key => $value) 
 				{
-					echo "<li><h2>Changelog For ".$key." update</h2></li>";
-					echo $value['releaseNotes'];
+					$version = explode('.', $configStatic['version']);
+					$newestVersion = explode('.', $key);
+					$levelOfUpdate = 0;
+					for($i = 0; $i < $newestVersionCount; $i++)
+					{
+						if($i < $versionCount)
+						{
+							if($i == 0)
+							{
+								if($newestVersion[$i] > $version[$i])
+								{
+									$levelOfUpdate = 3;
+									break;
+								}
+								elseif($newestVersion[$i] < $version[$i])
+								{
+									break;
+								}
+							}
+							elseif($i == 1)
+							{
+								if($newestVersion[$i] > $version[$i])
+								{
+									$levelOfUpdate = 2;
+									break;
+								}
+								elseif($newestVersion[$i] < $version[$i])
+								{
+									break;
+								}
+							}
+							else
+							{
+								if($newestVersion[$i] > $version[$i])
+								{
+									$levelOfUpdate = 1;
+									break;
+								}
+								elseif($newestVersion[$i] < $version[$i])
+								{
+									break;
+								}
+							}
+						}
+						else
+						{
+							$levelOfUpdate = 1;
+							break;
+						}
+					}
+					if($levelOfUpdate != 0)
+					{
+						echo "<li><h2>Changelog For ".$key." update</h2></li>";
+						echo $value['releaseNotes'];
+					}
 				}
 			}
 			
