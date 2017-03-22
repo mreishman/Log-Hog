@@ -222,11 +222,11 @@ function addRowFunction()
 	countOfWatchList++;
 	if(countOfWatchList < 10)
 	{
-		document.getElementById('newRowLocationForWatchList').innerHTML += "<li>File #0" + countOfWatchList+ ": <input type='text' style='width: 500px;' name='watchListKey" + countOfWatchList + "' > <input type='text' name='watchListItem" + countOfWatchList + "' ></li>";
+		document.getElementById('newRowLocationForWatchList').innerHTML += "<li id='rowNumber"+countOfWatchList+"'>File #0" + countOfWatchList+ ": <input type='text' style='width: 500px;' name='watchListKey" + countOfWatchList + "' > <input type='text' name='watchListItem" + countOfWatchList + "' > <a style='cursor: pointer;' onclick='deleteRowFunction("+ countOfWatchList +")'>Remove File / Folder</a></li>";
 	}
 	else
 	{
-		document.getElementById('newRowLocationForWatchList').innerHTML += "<li>File #" + countOfWatchList+ ": <input type='text' style='width: 500px;' name='watchListKey" + countOfWatchList + "' > <input type='text' name='watchListItem" + countOfWatchList + "' ></li>";
+		document.getElementById('newRowLocationForWatchList').innerHTML += "<li id='rowNumber"+countOfWatchList+"'>File #" + countOfWatchList+ ": <input type='text' style='width: 500px;' name='watchListKey" + countOfWatchList + "' > <input type='text' name='watchListItem" + countOfWatchList + "' > <a style='cursor: pointer;' onclick='deleteRowFunction("+ countOfWatchList +")'>Remove File / Folder</a></li>";
 	}
 	document.getElementById('numberOfRows').value = countOfWatchList;
 }
@@ -235,6 +235,7 @@ function deleteRowFunction(currentRow)
 {
 	var elementToFind = "rowNumber" + currentRow;
 	document.getElementById(elementToFind).outerHTML = "";
+	
 }	
 
 </script>
