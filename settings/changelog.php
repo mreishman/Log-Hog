@@ -4,6 +4,23 @@
 			<h2>Changelog</h2>
 		</li>
 		<li>
+			2.0.3
+			<ul>
+				<li>
+					Fixed issues with saving removed files
+				</li>
+				<li>
+					Fixed bug where remove file button wasn't showing up for new files 
+				</li>
+				<li>
+					Update page only shows relevant release notes under the new releas notes tab
+				</li>
+				<li>
+					Added file / folder not found warning in settings page
+				</li>
+			</ul>
+		</li>
+		<li>
 			2.0.2
 			<ul>
 				<li>
