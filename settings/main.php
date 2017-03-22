@@ -191,10 +191,16 @@ else
 				$i = 0;
 				foreach($config['watchList'] as $key => $item): $i++; ?>
 			<li id="rowNumber<?php echo $i; ?>" >
-				File #<?php if($i < 10){echo "0";} ?><?php echo $i; ?>: 
- 				<input style='width: 500px;' type='text' name='watchListKey<?php echo $i; ?>' value='<?php echo $key; ?>'>
+				File #<?php if($i < 10){echo "0";} ?><?php echo $i; ?>:
+				<?php
+				if(!file_exists($key))
+				{
+					echo '<img src="../core/img/redWarning.png" height="10px">';
+				}
+				?> 
+ 				<input style='width: <?php if(!file_exists($key)){echo "480";}else{echo "500";}?>px ' type='text' name='watchListKey<?php echo $i; ?>' value='<?php echo $key; ?>'>
  				<input type='text' name='watchListItem<?php echo $i; ?>' value='<?php echo $item; ?>'>
- 				<a style="cursor: pointer;" onclick="deleteRowFunction(<?php echo $i; ?>)">Remove File / Folder</a>
+ 				<a style="cursor: pointer;" onclick="deleteRowFunction(<?php echo $i; ?>, true)">Remove File / Folder</a>
 			</li>
 
 		<?php endforeach; ?>
@@ -204,6 +210,18 @@ else
 		<ul id="settingsUl">
 			<li>
 				<a style="cursor: pointer;" onclick="addRowFunction()">Add New File / Folder</a>
+			</li>
+			<li>
+				<div class="settingsHeader">
+					Key
+				</div>
+			</li>
+			<li>
+				<ul id="settingsUl">
+					<li>
+						<img src="../core/img/redWarning.png" height="10px"> - File / Folder not found!
+					</li>
+				</ul>
 			</li>
 		</ul>
 		</div>
@@ -222,20 +240,26 @@ function addRowFunction()
 	countOfWatchList++;
 	if(countOfWatchList < 10)
 	{
-		document.getElementById('newRowLocationForWatchList').innerHTML += "<li id='rowNumber"+countOfWatchList+"'>File #0" + countOfWatchList+ ": <input type='text' style='width: 500px;' name='watchListKey" + countOfWatchList + "' > <input type='text' name='watchListItem" + countOfWatchList + "' > <a style='cursor: pointer;' onclick='deleteRowFunction("+ countOfWatchList +")'>Remove File / Folder</a></li>";
+		document.getElementById('newRowLocationForWatchList').innerHTML += "<li id='rowNumber"+countOfWatchList+"'>File #0" + countOfWatchList+ ": <input type='text' style='width: 500px;' name='watchListKey" + countOfWatchList + "' > <input type='text' name='watchListItem" + countOfWatchList + "' > <a style='cursor: pointer;' onclick='deleteRowFunction("+ countOfWatchList +", true)'>Remove File / Folder</a></li>";
 	}
 	else
 	{
-		document.getElementById('newRowLocationForWatchList').innerHTML += "<li id='rowNumber"+countOfWatchList+"'>File #" + countOfWatchList+ ": <input type='text' style='width: 500px;' name='watchListKey" + countOfWatchList + "' > <input type='text' name='watchListItem" + countOfWatchList + "' > <a style='cursor: pointer;' onclick='deleteRowFunction("+ countOfWatchList +")'>Remove File / Folder</a></li>";
+		document.getElementById('newRowLocationForWatchList').innerHTML += "<li id='rowNumber"+countOfWatchList+"'>File #" + countOfWatchList+ ": <input type='text' style='width: 500px;' name='watchListKey" + countOfWatchList + "' > <input type='text' name='watchListItem" + countOfWatchList + "' > <a style='cursor: pointer;' onclick='deleteRowFunction("+ countOfWatchList +", true)'>Remove File / Folder</a></li>";
 	}
 	document.getElementById('numberOfRows').value = countOfWatchList;
 }
 
-function deleteRowFunction(currentRow)
+function deleteRowFunction(currentRow, decreaseCountWatchListNum)
 {
 	var elementToFind = "rowNumber" + currentRow;
 	document.getElementById(elementToFind).outerHTML = "";
-	
+	if(decreaseCountWatchListNum)
+	{
+		newValue = document.getElementById('numberOfRows').value;
+		newValue--;
+		document.getElementById('numberOfRows').value = newValue;
+	}
+
 }	
 
 </script>
