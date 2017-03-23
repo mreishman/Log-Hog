@@ -18,6 +18,9 @@
 				<li>
 					Added file / folder not found warning in settings page
 				</li>
+				<li>
+					Added checks for vars which might not have been there, reducing notices in log files generated when on update.php
+				</li>
 			</ul>
 		</li>
 		<li>
