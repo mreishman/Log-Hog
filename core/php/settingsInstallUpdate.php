@@ -3,7 +3,12 @@
 
 function updateMainProgressLogFile($dotsTime)
 {
+
+	require_once('configStatic.php');
 	require_once('updateProgressFileNext.php');
+
+	require_once('verifyWriteStatus.php');
+	checkForUpdate($_SERVER['REQUEST_URI']);
 
 	$dots = "";
 	while($dotsTime > 0.1)
@@ -11,11 +16,98 @@ function updateMainProgressLogFile($dotsTime)
 		$dots .= " .";
 		$dotsTime -= 0.1;
 	}
+	$versionToUpdate = "";
+
+	//find next version to update to
+	if(!empty($configStatic))
+	{
+
+		foreach ($configStatic['versionList'] as $key => $value) 
+		{
+			$version = explode('.', $configStatic['version']);
+			$newestVersion = explode('.', $key);
+
+			$levelOfUpdate = 0; // 0 is no updated, 1 is minor update and 2 is major update
+
+			$newestVersionCount = count($newestVersion);
+			$versionCount = count($version);
+
+			for($i = 0; $i < $newestVersionCount; $i++)
+			{
+				if($i < $versionCount)
+				{
+					if($i == 0)
+					{
+						if($newestVersion[$i] > $version[$i])
+						{
+							$levelOfUpdate = 3;
+							$versionToUpdate = $key;
+							break;
+						}
+						elseif($newestVersion[$i] < $version[$i])
+						{
+							break;
+						}
+					}
+					elseif($i == 1)
+					{
+						if($newestVersion[$i] > $version[$i])
+						{
+							$levelOfUpdate = 2;
+							$versionToUpdate = $key;
+							break;
+						}
+						elseif($newestVersion[$i] < $version[$i])
+						{
+							break;
+						}
+					}
+					else
+					{
+						if($newestVersion[$i] > $version[$i])
+						{
+							$levelOfUpdate = 1;
+							$versionToUpdate = $key;
+							break;
+						}
+						elseif($newestVersion[$i] < $version[$i])
+						{
+							break;
+						}
+					}
+				}
+				else
+				{
+					$levelOfUpdate = 1;
+					$versionToUpdate = $key;
+					break;
+				}
+			}
+
+			if($levelOfUpdate != 0)
+			{
+				break;
+			}
+
+		}
+	}
+	
+
+	if(!empty($configStatic))
+	{
+		$varForHeaderTwo = '"'.$versionToUpdate.'"';
+		$stringToFindHeadTwo = "$"."versionToUpdate";
+	}
+	else
+	{
+		$varForHeaderTwo = '"New Version"';
+		$stringToFindHeadTwo = "$"."versionToUpdate";
+	}
 	$dots .= "</p>";
 	$varForHeader = '"'.$updateProgress['currentStep'].'"';
-	$varForHeaderTwo = '"'.$versionToUpdate.'"';
+	
 	$stringToFindHead = "$"."updateProgress['currentStep']";
-	$stringToFindHeadTwo = "$"."versionToUpdate";
+	
 	$headerFileContents = file_get_contents("updateProgressLogHead.php");
 	$headerFileContents = str_replace('id="headerForUpdate"', "", $headerFileContents);
 	$headerFileContents = str_replace($stringToFindHead, $varForHeader , $headerFileContents);

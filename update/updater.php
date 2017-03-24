@@ -238,8 +238,16 @@ $versionCheck = '"'.$configStatic['version'].'"';
 	<?php endif; ?>
 </div>
 <form id="formForAction" method="post" action="../core/php/updateActionFile.php" style="display: none;">
+<?php if(!empty($updateAction)): ?>
 	<input type="text" name="actionVar" value="<?php echo $updateAction ;?>">
+<?php else: ?>
+	<input type="text" name="actionVar" value="">
+<?php endif; ?>	
+<?php if(!empty($requiredVars)): ?>
 	<input type="text" name="requiredVars" value="<?php echo $requiredVars ;?>">
+<?php else: ?>
+	<input type="text" name="requiredVars" value="">
+<?php endif; ?>	
 </form>
 <script src="../core/js/settings.js"></script>
 <?php if(!$noUpdateNeeded): ?>

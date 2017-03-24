@@ -191,10 +191,16 @@ else
 				$i = 0;
 				foreach($config['watchList'] as $key => $item): $i++; ?>
 			<li id="rowNumber<?php echo $i; ?>" >
-				File #<?php if($i < 10){echo "0";} ?><?php echo $i; ?>: 
- 				<input style='width: 500px;' type='text' name='watchListKey<?php echo $i; ?>' value='<?php echo $key; ?>'>
+				File #<?php if($i < 10){echo "0";} ?><?php echo $i; ?>:
+				<?php
+				if(!file_exists($key))
+				{
+					echo '<img id="fileNotFoundImage'.$i.'" src="../core/img/redWarning.png" height="10px">';
+				}
+				?> 
+ 				<input style='width: <?php if(!file_exists($key)){echo "480";}else{echo "500";}?>px ' type='text' name='watchListKey<?php echo $i; ?>' value='<?php echo $key; ?>'>
  				<input type='text' name='watchListItem<?php echo $i; ?>' value='<?php echo $item; ?>'>
- 				<a style="cursor: pointer;" onclick="deleteRowFunction(<?php echo $i; ?>)">Remove File / Folder</a>
+ 				<a style="cursor: pointer;" onclick="deleteRowFunction(<?php echo $i; ?>, true)">Remove File / Folder</a>
 			</li>
 
 		<?php endforeach; ?>
@@ -204,6 +210,18 @@ else
 		<ul id="settingsUl">
 			<li>
 				<a style="cursor: pointer;" onclick="addRowFunction()">Add New File / Folder</a>
+			</li>
+			<li>
+				<div class="settingsHeader">
+					Key
+				</div>
+			</li>
+			<li>
+				<ul id="settingsUl">
+					<li>
+						<img src="../core/img/redWarning.png" height="10px"> - File / Folder not found!
+					</li>
+				</ul>
 			</li>
 		</ul>
 		</div>
@@ -222,19 +240,75 @@ function addRowFunction()
 	countOfWatchList++;
 	if(countOfWatchList < 10)
 	{
-		document.getElementById('newRowLocationForWatchList').innerHTML += "<li>File #0" + countOfWatchList+ ": <input type='text' style='width: 500px;' name='watchListKey" + countOfWatchList + "' > <input type='text' name='watchListItem" + countOfWatchList + "' ></li>";
+		document.getElementById('newRowLocationForWatchList').innerHTML += "<li id='rowNumber"+countOfWatchList+"'>File #0" + countOfWatchList+ ": <input type='text' style='width: 500px;' name='watchListKey" + countOfWatchList + "' > <input type='text' name='watchListItem" + countOfWatchList + "' > <a style='cursor: pointer;' onclick='deleteRowFunction("+ countOfWatchList +", true)'>Remove File / Folder</a></li>";
 	}
 	else
 	{
-		document.getElementById('newRowLocationForWatchList').innerHTML += "<li>File #" + countOfWatchList+ ": <input type='text' style='width: 500px;' name='watchListKey" + countOfWatchList + "' > <input type='text' name='watchListItem" + countOfWatchList + "' ></li>";
+		document.getElementById('newRowLocationForWatchList').innerHTML += "<li id='rowNumber"+countOfWatchList+"'>File #" + countOfWatchList+ ": <input type='text' style='width: 500px;' name='watchListKey" + countOfWatchList + "' > <input type='text' name='watchListItem" + countOfWatchList + "' > <a style='cursor: pointer;' onclick='deleteRowFunction("+ countOfWatchList +", true)'>Remove File / Folder</a></li>";
 	}
 	document.getElementById('numberOfRows').value = countOfWatchList;
 }
 
-function deleteRowFunction(currentRow)
+function deleteRowFunction(currentRow, decreaseCountWatchListNum)
 {
 	var elementToFind = "rowNumber" + currentRow;
 	document.getElementById(elementToFind).outerHTML = "";
+	if(decreaseCountWatchListNum)
+	{
+		newValue = document.getElementById('numberOfRows').value;
+		if(currentRow < newValue)
+		{
+			//this wasn't the last folder deleted, update others
+			for(var i = currentRow + 1; i <= newValue; i++)
+			{
+				var updateItoIMinusOne = i - 1;
+				var elementToUpdate = "rowNumber" + i;
+				var documentUpdateText = "<li id='rowNumber"+updateItoIMinusOne+"' >File #";
+				var watchListKeyIdFind = "watchListKey"+i;
+				var watchListItemIdFind = "watchListItem"+i;
+				var previousElementNumIdentifierForKey  = document.getElementsByName(watchListKeyIdFind);
+				var previousElementNumIdentifierForItem  = document.getElementsByName(watchListItemIdFind);
+				if(updateItoIMinusOne < 10)
+				{
+					documentUpdateText += "0";
+				}
+				documentUpdateText += updateItoIMinusOne+": ";
+				var nameForId = "fileNotFoundImage" + i;
+				console.log(nameForId);
+				var elementByIdPreCheck = document.getElementById(nameForId);
+				console.log(elementByIdPreCheck);
+				if(elementByIdPreCheck !== null)
+				{
+					documentUpdateText += '<img id="fileNotFoundImage'+updateItoIMinusOne+'" src="../core/img/redWarning.png" height="10px">';
+				}
+				documentUpdateText += "<input style='width: ";
+				if(elementByIdPreCheck !== null)
+				{
+					documentUpdateText += '480';
+				}
+				else
+				{
+					documentUpdateText += '500';
+				}
+				documentUpdateText += "px' type='text' name='watchListKey"+updateItoIMinusOne+"' value='"+previousElementNumIdentifierForKey[0].value+"'> ";
+				documentUpdateText += "<input type='text' name='watchListItem"+updateItoIMinusOne+"' value='"+previousElementNumIdentifierForItem[0].value+"'>";
+				documentUpdateText += ' <a style="cursor: pointer;" onclick="deleteRowFunction('+updateItoIMinusOne+', true)">Remove File / Folder</a>';
+				documentUpdateText += '</li>';
+				document.getElementById(elementToUpdate).outerHTML = documentUpdateText;
+			}
+		}
+		newValue--;
+		document.getElementById('numberOfRows').value = newValue;
+	}
+
 }	
 
 </script>
+
+
+
+
+
+
+
+	

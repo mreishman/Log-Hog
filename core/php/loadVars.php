@@ -1,5 +1,8 @@
 <?php
 
+require_once('verifyWriteStatus.php');
+checkForUpdate($_SERVER['REQUEST_URI']);
+
 //check for previous update, if failed
 
 $baseUrl = "../../core/";
