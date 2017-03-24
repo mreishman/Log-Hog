@@ -9,7 +9,7 @@ $versionCheckArray = array(
 		),
 		'2.0.2'	        => array(
 			'branchName'	=> '2.0.2Update',
-			'releaseNotes'	=> '<ul><li>Bug Fixes<ul><li>Renamed titles for settings pages</li><li>Moved changelog info from update page to seperate php file.</li><li>File extractor now extracts files other than php, includes:<ul><li>.css</li><li>.html</li><li>.js</li><li>.png</li><li>.jpg</li><li>.jpeg</li></ul></li><li>Moved var loading part in update scripts to separate file. Helps updating vars in future.</li></ul></li></ul>'
+			'releaseNotes'	=> '<ul><li>Bug Fixes<ul><li>Renamed titles for settings pages</li><li>Moved changelog info from update page to separate php file.</li><li>File extractor now extracts files other than php, includes:<ul><li>.css</li><li>.html</li><li>.js</li><li>.png</li><li>.jpg</li><li>.jpeg</li></ul></li><li>Moved var loading part in update scripts to separate file. Helps to update vars in future.</li></ul></li></ul>'
 		)
 	)
 );
