@@ -1,6 +1,6 @@
 <?php
   
-$arrayOfFiles = array("core_php_loadVars.php", "core_php_settingsdevAdvancedSave.php","core_php_settingsDevBranch.php","core_php_settingsInstallUpdate.php","core_php_settingsMainUpdateVars.php","core_php_settingsMainUpdateWatchList.php","settings_about.php","settings_advanced.php","settings_changelog.php","settings_devTools.php","settings_main.php","settings_update.php");
+$arrayOfFiles = array("core_php_verifyWriteStatus.php", "core_php_settingsInstallUpdate.php","core_php_settingsCheckForUpdate.php","core_php_loadVars.php","error.php","settings_changelog.php","settings_index.php","settings_main.php","settings_update.php","update_index.php","update_updater.php");
 
 require_once("innerUpgradeStatus.php");
 
