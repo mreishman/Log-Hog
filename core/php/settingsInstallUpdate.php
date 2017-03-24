@@ -7,6 +7,9 @@ function updateMainProgressLogFile($dotsTime)
 	require_once('configStatic.php');
 	require_once('updateProgressFileNext.php');
 
+	require_once('verifyWriteStatus.php');
+	checkForUpdate($_SERVER['REQUEST_URI']);
+
 	$dots = "";
 	while($dotsTime > 0.1)
 	{

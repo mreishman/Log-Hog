@@ -12,7 +12,8 @@ require_once('core/conf/config.php');
 require_once('core/php/configStatic.php');  
 ?>
 
-<h1> Error <?php $_GET["error"] ?> </h1>
+<h1> Error <?php echo $_GET["error"] ?> </h1>
+<h1> <?php echo $_GET["page"] ?> </h1>
 <img src="core/img/redWarning.png" height="60px">
 <?php 
 

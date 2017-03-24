@@ -13,6 +13,8 @@ if(file_exists('../../local/layout.php'))
 require_once($baseUrl.'conf/config.php'); 
 require_once('../conf/config.php');
 
+require_once('verifyWriteStatus.php');
+checkForUpdate($_SERVER['REQUEST_URI']);
 
 if(file_exists("../../update/downloads/versionCheck/extracted/"))
 {

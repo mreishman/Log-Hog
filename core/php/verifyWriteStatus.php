@@ -1,11 +1,15 @@
 <?php
 
-mkdir("test");
-
-if(!file_exists("test"))
+function checkForUpdate($filePath)
 {
-	header('Location: '."../../error.php?error=550", TRUE, 302); /* Redirect browser */
-	exit();
-}
+	mkdir("test");
 
+	if(!file_exists("test"))
+	{
+		header('Location: '."../../error.php?error=550&page=".$filePath, TRUE, 302); /* Redirect browser */
+		exit();
+	}
+	
+	rmdir("test");
+}
 ?>
