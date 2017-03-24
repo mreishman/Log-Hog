@@ -195,7 +195,7 @@ else
 				<?php
 				if(!file_exists($key))
 				{
-					echo '<img src="../core/img/redWarning.png" height="10px">';
+					echo '<img id="fileNotFoundImage'.$i.'" src="../core/img/redWarning.png" height="10px">';
 				}
 				?> 
  				<input style='width: <?php if(!file_exists($key)){echo "480";}else{echo "500";}?>px ' type='text' name='watchListKey<?php echo $i; ?>' value='<?php echo $key; ?>'>
@@ -256,6 +256,47 @@ function deleteRowFunction(currentRow, decreaseCountWatchListNum)
 	if(decreaseCountWatchListNum)
 	{
 		newValue = document.getElementById('numberOfRows').value;
+		if(currentRow < newValue)
+		{
+			//this wasn't the last folder deleted, update others
+			for(var i = currentRow + 1; i <= newValue; i++)
+			{
+				var updateItoIMinusOne = i - 1;
+				var elementToUpdate = "rowNumber" + i;
+				var documentUpdateText = "<li id='rowNumber"+updateItoIMinusOne+"' >File #";
+				var watchListKeyIdFind = "watchListKey"+i;
+				var watchListItemIdFind = "watchListItem"+i;
+				var previousElementNumIdentifierForKey  = document.getElementsByName(watchListKeyIdFind);
+				var previousElementNumIdentifierForItem  = document.getElementsByName(watchListItemIdFind);
+				if(updateItoIMinusOne < 10)
+				{
+					documentUpdateText += "0";
+				}
+				documentUpdateText += updateItoIMinusOne+": ";
+				var nameForId = "fileNotFoundImage" + i;
+				console.log(nameForId);
+				var elementByIdPreCheck = document.getElementById(nameForId);
+				console.log(elementByIdPreCheck);
+				if(elementByIdPreCheck !== null)
+				{
+					documentUpdateText += '<img id="fileNotFoundImage'+updateItoIMinusOne+'" src="../core/img/redWarning.png" height="10px">';
+				}
+				documentUpdateText += "<input style='width: ";
+				if(elementByIdPreCheck !== null)
+				{
+					documentUpdateText += '480';
+				}
+				else
+				{
+					documentUpdateText += '500';
+				}
+				documentUpdateText += "px' type='text' name='watchListKey"+updateItoIMinusOne+"' value='"+previousElementNumIdentifierForKey[0].value+"'> ";
+				documentUpdateText += "<input type='text' name='watchListItem"+updateItoIMinusOne+"' value='"+previousElementNumIdentifierForItem[0].value+"'>";
+				documentUpdateText += ' <a style="cursor: pointer;" onclick="deleteRowFunction('+updateItoIMinusOne+', true)">Remove File / Folder</a>';
+				documentUpdateText += '</li>';
+				document.getElementById(elementToUpdate).outerHTML = documentUpdateText;
+			}
+		}
 		newValue--;
 		document.getElementById('numberOfRows').value = newValue;
 	}
@@ -263,3 +304,11 @@ function deleteRowFunction(currentRow, decreaseCountWatchListNum)
 }	
 
 </script>
+
+
+
+
+
+
+
+	
