@@ -15,12 +15,7 @@ while($countOfSlash < 20 && !file_exists($varToIndexDir."index.php"))
 {
   $varToIndexDir .= "../";        
 }
-  
-if($currentFile == "core_js_main.js")
-{
-   rename($varToIndexDir.$indexToExtracted."core_js_main.php", $varToIndexDir.$indexToExtracted."core_js_main.js");
-}
-  
+   
 //update innerUpgradeStatus file
 $newCount = $innerUpdateProgress['currentFile'] + 1;
 
