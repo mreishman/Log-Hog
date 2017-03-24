@@ -233,10 +233,11 @@ else
 </body>
 <script src="../core/js/settings.js"></script>
 <script type="text/javascript"> 
-var countOfWatchList = <?php echo $i; ?>
-
+var countOfWatchList = <?php echo $i; ?>;
+var countOfAddedFiles = 0;
 function addRowFunction()
 {
+
 	countOfWatchList++;
 	if(countOfWatchList < 10)
 	{
@@ -247,6 +248,7 @@ function addRowFunction()
 		document.getElementById('newRowLocationForWatchList').innerHTML += "<li id='rowNumber"+countOfWatchList+"'>File #" + countOfWatchList+ ": <input type='text' style='width: 500px;' name='watchListKey" + countOfWatchList + "' > <input type='text' name='watchListItem" + countOfWatchList + "' > <a style='cursor: pointer;' onclick='deleteRowFunction("+ countOfWatchList +", true)'>Remove File / Folder</a></li>";
 	}
 	document.getElementById('numberOfRows').value = countOfWatchList;
+	countOfAddedFiles++;
 }
 
 function deleteRowFunction(currentRow, decreaseCountWatchListNum)
@@ -274,9 +276,7 @@ function deleteRowFunction(currentRow, decreaseCountWatchListNum)
 				}
 				documentUpdateText += updateItoIMinusOne+": ";
 				var nameForId = "fileNotFoundImage" + i;
-				console.log(nameForId);
 				var elementByIdPreCheck = document.getElementById(nameForId);
-				console.log(elementByIdPreCheck);
 				if(elementByIdPreCheck !== null)
 				{
 					documentUpdateText += '<img id="fileNotFoundImage'+updateItoIMinusOne+'" src="../core/img/redWarning.png" height="10px">';
@@ -298,6 +298,11 @@ function deleteRowFunction(currentRow, decreaseCountWatchListNum)
 			}
 		}
 		newValue--;
+		if(countOfAddedFiles > 0)
+		{
+			countOfAddedFiles--;
+			countOfWatchList--;
+		}
 		document.getElementById('numberOfRows').value = newValue;
 	}
 
