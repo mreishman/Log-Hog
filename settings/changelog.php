@@ -21,6 +21,15 @@
 				<li>
 					Added checks for vars which might not have been there, reducing notices in log files generated when on update.php
 				</li>
+				<li>
+					Fixed bug with remove file/folder button
+				</li>
+				<li>
+					Added redirect pages for /settings and /update to correct pages. 
+				</li>
+				<li>
+					Started adding custom error screens for some of the known errors
+				</li>
 			</ul>
 		</li>
 		<li>
