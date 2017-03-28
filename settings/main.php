@@ -146,10 +146,10 @@ else
 		<div class="settingsDiv" >
 		<ul id="settingsUl">
 			<li>
-				sliceSize:  <input type="text" name="sliceSize" value="<?php echo $sliceSize;?>" >
+				sliceSize:  <input type="text" name="sliceSize" value="<?php echo $sliceSize;?>" > Lines
 			</li>
 			<li>
-				pollingRate: <input type="text" name="pollingRate" value="<?php echo $pollingRate;?>" >
+				pollingRate: <input type="text" name="pollingRate" value="<?php echo $pollingRate;?>" > Milliseconds
 			</li>
 			<li>
 				pausePoll: 
