@@ -4,6 +4,30 @@
 			<h2>Changelog</h2>
 		</li>
 		<li>
+			2.1
+			<ul>
+				<li>
+					Features
+					<ul>
+						<li>
+						Added Exp. Features Tab
+						</li>
+					</ul>
+				</li>
+				<li>
+					Bug Fixes
+					<ul>
+						<li>
+						Added text descriptions to some settings in main.php
+						</li>
+						<li>
+						Added stopFlashTitle to unpause on focus
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</li>
+		<li>
 			2.0.3
 			<ul>
 				<li>
