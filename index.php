@@ -15,6 +15,7 @@ $version = explode('.', $configStatic['version']);
 $newestVersion = explode('.', $configStatic['newestVersion']);
 
 $levelOfUpdate = 0; // 0 is no updated, 1 is minor update and 2 is major update
+$beta = false;
 
 $newestVersionCount = count($newestVersion);
 $versionCount = count($version);
@@ -32,6 +33,7 @@ for($i = 0; $i < $newestVersionCount; $i++)
 			}
 			elseif($newestVersion[$i] < $version[$i])
 			{
+				$beta = true;
 				break;
 			}
 		}
@@ -44,6 +46,7 @@ for($i = 0; $i < $newestVersionCount; $i++)
 			}
 			elseif($newestVersion[$i] < $version[$i])
 			{
+				$beta = true;
 				break;
 			}
 		}
@@ -56,6 +59,7 @@ for($i = 0; $i < $newestVersionCount; $i++)
 			}
 			elseif($newestVersion[$i] < $version[$i])
 			{
+				$beta = true;
 				break;
 			}
 		}
@@ -80,6 +84,9 @@ for($i = 0; $i < $newestVersionCount; $i++)
 	<script src="core/js/visibility.timers.js"></script>
 </head>
 <body>
+	<?php if($beta): ?>
+		<div style="width: 100%;color: red;background-color: black;text-align: center; line-height: 200%;" >You are currently on a beta branch. - Only intended for development purposes</div>
+	<?php endif; ?>
 	<div id="menu">
 		<div onclick="pausePollAction();" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">
 			<img id="pauseImage" class="menuImage" src="core/img/Pause.png" height="30px">
