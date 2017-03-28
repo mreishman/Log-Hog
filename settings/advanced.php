@@ -75,6 +75,14 @@ else
 {
 	$developmentTabEnabled = $defaultConfig['developmentTabEnabled'];
 } 
+if(array_key_exists('expSettingsAvail', $config))
+{
+	$expSettingsAvail = $config['expSettingsAvail'];
+}
+else
+{
+	$expSettingsAvail = $defaultConfig['expSettingsAvail'];
+}
 ?>
 <!doctype html>
 <head>

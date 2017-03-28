@@ -10,4 +10,8 @@
 	if($developmentTabEnabled == 'true'):?>
 		<a id="devToolsLink" onclick="window.location.href = 'devTools.php';"> Dev Tools </a>
 	<?php endif; ?>
+	<?php
+	if($expSettingsAvail):?>
+		<a id="experimentalfeaturesLink" onclick="window.location.href = 'experimentalfeatures.php';"> Experimental Features </a>
+	<?php endif; ?>
 </div>

@@ -86,62 +86,55 @@ else
 ?>
 <!doctype html>
 <head>
-	<title>Settings | About</title>
+	<title>Settings | Main</title>
 	<link rel="stylesheet" type="text/css" href="<?php echo $baseUrl ?>template/theme.css">
 	<link rel="icon" type="image/png" href="../core/img/favicon.png" />
 	<script src="../core/js/jquery.js"></script>
 </head>
 <body>
-	<?php require_once('header.php'); ?>
+	<?php require_once('header.php');
+
+if(array_key_exists('autoCheckUpdate', $config))
+{
+	$autoCheckUpdate = $config['autoCheckUpdate'];
+}
+else
+{
+	$autoCheckUpdate = $defaultConfig['autoCheckUpdate'];
+}
+if(array_key_exists('enableSystemPrefShellOrPhp', $config))
+{
+	$enableSystemPrefShellOrPhp = $config['enableSystemPrefShellOrPhp'];
+}
+else
+{
+	$enableSystemPrefShellOrPhp = $defaultConfig['enableSystemPrefShellOrPhp'];
+}
+?>
+	
+	
+
 	<div id="main">
+		
 		<div class="settingsHeader">
-			About
+		Experimental Features <button>Save Changes</button>
 		</div>
 		<div class="settingsDiv" >
 			<ul id="settingsUl">
 				<li>
-					<h2>Version - <?php echo $configStatic['version'];?></h2>
+					System preference:
+						<select name="enableSystemPrefShellOrPhp">
+  						<option <?php if($enableSystemPrefShellOrPhp == 'true'){echo "selected";} ?> value="true">PHP</option>
+  						<option <?php if($enableSystemPrefShellOrPhp == 'false'){echo "selected";} ?> value="false">shell_exec</option>
+					</select>
 				</li>
 			</ul>
 		</div>
-		<div class="settingsHeader">
-			Info
-		</div>
-		<div class="settingsDiv" >
-			<ul id="settingsUl">
-				<li>
-					<h2>Log-Hog</h2>
-				</li>
-				<li>
-					<p>A simple log monitoring tool that is intended for use on dev boxes.</p>
-
-					<p>If you need Log Hog to watch Apache's logs, see this: <a href="https://stackoverflow.com/questions/9568118/apache-access-log-automatically-set-permissions">https://stackoverflow.com/questions/9568118/apache-access-log-automatically-set-permissions</a></p>
-				</li>
-				<li>
-					<p>Includes files from the following project: </p>
-
-					<p> <a href="https://github.com/ai/visibilityjs">https://github.com/ai/visibilityjs </a> </p> 
-				</li>
-			</ul>
-		</div>
-		<div class="settingsHeader">
-			GitHub
-		</div>
-		<div class="settingsDiv" >
-			<ul id="settingsUl">
-				<li>
-					<h2>Github</h2>
-				</li>
-				<li>
-					<p>View the project on github: <a href="https://github.com/mreishman/Log-Hog">https://github.com/mreishman/Log-Hog</a> </p>
-
-					<p>Add an issue: <a href="https://github.com/mreishman/Log-Hog/issues">https://github.com/mreishman/Log-Hog/issues</a></p>
-				</li>
-			</ul>
-		</div>
-	</div>
+		
+		
+	</div>	
 </body>
 <script src="../core/js/settings.js"></script>
 <script type="text/javascript">
-	document.getElementById("aboutLink").classList.add("active");
+	document.getElementById("experimentalfeaturesLink").classList.add("active");
 </script>
