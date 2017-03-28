@@ -283,6 +283,7 @@ function checkIfPageHidden()
 		{
 			pausePoll = false;
 			document.getElementById('pauseImage').src="core/img/Pause.png";
+			stopFlashTitle();
 		}
 		if(userPaused)
 		{
