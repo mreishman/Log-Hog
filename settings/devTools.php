@@ -75,7 +75,14 @@ else
 {
 	$enableDevBranchDownload = $defaultConfig['enableDevBranchDownload'];
 } 
-
+if(array_key_exists('developmentTabEnabled', $config))
+{
+	$developmentTabEnabled = $config['developmentTabEnabled'];
+}
+else
+{
+	$developmentTabEnabled = $defaultConfig['developmentTabEnabled'];
+}
 ?>
 <!doctype html>
 <head>
@@ -85,17 +92,7 @@ else
 	<script src="../core/js/jquery.js"></script>
 </head>
 <body>
-	<div id="menu">
-		<div onclick="window.location.href = '../index.php'" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">
-			<img id="pauseImage" class="menuImage" src="../core/img/backArrow.png" height="30px">
-		</div>
-		<a onclick="window.location.href = 'main.php';" >Main</a>
-		<a onclick="window.location.href = 'about.php'">About</a>
-		<a onclick="window.location.href = 'update.php';"><?php  if($levelOfUpdate == 1){echo '<img src="../core/img/yellowWarning.png" height="10px">';} ?> <?php if($levelOfUpdate == 2){echo '<img src="../core/img/redWarning.png" height="10px">';} ?>Update</a>
-		<a onclick="window.location.href = 'advanced.php';">Advanced</a>
-		<a class="active"> Dev Tools </a>
-
-	</div>	
+	<?php require_once('header.php'); ?>
 	<div id="main">
 	<form id="devAdvanced" action="../core/php/settingsDevBranch.php" method="post">
 		<div class="settingsHeader">
@@ -116,3 +113,6 @@ else
 	</div>
 </body>
 <script src="../core/js/settings.js"></script>
+<script type="text/javascript">
+	document.getElementById("devToolsLink").classList.add("active");
+</script>

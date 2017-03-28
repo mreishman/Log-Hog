@@ -85,21 +85,8 @@ else
 	<script src="../core/js/jquery.js"></script>
 </head>
 <body>
-	<div id="menu">
-		<div onclick="window.location.href = '../index.php'" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">
-			<img id="pauseImage" class="menuImage" src="../core/img/backArrow.png" height="30px">
-		</div>
-		<a class="active" >Main</a>
-		<a onclick="window.location.href = 'about.php';">About</a>
-		<a onclick="window.location.href = 'update.php';"><?php  if($levelOfUpdate == 1){echo '<img src="../core/img/yellowWarning.png" height="10px">';} ?> <?php if($levelOfUpdate == 2){echo '<img src="../core/img/redWarning.png" height="10px">';} ?>Update</a>
-		<a onclick="window.location.href = 'advanced.php';">Advanced</a>
-		<?php
-		if($developmentTabEnabled == 'true'):?>
-			<a onclick="window.location.href = 'devTools.php';"> Dev Tools </a>
-		<?php endif; ?>
-	</div>
-	
-<?php
+	<?php require_once('header.php');
+
 if(array_key_exists('sliceSize', $config))
 {
 	$sliceSize = $config['sliceSize'];
@@ -232,6 +219,9 @@ else
 	</div>	
 </body>
 <script src="../core/js/settings.js"></script>
+<script type="text/javascript">
+	document.getElementById("mainLink").classList.add("active");
+</script>
 <script type="text/javascript"> 
 var countOfWatchList = <?php echo $i; ?>;
 var countOfAddedFiles = 0;
