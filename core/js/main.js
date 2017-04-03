@@ -314,7 +314,22 @@ function clearLog()
 			  type: 'POST',
 	success: function(data){
     // we make a successful JSONP call!
-    console.log("test");
+  },
+});
+}
+
+
+function deleteAction()
+{
+	var urlForSend = 'core/php/clearAllLogs.php?format=json'
+	var data = "";
+	$.ajax({
+			  url: urlForSend,
+			  dataType: 'json',
+			  data: data,
+			  type: 'POST',
+	success: function(data){
+    // we make a successful JSONP call!
   },
 });
 }
