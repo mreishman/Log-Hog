@@ -114,3 +114,10 @@ div {
 	padding-left: 10px;
 	word-wrap: break-word;
 }
+
+.settingsBuffer
+{
+	width: 200px;
+	display: inline-block;
+}
+

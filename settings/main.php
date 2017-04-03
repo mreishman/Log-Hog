@@ -146,30 +146,37 @@ else
 		<div class="settingsDiv" >
 		<ul id="settingsUl">
 			<li>
-				sliceSize:  <input type="text" name="sliceSize" value="<?php echo $sliceSize;?>" > Lines
+				<span class="settingsBuffer" > Slice Size:</span>  <input type="text" name="sliceSize" value="<?php echo $sliceSize;?>" > Lines
 			</li>
 			<li>
-				pollingRate: <input type="text" name="pollingRate" value="<?php echo $pollingRate;?>" > Milliseconds
+				<span class="settingsBuffer" > Polling Rate: </span>  <input type="text" name="pollingRate" value="<?php echo $pollingRate;?>" > Milliseconds
 			</li>
 			<li>
-				pausePoll: 
+				<span class="settingsBuffer" > Pause Poll By Default:  </span> 
 					<select name="pausePoll">
   						<option <?php if($pausePoll == 'true'){echo "selected";} ?> value="true">True</option>
   						<option <?php if($pausePoll == 'false'){echo "selected";} ?> value="false">False</option>
 					</select>
 			</li>
 			<li>
-				pauseOnNotFocus:
+				<span class="settingsBuffer" > Pause On Not Focus: </span> 
 					<select name="pauseOnNotFocus">
   						<option <?php if($pauseOnNotFocus == 'true'){echo "selected";} ?> value="true">True</option>
   						<option <?php if($pauseOnNotFocus == 'false'){echo "selected";} ?> value="false">False</option>
 					</select>
 			</li>
 			<li>
-				autoCheckUpdate:
+				<span class="settingsBuffer" > Auto Check Update: </span> 
 					<select name="autoCheckUpdate">
   						<option <?php if($autoCheckUpdate == 'true'){echo "selected";} ?> value="true">True</option>
   						<option <?php if($autoCheckUpdate == 'false'){echo "selected";} ?> value="false">False</option>
+					</select>
+			</li>
+			<li>
+				<span class="settingsBuffer" > Truncate Log Button: </span> 
+					<select name="autoCheckUpdate">
+  						<option <?php if($autoCheckUpdate == 'true'){echo "selected";} ?> value="true">All Logs</option>
+  						<option <?php if($autoCheckUpdate == 'false'){echo "selected";} ?> value="false">Current Log</option>
 					</select>
 			</li>
 		</ul>
