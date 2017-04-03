@@ -205,7 +205,7 @@ else
 		<div class="settingsHeader">
 			Changelog
 		</div>
-		<?php require_once('changelog.php') ?>
+		<?php readfile('changelog.html') ?>
 	</div>
 </body>
 <script src="../core/js/settings.js"></script>
