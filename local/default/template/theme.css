@@ -61,7 +61,7 @@ div {
 	padding: .25em 1em;
 }
 
-#title {
+#titleContainer {
 	position: fixed;
 	left: 0;
 	bottom: 0;
@@ -70,6 +70,10 @@ div {
 	background-color: #ccc;
 	padding: 0 1em;
 	line-height: 2em;
+}
+
+#title{
+	display: inline-block;
 }
 
 #settingsUl

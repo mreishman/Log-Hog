@@ -301,4 +301,20 @@ function pausePollFunction()
 
 function isPageHidden(){
      return document.hidden || document.msHidden || document.webkitHidden || document.mozHidden;
- }
+}
+
+function clearLog()
+{
+	var urlForSend = 'core/php/clearLog.php?format=json'
+	var data = {file: document.getElementById("title").innerHTML};
+	$.ajax({
+			  url: urlForSend,
+			  dataType: 'json',
+			  data: data,
+			  type: 'POST',
+	success: function(data){
+    // we make a successful JSONP call!
+    console.log("test");
+  },
+});
+}

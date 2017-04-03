@@ -113,7 +113,7 @@ for($i = 0; $i < $newestVersionCount; $i++)
 		</div>
 	</div>
 	
-	<div id="title">&nbsp;</div>
+	<div id="titleContainer"><div id="title">&nbsp;</div>&nbsp;&nbsp;<form style="display: inline-block;" ><a style="cursor: pointer;" onclick="clearLog()" >Clear Log</a></form></div>
 	
 	<script>
 		<?php
