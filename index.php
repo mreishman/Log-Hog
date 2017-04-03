@@ -98,6 +98,9 @@ for($i = 0; $i < $newestVersionCount; $i++)
 			<img id="gear" class="menuImage" src="core/img/Gear.png" height="30px">
 			<?php  if($levelOfUpdate == 1){echo '<img src="core/img/yellowWarning.png" height="15px" style="position: absolute;margin-left: 13px;margin-top: -34px;">';} ?> <?php if($levelOfUpdate == 2){echo '<img src="core/img/redWarning.png" height="15px" style="position: absolute;margin-left: 13px;margin-top: -34px;">';} ?>
 		</div>
+		<?php if (is_dir("../status")):?>
+			<div style="display: inline-block; cursor: pointer; " onclick="window.location.href='../status/'" >gS</div>
+		<?php endif; ?>
 	</div>
 	
 	<div id="main">
