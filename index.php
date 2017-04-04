@@ -94,9 +94,15 @@ for($i = 0; $i < $newestVersionCount; $i++)
 		<div onclick="refreshAction();" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">
 			<img id="refreshImage" class="menuImage" src="core/img/Refresh.png" height="30px">
 		</div>
+		<?php if(true): ?>
 		<div onclick="deleteAction();" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">
+			<img id="deleteImage" class="menuImage" src="core/img/trashCanMulti.png" height="30px">
+		</div>
+		<?php else: ?>
+		<div onclick="clearLog();" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">
 			<img id="deleteImage" class="menuImage" src="core/img/trashCan.png" height="30px">
 		</div>
+		<?php endif; ?>
 		<div onclick="window.location.href = './settings/main.php';" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">
 			<img id="gear" class="menuImage" src="core/img/Gear.png" height="30px">
 			<?php  if($levelOfUpdate == 1){echo '<img src="core/img/yellowWarning.png" height="15px" style="position: absolute;margin-left: 13px;margin-top: -34px;">';} ?> <?php if($levelOfUpdate == 2){echo '<img src="core/img/redWarning.png" height="15px" style="position: absolute;margin-left: 13px;margin-top: -34px;">';} ?>
