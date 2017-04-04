@@ -128,6 +128,7 @@ div {
 	background-color: #2A912A;
 	cursor: pointer;
 	border: solid 1px white;
+	color: white;
 }
 
 .linkSmall
@@ -139,4 +140,5 @@ div {
 	cursor: pointer;
 	border: solid 1px white;
 	line-height: 100%;
+	color: white;
 }
