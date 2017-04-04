@@ -201,7 +201,7 @@ else
 				?> 
  				<input style='width: <?php if(!file_exists($key)){echo "480";}else{echo "500";}?>px ' type='text' name='watchListKey<?php echo $i; ?>' value='<?php echo $key; ?>'>
  				<input type='text' name='watchListItem<?php echo $i; ?>' value='<?php echo $item; ?>'>
- 				<a style="cursor: pointer;" onclick="deleteRowFunction(<?php echo $i; ?>, true)">Remove File / Folder</a>
+ 				<a class="link" onclick="deleteRowFunction(<?php echo $i; ?>, true)">Remove File / Folder</a>
 			</li>
 
 		<?php endforeach; ?>
@@ -210,7 +210,7 @@ else
 		</ul>
 		<ul id="settingsUl">
 			<li>
-				<a style="cursor: pointer;" onclick="addRowFunction()">Add New File / Folder</a>
+				<a class="link" onclick="addRowFunction()">Add New File / Folder</a>
 			</li>
 			<li>
 				<div class="settingsHeader">

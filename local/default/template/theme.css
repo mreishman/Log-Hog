@@ -30,7 +30,7 @@ div {
 	cursor: pointer;
 }
 
-#menu a:hover, #menu a.active {
+#menu a:hover, #menu a.active, .link:hover, .linkSmall:hover {
 	color: black;
 	background-color: white;
 }
@@ -119,4 +119,24 @@ div {
 {
 	width: 200px;
 	display: inline-block;
+}
+
+.link
+{
+	display: inline-block;
+	padding: .5em 1em;
+	background-color: #2A912A;
+	cursor: pointer;
+	border: solid 1px white;
+}
+
+.linkSmall
+{
+	display: inline-block;
+	padding: 3px 5px;
+	margin: 1px;
+	background-color: #2A912A;
+	cursor: pointer;
+	border: solid 1px white;
+	line-height: 100%;
 }
