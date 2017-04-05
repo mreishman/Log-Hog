@@ -1,6 +1,6 @@
 body {
 	color: white;
-	background-color: #222;
+	background-color: #191919;
 	font-family: monospace;
 	padding: 0;
 	margin: 0;
@@ -20,6 +20,8 @@ div {
 	z-index: 10;
 	background-color: #222;
 	padding: .5em 1em;
+	max-height: 300px;
+	border-bottom: 1px solid white;
 }
 
 #menu a {
