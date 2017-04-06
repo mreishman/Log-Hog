@@ -10,6 +10,13 @@ $defaultConfig = array(
 	'enableDevBranchDownload' => 'false',
 	'enableSystemPrefShellOrPhp'	=> 'false',
 	'expSettingsAvail'	=> 'true',
+	'truncateLogButtonAll'	=> 'true',
+	'popupSettings'	=>	'all',
+	'popupSettingsCustom'	=> array(
+		'saveSettings'	=>	'true',
+		'blankFolder'	=>	'true',
+		'removeFolder'	=> 	'true'
+		),
 	'watchList'		=> array(
 		'/var/www/html/var/log/system.log'	        => '',
 		'/var/log/hhvm/error.log'	=> '',

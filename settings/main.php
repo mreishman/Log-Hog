@@ -66,23 +66,7 @@ for($i = 0; $i < $newestVersionCount; $i++)
 		break;
 	}
 }
-
-if(array_key_exists('developmentTabEnabled', $config))
-{
-	$developmentTabEnabled = $config['developmentTabEnabled'];
-}
-else
-{
-	$developmentTabEnabled = $defaultConfig['developmentTabEnabled'];
-} 
-if(array_key_exists('expSettingsAvail', $config))
-{
-	$expSettingsAvail = $config['expSettingsAvail'];
-}
-else
-{
-	$expSettingsAvail = $defaultConfig['expSettingsAvail'];
-}
+require_once('../core/php/loadVars.php');
 ?>
 <!doctype html>
 <head>
@@ -92,51 +76,8 @@ else
 	<script src="../core/js/jquery.js"></script>
 </head>
 <body>
-	<?php require_once('header.php');
 
-if(array_key_exists('sliceSize', $config))
-{
-	$sliceSize = $config['sliceSize'];
-}
-else
-{
-	$sliceSize = $defaultConfig['sliceSize'];
-} 
-if(array_key_exists('pollingRate', $config))
-{
-	$pollingRate = $config['pollingRate'];
-}
-else
-{
-	$pollingRate = $defaultConfig['pollingRate'];
-} 
-if(array_key_exists('pausePoll', $config))
-{
-	$pausePoll = $config['pausePoll'];
-}
-else
-{
-	$pausePoll = $defaultConfig['pausePoll'];
-}
-if(array_key_exists('pauseOnNotFocus', $config))
-{
-	$pauseOnNotFocus = $config['pauseOnNotFocus'];
-}
-else
-{
-	$pauseOnNotFocus = $defaultConfig['pauseOnNotFocus'];
-}
-if(array_key_exists('autoCheckUpdate', $config))
-{
-	$autoCheckUpdate = $config['autoCheckUpdate'];
-}
-else
-{
-	$autoCheckUpdate = $defaultConfig['autoCheckUpdate'];
-}
-?>
-	
-	
+<?php require_once('header.php');?>	
 
 	<div id="main">
 		<form id="settingsMainVars" action="../core/php/settingsMainUpdateVars.php" method="post">
@@ -174,10 +115,37 @@ else
 			</li>
 			<li>
 				<span class="settingsBuffer" > Truncate Log Button: </span> 
-					<select name="autoCheckUpdate">
-  						<option <?php if($autoCheckUpdate == 'true'){echo "selected";} ?> value="true">All Logs</option>
-  						<option <?php if($autoCheckUpdate == 'false'){echo "selected";} ?> value="false">Current Log</option>
+					<select name="truncateLog">
+  						<option <?php if($truncateLog == 'true'){echo "selected";} ?> value="true">All Logs</option>
+  						<option <?php if($truncateLog == 'false'){echo "selected";} ?> value="false">Current Log</option>
 					</select>
+			</li>
+			<li>
+				<span class="settingsBuffer" > Popup Warnings: </span> 
+					<select id="popupSelect"  name="popupWarnings">
+  						<option <?php if($popupWarnings == 'all'){echo "selected";} ?> value="all">All</option>
+  						<option <?php if($popupWarnings == 'custom'){echo "selected";} ?> value="custom">Custom</option>
+  						<option <?php if($popupWarnings == 'none'){echo "selected";} ?> value="none">None</option>
+					</select>
+				<div id="settingsPopupVars" <?php if($popupWarnings != 'custom'){echo "style='display: none;'";}?> >
+
+				<div class="settingsHeader">
+					Popup Settings
+					</div>
+					<div class="settingsDiv" >
+					<ul id="settingsUl">
+					<?php foreach ($popupWarningsArray as $key => $value):?>
+						<li>
+						<span class="settingsBuffer" > <?php echo $key;?>: </span> 
+							<select name="truncateLog">
+		  						<option <?php if($value == 'true'){echo "selected";} ?> value="true">Yes</option>
+		  						<option <?php if($value == 'false'){echo "selected";} ?> value="false">No</option>
+							</select>
+						</li>
+					<?php endforeach;?>
+					</ul>
+					</div>
+				</div>
 			</li>
 		</ul>
 		</div>
@@ -234,9 +202,8 @@ else
 </body>
 <script src="../core/js/settings.js"></script>
 <script type="text/javascript">
-	document.getElementById("mainLink").classList.add("active");
-</script>
-<script type="text/javascript"> 
+document.getElementById("mainLink").classList.add("active");
+document.getElementById("popupSelect").addEventListener("change", showOrHidePopupSubWindow, false);
 var countOfWatchList = <?php echo $i; ?>;
 var countOfAddedFiles = 0;
 var countOfClicks = 0;
@@ -315,7 +282,19 @@ function deleteRowFunction(currentRow, decreaseCountWatchListNum)
 	}
 
 }	
-
+function showOrHidePopupSubWindow()
+{
+	var valueForPopup = document.getElementById('popupSelect').value;
+	console.log(valueForPopup);
+	if(valueForPopup == 'custom')
+	{
+		document.getElementById('settingsPopupVars').style.display = 'block';
+	}
+	else
+	{
+		document.getElementById('settingsPopupVars').style.display = 'none';
+	}
+}
 </script>
 
 

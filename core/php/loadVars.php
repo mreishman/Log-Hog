@@ -5,16 +5,23 @@ checkForUpdate($_SERVER['REQUEST_URI']);
 
 //check for previous update, if failed
 
-$baseUrl = "../../core/";
-if(file_exists('../../local/layout.php'))
+$varToIndexDir = "";
+$countOfSlash = 0;
+while($countOfSlash < 20 && !file_exists($varToIndexDir."error.php"))
 {
-  $baseUrl = "../../local/";
+  $varToIndexDir .= "../";        
+}
+
+$baseUrl = $varToIndexDir."core/";
+if(file_exists($varToIndexDir.'local/layout.php'))
+{
+  $baseUrl = $varToIndexDir."local/";
   //there is custom information, use this
-  require_once('../../local/layout.php');
+  require_once($varToIndexDir.'local/layout.php');
   $baseUrl .= $currentSelectedTheme."/";
 }
 require_once($baseUrl.'conf/config.php'); 
-require_once('../conf/config.php');
+require_once($varToIndexDir.'core/conf/config.php');
 
 
 if(array_key_exists('watchList', $config))
@@ -80,6 +87,38 @@ if(array_key_exists('enableDevBranchDownload', $config))
 else
 {
 	$enableDevBranchDownload = $defaultConfig['enableDevBranchDownload'];
+}
+if(array_key_exists('truncateLogButtonAll', $config))
+{
+	$truncateLog = $config['truncateLogButtonAll'];
+}
+else
+{
+	$truncateLog = $defaultConfig['truncateLogButtonAll'];
+}
+if(array_key_exists('popupSettings', $config))
+{
+	$popupWarnings = $config['popupSettings'];
+}
+else
+{
+	$popupWarnings = $defaultConfig['popupSettings'];
+}
+if(array_key_exists('popupSettingsCustom', $config))
+{
+	$popupSettingsArray = $config['popupSettingsCustom'];
+}
+else
+{
+	$popupWarningsArray = $defaultConfig['popupSettingsCustom'];
+}
+if(array_key_exists('expSettingsAvail', $config))
+{
+	$expSettingsAvail = $config['expSettingsAvail'];
+}
+else
+{
+	$expSettingsAvail = $defaultConfig['expSettingsAvail'];
 }
 
 $arrayWatchList = "";
