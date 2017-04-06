@@ -134,7 +134,7 @@ require_once('../core/php/loadVars.php');
 					</div>
 					<div class="settingsDiv" >
 					<ul id="settingsUl">
-					<?php foreach ($popupWarningsArray as $key => $value):?>
+					<?php foreach ($popupSettingsArray as $key => $value):?>
 						<li>
 						<span class="settingsBuffer" > <?php echo $key;?>: </span> 
 							<select name="truncateLog">
