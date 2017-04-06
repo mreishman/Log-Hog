@@ -169,7 +169,7 @@ require_once('../core/php/loadVars.php');
 				?> 
  				<input style='width: <?php if(!file_exists($key)){echo "480";}else{echo "500";}?>px ' type='text' name='watchListKey<?php echo $i; ?>' value='<?php echo $key; ?>'>
  				<input type='text' name='watchListItem<?php echo $i; ?>' value='<?php echo $item; ?>'>
- 				<a class="link" onclick="deleteRowFunction(<?php echo $i; ?>, true)">Remove File / Folder</a>
+ 				<a class="link" onclick="deleteRowFunctionPopup(<?php echo $i; ?>, true, '<?php echo $key; ?>')">Remove File / Folder</a>
 			</li>
 
 		<?php endforeach; ?>
@@ -198,12 +198,14 @@ require_once('../core/php/loadVars.php');
 			<input id="numberOfRows" type="text" name="numberOfRows" value="<?php echo $i;?>">
 		</div>	
 		</form>
-	</div>	
+	</div>
+	<?php readfile('../core/html/popup.html') ?>	
 </body>
 <script src="../core/js/settings.js"></script>
 <script type="text/javascript">
 document.getElementById("mainLink").classList.add("active");
 document.getElementById("popupSelect").addEventListener("change", showOrHidePopupSubWindow, false);
+var popupSettingsArray = JSON.parse('<?php echo json_encode($popupSettingsArray) ?>');
 var countOfWatchList = <?php echo $i; ?>;
 var countOfAddedFiles = 0;
 var countOfClicks = 0;
@@ -215,15 +217,29 @@ function addRowFunction()
 	countOfClicks++;
 	if(countOfWatchList < 10)
 	{
-		document.getElementById(locationInsert).outerHTML += "<li id='rowNumber"+countOfWatchList+"'>File #0" + countOfWatchList+ ": <input type='text' style='width: 500px;' name='watchListKey" + countOfWatchList + "' > <input type='text' name='watchListItem" + countOfWatchList + "' > <a class='link'  onclick='deleteRowFunction("+ countOfWatchList +", true)'>Remove File / Folder</a></li><div id='newRowLocationForWatchList"+countOfClicks+"'></div>";
+		document.getElementById(locationInsert).outerHTML += "<li id='rowNumber"+countOfWatchList+"'>File #0" + countOfWatchList+ ": <input type='text' style='width: 500px;' name='watchListKey" + countOfWatchList + "' > <input type='text' name='watchListItem" + countOfWatchList + "' > <a class='link'  onclick='deleteRowFunctionPopup("+ countOfWatchList +", true)'>Remove File / Folder</a></li><div id='newRowLocationForWatchList"+countOfClicks+"'></div>";
 	}
 	else
 	{
-		document.getElementById(locationInsert).outerHTML += "<li id='rowNumber"+countOfWatchList+"'>File #" + countOfWatchList+ ": <input type='text' style='width: 500px;' name='watchListKey" + countOfWatchList + "' > <input type='text' name='watchListItem" + countOfWatchList + "' > <a class='link' onclick='deleteRowFunction("+ countOfWatchList +", true)'>Remove File / Folder</a></li><div id='newRowLocationForWatchList"+countOfClicks+"'></div>";
+		document.getElementById(locationInsert).outerHTML += "<li id='rowNumber"+countOfWatchList+"'>File #" + countOfWatchList+ ": <input type='text' style='width: 500px;' name='watchListKey" + countOfWatchList + "' > <input type='text' name='watchListItem" + countOfWatchList + "' > <a class='link' onclick='deleteRowFunctionPopup("+ countOfWatchList +", true)'>Remove File / Folder</a></li><div id='newRowLocationForWatchList"+countOfClicks+"'></div>";
 	}
 	locationInsert = "newRowLocationForWatchList"+countOfClicks;
 	document.getElementById('numberOfRows').value = countOfWatchList;
 	countOfAddedFiles++;
+}
+
+function deleteRowFunctionPopup(currentRow, decreaseCountWatchListNum, keyName = "")
+{
+	if(popupSettingsArray.removeFolder == "true")
+	{
+		showPopup();
+		document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Are you sure you want to remove this file/folder?</div><br><div style='width:100%;text-align:center;'>"+keyName+"</div><div><div class='link' onclick='deleteRowFunction("+currentRow+","+ decreaseCountWatchListNum+");hidePopup();' style='margin-left:125px; margin-right:50px;margin-top:35px;'>Yes</div><div onclick='hidePopup();' class='link'>No</div></div>";
+	}
+	else
+	{
+		deleteRowFunction(currentRow, decreaseCountWatchListNum);
+	}
+	
 }
 
 function deleteRowFunction(currentRow, decreaseCountWatchListNum)
@@ -267,7 +283,7 @@ function deleteRowFunction(currentRow, decreaseCountWatchListNum)
 				}
 				documentUpdateText += "px' type='text' name='watchListKey"+updateItoIMinusOne+"' value='"+previousElementNumIdentifierForKey[0].value+"'> ";
 				documentUpdateText += "<input type='text' name='watchListItem"+updateItoIMinusOne+"' value='"+previousElementNumIdentifierForItem[0].value+"'>";
-				documentUpdateText += ' <a class="link" onclick="deleteRowFunction('+updateItoIMinusOne+', true)">Remove File / Folder</a>';
+				documentUpdateText += ' <a class="link" onclick="deleteRowFunctionPopup('+updateItoIMinusOne+', true,'+"'"+previousElementNumIdentifierForKey[0].value+"'"+')">Remove File / Folder</a>';
 				documentUpdateText += '</li>';
 				document.getElementById(elementToUpdate).outerHTML = documentUpdateText;
 			}

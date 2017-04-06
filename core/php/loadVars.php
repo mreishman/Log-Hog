@@ -110,7 +110,7 @@ if(array_key_exists('popupSettingsCustom', $config))
 }
 else
 {
-	$popupWarningsArray = $defaultConfig['popupSettingsCustom'];
+	$popupSettingsArray = $defaultConfig['popupSettingsCustom'];
 }
 if(array_key_exists('expSettingsAvail', $config))
 {
