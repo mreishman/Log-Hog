@@ -301,7 +301,6 @@ function deleteRowFunction(currentRow, decreaseCountWatchListNum)
 function showOrHidePopupSubWindow()
 {
 	var valueForPopup = document.getElementById('popupSelect').value;
-	console.log(valueForPopup);
 	if(valueForPopup == 'custom')
 	{
 		document.getElementById('settingsPopupVars').style.display = 'block';
