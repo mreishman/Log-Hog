@@ -10,6 +10,7 @@
 			'enableDevBranchDownload' => 'false',
 			'enableSystemPrefShellOrPhp'	=> 'false',
 			'expSettingsAvail'	=> 'true',
+			'flashTitleUpdateLog'	=> 'false',
 			'watchList' => array(
 			'/var/www/html/var/log/system.log' => '','/var/log/hhvm/error.log' => '','/var/log/apache2' => '\.log$','/var/www/html/var/log/exception.log' => '')
 		);

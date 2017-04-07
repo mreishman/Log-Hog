@@ -120,6 +120,14 @@ else
 {
 	$expSettingsAvail = $defaultConfig['expSettingsAvail'];
 }
+if(array_key_exists('flashTitleUpdateLog', $conf))
+{
+	$flashTitleUpdateLog = $config['flashTitleUpdateLog'];
+}
+else
+{
+	$flashTitleUpdateLog = $defaultConfig['flashTitleUpdateLog'];
+}
 
 $arrayWatchList = "";
 $numberOfRows = count($watchList);

@@ -147,6 +147,13 @@ require_once('../core/php/loadVars.php');
 					</div>
 				</div>
 			</li>
+			<li>
+				<span class="settingsBuffer" > Flash title on log update: </span> 
+					<select name="flashTitleUpdateLog">
+  						<option <?php if($flashTitleUpdateLog == 'true'){echo "selected";} ?> value="true">True</option>
+  						<option <?php if($flashTitleUpdateLog == 'false'){echo "selected";} ?> value="false">False</option>
+					</select>
+			</li>
 		</ul>
 		</div>
 		</form>
