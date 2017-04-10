@@ -80,7 +80,7 @@ require_once('../core/php/loadVars.php');
 <?php require_once('header.php');?>	
 
 	<div id="main">
-		<form id="settingsMainVars" action="../core/php/settingsMainUpdateVars.php" method="post">
+		<form id="settingsMainVars" action="../core/php/settingsSave.php" method="post">
 		<div class="settingsHeader">
 		Main Settings <button>Save Changes</button>
 		</div>
@@ -157,7 +157,7 @@ require_once('../core/php/loadVars.php');
 		</ul>
 		</div>
 		</form>
-		<form id="settingsMainWatch" action="../core/php/settingsMainUpdateWatchList.php" method="post">
+		<form id="settingsMainWatch" action="../core/php/settingsSave.php" method="post">
 		<div class="settingsHeader">
 			WatchList <button>Save Changes</button>
 		</div>

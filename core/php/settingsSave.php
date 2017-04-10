@@ -1,6 +1,6 @@
 <?php
 
-$baseUrl = "../";
+$baseUrl = "../../core/";
 if(file_exists('../../local/layout.php'))
 {
 	$baseUrl = "../../local/";
@@ -9,20 +9,10 @@ if(file_exists('../../local/layout.php'))
 	$baseUrl .= $currentSelectedTheme."/";
 }
 
-require_once($baseUrl.'conf/config.php'); 
-require_once('../conf/config.php');
+require_once($baseUrl.'conf/config.php');
 require_once('../../core/conf/config.php'); 
 require_once('loadVars.php');
 
-	$arrayWatchList = "";
-	for($i = 1; $i <= $_POST['numberOfRows']; $i++ )
-	{
-		$arrayWatchList .= "'".$_POST['watchListKey'.$i]."' => '".$_POST['watchListItem'.$i]."'";
-		if($i != $_POST['numberOfRows'])
-		{
-			$arrayWatchList .= ",";
-		}
-	}
 
 	$fileName = ''.$baseUrl.'conf/config.php';
 

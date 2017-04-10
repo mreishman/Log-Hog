@@ -115,7 +115,7 @@ else
 	
 
 	<div id="main">
-		
+		<form id="devAdvanced" action="../core/php/settingsSave.php" method="post">
 		<div class="settingsHeader">
 		Experimental Features <button>Save Changes</button>
 		</div>
@@ -130,8 +130,7 @@ else
 				</li>
 			</ul>
 		</div>
-		
-		
+		</form>
 	</div>	
 </body>
 <script src="../core/js/settings.js"></script>

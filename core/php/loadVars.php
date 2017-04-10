@@ -32,7 +32,11 @@ else
 {
 	$watchList = $defaultConfig['watchList'];
 }
-if(array_key_exists('sliceSize', $config))
+if(isset($_POST['sliceSize']))
+{
+	$sliceSize = $_POST['sliceSize'];
+}
+elseif(array_key_exists('sliceSize', $config))
 {
 	$sliceSize = $config['sliceSize'];
 }
@@ -40,7 +44,11 @@ else
 {
 	$sliceSize = $defaultConfig['sliceSize'];
 } 
-if(array_key_exists('pollingRate', $config))
+if(isset($_POST['pollingRate']))
+{
+	$pollingRate = $_POST['pollingRate'];
+}
+elseif(array_key_exists('pollingRate', $config))
 {
 	$pollingRate = $config['pollingRate'];
 }
@@ -48,7 +56,11 @@ else
 {
 	$pollingRate = $defaultConfig['pollingRate'];
 } 
-if(array_key_exists('pausePoll', $config))
+if(isset($_POST['pausePoll']))
+{
+	$pausePoll = $_POST['pausePoll'];
+}
+elseif(array_key_exists('pausePoll', $config))
 {
 	$pausePoll = $config['pausePoll'];
 }
@@ -56,7 +68,11 @@ else
 {
 	$pausePoll = $defaultConfig['pausePoll'];
 }
-if(array_key_exists('pauseOnNotFocus', $config))
+if(isset($_POST['pauseOnNotFocus']))
+{
+	$pauseOnNotFocus = $_POST['pauseOnNotFocus'];
+}
+elseif(array_key_exists('pauseOnNotFocus', $config))
 {
 	$pauseOnNotFocus = $config['pauseOnNotFocus'];
 }
@@ -64,7 +80,11 @@ else
 {
 	$pauseOnNotFocus = $defaultConfig['pauseOnNotFocus'];
 }
-if(array_key_exists('autoCheckUpdate', $config))
+if(isset($_POST['autoCheckUpdate']))
+{
+	$autoCheckUpdate = $_POST['autoCheckUpdate'];
+}
+elseif(array_key_exists('autoCheckUpdate', $config))
 {
 	$autoCheckUpdate = $config['autoCheckUpdate'];
 }
@@ -72,7 +92,11 @@ else
 {
 	$autoCheckUpdate = $defaultConfig['autoCheckUpdate'];
 }
-if(array_key_exists('developmentTabEnabled', $config))
+if(isset($_POST['developmentTabEnabled']))
+{
+	$developmentTabEnabled = $_POST['developmentTabEnabled'];
+}
+elseif(array_key_exists('developmentTabEnabled', $config))
 {
 	$developmentTabEnabled = $config['developmentTabEnabled'];
 }
@@ -80,7 +104,11 @@ else
 {
 	$developmentTabEnabled = $defaultConfig['developmentTabEnabled'];
 }
-if(array_key_exists('enableDevBranchDownload', $config))
+if(isset($_POST['enableDevBranchDownload']))
+{
+	$enableDevBranchDownload = $_POST['enableDevBranchDownload'];
+}
+elseif(array_key_exists('enableDevBranchDownload', $config))
 {
 	$enableDevBranchDownload = $config['enableDevBranchDownload'];
 }
@@ -129,19 +157,34 @@ else
 	$flashTitleUpdateLog = $defaultConfig['flashTitleUpdateLog'];
 }
 
-$arrayWatchList = "";
-$numberOfRows = count($watchList);
-$i = 0;
-foreach ($watchList as $key => $value) 
+
+if(isset($_POST['numberOfRows']))
 {
-	$i++;
-	$arrayWatchList .= "'".$key."' => '".$value."'";
-	if($i != $numberOfRows)
+	$arrayWatchList = "";
+	for($i = 1; $i <= $_POST['numberOfRows']; $i++ )
 	{
-		$arrayWatchList .= ",";
+		$arrayWatchList .= "'".$_POST['watchListKey'.$i]."' => '".$_POST['watchListItem'.$i]."'";
+		if($i != $_POST['numberOfRows'])
+		{
+			$arrayWatchList .= ",";
+		}
 	}
 }
-
+else
+{
+	$arrayWatchList = "";
+	$numberOfRows = count($watchList);
+	$i = 0;
+	foreach ($watchList as $key => $value) 
+	{
+		$i++;
+		$arrayWatchList .= "'".$key."' => '".$value."'";
+		if($i != $numberOfRows)
+		{
+			$arrayWatchList .= ",";
+		}
+	}
+}
 
 
 ?>

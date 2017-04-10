@@ -94,7 +94,7 @@ else
 <body>
 	<?php require_once('header.php'); ?>
 	<div id="main">
-	<form id="devAdvanced" action="../core/php/settingsDevBranch.php" method="post">
+	<form id="devAdvanced" action="../core/php/settingsSave.php" method="post">
 		<div class="settingsHeader">
 			Branch Settings  <button>Save Changes</button>
 		</div>
