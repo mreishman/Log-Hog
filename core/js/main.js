@@ -149,7 +149,10 @@ function update(data) {
 		}
 		
 		if(initialized && updated && $(window).filter(':focus').length == 0) {
-			flashTitle();
+			if(flashTitleUpdateLog)
+			{
+				flashTitle();
+			}
 		}
 	}
 	resize();
@@ -243,7 +246,7 @@ else
 {
 	setInterval(poll, pollingRate);
 }
-setInterval(poll, pollingRate);
+//setInterval(poll, pollingRate);
 resize();
 
 window.onresize = resize;
