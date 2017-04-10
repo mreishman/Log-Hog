@@ -12,6 +12,7 @@ $defaultConfig = array(
 	'expSettingsAvail'	=> 'true',
 	'truncateLogButtonAll'	=> 'true',
 	'popupSettings'	=>	'all',
+	'flashTitleUpdateLog'	=> 'false',
 	'popupSettingsCustom'	=> array(
 		'saveSettings'	=>	'true',
 		'blankFolder'	=>	'true',

@@ -120,7 +120,7 @@ else
 {
 	$expSettingsAvail = $defaultConfig['expSettingsAvail'];
 }
-if(array_key_exists('flashTitleUpdateLog', $conf))
+if(array_key_exists('flashTitleUpdateLog', $config))
 {
 	$flashTitleUpdateLog = $config['flashTitleUpdateLog'];
 }

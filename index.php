@@ -158,7 +158,7 @@ for($i = 0; $i < $newestVersionCount; $i++)
 			{
 				echo "var autoCheckUpdate = ".$defaultConfig['autoCheckUpdate'].";";
 			}
-			if(array_key_exists('flashTitleUpdateLog', $conf))
+			if(array_key_exists('flashTitleUpdateLog', $config))
 			{
 				echo "var flashTitleUpdateLog = ".$config['flashTitleUpdateLog'].";";
 			}
