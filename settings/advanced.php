@@ -96,7 +96,7 @@ else
 	<div id="main">
 	<form id="devAdvanced" action="../core/php/settingsSave.php" method="post">
 		<div class="settingsHeader">
-			Development  <button>Save Changes</button>
+			Development  <button onclick="displayLoadingPopup();" >Save Changes</button>
 		</div>
 		<div class="settingsDiv" >
 			<ul id="settingsUl">
@@ -111,6 +111,7 @@ else
 		</div>
 	</form>
 	</div>
+	<?php readfile('../core/html/popup.html') ?>	
 </body>
 <script src="../core/js/settings.js"></script>
 <script type="text/javascript">

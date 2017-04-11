@@ -20,5 +20,10 @@ function showPopup()
 	document.getElementById('popup').style.display = "block";
 	document.getElementById('popupContentInnerHTMLDiv').innerHTML = "";
 }
+function displayLoadingPopup(pathToImg = "../core/img/")
+{
+	document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Loading...</div><br><br><div style='width:100%;text-align:center;'> <img src='"+pathToImg+"loading.gif' height='50' width='50'> </div>";
+	showPopup();
 
+}
 </script>

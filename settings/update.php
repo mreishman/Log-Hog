@@ -109,7 +109,7 @@ else
 				</li>
 				<li>
 					<form id="settingsCheckForUpdate" action="../core/php/settingsCheckForUpdate.php" method="post" style="float: left; padding: 10px;">
-					<button>Check for updates</button>
+					<button onclick="displayLoadingPopup();" >Check for updates</button>
 					</form>
 					<form id="settingsCheckForUpdate" action="../update/updater.php" method="post" style="padding: 10px;">
 					<?php
@@ -207,6 +207,7 @@ else
 		</div>
 		<?php readfile('changelog.html') ?>
 	</div>
+	<?php readfile('../core/html/popup.html') ?>	
 </body>
 <script src="../core/js/settings.js"></script>
 <script type="text/javascript">
