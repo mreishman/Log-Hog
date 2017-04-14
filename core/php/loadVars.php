@@ -116,9 +116,9 @@ else
 {
 	$enableDevBranchDownload = $defaultConfig['enableDevBranchDownload'];
 }
-if(isset($_POST['truncateLogButtonAll']))
+if(isset($_POST['truncateLog']))
 {
-	$truncateLog = $_POST['truncateLogButtonAll'];
+	$truncateLog = $_POST['truncateLog'];
 }
 elseif(array_key_exists('truncateLogButtonAll', $config))
 {

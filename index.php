@@ -70,7 +70,14 @@ for($i = 0; $i < $newestVersionCount; $i++)
 		break;
 	}
 }
-
+if(array_key_exists('truncateLogButtonAll', $config))
+{
+	$truncateLog = $config['truncateLogButtonAll'];
+}
+else
+{
+	$truncateLog = $defaultConfig['truncateLogButtonAll'];
+}
 ?>
 <!doctype html>
 <head>
@@ -94,7 +101,7 @@ for($i = 0; $i < $newestVersionCount; $i++)
 		<div onclick="refreshAction();" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">
 			<img id="refreshImage" class="menuImage" src="core/img/Refresh.png" height="30px">
 		</div>
-		<?php if(true): ?>
+		<?php if($truncateLog == 'true'): ?>
 		<div onclick="deleteAction();" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">
 			<img id="deleteImage" class="menuImage" src="core/img/trashCanMulti.png" height="30px">
 		</div>

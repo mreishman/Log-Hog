@@ -11,6 +11,7 @@
 			'enableSystemPrefShellOrPhp'   => 'false',
 			'expSettingsAvail'	=> 'true',
 			'flashTitleUpdateLog'	=> 'false',
+			'truncateLogButtonAll' => 'true',
 			'popupSettings'	=>	'all',
 			'popupSettingsCustom'	=> array(
 			
