@@ -236,7 +236,17 @@ else
 	}
 	else
 	{
-		$popupSettingsArraySave = $popupSettingsArray;
+		$popupSettingsArraySave = "";
+		$count = 0;
+		foreach ($popupSettingsArray as $key => $value)
+		{
+			$popupSettingsArraySave .= "'".$key."'	=>	'".$value."'";
+			$count++;
+			if($count != 3)
+			{
+				$popupSettingsArraySave .= ",";
+			}
+		}
 	}
 }
 

@@ -327,7 +327,7 @@ function checkWatchList()
 			blankValue = true;
 		}
 	}
-	if(blankValue)
+	if(blankValue && popupSettingsArray.blankFolder == "true")
 	{
 		showNoEmptyFolderPopup();
 		event.preventDefault();
