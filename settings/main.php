@@ -157,9 +157,9 @@ require_once('../core/php/loadVars.php');
 		</ul>
 		</div>
 		</form>
-		<form id="settingsMainWatch" action="../core/php/settingsSave.php" method="post">
+		<form onsubmit="checkWatchList()" id="settingsMainWatch" action="../core/php/settingsSave.php" method="post">
 		<div class="settingsHeader">
-			WatchList <button onclick="displayLoadingPopup();" >Save Changes</button>
+			WatchList <button >Save Changes</button>
 		</div>
 		<div class="settingsDiv" >	
 		<ul id="settingsUl">
@@ -240,7 +240,7 @@ function deleteRowFunctionPopup(currentRow, decreaseCountWatchListNum, keyName =
 	if(popupSettingsArray.removeFolder == "true")
 	{
 		showPopup();
-		document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Are you sure you want to remove this file/folder?</div><br><div style='width:100%;text-align:center;'>"+keyName+"</div><div><div class='link' onclick='deleteRowFunction("+currentRow+","+ decreaseCountWatchListNum+");hidePopup();' style='margin-left:125px; margin-right:50px;margin-top:35px;'>Yes</div><div onclick='hidePopup();' class='link'>No</div></div>";
+		document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Are you sure you want to remove this file/folder?</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>"+keyName+"</div><div><div class='link' onclick='deleteRowFunction("+currentRow+","+ decreaseCountWatchListNum+");hidePopup();' style='margin-left:125px; margin-right:50px;margin-top:35px;'>Yes</div><div onclick='hidePopup();' class='link'>No</div></div>";
 	}
 	else
 	{
@@ -316,6 +316,33 @@ function showOrHidePopupSubWindow()
 	{
 		document.getElementById('settingsPopupVars').style.display = 'none';
 	}
+}
+function checkWatchList()
+{
+	var blankValue = false;
+	for (var i = 1; i <= countOfWatchList; i++) 
+	{
+		if(document.getElementsByName("watchListKey"+i)[0].value == "")
+		{
+			blankValue = true;
+		}
+	}
+	if(blankValue)
+	{
+		showNoEmptyFolderPopup();
+		event.preventDefault();
+		event.returnValue = false;
+		return false;
+	}
+	else
+	{
+		displayLoadingPopup();
+	}
+}
+function showNoEmptyFolderPopup()
+{
+	showPopup();
+	document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Warning!</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Please make sure there are no empty folders when saving the Watch List.</div><div><div class='link' onclick='hidePopup();' style='margin-left:175px; margin-top:25px;'>Okay</div></div>";
 }
 </script>
 
