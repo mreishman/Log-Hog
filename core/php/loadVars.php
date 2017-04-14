@@ -116,7 +116,11 @@ else
 {
 	$enableDevBranchDownload = $defaultConfig['enableDevBranchDownload'];
 }
-if(array_key_exists('truncateLogButtonAll', $config))
+if(isset($_POST['truncateLogButtonAll']))
+{
+	$truncateLog = $_POST['truncateLogButtonAll'];
+}
+elseif(array_key_exists('truncateLogButtonAll', $config))
 {
 	$truncateLog = $config['truncateLogButtonAll'];
 }
@@ -124,21 +128,17 @@ else
 {
 	$truncateLog = $defaultConfig['truncateLogButtonAll'];
 }
-if(array_key_exists('popupSettings', $config))
+if(isset($_POST['popupWarnings']))
+{
+	$popupWarnings = $_POST['popupWarnings'];
+}
+elseif(array_key_exists('popupSettings', $config))
 {
 	$popupWarnings = $config['popupSettings'];
 }
 else
 {
 	$popupWarnings = $defaultConfig['popupSettings'];
-}
-if(array_key_exists('popupSettingsCustom', $config))
-{
-	$popupSettingsArray = $config['popupSettingsCustom'];
-}
-else
-{
-	$popupSettingsArray = $defaultConfig['popupSettingsCustom'];
 }
 if(array_key_exists('expSettingsAvail', $config))
 {
@@ -148,7 +148,11 @@ else
 {
 	$expSettingsAvail = $defaultConfig['expSettingsAvail'];
 }
-if(array_key_exists('flashTitleUpdateLog', $config))
+if(isset($_POST['flashTitleUpdateLog']))
+{
+	$flashTitleUpdateLog = $_POST['flashTitleUpdateLog'];
+}
+elseif(array_key_exists('flashTitleUpdateLog', $config))
 {
 	$flashTitleUpdateLog = $config['flashTitleUpdateLog'];
 }
@@ -156,11 +160,29 @@ else
 {
 	$flashTitleUpdateLog = $defaultConfig['flashTitleUpdateLog'];
 }
-
-
+if(isset($_POST['enableSystemPrefShellOrPhp']))
+{
+	$enableSystemPrefShellOrPhp = $_POST['enableSystemPrefShellOrPhp'];
+}
+elseif(array_key_exists('enableSystemPrefShellOrPhp', $config))
+{
+	$enableSystemPrefShellOrPhp = $config['enableSystemPrefShellOrPhp'];
+}
+else
+{
+	$enableSystemPrefShellOrPhp = $defaultConfig['enableSystemPrefShellOrPhp'];
+}
+if(array_key_exists('popupSettingsCustom', $config))
+{
+	$popupSettingsArray = $config['popupSettingsCustom'];
+}
+else
+{
+	$popupSettingsArray = $defaultConfig['popupSettingsCustom'];
+}
+$arrayWatchList = "";
 if(isset($_POST['numberOfRows']))
 {
-	$arrayWatchList = "";
 	for($i = 1; $i <= $_POST['numberOfRows']; $i++ )
 	{
 		$arrayWatchList .= "'".$_POST['watchListKey'.$i]."' => '".$_POST['watchListItem'.$i]."'";
@@ -172,7 +194,6 @@ if(isset($_POST['numberOfRows']))
 }
 else
 {
-	$arrayWatchList = "";
 	$numberOfRows = count($watchList);
 	$i = 0;
 	foreach ($watchList as $key => $value) 
@@ -186,5 +207,37 @@ else
 	}
 }
 
+$popupSettingsArraySave = "";
+if($popupWarnings == "all")
+{
+	$popupSettingsArraySave = "
+		'saveSettings'	=>	'true',
+		'blankFolder'	=>	'true',
+		'removeFolder'	=> 	'true'
+		";
+}
+elseif($popupWarnings == "none")
+{
+	$popupSettingsArraySave = "
+		'saveSettings'	=>	'false',
+		'blankFolder'	=>	'false',
+		'removeFolder'	=> 	'false'
+		";
+}
+else
+{
+	if(isset($_POST['saveSettings']))
+	{
+		$popupSettingsArraySave = "
+		'saveSettings'	=>	'".$_POST['saveSettings']."',
+		'blankFolder'	=>	'".$_POST['blankFolder']."',
+		'removeFolder'	=> 	'".$_POST['removeFolder']."'
+		";
+	}
+	else
+	{
+		$popupSettingsArraySave = $popupSettingsArray;
+	}
+}
 
 ?>

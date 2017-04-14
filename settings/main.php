@@ -137,7 +137,7 @@ require_once('../core/php/loadVars.php');
 					<?php foreach ($popupSettingsArray as $key => $value):?>
 						<li>
 						<span class="settingsBuffer" > <?php echo $key;?>: </span> 
-							<select name="truncateLog">
+							<select name="<?php echo $key;?>">
 		  						<option <?php if($value == 'true'){echo "selected";} ?> value="true">Yes</option>
 		  						<option <?php if($value == 'false'){echo "selected";} ?> value="false">No</option>
 							</select>

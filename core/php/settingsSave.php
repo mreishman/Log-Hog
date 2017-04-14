@@ -29,6 +29,9 @@ require_once('loadVars.php');
 			'enableSystemPrefShellOrPhp'   => '".$enableSystemPrefShellOrPhp."',
 			'expSettingsAvail'	=> '".$expSettingsAvail."',
 			'flashTitleUpdateLog'	=> '".$flashTitleUpdateLog."',
+			'popupSettings'	=>	'".$popupWarnings."',
+			'popupSettingsCustom'	=> array(
+			".$popupSettingsArraySave."),
 			'watchList' => array(
 			".$arrayWatchList.")
 		);
