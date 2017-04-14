@@ -8,7 +8,7 @@
 			'autoCheckUpdate' => 'true',
 			'developmentTabEnabled' => 'false',
 			'enableDevBranchDownload' => 'false',
-			'enableSystemPrefShellOrPhp'	=> 'false',
+			'enableSystemPrefShellOrPhp'   => 'false',
 			'expSettingsAvail'	=> 'true',
 			'flashTitleUpdateLog'	=> 'false',
 			'watchList' => array(

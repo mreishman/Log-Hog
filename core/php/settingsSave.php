@@ -26,6 +26,9 @@ require_once('loadVars.php');
 			'autoCheckUpdate' => '".$autoCheckUpdate."',
 			'developmentTabEnabled' => '".$developmentTabEnabled."',
 			'enableDevBranchDownload' => '".$enableDevBranchDownload."',
+			'enableSystemPrefShellOrPhp'   => '".$enableSystemPrefShellOrPhp."',
+			'expSettingsAvail'	=> '".$expSettingsAvail."',
+			'flashTitleUpdateLog'	=> '".$flashTitleUpdateLog."',
 			'watchList' => array(
 			".$arrayWatchList.")
 		);
