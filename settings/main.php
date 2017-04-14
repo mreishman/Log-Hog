@@ -418,7 +418,7 @@ function goToUrl(url)
 			});
 		}
 
-		if(goToPage)
+		if(goToPage || popupSettingsArray.saveSettings == "false")
 		{
 			window.location.href = url;
 		}

@@ -110,6 +110,14 @@ else
 {
 	$enableSystemPrefShellOrPhp = $defaultConfig['enableSystemPrefShellOrPhp'];
 }
+if(array_key_exists('popupSettingsCustom', $config))
+{
+	$popupSettingsArray = $config['popupSettingsCustom'];
+}
+else
+{
+	$popupSettingsArray = $defaultConfig['popupSettingsCustom'];
+}
 ?>
 	
 	
@@ -137,6 +145,7 @@ else
 <script src="../core/js/settings.js"></script>
 <script type="text/javascript">
 	document.getElementById("experimentalfeaturesLink").classList.add("active");
+	var popupSettingsArray = JSON.parse('<?php echo json_encode($popupSettingsArray) ?>');
 	function goToUrl(url)
 	{
 		var goToPage = true
@@ -145,7 +154,7 @@ else
 			goToPage = false;
 		}
 
-		if(goToPage)
+		if(goToPage || popupSettingsArray.saveSettings == "false")
 		{
 			window.location.href = url;
 		}
