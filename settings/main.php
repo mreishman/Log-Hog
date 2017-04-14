@@ -213,6 +213,7 @@ require_once('../core/php/loadVars.php');
 document.getElementById("mainLink").classList.add("active");
 document.getElementById("popupSelect").addEventListener("change", showOrHidePopupSubWindow, false);
 var popupSettingsArray = JSON.parse('<?php echo json_encode($popupSettingsArray) ?>');
+var fileArray = JSON.parse('<?php echo json_encode($config['watchList']) ?>');
 var countOfWatchList = <?php echo $i; ?>;
 var countOfAddedFiles = 0;
 var countOfClicks = 0;
@@ -344,6 +345,92 @@ function showNoEmptyFolderPopup()
 	showPopup();
 	document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Warning!</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Please make sure there are no empty folders when saving the Watch List.</div><div><div class='link' onclick='hidePopup();' style='margin-left:175px; margin-top:25px;'>Okay</div></div>";
 }
+
+function goToUrl(url)
+	{
+		var goToPage = true
+		if(document.getElementsByName("sliceSize")[0].value != "<?php echo $sliceSize;?>")
+		{
+			goToPage = false;
+		}
+		else if(document.getElementsByName("pollingRate")[0].value != "<?php echo $pollingRate;?>")
+		{
+			goToPage = false;
+		}
+		else if(document.getElementsByName("pausePoll")[0].value != "<?php echo $pausePoll;?>")
+		{
+			goToPage = false;
+		}
+		else if(document.getElementsByName("pauseOnNotFocus")[0].value != "<?php echo $pauseOnNotFocus;?>")
+		{
+			goToPage = false;
+		}
+		else if(document.getElementsByName("autoCheckUpdate")[0].value != "<?php echo $autoCheckUpdate;?>")
+		{
+			goToPage = false;
+		}
+		else if(document.getElementsByName("truncateLog")[0].value != "<?php echo $truncateLog;?>")
+		{
+			goToPage = false;
+		}
+		else if(document.getElementsByName("popupWarnings")[0].value != "<?php echo $popupWarnings;?>")
+		{
+			goToPage = false;
+		}
+		else if(document.getElementsByName("flashTitleUpdateLog")[0].value != "<?php echo $flashTitleUpdateLog;?>")
+		{
+			goToPage = false;
+		}
+		else if(document.getElementById("numberOfRows").value != "<?php echo $i;?>")
+		{
+			goToPage = false;
+		}
+		else if(document.getElementsByName("saveSettings")[0].value != popupSettingsArray.saveSettings)
+		{
+			goToPage = false;
+		}
+		else if(document.getElementsByName("blankFolder")[0].value != popupSettingsArray.blankFolder)
+		{
+			goToPage = false;
+		}
+		else if(document.getElementsByName("removeFolder")[0].value != popupSettingsArray.removeFolder)
+		{
+			goToPage = false;
+		}
+
+		if(goToPage)
+		{
+			var fileCount = 1;
+			$.each( fileArray, function( key, value ) 
+			{
+				if(goToPage)
+				{
+					if(document.getElementsByName("watchListKey"+fileCount)[0].value != key)
+					{
+						goToPage = false;
+					}
+					else if (document.getElementsByName("watchListItem"+fileCount)[0].value != value)
+					{
+						goToPage = false;
+					}
+					fileCount++;
+				}
+			});
+		}
+
+		if(goToPage)
+		{
+			window.location.href = url;
+		}
+		else
+		{
+			showPopup();
+			document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Changes not Saved!</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Are you sure you want to leave the page without saving changes?</div><div class='link' onclick='window.location.href = "+'"'+url+'"'+";' style='margin-left:125px; margin-right:50px;margin-top:25px;'>Yes</div><div onclick='hidePopup();' class='link'>No</div></div>";
+		}
+	}
+
+
+
 </script>
 
 

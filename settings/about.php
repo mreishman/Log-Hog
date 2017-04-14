@@ -144,4 +144,8 @@ else
 <script src="../core/js/settings.js"></script>
 <script type="text/javascript">
 	document.getElementById("aboutLink").classList.add("active");
+	function goToUrl(url)
+	{
+		window.location.href = url;
+	}
 </script>
