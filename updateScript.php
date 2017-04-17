@@ -18,17 +18,35 @@ while($countOfSlash < 20 && !file_exists($varToIndexDir."index.php"))
   
 if($currentFile == "core_html_popup.html")
 {
-	mkdir($varToIndexDir."/core/html/", 0777);	
+	mkdir($varToIndexDir."/core/html/", 0777);
+	$string = "Creating folder /core/html/";
+	updateProgressFile($string, "", "updateProgressFileNext.php", "");
+	updateProgressFile($string, "", "updateProgressFile.php", ""); 
 }
 	
 if($currentFile == "core_img_loading.gif")
 {
    rename($varToIndexDir.$indexToExtracted."core_img_loading.jpg", $varToIndexDir.$indexToExtracted."core_img_loading.gif");
    unlink($varToIndexDir."core/php/settingsMainUpdateVars.php");
+	$string = "Removing File core/php/settingsMainUpdateVars.php";
+	updateProgressFile($string, "", "updateProgressFileNext.php", "");
+	updateProgressFile($string, "", "updateProgressFile.php", ""); 
    unlink($varToIndexDir."core/php/settingsMainUpdateWatchList.php");
+	$string = "Removing File core/php/settingsMainUpdateWatchList.php";
+	updateProgressFile($string, "", "updateProgressFileNext.php", "");
+	updateProgressFile($string, "", "updateProgressFile.php", ""); 
    unlink($varToIndexDir."core/php/settingsDevBranch.php");
+	$string = "Removing File core/php/settingsDevBranch.php";
+	updateProgressFile($string, "", "updateProgressFileNext.php", "");
+	updateProgressFile($string, "", "updateProgressFile.php", ""); 
    unlink($varToIndexDir."core/php/settingsdevAdvancedSave.php");  
+	$string = "Removing File core/php/settingsdevAdvancedSave.php";
+	updateProgressFile($string, "", "updateProgressFileNext.php", "");
+	updateProgressFile($string, "", "updateProgressFile.php", "");
    unlink($varToIndexDir."settings/changelog.php");
+	$string = "Removing File settings/changelog.php";
+	updateProgressFile($string, "", "updateProgressFileNext.php", "");
+	updateProgressFile($string, "", "updateProgressFile.php", "");
 }
   
 //update innerUpgradeStatus file
