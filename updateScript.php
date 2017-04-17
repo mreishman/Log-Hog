@@ -16,6 +16,11 @@ while($countOfSlash < 20 && !file_exists($varToIndexDir."index.php"))
   $varToIndexDir .= "../";        
 }
   
+if($currentFile == "core_html_popup.html")
+{
+	mkdir($varToIndexDir."/core/html/", 0777);	
+}
+	
 if($currentFile == "core_img_loading.gif")
 {
    rename($varToIndexDir.$indexToExtracted."core_img_loading.jpg", $varToIndexDir.$indexToExtracted."core_img_loading.gif");
