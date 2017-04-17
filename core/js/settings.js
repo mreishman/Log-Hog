@@ -3,7 +3,7 @@ if(document.getElementById('menu'))
 {
 	offsetHeight = document.getElementById('menu').offsetHeight;
 }
-var heightOfMain = window.innerHeight - offsetHeight - 10;
+var heightOfMain = window.innerHeight - offsetHeight;
 var heightOfMainStyle = 'height:';
 heightOfMainStyle += heightOfMain;
 heightOfMainStyle += 'px';

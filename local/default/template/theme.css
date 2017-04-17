@@ -1,6 +1,6 @@
 body {
 	color: white;
-	background-color: #222;
+	background-color: #191919;
 	font-family: monospace;
 	padding: 0;
 	margin: 0;
@@ -20,6 +20,10 @@ div {
 	z-index: 10;
 	background-color: #222;
 	padding: .5em 1em;
+	max-height: 300px;
+	border-bottom: 1px solid white;
+	overflow-y: auto;
+	overflow-x: hidden;
 }
 
 #menu a {
@@ -30,7 +34,7 @@ div {
 	cursor: pointer;
 }
 
-#menu a:hover, #menu a.active {
+#menu a:hover, #menu a.active, .link:hover, .linkSmall:hover {
 	color: black;
 	background-color: white;
 }
@@ -61,7 +65,7 @@ div {
 	padding: .25em 1em;
 }
 
-#title {
+#titleContainer {
 	position: fixed;
 	left: 0;
 	bottom: 0;
@@ -70,6 +74,10 @@ div {
 	background-color: #ccc;
 	padding: 0 1em;
 	line-height: 2em;
+}
+
+#title{
+	display: inline-block;
 }
 
 #settingsUl
@@ -109,4 +117,32 @@ div {
 	margin: 2px;
 	padding-left: 10px;
 	word-wrap: break-word;
+}
+
+.settingsBuffer
+{
+	width: 200px;
+	display: inline-block;
+}
+
+.link
+{
+	display: inline-block;
+	padding: .5em 1em;
+	background-color: #2A912A;
+	cursor: pointer;
+	border: solid 1px white;
+	color: white;
+}
+
+.linkSmall
+{
+	display: inline-block;
+	padding: 3px 5px;
+	margin: 1px;
+	background-color: #2A912A;
+	cursor: pointer;
+	border: solid 1px white;
+	line-height: 100%;
+	color: white;
 }

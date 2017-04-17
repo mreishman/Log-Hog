@@ -75,6 +75,22 @@ else
 {
 	$developmentTabEnabled = $defaultConfig['developmentTabEnabled'];
 } 
+if(array_key_exists('expSettingsAvail', $config))
+{
+	$expSettingsAvail = $config['expSettingsAvail'];
+}
+else
+{
+	$expSettingsAvail = $defaultConfig['expSettingsAvail'];
+}
+if(array_key_exists('popupSettingsCustom', $config))
+{
+	$popupSettingsArray = $config['popupSettingsCustom'];
+}
+else
+{
+	$popupSettingsArray = $defaultConfig['popupSettingsCustom'];
+}
 ?>
 <!doctype html>
 <head>
@@ -84,23 +100,11 @@ else
 	<script src="../core/js/jquery.js"></script>
 </head>
 <body>
-	<div id="menu">
-		<div onclick="window.location.href = '../index.php'" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">
-			<img id="pauseImage" class="menuImage" src="../core/img/backArrow.png" height="30px">
-		</div>
-		<a onclick="window.location.href = 'main.php';" >Main</a>
-		<a onclick="window.location.href = 'about.php'">About</a>
-		<a onclick="window.location.href = 'update.php';"><?php  if($levelOfUpdate == 1){echo '<img src="../core/img/yellowWarning.png" height="10px">';} ?> <?php if($levelOfUpdate == 2){echo '<img src="../core/img/redWarning.png" height="10px">';} ?>Update</a>
-		<a class="active">Advanced</a>
-		<?php
-		if($developmentTabEnabled == 'true'):?>
-			<a onclick="window.location.href = 'devTools.php';"> Dev Tools </a>
-		<?php endif; ?>
-	</div>	
+	<?php require_once('header.php'); ?>
 	<div id="main">
-	<form id="devAdvanced" action="../core/php/settingsdevAdvancedSave.php" method="post">
+	<form id="devAdvanced" action="../core/php/settingsSave.php" method="post">
 		<div class="settingsHeader">
-			Development  <button>Save Changes</button>
+			Development  <button onclick="displayLoadingPopup();" >Save Changes</button>
 		</div>
 		<div class="settingsDiv" >
 			<ul id="settingsUl">
@@ -115,5 +119,28 @@ else
 		</div>
 	</form>
 	</div>
+	<?php readfile('../core/html/popup.html') ?>	
 </body>
 <script src="../core/js/settings.js"></script>
+<script type="text/javascript">
+	document.getElementById("advancedLink").classList.add("active");
+	var popupSettingsArray = JSON.parse('<?php echo json_encode($popupSettingsArray) ?>');
+	function goToUrl(url)
+	{
+		var goToPage = true
+		if(document.getElementsByName("developmentTabEnabled")[0].value != "<?php echo $developmentTabEnabled;?>")
+		{
+			goToPage = false;
+		}
+
+		if(goToPage || popupSettingsArray.saveSettings == "false")
+		{
+			window.location.href = url;
+		}
+		else
+		{
+			showPopup();
+			document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Changes not Saved!</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Are you sure you want to leave the page without saving changes?</div><div class='link' onclick='window.location.href = "+'"'+url+'"'+";' style='margin-left:125px; margin-right:50px;margin-top:25px;'>Yes</div><div onclick='hidePopup();' class='link'>No</div></div>";
+		}
+	}
+</script>

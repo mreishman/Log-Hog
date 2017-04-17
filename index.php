@@ -15,6 +15,7 @@ $version = explode('.', $configStatic['version']);
 $newestVersion = explode('.', $configStatic['newestVersion']);
 
 $levelOfUpdate = 0; // 0 is no updated, 1 is minor update and 2 is major update
+$beta = false;
 
 $newestVersionCount = count($newestVersion);
 $versionCount = count($version);
@@ -32,6 +33,7 @@ for($i = 0; $i < $newestVersionCount; $i++)
 			}
 			elseif($newestVersion[$i] < $version[$i])
 			{
+				$beta = true;
 				break;
 			}
 		}
@@ -44,6 +46,7 @@ for($i = 0; $i < $newestVersionCount; $i++)
 			}
 			elseif($newestVersion[$i] < $version[$i])
 			{
+				$beta = true;
 				break;
 			}
 		}
@@ -56,6 +59,7 @@ for($i = 0; $i < $newestVersionCount; $i++)
 			}
 			elseif($newestVersion[$i] < $version[$i])
 			{
+				$beta = true;
 				break;
 			}
 		}
@@ -66,7 +70,14 @@ for($i = 0; $i < $newestVersionCount; $i++)
 		break;
 	}
 }
-
+if(array_key_exists('truncateLogButtonAll', $config))
+{
+	$truncateLog = $config['truncateLogButtonAll'];
+}
+else
+{
+	$truncateLog = $defaultConfig['truncateLogButtonAll'];
+}
 ?>
 <!doctype html>
 <head>
@@ -80,6 +91,9 @@ for($i = 0; $i < $newestVersionCount; $i++)
 	<script src="core/js/visibility.timers.js"></script>
 </head>
 <body>
+	<?php if($beta): ?>
+		<div style="width: 100%;color: red;background-color: black;text-align: center; line-height: 200%;" >You are currently on a beta branch. - Only intended for development purposes</div>
+	<?php endif; ?>
 	<div id="menu">
 		<div onclick="pausePollAction();" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">
 			<img id="pauseImage" class="menuImage" src="core/img/Pause.png" height="30px">
@@ -87,10 +101,22 @@ for($i = 0; $i < $newestVersionCount; $i++)
 		<div onclick="refreshAction();" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">
 			<img id="refreshImage" class="menuImage" src="core/img/Refresh.png" height="30px">
 		</div>
+		<?php if($truncateLog == 'true'): ?>
+		<div onclick="deleteAction();" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">
+			<img id="deleteImage" class="menuImage" src="core/img/trashCanMulti.png" height="30px">
+		</div>
+		<?php else: ?>
+		<div onclick="clearLog();" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">
+			<img id="deleteImage" class="menuImage" src="core/img/trashCan.png" height="30px">
+		</div>
+		<?php endif; ?>
 		<div onclick="window.location.href = './settings/main.php';" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">
 			<img id="gear" class="menuImage" src="core/img/Gear.png" height="30px">
 			<?php  if($levelOfUpdate == 1){echo '<img src="core/img/yellowWarning.png" height="15px" style="position: absolute;margin-left: 13px;margin-top: -34px;">';} ?> <?php if($levelOfUpdate == 2){echo '<img src="core/img/redWarning.png" height="15px" style="position: absolute;margin-left: 13px;margin-top: -34px;">';} ?>
 		</div>
+		<?php if (is_dir("../status")):?>
+			<div style="display: inline-block; cursor: pointer; " onclick="window.location.href='../status/'" >gS</div>
+		<?php endif; ?>
 	</div>
 	
 	<div id="main">
@@ -103,7 +129,7 @@ for($i = 0; $i < $newestVersionCount; $i++)
 		</div>
 	</div>
 	
-	<div id="title">&nbsp;</div>
+	<div id="titleContainer"><div id="title">&nbsp;</div>&nbsp;&nbsp;<form style="display: inline-block;" ><a class="linkSmall" onclick="clearLog()" >Clear Log</a></form></div>
 	
 	<script>
 		<?php
@@ -138,6 +164,14 @@ for($i = 0; $i < $newestVersionCount; $i++)
 			else
 			{
 				echo "var autoCheckUpdate = ".$defaultConfig['autoCheckUpdate'].";";
+			}
+			if(array_key_exists('flashTitleUpdateLog', $config))
+			{
+				echo "var flashTitleUpdateLog = ".$config['flashTitleUpdateLog'].";";
+			}
+			else
+			{
+				echo "var flashTitleUpdateLog = ".$defaultConfig['flashTitleUpdateLog'].";";
 			}
 		echo "var dateOfLastUpdate = '".$configStatic['lastCheck']."';";
 		?>

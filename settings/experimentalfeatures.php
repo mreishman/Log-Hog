@@ -67,14 +67,6 @@ for($i = 0; $i < $newestVersionCount; $i++)
 	}
 }
 
-if(array_key_exists('enableDevBranchDownload', $config))
-{
-	$enableDevBranchDownload = $config['enableDevBranchDownload'];
-}
-else
-{
-	$enableDevBranchDownload = $defaultConfig['enableDevBranchDownload'];
-} 
 if(array_key_exists('developmentTabEnabled', $config))
 {
 	$developmentTabEnabled = $config['developmentTabEnabled'];
@@ -82,6 +74,41 @@ if(array_key_exists('developmentTabEnabled', $config))
 else
 {
 	$developmentTabEnabled = $defaultConfig['developmentTabEnabled'];
+} 
+if(array_key_exists('expSettingsAvail', $config))
+{
+	$expSettingsAvail = $config['expSettingsAvail'];
+}
+else
+{
+	$expSettingsAvail = $defaultConfig['expSettingsAvail'];
+}
+?>
+<!doctype html>
+<head>
+	<title>Settings | Main</title>
+	<link rel="stylesheet" type="text/css" href="<?php echo $baseUrl ?>template/theme.css">
+	<link rel="icon" type="image/png" href="../core/img/favicon.png" />
+	<script src="../core/js/jquery.js"></script>
+</head>
+<body>
+	<?php require_once('header.php');
+
+if(array_key_exists('autoCheckUpdate', $config))
+{
+	$autoCheckUpdate = $config['autoCheckUpdate'];
+}
+else
+{
+	$autoCheckUpdate = $defaultConfig['autoCheckUpdate'];
+}
+if(array_key_exists('enableSystemPrefShellOrPhp', $config))
+{
+	$enableSystemPrefShellOrPhp = $config['enableSystemPrefShellOrPhp'];
+}
+else
+{
+	$enableSystemPrefShellOrPhp = $defaultConfig['enableSystemPrefShellOrPhp'];
 }
 if(array_key_exists('popupSettingsCustom', $config))
 {
@@ -92,43 +119,37 @@ else
 	$popupSettingsArray = $defaultConfig['popupSettingsCustom'];
 }
 ?>
-<!doctype html>
-<head>
-	<title>Settings | Dev Tools</title>
-	<link rel="stylesheet" type="text/css" href="<?php echo $baseUrl ?>template/theme.css">
-	<link rel="icon" type="image/png" href="../core/img/favicon.png" />
-	<script src="../core/js/jquery.js"></script>
-</head>
-<body>
-	<?php require_once('header.php'); ?>
+	
+	
+
 	<div id="main">
-	<form id="devAdvanced" action="../core/php/settingsSave.php" method="post">
+		<form id="devAdvanced" action="../core/php/settingsSave.php" method="post">
 		<div class="settingsHeader">
-			Branch Settings  <button onclick="displayLoadingPopup();" >Save Changes</button>
+		Experimental Features <button onclick="displayLoadingPopup();" >Save Changes</button>
 		</div>
 		<div class="settingsDiv" >
 			<ul id="settingsUl">
 				<li>
-					Enable Development Branch:
-						<select name="enableDevBranchDownload">
-  						<option <?php if($enableDevBranchDownload == 'true'){echo "selected";} ?> value="true">True</option>
-  						<option <?php if($enableDevBranchDownload == 'false'){echo "selected";} ?> value="false">False</option>
+					System preference:
+						<select name="enableSystemPrefShellOrPhp">
+  						<option <?php if($enableSystemPrefShellOrPhp == 'true'){echo "selected";} ?> value="true">PHP</option>
+  						<option <?php if($enableSystemPrefShellOrPhp == 'false'){echo "selected";} ?> value="false">shell_exec</option>
 					</select>
 				</li>
 			</ul>
 		</div>
-	</form>
-	</div>
+		</form>
+	</div>	
 	<?php readfile('../core/html/popup.html') ?>	
 </body>
 <script src="../core/js/settings.js"></script>
 <script type="text/javascript">
-	document.getElementById("devToolsLink").classList.add("active");
+	document.getElementById("experimentalfeaturesLink").classList.add("active");
 	var popupSettingsArray = JSON.parse('<?php echo json_encode($popupSettingsArray) ?>');
 	function goToUrl(url)
 	{
 		var goToPage = true
-		if(document.getElementsByName("enableDevBranchDownload")[0].value != "<?php echo $enableDevBranchDownload;?>")
+		if(document.getElementsByName("enableSystemPrefShellOrPhp")[0].value != "<?php echo $enableSystemPrefShellOrPhp;?>")
 		{
 			goToPage = false;
 		}

@@ -149,7 +149,10 @@ function update(data) {
 		}
 		
 		if(initialized && updated && $(window).filter(':focus').length == 0) {
-			flashTitle();
+			if(flashTitleUpdateLog)
+			{
+				flashTitle();
+			}
 		}
 	}
 	resize();
@@ -243,7 +246,7 @@ else
 {
 	setInterval(poll, pollingRate);
 }
-setInterval(poll, pollingRate);
+//setInterval(poll, pollingRate);
 resize();
 
 window.onresize = resize;
@@ -283,6 +286,7 @@ function checkIfPageHidden()
 		{
 			pausePoll = false;
 			document.getElementById('pauseImage').src="core/img/Pause.png";
+			stopFlashTitle();
 		}
 		if(userPaused)
 		{
@@ -300,4 +304,35 @@ function pausePollFunction()
 
 function isPageHidden(){
      return document.hidden || document.msHidden || document.webkitHidden || document.mozHidden;
- }
+}
+
+function clearLog()
+{
+	var urlForSend = 'core/php/clearLog.php?format=json'
+	var data = {file: document.getElementById("title").innerHTML};
+	$.ajax({
+			  url: urlForSend,
+			  dataType: 'json',
+			  data: data,
+			  type: 'POST',
+	success: function(data){
+    // we make a successful JSONP call!
+  },
+});
+}
+
+
+function deleteAction()
+{
+	var urlForSend = 'core/php/clearAllLogs.php?format=json'
+	var data = "";
+	$.ajax({
+			  url: urlForSend,
+			  dataType: 'json',
+			  data: data,
+			  type: 'POST',
+	success: function(data){
+    // we make a successful JSONP call!
+  },
+});
+}
