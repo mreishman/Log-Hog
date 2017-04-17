@@ -22,7 +22,8 @@ if($currentFile == "core_img_loading.gif")
    unlink($varToIndixDir."core/php/settingsMainUpdateVars.php");
    unlink($varToIndixDir."core/php/settingsMainUpdateWatchList.php");
    unlink($varToIndixDir."core/php/settingsDevBranch.php");
-   unlink($varToIndixDir."core/php/settingsdevAdvancedSave.php");
+   unlink($varToIndixDir."core/php/settingsdevAdvancedSave.php");  
+   unlink($varToIndixDir."settings/changelog.php");
 }
   
 //update innerUpgradeStatus file
