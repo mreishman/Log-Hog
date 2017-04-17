@@ -165,7 +165,14 @@ require_once('../core/php/loadVars.php');
 		<ul id="settingsUl">
 			<?php 
 				$i = 0;
-				foreach($config['watchList'] as $key => $item): $i++; ?>
+				$triggerSaveUpdate = false;
+				foreach($config['watchList'] as $key => $item): $i++;
+				if(strpos($item, "\\") !== false)
+				{
+					$item = str_replace("\\", "", $item);
+					$triggerSaveUpdate = true;
+				}
+				?>
 			<li id="rowNumber<?php echo $i; ?>" >
 				File #<?php if($i < 10){echo "0";} ?><?php echo $i; ?>:
 				<?php
@@ -210,6 +217,14 @@ require_once('../core/php/loadVars.php');
 </body>
 <script src="../core/js/settings.js"></script>
 <script type="text/javascript">
+<?php
+	if($triggerSaveUpdate)
+	{
+		echo "document.getElementById('settingsMainWatch').submit();";
+	}
+	else
+	{
+	?>
 document.getElementById("mainLink").classList.add("active");
 document.getElementById("popupSelect").addEventListener("change", showOrHidePopupSubWindow, false);
 var popupSettingsArray = JSON.parse('<?php echo json_encode($popupSettingsArray) ?>');
@@ -428,15 +443,7 @@ function goToUrl(url)
 			document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Changes not Saved!</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Are you sure you want to leave the page without saving changes?</div><div class='link' onclick='window.location.href = "+'"'+url+'"'+";' style='margin-left:125px; margin-right:50px;margin-top:25px;'>Yes</div><div onclick='hidePopup();' class='link'>No</div></div>";
 		}
 	}
-
-
-
+	<?php
+	}
+	?>
 </script>
-
-
-
-
-
-
-
-	
