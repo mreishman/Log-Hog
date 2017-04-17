@@ -19,11 +19,11 @@ while($countOfSlash < 20 && !file_exists($varToIndexDir."index.php"))
 if($currentFile == "core_img_loading.gif")
 {
    rename($varToIndexDir.$indexToExtracted."core_img_loading.jpg", $varToIndexDir.$indexToExtracted."core_img_loading.gif");
-   unlink($varToIndixDir."core/php/settingsMainUpdateVars.php");
-   unlink($varToIndixDir."core/php/settingsMainUpdateWatchList.php");
-   unlink($varToIndixDir."core/php/settingsDevBranch.php");
-   unlink($varToIndixDir."core/php/settingsdevAdvancedSave.php");  
-   unlink($varToIndixDir."settings/changelog.php");
+   unlink($varToIndexDir."core/php/settingsMainUpdateVars.php");
+   unlink($varToIndexDir."core/php/settingsMainUpdateWatchList.php");
+   unlink($varToIndexDir."core/php/settingsDevBranch.php");
+   unlink($varToIndexDir."core/php/settingsdevAdvancedSave.php");  
+   unlink($varToIndexDir."settings/changelog.php");
 }
   
 //update innerUpgradeStatus file
