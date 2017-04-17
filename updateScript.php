@@ -1,6 +1,6 @@
 <?php
   
-$arrayOfFiles = array("core_js_main.js", "core_php_settingsCheckForUpdate.php","settings_main.php","settings_update.php");
+$arrayOfFiles = array("core_conf_config.php", "core_html_popup.html","core_img_fileIcon.png","core_img_folderIcon.png","core_img_loading.gif","core_img_trashCan.png","core_img_trashCanMulti.png","core_js_main.js","core_js_settings.js","core_php_clearAllLogs.php","core_php_clearLog.php","core_php_loadVars.php","core_php_poll.php","core_php_settingsSave.php","core_template_theme.css","index.php","local_default_template_theme.css","settings_about.php","settings_advanced.php","settings_changelog.html","settings_devTools.php","settings_experimentalfeatures.php","settings_header.php","settings_main.php","settings_update.php");
 
 require_once("innerUpgradeStatus.php");
 
@@ -16,9 +16,9 @@ while($countOfSlash < 20 && !file_exists($varToIndexDir."index.php"))
   $varToIndexDir .= "../";        
 }
   
-if($currentFile == "core_js_main.js")
+if($currentFile == "core_img_loading.gif")
 {
-   rename($varToIndexDir.$indexToExtracted."core_js_main.php", $varToIndexDir.$indexToExtracted."core_js_main.js");
+   rename($varToIndexDir.$indexToExtracted."core_img_loading.jpg", $varToIndexDir.$indexToExtracted."core_img_loading.gif");
 }
   
 //update innerUpgradeStatus file
