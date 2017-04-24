@@ -470,6 +470,10 @@ function goToUrl(url)
 		{
 			goToPage = false;
 		}
+		else if(document.getElementsByName("pollingRateType")[0].value != "<?php echo $pollingRateType;?>")
+		{
+			goToPage = false;
+		}
 
 		if(goToPage)
 		{

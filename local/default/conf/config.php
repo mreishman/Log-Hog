@@ -13,6 +13,7 @@
 			'flashTitleUpdateLog'	=> 'false',
 			'truncateLogButtonAll' => 'true',
 			'popupSettings'	=>	'all',
+			'pollingRateType'	=> 'Milliseconds',
 			'popupSettingsCustom'	=> array(
 			
 		'saveSettings'	=>	'true',
