@@ -91,6 +91,14 @@ else
 {
 	$popupSettingsArray = $defaultConfig['popupSettingsCustom'];
 }
+if(array_key_exists('expSettingsAvail', $config))
+{
+	$expSettingsAvail = $config['expSettingsAvail'];
+}
+else
+{
+	$expSettingsAvail = $defaultConfig['expSettingsAvail'];
+}
 ?>
 <!doctype html>
 <head>
