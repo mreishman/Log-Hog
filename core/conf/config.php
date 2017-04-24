@@ -13,6 +13,7 @@ $defaultConfig = array(
 	'truncateLogButtonAll'	=> 'true',
 	'popupSettings'	=>	'all',
 	'flashTitleUpdateLog'	=> 'false',
+	'pollingRateType'	=> 'Milliseconds',
 	'popupSettingsCustom'	=> array(
 		'saveSettings'	=>	'true',
 		'blankFolder'	=>	'true',

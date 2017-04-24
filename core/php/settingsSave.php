@@ -31,6 +31,7 @@ require_once('loadVars.php');
 			'flashTitleUpdateLog'	=> '".$flashTitleUpdateLog."',
 			'truncateLogButtonAll' => '".$truncateLog."',
 			'popupSettings'	=>	'".$popupWarnings."',
+			'pollingRateType'	=> '".$pollingRateType."',
 			'popupSettingsCustom'	=> array(
 			".$popupSettingsArraySave."),
 			'watchList' => array(

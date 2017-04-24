@@ -141,6 +141,18 @@ else
 			{
 				echo "var pollingRate = ".$defaultConfig['pollingRate'].";";
 			} 
+			if(array_key_exists('pollingRateType', $config))
+			{
+				$pollingRateType = $config['pollingRateType'];
+			}
+			else
+			{
+				$pollingRateType = $defaultConfig['pollingRateType'];
+			}
+			if($pollingRateType == 'Seconds')
+			{
+				echo "pollingRate *= 1000;";
+			}
 			if(array_key_exists('pausePoll', $config))
 			{
 				echo "var pausePollFromFile = ".$config['pausePoll'].";";
@@ -175,7 +187,6 @@ else
 			}
 		echo "var dateOfLastUpdate = '".$configStatic['lastCheck']."';";
 		?>
-
 		var pausePoll = false;
 		var refreshActionVar;
 		var refreshPauseActionVar;

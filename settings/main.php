@@ -90,7 +90,11 @@ require_once('../core/php/loadVars.php');
 				<span class="settingsBuffer" > Slice Size:</span>  <input type="text" name="sliceSize" value="<?php echo $sliceSize;?>" > Lines
 			</li>
 			<li>
-				<span class="settingsBuffer" > Polling Rate: </span>  <input type="text" name="pollingRate" value="<?php echo $pollingRate;?>" > Milliseconds
+				<span class="settingsBuffer" > Polling Rate: </span>  <input type="text" name="pollingRate" value="<?php echo $pollingRate;?>" >
+				<select name="pollingRateType">
+						<option <?php if($pollingRateType == 'Milliseconds'){echo "selected";} ?> value="Milliseconds">Milliseconds</option>
+						<option <?php if($pollingRateType == 'Seconds'){echo "selected";} ?> value="Seconds">Seconds</option>
+				</select>
 			</li>
 			<li>
 				<span class="settingsBuffer" > Pause Poll By Default:  </span> 

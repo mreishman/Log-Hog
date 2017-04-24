@@ -180,6 +180,24 @@ else
 {
 	$popupSettingsArray = $defaultConfig['popupSettingsCustom'];
 }
+if(isset($_POST['pollingRateType']))
+{
+	$pollingRateType = $_POST['pollingRateType'];
+}
+elseif(array_key_exists('pollingRateType', $config))
+{
+	$pollingRateType = $config['pollingRateType'];
+}
+else
+{
+	$pollingRateType = $defaultConfig['pollingRateType'];
+}
+
+
+
+
+
+
 $arrayWatchList = "";
 if(isset($_POST['numberOfRows']))
 {
