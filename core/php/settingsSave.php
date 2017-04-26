@@ -24,6 +24,7 @@ require_once('loadVars.php');
 			'pausePoll' => '".$pausePoll."',
 			'pauseOnNotFocus' => '".$pauseOnNotFocus."',
 			'autoCheckUpdate' => '".$autoCheckUpdate."',
+			'autoCheckDaysUpdate'	=>	'".$autoCheckDaysUpdate."',
 			'developmentTabEnabled' => '".$developmentTabEnabled."',
 			'enableDevBranchDownload' => '".$enableDevBranchDownload."',
 			'enableSystemPrefShellOrPhp'   => '".$enableSystemPrefShellOrPhp."',

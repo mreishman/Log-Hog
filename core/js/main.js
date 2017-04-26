@@ -31,7 +31,7 @@ function poll() {
 		} 
 
 		today = mm+'-'+dd+'-'+yyyy;
-		if(today != dateOfLastUpdate)
+		if(daysSinceLastCheck > (daysSetToUpdate - 1))
 		{
 			updating = true;
 			window.location.href = "core/php/settingsCheckForUpdate.php";
@@ -232,7 +232,7 @@ if (autoCheckUpdate == true)
 		} 
 
 		today = mm+'-'+dd+'-'+yyyy;
-		if(today != dateOfLastUpdate && !updating)
+		if(daysSinceLastCheck > (daysSetToUpdate - 1) && !updating)
 		{
 			updating = true;
 			window.location.href = "core/php/settingsCheckForUpdate.php";

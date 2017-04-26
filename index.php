@@ -78,6 +78,30 @@ else
 {
 	$truncateLog = $defaultConfig['truncateLogButtonAll'];
 }
+
+if(array_key_exists('autoCheckDaysUpdate', $config))
+{
+	$autoCheckDaysUpdate = $config['autoCheckDaysUpdate'];
+}
+else
+{
+	$polliautoCheckDaysUpdatengRateType = $defaultConfig['autoCheckDaysUpdate'];
+}
+
+$today = date('Y-m-d');
+$old_date = $configStatic['lastCheck'];
+$old_date_array = split("-", $old_date);
+$old_date = $old_date_array[2]."-".$old_date_array[0]."-".$old_date_array[1];
+//$old_date = date_format( $old_date ,"Y-m-d");          
+//$old_date_timestamp = strtotime($old_date);
+//$new_date = date('Y-m-d', $old_date_timestamp); 
+
+$datetime1 = date_create($old_date_array[2]."-".$old_date_array[0]."-".$old_date_array[1]);
+$datetime2 = date_create($today);
+$interval = date_diff($datetime1, $datetime2);
+$daysSince = $interval->format('%a');
+
+
 ?>
 <!doctype html>
 <head>
@@ -186,6 +210,8 @@ else
 				echo "var flashTitleUpdateLog = ".$defaultConfig['flashTitleUpdateLog'].";";
 			}
 		echo "var dateOfLastUpdate = '".$configStatic['lastCheck']."';";
+		echo "var daysSinceLastCheck = '".$daysSince."';";
+		echo "var daysSetToUpdate = '".$autoCheckDaysUpdate."';";
 		?>
 		var pausePoll = false;
 		var refreshActionVar;

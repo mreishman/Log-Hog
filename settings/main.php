@@ -112,10 +112,28 @@ require_once('../core/php/loadVars.php');
 			</li>
 			<li>
 				<span class="settingsBuffer" > Auto Check Update: </span> 
-					<select name="autoCheckUpdate">
+					<select id="settingsSelect" name="autoCheckUpdate">
   						<option <?php if($autoCheckUpdate == 'true'){echo "selected";} ?> value="true">True</option>
   						<option <?php if($autoCheckUpdate == 'false'){echo "selected";} ?> value="false">False</option>
 					</select>
+
+				<div id="settingsAutoCheckVars" <?php if($autoCheckUpdate == 'false'){echo "style='display: none;'";}?> >
+
+				<div class="settingsHeader">
+					Auto Check Update Settings
+					</div>
+					<div class="settingsDiv" >
+					<ul id="settingsUl">
+					
+						<li>
+						<span class="settingsBuffer" > Check for update every: </span> 
+							<input type="text" name="autoCheckDaysUpdate" value="<?php echo $autoCheckDaysUpdate;?>" >  Day(s)
+						</li>
+
+					</ul>
+					</div>
+				</div>
+
 			</li>
 			<li>
 				<span class="settingsBuffer" > Truncate Log Button: </span> 
@@ -285,6 +303,7 @@ require_once('../core/php/loadVars.php');
 	?>
 document.getElementById("mainLink").classList.add("active");
 document.getElementById("popupSelect").addEventListener("change", showOrHidePopupSubWindow, false);
+document.getElementById("settingsSelect").addEventListener("change", showOrHideUpdateSubWindow, false);
 var popupSettingsArray = JSON.parse('<?php echo json_encode($popupSettingsArray) ?>');
 var fileArray = JSON.parse('<?php echo json_encode($config['watchList']) ?>');
 var countOfWatchList = <?php echo $i; ?>;
@@ -391,6 +410,18 @@ function showOrHidePopupSubWindow()
 		document.getElementById('settingsPopupVars').style.display = 'none';
 	}
 }
+function showOrHideUpdateSubWindow()
+{
+	var valueForPopup = document.getElementById('settingsSelect').value;
+	if(valueForPopup == 'true')
+	{
+		document.getElementById('settingsAutoCheckVars').style.display = 'block';
+	}
+	else
+	{
+		document.getElementById('settingsAutoCheckVars').style.display = 'none';
+	}
+}
 function checkWatchList()
 {
 	var blankValue = false;
@@ -474,6 +505,11 @@ function goToUrl(url)
 		{
 			goToPage = false;
 		}
+		else if(document.getElementsByName("autoCheckDaysUpdate")[0].value != "<?php echo $autoCheckDaysUpdate;?>")
+		{
+			goToPage = false;
+		}
+		
 
 		if(goToPage)
 		{

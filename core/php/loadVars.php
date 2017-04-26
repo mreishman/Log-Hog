@@ -192,8 +192,18 @@ else
 {
 	$pollingRateType = $defaultConfig['pollingRateType'];
 }
-
-
+if(isset($_POST['autoCheckDaysUpdate']))
+{
+	$autoCheckDaysUpdate = $_POST['autoCheckDaysUpdate'];
+}
+elseif(array_key_exists('autoCheckDaysUpdate', $config))
+{
+	$autoCheckDaysUpdate = $config['autoCheckDaysUpdate'];
+}
+else
+{
+	$polliautoCheckDaysUpdatengRateType = $defaultConfig['autoCheckDaysUpdate'];
+}
 
 
 
