@@ -166,7 +166,7 @@ $daysSince = $interval->format('%a');
 		</div>
 	</div>
 	
-	<div id="titleContainer"><div id="title">&nbsp;</div>&nbsp;&nbsp;<form style="display: inline-block;" ><a class="linkSmall" onclick="clearLog()" >Clear Log</a></form></div>
+	<div id="titleContainer"><div id="title">&nbsp;</div>&nbsp;&nbsp;<form style="display: inline-block;" ><a class="linkSmall" onclick="clearLog()" >Clear Log</a><a class="linkSmall" onclick="deleteLogPopup()" >Delete Log</a></form></div>
 	
 	<script>
 		<?php
@@ -234,4 +234,5 @@ $daysSince = $interval->format('%a');
 	</script>
 	
 	<script src="core/js/main.js"></script>
+	<?php readfile('core/html/popup.html') ?>	
 </body>
