@@ -87,6 +87,14 @@ else
 {
 	$polliautoCheckDaysUpdatengRateType = $defaultConfig['autoCheckDaysUpdate'];
 }
+if(array_key_exists('enableHtopLink', $config))
+{
+	$enableHtopLink = $config['enableHtopLink'];
+}
+else
+{
+	$enableHtopLink = $defaultConfig['enableHtopLink'];
+}
 
 $today = date('Y-m-d');
 $old_date = $configStatic['lastCheck'];
@@ -134,9 +142,11 @@ $daysSince = $interval->format('%a');
 			<img id="deleteImage" class="menuImage" src="core/img/trashCan.png" height="30px">
 		</div>
 		<?php endif; ?>
-		<div onclick="window.location.href = './core/php/statusTest.php'" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">
-			<img id="taskmanagerImage" class="menuImage" src="core/img/task-manager.png" height="30px">
-		</div>
+		<?php if($enableHtopLink == 'true'): ?>
+			<div onclick="window.location.href = './core/php/statusTest.php'" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">
+				<img id="taskmanagerImage" class="menuImage" src="core/img/task-manager.png" height="30px">
+			</div>
+		<?php endif; ?>
 		<div onclick="window.location.href = './settings/main.php';" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">
 			<img id="gear" class="menuImage" src="core/img/Gear.png" height="30px">
 			<?php  if($levelOfUpdate == 1){echo '<img src="core/img/yellowWarning.png" height="15px" style="position: absolute;margin-left: 13px;margin-top: -34px;">';} ?> <?php if($levelOfUpdate == 2){echo '<img src="core/img/redWarning.png" height="15px" style="position: absolute;margin-left: 13px;margin-top: -34px;">';} ?>

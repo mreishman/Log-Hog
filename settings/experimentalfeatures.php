@@ -118,6 +118,14 @@ else
 {
 	$popupSettingsArray = $defaultConfig['popupSettingsCustom'];
 }
+if(array_key_exists('enableHtopLink', $config))
+{
+	$enableHtopLink = $config['enableHtopLink'];
+}
+else
+{
+	$enableHtopLink = $defaultConfig['enableHtopLink'];
+}
 ?>
 	
 	
@@ -134,6 +142,13 @@ else
 						<select name="enableSystemPrefShellOrPhp">
   						<option <?php if($enableSystemPrefShellOrPhp == 'true'){echo "selected";} ?> value="true">PHP</option>
   						<option <?php if($enableSystemPrefShellOrPhp == 'false'){echo "selected";} ?> value="false">shell_exec</option>
+					</select>
+				</li>
+				<li>
+					Htop link:
+						<select name="enableHtopLink">
+  						<option <?php if($enableHtopLink == 'true'){echo "selected";} ?> value="true">Enabled</option>
+  						<option <?php if($enableHtopLink == 'false'){echo "selected";} ?> value="false">Disabled</option>
 					</select>
 				</li>
 			</ul>

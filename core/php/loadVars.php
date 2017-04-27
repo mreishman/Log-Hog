@@ -204,6 +204,18 @@ else
 {
 	$polliautoCheckDaysUpdatengRateType = $defaultConfig['autoCheckDaysUpdate'];
 }
+if(isset($_POST['enableHtopLink']))
+{
+	$enableHtopLink = $_POST['enableHtopLink'];
+}
+elseif(array_key_exists('enableHtopLink', $config))
+{
+	$enableHtopLink = $config['enableHtopLink'];
+}
+else
+{
+	$enableHtopLink = $defaultConfig['enableHtopLink'];
+}
 
 
 

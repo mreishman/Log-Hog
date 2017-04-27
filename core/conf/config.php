@@ -9,6 +9,7 @@ $defaultConfig = array(
 	'developmentTabEnabled' => 'false',
 	'enableDevBranchDownload' => 'false',
 	'enableSystemPrefShellOrPhp'	=> 'false',
+	'enableHtopLink'	=> 'true',
 	'expSettingsAvail'	=> 'true',
 	'truncateLogButtonAll'	=> 'true',
 	'popupSettings'	=>	'all',

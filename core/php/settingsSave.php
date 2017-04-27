@@ -28,6 +28,7 @@ require_once('loadVars.php');
 			'developmentTabEnabled' => '".$developmentTabEnabled."',
 			'enableDevBranchDownload' => '".$enableDevBranchDownload."',
 			'enableSystemPrefShellOrPhp'   => '".$enableSystemPrefShellOrPhp."',
+			'enableHtopLink'	=> '".$enableHtopLink."',
 			'expSettingsAvail'	=> '".$expSettingsAvail."',
 			'flashTitleUpdateLog'	=> '".$flashTitleUpdateLog."',
 			'truncateLogButtonAll' => '".$truncateLog."',
