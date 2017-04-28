@@ -19,13 +19,49 @@ else
 {
 	$enableSystemPrefShellOrPhp = $defaultConfig['enableSystemPrefShellOrPhp'];
 }
+if(array_key_exists('logTrimOn', $config))
+{
+	$logTrimOn = $config['logTrimOn'];
+}
+else
+{
+	$logTrimOn = $defaultConfig['logTrimOn'];
+}
+if(array_key_exists('logSizeLimit', $config))
+{
+	$logSizeLimit = $config['logSizeLimit'];
+}
+else
+{
+	$logSizeLimit = $defaultConfig['logSizeLimit'];
+}
+if(array_key_exists('logTrimMacBSD', $config))
+{
+	$logTrimMacBSD = $config['logTrimMacBSD'];
+}
+else
+{
+	$logTrimMacBSD = $defaultConfig['logTrimMacBSD'];
+}
 
-
-function tail($filename, $sliceSize, $shellOrPhp) 
+function tail($filename, $sliceSize, $shellOrPhp, $logTrimCheck, $logSizeLimit,$logTrimMacBSD) 
 {
 	$filename = preg_replace('/([()"])/S', '$1', $filename);
 	//echo $filename, "\n";
-	if(!$shellOrPhp)
+
+	if($logTrimCheck == "true")
+	{
+		if($logTrimMacBSD == "true")
+		{
+			trim(shell_exec('sed -i "" "' . $logSizeLimit . ',$ d" ' . $filename));
+		}
+		else
+		{
+			trim(shell_exec('sed -i "' . $logSizeLimit . ',$ d" ' . $filename));
+		}
+	}
+
+	if($shellOrPhp == "true")
 	{
 		return trim(tailCustom($filename, $sliceSize));
 	}
@@ -110,12 +146,12 @@ foreach($config['watchList'] as $path => $filter)
 			foreach($files as $k => $filename) {
 				$fullPath = $path . '/' . $filename;
 				if(preg_match('/' . $filter . '/S', $filename) && is_file($fullPath))
-					$response[$fullPath] = htmlentities(tail($fullPath, $config['sliceSize'], $enableSystemPrefShellOrPhp));
+					$response[$fullPath] = htmlentities(tail($fullPath, $config['sliceSize'], $enableSystemPrefShellOrPhp, $logTrimOn, $logSizeLimit,$logTrimMacBSD));
 			}
 		}
 	}
 	elseif(file_exists($path))
-		$response[$path] = htmlentities(tail($path, $config['sliceSize'], $enableSystemPrefShellOrPhp));
+		$response[$path] = htmlentities(tail($path, $config['sliceSize'], $enableSystemPrefShellOrPhp, $logTrimOn, $logSizeLimit,$logTrimMacBSD));
 }
 
 echo json_encode($response);

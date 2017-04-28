@@ -102,6 +102,41 @@ require_once('../core/php/loadVars.php');
 				</select>
 			</li>
 			<li>
+				<span class="settingsBuffer" > Log trim:  </span>
+				<select name="logTrimOn">
+					<option <?php if($logTrimOn == 'true'){echo "selected";} ?> value="true">True</option>
+					<option <?php if($logTrimOn == 'false'){echo "selected";} ?> value="false">False</option>
+				</select>
+
+				<div id="settingsLogTrimVars" <?php if($logTrimOn == 'false'){echo "style='display: none;'";}?> >
+
+				<div class="settingsHeader">
+					Log Trim Settings
+					</div>
+					<div class="settingsDiv" >
+					<ul id="settingsUl">
+					
+						<li>
+						<span class="settingsBuffer" > Max Remaining Line Count: </span> 
+							<input type="text" name="logSizeLimit" value="<?php echo $logSizeLimit;?>" > Lines
+						</li>
+
+						<li>
+							<span class="settingsBuffer" > Use Mac/Free BSD Command: </span>  
+							<select name="logTrimMacBSD">
+									<option <?php if($logTrimMacBSD == 'true'){echo "selected";} ?> value="true">True</option>
+									<option <?php if($logTrimMacBSD == 'false'){echo "selected";} ?> value="false">False</option>
+							</select>
+						</li>
+
+
+					</ul>
+					</div>
+				</div>
+
+
+			</li>
+			<li>
 				<span class="settingsBuffer" > Pause Poll By Default:  </span> 
 					<select name="pausePoll">
   						<option <?php if($pausePoll == 'true'){echo "selected";} ?> value="true">True</option>

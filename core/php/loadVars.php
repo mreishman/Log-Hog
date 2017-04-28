@@ -216,6 +216,42 @@ else
 {
 	$enableHtopLink = $defaultConfig['enableHtopLink'];
 }
+if(isset($_POST['logTrimOn']))
+{
+	$logTrimOn = $_POST['logTrimOn'];
+}
+elseif(array_key_exists('logTrimOn', $config))
+{
+	$logTrimOn = $config['logTrimOn'];
+}
+else
+{
+	$logTrimOn = $defaultConfig['logTrimOn'];
+}
+if(isset($_POST['logSizeLimit']))
+{
+	$logSizeLimit = $_POST['logSizeLimit'];
+}
+elseif(array_key_exists('logSizeLimit', $config))
+{
+	$logSizeLimit = $config['logSizeLimit'];
+}
+else
+{
+	$logSizeLimit = $defaultConfig['logSizeLimit'];
+}
+if(isset($_POST['logTrimMacBSD']))
+{
+	$logTrimMacBSD = $_POST['logTrimMacBSD'];
+}
+elseif(array_key_exists('logTrimMacBSD', $config))
+{
+	$logTrimMacBSD = $config['logTrimMacBSD'];
+}
+else
+{
+	$logTrimMacBSD = $defaultConfig['logTrimMacBSD'];
+}
 
 
 

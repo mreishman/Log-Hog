@@ -34,6 +34,9 @@ require_once('loadVars.php');
 			'truncateLogButtonAll' => '".$truncateLog."',
 			'popupSettings'	=>	'".$popupWarnings."',
 			'pollingRateType'	=> '".$pollingRateType."',
+			'logTrimOn'	=> '".$logTrimOn."',
+			'logSizeLimit'	=>	".$logSizeLimit.",
+			'logTrimMacBSD'	=> '".$logTrimMacBSD."',
 			'popupSettingsCustom'	=> array(
 			".$popupSettingsArraySave."),
 			'watchList' => array(
