@@ -95,6 +95,14 @@ else
 {
 	$enableHtopLink = $defaultConfig['enableHtopLink'];
 }
+if(array_key_exists('popupSettingsCustom', $config))
+{
+	$popupSettingsArray = $config['popupSettingsCustom'];
+}
+else
+{
+	$popupSettingsArray = $defaultConfig['popupSettingsCustom'];
+}
 
 $today = date('Y-m-d');
 $old_date = $configStatic['lastCheck'];
@@ -226,6 +234,7 @@ $daysSince = $interval->format('%a');
 		echo "var daysSinceLastCheck = '".$daysSince."';";
 		echo "var daysSetToUpdate = '".$autoCheckDaysUpdate."';";
 		?>
+		var popupSettingsArray = JSON.parse('<?php echo json_encode($popupSettingsArray) ?>');
 		var pausePoll = false;
 		var refreshActionVar;
 		var refreshPauseActionVar;

@@ -19,6 +19,7 @@ $defaultConfig = array(
 	'popupSettingsCustom'	=> array(
 		'saveSettings'	=>	'true',
 		'blankFolder'	=>	'true',
+		'deleteLog'	=>	'true',
 		'removeFolder'	=> 	'true'
 		),
 	'watchList'		=> array(

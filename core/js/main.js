@@ -339,8 +339,15 @@ function deleteAction()
 
 function deleteLogPopup()
 {
+	if(popupSettingsArray.deleteLog == "true")
+	{
 	showPopup();
 		document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Are you sure you want to delete this log?</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>"+document.getElementById("title").innerHTML+"</div><div><div class='link' onclick='deleteLog();hidePopup();' style='margin-left:125px; margin-right:50px;margin-top:35px;'>Yes</div><div onclick='hidePopup();' class='link'>No</div></div>";
+	}
+	else
+	{
+		deleteLog();
+	}
 }
 
 function deleteLog()
@@ -355,5 +362,8 @@ function deleteLog()
 	success: function(data){
     // we make a successful JSONP call!
   },
+  	complete: function(data){
+  		location.reload();
+  	},
 });
 }

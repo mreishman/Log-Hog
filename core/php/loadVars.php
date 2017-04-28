@@ -253,6 +253,7 @@ if($popupWarnings == "all")
 	$popupSettingsArraySave = "
 		'saveSettings'	=>	'true',
 		'blankFolder'	=>	'true',
+		'deleteLog'	=>	'true',
 		'removeFolder'	=> 	'true'
 		";
 }
@@ -261,6 +262,7 @@ elseif($popupWarnings == "none")
 	$popupSettingsArraySave = "
 		'saveSettings'	=>	'false',
 		'blankFolder'	=>	'false',
+		'deleteLog'	=>	'false',
 		'removeFolder'	=> 	'false'
 		";
 }
@@ -271,6 +273,7 @@ else
 		$popupSettingsArraySave = "
 		'saveSettings'	=>	'".$_POST['saveSettings']."',
 		'blankFolder'	=>	'".$_POST['blankFolder']."',
+		'deleteLog'	=>	'".$_POST['deleteLog']."',
 		'removeFolder'	=> 	'".$_POST['removeFolder']."'
 		";
 	}
