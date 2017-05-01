@@ -37,6 +37,7 @@ require_once('loadVars.php');
 			'logTrimOn'	=> '".$logTrimOn."',
 			'logSizeLimit'	=>	".$logSizeLimit.",
 			'logTrimMacBSD'	=> '".$logTrimMacBSD."',
+			'baseUrlUpdate'	=> '".$baseUrlUpdate."',
 			'popupSettingsCustom'	=> array(
 			".$popupSettingsArraySave."),
 			'watchList' => array(

@@ -252,7 +252,18 @@ else
 {
 	$logTrimMacBSD = $defaultConfig['logTrimMacBSD'];
 }
-
+if(isset($_POST['baseUrlUpdate']))
+{
+	$baseUrlUpdate = $_POST['baseUrlUpdate'];
+}
+elseif(array_key_exists('baseUrlUpdate', $config))
+{
+	$baseUrlUpdate = $config['baseUrlUpdate'];
+}
+else
+{
+	$baseUrlUpdate = $defaultConfig['baseUrlUpdate'];
+}
 
 
 

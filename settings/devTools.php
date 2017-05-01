@@ -99,6 +99,15 @@ else
 {
 	$expSettingsAvail = $defaultConfig['expSettingsAvail'];
 }
+if(array_key_exists('baseUrlUpdate', $config))
+{
+	$baseUrlUpdate = $config['baseUrlUpdate'];
+}
+else
+{
+	$baseUrlUpdate = $defaultConfig['baseUrlUpdate'];
+}
+
 ?>
 <!doctype html>
 <head>
@@ -117,13 +126,18 @@ else
 		<div class="settingsDiv" >
 			<ul id="settingsUl">
 				<li>
-					Enable Development Branch:
+					<span class="settingsBuffer" >  Enable Development Branch: </span>
 						<select name="enableDevBranchDownload">
   						<option <?php if($enableDevBranchDownload == 'true'){echo "selected";} ?> value="true">True</option>
   						<option <?php if($enableDevBranchDownload == 'false'){echo "selected";} ?> value="false">False</option>
 					</select>
 				</li>
+				<li>
+					<span class="settingsBuffer" >  Base URL:  </span> <input type="text" style="width: 400px;"  name="baseUrlUpdate" value="<?php echo $baseUrlUpdate;?>" > 
+				</li>
 			</ul>
+			
+
 		</div>
 	</form>
 	</div>

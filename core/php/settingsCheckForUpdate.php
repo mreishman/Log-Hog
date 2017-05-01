@@ -33,6 +33,8 @@ if(file_exists("../../update/downloads/versionCheck/extracted/"))
 
 }
 
+
+
 if(array_key_exists('enableDevBranchDownload', $config))
 {
   $enableDevBranchDownload = $config['enableDevBranchDownload'];
@@ -45,13 +47,13 @@ else
 if($enableDevBranchDownload == "true")
 {
   file_put_contents("../../update/downloads/versionCheck/versionCheck.zip", 
-  file_get_contents("https://github.com/mreishman/Log-Hog/archive/versionCheckDev.zip")
+  file_get_contents($baseUrlUpdate ."versionCheckDev.zip")
   );
 }
 else
 {
   file_put_contents("../../update/downloads/versionCheck/versionCheck.zip", 
-  file_get_contents("https://github.com/mreishman/Log-Hog/archive/versionCheck.zip")
+  file_get_contents($baseUrlUpdate ."versionCheck.zip")
   );
 }
 
