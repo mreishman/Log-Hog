@@ -264,6 +264,18 @@ else
 {
 	$baseUrlUpdate = $defaultConfig['baseUrlUpdate'];
 }
+if(isset($_POST['logTrimType']))
+{
+	$logTrimType = $_POST['logTrimType'];
+}
+elseif(array_key_exists('logTrimType', $config))
+{
+	$logTrimType = $config['logTrimType'];
+}
+else
+{
+	$logTrimType = $defaultConfig['logTrimType'];
+}
 
 
 

@@ -117,8 +117,20 @@ require_once('../core/php/loadVars.php');
 					<ul id="settingsUl">
 					
 						<li>
-						<span class="settingsBuffer" > Max Remaining Line Count: </span> 
-							<input type="text" name="logSizeLimit" value="<?php echo $logSizeLimit;?>" > Lines
+						<span class="settingsBuffer" > Max 
+
+						<select id="logTrimTypeToggle" name="logTrimType">
+									<option <?php if($logTrimType == 'line'){echo "selected";} ?> value="lines">Remaining Line Count</option>
+									<option <?php if($logTrimType == 'size'){echo "selected";} ?> value="size">File Size</option>
+							</select>
+						
+
+
+						: </span> 
+							<input type="text" name="logSizeLimit" value="<?php echo $logSizeLimit;?>" > 
+							<span id="logTrimTypeText" >
+								
+							</span>
 						</li>
 
 						<li>
@@ -344,12 +356,45 @@ require_once('../core/php/loadVars.php');
 document.getElementById("mainLink").classList.add("active");
 document.getElementById("popupSelect").addEventListener("change", showOrHidePopupSubWindow, false);
 document.getElementById("settingsSelect").addEventListener("change", showOrHideUpdateSubWindow, false);
+document.getElementById("logTrimTypeToggle").addEventListener("change", changeDescriptionLineSize, false);
+
+
 var popupSettingsArray = JSON.parse('<?php echo json_encode($popupSettingsArray) ?>');
 var fileArray = JSON.parse('<?php echo json_encode($config['watchList']) ?>');
 var countOfWatchList = <?php echo $i; ?>;
 var countOfAddedFiles = 0;
 var countOfClicks = 0;
 var locationInsert = "newRowLocationForWatchList";
+var logTrimType = "<?php echo $logTrimType; ?>";
+ 
+if(logTrimType == 'lines')
+{
+	document.getElementById('logTrimTypeText').innerHTML = "Lines";
+}
+else if (logTrimType == 'size')
+{
+	document.getElementById('logTrimTypeText').innerHTML = "Size";
+}
+
+
+
+
+function changeDescriptionLineSize()
+{
+
+	var valueForDesc = document.getElementById("logTrimTypeToggle").value;
+
+	if (valueForDesc == "lines")
+	{
+		document.getElementById('logTrimTypeText').innerHTML = "Lines";
+	}
+	else if (valueForDesc == 'size')
+	{
+		document.getElementById('logTrimTypeText').innerHTML = "Size";
+	}
+
+}
+
 function addRowFunction()
 {
 

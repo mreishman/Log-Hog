@@ -20,6 +20,7 @@ $defaultConfig = array(
 	'logSizeLimit'	=>	2000,
 	'logTrimMacBSD'	=> 'false',
 	'baseUrlUpdate'	=> 'https://github.com/mreishman/Log-Hog/archive/',
+	'logTrimType'	=>	'lines',
 	'popupSettingsCustom'	=> array(
 		'saveSettings'	=>	'true',
 		'blankFolder'	=>	'true',
