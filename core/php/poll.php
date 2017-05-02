@@ -43,21 +43,44 @@ else
 {
 	$logTrimMacBSD = $defaultConfig['logTrimMacBSD'];
 }
+if(array_key_exists('logTrimType', $config))
+{
+	$logTrimType = $config['logTrimType'];
+}
+else
+{
+	$logTrimType = $defaultConfig['logTrimType'];
+}
+if(array_key_exists('TrimSize', $config))
+{
+	$TrimSize = $config['TrimSize'];
+}
+else
+{
+	$TrimSize = $defaultConfig['TrimSize'];
+}
 
-function tail($filename, $sliceSize, $shellOrPhp, $logTrimCheck, $logSizeLimit,$logTrimMacBSD) 
+function tail($filename, $sliceSize, $shellOrPhp, $logTrimCheck, $logSizeLimit,$logTrimMacBSD,$logTrimType,$TrimSize) 
 {
 	$filename = preg_replace('/([()"])/S', '$1', $filename);
 	//echo $filename, "\n";
 
 	if($logTrimCheck == "true")
 	{
-		if($logTrimMacBSD == "true")
+		if($logTrimType == 'lines')
 		{
-			trim(shell_exec('sed -i "" "' . $logSizeLimit . ',$ d" ' . $filename));
+			if($logTrimMacBSD == "true")
+			{
+				trim(shell_exec('sed -i "" "' . $logSizeLimit . ',$ d" ' . $filename));
+			}
+			else
+			{
+				trim(shell_exec('sed -i "' . $logSizeLimit . ',$ d" ' . $filename));
+			}
 		}
-		else
+		elseif($logTrimType == 'size')
 		{
-			trim(shell_exec('sed -i "' . $logSizeLimit . ',$ d" ' . $filename));
+			trim(shell_exec('truncate -s ' . $TrimSize . ' ' . $filename));
 		}
 	}
 
@@ -146,12 +169,12 @@ foreach($config['watchList'] as $path => $filter)
 			foreach($files as $k => $filename) {
 				$fullPath = $path . '/' . $filename;
 				if(preg_match('/' . $filter . '/S', $filename) && is_file($fullPath))
-					$response[$fullPath] = htmlentities(tail($fullPath, $config['sliceSize'], $enableSystemPrefShellOrPhp, $logTrimOn, $logSizeLimit,$logTrimMacBSD));
+					$response[$fullPath] = htmlentities(tail($fullPath, $config['sliceSize'], $enableSystemPrefShellOrPhp, $logTrimOn, $logSizeLimit,$logTrimMacBSD,$logTrimType,$TrimSize));
 			}
 		}
 	}
 	elseif(file_exists($path))
-		$response[$path] = htmlentities(tail($path, $config['sliceSize'], $enableSystemPrefShellOrPhp, $logTrimOn, $logSizeLimit,$logTrimMacBSD));
+		$response[$path] = htmlentities(tail($path, $config['sliceSize'], $enableSystemPrefShellOrPhp, $logTrimOn, $logSizeLimit,$logTrimMacBSD,$logTrimType,$TrimSize));
 }
 
 echo json_encode($response);

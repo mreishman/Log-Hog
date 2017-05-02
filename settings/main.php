@@ -120,7 +120,7 @@ require_once('../core/php/loadVars.php');
 						<span class="settingsBuffer" > Max 
 
 						<select id="logTrimTypeToggle" name="logTrimType">
-									<option <?php if($logTrimType == 'line'){echo "selected";} ?> value="lines">Remaining Line Count</option>
+									<option <?php if($logTrimType == 'line'){echo "selected";} ?> value="lines">Line Count</option>
 									<option <?php if($logTrimType == 'size'){echo "selected";} ?> value="size">File Size</option>
 							</select>
 						
@@ -133,7 +133,7 @@ require_once('../core/php/loadVars.php');
 							</span>
 						</li>
 
-						<li>
+						<li id="LiForlogTrimMacBSD" >
 							<span class="settingsBuffer" > Use Mac/Free BSD Command: </span>  
 							<select name="logTrimMacBSD">
 									<option <?php if($logTrimMacBSD == 'true'){echo "selected";} ?> value="true">True</option>
@@ -141,6 +141,15 @@ require_once('../core/php/loadVars.php');
 							</select>
 						</li>
 
+						<li id="LiForlogTrimSize" >
+							<span class="settingsBuffer" > Size is measured in: </span>  
+							<select name="TrimSize">
+									<option <?php if($TrimSize == 'KB'){echo "selected";} ?> value="KB">KB</option>
+									<option <?php if($TrimSize == 'K'){echo "selected";} ?> value="K">K</option>
+									<option <?php if($TrimSize == 'MB'){echo "selected";} ?> value="MB">MB</option>
+									<option <?php if($TrimSize == 'M'){echo "selected";} ?> value="M">M</option>
+							</select>
+						</li>
 
 					</ul>
 					</div>

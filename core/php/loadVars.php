@@ -276,6 +276,18 @@ else
 {
 	$logTrimType = $defaultConfig['logTrimType'];
 }
+if(isset($_POST['TrimSize']))
+{
+	$TrimSize = $_POST['TrimSize'];
+}
+elseif(array_key_exists('TrimSize', $config))
+{
+	$TrimSize = $config['TrimSize'];
+}
+else
+{
+	$TrimSize = $defaultConfig['TrimSize'];
+}
 
 
 

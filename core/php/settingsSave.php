@@ -39,6 +39,7 @@ require_once('loadVars.php');
 			'logTrimMacBSD'	=> '".$logTrimMacBSD."',
 			'baseUrlUpdate'	=> '".$baseUrlUpdate."',
 			'logTrimType'	=>	'".$logTrimType."',
+			'TrimSize'	=> '".$TrimSize."',
 			'popupSettingsCustom'	=> array(
 			".$popupSettingsArraySave."),
 			'watchList' => array(

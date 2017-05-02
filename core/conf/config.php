@@ -21,6 +21,7 @@ $defaultConfig = array(
 	'logTrimMacBSD'	=> 'false',
 	'baseUrlUpdate'	=> 'https://github.com/mreishman/Log-Hog/archive/',
 	'logTrimType'	=>	'lines',
+	'TrimSize'	=> 'K',
 	'popupSettingsCustom'	=> array(
 		'saveSettings'	=>	'true',
 		'blankFolder'	=>	'true',
