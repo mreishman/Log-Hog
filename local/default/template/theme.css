@@ -40,7 +40,7 @@ div {
 }
 
 #menu a.updated {
-	background-color: #912A2C;
+	background-color: #912A2C !important; 
 }
 
 .menuImage{
@@ -145,4 +145,24 @@ div {
 	border: solid 1px white;
 	line-height: 100%;
 	color: white;
+}
+
+.colorSelectorDiv
+{
+	border: 1px solid white;
+	width: 20px;
+	height: 20px;
+	display: inline-block;
+}
+
+.inner-triangle{
+    border-left: 7px solid transparent;
+    border-bottom: 7px solid white;
+    height: 0;
+    width: 0;
+    position: relative;
+    right: 0px;
+    z-index: 2;
+    top: 11px;
+    left: 11px;
 }

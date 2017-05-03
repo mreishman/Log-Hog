@@ -368,7 +368,9 @@ require_once('../core/php/loadVars.php');
 					<ul id="settingsUl">
 					
 						<li>
-						<span class="settingsBuffer" > <input type="radio" name="colorGroupRadioButtons" value="theme-default-1"> Theme-Default-1: </span>  <div style="border: 1px solid white; width: 10px; height: 10px;" > </div>
+						<span class="settingsBuffer" > <input type="radio" name="colorGroupRadioButtons" value="theme-default-1"> Theme-Default-1: </span>  <div class="colorSelectorDiv">
+							<div class="inner-triangle" ></div>
+						</div>
 						</li>
 
 					</ul>
