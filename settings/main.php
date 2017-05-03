@@ -349,6 +349,22 @@ require_once('../core/php/loadVars.php');
 			<input id="numberOfRows" type="text" name="numberOfRows" value="<?php echo $i;?>">
 		</div>	
 		</form>
+		<form id="settingsMainVars" action="../core/php/settingsSave.php" method="post">
+		<div class="settingsHeader">
+		Menu Settings <button onclick="displayLoadingPopup();" >Save Changes</button>
+		</div>
+		<div class="settingsDiv" >
+		<ul id="settingsUl">
+			<li>
+				<span class="settingsBuffer" > Group folders by color: </span>
+				<select name="groupDiffCol">
+						<option <?php if($groupDiffCol == 'true'){echo "selected";} ?> value="true">True</option>
+						<option <?php if($groupDiffCol == 'false'){echo "selected";} ?> value="false">False</option>
+				</select>
+			</li>
+		</ul>
+		</div>
+		</form>
 	</div>
 	<?php readfile('../core/html/popup.html') ?>	
 </body>

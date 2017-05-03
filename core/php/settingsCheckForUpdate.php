@@ -43,6 +43,14 @@ else
 {
   $enableDevBranchDownload = $defaultConfig['enableDevBranchDownload'];
 }
+if(array_key_exists('baseUrlUpdate', $config))
+{
+  $baseUrlUpdate = $config['baseUrlUpdate'];
+}
+else
+{
+  $baseUrlUpdate = $defaultConfig['baseUrlUpdate'];
+}
 
 if($enableDevBranchDownload == "true")
 {

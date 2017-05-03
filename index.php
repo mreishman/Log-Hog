@@ -170,7 +170,7 @@ $daysSince = $interval->format('%a');
 	
 	<div id="storage">
 		<div class="menuItem">
-			<a class="{{id}}Button" onclick="show(this, '{{id}}')">{{title}}</a>
+			<a style="{{style}}" class="{{id}}Button" onclick="show(this, '{{id}}')">{{title}}</a>
 		</div>
 	</div>
 	

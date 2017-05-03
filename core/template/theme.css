@@ -36,7 +36,7 @@ div {
 
 #menu a:hover, #menu a.active, .link:hover, .linkSmall:hover {
 	color: black;
-	background-color: white;
+	background-color: white !important;
 }
 
 #menu a.updated {

@@ -120,23 +120,38 @@ function endRefreshAction()
 function update(data) {
 	var menu = $('#menu');
 	var blank = $('#storage .menuItem').html();
-	var i, id, name, shortName, item;
+	var i, id, name, shortName, item, style;
 	var files = Object.keys(data);
 	var stop = files.length;
 	var updated = false;
 	var initialized = $('#menu a').length != 0;
-	
+	var colorArray = ['#2A912A',"#32CD32","#9ACD32","#556B2F","#6B8E23"];
+	var colorArrayLength = colorArray.length;
+	var folderNamePrev = "?-1";
+	var folderNameCount = -1;
 	for(i = 0; i != stop; ++i) {
 		name = files[i];
+		var folderName = name.substr(0, name.lastIndexOf("/"));
+		if(folderName !== folderNamePrev || i == 0)
+		{
+			folderNameCount++;
+			folderNamePrev = folderName;
+			if(folderNameCount >= colorArrayLength)
+			{
+				folderNameCount = 0;
+			}
+		}
 		id = name.replace(/[^a-z0-9]/g, '');
 		logs[id] = data[name];
 		
 		if($('#menu .' + id + 'Button').length == 0) {
 			titles[id] = name;
 			shortName = files[i].replace(/.*\//g, '');
+			style = "background-color: "+colorArray[folderNameCount];
 			item = blank;
 			item = item.replace(/{{title}}/g, shortName);
 			item = item.replace(/{{id}}/g, id);
+			item = item.replace(/{{style}}/g, style)
 			menu.append(item);
 		}
 		
