@@ -28,6 +28,9 @@ $defaultConfig = array(
 		'deleteLog'	=>	'true',
 		'removeFolder'	=> 	'true'
 		),
+	'folderColorArrays'	=> array(
+		'theme-default-1'	=> array('#2A912A',"#32CD32","#9ACD32","#556B2F","#6B8E23"),
+		),
 	'watchList'		=> array(
 		'/var/www/html/var/log/system.log'	        => '',
 		'/var/log/hhvm/error.log'	=> '',

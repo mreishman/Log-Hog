@@ -361,6 +361,19 @@ require_once('../core/php/loadVars.php');
 						<option <?php if($groupByColorEnabled == 'true'){echo "selected";} ?> value="true">True</option>
 						<option <?php if($groupByColorEnabled == 'false'){echo "selected";} ?> value="false">False</option>
 				</select>
+				<div class="settingsHeader">
+					Folder Group Settings
+					</div>
+					<div class="settingsDiv" >
+					<ul id="settingsUl">
+					
+						<li>
+						<span class="settingsBuffer" > <input type="radio" name="colorGroupRadioButtons" value="theme-default-1"> Theme-Default-1: </span>  <div style="border: 1px solid white; width: 10px; height: 10px;" > </div>
+						</li>
+
+					</ul>
+					</div>
+				</div>
 			</li>
 		</ul>
 		</div>
