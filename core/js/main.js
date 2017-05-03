@@ -151,7 +151,10 @@ function update(data) {
 			item = blank;
 			item = item.replace(/{{title}}/g, shortName);
 			item = item.replace(/{{id}}/g, id);
-			item = item.replace(/{{style}}/g, style)
+			if(groupByColorEnabled == true)
+			{
+			item = item.replace(/{{style}}/g, style);
+			}
 			menu.append(item);
 		}
 		

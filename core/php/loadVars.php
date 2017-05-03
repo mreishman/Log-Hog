@@ -288,7 +288,18 @@ else
 {
 	$TrimSize = $defaultConfig['TrimSize'];
 }
-
+if(isset($_POST['groupByColorEnabled']))
+{
+	$groupByColorEnabled = $_POST['groupByColorEnabled'];
+}
+elseif(array_key_exists('groupByColorEnabled', $config))
+{
+	$groupByColorEnabled = $config['groupByColorEnabled'];
+}
+else
+{
+	$groupByColorEnabled = $defaultConfig['groupByColorEnabled'];
+}
 
 
 $arrayWatchList = "";

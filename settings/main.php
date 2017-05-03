@@ -357,9 +357,9 @@ require_once('../core/php/loadVars.php');
 		<ul id="settingsUl">
 			<li>
 				<span class="settingsBuffer" > Group folders by color: </span>
-				<select name="groupDiffCol">
-						<option <?php if($groupDiffCol == 'true'){echo "selected";} ?> value="true">True</option>
-						<option <?php if($groupDiffCol == 'false'){echo "selected";} ?> value="false">False</option>
+				<select name="groupByColorEnabled">
+						<option <?php if($groupByColorEnabled == 'true'){echo "selected";} ?> value="true">True</option>
+						<option <?php if($groupByColorEnabled == 'false'){echo "selected";} ?> value="false">False</option>
 				</select>
 			</li>
 		</ul>

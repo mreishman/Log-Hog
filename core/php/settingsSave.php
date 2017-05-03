@@ -40,6 +40,7 @@ require_once('loadVars.php');
 			'baseUrlUpdate'	=> '".$baseUrlUpdate."',
 			'logTrimType'	=>	'".$logTrimType."',
 			'TrimSize'	=> '".$TrimSize."',
+			'groupByColorEnabled'	=> '".$groupByColorEnabled."',
 			'popupSettingsCustom'	=> array(
 			".$popupSettingsArraySave."),
 			'watchList' => array(
