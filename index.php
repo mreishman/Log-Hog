@@ -70,47 +70,13 @@ for($i = 0; $i < $newestVersionCount; $i++)
 		break;
 	}
 }
-if(array_key_exists('truncateLogButtonAll', $config))
-{
-	$truncateLog = $config['truncateLogButtonAll'];
-}
-else
-{
-	$truncateLog = $defaultConfig['truncateLogButtonAll'];
-}
 
-if(array_key_exists('autoCheckDaysUpdate', $config))
-{
-	$autoCheckDaysUpdate = $config['autoCheckDaysUpdate'];
-}
-else
-{
-	$polliautoCheckDaysUpdatengRateType = $defaultConfig['autoCheckDaysUpdate'];
-}
-if(array_key_exists('enableHtopLink', $config))
-{
-	$enableHtopLink = $config['enableHtopLink'];
-}
-else
-{
-	$enableHtopLink = $defaultConfig['enableHtopLink'];
-}
-if(array_key_exists('popupSettingsCustom', $config))
-{
-	$popupSettingsArray = $config['popupSettingsCustom'];
-}
-else
-{
-	$popupSettingsArray = $defaultConfig['popupSettingsCustom'];
-}
+require_once('core/php/loadVars.php');
 
 $today = date('Y-m-d');
 $old_date = $configStatic['lastCheck'];
 $old_date_array = split("-", $old_date);
 $old_date = $old_date_array[2]."-".$old_date_array[0]."-".$old_date_array[1];
-//$old_date = date_format( $old_date ,"Y-m-d");          
-//$old_date_timestamp = strtotime($old_date);
-//$new_date = date('Y-m-d', $old_date_timestamp); 
 
 $datetime1 = date_create($old_date_array[2]."-".$old_date_array[0]."-".$old_date_array[1]);
 $datetime2 = date_create($today);
@@ -178,61 +144,20 @@ $daysSince = $interval->format('%a');
 	
 	<script>
 		<?php
-			if(array_key_exists('pollingRate', $config))
-			{
-				echo "var pollingRate = ".$config['pollingRate'].";";
-			}
-			else
-			{
-				echo "var pollingRate = ".$defaultConfig['pollingRate'].";";
-			} 
-			if(array_key_exists('pollingRateType', $config))
-			{
-				$pollingRateType = $config['pollingRateType'];
-			}
-			else
-			{
-				$pollingRateType = $defaultConfig['pollingRateType'];
-			}
 			if($pollingRateType == 'Seconds')
 			{
 				echo "pollingRate *= 1000;";
 			}
-			if(array_key_exists('pausePoll', $config))
-			{
-				echo "var pausePollFromFile = ".$config['pausePoll'].";";
-			}
-			else
-			{
-				echo "var pausePollFromFile = ".$defaultConfig['pausePoll'].";";
-			}
-			if(array_key_exists('pauseOnNotFocus', $config))
-			{
-				echo "var pausePollOnNotFocus = ".$config['pauseOnNotFocus'].";";
-			}
-			else
-			{
-				echo "var pausePollOnNotFocus = ".$defaultConfig['pauseOnNotFocus'].";";
-			}
-			if(array_key_exists('autoCheckUpdate', $config))
-			{
-				echo "var autoCheckUpdate = ".$config['autoCheckUpdate'].";";
-			}
-			else
-			{
-				echo "var autoCheckUpdate = ".$defaultConfig['autoCheckUpdate'].";";
-			}
-			if(array_key_exists('flashTitleUpdateLog', $config))
-			{
-				echo "var flashTitleUpdateLog = ".$config['flashTitleUpdateLog'].";";
-			}
-			else
-			{
-				echo "var flashTitleUpdateLog = ".$defaultConfig['flashTitleUpdateLog'].";";
-			}
+
+		echo "var pausePollOnNotFocus = ".$pauseOnNotFocus.";";
+		echo "var autoCheckUpdate = ".$autoCheckUpdate.";";
+		echo "var flashTitleUpdateLog = ".$flashTitleUpdateLog.";";
 		echo "var dateOfLastUpdate = '".$configStatic['lastCheck']."';";
 		echo "var daysSinceLastCheck = '".$daysSince."';";
 		echo "var daysSetToUpdate = '".$autoCheckDaysUpdate."';";
+		echo "var pollingRate = ".$pollingRate.";";
+		echo "var pausePollFromFile = ".$pausePoll.";";
+		echo "var groupByColorEnabled = ".$groupByColorEnabled.";"; 
 		?>
 		var popupSettingsArray = JSON.parse('<?php echo json_encode($popupSettingsArray) ?>');
 		var pausePoll = false;
