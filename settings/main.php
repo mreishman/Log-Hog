@@ -103,7 +103,7 @@ require_once('../core/php/loadVars.php');
 			</li>
 			<li>
 				<span class="settingsBuffer" > Log trim:  </span>
-				<select name="logTrimOn">
+				<select id="logTrimOn" name="logTrimOn">
 					<option <?php if($logTrimOn == 'true'){echo "selected";} ?> value="true">True</option>
 					<option <?php if($logTrimOn == 'false'){echo "selected";} ?> value="false">False</option>
 				</select>
@@ -120,7 +120,7 @@ require_once('../core/php/loadVars.php');
 						<span class="settingsBuffer" > Max 
 
 						<select id="logTrimTypeToggle" name="logTrimType">
-									<option <?php if($logTrimType == 'line'){echo "selected";} ?> value="lines">Line Count</option>
+									<option <?php if($logTrimType == 'lines'){echo "selected";} ?> value="lines">Line Count</option>
 									<option <?php if($logTrimType == 'size'){echo "selected";} ?> value="size">File Size</option>
 							</select>
 						
@@ -133,7 +133,7 @@ require_once('../core/php/loadVars.php');
 							</span>
 						</li>
 
-						<li id="LiForlogTrimMacBSD" >
+						<li id="LiForlogTrimMacBSD" <?php if($logTrimType != 'lines'){echo "style='display:none;'";} ?>  >
 							<span class="settingsBuffer" > Use Mac/Free BSD Command: </span>  
 							<select name="logTrimMacBSD">
 									<option <?php if($logTrimMacBSD == 'true'){echo "selected";} ?> value="true">True</option>
@@ -141,7 +141,7 @@ require_once('../core/php/loadVars.php');
 							</select>
 						</li>
 
-						<li id="LiForlogTrimSize" >
+						<li id="LiForlogTrimSize" <?php if($logTrimType != 'size'){echo "style='display:none;'";} ?> >
 							<span class="settingsBuffer" > Size is measured in: </span>  
 							<select name="TrimSize">
 									<option <?php if($TrimSize == 'KB'){echo "selected";} ?> value="KB">KB</option>
@@ -400,6 +400,8 @@ document.getElementById("mainLink").classList.add("active");
 document.getElementById("popupSelect").addEventListener("change", showOrHidePopupSubWindow, false);
 document.getElementById("settingsSelect").addEventListener("change", showOrHideUpdateSubWindow, false);
 document.getElementById("logTrimTypeToggle").addEventListener("change", changeDescriptionLineSize, false);
+document.getElementById("logTrimOn").addEventListener("change", showOrHideLogTrimSubWindow, false);
+
 
 
 var popupSettingsArray = JSON.parse('<?php echo json_encode($popupSettingsArray) ?>');
@@ -420,6 +422,19 @@ else if (logTrimType == 'size')
 }
 
 
+function showOrHideLogTrimSubWindow()
+{
+	var valueToSeeIfShowOrHideSubWindowLogTrim = document.getElementById("logTrimOn").value;
+
+	if(valueToSeeIfShowOrHideSubWindowLogTrim == "true")
+	{
+		document.getElementById("settingsLogTrimVars").style.display = "block";
+	}
+	else
+	{
+		document.getElementById("settingsLogTrimVars").style.display = "none";
+	}
+}
 
 
 function changeDescriptionLineSize()
@@ -430,10 +445,14 @@ function changeDescriptionLineSize()
 	if (valueForDesc == "lines")
 	{
 		document.getElementById('logTrimTypeText').innerHTML = "Lines";
+		document.getElementById('LiForlogTrimMacBSD').style.display = "block";
+		document.getElementById('LiForlogTrimSize').style.display = "none"
 	}
 	else if (valueForDesc == 'size')
 	{
 		document.getElementById('logTrimTypeText').innerHTML = "Size";
+		document.getElementById('LiForlogTrimMacBSD').style.display = "none";
+		document.getElementById('LiForlogTrimSize').style.display = "block"
 	}
 
 }
