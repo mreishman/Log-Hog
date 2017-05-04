@@ -300,6 +300,29 @@ else
 {
 	$groupByColorEnabled = $defaultConfig['groupByColorEnabled'];
 }
+if(array_key_exists('folderColorArrays', $config))
+{
+	$folderColorArrays = $config['folderColorArrays'];
+}
+else
+{
+	$folderColorArrays = $defaultConfig['folderColorArrays'];
+}
+if(isset($_POST['currentFolderColorTheme']))
+{
+	$currentFolderColorTheme = $_POST['currentFolderColorTheme'];
+}
+elseif(array_key_exists('currentFolderColorTheme', $config))
+{
+	$currentFolderColorTheme = $config['currentFolderColorTheme'];
+}
+else
+{
+	$currentFolderColorTheme = $defaultConfig['currentFolderColorTheme'];
+}
+
+
+
 
 
 $arrayWatchList = "";

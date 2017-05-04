@@ -40,7 +40,9 @@ require_once('loadVars.php');
 			'baseUrlUpdate'	=> '".$baseUrlUpdate."',
 			'logTrimType'	=>	'".$logTrimType."',
 			'TrimSize'	=> '".$TrimSize."',
+			'currentFolderColorTheme'	=> '".$currentFolderColorTheme."',
 			'groupByColorEnabled'	=> '".$groupByColorEnabled."',
+			'folderColorArrays'	=> '".$folderColorArrays."',
 			'popupSettingsCustom'	=> array(
 			".$popupSettingsArraySave."),
 			'watchList' => array(

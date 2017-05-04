@@ -149,6 +149,14 @@ $daysSince = $interval->format('%a');
 				echo "pollingRate *= 1000;";
 			}
 
+			foreach ($folderColorArrays as $key => $value)
+			{
+				if($key == $currentFolderColorTheme)
+				{
+					echo "var currentFolderColorThemeArrayOfColors = JSON.parse('".json_encode($value)."');";
+				}
+			}//JSON.parse('".json_encode($value);."')
+
 		echo "var pausePollOnNotFocus = ".$pauseOnNotFocus.";";
 		echo "var autoCheckUpdate = ".$autoCheckUpdate.";";
 		echo "var flashTitleUpdateLog = ".$flashTitleUpdateLog.";";
@@ -159,7 +167,8 @@ $daysSince = $interval->format('%a');
 		echo "var pausePollFromFile = ".$pausePoll.";";
 		echo "var groupByColorEnabled = ".$groupByColorEnabled.";"; 
 		?>
-		var popupSettingsArray = JSON.parse('<?php echo json_encode($popupSettingsArray) ?>');
+		var currentFolderColorTheme = "<?php echo $currentFolderColorTheme; ?>";
+		var popupSettingsArray = JSON.parse('<?php echo json_encode($popupSettingsArray); ?>');
 		var pausePoll = false;
 		var refreshActionVar;
 		var refreshPauseActionVar;

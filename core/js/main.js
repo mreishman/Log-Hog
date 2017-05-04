@@ -125,7 +125,7 @@ function update(data) {
 	var stop = files.length;
 	var updated = false;
 	var initialized = $('#menu a').length != 0;
-	var colorArray = ['#2A912A',"#32CD32","#9ACD32","#556B2F","#6B8E23"];
+	var colorArray = currentFolderColorThemeArrayOfColors;
 	var colorArrayLength = colorArray.length;
 	var folderNamePrev = "?-1";
 	var folderNameCount = -1;

@@ -366,13 +366,16 @@ require_once('../core/php/loadVars.php');
 					</div>
 					<div class="settingsDiv" >
 					<ul id="settingsUl">
-					
-						<li>
-						<span class="settingsBuffer" > <input type="radio" name="colorGroupRadioButtons" value="theme-default-1"> Theme-Default-1: </span>  <div class="colorSelectorDiv">
-							<div class="inner-triangle" ></div>
-						</div>
-						</li>
-
+						<?php foreach ($folderColorArrays as $key => $value): ?>
+							<li>
+								<span class="settingsBuffer" > <input type="radio" name="currentFolderColorTheme" <?php if ($key == $currentFolderColorTheme){echo "checked='checked'";}?> value="<?php echo $key; ?>"> <?php echo $key; ?>: </span> 
+								<?php foreach ($value as $key2 => $value2):?>
+									<div class="colorSelectorDiv" style="background-color: <?php echo $value2; ?>" >
+										<!-- <div class="inner-triangle" ></div> -->
+									</div>
+								<?php endforeach; ?>
+							</li>
+						<?php endforeach; ?>
 					</ul>
 					</div>
 				</div>
