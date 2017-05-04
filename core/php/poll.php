@@ -64,23 +64,26 @@ function tail($filename, $sliceSize, $shellOrPhp, $logTrimCheck, $logSizeLimit,$
 {
 	$filename = preg_replace('/([()"])/S', '$1', $filename);
 	//echo $filename, "\n";
-
+	if(filesize($filename) == 0)
+	{
+		return "This file is empty. This should not be displayed.";
+	}
 	if($logTrimCheck == "true")
 	{
 		if($logTrimType == 'lines')
 		{
 			if($logTrimMacBSD == "true")
 			{
-				trim(shell_exec('sed -i "" "' . $logSizeLimit . ',$ d" ' . $filename));
+				//trim(shell_exec('sed -i "" "' . $logSizeLimit . ',$ d" ' . $filename));
 			}
 			else
 			{
-				trim(shell_exec('sed -i "' . $logSizeLimit . ',$ d" ' . $filename));
+				//trim(shell_exec('sed -i "' . $logSizeLimit . ',$ d" ' . $filename));
 			}
 		}
 		elseif($logTrimType == 'size')
 		{
-			trim(shell_exec('truncate -s ' . $TrimSize . ' ' . $filename));
+			//trim(shell_exec('truncate -s ' . $TrimSize . ' ' . $filename));
 		}
 	}
 
@@ -90,7 +93,17 @@ function tail($filename, $sliceSize, $shellOrPhp, $logTrimCheck, $logSizeLimit,$
 	}
 	else
 	{
-		return trim(shell_exec('tail -n ' . $sliceSize . ' "' . $filename . '"'));
+		$data = trim(shell_exec('tail -n ' . $sliceSize . ' "' . $filename . '"'));
+		if($data == "" || is_null($data))
+		{
+			$data = trim(tailCustom($filename, $sliceSize));
+
+			if($data == "" || is_null($data))
+			{
+				$data = "Error - Maybe insuffecent access to read file?";
+			}
+		}
+		return $data;
 	}
 }
 

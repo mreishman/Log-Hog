@@ -130,46 +130,60 @@ function update(data) {
 	var folderNamePrev = "?-1";
 	var folderNameCount = -1;
 	for(i = 0; i != stop; ++i) {
-		name = files[i];
-		var folderName = name.substr(0, name.lastIndexOf("/"));
-		if(folderName !== folderNamePrev || i == 0)
+		var dataForCheck = data[files[i]];
+		if(dataForCheck == "This file is empty. This should not be displayed.")
 		{
-			folderNameCount++;
-			folderNamePrev = folderName;
-			if(folderNameCount >= colorArrayLength)
+
+		}
+		else
+		{
+			name = files[i];
+			var folderName = name.substr(0, name.lastIndexOf("/"));
+			if(folderName !== folderNamePrev || i == 0)
 			{
-				folderNameCount = 0;
+				folderNameCount++;
+				folderNamePrev = folderName;
+				if(folderNameCount >= colorArrayLength)
+				{
+					folderNameCount = 0;
+				}
 			}
-		}
-		id = name.replace(/[^a-z0-9]/g, '');
-		logs[id] = data[name];
-		
-		if($('#menu .' + id + 'Button').length == 0) {
-			titles[id] = name;
-			shortName = files[i].replace(/.*\//g, '');
-			style = "background-color: "+colorArray[folderNameCount];
-			item = blank;
-			item = item.replace(/{{title}}/g, shortName);
-			item = item.replace(/{{id}}/g, id);
-			if(groupByColorEnabled == true)
+			id = name.replace(/[^a-z0-9]/g, '');
+			if(data[name] == "")
 			{
-			item = item.replace(/{{style}}/g, style);
+				data[name] = "Error - Unknown error? Clear log to fix?";
 			}
-			menu.append(item);
-		}
-		
-		if(logs[id] != lastLogs[id]) {
-			updated = true;
-			if(id == currentPage)
-				$('#log').html(makePretty(logs[id]));
-			else if(!fresh && !$('#menu a.' + id + 'Button').hasClass('updated'))
-				$('#menu a.' + id + 'Button').addClass('updated');
-		}
-		
-		if(initialized && updated && $(window).filter(':focus').length == 0) {
-			if(flashTitleUpdateLog)
+			logs[id] = data[name];
+			if($('#menu .' + id + 'Button').length == 0) 
 			{
-				flashTitle();
+				titles[id] = name;
+				shortName = files[i].replace(/.*\//g, '');
+				style = "background-color: "+colorArray[folderNameCount];
+				item = blank;
+				item = item.replace(/{{title}}/g, shortName);
+				item = item.replace(/{{id}}/g, id);
+				if(groupByColorEnabled == true)
+				{
+				item = item.replace(/{{style}}/g, style);
+				}
+				menu.append(item);
+			}
+			
+			if(logs[id] != lastLogs[id]) 
+			{
+				updated = true;
+				if(id == currentPage)
+					$('#log').html(makePretty(logs[id]));
+				else if(!fresh && !$('#menu a.' + id + 'Button').hasClass('updated'))
+					$('#menu a.' + id + 'Button').addClass('updated');
+			}
+			
+			if(initialized && updated && $(window).filter(':focus').length == 0) 
+			{
+				if(flashTitleUpdateLog)
+				{
+					flashTitle();
+				}
 			}
 		}
 	}
