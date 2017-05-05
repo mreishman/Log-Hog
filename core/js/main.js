@@ -131,7 +131,7 @@ function update(data) {
 	var folderNameCount = -1;
 	for(i = 0; i != stop; ++i) {
 		var dataForCheck = data[files[i]];
-		if(dataForCheck == "This file is empty. This should not be displayed.")
+		if(dataForCheck == "This file is empty. This should not be displayed." && hideEmptyLog == "true")
 		{
 
 		}

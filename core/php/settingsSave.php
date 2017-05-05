@@ -40,6 +40,7 @@ require_once('loadVars.php');
 			'baseUrlUpdate'	=> '".$baseUrlUpdate."',
 			'logTrimType'	=>	'".$logTrimType."',
 			'TrimSize'	=> '".$TrimSize."',
+			'hideEmptyLog'	=>	'".$hideEmptyLog."',
 			'currentFolderColorTheme'	=> '".$currentFolderColorTheme."',
 			'groupByColorEnabled'	=> '".$groupByColorEnabled."',
 			'folderColorArrays'	=> '".$folderColorArrays."',

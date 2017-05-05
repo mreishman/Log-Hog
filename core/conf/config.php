@@ -22,6 +22,7 @@ $defaultConfig = array(
 	'baseUrlUpdate'	=> 'https://github.com/mreishman/Log-Hog/archive/',
 	'logTrimType'	=>	'lines',
 	'TrimSize'	=> 'K',
+	'hideEmptyLog'	=> 'true',
 	'currentFolderColorTheme'	=> 'theme-default-1',
 	'popupSettingsCustom'	=> array(
 		'saveSettings'	=>	'true',

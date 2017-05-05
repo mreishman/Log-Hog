@@ -356,6 +356,14 @@ require_once('../core/php/loadVars.php');
 		<div class="settingsDiv" >
 		<ul id="settingsUl">
 			<li>
+				<span class="settingsBuffer" > Hide logs that are empty: </span>
+				<select name="hideEmptyLog">
+						<option <?php if($hideEmptyLog == 'true'){echo "selected";} ?> value="true">True</option>
+						<option <?php if($hideEmptyLog == 'false'){echo "selected";} ?> value="false">False</option>
+				</select>
+				
+			</li>
+			<li>
 				<span class="settingsBuffer" > Group folders by color: </span>
 				<select name="groupByColorEnabled">
 						<option <?php if($groupByColorEnabled == 'true'){echo "selected";} ?> value="true">True</option>

@@ -167,6 +167,7 @@ $daysSince = $interval->format('%a');
 		echo "var pausePollFromFile = ".$pausePoll.";";
 		echo "var groupByColorEnabled = ".$groupByColorEnabled.";"; 
 		?>
+		var hideEmptyLog = "<?php echo $hideEmptyLog; ?>";
 		var currentFolderColorTheme = "<?php echo $currentFolderColorTheme; ?>";
 		var popupSettingsArray = JSON.parse('<?php echo json_encode($popupSettingsArray); ?>');
 		var pausePoll = false;

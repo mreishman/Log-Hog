@@ -320,6 +320,18 @@ else
 {
 	$currentFolderColorTheme = $defaultConfig['currentFolderColorTheme'];
 }
+if(isset($_POST['hideEmptyLog']))
+{
+	$hideEmptyLog = $_POST['hideEmptyLog'];
+}
+elseif(array_key_exists('hideEmptyLog', $config))
+{
+	$hideEmptyLog = $config['hideEmptyLog'];
+}
+else
+{
+	$hideEmptyLog = $defaultConfig['hideEmptyLog'];
+}
 
 
 
