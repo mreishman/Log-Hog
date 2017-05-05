@@ -67,22 +67,7 @@ for($i = 0; $i < $newestVersionCount; $i++)
 	}
 }
 
-if(array_key_exists('developmentTabEnabled', $config))
-{
-	$developmentTabEnabled = $config['developmentTabEnabled'];
-}
-else
-{
-	$developmentTabEnabled = $defaultConfig['developmentTabEnabled'];
-} 
-if(array_key_exists('expSettingsAvail', $config))
-{
-	$expSettingsAvail = $config['expSettingsAvail'];
-}
-else
-{
-	$expSettingsAvail = $defaultConfig['expSettingsAvail'];
-}
+require_once('../core/php/loadVars.php');
 ?>
 <!doctype html>
 <head>

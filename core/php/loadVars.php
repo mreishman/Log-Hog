@@ -336,6 +336,17 @@ else
 
 
 
+foreach ($folderColorArrays as $key => $value)
+{
+	if($key == $currentFolderColorTheme)
+	{
+		$currentSelectedThemeColorValues = $value;
+	}
+}
+
+
+
+
 
 $arrayWatchList = "";
 if(isset($_POST['numberOfRows']))

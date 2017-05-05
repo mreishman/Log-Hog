@@ -67,46 +67,7 @@ for($i = 0; $i < $newestVersionCount; $i++)
 	}
 }
 
-if(array_key_exists('enableDevBranchDownload', $config))
-{
-	$enableDevBranchDownload = $config['enableDevBranchDownload'];
-}
-else
-{
-	$enableDevBranchDownload = $defaultConfig['enableDevBranchDownload'];
-} 
-if(array_key_exists('developmentTabEnabled', $config))
-{
-	$developmentTabEnabled = $config['developmentTabEnabled'];
-}
-else
-{
-	$developmentTabEnabled = $defaultConfig['developmentTabEnabled'];
-}
-if(array_key_exists('popupSettingsCustom', $config))
-{
-	$popupSettingsArray = $config['popupSettingsCustom'];
-}
-else
-{
-	$popupSettingsArray = $defaultConfig['popupSettingsCustom'];
-}
-if(array_key_exists('expSettingsAvail', $config))
-{
-	$expSettingsAvail = $config['expSettingsAvail'];
-}
-else
-{
-	$expSettingsAvail = $defaultConfig['expSettingsAvail'];
-}
-if(array_key_exists('baseUrlUpdate', $config))
-{
-	$baseUrlUpdate = $config['baseUrlUpdate'];
-}
-else
-{
-	$baseUrlUpdate = $defaultConfig['baseUrlUpdate'];
-}
+require_once('../core/php/loadVars.php');
 
 ?>
 <!doctype html>

@@ -67,30 +67,7 @@ for($i = 0; $i < $newestVersionCount; $i++)
 	}
 }
 
-if(array_key_exists('developmentTabEnabled', $config))
-{
-	$developmentTabEnabled = $config['developmentTabEnabled'];
-}
-else
-{
-	$developmentTabEnabled = $defaultConfig['developmentTabEnabled'];
-} 
-if(array_key_exists('expSettingsAvail', $config))
-{
-	$expSettingsAvail = $config['expSettingsAvail'];
-}
-else
-{
-	$expSettingsAvail = $defaultConfig['expSettingsAvail'];
-}
-if(array_key_exists('popupSettingsCustom', $config))
-{
-	$popupSettingsArray = $config['popupSettingsCustom'];
-}
-else
-{
-	$popupSettingsArray = $defaultConfig['popupSettingsCustom'];
-}
+require_once('../core/php/loadVars.php');
 ?>
 <!doctype html>
 <head>

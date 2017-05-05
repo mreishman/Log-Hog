@@ -120,7 +120,7 @@ function endRefreshAction()
 function update(data) {
 	var menu = $('#menu');
 	var blank = $('#storage .menuItem').html();
-	var i, id, name, shortName, item, style;
+	var i, id, name, shortName, item, style, folderName;
 	var files = Object.keys(data);
 	var stop = files.length;
 	var updated = false;
@@ -138,7 +138,7 @@ function update(data) {
 		else
 		{
 			name = files[i];
-			var folderName = name.substr(0, name.lastIndexOf("/"));
+			folderName = name.substr(0, name.lastIndexOf("/"));
 			if(folderName !== folderNamePrev || i == 0)
 			{
 				folderNameCount++;

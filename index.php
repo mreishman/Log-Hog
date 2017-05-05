@@ -97,6 +97,11 @@ $daysSince = $interval->format('%a');
 	<script src="core/js/visibility.timers.js"></script>
 </head>
 <body>
+<style type="text/css">
+	#menu a, .link, .linkSmall{
+		background-color: <?php echo $currentSelectedThemeColorValues[0]?>;
+	}
+</style>
 	<?php if($beta): ?>
 		<div style="width: 100%;color: red;background-color: black;text-align: center; line-height: 200%;" >You are currently on a beta branch. - Only intended for development purposes</div>
 	<?php endif; ?>
@@ -149,14 +154,7 @@ $daysSince = $interval->format('%a');
 				echo "pollingRate *= 1000;";
 			}
 
-			foreach ($folderColorArrays as $key => $value)
-			{
-				if($key == $currentFolderColorTheme)
-				{
-					echo "var currentFolderColorThemeArrayOfColors = JSON.parse('".json_encode($value)."');";
-				}
-			}//JSON.parse('".json_encode($value);."')
-
+		echo "var currentFolderColorThemeArrayOfColors = JSON.parse('".json_encode($currentSelectedThemeColorValues)."');";
 		echo "var pausePollOnNotFocus = ".$pauseOnNotFocus.";";
 		echo "var autoCheckUpdate = ".$autoCheckUpdate.";";
 		echo "var flashTitleUpdateLog = ".$flashTitleUpdateLog.";";
