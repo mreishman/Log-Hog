@@ -134,17 +134,18 @@ function update(data) {
 		var dataForCheck = data[files[i]];
 		if(dataForCheck == "This file is empty. This should not be displayed." && hideEmptyLog == "true")
 		{
-
+			name = files[i];
+			id = name.replace(/[^a-z0-9]/g, '');
+			if($('#menu .' + id + 'Button').length != 0)
+			{
+				$('#menu .' + id + 'Button').remove();
+			} 
 		}
 		else
 		{
-			if(dataForCheck )
-			{
-
-			}
 			name = files[i];
 			folderName = name.substr(0, name.lastIndexOf("/"));
-			if(folderName !== folderNamePrev || i == 0)
+			if(folderName !== folderNamePrev || i == 0 || groupByType == 'file')
 			{
 				folderNameCount++;
 				folderNamePrev = folderName;
@@ -395,6 +396,12 @@ function deleteLog()
 {
 	var urlForSend = 'core/php/deleteLog.php?format=json'
 	var data = {file: document.getElementById("title").innerHTML};
+	name = document.getElementById("title").innerHTML;
+		id = name.replace(/[^a-z0-9]/g, '');
+		if($('#menu .' + id + 'Button').length != 0)
+		{
+			$('#menu .' + id + 'Button').remove();
+		}
 	$.ajax({
 			  url: urlForSend,
 			  dataType: 'json',
@@ -404,7 +411,6 @@ function deleteLog()
     // we make a successful JSONP call!
   },
   	complete: function(data){
-  		location.reload();
   	},
 });
 }
