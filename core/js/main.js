@@ -118,6 +118,7 @@ function endRefreshAction()
 }
 
 function update(data) {
+	//console.log(data);
 	var menu = $('#menu');
 	var blank = $('#storage .menuItem').html();
 	var i, id, name, shortName, item, style, folderName;
@@ -137,6 +138,10 @@ function update(data) {
 		}
 		else
 		{
+			if(dataForCheck )
+			{
+
+			}
 			name = files[i];
 			folderName = name.substr(0, name.lastIndexOf("/"));
 			if(folderName !== folderNamePrev || i == 0)
@@ -152,6 +157,10 @@ function update(data) {
 			if(data[name] == "")
 			{
 				data[name] = "Error - Unknown error? Clear log to fix?";
+			}
+			else if(data[name] == "This file is empty. This should not be displayed.")
+			{
+				data[name] = "This file is empty.";
 			}
 			logs[id] = data[name];
 			if($('#menu .' + id + 'Button').length == 0) 

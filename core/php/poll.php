@@ -72,13 +72,19 @@ function tail($filename, $sliceSize, $shellOrPhp, $logTrimCheck, $logSizeLimit,$
 	{
 		if($logTrimType == 'lines')
 		{
-			if($logTrimMacBSD == "true")
+			$lineCount = 0;
+			$lineCount = shell_exec('wc -l < ' . $filename);
+			$logSizeLimit = intval($logSizeLimit);
+			if($lineCount > $logSizeLimit)
 			{
-				//trim(shell_exec('sed -i "" "' . $logSizeLimit . ',$ d" ' . $filename));
-			}
-			else
-			{
-				//trim(shell_exec('sed -i "' . $logSizeLimit . ',$ d" ' . $filename));
+				if($logTrimMacBSD == "true")
+				{
+					shell_exec('sed -i "" "1,' . ($lineCount - $logSizeLimit) . 'd" ' . $filename);
+				}
+				else
+				{
+					shell_exec('sed -i "1,' . ($lineCount - $logSizeLimit) . 'd" ' . $filename);
+				}
 			}
 		}
 		elseif($logTrimType == 'size')
@@ -89,7 +95,8 @@ function tail($filename, $sliceSize, $shellOrPhp, $logTrimCheck, $logSizeLimit,$
 
 	if($shellOrPhp == "true")
 	{
-		return trim(tailCustom($filename, $sliceSize));
+		$data =  trim(tailCustom($filename, $sliceSize));
+		return $data;
 	}
 	else
 	{
