@@ -332,7 +332,18 @@ else
 {
 	$hideEmptyLog = $defaultConfig['hideEmptyLog'];
 }
-
+if(isset($_POST['groupByType']))
+{
+	$groupByType = $_POST['groupByType'];
+}
+elseif(array_key_exists('groupByType', $config))
+{
+	$groupByType = $config['groupByType'];
+}
+else
+{
+	$groupByType = $defaultConfig['groupByType'];
+}
 
 
 

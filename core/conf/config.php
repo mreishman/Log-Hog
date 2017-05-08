@@ -23,6 +23,7 @@ $defaultConfig = array(
 	'logTrimType'	=>	'lines',
 	'TrimSize'	=> 'K',
 	'hideEmptyLog'	=> 'false',
+	'groupByType'	=> 'folder',
 	'currentFolderColorTheme'	=> 'theme-default-1',
 	'popupSettingsCustom'	=> array(
 		'saveSettings'	=>	'true',

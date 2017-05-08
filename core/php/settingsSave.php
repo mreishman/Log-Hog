@@ -41,6 +41,7 @@ require_once('loadVars.php');
 			'logTrimType'	=>	'".$logTrimType."',
 			'TrimSize'	=> '".$TrimSize."',
 			'hideEmptyLog'	=>	'".$hideEmptyLog."',
+			'groupByType'	=> '".$groupByType."',
 			'currentFolderColorTheme'	=> '".$currentFolderColorTheme."',
 			'groupByColorEnabled'	=> '".$groupByColorEnabled."',
 			'folderColorArrays'	=> '".$folderColorArrays."',
