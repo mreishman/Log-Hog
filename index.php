@@ -149,10 +149,7 @@ $daysSince = $interval->format('%a');
 	
 	<script>
 		<?php
-			if($pollingRateType == 'Seconds')
-			{
-				echo "pollingRate *= 1000;";
-			}
+			
 
 		echo "var currentFolderColorThemeArrayOfColors = JSON.parse('".json_encode($currentSelectedThemeColorValues)."');";
 		echo "var pausePollOnNotFocus = ".$pauseOnNotFocus.";";
@@ -164,6 +161,13 @@ $daysSince = $interval->format('%a');
 		echo "var pollingRate = ".$pollingRate.";";
 		echo "var pausePollFromFile = ".$pausePoll.";";
 		echo "var groupByColorEnabled = ".$groupByColorEnabled.";"; 
+
+		if($pollingRateType == 'Seconds')
+		{
+			echo "pollingRate *= 1000;";
+		}
+
+			
 		?>
 		var groupByType = "<?php echo $groupByType; ?>";
 		var hideEmptyLog = "<?php echo $hideEmptyLog; ?>";
