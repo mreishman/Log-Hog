@@ -432,4 +432,39 @@ else
 	}
 }
 
+$folderColorArraysSave = "";
+if(isset($_POST['folderThemeCount']))
+{
+	$intFolderThemeCount = intval($_POST['folderThemeCount']);
+	for($i = 0; $i < $intFolderThemeCount; $i++ )
+	{
+		$folderColorArraysSave .= "'".$_POST['folderColorThemeNameForPost'.($i+1)]."'	=>	array(";
+		$colorCount = 0;
+		while (isset($_POST['folderColorValue'.($i+1).'-'.($colorCount+1)])) 
+		{
+			$colorCount++;
+			$folderColorArraysSave .= "'".$_POST['folderColorValue'.($i+1).'-'.($colorCount)]."',";
+		}
+		$folderColorArraysSave = substr($folderColorArraysSave, 0, -1);
+		$folderColorArraysSave .= ")";
+		$folderColorArraysSave .= ",";
+	}
+}
+else
+{
+	$count = 0;
+	foreach ($folderColorArrays as $key => $value)
+	{
+		$folderColorArraysSave .= "'".$key."'	=>	array(";
+		$count++;
+		foreach ($value as $key2 => $value2) 
+		{
+			$folderColorArraysSave .= "'".$value2."',";
+		}
+		$folderColorArraysSave = substr($folderColorArraysSave, 0, -1);
+		$folderColorArraysSave .= ")";
+		$folderColorArraysSave .= ",";
+	}
+}
+
 ?>

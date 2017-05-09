@@ -44,7 +44,8 @@ require_once('loadVars.php');
 			'groupByType'	=> '".$groupByType."',
 			'currentFolderColorTheme'	=> '".$currentFolderColorTheme."',
 			'groupByColorEnabled'	=> '".$groupByColorEnabled."',
-			'folderColorArrays'	=> '".$folderColorArrays."',
+			'folderColorArrays'	=> 	array(
+			".$folderColorArraysSave."),
 			'popupSettingsCustom'	=> array(
 			".$popupSettingsArraySave."),
 			'watchList' => array(
