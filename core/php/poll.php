@@ -89,6 +89,40 @@ function tail($filename, $sliceSize, $shellOrPhp, $logTrimCheck, $logSizeLimit,$
 		}
 		elseif($logTrimType == 'size')
 		{
+
+			if($TrimSize = "KB")
+			{
+				$logSizeLimit *= 1024;
+			}
+			elseif($TrimSize = "M")
+			{
+				$logSizeLimit *= (1000 * 1000);
+			}
+			elseif($TrimSize = "MB")
+			{
+				$logSizeLimit *= (1024 * 1024);
+			}
+			else
+			{
+				$logSizeLimit *= 1000;
+			}
+			
+
+			//compair to trimsize value
+			$trimFileBool = true;
+			while ($trimFileBool)
+			{
+				$filesizeForFile = shell_exec('wc -c < '.$filename);
+				if($filesizeForFile > $logSizeLimit)
+				{
+					//remove first line in file
+					shell_exec('sed -i "" "1,5d" ' . $filename);
+				}	
+				else
+				{
+					$trimFileBool = false;
+				}
+			}
 			//trim(shell_exec('truncate -s ' . $TrimSize . ' ' . $filename));
 		}
 	}

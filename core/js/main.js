@@ -157,7 +157,7 @@ function update(data) {
 			id = name.replace(/[^a-z0-9]/g, '');
 			if(data[name] == "")
 			{
-				data[name] = "Error - Unknown error? Clear log to fix?";
+				data[name] = "Error - Unknown error? Check file permissions or clear log to fix?";
 			}
 			else if(data[name] == "This file is empty. This should not be displayed.")
 			{
