@@ -107,21 +107,29 @@ function tail($filename, $sliceSize, $shellOrPhp, $logTrimCheck, $logSizeLimit,$
 				$logSizeLimit *= 1000;
 			}
 			
-
+			$maxForLoop = 0;
 			//compair to trimsize value
 			$trimFileBool = true;
-			while ($trimFileBool)
+			while ($trimFileBool && $maxForLoop != 10)
 			{
-				$filesizeForFile = shell_exec('wc -c < '.$filename);
-				if($filesizeForFile > $logSizeLimit)
+				//$filesizeForFile = shell_exec('wc -c < '.$filename);
+				if(shell_exec('wc -c < '.$filename) > $logSizeLimit)
 				{
 					//remove first line in file
-					shell_exec('sed -i "" "1,5d" ' . $filename);
+					if($logTrimMacBSD == "true")
+					{
+						shell_exec('sed -i "" "1,2d" ' . $filename);
+					}
+					else
+					{
+						shell_exec('sed -i "1,2d" ' . $filename);
+					}
 				}	
 				else
 				{
 					$trimFileBool = false;
 				}
+				$maxForLoop++;
 			}
 			//trim(shell_exec('truncate -s ' . $TrimSize . ' ' . $filename));
 		}
