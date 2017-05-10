@@ -157,11 +157,11 @@ function update(data) {
 			id = name.replace(/[^a-z0-9]/g, '');
 			if(data[name] == "")
 			{
-				data[name] = "Error - Unknown error? Check file permissions or clear log to fix?";
+				data[name] = "<div class='errorMessageLog errorMessageRedBG' >Error - Unknown error? Check file permissions or clear log to fix?</div>";
 			}
 			else if(data[name] == "This file is empty. This should not be displayed.")
 			{
-				data[name] = "This file is empty.";
+				data[name] = "<div class='errorMessageLog errorMessageGreenBG' > This file is empty. </div>";
 			}
 			logs[id] = data[name];
 			if($('#menu .' + id + 'Button').length == 0) 
@@ -174,7 +174,7 @@ function update(data) {
 				item = item.replace(/{{id}}/g, id);
 				if(groupByColorEnabled == true)
 				{
-				item = item.replace(/{{style}}/g, style);
+					item = item.replace(/{{style}}/g, style);
 				}
 				menu.append(item);
 			}

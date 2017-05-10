@@ -165,3 +165,18 @@ div {
     right: 0px;
     z-index: 2;
 }
+
+.errorMessageLog{
+	
+	font-size: 200%;
+	text-align: center;
+	line-height: 200%;
+}
+
+.errorMessageRedBG{
+	background-color: red;
+}
+
+.errorMessageGreenBG{
+	background-color: green;
+}

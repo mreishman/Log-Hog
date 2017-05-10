@@ -133,7 +133,7 @@ require_once('../core/php/loadVars.php');
 							</span>
 						</li>
 
-						<li id="LiForlogTrimMacBSD" <?php if($logTrimType != 'lines'){echo "style='display:none;'";} ?>  >
+						<li id="LiForlogTrimMacBSD">
 							<span class="settingsBuffer" > Use Mac/Free BSD Command: </span>  
 							<select name="logTrimMacBSD">
 									<option <?php if($logTrimMacBSD == 'true'){echo "selected";} ?> value="true">True</option>
@@ -460,13 +460,13 @@ function changeDescriptionLineSize()
 	if (valueForDesc == "lines")
 	{
 		document.getElementById('logTrimTypeText').innerHTML = "Lines";
-		document.getElementById('LiForlogTrimMacBSD').style.display = "block";
+		//document.getElementById('LiForlogTrimMacBSD').style.display = "block";
 		document.getElementById('LiForlogTrimSize').style.display = "none"
 	}
 	else if (valueForDesc == 'size')
 	{
 		document.getElementById('logTrimTypeText').innerHTML = "Size";
-		document.getElementById('LiForlogTrimMacBSD').style.display = "none";
+		//document.getElementById('LiForlogTrimMacBSD').style.display = "none";
 		document.getElementById('LiForlogTrimSize').style.display = "block"
 	}
 
