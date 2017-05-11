@@ -1,0 +1,242 @@
+body {
+	color: white;
+	background-color: #191919;
+	font-family: monospace;
+	padding: 0;
+	margin: 0;
+}
+
+div {
+	box-sizing: border-box;
+}
+
+#storage {
+	display: none;
+}
+
+#menu {
+	position: absolute;
+	width: 100%;
+	z-index: 10;
+	background-color: #222;
+	padding: .5em 1em;
+	max-height: 300px;
+	border-bottom: 1px solid white;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+#menu a {
+	display: inline-block;
+	padding: .5em 1em;
+	margin: .5em 0;
+	background-color: #2A912A;
+	cursor: pointer;
+}
+
+#menu a:hover, #menu a.active, .link:hover, .linkSmall:hover {
+	color: black;
+	background-color: white !important; 
+}
+
+#menu a.updated {
+	background-color: #912A2C !important; 
+}
+
+.menuImage{
+	vertical-align: middle;
+}
+
+#main {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	overflow: auto;
+}
+
+#log {
+	padding: 1em 0;
+	color: white;
+	white-space: pre-wrap;
+}
+
+#log > div {
+	padding: .25em 1em;
+}
+
+#titleContainer {
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	color: black;
+	background-color: #ccc;
+	padding: 0 1em;
+	line-height: 2em;
+}
+
+#title{
+	display: inline-block;
+}
+
+#settingsUl
+{
+	list-style: none;
+}
+
+#settingsUl li
+{
+	padding: 10px;
+}
+
+.settingsDiv
+{
+	background-color: #444444;
+	border: 1px solid white;
+	margin: 10px;
+	margin-top: 0px;
+}
+
+.settingsHeader
+{
+	background-color: white;
+	margin: 10px;
+	margin-bottom: 0px;
+	color: black;
+	padding: 5px;
+}
+
+.settingsDiv p a
+{
+	color: white;
+}
+
+.updatingDiv p
+{
+	margin: 2px;
+	padding-left: 10px;
+	word-wrap: break-word;
+}
+
+.settingsBuffer
+{
+	width: 200px;
+	display: inline-block;
+}
+
+.link
+{
+	display: inline-block;
+	padding: .5em 1em;
+	background-color: #2A912A;
+	cursor: pointer;
+	border: solid 1px white;
+	color: white;
+}
+
+.linkSmall
+{
+	display: inline-block;
+	padding: 3px 5px;
+	margin: 1px;
+	background-color: #2A912A;
+	cursor: pointer;
+	border: solid 1px white;
+	line-height: 100%;
+	color: white;
+}
+
+.colorSelectorDiv
+{
+	border: 1px solid white;
+	width: 20px;
+	height: 20px;
+	display: inline-block;
+}
+
+.inner-triangle{
+    border-left: 7px solid transparent;
+    border-bottom: 7px solid white;
+    height: 0;
+    width: 0;
+    position: relative;
+    right: 0px;
+    z-index: 2;
+    top: 11px;
+    left: 11px;
+}
+
+.errorMessageLog{
+	
+	font-size: 200%;
+	text-align: center;
+	line-height: 200%;
+}
+
+.errorMessageRedBG{
+	background-color: red;
+}
+
+.errorMessageGreenBG{
+	background-color: green;
+}
+
+.context-menu {
+  display: none;
+  position: absolute;
+  z-index: 10;
+  padding: 12px 0;
+  width: 240px;
+  background-color: #fff;
+  border: solid 1px #dfdfdf;
+  box-shadow: 1px 1px 2px #cfcfcf;
+}
+
+.context-menu--active {
+  display: block;
+}
+
+.context-menu__items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.context-menu__item {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.context-menu__item:last-child {
+  margin-bottom: 0;
+}
+
+.context-menu__link {
+  display: block;
+  padding: 4px 12px;
+  color: #0066aa;
+  text-decoration: none;
+}
+
+.context-menu__link:hover {
+  color: #fff;
+  background-color: #0066aa;
+}
+
+.tasks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.task {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: solid 1px #dfdfdf;
+}
+
+.task:last-child {
+  border-bottom: none;
+}
