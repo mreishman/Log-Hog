@@ -25,6 +25,7 @@ $defaultConfig = array(
 	'hideEmptyLog'	=> 'false',
 	'groupByType'	=> 'folder',
 	'currentFolderColorTheme'	=> 'theme-default-1',
+	'groupByColorEnabled'	=> 'true',
 	'popupSettingsCustom'	=> array(
 		'saveSettings'	=>	'true',
 		'blankFolder'	=>	'true',
