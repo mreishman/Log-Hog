@@ -179,7 +179,7 @@ function update(data) {
 			}
 			else if(data[name] == "Error - Maybe insuffecent access to read file?")
 			{
-				data[name] = "<div class='errorMessageLog errorMessageGreenBG' > Error - Maybe insuffecent access to read file? </div>";
+				data[name] = "<div class='errorMessageLog errorMessageRedBG' > Error - Maybe insuffecent access to read file? </div>";
 			}
 			logs[id] = data[name];
 			if($('#menu .' + id + 'Button').length == 0) 
