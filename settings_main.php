@@ -349,6 +349,7 @@ require_once('../core/php/loadVars.php');
 			<input id="numberOfRows" type="text" name="numberOfRows" value="<?php echo $i;?>">
 		</div>	
 		</form>
+		<?php $folderCount = $i; ?>
 		<form id="settingsMainVars" action="../core/php/settingsSave.php" method="post">
 		<div class="settingsHeader">
 		Menu Settings <button onclick="displayLoadingPopup();" >Save Changes</button>
@@ -647,7 +648,7 @@ function goToUrl(url)
 		{
 			goToPage = false;
 		}
-		else if(document.getElementById("numberOfRows").value != "<?php echo $i;?>")
+		else if(document.getElementById("numberOfRows").value != "<?php echo $folderCount;?>")
 		{
 			goToPage = false;
 		}
