@@ -202,7 +202,7 @@ elseif(array_key_exists('autoCheckDaysUpdate', $config))
 }
 else
 {
-	$polliautoCheckDaysUpdatengRateType = $defaultConfig['autoCheckDaysUpdate'];
+	$autoCheckDaysUpdate = $defaultConfig['autoCheckDaysUpdate'];
 }
 if(isset($_POST['enableHtopLink']))
 {
