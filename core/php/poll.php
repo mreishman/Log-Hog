@@ -112,17 +112,36 @@ function tail($filename, $sliceSize, $shellOrPhp, $logTrimCheck, $logSizeLimit,$
 			$trimFileBool = true;
 			while ($trimFileBool && $maxForLoop != 10)
 			{
-				//$filesizeForFile = shell_exec('wc -c < '.$filename);
-				if(shell_exec('wc -c < '.$filename) > $logSizeLimit)
+				$filesizeForFile = shell_exec('wc -c < '.$filename);
+				if($filesizeForFile > $logSizeLimit)
 				{
-					//remove first line in file
-					if($logTrimMacBSD == "true")
+					if($filesizeForFile > (2*$logSizeLimit) && $maxForLoop == 0)
 					{
-						shell_exec('sed -i "" "1,2d" ' . $filename);
+						//use different method
+						$lineCountForFile = shell_exec('wc -l < ' . $filename);
+						$fileSizePerLine = $filesizeForFile/$lineCountForFile;
+						$numOfLinesAllowed = $logSizeLimit/$fileSizePerLine;
+						$numOfLinesAllowed *= 2;
+						if($logTrimMacBSD == "true")
+						{
+							shell_exec('sed -i "" "1,' . ($lineCountForFile - $numOfLinesAllowed) . 'd" ' . $filename);
+						}
+						else
+						{
+							shell_exec('sed -i "1,' . ($lineCountForFile - $numOfLinesAllowed) . 'd" ' . $filename);
+						}
 					}
 					else
 					{
-						shell_exec('sed -i "1,2d" ' . $filename);
+						//remove first line in file
+						if($logTrimMacBSD == "true")
+						{
+							shell_exec('sed -i "" "1,2d" ' . $filename);
+						}
+						else
+						{
+							shell_exec('sed -i "1,2d" ' . $filename);
+						}
 					}
 				}	
 				else

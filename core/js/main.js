@@ -7,6 +7,7 @@ var fresh = true;
 var flasher;
 var updating = false;
 var startedPauseOnNonFocus = false;
+var polling = false;
 
 function poll() {
 
@@ -62,11 +63,24 @@ function pollTwo()
 		{
 			document.title = "Log Hog | Index";
 		}
-	$.getJSON('core/php/poll.php', {}, function(data) {
-		update(data);
-		fresh = false;
-	});
+		if(!polling)
+		{
+			polling = true;
+			$.getJSON('core/php/poll.php', {}, function(data) {
+				update(data);
+				fresh = false;
+			})
+			.always(function()
+			{
+				afterPollFunctionComplete();
+			});
+		}
 	}
+}
+
+function afterPollFunctionComplete()
+{
+	polling = false;
 }
 
 function pausePollAction()
