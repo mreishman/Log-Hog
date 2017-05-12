@@ -159,7 +159,7 @@ function tail($filename, $sliceSize, $shellOrPhp, $logTrimCheck, $logSizeLimit,$
 		$data =  trim(tailCustom($filename, $sliceSize));
 		if($data == "" || is_null($data))
 		{
-			$data = "Error - Maybe insuffecent access to read file?";
+			$data = "Error - Maybe insufficient access to read file?";
 		}
 		return $data;
 	}
@@ -172,7 +172,7 @@ function tail($filename, $sliceSize, $shellOrPhp, $logTrimCheck, $logSizeLimit,$
 
 			if($data == "" || is_null($data))
 			{
-				$data = "Error - Maybe insuffecent access to read file?";
+				$data = "Error - Maybe insufficient access to read file?";
 			}
 		}
 		return $data;

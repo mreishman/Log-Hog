@@ -85,7 +85,7 @@ function afterPollFunctionComplete()
 {
 	polling = false;
 	t1 = performance.now();
-	//console.log("Ajax refresh took " + (Math.round(t1 - t0)) + " milliseconds.");
+	//console.log("Ajax refresh took " + (Math.round(t1 - t0)) + "/" + pollingRate +" milliseconds.");
 }
 
 function pausePollAction()
@@ -182,9 +182,9 @@ function update(data) {
 			{
 				data[name] = "<div class='errorMessageLog errorMessageGreenBG' > This file is empty. </div>";
 			}
-			else if(data[name] == "Error - Maybe insuffecent access to read file?")
+			else if(data[name] == "Error - Maybe insufficient access to read file?")
 			{
-				data[name] = "<div class='errorMessageLog errorMessageRedBG' > Error - Maybe insuffecent access to read file? </div>";
+				data[name] = "<div class='errorMessageLog errorMessageRedBG' > Error - Maybe insufficient access to read file? </div>";
 			}
 			logs[id] = data[name];
 			if($('#menu .' + id + 'Button').length == 0) 
