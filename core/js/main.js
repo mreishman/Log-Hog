@@ -8,6 +8,8 @@ var flasher;
 var updating = false;
 var startedPauseOnNonFocus = false;
 var polling = false;
+var t0 = performance.now();
+var t1 = performance.now();
 
 function poll() {
 
@@ -66,6 +68,7 @@ function pollTwo()
 		if(!polling)
 		{
 			polling = true;
+			t0 = performance.now();
 			$.getJSON('core/php/poll.php', {}, function(data) {
 				update(data);
 				fresh = false;
@@ -81,6 +84,8 @@ function pollTwo()
 function afterPollFunctionComplete()
 {
 	polling = false;
+	t1 = performance.now();
+	//console.log("Ajax refresh took " + (Math.round(t1 - t0)) + " milliseconds.");
 }
 
 function pausePollAction()
