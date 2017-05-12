@@ -90,15 +90,15 @@ function tail($filename, $sliceSize, $shellOrPhp, $logTrimCheck, $logSizeLimit,$
 		elseif($logTrimType == 'size')
 		{
 
-			if($TrimSize = "KB")
+			if($TrimSize == "KB")
 			{
 				$logSizeLimit *= 1024;
 			}
-			elseif($TrimSize = "M")
+			elseif($TrimSize == "M")
 			{
 				$logSizeLimit *= (1000 * 1000);
 			}
-			elseif($TrimSize = "MB")
+			elseif($TrimSize == "MB")
 			{
 				$logSizeLimit *= (1024 * 1024);
 			}
@@ -115,7 +115,7 @@ function tail($filename, $sliceSize, $shellOrPhp, $logTrimCheck, $logSizeLimit,$
 				$filesizeForFile = shell_exec('wc -c < '.$filename);
 				if($filesizeForFile > $logSizeLimit)
 				{
-					if($filesizeForFile > (2*$logSizeLimit) && $maxForLoop == 0)
+					if($filesizeForFile > (2*$logSizeLimit) && $maxForLoop < 2)
 					{
 						//use different method
 						$lineCountForFile = shell_exec('wc -l < ' . $filename);
@@ -124,11 +124,11 @@ function tail($filename, $sliceSize, $shellOrPhp, $logTrimCheck, $logSizeLimit,$
 						$numOfLinesAllowed *= 2;
 						if($logTrimMacBSD == "true")
 						{
-							shell_exec('sed -i "" "1,' . ($lineCountForFile - $numOfLinesAllowed) . 'd" ' . $filename);
+							shell_exec('sed -i "" "1,' . round($lineCountForFile - $numOfLinesAllowed) . 'd" ' . $filename);
 						}
 						else
 						{
-							shell_exec('sed -i "1,' . ($lineCountForFile - $numOfLinesAllowed) . 'd" ' . $filename);
+							shell_exec('sed -i "1,' . round($lineCountForFile - $numOfLinesAllowed) . 'd" ' . $filename);
 						}
 					}
 					else
