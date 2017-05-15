@@ -85,7 +85,7 @@ function afterPollFunctionComplete()
 {
 	polling = false;
 	t1 = performance.now();
-	//console.log("Ajax refresh took " + (Math.round(t1 - t0)) + "/" + pollingRate +" milliseconds.");
+	document.getElementById("loggingTimerPollRate").innerText = "Ajax refresh took " + (Math.round(t1 - t0)) + "/" + pollingRate +" milliseconds.";
 }
 
 function pausePollAction()
