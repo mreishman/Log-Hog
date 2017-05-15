@@ -67,23 +67,20 @@ for($i = 0; $i < $newestVersionCount; $i++)
 	}
 }
 
-if(array_key_exists('developmentTabEnabled', $config))
-{
-	$developmentTabEnabled = $config['developmentTabEnabled'];
-}
-else
-{
-	$developmentTabEnabled = $defaultConfig['developmentTabEnabled'];
-} 
-if(array_key_exists('expSettingsAvail', $config))
-{
-	$expSettingsAvail = $config['expSettingsAvail'];
-}
-else
-{
-	$expSettingsAvail = $defaultConfig['expSettingsAvail'];
-}
+require_once('../core/php/loadVars.php');
 
+$today = date('Y-m-d');
+$old_date = $configStatic['lastCheck'];
+$old_date_array = split("-", $old_date);
+$old_date = $old_date_array[2]."-".$old_date_array[0]."-".$old_date_array[1];
+//$old_date = date_format( $old_date ,"Y-m-d");          
+//$old_date_timestamp = strtotime($old_date);
+//$new_date = date('Y-m-d', $old_date_timestamp); 
+
+$datetime1 = date_create($old_date_array[2]."-".$old_date_array[0]."-".$old_date_array[1]);
+$datetime2 = date_create($today);
+$interval = date_diff($datetime1, $datetime2);
+$daysSince = $interval->format('%a');
 ?>
 <!doctype html>
 <head>
@@ -105,7 +102,7 @@ else
 					<h2>Current Version - <?php echo $configStatic['version'];?></h2>
 				</li>	
 				<li>
-					<h2>Last Check for updates -  <?php echo $configStatic['lastCheck'];?></h2>
+					<h2>Last Check for updates -  <?php echo $daysSince;?> Day<?php if($daysSince != 1){ echo "s";} ?> Ago</h2>
 				</li>
 				<li>
 					<form id="settingsCheckForUpdate" action="../core/php/settingsCheckForUpdate.php" method="post" style="float: left; padding: 10px;">

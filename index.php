@@ -70,14 +70,20 @@ for($i = 0; $i < $newestVersionCount; $i++)
 		break;
 	}
 }
-if(array_key_exists('truncateLogButtonAll', $config))
-{
-	$truncateLog = $config['truncateLogButtonAll'];
-}
-else
-{
-	$truncateLog = $defaultConfig['truncateLogButtonAll'];
-}
+
+require_once('core/php/loadVars.php');
+
+$today = date('Y-m-d');
+$old_date = $configStatic['lastCheck'];
+$old_date_array = split("-", $old_date);
+$old_date = $old_date_array[2]."-".$old_date_array[0]."-".$old_date_array[1];
+
+$datetime1 = date_create($old_date_array[2]."-".$old_date_array[0]."-".$old_date_array[1]);
+$datetime2 = date_create($today);
+$interval = date_diff($datetime1, $datetime2);
+$daysSince = $interval->format('%a');
+
+
 ?>
 <!doctype html>
 <head>
@@ -91,6 +97,11 @@ else
 	<script src="core/js/visibility.timers.js"></script>
 </head>
 <body>
+<style type="text/css">
+	#menu a, .link, .linkSmall{
+		background-color: <?php echo $currentSelectedThemeColorValues[0]?>;
+	}
+</style>
 	<?php if($beta): ?>
 		<div style="width: 100%;color: red;background-color: black;text-align: center; line-height: 200%;" >You are currently on a beta branch. - Only intended for development purposes</div>
 	<?php endif; ?>
@@ -110,6 +121,11 @@ else
 			<img id="deleteImage" class="menuImage" src="core/img/trashCan.png" height="30px">
 		</div>
 		<?php endif; ?>
+		<?php if($enableHtopLink == 'true'): ?>
+			<div onclick="window.location.href = './core/php/statusTest.php'" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">
+				<img id="taskmanagerImage" class="menuImage" src="core/img/task-manager.png" height="30px">
+			</div>
+		<?php endif; ?>
 		<div onclick="window.location.href = './settings/main.php';" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">
 			<img id="gear" class="menuImage" src="core/img/Gear.png" height="30px">
 			<?php  if($levelOfUpdate == 1){echo '<img src="core/img/yellowWarning.png" height="15px" style="position: absolute;margin-left: 13px;margin-top: -34px;">';} ?> <?php if($levelOfUpdate == 2){echo '<img src="core/img/redWarning.png" height="15px" style="position: absolute;margin-left: 13px;margin-top: -34px;">';} ?>
@@ -125,57 +141,38 @@ else
 	
 	<div id="storage">
 		<div class="menuItem">
-			<a class="{{id}}Button" onclick="show(this, '{{id}}')">{{title}}</a>
+			<a style="{{style}}" class="{{id}}Button" onclick="show(this, '{{id}}')">{{title}}</a>
 		</div>
 	</div>
 	
-	<div id="titleContainer"><div id="title">&nbsp;</div>&nbsp;&nbsp;<form style="display: inline-block;" ><a class="linkSmall" onclick="clearLog()" >Clear Log</a></form></div>
+	<div id="titleContainer"><div id="title">&nbsp;</div>&nbsp;&nbsp;<form style="display: inline-block;" ><a class="linkSmall" onclick="clearLog()" >Clear Log</a><a class="linkSmall" onclick="deleteLogPopup()" >Delete Log</a></form></div>
 	
 	<script>
 		<?php
-			if(array_key_exists('pollingRate', $config))
-			{
-				echo "var pollingRate = ".$config['pollingRate'].";";
-			}
-			else
-			{
-				echo "var pollingRate = ".$defaultConfig['pollingRate'].";";
-			} 
-			if(array_key_exists('pausePoll', $config))
-			{
-				echo "var pausePollFromFile = ".$config['pausePoll'].";";
-			}
-			else
-			{
-				echo "var pausePollFromFile = ".$defaultConfig['pausePoll'].";";
-			}
-			if(array_key_exists('pauseOnNotFocus', $config))
-			{
-				echo "var pausePollOnNotFocus = ".$config['pauseOnNotFocus'].";";
-			}
-			else
-			{
-				echo "var pausePollOnNotFocus = ".$defaultConfig['pauseOnNotFocus'].";";
-			}
-			if(array_key_exists('autoCheckUpdate', $config))
-			{
-				echo "var autoCheckUpdate = ".$config['autoCheckUpdate'].";";
-			}
-			else
-			{
-				echo "var autoCheckUpdate = ".$defaultConfig['autoCheckUpdate'].";";
-			}
-			if(array_key_exists('flashTitleUpdateLog', $config))
-			{
-				echo "var flashTitleUpdateLog = ".$config['flashTitleUpdateLog'].";";
-			}
-			else
-			{
-				echo "var flashTitleUpdateLog = ".$defaultConfig['flashTitleUpdateLog'].";";
-			}
-		echo "var dateOfLastUpdate = '".$configStatic['lastCheck']."';";
-		?>
+			
 
+		echo "var currentFolderColorThemeArrayOfColors = JSON.parse('".json_encode($currentSelectedThemeColorValues)."');";
+		echo "var pausePollOnNotFocus = ".$pauseOnNotFocus.";";
+		echo "var autoCheckUpdate = ".$autoCheckUpdate.";";
+		echo "var flashTitleUpdateLog = ".$flashTitleUpdateLog.";";
+		echo "var dateOfLastUpdate = '".$configStatic['lastCheck']."';";
+		echo "var daysSinceLastCheck = '".$daysSince."';";
+		echo "var daysSetToUpdate = '".$autoCheckDaysUpdate."';";
+		echo "var pollingRate = ".$pollingRate.";";
+		echo "var pausePollFromFile = ".$pausePoll.";";
+		echo "var groupByColorEnabled = ".$groupByColorEnabled.";"; 
+
+		if($pollingRateType == 'Seconds')
+		{
+			echo "pollingRate *= 1000;";
+		}
+
+			
+		?>
+		var groupByType = "<?php echo $groupByType; ?>";
+		var hideEmptyLog = "<?php echo $hideEmptyLog; ?>";
+		var currentFolderColorTheme = "<?php echo $currentFolderColorTheme; ?>";
+		var popupSettingsArray = JSON.parse('<?php echo json_encode($popupSettingsArray); ?>');
 		var pausePoll = false;
 		var refreshActionVar;
 		var refreshPauseActionVar;
@@ -184,4 +181,5 @@ else
 	</script>
 	
 	<script src="core/js/main.js"></script>
+	<?php readfile('core/html/popup.html') ?>	
 </body>

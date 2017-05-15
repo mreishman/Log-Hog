@@ -1,3 +1,8 @@
+
+<meta http-equiv="cache-control" content="no-cache, must-revalidate, post-check=0, pre-check=0">
+<meta http-equiv="expires" content="Sat, 31 Oct 2014 00:00:00 GMT">
+<meta http-equiv="pragma" content="no-cache">
+
 <?php
 $baseUrl = "../core/";
 if(file_exists('../local/layout.php'))
@@ -90,7 +95,67 @@ require_once('../core/php/loadVars.php');
 				<span class="settingsBuffer" > Slice Size:</span>  <input type="text" name="sliceSize" value="<?php echo $sliceSize;?>" > Lines
 			</li>
 			<li>
-				<span class="settingsBuffer" > Polling Rate: </span>  <input type="text" name="pollingRate" value="<?php echo $pollingRate;?>" > Milliseconds
+				<span class="settingsBuffer" > Polling Rate: </span>  <input type="text" name="pollingRate" value="<?php echo $pollingRate;?>" >
+				<select name="pollingRateType">
+						<option <?php if($pollingRateType == 'Milliseconds'){echo "selected";} ?> value="Milliseconds">Milliseconds</option>
+						<option <?php if($pollingRateType == 'Seconds'){echo "selected";} ?> value="Seconds">Seconds</option>
+				</select>
+			</li>
+			<li>
+				<span class="settingsBuffer" > Log trim:  </span>
+				<select id="logTrimOn" name="logTrimOn">
+					<option <?php if($logTrimOn == 'true'){echo "selected";} ?> value="true">True</option>
+					<option <?php if($logTrimOn == 'false'){echo "selected";} ?> value="false">False</option>
+				</select>
+
+				<div id="settingsLogTrimVars" <?php if($logTrimOn == 'false'){echo "style='display: none;'";}?> >
+
+				<div class="settingsHeader">
+					Log Trim Settings
+					</div>
+					<div class="settingsDiv" >
+					<ul id="settingsUl">
+					
+						<li>
+						<span class="settingsBuffer" > Max 
+
+						<select id="logTrimTypeToggle" name="logTrimType">
+									<option <?php if($logTrimType == 'lines'){echo "selected";} ?> value="lines">Line Count</option>
+									<option <?php if($logTrimType == 'size'){echo "selected";} ?> value="size">File Size</option>
+							</select>
+						
+
+
+						: </span> 
+							<input type="text" name="logSizeLimit" value="<?php echo $logSizeLimit;?>" > 
+							<span id="logTrimTypeText" >
+								
+							</span>
+						</li>
+
+						<li id="LiForlogTrimMacBSD">
+							<span class="settingsBuffer" > Use Mac/Free BSD Command: </span>  
+							<select name="logTrimMacBSD">
+									<option <?php if($logTrimMacBSD == 'true'){echo "selected";} ?> value="true">True</option>
+									<option <?php if($logTrimMacBSD == 'false'){echo "selected";} ?> value="false">False</option>
+							</select>
+						</li>
+
+						<li id="LiForlogTrimSize" <?php if($logTrimType != 'size'){echo "style='display:none;'";} ?> >
+							<span class="settingsBuffer" > Size is measured in: </span>  
+							<select name="TrimSize">
+									<option <?php if($TrimSize == 'KB'){echo "selected";} ?> value="KB">KB</option>
+									<option <?php if($TrimSize == 'K'){echo "selected";} ?> value="K">K</option>
+									<option <?php if($TrimSize == 'MB'){echo "selected";} ?> value="MB">MB</option>
+									<option <?php if($TrimSize == 'M'){echo "selected";} ?> value="M">M</option>
+							</select>
+						</li>
+
+					</ul>
+					</div>
+				</div>
+
+
 			</li>
 			<li>
 				<span class="settingsBuffer" > Pause Poll By Default:  </span> 
@@ -108,10 +173,28 @@ require_once('../core/php/loadVars.php');
 			</li>
 			<li>
 				<span class="settingsBuffer" > Auto Check Update: </span> 
-					<select name="autoCheckUpdate">
+					<select id="settingsSelect" name="autoCheckUpdate">
   						<option <?php if($autoCheckUpdate == 'true'){echo "selected";} ?> value="true">True</option>
   						<option <?php if($autoCheckUpdate == 'false'){echo "selected";} ?> value="false">False</option>
 					</select>
+
+				<div id="settingsAutoCheckVars" <?php if($autoCheckUpdate == 'false'){echo "style='display: none;'";}?> >
+
+				<div class="settingsHeader">
+					Auto Check Update Settings
+					</div>
+					<div class="settingsDiv" >
+					<ul id="settingsUl">
+					
+						<li>
+						<span class="settingsBuffer" > Check for update every: </span> 
+							<input type="text" name="autoCheckDaysUpdate" value="<?php echo $autoCheckDaysUpdate;?>" >  Day(s)
+						</li>
+
+					</ul>
+					</div>
+				</div>
+
 			</li>
 			<li>
 				<span class="settingsBuffer" > Truncate Log Button: </span> 
@@ -167,6 +250,60 @@ require_once('../core/php/loadVars.php');
 				$i = 0;
 				$triggerSaveUpdate = false;
 				foreach($config['watchList'] as $key => $item): $i++;
+
+				$perms  =  fileperms($key); 
+
+				switch ($perms & 0xF000) {
+				    case 0xC000: // socket
+				        $info = 's';
+				        break;
+				    case 0xA000: // symbolic link
+				        $info = 'l';
+				        break;
+				    case 0x8000: // regular
+				        $info = 'r';
+				        break;
+				    case 0x6000: // block special
+				        $info = 'b';
+				        break;
+				    case 0x4000: // directory
+				        $info = 'd';
+				        break;
+				    case 0x2000: // character special
+				        $info = 'c';
+				        break;
+				    case 0x1000: // FIFO pipe
+				        $info = 'p';
+				        break;
+				    default: // unknown
+				        $info = 'u';
+				}
+
+				// Owner
+				$info .= (($perms & 0x0100) ? 'r' : '-');
+				$info .= (($perms & 0x0080) ? 'w' : '-');
+				$info .= (($perms & 0x0040) ?
+				            (($perms & 0x0800) ? 's' : 'x' ) :
+				            (($perms & 0x0800) ? 'S' : '-'));
+
+				// Group
+				$info .= (($perms & 0x0020) ? 'r' : '-');
+				$info .= (($perms & 0x0010) ? 'w' : '-');
+				$info .= (($perms & 0x0008) ?
+				            (($perms & 0x0400) ? 's' : 'x' ) :
+				            (($perms & 0x0400) ? 'S' : '-'));
+
+				// World
+				$info .= (($perms & 0x0004) ? 'r' : '-');
+				$info .= (($perms & 0x0002) ? 'w' : '-');
+				$info .= (($perms & 0x0001) ?
+				            (($perms & 0x0200) ? 't' : 'x' ) :
+				            (($perms & 0x0200) ? 'T' : '-'));
+
+
+
+
+
 				if(strpos($item, "\\") !== false)
 				{
 					$item = str_replace("\\", "", $item);
@@ -174,7 +311,7 @@ require_once('../core/php/loadVars.php');
 				}
 				?>
 			<li id="rowNumber<?php echo $i; ?>" >
-				File #<?php if($i < 10){echo "0";} ?><?php echo $i; ?>:
+				File #<?php if($i < 10){echo "0";} ?><?php echo $i; ?>: &nbsp; <?php echo $info; ?> &nbsp;
 				<?php
 				if(!file_exists($key))
 				{
@@ -212,6 +349,56 @@ require_once('../core/php/loadVars.php');
 			<input id="numberOfRows" type="text" name="numberOfRows" value="<?php echo $i;?>">
 		</div>	
 		</form>
+		<?php $folderCount = $i; ?>
+		<form id="settingsMainVars" action="../core/php/settingsSave.php" method="post">
+		<div class="settingsHeader">
+		Menu Settings <button onclick="displayLoadingPopup();" >Save Changes</button>
+		</div>
+		<div class="settingsDiv" >
+		<ul id="settingsUl">
+			<li>
+				<span class="settingsBuffer" > Hide logs that are empty: </span>
+				<select name="hideEmptyLog">
+						<option <?php if($hideEmptyLog == 'true'){echo "selected";} ?> value="true">True</option>
+						<option <?php if($hideEmptyLog == 'false'){echo "selected";} ?> value="false">False</option>
+				</select>
+				
+			</li>
+			<li>
+				<span class="settingsBuffer" > Group 
+					<select name="groupByType">
+						<option <?php if($groupByType == 'folder'){echo "selected";} ?> value="folder">Folders</option>
+						<option <?php if($groupByType == 'file'){echo "selected";} ?> value="file">Files</option>
+					</select>
+				 by color: </span>
+				<select name="groupByColorEnabled">
+						<option <?php if($groupByColorEnabled == 'true'){echo "selected";} ?> value="true">True</option>
+						<option <?php if($groupByColorEnabled == 'false'){echo "selected";} ?> value="false">False</option>
+				</select>
+				<div class="settingsHeader">
+					Folder Group Settings
+					</div>
+					<div class="settingsDiv" >
+					<ul id="settingsUl">
+						<?php $i = 0; foreach ($folderColorArrays as $key => $value): $i++ ?>
+							<li>
+								<span class="settingsBuffer" > <input type="radio" name="currentFolderColorTheme" <?php if ($key == $currentFolderColorTheme){echo "checked='checked'";}?> value="<?php echo $key; ?>"> <?php echo $key; ?>: </span>  <input style="display: none;" type="text" name="folderColorThemeNameForPost<?php echo $i;?>" value="<?php echo $key; ?>" >
+								<?php $j = 0; foreach ($value as $key2 => $value2): $j++;?>
+									<div class="colorSelectorDiv" style="background-color: <?php echo $value2; ?>" >
+										<!-- <div class="inner-triangle" ></div> -->
+									</div>
+									<input style="width: 100px; display: none;" type="text" name="folderColorValue<?php echo $i; ?>-<?php echo $j;?>" value="<?php echo $value2; ?>" >
+								<?php endforeach; ?>
+							</li>
+						<?php endforeach; ?>
+						<input style="display: none;" type="text" name="folderThemeCount" value="<?php echo $i; ?>">
+					</ul>
+					</div>
+				</div>
+			</li>
+		</ul>
+		</div>
+		</form>
 	</div>
 	<?php readfile('../core/html/popup.html') ?>	
 </body>
@@ -227,12 +414,65 @@ require_once('../core/php/loadVars.php');
 	?>
 document.getElementById("mainLink").classList.add("active");
 document.getElementById("popupSelect").addEventListener("change", showOrHidePopupSubWindow, false);
+document.getElementById("settingsSelect").addEventListener("change", showOrHideUpdateSubWindow, false);
+document.getElementById("logTrimTypeToggle").addEventListener("change", changeDescriptionLineSize, false);
+document.getElementById("logTrimOn").addEventListener("change", showOrHideLogTrimSubWindow, false);
+
+
+
 var popupSettingsArray = JSON.parse('<?php echo json_encode($popupSettingsArray) ?>');
 var fileArray = JSON.parse('<?php echo json_encode($config['watchList']) ?>');
 var countOfWatchList = <?php echo $i; ?>;
 var countOfAddedFiles = 0;
 var countOfClicks = 0;
 var locationInsert = "newRowLocationForWatchList";
+var logTrimType = "<?php echo $logTrimType; ?>";
+ 
+if(logTrimType == 'lines')
+{
+	document.getElementById('logTrimTypeText').innerHTML = "Lines";
+}
+else if (logTrimType == 'size')
+{
+	document.getElementById('logTrimTypeText').innerHTML = "Size";
+}
+
+
+function showOrHideLogTrimSubWindow()
+{
+	var valueToSeeIfShowOrHideSubWindowLogTrim = document.getElementById("logTrimOn").value;
+
+	if(valueToSeeIfShowOrHideSubWindowLogTrim == "true")
+	{
+		document.getElementById("settingsLogTrimVars").style.display = "block";
+	}
+	else
+	{
+		document.getElementById("settingsLogTrimVars").style.display = "none";
+	}
+}
+
+
+function changeDescriptionLineSize()
+{
+
+	var valueForDesc = document.getElementById("logTrimTypeToggle").value;
+
+	if (valueForDesc == "lines")
+	{
+		document.getElementById('logTrimTypeText').innerHTML = "Lines";
+		//document.getElementById('LiForlogTrimMacBSD').style.display = "block";
+		document.getElementById('LiForlogTrimSize').style.display = "none"
+	}
+	else if (valueForDesc == 'size')
+	{
+		document.getElementById('logTrimTypeText').innerHTML = "Size";
+		//document.getElementById('LiForlogTrimMacBSD').style.display = "none";
+		document.getElementById('LiForlogTrimSize').style.display = "block"
+	}
+
+}
+
 function addRowFunction()
 {
 
@@ -333,6 +573,18 @@ function showOrHidePopupSubWindow()
 		document.getElementById('settingsPopupVars').style.display = 'none';
 	}
 }
+function showOrHideUpdateSubWindow()
+{
+	var valueForPopup = document.getElementById('settingsSelect').value;
+	if(valueForPopup == 'true')
+	{
+		document.getElementById('settingsAutoCheckVars').style.display = 'block';
+	}
+	else
+	{
+		document.getElementById('settingsAutoCheckVars').style.display = 'none';
+	}
+}
 function checkWatchList()
 {
 	var blankValue = false;
@@ -396,7 +648,7 @@ function goToUrl(url)
 		{
 			goToPage = false;
 		}
-		else if(document.getElementById("numberOfRows").value != "<?php echo $i;?>")
+		else if(document.getElementById("numberOfRows").value != "<?php echo $folderCount;?>")
 		{
 			goToPage = false;
 		}
@@ -412,6 +664,15 @@ function goToUrl(url)
 		{
 			goToPage = false;
 		}
+		else if(document.getElementsByName("pollingRateType")[0].value != "<?php echo $pollingRateType;?>")
+		{
+			goToPage = false;
+		}
+		else if(document.getElementsByName("autoCheckDaysUpdate")[0].value != "<?php echo $autoCheckDaysUpdate;?>")
+		{
+			goToPage = false;
+		}
+		
 
 		if(goToPage)
 		{

@@ -180,6 +180,185 @@ else
 {
 	$popupSettingsArray = $defaultConfig['popupSettingsCustom'];
 }
+if(isset($_POST['pollingRateType']))
+{
+	$pollingRateType = $_POST['pollingRateType'];
+}
+elseif(array_key_exists('pollingRateType', $config))
+{
+	$pollingRateType = $config['pollingRateType'];
+}
+else
+{
+	$pollingRateType = $defaultConfig['pollingRateType'];
+}
+if(isset($_POST['autoCheckDaysUpdate']))
+{
+	$autoCheckDaysUpdate = $_POST['autoCheckDaysUpdate'];
+}
+elseif(array_key_exists('autoCheckDaysUpdate', $config))
+{
+	$autoCheckDaysUpdate = $config['autoCheckDaysUpdate'];
+}
+else
+{
+	$autoCheckDaysUpdate = $defaultConfig['autoCheckDaysUpdate'];
+}
+if(isset($_POST['enableHtopLink']))
+{
+	$enableHtopLink = $_POST['enableHtopLink'];
+}
+elseif(array_key_exists('enableHtopLink', $config))
+{
+	$enableHtopLink = $config['enableHtopLink'];
+}
+else
+{
+	$enableHtopLink = $defaultConfig['enableHtopLink'];
+}
+if(isset($_POST['logTrimOn']))
+{
+	$logTrimOn = $_POST['logTrimOn'];
+}
+elseif(array_key_exists('logTrimOn', $config))
+{
+	$logTrimOn = $config['logTrimOn'];
+}
+else
+{
+	$logTrimOn = $defaultConfig['logTrimOn'];
+}
+if(isset($_POST['logSizeLimit']))
+{
+	$logSizeLimit = $_POST['logSizeLimit'];
+}
+elseif(array_key_exists('logSizeLimit', $config))
+{
+	$logSizeLimit = $config['logSizeLimit'];
+}
+else
+{
+	$logSizeLimit = $defaultConfig['logSizeLimit'];
+}
+if(isset($_POST['logTrimMacBSD']))
+{
+	$logTrimMacBSD = $_POST['logTrimMacBSD'];
+}
+elseif(array_key_exists('logTrimMacBSD', $config))
+{
+	$logTrimMacBSD = $config['logTrimMacBSD'];
+}
+else
+{
+	$logTrimMacBSD = $defaultConfig['logTrimMacBSD'];
+}
+if(isset($_POST['baseUrlUpdate']))
+{
+	$baseUrlUpdate = $_POST['baseUrlUpdate'];
+}
+elseif(array_key_exists('baseUrlUpdate', $config))
+{
+	$baseUrlUpdate = $config['baseUrlUpdate'];
+}
+else
+{
+	$baseUrlUpdate = $defaultConfig['baseUrlUpdate'];
+}
+if(isset($_POST['logTrimType']))
+{
+	$logTrimType = $_POST['logTrimType'];
+}
+elseif(array_key_exists('logTrimType', $config))
+{
+	$logTrimType = $config['logTrimType'];
+}
+else
+{
+	$logTrimType = $defaultConfig['logTrimType'];
+}
+if(isset($_POST['TrimSize']))
+{
+	$TrimSize = $_POST['TrimSize'];
+}
+elseif(array_key_exists('TrimSize', $config))
+{
+	$TrimSize = $config['TrimSize'];
+}
+else
+{
+	$TrimSize = $defaultConfig['TrimSize'];
+}
+if(isset($_POST['groupByColorEnabled']))
+{
+	$groupByColorEnabled = $_POST['groupByColorEnabled'];
+}
+elseif(array_key_exists('groupByColorEnabled', $config))
+{
+	$groupByColorEnabled = $config['groupByColorEnabled'];
+}
+else
+{
+	$groupByColorEnabled = $defaultConfig['groupByColorEnabled'];
+}
+if(array_key_exists('folderColorArrays', $config))
+{
+	$folderColorArrays = $config['folderColorArrays'];
+}
+else
+{
+	$folderColorArrays = $defaultConfig['folderColorArrays'];
+}
+if(isset($_POST['currentFolderColorTheme']))
+{
+	$currentFolderColorTheme = $_POST['currentFolderColorTheme'];
+}
+elseif(array_key_exists('currentFolderColorTheme', $config))
+{
+	$currentFolderColorTheme = $config['currentFolderColorTheme'];
+}
+else
+{
+	$currentFolderColorTheme = $defaultConfig['currentFolderColorTheme'];
+}
+if(isset($_POST['hideEmptyLog']))
+{
+	$hideEmptyLog = $_POST['hideEmptyLog'];
+}
+elseif(array_key_exists('hideEmptyLog', $config))
+{
+	$hideEmptyLog = $config['hideEmptyLog'];
+}
+else
+{
+	$hideEmptyLog = $defaultConfig['hideEmptyLog'];
+}
+if(isset($_POST['groupByType']))
+{
+	$groupByType = $_POST['groupByType'];
+}
+elseif(array_key_exists('groupByType', $config))
+{
+	$groupByType = $config['groupByType'];
+}
+else
+{
+	$groupByType = $defaultConfig['groupByType'];
+}
+
+
+
+foreach ($folderColorArrays as $key => $value)
+{
+	if($key == $currentFolderColorTheme)
+	{
+		$currentSelectedThemeColorValues = $value;
+	}
+}
+
+
+
+
+
 $arrayWatchList = "";
 if(isset($_POST['numberOfRows']))
 {
@@ -213,6 +392,7 @@ if($popupWarnings == "all")
 	$popupSettingsArraySave = "
 		'saveSettings'	=>	'true',
 		'blankFolder'	=>	'true',
+		'deleteLog'	=>	'true',
 		'removeFolder'	=> 	'true'
 		";
 }
@@ -221,6 +401,7 @@ elseif($popupWarnings == "none")
 	$popupSettingsArraySave = "
 		'saveSettings'	=>	'false',
 		'blankFolder'	=>	'false',
+		'deleteLog'	=>	'false',
 		'removeFolder'	=> 	'false'
 		";
 }
@@ -231,6 +412,7 @@ else
 		$popupSettingsArraySave = "
 		'saveSettings'	=>	'".$_POST['saveSettings']."',
 		'blankFolder'	=>	'".$_POST['blankFolder']."',
+		'deleteLog'	=>	'".$_POST['deleteLog']."',
 		'removeFolder'	=> 	'".$_POST['removeFolder']."'
 		";
 	}
@@ -247,6 +429,41 @@ else
 				$popupSettingsArraySave .= ",";
 			}
 		}
+	}
+}
+
+$folderColorArraysSave = "";
+if(isset($_POST['folderThemeCount']))
+{
+	$intFolderThemeCount = intval($_POST['folderThemeCount']);
+	for($i = 0; $i < $intFolderThemeCount; $i++ )
+	{
+		$folderColorArraysSave .= "'".$_POST['folderColorThemeNameForPost'.($i+1)]."'	=>	array(";
+		$colorCount = 0;
+		while (isset($_POST['folderColorValue'.($i+1).'-'.($colorCount+1)])) 
+		{
+			$colorCount++;
+			$folderColorArraysSave .= "'".$_POST['folderColorValue'.($i+1).'-'.($colorCount)]."',";
+		}
+		$folderColorArraysSave = substr($folderColorArraysSave, 0, -1);
+		$folderColorArraysSave .= ")";
+		$folderColorArraysSave .= ",";
+	}
+}
+else
+{
+	$count = 0;
+	foreach ($folderColorArrays as $key => $value)
+	{
+		$folderColorArraysSave .= "'".$key."'	=>	array(";
+		$count++;
+		foreach ($value as $key2 => $value2) 
+		{
+			$folderColorArraysSave .= "'".$value2."',";
+		}
+		$folderColorArraysSave = substr($folderColorArraysSave, 0, -1);
+		$folderColorArraysSave .= ")";
+		$folderColorArraysSave .= ",";
 	}
 }
 

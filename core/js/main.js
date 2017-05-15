@@ -7,6 +7,9 @@ var fresh = true;
 var flasher;
 var updating = false;
 var startedPauseOnNonFocus = false;
+var polling = false;
+var t0 = performance.now();
+var t1 = performance.now();
 
 function poll() {
 
@@ -31,7 +34,7 @@ function poll() {
 		} 
 
 		today = mm+'-'+dd+'-'+yyyy;
-		if(today != dateOfLastUpdate)
+		if(daysSinceLastCheck > (daysSetToUpdate - 1))
 		{
 			updating = true;
 			window.location.href = "core/php/settingsCheckForUpdate.php";
@@ -62,11 +65,27 @@ function pollTwo()
 		{
 			document.title = "Log Hog | Index";
 		}
-	$.getJSON('core/php/poll.php', {}, function(data) {
-		update(data);
-		fresh = false;
-	});
+		if(!polling)
+		{
+			polling = true;
+			t0 = performance.now();
+			$.getJSON('core/php/poll.php', {}, function(data) {
+				update(data);
+				fresh = false;
+			})
+			.always(function()
+			{
+				afterPollFunctionComplete();
+			});
+		}
 	}
+}
+
+function afterPollFunctionComplete()
+{
+	polling = false;
+	t1 = performance.now();
+	//console.log("Ajax refresh took " + (Math.round(t1 - t0)) + "/" + pollingRate +" milliseconds.");
 }
 
 function pausePollAction()
@@ -118,40 +137,86 @@ function endRefreshAction()
 }
 
 function update(data) {
+	//console.log(data);
 	var menu = $('#menu');
 	var blank = $('#storage .menuItem').html();
-	var i, id, name, shortName, item;
+	var i, id, name, shortName, item, style, folderName;
 	var files = Object.keys(data);
 	var stop = files.length;
 	var updated = false;
 	var initialized = $('#menu a').length != 0;
-	
+	var colorArray = currentFolderColorThemeArrayOfColors;
+	var colorArrayLength = colorArray.length;
+	var folderNamePrev = "?-1";
+	var folderNameCount = -1;
 	for(i = 0; i != stop; ++i) {
-		name = files[i];
-		id = name.replace(/[^a-z0-9]/g, '');
-		logs[id] = data[name];
-		
-		if($('#menu .' + id + 'Button').length == 0) {
-			titles[id] = name;
-			shortName = files[i].replace(/.*\//g, '');
-			item = blank;
-			item = item.replace(/{{title}}/g, shortName);
-			item = item.replace(/{{id}}/g, id);
-			menu.append(item);
-		}
-		
-		if(logs[id] != lastLogs[id]) {
-			updated = true;
-			if(id == currentPage)
-				$('#log').html(makePretty(logs[id]));
-			else if(!fresh && !$('#menu a.' + id + 'Button').hasClass('updated'))
-				$('#menu a.' + id + 'Button').addClass('updated');
-		}
-		
-		if(initialized && updated && $(window).filter(':focus').length == 0) {
-			if(flashTitleUpdateLog)
+		var dataForCheck = data[files[i]];
+		if(dataForCheck == "This file is empty. This should not be displayed." && hideEmptyLog == "true")
+		{
+			name = files[i];
+			id = name.replace(/[^a-z0-9]/g, '');
+			if($('#menu .' + id + 'Button').length != 0)
 			{
-				flashTitle();
+				$('#menu .' + id + 'Button').remove();
+			} 
+		}
+		else
+		{
+			name = files[i];
+			folderName = name.substr(0, name.lastIndexOf("/"));
+			if(folderName !== folderNamePrev || i == 0 || groupByType == 'file')
+			{
+				folderNameCount++;
+				folderNamePrev = folderName;
+				if(folderNameCount >= colorArrayLength)
+				{
+					folderNameCount = 0;
+				}
+			}
+			id = name.replace(/[^a-z0-9]/g, '');
+			if(data[name] == "")
+			{
+				data[name] = "<div class='errorMessageLog errorMessageRedBG' >Error - Unknown error? Check file permissions or clear log to fix?</div>";
+			}
+			else if(data[name] == "This file is empty. This should not be displayed.")
+			{
+				data[name] = "<div class='errorMessageLog errorMessageGreenBG' > This file is empty. </div>";
+			}
+			else if(data[name] == "Error - Maybe insufficient access to read file?")
+			{
+				data[name] = "<div class='errorMessageLog errorMessageRedBG' > Error - Maybe insufficient access to read file? </div>";
+			}
+			logs[id] = data[name];
+			if($('#menu .' + id + 'Button').length == 0) 
+			{
+				titles[id] = name;
+				shortName = files[i].replace(/.*\//g, '');
+				style = "background-color: "+colorArray[folderNameCount];
+				item = blank;
+				item = item.replace(/{{title}}/g, shortName);
+				item = item.replace(/{{id}}/g, id);
+				if(groupByColorEnabled == true)
+				{
+					item = item.replace(/{{style}}/g, style);
+				}
+				menu.append(item);
+			}
+			
+			if(logs[id] != lastLogs[id]) 
+			{
+				updated = true;
+				if(id == currentPage)
+					$('#log').html(makePretty(logs[id]));
+				else if(!fresh && !$('#menu a.' + id + 'Button').hasClass('updated'))
+					$('#menu a.' + id + 'Button').addClass('updated');
+			}
+			
+			if(initialized && updated && $(window).filter(':focus').length == 0) 
+			{
+				if(flashTitleUpdateLog)
+				{
+					flashTitle();
+				}
 			}
 		}
 	}
@@ -232,7 +297,7 @@ if (autoCheckUpdate == true)
 		} 
 
 		today = mm+'-'+dd+'-'+yyyy;
-		if(today != dateOfLastUpdate && !updating)
+		if(daysSinceLastCheck > (daysSetToUpdate - 1) && !updating)
 		{
 			updating = true;
 			window.location.href = "core/php/settingsCheckForUpdate.php";
@@ -334,5 +399,41 @@ function deleteAction()
 	success: function(data){
     // we make a successful JSONP call!
   },
+});
+}
+
+function deleteLogPopup()
+{
+	if(popupSettingsArray.deleteLog == "true")
+	{
+	showPopup();
+		document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Are you sure you want to delete this log?</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>"+document.getElementById("title").innerHTML+"</div><div><div class='link' onclick='deleteLog();hidePopup();' style='margin-left:125px; margin-right:50px;margin-top:35px;'>Yes</div><div onclick='hidePopup();' class='link'>No</div></div>";
+	}
+	else
+	{
+		deleteLog();
+	}
+}
+
+function deleteLog()
+{
+	var urlForSend = 'core/php/deleteLog.php?format=json'
+	var data = {file: document.getElementById("title").innerHTML};
+	name = document.getElementById("title").innerHTML;
+		id = name.replace(/[^a-z0-9]/g, '');
+		if($('#menu .' + id + 'Button').length != 0)
+		{
+			$('#menu .' + id + 'Button').remove();
+		}
+	$.ajax({
+			  url: urlForSend,
+			  dataType: 'json',
+			  data: data,
+			  type: 'POST',
+	success: function(data){
+    // we make a successful JSONP call!
+  },
+  	complete: function(data){
+  	},
 });
 }

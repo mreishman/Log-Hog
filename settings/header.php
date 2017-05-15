@@ -1,3 +1,9 @@
+<style type="text/css">
+	#menu a, .link, .linkSmall{
+		background-color: <?php echo $currentSelectedThemeColorValues[0]?>;
+	}
+</style>
+
 <div id="menu">
 	<div onclick="goToUrl('../index.php');" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">
 		<img id="pauseImage" class="menuImage" src="../core/img/backArrow.png" height="30px">

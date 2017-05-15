@@ -19,19 +19,163 @@ else
 {
 	$enableSystemPrefShellOrPhp = $defaultConfig['enableSystemPrefShellOrPhp'];
 }
+if(array_key_exists('logTrimOn', $config))
+{
+	$logTrimOn = $config['logTrimOn'];
+}
+else
+{
+	$logTrimOn = $defaultConfig['logTrimOn'];
+}
+if(array_key_exists('logSizeLimit', $config))
+{
+	$logSizeLimit = $config['logSizeLimit'];
+}
+else
+{
+	$logSizeLimit = $defaultConfig['logSizeLimit'];
+}
+if(array_key_exists('logTrimMacBSD', $config))
+{
+	$logTrimMacBSD = $config['logTrimMacBSD'];
+}
+else
+{
+	$logTrimMacBSD = $defaultConfig['logTrimMacBSD'];
+}
+if(array_key_exists('logTrimType', $config))
+{
+	$logTrimType = $config['logTrimType'];
+}
+else
+{
+	$logTrimType = $defaultConfig['logTrimType'];
+}
+if(array_key_exists('TrimSize', $config))
+{
+	$TrimSize = $config['TrimSize'];
+}
+else
+{
+	$TrimSize = $defaultConfig['TrimSize'];
+}
 
-
-function tail($filename, $sliceSize, $shellOrPhp) 
+function tail($filename, $sliceSize, $shellOrPhp, $logTrimCheck, $logSizeLimit,$logTrimMacBSD,$logTrimType,$TrimSize) 
 {
 	$filename = preg_replace('/([()"])/S', '$1', $filename);
 	//echo $filename, "\n";
-	if(!$shellOrPhp)
+	if(filesize($filename) == 0)
 	{
-		return trim(tailCustom($filename, $sliceSize));
+		return "This file is empty. This should not be displayed.";
+	}
+	if($logTrimCheck == "true")
+	{
+		if($logTrimType == 'lines')
+		{
+			$lineCount = 0;
+			$lineCount = shell_exec('wc -l < ' . $filename);
+			$logSizeLimit = intval($logSizeLimit);
+			if($lineCount > $logSizeLimit)
+			{
+				if($logTrimMacBSD == "true")
+				{
+					shell_exec('sed -i "" "1,' . ($lineCount - $logSizeLimit) . 'd" ' . $filename);
+				}
+				else
+				{
+					shell_exec('sed -i "1,' . ($lineCount - $logSizeLimit) . 'd" ' . $filename);
+				}
+			}
+		}
+		elseif($logTrimType == 'size')
+		{
+
+			if($TrimSize == "KB")
+			{
+				$logSizeLimit *= 1024;
+			}
+			elseif($TrimSize == "M")
+			{
+				$logSizeLimit *= (1000 * 1000);
+			}
+			elseif($TrimSize == "MB")
+			{
+				$logSizeLimit *= (1024 * 1024);
+			}
+			else
+			{
+				$logSizeLimit *= 1000;
+			}
+			
+			$maxForLoop = 0;
+			//compair to trimsize value
+			$trimFileBool = true;
+			while ($trimFileBool && $maxForLoop != 10)
+			{
+				$filesizeForFile = shell_exec('wc -c < '.$filename);
+				if($filesizeForFile > $logSizeLimit)
+				{
+					if($filesizeForFile > (2*$logSizeLimit) && $maxForLoop < 2)
+					{
+						//use different method
+						$lineCountForFile = shell_exec('wc -l < ' . $filename);
+						$fileSizePerLine = $filesizeForFile/$lineCountForFile;
+						$numOfLinesAllowed = $logSizeLimit/$fileSizePerLine;
+						$numOfLinesAllowed *= 2;
+						if($logTrimMacBSD == "true")
+						{
+							shell_exec('sed -i "" "1,' . round($lineCountForFile - $numOfLinesAllowed) . 'd" ' . $filename);
+						}
+						else
+						{
+							shell_exec('sed -i "1,' . round($lineCountForFile - $numOfLinesAllowed) . 'd" ' . $filename);
+						}
+					}
+					else
+					{
+						//remove first line in file
+						if($logTrimMacBSD == "true")
+						{
+							shell_exec('sed -i "" "1,2d" ' . $filename);
+						}
+						else
+						{
+							shell_exec('sed -i "1,2d" ' . $filename);
+						}
+					}
+				}	
+				else
+				{
+					$trimFileBool = false;
+				}
+				$maxForLoop++;
+			}
+			//trim(shell_exec('truncate -s ' . $TrimSize . ' ' . $filename));
+		}
+	}
+
+	if($shellOrPhp == "true")
+	{
+		$data =  trim(tailCustom($filename, $sliceSize));
+		if($data == "" || is_null($data))
+		{
+			$data = "Error - Maybe insufficient access to read file?";
+		}
+		return $data;
 	}
 	else
 	{
-		return trim(shell_exec('tail -n ' . $sliceSize . ' "' . $filename . '"'));
+		$data = trim(shell_exec('tail -n ' . $sliceSize . ' "' . $filename . '"'));
+		if($data == "" || is_null($data))
+		{
+			$data = trim(tailCustom($filename, $sliceSize));
+
+			if($data == "" || is_null($data))
+			{
+				$data = "Error - Maybe insufficient access to read file?";
+			}
+		}
+		return $data;
 	}
 }
 
@@ -110,12 +254,12 @@ foreach($config['watchList'] as $path => $filter)
 			foreach($files as $k => $filename) {
 				$fullPath = $path . '/' . $filename;
 				if(preg_match('/' . $filter . '/S', $filename) && is_file($fullPath))
-					$response[$fullPath] = htmlentities(tail($fullPath, $config['sliceSize'], $enableSystemPrefShellOrPhp));
+					$response[$fullPath] = htmlentities(tail($fullPath, $config['sliceSize'], $enableSystemPrefShellOrPhp, $logTrimOn, $logSizeLimit,$logTrimMacBSD,$logTrimType,$TrimSize));
 			}
 		}
 	}
 	elseif(file_exists($path))
-		$response[$path] = htmlentities(tail($path, $config['sliceSize'], $enableSystemPrefShellOrPhp));
+		$response[$path] = htmlentities(tail($path, $config['sliceSize'], $enableSystemPrefShellOrPhp, $logTrimOn, $logSizeLimit,$logTrimMacBSD,$logTrimType,$TrimSize));
 }
 
 echo json_encode($response);

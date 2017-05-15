@@ -67,30 +67,8 @@ for($i = 0; $i < $newestVersionCount; $i++)
 	}
 }
 
-if(array_key_exists('enableDevBranchDownload', $config))
-{
-	$enableDevBranchDownload = $config['enableDevBranchDownload'];
-}
-else
-{
-	$enableDevBranchDownload = $defaultConfig['enableDevBranchDownload'];
-} 
-if(array_key_exists('developmentTabEnabled', $config))
-{
-	$developmentTabEnabled = $config['developmentTabEnabled'];
-}
-else
-{
-	$developmentTabEnabled = $defaultConfig['developmentTabEnabled'];
-}
-if(array_key_exists('popupSettingsCustom', $config))
-{
-	$popupSettingsArray = $config['popupSettingsCustom'];
-}
-else
-{
-	$popupSettingsArray = $defaultConfig['popupSettingsCustom'];
-}
+require_once('../core/php/loadVars.php');
+
 ?>
 <!doctype html>
 <head>
@@ -109,13 +87,18 @@ else
 		<div class="settingsDiv" >
 			<ul id="settingsUl">
 				<li>
-					Enable Development Branch:
+					<span class="settingsBuffer" >  Enable Development Branch: </span>
 						<select name="enableDevBranchDownload">
   						<option <?php if($enableDevBranchDownload == 'true'){echo "selected";} ?> value="true">True</option>
   						<option <?php if($enableDevBranchDownload == 'false'){echo "selected";} ?> value="false">False</option>
 					</select>
 				</li>
+				<li>
+					<span class="settingsBuffer" >  Base URL:  </span> <input type="text" style="width: 400px;"  name="baseUrlUpdate" value="<?php echo $baseUrlUpdate;?>" > 
+				</li>
 			</ul>
+			
+
 		</div>
 	</form>
 	</div>
