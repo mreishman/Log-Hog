@@ -35,6 +35,9 @@ else
 {
 	$logSizeLimit = $defaultConfig['logSizeLimit'];
 }
+
+$logSizeLimit = intval($logSizeLimit);
+
 if(array_key_exists('logTrimMacBSD', $config))
 {
 	$logTrimMacBSD = $config['logTrimMacBSD'];
@@ -60,6 +63,23 @@ else
 	$TrimSize = $defaultConfig['TrimSize'];
 }
 
+if($TrimSize == "KB")
+{
+	$logSizeLimit *= 1024;
+}
+elseif($TrimSize == "M")
+{
+	$logSizeLimit *= (1000 * 1000);
+}
+elseif($TrimSize == "MB")
+{
+	$logSizeLimit *= (1024 * 1024);
+}
+else
+{
+	$logSizeLimit *= 1000;
+}
+
 function tail($filename, $sliceSize, $shellOrPhp, $logTrimCheck, $logSizeLimit,$logTrimMacBSD,$logTrimType,$TrimSize) 
 {
 	$filename = preg_replace('/([()"])/S', '$1', $filename);
@@ -76,7 +96,6 @@ function tail($filename, $sliceSize, $shellOrPhp, $logTrimCheck, $logSizeLimit,$
 			{
 				$lineCount = 0;
 				$lineCount = shell_exec('wc -l < ' . $filename);
-				$logSizeLimit = intval($logSizeLimit);
 				if($lineCount > $logSizeLimit)
 				{
 					if($logTrimMacBSD == "true")
@@ -91,24 +110,6 @@ function tail($filename, $sliceSize, $shellOrPhp, $logTrimCheck, $logSizeLimit,$
 			}
 			elseif($logTrimType == 'size')
 			{
-
-				if($TrimSize == "KB")
-				{
-					$logSizeLimit *= 1024;
-				}
-				elseif($TrimSize == "M")
-				{
-					$logSizeLimit *= (1000 * 1000);
-				}
-				elseif($TrimSize == "MB")
-				{
-					$logSizeLimit *= (1024 * 1024);
-				}
-				else
-				{
-					$logSizeLimit *= 1000;
-				}
-				
 				$maxForLoop = 0;
 				//compair to trimsize value
 				$trimFileBool = true;
@@ -260,6 +261,7 @@ foreach($config['watchList'] as $path => $filter)
 				if(preg_match('/' . $filter . '/S', $filename) && is_file($fullPath))
 				{
 					$response[$fullPath] = htmlentities(tail($fullPath, $config['sliceSize'], $enableSystemPrefShellOrPhp, $logTrimOn, $logSizeLimit,$logTrimMacBSD,$logTrimType,$TrimSize));
+					//$response[$fullPath."dataForLoggingLogHog051620170928"] = "".$logSizeLimit;
 				}
 			}
 		}

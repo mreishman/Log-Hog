@@ -255,6 +255,10 @@ function makePretty(text) {
 
 function resize() {
 	var targetHeight = window.innerHeight - $('#menu').outerHeight() - $('#title').outerHeight();
+	if(true)
+	{
+		targetHeight -= 25;
+	}
 	if($('#main').outerHeight() != targetHeight)
 		$('#main').outerHeight(targetHeight);
 	if($('#main').css('bottom') != $('#title').outerHeight() + 'px')
