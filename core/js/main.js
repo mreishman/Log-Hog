@@ -86,6 +86,23 @@ function afterPollFunctionComplete()
 	polling = false;
 	t1 = performance.now();
 	document.getElementById("loggingTimerPollRate").innerText = "Ajax refresh took " + (Math.round(t1 - t0)) + "/" + pollingRate +" milliseconds.";
+	document.getElementById("loggingTimerPollRate").style.color = "";
+	if(Math.round(t1-t0) > parseInt(pollingRate))
+	{
+		if(Math.round(t1-t0) > (2*parseInt(pollingRate)))
+		{
+			document.getElementById("loggingTimerPollRate").style.color = "#ff0000";
+		}
+		else
+		{
+			document.getElementById("loggingTimerPollRate").style.color = "#ffff00";
+		}
+		
+	}
+	else
+	{
+		document.getElementById("loggingTimerPollRate").style.color = "#00ff00";
+	}
 }
 
 function pausePollAction()
