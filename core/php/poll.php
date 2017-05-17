@@ -63,21 +63,28 @@ else
 	$TrimSize = $defaultConfig['TrimSize'];
 }
 
-if($TrimSize == "KB")
-{
-	$logSizeLimit *= 1024;
-}
-elseif($TrimSize == "M")
-{
-	$logSizeLimit *= (1000 * 1000);
-}
-elseif($TrimSize == "MB")
-{
-	$logSizeLimit *= (1024 * 1024);
-}
-else
-{
-	$logSizeLimit *= 1000;
+$modifier = "lines";
+
+if($logTrimType == 'size')
+{	
+	$modifier = $TrimSize;
+	if($TrimSize == "KB")
+	{
+		$logSizeLimit *= 1024;
+	}
+	elseif($TrimSize == "M")
+	{
+		$logSizeLimit *= (1000 * 1000);
+	}
+	elseif($TrimSize == "MB")
+	{
+		$logSizeLimit *= (1024 * 1024);
+	}
+	else
+	{
+		$logSizeLimit *= 1000;
+	}
+
 }
 
 function tail($filename, $sliceSize, $shellOrPhp, $logTrimCheck, $logSizeLimit,$logTrimMacBSD,$logTrimType,$TrimSize) 
@@ -90,12 +97,15 @@ function tail($filename, $sliceSize, $shellOrPhp, $logTrimCheck, $logSizeLimit,$
 	}
 	else
 	{
+		
+		if($logTrimCheck == "true" || true)
+		{
+			$lineCount = shell_exec('wc -l < ' . $filename);
+		}
 		if($logTrimCheck == "true")
 		{
 			if($logTrimType == 'lines')
 			{
-				$lineCount = 0;
-				$lineCount = shell_exec('wc -l < ' . $filename);
 				if($lineCount > $logSizeLimit)
 				{
 					if($logTrimMacBSD == "true")
@@ -261,7 +271,17 @@ foreach($config['watchList'] as $path => $filter)
 				if(preg_match('/' . $filter . '/S', $filename) && is_file($fullPath))
 				{
 					$response[$fullPath] = htmlentities(tail($fullPath, $config['sliceSize'], $enableSystemPrefShellOrPhp, $logTrimOn, $logSizeLimit,$logTrimMacBSD,$logTrimType,$TrimSize));
-					//$response[$fullPath."dataForLoggingLogHog051620170928"] = "".$logSizeLimit;
+
+					if(true)
+					{
+						$filename = $fullPath;
+						$filename = preg_replace('/([()"])/S', '$1', $filename);
+						$lineCount = shell_exec('wc -l < ' . $filename);
+						$filesizeForFile = shell_exec('wc -c < '.$filename);
+						$response[$fullPath."dataForLoggingLogHog051620170928"] = " Limit: ".$logSizeLimit." ".$modifier." | Line Count: ".$lineCount." | File Size: ".$filesizeForFile;
+					}
+
+					
 				}
 			}
 		}
@@ -269,6 +289,15 @@ foreach($config['watchList'] as $path => $filter)
 	elseif(file_exists($path))
 	{
 		$response[$path] = htmlentities(tail($path, $config['sliceSize'], $enableSystemPrefShellOrPhp, $logTrimOn, $logSizeLimit,$logTrimMacBSD,$logTrimType,$TrimSize));
+
+		if(true)
+		{
+			$filename = $path;
+			$filename = preg_replace('/([()"])/S', '$1', $filename);
+			$lineCount = shell_exec('wc -l < ' . $filename);
+			$filesizeForFile = shell_exec('wc -c < '.$filename);
+			$response[$path."dataForLoggingLogHog051620170928"] = " Limit: ".$logSizeLimit." ".$modifier." | Line Count: ".$lineCount." | File Size: ".$filesizeForFile;
+		}
 	}
 }
 

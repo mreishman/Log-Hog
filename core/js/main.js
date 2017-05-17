@@ -150,72 +150,75 @@ function update(data) {
 	var folderNamePrev = "?-1";
 	var folderNameCount = -1;
 	for(i = 0; i != stop; ++i) {
-		var dataForCheck = data[files[i]];
-		if(dataForCheck == "This file is empty. This should not be displayed." && hideEmptyLog == "true")
+		if(files[i].indexOf("dataForLoggingLogHog051620170928") == -1)
 		{
-			name = files[i];
-			id = name.replace(/[^a-z0-9]/g, '');
-			if($('#menu .' + id + 'Button').length != 0)
+			var dataForCheck = data[files[i]];
+			if(dataForCheck == "This file is empty. This should not be displayed." && hideEmptyLog == "true")
 			{
-				$('#menu .' + id + 'Button').remove();
-			} 
-		}
-		else
-		{
-			name = files[i];
-			folderName = name.substr(0, name.lastIndexOf("/"));
-			if(folderName !== folderNamePrev || i == 0 || groupByType == 'file')
-			{
-				folderNameCount++;
-				folderNamePrev = folderName;
-				if(folderNameCount >= colorArrayLength)
+				name = files[i];
+				id = name.replace(/[^a-z0-9]/g, '');
+				if($('#menu .' + id + 'Button').length != 0)
 				{
-					folderNameCount = 0;
+					$('#menu .' + id + 'Button').remove();
+				} 
+			}
+			else
+			{
+				name = files[i];
+				folderName = name.substr(0, name.lastIndexOf("/"));
+				if(folderName !== folderNamePrev || i == 0 || groupByType == 'file')
+				{
+					folderNameCount++;
+					folderNamePrev = folderName;
+					if(folderNameCount >= colorArrayLength)
+					{
+						folderNameCount = 0;
+					}
 				}
-			}
-			id = name.replace(/[^a-z0-9]/g, '');
-			if(data[name] == "")
-			{
-				data[name] = "<div class='errorMessageLog errorMessageRedBG' >Error - Unknown error? Check file permissions or clear log to fix?</div>";
-			}
-			else if(data[name] == "This file is empty. This should not be displayed.")
-			{
-				data[name] = "<div class='errorMessageLog errorMessageGreenBG' > This file is empty. </div>";
-			}
-			else if(data[name] == "Error - Maybe insufficient access to read file?")
-			{
-				data[name] = "<div class='errorMessageLog errorMessageRedBG' > Error - Maybe insufficient access to read file? </div>";
-			}
-			logs[id] = data[name];
-			if($('#menu .' + id + 'Button').length == 0) 
-			{
-				titles[id] = name;
-				shortName = files[i].replace(/.*\//g, '');
-				style = "background-color: "+colorArray[folderNameCount];
-				item = blank;
-				item = item.replace(/{{title}}/g, shortName);
-				item = item.replace(/{{id}}/g, id);
-				if(groupByColorEnabled == true)
+				id = name.replace(/[^a-z0-9]/g, '');
+				if(data[name] == "")
 				{
-					item = item.replace(/{{style}}/g, style);
+					data[name] = "<div class='errorMessageLog errorMessageRedBG' >Error - Unknown error? Check file permissions or clear log to fix?</div>";
 				}
-				menu.append(item);
-			}
-			
-			if(logs[id] != lastLogs[id]) 
-			{
-				updated = true;
-				if(id == currentPage)
-					$('#log').html(makePretty(logs[id]));
-				else if(!fresh && !$('#menu a.' + id + 'Button').hasClass('updated'))
-					$('#menu a.' + id + 'Button').addClass('updated');
-			}
-			
-			if(initialized && updated && $(window).filter(':focus').length == 0) 
-			{
-				if(flashTitleUpdateLog)
+				else if(data[name] == "This file is empty. This should not be displayed.")
 				{
-					flashTitle();
+					data[name] = "<div class='errorMessageLog errorMessageGreenBG' > This file is empty. </div>";
+				}
+				else if(data[name] == "Error - Maybe insufficient access to read file?")
+				{
+					data[name] = "<div class='errorMessageLog errorMessageRedBG' > Error - Maybe insufficient access to read file? </div>";
+				}
+				logs[id] = data[name];
+				if($('#menu .' + id + 'Button').length == 0) 
+				{
+					titles[id] = name + " | " + data[files[(i+1)]];
+					shortName = files[i].replace(/.*\//g, '');
+					style = "background-color: "+colorArray[folderNameCount];
+					item = blank;
+					item = item.replace(/{{title}}/g, shortName);
+					item = item.replace(/{{id}}/g, id);
+					if(groupByColorEnabled == true)
+					{
+						item = item.replace(/{{style}}/g, style);
+					}
+					menu.append(item);
+				}
+				
+				if(logs[id] != lastLogs[id]) 
+				{
+					updated = true;
+					if(id == currentPage)
+						$('#log').html(makePretty(logs[id]));
+					else if(!fresh && !$('#menu a.' + id + 'Button').hasClass('updated'))
+						$('#menu a.' + id + 'Button').addClass('updated');
+				}
+				
+				if(initialized && updated && $(window).filter(':focus').length == 0) 
+				{
+					if(flashTitleUpdateLog)
+					{
+						flashTitle();
+					}
 				}
 			}
 		}
