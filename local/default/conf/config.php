@@ -2,7 +2,7 @@
 	<?php
 		$config = array(
 			'sliceSize' => 500,
-			'pollingRate' => 500,
+			'pollingRate' => 1,
 			'pausePoll' => 'false',
 			'pauseOnNotFocus' => 'true',
 			'autoCheckUpdate' => 'true',
@@ -15,7 +15,7 @@
 			'flashTitleUpdateLog'	=> 'false',
 			'truncateLogButtonAll' => 'true',
 			'popupSettings'	=>	'all',
-			'pollingRateType'	=> 'Milliseconds',
+			'pollingRateType'	=> 'Seconds',
 			'logTrimOn'	=> 'true',
 			'logSizeLimit'	=>	2000,
 			'logTrimMacBSD'	=> 'false',
@@ -36,6 +36,6 @@
 		'removeFolder'	=> 	'true'
 		),
 			'watchList' => array(
-			'/var/www/html/var/log' => '.log$','/var/log/hhvm/error.log' => '','/var/log/apache2' => '.log$','/var/www/html/Log-Hog/logs' => '.log$','/tmp' => '.log$')
+			'/var/www/html/var/log' => '.log$','/var/log/hhvm/error.log' => '','/var/log/apache2' => '.log$','/var/www/html/Log-Hog/logs' => '.log$','/tmp' => '.log$','/var/www/html/var/debug/' => '.log$')
 		);
 	?>

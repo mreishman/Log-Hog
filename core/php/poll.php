@@ -270,15 +270,23 @@ foreach($config['watchList'] as $path => $filter)
 				$fullPath = $path . '/' . $filename;
 				if(preg_match('/' . $filter . '/S', $filename) && is_file($fullPath))
 				{
+					if (true) 
+					{
+						$time_start = microtime(true);
+					}
 					$response[$fullPath] = htmlentities(tail($fullPath, $config['sliceSize'], $enableSystemPrefShellOrPhp, $logTrimOn, $logSizeLimit,$logTrimMacBSD,$logTrimType,$TrimSize));
 
 					if(true)
 					{
+						
 						$filename = $fullPath;
 						$filename = preg_replace('/([()"])/S', '$1', $filename);
 						$lineCount = shell_exec('wc -l < ' . $filename);
 						$filesizeForFile = shell_exec('wc -c < '.$filename);
-						$response[$fullPath."dataForLoggingLogHog051620170928"] = " Limit: ".$logSizeLimit." ".$modifier." | Line Count: ".$lineCount." | File Size: ".$filesizeForFile;
+						$time_end = microtime(true);
+						$time = $time_end - $time_start;
+						$time *= 1000;
+						$response[$fullPath."dataForLoggingLogHog051620170928"] = " Limit: ".$logSizeLimit." ".$modifier." | Line Count: ".$lineCount." | File Size: ".$filesizeForFile." | Time: ".round($time);
 					}
 
 					
@@ -288,15 +296,23 @@ foreach($config['watchList'] as $path => $filter)
 	}
 	elseif(file_exists($path))
 	{
+		if(true)
+		{
+			$time_start = microtime(true);
+		}
 		$response[$path] = htmlentities(tail($path, $config['sliceSize'], $enableSystemPrefShellOrPhp, $logTrimOn, $logSizeLimit,$logTrimMacBSD,$logTrimType,$TrimSize));
 
 		if(true)
 		{
+
 			$filename = $path;
 			$filename = preg_replace('/([()"])/S', '$1', $filename);
 			$lineCount = shell_exec('wc -l < ' . $filename);
 			$filesizeForFile = shell_exec('wc -c < '.$filename);
-			$response[$path."dataForLoggingLogHog051620170928"] = " Limit: ".$logSizeLimit." ".$modifier." | Line Count: ".$lineCount." | File Size: ".$filesizeForFile;
+			$time_end = microtime(true);
+			$time = $time_end - $time_start;
+			$time *= 1000;
+			$response[$path."dataForLoggingLogHog051620170928"] = " Limit: ".$logSizeLimit." ".$modifier." | Line Count: ".$lineCount." | File Size: ".$filesizeForFile." | Time: ".round($time);
 		}
 	}
 }
