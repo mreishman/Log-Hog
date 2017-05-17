@@ -206,9 +206,17 @@ function update(data) {
 					data[name] = "<div class='errorMessageLog errorMessageRedBG' > Error - Maybe insufficient access to read file? </div>";
 				}
 				logs[id] = data[name];
+				titles[id] = name + " | " + data[files[(i+1)]];
+				if(true)
+				{
+					if(id == currentPage)
+					{
+						$('#title').html(titles[id]);
+					}
+				}
+
 				if($('#menu .' + id + 'Button').length == 0) 
 				{
-					titles[id] = name + " | " + data[files[(i+1)]];
 					shortName = files[i].replace(/.*\//g, '');
 					style = "background-color: "+colorArray[folderNameCount];
 					item = blank;
