@@ -45,6 +45,7 @@ require_once('loadVars.php');
 			'currentFolderColorTheme'	=> '".$currentFolderColorTheme."',
 			'groupByColorEnabled'	=> '".$groupByColorEnabled."',
 			'enableLogging'	=> '".$enableLogging."',
+			'enablePollTimeLogging'	=> '".$enablePollTimeLogging."',
 			'folderColorArrays'	=> 	array(
 			".$folderColorArraysSave."),
 			'popupSettingsCustom'	=> array(

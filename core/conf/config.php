@@ -27,6 +27,7 @@ $defaultConfig = array(
 	'currentFolderColorTheme'	=> 'theme-default-3',
 	'groupByColorEnabled'	=> 'true',
 	'enableLogging'	=> 'false',
+	'enablePollTimeLogging'	=> 'false',
 	'popupSettingsCustom'	=> array(
 		'saveSettings'	=>	'true',
 		'blankFolder'	=>	'true',

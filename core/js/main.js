@@ -86,25 +86,28 @@ function pollTwo()
 function afterPollFunctionComplete()
 {
 	polling = false;
-	t1 = performance.now();
-	document.getElementById("loggingTimerPollRate").innerText = "Ajax refresh took " + (Math.round(t1 - t0)) + "/" + pollingRate +"("+(parseInt(pollingRate)*counterForPoll)+")"+" milliseconds.";
-	document.getElementById("loggingTimerPollRate").style.color = "";
-	counterForPoll = 0;
-	if(Math.round(t1-t0) > parseInt(pollingRate))
+	if(enablePollTimeLogging != "false")
 	{
-		if(Math.round(t1-t0) > (2*parseInt(pollingRate)))
+		t1 = performance.now();
+		document.getElementById("loggingTimerPollRate").innerText = "Ajax refresh took " + (Math.round(t1 - t0)) + "/" + pollingRate +"("+(parseInt(pollingRate)*counterForPoll)+")"+" milliseconds.";
+		document.getElementById("loggingTimerPollRate").style.color = "";
+		counterForPoll = 0;
+		if(Math.round(t1-t0) > parseInt(pollingRate))
 		{
-			document.getElementById("loggingTimerPollRate").style.color = "#ff0000";
+			if(Math.round(t1-t0) > (2*parseInt(pollingRate)))
+			{
+				document.getElementById("loggingTimerPollRate").style.color = "#ff0000";
+			}
+			else
+			{
+				document.getElementById("loggingTimerPollRate").style.color = "#ffff00";
+			}
+			
 		}
 		else
 		{
-			document.getElementById("loggingTimerPollRate").style.color = "#ffff00";
+			document.getElementById("loggingTimerPollRate").style.color = "#00ff00";
 		}
-		
-	}
-	else
-	{
-		document.getElementById("loggingTimerPollRate").style.color = "#00ff00";
 	}
 }
 
@@ -294,7 +297,7 @@ function makePretty(text) {
 
 function resize() {
 	var targetHeight = window.innerHeight - $('#menu').outerHeight() - $('#title').outerHeight();
-	if(true)
+	if(enablePollTimeLogging != "false")
 	{
 		targetHeight -= 25;
 	}

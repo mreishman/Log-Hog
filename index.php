@@ -15,7 +15,6 @@ $version = explode('.', $configStatic['version']);
 $newestVersion = explode('.', $configStatic['newestVersion']);
 
 $levelOfUpdate = 0; // 0 is no updated, 1 is minor update and 2 is major update
-$beta = true;
 
 $newestVersionCount = count($newestVersion);
 $versionCount = count($version);
@@ -103,7 +102,7 @@ if($pollingRateType == 'Seconds')
 		background-color: <?php echo $currentSelectedThemeColorValues[0]?>;
 	}
 </style>
-	<?php if($beta): ?>
+	<?php if($enablePollTimeLogging != "false"): ?>
 		<div id="loggTimerPollStyle" style="width: 100%;background-color: black;text-align: center; line-height: 200%;" ><span id="loggingTimerPollRate" >### MS /<?php echo $pollingRate; ?> MS</span></div>
 	<?php endif; ?>
 	<div id="menu">
@@ -162,6 +161,7 @@ if($pollingRateType == 'Seconds')
 		echo "var pausePollFromFile = ".$pausePoll.";";
 		echo "var groupByColorEnabled = ".$groupByColorEnabled.";"; 			
 		?>
+		var enablePollTimeLogging = "<?php echo $enablePollTimeLogging;?>";
 		var enableLogging = "<?php echo $enableLogging; ?>";
 		var groupByType = "<?php echo $groupByType; ?>";
 		var hideEmptyLog = "<?php echo $hideEmptyLog; ?>";

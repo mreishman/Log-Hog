@@ -356,7 +356,18 @@ else
 {
 	$enableLogging = $defaultConfig['enableLogging'];
 }
-
+if(isset($_POST['enablePollTimeLogging']))
+{
+	$enablePollTimeLogging = $_POST['enablePollTimeLogging'];
+}
+elseif(array_key_exists('enablePollTimeLogging', $config))
+{
+	$enablePollTimeLogging = $config['enablePollTimeLogging'];
+}
+else
+{
+	$enablePollTimeLogging = $defaultConfig['enablePollTimeLogging'];
+}
 
 
 

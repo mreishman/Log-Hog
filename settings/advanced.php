@@ -102,11 +102,18 @@ require_once('../core/php/loadVars.php');
 		<div class="settingsDiv" >
 			<ul id="settingsUl">
 				<li>
-					Enable Logging
+					File Info Logging
 						<select name="enableLogging">
   						<option <?php if($enableLogging == 'true'){echo "selected";} ?> value="true">True</option>
   						<option <?php if($enableLogging == 'false'){echo "selected";} ?> value="false">False</option>
-					</select>
+						</select>
+				</li>
+				<li>
+					Poll Time Logging
+						<select name="enablePollTimeLogging">
+  						<option <?php if($enablePollTimeLogging == 'true'){echo "selected";} ?> value="true">True</option>
+  						<option <?php if($enablePollTimeLogging == 'false'){echo "selected";} ?> value="false">False</option>
+						</select>
 				</li>
 			</ul>
 		</div>
