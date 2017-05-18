@@ -107,6 +107,8 @@ require_once('../core/php/loadVars.php');
   						<option <?php if($enableLogging == 'true'){echo "selected";} ?> value="true">True</option>
   						<option <?php if($enableLogging == 'false'){echo "selected";} ?> value="false">False</option>
 						</select>
+					<br>
+					<span style="font-size: 75%;">*<i>This will increase poll times by 2x to 4x</i></span>
 				</li>
 				<li>
 					Poll Time Logging

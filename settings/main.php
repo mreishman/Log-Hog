@@ -149,6 +149,8 @@ require_once('../core/php/loadVars.php');
 									<option <?php if($TrimSize == 'MB'){echo "selected";} ?> value="MB">MB</option>
 									<option <?php if($TrimSize == 'M'){echo "selected";} ?> value="M">M</option>
 							</select>
+							<br>
+							<span style="font-size: 75%;">*<i>This will increase poll times by 2x to 4x</i></span>
 						</li>
 
 					</ul>
