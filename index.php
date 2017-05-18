@@ -162,6 +162,7 @@ if($pollingRateType == 'Seconds')
 		echo "var pausePollFromFile = ".$pausePoll.";";
 		echo "var groupByColorEnabled = ".$groupByColorEnabled.";"; 			
 		?>
+		var enableLogging = "<?php echo $enableLogging; ?>";
 		var groupByType = "<?php echo $groupByType; ?>";
 		var hideEmptyLog = "<?php echo $hideEmptyLog; ?>";
 		var currentFolderColorTheme = "<?php echo $currentFolderColorTheme; ?>";

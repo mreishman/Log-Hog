@@ -95,6 +95,22 @@ require_once('../core/php/loadVars.php');
 			</ul>
 		</div>
 	</form>
+	<form id="loggingDisplay" action="../core/php/settingsSave.php" method="post">
+		<div class="settingsHeader">
+			Logging Information  <button onclick="displayLoadingPopup();" >Save Changes</button>
+		</div>
+		<div class="settingsDiv" >
+			<ul id="settingsUl">
+				<li>
+					Enable Logging
+						<select name="enableLogging">
+  						<option <?php if($enableLogging == 'true'){echo "selected";} ?> value="true">True</option>
+  						<option <?php if($enableLogging == 'false'){echo "selected";} ?> value="false">False</option>
+					</select>
+				</li>
+			</ul>
+		</div>
+	</form>
 	</div>
 	<?php readfile('../core/html/popup.html') ?>	
 </body>

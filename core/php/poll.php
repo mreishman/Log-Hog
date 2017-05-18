@@ -62,6 +62,14 @@ else
 {
 	$TrimSize = $defaultConfig['TrimSize'];
 }
+if(array_key_exists('enableLogging', $config))
+{
+	$enableLogging = $config['enableLogging'];
+}
+else
+{
+	$enableLogging = $defaultConfig['enableLogging'];
+}
 
 $modifier = "lines";
 
@@ -270,13 +278,13 @@ foreach($config['watchList'] as $path => $filter)
 				$fullPath = $path . '/' . $filename;
 				if(preg_match('/' . $filter . '/S', $filename) && is_file($fullPath))
 				{
-					if (true) 
+					if ($enableLogging != "false") 
 					{
 						$time_start = microtime(true);
 					}
 					$response[$fullPath] = htmlentities(tail($fullPath, $config['sliceSize'], $enableSystemPrefShellOrPhp, $logTrimOn, $logSizeLimit,$logTrimMacBSD,$logTrimType,$TrimSize));
 
-					if(true)
+					if($enableLogging != "false")
 					{
 						
 						$filename = $fullPath;
@@ -296,13 +304,13 @@ foreach($config['watchList'] as $path => $filter)
 	}
 	elseif(file_exists($path))
 	{
-		if(true)
+		if($enableLogging != "false")
 		{
 			$time_start = microtime(true);
 		}
 		$response[$path] = htmlentities(tail($path, $config['sliceSize'], $enableSystemPrefShellOrPhp, $logTrimOn, $logSizeLimit,$logTrimMacBSD,$logTrimType,$TrimSize));
 
-		if(true)
+		if($enableLogging != "false")
 		{
 
 			$filename = $path;

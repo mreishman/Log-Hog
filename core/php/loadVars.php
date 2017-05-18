@@ -344,6 +344,20 @@ else
 {
 	$groupByType = $defaultConfig['groupByType'];
 }
+if(isset($_POST['enableLogging']))
+{
+	$enableLogging = $_POST['enableLogging'];
+}
+elseif(array_key_exists('enableLogging', $config))
+{
+	$enableLogging = $config['enableLogging'];
+}
+else
+{
+	$enableLogging = $defaultConfig['enableLogging'];
+}
+
+
 
 
 

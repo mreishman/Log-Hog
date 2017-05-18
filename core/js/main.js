@@ -10,6 +10,7 @@ var startedPauseOnNonFocus = false;
 var polling = false;
 var t0 = performance.now();
 var t1 = performance.now();
+var counterForPoll = 0;
 
 function poll() {
 
@@ -65,6 +66,7 @@ function pollTwo()
 		{
 			document.title = "Log Hog | Index";
 		}
+		counterForPoll++;
 		if(!polling)
 		{
 			polling = true;
@@ -85,8 +87,9 @@ function afterPollFunctionComplete()
 {
 	polling = false;
 	t1 = performance.now();
-	document.getElementById("loggingTimerPollRate").innerText = "Ajax refresh took " + (Math.round(t1 - t0)) + "/" + pollingRate +" milliseconds.";
+	document.getElementById("loggingTimerPollRate").innerText = "Ajax refresh took " + (Math.round(t1 - t0)) + "/" + pollingRate +"("+(parseInt(pollingRate)*counterForPoll)+")"+" milliseconds.";
 	document.getElementById("loggingTimerPollRate").style.color = "";
+	counterForPoll = 0;
 	if(Math.round(t1-t0) > parseInt(pollingRate))
 	{
 		if(Math.round(t1-t0) > (2*parseInt(pollingRate)))
@@ -206,8 +209,16 @@ function update(data) {
 					data[name] = "<div class='errorMessageLog errorMessageRedBG' > Error - Maybe insufficient access to read file? </div>";
 				}
 				logs[id] = data[name];
-				titles[id] = name + " | " + data[files[(i+1)]];
-				if(true)
+				if(enableLogging != "false")
+				{
+					titles[id] = name + " | " + data[files[(i+1)]];
+				}
+				else
+				{
+					titles[id] = name;
+				}
+				
+				if(enableLogging != "false")
 				{
 					if(id == currentPage)
 					{
