@@ -105,9 +105,8 @@ $daysSince = $interval->format('%a');
 					<h2>Last Check for updates -  <span id="spanNumOfDaysUpdateSince" ><?php echo $daysSince;?> Day<?php if($daysSince != 1){ echo "s";} ?></span> Ago</h2>
 				</li>
 				<li>
-					<form id="settingsCheckForUpdate" action="../core/php/settingsCheckForUpdate.php" method="post" style="float: left; padding: 10px;">
-					<button onclick="displayLoadingPopup();" >Check for updates</button>
-					<a class="link" onclick="checkForUpdates();">Check for updates - ajax</a>
+					<form id="settingsCheckForUpdate" style="float: left; padding: 10px;">
+					<a class="link" onclick="checkForUpdates();">Check for updates</a>
 					</form>
 					<form id="settingsCheckForUpdate" action="../update/updater.php" method="post" style="padding: 10px;">
 					<?php
@@ -221,11 +220,40 @@ $daysSince = $interval->format('%a');
 		displayLoadingPopup();
 		$.getJSON('../core/php/settingsCheckForUpdateAjax.php', {}, function(data) 
 		{
-			if(data == "1" || data == "2" | data == "3")
+			console.log(data);
+
+			if(data.version == "1" || data.version == "2" | data.version == "3")
 			{
-				
+				document.getElementById('noUpdate').style.display = "none";
+				document.getElementById('minorUpdate').style.display = "none";
+				document.getElementById('majorUpdate').style.display = "none";
+				document.getElementById('NewXReleaseUpdate').style.display = "none";
+
+				if(data.version == "1")
+				{
+					document.getElementById('minorUpdate').style.display = "block";
+				}
+				else if (data.version == "2")
+				{
+					document.getElementById('majorUpdate').style.display = "block";
+				}
+				else
+				{
+					document.getElementById('NewXReleaseUpdate').style.display = "block";
+				}
+
+
+				document.getElementById('releaseNotesHeader').style.display = "block";
+				document.getElementById('releaseNotesBody').style.display = "block";
+				document.getElementById('releaseNotesBody').innerHTML = data.changeLog;
+
+
+				//Update needed
+				hidePopup();
+				showPopup();
+				document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >New Version Available!</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Version "+data.versionNumber+" is now available!</div><div class='link' onclick='installUpdates();' style='margin-left:74px; margin-right:50px;margin-top:25px;'>Update Now</div><div onclick='hidePopup();' class='link'>Maybe Later</div></div>";
 			}
-			else if (data == "0")
+			else if (data.version == "0")
 			{
 				hidePopup();
 				showPopup();
@@ -234,7 +262,9 @@ $daysSince = $interval->format('%a');
 			else
 			{
 				hidePopup();
-
+				//error?
+				showPopup();
+				document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Error</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>An error occured while trying to check for updates. Make sure you are connected to the internet and settingsCheckForUpdate.php has sufficient rights to write / create files. </div><div class='link' onclick='closePopupNoUpdate();' style='margin-left:165px; margin-right:50px;margin-top:5px;'>Okay!</div></div>";
 			}
 			
 		});

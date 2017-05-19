@@ -194,7 +194,77 @@ for($i = 0; $i < $newestVersionCount; $i++)
 }
 
 
+$data['version'] = "1";//$levelOfUpdate;
+$data['versionNumber'] = $versionCheckArray['version'];
 
-echo json_encode($levelOfUpdate);
+
+
+$Changelog = "<ul id='settingsUl'>";
+
+foreach ($versionCheckArray['versionList'] as $key => $value) 
+{
+  $version = explode('.', "2.0" ); //$configStatic['version']
+  $newestVersion = explode('.', $key);
+  $levelOfUpdate = 0;
+  for($i = 0; $i < $newestVersionCount; $i++)
+  {
+    if($i < $versionCount)
+    {
+      if($i == 0)
+      {
+        if($newestVersion[$i] > $version[$i])
+        {
+          $levelOfUpdate = 3;
+          break;
+        }
+        elseif($newestVersion[$i] < $version[$i])
+        {
+          break;
+        }
+      }
+      elseif($i == 1)
+      {
+        if($newestVersion[$i] > $version[$i])
+        {
+          $levelOfUpdate = 2;
+          break;
+        }
+        elseif($newestVersion[$i] < $version[$i])
+        {
+          break;
+        }
+      }
+      else
+      {
+        if($newestVersion[$i] > $version[$i])
+        {
+          $levelOfUpdate = 1;
+          break;
+        }
+        elseif($newestVersion[$i] < $version[$i])
+        {
+          break;
+        }
+      }
+    }
+    else
+    {
+      $levelOfUpdate = 1;
+      break;
+    }
+  }
+  if($levelOfUpdate != 0)
+  {
+    $Changelog .= "<li><h2>Changelog For ".$key." update</h2></li>";
+    $Changelog .= $value['releaseNotes'];
+  }
+}
+
+$Changelog .= "</ul>";
+
+
+$data['changeLog'] = $Changelog;
+
+echo json_encode($data); 
 
 ?>
