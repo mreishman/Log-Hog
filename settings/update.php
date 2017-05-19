@@ -102,11 +102,12 @@ $daysSince = $interval->format('%a');
 					<h2>Current Version - <?php echo $configStatic['version'];?></h2>
 				</li>	
 				<li>
-					<h2>Last Check for updates -  <?php echo $daysSince;?> Day<?php if($daysSince != 1){ echo "s";} ?> Ago</h2>
+					<h2>Last Check for updates -  <span id="spanNumOfDaysUpdateSince" ><?php echo $daysSince;?> Day<?php if($daysSince != 1){ echo "s";} ?></span> Ago</h2>
 				</li>
 				<li>
 					<form id="settingsCheckForUpdate" action="../core/php/settingsCheckForUpdate.php" method="post" style="float: left; padding: 10px;">
 					<button onclick="displayLoadingPopup();" >Check for updates</button>
+					<a class="link" onclick="checkForUpdates();">Check for updates - ajax</a>
 					</form>
 					<form id="settingsCheckForUpdate" action="../update/updater.php" method="post" style="padding: 10px;">
 					<?php
@@ -213,5 +214,35 @@ $daysSince = $interval->format('%a');
 	function goToUrl(url)
 	{
 		window.location.href = url;
+	}
+
+	function checkForUpdates()
+	{
+		displayLoadingPopup();
+		$.getJSON('../core/php/settingsCheckForUpdateAjax.php', {}, function(data) 
+		{
+			if(data == "1" || data == "2" | data == "3")
+			{
+				
+			}
+			else if (data == "0")
+			{
+				hidePopup();
+				showPopup();
+				document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >No Update Needed</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>You are on the most current version</div><div class='link' onclick='closePopupNoUpdate();' style='margin-left:165px; margin-right:50px;margin-top:25px;'>Okay!</div></div>";
+			}
+			else
+			{
+				hidePopup();
+
+			}
+			
+		});
+	}
+
+	function closePopupNoUpdate()
+	{
+		document.getElementById("spanNumOfDaysUpdateSince").innerHTML = "0 Days";
+		hidePopup();
 	}
 </script>
