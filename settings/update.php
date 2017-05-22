@@ -108,7 +108,7 @@ $daysSince = $interval->format('%a');
 					<form id="settingsCheckForUpdate" style="float: left; padding: 10px;">
 					<a class="link" onclick="checkForUpdates();">Check for updates</a>
 					</form>
-					<form id="settingsCheckForUpdate" action="../update/updater.php" method="post" style="padding: 10px;">
+					<form id="settingsInstallUpdate" action="../update/updater.php" method="post" style="padding: 10px;">
 					<?php
 					if($levelOfUpdate != 0){echo '<button onclick="installUpdates();">Install '.$configStatic["newestVersion"].' Update</button>';}
 					?>
@@ -220,8 +220,6 @@ $daysSince = $interval->format('%a');
 		displayLoadingPopup();
 		$.getJSON('../core/php/settingsCheckForUpdateAjax.php', {}, function(data) 
 		{
-			console.log(data);
-
 			if(data.version == "1" || data.version == "2" | data.version == "3")
 			{
 				document.getElementById('noUpdate').style.display = "none";
@@ -277,5 +275,10 @@ $daysSince = $interval->format('%a');
 	{
 		document.getElementById("spanNumOfDaysUpdateSince").innerHTML = "0 Days";
 		hidePopup();
+	}
+
+	function installUpdates()
+	{
+		$("#settingsInstallUpdate").submit();
 	}
 </script>

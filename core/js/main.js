@@ -12,6 +12,8 @@ var t0 = performance.now();
 var t1 = performance.now();
 var counterForPoll = 0;
 
+
+
 function poll() {
 
 	if(!startedPauseOnNonFocus)
@@ -27,6 +29,27 @@ function poll() {
 			updating = true;
 			window.location.href = "core/php/settingsCheckForUpdate.php";
 			daysSinceLastCheck = -1;
+
+			$.getJSON('../core/php/settingsCheckForUpdateAjax.php', {}, function(data) 
+			{
+				if(data.version == "1" || data.version == "2" | data.version == "3")
+				{
+					//Update needed
+					showPopup();
+					document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >New Version Available!</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Version "+data.versionNumber+" is now available!</div><div class='link' onclick='installUpdates();' style='margin-left:74px; margin-right:50px;margin-top:25px;'>Update Now</div><div onclick='hidePopup();' class='link'>Maybe Later</div></div>";
+				}
+				else if (data.version == "0")
+				{
+
+				}
+				else
+				{
+					//error?
+					showPopup();
+					document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Error when checking for update</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>An error occured while trying to check for updates. Make sure you are connected to the internet and settingsCheckForUpdate.php has sufficient rights to write / create files. </div><div class='link' onclick='closePopupNoUpdate();' style='margin-left:165px; margin-right:50px;margin-top:5px;'>Okay!</div></div>";
+				}
+				
+			});
 		}
 		else
 		{
@@ -440,4 +463,9 @@ function deleteLog()
   	complete: function(data){
   	},
 });
+}
+
+function installUpdates()
+{
+	$("#settingsInstallUpdate").submit();
 }
