@@ -21,24 +21,12 @@ function poll() {
 
 	if (autoCheckUpdate == true && !updating)
 	{
-		var today = new Date();
-		var dd = today.getDate();
-		var mm = today.getMonth()+1; //January is 0!
-		var yyyy = today.getFullYear();
 
-		if(dd<10) {
-		    dd='0'+dd
-		} 
-
-		if(mm<10) {
-		    mm='0'+mm
-		} 
-
-		today = mm+'-'+dd+'-'+yyyy;
 		if(daysSinceLastCheck > (daysSetToUpdate - 1))
 		{
 			updating = true;
 			window.location.href = "core/php/settingsCheckForUpdate.php";
+			daysSinceLastCheck = -1;
 		}
 		else
 		{
@@ -327,37 +315,7 @@ function focus() {
 
 
 poll();
-if (autoCheckUpdate == true)
-{
-	var today = new Date();
-		var dd = today.getDate();
-		var mm = today.getMonth()+1; //January is 0!
-		var yyyy = today.getFullYear();
-
-		if(dd<10) {
-		    dd='0'+dd
-		} 
-
-		if(mm<10) {
-		    mm='0'+mm
-		} 
-
-		today = mm+'-'+dd+'-'+yyyy;
-		if(daysSinceLastCheck > (daysSetToUpdate - 1) && !updating)
-		{
-			updating = true;
-			window.location.href = "core/php/settingsCheckForUpdate.php";
-		}
-		else
-		{
-			setInterval(poll, pollingRate);
-		}
-}
-else
-{
-	setInterval(poll, pollingRate);
-}
-//setInterval(poll, pollingRate);
+setInterval(poll, pollingRate);
 resize();
 
 window.onresize = resize;
