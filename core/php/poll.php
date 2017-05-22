@@ -289,17 +289,20 @@ foreach($config['watchList'] as $path => $filter)
 						$lineCount = "0";
 						$filesizeForFile = "0";
 
-						if($dataVar == "")
+						if($dataVar == "" || is_null($dataVar) || $dataVar == "Error - Maybe insufficient access to read file?")
 						{
 							$lineCount = "---";
 							$filesizeForFile = "---";
 						}
-						else if($dataVar != "This file is empty. This should not be displayed.")
+						else
 						{
-							$filename = $fullPath;
-							$filename = preg_replace('/([()"])/S', '$1', $filename);
-							$lineCount = shell_exec('wc -l < ' . $filename);
-							$filesizeForFile = shell_exec('wc -c < '.$filename);
+							if($dataVar != "This file is empty. This should not be displayed.")
+							{
+								$filename = $fullPath;
+								$filename = preg_replace('/([()"])/S', '$1', $filename);
+								$lineCount = shell_exec('wc -l < ' . $filename);
+								$filesizeForFile = shell_exec('wc -c < '.$filename);
+							}
 						}
 						$time_end = microtime(true);
 						$time = $time_end - $time_start;
@@ -326,17 +329,20 @@ foreach($config['watchList'] as $path => $filter)
 			$lineCount = "0";
 			$filesizeForFile = "0";
 
-			if($dataVar == "")
+			if($dataVar == "" || is_null($dataVar) || $dataVar == "Error - Maybe insufficient access to read file?")
 			{
 				$lineCount = "---";
 				$filesizeForFile = "---";
 			}
-			else if($dataVar != "This file is empty. This should not be displayed.")
-			{
-				$filename = $path;
-				$filename = preg_replace('/([()"])/S', '$1', $filename);
-				$lineCount = shell_exec('wc -l < ' . $filename);
-				$filesizeForFile = shell_exec('wc -c < '.$filename);
+			else
+			{	
+				if($dataVar != "This file is empty. This should not be displayed.")
+				{
+					$filename = $path;
+					$filename = preg_replace('/([()"])/S', '$1', $filename);
+					$lineCount = shell_exec('wc -l < ' . $filename);
+					$filesizeForFile = shell_exec('wc -c < '.$filename);
+				}
 			}
 			$time_end = microtime(true);
 			$time = $time_end - $time_start;
