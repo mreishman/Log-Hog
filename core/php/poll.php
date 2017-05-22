@@ -282,21 +282,31 @@ foreach($config['watchList'] as $path => $filter)
 					{
 						$time_start = microtime(true);
 					}
-					$response[$fullPath] = htmlentities(tail($fullPath, $config['sliceSize'], $enableSystemPrefShellOrPhp, $logTrimOn, $logSizeLimit,$logTrimMacBSD,$logTrimType,$TrimSize));
+					$dataVar = htmlentities(tail($fullPath, $config['sliceSize'], $enableSystemPrefShellOrPhp, $logTrimOn, $logSizeLimit,$logTrimMacBSD,$logTrimType,$TrimSize));
 
 					if($enableLogging != "false")
 					{
-						
-						$filename = $fullPath;
-						$filename = preg_replace('/([()"])/S', '$1', $filename);
-						$lineCount = shell_exec('wc -l < ' . $filename);
-						$filesizeForFile = shell_exec('wc -c < '.$filename);
+						$lineCount = "0";
+						$filesizeForFile = "0";
+
+						if($dataVar == "")
+						{
+							$lineCount = "---";
+							$filesizeForFile = "---";
+						}
+						else if($dataVar != "This file is empty. This should not be displayed.")
+						{
+							$filename = $fullPath;
+							$filename = preg_replace('/([()"])/S', '$1', $filename);
+							$lineCount = shell_exec('wc -l < ' . $filename);
+							$filesizeForFile = shell_exec('wc -c < '.$filename);
+						}
 						$time_end = microtime(true);
 						$time = $time_end - $time_start;
 						$time *= 1000;
 						$response[$fullPath."dataForLoggingLogHog051620170928"] = " Limit: ".$logSizeLimit." ".$modifier." | Line Count: ".$lineCount." | File Size: ".$filesizeForFile." | Time: ".round($time);
 					}
-
+					$response[$fullPath] = $dataVar;
 					
 				}
 			}
@@ -308,20 +318,33 @@ foreach($config['watchList'] as $path => $filter)
 		{
 			$time_start = microtime(true);
 		}
-		$response[$path] = htmlentities(tail($path, $config['sliceSize'], $enableSystemPrefShellOrPhp, $logTrimOn, $logSizeLimit,$logTrimMacBSD,$logTrimType,$TrimSize));
+		$dataVar =  htmlentities(tail($path, $config['sliceSize'], $enableSystemPrefShellOrPhp, $logTrimOn, $logSizeLimit,$logTrimMacBSD,$logTrimType,$TrimSize));
 
 		if($enableLogging != "false")
 		{
 
-			$filename = $path;
-			$filename = preg_replace('/([()"])/S', '$1', $filename);
-			$lineCount = shell_exec('wc -l < ' . $filename);
-			$filesizeForFile = shell_exec('wc -c < '.$filename);
+			$lineCount = "0";
+			$filesizeForFile = "0";
+
+			if($dataVar == "")
+			{
+				$lineCount = "---";
+				$filesizeForFile = "---";
+			}
+			else if($dataVar != "This file is empty. This should not be displayed.")
+			{
+				$filename = $path;
+				$filename = preg_replace('/([()"])/S', '$1', $filename);
+				$lineCount = shell_exec('wc -l < ' . $filename);
+				$filesizeForFile = shell_exec('wc -c < '.$filename);
+			}
 			$time_end = microtime(true);
 			$time = $time_end - $time_start;
 			$time *= 1000;
 			$response[$path."dataForLoggingLogHog051620170928"] = " Limit: ".$logSizeLimit." ".$modifier." | Line Count: ".$lineCount." | File Size: ".$filesizeForFile." | Time: ".round($time);
 		}
+
+		$response[$path] = $dataVar;
 	}
 }
 
