@@ -194,7 +194,7 @@ for($i = 0; $i < $newestVersionCount; $i++)
 }
 
 
-$data['version'] = "1";//$levelOfUpdate;
+$data['version'] = $levelOfUpdate;
 $data['versionNumber'] = $versionCheckArray['version'];
 
 
@@ -203,8 +203,10 @@ $Changelog = "<ul id='settingsUl'>";
 
 foreach ($versionCheckArray['versionList'] as $key => $value) 
 {
-  $version = explode('.', "2.0" ); //$configStatic['version']
+  $version = explode('.', $configStatic['version'] ); 
+  $versionCount = count($version);
   $newestVersion = explode('.', $key);
+  $newestVersionCount = count($newestVersion);
   $levelOfUpdate = 0;
   for($i = 0; $i < $newestVersionCount; $i++)
   {
@@ -217,20 +219,12 @@ foreach ($versionCheckArray['versionList'] as $key => $value)
           $levelOfUpdate = 3;
           break;
         }
-        elseif($newestVersion[$i] < $version[$i])
-        {
-          break;
-        }
       }
       elseif($i == 1)
       {
         if($newestVersion[$i] > $version[$i])
         {
           $levelOfUpdate = 2;
-          break;
-        }
-        elseif($newestVersion[$i] < $version[$i])
-        {
           break;
         }
       }
@@ -241,10 +235,6 @@ foreach ($versionCheckArray['versionList'] as $key => $value)
           $levelOfUpdate = 1;
           break;
         }
-        elseif($newestVersion[$i] < $version[$i])
-        {
-          break;
-        }
       }
     }
     else
@@ -253,6 +243,7 @@ foreach ($versionCheckArray['versionList'] as $key => $value)
       break;
     }
   }
+  $Changelog .= "  ".$levelOfUpdate."  ";
   if($levelOfUpdate != 0)
   {
     $Changelog .= "<li><h2>Changelog For ".$key." update</h2></li>";
