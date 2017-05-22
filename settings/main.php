@@ -414,7 +414,7 @@ require_once('../core/php/loadVars.php');
 	else
 	{
 	?>
-document.getElementById("mainLink").classList.add("active");
+
 document.getElementById("popupSelect").addEventListener("change", showOrHidePopupSubWindow, false);
 document.getElementById("settingsSelect").addEventListener("change", showOrHideUpdateSubWindow, false);
 document.getElementById("logTrimTypeToggle").addEventListener("change", changeDescriptionLineSize, false);

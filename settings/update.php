@@ -208,7 +208,6 @@ $daysSince = $interval->format('%a');
 </body>
 <script src="../core/js/settings.js"></script>
 <script type="text/javascript">
-	document.getElementById("updateLink").classList.add("active");
 
 	function goToUrl(url)
 	{

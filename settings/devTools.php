@@ -106,7 +106,6 @@ require_once('../core/php/loadVars.php');
 </body>
 <script src="../core/js/settings.js"></script>
 <script type="text/javascript">
-	document.getElementById("devToolsLink").classList.add("active");
 	var popupSettingsArray = JSON.parse('<?php echo json_encode($popupSettingsArray) ?>');
 	function goToUrl(url)
 	{
