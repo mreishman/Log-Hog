@@ -30,7 +30,7 @@ if($_GET["error"] == 550)
 <p> File Permissions: </p>
 <?php
 
-$arrayOfFiles = array("update/updater.php","core/php/configStatic.php","core/php/loadVars.php","core/php/poll.php","core/php/settingsCheckForUpdate.php","core/php/settingsdevAdvancedSave.php","core/php/settingsDevBranch.php","core/php/settingsInstallUpdate.php", "core/php/settingsMainUpdateVars.php","core/php/settingsMainUpdateWatchList.php","core/php/updateActionFile.php","core/php/updateProgressFile.php","core/php/updateProgressFileNext.php","core/php/updateProgressLog.php","core/php/updateProgressLogHead.php","core/php/verifyWriteStatus.php");
+$arrayOfFiles = array("update/updater.php","core/php/configStatic.php","core/php/loadVars.php","core/php/poll.php","core/php/settingsCheckForUpdate.php","core/php/settingsCheckForUpdateAjax.php","core/php/settingsSave.php","core/php/settingsInstallUpdate.php","core/php/updateActionFile.php","core/php/updateProgressFile.php","core/php/updateProgressFileNext.php","core/php/updateProgressLog.php","core/php/updateProgressLogHead.php","core/php/verifyWriteStatus.php");
 
 foreach ($arrayOfFiles as $key) 
 {
