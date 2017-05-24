@@ -448,13 +448,21 @@ function checkForUpdateMaybe()
 
 			$.getJSON('core/php/settingsCheckForUpdateAjax.php', {}, function(data) 
 			{
-				console.log(data.version);
-				console.log(data.versionNumber);
 				if(data.version == "1" || data.version == "2" | data.version == "3")
 				{
 					//Update needed
-					showPopup();
-					document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >New Version Available!</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Version "+data.versionNumber+" is now available!</div><div class='link' onclick='installUpdates();' style='margin-left:74px; margin-right:50px;margin-top:25px;'>Update Now</div><div onclick='hidePopup();' class='link'>Maybe Later</div></div>";
+					if(dontNotifyVersion != data.versionNumber)
+					{
+						showPopup();
+						var textForInnerHTML = "<div class='settingsHeader' >New Version Available!</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Version "+data.versionNumber+" is now available!</div><div class='link' onclick='installUpdates();' style='margin-left:74px; margin-right:50px;margin-top:25px;'>Update Now</div><div onclick='saveSettingFromPopupNoCheckMaybe();' class='link'>Maybe Later</div><br><div style='width:100%; padding-left:45px; padding-top:5px;'><input id='dontShowPopuForThisUpdateAgain'";
+						if(dontNotifyVersion == data.versionNumber)
+						{
+							dontNotifyVersion = data.versionNumber;
+							textForInnerHTML += " checked "
+						}
+						textForInnerHTML += "type='checkbox'>Don't notify me about this update again</div></div>";
+						document.getElementById('popupContentInnerHTMLDiv').innerHTML = textForInnerHTML;
+					}
 				}
 				else if (data.version == "0")
 				{
@@ -470,4 +478,20 @@ function checkForUpdateMaybe()
 			});
 		}
 	}
+}
+
+function saveSettingFromPopupNoCheckMaybe()
+{
+	if(document.getElementById('dontShowPopuForThisUpdateAgain').checked)
+	{
+		var urlForSend = 'core/php/settingsSaveAjax.php?format=json'
+		var data = {dontNotifyVersion: dontNotifyVersion };
+		$.ajax({
+				  url: urlForSend,
+				  dataType: 'json',
+				  data: data,
+				  type: 'POST'
+		});
+	}
+	hidePopup();
 }

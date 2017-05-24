@@ -27,12 +27,14 @@ $defaultConfig = array(
 	'currentFolderColorTheme'	=> 'theme-default-3',
 	'groupByColorEnabled'	=> 'true',
 	'enableLogging'	=> 'false',
+	'dontNotifyVersion'	=> '0',
 	'enablePollTimeLogging'	=> 'false',
 	'popupSettingsCustom'	=> array(
 		'saveSettings'	=>	'true',
 		'blankFolder'	=>	'true',
 		'deleteLog'	=>	'true',
-		'removeFolder'	=> 	'true'
+		'removeFolder'	=> 	'true',
+		'versionCheck'	=> 'true'
 		),
 	'folderColorArrays'	=> array(
 		'theme-default-1'	=> array('#2A912A',"#32CD32","#9ACD32","#556B2F","#6B8E23"),

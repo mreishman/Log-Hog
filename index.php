@@ -161,6 +161,8 @@ if($pollingRateType == 'Seconds')
 		echo "var pausePollFromFile = ".$pausePoll.";";
 		echo "var groupByColorEnabled = ".$groupByColorEnabled.";"; 			
 		?>
+		var dontNotifyVersion = "<?php echo $dontNotifyVersion;?>";
+		var currentVersion = "<?php echo $configStatic['version'];?>";
 		var enablePollTimeLogging = "<?php echo $enablePollTimeLogging;?>";
 		var enableLogging = "<?php echo $enableLogging; ?>";
 		var groupByType = "<?php echo $groupByType; ?>";
@@ -175,5 +177,5 @@ if($pollingRateType == 'Seconds')
 	</script>
 	<?php readfile('core/html/popup.html') ?>
 	<script src="core/js/main.js"></script>
-		
+	<script src="core/js/rightClickJS.js"></script>	
 </body>
