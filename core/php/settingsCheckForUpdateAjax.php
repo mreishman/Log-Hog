@@ -142,6 +142,10 @@ rmdir("../../update/downloads/versionCheck/extracted/");
 
 $version = $configStatic['version'];
 $newestVersion = $versionCheckArray['version'];
+
+$version = explode('.', $configStatic['version'] ); 
+$newestVersion =  explode('.', $versionCheckArray['version']);
+
 $newestVersionCount = count($newestVersion);
 $versionCount = count($version);
 $levelOfUpdate = 0;
@@ -200,11 +204,12 @@ $data['versionNumber'] = $versionCheckArray['version'];
 
 
 $Changelog = "<ul id='settingsUl'>";
+$version = explode('.', $configStatic['version'] ); 
+$versionCount = count($version);
 
 foreach ($versionCheckArray['versionList'] as $key => $value) 
 {
-  $version = explode('.', $configStatic['version'] ); 
-  $versionCount = count($version);
+ 
   $newestVersion = explode('.', $key);
   $newestVersionCount = count($newestVersion);
   $levelOfUpdate = 0;
