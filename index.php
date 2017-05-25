@@ -127,8 +127,15 @@ if($pollingRateType == 'Seconds')
 			</div>
 		<?php endif; ?>
 		<div onclick="window.location.href = './settings/main.php';" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">
-			<img id="gear" class="menuImage" src="core/img/Gear.png" height="30px">
-			<?php  if($levelOfUpdate == 1){echo '<img src="core/img/yellowWarning.png" height="15px" style="position: absolute;margin-left: 13px;margin-top: -34px;">';} ?> <?php if($levelOfUpdate == 2){echo '<img src="core/img/redWarning.png" height="15px" style="position: absolute;margin-left: 13px;margin-top: -34px;">';} ?>
+			<img data-id="1" id="gear" class="menuImage" src="core/img/Gear.png" height="30px">
+			<?php  if($levelOfUpdate == 1){echo '<img src="core/img/yellowWarning.png" height="15px" style="position: absolute;margin-left: 13px;margin-top: -34px;">';} ?> <?php if($levelOfUpdate == 2 || $levelOfUpdate == 3){echo '<img src="core/img/redWarning.png" height="15px" style="position: absolute;margin-left: 13px;margin-top: -34px;">';} ?>
+
+			 <div class="task__actions">
+		        <i class="fa fa-eye"></i>
+		        <i class="fa fa-edit"></i>
+		        <i class="fa fa-times"></i>
+		      </div>
+
 		</div>
 		<?php if (is_dir("../status")):?>
 			<div style="display: inline-block; cursor: pointer; " onclick="window.location.href='../status/'" >gS</div>
@@ -178,4 +185,26 @@ if($pollingRateType == 'Seconds')
 	<?php readfile('core/html/popup.html') ?>
 	<script src="core/js/main.js"></script>
 	<script src="core/js/rightClickJS.js"></script>	
+
+	<nav class="context-menu">
+	  <ul class="context-menu__items">
+	    <li class="context-menu__item">
+	      <a href="#" class="context-menu__link">
+	        <i class="fa fa-eye"></i> View Task
+	      </a>
+	    </li>
+	    <li class="context-menu__item">
+	      <a href="#" class="context-menu__link">
+	        <i class="fa fa-edit"></i> Edit Task
+	      </a>
+	    </li>
+	    <li class="context-menu__item">
+	      <a href="#" class="context-menu__link">
+	        <i class="fa fa-times"></i> Delete Task
+	      </a>
+	    </li>
+	  </ul>
+	</nav>
+
+
 </body>
