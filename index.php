@@ -186,7 +186,7 @@ if($pollingRateType == 'Seconds')
 	<script src="core/js/main.js"></script>
 	<script src="core/js/rightClickJS.js"></script>	
 
-	<nav class="context-menu">
+	<nav id="context-menu" class="context-menu">
 	  <ul class="context-menu__items">
 	    <li class="context-menu__item">
 	      <a href="#" class="context-menu__link">
