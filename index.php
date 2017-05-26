@@ -98,7 +98,7 @@ if($pollingRateType == 'Seconds')
 </head>
 <body>
 <style type="text/css">
-	#menu a, .link, .linkSmall{
+	#menu a, .link, .linkSmall, .context-menu{
 		background-color: <?php echo $currentSelectedThemeColorValues[0]?>;
 	}
 </style>
