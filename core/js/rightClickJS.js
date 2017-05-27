@@ -2,12 +2,33 @@
 
   "use strict";
 
+
+  //Settings Menu Options
+
+  var checkForUpdateRightClickMenu = {action: "checkForUpdateDefinitely(true);", name: "Check For Update"};
+  var aboutRightClickMenu = {action: "window.location.href = './settings/about.php'", name: "About"};
+
+
+  //Clear Logs Menu Button
+
+  var clearAllLogs = {action: "", name: "Clear All Logs"};
+  var clearCurrentLog = {action: "", name: "Clear Current Log"};
+  var deleteAllLogs = {action: "", name: "Delete All Logs"};
+  var deleteCurrentLog = {action: "", name: "Delete Current Log"};
+
+  var gearMenu = [checkForUpdateRightClickMenu,aboutRightClickMenu];
+  var deleteMenu = [clearAllLogs,clearCurrentLog,deleteAllLogs,deleteCurrentLog];
+
   var Rightclick_ID_list = ['gear','deleteImage'];
-
-
-  var gearMenu = "";
-  var trashCanMenu = "";
-  var updateWarningMenu = "";
+  var menuObjectRightClick = {gear: gearMenu, deleteImage: deleteMenu};
+  
+  /*
+  <li class="context-menu__item">
+    <a href="#" class="context-menu__link">
+      View Task
+    </a>
+  </li>
+  */
 
   var menuPosition;
   var menuPositionX;
@@ -31,10 +52,18 @@
       for (var i =  Rightclick_ID_list_Length - 1; i >= 0; i--) {
           if(document.getElementById(Rightclick_ID_list[i]) == elementClicked)
           {
+            var menuIDSelected = Rightclick_ID_list[i];
             hideMenu = false;
             e.preventDefault();
-            console.log(e);
-            toggleMenuOn(Rightclick_ID_list[i], "ID");
+            toggleMenuOn(menuIDSelected, "ID");
+            var rightClickMenuArray = menuObjectRightClick[menuIDSelected];
+            var rightClickMenuArrayLength = rightClickMenuArray.length;
+            var rightClickMenuHTML = "";
+            for (var i = rightClickMenuArrayLength - 1; i >= 0; i--) 
+            {
+              rightClickMenuHTML += '<li class="context-menu__item"><a class="context-menu__link" onClick="'+rightClickMenuArray[i].action+'"> '+rightClickMenuArray[i].name+' </a> </li>';
+            }
+            document.getElementById('context-menu-items').innerHTML = rightClickMenuHTML;
             positionMenu(e);
           }
       }

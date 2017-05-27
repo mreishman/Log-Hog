@@ -207,6 +207,7 @@ div {
 	padding-left: 3px;
 	padding-right: 3px;
 	padding-bottom: 5px;
+	cursor: pointer;
 }
 
 .context-menu__item:hover{

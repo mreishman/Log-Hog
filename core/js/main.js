@@ -12,8 +12,6 @@ var t0 = performance.now();
 var t1 = performance.now();
 var counterForPoll = 0;
 
-
-
 function poll() {
 
 	if(!startedPauseOnNonFocus)
@@ -439,52 +437,69 @@ $(document).ready(function()
 
 function checkForUpdateMaybe()
 {
-	if (autoCheckUpdate == true && !updating)
+	if (autoCheckUpdate == true)
 	{
 		if(daysSinceLastCheck > (daysSetToUpdate - 1))
 		{
-			updating = true;
 			daysSinceLastCheck = -1;
+			checkForUpdateDefinitely();
+		}
+	}
+}
 
-			$.getJSON('core/php/settingsCheckForUpdateAjax.php', {}, function(data) 
+function checkForUpdateDefinitely(showPopupForNoUpdate = false)
+{
+	if(!updating)
+	{
+		if(showPopupForNoUpdate)
+		{
+			displayLoadingPopup();
+		}
+		updating = true;
+		$.getJSON('core/php/settingsCheckForUpdateAjax.php', {}, function(data) 
+		{
+			if(data.version == "1" || data.version == "2" | data.version == "3")
 			{
-				if(data.version == "1" || data.version == "2" | data.version == "3")
+				//Update needed
+				if(dontNotifyVersion != data.versionNumber)
 				{
-					//Update needed
-					if(dontNotifyVersion != data.versionNumber)
-					{
 
-						if(popupSettingsArray.versionCheck != "false")
+					if(popupSettingsArray.versionCheck != "false")
+					{
+						showPopup();
+						var textForInnerHTML = "<div class='settingsHeader' >New Version Available!</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Version "+data.versionNumber+" is now available!</div><div class='link' onclick='installUpdates();' style='margin-left:74px; margin-right:50px;margin-top:25px;'>Update Now</div><div onclick='saveSettingFromPopupNoCheckMaybe();' class='link'>Maybe Later</div><br><div style='width:100%; padding-left:45px; padding-top:5px;'><input id='dontShowPopuForThisUpdateAgain'";
+						if(dontNotifyVersion == data.versionNumber)
 						{
-							showPopup();
-							var textForInnerHTML = "<div class='settingsHeader' >New Version Available!</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Version "+data.versionNumber+" is now available!</div><div class='link' onclick='installUpdates();' style='margin-left:74px; margin-right:50px;margin-top:25px;'>Update Now</div><div onclick='saveSettingFromPopupNoCheckMaybe();' class='link'>Maybe Later</div><br><div style='width:100%; padding-left:45px; padding-top:5px;'><input id='dontShowPopuForThisUpdateAgain'";
-							if(dontNotifyVersion == data.versionNumber)
-							{
-								textForInnerHTML += " checked "
-							}
-							dontNotifyVersion = data.versionNumber;
-							textForInnerHTML += "type='checkbox'>Don't notify me about this update again</div></div>";
-							document.getElementById('popupContentInnerHTMLDiv').innerHTML = textForInnerHTML;
+							textForInnerHTML += " checked "
 						}
-						else
-						{
-							location.reload();
-						}
+						dontNotifyVersion = data.versionNumber;
+						textForInnerHTML += "type='checkbox'>Don't notify me about this update again</div></div>";
+						document.getElementById('popupContentInnerHTMLDiv').innerHTML = textForInnerHTML;
+					}
+					else
+					{
+						location.reload();
 					}
 				}
-				else if (data.version == "0")
+			}
+			else if (data.version == "0")
+			{
+				if(showPopupForNoUpdate)
 				{
-
-				}
-				else
-				{
-					//error?
+					hidePopup();
 					showPopup();
-					document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Error when checking for update</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>An error occured while trying to check for updates. Make sure you are connected to the internet and settingsCheckForUpdate.php has sufficient rights to write / create files. </div><div class='link' onclick='closePopupNoUpdate();' style='margin-left:165px; margin-right:50px;margin-top:5px;'>Okay!</div></div>";
+					document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >No Update Needed</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>You are on the most current version</div><div class='link' onclick='hidePopup();' style='margin-left:165px; margin-right:50px;margin-top:25px;'>Okay!</div></div>";
 				}
-				
-			});
-		}
+			}
+			else
+			{
+				//error?
+				showPopup();
+				document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Error when checking for update</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>An error occured while trying to check for updates. Make sure you are connected to the internet and settingsCheckForUpdate.php has sufficient rights to write / create files. </div><div class='link' onclick='hidePopup();' style='margin-left:165px; margin-right:50px;margin-top:5px;'>Okay!</div></div>";
+			}
+			
+		});
+		updating = false;
 	}
 }
 
