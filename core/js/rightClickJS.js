@@ -5,10 +5,19 @@
   var Rightclick_ID_list = ['gear','deleteImage'];
 
 
+  var gearMenu = "";
+  var trashCanMenu = "";
+  var updateWarningMenu = "";
+
   var menuPosition;
   var menuPositionX;
   var menuPositionY;
 
+  var menuWidth;
+  var menuHeight;
+
+  var windowWidth;
+  var windowHeight;
 
   var menuState = 0;
   var active = "context-menu--active";
@@ -81,11 +90,27 @@
 
   function positionMenu(e) {
      menuPosition = getPosition(e);
-    menuPositionX = menuPosition.x + "px";
-    menuPositionY = menuPosition.y + "px";
+    menuPositionX = menuPosition.x;
+    menuPositionY = menuPosition.y;
 
-    document.getElementById("context-menu").style.left = menuPositionX;
-    document.getElementById("context-menu").style.top = menuPositionY;
+    windowWidth = window.innerWidth;
+    windowHeight = window.innerHeight;
+
+    menuWidth = document.getElementById("context-menu").offsetWidth + 4;
+    menuHeight = document.getElementById("context-menu").offsetHeight + 4;
+
+    if ( (windowWidth - menuPositionX) < menuWidth ) {
+      document.getElementById("context-menu").style.left = windowWidth - menuWidth + "px";
+    }else{
+      document.getElementById("context-menu").style.left = menuPositionX + "px";
+    }
+
+   if ( (windowHeight - menuPositionY) < menuHeight ) {
+    document.getElementById("context-menu").style.top = windowHeight - menuHeight + "px";
+   }else{
+    document.getElementById("context-menu").style.top = menuPositionY+ "px";
+   }
+    
   }
 
   function clickListener() {
@@ -105,9 +130,16 @@
     }
   }
 
+  function resizeListener() {
+    window.onresize = function(e) {
+      toggleMenuOff();
+    };
+  }
+
   contextListener();
   clickListener();
   keyupListener();
+  resizeListener();
 
 
 
