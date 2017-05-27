@@ -11,10 +11,10 @@
 
   //Clear Logs Menu Button
 
-  var clearAllLogs = {action: "", name: "Clear All Logs"};
-  var clearCurrentLog = {action: "", name: "Clear Current Log"};
+  var clearAllLogs = {action: "deleteAction();", name: "Clear All Logs"};
+  var clearCurrentLog = {action: "clearLog();", name: "Clear Current Log"};
   var deleteAllLogs = {action: "", name: "Delete All Logs"};
-  var deleteCurrentLog = {action: "", name: "Delete Current Log"};
+  var deleteCurrentLog = {action: "deleteLogPopup();", name: "Delete Current Log"};
 
   var gearMenu = [checkForUpdateRightClickMenu,aboutRightClickMenu];
   var deleteMenu = [clearAllLogs,clearCurrentLog,deleteAllLogs,deleteCurrentLog];
