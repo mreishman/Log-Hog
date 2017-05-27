@@ -129,13 +129,6 @@ if($pollingRateType == 'Seconds')
 		<div onclick="window.location.href = './settings/main.php';" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">
 			<img data-id="1" id="gear" class="menuImage" src="core/img/Gear.png" height="30px">
 			<?php  if($levelOfUpdate == 1){echo '<img src="core/img/yellowWarning.png" height="15px" style="position: absolute;margin-left: 13px;margin-top: -34px;">';} ?> <?php if($levelOfUpdate == 2 || $levelOfUpdate == 3){echo '<img src="core/img/redWarning.png" height="15px" style="position: absolute;margin-left: 13px;margin-top: -34px;">';} ?>
-
-			 <div class="task__actions">
-		        <i class="fa fa-eye"></i>
-		        <i class="fa fa-edit"></i>
-		        <i class="fa fa-times"></i>
-		      </div>
-
 		</div>
 		<?php if (is_dir("../status")):?>
 			<div style="display: inline-block; cursor: pointer; " onclick="window.location.href='../status/'" >gS</div>
