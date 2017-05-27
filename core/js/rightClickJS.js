@@ -17,7 +17,7 @@
   var deleteCurrentLog = {action: "deleteLogPopup();", name: "Delete Current Log"};
 
   var gearMenu = [checkForUpdateRightClickMenu,aboutRightClickMenu];
-  var deleteMenu = [clearAllLogs,clearCurrentLog,deleteAllLogs,deleteCurrentLog];
+  var deleteMenu = [clearAllLogs,clearCurrentLog,deleteCurrentLog];
 
   var Rightclick_ID_list = ['gear','deleteImage'];
   var menuObjectRightClick = {gear: gearMenu, deleteImage: deleteMenu};
