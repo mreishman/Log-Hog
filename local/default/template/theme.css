@@ -193,8 +193,8 @@ div {
 
 .context-menu__items{
 	list-style: none;
-	margin: 5px;
-	padding: 10px;
+	margin: 0px;
+	padding: 0px;
 	margin-top: 0px;
 }
 
@@ -203,9 +203,20 @@ div {
 }
 
 .context-menu__item{
-	margin-top: 10px;
+	padding-top: 5px;
+	padding-left: 3px;
+	padding-right: 3px;
+	padding-bottom: 5px;
+}
+
+.context-menu__item:hover{
+	background-color: white;
 }
 
 .context-menu__item a{
 	color: white;
+}
+
+.context-menu__item:hover a{
+	color: black;
 }
