@@ -60,7 +60,7 @@
             var menuIDSelected = Rightclick_ID_list[i];
             hideMenu = false;
             e.preventDefault();
-            toggleMenuOn(menuIDSelected, "ID");
+            toggleMenuOn();
             var rightClickMenuArray = menuObjectRightClick[menuIDSelected];
             var rightClickMenuArrayLength = rightClickMenuArray.length;
             var rightClickMenuHTML = "";
@@ -81,7 +81,7 @@
     });
   }
 
-  function toggleMenuOn(elementClicked, typeOfEitherClassORID) {
+  function toggleMenuOn() {
     if ( menuState !== 1 ) {
       menuState = 1;
       document.getElementById("context-menu").classList.add(active);
