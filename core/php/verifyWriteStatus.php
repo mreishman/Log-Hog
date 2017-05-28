@@ -2,6 +2,11 @@
 
 function checkForUpdate($filePath)
 {
+	if(file_exists("test"))
+	{
+		rmdir("test");
+	}
+
 	mkdir("test");
 
 	if(!file_exists("test"))
