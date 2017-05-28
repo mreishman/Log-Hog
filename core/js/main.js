@@ -453,7 +453,7 @@ function checkForUpdateDefinitely(showPopupForNoUpdate = false)
 	{
 		if(showPopupForNoUpdate)
 		{
-			displayLoadingPopup();
+			displayLoadingPopup("./core/img/");
 		}
 		updating = true;
 		$.getJSON('core/php/settingsCheckForUpdateAjax.php', {}, function(data) 
