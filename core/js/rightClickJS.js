@@ -16,11 +16,16 @@
   var deleteAllLogs = {action: "", name: "Delete All Logs"};
   var deleteCurrentLog = {action: "deleteLogPopup();", name: "Delete Current Log"};
 
+  //Update Icon Menu
+
+  var updateRightClickAction = {action: "installUpdates();", name: "Update"};
+
   var gearMenu = [checkForUpdateRightClickMenu,aboutRightClickMenu];
   var deleteMenu = [clearAllLogs,clearCurrentLog,deleteCurrentLog];
+  var updateMenu = [updateRightClickAction]
 
-  var Rightclick_ID_list = ['gear','deleteImage'];
-  var menuObjectRightClick = {gear: gearMenu, deleteImage: deleteMenu};
+  
+  var menuObjectRightClick = {gear: gearMenu, deleteImage: deleteMenu, updateImage: updateMenu};
   
   /*
   <li class="context-menu__item">

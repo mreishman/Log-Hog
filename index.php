@@ -128,7 +128,7 @@ if($pollingRateType == 'Seconds')
 		<?php endif; ?>
 		<div onclick="window.location.href = './settings/main.php';" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">
 			<img data-id="1" id="gear" class="menuImage" src="core/img/Gear.png" height="30px">
-			<?php  if($levelOfUpdate == 1){echo '<img src="core/img/yellowWarning.png" height="15px" style="position: absolute;margin-left: 13px;margin-top: -34px;">';} ?> <?php if($levelOfUpdate == 2 || $levelOfUpdate == 3){echo '<img src="core/img/redWarning.png" height="15px" style="position: absolute;margin-left: 13px;margin-top: -34px;">';} ?>
+			<?php  if($levelOfUpdate == 1){echo '<img id="updateImage" src="core/img/yellowWarning.png" height="15px" style="position: absolute;margin-left: 13px;margin-top: -34px;">';} ?> <?php if($levelOfUpdate == 2 || $levelOfUpdate == 3){echo '<img id="updateImage" src="core/img/redWarning.png" height="15px" style="position: absolute;margin-left: 13px;margin-top: -34px;">';} ?>
 		</div>
 		<?php if (is_dir("../status")):?>
 			<div style="display: inline-block; cursor: pointer; " onclick="window.location.href='../status/'" >gS</div>
@@ -148,8 +148,20 @@ if($pollingRateType == 'Seconds')
 	<div id="titleContainer"><div id="title">&nbsp;</div>&nbsp;&nbsp;<form style="display: inline-block;" ><a class="linkSmall" onclick="clearLog()" >Clear Log</a><a class="linkSmall" onclick="deleteLogPopup()" >Delete Log</a></form></div>
 	<form id="settingsInstallUpdate" action="../update/updater.php" method="post" style="display: none"></form>
 	<script>
+		var Rightclick_ID_list = [];
+		if(document.getElementById('gear'))
+		{
+			Rightclick_ID_list.push('gear');
+		}
+		if(document.getElementById('deleteImage'))
+		{
+			Rightclick_ID_list.push('deleteImage');
+		}
 		<?php
-			
+		if($levelOfUpdate == 1 || $levelOfUpdate == 2 || $levelOfUpdate == 3)
+		{
+			echo "Rightclick_ID_list.push('updateImage');";
+		}
 		echo "var currentFolderColorThemeArrayOfColors = JSON.parse('".json_encode($currentSelectedThemeColorValues)."');";
 		echo "var pausePollOnNotFocus = ".$pauseOnNotFocus.";";
 		echo "var autoCheckUpdate = ".$autoCheckUpdate.";";
