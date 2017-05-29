@@ -1,6 +1,6 @@
 <?php
   
-$arrayOfFiles = array("core_conf_config.php","core_js_main.js", "core_js_rightClickJS.js","core_php_loadVars.php","core_php_poll.php");
+$arrayOfFiles = array("core_conf_config.php","core_js_main.js", "core_js_rightClickJS.js","core_php_loadVars.php","core_php_poll.php","core_php_settingsCheckForUpdateAjax.php","core_php_settingsSave.php","core_php_settingsSaveAjax.php","core_php_verifyWriteStatus.php","core_template_theme.css","error.php","index.php","local_default_template_theme.css","settings_about.php","settings_advanced.php","settings_devTools.php","settings_experimentalfeatures.php","settings_header.php","settings_main.php","settings_update.php","settings_changelog.html");
 
 require_once("innerUpgradeStatus.php");
 
