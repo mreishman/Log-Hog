@@ -14,7 +14,10 @@ function checkForUpdate($filePath)
 		header('Location: '."../../error.php?error=550&page=".$filePath, TRUE, 302); /* Redirect browser */
 		exit();
 	}
+	else
+	{
+		rmdir("test");
+	}
 	
-	rmdir("test");
 }
 ?>
