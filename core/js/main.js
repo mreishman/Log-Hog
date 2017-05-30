@@ -179,7 +179,7 @@ function update(data) {
 				}
 				else if(data[name] == "Error - Maybe insufficient access to read file?")
 				{
-					data[name] = "<div class='errorMessageLog errorMessageRedBG' > Error - Maybe insufficient access to read file? <br> <span style='font-size:75%;'> Try entering: <br> chown -R www-data:www-data "+titles[id]+" <br> or <br> chmod 664 "+titles[id]+" </span> </div>";
+					data[name] = "<div class='errorMessageLog errorMessageRedBG' > Error - Maybe insufficient access to read file? <br> <span style='font-size:75%;'> Try entering: <br> chown -R www-data:www-data "+name+" <br> or <br> chmod 664 "+name+" </span> </div>";
 				}
 				logs[id] = data[name];
 				if(enableLogging != "false")
