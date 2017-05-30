@@ -10,6 +10,7 @@ var startedPauseOnNonFocus = false;
 var polling = false;
 var t0 = performance.now();
 var t1 = performance.now();
+var counterForPoll = 0;
 
 function poll() {
 
@@ -18,38 +19,8 @@ function poll() {
 		startPauseOnNotFocus();
 	}
 
-	if (autoCheckUpdate == true && !updating)
-	{
-		var today = new Date();
-		var dd = today.getDate();
-		var mm = today.getMonth()+1; //January is 0!
-		var yyyy = today.getFullYear();
-
-		if(dd<10) {
-		    dd='0'+dd
-		} 
-
-		if(mm<10) {
-		    mm='0'+mm
-		} 
-
-		today = mm+'-'+dd+'-'+yyyy;
-		if(daysSinceLastCheck > (daysSetToUpdate - 1))
-		{
-			updating = true;
-			window.location.href = "core/php/settingsCheckForUpdate.php";
-		}
-		else
-		{
-			pollTwo();
-		}
-
-	}
-	else
-	{
-		pollTwo();
-	}
-
+	checkForUpdateMaybe();
+	pollTwo();
 	
 }
 
@@ -65,6 +36,7 @@ function pollTwo()
 		{
 			document.title = "Log Hog | Index";
 		}
+		counterForPoll++;
 		if(!polling)
 		{
 			polling = true;
@@ -84,8 +56,29 @@ function pollTwo()
 function afterPollFunctionComplete()
 {
 	polling = false;
-	t1 = performance.now();
-	//console.log("Ajax refresh took " + (Math.round(t1 - t0)) + "/" + pollingRate +" milliseconds.");
+	if(enablePollTimeLogging != "false")
+	{
+		t1 = performance.now();
+		document.getElementById("loggingTimerPollRate").innerText = "Ajax refresh took " + (Math.round(t1 - t0)) + "/" + pollingRate +"("+(parseInt(pollingRate)*counterForPoll)+")"+" milliseconds.";
+		document.getElementById("loggingTimerPollRate").style.color = "";
+		counterForPoll = 0;
+		if(Math.round(t1-t0) > parseInt(pollingRate))
+		{
+			if(Math.round(t1-t0) > (2*parseInt(pollingRate)))
+			{
+				document.getElementById("loggingTimerPollRate").style.color = "#ff0000";
+			}
+			else
+			{
+				document.getElementById("loggingTimerPollRate").style.color = "#ffff00";
+			}
+			
+		}
+		else
+		{
+			document.getElementById("loggingTimerPollRate").style.color = "#00ff00";
+		}
+	}
 }
 
 function pausePollAction()
@@ -150,72 +143,91 @@ function update(data) {
 	var folderNamePrev = "?-1";
 	var folderNameCount = -1;
 	for(i = 0; i != stop; ++i) {
-		var dataForCheck = data[files[i]];
-		if(dataForCheck == "This file is empty. This should not be displayed." && hideEmptyLog == "true")
+		if(files[i].indexOf("dataForLoggingLogHog051620170928") == -1)
 		{
-			name = files[i];
-			id = name.replace(/[^a-z0-9]/g, '');
-			if($('#menu .' + id + 'Button').length != 0)
+			var dataForCheck = data[files[i]];
+			if(dataForCheck == "This file is empty. This should not be displayed." && hideEmptyLog == "true")
 			{
-				$('#menu .' + id + 'Button').remove();
-			} 
-		}
-		else
-		{
-			name = files[i];
-			folderName = name.substr(0, name.lastIndexOf("/"));
-			if(folderName !== folderNamePrev || i == 0 || groupByType == 'file')
-			{
-				folderNameCount++;
-				folderNamePrev = folderName;
-				if(folderNameCount >= colorArrayLength)
+				name = files[i];
+				id = name.replace(/[^a-z0-9]/g, '');
+				if($('#menu .' + id + 'Button').length != 0)
 				{
-					folderNameCount = 0;
+					$('#menu .' + id + 'Button').remove();
+				} 
+			}
+			else
+			{
+				name = files[i];
+				folderName = name.substr(0, name.lastIndexOf("/"));
+				if(folderName !== folderNamePrev || i == 0 || groupByType == 'file')
+				{
+					folderNameCount++;
+					folderNamePrev = folderName;
+					if(folderNameCount >= colorArrayLength)
+					{
+						folderNameCount = 0;
+					}
 				}
-			}
-			id = name.replace(/[^a-z0-9]/g, '');
-			if(data[name] == "")
-			{
-				data[name] = "<div class='errorMessageLog errorMessageRedBG' >Error - Unknown error? Check file permissions or clear log to fix?</div>";
-			}
-			else if(data[name] == "This file is empty. This should not be displayed.")
-			{
-				data[name] = "<div class='errorMessageLog errorMessageGreenBG' > This file is empty. </div>";
-			}
-			else if(data[name] == "Error - Maybe insufficient access to read file?")
-			{
-				data[name] = "<div class='errorMessageLog errorMessageRedBG' > Error - Maybe insufficient access to read file? </div>";
-			}
-			logs[id] = data[name];
-			if($('#menu .' + id + 'Button').length == 0) 
-			{
-				titles[id] = name;
-				shortName = files[i].replace(/.*\//g, '');
-				style = "background-color: "+colorArray[folderNameCount];
-				item = blank;
-				item = item.replace(/{{title}}/g, shortName);
-				item = item.replace(/{{id}}/g, id);
-				if(groupByColorEnabled == true)
+				id = name.replace(/[^a-z0-9]/g, '');
+				if(data[name] == "")
 				{
-					item = item.replace(/{{style}}/g, style);
+					data[name] = "<div class='errorMessageLog errorMessageRedBG' >Error - Unknown error? Check file permissions or clear log to fix?</div>";
 				}
-				menu.append(item);
-			}
-			
-			if(logs[id] != lastLogs[id]) 
-			{
-				updated = true;
-				if(id == currentPage)
-					$('#log').html(makePretty(logs[id]));
-				else if(!fresh && !$('#menu a.' + id + 'Button').hasClass('updated'))
-					$('#menu a.' + id + 'Button').addClass('updated');
-			}
-			
-			if(initialized && updated && $(window).filter(':focus').length == 0) 
-			{
-				if(flashTitleUpdateLog)
+				else if(data[name] == "This file is empty. This should not be displayed.")
 				{
-					flashTitle();
+					data[name] = "<div class='errorMessageLog errorMessageGreenBG' > This file is empty. </div>";
+				}
+				else if(data[name] == "Error - Maybe insufficient access to read file?")
+				{
+					data[name] = "<div class='errorMessageLog errorMessageRedBG' > Error - Maybe insufficient access to read file? <br> <span style='font-size:75%;'> Try entering: <br> chown -R www-data:www-data "+titles[id]+" <br> or <br> chmod 664 "+titles[id]+" </span> </div>";
+				}
+				logs[id] = data[name];
+				if(enableLogging != "false")
+				{
+					titles[id] = name + " | " + data[name+"dataForLoggingLogHog051620170928"];
+				}
+				else
+				{
+					titles[id] = name;
+				}
+				
+				if(enableLogging != "false")
+				{
+					if(id == currentPage)
+					{
+						$('#title').html(titles[id]);
+					}
+				}
+
+				if($('#menu .' + id + 'Button').length == 0) 
+				{
+					shortName = files[i].replace(/.*\//g, '');
+					style = "background-color: "+colorArray[folderNameCount];
+					item = blank;
+					item = item.replace(/{{title}}/g, shortName);
+					item = item.replace(/{{id}}/g, id);
+					if(groupByColorEnabled == true)
+					{
+						item = item.replace(/{{style}}/g, style);
+					}
+					menu.append(item);
+				}
+				
+				if(logs[id] != lastLogs[id]) 
+				{
+					updated = true;
+					if(id == currentPage)
+						$('#log').html(makePretty(logs[id]));
+					else if(!fresh && !$('#menu a.' + id + 'Button').hasClass('updated'))
+						$('#menu a.' + id + 'Button').addClass('updated');
+				}
+				
+				if(initialized && updated && $(window).filter(':focus').length == 0) 
+				{
+					if(flashTitleUpdateLog)
+					{
+						flashTitle();
+					}
 				}
 			}
 		}
@@ -255,6 +267,10 @@ function makePretty(text) {
 
 function resize() {
 	var targetHeight = window.innerHeight - $('#menu').outerHeight() - $('#title').outerHeight();
+	if(enablePollTimeLogging != "false")
+	{
+		targetHeight -= 25;
+	}
 	if($('#main').outerHeight() != targetHeight)
 		$('#main').outerHeight(targetHeight);
 	if($('#main').css('bottom') != $('#title').outerHeight() + 'px')
@@ -281,37 +297,7 @@ function focus() {
 
 
 poll();
-if (autoCheckUpdate == true)
-{
-	var today = new Date();
-		var dd = today.getDate();
-		var mm = today.getMonth()+1; //January is 0!
-		var yyyy = today.getFullYear();
-
-		if(dd<10) {
-		    dd='0'+dd
-		} 
-
-		if(mm<10) {
-		    mm='0'+mm
-		} 
-
-		today = mm+'-'+dd+'-'+yyyy;
-		if(daysSinceLastCheck > (daysSetToUpdate - 1) && !updating)
-		{
-			updating = true;
-			window.location.href = "core/php/settingsCheckForUpdate.php";
-		}
-		else
-		{
-			setInterval(poll, pollingRate);
-		}
-}
-else
-{
-	setInterval(poll, pollingRate);
-}
-//setInterval(poll, pollingRate);
+setInterval(poll, pollingRate);
 resize();
 
 window.onresize = resize;
@@ -436,4 +422,101 @@ function deleteLog()
   	complete: function(data){
   	},
 });
+}
+
+function installUpdates()
+{
+	$("#settingsInstallUpdate").submit();
+}
+
+$(document).ready(function()
+{
+	checkForUpdateMaybe();
+});
+
+function checkForUpdateMaybe()
+{
+	if (autoCheckUpdate == true)
+	{
+		if(daysSinceLastCheck > (daysSetToUpdate - 1))
+		{
+			daysSinceLastCheck = -1;
+			checkForUpdateDefinitely();
+		}
+	}
+}
+
+function checkForUpdateDefinitely(showPopupForNoUpdate = false)
+{
+	if(!updating)
+	{
+		updating = true;
+		if(showPopupForNoUpdate)
+		{
+			displayLoadingPopup("./core/img/");
+		}
+		$.getJSON('core/php/settingsCheckForUpdateAjax.php', {}, function(data) 
+		{
+			if(data.version == "1" || data.version == "2" | data.version == "3")
+			{
+				//Update needed
+				if(dontNotifyVersion != data.versionNumber)
+				{
+
+					if(popupSettingsArray.versionCheck != "false")
+					{
+						showPopup();
+						var textForInnerHTML = "<div class='settingsHeader' >New Version Available!</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Version "+data.versionNumber+" is now available!</div><div class='link' onclick='installUpdates();' style='margin-left:74px; margin-right:50px;margin-top:25px;'>Update Now</div><div onclick='saveSettingFromPopupNoCheckMaybe();' class='link'>Maybe Later</div><br><div style='width:100%; padding-left:45px; padding-top:5px;'><input id='dontShowPopuForThisUpdateAgain'";
+						if(dontNotifyVersion == data.versionNumber)
+						{
+							textForInnerHTML += " checked "
+						}
+						dontNotifyVersion = data.versionNumber;
+						textForInnerHTML += "type='checkbox'>Don't notify me about this update again</div></div>";
+						document.getElementById('popupContentInnerHTMLDiv').innerHTML = textForInnerHTML;
+					}
+					else
+					{
+						location.reload();
+					}
+				}
+			}
+			else if (data.version == "0")
+			{
+				if(showPopupForNoUpdate)
+				{
+					hidePopup();
+					showPopup();
+					document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >No Update Needed</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>You are on the most current version</div><div class='link' onclick='hidePopup();' style='margin-left:165px; margin-right:50px;margin-top:25px;'>Okay!</div></div>";
+				}
+			}
+			else
+			{
+				//error?
+				showPopup();
+				document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Error when checking for update</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>An error occured while trying to check for updates. Make sure you are connected to the internet and settingsCheckForUpdate.php has sufficient rights to write / create files. </div><div class='link' onclick='hidePopup();' style='margin-left:165px; margin-right:50px;margin-top:5px;'>Okay!</div></div>";
+			}
+			
+		});
+		updating = false;
+	}
+}
+
+function saveSettingFromPopupNoCheckMaybe()
+{
+	if(document.getElementById('dontShowPopuForThisUpdateAgain').checked)
+	{
+		var urlForSend = 'core/php/settingsSaveAjax.php?format=json'
+		var data = {dontNotifyVersion: dontNotifyVersion };
+		$.ajax({
+				  url: urlForSend,
+				  dataType: 'json',
+				  data: data,
+				  type: 'POST',
+		complete: function(data){
+			hidePopup();
+  	},
+		});
+	}
+	
 }

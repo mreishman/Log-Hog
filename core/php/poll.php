@@ -35,6 +35,9 @@ else
 {
 	$logSizeLimit = $defaultConfig['logSizeLimit'];
 }
+
+$logSizeLimit = intval($logSizeLimit);
+
 if(array_key_exists('logTrimMacBSD', $config))
 {
 	$logTrimMacBSD = $config['logTrimMacBSD'];
@@ -59,6 +62,38 @@ else
 {
 	$TrimSize = $defaultConfig['TrimSize'];
 }
+if(array_key_exists('enableLogging', $config))
+{
+	$enableLogging = $config['enableLogging'];
+}
+else
+{
+	$enableLogging = $defaultConfig['enableLogging'];
+}
+
+$modifier = "lines";
+
+if($logTrimType == 'size')
+{	
+	$modifier = $TrimSize;
+	if($TrimSize == "KB")
+	{
+		$logSizeLimit *= 1024;
+	}
+	elseif($TrimSize == "M")
+	{
+		$logSizeLimit *= (1000 * 1000);
+	}
+	elseif($TrimSize == "MB")
+	{
+		$logSizeLimit *= (1024 * 1024);
+	}
+	else
+	{
+		$logSizeLimit *= 1000;
+	}
+
+}
 
 function tail($filename, $sliceSize, $shellOrPhp, $logTrimCheck, $logSizeLimit,$logTrimMacBSD,$logTrimType,$TrimSize) 
 {
@@ -66,117 +101,100 @@ function tail($filename, $sliceSize, $shellOrPhp, $logTrimCheck, $logSizeLimit,$
 	//echo $filename, "\n";
 	if(filesize($filename) == 0)
 	{
-		return "This file is empty. This should not be displayed.";
+		$data =  "This file is empty. This should not be displayed.";
 	}
-	if($logTrimCheck == "true")
+	else
 	{
-		if($logTrimType == 'lines')
+		
+		if($logTrimCheck == "true" || true)
 		{
-			$lineCount = 0;
 			$lineCount = shell_exec('wc -l < ' . $filename);
-			$logSizeLimit = intval($logSizeLimit);
-			if($lineCount > $logSizeLimit)
-			{
-				if($logTrimMacBSD == "true")
-				{
-					shell_exec('sed -i "" "1,' . ($lineCount - $logSizeLimit) . 'd" ' . $filename);
-				}
-				else
-				{
-					shell_exec('sed -i "1,' . ($lineCount - $logSizeLimit) . 'd" ' . $filename);
-				}
-			}
 		}
-		elseif($logTrimType == 'size')
+		if($logTrimCheck == "true")
 		{
-
-			if($TrimSize == "KB")
+			if($logTrimType == 'lines')
 			{
-				$logSizeLimit *= 1024;
-			}
-			elseif($TrimSize == "M")
-			{
-				$logSizeLimit *= (1000 * 1000);
-			}
-			elseif($TrimSize == "MB")
-			{
-				$logSizeLimit *= (1024 * 1024);
-			}
-			else
-			{
-				$logSizeLimit *= 1000;
-			}
-			
-			$maxForLoop = 0;
-			//compair to trimsize value
-			$trimFileBool = true;
-			while ($trimFileBool && $maxForLoop != 10)
-			{
-				$filesizeForFile = shell_exec('wc -c < '.$filename);
-				if($filesizeForFile > $logSizeLimit)
+				if($lineCount > $logSizeLimit)
 				{
-					if($filesizeForFile > (2*$logSizeLimit) && $maxForLoop < 2)
+					if($logTrimMacBSD == "true")
 					{
-						//use different method
-						$lineCountForFile = shell_exec('wc -l < ' . $filename);
-						$fileSizePerLine = $filesizeForFile/$lineCountForFile;
-						$numOfLinesAllowed = $logSizeLimit/$fileSizePerLine;
-						$numOfLinesAllowed *= 2;
-						if($logTrimMacBSD == "true")
-						{
-							shell_exec('sed -i "" "1,' . round($lineCountForFile - $numOfLinesAllowed) . 'd" ' . $filename);
-						}
-						else
-						{
-							shell_exec('sed -i "1,' . round($lineCountForFile - $numOfLinesAllowed) . 'd" ' . $filename);
-						}
+						shell_exec('sed -i "" "1,' . ($lineCount - $logSizeLimit) . 'd" ' . $filename);
 					}
 					else
 					{
-						//remove first line in file
-						if($logTrimMacBSD == "true")
+						shell_exec('sed -i "1,' . ($lineCount - $logSizeLimit) . 'd" ' . $filename);
+					}
+				}
+			}
+			elseif($logTrimType == 'size')
+			{
+				$maxForLoop = 0;
+				//compair to trimsize value
+				$trimFileBool = true;
+				while ($trimFileBool && $maxForLoop != 10)
+				{
+					$filesizeForFile = shell_exec('wc -c < '.$filename);
+					if($filesizeForFile > $logSizeLimit)
+					{
+						if($filesizeForFile > (2*$logSizeLimit) && $maxForLoop < 2)
 						{
-							shell_exec('sed -i "" "1,2d" ' . $filename);
+							//use different method
+							$lineCountForFile = shell_exec('wc -l < ' . $filename);
+							$fileSizePerLine = $filesizeForFile/$lineCountForFile;
+							$numOfLinesAllowed = $logSizeLimit/$fileSizePerLine;
+							$numOfLinesAllowed *= 2;
+							if($logTrimMacBSD == "true")
+							{
+								shell_exec('sed -i "" "1,' . round($lineCountForFile - $numOfLinesAllowed) . 'd" ' . $filename);
+							}
+							else
+							{
+								shell_exec('sed -i "1,' . round($lineCountForFile - $numOfLinesAllowed) . 'd" ' . $filename);
+							}
 						}
 						else
 						{
-							shell_exec('sed -i "1,2d" ' . $filename);
+							//remove first line in file
+							if($logTrimMacBSD == "true")
+							{
+								shell_exec('sed -i "" "1,2d" ' . $filename);
+							}
+							else
+							{
+								shell_exec('sed -i "1,2d" ' . $filename);
+							}
 						}
+					}	
+					else
+					{
+						$trimFileBool = false;
 					}
-				}	
-				else
-				{
-					$trimFileBool = false;
+					$maxForLoop++;
 				}
-				$maxForLoop++;
 			}
-			//trim(shell_exec('truncate -s ' . $TrimSize . ' ' . $filename));
 		}
-	}
 
-	if($shellOrPhp == "true")
-	{
-		$data =  trim(tailCustom($filename, $sliceSize));
+		if($shellOrPhp == "true")
+		{
+			$data =  trim(tailCustom($filename, $sliceSize));
+			
+		}
+		else
+		{
+			$data = trim(shell_exec('tail -n ' . $sliceSize . ' "' . $filename . '"'));
+			if($data == "" || is_null($data))
+			{
+				$data = trim(tailCustom($filename, $sliceSize));
+			}
+		}
+
 		if($data == "" || is_null($data))
 		{
 			$data = "Error - Maybe insufficient access to read file?";
 		}
-		return $data;
-	}
-	else
-	{
-		$data = trim(shell_exec('tail -n ' . $sliceSize . ' "' . $filename . '"'));
-		if($data == "" || is_null($data))
-		{
-			$data = trim(tailCustom($filename, $sliceSize));
 
-			if($data == "" || is_null($data))
-			{
-				$data = "Error - Maybe insufficient access to read file?";
-			}
-		}
-		return $data;
 	}
+	return $data;
 }
 
 /**
@@ -185,7 +203,8 @@ function tail($filename, $sliceSize, $shellOrPhp, $logTrimCheck, $logSizeLimit,$
  * @link http://stackoverflow.com/a/15025877/995958
  * @license http://creativecommons.org/licenses/by/3.0/
  */
-function tailCustom($filepath, $lines = 1, $adaptive = true) {
+function tailCustom($filepath, $lines = 1, $adaptive = true) 
+{
 
 	// Open file
 	$f = @fopen($filepath, "rb");
@@ -208,7 +227,8 @@ function tailCustom($filepath, $lines = 1, $adaptive = true) {
 	$chunk = '';
 
 	// While we would like more
-	while (ftell($f) > 0 && $lines >= 0) {
+	while (ftell($f) > 0 && $lines >= 0) 
+	{
 
 		// Figure out how far back we should jump
 		$seek = min(ftell($f), $buffer);
@@ -229,7 +249,8 @@ function tailCustom($filepath, $lines = 1, $adaptive = true) {
 
 	// While we have too many lines
 	// (Because of buffer size we might have read too many)
-	while ($lines++ < 0) {
+	while ($lines++ < 0) 
+	{
 
 		// Find first newline and remove all text before that
 		$output = substr($output, strpos($output, "\n") + 1);
@@ -246,20 +267,91 @@ $response = array();
 
 foreach($config['watchList'] as $path => $filter) 
 {
-	if(is_dir($path)) {
+	if(is_dir($path)) 
+	{
 		$path = preg_replace('/\/$/', '', $path);
 		$files = scandir($path);
-		if($files) {
+		if($files) 
+		{
 			unset($files[0], $files[1]);
 			foreach($files as $k => $filename) {
 				$fullPath = $path . '/' . $filename;
 				if(preg_match('/' . $filter . '/S', $filename) && is_file($fullPath))
-					$response[$fullPath] = htmlentities(tail($fullPath, $config['sliceSize'], $enableSystemPrefShellOrPhp, $logTrimOn, $logSizeLimit,$logTrimMacBSD,$logTrimType,$TrimSize));
+				{
+					if ($enableLogging != "false") 
+					{
+						$time_start = microtime(true);
+					}
+					$dataVar = htmlentities(tail($fullPath, $config['sliceSize'], $enableSystemPrefShellOrPhp, $logTrimOn, $logSizeLimit,$logTrimMacBSD,$logTrimType,$TrimSize));
+
+					if($enableLogging != "false")
+					{
+						$lineCount = "0";
+						$filesizeForFile = "0";
+
+						if($dataVar == "" || is_null($dataVar) || $dataVar == "Error - Maybe insufficient access to read file?")
+						{
+							$lineCount = "---";
+							$filesizeForFile = "---";
+						}
+						else
+						{
+							if($dataVar != "This file is empty. This should not be displayed.")
+							{
+								$filename = $fullPath;
+								$filename = preg_replace('/([()"])/S', '$1', $filename);
+								$lineCount = shell_exec('wc -l < ' . $filename);
+								$filesizeForFile = shell_exec('wc -c < '.$filename);
+							}
+						}
+						$time_end = microtime(true);
+						$time = $time_end - $time_start;
+						$time *= 1000;
+						$response[$fullPath."dataForLoggingLogHog051620170928"] = " Limit: ".$logSizeLimit." ".$modifier." | Line Count: ".$lineCount." | File Size: ".$filesizeForFile." | Time: ".round($time);
+					}
+					$response[$fullPath] = $dataVar;
+					
+				}
 			}
 		}
 	}
 	elseif(file_exists($path))
-		$response[$path] = htmlentities(tail($path, $config['sliceSize'], $enableSystemPrefShellOrPhp, $logTrimOn, $logSizeLimit,$logTrimMacBSD,$logTrimType,$TrimSize));
+	{
+		if($enableLogging != "false")
+		{
+			$time_start = microtime(true);
+		}
+		$dataVar =  htmlentities(tail($path, $config['sliceSize'], $enableSystemPrefShellOrPhp, $logTrimOn, $logSizeLimit,$logTrimMacBSD,$logTrimType,$TrimSize));
+
+		if($enableLogging != "false")
+		{
+
+			$lineCount = "0";
+			$filesizeForFile = "0";
+
+			if($dataVar == "" || is_null($dataVar) || $dataVar == "Error - Maybe insufficient access to read file?")
+			{
+				$lineCount = "---";
+				$filesizeForFile = "---";
+			}
+			else
+			{	
+				if($dataVar != "This file is empty. This should not be displayed.")
+				{
+					$filename = $path;
+					$filename = preg_replace('/([()"])/S', '$1', $filename);
+					$lineCount = shell_exec('wc -l < ' . $filename);
+					$filesizeForFile = shell_exec('wc -c < '.$filename);
+				}
+			}
+			$time_end = microtime(true);
+			$time = $time_end - $time_start;
+			$time *= 1000;
+			$response[$path."dataForLoggingLogHog051620170928"] = " Limit: ".$logSizeLimit." ".$modifier." | Line Count: ".$lineCount." | File Size: ".$filesizeForFile." | Time: ".round($time);
+		}
+
+		$response[$path] = $dataVar;
+	}
 }
 
 echo json_encode($response);

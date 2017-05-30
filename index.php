@@ -15,7 +15,6 @@ $version = explode('.', $configStatic['version']);
 $newestVersion = explode('.', $configStatic['newestVersion']);
 
 $levelOfUpdate = 0; // 0 is no updated, 1 is minor update and 2 is major update
-$beta = false;
 
 $newestVersionCount = count($newestVersion);
 $versionCount = count($version);
@@ -33,7 +32,6 @@ for($i = 0; $i < $newestVersionCount; $i++)
 			}
 			elseif($newestVersion[$i] < $version[$i])
 			{
-				$beta = true;
 				break;
 			}
 		}
@@ -46,7 +44,6 @@ for($i = 0; $i < $newestVersionCount; $i++)
 			}
 			elseif($newestVersion[$i] < $version[$i])
 			{
-				$beta = true;
 				break;
 			}
 		}
@@ -59,7 +56,6 @@ for($i = 0; $i < $newestVersionCount; $i++)
 			}
 			elseif($newestVersion[$i] < $version[$i])
 			{
-				$beta = true;
 				break;
 			}
 		}
@@ -83,6 +79,10 @@ $datetime2 = date_create($today);
 $interval = date_diff($datetime1, $datetime2);
 $daysSince = $interval->format('%a');
 
+if($pollingRateType == 'Seconds')
+{
+	$pollingRate *= 1000;
+}
 
 ?>
 <!doctype html>
@@ -98,12 +98,12 @@ $daysSince = $interval->format('%a');
 </head>
 <body>
 <style type="text/css">
-	#menu a, .link, .linkSmall{
+	#menu a, .link, .linkSmall, .context-menu{
 		background-color: <?php echo $currentSelectedThemeColorValues[0]?>;
 	}
 </style>
-	<?php if($beta): ?>
-		<div style="width: 100%;color: red;background-color: black;text-align: center; line-height: 200%;" >You are currently on a beta branch. - Only intended for development purposes</div>
+	<?php if($enablePollTimeLogging != "false"): ?>
+		<div id="loggTimerPollStyle" style="width: 100%;background-color: black;text-align: center; line-height: 200%;" ><span id="loggingTimerPollRate" >### MS /<?php echo $pollingRate; ?> MS</span></div>
 	<?php endif; ?>
 	<div id="menu">
 		<div onclick="pausePollAction();" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">
@@ -127,8 +127,8 @@ $daysSince = $interval->format('%a');
 			</div>
 		<?php endif; ?>
 		<div onclick="window.location.href = './settings/main.php';" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">
-			<img id="gear" class="menuImage" src="core/img/Gear.png" height="30px">
-			<?php  if($levelOfUpdate == 1){echo '<img src="core/img/yellowWarning.png" height="15px" style="position: absolute;margin-left: 13px;margin-top: -34px;">';} ?> <?php if($levelOfUpdate == 2){echo '<img src="core/img/redWarning.png" height="15px" style="position: absolute;margin-left: 13px;margin-top: -34px;">';} ?>
+			<img data-id="1" id="gear" class="menuImage" src="core/img/Gear.png" height="30px">
+			<?php  if($levelOfUpdate == 1){echo '<img id="updateImage" src="core/img/yellowWarning.png" height="15px" style="position: absolute;margin-left: 13px;margin-top: -34px;">';} ?> <?php if($levelOfUpdate == 2 || $levelOfUpdate == 3){echo '<img id="updateImage" src="core/img/redWarning.png" height="15px" style="position: absolute;margin-left: 13px;margin-top: -34px;">';} ?>
 		</div>
 		<?php if (is_dir("../status")):?>
 			<div style="display: inline-block; cursor: pointer; " onclick="window.location.href='../status/'" >gS</div>
@@ -146,11 +146,22 @@ $daysSince = $interval->format('%a');
 	</div>
 	
 	<div id="titleContainer"><div id="title">&nbsp;</div>&nbsp;&nbsp;<form style="display: inline-block;" ><a class="linkSmall" onclick="clearLog()" >Clear Log</a><a class="linkSmall" onclick="deleteLogPopup()" >Delete Log</a></form></div>
-	
+	<form id="settingsInstallUpdate" action="update/updater.php" method="post" style="display: none"></form>
 	<script>
+		var Rightclick_ID_list = [];
+		if(document.getElementById('gear'))
+		{
+			Rightclick_ID_list.push('gear');
+		}
+		if(document.getElementById('deleteImage'))
+		{
+			Rightclick_ID_list.push('deleteImage');
+		}
 		<?php
-			
-
+		if($levelOfUpdate == 1 || $levelOfUpdate == 2 || $levelOfUpdate == 3)
+		{
+			echo "Rightclick_ID_list.push('updateImage');";
+		}
 		echo "var currentFolderColorThemeArrayOfColors = JSON.parse('".json_encode($currentSelectedThemeColorValues)."');";
 		echo "var pausePollOnNotFocus = ".$pauseOnNotFocus.";";
 		echo "var autoCheckUpdate = ".$autoCheckUpdate.";";
@@ -160,15 +171,12 @@ $daysSince = $interval->format('%a');
 		echo "var daysSetToUpdate = '".$autoCheckDaysUpdate."';";
 		echo "var pollingRate = ".$pollingRate.";";
 		echo "var pausePollFromFile = ".$pausePoll.";";
-		echo "var groupByColorEnabled = ".$groupByColorEnabled.";"; 
-
-		if($pollingRateType == 'Seconds')
-		{
-			echo "pollingRate *= 1000;";
-		}
-
-			
+		echo "var groupByColorEnabled = ".$groupByColorEnabled.";"; 			
 		?>
+		var dontNotifyVersion = "<?php echo $dontNotifyVersion;?>";
+		var currentVersion = "<?php echo $configStatic['version'];?>";
+		var enablePollTimeLogging = "<?php echo $enablePollTimeLogging;?>";
+		var enableLogging = "<?php echo $enableLogging; ?>";
 		var groupByType = "<?php echo $groupByType; ?>";
 		var hideEmptyLog = "<?php echo $hideEmptyLog; ?>";
 		var currentFolderColorTheme = "<?php echo $currentFolderColorTheme; ?>";
@@ -179,7 +187,14 @@ $daysSince = $interval->format('%a');
 		var userPaused = false;
 		var refreshing = false;
 	</script>
-	
+	<?php readfile('core/html/popup.html') ?>
 	<script src="core/js/main.js"></script>
-	<?php readfile('core/html/popup.html') ?>	
+	<script src="core/js/rightClickJS.js"></script>	
+
+	<nav id="context-menu" class="context-menu">
+	  <ul id="context-menu-items" class="context-menu__items">
+	  </ul>
+	</nav>
+
+
 </body>

@@ -344,6 +344,44 @@ else
 {
 	$groupByType = $defaultConfig['groupByType'];
 }
+if(isset($_POST['enableLogging']))
+{
+	$enableLogging = $_POST['enableLogging'];
+}
+elseif(array_key_exists('enableLogging', $config))
+{
+	$enableLogging = $config['enableLogging'];
+}
+else
+{
+	$enableLogging = $defaultConfig['enableLogging'];
+}
+if(isset($_POST['enablePollTimeLogging']))
+{
+	$enablePollTimeLogging = $_POST['enablePollTimeLogging'];
+}
+elseif(array_key_exists('enablePollTimeLogging', $config))
+{
+	$enablePollTimeLogging = $config['enablePollTimeLogging'];
+}
+else
+{
+	$enablePollTimeLogging = $defaultConfig['enablePollTimeLogging'];
+}
+if(isset($_POST['dontNotifyVersion']))
+{
+	$dontNotifyVersion = $_POST['dontNotifyVersion'];
+}
+elseif(array_key_exists('dontNotifyVersion', $config))
+{
+	$dontNotifyVersion = $config['dontNotifyVersion'];
+}
+else
+{
+	$dontNotifyVersion = $defaultConfig['dontNotifyVersion'];
+}
+
+
 
 
 
@@ -393,7 +431,8 @@ if($popupWarnings == "all")
 		'saveSettings'	=>	'true',
 		'blankFolder'	=>	'true',
 		'deleteLog'	=>	'true',
-		'removeFolder'	=> 	'true'
+		'removeFolder'	=> 	'true',
+		'versionCheck'	=> 'true'
 		";
 }
 elseif($popupWarnings == "none")
@@ -402,7 +441,8 @@ elseif($popupWarnings == "none")
 		'saveSettings'	=>	'false',
 		'blankFolder'	=>	'false',
 		'deleteLog'	=>	'false',
-		'removeFolder'	=> 	'false'
+		'removeFolder'	=> 	'false',
+		'versionCheck'	=> 'false'
 		";
 }
 else
@@ -413,7 +453,8 @@ else
 		'saveSettings'	=>	'".$_POST['saveSettings']."',
 		'blankFolder'	=>	'".$_POST['blankFolder']."',
 		'deleteLog'	=>	'".$_POST['deleteLog']."',
-		'removeFolder'	=> 	'".$_POST['removeFolder']."'
+		'removeFolder'	=> 	'".$_POST['removeFolder']."',
+		'versionCheck'	=> '".$_POST['versionCheck']."'
 		";
 	}
 	else
@@ -424,7 +465,7 @@ else
 		{
 			$popupSettingsArraySave .= "'".$key."'	=>	'".$value."'";
 			$count++;
-			if($count != 3)
+			if($count != 4)
 			{
 				$popupSettingsArraySave .= ",";
 			}

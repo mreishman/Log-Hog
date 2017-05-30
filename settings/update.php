@@ -102,15 +102,15 @@ $daysSince = $interval->format('%a');
 					<h2>Current Version - <?php echo $configStatic['version'];?></h2>
 				</li>	
 				<li>
-					<h2>Last Check for updates -  <?php echo $daysSince;?> Day<?php if($daysSince != 1){ echo "s";} ?> Ago</h2>
+					<h2>Last Check for updates -  <span id="spanNumOfDaysUpdateSince" ><?php echo $daysSince;?> Day<?php if($daysSince != 1){ echo "s";} ?></span> Ago</h2>
 				</li>
 				<li>
-					<form id="settingsCheckForUpdate" action="../core/php/settingsCheckForUpdate.php" method="post" style="float: left; padding: 10px;">
-					<button onclick="displayLoadingPopup();" >Check for updates</button>
+					<form id="settingsCheckForUpdate" style="float: left; padding: 10px;">
+					<a class="link" onclick="checkForUpdates();">Check for updates</a>
 					</form>
-					<form id="settingsCheckForUpdate" action="../update/updater.php" method="post" style="padding: 10px;">
+					<form id="settingsInstallUpdate" action="../update/updater.php" method="post" style="padding: 10px;">
 					<?php
-					if($levelOfUpdate != 0){echo '<button onclick="installUpdates();">Install '.$configStatic["newestVersion"].' Update</button>';}
+					if($levelOfUpdate != 0){echo '<a class="link" onclick="installUpdates();">Install '.$configStatic["newestVersion"].' Update</a>';}
 					?>
 					</form>
 				</li>
@@ -118,13 +118,13 @@ $daysSince = $interval->format('%a');
 					<h2><img id="statusImage1" src="../core/img/greenCheck.png" height="15px"> &nbsp; No new updates - You are on the current version!</h2>
 				</li>
 				<li id="minorUpdate" <?php if($levelOfUpdate != 1){echo "style='display: none;'";} ?> >
-					<h2><img id="statusImage2" src="../core/img/yellowWarning.png" height="15px"> &nbsp; Minor Updates - <?php echo $configStatic['newestVersion'];?> - bug fixes </h2>
+					<h2><img id="statusImage2" src="../core/img/yellowWarning.png" height="15px"> &nbsp; Minor Updates - <span id="minorUpdatesVersionNumber"><?php echo $configStatic['newestVersion'];?></span> - bug fixes </h2>
 				</li>
 				<li id="majorUpdate" <?php if($levelOfUpdate != 2){echo "style='display: none;'";} ?> >
-					<h2><img id="statusImage3" src="../core/img/redWarning.png" height="15px"> &nbsp; Major Updates - <?php echo $configStatic['newestVersion'];?> - new features!</h2>
+					<h2><img id="statusImage3" src="../core/img/redWarning.png" height="15px"> &nbsp; Major Updates - <span id="majorUpdatesVersionNumber"><?php echo $configStatic['newestVersion'];?></span> - new features!</h2>
 				</li>
 				<li id="NewXReleaseUpdate" <?php if($levelOfUpdate != 3){echo "style='display: none;'";} ?> >
-					<h2><img id="statusImage3" src="../core/img/redWarning.png" height="15px"><img id="statusImage3" src="../core/img/redWarning.png" height="15px"><img id="statusImage3" src="../core/img/redWarning.png" height="15px"> &nbsp; Very Major Updates - <?php echo $configStatic['newestVersion'];?> - a lot of new features!</h2>
+					<h2><img id="statusImage3" src="../core/img/redWarning.png" height="15px"><img id="statusImage3" src="../core/img/redWarning.png" height="15px"><img id="statusImage3" src="../core/img/redWarning.png" height="15px"> &nbsp; Very Major Updates - <span id="veryMajorUpdatesVersionNumber"><?php echo $configStatic['newestVersion'];?></span> - a lot of new features!</h2>
 				</li>
 			</ul>
 		</div>
@@ -208,10 +208,76 @@ $daysSince = $interval->format('%a');
 </body>
 <script src="../core/js/settings.js"></script>
 <script type="text/javascript">
-	document.getElementById("updateLink").classList.add("active");
 
 	function goToUrl(url)
 	{
 		window.location.href = url;
+	}
+
+	function checkForUpdates()
+	{
+		displayLoadingPopup();
+		$.getJSON('../core/php/settingsCheckForUpdateAjax.php', {}, function(data) 
+		{
+			if(data.version == "1" || data.version == "2" | data.version == "3")
+			{
+				document.getElementById('noUpdate').style.display = "none";
+				document.getElementById('minorUpdate').style.display = "none";
+				document.getElementById('majorUpdate').style.display = "none";
+				document.getElementById('NewXReleaseUpdate').style.display = "none";
+
+				if(data.version == "1")
+				{
+					document.getElementById('minorUpdate').style.display = "block";
+					document.getElementById('minorUpdatesVersionNumber').innerHTML = data.versionNumber;
+				}
+				else if (data.version == "2")
+				{
+					document.getElementById('majorUpdate').style.display = "block";
+					document.getElementById('majorUpdatesVersionNumber').innerHTML = data.versionNumber;
+				}
+				else
+				{
+					document.getElementById('NewXReleaseUpdate').style.display = "block";
+					document.getElementById('veryMajorUpdatesVersionNumber').innerHTML = data.versionNumber;
+				}
+
+
+				document.getElementById('releaseNotesHeader').style.display = "block";
+				document.getElementById('releaseNotesBody').style.display = "block";
+				document.getElementById('releaseNotesBody').innerHTML = data.changeLog;
+
+
+				//Update needed
+				hidePopup();
+				showPopup();
+				document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >New Version Available!</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Version "+data.versionNumber+" is now available!</div><div class='link' onclick='installUpdates();' style='margin-left:74px; margin-right:50px;margin-top:25px;'>Update Now</div><div onclick='hidePopup();' class='link'>Maybe Later</div></div>";
+			}
+			else if (data.version == "0")
+			{
+				hidePopup();
+				showPopup();
+				document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >No Update Needed</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>You are on the most current version</div><div class='link' onclick='closePopupNoUpdate();' style='margin-left:165px; margin-right:50px;margin-top:25px;'>Okay!</div></div>";
+			}
+			else
+			{
+				hidePopup();
+				//error?
+				showPopup();
+				document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Error</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>An error occured while trying to check for updates. Make sure you are connected to the internet and settingsCheckForUpdate.php has sufficient rights to write / create files. </div><div class='link' onclick='closePopupNoUpdate();' style='margin-left:165px; margin-right:50px;margin-top:5px;'>Okay!</div></div>";
+			}
+			
+		});
+	}
+
+	function closePopupNoUpdate()
+	{
+		document.getElementById("spanNumOfDaysUpdateSince").innerHTML = "0 Days";
+		hidePopup();
+	}
+
+	function installUpdates()
+	{
+		$("#settingsInstallUpdate").submit();
 	}
 </script>

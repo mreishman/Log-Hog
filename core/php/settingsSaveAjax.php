@@ -16,7 +16,7 @@ require_once('loadVars.php');
 
 	$fileName = ''.$baseUrl.'conf/config.php';
 
-	//Don't forget to update Ajax version
+	//Don't forget to update Normal version
 
 	$newInfoForConfig = "
 	<?php
@@ -58,7 +58,7 @@ require_once('loadVars.php');
 		);
 	?>";
 
-	//Don't forget to update Ajax version
+	//Don't forget to update Normal version
 
 	file_put_contents($fileName, $newInfoForConfig);
 

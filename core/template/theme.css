@@ -36,7 +36,7 @@ div {
 
 #menu a:hover, #menu a.active, .link:hover, .linkSmall:hover {
 	color: black;
-	background-color: white !important;
+	background-color: white !important; 
 }
 
 #menu a.updated {
@@ -156,14 +156,15 @@ div {
 }
 
 .inner-triangle{
-    border-left: 20px solid transparent;
-    border-right: 20px solid green;
-    border-bottom: 20px solid transparent;
+    border-left: 7px solid transparent;
+    border-bottom: 7px solid white;
     height: 0;
     width: 0;
-    position: absolute;
+    position: relative;
     right: 0px;
     z-index: 2;
+    top: 11px;
+    left: 11px;
 }
 
 .errorMessageLog{
@@ -179,4 +180,44 @@ div {
 
 .errorMessageGreenBG{
 	background-color: green;
+}
+
+.context-menu {
+  display: none;
+  position: absolute;
+  z-index: 10;
+  background-color: green;
+  border: 1px solid white;
+  box-shadow: 0px 0px 5px black;
+}
+
+.context-menu__items{
+	list-style: none;
+	margin: 0px;
+	padding: 0px;
+	margin-top: 0px;
+}
+
+.context-menu--active {
+  display: block;
+}
+
+.context-menu__item{
+	padding-top: 5px;
+	padding-left: 3px;
+	padding-right: 3px;
+	padding-bottom: 5px;
+	cursor: pointer;
+}
+
+.context-menu__item:hover{
+	background-color: white;
+}
+
+.context-menu__item a{
+	color: white;
+}
+
+.context-menu__item:hover a{
+	color: black;
 }
