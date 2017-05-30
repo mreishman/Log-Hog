@@ -110,7 +110,7 @@ $daysSince = $interval->format('%a');
 					</form>
 					<form id="settingsInstallUpdate" action="../update/updater.php" method="post" style="padding: 10px;">
 					<?php
-					if($levelOfUpdate != 0){echo '<button onclick="installUpdates();">Install '.$configStatic["newestVersion"].' Update</button>';}
+					if($levelOfUpdate != 0){echo '<a class="link" onclick="installUpdates();">Install '.$configStatic["newestVersion"].' Update</a>';}
 					?>
 					</form>
 				</li>
