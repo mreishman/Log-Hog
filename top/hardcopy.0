@@ -1,0 +1,24 @@
+
+  1  [|||||                    13.9%]   Tasks: 52, 75 thr; 3 running
+  2  [||||                     11.2%]   Load average: 0.09 0.07 0.18
+  3  [||||||||||               32.7%]   Uptime: 12 days, 03:28:05
+  4  [|||||||                  19.6%]
+  Mem[||||||||||||||||||||746M/1.95G]
+  Swp[||                 70.9M/2.00G]
+
+  PID USER      PRI  NI  VIRT   RES   SHR S CPU% MEM%   TIME+  Command
+17314 www-data   20   0 1667M  471M 91336 S 23.3 23.6  4h30:26 /usr/bin/hhvm --c
+23098 www-data   20   0  353M 19728 14652 R 19.9  1.0 15:00.20 /usr/sbin/smbd -D
+19338 www-data   20   0 1667M  471M 91336 S  7.3 23.6 33:51.39 /usr/bin/hhvm --c
+19339 www-data   20   0 1667M  471M 91336 S  7.3 23.6 34:26.29 /usr/bin/hhvm --c
+23375 www-data   20   0 1667M  471M 91336 S  6.0 23.6 31:14.45 /usr/bin/hhvm --c
+21555 www-data   20   0 1667M  471M 91336 S  2.0 23.6 31:58.06 /usr/bin/hhvm --c
+20404 www-data   20   0 1667M  471M 91336 S  0.0 23.6 33:39.64 /usr/bin/hhvm --c
+19342 www-data   20   0 1667M  471M 91336 S  0.0 23.6 35:05.90 /usr/bin/hhvm --c
+29834 www-data   20   0 2103M 22592  8124 S  0.0  1.1  0:25.72 /usr/sbin/apache2
+  638 root       20   0  184M  3984  3460 S  0.0  0.2 10:01.15 /usr/bin/vmtoolsd
+12318 www-data   20   0  345M 19392 17744 S  0.0  0.9  0:14.42 /usr/sbin/smbd -D
+29860 www-data   20   0 2103M 22592  8124 S  0.0  1.1  0:00.74 /usr/sbin/apache2
+29861 www-data   20   0 2103M 22592  8124 S  0.0  1.1  0:01.03 /usr/sbin/apache2
+16129 www-data   20   0 1667M  471M 91336 S  0.0 23.6 34:03.21 /usr/bin/hhvm --c
+F1Help  F2Setup F3SearchF4FilterF5Tree  F6SortByF7Nice -F8Nice +F9Kill  F10Quit
