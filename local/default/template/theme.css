@@ -221,3 +221,19 @@ div {
 .context-menu__item:hover a{
 	color: black;
 }
+
+.canvasMonitor{
+	border: 1px solid white;
+}
+
+.canvasMonitorDiv{
+	margin: 20px;
+	display: inline-block;
+}
+
+.canvasMonitorText{
+	background-color: white;
+	color: black;
+	padding: 5px;
+	text-align: center;
+}

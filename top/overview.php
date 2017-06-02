@@ -85,7 +85,12 @@ require_once('../core/php/loadVars.php');
 <?php require_once('header.php');?>	
 
 	<div id="main">
-		
+		<div class="canvasMonitorDiv" >	
+			<div class="canvasMonitorText">CPU</div>
+			<img id="canvasMonitorLoading_CPU" style="margin-top: 75px; margin-left: 75px; position: absolute;" src='../core/img/loading.gif' height='50' width='50'> 
+			<canvas class="canvasMonitor" id="cpuCanvas" width="200" height="200"></canvas>
+			<div class="canvasMonitorText">U <span id="canvasMonitorCPU_User">X</span>% | S <span id="canvasMonitorCPU_System">X</span>% | N <span id="canvasMonitorCPU_Other">X</span>%</div>
+		</div>
 	</div>
 	<?php readfile('../core/html/popup.html') ?>	
 	<script type="text/javascript">
@@ -97,7 +102,7 @@ require_once('../core/php/loadVars.php');
 		if(nullReturnForDefaultPoll)
 		{
 			$.getJSON('../core/php/topAlt.php', {}, function(data) {
-				console.log(data);
+				processDataFromTOP(data);
 			})
 		}
 		else
@@ -106,14 +111,37 @@ require_once('../core/php/loadVars.php');
 				if(data == null)
 				{
 					nullReturnForDefaultPoll = true;
-					console.log(data);
 					topFunction();
+				}
+				else
+				{
+					processDataFromTOP(data);
 				}
 			})
 		}
 	}
 
+	function processDataFromTOP(data)
+	{
+		filterDataForCPU(data)
+	}
+
+	function filterDataForCPU(dataInner)
+	{
+		dataInner = dataInner.substring(dataInner.indexOf("%Cpu(s):")+8);
+		dataInner = dataInner.replace(/\s/g, '');
+		dataInner = dataInner.split(",");
+		//0 = user, 1 = system, 2 = other;
+		document.getElementById('canvasMonitorCPU_User').innerHTML = dataInner[0].substring(0, dataInner[0].length - 2);
+		document.getElementById('canvasMonitorCPU_System').innerHTML = dataInner[1].substring(0, dataInner[1].length - 2);
+		document.getElementById('canvasMonitorCPU_Other').innerHTML = dataInner[2].substring(0, dataInner[2].length - 2);
+
+		document.getElementById('canvasMonitorLoading_CPU').style.display = "none";
+		
+	}
+
 	topFunction();
 	
 	</script>
+	<script src="../core/js/settings.js"></script>
 </body>
