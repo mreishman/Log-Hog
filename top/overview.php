@@ -89,7 +89,7 @@ require_once('../core/php/loadVars.php');
 			<div class="canvasMonitorText">CPU</div>
 			<img id="canvasMonitorLoading_CPU" style="margin-top: 75px; margin-left: 75px; position: absolute;" src='../core/img/loading.gif' height='50' width='50'> 
 			<canvas class="canvasMonitor" id="cpuCanvas" width="200" height="200"></canvas>
-			<div class="canvasMonitorText">U <span id="canvasMonitorCPU_User">X</span>% | S <span id="canvasMonitorCPU_System">X</span>% | N <span id="canvasMonitorCPU_Other">X</span>%</div>
+			<div class="canvasMonitorText">U <span id="canvasMonitorCPU_User">-</span>% | S <span id="canvasMonitorCPU_System">-</span>% | N <span id="canvasMonitorCPU_Other">-</span>%</div>
 		</div>
 	</div>
 	<?php readfile('../core/html/popup.html') ?>	
