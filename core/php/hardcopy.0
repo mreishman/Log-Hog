@@ -1,0 +1,24 @@
+top - 10:19:20 up 13 days, 23:41,  3 users,  load average: 0.12, 0.26, 0.24
+Tasks: 156 total,   1 running, 150 sleeping,   5 stopped,   0 zombie
+%Cpu(s):  0.3 us,  1.6 sy,  0.0 ni, 97.9 id,  0.1 wa,  0.0 hi,  0.0 si,  0.0 st
+KiB Mem :  2047936 total,   349900 free,   437684 used,  1260352 buff/cache
+KiB Swap:  2093052 total,  1795752 free,   297300 used.  1381188 avail Mem
+
+  PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND
+    1 root      20   0   37712   4320   2944 S   0.0  0.2   0:09.56 systemd
+    2 root      20   0       0      0      0 S   0.0  0.0   0:00.13 kthreadd
+    3 root      20   0       0      0      0 S   0.0  0.0   0:16.34 ksoftirqd/0
+    7 root      20   0       0      0      0 S   0.0  0.0   8:51.10 rcu_sched
+    8 root      20   0       0      0      0 S   0.0  0.0   0:00.00 rcu_bh
+    9 root      rt   0       0      0      0 S   0.0  0.0   1:02.08 migration/0
+   10 root      rt   0       0      0      0 S   0.0  0.0   0:03.52 watchdog/0
+   11 root      rt   0       0      0      0 S   0.0  0.0   0:03.37 watchdog/1
+   12 root      rt   0       0      0      0 S   0.0  0.0   1:02.11 migration/1
+   13 root      20   0       0      0      0 S   0.0  0.0   0:16.64 ksoftirqd/1
+   16 root      rt   0       0      0      0 S   0.0  0.0   0:03.35 watchdog/2
+   17 root      rt   0       0      0      0 S   0.0  0.0   0:39.82 migration/2
+   18 root      20   0       0      0      0 S   0.0  0.0   0:31.32 ksoftirqd/2
+   21 root      rt   0       0      0      0 S   0.0  0.0   0:03.01 watchdog/3
+   22 root      rt   0       0      0      0 S   0.0  0.0   0:40.04 migration/3
+   23 root      20   0       0      0      0 S   0.0  0.0   0:30.64 ksoftirqd/3
+   26 root      20   0       0      0      0 S   0.0  0.0   0:00.00 kdevtmpfs

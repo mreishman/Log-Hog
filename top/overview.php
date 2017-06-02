@@ -88,4 +88,32 @@ require_once('../core/php/loadVars.php');
 		
 	</div>
 	<?php readfile('../core/html/popup.html') ?>	
+	<script type="text/javascript">
+
+	var nullReturnForDefaultPoll = false;
+
+	function topFunction()
+	{
+		if(nullReturnForDefaultPoll)
+		{
+			$.getJSON('../core/php/topAlt.php', {}, function(data) {
+				console.log(data);
+			})
+		}
+		else
+		{
+			$.getJSON('../core/php/top.php', {}, function(data) {
+				if(data == null)
+				{
+					nullReturnForDefaultPoll = true;
+					console.log(data);
+					topFunction();
+				}
+			})
+		}
+	}
+
+	topFunction();
+	
+	</script>
 </body>
