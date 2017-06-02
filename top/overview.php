@@ -96,6 +96,9 @@ require_once('../core/php/loadVars.php');
 	<script type="text/javascript">
 
 	var nullReturnForDefaultPoll = false;
+	var cpuInfoArray_User = [0,0,0,0,0,0,0,0,0,0];
+	var cpuInfoArray_System = [0,0,0,0,0,0,0,0,0,0];
+	var cpuInfoArray_other = [0,0,0,0,0,0,0,0,0,0];
 
 	function topFunction()
 	{
@@ -132,15 +135,26 @@ require_once('../core/php/loadVars.php');
 		dataInner = dataInner.replace(/\s/g, '');
 		dataInner = dataInner.split(",");
 		//0 = user, 1 = system, 2 = other;
-		document.getElementById('canvasMonitorCPU_User').innerHTML = dataInner[0].substring(0, dataInner[0].length - 2);
-		document.getElementById('canvasMonitorCPU_System').innerHTML = dataInner[1].substring(0, dataInner[1].length - 2);
-		document.getElementById('canvasMonitorCPU_Other').innerHTML = dataInner[2].substring(0, dataInner[2].length - 2);
-
+		var userInfo = dataInner[0].substring(0, dataInner[0].length - 2);
+		var systemInfo = dataInner[1].substring(0, dataInner[1].length - 2);
+		var otherInfo = dataInner[2].substring(0, dataInner[2].length - 2);
+		document.getElementById('canvasMonitorCPU_User').innerHTML = userInfo;
+		cpuInfoArray_User.push(parseFloat(userInfo));
+		document.getElementById('canvasMonitorCPU_System').innerHTML = systemInfo;
+		cpuInfoArray_System.push(parseFloat(systemInfo));
+		document.getElementById('canvasMonitorCPU_Other').innerHTML = otherInfo;
+		cpuInfoArray_other.push(parseFloat(otherInfo));
 		document.getElementById('canvasMonitorLoading_CPU').style.display = "none";
-		
+		if(cpuInfoArray_User.length > 10)
+		{
+			cpuInfoArray_User.shift();
+			cpuInfoArray_System.shift();
+			cpuInfoArray_other.shift();
+		}
 	}
 
 	topFunction();
+	setInterval(topFunction, 10000);
 	
 	</script>
 	<script src="../core/js/settings.js"></script>
