@@ -96,9 +96,18 @@ require_once('../core/php/loadVars.php');
 	<script type="text/javascript">
 
 	var nullReturnForDefaultPoll = false;
+	var cpuInfoArray_Default = [0,0,0,0,0,0,0,0,0,0];
 	var cpuInfoArray_User = [0,0,0,0,0,0,0,0,0,0];
 	var cpuInfoArray_System = [0,0,0,0,0,0,0,0,0,0];
 	var cpuInfoArray_other = [0,0,0,0,0,0,0,0,0,0];
+	var cpuInfoArray_heightVar = [0,0,0,0,0,0,0,0,0,0];
+
+	var width = 200;
+	var height = 200;
+
+	var cpuArea = document.getElementById('cpuCanvas');
+	var cpuAreaContext = cpuArea.getContext("2d");
+
 
 	function topFunction()
 	{
@@ -131,6 +140,7 @@ require_once('../core/php/loadVars.php');
 
 	function filterDataForCPU(dataInner)
 	{
+		console.log(dataInner);
 		dataInner = dataInner.substring(dataInner.indexOf("%Cpu(s):")+8);
 		dataInner = dataInner.replace(/\s/g, '');
 		dataInner = dataInner.split(",");
@@ -150,6 +160,24 @@ require_once('../core/php/loadVars.php');
 			cpuInfoArray_User.shift();
 			cpuInfoArray_System.shift();
 			cpuInfoArray_other.shift();
+		}
+
+		cpuAreaContext.clearRect(0, 0, cpuArea.width, cpuArea.height);
+		cpuInfoArray_heightVar = [0,0,0,0,0,0,0,0,0,0];
+		fillAreaInChart(cpuInfoArray_User, cpuInfoArray_heightVar, "blue");
+		fillAreaInChart(cpuInfoArray_System, cpuInfoArray_heightVar, "red");
+		fillAreaInChart(cpuInfoArray_other, cpuInfoArray_heightVar, "yellow");
+	}
+
+	function fillAreaInChart(arrayForFill, bottomArray, color)
+	{
+		cpuAreaContext.fillStyle = color;
+		var totalWidthOfEachElement = width/bottomArray.length;
+		for (var i = arrayForFill.length - 1; i >= 0; i--) 
+		{
+			var heightOfElement = height*(arrayForFill[i]/100);
+			cpuAreaContext.fillRect((totalWidthOfEachElement*(i)),(height-heightOfElement-bottomArray[i]),totalWidthOfEachElement,heightOfElement);
+			cpuInfoArray_heightVar[i] = heightOfElement;
 		}
 	}
 
