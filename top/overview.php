@@ -150,7 +150,7 @@ require_once('../core/php/loadVars.php');
 
 	function processDataFromTOP(data)
 	{
-		console.log(data);
+		//console.log(data);
 		filterDataForCPU(data);
 		filterDataForRAM(data);
 	}
@@ -181,8 +181,9 @@ require_once('../core/php/loadVars.php');
 		}
 
 		ramAreaContext.clearRect(0, 0, cpuArea.width, cpuArea.height);
-		ramInfoArray_heightVar = [0,0,0,0,0,0,0,0,0,0];
-
+		for (var i = ramInfoArray_heightVar.length - 1; i >= 0; i--) {
+			ramInfoArray_heightVar[i] = 0;
+		}
 		fillAreaInChart(ramInfoArray_Used, ramInfoArray_heightVar, "blue",ramAreaContext);
 		fillAreaInChart(ramInfoArray_Cache, ramInfoArray_heightVar, "red",ramAreaContext);
 	}
@@ -211,7 +212,9 @@ require_once('../core/php/loadVars.php');
 		}
 
 		cpuAreaContext.clearRect(0, 0, cpuArea.width, cpuArea.height);
-		cpuInfoArray_heightVar = [0,0,0,0,0,0,0,0,0,0];
+		for (var i = cpuInfoArray_heightVar.length - 1; i >= 0; i--) {
+			cpuInfoArray_heightVar[i] = 0;
+		}
 		fillAreaInChart(cpuInfoArray_User, cpuInfoArray_heightVar, "blue",cpuAreaContext);
 		fillAreaInChart(cpuInfoArray_System, cpuInfoArray_heightVar, "red",cpuAreaContext);
 		fillAreaInChart(cpuInfoArray_other, cpuInfoArray_heightVar, "yellow",cpuAreaContext);
@@ -225,10 +228,7 @@ require_once('../core/php/loadVars.php');
 		{
 			var heightOfElement = height*(arrayForFill[i]/100);
 			context.fillRect((totalWidthOfEachElement*(i)),(height-heightOfElement-bottomArray[i]),totalWidthOfEachElement,heightOfElement);
-			cpuInfoArray_heightVar[i] = heightOfElement;
-		}
-		for (var i = bottomArray.length - 1; i >= 0; i--) {
-			bottomArray[i] = bottomArray[i]+arrayForFill[i];
+			bottomArray[i] = bottomArray[i]+heightOfElement;
 		}
 	}
 
