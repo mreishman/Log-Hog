@@ -91,6 +91,12 @@ require_once('../core/php/loadVars.php');
 			<canvas class="canvasMonitor" id="cpuCanvas" width="200" height="200"></canvas>
 			<div class="canvasMonitorText">U <span id="canvasMonitorCPU_User">-</span>% | S <span id="canvasMonitorCPU_System">-</span>% | N <span id="canvasMonitorCPU_Other">-</span>%</div>
 		</div>
+		<div class="canvasMonitorDiv" >	
+			<div class="canvasMonitorText">RAM</div>
+			<img id="canvasMonitorLoading_RAM" style="margin-top: 75px; margin-left: 75px; position: absolute;" src='../core/img/loading.gif' height='50' width='50'> 
+			<canvas class="canvasMonitor" id="ramCanvas" width="200" height="200"></canvas>
+			<div class="canvasMonitorText">Used <span id="canvasMonitorRAM_Used">-</span>% | Cache <span id="canvasMonitorRAM_Cache">-</span>%</div>
+		</div>
 	</div>
 	<?php readfile('../core/html/popup.html') ?>	
 	<script type="text/javascript">
@@ -102,11 +108,20 @@ require_once('../core/php/loadVars.php');
 	var cpuInfoArray_other = [0,0,0,0,0,0,0,0,0,0];
 	var cpuInfoArray_heightVar = [0,0,0,0,0,0,0,0,0,0];
 
+	var ramInfoArray_Default = [0,0,0,0,0,0,0,0,0,0];
+	var ramInfoArray_Used = [0,0,0,0,0,0,0,0,0,0];
+	var ramInfoArray_Cache = [0,0,0,0,0,0,0,0,0,0];
+	var ramInfoArray_heightVar = [0,0,0,0,0,0,0,0,0,0];
+
+
 	var width = 200;
 	var height = 200;
 
 	var cpuArea = document.getElementById('cpuCanvas');
 	var cpuAreaContext = cpuArea.getContext("2d");
+
+	var ramArea = document.getElementById('ramCanvas');
+	var ramAreaContext = ramArea.getContext("2d");
 
 
 	function topFunction()
@@ -135,12 +150,45 @@ require_once('../core/php/loadVars.php');
 
 	function processDataFromTOP(data)
 	{
-		filterDataForCPU(data)
+		console.log(data);
+		filterDataForCPU(data);
+		filterDataForRAM(data);
+	}
+
+	function filterDataForRAM(dataInner)
+	{
+		dataInner = dataInner.substring(dataInner.indexOf("KiB Mem :")+9);
+		dataInner = dataInner.replace(/\s/g, '');
+		dataInner = dataInner.split(",");
+		//0 = total, 1 = free, 2 = used, 3 = cache
+		var totalRam = dataInner[0].substring(0, dataInner[0].length - 5);
+		var freeRam = dataInner[1].substring(0, dataInner[1].length - 4);
+		var usedRam = dataInner[2].substring(0, dataInner[2].length - 4);
+		var cacheRam = dataInner[3].substring(0, dataInner[3].length - 10);
+		usedRam = parseFloat(usedRam)/parseInt(totalRam);
+		usedRam = (usedRam*100).toFixed(1);
+		ramInfoArray_Used.push(usedRam);
+		document.getElementById('canvasMonitorRAM_Used').innerHTML = usedRam;
+		cacheRam = parseFloat(cacheRam)/parseInt(totalRam);
+		cacheRam = (cacheRam*100).toFixed(1);
+		ramInfoArray_Cache.push(cacheRam);
+		document.getElementById('canvasMonitorRAM_Cache').innerHTML = cacheRam;
+		document.getElementById('canvasMonitorLoading_RAM').style.display = "none";
+		if(ramInfoArray_Cache.length > 10)
+		{
+			ramInfoArray_Cache.shift();
+			ramInfoArray_Used.shift();
+		}
+
+		ramAreaContext.clearRect(0, 0, cpuArea.width, cpuArea.height);
+		ramInfoArray_heightVar = [0,0,0,0,0,0,0,0,0,0];
+
+		fillAreaInChart(ramInfoArray_Used, ramInfoArray_heightVar, "blue",ramAreaContext);
+		fillAreaInChart(ramInfoArray_Cache, ramInfoArray_heightVar, "red",ramAreaContext);
 	}
 
 	function filterDataForCPU(dataInner)
 	{
-		console.log(dataInner);
 		dataInner = dataInner.substring(dataInner.indexOf("%Cpu(s):")+8);
 		dataInner = dataInner.replace(/\s/g, '');
 		dataInner = dataInner.split(",");
@@ -164,20 +212,23 @@ require_once('../core/php/loadVars.php');
 
 		cpuAreaContext.clearRect(0, 0, cpuArea.width, cpuArea.height);
 		cpuInfoArray_heightVar = [0,0,0,0,0,0,0,0,0,0];
-		fillAreaInChart(cpuInfoArray_User, cpuInfoArray_heightVar, "blue");
-		fillAreaInChart(cpuInfoArray_System, cpuInfoArray_heightVar, "red");
-		fillAreaInChart(cpuInfoArray_other, cpuInfoArray_heightVar, "yellow");
+		fillAreaInChart(cpuInfoArray_User, cpuInfoArray_heightVar, "blue",cpuAreaContext);
+		fillAreaInChart(cpuInfoArray_System, cpuInfoArray_heightVar, "red",cpuAreaContext);
+		fillAreaInChart(cpuInfoArray_other, cpuInfoArray_heightVar, "yellow",cpuAreaContext);
 	}
 
-	function fillAreaInChart(arrayForFill, bottomArray, color)
+	function fillAreaInChart(arrayForFill, bottomArray, color, context)
 	{
-		cpuAreaContext.fillStyle = color;
+		context.fillStyle = color;
 		var totalWidthOfEachElement = width/bottomArray.length;
 		for (var i = arrayForFill.length - 1; i >= 0; i--) 
 		{
 			var heightOfElement = height*(arrayForFill[i]/100);
-			cpuAreaContext.fillRect((totalWidthOfEachElement*(i)),(height-heightOfElement-bottomArray[i]),totalWidthOfEachElement,heightOfElement);
+			context.fillRect((totalWidthOfEachElement*(i)),(height-heightOfElement-bottomArray[i]),totalWidthOfEachElement,heightOfElement);
 			cpuInfoArray_heightVar[i] = heightOfElement;
+		}
+		for (var i = bottomArray.length - 1; i >= 0; i--) {
+			bottomArray[i] = bottomArray[i]+arrayForFill[i];
 		}
 	}
 
