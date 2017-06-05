@@ -269,8 +269,14 @@ require_once('../core/php/loadVars.php');
 		}
 	}
 
-	topFunction();
-	setInterval(topFunction, 2500);
+	function poll()
+	{
+		topFunction();
+	}
+
+
+	poll();
+	setInterval(poll, 2500);
 	
 	</script>
 	<script src="../core/js/settings.js"></script>
