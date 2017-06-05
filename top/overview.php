@@ -102,16 +102,26 @@ require_once('../core/php/loadVars.php');
 	<script type="text/javascript">
 
 	var nullReturnForDefaultPoll = false;
-	var cpuInfoArray_Default = [0,0,0,0,0,0,0,0,0,0];
-	var cpuInfoArray_User = [0,0,0,0,0,0,0,0,0,0];
-	var cpuInfoArray_System = [0,0,0,0,0,0,0,0,0,0];
-	var cpuInfoArray_other = [0,0,0,0,0,0,0,0,0,0];
-	var cpuInfoArray_heightVar = [0,0,0,0,0,0,0,0,0,0];
+	var defaultArray = [0,0,0,0,0,0,0,0,0,0];
+	var cpuInfoArray_User = [];
+	var cpuInfoArray_heightVar = [];
+	var cpuInfoArray_other = [];
+	var cpuInfoArray_System = [];
+	var ramInfoArray_Used = [];
+	var ramInfoArray_Cache = [];
+	var ramInfoArray_heightVar = [];
 
-	var ramInfoArray_Default = [0,0,0,0,0,0,0,0,0,0];
-	var ramInfoArray_Used = [0,0,0,0,0,0,0,0,0,0];
-	var ramInfoArray_Cache = [0,0,0,0,0,0,0,0,0,0];
-	var ramInfoArray_heightVar = [0,0,0,0,0,0,0,0,0,0];
+	for (var i = defaultArray.length - 1; i >= 0; i--) {
+		cpuInfoArray_User.push(defaultArray[i]);
+		cpuInfoArray_heightVar.push(defaultArray[i]);
+		cpuInfoArray_other.push(defaultArray[i]);
+		cpuInfoArray_System.push(defaultArray[i]);
+		ramInfoArray_Used.push(defaultArray[i]);
+		ramInfoArray_Cache.push(defaultArray[i]);
+		ramInfoArray_heightVar.push(defaultArray[i]);
+	}
+
+	
 
 
 	var width = 200;
