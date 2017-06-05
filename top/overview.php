@@ -97,6 +97,12 @@ require_once('../core/php/loadVars.php');
 			<canvas class="canvasMonitor" id="ramCanvas" width="200" height="200"></canvas>
 			<div class="canvasMonitorText">Used <span id="canvasMonitorRAM_Used">-</span>% | Cache <span id="canvasMonitorRAM_Cache">-</span>%</div>
 		</div>
+		<div class="canvasMonitorDiv" >	
+			<div class="canvasMonitorText">Swap</div>
+			<img id="canvasMonitorLoading_Swap" style="margin-top: 75px; margin-left: 75px; position: absolute;" src='../core/img/loading.gif' height='50' width='50'> 
+			<canvas class="canvasMonitor" id="swapCanvas" width="200" height="200"></canvas>
+			<div class="canvasMonitorText"><span id="canvasMonitorSwap">-</span>%</div>
+		</div>
 	</div>
 	<?php readfile('../core/html/popup.html') ?>	
 	<script type="text/javascript">
@@ -110,6 +116,8 @@ require_once('../core/php/loadVars.php');
 	var ramInfoArray_Used = [];
 	var ramInfoArray_Cache = [];
 	var ramInfoArray_heightVar = [];
+	var swapInfoArray_Used = [];
+	var swapInfoArray_heightVar = [];
 
 	for (var i = defaultArray.length - 1; i >= 0; i--) {
 		cpuInfoArray_User.push(defaultArray[i]);
@@ -119,6 +127,8 @@ require_once('../core/php/loadVars.php');
 		ramInfoArray_Used.push(defaultArray[i]);
 		ramInfoArray_Cache.push(defaultArray[i]);
 		ramInfoArray_heightVar.push(defaultArray[i]);
+		swapInfoArray_Used.push(defaultArray[i]);
+		swapInfoArray_heightVar.push(defaultArray[i]);
 	}
 
 	
@@ -133,6 +143,8 @@ require_once('../core/php/loadVars.php');
 	var ramArea = document.getElementById('ramCanvas');
 	var ramAreaContext = ramArea.getContext("2d");
 
+	var swapArea = document.getElementById('swapCanvas');
+	var swapAreaContext = swapArea.getContext("2d");
 
 	function topFunction()
 	{
@@ -163,6 +175,29 @@ require_once('../core/php/loadVars.php');
 		//console.log(data);
 		filterDataForCPU(data);
 		filterDataForRAM(data);
+		fillDataForCache(data);
+	}
+
+	function fillDataForCache(dataInner)
+	{
+		dataInner = dataInner.substring(dataInner.indexOf("KiB Swap:")+9);
+		dataInner = dataInner.replace(/\s/g, '');
+		dataInner = dataInner.split(",");
+		//0 = total, 1 = free, 2 = used
+		var totalSwap = dataInner[0].substring(0, dataInner[0].length - 5);
+		var freeSwap = dataInner[1].substring(0, dataInner[1].length - 4);
+		var usedSwap = dataInner[2].substring(0, dataInner[2].length - 4);
+		usedSwap = parseFloat(usedSwap)/parseInt(totalSwap);
+		usedSwap = (usedSwap*100).toFixed(1);
+		swapInfoArray_Used.push(usedSwap);
+		document.getElementById('canvasMonitorSwap').innerHTML = usedSwap;
+		document.getElementById('canvasMonitorLoading_Swap').style.display = "none";
+		swapInfoArray_Used.shift();
+		swapAreaContext.clearRect(0, 0, swapArea.width, swapArea.height);
+		for (var i = swapInfoArray_heightVar.length - 1; i >= 0; i--) {
+			swapInfoArray_heightVar[i] = 0;
+		}
+		fillAreaInChart(swapInfoArray_Used, swapInfoArray_heightVar, "blue",swapAreaContext);
 	}
 
 	function filterDataForRAM(dataInner)
@@ -184,13 +219,9 @@ require_once('../core/php/loadVars.php');
 		ramInfoArray_Cache.push(cacheRam);
 		document.getElementById('canvasMonitorRAM_Cache').innerHTML = cacheRam;
 		document.getElementById('canvasMonitorLoading_RAM').style.display = "none";
-		if(ramInfoArray_Cache.length > 10)
-		{
-			ramInfoArray_Cache.shift();
-			ramInfoArray_Used.shift();
-		}
-
-		ramAreaContext.clearRect(0, 0, cpuArea.width, cpuArea.height);
+		ramInfoArray_Cache.shift();
+		ramInfoArray_Used.shift();
+		ramAreaContext.clearRect(0, 0, ramArea.width, ramArea.height);
 		for (var i = ramInfoArray_heightVar.length - 1; i >= 0; i--) {
 			ramInfoArray_heightVar[i] = 0;
 		}
@@ -214,13 +245,9 @@ require_once('../core/php/loadVars.php');
 		document.getElementById('canvasMonitorCPU_Other').innerHTML = otherInfo;
 		cpuInfoArray_other.push(parseFloat(otherInfo));
 		document.getElementById('canvasMonitorLoading_CPU').style.display = "none";
-		if(cpuInfoArray_User.length > 10)
-		{
-			cpuInfoArray_User.shift();
-			cpuInfoArray_System.shift();
-			cpuInfoArray_other.shift();
-		}
-
+		cpuInfoArray_User.shift();
+		cpuInfoArray_System.shift();
+		cpuInfoArray_other.shift();
 		cpuAreaContext.clearRect(0, 0, cpuArea.width, cpuArea.height);
 		for (var i = cpuInfoArray_heightVar.length - 1; i >= 0; i--) {
 			cpuInfoArray_heightVar[i] = 0;
