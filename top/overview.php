@@ -108,7 +108,7 @@ require_once('../core/php/loadVars.php');
 	<script type="text/javascript">
 
 	var nullReturnForDefaultPoll = false;
-	var defaultArray = [0,0,0,0,0,0,0,0,0,0];
+	var defaultArray = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 	var cpuInfoArray_User = [];
 	var cpuInfoArray_heightVar = [];
 	var cpuInfoArray_other = [];
@@ -270,7 +270,7 @@ require_once('../core/php/loadVars.php');
 	}
 
 	topFunction();
-	setInterval(topFunction, 10000);
+	setInterval(topFunction, 2500);
 	
 	</script>
 	<script src="../core/js/settings.js"></script>
