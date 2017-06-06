@@ -105,6 +105,14 @@ require_once('../core/php/loadVars.php');
 				<div class="canvasMonitorText"><span id="canvasMonitorSwap">-</span>%</div>
 			</div>
 		</div>
+		<div id="bottomBarOverview">
+			<div style="width: 50%;">
+
+			</div>
+			<div style="width: 50%;">
+
+			</div>
+		</div>
 	</div>
 	<?php readfile('../core/html/popup.html') ?>	
 	<script type="text/javascript">
@@ -177,10 +185,47 @@ require_once('../core/php/loadVars.php');
 		//console.log(data);
 		filterDataForCPU(data);
 		filterDataForRAM(data);
-		fillDataForCache(data);
+		filterDataForCache(data);
+		filterDataForProcesses(data);
 	}
 
-	function fillDataForCache(dataInner)
+	function filterDataForProcesses(dataInner)
+	{
+		dataInner = dataInner.substring(dataInner.indexOf("COMMAND")+7);
+		dataInner = dataInner.split(" ");
+		dataInnerNew = [];
+		dataInnerNewArrayOfArrays = [];
+		dataInnerLength = dataInner.length;
+		var counterForRow = 0;
+		var maxRowNum = 11;
+		for (var i = 1; i < dataInnerLength; i++) {
+			var addToNewArray = true;
+			if(dataInner[i] == " " || dataInner[i] == "")
+			{
+				addToNewArray = false;
+			}
+			if(addToNewArray)
+			{
+				if(counterForRow != (maxRowNum))
+				{
+					counterForRow++;
+					dataInnerNew.push(dataInner[i]);
+				}
+				else
+				{
+					counterForRow = 0;
+					dataInnerNew.push(dataInner[i]);
+					dataInnerNewArrayOfArrays.push(dataInnerNew);
+					dataInnerNew = [];
+				}
+				
+			}
+		}
+		//console.log(dataInnerNewArrayOfArrays);
+		//0-11 is a row
+	}
+
+	function filterDataForCache(dataInner)
 	{
 		dataInner = dataInner.substring(dataInner.indexOf("KiB Swap:")+9);
 		dataInner = dataInner.replace(/\s/g, '');
