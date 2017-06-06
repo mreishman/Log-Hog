@@ -106,10 +106,10 @@ require_once('../core/php/loadVars.php');
 			</div>
 		</div>
 		<div id="bottomBarOverview">
-			<div style="width: 50%;">
+			<div style="width: 50%; display: inline-block;" id="processIds">
 
 			</div>
-			<div style="width: 50%;">
+			<div style="width: 50%; display: inline-block;">
 
 			</div>
 		</div>
@@ -191,14 +191,16 @@ require_once('../core/php/loadVars.php');
 
 	function filterDataForProcesses(dataInner)
 	{
-		dataInner = dataInner.substring(dataInner.indexOf("COMMAND")+7);
+		dataInner = dataInner.substring(dataInner.indexOf("TIME+ COMMAND")+13);
+		dataInner = dataInner.replace(/(\r\n|\n|\r)/gm, " ");
 		dataInner = dataInner.split(" ");
 		dataInnerNew = [];
 		dataInnerNewArrayOfArrays = [];
 		dataInnerLength = dataInner.length;
 		var counterForRow = 0;
 		var maxRowNum = 11;
-		for (var i = 1; i < dataInnerLength; i++) {
+		for (var i = 1; i < dataInnerLength; i++) 
+		{
 			var addToNewArray = true;
 			if(dataInner[i] == " " || dataInner[i] == "")
 			{
@@ -221,8 +223,21 @@ require_once('../core/php/loadVars.php');
 				
 			}
 		}
-		//console.log(dataInnerNewArrayOfArrays);
+		var htmlForProcesses = "<table style='width: 100%;'>";
 		//0-11 is a row
+		var dataInnerNewArrayOfArraysLength = dataInnerNewArrayOfArrays.length;
+		for (var i = 0; i < dataInnerNewArrayOfArraysLength; i++) 
+		{
+			htmlForProcesses += "<tr>";
+			var dataInnerNewArrayOfArraysILength = dataInnerNewArrayOfArrays[i].length;
+			for (var j =  0; j < dataInnerNewArrayOfArraysILength; j++) 
+			{
+				htmlForProcesses += "<td>" + dataInnerNewArrayOfArrays[i][j]+"</td>";
+			}
+			htmlForProcesses += "</tr>";
+		}
+		htmlForProcesses += "</table>";
+		document.getElementById('processIds').innerHTML = htmlForProcesses;
 	}
 
 	function filterDataForCache(dataInner)
@@ -323,7 +338,7 @@ require_once('../core/php/loadVars.php');
 
 
 	poll();
-	setInterval(poll, 2500);
+	setInterval(poll, 5000);
 	
 	</script>
 	<script src="../core/js/settings.js"></script>
