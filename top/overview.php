@@ -85,23 +85,25 @@ require_once('../core/php/loadVars.php');
 <?php require_once('header.php');?>	
 
 	<div id="main">
-		<div class="canvasMonitorDiv" >	
-			<div class="canvasMonitorText">CPU</div>
-			<img id="canvasMonitorLoading_CPU" style="margin-top: 75px; margin-left: 75px; position: absolute;" src='../core/img/loading.gif' height='50' width='50'> 
-			<canvas class="canvasMonitor" id="cpuCanvas" width="200" height="200"></canvas>
-			<div class="canvasMonitorText">U <span id="canvasMonitorCPU_User">-</span>% | S <span id="canvasMonitorCPU_System">-</span>% | N <span id="canvasMonitorCPU_Other">-</span>%</div>
-		</div>
-		<div class="canvasMonitorDiv" >	
-			<div class="canvasMonitorText">RAM</div>
-			<img id="canvasMonitorLoading_RAM" style="margin-top: 75px; margin-left: 75px; position: absolute;" src='../core/img/loading.gif' height='50' width='50'> 
-			<canvas class="canvasMonitor" id="ramCanvas" width="200" height="200"></canvas>
-			<div class="canvasMonitorText">Used <span id="canvasMonitorRAM_Used">-</span>% | Cache <span id="canvasMonitorRAM_Cache">-</span>%</div>
-		</div>
-		<div class="canvasMonitorDiv" >	
-			<div class="canvasMonitorText">Swap</div>
-			<img id="canvasMonitorLoading_Swap" style="margin-top: 75px; margin-left: 75px; position: absolute;" src='../core/img/loading.gif' height='50' width='50'> 
-			<canvas class="canvasMonitor" id="swapCanvas" width="200" height="200"></canvas>
-			<div class="canvasMonitorText"><span id="canvasMonitorSwap">-</span>%</div>
+		<div id="topBarOverview">
+			<div class="canvasMonitorDiv" >	
+				<div class="canvasMonitorText">CPU</div>
+				<img id="canvasMonitorLoading_CPU" style="margin-top: 75px; margin-left: 75px; position: absolute;" src='../core/img/loading.gif' height='50' width='50'> 
+				<canvas class="canvasMonitor" id="cpuCanvas" width="200" height="200"></canvas>
+				<div class="canvasMonitorText">U <span id="canvasMonitorCPU_User">-</span>% | S <span id="canvasMonitorCPU_System">-</span>% | N <span id="canvasMonitorCPU_Other">-</span>%</div>
+			</div>
+			<div class="canvasMonitorDiv" >	
+				<div class="canvasMonitorText">RAM</div>
+				<img id="canvasMonitorLoading_RAM" style="margin-top: 75px; margin-left: 75px; position: absolute;" src='../core/img/loading.gif' height='50' width='50'> 
+				<canvas class="canvasMonitor" id="ramCanvas" width="200" height="200"></canvas>
+				<div class="canvasMonitorText">Used <span id="canvasMonitorRAM_Used">-</span>% | Cache <span id="canvasMonitorRAM_Cache">-</span>%</div>
+			</div>
+			<div class="canvasMonitorDiv" >	
+				<div class="canvasMonitorText">Swap</div>
+				<img id="canvasMonitorLoading_Swap" style="margin-top: 75px; margin-left: 75px; position: absolute;" src='../core/img/loading.gif' height='50' width='50'> 
+				<canvas class="canvasMonitor" id="swapCanvas" width="200" height="200"></canvas>
+				<div class="canvasMonitorText"><span id="canvasMonitorSwap">-</span>%</div>
+			</div>
 		</div>
 	</div>
 	<?php readfile('../core/html/popup.html') ?>	
