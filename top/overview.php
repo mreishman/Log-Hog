@@ -106,7 +106,7 @@ require_once('../core/php/loadVars.php');
 			</div>
 		</div>
 		<div id="bottomBarOverview">
-			<div style="width: 45%; display: inline-block; margin-left: 10px; border-right: 1px solid white;" id="processIds">
+			<div class="bottomBarOverviewHalf bottomBarOverviewLeft" style="" id="processIds">
 
 			</div>
 			<div style="width: 45%; display: inline-block; float: right; margin-right: 10px;" id="extraArea">
@@ -234,6 +234,7 @@ require_once('../core/php/loadVars.php');
 			{
 				htmlForProcesses += "<td>" + dataInnerNewArrayOfArrays[i][j]+"</td>";
 			}
+			htmlForProcesses += "<td><div class='expandMenu'></div></td>";
 			htmlForProcesses += "</tr>";
 		}
 		htmlForProcesses += "</table>";
@@ -340,6 +341,28 @@ require_once('../core/php/loadVars.php');
 	poll();
 	setInterval(poll, 5000);
 	
+	var offsetHeight = 0;
+	var offsetHeight2 = 0;
+	if(document.getElementById('menu'))
+	{
+		offsetHeight = document.getElementById('menu').offsetHeight;
+	}
+	if(document.getElementById('topBarOverview'))
+	{
+		offsetHeight2 = document.getElementById('topBarOverview').offsetHeight;
+		offsetHeight2 = offsetHeight2;
+	}
+	var heightOfMain = window.innerHeight - offsetHeight;
+	var heightOfMainStyle = 'height:';
+	heightOfMainStyle += heightOfMain;
+	heightOfMainStyle += 'px';
+	document.getElementById("main").setAttribute("style",heightOfMainStyle);
+	heightOfMain = window.innerHeight - offsetHeight - offsetHeight2;
+	heightOfMainStyle = 'height:';
+	heightOfMainStyle += heightOfMain;
+	heightOfMainStyle += 'px';
+	document.getElementById("processIds").setAttribute("style",heightOfMainStyle);
+
+
 	</script>
-	<script src="../core/js/settings.js"></script>
 </body>

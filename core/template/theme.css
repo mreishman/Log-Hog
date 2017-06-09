@@ -245,5 +245,39 @@ div {
 	background-color: #555;
 	overflow-x: auto;
 	height: 310px;
-	margin-bottom: 10px;
+}
+
+#processIds table tr:hover{
+	background-color: #ccc;
+	color: black;
+	cursor: default;
+}
+
+#processIDs table tr:hover td .expandMenu{
+	color: black;
+}
+
+#processIDs table tr td .expandMenu{
+	color: #191919;
+}
+
+.expandMenu{
+	display: inline-block;
+	float: right;
+	cursor: pointer;
+}
+.expandMenu:after{
+	content: '\2807';
+ 	font-size: 20px;
+}
+
+.bottomBarOverviewHalf{
+	width: 45%; 
+	display: inline-block;
+	overflow: auto;
+}
+
+.bottomBarOverviewLeft{
+	margin-left: 10px;
+	border-right: 1px solid white;
 }
