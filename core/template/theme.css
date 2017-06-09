@@ -281,3 +281,8 @@ div {
 	margin-left: 10px;
 	border-right: 1px solid white;
 }
+
+.bottomBarOverviewRight{
+	float: right;
+	margin-right: 10px;
+}

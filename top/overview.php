@@ -106,10 +106,10 @@ require_once('../core/php/loadVars.php');
 			</div>
 		</div>
 		<div id="bottomBarOverview">
-			<div class="bottomBarOverviewHalf bottomBarOverviewLeft" style="" id="processIds">
+			<div class="bottomBarOverviewHalf bottomBarOverviewLeft" id="processIds">
 
 			</div>
-			<div style="width: 45%; display: inline-block; float: right; margin-right: 10px;" id="extraArea">
+			<div class="bottomBarOverviewHalf bottomBarOverviewRight" id="extraArea">
 
 			</div>
 		</div>
