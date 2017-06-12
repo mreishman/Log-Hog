@@ -180,26 +180,37 @@ require_once('../core/php/loadVars.php');
 		}
 	}
 
+	function psAuxFunction()
+	{
+		$.getJSON('../core/php/psAux.php', {}, function(data) {
+				processDataFrompsAux(data);
+			})
+	}
+
+	function processDataFrompsAux(data)
+	{
+		filterDataForProcesses(data);
+	}
+
 	function processDataFromTOP(data)
 	{
 		//console.log(data);
 		filterDataForCPU(data);
 		filterDataForRAM(data);
 		filterDataForCache(data);
-		filterDataForProcesses(data);
 	}
 
 	function filterDataForProcesses(dataInner)
 	{
-		dataInner = dataInner.substring(dataInner.indexOf("TIME+ COMMAND")+13);
-		dataInner = dataInner.replace(/(\r\n|\n|\r)/gm, " ");
+		dataInnerFilter = dataInner//.replace(/(\r\n|\n|\r)/gm, ",");
 		dataInner = dataInner.split(" ");
 		dataInnerNew = [];
 		dataInnerNewArrayOfArrays = [];
 		dataInnerLength = dataInner.length;
 		var counterForRow = 0;
-		var maxRowNum = 11;
-		for (var i = 1; i < dataInnerLength; i++) 
+		var maxRowNum =10;
+		var endingText = "";
+		for (var i = 0; i < dataInnerLength; i++) 
 		{
 			var addToNewArray = true;
 			if(dataInner[i] == " " || dataInner[i] == "")
@@ -208,17 +219,31 @@ require_once('../core/php/loadVars.php');
 			}
 			if(addToNewArray)
 			{
-				if(counterForRow != (maxRowNum))
+				if(counterForRow < (maxRowNum))
 				{
 					counterForRow++;
 					dataInnerNew.push(dataInner[i]);
 				}
 				else
 				{
-					counterForRow = 0;
-					dataInnerNew.push(dataInner[i]);
-					dataInnerNewArrayOfArrays.push(dataInnerNew);
-					dataInnerNew = [];
+					var filterData = dataInner[i].replace(/(\r\n|\n|\r)/gm, ",");
+					if(filterData.indexOf(',') > -1)
+					{
+						dataInnerNewRow = filterData.split(",");
+						counterForRow = 0;
+						endingText += dataInnerNewRow[0];
+						dataInnerNew.push(endingText);
+						dataInnerNewArrayOfArrays.push(dataInnerNew);
+						dataInnerNew = [];
+						dataInnerNew.push(dataInnerNewRow[1]);
+						counterForRow++;
+						endingText = "";
+					}
+					else
+					{
+						endingText += dataInner[i];
+					}
+					
 				}
 				
 			}
@@ -335,6 +360,7 @@ require_once('../core/php/loadVars.php');
 	function poll()
 	{
 		topFunction();
+		psAuxFunction();
 	}
 
 

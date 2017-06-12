@@ -253,6 +253,11 @@ div {
 	cursor: default;
 }
 
+#processIDs table tr td{
+	max-width: 50px;
+	overflow: hidden;
+}
+
 #processIDs table tr:hover td .expandMenu{
 	color: black;
 }
@@ -272,7 +277,7 @@ div {
 }
 
 .bottomBarOverviewHalf{
-	width: 45%; 
+	width: 48%; 
 	display: inline-block;
 	overflow: auto;
 }

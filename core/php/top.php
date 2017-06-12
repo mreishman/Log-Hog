@@ -1,5 +1,5 @@
 <?php
 
-echo json_encode(system("top -n 1"));
+echo json_encode(shell_exec("top -n 1"));
 
 ?>
