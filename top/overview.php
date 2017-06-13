@@ -104,6 +104,12 @@ require_once('../core/php/loadVars.php');
 				<canvas class="canvasMonitor" id="swapCanvas" width="200" height="200"></canvas>
 				<div class="canvasMonitorText"><span id="canvasMonitorSwap">-</span>%</div>
 			</div>
+			<div class="canvasMonitorDiv" >	
+				<div class="canvasMonitorText">Disk Usage</div>
+				<img id="canvasMonitorLoading_HDD" style="margin-top: 75px; margin-left: 75px; position: absolute;" src='../core/img/loading.gif' height='50' width='50'> 
+				<div id="HDDCanvas" style="height: 200px; width: 200px;" ></div>
+				<div class="canvasMonitorText"><span style="color: white;">n/a</span></div>
+			</div>
 		</div>
 		<div id="bottomBarOverview">
 			<div class="bottomBarOverviewHalf bottomBarOverviewLeft" id="processIds">
@@ -187,9 +193,21 @@ require_once('../core/php/loadVars.php');
 			})
 	}
 
+	function dfALFunction()
+	{
+		$.getJSON('../core/php/dfAL.php', {}, function(data) {
+				processDataFrompsdfAL(data);
+			})
+	}
+
 	function processDataFrompsAux(data)
 	{
 		filterDataForProcesses(data);
+	}
+
+	function processDataFrompsdfAL(data)
+	{
+		filterDataForDiskSpace(data);
 	}
 
 	function processDataFromTOP(data)
@@ -200,15 +218,41 @@ require_once('../core/php/loadVars.php');
 		filterDataForCache(data);
 	}
 
-	function filterDataForProcesses(dataInner)
+	function filterDataForDiskSpace(dataInner)
 	{
-		dataInnerFilter = dataInner//.replace(/(\r\n|\n|\r)/gm, ",");
+		dataInnerNewArrayOfArraysHDD = filterData(dataInner, 5);
+		filteredHDDArray = [];
+		for (var i = dataInnerNewArrayOfArraysHDD.length - 1; i >= 0; i--) 
+		{
+			if(dataInnerNewArrayOfArraysHDD[i][4] != "-" && dataInnerNewArrayOfArraysHDD[i][4] != "0%" && dataInnerNewArrayOfArraysHDD[i][4] != "Use%")
+			{
+				filteredHDDArray.push(dataInnerNewArrayOfArraysHDD[i]);
+			}
+		}
+		var htmlForProcesses = "<table style='width: 100%;'>";
+		//0-11 is a row
+		var dataInnerNewArrayOfArraysHDDLength = filteredHDDArray.length;
+		for (var i = 0; i < dataInnerNewArrayOfArraysHDDLength; i++) 
+		{
+			htmlForProcesses += "<tr style='font-size: 75%;'>";
+			htmlForProcesses += "<td style='max-width: 100px;'>" + filteredHDDArray[i][0]+"</td>";
+			htmlForProcesses += "<td style='max-width: 30px;'>" + filteredHDDArray[i][4]+"</td>";
+			htmlForProcesses += "<td style='max-width: 30px;'><div class='expandMenu'></div></td>";
+			htmlForProcesses += "</tr>";
+		}
+		htmlForProcesses += "</table>";
+		document.getElementById('canvasMonitorLoading_HDD').style.display = "none";
+		document.getElementById('HDDCanvas').innerHTML = htmlForProcesses;
+	}
+
+
+	function filterData(dataInner, maxRowNum)
+	{
+		dataInnerNewArrayOfArrays = [];
 		dataInner = dataInner.split(" ");
 		dataInnerNew = [];
-		dataInnerNewArrayOfArrays = [];
 		dataInnerLength = dataInner.length;
 		var counterForRow = 0;
-		var maxRowNum =10;
 		var endingText = "";
 		for (var i = 0; i < dataInnerLength; i++) 
 		{
@@ -248,6 +292,14 @@ require_once('../core/php/loadVars.php');
 				
 			}
 		}
+		return dataInnerNewArrayOfArrays;
+
+	}
+
+	function filterDataForProcesses(dataInner)
+	{
+		dataInnerNewArrayOfArrays = filterData(dataInner, 10);
+		
 		var htmlForProcesses = "<table style='width: 100%;'>";
 		//0-11 is a row
 		var dataInnerNewArrayOfArraysLength = dataInnerNewArrayOfArrays.length;
@@ -361,6 +413,7 @@ require_once('../core/php/loadVars.php');
 	{
 		topFunction();
 		psAuxFunction();
+		dfALFunction();
 	}
 
 
