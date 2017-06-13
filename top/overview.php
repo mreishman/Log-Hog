@@ -240,6 +240,22 @@ require_once('../core/php/loadVars.php');
 		for (var i = 0; i < dataInnerNewArrayOfArraysHDDLength; i++) 
 		{
 			htmlForProcesses += "<tr style='font-size: 75%;'>";
+			var percent = filteredHDDArray[i][4].slice(0,-1);
+			percent = parseInt(percent);
+			htmlForProcesses += "<td style='max-width: 20px; overflow: hidden;'><div class='led-";
+			if(percent > 90)
+			{
+				htmlForProcesses +=  "red";
+			}
+			else if(percent > 70)
+			{
+				htmlForProcesses += "yellow";
+			}
+			else
+			{
+				htmlForProcesses += "green";
+			}
+			htmlForProcesses += "'></td>";
 			if(dataSwap)
 			{
 				htmlForProcesses += "<td style='max-width: 100px; overflow: hidden;'>" + filteredHDDArray[i][5]+"</td>";
