@@ -380,7 +380,18 @@ else
 {
 	$dontNotifyVersion = $defaultConfig['dontNotifyVersion'];
 }
-
+if(isset($_POST['updateNoticeMeter']))
+{
+	$updateNoticeMeter = $_POST['updateNoticeMeter'];
+}
+elseif(array_key_exists('updateNoticeMeter', $config))
+{
+	$updateNoticeMeter = $config['updateNoticeMeter'];
+}
+else
+{
+	$updateNoticeMeter = $defaultConfig['updateNoticeMeter'];
+}
 
 
 

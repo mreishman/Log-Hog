@@ -192,6 +192,13 @@ require_once('../core/php/loadVars.php');
 						<span class="settingsBuffer" > Check for update every: </span> 
 							<input type="text" name="autoCheckDaysUpdate" value="<?php echo $autoCheckDaysUpdate;?>" >  Day(s)
 						</li>
+						<li>
+						<span class="settingsBuffer" > Notify Updates on: </span> 
+							<select id="updateNoticeMeter" name="autoCheckUpdate">
+		  						<option <?php if($updateNoticeMeter == 'every'){echo "selected";} ?> value="every">Every Update</option>
+		  						<option <?php if($updateNoticeMeter == 'major'){echo "selected";} ?> value="major">Only Major Updates</option>
+							</select>
+						</li>
 
 					</ul>
 					</div>

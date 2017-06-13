@@ -48,6 +48,7 @@ require_once('loadVars.php');
 			'groupByColorEnabled'	=> '".$groupByColorEnabled."',
 			'enableLogging'	=> '".$enableLogging."',
 			'dontNotifyVersion'	=> '".$dontNotifyVersion."',
+			'updateNoticeMeter'	=> '".$updateNoticeMeter"',
 			'enablePollTimeLogging'	=> '".$enablePollTimeLogging."',
 			'folderColorArrays'	=> 	array(
 			".$folderColorArraysSave."),

@@ -28,6 +28,7 @@ $defaultConfig = array(
 	'groupByColorEnabled'	=> 'true',
 	'enableLogging'	=> 'false',
 	'dontNotifyVersion'	=> '0',
+	'updateNoticeMeter'	=> 'every',
 	'enablePollTimeLogging'	=> 'false',
 	'popupSettingsCustom'	=> array(
 		'saveSettings'	=>	'true',
