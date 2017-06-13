@@ -123,6 +123,8 @@ require_once('../core/php/loadVars.php');
 	<?php readfile('../core/html/popup.html') ?>	
 	<script type="text/javascript">
 
+	var dataSwap = false;
+
 	var nullReturnForDefaultPoll = false;
 	var defaultArray = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 	var cpuInfoArray_User = [];
@@ -235,10 +237,25 @@ require_once('../core/php/loadVars.php');
 		for (var i = 0; i < dataInnerNewArrayOfArraysHDDLength; i++) 
 		{
 			htmlForProcesses += "<tr style='font-size: 75%;'>";
-			htmlForProcesses += "<td style='max-width: 100px;'>" + filteredHDDArray[i][0]+"</td>";
-			htmlForProcesses += "<td style='max-width: 30px;'>" + filteredHDDArray[i][4]+"</td>";
+			if(dataSwap)
+			{
+				htmlForProcesses += "<td style='max-width: 100px; overflow: hidden;'>" + filteredHDDArray[i][5]+"</td>";
+			}
+			else
+			{
+				htmlForProcesses += "<td style='max-width: 100px; overflow: hidden;'>" + filteredHDDArray[i][0]+"</td>";
+			}
+			htmlForProcesses += "<td style='max-width: 30px; overflow: hidden;'>" + filteredHDDArray[i][4]+"</td>";
 			htmlForProcesses += "<td style='max-width: 30px;'><div class='expandMenu'></div></td>";
 			htmlForProcesses += "</tr>";
+		}
+		if(dataSwap)
+		{
+			dataSwap = false;
+		}
+		else
+		{
+			dataSwap = true;
 		}
 		htmlForProcesses += "</table>";
 		document.getElementById('canvasMonitorLoading_HDD').style.display = "none";
