@@ -267,6 +267,21 @@ div {
 	color: #191919;
 }
 
+.canvasMonitorDiv table tr:hover{
+	background-color: #ccc;
+	color: black;
+	cursor: default;
+}
+
+.canvasMonitorDiv table tr td{
+	max-width: 50px;
+	overflow: hidden;
+}
+
+.canvasMonitorDiv table tr:hover td .expandMenu{
+	color: black;
+}
+
 .expandMenu{
 	display: inline-block;
 	float: right;

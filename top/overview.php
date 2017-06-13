@@ -107,7 +107,7 @@ require_once('../core/php/loadVars.php');
 			<div class="canvasMonitorDiv" >	
 				<div class="canvasMonitorText">Disk Usage</div>
 				<img id="canvasMonitorLoading_HDD" style="margin-top: 75px; margin-left: 75px; position: absolute;" src='../core/img/loading.gif' height='50' width='50'> 
-				<div id="HDDCanvas" style="height: 200px; width: 200px;" ></div>
+				<div id="HDDCanvas" style="height: 200px; width: 200px;" class="canvasMonitor" ></div>
 				<div class="canvasMonitorText"><span style="color: white;">n/a</span></div>
 			</div>
 		</div>
@@ -231,8 +231,11 @@ require_once('../core/php/loadVars.php');
 				filteredHDDArray.push(dataInnerNewArrayOfArraysHDD[i]);
 			}
 		}
+		while(filteredHDDArray.length > 6)
+		{
+			filteredHDDArray.shift();
+		}
 		var htmlForProcesses = "<table style='width: 100%;'>";
-		//0-11 is a row
 		var dataInnerNewArrayOfArraysHDDLength = filteredHDDArray.length;
 		for (var i = 0; i < dataInnerNewArrayOfArraysHDDLength; i++) 
 		{
