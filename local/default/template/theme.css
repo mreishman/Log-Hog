@@ -254,6 +254,13 @@ div {
 	cursor: default;
 }
 
+#processIds table tr th{
+	background-color: #ccc;
+	color: black;
+	cursor: default;
+	text-align: left;
+}
+
 #processIDs table tr td{
 	max-width: 50px;
 	overflow: hidden;

@@ -220,6 +220,11 @@ require_once('../core/php/loadVars.php');
 		filterDataForCache(data);
 	}
 
+	function sortArray(array, column)
+	{
+		array.sort(function(a,b){return a[column] == b[column] ? 0 : (a[column] > b[column] ? 1 : -1);});
+	}
+
 	function filterDataForDiskSpace(dataInner)
 	{
 		dataInnerNewArrayOfArraysHDD = filterData(dataInner, 5);
@@ -231,7 +236,7 @@ require_once('../core/php/loadVars.php');
 				filteredHDDArray.push(dataInnerNewArrayOfArraysHDD[i]);
 			}
 		}
-		filteredHDDArray.sort(function(a,b){return a[4] == b[4] ? 0 : (a[4] > b[4] ? 1 : -1);});
+		sortArray(filteredHDDArray, 4)
 		filteredHDDArray.reverse();
 		while(filteredHDDArray.length > 6)
 		{
@@ -341,7 +346,8 @@ require_once('../core/php/loadVars.php');
 		var htmlForProcesses = "<table style='width: 100%;'>";
 		//0-11 is a row
 		var dataInnerNewArrayOfArraysLength = dataInnerNewArrayOfArrays.length;
-		for (var i = 0; i < dataInnerNewArrayOfArraysLength; i++) 
+		htmlForProcesses += "<tr class'headerProcess'><th>USER</th><th>PID</th><th>%CPU</th><th>%MEM</th><th>VSZ</th><th>RSS</th><th>TTY</th><th>STAT</th><th>START</th><th>TIME</th><th>COMMAND</th><th></th></tr>";
+		for (var i = 1; i < dataInnerNewArrayOfArraysLength; i++) 
 		{
 			htmlForProcesses += "<tr>";
 			var dataInnerNewArrayOfArraysILength = dataInnerNewArrayOfArrays[i].length;

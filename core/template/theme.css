@@ -254,6 +254,13 @@ div {
 	cursor: default;
 }
 
+#processIds table tr th{
+	background-color: #ccc;
+	color: black;
+	cursor: default;
+	text-align: left;
+}
+
 #processIDs table tr td{
 	max-width: 50px;
 	overflow: hidden;
@@ -320,6 +327,7 @@ div {
   -ms-animation: blinkRed 0.5s infinite;
   -o-animation: blinkRed 0.5s infinite;
   animation: blinkRed 0.5s infinite;
+  scale: 0.5 0.5;
 }
 
 @-webkit-keyframes blinkRed {
@@ -360,6 +368,7 @@ div {
   -ms-animation: blinkYellow 1s infinite;
   -o-animation: blinkYellow 1s infinite;
   animation: blinkYellow 1s infinite;
+  scale: 0.5 0.5;
 }
 
 @-webkit-keyframes blinkYellow {
@@ -395,6 +404,7 @@ div {
   background-color: #ABFF00;
   border-radius: 50%;
   box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #304701 0 -1px 9px, #89FF00 0 2px 12px;
+  scale: 0.5 0.5;
 }
 
 .led-blue {
@@ -404,4 +414,5 @@ div {
   background-color: #24E0FF;
   border-radius: 50%;
   box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #006 0 -1px 9px, #3F8CFF 0 2px 14px;
+  scale: 0.5 0.5;
 }
