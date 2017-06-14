@@ -231,6 +231,8 @@ require_once('../core/php/loadVars.php');
 				filteredHDDArray.push(dataInnerNewArrayOfArraysHDD[i]);
 			}
 		}
+		filteredHDDArray.sort(function(a,b){return a[4] == b[4] ? 0 : (a[4] > b[4] ? 1 : -1);});
+		filteredHDDArray.reverse();
 		while(filteredHDDArray.length > 6)
 		{
 			filteredHDDArray.shift();
