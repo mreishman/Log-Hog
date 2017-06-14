@@ -195,58 +195,74 @@ function filterDataForProcesses(dataInner)
 		}
 		htmlForProcesses += "</th>";
 		//TTY
-		htmlForProcesses += "<th>TTY";
 		if(processFilterByRow == 7)
 		{
-			htmlForProcesses += "<span> &uarr;</span>";
+			htmlForProcesses += "<th onclick='filterProcessDataBy(7,-1)'>TTY &uarr;";
 		}
-		else if(processFilterByRow == -7)
+		else
 		{
-			htmlForProcesses += "<span> &darr;</span>";
+			htmlForProcesses += "<th onclick='filterProcessDataBy(7,1)'>TTY ";
+			if(processFilterByRow == -7)
+			{
+				htmlForProcesses += " &darr;";
+			}
 		}
 		htmlForProcesses += "</th>";
 		//Stat
-		htmlForProcesses += "<th>STAT";
 		if(processFilterByRow == 8)
 		{
-			htmlForProcesses += "<span> &uarr;</span>";
+			htmlForProcesses += "<th onclick='filterProcessDataBy(8,-1)'>STAT &uarr;";
 		}
-		else if(processFilterByRow == -8)
+		else
 		{
-			htmlForProcesses += "<span> &darr;</span>";
+			htmlForProcesses += "<th onclick='filterProcessDataBy(8,1)'>STAT";
+			if(processFilterByRow == -8)
+			{
+				htmlForProcesses += " &darr;";
+			}
 		}
 		htmlForProcesses += "</th>";
 		//Start
-		htmlForProcesses += "<th>START";
 		if(processFilterByRow == 9)
 		{
-			htmlForProcesses += "<span> &uarr;</span>";
+			htmlForProcesses += "<th onclick='filterProcessDataBy(9,-1)'>START &uarr;";
 		}
-		else if(processFilterByRow == -9)
+		else
 		{
-			htmlForProcesses += "<span> &darr;</span>";
+			htmlForProcesses += "<th onclick='filterProcessDataBy(9,1)'>START ";
+			if(processFilterByRow == -9)
+			{
+				htmlForProcesses += " &darr;";
+			}
 		}
 		htmlForProcesses += "</th>";
 		//Time
-		htmlForProcesses += "<th>TIME";
 		if(processFilterByRow == 10)
 		{
-			htmlForProcesses += "<span> &uarr;</span>";
+			htmlForProcesses += "<th onclick='filterProcessDataBy(10,-1)'>TIME &uarr;";
 		}
-		else if(processFilterByRow == -10)
+		else
 		{
-			htmlForProcesses += "<span> &darr;</span>";
+			htmlForProcesses += "<th onclick='filterProcessDataBy(10,1)'>TIME";
+			if(processFilterByRow == -10)
+			{
+				htmlForProcesses += " &darr;";
+			}
 		}
 		htmlForProcesses += "</th>";
 		//Command
-		htmlForProcesses += "<th>COMMAND";
+		htmlForProcesses += "";
 		if(processFilterByRow == 11)
 		{
-			htmlForProcesses += "<span> &uarr;</span>";
+			htmlForProcesses += "<th onclick='filterProcessDataBy(11,-1)'>COMMAND &uarr;";
 		}
-		else if(processFilterByRow == -11)
+		else
 		{
-			htmlForProcesses += "<span> &darr;</span>";
+			htmlForProcesses += "<th onclick='filterProcessDataBy(11,1)'>COMMAND";
+			if(processFilterByRow == -11)
+			{
+				htmlForProcesses += " &darr;";
+			}
 		}
 		htmlForProcesses += "</th>";	
 		htmlForProcesses += "<th style='cursor:default;' ></th>";
