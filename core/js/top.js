@@ -14,22 +14,23 @@ function sortArray(array, column)
 {
 	array.sort(function(a,b)
 		{
-			if((a[column].slice(0,-1)).indexOf("%") !== -1)
+			var filterA = a[column];
+			var filterB = b[column];
+
+			if((a[column]).indexOf("%") == (a[column].length-1))
 			{
 				//% logic
-				a[column] = a[column].slice(0,-1);
-				b[column] = b[column].slice(0,-1);
+				filterA = a[column].slice(0,-1);
+				filterB = b[column].slice(0,-1);
 			}
-			if((isFloat(parseFloat(a[column]))) || (isInt(parseFloat(a[column]))))
+			if(((isFloat(parseFloat(filterA))) || (isInt(parseFloat(filterA)))) && ((isFloat(parseFloat(filterB))) || (isInt(parseFloat(filterB)))))
 			{
-				return parseFloat(a[column]) == parseFloat(b[column]) ? 0 : (parseFloat(a[column]) > parseFloat(b[column]) ? 1 : -1);
+				return parseFloat(filterA) == parseFloat(filterB) ? 0 : (parseFloat(filterA) > parseFloat(filterB) ? 1 : -1);
 			}
 			else
 			{
-				return a[column] == b[column] ? 0 : (a[column] > b[column] ? 1 : -1);
+				return filterA == filterB ? 0 : (filterA > filterB ? 1 : -1);
 			}
-			
-			
 		});
 }
 
