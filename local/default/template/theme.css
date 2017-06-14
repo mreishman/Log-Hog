@@ -257,7 +257,7 @@ div {
 #processIds table tr th{
 	background-color: #ccc;
 	color: black;
-	cursor: default;
+	cursor: pointer;
 	text-align: left;
 }
 

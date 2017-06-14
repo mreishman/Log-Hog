@@ -344,31 +344,50 @@ require_once('../core/php/loadVars.php');
 	function filterDataForProcesses(dataInner)
 	{
 		dataInnerNewArrayOfArrays = filterData(dataInner, 10);
-		
+		var sortColumnNumber = Math.abs(processFilterByRow) - 1;
+		if(sortColumnNumber != 1)
+		{
+			sortArray(dataInnerNewArrayOfArrays, sortColumnNumber);
+		}
+		if(!(processFilterByRow > 0))
+		{
+			dataInnerNewArrayOfArrays.reverse();
+		}
+
 		var htmlForProcesses = "<table style='width: 100%;'>";
 		//0-11 is a row
 		var dataInnerNewArrayOfArraysLength = dataInnerNewArrayOfArrays.length;
 		htmlForProcesses += "<tr class'headerProcess'>";
-			htmlForProcesses += "<th>USER";
+			//USER
 			if(processFilterByRow == 1)
 			{
-				htmlForProcesses += "<span> &uarr;</span>";
+				htmlForProcesses += "<th onclick='filterProcessDataBy(1,-1)'>USER &uarr;";
 			}
-			else if(processFilterByRow == -1)
+			else
 			{
-				htmlForProcesses += "<span> &darr;</span>";
+				htmlForProcesses += "<th onclick='filterProcessDataBy(1,1)'>USER";
+				if(processFilterByRow == -1)
+				{
+					htmlForProcesses += " &darr;";
+				}
+				
 			}
 			htmlForProcesses += "</th>";
-			htmlForProcesses += "<th>PID";
-			if(processFilterByRow == 2)
-			{
-				htmlForProcesses += "<span> &uarr;</span>";
-			}
-			else if(processFilterByRow == -2)
-			{
-				htmlForProcesses += "<span> &darr;</span>";
-			}
-			htmlForProcesses += "</th>";
+			//PID 
+				if(processFilterByRow == 2)
+				{
+					htmlForProcesses += "<th onclick='filterProcessDataBy(2,-1)'>PID &uarr;";
+				}
+				else 
+				{
+					htmlForProcesses += "<th onclick='filterProcessDataBy(2,1)'>PID";
+					if(processFilterByRow == -2)
+					{
+						htmlForProcesses += " &darr;";
+					}
+				}
+				htmlForProcesses += "</th>";
+			//CPU
 			htmlForProcesses += "<th>%CPU";
 			if(processFilterByRow == 3)
 			{
@@ -459,7 +478,7 @@ require_once('../core/php/loadVars.php');
 				htmlForProcesses += "<span> &darr;</span>";
 			}
 			htmlForProcesses += "</th>";	
-			htmlForProcesses += "<th></th>";
+			htmlForProcesses += "<th style='cursor:default;' ></th>";
 		htmlForProcesses += "</tr>";
 		for (var i = 1; i < dataInnerNewArrayOfArraysLength; i++) 
 		{
@@ -477,8 +496,9 @@ require_once('../core/php/loadVars.php');
 	}
 
 	function filterProcessDataBy(column, reverse)
-	{
-
+	{	
+		processFilterByRow = column*reverse;
+		psAuxFunction();
 	}
 
 	function filterDataForCache(dataInner)
