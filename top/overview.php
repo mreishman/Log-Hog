@@ -401,60 +401,76 @@ require_once('../core/php/loadVars.php');
 			}
 			htmlForProcesses += "</th>";
 			//PID 
-				if(processFilterByRow == 2)
+			if(processFilterByRow == 2)
+			{
+				htmlForProcesses += "<th onclick='filterProcessDataBy(2,-1)'>PID &uarr;";
+			}
+			else 
+			{
+				htmlForProcesses += "<th onclick='filterProcessDataBy(2,1)'>PID";
+				if(processFilterByRow == -2)
 				{
-					htmlForProcesses += "<th onclick='filterProcessDataBy(2,-1)'>PID &uarr;";
+					htmlForProcesses += " &darr;";
 				}
-				else 
-				{
-					htmlForProcesses += "<th onclick='filterProcessDataBy(2,1)'>PID";
-					if(processFilterByRow == -2)
-					{
-						htmlForProcesses += " &darr;";
-					}
-				}
-				htmlForProcesses += "</th>";
+			}
+			htmlForProcesses += "</th>";
 			//CPU
-			htmlForProcesses += "<th>%CPU";
 			if(processFilterByRow == 3)
 			{
-				htmlForProcesses += "<span> &uarr;</span>";
+				htmlForProcesses += "<th onclick='filterProcessDataBy(3,-1)'>%CPU &uarr;";
 			}
-			else if(processFilterByRow == -3)
+			else
 			{
-				htmlForProcesses += "<span> &darr;</span>";
+				htmlForProcesses += "<th onclick='filterProcessDataBy(3,1)'>%CPU";
+				if(processFilterByRow == -3)
+				{
+					htmlForProcesses += " &darr;";
+				}
 			}
 			htmlForProcesses += "</th>";
-			htmlForProcesses += "<th>%MEM";
+			//Mem
 			if(processFilterByRow == 4)
 			{
-				htmlForProcesses += "<span> &uarr;</span>";
+				htmlForProcesses += "<th onclick='filterProcessDataBy(4,-1)'>%MEM &uarr;";
 			}
-			else if(processFilterByRow == -4)
+			else 
 			{
-				htmlForProcesses += "<span> &darr;</span>";
+				htmlForProcesses += "<th onclick='filterProcessDataBy(4,1)'>%MEM";
+				if(processFilterByRow == -4)
+				{
+					htmlForProcesses += " &darr;";
+				}
 			}
 			htmlForProcesses += "</th>";
-			htmlForProcesses += "<th>VSZ";
+			//VSZ
 			if(processFilterByRow == 5)
 			{
-				htmlForProcesses += "<span> &uarr;</span>";
+				htmlForProcesses += "<th onclick='filterProcessDataBy(5,-1)'>VSZ &uarr;";
 			}
-			else if(processFilterByRow == -5)
+			else 
 			{
-				htmlForProcesses += "<span> &darr;</span>";
+				htmlForProcesses += "<th onclick='filterProcessDataBy(5,1)'>VSZ ";
+				if(processFilterByRow == -5)
+				{
+					htmlForProcesses += " &darr;";
+				}
 			}
 			htmlForProcesses += "</th>";
-			htmlForProcesses += "<th>RSS";
+			//RSS
 			if(processFilterByRow == 6)
 			{
-				htmlForProcesses += "<span> &uarr;</span>";
+				htmlForProcesses += "<th onclick='filterProcessDataBy(6,-1)'>RSS &uarr;";
 			}
-			else if(processFilterByRow == -6)
+			else
 			{
-				htmlForProcesses += "<span> &darr;</span>";
+				htmlForProcesses += "<th onclick='filterProcessDataBy(6,1)'>RSS";
+				if(processFilterByRow == -6)
+				{
+					htmlForProcesses += " &darr;";
+				}
 			}
 			htmlForProcesses += "</th>";
+			//TTY
 			htmlForProcesses += "<th>TTY";
 			if(processFilterByRow == 7)
 			{
