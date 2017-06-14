@@ -137,6 +137,8 @@ require_once('../core/php/loadVars.php');
 	var swapInfoArray_Used = [];
 	var swapInfoArray_heightVar = [];
 
+	var processFilterByRow = 2;
+
 	for (var i = defaultArray.length - 1; i >= 0; i--) {
 		cpuInfoArray_User.push(defaultArray[i]);
 		cpuInfoArray_heightVar.push(defaultArray[i]);
@@ -346,7 +348,119 @@ require_once('../core/php/loadVars.php');
 		var htmlForProcesses = "<table style='width: 100%;'>";
 		//0-11 is a row
 		var dataInnerNewArrayOfArraysLength = dataInnerNewArrayOfArrays.length;
-		htmlForProcesses += "<tr class'headerProcess'><th>USER</th><th>PID</th><th>%CPU</th><th>%MEM</th><th>VSZ</th><th>RSS</th><th>TTY</th><th>STAT</th><th>START</th><th>TIME</th><th>COMMAND</th><th></th></tr>";
+		htmlForProcesses += "<tr class'headerProcess'>";
+			htmlForProcesses += "<th>USER";
+			if(processFilterByRow == 1)
+			{
+				htmlForProcesses += "<span> &uarr;</span>";
+			}
+			else if(processFilterByRow == -1)
+			{
+				htmlForProcesses += "<span> &darr;</span>";
+			}
+			htmlForProcesses += "</th>";
+			htmlForProcesses += "<th>PID";
+			if(processFilterByRow == 2)
+			{
+				htmlForProcesses += "<span> &uarr;</span>";
+			}
+			else if(processFilterByRow == -2)
+			{
+				htmlForProcesses += "<span> &darr;</span>";
+			}
+			htmlForProcesses += "</th>";
+			htmlForProcesses += "<th>%CPU";
+			if(processFilterByRow == 3)
+			{
+				htmlForProcesses += "<span> &uarr;</span>";
+			}
+			else if(processFilterByRow == -3)
+			{
+				htmlForProcesses += "<span> &darr;</span>";
+			}
+			htmlForProcesses += "</th>";
+			htmlForProcesses += "<th>%MEM";
+			if(processFilterByRow == 4)
+			{
+				htmlForProcesses += "<span> &uarr;</span>";
+			}
+			else if(processFilterByRow == -4)
+			{
+				htmlForProcesses += "<span> &darr;</span>";
+			}
+			htmlForProcesses += "</th>";
+			htmlForProcesses += "<th>VSZ";
+			if(processFilterByRow == 5)
+			{
+				htmlForProcesses += "<span> &uarr;</span>";
+			}
+			else if(processFilterByRow == -5)
+			{
+				htmlForProcesses += "<span> &darr;</span>";
+			}
+			htmlForProcesses += "</th>";
+			htmlForProcesses += "<th>RSS";
+			if(processFilterByRow == 6)
+			{
+				htmlForProcesses += "<span> &uarr;</span>";
+			}
+			else if(processFilterByRow == -6)
+			{
+				htmlForProcesses += "<span> &darr;</span>";
+			}
+			htmlForProcesses += "</th>";
+			htmlForProcesses += "<th>TTY";
+			if(processFilterByRow == 7)
+			{
+				htmlForProcesses += "<span> &uarr;</span>";
+			}
+			else if(processFilterByRow == -7)
+			{
+				htmlForProcesses += "<span> &darr;</span>";
+			}
+			htmlForProcesses += "</th>";
+			htmlForProcesses += "<th>STAT";
+			if(processFilterByRow == 8)
+			{
+				htmlForProcesses += "<span> &uarr;</span>";
+			}
+			else if(processFilterByRow == -8)
+			{
+				htmlForProcesses += "<span> &darr;</span>";
+			}
+			htmlForProcesses += "</th>";
+			htmlForProcesses += "<th>START";
+			if(processFilterByRow == 9)
+			{
+				htmlForProcesses += "<span> &uarr;</span>";
+			}
+			else if(processFilterByRow == -9)
+			{
+				htmlForProcesses += "<span> &darr;</span>";
+			}
+			htmlForProcesses += "</th>";
+			htmlForProcesses += "<th>TIME";
+			if(processFilterByRow == 10)
+			{
+				htmlForProcesses += "<span> &uarr;</span>";
+			}
+			else if(processFilterByRow == -10)
+			{
+				htmlForProcesses += "<span> &darr;</span>";
+			}
+			htmlForProcesses += "</th>";
+			htmlForProcesses += "<th>COMMAND";
+			if(processFilterByRow == 11)
+			{
+				htmlForProcesses += "<span> &uarr;</span>";
+			}
+			else if(processFilterByRow == -11)
+			{
+				htmlForProcesses += "<span> &darr;</span>";
+			}
+			htmlForProcesses += "</th>";	
+			htmlForProcesses += "<th></th>";
+		htmlForProcesses += "</tr>";
 		for (var i = 1; i < dataInnerNewArrayOfArraysLength; i++) 
 		{
 			htmlForProcesses += "<tr>";
@@ -360,6 +474,11 @@ require_once('../core/php/loadVars.php');
 		}
 		htmlForProcesses += "</table>";
 		document.getElementById('processIds').innerHTML = htmlForProcesses;
+	}
+
+	function filterProcessDataBy(column, reverse)
+	{
+
 	}
 
 	function filterDataForCache(dataInner)
