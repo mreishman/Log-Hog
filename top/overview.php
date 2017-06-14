@@ -224,8 +224,37 @@ require_once('../core/php/loadVars.php');
 
 	function sortArray(array, column)
 	{
-		array.sort(function(a,b){return a[column] == b[column] ? 0 : (a[column] > b[column] ? 1 : -1);});
+		array.sort(function(a,b)
+			{
+				if((a[column].slice(0,-1)).indexOf("%") !== -1)
+				{
+					//% logic
+					a[column] = a[column].slice(0,-1);
+					b[column] = b[column].slice(0,-1);
+				}
+				if((isFloat(parseFloat(a[column]))) || (isInt(parseFloat(a[column]))))
+				{
+					return parseFloat(a[column]) == parseFloat(b[column]) ? 0 : (parseFloat(a[column]) > parseFloat(b[column]) ? 1 : -1);
+				}
+				else
+				{
+					return a[column] == b[column] ? 0 : (a[column] > b[column] ? 1 : -1);
+				}
+				
+				
+			});
 	}
+
+	function isFloat(n)
+	{
+    	return Number(n) === n && n % 1 !== 0;
+	}
+
+	function isInt(n)
+	{
+    return Number(n) === n && n % 1 === 0;
+	}
+
 
 	function filterDataForDiskSpace(dataInner)
 	{
@@ -344,11 +373,9 @@ require_once('../core/php/loadVars.php');
 	function filterDataForProcesses(dataInner)
 	{
 		dataInnerNewArrayOfArrays = filterData(dataInner, 10);
+		dataInnerNewArrayOfArrays.shift();
 		var sortColumnNumber = Math.abs(processFilterByRow) - 1;
-		if(sortColumnNumber != 1)
-		{
-			sortArray(dataInnerNewArrayOfArrays, sortColumnNumber);
-		}
+		sortArray(dataInnerNewArrayOfArrays, sortColumnNumber);
 		if(!(processFilterByRow > 0))
 		{
 			dataInnerNewArrayOfArrays.reverse();
@@ -480,7 +507,7 @@ require_once('../core/php/loadVars.php');
 			htmlForProcesses += "</th>";	
 			htmlForProcesses += "<th style='cursor:default;' ></th>";
 		htmlForProcesses += "</tr>";
-		for (var i = 1; i < dataInnerNewArrayOfArraysLength; i++) 
+		for (var i = 0; i < dataInnerNewArrayOfArraysLength; i++) 
 		{
 			htmlForProcesses += "<tr>";
 			var dataInnerNewArrayOfArraysILength = dataInnerNewArrayOfArrays[i].length;
