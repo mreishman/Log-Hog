@@ -300,16 +300,37 @@ function filterDataForProcesses(dataInner)
 		{
 			htmlForProcesses += "<td>" + dataInnerNewArrayOfArrays[i][j]+"</td>";
 		}
-		htmlForProcesses += "<td><div class='expandMenu' onclick='dropdownShow("+'"'+'PID'+dataInnerNewArrayOfArrays[i][1]+'"'+")' ></div>";
-		htmlForProcesses += "<div id='dropdown-PID"+dataInnerNewArrayOfArrays[i][1]+"' class='dropdown-content'>";
-		htmlForProcesses += "<ul class='dropdown-content__items'>";
-		htmlForProcesses += "<li class='dropdown-content__item'><a>More Info</a></li>"
-		htmlForProcesses += "<li class='dropdown-content__item'><a>Kill Process</a></li>"
-		htmlForProcesses += "</ul></div></td>";
-		htmlForProcesses += "</tr>";
+		htmlForProcesses += "<td>";
+		if((dataInnerNewArrayOfArrays[i][0] != "root") || (dataInnerNewArrayOfArrays[i][10].length > 8))
+		{
+			htmlForProcesses += "<div class='expandMenu' onclick='dropdownShow("+'"'+'PID'+dataInnerNewArrayOfArrays[i][1]+'"'+")' ></div>";
+			htmlForProcesses += "<div id='dropdown-PID"+dataInnerNewArrayOfArrays[i][1]+"' class='dropdown-content'>";
+			htmlForProcesses += "<ul class='dropdown-content__items'>";
+			if(dataInnerNewArrayOfArrays[i][0] != "root")
+			{
+				htmlForProcesses += "<li class='dropdown-content__item'><a>Kill Process</a></li>"
+			}
+			if(dataInnerNewArrayOfArrays[i][10].length > 8)
+			{
+				htmlForProcesses += "<li class='dropdown-content__item'><a onclick='showFullCommand("+'"'+dataInnerNewArrayOfArrays[i][10]+'"'+")' >Full Command</a></li>"
+			}
+			htmlForProcesses += "</ul></div>";
+		}
+		else
+		{
+			htmlForProcesses += "<div class='expandMenu' style='color: rgba(0,0,0,0) !important; cursor: default;' ></div>";
+			
+		}
+		htmlForProcesses += "</td></tr>";
 	}
 	htmlForProcesses += "</table>";
 	document.getElementById('processIds').innerHTML = htmlForProcesses;
+}
+
+function showFullCommand(command)
+{
+	showPopup();
+	document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Full Command:</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>"+command+"</div><div><div class='link' onclick='hidePopup();' style='margin-left:175px; margin-top:25px;'>Okay</div></div>";
 }
 
 function filterProcessDataBy(column, reverse)

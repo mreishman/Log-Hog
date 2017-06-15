@@ -264,6 +264,7 @@ div {
 #processIDs table tr td{
 	max-width: 50px;
 	overflow: hidden;
+	white-space: nowrap;
 }
 
 #processIDs table tr:hover td .expandMenu{
@@ -298,6 +299,7 @@ div {
 	content: '\2807';
  	font-size: 20px;
 }
+
 
 .bottomBarOverviewHalf{
 	width: 48%; 
