@@ -1,3 +1,28 @@
+var dropdownMenuVisible = false;
+
+function dropdownShow(nameOfElem) {
+    if(document.getElementById("dropdown-"+nameOfElem).style.display == 'block')
+    {
+    	$('.dropdown-content').hide();
+    	dropdownMenuVisible = false;
+    }
+    else
+    {
+    	$('.dropdown-content').hide();
+    	document.getElementById("dropdown-"+nameOfElem).style.display = 'block';
+    	document.getElementById("dropdown-"+nameOfElem).style.left = event.clientX+"px";
+    	document.getElementById("dropdown-"+nameOfElem).style.top = event.clientY+"px";
+    	dropdownMenuVisible = true;
+    }
+}
+
+window.onclick = function(event) {
+	if (!event.target.matches('.expandMenu')) {
+		$('.dropdown-content').hide();
+		dropdownMenuVisible = false;
+	}
+}
+
 function fillAreaInChart(arrayForFill, bottomArray, color, context)
 {
 	context.fillStyle = color;
@@ -275,7 +300,12 @@ function filterDataForProcesses(dataInner)
 		{
 			htmlForProcesses += "<td>" + dataInnerNewArrayOfArrays[i][j]+"</td>";
 		}
-		htmlForProcesses += "<td><div class='expandMenu'></div></td>";
+		htmlForProcesses += "<td><div class='expandMenu' onclick='dropdownShow("+'"'+'PID'+dataInnerNewArrayOfArrays[i][1]+'"'+")' ></div>";
+		htmlForProcesses += "<div id='dropdown-PID"+dataInnerNewArrayOfArrays[i][1]+"' class='dropdown-content'>";
+		htmlForProcesses += "<ul class='dropdown-content__items'>";
+		htmlForProcesses += "<li class='dropdown-content__item'><a>More Info</a></li>"
+		htmlForProcesses += "<li class='dropdown-content__item'><a>Kill Process</a></li>"
+		htmlForProcesses += "</ul></div></td>";
 		htmlForProcesses += "</tr>";
 	}
 	htmlForProcesses += "</table>";

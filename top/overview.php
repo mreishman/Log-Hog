@@ -79,6 +79,11 @@ require_once('../core/php/loadVars.php');
 	<link rel="stylesheet" type="text/css" href="<?php echo $baseUrl ?>template/theme.css">
 	<link rel="icon" type="image/png" href="../core/img/favicon.png" />
 	<script src="../core/js/jquery.js"></script>
+	<style type="text/css">
+	#menu a, .link, .linkSmall, .context-menu, .dropdown-content{
+		background-color: <?php echo $currentSelectedThemeColorValues[0]?>;
+	}
+</style>
 </head>
 <body>
 
@@ -190,9 +195,12 @@ require_once('../core/php/loadVars.php');
 
 	function psAuxFunction()
 	{
+		if(!dropdownMenuVisible)
+		{
 		$.getJSON('../core/php/psAux.php', {}, function(data) {
 				processDataFrompsAux(data);
 			})
+		}
 	}
 
 	function dfALFunction()
