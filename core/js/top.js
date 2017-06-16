@@ -66,7 +66,7 @@ function isFloat(n)
 
 function isInt(n)
 {
-return Number(n) === n && n % 1 === 0;
+	return Number(n) === n && n % 1 === 0;
 }
 
 function filterData(dataInner, maxRowNum)
@@ -124,7 +124,7 @@ function filterData(dataInner, maxRowNum)
 
 function filterDataForioStatDx(dataInner)
 {
-	console.log(dataInner);
+	//console.log(dataInner);
 }
 
 function filterDataForNetworkDev(dataInner)
@@ -132,7 +132,7 @@ function filterDataForNetworkDev(dataInner)
 	dataInner = dataInner.substring(dataInner.indexOf("carrier compressed")+19);
 	dataInner = filterData(dataInner, 16);
 	networkArrayOfArrays.push(dataInner);
-	if(networkArrayOfArrays.length > 11)
+	if(networkArrayOfArrays.length > 21)
 	{
 		networkArrayOfArrays.shift();
 	}
@@ -150,7 +150,10 @@ function filterDataForNetworkDev(dataInner)
 			arrayNewDiff.push([bytesRecieved, packetsRecieved,bytesSent,packetsSent]);
 		}
 		networkArrayOfArraysDifference.push(arrayNewDiff);
-		//console.log(networkArrayOfArraysDifference);
+		if(networkArrayOfArraysDifference.length > 20)
+		{
+			networkArrayOfArraysDifference.shift();
+		}
 	}
 	var htmlForNetwork = "<table style='width: 100%;'>";
 	htmlForNetwork += "<tr><th style='width:50px;'>Interface</th><th>Receive</th><th>Transmit</th></tr>";
@@ -158,22 +161,68 @@ function filterDataForNetworkDev(dataInner)
 	var count = networkArrayOfArrays.length -1;
 	for (var i = 0; i < networkArrayOfArraysLength; i++)
 	{
-		htmlForNetwork += "<tr><td>"+networkArrayOfArrays[0][i][0]+"</td>"
+		htmlForNetwork += "<tr><td>"+networkArrayOfArrays[count][i][0]+"</td>"
 		htmlForNetwork += "<td>";
 		if(!(networkArrayOfArrays.length > 1))
 		{
 			htmlForNetwork += "<img style='margin-top: 25px; margin-left: 75px; position: absolute;' src='../core/img/loading.gif' height='50' width='50'>";
 		}
-		htmlForNetwork += "<canvas style='background-color:#333; border: 1px solid white;' width='200' height='100' ></canvas><div class='TableInfoForNet'>Bytes: "+networkArrayOfArrays[count][i][1]+"</div></td>"
+		htmlForNetwork += "<canvas id='"+networkArrayOfArrays[count][i][0]+"-downloadCanvas' style='background-color:#333; border: 1px solid white;' width='200' height='100' ></canvas><div class='TableInfoForNet'>Bytes: "+networkArrayOfArrays[count][i][1]+"</div></td>"
 		htmlForNetwork += "<td>";
 		if(!(networkArrayOfArrays.length > 1))
 		{
 			htmlForNetwork += "<img style='margin-top: 25px; margin-left: 75px; position: absolute;' src='../core/img/loading.gif' height='50' width='50'>";
 		}
-		htmlForNetwork += "<canvas style='background-color:#333; border: 1px solid white;' width='200' height='100' ></canvas><div class='TableInfoForNet'>Bytes: "+networkArrayOfArrays[count][i][9]+"</div></td></tr>"
+		htmlForNetwork += "<canvas id='"+networkArrayOfArrays[count][i][0]+"-uploadCanvas' style='background-color:#333; border: 1px solid white;' width='200' height='100' ></canvas><div class='TableInfoForNet'>Bytes: "+networkArrayOfArrays[count][i][9]+"</div></td></tr>"
 	}
 	htmlForNetwork += "</table>";
 	document.getElementById('networkArea').innerHTML = htmlForNetwork;
+	if(networkArrayOfArrays.length > 1)
+	{
+		for (var i = 0; i < networkArrayOfArraysLength; i++)
+		{
+			//create array from column in array of arrays 
+			var arrayToShowInConsole = new Array();
+			var baseArray = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+			var netDiffLength = networkArrayOfArraysDifference.length;
+			for (var j = 0; j < (20 - netDiffLength); j++) 
+			{
+				arrayToShowInConsole.push(0);
+			}
+			for (var j = 0; j < (netDiffLength); j++) 
+			{
+				arrayToShowInConsole.push(networkArrayOfArraysDifference[j][i][0]);
+			}
+			var maxOfArray = Math.max.apply(Math, arrayToShowInConsole);
+			var arrayToShowInConsoleLength = arrayToShowInConsole.length;
+			for(var j = 0; j < arrayToShowInConsoleLength; j++)
+			{
+				arrayToShowInConsole[j] = (arrayToShowInConsole[j]/maxOfArray)*100;
+			}
+			var fillThis = document.getElementById(networkArrayOfArrays[count][i][0]+"-downloadCanvas").getContext("2d");
+			fillAreaInChart(arrayToShowInConsole, baseArray, "blue",fillThis, 100, 200);
+
+			arrayToShowInConsole = new Array();
+			baseArray = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+			netDiffLength = networkArrayOfArraysDifference.length;
+			for (var j = 0; j < (20 - netDiffLength); j++) 
+			{
+				arrayToShowInConsole.push(0);
+			}
+			for (var j = 0; j < (netDiffLength); j++) 
+			{
+				arrayToShowInConsole.push(networkArrayOfArraysDifference[j][i][2]);
+			}
+			maxOfArray = Math.max.apply(Math, arrayToShowInConsole);
+			arrayToShowInConsoleLength = arrayToShowInConsole.length;
+			for(var j = 0; j < arrayToShowInConsoleLength; j++)
+			{
+				arrayToShowInConsole[j] = (arrayToShowInConsole[j]/maxOfArray)*100;
+			}
+			var fillThis = document.getElementById(networkArrayOfArrays[count][i][0]+"-uploadCanvas").getContext("2d");
+			fillAreaInChart(arrayToShowInConsole, baseArray, "blue",fillThis, 100, 200);
+		}
+	}
 }
 
 function filterProcessByUser()
