@@ -144,6 +144,7 @@ require_once('../core/php/loadVars.php');
 	var swapInfoArray_heightVar = [];
 
 	var processFilterByRow = 2;
+	var selectedUser = "USER";
 
 	for (var i = defaultArray.length - 1; i >= 0; i--) {
 		cpuInfoArray_User.push(defaultArray[i]);

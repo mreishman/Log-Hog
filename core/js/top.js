@@ -119,6 +119,12 @@ function filterData(dataInner, maxRowNum)
 
 }
 
+function filterProcessByUser()
+{
+	selectedUser = document.getElementById('processUserSelect').value;
+	psAuxFunction();
+}
+
 function filterDataForProcesses(dataInner)
 {
 	dataInnerNewArrayOfArrays = filterData(dataInner, 10);
@@ -129,26 +135,33 @@ function filterDataForProcesses(dataInner)
 	{
 		dataInnerNewArrayOfArrays.reverse();
 	}
-
+	var dataInnerNewArrayOfArraysLength = dataInnerNewArrayOfArrays.length;
+	//create array of 'users'
+	var arrayOfUserProcesses = [];
+	arrayOfUserProcesses.push('USER');
+	for (var i = 0; i < dataInnerNewArrayOfArraysLength; i++) 
+	{
+		if(arrayOfUserProcesses.indexOf(dataInnerNewArrayOfArrays[i][0]) == -1)
+		{
+			arrayOfUserProcesses.push(dataInnerNewArrayOfArrays[i][0]);
+		}
+	}
 	var htmlForProcesses = "<table style='width: 100%;'>";
 	//0-11 is a row
-	var dataInnerNewArrayOfArraysLength = dataInnerNewArrayOfArrays.length;
 	htmlForProcesses += "<tr class'headerProcess'>";
 		//USER
-		if(processFilterByRow == 1)
-		{
-			htmlForProcesses += "<th onclick='filterProcessDataBy(1,-1)'>USER &uarr;";
-		}
-		else
-		{
-			htmlForProcesses += "<th onclick='filterProcessDataBy(1,1)'>USER";
-			if(processFilterByRow == -1)
+		htmlForProcesses += "<th><select id='processUserSelect' onchange='filterProcessByUser();' >";
+			var arrayOfUserProcessesLength = arrayOfUserProcesses.length;
+			for (var i = 0; i < arrayOfUserProcessesLength; i++)
 			{
-				htmlForProcesses += " &darr;";
-			}
-			
-		}
-		htmlForProcesses += "</th>";
+				htmlForProcesses += "<option ";
+				if(selectedUser == arrayOfUserProcesses[i])
+				{
+					htmlForProcesses += " selected ";
+				}
+				htmlForProcesses += " value='"+arrayOfUserProcesses[i]+"'> "+arrayOfUserProcesses[i]+" </option>";
+			} 
+		htmlForProcesses += "</th></select>";
 		//PID 
 		if(processFilterByRow == 2)
 		{
@@ -294,34 +307,37 @@ function filterDataForProcesses(dataInner)
 	htmlForProcesses += "</tr>";
 	for (var i = 0; i < dataInnerNewArrayOfArraysLength; i++) 
 	{
-		htmlForProcesses += "<tr>";
-		var dataInnerNewArrayOfArraysILength = dataInnerNewArrayOfArrays[i].length;
-		for (var j =  0; j < dataInnerNewArrayOfArraysILength; j++) 
+		if(selectedUser == "USER" || dataInnerNewArrayOfArrays[i][0] == selectedUser)
 		{
-			htmlForProcesses += "<td>" + dataInnerNewArrayOfArrays[i][j]+"</td>";
-		}
-		htmlForProcesses += "<td>";
-		if((dataInnerNewArrayOfArrays[i][0] != "root") || (dataInnerNewArrayOfArrays[i][10].length > 8))
-		{
-			htmlForProcesses += "<div class='expandMenu' onclick='dropdownShow("+'"'+'PID'+dataInnerNewArrayOfArrays[i][1]+'"'+")' ></div>";
-			htmlForProcesses += "<div id='dropdown-PID"+dataInnerNewArrayOfArrays[i][1]+"' class='dropdown-content'>";
-			htmlForProcesses += "<ul class='dropdown-content__items'>";
-			if(dataInnerNewArrayOfArrays[i][0] != "root")
+			htmlForProcesses += "<tr>";
+			var dataInnerNewArrayOfArraysILength = dataInnerNewArrayOfArrays[i].length;
+			for (var j =  0; j < dataInnerNewArrayOfArraysILength; j++) 
 			{
-				htmlForProcesses += "<li class='dropdown-content__item'><a>Kill Process</a></li>"
+				htmlForProcesses += "<td>" + dataInnerNewArrayOfArrays[i][j]+"</td>";
 			}
-			if(dataInnerNewArrayOfArrays[i][10].length > 8)
+			htmlForProcesses += "<td>";
+			if((dataInnerNewArrayOfArrays[i][0] != "root") || (dataInnerNewArrayOfArrays[i][10].length > 8))
 			{
-				htmlForProcesses += "<li class='dropdown-content__item'><a onclick='showFullCommand("+'"'+dataInnerNewArrayOfArrays[i][10]+'"'+")' >Full Command</a></li>"
+				htmlForProcesses += "<div class='expandMenu' onclick='dropdownShow("+'"'+'PID'+dataInnerNewArrayOfArrays[i][1]+'"'+")' ></div>";
+				htmlForProcesses += "<div id='dropdown-PID"+dataInnerNewArrayOfArrays[i][1]+"' class='dropdown-content'>";
+				htmlForProcesses += "<ul class='dropdown-content__items'>";
+				if(dataInnerNewArrayOfArrays[i][0] != "root")
+				{
+					htmlForProcesses += "<li class='dropdown-content__item'><a>Kill Process</a></li>"
+				}
+				if(dataInnerNewArrayOfArrays[i][10].length > 8)
+				{
+					htmlForProcesses += "<li class='dropdown-content__item'><a onclick='showFullCommand("+'"'+dataInnerNewArrayOfArrays[i][10]+'"'+")' >Full Command</a></li>"
+				}
+				htmlForProcesses += "</ul></div>";
 			}
-			htmlForProcesses += "</ul></div>";
+			else
+			{
+				htmlForProcesses += "<div class='expandMenu' style='color: rgba(0,0,0,0) !important; cursor: default;' ></div>";
+				
+			}
+			htmlForProcesses += "</td></tr>";
 		}
-		else
-		{
-			htmlForProcesses += "<div class='expandMenu' style='color: rgba(0,0,0,0) !important; cursor: default;' ></div>";
-			
-		}
-		htmlForProcesses += "</td></tr>";
 	}
 	htmlForProcesses += "</table>";
 	document.getElementById('processIds').innerHTML = htmlForProcesses;
