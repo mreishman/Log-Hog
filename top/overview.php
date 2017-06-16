@@ -115,12 +115,13 @@ require_once('../core/php/loadVars.php');
 				<div id="HDDCanvas" style="height: 200px; width: 200px;" class="canvasMonitor" ></div>
 				<div class="canvasMonitorText"><span style="color: white;">n/a</span></div>
 			</div>
+
 		</div>
 		<div id="bottomBarOverview">
 			<div class="bottomBarOverviewHalf bottomBarOverviewLeft" id="processIds">
 
 			</div>
-			<div class="bottomBarOverviewHalf bottomBarOverviewRight" id="extraArea">
+			<div class="bottomBarOverviewHalf bottomBarOverviewRight" id="networkArea">
 
 			</div>
 		</div>
@@ -142,6 +143,8 @@ require_once('../core/php/loadVars.php');
 	var ramInfoArray_heightVar = [];
 	var swapInfoArray_Used = [];
 	var swapInfoArray_heightVar = [];
+	var networkArrayOfArrays = [];
+	var networkArrayOfArraysDifference = [];
 
 	var processFilterByRow = 2;
 	var selectedUser = "USER";
@@ -204,11 +207,23 @@ require_once('../core/php/loadVars.php');
 		}
 	}
 
+	function procNetDev()
+	{
+		$.getJSON('../core/php/procNetDev.php', {}, function(data) {
+				processDataFromprocNetDev(data);
+			})
+	}
+
 	function dfALFunction()
 	{
 		$.getJSON('../core/php/dfAL.php', {}, function(data) {
 				processDataFrompsdfAL(data);
 			})
+	}
+
+	function processDataFromprocNetDev(data)
+	{
+		filterDataForNetworkDev(data);
 	}
 
 	function processDataFrompsAux(data)
@@ -233,6 +248,7 @@ require_once('../core/php/loadVars.php');
 		topFunction();
 		psAuxFunction();
 		dfALFunction();
+		procNetDev();
 	}
 
 

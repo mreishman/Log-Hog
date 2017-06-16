@@ -102,8 +102,11 @@ function filterData(dataInner, maxRowNum)
 					dataInnerNew.push(endingText);
 					dataInnerNewArrayOfArrays.push(dataInnerNew);
 					dataInnerNew = [];
-					dataInnerNew.push(dataInnerNewRow[1]);
-					counterForRow++;
+					if(dataInnerNewRow[1] != " " && dataInnerNewRow[1] != "")
+					{
+						dataInnerNew.push(dataInnerNewRow[1]);
+						counterForRow++;
+					}
 					endingText = "";
 				}
 				else
@@ -117,6 +120,34 @@ function filterData(dataInner, maxRowNum)
 	}
 	return dataInnerNewArrayOfArrays;
 
+}
+
+function filterDataForNetworkDev(dataInner)
+{
+	dataInner = dataInner.substring(dataInner.indexOf("carrier compressed")+19);
+	dataInner = filterData(dataInner, 16);
+	networkArrayOfArrays.push(dataInner);
+	if(networkArrayOfArrays.length > 11)
+	{
+		networkArrayOfArrays.shift();
+	}
+	if(networkArrayOfArrays.length > 1)
+	{
+
+	}
+	var htmlForNetwork = "<table style='width: 100%;'>";
+	htmlForNetwork += "<tr><th style='width:50px;'>Interface</th><th>Receive</th><th>Transmit</th></tr>";
+	var networkArrayOfArraysLength = networkArrayOfArrays[0].length;
+	for (var i = 0; i < networkArrayOfArraysLength; i++)
+	{
+		htmlForNetwork += "<tr><td>"+networkArrayOfArrays[0][i][0]+"</td>"
+		htmlForNetwork += "<td>";
+
+		htmlForNetwork += "<img style='margin-top: 25px; margin-left: 75px; position: absolute;' src='../core/img/loading.gif' height='50' width='50'> <canvas style='background-color:#333;' width='200' height='100' ></canvas></td>"
+		htmlForNetwork += "<td><img style='margin-top: 25px; margin-left: 75px; position: absolute;' src='../core/img/loading.gif' height='50' width='50'> <canvas style='background-color:#333;' width='200' height='100' ></canvas></td></tr>"
+	}
+	htmlForNetwork += "</table>";
+	document.getElementById('networkArea').innerHTML = htmlForNetwork;
 }
 
 function filterProcessByUser()
