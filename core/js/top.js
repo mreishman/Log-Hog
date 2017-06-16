@@ -133,7 +133,19 @@ function filterDataForNetworkDev(dataInner)
 	}
 	if(networkArrayOfArrays.length > 1)
 	{
-
+		var netLength = networkArrayOfArrays.length;
+		var netNetLength = networkArrayOfArrays[netLength-1].length; 
+		var arrayNewDiff = [];
+		for (var i = 0; i < netNetLength; i++)
+		{
+			var bytesRecieved = parseInt(networkArrayOfArrays[netLength-1][i][1])-parseInt(networkArrayOfArrays[netLength-2][i][1]);
+			var packetsRecieved = parseInt(networkArrayOfArrays[netLength-1][i][2])-parseInt(networkArrayOfArrays[netLength-2][i][2]);
+			var bytesSent = parseInt(networkArrayOfArrays[netLength-1][i][9])-parseInt(networkArrayOfArrays[netLength-2][i][9]);
+			var packetsSent = parseInt(networkArrayOfArrays[netLength-1][i][10])-parseInt(networkArrayOfArrays[netLength-2][i][10]);
+			arrayNewDiff.push([bytesRecieved, packetsRecieved,bytesSent,packetsSent]);
+		}
+		networkArrayOfArraysDifference.push(arrayNewDiff);
+		//console.log(networkArrayOfArraysDifference);
 	}
 	var htmlForNetwork = "<table style='width: 100%;'>";
 	htmlForNetwork += "<tr><th style='width:50px;'>Interface</th><th>Receive</th><th>Transmit</th></tr>";
@@ -142,9 +154,17 @@ function filterDataForNetworkDev(dataInner)
 	{
 		htmlForNetwork += "<tr><td>"+networkArrayOfArrays[0][i][0]+"</td>"
 		htmlForNetwork += "<td>";
-
-		htmlForNetwork += "<img style='margin-top: 25px; margin-left: 75px; position: absolute;' src='../core/img/loading.gif' height='50' width='50'> <canvas style='background-color:#333;' width='200' height='100' ></canvas></td>"
-		htmlForNetwork += "<td><img style='margin-top: 25px; margin-left: 75px; position: absolute;' src='../core/img/loading.gif' height='50' width='50'> <canvas style='background-color:#333;' width='200' height='100' ></canvas></td></tr>"
+		if(!(networkArrayOfArrays.length > 1))
+		{
+			htmlForNetwork += "<img style='margin-top: 25px; margin-left: 75px; position: absolute;' src='../core/img/loading.gif' height='50' width='50'>";
+		}
+		htmlForNetwork += "<canvas style='background-color:#333; border: 1px solid white;' width='200' height='100' ></canvas></td>"
+		htmlForNetwork += "<td>";
+		if(!(networkArrayOfArrays.length > 1))
+		{
+			htmlForNetwork += "<img style='margin-top: 25px; margin-left: 75px; position: absolute;' src='../core/img/loading.gif' height='50' width='50'>";
+		}
+		htmlForNetwork += "<canvas style='background-color:#333; border: 1px solid white;' width='200' height='100' ></canvas></td></tr>"
 	}
 	htmlForNetwork += "</table>";
 	document.getElementById('networkArea').innerHTML = htmlForNetwork;
