@@ -167,11 +167,19 @@ function filterDataForNetworkDev(dataInner)
 		{
 			htmlForNetwork += "<img style='margin-top: 25px; margin-left: 75px; position: absolute;' src='../core/img/loading.gif' height='50' width='50'>";
 		}
+		else
+		{
+			htmlForNetwork += "<div class='TableInfoForNet'>Current: "+networkArrayOfArraysDifference[count-1][i][0]+"</div>"
+		}
 		htmlForNetwork += "<canvas id='"+networkArrayOfArrays[count][i][0]+"-downloadCanvas' style='background-color:#333; border: 1px solid white;' width='200' height='100' ></canvas><div class='TableInfoForNet'>Bytes: "+networkArrayOfArrays[count][i][1]+"</div></td>"
 		htmlForNetwork += "<td>";
 		if(!(networkArrayOfArrays.length > 1))
 		{
 			htmlForNetwork += "<img style='margin-top: 25px; margin-left: 75px; position: absolute;' src='../core/img/loading.gif' height='50' width='50'>";
+		}
+		else
+		{
+			htmlForNetwork += "<div class='TableInfoForNet'>Current: "+networkArrayOfArraysDifference[count-1][i][2]+"</div>"
 		}
 		htmlForNetwork += "<canvas id='"+networkArrayOfArrays[count][i][0]+"-uploadCanvas' style='background-color:#333; border: 1px solid white;' width='200' height='100' ></canvas><div class='TableInfoForNet'>Bytes: "+networkArrayOfArrays[count][i][9]+"</div></td></tr>"
 	}
@@ -219,7 +227,7 @@ function filterDataForNetworkDev(dataInner)
 			{
 				arrayToShowInConsole[j] = (arrayToShowInConsole[j]/maxOfArray)*100;
 			}
-			var fillThis = document.getElementById(networkArrayOfArrays[count][i][0]+"-uploadCanvas").getContext("2d");
+			fillThis = document.getElementById(networkArrayOfArrays[count][i][0]+"-uploadCanvas").getContext("2d");
 			fillAreaInChart(arrayToShowInConsole, baseArray, "blue",fillThis, 100, 200);
 		}
 	}
