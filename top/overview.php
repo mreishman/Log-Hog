@@ -161,9 +161,6 @@ require_once('../core/php/loadVars.php');
 		swapInfoArray_heightVar.push(defaultArray[i]);
 	}
 
-	var width = 200;
-	var height = 200;
-
 	var cpuArea = document.getElementById('cpuCanvas');
 	var cpuAreaContext = cpuArea.getContext("2d");
 
@@ -214,11 +211,23 @@ require_once('../core/php/loadVars.php');
 			})
 	}
 
+	function ioStatDxFunction()
+	{
+		$.getJSON('../core/php/ioStatDx.php', {}, function(data) {
+				processDataFromioStatDx(data);
+			})
+	}
+
 	function dfALFunction()
 	{
 		$.getJSON('../core/php/dfAL.php', {}, function(data) {
 				processDataFrompsdfAL(data);
 			})
+	}
+
+	function processDataFromioStatDx(data)
+	{
+		filterDataForioStatDx(data);
 	}
 
 	function processDataFromprocNetDev(data)
@@ -249,6 +258,7 @@ require_once('../core/php/loadVars.php');
 		psAuxFunction();
 		dfALFunction();
 		procNetDev();
+		ioStatDxFunction();
 	}
 
 
@@ -276,6 +286,6 @@ require_once('../core/php/loadVars.php');
 	heightOfMainStyle += heightOfMain;
 	heightOfMainStyle += 'px';
 	document.getElementById("processIds").setAttribute("style",heightOfMainStyle);
-
+	document.getElementById("networkArea").setAttribute("style",heightOfMainStyle);
 	</script>
 </body>

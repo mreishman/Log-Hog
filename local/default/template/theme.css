@@ -462,3 +462,7 @@ div {
 .dropdown-content__item:hover{
 	background-color: white;
 }
+
+.TableInfoForNet{
+	padding: 5px;
+}

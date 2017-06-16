@@ -30,5 +30,10 @@ $URI = $_SERVER['REQUEST_URI'];
 	<?php else: ?>
 		<a id="mainLink" onclick="window.location.href =  'disk.php';" >Disk</a>
 	<?php endif; ?>
+	<?php if(strpos($URI, 'network.php') !== false): ?>
+		<a style="cursor: default;" class="active" id="mainLink" >Network</a>
+	<?php else: ?>
+		<a id="mainLink" onclick="window.location.href =  'network.php';" >Network</a>
+	<?php endif; ?>
 	<a id="settingsLink" onclick="window.location.href = '../settings/main.php';" >Settings</a>
 </div>
