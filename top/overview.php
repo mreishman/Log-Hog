@@ -115,6 +115,12 @@ require_once('../core/php/loadVars.php');
 				<div id="HDDCanvas" style="height: 200px; width: 200px;" class="canvasMonitor" ></div>
 				<div class="canvasMonitorText"><span style="color: white;">n/a</span></div>
 			</div>
+			<div class="canvasMonitorDiv" >	
+				<div class="canvasMonitorText">Disk IO</div>
+				<img id="canvasMonitorLoading_DIO" style="margin-top: 75px; margin-left: 75px; position: absolute;" src='../core/img/loading.gif' height='50' width='50'> 
+				<div id="DIOCanvas" style="height: 200px; width: 200px;" class="canvasMonitor" ></div>
+				<div class="canvasMonitorText"><span style="color: white;">n/a</span></div>
+			</div>
 
 		</div>
 		<div id="bottomBarOverview">

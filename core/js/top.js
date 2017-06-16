@@ -124,7 +124,26 @@ function filterData(dataInner, maxRowNum)
 
 function filterDataForioStatDx(dataInner)
 {
-	//console.log(dataInner);
+	
+	dataInner = dataInner.substring(dataInner.indexOf("kB_wrtn")+8);
+	dataInner = dataInner.substring(dataInner.indexOf("kB_wrtn")+8);
+	dataInner = filterData(dataInner, 5);
+	dataInnerLength = dataInner.length;
+	var htmlForDiskIO = "<table style='width: 100%;'>";
+	var height = "50px";
+	if(dataInnerLength > 3)
+	{
+		height = "25px";
+	}	
+	for(var i = 0; i < dataInnerLength; i++)
+	{
+		htmlForDiskIO += "<tr><td>"+dataInner[i][0]+"</td>";	
+		htmlForDiskIO += "<td><canvas style='background-color: #333; border: 1px solid white;' width='100px' height='"+height+"'></canvas></td>";
+		htmlForDiskIO += "</tr>";	
+	}
+	htmlForDiskIO += "</table>";
+	document.getElementById('DIOCanvas').innerHTML = htmlForDiskIO;
+	document.getElementById('canvasMonitorLoading_DIO').style.display = "none";
 }
 
 function filterDataForNetworkDev(dataInner)
