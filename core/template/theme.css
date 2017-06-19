@@ -464,6 +464,11 @@ div {
 }
 
 .TableInfoForNet{
-	display: inline-block;
 	padding: 5px;
+}
+
+.loadingSpinner{
+	padding: 75px;
+	background-color: #333;
+	border: 1px solid white;
 }

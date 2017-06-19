@@ -96,32 +96,44 @@ $useTop = false;
 		<div id="topBarOverview">
 			<div class="canvasMonitorDiv" >	
 				<div class="canvasMonitorText">CPU</div>
-				<img id="canvasMonitorLoading_CPU" style="margin-top: 75px; margin-left: 75px; position: absolute;" src='../core/img/loading.gif' height='50' width='50'> 
-				<canvas class="canvasMonitor" id="cpuCanvas" width="200" height="200"></canvas>
+				<img id="canvasMonitorLoading_CPU" class="loadingSpinner" src='../core/img/loading.gif' height='50' width='50'> 
+				<canvas style="display: none;" class="canvasMonitor" id="cpuCanvas" width="200" height="200"></canvas>
 					<div class="canvasMonitorText">U <span id="canvasMonitorCPU_User">-</span>% | S <span id="canvasMonitorCPU_System">-</span>% | N <span id="canvasMonitorCPU_Other">-</span>%</div>
 			</div>
 			<div class="canvasMonitorDiv" >	
 				<div class="canvasMonitorText">RAM</div>
-				<img id="canvasMonitorLoading_RAM" style="margin-top: 75px; margin-left: 75px; position: absolute;" src='../core/img/loading.gif' height='50' width='50'> 
-				<canvas class="canvasMonitor" id="ramCanvas" width="200" height="200"></canvas>
+				<img id="canvasMonitorLoading_RAM" class="loadingSpinner" src='../core/img/loading.gif' height='50' width='50'> 
+				<canvas style="display: none;" class="canvasMonitor" id="ramCanvas" width="200" height="200"></canvas>
 				<div class="canvasMonitorText">Used <span id="canvasMonitorRAM_Used">-</span>% | Cache <span id="canvasMonitorRAM_Cache">-</span>%</div>
 			</div>
 			<div class="canvasMonitorDiv" >	
 				<div class="canvasMonitorText">Swap</div>
-				<img id="canvasMonitorLoading_Swap" style="margin-top: 75px; margin-left: 75px; position: absolute;" src='../core/img/loading.gif' height='50' width='50'> 
-				<canvas class="canvasMonitor" id="swapCanvas" width="200" height="200"></canvas>
+				<img id="canvasMonitorLoading_Swap" class="loadingSpinner" src='../core/img/loading.gif' height='50' width='50'> 
+				<canvas style="display: none;" class="canvasMonitor" id="swapCanvas" width="200" height="200"></canvas>
 				<div class="canvasMonitorText"><span id="canvasMonitorSwap">-</span>%</div>
 			</div>
 			<div class="canvasMonitorDiv" >	
 				<div class="canvasMonitorText">Disk Usage</div>
-				<img id="canvasMonitorLoading_HDD" style="margin-top: 75px; margin-left: 75px; position: absolute;" src='../core/img/loading.gif' height='50' width='50'> 
-				<div id="HDDCanvas" style="height: 200px; width: 200px;" class="canvasMonitor" ></div>
+				<img id="canvasMonitorLoading_HDD" class="loadingSpinner" src='../core/img/loading.gif' height='50' width='50'> 
+				<div id="HDDCanvas" style="height: 200px; width: 200px; display: none;" class="canvasMonitor" ></div>
 				<div class="canvasMonitorText"><span style="color: white;">n/a</span></div>
 			</div>
 			<div class="canvasMonitorDiv" >	
 				<div class="canvasMonitorText">Disk IO</div>
-				<img id="canvasMonitorLoading_DIO" style="margin-top: 75px; margin-left: 75px; position: absolute;" src='../core/img/loading.gif' height='50' width='50'> 
-				<div id="DIOCanvas" style="height: 200px; width: 200px;" class="canvasMonitor" ></div>
+				<img id="canvasMonitorLoading_DIO" class="loadingSpinner" src='../core/img/loading.gif' height='50' width='50'> 
+				<div id="DIOCanvas" style="height: 200px; width: 200px; display: none;" class="canvasMonitor" ></div>
+				<div class="canvasMonitorText"><span style="color: white;">n/a</span></div>
+			</div>
+			<div class="canvasMonitorDiv" >	
+				<div class="canvasMonitorText">PHP User Time Used</div>
+				<img id="canvasMonitorLoading_PHP_UTU" class="loadingSpinner" src='../core/img/loading.gif' height='50' width='50'> 
+				<canvas style="display: none;" class="canvasMonitor" id="PHPTUTCanvas" width="200" height="200"></canvas>
+				<div class="canvasMonitorText"><span style="color: white;">n/a</span></div>
+			</div>
+			<div class="canvasMonitorDiv" >	
+				<div class="canvasMonitorText">PHP System Time Used</div>
+				<img id="canvasMonitorLoading_PHP_STU" class="loadingSpinner" src='../core/img/loading.gif' height='50' width='50'> 
+				<canvas style="display: none;" class="canvasMonitor" id="PHPSTUCanvas" width="200" height="200"></canvas>
 				<div class="canvasMonitorText"><span style="color: white;">n/a</span></div>
 			</div>
 
@@ -218,6 +230,16 @@ $useTop = false;
 		}
 	}
 
+	function getRUsageFunction()
+	{
+		if(!dropdownMenuVisible)
+		{
+		$.getJSON('../core/php/getRUsage.php', {}, function(data) {
+				processDataFromRUsage(data);
+			})
+		}
+	}
+
 	function procNetDev()
 	{
 		$.getJSON('../core/php/procNetDev.php', {}, function(data) {
@@ -251,6 +273,11 @@ $useTop = false;
 		$.getJSON('../core/php/dfAL.php', {}, function(data) {
 				processDataFrompsdfAL(data);
 			})
+	}
+
+	function processDataFromRUsage(data)
+	{
+		filterDataFromRUsage(data);
 	}
 
 	function processDataFromprocStat(data)
@@ -306,6 +333,7 @@ $useTop = false;
 		dfALFunction();
 		procNetDev();
 		ioStatDxFunction();
+		getRUsageFunction();
 	}
 
 	poll();

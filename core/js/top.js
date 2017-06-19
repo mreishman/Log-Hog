@@ -126,6 +126,12 @@ function filterData(dataInner, maxRowNum)
 
 }
 
+function filterDataFromRUsage(dataInner)
+{
+	//dataInner['ru_utime.tv_usec'];
+	//dataInner['ru_stime.tv_usec'];
+}
+
 function filterDataForFreeRam(dataInner)
 {
 	dataInner = "Memory " + dataInner;
@@ -194,6 +200,7 @@ function filterDataForioStatDx(dataInner)
 		htmlForDiskIO += "</table>";
 		document.getElementById('DIOCanvas').innerHTML = htmlForDiskIO;
 		document.getElementById('canvasMonitorLoading_DIO').style.display = "none";
+		document.getElementById('DIOCanvas').style.display = "block";
 		for(var i = 0; i < dataInnerLength; i++)
 		{
 			//create array from column in array of arrays 
@@ -689,6 +696,7 @@ function filterDataForDiskSpace(dataInner)
 	}
 	htmlForProcesses += "</table>";
 	document.getElementById('canvasMonitorLoading_HDD').style.display = "none";
+	document.getElementById('HDDCanvas').style.display = "block";
 	document.getElementById('HDDCanvas').innerHTML = htmlForProcesses;
 }
 
@@ -711,6 +719,7 @@ function filterDataForCacheSubFunction(totalSwap, usedSwap)
 	swapInfoArray_Used.push(usedSwap);
 	document.getElementById('canvasMonitorSwap').innerHTML = usedSwap;
 	document.getElementById('canvasMonitorLoading_Swap').style.display = "none";
+	document.getElementById('swapCanvas').style.display = "block";
 	swapInfoArray_Used.shift();
 	swapAreaContext.clearRect(0, 0, swapArea.width, swapArea.height);
 	for (var i = swapInfoArray_heightVar.length - 1; i >= 0; i--) {
@@ -743,6 +752,7 @@ function filterDataForRamSubFunction(usedRam, cacheRam, totalRam)
 	ramInfoArray_Cache.push(cacheRam);
 	document.getElementById('canvasMonitorRAM_Cache').innerHTML = cacheRam;
 	document.getElementById('canvasMonitorLoading_RAM').style.display = "none";
+	document.getElementById('ramCanvas').style.display = "block";
 	ramInfoArray_Cache.shift();
 	ramInfoArray_Used.shift();
 	ramAreaContext.clearRect(0, 0, ramArea.width, ramArea.height);
@@ -774,6 +784,7 @@ function filterDataForCPUSubFunction(userInfo, systemInfo, otherInfo)
 	document.getElementById('canvasMonitorCPU_Other').innerHTML = otherInfo;
 	cpuInfoArray_other.push(parseFloat(otherInfo));
 	document.getElementById('canvasMonitorLoading_CPU').style.display = "none";
+	document.getElementById('cpuCanvas').style.display = "block";
 	cpuInfoArray_User.shift();
 	cpuInfoArray_System.shift();
 	cpuInfoArray_other.shift();
