@@ -155,8 +155,9 @@ function filterDataForioStatDx(dataInner)
 	dataInner = filterData(dataInner, 5);
 	var dataInnerLength = dataInner.length;
 	var htmlForDiskIO = "<table style='width: 100%;'>";
+	htmlForDiskIO += "<tr><th>Disk</th><th>Read</th><th>Write</th></tr>"
 	var height = 38;
-	if(dataInnerLength > 4)
+	if(dataInnerLength > 3)
 	{
 		height = 24;
 	}	
