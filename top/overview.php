@@ -98,11 +98,7 @@ $useTop = false;
 				<div class="canvasMonitorText">CPU</div>
 				<img id="canvasMonitorLoading_CPU" style="margin-top: 75px; margin-left: 75px; position: absolute;" src='../core/img/loading.gif' height='50' width='50'> 
 				<canvas class="canvasMonitor" id="cpuCanvas" width="200" height="200"></canvas>
-				<?php if($useTop): ?>
 					<div class="canvasMonitorText">U <span id="canvasMonitorCPU_User">-</span>% | S <span id="canvasMonitorCPU_System">-</span>% | N <span id="canvasMonitorCPU_Other">-</span>%</div>
-				<?php else: ?>
-					<div class="canvasMonitorText"><span id="canvasMonitorCPU">-</span>%</div>
-				<?php endif; ?>
 			</div>
 			<div class="canvasMonitorDiv" >	
 				<div class="canvasMonitorText">RAM</div>
@@ -158,7 +154,8 @@ $useTop = false;
 	var swapInfoArray_heightVar = [];
 	var networkArrayOfArrays = [];
 	var networkArrayOfArraysDifference = [];
-
+	var processInfoArray = [];
+	var processInfoArrayDiff = [];
 	var processFilterByRow = 2;
 	var selectedUser = "USER";
 
@@ -226,6 +223,13 @@ $useTop = false;
 			})
 	}
 
+	function procStatFunc()
+	{
+		$.getJSON('../core/php/procStat.php', {}, function(data) {
+				processDataFromprocStat(data);
+			})
+	}
+
 	function procFree()
 	{
 		$.getJSON('../core/php/free.php', {}, function(data) {
@@ -245,6 +249,11 @@ $useTop = false;
 		$.getJSON('../core/php/dfAL.php', {}, function(data) {
 				processDataFrompsdfAL(data);
 			})
+	}
+
+	function processDataFromprocStat(data)
+	{
+		filterDataFromProcStat(data);
 	}
 
 	function processDataFromFree(data)
@@ -289,6 +298,7 @@ $useTop = false;
 		else
 		{
 			procFree();
+			procStatFunc();
 		}
 		psAuxFunction();
 		dfALFunction();

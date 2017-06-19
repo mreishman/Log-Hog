@@ -288,14 +288,38 @@ function filterDataForProcessesPreSort(dataInner)
 	dataInnerNewArrayOfArrays = filterData(dataInner, 10);
 	dataInnerNewArrayOfArrays.shift();
 	filterDataForProcesses(dataInnerNewArrayOfArrays);
-	if(!useTop && numberOfCores != 0)
+	
+}
+
+function filterDataFromProcStat(dataInner)
+{
+	dataInner = filterData(dataInner, 10);
+	processInfoArray.push([dataInner[0][1],dataInner[0][3],dataInner[0][4],dataInner[0][5]]);
+	if(processInfoArray.length > 1)
 	{
-		filterDataForCpuFromProcesses(dataInnerNewArrayOfArrays);
+		var processOneDiff = [processInfoArray[1][0]]-processInfoArray[0][0];
+		var processTwoDiff = [processInfoArray[1][1]]-processInfoArray[0][1];
+		var processThreeDiff = [processInfoArray[1][2]]-processInfoArray[0][2];
+		var processFourDiff = [processInfoArray[1][3]]-processInfoArray[0][3];
+		processInfoArrayDiff.push([processOneDiff, processTwoDiff, processThreeDiff, processFourDiff]);
+		if(processInfoArrayDiff.length > 20)
+		{
+			processInfoArrayDiff.shift();
+		}
+		processInfoArray.shift();
 	}
-	else if(!useTop)
-	{
-		numOfCoreFunction();
-	}
+	var currentLengthOfArray = processInfoArrayDiff.length;
+	var user = processInfoArrayDiff[currentLengthOfArray-1][0];
+	var sys = processInfoArrayDiff[currentLengthOfArray-1][1];
+	var idle = processInfoArrayDiff[currentLengthOfArray-1][2]; 
+	var iow = processInfoArrayDiff[currentLengthOfArray-1][3];
+	var active = user+sys+iow;
+	var total = active+idle;
+	var ptc = (active*100)/total;
+	var userInfo = ((user*100)/total).toFixed(1);
+	var systemInfo = ((sys*100)/total).toFixed(1);
+	var otherInfo = ((iow*100)/total).toFixed(1);
+	filterDataForCPUSubFunction(userInfo, systemInfo, otherInfo);
 }
 
 function numOfCoreFunction()
@@ -307,24 +331,6 @@ function numOfCoreFunction()
 			})
 		}
 	}
-
-function filterDataForCpuFromProcesses(dataInnerNewArrayOfArrays)
-{
-	var totalCPUUsage = 0;
-	for (var i = dataInnerNewArrayOfArrays.length - 1; i >= 0; i--) {
-		totalCPUUsage += parseFloat(dataInnerNewArrayOfArrays[i][2]);
-	}
-	totalCPUUsage = (totalCPUUsage/numberOfCores).toFixed(2);
-	document.getElementById('canvasMonitorCPU').innerHTML = totalCPUUsage;
-	cpuInfoArray_User.push(totalCPUUsage);
-	document.getElementById('canvasMonitorLoading_CPU').style.display = "none";
-	cpuInfoArray_User.shift();
-	cpuAreaContext.clearRect(0, 0, cpuArea.width, cpuArea.height);
-	for (var i = cpuInfoArray_heightVar.length - 1; i >= 0; i--) {
-		cpuInfoArray_heightVar[i] = 0;
-	}
-	fillAreaInChart(cpuInfoArray_User, cpuInfoArray_heightVar, "blue",cpuAreaContext, 200, 200);
-}
 
 function filterDataForProcesses(dataInnerNewArrayOfArrays)
 {
@@ -687,6 +693,11 @@ function filterDataForCPU(dataInner)
 	var userInfo = dataInner[0].substring(0, dataInner[0].length - 2);
 	var systemInfo = dataInner[1].substring(0, dataInner[1].length - 2);
 	var otherInfo = dataInner[2].substring(0, dataInner[2].length - 2);
+	filterDataForCPUSubFunction(userInfo, systemInfo, otherInfo);
+}
+
+function filterDataForCPUSubFunction(userInfo, systemInfo, otherInfo)
+{
 	document.getElementById('canvasMonitorCPU_User').innerHTML = userInfo;
 	cpuInfoArray_User.push(parseFloat(userInfo));
 	document.getElementById('canvasMonitorCPU_System').innerHTML = systemInfo;
