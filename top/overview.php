@@ -72,6 +72,9 @@ for($i = 0; $i < $newestVersionCount; $i++)
 	}
 }
 require_once('../core/php/loadVars.php');
+
+$useTop = false;
+
 ?>
 <!doctype html>
 <head>
@@ -95,7 +98,11 @@ require_once('../core/php/loadVars.php');
 				<div class="canvasMonitorText">CPU</div>
 				<img id="canvasMonitorLoading_CPU" style="margin-top: 75px; margin-left: 75px; position: absolute;" src='../core/img/loading.gif' height='50' width='50'> 
 				<canvas class="canvasMonitor" id="cpuCanvas" width="200" height="200"></canvas>
-				<div class="canvasMonitorText">U <span id="canvasMonitorCPU_User">-</span>% | S <span id="canvasMonitorCPU_System">-</span>% | N <span id="canvasMonitorCPU_Other">-</span>%</div>
+				<?php if($useTop): ?>
+					<div class="canvasMonitorText">U <span id="canvasMonitorCPU_User">-</span>% | S <span id="canvasMonitorCPU_System">-</span>% | N <span id="canvasMonitorCPU_Other">-</span>%</div>
+				<?php else: ?>
+					<div class="canvasMonitorText"><span id="canvasMonitorCPU">-</span>%</div>
+				<?php endif; ?>
 			</div>
 			<div class="canvasMonitorDiv" >	
 				<div class="canvasMonitorText">RAM</div>
@@ -137,7 +144,7 @@ require_once('../core/php/loadVars.php');
 	<script type="text/javascript">
 
 	var dataSwap = false;
-
+	var useTop = false;
 	var nullReturnForDefaultPoll = false;
 	var defaultArray = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 	var cpuInfoArray_User = [];
@@ -217,6 +224,13 @@ require_once('../core/php/loadVars.php');
 			})
 	}
 
+	function procFree()
+	{
+		$.getJSON('../core/php/free.php', {}, function(data) {
+				processDataFromFree(data);
+			})
+	}
+
 	function ioStatDxFunction()
 	{
 		$.getJSON('../core/php/ioStatDx.php', {}, function(data) {
@@ -231,6 +245,12 @@ require_once('../core/php/loadVars.php');
 			})
 	}
 
+	function processDataFromFree(data)
+	{
+		filterDataForFreeRam(data);
+		filterDataForFreeSwap(data);
+	}
+
 	function processDataFromioStatDx(data)
 	{
 		filterDataForioStatDx(data);
@@ -243,7 +263,7 @@ require_once('../core/php/loadVars.php');
 
 	function processDataFrompsAux(data)
 	{
-		filterDataForProcesses(data);
+		filterDataForProcessesPreSort(data);
 	}
 
 	function processDataFrompsdfAL(data)
@@ -260,13 +280,19 @@ require_once('../core/php/loadVars.php');
 
 	function poll()
 	{
-		topFunction();
+		if(useTop)
+		{
+			topFunction();
+		}
+		else
+		{
+			procFree();
+		}
 		psAuxFunction();
 		dfALFunction();
 		procNetDev();
 		ioStatDxFunction();
 	}
-
 
 	poll();
 	setInterval(poll, 5000);

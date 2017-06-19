@@ -118,8 +118,33 @@ function filterData(dataInner, maxRowNum)
 			
 		}
 	}
+	if(dataInnerNew.length > 0)
+	{
+		dataInnerNewArrayOfArrays.push(dataInnerNew);
+	}
 	return dataInnerNewArrayOfArrays;
 
+}
+
+function filterDataForFreeRam(dataInner)
+{
+	dataInner = "Memory " + dataInner;
+	dataInner = filterData(dataInner, 6);
+	
+	var totalRam = dataInner[1][1];
+	var usedRam = dataInner[1][2];
+	var cacheRam = dataInner[1][5];
+	filterDataForRamSubFunction(usedRam, cacheRam, totalRam);
+}
+
+function filterDataForFreeSwap(dataInner)
+{
+	dataInner = "Memory " + dataInner;
+	dataInner = filterData(dataInner, 6);
+
+	var totalSwap = dataInner[2][1];
+	var usedSwap = dataInner[2][2];	
+	filterDataForCacheSubFunction(totalSwap, usedSwap)
 }
 
 function filterDataForioStatDx(dataInner)
@@ -258,10 +283,36 @@ function filterProcessByUser()
 	psAuxFunction();
 }
 
-function filterDataForProcesses(dataInner)
+function filterDataForProcessesPreSort(dataInner)
 {
 	dataInnerNewArrayOfArrays = filterData(dataInner, 10);
 	dataInnerNewArrayOfArrays.shift();
+	filterDataForProcesses(dataInnerNewArrayOfArrays);
+	if(!useTop)
+	{
+		filterDataForCpuFromProcesses(dataInnerNewArrayOfArrays);
+	}
+}
+
+function filterDataForCpuFromProcesses(dataInnerNewArrayOfArrays)
+{
+	var totalCPUUsage = 0;
+	for (var i = dataInnerNewArrayOfArrays.length - 1; i >= 0; i--) {
+		totalCPUUsage += parseFloat(dataInnerNewArrayOfArrays[i][2]);
+	}
+	document.getElementById('canvasMonitorCPU').innerHTML = totalCPUUsage;
+	cpuInfoArray_User.push(totalCPUUsage);
+	document.getElementById('canvasMonitorLoading_CPU').style.display = "none";
+	cpuInfoArray_User.shift();
+	cpuAreaContext.clearRect(0, 0, cpuArea.width, cpuArea.height);
+	for (var i = cpuInfoArray_heightVar.length - 1; i >= 0; i--) {
+		cpuInfoArray_heightVar[i] = 0;
+	}
+	fillAreaInChart(cpuInfoArray_User, cpuInfoArray_heightVar, "blue",cpuAreaContext, 200, 200);
+}
+
+function filterDataForProcesses(dataInnerNewArrayOfArrays)
+{
 	var sortColumnNumber = Math.abs(processFilterByRow) - 1;
 	sortArray(dataInnerNewArrayOfArrays, sortColumnNumber);
 	if(!(processFilterByRow > 0))
@@ -560,6 +611,11 @@ function filterDataForCache(dataInner)
 	var totalSwap = dataInner[0].substring(0, dataInner[0].length - 5);
 	var freeSwap = dataInner[1].substring(0, dataInner[1].length - 4);
 	var usedSwap = dataInner[2].substring(0, dataInner[2].length - 4);
+	filterDataForCacheSubFunction(totalSwap, usedSwap);
+}
+
+function filterDataForCacheSubFunction(totalSwap, usedSwap)
+{
 	usedSwap = parseFloat(usedSwap)/parseInt(totalSwap);
 	usedSwap = (usedSwap*100).toFixed(1);
 	swapInfoArray_Used.push(usedSwap);
@@ -583,6 +639,11 @@ function filterDataForRAM(dataInner)
 	var freeRam = dataInner[1].substring(0, dataInner[1].length - 4);
 	var usedRam = dataInner[2].substring(0, dataInner[2].length - 4);
 	var cacheRam = dataInner[3].substring(0, dataInner[3].length - 10);
+	filterDataForRamSubFunction(usedRam, cacheRam, totalRam);
+}
+
+function filterDataForRamSubFunction(usedRam, cacheRam, totalRam)
+{
 	usedRam = parseFloat(usedRam)/parseInt(totalRam);
 	usedRam = (usedRam*100).toFixed(1);
 	ramInfoArray_Used.push(usedRam);
