@@ -288,11 +288,25 @@ function filterDataForProcessesPreSort(dataInner)
 	dataInnerNewArrayOfArrays = filterData(dataInner, 10);
 	dataInnerNewArrayOfArrays.shift();
 	filterDataForProcesses(dataInnerNewArrayOfArrays);
-	if(!useTop)
+	if(!useTop && numberOfCores != 0)
 	{
 		filterDataForCpuFromProcesses(dataInnerNewArrayOfArrays);
 	}
+	else if(!useTop)
+	{
+		numOfCoreFunction();
+	}
 }
+
+function numOfCoreFunction()
+	{
+		if(!dropdownMenuVisible)
+		{
+		$.getJSON('../core/php/numberOfCores.php', {}, function(data) {
+				numberOfCores = parseInt(data); 
+			})
+		}
+	}
 
 function filterDataForCpuFromProcesses(dataInnerNewArrayOfArrays)
 {
@@ -300,6 +314,7 @@ function filterDataForCpuFromProcesses(dataInnerNewArrayOfArrays)
 	for (var i = dataInnerNewArrayOfArrays.length - 1; i >= 0; i--) {
 		totalCPUUsage += parseFloat(dataInnerNewArrayOfArrays[i][2]);
 	}
+	totalCPUUsage = (totalCPUUsage/numberOfCores).toFixed(2);
 	document.getElementById('canvasMonitorCPU').innerHTML = totalCPUUsage;
 	cpuInfoArray_User.push(totalCPUUsage);
 	document.getElementById('canvasMonitorLoading_CPU').style.display = "none";

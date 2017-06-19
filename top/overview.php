@@ -183,6 +183,8 @@ $useTop = false;
 	var swapArea = document.getElementById('swapCanvas');
 	var swapAreaContext = swapArea.getContext("2d");
 
+	var numberOfCores = 0;
+
 	function topFunction()
 	{
 		if(nullReturnForDefaultPoll)
@@ -295,7 +297,7 @@ $useTop = false;
 	}
 
 	poll();
-	setInterval(poll, 5000);
+	setInterval(poll, 2000);
 	
 	var offsetHeight = 0;
 	var offsetHeight2 = 0;
