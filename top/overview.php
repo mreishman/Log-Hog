@@ -156,6 +156,8 @@ $useTop = false;
 	var networkArrayOfArraysDifference = [];
 	var processInfoArray = [];
 	var processInfoArrayDiff = [];
+	var ioDiff = [];
+	var ioDiffHistory = [];
 	var processFilterByRow = 2;
 	var selectedUser = "USER";
 

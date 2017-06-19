@@ -153,22 +153,90 @@ function filterDataForioStatDx(dataInner)
 	dataInner = dataInner.substring(dataInner.indexOf("kB_wrtn")+8);
 	dataInner = dataInner.substring(dataInner.indexOf("kB_wrtn")+8);
 	dataInner = filterData(dataInner, 5);
-	dataInnerLength = dataInner.length;
+	var dataInnerLength = dataInner.length;
 	var htmlForDiskIO = "<table style='width: 100%;'>";
-	var height = "50px";
-	if(dataInnerLength > 3)
+	var height = 38;
+	if(dataInnerLength > 4)
 	{
-		height = "25px";
+		height = 24;
 	}	
-	for(var i = 0; i < dataInnerLength; i++)
+	while(dataInnerLength > 6)
 	{
-		htmlForDiskIO += "<tr><td>"+dataInner[i][0]+"</td>";	
-		htmlForDiskIO += "<td><canvas style='background-color: #333; border: 1px solid white;' width='100px' height='"+height+"'></canvas></td>";
-		htmlForDiskIO += "</tr>";	
+		dataInner.pop();
+		dataInnerLength = dataInner.length;
 	}
-	htmlForDiskIO += "</table>";
-	document.getElementById('DIOCanvas').innerHTML = htmlForDiskIO;
-	document.getElementById('canvasMonitorLoading_DIO').style.display = "none";
+	ioDiff.push(dataInner);
+	var ioDiffLength = ioDiff.length;
+	if(ioDiffLength > 1)
+	{
+		var outerArrayToPush = [];
+		for(var i = 0; i < dataInnerLength; i++)
+		{
+			var arrayToPush = [];
+			htmlForDiskIO += "<tr><td>"+dataInner[i][0]+"</td>";	
+			htmlForDiskIO += "<td><canvas id='diskIO"+i+"-read' style='background-color: #333; border: 1px solid white;' width='65px' height='"+height+"px'></canvas></td>";
+			htmlForDiskIO += "<td><canvas id='diskIO"+i+"-write' style='background-color: #333; border: 1px solid white;' width='65px' height='"+height+"'></canvas></td>";
+			htmlForDiskIO += "</tr>";	
+			if(ioDiffLength > 1)
+			{
+				var read = parseInt(ioDiff[1][i][4]) - parseInt(ioDiff[0][i][4]) //read
+				var written = parseInt(ioDiff[1][i][5]) - parseInt(ioDiff[0][i][5]) //written
+				arrayToPush = [read,written];
+			}
+			outerArrayToPush.push(arrayToPush);
+		}
+		ioDiffHistory.push(outerArrayToPush);
+		if(ioDiffHistory.length > 20)
+		{
+			ioDiffHistory.shift();
+		}
+		htmlForDiskIO += "</table>";
+		document.getElementById('DIOCanvas').innerHTML = htmlForDiskIO;
+		document.getElementById('canvasMonitorLoading_DIO').style.display = "none";
+		for(var i = 0; i < dataInnerLength; i++)
+		{
+			//create array from column in array of arrays 
+			var arrayToShowInConsole = new Array();
+			var baseArray = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+			ioDiffLength = ioDiffHistory.length-1;
+			for (var j = 0; j < (20 - ioDiffLength); j++) 
+			{
+				arrayToShowInConsole.push(0);
+			}
+			for (var j = 0; j < (ioDiffLength); j++) 
+			{
+				arrayToShowInConsole.push(ioDiffHistory[j][i][0]);
+			}
+			var maxOfArray = Math.max.apply(Math, arrayToShowInConsole);
+			var arrayToShowInConsoleLength = arrayToShowInConsole.length;
+			for(var j = 0; j < arrayToShowInConsoleLength; j++)
+			{
+				arrayToShowInConsole[j] = (arrayToShowInConsole[j]/maxOfArray)*100;
+			}
+			var fillThis = document.getElementById("diskIO"+i+"-read").getContext("2d");
+			fillAreaInChart(arrayToShowInConsole, baseArray, "blue",fillThis, height, 65);
+
+			arrayToShowInConsole = new Array();
+			baseArray = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+			for (var j = 0; j < (20 - ioDiffLength); j++) 
+			{
+				arrayToShowInConsole.push(0);
+			}
+			for (var j = 0; j < (ioDiffLength); j++) 
+			{
+				arrayToShowInConsole.push(ioDiffHistory[j][i][1]);
+			}
+			maxOfArray = Math.max.apply(Math, arrayToShowInConsole);
+			arrayToShowInConsoleLength = arrayToShowInConsole.length;
+			for(var j = 0; j < arrayToShowInConsoleLength; j++)
+			{
+				arrayToShowInConsole[j] = (arrayToShowInConsole[j]/maxOfArray)*100;
+			}
+			fillThis = document.getElementById("diskIO"+i+"-write").getContext("2d");
+			fillAreaInChart(arrayToShowInConsole, baseArray, "blue",fillThis, height, 65);
+		}
+		ioDiff.shift();
+	}
 }
 
 function filterDataForNetworkDev(dataInner)
@@ -307,19 +375,19 @@ function filterDataFromProcStat(dataInner)
 			processInfoArrayDiff.shift();
 		}
 		processInfoArray.shift();
+		var currentLengthOfArray = processInfoArrayDiff.length;
+		var user = processInfoArrayDiff[currentLengthOfArray-1][0];
+		var sys = processInfoArrayDiff[currentLengthOfArray-1][1];
+		var idle = processInfoArrayDiff[currentLengthOfArray-1][2]; 
+		var iow = processInfoArrayDiff[currentLengthOfArray-1][3];
+		var active = user+sys+iow;
+		var total = active+idle;
+		var ptc = (active*100)/total;
+		var userInfo = ((user*100)/total).toFixed(1);
+		var systemInfo = ((sys*100)/total).toFixed(1);
+		var otherInfo = ((iow*100)/total).toFixed(1);
+		filterDataForCPUSubFunction(userInfo, systemInfo, otherInfo);
 	}
-	var currentLengthOfArray = processInfoArrayDiff.length;
-	var user = processInfoArrayDiff[currentLengthOfArray-1][0];
-	var sys = processInfoArrayDiff[currentLengthOfArray-1][1];
-	var idle = processInfoArrayDiff[currentLengthOfArray-1][2]; 
-	var iow = processInfoArrayDiff[currentLengthOfArray-1][3];
-	var active = user+sys+iow;
-	var total = active+idle;
-	var ptc = (active*100)/total;
-	var userInfo = ((user*100)/total).toFixed(1);
-	var systemInfo = ((sys*100)/total).toFixed(1);
-	var otherInfo = ((iow*100)/total).toFixed(1);
-	filterDataForCPUSubFunction(userInfo, systemInfo, otherInfo);
 }
 
 function numOfCoreFunction()
