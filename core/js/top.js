@@ -27,7 +27,7 @@ function fillAreaInChart(arrayForFill, bottomArray, color, context, height, widt
 {
 	context.fillStyle = color;
 	var totalWidthOfEachElement = width/bottomArray.length;
-	for (var i = arrayForFill.length - 1; i >= 0; i--) 
+	for (var i = bottomArray.length - 1; i >= 0; i--) 
 	{
 		var heightOfElement = height*(arrayForFill[i]/100);
 		context.fillRect((totalWidthOfEachElement*(i)),(height-heightOfElement-bottomArray[i]),totalWidthOfEachElement,heightOfElement);
@@ -128,8 +128,79 @@ function filterData(dataInner, maxRowNum)
 
 function filterDataFromRUsage(dataInner)
 {
-	//dataInner['ru_utime.tv_usec'];
-	//dataInner['ru_stime.tv_usec'];
+	phpUserTimeDiff.push((parseFloat(dataInner['ru_utime.tv_usec'])) + (1000000*dataInner["ru_utime.tv_sec"]));
+	if(phpUserTimeDiff.length > 1)
+	{
+		var phpUserTimeDiffForHistory = phpUserTimeDiff[1] - phpUserTimeDiff[0];
+		filterDataFromRUsageUser(phpUserTimeDiffForHistory);
+		phpUserTimeDiff.shift();
+	}
+	phpSystemTimeDiff.push(parseFloat(dataInner['ru_stime.tv_usec']));
+	if(phpSystemTimeDiff.length > 1)
+	{
+		if(phpSystemTimeDiff[1] < phpSystemTimeDiff[0])
+		{
+			baseForSystemTime += 1000000;
+		}
+		phpSystemTimeDiff[1] = phpSystemTimeDiff[1] + baseForSystemTime;
+		phpSystemTimeDiffForHistory = phpSystemTimeDiff[1] - phpSystemTimeDiff[0]
+		filterDataFromRUsageSystem(phpSystemTimeDiffForHistory);
+		phpSystemTimeDiff.shift();
+	}
+}
+
+function filterDataFromRUsageUser(phpUserTimeDiffForHistory)
+{
+	phpUserTimeHistory.push(phpUserTimeDiffForHistory);
+	phpUserTimeHistory.shift();
+
+	document.getElementById('canvasMonitorLoading_PHP_UTU').style.display = "none";
+	document.getElementById('PHPUTUCanvas').style.display = "block";
+
+	var arrayToShowInConsole = new Array();
+	var baseArray = new Array();
+	phpUserTimeHistoryLength = phpUserTimeHistory.length;
+	for (var j = 0; j < (phpUserTimeHistoryLength); j++) 
+	{
+		arrayToShowInConsole.push(phpUserTimeHistory[j]);
+		baseArray.push(0);
+	}
+	var maxOfArray = Math.max.apply(Math, arrayToShowInConsole);
+	var arrayToShowInConsoleLength = arrayToShowInConsole.length;
+	document.getElementById('canvasMonitorPHPUTUText').innerHTML = arrayToShowInConsole[arrayToShowInConsoleLength-1] + "/" + maxOfArray;
+	for(var j = 0; j < arrayToShowInConsoleLength; j++)
+	{
+		arrayToShowInConsole[j] = ((arrayToShowInConsole[j]/maxOfArray)*100).toFixed(1);
+	}
+	phpUserTimeAreaContext.clearRect(0, 0, 200, 200);
+	fillAreaInChart(arrayToShowInConsole, baseArray, "blue",phpUserTimeAreaContext, 200, 200);
+}
+
+function filterDataFromRUsageSystem(phpSystemTimeDiffForHistory)
+{
+	phpSystemTimeHistory.push(phpSystemTimeDiffForHistory);
+	phpSystemTimeHistory.shift();
+
+	document.getElementById('canvasMonitorLoading_PHP_STU').style.display = "none";
+	document.getElementById('PHPSTUCanvas').style.display = "block";
+
+	var arrayToShowInConsole = new Array();
+	var baseArray = new Array();
+	phpSystemTimeHistoryLength = phpSystemTimeHistory.length;
+	for (var j = 0; j < (phpSystemTimeHistoryLength); j++) 
+	{
+		arrayToShowInConsole.push(phpSystemTimeHistory[j]);
+		baseArray.push(0);
+	}
+	var maxOfArray = Math.max.apply(Math, arrayToShowInConsole);
+	var arrayToShowInConsoleLength = arrayToShowInConsole.length;
+	for(var j = 0; j < arrayToShowInConsoleLength; j++)
+	{
+		arrayToShowInConsole[j] = ((arrayToShowInConsole[j]/maxOfArray)*100).toFixed(1);
+	}
+	var fillThis = document.getElementById("PHPSTUCanvas").getContext("2d");
+	fillThis.clearRect(0, 0, 200, 200);
+	fillAreaInChart(arrayToShowInConsole, baseArray, "blue",fillThis, 200, 200);
 }
 
 function filterDataForFreeRam(dataInner)
@@ -219,7 +290,7 @@ function filterDataForioStatDx(dataInner)
 			var arrayToShowInConsoleLength = arrayToShowInConsole.length;
 			for(var j = 0; j < arrayToShowInConsoleLength; j++)
 			{
-				arrayToShowInConsole[j] = (arrayToShowInConsole[j]/maxOfArray)*100;
+				arrayToShowInConsole[j] = ((arrayToShowInConsole[j]/maxOfArray)*100).toFixed(1);
 			}
 			var fillThis = document.getElementById("diskIO"+i+"-read").getContext("2d");
 			fillAreaInChart(arrayToShowInConsole, baseArray, "blue",fillThis, height, 65);
@@ -238,7 +309,7 @@ function filterDataForioStatDx(dataInner)
 			arrayToShowInConsoleLength = arrayToShowInConsole.length;
 			for(var j = 0; j < arrayToShowInConsoleLength; j++)
 			{
-				arrayToShowInConsole[j] = (arrayToShowInConsole[j]/maxOfArray)*100;
+				arrayToShowInConsole[j] = ((arrayToShowInConsole[j]/maxOfArray)*100).toFixed(1);
 			}
 			fillThis = document.getElementById("diskIO"+i+"-write").getContext("2d");
 			fillAreaInChart(arrayToShowInConsole, baseArray, "blue",fillThis, height, 65);
@@ -325,7 +396,7 @@ function filterDataForNetworkDev(dataInner)
 			var arrayToShowInConsoleLength = arrayToShowInConsole.length;
 			for(var j = 0; j < arrayToShowInConsoleLength; j++)
 			{
-				arrayToShowInConsole[j] = (arrayToShowInConsole[j]/maxOfArray)*100;
+				arrayToShowInConsole[j] = ((arrayToShowInConsole[j]/maxOfArray)*100).toFixed(1);
 			}
 			var fillThis = document.getElementById(networkArrayOfArrays[count][i][0]+"-downloadCanvas").getContext("2d");
 			fillAreaInChart(arrayToShowInConsole, baseArray, "blue",fillThis, 100, 200);
@@ -345,7 +416,7 @@ function filterDataForNetworkDev(dataInner)
 			arrayToShowInConsoleLength = arrayToShowInConsole.length;
 			for(var j = 0; j < arrayToShowInConsoleLength; j++)
 			{
-				arrayToShowInConsole[j] = (arrayToShowInConsole[j]/maxOfArray)*100;
+				arrayToShowInConsole[j] = ((arrayToShowInConsole[j]/maxOfArray)*100).toFixed(1);
 			}
 			fillThis = document.getElementById(networkArrayOfArrays[count][i][0]+"-uploadCanvas").getContext("2d");
 			fillAreaInChart(arrayToShowInConsole, baseArray, "blue",fillThis, 100, 200);

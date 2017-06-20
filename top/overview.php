@@ -127,14 +127,14 @@ $useTop = false;
 			<div class="canvasMonitorDiv" >	
 				<div class="canvasMonitorText">PHP User Time Used</div>
 				<img id="canvasMonitorLoading_PHP_UTU" class="loadingSpinner" src='../core/img/loading.gif' height='50' width='50'> 
-				<canvas style="display: none;" class="canvasMonitor" id="PHPTUTCanvas" width="200" height="200"></canvas>
-				<div class="canvasMonitorText"><span style="color: white;">n/a</span></div>
+				<canvas style="display: none;" class="canvasMonitor" id="PHPUTUCanvas" width="200" height="200"></canvas>
+				<div class="canvasMonitorText"><span id="canvasMonitorPHPUTUText" >-</span></div>
 			</div>
 			<div class="canvasMonitorDiv" >	
 				<div class="canvasMonitorText">PHP System Time Used</div>
 				<img id="canvasMonitorLoading_PHP_STU" class="loadingSpinner" src='../core/img/loading.gif' height='50' width='50'> 
 				<canvas style="display: none;" class="canvasMonitor" id="PHPSTUCanvas" width="200" height="200"></canvas>
-				<div class="canvasMonitorText"><span style="color: white;">n/a</span></div>
+				<div class="canvasMonitorText"><span id="canvasMonitorPHPSTUText" >-</span></div>
 			</div>
 
 		</div>
@@ -170,8 +170,13 @@ $useTop = false;
 	var processInfoArrayDiff = [];
 	var ioDiff = [];
 	var ioDiffHistory = [];
+	var phpUserTimeDiff = [];
+	var phpSystemTimeDiff = [];
+	var phpUserTimeHistory = [];
+	var phpSystemTimeHistory = [];
 	var processFilterByRow = 2;
 	var selectedUser = "USER";
+	var baseForSystemTime = 0;
 
 	for (var i = defaultArray.length - 1; i >= 0; i--) {
 		cpuInfoArray_User.push(defaultArray[i]);
@@ -183,6 +188,8 @@ $useTop = false;
 		ramInfoArray_heightVar.push(defaultArray[i]);
 		swapInfoArray_Used.push(defaultArray[i]);
 		swapInfoArray_heightVar.push(defaultArray[i]);
+		phpUserTimeHistory.push(defaultArray[i]);
+		phpSystemTimeHistory.push(defaultArray[i]);
 	}
 
 	var cpuArea = document.getElementById('cpuCanvas');
@@ -193,6 +200,9 @@ $useTop = false;
 
 	var swapArea = document.getElementById('swapCanvas');
 	var swapAreaContext = swapArea.getContext("2d");
+
+	var phpUserTimeArea = document.getElementById("PHPUTUCanvas");
+	var phpUserTimeAreaContext = phpUserTimeArea.getContext("2d");
 
 	var numberOfCores = 0;
 
