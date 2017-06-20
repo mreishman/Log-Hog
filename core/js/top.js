@@ -879,7 +879,7 @@ function filterDataForRamSubFunction(usedRam, cacheRam, totalRam)
 		for (var i = ramInfoArray_heightVar.length - 1; i >= 0; i--) {
 		ramInfoArray_heightVar[i] = 0;
 		}
-		fillAreaInChartNew(ramInfoArray_Used, ramInfoArray_heightVar, "blue",ramPopupAreaContext, ramPopupArea.height, ramPopupArea.width,2);
+		fillAreaInChart(ramInfoArray_Used, ramInfoArray_heightVar, "blue",ramPopupAreaContext, ramPopupArea.height, ramPopupArea.width,2);
 		fillAreaInChart(ramInfoArray_Cache, ramInfoArray_heightVar, "red",ramPopupAreaContext, ramPopupArea.height, ramPopupArea.width,2);
 		document.getElementById('popupGraphLowerTr').innerHTML = "<th>All: "+((parseFloat(usedRam)+parseFloat(cacheRam)).toFixed(1))+"%</th><th>Used: "+usedRam+"%</th><th>Cache: "+cacheRam+"%</th>";
 	}
