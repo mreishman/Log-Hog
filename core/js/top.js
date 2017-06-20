@@ -35,6 +35,26 @@ function fillAreaInChart(arrayForFill, bottomArray, color, context, height, widt
 	}
 }
 
+function fillAreaInChartNew(arrayForFill, bottomArray, color, context, height, width)
+{
+	context.fillStyle = color;
+	var totalWidthOfEachElement = width/(bottomArray.length-1);
+	var bottomArrayTmp = bottomArray;
+	for (var i = bottomArray.length - 1; i > 0; i--) 
+	{
+		var heightOfElement = (height*(arrayForFill[i]/100));
+		//context.fillRect((totalWidthOfEachElement*(i)),(height-heightOfElement-bottomArray[i]),totalWidthOfEachElement,heightOfElement);
+		context.beginPath();
+		context.moveTo((totalWidthOfEachElement*(i-1)),(height-(height*(arrayForFill[i-1]/100))-bottomArrayTmp[i-1]));
+		context.lineTo((totalWidthOfEachElement*(i-1)),(height+(height*(arrayForFill[i-1]/100))-bottomArrayTmp[i-1]));
+		context.lineTo((totalWidthOfEachElement*(i)),(height+(height*(arrayForFill[i]/100))-bottomArrayTmp[i]));
+		context.lineTo((totalWidthOfEachElement*(i)),(height-(height*(arrayForFill[i]/100))-bottomArrayTmp[i]));
+		context.closePath();
+		context.fill();
+		bottomArray[i] = bottomArray[i]+heightOfElement;
+	}
+}
+
 function sortArray(array, column)
 {
 	array.sort(function(a,b)
@@ -846,8 +866,8 @@ function filterDataForRamSubFunction(usedRam, cacheRam, totalRam)
 		for (var i = ramInfoArray_heightVar.length - 1; i >= 0; i--) {
 		ramInfoArray_heightVar[i] = 0;
 		}
-		fillAreaInChart(ramInfoArray_Used, ramInfoArray_heightVar, "blue",ramPopupAreaContext, ramPopupArea.height, ramPopupArea.width);
-		fillAreaInChart(ramInfoArray_Cache, ramInfoArray_heightVar, "red",ramPopupAreaContext, ramPopupArea.height, ramPopupArea.width);
+		fillAreaInChartNew(ramInfoArray_Used, ramInfoArray_heightVar, "blue",ramPopupAreaContext, ramPopupArea.height, ramPopupArea.width);
+		fillAreaInChartNew(ramInfoArray_Cache, ramInfoArray_heightVar, "red",ramPopupAreaContext, ramPopupArea.height, ramPopupArea.width);
 		document.getElementById('popupGraphLowerTr').innerHTML = "<th>All: "+((parseFloat(usedRam)+parseFloat(cacheRam)).toFixed(1))+"%</th><th>Used: "+usedRam+"%</th><th>Cache: "+cacheRam+"%</th>";
 	}
 }
@@ -894,9 +914,9 @@ function filterDataForCPUSubFunction(userInfo, systemInfo, otherInfo)
 		for (var i = cpuInfoArray_heightVar.length - 1; i >= 0; i--) {
 		cpuInfoArray_heightVar[i] = 0;
 		}
-		fillAreaInChart(cpuInfoArray_User, cpuInfoArray_heightVar, "blue",cpuAreaPopupContext, cpuAreaPopup.height, cpuAreaPopup.width);
-		fillAreaInChart(cpuInfoArray_System, cpuInfoArray_heightVar, "red",cpuAreaPopupContext, cpuAreaPopup.height, cpuAreaPopup.width);
-		fillAreaInChart(cpuInfoArray_other, cpuInfoArray_heightVar, "yellow",cpuAreaPopupContext, cpuAreaPopup.height, cpuAreaPopup.width);
+		fillAreaInChartNew(cpuInfoArray_User, cpuInfoArray_heightVar, "blue",cpuAreaPopupContext, cpuAreaPopup.height, cpuAreaPopup.width);
+		fillAreaInChartNew(cpuInfoArray_System, cpuInfoArray_heightVar, "red",cpuAreaPopupContext, cpuAreaPopup.height, cpuAreaPopup.width);
+		fillAreaInChartNew(cpuInfoArray_other, cpuInfoArray_heightVar, "yellow",cpuAreaPopupContext, cpuAreaPopup.height, cpuAreaPopup.width);
 		document.getElementById('popupGraphLowerTr').innerHTML = "<th>All: "+((parseFloat(userInfo)+parseFloat(systemInfo)+parseFloat(otherInfo)).toFixed(1))+"%</th><th>User: "+userInfo+"%</th><th>System: "+systemInfo+"%</th><th>Other: "+otherInfo+"%</th>";
 	}
 }
