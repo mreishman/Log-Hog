@@ -94,13 +94,13 @@ $useTop = false;
 
 	<div id="main">
 		<div id="topBarOverview">
-			<div onclick="showGraphPopup('cpuPopupCanvas')" style="cursor: pointer;" class="canvasMonitorDiv" >	
+			<div onclick="showGraphPopup('cpuPopupCanvas','CPU')" style="cursor: pointer;" class="canvasMonitorDiv" >	
 				<div class="canvasMonitorText">CPU</div>
 				<img id="canvasMonitorLoading_CPU" class="loadingSpinner" src='../core/img/loading.gif' height='50' width='50'> 
 				<canvas style="display: none;" class="canvasMonitor" id="cpuCanvas" width="200" height="200"></canvas>
 					<div class="canvasMonitorText">U <span id="canvasMonitorCPU_User">-</span>% | S <span id="canvasMonitorCPU_System">-</span>% | N <span id="canvasMonitorCPU_Other">-</span>%</div>
 			</div>
-			<div class="canvasMonitorDiv" >	
+			<div onclick="showGraphPopup('ramPopupCanvas','RAM')" style="cursor: pointer;" class="canvasMonitorDiv" >	
 				<div class="canvasMonitorText">RAM</div>
 				<img id="canvasMonitorLoading_RAM" class="loadingSpinner" src='../core/img/loading.gif' height='50' width='50'> 
 				<canvas style="display: none;" class="canvasMonitor" id="ramCanvas" width="200" height="200"></canvas>
@@ -334,7 +334,7 @@ $useTop = false;
 		filterDataForCache(data);
 	}
 
-	function showGraphPopup(graph)
+	function showGraphPopup(graph, name)
 	{
 		showPopup();
 		var w = window.innerWidth;
@@ -343,7 +343,7 @@ $useTop = false;
 		var width = (w*0.95);
 		heightForPopup = ((height*0.95)-125);
 		widthForPopup = (width*0.95);
-		document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' ><table style='width:100%; color:black;'><tr><th style='text-align:left;' >CPU</th><th style='text-align:right;'><a class='link' onclick='hidePopup();'>Close</a></th></tr></table></div><br><br><div style='width:100%;text-align:center;'><img id='popupGraphLoadingSpinner' style='padding-top: "+((heightForPopup/2)-25)+"px; padding-bottom: "+((heightForPopup/2)-25)+"px;' src='../core/img/loading.gif' height='50' width='50'><canvas style='display:none;' class='canvasMonitor' id='"+graph+"' width='"+widthForPopup+"' height='"+heightForPopup+"' ></canvas><br><br><div class='settingsHeader' ><table style='width:100%; color:black;'><tr id='popupGraphLowerTr' ><th></th></tr></table></div>  </div>";
+		document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' ><table style='width:100%; color:black;'><tr><th style='text-align:left;' >"+name+"</th><th style='text-align:right;'><a class='link' onclick='hidePopup();'>Close</a></th></tr></table></div><br><br><div style='width:100%;text-align:center;'><img id='popupGraphLoadingSpinner' style='padding-top: "+((heightForPopup/2)-25)+"px; padding-bottom: "+((heightForPopup/2)-25)+"px;' src='../core/img/loading.gif' height='50' width='50'><canvas style='display:none;' class='canvasMonitor' id='"+graph+"' width='"+widthForPopup+"' height='"+heightForPopup+"' ></canvas><br><br><div class='settingsHeader' ><table style='width:100%; color:black;'><tr id='popupGraphLowerTr' ><th></th></tr></table></div>  </div>";
 		document.getElementById('popupContent').style.width = width+"px";
 		document.getElementById('popupContent').style.height = height+"px";
 		document.getElementById('popupContent').style.marginTop = "-"+(height/2)+"px";

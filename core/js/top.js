@@ -834,8 +834,22 @@ function filterDataForRamSubFunction(usedRam, cacheRam, totalRam)
 	for (var i = ramInfoArray_heightVar.length - 1; i >= 0; i--) {
 		ramInfoArray_heightVar[i] = 0;
 	}
-	fillAreaInChart(ramInfoArray_Used, ramInfoArray_heightVar, "blue",ramAreaContext, 200, 200);
-	fillAreaInChart(ramInfoArray_Cache, ramInfoArray_heightVar, "red",ramAreaContext, 200, 200);
+	fillAreaInChart(ramInfoArray_Used, ramInfoArray_heightVar, "blue",ramAreaContext, ramArea.height, ramArea.width);
+	fillAreaInChart(ramInfoArray_Cache, ramInfoArray_heightVar, "red",ramAreaContext, ramArea.height, ramArea.width);
+	var ramPopupArea = document.getElementById('ramPopupCanvas');
+	if(ramPopupArea)
+	{
+		document.getElementById('popupGraphLoadingSpinner').style.display = "none";
+		ramPopupArea.style.display = "inline-block";
+		var ramPopupAreaContext = ramPopupArea.getContext("2d");
+		ramPopupAreaContext.clearRect(0, 0, ramPopupArea.width, ramPopupArea.height);
+		for (var i = ramInfoArray_heightVar.length - 1; i >= 0; i--) {
+		ramInfoArray_heightVar[i] = 0;
+		}
+		fillAreaInChart(ramInfoArray_Used, ramInfoArray_heightVar, "blue",ramPopupAreaContext, ramPopupArea.height, ramPopupArea.width);
+		fillAreaInChart(ramInfoArray_Cache, ramInfoArray_heightVar, "red",ramPopupAreaContext, ramPopupArea.height, ramPopupArea.width);
+		document.getElementById('popupGraphLowerTr').innerHTML = "<th>All: "+((parseFloat(usedRam)+parseFloat(cacheRam)).toFixed(1))+"%</th><th>Used: "+usedRam+"%</th><th>Cache: "+cacheRam+"%</th>";
+	}
 }
 
 function filterDataForCPU(dataInner)
@@ -867,9 +881,9 @@ function filterDataForCPUSubFunction(userInfo, systemInfo, otherInfo)
 	for (var i = cpuInfoArray_heightVar.length - 1; i >= 0; i--) {
 		cpuInfoArray_heightVar[i] = 0;
 	}
-	fillAreaInChart(cpuInfoArray_User, cpuInfoArray_heightVar, "blue",cpuAreaContext, 200, 200);
-	fillAreaInChart(cpuInfoArray_System, cpuInfoArray_heightVar, "red",cpuAreaContext, 200, 200);
-	fillAreaInChart(cpuInfoArray_other, cpuInfoArray_heightVar, "yellow",cpuAreaContext, 200, 200);
+	fillAreaInChart(cpuInfoArray_User, cpuInfoArray_heightVar, "blue",cpuAreaContext, cpuArea.height, cpuArea.width);
+	fillAreaInChart(cpuInfoArray_System, cpuInfoArray_heightVar, "red",cpuAreaContext, cpuArea.height, cpuArea.width);
+	fillAreaInChart(cpuInfoArray_other, cpuInfoArray_heightVar, "yellow",cpuAreaContext, cpuArea.height, cpuArea.width);
 	var cpuAreaPopup = document.getElementById('cpuPopupCanvas');
 	if(cpuAreaPopup)
 	{
