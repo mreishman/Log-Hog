@@ -150,11 +150,15 @@ $useTop = false;
 	<?php readfile('../core/html/popup.html') ?>	
 	<script src="../core/js/top.js"></script>
 	<script type="text/javascript">
-
+	var numberOfColumns = 40;
+	var defaultArray = new Array();
+	for (var i = 0; i < numberOfColumns; i++) 
+	{
+		defaultArray.push(0);
+	}
 	var dataSwap = false;
 	var useTop = false;
 	var nullReturnForDefaultPoll = false;
-	var defaultArray = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 	var cpuInfoArray_User = [];
 	var cpuInfoArray_heightVar = [];
 	var cpuInfoArray_other = [];
@@ -339,15 +343,21 @@ $useTop = false;
 			procFree();
 			procStatFunc();
 		}
-		psAuxFunction();
-		dfALFunction();
 		procNetDev();
 		ioStatDxFunction();
 		getRUsageFunction();
 	}
 
+	function slowPoll()
+	{
+		dfALFunction();
+		psAuxFunction();
+	}
+
 	poll();
-	setInterval(poll, 2000);
+	slowPoll();
+	setInterval(poll, 1000);
+	setInterval(slowPoll, 10000);
 	
 	var offsetHeight = 0;
 	var offsetHeight2 = 0;

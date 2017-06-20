@@ -138,10 +138,16 @@ function filterDataFromRUsage(dataInner)
 	phpSystemTimeDiff.push(parseFloat(dataInner['ru_stime.tv_usec']));
 	if(phpSystemTimeDiff.length > 1)
 	{
-		phpSystemTimeDiff[1] = phpSystemTimeDiff[1] + baseForSystemTime;
 		phpSystemTimeDiffForHistory = phpSystemTimeDiff[1] - phpSystemTimeDiff[0]
-		filterDataFromRUsageSystem(phpSystemTimeDiffForHistory);
-		phpSystemTimeDiff.shift();
+		if(phpSystemTimeDiff[1] < phpSystemTimeDiff[0])
+		{
+			phpSystemTimeDiffForHistory = phpSystemTimeDiff[1] - (phpSystemTimeDiff[0]+1000000);
+		}
+		if(phpSystemTimeDiffForHistory > 0)
+		{
+			filterDataFromRUsageSystem(phpSystemTimeDiffForHistory);
+			phpSystemTimeDiff.shift();
+		}
 	}
 }
 
