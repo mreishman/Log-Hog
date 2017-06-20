@@ -138,10 +138,6 @@ function filterDataFromRUsage(dataInner)
 	phpSystemTimeDiff.push(parseFloat(dataInner['ru_stime.tv_usec']));
 	if(phpSystemTimeDiff.length > 1)
 	{
-		if(phpSystemTimeDiff[1] < phpSystemTimeDiff[0])
-		{
-			baseForSystemTime += 1000000;
-		}
 		phpSystemTimeDiff[1] = phpSystemTimeDiff[1] + baseForSystemTime;
 		phpSystemTimeDiffForHistory = phpSystemTimeDiff[1] - phpSystemTimeDiff[0]
 		filterDataFromRUsageSystem(phpSystemTimeDiffForHistory);
@@ -194,6 +190,7 @@ function filterDataFromRUsageSystem(phpSystemTimeDiffForHistory)
 	}
 	var maxOfArray = Math.max.apply(Math, arrayToShowInConsole);
 	var arrayToShowInConsoleLength = arrayToShowInConsole.length;
+	document.getElementById('canvasMonitorPHPSTUText').innerHTML = arrayToShowInConsole[arrayToShowInConsoleLength-1] + "/" + maxOfArray;
 	for(var j = 0; j < arrayToShowInConsoleLength; j++)
 	{
 		arrayToShowInConsole[j] = ((arrayToShowInConsole[j]/maxOfArray)*100).toFixed(1);
