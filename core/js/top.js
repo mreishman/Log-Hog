@@ -23,7 +23,20 @@ window.onclick = function(event) {
 	}
 }
 
-function fillAreaInChart(arrayForFill, bottomArray, color, context, height, width)
+function fillAreaInChart(arrayForFill, bottomArray, color, context, height, width, type)
+{
+	if(type == 1)
+	{
+		fillAreaInChartVersionOne(arrayForFill, bottomArray, color, context, height, width);
+	}
+	else
+	{
+		//type == 2
+		fillAreaInChartVersionTwo(arrayForFill, bottomArray, color, context, height, width);
+	}
+}
+
+function fillAreaInChartVersionOne(arrayForFill, bottomArray, color, context, height, width)
 {
 	context.fillStyle = color;
 	var totalWidthOfEachElement = width/bottomArray.length;
@@ -35,7 +48,7 @@ function fillAreaInChart(arrayForFill, bottomArray, color, context, height, widt
 	}
 }
 
-function fillAreaInChartNew(arrayForFill, bottomArray, color, context, height, width)
+function fillAreaInChartVersionTwo(arrayForFill, bottomArray, color, context, height, width)
 {
 	context.fillStyle = color;
 	var totalWidthOfEachElement = width/(bottomArray.length-1);
@@ -196,7 +209,7 @@ function filterDataFromRUsageUser(phpUserTimeDiffForHistory)
 		arrayToShowInConsole[j] = ((arrayToShowInConsole[j]/maxOfArray)*100).toFixed(1);
 	}
 	phpUserTimeAreaContext.clearRect(0, 0, 200, 200);
-	fillAreaInChart(arrayToShowInConsole, baseArray, "blue",phpUserTimeAreaContext, 200, 200);
+	fillAreaInChart(arrayToShowInConsole, baseArray, "blue",phpUserTimeAreaContext, 200, 200,1);
 }
 
 function filterDataFromRUsageSystem(phpSystemTimeDiffForHistory)
@@ -224,7 +237,7 @@ function filterDataFromRUsageSystem(phpSystemTimeDiffForHistory)
 	}
 	var fillThis = document.getElementById("PHPSTUCanvas").getContext("2d");
 	fillThis.clearRect(0, 0, 200, 200);
-	fillAreaInChart(arrayToShowInConsole, baseArray, "blue",fillThis, 200, 200);
+	fillAreaInChart(arrayToShowInConsole, baseArray, "blue",fillThis, 200, 200,1);
 }
 
 function filterDataForFreeRam(dataInner)
@@ -317,7 +330,7 @@ function filterDataForioStatDx(dataInner)
 				arrayToShowInConsole[j] = ((arrayToShowInConsole[j]/maxOfArray)*100).toFixed(1);
 			}
 			var fillThis = document.getElementById("diskIO"+i+"-read").getContext("2d");
-			fillAreaInChart(arrayToShowInConsole, baseArray, "blue",fillThis, height, 65);
+			fillAreaInChart(arrayToShowInConsole, baseArray, "blue",fillThis, height, 65,1);
 
 			arrayToShowInConsole = new Array();
 			baseArray = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
@@ -336,7 +349,7 @@ function filterDataForioStatDx(dataInner)
 				arrayToShowInConsole[j] = ((arrayToShowInConsole[j]/maxOfArray)*100).toFixed(1);
 			}
 			fillThis = document.getElementById("diskIO"+i+"-write").getContext("2d");
-			fillAreaInChart(arrayToShowInConsole, baseArray, "blue",fillThis, height, 65);
+			fillAreaInChart(arrayToShowInConsole, baseArray, "blue",fillThis, height, 65,1);
 		}
 		ioDiff.shift();
 	}
@@ -423,7 +436,7 @@ function filterDataForNetworkDev(dataInner)
 				arrayToShowInConsole[j] = ((arrayToShowInConsole[j]/maxOfArray)*100).toFixed(1);
 			}
 			var fillThis = document.getElementById(networkArrayOfArrays[count][i][0]+"-downloadCanvas").getContext("2d");
-			fillAreaInChart(arrayToShowInConsole, baseArray, "blue",fillThis, 100, 200);
+			fillAreaInChart(arrayToShowInConsole, baseArray, "blue",fillThis, 100, 200,1);
 
 			arrayToShowInConsole = new Array();
 			baseArray = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
@@ -443,7 +456,7 @@ function filterDataForNetworkDev(dataInner)
 				arrayToShowInConsole[j] = ((arrayToShowInConsole[j]/maxOfArray)*100).toFixed(1);
 			}
 			fillThis = document.getElementById(networkArrayOfArrays[count][i][0]+"-uploadCanvas").getContext("2d");
-			fillAreaInChart(arrayToShowInConsole, baseArray, "blue",fillThis, 100, 200);
+			fillAreaInChart(arrayToShowInConsole, baseArray, "blue",fillThis, 100, 200,1);
 		}
 	}
 }
@@ -820,7 +833,7 @@ function filterDataForCacheSubFunction(totalSwap, usedSwap)
 	for (var i = swapInfoArray_heightVar.length - 1; i >= 0; i--) {
 		swapInfoArray_heightVar[i] = 0;
 	}
-	fillAreaInChart(swapInfoArray_Used, swapInfoArray_heightVar, "blue",swapAreaContext, 200, 200);
+	fillAreaInChart(swapInfoArray_Used, swapInfoArray_heightVar, "blue",swapAreaContext, 200, 200,1);
 }
 
 function filterDataForRAM(dataInner)
@@ -854,8 +867,8 @@ function filterDataForRamSubFunction(usedRam, cacheRam, totalRam)
 	for (var i = ramInfoArray_heightVar.length - 1; i >= 0; i--) {
 		ramInfoArray_heightVar[i] = 0;
 	}
-	fillAreaInChart(ramInfoArray_Used, ramInfoArray_heightVar, "blue",ramAreaContext, ramArea.height, ramArea.width);
-	fillAreaInChart(ramInfoArray_Cache, ramInfoArray_heightVar, "red",ramAreaContext, ramArea.height, ramArea.width);
+	fillAreaInChart(ramInfoArray_Used, ramInfoArray_heightVar, "blue",ramAreaContext, ramArea.height, ramArea.width,1);
+	fillAreaInChart(ramInfoArray_Cache, ramInfoArray_heightVar, "red",ramAreaContext, ramArea.height, ramArea.width,1);
 	var ramPopupArea = document.getElementById('ramPopupCanvas');
 	if(ramPopupArea)
 	{
@@ -866,8 +879,8 @@ function filterDataForRamSubFunction(usedRam, cacheRam, totalRam)
 		for (var i = ramInfoArray_heightVar.length - 1; i >= 0; i--) {
 		ramInfoArray_heightVar[i] = 0;
 		}
-		fillAreaInChartNew(ramInfoArray_Used, ramInfoArray_heightVar, "blue",ramPopupAreaContext, ramPopupArea.height, ramPopupArea.width);
-		fillAreaInChartNew(ramInfoArray_Cache, ramInfoArray_heightVar, "red",ramPopupAreaContext, ramPopupArea.height, ramPopupArea.width);
+		fillAreaInChartNew(ramInfoArray_Used, ramInfoArray_heightVar, "blue",ramPopupAreaContext, ramPopupArea.height, ramPopupArea.width,2);
+		fillAreaInChart(ramInfoArray_Cache, ramInfoArray_heightVar, "red",ramPopupAreaContext, ramPopupArea.height, ramPopupArea.width,2);
 		document.getElementById('popupGraphLowerTr').innerHTML = "<th>All: "+((parseFloat(usedRam)+parseFloat(cacheRam)).toFixed(1))+"%</th><th>Used: "+usedRam+"%</th><th>Cache: "+cacheRam+"%</th>";
 	}
 }
@@ -901,9 +914,9 @@ function filterDataForCPUSubFunction(userInfo, systemInfo, otherInfo)
 	for (var i = cpuInfoArray_heightVar.length - 1; i >= 0; i--) {
 		cpuInfoArray_heightVar[i] = 0;
 	}
-	fillAreaInChart(cpuInfoArray_User, cpuInfoArray_heightVar, "blue",cpuAreaContext, cpuArea.height, cpuArea.width);
-	fillAreaInChart(cpuInfoArray_System, cpuInfoArray_heightVar, "red",cpuAreaContext, cpuArea.height, cpuArea.width);
-	fillAreaInChart(cpuInfoArray_other, cpuInfoArray_heightVar, "yellow",cpuAreaContext, cpuArea.height, cpuArea.width);
+	fillAreaInChart(cpuInfoArray_User, cpuInfoArray_heightVar, "blue",cpuAreaContext, cpuArea.height, cpuArea.width,1);
+	fillAreaInChart(cpuInfoArray_System, cpuInfoArray_heightVar, "red",cpuAreaContext, cpuArea.height, cpuArea.width,1);
+	fillAreaInChart(cpuInfoArray_other, cpuInfoArray_heightVar, "yellow",cpuAreaContext, cpuArea.height, cpuArea.width,1);
 	var cpuAreaPopup = document.getElementById('cpuPopupCanvas');
 	if(cpuAreaPopup)
 	{
@@ -914,9 +927,9 @@ function filterDataForCPUSubFunction(userInfo, systemInfo, otherInfo)
 		for (var i = cpuInfoArray_heightVar.length - 1; i >= 0; i--) {
 		cpuInfoArray_heightVar[i] = 0;
 		}
-		fillAreaInChartNew(cpuInfoArray_User, cpuInfoArray_heightVar, "blue",cpuAreaPopupContext, cpuAreaPopup.height, cpuAreaPopup.width);
-		fillAreaInChartNew(cpuInfoArray_System, cpuInfoArray_heightVar, "red",cpuAreaPopupContext, cpuAreaPopup.height, cpuAreaPopup.width);
-		fillAreaInChartNew(cpuInfoArray_other, cpuInfoArray_heightVar, "yellow",cpuAreaPopupContext, cpuAreaPopup.height, cpuAreaPopup.width);
+		fillAreaInChart(cpuInfoArray_User, cpuInfoArray_heightVar, "blue",cpuAreaPopupContext, cpuAreaPopup.height, cpuAreaPopup.width,2);
+		fillAreaInChart(cpuInfoArray_System, cpuInfoArray_heightVar, "red",cpuAreaPopupContext, cpuAreaPopup.height, cpuAreaPopup.width,2);
+		fillAreaInChart(cpuInfoArray_other, cpuInfoArray_heightVar, "yellow",cpuAreaPopupContext, cpuAreaPopup.height, cpuAreaPopup.width,2);
 		document.getElementById('popupGraphLowerTr').innerHTML = "<th>All: "+((parseFloat(userInfo)+parseFloat(systemInfo)+parseFloat(otherInfo)).toFixed(1))+"%</th><th>User: "+userInfo+"%</th><th>System: "+systemInfo+"%</th><th>Other: "+otherInfo+"%</th>";
 	}
 }
