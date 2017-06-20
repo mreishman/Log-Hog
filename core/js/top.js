@@ -146,8 +146,9 @@ function filterDataFromRUsage(dataInner)
 		if(phpSystemTimeDiffForHistory > 0)
 		{
 			filterDataFromRUsageSystem(phpSystemTimeDiffForHistory);
-			phpSystemTimeDiff.shift();
+			
 		}
+		phpSystemTimeDiff.shift();
 	}
 }
 
