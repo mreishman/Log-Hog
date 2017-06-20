@@ -870,4 +870,21 @@ function filterDataForCPUSubFunction(userInfo, systemInfo, otherInfo)
 	fillAreaInChart(cpuInfoArray_User, cpuInfoArray_heightVar, "blue",cpuAreaContext, 200, 200);
 	fillAreaInChart(cpuInfoArray_System, cpuInfoArray_heightVar, "red",cpuAreaContext, 200, 200);
 	fillAreaInChart(cpuInfoArray_other, cpuInfoArray_heightVar, "yellow",cpuAreaContext, 200, 200);
+
+	if(document.getElementById('cpuPopupCanvas'))
+	{
+		document.getElementById('popupGraphLoadingSpinner').style.display = "none";
+		var cpuAreaPopup = document.getElementById('cpuPopupCanvas');
+		document.getElementById('cpuPopupCanvas').style.display = "inline-block";
+		var cpuAreaPopupContext = cpuAreaPopup.getContext("2d");
+		cpuAreaPopupContext.clearRect(0, 0, cpuAreaPopup.width, cpuAreaPopup.height);
+		for (var i = cpuInfoArray_heightVar.length - 1; i >= 0; i--) {
+		cpuInfoArray_heightVar[i] = 0;
+		}
+		fillAreaInChart(cpuInfoArray_User, cpuInfoArray_heightVar, "blue",cpuAreaPopupContext, cpuAreaPopup.height, cpuAreaPopup.width);
+		fillAreaInChart(cpuInfoArray_System, cpuInfoArray_heightVar, "red",cpuAreaPopupContext, cpuAreaPopup.height, cpuAreaPopup.width);
+		fillAreaInChart(cpuInfoArray_other, cpuInfoArray_heightVar, "yellow",cpuAreaPopupContext, cpuAreaPopup.height, cpuAreaPopup.width);
+
+		document.getElementById('popupGraphLowerTr').innerHTML = "<th>All: "+((parseFloat(userInfo)+parseFloat(systemInfo)+parseFloat(otherInfo)).toFixed(1))+"%</th><th>User: "+userInfo+"%</th><th>System: "+systemInfo+"%</th><th>Other: "+otherInfo+"%</th>";
+	}
 }
