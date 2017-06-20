@@ -46,9 +46,9 @@ function fillAreaInChartNew(arrayForFill, bottomArray, color, context, height, w
 		//context.fillRect((totalWidthOfEachElement*(i)),(height-heightOfElement-bottomArray[i]),totalWidthOfEachElement,heightOfElement);
 		context.beginPath();
 		context.moveTo((totalWidthOfEachElement*(i-1)),(height-(height*(arrayForFill[i-1]/100))-bottomArrayTmp[i-1]));
-		context.lineTo((totalWidthOfEachElement*(i-1)),(height+(height*(arrayForFill[i-1]/100))-bottomArrayTmp[i-1]));
-		context.lineTo((totalWidthOfEachElement*(i)),(height+(height*(arrayForFill[i]/100))-bottomArrayTmp[i]));
-		context.lineTo((totalWidthOfEachElement*(i)),(height-(height*(arrayForFill[i]/100))-bottomArrayTmp[i]));
+		context.lineTo((totalWidthOfEachElement*(i-1)),(height-bottomArrayTmp[i-1]));
+		context.lineTo((totalWidthOfEachElement*(i)),(height-bottomArrayTmp[i]));
+		context.lineTo((totalWidthOfEachElement*(i)),(height-heightOfElement-bottomArrayTmp[i]));
 		context.closePath();
 		context.fill();
 		bottomArray[i] = bottomArray[i]+heightOfElement;
