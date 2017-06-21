@@ -15,6 +15,7 @@ $URI = $_SERVER['REQUEST_URI'];
 	<?php else: ?>
 		<a id="mainLink" onclick="window.location.href =  'overview.php';" >Overview</a>
 	<?php endif; ?>
+	<!-- 
 	<?php if(strpos($URI, 'cpu.php') !== false): ?>
 		<a style="cursor: default;" class="active" id="mainLink" >CPU</a>
 	<?php else: ?>
@@ -41,4 +42,5 @@ $URI = $_SERVER['REQUEST_URI'];
 		<a id="mainLink" onclick="window.location.href =  'php.php';" >PHP</a>
 	<?php endif; ?>
 	<a id="settingsLink" onclick="window.location.href = '../settings/main.php';" >Settings</a>
+	-->
 </div>

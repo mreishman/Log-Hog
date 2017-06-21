@@ -73,6 +73,15 @@ for($i = 0; $i < $newestVersionCount; $i++)
 }
 require_once('../core/php/loadVars.php');
 
+if($pollingRateOverviewMainType == 'Seconds')
+{
+	$pollingRateOverviewMain *= 1000;
+}
+if($pollingRateOverviewSlowType == 'Seconds')
+{
+	$pollingRateOverviewSlow *= 1000;
+}
+
 $useTop = false;
 
 ?>
@@ -374,8 +383,8 @@ $useTop = false;
 
 	poll();
 	slowPoll();
-	setInterval(poll, 1000);
-	setInterval(slowPoll, 10000);
+	setInterval(poll, <?php echo $pollingRateOverviewMain; ?>);
+	setInterval(slowPoll, <?php echo $pollingRateOverviewSlow; ?>);
 	
 	var offsetHeight = 0;
 	var offsetHeight2 = 0;

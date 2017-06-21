@@ -392,8 +392,56 @@ else
 {
 	$updateNoticeMeter = $defaultConfig['updateNoticeMeter'];
 }
-
-
+if(isset($_POST['pollingRateOverviewMain']))
+{
+	$pollingRateOverviewMain = $_POST['pollingRateOverviewMain'];
+}
+elseif(array_key_exists('pollingRateOverviewMain', $config))
+{
+	$pollingRateOverviewMain = $config['pollingRateOverviewMain'];
+}
+else
+{
+	$pollingRateOverviewMain = $defaultConfig['pollingRateOverviewMain'];
+}
+if(isset($_POST['pollingRateOverviewMainType']))
+{
+	$pollingRateOverviewMainType = $_POST['pollingRateOverviewMainType'];
+}
+elseif(array_key_exists('pollingRateOverviewMainType', $config))
+{
+	$pollingRateOverviewMainType = $config['pollingRateOverviewMainType'];
+}
+else
+{
+	$pollingRateOverviewMainType = $defaultConfig['pollingRateOverviewMainType'];
+}
+if(isset($_POST['pollingRateOverviewSlow']))
+{
+	$pollingRateOverviewSlow = $_POST['pollingRateOverviewSlow'];
+}
+elseif(array_key_exists('pollingRateOverviewSlow', $config))
+{
+	$pollingRateOverviewSlow = $config['pollingRateOverviewSlow'];
+}
+else
+{
+	$pollingRateOverviewSlow = $defaultConfig['pollingRateOverviewSlow'];
+}
+if(isset($_POST['pollingRateOverviewSlowType']))
+{
+	$pollingRateOverviewSlowType = $_POST['pollingRateOverviewSlowType'];
+}
+elseif(array_key_exists('pollingRateOverviewSlowType', $config))
+{
+	$pollingRateOverviewSlowType = $config['pollingRateOverviewSlowType'];
+}
+else
+{
+	$pollingRateOverviewSlowType = $defaultConfig['pollingRateOverviewSlowType'];
+}
+ 
+ 
 
 
 foreach ($folderColorArrays as $key => $value)
