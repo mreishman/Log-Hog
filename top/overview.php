@@ -124,13 +124,13 @@ $useTop = false;
 				<div id="DIOCanvas" style="height: 200px; width: 200px; display: none;" class="canvasMonitor" ></div>
 				<div class="canvasMonitorText"><span style="color: white;">n/a</span></div>
 			</div>
-			<div class="canvasMonitorDiv" >	
+			<div onclick="showGraphPopup('phpUTUPopupCanvas','PHP User Time Used')" style="cursor: pointer;"  class="canvasMonitorDiv" >	
 				<div class="canvasMonitorText">PHP User Time Used</div>
 				<img id="canvasMonitorLoading_PHP_UTU" class="loadingSpinner" src='../core/img/loading.gif' height='50' width='50'> 
 				<canvas style="display: none;" class="canvasMonitor" id="PHPUTUCanvas" width="200" height="200"></canvas>
 				<div class="canvasMonitorText"><span id="canvasMonitorPHPUTUText" >-</span></div>
 			</div>
-			<div class="canvasMonitorDiv" >	
+			<div onclick="showGraphPopup('phpSTUPopupCanvas','PHP System Time Used')" style="cursor: pointer;"  class="canvasMonitorDiv" >	
 				<div class="canvasMonitorText">PHP System Time Used</div>
 				<img id="canvasMonitorLoading_PHP_STU" class="loadingSpinner" src='../core/img/loading.gif' height='50' width='50'> 
 				<canvas style="display: none;" class="canvasMonitor" id="PHPSTUCanvas" width="200" height="200"></canvas>

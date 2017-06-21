@@ -208,8 +208,22 @@ function filterDataFromRUsageUser(phpUserTimeDiffForHistory)
 	{
 		arrayToShowInConsole[j] = ((arrayToShowInConsole[j]/maxOfArray)*100).toFixed(1);
 	}
-	phpUserTimeAreaContext.clearRect(0, 0, 200, 200);
-	fillAreaInChart(arrayToShowInConsole, baseArray, "blue",phpUserTimeAreaContext, 200, 200,1);
+	phpUserTimeAreaContext.clearRect(0, 0, phpUserTimeArea.height, phpUserTimeArea.width);
+	fillAreaInChart(arrayToShowInConsole, baseArray, "blue",phpUserTimeAreaContext, phpUserTimeArea.height, phpUserTimeArea.width,1);
+	var phpUTUPopupArea = document.getElementById('phpUTUPopupCanvas');
+	if(phpUTUPopupArea)
+	{
+		document.getElementById('popupGraphLoadingSpinner').style.display = "none";
+		phpUTUPopupArea.style.display = "inline-block";
+		var phpUTUPopupAreaContext = phpUTUPopupArea.getContext("2d");
+		phpUTUPopupAreaContext.clearRect(0, 0, phpUTUPopupArea.width, phpUTUPopupArea.height);
+		for (var i = baseArray.length - 1; i >= 0; i--) {
+		baseArray[i] = 0;
+		}
+		fillAreaInChart(arrayToShowInConsole, baseArray, "blue",phpUTUPopupAreaContext, phpUTUPopupArea.height, phpUTUPopupArea.width,2);
+		document.getElementById('popupGraphLowerTr').innerHTML = "<th style='background-color:blue; width:25px;'><th  style='text-align:left;'>Current: "+arrayToShowInConsole[arrayToShowInConsoleLength-1]+"% of "+maxOfArray+"</th></th>";
+	}
+
 }
 
 function filterDataFromRUsageSystem(phpSystemTimeDiffForHistory)
@@ -235,9 +249,23 @@ function filterDataFromRUsageSystem(phpSystemTimeDiffForHistory)
 	{
 		arrayToShowInConsole[j] = ((arrayToShowInConsole[j]/maxOfArray)*100).toFixed(1);
 	}
-	var fillThis = document.getElementById("PHPSTUCanvas").getContext("2d");
-	fillThis.clearRect(0, 0, 200, 200);
-	fillAreaInChart(arrayToShowInConsole, baseArray, "blue",fillThis, 200, 200,1);
+	var fillThis = document.getElementById("PHPSTUCanvas");
+	var fillThisContext= fillThis.getContext("2d");
+	fillThisContext.clearRect(0, 0, fillThis.height, fillThis.width);
+	fillAreaInChart(arrayToShowInConsole, baseArray, "blue",fillThisContext, fillThis.height, fillThis.width,1);
+	var phpSTUPopupArea = document.getElementById('phpSTUPopupCanvas');
+	if(phpSTUPopupArea)
+	{
+		document.getElementById('popupGraphLoadingSpinner').style.display = "none";
+		phpSTUPopupArea.style.display = "inline-block";
+		var phpSTUPopupAreaContext = phpSTUPopupArea.getContext("2d");
+		phpSTUPopupAreaContext.clearRect(0, 0, phpSTUPopupArea.width, phpSTUPopupArea.height);
+		for (var i = baseArray.length - 1; i >= 0; i--) {
+		baseArray[i] = 0;
+		}
+		fillAreaInChart(arrayToShowInConsole, baseArray, "blue",phpSTUPopupAreaContext, phpSTUPopupArea.height, phpSTUPopupArea.width,2);
+		document.getElementById('popupGraphLowerTr').innerHTML = "<th style='background-color:blue; width:25px;'><th  style='text-align:left;'>Current: "+arrayToShowInConsole[arrayToShowInConsoleLength-1]+"% of "+maxOfArray+"</th></th>";
+	}
 }
 
 function filterDataForFreeRam(dataInner)
@@ -791,7 +819,6 @@ function filterDataForDiskSpace(dataInner)
 			htmlForProcesses += "<td style='max-width: 100px; overflow: hidden;'>" + filteredHDDArray[i][0]+"</td>";
 		}
 		htmlForProcesses += "<td style='max-width: 30px; overflow: hidden;'>" + filteredHDDArray[i][4]+"</td>";
-		htmlForProcesses += "<td style='max-width: 30px;'><div class='expandMenu'></div></td>";
 		htmlForProcesses += "</tr>";
 	}
 	if(dataSwap)
