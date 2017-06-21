@@ -105,8 +105,8 @@ $useTop = false;
 				<img id="canvasMonitorLoading_RAM" class="loadingSpinner" src='../core/img/loading.gif' height='50' width='50'> 
 				<canvas style="display: none;" class="canvasMonitor" id="ramCanvas" width="200" height="200"></canvas>
 				<div class="canvasMonitorText">Used <span id="canvasMonitorRAM_Used">-</span>% | Cache <span id="canvasMonitorRAM_Cache">-</span>%</div>
-			</div>
-			<div class="canvasMonitorDiv" >	
+			</div> 
+			<div onclick="showGraphPopup('swapPopupCanvas','Swap')" style="cursor: pointer;"  class="canvasMonitorDiv" >	
 				<div class="canvasMonitorText">Swap</div>
 				<img id="canvasMonitorLoading_Swap" class="loadingSpinner" src='../core/img/loading.gif' height='50' width='50'> 
 				<canvas style="display: none;" class="canvasMonitor" id="swapCanvas" width="200" height="200"></canvas>

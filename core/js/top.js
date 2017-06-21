@@ -833,7 +833,20 @@ function filterDataForCacheSubFunction(totalSwap, usedSwap)
 	for (var i = swapInfoArray_heightVar.length - 1; i >= 0; i--) {
 		swapInfoArray_heightVar[i] = 0;
 	}
-	fillAreaInChart(swapInfoArray_Used, swapInfoArray_heightVar, "blue",swapAreaContext, 200, 200,1);
+	fillAreaInChart(swapInfoArray_Used, swapInfoArray_heightVar, "blue",swapAreaContext, swapArea.height, swapArea.width,1);
+	var swapPopupArea = document.getElementById('swapPopupCanvas');
+	if(swapPopupArea)
+	{
+		document.getElementById('popupGraphLoadingSpinner').style.display = "none";
+		swapPopupArea.style.display = "inline-block";
+		var swapPopupAreaContext = swapPopupArea.getContext("2d");
+		swapPopupAreaContext.clearRect(0, 0, swapPopupArea.width, swapPopupArea.height);
+		for (var i = swapInfoArray_heightVar.length - 1; i >= 0; i--) {
+		swapInfoArray_heightVar[i] = 0;
+		}
+		fillAreaInChart(swapInfoArray_Used, swapInfoArray_heightVar, "blue",swapPopupAreaContext, swapPopupArea.height, swapPopupArea.width,2);
+		document.getElementById('popupGraphLowerTr').innerHTML = "<th style='background-color:blue; width:25px;'><th  style='text-align:left;'>Used: "+usedSwap+"%</th></th>";
+	}
 }
 
 function filterDataForRAM(dataInner)
@@ -881,7 +894,7 @@ function filterDataForRamSubFunction(usedRam, cacheRam, totalRam)
 		}
 		fillAreaInChart(ramInfoArray_Used, ramInfoArray_heightVar, "blue",ramPopupAreaContext, ramPopupArea.height, ramPopupArea.width,2);
 		fillAreaInChart(ramInfoArray_Cache, ramInfoArray_heightVar, "red",ramPopupAreaContext, ramPopupArea.height, ramPopupArea.width,2);
-		document.getElementById('popupGraphLowerTr').innerHTML = "<th>All: "+((parseFloat(usedRam)+parseFloat(cacheRam)).toFixed(1))+"%</th><th>Used: "+usedRam+"%</th><th>Cache: "+cacheRam+"%</th>";
+		document.getElementById('popupGraphLowerTr').innerHTML = "<th>All: "+((parseFloat(usedRam)+parseFloat(cacheRam)).toFixed(1))+"%</th><th style='background-color:blue; width:25px;'><th  style='text-align:left;'>Used: "+usedRam+"%</th><th style='background-color:red; width:25px;'><th  style='text-align:left;'>Cache: "+cacheRam+"%</th>";
 	}
 }
 
@@ -930,6 +943,6 @@ function filterDataForCPUSubFunction(userInfo, systemInfo, otherInfo)
 		fillAreaInChart(cpuInfoArray_User, cpuInfoArray_heightVar, "blue",cpuAreaPopupContext, cpuAreaPopup.height, cpuAreaPopup.width,2);
 		fillAreaInChart(cpuInfoArray_System, cpuInfoArray_heightVar, "red",cpuAreaPopupContext, cpuAreaPopup.height, cpuAreaPopup.width,2);
 		fillAreaInChart(cpuInfoArray_other, cpuInfoArray_heightVar, "yellow",cpuAreaPopupContext, cpuAreaPopup.height, cpuAreaPopup.width,2);
-		document.getElementById('popupGraphLowerTr').innerHTML = "<th>All: "+((parseFloat(userInfo)+parseFloat(systemInfo)+parseFloat(otherInfo)).toFixed(1))+"%</th><th>User: "+userInfo+"%</th><th>System: "+systemInfo+"%</th><th>Other: "+otherInfo+"%</th>";
+		document.getElementById('popupGraphLowerTr').innerHTML = "<th>All: "+((parseFloat(userInfo)+parseFloat(systemInfo)+parseFloat(otherInfo)).toFixed(1))+"%</th><th style='background-color:blue; width:25px;'></th><th style='text-align:left;'>User: "+userInfo+"%</th><th style='background-color:red; width:25px;'></th><th style='text-align:left;'>System: "+systemInfo+"%</th><th style='background-color:yellow; width:25px;'></th><th style='text-align:left;'>Other: "+otherInfo+"%</th>";
 	}
 }
