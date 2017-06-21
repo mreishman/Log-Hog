@@ -25,6 +25,11 @@ $URI = $_SERVER['REQUEST_URI'];
 	<?php else: ?>
 		<a id="mainLink" onclick="window.location.href =  'disk.php';" >Disk</a>
 	<?php endif; ?>
+	<?php if(strpos($URI, 'ram.php') !== false): ?>
+		<a style="cursor: default;" class="active" id="mainLink" >Memory</a>
+	<?php else: ?>
+		<a id="mainLink" onclick="window.location.href =  'ram.php';" >Memory</a>
+	<?php endif; ?>
 	<?php if(strpos($URI, 'network.php') !== false): ?>
 		<a style="cursor: default;" class="active" id="mainLink" >Network</a>
 	<?php else: ?>
@@ -34,11 +39,6 @@ $URI = $_SERVER['REQUEST_URI'];
 		<a style="cursor: default;" class="active" id="mainLink" >PHP</a>
 	<?php else: ?>
 		<a id="mainLink" onclick="window.location.href =  'php.php';" >PHP</a>
-	<?php endif; ?>
-	<?php if(strpos($URI, 'ram.php') !== false): ?>
-		<a style="cursor: default;" class="active" id="mainLink" >Memory</a>
-	<?php else: ?>
-		<a id="mainLink" onclick="window.location.href =  'ram.php';" >Memory</a>
 	<?php endif; ?>
 	<a id="settingsLink" onclick="window.location.href = '../settings/main.php';" >Settings</a>
 </div>
