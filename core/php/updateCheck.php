@@ -47,9 +47,12 @@ for($i = 0; $i < $newestVersionCount; $i++)
 		}
 		else
 		{
-			if($newestVersion[$i] > $version[$i] && $updateNoticeMeter == "every")
+			if($newestVersion[$i] > $version[$i])
 			{
-				$levelOfUpdate = 1;
+				if($updateNoticeMeter == "every")
+				{
+					$levelOfUpdate = 1;
+				}
 				break;
 			}
 			elseif($newestVersion[$i] < $version[$i])
