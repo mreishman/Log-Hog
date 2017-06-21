@@ -90,20 +90,22 @@ if($pollingRateType == 'Seconds')
 	<div id="titleContainer"><div id="title">&nbsp;</div>&nbsp;&nbsp;<form style="display: inline-block;" ><a class="linkSmall" onclick="clearLog()" >Clear Log</a><a class="linkSmall" onclick="deleteLogPopup()" >Delete Log</a></form></div>
 	<form id="settingsInstallUpdate" action="update/updater.php" method="post" style="display: none"></form>
 	<script>
-		var Rightclick_ID_list = [];
-		if(document.getElementById('gear'))
-		{
-			Rightclick_ID_list.push('gear');
-		}
-		if(document.getElementById('deleteImage'))
-		{
-			Rightclick_ID_list.push('deleteImage');
-		}
-		<?php
-		if($levelOfUpdate == 1 || $levelOfUpdate == 2 || $levelOfUpdate == 3)
-		{
-			echo "Rightclick_ID_list.push('updateImage');";
-		}
+		<?php if($rightClickMenuEnable): ?>
+			var Rightclick_ID_list = [];
+			if(document.getElementById('gear'))
+			{
+				Rightclick_ID_list.push('gear');
+			}
+			if(document.getElementById('deleteImage'))
+			{
+				Rightclick_ID_list.push('deleteImage');
+			}
+			<?php
+			if($levelOfUpdate == 1 || $levelOfUpdate == 2 || $levelOfUpdate == 3)
+			{
+				echo "Rightclick_ID_list.push('updateImage');";
+			}
+		endif;
 		echo "var currentFolderColorThemeArrayOfColors = JSON.parse('".json_encode($currentSelectedThemeColorValues)."');";
 		echo "var pausePollOnNotFocus = ".$pauseOnNotFocus.";";
 		echo "var autoCheckUpdate = ".$autoCheckUpdate.";";

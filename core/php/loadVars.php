@@ -440,7 +440,18 @@ else
 {
 	$pollingRateOverviewSlowType = $defaultConfig['pollingRateOverviewSlowType'];
 }
- 
+if(isset($_POST['rightClickMenuEnable']))
+{
+	$rightClickMenuEnable = $_POST['rightClickMenuEnable'];
+}
+elseif(array_key_exists('rightClickMenuEnable', $config))
+{
+	$rightClickMenuEnable = $config['rightClickMenuEnable'];
+}
+else
+{
+	$rightClickMenuEnable = $defaultConfig['rightClickMenuEnable'];
+}
  
 
 

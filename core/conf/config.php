@@ -10,6 +10,7 @@ $defaultConfig = array(
 	'developmentTabEnabled' => 'false',
 	'enableDevBranchDownload' => 'false',
 	'enableSystemPrefShellOrPhp'	=> 'false',
+	'rightClickMenuEnable'	=> 'true',
 	'enableHtopLink'	=> 'false',
 	'expSettingsAvail'	=> 'true',
 	'truncateLogButtonAll'	=> 'true',

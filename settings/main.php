@@ -191,6 +191,13 @@ require_once('../core/php/loadVars.php');
   						<option <?php if($flashTitleUpdateLog == 'false'){echo "selected";} ?> value="false">False</option>
 					</select>
 			</li>
+			<li>
+				<span class="settingsBuffer" > Right Click Menu: </span> 
+					<select name="rightClickMenuEnable">
+  						<option <?php if($rightClickMenuEnable == 'true'){echo "selected";} ?> value="true">Enabled</option>
+  						<option <?php if($rightClickMenuEnable == 'false'){echo "selected";} ?> value="false">Disabled</option>
+					</select>
+			</li>
 		</ul>
 		</div>
 		</form>
