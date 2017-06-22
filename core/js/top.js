@@ -23,6 +23,31 @@ window.onclick = function(event) {
 	}
 }
 
+function showGraphPopup(graph, name,type)
+{
+	if(type == "onePage")
+	{
+		showOnePagePopup(graph, name);
+	}
+}
+
+function showOnePagePopup(graph,name)
+{
+	showPopup();
+	var w = window.innerWidth;
+	var h = window.innerHeight;
+	var height = (h*0.95);
+	var width = (w*0.95);
+	heightForPopup = ((height*0.95)-125);
+	widthForPopup = (width*0.95);
+	document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' ><table style='width:100%; color:black;'><tr><th style='text-align:left;' >"+name+"</th><th style='text-align:right;'><a class='link' onclick='hidePopup();'>Close</a></th></tr></table></div><br><br><div style='width:100%;text-align:center;'><img id='popupGraphLoadingSpinner' style='padding-top: "+((heightForPopup/2)-25)+"px; padding-bottom: "+((heightForPopup/2)-25)+"px;' src='../core/img/loading.gif' height='50' width='50'><canvas style='display:none;' class='canvasMonitor' id='"+graph+"' width='"+widthForPopup+"' height='"+heightForPopup+"' ></canvas><br><br><div class='settingsHeader' ><table style='width:100%; color:black;'><tr id='popupGraphLowerTr' ><th></th></tr></table></div>  </div>";
+	document.getElementById('popupContent').style.width = width+"px";
+	document.getElementById('popupContent').style.height = height+"px";
+	document.getElementById('popupContent').style.marginTop = "-"+(height/2)+"px";
+	document.getElementById('popupContent').style.marginLeft = "-"+(width/2)+"px";
+	document.getElementById('popupContent').style.backgroundColor = "rgba(68, 68, 68, 0.7)";
+}
+
 function fillAreaInChart(arrayForFill, bottomArray, color, context, height, width, type)
 {
 	if(type == 1)
@@ -53,10 +78,9 @@ function fillAreaInChartVersionTwo(arrayForFill, bottomArray, color, context, he
 	context.fillStyle = color;
 	var totalWidthOfEachElement = width/(bottomArray.length-1);
 	var bottomArrayTmp = bottomArray;
-	for (var i = bottomArray.length - 1; i > 0; i--) 
+	for (var i = bottomArray.length - 1; i >= 0; i--) 
 	{
 		var heightOfElement = (height*(arrayForFill[i]/100));
-		//context.fillRect((totalWidthOfEachElement*(i)),(height-heightOfElement-bottomArray[i]),totalWidthOfEachElement,heightOfElement);
 		context.beginPath();
 		context.moveTo((totalWidthOfEachElement*(i-1)),(height-(height*(arrayForFill[i-1]/100))-bottomArrayTmp[i-1]));
 		context.lineTo((totalWidthOfEachElement*(i-1)),(height-bottomArrayTmp[i-1]));

@@ -103,19 +103,19 @@ $useTop = false;
 
 	<div id="main">
 		<div id="topBarOverview">
-			<div onclick="showGraphPopup('cpuPopupCanvas','CPU')" style="cursor: pointer;" class="canvasMonitorDiv" >	
+			<div onclick="showGraphPopup('cpuPopupCanvas','CPU','onePage')" style="cursor: pointer;" class="canvasMonitorDiv" >	
 				<div class="canvasMonitorText">CPU</div>
 				<img id="canvasMonitorLoading_CPU" class="loadingSpinner" src='../core/img/loading.gif' height='50' width='50'> 
 				<canvas style="display: none;" class="canvasMonitor" id="cpuCanvas" width="200" height="200"></canvas>
 					<div class="canvasMonitorText">U <span id="canvasMonitorCPU_User">-</span>% | S <span id="canvasMonitorCPU_System">-</span>% | N <span id="canvasMonitorCPU_Other">-</span>%</div>
 			</div>
-			<div onclick="showGraphPopup('ramPopupCanvas','RAM')" style="cursor: pointer;" class="canvasMonitorDiv" >	
+			<div onclick="showGraphPopup('ramPopupCanvas','RAM','onePage')" style="cursor: pointer;" class="canvasMonitorDiv" >	
 				<div class="canvasMonitorText">RAM</div>
 				<img id="canvasMonitorLoading_RAM" class="loadingSpinner" src='../core/img/loading.gif' height='50' width='50'> 
 				<canvas style="display: none;" class="canvasMonitor" id="ramCanvas" width="200" height="200"></canvas>
 				<div class="canvasMonitorText">Used <span id="canvasMonitorRAM_Used">-</span>% | Cache <span id="canvasMonitorRAM_Cache">-</span>%</div>
 			</div> 
-			<div onclick="showGraphPopup('swapPopupCanvas','Swap')" style="cursor: pointer;"  class="canvasMonitorDiv" >	
+			<div onclick="showGraphPopup('swapPopupCanvas','Swap','onePage')" style="cursor: pointer;"  class="canvasMonitorDiv" >	
 				<div class="canvasMonitorText">Swap</div>
 				<img id="canvasMonitorLoading_Swap" class="loadingSpinner" src='../core/img/loading.gif' height='50' width='50'> 
 				<canvas style="display: none;" class="canvasMonitor" id="swapCanvas" width="200" height="200"></canvas>
@@ -133,13 +133,13 @@ $useTop = false;
 				<div id="DIOCanvas" style="height: 200px; width: 200px; display: none;" class="canvasMonitor" ></div>
 				<div class="canvasMonitorText"><span style="color: white;">n/a</span></div>
 			</div>
-			<div onclick="showGraphPopup('phpUTUPopupCanvas','PHP User Time Used')" style="cursor: pointer;"  class="canvasMonitorDiv" >	
+			<div onclick="showGraphPopup('phpUTUPopupCanvas','PHP User Time Used','onePage')" style="cursor: pointer;"  class="canvasMonitorDiv" >	
 				<div class="canvasMonitorText">PHP User Time Used</div>
 				<img id="canvasMonitorLoading_PHP_UTU" class="loadingSpinner" src='../core/img/loading.gif' height='50' width='50'> 
 				<canvas style="display: none;" class="canvasMonitor" id="PHPUTUCanvas" width="200" height="200"></canvas>
 				<div class="canvasMonitorText"><span id="canvasMonitorPHPUTUText" >-</span></div>
 			</div>
-			<div onclick="showGraphPopup('phpSTUPopupCanvas','PHP System Time Used')" style="cursor: pointer;"  class="canvasMonitorDiv" >	
+			<div onclick="showGraphPopup('phpSTUPopupCanvas','PHP System Time Used','onePage')" style="cursor: pointer;"  class="canvasMonitorDiv" >	
 				<div class="canvasMonitorText">PHP System Time Used</div>
 				<img id="canvasMonitorLoading_PHP_STU" class="loadingSpinner" src='../core/img/loading.gif' height='50' width='50'> 
 				<canvas style="display: none;" class="canvasMonitor" id="PHPSTUCanvas" width="200" height="200"></canvas>
@@ -341,22 +341,6 @@ $useTop = false;
 		filterDataForCPU(data);
 		filterDataForRAM(data);
 		filterDataForCache(data);
-	}
-
-	function showGraphPopup(graph, name)
-	{
-		showPopup();
-		var w = window.innerWidth;
-		var h = window.innerHeight;
-		var height = (h*0.95);
-		var width = (w*0.95);
-		heightForPopup = ((height*0.95)-125);
-		widthForPopup = (width*0.95);
-		document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' ><table style='width:100%; color:black;'><tr><th style='text-align:left;' >"+name+"</th><th style='text-align:right;'><a class='link' onclick='hidePopup();'>Close</a></th></tr></table></div><br><br><div style='width:100%;text-align:center;'><img id='popupGraphLoadingSpinner' style='padding-top: "+((heightForPopup/2)-25)+"px; padding-bottom: "+((heightForPopup/2)-25)+"px;' src='../core/img/loading.gif' height='50' width='50'><canvas style='display:none;' class='canvasMonitor' id='"+graph+"' width='"+widthForPopup+"' height='"+heightForPopup+"' ></canvas><br><br><div class='settingsHeader' ><table style='width:100%; color:black;'><tr id='popupGraphLowerTr' ><th></th></tr></table></div>  </div>";
-		document.getElementById('popupContent').style.width = width+"px";
-		document.getElementById('popupContent').style.height = height+"px";
-		document.getElementById('popupContent').style.marginTop = "-"+(height/2)+"px";
-		document.getElementById('popupContent').style.marginLeft = "-"+(width/2)+"px";
 	}
 
 	function poll()
