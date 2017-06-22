@@ -796,6 +796,20 @@ function filterProcessDataBy(column, reverse)
 	psAuxFunction();
 }
 
+function filterAndSort(preSortArray, limit, reverse)
+{
+	sortArray(preSortArray, 4);
+	if(reverse)
+	{
+		preSortArray.reverse();
+	}
+	while(preSortArray.length > limit)
+	{
+		preSortArray.shift();
+	}
+	return preSortArray;
+}
+
 function filterDataForDiskSpace(dataInner)
 {
 	dataInnerNewArrayOfArraysHDD = filterData(dataInner, 5);
@@ -807,11 +821,18 @@ function filterDataForDiskSpace(dataInner)
 			filteredHDDArray.push(dataInnerNewArrayOfArraysHDD[i]);
 		}
 	}
-	sortArray(filteredHDDArray, 4)
-	filteredHDDArray.reverse();
-	while(filteredHDDArray.length > 6)
+	filteredHDDArray = filterAndSort(filteredHDDArray, 7, true);
+	if(filteredHDDArray.length < 7)
 	{
-		filteredHDDArray.shift();
+		for (var i = dataInnerNewArrayOfArraysHDD.length - 1; i >= 0; i--) 
+		{
+			if(dataInnerNewArrayOfArraysHDD[i][4] == "0%")
+			{
+				filteredHDDArray.push(dataInnerNewArrayOfArraysHDD[i]);
+			}
+		}
+		filteredHDDArray = filterAndSort(filteredHDDArray, 7, false);
+		filteredHDDArray.reverse();
 	}
 	var htmlForProcesses = "<table style='width: 100%;'>";
 	var dataInnerNewArrayOfArraysHDDLength = filteredHDDArray.length;
