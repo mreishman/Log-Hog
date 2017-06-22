@@ -395,6 +395,7 @@ function filterDataForioStatDx(dataInner)
 				}
 				popupFillAreaContext.clearRect(0, 0, popupFillArea.width, popupFillArea.height);
 				fillAreaInChart(arrayToShowInConsole, baseArray, "blue",popupFillAreaContext, popupFillArea.height,popupFillArea.width,2);
+				document.getElementById('popupGraphLowerTr').innerHTML = "<th style='background-color:blue; width:25px;'><th  style='text-align:left;'>Current: "+arrayToShowInConsole[arrayToShowInConsoleLength-1]+"% of "+maxOfArray+" kB</th></th>";
 			}
 
 			arrayToShowInConsole = new Array();
@@ -430,6 +431,7 @@ function filterDataForioStatDx(dataInner)
 				}
 				popupFillAreaContext.clearRect(0, 0, popupFillArea.width, popupFillArea.height);
 				fillAreaInChart(arrayToShowInConsole, baseArray, "blue",popupFillAreaContext, popupFillArea.height,popupFillArea.width,2);
+				document.getElementById('popupGraphLowerTr').innerHTML = "<th style='background-color:blue; width:25px;'><th  style='text-align:left;'>Current: "+arrayToShowInConsole[arrayToShowInConsoleLength-1]+"% of "+maxOfArray+" kB</th></th>";
 			}
 		}
 		ioDiff.shift();
