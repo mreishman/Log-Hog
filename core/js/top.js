@@ -587,16 +587,6 @@ function filterDataFromProcStat(dataInner)
 	}
 }
 
-function numOfCoreFunction()
-	{
-		if(!dropdownMenuVisible)
-		{
-		$.getJSON('../core/php/numberOfCores.php', {}, function(data) {
-				numberOfCores = parseInt(data); 
-			})
-		}
-	}
-
 function filterDataForProcesses(dataInnerNewArrayOfArrays)
 {
 	var sortColumnNumber = Math.abs(processFilterByRow) - 1;
