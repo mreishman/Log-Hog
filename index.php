@@ -90,7 +90,9 @@ if($pollingRateType == 'Seconds')
 	<div id="titleContainer"><div id="title">&nbsp;</div>&nbsp;&nbsp;<form style="display: inline-block;" ><a class="linkSmall" onclick="clearLog()" >Clear Log</a><a class="linkSmall" onclick="deleteLogPopup()" >Delete Log</a></form></div>
 	<form id="settingsInstallUpdate" action="update/updater.php" method="post" style="display: none"></form>
 	<script>
-		<?php if($rightClickMenuEnable): ?>
+
+		<?php
+		if($rightClickMenuEnable == "true"): ?>
 			var Rightclick_ID_list = [];
 			if(document.getElementById('gear'))
 			{
