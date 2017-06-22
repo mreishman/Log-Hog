@@ -341,8 +341,8 @@ function filterDataForioStatDx(dataInner)
 		{
 			var arrayToPush = [];
 			htmlForDiskIO += "<tr><td>"+dataInner[i][0]+"</td>";	
-			htmlForDiskIO += "<td><canvas id='diskIO"+i+"-read' style='background-color: #333; border: 1px solid white;' width='65px' height='"+height+"px'></canvas></td>";
-			htmlForDiskIO += "<td><canvas id='diskIO"+i+"-write' style='background-color: #333; border: 1px solid white;' width='65px' height='"+height+"'></canvas></td>";
+			htmlForDiskIO += "<td onclick='showGraphPopup("+'"'+"diskIO"+i+"readPopupCanvas"+'"'+","+'"'+dataInner[i][0]+" Read"+'"'+","+'"'+"onePage"+'"'+")' style='cursor: pointer;'  ><canvas id='diskIO"+i+"-read' style='background-color: #333; border: 1px solid white;' width='65px' height='"+height+"px'></canvas></td>";
+			htmlForDiskIO += "<td onclick='showGraphPopup("+'"'+"diskIO"+i+"writePopupCanvas"+'"'+","+'"'+dataInner[i][0]+" Write"+'"'+","+'"'+"onePage"+'"'+")' style='cursor: pointer;'  ><canvas id='diskIO"+i+"-write' style='background-color: #333; border: 1px solid white;' width='65px' height='"+height+"'></canvas></td>";
 			htmlForDiskIO += "</tr>";	
 			if(ioDiffLength > 1)
 			{
@@ -384,8 +384,24 @@ function filterDataForioStatDx(dataInner)
 			var fillThis = document.getElementById("diskIO"+i+"-read").getContext("2d");
 			fillAreaInChart(arrayToShowInConsole, baseArray, "blue",fillThis, height, 65,1);
 
+			var popupFillArea = document.getElementById("diskIO"+i+"readPopupCanvas");
+			if(popupFillArea)
+			{
+				document.getElementById('popupGraphLoadingSpinner').style.display = "none";
+				popupFillArea.style.display = "inline-block";
+				popupFillAreaContext = popupFillArea.getContext("2d");
+				for (var j = baseArray.length - 1; j >= 0; j--) {
+					baseArray[j] = 0;
+				}
+				popupFillAreaContext.clearRect(0, 0, popupFillArea.width, popupFillArea.height);
+				fillAreaInChart(arrayToShowInConsole, baseArray, "blue",popupFillAreaContext, popupFillArea.height,popupFillArea.width,2);
+			}
+
 			arrayToShowInConsole = new Array();
-			baseArray = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+			for (var j = baseArray.length - 1; j >= 0; j--) 
+			{
+				baseArray[j] = 0;
+			}
 			for (var j = 0; j < (20 - ioDiffLength); j++) 
 			{
 				arrayToShowInConsole.push(0);
@@ -402,6 +418,19 @@ function filterDataForioStatDx(dataInner)
 			}
 			fillThis = document.getElementById("diskIO"+i+"-write").getContext("2d");
 			fillAreaInChart(arrayToShowInConsole, baseArray, "blue",fillThis, height, 65,1);
+
+			var popupFillArea = document.getElementById("diskIO"+i+"writePopupCanvas");
+			if(popupFillArea)
+			{
+				document.getElementById('popupGraphLoadingSpinner').style.display = "none";
+				popupFillArea.style.display = "inline-block";
+				popupFillAreaContext = popupFillArea.getContext("2d");
+				for (var j = baseArray.length - 1; j >= 0; j--) {
+					baseArray[j] = 0;
+				}
+				popupFillAreaContext.clearRect(0, 0, popupFillArea.width, popupFillArea.height);
+				fillAreaInChart(arrayToShowInConsole, baseArray, "blue",popupFillAreaContext, popupFillArea.height,popupFillArea.width,2);
+			}
 		}
 		ioDiff.shift();
 	}

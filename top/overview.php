@@ -192,7 +192,7 @@ $useTop = false;
 	var baseForSystemTime = 0;
 	var heightForPopup = 0;
 	var widthForPopup = 0;
-
+	var ioStatNotInstalled = false;
 	for (var i = defaultArray.length - 1; i >= 0; i--) {
 		cpuInfoArray_User.push(defaultArray[i]);
 		cpuInfoArray_heightVar.push(defaultArray[i]);
@@ -289,8 +289,15 @@ $useTop = false;
 	function ioStatDxFunction()
 	{
 		$.getJSON('../core/php/ioStatDx.php', {}, function(data) {
+			if(data != null && data != "null")
+			{
 				processDataFromioStatDx(data);
-			})
+			}
+			else
+			{
+				ioStatNotInstalled = true;
+			}
+		})
 	}
 
 	function dfALFunction()
@@ -355,7 +362,10 @@ $useTop = false;
 			procStatFunc();
 		}
 		procNetDev();
-		ioStatDxFunction();
+		if(!ioStatNotInstalled)
+		{
+			ioStatDxFunction();
+		}
 		getRUsageFunction();
 	}
 
