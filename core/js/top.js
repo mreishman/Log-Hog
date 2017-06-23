@@ -237,14 +237,8 @@ function filterDataFromRUsageUser(phpUserTimeDiffForHistory)
 	var phpUTUPopupArea = document.getElementById('phpUTUPopupCanvas');
 	if(phpUTUPopupArea)
 	{
-		document.getElementById('popupGraphLoadingSpinner').style.display = "none";
-		phpUTUPopupArea.style.display = "inline-block";
-		var phpUTUPopupAreaContext = phpUTUPopupArea.getContext("2d");
-		phpUTUPopupAreaContext.clearRect(0, 0, phpUTUPopupArea.width, phpUTUPopupArea.height);
-		for (var i = baseArray.length - 1; i >= 0; i--) {
-		baseArray[i] = 0;
-		}
-		fillAreaInChart(arrayToShowInConsole, baseArray, "blue",phpUTUPopupAreaContext, phpUTUPopupArea.height, phpUTUPopupArea.width,2);
+		var arrayOfArraysToFillWith = [arrayToShowInConsole];
+		popupFillInChart(phpUTUPopupArea, baseArray, arrayOfArraysToFillWith);
 		document.getElementById('popupGraphLowerTr').innerHTML = "<th style='background-color:blue; width:25px;'><th  style='text-align:left;'>Current: "+arrayToShowInConsole[arrayToShowInConsoleLength-1]+"% of "+maxOfArray+"</th></th>";
 	}
 
@@ -280,14 +274,8 @@ function filterDataFromRUsageSystem(phpSystemTimeDiffForHistory)
 	var phpSTUPopupArea = document.getElementById('phpSTUPopupCanvas');
 	if(phpSTUPopupArea)
 	{
-		document.getElementById('popupGraphLoadingSpinner').style.display = "none";
-		phpSTUPopupArea.style.display = "inline-block";
-		var phpSTUPopupAreaContext = phpSTUPopupArea.getContext("2d");
-		phpSTUPopupAreaContext.clearRect(0, 0, phpSTUPopupArea.width, phpSTUPopupArea.height);
-		for (var i = baseArray.length - 1; i >= 0; i--) {
-		baseArray[i] = 0;
-		}
-		fillAreaInChart(arrayToShowInConsole, baseArray, "blue",phpSTUPopupAreaContext, phpSTUPopupArea.height, phpSTUPopupArea.width,2);
+		var arrayOfArraysToFillWith = [arrayToShowInConsole];
+		popupFillInChart(phpSTUPopupArea, baseArray, arrayOfArraysToFillWith);
 		document.getElementById('popupGraphLowerTr').innerHTML = "<th style='background-color:blue; width:25px;'><th  style='text-align:left;'>Current: "+arrayToShowInConsole[arrayToShowInConsoleLength-1]+"% of "+maxOfArray+"</th></th>";
 	}
 }
@@ -387,14 +375,8 @@ function filterDataForioStatDx(dataInner)
 			var popupFillArea = document.getElementById("diskIO"+i+"readPopupCanvas");
 			if(popupFillArea)
 			{
-				document.getElementById('popupGraphLoadingSpinner').style.display = "none";
-				popupFillArea.style.display = "inline-block";
-				popupFillAreaContext = popupFillArea.getContext("2d");
-				for (var j = baseArray.length - 1; j >= 0; j--) {
-					baseArray[j] = 0;
-				}
-				popupFillAreaContext.clearRect(0, 0, popupFillArea.width, popupFillArea.height);
-				fillAreaInChart(arrayToShowInConsole, baseArray, "blue",popupFillAreaContext, popupFillArea.height,popupFillArea.width,2);
+				var arrayOfArraysToFillWith = [arrayToShowInConsole];
+				popupFillInChart(popupFillArea, baseArray, arrayOfArraysToFillWith);
 				document.getElementById('popupGraphLowerTr').innerHTML = "<th style='background-color:blue; width:25px;'><th  style='text-align:left;'>Current: "+arrayToShowInConsole[arrayToShowInConsoleLength-1]+"% of "+maxOfArray+" kB</th></th>";
 			}
 
@@ -423,14 +405,8 @@ function filterDataForioStatDx(dataInner)
 			var popupFillArea = document.getElementById("diskIO"+i+"writePopupCanvas");
 			if(popupFillArea)
 			{
-				document.getElementById('popupGraphLoadingSpinner').style.display = "none";
-				popupFillArea.style.display = "inline-block";
-				popupFillAreaContext = popupFillArea.getContext("2d");
-				for (var j = baseArray.length - 1; j >= 0; j--) {
-					baseArray[j] = 0;
-				}
-				popupFillAreaContext.clearRect(0, 0, popupFillArea.width, popupFillArea.height);
-				fillAreaInChart(arrayToShowInConsole, baseArray, "blue",popupFillAreaContext, popupFillArea.height,popupFillArea.width,2);
+				var arrayOfArraysToFillWith = [arrayToShowInConsole];
+				popupFillInChart(popupFillArea, baseArray, arrayOfArraysToFillWith);
 				document.getElementById('popupGraphLowerTr').innerHTML = "<th style='background-color:blue; width:25px;'><th  style='text-align:left;'>Current: "+arrayToShowInConsole[arrayToShowInConsoleLength-1]+"% of "+maxOfArray+" kB</th></th>";
 			}
 		}
@@ -524,14 +500,8 @@ function filterDataForNetworkDev(dataInner)
 			var fillPopoupArea = document.getElementById("networkGraphPopup"+networkArrayOfArrays[count][i][0]+"receive");
 			if(fillPopoupArea)
 			{
-				document.getElementById('popupGraphLoadingSpinner').style.display = "none";
-				fillPopoupArea.style.display = "inline-block";
-				var fillPopoupAreaContext = fillPopoupArea.getContext("2d");
-				fillPopoupAreaContext.clearRect(0, 0, fillPopoupArea.width, fillPopoupArea.height);
-				for (var j = baseArray.length - 1; j >= 0; j--) {
-				baseArray[j] = 0;
-				}
-				fillAreaInChart(arrayToShowInConsole, baseArray, "blue",fillPopoupAreaContext, fillPopoupArea.height, fillPopoupArea.width,2);
+				var arrayOfArraysToFillWith = [arrayToShowInConsole];
+				popupFillInChart(fillPopoupArea, baseArray, arrayOfArraysToFillWith);
 				document.getElementById('popupGraphLowerTr').innerHTML = "<th style='background-color:blue; width:25px;'><th  style='text-align:left;'>Current: "+arrayToShowInConsole[arrayToShowInConsoleLength-1]+"% of "+maxOfArray+"</th></th>";
 			}
 
@@ -559,14 +529,8 @@ function filterDataForNetworkDev(dataInner)
 			var fillPopoupArea = document.getElementById("networkGraphPopup"+networkArrayOfArrays[count][i][0]+"transmit");
 			if(fillPopoupArea)
 			{
-				document.getElementById('popupGraphLoadingSpinner').style.display = "none";
-				fillPopoupArea.style.display = "inline-block";
-				var fillPopoupAreaContext = fillPopoupArea.getContext("2d");
-				fillPopoupAreaContext.clearRect(0, 0, fillPopoupArea.width, fillPopoupArea.height);
-				for (var j = baseArray.length - 1; j >= 0; j--) {
-				baseArray[j] = 0;
-				}
-				fillAreaInChart(arrayToShowInConsole, baseArray, "blue",fillPopoupAreaContext, fillPopoupArea.height, fillPopoupArea.width,2);
+				var arrayOfArraysToFillWith = [arrayToShowInConsole];
+				popupFillInChart(fillPopoupArea, baseArray, arrayOfArraysToFillWith);
 				document.getElementById('popupGraphLowerTr').innerHTML = "<th style='background-color:blue; width:25px;'><th  style='text-align:left;'>Current: "+arrayToShowInConsole[arrayToShowInConsoleLength-1]+"% of "+maxOfArray+"</th></th>";
 			}
 		}
@@ -959,14 +923,8 @@ function filterDataForCacheSubFunction(totalSwap, usedSwap)
 	var swapPopupArea = document.getElementById('swapPopupCanvas');
 	if(swapPopupArea)
 	{
-		document.getElementById('popupGraphLoadingSpinner').style.display = "none";
-		swapPopupArea.style.display = "inline-block";
-		var swapPopupAreaContext = swapPopupArea.getContext("2d");
-		swapPopupAreaContext.clearRect(0, 0, swapPopupArea.width, swapPopupArea.height);
-		for (var i = swapInfoArray_heightVar.length - 1; i >= 0; i--) {
-		swapInfoArray_heightVar[i] = 0;
-		}
-		fillAreaInChart(swapInfoArray_Used, swapInfoArray_heightVar, "blue",swapPopupAreaContext, swapPopupArea.height, swapPopupArea.width,2);
+		var arrayOfArraysToFillWith = [swapInfoArray_Used];
+		popupFillInChart(swapPopupArea, swapInfoArray_heightVar, arrayOfArraysToFillWith);
 		document.getElementById('popupGraphLowerTr').innerHTML = "<th style='background-color:blue; width:25px;'><th  style='text-align:left;'>Used: "+usedSwap+"%</th></th>";
 	}
 }
@@ -1007,15 +965,8 @@ function filterDataForRamSubFunction(usedRam, cacheRam, totalRam)
 	var ramPopupArea = document.getElementById('ramPopupCanvas');
 	if(ramPopupArea)
 	{
-		document.getElementById('popupGraphLoadingSpinner').style.display = "none";
-		ramPopupArea.style.display = "inline-block";
-		var ramPopupAreaContext = ramPopupArea.getContext("2d");
-		ramPopupAreaContext.clearRect(0, 0, ramPopupArea.width, ramPopupArea.height);
-		for (var i = ramInfoArray_heightVar.length - 1; i >= 0; i--) {
-		ramInfoArray_heightVar[i] = 0;
-		}
-		fillAreaInChart(ramInfoArray_Used, ramInfoArray_heightVar, "blue",ramPopupAreaContext, ramPopupArea.height, ramPopupArea.width,2);
-		fillAreaInChart(ramInfoArray_Cache, ramInfoArray_heightVar, "red",ramPopupAreaContext, ramPopupArea.height, ramPopupArea.width,2);
+		var arrayOfArraysToFillWith = [ramInfoArray_Used,ramInfoArray_Cache];
+		popupFillInChart(ramPopupArea, ramInfoArray_heightVar, arrayOfArraysToFillWith);
 		document.getElementById('popupGraphLowerTr').innerHTML = "<th>All: "+((parseFloat(usedRam)+parseFloat(cacheRam)).toFixed(1))+"%</th><th style='background-color:blue; width:25px;'><th  style='text-align:left;'>Used: "+usedRam+"%</th><th style='background-color:red; width:25px;'><th  style='text-align:left;'>Cache: "+cacheRam+"%</th>";
 	}
 }
@@ -1055,16 +1006,26 @@ function filterDataForCPUSubFunction(userInfo, systemInfo, otherInfo)
 	var cpuAreaPopup = document.getElementById('cpuPopupCanvas');
 	if(cpuAreaPopup)
 	{
-		document.getElementById('popupGraphLoadingSpinner').style.display = "none";
-		cpuAreaPopup.style.display = "inline-block";
-		var cpuAreaPopupContext = cpuAreaPopup.getContext("2d");
-		cpuAreaPopupContext.clearRect(0, 0, cpuAreaPopup.width, cpuAreaPopup.height);
-		for (var i = cpuInfoArray_heightVar.length - 1; i >= 0; i--) {
-		cpuInfoArray_heightVar[i] = 0;
-		}
-		fillAreaInChart(cpuInfoArray_User, cpuInfoArray_heightVar, "blue",cpuAreaPopupContext, cpuAreaPopup.height, cpuAreaPopup.width,2);
-		fillAreaInChart(cpuInfoArray_System, cpuInfoArray_heightVar, "red",cpuAreaPopupContext, cpuAreaPopup.height, cpuAreaPopup.width,2);
-		fillAreaInChart(cpuInfoArray_other, cpuInfoArray_heightVar, "yellow",cpuAreaPopupContext, cpuAreaPopup.height, cpuAreaPopup.width,2);
+		var arrayOfArraysToFillWith = [cpuInfoArray_User,cpuInfoArray_System,cpuInfoArray_other];
+		popupFillInChart(cpuAreaPopup, cpuInfoArray_heightVar, arrayOfArraysToFillWith);
 		document.getElementById('popupGraphLowerTr').innerHTML = "<th>All: "+((parseFloat(userInfo)+parseFloat(systemInfo)+parseFloat(otherInfo)).toFixed(1))+"%</th><th style='background-color:blue; width:25px;'></th><th style='text-align:left;'>User: "+userInfo+"%</th><th style='background-color:red; width:25px;'></th><th style='text-align:left;'>System: "+systemInfo+"%</th><th style='background-color:yellow; width:25px;'></th><th style='text-align:left;'>Other: "+otherInfo+"%</th>";
+	}
+}
+
+function popupFillInChart(canvas, baseArray, arrayOfArraysToFillWith)
+{
+	document.getElementById('popupGraphLoadingSpinner').style.display = "none";
+	canvas.style.display = "inline-block";
+	var canvasPopupContext = canvas.getContext("2d");
+	canvasPopupContext.clearRect(0, 0, canvas.width, canvas.height);
+	for (var i = baseArray.length - 1; i >= 0; i--) {
+	baseArray[i] = 0;
+	}
+	var arrayOfArraysToFillWithLength = arrayOfArraysToFillWith.length;
+	var arrayOfColors = ["blue","red",'yellow'];
+	for (var i = 0; i < arrayOfArraysToFillWithLength; i++) 
+	{
+		fillAreaInChart(arrayOfArraysToFillWith[i], baseArray, arrayOfColors[i],canvasPopupContext, canvas.height, canvas.width,2);
+		
 	}
 }
