@@ -916,9 +916,7 @@ function filterDataForCacheSubFunction(totalSwap, usedSwap)
 	document.getElementById('swapCanvas').style.display = "block";
 	swapInfoArray_Used.shift();
 	swapAreaContext.clearRect(0, 0, swapArea.width, swapArea.height);
-	for (var i = swapInfoArray_heightVar.length - 1; i >= 0; i--) {
-		swapInfoArray_heightVar[i] = 0;
-	}
+	swapInfoArray_heightVar = clearBaseArray(swapInfoArray_heightVar);
 	fillAreaInChart(swapInfoArray_Used, swapInfoArray_heightVar, "blue",swapAreaContext, swapArea.height, swapArea.width,1);
 	var swapPopupArea = document.getElementById('swapPopupCanvas');
 	if(swapPopupArea)
@@ -957,9 +955,7 @@ function filterDataForRamSubFunction(usedRam, cacheRam, totalRam)
 	ramInfoArray_Cache.shift();
 	ramInfoArray_Used.shift();
 	ramAreaContext.clearRect(0, 0, ramArea.width, ramArea.height);
-	for (var i = ramInfoArray_heightVar.length - 1; i >= 0; i--) {
-		ramInfoArray_heightVar[i] = 0;
-	}
+	ramInfoArray_heightVar = clearBaseArray(ramInfoArray_heightVar);
 	fillAreaInChart(ramInfoArray_Used, ramInfoArray_heightVar, "blue",ramAreaContext, ramArea.height, ramArea.width,1);
 	fillAreaInChart(ramInfoArray_Cache, ramInfoArray_heightVar, "red",ramAreaContext, ramArea.height, ramArea.width,1);
 	var ramPopupArea = document.getElementById('ramPopupCanvas');
@@ -996,10 +992,8 @@ function filterDataForCPUSubFunction(userInfo, systemInfo, otherInfo)
 	cpuInfoArray_User.shift();
 	cpuInfoArray_System.shift();
 	cpuInfoArray_other.shift();
+	cpuAreaContext = clearBaseArray(cpuAreaContext)
 	cpuAreaContext.clearRect(0, 0, cpuArea.width, cpuArea.height);
-	for (var i = cpuInfoArray_heightVar.length - 1; i >= 0; i--) {
-		cpuInfoArray_heightVar[i] = 0;
-	}
 	fillAreaInChart(cpuInfoArray_User, cpuInfoArray_heightVar, "blue",cpuAreaContext, cpuArea.height, cpuArea.width,1);
 	fillAreaInChart(cpuInfoArray_System, cpuInfoArray_heightVar, "red",cpuAreaContext, cpuArea.height, cpuArea.width,1);
 	fillAreaInChart(cpuInfoArray_other, cpuInfoArray_heightVar, "yellow",cpuAreaContext, cpuArea.height, cpuArea.width,1);
@@ -1018,9 +1012,7 @@ function popupFillInChart(canvas, baseArray, arrayOfArraysToFillWith)
 	canvas.style.display = "inline-block";
 	var canvasPopupContext = canvas.getContext("2d");
 	canvasPopupContext.clearRect(0, 0, canvas.width, canvas.height);
-	for (var i = baseArray.length - 1; i >= 0; i--) {
-	baseArray[i] = 0;
-	}
+	baseArray = clearBaseArray(baseArray);
 	var arrayOfArraysToFillWithLength = arrayOfArraysToFillWith.length;
 	var arrayOfColors = ["blue","red",'yellow'];
 	for (var i = 0; i < arrayOfArraysToFillWithLength; i++) 
@@ -1028,4 +1020,12 @@ function popupFillInChart(canvas, baseArray, arrayOfArraysToFillWith)
 		fillAreaInChart(arrayOfArraysToFillWith[i], baseArray, arrayOfColors[i],canvasPopupContext, canvas.height, canvas.width,2);
 		
 	}
+}
+
+function clearBaseArray(baseArray)
+{
+	for (var i = baseArray.length - 1; i >= 0; i--) {
+	baseArray[i] = 0;
+	}
+	return baseArray;
 }
