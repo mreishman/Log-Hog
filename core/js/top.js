@@ -482,7 +482,7 @@ function filterDataForNetworkDev(dataInner)
 		{
 			htmlForNetwork += "<div class='TableInfoForNet'>Current: "+networkArrayOfArraysDifference[count-1][i][0]+"</div>"
 		}
-		htmlForNetwork += "<canvas id='"+networkArrayOfArrays[count][i][0]+"-downloadCanvas' style='background-color:#333; border: 1px solid white;' width='200' height='100' ></canvas><div class='TableInfoForNet'>Bytes: "+networkArrayOfArrays[count][i][1]+"</div></td>"
+		htmlForNetwork += "<canvas onclick='showGraphPopup("+'"'+"networkGraphPopup"+networkArrayOfArrays[count][i][0]+"receive"+'"'+","+'"'+networkArrayOfArrays[count][i][0]+" Receive"+'"'+","+'"'+"onePage"+'"'+")' id='"+networkArrayOfArrays[count][i][0]+"-downloadCanvas' style='background-color:#333; border: 1px solid white; cursor: pointer;' width='200' height='100' ></canvas><div class='TableInfoForNet'>Bytes: "+networkArrayOfArrays[count][i][1]+"</div></td>"
 		htmlForNetwork += "<td>";
 		if(!(networkArrayOfArrays.length > 1))
 		{
@@ -492,7 +492,7 @@ function filterDataForNetworkDev(dataInner)
 		{
 			htmlForNetwork += "<div class='TableInfoForNet'>Current: "+networkArrayOfArraysDifference[count-1][i][2]+"</div>"
 		}
-		htmlForNetwork += "<canvas id='"+networkArrayOfArrays[count][i][0]+"-uploadCanvas' style='background-color:#333; border: 1px solid white;' width='200' height='100' ></canvas><div class='TableInfoForNet'>Bytes: "+networkArrayOfArrays[count][i][9]+"</div></td></tr>"
+		htmlForNetwork += "<canvas onclick='showGraphPopup("+'"'+"networkGraphPopup"+networkArrayOfArrays[count][i][0]+"transmit"+'"'+","+'"'+networkArrayOfArrays[count][i][0]+" Transmit"+'"'+","+'"'+"onePage"+'"'+")' id='"+networkArrayOfArrays[count][i][0]+"-uploadCanvas' style='background-color:#333; border: 1px solid white; cursor: pointer;' width='200' height='100' ></canvas><div class='TableInfoForNet'>Bytes: "+networkArrayOfArrays[count][i][9]+"</div></td></tr>"
 	}
 	htmlForNetwork += "</table>";
 	document.getElementById('networkArea').innerHTML = htmlForNetwork;
@@ -521,6 +521,21 @@ function filterDataForNetworkDev(dataInner)
 			var fillThis = document.getElementById(networkArrayOfArrays[count][i][0]+"-downloadCanvas").getContext("2d");
 			fillAreaInChart(arrayToShowInConsole, baseArray, "blue",fillThis, 100, 200,1);
 
+			var fillPopoupArea = document.getElementById("networkGraphPopup"+networkArrayOfArrays[count][i][0]+"receive");
+			if(fillPopoupArea)
+			{
+				document.getElementById('popupGraphLoadingSpinner').style.display = "none";
+				fillPopoupArea.style.display = "inline-block";
+				var fillPopoupAreaContext = fillPopoupArea.getContext("2d");
+				fillPopoupAreaContext.clearRect(0, 0, fillPopoupArea.width, fillPopoupArea.height);
+				for (var j = baseArray.length - 1; j >= 0; j--) {
+				baseArray[j] = 0;
+				}
+				fillAreaInChart(arrayToShowInConsole, baseArray, "blue",fillPopoupAreaContext, fillPopoupArea.height, fillPopoupArea.width,2);
+				document.getElementById('popupGraphLowerTr').innerHTML = "<th style='background-color:blue; width:25px;'><th  style='text-align:left;'>Current: "+arrayToShowInConsole[arrayToShowInConsoleLength-1]+"% of "+maxOfArray+"</th></th>";
+			}
+
+
 			arrayToShowInConsole = new Array();
 			baseArray = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 			netDiffLength = networkArrayOfArraysDifference.length;
@@ -540,6 +555,20 @@ function filterDataForNetworkDev(dataInner)
 			}
 			fillThis = document.getElementById(networkArrayOfArrays[count][i][0]+"-uploadCanvas").getContext("2d");
 			fillAreaInChart(arrayToShowInConsole, baseArray, "blue",fillThis, 100, 200,1);
+
+			var fillPopoupArea = document.getElementById("networkGraphPopup"+networkArrayOfArrays[count][i][0]+"transmit");
+			if(fillPopoupArea)
+			{
+				document.getElementById('popupGraphLoadingSpinner').style.display = "none";
+				fillPopoupArea.style.display = "inline-block";
+				var fillPopoupAreaContext = fillPopoupArea.getContext("2d");
+				fillPopoupAreaContext.clearRect(0, 0, fillPopoupArea.width, fillPopoupArea.height);
+				for (var j = baseArray.length - 1; j >= 0; j--) {
+				baseArray[j] = 0;
+				}
+				fillAreaInChart(arrayToShowInConsole, baseArray, "blue",fillPopoupAreaContext, fillPopoupArea.height, fillPopoupArea.width,2);
+				document.getElementById('popupGraphLowerTr').innerHTML = "<th style='background-color:blue; width:25px;'><th  style='text-align:left;'>Current: "+arrayToShowInConsole[arrayToShowInConsoleLength-1]+"% of "+maxOfArray+"</th></th>";
+			}
 		}
 	}
 }
