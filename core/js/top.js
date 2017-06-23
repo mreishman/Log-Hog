@@ -1,5 +1,21 @@
 var dropdownMenuVisible = false;
 
+function killProcess(processNumber)
+{
+	var urlForSend = '../core/php/killProcess.php?format=json';
+	var data = {processNumber: processNumber};
+	$.ajax({
+	  url: urlForSend,
+	  dataType: 'json',
+	  data: data,
+	  type: 'POST',
+	  success: function(data){
+	  	console.log(data);
+	  	procStatFunc();
+	  },
+	});
+}
+
 function dropdownShow(nameOfElem) {
     if(document.getElementById("dropdown-"+nameOfElem).style.display == 'block')
     {
@@ -776,9 +792,9 @@ function filterDataForProcesses(dataInnerNewArrayOfArrays)
 				htmlForProcesses += "<div class='expandMenu' onclick='dropdownShow("+'"'+'PID'+dataInnerNewArrayOfArrays[i][1]+'"'+")' ></div>";
 				htmlForProcesses += "<div id='dropdown-PID"+dataInnerNewArrayOfArrays[i][1]+"' class='dropdown-content'>";
 				htmlForProcesses += "<ul class='dropdown-content__items'>";
-				if(dataInnerNewArrayOfArrays[i][0] != "root")
+				if(dataInnerNewArrayOfArrays[i][0] == "www-data")
 				{
-					htmlForProcesses += "<li class='dropdown-content__item'><a>Kill Process</a></li>"
+					htmlForProcesses += "<li class='dropdown-content__item'><a onclick='killProcess("+dataInnerNewArrayOfArrays[i][1]+")' >Kill Process</a></li>"
 				}
 				if(dataInnerNewArrayOfArrays[i][10].length > 8)
 				{
@@ -992,7 +1008,7 @@ function filterDataForCPUSubFunction(userInfo, systemInfo, otherInfo)
 	cpuInfoArray_User.shift();
 	cpuInfoArray_System.shift();
 	cpuInfoArray_other.shift();
-	cpuAreaContext = clearBaseArray(cpuAreaContext)
+	cpuInfoArray_heightVar = clearBaseArray(cpuInfoArray_heightVar)
 	cpuAreaContext.clearRect(0, 0, cpuArea.width, cpuArea.height);
 	fillAreaInChart(cpuInfoArray_User, cpuInfoArray_heightVar, "blue",cpuAreaContext, cpuArea.height, cpuArea.width,1);
 	fillAreaInChart(cpuInfoArray_System, cpuInfoArray_heightVar, "red",cpuAreaContext, cpuArea.height, cpuArea.width,1);
