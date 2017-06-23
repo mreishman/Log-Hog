@@ -45,6 +45,28 @@ function showGraphPopup(graph, name,type)
 	{
 		showOnePagePopup(graph, name);
 	}
+	else if(type == "twoColumnLeftOneGraphRightOneGraphOneDescription")
+	{
+		showTwoColumnLeftOneGraphRightOneGraphOneDescriptionPopup(graph,name);
+	}
+}
+
+function showTwoColumnLeftOneGraphRightOneGraphOneDescriptionPopup(graph,name)
+{
+	showPopup();
+	var w = window.innerWidth;
+	var h = window.innerHeight;
+	var height = (h*0.95);
+	var width = (w*0.95);
+	heightForPopup = ((height*0.95)-125);
+	widthForPopup = (width*0.95);
+	document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' ><table style='width:100%; color:black;'><tr><th style='text-align:left;' >"+name+"</th><th style='text-align:right;'><a class='link' onclick='hidePopup();'>Close</a></th></tr></table></div><br><br><div style='width:100%;text-align:center;'><table style='width: "+widthForPopup+"px; height: "+heightForPopup+"px;' ><tr><td rowspan='2' style='width:"+(widthForPopup/2)+"px;' ><img id='popupGraphLoadingSpinner' src='../core/img/loading.gif' height='50' width='50' style='margin-left:"+(widthForPopup/4)+"px;' > </td><td style='width:"+(widthForPopup/2)+"px;' ><img id='popupGraphLoadingSpinner' src='../core/img/loading.gif' height='50' width='50' style='margin-left:"+(widthForPopup/4)+"px;' > </td></tr><tr><td><img id='popupGraphLoadingSpinner' src='../core/img/loading.gif' height='50' width='50' style='margin-left:"+(widthForPopup/4)+"px;' > </td></tr></table> <br><br><div class='settingsHeader' ><table style='width:100%; color:black;'><tr id='popupGraphLowerTr' ><th></th></tr></table></div>  </div>";
+	document.getElementById('popupContent').style.width = width+"px";
+	document.getElementById('popupContent').style.height = height+"px";
+	document.getElementById('popupContent').style.marginTop = "-"+(height/2)+"px";
+	document.getElementById('popupContent').style.marginLeft = "-"+(width/2)+"px";
+	document.getElementById('popupContent').style.backgroundColor = "rgba(68, 68, 68, 0.7)";
+
 }
 
 function showOnePagePopup(graph,name)
@@ -868,7 +890,7 @@ function filterDataForDiskSpace(dataInner)
 	var dataInnerNewArrayOfArraysHDDLength = filteredHDDArray.length;
 	for (var i = 0; i < dataInnerNewArrayOfArraysHDDLength; i++) 
 	{
-		htmlForProcesses += "<tr style='font-size: 75%;'>";
+		htmlForProcesses += "<tr onclick='showGraphPopup("+'"graph"'+", "+'"'+filteredHDDArray[i][0]+"("+filteredHDDArray[i][5]+")"+'"'+","+'"twoColumnLeftOneGraphRightOneGraphOneDescription"'+")' style='font-size: 75%; cursor: pointer;'>";
 		var percent = filteredHDDArray[i][4].slice(0,-1);
 		percent = parseInt(percent);
 		htmlForProcesses += "<td style='max-width: 20px; overflow: hidden;'><div class='led-";
@@ -880,9 +902,13 @@ function filterDataForDiskSpace(dataInner)
 		{
 			htmlForProcesses += "yellow";
 		}
-		else
+		else if(percent > 0)
 		{
 			htmlForProcesses += "green";
+		}
+		else
+		{
+			htmlForProcesses += "blue";
 		}
 		htmlForProcesses += "'></td>";
 		if(dataSwap)
