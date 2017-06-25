@@ -60,6 +60,13 @@ require_once('../core/php/updateCheck.php');
 <script type="text/javascript">
 function goToUrl(url)
 	{
-		window.location.href = url;
+		if(true)
+		{
+			window.location.href = url;
+		}
+		else
+		{
+			displaySavePromptPopup(url);
+		}
 	}
 </script>
