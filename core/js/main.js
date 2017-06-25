@@ -419,7 +419,6 @@ function deleteLog()
 			  data: data,
 			  type: 'POST',
 	success: function(data){
-		console.log(data);
     // we make a successful JSONP call!
     id = data.replace(/[^a-z0-9]/g, '');
 	if($('#menu .' + id + 'Button').length != 0)
