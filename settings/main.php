@@ -374,16 +374,12 @@ require_once('../core/php/loadVars.php');
 	<?php readfile('../core/html/popup.html') ?>	
 </body>
 <script src="../core/js/settings.js"></script>
-<script type="text/javascript">
-<?php
-	if($triggerSaveUpdate)
-	{
-		echo "document.getElementById('settingsMainWatch').submit();";
-	}
-	else
-	{
-	?>
-
+<?php if($triggerSaveUpdate): ?>
+	<script type="text/javascript">
+	document.getElementById('settingsMainWatch').submit();
+	</script>
+<?php else: ?>
+	<script type="text/javascript">
 document.getElementById("popupSelect").addEventListener("change", showOrHidePopupSubWindow, false);
 document.getElementById("settingsSelect").addEventListener("change", showOrHideUpdateSubWindow, false);
 document.getElementById("logTrimTypeToggle").addEventListener("change", changeDescriptionLineSize, false);
@@ -675,7 +671,5 @@ function goToUrl(url)
 			document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Changes not Saved!</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Are you sure you want to leave the page without saving changes?</div><div class='link' onclick='window.location.href = "+'"'+url+'"'+";' style='margin-left:125px; margin-right:50px;margin-top:25px;'>Yes</div><div onclick='hidePopup();' class='link'>No</div></div>";
 		}
 	}
-	<?php
-	}
-	?>
-</script>
+	</script>
+<?php endif; ?>
