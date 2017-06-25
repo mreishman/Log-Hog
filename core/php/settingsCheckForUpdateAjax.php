@@ -51,14 +51,6 @@ else
 {
   $baseUrlUpdate = $defaultConfig['baseUrlUpdate'];
 }
-if(array_key_exists('updateNoticeMeter', $config))
-{
-  $updateNoticeMeter = $config['updateNoticeMeter'];
-}
-else
-{
-  $updateNoticeMeter = $defaultConfig['updateNoticeMeter'];
-}
 
 if($enableDevBranchDownload == "true")
 {
@@ -187,7 +179,7 @@ for($i = 0; $i < $newestVersionCount; $i++)
     }
     else
     {
-      if($updateNoticeMeter == 'every')
+      if(isset($newestVersion[$i]))
       {
         if($newestVersion[$i] > $version[$i])
         {
@@ -250,16 +242,9 @@ foreach ($versionCheckArray['versionList'] as $key => $value)
       }
       else
       {
-        if(isset($newestVersion[$i]))
+        if($newestVersion[$i] > $version[$i])
         {
-          if($newestVersion[$i] > $version[$i])
-          {
-            $levelOfUpdate = 1;
-            break;
-          }
-        }
-        else
-        {
+          $levelOfUpdate = 1;
           break;
         }
       }
