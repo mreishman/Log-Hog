@@ -393,6 +393,21 @@ require_once('../core/php/loadVars.php');
 	var countOfClicks = 0;
 	var locationInsert = "newRowLocationForWatchList";
 	var logTrimType = "<?php echo $logTrimType; ?>";
+	var arrayOfValuesToCheckBeforeSave = (
+		(document.getElementsByName("sliceSize")[0].value, "<?php echo $sliceSize;?>"),
+		(document.getElementsByName("pollingRate")[0].value,"<?php echo $pollingRate;?>"),
+		(document.getElementsByName("pausePoll")[0].value,"<?php echo $pausePoll;?>"),
+		(document.getElementsByName("pauseOnNotFocus")[0].value,"<?php echo $pauseOnNotFocus;?>"),
+		(document.getElementsByName("autoCheckUpdate")[0].value,"<?php echo $autoCheckUpdate;?>"),
+		(document.getElementsByName("truncateLog")[0].value,"<?php echo $truncateLog;?>"),
+		(document.getElementsByName("popupWarnings")[0].value ,"<?php echo $popupWarnings;?>"),
+		(document.getElementsByName("flashTitleUpdateLog")[0].value,"<?php echo $flashTitleUpdateLog;?>"),
+		(document.getElementById("numberOfRows").value,"<?php echo $folderCount;?>"),
+		(document.getElementsByName("saveSettings")[0].value,popupSettingsArray.saveSettings),
+		(document.getElementsByName("blankFolder")[0].value,popupSettingsArray.blankFolder),
+		(document.getElementsByName("removeFolder")[0].value,popupSettingsArray.removeFolder),
+		(document.getElementsByName("pollingRateType")[0].value,"<?php echo $pollingRateType;?>"),
+		(document.getElementsByName("autoCheckDaysUpdate")[0].value,"<?php echo $autoCheckDaysUpdate;?>"));
  
 	if(logTrimType == 'lines')
 	{
@@ -406,63 +421,14 @@ require_once('../core/php/loadVars.php');
 function goToUrl(url)
 	{
 		var goToPage = true
-		if(document.getElementsByName("sliceSize")[0].value != "<?php echo $sliceSize;?>")
+		for (var i = arrayOfValuesToCheckBeforeSave.length - 1; i >= 0; i--) 
 		{
-			goToPage = false;
-		}
-		else if(document.getElementsByName("pollingRate")[0].value != "<?php echo $pollingRate;?>")
-		{
-			goToPage = false;
-		}
-		else if(document.getElementsByName("pausePoll")[0].value != "<?php echo $pausePoll;?>")
-		{
-			goToPage = false;
-		}
-		else if(document.getElementsByName("pauseOnNotFocus")[0].value != "<?php echo $pauseOnNotFocus;?>")
-		{
-			goToPage = false;
-		}
-		else if(document.getElementsByName("autoCheckUpdate")[0].value != "<?php echo $autoCheckUpdate;?>")
-		{
-			goToPage = false;
-		}
-		else if(document.getElementsByName("truncateLog")[0].value != "<?php echo $truncateLog;?>")
-		{
-			goToPage = false;
-		}
-		else if(document.getElementsByName("popupWarnings")[0].value != "<?php echo $popupWarnings;?>")
-		{
-			goToPage = false;
-		}
-		else if(document.getElementsByName("flashTitleUpdateLog")[0].value != "<?php echo $flashTitleUpdateLog;?>")
-		{
-			goToPage = false;
-		}
-		else if(document.getElementById("numberOfRows").value != "<?php echo $folderCount;?>")
-		{
-			goToPage = false;
-		}
-		else if(document.getElementsByName("saveSettings")[0].value != popupSettingsArray.saveSettings)
-		{
-			goToPage = false;
-		}
-		else if(document.getElementsByName("blankFolder")[0].value != popupSettingsArray.blankFolder)
-		{
-			goToPage = false;
-		}
-		else if(document.getElementsByName("removeFolder")[0].value != popupSettingsArray.removeFolder)
-		{
-			goToPage = false;
-		}
-		else if(document.getElementsByName("pollingRateType")[0].value != "<?php echo $pollingRateType;?>")
-		{
-			goToPage = false;
-		}
-		else if(document.getElementsByName("autoCheckDaysUpdate")[0].value != "<?php echo $autoCheckDaysUpdate;?>")
-		{
-			goToPage = false;
-		}
-		
+			if(arrayOfValuesToCheckBeforeSave[i][0] != arrayOfValuesToCheckBeforeSave[i][1])
+			{
+				goToPage = false;
+				break;
+			}
+		}	
 
 		if(goToPage)
 		{
