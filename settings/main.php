@@ -421,36 +421,38 @@ require_once('../core/php/loadVars.php');
 function goToUrl(url)
 	{
 		var goToPage = true
-		for (var i = arrayOfValuesToCheckBeforeSave.length - 1; i >= 0; i--) 
+		if(popupSettingsArray.saveSettings != "false")
 		{
-			if(arrayOfValuesToCheckBeforeSave[i][0] != arrayOfValuesToCheckBeforeSave[i][1])
+			for (var i = arrayOfValuesToCheckBeforeSave.length - 1; i >= 0; i--) 
 			{
-				goToPage = false;
-				break;
-			}
-		}	
-
-		if(goToPage)
-		{
-			var fileCount = 1;
-			$.each( fileArray, function( key, value ) 
-			{
-				if(goToPage)
+				if(arrayOfValuesToCheckBeforeSave[i][0] != arrayOfValuesToCheckBeforeSave[i][1])
 				{
-					if(document.getElementsByName("watchListKey"+fileCount)[0].value != key)
-					{
-						goToPage = false;
-					}
-					else if (document.getElementsByName("watchListItem"+fileCount)[0].value != value)
-					{
-						goToPage = false;
-					}
-					fileCount++;
+					goToPage = false;
+					break;
 				}
-			});
-		}
+			}	
 
-		if(goToPage || popupSettingsArray.saveSettings == "false")
+			if(goToPage)
+			{
+				var fileCount = 1;
+				$.each( fileArray, function( key, value ) 
+				{
+					if(goToPage)
+					{
+						if(document.getElementsByName("watchListKey"+fileCount)[0].value != key)
+						{
+							goToPage = false;
+						}
+						else if (document.getElementsByName("watchListItem"+fileCount)[0].value != value)
+						{
+							goToPage = false;
+						}
+						fileCount++;
+					}
+				});
+			}
+		}
+		if(goToPage)
 		{
 			window.location.href = url;
 		}
