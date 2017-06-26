@@ -127,6 +127,7 @@ if($pollingRateType == 'Seconds')
 		var hideEmptyLog = "<?php echo $hideEmptyLog; ?>";
 		var currentFolderColorTheme = "<?php echo $currentFolderColorTheme; ?>";
 		var popupSettingsArray = JSON.parse('<?php echo json_encode($popupSettingsArray); ?>');
+		var updateNoticeMeter = "<?php echo $updateNoticeMeter;?>";
 		var pausePoll = false;
 		var refreshActionVar;
 		var refreshPauseActionVar;

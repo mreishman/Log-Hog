@@ -464,7 +464,7 @@ function checkForUpdateDefinitely(showPopupForNoUpdate = false)
 		}
 		$.getJSON('core/php/settingsCheckForUpdateAjax.php', {}, function(data) 
 		{
-			if(data.version == "1" || data.version == "2" | data.version == "3")
+			if((data.version == "1" && updateNoticeMeter == "every")|| data.version == "2" | data.version == "3")
 			{
 				//Update needed
 				if(dontNotifyVersion != data.versionNumber)
