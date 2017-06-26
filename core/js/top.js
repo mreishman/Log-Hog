@@ -318,20 +318,42 @@ function filterDataForFreeRam(dataInner)
 {
 	dataInner = "Memory " + dataInner;
 	dataInner = filterData(dataInner, 6);
-	console.log(dataInner);
-	var totalRam = dataInner[1][1];
-	var usedRam = dataInner[1][2];
-	var cacheRam = dataInner[1][5];
-	filterDataForRamSubFunction(usedRam, cacheRam, totalRam);
+	var rowForMem = 1;
+	for (var i = dataInner.length - 1; i >= 0; i--) {
+		if(dataInner[i].indexOf("Mem:") !== -1)
+		{
+			rowForMem = i;
+			break;
+		}
+	}
+	var totalRam = dataInner[rowForMem][1];
+	var usedRam = dataInner[rowForMem][2];
+	var freeRam = dataInner[rowForMem][3];
+	var cacheRam = dataInner[rowForMem][5];
+	if(totalRam == (freeRam+cacheRam))
+	{
+		filterDataForRamSubFunction(usedRam, cacheRam, totalRam,true);
+	}
+	else
+	{
+		filterDataForRamSubFunction(usedRam, cacheRam, totalRam,false);
+	}
 }
 
 function filterDataForFreeSwap(dataInner)
 {
 	dataInner = "Memory " + dataInner;
 	dataInner = filterData(dataInner, 6);
-
-	var totalSwap = dataInner[2][1];
-	var usedSwap = dataInner[2][2];	
+	var rowForMem = 2;
+	for (var i = dataInner.length - 1; i >= 0; i--) {
+		if(dataInner[i].indexOf("Swap:") !== -1)
+		{
+			rowForMem = i;
+			break;
+		}
+	}
+	var totalSwap = dataInner[rowForMem][1];
+	var usedSwap = dataInner[rowForMem][2];	
 	filterDataForCacheSubFunction(totalSwap, usedSwap)
 }
 
@@ -976,10 +998,10 @@ function filterDataForRAM(dataInner)
 	var freeRam = dataInner[1].substring(0, dataInner[1].length - 4);
 	var usedRam = dataInner[2].substring(0, dataInner[2].length - 4);
 	var cacheRam = dataInner[3].substring(0, dataInner[3].length - 10);
-	filterDataForRamSubFunction(usedRam, cacheRam, totalRam);
+	filterDataForRamSubFunction(usedRam, cacheRam, totalRam,false);
 }
 
-function filterDataForRamSubFunction(usedRam, cacheRam, totalRam)
+function filterDataForRamSubFunction(usedRam, cacheRam, totalRam,skipCache)
 {
 	usedRam = parseFloat(usedRam)/parseInt(totalRam);
 	usedRam = (usedRam*100).toFixed(1);
@@ -996,11 +1018,18 @@ function filterDataForRamSubFunction(usedRam, cacheRam, totalRam)
 	ramAreaContext.clearRect(0, 0, ramArea.width, ramArea.height);
 	ramInfoArray_heightVar = clearBaseArray(ramInfoArray_heightVar);
 	fillAreaInChart(ramInfoArray_Used, ramInfoArray_heightVar, "blue",ramAreaContext, ramArea.height, ramArea.width,1);
-	fillAreaInChart(ramInfoArray_Cache, ramInfoArray_heightVar, "red",ramAreaContext, ramArea.height, ramArea.width,1);
+	if(!skipCache)
+	{
+		fillAreaInChart(ramInfoArray_Cache, ramInfoArray_heightVar, "red",ramAreaContext, ramArea.height, ramArea.width,1);
+	}
 	var ramPopupArea = document.getElementById('ramPopupCanvas');
 	if(ramPopupArea)
 	{
-		var arrayOfArraysToFillWith = [ramInfoArray_Used,ramInfoArray_Cache];
+		var arrayOfArraysToFillWith = [ramInfoArray_Used];
+		if(!skipCache)
+		{
+			arrayOfArraysToFillWith = [ramInfoArray_Used,ramInfoArray_Cache];
+		}
 		popupFillInChart(ramPopupArea, ramInfoArray_heightVar, arrayOfArraysToFillWith);
 		document.getElementById('popupGraphLowerTr').innerHTML = "<th>All: "+((parseFloat(usedRam)+parseFloat(cacheRam)).toFixed(1))+"%</th><th style='background-color:blue; width:25px;'><th  style='text-align:left;'>Used: "+usedRam+"%</th><th style='background-color:red; width:25px;'><th  style='text-align:left;'>Cache: "+cacheRam+"%</th>";
 	}
