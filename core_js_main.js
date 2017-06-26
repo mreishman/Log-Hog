@@ -518,5 +518,9 @@ function saveSettingFromPopupNoCheckMaybe()
   	},
 		});
 	}
+	else
+	{
+		hidePopup();
+	}
 	
 }
