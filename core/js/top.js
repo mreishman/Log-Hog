@@ -330,7 +330,7 @@ function filterDataForFreeRam(dataInner)
 	var usedRam = dataInner[rowForMem][2];
 	var freeRam = dataInner[rowForMem][3];
 	var cacheRam = dataInner[rowForMem][5];
-	if(totalRam == (freeRam+cacheRam))
+	if(parseInt(totalRam) == (parseInt(freeRam)+parseInt(usedRam)))
 	{
 		filterDataForRamSubFunction(usedRam, cacheRam, totalRam,true);
 	}
