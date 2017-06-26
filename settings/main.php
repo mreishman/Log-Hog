@@ -420,16 +420,12 @@ require_once('../core/php/loadVars.php');
 function goToUrl(url)
 	{
 		var goToPage = true
-		console.log(arrayOfValuesToCheckBeforeSave);
 		if(popupSettingsArray.saveSettings != "false")
 		{
 			for (var i = arrayOfValuesToCheckBeforeSave.length - 1; i >= 0; i--) 
 			{
-				console.log(goToPage);
 				if(arrayOfValuesToCheckBeforeSave[i][0] != arrayOfValuesToCheckBeforeSave[i][1])
 				{
-					console.log(arrayOfValuesToCheckBeforeSave[i][0]);
-					console.log( arrayOfValuesToCheckBeforeSave[i][1]);
 					goToPage = false;
 					break;
 				}
