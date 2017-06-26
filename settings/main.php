@@ -393,21 +393,6 @@ require_once('../core/php/loadVars.php');
 	var countOfClicks = 0;
 	var locationInsert = "newRowLocationForWatchList";
 	var logTrimType = "<?php echo $logTrimType; ?>";
-	var arrayOfValuesToCheckBeforeSave = Array(
-		Array((document.getElementsByName("sliceSize")[0].value), "<?php echo $sliceSize;?>"),
-		Array((document.getElementsByName("pollingRate")[0].value),"<?php echo $pollingRate;?>"),
-		Array((document.getElementsByName("pausePoll")[0].value),"<?php echo $pausePoll;?>"),
-		Array((document.getElementsByName("pauseOnNotFocus")[0].value),"<?php echo $pauseOnNotFocus;?>"),
-		Array((document.getElementsByName("autoCheckUpdate")[0].value),"<?php echo $autoCheckUpdate;?>"),
-		Array((document.getElementsByName("truncateLog")[0].value),"<?php echo $truncateLog;?>"),
-		Array((document.getElementsByName("popupWarnings")[0].value),"<?php echo $popupWarnings;?>"),
-		Array((document.getElementsByName("flashTitleUpdateLog")[0].value),"<?php echo $flashTitleUpdateLog;?>"),
-		Array((document.getElementById("numberOfRows").value),"<?php echo $folderCount;?>"),
-		Array((document.getElementsByName("saveSettings")[0].value),popupSettingsArray.saveSettings),
-		Array((document.getElementsByName("blankFolder")[0].value),popupSettingsArray.blankFolder),
-		Array((document.getElementsByName("removeFolder")[0].value),popupSettingsArray.removeFolder),
-		Array((document.getElementsByName("pollingRateType")[0].value),"<?php echo $pollingRateType;?>"),
-		Array((document.getElementsByName("autoCheckDaysUpdate")[0].value),"<?php echo $autoCheckDaysUpdate;?>"));
  
 	if(logTrimType == 'lines')
 	{
@@ -422,6 +407,21 @@ function goToUrl(url)
 		var goToPage = true
 		if(popupSettingsArray.saveSettings != "false")
 		{
+			var arrayOfValuesToCheckBeforeSave = Array(
+				Array((document.getElementsByName("sliceSize")[0].value), "<?php echo $sliceSize;?>"),
+				Array((document.getElementsByName("pollingRate")[0].value),"<?php echo $pollingRate;?>"),
+				Array((document.getElementsByName("pausePoll")[0].value),"<?php echo $pausePoll;?>"),
+				Array((document.getElementsByName("pauseOnNotFocus")[0].value),"<?php echo $pauseOnNotFocus;?>"),
+				Array((document.getElementsByName("autoCheckUpdate")[0].value),"<?php echo $autoCheckUpdate;?>"),
+				Array((document.getElementsByName("truncateLog")[0].value),"<?php echo $truncateLog;?>"),
+				Array((document.getElementsByName("popupWarnings")[0].value),"<?php echo $popupWarnings;?>"),
+				Array((document.getElementsByName("flashTitleUpdateLog")[0].value),"<?php echo $flashTitleUpdateLog;?>"),
+				Array((document.getElementById("numberOfRows").value),"<?php echo $folderCount;?>"),
+				Array((document.getElementsByName("saveSettings")[0].value),popupSettingsArray.saveSettings),
+				Array((document.getElementsByName("blankFolder")[0].value),popupSettingsArray.blankFolder),
+				Array((document.getElementsByName("removeFolder")[0].value),popupSettingsArray.removeFolder),
+				Array((document.getElementsByName("pollingRateType")[0].value),"<?php echo $pollingRateType;?>"),
+				Array((document.getElementsByName("autoCheckDaysUpdate")[0].value),"<?php echo $autoCheckDaysUpdate;?>"));
 			for (var i = arrayOfValuesToCheckBeforeSave.length - 1; i >= 0; i--) 
 			{
 				if(arrayOfValuesToCheckBeforeSave[i][0] != arrayOfValuesToCheckBeforeSave[i][1])
@@ -430,7 +430,6 @@ function goToUrl(url)
 					break;
 				}
 			}	
-			console.log(goToPage);
 			if(goToPage)
 			{
 				var fileCount = 1;
