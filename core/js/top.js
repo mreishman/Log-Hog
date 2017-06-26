@@ -313,12 +313,12 @@ function filterDataFromRUsageSystem(phpSystemTimeDiffForHistory)
 		document.getElementById('popupGraphLowerTr').innerHTML = "<th style='background-color:blue; width:25px;'><th  style='text-align:left;'>Current: "+arrayToShowInConsole[arrayToShowInConsoleLength-1]+"% of "+maxOfArray+"</th></th>";
 	}
 }
-
+//check if used + free = total, if not add buffer/cache
 function filterDataForFreeRam(dataInner)
 {
 	dataInner = "Memory " + dataInner;
 	dataInner = filterData(dataInner, 6);
-	
+	console.log(dataInner);
 	var totalRam = dataInner[1][1];
 	var usedRam = dataInner[1][2];
 	var cacheRam = dataInner[1][5];
