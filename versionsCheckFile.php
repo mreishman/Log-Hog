@@ -1,7 +1,7 @@
 <?php
 
 $versionCheckArray = array(
-	'version'		=> '2.2.1',
+	'version'		=> '2.3',
 	'versionList'		=> array(
 		'2.0.1'	        => array(
 			'branchName'	=> '2.0.1Update',
@@ -26,6 +26,10 @@ $versionCheckArray = array(
 		'2.2.1'		=> array(
 			'branchName'	=> '2.2.1Update',
 			'releaseNotes'	=> '<ul><li>Features<ul><li>Added D-Bug info (turned off by default)</li><li>Changed check for update form normal to ajax. </li><li>Added right click menu to some icons<ul><li>Settings Icon</li><li>Clear Log(s) Icon</li><li>Update Notice Icon</li></ul></li></ul></li><li>Bug Fixes<ul><li>Slight adjustments to poll logic. Should be faster in some situations.</li><li>Small code changes to menu on settings pages</li><li>Updated error screen with correct files</li><li>Fixed bug with the verify write status action</li></ul></li></ul>'
+		),
+		'2.3'		=> array(
+			'branchName'	=> '2.3Update',
+			'releaseNotes'	=> '<ul><li>Features<ul><li>Process Monitoring tab added. Monitors: <ul><li>CPU usage</li><li>Ram / swap usage</li><li>Disk usage / IO</li><li>PHP User time used / system time used</li><li>Network Interface receive / transmit</li><li>Shows list of processes</li></ul></li><li>Added setting to disable right click menu. </li></ul></li><li>Bug Fixes<ul><li>Fixes bug where the delete log button did not remove the log from the top bar. </li><li>Fixes bug where log files could not be deleted or cleared when seeing poll information. </li><li>Fixes bug where update changelog would sometimes give error depending on version numbering. </li></ul></li></ul>'
 		)
 	)
 );
