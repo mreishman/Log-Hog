@@ -1,6 +1,6 @@
 <?php
   
-$arrayOfFiles = array("core_js_main.js", "core_php_settingsCheckForUpdate.php","settings_main.php","settings_update.php");
+$arrayOfFiles = array("core_conf_config.php","core_html_popup.html","core_js_main.js","core_js_rightClickJS.js","core_js_settingsMain.js","core_js_top.js","core_php_deleteLog.php","core_php_dfAL.php","core_php_free.php","core_php_getRUsage.php","core_php_ioStatDx.php","core_php_killProcess.php","core_php_loadVars.php","core_php_procNetDev.php","core_php_procStat.php","core_php_psAux.php","core_php_settingsCheckForUpdateAjax.php","core_php_settingsSave.php","core_php_settingsSaveAjax.php","core_php_top.php","core_php_topAlt.php","core_php_updateCheck.php","core_template_theme.css","index.php","local_default_template_theme.css","settings_about.php","settings_advanced.php","settings_changelog.html","settings_devTools.php","settings_experimentalfeatures.php","settings_header.php","settings_main.php","settings_settingsTop.php","settings_update.php","top_header.php","top_overview.php");
 
 require_once("innerUpgradeStatus.php");
 
@@ -18,7 +18,7 @@ while($countOfSlash < 20 && !file_exists($varToIndexDir."index.php"))
   
 if($currentFile == "core_js_main.js")
 {
-   rename($varToIndexDir.$indexToExtracted."core_js_main.php", $varToIndexDir.$indexToExtracted."core_js_main.js");
+   mkdir($varToIndexDir."/top/", 0777);
 }
   
 //update innerUpgradeStatus file
