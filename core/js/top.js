@@ -49,7 +49,7 @@ function showGraphPopup(graph, name,type)
 	heightForPopup = ((height*0.95)-125);
 	widthForPopup = (width*0.95);
 	var innerHTMLforPopup = "";
-	innerHTMLforPopupInner =  "<div class='settingsHeader' ><table style='width:100%; color:black;'><tr><th style='text-align:left;' >"+name+"</th><th style='text-align:right;'><a class='link' onclick='hidePopup();'>Close</a></th></tr></table></div><br><br><div style='width:100%;text-align:center;'>";
+	innerHTMLforPopup =  "<div class='settingsHeader' ><table style='width:100%; color:black;'><tr><th style='text-align:left;' >"+name+"</th><th style='text-align:right;'><a class='link' onclick='hidePopup();'>Close</a></th></tr></table></div><br><br><div style='width:100%;text-align:center;'>";
 	if(type == "onePage")
 	{
 		innerHTMLforPopup += showOnePagePopup(graph,name,heightForPopup,widthForPopup);
