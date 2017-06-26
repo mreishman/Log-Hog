@@ -74,7 +74,7 @@ function showTwoColumnLeftOneGraphRightOneGraphOneDescriptionPopup(graph,name,he
 	{
 		squarePopupWidth = heightForPopup;
 	}
-	return "<table style='width: "+widthForPopup+"px; height: "+heightForPopup+"px;' ><tr><td rowspan='2' style='width:"+(widthForPopup/2)+"px;' ><img id='popupGraphLoadingSpinner' src='../core/img/loading.gif' height='50' width='50' style='margin-left:"+(widthForPopup/4)+"px;' ><canvas style='display:none;'  id='graph[0]' width='"+squarePopupWidth+"' height='"+squarePopupWidth+"' ></canvas> </td><td style='width:"+(widthForPopup/2)+"px;' ><img id='popupGraphLoadingSpinner' src='../core/img/loading.gif' height='50' width='50' style='margin-left:"+(widthForPopup/4)+"px;' > </td></tr><tr><td><img id='popupGraphLoadingSpinner' src='../core/img/loading.gif' height='50' width='50' style='margin-left:"+(widthForPopup/4)+"px;' > </td></tr></table>";
+	return "<table style='width: "+widthForPopup+"px; height: "+heightForPopup+"px;' ><tr><td rowspan='2' style='width:"+(widthForPopup/2)+"px;' ><img id='popupGraphLoadingSpinner' src='../core/img/loading.gif' height='50' width='50' style='margin-left:"+(widthForPopup/4)+"px;' ><canvas style='display:none;'  id='graph[0]' width='"+squarePopupWidth+"' height='"+squarePopupWidth+"' ></canvas> </td><td style='width:"+(widthForPopup/2)+"px;' ><img id='popupGraphLoadingSpinner2' src='../core/img/loading.gif' height='50' width='50' style='margin-left:"+(widthForPopup/4)+"px;' ><canvas style='display:none;'  id='graph[0]' width='"+(widthForPopup/2)+"' height='"+(heightForPopup/2)+"' ></canvas>  </td></tr><tr><td><img id='popupGraphLoadingSpinner3' src='../core/img/loading.gif' height='50' width='50' style='margin-left:"+(widthForPopup/4)+"px;' > </td></tr></table>";
 }
 
 function showOnePagePopup(graph,name,heightForPopup,widthForPopup)
@@ -886,7 +886,8 @@ function filterDataForDiskSpace(dataInner)
 	var dataInnerNewArrayOfArraysHDDLength = filteredHDDArray.length;
 	for (var i = 0; i < dataInnerNewArrayOfArraysHDDLength; i++) 
 	{
-		htmlForProcesses += "<tr onclick='showGraphPopup("+'"graph"'+", "+'"'+filteredHDDArray[i][0]+"("+filteredHDDArray[i][5]+")"+'"'+","+'"twoColumnLeftOneGraphRightOneGraphOneDescription"'+")' style='font-size: 75%; cursor: pointer;'>";
+		//htmlForProcesses += "<tr onclick='showGraphPopup("+'"graph"'+", "+'"'+filteredHDDArray[i][0]+"("+filteredHDDArray[i][5]+")"+'"'+","+'"twoColumnLeftOneGraphRightOneGraphOneDescription"'+")' style='font-size: 75%; cursor: pointer;'>";
+		htmlForProcesses += "<tr style='font-size: 75%;' >";
 		var percent = filteredHDDArray[i][4].slice(0,-1);
 		percent = parseInt(percent);
 		htmlForProcesses += "<td style='max-width: 20px; overflow: hidden;'><div class='led-";
