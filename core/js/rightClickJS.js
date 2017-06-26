@@ -7,7 +7,11 @@
 
   var checkForUpdateRightClickMenu = {action: "checkForUpdateDefinitely(true);", name: "Check For Update"};
   var aboutRightClickMenu = {action: "window.location.href = './settings/about.php'", name: "About"};
-
+  var changeLogRightClickMenu = {action: "window.location.href = './settings/update.php'", name: "Change Log"};
+  var advancedRightClickMenu = {action: "window.location.href = './settings/advanced.php'", name: "Advanced"};
+  var devToolsRightClickMenu = {action: "window.location.href = './settings/devTools.php'", name: "Dev Tools"};
+  var experimentalFeaturesRightClickMenu = {action: "window.location.href = './settings/experimentalfeatures.php'", name: "Experimental Features"};
+  var taskManagerSettingsRightClickMenu =  {action: "window.location.href = './settings/settingsTop.php'", name: "Top Settings"};
 
   //Clear Logs Menu Button
 
@@ -20,7 +24,7 @@
 
   var updateRightClickAction = {action: "installUpdates();", name: "Update"};
 
-  var gearMenu = [checkForUpdateRightClickMenu,aboutRightClickMenu];
+  var gearMenu = [devToolsRightClickMenu,experimentalFeaturesRightClickMenu,taskManagerSettingsRightClickMenu,advancedRightClickMenu,changeLogRightClickMenu,checkForUpdateRightClickMenu,aboutRightClickMenu];
   var deleteMenu = [clearAllLogs,clearCurrentLog,deleteCurrentLog];
   var updateMenu = [updateRightClickAction]
 

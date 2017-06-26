@@ -359,8 +359,10 @@ function isPageHidden(){
 
 function clearLog()
 {
-	var urlForSend = 'core/php/clearLog.php?format=json'
-	var data = {file: document.getElementById("title").innerHTML};
+	var urlForSend = 'core/php/clearLog.php?format=json';
+	var title = document.getElementById("title").innerHTML;
+	title = title.substring(0, title.indexOf("|"));
+	var data = {file: title};
 	$.ajax({
 			  url: urlForSend,
 			  dataType: 'json',
@@ -392,8 +394,10 @@ function deleteLogPopup()
 {
 	if(popupSettingsArray.deleteLog == "true")
 	{
-	showPopup();
-		document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Are you sure you want to delete this log?</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>"+document.getElementById("title").innerHTML+"</div><div><div class='link' onclick='deleteLog();hidePopup();' style='margin-left:125px; margin-right:50px;margin-top:35px;'>Yes</div><div onclick='hidePopup();' class='link'>No</div></div>";
+		showPopup();
+		var title = document.getElementById("title").innerHTML;
+		title = title.substring(0, title.indexOf("|"));
+		document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Are you sure you want to delete this log?</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>"+title+"</div><div><div class='link' onclick='deleteLog();hidePopup();' style='margin-left:125px; margin-right:50px;margin-top:35px;'>Yes</div><div onclick='hidePopup();' class='link'>No</div></div>";
 	}
 	else
 	{
@@ -403,14 +407,12 @@ function deleteLogPopup()
 
 function deleteLog()
 {
-	var urlForSend = 'core/php/deleteLog.php?format=json'
-	var data = {file: document.getElementById("title").innerHTML};
-	name = document.getElementById("title").innerHTML;
-		id = name.replace(/[^a-z0-9]/g, '');
-		if($('#menu .' + id + 'Button').length != 0)
-		{
-			$('#menu .' + id + 'Button').remove();
-		}
+	var urlForSend = 'core/php/deleteLog.php?format=json';
+	var title = document.getElementById("title").innerHTML;
+	title = title.substring(0, title.indexOf("|"));
+	title = title.replace(/\s/g, '');
+	var data = {file: title};
+	name = title;
 	$.ajax({
 			  url: urlForSend,
 			  dataType: 'json',
@@ -418,6 +420,11 @@ function deleteLog()
 			  type: 'POST',
 	success: function(data){
     // we make a successful JSONP call!
+    id = data.replace(/[^a-z0-9]/g, '');
+	if($('#menu .' + id + 'Button').length != 0)
+	{
+		$('#menu .' + id + 'Button').remove();
+	}
   },
   	complete: function(data){
   	},
@@ -457,7 +464,7 @@ function checkForUpdateDefinitely(showPopupForNoUpdate = false)
 		}
 		$.getJSON('core/php/settingsCheckForUpdateAjax.php', {}, function(data) 
 		{
-			if(data.version == "1" || data.version == "2" | data.version == "3")
+			if((data.version == "1" && updateNoticeMeter == "every")|| data.version == "2" | data.version == "3")
 			{
 				//Update needed
 				if(dontNotifyVersion != data.versionNumber)

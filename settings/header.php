@@ -15,6 +15,11 @@ $URI = $_SERVER['REQUEST_URI'];
 	<?php else: ?>
 		<a id="mainLink" onclick="goToUrl('main.php');" >Main</a>
 	<?php endif; ?>
+	<?php if(strpos($URI, 'settingsTop.php') !== false): ?>
+		<a style="cursor: default;" class="active" id="topLink" >Top</a>
+	<?php else: ?>
+		<a id="topLink" onclick="goToUrl('settingsTop.php');" >Top</a>
+	<?php endif; ?>
 	<?php if(strpos($URI, 'about.php') !== false): ?>
 		<a style="cursor: default;" class="active" id="aboutLink" >About</a>
 	<?php else: ?>	

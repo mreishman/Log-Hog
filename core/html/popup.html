@@ -19,10 +19,21 @@ function showPopup()
 {
 	document.getElementById('popup').style.display = "block";
 	document.getElementById('popupContentInnerHTMLDiv').innerHTML = "";
+	//reset popup css style vars if needed
+	document.getElementById('popupContent').style.width = "400px";
+	document.getElementById('popupContent').style.height = "150px";
+	document.getElementById('popupContent').style.marginTop = "-75px";
+	document.getElementById('popupContent').style.marginLeft = "-200px";
+	document.getElementById('popupContent').style.backgroundColor = "#444444";
 }
 function displayLoadingPopup(pathToImg = "../core/img/")
 {
 	showPopup();
 	document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Loading...</div><br><br><div style='width:100%;text-align:center;'> <img src='"+pathToImg+"loading.gif' height='50' width='50'> </div>";
+}
+function displaySavePromptPopup(url)
+{
+	showPopup();
+	document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Changes not Saved!</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Are you sure you want to leave the page without saving changes?</div><div class='link' onclick='window.location.href = "+'"'+url+'"'+";' style='margin-left:125px; margin-right:50px;margin-top:25px;'>Yes</div><div onclick='hidePopup();' class='link'>No</div></div>";
 }
 </script>

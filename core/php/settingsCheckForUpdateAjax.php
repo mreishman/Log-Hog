@@ -179,12 +179,19 @@ for($i = 0; $i < $newestVersionCount; $i++)
     }
     else
     {
-      if($newestVersion[$i] > $version[$i])
+      if(isset($newestVersion[$i]))
       {
-        $levelOfUpdate = 1;
-        break;
+        if($newestVersion[$i] > $version[$i])
+        {
+          $levelOfUpdate = 1;
+          break;
+        }
+        elseif($newestVersion[$i] < $version[$i])
+        {
+          break;
+        }
       }
-      elseif($newestVersion[$i] < $version[$i])
+      else
       {
         break;
       }

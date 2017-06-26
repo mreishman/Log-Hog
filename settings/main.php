@@ -15,62 +15,7 @@ if(file_exists('../local/layout.php'))
 require_once($baseUrl.'conf/config.php'); 
 require_once('../core/conf/config.php');
 require_once('../core/php/configStatic.php');
-
-$version = explode('.', $configStatic['version']);
-$newestVersion = explode('.', $configStatic['newestVersion']);
-
-$levelOfUpdate = 0; // 0 is no updated, 1 is minor update and 2 is major update
-
-$newestVersionCount = count($newestVersion);
-$versionCount = count($version);
-
-for($i = 0; $i < $newestVersionCount; $i++)
-{
-	if($i < $versionCount)
-	{
-		if($i == 0)
-		{
-			if($newestVersion[$i] > $version[$i])
-			{
-				$levelOfUpdate = 3;
-				break;
-			}
-			elseif($newestVersion[$i] < $version[$i])
-			{
-				break;
-			}
-		}
-		elseif($i == 1)
-		{
-			if($newestVersion[$i] > $version[$i])
-			{
-				$levelOfUpdate = 2;
-				break;
-			}
-			elseif($newestVersion[$i] < $version[$i])
-			{
-				break;
-			}
-		}
-		else
-		{
-			if($newestVersion[$i] > $version[$i])
-			{
-				$levelOfUpdate = 1;
-				break;
-			}
-			elseif($newestVersion[$i] < $version[$i])
-			{
-				break;
-			}
-		}
-	}
-	else
-	{
-		$levelOfUpdate = 1;
-		break;
-	}
-}
+require_once('../core/php/updateCheck.php');
 require_once('../core/php/loadVars.php');
 ?>
 <!doctype html>
@@ -192,6 +137,13 @@ require_once('../core/php/loadVars.php');
 						<span class="settingsBuffer" > Check for update every: </span> 
 							<input type="text" name="autoCheckDaysUpdate" value="<?php echo $autoCheckDaysUpdate;?>" >  Day(s)
 						</li>
+						<li>
+						<span class="settingsBuffer" > Notify Updates on: </span> 
+							<select id="updateNoticeMeter" name="updateNoticeMeter">
+		  						<option <?php if($updateNoticeMeter == 'every'){echo "selected";} ?> value="every">Every Update</option>
+		  						<option <?php if($updateNoticeMeter == 'major'){echo "selected";} ?> value="major">Only Major Updates</option>
+							</select>
+						</li>
 
 					</ul>
 					</div>
@@ -237,6 +189,13 @@ require_once('../core/php/loadVars.php');
 					<select name="flashTitleUpdateLog">
   						<option <?php if($flashTitleUpdateLog == 'true'){echo "selected";} ?> value="true">True</option>
   						<option <?php if($flashTitleUpdateLog == 'false'){echo "selected";} ?> value="false">False</option>
+					</select>
+			</li>
+			<li>
+				<span class="settingsBuffer" > Right Click Menu: </span> 
+					<select name="rightClickMenuEnable">
+  						<option <?php if($rightClickMenuEnable == 'true'){echo "selected";} ?> value="true">Enabled</option>
+  						<option <?php if($rightClickMenuEnable == 'false'){echo "selected";} ?> value="false">Disabled</option>
 					</select>
 			</li>
 		</ul>
@@ -415,308 +374,90 @@ require_once('../core/php/loadVars.php');
 	<?php readfile('../core/html/popup.html') ?>	
 </body>
 <script src="../core/js/settings.js"></script>
-<script type="text/javascript">
-<?php
-	if($triggerSaveUpdate)
-	{
-		echo "document.getElementById('settingsMainWatch').submit();";
-	}
-	else
-	{
-	?>
+<?php if($triggerSaveUpdate): ?>
+	<script type="text/javascript">
+	document.getElementById('settingsMainWatch').submit();
+	</script>
+<?php else: ?>
+	<script src="../core/js/settingsMain.js"></script>
+	<script type="text/javascript">
+	document.getElementById("popupSelect").addEventListener("change", showOrHidePopupSubWindow, false);
+	document.getElementById("settingsSelect").addEventListener("change", showOrHideUpdateSubWindow, false);
+	document.getElementById("logTrimTypeToggle").addEventListener("change", changeDescriptionLineSize, false);
+	document.getElementById("logTrimOn").addEventListener("change", showOrHideLogTrimSubWindow, false);
 
-document.getElementById("popupSelect").addEventListener("change", showOrHidePopupSubWindow, false);
-document.getElementById("settingsSelect").addEventListener("change", showOrHideUpdateSubWindow, false);
-document.getElementById("logTrimTypeToggle").addEventListener("change", changeDescriptionLineSize, false);
-document.getElementById("logTrimOn").addEventListener("change", showOrHideLogTrimSubWindow, false);
-
-
-
-var popupSettingsArray = JSON.parse('<?php echo json_encode($popupSettingsArray) ?>');
-var fileArray = JSON.parse('<?php echo json_encode($config['watchList']) ?>');
-var countOfWatchList = <?php echo $i; ?>;
-var countOfAddedFiles = 0;
-var countOfClicks = 0;
-var locationInsert = "newRowLocationForWatchList";
-var logTrimType = "<?php echo $logTrimType; ?>";
+	var popupSettingsArray = JSON.parse('<?php echo json_encode($popupSettingsArray) ?>');
+	var fileArray = JSON.parse('<?php echo json_encode($config['watchList']) ?>');
+	var countOfWatchList = <?php echo $i; ?>;
+	var countOfAddedFiles = 0;
+	var countOfClicks = 0;
+	var locationInsert = "newRowLocationForWatchList";
+	var logTrimType = "<?php echo $logTrimType; ?>";
  
-if(logTrimType == 'lines')
-{
-	document.getElementById('logTrimTypeText').innerHTML = "Lines";
-}
-else if (logTrimType == 'size')
-{
-	document.getElementById('logTrimTypeText').innerHTML = "Size";
-}
-
-
-function showOrHideLogTrimSubWindow()
-{
-	var valueToSeeIfShowOrHideSubWindowLogTrim = document.getElementById("logTrimOn").value;
-
-	if(valueToSeeIfShowOrHideSubWindowLogTrim == "true")
-	{
-		document.getElementById("settingsLogTrimVars").style.display = "block";
-	}
-	else
-	{
-		document.getElementById("settingsLogTrimVars").style.display = "none";
-	}
-}
-
-
-function changeDescriptionLineSize()
-{
-
-	var valueForDesc = document.getElementById("logTrimTypeToggle").value;
-
-	if (valueForDesc == "lines")
+	if(logTrimType == 'lines')
 	{
 		document.getElementById('logTrimTypeText').innerHTML = "Lines";
-		//document.getElementById('LiForlogTrimMacBSD').style.display = "block";
-		document.getElementById('LiForlogTrimSize').style.display = "none"
 	}
-	else if (valueForDesc == 'size')
+	else if (logTrimType == 'size')
 	{
 		document.getElementById('logTrimTypeText').innerHTML = "Size";
-		//document.getElementById('LiForlogTrimMacBSD').style.display = "none";
-		document.getElementById('LiForlogTrimSize').style.display = "block"
 	}
-
-}
-
-function addRowFunction()
-{
-
-	countOfWatchList++;
-	countOfClicks++;
-	if(countOfWatchList < 10)
-	{
-		document.getElementById(locationInsert).outerHTML += "<li id='rowNumber"+countOfWatchList+"'>File #0" + countOfWatchList+ ": <input type='text' style='width: 500px;' name='watchListKey" + countOfWatchList + "' > <input type='text' name='watchListItem" + countOfWatchList + "' > <a class='link'  onclick='deleteRowFunctionPopup("+ countOfWatchList +", true,"+'"'+"File #0" + countOfWatchList+'"'+")'>Remove File / Folder</a></li><div id='newRowLocationForWatchList"+countOfClicks+"'></div>";
-	}
-	else
-	{
-		document.getElementById(locationInsert).outerHTML += "<li id='rowNumber"+countOfWatchList+"'>File #" + countOfWatchList+ ": <input type='text' style='width: 500px;' name='watchListKey" + countOfWatchList + "' > <input type='text' name='watchListItem" + countOfWatchList + "' > <a class='link' onclick='deleteRowFunctionPopup("+ countOfWatchList +", true,"+'"'+"File #" + countOfWatchList+'"'+")'>Remove File / Folder</a></li><div id='newRowLocationForWatchList"+countOfClicks+"'></div>";
-	}
-	locationInsert = "newRowLocationForWatchList"+countOfClicks;
-	document.getElementById('numberOfRows').value = countOfWatchList;
-	countOfAddedFiles++;
-}
-
-function deleteRowFunctionPopup(currentRow, decreaseCountWatchListNum, keyName = "")
-{
-	if(popupSettingsArray.removeFolder == "true")
-	{
-		showPopup();
-		document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Are you sure you want to remove this file/folder?</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>"+keyName+"</div><div><div class='link' onclick='deleteRowFunction("+currentRow+","+ decreaseCountWatchListNum+");hidePopup();' style='margin-left:125px; margin-right:50px;margin-top:35px;'>Yes</div><div onclick='hidePopup();' class='link'>No</div></div>";
-	}
-	else
-	{
-		deleteRowFunction(currentRow, decreaseCountWatchListNum);
-	}
-	
-}
-
-function deleteRowFunction(currentRow, decreaseCountWatchListNum)
-{
-	var elementToFind = "rowNumber" + currentRow;
-	document.getElementById(elementToFind).outerHTML = "";
-	if(decreaseCountWatchListNum)
-	{
-		newValue = document.getElementById('numberOfRows').value;
-		if(currentRow < newValue)
-		{
-			//this wasn't the last folder deleted, update others
-			for(var i = currentRow + 1; i <= newValue; i++)
-			{
-				var updateItoIMinusOne = i - 1;
-				var elementToUpdate = "rowNumber" + i;
-				var documentUpdateText = "<li id='rowNumber"+updateItoIMinusOne+"' >File #";
-				var watchListKeyIdFind = "watchListKey"+i;
-				var watchListItemIdFind = "watchListItem"+i;
-				var previousElementNumIdentifierForKey  = document.getElementsByName(watchListKeyIdFind);
-				var previousElementNumIdentifierForItem  = document.getElementsByName(watchListItemIdFind);
-				if(updateItoIMinusOne < 10)
-				{
-					documentUpdateText += "0";
-				}
-				documentUpdateText += updateItoIMinusOne+": ";
-				var nameForId = "fileNotFoundImage" + i;
-				var elementByIdPreCheck = document.getElementById(nameForId);
-				if(elementByIdPreCheck !== null)
-				{
-					documentUpdateText += '<img id="fileNotFoundImage'+updateItoIMinusOne+'" src="../core/img/redWarning.png" height="10px">';
-				}
-				documentUpdateText += "<input style='width: ";
-				if(elementByIdPreCheck !== null)
-				{
-					documentUpdateText += '480';
-				}
-				else
-				{
-					documentUpdateText += '500';
-				}
-				documentUpdateText += "px' type='text' name='watchListKey"+updateItoIMinusOne+"' value='"+previousElementNumIdentifierForKey[0].value+"'> ";
-				documentUpdateText += "<input type='text' name='watchListItem"+updateItoIMinusOne+"' value='"+previousElementNumIdentifierForItem[0].value+"'>";
-				documentUpdateText += ' <a class="link" onclick="deleteRowFunctionPopup('+updateItoIMinusOne+', true,'+"'"+previousElementNumIdentifierForKey[0].value+"'"+')">Remove File / Folder</a>';
-				documentUpdateText += '</li>';
-				document.getElementById(elementToUpdate).outerHTML = documentUpdateText;
-			}
-		}
-		newValue--;
-		if(countOfAddedFiles > 0)
-		{
-			countOfAddedFiles--;
-			countOfWatchList--;
-		}
-		document.getElementById('numberOfRows').value = newValue;
-	}
-
-}	
-function showOrHidePopupSubWindow()
-{
-	var valueForPopup = document.getElementById('popupSelect').value;
-	if(valueForPopup == 'custom')
-	{
-		document.getElementById('settingsPopupVars').style.display = 'block';
-	}
-	else
-	{
-		document.getElementById('settingsPopupVars').style.display = 'none';
-	}
-}
-function showOrHideUpdateSubWindow()
-{
-	var valueForPopup = document.getElementById('settingsSelect').value;
-	if(valueForPopup == 'true')
-	{
-		document.getElementById('settingsAutoCheckVars').style.display = 'block';
-	}
-	else
-	{
-		document.getElementById('settingsAutoCheckVars').style.display = 'none';
-	}
-}
-function checkWatchList()
-{
-	var blankValue = false;
-	for (var i = 1; i <= countOfWatchList; i++) 
-	{
-		if(document.getElementsByName("watchListKey"+i)[0].value == "")
-		{
-			blankValue = true;
-		}
-	}
-	if(blankValue && popupSettingsArray.blankFolder == "true")
-	{
-		showNoEmptyFolderPopup();
-		event.preventDefault();
-		event.returnValue = false;
-		return false;
-	}
-	else
-	{
-		displayLoadingPopup();
-	}
-}
-function showNoEmptyFolderPopup()
-{
-	showPopup();
-	document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Warning!</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Please make sure there are no empty folders when saving the Watch List.</div><div><div class='link' onclick='hidePopup();' style='margin-left:175px; margin-top:25px;'>Okay</div></div>";
-}
-
 function goToUrl(url)
 	{
 		var goToPage = true
-		if(document.getElementsByName("sliceSize")[0].value != "<?php echo $sliceSize;?>")
+		if(popupSettingsArray.saveSettings != "false")
 		{
-			goToPage = false;
-		}
-		else if(document.getElementsByName("pollingRate")[0].value != "<?php echo $pollingRate;?>")
-		{
-			goToPage = false;
-		}
-		else if(document.getElementsByName("pausePoll")[0].value != "<?php echo $pausePoll;?>")
-		{
-			goToPage = false;
-		}
-		else if(document.getElementsByName("pauseOnNotFocus")[0].value != "<?php echo $pauseOnNotFocus;?>")
-		{
-			goToPage = false;
-		}
-		else if(document.getElementsByName("autoCheckUpdate")[0].value != "<?php echo $autoCheckUpdate;?>")
-		{
-			goToPage = false;
-		}
-		else if(document.getElementsByName("truncateLog")[0].value != "<?php echo $truncateLog;?>")
-		{
-			goToPage = false;
-		}
-		else if(document.getElementsByName("popupWarnings")[0].value != "<?php echo $popupWarnings;?>")
-		{
-			goToPage = false;
-		}
-		else if(document.getElementsByName("flashTitleUpdateLog")[0].value != "<?php echo $flashTitleUpdateLog;?>")
-		{
-			goToPage = false;
-		}
-		else if(document.getElementById("numberOfRows").value != "<?php echo $folderCount;?>")
-		{
-			goToPage = false;
-		}
-		else if(document.getElementsByName("saveSettings")[0].value != popupSettingsArray.saveSettings)
-		{
-			goToPage = false;
-		}
-		else if(document.getElementsByName("blankFolder")[0].value != popupSettingsArray.blankFolder)
-		{
-			goToPage = false;
-		}
-		else if(document.getElementsByName("removeFolder")[0].value != popupSettingsArray.removeFolder)
-		{
-			goToPage = false;
-		}
-		else if(document.getElementsByName("pollingRateType")[0].value != "<?php echo $pollingRateType;?>")
-		{
-			goToPage = false;
-		}
-		else if(document.getElementsByName("autoCheckDaysUpdate")[0].value != "<?php echo $autoCheckDaysUpdate;?>")
-		{
-			goToPage = false;
-		}
-		
-
-		if(goToPage)
-		{
-			var fileCount = 1;
-			$.each( fileArray, function( key, value ) 
+			var arrayOfValuesToCheckBeforeSave = Array(
+				Array((document.getElementsByName("sliceSize")[0].value), "<?php echo $sliceSize;?>"),
+				Array((document.getElementsByName("pollingRate")[0].value),"<?php echo $pollingRate;?>"),
+				Array((document.getElementsByName("pausePoll")[0].value),"<?php echo $pausePoll;?>"),
+				Array((document.getElementsByName("pauseOnNotFocus")[0].value),"<?php echo $pauseOnNotFocus;?>"),
+				Array((document.getElementsByName("autoCheckUpdate")[0].value),"<?php echo $autoCheckUpdate;?>"),
+				Array((document.getElementsByName("truncateLog")[0].value),"<?php echo $truncateLog;?>"),
+				Array((document.getElementsByName("popupWarnings")[0].value),"<?php echo $popupWarnings;?>"),
+				Array((document.getElementsByName("flashTitleUpdateLog")[0].value),"<?php echo $flashTitleUpdateLog;?>"),
+				Array((document.getElementById("numberOfRows").value),"<?php echo $folderCount;?>"),
+				Array((document.getElementsByName("saveSettings")[0].value),popupSettingsArray.saveSettings),
+				Array((document.getElementsByName("blankFolder")[0].value),popupSettingsArray.blankFolder),
+				Array((document.getElementsByName("removeFolder")[0].value),popupSettingsArray.removeFolder),
+				Array((document.getElementsByName("pollingRateType")[0].value),"<?php echo $pollingRateType;?>"),
+				Array((document.getElementsByName("autoCheckDaysUpdate")[0].value),"<?php echo $autoCheckDaysUpdate;?>"));
+			for (var i = arrayOfValuesToCheckBeforeSave.length - 1; i >= 0; i--) 
 			{
-				if(goToPage)
+				if(arrayOfValuesToCheckBeforeSave[i][0] != arrayOfValuesToCheckBeforeSave[i][1])
 				{
-					if(document.getElementsByName("watchListKey"+fileCount)[0].value != key)
-					{
-						goToPage = false;
-					}
-					else if (document.getElementsByName("watchListItem"+fileCount)[0].value != value)
-					{
-						goToPage = false;
-					}
-					fileCount++;
+					goToPage = false;
+					break;
 				}
-			});
+			}	
+			if(goToPage)
+			{
+				var fileCount = 1;
+				$.each( fileArray, function( key, value ) 
+				{
+					if(goToPage)
+					{
+						if(document.getElementsByName("watchListKey"+fileCount)[0].value != key)
+						{
+							goToPage = false;
+						}
+						else if (document.getElementsByName("watchListItem"+fileCount)[0].value != value)
+						{
+							goToPage = false;
+						}
+						fileCount++;
+					}
+				});
+			}
 		}
-
-		if(goToPage || popupSettingsArray.saveSettings == "false")
+		if(goToPage)
 		{
 			window.location.href = url;
 		}
 		else
 		{
-			showPopup();
-			document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Changes not Saved!</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Are you sure you want to leave the page without saving changes?</div><div class='link' onclick='window.location.href = "+'"'+url+'"'+";' style='margin-left:125px; margin-right:50px;margin-top:25px;'>Yes</div><div onclick='hidePopup();' class='link'>No</div></div>";
+			displaySavePromptPopup(url);
 		}
 	}
-	<?php
-	}
-	?>
-</script>
+	</script>
+<?php endif; ?>

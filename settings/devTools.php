@@ -10,65 +10,8 @@ if(file_exists('../local/layout.php'))
 require_once($baseUrl.'conf/config.php'); 
 require_once('../core/conf/config.php');
 require_once('../core/php/configStatic.php');
-
-$version = explode('.', $configStatic['version']);
-$newestVersion = explode('.', $configStatic['newestVersion']);
-
-$levelOfUpdate = 0; // 0 is no updated, 1 is minor update and 2 is major update
-
-$newestVersionCount = count($newestVersion);
-$versionCount = count($version);
-
-for($i = 0; $i < $newestVersionCount; $i++)
-{
-	if($i < $versionCount)
-	{
-		if($i == 0)
-		{
-			if($newestVersion[$i] > $version[$i])
-			{
-				$levelOfUpdate = 3;
-				break;
-			}
-			elseif($newestVersion[$i] < $version[$i])
-			{
-				break;
-			}
-		}
-		elseif($i == 1)
-		{
-			if($newestVersion[$i] > $version[$i])
-			{
-				$levelOfUpdate = 2;
-				break;
-			}
-			elseif($newestVersion[$i] < $version[$i])
-			{
-				break;
-			}
-		}
-		else
-		{
-			if($newestVersion[$i] > $version[$i])
-			{
-				$levelOfUpdate = 1;
-				break;
-			}
-			elseif($newestVersion[$i] < $version[$i])
-			{
-				break;
-			}
-		}
-	}
-	else
-	{
-		$levelOfUpdate = 1;
-		break;
-	}
-}
-
 require_once('../core/php/loadVars.php');
-
+require_once('../core/php/updateCheck.php');
 ?>
 <!doctype html>
 <head>
@@ -121,8 +64,7 @@ require_once('../core/php/loadVars.php');
 		}
 		else
 		{
-			showPopup();
-			document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Changes not Saved!</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Are you sure you want to leave the page without saving changes?</div><div class='link' onclick='window.location.href = "+'"'+url+'"'+";' style='margin-left:125px; margin-right:50px;margin-top:25px;'>Yes</div><div onclick='hidePopup();' class='link'>No</div></div>";
+			displaySavePromptPopup(url);
 		}
 	}
 </script>
