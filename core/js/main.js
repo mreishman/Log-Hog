@@ -11,6 +11,9 @@ var polling = false;
 var t0 = performance.now();
 var t1 = performance.now();
 var counterForPoll = 0;
+var arrayOfData1 = null;
+var arrayOfData2 = null;
+var arrayToUpdate = [];
 
 function poll() {
 
@@ -41,16 +44,56 @@ function pollTwo()
 		{
 			polling = true;
 			t0 = performance.now();
-			$.getJSON('core/php/poll.php', {}, function(data) {
-				update(data);
-				fresh = false;
-			})
-			.always(function()
-			{
-				afterPollFunctionComplete();
+			$.getJSON('core/php/pollCheck.php', {}, function(data) {
+				if(arrayOfData1 == null)
+				{
+					arrayOfData1 = data;
+					arrayToUpdate = data;
+				}
+				else
+				{
+					var arrayOfData2 = data; 
+					var filesNew = Object.keys(arrayOfData2);
+					var filesOld = Object.keys(arrayOfData1);
+
+					arrayToUpdate = [];
+
+					for (var i = filesNew.length - 1; i >= 0; i--)
+					{
+						if(filesOld.indexOf(filesNew[i] > -1))
+						{
+							//file exists
+							if(arrayOfData2[filesNew[i]] != arrayOfData1[filesNew[i]])
+							{
+								arrayToUpdate.push((filesNew[i],arrayOfData2[filesNew[i]]));
+							}
+						}
+						else
+						{
+							//file is new, add to array
+							arrayToUpdate.push((filesNew[i],arrayOfData2[filesNew[i]]));
+						}
+					}
+					arrayOfData1 = data;
+				}
+				pollThree(arrayToUpdate);
 			});
 		}
 	}
+}
+
+function pollThree(arrayToUpdate)
+{
+	console.log(arrayToUpdate);
+	
+	$.getJSON('core/php/poll.php', {}, function(data) {
+		update(data);
+		fresh = false;
+	})
+	.always(function()
+	{
+		afterPollFunctionComplete();
+	});
 }
 
 function afterPollFunctionComplete()
