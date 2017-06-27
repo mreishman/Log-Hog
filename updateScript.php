@@ -1,6 +1,6 @@
 <?php
   
-$arrayOfFiles = array("core_js_main.js", "core_php_settingsCheckForUpdate.php","settings_main.php","settings_update.php");
+$arrayOfFiles = array("core_js_main.js", "core_js_top.js","core_php_poll.php","core_php_pollCheck.php","settings_changelog.html");
 
 require_once("innerUpgradeStatus.php");
 
@@ -14,11 +14,6 @@ $countOfSlash = 0;
 while($countOfSlash < 20 && !file_exists($varToIndexDir."index.php"))
 {
   $varToIndexDir .= "../";        
-}
-  
-if($currentFile == "core_js_main.js")
-{
-   rename($varToIndexDir.$indexToExtracted."core_js_main.php", $varToIndexDir.$indexToExtracted."core_js_main.js");
 }
   
 //update innerUpgradeStatus file
@@ -74,8 +69,5 @@ updateProgressFile("Finished Running Update Script", "", "updateProgressFileNext
 updateProgressFile("Finished Running Update Script", "", "updateProgressFile.php", "");  
   
 }
-
-
-
   
 ?>
