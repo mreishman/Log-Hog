@@ -45,57 +45,68 @@ function pollTwo()
 			polling = true;
 			t0 = performance.now();
 			$.getJSON('core/php/pollCheck.php', {}, function(data) {
-				if(arrayOfData1 == null)
-				{
-					arrayOfData1 = data;
-					arrayToUpdate = data;
-				}
-				else
-				{
-					var arrayOfData2 = data; 
-					var filesNew = Object.keys(arrayOfData2);
-					var filesOld = Object.keys(arrayOfData1);
-
-					arrayToUpdate = [];
-
-					for (var i = filesNew.length - 1; i >= 0; i--)
-					{
-						if(filesOld.indexOf(filesNew[i] > -1))
-						{
-							//file exists
-							if(arrayOfData2[filesNew[i]] != arrayOfData1[filesNew[i]])
-							{
-								arrayToUpdate.push(filesNew[i]);
-							}
-						}
-						else
-						{
-							//file is new, add to array
-							arrayToUpdate.push(filesNew[i]);
-						}
-					}
-
-					for (var i = filesOld.length - 1; i >= 0; i--)
-					{
-						if(filesNew.indexOf(filesOld[i] > -1))
-						{
-							//files old file isn't there in new file
-							arrayToUpdate.push(filesOld[i]);
-						}
-					}
-					arrayOfData1 = data;
-				}
-				pollThree(arrayToUpdate);
+				pollTwoPartTwo(data);
 			});
 		}
 	}
 }
 
+function pollTwoPartTwo(data)
+{
+	if(arrayOfData1 == null)
+	{
+		arrayOfData1 = data;
+		var filesNew = Object.keys(arrayOfData1);
+		for (var i = filesNew.length - 1; i >= 0; i--)
+		{
+			arrayToUpdate.push(filesNew[i]);
+		}
+	}
+	else
+	{
+		var arrayOfData2 = data; 
+		var filesNew = Object.keys(arrayOfData2);
+		var filesOld = Object.keys(arrayOfData1);
+
+		arrayToUpdate = [];
+
+		for (var i = filesNew.length - 1; i >= 0; i--)
+		{
+			if(filesOld.indexOf(filesNew[i]) > -1)
+			{
+				//file exists
+				if(arrayOfData2[filesNew[i]] != arrayOfData1[filesNew[i]])
+				{
+					arrayToUpdate.push(filesNew[i]);
+				}
+			}
+			else
+			{
+				//file is new, add to array
+				arrayToUpdate.push(filesNew[i]);
+			}
+		}
+
+		for (var i = filesOld.length - 1; i >= 0; i--)
+		{
+			if(!(filesNew.indexOf(filesOld[i]) > -1))
+			{
+				//files old file isn't there in new file
+				arrayToUpdate.push(filesOld[i]);
+			}
+		}
+		arrayOfData1 = data;
+	}
+	pollThree(arrayToUpdate);
+}
+
 function pollThree(arrayToUpdate)
 {
-	//console.log(arrayToUpdate);
+	console.log(arrayToUpdate);
 
 	$.getJSON('core/php/poll.php', {}, function(data) {
+		var filesInner = Object.keys(data);
+		console.log(filesInner);
 		update(data);
 		fresh = false;
 	})
