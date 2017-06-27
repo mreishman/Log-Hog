@@ -10,6 +10,7 @@ var startedPauseOnNonFocus = false;
 var polling = false;
 var t0 = performance.now();
 var t1 = performance.now();
+var t2 = performance.now();
 var counterForPoll = 0;
 var arrayOfData1 = null;
 var arrayOfData2 = null;
@@ -54,6 +55,7 @@ function pollTwo()
 
 function pollTwoPartTwo(data)
 {
+	t2 = performance.now();
 	if(arrayOfData1 == null)
 	{
 		arrayOfData1 = data;
@@ -117,37 +119,42 @@ function pollThree(arrayToUpdate)
 			}
 		}
 	}	
-
-
-	var urlForSend = 'core/php/poll.php?format=json'
-	var data = {arrayToUpdate: arrayToUpdate};
-	$.ajax({
-		url: urlForSend,
-		dataType: 'json',
-		data: data,
-		type: 'POST',
-		success: function(data)
-		{
-		  	var filesInner = Object.keys(data);
-			if(arrayOfDataMain == null)
+	if (typeof arrayToUpdate !== 'undefined' && arrayToUpdate.length > 0) 
+	{
+		var urlForSend = 'core/php/poll.php?format=json'
+		var data = {arrayToUpdate: arrayToUpdate};
+		$.ajax({
+			url: urlForSend,
+			dataType: 'json',
+			data: data,
+			type: 'POST',
+			success: function(data)
 			{
-				arrayOfDataMain = data;
-			}
-			else
-			{
-				for (var i = filesInner.length - 1; i >= 0; i--) 
+			  	var filesInner = Object.keys(data);
+				if(arrayOfDataMain == null)
 				{
-					arrayOfDataMain[filesInner[i]] = data[filesInner[i]];
+					arrayOfDataMain = data;
 				}
+				else
+				{
+					for (var i = filesInner.length - 1; i >= 0; i--) 
+					{
+						arrayOfDataMain[filesInner[i]] = data[filesInner[i]];
+					}
+				}
+				update(arrayOfDataMain);
+				fresh = false;
+			},
+			complete: function()
+			{
+				afterPollFunctionComplete();
 			}
-			update(arrayOfDataMain);
-			fresh = false;
-		},
-		complete: function()
-		{
-			afterPollFunctionComplete();
-		}
-	});		
+		});	
+	}
+	else
+	{
+		afterPollFunctionComplete();
+	}	
 }
 
 function afterPollFunctionComplete()
@@ -156,7 +163,7 @@ function afterPollFunctionComplete()
 	if(enablePollTimeLogging != "false")
 	{
 		t1 = performance.now();
-		document.getElementById("loggingTimerPollRate").innerText = "Ajax refresh took " + (Math.round(t1 - t0)) + "/" + pollingRate +"("+(parseInt(pollingRate)*counterForPoll)+")"+" milliseconds.";
+		document.getElementById("loggingTimerPollRate").innerText = "Ajax refresh took    "+(Math.round(t2 - t0))+":"+(Math.round(t1 - t2))+"     " + (Math.round(t1 - t0)) + "/" + pollingRate +"("+(parseInt(pollingRate)*counterForPoll)+")"+" milliseconds.";
 		document.getElementById("loggingTimerPollRate").style.color = "";
 		counterForPoll = 0;
 		if(Math.round(t1-t0) > parseInt(pollingRate))
