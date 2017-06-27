@@ -65,13 +65,22 @@ function pollTwo()
 							//file exists
 							if(arrayOfData2[filesNew[i]] != arrayOfData1[filesNew[i]])
 							{
-								arrayToUpdate.push((filesNew[i],arrayOfData2[filesNew[i]]));
+								arrayToUpdate.push(filesNew[i]);
 							}
 						}
 						else
 						{
 							//file is new, add to array
-							arrayToUpdate.push((filesNew[i],arrayOfData2[filesNew[i]]));
+							arrayToUpdate.push(filesNew[i]);
+						}
+					}
+
+					for (var i = filesOld.length - 1; i >= 0; i--)
+					{
+						if(filesNew.indexOf(filesOld[i] > -1))
+						{
+							//files old file isn't there in new file
+							arrayToUpdate.push(filesOld[i]);
 						}
 					}
 					arrayOfData1 = data;
@@ -84,7 +93,7 @@ function pollTwo()
 
 function pollThree(arrayToUpdate)
 {
-	console.log(arrayToUpdate);
+	//console.log(arrayToUpdate);
 
 	$.getJSON('core/php/poll.php', {}, function(data) {
 		update(data);
