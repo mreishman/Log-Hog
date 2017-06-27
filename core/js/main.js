@@ -85,7 +85,7 @@ function pollTwo()
 function pollThree(arrayToUpdate)
 {
 	console.log(arrayToUpdate);
-	
+
 	$.getJSON('core/php/poll.php', {}, function(data) {
 		update(data);
 		fresh = false;
@@ -404,7 +404,10 @@ function clearLog()
 {
 	var urlForSend = 'core/php/clearLog.php?format=json';
 	var title = document.getElementById("title").innerHTML;
-	title = title.substring(0, title.indexOf("|"));
+	if(title.substring(0, title.indexOf("|")) != null && title.substring(0, title.indexOf("|")) != "")
+	{
+		title = title.substring(0, title.indexOf("|"));
+	}
 	var data = {file: title};
 	$.ajax({
 			  url: urlForSend,
@@ -439,7 +442,10 @@ function deleteLogPopup()
 	{
 		showPopup();
 		var title = document.getElementById("title").innerHTML;
-		title = title.substring(0, title.indexOf("|"));
+		if(title.substring(0, title.indexOf("|")) != null && title.substring(0, title.indexOf("|")) != "")
+		{
+			title = title.substring(0, title.indexOf("|"));
+		}
 		document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Are you sure you want to delete this log?</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>"+title+"</div><div><div class='link' onclick='deleteLog();hidePopup();' style='margin-left:125px; margin-right:50px;margin-top:35px;'>Yes</div><div onclick='hidePopup();' class='link'>No</div></div>";
 	}
 	else
@@ -452,7 +458,10 @@ function deleteLog()
 {
 	var urlForSend = 'core/php/deleteLog.php?format=json';
 	var title = document.getElementById("title").innerHTML;
-	title = title.substring(0, title.indexOf("|"));
+	if(title.substring(0, title.indexOf("|")) != null && title.substring(0, title.indexOf("|")) != "")
+	{
+		title = title.substring(0, title.indexOf("|"));
+	}
 	title = title.replace(/\s/g, '');
 	var data = {file: title};
 	name = title;
