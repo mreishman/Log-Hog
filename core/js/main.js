@@ -117,26 +117,37 @@ function pollThree(arrayToUpdate)
 			}
 		}
 	}	
-	$.getJSON('core/php/poll.php', {}, function(data) {
-		var filesInner = Object.keys(data);
-		if(arrayOfDataMain == null)
+
+
+	var urlForSend = 'core/php/poll.php?format=json'
+	var data = {arrayToUpdate: arrayToUpdate};
+	$.ajax({
+		url: urlForSend,
+		dataType: 'json',
+		data: data,
+		type: 'POST',
+		success: function(data)
 		{
-			arrayOfDataMain = data;
-		}
-		else
-		{
-			for (var i = filesInner.length - 1; i >= 0; i--) 
+		  	var filesInner = Object.keys(data);
+			if(arrayOfDataMain == null)
 			{
-				arrayOfDataMain[filesInner[i]] = data[filesInner[i]];
+				arrayOfDataMain = data;
 			}
+			else
+			{
+				for (var i = filesInner.length - 1; i >= 0; i--) 
+				{
+					arrayOfDataMain[filesInner[i]] = data[filesInner[i]];
+				}
+			}
+			update(arrayOfDataMain);
+			fresh = false;
+		},
+		complete: function()
+		{
+			afterPollFunctionComplete();
 		}
-		update(arrayOfDataMain);
-		fresh = false;
-	})
-	.always(function()
-	{
-		afterPollFunctionComplete();
-	});
+	});		
 }
 
 function afterPollFunctionComplete()
