@@ -33,7 +33,7 @@ $versionCheckArray = array(
 		),
 		'2.3.1'		=> array(
 			'branchName'	=> '2.3.1Update',
-			'releaseNotes'	=> '<ul><li>Features<ul><li>New poll logic added (~ 25% improvement)</li></ul></li><li>Bug Fixes<ul><li>Fixed issue with ram not showing correct information on some servers</li><li>Fixed issue where clear / delete button's didn't work properly. </li></ul></li></ul>'
+			'releaseNotes'	=> '<ul><li>Features<ul><li>New poll logic added (~ 25% improvement)</li></ul></li><li>Bug Fixes<ul><li>Fixed issue with ram not showing correct information on some servers</li><li>Fixed issue where clear / delete buttons didn not work properly. </li></ul></li></ul>'
 		)
 	)
 );
