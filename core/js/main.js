@@ -11,6 +11,10 @@ var polling = false;
 var t0 = performance.now();
 var t1 = performance.now();
 var counterForPoll = 0;
+var arrayOfData1 = null;
+var arrayOfData2 = null;
+var arrayToUpdate = [];
+var arrayOfDataMain = null;
 
 function poll() {
 
@@ -41,16 +45,109 @@ function pollTwo()
 		{
 			polling = true;
 			t0 = performance.now();
-			$.getJSON('core/php/poll.php', {}, function(data) {
-				update(data);
-				fresh = false;
-			})
-			.always(function()
-			{
-				afterPollFunctionComplete();
+			$.getJSON('core/php/pollCheck.php', {}, function(data) {
+				pollTwoPartTwo(data);
 			});
 		}
 	}
+}
+
+function pollTwoPartTwo(data)
+{
+	if(arrayOfData1 == null)
+	{
+		arrayOfData1 = data;
+		var filesNew = Object.keys(arrayOfData1);
+		for (var i = filesNew.length - 1; i >= 0; i--)
+		{
+			arrayToUpdate.push(filesNew[i]);
+		}
+	}
+	else
+	{
+		var arrayOfData2 = data; 
+		var filesNew = Object.keys(arrayOfData2);
+		var filesOld = Object.keys(arrayOfData1);
+
+		arrayToUpdate = [];
+
+		for (var i = filesNew.length - 1; i >= 0; i--)
+		{
+			if(filesOld.indexOf(filesNew[i]) > -1)
+			{
+				//file exists
+				if(arrayOfData2[filesNew[i]] != arrayOfData1[filesNew[i]])
+				{
+					arrayToUpdate.push(filesNew[i]);
+				}
+			}
+			else
+			{
+				//file is new, add to array
+				arrayToUpdate.push(filesNew[i]);
+			}
+		}
+
+		for (var i = filesOld.length - 1; i >= 0; i--)
+		{
+			if(!(filesNew.indexOf(filesOld[i]) > -1))
+			{
+				//files old file isn't there in new file
+				arrayToUpdate.push(filesOld[i]);
+			}
+		}
+		arrayOfData1 = data;
+	}
+	pollThree(arrayToUpdate);
+}
+
+function pollThree(arrayToUpdate)
+{
+	if(arrayOfDataMain != null)
+	{
+		for (var i = arrayToUpdate.length - 1; i >= 0; i--) 
+		{
+			if(arrayOfDataMain[arrayToUpdate[i]] == null)
+			{
+				delete arrayOfDataMain[arrayToUpdate[i]];
+			}
+			else
+			{
+				arrayOfDataMain[arrayToUpdate[i]] = null;
+			}
+		}
+	}	
+
+
+	var urlForSend = 'core/php/poll.php?format=json'
+	var data = {arrayToUpdate: arrayToUpdate};
+	$.ajax({
+		url: urlForSend,
+		dataType: 'json',
+		data: data,
+		type: 'POST',
+		success: function(data)
+		{
+		  	var filesInner = Object.keys(data);
+			if(arrayOfDataMain == null)
+			{
+				arrayOfDataMain = data;
+			}
+			else
+			{
+				for (var i = filesInner.length - 1; i >= 0; i--) 
+				{
+					arrayOfDataMain[filesInner[i]] = data[filesInner[i]];
+				}
+			}
+			update(arrayOfDataMain);
+			fresh = false;
+		},
+		complete: function()
+		{
+			afterPollFunctionComplete();
+		}
+	});		
 }
 
 function afterPollFunctionComplete()
@@ -158,75 +255,86 @@ function update(data) {
 			else
 			{
 				name = files[i];
-				folderName = name.substr(0, name.lastIndexOf("/"));
-				if(folderName !== folderNamePrev || i == 0 || groupByType == 'file')
+				if(data[name] != null)
 				{
-					folderNameCount++;
-					folderNamePrev = folderName;
-					if(folderNameCount >= colorArrayLength)
+					folderName = name.substr(0, name.lastIndexOf("/"));
+					if(folderName !== folderNamePrev || i == 0 || groupByType == 'file')
 					{
-						folderNameCount = 0;
+						folderNameCount++;
+						folderNamePrev = folderName;
+						if(folderNameCount >= colorArrayLength)
+						{
+							folderNameCount = 0;
+						}
 					}
-				}
-				id = name.replace(/[^a-z0-9]/g, '');
-				if(data[name] == "")
-				{
-					data[name] = "<div class='errorMessageLog errorMessageRedBG' >Error - Unknown error? Check file permissions or clear log to fix?</div>";
-				}
-				else if(data[name] == "This file is empty. This should not be displayed.")
-				{
-					data[name] = "<div class='errorMessageLog errorMessageGreenBG' > This file is empty. </div>";
-				}
-				else if(data[name] == "Error - Maybe insufficient access to read file?")
-				{
-					data[name] = "<div class='errorMessageLog errorMessageRedBG' > Error - Maybe insufficient access to read file? <br> <span style='font-size:75%;'> Try entering: <br> chown -R www-data:www-data "+name+" <br> or <br> chmod 664 "+name+" </span> </div>";
-				}
-				logs[id] = data[name];
-				if(enableLogging != "false")
-				{
-					titles[id] = name + " | " + data[name+"dataForLoggingLogHog051620170928"];
+					id = name.replace(/[^a-z0-9]/g, '');
+					if(data[name] == "")
+					{
+						data[name] = "<div class='errorMessageLog errorMessageRedBG' >Error - Unknown error? Check file permissions or clear log to fix?</div>";
+					}
+					else if(data[name] == "This file is empty. This should not be displayed.")
+					{
+						data[name] = "<div class='errorMessageLog errorMessageGreenBG' > This file is empty. </div>";
+					}
+					else if(data[name] == "Error - Maybe insufficient access to read file?")
+					{
+						data[name] = "<div class='errorMessageLog errorMessageRedBG' > Error - Maybe insufficient access to read file? <br> <span style='font-size:75%;'> Try entering: <br> chown -R www-data:www-data "+name+" <br> or <br> chmod 664 "+name+" </span> </div>";
+					}
+					logs[id] = data[name];
+					if(enableLogging != "false")
+					{
+						titles[id] = name + " | " + data[name+"dataForLoggingLogHog051620170928"];
+					}
+					else
+					{
+						titles[id] = name;
+					}
+					
+					if(enableLogging != "false")
+					{
+						if(id == currentPage)
+						{
+							$('#title').html(titles[id]);
+						}
+					}
+
+					if($('#menu .' + id + 'Button').length == 0) 
+					{
+						shortName = files[i].replace(/.*\//g, '');
+						style = "background-color: "+colorArray[folderNameCount];
+						item = blank;
+						item = item.replace(/{{title}}/g, shortName);
+						item = item.replace(/{{id}}/g, id);
+						if(groupByColorEnabled == true)
+						{
+							item = item.replace(/{{style}}/g, style);
+						}
+						menu.append(item);
+					}
+					
+					if(logs[id] != lastLogs[id]) 
+					{
+						updated = true;
+						if(id == currentPage)
+							$('#log').html(makePretty(logs[id]));
+						else if(!fresh && !$('#menu a.' + id + 'Button').hasClass('updated'))
+							$('#menu a.' + id + 'Button').addClass('updated');
+					}
+					
+					if(initialized && updated && $(window).filter(':focus').length == 0) 
+					{
+						if(flashTitleUpdateLog)
+						{
+							flashTitle();
+						}
+					}
 				}
 				else
 				{
-					titles[id] = name;
-				}
-				
-				if(enableLogging != "false")
-				{
-					if(id == currentPage)
+					id = name.replace(/[^a-z0-9]/g, '');
+					if($('#menu .' + id + 'Button').length != 0)
 					{
-						$('#title').html(titles[id]);
-					}
-				}
-
-				if($('#menu .' + id + 'Button').length == 0) 
-				{
-					shortName = files[i].replace(/.*\//g, '');
-					style = "background-color: "+colorArray[folderNameCount];
-					item = blank;
-					item = item.replace(/{{title}}/g, shortName);
-					item = item.replace(/{{id}}/g, id);
-					if(groupByColorEnabled == true)
-					{
-						item = item.replace(/{{style}}/g, style);
-					}
-					menu.append(item);
-				}
-				
-				if(logs[id] != lastLogs[id]) 
-				{
-					updated = true;
-					if(id == currentPage)
-						$('#log').html(makePretty(logs[id]));
-					else if(!fresh && !$('#menu a.' + id + 'Button').hasClass('updated'))
-						$('#menu a.' + id + 'Button').addClass('updated');
-				}
-				
-				if(initialized && updated && $(window).filter(':focus').length == 0) 
-				{
-					if(flashTitleUpdateLog)
-					{
-						flashTitle();
+						$('#menu .' + id + 'Button').remove();
 					}
 				}
 			}
@@ -361,7 +469,10 @@ function clearLog()
 {
 	var urlForSend = 'core/php/clearLog.php?format=json';
 	var title = document.getElementById("title").innerHTML;
-	title = title.substring(0, title.indexOf("|"));
+	if(title.substring(0, title.indexOf("|")) != null && title.substring(0, title.indexOf("|")) != "")
+	{
+		title = title.substring(0, title.indexOf("|"));
+	}
 	var data = {file: title};
 	$.ajax({
 			  url: urlForSend,
@@ -396,7 +507,10 @@ function deleteLogPopup()
 	{
 		showPopup();
 		var title = document.getElementById("title").innerHTML;
-		title = title.substring(0, title.indexOf("|"));
+		if(title.substring(0, title.indexOf("|")) != null && title.substring(0, title.indexOf("|")) != "")
+		{
+			title = title.substring(0, title.indexOf("|"));
+		}
 		document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Are you sure you want to delete this log?</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>"+title+"</div><div><div class='link' onclick='deleteLog();hidePopup();' style='margin-left:125px; margin-right:50px;margin-top:35px;'>Yes</div><div onclick='hidePopup();' class='link'>No</div></div>";
 	}
 	else
@@ -409,7 +523,10 @@ function deleteLog()
 {
 	var urlForSend = 'core/php/deleteLog.php?format=json';
 	var title = document.getElementById("title").innerHTML;
-	title = title.substring(0, title.indexOf("|"));
+	if(title.substring(0, title.indexOf("|")) != null && title.substring(0, title.indexOf("|")) != "")
+	{
+		title = title.substring(0, title.indexOf("|"));
+	}
 	title = title.replace(/\s/g, '');
 	var data = {file: title};
 	name = title;

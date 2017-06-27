@@ -265,57 +265,9 @@ function tailCustom($filepath, $lines = 1, $adaptive = true)
 
 $response = array();
 
-foreach($config['watchList'] as $path => $filter) 
+foreach($_POST['arrayToUpdate'] as $path) 
 {
-	if(is_dir($path)) 
-	{
-		$path = preg_replace('/\/$/', '', $path);
-		$files = scandir($path);
-		if($files) 
-		{
-			unset($files[0], $files[1]);
-			foreach($files as $k => $filename) {
-				$fullPath = $path . '/' . $filename;
-				if(preg_match('/' . $filter . '/S', $filename) && is_file($fullPath))
-				{
-					if ($enableLogging != "false") 
-					{
-						$time_start = microtime(true);
-					}
-					$dataVar = htmlentities(tail($fullPath, $config['sliceSize'], $enableSystemPrefShellOrPhp, $logTrimOn, $logSizeLimit,$logTrimMacBSD,$logTrimType,$TrimSize));
-
-					if($enableLogging != "false")
-					{
-						$lineCount = "0";
-						$filesizeForFile = "0";
-
-						if($dataVar == "" || is_null($dataVar) || $dataVar == "Error - Maybe insufficient access to read file?")
-						{
-							$lineCount = "---";
-							$filesizeForFile = "---";
-						}
-						else
-						{
-							if($dataVar != "This file is empty. This should not be displayed.")
-							{
-								$filename = $fullPath;
-								$filename = preg_replace('/([()"])/S', '$1', $filename);
-								$lineCount = shell_exec('wc -l < ' . $filename);
-								$filesizeForFile = shell_exec('wc -c < '.$filename);
-							}
-						}
-						$time_end = microtime(true);
-						$time = $time_end - $time_start;
-						$time *= 1000;
-						$response[$fullPath."dataForLoggingLogHog051620170928"] = " Limit: ".$logSizeLimit." ".$modifier." | Line Count: ".$lineCount." | File Size: ".$filesizeForFile." | Time: ".round($time);
-					}
-					$response[$fullPath] = $dataVar;
-					
-				}
-			}
-		}
-	}
-	elseif(file_exists($path))
+	if(file_exists($path))
 	{
 		if($enableLogging != "false")
 		{

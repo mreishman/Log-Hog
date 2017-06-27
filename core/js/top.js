@@ -313,25 +313,39 @@ function filterDataFromRUsageSystem(phpSystemTimeDiffForHistory)
 		document.getElementById('popupGraphLowerTr').innerHTML = "<th style='background-color:blue; width:25px;'><th  style='text-align:left;'>Current: "+arrayToShowInConsole[arrayToShowInConsoleLength-1]+"% of "+maxOfArray+"</th></th>";
 	}
 }
-
+//check if used + free = total, if not add buffer/cache
 function filterDataForFreeRam(dataInner)
 {
 	dataInner = "Memory " + dataInner;
 	dataInner = filterData(dataInner, 6);
-	
-	var totalRam = dataInner[1][1];
-	var usedRam = dataInner[1][2];
-	var cacheRam = dataInner[1][5];
-	filterDataForRamSubFunction(usedRam, cacheRam, totalRam);
+	var rowForMem = 1;
+	for (var i = dataInner.length - 1; i >= 0; i--) {
+		if(dataInner[i][0].indexOf("Mem:") !== -1)
+		{
+			rowForMem = i;
+			break;
+		}
+	}
+	var totalRam = dataInner[rowForMem][1];
+	var usedRam = dataInner[rowForMem][2];
+	var freeRam = dataInner[rowForMem][3];
+	var cacheRam = dataInner[rowForMem][5];
+	if(parseInt(totalRam) == (parseInt(freeRam)+parseInt(usedRam)))
+	{
+		filterDataForRamSubFunction(usedRam, cacheRam, totalRam,true);
+	}
+	else
+	{
+		filterDataForRamSubFunction(usedRam, cacheRam, totalRam,false);
+	}
 }
 
 function filterDataForFreeSwap(dataInner)
 {
-	dataInner = "Memory " + dataInner;
-	dataInner = filterData(dataInner, 6);
-
-	var totalSwap = dataInner[2][1];
-	var usedSwap = dataInner[2][2];	
+	dataInner = dataInner.substring(dataInner.indexOf("Swap:"));
+	dataInner = filterData(dataInner, 4);
+	var totalSwap = dataInner[0][1];
+	var usedSwap = dataInner[0][2];	
 	filterDataForCacheSubFunction(totalSwap, usedSwap)
 }
 
@@ -976,19 +990,26 @@ function filterDataForRAM(dataInner)
 	var freeRam = dataInner[1].substring(0, dataInner[1].length - 4);
 	var usedRam = dataInner[2].substring(0, dataInner[2].length - 4);
 	var cacheRam = dataInner[3].substring(0, dataInner[3].length - 10);
-	filterDataForRamSubFunction(usedRam, cacheRam, totalRam);
+	filterDataForRamSubFunction(usedRam, cacheRam, totalRam,false);
 }
 
-function filterDataForRamSubFunction(usedRam, cacheRam, totalRam)
+function filterDataForRamSubFunction(usedRam, cacheRam, totalRam,skipCache)
 {
 	usedRam = parseFloat(usedRam)/parseInt(totalRam);
 	usedRam = (usedRam*100).toFixed(1);
 	ramInfoArray_Used.push(usedRam);
 	document.getElementById('canvasMonitorRAM_Used').innerHTML = usedRam;
-	cacheRam = parseFloat(cacheRam)/parseInt(totalRam);
-	cacheRam = (cacheRam*100).toFixed(1);
-	ramInfoArray_Cache.push(cacheRam);
-	document.getElementById('canvasMonitorRAM_Cache').innerHTML = cacheRam;
+	if(!skipCache)
+	{
+		cacheRam = parseFloat(cacheRam)/parseInt(totalRam);
+		cacheRam = (cacheRam*100).toFixed(1);
+		ramInfoArray_Cache.push(cacheRam);
+		document.getElementById('canvasMonitorRAM_Cache').innerHTML = cacheRam;
+	}
+	else
+	{
+		document.getElementById('canvasMonitorRAM_Cache').innerHTML = "?";
+	}
 	document.getElementById('canvasMonitorLoading_RAM').style.display = "none";
 	document.getElementById('ramCanvas').style.display = "block";
 	ramInfoArray_Cache.shift();
@@ -996,13 +1017,27 @@ function filterDataForRamSubFunction(usedRam, cacheRam, totalRam)
 	ramAreaContext.clearRect(0, 0, ramArea.width, ramArea.height);
 	ramInfoArray_heightVar = clearBaseArray(ramInfoArray_heightVar);
 	fillAreaInChart(ramInfoArray_Used, ramInfoArray_heightVar, "blue",ramAreaContext, ramArea.height, ramArea.width,1);
-	fillAreaInChart(ramInfoArray_Cache, ramInfoArray_heightVar, "red",ramAreaContext, ramArea.height, ramArea.width,1);
+	if(!skipCache)
+	{
+		fillAreaInChart(ramInfoArray_Cache, ramInfoArray_heightVar, "red",ramAreaContext, ramArea.height, ramArea.width,1);
+	}
 	var ramPopupArea = document.getElementById('ramPopupCanvas');
 	if(ramPopupArea)
 	{
-		var arrayOfArraysToFillWith = [ramInfoArray_Used,ramInfoArray_Cache];
+		var arrayOfArraysToFillWith = [ramInfoArray_Used];
+		if(!skipCache)
+		{
+			arrayOfArraysToFillWith = [ramInfoArray_Used,ramInfoArray_Cache];
+		}
 		popupFillInChart(ramPopupArea, ramInfoArray_heightVar, arrayOfArraysToFillWith);
-		document.getElementById('popupGraphLowerTr').innerHTML = "<th>All: "+((parseFloat(usedRam)+parseFloat(cacheRam)).toFixed(1))+"%</th><th style='background-color:blue; width:25px;'><th  style='text-align:left;'>Used: "+usedRam+"%</th><th style='background-color:red; width:25px;'><th  style='text-align:left;'>Cache: "+cacheRam+"%</th>";
+		if(!skipCache)
+		{
+			document.getElementById('popupGraphLowerTr').innerHTML = "<th>All: "+((parseFloat(usedRam)+parseFloat(cacheRam)).toFixed(1))+"%</th><th style='background-color:blue; width:25px;'><th  style='text-align:left;'>Used: "+usedRam+"%</th><th style='background-color:red; width:25px;'><th  style='text-align:left;'>Cache: "+cacheRam+"%</th>";
+		}
+		else
+		{
+			document.getElementById('popupGraphLowerTr').innerHTML = "<th style='background-color:blue; width:25px;'><th  style='text-align:left;'>Used: "+usedRam+"%</th>";
+		}
 	}
 }
 
