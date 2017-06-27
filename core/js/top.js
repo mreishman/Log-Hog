@@ -320,7 +320,7 @@ function filterDataForFreeRam(dataInner)
 	dataInner = filterData(dataInner, 6);
 	var rowForMem = 1;
 	for (var i = dataInner.length - 1; i >= 0; i--) {
-		if(dataInner[i].indexOf("Mem:") !== -1)
+		if(dataInner[i][0].indexOf("Mem:") !== -1)
 		{
 			rowForMem = i;
 			break;
@@ -342,18 +342,10 @@ function filterDataForFreeRam(dataInner)
 
 function filterDataForFreeSwap(dataInner)
 {
-	dataInner = "Memory " + dataInner;
-	dataInner = filterData(dataInner, 6);
-	var rowForMem = 2;
-	for (var i = dataInner.length - 1; i >= 0; i--) {
-		if(dataInner[i].indexOf("Swap:") !== -1)
-		{
-			rowForMem = i;
-			break;
-		}
-	}
-	var totalSwap = dataInner[rowForMem][1];
-	var usedSwap = dataInner[rowForMem][2];	
+	dataInner = dataInner.substring(dataInner.indexOf("Swap:"));
+	dataInner = filterData(dataInner, 4);
+	var totalSwap = dataInner[0][1];
+	var usedSwap = dataInner[0][2];	
 	filterDataForCacheSubFunction(totalSwap, usedSwap)
 }
 
@@ -1007,10 +999,17 @@ function filterDataForRamSubFunction(usedRam, cacheRam, totalRam,skipCache)
 	usedRam = (usedRam*100).toFixed(1);
 	ramInfoArray_Used.push(usedRam);
 	document.getElementById('canvasMonitorRAM_Used').innerHTML = usedRam;
-	cacheRam = parseFloat(cacheRam)/parseInt(totalRam);
-	cacheRam = (cacheRam*100).toFixed(1);
-	ramInfoArray_Cache.push(cacheRam);
-	document.getElementById('canvasMonitorRAM_Cache').innerHTML = cacheRam;
+	if(!skipCache)
+	{
+		cacheRam = parseFloat(cacheRam)/parseInt(totalRam);
+		cacheRam = (cacheRam*100).toFixed(1);
+		ramInfoArray_Cache.push(cacheRam);
+		document.getElementById('canvasMonitorRAM_Cache').innerHTML = cacheRam;
+	}
+	else
+	{
+		document.getElementById('canvasMonitorRAM_Cache').innerHTML = "?";
+	}
 	document.getElementById('canvasMonitorLoading_RAM').style.display = "none";
 	document.getElementById('ramCanvas').style.display = "block";
 	ramInfoArray_Cache.shift();
@@ -1031,7 +1030,14 @@ function filterDataForRamSubFunction(usedRam, cacheRam, totalRam,skipCache)
 			arrayOfArraysToFillWith = [ramInfoArray_Used,ramInfoArray_Cache];
 		}
 		popupFillInChart(ramPopupArea, ramInfoArray_heightVar, arrayOfArraysToFillWith);
-		document.getElementById('popupGraphLowerTr').innerHTML = "<th>All: "+((parseFloat(usedRam)+parseFloat(cacheRam)).toFixed(1))+"%</th><th style='background-color:blue; width:25px;'><th  style='text-align:left;'>Used: "+usedRam+"%</th><th style='background-color:red; width:25px;'><th  style='text-align:left;'>Cache: "+cacheRam+"%</th>";
+		if(!skipCache)
+		{
+			document.getElementById('popupGraphLowerTr').innerHTML = "<th>All: "+((parseFloat(usedRam)+parseFloat(cacheRam)).toFixed(1))+"%</th><th style='background-color:blue; width:25px;'><th  style='text-align:left;'>Used: "+usedRam+"%</th><th style='background-color:red; width:25px;'><th  style='text-align:left;'>Cache: "+cacheRam+"%</th>";
+		}
+		else
+		{
+			document.getElementById('popupGraphLowerTr').innerHTML = "<th style='background-color:blue; width:25px;'><th  style='text-align:left;'>Used: "+usedRam+"%</th>";
+		}
 	}
 }
 
