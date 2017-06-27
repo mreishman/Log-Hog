@@ -118,7 +118,8 @@ function pollThree(arrayToUpdate)
 		}
 	}	
 
-
+	if (typeof arrayToUpdate !== 'undefined' && arrayToUpdate.length > 0) 
+	{
 	var urlForSend = 'core/php/poll.php?format=json'
 	var data = {arrayToUpdate: arrayToUpdate};
 	$.ajax({
@@ -147,7 +148,12 @@ function pollThree(arrayToUpdate)
 		{
 			afterPollFunctionComplete();
 		}
-	});		
+	});
+	}
+	else
+	{
+		afterPollFunctionComplete();
+	}	
 }
 
 function afterPollFunctionComplete()
