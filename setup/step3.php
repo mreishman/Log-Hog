@@ -119,4 +119,6 @@ require_once('../core/php/loadVars.php'); ?>
 
 
 </script>
+<script src="../core/js/settingsMain.js"></script>
+<?php readfile('../core/html/popup.html') ?>
 </html>
