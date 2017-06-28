@@ -2,7 +2,7 @@
 
 function clean_url($url) {
     $parts = parse_url($url);
-    return $parts['scheme'] . $parts['host'] . $parts['path'];
+    return $parts['path'];
 }
 
 
