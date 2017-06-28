@@ -15,7 +15,7 @@ require_once('../core/php/updateCheck.php');
 
 $today = date('Y-m-d');
 $old_date = $configStatic['lastCheck'];
-$old_date_array = split("-", $old_date);
+$old_date_array = preg_split("/-/", $old_date);
 $old_date = $old_date_array[2]."-".$old_date_array[0]."-".$old_date_array[1];
 //$old_date = date_format( $old_date ,"Y-m-d");          
 //$old_date_timestamp = strtotime($old_date);

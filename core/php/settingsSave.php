@@ -9,7 +9,14 @@ if(file_exists('../../local/layout.php'))
 	$baseUrl .= $currentSelectedTheme."/";
 }
 
-require_once($baseUrl.'conf/config.php');
+if(file_exists($baseUrl.'conf/config.php'))
+{
+	require_once($baseUrl.'conf/config.php'); 
+}
+else
+{
+	$config = array();
+}
 require_once('../../core/conf/config.php'); 
 require_once('loadVars.php');
 

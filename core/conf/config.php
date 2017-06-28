@@ -52,6 +52,6 @@ $defaultConfig = array(
 	'watchList'		=> array(
 		'/var/www/html/var/log/system.log'	        => '',
 		'/var/log/hhvm/error.log'	=> '',
-		'/var/log/apache2'			=> '\.log$'
+		'/var/log/apache2'			=> '.log$'
 	)
 );
