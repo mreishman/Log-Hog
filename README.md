@@ -30,9 +30,3 @@ This will download the latested version from github and copy over only the chang
 ## Includes files from the following project:
 
 https://github.com/ai/visibilityjs  
-
-
-## "You are currently on a beta branch" 
-
-Usually only shown internal, but if your current version is > newest version this message will show up. Either change configstatic.php
-to reflect newest version or click check for update. 
