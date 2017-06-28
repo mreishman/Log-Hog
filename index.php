@@ -1,4 +1,9 @@
 <?php
+function clean_url($url) {
+    $parts = parse_url($url);
+    return $parts['scheme'] . $parts['host'] . $parts['path'];
+}
+
 $baseUrl = "core/";
 if(file_exists('local/layout.php'))
 {
@@ -6,6 +11,13 @@ if(file_exists('local/layout.php'))
 	//there is custom information, use this
 	require_once('local/layout.php');
 	$baseUrl .= $currentSelectedTheme."/";
+}
+if(!file_exists($baseUrl.'conf/config.php'))
+{
+	$partOfUrl = clean_url($_SERVER['REQUEST_URI']);
+	$url = "http://" . $_SERVER['HTTP_HOST'] .$partOfUrl ."setup/welcome.php";
+	header('Location: ' . $url, true, 301);
+	exit();
 }
 require_once($baseUrl.'conf/config.php'); 
 require_once('core/conf/config.php');
@@ -15,7 +27,7 @@ require_once('core/php/updateCheck.php');
 
 $today = date('Y-m-d');
 $old_date = $configStatic['lastCheck'];
-$old_date_array = split("-", $old_date);
+$old_date_array = preg_split("/-/", $old_date);
 $old_date = $old_date_array[2]."-".$old_date_array[0]."-".$old_date_array[1];
 
 $datetime1 = date_create($old_date_array[2]."-".$old_date_array[0]."-".$old_date_array[1]);
