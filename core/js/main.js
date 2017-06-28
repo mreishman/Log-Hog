@@ -410,9 +410,11 @@ function focus() {
 }
 
 
-
-poll();
-setInterval(poll, pollingRate);
+$( document ).ready(function()
+{
+	poll();
+	setInterval(poll, pollingRate);
+});
 resize();
 
 window.onresize = resize;
