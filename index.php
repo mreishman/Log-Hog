@@ -16,7 +16,7 @@ if(!file_exists($baseUrl.'conf/config.php'))
 {
 	$partOfUrl = clean_url($_SERVER['REQUEST_URI']);
 	$url = "http://" . $_SERVER['HTTP_HOST'] .$partOfUrl ."setup/welcome.php";
-	header('Location: ' . $url, true, 301);
+	header('Location: ' . $url, true, 302);
 	exit();
 }
 require_once($baseUrl.'conf/config.php'); 
