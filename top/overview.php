@@ -2,9 +2,11 @@
 
 require_once('statusTest.php');
 $baseRedirect = "";
+$baseRedirectTwo = "";
 if($monitorStatus['withLogHog'] == 'true')
 {
 	$baseRedirect = "../";
+	$baseRedirectTwo = "../";
 }
 $baseUrl = $baseRedirect."core/";
 if(file_exists($baseRedirect.'local/layout.php'))
@@ -35,13 +37,15 @@ $useTop = false;
 <head>
 	<title>Top | Overview</title>
 	<link rel="stylesheet" type="text/css" href="<?php echo $baseUrl ?>template/theme.css">
-	<link rel="icon" type="image/png" href="<?php echo $baseRedirect; ?>core/img/favicon.png" />
+	<link rel="icon" type="image/png" href="<?php echo $baseRedirectTwo; ?>core/img/favicon.png" />
 	<script src="<?php echo $baseRedirect; ?>core/js/jquery.js"></script>
-	<style type="text/css">
-	#menu a, .link, .linkSmall, .context-menu, .dropdown-content{
-		background-color: <?php echo $currentSelectedThemeColorValues[0]?>;
-	}
-</style>
+	<?php if($monitorStatus['withLogHog'] == 'true'): ?>
+		<style type="text/css">
+		#menu a, .link, .linkSmall, .context-menu, .dropdown-content{
+			background-color: <?php echo $currentSelectedThemeColorValues[0]?>;
+		}
+		</style>
+	<?php endif; ?>
 </head>
 <body>
 
@@ -51,43 +55,43 @@ $useTop = false;
 		<div id="topBarOverview">
 			<div onclick="showGraphPopup('cpuPopupCanvas','CPU','onePage')" style="cursor: pointer;" class="canvasMonitorDiv" >	
 				<div class="canvasMonitorText">CPU</div>
-				<img id="canvasMonitorLoading_CPU" class="loadingSpinner" src='<?php echo $baseRedirect; ?>core/img/loading.gif' height='50' width='50'> 
+				<img id="canvasMonitorLoading_CPU" class="loadingSpinner" src='<?php echo $baseRedirectTwo; ?>core/img/loading.gif' height='50' width='50'> 
 				<canvas style="display: none;" class="canvasMonitor" id="cpuCanvas" width="200" height="200"></canvas>
 					<div class="canvasMonitorText">U <span id="canvasMonitorCPU_User">-</span>% | S <span id="canvasMonitorCPU_System">-</span>% | N <span id="canvasMonitorCPU_Other">-</span>%</div>
 			</div>
 			<div onclick="showGraphPopup('ramPopupCanvas','RAM','onePage')" style="cursor: pointer;" class="canvasMonitorDiv" >	
 				<div class="canvasMonitorText">RAM</div>
-				<img id="canvasMonitorLoading_RAM" class="loadingSpinner" src='<?php echo $baseRedirect; ?>core/img/loading.gif' height='50' width='50'> 
+				<img id="canvasMonitorLoading_RAM" class="loadingSpinner" src='<?php echo $baseRedirectTwo; ?>core/img/loading.gif' height='50' width='50'> 
 				<canvas style="display: none;" class="canvasMonitor" id="ramCanvas" width="200" height="200"></canvas>
 				<div class="canvasMonitorText">Used <span id="canvasMonitorRAM_Used">-</span>% | Cache <span id="canvasMonitorRAM_Cache">-</span>%</div>
 			</div> 
 			<div onclick="showGraphPopup('swapPopupCanvas','Swap','onePage')" style="cursor: pointer;"  class="canvasMonitorDiv" >	
 				<div class="canvasMonitorText">Swap</div>
-				<img id="canvasMonitorLoading_Swap" class="loadingSpinner" src='<?php echo $baseRedirect; ?>core/img/loading.gif' height='50' width='50'> 
+				<img id="canvasMonitorLoading_Swap" class="loadingSpinner" src='<?php echo $baseRedirectTwo; ?>core/img/loading.gif' height='50' width='50'> 
 				<canvas style="display: none;" class="canvasMonitor" id="swapCanvas" width="200" height="200"></canvas>
 				<div class="canvasMonitorText"><span id="canvasMonitorSwap">-</span>%</div>
 			</div>
 			<div class="canvasMonitorDiv" >	
 				<div class="canvasMonitorText">Disk Usage</div>
-				<img id="canvasMonitorLoading_HDD" class="loadingSpinner" src='<?php echo $baseRedirect; ?>core/img/loading.gif' height='50' width='50'> 
+				<img id="canvasMonitorLoading_HDD" class="loadingSpinner" src='<?php echo $baseRedirectTwo; ?>core/img/loading.gif' height='50' width='50'> 
 				<div id="HDDCanvas" style="height: 200px; width: 200px; display: none;" class="canvasMonitor" ></div>
 				<div class="canvasMonitorText"><span style="color: white;">n/a</span></div>
 			</div>
 			<div class="canvasMonitorDiv" >	
 				<div class="canvasMonitorText">Disk IO</div>
-				<img id="canvasMonitorLoading_DIO" class="loadingSpinner" src='<?php echo $baseRedirect; ?>core/img/loading.gif' height='50' width='50'> 
+				<img id="canvasMonitorLoading_DIO" class="loadingSpinner" src='<?php echo $baseRedirectTwo; ?>core/img/loading.gif' height='50' width='50'> 
 				<div id="DIOCanvas" style="height: 200px; width: 200px; display: none;" class="canvasMonitor" ></div>
 				<div class="canvasMonitorText"><span style="color: white;">n/a</span></div>
 			</div>
 			<div onclick="showGraphPopup('phpUTUPopupCanvas','PHP User Time Used','onePage')" style="cursor: pointer;"  class="canvasMonitorDiv" >	
 				<div class="canvasMonitorText">PHP User Time Used</div>
-				<img id="canvasMonitorLoading_PHP_UTU" class="loadingSpinner" src='<?php echo $baseRedirect; ?>core/img/loading.gif' height='50' width='50'> 
+				<img id="canvasMonitorLoading_PHP_UTU" class="loadingSpinner" src='<?php echo $baseRedirectTwo; ?>core/img/loading.gif' height='50' width='50'> 
 				<canvas style="display: none;" class="canvasMonitor" id="PHPUTUCanvas" width="200" height="200"></canvas>
 				<div class="canvasMonitorText"><span id="canvasMonitorPHPUTUText" >-</span></div>
 			</div>
 			<div onclick="showGraphPopup('phpSTUPopupCanvas','PHP System Time Used','onePage')" style="cursor: pointer;"  class="canvasMonitorDiv" >	
 				<div class="canvasMonitorText">PHP System Time Used</div>
-				<img id="canvasMonitorLoading_PHP_STU" class="loadingSpinner" src='<?php echo $baseRedirect; ?>core/img/loading.gif' height='50' width='50'> 
+				<img id="canvasMonitorLoading_PHP_STU" class="loadingSpinner" src='<?php echo $baseRedirectTwo; ?>core/img/loading.gif' height='50' width='50'> 
 				<canvas style="display: none;" class="canvasMonitor" id="PHPSTUCanvas" width="200" height="200"></canvas>
 				<div class="canvasMonitorText"><span id="canvasMonitorPHPSTUText" >-</span></div>
 			</div>
@@ -102,6 +106,12 @@ $useTop = false;
 			</div>
 		</div>
 	</div>
+	<script type="text/javascript">
+		var baseRedirect = "";
+		<?php if($monitorStatus['withLogHog'] == 'true'): ?>
+			baseRedirect = "../";
+		<?php endif; ?>
+	</script>
 	<?php readfile($baseRedirect.'core/html/popup.html') ?>	
 	<script src="<?php echo $baseRedirect; ?>core/js/top.js"></script>
 	<script type="text/javascript">

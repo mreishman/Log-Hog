@@ -2,7 +2,7 @@ var dropdownMenuVisible = false;
 
 function killProcess(processNumber)
 {
-	var urlForSend = '../core/php/killProcess.php?format=json';
+	var urlForSend = baseRedirect+'core/php/killProcess.php?format=json';
 	var data = {processNumber: processNumber};
 	$.ajax({
 	  url: urlForSend,
@@ -74,12 +74,12 @@ function showTwoColumnLeftOneGraphRightOneGraphOneDescriptionPopup(graph,name,he
 	{
 		squarePopupWidth = heightForPopup;
 	}
-	return "<table style='width: "+widthForPopup+"px; height: "+heightForPopup+"px;' ><tr><td rowspan='2' style='width:"+(widthForPopup/2)+"px;' ><img id='popupGraphLoadingSpinner' src='../core/img/loading.gif' height='50' width='50' style='margin-left:"+(widthForPopup/4)+"px;' ><canvas style='display:none;'  id='graph[0]' width='"+squarePopupWidth+"' height='"+squarePopupWidth+"' ></canvas> </td><td style='width:"+(widthForPopup/2)+"px;' ><img id='popupGraphLoadingSpinner2' src='../core/img/loading.gif' height='50' width='50' style='margin-left:"+(widthForPopup/4)+"px;' ><canvas style='display:none;'  id='graph[0]' width='"+(widthForPopup/2)+"' height='"+(heightForPopup/2)+"' ></canvas>  </td></tr><tr><td><img id='popupGraphLoadingSpinner3' src='../core/img/loading.gif' height='50' width='50' style='margin-left:"+(widthForPopup/4)+"px;' > </td></tr></table>";
+	return "<table style='width: "+widthForPopup+"px; height: "+heightForPopup+"px;' ><tr><td rowspan='2' style='width:"+(widthForPopup/2)+"px;' ><img id='popupGraphLoadingSpinner' src='"+baseRedirect+"core/img/loading.gif' height='50' width='50' style='margin-left:"+(widthForPopup/4)+"px;' ><canvas style='display:none;'  id='graph[0]' width='"+squarePopupWidth+"' height='"+squarePopupWidth+"' ></canvas> </td><td style='width:"+(widthForPopup/2)+"px;' ><img id='popupGraphLoadingSpinner2' src='"+baseRedirect+"core/img/loading.gif' height='50' width='50' style='margin-left:"+(widthForPopup/4)+"px;' ><canvas style='display:none;'  id='graph[0]' width='"+(widthForPopup/2)+"' height='"+(heightForPopup/2)+"' ></canvas>  </td></tr><tr><td><img id='popupGraphLoadingSpinner3' src='"+baseRedirect+"core/img/loading.gif' height='50' width='50' style='margin-left:"+(widthForPopup/4)+"px;' > </td></tr></table>";
 }
 
 function showOnePagePopup(graph,name,heightForPopup,widthForPopup)
 {
-	return "<img id='popupGraphLoadingSpinner' style='padding-top: "+((heightForPopup/2)-25)+"px; padding-bottom: "+((heightForPopup/2)-25)+"px;' src='../core/img/loading.gif' height='50' width='50'><canvas style='display:none;' class='canvasMonitor' id='"+graph+"' width='"+widthForPopup+"' height='"+heightForPopup+"' ></canvas>";
+	return "<img id='popupGraphLoadingSpinner' style='padding-top: "+((heightForPopup/2)-25)+"px; padding-bottom: "+((heightForPopup/2)-25)+"px;' src='"+baseRedirect+"core/img/loading.gif' height='50' width='50'><canvas style='display:none;' class='canvasMonitor' id='"+graph+"' width='"+widthForPopup+"' height='"+heightForPopup+"' ></canvas>";
 }
 
 function fillAreaInChart(arrayForFill, bottomArray, color, context, height, width, type)
@@ -500,7 +500,7 @@ function filterDataForNetworkDev(dataInner)
 		htmlForNetwork += "<td>";
 		if(!(networkArrayOfArrays.length > 1))
 		{
-			htmlForNetwork += "<img style='margin-top: 25px; margin-left: 75px; position: absolute;' src='../core/img/loading.gif' height='50' width='50'>";
+			htmlForNetwork += "<img style='margin-top: 25px; margin-left: 75px; position: absolute;' src='"+baseRedirect+"core/img/loading.gif' height='50' width='50'>";
 		}
 		else
 		{
@@ -510,7 +510,7 @@ function filterDataForNetworkDev(dataInner)
 		htmlForNetwork += "<td>";
 		if(!(networkArrayOfArrays.length > 1))
 		{
-			htmlForNetwork += "<img style='margin-top: 25px; margin-left: 75px; position: absolute;' src='../core/img/loading.gif' height='50' width='50'>";
+			htmlForNetwork += "<img style='margin-top: 25px; margin-left: 75px; position: absolute;' src='"+baseRedirect+"core/img/loading.gif' height='50' width='50'>";
 		}
 		else
 		{
