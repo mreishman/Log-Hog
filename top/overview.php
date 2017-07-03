@@ -1,5 +1,11 @@
 <?php
-$baseRedirect = "../";
+
+require_once('statusTest.php');
+$baseRedirect = "";
+if($monitorStatus['withLogHog'] == 'true')
+{
+	$baseRedirect = "../";
+}
 $baseUrl = $baseRedirect."core/";
 if(file_exists($baseRedirect.'local/layout.php'))
 {
@@ -189,7 +195,7 @@ $useTop = false;
 	{
 		if(!dropdownMenuVisible)
 		{
-		$.getJSON('../core/php/psAux.php', {}, function(data) {
+		$.getJSON('<?php echo $baseRedirect; ?>core/php/psAux.php', {}, function(data) {
 				processDataFrompsAux(data);
 			})
 		}
@@ -199,7 +205,7 @@ $useTop = false;
 	{
 		if(!dropdownMenuVisible)
 		{
-		$.getJSON('../core/php/getRUsage.php', {}, function(data) {
+		$.getJSON('<?php echo $baseRedirect; ?>core/php/getRUsage.php', {}, function(data) {
 				processDataFromRUsage(data);
 			})
 		}
@@ -207,28 +213,28 @@ $useTop = false;
 
 	function procNetDev()
 	{
-		$.getJSON('../core/php/procNetDev.php', {}, function(data) {
+		$.getJSON('<?php echo $baseRedirect; ?>core/php/procNetDev.php', {}, function(data) {
 				processDataFromprocNetDev(data);
 			})
 	}
 
 	function procStatFunc()
 	{
-		$.getJSON('../core/php/procStat.php', {}, function(data) {
+		$.getJSON('<?php echo $baseRedirect; ?>core/php/procStat.php', {}, function(data) {
 				processDataFromprocStat(data);
 			})
 	}
 
 	function procFree()
 	{
-		$.getJSON('../core/php/free.php', {}, function(data) {
+		$.getJSON('<?php echo $baseRedirect; ?>core/php/free.php', {}, function(data) {
 				processDataFromFree(data);
 			})
 	}
 
 	function ioStatDxFunction()
 	{
-		$.getJSON('../core/php/ioStatDx.php', {}, function(data) {
+		$.getJSON('<?php echo $baseRedirect; ?>core/php/ioStatDx.php', {}, function(data) {
 			if(data != null && data != "null")
 			{
 				processDataFromioStatDx(data);
@@ -242,7 +248,7 @@ $useTop = false;
 
 	function dfALFunction()
 	{
-		$.getJSON('../core/php/dfAL.php', {}, function(data) {
+		$.getJSON('<?php echo $baseRedirect; ?>core/php/dfAL.php', {}, function(data) {
 				processDataFrompsdfAL(data);
 			})
 	}

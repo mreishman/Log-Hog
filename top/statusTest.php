@@ -1,7 +1,7 @@
 <?php
 
 $monitorStatus = array(
-	'withLog-Hog'	=> 'true'
+	'withLogHog'	=> 'true'
 	);
 
 ?>
