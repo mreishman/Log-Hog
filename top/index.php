@@ -1,5 +1,11 @@
 <?php
 
+function clean_url($url) {
+    $parts = parse_url($url);
+    return $parts['path'];
+}
+
+
 require_once('statusTest.php');
 $baseRedirect = "";
 $baseRedirectTwo = "";
@@ -15,6 +21,13 @@ if(file_exists($baseRedirect.'local/layout.php'))
 	//there is custom information, use this
 	require_once($baseRedirect.'local/layout.php');
 	$baseUrl .= $currentSelectedTheme."/";
+}
+if(!file_exists($baseUrl.'conf/config.php') && $monitorStatus['withLogHog'] != 'true')
+{
+	$partOfUrl = clean_url($_SERVER['REQUEST_URI']);
+	$url = "http://" . $_SERVER['HTTP_HOST'] .$partOfUrl ."setup/welcome.php";
+	header('Location: ' . $url, true, 302);
+	exit();
 }
 require_once($baseUrl.'conf/config.php'); 
 require_once($baseRedirect.'core/conf/config.php');
