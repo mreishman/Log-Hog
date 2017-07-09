@@ -77,7 +77,7 @@ if($pollingRateType == 'Seconds')
 			<img id="deleteImage" class="menuImage" src="core/img/trashCan.png" height="30px">
 		</div>
 		<?php endif; ?>
-		<div onclick="window.location.href = './top/overview.php'" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">
+		<div onclick="window.location.href = './top/index.php'" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">
 			<img id="taskmanagerImage" class="menuImage" src="core/img/task-manager.png" height="30px">
 		</div>
 		<div onclick="window.location.href = './settings/main.php';" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">
