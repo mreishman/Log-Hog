@@ -307,7 +307,7 @@ foreach($_POST['arrayToUpdate'] as $path)
 			$time_end = microtime(true);
 			$time = $time_end - $time_start;
 			$time *= 1000;
-			$response[$path."dataForLoggingLogHog051620170928"] = " Limit: ".$logSizeLimit." ".$modifier." | Line Count: ".$lineCount." | File Size: ".$filesizeForFile." | Time: ".round($time);
+			$response[$path."dataForLoggingLogHog051620170928"] = " Limit: ".$logSizeLimit."(".($logSizeLimit+$buffer).") ".$modifier." | Line Count: ".$lineCount." | File Size: ".$filesizeForFile." | Time: ".round($time);
 		}
 
 		$response[$path] = $dataVar;
