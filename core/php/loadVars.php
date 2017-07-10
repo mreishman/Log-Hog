@@ -411,6 +411,19 @@ else
 {
 	$rightClickMenuEnable = $defaultConfig['rightClickMenuEnable'];
 }
+if(isset($_POST['buffer']))
+{
+	$buffer = $_POST['buffer'];
+}
+elseif(array_key_exists('buffer', $config))
+{
+	$buffer = $config['buffer'];
+}
+else
+{
+	$buffer = $defaultConfig['buffer'];
+}
+
  
 
 

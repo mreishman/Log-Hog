@@ -43,6 +43,7 @@ require_once('loadVars.php');
 			'baseUrlUpdate'	=> '".$baseUrlUpdate."',
 			'logTrimType'	=>	'".$logTrimType."',
 			'TrimSize'	=> '".$TrimSize."',
+			'buffer'	=>	'".$buffer."',
 			'hideEmptyLog'	=>	'".$hideEmptyLog."',
 			'groupByType'	=> '".$groupByType."',
 			'currentFolderColorTheme'	=> '".$currentFolderColorTheme."',

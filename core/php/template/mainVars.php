@@ -45,7 +45,10 @@ Main Settings <button onclick="displayLoadingPopup();" >Save Changes</button>
 						
 					</span>
 				</li>
-
+				<li>
+				<span class="settingsBuffer" > Buffer Size: </span>
+				 	<input type="text" name="buffer" value="<?php echo $buffer;?>" > 
+				</li>
 				<li id="LiForlogTrimMacBSD">
 					<span class="settingsBuffer" > Use Mac/Free BSD Command: </span>  
 					<select name="logTrimMacBSD">

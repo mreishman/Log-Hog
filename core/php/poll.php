@@ -70,6 +70,14 @@ else
 {
 	$enableLogging = $defaultConfig['enableLogging'];
 }
+if(array_key_exists('buffer', $config))
+{
+	$buffer = $config['buffer'];
+}
+else
+{
+	$buffer = $defaultConfig['buffer'];
+}
 
 $modifier = "lines";
 
@@ -95,7 +103,7 @@ if($logTrimType == 'size')
 
 }
 
-function tail($filename, $sliceSize, $shellOrPhp, $logTrimCheck, $logSizeLimit,$logTrimMacBSD,$logTrimType,$TrimSize) 
+function tail($filename, $sliceSize, $shellOrPhp, $logTrimCheck, $logSizeLimit,$logTrimMacBSD,$logTrimType,$TrimSize,$buffer) 
 {
 	$filename = preg_replace('/([()"])/S', '$1', $filename);
 	//echo $filename, "\n";
@@ -114,7 +122,7 @@ function tail($filename, $sliceSize, $shellOrPhp, $logTrimCheck, $logSizeLimit,$
 		{
 			if($logTrimType == 'lines')
 			{
-				if($lineCount > $logSizeLimit)
+				if($lineCount > ($logSizeLimit+$buffer))
 				{
 					if($logTrimMacBSD == "true")
 					{
@@ -134,7 +142,7 @@ function tail($filename, $sliceSize, $shellOrPhp, $logTrimCheck, $logSizeLimit,$
 				while ($trimFileBool && $maxForLoop != 10)
 				{
 					$filesizeForFile = shell_exec('wc -c < '.$filename);
-					if($filesizeForFile > $logSizeLimit)
+					if($filesizeForFile > $logSizeLimit+$buffer)
 					{
 						if($filesizeForFile > (2*$logSizeLimit) && $maxForLoop < 2)
 						{
@@ -273,7 +281,7 @@ foreach($_POST['arrayToUpdate'] as $path)
 		{
 			$time_start = microtime(true);
 		}
-		$dataVar =  htmlentities(tail($path, $config['sliceSize'], $enableSystemPrefShellOrPhp, $logTrimOn, $logSizeLimit,$logTrimMacBSD,$logTrimType,$TrimSize));
+		$dataVar =  htmlentities(tail($path, $config['sliceSize'], $enableSystemPrefShellOrPhp, $logTrimOn, $logSizeLimit,$logTrimMacBSD,$logTrimType,$TrimSize,$buffer));
 
 		if($enableLogging != "false")
 		{
