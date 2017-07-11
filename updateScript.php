@@ -16,7 +16,7 @@ while($countOfSlash < 20 && !file_exists($varToIndexDir."index.php"))
   $varToIndexDir .= "../";        
 }
   
-if($currentFile == "core_conf_config.ph")
+if($currentFile == "core_conf_config.php")
 {
    if (!file_exists($varToIndexDir.'setup/')) 
    {
