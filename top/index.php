@@ -31,12 +31,9 @@ if(!file_exists($baseUrl.'conf/config.php') && $monitorStatus['withLogHog'] != '
 }
 require_once($baseUrl.'conf/config.php'); 
 require_once($baseRedirect.'core/conf/config.php');
-if($monitorStatus['withLogHog'] == 'true')
-{
-	require_once($baseUrl.'conf/topConfig.php'); 
-	require_once($baseRedirect.'core/conf/configTop.php');
-	require_once('../core/php/loadVarsTop.php');
-}
+require_once($baseUrl.'conf/topConfig.php'); 
+require_once($baseRedirect.'core/conf/configTop.php');
+require_once($baseRedirect.'core/php/loadVarsTop.php');
 require_once($baseRedirect.'core/php/configStatic.php');
 
 require_once($baseRedirect.'core/php/loadVars.php');
@@ -200,7 +197,7 @@ $useTop = false;
 	{
 		if(nullReturnForDefaultPoll)
 		{
-			$.getJSON('<?php echo $baseRedirect; ?>core/php/topAlt.php', {}, function(data) {
+			$.getJSON('functions/topAlt.php', {}, function(data) {
 				processDataFromTOP(data);
 			})
 		}
@@ -224,7 +221,7 @@ $useTop = false;
 	{
 		if(!dropdownMenuVisible)
 		{
-		$.getJSON('<?php echo $baseRedirect; ?>core/php/psAux.php', {}, function(data) {
+		$.getJSON('functions/psAux.php', {}, function(data) {
 				processDataFrompsAux(data);
 			})
 		}
@@ -234,7 +231,7 @@ $useTop = false;
 	{
 		if(!dropdownMenuVisible)
 		{
-		$.getJSON('<?php echo $baseRedirect; ?>core/php/getRUsage.php', {}, function(data) {
+		$.getJSON('functions/getRUsage.php', {}, function(data) {
 				processDataFromRUsage(data);
 			})
 		}
@@ -242,28 +239,28 @@ $useTop = false;
 
 	function procNetDev()
 	{
-		$.getJSON('<?php echo $baseRedirect; ?>core/php/procNetDev.php', {}, function(data) {
+		$.getJSON('functions/procNetDev.php', {}, function(data) {
 				processDataFromprocNetDev(data);
 			})
 	}
 
 	function procStatFunc()
 	{
-		$.getJSON('<?php echo $baseRedirect; ?>core/php/procStat.php', {}, function(data) {
+		$.getJSON('functions/procStat.php', {}, function(data) {
 				processDataFromprocStat(data);
 			})
 	}
 
 	function procFree()
 	{
-		$.getJSON('<?php echo $baseRedirect; ?>core/php/free.php', {}, function(data) {
+		$.getJSON('functions/free.php', {}, function(data) {
 				processDataFromFree(data);
 			})
 	}
 
 	function ioStatDxFunction()
 	{
-		$.getJSON('<?php echo $baseRedirect; ?>core/php/ioStatDx.php', {}, function(data) {
+		$.getJSON('functions/ioStatDx.php', {}, function(data) {
 			if(data != null && data != "null")
 			{
 				processDataFromioStatDx(data);
@@ -277,7 +274,7 @@ $useTop = false;
 
 	function dfALFunction()
 	{
-		$.getJSON('<?php echo $baseRedirect; ?>core/php/dfAL.php', {}, function(data) {
+		$.getJSON('functions/dfAL.php', {}, function(data) {
 				processDataFrompsdfAL(data);
 			})
 	}
