@@ -1,6 +1,6 @@
 <?php
   
-$arrayOfFiles = array("core_js_main.js", "core_php_settingsCheckForUpdate.php","settings_main.php","settings_update.php");
+$arrayOfFiles = array("core_conf_config.php", "core_conf_configTop.php","core_js_main.js","core_js_top.js","core_php_loadVars.php","core_php_loadVarsTop.php","core_php_poll.php","core_php_pollCheck.php","core_php_settingsSave.php","core_php_settingsSaveAjax.php","core_php_settingsSaveTop.php","core_php_template_mainVars.php","core_php_template_settingsMainWatch.php","core_php_template_settingsMenuVars.php","core_php_versionCheck.php","index.php","local_default_conf_topConfig.php","settings_changelog.html","settings_main.php","settings_settingsTop.php","settings_update.php","setup_director.php","setup_setupProcessFile.php","setup_step1.php","setup_step2.php","setup_step3.php","setup_updateSetupStatus.php","setup_welcome.php","top_header.php","top_index.php","top_statusTest.php");
 
 require_once("innerUpgradeStatus.php");
 
@@ -16,9 +16,19 @@ while($countOfSlash < 20 && !file_exists($varToIndexDir."index.php"))
   $varToIndexDir .= "../";        
 }
   
-if($currentFile == "core_js_main.js")
+if($currentFile == "core_conf_config.ph")
 {
-   rename($varToIndexDir.$indexToExtracted."core_js_main.php", $varToIndexDir.$indexToExtracted."core_js_main.js");
+   if (!file_exists($varToIndexDir.'setup/')) 
+   {
+   	mkdir($varToIndexDir.'setup/', 0777, true);
+   }
+	if (!file_exists($varToIndexDir.'core/php/template')) 
+   	{
+    		mkdir($varToIndexDir.'core/php/template', 0777, true);
+	}
+	
+	unlink($varToIndexDir.'top/overview.php');
+	
 }
   
 //update innerUpgradeStatus file
