@@ -11,6 +11,7 @@ var polling = false;
 var t0 = performance.now();
 var t1 = performance.now();
 var t2 = performance.now();
+var t3 = performance.now();
 var counterForPoll = 0;
 var arrayOfData1 = null;
 var arrayOfData2 = null;
@@ -46,11 +47,28 @@ function pollTwo()
 		{
 			polling = true;
 			t0 = performance.now();
-			$.getJSON('core/php/pollCheck.php', {}, function(data) {
-				pollTwoPartTwo(data);
+			$.getJSON('core/php/versionCheck.php', {}, function(data) {
+				if(data == currentVersion)
+				{
+					pollTwoPartOneB(data);
+				}
+				else
+				{
+					showPopup();
+					document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Log-Hog has been updated. Please Refresh</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Log-Hog has been updated, and is now on version "+data+". Please refresh the page.</div><div><div class='link' onclick='location.reload();' style='margin-left:165px; margin-right:50px;margin-top:35px;'>Reload</div></div>";
+
+				}
 			});
 		}
 	}
+}
+
+function pollTwoPartOneB()
+{
+	t3 = performance.now();
+	$.getJSON('core/php/pollCheck.php', {}, function(data) {
+				pollTwoPartTwo(data);
+			});
 }
 
 function pollTwoPartTwo(data)
@@ -163,7 +181,7 @@ function afterPollFunctionComplete()
 	if(enablePollTimeLogging != "false")
 	{
 		t1 = performance.now();
-		document.getElementById("loggingTimerPollRate").innerText = "Ajax refresh took    "+(Math.round(t2 - t0))+":"+(Math.round(t1 - t2))+"     " + (Math.round(t1 - t0)) + "/" + pollingRate +"("+(parseInt(pollingRate)*counterForPoll)+")"+" milliseconds.";
+		document.getElementById("loggingTimerPollRate").innerText = "Ajax refresh took    "+(Math.round(t3 - t0))+":"+(Math.round(t2 - t3))+":"+(Math.round(t1 - t2))+"     " + (Math.round(t1 - t0)) + "/" + pollingRate +"("+(parseInt(pollingRate)*counterForPoll)+")"+" milliseconds.";
 		document.getElementById("loggingTimerPollRate").style.color = "";
 		counterForPoll = 0;
 		if(Math.round(t1-t0) > parseInt(pollingRate))
@@ -410,9 +428,11 @@ function focus() {
 }
 
 
-
-poll();
-setInterval(poll, pollingRate);
+$( document ).ready(function()
+{
+	poll();
+	setInterval(poll, pollingRate);
+});
 resize();
 
 window.onresize = resize;

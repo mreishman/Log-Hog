@@ -1,77 +1,45 @@
-
-<meta http-equiv="cache-control" content="no-cache, must-revalidate, post-check=0, pre-check=0">
-<meta http-equiv="expires" content="Sat, 31 Oct 2014 00:00:00 GMT">
-<meta http-equiv="pragma" content="no-cache">
-
 <?php
-$baseUrl = "../core/";
-if(file_exists('../local/layout.php'))
+
+function clean_url($url) {
+    $parts = parse_url($url);
+    return $parts['path'];
+}
+
+
+require_once('statusTest.php');
+$baseRedirect = "";
+$baseRedirectTwo = "";
+if($monitorStatus['withLogHog'] == 'true')
 {
-	$baseUrl = "../local/";
+	$baseRedirect = "../";
+	$baseRedirectTwo = "../";
+}
+$baseUrl = $baseRedirect."core/";
+if(file_exists($baseRedirect.'local/layout.php'))
+{
+	$baseUrl = $baseRedirect."local/";
 	//there is custom information, use this
-	require_once('../local/layout.php');
+	require_once($baseRedirect.'local/layout.php');
 	$baseUrl .= $currentSelectedTheme."/";
 }
-require_once($baseUrl.'conf/config.php'); 
-require_once('../core/conf/config.php');
-require_once('../core/php/configStatic.php');
-
-$version = explode('.', $configStatic['version']);
-$newestVersion = explode('.', $configStatic['newestVersion']);
-
-$levelOfUpdate = 0; // 0 is no updated, 1 is minor update and 2 is major update
-
-$newestVersionCount = count($newestVersion);
-$versionCount = count($version);
-
-for($i = 0; $i < $newestVersionCount; $i++)
+if(!file_exists($baseUrl.'conf/config.php') && $monitorStatus['withLogHog'] != 'true')
 {
-	if($i < $versionCount)
-	{
-		if($i == 0)
-		{
-			if($newestVersion[$i] > $version[$i])
-			{
-				$levelOfUpdate = 3;
-				break;
-			}
-			elseif($newestVersion[$i] < $version[$i])
-			{
-				break;
-			}
-		}
-		elseif($i == 1)
-		{
-			if($newestVersion[$i] > $version[$i])
-			{
-				$levelOfUpdate = 2;
-				break;
-			}
-			elseif($newestVersion[$i] < $version[$i])
-			{
-				break;
-			}
-		}
-		else
-		{
-			if($newestVersion[$i] > $version[$i])
-			{
-				$levelOfUpdate = 1;
-				break;
-			}
-			elseif($newestVersion[$i] < $version[$i])
-			{
-				break;
-			}
-		}
-	}
-	else
-	{
-		$levelOfUpdate = 1;
-		break;
-	}
+	$partOfUrl = clean_url($_SERVER['REQUEST_URI']);
+	$url = "http://" . $_SERVER['HTTP_HOST'] .$partOfUrl ."setup/welcome.php";
+	header('Location: ' . $url, true, 302);
+	exit();
 }
-require_once('../core/php/loadVars.php');
+require_once($baseUrl.'conf/config.php'); 
+require_once($baseRedirect.'core/conf/config.php');
+if($monitorStatus['withLogHog'] == 'true')
+{
+	require_once($baseUrl.'conf/topConfig.php'); 
+	require_once($baseRedirect.'core/conf/configTop.php');
+	require_once('../core/php/loadVarsTop.php');
+}
+require_once($baseRedirect.'core/php/configStatic.php');
+
+require_once($baseRedirect.'core/php/loadVars.php');
 
 if($pollingRateOverviewMainType == 'Seconds')
 {
@@ -83,19 +51,20 @@ if($pollingRateOverviewSlowType == 'Seconds')
 }
 
 $useTop = false;
-
 ?>
 <!doctype html>
 <head>
 	<title>Top | Overview</title>
 	<link rel="stylesheet" type="text/css" href="<?php echo $baseUrl ?>template/theme.css">
-	<link rel="icon" type="image/png" href="../core/img/favicon.png" />
-	<script src="../core/js/jquery.js"></script>
-	<style type="text/css">
-	#menu a, .link, .linkSmall, .context-menu, .dropdown-content{
-		background-color: <?php echo $currentSelectedThemeColorValues[0]?>;
-	}
-</style>
+	<link rel="icon" type="image/png" href="<?php echo $baseRedirectTwo; ?>core/img/favicon.png" />
+	<script src="<?php echo $baseRedirect; ?>core/js/jquery.js"></script>
+	<?php if($monitorStatus['withLogHog'] == 'true'): ?>
+		<style type="text/css">
+		#menu a, .link, .linkSmall, .context-menu, .dropdown-content{
+			background-color: <?php echo $currentSelectedThemeColorValues[0]?>;
+		}
+		</style>
+	<?php endif; ?>
 </head>
 <body>
 
@@ -105,43 +74,43 @@ $useTop = false;
 		<div id="topBarOverview">
 			<div onclick="showGraphPopup('cpuPopupCanvas','CPU','onePage')" style="cursor: pointer;" class="canvasMonitorDiv" >	
 				<div class="canvasMonitorText">CPU</div>
-				<img id="canvasMonitorLoading_CPU" class="loadingSpinner" src='../core/img/loading.gif' height='50' width='50'> 
+				<img id="canvasMonitorLoading_CPU" class="loadingSpinner" src='<?php echo $baseRedirectTwo; ?>core/img/loading.gif' height='50' width='50'> 
 				<canvas style="display: none;" class="canvasMonitor" id="cpuCanvas" width="200" height="200"></canvas>
 					<div class="canvasMonitorText">U <span id="canvasMonitorCPU_User">-</span>% | S <span id="canvasMonitorCPU_System">-</span>% | N <span id="canvasMonitorCPU_Other">-</span>%</div>
 			</div>
 			<div onclick="showGraphPopup('ramPopupCanvas','RAM','onePage')" style="cursor: pointer;" class="canvasMonitorDiv" >	
 				<div class="canvasMonitorText">RAM</div>
-				<img id="canvasMonitorLoading_RAM" class="loadingSpinner" src='../core/img/loading.gif' height='50' width='50'> 
+				<img id="canvasMonitorLoading_RAM" class="loadingSpinner" src='<?php echo $baseRedirectTwo; ?>core/img/loading.gif' height='50' width='50'> 
 				<canvas style="display: none;" class="canvasMonitor" id="ramCanvas" width="200" height="200"></canvas>
 				<div class="canvasMonitorText">Used <span id="canvasMonitorRAM_Used">-</span>% | Cache <span id="canvasMonitorRAM_Cache">-</span>%</div>
 			</div> 
 			<div onclick="showGraphPopup('swapPopupCanvas','Swap','onePage')" style="cursor: pointer;"  class="canvasMonitorDiv" >	
 				<div class="canvasMonitorText">Swap</div>
-				<img id="canvasMonitorLoading_Swap" class="loadingSpinner" src='../core/img/loading.gif' height='50' width='50'> 
+				<img id="canvasMonitorLoading_Swap" class="loadingSpinner" src='<?php echo $baseRedirectTwo; ?>core/img/loading.gif' height='50' width='50'> 
 				<canvas style="display: none;" class="canvasMonitor" id="swapCanvas" width="200" height="200"></canvas>
 				<div class="canvasMonitorText"><span id="canvasMonitorSwap">-</span>%</div>
 			</div>
 			<div class="canvasMonitorDiv" >	
 				<div class="canvasMonitorText">Disk Usage</div>
-				<img id="canvasMonitorLoading_HDD" class="loadingSpinner" src='../core/img/loading.gif' height='50' width='50'> 
+				<img id="canvasMonitorLoading_HDD" class="loadingSpinner" src='<?php echo $baseRedirectTwo; ?>core/img/loading.gif' height='50' width='50'> 
 				<div id="HDDCanvas" style="height: 200px; width: 200px; display: none;" class="canvasMonitor" ></div>
 				<div class="canvasMonitorText"><span style="color: white;">n/a</span></div>
 			</div>
 			<div class="canvasMonitorDiv" >	
 				<div class="canvasMonitorText">Disk IO</div>
-				<img id="canvasMonitorLoading_DIO" class="loadingSpinner" src='../core/img/loading.gif' height='50' width='50'> 
+				<img id="canvasMonitorLoading_DIO" class="loadingSpinner" src='<?php echo $baseRedirectTwo; ?>core/img/loading.gif' height='50' width='50'> 
 				<div id="DIOCanvas" style="height: 200px; width: 200px; display: none;" class="canvasMonitor" ></div>
 				<div class="canvasMonitorText"><span style="color: white;">n/a</span></div>
 			</div>
 			<div onclick="showGraphPopup('phpUTUPopupCanvas','PHP User Time Used','onePage')" style="cursor: pointer;"  class="canvasMonitorDiv" >	
 				<div class="canvasMonitorText">PHP User Time Used</div>
-				<img id="canvasMonitorLoading_PHP_UTU" class="loadingSpinner" src='../core/img/loading.gif' height='50' width='50'> 
+				<img id="canvasMonitorLoading_PHP_UTU" class="loadingSpinner" src='<?php echo $baseRedirectTwo; ?>core/img/loading.gif' height='50' width='50'> 
 				<canvas style="display: none;" class="canvasMonitor" id="PHPUTUCanvas" width="200" height="200"></canvas>
 				<div class="canvasMonitorText"><span id="canvasMonitorPHPUTUText" >-</span></div>
 			</div>
 			<div onclick="showGraphPopup('phpSTUPopupCanvas','PHP System Time Used','onePage')" style="cursor: pointer;"  class="canvasMonitorDiv" >	
 				<div class="canvasMonitorText">PHP System Time Used</div>
-				<img id="canvasMonitorLoading_PHP_STU" class="loadingSpinner" src='../core/img/loading.gif' height='50' width='50'> 
+				<img id="canvasMonitorLoading_PHP_STU" class="loadingSpinner" src='<?php echo $baseRedirectTwo; ?>core/img/loading.gif' height='50' width='50'> 
 				<canvas style="display: none;" class="canvasMonitor" id="PHPSTUCanvas" width="200" height="200"></canvas>
 				<div class="canvasMonitorText"><span id="canvasMonitorPHPSTUText" >-</span></div>
 			</div>
@@ -156,8 +125,14 @@ $useTop = false;
 			</div>
 		</div>
 	</div>
-	<?php readfile('../core/html/popup.html') ?>	
-	<script src="../core/js/top.js"></script>
+	<script type="text/javascript">
+		var baseRedirect = "";
+		<?php if($monitorStatus['withLogHog'] == 'true'): ?>
+			baseRedirect = "../";
+		<?php endif; ?>
+	</script>
+	<?php readfile($baseRedirect.'core/html/popup.html') ?>	
+	<script src="<?php echo $baseRedirect; ?>core/js/top.js"></script>
 	<script type="text/javascript">
 	var numberOfColumns = 40;
 	var defaultArray = new Array();
@@ -225,13 +200,13 @@ $useTop = false;
 	{
 		if(nullReturnForDefaultPoll)
 		{
-			$.getJSON('../core/php/topAlt.php', {}, function(data) {
+			$.getJSON('<?php echo $baseRedirect; ?>core/php/topAlt.php', {}, function(data) {
 				processDataFromTOP(data);
 			})
 		}
 		else
 		{
-			$.getJSON('../core/php/top.php', {}, function(data) {
+			$.getJSON('<?php echo $baseRedirect; ?>core/php/top.php', {}, function(data) {
 				if(data == null)
 				{
 					nullReturnForDefaultPoll = true;
@@ -249,7 +224,7 @@ $useTop = false;
 	{
 		if(!dropdownMenuVisible)
 		{
-		$.getJSON('../core/php/psAux.php', {}, function(data) {
+		$.getJSON('<?php echo $baseRedirect; ?>core/php/psAux.php', {}, function(data) {
 				processDataFrompsAux(data);
 			})
 		}
@@ -259,7 +234,7 @@ $useTop = false;
 	{
 		if(!dropdownMenuVisible)
 		{
-		$.getJSON('../core/php/getRUsage.php', {}, function(data) {
+		$.getJSON('<?php echo $baseRedirect; ?>core/php/getRUsage.php', {}, function(data) {
 				processDataFromRUsage(data);
 			})
 		}
@@ -267,28 +242,28 @@ $useTop = false;
 
 	function procNetDev()
 	{
-		$.getJSON('../core/php/procNetDev.php', {}, function(data) {
+		$.getJSON('<?php echo $baseRedirect; ?>core/php/procNetDev.php', {}, function(data) {
 				processDataFromprocNetDev(data);
 			})
 	}
 
 	function procStatFunc()
 	{
-		$.getJSON('../core/php/procStat.php', {}, function(data) {
+		$.getJSON('<?php echo $baseRedirect; ?>core/php/procStat.php', {}, function(data) {
 				processDataFromprocStat(data);
 			})
 	}
 
 	function procFree()
 	{
-		$.getJSON('../core/php/free.php', {}, function(data) {
+		$.getJSON('<?php echo $baseRedirect; ?>core/php/free.php', {}, function(data) {
 				processDataFromFree(data);
 			})
 	}
 
 	function ioStatDxFunction()
 	{
-		$.getJSON('../core/php/ioStatDx.php', {}, function(data) {
+		$.getJSON('<?php echo $baseRedirect; ?>core/php/ioStatDx.php', {}, function(data) {
 			if(data != null && data != "null")
 			{
 				processDataFromioStatDx(data);
@@ -302,7 +277,7 @@ $useTop = false;
 
 	function dfALFunction()
 	{
-		$.getJSON('../core/php/dfAL.php', {}, function(data) {
+		$.getJSON('<?php echo $baseRedirect; ?>core/php/dfAL.php', {}, function(data) {
 				processDataFrompsdfAL(data);
 			})
 	}
