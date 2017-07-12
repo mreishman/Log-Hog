@@ -41,8 +41,8 @@ require_once('loadVars.php');
 			'enableHtopLink'	=> '".$enableHtopLink."',
 			'expSettingsAvail'	=> '".$expSettingsAvail."',
 			'flashTitleUpdateLog'	=> '".$flashTitleUpdateLog."',
-			'truncateLogButtonAll' => '".$truncateLog."',
-			'popupSettings'	=>	'".$popupWarnings."',
+			'truncateLog' => '".$truncateLog."',
+			'popupWarnings'	=>	'".$popupWarnings."',
 			'pollingRateType'	=> '".$pollingRateType."',
 			'logTrimOn'	=> '".$logTrimOn."',
 			'logSizeLimit'	=>	".$logSizeLimit.",
@@ -61,7 +61,7 @@ require_once('loadVars.php');
 			'enablePollTimeLogging'	=> '".$enablePollTimeLogging."',
 			'folderColorArrays'	=> 	array(
 			".$folderColorArraysSave."),
-			'popupSettingsCustom'	=> array(
+			'popupSettingsArray'	=> array(
 			".$popupSettingsArraySave."),
 			'watchList' => array(
 			".$arrayWatchList.")

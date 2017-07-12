@@ -127,25 +127,25 @@ if(isset($_POST['truncateLog']))
 {
 	$truncateLog = $_POST['truncateLog'];
 }
-elseif(array_key_exists('truncateLogButtonAll', $config))
+elseif(array_key_exists('truncateLog', $config))
 {
-	$truncateLog = $config['truncateLogButtonAll'];
+	$truncateLog = $config['truncateLog'];
 }
 else
 {
-	$truncateLog = $defaultConfig['truncateLogButtonAll'];
+	$truncateLog = $defaultConfig['truncateLog'];
 }
 if(isset($_POST['popupWarnings']))
 {
 	$popupWarnings = $_POST['popupWarnings'];
 }
-elseif(array_key_exists('popupSettings', $config))
+elseif(array_key_exists('popupWarnings', $config))
 {
-	$popupWarnings = $config['popupSettings'];
+	$popupWarnings = $config['popupWarnings'];
 }
 else
 {
-	$popupWarnings = $defaultConfig['popupSettings'];
+	$popupWarnings = $defaultConfig['popupWarnings'];
 }
 if(array_key_exists('expSettingsAvail', $config))
 {
@@ -179,13 +179,13 @@ else
 {
 	$enableSystemPrefShellOrPhp = $defaultConfig['enableSystemPrefShellOrPhp'];
 }
-if(array_key_exists('popupSettingsCustom', $config))
+if(array_key_exists('popupSettingsArray', $config))
 {
-	$popupSettingsArray = $config['popupSettingsCustom'];
+	$popupSettingsArray = $config['popupSettingsArray'];
 }
 else
 {
-	$popupSettingsArray = $defaultConfig['popupSettingsCustom'];
+	$popupSettingsArray = $defaultConfig['popupSettingsArray'];
 }
 if(isset($_POST['pollingRateType']))
 {
