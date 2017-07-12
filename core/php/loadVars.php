@@ -30,13 +30,18 @@ else
 }
 require_once($varToIndexDir.'core/conf/config.php');
 
+$loadCustomConfigVars = true;
+if(isset($_POST['resetConfigValuesBackToDefault']))
+{
+	$loadCustomConfigVars = false;
+}
 foreach ($defaultConfig as $key => $value)
 {
 	if(isset($_POST[$key]))
 	{
 		$$key = $_POST[$key];
 	}
-	elseif(array_key_exists($key, $config))
+	elseif(array_key_exists($key, $config) && $loadCustomConfigVars)
 	{
 		$$key = $config[$key];
 	}

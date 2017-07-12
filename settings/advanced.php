@@ -64,6 +64,23 @@ require_once('../core/php/updateCheck.php');
 			</ul>
 		</div>
 	</form>
+	<form id="resetSettings" action="../core/php/settingsSave.php" method="post">
+		<div class="settingsHeader">
+			Reset Config Values back to default  <button onclick="displayLoadingPopup();" >RESET</button>
+		</div>
+		<div class="settingsDiv" >
+			<ul id="settingsUl">
+				<li style="display: none;"  >
+						<select name="resetConfigValuesBackToDefault">
+  							<option selected value="true">True</option>
+						</select>
+				</li>
+				<li>
+					*Doesn't include monitor config settings
+				</li>
+			</ul>
+		</div>
+	</form>
 	</div>
 	<?php readfile('../core/html/popup.html') ?>	
 </body>
