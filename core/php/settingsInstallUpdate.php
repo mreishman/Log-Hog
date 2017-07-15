@@ -200,6 +200,30 @@ function removeUnZippedFiles($locationOfFilesThatNeedToBeRemovedRecursivally = '
 
 }
 
+function verifyFileIsThere($file)
+{
+	if(is_file($file))
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+function verifyDirIsThere($file)
+{
+	if(is_dir($file))
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
 function handOffToUpdate()
 {
 	require_once('../../update/downloads/updateFiles/extracted/updateScript.php');
