@@ -58,6 +58,7 @@ require_once('../core/php/loadVars.php'); ?>
 	<div class="settingsHeader">
 		<h1>Step 4 of <?php echo $counterSteps; ?></h1>
 	</div>
+	<span id="innerSettingsText">
 	<p style="padding: 10px;">Would you also like to install Monitor?</p>
 	<p style="padding: 10px;">Monitor is a htop like program that allows you to monitor system resources from the web.</p>
 	<table style="width: 100%; padding-left: 20px; padding-right: 20px;" ><tr><th style="text-align: right;" >
@@ -67,6 +68,7 @@ require_once('../core/php/loadVars.php'); ?>
 			<a onclick="updateStatus('step5');" class="link">Yes, Download!</a>
 		<?php endif; ?>
 	</th></tr></table>
+	</span>
 	<br>
 	<br>
 </div>
@@ -75,6 +77,8 @@ require_once('../core/php/loadVars.php'); ?>
 <script type="text/javascript">
 
 var retryCount = 0;
+var directory = "../../top/";
+
 
 	function defaultSettings()
 	{
@@ -85,9 +89,18 @@ var retryCount = 0;
 	function customSettings()
 	{
 		//download Monitor from github
-		downloadFile();
+		document.getElementById('innerSettingsText').innerHTML = "";
+		setInterval(function() {document.getElementById('innerSettingsText').innerHTML += '.';}, '50');
+		checkIfTopDirIsEmpty();
+		
 		
 	}
+
+	function updateText(text)
+	{
+		document.getElementById('innerSettingsText').innerHTML += "<p>"+text+"</p>";
+	}
+
 	function updateStatus(status)
 	{
 		var urlForSend = './updateSetupStatus.php?format=json'
@@ -112,8 +125,45 @@ var retryCount = 0;
 		return false;
 	}
 
+	function checkIfTopDirIsEmpty()
+	{
+		updateText("Verifying that Directory is empty");
+		var urlForSend = 'core/php/performSettingsInstallUpdateAction.php?format=json'
+		var data = {action: 'checkIfDirIsEmpty', dir: '../../top/'};
+		$.ajax({
+			url: urlForSend,
+			dataType: 'json',
+			data: data,
+			type: 'POST',
+			success: function(data)
+			{
+				if(data == true)
+				{
+					downloadFile();
+				}
+				else if(data == false)
+				{
+					removeFilesFromToppFolder();
+				}
+			}
+		});	
+	}
+
+	function removeFilesFromToppFolder()
+	{
+
+	}
+
 	function downloadFile()
 	{
+		if(retryCount == 0)
+		{
+			updateText("Downloading Monitor");
+		}
+		else
+		{
+			updateText("Attempt "+(retryCount+1)+" of 3 for downloading Monitor");
+		}
 		var urlForSend = 'core/php/performSettingsInstallUpdateAction.php?format=json'
 		var data = {action: 'downloadFile', file: 'master',downloadFrom: 'monitor/archive/', downloadTo: '../../monitor.zip'};
 		$.ajax({
@@ -124,6 +174,7 @@ var retryCount = 0;
 			complete: function()
 			{
 				//verify if downloaded
+				updateText("Verifying Download");
 				verifyFile('downloadMonitor', '../../monitor.zip');
 			}
 		});	
@@ -163,6 +214,54 @@ var retryCount = 0;
 		});
 	}
 
+	function verifyFail()
+	{
+		//failed? try again?
+		retryCount++;
+		if(retryCount >= 3)
+		{
+			//stop trying, give up :c
+			updateError();
+		}
+		else
+		{
+			if(action == 'downloadMonitor')
+			{
+				updateText("File Could NOT be found");
+				downloadFile();
+			}
+			else if(action == 'unzipFile')
+			{
+				unzipFile();
+			}
+			else if(action == 'removeZipFile')
+			{
+				removeZipFile();
+			}
+			//run previous ajax
+		}
+	}
+
+	function verifySucceded()
+	{
+		//downloaded, extract
+		retryCount = 0;
+		if(action == 'downloadMonitor')
+		{
+			updateText("File Download Verified");
+			updateText("Unzipping Downloaded File");
+			unzipFile();
+		}
+		else if(action == 'unzipFile')
+		{
+			removeZipFile();
+		}
+		else if(action == 'removeZipFile')
+		{
+
+		}
+	}
+
 	function verifyFile(action, fileLocation,isThere = true)
 	{
 		var urlForSend = 'core/php/performSettingsInstallUpdateAction.php?format=json'
@@ -172,41 +271,14 @@ var retryCount = 0;
 			dataType: 'json',
 			data: data,
 			type: 'POST',
-			success: function()
+			success: function(data)
 			{
-				//downloaded, extract
-				retryCount = 0;
-				if(action == 'downloadMonitor')
-				{
-					unzipFile();
-				}
-				if(action == 'unzipFile')
-				{
-					removeZipFile();
-				}
+				
 				
 			},
-			failure: function()
+			failure: function(data)
 			{
-				//failed? try again?
-				retryCount++;
-				if(retryCount >= 3)
-				{
-					//stop trying, give up :c
-					updateError();
-				}
-				else
-				{
-					if(action == 'downloadMonitor')
-					{
-						downloadFile();
-					}
-					else if(action == 'unzipFile')
-					{
-						unzipFile();
-					}
-					//run previous ajax
-				}
+				
 			}
 		});	
 	}

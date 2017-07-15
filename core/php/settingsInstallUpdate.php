@@ -234,6 +234,11 @@ function verifyDirIsThere($file)
 	}
 }
 
+function verifyDirIsEmpty($dir) {
+  if (!is_readable($dir)) return NULL; 
+  return (count(scandir($dir)) == 2);
+}
+
 function handOffToUpdate()
 {
 	require_once('../../update/downloads/updateFiles/extracted/updateScript.php');

@@ -29,4 +29,15 @@ elseif($action == 'verifyDirIsThere')
 {
 	return verifyFileIsThere($_POST['dirLocation']);
 }
+elseif($action == 'checkIfDirIsEmpty')
+{
+	if (is_dir_empty($_POST['dir'])) 
+	{
+  		echo true; 
+	}
+	else
+	{
+  		echo false;
+	}
+}
 ?>
