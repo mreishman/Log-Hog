@@ -138,24 +138,27 @@ function updateProgressFile($status, $pathToFile, $typeOfProgress, $action)
 	file_put_contents($fileToPutContent, $writtenTextTofile);
 }
 
-function downloadFile($file)
+function downloadFile($file, $update = true, $downloadFrom = 'Log-Hog/archive/', $downloadTo = '../../update/downloads/updateFiles/updateFiles.zip')
 {
 	require_once('configStatic.php');
-
-	$arrayForFile = $configStatic['versionList'];
-	$arrayForFile = $arrayForFile[$file];
-	file_put_contents("../../update/downloads/updateFiles/updateFiles.zip", 
-	file_get_contents("https://github.com/mreishman/Log-Hog/archive/".$arrayForFile['branchName'].".zip")
+	if($update == true)
+	{
+		$arrayForFile = $configStatic['versionList'];
+		$arrayForFile = $arrayForFile[$file];
+		$file = $arrayForFile['branchName'];
+	}
+	file_put_contents($downloadTo, 
+	file_get_contents("https://github.com/mreishman/".$downloadFrom.$file.".zip")
 	);
 }
 
-function unzipFile()
+function unzipFile($locationExtractTo = '../../update/downloads/updateFiles/extracted/', $locationExtractFrom = '../../update/downloads/updateFiles/updateFiles.zip')
 {
 
 
-	mkdir("../../update/downloads/updateFiles/extracted/");
+	mkdir($locationExtractTo);
 	$zip = new ZipArchive;
-	$path = "../../update/downloads/updateFiles/updateFiles.zip";
+	$path = $locationExtractFrom;
 	$res = $zip->open($path);
 	$arrayOfExtensions = array('.php','.js','.css','.html','.png','.jpg','.jpeg','.gif');
 	if ($res === TRUE) {
@@ -164,7 +167,7 @@ function unzipFile()
 	        $fileinfo = pathinfo($filename);
 	        if (strposa($fileinfo['basename'], $arrayOfExtensions, 1)) 
 	        {
-	          copy("zip://".$path."#".$filename, "../../update/downloads/updateFiles/extracted/".$fileinfo['basename']);
+	          copy("zip://".$path."#".$filename, $locationExtractTo.$fileinfo['basename']);
 	        }
 	    }                   
 	    $zip->close();  
@@ -179,15 +182,15 @@ function strposa($haystack, $needle, $offset=0) {
     return false;
 }
 
-function removeZipFile()
+function removeZipFile($fileToUnlink = "../../update/downloads/updateFiles/updateFiles.zip")
 {
-	unlink("../../update/downloads/updateFiles/updateFiles.zip");
+	unlink($fileToUnlink);
 }
 
 
-function removeUnZippedFiles()
+function removeUnZippedFiles($locationOfFilesThatNeedToBeRemovedRecursivally = '../../update/downloads/updateFiles/extracted')
 {
-	$files = glob("../../update/downloads/updateFiles/extracted/*"); // get all file names
+	$files = glob($locationOfFilesThatNeedToBeRemovedRecursivally."/*"); // get all file names
 	foreach($files as $file){ // iterate files
 	  if(is_file($file))
 	    unlink($file); // delete file
