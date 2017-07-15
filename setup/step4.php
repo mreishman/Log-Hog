@@ -78,7 +78,7 @@ require_once('../core/php/loadVars.php'); ?>
 
 var retryCount = 0;
 var directory = "../../top/";
-
+var urlForSendMain = 'core/php/performSettingsInstallUpdateAction.php?format=json';
 
 	function defaultSettings()
 	{
@@ -128,7 +128,7 @@ var directory = "../../top/";
 	function checkIfTopDirIsEmpty()
 	{
 		updateText("Verifying that Directory is empty");
-		var urlForSend = 'core/php/performSettingsInstallUpdateAction.php?format=json'
+		var urlForSend = urlForSendMain;
 		var data = {action: 'checkIfDirIsEmpty', dir: '../../top/'};
 		$.ajax({
 			url: urlForSend,
@@ -151,7 +151,21 @@ var directory = "../../top/";
 
 	function removeFilesFromToppFolder()
 	{
-
+		updateText("Directory has files in it, removing files");
+		var urlForSend = urlForSendMain;
+		var data = {action: 'removeUnZippedFiles', locationOfFilesThatNeedToBeRemovedRecursivally: '../../monitor',removeDir: false};
+		$.ajax({
+			url: urlForSend,
+			dataType: 'json',
+			data: data,
+			type: 'POST',
+			complete: function()
+			{
+				//verify if downloaded
+				updateText("Verifying Download");
+				verifyFile('downloadMonitor', '../../monitor.zip');
+			}
+		});	
 	}
 
 	function downloadFile()
@@ -164,7 +178,7 @@ var directory = "../../top/";
 		{
 			updateText("Attempt "+(retryCount+1)+" of 3 for downloading Monitor");
 		}
-		var urlForSend = 'core/php/performSettingsInstallUpdateAction.php?format=json'
+		var urlForSend = urlForSendMain;
 		var data = {action: 'downloadFile', file: 'master',downloadFrom: 'monitor/archive/', downloadTo: '../../monitor.zip'};
 		$.ajax({
 			url: urlForSend,
@@ -182,7 +196,7 @@ var directory = "../../top/";
 
 	function unzipFile()
 	{
-		var urlForSend = 'core/php/performSettingsInstallUpdateAction.php?format=json'
+		var urlForSend = urlForSendMain;
 		var data = {action: 'unzipFile', locationExtractTo: '../../monitor.zip', locationExtractFrom: '../../top/'};
 		$.ajax({
 			url: urlForSend,
@@ -199,7 +213,7 @@ var directory = "../../top/";
 
 	function removeZipFile()
 	{
-		var urlForSend = 'core/php/performSettingsInstallUpdateAction.php?format=json'
+		var urlForSend = urlForSendMain;
 		var data = {action: 'removeZipFile', fileToUnlink: '../../monitor.zip'};
 		$.ajax({
 			url: urlForSend,

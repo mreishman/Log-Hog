@@ -234,7 +234,8 @@ function verifyDirIsThere($file)
 	}
 }
 
-function verifyDirIsEmpty($dir) {
+function verifyDirIsEmpty($dir) 
+{
   if (!is_readable($dir)) return NULL; 
   return (count(scandir($dir)) == 2);
 }

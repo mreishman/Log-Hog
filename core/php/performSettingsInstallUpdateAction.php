@@ -18,7 +18,12 @@ elseif($action == 'removeZipFile')
 }
 elseif($action == 'removeUnZippedFiles')
 {
-	removeUnZippedFiles($_POST['locationOfFilesThatNeedToBeRemovedRecursivally']);
+	$removeDir = true;
+	if(isset($_POST['removeDir']))
+	{
+		$removeDir = $_POST['removeDir']
+	}
+	removeUnZippedFiles($_POST['locationOfFilesThatNeedToBeRemovedRecursivally'],$removeDir);
 	return true;
 }
 elseif($action == 'verifyFileIsThere')
