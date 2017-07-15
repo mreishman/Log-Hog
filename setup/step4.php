@@ -73,6 +73,9 @@ require_once('../core/php/loadVars.php'); ?>
 </body>
 <form id="defaultVarsForm" action="../core/php/settingsSave.php" method="post"></form>
 <script type="text/javascript">
+
+var retryCount = 0;
+
 	function defaultSettings()
 	{
 		//change setupProcess to finished
@@ -82,6 +85,7 @@ require_once('../core/php/loadVars.php'); ?>
 	function customSettings()
 	{
 		//download Monitor from github
+		downloadFile();
 		
 	}
 	function updateStatus(status)
@@ -108,7 +112,111 @@ require_once('../core/php/loadVars.php'); ?>
 		return false;
 	}
 
-		var popupSettingsArray = JSON.parse('<?php echo json_encode($popupSettingsArray) ?>');
+	function downloadFile()
+	{
+		var urlForSend = 'core/php/performSettingsInstallUpdateAction.php?format=json'
+		var data = {action: 'downloadFile', file: 'master',downloadFrom: 'monitor/archive/', downloadTo: '../../monitor.zip'};
+		$.ajax({
+			url: urlForSend,
+			dataType: 'json',
+			data: data,
+			type: 'POST',
+			complete: function()
+			{
+				//verify if downloaded
+				verifyFile('downloadMonitor', '../../monitor.zip');
+			}
+		});	
+	}
+
+	function unzipFile()
+	{
+		var urlForSend = 'core/php/performSettingsInstallUpdateAction.php?format=json'
+		var data = {action: 'unzipFile', locationExtractTo: '../../monitor.zip', locationExtractFrom: '../../top/'};
+		$.ajax({
+			url: urlForSend,
+			dataType: 'json',
+			data: data,
+			type: 'POST',
+			complete: function()
+			{
+				//verify if downloaded
+				verifyFile('unzipFile', '../../top/index.php');
+			}
+		});	
+	}
+
+	function removeZipFile()
+	{
+		var urlForSend = 'core/php/performSettingsInstallUpdateAction.php?format=json'
+		var data = {action: 'removeZipFile', fileToUnlink: '../../monitor.zip'};
+		$.ajax({
+			url: urlForSend,
+			dataType: 'json',
+			data: data,
+			type: 'POST',
+			complete: function()
+			{
+				//verify if downloaded
+				verifyFile('removeZipFile', '../../monitor.zip',false);
+			}
+		});
+	}
+
+	function verifyFile(action, fileLocation,isThere = true)
+	{
+		var urlForSend = 'core/php/performSettingsInstallUpdateAction.php?format=json'
+		var data = {action: 'verifyFileIsThere', fileLocation: fileLocation};
+		$.ajax({
+			url: urlForSend,
+			dataType: 'json',
+			data: data,
+			type: 'POST',
+			success: function()
+			{
+				//downloaded, extract
+				retryCount = 0;
+				if(action == 'downloadMonitor')
+				{
+					unzipFile();
+				}
+				if(action == 'unzipFile')
+				{
+					removeZipFile();
+				}
+				
+			},
+			failure: function()
+			{
+				//failed? try again?
+				retryCount++;
+				if(retryCount >= 3)
+				{
+					//stop trying, give up :c
+					updateError();
+				}
+				else
+				{
+					if(action == 'downloadMonitor')
+					{
+						downloadFile();
+					}
+					else if(action == 'unzipFile')
+					{
+						unzipFile();
+					}
+					//run previous ajax
+				}
+			}
+		});	
+	}
+
+	function updateError()
+	{
+
+	}
+
+	var popupSettingsArray = JSON.parse('<?php echo json_encode($popupSettingsArray) ?>');
 	var fileArray = JSON.parse('<?php echo json_encode($config['watchList']) ?>');
 	var countOfWatchList = <?php echo $i; ?>;
 	var countOfAddedFiles = 0;

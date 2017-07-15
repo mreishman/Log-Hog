@@ -138,7 +138,7 @@ function updateProgressFile($status, $pathToFile, $typeOfProgress, $action)
 	file_put_contents($fileToPutContent, $writtenTextTofile);
 }
 
-function downloadFile($file, $update = true, $downloadFrom = 'Log-Hog/archive/', $downloadTo = '../../update/downloads/updateFiles/updateFiles.zip')
+function downloadFile($file = null, $update = true, $downloadFrom = 'Log-Hog/archive/', $downloadTo = '../../update/downloads/updateFiles/updateFiles.zip')
 {
 	require_once('configStatic.php');
 	if($update == true)
@@ -146,6 +146,10 @@ function downloadFile($file, $update = true, $downloadFrom = 'Log-Hog/archive/',
 		$arrayForFile = $configStatic['versionList'];
 		$arrayForFile = $arrayForFile[$file];
 		$file = $arrayForFile['branchName'];
+	}
+	if($file == null)
+	{
+		$file = $POST_['file'];
 	}
 	file_put_contents($downloadTo, 
 	file_get_contents("https://github.com/mreishman/".$downloadFrom.$file.".zip")
@@ -188,16 +192,22 @@ function removeZipFile($fileToUnlink = "../../update/downloads/updateFiles/updat
 }
 
 
-function removeUnZippedFiles($locationOfFilesThatNeedToBeRemovedRecursivally = '../../update/downloads/updateFiles/extracted')
+function removeUnZippedFiles($locationOfFilesThatNeedToBeRemovedRecursivally = '../../update/downloads/updateFiles/extracted', $removeDirectory = true)
 {
 	$files = glob($locationOfFilesThatNeedToBeRemovedRecursivally."/*"); // get all file names
 	foreach($files as $file){ // iterate files
 	  if(is_file($file))
 	    unlink($file); // delete file
 	}
+	if($removeDirectory)
+	{
+		removeDirectory();
+	}
+}
 
-	rmdir("../../update/downloads/updateFiles/extracted/");
-
+function removeDirectory($directory = "../../update/downloads/updateFiles/extracted/")
+{
+	rmdir($directory);
 }
 
 function verifyFileIsThere($file)
