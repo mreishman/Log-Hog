@@ -77,6 +77,8 @@ require_once('../core/php/loadVars.php'); ?>
 <script type="text/javascript">
 
 var retryCount = 0;
+var verifyCount = 0;
+var lock = false;
 var directory = "../../top/";
 var urlForSendMain = 'core/php/performSettingsInstallUpdateAction.php?format=json';
 
@@ -162,8 +164,8 @@ var urlForSendMain = 'core/php/performSettingsInstallUpdateAction.php?format=jso
 			complete: function()
 			{
 				//verify if downloaded
-				updateText("Verifying Download");
-				verifyFile('downloadMonitor', '../../monitor.zip');
+				updateText("Download Files");
+				downloadFile();
 			}
 		});	
 	}
@@ -278,28 +280,61 @@ var urlForSendMain = 'core/php/performSettingsInstallUpdateAction.php?format=jso
 
 	function verifyFile(action, fileLocation,isThere = true)
 	{
-		var urlForSend = 'core/php/performSettingsInstallUpdateAction.php?format=json'
-		var data = {action: 'verifyFileIsThere', fileLocation: fileLocation};
-		$.ajax({
-			url: urlForSend,
-			dataType: 'json',
-			data: data,
-			type: 'POST',
-			success: function(data)
+		verifyCount = 0;
+		updateText('Verifying '.action.' with'.filename);
+		var verifyFileTimer = setInterval(verifyFilePoll(action,fileLocation,isThere),6000);
+	}
+
+	function verifyFilePoll(action, fileLocation,isThere)
+	{
+		if(lock == false)
+		{
+			lock = true;
+			updateText('verifying '.verifyCount.' of 10');
+			var urlForSend = 'core/php/performSettingsInstallUpdateAction.php?format=json'
+			var data = {action: 'verifyFileIsThere', fileLocation: fileLocation};
+			$.ajax({
+				url: urlForSend,
+				dataType: 'json',
+				data: data,
+				type: 'POST',
+				success: function(data)
+				{
+					verifyPostEnd(data, _data);
+				},
+				failure: function(data)
+				{
+					verifyPostEnd(data, _data);
+				},
+				complete: function()
+				{
+					lock = false;
+				}
+			});	
+		}
+	}
+
+	function verifyPostEnd(verified, data)
+	{
+		if(verified == true)
+		{
+			clearInterval(verifyFileTimer);
+			verifySucceded(data);
+		}
+		else
+		{
+			verifyCount++;
+			if(verifyCount > 10)
 			{
-				
-				
-			},
-			failure: function(data)
-			{
-				
+				clearInterval(verifyFileTimer);
+				verifyFail(data);
 			}
-		});	
+		}
 	}
 
 	function updateError()
 	{
-
+		document.getElementById('innerSettingsText').innerHTML = "<p>An error occured while trying to download Monitor. </p>";
 	}
 
 	var popupSettingsArray = JSON.parse('<?php echo json_encode($popupSettingsArray) ?>');
