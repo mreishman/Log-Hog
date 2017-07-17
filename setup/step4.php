@@ -96,7 +96,7 @@ var dotsTimer = null;
 	{
 		//download Monitor from github
 		document.getElementById('innerSettingsText').innerHTML = "";
-		dotsTimer = setInterval(function() {document.getElementById('innerSettingsText').innerHTML = ' .'+document.getElementById('innerSettingsText').innerHTML;}, '100');
+		dotsTimer = setInterval(function() {document.getElementById('innerSettingsText').innerHTML = ' .'+document.getElementById('innerSettingsText').innerHTML;}, '120');
 		checkIfTopDirIsEmpty();
 		
 		
@@ -135,7 +135,7 @@ var dotsTimer = null;
 	{
 		updateText("Verifying that Directory is empty");
 		var urlForSend = urlForSendMain;
-		var data = {action: 'checkIfDirIsEmpty', dir: '../../../top/'};
+		var data = {action: 'checkIfDirIsEmpty', dir: '../../top/'};
 		$.ajax({
 			url: urlForSend,
 			dataType: 'json',
@@ -159,7 +159,7 @@ var dotsTimer = null;
 	{
 		updateText("Directory has files in it, removing files");
 		var urlForSend = urlForSendMain;
-		var data = {action: 'removeUnZippedFiles', locationOfFilesThatNeedToBeRemovedRecursivally: '../../monitor',removeDir: false};
+		var data = {action: 'removeUnZippedFiles', locationOfFilesThatNeedToBeRemovedRecursivally: '../../top/',removeDir: false};
 		$.ajax({
 			url: urlForSend,
 			dataType: 'json',
@@ -279,8 +279,14 @@ var dotsTimer = null;
 		}
 		else if(action == 'removeZipFile')
 		{
+			cleanUp();
 			clearInterval(dotsTimer);
 		}
+	}
+
+	function cleanUp()
+	{
+		
 	}
 
 	function verifyFile(action, fileLocation,isThere = true)
@@ -331,7 +337,7 @@ var dotsTimer = null;
 		else
 		{
 			verifyCount++;
-			if(verifyCount > 10)
+			if(verifyCount > 9)
 			{
 				clearInterval(verifyFileTimer);
 				verifyFail(data['lastAction']);

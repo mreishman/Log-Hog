@@ -213,11 +213,11 @@ function removeDirectory($directory = "../../update/downloads/updateFiles/extrac
 	}
 }
 
-function verifyFileIsThere($file, $invert = false)
+function verifyFileIsThere($file, $notInvert = true)
 {
 	if(is_file($file))
 	{
-		if($invert == true)
+		if($notInvert == false || $notInvert == "false")
 		{
 			return false;
 		}
@@ -228,7 +228,7 @@ function verifyFileIsThere($file, $invert = false)
 	}
 	else
 	{
-		if($invert == true)
+		if($notInvert == false || $notInvert == "false")
 		{
 			return true;
 		}
