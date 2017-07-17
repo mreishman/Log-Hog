@@ -207,19 +207,37 @@ function removeUnZippedFiles($locationOfFilesThatNeedToBeRemovedRecursivally = '
 
 function removeDirectory($directory = "../../update/downloads/updateFiles/extracted/")
 {
-	rmdir($directory);
+	if(is_dir($directory))
+	{
+		rmdir($directory);
+	}
 }
 
-function verifyFileIsThere($file)
+function verifyFileIsThere($file, $invert = false)
 {
 	if(is_file($file))
 	{
-		return true;
+		if($invert == true)
+		{
+			return false;
+		}
+		else
+		{
+			return true;
+		}
 	}
 	else
 	{
-		return false;
+		if($invert == true)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
+	
 }
 
 function verifyDirIsThere($file)

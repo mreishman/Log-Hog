@@ -58,7 +58,7 @@ require_once('../core/php/loadVars.php'); ?>
 	<div class="settingsHeader">
 		<h1>Step 4 of <?php echo $counterSteps; ?></h1>
 	</div>
-	<div style="word-break: break-all; margin-left: auto; margin-right: auto; max-width: 800px;" id="innerSettingsText">
+	<div style="word-break: break-all; margin-left: auto; margin-right: auto; max-width: 800px; overflow: auto; max-height: 500px;" id="innerSettingsText">
 	<p style="padding: 10px;">Would you also like to install Monitor?</p>
 	<p style="padding: 10px;">Monitor is a htop like program that allows you to monitor system resources from the web.</p>
 	<table style="width: 100%; padding-left: 20px; padding-right: 20px;" ><tr>
@@ -84,6 +84,7 @@ var lock = false;
 var directory = "../../top/";
 var urlForSendMain = '../core/php/performSettingsInstallUpdateAction.php?format=json';
 var verifyFileTimer = null;
+var dotsTimer = null;
 
 	function defaultSettings()
 	{
@@ -95,7 +96,7 @@ var verifyFileTimer = null;
 	{
 		//download Monitor from github
 		document.getElementById('innerSettingsText').innerHTML = "";
-		setInterval(function() {document.getElementById('innerSettingsText').innerHTML += ' .';}, '100');
+		dotsTimer = setInterval(function() {document.getElementById('innerSettingsText').innerHTML = ' .'+document.getElementById('innerSettingsText').innerHTML;}, '100');
 		checkIfTopDirIsEmpty();
 		
 		
@@ -103,7 +104,7 @@ var verifyFileTimer = null;
 
 	function updateText(text)
 	{
-		document.getElementById('innerSettingsText').innerHTML += "<p>"+text+"</p>";
+		document.getElementById('innerSettingsText').innerHTML = "<p>"+text+"</p>"+document.getElementById('innerSettingsText').innerHTML;
 	}
 
 	function updateStatus(status)
@@ -202,7 +203,7 @@ var verifyFileTimer = null;
 	function unzipFile()
 	{
 		var urlForSend = urlForSendMain;
-		var data = {action: 'unzipFile', locationExtractTo: '../../monitor.zip', locationExtractFrom: '../../top/'};
+		var data = {action: 'unzipFile', locationExtractTo: '../../top/', locationExtractFrom: '../../monitor.zip'};
 		$.ajax({
 			url: urlForSend,
 			dataType: 'json',
@@ -218,6 +219,7 @@ var verifyFileTimer = null;
 
 	function removeZipFile()
 	{
+		updateText("Removing Downloaded File");
 		var urlForSend = urlForSendMain;
 		var data = {action: 'removeZipFile', fileToUnlink: '../../monitor.zip'};
 		$.ajax({
@@ -263,8 +265,6 @@ var verifyFileTimer = null;
 
 	function verifySucceded(action)
 	{
-		updateText('Verified');
-		console.log(action);
 		//downloaded, extract
 		retryCount = 0;
 		if(action == 'downloadMonitor')
@@ -279,7 +279,7 @@ var verifyFileTimer = null;
 		}
 		else if(action == 'removeZipFile')
 		{
-
+			clearInterval(dotsTimer);
 		}
 	}
 
@@ -287,7 +287,7 @@ var verifyFileTimer = null;
 	{
 		verifyCount = 0;
 		updateText('Verifying '+action+' with'+fileLocation);
-		verifyFileTimer = setInterval(verifyFilePoll(action,fileLocation,isThere),6000);
+		verifyFileTimer = setInterval(function(){verifyFilePoll(action,fileLocation,isThere);},6000);
 	}
 
 	function verifyFilePoll(action, fileLocation,isThere)
@@ -295,9 +295,9 @@ var verifyFileTimer = null;
 		if(lock == false)
 		{
 			lock = true;
-			updateText('verifying '+verifyCount+' of 10');
+			updateText('verifying '+(verifyCount+1)+' of 10');
 			var urlForSend = urlForSendMain;
-			var data = {action: 'verifyFileIsThere', fileLocation: fileLocation, lastAction: action};
+			var data = {action: 'verifyFileIsThere', fileLocation: fileLocation, isThere: isThere , lastAction: action};
 			(function(_data){
 				$.ajax({
 					url: urlForSend,
@@ -325,7 +325,6 @@ var verifyFileTimer = null;
 	{
 		if(verified == true)
 		{
-			console.log("Int Clear");
 			clearInterval(verifyFileTimer);
 			verifySucceded(data['lastAction']);
 		}
@@ -342,6 +341,7 @@ var verifyFileTimer = null;
 
 	function updateError()
 	{
+		clearInterval(dotsTimer);
 		document.getElementById('innerSettingsText').innerHTML = "<p>An error occured while trying to download Monitor. </p>";
 	}
 

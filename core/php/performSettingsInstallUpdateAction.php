@@ -29,11 +29,11 @@ elseif($action == 'removeUnZippedFiles')
 }
 elseif($action == 'verifyFileIsThere')
 {
-	$response = verifyFileIsThere($_POST['fileLocation']);
+	$response = verifyFileIsThere($_POST['fileLocation'], $_POST['isThere']);
 }
 elseif($action == 'verifyDirIsThere')
 {
-	$response = verifyFileIsThere($_POST['dirLocation']);
+	$response = verifyDirIsThere($_POST['dirLocation']);
 }
 elseif($action == 'checkIfDirIsEmpty')
 {
