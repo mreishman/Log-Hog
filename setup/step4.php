@@ -54,23 +54,23 @@ require_once('../core/php/loadVars.php'); ?>
 	</style>
 </head>
 <body>
-<div style="width: 90%; margin: auto; margin-right: auto; margin-left: auto; display: block; height: auto; margin-top: 15px;" >
+<div style="width: 90%; margin: auto; margin-right: auto; margin-left: auto; display: block; height: auto; margin-top: 15px; max-height: 500px;" >
 	<div class="settingsHeader">
 		<h1>Step 4 of <?php echo $counterSteps; ?></h1>
 	</div>
-	<span id="innerSettingsText">
+	<div style="word-break: break-all; margin-left: auto; margin-right: auto; max-width: 800px;" id="innerSettingsText">
 	<p style="padding: 10px;">Would you also like to install Monitor?</p>
 	<p style="padding: 10px;">Monitor is a htop like program that allows you to monitor system resources from the web.</p>
 	<table style="width: 100%; padding-left: 20px; padding-right: 20px;" ><tr>
 	<th style="text-align: left;"><a onclick="updateStatus('finished');" class="link">No Thanks, Continue to Log-Hog</a></th>
 	<th style="text-align: right;" >
 		<?php if($counterSteps == 4): ?>
-			<a onclick="updateStatus('finished');" class="link">Yes, Download!</a>
+			<a onclick="updateStatus('step4');" class="link">Yes, Download!</a>
 		<?php else: ?>
-			<a onclick="updateStatus('step5');" class="link">Yes, Download!</a>
+			<a onclick="updateStatus('step4');" class="link">Yes, Download!</a>
 		<?php endif; ?>
 	</th></tr></table>
-	</span>
+	</div>
 	<br>
 	<br>
 </div>
@@ -82,7 +82,8 @@ var retryCount = 0;
 var verifyCount = 0;
 var lock = false;
 var directory = "../../top/";
-var urlForSendMain = 'core/php/performSettingsInstallUpdateAction.php?format=json';
+var urlForSendMain = '../core/php/performSettingsInstallUpdateAction.php?format=json';
+var verifyFileTimer = null;
 
 	function defaultSettings()
 	{
@@ -94,7 +95,7 @@ var urlForSendMain = 'core/php/performSettingsInstallUpdateAction.php?format=jso
 	{
 		//download Monitor from github
 		document.getElementById('innerSettingsText').innerHTML = "";
-		setInterval(function() {document.getElementById('innerSettingsText').innerHTML += '.';}, '50');
+		setInterval(function() {document.getElementById('innerSettingsText').innerHTML += ' .';}, '100');
 		checkIfTopDirIsEmpty();
 		
 		
@@ -133,7 +134,7 @@ var urlForSendMain = 'core/php/performSettingsInstallUpdateAction.php?format=jso
 	{
 		updateText("Verifying that Directory is empty");
 		var urlForSend = urlForSendMain;
-		var data = {action: 'checkIfDirIsEmpty', dir: '../../top/'};
+		var data = {action: 'checkIfDirIsEmpty', dir: '../../../top/'};
 		$.ajax({
 			url: urlForSend,
 			dataType: 'json',
@@ -232,7 +233,7 @@ var urlForSendMain = 'core/php/performSettingsInstallUpdateAction.php?format=jso
 		});
 	}
 
-	function verifyFail()
+	function verifyFail(action)
 	{
 		//failed? try again?
 		retryCount++;
@@ -260,8 +261,10 @@ var urlForSendMain = 'core/php/performSettingsInstallUpdateAction.php?format=jso
 		}
 	}
 
-	function verifySucceded()
+	function verifySucceded(action)
 	{
+		updateText('Verified');
+		console.log(action);
 		//downloaded, extract
 		retryCount = 0;
 		if(action == 'downloadMonitor')
@@ -283,8 +286,8 @@ var urlForSendMain = 'core/php/performSettingsInstallUpdateAction.php?format=jso
 	function verifyFile(action, fileLocation,isThere = true)
 	{
 		verifyCount = 0;
-		updateText('Verifying '+action+' with'+filename);
-		var verifyFileTimer = setInterval(verifyFilePoll(action,fileLocation,isThere),6000);
+		updateText('Verifying '+action+' with'+fileLocation);
+		verifyFileTimer = setInterval(verifyFilePoll(action,fileLocation,isThere),6000);
 	}
 
 	function verifyFilePoll(action, fileLocation,isThere)
@@ -293,26 +296,28 @@ var urlForSendMain = 'core/php/performSettingsInstallUpdateAction.php?format=jso
 		{
 			lock = true;
 			updateText('verifying '+verifyCount+' of 10');
-			var urlForSend = 'core/php/performSettingsInstallUpdateAction.php?format=json'
-			var data = {action: 'verifyFileIsThere', fileLocation: fileLocation};
-			$.ajax({
-				url: urlForSend,
-				dataType: 'json',
-				data: data,
-				type: 'POST',
-				success: function(data)
-				{
-					verifyPostEnd(data, _data);
-				},
-				failure: function(data)
-				{
-					verifyPostEnd(data, _data);
-				},
-				complete: function()
-				{
-					lock = false;
-				}
-			});	
+			var urlForSend = urlForSendMain;
+			var data = {action: 'verifyFileIsThere', fileLocation: fileLocation, lastAction: action};
+			(function(_data){
+				$.ajax({
+					url: urlForSend,
+					dataType: 'json',
+					data: data,
+					type: 'POST',
+					success: function(data)
+					{
+						verifyPostEnd(data, _data);
+					},
+					failure: function(data)
+					{
+						verifyPostEnd(data, _data);
+					},
+					complete: function()
+					{
+						lock = false;
+					}
+				});	
+			}(data));
 		}
 	}
 
@@ -320,8 +325,9 @@ var urlForSendMain = 'core/php/performSettingsInstallUpdateAction.php?format=jso
 	{
 		if(verified == true)
 		{
+			console.log("Int Clear");
 			clearInterval(verifyFileTimer);
-			verifySucceded(data);
+			verifySucceded(data['lastAction']);
 		}
 		else
 		{
@@ -329,7 +335,7 @@ var urlForSendMain = 'core/php/performSettingsInstallUpdateAction.php?format=jso
 			if(verifyCount > 10)
 			{
 				clearInterval(verifyFileTimer);
-				verifyFail(data);
+				verifyFail(data['lastAction']);
 			}
 		}
 	}

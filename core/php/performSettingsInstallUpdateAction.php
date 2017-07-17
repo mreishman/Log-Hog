@@ -1,48 +1,50 @@
 <?php
 require_once('settingsInstallUpdate.php');
 $action = $_POST['action'];
+$response = $action;
 if($action == 'downloadFile')
 {
 	downloadFile($_POST['file'],false,$_POST['downloadFrom'],$_POST['downloadTo']);
-	return true;
+	$response = true; 
 }
 elseif($action == 'unzipFile')
 {
 	unzipFile($_POST['locationExtractTo'], $_POST['locationExtractFrom']);
-	return true;
+	$response = true; 
 }
 elseif($action == 'removeZipFile')
 {
 	removeZipFile($_POST['fileToUnlink']);
-	return true;
+	$response = true; 
 }
 elseif($action == 'removeUnZippedFiles')
 {
 	$removeDir = true;
 	if(isset($_POST['removeDir']))
 	{
-		$removeDir = $_POST['removeDir']
+		$removeDir = $_POST['removeDir'];
 	}
 	removeUnZippedFiles($_POST['locationOfFilesThatNeedToBeRemovedRecursivally'],$removeDir);
-	return true;
+	$response = true; 
 }
 elseif($action == 'verifyFileIsThere')
 {
-	return verifyFileIsThere($_POST['fileLocation']);
+	$response = verifyFileIsThere($_POST['fileLocation']);
 }
 elseif($action == 'verifyDirIsThere')
 {
-	return verifyFileIsThere($_POST['dirLocation']);
+	$response = verifyFileIsThere($_POST['dirLocation']);
 }
 elseif($action == 'checkIfDirIsEmpty')
 {
-	if (is_dir_empty($_POST['dir'])) 
+	if (verifyDirIsEmpty($_POST['dir'])) 
 	{
-  		echo true; 
+  		$response = true; 
 	}
 	else
 	{
-  		echo false;
+  		$response = false;
 	}
 }
+echo json_encode($response);
 ?>
