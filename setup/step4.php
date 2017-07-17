@@ -61,9 +61,11 @@ require_once('../core/php/loadVars.php'); ?>
 	<span id="innerSettingsText">
 	<p style="padding: 10px;">Would you also like to install Monitor?</p>
 	<p style="padding: 10px;">Monitor is a htop like program that allows you to monitor system resources from the web.</p>
-	<table style="width: 100%; padding-left: 20px; padding-right: 20px;" ><tr><th style="text-align: right;" >
-		<?php if($counterSteps == 3): ?>
-			<a onclick="updateStatus('finished');" class="link">No, Finish Setup</a>
+	<table style="width: 100%; padding-left: 20px; padding-right: 20px;" ><tr>
+	<th style="text-align: left;"><a onclick="updateStatus('finished');" class="link">No Thanks, Continue to Log-Hog</a></th>
+	<th style="text-align: right;" >
+		<?php if($counterSteps == 4): ?>
+			<a onclick="updateStatus('finished');" class="link">Yes, Download!</a>
 		<?php else: ?>
 			<a onclick="updateStatus('step5');" class="link">Yes, Download!</a>
 		<?php endif; ?>
@@ -281,7 +283,7 @@ var urlForSendMain = 'core/php/performSettingsInstallUpdateAction.php?format=jso
 	function verifyFile(action, fileLocation,isThere = true)
 	{
 		verifyCount = 0;
-		updateText('Verifying '.action.' with'.filename);
+		updateText('Verifying '+action+' with'+filename);
 		var verifyFileTimer = setInterval(verifyFilePoll(action,fileLocation,isThere),6000);
 	}
 
@@ -290,7 +292,7 @@ var urlForSendMain = 'core/php/performSettingsInstallUpdateAction.php?format=jso
 		if(lock == false)
 		{
 			lock = true;
-			updateText('verifying '.verifyCount.' of 10');
+			updateText('verifying '+verifyCount+' of 10');
 			var urlForSend = 'core/php/performSettingsInstallUpdateAction.php?format=json'
 			var data = {action: 'verifyFileIsThere', fileLocation: fileLocation};
 			$.ajax({
