@@ -203,7 +203,7 @@ var dotsTimer = null;
 	function unzipFile()
 	{
 		var urlForSend = urlForSendMain;
-		var data = {action: 'unzipFile', locationExtractTo: '../../', locationExtractFrom: '../../top.zip', tmpCache: '../../'};
+		var data = {action: 'unzipFile', locationExtractTo: '../../monitor-master/', locationExtractFrom: '../../top.zip', tmpCache: '../../'};
 		$.ajax({
 			url: urlForSend,
 			dataType: 'json',
@@ -296,6 +296,7 @@ var dotsTimer = null;
 		else if(action == 'removeUnneededFolders')
 		{
 			clearInterval(dotsTimer);
+			
 		}
 	}
 
@@ -312,7 +313,7 @@ var dotsTimer = null;
 			complete: function()
 			{
 				//verify if downloaded
-				verifyFile('removeUnneededFoldersMonitor', '../../core/conf/config.php',false);
+				verifyFile('removeUnneededFoldersMonitor', '../../top/core/conf/config.php',false);
 			}
 		});
 	}

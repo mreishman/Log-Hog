@@ -9,7 +9,7 @@ if($action == 'downloadFile')
 }
 elseif($action == 'unzipFile')
 {
-	unzipFileAndSub($_POST['locationExtractFrom'],"",$_POST['locationExtractTo'],$_POST['tmpCache']);
+	unzipFileAndSub($_POST['locationExtractFrom'],"",$_POST['locationExtractTo'],"../../");
 	$response = true; 
 }
 elseif($action == 'removeZipFile')
@@ -59,11 +59,12 @@ elseif($action == 'cleanUpMonitor')
 }
 elseif($action == 'removeUnneededFoldersMonitor')
 {
-	removeUnZippedFiles('../../top/core/',$removeDir);
-	removeUnZippedFiles('../../top/local/',$removeDir);
-	removeUnZippedFiles('../../top/settings/',$removeDir);
-	removeUnZippedFiles('../../top/setup/',$removeDir);
-	removeUnZippedFiles('../../top/update/',$removeDir);
+	$removeDir = true;
+	rrmdir('../../top/core/',$removeDir);
+	rrmdir('../../top/local/',$removeDir);
+	rrmdir('../../top/settings/',$removeDir);
+	rrmdir('../../top/setup/',$removeDir);
+	rrmdir('../../top/update/',$removeDir);
 	removeZipFile('../../top/.gitattributes');
 	removeZipFile('../../top/.gitignore');
 	removeZipFile('../../top/README.md');

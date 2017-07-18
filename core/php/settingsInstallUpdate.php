@@ -156,6 +156,19 @@ function downloadFile($file = null, $update = true, $downloadFrom = 'Log-Hog/arc
 	);
 }
 
+function rrmdir($dir) {
+   if (is_dir($dir)) {
+     $objects = scandir($dir);
+     foreach ($objects as $object) {
+       if ($object != "." && $object != "..") {
+         if (filetype($dir."/".$object) == "dir") rrmdir($dir."/".$object); else unlink($dir."/".$object);
+       }
+     }
+     reset($objects);
+     rmdir($dir);
+   }
+ }
+
 function unzipFile($locationExtractTo = '../../update/downloads/updateFiles/extracted/', $locationExtractFrom = '../../update/downloads/updateFiles/updateFiles.zip')
 {
 
@@ -196,9 +209,9 @@ function unzipFileAndSub($zipfile, $subpath, $destination, $temp_cache, $travers
 	    $zip->extractTo($temp_cache);
 	    $zip->close();
 
-	    rename($zip_dir . DIRECTORY_SEPARATOR . $subpath, $destination);
+	    //rename($zip_dir . DIRECTORY_SEPARATOR . $subpath, $destination);
 
-	    rrmdir($zip_dir);
+	    //rrmdir($zip_dir);
 	    return true;
 	} else {
 	    return false;
