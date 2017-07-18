@@ -185,7 +185,7 @@ var dotsTimer = null;
 			updateText("Attempt "+(retryCount+1)+" of 3 for downloading Monitor");
 		}
 		var urlForSend = urlForSendMain;
-		var data = {action: 'downloadFile', file: 'master',downloadFrom: 'monitor/archive/', downloadTo: '../../monitor.zip'};
+		var data = {action: 'downloadFile', file: 'master',downloadFrom: 'monitor/archive/', downloadTo: '../../top.zip'};
 		$.ajax({
 			url: urlForSend,
 			dataType: 'json',
@@ -195,7 +195,7 @@ var dotsTimer = null;
 			{
 				//verify if downloaded
 				updateText("Verifying Download");
-				verifyFile('downloadMonitor', '../../monitor.zip');
+				verifyFile('downloadMonitor', '../../top.zip');
 			}
 		});	
 	}
@@ -203,7 +203,7 @@ var dotsTimer = null;
 	function unzipFile()
 	{
 		var urlForSend = urlForSendMain;
-		var data = {action: 'unzipFile', locationExtractTo: '../../top/', locationExtractFrom: '../../monitor.zip'};
+		var data = {action: 'unzipFile', locationExtractTo: '../../', locationExtractFrom: '../../top.zip', tmpCache: '../../'};
 		$.ajax({
 			url: urlForSend,
 			dataType: 'json',
@@ -212,7 +212,7 @@ var dotsTimer = null;
 			complete: function()
 			{
 				//verify if downloaded
-				verifyFile('unzipFile', '../../top/index.php');
+				verifyFile('unzipFile', '../../monitor-master/index.php');
 			}
 		});	
 	}
@@ -221,7 +221,7 @@ var dotsTimer = null;
 	{
 		updateText("Removing Downloaded File");
 		var urlForSend = urlForSendMain;
-		var data = {action: 'removeZipFile', fileToUnlink: '../../monitor.zip'};
+		var data = {action: 'removeZipFile', fileToUnlink: '../../top.zip'};
 		$.ajax({
 			url: urlForSend,
 			dataType: 'json',
@@ -230,7 +230,7 @@ var dotsTimer = null;
 			complete: function()
 			{
 				//verify if downloaded
-				verifyFile('removeZipFile', '../../monitor.zip',false);
+				verifyFile('removeZipFile', '../../top.zip',false);
 			}
 		});
 	}
@@ -259,6 +259,14 @@ var dotsTimer = null;
 			{
 				removeZipFile();
 			}
+			else if(action == 'cleanUp')
+			{
+				cleanUp();
+			}
+			else if(action == 'removeUnneededFolders')
+			{
+				removeUnneededFolders();
+			}
 			//run previous ajax
 		}
 	}
@@ -280,13 +288,52 @@ var dotsTimer = null;
 		else if(action == 'removeZipFile')
 		{
 			cleanUp();
+		}
+		else if(action == 'cleanUp')
+		{
+			removeUnneededFolders();
+		}
+		else if(action == 'removeUnneededFolders')
+		{
 			clearInterval(dotsTimer);
 		}
 	}
 
+	function removeUnneededFolders()
+	{
+		updateText("Removing unneeded folders from top");
+		var urlForSend = urlForSendMain;
+		var data = {action: 'removeUnneededFoldersMonitor', dir: '../../top'};
+		$.ajax({
+			url: urlForSend,
+			dataType: 'json',
+			data: data,
+			type: 'POST',
+			complete: function()
+			{
+				//verify if downloaded
+				verifyFile('removeUnneededFoldersMonitor', '../../core/conf/config.php',false);
+			}
+		});
+	}
+
 	function cleanUp()
 	{
-		
+		//remove old dir, rename new dir to old dir
+		updateText("Cleaning Up");
+		var urlForSend = urlForSendMain;
+		var data = {action: 'cleanUpMonitor', fileToUnlink: '../../monitor.zip'};
+		$.ajax({
+			url: urlForSend,
+			dataType: 'json',
+			data: data,
+			type: 'POST',
+			complete: function()
+			{
+				//verify if downloaded
+				verifyFile('cleanUp', '../../top/index.php');
+			}
+		});
 	}
 
 	function verifyFile(action, fileLocation,isThere = true)

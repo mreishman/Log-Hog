@@ -178,6 +178,33 @@ function unzipFile($locationExtractTo = '../../update/downloads/updateFiles/extr
 	}
 }
 
+function unzipFileAndSub($zipfile, $subpath, $destination, $temp_cache, $traverse_first_subdir=true){
+	$zip = new ZipArchive;
+	if(substr($temp_cache, -1) !== DIRECTORY_SEPARATOR) {
+		$temp_cache .= DIRECTORY_SEPARATOR;
+	}
+	$res = $zip->open($zipfile);
+	if ($res === TRUE) {
+	    if ($traverse_first_subdir==true){
+	        $zip_dir = $temp_cache . $zip->getNameIndex(0);
+	    }
+	    else {
+	    	$temp_cache = $temp_cache . basename($zipfile, ".zip");
+	    	$zip_dir = $temp_cache;
+	    }
+
+	    $zip->extractTo($temp_cache);
+	    $zip->close();
+
+	    rename($zip_dir . DIRECTORY_SEPARATOR . $subpath, $destination);
+
+	    rrmdir($zip_dir);
+	    return true;
+	} else {
+	    return false;
+	}
+}
+
 function strposa($haystack, $needle, $offset=0) {
     if(!is_array($needle)) $needle = array($needle);
     foreach($needle as $query) {
