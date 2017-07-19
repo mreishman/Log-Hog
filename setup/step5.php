@@ -30,7 +30,8 @@ while(file_exists('step'.$counterSteps.'.php'))
 	$counterSteps++;
 }
 $counterSteps--;
-require_once('../core/php/loadVars.php'); ?>
+require_once('../core/php/loadVars.php');
+require_once('../core/php/loadVarsTop.php'); ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -59,9 +60,7 @@ require_once('../core/php/loadVars.php'); ?>
 		<h1>Step 5 of <?php echo $counterSteps; ?></h1>
 	</div>
 	<p style="padding: 10px;">Top Settings:</p>
-	
-
-
+		<?php require_once('../core/php/settingsTop.php'); ?>
 	<table style="width: 100%; padding-left: 20px; padding-right: 20px;" ><tr><th style="text-align: right;" >
 		<?php if($counterSteps == 5): ?>
 			<a onclick="updateStatus('finished');" class="link">Finish</a>
@@ -78,13 +77,14 @@ require_once('../core/php/loadVars.php'); ?>
 	function defaultSettings()
 	{
 		//change setupProcess to finished
-		location.reload();
+		document.getElementById('settingsMainVars').action = "../core/php/settingsSaveTop.php";
+		document.getElementById('settingsMainVars').submit();
 	}
 
 	function customSettings()
 	{
 		//change setupProcess to page1
-		document.getElementById('settingsMainVars').action = "../core/php/settingsSave.php";
+		document.getElementById('settingsMainVars').action = "../core/php/settingsSaveTop.php";
 		document.getElementById('settingsMainVars').submit();
 	}
 	function updateStatus(status)
