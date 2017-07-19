@@ -60,10 +60,10 @@ require_once('../core/php/loadVars.php'); ?>
 	</div>
 	<p style="padding: 10px;">Top Settings:</p>
 	
-	
-	
+
+
 	<table style="width: 100%; padding-left: 20px; padding-right: 20px;" ><tr><th style="text-align: right;" >
-		<?php if($counterSteps == 3): ?>
+		<?php if($counterSteps == 5): ?>
 			<a onclick="updateStatus('finished');" class="link">Finish</a>
 		<?php else: ?>
 			<a onclick="updateStatus('step6');" class="link">Continue</a>

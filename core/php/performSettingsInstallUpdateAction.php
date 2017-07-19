@@ -61,7 +61,7 @@ elseif($action == 'changeMonSettings')
 {
 	$string = "<?php
 		$"."monitorStatus = array(
-	'withLogHog'	=> 'false'
+	'withLogHog'	=> 'true'
 	);
 	?>";
 
