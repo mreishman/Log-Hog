@@ -12,6 +12,8 @@ require_once('../core/conf/config.php');
 require_once('../core/php/configStatic.php');
 require_once('../core/php/loadVars.php');
 require_once('../core/php/updateCheck.php');
+require_once('../top/statusTest.php');
+$withLogHog = $monitorStatus['withLogHog'];
 ?>
 <!doctype html>
 <head>
@@ -66,21 +68,27 @@ require_once('../core/php/updateCheck.php');
 	</form>
 	<form id="resetSettings" action="../core/php/settingsSave.php" method="post">
 		<div class="settingsHeader">
-			Reset Config Values back to default  <button onclick="displayLoadingPopup();" >RESET</button>
+			Reset Config Values back to default
 		</div>
 		<div class="settingsDiv" >
 			<ul id="settingsUl">
+				<li>
+					<a onclick="document.getElementById('resetSettings').submit()" class="link">Reset Settings</a>
+				</li>
 				<li style="display: none;"  >
 						<select name="resetConfigValuesBackToDefault">
   							<option selected value="true">True</option>
 						</select>
 				</li>
+				<?php if($withLogHog == 'true'): ?>
 				<li>
 					*Doesn't include monitor config settings
 				</li>
+				<?php endif; ?>
 			</ul>
 		</div>
 	</form>
+
 	</div>
 	<?php readfile('../core/html/popup.html') ?>	
 </body>

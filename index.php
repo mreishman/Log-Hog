@@ -40,6 +40,10 @@ if($pollingRateType == 'Seconds')
 	$pollingRate *= 1000;
 }
 
+require_once('top/statusTest.php');
+$withLogHog = $monitorStatus['withLogHog'];
+
+
 ?>
 <!doctype html>
 <head>
@@ -77,9 +81,11 @@ if($pollingRateType == 'Seconds')
 			<img id="deleteImage" class="menuImage" src="core/img/trashCan.png" height="30px">
 		</div>
 		<?php endif; ?>
+		<?php if($withLogHog == 'true'): ?>
 		<div onclick="window.location.href = './top/index.php'" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">
 			<img id="taskmanagerImage" class="menuImage" src="core/img/task-manager.png" height="30px">
 		</div>
+		<?php endif; ?>
 		<div onclick="window.location.href = './settings/main.php';" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">
 			<img data-id="1" id="gear" class="menuImage" src="core/img/Gear.png" height="30px">
 			<?php  if($levelOfUpdate == 1){echo '<img id="updateImage" src="core/img/yellowWarning.png" height="15px" style="position: absolute;margin-left: 13px;margin-top: -34px;">';} ?> <?php if($levelOfUpdate == 2 || $levelOfUpdate == 3){echo '<img id="updateImage" src="core/img/redWarning.png" height="15px" style="position: absolute;margin-left: 13px;margin-top: -34px;">';} ?>
