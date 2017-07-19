@@ -62,12 +62,18 @@ require_once('../core/php/loadVars.php'); ?>
 	<p style="padding: 10px;">Would you also like to install Monitor?</p>
 	<p style="padding: 10px;">Monitor is a htop like program that allows you to monitor system resources from the web.</p>
 	<table style="width: 100%; padding-left: 20px; padding-right: 20px;" ><tr>
-	<th style="text-align: left;"><a onclick="updateStatus('finished');" class="link">No Thanks, Continue to Log-Hog</a></th>
+	<th style="text-align: left;">
+		<?php if($counterSteps < 6): ?>
+			<a onclick="updateStatus('finished');" class="link">No Thanks, Continue to Log-Hog</a>
+		<?php else: ?>
+			<a onclick="updateStatus('step6');" class="link">No Thanks, Continue Setup</a>
+		<?php endif; ?>
+	</th>
 	<th style="text-align: right;" >
 		<?php if($counterSteps == 4): ?>
-			<a onclick="updateStatus('step4');" class="link">Yes, Download!</a>
+			<a onclick="updateStatus('step5');" class="link">Yes, Download!</a>
 		<?php else: ?>
-			<a onclick="updateStatus('step4');" class="link">Yes, Download!</a>
+			<a onclick="updateStatus('step5');" class="link">Yes, Download!</a>
 		<?php endif; ?>
 	</th></tr></table>
 	</div>
@@ -118,7 +124,7 @@ var dotsTimer = null;
 				  type: 'POST',
 		success: function(data)
 		{
-			if(status == "finished")
+			if(status == "finished" || status == 'step6')
 			{
 				defaultSettings();
 			}
@@ -263,9 +269,13 @@ var dotsTimer = null;
 			{
 				cleanUp();
 			}
-			else if(action == 'removeUnneededFolders')
+			else if(action == 'changeMonSettings')
 			{
-				removeUnneededFolders();
+				changeMonSettings();
+			}
+			else if(action == 'removeUnneededFoldersMonitor')
+			{
+				removeUnneededFoldersMonitor();
 			}
 			//run previous ajax
 		}
@@ -291,16 +301,38 @@ var dotsTimer = null;
 		}
 		else if(action == 'cleanUp')
 		{
-			removeUnneededFolders();
+			changeMonSettings();
 		}
-		else if(action == 'removeUnneededFolders')
+		else if(action == 'changeMonSettings')
+		{
+			removeUnneededFoldersMonitor();
+		}
+		else if(action == 'removeUnneededFoldersMonitor')
 		{
 			clearInterval(dotsTimer);
-			
+			location.reload();
 		}
 	}
 
-	function removeUnneededFolders()
+	function changeMonSettings()
+	{
+		updateText("Changing Monitor Settings");
+		var urlForSend = urlForSendMain;
+		var data = {action: 'changeMonSettings'};
+		$.ajax({
+			url: urlForSend,
+			dataType: 'json',
+			data: data,
+			type: 'POST',
+			complete: function()
+			{
+				//verify if downloaded
+				verifyFile('changeMonSettings', '../../top/statusTest.php');
+			}
+		});
+	}
+
+	function removeUnneededFoldersMonitor()
 	{
 		updateText("Removing unneeded folders from top");
 		var urlForSend = urlForSendMain;
