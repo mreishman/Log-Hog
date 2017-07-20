@@ -96,7 +96,6 @@ function goToUrl(url)
 				break;
 			}
 		}
-		console.log(returnValue);
 		return returnValue;
 	}
 
@@ -179,7 +178,8 @@ function goToUrl(url)
 				Array((document.getElementsByName("blankFolder")[0].value),popupSettingsArray.blankFolder),
 				Array((document.getElementsByName("removeFolder")[0].value),popupSettingsArray.removeFolder),
 				Array((document.getElementsByName("pollingRateType")[0].value),"<?php echo $pollingRateType;?>"),
-				Array((document.getElementsByName("autoCheckDaysUpdate")[0].value),"<?php echo $autoCheckDaysUpdate;?>"));
+				Array((document.getElementsByName("autoCheckDaysUpdate")[0].value),"<?php echo $autoCheckDaysUpdate;?>"),
+				Array((document.getElementsByName("rightClickMenuEnable")[0].value),"<?php echo $rightClickMenuEnable;?>"));
 	}
 	
 
