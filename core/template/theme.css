@@ -34,9 +34,13 @@ div {
 	cursor: pointer;
 }
 
-#menu a:hover, #menu a.active, .link:hover, .linkSmall:hover {
+#menu a:hover, #menu a.active, .link:hover, .linkSmall:hover, .settingsHeader button:hover {
 	color: black;
 	background-color: white !important; 
+}
+
+.settingsHeader button:hover{
+	border: 1px solid black;
 }
 
 #menu a.updated {
@@ -135,7 +139,7 @@ div {
 	color: white;
 }
 
-.linkSmall
+.linkSmall, .linkSmall, .settingsHeader button
 {
 	display: inline-block;
 	padding: 3px 5px;

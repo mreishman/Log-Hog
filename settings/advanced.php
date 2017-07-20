@@ -66,29 +66,28 @@ $withLogHog = $monitorStatus['withLogHog'];
 			</ul>
 		</div>
 	</form>
-	<form id="resetSettings" action="../core/php/settingsSave.php" method="post">
 		<div class="settingsHeader">
 			Reset Config Values back to default
 		</div>
 		<div class="settingsDiv" >
 			<ul id="settingsUl">
-				<li>
-					<a onclick="document.getElementById('resetSettings').submit()" class="link">Reset Settings</a>
-				</li>
-				<li style="display: none;"  >
-						<select name="resetConfigValuesBackToDefault">
-  							<option selected value="true">True</option>
-						</select>
-				</li>
-				<?php if($withLogHog == 'true'): ?>
-				<li>
-					*Doesn't include monitor config settings
-				</li>
-				<?php endif; ?>
+				<form id="resetSettings" action="../core/php/settingsSave.php" method="post">
+					<li>
+						<a onclick="document.getElementById('resetSettings').submit()" class="link">Reset Settings</a>
+					</li>
+					<li style="display: none;"  >
+							<select name="resetConfigValuesBackToDefault">
+	  							<option selected value="true">True</option>
+							</select>
+					</li>
+					<?php if($withLogHog == 'true'): ?>
+					<li>
+						*Doesn't include monitor config settings
+					</li>
+					<?php endif; ?>
+				</form>
 			</ul>
 		</div>
-	</form>
-
 	</div>
 	<?php readfile('../core/html/popup.html') ?>	
 </body>
