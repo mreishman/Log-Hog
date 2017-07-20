@@ -39,21 +39,13 @@ else
 {
 	$enableSystemPrefShellOrPhp = $defaultConfig['enableSystemPrefShellOrPhp'];
 }
-if(array_key_exists('popupSettingsCustom', $config))
+if(array_key_exists('popupSettingsArray', $config))
 {
-	$popupSettingsArray = $config['popupSettingsCustom'];
+	$popupSettingsArray = $config['popupSettingsArray'];
 }
 else
 {
-	$popupSettingsArray = $defaultConfig['popupSettingsCustom'];
-}
-if(array_key_exists('enableHtopLink', $config))
-{
-	$enableHtopLink = $config['enableHtopLink'];
-}
-else
-{
-	$enableHtopLink = $defaultConfig['enableHtopLink'];
+	$popupSettingsArray = $defaultConfig['popupSettingsArray'];
 }
 ?>
 	
@@ -62,7 +54,10 @@ else
 	<div id="main">
 		<form id="devAdvanced" action="../core/php/settingsSave.php" method="post">
 		<div class="settingsHeader">
-		Experimental Features <button onclick="displayLoadingPopup();" >Save Changes</button>
+		Experimental Features 
+			<div class="settingsHeaderButtons">
+				<button onclick="displayLoadingPopup();" >Save Changes</button>
+			</div>
 		</div>
 		<div class="settingsDiv" >
 			<ul id="settingsUl">
@@ -71,13 +66,6 @@ else
 						<select name="enableSystemPrefShellOrPhp">
   						<option <?php if($enableSystemPrefShellOrPhp == 'true'){echo "selected";} ?> value="true">PHP</option>
   						<option <?php if($enableSystemPrefShellOrPhp == 'false'){echo "selected";} ?> value="false">shell_exec</option>
-					</select>
-				</li>
-				<li>
-					Htop link:
-						<select name="enableHtopLink">
-  						<option <?php if($enableHtopLink == 'true'){echo "selected";} ?> value="true">Enabled</option>
-  						<option <?php if($enableHtopLink == 'false'){echo "selected";} ?> value="false">Disabled</option>
 					</select>
 				</li>
 			</ul>

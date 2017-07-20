@@ -27,7 +27,10 @@ $withLogHog = $monitorStatus['withLogHog'];
 	<div id="main">
 	<form id="devAdvanced" action="../core/php/settingsSave.php" method="post">
 		<div class="settingsHeader">
-			Development  <button onclick="displayLoadingPopup();" >Save Changes</button>
+			Development  
+			<div class="settingsHeaderButtons">
+				<button onclick="displayLoadingPopup();" >Save Changes</button>
+			</div>
 		</div>
 		<div class="settingsDiv" >
 			<ul id="settingsUl">
@@ -43,7 +46,10 @@ $withLogHog = $monitorStatus['withLogHog'];
 	</form>
 	<form id="loggingDisplay" action="../core/php/settingsSave.php" method="post">
 		<div class="settingsHeader">
-			Logging Information  <button onclick="displayLoadingPopup();" >Save Changes</button>
+			Logging Information 
+			<div class="settingsHeaderButtons">
+				<button onclick="displayLoadingPopup();" >Save Changes</button>
+			</div>
 		</div>
 		<div class="settingsDiv" >
 			<ul id="settingsUl">

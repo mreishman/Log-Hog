@@ -1,6 +1,9 @@
 <form id="settingsMenuVars" action="../core/php/settingsSave.php" method="post">
 		<div class="settingsHeader">
-		Menu Settings <button onclick="displayLoadingPopup();" >Save Changes</button>
+		Menu Settings
+		<div class="settingsHeaderButtons">
+			<button onclick="displayLoadingPopup();" >Save Changes</button>
+		</div>
 		</div>
 		<div class="settingsDiv" >
 		<ul id="settingsUl">

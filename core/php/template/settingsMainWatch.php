@@ -1,6 +1,9 @@
 <form onsubmit="checkWatchList()" id="settingsMainWatch" action="../core/php/settingsSave.php" method="post">
 <div class="settingsHeader">
-	WatchList <button >Save Changes</button>
+	WatchList
+	<div class="settingsHeaderButtons">
+		<button >Save Changes</button>
+	</div>
 </div>
 <div class="settingsDiv" >	
 <ul id="settingsUl">

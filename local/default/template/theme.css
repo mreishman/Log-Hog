@@ -43,6 +43,11 @@ div {
 	border: 1px solid black;
 }
 
+.settingsHeaderButtons{
+	float: right;
+	margin-top: -4px;
+}
+
 #menu a.updated {
 	background-color: #912A2C !important; 
 }
