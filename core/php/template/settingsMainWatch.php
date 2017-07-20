@@ -2,6 +2,7 @@
 <div class="settingsHeader">
 	WatchList
 	<div class="settingsHeaderButtons">
+		<a id="resetChangesSettingsHeaderButton" style="display: none;" class="linkSmall" > Reset Current Changes</a>
 		<button >Save Changes</button>
 	</div>
 </div>

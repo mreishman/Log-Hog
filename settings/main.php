@@ -48,7 +48,6 @@ require_once('../core/php/loadVars.php');
 	document.getElementById("settingsSelect").addEventListener("change", showOrHideUpdateSubWindow, false);
 	document.getElementById("logTrimTypeToggle").addEventListener("change", changeDescriptionLineSize, false);
 	document.getElementById("logTrimOn").addEventListener("change", showOrHideLogTrimSubWindow, false);
-
 	var popupSettingsArray = JSON.parse('<?php echo json_encode($popupSettingsArray) ?>');
 	var fileArray = JSON.parse('<?php echo json_encode($config['watchList']) ?>');
 	var countOfWatchList = <?php echo $i; ?>;
@@ -56,7 +55,7 @@ require_once('../core/php/loadVars.php');
 	var countOfClicks = 0;
 	var locationInsert = "newRowLocationForWatchList";
 	var logTrimType = "<?php echo $logTrimType; ?>";
- 
+ 	var arrayOfValuesToCheckBeforeSave;
 	if(logTrimType == 'lines')
 	{
 		document.getElementById('logTrimTypeText').innerHTML = "Lines";
@@ -70,7 +69,103 @@ function goToUrl(url)
 		var goToPage = true
 		if(popupSettingsArray.saveSettings != "false")
 		{
-			var arrayOfValuesToCheckBeforeSave = Array(
+			goToPage = checkArrayOfArraysToMatch(arrayOfValuesToCheckBeforeSave);
+			if(goToPage)
+			{
+				goToPage = checkForChangesWatchList();
+			}
+		}
+		if(goToPage)
+		{
+			window.location.href = url;
+		}
+		else
+		{
+			displaySavePromptPopup(url);
+		}
+	}
+
+	function checkArrayOfArraysToMatch(arrayOfArrays)
+	{
+		var returnValue = true;
+		for (var i = arrayOfArrays.length - 1; i >= 0; i--) 
+		{
+			if(arrayOfArrays[i][0] != arrayOfArrays[i][1])
+			{
+				returnValue = false;
+				break;
+			}
+		}
+		console.log(returnValue);
+		return returnValue;
+	}
+
+	function checkForChangesWatchList()
+	{
+		var fileCount = 1;
+		var returnValue = true;
+		$.each( fileArray, function( key, value ) 
+		{
+			if(returnValue)
+			{
+				if(document.getElementsByName("watchListKey"+fileCount)[0].value != key)
+				{
+					returnValue = false;
+				}
+				else if (document.getElementsByName("watchListItem"+fileCount)[0].value != value)
+				{
+					returnValue =  false;
+				}
+				fileCount++;
+			}
+		});
+		return returnValue;
+	}
+
+	function checkForChangesWatchListPoll()
+	{
+		if(!checkForChangesWatchList())
+		{
+			//show reset button
+			document.getElementById('resetChangesSettingsHeaderButton').style.display = "inline-block";
+		}
+		else
+		{
+			//hide reset button
+			document.getElementById('resetChangesSettingsHeaderButton').style.display = "none";
+		}
+	}
+
+	function checkForChangesMainSettings()
+	{
+		if(!checkArrayOfArraysToMatch(arrayOfValuesToCheckBeforeSave))
+		{
+			//show reset button
+			document.getElementById('resetChangesMainSettingsHeaderButton').style.display = "inline-block";
+		}
+		else
+		{
+			//hide reset button
+			document.getElementById('resetChangesMainSettingsHeaderButton').style.display = "none";
+		}
+	}
+
+	function poll()
+	{
+		refreshData();
+		checkForChangesWatchListPoll();
+		checkForChangesMainSettings();
+	}
+
+	$( document ).ready(function() 
+	{
+		refreshData();
+    	setInterval(poll, 100);
+	});
+
+	function refreshData()
+	{
+		arrayOfValuesToCheckBeforeSave = Array(
 				Array((document.getElementsByName("sliceSize")[0].value), "<?php echo $sliceSize;?>"),
 				Array((document.getElementsByName("pollingRate")[0].value),"<?php echo $pollingRate;?>"),
 				Array((document.getElementsByName("pausePoll")[0].value),"<?php echo $pausePoll;?>"),
@@ -85,42 +180,8 @@ function goToUrl(url)
 				Array((document.getElementsByName("removeFolder")[0].value),popupSettingsArray.removeFolder),
 				Array((document.getElementsByName("pollingRateType")[0].value),"<?php echo $pollingRateType;?>"),
 				Array((document.getElementsByName("autoCheckDaysUpdate")[0].value),"<?php echo $autoCheckDaysUpdate;?>"));
-			for (var i = arrayOfValuesToCheckBeforeSave.length - 1; i >= 0; i--) 
-			{
-				if(arrayOfValuesToCheckBeforeSave[i][0] != arrayOfValuesToCheckBeforeSave[i][1])
-				{
-					goToPage = false;
-					break;
-				}
-			}	
-			if(goToPage)
-			{
-				var fileCount = 1;
-				$.each( fileArray, function( key, value ) 
-				{
-					if(goToPage)
-					{
-						if(document.getElementsByName("watchListKey"+fileCount)[0].value != key)
-						{
-							goToPage = false;
-						}
-						else if (document.getElementsByName("watchListItem"+fileCount)[0].value != value)
-						{
-							goToPage = false;
-						}
-						fileCount++;
-					}
-				});
-			}
-		}
-		if(goToPage)
-		{
-			window.location.href = url;
-		}
-		else
-		{
-			displaySavePromptPopup(url);
-		}
 	}
+	
+
 	</script>
 <?php endif; ?>

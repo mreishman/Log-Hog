@@ -39,7 +39,7 @@ div {
 	background-color: white !important; 
 }
 
-.settingsHeader button:hover{
+.settingsHeader button:hover, .settingsHeader .linkSmall:hover{
 	border: 1px solid black;
 }
 
