@@ -57,6 +57,8 @@ require_once('../core/php/loadVars.php');
 	var logTrimType = "<?php echo $logTrimType; ?>";
  	var arrayOfValuesToCheckBeforeSave;
  	var arrayOfValuesToCheckBeforeSaveMenu;
+ 	var savedInnerHtmlWatchList;
+ 	var savedInnerHtmlMainVars;
 
 	if(logTrimType == 'lines')
 	{
@@ -72,6 +74,13 @@ function goToUrl(url)
 		if(popupSettingsArray.saveSettings != "false")
 		{
 			goToPage = checkArrayOfArraysToMatch(arrayOfValuesToCheckBeforeSave);
+			if(goToPage)
+			{
+				if(document.getElementById('settingsMainWatch').innerHTML != savedInnerHtmlWatchList)
+				{
+					goToPage = false;
+				}
+			}
 			if(goToPage)
 			{
 				goToPage = checkForChangesWatchList();
@@ -109,21 +118,35 @@ function goToUrl(url)
 	{
 		var fileCount = 1;
 		var returnValue = true;
-		$.each( fileArray, function( key, value ) 
+		if(document.getElementById('settingsMainWatch').innerHTML != savedInnerHtmlWatchList)
 		{
-			if(returnValue)
+			returnValue = false;
+		}
+		if(returnValue)
+		{
+			$.each( fileArray, function( key, value ) 
 			{
-				if(document.getElementsByName("watchListKey"+fileCount)[0].value != key)
+				if(returnValue)
 				{
-					returnValue = false;
+					if(document.getElementsByName("watchListKey"+fileCount)[0])
+					{
+						if(document.getElementsByName("watchListKey"+fileCount)[0].value != key)
+						{
+							returnValue = false;
+						}
+						else if (document.getElementsByName("watchListItem"+fileCount)[0].value != value)
+						{
+							returnValue =  false;
+						}
+					}
+					else
+					{
+						returnValue = false;
+					}
+					fileCount++;
 				}
-				else if (document.getElementsByName("watchListItem"+fileCount)[0].value != value)
-				{
-					returnValue =  false;
-				}
-				fileCount++;
-			}
-		});
+			});
+		}
 		return returnValue;
 	}
 
@@ -192,6 +215,8 @@ function goToUrl(url)
 
 	$( document ).ready(function() 
 	{
+		savedInnerHtmlWatchList = document.getElementById('settingsMainWatch').innerHTML;
+		savedInnerHtmlMainVars = document.getElementById('settingsMainVars').innerHTML;
 		refreshData();
     	setInterval(poll, 100);
 	});
@@ -234,18 +259,12 @@ function goToUrl(url)
 
 	function resetWatchListVars()
 	{
-		var fileCount = 1;
-		$.each( fileArray, function( key, value ) 
-		{
-			document.getElementsByName("watchListKey"+fileCount)[0].value = key;
-			document.getElementsByName("watchListItem"+fileCount)[0].value = value;
-			fileCount++;
-		});
+		document.getElementById('settingsMainWatch').innerHTML = savedInnerHtmlWatchList;
 	}
 
 	function resetSettingsMainVar()
 	{
-		resetSettingsArrayList(arrayOfValuesToCheckBeforeSave);
+		document.getElementById('settingsMainVars').innerHTML = savedInnerHtmlMainVars;
 	}
 
 	function resetSettingsMenuVar()
