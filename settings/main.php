@@ -225,6 +225,35 @@ function goToUrl(url)
 				Array((document.getElementsByName("groupByColorEnabled")[0].value),"<?php echo $groupByColorEnabled;?>"));
 
 	}
+
+	function resetSettingsArrayList(arrayOfArrays)
+	{
+		for (var i = arrayOfArrays.length - 1; i >= 0; i--) 
+		{
+			arrayOfArrays[i][0] = arrayOfArrays[i][1];
+		}
+	}
+
+	function resetWatchListVars()
+	{
+		var fileCount = 1;
+		$.each( fileArray, function( key, value ) 
+		{
+			document.getElementsByName("watchListKey"+fileCount)[0].value = key;
+			document.getElementsByName("watchListItem"+fileCount)[0].value = value;
+			fileCount++;
+		});
+	}
+
+	function resetSettingsMainVar()
+	{
+		resetSettingsArrayList(arrayOfValuesToCheckBeforeSave);
+	}
+
+	function resetSettingsMenuVar()
+	{
+		resetSettingsArrayList(arrayOfValuesToCheckBeforeSaveMenu);
+	}
 	
 
 	</script>

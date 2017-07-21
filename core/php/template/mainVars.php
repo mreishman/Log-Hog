@@ -2,7 +2,7 @@
 <div class="settingsHeader">
 Main Settings 
 <div class="settingsHeaderButtons">
-	<a id="resetChangesMainSettingsHeaderButton" style="display: none;" class="linkSmall" > Reset Current Changes</a>
+	<a onclick="resetSettingsMainVar();" id="resetChangesMainSettingsHeaderButton" style="display: none;" class="linkSmall" > Reset Current Changes</a>
 	<button onclick="displayLoadingPopup();" >Save Changes</button>
 </div>
 </div>
