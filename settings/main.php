@@ -73,7 +73,7 @@ function goToUrl(url)
 		var goToPage = true
 		if(popupSettingsArray.saveSettings != "false")
 		{
-			goToPage = checkArrayOfArraysToMatch(arrayOfValuesToCheckBeforeSave);
+			goToPage = !checkForChangesMainSettings();
 			if(goToPage)
 			{
 				if(document.getElementById('settingsMainWatch').innerHTML != savedInnerHtmlWatchList)
@@ -87,7 +87,7 @@ function goToUrl(url)
 			}
 			if(goToPage)
 			{
-				goToPage = checkForChangesMenuSettings();
+				goToPage = !checkForChangesMenuSettings();
 			}
 		}
 		if(goToPage)
