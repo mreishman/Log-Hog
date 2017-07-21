@@ -71,7 +71,6 @@ function goToUrl(url)
 		var goToPage = true
 		if(popupSettingsArray.saveSettings != "false")
 		{
-			refreshData();
 			goToPage = checkArrayOfArraysToMatch(arrayOfValuesToCheckBeforeSave);
 			if(goToPage)
 			{
@@ -97,7 +96,7 @@ function goToUrl(url)
 		var returnValue = true;
 		for (var i = arrayOfArrays.length - 1; i >= 0; i--) 
 		{
-			if(arrayOfArrays[i][0] != arrayOfArrays[i][1])
+			if(arrayOfArrays[i][0].value != arrayOfArrays[i][1])
 			{
 				returnValue = false;
 				break;
@@ -178,7 +177,6 @@ function goToUrl(url)
 
 	function poll()
 	{
-		refreshData();
 		var change = checkForChangesWatchListPoll();
 		var change2 = checkForChangesMainSettings();
 		var change3 = checkForChangesMenuSettings();
@@ -201,28 +199,28 @@ function goToUrl(url)
 	function refreshData()
 	{
 		arrayOfValuesToCheckBeforeSave = Array(
-				Array((document.getElementsByName("sliceSize")[0].value), "<?php echo $sliceSize;?>"),
-				Array((document.getElementsByName("pollingRate")[0].value),"<?php echo $pollingRate;?>"),
-				Array((document.getElementsByName("pausePoll")[0].value),"<?php echo $pausePoll;?>"),
-				Array((document.getElementsByName("pauseOnNotFocus")[0].value),"<?php echo $pauseOnNotFocus;?>"),
-				Array((document.getElementsByName("autoCheckUpdate")[0].value),"<?php echo $autoCheckUpdate;?>"),
-				Array((document.getElementsByName("truncateLog")[0].value),"<?php echo $truncateLog;?>"),
-				Array((document.getElementsByName("popupWarnings")[0].value),"<?php echo $popupWarnings;?>"),
-				Array((document.getElementsByName("flashTitleUpdateLog")[0].value),"<?php echo $flashTitleUpdateLog;?>"),
-				Array((document.getElementById("numberOfRows").value),"<?php echo $folderCount;?>"),
-				Array((document.getElementsByName("saveSettings")[0].value),popupSettingsArray.saveSettings),
-				Array((document.getElementsByName("blankFolder")[0].value),popupSettingsArray.blankFolder),
-				Array((document.getElementsByName("removeFolder")[0].value),popupSettingsArray.removeFolder),
-				Array((document.getElementsByName("pollingRateType")[0].value),"<?php echo $pollingRateType;?>"),
-				Array((document.getElementsByName("autoCheckDaysUpdate")[0].value),"<?php echo $autoCheckDaysUpdate;?>"),
-				Array((document.getElementsByName("updateNoticeMeter")[0].value),"<?php echo $updateNoticeMeter;?>"),
-				Array((document.getElementsByName("logTrimOn")[0].value),"<?php echo $logTrimOn;?>"),
-				Array((document.getElementsByName("rightClickMenuEnable")[0].value),"<?php echo $rightClickMenuEnable;?>"));
+				Array((document.getElementsByName("sliceSize")[0]), "<?php echo $sliceSize;?>"),
+				Array((document.getElementsByName("pollingRate")[0]),"<?php echo $pollingRate;?>"),
+				Array((document.getElementsByName("pausePoll")[0]),"<?php echo $pausePoll;?>"),
+				Array((document.getElementsByName("pauseOnNotFocus")[0]),"<?php echo $pauseOnNotFocus;?>"),
+				Array((document.getElementsByName("autoCheckUpdate")[0]),"<?php echo $autoCheckUpdate;?>"),
+				Array((document.getElementsByName("truncateLog")[0]),"<?php echo $truncateLog;?>"),
+				Array((document.getElementsByName("popupWarnings")[0]),"<?php echo $popupWarnings;?>"),
+				Array((document.getElementsByName("flashTitleUpdateLog")[0]),"<?php echo $flashTitleUpdateLog;?>"),
+				Array((document.getElementById("numberOfRows")),"<?php echo $folderCount;?>"),
+				Array((document.getElementsByName("saveSettings")[0]),popupSettingsArray.saveSettings),
+				Array((document.getElementsByName("blankFolder")[0]),popupSettingsArray.blankFolder),
+				Array((document.getElementsByName("removeFolder")[0]),popupSettingsArray.removeFolder),
+				Array((document.getElementsByName("pollingRateType")[0]),"<?php echo $pollingRateType;?>"),
+				Array((document.getElementsByName("autoCheckDaysUpdate")[0]),"<?php echo $autoCheckDaysUpdate;?>"),
+				Array((document.getElementsByName("updateNoticeMeter")[0]),"<?php echo $updateNoticeMeter;?>"),
+				Array((document.getElementsByName("logTrimOn")[0]),"<?php echo $logTrimOn;?>"),
+				Array((document.getElementsByName("rightClickMenuEnable")[0]),"<?php echo $rightClickMenuEnable;?>"));
 
 		arrayOfValuesToCheckBeforeSaveMenu = Array(
-				Array((document.getElementsByName("hideEmptyLog")[0].value), "<?php echo $hideEmptyLog;?>"),
-				Array((document.getElementsByName("groupByType")[0].value), "<?php echo $groupByType;?>"),
-				Array((document.getElementsByName("groupByColorEnabled")[0].value),"<?php echo $groupByColorEnabled;?>"));
+				Array((document.getElementsByName("hideEmptyLog")[0]), "<?php echo $hideEmptyLog;?>"),
+				Array((document.getElementsByName("groupByType")[0]), "<?php echo $groupByType;?>"),
+				Array((document.getElementsByName("groupByColorEnabled")[0]),"<?php echo $groupByColorEnabled;?>"));
 
 	}
 
@@ -230,7 +228,7 @@ function goToUrl(url)
 	{
 		for (var i = arrayOfArrays.length - 1; i >= 0; i--) 
 		{
-			arrayOfArrays[i][0] = arrayOfArrays[i][1];
+			arrayOfArrays[i][0].value = arrayOfArrays[i][1];
 		}
 	}
 
