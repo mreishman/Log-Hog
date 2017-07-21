@@ -264,7 +264,7 @@ function goToUrl(url)
 
 	function resetSettingsMainVar()
 	{
-		document.getElementById('settingsMainVars').innerHTML = savedInnerHtmlMainVars;
+		resetSettingsArrayList(arrayOfValuesToCheckBeforeSave);
 	}
 
 	function resetSettingsMenuVar()
