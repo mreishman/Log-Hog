@@ -56,6 +56,8 @@ require_once('../core/php/loadVars.php');
 	var locationInsert = "newRowLocationForWatchList";
 	var logTrimType = "<?php echo $logTrimType; ?>";
  	var arrayOfValuesToCheckBeforeSave;
+ 	var arrayOfValuesToCheckBeforeSaveMenu;
+
 	if(logTrimType == 'lines')
 	{
 		document.getElementById('logTrimTypeText').innerHTML = "Lines";
@@ -69,10 +71,15 @@ function goToUrl(url)
 		var goToPage = true
 		if(popupSettingsArray.saveSettings != "false")
 		{
+			refreshData();
 			goToPage = checkArrayOfArraysToMatch(arrayOfValuesToCheckBeforeSave);
 			if(goToPage)
 			{
 				goToPage = checkForChangesWatchList();
+			}
+			if(goToPage)
+			{
+				goToPage = checkForChangesMenuSettings();
 			}
 		}
 		if(goToPage)
@@ -127,11 +134,13 @@ function goToUrl(url)
 		{
 			//show reset button
 			document.getElementById('resetChangesSettingsHeaderButton').style.display = "inline-block";
+			return true;
 		}
 		else
 		{
 			//hide reset button
 			document.getElementById('resetChangesSettingsHeaderButton').style.display = "none";
+			return false;
 		}
 	}
 
@@ -141,19 +150,46 @@ function goToUrl(url)
 		{
 			//show reset button
 			document.getElementById('resetChangesMainSettingsHeaderButton').style.display = "inline-block";
+			return true;
 		}
 		else
 		{
 			//hide reset button
 			document.getElementById('resetChangesMainSettingsHeaderButton').style.display = "none";
+			return false;
+		}
+	}
+
+	function checkForChangesMenuSettings()
+	{
+		if(!checkArrayOfArraysToMatch(arrayOfValuesToCheckBeforeSaveMenu))
+		{
+			//show reset button
+			document.getElementById('resetChangesMenuSettingsHeaderButton').style.display = "inline-block";
+			return true;
+		}
+		else
+		{
+			//hide reset button
+			document.getElementById('resetChangesMenuSettingsHeaderButton').style.display = "none";
+			return false;
 		}
 	}
 
 	function poll()
 	{
 		refreshData();
-		checkForChangesWatchListPoll();
-		checkForChangesMainSettings();
+		var change = checkForChangesWatchListPoll();
+		var change2 = checkForChangesMainSettings();
+		var change3 = checkForChangesMenuSettings();
+		if(change || change2 || change3)
+		{
+			document.getElementById('mainLink').innerHTML = "Main*";
+		}
+		else
+		{
+			document.getElementById('mainLink').innerHTML = "Main";
+		}
 	}
 
 	$( document ).ready(function() 
@@ -179,7 +215,15 @@ function goToUrl(url)
 				Array((document.getElementsByName("removeFolder")[0].value),popupSettingsArray.removeFolder),
 				Array((document.getElementsByName("pollingRateType")[0].value),"<?php echo $pollingRateType;?>"),
 				Array((document.getElementsByName("autoCheckDaysUpdate")[0].value),"<?php echo $autoCheckDaysUpdate;?>"),
+				Array((document.getElementsByName("updateNoticeMeter")[0].value),"<?php echo $updateNoticeMeter;?>"),
+				Array((document.getElementsByName("logTrimOn")[0].value),"<?php echo $logTrimOn;?>"),
 				Array((document.getElementsByName("rightClickMenuEnable")[0].value),"<?php echo $rightClickMenuEnable;?>"));
+
+		arrayOfValuesToCheckBeforeSaveMenu = Array(
+				Array((document.getElementsByName("hideEmptyLog")[0].value), "<?php echo $hideEmptyLog;?>"),
+				Array((document.getElementsByName("groupByType")[0].value), "<?php echo $groupByType;?>"),
+				Array((document.getElementsByName("groupByColorEnabled")[0].value),"<?php echo $groupByColorEnabled;?>"));
+
 	}
 	
 

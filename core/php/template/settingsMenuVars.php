@@ -2,6 +2,7 @@
 		<div class="settingsHeader">
 		Menu Settings
 		<div class="settingsHeaderButtons">
+			<a id="resetChangesMenuSettingsHeaderButton" style="display: none;" class="linkSmall" > Reset Current Changes</a>
 			<button onclick="displayLoadingPopup();" >Save Changes</button>
 		</div>
 		</div>
