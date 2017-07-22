@@ -79,29 +79,6 @@ require_once('../core/php/loadVars.php'); ?>
 		document.getElementById('settingsMainWatch').action = "../core/php/settingsSave.php";
 		document.getElementById('settingsMainWatch').submit();
 	}
-	function updateStatus(status)
-	{
-		var urlForSend = './updateSetupStatus.php?format=json'
-		var data = {status: status };
-		$.ajax({
-				  url: urlForSend,
-				  dataType: 'json',
-				  data: data,
-				  type: 'POST',
-		success: function(data)
-		{
-			if(status == "finished")
-			{
-				defaultSettings();
-			}
-			else
-			{
-				customSettings();
-			}
-	  	},
-			});
-		return false;
-	}
 
 	var popupSettingsArray = JSON.parse('<?php echo json_encode($popupSettingsArray) ?>');
 	var fileArray = JSON.parse('<?php echo json_encode($config['watchList']) ?>');
@@ -114,5 +91,6 @@ require_once('../core/php/loadVars.php'); ?>
 
 </script>
 <script src="../core/js/settingsMain.js"></script>
+<script src="stepsJavascript.js"></script>
 <?php readfile('../core/html/popup.html') ?>
 </html>

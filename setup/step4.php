@@ -100,41 +100,22 @@ var dotsTimer = null;
 
 	function customSettings()
 	{
-		//download Monitor from github
-		document.getElementById('innerSettingsText').innerHTML = "";
-		dotsTimer = setInterval(function() {document.getElementById('innerSettingsText').innerHTML = ' .'+document.getElementById('innerSettingsText').innerHTML;}, '120');
-		checkIfTopDirIsEmpty();
-		
-		
+		if(status == 'step6')
+		{
+			location.reload();
+		}
+		else
+		{
+			//download Monitor from github
+			document.getElementById('innerSettingsText').innerHTML = "";
+			dotsTimer = setInterval(function() {document.getElementById('innerSettingsText').innerHTML = ' .'+document.getElementById('innerSettingsText').innerHTML;}, '120');
+			checkIfTopDirIsEmpty();
+		}
 	}
 
 	function updateText(text)
 	{
 		document.getElementById('innerSettingsText').innerHTML = "<p>"+text+"</p>"+document.getElementById('innerSettingsText').innerHTML;
-	}
-
-	function updateStatus(status)
-	{
-		var urlForSend = './updateSetupStatus.php?format=json'
-		var data = {status: status };
-		$.ajax({
-				  url: urlForSend,
-				  dataType: 'json',
-				  data: data,
-				  type: 'POST',
-		success: function(data)
-		{
-			if(status == "finished" || status == 'step6')
-			{
-				defaultSettings();
-			}
-			else
-			{
-				customSettings();
-			}
-	  	},
-			});
-		return false;
 	}
 
 	function checkIfTopDirIsEmpty()
@@ -438,9 +419,8 @@ var dotsTimer = null;
 	var countOfClicks = 0;
 	var locationInsert = "newRowLocationForWatchList";
 	var logTrimType = "<?php echo $logTrimType; ?>";
-
-
 </script>
+<script src="stepsJavascript.js"></script>
 <script src="../core/js/settingsMain.js"></script>
 <?php readfile('../core/html/popup.html') ?>
 </html>
