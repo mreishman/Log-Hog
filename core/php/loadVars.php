@@ -86,6 +86,7 @@ else
 		}
 	}
 }
+$watchList = $arrayWatchList;
 
 $popupSettingsArraySave = "";
 if($popupWarnings == "all")
@@ -135,6 +136,7 @@ else
 		}
 	}
 }
+$popupSettingsArray = $popupSettingsArraySave;
 
 $folderColorArraysSave = "";
 if(isset($_POST['folderThemeCount']))
@@ -170,5 +172,5 @@ else
 		$folderColorArraysSave .= ",";
 	}
 }
-
+$folderColorArrays = $folderColorArraysSave;
 ?>

@@ -53,11 +53,11 @@ require_once('loadVars.php');
 			'updateNoticeMeter'	=> '".$updateNoticeMeter."',
 			'enablePollTimeLogging'	=> '".$enablePollTimeLogging."',
 			'folderColorArrays'	=> 	array(
-			".$folderColorArraysSave."),
+			".$folderColorArrays."),
 			'popupSettingsArray'	=> array(
-			".$popupSettingsArraySave."),
+			".$popupSettingsArray."),
 			'watchList' => array(
-			".$arrayWatchList.")
+			".$watchList.")
 		);
 	?>";
 
