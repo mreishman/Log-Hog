@@ -38,6 +38,7 @@ require_once('../core/php/loadVars.php'); ?>
 	<title>Welcome!</title>
 	<link rel="stylesheet" type="text/css" href="<?php echo $baseUrl ?>template/theme.css">
 	<script src="../core/js/jquery.js"></script>
+	<?php readfile('../core/html/popup.html') ?>	
 	<style type="text/css">
 		#settingsMenuVars .settingsHeader{
 			display: none;
@@ -92,5 +93,4 @@ require_once('../core/php/loadVars.php'); ?>
 </script>
 <script src="stepsJavascript.js"></script>
 <script src="../core/js/settingsMain.js"></script>
-<?php readfile('../core/html/popup.html') ?>
 </html>

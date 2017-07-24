@@ -37,6 +37,7 @@ require_once('../core/php/loadVars.php'); ?>
 	<title>Welcome!</title>
 	<link rel="stylesheet" type="text/css" href="<?php echo $baseUrl ?>template/theme.css">
 	<script src="../core/js/jquery.js"></script>
+	<?php readfile('../core/html/popup.html') ?>	
 	<style type="text/css">
 		#settingsMainVars .settingsHeader{
 			display: none;
@@ -100,12 +101,13 @@ var dotsTimer = null;
 
 	function customSettings()
 	{
-		if(status == 'step6')
+		if(statusExt == 'step6')
 		{
 			location.reload();
 		}
 		else
 		{
+			hidePopup();
 			//download Monitor from github
 			document.getElementById('innerSettingsText').innerHTML = "";
 			dotsTimer = setInterval(function() {document.getElementById('innerSettingsText').innerHTML = ' .'+document.getElementById('innerSettingsText').innerHTML;}, '120');
@@ -411,16 +413,7 @@ var dotsTimer = null;
 		clearInterval(dotsTimer);
 		document.getElementById('innerSettingsText').innerHTML = "<p>An error occured while trying to download Monitor. </p>";
 	}
-
-	var popupSettingsArray = JSON.parse('<?php echo json_encode($popupSettingsArray) ?>');
-	var fileArray = JSON.parse('<?php echo json_encode($config['watchList']) ?>');
-	var countOfWatchList = <?php echo $i; ?>;
-	var countOfAddedFiles = 0;
-	var countOfClicks = 0;
-	var locationInsert = "newRowLocationForWatchList";
-	var logTrimType = "<?php echo $logTrimType; ?>";
 </script>
 <script src="stepsJavascript.js"></script>
 <script src="../core/js/settingsMain.js"></script>
-<?php readfile('../core/html/popup.html') ?>
 </html>

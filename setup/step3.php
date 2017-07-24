@@ -37,6 +37,7 @@ require_once('../core/php/loadVars.php'); ?>
 	<title>Welcome!</title>
 	<link rel="stylesheet" type="text/css" href="<?php echo $baseUrl ?>template/theme.css">
 	<script src="../core/js/jquery.js"></script>
+	<?php readfile('../core/html/popup.html') ?>	
 	<style type="text/css">
 		#settingsMainVars .settingsHeader{
 			display: none;
@@ -87,7 +88,6 @@ require_once('../core/php/loadVars.php'); ?>
 	}
 	var popupSettingsArray = JSON.parse('<?php echo json_encode($popupSettingsArray) ?>');
 	var fileArray = JSON.parse('<?php echo json_encode($config['watchList']) ?>');
-	var countOfWatchList = <?php echo $i; ?>;
 	var countOfAddedFiles = 0;
 	var countOfClicks = 0;
 	var locationInsert = "newRowLocationForWatchList";
@@ -95,5 +95,4 @@ require_once('../core/php/loadVars.php'); ?>
 </script>
 <script src="stepsJavascript.js"></script>
 <script src="../core/js/settingsMain.js"></script>
-<?php readfile('../core/html/popup.html') ?>
 </html>
