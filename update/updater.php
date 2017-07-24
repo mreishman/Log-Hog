@@ -252,11 +252,32 @@ $versionCheck = '"'.$configStatic['version'].'"';
 <script src="../core/js/settings.js"></script>
 <?php if(!$noUpdateNeeded): ?>
 	<script type="text/javascript"> 
+		var updateAction = '<?php echo $updateAction; ?>'
 		var headerForUpdate = document.getElementById('headerForUpdate');
 		setInterval(function() {headerForUpdate.innerHTML = headerForUpdate.innerHTML + ' .';}, '100');
 		if("Finished Updating to " != "<?php echo $updateAction;?>" || "<?php echo $configStatic['newestVersion'] ;?>" != "<?php echo $configStatic['version']; ?>")
 		{
-		document.getElementById("formForAction").submit();
+			setInterval(function(){ajaxCheck();},3000);
+		}
+
+		function ajaxCheck()
+		{
+			var urlForSend = './updateSetupCheck.php?format=json'
+			var data = {status: updateAction };
+			$.ajax(
+			{
+				url: urlForSend,
+				dataType: 'json',
+				data: data,
+				type: 'POST',
+				success: function(data)
+				{
+					if(data == updateAction)
+					{
+						document.getElementById("formForAction").submit();
+					}
+			  	},
+			});
 		}
 	</script> 
 <?php endif; ?>
