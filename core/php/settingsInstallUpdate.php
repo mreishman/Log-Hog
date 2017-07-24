@@ -171,9 +171,12 @@ function rrmdir($dir) {
 
 function unzipFile($locationExtractTo = '../../update/downloads/updateFiles/extracted/', $locationExtractFrom = '../../update/downloads/updateFiles/updateFiles.zip')
 {
+	if($locationExtractTo == "")
+	{
+		$locationExtractTo = '../../update/downloads/updateFiles/extracted/';
+	}
 
-
-	mkdir($locationExtractTo);
+	mkdir($locationExtractTo,0644,true);
 	$zip = new ZipArchive;
 	$path = $locationExtractFrom;
 	$res = $zip->open($path);
@@ -228,12 +231,20 @@ function strposa($haystack, $needle, $offset=0) {
 
 function removeZipFile($fileToUnlink = "../../update/downloads/updateFiles/updateFiles.zip")
 {
+	if($fileToUnlink == "")
+	{
+		$fileToUnlink = "../../update/downloads/updateFiles/updateFiles.zip";
+	}
 	unlink($fileToUnlink);
 }
 
 
 function removeUnZippedFiles($locationOfFilesThatNeedToBeRemovedRecursivally = '../../update/downloads/updateFiles/extracted', $removeDirectory = true)
 {
+	if($locationOfFilesThatNeedToBeRemovedRecursivally == "")
+	{
+		$locationOfFilesThatNeedToBeRemovedRecursivally = '../../update/downloads/updateFiles/extracted';
+	}
 	$files = glob($locationOfFilesThatNeedToBeRemovedRecursivally."/*"); // get all file names
 	foreach($files as $file){ // iterate files
 	  if(is_file($file))
