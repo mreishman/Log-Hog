@@ -262,7 +262,7 @@ $versionCheck = '"'.$configStatic['version'].'"';
 
 		function ajaxCheck()
 		{
-			var urlForSend = './updateSetupCheck.php?format=json'
+			var urlForSend = './updateActionCheck.php?format=json'
 			var data = {status: updateAction };
 			$.ajax(
 			{
