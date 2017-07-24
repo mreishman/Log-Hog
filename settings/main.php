@@ -50,7 +50,7 @@ require_once('../core/php/loadVars.php');
 	document.getElementById("logTrimOn").addEventListener("change", showOrHideLogTrimSubWindow, false);
 	var popupSettingsArray = JSON.parse('<?php echo json_encode($popupSettingsArray) ?>');
 	var fileArray = JSON.parse('<?php echo json_encode($config['watchList']) ?>');
-	var countOfWatchList = <?php echo $i; ?>;
+	var countOfWatchList = <?php echo ($i+1); ?>;
 	var countOfAddedFiles = 0;
 	var countOfClicks = 0;
 	var locationInsert = "newRowLocationForWatchList";
@@ -64,7 +64,6 @@ require_once('../core/php/loadVars.php');
 				Array((document.getElementsByName("truncateLog")[0]),"<?php echo $truncateLog;?>"),
 				Array((document.getElementsByName("popupWarnings")[0]),"<?php echo $popupWarnings;?>"),
 				Array((document.getElementsByName("flashTitleUpdateLog")[0]),"<?php echo $flashTitleUpdateLog;?>"),
-				Array((document.getElementById("numberOfRows")),"<?php echo $folderCount;?>"),
 				Array((document.getElementsByName("saveSettings")[0]),popupSettingsArray.saveSettings),
 				Array((document.getElementsByName("blankFolder")[0]),popupSettingsArray.blankFolder),
 				Array((document.getElementsByName("removeFolder")[0]),popupSettingsArray.removeFolder),
@@ -73,7 +72,10 @@ require_once('../core/php/loadVars.php');
 				Array((document.getElementsByName("updateNoticeMeter")[0]),"<?php echo $updateNoticeMeter;?>"),
 				Array((document.getElementsByName("logTrimOn")[0]),"<?php echo $logTrimOn;?>"),
 				Array((document.getElementsByName("rightClickMenuEnable")[0]),"<?php echo $rightClickMenuEnable;?>"));
-		arrayOfValuesToCheckBeforeSaveMenu = Array(
+ 	arrayOfValuesToCheckBeforeSaveWatchList = Array(
+ 				Array((document.getElementById("numberOfRows")),"<?php echo $folderCount;?>")
+ 		);
+	arrayOfValuesToCheckBeforeSaveMenu = Array(
 				Array((document.getElementsByName("hideEmptyLog")[0]), "<?php echo $hideEmptyLog;?>"),
 				Array((document.getElementsByName("groupByType")[0]), "<?php echo $groupByType;?>"),
 				Array((document.getElementsByName("groupByColorEnabled")[0]),"<?php echo $groupByColorEnabled;?>"));
@@ -251,6 +253,11 @@ function goToUrl(url)
 	function resetWatchListVars()
 	{
 		document.getElementById('settingsMainWatch').innerHTML = savedInnerHtmlWatchList;
+		countOfWatchList = <?php echo ($i+1); ?>;
+		countOfAddedFiles = 0;
+		countOfClicks = 0;
+		locationInsert = "newRowLocationForWatchList";
+		resetSettingsArrayList(arrayOfValuesToCheckBeforeSaveWatchList);
 	}
 
 	function resetSettingsMainVar()
