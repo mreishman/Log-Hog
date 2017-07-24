@@ -26,7 +26,7 @@ if($currentFile == "core_conf_config.php")
    	{
     		mkdir($varToIndexDir.'core/php/template', 0777, true);
 	}
-	if(file_exists($varToIndexDir.'top/overview.php')
+	if(file_exists($varToIndexDir.'top/overview.php'))
 	{
 		unlink($varToIndexDir.'top/overview.php');
 	}
