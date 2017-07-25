@@ -74,10 +74,16 @@ sleep(2);
 }
 else
 {
-  
+  $varToIndexDir = "";
+$countOfSlash = 0;
+while($countOfSlash < 20 && !file_exists($varToIndexDir."index.php"))
+{
+  $varToIndexDir .= "../";        
+}
+	
 updateProgressFile("Finished Running Update Script", "", "updateProgressFileNext.php", "");
 updateProgressFile("Finished Running Update Script", "", "updateProgressFile.php", "");  
-  header("redirectToWaitUntillUpdate.php");
+  header( $varToIndexDir."update/redirectToWaitUntillUpdate.php");
    exit; 
 }
 
