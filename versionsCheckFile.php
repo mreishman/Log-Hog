@@ -1,7 +1,7 @@
 <?php
 
 $versionCheckArray = array(
-	'version'		=> '2.3.2',
+	'version'		=> '2.3.3',
 	'versionList'		=> array(
 		'2.0.1'	        => array(
 			'branchName'	=> '2.0.1Update',
@@ -38,6 +38,10 @@ $versionCheckArray = array(
 		'2.3.2'		=> array(
 			'branchName'	=> '2.3.2Update',
 			'releaseNotes'	=> '<ul><li>Features<ul><li>Added setup to first launch</li><li>Added version check to poll logic, popup if version changed</li></ul></li><li>Bug Fixes<ul><li>Fixed compatability issues with php 7</li><li>Updated poll logic again, should be slightly faster.</li><li>Added buffer to trim logic, less trim calls made</li></ul></li></ul>'
+		),
+		'2.3.3'		=> array(
+			'branchName'	=> '2.3.3Update',
+			'releaseNotes'	=> '<ul><li>Features<ul><li>Downloading Monitor is now part of the setup process</li><li>Added reset changes buttons for some settings pages</li><li>Added ability to reset all (non monitor) vars back to default</li></ul></li><li>Bug Fixes<ul><li>Fixed some bugs wih setup process</li><li>Fixed some bugs with the start of update logic</li></ul></li></ul>'
 		)
 	)
 );
