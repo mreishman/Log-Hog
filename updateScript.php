@@ -17,9 +17,12 @@ while($countOfSlash < 20 && !file_exists($varToIndexDir."index.php"))
   $varToIndexDir .= "../";        
 }
   
-if($currentFile == "core_js_main.js")
+if($currentFile == "core_conf_config.php")
 {
-   rename($varToIndexDir.$indexToExtracted."core_js_main.php", $varToIndexDir.$indexToExtracted."core_js_main.js");
+   if (!file_exists($varToIndexDir.'top/functions/')) 
+   {
+   	mkdir($varToIndexDir.'top/functions/', 0777, true);
+   }
 }
   
 //update innerUpgradeStatus file
