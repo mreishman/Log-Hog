@@ -254,10 +254,11 @@ $versionCheck = '"'.$configStatic['version'].'"';
 	<script type="text/javascript"> 
 		var updateAction = '<?php echo $updateAction; ?>'
 		var headerForUpdate = document.getElementById('headerForUpdate');
+		var timer;
 		setInterval(function() {headerForUpdate.innerHTML = headerForUpdate.innerHTML + ' .';}, '100');
 		if("Finished Updating to " != "<?php echo $updateAction;?>" || "<?php echo $configStatic['newestVersion'] ;?>" != "<?php echo $configStatic['version']; ?>")
 		{
-			setInterval(function(){ajaxCheck();},3000);
+			timer = setInterval(function(){ajaxCheck();},3000);
 		}
 
 		function ajaxCheck()
@@ -274,6 +275,7 @@ $versionCheck = '"'.$configStatic['version'].'"';
 				{
 					if(data == updateAction)
 					{
+						clearInterval(timer);
 						document.getElementById("formForAction").submit();
 					}
 			  	},

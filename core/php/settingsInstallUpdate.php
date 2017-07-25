@@ -176,7 +176,10 @@ function unzipFile($locationExtractTo = '../../update/downloads/updateFiles/extr
 		$locationExtractTo = '../../update/downloads/updateFiles/extracted/';
 	}
 
-	mkdir($locationExtractTo,0644,true);
+	if(!file_exists($locationExtractTo))
+	{
+		mkdir($locationExtractTo);
+	}
 	$zip = new ZipArchive;
 	$path = $locationExtractFrom;
 	$res = $zip->open($path);
