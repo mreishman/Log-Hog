@@ -218,7 +218,7 @@ $versionCheck = '"'.$configStatic['version'].'"';
 		<h1>Updating to version <?php echo $configStatic['newestVersion'] ; ?></h1>
 	<?php endif; ?>
 	<?php if($newestVersionCheck == $versionCheck): ?>
-	<div id="menu" style="margin-right: auto; margin-left: auto;">
+	<div id="menu" style="margin-right: auto; margin-left: auto; position: relative;">
 		<a onclick="window.location.href = '../settings/update.php'">Back to Log-Hog</a>
 	</div>
 	<?php endif; ?>
