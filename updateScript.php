@@ -4,18 +4,19 @@ $arrayOfFiles = array("core_conf_config.php","core_php_loadVars.php","core_php_p
 
 require_once("innerUpgradeStatus.php");
 
-if($innerUpdateProgress['currentFile'] < sizeOf($arrayOfFiles))
-{
- 
-sleep(2); 
-$currentFile = $arrayOfFiles[$innerUpdateProgress['currentFile']]; 
-$indexToExtracted = "update/downloads/updateFiles/extracted/";  
 $varToIndexDir = "";
 $countOfSlash = 0;
 while($countOfSlash < 20 && !file_exists($varToIndexDir."index.php"))
 {
   $varToIndexDir .= "../";        
 }
+
+if($innerUpdateProgress['currentFile'] < sizeOf($arrayOfFiles))
+{
+ 
+sleep(2); 
+$currentFile = $arrayOfFiles[$innerUpdateProgress['currentFile']]; 
+$indexToExtracted = "update/downloads/updateFiles/extracted/";  
   
 if($currentFile == "core_conf_config.php")
 {
@@ -74,17 +75,11 @@ sleep(2);
 }
 else
 {
-  $varToIndexDir = "";
-$countOfSlash = 0;
-while($countOfSlash < 20 && !file_exists($varToIndexDir."index.php"))
-{
-  $varToIndexDir .= "../";        
-}
 	
 updateProgressFile("Finished Running Update Script", "", "updateProgressFileNext.php", "");
 updateProgressFile("Finished Running Update Script", "", "updateProgressFile.php", "");  
-  header( $varToIndexDir."update/redirectToWaitUntillUpdate.php");
-   exit; 
+  header( 'Location: ' .$varToIndexDir."update/redirectToWaitUntillUpdate.php");
+  exit; 
 }
 
 
