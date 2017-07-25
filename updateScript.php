@@ -77,7 +77,7 @@ else
   
 updateProgressFile("Finished Running Update Script", "", "updateProgressFileNext.php", "");
 updateProgressFile("Finished Running Update Script", "", "updateProgressFile.php", "");  
-  header("./redirectToWaitUntillUpdate.php");
+  header("redirectToWaitUntillUpdate.php");
    exit; 
 }
 
