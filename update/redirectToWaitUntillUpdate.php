@@ -2,17 +2,20 @@
 <html>
 <head>
 	<title>Waiting for update check...</title>
-	<link rel="stylesheet" type="text/css" href="<?php echo $baseUrl ?>template/theme.css">
+	<link rel="stylesheet" type="text/css" href="../core/template/theme.css">
 	<script src="../core/js/jquery.js"></script>
 </head>
 <body>
-<script type="text/javascript">displayLoadingPopup();
+<?php readfile('../core/html/popup.html') ?>	
+<script type="text/javascript">
+$( document ).ready(function() {
+displayLoadingPopup();
 var count = 0; 
 var timer = setInterval(function(){ajaxCheck();},3000);
 	function ajaxCheck()
 		{
 			var urlForSend = './updateActionCheck.php?format=json';
-			var data = {status: updateAction };
+			var data = {status: "updateAction" };
 			$.ajax(
 			{
 				url: urlForSend,
@@ -41,11 +44,7 @@ var timer = setInterval(function(){ajaxCheck();},3000);
 			  	},
 			});
 		}
-
+});
 </script>
-
-
-
-	<?php readfile('../core/html/popup.html') ?>	
 </body>
 </html>
