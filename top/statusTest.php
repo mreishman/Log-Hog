@@ -1,7 +1,5 @@
 <?php
-
-$monitorStatus = array(
-	'withLogHog'	=> 'true'
+		$monitorStatus = array(
+	'withLogHog'	=> 'false'
 	);
-
-?>
+	?>

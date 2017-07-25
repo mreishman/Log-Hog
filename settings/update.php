@@ -160,6 +160,8 @@ $daysSince = $interval->format('%a');
 <script src="../core/js/settings.js"></script>
 <script type="text/javascript">
 
+	var timeoutVar;
+
 	function goToUrl(url)
 	{
 		window.location.href = url;
@@ -228,6 +230,47 @@ $daysSince = $interval->format('%a');
 	}
 
 	function installUpdates()
+	{
+		displayLoadingPopup();
+		//reset vars in post request
+		var urlForSend = '../core/php/resetUpdateFilesToDefault.php?format=json'
+		var data = {status: "" };
+		$.ajax(
+		{
+			url: urlForSend,
+			dataType: 'json',
+			data: data,
+			type: 'POST',
+			complete: function(data)
+			{
+				//set thing to check for updated files. 	
+				timeoutVar = setInterval(function(){verifyChange();},3000);
+		  	}
+		});
+	}
+
+	function verifyChange()
+	{
+		var urlForSend = '../update/updateActionCheck.php?format=json'
+		var data = {status: "" };
+		$.ajax(
+		{
+			url: urlForSend,
+			dataType: 'json',
+			data: data,
+			type: 'POST',
+			success: function(data)
+			{
+				if(data == 'finishedUpdate')
+				{
+					clearInterval(timeoutVar);
+					actuallyInstallUpdates();
+				}
+		  	}
+		});
+	}
+
+	function actuallyInstallUpdates()
 	{
 		$("#settingsInstallUpdate").submit();
 	}

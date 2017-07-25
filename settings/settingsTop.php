@@ -1,4 +1,3 @@
-
 <meta http-equiv="cache-control" content="no-cache, must-revalidate, post-check=0, pre-check=0">
 <meta http-equiv="expires" content="Sat, 31 Oct 2014 00:00:00 GMT">
 <meta http-equiv="pragma" content="no-cache">
@@ -15,18 +14,23 @@ if(file_exists('../local/layout.php'))
 require_once($baseUrl.'conf/config.php'); 
 require_once('../core/conf/config.php');
 require_once('../core/php/configStatic.php');
-require_once('../top/statusTest.php');
-if($monitorStatus['withLogHog'] == 'true')
-{
-	if(file_exists($baseUrl.'conf/topConfig.php'))
-	{
-		require_once($baseUrl.'conf/topConfig.php'); 
-	} 
-	require_once('../core/conf/configTop.php');
-	require_once('../core/php/loadVarsTop.php');
-}
 require_once('../core/php/loadVars.php');
 require_once('../core/php/updateCheck.php');
+$seperateFromLogHog = true;
+if(file_exists('../top/statusTest.php'))
+{
+	require_once('../top/statusTest.php');
+	if($monitorStatus['withLogHog'] == 'false')
+	{
+		$seperateFromLogHog = false;
+	}
+}
+if(file_exists($baseUrl.'conf/topConfig.php'))
+{
+	require_once($baseUrl.'conf/topConfig.php'); 
+} 
+require_once('../core/conf/configTop.php');
+require_once('../core/php/loadVarsTop.php');
 ?>
 <!doctype html>
 <head>
@@ -38,36 +42,22 @@ require_once('../core/php/updateCheck.php');
 <body>
 
 <?php require_once('header.php');?>	
-
+	<?php if($seperateFromLogHog): ?>
 	<div id="main">	
-	<form id="topMain" action="../core/php/settingsSaveTop.php" method="post">
-		<div class="settingsHeader">
-			Top Settings Main <button onclick="displayLoadingPopup();" >Save Changes</button>
-		</div>
-		<div class="settingsDiv" >
-			<ul id="settingsUl">
-				<li>
-					<span class="settingsBuffer" > Poll Rate Main: </span>  <input type="text" name="pollingRateOverviewMain" value="<?php echo $pollingRateOverviewMain;?>" >
-					<select name="pollingRateOverviewMainType">
-							<option <?php if($pollingRateOverviewMainType == 'Milliseconds'){echo "selected";} ?> value="Milliseconds">Milliseconds</option>
-							<option <?php if($pollingRateOverviewMainType == 'Seconds'){echo "selected";} ?> value="Seconds">Seconds</option>
-					</select>
-				</li>
-				<li>
-					<span class="settingsBuffer" > Poll Rate Slow: </span>  <input type="text" name="pollingRateOverviewSlow" value="<?php echo $pollingRateOverviewSlow;?>" >
-					<select name="pollingRateOverviewSlowType">
-							<option <?php if($pollingRateOverviewSlowType == 'Milliseconds'){echo "selected";} ?> value="Milliseconds">Milliseconds</option>
-							<option <?php if($pollingRateOverviewSlowType == 'Seconds'){echo "selected";} ?> value="Seconds">Seconds</option>
-					</select>
-				</li>
-			</ul>
-		</div>
-	</form>
+		<?php require_once('../core/php/settingsTopMain.php'); ?>
+	</div>
+	<?php endif;?>
+	<div id="main">	
+		<?php require_once('../core/php/settingsTop.php'); ?>
 	</div>
 	<?php readfile('../core/html/popup.html') ?>	
 </body>
 <script src="../core/js/settings.js"></script>
 <script type="text/javascript">
+
+document.getElementById("popupSelect").addEventListener("change", showOrHidePopupSubWindow, false);
+document.getElementById("settingsSelect").addEventListener("change", showOrHideUpdateSubWindow, false);
+
 function goToUrl(url)
 	{
 		if(true)
@@ -79,4 +69,29 @@ function goToUrl(url)
 			displaySavePromptPopup(url);
 		}
 	}
+
+function showOrHidePopupSubWindow()
+{
+	var valueForPopup = document.getElementById('popupSelect').value;
+	if(valueForPopup == 'custom')
+	{
+		document.getElementById('settingsPopupVars').style.display = 'block';
+	}
+	else
+	{
+		document.getElementById('settingsPopupVars').style.display = 'none';
+	}
+}
+function showOrHideUpdateSubWindow()
+{
+	var valueForPopup = document.getElementById('settingsSelect').value;
+	if(valueForPopup == 'true')
+	{
+		document.getElementById('settingsAutoCheckVars').style.display = 'block';
+	}
+	else
+	{
+		document.getElementById('settingsAutoCheckVars').style.display = 'none';
+	}
+}
 </script>

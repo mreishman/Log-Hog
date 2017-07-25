@@ -25,7 +25,10 @@ require_once('../core/php/updateCheck.php');
 	<div id="main">
 	<form id="devAdvanced" action="../core/php/settingsSave.php" method="post">
 		<div class="settingsHeader">
-			Branch Settings  <button onclick="displayLoadingPopup();" >Save Changes</button>
+			Branch Settings  
+			<div class="settingsHeaderButtons">
+				<button onclick="displayLoadingPopup();" >Save Changes</button>
+			</div>
 		</div>
 		<div class="settingsDiv" >
 			<ul id="settingsUl">

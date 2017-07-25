@@ -35,6 +35,7 @@ if(file_exists($baseUrl.'conf/config.php'))
 	<title>Welcome!</title>
 	<link rel="stylesheet" type="text/css" href="<?php echo $baseUrl ?>template/theme.css">
 	<script src="../core/js/jquery.js"></script>
+	<?php readfile('../core/html/popup.html') ?>	
 </head>
 <body>
 <div style="width: 90%; margin: auto; margin-right: auto; margin-left: auto; display: block; height: auto; margin-top: 15px;" >
@@ -62,28 +63,6 @@ if(file_exists($baseUrl.'conf/config.php'))
 		//change setupProcess to page1
 		document.getElementById('defaultVarsForm').submit();
 	}
-	function updateStatus(status)
-	{
-		var urlForSend = './updateSetupStatus.php?format=json'
-		var data = {status: status };
-		$.ajax({
-				  url: urlForSend,
-				  dataType: 'json',
-				  data: data,
-				  type: 'POST',
-		success: function(data)
-		{
-			if(status == "finished")
-			{
-				defaultSettings();
-			}
-			else
-			{
-				customSettings();
-			}
-	  	},
-			});
-		return false;
-	}
 </script>
+<script src="stepsJavascript.js"></script>
 </html>

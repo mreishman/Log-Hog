@@ -21,43 +21,29 @@ require_once('loadVars.php');
 	$newInfoForConfig = "
 	<?php
 		$"."config = array(
-			'sliceSize' => ".$sliceSize.",
-			'pollingRate' => ".$pollingRate.",
-			'pausePoll' => '".$pausePoll."',
-			'pauseOnNotFocus' => '".$pauseOnNotFocus."',
-			'autoCheckUpdate' => '".$autoCheckUpdate."',
-			'autoCheckDaysUpdate'	=>	'".$autoCheckDaysUpdate."',
-			'developmentTabEnabled' => '".$developmentTabEnabled."',
-			'enableDevBranchDownload' => '".$enableDevBranchDownload."',
-			'enableSystemPrefShellOrPhp'   => '".$enableSystemPrefShellOrPhp."',
-			'rightClickMenuEnable'	=> '".$rightClickMenuEnable."',
-			'enableHtopLink'	=> '".$enableHtopLink."',
-			'expSettingsAvail'	=> '".$expSettingsAvail."',
-			'flashTitleUpdateLog'	=> '".$flashTitleUpdateLog."',
-			'truncateLogButtonAll' => '".$truncateLog."',
-			'popupSettings'	=>	'".$popupWarnings."',
-			'pollingRateType'	=> '".$pollingRateType."',
-			'logTrimOn'	=> '".$logTrimOn."',
-			'logSizeLimit'	=>	".$logSizeLimit.",
-			'logTrimMacBSD'	=> '".$logTrimMacBSD."',
-			'baseUrlUpdate'	=> '".$baseUrlUpdate."',
-			'logTrimType'	=>	'".$logTrimType."',
-			'TrimSize'	=> '".$TrimSize."',
-			'buffer'	=>	'".$buffer."',
-			'hideEmptyLog'	=>	'".$hideEmptyLog."',
-			'groupByType'	=> '".$groupByType."',
-			'currentFolderColorTheme'	=> '".$currentFolderColorTheme."',
-			'groupByColorEnabled'	=> '".$groupByColorEnabled."',
-			'enableLogging'	=> '".$enableLogging."',
-			'dontNotifyVersion'	=> '".$dontNotifyVersion."',
-			'updateNoticeMeter'	=> '".$updateNoticeMeter."',
-			'enablePollTimeLogging'	=> '".$enablePollTimeLogging."',
-			'folderColorArrays'	=> 	array(
-			".$folderColorArraysSave."),
-			'popupSettingsCustom'	=> array(
-			".$popupSettingsArraySave."),
-			'watchList' => array(
-			".$arrayWatchList.")
+		";
+	foreach ($defaultConfig as $key => $value)
+	{
+		if(is_string($value))
+		{
+			$newInfoForConfig .= "
+			'".$key."' => '".$$key."',
+		";
+		}
+		elseif(is_array($value))
+		{
+			$newInfoForConfig .= "
+			'".$key."' => array(".$$key."),
+		";
+		}
+		else
+		{
+			$newInfoForConfig .= "
+			'".$key."' => ".$$key.",
+		";
+		}
+	}
+	$newInfoForConfig .= "
 		);
 	?>";
 

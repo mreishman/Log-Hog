@@ -12,6 +12,8 @@ require_once('../core/conf/config.php');
 require_once('../core/php/configStatic.php');
 require_once('../core/php/loadVars.php');
 require_once('../core/php/updateCheck.php');
+require_once('../top/statusTest.php');
+$withLogHog = $monitorStatus['withLogHog'];
 ?>
 <!doctype html>
 <head>
@@ -25,7 +27,10 @@ require_once('../core/php/updateCheck.php');
 	<div id="main">
 	<form id="devAdvanced" action="../core/php/settingsSave.php" method="post">
 		<div class="settingsHeader">
-			Development  <button onclick="displayLoadingPopup();" >Save Changes</button>
+			Development  
+			<div class="settingsHeaderButtons">
+				<button onclick="displayLoadingPopup();" >Save Changes</button>
+			</div>
 		</div>
 		<div class="settingsDiv" >
 			<ul id="settingsUl">
@@ -41,7 +46,10 @@ require_once('../core/php/updateCheck.php');
 	</form>
 	<form id="loggingDisplay" action="../core/php/settingsSave.php" method="post">
 		<div class="settingsHeader">
-			Logging Information  <button onclick="displayLoadingPopup();" >Save Changes</button>
+			Logging Information 
+			<div class="settingsHeaderButtons">
+				<button onclick="displayLoadingPopup();" >Save Changes</button>
+			</div>
 		</div>
 		<div class="settingsDiv" >
 			<ul id="settingsUl">
@@ -64,6 +72,28 @@ require_once('../core/php/updateCheck.php');
 			</ul>
 		</div>
 	</form>
+		<div class="settingsHeader">
+			Reset Config Values back to default
+		</div>
+		<div class="settingsDiv" >
+			<ul id="settingsUl">
+				<form id="resetSettings" action="../core/php/settingsSave.php" method="post">
+					<li>
+						<a onclick="resetSettingsPopup();" class="link">Reset Settings</a>
+					</li>
+					<li style="display: none;"  >
+							<select name="resetConfigValuesBackToDefault">
+	  							<option selected value="true">True</option>
+							</select>
+					</li>
+					<?php if($withLogHog == 'true'): ?>
+					<li>
+						*Doesn't include monitor config settings
+					</li>
+					<?php endif; ?>
+				</form>
+			</ul>
+		</div>
 	</div>
 	<?php readfile('../core/html/popup.html') ?>	
 </body>
@@ -86,5 +116,16 @@ require_once('../core/php/updateCheck.php');
 		{
 			displaySavePromptPopup(url);
 		}
+	}
+
+	function resetSettingsPopup()
+	{
+		showPopup();
+		document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Reset Settings?</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Are you sure you want to reset all settings back to defaults?</div><div class='link' onclick='submitResetSettings();' style='margin-left:125px; margin-right:50px;margin-top:25px;'>Yes</div><div onclick='hidePopup();' class='link'>No</div></div>";
+	}
+
+	function submitResetSettings()
+	{
+		document.getElementById('resetSettings').submit();
 	}
 </script>

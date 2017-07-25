@@ -1,6 +1,10 @@
 <form id="settingsMenuVars" action="../core/php/settingsSave.php" method="post">
 		<div class="settingsHeader">
-		Menu Settings <button onclick="displayLoadingPopup();" >Save Changes</button>
+		Menu Settings
+		<div class="settingsHeaderButtons">
+			<a onclick="resetSettingsMenuVar();" id="resetChangesMenuSettingsHeaderButton" style="display: none;" class="linkSmall" > Reset Current Changes</a>
+			<button onclick="displayLoadingPopup();" >Save Changes</button>
+		</div>
 		</div>
 		<div class="settingsDiv" >
 		<ul id="settingsUl">

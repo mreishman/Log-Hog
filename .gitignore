@@ -1,2 +1,12 @@
 local/default/conf/config.php
 local/default/conf/tmp-config.php
+top/header.php
+top/index.php
+top/functions/psAux.php
+top/functions/procStat.php
+top/functions/killProcess.php
+top/functions/ioStatDx.php
+top/functions/getRUsage.php
+top/functions/free.php
+top/functions/dfAL.php
+top/functions/procNetDev.php
