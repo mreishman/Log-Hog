@@ -14,7 +14,7 @@ var count = 0;
 var timer = setInterval(function(){ajaxCheck();},3000);
 	function ajaxCheck()
 		{
-			var urlForSend = './updateActionCheck.php?format=json';
+			var urlForSend = './updateCheck.php?format=json';
 			var data = {status: "updateAction" };
 			$.ajax(
 			{
