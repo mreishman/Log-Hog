@@ -217,6 +217,11 @@ $versionCheck = '"'.$configStatic['version'].'"';
 	<?php else: ?>
 		<h1>Updating to version <?php echo $configStatic['newestVersion'] ; ?></h1>
 	<?php endif; ?>
+	<?php if($newestVersionCheck == $versionCheck): ?>
+	<div id="menu" style="margin-right: auto; margin-left: auto;">
+		<a onclick="window.location.href = '../settings/update.php'">Back to Log-Hog</a>
+	</div>
+	<?php endif; ?>
 	</div>
 	<div class="settingsDiv" >
 		<div class="updatingDiv">
@@ -230,12 +235,6 @@ $versionCheck = '"'.$configStatic['version'].'"';
 			<?php require_once('../core/php/updateProgressLog.php'); ?>
 		</div>
 	</div>
-	<?php 
-	if($newestVersionCheck == $versionCheck): ?>
-	<div id="menu" style="margin-right: auto; margin-left: auto;">
-		<a onclick="window.location.href = '../settings/update.php'">Back to Log-Hog</a>
-	</div>
-	<?php endif; ?>
 </div>
 <form id="formForAction" method="post" action="../core/php/updateActionFile.php" style="display: none;">
 <?php if(!empty($updateAction)): ?>
