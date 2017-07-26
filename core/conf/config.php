@@ -31,6 +31,7 @@ $defaultConfig = array(
 	'enableLogging'	=> 'false',
 	'dontNotifyVersion'	=> '0',
 	'updateNoticeMeter'	=> 'every',
+	'bottomBarIndexShow'	=> 'true',
 	'enablePollTimeLogging'	=> 'false',
 	'popupSettingsArray'	=> array(
 		'saveSettings'	=>	'true',

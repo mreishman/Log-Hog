@@ -105,7 +105,7 @@ $withLogHog = $monitorStatus['withLogHog'];
 		</div>
 	</div>
 	
-	<div id="titleContainer"><div id="title">&nbsp;</div>&nbsp;&nbsp;<form style="display: inline-block;" ><a class="linkSmall" onclick="clearLog()" >Clear Log</a><a class="linkSmall" onclick="deleteLogPopup()" >Delete Log</a></form></div>
+	<div style=" <?php if($bottomBarIndexShow == 'false'){echo 'display: none;';}?> " id="titleContainer"><div id="title">&nbsp;</div>&nbsp;&nbsp;<form style="display: inline-block;" ><a class="linkSmall" onclick="clearLog()" >Clear Log</a><a class="linkSmall" onclick="deleteLogPopup()" >Delete Log</a></form></div>
 	<form id="settingsInstallUpdate" action="update/updater.php" method="post" style="display: none"></form>
 	<script>
 
