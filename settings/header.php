@@ -1,5 +1,5 @@
 <style type="text/css">
-	#menu a, .link, .linkSmall, .settingsHeader button{
+	#menu a, #menu2 a, .link, .linkSmall, .settingsHeader button{
 		background-color: <?php echo $currentSelectedThemeColorValues[0]?>;
 	}
 </style>
@@ -58,3 +58,10 @@ $URI = $_SERVER['REQUEST_URI'];
 		<?php endif; ?>	
 	<?php endif; ?>
 </div>
+<?php if(strpos($URI, 'main.php') !== false): ?>
+		<div id="menu2">
+			<a onclick="goToUrl('#settingsMainVars');" > Main Settings </a>
+			<a onclick="goToUrl('#settingsMainWatch');" > WatchList </a>
+			<a onclick="goToUrl('#settingsMenuVars');" > Menu Settings </a>
+		</div>
+	<?php endif; ?>
