@@ -73,7 +73,7 @@ $withLogHog = $monitorStatus['withLogHog'];
 		</div>
 	</form>
 		<div class="settingsHeader">
-			Reset Config Values back to default
+			Advanced
 		</div>
 		<div class="settingsDiv" >
 			<ul id="settingsUl">
@@ -92,6 +92,9 @@ $withLogHog = $monitorStatus['withLogHog'];
 					</li>
 					<?php endif; ?>
 				</form>
+					<li>
+						<a onclick="revertPopup();" class="link">Revert to Previous Version</a>
+					</li>
 			</ul>
 		</div>
 	</div>
@@ -122,6 +125,17 @@ $withLogHog = $monitorStatus['withLogHog'];
 	{
 		showPopup();
 		document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Reset Settings?</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Are you sure you want to reset all settings back to defaults?</div><div class='link' onclick='submitResetSettings();' style='margin-left:125px; margin-right:50px;margin-top:25px;'>Yes</div><div onclick='hidePopup();' class='link'>No</div></div>";
+	}
+
+	function revertPopup()
+	{
+		showPopup();
+		document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Go back to previous versoin?</div><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Are you sure you want to revert back to a previous version? Version: <form id='revertForm' style='display: inline-block;' ><select name='versionRevertTo' ><option value='2.3.3' >2.3.3</option><option value='2.3.1' >2.3.1</option><option value='2.3' >2.3</option><option value='2.2' >2.2</option><option value='2.1' >2.1</option><option value='2.0' >2.0</option></select></form></div><div class='link' onclick='submitRevert();' style='margin-left:125px; margin-right:50px;margin-top:25px;'>Yes</div><div onclick='hidePopup();' class='link'>No</div></div>";
+	}
+
+	function submitRevert()
+	{
+		document.getElementById('revertForm').submit();
 	}
 
 	function submitResetSettings()
