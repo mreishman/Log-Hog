@@ -209,7 +209,7 @@ div {
 .context-menu {
   display: none;
   position: absolute;
-  z-index: 10;
+  z-index: 30;
   background-color: green;
   border: 1px solid white;
   box-shadow: 0px 0px 5px black;
@@ -450,7 +450,7 @@ div {
     overflow: auto;
     border: 1px solid white;
  	box-shadow: 0px 0px 5px black;
-    z-index: 10;
+    z-index: 30;
     margin-left: 12px;
     margin-top: -70px;
 }
