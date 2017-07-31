@@ -27,7 +27,7 @@ function updateText(text)
 		});	
 	}
 
-	function removeFilesFromToppFolder()
+	function removeFilesFromToppFolder(skip = false)
 	{
 		updateText("Directory has files in it, removing files");
 		var urlForSend = urlForSendMain;
@@ -41,9 +41,52 @@ function updateText(text)
 			{
 				//verify if downloaded
 				updateText("Download Files");
-				downloadFile();
+				if(!skip)
+				{
+					downloadFile();
+				}
+				else
+				{
+					//re-add folder / one file
+
+					verifyFile('removeFilesFromToppFolderSkip', '../../top/',false);
+				}
 			}
 		});	
+	}
+
+	function cleanUpMonitorRemove()
+	{
+		updateText("Cleaning Up Uninstall");
+		var urlForSend = urlForSendMain;
+		var data = {action: 'readdSomeFilesFromUninstallProcess'};
+		$.ajax({
+			url: urlForSend,
+			dataType: 'json',
+			data: data,
+			type: 'POST',
+			complete: function()
+			{
+				verifyFile('cleanUpMonitorRemove', '../../top/');
+			}
+		});
+	}
+
+	function changeMonSettingsRevert()
+	{
+		updateText("Changing Internal Config Settings.");
+		var urlForSend = urlForSendMain;
+		var data = {action: 'changeMonSettingsRevert'};
+		$.ajax({
+			url: urlForSend,
+			dataType: 'json',
+			data: data,
+			type: 'POST',
+			complete: function()
+			{
+				verifyFile('changeMonSettingsRevert', '../../top/statusTest.php');
+			}
+		});
 	}
 
 	function downloadFile()
@@ -143,6 +186,18 @@ function updateText(text)
 			{
 				removeUnneededFoldersMonitor();
 			}
+			else if(action == 'removeFilesFromToppFolderSkip')
+			{
+				removeFilesFromToppFolder(true);
+			}
+			else if(action == 'cleanUpMonitorRemove')
+			{
+				cleanUpMonitorRemove();
+			}
+			else if(action == 'changeMonSettingsRevert')
+			{
+				changeMonSettingsRevert();
+			}
 			//run previous ajax
 		}
 	}
@@ -174,6 +229,18 @@ function updateText(text)
 			removeUnneededFoldersMonitor();
 		}
 		else if(action == 'removeUnneededFoldersMonitor')
+		{
+			finishedDownload();
+		}
+		else if(action == 'removeFilesFromToppFolderSkip')
+		{
+			cleanUpMonitorRemove();
+		}
+		else if(action == 'cleanUpMonitorRemove')
+		{
+			changeMonSettingsRevert();
+		}
+		else if(action == 'changeMonSettingsRevert')
 		{
 			finishedDownload();
 		}

@@ -69,6 +69,18 @@ elseif($action == 'changeMonSettings')
 
 	return true;
 }
+elseif($action == 'changeMonSettingsRevert')
+{
+	$string = "<?php
+		$"."monitorStatus = array(
+	'withLogHog'	=> 'false'
+	);
+	?>";
+
+	file_put_contents("../../top/statusTest.php", $string);
+
+	return true;
+}
 elseif($action == 'removeUnneededFoldersMonitor')
 {
 	$removeDir = true;
@@ -83,6 +95,13 @@ elseif($action == 'removeUnneededFoldersMonitor')
 	removeZipFile('../../top/error.php');
 
 	return true;
+}
+elseif($action == 'readdSomeFilesFromUninstallProcess')
+{
+	if(!is_dir('../../top'))
+	{
+		mkdir('../../top');
+	}
 }
 echo json_encode($response);
 ?>
