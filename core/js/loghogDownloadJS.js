@@ -31,7 +31,7 @@ function updateText(text)
 	{
 		updateText("Directory has files in it, removing files");
 		var urlForSend = urlForSendMain;
-		var data = {action: 'removeUnZippedFiles', locationOfFilesThatNeedToBeRemovedRecursivally: '../../top/',removeDir: false};
+		var data = {action: 'removeUnZippedFiles', locationOfFilesThatNeedToBeRemovedRecursivally: '../../top/',removeDir: true};
 		$.ajax({
 			url: urlForSend,
 			dataType: 'json',

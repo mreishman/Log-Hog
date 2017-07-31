@@ -64,7 +64,7 @@ $( document ).ready(function()
 function finishedDownload()
 	{
 		clearInterval(dotsTimer);
-		document.getElementById('innerSettingsText').innerHTML = "Finished Downloading Monitor<a class='link' onclick='goBack();' >< Back to Settings</a>"
+		document.getElementById('innerSettingsText').innerHTML = "<br> <h1>Finished Downloading Monitor<h1><br> <br> <a class='link' onclick='goBack();' >< Back to Settings</a>"
 	}
 
 	function goBack()
