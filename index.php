@@ -58,6 +58,10 @@ if($locationForMonitor != "")
 {
 	$locationForMonitorIndex = $locationForMonitor;
 }
+elseif (is_dir("../monitor"))
+{
+	$locationForStatusIndex = "../monitor/";
+}
 elseif($withLogHog == 'true')
 {
 	$locationForMonitorIndex = './top/index.php';
