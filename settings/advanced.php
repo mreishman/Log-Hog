@@ -168,7 +168,7 @@ $withLogHog = $monitorStatus['withLogHog'];
 
 	function removeLoghog()
 	{
-
+		window.location.href = 'monitorRemove.php';
 	}
 
 	function resetSettingsPopup()

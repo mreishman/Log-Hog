@@ -39,6 +39,7 @@ require_once('../core/php/loadVars.php'); ?>
 		<h1>Removing Monitor</h1>
 	</div>
 	<div style="word-break: break-all; margin-left: auto; margin-right: auto; max-width: 800px; overflow: auto; max-height: 500px;" id="innerSettingsText">
+		<img src='../core/img/loading.gif' height='50' width='50'> 
 	</div>
 	<br>
 	<br>
@@ -58,7 +59,7 @@ var dotsTimer = null;
 $( document ).ready(function() 
 {
 	dotsTimer = setInterval(function() {document.getElementById('innerSettingsText').innerHTML = ' .'+document.getElementById('innerSettingsText').innerHTML;}, '120');
-	
+	document.getElementById('innerSettingsText').innerHTML = "";
 	removeFilesFromToppFolder(true);
 
 });

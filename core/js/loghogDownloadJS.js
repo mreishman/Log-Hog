@@ -67,7 +67,7 @@ function updateText(text)
 			type: 'POST',
 			complete: function()
 			{
-				verifyFile('cleanUpMonitorRemove', '../../top/');
+				verifyFile('cleanUpMonitorRemove', '../../top/statusTest.php',false);
 			}
 		});
 	}
