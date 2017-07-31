@@ -92,9 +92,9 @@ $withLogHog = $monitorStatus['withLogHog'];
 					</li>
 					<?php endif; ?>
 				</form>
-					<li>
-						<a onclick="revertPopup();" class="link">Revert to Previous Version</a>
-					</li>
+				<li>
+					<a onclick="revertPopup();" class="link">Revert to Previous Version</a>
+				</li>
 			</ul>
 		</div>
 	</div>

@@ -36,9 +36,9 @@ else
 
 	
 $arrayForVersionList = "";
-$countOfArray = count($versionCheckArray['versionList']);
+$countOfArray = count($configStatic['versionList']);
 $i = 0;
-foreach ($versionCheckArray['versionList'] as $key => $value) {
+foreach ($configStatic['versionList'] as $key => $value) {
   $i++;
   $arrayForVersionList .= "'".$key."' => array(";
   $countOfArraySub = count($value);
@@ -76,6 +76,6 @@ $"."configStatic = array(
 
 	file_put_contents($fileName, $newInfoForConfig);
 
-	echo json_encode(true);
+	header('Location: ' . $_SERVER['HTTP_REFERER']);
 	exit();
 ?>
