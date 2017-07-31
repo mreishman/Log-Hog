@@ -163,7 +163,7 @@ $withLogHog = $monitorStatus['withLogHog'];
 
 	function downloadLogHog()
 	{
-
+		window.location.href = 'monitorDownload.php';
 	}
 
 	function removeLoghog()
