@@ -130,9 +130,9 @@ $withLogHog = $monitorStatus['withLogHog'];
 				</li>
 				<li>
 				<?php if($withLogHog == 'true'): ?>
-					<a onclick="removeLoghog();" class="link">Remove Log-Hog</a>
+					<a onclick="removeLoghog();" class="link">Remove Monitor</a>
 				<?php else: ?>
-					<a onclick="downloadLogHog();" class="link">Download Log-Hog</a>
+					<a onclick="downloadLogHog();" class="link">Download Monitor</a>
 				<?php endif; ?>
 				</li>
 			</ul>
