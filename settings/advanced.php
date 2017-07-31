@@ -72,6 +72,39 @@ $withLogHog = $monitorStatus['withLogHog'];
 			</ul>
 		</div>
 	</form>
+	<form id="locationOtherApps" action="../core/php/settingsSave.php" method="post">
+		<div class="settingsHeader">
+			File Locations
+			<div class="settingsHeaderButtons">
+				<button onclick="displayLoadingPopup();" >Save Changes</button>
+			</div>
+		</div>
+		<div class="settingsDiv" >
+			<?php
+			//logic for urls
+
+			if($locationForStatus == "")
+			{
+				$locationForStatus = "https://" . $_SERVER['SERVER_NAME']."/status";
+			}
+			if($locationForMonitor == "")
+			{
+				$locationForMonitor = "https://" . $_SERVER['SERVER_NAME']."/monitor";
+			}
+			?>
+			<ul id="settingsUl">
+				<li>
+					<span class="settingsBuffer" >  Status Location:  </span> <input type="text" style="width: 400px;"  name="locationForStatus" value="<?php echo $locationForStatus;?>" > 
+				</li>
+				<li>
+					<span class="settingsBuffer" >  Monitor Location:  </span> <input type="text" style="width: 400px;"  name="locationForMonitor" value="<?php echo $locationForMonitor;?>" > 
+				</li>
+				<li>
+					<span style="font-size: 75%;">*<i>Please specify full url</i></span>
+				</li>
+			</ul>
+		</div>
+	</form>
 		<div class="settingsHeader">
 			Advanced
 		</div>
@@ -94,6 +127,13 @@ $withLogHog = $monitorStatus['withLogHog'];
 				</form>
 				<li>
 					<a onclick="revertPopup();" class="link">Revert to Previous Version</a>
+				</li>
+				<li>
+				<?php if($withLogHog == 'true'): ?>
+					<a onclick="#" class="link">Remove Log-Hog</a>
+				<?php else: ?>
+					<a onclick="#" class="link">Download Log-Hog</a>
+				<?php endif; ?>
 				</li>
 			</ul>
 		</div>
