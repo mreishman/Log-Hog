@@ -8,7 +8,6 @@ if(file_exists('../local/layout.php'))
 	$baseUrl .= $currentSelectedTheme."/";
 }
 require_once($baseUrl.'conf/config.php'); 
-require_once('setupProcessFile.php');
 
 require_once('../core/php/loadVars.php'); ?>
 <!DOCTYPE html>
@@ -61,6 +60,17 @@ $( document ).ready(function()
 	dotsTimer = setInterval(function() {document.getElementById('innerSettingsText').innerHTML = ' .'+document.getElementById('innerSettingsText').innerHTML;}, '120');
 	checkIfTopDirIsEmpty();
 });
+
+function finishedDownload()
+	{
+		clearInterval(dotsTimer);
+		document.getElementById('innerSettingsText').innerHTML = "Finished Downloading Monitor<a class='link' onclick='goBack();' >< Back to Settings</a>"
+	}
+
+	function goBack()
+	{
+		window.history.back();
+	}
 	
 </script>
 <script src="stepsJavascript.js"></script>

@@ -175,8 +175,7 @@ function updateText(text)
 		}
 		else if(action == 'removeUnneededFoldersMonitor')
 		{
-			clearInterval(dotsTimer);
-			location.reload();
+			finishedDownload();
 		}
 	}
 

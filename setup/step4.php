@@ -114,6 +114,13 @@ var dotsTimer = null;
 			checkIfTopDirIsEmpty();
 		}
 	}
+
+	function finishedDownload()
+	{
+		clearInterval(dotsTimer);
+		location.reload();
+	}
+	
 </script>
 <script src="stepsJavascript.js"></script>
 <script src="../core/js/settingsMain.js"></script>
