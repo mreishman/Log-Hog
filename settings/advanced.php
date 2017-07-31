@@ -100,7 +100,7 @@ $withLogHog = $monitorStatus['withLogHog'];
 					<span class="settingsBuffer" >  Monitor Location:  </span> <input type="text" style="width: 400px;"  name="locationForMonitor" value="<?php echo $locationForMonitor;?>" > 
 				</li>
 				<li>
-					<span style="font-size: 75%;">*<i>Please specify full url</i></span>
+					<span style="font-size: 75%;">*<i>Please specify full url, blank if none</i></span>
 				</li>
 			</ul>
 		</div>
@@ -168,7 +168,7 @@ $withLogHog = $monitorStatus['withLogHog'];
 
 	function removeLoghog()
 	{
-		
+
 	}
 
 	function resetSettingsPopup()
