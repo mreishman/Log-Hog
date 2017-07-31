@@ -130,9 +130,9 @@ $withLogHog = $monitorStatus['withLogHog'];
 				</li>
 				<li>
 				<?php if($withLogHog == 'true'): ?>
-					<a onclick="#" class="link">Remove Log-Hog</a>
+					<a onclick="removeLoghog();" class="link">Remove Log-Hog</a>
 				<?php else: ?>
-					<a onclick="#" class="link">Download Log-Hog</a>
+					<a onclick="downloadLogHog();" class="link">Download Log-Hog</a>
 				<?php endif; ?>
 				</li>
 			</ul>
@@ -159,6 +159,16 @@ $withLogHog = $monitorStatus['withLogHog'];
 		{
 			displaySavePromptPopup(url);
 		}
+	}
+
+	function downloadLogHog()
+	{
+
+	}
+
+	function removeLoghog()
+	{
+		
 	}
 
 	function resetSettingsPopup()

@@ -52,6 +52,10 @@ elseif (is_dir("../status"))
 {
 	$locationForStatusIndex = "../status/";
 }
+elseif (is_dir("../Status"))
+{
+	$locationForStatusIndex = "../Status/";
+}
 
 $locationForMonitorIndex = "";
 if($locationForMonitor != "")
@@ -60,7 +64,11 @@ if($locationForMonitor != "")
 }
 elseif (is_dir("../monitor"))
 {
-	$locationForStatusIndex = "../monitor/";
+	$locationForMonitorIndex = "../monitor/";
+}
+elseif (is_dir("../Monitor"))
+{
+	$locationForMonitorIndex = "../Monitor/";
 }
 elseif($withLogHog == 'true')
 {
@@ -104,7 +112,7 @@ elseif($withLogHog == 'true')
 			<img id="deleteImage" class="menuImage" src="core/img/trashCan.png" height="30px">
 		</div>
 		<?php endif; ?>
-		<?php if($withLogHog == 'true'): ?>
+		<?php if($locationForMonitorIndex != ""): ?>
 		<div onclick="window.location.href = '<?php echo $locationForMonitorIndex; ?>'" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">
 			<img id="taskmanagerImage" class="menuImage" src="core/img/task-manager.png" height="30px">
 		</div>
