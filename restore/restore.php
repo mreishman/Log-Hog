@@ -105,14 +105,14 @@ function finishedDownload()
 	{
 		if(retryCount == 0)
 		{
-			updateText("Downloading Monitor");
+			updateText("Downloading Log-Hog");
 		}
 		else
 		{
-			updateText("Attempt "+(retryCount+1)+" of 3 for downloading Monitor");
+			updateText("Attempt "+(retryCount+1)+" of 3 for downloading Log-Hog");
 		}
 		var urlForSend = urlForSendMain;
-		var data = {action: 'downloadFile', file: fileVersionDownload,downloadFrom: 'Log-Hog/archive/', downloadTo: '../../restore.zip'};
+		var data = {action: 'downloadFile', file: fileVersionDownload,downloadFrom: 'Log-Hog/archive/', downloadTo: '../../restore/restore.zip'};
 		$.ajax({
 			url: urlForSend,
 			dataType: 'json',
@@ -122,7 +122,7 @@ function finishedDownload()
 			{
 				//verify if downloaded
 				updateText("Verifying Download");
-				verifyFile('downloadRestoreVersion', '../../restore.zip');
+				verifyFile('downloadRestoreVersion', '../../restore/restore.zip');
 			}
 		});	
 	}
@@ -144,6 +144,11 @@ function finishedDownload()
 				updateText("File Could NOT be found");
 				downloadRestoreVersion();
 			}
+			else if(action == 'cleanDirectory')
+			{
+				updateText("Could not verify that directory is empty");
+				cleanDirectory();
+			}
 			
 			//run previous ajax
 		}
@@ -156,10 +161,41 @@ function finishedDownload()
 		if(action == 'downloadRestoreVersion')
 		{
 			updateText("File Download Verified");
-			updateText("Unzipping Downloaded File");
-			unzipFile();
+			cleanDirectory();
+		}
+		else if(action == 'cleanDirectory')
+		{
+			//unzip folder
+			
 		}
 		
+	}
+
+	function cleanDirectory()
+	{
+		//
+		if(retryCount == 0)
+		{
+			updateText("Cleaning Directory");
+		}
+		else
+		{
+			updateText("Attempt "+(retryCount+1)+" of 3 for cleaning directory");
+		}
+		var urlForSend = urlForSendMain;
+		var data = {action: 'removeAllFilesFromLogHogExceptRestore'};
+		$.ajax({
+			url: urlForSend,
+			dataType: 'json',
+			data: data,
+			type: 'POST',
+			complete: function()
+			{
+				//verify if downloaded
+				updateText("Verifying that the directory is empty");
+				verifyFile('cleanDirectory', '../../index.php', false);
+			}
+		});
 	}
 
 	function verifyFile(action, fileLocation,isThere = true)
@@ -221,11 +257,10 @@ function finishedDownload()
 	function updateError()
 	{
 		clearInterval(dotsTimer);
-		document.getElementById('innerSettingsText').innerHTML = "<p>An error occured while trying to download Monitor. </p>";
+		document.getElementById('innerSettingsText').innerHTML = "<p>An error occured while trying to restore Log-Hog. </p>";
 	}
 	
 </script>
 <script src="stepsJavascript.js"></script>
 <script src="../core/js/settingsMain.js"></script>
-<script src="../core/js/loghogDownloadJS.js"></script>
 </html>

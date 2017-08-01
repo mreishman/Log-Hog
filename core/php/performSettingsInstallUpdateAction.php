@@ -96,6 +96,26 @@ elseif($action == 'removeUnneededFoldersMonitor')
 
 	return true;
 }
+elseif($action == 'removeAllFilesFromLogHogExceptRestore')
+{
+	$files = scandir('../../');
+	foreach ($files as $thing => $file)
+	{
+		if($file != "." && $file != ".." && $file != "restore")
+		{
+			$fileDir = '../../'.$file;
+			if(is_dir($fileDir))
+			{
+				rrmdir();
+			}
+			else
+			{
+				removeZipFile($fileDir);
+			}
+		}
+	}
+	return true;
+}
 elseif($action == 'readdSomeFilesFromUninstallProcess')
 {
 	if(!is_dir('../../top'))
