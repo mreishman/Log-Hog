@@ -8,9 +8,11 @@ if(file_exists('../local/layout.php'))
 	$baseUrl .= $currentSelectedTheme."/";
 }
 require_once($baseUrl.'conf/config.php'); 
-
-$versionToRestoreTo = $_POST['versionRevertTo'];
-
+$versionToRestoreTo = 0;
+if(isset($_POST['versionRevertTo']))
+{
+	$versionToRestoreTo = $_POST['versionRevertTo'];
+}
 require_once('../core/php/loadVars.php'); ?>
 <!DOCTYPE html>
 <html>
@@ -38,10 +40,16 @@ require_once('../core/php/loadVars.php'); ?>
 <body>
 <div style="width: 90%; margin: auto; margin-right: auto; margin-left: auto; display: block; height: auto; margin-top: 15px; max-height: 500px;" >
 	<div class="settingsHeader">
+	<?php if($versionToRestoreTo != 0): ?>
 		<h1>Restoring to version <?php echo $versionToRestoreTo; ?></h1>
+	<?php else: ?>
+		<h1>Select a version to restore to: <?php readfile('../core/html/restoreVersionOptions.html') ?> <button class="link" onclick="document.getElementById('revertForm').submit();"  >Restore</button></h1>
+	<?php endif;?>
 	</div>
 	<div style="word-break: break-all; margin-left: auto; margin-right: auto; max-width: 800px; overflow: auto; max-height: 500px;" id="innerSettingsText">
+	<?php if($versionToRestoreTo != 0): ?>
 		<img src='../core/img/loading.gif' height='50' width='50'> 
+	<?php endif; ?>
 	</div>
 	<br>
 	<br>
@@ -57,23 +65,163 @@ var directory = "../../top/";
 var urlForSendMain = '../core/php/performSettingsInstallUpdateAction.php?format=json';
 var verifyFileTimer = null;
 var dotsTimer = null;
+var fileVersionDownload = null;
+<?php if($versionToRestoreTo != 0): ?>
+fileVersionDownload = '<?php echo $versionToRestoreTo; ?>';
+<?php endif ;?>
 
 $( document ).ready(function() 
 {
-	//dotsTimer = setInterval(function() {document.getElementById('innerSettingsText').innerHTML = ' .'+document.getElementById('innerSettingsText').innerHTML;}, '120');
-	//document.getElementById('innerSettingsText').innerHTML = "";
-	
+	if(fileVersionDownload)
+	{
+		startLogic();
+	}
 });
+
+function startLogic()
+{
+		dotsTimer = setInterval(function() {document.getElementById('innerSettingsText').innerHTML = ' .'+document.getElementById('innerSettingsText').innerHTML;}, '120');
+	document.getElementById('innerSettingsText').innerHTML = "";
+	downloadRestoreVersion();
+}
 
 function finishedDownload()
 	{
 		clearInterval(dotsTimer);
-		document.getElementById('innerSettingsText').innerHTML = "<br> <h1>Finished Downloading Monitor<h1><br> <br> <a class='link' onclick='goBack();' >< Back to Settings</a>"
+		document.getElementById('innerSettingsText').innerHTML = "<br> <h1>Finished Downloading Monitor<h1><br> <br> <a class='link' onclick='goBack();' >< Back to Settings</a>";
 	}
 
 	function goBack()
 	{
 		window.history.back();
+	}
+
+	function updateText(text)
+	{
+		document.getElementById('innerSettingsText').innerHTML = "<p>"+text+"</p>"+document.getElementById('innerSettingsText').innerHTML;
+	}
+
+	function downloadRestoreVersion()
+	{
+		if(retryCount == 0)
+		{
+			updateText("Downloading Monitor");
+		}
+		else
+		{
+			updateText("Attempt "+(retryCount+1)+" of 3 for downloading Monitor");
+		}
+		var urlForSend = urlForSendMain;
+		var data = {action: 'downloadFile', file: fileVersionDownload,downloadFrom: 'Log-Hog/archive/', downloadTo: '../../restore.zip'};
+		$.ajax({
+			url: urlForSend,
+			dataType: 'json',
+			data: data,
+			type: 'POST',
+			complete: function()
+			{
+				//verify if downloaded
+				updateText("Verifying Download");
+				verifyFile('downloadRestoreVersion', '../../restore.zip');
+			}
+		});	
+	}
+
+
+	function verifyFail(action)
+	{
+		//failed? try again?
+		retryCount++;
+		if(retryCount >= 3)
+		{
+			//stop trying, give up :c
+			updateError();
+		}
+		else
+		{
+			if(action == 'downloadRestoreVersion')
+			{
+				updateText("File Could NOT be found");
+				downloadRestoreVersion();
+			}
+			
+			//run previous ajax
+		}
+	}
+
+	function verifySucceded(action)
+	{
+		//downloaded, extract
+		retryCount = 0;
+		if(action == 'downloadRestoreVersion')
+		{
+			updateText("File Download Verified");
+			updateText("Unzipping Downloaded File");
+			unzipFile();
+		}
+		
+	}
+
+	function verifyFile(action, fileLocation,isThere = true)
+	{
+		verifyCount = 0;
+		updateText('Verifying '+action+' with'+fileLocation);
+		verifyFileTimer = setInterval(function(){verifyFilePoll(action,fileLocation,isThere);},6000);
+	}
+
+	function verifyFilePoll(action, fileLocation,isThere)
+	{
+		if(lock == false)
+		{
+			lock = true;
+			updateText('verifying '+(verifyCount+1)+' of 10');
+			var urlForSend = urlForSendMain;
+			var data = {action: 'verifyFileIsThere', fileLocation: fileLocation, isThere: isThere , lastAction: action};
+			(function(_data){
+				$.ajax({
+					url: urlForSend,
+					dataType: 'json',
+					data: data,
+					type: 'POST',
+					success: function(data)
+					{
+						verifyPostEnd(data, _data);
+					},
+					failure: function(data)
+					{
+						verifyPostEnd(data, _data);
+					},
+					complete: function()
+					{
+						lock = false;
+					}
+				});	
+			}(data));
+		}
+	}
+
+	function verifyPostEnd(verified, data)
+	{
+		if(verified == true)
+		{
+			clearInterval(verifyFileTimer);
+			verifySucceded(data['lastAction']);
+		}
+		else
+		{
+			verifyCount++;
+			if(verifyCount > 9)
+			{
+				clearInterval(verifyFileTimer);
+				verifyFail(data['lastAction']);
+			}
+		}
+	}
+
+	function updateError()
+	{
+		clearInterval(dotsTimer);
+		document.getElementById('innerSettingsText').innerHTML = "<p>An error occured while trying to download Monitor. </p>";
 	}
 	
 </script>
