@@ -55,7 +55,7 @@ elseif($action == 'cleanUpMonitor')
 
 	rename('../../monitor-master', '../../top');
 
-	return true;
+	$response = true; 
 }
 elseif($action == 'changeMonSettings')
 {
@@ -67,7 +67,7 @@ elseif($action == 'changeMonSettings')
 
 	file_put_contents("../../top/statusTest.php", $string);
 
-	return true;
+	$response = true; 
 }
 elseif($action == 'changeMonSettingsRevert')
 {
@@ -79,7 +79,7 @@ elseif($action == 'changeMonSettingsRevert')
 
 	file_put_contents("../../top/statusTest.php", $string);
 
-	return true;
+	$response = true; 
 }
 elseif($action == 'removeUnneededFoldersMonitor')
 {
@@ -94,7 +94,7 @@ elseif($action == 'removeUnneededFoldersMonitor')
 	removeZipFile('../../top/README.md');
 	removeZipFile('../../top/error.php');
 
-	return true;
+	$response = true; 
 }
 elseif($action == 'removeAllFilesFromLogHogExceptRestore')
 {
@@ -113,6 +113,17 @@ elseif($action == 'removeAllFilesFromLogHogExceptRestore')
 				removeZipFile($fileDir);
 			}
 		}
+	}
+	$response = true; 
+}
+elseif($action == "changeDirUnzipped")
+{
+	$files = scandir('../../restore/extracted/');
+	foreach ($files as $thing => $file)
+	{
+		$fileDirNew = '../../'.$file;
+		$fileDirOld = '../../restore/extracted'.$file;
+		rename($fileDirOld, $fileDirNew);
 	}
 	return true;
 }

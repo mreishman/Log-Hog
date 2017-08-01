@@ -88,7 +88,7 @@ function startLogic()
 function finishedDownload()
 	{
 		clearInterval(dotsTimer);
-		document.getElementById('innerSettingsText').innerHTML = "<br> <h1>Finished Downloading Monitor<h1><br> <br> <a class='link' onclick='goBack();' >< Back to Settings</a>";
+		document.getElementById('innerSettingsText').innerHTML = "<br> <h1>Finished Restoring Log-Hog<h1><br> <br> <a class='link' onclick='goBack();' >< Back to Settings</a>";
 	}
 
 	function goBack()
@@ -127,6 +127,40 @@ function finishedDownload()
 		});	
 	}
 
+	function unzip()
+	{
+		var urlForSend = urlForSendMain;
+		var data = {action: 'unzipFile', locationExtractTo: '../../restore/extracted/', locationExtractFrom: '../../restore/restore.zip', tmpCache: '../../'};
+		$.ajax({
+			url: urlForSend,
+			dataType: 'json',
+			data: data,
+			type: 'POST',
+			complete: function()
+			{
+				//verify if downloaded
+				verifyFile('unzip', '../../restore/extracted/index.php');
+			}
+		});	
+	}
+
+	function changeDirUnzipped()
+	{
+		var urlForSend = urlForSendMain;
+		var data = {action: 'changeDirUnzipped'};
+		$.ajax({
+			url: urlForSend,
+			dataType: 'json',
+			data: data,
+			type: 'POST',
+			complete: function()
+			{
+				//verify if downloaded
+				verifyFile('changeDirUnzipped', '../../index.php');
+			}
+		});	
+	}
+
 
 	function verifyFail(action)
 	{
@@ -149,6 +183,15 @@ function finishedDownload()
 				updateText("Could not verify that directory is empty");
 				cleanDirectory();
 			}
+			else if(action == 'unzip')
+			{
+				updateText("Could not verify that zip file was extracted");
+				unzip();
+			}
+			else if(action == 'changeDirUnzipped')
+			{
+				changeDirUnzipped();
+			}
 			
 			//run previous ajax
 		}
@@ -166,7 +209,16 @@ function finishedDownload()
 		else if(action == 'cleanDirectory')
 		{
 			//unzip folder
-			
+			unzip();
+		}
+		else if(action == 'unzip')
+		{
+			//move from unzipped to actual locations
+			changeDirUnzipped();
+		}
+		else if(action == 'changeDirUnzipped')
+		{
+			finishedDownload();
 		}
 		
 	}
