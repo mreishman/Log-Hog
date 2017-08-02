@@ -15,7 +15,7 @@ function tail($filename)
 {
 	$filename = preg_replace('/([()"])/S', '$1', $filename);
 	
-	$data = trim(shell_exec('wc ' . $filename));
+	$data = filesize($filename);
 	
 	return $data;
 }
