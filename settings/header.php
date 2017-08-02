@@ -5,6 +5,7 @@
 </style>
 <?php
 require_once('../top/statusTest.php');
+require_once('../setup/setupProcessFile.php');
 $withLogHog = $monitorStatus['withLogHog'];
 $URI = $_SERVER['REQUEST_URI'];
 ?>
