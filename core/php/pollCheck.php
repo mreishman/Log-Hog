@@ -20,36 +20,41 @@ function tail($filename)
 	return $data;
 }
 
-
-$response = array();
-
-foreach($config['watchList'] as $path => $filter) 
+if($configStatic['version'] == $_POST['currentVersion'])
 {
-	if(is_dir($path)) 
-	{
-		$path = preg_replace('/\/$/', '', $path);
-		$files = scandir($path);
-		if($files) 
-		{
-			unset($files[0], $files[1]);
-			foreach($files as $k => $filename) {
-				$fullPath = $path . '/' . $filename;
-				if(preg_match('/' . $filter . '/S', $filename) && is_file($fullPath))
-				{
-					$dataVar = htmlentities(tail($fullPath));
+	$response = array();
 
-					$response[$fullPath] = $dataVar;
-					
+	foreach($config['watchList'] as $path => $filter) 
+	{
+		if(is_dir($path)) 
+		{
+			$path = preg_replace('/\/$/', '', $path);
+			$files = scandir($path);
+			if($files) 
+			{
+				unset($files[0], $files[1]);
+				foreach($files as $k => $filename) {
+					$fullPath = $path . '/' . $filename;
+					if(preg_match('/' . $filter . '/S', $filename) && is_file($fullPath))
+					{
+						$dataVar = htmlentities(tail($fullPath));
+
+						$response[$fullPath] = $dataVar;
+						
+					}
 				}
 			}
 		}
-	}
-	elseif(file_exists($path))
-	{
-		
-		$dataVar =  htmlentities(tail($path));
-		$response[$path] = $dataVar;
+		elseif(file_exists($path))
+		{
+			
+			$dataVar =  htmlentities(tail($path));
+			$response[$path] = $dataVar;
+		}
 	}
 }
-
+else
+{
+	$response = false;
+}
 echo json_encode($response);
