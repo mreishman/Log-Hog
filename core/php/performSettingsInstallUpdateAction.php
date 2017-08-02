@@ -106,7 +106,7 @@ elseif($action == 'removeAllFilesFromLogHogExceptRestore')
 			$fileDir = '../../'.$file;
 			if(is_dir($fileDir))
 			{
-				rrmdir();
+				rrmdir($fileDir);
 			}
 			else
 			{
