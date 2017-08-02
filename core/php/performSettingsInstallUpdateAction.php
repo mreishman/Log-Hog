@@ -125,7 +125,12 @@ elseif($action == "changeDirUnzipped")
 		$fileDirOld = '../../restore/extracted'.$file;
 		rename($fileDirOld, $fileDirNew);
 	}
-	return true;
+	$response = true; 
+}
+elseif($action == 'moveDirUnzipped')
+{
+	rename("../../branch-".$_POST['version'], "../../restore/extracted");
+	$response = true; 
 }
 elseif($action == 'readdSomeFilesFromUninstallProcess')
 {

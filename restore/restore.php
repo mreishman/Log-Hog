@@ -139,7 +139,24 @@ function finishedDownload()
 			complete: function()
 			{
 				//verify if downloaded
-				verifyFile('unzip', '../../restore/extracted/index.php');
+				verifyFile('unzip', '../../branch-'+fileVersionDownload+'/index.php');
+			}
+		});	
+	}
+
+	function moveDirUnzipped()
+	{
+		var urlForSend = urlForSendMain;
+		var data = {action: 'moveDirUnzipped'};
+		$.ajax({
+			url: urlForSend,
+			dataType: 'json',
+			data: data,
+			type: 'POST',
+			complete: function()
+			{
+				//verify if downloaded
+				verifyFile('moveDirUnzipped', '../../restore/extracted/index.php');
 			}
 		});	
 	}
@@ -188,6 +205,10 @@ function finishedDownload()
 				updateText("Could not verify that zip file was extracted");
 				unzip();
 			}
+			else if(action == 'moveDirUnzipped')
+			{
+				moveDirUnzipped();
+			}
 			else if(action == 'changeDirUnzipped')
 			{
 				changeDirUnzipped();
@@ -212,6 +233,10 @@ function finishedDownload()
 			unzip();
 		}
 		else if(action == 'unzip')
+		{
+			moveDirUnzipped();
+		}
+		else if(actin == 'moveDirUnzipped')
 		{
 			//move from unzipped to actual locations
 			changeDirUnzipped();
