@@ -1,13 +1,6 @@
 <?php
 $baseUrl = "../core/";
-if(file_exists('../local/layout.php'))
-{
-	$baseUrl = "../local/";
-	//there is custom information, use this
-	require_once('../local/layout.php');
-	$baseUrl .= $currentSelectedTheme."/";
-}
-require_once($baseUrl.'conf/config.php'); 
+
 $versionToRestoreTo = 0;
 if(isset($_POST['versionRevertTo']))
 {
@@ -19,23 +12,7 @@ require_once('../core/php/loadVars.php'); ?>
 <head>
 	<title>Welcome!</title>
 	<link rel="stylesheet" type="text/css" href="../core/template/theme.css">
-	<script src="../core/js/jquery.js"></script>
-	<?php readfile('../core/html/popup.html') ?>	
-	<style type="text/css">
-		#settingsMainVars .settingsHeader{
-			display: none;
-		}
-		li .settingsHeader{
-			display: block !important;
-		}
-		#widthForWatchListSection{
-			width: 100% !important;
-		}
-		#menu a, .link, .linkSmall, .context-menu
-		{
-			background-color: <?php echo $currentSelectedThemeColorValues[0]?>;
-		}
-	</style>
+	<script src="../core/js/jquery.js"></script>	
 </head>
 <body>
 <div style="width: 90%; margin: auto; margin-right: auto; margin-left: auto; display: block; height: auto; margin-top: 15px; max-height: 500px;" >
@@ -147,7 +124,7 @@ function finishedDownload()
 	function moveDirUnzipped()
 	{
 		var urlForSend = urlForSendMain;
-		var data = {action: 'moveDirUnzipped'};
+		var data = {action: 'moveDirUnzipped', version: fileVersionDownload};
 		$.ajax({
 			url: urlForSend,
 			dataType: 'json',
@@ -236,7 +213,7 @@ function finishedDownload()
 		{
 			moveDirUnzipped();
 		}
-		else if(actin == 'moveDirUnzipped')
+		else if(action == 'moveDirUnzipped')
 		{
 			//move from unzipped to actual locations
 			changeDirUnzipped();
@@ -338,6 +315,5 @@ function finishedDownload()
 	}
 	
 </script>
-<script src="stepsJavascript.js"></script>
-<script src="../core/js/settingsMain.js"></script>
+<!-- <script src="../core/js/settingsMain.js"></script> -->
 </html>

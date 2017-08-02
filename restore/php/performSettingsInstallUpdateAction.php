@@ -122,14 +122,14 @@ elseif($action == "changeDirUnzipped")
 	foreach ($files as $thing => $file)
 	{
 		$fileDirNew = '../../'.$file;
-		$fileDirOld = '../../restore/extracted'.$file;
+		$fileDirOld = '../../restore/extracted/'.$file;
 		rename($fileDirOld, $fileDirNew);
 	}
 	$response = true; 
 }
 elseif($action == 'moveDirUnzipped')
 {
-	rename("../../branch-".$_POST['version'], "../../restore/extracted");
+	rename("../../Log-Hog-".$_POST['version'], "../../restore/extracted");
 	$response = true; 
 }
 elseif($action == 'readdSomeFilesFromUninstallProcess')
