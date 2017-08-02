@@ -12,15 +12,12 @@
 	
 function hidePopup()
 {
+	$('#popup').addClass("hidden");
 	setTimeout(function()
 	{ 
-		$('#popup').addClass("hidden");
-		setTimeout(function()
-		{ 
-			document.getElementById('popup').style.display = "none";
-			document.getElementById('popupContentInnerHTMLDiv').innerHTML = "";  
-		}, 2000);  
-	}, 1000);
+		document.getElementById('popup').style.display = "none";
+		document.getElementById('popupContentInnerHTMLDiv').innerHTML = "";  
+	}, 1000);  
 }
 function showPopup()
 {

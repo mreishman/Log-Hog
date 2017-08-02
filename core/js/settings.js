@@ -13,6 +13,7 @@ heightOfMainStyle += heightOfMain;
 heightOfMainStyle += 'px';
 document.getElementById("main").setAttribute("style",heightOfMainStyle);
 var idForm = "";
+var countForVerifySave = 0;
 
 function saveAndVerifyMain(idForForm)
 {
@@ -32,6 +33,7 @@ function saveAndVerifyMain(idForForm)
 
 function verifySaveTimer()
 {
+	countForVerifySave = 0;
 
 }
 
@@ -43,11 +45,19 @@ function timerVerifySave()
 function saveVerified()
 {
 	document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Saved Changes!</div><br><br><div style='width:100%;text-align:center;'> <img src='../core/img/greenCheck.png' height='50' width='50'> </div>";
-	hidePopup();
+	fadeOutPopup();
 }
 
 function saveError()
 {
 	document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Error</div><br><br><div style='width:100%;text-align:center;'> An Error Occured While Saving... </div>";
-	hidePopup();
+	fadeOutPopup();
+}
+
+function fadeOutPopup()
+{
+	setTimeout(function()
+	{ 
+		hidePopup(); 
+	}, 1000);
 }
