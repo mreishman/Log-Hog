@@ -18,7 +18,7 @@ require_once('../core/php/loadVars.php'); ?>
 <html>
 <head>
 	<title>Welcome!</title>
-	<link rel="stylesheet" type="text/css" href="<?php echo $baseUrl ?>template/theme.css">
+	<link rel="stylesheet" type="text/css" href="../core/template/theme.css">
 	<script src="../core/js/jquery.js"></script>
 	<?php readfile('../core/html/popup.html') ?>	
 	<style type="text/css">
@@ -62,7 +62,7 @@ var retryCount = 0;
 var verifyCount = 0;
 var lock = false;
 var directory = "../../top/";
-var urlForSendMain = '../core/php/performSettingsInstallUpdateAction.php?format=json';
+var urlForSendMain = './php/performSettingsInstallUpdateAction.php?format=json';
 var verifyFileTimer = null;
 var dotsTimer = null;
 var fileVersionDownload = null;
@@ -139,7 +139,7 @@ function finishedDownload()
 			complete: function()
 			{
 				//verify if downloaded
-				verifyFile('unzip', '../../branch-'+fileVersionDownload+'/index.php');
+				verifyFile('unzip', '../../Log-Hog-'+fileVersionDownload+'/index.php');
 			}
 		});	
 	}
@@ -270,7 +270,7 @@ function finishedDownload()
 			{
 				//verify if downloaded
 				updateText("Verifying that the directory is empty");
-				verifyFile('cleanDirectory', '../../index.php', false);
+				verifyFile('cleanDirectory', '../index.php', false);
 			}
 		});
 	}
