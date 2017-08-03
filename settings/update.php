@@ -182,15 +182,10 @@ $daysSince = $interval->format('%a');
 			}
 			else if (data.version == "0")
 			{
-				hidePopup();
-				showPopup();
 				document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >No Update Needed</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>You are on the most current version</div><div class='link' onclick='closePopupNoUpdate();' style='margin-left:165px; margin-right:50px;margin-top:25px;'>Okay!</div></div>";
 			}
 			else
 			{
-				hidePopup();
-				//error?
-				showPopup();
 				document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Error</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>An error occured while trying to check for updates. Make sure you are connected to the internet and settingsCheckForUpdate.php has sufficient rights to write / create files. </div><div class='link' onclick='closePopupNoUpdate();' style='margin-left:165px; margin-right:50px;margin-top:5px;'>Okay!</div></div>";
 			}
 			
@@ -206,7 +201,7 @@ $daysSince = $interval->format('%a');
 				clearInterval(timeoutVar);
 				showPopupForUpdate();
 			}
-		}
+		});
 	}
 
 	function showPopupForUpdate()
@@ -239,7 +234,6 @@ $daysSince = $interval->format('%a');
 
 
 		//Update needed
-		hidePopup();
 		showPopup();
 		document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >New Version Available!</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Version "+dataFromJSON.versionNumber+" is now available!</div><div class='link' onclick='installUpdates();' style='margin-left:74px; margin-right:50px;margin-top:25px;'>Update Now</div><div onclick='hidePopup();' class='link'>Maybe Later</div></div>";
 	}
