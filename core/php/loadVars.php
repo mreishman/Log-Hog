@@ -1,10 +1,5 @@
 <?php
 
-require_once('verifyWriteStatus.php');
-checkForUpdate($_SERVER['REQUEST_URI']);
-
-//check for previous update, if failed
-
 $varToIndexDir = "";
 $countOfSlash = 0;
 while($countOfSlash < 20 && !file_exists($varToIndexDir."error.php"))

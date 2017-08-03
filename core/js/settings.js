@@ -14,19 +14,23 @@ heightOfMainStyle += 'px';
 document.getElementById("main").setAttribute("style",heightOfMainStyle);
 var idForm = "";
 var countForVerifySave = 0;
+var pollCheckForUpdate;
+var data;
+var idForFormMain;
 
 function saveAndVerifyMain(idForForm)
 {
+	idForFormMain = idForForm;
 	idForm = "#"+idForForm;
 	displayLoadingPopup();
-	var data = $(idForm).serializeArray();
+	data = $(idForm).serializeArray();
 	$.ajax({
             type: 'post',
             url: '../core/php/settingsSaveAjax.php',
             data: data,
             complete: function () {
               //verify saved
-              saveVerified();
+              verifySaveTimer();
             }
           });
 
@@ -35,12 +39,36 @@ function saveAndVerifyMain(idForForm)
 function verifySaveTimer()
 {
 	countForVerifySave = 0;
-
+	pollCheckForUpdate = setInterval(function(){timerVerifySave();},3000);
 }
 
 function timerVerifySave()
 {
-
+	countForVerifySave++;
+	if(countForVerifySave < 10)
+	{
+		var urlForSend = '../core/php/saveCheck.php?format=json'
+		$.ajax(
+		{
+			url: urlForSend,
+			dataType: 'json',
+			data: data,
+			type: 'POST',
+			success: function(data)
+			{
+				if(data === true)
+				{
+					clearInterval(pollCheckForUpdate);
+					saveVerified();
+				}
+		  	},
+		});
+	}
+	else
+	{
+		clearInterval(pollCheckForUpdate);
+		saveError();
+	}
 }
 
 function saveVerified()
