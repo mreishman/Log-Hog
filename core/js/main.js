@@ -62,14 +62,14 @@ function pollTwoPartOneB()
 			type: 'POST',
 			success: function(data)
 			{
-				if(data)
-				{
-			  		pollTwoPartTwo(data);
-			  	}
-			  	else
+			  	if(data == false)
 			  	{
 			  		showPopup();
 					document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Log-Hog has been updated. Please Refresh</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Log-Hog has been updated, and is now on version "+data+". Please refresh the page.</div><div><div class='link' onclick='location.reload();' style='margin-left:165px; margin-right:50px;margin-top:35px;'>Reload</div></div>";
+			  	}
+			  	else
+			  	{
+			  		pollTwoPartTwo(data);
 			  	}
 			}
 		});	

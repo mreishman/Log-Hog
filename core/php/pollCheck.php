@@ -10,7 +10,11 @@ function tail($filename)
 	return filesize($filename);
 }
 
-if($configStatic['version'] == $_POST['currentVersion'])
+if($configStatic['version'] != $_POST['currentVersion'])
+{
+	$response = false;
+}
+else
 {
 	$response = array();
 
@@ -38,8 +42,5 @@ if($configStatic['version'] == $_POST['currentVersion'])
 		}
 	}
 }
-else
-{
-	$response = false;
-}
+
 echo json_encode($response);
