@@ -1,6 +1,6 @@
 <?php
   
-$arrayOfFiles = array("core_js_main.js", "core_php_settingsCheckForUpdate.php","settings_main.php","settings_update.php");
+$arrayOfFiles = array("core_config.php", "core_html_restoreVersionOptions.html","core_js_loghogDownloadJS.js","core_js_settings.js","core_php_performSettingsInstallUpdateAction.php","core_php_pollCheck.php","core_php_settingsSaveConfigStatic.php","core_php_template_settingsMenuVars.php","core_template_theme.css","index.php","local_default_template_theme.css","restore_php_performSettingsInstallUpdateAction.php","restore_php_settingsInstallUpdate.php","restore_restore.php","settings_advanced.php","settings_changelog.html","settings_devTools.php","settings_header.php","settings_monitorDownload.php","settings_monitorRemove.php","setup_step4.php");
 
 require_once("innerUpgradeStatus.php");
 
@@ -17,9 +17,12 @@ while($countOfSlash < 20 && !file_exists($varToIndexDir."index.php"))
   $varToIndexDir .= "../";        
 }
   
-if($currentFile == "core_js_main.js")
+if($currentFile == "core_config.php")
 {
-   rename($varToIndexDir.$indexToExtracted."core_js_main.php", $varToIndexDir.$indexToExtracted."core_js_main.js");
+   if (!file_exists($varToIndexDir.'restore/')) 
+   {
+   	mkdir($varToIndexDir.'restore/', 0777, true);
+   }
 }
   
 //update innerUpgradeStatus file
@@ -74,7 +77,8 @@ else
   
 updateProgressFile("Finished Running Update Script", "", "updateProgressFileNext.php", "");
 updateProgressFile("Finished Running Update Script", "", "updateProgressFile.php", "");  
-  
+   header( 'Location: ' .$varToIndexDir."update/redirectToWaitUntillUpdate.php");
+  exit; 
 }
 
 
