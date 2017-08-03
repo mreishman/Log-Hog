@@ -1,7 +1,7 @@
 <?php
 
 $versionCheckArray = array(
-	'version'		=> '2.3.3',
+	'version'		=> '2.3.4',
 	'versionList'		=> array(
 		'2.0.1'	        => array(
 			'branchName'	=> '2.0.1Update',
@@ -42,6 +42,10 @@ $versionCheckArray = array(
 		'2.3.3'		=> array(
 			'branchName'	=> '2.3.3Update',
 			'releaseNotes'	=> '<ul><li>Features<ul><li>Downloading Monitor is now part of the setup process</li><li>Added reset changes buttons for some settings pages</li><li>Added ability to reset all (non monitor) vars back to default</li></ul></li><li>Bug Fixes<ul><li>Fixed some bugs wih setup process</li><li>Fixed some bugs with the start of update logic</li></ul></li></ul>'
+		),
+		'2.3.4'		=> array(
+			'branchName'	=> '2.3.4Update',
+			'releaseNotes'	=> '<ul><li>Features<ul><li>Added a setting to hide / show bottom bar on index page.</li><li>Added sub menu for main settings page.</li><li>Added ability to customise location of status / monitor</li><li>Added dev setting to change local version number</li><li>Added ability to download / remove monitor after setup process</li><li>Added ability to restore to previous version of Log-Hog</li></ul></li></ul>'
 		)
 	)
 );
