@@ -72,8 +72,41 @@ $withLogHog = $monitorStatus['withLogHog'];
 			</ul>
 		</div>
 	</form>
+	<form id="locationOtherApps" action="../core/php/settingsSave.php" method="post">
 		<div class="settingsHeader">
-			Reset Config Values back to default
+			File Locations
+			<div class="settingsHeaderButtons">
+				<button onclick="displayLoadingPopup();" >Save Changes</button>
+			</div>
+		</div>
+		<div class="settingsDiv" >
+			<?php
+			//logic for urls
+
+			if($locationForStatus == "")
+			{
+				$locationForStatus = "https://" . $_SERVER['SERVER_NAME']."/status";
+			}
+			if($locationForMonitor == "")
+			{
+				$locationForMonitor = "https://" . $_SERVER['SERVER_NAME']."/monitor";
+			}
+			?>
+			<ul id="settingsUl">
+				<li>
+					<span class="settingsBuffer" >  Status Location:  </span> <input type="text" style="width: 400px;"  name="locationForStatus" value="<?php echo $locationForStatus;?>" > 
+				</li>
+				<li>
+					<span class="settingsBuffer" >  Monitor Location:  </span> <input type="text" style="width: 400px;"  name="locationForMonitor" value="<?php echo $locationForMonitor;?>" > 
+				</li>
+				<li>
+					<span style="font-size: 75%;">*<i>Please specify full url, blank if none</i></span>
+				</li>
+			</ul>
+		</div>
+	</form>
+		<div class="settingsHeader">
+			Advanced
 		</div>
 		<div class="settingsDiv" >
 			<ul id="settingsUl">
@@ -92,6 +125,16 @@ $withLogHog = $monitorStatus['withLogHog'];
 					</li>
 					<?php endif; ?>
 				</form>
+				<li>
+					<a onclick="revertPopup();" class="link">Revert to Previous Version</a>
+				</li>
+				<li>
+				<?php if($withLogHog == 'true'): ?>
+					<a onclick="removeLoghog();" class="link">Remove Monitor</a>
+				<?php else: ?>
+					<a onclick="downloadLogHog();" class="link">Download Monitor</a>
+				<?php endif; ?>
+				</li>
 			</ul>
 		</div>
 	</div>
@@ -118,10 +161,31 @@ $withLogHog = $monitorStatus['withLogHog'];
 		}
 	}
 
+	function downloadLogHog()
+	{
+		window.location.href = 'monitorDownload.php';
+	}
+
+	function removeLoghog()
+	{
+		window.location.href = 'monitorRemove.php';
+	}
+
 	function resetSettingsPopup()
 	{
 		showPopup();
 		document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Reset Settings?</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Are you sure you want to reset all settings back to defaults?</div><div class='link' onclick='submitResetSettings();' style='margin-left:125px; margin-right:50px;margin-top:25px;'>Yes</div><div onclick='hidePopup();' class='link'>No</div></div>";
+	}
+
+	function revertPopup()
+	{
+		showPopup();
+		document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Go back to previous version?</div><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Are you sure you want to revert back to a previous version? Version: <?php readfile('../core/html/restoreVersionOptions.html') ?> </div><div class='link' onclick='submitRevert();' style='margin-left:125px; margin-right:50px;margin-top:25px;'>Yes</div><div onclick='hidePopup();' class='link'>No</div></div>";
+	}
+
+	function submitRevert()
+	{
+		document.getElementById('revertForm').submit();
 	}
 
 	function submitResetSettings()

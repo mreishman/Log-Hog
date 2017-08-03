@@ -17,6 +17,14 @@
 				
 			</li>
 			<li>
+				<span class="settingsBuffer" > Show Lower Bar: </span>
+				<select name="bottomBarIndexShow">
+						<option <?php if($bottomBarIndexShow == 'true'){echo "selected";} ?> value="true">True</option>
+						<option <?php if($bottomBarIndexShow == 'false'){echo "selected";} ?> value="false">False</option>
+				</select>
+				
+			</li>
+			<li> 
 				<span class="settingsBuffer" > Group 
 					<select name="groupByType">
 						<option <?php if($groupByType == 'folder'){echo "selected";} ?> value="folder">Folders</option>

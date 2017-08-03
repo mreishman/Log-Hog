@@ -47,6 +47,23 @@ require_once('../core/php/updateCheck.php');
 
 		</div>
 	</form>
+	<form id="devAdvanced2" action="../core/php/settingsSaveConfigStatic.php" method="post">
+		<div class="settingsHeader">
+			Static Config Settings  
+			<div class="settingsHeaderButtons">
+				<button onclick="displayLoadingPopup();" >Save Changes</button>
+			</div>
+		</div>
+		<div class="settingsDiv" >
+			<ul id="settingsUl">
+				<li>
+					<span class="settingsBuffer" >  Version Number:  </span> <input type="text" style="width: 400px;"  name="version" value="<?php echo $configStatic['version'];?>" > 
+				</li>
+			</ul>
+			
+
+		</div>
+	</form>
 	</div>
 	<?php readfile('../core/html/popup.html') ?>	
 </body>

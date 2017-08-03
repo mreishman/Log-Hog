@@ -43,6 +43,37 @@ if($pollingRateType == 'Seconds')
 require_once('top/statusTest.php');
 $withLogHog = $monitorStatus['withLogHog'];
 
+$locationForStatusIndex = "";
+if($locationForStatus != "")
+{
+	$locationForStatusIndex = $locationForStatus;
+}
+elseif (is_dir("../status"))
+{
+	$locationForStatusIndex = "../status/";
+}
+elseif (is_dir("../Status"))
+{
+	$locationForStatusIndex = "../Status/";
+}
+
+$locationForMonitorIndex = "";
+if($locationForMonitor != "")
+{
+	$locationForMonitorIndex = $locationForMonitor;
+}
+elseif (is_dir("../monitor"))
+{
+	$locationForMonitorIndex = "../monitor/";
+}
+elseif (is_dir("../Monitor"))
+{
+	$locationForMonitorIndex = "../Monitor/";
+}
+elseif($withLogHog == 'true')
+{
+	$locationForMonitorIndex = './top/index.php';
+}
 
 ?>
 <!doctype html>
@@ -81,8 +112,8 @@ $withLogHog = $monitorStatus['withLogHog'];
 			<img id="deleteImage" class="menuImage" src="core/img/trashCan.png" height="30px">
 		</div>
 		<?php endif; ?>
-		<?php if($withLogHog == 'true'): ?>
-		<div onclick="window.location.href = './top/index.php'" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">
+		<?php if($locationForMonitorIndex != ""): ?>
+		<div onclick="window.location.href = '<?php echo $locationForMonitorIndex; ?>'" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">
 			<img id="taskmanagerImage" class="menuImage" src="core/img/task-manager.png" height="30px">
 		</div>
 		<?php endif; ?>
@@ -90,8 +121,8 @@ $withLogHog = $monitorStatus['withLogHog'];
 			<img data-id="1" id="gear" class="menuImage" src="core/img/Gear.png" height="30px">
 			<?php  if($levelOfUpdate == 1){echo '<img id="updateImage" src="core/img/yellowWarning.png" height="15px" style="position: absolute;margin-left: 13px;margin-top: -34px;">';} ?> <?php if($levelOfUpdate == 2 || $levelOfUpdate == 3){echo '<img id="updateImage" src="core/img/redWarning.png" height="15px" style="position: absolute;margin-left: 13px;margin-top: -34px;">';} ?>
 		</div>
-		<?php if (is_dir("../status")):?>
-			<div style="display: inline-block; cursor: pointer; " onclick="window.location.href='../status/'" >gS</div>
+		<?php if ($locationForStatusIndex != ""):?>
+			<div style="display: inline-block; cursor: pointer; " onclick="window.location.href='<?php echo $locationForStatusIndex; ?>'" >gS</div>
 		<?php endif; ?>
 	</div>
 	
@@ -105,7 +136,7 @@ $withLogHog = $monitorStatus['withLogHog'];
 		</div>
 	</div>
 	
-	<div id="titleContainer"><div id="title">&nbsp;</div>&nbsp;&nbsp;<form style="display: inline-block;" ><a class="linkSmall" onclick="clearLog()" >Clear Log</a><a class="linkSmall" onclick="deleteLogPopup()" >Delete Log</a></form></div>
+	<div style=" <?php if($bottomBarIndexShow == 'false'){echo 'display: none;';}?> " id="titleContainer"><div id="title">&nbsp;</div>&nbsp;&nbsp;<form style="display: inline-block;" ><a class="linkSmall" onclick="clearLog()" >Clear Log</a><a class="linkSmall" onclick="deleteLogPopup()" >Delete Log</a></form></div>
 	<form id="settingsInstallUpdate" action="update/updater.php" method="post" style="display: none"></form>
 	<script>
 
