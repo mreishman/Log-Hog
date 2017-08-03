@@ -27,11 +27,107 @@ require_once($varToIndexDir.'core/conf/config.php');
 
 $response = true;
 
+
+$arrayWatchList = "";
+if(isset($_POST['numberOfRows']))
+{
+	for($i = 1; $i <= $_POST['numberOfRows']; $i++ )
+	{
+		$arrayWatchList .= "'".$_POST['watchListKey'.$i]."' => '".$_POST['watchListItem'.$i]."'";
+		if($i != $_POST['numberOfRows'])
+		{
+			$arrayWatchList .= ",";
+		}
+	}
+	$watchListSave = $arrayWatchList;
+	$arrayWatchList = "";	
+
+	$numberOfRows = count($config['watchList']);
+	$i = 0;
+	foreach ($config['watchList'] as $key => $value) 
+	{
+		$i++;
+		$arrayWatchList .= "'".$key."' => '".$value."'";
+		if($i != $numberOfRows)
+		{
+			$arrayWatchList .= ",";
+		}
+	}
+	$watchList = $arrayWatchList;
+}
+
+if(isset($_POST['saveSettings']))
+{
+	$popupSettingsArraySave = "";
+	$count = 0;
+	foreach ($config['popupSettingsArray'] as $key => $value)
+	{
+		$popupSettingsArraySave .= "'".$key."'	=>	'".$value."'";
+		$count++;
+		if($count != 4)
+		{
+			$popupSettingsArraySave .= ",";
+		}
+	}
+	$popupSettingsArray = $popupSettingsArraySave;
+
+	$popupSettingsArraySave = "
+	'saveSettings'	=>	'".$_POST['saveSettings']."',
+	'blankFolder'	=>	'".$_POST['blankFolder']."',
+	'deleteLog'	=>	'".$_POST['deleteLog']."',
+	'removeFolder'	=> 	'".$_POST['removeFolder']."',
+	'versionCheck'	=> '".$_POST['versionCheck']."'
+	";
+}
+
+if(isset($_POST['folderThemeCount']))
+{
+	$folderColorArraysSave = "";
+	$count = 0;
+	foreach ($config['folderColorArrays'] as $key => $value)
+	{
+		$folderColorArraysSave .= "'".$key."'	=>	array(";
+		$count++;
+		foreach ($value as $key2 => $value2) 
+		{
+			$folderColorArraysSave .= "'".$value2."',";
+		}
+		$folderColorArraysSave = substr($folderColorArraysSave, 0, -1);
+		$folderColorArraysSave .= ")";
+		$folderColorArraysSave .= ",";
+	}
+	$folderColorArrays = $folderColorArraysSave;
+	$folderColorArraysSave = "";
+	$intFolderThemeCount = intval($_POST['folderThemeCount']);
+	for($i = 0; $i < $intFolderThemeCount; $i++ )
+	{
+		$folderColorArraysSave .= "'".$_POST['folderColorThemeNameForPost'.($i+1)]."'	=>	array(";
+		$colorCount = 0;
+		while (isset($_POST['folderColorValue'.($i+1).'-'.($colorCount+1)])) 
+		{
+			$colorCount++;
+			$folderColorArraysSave .= "'".$_POST['folderColorValue'.($i+1).'-'.($colorCount)]."',";
+		}
+		$folderColorArraysSave = substr($folderColorArraysSave, 0, -1);
+		$folderColorArraysSave .= ")";
+		$folderColorArraysSave .= ",";
+	}
+}
+
 foreach ($defaultConfig as $key => $value)
 {
 	if(isset($_POST[$key]))
 	{
 		if($_POST[$key] != $config[$key])
+		{
+			$response = false;
+			break;
+		}
+	}
+	elseif(isset($$key))
+	{
+		$key2 = $key."Save";
+		if($$key != $$key2)
 		{
 			$response = false;
 			break;
