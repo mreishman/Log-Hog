@@ -56,7 +56,11 @@ else
 		<div class="settingsHeader">
 		Experimental Features 
 			<div class="settingsHeaderButtons">
-				<button onclick="displayLoadingPopup();" >Save Changes</button>
+				<?php if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
+					<a class="linkSmall" onclick="saveAndVerifyMain('devAdvanced');" >Save Changes</a>
+				<?php else: ?>
+					<button  onclick="displayLoadingPopup();">Save Changes</button>
+				<?php endif; ?>
 			</div>
 		</div>
 		<div class="settingsDiv" >

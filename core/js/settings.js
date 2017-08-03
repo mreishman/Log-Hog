@@ -17,12 +17,13 @@ var countForVerifySave = 0;
 
 function saveAndVerifyMain(idForForm)
 {
-	idForm = idForForm;
+	idForm = "#"+idForForm;
 	displayLoadingPopup();
+	var data = $(idForm).serializeArray();
 	$.ajax({
             type: 'post',
             url: '../core/php/settingsSaveAjax.php',
-            data: $(idForm).serialize(),
+            data: data,
             complete: function () {
               //verify saved
               saveVerified();

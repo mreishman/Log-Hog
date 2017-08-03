@@ -29,7 +29,11 @@ $withLogHog = $monitorStatus['withLogHog'];
 		<div class="settingsHeader">
 			Development  
 			<div class="settingsHeaderButtons">
-				<button onclick="displayLoadingPopup();" >Save Changes</button>
+				<?php if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
+					<a class="linkSmall" onclick="saveAndVerifyMain('devAdvanced');" >Save Changes</a>
+				<?php else: ?>
+					<button  onclick="displayLoadingPopup();">Save Changes</button>
+				<?php endif; ?>
 			</div>
 		</div>
 		<div class="settingsDiv" >
@@ -48,7 +52,11 @@ $withLogHog = $monitorStatus['withLogHog'];
 		<div class="settingsHeader">
 			Logging Information 
 			<div class="settingsHeaderButtons">
-				<button onclick="displayLoadingPopup();" >Save Changes</button>
+				<?php if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
+					<a class="linkSmall" onclick="saveAndVerifyMain('loggingDisplay');" >Save Changes</a>
+				<?php else: ?>
+					<button  onclick="displayLoadingPopup();">Save Changes</button>
+				<?php endif; ?>
 			</div>
 		</div>
 		<div class="settingsDiv" >
@@ -76,7 +84,11 @@ $withLogHog = $monitorStatus['withLogHog'];
 		<div class="settingsHeader">
 			File Locations
 			<div class="settingsHeaderButtons">
-				<button onclick="displayLoadingPopup();" >Save Changes</button>
+				<?php if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
+					<a class="linkSmall" onclick="saveAndVerifyMain('locationOtherApps');" >Save Changes</a>
+				<?php else: ?>
+					<button  onclick="displayLoadingPopup();">Save Changes</button>
+				<?php endif; ?>
 			</div>
 		</div>
 		<div class="settingsDiv" >
