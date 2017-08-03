@@ -4,18 +4,19 @@ $arrayOfFiles = array("core_js_main.js", "core_php_settingsCheckForUpdate.php","
 
 require_once("innerUpgradeStatus.php");
 
-if($innerUpdateProgress['currentFile'] < sizeOf($arrayOfFiles))
-{
- 
-sleep(2); 
-$currentFile = $arrayOfFiles[$innerUpdateProgress['currentFile']]; 
-$indexToExtracted = "update/downloads/updateFiles/extracted/";  
 $varToIndexDir = "";
 $countOfSlash = 0;
 while($countOfSlash < 20 && !file_exists($varToIndexDir."index.php"))
 {
   $varToIndexDir .= "../";        
 }
+
+if($innerUpdateProgress['currentFile'] < sizeOf($arrayOfFiles))
+{
+ 
+sleep(2); 
+$currentFile = $arrayOfFiles[$innerUpdateProgress['currentFile']]; 
+$indexToExtracted = "update/downloads/updateFiles/extracted/";  
   
 if($currentFile == "core_js_main.js")
 {
