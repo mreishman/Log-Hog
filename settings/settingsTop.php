@@ -20,7 +20,7 @@ $seperateFromLogHog = true;
 if(file_exists('../top/statusTest.php'))
 {
 	require_once('../top/statusTest.php');
-	if($monitorStatus['withLogHog'] == 'false')
+	if($monitorStatus['withLogHog'] == 'true')
 	{
 		$seperateFromLogHog = false;
 	}
