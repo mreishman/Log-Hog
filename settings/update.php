@@ -161,6 +161,9 @@ $daysSince = $interval->format('%a');
 <script type="text/javascript">
 
 	var timeoutVar;
+	var dataFromJSON;
+	var checkForUpdateTimerVar;
+	var currentVersion = "<?php echo $configStatic['version']?>";
 
 	function goToUrl(url)
 	{
@@ -174,37 +177,8 @@ $daysSince = $interval->format('%a');
 		{
 			if(data.version == "1" || data.version == "2" | data.version == "3")
 			{
-				document.getElementById('noUpdate').style.display = "none";
-				document.getElementById('minorUpdate').style.display = "none";
-				document.getElementById('majorUpdate').style.display = "none";
-				document.getElementById('NewXReleaseUpdate').style.display = "none";
-
-				if(data.version == "1")
-				{
-					document.getElementById('minorUpdate').style.display = "block";
-					document.getElementById('minorUpdatesVersionNumber').innerHTML = data.versionNumber;
-				}
-				else if (data.version == "2")
-				{
-					document.getElementById('majorUpdate').style.display = "block";
-					document.getElementById('majorUpdatesVersionNumber').innerHTML = data.versionNumber;
-				}
-				else
-				{
-					document.getElementById('NewXReleaseUpdate').style.display = "block";
-					document.getElementById('veryMajorUpdatesVersionNumber').innerHTML = data.versionNumber;
-				}
-
-
-				document.getElementById('releaseNotesHeader').style.display = "block";
-				document.getElementById('releaseNotesBody').style.display = "block";
-				document.getElementById('releaseNotesBody').innerHTML = data.changeLog;
-
-
-				//Update needed
-				hidePopup();
-				showPopup();
-				document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >New Version Available!</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Version "+data.versionNumber+" is now available!</div><div class='link' onclick='installUpdates();' style='margin-left:74px; margin-right:50px;margin-top:25px;'>Update Now</div><div onclick='hidePopup();' class='link'>Maybe Later</div></div>";
+				dataFromJSON = data;
+				checkForUpdateTimerVar = setInterval(function(){checkForUpdateTimer();},3000);
 			}
 			else if (data.version == "0")
 			{
@@ -221,6 +195,53 @@ $daysSince = $interval->format('%a');
 			}
 			
 		});
+	}
+
+	function checkForUpdateTimer()
+	{
+		$.getJSON('../core/php/configStaticCheck.php', {}, function(data) 
+		{
+			if(currentVersion != data)
+			{
+				clearInterval(timeoutVar);
+				showPopupForUpdate();
+			}
+		}
+	}
+
+	function showPopupForUpdate()
+	{
+		document.getElementById('noUpdate').style.display = "none";
+		document.getElementById('minorUpdate').style.display = "none";
+		document.getElementById('majorUpdate').style.display = "none";
+		document.getElementById('NewXReleaseUpdate').style.display = "none";
+
+		if(dataFromJSON.version == "1")
+		{
+			document.getElementById('minorUpdate').style.display = "block";
+			document.getElementById('minorUpdatesVersionNumber').innerHTML = dataFromJSON.versionNumber;
+		}
+		else if (dataFromJSON.version == "2")
+		{
+			document.getElementById('majorUpdate').style.display = "block";
+			document.getElementById('majorUpdatesVersionNumber').innerHTML = dataFromJSON.versionNumber;
+		}
+		else
+		{
+			document.getElementById('NewXReleaseUpdate').style.display = "block";
+			document.getElementById('veryMajorUpdatesVersionNumber').innerHTML = dataFromJSON.versionNumber;
+		}
+
+
+		document.getElementById('releaseNotesHeader').style.display = "block";
+		document.getElementById('releaseNotesBody').style.display = "block";
+		document.getElementById('releaseNotesBody').innerHTML = dataFromJSON.changeLog;
+
+
+		//Update needed
+		hidePopup();
+		showPopup();
+		document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >New Version Available!</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Version "+dataFromJSON.versionNumber+" is now available!</div><div class='link' onclick='installUpdates();' style='margin-left:74px; margin-right:50px;margin-top:25px;'>Update Now</div><div onclick='hidePopup();' class='link'>Maybe Later</div></div>";
 	}
 
 	function closePopupNoUpdate()
