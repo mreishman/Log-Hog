@@ -285,17 +285,17 @@ div {
 	text-align: left;
 }
 
-#processIDs table tr td{
+#processIds table tr td{
 	max-width: 50px;
 	overflow: hidden;
 	white-space: nowrap;
 }
 
-#processIDs table tr:hover td .expandMenu{
+#processIds table tr:hover td .expandMenu{
 	color: black;
 }
 
-#processIDs table tr td .expandMenu{
+#processIds table tr td .expandMenu{
 	color: #191919;
 }
 
