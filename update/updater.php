@@ -187,9 +187,6 @@ if(!$noUpdateNeeded)
 		$updateStatus = "Running Update Script For ";
 		$updateAction = "handOffToUpdate";
 	}
-
-	updateProgressFile($updateStatus, "../core/php/", "updateProgressFileNext.php", $updateAction);
-	updateProgressFile($updateStatus, "../core/php/", "updateProgressFile.php", $updateAction);
 }
 require_once('../core/php/updateProgressFileNext.php');
 $newestVersionCheck = '"'.$configStatic['newestVersion'].'"';
@@ -233,9 +230,96 @@ $versionCheck = '"'.$configStatic['version'].'"';
 
 <script src="../core/js/settings.js"></script>
 <script type="text/javascript"> 
-	var updateAction = '<?php echo $updateAction; ?>'
+	var updateStatus = '<?php echo $updateStatus; ?>'
 	var headerForUpdate = document.getElementById('headerForUpdate');
 	var timer;
+
+
+	if(updateStatus == "Downloading Zip Files For ")
+	{
+		//start download
+	}
+	else if(updateStatus == "Extracting Zip Files For ")
+	{
+		//already downloaded, verify download then extract
+	}
+	else if(updateStatus == "Removing Extracted Files")
+	{
+		//remove extracted files
+	}
+	else if(updateStatus == "Removing Zip File")
+	{
+		//remove zip
+	}
+
+	//timer = setInterval(function(){ajaxCheck();},3000);
+
+	function updateStatus()
+	{
+		//updateProgressFile($updateStatus, "../core/php/", "updateProgressFileNext.php", $updateAction);
+		//updateProgressFile($updateStatus, "../core/php/", "updateProgressFile.php", $updateAction);
+	}
+
+	function ajaxCheck()
+	{
+		var urlForSend = './updateCheck.php?format=json'
+		var data = {status: updateStatus };
+		$.ajax(
+		{
+			url: urlForSend,
+			dataType: 'json',
+			data: data,
+			type: 'POST',
+			success: function(data)
+			{
+				if(data == updateStatus)
+				{
+					clearInterval(timer);
+					//saved, move on to next action
+				}
+		  	},
+		});
+	}
+
+	function downloadBranch()
+	{
+
+	}
+
+	function unzipBranch()
+	{
+		//this builds array of file to copy (check if top is insalled for files copy)
+	}
+
+	function verifyFileCheck()
+	{
+
+	}
+
+	function preScripRun()
+	{
+
+	}
+
+	function copyFileFromArray()
+	{
+
+	}
+
+	function postScriptRun()
+	{
+
+	}
+
+	function removeExtractedDir()
+	{
+
+	}
+
+	function removeDownloadedZip()
+	{
+
+	}
 	
 </script> 
 
