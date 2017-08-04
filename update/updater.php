@@ -212,7 +212,7 @@ $versionCheck = '"'.$configStatic['version'].'"';
 	</div>
 	<div class="settingsDiv" >
 		<div class="updatingDiv">
-			<progress value="0" max="100" style="width: 95%; margin-top: 10px; margin-bottom: 10px; margin-left: 2.5%;" ></progress>
+			<progress id="progressBar" value="0" max="100" style="width: 95%; margin-top: 10px; margin-bottom: 10px; margin-left: 2.5%;" ></progress>
 			<p style="border-bottom: 1px solid white;"></p>
 			<div id="innerDisplayUpdate" style="height: 300px;">
 
@@ -236,6 +236,14 @@ $versionCheck = '"'.$configStatic['version'].'"';
 	var retryCount = 0;
 	var verifyFileTimer;
 	var versionToUpdateTo = "<?php echo $versionToUpdate; ?>";
+	var percent = 0;
+	var total = 100*1;
+
+	function updateProgressBar(additonalPercent)
+	{
+		percent = percent + additonalPercent;
+		document.getElementById('progressBar').value = percent/total;
+	}
 
 
 	function updateText(text)
@@ -313,7 +321,7 @@ $versionCheck = '"'.$configStatic['version'].'"';
 			{
 				//verify if downloaded
 				updateText("Verifying Download");
-				verifyFile('downloadMonitor', '../../updateFiles.zip');
+				verifyFile('downloadLogHog', '../../updateFiles.zip');
 			}
 		});	
 
@@ -384,6 +392,38 @@ $versionCheck = '"'.$configStatic['version'].'"';
 	{
 		clearInterval(dotsTimer);
 		document.getElementById('innerSettingsText').innerHTML = "<p>An error occured while trying to download Monitor. </p>";
+	}
+
+	function verifyFail(action)
+	{
+		//failed? try again?
+		retryCount++;
+		if(retryCount >= 3)
+		{
+			//stop trying, give up :c
+			updateError();
+		}
+		else
+		{
+			if(action == 'downloadLogHog')
+			{
+				updateText("File Could NOT be found");
+				downloadFile();
+			}
+		}
+	}
+
+	function verifySucceded(action)
+	{
+		//downloaded, extract
+		retryCount = 0;
+		if(action == 'downloadLogHog')
+		{
+			updateProgressBar(10);
+			updateText("File Download Verified");
+			updateText("Unzipping Downloaded File");
+			unzipFile();
+		}
 	}
 
 	function preScripRun()
