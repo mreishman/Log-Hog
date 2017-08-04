@@ -221,7 +221,7 @@ $versionCheck = '"'.$configStatic['version'].'"';
 			<div class="settingsHeader">
 			Log Info
 			</div>
-			<div class="settingsDiv" style="height: 75px; overflow-y: scroll;" >
+			<div id="innerSettingsText" class="settingsDiv" style="height: 75px; overflow-y: scroll;" >
 				<?php require_once('../core/php/updateProgressLog.php'); ?>
 			</div>
 		</div>
@@ -232,24 +232,35 @@ $versionCheck = '"'.$configStatic['version'].'"';
 <script type="text/javascript"> 
 	var updateStatus = '<?php echo $updateStatus; ?>'
 	var headerForUpdate = document.getElementById('headerForUpdate');
-	var timer;
+	var urlForSendMain = '../core/php/performSettingsInstallUpdateAction.php?format=json';
+	var retryCount = 0;
+	var verifyFileTimer;
+	var versionToUpdateTo = "<?php echo $versionToUpdate; ?>";
 
 
-	if(updateStatus == "Downloading Zip Files For ")
+	function updateText(text)
 	{
-		//start download
+		document.getElementById('innerSettingsText').innerHTML = "<p>"+text+"</p>"+document.getElementById('innerSettingsText').innerHTML;
 	}
-	else if(updateStatus == "Extracting Zip Files For ")
+
+	function pickNextAction()
 	{
-		//already downloaded, verify download then extract
-	}
-	else if(updateStatus == "Removing Extracted Files")
-	{
-		//remove extracted files
-	}
-	else if(updateStatus == "Removing Zip File")
-	{
-		//remove zip
+		if(updateStatus == "Downloading Zip Files For ")
+		{
+			downloadBranch();
+		}
+		else if(updateStatus == "Extracting Zip Files For ")
+		{
+			//already downloaded, verify download then extract
+		}
+		else if(updateStatus == "Removing Extracted Files")
+		{
+			//remove extracted files
+		}
+		else if(updateStatus == "Removing Zip File")
+		{
+			//remove zip
+		}
 	}
 
 	//timer = setInterval(function(){ajaxCheck();},3000);
@@ -283,6 +294,28 @@ $versionCheck = '"'.$configStatic['version'].'"';
 
 	function downloadBranch()
 	{
+		if(retryCount == 0)
+		{
+			updateText("Downloading Update");
+		}
+		else
+		{
+			updateText("Attempt "+(retryCount+1)+" of 3 for downloading Update");
+		}
+		var urlForSend = urlForSendMain;
+		var data = {action: 'downloadFile', file: versionToUpdateTo,downloadFrom: 'Log-Hog/archive/', downloadTo: '../../update/downloads/updateFiles/updateFiles.zip'};
+		$.ajax({
+			url: urlForSend,
+			dataType: 'json',
+			data: data,
+			type: 'POST',
+			complete: function()
+			{
+				//verify if downloaded
+				updateText("Verifying Download");
+				verifyFile('downloadMonitor', '../../updateFiles.zip');
+			}
+		});	
 
 	}
 
@@ -291,9 +324,66 @@ $versionCheck = '"'.$configStatic['version'].'"';
 		//this builds array of file to copy (check if top is insalled for files copy)
 	}
 
-	function verifyFileCheck()
+	function verifyFile(action, fileLocation,isThere = true)
 	{
+		verifyCount = 0;
+		updateText('Verifying '+action+' with'+fileLocation);
+		verifyFileTimer = setInterval(function(){verifyFilePoll(action,fileLocation,isThere);},6000);
+	}
 
+	function verifyFilePoll(action, fileLocation,isThere)
+	{
+		if(lock == false)
+		{
+			lock = true;
+			updateText('verifying '+(verifyCount+1)+' of 10');
+			var urlForSend = urlForSendMain;
+			var data = {action: 'verifyFileIsThere', fileLocation: fileLocation, isThere: isThere , lastAction: action};
+			(function(_data){
+				$.ajax({
+					url: urlForSend,
+					dataType: 'json',
+					data: data,
+					type: 'POST',
+					success: function(data)
+					{
+						verifyPostEnd(data, _data);
+					},
+					failure: function(data)
+					{
+						verifyPostEnd(data, _data);
+					},
+					complete: function()
+					{
+						lock = false;
+					}
+				});	
+			}(data));
+		}
+	}
+
+	function verifyPostEnd(verified, data)
+	{
+		if(verified == true)
+		{
+			clearInterval(verifyFileTimer);
+			verifySucceded(data['lastAction']);
+		}
+		else
+		{
+			verifyCount++;
+			if(verifyCount > 9)
+			{
+				clearInterval(verifyFileTimer);
+				verifyFail(data['lastAction']);
+			}
+		}
+	}
+
+	function updateError()
+	{
+		clearInterval(dotsTimer);
+		document.getElementById('innerSettingsText').innerHTML = "<p>An error occured while trying to download Monitor. </p>";
 	}
 
 	function preScripRun()

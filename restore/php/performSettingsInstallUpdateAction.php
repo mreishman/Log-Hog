@@ -4,7 +4,15 @@ $action = $_POST['action'];
 $response = $action;
 if($action == 'downloadFile')
 {
-	downloadFile($_POST['file'],false,$_POST['downloadFrom'],$_POST['downloadTo']);
+	$boolUp = false;
+	if(isset($_POST['update']))
+	{
+		if($_POST['update'] == true)
+		{
+			$boolUp = true;
+		}
+	}
+	downloadFile($_POST['file'],$boolUp,$_POST['downloadFrom'],$_POST['downloadTo']);
 	$response = true; 
 }
 elseif($action == 'unzipFile')
