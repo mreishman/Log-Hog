@@ -90,12 +90,12 @@ if($configStatic['newestVersion'] != $configStatic['version'])
 	}
 }
 
+if($levelOfUpdate == 0)
+{
+	$noUpdateNeeded = true;
+}
 
-?>
-
-
-
-<?php if(!$noUpdateNeeded)
+if(!$noUpdateNeeded)
 {
 
 	$updateStatus = "";
@@ -188,7 +188,6 @@ if($configStatic['newestVersion'] != $configStatic['version'])
 		$updateAction = "handOffToUpdate";
 	}
 
-
 	updateProgressFile($updateStatus, "../core/php/", "updateProgressFileNext.php", $updateAction);
 	updateProgressFile($updateStatus, "../core/php/", "updateProgressFile.php", $updateAction);
 }
@@ -196,9 +195,6 @@ require_once('../core/php/updateProgressFileNext.php');
 $newestVersionCheck = '"'.$configStatic['newestVersion'].'"';
 $versionCheck = '"'.$configStatic['version'].'"';
 ?>
-
-
-
 
 <!doctype html>
 <head>
@@ -212,77 +208,36 @@ $versionCheck = '"'.$configStatic['version'].'"';
 
 <div id="main">
 	<div class="settingsHeader" style="text-align: center;" >
-	<?php if($noUpdateNeeded): ?>
-		<h1>Finished Updating!</h1>
-	<?php else: ?>
 		<h1>Updating to version <?php echo $configStatic['newestVersion'] ; ?></h1>
-	<?php endif; ?>
-	<?php if($newestVersionCheck == $versionCheck): ?>
-	<div id="menu" style="margin-right: auto; margin-left: auto; position: relative;">
-		<a onclick="window.location.href = '../settings/update.php'">Back to Log-Hog</a>
-	</div>
-	<?php endif; ?>
+		<div id="menu" style="margin-right: auto; margin-left: auto; position: relative; display: none;">
+			<a onclick="window.location.href = '../settings/update.php'">Back to Log-Hog</a>
+		</div>
 	</div>
 	<div class="settingsDiv" >
 		<div class="updatingDiv">
-			<?php 
-			if( $newestVersionCheck != $versionCheck)
-			{
-				require_once('../core/php/updateProgressLogHead.php');
-			}
-			?>
+			<progress value="0" max="100" style="width: 95%; margin-top: 10px; margin-bottom: 10px; margin-left: 2.5%;" ></progress>
 			<p style="border-bottom: 1px solid white;"></p>
-			<?php require_once('../core/php/updateProgressLog.php'); ?>
+			<div id="innerDisplayUpdate" style="height: 300px;">
+
+			</div>
+			<p style="border-bottom: 1px solid white;"></p>
+			<div class="settingsHeader">
+			Log Info
+			</div>
+			<div class="settingsDiv" style="height: 75px; overflow-y: scroll;" >
+				<?php require_once('../core/php/updateProgressLog.php'); ?>
+			</div>
 		</div>
 	</div>
 </div>
-<form id="formForAction" method="post" action="../core/php/updateActionFile.php" style="display: none;">
-<?php if(!empty($updateAction)): ?>
-	<input type="text" name="actionVar" value="<?php echo $updateAction ;?>">
-<?php else: ?>
-	<input type="text" name="actionVar" value="">
-<?php endif; ?>	
-<?php if(!empty($requiredVars)): ?>
-	<input type="text" name="requiredVars" value="<?php echo $requiredVars ;?>">
-<?php else: ?>
-	<input type="text" name="requiredVars" value="">
-<?php endif; ?>	
-</form>
+
 <script src="../core/js/settings.js"></script>
-<?php if(!$noUpdateNeeded): ?>
-	<script type="text/javascript"> 
-		var updateAction = '<?php echo $updateAction; ?>'
-		var headerForUpdate = document.getElementById('headerForUpdate');
-		var timer;
-		setInterval(function() {headerForUpdate.innerHTML = headerForUpdate.innerHTML + ' .';}, '100');
-		if("Finished Updating to " != "<?php echo $updateAction;?>" || "<?php echo $configStatic['newestVersion'] ;?>" != "<?php echo $configStatic['version']; ?>")
-		{
-			timer = setInterval(function(){ajaxCheck();},3000);
-		}
-
-		function ajaxCheck()
-		{
-			var urlForSend = './updateActionCheck.php?format=json'
-			var data = {status: updateAction };
-			$.ajax(
-			{
-				url: urlForSend,
-				dataType: 'json',
-				data: data,
-				type: 'POST',
-				success: function(data)
-				{
-					if(data == updateAction)
-					{
-						clearInterval(timer);
-						document.getElementById("formForAction").submit();
-					}
-			  	},
-			});
-		}
-	</script> 
-<?php endif; ?>
-
+<script type="text/javascript"> 
+	var updateAction = '<?php echo $updateAction; ?>'
+	var headerForUpdate = document.getElementById('headerForUpdate');
+	var timer;
+	
+</script> 
 
 <?php 
 if($newestVersionCheck == $versionCheck)
