@@ -35,9 +35,6 @@ else
 {
 	$logSizeLimit = $defaultConfig['logSizeLimit'];
 }
-
-$logSizeLimit = intval($logSizeLimit);
-
 if(array_key_exists('logTrimMacBSD', $config))
 {
 	$logTrimMacBSD = $config['logTrimMacBSD'];
@@ -80,6 +77,7 @@ else
 }
 
 $modifier = "lines";
+$logSizeLimit = intval($logSizeLimit);
 
 if($logTrimType == 'size')
 {	
@@ -100,20 +98,14 @@ if($logTrimType == 'size')
 	{
 		$logSizeLimit *= 1000;
 	}
-
 }
 
 function tail($filename, $sliceSize, $shellOrPhp, $logTrimCheck, $logSizeLimit,$logTrimMacBSD,$logTrimType,$TrimSize,$buffer) 
 {
 	$filename = preg_replace('/([()"])/S', '$1', $filename);
-	//echo $filename, "\n";
-	if(filesize($filename) == 0)
+	$data =  "This file is empty. This should not be displayed.";
+	if(filesize($filename) !== 0)
 	{
-		$data =  "This file is empty. This should not be displayed.";
-	}
-	else
-	{
-		
 		if($logTrimCheck == "true")
 		{
 			$lineCount = shell_exec('wc -l < ' . $filename);
@@ -186,26 +178,33 @@ function tail($filename, $sliceSize, $shellOrPhp, $logTrimCheck, $logSizeLimit,$
 			if($shellOrPhp == "true")
 			{
 				$data =  trim(tailCustom($filename, $sliceSize));
-				if($data == "" || is_null($data))
-				{
-					$data = trim(shell_exec('tail -n ' . $sliceSize . ' "' . $filename . '"'));
-				}
 			}
 			else
 			{
 				$data = trim(shell_exec('tail -n ' . $sliceSize . ' "' . $filename . '"'));
-				if($data == "" || is_null($data))
+			}
+
+			if($data == "" || is_null($data))
+			{
+				if($shellOrPhp == "true")
+				{
+					$data = trim(shell_exec('tail -n ' . $sliceSize . ' "' . $filename . '"'));
+				}
+				else
 				{
 					$data = trim(tailCustom($filename, $sliceSize));
 				}
 			}
-		}
 
-		if($data == "" || is_null($data))
+			if($data == "" || is_null($data))
+			{
+				$data = "Error - Maybe insufficient access to read file?";
+			}
+		}
+		else
 		{
 			$data = "Error - Maybe insufficient access to read file?";
 		}
-
 	}
 	return $data;
 }
@@ -272,7 +271,6 @@ foreach($_POST['arrayToUpdate'] as $path)
 
 	if($enableLogging != "false")
 	{
-
 		$lineCount = "0";
 		$filesizeForFile = "0";
 
@@ -296,9 +294,7 @@ foreach($_POST['arrayToUpdate'] as $path)
 		$time *= 1000;
 		$response[$path."dataForLoggingLogHog051620170928"] = " Limit: ".$logSizeLimit."(".($logSizeLimit+$buffer).") ".$modifier." | Line Count: ".$lineCount." | File Size: ".$filesizeForFile." | Time: ".round($time);
 	}
-
 	$response[$path] = $dataVar;
 }
-
 echo json_encode($response);
 ?>
