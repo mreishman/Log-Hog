@@ -11,6 +11,7 @@ var polling = false;
 var t0 = performance.now();
 var t1 = performance.now();
 var t2 = performance.now();
+var t3 = performance.now();
 var counterForPoll = 0;
 var arrayOfData1 = null;
 var arrayOfData2 = null;
@@ -140,7 +141,8 @@ function pollThree(arrayToUpdate)
 				arrayOfDataMain[arrayToUpdate[i]] = null;
 			}
 		}
-	}	
+	}
+	t3 = performance.now();
 	if (typeof arrayToUpdate !== 'undefined' && arrayToUpdate.length > 0) 
 	{
 		var urlForSend = 'core/php/poll.php?format=json'
@@ -185,7 +187,7 @@ function afterPollFunctionComplete()
 	if(enablePollTimeLogging != "false")
 	{
 		t1 = performance.now();
-		document.getElementById("loggingTimerPollRate").innerText = "Ajax refresh took    "+(Math.round(t2 - t0))+":"+(Math.round(t1 - t2))+"     " + (Math.round(t1 - t0)) + "/" + pollingRate +"("+(parseInt(pollingRate)*counterForPoll)+")"+" milliseconds.";
+		document.getElementById("loggingTimerPollRate").innerText = "Ajax refresh took    "+(Math.round(t2 - t0))+":"+(Math.round(t3 - t2))+":"+(Math.round(t1 - t3))+":"+(Math.round(t3 - t2))+"     " + (Math.round(t1 - t0)) + "/" + pollingRate +"("+(parseInt(pollingRate)*counterForPoll)+")"+" milliseconds.";
 		document.getElementById("loggingTimerPollRate").style.color = "";
 		counterForPoll = 0;
 		if(Math.round(t1-t0) > parseInt(pollingRate))
