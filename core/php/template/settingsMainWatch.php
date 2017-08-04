@@ -88,7 +88,7 @@
 		?> 
 			<input style='width: <?php if(!file_exists($key)){echo "480";}else{echo "500";}?>px ' type='text' name='watchListKey<?php echo $i; ?>' value='<?php echo $key; ?>'>
 			<input type='text' name='watchListItem<?php echo $i; ?>' value='<?php echo $item; ?>'>
-			<a class="link" onclick="deleteRowFunctionPopup(<?php echo $i; ?>, true, '<?php echo $key; ?>')">Remove File / Folder</a>
+			<a class="link" onclick="deleteRowFunctionPopup(<?php echo $i; ?>, true, '<?php echo $key; ?>')">Remove</a>
 	</li>
 
 <?php endforeach; ?>
