@@ -42,7 +42,7 @@ $( document ).ready(function()
 
 function poll() {
 
-	if(!startedPauseOnNonFocus)
+	if(pausePollOnNotFocus && !startedPauseOnNonFocus)
 	{
 		startPauseOnNotFocus();
 	}
