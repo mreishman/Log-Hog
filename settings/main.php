@@ -58,30 +58,6 @@ require_once('../core/php/loadVars.php');
 	var countOfClicks = 0;
 	var locationInsert = "newRowLocationForWatchList";
 	var logTrimType = "<?php echo $logTrimType; ?>";
- 	arrayOfValuesToCheckBeforeSave = Array(
-				Array((document.getElementsByName("sliceSize")[0]), "<?php echo $sliceSize;?>"),
-				Array((document.getElementsByName("pollingRate")[0]),"<?php echo $pollingRate;?>"),
-				Array((document.getElementsByName("pausePoll")[0]),"<?php echo $pausePoll;?>"),
-				Array((document.getElementsByName("pauseOnNotFocus")[0]),"<?php echo $pauseOnNotFocus;?>"),
-				Array((document.getElementsByName("autoCheckUpdate")[0]),"<?php echo $autoCheckUpdate;?>"),
-				Array((document.getElementsByName("truncateLog")[0]),"<?php echo $truncateLog;?>"),
-				Array((document.getElementsByName("popupWarnings")[0]),"<?php echo $popupWarnings;?>"),
-				Array((document.getElementsByName("flashTitleUpdateLog")[0]),"<?php echo $flashTitleUpdateLog;?>"),
-				Array((document.getElementsByName("saveSettings")[0]),popupSettingsArray.saveSettings),
-				Array((document.getElementsByName("blankFolder")[0]),popupSettingsArray.blankFolder),
-				Array((document.getElementsByName("removeFolder")[0]),popupSettingsArray.removeFolder),
-				Array((document.getElementsByName("pollingRateType")[0]),"<?php echo $pollingRateType;?>"),
-				Array((document.getElementsByName("autoCheckDaysUpdate")[0]),"<?php echo $autoCheckDaysUpdate;?>"),
-				Array((document.getElementsByName("updateNoticeMeter")[0]),"<?php echo $updateNoticeMeter;?>"),
-				Array((document.getElementsByName("logTrimOn")[0]),"<?php echo $logTrimOn;?>"),
-				Array((document.getElementsByName("rightClickMenuEnable")[0]),"<?php echo $rightClickMenuEnable;?>"));
- 	arrayOfValuesToCheckBeforeSaveWatchList = Array(
- 				Array((document.getElementById("numberOfRows")),"<?php echo $folderCount;?>")
- 		);
-	arrayOfValuesToCheckBeforeSaveMenu = Array(
-				Array((document.getElementsByName("hideEmptyLog")[0]), "<?php echo $hideEmptyLog;?>"),
-				Array((document.getElementsByName("groupByType")[0]), "<?php echo $groupByType;?>"),
-				Array((document.getElementsByName("groupByColorEnabled")[0]),"<?php echo $groupByColorEnabled;?>"));
  	var savedInnerHtmlWatchList;
  	var savedInnerHtmlMainVars;
  	var savedInnerHtmlMenu;
@@ -124,13 +100,11 @@ require_once('../core/php/loadVars.php');
 	{
 		if($('#settingsMainWatch').serializeArray() !== watchlistData)
 		{
-			//show reset button
 			document.getElementById('resetChangesSettingsHeaderButton').style.display = "inline-block";
 			return true;
 		}
 		else
 		{
-			//hide reset button
 			document.getElementById('resetChangesSettingsHeaderButton').style.display = "none";
 			return false;
 		}
@@ -140,13 +114,11 @@ require_once('../core/php/loadVars.php');
 	{
 		if($('#settingsMainVars').serializeArray() !== mainData)
 		{
-			//show reset button
 			document.getElementById('resetChangesMainSettingsHeaderButton').style.display = "inline-block";
 			return true;
 		}
 		else
 		{
-			//hide reset button
 			document.getElementById('resetChangesMainSettingsHeaderButton').style.display = "none";
 			return false;
 		}
@@ -156,13 +128,11 @@ require_once('../core/php/loadVars.php');
 	{
 		if($('#settingsMenuVars').serializeArray() !== menuData)
 		{
-			//show reset button
 			document.getElementById('resetChangesMenuSettingsHeaderButton').style.display = "inline-block";
 			return true;
 		}
 		else
 		{
-			//hide reset button
 			document.getElementById('resetChangesMenuSettingsHeaderButton').style.display = "none";
 			return false;
 		}
@@ -194,34 +164,23 @@ require_once('../core/php/loadVars.php');
     	setInterval(poll, 100);
 	});
 
-	function resetSettingsArrayList(arrayOfArrays)
-	{
-		for (var i = arrayOfArrays.length - 1; i >= 0; i--) 
-		{
-			arrayOfArrays[i][0].value = arrayOfArrays[i][1];
-		}
-	}
-
 	function resetWatchListVars()
 	{
 		document.getElementById('settingsMainWatch').innerHTML = savedInnerHtmlWatchList;
-		countOfWatchList = <?php echo ($i+1); ?>;
-		countOfAddedFiles = 0;
-		countOfClicks = 0;
-		locationInsert = "newRowLocationForWatchList";
-		resetSettingsArrayList(arrayOfValuesToCheckBeforeSaveWatchList);
+		watchlistData = $('#settingsMainWatch').serializeArray();
 	}
 
 	function resetSettingsMainVar()
 	{
-		resetSettingsArrayList(arrayOfValuesToCheckBeforeSave);
+		document.getElementById('settingsMainVars').innerHTML = savedInnerHtmlMainVars;
+		mainData = $('#settingsMainVars').serializeArray();
 	}
 
 	function resetSettingsMenuVar()
 	{
-		resetSettingsArrayList(arrayOfValuesToCheckBeforeSaveMenu);
+		document.getElementById('settingsMenuVars').innerHTML = savedInnerHtmlMenu;
+		menuData = $('#settingsMenuVars').serializeArray();
 	}
-	
 
 	</script>
 <?php endif; ?>
