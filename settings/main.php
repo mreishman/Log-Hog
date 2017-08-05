@@ -79,11 +79,11 @@ require_once('../core/php/loadVars.php');
 			goToPage = !checkForChangesMainSettings();
 			if(goToPage)
 			{
-				goToPage = checkForChangesWatchListPoll();
-			}
-			if(goToPage)
-			{
-				goToPage = !checkForChangesMenuSettings();
+				goToPage = !checkForChangesWatchListPoll();
+				if(goToPage)
+				{
+					goToPage = !checkForChangesMenuSettings();
+				}
 			}
 		}
 		if(goToPage)
