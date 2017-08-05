@@ -181,8 +181,8 @@ require_once('../core/php/loadVars.php');
 
 	function refreshSettingsMainVar()
 	{
-		$('#settingsMainVars').serializeArray();
-		mainData = savedInnerHtmlWatchList = document.getElementById('settingsMainWatch').innerHTML;
+		mainData = $('#settingsMainVars').serializeArray();
+		savedInnerHtmlWatchList = document.getElementById('settingsMainWatch').innerHTML;
 	}
 
 	function refreshSettingsMenuVar()
