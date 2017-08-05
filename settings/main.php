@@ -48,6 +48,9 @@ require_once('../core/php/loadVars.php');
 	document.getElementById("settingsSelect").addEventListener("change", showOrHideUpdateSubWindow, false);
 	document.getElementById("logTrimTypeToggle").addEventListener("change", changeDescriptionLineSize, false);
 	document.getElementById("logTrimOn").addEventListener("change", showOrHideLogTrimSubWindow, false);
+	var mainData;
+	var watchlistData;
+	var menuData;
 	var popupSettingsArray = JSON.parse('<?php echo json_encode($popupSettingsArray) ?>');
 	var fileArray = JSON.parse('<?php echo json_encode($config['watchList']) ?>');
 	var countOfWatchList = <?php echo ($i+1); ?>;
@@ -81,6 +84,7 @@ require_once('../core/php/loadVars.php');
 				Array((document.getElementsByName("groupByColorEnabled")[0]),"<?php echo $groupByColorEnabled;?>"));
  	var savedInnerHtmlWatchList;
  	var savedInnerHtmlMainVars;
+ 	var savedInnerHtmlMenu;
 
 	if(logTrimType == 'lines')
 	{
@@ -90,7 +94,8 @@ require_once('../core/php/loadVars.php');
 	{
 		document.getElementById('logTrimTypeText').innerHTML = "Size";
 	}
-function goToUrl(url)
+
+	function goToUrl(url)
 	{
 		var goToPage = true
 		if(popupSettingsArray.saveSettings != "false")
@@ -98,14 +103,7 @@ function goToUrl(url)
 			goToPage = !checkForChangesMainSettings();
 			if(goToPage)
 			{
-				if(document.getElementById('settingsMainWatch').innerHTML != savedInnerHtmlWatchList)
-				{
-					goToPage = false;
-				}
-			}
-			if(goToPage)
-			{
-				goToPage = checkForChangesWatchList();
+				goToPage = checkForChangesWatchListPoll();
 			}
 			if(goToPage)
 			{
@@ -122,59 +120,9 @@ function goToUrl(url)
 		}
 	}
 
-	function checkArrayOfArraysToMatch(arrayOfArrays)
-	{
-		var returnValue = true;
-		for (var i = arrayOfArrays.length - 1; i >= 0; i--) 
-		{
-			if(arrayOfArrays[i][0].value != arrayOfArrays[i][1])
-			{
-				returnValue = false;
-				break;
-			}
-		}
-		return returnValue;
-	}
-
-	function checkForChangesWatchList()
-	{
-		var fileCount = 1;
-		var returnValue = true;
-		if(document.getElementById('settingsMainWatch').innerHTML != savedInnerHtmlWatchList)
-		{
-			returnValue = false;
-		}
-		if(returnValue)
-		{
-			$.each( fileArray, function( key, value ) 
-			{
-				if(returnValue)
-				{
-					if(document.getElementsByName("watchListKey"+fileCount)[0])
-					{
-						if(document.getElementsByName("watchListKey"+fileCount)[0].value != key)
-						{
-							returnValue = false;
-						}
-						else if (document.getElementsByName("watchListItem"+fileCount)[0].value != value)
-						{
-							returnValue =  false;
-						}
-					}
-					else
-					{
-						returnValue = false;
-					}
-					fileCount++;
-				}
-			});
-		}
-		return returnValue;
-	}
-
 	function checkForChangesWatchListPoll()
 	{
-		if(!checkForChangesWatchList())
+		if($('#settingsMainWatch').serializeArray() !== watchlistData)
 		{
 			//show reset button
 			document.getElementById('resetChangesSettingsHeaderButton').style.display = "inline-block";
@@ -190,7 +138,7 @@ function goToUrl(url)
 
 	function checkForChangesMainSettings()
 	{
-		if(!checkArrayOfArraysToMatch(arrayOfValuesToCheckBeforeSave))
+		if($('#settingsMainVars').serializeArray() !== mainData)
 		{
 			//show reset button
 			document.getElementById('resetChangesMainSettingsHeaderButton').style.display = "inline-block";
@@ -206,7 +154,7 @@ function goToUrl(url)
 
 	function checkForChangesMenuSettings()
 	{
-		if(!checkArrayOfArraysToMatch(arrayOfValuesToCheckBeforeSaveMenu))
+		if($('#settingsMenuVars').serializeArray() !== menuData)
 		{
 			//show reset button
 			document.getElementById('resetChangesMenuSettingsHeaderButton').style.display = "inline-block";
@@ -227,7 +175,7 @@ function goToUrl(url)
 		var change3 = checkForChangesMenuSettings();
 		if(change || change2 || change3)
 		{
-			document.getElementById('mainLink').innerHTML = "Main*";
+			document.getElementById('mainLink').innerHTML = "Main<sup>*</sup>";
 		}
 		else
 		{
@@ -237,8 +185,12 @@ function goToUrl(url)
 
 	$( document ).ready(function() 
 	{
+		mainData = $('#settingsMainVars').serializeArray();
+		watchlistData = $('#settingsMainWatch').serializeArray();
+		menuData = $('#settingsMenuVars').serializeArray();
 		savedInnerHtmlWatchList = document.getElementById('settingsMainWatch').innerHTML;
 		savedInnerHtmlMainVars = document.getElementById('settingsMainVars').innerHTML;
+		savedInnerHtmlMenu = document.getElementById('settingsMenuVars').innerHTML;
     	setInterval(poll, 100);
 	});
 
