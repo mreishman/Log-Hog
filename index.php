@@ -98,7 +98,11 @@ elseif($withLogHog == 'true')
 	<?php endif; ?>
 	<div id="menu">
 		<div onclick="pausePollAction();" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">
-			<img id="pauseImage" class="menuImage" src="core/img/Pause.png" height="30px">
+			<?php if($pausePoll == 'true'):?>
+				<img id="pauseImage" class="menuImage" src="core/img/Play.png" height="30px">
+			<?php else: ?>
+				<img id="pauseImage" class="menuImage" src="core/img/Pause.png" height="30px">
+			<?php endif;?>
 		</div>
 		<div onclick="refreshAction();" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">
 			<img id="refreshImage" class="menuImage" src="core/img/Refresh.png" height="30px">

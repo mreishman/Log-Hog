@@ -17,6 +17,7 @@ var arrayOfData1 = null;
 var arrayOfData2 = null;
 var arrayToUpdate = [];
 var arrayOfDataMain = null;
+var pollTimer;
 
 function poll() {
 
@@ -446,7 +447,7 @@ function focus() {
 $( document ).ready(function()
 {
 	poll();
-	setInterval(poll, pollingRate);
+	pollTimer = setInterval(poll, pollingRate);
 });
 resize();
 
@@ -456,7 +457,6 @@ window.onfocus = focus;
 if(pausePollFromFile)
 {
 	pausePoll = true;
-	document.getElementById('pauseImage').src="core/img/Play.png";
 }
 
 if(pausePollOnNotFocus && !pausePollFromFile)
