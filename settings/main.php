@@ -155,12 +155,9 @@ require_once('../core/php/loadVars.php');
 
 	$( document ).ready(function() 
 	{
-		mainData = $('#settingsMainVars').serializeArray();
-		watchlistData = $('#settingsMainWatch').serializeArray();
-		menuData = $('#settingsMenuVars').serializeArray();
-		savedInnerHtmlWatchList = document.getElementById('settingsMainWatch').innerHTML;
-		savedInnerHtmlMainVars = document.getElementById('settingsMainVars').innerHTML;
-		savedInnerHtmlMenu = document.getElementById('settingsMenuVars').innerHTML;
+		refreshSettingsMainVar();
+		refreshSettingsMenuVar();
+		refreshSettingsWatchList();
     	setInterval(poll, 100);
 	});
 
@@ -180,6 +177,24 @@ require_once('../core/php/loadVars.php');
 	{
 		document.getElementById('settingsMenuVars').innerHTML = savedInnerHtmlMenu;
 		menuData = $('#settingsMenuVars').serializeArray();
+	}
+
+	function refreshSettingsMainVar()
+	{
+		$('#settingsMainVars').serializeArray();
+		mainData = savedInnerHtmlWatchList = document.getElementById('settingsMainWatch').innerHTML;
+	}
+
+	function refreshSettingsMenuVar()
+	{
+		menuData = $('#settingsMenuVars').serializeArray();
+		savedInnerHtmlMenu = document.getElementById('settingsMenuVars').innerHTML;
+	}
+
+	function refreshSettingsWatchList()
+	{
+		watchlistData = $('#settingsMainWatch').serializeArray();
+		savedInnerHtmlMainVars = document.getElementById('settingsMainVars').innerHTML;
 	}
 
 	</script>
