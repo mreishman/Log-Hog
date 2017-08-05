@@ -311,9 +311,14 @@ function update(data) {
 					{
 						data[name] = "<div class='errorMessageLog errorMessageGreenBG' > This file is empty. </div>";
 					}
-					else if(data[name] == "Error - Maybe insufficient access to read file?")
+					else if((data[name] == "Error - File is not Readable") || (data[name] == "Error - Maybe insufficient access to read file?"))
 					{
-						data[name] = "<div class='errorMessageLog errorMessageRedBG' > Error - Maybe insufficient access to read file? <br> <span style='font-size:75%;'> Try entering: <br> chown -R www-data:www-data "+name+" <br> or <br> chmod 664 "+name+" </span> </div>";
+						var mainMessage = "Error - Maybe insufficient access to read file?";
+						if(data[name] == "Error - File is not Readable")
+						{
+							mainMessage = "Error - File is not Readable";
+						}
+						data[name] = "<div class='errorMessageLog errorMessageRedBG' > "+mainMessage+" <br> <span style='font-size:75%;'> Try entering: <br> chown -R www-data:www-data "+name+" <br> or <br> chmod 664 "+name+" </span> </div>";
 					}
 					logs[id] = data[name];
 					if(enableLogging != "false")

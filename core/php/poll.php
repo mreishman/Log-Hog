@@ -203,7 +203,7 @@ function tail($filename, $sliceSize, $shellOrPhp, $logTrimCheck, $logSizeLimit,$
 		}
 		else
 		{
-			$data = "Error - Maybe insufficient access to read file?";
+			$data = "Error - File is not Readable";
 		}
 	}
 	return $data;
