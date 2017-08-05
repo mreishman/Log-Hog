@@ -17,7 +17,7 @@ var arrayOfData1 = null;
 var arrayOfData2 = null;
 var arrayToUpdate = [];
 var arrayOfDataMain = null;
-var pollTimer;
+var pollTimer = null;
 
 $( document ).ready(function()
 {
@@ -30,17 +30,20 @@ $( document ).ready(function()
 	{
 		pausePoll = true;
 	}
-
-	if(pausePollOnNotFocus && !pausePollFromFile)
+	else
 	{
-		startPauseOnNotFocus();
+		if(pausePollOnNotFocus)
+		{
+			startPauseOnNotFocus();
+		}
+		poll();
 	}
 
-	poll();
 	startPollTimer();
 });
 
-function poll() {
+function poll() 
+{
 
 	if(pausePollOnNotFocus && !startedPauseOnNonFocus)
 	{
@@ -478,7 +481,7 @@ function clearPollTimer()
 function startPauseOnNotFocus()
 {
 	startedPauseOnNonFocus = true;
-	Visibility.every(250, 1000, function () { checkIfPageHidden(); });
+	Visibility.every(100, 1000, function () { checkIfPageHidden(); });
 }
 
 function checkIfPageHidden()
