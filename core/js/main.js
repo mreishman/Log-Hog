@@ -19,6 +19,27 @@ var arrayToUpdate = [];
 var arrayOfDataMain = null;
 var pollTimer;
 
+$( document ).ready(function()
+{
+	resize();
+
+	window.onresize = resize;
+	window.onfocus = focus;
+
+	if(pausePollFromFile)
+	{
+		pausePoll = true;
+	}
+
+	if(pausePollOnNotFocus && !pausePollFromFile)
+	{
+		startPauseOnNotFocus();
+	}
+
+	poll();
+	startPollTimer();
+});
+
 function poll() {
 
 	if(!startedPauseOnNonFocus)
@@ -443,25 +464,15 @@ function focus() {
 	stopFlashTitle();
 }
 
-
-$( document ).ready(function()
+function startPollTimer()
 {
-	poll();
 	pollTimer = setInterval(poll, pollingRate);
-});
-resize();
-
-window.onresize = resize;
-window.onfocus = focus;
-
-if(pausePollFromFile)
-{
-	pausePoll = true;
 }
 
-if(pausePollOnNotFocus && !pausePollFromFile)
+function clearPollTimer()
 {
-	startPauseOnNotFocus();
+	clearInterval(pollTimer);
+	pollTimer = null;
 }
 
 function startPauseOnNotFocus()
