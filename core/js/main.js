@@ -62,12 +62,12 @@ function poll()
 	{
 		polling = true;
 		t0 = performance.now();
-		pollTwoPartOneB();
+		pollTwo();
 	}
 	
 }
 
-function pollTwoPartOneB()
+function pollTwo()
 {
 	var urlForSend = 'core/php/pollCheck.php?format=json'
 		var data = {currentVersion: currentVersion};
@@ -488,6 +488,11 @@ function checkIfPageHidden()
 			pausePoll = false;
 			document.getElementById('pauseImage').src="core/img/Pause.png";
 			stopFlashTitle();
+			if(pollTimer == null)
+			{
+				poll();
+				startPollTimer();
+			}
 		}
 		if(userPaused)
 		{
