@@ -76,7 +76,6 @@ $( document ).ready(function()
 	}
 	
 </script>
-<script src="stepsJavascript.js"></script>
 <script src="../core/js/settingsMain.js"></script>
 <script src="../core/js/loghogDownloadJS.js"></script>
 </html>
