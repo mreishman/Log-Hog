@@ -45,7 +45,7 @@ function verifySaveTimer()
 function timerVerifySave()
 {
 	countForVerifySave++;
-	if(countForVerifySave < 10)
+	if(countForVerifySave < 20)
 	{
 		var urlForSend = '../core/php/saveCheck.php?format=json'
 		$.ajax(
