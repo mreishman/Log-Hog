@@ -32,49 +32,39 @@ $( document ).ready(function()
 	}
 	else
 	{
-		if(pausePollOnNotFocus)
-		{
-			startPauseOnNotFocus();
-		}
 		poll();
+		startPollTimer();
 	}
 
-	startPollTimer();
-});
-
-function poll() 
-{
-
-	if(pausePollOnNotFocus && !startedPauseOnNonFocus)
+	if(pausePollOnNotFocus)
 	{
 		startPauseOnNotFocus();
 	}
 
 	checkForUpdateMaybe();
-	pollTwo();
-	
-}
 
-function pollTwo()
+});
+
+function poll()
 {
-	if(!pausePoll)
+	checkForUpdateMaybe();
+
+	if(refreshing)
 	{
-		if(refreshing)
-		{
-			document.title = "Log Hog | Refreshing";
-		}
-		else
-		{
-			document.title = "Log Hog | Index";
-		}
-		counterForPoll++;
-		if(!polling)
-		{
-			polling = true;
-			t0 = performance.now();
-			pollTwoPartOneB();
-		}
+		document.title = "Log Hog | Refreshing";
 	}
+	else
+	{
+		document.title = "Log Hog | Index";
+	}
+	counterForPoll++;
+	if(!polling)
+	{
+		polling = true;
+		t0 = performance.now();
+		pollTwoPartOneB();
+	}
+	
 }
 
 function pollTwoPartOneB()
@@ -245,6 +235,12 @@ function pausePollAction()
 		userPaused = false;
 		pausePoll = false;
 		document.getElementById('pauseImage').src="core/img/Pause.png";
+		if(pollTimer == null)
+		{
+			poll();
+			startPollTimer();
+		}
+
 	}
 	else
 	{
@@ -258,17 +254,7 @@ function refreshAction()
 	clearTimeout(refreshActionVar);
 	document.getElementById('refreshImage').src="core/img/refresh-animated.gif";
 	refreshing = true;
-	if(pausePoll)
-	{
-		clearTimeout(refreshPauseActionVar);
-		pausePoll = false;
-		poll();
-		refreshPauseActionVar = setTimeout(function(){pausePoll = true;}, 1000);
-	}
-	else
-	{
-		poll();
-	}
+	poll();
 	refreshActionVar = setTimeout(function(){endRefreshAction()}, 1500);
 }
 
@@ -515,6 +501,10 @@ function pausePollFunction()
 	pausePoll = true;
 	document.getElementById('pauseImage').src="core/img/Play.png";
 	document.title = "Log Hog | Paused";
+	if(pollTimer != null)
+	{
+		clearPollTimer();
+	}
 }
 
 function isPageHidden(){
@@ -608,11 +598,6 @@ function installUpdates()
 {
 	$("#settingsInstallUpdate").submit();
 }
-
-$(document).ready(function()
-{
-	checkForUpdateMaybe();
-});
 
 function checkForUpdateMaybe()
 {
