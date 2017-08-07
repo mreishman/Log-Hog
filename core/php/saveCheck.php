@@ -58,26 +58,23 @@ if(isset($_POST['numberOfRows']))
 
 if(isset($_POST['saveSettings']))
 {
-	$popupSettingsArraySave = "";
-	$count = 0;
-	foreach ($config['popupSettingsArray'] as $key => $value)
+	if(array_key_exists('popupSettingsArray', $config))
 	{
-		$popupSettingsArraySave .= "'".$key."'	=>	'".$value."'";
-		$count++;
-		if($count != 4)
-		{
-			$popupSettingsArraySave .= ",";
-		}
+		$popupSettingsArray = $config['popupSettingsArray'];
 	}
-	$popupSettingsArray = $popupSettingsArraySave;
+	else
+	{
+		$popupSettingsArray = $defaultConfig['popupSettingsArray'];
+	}
+	
 
-	$popupSettingsArraySave = "
-	'saveSettings'	=>	'".$_POST['saveSettings']."',
-	'blankFolder'	=>	'".$_POST['blankFolder']."',
-	'deleteLog'	=>	'".$_POST['deleteLog']."',
-	'removeFolder'	=> 	'".$_POST['removeFolder']."',
-	'versionCheck'	=> '".$_POST['versionCheck']."'
-	";
+	$popupSettingsArraySave = array(
+	'saveSettings'	=>	$_POST['saveSettings'],
+	'blankFolder'	=>	$_POST['blankFolder'],
+	'deleteLog'	=>	$_POST['deleteLog'],
+	'removeFolder'	=> 	$_POST['removeFolder'],
+	'versionCheck'	=> $_POST['versionCheck']
+	);
 }
 
 if(isset($_POST['folderThemeCount']))
@@ -118,11 +115,23 @@ foreach ($defaultConfig as $key => $value)
 {
 	if(isset($_POST[$key]))
 	{
-		if($_POST[$key] != $config[$key])
+		if(array_key_exists($key, $config))
 		{
-			$response = false;
-			break;
+			if($_POST[$key] != $config[$key])
+			{
+				$response = false;
+				break;
+			}
 		}
+		else
+		{
+			if($_POST[$key] != $value)
+			{
+				$response = false;
+				break;
+			}
+		}
+		
 	}
 	elseif(isset($$key))
 	{

@@ -98,7 +98,7 @@ require_once('../core/php/loadVars.php');
 
 	function checkForChangesWatchListPoll()
 	{
-		if(objectsAreSame($('#settingsMainWatch').serializeArray(),watchlistData))
+		if(!objectsAreSame($('#settingsMainWatch').serializeArray(),watchlistData))
 		{
 			document.getElementById('resetChangesSettingsHeaderButton').style.display = "inline-block";
 			return true;
@@ -112,7 +112,7 @@ require_once('../core/php/loadVars.php');
 
 	function checkForChangesMainSettings()
 	{
-		if(objectsAreSame($('#settingsMainVars').serializeArray(),mainData))
+		if(!objectsAreSame($('#settingsMainVars').serializeArray(),mainData))
 		{
 			document.getElementById('resetChangesMainSettingsHeaderButton').style.display = "inline-block";
 			return true;
@@ -126,7 +126,7 @@ require_once('../core/php/loadVars.php');
 
 	function checkForChangesMenuSettings()
 	{
-		if(objectsAreSame($('#settingsMenuVars').serializeArray(), menuData))
+		if(!objectsAreSame($('#settingsMenuVars').serializeArray(), menuData))
 		{
 			document.getElementById('resetChangesMenuSettingsHeaderButton').style.display = "inline-block";
 			return true;
@@ -197,7 +197,7 @@ require_once('../core/php/loadVars.php');
 		savedInnerHtmlMainVars = document.getElementById('settingsMainVars').innerHTML;
 	}
 
-	function objectsAreSame(x, y) 
+	function objectsAreSameInner(x, y) 
 	{
 	   	var objectsAreSame = true;
 	   	for(var propertyName in x) 
@@ -208,7 +208,21 @@ require_once('../core/php/loadVars.php');
 	         break;
 	    	}
    		}
-   	return objectsAreSame;
+   		return objectsAreSame;
+	}
+
+	function objectsAreSame(x, y) 
+	{
+		var returnValue = true;
+		for (var i = x.length - 1; i >= 0; i--) 
+		{
+			if(!objectsAreSameInner(x[i],y[i]))
+			{
+				returnValue = false;
+				break;
+			}
+		}
+		return returnValue;
 	}
 
 	</script>
