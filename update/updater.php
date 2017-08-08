@@ -11,6 +11,7 @@ require_once($baseUrl.'conf/config.php');
 require_once('../core/php/configStatic.php');
 require_once('../core/php/updateProgressFile.php');
 require_once('../core/php/settingsInstallUpdate.php'); 
+require_once('../top/statusTest.php'); 
 
 $noUpdateNeeded = true;
 $versionToUpdate = "";
@@ -238,6 +239,8 @@ $versionCheck = '"'.$configStatic['version'].'"';
 	var versionToUpdateTo = "<?php echo $versionToUpdate; ?>";
 	var percent = 0;
 	var total = 100*1;
+	var arrayOfFilesExtracted;
+	var monitorLocation = "<?php echo $monitorStatus['withLogHog']?>";
 
 	function updateProgressBar(additonalPercent)
 	{
@@ -330,6 +333,36 @@ $versionCheck = '"'.$configStatic['version'].'"';
 	function unzipBranch()
 	{
 		//this builds array of file to copy (check if top is insalled for files copy)
+
+		//
+		if(retryCount == 0)
+		{
+			updateText("Unzipping Files");
+		}
+		else
+		{
+			updateText("Attempt "+(retryCount+1)+" of 3 for Unzipping Files");
+		}
+		var urlForSend = urlForSendMain;
+		var data = {action: 'unzipUpdateAndReturnArray'};
+		$.ajax({
+			url: urlForSend,
+			dataType: 'json',
+			data: data,
+			type: 'POST',
+			success: function(data)
+			{
+				//verify if downloaded
+				arrayOfFilesExtracted = data;
+				updateText("Verifying Unzipping");
+				verifyFile('unzipUpdateAndReturnArray', '../../update/downloads/updateFiles/extracted/'+data[0]);
+			}
+			failure: function(data)
+			{
+				retryCount++;
+				unzipBranch();
+			}
+		});
 	}
 
 	function verifyFile(action, fileLocation,isThere = true)
@@ -405,10 +438,14 @@ $versionCheck = '"'.$configStatic['version'].'"';
 		}
 		else
 		{
+			updateText("Could not verify action was executed");
 			if(action == 'downloadLogHog')
 			{
-				updateText("File Could NOT be found");
 				downloadFile();
+			}
+			else if(action == 'unzipUpdateAndReturnArray')
+			{
+				unzipUpdateAndReturnArray();
 			}
 		}
 	}
@@ -417,28 +454,66 @@ $versionCheck = '"'.$configStatic['version'].'"';
 	{
 		//downloaded, extract
 		retryCount = 0;
+		updateText("Verified Action");
 		if(action == 'downloadLogHog')
 		{
 			updateProgressBar(10);
-			updateText("File Download Verified");
-			updateText("Unzipping Downloaded File");
 			unzipFile();
+		}
+		else if(action == 'unzipUpdateAndReturnArray')
+		{
+			updateProgressBar(9);
+			filterFilesFromArray();
 		}
 	}
 
 	function preScripRun()
 	{
+		//find number of scripts
 
+		//loop through those scripts here
 	}
 
-	function copyFileFromArray()
+	function filterFilesFromArray()
+	{
+		var filteredArray = array();
+		for (var i = arrayOfFilesExtracted.length - 1; i >= 0; i--) 
+		{
+			var file = arrayOfFilesExtracted[i];
+			var copyFile = true;
+			if(file.startsWith("top_"))
+			{
+				copyFile = false;
+				if(file == "top_statusTest.php" || monitorLocation == "true")
+				{
+					copyFile = true;
+				}
+			}
+			else if(file.startsWith("pre-script-") || file.startsWith("post-script-"))
+			{
+				copyFile - false;
+			}
+
+			if(copyFile)
+			{
+				filteredArray.push(file);
+			}
+		}
+		arrayOfFilesExtracted = filteredArray;
+		updateProgressBar(1);
+		copyFilesFromArray();
+	}
+
+	function copyFilesFromArray()
 	{
 
 	}
 
 	function postScriptRun()
 	{
+		//find number of scripts
 
+		//loop through those scripts here
 	}
 
 	function removeExtractedDir()

@@ -20,6 +20,10 @@ elseif($action == 'unzipFile')
 	unzipFileAndSub($_POST['locationExtractFrom'],"",$_POST['locationExtractTo'],"../../");
 	$response = true; 
 }
+elseif($action == 'unzipUpdateAndReturnArray')
+{
+	$response = unzipFile();
+}
 elseif($action == 'removeZipFile')
 {
 	removeZipFile($_POST['fileToUnlink']);
