@@ -243,6 +243,8 @@ $versionCheck = '"'.$configStatic['version'].'"';
 	var monitorLocation = "<?php echo $monitorStatus['withLogHog']?>";
 	var lock = false;
 	var settingsForBranchStuff = JSON.parse('<?php echo json_encode($configStatic);?>');
+	var filteredArray = new Array();
+	var preScripRunFileName = "";
 
 	$( document ).ready(function()
 	{
@@ -477,14 +479,67 @@ $versionCheck = '"'.$configStatic['version'].'"';
 
 	function preScripRun()
 	{
-		//find number of scripts
+		updateText("Checking for pre upgrade scripts");
+		var count = 1;
+		if(count != 1)
+		{
+			var totalCount = 0;
+			var fileName = "pre-script-"+totalCount;
+			while($.inArray(arrayOfFilesExtracted, fileName))
+			{
+				totalCount++;
+			}
+			updateProgressBar(((1/totalCount)*5));
+		}
+		var fileName = "pre-script-"+count;
+		if($.inArray(arrayOfFilesExtracted, fileName))
+		{
+			updateText("Running pre upgrade script "+count);
+			while($.inArray(arrayOfFilesExtracted, fileName))
+			{
+				if(preScripRunFileName == "" || fileName == preScripRunFileName)
+				{
+					preScripRunFileName = fileName;
+					count++;
+					ajaxForPreScriptRun(fileName);
+				}
+			}
+		}
+		else
+		{
+			if(count == 1)
+			{
+				updateText("No Pre Upgrade scripts.");
+				updateProgressBar(5);
+			}
+			else
+			{
+				updateText("Finished running pre upgrade scripts");
+			}
+			preScripRunFileName = "";
+			//finished with pre scripts
+		}
+	}
 
-		//loop through those scripts here
+	function ajaxForPreScriptRun(urlForSendMain)
+	{
+		var urlForSend = "../../update/downloads/updateFiles/extracted/"+urlForSendMain;
+		var data = "";
+		$.ajax({
+			url: urlForSend,
+			dataType: 'json',
+			data: data,
+			type: 'POST',
+			complete: function()
+			{
+				preScripRun();
+			}
+		});	
 	}
 
 	function filterFilesFromArray()
 	{
-		var filteredArray = new Array();
+		filteredArray = new Array();
 		for (var i = arrayOfFilesExtracted.length - 1; i >= 0; i--) 
 		{
 			var file = arrayOfFilesExtracted[i];
@@ -507,9 +562,8 @@ $versionCheck = '"'.$configStatic['version'].'"';
 				filteredArray.push(file);
 			}
 		}
-		arrayOfFilesExtracted = filteredArray;
 		updateProgressBar(1);
-		copyFilesFromArray();
+		preScriptRun();
 	}
 
 	function copyFilesFromArray()
