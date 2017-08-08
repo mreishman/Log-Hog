@@ -655,7 +655,6 @@ function checkForUpdateDefinitely(showPopupForNoUpdate = false)
 			{
 				if(showPopupForNoUpdate)
 				{
-					hidePopup();
 					showPopup();
 					document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >No Update Needed</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>You are on the most current version</div><div class='link' onclick='hidePopup();' style='margin-left:165px; margin-right:50px;margin-top:25px;'>Okay!</div></div>";
 				}

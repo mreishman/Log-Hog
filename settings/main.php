@@ -145,7 +145,7 @@ require_once('../core/php/loadVars.php');
 		var change3 = checkForChangesMenuSettings();
 		if(change || change2 || change3)
 		{
-			document.getElementById('mainLink').innerHTML = "Main<sup>*</sup>";
+			document.getElementById('mainLink').innerHTML = "Main*";
 		}
 		else
 		{
