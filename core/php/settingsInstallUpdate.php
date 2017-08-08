@@ -184,6 +184,7 @@ function unzipFile($locationExtractTo = '../../update/downloads/updateFiles/extr
 	$path = $locationExtractFrom;
 	$res = $zip->open($path);
 	$arrayOfExtensions = array('.php','.js','.css','.html','.png','.jpg','.jpeg','.gif');
+	$arrayOfFiles = array();
 	if ($res === TRUE) {
 	  for($i = 0; $i < $zip->numFiles; $i++) {
 	        $filename = $zip->getNameIndex($i);
@@ -191,9 +192,18 @@ function unzipFile($locationExtractTo = '../../update/downloads/updateFiles/extr
 	        if (strposa($fileinfo['basename'], $arrayOfExtensions, 1)) 
 	        {
 	          copy("zip://".$path."#".$filename, $locationExtractTo.$fileinfo['basename']);
+	          array_push($arrayOfFiles, $fileinfo['basename']);
 	        }
 	    }                   
 	    $zip->close();  
+	}
+	if(empty($arrayOfFiles))
+	{
+		return false;
+	}
+	else
+	{
+		return $arrayOfFiles;
 	}
 }
 
