@@ -1,7 +1,6 @@
 <?php
 require_once('settingsInstallUpdate.php');
 $action = $_POST['action'];
-$response = $action;
 if($action == 'downloadFile')
 {
 	$boolUp = false;
@@ -150,6 +149,11 @@ elseif($action == 'readdSomeFilesFromUninstallProcess')
 	{
 		mkdir('../../top');
 	}
+	$response = true;
+}
+else
+{
+	$response = "ACTION";
 }
 echo json_encode($response);
 ?>

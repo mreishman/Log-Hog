@@ -241,11 +241,17 @@ $versionCheck = '"'.$configStatic['version'].'"';
 	var total = 100*1;
 	var arrayOfFilesExtracted;
 	var monitorLocation = "<?php echo $monitorStatus['withLogHog']?>";
+	var lock = false;
+
+	$( document ).ready(function()
+	{
+		pickNextAction();
+	});
 
 	function updateProgressBar(additonalPercent)
 	{
 		percent = percent + additonalPercent;
-		document.getElementById('progressBar').value = percent/total;
+		document.getElementById('progressBar').value = percent/total*100;
 	}
 
 
@@ -324,7 +330,7 @@ $versionCheck = '"'.$configStatic['version'].'"';
 			{
 				//verify if downloaded
 				updateText("Verifying Download");
-				verifyFile('downloadLogHog', '../../updateFiles.zip');
+				verifyFile('downloadLogHog', '../../update/downloads/updateFiles/updateFiles.zip');
 			}
 		});	
 
@@ -344,19 +350,20 @@ $versionCheck = '"'.$configStatic['version'].'"';
 			updateText("Attempt "+(retryCount+1)+" of 3 for Unzipping Files");
 		}
 		var urlForSend = urlForSendMain;
-		var data = {action: 'unzipUpdateAndReturnArray'};
+		var dataSend = {action: 'unzipUpdateAndReturnArray'};
 		$.ajax({
 			url: urlForSend,
 			dataType: 'json',
-			data: data,
+			data: dataSend,
 			type: 'POST',
-			success: function(data)
+			success: function(arrayOfFiles)
 			{
 				//verify if downloaded
 				arrayOfFilesExtracted = data;
+				console.log(arrayOfFiles);
 				updateText("Verifying Unzipping");
 				verifyFile('unzipUpdateAndReturnArray', '../../update/downloads/updateFiles/extracted/'+data[0]);
-			}
+			},
 			failure: function(data)
 			{
 				retryCount++;
@@ -441,7 +448,7 @@ $versionCheck = '"'.$configStatic['version'].'"';
 			updateText("Could not verify action was executed");
 			if(action == 'downloadLogHog')
 			{
-				downloadFile();
+				downloadBranch();
 			}
 			else if(action == 'unzipUpdateAndReturnArray')
 			{
@@ -458,7 +465,7 @@ $versionCheck = '"'.$configStatic['version'].'"';
 		if(action == 'downloadLogHog')
 		{
 			updateProgressBar(10);
-			unzipFile();
+			unzipBranch();
 		}
 		else if(action == 'unzipUpdateAndReturnArray')
 		{

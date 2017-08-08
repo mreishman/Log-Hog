@@ -55,7 +55,14 @@ function unzipFile($locationExtractTo = '../../update/downloads/updateFiles/extr
 	    }                   
 	    $zip->close();  
 	}
-	return $arrayOfFiles;
+	if(empty($arrayOfFiles))
+	{
+		return false;
+	}
+	else
+	{
+		return $arrayOfFiles;
+	}
 }
 
 function unzipFileAndSub($zipfile, $subpath, $destination, $temp_cache, $traverse_first_subdir=true){
