@@ -215,7 +215,7 @@ $versionCheck = '"'.$configStatic['version'].'"';
 		<div class="updatingDiv">
 			<progress id="progressBar" value="0" max="100" style="width: 95%; margin-top: 10px; margin-bottom: 10px; margin-left: 2.5%;" ></progress>
 			<p style="border-bottom: 1px solid white;"></p>
-			<div id="innerDisplayUpdate" style="height: 300px;">
+			<div id="innerDisplayUpdate" style="height: 300px; overflow: auto; max-height: 300px;">
 
 			</div>
 			<p style="border-bottom: 1px solid white;"></p>
@@ -321,8 +321,7 @@ $versionCheck = '"'.$configStatic['version'].'"';
 			updateText("Attempt "+(retryCount+1)+" of 3 for downloading Update");
 		}
 		var urlForSend = urlForSendMain;
-		console.log(settingsForBranchStuff['versionList'][versionToUpdateTo]);
-		console.log(versionToUpdateTo);
+		document.getElementById('innerDisplayUpdate').innerHTML = settingsForBranchStuff['versionList'][versionToUpdateTo]['releaseNotes']
 		var data = {action: 'downloadFile', file: settingsForBranchStuff['versionList'][versionToUpdateTo]['branchName'],downloadFrom: 'Log-Hog/archive/', downloadTo: '../../update/downloads/updateFiles/updateFiles.zip'};
 		$.ajax({
 			url: urlForSend,
@@ -362,10 +361,9 @@ $versionCheck = '"'.$configStatic['version'].'"';
 			success: function(arrayOfFiles)
 			{
 				//verify if downloaded
-				arrayOfFilesExtracted = data;
-				console.log(arrayOfFiles);
+				arrayOfFilesExtracted = arrayOfFiles;
 				updateText("Verifying Unzipping");
-				verifyFile('unzipUpdateAndReturnArray', '../../update/downloads/updateFiles/extracted/'+data[0]);
+				verifyFile('unzipUpdateAndReturnArray', '../../update/downloads/updateFiles/extracted/'+arrayOfFiles[0]);
 			},
 			failure: function(data)
 			{
@@ -486,7 +484,7 @@ $versionCheck = '"'.$configStatic['version'].'"';
 
 	function filterFilesFromArray()
 	{
-		var filteredArray = array();
+		var filteredArray = new Array();
 		for (var i = arrayOfFilesExtracted.length - 1; i >= 0; i--) 
 		{
 			var file = arrayOfFilesExtracted[i];
@@ -524,6 +522,8 @@ $versionCheck = '"'.$configStatic['version'].'"';
 		//find number of scripts
 
 		//loop through those scripts here
+
+		//post updgrade script redirect if needed (to update updater)
 	}
 
 	function removeExtractedDir()
