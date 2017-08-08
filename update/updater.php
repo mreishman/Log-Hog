@@ -242,6 +242,7 @@ $versionCheck = '"'.$configStatic['version'].'"';
 	var arrayOfFilesExtracted;
 	var monitorLocation = "<?php echo $monitorStatus['withLogHog']?>";
 	var lock = false;
+	var settingsForBranchStuff = JSON.parse('<?php echo json_encode($configStatic);?>');
 
 	$( document ).ready(function()
 	{
@@ -320,7 +321,9 @@ $versionCheck = '"'.$configStatic['version'].'"';
 			updateText("Attempt "+(retryCount+1)+" of 3 for downloading Update");
 		}
 		var urlForSend = urlForSendMain;
-		var data = {action: 'downloadFile', file: versionToUpdateTo,downloadFrom: 'Log-Hog/archive/', downloadTo: '../../update/downloads/updateFiles/updateFiles.zip'};
+		console.log(settingsForBranchStuff['versionList'][versionToUpdateTo]);
+		console.log(versionToUpdateTo);
+		var data = {action: 'downloadFile', file: settingsForBranchStuff['versionList'][versionToUpdateTo]['branchName'],downloadFrom: 'Log-Hog/archive/', downloadTo: '../../update/downloads/updateFiles/updateFiles.zip'};
 		$.ajax({
 			url: urlForSend,
 			dataType: 'json',
