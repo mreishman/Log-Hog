@@ -245,6 +245,7 @@ $versionCheck = '"'.$configStatic['version'].'"';
 	var settingsForBranchStuff = JSON.parse('<?php echo json_encode($configStatic);?>');
 	var filteredArray = new Array();
 	var preScripRunFileName = "";
+	var preScriptCount = 1;
 
 	$( document ).ready(function()
 	{
@@ -480,8 +481,7 @@ $versionCheck = '"'.$configStatic['version'].'"';
 	function preScripRun()
 	{
 		updateText("Checking for pre upgrade scripts");
-		var count = 1;
-		if(count != 1)
+		if(preScriptCount != 1)
 		{
 			var totalCount = 0;
 			var fileName = "pre-script-"+totalCount;
@@ -491,23 +491,20 @@ $versionCheck = '"'.$configStatic['version'].'"';
 			}
 			updateProgressBar(((1/totalCount)*5));
 		}
-		var fileName = "pre-script-"+count;
+		var fileName = "pre-script-"+preScriptCount;
 		if($.inArray(arrayOfFilesExtracted, fileName))
 		{
-			updateText("Running pre upgrade script "+count);
-			while($.inArray(arrayOfFilesExtracted, fileName))
+			updateText("Running pre upgrade script "+preScriptCount);
+			if(preScripRunFileName == "" || fileName == preScripRunFileName)
 			{
-				if(preScripRunFileName == "" || fileName == preScripRunFileName)
-				{
-					preScripRunFileName = fileName;
-					count++;
-					ajaxForPreScriptRun(fileName);
-				}
+				preScripRunFileName = fileName;
+				preScriptCount++;
+				ajaxForPreScriptRun(fileName);
 			}
 		}
 		else
 		{
-			if(count == 1)
+			if(preScriptCount == 1)
 			{
 				updateText("No Pre Upgrade scripts.");
 				updateProgressBar(5);
@@ -516,6 +513,7 @@ $versionCheck = '"'.$configStatic['version'].'"';
 			{
 				updateText("Finished running pre upgrade scripts");
 			}
+			preScriptCount = 1;
 			preScripRunFileName = "";
 			//finished with pre scripts
 		}
