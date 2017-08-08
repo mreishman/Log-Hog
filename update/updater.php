@@ -246,6 +246,9 @@ $versionCheck = '"'.$configStatic['version'].'"';
 	var filteredArray = new Array();
 	var preScripRunFileName = "";
 	var preScriptCount = 1;
+	var postScripRunFileName = "";
+	var postScriptCount = 1;
+	var fileCopyCount = 0;
 
 	$( document ).ready(function()
 	{
@@ -256,6 +259,10 @@ $versionCheck = '"'.$configStatic['version'].'"';
 	{
 		percent = percent + additonalPercent;
 		document.getElementById('progressBar').value = percent/total*100;
+		if(percent/total*100 > 100)
+		{
+			document.getElementById('progressBar').value = ((percent/total*100)-100);
+		}
 	}
 
 
@@ -273,6 +280,25 @@ $versionCheck = '"'.$configStatic['version'].'"';
 		else if(updateStatus == "Extracting Zip Files For ")
 		{
 			//already downloaded, verify download then extract
+			updateProgressBar(10);
+			unzipBranch();
+		}
+		else if(updateStatus == 'preUpgrade Scripts')
+		{
+			updateProgressBar(20);
+			preScriptRun();
+		}
+		else if(updateStatus == 'Copying Files')
+		{
+
+		}
+		else if(updateStatus == 'postUpgrade Scripts')
+		{
+
+		}
+		else if(updateStatus == 'postUpgrade Redirect')
+		{
+
 		}
 		else if(updateStatus == "Removing Extracted Files")
 		{
@@ -478,7 +504,7 @@ $versionCheck = '"'.$configStatic['version'].'"';
 		}
 	}
 
-	function preScripRun()
+	function preScriptRun()
 	{
 		updateText("Checking for pre upgrade scripts");
 		if(preScriptCount != 1)
@@ -491,8 +517,8 @@ $versionCheck = '"'.$configStatic['version'].'"';
 			}
 			updateProgressBar(((1/totalCount)*5));
 		}
-		var fileName = "pre-script-"+preScriptCount;
-		if($.inArray(arrayOfFilesExtracted, fileName))
+		var fileName = "pre-script-"+preScriptCount+".php";
+		if($.inArray(arrayOfFilesExtracted, fileName) != "-1")
 		{
 			updateText("Running pre upgrade script "+preScriptCount);
 			if(preScripRunFileName == "" || fileName == preScripRunFileName)
@@ -516,6 +542,7 @@ $versionCheck = '"'.$configStatic['version'].'"';
 			preScriptCount = 1;
 			preScripRunFileName = "";
 			//finished with pre scripts
+			copyFilesFromArray();
 		}
 	}
 
@@ -530,7 +557,7 @@ $versionCheck = '"'.$configStatic['version'].'"';
 			type: 'POST',
 			complete: function()
 			{
-				preScripRun();
+				preScriptRun();
 			}
 		});	
 	}
@@ -566,16 +593,90 @@ $versionCheck = '"'.$configStatic['version'].'"';
 
 	function copyFilesFromArray()
 	{
+		if(fileCopyCount > 0)
+		{
+			updateProgressBar(((1/filteredArray.length)*50));
+		}
+		for (var i = filteredArray.length - 1; i >= 0; i--) 
+		{
+			if(i == fileCopyCount)
+			{
+				fileCopyCount++;
+				copyFileFromArrayAjax(filteredArray[i]);
+			}
+		}
+		if(fileCopyCount == filteredArray.length)
+		{
+			//end of file copy stuff
+		}
+	}
 
+	function copyFileFromArrayAjax(file)
+	{
+		//insert ajax call later
 	}
 
 	function postScriptRun()
 	{
-		//find number of scripts
+		updateText("Checking for post upgrade scripts");
+		if(postScriptCount != 1)
+		{
+			var totalCount = 0;
+			var fileName = "post-script-"+totalCount;
+			while($.inArray(arrayOfFilesExtracted, fileName))
+			{
+				totalCount++;
+			}
+			updateProgressBar(((1/totalCount)*5));
+		}
+		var fileName = "post-script-"+postScriptCount+".php";
+		if($.inArray(arrayOfFilesExtracted, fileName) != "-1")
+		{
+			updateText("Running post upgrade script "+postScriptCount);
+			if(postScripRunFileName == "" || fileName == postScripRunFileName)
+			{
+				postScripRunFileName = fileName;
+				postScriptCount++;
+				ajaxForPostScriptRun(fileName);
+			}
+		}
+		else
+		{
+			if(postScriptCount == 1)
+			{
+				updateText("No post Upgrade scripts.");
+				updateProgressBar(5);
+			}
+			else
+			{
+				updateText("Finished running post upgrade scripts");
+			}
+			postScriptCount = 1;
+			postScripRunFileName = "";
+			//finished with pre scripts
+			copyFilesFromArray();
+		}
+	}
 
-		//loop through those scripts here
+	function ajaxForPostScriptRun(urlForSendMain)
+	{
+		var urlForSend = "../../update/downloads/updateFiles/extracted/"+urlForSendMain;
+		var data = "";
+		$.ajax({
+			url: urlForSend,
+			dataType: 'json',
+			data: data,
+			type: 'POST',
+			complete: function()
+			{
+				postScriptRun();
+			}
+		});	
+	}
 
-		//post updgrade script redirect if needed (to update updater)
+	function postScriptRedirect()
+	{
+
 	}
 
 	function removeExtractedDir()
