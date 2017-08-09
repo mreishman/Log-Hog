@@ -44,7 +44,7 @@ require_once('top/statusTest.php');
 $withLogHog = $monitorStatus['withLogHog'];
 
 $locationForStatusIndex = "";
-if($locationForStatus != "")
+if(isset($locationForStatus) && $locationForStatus != "")
 {
 	$locationForStatusIndex = $locationForStatus;
 }
@@ -58,7 +58,7 @@ elseif (is_dir("../Status"))
 }
 
 $locationForMonitorIndex = "";
-if($locationForMonitor != "")
+if(isset($locationForMonitor) && $locationForMonitor != "")
 {
 	$locationForMonitorIndex = $locationForMonitor;
 }
