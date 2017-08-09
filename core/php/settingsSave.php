@@ -25,8 +25,7 @@ require_once('loadVars.php');
 
 	//Don't forget to update Ajax version
 
-	$newInfoForConfig = "
-	<?php
+	$newInfoForConfig = "<?php
 		$"."config = array(
 		";
 	foreach ($defaultConfig as $key => $value)

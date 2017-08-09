@@ -517,6 +517,7 @@ $versionCheck = '"'.$configStatic['version'].'"';
 		if(action == 'downloadLogHog')
 		{
 			updateProgressBar(10);
+			updateStatus("Extracting Zip Files For ", "unzipFile");
 			unzipBranch();
 		}
 		else if(action == 'unzipUpdateAndReturnArray')
@@ -560,10 +561,13 @@ $versionCheck = '"'.$configStatic['version'].'"';
 			else
 			{
 				updateText("Finished running pre upgrade scripts");
+
+				//wait for verify scripts
 			}
 			preScriptCount = 1;
 			preScripRunFileName = "";
 			//finished with pre scripts
+
 			copyFilesFromArray();
 		}
 	}

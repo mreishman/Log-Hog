@@ -18,8 +18,7 @@ require_once('loadVars.php');
 
 	//Don't forget to update Normal version
 
-	$newInfoForConfig = "
-	<?php
+	$newInfoForConfig = "<?php
 		$"."config = array(
 		";
 	foreach ($defaultConfig as $key => $value)
