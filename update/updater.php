@@ -202,7 +202,7 @@ $versionCheck = '"'.$configStatic['version'].'"';
 	<script src="../core/js/jquery.js"></script>
 </head>
 <body>
-</body>
+
 
 <div id="main">
 	<div class="settingsHeader" style="text-align: center;" >
@@ -228,6 +228,7 @@ $versionCheck = '"'.$configStatic['version'].'"';
 		</div>
 	</div>
 </div>
+</body>
 
 <script src="../core/js/settings.js"></script>
 <script type="text/javascript"> 
@@ -699,4 +700,4 @@ if($newestVersionCheck == $versionCheck)
 	file_put_contents("../core/php/updateProgressLog.php", "<p> Loading update file list. </p>");
 }
 ?>
-
+</html>
