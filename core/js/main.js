@@ -18,6 +18,7 @@ var arrayOfData2 = null;
 var arrayToUpdate = [];
 var arrayOfDataMain = null;
 var pollTimer = null;
+var dataFromUpdateCheck = null;
 
 $( document ).ready(function()
 {
@@ -635,15 +636,9 @@ function checkForUpdateDefinitely(showPopupForNoUpdate = false)
 
 					if(popupSettingsArray.versionCheck != "false")
 					{
-						showPopup();
-						var textForInnerHTML = "<div class='settingsHeader' >New Version Available!</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Version "+data.versionNumber+" is now available!</div><div class='link' onclick='installUpdates();' style='margin-left:74px; margin-right:50px;margin-top:25px;'>Update Now</div><div onclick='saveSettingFromPopupNoCheckMaybe();' class='link'>Maybe Later</div><br><div style='width:100%; padding-left:45px; padding-top:5px;'><input id='dontShowPopuForThisUpdateAgain'";
-						if(dontNotifyVersion == data.versionNumber)
-						{
-							textForInnerHTML += " checked "
-						}
-						dontNotifyVersion = data.versionNumber;
-						textForInnerHTML += "type='checkbox'>Don't notify me about this update again</div></div>";
-						document.getElementById('popupContentInnerHTMLDiv').innerHTML = textForInnerHTML;
+						dataFromUpdateCheck = data;
+						displayLoadingPopup();
+						updateUpdateCheckWaitTimer();
 					}
 					else
 					{
@@ -669,6 +664,30 @@ function checkForUpdateDefinitely(showPopupForNoUpdate = false)
 		});
 		updating = false;
 	}
+}
+
+function updateUpdateCheckWaitTimer()
+{
+	$.getJSON('core/php/configStaticCheck.php', {}, function(data) 
+	{
+		if(currentVersion != data)
+		{
+			clearInterval(timeoutVar);
+			showPopupForUpdate(dataFromUpdateCheck);
+		}
+	});
+}
+
+function showUpdateCheckPopup(data)
+{
+	var textForInnerHTML = "<div class='settingsHeader' >New Version Available!</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Version "+data.versionNumber+" is now available!</div><div class='link' onclick='installUpdates();' style='margin-left:74px; margin-right:50px;margin-top:25px;'>Update Now</div><div onclick='saveSettingFromPopupNoCheckMaybe();' class='link'>Maybe Later</div><br><div style='width:100%; padding-left:45px; padding-top:5px;'><input id='dontShowPopuForThisUpdateAgain'";
+	if(dontNotifyVersion == data.versionNumber)
+	{
+		textForInnerHTML += " checked "
+	}
+	dontNotifyVersion = data.versionNumber;
+	textForInnerHTML += "type='checkbox'>Don't notify me about this update again</div></div>";
+	document.getElementById('popupContentInnerHTMLDiv').innerHTML = textForInnerHTML;
 }
 
 function saveSettingFromPopupNoCheckMaybe()
