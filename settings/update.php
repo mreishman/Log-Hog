@@ -231,6 +231,7 @@ $daysSince = $interval->format('%a');
 		document.getElementById('releaseNotesHeader').style.display = "block";
 		document.getElementById('releaseNotesBody').style.display = "block";
 		document.getElementById('releaseNotesBody').innerHTML = dataFromJSON.changeLog;
+		document.getElementById('settingsInstallUpdate').innerHTML = '<a class="link" onclick="installUpdates();">Install '+dataFromJSON.versionNumber+' Update</a>';
 
 
 		//Update needed
