@@ -19,6 +19,7 @@ var arrayToUpdate = [];
 var arrayOfDataMain = null;
 var pollTimer = null;
 var dataFromUpdateCheck = null;
+var timeoutVar = null;
 
 $( document ).ready(function()
 {
@@ -602,6 +603,47 @@ function deleteLog()
 
 function installUpdates()
 {
+	displayLoadingPopup();
+	//reset vars in post request
+	var urlForSend = '../core/php/resetUpdateFilesToDefault.php?format=json'
+	var data = {status: "" };
+	$.ajax(
+	{
+		url: urlForSend,
+		dataType: 'json',
+		data: data,
+		type: 'POST',
+		complete: function(data)
+		{
+			//set thing to check for updated files. 	
+			timeoutVar = setInterval(function(){verifyChange();},3000);
+	  	}
+	});
+}
+
+function verifyChange()
+{
+	var urlForSend = '../update/updateActionCheck.php?format=json'
+	var data = {status: "" };
+	$.ajax(
+	{
+		url: urlForSend,
+		dataType: 'json',
+		data: data,
+		type: 'POST',
+		success: function(data)
+		{
+			if(data == 'finishedUpdate')
+			{
+				clearInterval(timeoutVar);
+				actuallyInstallUpdates();
+			}
+	  	}
+	});
+}
+
+function actuallyInstallUpdates()
+{
 	$("#settingsInstallUpdate").submit();
 }
 
@@ -637,7 +679,6 @@ function checkForUpdateDefinitely(showPopupForNoUpdate = false)
 					if(popupSettingsArray.versionCheck != "false")
 					{
 						dataFromUpdateCheck = data;
-						displayLoadingPopup();
 						updateUpdateCheckWaitTimer();
 					}
 					else
@@ -680,6 +721,7 @@ function updateUpdateCheckWaitTimer()
 
 function showUpdateCheckPopup(data)
 {
+	showPopup();
 	var textForInnerHTML = "<div class='settingsHeader' >New Version Available!</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Version "+data.versionNumber+" is now available!</div><div class='link' onclick='installUpdates();' style='margin-left:74px; margin-right:50px;margin-top:25px;'>Update Now</div><div onclick='saveSettingFromPopupNoCheckMaybe();' class='link'>Maybe Later</div><br><div style='width:100%; padding-left:45px; padding-top:5px;'><input id='dontShowPopuForThisUpdateAgain'";
 	if(dontNotifyVersion == data.versionNumber)
 	{

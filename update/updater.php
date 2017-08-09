@@ -601,6 +601,7 @@ $versionCheck = '"'.$configStatic['version'].'"';
 		{
 			if(i == fileCopyCount)
 			{
+				updateText("Copying File "+(i+1)+" of "+filteredArray.length);
 				fileCopyCount++;
 				copyFileFromArrayAjax(filteredArray[i]);
 			}
@@ -613,6 +614,7 @@ $versionCheck = '"'.$configStatic['version'].'"';
 
 	function copyFileFromArrayAjax(file)
 	{
+		updateText("File: "+file);
 		//insert ajax call later
 	}
 
