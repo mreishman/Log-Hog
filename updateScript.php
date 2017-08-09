@@ -1,6 +1,6 @@
 <?php
   
-$arrayOfFiles = array("core_config.php", "core_html_restoreVersionOptions.html","core_js_loghogDownloadJS.js","core_js_settings.js","core_php_performSettingsInstallUpdateAction.php","core_php_pollCheck.php","core_php_settingsSaveConfigStatic.php","core_php_template_settingsMenuVars.php","core_template_theme.css","index.php","local_default_template_theme.css","restore_php_performSettingsInstallUpdateAction.php","restore_php_settingsInstallUpdate.php","restore_restore.php","settings_advanced.php","core_config.php","settings_changelog.html","settings_devTools.php","settings_header.php","settings_monitorDownload.php","settings_monitorRemove.php","setup_step4.php");
+$arrayOfFiles = array("core_conf_config.php", "core_html_restoreVersionOptions.html","core_js_loghogDownloadJS.js","core_js_settings.js","core_php_performSettingsInstallUpdateAction.php","core_php_pollCheck.php","core_php_settingsSaveConfigStatic.php","core_php_template_settingsMenuVars.php","core_template_theme.css","index.php","local_default_template_theme.css","restore_php_performSettingsInstallUpdateAction.php","restore_php_settingsInstallUpdate.php","restore_restore.php","settings_advanced.php","settings_changelog.html","settings_devTools.php","settings_header.php","settings_monitorDownload.php","settings_monitorRemove.php","setup_step4.php");
 
 require_once("innerUpgradeStatus.php");
 
