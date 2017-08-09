@@ -19,11 +19,16 @@ $currentFile = $arrayOfFiles[$innerUpdateProgress['currentFile']];
 $indexToExtracted = "update/downloads/updateFiles/extracted/";  
 
   
-if($currentFile == "core_config.php")
+if($currentFile == "core_conf_config.php")
 {
    if (!file_exists($varToIndexDir.'restore/')) 
    {
    	mkdir($varToIndexDir.'restore/', 0777, true);
+   }
+	
+	if (!file_exists($varToIndexDir.'restore/php/')) 
+   {
+   	mkdir($varToIndexDir.'restore/php/', 0777, true);
    }
 }
   
