@@ -311,12 +311,33 @@ $versionCheck = '"'.$configStatic['version'].'"';
 		}
 	}
 
-	//timer = setInterval(function(){ajaxCheck();},3000);
-
-	function updateStatus()
+	function updateStatus(updateStatus, action)
 	{
-		//updateProgressFile($updateStatus, "../core/php/", "updateProgressFileNext.php", $updateAction);
-		//updateProgressFile($updateStatus, "../core/php/", "updateProgressFile.php", $updateAction);
+
+		var urlForSend = urlForSendMain;
+		var data = {action: 'updateProgressFile', status: updateStatus, pathToFile: "../core/php/", typeOfProgress: "updateProgressFileNext.php", action: action, percent: (document.getElementById('progressBar').value)};
+		$.ajax({
+			url: urlForSend,
+			dataType: 'json',
+			data: data,
+			type: 'POST',
+			complete: function()
+			{
+				
+			}
+		});	
+
+		var data = {action: 'updateProgressFile', status: updateStatus, pathToFile: "../core/php/", typeOfProgress: "updateProgressFile.php", action: action, percent: (document.getElementById('progressBar').value)};
+		$.ajax({
+			url: urlForSend,
+			dataType: 'json',
+			data: data,
+			type: 'POST',
+			complete: function()
+			{
+				
+			}
+		});	
 	}
 
 	function ajaxCheck()

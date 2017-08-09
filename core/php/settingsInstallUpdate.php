@@ -123,12 +123,13 @@ function updateHeadProgressLogFile($message)
 
 }
 
-function updateProgressFile($status, $pathToFile, $typeOfProgress, $action)
+function updateProgressFile($status, $pathToFile, $typeOfProgress, $action, $percent = 0)
 {
 	$writtenTextTofile = "<?php
 	$"."updateProgress = array(
   	'currentStep'   => '".$status."',
-  	'action' => '".$action."'
+  	'action' => '".$action."',
+  	'percent' => ".$percent"
 	);
 	?>
 	";
