@@ -707,7 +707,7 @@ function checkForUpdateDefinitely(showPopupForNoUpdate = false)
 					if(popupSettingsArray.versionCheck != "false")
 					{
 						dataFromUpdateCheck = data;
-						updateUpdateCheckWaitTimer();
+						timeoutVar = setInterval(function(){updateUpdateCheckWaitTimer();},3000);
 					}
 					else
 					{

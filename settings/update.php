@@ -162,7 +162,6 @@ $daysSince = $interval->format('%a');
 
 	var timeoutVar;
 	var dataFromJSON;
-	var checkForUpdateTimerVar;
 	var currentVersion = "<?php echo $configStatic['version']?>";
 
 	function goToUrl(url)
@@ -178,7 +177,7 @@ $daysSince = $interval->format('%a');
 			if(data.version == "1" || data.version == "2" | data.version == "3")
 			{
 				dataFromJSON = data;
-				checkForUpdateTimerVar = setInterval(function(){checkForUpdateTimer();},3000);
+				timeoutVar = setInterval(function(){checkForUpdateTimer();},3000);
 			}
 			else if (data.version == "0")
 			{
