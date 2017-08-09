@@ -65,7 +65,6 @@ function poll()
 	if(!polling)
 	{
 		pollSkipCounter = 0;
-		counterForPollForceRefreshAll++;
 		polling = true;
 		t0 = performance.now();
 		pollTwo();
@@ -121,6 +120,7 @@ function pollTwoPartTwo(data)
 	var boolForAllUpdateForce = false;
 	if(pollRefreshAllBool == "true")
 	{
+		counterForPollForceRefreshAll++;
 		if(counterForPollForceRefreshAll > pollRefreshAll)
 		{
 			counterForPollForceRefreshAll = 0;
