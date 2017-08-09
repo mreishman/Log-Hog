@@ -20,6 +20,8 @@ var arrayOfDataMain = null;
 var pollTimer = null;
 var dataFromUpdateCheck = null;
 var timeoutVar = null;
+var pollSkipCounter = 0;
+var counterForPollForceRefreshAll = 0;
 
 $( document ).ready(function()
 {
@@ -62,9 +64,23 @@ function poll()
 	counterForPoll++;
 	if(!polling)
 	{
+		pollSkipCounter = 0;
+		counterForPollForceRefreshAll++;
 		polling = true;
 		t0 = performance.now();
 		pollTwo();
+	}
+	else
+	{
+		if(pollForceTrueBool == "true")
+		{
+			pollSkipCounter++;
+			if(pollSkipCounter > pollForceTrue)
+			{
+				pollSkipCounter = 0;
+				polling = false;
+			}
+		}
 	}
 	
 }
@@ -100,7 +116,19 @@ function pollTwo()
 function pollTwoPartTwo(data)
 {
 	t2 = performance.now();
-	if(arrayOfData1 == null)
+
+	//check for all update force
+	var boolForAllUpdateForce = false;
+	if(pollRefreshAllBool == "true")
+	{
+		if(counterForPollForceRefreshAll > pollRefreshAll)
+		{
+			counterForPollForceRefreshAll = 0;
+			boolForAllUpdateForce = true;
+		}
+	}
+
+	if(arrayOfData1 == null || boolForAllUpdateForce)
 	{
 		arrayOfData1 = data;
 		var filesNew = Object.keys(arrayOfData1);

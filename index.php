@@ -170,7 +170,9 @@ elseif($withLogHog == 'true')
 		echo "var daysSetToUpdate = '".$autoCheckDaysUpdate."';";
 		echo "var pollingRate = ".$pollingRate.";";
 		echo "var pausePollFromFile = ".$pausePoll.";";
-		echo "var groupByColorEnabled = ".$groupByColorEnabled.";"; 			
+		echo "var groupByColorEnabled = ".$groupByColorEnabled.";";
+		echo "var pollForceTrue = ".$pollForceTrue.";"; 	
+		echo "var pollRefreshAll = ".$pollRefreshAll.";";		
 		?>
 		var dontNotifyVersion = "<?php echo $dontNotifyVersion;?>";
 		var currentVersion = "<?php echo $configStatic['version'];?>";
@@ -181,6 +183,8 @@ elseif($withLogHog == 'true')
 		var currentFolderColorTheme = "<?php echo $currentFolderColorTheme; ?>";
 		var popupSettingsArray = JSON.parse('<?php echo json_encode($popupSettingsArray); ?>');
 		var updateNoticeMeter = "<?php echo $updateNoticeMeter;?>";
+		var pollRefreshAllBool = "<?php echo $pollRefreshAllBool;?>";
+		var pollForceTrueBool = "<?php echo $pollRefreshAllBool;?>";
 		var pausePoll = false;
 		var refreshActionVar;
 		var refreshPauseActionVar;
