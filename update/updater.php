@@ -16,6 +16,10 @@ require_once('../top/statusTest.php');
 $noUpdateNeeded = true;
 $versionToUpdate = "";
 
+$versionToUpdateFirst = "";
+$levelToUpdateFirst = 0;
+$arrayOfVersions = array();
+
 //find next version to update to
 if($configStatic['newestVersion'] != $configStatic['version'])
 {
@@ -85,11 +89,19 @@ if($configStatic['newestVersion'] != $configStatic['version'])
 
 		if($levelOfUpdate != 0)
 		{
-			break;
+			if(empty($arrayOfVersions))
+			{
+				$versionToUpdateFirst = $versionToUpdate;
+				$levelToUpdateFirst = $levelOfUpdate;
+			}
+			array_push($arrayOfVersions, $versionToUpdate);
 		}
 
 	}
 }
+
+$versionToUpdate = $versionToUpdateFirst;
+$levelOfUpdate = $levelToUpdateFirst;
 
 if($levelOfUpdate == 0)
 {
@@ -206,7 +218,11 @@ $versionCheck = '"'.$configStatic['version'].'"';
 
 <div id="main">
 	<div class="settingsHeader" style="text-align: center;" >
-		<h1>Updating to version <?php echo $configStatic['newestVersion'] ; ?></h1>
+		<?php if ($configStatic['newestVersion'] == $versionToUpdate): ?>
+			<h1>Updating to version <?php echo $versionToUpdate ; ?></h1>
+		<?php else: ?>
+			<h1>Updating to version <?php echo $versionToUpdate; ?> ... <?php echo $configStatic['newestVersion']; ?></h1>
+		<?php endif; ?>
 		<div id="menu" style="margin-right: auto; margin-left: auto; position: relative; display: none;">
 			<a onclick="window.location.href = '../settings/update.php'">Back to Log-Hog</a>
 		</div>
@@ -239,7 +255,6 @@ $versionCheck = '"'.$configStatic['version'].'"';
 	var verifyFileTimer;
 	var versionToUpdateTo = "<?php echo $versionToUpdate; ?>";
 	var percent = 0;
-	var total = 100*1;
 	var arrayOfFilesExtracted;
 	var monitorLocation = "<?php echo $monitorStatus['withLogHog']?>";
 	var lock = false;
@@ -250,10 +265,13 @@ $versionCheck = '"'.$configStatic['version'].'"';
 	var postScripRunFileName = "";
 	var postScriptCount = 1;
 	var fileCopyCount = 0;
+	var arrayOfVersions = JSON.parse('<?php echo json_encode($arrayOfVersions);?>');
+	<?php echo "var arrayOfVersionsCount = ".count($arrayOfVersions).";";?>
+	var total = 100*arrayOfVersionsCount;
 
 	$( document ).ready(function()
 	{
-		pickNextAction();
+		//pickNextAction();
 	});
 
 	function updateProgressBar(additonalPercent)
@@ -540,7 +558,8 @@ $versionCheck = '"'.$configStatic['version'].'"';
 		}
 		else if(action == 'removeZipFile')
 		{
-			updateProgressBar(10);
+			updateProgressBar(9);
+			finishedUpdate();
 		}
 	}
 
@@ -784,6 +803,13 @@ $versionCheck = '"'.$configStatic['version'].'"';
 				removeExtractedDir();
 			}
 		});
+	}
+
+	function finishedUpdate()
+	{
+		//update version number
+
+		//check if another version to update to next
 	}
 	
 </script> 
