@@ -32,10 +32,11 @@ require_once('../top/statusTest.php');
 	</div>
 	<div class="settingsDiv" >
 		<div class="updatingDiv">
-			<progress id="progressBar" value="0" max="100" style="width: 95%; margin-top: 10px; margin-bottom: 10px; margin-left: 2.5%;" ></progress>
+			<progress id="progressBar" value="<?php echo $updateProgress['percent'];?>" max="100" style="width: 95%; margin-top: 10px; margin-bottom: 10px; margin-left: 2.5%;" ></progress>
 			<p style="border-bottom: 1px solid white;"></p>
-			<div id="innerDisplayUpdate" style="height: 300px; overflow: auto; max-height: 300px;">
-
+			<div id="innerDisplayUpdate" style="height: 300px; overflow: auto; max-height: 300px; padding: 5px;">
+			<br>
+			An update is currently in progress... please wait for it to finish. <br><br> If there is no progress in 2 minutes, this page will auto redirect to the updater page. <br><br> You can also click here to redirect to this page if a previous update failed to retry the update: <a class="link" onclick="window.location.href = '../settings/update.php'"  >Retry Update</a> <br><br> or here to revert back to a previous version <a class="link" onclick="window.location=href = '../restore/restore.php'" > Revert to a previous version </a>
 			</div>
 			<p style="border-bottom: 1px solid white;"></p>
 			<div class="settingsHeader">
@@ -51,7 +52,7 @@ require_once('../top/statusTest.php');
 <script type="text/javascript">
 	
 
-	
+
 </script>
 </body>
 </html>

@@ -3,6 +3,7 @@ require_once('../../local/layout.php');
 $baseUrl = "../../local/".$currentSelectedTheme."/";
 require_once($baseUrl.'conf/config.php');
 require_once('../../core/php/configStatic.php');
+require_once('../core/php/updateProgressFile.php');
 
 function tail($filename) 
 {
@@ -14,7 +15,7 @@ if($configStatic['version'] != $_POST['currentVersion'])
 {
 	$response = false;
 }
-elseif(array_key_exists('percent', $configStatic) && $configStatic['percent'] != 0)
+elseif(array_key_exists('percent', $updateProgress) && $updateProgress['percent'] != 0)
 {
 	$response = "update in progress";
 }

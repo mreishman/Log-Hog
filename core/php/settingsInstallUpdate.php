@@ -129,7 +129,7 @@ function updateProgressFile($status, $pathToFile, $typeOfProgress, $action, $per
 	$"."updateProgress = array(
   	'currentStep'   => '".$status."',
   	'action' => '".$action."',
-  	'percent' => ".$percent"
+  	'percent' => ".$percent."
 	);
 	?>
 	";
