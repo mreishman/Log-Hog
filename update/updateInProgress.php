@@ -36,7 +36,7 @@ require_once('../top/statusTest.php');
 			<p style="border-bottom: 1px solid white;"></p>
 			<div id="innerDisplayUpdate" style="height: 300px; overflow: auto; max-height: 300px; padding: 5px;">
 			<br>
-			An update is currently in progress... please wait for it to finish. <br><br> If there is no progress in 2 minutes, this page will auto redirect to the updater page. <br><br> You can also click here to redirect to this page if a previous update failed to retry the update: <a class="link" onclick="window.location.href = '../settings/update.php'"  >Retry Update</a> <br><br> or here to revert back to a previous version <a class="link" onclick="window.location=href = '../restore/restore.php'" > Revert to a previous version </a>
+			An update is currently in progress... please wait for it to finish. <br><br> If there is no progress in around 2 minutes, this page will auto redirect to the updater page. <br><br> You can also click here to redirect to this page if a previous update failed to retry the update: <a class="link" onclick="window.location.href = '../settings/update.php'"  >Retry Update</a> <br><br> or here to revert back to a previous version <a class="link" onclick="window.location=href = '../restore/restore.php'" > Revert to a previous version </a>
 			</div>
 			<p style="border-bottom: 1px solid white;"></p>
 			<div class="settingsHeader">
@@ -50,7 +50,46 @@ require_once('../top/statusTest.php');
 </div>
 <script src="../core/js/settings.js"></script>
 <script type="text/javascript">
-	
+
+var counter = 0;	
+<?php echo "var currentPercent = ".$updateProgress['percent'].";";?>
+
+
+$( document ).ready(function()
+{
+	setInterval(checkIfChange, 3000);
+
+});
+
+function checkIfChange()
+{
+	var urlForSend = '../core/php/getPercentUpdate.php?format=json'
+	var data = {};
+	$.ajax({
+		url: urlForSend,
+		dataType: 'json',
+		data: data,
+		type: 'POST',
+		success: function(data)
+		{
+			document.getElementById('innerSettingsText').innerHTML = "<br> Current Percent: "+currentPercent+"%"+document.getElementById('innerSettingsText').innerHTML;
+		  	if(data == currentPercent)
+		  	{
+		  		counter++
+		  		if(counter > 40)
+		  		{
+		  			window.location.href = '../settings/update.php';
+		  		}
+		  	}
+		  	else
+		  	{
+		  		counter = 0;
+		  		document.getElementById('progressBar').value = data;
+		  		currentPercent = data;
+		  	}
+		}
+	});	
+}
 
 
 </script>

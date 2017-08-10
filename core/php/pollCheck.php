@@ -3,7 +3,7 @@ require_once('../../local/layout.php');
 $baseUrl = "../../local/".$currentSelectedTheme."/";
 require_once($baseUrl.'conf/config.php');
 require_once('../../core/php/configStatic.php');
-require_once('../core/php/updateProgressFile.php');
+require_once('../../core/php/updateProgressFile.php');
 
 function tail($filename) 
 {
