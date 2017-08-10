@@ -506,6 +506,14 @@ $versionCheck = '"'.$configStatic['version'].'"';
 			{
 				unzipUpdateAndReturnArray();
 			}
+			else if(action == 'removeDirUpdate')
+			{
+				removeExtractedDir();
+			}
+			else if(action == "removeZipFile")
+			{
+				removeDownloadedZip();
+			}
 		}
 	}
 
@@ -524,6 +532,15 @@ $versionCheck = '"'.$configStatic['version'].'"';
 		{
 			updateProgressBar(9);
 			filterFilesFromArray();
+		}
+		else if(action == 'removeDirUpdate')
+		{
+			updateProgressBar(10);
+			removeDownloadedZip();
+		}
+		else if(action == 'removeZipFile')
+		{
+			updateProgressBar(10);
 		}
 	}
 
@@ -709,12 +726,64 @@ $versionCheck = '"'.$configStatic['version'].'"';
 
 	function removeExtractedDir()
 	{
-
+		if(retryCount == 0)
+		{
+			updateText("Removing Extracted TMP Files");
+		}
+		else
+		{
+			updateText("Attempt "+(retryCount+1)+" of 3 for Removing Extracted TMP Files");
+		}
+		var urlForSend = urlForSendMain;
+		var dataSend = {action: 'removeDirUpdate'};
+		$.ajax({
+			url: urlForSend,
+			dataType: 'json',
+			data: dataSend,
+			type: 'POST',
+			success: function(data)
+			{
+				//verify if downloaded
+				updateText("Verifying that TMP files were removed");
+				verifyFile('removeDirUpdate', '../../update/downloads/updateFiles/extracted/', false);
+			},
+			failure: function(data)
+			{
+				retryCount++;
+				removeExtractedDir();
+			}
+		});
 	}
 
 	function removeDownloadedZip()
 	{
-
+		if(retryCount == 0)
+		{
+			updateText("Removing Zip TMP File");
+		}
+		else
+		{
+			updateText("Attempt "+(retryCount+1)+" of 3 for Removing Zip TMP File");
+		}
+		var urlForSend = urlForSendMain;
+		var dataSend = {action: 'removeZipFile', fileToUnlink: "../../update/downloads/updateFiles/updateFiles.zip"};
+		$.ajax({
+			url: urlForSend,
+			dataType: 'json',
+			data: dataSend,
+			type: 'POST',
+			success: function(data)
+			{
+				//verify if downloaded
+				updateText("Verifying that TMP files were removed");
+				verifyFile('removeZipFile', '../../update/downloads/updateFiles/extracted/', false);
+			},
+			failure: function(data)
+			{
+				retryCount++;
+				removeExtractedDir();
+			}
+		});
 	}
 	
 </script> 
