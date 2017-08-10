@@ -14,6 +14,10 @@ if($configStatic['version'] != $_POST['currentVersion'])
 {
 	$response = false;
 }
+elseif(array_key_exists('percent', $configStatic) && $configStatic['percent'] != 0)
+{
+	$response = "update in progress";
+}
 else
 {
 	$response = array();
