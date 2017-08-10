@@ -221,7 +221,7 @@ $versionCheck = '"'.$configStatic['version'].'"';
 		<?php if ($configStatic['newestVersion'] == $versionToUpdate): ?>
 			<h1>Updating to version <?php echo $versionToUpdate ; ?></h1>
 		<?php else: ?>
-			<h1>Updating to version <?php echo $versionToUpdate; ?> ... <?php echo $configStatic['newestVersion']; ?></h1>
+			<h1>Installing Update <span id="countOfVersions" >1</span> of <?php echo count($arrayOfVersions); ?> ... Updating to version <?php echo $configStatic['newestVersion'];?></h1>
 		<?php endif; ?>
 		<div id="menu" style="margin-right: auto; margin-left: auto; position: relative; display: none;">
 			<a onclick="window.location.href = '../settings/update.php'">Back to Log-Hog</a>
@@ -268,6 +268,7 @@ $versionCheck = '"'.$configStatic['version'].'"';
 	var arrayOfVersions = JSON.parse('<?php echo json_encode($arrayOfVersions);?>');
 	<?php echo "var arrayOfVersionsCount = ".count($arrayOfVersions).";";?>
 	var total = 100*arrayOfVersionsCount;
+	var versionCountCurrent = 1;
 
 	$( document ).ready(function()
 	{
