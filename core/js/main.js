@@ -236,7 +236,7 @@ function pollThree(arrayToUpdate)
 
 function afterPollFunctionComplete()
 {
-	document.getElementById('firstLoad').style.display = 'none';
+	//document.getElementById('firstLoad').style.display = 'none';
 	polling = false;
 	if(enablePollTimeLogging != "false")
 	{
