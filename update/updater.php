@@ -231,7 +231,7 @@ $versionCheck = '"'.$configStatic['version'].'"';
 	</div>
 	<div class="settingsDiv" >
 		<div class="updatingDiv">
-			<progress id="progressBar" value="0" max="100" style="width: 95%; margin-top: 10px; margin-bottom: 10px; margin-left: 2.5%;" ></progress>
+			<progress id="progressBar" value="0" max="100" style="width: 95%; margin-top: 10px; margin-bottom: 10px; margin-left: 2.5%; -webkit-appearance: none; appearance: none;" ></progress>
 			<p style="border-bottom: 1px solid white;"></p>
 			<div id="innerDisplayUpdate" style="height: 300px; overflow: auto; max-height: 300px;">
 
