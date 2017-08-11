@@ -339,9 +339,9 @@ $versionCheck = '"'.$configStatic['version'].'"';
 
 	function updateStatusFunc(updateStatusInner, action)
 	{
-
 		var urlForSend = urlForSendMain;
-		var data = {action: 'updateProgressFile', status: updateStatusInner, pathToFile: "../core/php/", typeOfProgress: "updateProgressFileNext.php", action: action, percent: (document.getElementById('progressBar').value)};
+		var currentPercent = (document.getElementById('progressBar').value);
+		var data = {action: 'updateProgressFile', status: updateStatusInner, pathToFile: "../core/php/", typeOfProgress: "updateProgressFileNext.php", action: action, percent: currentPercent};
 		$.ajax({
 			url: urlForSend,
 			dataType: 'json',
@@ -353,7 +353,7 @@ $versionCheck = '"'.$configStatic['version'].'"';
 			}
 		});	
 
-		var data = {action: 'updateProgressFile', status: updateStatusInner, pathToFile: "../core/php/", typeOfProgress: "updateProgressFile.php", action: action, percent: (document.getElementById('progressBar').value)};
+		var data = {action: 'updateProgressFile', status: updateStatusInner, pathToFile: "../core/php/", typeOfProgress: "updateProgressFile.php", action: action, percent: currentPercent};
 		$.ajax({
 			url: urlForSend,
 			dataType: 'json',
@@ -552,7 +552,7 @@ $versionCheck = '"'.$configStatic['version'].'"';
 		{
 			updateProgressBar(10);
 			updateStatusFunc("Extracting Zip Files For ", "unzipFile");
-			unzipBranch();
+			//unzipBranch();
 		}
 		else if(action == 'unzipUpdateAndReturnArray')
 		{
