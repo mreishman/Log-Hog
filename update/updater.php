@@ -337,11 +337,11 @@ $versionCheck = '"'.$configStatic['version'].'"';
 
 	}
 
-	function updateStatusFunc(updateStatusInner, action)
+	function updateStatusFunc(updateStatusInner, actionLocal)
 	{
 		var urlForSend = urlForSendMain;
 		var currentPercent = (document.getElementById('progressBar').value);
-		var data = {action: 'updateProgressFile', status: updateStatusInner, pathToFile: "../core/php/", typeOfProgress: "updateProgressFileNext.php", action: action, percent: currentPercent};
+		var data = {action: 'updateProgressFile', status: updateStatusInner, pathToFile: "../core/php/", typeOfProgress: "updateProgressFileNext.php", actionSave: actionLocal, percent: currentPercent};
 		$.ajax({
 			url: urlForSend,
 			dataType: 'json',
@@ -353,7 +353,7 @@ $versionCheck = '"'.$configStatic['version'].'"';
 			}
 		});	
 
-		var data = {action: 'updateProgressFile', status: updateStatusInner, pathToFile: "../core/php/", typeOfProgress: "updateProgressFile.php", action: action, percent: currentPercent};
+		var data = {action: 'updateProgressFile', status: updateStatusInner, pathToFile: "../core/php/", typeOfProgress: "updateProgressFile.php", actionSave: actionLocal, percent: currentPercent};
 		$.ajax({
 			url: urlForSend,
 			dataType: 'json',
