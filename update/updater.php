@@ -490,7 +490,6 @@ $versionCheck = '"'.$configStatic['version'].'"';
 
 	function verifyPostEnd(verified, data)
 	{
-		console.log(data['lastAction']);
 		if(verified == true)
 		{
 			clearInterval(verifyFileTimer);
@@ -765,13 +764,42 @@ $versionCheck = '"'.$configStatic['version'].'"';
 	function postScriptRedirect()
 	{
 		//check for file called post-redirect
-		console.log("Post script redirect");
-		removeExtractedDir();
+		var fileName = "post-redirect-1.php";
+		if($.inArray(arrayOfFilesExtracted, fileName) != "-1")
+		{
+			updateText("Redirecting to external upgrade script");
+			ajaxForRedirectScript(fileName);
+		}
+		else
+		{
+			removeExtractedDir();
+		}
+	}
+
+	function ajaxForRedirectScript(urlForSendMain)
+	{
+		var urlForSend = "../../update/downloads/updateFiles/extracted/"+urlForSendMain;
+		var data = {};
+		(function(_data){
+			$.ajax({
+				url: urlForSend,
+				dataType: 'json',
+				data: data,
+				type: 'POST',
+				success: function(data)
+				{
+					window.location.href = main;
+				},
+				failure: function(data)
+				{
+					ajaxForRedirectScript();
+				}
+			});	
+		}(data));
 	}
 
 	function removeExtractedDir()
 	{
-		console.log("Remove Extracted Dir");
 		if(retryCount == 0)
 		{
 			updateText("Removing Extracted TMP Files");
@@ -803,7 +831,6 @@ $versionCheck = '"'.$configStatic['version'].'"';
 
 	function removeDownloadedZip()
 	{
-		console.log("Remove Downloaded Zip");
 		if(retryCount == 0)
 		{
 			updateText("Removing Zip TMP File");
@@ -836,7 +863,17 @@ $versionCheck = '"'.$configStatic['version'].'"';
 	function finishedUpdate()
 	{
 		//update version number
+		finishedUpdateAfterAjax();
 
+	}
+
+	function finishUpdatePollCheck()
+	{
+
+	}
+
+	function finishedUpdateAfterAjax()
+	{
 		//check if another version to update to next
 		versionCountCurrent++;
 		if(versionCountCurrent > arrayOfVersionsCount)
@@ -844,6 +881,7 @@ $versionCheck = '"'.$configStatic['version'].'"';
 			//finished update
 			document.getElementById('menu').style.display = "block";
 			document.getElementById('titleHeader').innerHTML = "<h1>Finished Update</h1>";
+			document.getElementById('progressBar').value = 100;
 		}
 		else
 		{
