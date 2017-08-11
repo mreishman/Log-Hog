@@ -49,6 +49,22 @@ $( document ).ready(function()
 
 });
 
+function updateSkipCounterLog(num)
+{
+	if(enablePollTimeLogging != "false")
+	{
+		document.getElementById('loggSkipCount').innerHTML = num;
+	}
+}
+
+function updateAllRefreshCounter(num)
+{
+	if(enablePollTimeLogging != "false")
+	{
+		document.getElementById('loggAllCount').innerHTML = num;
+	}
+}
+
 function poll()
 {
 	checkForUpdateMaybe();
@@ -65,6 +81,7 @@ function poll()
 	if(!polling)
 	{
 		pollSkipCounter = 0;
+		updateSkipCounterLog(pollSkipCounter);
 		polling = true;
 		t0 = performance.now();
 		pollTwo();
@@ -74,11 +91,17 @@ function poll()
 		if(pollForceTrueBool == "true")
 		{
 			pollSkipCounter++;
+			updateSkipCounterLog(pollSkipCounter);
 			if(pollSkipCounter > pollForceTrue)
 			{
 				pollSkipCounter = 0;
 				polling = false;
+				updateSkipCounterLog(pollSkipCounter);
 			}
+		}
+		else
+		{
+			updateSkipCounterLog("-");
 		}
 	}
 	
@@ -124,12 +147,18 @@ function pollTwoPartTwo(data)
 	var boolForAllUpdateForce = false;
 	if(pollRefreshAllBool == "true")
 	{
+		updateAllRefreshCounter(counterForPollForceRefreshAll);
 		counterForPollForceRefreshAll++;
 		if(counterForPollForceRefreshAll > pollRefreshAll)
 		{
 			counterForPollForceRefreshAll = 0;
 			boolForAllUpdateForce = true;
+			updateAllRefreshCounter(counterForPollForceRefreshAll);
 		}
+	}
+	else
+	{
+		updateAllRefreshCounter("-");
 	}
 
 	if(arrayOfData1 == null || boolForAllUpdateForce)

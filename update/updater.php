@@ -218,11 +218,13 @@ $versionCheck = '"'.$configStatic['version'].'"';
 
 <div id="main">
 	<div class="settingsHeader" style="text-align: center;" >
+		<span id="titleHeader" >
 		<?php if ($configStatic['newestVersion'] == $versionToUpdate): ?>
 			<h1>Updating to version <?php echo $versionToUpdate ; ?></h1>
 		<?php else: ?>
 			<h1>Installing Update <span id="countOfVersions" >1</span> of <?php echo count($arrayOfVersions); ?> ... Updating to version <span id="currentUpdatTo" ><?php echo $versionToUpdate ?></span>/<?php echo $configStatic['newestVersion'];?></h1>
 		<?php endif; ?>
+		</span>
 		<div id="menu" style="margin-right: auto; margin-left: auto; position: relative; display: none;">
 			<a onclick="window.location.href = '../settings/update.php'">Back to Log-Hog</a>
 		</div>
@@ -335,11 +337,11 @@ $versionCheck = '"'.$configStatic['version'].'"';
 
 	}
 
-	function updateStatusFunc(updateStatus, action)
+	function updateStatusFunc(updateStatusInner, action)
 	{
 
 		var urlForSend = urlForSendMain;
-		var data = {action: 'updateProgressFile', status: updateStatus, pathToFile: "../core/php/", typeOfProgress: "updateProgressFileNext.php", action: action, percent: (document.getElementById('progressBar').value)};
+		var data = {action: 'updateProgressFile', status: updateStatusInner, pathToFile: "../core/php/", typeOfProgress: "updateProgressFileNext.php", action: action, percent: (document.getElementById('progressBar').value)};
 		$.ajax({
 			url: urlForSend,
 			dataType: 'json',
@@ -351,7 +353,7 @@ $versionCheck = '"'.$configStatic['version'].'"';
 			}
 		});	
 
-		var data = {action: 'updateProgressFile', status: updateStatus, pathToFile: "../core/php/", typeOfProgress: "updateProgressFile.php", action: action, percent: (document.getElementById('progressBar').value)};
+		var data = {action: 'updateProgressFile', status: updateStatusInner, pathToFile: "../core/php/", typeOfProgress: "updateProgressFile.php", action: action, percent: (document.getElementById('progressBar').value)};
 		$.ajax({
 			url: urlForSend,
 			dataType: 'json',
@@ -610,7 +612,7 @@ $versionCheck = '"'.$configStatic['version'].'"';
 			preScriptCount = 1;
 			preScripRunFileName = "";
 			//finished with pre scripts
-
+			fileCopyCount = 0;
 			copyFilesFromArray();
 		}
 	}
@@ -840,6 +842,8 @@ $versionCheck = '"'.$configStatic['version'].'"';
 		if(versionCountCurrent > arrayOfVersionsCount)
 		{
 			//finished update
+			document.getElementById('menu').style.display = "block";
+			document.getElementById('titleHeader').innerHTML = "<h1>Finished Update</h1>";
 		}
 		else
 		{
