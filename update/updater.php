@@ -272,7 +272,7 @@ $versionCheck = '"'.$configStatic['version'].'"';
 
 	$( document ).ready(function()
 	{
-		//pickNextAction();
+		pickNextAction();
 	});
 
 	function updateProgressBar(additonalPercent)
@@ -328,9 +328,14 @@ $versionCheck = '"'.$configStatic['version'].'"';
 		{
 			//remove zip
 		}
+		else if(updateStatus == "finishedUpdate")
+		{
+			finishedUpdate();
+		}
+
 	}
 
-	function updateStatus(updateStatus, action)
+	function updateStatusFunc(updateStatus, action)
 	{
 
 		var urlForSend = urlForSendMain;
@@ -483,6 +488,7 @@ $versionCheck = '"'.$configStatic['version'].'"';
 
 	function verifyPostEnd(verified, data)
 	{
+		console.log(verified);
 		if(verified == true)
 		{
 			clearInterval(verifyFileTimer);
@@ -544,7 +550,7 @@ $versionCheck = '"'.$configStatic['version'].'"';
 		if(action == 'downloadLogHog')
 		{
 			updateProgressBar(10);
-			updateStatus("Extracting Zip Files For ", "unzipFile");
+			updateStatusFunc("Extracting Zip Files For ", "unzipFile");
 			unzipBranch();
 		}
 		else if(action == 'unzipUpdateAndReturnArray')
@@ -640,7 +646,7 @@ $versionCheck = '"'.$configStatic['version'].'"';
 					copyFile = true;
 				}
 			}
-			else if(file.startsWith("pre-script-") || file.startsWith("post-script-"))
+			else if(file.startsWith("pre-script-") || file.startsWith("post-script-") || file.startsWith("post-redirect-"))
 			{
 				copyFile - false;
 			}
@@ -667,18 +673,32 @@ $versionCheck = '"'.$configStatic['version'].'"';
 				updateText("Copying File "+(i+1)+" of "+filteredArray.length);
 				fileCopyCount++;
 				copyFileFromArrayAjax(filteredArray[i]);
+				break;
 			}
 		}
 		if(fileCopyCount == filteredArray.length)
 		{
-			//end of file copy stuff
+			updateText("Finished copying files.");
+			postScriptRun();
 		}
 	}
 
 	function copyFileFromArrayAjax(file)
 	{
 		updateText("File: "+file);
-		//insert ajax call later
+		
+		var urlForSend = urlForSendMain;
+		var dataSend = {action: 'copyFileToFile', fileCopyFrom: file};
+		$.ajax({
+			url: urlForSend,
+			dataType: 'json',
+			data: dataSend,
+			type: 'POST',
+			complete: function(data)
+			{
+				copyFilesFromArray();
+			}
+		});
 	}
 
 	function postScriptRun()
@@ -718,8 +738,8 @@ $versionCheck = '"'.$configStatic['version'].'"';
 			}
 			postScriptCount = 1;
 			postScripRunFileName = "";
-			//finished with pre scripts
-			copyFilesFromArray();
+			//finished with post scripts
+			postScriptRedirect();
 		}
 	}
 
@@ -741,7 +761,8 @@ $versionCheck = '"'.$configStatic['version'].'"';
 
 	function postScriptRedirect()
 	{
-
+		//check for file called post-redirect
+		removeExtractedDir();
 	}
 
 	function removeExtractedDir()
@@ -801,7 +822,7 @@ $versionCheck = '"'.$configStatic['version'].'"';
 			failure: function(data)
 			{
 				retryCount++;
-				removeExtractedDir();
+				removeDownloadedZip();
 			}
 		});
 	}
