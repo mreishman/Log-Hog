@@ -221,7 +221,7 @@ $versionCheck = '"'.$configStatic['version'].'"';
 		<?php if ($configStatic['newestVersion'] == $versionToUpdate): ?>
 			<h1>Updating to version <?php echo $versionToUpdate ; ?></h1>
 		<?php else: ?>
-			<h1>Installing Update <span id="countOfVersions" >1</span> of <?php echo count($arrayOfVersions); ?> ... Updating to version <?php echo $configStatic['newestVersion'];?></h1>
+			<h1>Installing Update <span id="countOfVersions" >1</span> of <?php echo count($arrayOfVersions); ?> ... Updating to version <span id="currentUpdatTo" ><?php echo $versionToUpdate ?></span>/<?php echo $configStatic['newestVersion'];?></h1>
 		<?php endif; ?>
 		<div id="menu" style="margin-right: auto; margin-left: auto; position: relative; display: none;">
 			<a onclick="window.location.href = '../settings/update.php'">Back to Log-Hog</a>
@@ -488,7 +488,7 @@ $versionCheck = '"'.$configStatic['version'].'"';
 
 	function verifyPostEnd(verified, data)
 	{
-		console.log(verified);
+		console.log(data['lastAction']);
 		if(verified == true)
 		{
 			clearInterval(verifyFileTimer);
@@ -680,6 +680,7 @@ $versionCheck = '"'.$configStatic['version'].'"';
 		{
 			updateText("Finished copying files.");
 			postScriptRun();
+			fileCopyCount++;
 		}
 	}
 
@@ -762,11 +763,13 @@ $versionCheck = '"'.$configStatic['version'].'"';
 	function postScriptRedirect()
 	{
 		//check for file called post-redirect
+		console.log("Post script redirect");
 		removeExtractedDir();
 	}
 
 	function removeExtractedDir()
 	{
+		console.log("Remove Extracted Dir");
 		if(retryCount == 0)
 		{
 			updateText("Removing Extracted TMP Files");
@@ -798,6 +801,7 @@ $versionCheck = '"'.$configStatic['version'].'"';
 
 	function removeDownloadedZip()
 	{
+		console.log("Remove Downloaded Zip");
 		if(retryCount == 0)
 		{
 			updateText("Removing Zip TMP File");
@@ -817,7 +821,7 @@ $versionCheck = '"'.$configStatic['version'].'"';
 			{
 				//verify if downloaded
 				updateText("Verifying that TMP files were removed");
-				verifyFile('removeZipFile', '../../update/downloads/updateFiles/extracted/', false);
+				verifyFile('removeZipFile', '../../update/downloads/updateFiles/updateFiles.zip', false);
 			},
 			failure: function(data)
 			{
@@ -832,6 +836,21 @@ $versionCheck = '"'.$configStatic['version'].'"';
 		//update version number
 
 		//check if another version to update to next
+		versionCountCurrent++;
+		if(versionCountCurrent > arrayOfVersionsCount)
+		{
+			//finished update
+		}
+		else
+		{
+			//update num to match
+			document.getElementById('countOfVersions').innerHTML = versionCountCurrent;
+			document.getElementById('currentUpdatTo').innerHTML = (arrayOfVersions[(versionCountCurrent-1)]);
+			//update version to update to
+			versionToUpdateTo = arrayOfVersions[(versionCountCurrent-1)];
+			//start new download
+			downloadBranch();
+		}
 	}
 	
 </script> 
