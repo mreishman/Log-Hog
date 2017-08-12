@@ -100,7 +100,7 @@ if($logTrimType == 'size')
 	}
 }
 
-function tail($filename, $sliceSize, $shellOrPhp, $logTrimCheck, $logSizeLimit,$logTrimMacBSD,$logTrimType,$TrimSize,$buffer) 
+function tail($filename, $sliceSize, $shellOrPhp, $logTrimCheck, $logSizeLimit,$logTrimMacBSD,$logTrimType,$buffer) 
 {
 	$filename = preg_replace('/([()"])/S', '$1', $filename);
 	$data =  "This file is empty. This should not be displayed.";
@@ -108,78 +108,18 @@ function tail($filename, $sliceSize, $shellOrPhp, $logTrimCheck, $logSizeLimit,$
 	{
 		if($logTrimCheck == "true")
 		{
-			$lineCount = shell_exec('wc -l < ' . $filename);
-
-			if($logTrimType == 'lines')
-			{
-				if($lineCount > ($logSizeLimit+$buffer))
-				{
-					if($logTrimMacBSD == "true")
-					{
-						shell_exec('sed -i "" "1,' . ($lineCount - $logSizeLimit) . 'd" ' . $filename);
-					}
-					else
-					{
-						shell_exec('sed -i "1,' . ($lineCount - $logSizeLimit) . 'd" ' . $filename);
-					}
-				}
-			}
-			elseif($logTrimType == 'size')
-			{
-				$maxForLoop = 0;
-				//compair to trimsize value
-				$trimFileBool = true;
-				while ($trimFileBool && $maxForLoop != 10)
-				{
-					$filesizeForFile = shell_exec('wc -c < '.$filename);
-					if($filesizeForFile > $logSizeLimit+$buffer)
-					{
-						if($filesizeForFile > (2*$logSizeLimit) && $maxForLoop < 2)
-						{
-							//use different method
-							$lineCountForFile = shell_exec('wc -l < ' . $filename);
-							$fileSizePerLine = $filesizeForFile/$lineCountForFile;
-							$numOfLinesAllowed = $logSizeLimit/$fileSizePerLine;
-							$numOfLinesAllowed *= 2;
-							if($logTrimMacBSD == "true")
-							{
-								shell_exec('sed -i "" "1,' . round($lineCountForFile - $numOfLinesAllowed) . 'd" ' . $filename);
-							}
-							else
-							{
-								shell_exec('sed -i "1,' . round($lineCountForFile - $numOfLinesAllowed) . 'd" ' . $filename);
-							}
-						}
-						else
-						{
-							//remove first line in file
-							if($logTrimMacBSD == "true")
-							{
-								shell_exec('sed -i "" "1,2d" ' . $filename);
-							}
-							else
-							{
-								shell_exec('sed -i "1,2d" ' . $filename);
-							}
-						}
-					}	
-					else
-					{
-						$trimFileBool = false;
-					}
-					$maxForLoop++;
-				}
-			}
+			logTrim($filename, $sliceSize, $shellOrPhp, $logTrimCheck, $logSizeLimit,$logTrimMacBSD,$logTrimType,$buffer);
 		}
 
 		$data = "";
-		if(is_readable($filename))
+		$boolForReadable = is_readable($filename);
+		if($boolForReadable)
 		{
 			if($shellOrPhp == "true")
 			{
 				$data =  trim(tailCustom($filename, $sliceSize));
 			}
-			else
+			elseif($shellOrPhp == "false")
 			{
 				$data = trim(shell_exec('tail -n ' . $sliceSize . ' "' . $filename . '"'));
 			}
@@ -190,7 +130,7 @@ function tail($filename, $sliceSize, $shellOrPhp, $logTrimCheck, $logSizeLimit,$
 				{
 					$data = trim(shell_exec('tail -n ' . $sliceSize . ' "' . $filename . '"'));
 				}
-				else
+				elseif($shellOrPhp == "false")
 				{
 					$data = trim(tailCustom($filename, $sliceSize));
 				}
@@ -201,12 +141,78 @@ function tail($filename, $sliceSize, $shellOrPhp, $logTrimCheck, $logSizeLimit,$
 				$data = "Error - Maybe insufficient access to read file?";
 			}
 		}
-		else
+		elseif(!$boolForReadable)
 		{
 			$data = "Error - File is not Readable";
 		}
 	}
 	return $data;
+}
+
+function logTrim($filename, $sliceSize, $shellOrPhp, $logTrimCheck, $logSizeLimit,$logTrimMacBSD,$logTrimType,$buffer) 
+{
+	$lineCount = shell_exec('wc -l < ' . $filename);
+
+	if($logTrimType == 'lines')
+	{
+		if($lineCount > ($logSizeLimit+$buffer))
+		{
+			if($logTrimMacBSD == "true")
+			{
+				shell_exec('sed -i "" "1,' . ($lineCount - $logSizeLimit) . 'd" ' . $filename);
+			}
+			else
+			{
+				shell_exec('sed -i "1,' . ($lineCount - $logSizeLimit) . 'd" ' . $filename);
+			}
+		}
+	}
+	elseif($logTrimType == 'size')
+	{
+		$maxForLoop = 0;
+		//compair to trimsize value
+		$trimFileBool = true;
+		while ($trimFileBool && $maxForLoop != 10)
+		{
+			$filesizeForFile = shell_exec('wc -c < '.$filename);
+			if($filesizeForFile > $logSizeLimit+$buffer)
+			{
+				if($filesizeForFile > (2*$logSizeLimit) && $maxForLoop < 2)
+				{
+					//use different method
+					$lineCountForFile = shell_exec('wc -l < ' . $filename);
+					$fileSizePerLine = $filesizeForFile/$lineCountForFile;
+					$numOfLinesAllowed = $logSizeLimit/$fileSizePerLine;
+					$numOfLinesAllowed *= 2;
+					if($logTrimMacBSD == "true")
+					{
+						shell_exec('sed -i "" "1,' . round($lineCountForFile - $numOfLinesAllowed) . 'd" ' . $filename);
+					}
+					else
+					{
+						shell_exec('sed -i "1,' . round($lineCountForFile - $numOfLinesAllowed) . 'd" ' . $filename);
+					}
+				}
+				else
+				{
+					//remove first line in file
+					if($logTrimMacBSD == "true")
+					{
+						shell_exec('sed -i "" "1,2d" ' . $filename);
+					}
+					else
+					{
+						shell_exec('sed -i "1,2d" ' . $filename);
+					}
+				}
+			}	
+			else
+			{
+				$trimFileBool = false;
+			}
+			$maxForLoop++;
+		}
+	}
 }
 
 /**
@@ -217,8 +223,8 @@ function tail($filename, $sliceSize, $shellOrPhp, $logTrimCheck, $logSizeLimit,$
  */
 function tailCustom($filepath, $lines = 1, $adaptive = true) 
 {
-	$f = @fopen($filepath, "rb");
-	if($f === false)
+	$fileBeingTailed = @fopen($filepath, "rb");
+	if($fileBeingTailed === false)
 	{
 		return false;
 	}
@@ -232,8 +238,8 @@ function tailCustom($filepath, $lines = 1, $adaptive = true)
 		$buffer = ($lines < 2 ? 64 : ($lines < 10 ? 512 : 4096));
 	}
 
-	fseek($f, -1, SEEK_END);
-	if(fread($f, 1) != "\n")
+	fseek($fileBeingTailed, -1, SEEK_END);
+	if(fread($fileBeingTailed, 1) != "\n")
 	{
 		$lines -= 1;
 	}
@@ -241,12 +247,12 @@ function tailCustom($filepath, $lines = 1, $adaptive = true)
 	$output = '';
 	$chunk = '';
 
-	while (ftell($f) > 0 && $lines >= 0) 
+	while (ftell($fileBeingTailed) > 0 && $lines >= 0) 
 	{
-		$seek = min(ftell($f), $buffer);
-		fseek($f, -$seek, SEEK_CUR);
-		$output = ($chunk = fread($f, $seek)) . $output;
-		fseek($f, -mb_strlen($chunk, '8bit'), SEEK_CUR);
+		$seek = min(ftell($fileBeingTailed), $buffer);
+		fseek($fileBeingTailed, -$seek, SEEK_CUR);
+		$output = ($chunk = fread($fileBeingTailed, $seek)) . $output;
+		fseek($fileBeingTailed, -mb_strlen($chunk, '8bit'), SEEK_CUR);
 		$lines -= substr_count($chunk, "\n");
 	}
 
@@ -255,19 +261,20 @@ function tailCustom($filepath, $lines = 1, $adaptive = true)
 		$output = substr($output, strpos($output, "\n") + 1);
 	}
 
-	fclose($f);
+	fclose($fileBeingTailed);
 	return trim($output);
 }
 
 $response = array();
 
-foreach($_POST['arrayToUpdate'] as $path) 
+if(isset($_POST['arrayToUpdate']))
+foreach(escapeshellarg($_POST['arrayToUpdate']) as $path) 
 {
 	if($enableLogging != "false")
 	{
 		$time_start = microtime(true);
 	}
-	$dataVar =  htmlentities(tail($path, $config['sliceSize'], $enableSystemPrefShellOrPhp, $logTrimOn, $logSizeLimit,$logTrimMacBSD,$logTrimType,$TrimSize,$buffer));
+	$dataVar =  htmlentities(tail($path, $config['sliceSize'], $enableSystemPrefShellOrPhp, $logTrimOn, $logSizeLimit,$logTrimMacBSD,$logTrimType,$buffer));
 
 	if($enableLogging != "false")
 	{
