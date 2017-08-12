@@ -19,10 +19,10 @@ if(!file_exists($baseUrl.'conf/config.php'))
 	header('Location: ' . $url, true, 302);
 	exit();
 }
-require_once($baseUrl.'conf/config.php'); 
+require_once($baseUrl.'conf/config.php');
 require_once('core/conf/config.php');
-require_once('core/php/configStatic.php'); 
-require_once('core/php/loadVars.php'); 
+require_once('core/php/configStatic.php');
+require_once('core/php/loadVars.php');
 require_once('core/php/updateCheck.php');
 
 $today = date('Y-m-d');
@@ -179,8 +179,8 @@ elseif($withLogHog == 'true')
 		echo "var pollingRate = ".$pollingRate.";";
 		echo "var pausePollFromFile = ".$pausePoll.";";
 		echo "var groupByColorEnabled = ".$groupByColorEnabled.";";
-		echo "var pollForceTrue = ".$pollForceTrue.";"; 	
-		echo "var pollRefreshAll = ".$pollRefreshAll.";";		
+		echo "var pollForceTrue = ".$pollForceTrue.";";
+		echo "var pollRefreshAll = ".$pollRefreshAll.";";
 		?>
 		var dontNotifyVersion = "<?php echo $dontNotifyVersion;?>";
 		var currentVersion = "<?php echo $configStatic['version'];?>";

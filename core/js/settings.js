@@ -1,16 +1,16 @@
 var offsetHeight = 0;
-if(document.getElementById('menu'))
+if(document.getElementById("menu"))
 {
-	offsetHeight += document.getElementById('menu').offsetHeight;
+	offsetHeight += document.getElementById("menu").offsetHeight;
 }
-if(document.getElementById('menu2'))
+if(document.getElementById("menu2"))
 {
-	offsetHeight += document.getElementById('menu2').offsetHeight;
+	offsetHeight += document.getElementById("menu2").offsetHeight;
 }
 var heightOfMain = window.innerHeight - offsetHeight;
-var heightOfMainStyle = 'height:';
+var heightOfMainStyle = "height:";
 heightOfMainStyle += heightOfMain;
-heightOfMainStyle += 'px';
+heightOfMainStyle += "px";
 document.getElementById("main").setAttribute("style",heightOfMainStyle);
 var idForm = "";
 var countForVerifySave = 0;
@@ -25,8 +25,8 @@ function saveAndVerifyMain(idForForm)
 	displayLoadingPopup();
 	data = $(idForm).serializeArray();
 	$.ajax({
-            type: 'post',
-            url: '../core/php/settingsSaveAjax.php',
+            type: "post",
+            url: "../core/php/settingsSaveAjax.php",
             data: data,
             complete: function () {
               //verify saved
@@ -47,13 +47,13 @@ function timerVerifySave()
 	countForVerifySave++;
 	if(countForVerifySave < 20)
 	{
-		var urlForSend = '../core/php/saveCheck.php?format=json'
+		var urlForSend = "../core/php/saveCheck.php?format=json";
 		$.ajax(
 		{
 			url: urlForSend,
-			dataType: 'json',
+			dataType: "json",
 			data: data,
-			type: 'POST',
+			type: "POST",
 			success: function(data)
 			{
 				if(data === true)
@@ -61,7 +61,7 @@ function timerVerifySave()
 					clearInterval(pollCheckForUpdate);
 					saveVerified();
 				}
-		  	},
+			},
 		});
 	}
 	else
@@ -73,26 +73,26 @@ function timerVerifySave()
 
 function saveVerified()
 {
-	if(idForFormMain == 'settingsMainVars')
+	if(idForFormMain === "settingsMainVars")
 	{
 		refreshSettingsMainVar();
 	}
-	else if(idForFormMain == 'settingsMenuVars')
+	else if(idForFormMain === "settingsMenuVars")
 	{
 		refreshSettingsMenuVar();
 	}
-	else if(idForFormMain == 'settingsMainWatch')
+	else if(idForFormMain === "settingsMainWatch")
 	{
 		refreshSettingsWatchList();
 	}
 
-	document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Saved Changes!</div><br><br><div style='width:100%;text-align:center;'> <img src='../core/img/greenCheck.png' height='50' width='50'> </div>";
+	document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class='settingsHeader' >Saved Changes!</div><br><br><div style='width:100%;text-align:center;'> <img src='../core/img/greenCheck.png' height='50' width='50'> </div>";
 	fadeOutPopup();
 }
 
 function saveError()
 {
-	document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Error</div><br><br><div style='width:100%;text-align:center;'> An Error Occured While Saving... </div>";
+	document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class='settingsHeader' >Error</div><br><br><div style='width:100%;text-align:center;'> An Error Occured While Saving... </div>";
 	fadeOutPopup();
 }
 

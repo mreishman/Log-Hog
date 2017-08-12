@@ -17,9 +17,6 @@ $today = date('Y-m-d');
 $old_date = $configStatic['lastCheck'];
 $old_date_array = preg_split("/-/", $old_date);
 $old_date = $old_date_array[2]."-".$old_date_array[0]."-".$old_date_array[1];
-//$old_date = date_format( $old_date ,"Y-m-d");          
-//$old_date_timestamp = strtotime($old_date);
-//$new_date = date('Y-m-d', $old_date_timestamp); 
 
 $datetime1 = date_create($old_date_array[2]."-".$old_date_array[0]."-".$old_date_array[1]);
 $datetime2 = date_create($today);
@@ -77,10 +74,10 @@ $daysSince = $interval->format('%a');
 		</div>
 		<div id="releaseNotesBody" <?php if($levelOfUpdate == 0){echo "style='display: none;'";} ?> class="settingsDiv" >
 			<ul id="settingsUl">
-			<?php 
+			<?php
 			if(array_key_exists('versionList', $configStatic))
 			{
-				foreach ($configStatic['versionList'] as $key => $value) 
+				foreach ($configStatic['versionList'] as $key => $value)
 				{
 					$version = explode('.', $configStatic['version']);
 					$newestVersion = explode('.', $key);
@@ -146,7 +143,6 @@ $daysSince = $interval->format('%a');
 					}
 				}
 			}
-			
 			?>
 			</ul>
 		</div>
