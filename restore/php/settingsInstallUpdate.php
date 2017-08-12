@@ -1,13 +1,10 @@
 <?php
 
-
-
-
 function downloadFile($file = null, $update = true, $downloadFrom = 'Log-Hog/archive/', $downloadTo = '../../update/downloads/updateFiles/updateFiles.zip')
 {
 	if($file == null)
 	{
-		$file = $POST_['file'];
+		$file = $_POST['file'];
 	}
 	file_put_contents($downloadTo, 
 	file_get_contents("https://github.com/mreishman/".$downloadFrom.$file.".zip")

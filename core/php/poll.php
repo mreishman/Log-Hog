@@ -108,7 +108,7 @@ function tail($filename, $sliceSize, $shellOrPhp, $logTrimCheck, $logSizeLimit,$
 	{
 		if($logTrimCheck == "true")
 		{
-			logTrim($filename, $shellOrPhp, $logTrimCheck, $logSizeLimit,$logTrimMacBSD,$logTrimType,$buffer);
+			logTrim($filename,$logSizeLimit,$logTrimMacBSD,$logTrimType,$buffer);
 		}
 
 		$data = "";
@@ -149,7 +149,7 @@ function tail($filename, $sliceSize, $shellOrPhp, $logTrimCheck, $logSizeLimit,$
 	return $data;
 }
 
-function logTrim($filename, $shellOrPhp, $logTrimCheck, $logSizeLimit,$logTrimMacBSD,$logTrimType,$buffer)
+function logTrim($filename, $logSizeLimit,$logTrimMacBSD,$logTrimType,$buffer)
 {
 	$lineCount = shell_exec('wc -l < ' . $filename);
 
