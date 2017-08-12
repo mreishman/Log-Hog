@@ -9,15 +9,15 @@ function checkForUpdate($filePath)
 
 	mkdir("test");
 
-	if(!file_exists("test"))
+	$boolForCheck = file_exists("test");
+	if(!$boolForCheck)
 	{
-		header('Location: '."../../error.php?error=550&page=".$filePath, TRUE, 302); /* Redirect browser */
-		exit();
+		header("Location: "."../../error.php?error=550&page=".$filePath, true, 302); /* Redirect browser */
 	}
-	else
+	elseif($boolForCheck)
 	{
 		rmdir("test");
 	}
-	
+
 }
 ?>

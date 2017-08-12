@@ -8,7 +8,7 @@ $writtenTextTofile = "<?php
 
 
 
-file_put_contents("setupProcessFile.php", $writtenTextTofile);  
+file_put_contents("setupProcessFile.php", $writtenTextTofile);
 
 echo json_encode($_POST['status']);
 

@@ -1,25 +1,25 @@
-function updateText(text)
+	function updateText(text)
 	{
-		document.getElementById('innerSettingsText').innerHTML = "<p>"+text+"</p>"+document.getElementById('innerSettingsText').innerHTML;
+		document.getElementById("innerSettingsText").innerHTML = "<p>"+text+"</p>"+document.getElementById('innerSettingsText').innerHTML;
 	}
 
 	function checkIfTopDirIsEmpty()
 	{
 		updateText("Verifying that Directory is empty");
 		var urlForSend = urlForSendMain;
-		var data = {action: 'checkIfDirIsEmpty', dir: '../../top/'};
+		var data = {action: "checkIfDirIsEmpty", dir: "../../top/"};
 		$.ajax({
 			url: urlForSend,
-			dataType: 'json',
+			dataType: "json",
 			data: data,
-			type: 'POST',
+			type: "POST",
 			success: function(data)
 			{
-				if(data == true)
+				if(data === true)
 				{
 					downloadFile();
 				}
-				else if(data == false)
+				else if(data === false)
 				{
 					removeFilesFromToppFolder();
 				}
@@ -31,12 +31,12 @@ function updateText(text)
 	{
 		updateText("Directory has files in it, removing files");
 		var urlForSend = urlForSendMain;
-		var data = {action: 'removeUnZippedFiles', locationOfFilesThatNeedToBeRemovedRecursivally: '../../top/',removeDir: true};
+		var data = {action: "removeUnZippedFiles", locationOfFilesThatNeedToBeRemovedRecursivally: "../../top/",removeDir: true};
 		$.ajax({
 			url: urlForSend,
-			dataType: 'json',
+			dataType: "json",
 			data: data,
-			type: 'POST',
+			type: "POST",
 			complete: function()
 			{
 				//verify if downloaded
@@ -49,7 +49,7 @@ function updateText(text)
 				{
 					//re-add folder / one file
 
-					verifyFile('removeFilesFromToppFolderSkip', '../../top/',false);
+					verifyFile("removeFilesFromToppFolderSkip", "../../top/",false);
 				}
 			}
 		});	
@@ -59,15 +59,15 @@ function updateText(text)
 	{
 		updateText("Cleaning Up Uninstall");
 		var urlForSend = urlForSendMain;
-		var data = {action: 'readdSomeFilesFromUninstallProcess'};
+		var data = {action: "readdSomeFilesFromUninstallProcess"};
 		$.ajax({
 			url: urlForSend,
-			dataType: 'json',
+			dataType: "json",
 			data: data,
-			type: 'POST',
+			type: "POST",
 			complete: function()
 			{
-				verifyFile('cleanUpMonitorRemove', '../../top/statusTest.php',false);
+				verifyFile("cleanUpMonitorRemove", "../../top/statusTest.php",false);
 			}
 		});
 	}
@@ -76,22 +76,22 @@ function updateText(text)
 	{
 		updateText("Changing Internal Config Settings.");
 		var urlForSend = urlForSendMain;
-		var data = {action: 'changeMonSettingsRevert'};
+		var data = {action: "changeMonSettingsRevert"};
 		$.ajax({
 			url: urlForSend,
-			dataType: 'json',
+			dataType: "json",
 			data: data,
-			type: 'POST',
+			type: "POST",
 			complete: function()
 			{
-				verifyFile('changeMonSettingsRevert', '../../top/statusTest.php');
+				verifyFile("changeMonSettingsRevert", "../../top/statusTest.php");
 			}
 		});
 	}
 
 	function downloadFile()
 	{
-		if(retryCount == 0)
+		if(retryCount === 0)
 		{
 			updateText("Downloading Monitor");
 		}
@@ -100,17 +100,17 @@ function updateText(text)
 			updateText("Attempt "+(retryCount+1)+" of 3 for downloading Monitor");
 		}
 		var urlForSend = urlForSendMain;
-		var data = {action: 'downloadFile', file: 'master',downloadFrom: 'monitor/archive/', downloadTo: '../../top.zip'};
+		var data = {action: "downloadFile", file: "master",downloadFrom: "monitor/archive/", downloadTo: "../../top.zip"};
 		$.ajax({
 			url: urlForSend,
-			dataType: 'json',
+			dataType: "json",
 			data: data,
-			type: 'POST',
+			type: "POST",
 			complete: function()
 			{
 				//verify if downloaded
 				updateText("Verifying Download");
-				verifyFile('downloadMonitor', '../../top.zip');
+				verifyFile("downloadMonitor", "../../top.zip");
 			}
 		});	
 	}
@@ -118,16 +118,16 @@ function updateText(text)
 	function unzipFile()
 	{
 		var urlForSend = urlForSendMain;
-		var data = {action: 'unzipFile', locationExtractTo: '../../monitor-master/', locationExtractFrom: '../../top.zip', tmpCache: '../../'};
+		var data = {action: "unzipFile", locationExtractTo: "../../monitor-master/", locationExtractFrom: "../../top.zip", tmpCache: "../../"};
 		$.ajax({
 			url: urlForSend,
-			dataType: 'json',
+			dataType: "json",
 			data: data,
-			type: 'POST',
+			type: "POST",
 			complete: function()
 			{
 				//verify if downloaded
-				verifyFile('unzipFile', '../../monitor-master/index.php');
+				verifyFile("unzipFile", "../../monitor-master/index.php");
 			}
 		});	
 	}
@@ -136,16 +136,16 @@ function updateText(text)
 	{
 		updateText("Removing Downloaded File");
 		var urlForSend = urlForSendMain;
-		var data = {action: 'removeZipFile', fileToUnlink: '../../top.zip'};
+		var data = {action: "removeZipFile", fileToUnlink: "../../top.zip"};
 		$.ajax({
 			url: urlForSend,
-			dataType: 'json',
+			dataType: "json",
 			data: data,
-			type: 'POST',
+			type: "POST",
 			complete: function()
 			{
 				//verify if downloaded
-				verifyFile('removeZipFile', '../../top.zip',false);
+				verifyFile("removeZipFile", "../../top.zip",false);
 			}
 		});
 	}
@@ -161,40 +161,40 @@ function updateText(text)
 		}
 		else
 		{
-			if(action == 'downloadMonitor')
+			if(action === "downloadMonitor")
 			{
 				updateText("File Could NOT be found");
 				downloadFile();
 			}
-			else if(action == 'unzipFile')
+			else if(action === "unzipFile")
 			{
 				unzipFile();
 			}
-			else if(action == 'removeZipFile')
+			else if(action === "removeZipFile")
 			{
 				removeZipFile();
 			}
-			else if(action == 'cleanUp')
+			else if(action === "cleanUp")
 			{
 				cleanUp();
 			}
-			else if(action == 'changeMonSettings')
+			else if(action === "changeMonSettings")
 			{
 				changeMonSettings();
 			}
-			else if(action == 'removeUnneededFoldersMonitor')
+			else if(action === "removeUnneededFoldersMonitor")
 			{
 				removeUnneededFoldersMonitor();
 			}
-			else if(action == 'removeFilesFromToppFolderSkip')
+			else if(action === "removeFilesFromToppFolderSkip")
 			{
 				removeFilesFromToppFolder(true);
 			}
-			else if(action == 'cleanUpMonitorRemove')
+			else if(action === "cleanUpMonitorRemove")
 			{
 				cleanUpMonitorRemove();
 			}
-			else if(action == 'changeMonSettingsRevert')
+			else if(action === "changeMonSettingsRevert")
 			{
 				changeMonSettingsRevert();
 			}
@@ -206,41 +206,41 @@ function updateText(text)
 	{
 		//downloaded, extract
 		retryCount = 0;
-		if(action == 'downloadMonitor')
+		if(action === "downloadMonitor")
 		{
 			updateText("File Download Verified");
 			updateText("Unzipping Downloaded File");
 			unzipFile();
 		}
-		else if(action == 'unzipFile')
+		else if(action === "unzipFile")
 		{
 			removeZipFile();
 		}
-		else if(action == 'removeZipFile')
+		else if(action === "removeZipFile")
 		{
 			cleanUp();
 		}
-		else if(action == 'cleanUp')
+		else if(action === "cleanUp")
 		{
 			changeMonSettings();
 		}
-		else if(action == 'changeMonSettings')
+		else if(action === "changeMonSettings")
 		{
 			removeUnneededFoldersMonitor();
 		}
-		else if(action == 'removeUnneededFoldersMonitor')
+		else if(action === "removeUnneededFoldersMonitor")
 		{
 			finishedDownload();
 		}
-		else if(action == 'removeFilesFromToppFolderSkip')
+		else if(action === "removeFilesFromToppFolderSkip")
 		{
 			cleanUpMonitorRemove();
 		}
-		else if(action == 'cleanUpMonitorRemove')
+		else if(action === "cleanUpMonitorRemove")
 		{
 			changeMonSettingsRevert();
 		}
-		else if(action == 'changeMonSettingsRevert')
+		else if(action === "changeMonSettingsRevert")
 		{
 			finishedDownload();
 		}
@@ -250,16 +250,16 @@ function updateText(text)
 	{
 		updateText("Changing Monitor Settings");
 		var urlForSend = urlForSendMain;
-		var data = {action: 'changeMonSettings'};
+		var data = {action: "changeMonSettings"};
 		$.ajax({
 			url: urlForSend,
-			dataType: 'json',
+			dataType: "json",
 			data: data,
-			type: 'POST',
+			type: "POST",
 			complete: function()
 			{
 				//verify if downloaded
-				verifyFile('changeMonSettings', '../../top/statusTest.php');
+				verifyFile("changeMonSettings", "../../top/statusTest.php");
 			}
 		});
 	}
@@ -268,16 +268,16 @@ function updateText(text)
 	{
 		updateText("Removing unneeded folders from top");
 		var urlForSend = urlForSendMain;
-		var data = {action: 'removeUnneededFoldersMonitor', dir: '../../top'};
+		var data = {action: "removeUnneededFoldersMonitor", dir: "../../top"};
 		$.ajax({
 			url: urlForSend,
-			dataType: 'json',
+			dataType: "json",
 			data: data,
-			type: 'POST',
+			type: "POST",
 			complete: function()
 			{
 				//verify if downloaded
-				verifyFile('removeUnneededFoldersMonitor', '../../top/core/conf/config.php',false);
+				verifyFile("removeUnneededFoldersMonitor", "../../top/core/conf/config.php",false);
 			}
 		});
 	}
@@ -287,16 +287,16 @@ function updateText(text)
 		//remove old dir, rename new dir to old dir
 		updateText("Cleaning Up");
 		var urlForSend = urlForSendMain;
-		var data = {action: 'cleanUpMonitor', fileToUnlink: '../../monitor.zip'};
+		var data = {action: "cleanUpMonitor", fileToUnlink: "../../monitor.zip"};
 		$.ajax({
 			url: urlForSend,
-			dataType: 'json',
+			dataType: "json ",
 			data: data,
-			type: 'POST',
+			type: "POST",
 			complete: function()
 			{
 				//verify if downloaded
-				verifyFile('cleanUp', '../../top/index.php');
+				verifyFile("cleanUp", "../../top/index.php");
 			}
 		});
 	}
@@ -304,7 +304,7 @@ function updateText(text)
 	function verifyFile(action, fileLocation,isThere = true)
 	{
 		verifyCount = 0;
-		updateText('Verifying '+action+' with'+fileLocation);
+		updateText("Verifying "+action+" with"+fileLocation);
 		verifyFileTimer = setInterval(function(){verifyFilePoll(action,fileLocation,isThere);},6000);
 	}
 
@@ -313,15 +313,15 @@ function updateText(text)
 		if(lock == false)
 		{
 			lock = true;
-			updateText('verifying '+(verifyCount+1)+' of 10');
+			updateText("verifying "+(verifyCount+1)+" of 10");
 			var urlForSend = urlForSendMain;
-			var data = {action: 'verifyFileIsThere', fileLocation: fileLocation, isThere: isThere , lastAction: action};
+			var data = {action: "verifyFileIsThere", fileLocation: fileLocation, isThere: isThere , lastAction: action};
 			(function(_data){
 				$.ajax({
 					url: urlForSend,
-					dataType: 'json',
+					dataType: "json",
 					data: data,
-					type: 'POST',
+					type: "POST",
 					success: function(data)
 					{
 						verifyPostEnd(data, _data);
@@ -341,7 +341,7 @@ function updateText(text)
 
 	function verifyPostEnd(verified, data)
 	{
-		if(verified == true)
+		if(verified === true)
 		{
 			clearInterval(verifyFileTimer);
 			verifySucceded(data['lastAction']);
@@ -360,5 +360,5 @@ function updateText(text)
 	function updateError()
 	{
 		clearInterval(dotsTimer);
-		document.getElementById('innerSettingsText').innerHTML = "<p>An error occured while trying to download Monitor. </p>";
+		document.getElementById("innerSettingsText").innerHTML = "<p>An error occured while trying to download Monitor. </p>";
 	}

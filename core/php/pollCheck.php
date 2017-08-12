@@ -5,7 +5,7 @@ require_once($baseUrl.'conf/config.php');
 require_once('../../core/php/configStatic.php');
 require_once('../../core/php/updateProgressFile.php');
 
-function tail($filename) 
+function tail($filename)
 {
 	$filename = preg_replace('/([()"])/S', '$1', $filename);
 	return filesize($filename);
@@ -23,13 +23,13 @@ else
 {
 	$response = array();
 
-	foreach($config['watchList'] as $path => $filter) 
+	foreach($config['watchList'] as $path => $filter)
 	{
-		if(is_dir($path)) 
+		if(is_dir($path))
 		{
 			$path = preg_replace('/\/$/', '', $path);
 			$files = scandir($path);
-			if($files) 
+			if($files)
 			{
 				unset($files[0], $files[1]);
 				foreach($files as $k => $filename) {
