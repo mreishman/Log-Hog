@@ -107,11 +107,8 @@
   function getPosition(e) {
     var posx = 0;
     var posy = 0;
-
-    if (!e)
-    {
-      var e = window.event;
-    }
+    var e = window.event;
+    
 
     if (e.pageX || e.pageY) {
       posx = e.pageX;

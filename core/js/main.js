@@ -1,4 +1,4 @@
-var title = $('title').text();
+var title = $("title").text();
 var currentPage;
 var logs = {};
 var titles = {};
@@ -22,20 +22,32 @@ var dataFromUpdateCheck = null;
 var timeoutVar = null;
 var pollSkipCounter = 0;
 var counterForPollForceRefreshAll = 0;
+var filesNew;
+
+function escapeHTML(unsafe_str)
+{
+    return unsafe_str
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/\"/g, '&quot;')
+      .replace(/\'/g, '&#39;')
+      .replace(/\//g, '&#x2F;')
+}
 
 function updateSkipCounterLog(num)
 {
-	if(enablePollTimeLogging != "false")
+	if(enablePollTimeLogging !== "false")
 	{
-		document.getElementById('loggSkipCount').innerHTML = num;
+		document.getElementById("loggSkipCount").innerHTML = escapeHTML(num);
 	}
 }
 
 function updateAllRefreshCounter(num)
 {
-	if(enablePollTimeLogging != "false")
+	if(enablePollTimeLogging !== "false")
 	{
-		document.getElementById('loggAllCount').innerHTML = num;
+		document.getElementById("loggAllCount").innerHTML = escapeHTML(num);
 	}
 }
 
@@ -62,7 +74,7 @@ function poll()
 	}
 	else
 	{
-		if(pollForceTrueBool == "true")
+		if(pollForceTrueBool === "true")
 		{
 			pollSkipCounter++;
 			updateSkipCounterLog(pollSkipCounter);
@@ -83,28 +95,28 @@ function poll()
 
 function pollTwo()
 {
-	var urlForSend = 'core/php/pollCheck.php?format=json'
+	var urlForSend = "core/php/pollCheck.php?format=json";
 		var data = {currentVersion: currentVersion};
 		$.ajax({
 			url: urlForSend,
-			dataType: 'json',
+			dataType: "json",
 			data: data,
-			type: 'POST',
+			type: "POST",
 			success: function(data)
 			{
-			  	if(data == false)
-			  	{
-			  		showPopup();
-					document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Log-Hog has been updated. Please Refresh</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Log-Hog has been updated, and is now on version "+data+". Please refresh the page.</div><div><div class='link' onclick='location.reload();' style='margin-left:165px; margin-right:50px;margin-top:35px;'>Reload</div></div>";
-			  	}
-			  	else if(data == "update in progress")
-			  	{
-			  		window.location.href = "update/updateInProgress.php";
-			  	}
-			  	else
-			  	{
-			  		pollTwoPartTwo(data);
-			  	}
+				if(data === false)
+				{
+					showPopup();
+					document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class='settingsHeader' >Log-Hog has been updated. Please Refresh</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Log-Hog has been updated, and is now on version "+data+". Please refresh the page.</div><div><div class='link' onclick='location.reload();' style='margin-left:165px; margin-right:50px;margin-top:35px;'>Reload</div></div>";
+				}
+				else if(data === "update in progress")
+				{
+					window.location.href = "update/updateInProgress.php";
+				}
+				else
+				{
+					pollTwoPartTwo(data);
+				}
 			},
 			failure: function(data)
 			{
@@ -119,7 +131,7 @@ function pollTwoPartTwo(data)
 
 	//check for all update force
 	var boolForAllUpdateForce = false;
-	if(pollRefreshAllBool == "true")
+	if(pollRefreshAllBool === "true")
 	{
 		updateAllRefreshCounter(counterForPollForceRefreshAll);
 		counterForPollForceRefreshAll++;
@@ -138,7 +150,7 @@ function pollTwoPartTwo(data)
 	if(arrayOfData1 == null || boolForAllUpdateForce)
 	{
 		arrayOfData1 = data;
-		var filesNew = Object.keys(arrayOfData1);
+		filesNew = Object.keys(arrayOfData1);
 		for (var i = filesNew.length - 1; i >= 0; i--)
 		{
 			arrayToUpdate.push(filesNew[i]);
@@ -147,7 +159,7 @@ function pollTwoPartTwo(data)
 	else
 	{
 		var arrayOfData2 = data; 
-		var filesNew = Object.keys(arrayOfData2);
+		filesNew = Object.keys(arrayOfData2);
 		var filesOld = Object.keys(arrayOfData1);
 
 		arrayToUpdate = [];
@@ -199,15 +211,15 @@ function pollThree(arrayToUpdate)
 		}
 	}
 	t3 = performance.now();
-	if (typeof arrayToUpdate !== 'undefined' && arrayToUpdate.length > 0) 
+	if (typeof arrayToUpdate !== "undefined" && arrayToUpdate.length > 0) 
 	{
-		var urlForSend = 'core/php/poll.php?format=json'
+		var urlForSend = "core/php/poll.php?format=json";
 		var data = {arrayToUpdate: arrayToUpdate};
 		$.ajax({
 			url: urlForSend,
-			dataType: 'json',
+			dataType: "json",
 			data: data,
-			type: 'POST',
+			type: "POST",
 			success: function(data)
 			{
 			  	var filesInner = Object.keys(data);
@@ -436,7 +448,9 @@ function update(data) {
 	resize();
 	
 	if($('#menu .active').length == 0)
+	{
 		$('#menu a:eq(0)').click();
+	}
 	
 	if(logs[currentPage] != lastLogs[currentPage]) {
 		lastLogs[currentPage] = logs[currentPage];

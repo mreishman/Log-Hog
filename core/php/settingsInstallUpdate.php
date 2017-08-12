@@ -144,9 +144,7 @@ function downloadFile($file = null, $update = true, $downloadFrom = 'Log-Hog/arc
 	if($update == true)
 	{
 		require_once('configStatic.php');
-		$arrayForFile = $configStatic['versionList'];
-		$arrayForFile = $arrayForFile[$file];
-		$file = $arrayForFile['branchName'];
+		$file = $configStatic['versionList'][$file]['branchName'];
 	}
 
 	file_put_contents($downloadTo, 
