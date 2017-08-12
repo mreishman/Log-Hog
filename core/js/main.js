@@ -23,32 +23,6 @@ var timeoutVar = null;
 var pollSkipCounter = 0;
 var counterForPollForceRefreshAll = 0;
 
-$( document ).ready(function()
-{
-	resize();
-
-	window.onresize = resize;
-	window.onfocus = focus;
-
-	if(pausePollFromFile)
-	{
-		pausePoll = true;
-	}
-	else
-	{
-		poll();
-		startPollTimer();
-	}
-
-	if(pausePollOnNotFocus)
-	{
-		startPauseOnNotFocus();
-	}
-
-	checkForUpdateMaybe();
-
-});
-
 function updateSkipCounterLog(num)
 {
 	if(enablePollTimeLogging != "false")
@@ -431,9 +405,13 @@ function update(data) {
 					{
 						updated = true;
 						if(id == currentPage)
+						{
 							$('#log').html(makePretty(logs[id]));
+						}
 						else if(!fresh && !$('#menu a.' + id + 'Button').hasClass('updated'))
+						{
 							$('#menu a.' + id + 'Button').addClass('updated');
+						}
 					}
 					
 					if(initialized && updated && $(window).filter(':focus').length == 0) 
@@ -495,9 +473,13 @@ function resize() {
 		targetHeight -= 25;
 	}
 	if($('#main').outerHeight() != targetHeight)
+	{
 		$('#main').outerHeight(targetHeight);
+	}
 	if($('#main').css('bottom') != $('#title').outerHeight() + 'px')
+	{
 		$('#main').css('bottom', $('#title').outerHeight() + 'px');
+	}
 }
 
 function flashTitle() {
@@ -815,3 +797,29 @@ function saveSettingFromPopupNoCheckMaybe()
 	hidePopup();
 	}
 }
+
+$( document ).ready(function()
+{
+	resize();
+
+	window.onresize = resize;
+	window.onfocus = focus;
+
+	if(pausePollFromFile)
+	{
+		pausePoll = true;
+	}
+	else
+	{
+		poll();
+		startPollTimer();
+	}
+
+	if(pausePollOnNotFocus)
+	{
+		startPauseOnNotFocus();
+	}
+
+	checkForUpdateMaybe();
+
+});

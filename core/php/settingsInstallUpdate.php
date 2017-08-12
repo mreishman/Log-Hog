@@ -141,17 +141,14 @@ function updateProgressFile($status, $pathToFile, $typeOfProgress, $action, $per
 
 function downloadFile($file = null, $update = true, $downloadFrom = 'Log-Hog/archive/', $downloadTo = '../../update/downloads/updateFiles/updateFiles.zip')
 {
-	require_once('configStatic.php');
 	if($update == true)
 	{
+		require_once('configStatic.php');
 		$arrayForFile = $configStatic['versionList'];
 		$arrayForFile = $arrayForFile[$file];
 		$file = $arrayForFile['branchName'];
 	}
-	if($file == null)
-	{
-		$file = $_POST['file'];
-	}
+
 	file_put_contents($downloadTo, 
 	file_get_contents("https://github.com/mreishman/".$downloadFrom.$file.".zip")
 	);

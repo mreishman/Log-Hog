@@ -2,10 +2,14 @@
 
 function downloadFile($file = null, $update = true, $downloadFrom = 'Log-Hog/archive/', $downloadTo = '../../update/downloads/updateFiles/updateFiles.zip')
 {
-	if($file == null)
+	if($update == true)
 	{
-		$file = $_POST['file'];
+		require_once('configStatic.php');
+		$arrayForFile = $configStatic['versionList'];
+		$arrayForFile = $arrayForFile[$file];
+		$file = $arrayForFile['branchName'];
 	}
+
 	file_put_contents($downloadTo, 
 	file_get_contents("https://github.com/mreishman/".$downloadFrom.$file.".zip")
 	);
