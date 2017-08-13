@@ -2,7 +2,7 @@ function showOrHideLogTrimSubWindow()
 {
 	var valueToSeeIfShowOrHideSubWindowLogTrim = document.getElementById("logTrimOn").value;
 
-	if(valueToSeeIfShowOrHideSubWindowLogTrim == "true")
+	if(valueToSeeIfShowOrHideSubWindowLogTrim === "true")
 	{
 		document.getElementById("settingsLogTrimVars").style.display = "block";
 	}
@@ -18,15 +18,15 @@ function changeDescriptionLineSize()
 
 	var valueForDesc = document.getElementById("logTrimTypeToggle").value;
 
-	if (valueForDesc == "lines")
+	if (valueForDesc === "lines")
 	{
-		document.getElementById('logTrimTypeText').innerHTML = "Lines";
-		document.getElementById('LiForlogTrimSize').style.display = "none"
+		document.getElementById("logTrimTypeText").innerHTML = "Lines";
+		document.getElementById("LiForlogTrimSize").style.display = "none";
 	}
-	else if (valueForDesc == 'size')
+	else if (valueForDesc === 'size')
 	{
-		document.getElementById('logTrimTypeText').innerHTML = "Size";
-		document.getElementById('LiForlogTrimSize').style.display = "block"
+		document.getElementById("logTrimTypeText").innerHTML = "Size";
+		document.getElementById("LiForlogTrimSize").style.display = "block";
 	}
 
 }
@@ -45,16 +45,16 @@ function addRowFunction()
 		document.getElementById(locationInsert).outerHTML += "<li id='rowNumber"+countOfWatchList+"'>File #" + countOfWatchList+ ": <input type='text' style='width: 500px;' name='watchListKey" + countOfWatchList + "' > <input type='text' name='watchListItem" + countOfWatchList + "' > <a class='link' onclick='deleteRowFunctionPopup("+ countOfWatchList +", true,"+'"'+"File #" + countOfWatchList+'"'+")'>Remove</a></li><div id='newRowLocationForWatchList"+countOfClicks+"'></div>";
 	}
 	locationInsert = "newRowLocationForWatchList"+countOfClicks;
-	document.getElementById('numberOfRows').value = countOfWatchList;
+	document.getElementById("numberOfRows").value = countOfWatchList;
 	countOfAddedFiles++;
 }
 
 function deleteRowFunctionPopup(currentRow, decreaseCountWatchListNum, keyName = "")
 {
-	if(popupSettingsArray.removeFolder == "true")
+	if(popupSettingsArray.removeFolder === "true")
 	{
 		showPopup();
-		document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Are you sure you want to remove this file/folder?</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>"+keyName+"</div><div><div class='link' onclick='deleteRowFunction("+currentRow+","+ decreaseCountWatchListNum+");hidePopup();' style='margin-left:125px; margin-right:50px;margin-top:35px;'>Yes</div><div onclick='hidePopup();' class='link'>No</div></div>";
+		document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class='settingsHeader' >Are you sure you want to remove this file/folder?</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>"+keyName+"</div><div><div class='link' onclick='deleteRowFunction("+currentRow+","+ decreaseCountWatchListNum+");hidePopup();' style='margin-left:125px; margin-right:50px;margin-top:35px;'>Yes</div><div onclick='hidePopup();' class='link'>No</div></div>";
 	}
 	else
 	{
@@ -69,7 +69,7 @@ function deleteRowFunction(currentRow, decreaseCountWatchListNum)
 	document.getElementById(elementToFind).outerHTML = "";
 	if(decreaseCountWatchListNum)
 	{
-		newValue = document.getElementById('numberOfRows').value;
+		var newValue = document.getElementById("numberOfRows").value;
 		if(currentRow < newValue)
 		{
 			//this wasn't the last folder deleted, update others
@@ -96,16 +96,16 @@ function deleteRowFunction(currentRow, decreaseCountWatchListNum)
 				documentUpdateText += "<input style='width: ";
 				if(elementByIdPreCheck !== null)
 				{
-					documentUpdateText += '480';
+					documentUpdateText += "480";
 				}
 				else
 				{
-					documentUpdateText += '500';
+					documentUpdateText += "500";
 				}
 				documentUpdateText += "px' type='text' name='watchListKey"+updateItoIMinusOne+"' value='"+previousElementNumIdentifierForKey[0].value+"'> ";
 				documentUpdateText += "<input type='text' name='watchListItem"+updateItoIMinusOne+"' value='"+previousElementNumIdentifierForItem[0].value+"'>";
 				documentUpdateText += ' <a class="link" onclick="deleteRowFunctionPopup('+updateItoIMinusOne+', true,'+"'"+previousElementNumIdentifierForKey[0].value+"'"+')">Remove</a>';
-				documentUpdateText += '</li>';
+				documentUpdateText += "</li>";
 				document.getElementById(elementToUpdate).outerHTML = documentUpdateText;
 			}
 		}
@@ -115,32 +115,31 @@ function deleteRowFunction(currentRow, decreaseCountWatchListNum)
 			countOfAddedFiles--;
 			countOfWatchList--;
 		}
-		document.getElementById('numberOfRows').value = newValue;
+		document.getElementById("numberOfRows").value = newValue;
 	}
 
 }	
 function showOrHidePopupSubWindow()
 {
-	var valueForPopup = document.getElementById('popupSelect').value;
-	if(valueForPopup == 'custom')
-	{
-		document.getElementById('settingsPopupVars').style.display = 'block';
-	}
-	else
-	{
-		document.getElementById('settingsPopupVars').style.display = 'none';
-	}
+	var valueForPopup = document.getElementById("popupSelect");
+	var valueForVars = document.getElementById('settingsPopupVars');
+	showOrHideSubWindow(valueForPopup, valueForVars);
 }
 function showOrHideUpdateSubWindow()
 {
-	var valueForPopup = document.getElementById('settingsSelect').value;
-	if(valueForPopup == 'true')
+	var valueForPopup = document.getElementById("settingsSelect");
+	var valueForVars = document.getElementById("settingsAutoCheckVars");
+	showOrHideSubWindow(valueForPopup, valueForVars);
+}
+function showOrHideSubWindow(valueForPopupInner, valueForVarsInner)
+{
+	if(valueForPopupInner.value === "true")
 	{
-		document.getElementById('settingsAutoCheckVars').style.display = 'block';
+		valueForVarsInner.style.display = "block";
 	}
 	else
 	{
-		document.getElementById('settingsAutoCheckVars').style.display = 'none';
+		valueForVarsInner.style.display = "none";
 	}
 }
 function checkWatchList()
@@ -168,5 +167,5 @@ function checkWatchList()
 function showNoEmptyFolderPopup()
 {
 	showPopup();
-	document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Warning!</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Please make sure there are no empty folders when saving the Watch List.</div><div><div class='link' onclick='hidePopup();' style='margin-left:175px; margin-top:25px;'>Okay</div></div>";
+	document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class='settingsHeader' >Warning!</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Please make sure there are no empty folders when saving the Watch List.</div><div><div class='link' onclick='hidePopup();' style='margin-left:175px; margin-top:25px;'>Okay</div></div>";
 }

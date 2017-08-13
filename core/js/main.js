@@ -24,15 +24,15 @@ var pollSkipCounter = 0;
 var counterForPollForceRefreshAll = 0;
 var filesNew;
 
-function escapeHTML(unsafe_str)
+function escapeHTML(unsafeStr)
 {
-    return unsafe_str
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/\"/g, '&quot;')
-      .replace(/\'/g, '&#39;')
-      .replace(/\//g, '&#x2F;')
+	return unsafeStr
+		.replace(/&/g, "&amp;")
+		.replace(/</g, "&lt;")
+		.replace(/>/g, "&gt;")
+		.replace(/\"/g, "&quot;")
+		.replace(/\'/g, "&#39;")
+		.replace(/\//g, "&#x2F;");
 }
 
 function updateSkipCounterLog(num)
@@ -102,7 +102,7 @@ function pollTwo()
 			dataType: "json",
 			data: data,
 			type: "POST",
-			success: function(data)
+			success(data)
 			{
 				if(data === false)
 				{
@@ -118,7 +118,7 @@ function pollTwo()
 					pollTwoPartTwo(data);
 				}
 			},
-			failure: function(data)
+			failure(data)
 			{
 				polling = false;
 			}
@@ -253,7 +253,7 @@ function afterPollFunctionComplete()
 {
 	//document.getElementById('firstLoad').style.display = 'none';
 	polling = false;
-	if(enablePollTimeLogging != "false")
+	if(enablePollTimeLogging !== "false")
 	{
 		t1 = performance.now();
 		document.getElementById("loggingTimerPollRate").innerText = "Ajax refresh took    "+(Math.round(t2 - t0))+":"+(Math.round(t3 - t2))+":"+(Math.round(t1 - t3))+"    " + (Math.round(t1 - t0)) + "/" + pollingRate +"("+(parseInt(pollingRate)*counterForPoll)+")"+" milliseconds.";
@@ -587,9 +587,9 @@ function clearLog()
 	var data = {file: title};
 	$.ajax({
 			  url: urlForSend,
-			  dataType: 'json',
+			  dataType: "json",
 			  data: data,
-			  type: 'POST',
+			  type: "POST",
 	success: function(data){
     // we make a successful JSONP call!
   },
@@ -675,7 +675,7 @@ function installUpdates()
 		{
 			//set thing to check for updated files. 	
 			timeoutVar = setInterval(function(){verifyChange();},3000);
-	  	}
+		}
 	});
 }
 
