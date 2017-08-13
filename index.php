@@ -193,11 +193,7 @@ elseif($withLogHog == 'true')
 		var updateNoticeMeter = "<?php echo $updateNoticeMeter;?>";
 		var pollRefreshAllBool = "<?php echo $pollRefreshAllBool;?>";
 		var pollForceTrueBool = "<?php echo $pollRefreshAllBool;?>";
-		var pausePoll = false;
-		var refreshActionVar;
-		var refreshPauseActionVar;
-		var userPaused = false;
-		var refreshing = false;
+
 	</script>
 	<?php readfile('core/html/popup.html') ?>
 	<script src="core/js/main.js"></script>

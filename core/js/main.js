@@ -23,6 +23,11 @@ var timeoutVar = null;
 var pollSkipCounter = 0;
 var counterForPollForceRefreshAll = 0;
 var filesNew;
+var pausePoll = false;
+var refreshActionVar;
+var refreshPauseActionVar;
+var userPaused = false;
+var refreshing = false;
 
 function escapeHTML(unsafeStr)
 {
@@ -222,7 +227,7 @@ function pollThree(arrayToUpdate)
 			type: "POST",
 			success: function(data)
 			{
-			  	var filesInner = Object.keys(data);
+				var filesInner = Object.keys(data);
 				if(arrayOfDataMain == null)
 				{
 					arrayOfDataMain = data;
@@ -339,18 +344,13 @@ function update(data) {
 		if(files[i].indexOf("dataForLoggingLogHog051620170928") == -1)
 		{
 			var dataForCheck = data[files[i]];
+			name = files[i];
 			if(dataForCheck == "This file is empty. This should not be displayed." && hideEmptyLog == "true")
 			{
-				name = files[i];
-				id = name.replace(/[^a-z0-9]/g, '');
-				if($('#menu .' + id + 'Button').length != 0)
-				{
-					$('#menu .' + id + 'Button').remove();
-				} 
+				removeLogByName(name);
 			}
 			else
 			{
-				name = files[i];
 				if(data[name] != null)
 				{
 					folderName = name.substr(0, name.lastIndexOf("/"));
@@ -436,11 +436,7 @@ function update(data) {
 				}
 				else
 				{
-					id = name.replace(/[^a-z0-9]/g, '');
-					if($('#menu .' + id + 'Button').length != 0)
-					{
-						$('#menu .' + id + 'Button').remove();
-					}
+					removeLogByName(name);
 				}
 			}
 		}
@@ -461,6 +457,15 @@ function update(data) {
 	for(i = 0; i != stop; ++i) {
 		id = ids[i];
 		lastLogs[id] = logs[id];
+	}
+}
+
+function removeLogByName(name)
+{
+	id = name.replace(/[^a-z0-9]/g, '');
+	if($('#menu .' + id + 'Button').length != 0)
+	{
+		$('#menu .' + id + 'Button').remove();
 	}
 }
 
@@ -578,12 +583,8 @@ function isPageHidden(){
 
 function clearLog()
 {
-	var urlForSend = 'core/php/clearLog.php?format=json';
-	var title = document.getElementById("title").innerHTML;
-	if(title.substring(0, title.indexOf("|")) != null && title.substring(0, title.indexOf("|")) != "")
-	{
-		title = title.substring(0, title.indexOf("|"));
-	}
+	var urlForSend = "core/php/clearLog.php?format=json";
+	var title = filterTitle(document.getElementById("title").innerHTML);
 	var data = {file: title};
 	$.ajax({
 			  url: urlForSend,
@@ -599,13 +600,13 @@ function clearLog()
 
 function deleteAction()
 {
-	var urlForSend = 'core/php/clearAllLogs.php?format=json'
+	var urlForSend = "core/php/clearAllLogs.php?format=json";
 	var data = "";
 	$.ajax({
 			  url: urlForSend,
-			  dataType: 'json',
+			  dataType: "json",
 			  data: data,
-			  type: 'POST',
+			  type: "POST",
 	success: function(data){
     // we make a successful JSONP call!
   },
@@ -617,11 +618,7 @@ function deleteLogPopup()
 	if(popupSettingsArray.deleteLog == "true")
 	{
 		showPopup();
-		var title = document.getElementById("title").innerHTML;
-		if(title.substring(0, title.indexOf("|")) != null && title.substring(0, title.indexOf("|")) != "")
-		{
-			title = title.substring(0, title.indexOf("|"));
-		}
+		var title = filterTitle(document.getElementById("title").innerHTML);
 		document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Are you sure you want to delete this log?</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>"+title+"</div><div><div class='link' onclick='deleteLog();hidePopup();' style='margin-left:125px; margin-right:50px;margin-top:35px;'>Yes</div><div onclick='hidePopup();' class='link'>No</div></div>";
 	}
 	else
@@ -633,11 +630,7 @@ function deleteLogPopup()
 function deleteLog()
 {
 	var urlForSend = 'core/php/deleteLog.php?format=json';
-	var title = document.getElementById("title").innerHTML;
-	if(title.substring(0, title.indexOf("|")) != null && title.substring(0, title.indexOf("|")) != "")
-	{
-		title = title.substring(0, title.indexOf("|"));
-	}
+	var title = filterTitle(document.getElementById("title").innerHTML);
 	title = title.replace(/\s/g, '');
 	var data = {file: title};
 	name = title;
@@ -657,6 +650,15 @@ function deleteLog()
   	complete: function(data){
   	},
 });
+}
+
+function filterTitle(title)
+{
+	if(title.substring(0, title.indexOf("|")) != null && title.substring(0, title.indexOf("|")) != "")
+	{
+		title = title.substring(0, title.indexOf("|"));
+	}
+	return title;
 }
 
 function installUpdates()
@@ -696,7 +698,7 @@ function verifyChange()
 				clearInterval(timeoutVar);
 				actuallyInstallUpdates();
 			}
-	  	}
+		}
 	});
 }
 
@@ -750,14 +752,14 @@ function checkForUpdateDefinitely(showPopupForNoUpdate = false)
 				if(showPopupForNoUpdate)
 				{
 					showPopup();
-					document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >No Update Needed</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>You are on the most current version</div><div class='link' onclick='hidePopup();' style='margin-left:165px; margin-right:50px;margin-top:25px;'>Okay!</div></div>";
+					document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class='settingsHeader' >No Update Needed</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>You are on the most current version</div><div class='link' onclick='hidePopup();' style='margin-left:165px; margin-right:50px;margin-top:25px;'>Okay!</div></div>";
 				}
 			}
 			else
 			{
 				//error?
 				showPopup();
-				document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Error when checking for update</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>An error occured while trying to check for updates. Make sure you are connected to the internet and settingsCheckForUpdate.php has sufficient rights to write / create files. </div><div class='link' onclick='hidePopup();' style='margin-left:165px; margin-right:50px;margin-top:5px;'>Okay!</div></div>";
+				document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class='settingsHeader' >Error when checking for update</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>An error occured while trying to check for updates. Make sure you are connected to the internet and settingsCheckForUpdate.php has sufficient rights to write / create files. </div><div class='link' onclick='hidePopup();' style='margin-left:165px; margin-right:50px;margin-top:5px;'>Okay!</div></div>";
 			}
 			
 		});
@@ -767,7 +769,7 @@ function checkForUpdateDefinitely(showPopupForNoUpdate = false)
 
 function updateUpdateCheckWaitTimer()
 {
-	$.getJSON('core/php/configStaticCheck.php', {}, function(data) 
+	$.getJSON("core/php/configStaticCheck.php", {}, function(data) 
 	{
 		if(currentVersion != data)
 		{
@@ -787,20 +789,20 @@ function showUpdateCheckPopup(data)
 	}
 	dontNotifyVersion = data.versionNumber;
 	textForInnerHTML += "type='checkbox'>Don't notify me about this update again</div></div>";
-	document.getElementById('popupContentInnerHTMLDiv').innerHTML = textForInnerHTML;
+	document.getElementById("popupContentInnerHTMLDiv").innerHTML = textForInnerHTML;
 }
 
 function saveSettingFromPopupNoCheckMaybe()
 {
-	if(document.getElementById('dontShowPopuForThisUpdateAgain').checked)
+	if(document.getElementById("dontShowPopuForThisUpdateAgain").checked)
 	{
-		var urlForSend = 'core/php/settingsSaveAjax.php?format=json'
+		var urlForSend = "core/php/settingsSaveAjax.php?format=json";
 		var data = {dontNotifyVersion: dontNotifyVersion };
 		$.ajax({
 				  url: urlForSend,
-				  dataType: 'json',
+				  dataType: "json",
 				  data: data,
-				  type: 'POST',
+				  type: "POST",
 		complete: function(data){
 			hidePopup();
   	},
@@ -812,7 +814,7 @@ function saveSettingFromPopupNoCheckMaybe()
 	}
 }
 
-$( document ).ready(function()
+$(document).ready(function()
 {
 	resize();
 

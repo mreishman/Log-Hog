@@ -1,6 +1,6 @@
 	function updateText(text)
 	{
-		document.getElementById("innerSettingsText").innerHTML = "<p>"+text+"</p>"+document.getElementById('innerSettingsText').innerHTML;
+		document.getElementById("innerSettingsText").innerHTML = "<p>"+text+"</p>"+document.getElementById("innerSettingsText").innerHTML;
 	}
 
 	function checkIfTopDirIsEmpty()
@@ -344,7 +344,7 @@
 		if(verified === true)
 		{
 			clearInterval(verifyFileTimer);
-			verifySucceded(data['lastAction']);
+			verifySucceded(data["lastAction"]);
 		}
 		else
 		{
@@ -352,7 +352,7 @@
 			if(verifyCount > 9)
 			{
 				clearInterval(verifyFileTimer);
-				verifyFail(data['lastAction']);
+				verifyFail(data["lastAction"]);
 			}
 		}
 	}
