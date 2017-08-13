@@ -7,9 +7,6 @@ function updateMainProgressLogFile($dotsTime)
 	require_once('configStatic.php');
 	require_once('updateProgressFileNext.php');
 
-	require_once('verifyWriteStatus.php');
-	checkForUpdate($_SERVER['REQUEST_URI']);
-
 	$dots = "";
 	while($dotsTime > 0.1)
 	{
@@ -21,8 +18,8 @@ function updateMainProgressLogFile($dotsTime)
 	//find next version to update to
 	if(!empty($configStatic))
 	{
-
-		foreach ($configStatic['versionList'] as $key => $value) 
+		$keys = array_keys($configStatic['versionList']);
+		foreach ($keys as $key)
 		{
 			$version = explode('.', $configStatic['version']);
 			$newestVersion = explode('.', $key);
@@ -36,7 +33,7 @@ function updateMainProgressLogFile($dotsTime)
 			{
 				if($i < $versionCount)
 				{
-					if($i == 0)
+					if($i === 0)
 					{
 						if($newestVersion[$i] > $version[$i])
 						{
@@ -49,7 +46,7 @@ function updateMainProgressLogFile($dotsTime)
 							break;
 						}
 					}
-					elseif($i == 1)
+					elseif($i === 1)
 					{
 						if($newestVersion[$i] > $version[$i])
 						{
@@ -62,7 +59,7 @@ function updateMainProgressLogFile($dotsTime)
 							break;
 						}
 					}
-					else
+					elseif($i > 1)
 					{
 						if($newestVersion[$i] > $version[$i])
 						{
@@ -91,7 +88,6 @@ function updateMainProgressLogFile($dotsTime)
 
 		}
 	}
-	
 
 	if(!empty($configStatic))
 	{
@@ -147,23 +143,34 @@ function downloadFile($file = null, $update = true, $downloadFrom = 'Log-Hog/arc
 		$file = $configStatic['versionList'][$file]['branchName'];
 	}
 
-	file_put_contents($downloadTo, 
+	file_put_contents($downloadTo,
 	file_get_contents("https://github.com/mreishman/".$downloadFrom.$file.".zip")
 	);
 }
 
-function rrmdir($dir) {
-   if (is_dir($dir)) {
-     $objects = scandir($dir);
-     foreach ($objects as $object) {
-       if ($object != "." && $object != "..") {
-         if (filetype($dir."/".$object) == "dir") rrmdir($dir."/".$object); else unlink($dir."/".$object);
-       }
-     }
-     reset($objects);
-     rmdir($dir);
-   }
- }
+function rrmdir($dir)
+{
+	if (is_dir($dir))
+	{
+		$objects = scandir($dir);
+		foreach ($objects as $object)
+		{
+			if ($object != "." && $object != "..") 
+			{
+				if (filetype($dir."/".$object) == "dir")
+				{
+					rrmdir($dir."/".$object);
+				}
+				else
+				{
+					unlink($dir."/".$object);
+				}
+			}
+		}
+    reset($objects);
+    rmdir($dir);
+	}
+}
 
 function unzipFile($locationExtractTo = '../../update/downloads/updateFiles/extracted/', $locationExtractFrom = '../../update/downloads/updateFiles/updateFiles.zip')
 {
@@ -181,17 +188,17 @@ function unzipFile($locationExtractTo = '../../update/downloads/updateFiles/extr
 	$res = $zip->open($path);
 	$arrayOfExtensions = array('.php','.js','.css','.html','.png','.jpg','.jpeg','.gif');
 	$arrayOfFiles = array();
-	if ($res === TRUE) {
+	if ($res === true) {
 	  for($i = 0; $i < $zip->numFiles; $i++) {
 	        $filename = $zip->getNameIndex($i);
 	        $fileinfo = pathinfo($filename);
-	        if (strposa($fileinfo['basename'], $arrayOfExtensions, 1)) 
+	        if (strposa($fileinfo["basename"], $arrayOfExtensions, 1))
 	        {
 	          copy("zip://".$path."#".$filename, $locationExtractTo.$fileinfo['basename']);
 	          array_push($arrayOfFiles, $fileinfo['basename']);
 	        }
-	    }                   
-	    $zip->close();  
+	    }
+	    $zip->close();
 	}
 	if(empty($arrayOfFiles))
 	{
@@ -203,17 +210,21 @@ function unzipFile($locationExtractTo = '../../update/downloads/updateFiles/extr
 	}
 }
 
-function unzipFileAndSub($zipfile, $subpath, $destination, $temp_cache, $traverse_first_subdir=true){
+function unzipFileAndSub($zipfile, $subpath, $destination, $temp_cache, $traverseFirstSubdir=true){
 	$zip = new ZipArchive;
-	if(substr($temp_cache, -1) !== DIRECTORY_SEPARATOR) {
+	if(substr($temp_cache, -1) !== DIRECTORY_SEPARATOR)
+	{
 		$temp_cache .= DIRECTORY_SEPARATOR;
 	}
 	$res = $zip->open($zipfile);
-	if ($res === TRUE) {
-	    if ($traverse_first_subdir==true){
+	if ($res === true)
+	{
+	    if ($traverseFirstSubdir === true)
+	    {
 	        $zip_dir = $temp_cache . $zip->getNameIndex(0);
 	    }
-	    else {
+	    else
+	    {
 	    	$temp_cache = $temp_cache . basename($zipfile, ".zip");
 	    	$zip_dir = $temp_cache;
 	    }
@@ -225,7 +236,9 @@ function unzipFileAndSub($zipfile, $subpath, $destination, $temp_cache, $travers
 
 	    //rrmdir($zip_dir);
 	    return true;
-	} else {
+	}
+	else
+	{
 	    return false;
 	}
 }
@@ -312,10 +325,13 @@ function verifyDirIsThere($file)
 	}
 }
 
-function verifyDirIsEmpty($dir) 
+function verifyDirIsEmpty($dir)
 {
-  if (!is_readable($dir)) return NULL; 
-  return (count(scandir($dir)) == 2);
+	if (!is_readable($dir))
+	{
+		return null;
+	}
+	return (count(scandir($dir)) == 2);
 }
 
 function handOffToUpdate()

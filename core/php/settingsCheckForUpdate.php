@@ -10,7 +10,7 @@ if(file_exists('../../local/layout.php'))
   require_once('../../local/layout.php');
   $baseUrl .= $currentSelectedTheme."/";
 }
-require_once($baseUrl.'conf/config.php'); 
+require_once($baseUrl.'conf/config.php');
 require_once('../conf/config.php');
 
 require_once('verifyWriteStatus.php');
@@ -54,7 +54,7 @@ else
 
 if($enableDevBranchDownload == "true")
 {
-  file_put_contents("../../update/downloads/versionCheck/versionCheck.zip", 
+  file_put_contents("../../update/downloads/versionCheck/versionCheck.zip",
   file_get_contents($baseUrlUpdate ."versionCheckDev.zip")
   );
 }
@@ -72,16 +72,16 @@ mkdir("../../update/downloads/versionCheck/extracted/");
 $zip = new ZipArchive;
 $path = "../../update/downloads/versionCheck/versionCheck.zip";
 $res = $zip->open($path);
-if ($res === TRUE) {
+if ($res === true) {
   for($i = 0; $i < $zip->numFiles; $i++) {
         $filename = $zip->getNameIndex($i);
         $fileinfo = pathinfo($filename);
-        if (strpos($fileinfo['basename'], '.php') !== false) 
+        if (strpos($fileinfo['basename'], '.php') !== false)
         {
           copy("zip://".$path."#".$filename, "../../update/downloads/versionCheck/extracted/".$fileinfo['basename']);
         }
-    }                   
-    $zip->close();  
+    }
+    $zip->close();
 }
 
 unlink("../../update/downloads/versionCheck/versionCheck.zip");
@@ -97,7 +97,7 @@ foreach ($versionCheckArray['versionList'] as $key => $value) {
   $arrayForVersionList .= "'".$key."' => array(";
   $countOfArraySub = count($value);
   $j = 0;
-  foreach ($value as $keySub => $valueSub) 
+  foreach ($value as $keySub => $valueSub)
   {
     $j++;
     $arrayForVersionList .= "'".$keySub."' => '".$valueSub."'";

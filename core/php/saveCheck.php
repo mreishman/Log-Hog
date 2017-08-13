@@ -4,7 +4,7 @@ $varToIndexDir = "";
 $countOfSlash = 0;
 while($countOfSlash < 20 && !file_exists($varToIndexDir."error.php"))
 {
-  $varToIndexDir .= "../";        
+  $varToIndexDir .= "../";
 }
 
 $baseUrl = $varToIndexDir."core/";
@@ -17,7 +17,7 @@ if(file_exists($varToIndexDir.'local/layout.php'))
 }
 if(file_exists($baseUrl.'conf/config.php'))
 {
-	require_once($baseUrl.'conf/config.php'); 
+	require_once($baseUrl.'conf/config.php');
 }
 else
 {
@@ -40,11 +40,11 @@ if(isset($_POST['numberOfRows']))
 		}
 	}
 	$watchListSave = $arrayWatchList;
-	$arrayWatchList = "";	
+	$arrayWatchList = "";
 
 	$numberOfRows = count($config['watchList']);
 	$i = 0;
-	foreach ($config['watchList'] as $key => $value) 
+	foreach ($config['watchList'] as $key => $value)
 	{
 		$i++;
 		$arrayWatchList .= "'".$key."' => '".$value."'";
@@ -66,7 +66,6 @@ if(isset($_POST['saveSettings']))
 	{
 		$popupSettingsArray = $defaultConfig['popupSettingsArray'];
 	}
-	
 
 	$popupSettingsArraySave = array(
 	'saveSettings'	=>	$_POST['saveSettings'],
@@ -85,7 +84,7 @@ if(isset($_POST['folderThemeCount']))
 	{
 		$folderColorArraysSave .= "'".$key."'	=>	array(";
 		$count++;
-		foreach ($value as $key2 => $value2) 
+		foreach ($value as $key2 => $value2)
 		{
 			$folderColorArraysSave .= "'".$value2."',";
 		}
@@ -100,7 +99,7 @@ if(isset($_POST['folderThemeCount']))
 	{
 		$folderColorArraysSave .= "'".$_POST['folderColorThemeNameForPost'.($i+1)]."'	=>	array(";
 		$colorCount = 0;
-		while (isset($_POST['folderColorValue'.($i+1).'-'.($colorCount+1)])) 
+		while (isset($_POST['folderColorValue'.($i+1).'-'.($colorCount+1)]))
 		{
 			$colorCount++;
 			$folderColorArraysSave .= "'".$_POST['folderColorValue'.($i+1).'-'.($colorCount)]."',";

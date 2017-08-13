@@ -22,7 +22,7 @@ function saveAndVerifyMain(idForForm)
 {
 	idForFormMain = idForForm;
 	idForm = "#"+idForForm;
-	displayLoadingPopup();
+	displayLoadingPopup(); //displayLoadingPopup is defined in popup.html
 	data = $(idForm).serializeArray();
 	$.ajax({
             type: "post",
@@ -39,7 +39,7 @@ function saveAndVerifyMain(idForForm)
 function verifySaveTimer()
 {
 	countForVerifySave = 0;
-	pollCheckForUpdate = setInterval(function(){timerVerifySave();},3000);
+	pollCheckForUpdate = setInterval(timerVerifySave,3000);
 }
 
 function timerVerifySave()
@@ -98,8 +98,5 @@ function saveError()
 
 function fadeOutPopup()
 {
-	setTimeout(function()
-	{ 
-		hidePopup(); 
-	}, 1000);
+	setTimeout(hidePopup, 1000);
 }
