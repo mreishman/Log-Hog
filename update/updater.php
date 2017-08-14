@@ -110,7 +110,6 @@ if($levelOfUpdate == 0)
 
 if(!$noUpdateNeeded)
 {
-
 	$updateStatus = "";
 	$updateAction = "";
 	$requiredVars = "";
@@ -123,15 +122,6 @@ if(!$noUpdateNeeded)
 		$updateAction = "downloadFile";
 		$requiredVars = $versionToUpdate;
 	}
-	elseif($updateProgress['currentStep'] == "Removing Zip File")
-	{
-		//just finished runing update script, remove files 
-		$updateStatus = "Finished Updating to ";
-		$updateAction = "finishedUpdate";
-		//change version in configStatic to updated version number
-
-	}
-
 }
 require_once('../core/php/updateProgressFileNext.php');
 $newestVersionCheck = '"'.$configStatic['newestVersion'].'"';
@@ -245,23 +235,22 @@ $versionCheck = '"'.$configStatic['version'].'"';
 		}
 		else if(updateStatus == 'Copying Files')
 		{
-
+			updateProgressBar(29);
+			filterFilesFromArray();
 		}
 		else if(updateStatus == 'postUpgrade Scripts')
 		{
-
-		}
-		else if(updateStatus == 'postUpgrade Redirect')
-		{
-
+			postScriptRun();
 		}
 		else if(updateStatus == "Removing Extracted Files")
 		{
 			//remove extracted files
+			removeExtractedDir();
 		}
 		else if(updateStatus == "Removing Zip File")
 		{
 			//remove zip
+			removeDownloadedZip();
 		}
 		else if(updateStatus == "finishedUpdate")
 		{
@@ -331,7 +320,6 @@ $versionCheck = '"'.$configStatic['version'].'"';
 	{
 		//this builds array of file to copy (check if top is insalled for files copy)
 
-		//
 		if(retryCount == 0)
 		{
 			updateText("Unzipping Files");
@@ -466,27 +454,31 @@ $versionCheck = '"'.$configStatic['version'].'"';
 		if(action == 'downloadLogHog')
 		{
 			updateProgressBar(10);
-			updateStatusFunc("Extracting Zip Files For ", "unzipFile");
+			updateStatusFunc("Extracting Zip Files For ", "");
 			//unzipBranch();
 		}
 		else if(action == 'unzipUpdateAndReturnArray')
 		{
 			updateProgressBar(9);
+			updateStatusFunc("Copying Files", "");
 			filterFilesFromArray();
 		}
 		else if(action == 'removeDirUpdate')
 		{
 			updateProgressBar(10);
+			updateStatusFunc("Removing Extracted Files", "");
 			removeDownloadedZip();
 		}
 		else if(action == 'removeZipFile')
 		{
 			updateProgressBar(9);
+			updateStatusFunc("Removing Zip File", "");
 			finishedUpdate();
 		}
 		else if(action == 'copyFilesFromArray')
 		{
 			postScriptRun();
+			updateStatusFunc("postUpgrade Scripts", "");
 		}
 	}
 
@@ -863,6 +855,7 @@ $versionCheck = '"'.$configStatic['version'].'"';
 			//update version to update to
 			versionToUpdateTo = arrayOfVersions[(versionCountCurrent-1)];
 			//start new download
+			updateStatusFunc("Downloading Zip Files For ","downloadFile");
 			downloadBranch();
 		}
 	}

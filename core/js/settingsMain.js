@@ -23,7 +23,7 @@ function changeDescriptionLineSize()
 		document.getElementById("logTrimTypeText").innerHTML = "Lines";
 		document.getElementById("LiForlogTrimSize").style.display = "none";
 	}
-	else if (valueForDesc === 'size')
+	else if (valueForDesc === "size")
 	{
 		document.getElementById("logTrimTypeText").innerHTML = "Size";
 		document.getElementById("LiForlogTrimSize").style.display = "block";
@@ -38,11 +38,11 @@ function addRowFunction()
 	countOfClicks++;
 	if(countOfWatchList < 10)
 	{
-		document.getElementById(locationInsert).outerHTML += "<li id='rowNumber"+countOfWatchList+"'>File #0" + countOfWatchList+ ": <input type='text' style='width: 500px;' name='watchListKey" + countOfWatchList + "' > <input type='text' name='watchListItem" + countOfWatchList + "' > <a class='link'  onclick='deleteRowFunctionPopup("+ countOfWatchList +", true,"+'"'+"File #0" + countOfWatchList+'"'+")'>Remove</a></li><div id='newRowLocationForWatchList"+countOfClicks+"'></div>";
+		document.getElementById(locationInsert).outerHTML += "<li id='rowNumber"+countOfWatchList+"'>File #0" + countOfWatchList+ ": <input type='text' style='width: 500px;' name='watchListKey" + countOfWatchList + "' > <input type='text' name='watchListItem" + countOfWatchList + "' > <a class='link'  onclick='deleteRowFunctionPopup("+ countOfWatchList +", true, \"File #0" + countOfWatchList+"\")'>Remove</a></li><div id='newRowLocationForWatchList"+countOfClicks+"'></div>";
 	}
 	else
 	{
-		document.getElementById(locationInsert).outerHTML += "<li id='rowNumber"+countOfWatchList+"'>File #" + countOfWatchList+ ": <input type='text' style='width: 500px;' name='watchListKey" + countOfWatchList + "' > <input type='text' name='watchListItem" + countOfWatchList + "' > <a class='link' onclick='deleteRowFunctionPopup("+ countOfWatchList +", true,"+'"'+"File #" + countOfWatchList+'"'+")'>Remove</a></li><div id='newRowLocationForWatchList"+countOfClicks+"'></div>";
+		document.getElementById(locationInsert).outerHTML += "<li id='rowNumber"+countOfWatchList+"'>File #" + countOfWatchList+ ": <input type='text' style='width: 500px;' name='watchListKey" + countOfWatchList + "' > <input type='text' name='watchListItem" + countOfWatchList + "' > <a class='link' onclick='deleteRowFunctionPopup("+ countOfWatchList +", true, \"File #" + countOfWatchList+"\")'>Remove</a></li><div id='newRowLocationForWatchList"+countOfClicks+"'></div>";
 	}
 	locationInsert = "newRowLocationForWatchList"+countOfClicks;
 	document.getElementById("numberOfRows").value = countOfWatchList;
@@ -91,7 +91,7 @@ function deleteRowFunction(currentRow, decreaseCountWatchListNum)
 				var elementByIdPreCheck = document.getElementById(nameForId);
 				if(elementByIdPreCheck !== null)
 				{
-					documentUpdateText += '<img id="fileNotFoundImage'+updateItoIMinusOne+'" src="../core/img/redWarning.png" height="10px">';
+					documentUpdateText += "<img id='fileNotFoundImage"+updateItoIMinusOne+"' src='../core/img/redWarning.png' height='10px'>";
 				}
 				documentUpdateText += "<input style='width: ";
 				if(elementByIdPreCheck !== null)
@@ -104,7 +104,7 @@ function deleteRowFunction(currentRow, decreaseCountWatchListNum)
 				}
 				documentUpdateText += "px' type='text' name='watchListKey"+updateItoIMinusOne+"' value='"+previousElementNumIdentifierForKey[0].value+"'> ";
 				documentUpdateText += "<input type='text' name='watchListItem"+updateItoIMinusOne+"' value='"+previousElementNumIdentifierForItem[0].value+"'>";
-				documentUpdateText += ' <a class="link" onclick="deleteRowFunctionPopup('+updateItoIMinusOne+', true,'+"'"+previousElementNumIdentifierForKey[0].value+"'"+')">Remove</a>';
+				documentUpdateText += " <a class='link' onclick='deleteRowFunctionPopup("+updateItoIMinusOne+", true,\""+previousElementNumIdentifierForKey[0].value+"\")'>Remove</a>";
 				documentUpdateText += "</li>";
 				document.getElementById(elementToUpdate).outerHTML = documentUpdateText;
 			}
@@ -122,7 +122,7 @@ function deleteRowFunction(currentRow, decreaseCountWatchListNum)
 function showOrHidePopupSubWindow()
 {
 	var valueForPopup = document.getElementById("popupSelect");
-	var valueForVars = document.getElementById('settingsPopupVars');
+	var valueForVars = document.getElementById("settingsPopupVars");
 	showOrHideSubWindow(valueForPopup, valueForVars);
 }
 function showOrHideUpdateSubWindow()
@@ -147,7 +147,7 @@ function checkWatchList()
 	var blankValue = false;
 	for (var i = 1; i <= countOfWatchList; i++) 
 	{
-		if(document.getElementsByName("watchListKey"+i)[0].value == "")
+		if(document.getElementsByName("watchListKey"+i)[0].value === "")
 		{
 			blankValue = true;
 		}

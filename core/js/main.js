@@ -261,7 +261,7 @@ function afterPollFunctionComplete()
 	if(enablePollTimeLogging !== "false")
 	{
 		t1 = performance.now();
-		document.getElementById("loggingTimerPollRate").innerText = "Ajax refresh took    "+addPaddingToNumber(Math.round(t2 - t0))+":"+addPaddingToNumber(Math.round(t3 - t2),2)+":"+addPaddingToNumber(Math.round(t1 - t3))+"    " + addPaddingToNumber(Math.round(t1 - t0)) + "/" + addPaddingToNumber(pollingRate) +"("+addPaddingToNumber(parseInt(pollingRate)*counterForPoll)+")"+" milliseconds.";
+		document.getElementById("loggingTimerPollRate").innerText = "Ajax refresh took    "+addPaddingToNumber(Math.round(t2 - t0))+":"+addPaddingToNumber(Math.round(t3 - t2),2)+":"+addPaddingToNumber(Math.round(t1 - t3))+"    " + addPaddingToNumber(Math.round(t1 - t0)) + "/" + addPaddingToNumber(pollingRate) +"("+addPaddingToNumber(parseInt(pollingRate)*counterForPoll)+") milliseconds.";
 		document.getElementById("loggingTimerPollRate").style.color = "";
 		counterForPoll = 0;
 		if(Math.round(t1-t0) > parseInt(pollingRate))
@@ -355,7 +355,7 @@ function update(data) {
 		{
 			var dataForCheck = data[files[i]];
 			name = files[i];
-			if(dataForCheck == "This file is empty. This should not be displayed." && hideEmptyLog == "true")
+			if(dataForCheck === "This file is empty. This should not be displayed." && hideEmptyLog === "true")
 			{
 				removeLogByName(name);
 			}
@@ -382,7 +382,7 @@ function update(data) {
 					{
 						data[name] = "<div class='errorMessageLog errorMessageGreenBG' > This file is empty. </div>";
 					}
-					else if((data[name] === "Error - File is not Readable") || (data[name] == "Error - Maybe insufficient access to read file?"))
+					else if((data[name] === "Error - File is not Readable") || (data[name] === "Error - Maybe insufficient access to read file?"))
 					{
 						var mainMessage = "Error - Maybe insufficient access to read file?";
 						if(data[name] === "Error - File is not Readable")
@@ -405,13 +405,13 @@ function update(data) {
 					{
 						if(id == currentPage)
 						{
-							$('#title').html(titles[id]);
+							$("#title").html(titles[id]);
 						}
 					}
 
-					if($('#menu .' + id + 'Button').length == 0) 
+					if($("#menu ." + id + "Button").length === 0) 
 					{
-						shortName = files[i].replace(/.*\//g, '');
+						shortName = files[i].replace(/.*\//g, "");
 						style = "background-color: "+colorArray[folderNameCount];
 						item = blank;
 						item = item.replace(/{{title}}/g, shortName);
@@ -472,7 +472,7 @@ function update(data) {
 
 function removeLogByName(name)
 {
-	id = name.replace(/[^a-z0-9]/g, '');
+	id = name.replace(/[^a-z0-9]/g, "");
 	if($('#menu .' + id + 'Button').length != 0)
 	{
 		$('#menu .' + id + 'Button').remove();
@@ -680,9 +680,9 @@ function installUpdates()
 	$.ajax(
 	{
 		url: urlForSend,
-		dataType: 'json',
+		dataType: "json",
 		data: data,
-		type: 'POST',
+		type: "POST",
 		complete: function(data)
 		{
 			//set thing to check for updated files. 	
