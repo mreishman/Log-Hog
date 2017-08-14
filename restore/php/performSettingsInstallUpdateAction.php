@@ -1,7 +1,7 @@
 <?php
 require_once('settingsInstallUpdate.php');
-
-if($_POST['action'] == 'downloadFile')
+$action = $_POST['action'];
+if($action == 'downloadFile')
 {
 	$boolUp = false;
 	if(isset($_POST['update']))
@@ -14,21 +14,21 @@ if($_POST['action'] == 'downloadFile')
 	downloadFile($_POST['file'],$boolUp,$_POST['downloadFrom'],$_POST['downloadTo']);
 	$response = true; 
 }
-elseif($_POST['action'] == 'unzipFile')
+elseif($action == 'unzipFile')
 {
 	unzipFileAndSub($_POST['locationExtractFrom'],"",$_POST['locationExtractTo'],"../../");
 	$response = true; 
 }
-elseif($_POST['action'] == 'unzipUpdateAndReturnArray')
+elseif($action == 'unzipUpdateAndReturnArray')
 {
 	$response = unzipFile();
 }
-elseif($_POST['action'] == 'removeZipFile')
+elseif($action == 'removeZipFile')
 {
 	removeZipFile($_POST['fileToUnlink']);
 	$response = true; 
 }
-elseif($_POST['action'] == 'removeUnZippedFiles')
+elseif($action == 'removeUnZippedFiles')
 {
 	$removeDir = true;
 	if(isset($_POST['removeDir']))
@@ -38,20 +38,20 @@ elseif($_POST['action'] == 'removeUnZippedFiles')
 	rrmdir($_POST['locationOfFilesThatNeedToBeRemovedRecursivally']);
 	$response = true; 
 }
-elseif($_POST['action'] = 'removeDirUpdate')
+elseif($action = 'removeDirUpdate')
 {
 	removeUnZippedFiles();
 	$response = true;
 }
-elseif($_POST['action'] == 'verifyFileIsThere')
+elseif($action == 'verifyFileIsThere')
 {
 	$response = verifyFileIsThere($_POST['fileLocation'], $_POST['isThere']);
 }
-elseif($_POST['action'] == 'verifyDirIsThere')
+elseif($action == 'verifyDirIsThere')
 {
 	$response = verifyDirIsThere($_POST['dirLocation']);
 }
-elseif($_POST['action'] == 'checkIfDirIsEmpty')
+elseif($action == 'checkIfDirIsEmpty')
 {
 	if (verifyDirIsEmpty($_POST['dir'])) 
 	{
@@ -62,7 +62,7 @@ elseif($_POST['action'] == 'checkIfDirIsEmpty')
   		$response = false;
 	}
 }
-elseif($_POST['action'] == 'cleanUpMonitor')
+elseif($action == 'cleanUpMonitor')
 {
 	if(is_dir('../../top'))
 	{
@@ -73,7 +73,7 @@ elseif($_POST['action'] == 'cleanUpMonitor')
 
 	$response = true; 
 }
-elseif($_POST['action'] == 'changeMonSettings')
+elseif($action == 'changeMonSettings')
 {
 	$string = "<?php
 		$"."monitorStatus = array(
@@ -85,7 +85,7 @@ elseif($_POST['action'] == 'changeMonSettings')
 
 	$response = true; 
 }
-elseif($_POST['action'] == 'changeMonSettingsRevert')
+elseif($action == 'changeMonSettingsRevert')
 {
 	$string = "<?php
 		$"."monitorStatus = array(
@@ -97,7 +97,7 @@ elseif($_POST['action'] == 'changeMonSettingsRevert')
 
 	$response = true; 
 }
-elseif($_POST['action'] == 'removeUnneededFoldersMonitor')
+elseif($action == 'removeUnneededFoldersMonitor')
 {
 	$removeDir = true;
 	rrmdir('../../top/core/',$removeDir);
@@ -112,7 +112,7 @@ elseif($_POST['action'] == 'removeUnneededFoldersMonitor')
 
 	$response = true; 
 }
-elseif($_POST['action'] == 'removeAllFilesFromLogHogExceptRestore')
+elseif($action == 'removeAllFilesFromLogHogExceptRestore')
 {
 	$files = scandir('../../');
 	foreach ($files as $thing => $file)
@@ -132,7 +132,7 @@ elseif($_POST['action'] == 'removeAllFilesFromLogHogExceptRestore')
 	}
 	$response = true; 
 }
-elseif($_POST['action'] == "changeDirUnzipped")
+elseif($action == "changeDirUnzipped")
 {
 	$files = scandir('../../restore/extracted/');
 	foreach ($files as $thing => $file)
@@ -143,12 +143,12 @@ elseif($_POST['action'] == "changeDirUnzipped")
 	}
 	$response = true; 
 }
-elseif($_POST['action'] == 'moveDirUnzipped')
+elseif($action == 'moveDirUnzipped')
 {
 	rename("../../Log-Hog-".$_POST['version'], "../../restore/extracted");
 	$response = true; 
 }
-elseif($_POST['action'] == 'readdSomeFilesFromUninstallProcess')
+elseif($action == 'readdSomeFilesFromUninstallProcess')
 {
 	if(!is_dir('../../top'))
 	{
@@ -156,7 +156,7 @@ elseif($_POST['action'] == 'readdSomeFilesFromUninstallProcess')
 	}
 	$response = true;
 }
-elseif($_POST['action'] == 'updateProgressFile')
+elseif($action == 'updateProgressFile')
 {
 	updateProgressFile($_POST['status'], $_POST['pathToFile'], $_POST['typeOfProgress'], $_POST['actionSave'], $_POST['percent']);
 

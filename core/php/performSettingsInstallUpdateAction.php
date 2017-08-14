@@ -162,6 +162,15 @@ elseif($action == 'updateProgressFile')
 
 	$response = true;
 }
+elseif($action == 'copyFileToFile')
+{
+	copyFileToFile($_POST['fileCopyFrom']);
+}
+elseif($action == 'updateConfigStatic')
+{
+	updateConfigStatic($_POST['versionToUpdate']);
+	return true;
+}
 else
 {
 	$response = "ACTION";

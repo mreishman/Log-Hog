@@ -9,7 +9,7 @@ function killProcess(processNumber)
 		dataType: "json",
 		data: data,
 		type: "POST",
-		success: function(data){
+		success(data){
 		procStatFunc();
 		},
 	});
@@ -17,15 +17,15 @@ function killProcess(processNumber)
 
 function dropdownShow(nameOfElem) 
 {
-    if(document.getElementById("dropdown-"+nameOfElem).style.display == "block")
+    if(document.getElementById("dropdown-"+nameOfElem).style.display === "block")
     {
-    	$(".dropdown-content").hide();
-    	dropdownMenuVisible = false;
+		$(".dropdown-content").hide();
+		dropdownMenuVisible = false;
     }
     else
     {
     	$(".dropdown-content").hide();
-    	document.getElementById("dropdown-"+nameOfElem).style.display = "block";
+		document.getElementById("dropdown-"+nameOfElem).style.display = "block";
 		document.getElementById("dropdown-"+nameOfElem).style.left = event.clientX+"px";
 		document.getElementById("dropdown-"+nameOfElem).style.top = event.clientY+"px";
 		dropdownMenuVisible = true;
@@ -39,7 +39,7 @@ window.onclick = function(event)
 		$(".dropdown-content").hide();
 		dropdownMenuVisible = false;
 	}
-}
+};
 
 function showGraphPopup(graph, name,type)
 {
@@ -173,7 +173,7 @@ function filterData(dataInner, maxRowNum)
 	for (var i = 0; i < dataInnerLength; i++) 
 	{
 		var addToNewArray = true;
-		if(dataInner[i] == " " || dataInner[i] == "")
+		if(dataInner[i] === " " || dataInner[i] === "")
 		{
 			addToNewArray = false;
 		}
@@ -231,7 +231,7 @@ function filterDataFromRUsage(dataInner)
 	phpSystemTimeDiff.push(parseFloat(dataInner["ru_stime.tv_usec"]));
 	if(phpSystemTimeDiff.length > 1)
 	{
-		phpSystemTimeDiffForHistory = phpSystemTimeDiff[1] - phpSystemTimeDiff[0]
+		phpSystemTimeDiffForHistory = phpSystemTimeDiff[1] - phpSystemTimeDiff[0];
 		if(phpSystemTimeDiff[1] < phpSystemTimeDiff[0])
 		{
 			phpSystemTimeDiffForHistory = phpSystemTimeDiff[1] - (phpSystemTimeDiff[0]+1000000);

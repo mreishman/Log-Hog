@@ -156,7 +156,7 @@ function pollTwoPartTwo(data)
 	{
 		arrayOfData1 = data;
 		filesNew = Object.keys(arrayOfData1);
-		for (var i = filesNew.length - 1; i >= 0; i--)
+		for (i = filesNew.length - 1; i >= 0; i--)
 		{
 			arrayToUpdate.push(filesNew[i]);
 		}
@@ -169,7 +169,7 @@ function pollTwoPartTwo(data)
 
 		arrayToUpdate = [];
 
-		for (var i = filesNew.length - 1; i >= 0; i--)
+		for (i = filesNew.length - 1; i >= 0; i--)
 		{
 			if(filesOld.indexOf(filesNew[i]) > -1)
 			{
@@ -186,7 +186,7 @@ function pollTwoPartTwo(data)
 			}
 		}
 
-		for (var i = filesOld.length - 1; i >= 0; i--)
+		for (i = filesOld.length - 1; i >= 0; i--)
 		{
 			if(!(filesNew.indexOf(filesOld[i]) > -1))
 			{
@@ -225,7 +225,7 @@ function pollThree(arrayToUpdate)
 			dataType: "json",
 			data: data,
 			type: "POST",
-			success: function(data)
+			success(data)
 			{
 				var filesInner = Object.keys(data);
 				if(arrayOfDataMain == null)
@@ -242,7 +242,7 @@ function pollThree(arrayToUpdate)
 				update(arrayOfDataMain);
 				fresh = false;
 			},
-			complete: function()
+			complete()
 			{
 				afterPollFunctionComplete();
 			}
@@ -261,7 +261,7 @@ function afterPollFunctionComplete()
 	if(enablePollTimeLogging !== "false")
 	{
 		t1 = performance.now();
-		document.getElementById("loggingTimerPollRate").innerText = "Ajax refresh took    "+(Math.round(t2 - t0))+":"+(Math.round(t3 - t2))+":"+(Math.round(t1 - t3))+"    " + (Math.round(t1 - t0)) + "/" + pollingRate +"("+(parseInt(pollingRate)*counterForPoll)+")"+" milliseconds.";
+		document.getElementById("loggingTimerPollRate").innerText = "Ajax refresh took    "+addPaddingToNumber(Math.round(t2 - t0))+":"+addPaddingToNumber(Math.round(t3 - t2),2)+":"+addPaddingToNumber(Math.round(t1 - t3))+"    " + addPaddingToNumber(Math.round(t1 - t0)) + "/" + addPaddingToNumber(pollingRate) +"("+addPaddingToNumber(parseInt(pollingRate)*counterForPoll)+")"+" milliseconds.";
 		document.getElementById("loggingTimerPollRate").style.color = "";
 		counterForPoll = 0;
 		if(Math.round(t1-t0) > parseInt(pollingRate))
@@ -283,13 +283,23 @@ function afterPollFunctionComplete()
 	}
 }
 
+function addPaddingToNumber(number, padding = 4)
+{
+	number = number.toString();
+	while(number.length < padding)
+	{
+		number = "0"+number;
+	}
+	return number;
+}
+
 function pausePollAction()
 {
 	if(pausePoll)
 	{
 		userPaused = false;
 		pausePoll = false;
-		document.getElementById('pauseImage').src="core/img/Pause.png";
+		document.getElementById("pauseImage").src="core/img/Pause.png";
 		if(pollTimer == null)
 		{
 			poll();
@@ -307,15 +317,15 @@ function pausePollAction()
 function refreshAction()
 {
 	clearTimeout(refreshActionVar);
-	document.getElementById('refreshImage').src="core/img/refresh-animated.gif";
+	document.getElementById("refreshImage").src="core/img/refresh-animated.gif";
 	refreshing = true;
 	poll();
-	refreshActionVar = setTimeout(function(){endRefreshAction()}, 1500);
+	refreshActionVar = setTimeout(endRefreshAction, 1500);
 }
 
 function endRefreshAction()
 {
-	document.getElementById('refreshImage').src="core/img/Refresh.png"; 
+	document.getElementById("refreshImage").src="core/img/Refresh.png"; 
 	refreshing = false;
 	if(pausePoll)
 	{
@@ -329,19 +339,19 @@ function endRefreshAction()
 
 function update(data) {
 	//console.log(data);
-	var menu = $('#menu');
-	var blank = $('#storage .menuItem').html();
+	var menu = $("#menu");
+	var blank = $("#storage .menuItem").html();
 	var i, id, name, shortName, item, style, folderName;
 	var files = Object.keys(data);
 	var stop = files.length;
 	var updated = false;
-	var initialized = $('#menu a').length != 0;
+	var initialized = $("#menu a").length != 0;
 	var colorArray = currentFolderColorThemeArrayOfColors;
 	var colorArrayLength = colorArray.length;
 	var folderNamePrev = "?-1";
 	var folderNameCount = -1;
 	for(i = 0; i != stop; ++i) {
-		if(files[i].indexOf("dataForLoggingLogHog051620170928") == -1)
+		if(files[i].indexOf("dataForLoggingLogHog051620170928") === -1)
 		{
 			var dataForCheck = data[files[i]];
 			name = files[i];

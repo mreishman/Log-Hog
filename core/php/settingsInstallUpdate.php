@@ -339,6 +339,70 @@ function handOffToUpdate()
 	require_once('../../update/downloads/updateFiles/extracted/updateScript.php');
 }
 
+function copyFileToFile($currentFile)
+{
+	$varToIndexDir = "../../";
+	$indexToExtracted = "update/downloads/updateFiles/extracted/";
+
+
+	$currentFileArray = explode("_", $currentFile );  
+	$sizeOfCurrentFileArray = sizeOf($currentFileArray);
+	$nameOfFile = $currentFileArray[$sizeOfCurrentFileArray - 1];
+	$directoryPath = "";
+	  
+	for($i = 0; $i < $sizeOfCurrentFileArray - 1; $i++)
+	{
+	  $directoryPath .= $currentFileArray[$i]."/"; 
+	}
+	 
+	$newFile = $directoryPath.$nameOfFile;
+	$fileTransfer = file_get_contents($varToIndexDir.$indexToExtracted.$currentFile);
+	file_put_contents($varToIndexDir.$newFile,$fileTransfer);
+	return ($varToIndexDir.$newFile,$fileTransfer);   
+}
+
+function updateConfigStatic($versionToUpdate)
+{
+	$arrayForVersionList = "";
+	$countOfArray = count($configStatic['versionList']);
+	$i = 0;
+	foreach ($configStatic['versionList'] as $key => $value) {
+	  $i++;
+	  $arrayForVersionList .= "'".$key."' => array(";
+	  $countOfArraySub = count($value);
+	  $j = 0;
+	  foreach ($value as $keySub => $valueSub) 
+	  {
+	    $j++;
+	    $arrayForVersionList .= "'".$keySub."' => '".$valueSub."'";
+	    if($j != $countOfArraySub)
+	    {
+	      $arrayForVersionList .= ",";
+	    }
+	  }
+	  $arrayForVersionList .= ")";
+	  if($i != $countOfArray)
+	  {
+	    $arrayForVersionList .= ",";
+	  }
+	}
+
+	$newInfoForConfig = "
+	<?php
+
+	$"."configStatic = array(
+	  'version'   => '".$versionToUpdate."',
+	  'lastCheck'   => '".date('m-d-Y')."',
+	  'newestVersion' => '".$configStatic['newestVersion']."',
+	  'versionList' => array(
+	  ".$arrayForVersionList."
+	  )
+	);
+	";
+
+	file_put_contents("../core/php/configStatic.php", $newInfoForConfig);
+}
+
 function finishedUpdate()
 {
 	//nothing!

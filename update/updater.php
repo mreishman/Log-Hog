@@ -123,30 +123,6 @@ if(!$noUpdateNeeded)
 		$updateAction = "downloadFile";
 		$requiredVars = $versionToUpdate;
 	}
-	elseif($updateProgress['currentStep'] == "Downloading Zip Files For ")
-	{
-		//just downloaded update, switch to unzipping
-		$updateStatus = "Extracting Zip Files For ";
-		$updateAction = "unzipFile";
-	}
-	elseif($updateProgress['currentStep'] == "Extracting Zip Files For ")
-	{
-		//just finished extracting, switch to removing zip file
-		$updateStatus = "Running Update Script For ";
-		$updateAction = "handOffToUpdate";
-	}
-	elseif($updateProgress['currentStep'] == "Finished Running Update Script")
-	{
-		//just finished runing update script, remove files 
-		$updateStatus = "Removing Extracted Files";
-		$updateAction = "removeUnZippedFiles";
-	}
-	elseif($updateProgress['currentStep'] == "Removing Extracted Files")
-	{
-		//just finished runing update script, remove files 
-		$updateStatus = "Removing Zip File";
-		$updateAction = "removeZipFile";
-	}
 	elseif($updateProgress['currentStep'] == "Removing Zip File")
 	{
 		//just finished runing update script, remove files 
@@ -154,52 +130,8 @@ if(!$noUpdateNeeded)
 		$updateAction = "finishedUpdate";
 		//change version in configStatic to updated version number
 
-		$arrayForVersionList = "";
-		$countOfArray = count($configStatic['versionList']);
-		$i = 0;
-		foreach ($configStatic['versionList'] as $key => $value) {
-		  $i++;
-		  $arrayForVersionList .= "'".$key."' => array(";
-		  $countOfArraySub = count($value);
-		  $j = 0;
-		  foreach ($value as $keySub => $valueSub) 
-		  {
-		    $j++;
-		    $arrayForVersionList .= "'".$keySub."' => '".$valueSub."'";
-		    if($j != $countOfArraySub)
-		    {
-		      $arrayForVersionList .= ",";
-		    }
-		  }
-		  $arrayForVersionList .= ")";
-		  if($i != $countOfArray)
-		  {
-		    $arrayForVersionList .= ",";
-		  }
-		}
-
-		$newInfoForConfig = "
-		<?php
-
-		$"."configStatic = array(
-		  'version'   => '".$versionToUpdate."',
-		  'lastCheck'   => '".date('m-d-Y')."',
-		  'newestVersion' => '".$configStatic['newestVersion']."',
-		  'versionList' => array(
-		  ".$arrayForVersionList."
-		  )
-		);
-		";
-
-		file_put_contents("../core/php/configStatic.php", $newInfoForConfig);
-
 	}
-	else
-	{
-		//anything else will be passed to update script 
-		$updateStatus = "Running Update Script For ";
-		$updateAction = "handOffToUpdate";
-	}
+
 }
 require_once('../core/php/updateProgressFileNext.php');
 $newestVersionCheck = '"'.$configStatic['newestVersion'].'"';
@@ -271,6 +203,7 @@ $versionCheck = '"'.$configStatic['version'].'"';
 	<?php echo "var arrayOfVersionsCount = ".count($arrayOfVersions).";";?>
 	var total = 100*arrayOfVersionsCount;
 	var versionCountCurrent = 1;
+	var lastFileCheck = "";
 
 	$( document ).ready(function()
 	{
@@ -364,27 +297,6 @@ $versionCheck = '"'.$configStatic['version'].'"';
 				
 			}
 		});	
-	}
-
-	function ajaxCheck()
-	{
-		var urlForSend = './updateCheck.php?format=json'
-		var data = {status: updateStatus };
-		$.ajax(
-		{
-			url: urlForSend,
-			dataType: 'json',
-			data: data,
-			type: 'POST',
-			success: function(data)
-			{
-				if(data == updateStatus)
-				{
-					clearInterval(timer);
-					//saved, move on to next action
-				}
-		  	},
-		});
 	}
 
 	function downloadBranch()
@@ -540,6 +452,10 @@ $versionCheck = '"'.$configStatic['version'].'"';
 			{
 				removeDownloadedZip();
 			}
+			else if(action == "copyFilesFromArray")
+			{
+				copyFilesFromArray();
+			}
 		}
 	}
 
@@ -568,6 +484,10 @@ $versionCheck = '"'.$configStatic['version'].'"';
 		{
 			updateProgressBar(9);
 			finishedUpdate();
+		}
+		else if(action == 'copyFilesFromArray')
+		{
+			postScriptRun();
 		}
 	}
 
@@ -680,8 +600,8 @@ $versionCheck = '"'.$configStatic['version'].'"';
 		if(fileCopyCount == filteredArray.length)
 		{
 			updateText("Finished copying files.");
-			postScriptRun();
 			fileCopyCount++;
+			verifyFile('copyFilesFromArray', lastFileCheck);
 		}
 	}
 
@@ -696,6 +616,10 @@ $versionCheck = '"'.$configStatic['version'].'"';
 			dataType: 'json',
 			data: dataSend,
 			type: 'POST',
+			success(data)
+			{
+				lastFileCheck = data;
+			},
 			complete: function(data)
 			{
 				copyFilesFromArray();
@@ -862,14 +786,30 @@ $versionCheck = '"'.$configStatic['version'].'"';
 
 	function finishedUpdate()
 	{
-		//update version number
-		finishedUpdateAfterAjax();
+		//updateConfigStatic
+		var urlForSend = urlForSendMain;
+		var dataSend = {action: 'updateConfigStatic', versionToUpdate: arrayOfVersions[(versionCountCurrent-1)]};
+		$.ajax({
+			url: urlForSend,
+			dataType: 'json',
+			data: dataSend,
+			type: 'POST',
+			success: function(data)
+			{
+				finishedUpdateAfterAjax();
+			},
+			failure: function(data)
+			{
+				finishedUpdateAfterAjax();
+			}
+		});
+		
 
 	}
 
 	function finishUpdatePollCheck()
 	{
-
+		finishedUpdateAfterAjax();
 	}
 
 	function finishedUpdateAfterAjax()
