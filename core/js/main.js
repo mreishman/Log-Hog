@@ -31,7 +31,7 @@ var refreshing = false;
 
 function escapeHTML(unsafeStr)
 {
-	return unsafeStr
+	return unsafeStr.toString()
 		.replace(/&/g, "&amp;")
 		.replace(/</g, "&lt;")
 		.replace(/>/g, "&gt;")
