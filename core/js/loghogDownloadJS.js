@@ -13,7 +13,7 @@
 			dataType: "json",
 			data: data,
 			type: "POST",
-			success: function(data)
+			success(data)
 			{
 				if(data === true)
 				{
@@ -37,7 +37,7 @@
 			dataType: "json",
 			data: data,
 			type: "POST",
-			complete: function()
+			complete()
 			{
 				//verify if downloaded
 				updateText("Download Files");
@@ -310,7 +310,7 @@
 
 	function verifyFilePoll(action, fileLocation,isThere)
 	{
-		if(lock == false)
+		if(lock === false)
 		{
 			lock = true;
 			updateText("verifying "+(verifyCount+1)+" of 10");
@@ -326,7 +326,7 @@
 					{
 						verifyPostEnd(data, _data);
 					},
-					failure: function(data)
+					failure(data)
 					{
 						verifyPostEnd(data, _data);
 					},

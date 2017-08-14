@@ -364,7 +364,7 @@ function update(data) {
 				if(data[name] != null)
 				{
 					folderName = name.substr(0, name.lastIndexOf("/"));
-					if(folderName !== folderNamePrev || i == 0 || groupByType == 'file')
+					if(folderName !== folderNamePrev || i === 0 || groupByType === "file")
 					{
 						folderNameCount++;
 						folderNamePrev = folderName;
@@ -373,26 +373,26 @@ function update(data) {
 							folderNameCount = 0;
 						}
 					}
-					id = name.replace(/[^a-z0-9]/g, '');
-					if(data[name] == "")
+					id = name.replace(/[^a-z0-9]/g, "");
+					if(data[name] === "")
 					{
 						data[name] = "<div class='errorMessageLog errorMessageRedBG' >Error - Unknown error? Check file permissions or clear log to fix?</div>";
 					}
-					else if(data[name] == "This file is empty. This should not be displayed.")
+					else if(data[name] === "This file is empty. This should not be displayed.")
 					{
 						data[name] = "<div class='errorMessageLog errorMessageGreenBG' > This file is empty. </div>";
 					}
-					else if((data[name] == "Error - File is not Readable") || (data[name] == "Error - Maybe insufficient access to read file?"))
+					else if((data[name] === "Error - File is not Readable") || (data[name] == "Error - Maybe insufficient access to read file?"))
 					{
 						var mainMessage = "Error - Maybe insufficient access to read file?";
-						if(data[name] == "Error - File is not Readable")
+						if(data[name] === "Error - File is not Readable")
 						{
 							mainMessage = "Error - File is not Readable";
 						}
 						data[name] = "<div class='errorMessageLog errorMessageRedBG' > "+mainMessage+" <br> <span style='font-size:75%;'> Try entering: <br> chown -R www-data:www-data "+name+" <br> or <br> chmod 664 "+name+" </span> </div>";
 					}
 					logs[id] = data[name];
-					if(enableLogging != "false")
+					if(enableLogging !== "false")
 					{
 						titles[id] = name + " | " + data[name+"dataForLoggingLogHog051620170928"];
 					}
@@ -497,7 +497,7 @@ function makePretty(text) {
 
 function resize() {
 	var targetHeight = window.innerHeight - $('#menu').outerHeight() - $('#title').outerHeight();
-	if(enablePollTimeLogging != "false")
+	if(enablePollTimeLogging !== "false")
 	{
 		targetHeight -= 25;
 	}
@@ -561,7 +561,7 @@ function checkIfPageHidden()
 		if(!userPaused && pausePoll)
 		{
 			pausePoll = false;
-			document.getElementById('pauseImage').src="core/img/Pause.png";
+			document.getElementById("pauseImage").src="core/img/Pause.png";
 			stopFlashTitle();
 			if(pollTimer == null)
 			{
@@ -646,9 +646,9 @@ function deleteLog()
 	name = title;
 	$.ajax({
 			  url: urlForSend,
-			  dataType: 'json',
+			  dataType: "json",
 			  data: data,
-			  type: 'POST',
+			  type: "POST",
 	success: function(data){
     // we make a successful JSONP call!
     id = data.replace(/[^a-z0-9]/g, '');
@@ -701,7 +701,7 @@ function verifyChange()
 		dataType: 'json',
 		data: data,
 		type: 'POST',
-		success: function(data)
+		success(data)
 		{
 			if(data == 'finishedUpdate')
 			{

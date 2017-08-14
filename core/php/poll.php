@@ -99,7 +99,7 @@ if($logTrimType == 'size')
 		$logSizeLimit *= 1000;
 	}
 }
-function tail($filename, $sliceSize, $shellOrPhp, $logTrimCheck, $logSizeLimit,$logTrimMacBSD,$logTrimType,$TrimSize,$buffer) 
+function tail($filename, $sliceSize, $shellOrPhp, $logTrimCheck, $logSizeLimit,$logTrimMacBSD,$logTrimType,$TrimSize,$buffer)
 {
 	$filename = preg_replace('/([()"])/S', '$1', $filename);
 	$data =  "This file is empty. This should not be displayed.";
@@ -116,7 +116,7 @@ function tail($filename, $sliceSize, $shellOrPhp, $logTrimCheck, $logSizeLimit,$
 					{
 						shell_exec('sed -i "" "1,' . ($lineCount - $logSizeLimit) . 'd" ' . $filename);
 					}
-					else
+					elseif($logTrimMacBSD == "false")
 					{
 						shell_exec('sed -i "1,' . ($lineCount - $logSizeLimit) . 'd" ' . $filename);
 					}
@@ -160,7 +160,7 @@ function tail($filename, $sliceSize, $shellOrPhp, $logTrimCheck, $logSizeLimit,$
 								shell_exec('sed -i "1,2d" ' . $filename);
 							}
 						}
-					}	
+					}
 					else
 					{
 						$trimFileBool = false;
@@ -209,7 +209,7 @@ function tail($filename, $sliceSize, $shellOrPhp, $logTrimCheck, $logSizeLimit,$
  * @link http://stackoverflow.com/a/15025877/995958
  * @license http://creativecommons.org/licenses/by/3.0/
  */
-function tailCustom($filepath, $lines = 1, $adaptive = true) 
+function tailCustom($filepath, $lines = 1, $adaptive = true)
 {
 	$f = @fopen($filepath, "rb");
 	if($f === false)
@@ -229,10 +229,10 @@ function tailCustom($filepath, $lines = 1, $adaptive = true)
 	{
 		$lines -= 1;
 	}
-	
+
 	$output = '';
 	$chunk = '';
-	while (ftell($f) > 0 && $lines >= 0) 
+	while (ftell($f) > 0 && $lines >= 0)
 	{
 		$seek = min(ftell($f), $buffer);
 		fseek($f, -$seek, SEEK_CUR);
@@ -240,7 +240,7 @@ function tailCustom($filepath, $lines = 1, $adaptive = true)
 		fseek($f, -mb_strlen($chunk, '8bit'), SEEK_CUR);
 		$lines -= substr_count($chunk, "\n");
 	}
-	while ($lines++ < 0) 
+	while ($lines++ < 0)
 	{
 		$output = substr($output, strpos($output, "\n") + 1);
 	}
@@ -248,7 +248,7 @@ function tailCustom($filepath, $lines = 1, $adaptive = true)
 	return trim($output);
 }
 $response = array();
-foreach($_POST['arrayToUpdate'] as $path) 
+foreach($_POST['arrayToUpdate'] as $path)
 {
 	if($enableLogging != "false")
 	{
@@ -265,7 +265,7 @@ foreach($_POST['arrayToUpdate'] as $path)
 			$filesizeForFile = "---";
 		}
 		else
-		{	
+		{
 			if($dataVar != "This file is empty. This should not be displayed.")
 			{
 				$filename = $path;

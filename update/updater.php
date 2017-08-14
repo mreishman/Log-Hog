@@ -420,7 +420,6 @@ $versionCheck = '"'.$configStatic['version'].'"';
 
 	function updateError()
 	{
-		clearInterval(dotsTimer);
 		document.getElementById('innerSettingsText').innerHTML = "<p>An error occured while trying to download Monitor. </p>";
 	}
 
@@ -794,12 +793,9 @@ $versionCheck = '"'.$configStatic['version'].'"';
 			dataType: 'json',
 			data: dataSend,
 			type: 'POST',
-			success: function(data)
+			complete: function(data)
 			{
-				finishedUpdateAfterAjax();
-			},
-			failure: function(data)
-			{
+				retryCount = 0;
 				finishedUpdateAfterAjax();
 			}
 		});
@@ -809,7 +805,43 @@ $versionCheck = '"'.$configStatic['version'].'"';
 
 	function finishUpdatePollCheck()
 	{
-		finishedUpdateAfterAjax();
+		if(retryCount == 0)
+		{
+			updateText("Verifying Version Change");
+		}
+		else
+		{
+			updateText("Attempt "+(retryCount+1)+" of 3 for Verifying Version Change");
+		}
+		if(retryCount > 3)
+		{
+			updateError();
+		}
+		var urlForSend = "../../core/php/versionCheck";
+		var dataSend = {};
+		$.ajax({
+			url: urlForSend,
+			dataType: "json",
+			data: dataSend,
+			type: "POST",
+			success: function(data)
+			{
+				if(data === arrayOfVersions[(versionCountCurrent-1)])
+				{
+					retryCount = 0;
+					finishedUpdateAfterAjax();
+				}
+				else
+				{
+					finishUpdatePollCheck();
+				}
+			},
+			failure: function(data)
+			{
+				retryCount++;
+				finishUpdatePollCheck();
+			}
+		});
 	}
 
 	function finishedUpdateAfterAjax()

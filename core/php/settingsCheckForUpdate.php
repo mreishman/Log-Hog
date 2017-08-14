@@ -113,8 +113,7 @@ foreach ($versionCheckArray['versionList'] as $key => $value) {
   }
 }
 
-$newInfoForConfig = "
-<?php
+$newInfoForConfig = "<?php
 
 $"."configStatic = array(
   'version'   => '".$configStatic['version']."',
