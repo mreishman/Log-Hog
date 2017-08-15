@@ -1,7 +1,7 @@
 <?php
 
 $versionCheckArray = array(
-	'version'		=> '2.3.4',
+	'version'		=> '2.3.5',
 	'versionList'		=> array(
 		'2.0.1'	        => array(
 			'branchName'	=> '2.0.1Update',
@@ -46,6 +46,10 @@ $versionCheckArray = array(
 		'2.3.4'		=> array(
 			'branchName'	=> '2.3.4Update',
 			'releaseNotes'	=> '<ul><li>Features<ul><li>Added a setting to hide / show bottom bar on index page.</li><li>Added sub menu for main settings page.</li><li>Added ability to customise location of status / monitor</li><li>Added dev setting to change local version number</li><li>Added ability to download / remove monitor after setup process</li><li>Added ability to restore to previous version of Log-Hog</li></ul></li></ul>'
+		),
+		'2.3.5'		=> array(
+			'branchName'	=> '2.3.5Update',
+			'releaseNotes'	=> '<ul><li>Features<ul><li>Reduced poll times by an average of 20ms</li><li>Added advanced poll options</li><li>Updated updater, now with more ajax!</li></ul></li><li>Bug Fixes<ul><li>Saving now doesn\'t refresh page, also adds check if save worked</li><li>Checking for update checks if update information was saved</li><li>fixed style issues with process table in monitor</li><li>Fixed bug with poll logic if first poll failed</li><li>Fixed bug with pause icon when loading with pause by default</li><li>Fixed bug with pause on focus not always following settings if disabled</li><li>Fixed bug with some forms not resetting correctly</li><li>Fixed bug with some forms giving false positives for changes in form data</li><li>Fixed issues with ajax update check on index page not waiting for file to refresh contents</li><li>Fixed issues with ajax update check on update page not refreshing install button</li><li>Fixed issues with ajax update check on update page sometimes not display proper changelog</li><li>Fixed bug where deleting file then adding file would result in a save error</li></ul></li></ul>'
 		)
 	)
 );
