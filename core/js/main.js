@@ -426,7 +426,7 @@ function update(data) {
 					if(logs[id] !== lastLogs[id]) 
 					{
 						updated = true;
-						if(id == currentPage)
+						if(id === currentPage)
 						{
 							$("#log").html(makePretty(logs[id]));
 						}
@@ -460,11 +460,11 @@ function update(data) {
 	
 	if(logs[currentPage] != lastLogs[currentPage]) {
 		lastLogs[currentPage] = logs[currentPage];
-		document.getElementById('main').scrollTop = $('#log').outerHeight();
+		document.getElementById("main").scrollTop = $("#log").outerHeight();
 	}
 	
 	var ids = Object.keys(logs);
-	for(i = 0; i != stop; ++i) {
+	for(i = 0; i !== stop; ++i) {
 		id = ids[i];
 		lastLogs[id] = logs[id];
 	}
@@ -473,15 +473,15 @@ function update(data) {
 function removeLogByName(name)
 {
 	id = name.replace(/[^a-z0-9]/g, "");
-	if($('#menu .' + id + 'Button').length != 0)
+	if($("#menu ." + id + "Button").length !== 0)
 	{
-		$('#menu .' + id + 'Button').remove();
+		$("#menu ." + id + "Button").remove();
 	}
 }
 
 function show(e, id) {
-	$(e).siblings().removeClass('active');
-	$(e).addClass('active').removeClass('updated');
+	$(e).siblings().removeClass("active");
+	$(e).addClass("active").removeClass("updated");
 	$("#log").html(makePretty(logs[id]));
 	currentPage = id;
 	$("#title").html(titles[id]);

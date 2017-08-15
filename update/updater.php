@@ -108,21 +108,16 @@ if($levelOfUpdate == 0)
 	$noUpdateNeeded = true;
 }
 
-if(!$noUpdateNeeded)
-{
-	$updateStatus = "";
-	$updateAction = "";
-	$requiredVars = "";
 
-	//determin what step you're on
-	if($updateProgress['currentStep'] == "Finished Updating to ")
-	{
-		//just starting update, switch to download
-		$updateStatus = "Downloading Zip Files For ";
-		$updateAction = "downloadFile";
-		$requiredVars = $versionToUpdate;
-	}
+$updateStatus = $updateProgress['currentStep'];
+
+if($updateProgress['currentStep'] == "Finished Updating to ")
+{
+	//just starting update, switch to download
+	$updateStatus = "Downloading Zip Files For ";
+	$updateAction = "downloadFile";
 }
+
 require_once('../core/php/updateProgressFileNext.php');
 $newestVersionCheck = '"'.$configStatic['newestVersion'].'"';
 $versionCheck = '"'.$configStatic['version'].'"';
@@ -218,6 +213,7 @@ $versionCheck = '"'.$configStatic['version'].'"';
 
 	function pickNextAction()
 	{
+		console.log(updateStatus);
 		if(updateStatus == "Downloading Zip Files For ")
 		{
 			downloadBranch();
@@ -235,34 +231,37 @@ $versionCheck = '"'.$configStatic['version'].'"';
 		}
 		else if(updateStatus == 'Copying Files')
 		{
-			updateProgressBar(29);
+			updateProgressBar(25);
 			filterFilesFromArray();
 		}
 		else if(updateStatus == 'postUpgrade Scripts')
 		{
+			updateProgressBar(75);
 			postScriptRun();
 		}
 		else if(updateStatus == "Removing Extracted Files")
 		{
 			//remove extracted files
+			updateProgressBar(80);
 			removeExtractedDir();
 		}
 		else if(updateStatus == "Removing Zip File")
 		{
+			updateProgressBar(90);
 			//remove zip
 			removeDownloadedZip();
 		}
 		else if(updateStatus == "finishedUpdate")
 		{
+			updateProgressBar(99);
 			finishedUpdate();
 		}
 
 	}
 
-	function updateStatusFunc(updateStatusInner, actionLocal, percentToSave = currentPercent)
+	function updateStatusFunc(updateStatusInner, actionLocal, percentToSave = (document.getElementById('progressBar').value))
 	{
 		var urlForSend = urlForSendMain;
-		var currentPercent = (document.getElementById('progressBar').value);
 		var data = {action: 'updateProgressFile', status: updateStatusInner, typeOfProgress: "updateProgressFileNext.php", actionSave: actionLocal, percent: percentToSave};
 		$.ajax({
 			url: urlForSend,
@@ -609,7 +608,6 @@ $versionCheck = '"'.$configStatic['version'].'"';
 			type: 'POST',
 			success(fileCopied)
 			{
-				console.log(fileCopied);
 				lastFileCheck = fileCopied;
 			},
 			complete: function(data)
@@ -789,7 +787,7 @@ $versionCheck = '"'.$configStatic['version'].'"';
 			complete: function(data)
 			{
 				retryCount = 0;
-				finishedUpdateAfterAjax();
+				finishUpdatePollCheck();
 			}
 		});
 		
@@ -810,7 +808,7 @@ $versionCheck = '"'.$configStatic['version'].'"';
 		{
 			updateError();
 		}
-		var urlForSend = "../../core/php/versionCheck";
+		var urlForSend = "../core/php/versionCheck.php";
 		var dataSend = {};
 		$.ajax({
 			url: urlForSend,

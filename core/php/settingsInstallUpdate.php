@@ -252,7 +252,10 @@ function removeZipFile($fileToUnlink = "../../update/downloads/updateFiles/updat
 	{
 		$fileToUnlink = "../../update/downloads/updateFiles/updateFiles.zip";
 	}
-	unlink($fileToUnlink);
+	if(is_file($fileToUnlink))
+	{
+		unlink($fileToUnlink);
+	}
 }
 
 
