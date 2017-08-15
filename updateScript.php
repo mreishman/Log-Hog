@@ -18,11 +18,6 @@ sleep(2);
 $currentFile = $arrayOfFiles[$innerUpdateProgress['currentFile']]; 
 $indexToExtracted = "update/downloads/updateFiles/extracted/";  
   
-if($currentFile == "core_js_main.js")
-{
-   rename($varToIndexDir.$indexToExtracted."core_js_main.php", $varToIndexDir.$indexToExtracted."core_js_main.js");
-}
-  
 //update innerUpgradeStatus file
 $newCount = $innerUpdateProgress['currentFile'] + 1;
 
