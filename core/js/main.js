@@ -350,7 +350,7 @@ function update(data) {
 	var colorArrayLength = colorArray.length;
 	var folderNamePrev = "?-1";
 	var folderNameCount = -1;
-	for(i = 0; i != stop; ++i) {
+	for(i = 0; i !== stop; ++i) {
 		if(files[i].indexOf("dataForLoggingLogHog051620170928") === -1)
 		{
 			var dataForCheck = data[files[i]];
@@ -416,21 +416,21 @@ function update(data) {
 						item = blank;
 						item = item.replace(/{{title}}/g, shortName);
 						item = item.replace(/{{id}}/g, id);
-						if(groupByColorEnabled == true)
+						if(groupByColorEnabled === true)
 						{
 							item = item.replace(/{{style}}/g, style);
 						}
 						menu.append(item);
 					}
 					
-					if(logs[id] != lastLogs[id]) 
+					if(logs[id] !== lastLogs[id]) 
 					{
 						updated = true;
 						if(id == currentPage)
 						{
-							$('#log').html(makePretty(logs[id]));
+							$("#log").html(makePretty(logs[id]));
 						}
-						else if(!fresh && !$('#menu a.' + id + 'Button').hasClass('updated'))
+						else if(!fresh && !$("#menu a." + id + "Button").hasClass("updated"))
 						{
 							$('#menu a.' + id + 'Button').addClass('updated');
 						}

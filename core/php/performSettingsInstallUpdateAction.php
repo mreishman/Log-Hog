@@ -1,7 +1,7 @@
 <?php
 require_once('settingsInstallUpdate.php');
 $action = $_POST['action'];
-if($action == 'downloadFile')
+if($action === 'downloadFile')
 {
 	$boolUp = false;
 	if(isset($_POST['update']))
@@ -14,21 +14,21 @@ if($action == 'downloadFile')
 	downloadFile($_POST['file'],$boolUp,$_POST['downloadFrom'],$_POST['downloadTo']);
 	$response = true; 
 }
-elseif($action == 'unzipFile')
+elseif($action === 'unzipFile')
 {
 	unzipFileAndSub($_POST['locationExtractFrom'],"",$_POST['locationExtractTo'],"../../");
 	$response = true; 
 }
-elseif($action == 'unzipUpdateAndReturnArray')
+elseif($action === 'unzipUpdateAndReturnArray')
 {
 	$response = unzipFile();
 }
-elseif($action == 'removeZipFile')
+elseif($action === 'removeZipFile')
 {
 	removeZipFile($_POST['fileToUnlink']);
 	$response = true; 
 }
-elseif($action == 'removeUnZippedFiles')
+elseif($action === 'removeUnZippedFiles')
 {
 	$removeDir = true;
 	if(isset($_POST['removeDir']))
@@ -38,20 +38,20 @@ elseif($action == 'removeUnZippedFiles')
 	rrmdir($_POST['locationOfFilesThatNeedToBeRemovedRecursivally']);
 	$response = true; 
 }
-elseif($action = 'removeDirUpdate')
+elseif($action === 'removeDirUpdate')
 {
 	removeUnZippedFiles();
 	$response = true;
 }
-elseif($action == 'verifyFileIsThere')
+elseif($action === 'verifyFileIsThere')
 {
 	$response = verifyFileIsThere($_POST['fileLocation'], $_POST['isThere']);
 }
-elseif($action == 'verifyDirIsThere')
+elseif($action === 'verifyDirIsThere')
 {
 	$response = verifyDirIsThere($_POST['dirLocation']);
 }
-elseif($action == 'checkIfDirIsEmpty')
+elseif($action === 'checkIfDirIsEmpty')
 {
 	if (verifyDirIsEmpty($_POST['dir'])) 
 	{
@@ -62,7 +62,7 @@ elseif($action == 'checkIfDirIsEmpty')
   		$response = false;
 	}
 }
-elseif($action == 'cleanUpMonitor')
+elseif($action === 'cleanUpMonitor')
 {
 	if(is_dir('../../top'))
 	{
@@ -73,7 +73,7 @@ elseif($action == 'cleanUpMonitor')
 
 	$response = true; 
 }
-elseif($action == 'changeMonSettings')
+elseif($action === 'changeMonSettings')
 {
 	$string = "<?php
 		$"."monitorStatus = array(
@@ -85,7 +85,7 @@ elseif($action == 'changeMonSettings')
 
 	$response = true; 
 }
-elseif($action == 'changeMonSettingsRevert')
+elseif($action === 'changeMonSettingsRevert')
 {
 	$string = "<?php
 		$"."monitorStatus = array(
@@ -97,7 +97,7 @@ elseif($action == 'changeMonSettingsRevert')
 
 	$response = true; 
 }
-elseif($action == 'removeUnneededFoldersMonitor')
+elseif($action === 'removeUnneededFoldersMonitor')
 {
 	$removeDir = true;
 	rrmdir('../../top/core/',$removeDir);
@@ -112,7 +112,7 @@ elseif($action == 'removeUnneededFoldersMonitor')
 
 	$response = true; 
 }
-elseif($action == 'removeAllFilesFromLogHogExceptRestore')
+elseif($action === 'removeAllFilesFromLogHogExceptRestore')
 {
 	$files = scandir('../../');
 	foreach ($files as $thing => $file)
@@ -132,7 +132,7 @@ elseif($action == 'removeAllFilesFromLogHogExceptRestore')
 	}
 	$response = true; 
 }
-elseif($action == "changeDirUnzipped")
+elseif($action === "changeDirUnzipped")
 {
 	$files = scandir('../../restore/extracted/');
 	foreach ($files as $thing => $file)
@@ -143,12 +143,12 @@ elseif($action == "changeDirUnzipped")
 	}
 	$response = true; 
 }
-elseif($action == 'moveDirUnzipped')
+elseif($action === 'moveDirUnzipped')
 {
 	rename("../../Log-Hog-".$_POST['version'], "../../restore/extracted");
 	$response = true; 
 }
-elseif($action == 'readdSomeFilesFromUninstallProcess')
+elseif($action === 'readdSomeFilesFromUninstallProcess')
 {
 	if(!is_dir('../../top'))
 	{
@@ -156,20 +156,20 @@ elseif($action == 'readdSomeFilesFromUninstallProcess')
 	}
 	$response = true;
 }
-elseif($action == 'updateProgressFile')
+elseif($action === 'updateProgressFile')
 {
 	updateProgressFile($_POST['status'], $_POST['pathToFile'], $_POST['typeOfProgress'], $_POST['actionSave'], $_POST['percent']);
 
 	$response = true;
 }
-elseif($action == 'copyFileToFile')
+elseif($action === 'copyFileToFile')
 {
-	copyFileToFile($_POST['fileCopyFrom']);
+	$response = copyFileToFile($_POST['fileCopyFrom']);
 }
-elseif($action == 'updateConfigStatic')
+elseif($action === 'updateConfigStatic')
 {
 	updateConfigStatic($_POST['versionToUpdate']);
-	return true;
+	$response = true;
 }
 else
 {

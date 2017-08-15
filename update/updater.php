@@ -353,7 +353,7 @@ $versionCheck = '"'.$configStatic['version'].'"';
 	function verifyFile(action, fileLocation,isThere = true)
 	{
 		verifyCount = 0;
-		updateText('Verifying '+action+' with'+fileLocation);
+		updateText('Verifying '+action+' with '+fileLocation);
 		verifyFileTimer = setInterval(function(){verifyFilePoll(action,fileLocation,isThere);},6000);
 	}
 
@@ -455,7 +455,7 @@ $versionCheck = '"'.$configStatic['version'].'"';
 		{
 			updateProgressBar(10);
 			updateStatusFunc("Extracting Zip Files For ", "");
-			//unzipBranch();
+			unzipBranch();
 		}
 		else if(action == 'unzipUpdateAndReturnArray')
 		{
@@ -601,15 +601,16 @@ $versionCheck = '"'.$configStatic['version'].'"';
 		updateText("File: "+file);
 		
 		var urlForSend = urlForSendMain;
-		var dataSend = {action: 'copyFileToFile', fileCopyFrom: file};
+		var dataSend = {action: "copyFileToFile", fileCopyFrom: file};
 		$.ajax({
 			url: urlForSend,
 			dataType: 'json',
 			data: dataSend,
 			type: 'POST',
-			success(data)
+			success(fileCopied)
 			{
-				lastFileCheck = data;
+				console.log(fileCopied);
+				lastFileCheck = fileCopied;
 			},
 			complete: function(data)
 			{

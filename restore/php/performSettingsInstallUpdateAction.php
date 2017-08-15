@@ -38,7 +38,7 @@ elseif($action == 'removeUnZippedFiles')
 	rrmdir($_POST['locationOfFilesThatNeedToBeRemovedRecursivally']);
 	$response = true; 
 }
-elseif($action = 'removeDirUpdate')
+elseif($action == 'removeDirUpdate')
 {
 	removeUnZippedFiles();
 	$response = true;

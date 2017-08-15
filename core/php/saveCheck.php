@@ -130,7 +130,7 @@ foreach ($defaultConfig as $key => $value)
 				break;
 			}
 		}
-		
+
 	}
 	elseif(isset($$key))
 	{

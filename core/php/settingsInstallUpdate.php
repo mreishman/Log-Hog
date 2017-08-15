@@ -114,11 +114,6 @@ function updateMainProgressLogFile($dotsTime)
 	file_put_contents("updateProgressLog.php", $mainFileContents);
 }
 
-function updateHeadProgressLogFile($message)
-{
-
-}
-
 function updateProgressFile($status, $pathToFile, $typeOfProgress, $action, $percent = 0)
 {
 	$writtenTextTofile = "<?php
@@ -357,8 +352,9 @@ function copyFileToFile($currentFile)
 	 
 	$newFile = $directoryPath.$nameOfFile;
 	$fileTransfer = file_get_contents($varToIndexDir.$indexToExtracted.$currentFile);
-	file_put_contents($varToIndexDir.$newFile,$fileTransfer);
-	return ($varToIndexDir.$newFile,$fileTransfer);   
+	$newFileWithIndexVar = $varToIndexDir.$newFile;
+	//file_put_contents($newFileWithIndexVar,$fileTransfer);
+	return ($newFileWithIndexVar);   
 }
 
 function updateConfigStatic($versionToUpdate)
