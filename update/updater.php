@@ -10,8 +10,8 @@ if(file_exists('../local/layout.php'))
 require_once($baseUrl.'conf/config.php');
 require_once('../core/php/configStatic.php');
 require_once('../core/php/updateProgressFile.php');
-require_once('../core/php/settingsInstallUpdate.php'); 
-require_once('../top/statusTest.php'); 
+require_once('../core/php/settingsInstallUpdate.php');
+require_once('../top/statusTest.php');
 
 $noUpdateNeeded = true;
 $versionToUpdate = "";
@@ -25,7 +25,6 @@ if($configStatic['newestVersion'] != $configStatic['version'])
 {
 	$noUpdateNeeded = false;
 	foreach ($configStatic['versionList'] as $key => $value) {
-		
 
 		$version = explode('.', $configStatic['version']);
 		$newestVersion = explode('.', $key);
@@ -481,6 +480,98 @@ $versionCheck = '"'.$configStatic['version'].'"';
 		}
 	}
 
+	function verifyFileOrDir(action, fileLocation)
+	{
+		verifyCount = 0;
+		updateText('Verifying '+action+' with '+fileLocation);
+		verifyFileTimer = setInterval(function(){verifyFileOrDirPoll(action,fileLocation);},6000);
+	}
+
+	function verifyFileOrDirPoll(action, fileLocation,isThere)
+	{
+		if(lock == false)
+		{
+			lock = true;
+			updateText('verifying '+(verifyCount+1)+' of 10');
+			var urlForSend = urlForSendMain;
+			var data = {action: 'verifyFileOrDirIsThere', fileLocation: fileLocation, lastAction: action};
+			(function(_data){
+				$.ajax({
+					url: urlForSend,
+					dataType: 'json',
+					data: data,
+					type: 'POST',
+					success: function(data)
+					{
+						verifyPostEndTwo(data, _data);
+					},
+					failure: function(data)
+					{
+						verifyPostEndTwo(data, _data);
+					},
+					complete: function()
+					{
+						lock = false;
+					}
+				});	
+			}(data));
+		}
+	}
+
+	function verifyPostEndTwo(verified, data)
+	{
+		if(verified == true)
+		{
+			clearInterval(verifyFileTimer);
+			verifySuccededTwo(data['lastAction']);
+		}
+		else
+		{
+			verifyCount++;
+			if(verifyCount > 9)
+			{
+				clearInterval(verifyFileTimer);
+				verifyFailTwo(data['lastAction']);
+			}
+		}
+	}
+
+	function verifySuccededTwo(action)
+	{
+		retryCount = 0;
+		updateText("Verified Action");
+		if(action === "preScriptRun")
+		{
+			preScriptRun();
+		}
+		else
+		{
+			postScriptRun();
+		}
+	}
+
+	function verifyFailTwo(action)
+	{
+		//failed? try again?
+		retryCount++;
+		if(retryCount >= 3)
+		{
+			//stop trying, give up :c
+			updateError();
+		}
+		else
+		{
+			if(action === "preScriptRun")
+			{
+				preScriptRun();
+			}
+			else
+			{
+				postScriptRun();
+			}
+		}
+	}
+
 	function preScriptRun()
 	{
 		updateText("Checking for pre upgrade scripts");
@@ -515,8 +606,6 @@ $versionCheck = '"'.$configStatic['version'].'"';
 			else
 			{
 				updateText("Finished running pre upgrade scripts");
-
-				//wait for verify scripts
 			}
 			preScriptCount = 1;
 			preScripRunFileName = "";
@@ -535,9 +624,18 @@ $versionCheck = '"'.$configStatic['version'].'"';
 			dataType: 'json',
 			data: data,
 			type: 'POST',
-			complete: function()
+			success: function(data)
 			{
-				preScriptRun();
+				if(data !== true)
+				{
+					//verify data
+					verifyFileOrDir(data, "preScriptRun")
+				}
+				else
+				{
+					//no verify needed
+					preScriptRun();
+				}
 			}
 		});	
 	}
@@ -668,9 +766,18 @@ $versionCheck = '"'.$configStatic['version'].'"';
 			dataType: 'json',
 			data: data,
 			type: 'POST',
-			complete: function()
+			success: function(data)
 			{
-				postScriptRun();
+				if(data !== true)
+				{
+					//verify data
+					verifyFileOrDir(data, "preScriptRun")
+				}
+				else
+				{
+					//no verify needed
+					preScriptRun();
+				}
 			}
 		});	
 	}
@@ -862,7 +969,7 @@ $versionCheck = '"'.$configStatic['version'].'"';
 	
 </script> 
 
-<?php 
+<?php
 if($newestVersionCheck == $versionCheck)
 {
 	file_put_contents("../core/php/updateProgressLog.php", "<p> Loading update file list. </p>");

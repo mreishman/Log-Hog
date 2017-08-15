@@ -51,6 +51,10 @@ elseif($action === 'verifyDirIsThere')
 {
 	$response = verifyDirIsThere($_POST['dirLocation']);
 }
+elseif($action === "verifyFileOrDirIsThere")
+{
+	$response = verifyDirOrFile($_POST['locationOfDirOrFile']);
+}
 elseif($action === 'checkIfDirIsEmpty')
 {
 	if (verifyDirIsEmpty($_POST['dir'])) 

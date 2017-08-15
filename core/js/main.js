@@ -472,10 +472,10 @@ function update(data) {
 
 function removeLogByName(name)
 {
-	id = name.replace(/[^a-z0-9]/g, "");
-	if($("#menu ." + id + "Button").length !== 0)
+	var idOfName = name.replace(/[^a-z0-9]/g, "");
+	if($("#menu ." + idOfName + "Button").length !== 0)
 	{
-		$("#menu ." + id + "Button").remove();
+		$("#menu ." + idOfName + "Button").remove();
 	}
 }
 
@@ -485,14 +485,14 @@ function show(e, id) {
 	$("#log").html(makePretty(logs[id]));
 	currentPage = id;
 	$("#title").html(titles[id]);
-	document.getElementById('main').scrollTop = $('#log').outerHeight();
+	document.getElementById("main").scrollTop = $("#log").outerHeight();
 }
 
 function makePretty(text) {
 	text = text.split("\n");
-	text = text.join('</div><div>');
+	text = text.join("</div><div>");
 	
-	return '<div>' + text + '</div>';
+	return "<div>" + text + "</div>";
 }
 
 function resize() {
@@ -649,14 +649,14 @@ function deleteLog()
 			  dataType: "json",
 			  data: data,
 			  type: "POST",
-	success: function(data){
-    // we make a successful JSONP call!
-    id = data.replace(/[^a-z0-9]/g, '');
-	if($('#menu .' + id + 'Button').length != 0)
+	success: function(data)
 	{
-		$('#menu .' + id + 'Button').remove();
-	}
-  },
+	    var idOfDeletedLog = data.replace(/[^a-z0-9]/g, "");
+		if($("#menu ." + idOfDeletedLog + "Button").length !== 0)
+		{
+			$("#menu ." + idOfDeletedLog + "Button").remove();
+		}
+  	},
   	complete: function(data){
   	},
 });

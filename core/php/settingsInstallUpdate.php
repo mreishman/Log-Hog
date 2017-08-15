@@ -323,6 +323,18 @@ function verifyDirIsThere($file)
 	}
 }
 
+function verifyDirOrFile($file)
+{
+	if(is_file($file) || is_dir($file))
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
 function verifyDirIsEmpty($dir)
 {
 	if (!is_readable($dir))
