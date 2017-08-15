@@ -115,6 +115,10 @@ function deleteRowFunction(currentRow, decreaseCountWatchListNum)
 			countOfAddedFiles--;
 			countOfWatchList--;
 		}
+		else
+		{
+			countOfWatchList--;
+		}
 		document.getElementById("numberOfRows").value = newValue;
 	}
 
