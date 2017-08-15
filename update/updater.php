@@ -259,11 +259,11 @@ $versionCheck = '"'.$configStatic['version'].'"';
 
 	}
 
-	function updateStatusFunc(updateStatusInner, actionLocal)
+	function updateStatusFunc(updateStatusInner, actionLocal, percentToSave = currentPercent)
 	{
 		var urlForSend = urlForSendMain;
 		var currentPercent = (document.getElementById('progressBar').value);
-		var data = {action: 'updateProgressFile', status: updateStatusInner, pathToFile: "../core/php/", typeOfProgress: "updateProgressFileNext.php", actionSave: actionLocal, percent: currentPercent};
+		var data = {action: 'updateProgressFile', status: updateStatusInner, typeOfProgress: "updateProgressFileNext.php", actionSave: actionLocal, percent: percentToSave};
 		$.ajax({
 			url: urlForSend,
 			dataType: 'json',
@@ -275,7 +275,7 @@ $versionCheck = '"'.$configStatic['version'].'"';
 			}
 		});	
 
-		var data = {action: 'updateProgressFile', status: updateStatusInner, pathToFile: "../core/php/", typeOfProgress: "updateProgressFile.php", actionSave: actionLocal, percent: currentPercent};
+		var data = {action: 'updateProgressFile', status: updateStatusInner, typeOfProgress: "updateProgressFile.php", actionSave: actionLocal, percent: percentToSave};
 		$.ajax({
 			url: urlForSend,
 			dataType: 'json',
@@ -847,6 +847,7 @@ $versionCheck = '"'.$configStatic['version'].'"';
 			document.getElementById('menu').style.display = "block";
 			document.getElementById('titleHeader').innerHTML = "<h1>Finished Update</h1>";
 			document.getElementById('progressBar').value = 100;
+			updateStatusFunc("Finished Updating to ","finishedUpdate",100);
 		}
 		else
 		{

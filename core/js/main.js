@@ -112,7 +112,7 @@ function pollTwo()
 				if(data === false)
 				{
 					showPopup();
-					document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class='settingsHeader' >Log-Hog has been updated. Please Refresh</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Log-Hog has been updated, and is now on version "+data+". Please refresh the page.</div><div><div class='link' onclick='location.reload();' style='margin-left:165px; margin-right:50px;margin-top:35px;'>Reload</div></div>";
+					document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class='settingsHeader' >Log-Hog has been updated. Please Refresh</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Log-Hog has been updated, and is now on a new version. Please refresh the page.</div><div><div class='link' onclick='location.reload();' style='margin-left:165px; margin-right:50px;margin-top:35px;'>Reload</div></div>";
 				}
 				else if(data === "update in progress")
 				{
@@ -403,7 +403,7 @@ function update(data) {
 					
 					if(enableLogging != "false")
 					{
-						if(id == currentPage)
+						if(id === currentPage)
 						{
 							$("#title").html(titles[id]);
 						}
@@ -432,11 +432,11 @@ function update(data) {
 						}
 						else if(!fresh && !$("#menu a." + id + "Button").hasClass("updated"))
 						{
-							$('#menu a.' + id + 'Button').addClass('updated');
+							$("#menu a." + id + "Button").addClass("updated");
 						}
 					}
 					
-					if(initialized && updated && $(window).filter(':focus').length == 0) 
+					if(initialized && updated && $(window).filter(":focus").length === 0) 
 					{
 						if(flashTitleUpdateLog)
 						{
@@ -453,9 +453,9 @@ function update(data) {
 	}
 	resize();
 	
-	if($('#menu .active').length == 0)
+	if($("#menu .active").length === 0)
 	{
-		$('#menu a:eq(0)').click();
+		$("#menu a:eq(0)").click();
 	}
 	
 	if(logs[currentPage] != lastLogs[currentPage]) {
@@ -482,9 +482,9 @@ function removeLogByName(name)
 function show(e, id) {
 	$(e).siblings().removeClass('active');
 	$(e).addClass('active').removeClass('updated');
-	$('#log').html(makePretty(logs[id]));
+	$("#log").html(makePretty(logs[id]));
 	currentPage = id;
-	$('#title').html(titles[id]);
+	$("#title").html(titles[id]);
 	document.getElementById('main').scrollTop = $('#log').outerHeight();
 }
 
@@ -698,9 +698,9 @@ function verifyChange()
 	$.ajax(
 	{
 		url: urlForSend,
-		dataType: 'json',
+		dataType: "json",
 		data: data,
-		type: 'POST',
+		type: "POST",
 		success(data)
 		{
 			if(data == 'finishedUpdate')

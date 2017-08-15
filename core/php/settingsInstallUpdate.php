@@ -114,24 +114,24 @@ function updateMainProgressLogFile($dotsTime)
 	file_put_contents("updateProgressLog.php", $mainFileContents);
 }
 
-function updateProgressFile($status, $pathToFile, $typeOfProgress, $action, $percent = 0)
+function updateProgressFile($status, $typeOfProgress, $action, $percent = 0)
 {
 	$writtenTextTofile = "<?php
-	$"."updateProgress = array(
-  	'currentStep'   => '".$status."',
-  	'action' => '".$action."',
-  	'percent' => ".$percent."
-	);
-	?>
-	";
+$"."updateProgress = array(
+'currentStep'   => '".$status."',
+'action' => '".$action."',
+'percent' => ".$percent."
+);
+?>";
 
-	$fileToPutContent = $pathToFile.$typeOfProgress;
+	$fileToPutContent = $typeOfProgress;
 
 	file_put_contents($fileToPutContent, $writtenTextTofile);
 }
 
 function downloadFile($file = null, $update = true, $downloadFrom = 'Log-Hog/archive/', $downloadTo = '../../update/downloads/updateFiles/updateFiles.zip')
 {
+
 	if($update == true)
 	{
 		require_once('configStatic.php');
@@ -359,6 +359,8 @@ function copyFileToFile($currentFile)
 
 function updateConfigStatic($versionToUpdate)
 {
+	require_once('configStatic.php');
+
 	$arrayForVersionList = "";
 	$countOfArray = count($configStatic['versionList']);
 	$i = 0;
@@ -383,20 +385,17 @@ function updateConfigStatic($versionToUpdate)
 	  }
 	}
 
-	$newInfoForConfig = "
-	<?php
+	$newInfoForConfig = "<?php
 
-	$"."configStatic = array(
-	  'version'   => '".$versionToUpdate."',
-	  'lastCheck'   => '".date('m-d-Y')."',
-	  'newestVersion' => '".$configStatic['newestVersion']."',
-	  'versionList' => array(
-	  ".$arrayForVersionList."
-	  )
-	);
-	";
-
-	file_put_contents("../core/php/configStatic.php", $newInfoForConfig);
+$"."configStatic = array(
+	'version'   => '".$versionToUpdate."',
+	'lastCheck'   => '".date('m-d-Y')."',
+	'newestVersion' => '".$configStatic['newestVersion']."',
+	'versionList' => array(
+		".$arrayForVersionList."
+	)
+);";
+	file_put_contents("configStatic.php", $newInfoForConfig);
 }
 
 function finishedUpdate()

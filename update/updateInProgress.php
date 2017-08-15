@@ -25,7 +25,7 @@ require_once('../top/statusTest.php');
 
 <div id="main">
 	<div class="settingsHeader" style="text-align: center;" >
-		<h1>An Update is in progress</h1>
+		<h1 id="titleForUpdater" >An Update is in progress</h1>
 		<div id="menu" style="margin-right: auto; margin-left: auto; position: relative; display: none;">
 			<a onclick="window.location.href = '../settings/update.php'">Back to Log-Hog</a>
 		</div>
@@ -52,12 +52,13 @@ require_once('../top/statusTest.php');
 <script type="text/javascript">
 
 var counter = 0;	
+var counterInt;
 <?php echo "var currentPercent = ".$updateProgress['percent'].";";?>
 
 
 $( document ).ready(function()
 {
-	setInterval(checkIfChange, 3000);
+	counterInt = setInterval(checkIfChange, 3000);
 
 });
 
@@ -72,7 +73,7 @@ function checkIfChange()
 		type: 'POST',
 		success: function(data)
 		{
-			document.getElementById('innerSettingsText').innerHTML = "<br> Current Percent: "+currentPercent+"%"+document.getElementById('innerSettingsText').innerHTML;
+			document.getElementById('innerSettingsText').innerHTML = "<br> Current Percent: "+currentPercent+"% ("+counter+")"+document.getElementById('innerSettingsText').innerHTML;
 		  	if(data == currentPercent)
 		  	{
 		  		counter++
@@ -80,17 +81,32 @@ function checkIfChange()
 		  		{
 		  			window.location.href = '../settings/update.php';
 		  		}
+		  		else if(currentPercent == 100)
+		  		{
+		  			finishedUpdate();
+		  			clearInterval(counterInt);
+		  		}
 		  	}
 		  	else
 		  	{
 		  		counter = 0;
 		  		document.getElementById('progressBar').value = data;
 		  		currentPercent = data;
+		  		if(currentPercent == 100)
+		  		{
+		  			finishedUpdate();
+		  			clearInterval(counterInt);
+		  		}
 		  	}
 		}
 	});	
 }
 
+function finishedUpdate()
+{
+	document.getElementById("titleForUpdater").innerHTML = "Finished Update";
+	document.getElementById("innerDisplayUpdate").innerHTML = "<a class='link' onclick='window.location.href = \"../settings/update.php\"'  >Back to Log-Hog</a> ";
+}
 
 </script>
 </body>
