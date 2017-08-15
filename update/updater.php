@@ -122,7 +122,7 @@ $newestVersionCheck = '"'.$configStatic['newestVersion'].'"';
 $versionCheck = '"'.$configStatic['version'].'"';
 
 $update = true;
-if(count($arrayOfVersions) == 0)
+if(count($arrayOfVersions) === 0)
 {
 	$update = false;
 }
@@ -202,7 +202,7 @@ if(count($arrayOfVersions) == 0)
 
 	$( document ).ready(function()
 	{
-		if(update === "true")
+		if(update === "1")
 		{
 			pickNextAction();
 		}
@@ -371,7 +371,7 @@ if(count($arrayOfVersions) == 0)
 	{
 		verifyCount = 0;
 		updateText('Verifying '+action+' with '+fileLocation);
-		verifyFileTimer = setInterval(function(){verifyFilePoll(action,fileLocation,isThere);},6000);
+		verifyFileTimer = setInterval(function(){verifyFilePoll(action,fileLocation,isThere);},2000);
 	}
 
 	function verifyFilePoll(action, fileLocation,isThere)
@@ -503,7 +503,7 @@ if(count($arrayOfVersions) == 0)
 	{
 		verifyCount = 0;
 		updateText('Verifying '+action+' with '+fileLocation);
-		verifyFileTimer = setInterval(function(){verifyFileOrDirPoll(action,fileLocation);},6000);
+		verifyFileTimer = setInterval(function(){verifyFileOrDirPoll(action,fileLocation);},2000);
 	}
 
 	function verifyFileOrDirPoll(action, fileLocation,isThere)
@@ -913,7 +913,8 @@ if(count($arrayOfVersions) == 0)
 			complete: function(data)
 			{
 				retryCount = 0;
-				finishUpdatePollCheck();
+				verifyFileTimer = setInterval(function(){finishUpdatePollCheck();},2000);
+				
 			}
 		});
 		
@@ -948,15 +949,10 @@ if(count($arrayOfVersions) == 0)
 					retryCount = 0;
 					finishedUpdateAfterAjax();
 				}
-				else
-				{
-					finishUpdatePollCheck();
-				}
 			},
 			failure: function(data)
 			{
 				retryCount++;
-				finishUpdatePollCheck();
 			}
 		});
 	}
