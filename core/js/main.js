@@ -496,26 +496,26 @@ function makePretty(text) {
 }
 
 function resize() {
-	var targetHeight = window.innerHeight - $('#menu').outerHeight() - $('#title').outerHeight();
+	var targetHeight = window.innerHeight - $("#menu").outerHeight() - $("#title").outerHeight();
 	if(enablePollTimeLogging !== "false")
 	{
 		targetHeight -= 25;
 	}
-	if($('#main').outerHeight() != targetHeight)
+	if($("#main").outerHeight() !== targetHeight)
 	{
-		$('#main').outerHeight(targetHeight);
+		$("#main").outerHeight(targetHeight);
 	}
-	if($('#main').css('bottom') != $('#title').outerHeight() + 'px')
+	if($("#main").css("bottom") !== $("#title").outerHeight() + "px")
 	{
-		$('#main').css('bottom', $('#title').outerHeight() + 'px');
+		$("#main").css("bottom", $("#title").outerHeight() + "px");
 	}
 }
 
 function flashTitle() {
 	stopFlashTitle();
-	$('title').text('');
+	$("title").text("");
 	flasher = setInterval(function() {
-		$('title').text($('title').text() == '' ? title : '');
+		$("title").text($("title").text() === "" ? title : "");
 	}, 1000);
 }
 
@@ -649,16 +649,14 @@ function deleteLog()
 			  dataType: "json",
 			  data: data,
 			  type: "POST",
-	success: function(data)
+	success(data)
 	{
 	    var idOfDeletedLog = data.replace(/[^a-z0-9]/g, "");
 		if($("#menu ." + idOfDeletedLog + "Button").length !== 0)
 		{
 			$("#menu ." + idOfDeletedLog + "Button").remove();
 		}
-  	},
-  	complete: function(data){
-  	},
+  	}
 });
 }
 

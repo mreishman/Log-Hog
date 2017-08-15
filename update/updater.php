@@ -120,6 +120,12 @@ if($updateProgress['currentStep'] == "Finished Updating to ")
 require_once('../core/php/updateProgressFileNext.php');
 $newestVersionCheck = '"'.$configStatic['newestVersion'].'"';
 $versionCheck = '"'.$configStatic['version'].'"';
+
+$update = true;
+if(count($arrayOfVersions) == 0)
+{
+	$update = false;
+}
 ?>
 
 <!doctype html>
@@ -135,10 +141,14 @@ $versionCheck = '"'.$configStatic['version'].'"';
 <div id="main">
 	<div class="settingsHeader" style="text-align: center;" >
 		<span id="titleHeader" >
-		<?php if ($configStatic['newestVersion'] == $versionToUpdate): ?>
-			<h1>Updating to version <?php echo $versionToUpdate ; ?></h1>
+		<?php if($update):?>
+			<?php if ($configStatic['newestVersion'] == $versionToUpdate): ?>
+				<h1>Updating to version <?php echo $versionToUpdate ; ?></h1>
+			<?php else: ?>
+				<h1>Installing Update <span id="countOfVersions" >1</span> of <?php echo count($arrayOfVersions); ?> ... Updating to version <span id="currentUpdatTo" ><?php echo $versionToUpdate ?></span>/<?php echo $configStatic['newestVersion'];?></h1>
+			<?php endif; ?>
 		<?php else: ?>
-			<h1>Installing Update <span id="countOfVersions" >1</span> of <?php echo count($arrayOfVersions); ?> ... Updating to version <span id="currentUpdatTo" ><?php echo $versionToUpdate ?></span>/<?php echo $configStatic['newestVersion'];?></h1>
+			<h1>There are no updates</h1>
 		<?php endif; ?>
 		</span>
 		<div id="menu" style="margin-right: auto; margin-left: auto; position: relative; display: none;">
@@ -188,10 +198,19 @@ $versionCheck = '"'.$configStatic['version'].'"';
 	var total = 100*arrayOfVersionsCount;
 	var versionCountCurrent = 1;
 	var lastFileCheck = "";
+	var update = "<?php echo $update;?>";
 
 	$( document ).ready(function()
 	{
-		pickNextAction();
+		if(update === "true")
+		{
+			pickNextAction();
+		}
+		else
+		{
+			updateText("No update is currently available for Log-Hog.");
+			document.getElementById('menu').style.display = "block";
+		}
 	});
 
 	function updateProgressBar(additonalPercent)

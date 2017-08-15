@@ -368,7 +368,7 @@ function copyFileToFile($currentFile)
 	$newFile = $directoryPath.$nameOfFile;
 	$fileTransfer = file_get_contents($varToIndexDir.$indexToExtracted.$currentFile);
 	$newFileWithIndexVar = $varToIndexDir.$newFile;
-	//file_put_contents($newFileWithIndexVar,$fileTransfer);
+	file_put_contents($newFileWithIndexVar,$fileTransfer);
 	return ($newFileWithIndexVar);   
 }
 
