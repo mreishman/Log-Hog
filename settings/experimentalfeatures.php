@@ -86,7 +86,7 @@ else
 		var goToPage = true
 		if(document.getElementsByName("enableSystemPrefShellOrPhp")[0].value != "<?php echo $enableSystemPrefShellOrPhp;?>")
 		{
-			goToPage = false;
+			//goToPage = false;
 		}
 
 		if(goToPage || popupSettingsArray.saveSettings == "false")

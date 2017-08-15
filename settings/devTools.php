@@ -79,7 +79,7 @@ require_once('../core/php/updateCheck.php');
 		var goToPage = true
 		if(document.getElementsByName("enableDevBranchDownload")[0].value != "<?php echo $enableDevBranchDownload;?>")
 		{
-			goToPage = false;
+			//goToPage = false;
 		}
 
 		if(goToPage || popupSettingsArray.saveSettings == "false")

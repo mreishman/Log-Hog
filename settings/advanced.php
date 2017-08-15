@@ -194,7 +194,7 @@ $withLogHog = $monitorStatus['withLogHog'];
 		var goToPage = true
 		if(document.getElementsByName("developmentTabEnabled")[0].value != "<?php echo $developmentTabEnabled;?>")
 		{
-			goToPage = false;
+			//goToPage = false;
 		}
 
 		if(goToPage || popupSettingsArray.saveSettings == "false")

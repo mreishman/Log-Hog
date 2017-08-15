@@ -162,7 +162,12 @@ elseif($action === 'readdSomeFilesFromUninstallProcess')
 }
 elseif($action === 'updateProgressFile')
 {
-	updateProgressFile($_POST['status'], $_POST['typeOfProgress'], $_POST['actionSave'], $_POST['percent']);
+	$percent = 0;
+	if(isset($_POST['percent']))
+	{
+		$percent = $_POST['percent'];
+	}
+	updateProgressFile($_POST['status'], $_POST['typeOfProgress'], $_POST['actionSave'], $percent);
 
 	$response = true;
 }
