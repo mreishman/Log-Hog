@@ -173,7 +173,12 @@ elseif($action === 'updateProgressFile')
 }
 elseif($action === 'copyFileToFile')
 {
-	$response = copyFileToFile($_POST['fileCopyFrom']);
+	$indexToExtracted = "update/downloads/updateFiles/extracted/";
+	if(isset($_POST['fileCopyTo']))
+	{
+		$indexToExtracted = $_POST['fileCopyTo'];
+	}
+	$response = copyFileToFile($_POST['fileCopyFrom'], $indexToExtracted);
 }
 elseif($action === 'updateConfigStatic')
 {
