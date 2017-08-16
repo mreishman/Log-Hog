@@ -167,7 +167,7 @@ elseif($action === 'updateProgressFile')
 	{
 		$percent = $_POST['percent'];
 	}
-	updateProgressFile($_POST['status'], $_POST['typeOfProgress'], $_POST['actionSave'], $percent);
+	updateProgressFile($_POST['status'], $_POST['pathToFile'], $_POST['typeOfProgress'], $_POST['actionSave'], $percent);
 
 	$response = true;
 }

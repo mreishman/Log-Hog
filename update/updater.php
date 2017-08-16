@@ -280,7 +280,7 @@ if(count($arrayOfVersions) === 0)
 	function updateStatusFunc(updateStatusInner, actionLocal, percentToSave = (document.getElementById('progressBar').value))
 	{
 		var urlForSend = urlForSendMain;
-		var data = {action: 'updateProgressFile', status: updateStatusInner, typeOfProgress: "updateProgressFileNext.php", actionSave: actionLocal, percent: percentToSave};
+		var data = {action: 'updateProgressFile', status: updateStatusInner, typeOfProgress: "updateProgressFileNext.php", actionSave: actionLocal, percent: percentToSave, pathToFile: ''};
 		$.ajax({
 			url: urlForSend,
 			dataType: 'json',
@@ -292,7 +292,7 @@ if(count($arrayOfVersions) === 0)
 			}
 		});	
 
-		var data = {action: 'updateProgressFile', status: updateStatusInner, typeOfProgress: "updateProgressFile.php", actionSave: actionLocal, percent: percentToSave};
+		var data = {action: 'updateProgressFile', status: updateStatusInner, typeOfProgress: "updateProgressFile.php", actionSave: actionLocal, percent: percentToSave, pathToFile: ''};
 		$.ajax({
 			url: urlForSend,
 			dataType: 'json',

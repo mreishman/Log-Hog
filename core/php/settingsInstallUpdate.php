@@ -114,7 +114,7 @@ function updateMainProgressLogFile($dotsTime)
 	file_put_contents("updateProgressLog.php", $mainFileContents);
 }
 
-function updateProgressFile($status, $typeOfProgress, $action, $percent = 0)
+function updateProgressFile($status, $pathToFile, $typeOfProgress, $action, $percent = 0)
 {
 	$writtenTextTofile = "<?php
 $"."updateProgress = array(
@@ -124,7 +124,7 @@ $"."updateProgress = array(
 );
 ?>";
 
-	$fileToPutContent = $typeOfProgress;
+	$fileToPutContent = $pathToFile.$typeOfProgress;
 
 	file_put_contents($fileToPutContent, $writtenTextTofile);
 }
