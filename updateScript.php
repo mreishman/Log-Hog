@@ -21,6 +21,8 @@ $indexToExtracted = "update/downloads/updateFiles/extracted/";
 	if($currentFile == "not_a_real_file.php")
 	{
 		//redirect to external upgrade thing	
+		header("Location: ".$varToIndexDir."update/updater-tmp.php"); 
+		exit();
 	}
 	
 //update innerUpgradeStatus file
