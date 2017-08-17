@@ -53,7 +53,8 @@ require_once('../core/php/loadVars.php');
 	var menuData;
 	var popupSettingsArray = JSON.parse('<?php echo json_encode($popupSettingsArray) ?>');
 	var fileArray = JSON.parse('<?php echo json_encode($config['watchList']) ?>');
-	var countOfWatchList = <?php echo ($i+1); ?>;
+	var fileArrayKeys = Object.keys(fileArray);
+	var countOfWatchList = fileArrayKeys.length;
 	var countOfAddedFiles = 0;
 	var countOfClicks = 0;
 	var locationInsert = "newRowLocationForWatchList";
@@ -202,7 +203,7 @@ require_once('../core/php/loadVars.php');
 	   	var objectsAreSame = true;
 	   	for(var propertyName in x) 
 	   	{
-	      	if(x[propertyName] !== y[propertyName])
+	      	if( (typeof(x) === 'undefined') || (typeof(y) === 'undefined') || x[propertyName] !== y[propertyName])
 	      	{
 	         objectsAreSame = false;
 	         break;
