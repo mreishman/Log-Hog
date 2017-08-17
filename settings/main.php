@@ -63,6 +63,11 @@ require_once('../core/php/loadVars.php');
  	var savedInnerHtmlMainVars;
  	var savedInnerHtmlMenu;
 
+ 	var countOfWatchListStatic = countOfWatchList;
+	var countOfAddedFilesStatic = countOfAddedFiles;
+	var countOfClicksStatic = countOfClicks;
+	var locationInsertStatic = locationInsert;
+
 	if(logTrimType == 'lines')
 	{
 		document.getElementById('logTrimTypeText').innerHTML = "Lines";
@@ -166,6 +171,10 @@ require_once('../core/php/loadVars.php');
 	{
 		document.getElementById('settingsMainWatch').innerHTML = savedInnerHtmlWatchList;
 		watchlistData = $('#settingsMainWatch').serializeArray();
+		countOfWatchList = countOfWatchListStatic;
+		countOfAddedFiles =  countOfAddedFilesStatic;
+		countOfClicks = countOfClicksStatic;
+		locationInsert = locationInsertStatic;
 	}
 
 	function resetSettingsMainVar()
@@ -196,6 +205,10 @@ require_once('../core/php/loadVars.php');
 	{
 		watchlistData = $('#settingsMainWatch').serializeArray();
 		savedInnerHtmlMainVars = document.getElementById('settingsMainVars').innerHTML;
+		countOfWatchListStatic = countOfWatchList;
+		countOfAddedFilesStatic = countOfAddedFiles;
+		countOfClicksStatic = countOfClicks;
+		locationInsertStatic = locationInsert;
 	}
 
 	function objectsAreSameInner(x, y) 
