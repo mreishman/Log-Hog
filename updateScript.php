@@ -14,14 +14,14 @@ while($countOfSlash < 20 && !file_exists($varToIndexDir."index.php"))
 if($innerUpdateProgress['currentFile'] < sizeOf($arrayOfFiles))
 {
  
-sleep(2); 
+sleep(1); 
 $currentFile = $arrayOfFiles[$innerUpdateProgress['currentFile']]; 
 $indexToExtracted = "update/downloads/updateFiles/extracted/";  
 
 	if($currentFile == "not_a_real_file.php")
 	{
 		//redirect to external upgrade thing	
-		header("Location: ".$varToIndexDir."update/updater-tmp.php"); 
+		header("Location: ".$varToIndexDir."update/downloads/updateFiles/extracted/updater-tmp.php"); 
 		exit();
 	}
 	
@@ -70,7 +70,7 @@ $writtenTextTofile = "<?php
 file_put_contents($varToIndexDir.$indexToExtracted."innerUpgradeStatus.php", $writtenTextTofile);  
 
  
-sleep(2);  
+//sleep(2);  
 }
 else
 {
