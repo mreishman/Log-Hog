@@ -1,9 +1,9 @@
 <!doctype html>
 <head>
 	<title>Log Hog | Updater</title>
-	<link rel="stylesheet" type="text/css" href="../core/template/theme.css">
+	<link rel="stylesheet" type="text/css" href="../../../../core/template/theme.css">
 	<link rel="icon" type="image/png" href="../core/img/favicon.png" />
-	<script src="../core/js/jquery.js"></script>
+	<script src="../../../../core/js/jquery.js"></script>
 </head>
 <body>
 
@@ -20,8 +20,8 @@
 			<table style="padding: 10px;">
 				<tr>
 					<td style="height: 50px;">
-						<img id="loadingCopyOld" src="../core/img/loading.gif" height="30px;">
-						<img id="greenCheckOld" style="display: none;" src="../core/img/greenCheck.png" height="30px;">
+						<img id="loadingCopyOld" src="../../../../core/img/loading.gif" height="30px;">
+						<img id="greenCheckOld" style="display: none;" src="../../../../core/img/greenCheck.png" height="30px;">
 					</td>
 					<td style="width: 20px;">
 					</td>
@@ -31,8 +31,8 @@
 				</tr>
 				<tr>
 					<td style="height: 50px;">
-						<img id="loadingVerifiedRemove" style="display: none;" src="../core/img/loading.gif" height="30px;">
-						<img id="greenCheckVerifiedRemove" style="display: none;" src="../core/img/greenCheck.png" height="30px;">
+						<img id="loadingVerifiedRemove" style="display: none;" src="../../../../core/img/loading.gif" height="30px;">
+						<img id="greenCheckVerifiedRemove" style="display: none;" src="../../../../core/img/greenCheck.png" height="30px;">
 					</td>
 					<td style="width: 20px;">
 					</td>
@@ -42,8 +42,8 @@
 				</tr>
 				<tr>
 					<td style="height: 50px;">
-						<img id="loadingCopyNew" style="display: none;" src="../core/img/loading.gif" height="30px;">
-						<img id="greenCheckCopyNew" style="display: none;" src="../core/img/greenCheck.png" height="30px;">
+						<img id="loadingCopyNew" style="display: none;" src="../../../../core/img/loading.gif" height="30px;">
+						<img id="greenCheckCopyNew" style="display: none;" src="../../../../core/img/greenCheck.png" height="30px;">
 					</td>
 					<td style="width: 20px;">
 					</td>
@@ -53,8 +53,8 @@
 				</tr>
 				<tr>
 					<td style="height: 50px;">
-						<img id="loadingCopyNewVerify" style="display: none;" src="../core/img/loading.gif" height="30px;">
-						<img id="greenCheckCopyNewVerify" style="display: none;" src="../core/img/greenCheck.png" height="30px;">
+						<img id="loadingCopyNewVerify" style="display: none;" src="../../../../core/img/loading.gif" height="30px;">
+						<img id="greenCheckCopyNewVerify" style="display: none;" src="../../../../core/img/greenCheck.png" height="30px;">
 					</td>
 					<td style="width: 20px;">
 					</td>
@@ -64,8 +64,8 @@
 				</tr>
 				<tr>
 					<td style="height: 50px;">
-						<img id="loadingUpdateConf" style="display: none;" src="../core/img/loading.gif" height="30px;">
-						<img id="greenCheckUpdateConf" style="display: none;" src="../core/img/greenCheck.png" height="30px;">
+						<img id="loadingUpdateConf" style="display: none;" src="../../../../core/img/loading.gif" height="30px;">
+						<img id="greenCheckUpdateConf" style="display: none;" src="../../../../core/img/greenCheck.png" height="30px;">
 					</td>
 					<td style="width: 20px;">
 					</td>
@@ -75,8 +75,8 @@
 				</tr>
 				<tr>
 					<td style="height: 50px;">
-						<img id="loadingUpdateConfVerify" style="display: none;" src="../core/img/loading.gif" height="30px;">
-						<img id="greenCheckUpdateConfVerify" style="display: none;" src="../core/img/greenCheck.png" height="30px;">
+						<img id="loadingUpdateConfVerify" style="display: none;" src="../../../../core/img/loading.gif" height="30px;">
+						<img id="greenCheckUpdateConfVerify" style="display: none;" src="../../../../core/img/greenCheck.png" height="30px;">
 					</td>
 					<td style="width: 20px;">
 					</td>
@@ -92,7 +92,7 @@
 </div>
 </body>
 
-<script src="../core/js/settings.js"></script>
+<script src="../../../../core/js/settings.js"></script>
 <script type="text/javascript"> 
 	var lock = false;
 	var urlForSendMain = '../../../../core/php/performSettingsInstallUpdateAction.php?format=json';
@@ -231,7 +231,7 @@
 		}
 	}
 
-	function updateStatusFunc(updateStatusInner = 'postUpgrade Scripts', actionLocal = 'postUpgrade Scripts', percentToSave = 75)
+	function updateStatusFunc(updateStatusInner = 'postUpgrade Scripts', actionLocal = '', percentToSave = 75)
 	{
 		var urlForSend = urlForSendMain;
 		var data = {action: 'updateProgressFile', status: updateStatusInner, typeOfProgress: "updateProgressFileNext.php", actionSave: actionLocal, percent: percentToSave, pathToFile: ''};
@@ -264,7 +264,7 @@
 
 	function verifyConfFileChanged()
 	{
-		var urlForSend =  '../../../../core/php/getPercentUpdate?format=json';;
+		var urlForSend =  '../../../../core/php/getPercentUpdate.php?format=json';
 		var data = {};
 		$.ajax({
 			url: urlForSend,
