@@ -53,7 +53,8 @@ require_once('../core/php/loadVars.php');
 	var menuData;
 	var popupSettingsArray = JSON.parse('<?php echo json_encode($popupSettingsArray) ?>');
 	var fileArray = JSON.parse('<?php echo json_encode($config['watchList']) ?>');
-	var countOfWatchList = <?php echo ($i+1); ?>;
+	var fileArrayKeys = Object.keys(fileArray);
+	var countOfWatchList = fileArrayKeys.length;
 	var countOfAddedFiles = 0;
 	var countOfClicks = 0;
 	var locationInsert = "newRowLocationForWatchList";
@@ -61,6 +62,11 @@ require_once('../core/php/loadVars.php');
  	var savedInnerHtmlWatchList;
  	var savedInnerHtmlMainVars;
  	var savedInnerHtmlMenu;
+
+ 	var countOfWatchListStatic = countOfWatchList;
+	var countOfAddedFilesStatic = countOfAddedFiles;
+	var countOfClicksStatic = countOfClicks;
+	var locationInsertStatic = locationInsert;
 
 	if(logTrimType == 'lines')
 	{
@@ -165,6 +171,10 @@ require_once('../core/php/loadVars.php');
 	{
 		document.getElementById('settingsMainWatch').innerHTML = savedInnerHtmlWatchList;
 		watchlistData = $('#settingsMainWatch').serializeArray();
+		countOfWatchList = countOfWatchListStatic;
+		countOfAddedFiles =  countOfAddedFilesStatic;
+		countOfClicks = countOfClicksStatic;
+		locationInsert = locationInsertStatic;
 	}
 
 	function resetSettingsMainVar()
@@ -195,6 +205,10 @@ require_once('../core/php/loadVars.php');
 	{
 		watchlistData = $('#settingsMainWatch').serializeArray();
 		savedInnerHtmlMainVars = document.getElementById('settingsMainVars').innerHTML;
+		countOfWatchListStatic = countOfWatchList;
+		countOfAddedFilesStatic = countOfAddedFiles;
+		countOfClicksStatic = countOfClicks;
+		locationInsertStatic = locationInsert;
 	}
 
 	function objectsAreSameInner(x, y) 
@@ -202,7 +216,7 @@ require_once('../core/php/loadVars.php');
 	   	var objectsAreSame = true;
 	   	for(var propertyName in x) 
 	   	{
-	      	if(x[propertyName] !== y[propertyName])
+	      	if( (typeof(x) === 'undefined') || (typeof(y) === 'undefined') || x[propertyName] !== y[propertyName])
 	      	{
 	         objectsAreSame = false;
 	         break;
