@@ -933,6 +933,7 @@ if(count($arrayOfVersions) === 0)
 		}
 		if(retryCount > 3)
 		{
+			clearInterval(verifyFileTimer);
 			updateError();
 		}
 		var urlForSend = "../core/php/versionCheck.php";
@@ -947,6 +948,7 @@ if(count($arrayOfVersions) === 0)
 				if(data === arrayOfVersions[(versionCountCurrent-1)])
 				{
 					retryCount = 0;
+					clearInterval(verifyFileTimer);
 					finishedUpdateAfterAjax();
 				}
 			},
