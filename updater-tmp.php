@@ -16,7 +16,7 @@
 	<div class="settingsDiv" >
 		<div class="updatingDiv">
 			<p style="border-bottom: 1px solid white;"></p>
-			<div id="innerDisplayUpdate" style="height: 300px; overflow: auto; max-height: 300px;">
+			<div id="innerDisplayUpdate" style="height: 350px; overflow: auto; max-height: 300px;">
 			<table style="padding: 10px;">
 				<tr>
 					<td style="height: 50px;">
