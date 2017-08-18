@@ -231,7 +231,6 @@ if(count($arrayOfVersions) === 0)
 
 	function pickNextAction()
 	{
-		console.log(updateStatus);
 		if(updateStatus == "Downloading Zip Files For ")
 		{
 			downloadBranch();
@@ -725,7 +724,6 @@ if(count($arrayOfVersions) === 0)
 			type: 'POST',
 			success(fileCopied)
 			{
-				console.log(fileCopied);
 				lastFileCheck = fileCopied;
 			},
 			complete: function(data)
