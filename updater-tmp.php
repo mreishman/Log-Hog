@@ -290,7 +290,7 @@
 
 	function finishedTmpUpdate()
 	{
-		window.location.href = "./updater.php";
+		window.location.href = "../../../updater.php";
 	}
 
 </script> 
