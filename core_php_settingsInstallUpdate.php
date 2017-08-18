@@ -349,11 +349,9 @@ function handOffToUpdate()
 	require_once('../../update/downloads/updateFiles/extracted/updateScript.php');
 }
 
-function copyFileToFile($currentFile)
+function copyFileToFile($currentFile, $indexToExtracted = "update/downloads/updateFiles/extracted/")
 {
 	$varToIndexDir = "../../";
-	$indexToExtracted = "update/downloads/updateFiles/extracted/";
-
 
 	$currentFileArray = explode("_", $currentFile );  
 	$sizeOfCurrentFileArray = sizeOf($currentFileArray);
