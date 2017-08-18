@@ -167,13 +167,18 @@ elseif($action === 'updateProgressFile')
 	{
 		$percent = $_POST['percent'];
 	}
-	updateProgressFile($_POST['status'], $_POST['typeOfProgress'], $_POST['actionSave'], $percent);
+	updateProgressFile($_POST['status'], $_POST['pathToFile'], $_POST['typeOfProgress'], $_POST['actionSave'], $percent);
 
 	$response = true;
 }
 elseif($action === 'copyFileToFile')
 {
-	$response = copyFileToFile($_POST['fileCopyFrom']);
+	$indexToExtracted = "update/downloads/updateFiles/extracted/";
+	if(isset($_POST['fileCopyTo']))
+	{
+		$indexToExtracted = $_POST['fileCopyTo'];
+	}
+	$response = copyFileToFile($_POST['fileCopyFrom'], $indexToExtracted);
 }
 elseif($action === 'updateConfigStatic')
 {
