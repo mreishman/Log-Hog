@@ -231,7 +231,6 @@ if(count($arrayOfVersions) === 0)
 
 	function pickNextAction()
 	{
-		console.log(updateStatus);
 		if(updateStatus == "Downloading Zip Files For ")
 		{
 			downloadBranch();
@@ -249,8 +248,7 @@ if(count($arrayOfVersions) === 0)
 		}
 		else if(updateStatus == 'Copying Files')
 		{
-			updateProgressBar(25);
-			filterFilesFromArray();
+			downloadBranch();
 		}
 		else if(updateStatus == 'postUpgrade Scripts')
 		{
@@ -425,7 +423,7 @@ if(count($arrayOfVersions) === 0)
 
 	function updateError()
 	{
-		document.getElementById('innerSettingsText').innerHTML = "<p>An error occured while trying to download Monitor. </p>";
+		document.getElementById('innerSettingsText').innerHTML = "<p>An error occured while trying to update Log-Hog. </p>";
 	}
 
 	function verifyFail(action)
@@ -458,6 +456,7 @@ if(count($arrayOfVersions) === 0)
 			}
 			else if(action == "copyFilesFromArray")
 			{
+				fileCopyCount = 0;
 				copyFilesFromArray();
 			}
 		}
@@ -933,6 +932,7 @@ if(count($arrayOfVersions) === 0)
 		}
 		if(retryCount > 3)
 		{
+			clearInterval(verifyFileTimer);
 			updateError();
 		}
 		var urlForSend = "../core/php/versionCheck.php";
@@ -947,6 +947,7 @@ if(count($arrayOfVersions) === 0)
 				if(data === arrayOfVersions[(versionCountCurrent-1)])
 				{
 					retryCount = 0;
+					clearInterval(verifyFileTimer);
 					finishedUpdateAfterAjax();
 				}
 			},
