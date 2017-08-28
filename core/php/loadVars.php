@@ -24,32 +24,34 @@ else
 	$config = array();
 }
 require_once($varToIndexDir.'core/conf/config.php');
+$URI = $_SERVER['REQUEST_URI'];
+if((strpos($URI, 'upgradeLayout.php') === false) && (strpos($URI, 'upgradeConfig.php') === false))
+{
+	//check if upgrade script is needed
+	$layoutVersion = 0;
+	if(isset($config['layoutVersion']))
+	{
+		$layoutVersion = $config['layoutVersion'];
+	}
+	if($layoutVersion !== $defaultConfig['layoutVersion'])
+	{
+		//redirect to upgrade script for layoutVersion page
+		header("Location: ".$varToIndexDir."core/php/template/upgradeLayout.php");
+		exit();
+	}
 
-//check if upgrade script is needed
-$layoutVersion = 0;
-if(isset($config['layoutVersion']))
-{
-	$layoutVersion = $config['layoutVersion'];
+	$configVersion = 0;
+	if(isset($config['configVersion']))
+	{
+		$configVersion = $config['configVersion'];
+	}
+	if($configVersion !== $defaultConfig['configVersion'])
+	{
+		//redirect to upgrade script for config page
+		header("Location: ".$varToIndexDir."core/php/template/upgradeConfig.php");
+		exit();
+	}
 }
-if($layoutVersion !== $defaultConfig['layoutVersion'])
-{
-	//redirect to upgrade script for layoutVersion page
-	header("Location: core/php/template/upgradeLayout.php");
-	exit();
-}
-
-$configVersion = 0;
-if(isset($config['configVersion']))
-{
-	$configVersion = $config['configVersion'];
-}
-if($configVersion !== $defaultConfig['configVersion'])
-{
-	//redirect to upgrade script for config page
-	header("Location: core/php/template/upgradeConfig.php");
-	exit();
-}
-
 //start loading vars
 $loadCustomConfigVars = true;
 if(isset($_POST['resetConfigValuesBackToDefault']))

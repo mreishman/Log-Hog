@@ -6,6 +6,28 @@
 	<script src="../../../core/js/jquery.js"></script>
 </head>
 <body>
+<?php
+$baseUrl = "../../../core/";
+if(file_exists('../../../local/layout.php'))
+{
+	$baseUrl = "../../../local/";
+	//there is custom information, use this
+	require_once('../../../local/layout.php');
+	$baseUrl .= $currentSelectedTheme."/";
+}
+require_once($baseUrl.'conf/config.php'); 
+require_once('../../../core/conf/config.php');
+require_once('../../../core/php/configStatic.php');
+require_once('../../../core/php/loadVars.php');
+
+$configVersion = 0;
+if(isset($config['configVersion']))
+{
+	$configVersion = $config['configVersion'];
+}
+$configVersionToUpgradeTo = $defaultConfig['configVersion'];
+$totalUpgradeScripts = floatval($configVersion) - floatval($configVersionToUpgradeTo);
+?>
 
 <div id="main">
 	<div class="settingsHeader" style="text-align: center;" >
@@ -26,8 +48,8 @@
 					<td style="width: 20px;">
 					</td>
 					<td>
-						Running upgrade script 1 of 1
-					</td>
+						Running upgrade script 1 of <?php echo $totalUpgradeScripts;?>
+					</td>	
 				</tr>
 				<tr>
 					<td style="height: 50px;">
@@ -37,7 +59,7 @@
 					<td style="width: 20px;">
 					</td>
 					<td>
-						Verifying upgrade script 1 of 1
+						Verifying upgrade script 1 of <?php echo $totalUpgradeScripts;?>
 					</td>
 				</tr>
 			</table>
@@ -52,6 +74,11 @@
 <script type="text/javascript"> 
 	var lock = false;
 	var urlForSendMain = '../../../core/php/performSettingsInstallUpdateAction.php?format=json';
+	<?php
+	echo "var startVersion = ".$configVersion.";";
+	echo "var endVersion = ".$configVersionToUpgradeTo.";";
+	?>
+
 
 	$( document ).ready(function()
 	{
