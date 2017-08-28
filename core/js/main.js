@@ -43,7 +43,7 @@ function escapeHTML(unsafeStr)
 	}
 	catch(e)
 	{
-	    Raven.captureException(e)
+	    eventThrowException(e);
 	}
 	
 }
@@ -59,7 +59,7 @@ function updateSkipCounterLog(num)
 	}
 	catch(e)
 	{
-		Raven.captureException(e)
+		eventThrowException(e);
 	}
 
 	
@@ -76,7 +76,7 @@ function updateAllRefreshCounter(num)
 	}
 	catch(e)
 	{
-		Raven.captureException(e)
+		eventThrowException(e);
 	}
 	
 }
@@ -124,7 +124,7 @@ function poll()
 	}
 	catch(e)
 	{
-		Raven.captureException(e)
+		eventThrowException(e);
 	}
 }
 
@@ -163,7 +163,7 @@ function pollTwo()
 	}
 	catch(e)
 	{
-		Raven.captureException(e)
+		eventThrowException(e);
 	}
 }
 
@@ -239,7 +239,7 @@ function pollTwoPartTwo(data)
 	}
 	catch(e)
 	{
-		Raven.captureException(e)
+		eventThrowException(e);
 	}
 }
 
@@ -301,7 +301,7 @@ function pollThree(arrayToUpdate)
 	}
 	catch(e)
 	{
-		Raven.captureException(e)
+		eventThrowException(e);
 	}
 }
 
@@ -337,7 +337,7 @@ function afterPollFunctionComplete()
 	}
 	catch(e)
 	{
-		Raven.captureException(e)
+		eventThrowException(e);
 	}
 }
 
@@ -354,7 +354,7 @@ function addPaddingToNumber(number, padding = 4)
 	}
 	catch(e)
 	{
-		Raven.captureException(e)
+		eventThrowException(e);
 	}
 }
 
@@ -382,7 +382,7 @@ function pausePollAction()
 	}
 	catch(e)
 	{
-		Raven.captureException(e)
+		eventThrowException(e);
 	}
 }
 
@@ -398,7 +398,7 @@ function refreshAction()
 	}
 	catch(e)
 	{
-		Raven.captureException(e)
+		eventThrowException(e);
 	}
 }
 
@@ -419,7 +419,7 @@ function endRefreshAction()
 	}
 	catch(e)
 	{
-		Raven.captureException(e)
+		eventThrowException(e);
 	}
 }
 
@@ -559,7 +559,7 @@ function update(data) {
 	}
 	catch(e)
 	{
-		Raven.captureException(e)
+		eventThrowException(e);
 	}
 }
 
@@ -575,7 +575,7 @@ function removeLogByName(name)
 	}
 	catch(e)
 	{
-		Raven.captureException(e)
+		eventThrowException(e);
 	}
 	
 }
@@ -593,7 +593,7 @@ function show(e, id)
 	}
 	catch(e)
 	{
-		Raven.captureException(e)
+		eventThrowException(e);
 	}
 }
 
@@ -608,7 +608,7 @@ function makePretty(text)
 	}
 	catch(e)
 	{
-		Raven.captureException(e)
+		eventThrowException(e);
 	}
 }
 
@@ -632,7 +632,7 @@ function resize()
 	}
 	catch(e)
 	{
-		Raven.captureException(e)
+		eventThrowException(e);
 	}
 }
 
@@ -648,7 +648,7 @@ function flashTitle()
 	}
 	catch(e)
 	{
-		Raven.captureException(e)
+		eventThrowException(e);
 	}
 	
 }
@@ -662,7 +662,7 @@ function stopFlashTitle()
 	}
 	catch(e)
 	{
-		Raven.captureException(e)
+		eventThrowException(e);
 	}
 	
 }
@@ -754,7 +754,7 @@ function clearLog()
 	}
 	catch(e)
 	{
-		Raven.captureException(e)
+		eventThrowException(e);
 	}
 }
 
@@ -777,7 +777,7 @@ function deleteAction()
 	}
 	catch(e)
 	{
-		Raven.captureException(e)
+		eventThrowException(e);
 	}
 }
 
@@ -798,7 +798,7 @@ function deleteLogPopup()
 	}
 	catch(e)
 	{
-		Raven.captureException(e)
+		eventThrowException(e);
 	}
 }
 
@@ -828,7 +828,7 @@ function deleteLog()
 	}
 	catch(e)
 	{
-		Raven.captureException(e)
+		eventThrowException(e);
 	}
 }
 
@@ -844,7 +844,7 @@ function filterTitle(title)
 	}
 	catch(e)
 	{
-		Raven.captureException(e)
+		eventThrowException(e);
 	}
 }
 
@@ -871,7 +871,7 @@ function installUpdates()
 	}
 	catch(e)
 	{
-		Raven.captureException(e)
+		eventThrowException(e);
 	}
 }
 
@@ -899,7 +899,7 @@ function verifyChange()
 	}
 	catch(e)
 	{
-		Raven.captureException(e)
+		eventThrowException(e);
 	}
 }
 
@@ -911,7 +911,7 @@ function actuallyInstallUpdates()
 	}
 	catch(e)
 	{
-		Raven.captureException(e)
+		eventThrowException(e);
 	}
 }
 
@@ -930,7 +930,7 @@ function checkForUpdateMaybe()
 	}
 	catch(e)
 	{
-		Raven.captureException(e)
+		eventThrowException(e);
 	}
 }
 
@@ -985,7 +985,7 @@ function checkForUpdateDefinitely(showPopupForNoUpdate = false)
 	}
 	catch(e)
 	{
-		Raven.captureException(e)
+		eventThrowException(e);
 	}
 }
 
@@ -1004,7 +1004,7 @@ function updateUpdateCheckWaitTimer()
 	}
 	catch(e)
 	{
-		Raven.captureException(e)
+		eventThrowException(e);
 	}
 }
 
@@ -1024,7 +1024,7 @@ function showUpdateCheckPopup(data)
 	}
 	catch(e)
 	{
-		Raven.captureException(e)
+		eventThrowException(e);
 	}
 }
 
@@ -1053,8 +1053,13 @@ function saveSettingFromPopupNoCheckMaybe()
 	}
 	catch(e)
 	{
-		Raven.captureException(e)
+		eventThrowException(e);
 	}
+}
+
+function eventThrowException(e)
+{
+	Raven.captureException(e);
 }
 
 $(document).ready(function()
