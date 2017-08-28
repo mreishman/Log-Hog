@@ -1059,7 +1059,10 @@ function saveSettingFromPopupNoCheckMaybe()
 
 function eventThrowException(e)
 {
-	Raven.captureException(e);
+	if(sendCrashInfoJS === "true")
+	{
+		Raven.captureException(e);
+	}
 }
 
 $(document).ready(function()
