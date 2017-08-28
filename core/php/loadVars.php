@@ -25,6 +25,32 @@ else
 }
 require_once($varToIndexDir.'core/conf/config.php');
 
+//check if upgrade script is needed
+$layoutVersion = 0;
+if(isset($config['layoutVersion']))
+{
+	$layoutVersion = $config['layoutVersion'];
+}
+if($layoutVersion !== $defaultConfig['layoutVersion'])
+{
+	//redirect to upgrade script for layoutVersion page
+	header("Location: core/php/template/upgradeLayout.php");
+	exit();
+}
+
+$configVersion = 0;
+if(isset($config['configVersion']))
+{
+	$configVersion = $config['configVersion'];
+}
+if($configVersion !== $defaultConfig['configVersion'])
+{
+	//redirect to upgrade script for config page
+	header("Location: core/php/template/upgradeConfig.php");
+	exit();
+}
+
+//start loading vars
 $loadCustomConfigVars = true;
 if(isset($_POST['resetConfigValuesBackToDefault']))
 {
