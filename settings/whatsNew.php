@@ -29,95 +29,72 @@ require_once('../core/php/loadVars.php');
 	<div id="main" > 
 		<h1 style="width: 100%; text-align: center; " >You are on version <?php echo $configStatic['version'];?>!</h1>
 		<div class="settingsDiv" >
-			<table>
+			<table width="100%;">
 				<tr>
-					<td width="85%;">
-						<table width="100%;">
-							<tr>
-								<td width="25%" >
-								</td>
-								<td width="75%">
-								</td>
-							</tr>
-
-							<tr>
-							<td>
-							</td>
-							<td>
-							</td>
-							</tr>
-
-
-							<!-- 2.3 -->
-
-							<tr>
-							<td>
-								<b>Monitor!</b>
-								<ul>
-									<li>
-									CPU usage
-									</li>
-									<li>
-									Ram / swap usage
-									</li>
-									<li>
-									Disk usage / IO
-									</li>
-									<li>
-									PHP User time used / system time used
-									</li>
-									<li>
-									Network Interface receive / transmit
-									</li>
-									<li>
-									Shows list of processes
-									</li>
-								</ul>
-							</td>
-							<td>
-								<a href="../core/img/2.3-1.PNG" data-lightbox="2.3" ><img src="../core/img/2.3-1.PNG" style="width: 45%;"></a>
-								<a href="../core/img/2.3-2.PNG" data-lightbox="2.3" ><img src="../core/img/2.3-2.PNG" style="width: 45%;"></a>
-							</td>
-							</tr>
-
-
-							<!-- 2.2 -->
-
-
-
-
-							<!-- 2.1 -->
-
-
-
-							<!-- 2.0 -->
-
-						</table>
+					<td width="25%" >
 					</td>
-					<td width="15%;" style="padding: 12px; border-left: 1px solid white;">
-						<div  class="link" >
-							What's new in 2.3?
-						</div>
-						<div style="height: 20px;">
-						</div>
-						<!-- 
-						<div class="link" >
-							What's new in 2.2?
-						</div>
-						<div style="height: 20px;">
-						</div>
-						<div class="link" >
-							What's new in 2.1?
-						</div>
-						<div style="height: 20px;">
-						</div>
-						<div class="link" >
-							What's new in 2.0?
-						</div>
-						-->
+					<td width="75%">
 					</td>
 				</tr>
+
+				<tr>
+				<td>
+				</td>
+				<td>
+				</td>
+				</tr>
+
+				<tr>
+				<th colspan="2" style="border-bottom: 1px solid white; padding: 10px">
+					2.3
+				</th>
+				</tr>
+				<!-- 2.3 -->
+
+				<tr>
+				<td>
+					<b>Monitor!</b>
+					<ul>
+						<li>
+						CPU usage
+						</li>
+						<li>
+						Ram / swap usage
+						</li>
+						<li>
+						Disk usage / IO
+						</li>
+						<li>
+						PHP User time used / system time used
+						</li>
+						<li>
+						Network Interface receive / transmit
+						</li>
+						<li>
+						Shows list of processes
+						</li>
+					</ul>
+				</td>
+				<td>
+					<a href="../core/img/2.3-1.PNG" data-lightbox="2.3" ><img src="../core/img/2.3-1.PNG" style="width: 45%;"></a>
+					<a href="../core/img/2.3-2.PNG" data-lightbox="2.3" ><img src="../core/img/2.3-2.PNG" style="width: 45%;"></a>
+				</td>
+				</tr>
+
+
+				<!-- 2.2 -->
+
+
+
+
+				<!-- 2.1 -->
+
+
+
+				<!-- 2.0 -->
+
 			</table>
+	
 		</div>
 	</div>
 	<?php readfile('../core/html/popup.html') ?>	
