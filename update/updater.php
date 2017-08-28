@@ -975,6 +975,7 @@ if(count($arrayOfVersions) === 0)
 			document.getElementById('titleHeader').innerHTML = "<h1>Finished Update</h1>";
 			document.getElementById('progressBar').value = 100;
 			updateStatusFunc("Finished Updating to ","finishedUpdate",100);
+			window.location.href = "../settings/whatsNew.php";
 		}
 		else
 		{

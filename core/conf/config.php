@@ -1,6 +1,8 @@
 <?php
 
 $defaultConfig = array(
+	'configVersion'	=> 1,
+	'layoutVersion'	=> 1,
 	'sliceSize'		=> 500,
 	'pollingRate'	=> 500,
 	'buffer'		=> 500,

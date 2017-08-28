@@ -1,0 +1,132 @@
+<?php
+$baseUrl = "../core/";
+if(file_exists('../local/layout.php'))
+{
+	$baseUrl = "../local/";
+	//there is custom information, use this
+	require_once('../local/layout.php');
+	$baseUrl .= $currentSelectedTheme."/";
+}
+require_once($baseUrl.'conf/config.php'); 
+require_once('../core/conf/config.php');
+require_once('../core/php/configStatic.php');
+require_once('../core/php/updateCheck.php');
+require_once('../core/php/loadVars.php');
+?>
+<!doctype html>
+<head>
+	<title>Settings | Main</title>
+	<link rel="stylesheet" type="text/css" href="<?php echo $baseUrl ?>template/theme.css">
+	<link href="../core/template/lightbox.css" rel="stylesheet" type="text/css" />
+	<link rel="icon" type="image/png" href="../core/img/favicon.png" />
+	<script src="../core/js/jquery.js"></script>
+	<script src="../core/js/lightbox-2.6.min.js"></script>
+</head>
+<body>
+
+<?php require_once('header.php');?>	
+
+	<div id="main" > 
+		<h1 style="width: 100%; text-align: center; " >You are on version <?php echo $configStatic['version'];?>!</h1>
+		<div class="settingsDiv" >
+			<table>
+				<tr>
+					<td width="85%;">
+						<table width="100%;">
+							<tr>
+								<td width="25%" >
+								</td>
+								<td width="75%">
+								</td>
+							</tr>
+
+							<tr>
+							<td>
+							</td>
+							<td>
+							</td>
+							</tr>
+
+
+							<!-- 2.3 -->
+
+							<tr>
+							<td>
+								<b>Monitor!</b>
+								<ul>
+									<li>
+									CPU usage
+									</li>
+									<li>
+									Ram / swap usage
+									</li>
+									<li>
+									Disk usage / IO
+									</li>
+									<li>
+									PHP User time used / system time used
+									</li>
+									<li>
+									Network Interface receive / transmit
+									</li>
+									<li>
+									Shows list of processes
+									</li>
+								</ul>
+							</td>
+							<td>
+								<a href="../core/img/2.3-1.PNG" data-lightbox="2.3" ><img src="../core/img/2.3-1.PNG" style="width: 45%;"></a>
+								<a href="../core/img/2.3-2.PNG" data-lightbox="2.3" ><img src="../core/img/2.3-2.PNG" style="width: 45%;"></a>
+							</td>
+							</tr>
+
+
+							<!-- 2.2 -->
+
+
+
+
+							<!-- 2.1 -->
+
+
+
+							<!-- 2.0 -->
+
+						</table>
+					</td>
+					<td width="15%;" style="padding: 12px; border-left: 1px solid white;">
+						<div  class="link" >
+							What's new in 2.3?
+						</div>
+						<div style="height: 20px;">
+						</div>
+						<!-- 
+						<div class="link" >
+							What's new in 2.2?
+						</div>
+						<div style="height: 20px;">
+						</div>
+						<div class="link" >
+							What's new in 2.1?
+						</div>
+						<div style="height: 20px;">
+						</div>
+						<div class="link" >
+							What's new in 2.0?
+						</div>
+						-->
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<?php readfile('../core/html/popup.html') ?>	
+</body>
+<script src="../core/js/settings.js"></script>
+<script src="../core/js/settingsMain.js"></script>
+<script type="text/javascript">
+	function goToUrl(url)
+	{
+		window.location.href = url;
+	}
+</script>
