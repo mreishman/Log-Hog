@@ -24,6 +24,14 @@ require_once('../core/php/loadVars.php');
 	<link rel="stylesheet" type="text/css" href="<?php echo $baseUrl ?>template/theme.css">
 	<link rel="icon" type="image/png" href="../core/img/favicon.png" />
 	<script src="../core/js/jquery.js"></script>
+	<?php if($sendCrashInfoJS === "true"): ?>
+	<script src="https://cdn.ravenjs.com/3.17.0/raven.min.js" crossorigin="anonymous"></script>
+	<script type="text/javascript">
+		Raven.config('https://2e455acb0e7a4f8b964b9b65b60743ed@sentry.io/205980', {
+		    release: '2.3.5'
+		}).install();
+	</script>
+	<?php endif; ?>
 </head>
 <body>
 
