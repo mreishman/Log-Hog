@@ -26,13 +26,13 @@ if(isset($config['configVersion']))
 	$configVersion = $config['configVersion'];
 }
 $configVersionToUpgradeTo = $defaultConfig['configVersion'];
-$totalUpgradeScripts = floatval($configVersion) - floatval($configVersionToUpgradeTo);
+$totalUpgradeScripts = floatval($configVersionToUpgradeTo) - floatval($configVersion);
 ?>
 
 <div id="main">
 	<div class="settingsHeader" style="text-align: center;" >
 		<span id="titleHeader" >
-			<h1>Running Upgrade Scripts...</h1>
+			<h1>Running Upgrade Scripts for Config...</h1>
 		</span>
 	</div>
 	<div class="settingsDiv" >
@@ -48,7 +48,7 @@ $totalUpgradeScripts = floatval($configVersion) - floatval($configVersionToUpgra
 					<td style="width: 20px;">
 					</td>
 					<td>
-						Running upgrade script 1 of <?php echo $totalUpgradeScripts;?>
+						Running upgrade script <span id="runCount">1</span> of <?php echo $totalUpgradeScripts;?>
 					</td>	
 				</tr>
 				<tr>
@@ -59,7 +59,7 @@ $totalUpgradeScripts = floatval($configVersion) - floatval($configVersionToUpgra
 					<td style="width: 20px;">
 					</td>
 					<td>
-						Verifying upgrade script 1 of <?php echo $totalUpgradeScripts;?>
+						Verifying upgrade script <span id="verifyCount">1</span> of <?php echo $totalUpgradeScripts;?>
 					</td>
 				</tr>
 			</table>
@@ -73,22 +73,26 @@ $totalUpgradeScripts = floatval($configVersion) - floatval($configVersionToUpgra
 <script src="../../../core/js/settings.js"></script>
 <script type="text/javascript"> 
 	var lock = false;
-	var urlForSendMain = '../../../core/php/performSettingsInstallUpdateAction.php?format=json';
+	var urlForSendMain0 = '../../../core/php/performSettingsInstallUpdateAction.php?format=json';
+	var urlForSendMain = '../../../core/php/upgradeScript/upgradeLayout-';
+	var urlForSendMain2 = '.php?format=json';
 	<?php
 	echo "var startVersion = ".$configVersion.";";
 	echo "var endVersion = ".$configVersionToUpgradeTo.";";
 	?>
 
-
 	$( document ).ready(function()
 	{
-		//stuff
+		if(endVersion > startVersion)
+		{
+			runScript(startVersion);
+		}
 	});
 
-	function removeUpdateOld()
+	function runScript(version)
 	{
-		var urlForSend = urlForSendMain;
-		var dataSend = {action: 'removeZipFile', fileToUnlink: "../../update/updater.php"};
+		var urlForSend = urlForSendMain+version+urlForSendMain2;
+		var dataSend = {upgrade: 'layout'};
 		$.ajax({
 			url: urlForSend,
 			dataType: 'json',
@@ -96,34 +100,11 @@ $totalUpgradeScripts = floatval($configVersion) - floatval($configVersionToUpgra
 			type: 'POST',
 			success: function(data)
 			{
-				document.getElementById('loadingCopyOld').style.display = "none";
-				document.getElementById('greenCheckOld').style.display = "block";
-				document.getElementById('loadingVerifiedRemove').style.display = "block";
-				verifyFile("remove","../../update/updater.php", false);
+
 			},
 			failure: function(data)
 			{
-				removeUpdateOld();
-			}
-		});
-	}
-
-	function copyFileFromArrayAjax()
-	{
-		
-		var urlForSend = urlForSendMain;
-		var dataSend = {action: "copyFileToFile", fileCopyFrom: "update_updater.php"};
-		$.ajax({
-			url: urlForSend,
-			dataType: 'json',
-			data: dataSend,
-			type: 'POST',
-			success(fileCopied)
-			{
-				document.getElementById('loadingCopyNew').style.display = "none";
-				document.getElementById('greenCheckCopyNew').style.display = "block";
-				document.getElementById('loadingCopyNewVerify').style.display = "block";
-				verifyFile("added","../../update/updater.php");
+				
 			}
 		});
 	}
@@ -140,7 +121,7 @@ $totalUpgradeScripts = floatval($configVersion) - floatval($configVersionToUpgra
 		if(lock == false)
 		{
 			lock = true;
-			var urlForSend = urlForSendMain;
+			var urlForSend = urlForSendMain0;
 			var data = {action: 'verifyFileIsThere', fileLocation: fileLocation, isThere: isThere , lastAction: action};
 			(function(_data){
 				$.ajax({
@@ -195,85 +176,21 @@ $totalUpgradeScripts = floatval($configVersion) - floatval($configVersionToUpgra
 
 	function verifySucceded(action)
 	{
-		//downloaded, extract
 		retryCount = 0;
-		if(action == 'remove')
+		startVersion++;
+		if(endVersion > startVersion)
 		{
-			document.getElementById('loadingVerifiedRemove').style.display = "none";
-			document.getElementById('greenCheckVerifiedRemove').style.display = "block";
-			document.getElementById('loadingCopyNew').style.display = "block";
-			copyFileFromArrayAjax();
-
+			runScript(startVersion);
 		}
-		else if(action == 'added')
+		else
 		{
-			document.getElementById('loadingCopyNewVerify').style.display = "none";
-			document.getElementById('greenCheckCopyNewVerify').style.display = "block";
-			document.getElementById('loadingUpdateConf').style.display = "block";
-			updateStatusFunc();
+			finishedTmpUpdate();
 		}
 	}
-
-	function updateStatusFunc(updateStatusInner = 'postUpgrade Scripts', actionLocal = '', percentToSave = 75)
-	{
-		var urlForSend = urlForSendMain;
-		var data = {action: 'updateProgressFile', status: updateStatusInner, typeOfProgress: "updateProgressFileNext.php", actionSave: actionLocal, percent: percentToSave, pathToFile: ''};
-		$.ajax({
-			url: urlForSend,
-			dataType: 'json',
-			data: data,
-			type: 'POST',
-			complete: function()
-			{
-				
-			}
-		});	
-
-		var data = {action: 'updateProgressFile', status: updateStatusInner, typeOfProgress: "updateProgressFile.php", actionSave: actionLocal, percent: percentToSave, pathToFile: ''};
-		$.ajax({
-			url: urlForSend,
-			dataType: 'json',
-			data: data,
-			type: 'POST',
-			complete: function()
-			{
-				document.getElementById('loadingUpdateConf').style.display = "none";
-				document.getElementById('greenCheckUpdateConf').style.display = "block";
-				document.getElementById('loadingUpdateConfVerify').style.display = "block";
-				verifyFileTimer = setInterval(function(){verifyConfFileChanged();},2000);
-			}
-		});	
-	}
-
-	function verifyConfFileChanged()
-	{
-		var urlForSend =  '../../../../core/php/getPercentUpdate.php?format=json';
-		var data = {};
-		$.ajax({
-			url: urlForSend,
-			dataType: 'json',
-			data: data,
-			type: 'POST',
-			success: function(data)
-			{
-				if(data == "75")
-				{
-					clearInterval(verifyFileTimer);
-					document.getElementById('loadingUpdateConfVerify').style.display = "none";
-					document.getElementById('greenCheckUpdateConfVerify').style.display = "block";
-					setTimeout(function()
-					{ 
-						finishedTmpUpdate();
-					}, 1000);  
-				}
-			}
-		});	
-	}
-
 
 	function finishedTmpUpdate()
 	{
-		window.location.href = "../../../updater.php";
+		window.location.href = "../../../settings/whatsNew.php";
 	}
 
 </script> 
