@@ -85,7 +85,7 @@ $totalUpgradeScripts = floatval($layoutVersionToUpgradeTo) - floatval($layoutVer
 	{
 		if(endVersion > startVersion)
 		{
-			runScript(startVersion);
+			runScript(startVersion+1);
 		}
 	});
 
@@ -103,11 +103,11 @@ $totalUpgradeScripts = floatval($layoutVersionToUpgradeTo) - floatval($layoutVer
 			type: 'POST',
 			success: function(data)
 			{
-				verifyFile(version);
+				verifyFile(data);
 			},
 			failure: function(data)
 			{
-				runScript(version);
+				runScript(startVersion+1);
 			}
 		});
 	}
@@ -186,7 +186,7 @@ $totalUpgradeScripts = floatval($layoutVersionToUpgradeTo) - floatval($layoutVer
 		startVersion++;
 		if(endVersion > startVersion)
 		{
-			runScript(startVersion);
+			runScript(startVersion+1);
 		}
 		else
 		{

@@ -74,7 +74,7 @@ $totalUpgradeScripts = floatval($configVersionToUpgradeTo) - floatval($configVer
 <script type="text/javascript"> 
 	var lock = false;
 	var urlForSendMain0 = '../../../core/php/checkVersionOfConfig.php?format=json';
-	var urlForSendMain = '../../../core/php/upgradeScript/upgradeLayout-';
+	var urlForSendMain = '../../../core/php/upgradeScript/upgradeConfig-';
 	var urlForSendMain2 = '.php?format=json';
 	<?php
 	echo "var startVersion = ".$configVersion.";";
@@ -103,11 +103,11 @@ $totalUpgradeScripts = floatval($configVersionToUpgradeTo) - floatval($configVer
 			type: 'POST',
 			success: function(data)
 			{
-				verifyFile(version);
+				verifyFile(data);
 			},
 			failure: function(data)
 			{
-				runScript(version);
+				runScript(startVersion+1);
 			}
 		});
 	}
@@ -186,7 +186,7 @@ $totalUpgradeScripts = floatval($configVersionToUpgradeTo) - floatval($configVer
 		startVersion++;
 		if(endVersion > startVersion)
 		{
-			runScript(startVersion);
+			runScript(startVersion+1);
 		}
 		else
 		{

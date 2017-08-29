@@ -25,7 +25,7 @@ else
 }
 require_once($varToIndexDir.'core/conf/config.php');
 $URI = $_SERVER['REQUEST_URI'];
-if((strpos($URI, 'upgradeLayout.php') === false) && (strpos($URI, 'upgradeConfig.php') === false))
+if((strpos($URI, 'upgradeLayout') === false) && (strpos($URI, 'upgradeConfig') === false))
 {
 	//check if upgrade script is needed
 	$layoutVersion = 0;
