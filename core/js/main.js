@@ -43,7 +43,7 @@ function escapeHTML(unsafeStr)
 	}
 	catch(e)
 	{
-	    eventThrowException(e);
+		eventThrowException(e);
 	}
 	
 }

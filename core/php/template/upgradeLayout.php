@@ -190,7 +190,7 @@ $totalUpgradeScripts = floatval($layoutVersionToUpgradeTo) - floatval($layoutVer
 
 	function finishedTmpUpdate()
 	{
-		window.location.href = "../../../settings/whatsNew.php";
+		history.go(-1);
 	}
 
 </script> 
