@@ -42,8 +42,8 @@ $totalUpgradeScripts = floatval($configVersionToUpgradeTo) - floatval($configVer
 			<table style="padding: 10px;">
 				<tr>
 					<td style="height: 50px;">
-						<img id="loadingCopyOld" src="../../../core/img/loading.gif" height="30px;">
-						<img id="greenCheckOld" style="display: none;" src="../../../core/img/greenCheck.png" height="30px;">
+						<img id="runLoad" src="../../../core/img/loading.gif" height="30px;">
+						<img id="runCheck" style="display: none;" src="../../../core/img/greenCheck.png" height="30px;">
 					</td>
 					<td style="width: 20px;">
 					</td>
@@ -53,8 +53,8 @@ $totalUpgradeScripts = floatval($configVersionToUpgradeTo) - floatval($configVer
 				</tr>
 				<tr>
 					<td style="height: 50px;">
-						<img id="loadingVerifiedRemove" style="display: none;" src="../../../core/img/loading.gif" height="30px;">
-						<img id="greenCheckVerifiedRemove" style="display: none;" src="../../../core/img/greenCheck.png" height="30px;">
+						<img id="verifyLoad" style="display: none;" src="../../../core/img/loading.gif" height="30px;">
+						<img id="verifyCheck" style="display: none;" src="../../../core/img/greenCheck.png" height="30px;">
 					</td>
 					<td style="width: 20px;">
 					</td>
@@ -91,8 +91,11 @@ $totalUpgradeScripts = floatval($configVersionToUpgradeTo) - floatval($configVer
 
 	function runScript(version)
 	{
+		document.getElementById('runLoad').style.display = "block";
+		document.getElementById('runLoad').style.display = "none";
+		document.getElementById('verifyLoad').style.display = "none";
 		var urlForSend = urlForSendMain+version+urlForSendMain2;
-		var dataSend = {upgrade: 'config'};
+		var dataSend = {version: version};
 		$.ajax({
 			url: urlForSend,
 			dataType: 'json',
@@ -112,6 +115,9 @@ $totalUpgradeScripts = floatval($configVersionToUpgradeTo) - floatval($configVer
 
 	function verifyFile(version)
 	{
+		document.getElementById('runCheck').style.display = "block";
+		document.getElementById('runLoad').style.display = "none";
+		document.getElementById('verifyLoad').style.display = "block";
 		verifyCount = 0;
 		verifyFileTimer = setInterval(function(){verifyFilePoll(version);},2000);
 	}
@@ -190,6 +196,8 @@ $totalUpgradeScripts = floatval($configVersionToUpgradeTo) - floatval($configVer
 
 	function finishedTmpUpdate()
 	{
+		document.getElementById('verifyCheck').style.display = "block";
+		document.getElementById('verifyLoad').style.display = "none";
 		history.go(-1);
 	}
 
