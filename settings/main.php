@@ -75,6 +75,7 @@ require_once('../core/php/loadVars.php');
 	var countOfAddedFilesStatic = countOfAddedFiles;
 	var countOfClicksStatic = countOfClicks;
 	var locationInsertStatic = locationInsert;
+	var sendCrashInfoJS = "<?php echo $sendCrashInfoJS;?>";
 
 	if(logTrimType == 'lines')
 	{

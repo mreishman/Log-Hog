@@ -2,7 +2,7 @@ function showOrHideLogTrimSubWindow()
 {
 	try
 	{
-    	var valueToSeeIfShowOrHideSubWindowLogTrim = document.getElementById("logTrimOn").value;
+		var valueToSeeIfShowOrHideSubWindowLogTrim = document.getElementById("logTrimOn").value;
 
 		if(valueToSeeIfShowOrHideSubWindowLogTrim === "true")
 		{
@@ -15,7 +15,7 @@ function showOrHideLogTrimSubWindow()
 	}
 	catch(e)
 	{
-		eventThrowException(e)
+		eventThrowException(e);
 	}
 }
 
@@ -24,7 +24,7 @@ function changeDescriptionLineSize()
 {
 	try
 	{
-    	var valueForDesc = document.getElementById("logTrimTypeToggle").value;
+		var valueForDesc = document.getElementById("logTrimTypeToggle").value;
 
 		if (valueForDesc === "lines")
 		{
@@ -47,7 +47,7 @@ function addRowFunction()
 {
 	try
 	{
-    	countOfWatchList++;
+		countOfWatchList++;
 		countOfClicks++;
 		if(countOfWatchList < 10)
 		{
@@ -71,7 +71,7 @@ function deleteRowFunctionPopup(currentRow, decreaseCountWatchListNum, keyName =
 {
 	try
 	{
-    	if(popupSettingsArray.removeFolder === "true")
+		if(popupSettingsArray.removeFolder === "true")
 		{
 			showPopup();
 			document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class='settingsHeader' >Are you sure you want to remove this file/folder?</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>"+keyName+"</div><div><div class='link' onclick='deleteRowFunction("+currentRow+","+ decreaseCountWatchListNum+");hidePopup();' style='margin-left:125px; margin-right:50px;margin-top:35px;'>Yes</div><div onclick='hidePopup();' class='link'>No</div></div>";
@@ -91,7 +91,7 @@ function deleteRowFunction(currentRow, decreaseCountWatchListNum)
 {
 	try
 	{
-    	var elementToFind = "rowNumber" + currentRow;
+		var elementToFind = "rowNumber" + currentRow;
 		document.getElementById(elementToFind).outerHTML = "";
 		if(decreaseCountWatchListNum)
 		{
@@ -157,7 +157,7 @@ function showOrHidePopupSubWindow()
 {
 	try
 	{
-    	var valueForPopup = document.getElementById("popupSelect");
+		var valueForPopup = document.getElementById("popupSelect");
 		var valueForVars = document.getElementById("settingsPopupVars");
 		showOrHideSubWindow(valueForPopup, valueForVars);
 	}
@@ -170,7 +170,7 @@ function showOrHideUpdateSubWindow()
 {
 	try
 	{
-	    var valueForPopup = document.getElementById("settingsSelect");
+		var valueForPopup = document.getElementById("settingsSelect");
 		var valueForVars = document.getElementById("settingsAutoCheckVars");
 		showOrHideSubWindow(valueForPopup, valueForVars);
 	}
@@ -183,7 +183,7 @@ function showOrHideSubWindow(valueForPopupInner, valueForVarsInner)
 {
 	try
 	{
-	    if(valueForPopupInner.value === "true")
+		if(valueForPopupInner.value === "true")
 		{
 			valueForVarsInner.style.display = "block";
 		}
@@ -201,7 +201,7 @@ function checkWatchList()
 {
 	try
 	{
-	    var blankValue = false;
+		var blankValue = false;
 		for (var i = 1; i <= countOfWatchList; i++) 
 		{
 			if(document.getElementsByName("watchListKey"+i)[0].value === "")
@@ -230,7 +230,7 @@ function showNoEmptyFolderPopup()
 {
 	try
 	{
-    	showPopup();
+		showPopup();
 		document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class='settingsHeader' >Warning!</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Please make sure there are no empty folders when saving the Watch List.</div><div><div class='link' onclick='hidePopup();' style='margin-left:175px; margin-top:25px;'>Okay</div></div>";
 	}
 	catch(e)
@@ -241,7 +241,7 @@ function showNoEmptyFolderPopup()
 
 function eventThrowException(e)
 {
-	if(sendCrashInfoJS === "true")
+	if((typeof(sendCrashInfoJS) !== 'undefined') && (sendCrashInfoJS === "true"))
 	{
 		Raven.captureException(e);
 	}

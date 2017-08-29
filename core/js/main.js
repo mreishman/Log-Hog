@@ -52,7 +52,7 @@ function updateSkipCounterLog(num)
 {
 	try
 	{
-    	if(enablePollTimeLogging !== "false")
+		if(enablePollTimeLogging !== "false")
 		{
 			document.getElementById("loggSkipCount").innerHTML = escapeHTML(num);
 		}
