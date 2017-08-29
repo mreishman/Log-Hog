@@ -73,7 +73,7 @@ $totalUpgradeScripts = floatval($configVersionToUpgradeTo) - floatval($configVer
 <script src="../../../core/js/settings.js"></script>
 <script type="text/javascript"> 
 	var lock = false;
-	var urlForSendMain0 = '../../../core/php/performSettingsInstallUpdateAction.php?format=json';
+	var urlForSendMain0 = '../../../core/php/checkVersionOfConfig.php?format=json';
 	var urlForSendMain = '../../../core/php/upgradeScript/upgradeLayout-';
 	var urlForSendMain2 = '.php?format=json';
 	<?php
@@ -85,14 +85,14 @@ $totalUpgradeScripts = floatval($configVersionToUpgradeTo) - floatval($configVer
 	{
 		if(endVersion > startVersion)
 		{
-			runScript(startVersion);
+			runScript(startVersion+1);
 		}
 	});
 
 	function runScript(version)
 	{
 		var urlForSend = urlForSendMain+version+urlForSendMain2;
-		var dataSend = {upgrade: 'layout'};
+		var dataSend = {upgrade: 'config'};
 		$.ajax({
 			url: urlForSend,
 			dataType: 'json',
@@ -100,29 +100,29 @@ $totalUpgradeScripts = floatval($configVersionToUpgradeTo) - floatval($configVer
 			type: 'POST',
 			success: function(data)
 			{
-
+				verifyFile(version);
 			},
 			failure: function(data)
 			{
-				
+				runScript(version);
 			}
 		});
 	}
 
 
-	function verifyFile(action, fileLocation,isThere = true)
+	function verifyFile(version)
 	{
 		verifyCount = 0;
-		verifyFileTimer = setInterval(function(){verifyFilePoll(action,fileLocation,isThere);},2000);
+		verifyFileTimer = setInterval(function(){verifyFilePoll(version);},2000);
 	}
 
-	function verifyFilePoll(action, fileLocation,isThere)
+	function verifyFilePoll(version)
 	{
 		if(lock == false)
 		{
 			lock = true;
 			var urlForSend = urlForSendMain0;
-			var data = {action: 'verifyFileIsThere', fileLocation: fileLocation, isThere: isThere , lastAction: action};
+			var data = {version: version};
 			(function(_data){
 				$.ajax({
 					url: urlForSend,
