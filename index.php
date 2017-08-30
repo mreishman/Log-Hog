@@ -81,6 +81,14 @@ elseif($withLogHog == 'true')
 	<title>Log Hog | Index</title>
 	<link rel="stylesheet" type="text/css" href="<?php echo $baseUrl ?>template/theme.css">
 	<link rel="icon" type="image/png" href="core/img/favicon.png" />
+	<?php if($sendCrashInfoJS === "true"): ?>
+	<script src="https://cdn.ravenjs.com/3.17.0/raven.min.js" crossorigin="anonymous"></script>
+	<script type="text/javascript">
+		Raven.config('https://2e455acb0e7a4f8b964b9b65b60743ed@sentry.io/205980', {
+		    release: '2.3.5'
+		}).install();
+	</script>
+	<?php endif; ?>
 	<script src="core/js/jquery.js"></script>
 	<script src="core/js/visibility.core.js"></script>
 	<script src="core/js/visibility.fallback.js"></script>
@@ -193,6 +201,7 @@ elseif($withLogHog == 'true')
 		var updateNoticeMeter = "<?php echo $updateNoticeMeter;?>";
 		var pollRefreshAllBool = "<?php echo $pollRefreshAllBool;?>";
 		var pollForceTrueBool = "<?php echo $pollRefreshAllBool;?>";
+		var sendCrashInfoJS = "<?php echo $sendCrashInfoJS;?>";
 
 	</script>
 	<?php readfile('core/html/popup.html') ?>

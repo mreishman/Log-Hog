@@ -1,6 +1,10 @@
 <?php
 
 $defaultConfig = array(
+	'configVersion'	=> 1,
+	'layoutVersion'	=> 1,
+	'sendCrashInfoJS'	=> 'true',
+	'sendCrashInfoPHP'	=> 'true',
 	'sliceSize'		=> 500,
 	'pollingRate'	=> 500,
 	'buffer'		=> 500,
