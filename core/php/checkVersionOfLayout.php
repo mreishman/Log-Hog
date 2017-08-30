@@ -1,11 +1,10 @@
 <?php
-
-$baseUrl = "../../../core/";
-if(file_exists('../../../local/layout.php'))
+$baseUrl = "../../core/";
+if(file_exists('../../local/layout.php'))
 {
-	$baseUrl = "../../../local/";
+	$baseUrl = "../../local/";
 	//there is custom information, use this
-	require_once('../../../local/layout.php');
+	require_once('../../local/layout.php');
 	$baseUrl .= $currentSelectedTheme."/";
 }
 require_once($baseUrl.'conf/config.php');
@@ -16,9 +15,8 @@ if(isset($config['layoutVersion']))
 	$layoutVersion = $config['layoutVersion'];
 }
 
-
 $value = false;
-if($layoutVersion === $POST['version'])
+if((string)$layoutVersion === (string)$_POST['version'])
 {
 	$value = true;
 }

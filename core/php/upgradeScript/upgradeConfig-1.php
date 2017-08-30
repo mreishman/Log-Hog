@@ -13,7 +13,7 @@ require_once('../../../core/conf/config.php');
 require_once('../../../core/php/configStatic.php');
 require_once('../../../core/php/loadVars.php');
 
-$configVersion = $POST['version'];
+$configVersion = $_POST['version'];
 
 $fileName = ''.$baseUrl.'conf/config.php';
 
@@ -47,5 +47,5 @@ $newInfoForConfig .= "
 
 file_put_contents($fileName, $newInfoForConfig);
 
-echo json_encode($POST['version']);
+echo json_encode($_POST['version']);
 ?>

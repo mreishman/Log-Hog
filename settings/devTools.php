@@ -46,6 +46,12 @@ require_once('../core/php/updateCheck.php');
 				<li>
 					<span class="settingsBuffer" >  Base URL:  </span> <input type="text" style="width: 400px;"  name="baseUrlUpdate" value="<?php echo $baseUrlUpdate;?>" > 
 				</li>
+				<li>
+					<span class="settingsBuffer" > Config Version:  </span> <input type="text" style="width: 400px;"  name="configVersion" value="<?php echo $configVersion;?>" > 
+				</li>
+				<li>
+					<span class="settingsBuffer" > Layout Version:  </span> <input type="text" style="width: 400px;"  name="layoutVersion" value="<?php echo $layoutVersion;?>" > 
+				</li>
 			</ul>
 			
 

@@ -22,7 +22,7 @@ if(isset($config['configVersion']))
 }
 
 
-$layoutVersion = $POST['version'];
+$layoutVersion = $_POST['version'];
 
 $fileName = ''.$baseUrl.'conf/config.php';
 
@@ -56,5 +56,5 @@ $newInfoForConfig .= "
 
 file_put_contents($fileName, $newInfoForConfig);
 
-echo json_encode($POST['version']);
+echo json_encode($_POST['version']);
 ?>

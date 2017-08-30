@@ -87,6 +87,10 @@ $totalUpgradeScripts = floatval($layoutVersionToUpgradeTo) - floatval($layoutVer
 		{
 			runScript(startVersion+1);
 		}
+		else
+		{
+			window.location.href = "../../../settings/whatsNew.php";
+		}
 	});
 
 	function runScript(version)
@@ -124,7 +128,7 @@ $totalUpgradeScripts = floatval($layoutVersionToUpgradeTo) - floatval($layoutVer
 
 	function verifyFilePoll(version)
 	{
-		if(lock == false)
+		if(lock === false)
 		{
 			lock = true;
 			var urlForSend = urlForSendMain0;
@@ -162,7 +166,7 @@ $totalUpgradeScripts = floatval($layoutVersionToUpgradeTo) - floatval($layoutVer
 		else
 		{
 			verifyCount++;
-			if(verifyCount > 9)
+			if(verifyCount > 29)
 			{
 				clearInterval(verifyFileTimer);
 				verifyFail(data['lastAction']);
@@ -172,7 +176,7 @@ $totalUpgradeScripts = floatval($layoutVersionToUpgradeTo) - floatval($layoutVer
 
 	function updateError()
 	{
-		document.getElementById('innerSettingsText').innerHTML = "<p>An error occured while trying to download Monitor. </p>";
+		document.getElementById('innerDisplayUpdate').innerHTML = "<p>An error occured while trying to download Monitor. </p>";
 	}
 
 	function verifyFail(action)
@@ -198,7 +202,7 @@ $totalUpgradeScripts = floatval($layoutVersionToUpgradeTo) - floatval($layoutVer
 	{
 		document.getElementById('verifyCheck').style.display = "block";
 		document.getElementById('verifyLoad').style.display = "none";
-		history.go(-1);
+		window.location.href = "../../../settings/whatsNew.php";
 	}
 
 </script> 
