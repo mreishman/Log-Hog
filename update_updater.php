@@ -833,7 +833,7 @@ if(count($arrayOfVersions) === 0)
 				type: 'POST',
 				success: function(data)
 				{
-					window.location.href = main;
+					window.location.href = data;
 				},
 				failure: function(data)
 				{
