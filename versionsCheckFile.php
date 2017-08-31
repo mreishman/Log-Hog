@@ -1,7 +1,7 @@
 <?php
 
 $versionCheckArray = array(
-	'version'		=> '2.3.6',
+	'version'		=> '2.3.7',
 	'versionList'		=> array(
 		'2.0.1'	        => array(
 			'branchName'	=> '2.0.1Update',
@@ -54,6 +54,10 @@ $versionCheckArray = array(
 		'2.3.6'		=> array(
 			'branchName'	=> '2.3.6Update',
 			'releaseNotes'	=> "<ul><li>Test</li></ul>"
+		),
+		'2.3.7'		=> array(
+			'branchName'	=> '2.3.7Update',
+			'releaseNotes'	=> "<ul><li>Another Test</li></ul>"
 		)
 	)
 );
