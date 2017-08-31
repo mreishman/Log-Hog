@@ -25,6 +25,14 @@ $indexToExtracted = "update/downloads/updateFiles/extracted/";
 		exit();
 	}
 	
+	if($currentFile == "core_conf_config.php")
+	{
+		if (!file_exists($varToIndexDir.'core/php/upgradeScript/')) 
+		   {
+			mkdir($varToIndexDir.'restore/upgradeScript/', 0655, true);
+		   }
+	}
+	
 //update innerUpgradeStatus file
 $newCount = $innerUpdateProgress['currentFile'] + 1;
 
