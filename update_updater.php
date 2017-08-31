@@ -603,14 +603,14 @@ if(count($arrayOfVersions) === 0)
 		{
 			var totalCount = 0;
 			var fileName = "pre-script-"+totalCount;
-			while($.inArray(arrayOfFilesExtracted, fileName))
+			while($.inArray(fileName,arrayOfFilesExtracted))
 			{
 				totalCount++;
 			}
 			updateProgressBar(((1/totalCount)*5));
 		}
 		var fileName = "pre-script-"+preScriptCount+".php";
-		if($.inArray(arrayOfFilesExtracted, fileName) != "-1")
+		if($.inArray(fileName,arrayOfFilesExtracted) != "-1")
 		{
 			updateText("Running pre upgrade script "+preScriptCount);
 			if(preScripRunFileName == "" || fileName == preScripRunFileName)
@@ -641,7 +641,7 @@ if(count($arrayOfVersions) === 0)
 
 	function ajaxForPreScriptRun(urlForSendMain)
 	{
-		var urlForSend = "../../update/downloads/updateFiles/extracted/"+urlForSendMain;
+		var urlForSend = "../update/downloads/updateFiles/extracted/"+urlForSendMain;
 		var data = "";
 		$.ajax({
 			url: urlForSend,
@@ -746,14 +746,14 @@ if(count($arrayOfVersions) === 0)
 		{
 			var totalCount = 0;
 			var fileName = "post-script-"+totalCount;
-			while($.inArray(arrayOfFilesExtracted, fileName))
+			while($.inArray(fileName,arrayOfFilesExtracted))
 			{
 				totalCount++;
 			}
 			updateProgressBar(((1/totalCount)*5));
 		}
 		var fileName = "post-script-"+postScriptCount+".php";
-		if($.inArray(arrayOfFilesExtracted, fileName) != "-1")
+		if($.inArray(fileName,arrayOfFilesExtracted) != "-1")
 		{
 			updateText("Running post upgrade script "+postScriptCount);
 			if(postScripRunFileName == "" || fileName == postScripRunFileName)
@@ -783,7 +783,7 @@ if(count($arrayOfVersions) === 0)
 
 	function ajaxForPostScriptRun(urlForSendMain)
 	{
-		var urlForSend = "../../update/downloads/updateFiles/extracted/"+urlForSendMain;
+		var urlForSend = "../update/downloads/updateFiles/extracted/"+urlForSendMain;
 		var data = "";
 		$.ajax({
 			url: urlForSend,
@@ -810,7 +810,7 @@ if(count($arrayOfVersions) === 0)
 	{
 		//check for file called post-redirect
 		var fileName = "post-redirect-1.php";
-		if($.inArray(arrayOfFilesExtracted, fileName) != "-1")
+		if($.inArray(fileName,arrayOfFilesExtracted) != "-1")
 		{
 			updateText("Redirecting to external upgrade script");
 			ajaxForRedirectScript(fileName);
@@ -823,7 +823,7 @@ if(count($arrayOfVersions) === 0)
 
 	function ajaxForRedirectScript(urlForSendMain)
 	{
-		var urlForSend = "../../update/downloads/updateFiles/extracted/"+urlForSendMain;
+		var urlForSend = "../update/downloads/updateFiles/extracted/"+urlForSendMain;
 		var data = {};
 		(function(_data){
 			$.ajax({
