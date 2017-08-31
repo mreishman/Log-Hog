@@ -30,7 +30,7 @@ $URI = $_SERVER['REQUEST_URI'];
 	<?php else: ?>	
 		<a id="aboutLink" onclick="goToUrl('about.php');">About</a>
 	<?php endif; ?>
-	<?php if(strpos($URI, 'update.php') !== false): ?>
+	<?php if((strpos($URI, 'whatsNew.php') !== false) || (strpos($URI, 'update.php') !== false) || (strpos($URI, 'changeLog.php') !== false)): ?>
 		<a style="cursor: default;" class="active" id="updateLink">
 	<?php else: ?>
 		<a id="updateLink" onclick="goToUrl('update.php');">
@@ -60,9 +60,16 @@ $URI = $_SERVER['REQUEST_URI'];
 	<?php endif; ?>
 </div>
 <?php if(strpos($URI, 'main.php') !== false): ?>
-		<div id="menu2">
-			<a onclick="goToUrl('#settingsMainVars');" > Main Settings </a>
-			<a onclick="goToUrl('#settingsMainWatch');" > WatchList </a>
-			<a onclick="goToUrl('#settingsMenuVars');" > Menu Settings </a>
-		</div>
-	<?php endif; ?>
+	<div id="menu2">
+		<a onclick="goToUrl('#settingsMainVars');" > Main Settings </a>
+		<a onclick="goToUrl('#settingsMainWatch');" > WatchList </a>
+		<a onclick="goToUrl('#settingsMenuVars');" > Menu Settings </a>
+	</div>
+<?php endif; ?>
+<?php if((strpos($URI, 'whatsNew.php') !== false) || (strpos($URI, 'update.php') !== false) || (strpos($URI, 'changeLog.php') !== false)): ?>
+	<div id="menu2">
+		<a <?php if(strpos($URI, 'update.php') !== false): ?> class='active' <?php else: ?>  onclick="goToUrl('./update.php');"  <?php endif;?> > Update </a>
+		<a <?php if(strpos($URI, 'whatsNew.php') !== false): ?> class='active' <?php else: ?>  onclick="goToUrl('./whatsNew.php');"  <?php endif;?> > What's New? </a>
+		<a <?php if(strpos($URI, 'changeLog.php') !== false): ?> class='active' <?php else: ?>  onclick="goToUrl('./changeLog.php');"  <?php endif;?> > Changelog </a>
+	</div>
+<?php endif; ?>
