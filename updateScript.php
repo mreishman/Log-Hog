@@ -29,7 +29,7 @@ $indexToExtracted = "update/downloads/updateFiles/extracted/";
 	{
 		if (!file_exists($varToIndexDir.'core/php/upgradeScript/')) 
 		   {
-			mkdir($varToIndexDir.'core/php/upgradeScript/', 0664, true);
+			mkdir($varToIndexDir.'core/php/upgradeScript/', 0777, true);
 		   }
 	}
 	
