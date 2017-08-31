@@ -188,9 +188,7 @@ if(count($arrayOfVersions) === 0)
 	var lock = false;
 	var settingsForBranchStuff = JSON.parse('<?php echo json_encode($configStatic);?>');
 	var filteredArray = new Array();
-	var preScripRunFileName = "";
 	var preScriptCount = 1;
-	var postScripRunFileName = "";
 	var postScriptCount = 1;
 	var fileCopyCount = 0;
 	var arrayOfVersions = JSON.parse('<?php echo json_encode($arrayOfVersions);?>');
@@ -603,22 +601,17 @@ if(count($arrayOfVersions) === 0)
 		{
 			var totalCount = 0;
 			var fileName = "pre-script-"+totalCount;
-			while($.inArray(arrayOfFilesExtracted, fileName))
+			while($.inArray(fileName,arrayOfFilesExtracted))
 			{
 				totalCount++;
 			}
 			updateProgressBar(((1/totalCount)*5));
 		}
 		var fileName = "pre-script-"+preScriptCount+".php";
-		if($.inArray(arrayOfFilesExtracted, fileName) != "-1")
+		if($.inArray(fileName,arrayOfFilesExtracted) != "-1")
 		{
 			updateText("Running pre upgrade script "+preScriptCount);
-			if(preScripRunFileName == "" || fileName == preScripRunFileName)
-			{
-				preScripRunFileName = fileName;
-				preScriptCount++;
-				ajaxForPreScriptRun(fileName);
-			}
+			preScriptCount++;
 		}
 		else
 		{
@@ -632,7 +625,6 @@ if(count($arrayOfVersions) === 0)
 				updateText("Finished running pre upgrade scripts");
 			}
 			preScriptCount = 1;
-			preScripRunFileName = "";
 			//finished with pre scripts
 			fileCopyCount = 0;
 			copyFilesFromArray();
@@ -641,7 +633,7 @@ if(count($arrayOfVersions) === 0)
 
 	function ajaxForPreScriptRun(urlForSendMain)
 	{
-		var urlForSend = "../../update/downloads/updateFiles/extracted/"+urlForSendMain;
+		var urlForSend = "../update/downloads/updateFiles/extracted/"+urlForSendMain;
 		var data = "";
 		$.ajax({
 			url: urlForSend,
@@ -681,7 +673,7 @@ if(count($arrayOfVersions) === 0)
 			}
 			else if(file.startsWith("pre-script-") || file.startsWith("post-script-") || file.startsWith("post-redirect-") || file.startsWith("exclude-this-file-from-copy-"))
 			{
-				copyFile - false;
+				copyFile = false;
 			}
 
 			if(copyFile)
@@ -746,22 +738,19 @@ if(count($arrayOfVersions) === 0)
 		{
 			var totalCount = 0;
 			var fileName = "post-script-"+totalCount;
-			while($.inArray(arrayOfFilesExtracted, fileName))
+			while($.inArray(fileName,arrayOfFilesExtracted))
 			{
 				totalCount++;
 			}
 			updateProgressBar(((1/totalCount)*5));
 		}
 		var fileName = "post-script-"+postScriptCount+".php";
-		if($.inArray(arrayOfFilesExtracted, fileName) != "-1")
+		if($.inArray(fileName,arrayOfFilesExtracted) != "-1")
 		{
 			updateText("Running post upgrade script "+postScriptCount);
-			if(postScripRunFileName == "" || fileName == postScripRunFileName)
-			{
-				postScripRunFileName = fileName;
-				postScriptCount++;
-				ajaxForPostScriptRun(fileName);
-			}
+			postScriptCount++;
+			ajaxForPostScriptRun(fileName);
+
 		}
 		else
 		{
@@ -775,7 +764,6 @@ if(count($arrayOfVersions) === 0)
 				updateText("Finished running post upgrade scripts");
 			}
 			postScriptCount = 1;
-			postScripRunFileName = "";
 			//finished with post scripts
 			postScriptRedirect();
 		}
@@ -783,7 +771,7 @@ if(count($arrayOfVersions) === 0)
 
 	function ajaxForPostScriptRun(urlForSendMain)
 	{
-		var urlForSend = "../../update/downloads/updateFiles/extracted/"+urlForSendMain;
+		var urlForSend = "../update/downloads/updateFiles/extracted/"+urlForSendMain;
 		var data = "";
 		$.ajax({
 			url: urlForSend,
@@ -810,7 +798,7 @@ if(count($arrayOfVersions) === 0)
 	{
 		//check for file called post-redirect
 		var fileName = "post-redirect-1.php";
-		if($.inArray(arrayOfFilesExtracted, fileName) != "-1")
+		if($.inArray(fileName,arrayOfFilesExtracted) != "-1")
 		{
 			updateText("Redirecting to external upgrade script");
 			ajaxForRedirectScript(fileName);
@@ -823,7 +811,7 @@ if(count($arrayOfVersions) === 0)
 
 	function ajaxForRedirectScript(urlForSendMain)
 	{
-		var urlForSend = "../../update/downloads/updateFiles/extracted/"+urlForSendMain;
+		var urlForSend = "../update/downloads/updateFiles/extracted/"+urlForSendMain;
 		var data = {};
 		(function(_data){
 			$.ajax({
@@ -833,7 +821,7 @@ if(count($arrayOfVersions) === 0)
 				type: 'POST',
 				success: function(data)
 				{
-					window.location.href = main;
+					window.location.href = data;
 				},
 				failure: function(data)
 				{
