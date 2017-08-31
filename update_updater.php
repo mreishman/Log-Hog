@@ -681,7 +681,7 @@ if(count($arrayOfVersions) === 0)
 			}
 			else if(file.startsWith("pre-script-") || file.startsWith("post-script-") || file.startsWith("post-redirect-") || file.startsWith("exclude-this-file-from-copy-"))
 			{
-				copyFile - false;
+				copyFile = false;
 			}
 
 			if(copyFile)
