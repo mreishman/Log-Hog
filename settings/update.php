@@ -17,9 +17,6 @@ $today = date('Y-m-d');
 $old_date = $configStatic['lastCheck'];
 $old_date_array = preg_split("/-/", $old_date);
 $old_date = $old_date_array[2]."-".$old_date_array[0]."-".$old_date_array[1];
-//$old_date = date_format( $old_date ,"Y-m-d");          
-//$old_date_timestamp = strtotime($old_date);
-//$new_date = date('Y-m-d', $old_date_timestamp); 
 
 $datetime1 = date_create($old_date_array[2]."-".$old_date_array[0]."-".$old_date_array[1]);
 $datetime2 = date_create($today);
@@ -77,10 +74,10 @@ $daysSince = $interval->format('%a');
 		</div>
 		<div id="releaseNotesBody" <?php if($levelOfUpdate == 0){echo "style='display: none;'";} ?> class="settingsDiv" >
 			<ul id="settingsUl">
-			<?php 
+			<?php
 			if(array_key_exists('versionList', $configStatic))
 			{
-				foreach ($configStatic['versionList'] as $key => $value) 
+				foreach ($configStatic['versionList'] as $key => $value)
 				{
 					$version = explode('.', $configStatic['version']);
 					$newestVersion = explode('.', $key);
@@ -146,14 +143,9 @@ $daysSince = $interval->format('%a');
 					}
 				}
 			}
-			
 			?>
 			</ul>
 		</div>
-		<div class="settingsHeader">
-			Changelog
-		</div>
-		<?php readfile('changelog.html') ?>
 	</div>
 	<?php readfile('../core/html/popup.html') ?>	
 </body>
@@ -161,6 +153,8 @@ $daysSince = $interval->format('%a');
 <script type="text/javascript">
 
 	var timeoutVar;
+	var dataFromJSON;
+	var currentVersion = "<?php echo $configStatic['version']?>";
 
 	function goToUrl(url)
 	{
@@ -174,53 +168,66 @@ $daysSince = $interval->format('%a');
 		{
 			if(data.version == "1" || data.version == "2" | data.version == "3")
 			{
-				document.getElementById('noUpdate').style.display = "none";
-				document.getElementById('minorUpdate').style.display = "none";
-				document.getElementById('majorUpdate').style.display = "none";
-				document.getElementById('NewXReleaseUpdate').style.display = "none";
-
-				if(data.version == "1")
-				{
-					document.getElementById('minorUpdate').style.display = "block";
-					document.getElementById('minorUpdatesVersionNumber').innerHTML = data.versionNumber;
-				}
-				else if (data.version == "2")
-				{
-					document.getElementById('majorUpdate').style.display = "block";
-					document.getElementById('majorUpdatesVersionNumber').innerHTML = data.versionNumber;
-				}
-				else
-				{
-					document.getElementById('NewXReleaseUpdate').style.display = "block";
-					document.getElementById('veryMajorUpdatesVersionNumber').innerHTML = data.versionNumber;
-				}
-
-
-				document.getElementById('releaseNotesHeader').style.display = "block";
-				document.getElementById('releaseNotesBody').style.display = "block";
-				document.getElementById('releaseNotesBody').innerHTML = data.changeLog;
-
-
-				//Update needed
-				hidePopup();
-				showPopup();
-				document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >New Version Available!</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Version "+data.versionNumber+" is now available!</div><div class='link' onclick='installUpdates();' style='margin-left:74px; margin-right:50px;margin-top:25px;'>Update Now</div><div onclick='hidePopup();' class='link'>Maybe Later</div></div>";
+				dataFromJSON = data;
+				timeoutVar = setInterval(function(){checkForUpdateTimer();},3000);
 			}
 			else if (data.version == "0")
 			{
-				hidePopup();
-				showPopup();
 				document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >No Update Needed</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>You are on the most current version</div><div class='link' onclick='closePopupNoUpdate();' style='margin-left:165px; margin-right:50px;margin-top:25px;'>Okay!</div></div>";
 			}
 			else
 			{
-				hidePopup();
-				//error?
-				showPopup();
-				document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Error</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>An error occured while trying to check for updates. Make sure you are connected to the internet and settingsCheckForUpdate.php has sufficient rights to write / create files. </div><div class='link' onclick='closePopupNoUpdate();' style='margin-left:165px; margin-right:50px;margin-top:5px;'>Okay!</div></div>";
+				document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Error</div><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>An error occured while trying to check for updates. Make sure you are connected to the internet and settingsCheckForUpdate.php has sufficient rights to write / create files. </div><div class='link' onclick='closePopupNoUpdate();' style='margin-left:165px; margin-right:50px;margin-top:5px;'>Okay!</div></div>";
 			}
 			
 		});
+	}
+
+	function checkForUpdateTimer()
+	{
+		$.getJSON('../core/php/configStaticCheck.php', {}, function(data) 
+		{
+			if(currentVersion != data)
+			{
+				clearInterval(timeoutVar);
+				showPopupForUpdate();
+			}
+		});
+	}
+
+	function showPopupForUpdate()
+	{
+		document.getElementById('noUpdate').style.display = "none";
+		document.getElementById('minorUpdate').style.display = "none";
+		document.getElementById('majorUpdate').style.display = "none";
+		document.getElementById('NewXReleaseUpdate').style.display = "none";
+
+		if(dataFromJSON.version == "1")
+		{
+			document.getElementById('minorUpdate').style.display = "block";
+			document.getElementById('minorUpdatesVersionNumber').innerHTML = dataFromJSON.versionNumber;
+		}
+		else if (dataFromJSON.version == "2")
+		{
+			document.getElementById('majorUpdate').style.display = "block";
+			document.getElementById('majorUpdatesVersionNumber').innerHTML = dataFromJSON.versionNumber;
+		}
+		else
+		{
+			document.getElementById('NewXReleaseUpdate').style.display = "block";
+			document.getElementById('veryMajorUpdatesVersionNumber').innerHTML = dataFromJSON.versionNumber;
+		}
+
+
+		document.getElementById('releaseNotesHeader').style.display = "block";
+		document.getElementById('releaseNotesBody').style.display = "block";
+		document.getElementById('releaseNotesBody').innerHTML = dataFromJSON.changeLog;
+		document.getElementById('settingsInstallUpdate').innerHTML = '<a class="link" onclick="installUpdates();">Install '+dataFromJSON.versionNumber+' Update</a>';
+
+
+		//Update needed
+		showPopup();
+		document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >New Version Available!</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Version "+dataFromJSON.versionNumber+" is now available!</div><div class='link' onclick='installUpdates();' style='margin-left:74px; margin-right:50px;margin-top:25px;'>Update Now</div><div onclick='hidePopup();' class='link'>Maybe Later</div></div>";
 	}
 
 	function closePopupNoUpdate()

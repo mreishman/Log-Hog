@@ -3,38 +3,49 @@ require_once('../../local/layout.php');
 $baseUrl = "../../local/".$currentSelectedTheme."/";
 require_once($baseUrl.'conf/config.php');
 require_once('../../core/php/configStatic.php');
+require_once('../../core/php/updateProgressFile.php');
 
-function tail($filename) 
+function tail($filename)
 {
 	$filename = preg_replace('/([()"])/S', '$1', $filename);
 	return filesize($filename);
 }
 
-$response = array();
-
-foreach($config['watchList'] as $path => $filter) 
+if($configStatic['version'] != $_POST['currentVersion'])
 {
-	if(is_dir($path)) 
+	$response = false;
+}
+elseif(array_key_exists('percent', $updateProgress) && ($updateProgress['percent'] != 0) && $updateProgress['percent'] != 100)
+{
+	$response = "update in progress";
+}
+else
+{
+	$response = array();
+
+	foreach($config['watchList'] as $path => $filter)
 	{
-		$path = preg_replace('/\/$/', '', $path);
-		$files = scandir($path);
-		if($files) 
+		if(is_dir($path))
 		{
-			unset($files[0], $files[1]);
-			foreach($files as $k => $filename) {
-				$fullPath = $path . '/' . $filename;
-				if(preg_match('/' . $filter . '/S', $filename) && is_file($fullPath))
-				{
-					$dataVar = htmlentities(tail($fullPath));
-					$response[$fullPath] = $dataVar;
+			$path = preg_replace('/\/$/', '', $path);
+			$files = scandir($path);
+			if($files)
+			{
+				unset($files[0], $files[1]);
+				foreach($files as $k => $filename) {
+					$fullPath = $path . '/' . $filename;
+					if(preg_match('/' . $filter . '/S', $filename) && is_file($fullPath))
+					{
+						$response[$fullPath] = htmlentities(tail($fullPath));
+					}
 				}
 			}
 		}
-	}
-	elseif(file_exists($path))
-	{
-		$dataVar =  htmlentities(tail($path));
-		$response[$path] = $dataVar;
+		elseif(file_exists($path))
+		{
+			$response[$path] = htmlentities(tail($path));
+		}
 	}
 }
+
 echo json_encode($response);

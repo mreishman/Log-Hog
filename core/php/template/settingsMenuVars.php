@@ -3,7 +3,11 @@
 		Menu Settings
 		<div class="settingsHeaderButtons">
 			<a onclick="resetSettingsMenuVar();" id="resetChangesMenuSettingsHeaderButton" style="display: none;" class="linkSmall" > Reset Current Changes</a>
-			<button onclick="displayLoadingPopup();" >Save Changes</button>
+			<?php if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
+			<a class="linkSmall" onclick="saveAndVerifyMain('settingsMenuVars');" >Save Changes</a>
+			<?php else: ?>
+				<button  onclick="displayLoadingPopup();">Save Changes</button>
+			<?php endif; ?>
 		</div>
 		</div>
 		<div class="settingsDiv" >

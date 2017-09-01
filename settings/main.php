@@ -24,6 +24,14 @@ require_once('../core/php/loadVars.php');
 	<link rel="stylesheet" type="text/css" href="<?php echo $baseUrl ?>template/theme.css">
 	<link rel="icon" type="image/png" href="../core/img/favicon.png" />
 	<script src="../core/js/jquery.js"></script>
+	<?php if($sendCrashInfoJS === "true"): ?>
+	<script src="https://cdn.ravenjs.com/3.17.0/raven.min.js" crossorigin="anonymous"></script>
+	<script type="text/javascript">
+		Raven.config('https://2e455acb0e7a4f8b964b9b65b60743ed@sentry.io/205980', {
+		    release: '2.3.5'
+		}).install();
+	</script>
+	<?php endif; ?>
 </head>
 <body>
 
@@ -48,39 +56,26 @@ require_once('../core/php/loadVars.php');
 	document.getElementById("settingsSelect").addEventListener("change", showOrHideUpdateSubWindow, false);
 	document.getElementById("logTrimTypeToggle").addEventListener("change", changeDescriptionLineSize, false);
 	document.getElementById("logTrimOn").addEventListener("change", showOrHideLogTrimSubWindow, false);
+	var mainData;
+	var watchlistData;
+	var menuData;
 	var popupSettingsArray = JSON.parse('<?php echo json_encode($popupSettingsArray) ?>');
 	var fileArray = JSON.parse('<?php echo json_encode($config['watchList']) ?>');
-	var countOfWatchList = <?php echo ($i+1); ?>;
+	var fileArrayKeys = Object.keys(fileArray);
+	var countOfWatchList = fileArrayKeys.length;
 	var countOfAddedFiles = 0;
 	var countOfClicks = 0;
 	var locationInsert = "newRowLocationForWatchList";
 	var logTrimType = "<?php echo $logTrimType; ?>";
- 	arrayOfValuesToCheckBeforeSave = Array(
-				Array((document.getElementsByName("sliceSize")[0]), "<?php echo $sliceSize;?>"),
-				Array((document.getElementsByName("pollingRate")[0]),"<?php echo $pollingRate;?>"),
-				Array((document.getElementsByName("pausePoll")[0]),"<?php echo $pausePoll;?>"),
-				Array((document.getElementsByName("pauseOnNotFocus")[0]),"<?php echo $pauseOnNotFocus;?>"),
-				Array((document.getElementsByName("autoCheckUpdate")[0]),"<?php echo $autoCheckUpdate;?>"),
-				Array((document.getElementsByName("truncateLog")[0]),"<?php echo $truncateLog;?>"),
-				Array((document.getElementsByName("popupWarnings")[0]),"<?php echo $popupWarnings;?>"),
-				Array((document.getElementsByName("flashTitleUpdateLog")[0]),"<?php echo $flashTitleUpdateLog;?>"),
-				Array((document.getElementsByName("saveSettings")[0]),popupSettingsArray.saveSettings),
-				Array((document.getElementsByName("blankFolder")[0]),popupSettingsArray.blankFolder),
-				Array((document.getElementsByName("removeFolder")[0]),popupSettingsArray.removeFolder),
-				Array((document.getElementsByName("pollingRateType")[0]),"<?php echo $pollingRateType;?>"),
-				Array((document.getElementsByName("autoCheckDaysUpdate")[0]),"<?php echo $autoCheckDaysUpdate;?>"),
-				Array((document.getElementsByName("updateNoticeMeter")[0]),"<?php echo $updateNoticeMeter;?>"),
-				Array((document.getElementsByName("logTrimOn")[0]),"<?php echo $logTrimOn;?>"),
-				Array((document.getElementsByName("rightClickMenuEnable")[0]),"<?php echo $rightClickMenuEnable;?>"));
- 	arrayOfValuesToCheckBeforeSaveWatchList = Array(
- 				Array((document.getElementById("numberOfRows")),"<?php echo $folderCount;?>")
- 		);
-	arrayOfValuesToCheckBeforeSaveMenu = Array(
-				Array((document.getElementsByName("hideEmptyLog")[0]), "<?php echo $hideEmptyLog;?>"),
-				Array((document.getElementsByName("groupByType")[0]), "<?php echo $groupByType;?>"),
-				Array((document.getElementsByName("groupByColorEnabled")[0]),"<?php echo $groupByColorEnabled;?>"));
  	var savedInnerHtmlWatchList;
  	var savedInnerHtmlMainVars;
+ 	var savedInnerHtmlMenu;
+
+ 	var countOfWatchListStatic = countOfWatchList;
+	var countOfAddedFilesStatic = countOfAddedFiles;
+	var countOfClicksStatic = countOfClicks;
+	var locationInsertStatic = locationInsert;
+	var sendCrashInfoJS = "<?php echo $sendCrashInfoJS;?>";
 
 	if(logTrimType == 'lines')
 	{
@@ -90,7 +85,8 @@ require_once('../core/php/loadVars.php');
 	{
 		document.getElementById('logTrimTypeText').innerHTML = "Size";
 	}
-function goToUrl(url)
+
+	function goToUrl(url)
 	{
 		var goToPage = true
 		if(popupSettingsArray.saveSettings != "false")
@@ -98,18 +94,11 @@ function goToUrl(url)
 			goToPage = !checkForChangesMainSettings();
 			if(goToPage)
 			{
-				if(document.getElementById('settingsMainWatch').innerHTML != savedInnerHtmlWatchList)
+				goToPage = !checkForChangesWatchListPoll();
+				if(goToPage)
 				{
-					goToPage = false;
+					goToPage = !checkForChangesMenuSettings();
 				}
-			}
-			if(goToPage)
-			{
-				goToPage = checkForChangesWatchList();
-			}
-			if(goToPage)
-			{
-				goToPage = !checkForChangesMenuSettings();
 			}
 		}
 		if(goToPage)
@@ -122,67 +111,15 @@ function goToUrl(url)
 		}
 	}
 
-	function checkArrayOfArraysToMatch(arrayOfArrays)
-	{
-		var returnValue = true;
-		for (var i = arrayOfArrays.length - 1; i >= 0; i--) 
-		{
-			if(arrayOfArrays[i][0].value != arrayOfArrays[i][1])
-			{
-				returnValue = false;
-				break;
-			}
-		}
-		return returnValue;
-	}
-
-	function checkForChangesWatchList()
-	{
-		var fileCount = 1;
-		var returnValue = true;
-		if(document.getElementById('settingsMainWatch').innerHTML != savedInnerHtmlWatchList)
-		{
-			returnValue = false;
-		}
-		if(returnValue)
-		{
-			$.each( fileArray, function( key, value ) 
-			{
-				if(returnValue)
-				{
-					if(document.getElementsByName("watchListKey"+fileCount)[0])
-					{
-						if(document.getElementsByName("watchListKey"+fileCount)[0].value != key)
-						{
-							returnValue = false;
-						}
-						else if (document.getElementsByName("watchListItem"+fileCount)[0].value != value)
-						{
-							returnValue =  false;
-						}
-					}
-					else
-					{
-						returnValue = false;
-					}
-					fileCount++;
-				}
-			});
-		}
-		return returnValue;
-	}
-
 	function checkForChangesWatchListPoll()
 	{
-		if(!checkForChangesWatchList())
+		if(!objectsAreSame($('#settingsMainWatch').serializeArray(),watchlistData))
 		{
-			//show reset button
 			document.getElementById('resetChangesSettingsHeaderButton').style.display = "inline-block";
 			return true;
 		}
 		else
 		{
-			//hide reset button
 			document.getElementById('resetChangesSettingsHeaderButton').style.display = "none";
 			return false;
 		}
@@ -190,15 +127,13 @@ function goToUrl(url)
 
 	function checkForChangesMainSettings()
 	{
-		if(!checkArrayOfArraysToMatch(arrayOfValuesToCheckBeforeSave))
+		if(!objectsAreSame($('#settingsMainVars').serializeArray(),mainData))
 		{
-			//show reset button
 			document.getElementById('resetChangesMainSettingsHeaderButton').style.display = "inline-block";
 			return true;
 		}
 		else
 		{
-			//hide reset button
 			document.getElementById('resetChangesMainSettingsHeaderButton').style.display = "none";
 			return false;
 		}
@@ -206,15 +141,13 @@ function goToUrl(url)
 
 	function checkForChangesMenuSettings()
 	{
-		if(!checkArrayOfArraysToMatch(arrayOfValuesToCheckBeforeSaveMenu))
+		if(!objectsAreSame($('#settingsMenuVars').serializeArray(), menuData))
 		{
-			//show reset button
 			document.getElementById('resetChangesMenuSettingsHeaderButton').style.display = "inline-block";
 			return true;
 		}
 		else
 		{
-			//hide reset button
 			document.getElementById('resetChangesMenuSettingsHeaderButton').style.display = "none";
 			return false;
 		}
@@ -237,39 +170,83 @@ function goToUrl(url)
 
 	$( document ).ready(function() 
 	{
-		savedInnerHtmlWatchList = document.getElementById('settingsMainWatch').innerHTML;
-		savedInnerHtmlMainVars = document.getElementById('settingsMainVars').innerHTML;
+		refreshSettingsMainVar();
+		refreshSettingsMenuVar();
+		refreshSettingsWatchList();
     	setInterval(poll, 100);
 	});
-
-	function resetSettingsArrayList(arrayOfArrays)
-	{
-		for (var i = arrayOfArrays.length - 1; i >= 0; i--) 
-		{
-			arrayOfArrays[i][0].value = arrayOfArrays[i][1];
-		}
-	}
 
 	function resetWatchListVars()
 	{
 		document.getElementById('settingsMainWatch').innerHTML = savedInnerHtmlWatchList;
-		countOfWatchList = <?php echo ($i+1); ?>;
-		countOfAddedFiles = 0;
-		countOfClicks = 0;
-		locationInsert = "newRowLocationForWatchList";
-		resetSettingsArrayList(arrayOfValuesToCheckBeforeSaveWatchList);
+		watchlistData = $('#settingsMainWatch').serializeArray();
+		countOfWatchList = countOfWatchListStatic;
+		countOfAddedFiles =  countOfAddedFilesStatic;
+		countOfClicks = countOfClicksStatic;
+		locationInsert = locationInsertStatic;
 	}
 
 	function resetSettingsMainVar()
 	{
-		resetSettingsArrayList(arrayOfValuesToCheckBeforeSave);
+		document.getElementById('settingsMainVars').innerHTML = savedInnerHtmlMainVars;
+		mainData = $('#settingsMainVars').serializeArray();
 	}
 
 	function resetSettingsMenuVar()
 	{
-		resetSettingsArrayList(arrayOfValuesToCheckBeforeSaveMenu);
+		document.getElementById('settingsMenuVars').innerHTML = savedInnerHtmlMenu;
+		menuData = $('#settingsMenuVars').serializeArray();
 	}
-	
+
+	function refreshSettingsMainVar()
+	{
+		mainData = $('#settingsMainVars').serializeArray();
+		savedInnerHtmlWatchList = document.getElementById('settingsMainWatch').innerHTML;
+	}
+
+	function refreshSettingsMenuVar()
+	{
+		menuData = $('#settingsMenuVars').serializeArray();
+		savedInnerHtmlMenu = document.getElementById('settingsMenuVars').innerHTML;
+	}
+
+	function refreshSettingsWatchList()
+	{
+		watchlistData = $('#settingsMainWatch').serializeArray();
+		savedInnerHtmlMainVars = document.getElementById('settingsMainVars').innerHTML;
+		countOfWatchListStatic = countOfWatchList;
+		countOfAddedFilesStatic = countOfAddedFiles;
+		countOfClicksStatic = countOfClicks;
+		locationInsertStatic = locationInsert;
+	}
+
+	function objectsAreSameInner(x, y) 
+	{
+	   	var objectsAreSame = true;
+	   	for(var propertyName in x) 
+	   	{
+	      	if( (typeof(x) === 'undefined') || (typeof(y) === 'undefined') || x[propertyName] !== y[propertyName])
+	      	{
+	         objectsAreSame = false;
+	         break;
+	    	}
+   		}
+   		return objectsAreSame;
+	}
+
+	function objectsAreSame(x, y) 
+	{
+		var returnValue = true;
+		for (var i = x.length - 1; i >= 0; i--) 
+		{
+			if(!objectsAreSameInner(x[i],y[i]))
+			{
+				returnValue = false;
+				break;
+			}
+		}
+		return returnValue;
+	}
 
 	</script>
 <?php endif; ?>

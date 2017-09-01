@@ -113,8 +113,7 @@ foreach ($versionCheckArray['versionList'] as $key => $value) {
   }
 }
 
-$newInfoForConfig = "
-<?php
+$newInfoForConfig = "<?php
 
 $"."configStatic = array(
   'version'   => '".$configStatic['version']."',
@@ -231,12 +230,20 @@ foreach ($versionCheckArray['versionList'] as $key => $value)
           $levelOfUpdate = 3;
           break;
         }
+        elseif($newestVersion[$i] < $version[$i])
+        {
+          break;
+        }
       }
       elseif($i == 1)
       {
         if($newestVersion[$i] > $version[$i])
         {
           $levelOfUpdate = 2;
+          break;
+        }
+        elseif($newestVersion[$i] < $version[$i])
+        {
           break;
         }
       }
@@ -247,6 +254,10 @@ foreach ($versionCheckArray['versionList'] as $key => $value)
           $levelOfUpdate = 1;
           break;
         }
+        elseif($newestVersion[$i] < $version[$i])
+        {
+          break;
+        }
       }
     }
     else
@@ -255,7 +266,7 @@ foreach ($versionCheckArray['versionList'] as $key => $value)
       break;
     }
   }
-  $Changelog .= "  ".$levelOfUpdate."  ";
+
   if($levelOfUpdate != 0)
   {
     $Changelog .= "<li><h2>Changelog For ".$key." update</h2></li>";

@@ -1,14 +1,15 @@
 <?php
 
-
-
-
 function downloadFile($file = null, $update = true, $downloadFrom = 'Log-Hog/archive/', $downloadTo = '../../update/downloads/updateFiles/updateFiles.zip')
 {
-	if($file == null)
+	if($update == true)
 	{
-		$file = $POST_['file'];
+		require_once('configStatic.php');
+		$arrayForFile = $configStatic['versionList'];
+		$arrayForFile = $arrayForFile[$file];
+		$file = $arrayForFile['branchName'];
 	}
+
 	file_put_contents($downloadTo, 
 	file_get_contents("https://github.com/mreishman/".$downloadFrom.$file.".zip")
 	);
@@ -42,6 +43,7 @@ function unzipFile($locationExtractTo = '../../update/downloads/updateFiles/extr
 	$path = $locationExtractFrom;
 	$res = $zip->open($path);
 	$arrayOfExtensions = array('.php','.js','.css','.html','.png','.jpg','.jpeg','.gif');
+	$arrayOfFiles = array();
 	if ($res === TRUE) {
 	  for($i = 0; $i < $zip->numFiles; $i++) {
 	        $filename = $zip->getNameIndex($i);
@@ -49,9 +51,18 @@ function unzipFile($locationExtractTo = '../../update/downloads/updateFiles/extr
 	        if (strposa($fileinfo['basename'], $arrayOfExtensions, 1)) 
 	        {
 	          copy("zip://".$path."#".$filename, $locationExtractTo.$fileinfo['basename']);
+	          array_push($arrayOfFiles, $fileinfo['basename']);
 	        }
 	    }                   
 	    $zip->close();  
+	}
+	if(empty($arrayOfFiles))
+	{
+		return false;
+	}
+	else
+	{
+		return $arrayOfFiles;
 	}
 }
 

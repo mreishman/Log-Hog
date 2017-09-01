@@ -3,18 +3,22 @@
 	WatchList
 	<div class="settingsHeaderButtons">
 		<a onclick="resetWatchListVars();" id="resetChangesSettingsHeaderButton" style="display: none;" class="linkSmall" > Reset Current Changes</a>
-		<button >Save Changes</button>
+		<?php if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
+			<a class="linkSmall" onclick="saveAndVerifyMain('settingsMainWatch');" >Save Changes</a>
+		<?php else: ?>
+			<button  onclick="displayLoadingPopup();">Save Changes</button>
+		<?php endif; ?>
 	</div>
 </div>
 <div class="settingsDiv" >	
 <ul id="settingsUl">
-	<?php 
+	<?php
 		$i = 0;
 		$triggerSaveUpdate = false;
 		foreach($config['watchList'] as $key => $item): $i++;
 		if(file_exists($key))
 		{
-			$perms  =  fileperms($key); 
+			$perms  =  fileperms($key);
 
 			switch ($perms & 0xF000) {
 			    case 0xC000: // socket
@@ -82,9 +86,36 @@
 			echo '<img id="fileNotFoundImage'.$i.'" src="../core/img/redWarning.png" height="10px">';
 		}
 		?> 
-			<input style='width: <?php if(!file_exists($key)){echo "480";}else{echo "500";}?>px ' type='text' name='watchListKey<?php echo $i; ?>' value='<?php echo $key; ?>'>
-			<input type='text' name='watchListItem<?php echo $i; ?>' value='<?php echo $item; ?>'>
-			<a class="link" onclick="deleteRowFunctionPopup(<?php echo $i; ?>, true, '<?php echo $key; ?>')">Remove File / Folder</a>
+			<input 
+				style='width: 
+					<?php 
+					if(!file_exists($key))
+						{
+							echo "480";
+						}
+						else
+						{
+							echo "500";
+						}
+					?>px ' 
+				type='text'
+				name='watchListKey<?php echo $i; ?>'
+				value='<?php echo $key; ?>'
+			>
+			<input 
+				type='text'
+				name='watchListItem<?php echo $i; ?>'
+				value='<?php echo $item; ?>'
+			>
+			<a 
+				class="link"
+				onclick="deleteRowFunctionPopup(
+					<?php echo $i; ?>,
+					true,
+					'<?php echo $key; ?>')"
+			>
+				Remove
+			</a>
 	</li>
 
 <?php endforeach; ?>

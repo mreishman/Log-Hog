@@ -7,16 +7,15 @@ if(file_exists('local/layout.php'))
 	require_once('local/layout.php');
 	$baseUrl .= $currentSelectedTheme."/";
 }
-require_once($baseUrl.'conf/config.php'); 
+require_once($baseUrl.'conf/config.php');
 require_once('core/conf/config.php');
-require_once('core/php/configStatic.php');  
+require_once('core/php/configStatic.php');
 ?>
 
 <h1> Error <?php echo $_GET["error"] ?> </h1>
 <h1> <?php echo $_GET["page"] ?> </h1>
 <img src="core/img/redWarning.png" height="60px">
-<?php 
-
+<?php
 if($_GET["error"] == 550)
 {
 	echo "<h2>File Permission Error</h2>";
@@ -32,10 +31,10 @@ if($_GET["error"] == 550)
 
 $arrayOfFiles = array("update/updater.php","core/php/configStatic.php","core/php/loadVars.php","core/php/poll.php","core/php/settingsCheckForUpdate.php","core/php/settingsCheckForUpdateAjax.php","core/php/settingsSave.php","core/php/settingsInstallUpdate.php","core/php/updateActionFile.php","core/php/updateProgressFile.php","core/php/updateProgressFileNext.php","core/php/updateProgressLog.php","core/php/updateProgressLogHead.php","core/php/verifyWriteStatus.php");
 
-foreach ($arrayOfFiles as $key) 
+foreach ($arrayOfFiles as $key)
 {
 
- $perms  =  fileperms($key); 
+$perms  =  fileperms($key);
 
 switch ($perms & 0xF000) {
     case 0xC000: // socket

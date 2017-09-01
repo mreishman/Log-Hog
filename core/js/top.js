@@ -2,42 +2,44 @@ var dropdownMenuVisible = false;
 
 function killProcess(processNumber)
 {
-	var urlForSend = baseRedirect+'core/php/killProcess.php?format=json';
+	var urlForSend = baseRedirect+"core/php/killProcess.php?format=json";
 	var data = {processNumber: processNumber};
 	$.ajax({
-	  url: urlForSend,
-	  dataType: 'json',
-	  data: data,
-	  type: 'POST',
-	  success: function(data){
-	  	console.log(data);
-	  	procStatFunc();
-	  },
+		url: urlForSend,
+		dataType: "json",
+		data: data,
+		type: "POST",
+		success(data){
+		procStatFunc();
+		},
 	});
 }
 
-function dropdownShow(nameOfElem) {
-    if(document.getElementById("dropdown-"+nameOfElem).style.display == 'block')
+function dropdownShow(nameOfElem) 
+{
+    if(document.getElementById("dropdown-"+nameOfElem).style.display === "block")
     {
-    	$('.dropdown-content').hide();
-    	dropdownMenuVisible = false;
+		$(".dropdown-content").hide();
+		dropdownMenuVisible = false;
     }
     else
     {
-    	$('.dropdown-content').hide();
-    	document.getElementById("dropdown-"+nameOfElem).style.display = 'block';
-    	document.getElementById("dropdown-"+nameOfElem).style.left = event.clientX+"px";
-    	document.getElementById("dropdown-"+nameOfElem).style.top = event.clientY+"px";
-    	dropdownMenuVisible = true;
-    }
-}
-
-window.onclick = function(event) {
-	if (!event.target.matches('.expandMenu')) {
-		$('.dropdown-content').hide();
-		dropdownMenuVisible = false;
+    	$(".dropdown-content").hide();
+		document.getElementById("dropdown-"+nameOfElem).style.display = "block";
+		document.getElementById("dropdown-"+nameOfElem).style.left = event.clientX+"px";
+		document.getElementById("dropdown-"+nameOfElem).style.top = event.clientY+"px";
+		dropdownMenuVisible = true;
 	}
 }
+
+window.onclick = function(event) 
+{
+	if (!event.target.matches(".expandMenu")) 
+	{
+		$(".dropdown-content").hide();
+		dropdownMenuVisible = false;
+	}
+};
 
 function showGraphPopup(graph, name,type)
 {
@@ -50,21 +52,21 @@ function showGraphPopup(graph, name,type)
 	widthForPopup = (width*0.95);
 	var innerHTMLforPopup = "";
 	innerHTMLforPopup =  "<div class='settingsHeader' ><table style='width:100%; color:black;'><tr><th style='text-align:left;' >"+name+"</th><th style='text-align:right;'><a class='link' onclick='hidePopup();'>Close</a></th></tr></table></div><br><br><div style='width:100%;text-align:center;'>";
-	if(type == "onePage")
+	if(type === "onePage")
 	{
 		innerHTMLforPopup += showOnePagePopup(graph,name,heightForPopup,widthForPopup);
 	}
-	else if(type == "twoColumnLeftOneGraphRightOneGraphOneDescription")
+	else if(type === "twoColumnLeftOneGraphRightOneGraphOneDescription")
 	{
 		innerHTMLforPopup += showTwoColumnLeftOneGraphRightOneGraphOneDescriptionPopup(graph,name,heightForPopup,widthForPopup);
 	}
 	innerHTMLforPopup += "<br><br><div class='settingsHeader' ><table style='width:100%; color:black;'><tr id='popupGraphLowerTr' ><th></th></tr></table></div>  </div>";
-	document.getElementById('popupContentInnerHTMLDiv').innerHTML = innerHTMLforPopup;
-	document.getElementById('popupContent').style.width = width+"px";
-	document.getElementById('popupContent').style.height = height+"px";
-	document.getElementById('popupContent').style.marginTop = "-"+(height/2)+"px";
-	document.getElementById('popupContent').style.marginLeft = "-"+(width/2)+"px";
-	document.getElementById('popupContent').style.backgroundColor = "rgba(68, 68, 68, 0.7)";
+	document.getElementById("popupContentInnerHTMLDiv").innerHTML = innerHTMLforPopup;
+	document.getElementById("popupContent").style.width = width+"px";
+	document.getElementById("popupContent").style.height = height+"px";
+	document.getElementById("popupContent").style.marginTop = "-"+(height/2)+"px";
+	document.getElementById("popupContent").style.marginLeft = "-"+(width/2)+"px";
+	document.getElementById("popupContent").style.backgroundColor = "rgba(68, 68, 68, 0.7)";
 }
 
 function showTwoColumnLeftOneGraphRightOneGraphOneDescriptionPopup(graph,name,heightForPopup,widthForPopup)
@@ -84,7 +86,7 @@ function showOnePagePopup(graph,name,heightForPopup,widthForPopup)
 
 function fillAreaInChart(arrayForFill, bottomArray, color, context, height, width, type)
 {
-	if(type == 1)
+	if(type === 1)
 	{
 		fillAreaInChartVersionOne(arrayForFill, bottomArray, color, context, height, width);
 	}
@@ -171,7 +173,7 @@ function filterData(dataInner, maxRowNum)
 	for (var i = 0; i < dataInnerLength; i++) 
 	{
 		var addToNewArray = true;
-		if(dataInner[i] == " " || dataInner[i] == "")
+		if(dataInner[i] === " " || dataInner[i] === "")
 		{
 			addToNewArray = false;
 		}
@@ -185,7 +187,7 @@ function filterData(dataInner, maxRowNum)
 			else
 			{
 				var filterData = dataInner[i].replace(/(\r\n|\n|\r)/gm, ",");
-				if(filterData.indexOf(',') > -1)
+				if(filterData.indexOf(",") > -1)
 				{
 					dataInnerNewRow = filterData.split(",");
 					counterForRow = 0;
@@ -219,17 +221,17 @@ function filterData(dataInner, maxRowNum)
 
 function filterDataFromRUsage(dataInner)
 {
-	phpUserTimeDiff.push((parseFloat(dataInner['ru_utime.tv_usec'])) + (1000000*dataInner["ru_utime.tv_sec"]));
+	phpUserTimeDiff.push((parseFloat(dataInner["ru_utime.tv_usec"])) + (1000000*dataInner["ru_utime.tv_sec"]));
 	if(phpUserTimeDiff.length > 1)
 	{
 		var phpUserTimeDiffForHistory = phpUserTimeDiff[1] - phpUserTimeDiff[0];
 		filterDataFromRUsageUser(phpUserTimeDiffForHistory);
 		phpUserTimeDiff.shift();
 	}
-	phpSystemTimeDiff.push(parseFloat(dataInner['ru_stime.tv_usec']));
+	phpSystemTimeDiff.push(parseFloat(dataInner["ru_stime.tv_usec"]));
 	if(phpSystemTimeDiff.length > 1)
 	{
-		phpSystemTimeDiffForHistory = phpSystemTimeDiff[1] - phpSystemTimeDiff[0]
+		phpSystemTimeDiffForHistory = phpSystemTimeDiff[1] - phpSystemTimeDiff[0];
 		if(phpSystemTimeDiff[1] < phpSystemTimeDiff[0])
 		{
 			phpSystemTimeDiffForHistory = phpSystemTimeDiff[1] - (phpSystemTimeDiff[0]+1000000);
@@ -248,8 +250,8 @@ function filterDataFromRUsageUser(phpUserTimeDiffForHistory)
 	phpUserTimeHistory.push(phpUserTimeDiffForHistory);
 	phpUserTimeHistory.shift();
 
-	document.getElementById('canvasMonitorLoading_PHP_UTU').style.display = "none";
-	document.getElementById('PHPUTUCanvas').style.display = "block";
+	document.getElementById("canvasMonitorLoading_PHP_UTU").style.display = "none";
+	document.getElementById("PHPUTUCanvas").style.display = "block";
 
 	var arrayToShowInConsole = new Array();
 	var baseArray = new Array();
@@ -261,7 +263,7 @@ function filterDataFromRUsageUser(phpUserTimeDiffForHistory)
 	}
 	var maxOfArray = Math.max.apply(Math, arrayToShowInConsole);
 	var arrayToShowInConsoleLength = arrayToShowInConsole.length;
-	document.getElementById('canvasMonitorPHPUTUText').innerHTML = arrayToShowInConsole[arrayToShowInConsoleLength-1] + "/" + maxOfArray;
+	document.getElementById("canvasMonitorPHPUTUText").innerHTML = arrayToShowInConsole[arrayToShowInConsoleLength-1] + "/" + maxOfArray;
 	for(var j = 0; j < arrayToShowInConsoleLength; j++)
 	{
 		arrayToShowInConsole[j] = ((arrayToShowInConsole[j]/maxOfArray)*100).toFixed(1);
@@ -273,7 +275,7 @@ function filterDataFromRUsageUser(phpUserTimeDiffForHistory)
 	{
 		var arrayOfArraysToFillWith = [arrayToShowInConsole];
 		popupFillInChart(phpUTUPopupArea, baseArray, arrayOfArraysToFillWith);
-		document.getElementById('popupGraphLowerTr').innerHTML = "<th style='background-color:blue; width:25px;'><th  style='text-align:left;'>Current: "+arrayToShowInConsole[arrayToShowInConsoleLength-1]+"% of "+maxOfArray+"</th></th>";
+		document.getElementById("popupGraphLowerTr").innerHTML = "<th style='background-color:blue; width:25px;'><th  style='text-align:left;'>Current: "+arrayToShowInConsole[arrayToShowInConsoleLength-1]+"% of "+maxOfArray+"</th></th>";
 	}
 
 }
@@ -283,8 +285,8 @@ function filterDataFromRUsageSystem(phpSystemTimeDiffForHistory)
 	phpSystemTimeHistory.push(phpSystemTimeDiffForHistory);
 	phpSystemTimeHistory.shift();
 
-	document.getElementById('canvasMonitorLoading_PHP_STU').style.display = "none";
-	document.getElementById('PHPSTUCanvas').style.display = "block";
+	document.getElementById("canvasMonitorLoading_PHP_STU").style.display = "none";
+	document.getElementById("PHPSTUCanvas").style.display = "block";
 
 	var arrayToShowInConsole = new Array();
 	var baseArray = new Array();
@@ -296,7 +298,7 @@ function filterDataFromRUsageSystem(phpSystemTimeDiffForHistory)
 	}
 	var maxOfArray = Math.max.apply(Math, arrayToShowInConsole);
 	var arrayToShowInConsoleLength = arrayToShowInConsole.length;
-	document.getElementById('canvasMonitorPHPSTUText').innerHTML = arrayToShowInConsole[arrayToShowInConsoleLength-1] + "/" + maxOfArray;
+	document.getElementById("canvasMonitorPHPSTUText").innerHTML = arrayToShowInConsole[arrayToShowInConsoleLength-1] + "/" + maxOfArray;
 	for(var j = 0; j < arrayToShowInConsoleLength; j++)
 	{
 		arrayToShowInConsole[j] = ((arrayToShowInConsole[j]/maxOfArray)*100).toFixed(1);
@@ -305,12 +307,12 @@ function filterDataFromRUsageSystem(phpSystemTimeDiffForHistory)
 	var fillThisContext= fillThis.getContext("2d");
 	fillThisContext.clearRect(0, 0, fillThis.height, fillThis.width);
 	fillAreaInChart(arrayToShowInConsole, baseArray, "blue",fillThisContext, fillThis.height, fillThis.width,1);
-	var phpSTUPopupArea = document.getElementById('phpSTUPopupCanvas');
+	var phpSTUPopupArea = document.getElementById("phpSTUPopupCanvas");
 	if(phpSTUPopupArea)
 	{
 		var arrayOfArraysToFillWith = [arrayToShowInConsole];
 		popupFillInChart(phpSTUPopupArea, baseArray, arrayOfArraysToFillWith);
-		document.getElementById('popupGraphLowerTr').innerHTML = "<th style='background-color:blue; width:25px;'><th  style='text-align:left;'>Current: "+arrayToShowInConsole[arrayToShowInConsoleLength-1]+"% of "+maxOfArray+"</th></th>";
+		document.getElementById("popupGraphLowerTr").innerHTML = "<th style='background-color:blue; width:25px;'><th  style='text-align:left;'>Current: "+arrayToShowInConsole[arrayToShowInConsoleLength-1]+"% of "+maxOfArray+"</th></th>";
 	}
 }
 //check if used + free = total, if not add buffer/cache

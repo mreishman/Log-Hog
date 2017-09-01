@@ -1,9 +1,17 @@
 <?php
 
 $defaultConfig = array(
+	'configVersion'	=> 1,
+	'layoutVersion'	=> 1,
+	'sendCrashInfoJS'	=> 'true',
+	'sendCrashInfoPHP'	=> 'true',
 	'sliceSize'		=> 500,
 	'pollingRate'	=> 500,
 	'buffer'		=> 500,
+	'pollRefreshAll'	=> 120,
+	'pollRefreshAllBool'	=> 'true',
+	'pollForceTrue'		=> 60,
+	'pollForceTrueBool'	=> 'true',
 	'pausePoll'		=> 'false',
 	'pauseOnNotFocus' => 'true',
 	'autoCheckUpdate' => 'true',

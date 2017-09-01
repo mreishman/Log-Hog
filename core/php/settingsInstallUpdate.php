@@ -7,9 +7,6 @@ function updateMainProgressLogFile($dotsTime)
 	require_once('configStatic.php');
 	require_once('updateProgressFileNext.php');
 
-	require_once('verifyWriteStatus.php');
-	checkForUpdate($_SERVER['REQUEST_URI']);
-
 	$dots = "";
 	while($dotsTime > 0.1)
 	{
@@ -21,8 +18,8 @@ function updateMainProgressLogFile($dotsTime)
 	//find next version to update to
 	if(!empty($configStatic))
 	{
-
-		foreach ($configStatic['versionList'] as $key => $value) 
+		$keys = array_keys($configStatic['versionList']);
+		foreach ($keys as $key)
 		{
 			$version = explode('.', $configStatic['version']);
 			$newestVersion = explode('.', $key);
@@ -36,7 +33,7 @@ function updateMainProgressLogFile($dotsTime)
 			{
 				if($i < $versionCount)
 				{
-					if($i == 0)
+					if($i === 0)
 					{
 						if($newestVersion[$i] > $version[$i])
 						{
@@ -49,7 +46,7 @@ function updateMainProgressLogFile($dotsTime)
 							break;
 						}
 					}
-					elseif($i == 1)
+					elseif($i === 1)
 					{
 						if($newestVersion[$i] > $version[$i])
 						{
@@ -62,7 +59,7 @@ function updateMainProgressLogFile($dotsTime)
 							break;
 						}
 					}
-					else
+					elseif($i > 1)
 					{
 						if($newestVersion[$i] > $version[$i])
 						{
@@ -91,7 +88,6 @@ function updateMainProgressLogFile($dotsTime)
 
 		}
 	}
-	
 
 	if(!empty($configStatic))
 	{
@@ -118,20 +114,15 @@ function updateMainProgressLogFile($dotsTime)
 	file_put_contents("updateProgressLog.php", $mainFileContents);
 }
 
-function updateHeadProgressLogFile($message)
-{
-
-}
-
-function updateProgressFile($status, $pathToFile, $typeOfProgress, $action)
+function updateProgressFile($status, $pathToFile, $typeOfProgress, $action, $percent = 0)
 {
 	$writtenTextTofile = "<?php
-	$"."updateProgress = array(
-  	'currentStep'   => '".$status."',
-  	'action' => '".$action."'
-	);
-	?>
-	";
+$"."updateProgress = array(
+'currentStep'   => '".$status."',
+'action' => '".$action."',
+'percent' => ".$percent."
+);
+?>";
 
 	$fileToPutContent = $pathToFile.$typeOfProgress;
 
@@ -140,34 +131,41 @@ function updateProgressFile($status, $pathToFile, $typeOfProgress, $action)
 
 function downloadFile($file = null, $update = true, $downloadFrom = 'Log-Hog/archive/', $downloadTo = '../../update/downloads/updateFiles/updateFiles.zip')
 {
-	require_once('configStatic.php');
+
 	if($update == true)
 	{
-		$arrayForFile = $configStatic['versionList'];
-		$arrayForFile = $arrayForFile[$file];
-		$file = $arrayForFile['branchName'];
+		require_once('configStatic.php');
+		$file = $configStatic['versionList'][$file]['branchName'];
 	}
-	if($file == null)
-	{
-		$file = $POST_['file'];
-	}
-	file_put_contents($downloadTo, 
+
+	file_put_contents($downloadTo,
 	file_get_contents("https://github.com/mreishman/".$downloadFrom.$file.".zip")
 	);
 }
 
-function rrmdir($dir) {
-   if (is_dir($dir)) {
-     $objects = scandir($dir);
-     foreach ($objects as $object) {
-       if ($object != "." && $object != "..") {
-         if (filetype($dir."/".$object) == "dir") rrmdir($dir."/".$object); else unlink($dir."/".$object);
-       }
-     }
-     reset($objects);
-     rmdir($dir);
-   }
- }
+function rrmdir($dir)
+{
+	if (is_dir($dir))
+	{
+		$objects = scandir($dir);
+		foreach ($objects as $object)
+		{
+			if ($object != "." && $object != "..") 
+			{
+				if (filetype($dir."/".$object) == "dir")
+				{
+					rrmdir($dir."/".$object);
+				}
+				else
+				{
+					unlink($dir."/".$object);
+				}
+			}
+		}
+    reset($objects);
+    rmdir($dir);
+	}
+}
 
 function unzipFile($locationExtractTo = '../../update/downloads/updateFiles/extracted/', $locationExtractFrom = '../../update/downloads/updateFiles/updateFiles.zip')
 {
@@ -184,30 +182,44 @@ function unzipFile($locationExtractTo = '../../update/downloads/updateFiles/extr
 	$path = $locationExtractFrom;
 	$res = $zip->open($path);
 	$arrayOfExtensions = array('.php','.js','.css','.html','.png','.jpg','.jpeg','.gif');
-	if ($res === TRUE) {
+	$arrayOfFiles = array();
+	if ($res === true) {
 	  for($i = 0; $i < $zip->numFiles; $i++) {
 	        $filename = $zip->getNameIndex($i);
 	        $fileinfo = pathinfo($filename);
-	        if (strposa($fileinfo['basename'], $arrayOfExtensions, 1)) 
+	        if (strposa($fileinfo["basename"], $arrayOfExtensions, 1))
 	        {
 	          copy("zip://".$path."#".$filename, $locationExtractTo.$fileinfo['basename']);
+	          array_push($arrayOfFiles, $fileinfo['basename']);
 	        }
-	    }                   
-	    $zip->close();  
+	    }
+	    $zip->close();
+	}
+	if(empty($arrayOfFiles))
+	{
+		return false;
+	}
+	else
+	{
+		return $arrayOfFiles;
 	}
 }
 
-function unzipFileAndSub($zipfile, $subpath, $destination, $temp_cache, $traverse_first_subdir=true){
+function unzipFileAndSub($zipfile, $subpath, $destination, $temp_cache, $traverseFirstSubdir=true){
 	$zip = new ZipArchive;
-	if(substr($temp_cache, -1) !== DIRECTORY_SEPARATOR) {
+	if(substr($temp_cache, -1) !== DIRECTORY_SEPARATOR)
+	{
 		$temp_cache .= DIRECTORY_SEPARATOR;
 	}
 	$res = $zip->open($zipfile);
-	if ($res === TRUE) {
-	    if ($traverse_first_subdir==true){
+	if ($res === true)
+	{
+	    if ($traverseFirstSubdir === true)
+	    {
 	        $zip_dir = $temp_cache . $zip->getNameIndex(0);
 	    }
-	    else {
+	    else
+	    {
 	    	$temp_cache = $temp_cache . basename($zipfile, ".zip");
 	    	$zip_dir = $temp_cache;
 	    }
@@ -219,7 +231,9 @@ function unzipFileAndSub($zipfile, $subpath, $destination, $temp_cache, $travers
 
 	    //rrmdir($zip_dir);
 	    return true;
-	} else {
+	}
+	else
+	{
 	    return false;
 	}
 }
@@ -238,7 +252,10 @@ function removeZipFile($fileToUnlink = "../../update/downloads/updateFiles/updat
 	{
 		$fileToUnlink = "../../update/downloads/updateFiles/updateFiles.zip";
 	}
-	unlink($fileToUnlink);
+	if(is_file($fileToUnlink))
+	{
+		unlink($fileToUnlink);
+	}
 }
 
 
@@ -306,15 +323,92 @@ function verifyDirIsThere($file)
 	}
 }
 
-function verifyDirIsEmpty($dir) 
+function verifyDirOrFile($file)
 {
-  if (!is_readable($dir)) return NULL; 
-  return (count(scandir($dir)) == 2);
+	if(is_file($file) || is_dir($file))
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+function verifyDirIsEmpty($dir)
+{
+	if (!is_readable($dir))
+	{
+		return null;
+	}
+	return (count(scandir($dir)) == 2);
 }
 
 function handOffToUpdate()
 {
 	require_once('../../update/downloads/updateFiles/extracted/updateScript.php');
+}
+
+function copyFileToFile($currentFile, $indexToExtracted = "update/downloads/updateFiles/extracted/")
+{
+	$varToIndexDir = "../../";
+
+	$currentFileArray = explode("_", $currentFile );  
+	$sizeOfCurrentFileArray = sizeOf($currentFileArray);
+	$nameOfFile = $currentFileArray[$sizeOfCurrentFileArray - 1];
+	$directoryPath = "";
+	  
+	for($i = 0; $i < $sizeOfCurrentFileArray - 1; $i++)
+	{
+	  $directoryPath .= $currentFileArray[$i]."/"; 
+	}
+	 
+	$newFile = $directoryPath.$nameOfFile;
+	$fileTransfer = file_get_contents($varToIndexDir.$indexToExtracted.$currentFile);
+	$newFileWithIndexVar = $varToIndexDir.$newFile;
+	file_put_contents($newFileWithIndexVar,$fileTransfer);
+	return ($newFileWithIndexVar);   
+}
+
+function updateConfigStatic($versionToUpdate)
+{
+	require_once('configStatic.php');
+
+	$arrayForVersionList = "";
+	$countOfArray = count($configStatic['versionList']);
+	$i = 0;
+	foreach ($configStatic['versionList'] as $key => $value) {
+	  $i++;
+	  $arrayForVersionList .= "'".$key."' => array(";
+	  $countOfArraySub = count($value);
+	  $j = 0;
+	  foreach ($value as $keySub => $valueSub) 
+	  {
+	    $j++;
+	    $arrayForVersionList .= "'".$keySub."' => '".$valueSub."'";
+	    if($j != $countOfArraySub)
+	    {
+	      $arrayForVersionList .= ",";
+	    }
+	  }
+	  $arrayForVersionList .= ")";
+	  if($i != $countOfArray)
+	  {
+	    $arrayForVersionList .= ",";
+	  }
+	}
+
+	$newInfoForConfig = "<?php
+
+$"."configStatic = array(
+	'version'   => '".$versionToUpdate."',
+	'lastCheck'   => '".date('m-d-Y')."',
+	'newestVersion' => '".$configStatic['newestVersion']."',
+	'versionList' => array(
+		".$arrayForVersionList."
+	)
+);";
+	file_put_contents("configStatic.php", $newInfoForConfig);
 }
 
 function finishedUpdate()

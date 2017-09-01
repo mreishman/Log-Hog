@@ -11,13 +11,13 @@ if(file_exists('../../local/layout.php'))
 
 if(file_exists($baseUrl.'conf/config.php'))
 {
-	require_once($baseUrl.'conf/config.php'); 
+	require_once($baseUrl.'conf/config.php');
 }
 else
 {
 	$config = array();
 }
-require_once('../../core/conf/config.php'); 
+require_once('../../core/conf/config.php');
 require_once('loadVars.php');
 
 
@@ -25,8 +25,7 @@ require_once('loadVars.php');
 
 	//Don't forget to update Ajax version
 
-	$newInfoForConfig = "
-	<?php
+	$newInfoForConfig = "<?php
 		$"."config = array(
 		";
 	foreach ($defaultConfig as $key => $value)

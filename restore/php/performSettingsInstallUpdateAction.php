@@ -1,16 +1,27 @@
 <?php
 require_once('settingsInstallUpdate.php');
 $action = $_POST['action'];
-$response = $action;
 if($action == 'downloadFile')
 {
-	downloadFile($_POST['file'],false,$_POST['downloadFrom'],$_POST['downloadTo']);
+	$boolUp = false;
+	if(isset($_POST['update']))
+	{
+		if($_POST['update'] == true)
+		{
+			$boolUp = true;
+		}
+	}
+	downloadFile($_POST['file'],$boolUp,$_POST['downloadFrom'],$_POST['downloadTo']);
 	$response = true; 
 }
 elseif($action == 'unzipFile')
 {
 	unzipFileAndSub($_POST['locationExtractFrom'],"",$_POST['locationExtractTo'],"../../");
 	$response = true; 
+}
+elseif($action == 'unzipUpdateAndReturnArray')
+{
+	$response = unzipFile();
 }
 elseif($action == 'removeZipFile')
 {
@@ -26,6 +37,11 @@ elseif($action == 'removeUnZippedFiles')
 	}
 	rrmdir($_POST['locationOfFilesThatNeedToBeRemovedRecursivally']);
 	$response = true; 
+}
+elseif($action == 'removeDirUpdate')
+{
+	removeUnZippedFiles();
+	$response = true;
 }
 elseif($action == 'verifyFileIsThere')
 {
@@ -138,6 +154,17 @@ elseif($action == 'readdSomeFilesFromUninstallProcess')
 	{
 		mkdir('../../top');
 	}
+	$response = true;
+}
+elseif($action == 'updateProgressFile')
+{
+	updateProgressFile($_POST['status'], $_POST['pathToFile'], $_POST['typeOfProgress'], $_POST['actionSave'], $_POST['percent']);
+
+	$response = true;
+}
+else
+{
+	$response = "ACTION";
 }
 echo json_encode($response);
 ?>

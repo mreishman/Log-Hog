@@ -1,7 +1,7 @@
 <?php
 
 
-require_once('configStatic.php'); 
+require_once('configStatic.php');
 
 	$fileName = 'configStatic.php';
 
@@ -34,7 +34,6 @@ else
 	$newestVersion = $configStatic['newestVersion'];
 }
 
-	
 $arrayForVersionList = "";
 $countOfArray = count($configStatic['versionList']);
 $i = 0;
@@ -43,7 +42,7 @@ foreach ($configStatic['versionList'] as $key => $value) {
   $arrayForVersionList .= "'".$key."' => array(";
   $countOfArraySub = count($value);
   $j = 0;
-  foreach ($value as $keySub => $valueSub) 
+  foreach ($value as $keySub => $valueSub)
   {
     $j++;
     $arrayForVersionList .= "'".$keySub."' => '".$valueSub."'";

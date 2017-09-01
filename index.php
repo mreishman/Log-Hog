@@ -19,10 +19,10 @@ if(!file_exists($baseUrl.'conf/config.php'))
 	header('Location: ' . $url, true, 302);
 	exit();
 }
-require_once($baseUrl.'conf/config.php'); 
+require_once($baseUrl.'conf/config.php');
 require_once('core/conf/config.php');
-require_once('core/php/configStatic.php'); 
-require_once('core/php/loadVars.php'); 
+require_once('core/php/configStatic.php');
+require_once('core/php/loadVars.php');
 require_once('core/php/updateCheck.php');
 
 $today = date('Y-m-d');
@@ -81,6 +81,14 @@ elseif($withLogHog == 'true')
 	<title>Log Hog | Index</title>
 	<link rel="stylesheet" type="text/css" href="<?php echo $baseUrl ?>template/theme.css">
 	<link rel="icon" type="image/png" href="core/img/favicon.png" />
+	<?php if($sendCrashInfoJS === "true"): ?>
+	<script src="https://cdn.ravenjs.com/3.17.0/raven.min.js" crossorigin="anonymous"></script>
+	<script type="text/javascript">
+		Raven.config('https://2e455acb0e7a4f8b964b9b65b60743ed@sentry.io/205980', {
+		    release: '2.3.5'
+		}).install();
+	</script>
+	<?php endif; ?>
 	<script src="core/js/jquery.js"></script>
 	<script src="core/js/visibility.core.js"></script>
 	<script src="core/js/visibility.fallback.js"></script>
@@ -94,11 +102,15 @@ elseif($withLogHog == 'true')
 	}
 </style>
 	<?php if($enablePollTimeLogging != "false"): ?>
-		<div id="loggTimerPollStyle" style="width: 100%;background-color: black;text-align: center; line-height: 200%;" ><span id="loggingTimerPollRate" >### MS /<?php echo $pollingRate; ?> MS</span></div>
+		<div id="loggTimerPollStyle" style="width: 100%;background-color: black;text-align: center; line-height: 200%;" ><span id="loggingTimerPollRate" >### MS /<?php echo $pollingRate; ?> MS</span> | <span id="loggSkipCount" >0</span>/<?php echo $pollForceTrue; ?> | <span id="loggAllCount" >0</span>/<?php echo $pollRefreshAll; ?></div>
 	<?php endif; ?>
 	<div id="menu">
 		<div onclick="pausePollAction();" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">
-			<img id="pauseImage" class="menuImage" src="core/img/Pause.png" height="30px">
+			<?php if($pausePoll == 'true'):?>
+				<img id="pauseImage" class="menuImage" src="core/img/Play.png" height="30px">
+			<?php else: ?>
+				<img id="pauseImage" class="menuImage" src="core/img/Pause.png" height="30px">
+			<?php endif;?>
 		</div>
 		<div onclick="refreshAction();" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">
 			<img id="refreshImage" class="menuImage" src="core/img/Refresh.png" height="30px">
@@ -128,6 +140,14 @@ elseif($withLogHog == 'true')
 	
 	<div id="main">
 		<div id="log"></div>
+		<!-- 
+		<div id="firstLoad" style="width: 100%; height: 100%;">
+			<h1 style="margin-right: auto; margin-left: auto; width: 100%; text-align: center;  margin-top: 100px; font-size: 150%;" >Loading...</h1>
+			<div style="width: 80%; height: 50px; background-color: #999; border: 1px solid white; margin-left: auto; margin-right: auto;">
+			
+			</div>
+		</div>
+		-->
 	</div>
 	
 	<div id="storage">
@@ -136,7 +156,7 @@ elseif($withLogHog == 'true')
 		</div>
 	</div>
 	
-	<div style=" <?php if($bottomBarIndexShow == 'false'){echo 'display: none;';}?> " id="titleContainer"><div id="title">&nbsp;</div>&nbsp;&nbsp;<form style="display: inline-block;" ><a class="linkSmall" onclick="clearLog()" >Clear Log</a><a class="linkSmall" onclick="deleteLogPopup()" >Delete Log</a></form></div>
+	<div style=" <?php if($bottomBarIndexShow == 'false'){echo 'display: none;';}?> " id="titleContainer"><div id="title">&nbsp;</div>&nbsp;&nbsp;<form style="display: inline-block; float: right;" ><a class="linkSmall" onclick="clearLog()" >Clear Log</a><a class="linkSmall" onclick="deleteLogPopup()" >Delete Log</a></form></div>
 	<form id="settingsInstallUpdate" action="update/updater.php" method="post" style="display: none"></form>
 	<script>
 
@@ -166,7 +186,9 @@ elseif($withLogHog == 'true')
 		echo "var daysSetToUpdate = '".$autoCheckDaysUpdate."';";
 		echo "var pollingRate = ".$pollingRate.";";
 		echo "var pausePollFromFile = ".$pausePoll.";";
-		echo "var groupByColorEnabled = ".$groupByColorEnabled.";"; 			
+		echo "var groupByColorEnabled = ".$groupByColorEnabled.";";
+		echo "var pollForceTrue = ".$pollForceTrue.";";
+		echo "var pollRefreshAll = ".$pollRefreshAll.";";
 		?>
 		var dontNotifyVersion = "<?php echo $dontNotifyVersion;?>";
 		var currentVersion = "<?php echo $configStatic['version'];?>";
@@ -177,11 +199,10 @@ elseif($withLogHog == 'true')
 		var currentFolderColorTheme = "<?php echo $currentFolderColorTheme; ?>";
 		var popupSettingsArray = JSON.parse('<?php echo json_encode($popupSettingsArray); ?>');
 		var updateNoticeMeter = "<?php echo $updateNoticeMeter;?>";
-		var pausePoll = false;
-		var refreshActionVar;
-		var refreshPauseActionVar;
-		var userPaused = false;
-		var refreshing = false;
+		var pollRefreshAllBool = "<?php echo $pollRefreshAllBool;?>";
+		var pollForceTrueBool = "<?php echo $pollRefreshAllBool;?>";
+		var sendCrashInfoJS = "<?php echo $sendCrashInfoJS;?>";
+
 	</script>
 	<?php readfile('core/html/popup.html') ?>
 	<script src="core/js/main.js"></script>

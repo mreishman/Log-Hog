@@ -1,1 +1,8 @@
-<p id="headerForUpdate"><?php echo $updateProgress['currentStep']; echo " "; echo $versionToUpdate; ?>.</p>
+<p id="headerForUpdate">
+	<?php
+	echo $updateProgress["currentStep"];
+	echo " ";
+	echo $versionToUpdate;
+	?>
+	.
+</p>

@@ -1,15 +1,10 @@
 <?php
 
-require_once('verifyWriteStatus.php');
-checkForUpdate($_SERVER['REQUEST_URI']);
-
-//check for previous update, if failed
-
 $varToIndexDir = "";
 $countOfSlash = 0;
 while($countOfSlash < 20 && !file_exists($varToIndexDir."error.php"))
 {
-  $varToIndexDir .= "../";        
+  $varToIndexDir .= "../";
 }
 
 $baseUrl = $varToIndexDir."core/";
@@ -22,14 +17,42 @@ if(file_exists($varToIndexDir.'local/layout.php'))
 }
 if(file_exists($baseUrl.'conf/config.php'))
 {
-	require_once($baseUrl.'conf/config.php'); 
+	require_once($baseUrl.'conf/config.php');
 }
 else
 {
 	$config = array();
 }
 require_once($varToIndexDir.'core/conf/config.php');
+$URI = $_SERVER['REQUEST_URI'];
+if((strpos($URI, 'upgradeLayout') === false) && (strpos($URI, 'upgradeConfig') === false) && (strpos($URI, 'core/php/template/upgrade') === false))
+{
+	//check if upgrade script is needed
+	$layoutVersion = 0;
+	if(isset($config['layoutVersion']))
+	{
+		$layoutVersion = $config['layoutVersion'];
+	}
+	if($layoutVersion !== $defaultConfig['layoutVersion'])
+	{
+		//redirect to upgrade script for layoutVersion page
+		header("Location: ".$varToIndexDir."core/php/template/upgradeLayout.php");
+		exit();
+	}
 
+	$configVersion = 0;
+	if(isset($config['configVersion']))
+	{
+		$configVersion = $config['configVersion'];
+	}
+	if($configVersion !== $defaultConfig['configVersion'])
+	{
+		//redirect to upgrade script for config page
+		header("Location: ".$varToIndexDir."core/php/template/upgradeConfig.php");
+		exit();
+	}
+}
+//start loading vars
 $loadCustomConfigVars = true;
 if(isset($_POST['resetConfigValuesBackToDefault']))
 {
@@ -48,7 +71,7 @@ foreach ($defaultConfig as $key => $value)
 	else
 	{
 		$$key = $value;
-	} 
+	}
 }
 
 
@@ -78,7 +101,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 	{
 		$numberOfRows = count($watchList);
 		$i = 0;
-		foreach ($watchList as $key => $value) 
+		foreach ($watchList as $key => $value)
 		{
 			$i++;
 			$arrayWatchList .= "'".$key."' => '".$value."'";
@@ -148,7 +171,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 		{
 			$folderColorArraysSave .= "'".$_POST['folderColorThemeNameForPost'.($i+1)]."'	=>	array(";
 			$colorCount = 0;
-			while (isset($_POST['folderColorValue'.($i+1).'-'.($colorCount+1)])) 
+			while (isset($_POST['folderColorValue'.($i+1).'-'.($colorCount+1)]))
 			{
 				$colorCount++;
 				$folderColorArraysSave .= "'".$_POST['folderColorValue'.($i+1).'-'.($colorCount)]."',";
@@ -165,7 +188,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 		{
 			$folderColorArraysSave .= "'".$key."'	=>	array(";
 			$count++;
-			foreach ($value as $key2 => $value2) 
+			foreach ($value as $key2 => $value2)
 			{
 				$folderColorArraysSave .= "'".$value2."',";
 			}

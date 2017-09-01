@@ -29,7 +29,11 @@ $withLogHog = $monitorStatus['withLogHog'];
 		<div class="settingsHeader">
 			Development  
 			<div class="settingsHeaderButtons">
-				<button onclick="displayLoadingPopup();" >Save Changes</button>
+				<?php if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
+					<a class="linkSmall" onclick="saveAndVerifyMain('devAdvanced');" >Save Changes</a>
+				<?php else: ?>
+					<button  onclick="displayLoadingPopup();">Save Changes</button>
+				<?php endif; ?>
 			</div>
 		</div>
 		<div class="settingsDiv" >
@@ -44,11 +48,49 @@ $withLogHog = $monitorStatus['withLogHog'];
 			</ul>
 		</div>
 	</form>
+	<form id="pollAdvanced" action="../core/php/settingsSave.php" method="post">
+		<div class="settingsHeader">
+			Advanced Poll Settings  
+			<div class="settingsHeaderButtons">
+				<?php if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
+					<a class="linkSmall" onclick="saveAndVerifyMain('devAdvanced');" >Save Changes</a>
+				<?php else: ?>
+					<button  onclick="displayLoadingPopup();">Save Changes</button>
+				<?php endif; ?>
+			</div>
+		</div>
+		<div class="settingsDiv" >
+			<ul id="settingsUl">
+				<li>
+					Poll refresh all data every 
+					<input type="text" style="width: 100px;"  name="pollRefreshAll" value="<?php echo $pollRefreshAll;?>" > 
+					poll requests
+					<select name="pollRefreshAllBool">
+  						<option <?php if($pollRefreshAllBool == 'true'){echo "selected";} ?> value="true">True</option>
+  						<option <?php if($pollRefreshAllBool == 'false'){echo "selected";} ?> value="false">False</option>
+					</select>
+				</li>
+				<li>
+					Force poll refresh after 
+					<input type="text" style="width: 100px;"  name="pollForceTrue" value="<?php echo $pollForceTrue;?>" > 
+					skipped poll requests
+					<select name="pollForceTrueBool">
+  						<option <?php if($pollForceTrueBool == 'true'){echo "selected";} ?> value="true">True</option>
+  						<option <?php if($pollForceTrueBool == 'false'){echo "selected";} ?> value="false">False</option>
+					</select>
+				</li>
+			</ul>
+		</div>
+	</form>
 	<form id="loggingDisplay" action="../core/php/settingsSave.php" method="post">
 		<div class="settingsHeader">
 			Logging Information 
 			<div class="settingsHeaderButtons">
-				<button onclick="displayLoadingPopup();" >Save Changes</button>
+				<?php if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
+					<a class="linkSmall" onclick="saveAndVerifyMain('loggingDisplay');" >Save Changes</a>
+				<?php else: ?>
+					<button  onclick="displayLoadingPopup();">Save Changes</button>
+				<?php endif; ?>
 			</div>
 		</div>
 		<div class="settingsDiv" >
@@ -72,11 +114,46 @@ $withLogHog = $monitorStatus['withLogHog'];
 			</ul>
 		</div>
 	</form>
+	<form id="loggingDisplay" action="../core/php/settingsSave.php" method="post">
+		<div class="settingsHeader">
+			Error / Crash Info
+			<div class="settingsHeaderButtons">
+				<?php if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
+					<a class="linkSmall" onclick="saveAndVerifyMain('loggingDisplay');" >Save Changes</a>
+				<?php else: ?>
+					<button  onclick="displayLoadingPopup();">Save Changes</button>
+				<?php endif; ?>
+			</div>
+		</div>
+		<div class="settingsDiv" >
+			<ul id="settingsUl">
+				<li>
+					Send anonymous information about javascript errors/crashes:
+						<select name="sendCrashInfoJS">
+  						<option <?php if($sendCrashInfoJS == 'true'){echo "selected";} ?> value="true">True</option>
+  						<option <?php if($sendCrashInfoJS == 'false'){echo "selected";} ?> value="false">False</option>
+						</select>
+				</li>
+				<li>
+					Send anonymous information about php errors/crashes:
+						<select name="sendCrashInfoPHP">
+  						<option <?php if($sendCrashInfoPHP == 'true'){echo "selected";} ?> value="true">True</option>
+  						<option <?php if($sendCrashInfoPHP == 'false'){echo "selected";} ?> value="false">False</option>
+						</select>
+				</li>
+				<img src="../core/img/exampleErrorJS.png" height="200px;">
+			</ul>
+		</div>
+	</form>
 	<form id="locationOtherApps" action="../core/php/settingsSave.php" method="post">
 		<div class="settingsHeader">
 			File Locations
 			<div class="settingsHeaderButtons">
-				<button onclick="displayLoadingPopup();" >Save Changes</button>
+				<?php if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
+					<a class="linkSmall" onclick="saveAndVerifyMain('locationOtherApps');" >Save Changes</a>
+				<?php else: ?>
+					<button  onclick="displayLoadingPopup();">Save Changes</button>
+				<?php endif; ?>
 			</div>
 		</div>
 		<div class="settingsDiv" >
@@ -148,7 +225,7 @@ $withLogHog = $monitorStatus['withLogHog'];
 		var goToPage = true
 		if(document.getElementsByName("developmentTabEnabled")[0].value != "<?php echo $developmentTabEnabled;?>")
 		{
-			goToPage = false;
+			//goToPage = false;
 		}
 
 		if(goToPage || popupSettingsArray.saveSettings == "false")

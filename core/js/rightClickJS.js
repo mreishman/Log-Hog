@@ -26,7 +26,7 @@
 
   var gearMenu = [devToolsRightClickMenu,experimentalFeaturesRightClickMenu,taskManagerSettingsRightClickMenu,advancedRightClickMenu,changeLogRightClickMenu,checkForUpdateRightClickMenu,aboutRightClickMenu];
   var deleteMenu = [clearAllLogs,clearCurrentLog,deleteCurrentLog];
-  var updateMenu = [updateRightClickAction]
+  var updateMenu = [updateRightClickAction];
 
   
   var menuObjectRightClick = {gear: gearMenu, deleteImage: deleteMenu, updateImage: updateMenu};
@@ -70,9 +70,9 @@
             var rightClickMenuHTML = "";
             for (var i = rightClickMenuArrayLength - 1; i >= 0; i--) 
             {
-              rightClickMenuHTML += '<li class="context-menu__item"><a class="context-menu__link" onClick="'+rightClickMenuArray[i].action+'"> '+rightClickMenuArray[i].name+' </a> </li>';
+              rightClickMenuHTML += "<li class='context-menu__item'><a class='context-menu__link' onClick='"+rightClickMenuArray[i].action+"'> "+rightClickMenuArray[i].name+" </a> </li>";
             }
-            document.getElementById('context-menu-items').innerHTML = rightClickMenuHTML;
+            document.getElementById("context-menu-items").innerHTML = rightClickMenuHTML;
             positionMenu(e);
           }
       }
@@ -107,8 +107,10 @@
   function getPosition(e) {
     var posx = 0;
     var posy = 0;
-
-    if (!e) var e = window.event;
+    if(!e)
+    {
+      e = window.event;
+    }
 
     if (e.pageX || e.pageY) {
       posx = e.pageX;
@@ -123,7 +125,7 @@
     return {
       x: posx,
       y: posy
-    }
+    };
   }
 
   function positionMenu(e) {
