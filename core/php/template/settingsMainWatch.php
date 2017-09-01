@@ -16,61 +16,7 @@
 		$i = 0;
 		$triggerSaveUpdate = false;
 		foreach($config['watchList'] as $key => $item): $i++;
-		if(file_exists($key))
-		{
-			$perms  =  fileperms($key);
-
-			switch ($perms & 0xF000) {
-			    case 0xC000: // socket
-			        $info = 's';
-			        break;
-			    case 0xA000: // symbolic link
-			        $info = 'l';
-			        break;
-			    case 0x8000: // regular
-			        $info = 'f';
-			        break;
-			    case 0x6000: // block special
-			        $info = 'b';
-			        break;
-			    case 0x4000: // directory
-			        $info = 'd';
-			        break;
-			    case 0x2000: // character special
-			        $info = 'c';
-			        break;
-			    case 0x1000: // FIFO pipe
-			        $info = 'p';
-			        break;
-			    default: // unknown
-			        $info = 'u';
-			}
-
-			// Owner
-			$info .= (($perms & 0x0100) ? 'r' : '-');
-			$info .= (($perms & 0x0080) ? 'w' : '-');
-			$info .= (($perms & 0x0040) ?
-			            (($perms & 0x0800) ? 's' : 'x' ) :
-			            (($perms & 0x0800) ? 'S' : '-'));
-
-			// Group
-			$info .= (($perms & 0x0020) ? 'r' : '-');
-			$info .= (($perms & 0x0010) ? 'w' : '-');
-			$info .= (($perms & 0x0008) ?
-			            (($perms & 0x0400) ? 's' : 'x' ) :
-			            (($perms & 0x0400) ? 'S' : '-'));
-
-			// World
-			$info .= (($perms & 0x0004) ? 'r' : '-');
-			$info .= (($perms & 0x0002) ? 'w' : '-');
-			$info .= (($perms & 0x0001) ?
-			            (($perms & 0x0200) ? 't' : 'x' ) :
-			            (($perms & 0x0200) ? 'T' : '-'));
-		}
-		else
-		{
-			$info = "u---------";
-		}
+		$info = filePermsDisplay($key);
 
 		if(strpos($item, "\\") !== false)
 		{
@@ -79,25 +25,28 @@
 		}
 		?>
 	<li id="rowNumber<?php echo $i; ?>" >
-		File #<?php if($i < 10){echo "0";} ?><?php echo $i; ?>: &nbsp; <?php echo $info; ?> &nbsp;
+		File #<?php if($i < 10){echo "0";} ?><?php echo $i; ?>: 
+		<div style="width: 100px; display: inline-block; text-align: center;">
+			<?php echo $info; ?>
+		</div>
+		<img id=
 		<?php
 		if(!file_exists($key))
 		{
-			echo '<img id="fileNotFoundImage'.$i.'" src="../core/img/redWarning.png" height="10px">';
+			echo '"fileNotFoundImage'.$i.'" src="../core/img/redWarning.png"';
+		}
+		elseif(is_dir($key))
+		{
+			echo '"fileIsDir'.$i.'" src="../core/img/folderIcon.png"';
+		}
+		else
+		{
+			echo '"fileIsFile'.$i.'" src="../core/img/fileIcon.png"';
 		}
 		?> 
+		width="15px">
 			<input 
-				style='width: 
-					<?php 
-					if(!file_exists($key))
-						{
-							echo "480";
-						}
-						else
-						{
-							echo "500";
-						}
-					?>px ' 
+				style='width: 480px;' 
 				type='text'
 				name='watchListKey<?php echo $i; ?>'
 				value='<?php echo $key; ?>'
@@ -114,7 +63,7 @@
 					true,
 					'<?php echo $key; ?>')"
 			>
-				Remove
+				<img src="../core/img/trashCan.png" height="15px;" >
 			</a>
 	</li>
 
@@ -134,7 +83,9 @@
 	<li>
 		<ul id="settingsUl">
 			<li>
-				<img src="../core/img/redWarning.png" height="10px"> - File / Folder not found!
+				<img src="../core/img/redWarning.png" height="10px"> - File / Folder not found! &nbsp; &nbsp; &nbsp; 
+				<img src="../core/img/fileIcon.png" height="10px"> - File &nbsp; &nbsp; &nbsp; 
+				<img src="../core/img/folderIcon.png" height="10px"> - Folder
 			</li>
 			<li>
 				f - file &nbsp; &nbsp; &nbsp; | &nbsp; &nbsp; &nbsp;

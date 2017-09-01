@@ -17,6 +17,7 @@ require_once('../core/conf/config.php');
 require_once('../core/php/configStatic.php');
 require_once('../core/php/updateCheck.php');
 require_once('../core/php/loadVars.php');
+require_once('../core/php/commonFunctions.php');
 ?>
 <!doctype html>
 <head>
@@ -28,7 +29,7 @@ require_once('../core/php/loadVars.php');
 	<script src="https://cdn.ravenjs.com/3.17.0/raven.min.js" crossorigin="anonymous"></script>
 	<script type="text/javascript">
 		Raven.config('https://2e455acb0e7a4f8b964b9b65b60743ed@sentry.io/205980', {
-		    release: '2.3.5'
+		    release: '3.0'
 		}).install();
 	</script>
 	<?php endif; ?>

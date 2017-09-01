@@ -85,7 +85,7 @@ elseif($withLogHog == 'true')
 	<script src="https://cdn.ravenjs.com/3.17.0/raven.min.js" crossorigin="anonymous"></script>
 	<script type="text/javascript">
 		Raven.config('https://2e455acb0e7a4f8b964b9b65b60743ed@sentry.io/205980', {
-		    release: '2.3.5'
+		    release: '3.0'
 		}).install();
 	</script>
 	<?php endif; ?>
@@ -143,7 +143,7 @@ elseif($withLogHog == 'true')
 		<div id="firstLoad" style="width: 100%; height: 100%;">
 			<h1 style="margin-right: auto; margin-left: auto; width: 100%; text-align: center;  margin-top: 100px; font-size: 150%;" >Loading...</h1>
 			<div style="width: 80%; height: 50px; background-color: #999; border: 1px solid white; margin-left: auto; margin-right: auto;">
-			
+				<progress id="progressBar" value="0" max="100" style="width: 100%; height: 100%; -webkit-appearance: none; appearance: none;" ></progress>
 			</div>
 		</div>
 	</div>

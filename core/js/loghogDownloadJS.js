@@ -65,7 +65,7 @@
 			dataType: "json",
 			data: data,
 			type: "POST",
-			complete: function()
+			complete()
 			{
 				verifyFile("cleanUpMonitorRemove", "../../top/statusTest.php",false);
 			}
@@ -322,7 +322,7 @@
 					dataType: "json",
 					data: data,
 					type: "POST",
-					success: function(data)
+					success(data)
 					{
 						verifyPostEnd(data, _data);
 					},
@@ -330,7 +330,7 @@
 					{
 						verifyPostEnd(data, _data);
 					},
-					complete: function()
+					complete()
 					{
 						lock = false;
 					}

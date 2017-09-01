@@ -69,7 +69,7 @@ function updateAllRefreshCounter(num)
 {
 	try
 	{
-    	if(enablePollTimeLogging !== "false")
+		if(enablePollTimeLogging !== "false")
 		{
 			document.getElementById("loggAllCount").innerHTML = escapeHTML(num);
 		}
@@ -137,7 +137,7 @@ function pollTwo()
 		$.ajax({
 			url: urlForSend,
 			dataType: "json",
-			data: data,
+			data,
 			type: "POST",
 			success(data)
 			{
@@ -213,7 +213,7 @@ function pollTwoPartTwo(data)
 				if(filesOld.indexOf(filesNew[i]) > -1)
 				{
 					//file exists
-					if(arrayOfData2[filesNew[i]] != arrayOfData1[filesNew[i]])
+					if(arrayOfData2[filesNew[i]] !== arrayOfData1[filesNew[i]])
 					{
 						arrayToUpdate.push(filesNew[i]);
 					}
@@ -391,7 +391,7 @@ function refreshAction()
 	try
 	{
     	clearTimeout(refreshActionVar);
-		document.getElementById("refreshImage").src="core/img/refresh-animated.gif";
+		document.getElementById("refreshImage").src="core/img/loading.gif";
 		refreshing = true;
 		poll();
 		refreshActionVar = setTimeout(endRefreshAction, 1500);
@@ -433,7 +433,7 @@ function update(data) {
 		var files = Object.keys(data);
 		var stop = files.length;
 		var updated = false;
-		var initialized = $("#menu a").length != 0;
+		var initialized = $("#menu a").length !== 0;
 		var colorArray = currentFolderColorThemeArrayOfColors;
 		var colorArrayLength = colorArray.length;
 		var folderNamePrev = "?-1";
@@ -489,7 +489,7 @@ function update(data) {
 							titles[id] = name;
 						}
 						
-						if(enableLogging != "false")
+						if(enableLogging !== "false")
 						{
 							if(id === currentPage)
 							{
@@ -546,7 +546,7 @@ function update(data) {
 			$("#menu a:eq(0)").click();
 		}
 		
-		if(logs[currentPage] != lastLogs[currentPage]) {
+		if(logs[currentPage] !== lastLogs[currentPage]) {
 			lastLogs[currentPage] = logs[currentPage];
 			document.getElementById("main").scrollTop = $("#log").outerHeight();
 		}
@@ -658,7 +658,7 @@ function stopFlashTitle()
 	try
 	{
     	clearInterval(flasher);
-		$('title').text(title);
+		$("title").text(title);
 	}
 	catch(e)
 	{
@@ -723,7 +723,7 @@ function checkIfPageHidden()
 function pausePollFunction()
 {
 	pausePoll = true;
-	document.getElementById('pauseImage').src="core/img/Play.png";
+	document.getElementById("pauseImage").src="core/img/Play.png";
 	document.title = "Log Hog | Paused";
 	if(pollTimer != null)
 	{
@@ -743,10 +743,10 @@ function clearLog()
 		var title = filterTitle(document.getElementById("title").innerHTML);
 		var data = {file: title};
 		$.ajax({
-				  url: urlForSend,
-				  dataType: "json",
-				  data: data,
-				  type: "POST",
+				url: urlForSend,
+				dataType: "json",
+				data: data,
+				type: "POST",
 		success: function(data){
 	    // we make a successful JSONP call!
 		  },

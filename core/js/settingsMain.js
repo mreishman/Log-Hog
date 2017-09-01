@@ -51,11 +51,11 @@ function addRowFunction()
 		countOfClicks++;
 		if(countOfWatchList < 10)
 		{
-			document.getElementById(locationInsert).outerHTML += "<li id='rowNumber"+countOfWatchList+"'>File #0" + countOfWatchList+ ": <input type='text' style='width: 500px;' name='watchListKey" + countOfWatchList + "' > <input type='text' name='watchListItem" + countOfWatchList + "' > <a class='link'  onclick='deleteRowFunctionPopup("+ countOfWatchList +", true, \"File #0" + countOfWatchList+"\")'>Remove</a></li><div id='newRowLocationForWatchList"+countOfClicks+"'></div>";
+			document.getElementById(locationInsert).outerHTML += "<li id='rowNumber"+countOfWatchList+"'>File #0" + countOfWatchList+ ": <div style=\"width: 115px; display: inline-block; text-align: center;\">----------</div><input type='text' style='width: 500px;' name='watchListKey" + countOfWatchList + "' > <input type='text' name='watchListItem" + countOfWatchList + "' > <a class='link'  onclick='deleteRowFunctionPopup("+ countOfWatchList +", true, \"File #0" + countOfWatchList+"\")'><img src=\"../core/img/trashCan.png\" height=\"15px;\" ></a></li><div id='newRowLocationForWatchList"+countOfClicks+"'></div>";
 		}
 		else
 		{
-			document.getElementById(locationInsert).outerHTML += "<li id='rowNumber"+countOfWatchList+"'>File #" + countOfWatchList+ ": <input type='text' style='width: 500px;' name='watchListKey" + countOfWatchList + "' > <input type='text' name='watchListItem" + countOfWatchList + "' > <a class='link' onclick='deleteRowFunctionPopup("+ countOfWatchList +", true, \"File #" + countOfWatchList+"\")'>Remove</a></li><div id='newRowLocationForWatchList"+countOfClicks+"'></div>";
+			document.getElementById(locationInsert).outerHTML += "<li id='rowNumber"+countOfWatchList+"'>File #" + countOfWatchList+ ": <div style=\"width: 115px; display: inline-block; text-align: center;\">----------</div><input type='text' style='width: 500px;' name='watchListKey" + countOfWatchList + "' > <input type='text' name='watchListItem" + countOfWatchList + "' > <a class='link' onclick='deleteRowFunctionPopup("+ countOfWatchList +", true, \"File #" + countOfWatchList+"\")'><img src=\"../core/img/trashCan.png\" height=\"15px;\" ></a></li><div id='newRowLocationForWatchList"+countOfClicks+"'></div>";
 		}
 		locationInsert = "newRowLocationForWatchList"+countOfClicks;
 		document.getElementById("numberOfRows").value = countOfWatchList;
@@ -112,7 +112,7 @@ function deleteRowFunction(currentRow, decreaseCountWatchListNum)
 					{
 						documentUpdateText += "0";
 					}
-					documentUpdateText += updateItoIMinusOne+": ";
+					documentUpdateText += updateItoIMinusOne+": <div style=\"width: 100px; display: inline-block; text-align: center;\">----------</div>";
 					var nameForId = "fileNotFoundImage" + i;
 					var elementByIdPreCheck = document.getElementById(nameForId);
 					if(elementByIdPreCheck !== null)
@@ -130,7 +130,7 @@ function deleteRowFunction(currentRow, decreaseCountWatchListNum)
 					}
 					documentUpdateText += "px' type='text' name='watchListKey"+updateItoIMinusOne+"' value='"+previousElementNumIdentifierForKey[0].value+"'> ";
 					documentUpdateText += "<input type='text' name='watchListItem"+updateItoIMinusOne+"' value='"+previousElementNumIdentifierForItem[0].value+"'>";
-					documentUpdateText += " <a class='link' onclick='deleteRowFunctionPopup("+updateItoIMinusOne+", true,\""+previousElementNumIdentifierForKey[0].value+"\")'>Remove</a>";
+					documentUpdateText += " <a class='link' onclick='deleteRowFunctionPopup("+updateItoIMinusOne+", true,\""+previousElementNumIdentifierForKey[0].value+"\")'><img src=\"../core/img/trashCan.png\" height=\"15px;\" ></a>";
 					documentUpdateText += "</li>";
 					document.getElementById(elementToUpdate).outerHTML = documentUpdateText;
 				}
