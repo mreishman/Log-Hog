@@ -152,6 +152,8 @@ if(count($arrayOfVersions) === 0)
 		<?php endif; ?>
 		</span>
 		<div id="menu" style="margin-right: auto; margin-left: auto; position: relative; display: none;">
+			<h2>If this page doesn't redirect within 10 seconds... click here:</h2>
+			<br>
 			<a onclick="window.location.href = '../settings/update.php'">Back to Log-Hog</a>
 		</div>
 	</div>
