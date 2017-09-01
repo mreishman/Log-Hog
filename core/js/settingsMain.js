@@ -1,3 +1,4 @@
+/global sendCrashInfoJS Raven displayLoadingPopup.../
 function showOrHideLogTrimSubWindow()
 {
 	try
@@ -51,11 +52,11 @@ function addRowFunction()
 		countOfClicks++;
 		if(countOfWatchList < 10)
 		{
-			document.getElementById(locationInsert).outerHTML += "<li id='rowNumber"+countOfWatchList+"'>File #0" + countOfWatchList+ ": <div style=\"width: 115px; display: inline-block; text-align: center;\">----------</div><input type='text' style='width: 500px;' name='watchListKey" + countOfWatchList + "' > <input type='text' name='watchListItem" + countOfWatchList + "' > <a class='link'  onclick='deleteRowFunctionPopup("+ countOfWatchList +", true, \"File #0" + countOfWatchList+"\")'><img src=\"../core/img/trashCan.png\" height=\"15px;\" ></a></li><div id='newRowLocationForWatchList"+countOfClicks+"'></div>";
+			document.getElementById(locationInsert).outerHTML += "<li id='rowNumber"+countOfWatchList+"'>File #0" + countOfWatchList+ ": <div style=\"width: 130px; display: inline-block; text-align: center;\">----------</div><input type='text' style='width: 480px;' name='watchListKey" + countOfWatchList + "' > <input type='text' name='watchListItem" + countOfWatchList + "' > <a class='link'  onclick='deleteRowFunctionPopup("+ countOfWatchList +", true, \"File #0" + countOfWatchList+"\")'><img src=\"../core/img/trashCan.png\" height=\"15px;\" ></a></li><div id='newRowLocationForWatchList"+countOfClicks+"'></div>";
 		}
 		else
 		{
-			document.getElementById(locationInsert).outerHTML += "<li id='rowNumber"+countOfWatchList+"'>File #" + countOfWatchList+ ": <div style=\"width: 115px; display: inline-block; text-align: center;\">----------</div><input type='text' style='width: 500px;' name='watchListKey" + countOfWatchList + "' > <input type='text' name='watchListItem" + countOfWatchList + "' > <a class='link' onclick='deleteRowFunctionPopup("+ countOfWatchList +", true, \"File #" + countOfWatchList+"\")'><img src=\"../core/img/trashCan.png\" height=\"15px;\" ></a></li><div id='newRowLocationForWatchList"+countOfClicks+"'></div>";
+			document.getElementById(locationInsert).outerHTML += "<li id='rowNumber"+countOfWatchList+"'>File #" + countOfWatchList+ ": <div style=\"width: 130px; display: inline-block; text-align: center;\">----------</div><input type='text' style='width: 480px;' name='watchListKey" + countOfWatchList + "' > <input type='text' name='watchListItem" + countOfWatchList + "' > <a class='link' onclick='deleteRowFunctionPopup("+ countOfWatchList +", true, \"File #" + countOfWatchList+"\")'><img src=\"../core/img/trashCan.png\" height=\"15px;\" ></a></li><div id='newRowLocationForWatchList"+countOfClicks+"'></div>";
 		}
 		locationInsert = "newRowLocationForWatchList"+countOfClicks;
 		document.getElementById("numberOfRows").value = countOfWatchList;
@@ -112,23 +113,18 @@ function deleteRowFunction(currentRow, decreaseCountWatchListNum)
 					{
 						documentUpdateText += "0";
 					}
-					documentUpdateText += updateItoIMinusOne+": <div style=\"width: 100px; display: inline-block; text-align: center;\">----------</div>";
 					var nameForId = "fileNotFoundImage" + i;
 					var elementByIdPreCheck = document.getElementById(nameForId);
 					if(elementByIdPreCheck !== null)
 					{
-						documentUpdateText += "<img id='fileNotFoundImage"+updateItoIMinusOne+"' src='../core/img/redWarning.png' height='10px'>";
-					}
-					documentUpdateText += "<input style='width: ";
-					if(elementByIdPreCheck !== null)
-					{
-						documentUpdateText += "480";
+						documentUpdateText += updateItoIMinusOne+": <div style=\"width: 100px; display: inline-block; text-align: center;\">----------</div>";
+						documentUpdateText += "<img id='fileNotFoundImage"+updateItoIMinusOne+"' src='../core/img/redWarning.png' width='15px'>";
 					}
 					else
 					{
-						documentUpdateText += "500";
+						documentUpdateText += updateItoIMinusOne+": <div style=\"width: 130px; display: inline-block; text-align: center;\">----------</div>";
 					}
-					documentUpdateText += "px' type='text' name='watchListKey"+updateItoIMinusOne+"' value='"+previousElementNumIdentifierForKey[0].value+"'> ";
+					documentUpdateText += "<input style='width: 480px' type='text' name='watchListKey"+updateItoIMinusOne+"' value='"+previousElementNumIdentifierForKey[0].value+"'> ";
 					documentUpdateText += "<input type='text' name='watchListItem"+updateItoIMinusOne+"' value='"+previousElementNumIdentifierForItem[0].value+"'>";
 					documentUpdateText += " <a class='link' onclick='deleteRowFunctionPopup("+updateItoIMinusOne+", true,\""+previousElementNumIdentifierForKey[0].value+"\")'><img src=\"../core/img/trashCan.png\" height=\"15px;\" ></a>";
 					documentUpdateText += "</li>";

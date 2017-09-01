@@ -57,4 +57,19 @@ function filePermsDisplay($key)
 	return $info;
 }
 
+function loadSentryData($sendCrashInfoJS)
+{
+	$sentryInfo = "";
+	if($sendCrashInfoJS === "true")
+	{
+		$sentryInfo =  "<script src=\"https://cdn.ravenjs.com/3.17.0/raven.min.js\" crossorigin=\"anonymous\"></script>
+	<script type=\"text/javascript\">
+		Raven.config(\"https://2e455acb0e7a4f8b964b9b65b60743ed@sentry.io/205980\", {
+		    release: \"3.0\"
+		}).install();
+	</script>";
+	}
+	return $sentryInfo;
+}
+
 ?>

@@ -37,11 +37,11 @@
 		}
 		elseif(is_dir($key))
 		{
-			echo '"fileIsDir'.$i.'" src="../core/img/folderIcon.png"';
+			echo '"fileNotFoundImage'.$i.'" src="../core/img/folderIcon.png"';
 		}
 		else
 		{
-			echo '"fileIsFile'.$i.'" src="../core/img/fileIcon.png"';
+			echo '"fileNotFoundImage'.$i.'" src="../core/img/fileIcon.png"';
 		}
 		?> 
 		width="15px">
