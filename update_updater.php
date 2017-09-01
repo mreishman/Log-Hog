@@ -213,8 +213,8 @@ if(count($arrayOfVersions) === 0)
 
 	function updateProgressBar(additonalPercent)
 	{
-		percent = percent + (additonalPercent.toFixed(4));
-		document.getElementById('progressBar').value = (percent/total*100).toFixed(4);
+		percent = percent + additonalPercent;
+		document.getElementById('progressBar').value = percent/total*100;
 		if(percent/total*100 > 100)
 		{
 			document.getElementById('progressBar').value = ((percent/total*100)-100);
