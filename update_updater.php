@@ -796,7 +796,7 @@ if(count($arrayOfVersions) === 0)
 				else
 				{
 					//no verify needed
-					preScriptRun();
+					postScriptRun();
 				}
 			}
 		});	
