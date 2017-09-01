@@ -188,9 +188,7 @@ if(count($arrayOfVersions) === 0)
 	var lock = false;
 	var settingsForBranchStuff = JSON.parse('<?php echo json_encode($configStatic);?>');
 	var filteredArray = new Array();
-	var preScripRunFileName = "";
 	var preScriptCount = 1;
-	var postScripRunFileName = "";
 	var postScriptCount = 1;
 	var fileCopyCount = 0;
 	var arrayOfVersions = JSON.parse('<?php echo json_encode($arrayOfVersions);?>');
@@ -215,8 +213,8 @@ if(count($arrayOfVersions) === 0)
 
 	function updateProgressBar(additonalPercent)
 	{
-		percent = percent + additonalPercent;
-		document.getElementById('progressBar').value = percent/total*100;
+		percent = percent + (additonalPercent.toFixed(4));
+		document.getElementById('progressBar').value = (percent/total*100).toFixed(4);
 		if(percent/total*100 > 100)
 		{
 			document.getElementById('progressBar').value = ((percent/total*100)-100);
@@ -601,11 +599,14 @@ if(count($arrayOfVersions) === 0)
 		updateText("Checking for pre upgrade scripts");
 		if(preScriptCount != 1)
 		{
-			var totalCount = 0;
+			var totalCount = 1;
 			var fileName = "pre-script-"+totalCount;
-			while($.inArray(fileName,arrayOfFilesExtracted))
+			var loop = ($.inArray(fileName,arrayOfFilesExtracted)!= "-1");
+			while(loop)
 			{
 				totalCount++;
+				fileName = "pre-script-"+totalCount;
+				loop = ($.inArray(fileName,arrayOfFilesExtracted)!= "-1");
 			}
 			updateProgressBar(((1/totalCount)*5));
 		}
@@ -613,12 +614,8 @@ if(count($arrayOfVersions) === 0)
 		if($.inArray(fileName,arrayOfFilesExtracted) != "-1")
 		{
 			updateText("Running pre upgrade script "+preScriptCount);
-			if(preScripRunFileName == "" || fileName == preScripRunFileName)
-			{
-				preScripRunFileName = fileName;
-				preScriptCount++;
-				ajaxForPreScriptRun(fileName);
-			}
+			ajaxForPreScriptRun(fileName);
+			preScriptCount++;
 		}
 		else
 		{
@@ -632,7 +629,6 @@ if(count($arrayOfVersions) === 0)
 				updateText("Finished running pre upgrade scripts");
 			}
 			preScriptCount = 1;
-			preScripRunFileName = "";
 			//finished with pre scripts
 			fileCopyCount = 0;
 			copyFilesFromArray();
@@ -744,24 +740,25 @@ if(count($arrayOfVersions) === 0)
 		updateText("Checking for post upgrade scripts");
 		if(postScriptCount != 1)
 		{
-			var totalCount = 0;
+			var totalCount = 1;
 			var fileName = "post-script-"+totalCount;
-			while($.inArray(fileName,arrayOfFilesExtracted))
+			var loop = ($.inArray(fileName,arrayOfFilesExtracted)!= "-1");
+			while(loop)
 			{
 				totalCount++;
+				fileName = "post-script-"+totalCount;
+				loop = ($.inArray(fileName,arrayOfFilesExtracted)!= "-1");
 			}
 			updateProgressBar(((1/totalCount)*5));
 		}
+
 		var fileName = "post-script-"+postScriptCount+".php";
 		if($.inArray(fileName,arrayOfFilesExtracted) != "-1")
 		{
 			updateText("Running post upgrade script "+postScriptCount);
-			if(postScripRunFileName == "" || fileName == postScripRunFileName)
-			{
-				postScripRunFileName = fileName;
-				postScriptCount++;
-				ajaxForPostScriptRun(fileName);
-			}
+			postScriptCount++;
+			ajaxForPostScriptRun(fileName);
+
 		}
 		else
 		{
@@ -775,7 +772,6 @@ if(count($arrayOfVersions) === 0)
 				updateText("Finished running post upgrade scripts");
 			}
 			postScriptCount = 1;
-			postScripRunFileName = "";
 			//finished with post scripts
 			postScriptRedirect();
 		}
