@@ -39,7 +39,7 @@ function changeDescriptionLineSize()
 	}
 	catch(e)
 	{
-		eventThrowException(e)
+		eventThrowException(e);
 	}
 }
 
@@ -209,7 +209,7 @@ function checkWatchList()
 				blankValue = true;
 			}
 		}
-		if(blankValue && popupSettingsArray.blankFolder == "true")
+		if(blankValue && popupSettingsArray.blankFolder === "true")
 		{
 			showNoEmptyFolderPopup();
 			event.preventDefault();
@@ -241,7 +241,7 @@ function showNoEmptyFolderPopup()
 
 function eventThrowException(e)
 {
-	if((typeof(sendCrashInfoJS) !== 'undefined') && (sendCrashInfoJS === "true"))
+	if((typeof(sendCrashInfoJS) !== "undefined") && (sendCrashInfoJS === "true"))
 	{
 		Raven.captureException(e);
 	}
