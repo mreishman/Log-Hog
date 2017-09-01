@@ -516,7 +516,7 @@ if(count($arrayOfVersions) === 0)
 			lock = true;
 			updateText('verifying '+(verifyCount+1)+' of 10');
 			var urlForSend = urlForSendMain;
-			var data = {action: 'verifyFileOrDirIsThere', fileLocation: fileLocation, lastAction: action};
+			var data = {action: 'verifyFileOrDirIsThere', locationOfDirOrFile: fileLocation, lastAction: action};
 			(function(_data){
 				$.ajax({
 					url: urlForSend,
@@ -649,7 +649,7 @@ if(count($arrayOfVersions) === 0)
 				if(data !== true)
 				{
 					//verify data
-					verifyFileOrDir(data, "preScriptRun")
+					verifyFileOrDir("preScriptRun",data)
 				}
 				else
 				{
@@ -791,7 +791,7 @@ if(count($arrayOfVersions) === 0)
 				if(data !== true)
 				{
 					//verify data
-					verifyFileOrDir(data, "preScriptRun")
+					verifyFileOrDir("postScriptRun",data)
 				}
 				else
 				{
