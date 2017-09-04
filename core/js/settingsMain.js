@@ -246,11 +246,3 @@ function showNoEmptyFolderPopup()
 		eventThrowException(e)
 	}
 }
-
-function eventThrowException(e)
-{
-	if((typeof(sendCrashInfoJS) !== "undefined") && (sendCrashInfoJS === "true"))
-	{
-		Raven.captureException(e);
-	}
-}

@@ -24,7 +24,6 @@ var pollSkipCounter = 0;
 var counterForPollForceRefreshAll = 0;
 var filesNew;
 var pausePoll = false;
-var refreshActionVar;
 var refreshPauseActionVar;
 var userPaused = false;
 var refreshing = false;
@@ -396,11 +395,10 @@ function refreshAction()
 {
 	try
 	{
-    	clearTimeout(refreshActionVar);
     	if(pollRefreshAllBoolStatic == "false")
-    	{
+		{
     		pollRefreshAllBool = "true";
-    	}
+		}
     	counterForPollForceRefreshAll = 1+pollRefreshAll;
 		document.getElementById("refreshImage").src="core/img/loading.gif";
 		refreshing = true;
@@ -762,7 +760,6 @@ function clearLog()
 				data: data,
 				type: "POST",
 		success: function(data){
-	    // we make a successful JSONP call!
 		  },
 		});
 	}
@@ -785,7 +782,6 @@ function deleteAction()
 			  data: data,
 			  type: "POST",
 	success: function(data){
-    // we make a successful JSONP call!
 	  },
 	});
 	}
@@ -1083,14 +1079,6 @@ function updateProgressBar(additonalPercent, text)
 	catch(e)
 	{
 		eventThrowException(e);
-	}
-}
-
-function eventThrowException(e)
-{
-	if(sendCrashInfoJS === "true")
-	{
-		Raven.captureException(e);
 	}
 }
 

@@ -73,7 +73,10 @@ elseif($withLogHog == 'true')
 	<script src="core/js/jquery.js"></script>
 	<?php
 		echo loadSentryData($sendCrashInfoJS);
-		echo loadVisibilityJS(baseURL());
+		if($pauseOnNotFocus == "true")
+		{
+			echo loadVisibilityJS(baseURL());
+		}
 	?>
 </head>
 <body>
@@ -177,7 +180,6 @@ elseif($withLogHog == 'true')
 		var updateNoticeMeter = "<?php echo $updateNoticeMeter;?>";
 		var pollRefreshAllBool = "<?php echo $pollRefreshAllBool;?>";
 		var pollForceTrueBool = "<?php echo $pollRefreshAllBool;?>";
-		var sendCrashInfoJS = "<?php echo $sendCrashInfoJS;?>";
 
 	</script>
 	<?php readfile('core/html/popup.html') ?>

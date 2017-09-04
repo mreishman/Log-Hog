@@ -59,17 +59,31 @@ function filePermsDisplay($key)
 
 function loadSentryData($sendCrashInfoJS)
 {
-	$sentryInfo = "";
 	if($sendCrashInfoJS === "true")
 	{
-		$sentryInfo =  "<script src=\"https://cdn.ravenjs.com/3.17.0/raven.min.js\" crossorigin=\"anonymous\"></script>
-	<script type=\"text/javascript\">
+		return  "
+		<script src=\"https://cdn.ravenjs.com/3.17.0/raven.min.js\" crossorigin=\"anonymous\"></script>
+		<script type=\"text/javascript\">
 		Raven.config(\"https://2e455acb0e7a4f8b964b9b65b60743ed@sentry.io/205980\", {
 		    release: \"3.0\"
 		}).install();
-	</script>";
+
+		function eventThrowException(e)
+		{
+			Raven.captureException(e);
+		}
+
+		</script>";
 	}
-	return $sentryInfo;
+	return "
+	<script>
+
+		function eventThrowException(e)
+		{
+			//this would send errors, but it is disabled
+		}
+
+	</script>";
 }
 
 function customCSS($currentColorValue)

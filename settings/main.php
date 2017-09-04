@@ -69,7 +69,6 @@ require_once('../core/php/commonFunctions.php');
 	var countOfAddedFilesStatic = countOfAddedFiles;
 	var countOfClicksStatic = countOfClicks;
 	var locationInsertStatic = locationInsert;
-	var sendCrashInfoJS = "<?php echo $sendCrashInfoJS;?>";
 
 	if(logTrimType == 'lines')
 	{
