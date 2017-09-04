@@ -313,7 +313,9 @@ function getFileSingle(current)
 	try
 	{
 		var urlForSend = "core/php/poll.php?format=json";
-		var data = {arrayToUpdate: arrayToUpdate};
+		var arrayToSend = new Array();
+		arrayToSend.push(arrayToUpdate[current]);
+		var data = {arrayToUpdate: arrayToSend};
 		$.ajax({
 			url: urlForSend,
 			dataType: "json",
