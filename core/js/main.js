@@ -29,6 +29,7 @@ var userPaused = false;
 var refreshing = false;
 var percent = 0;
 var pollRefreshAllBoolStatic = pollRefreshAllBool;
+var firstLoad = true;
 
 function escapeHTML(unsafeStr)
 {
@@ -172,6 +173,10 @@ function pollTwoPartTwo(data)
 {
 	try
 	{
+		if(firstLoad)
+		{
+			updateProgressBar(10, "Generating File Object");
+		}
 	    t2 = performance.now();
 
 		//check for all update force
@@ -265,35 +270,43 @@ function pollThree(arrayToUpdate)
 		t3 = performance.now();
 		if (typeof arrayToUpdate !== "undefined" && arrayToUpdate.length > 0) 
 		{
-			var urlForSend = "core/php/poll.php?format=json";
-			var data = {arrayToUpdate: arrayToUpdate};
-			$.ajax({
-				url: urlForSend,
-				dataType: "json",
-				data: data,
-				type: "POST",
-				success(data)
-				{
-					var filesInner = Object.keys(data);
-					if(arrayOfDataMain == null)
+			if(firstLoad)
+			{
+				updateProgressBar(10, "Loading file 1 of "+arrayToUpdate.length);
+				getFileSingle(arrayToUpdate.length-1, arrayToUpdate.length-1);
+			}
+			else
+			{
+				var urlForSend = "core/php/poll.php?format=json";
+				var data = {arrayToUpdate: arrayToUpdate};
+				$.ajax({
+					url: urlForSend,
+					dataType: "json",
+					data: data,
+					type: "POST",
+					success(data)
 					{
-						arrayOfDataMain = data;
-					}
-					else
-					{
-						for (var i = filesInner.length - 1; i >= 0; i--) 
+						var filesInner = Object.keys(data);
+						if(arrayOfDataMain == null)
 						{
-							arrayOfDataMain[filesInner[i]] = data[filesInner[i]];
+							arrayOfDataMain = data;
 						}
+						else
+						{
+							for (var i = filesInner.length - 1; i >= 0; i--) 
+							{
+								arrayOfDataMain[filesInner[i]] = data[filesInner[i]];
+							}
+						}
+						update(arrayOfDataMain);
+						fresh = false;
+					},
+					complete()
+					{
+						afterPollFunctionComplete();
 					}
-					update(arrayOfDataMain);
-					fresh = false;
-				},
-				complete()
-				{
-					afterPollFunctionComplete();
-				}
-			});	
+				});	
+			}
 		}
 		else
 		{
@@ -306,11 +319,58 @@ function pollThree(arrayToUpdate)
 	}
 }
 
+function getFileSingle(current)
+{
+	var urlForSend = "core/php/poll.php?format=json";
+	var data = {arrayToUpdate: arrayToUpdate};
+	$.ajax({
+		url: urlForSend,
+		dataType: "json",
+		data: data,
+		type: "POST",
+		success(data)
+		{
+			var filesInner = Object.keys(data);
+			if(arrayOfDataMain == null)
+			{
+				arrayOfDataMain = data;
+			}
+			else
+			{
+				for (var i = filesInner.length - 1; i >= 0; i--) 
+				{
+					arrayOfDataMain[filesInner[i]] = data[filesInner[i]];
+				}
+			}
+		},
+		complete()
+		{
+			var updateBy = (1/arrayToUpdate.length)*60;
+			updateProgressBar(updateBy, "Loading file "+(arrayToUpdate.length+1-current)+" of "+arrayToUpdate.length);
+			if(current != 0)
+			{
+				current--;
+				getFileSingle(current);
+			}
+			else
+			{
+				update(arrayOfDataMain);
+				fresh = false;
+				afterPollFunctionComplete();
+			}
+		}
+	});	
+}
+
 function afterPollFunctionComplete()
 {
 	try
 	{
-    	document.getElementById('firstLoad').style.display = 'none';
+		if(firstLoad)
+		{
+			firstLoad = false;
+			document.getElementById('firstLoad').style.display = 'none';
+		}
     	if(refreshing)
     	{
     		endRefreshAction();
@@ -1071,10 +1131,13 @@ function updateProgressBar(additonalPercent, text)
 {
 	try
 	{
-		percent = percent + additonalPercent;
-		document.getElementById('progressBar').value = percent;
-		$('#progressBarSubInfo').empty();
-		$('#progressBarSubInfo').append(text);
+		if(firstLoad)
+		{
+			percent = percent + additonalPercent;
+			document.getElementById('progressBar').value = percent;
+			$('#progressBarSubInfo').empty();
+			$('#progressBarSubInfo').append(text);
+		}
 	}
 	catch(e)
 	{
@@ -1085,7 +1148,7 @@ function updateProgressBar(additonalPercent, text)
 $(document).ready(function()
 {
 	resize();
-	updateProgressBar(10, "Generating Filelist Object");
+	updateProgressBar(10, "Generating File List");
 	window.onresize = resize;
 	window.onfocus = focus;
 

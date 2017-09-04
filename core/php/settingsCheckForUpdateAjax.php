@@ -54,7 +54,7 @@ else
 
 if($enableDevBranchDownload == "true")
 {
-  file_put_contents("../../update/downloads/versionCheck/versionCheck.zip", 
+  file_put_contents("../../update/downloads/versionCheck/versionCheck.zip",
   file_get_contents($baseUrlUpdate ."versionCheckDev.zip")
   );
 }
@@ -76,7 +76,7 @@ if ($res === TRUE) {
   for($i = 0; $i < $zip->numFiles; $i++) {
         $filename = $zip->getNameIndex($i);
         $fileinfo = pathinfo($filename);
-        if (strpos($fileinfo['basename'], '.php') !== false) 
+        if (strpos($fileinfo['basename'], '.php') !== false)
         {
           copy("zip://".$path."#".$filename, "../../update/downloads/versionCheck/extracted/".$fileinfo['basename']);
         }
@@ -160,7 +160,6 @@ $versionCount = count($version);
 
 foreach ($versionCheckArray['versionList'] as $key => $value) 
 {
- 
   $newestVersion = explode('.', $key);
   $newestVersionCount = count($newestVersion);
   $levelOfUpdate = $levelOfUpdate = findUpdateValue($newestVersionCount, $versionCount, $newestVersion, $version);

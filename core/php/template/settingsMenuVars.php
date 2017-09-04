@@ -49,7 +49,9 @@
 						$i++ ?>
 						<li>
 							<span class="settingsBuffer" > <input type="radio" name="currentFolderColorTheme" <?php if ($key == $currentFolderColorTheme){echo "checked='checked'";}?> value="<?php echo $key; ?>"> <?php echo $key; ?>: </span>  <input style="display: none;" type="text" name="folderColorThemeNameForPost<?php echo $i;?>" value="<?php echo $key; ?>" >
-							<?php $j = 0; foreach ($value as $key2 => $value2): $j++;?>
+							<?php $j = 0;
+							foreach ($value as $key2 => $value2):
+								$j++;?>
 								<div class="colorSelectorDiv" style="background-color: <?php echo $value2; ?>" >
 									<!-- <div class="inner-triangle" ></div> -->
 								</div>
