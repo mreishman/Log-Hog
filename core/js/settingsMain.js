@@ -1,4 +1,4 @@
-/global sendCrashInfoJS Raven displayLoadingPopup.../
+/global sendCrashInfoJS Raven displayLoadingPopup countOfAddedFiles countOfWatchList popupSettingsArray /;
 function showOrHideLogTrimSubWindow()
 {
 	try
@@ -64,7 +64,7 @@ function addRowFunction()
 	}
 	catch(e)
 	{
-		eventThrowException(e)
+		eventThrowException(e);
 	}
 }
 
@@ -84,7 +84,7 @@ function deleteRowFunctionPopup(currentRow, decreaseCountWatchListNum, keyName =
 	}
 	catch(e)
 	{
-		eventThrowException(e)
+		eventThrowException(e);
 	}	
 }
 
@@ -118,7 +118,7 @@ function deleteRowFunction(currentRow, decreaseCountWatchListNum)
 					if(elementByIdPreCheck !== null)
 					{
 						documentUpdateText += updateItoIMinusOne+": <div style=\"width: 100px; display: inline-block; text-align: center;\">----------</div>";
-						elementPreCheckSrc = elementByIdPreCheck.src;
+						var elementPreCheckSrc = elementByIdPreCheck.src;
 						if(elementPreCheckSrc.indexOf("folderIcon") !== -1)
 						{
 							documentUpdateText += "<img id='fileNotFoundImage"+updateItoIMinusOne+"' src='../core/img/folderIcon.png' width='15px'>  ";
