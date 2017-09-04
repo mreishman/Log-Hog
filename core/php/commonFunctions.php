@@ -72,4 +72,75 @@ function loadSentryData($sendCrashInfoJS)
 	return $sentryInfo;
 }
 
+function customCSS($currentSelectedThemeColorValue)
+{
+	$customCSS = "
+	<style type=\"text/css\">
+	#menu a, .link, .linkSmall, .context-menu{
+		background-color: ".$currentSelectedThemeColorValue.";
+	}
+	</style>";
+	return $customCSS;
+}
+
+function baseURL()
+{
+	$baseURL = "";
+	$boolBaseURL = file_exists($baseURL."error.php");
+	while(!$boolBaseURL)
+	{
+		$baseURL .= "../";
+		$boolBaseURL = file_exists($baseURL."error.php");
+	}
+	return $baseURL;
+}
+
+function clean_url($url) 
+{
+    $parts = parse_url($url);
+    return $parts['path'];
+}
+
+function loadCSS($baseUrl, $version)
+{
+	return "<link rel=\"stylesheet\" type=\"text/css\" href=\"".$baseUrl."template/theme.css?v=".$version."\">";
+}
+
+function loadVisibilityJS($baseURL)
+{
+	return "<script src=\"".$baseURL."core/js/visibility.core.js\"></script>
+	<script src=\"".$baseURL."core/js/visibility.fallback.js\"></script>
+	<script src=\"".$baseURL."core/js/visibility.js\"></script>
+	<script src=\"".$baseURL."core/js/visibility.timers.js\"></script>";
+}
+
+function calcuateDaysSince($lastCheck)
+{
+	$today = date('Y-m-d');
+	$old_date = $lastCheck;
+	$old_date_array = preg_split("/-/", $old_date);
+	$old_date = $old_date_array[2]."-".$old_date_array[0]."-".$old_date_array[1];
+
+	$datetime1 = date_create($old_date_array[2]."-".$old_date_array[0]."-".$old_date_array[1]);
+	$datetime2 = date_create($today);
+	$interval = date_diff($datetime1, $datetime2);
+	return $interval->format('%a');
+}
+
+/*
+
+$baseUrl = "../core/";
+if(file_exists('../local/layout.php'))
+{
+	$baseUrl = "../local/";
+	//there is custom information, use this
+	require_once('../local/layout.php');
+	$baseUrl .= $currentSelectedTheme."/";
+}
+require_once($baseUrl.'conf/config.php'); 
+require_once('../core/conf/config.php');
+require_once('../core/php/configStatic.php');
+require_once('../core/php/loadVars.php');
+
+*/
 ?>

@@ -1,8 +1,5 @@
 <?php
-function clean_url($url) {
-    $parts = parse_url($url);
-    return $parts['path'];
-}
+require_once('core/php/commonFunctions.php');
 
 $baseUrl = "core/";
 if(file_exists('local/layout.php'))
@@ -24,17 +21,8 @@ require_once('core/conf/config.php');
 require_once('core/php/configStatic.php');
 require_once('core/php/loadVars.php');
 require_once('core/php/updateCheck.php');
-require_once('core/php/commonFunctions.php');
 
-$today = date('Y-m-d');
-$old_date = $configStatic['lastCheck'];
-$old_date_array = preg_split("/-/", $old_date);
-$old_date = $old_date_array[2]."-".$old_date_array[0]."-".$old_date_array[1];
-
-$datetime1 = date_create($old_date_array[2]."-".$old_date_array[0]."-".$old_date_array[1]);
-$datetime2 = date_create($today);
-$interval = date_diff($datetime1, $datetime2);
-$daysSince = $interval->format('%a');
+$daysSince = calcuateDaysSince($configStatic['lastCheck']);
 
 if($pollingRateType == 'Seconds')
 {
@@ -80,22 +68,17 @@ elseif($withLogHog == 'true')
 <!doctype html>
 <head>
 	<title>Log Hog | Index</title>
-	<link rel="stylesheet" type="text/css" href="<?php echo $baseUrl ?>template/theme.css">
+	<?php echo loadCSS($baseUrl, $cssVersion);?>
 	<link rel="icon" type="image/png" href="core/img/favicon.png" />
-	<?php echo loadSentryData($sendCrashInfoJS); ?>
 	<script src="core/js/jquery.js"></script>
-	<script src="core/js/visibility.core.js"></script>
-	<script src="core/js/visibility.fallback.js"></script>
-	<script src="core/js/visibility.js"></script>
-	<script src="core/js/visibility.timers.js"></script>
+	<?php 
+		echo loadSentryData($sendCrashInfoJS); 
+		echo loadVisibilityJS(baseURL());
+	?>
 </head>
 <body>
-<style type="text/css">
-	#menu a, .link, .linkSmall, .context-menu{
-		background-color: <?php echo $currentSelectedThemeColorValues[0]?>;
-	}
-</style>
-	<?php if($enablePollTimeLogging != "false"): ?>
+	<?php echo customCSS($currentSelectedThemeColorValues[0]);
+	if($enablePollTimeLogging != "false"): ?>
 		<div id="loggTimerPollStyle" style="width: 100%;background-color: black;text-align: center; line-height: 200%;" ><span id="loggingTimerPollRate" >### MS /<?php echo $pollingRate; ?> MS</span> | <span id="loggSkipCount" >0</span>/<?php echo $pollForceTrue; ?> | <span id="loggAllCount" >0</span>/<?php echo $pollRefreshAll; ?></div>
 	<?php endif; ?>
 	<div id="menu">
