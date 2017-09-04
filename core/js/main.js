@@ -312,6 +312,10 @@ function afterPollFunctionComplete()
 	try
 	{
     	document.getElementById('firstLoad').style.display = 'none';
+    	if(refreshing)
+    	{
+    		endRefreshAction();
+    	}
 		polling = false;
 		if(enablePollTimeLogging !== "false")
 		{
@@ -401,7 +405,6 @@ function refreshAction()
 		document.getElementById("refreshImage").src="core/img/loading.gif";
 		refreshing = true;
 		poll();
-		refreshActionVar = setTimeout(endRefreshAction, 1500);
 	}
 	catch(e)
 	{
