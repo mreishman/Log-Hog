@@ -118,7 +118,19 @@ function deleteRowFunction(currentRow, decreaseCountWatchListNum)
 					if(elementByIdPreCheck !== null)
 					{
 						documentUpdateText += updateItoIMinusOne+": <div style=\"width: 100px; display: inline-block; text-align: center;\">----------</div>";
-						documentUpdateText += "<img id='fileNotFoundImage"+updateItoIMinusOne+"' src='../core/img/redWarning.png' width='15px'>";
+						elementPreCheckSrc = elementByIdPreCheck.src;
+						if(elementPreCheckSrc.indexOf("folderIcon") !== -1)
+						{
+							documentUpdateText += "<img id='fileNotFoundImage"+updateItoIMinusOne+"' src='../core/img/folderIcon.png' width='15px'>  ";
+						}
+						else if(elementPreCheckSrc.indexOf("fileIcon") !== -1)
+						{
+							documentUpdateText += "<img id='fileNotFoundImage"+updateItoIMinusOne+"' src='../core/img/fileIcon.png' width='15px'>  ";
+						}
+						else
+						{
+							documentUpdateText += "<img id='fileNotFoundImage"+updateItoIMinusOne+"' src='../core/img/redWarning.png' width='15px'>  ";
+						}
 					}
 					else
 					{

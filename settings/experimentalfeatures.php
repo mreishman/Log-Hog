@@ -1,4 +1,6 @@
 <?php
+require_once('../core/php/commonFunctions.php');
+
 $baseUrl = "../core/";
 if(file_exists('../local/layout.php'))
 {
@@ -16,7 +18,7 @@ require_once('../core/php/updateCheck.php');
 <!doctype html>
 <head>
 	<title>Settings | Main</title>
-	<link rel="stylesheet" type="text/css" href="<?php echo $baseUrl ?>template/theme.css">
+	<?php echo loadCSS($baseUrl, $cssVersion);?>
 	<link rel="icon" type="image/png" href="../core/img/favicon.png" />
 	<script src="../core/js/jquery.js"></script>
 </head>

@@ -72,12 +72,12 @@ function loadSentryData($sendCrashInfoJS)
 	return $sentryInfo;
 }
 
-function customCSS($currentSelectedThemeColorValue)
+function customCSS($currentColorValue)
 {
 	$customCSS = "
 	<style type=\"text/css\">
 	#menu a, .link, .linkSmall, .context-menu{
-		background-color: ".$currentSelectedThemeColorValue.";
+		background-color: ".$currentColorValue.";
 	}
 	</style>";
 	return $customCSS;
@@ -95,7 +95,7 @@ function baseURL()
 	return $baseURL;
 }
 
-function clean_url($url) 
+function clean_url($url)
 {
     $parts = parse_url($url);
     return $parts['path'];
@@ -137,7 +137,7 @@ if(file_exists('../local/layout.php'))
 	require_once('../local/layout.php');
 	$baseUrl .= $currentSelectedTheme."/";
 }
-require_once($baseUrl.'conf/config.php'); 
+require_once($baseUrl.'conf/config.php');
 require_once('../core/conf/config.php');
 require_once('../core/php/configStatic.php');
 require_once('../core/php/loadVars.php');
