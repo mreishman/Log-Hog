@@ -286,18 +286,7 @@ function pollThree(arrayToUpdate)
 					type: "POST",
 					success(data)
 					{
-						var filesInner = Object.keys(data);
-						if(arrayOfDataMain == null)
-						{
-							arrayOfDataMain = data;
-						}
-						else
-						{
-							for (var i = filesInner.length - 1; i >= 0; i--) 
-							{
-								arrayOfDataMain[filesInner[i]] = data[filesInner[i]];
-							}
-						}
+						arrayOfDataMainDataFilter(data);
 						update(arrayOfDataMain);
 						fresh = false;
 					},
@@ -321,45 +310,64 @@ function pollThree(arrayToUpdate)
 
 function getFileSingle(current)
 {
-	var urlForSend = "core/php/poll.php?format=json";
-	var data = {arrayToUpdate: arrayToUpdate};
-	$.ajax({
-		url: urlForSend,
-		dataType: "json",
-		data: data,
-		type: "POST",
-		success(data)
-		{
-			var filesInner = Object.keys(data);
-			if(arrayOfDataMain == null)
+	try
+	{
+		var urlForSend = "core/php/poll.php?format=json";
+		var data = {arrayToUpdate: arrayToUpdate};
+		$.ajax({
+			url: urlForSend,
+			dataType: "json",
+			data: data,
+			type: "POST",
+			success(data)
 			{
-				arrayOfDataMain = data;
-			}
-			else
+				arrayOfDataMainDataFilter(data);
+			},
+			complete()
 			{
-				for (var i = filesInner.length - 1; i >= 0; i--) 
+				var updateBy = (1/arrayToUpdate.length)*60;
+				updateProgressBar(updateBy, "Loading file "+(arrayToUpdate.length+1-current)+" of "+arrayToUpdate.length);
+				if(current != 0)
 				{
-					arrayOfDataMain[filesInner[i]] = data[filesInner[i]];
+					current--;
+					getFileSingle(current);
+				}
+				else
+				{
+					update(arrayOfDataMain);
+					fresh = false;
+					afterPollFunctionComplete();
 				}
 			}
-		},
-		complete()
+		});
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}	
+}
+
+function arrayOfDataMainDataFilter(data)
+{
+	try
+	{
+		var filesInner = Object.keys(data);
+		if(arrayOfDataMain == null)
 		{
-			var updateBy = (1/arrayToUpdate.length)*60;
-			updateProgressBar(updateBy, "Loading file "+(arrayToUpdate.length+1-current)+" of "+arrayToUpdate.length);
-			if(current != 0)
+			arrayOfDataMain = data;
+		}
+		else
+		{
+			for (var i = filesInner.length - 1; i >= 0; i--) 
 			{
-				current--;
-				getFileSingle(current);
-			}
-			else
-			{
-				update(arrayOfDataMain);
-				fresh = false;
-				afterPollFunctionComplete();
+				arrayOfDataMain[filesInner[i]] = data[filesInner[i]];
 			}
 		}
-	});	
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
 }
 
 function afterPollFunctionComplete()
