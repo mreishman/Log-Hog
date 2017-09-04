@@ -47,14 +47,16 @@ $URI = $_SERVER['REQUEST_URI'];
 	<?php else: ?>	
 		<a id="advancedLink" onclick="goToUrl('advanced.php');">Advanced</a>
 	<?php endif; ?>
-	<?php
-	if($developmentTabEnabled == 'true'):?>
-		<?php if(strpos($URI, 'devTools.php') !== false): ?>
-			<a style="cursor: default;" class="active" id="devToolsLink"> Dev Tools </a>
-		<?php else: ?>
-			<a id="devToolsLink" onclick="goToUrl('devTools.php');"> Dev Tools </a>
+	<a id="devToolsLink"
+		<?php if(!(($developmentTabEnabled == 'true') || (strpos($URI, 'devTools.php') !== false))):?>
+			style="display: none;
 		<?php endif; ?>	
-	<?php endif; ?>
+		<?php if(strpos($URI, 'devTools.php') !== false): ?>
+			cursor: default;" class="active"
+		<?php else: ?>
+			" onclick="goToUrl('devTools.php');"
+		<?php endif; ?>
+	> Dev Tools </a>
 	<?php
 	if($expSettingsAvail):?>
 		<?php if(strpos($URI, 'experimentalfeatures.php') !== false): ?>
