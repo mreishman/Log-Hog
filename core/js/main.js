@@ -28,6 +28,8 @@ var refreshActionVar;
 var refreshPauseActionVar;
 var userPaused = false;
 var refreshing = false;
+var percent = 0;
+var pollRefreshAllBoolStatic = pollRefreshAllBool;
 
 function escapeHTML(unsafeStr)
 {
@@ -391,6 +393,11 @@ function refreshAction()
 	try
 	{
     	clearTimeout(refreshActionVar);
+    	if(pollRefreshAllBoolStatic == "false")
+    	{
+    		pollRefreshAllBool = "true";
+    	}
+    	counterForPollForceRefreshAll = 1+pollRefreshAll;
 		document.getElementById("refreshImage").src="core/img/loading.gif";
 		refreshing = true;
 		poll();
@@ -406,6 +413,10 @@ function endRefreshAction()
 {
 	try
 	{
+		if(pollRefreshAllBoolStatic == "false")
+    	{
+    		pollRefreshAllBool = "false";
+    	}
 	    document.getElementById("refreshImage").src="core/img/Refresh.png"; 
 		refreshing = false;
 		if(pausePoll)
@@ -1057,6 +1068,21 @@ function saveSettingFromPopupNoCheckMaybe()
 	}
 }
 
+function updateProgressBar(additonalPercent, text)
+{
+	try
+	{
+		percent = percent + additonalPercent;
+		document.getElementById('progressBar').value = percent;
+		$('#progressBarSubInfo').empty();
+		$('#progressBarSubInfo').append(text);
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
 function eventThrowException(e)
 {
 	if(sendCrashInfoJS === "true")
@@ -1068,17 +1094,19 @@ function eventThrowException(e)
 $(document).ready(function()
 {
 	resize();
-
+	updateProgressBar(10, "Generating Filelist Object");
 	window.onresize = resize;
 	window.onfocus = focus;
+
+	refreshAction();
 
 	if(pausePollFromFile)
 	{
 		pausePoll = true;
+
 	}
 	else
 	{
-		poll();
 		startPollTimer();
 	}
 
