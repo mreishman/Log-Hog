@@ -74,61 +74,7 @@ $daysSince = calcuateDaysSince($configStatic['lastCheck']);
 				{
 					$version = explode('.', $configStatic['version']);
 					$newestVersion = explode('.', $key);
-					$levelOfUpdate = 0;
-					for($i = 0; $i < $newestVersionCount; $i++)
-					{
-						if($i < $versionCount)
-						{
-							if($i == 0)
-							{
-								if($newestVersion[$i] > $version[$i])
-								{
-									$levelOfUpdate = 3;
-									break;
-								}
-								elseif($newestVersion[$i] < $version[$i])
-								{
-									break;
-								}
-							}
-							elseif($i == 1)
-							{
-								if($newestVersion[$i] > $version[$i])
-								{
-									$levelOfUpdate = 2;
-									break;
-								}
-								elseif($newestVersion[$i] < $version[$i])
-								{
-									break;
-								}
-							}
-							else
-							{
-								if(isset($newestVersion[$i]))
-								{
-									if($newestVersion[$i] > $version[$i])
-									{
-										$levelOfUpdate = 1;
-										break;
-									}
-									elseif($newestVersion[$i] < $version[$i])
-									{
-										break;
-									}
-								}
-								else
-								{
-									break;
-								}
-							}
-						}
-						else
-						{
-							$levelOfUpdate = 1;
-							break;
-						}
-					}
+					$levelOfUpdate = findUpdateValue($newestVersionCount, $versionCount, $newestVersion, $version);
 					if($levelOfUpdate != 0)
 					{
 						echo "<li><h2>Changelog For ".$key." update</h2></li>";

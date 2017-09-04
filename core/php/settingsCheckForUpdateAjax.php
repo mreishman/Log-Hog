@@ -1,5 +1,5 @@
 <?php
-
+require_once('commonFunctions.php');
 //check for previous update, if failed
 
 $baseUrl = "../../core/";
@@ -147,62 +147,7 @@ $newestVersion =  explode('.', $versionCheckArray['version']);
 
 $newestVersionCount = count($newestVersion);
 $versionCount = count($version);
-$levelOfUpdate = 0;
-for($i = 0; $i < $newestVersionCount; $i++)
-{
-  if($i < $versionCount)
-  {
-    if($i == 0)
-    {
-      if($newestVersion[$i] > $version[$i])
-      {
-        $levelOfUpdate = 3;
-        break;
-      }
-      elseif($newestVersion[$i] < $version[$i])
-      {
-        break;
-      }
-    }
-    elseif($i == 1)
-    {
-      if($newestVersion[$i] > $version[$i])
-      {
-        $levelOfUpdate = 2;
-        break;
-      }
-      elseif($newestVersion[$i] < $version[$i])
-      {
-        break;
-      }
-    }
-    else
-    {
-      if(isset($newestVersion[$i]))
-      {
-        if($newestVersion[$i] > $version[$i])
-        {
-          $levelOfUpdate = 1;
-          break;
-        }
-        elseif($newestVersion[$i] < $version[$i])
-        {
-          break;
-        }
-      }
-      else
-      {
-        break;
-      }
-    }
-  }
-  else
-  {
-    $levelOfUpdate = 1;
-    break;
-  }
-}
-
+$levelOfUpdate = $levelOfUpdate = findUpdateValue($newestVersionCount, $versionCount, $newestVersion, $version);
 
 $data['version'] = $levelOfUpdate;
 $data['versionNumber'] = $versionCheckArray['version'];
@@ -218,54 +163,7 @@ foreach ($versionCheckArray['versionList'] as $key => $value)
  
   $newestVersion = explode('.', $key);
   $newestVersionCount = count($newestVersion);
-  $levelOfUpdate = 0;
-  for($i = 0; $i < $newestVersionCount; $i++)
-  {
-    if($i < $versionCount)
-    {
-      if($i == 0)
-      {
-        if($newestVersion[$i] > $version[$i])
-        {
-          $levelOfUpdate = 3;
-          break;
-        }
-        elseif($newestVersion[$i] < $version[$i])
-        {
-          break;
-        }
-      }
-      elseif($i == 1)
-      {
-        if($newestVersion[$i] > $version[$i])
-        {
-          $levelOfUpdate = 2;
-          break;
-        }
-        elseif($newestVersion[$i] < $version[$i])
-        {
-          break;
-        }
-      }
-      else
-      {
-        if($newestVersion[$i] > $version[$i])
-        {
-          $levelOfUpdate = 1;
-          break;
-        }
-        elseif($newestVersion[$i] < $version[$i])
-        {
-          break;
-        }
-      }
-    }
-    else
-    {
-      $levelOfUpdate = 1;
-      break;
-    }
-  }
+  $levelOfUpdate = $levelOfUpdate = findUpdateValue($newestVersionCount, $versionCount, $newestVersion, $version);
 
   if($levelOfUpdate != 0)
   {

@@ -7,7 +7,7 @@ if(file_exists('../local/layout.php'))
 	require_once('../local/layout.php');
 	$baseUrl .= $currentSelectedTheme."/";
 }
-require_once($baseUrl.'conf/config.php'); 
+require_once($baseUrl.'conf/config.php');
 require_once('setupProcessFile.php');
 
 function clean_url($url) {

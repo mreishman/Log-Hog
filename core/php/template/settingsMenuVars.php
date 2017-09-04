@@ -44,7 +44,9 @@
 				</div>
 				<div class="settingsDiv" >
 				<ul id="settingsUl">
-					<?php $i = 0; foreach ($folderColorArrays as $key => $value): $i++ ?>
+					<?php $i = 0;
+					foreach ($folderColorArrays as $key => $value):
+						$i++ ?>
 						<li>
 							<span class="settingsBuffer" > <input type="radio" name="currentFolderColorTheme" <?php if ($key == $currentFolderColorTheme){echo "checked='checked'";}?> value="<?php echo $key; ?>"> <?php echo $key; ?>: </span>  <input style="display: none;" type="text" name="folderColorThemeNameForPost<?php echo $i;?>" value="<?php echo $key; ?>" >
 							<?php $j = 0; foreach ($value as $key2 => $value2): $j++;?>
