@@ -249,14 +249,14 @@ function showNoEmptyFolderPopup()
 
 function checkForChangesWatchListPoll()
 {
-	if(!objectsAreSame($('#settingsMainWatch').serializeArray(),watchlistData))
+	if(!objectsAreSame($("#settingsMainWatch").serializeArray(),watchlistData))
 	{
-		document.getElementById('resetChangesSettingsHeaderButton').style.display = "inline-block";
+		document.getElementById("resetChangesSettingsHeaderButton").style.display = "inline-block";
 		return true;
 	}
 	else
 	{
-		document.getElementById('resetChangesSettingsHeaderButton').style.display = "none";
+		document.getElementById("resetChangesSettingsHeaderButton").style.display = "none";
 		return false;
 	}
 }
@@ -322,26 +322,26 @@ function resetSettingsMainVar()
 
 function resetSettingsMenuVar()
 {
-	document.getElementById('settingsMenuVars').innerHTML = savedInnerHtmlMenu;
-	menuData = $('#settingsMenuVars').serializeArray();
+	document.getElementById("settingsMenuVars").innerHTML = savedInnerHtmlMenu;
+	menuData = $("#settingsMenuVars").serializeArray();
 }
 
 function refreshSettingsMainVar()
 {
-	mainData = $('#settingsMainVars').serializeArray();
-	savedInnerHtmlWatchList = document.getElementById('settingsMainWatch').innerHTML;
+	mainData = $("#settingsMainVars").serializeArray();
+	savedInnerHtmlWatchList = document.getElementById("settingsMainWatch").innerHTML;
 }
 
 function refreshSettingsMenuVar()
 {
-	menuData = $('#settingsMenuVars').serializeArray();
-	savedInnerHtmlMenu = document.getElementById('settingsMenuVars').innerHTML;
+	menuData = $("#settingsMenuVars").serializeArray();
+	savedInnerHtmlMenu = document.getElementById("settingsMenuVars").innerHTML;
 }
 
 function refreshSettingsWatchList()
 {
-	watchlistData = $('#settingsMainWatch').serializeArray();
-	savedInnerHtmlMainVars = document.getElementById('settingsMainVars').innerHTML;
+	watchlistData = $("#settingsMainWatch").serializeArray();
+	savedInnerHtmlMainVars = document.getElementById("settingsMainVars").innerHTML;
 	countOfWatchListStatic = countOfWatchList;
 	countOfAddedFilesStatic = countOfAddedFiles;
 	countOfClicksStatic = countOfClicks;
@@ -353,7 +353,7 @@ function objectsAreSameInner(x, y)
    	var objectsAreSame = true;
    	for(var propertyName in x) 
    	{
-      	if( (typeof(x) === 'undefined') || (typeof(y) === 'undefined') || x[propertyName] !== y[propertyName])
+      	if( (typeof(x) === "undefined") || (typeof(y) === "undefined") || x[propertyName] !== y[propertyName])
       	{
          objectsAreSame = false;
          break;

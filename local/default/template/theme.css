@@ -75,6 +75,13 @@ div {
 	transform: scale(1);
 }
 
+.menuImageDiv{
+	display: inline-block;
+	cursor: pointer;
+	height: 30px;
+	width: 30px;
+}
+
 .menuImage:hover{
 	-webkit-transform: scale(1.3);
 	transform: scale(1.3);

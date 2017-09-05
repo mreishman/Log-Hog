@@ -85,7 +85,7 @@ elseif($withLogHog == 'true')
 		<div id="loggTimerPollStyle" style="width: 100%;background-color: black;text-align: center; line-height: 200%;" ><span id="loggingTimerPollRate" >### MS /<?php echo $pollingRate; ?> MS</span> | <span id="loggSkipCount" >0</span>/<?php echo $pollForceTrue; ?> | <span id="loggAllCount" >0</span>/<?php echo $pollRefreshAll; ?></div>
 	<?php endif; ?>
 	<div id="menu">
-		<div onclick="pausePollAction();" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">
+		<div onclick="pausePollAction();" class="menuImageDiv">
 			<img id="pauseImage" class="menuImage"
 				<?php if($pausePoll == 'true'):?>
 					 src="core/img/Play.png" 
@@ -94,24 +94,24 @@ elseif($withLogHog == 'true')
 				<?php endif;?>
 			height="30px">
 		</div>
-		<div onclick="refreshAction();" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">
+		<div onclick="refreshAction();" class="menuImageDiv">
 			<img id="refreshImage" class="menuImage" src="core/img/Refresh.png" height="30px">
 		</div>
 		<?php if($truncateLog == 'true'): ?>
-		<div onclick="deleteAction();" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">
+		<div onclick="deleteAction();"  class="menuImageDiv">
 			<img id="deleteImage" class="menuImage" src="core/img/trashCanMulti.png" height="30px">
 		</div>
 		<?php else: ?>
-		<div onclick="clearLog();" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">
+		<div onclick="clearLog();" class="menuImageDiv">
 			<img id="deleteImage" class="menuImage" src="core/img/trashCan.png" height="30px">
 		</div>
 		<?php endif; ?>
 		<?php if($locationForMonitorIndex != ""): ?>
-		<div onclick="window.location.href = '<?php echo $locationForMonitorIndex; ?>'" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">
+		<div onclick="window.location.href = '<?php echo $locationForMonitorIndex; ?>'"  class="menuImageDiv">
 			<img id="taskmanagerImage" class="menuImage" src="core/img/task-manager.png" height="30px">
 		</div>
 		<?php endif; ?>
-		<div onclick="window.location.href = './settings/main.php';" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">
+		<div onclick="window.location.href = './settings/main.php';"  class="menuImageDiv">
 			<img data-id="1" id="gear" class="menuImage" src="core/img/Gear.png" height="30px">
 			<?php  if($levelOfUpdate == 1){echo '<img id="updateImage" src="core/img/yellowWarning.png" height="15px" style="position: absolute;margin-left: 13px;margin-top: -34px;">';} ?> <?php if($levelOfUpdate == 2 || $levelOfUpdate == 3){echo '<img id="updateImage" src="core/img/redWarning.png" height="15px" style="position: absolute;margin-left: 13px;margin-top: -34px;">';} ?>
 		</div>
