@@ -1,13 +1,9 @@
-<style type="text/css">
-	#menu a, #menu2 a, .link, .linkSmall, .settingsHeader button{
-		background-color: <?php echo $currentSelectedThemeColorValues[0]?>;
-	}
-</style>
 <?php
 require_once('../top/statusTest.php');
 require_once('../setup/setupProcessFile.php');
 $withLogHog = $monitorStatus['withLogHog'];
 $URI = $_SERVER['REQUEST_URI'];
+require_once("../core/php/customCSS.php");
 ?>
 <div id="menu">
 	<div onclick="goToUrl('../index.php');" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">

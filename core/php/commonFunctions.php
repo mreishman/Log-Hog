@@ -86,30 +86,6 @@ function loadSentryData($sendCrashInfoJS)
 	</script>";
 }
 
-function customCSS($currentColorValue)
-{
-	$customCSS = "
-	<style type=\"text/css\">
-	#menu a, .link, .linkSmall, .context-menu{
-		background-color: ".$currentColorValue.";
-	}
-	progress {
-    color: ".$currentColorValue.";
-	}
-
-	/* Firefox */
-	progress::-moz-progress-bar { 
-	    background: ".$currentColorValue.";  
-	}
-
-	/* Chrome */
-	progress::-webkit-progress-value {
-	    background: ".$currentColorValue.";
-	}
-	</style>";
-	return $customCSS;
-}
-
 function baseURL()
 {
 	$baseURL = "";

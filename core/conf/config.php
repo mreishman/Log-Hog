@@ -60,6 +60,7 @@ $defaultConfig = array(
 		'theme-default-4'	=> array('#2E8B57',"#20B2AA","#3CB371","#8FBC8F"),
 		'theme-default-5'	=> array('#9ACD32',"#32CD32","#2A912A","#2E8B57","#9ACD32"),
 		),
+	'backgroundColor'	=> "#292929",
 	'watchList'		=> array(
 		'/var/www/html/var/log/system.log'	        => '',
 		'/var/log/hhvm/error.log'	=> '',
