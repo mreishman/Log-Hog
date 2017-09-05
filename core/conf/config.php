@@ -7,6 +7,7 @@ $defaultConfig = array(
 	'sendCrashInfoJS'	=> 'true',
 	'sendCrashInfoPHP'	=> 'true',
 	'themesEnabled'		=> 'true',
+	'currentTheme'		=> 'Default',
 	'sliceSize'		=> 500,
 	'pollingRate'	=> 500,
 	'buffer'		=> 500,

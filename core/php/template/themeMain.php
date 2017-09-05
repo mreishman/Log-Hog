@@ -11,14 +11,14 @@ Theme Selector
 			<div class="settingsHeader" style="margin: 0px;">
 				<?php echo $key;?>
 				<div class="settingsHeaderButtons">
-					<?php if(true): ?>
+					<?php if($key !== $currentTheme): ?>
 						<?php if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
 						<a class="linkSmall" onclick="saveAndVerifyMain('settingsMainVars');" >Select</a>
 						<?php else: ?>
 							<button  onclick="displayLoadingPopup();">Select</button>
 						<?php endif; ?>
 					<?php else: ?>
-						Selected
+						<a class="linkSmallHover"> Selected </a>
 					<?php endif;?>
 				</div>
 			</div>
