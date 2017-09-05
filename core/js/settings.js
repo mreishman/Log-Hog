@@ -76,6 +76,14 @@ function saveVerified()
 	if(idForFormMain === "settingsMainVars")
 	{
 		refreshSettingsMainVar();
+		if(document.getElementsByName("themesEnabled")[0].value === "true")
+		{
+			document.getElementById("themesLink").style.display = "inline-block";
+		}
+		else
+		{
+			document.getElementById("themesLink").style.display = "none";
+		}
 	}
 	else if(idForFormMain === "settingsMenuVars")
 	{

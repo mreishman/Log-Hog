@@ -171,10 +171,17 @@ Main Settings
 			</select>
 	</li>
 	<li>
-		<span class="settingsBuffer" > Right Click Menu: </span> 
+		<span class="settingsBuffer" > Right Click Menu Enabled: </span> 
 			<select name="rightClickMenuEnable">
-					<option <?php if($rightClickMenuEnable == 'true'){echo "selected";} ?> value="true">Enabled</option>
-					<option <?php if($rightClickMenuEnable == 'false'){echo "selected";} ?> value="false">Disabled</option>
+					<option <?php if($rightClickMenuEnable == 'true'){echo "selected";} ?> value="true">True</option>
+					<option <?php if($rightClickMenuEnable == 'false'){echo "selected";} ?> value="false">False</option>
+			</select>
+	</li>
+	<li>
+		<span class="settingsBuffer" > Enable Themes: </span> 
+			<select name="themesEnabled">
+					<option <?php if($themesEnabled == 'true'){echo "selected";} ?> value="true">True</option>
+					<option <?php if($themesEnabled == 'false'){echo "selected";} ?> value="false">False</option>
 			</select>
 	</li>
 </ul>

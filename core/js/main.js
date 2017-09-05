@@ -201,7 +201,7 @@ function pollTwoPartTwo(data)
 		{
 			arrayOfData1 = data;
 			filesNew = Object.keys(arrayOfData1);
-			var i = filesNew.length - 1
+			var i = filesNew.length - 1;
 			for (i; i >= 0; i--)
 			{
 				arrayToUpdate.push(filesNew[i]);
@@ -852,7 +852,7 @@ function deleteAction()
 			dataType: "json",
 			data: data,
 			type: "POST",
-			success: function(data)
+			success(data)
 			{
 
 			}

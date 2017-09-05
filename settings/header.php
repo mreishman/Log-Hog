@@ -25,11 +25,16 @@ $URI = $_SERVER['REQUEST_URI'];
 			<a id="topLink" onclick="goToUrl('settingsTop.php');" >Top</a>
 		<?php endif; ?>
 	<?php endif; ?>
-	<?php if(strpos($URI, 'themes.php') !== false): ?>
-		<a style="cursor: default;" class="active" id="themesLink" >Themes</a>
-	<?php else: ?>
-		<a id="themesLink" onclick="goToUrl('themes.php');" >Themes</a>
-	<?php endif; ?>
+	<a id="themesLink" style="
+		<?php if($themesEnabled === "false"): ?>
+		display: none;
+		<?php endif; ?>
+		<?php if(strpos($URI, 'themes.php') !== false): ?>
+			cursor: default;" class="active" 
+		<?php else: ?>
+			" onclick="goToUrl('themes.php');" 
+		<?php endif; ?>
+	>Themes</a>
 	<?php if(strpos($URI, 'about.php') !== false): ?>
 		<a style="cursor: default;" class="active" id="aboutLink" >About</a>
 	<?php else: ?>	

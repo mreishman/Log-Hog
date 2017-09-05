@@ -263,28 +263,28 @@ function checkForChangesWatchListPoll()
 
 function checkForChangesMainSettings()
 {
-	if(!objectsAreSame($('#settingsMainVars').serializeArray(),mainData))
+	if(!objectsAreSame($("#settingsMainVars").serializeArray(),mainData))
 	{
-		document.getElementById('resetChangesMainSettingsHeaderButton').style.display = "inline-block";
+		document.getElementById("resetChangesMainSettingsHeaderButton").style.display = "inline-block";
 		return true;
 	}
 	else
 	{
-		document.getElementById('resetChangesMainSettingsHeaderButton').style.display = "none";
+		document.getElementById("resetChangesMainSettingsHeaderButton").style.display = "none";
 		return false;
 	}
 }
 
 function checkForChangesMenuSettings()
 {
-	if(!objectsAreSame($('#settingsMenuVars').serializeArray(), menuData))
+	if(!objectsAreSame($("#settingsMenuVars").serializeArray(), menuData))
 	{
-		document.getElementById('resetChangesMenuSettingsHeaderButton').style.display = "inline-block";
+		document.getElementById("resetChangesMenuSettingsHeaderButton").style.display = "inline-block";
 		return true;
 	}
 	else
 	{
-		document.getElementById('resetChangesMenuSettingsHeaderButton').style.display = "none";
+		document.getElementById("resetChangesMenuSettingsHeaderButton").style.display = "none";
 		return false;
 	}
 }
@@ -296,18 +296,18 @@ function poll()
 	var change3 = checkForChangesMenuSettings();
 	if(change || change2 || change3)
 	{
-		document.getElementById('mainLink').innerHTML = "Main*";
+		document.getElementById("mainLink").innerHTML = "Main*";
 	}
 	else
 	{
-		document.getElementById('mainLink').innerHTML = "Main";
+		document.getElementById("mainLink").innerHTML = "Main";
 	}
 }
 
 function resetWatchListVars()
 {
-	document.getElementById('settingsMainWatch').innerHTML = savedInnerHtmlWatchList;
-	watchlistData = $('#settingsMainWatch').serializeArray();
+	document.getElementById("settingsMainWatch").innerHTML = savedInnerHtmlWatchList;
+	watchlistData = $("#settingsMainWatch").serializeArray();
 	countOfWatchList = countOfWatchListStatic;
 	countOfAddedFiles =  countOfAddedFilesStatic;
 	countOfClicks = countOfClicksStatic;
@@ -316,8 +316,8 @@ function resetWatchListVars()
 
 function resetSettingsMainVar()
 {
-	document.getElementById('settingsMainVars').innerHTML = savedInnerHtmlMainVars;
-	mainData = $('#settingsMainVars').serializeArray();
+	document.getElementById("settingsMainVars").innerHTML = savedInnerHtmlMainVars;
+	mainData = $("#settingsMainVars").serializeArray();
 }
 
 function resetSettingsMenuVar()
