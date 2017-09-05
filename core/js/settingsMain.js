@@ -378,12 +378,21 @@ function objectsAreSame(x, y)
 
 function highlightTopNavDepends()
 {
+	var offsetHeight = 0;
+	if(document.getElementById("menu"))
+	{
+		offsetHeight += document.getElementById("menu").offsetHeight;
+	}
+	if(document.getElementById("menu2"))
+	{
+		offsetHeight += document.getElementById("menu2").offsetHeight;
+	}
 	outerHeightMain = $("#settingsMainVars").outerHeight();
 	positionMain = $("#settingsMainVars").position();
-	if((outerHeightMain+positionMain.top) < 0)
+	if((outerHeightMain+positionMain.top-offsetHeight) < 0)
 	{
 		positionMain = $("#settingsMainWatch").position();
-		if((outerHeightMain+positionMain.top) < 0)
+		if((outerHeightMain+positionMain.top-offsetHeight) < 0)
 		{
 			highlightSettingsMenu2Option("menuSettingsMenu2");
 		}

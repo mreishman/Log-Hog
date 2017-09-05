@@ -30,9 +30,8 @@ function generateExampleIndex($type, $top)
 		
 			<a style=\"background-color: #20B2AA\" class=\"varlogapache2errorlogButton\" \">error.log</a>
 		
-			<a style=\"background-color: #3CB371\" class=\"varlogalternativeslogButton\"\">alternatives.log</a>
+			<a style=\"background-color: #3CB371\" class=\"varlogalternativeslogButton updated\"\">alternatives.log</a>
 		</div>";
-
 
 	//LOG
 	$html .= "<div id=\"main\" style=\"height: 251px; position: inherit; background-color: #292929;\">
@@ -41,11 +40,9 @@ function generateExampleIndex($type, $top)
 	
 	//Footer
 
-	//bottom: 26px; 
-
 	$html .= "<div style=\" position: relative;  \" id=\"titleContainer\"><div id=\"title\">/var/log/hhvm/error.log</div>&nbsp;&nbsp;<div style=\"display: inline-block; float: right;\"><a class=\"linkSmall\" >Clear Log</a><a class=\"linkSmall\" >Delete Log</a></div></div>";
 
-		return $html;
+	return $html;
 }
 
 ?>

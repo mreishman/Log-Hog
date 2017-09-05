@@ -130,13 +130,6 @@ Main Settings
 
 	</li>
 	<li>
-		<span class="settingsBuffer" > Truncate Log Button: </span> 
-			<select name="truncateLog">
-					<option <?php if($truncateLog == 'true'){echo "selected";} ?> value="true">All Logs</option>
-					<option <?php if($truncateLog == 'false'){echo "selected";} ?> value="false">Current Log</option>
-			</select>
-	</li>
-	<li>
 		<span class="settingsBuffer" > Popup Warnings: </span> 
 			<select id="popupSelect"  name="popupWarnings">
 					<option <?php if($popupWarnings == 'all'){echo "selected";} ?> value="all">All</option>

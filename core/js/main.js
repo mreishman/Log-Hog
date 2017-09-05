@@ -895,18 +895,18 @@ function deleteLog()
 		var data = {file: title};
 		name = title;
 		$.ajax({
-				  url: urlForSend,
-				  dataType: "json",
-				  data: data,
-				  type: "POST",
-		success(data)
-		{
-		    var idOfDeletedLog = data.replace(/[^a-z0-9]/g, "");
-			if($("#menu ." + idOfDeletedLog + "Button").length !== 0)
+			url: urlForSend,
+			dataType: "json",
+			data: data,
+			type: "POST",
+			success(data)
 			{
-				$("#menu ." + idOfDeletedLog + "Button").remove();
+			    var idOfDeletedLog = data.replace(/[^a-z0-9]/g, "");
+				if($("#menu ." + idOfDeletedLog + "Button").length !== 0)
+				{
+					$("#menu ." + idOfDeletedLog + "Button").remove();
+				}
 			}
-		}
 		});
 	}
 	catch(e)

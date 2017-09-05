@@ -7,7 +7,7 @@ Theme Selector
 	$directory = '../core/Themes/';
 	$scanned_directory = array_diff(scandir($directory), array('..', '.'));
 	foreach ($scanned_directory as $key): ?>
-		<div style="width: 600px; height: 400px; display: inline-block; background-color: grey; border: 1px solid white; margin: 10px;">
+		<div style="width: 600px; height: 400px; display: inline-block; background-color: grey; border: 1px solid white; margin: 20px;">
 			<div class="settingsHeader" style="margin: 0px;">
 				<?php echo $key;?>
 				<div class="settingsHeaderButtons">
