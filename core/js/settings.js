@@ -89,11 +89,11 @@ function saveVerified()
 	{
 		if(document.getElementsByName("developmentTabEnabled")[0].value === "true")
 		{
-			document.getElementById('devToolsLink').style.display = "inline-block";
+			document.getElementById("devToolsLink").style.display = "inline-block";
 		}
 		else
 		{
-			document.getElementById('devToolsLink').style.display = "none";
+			document.getElementById("devToolsLink").style.display = "none";
 		}
 	}
 

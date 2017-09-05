@@ -246,3 +246,188 @@ function showNoEmptyFolderPopup()
 		eventThrowException(e)
 	}
 }
+
+function checkForChangesWatchListPoll()
+{
+	if(!objectsAreSame($('#settingsMainWatch').serializeArray(),watchlistData))
+	{
+		document.getElementById('resetChangesSettingsHeaderButton').style.display = "inline-block";
+		return true;
+	}
+	else
+	{
+		document.getElementById('resetChangesSettingsHeaderButton').style.display = "none";
+		return false;
+	}
+}
+
+function checkForChangesMainSettings()
+{
+	if(!objectsAreSame($('#settingsMainVars').serializeArray(),mainData))
+	{
+		document.getElementById('resetChangesMainSettingsHeaderButton').style.display = "inline-block";
+		return true;
+	}
+	else
+	{
+		document.getElementById('resetChangesMainSettingsHeaderButton').style.display = "none";
+		return false;
+	}
+}
+
+function checkForChangesMenuSettings()
+{
+	if(!objectsAreSame($('#settingsMenuVars').serializeArray(), menuData))
+	{
+		document.getElementById('resetChangesMenuSettingsHeaderButton').style.display = "inline-block";
+		return true;
+	}
+	else
+	{
+		document.getElementById('resetChangesMenuSettingsHeaderButton').style.display = "none";
+		return false;
+	}
+}
+
+function poll()
+{
+	var change = checkForChangesWatchListPoll();
+	var change2 = checkForChangesMainSettings();
+	var change3 = checkForChangesMenuSettings();
+	if(change || change2 || change3)
+	{
+		document.getElementById('mainLink').innerHTML = "Main*";
+	}
+	else
+	{
+		document.getElementById('mainLink').innerHTML = "Main";
+	}
+}
+
+function resetWatchListVars()
+{
+	document.getElementById('settingsMainWatch').innerHTML = savedInnerHtmlWatchList;
+	watchlistData = $('#settingsMainWatch').serializeArray();
+	countOfWatchList = countOfWatchListStatic;
+	countOfAddedFiles =  countOfAddedFilesStatic;
+	countOfClicks = countOfClicksStatic;
+	locationInsert = locationInsertStatic;
+}
+
+function resetSettingsMainVar()
+{
+	document.getElementById('settingsMainVars').innerHTML = savedInnerHtmlMainVars;
+	mainData = $('#settingsMainVars').serializeArray();
+}
+
+function resetSettingsMenuVar()
+{
+	document.getElementById('settingsMenuVars').innerHTML = savedInnerHtmlMenu;
+	menuData = $('#settingsMenuVars').serializeArray();
+}
+
+function refreshSettingsMainVar()
+{
+	mainData = $('#settingsMainVars').serializeArray();
+	savedInnerHtmlWatchList = document.getElementById('settingsMainWatch').innerHTML;
+}
+
+function refreshSettingsMenuVar()
+{
+	menuData = $('#settingsMenuVars').serializeArray();
+	savedInnerHtmlMenu = document.getElementById('settingsMenuVars').innerHTML;
+}
+
+function refreshSettingsWatchList()
+{
+	watchlistData = $('#settingsMainWatch').serializeArray();
+	savedInnerHtmlMainVars = document.getElementById('settingsMainVars').innerHTML;
+	countOfWatchListStatic = countOfWatchList;
+	countOfAddedFilesStatic = countOfAddedFiles;
+	countOfClicksStatic = countOfClicks;
+	locationInsertStatic = locationInsert;
+}
+
+function objectsAreSameInner(x, y) 
+{
+   	var objectsAreSame = true;
+   	for(var propertyName in x) 
+   	{
+      	if( (typeof(x) === 'undefined') || (typeof(y) === 'undefined') || x[propertyName] !== y[propertyName])
+      	{
+         objectsAreSame = false;
+         break;
+    	}
+		}
+		return objectsAreSame;
+}
+
+function objectsAreSame(x, y) 
+{
+	var returnValue = true;
+	for (var i = x.length - 1; i >= 0; i--) 
+	{
+		if(!objectsAreSameInner(x[i],y[i]))
+		{
+			returnValue = false;
+			break;
+		}
+	}
+	return returnValue;
+}
+
+function highlightTopNavDepends()
+{
+	outerHeightMain = $("#settingsMainVars").outerHeight();
+	positionMain = $("#settingsMainVars").position();
+	if((outerHeightMain+positionMain.top) < 0)
+	{
+		positionMain = $("#settingsMainWatch").position();
+		if((outerHeightMain+positionMain.top) < 0)
+		{
+			highlightSettingsMenu2Option("menuSettingsMenu2");
+		}
+		else
+		{
+			highlightSettingsMenu2Option("watchListSettingsMenu2");
+		}
+	}
+	else
+	{
+		//check if class is already there before adding
+		highlightSettingsMenu2Option("mainSettingsMenu2");
+	}
+}
+
+function highlightSettingsMenu2Option(option)
+{
+	var titles = ["mainSettingsMenu2", "watchListSettingsMenu2", "menuSettingsMenu2"];
+	for (var i = titles.length - 1; i >= 0; i--)
+	{
+		
+		if(option != titles[i])
+		{
+			removeActiveClass(titles[i]);
+		}
+		else
+		{
+			addActiveClass(titles[i]);
+		}
+	}
+}
+
+function addActiveClass(idToAdd)
+{
+	if(!$("#"+idToAdd).hasClass('active'))
+	{
+		$("#"+idToAdd).addClass('active');
+	}
+}
+
+function removeActiveClass(idToAdd)
+{
+	if($("#"+idToAdd).hasClass('active'))
+	{
+		$("#"+idToAdd).removeClass('active');
+	}
+}

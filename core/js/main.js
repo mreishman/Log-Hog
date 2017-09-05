@@ -87,7 +87,7 @@ function poll()
 {
 	try
 	{
-    	checkForUpdateMaybe();
+		checkForUpdateMaybe();
 		if(refreshing)
 		{
 			document.title = "Log Hog | Refreshing";
@@ -134,7 +134,7 @@ function pollTwo()
 {
 	try
 	{
-    	var urlForSend = "core/php/pollCheck.php?format=json";
+		var urlForSend = "core/php/pollCheck.php?format=json";
 		var data = {currentVersion: currentVersion};
 		$.ajax({
 			url: urlForSend,
@@ -177,7 +177,7 @@ function pollTwoPartTwo(data)
 		{
 			updateProgressBar(10, "Generating File Object");
 		}
-	    t2 = performance.now();
+		t2 = performance.now();
 
 		//check for all update force
 		var boolForAllUpdateForce = false;
@@ -201,7 +201,8 @@ function pollTwoPartTwo(data)
 		{
 			arrayOfData1 = data;
 			filesNew = Object.keys(arrayOfData1);
-			for (i = filesNew.length - 1; i >= 0; i--)
+			var i = filesNew.length - 1
+			for (i; i >= 0; i--)
 			{
 				arrayToUpdate.push(filesNew[i]);
 			}
@@ -213,8 +214,8 @@ function pollTwoPartTwo(data)
 			var filesOld = Object.keys(arrayOfData1);
 
 			arrayToUpdate = [];
-
-			for (i = filesNew.length - 1; i >= 0; i--)
+			var i = filesNew.length - 1;
+			for (i; i >= 0; i--)
 			{
 				if(filesOld.indexOf(filesNew[i]) > -1)
 				{
@@ -230,8 +231,8 @@ function pollTwoPartTwo(data)
 					arrayToUpdate.push(filesNew[i]);
 				}
 			}
-
-			for (i = filesOld.length - 1; i >= 0; i--)
+			i = filesOld.length - 1;
+			for (i; i >= 0; i--)
 			{
 				if(!(filesNew.indexOf(filesOld[i]) > -1))
 				{
@@ -282,7 +283,7 @@ function pollThree(arrayToUpdate)
 				$.ajax({
 					url: urlForSend,
 					dataType: "json",
-					data: data,
+					data,
 					type: "POST",
 					success(data)
 					{
@@ -379,11 +380,11 @@ function afterPollFunctionComplete()
 		if(firstLoad)
 		{
 			firstLoad = false;
-			document.getElementById('firstLoad').style.display = 'none';
+			document.getElementById("firstLoad").style.display = 'none';
 		}
     	if(refreshing)
-    	{
-    		endRefreshAction();
+		{
+			endRefreshAction();
     	}
 		polling = false;
 		if(enablePollTimeLogging !== "false")
@@ -420,7 +421,7 @@ function addPaddingToNumber(number, padding = 4)
 {
 	try
 	{
-	    number = number.toString();
+		number = number.toString();
 		while(number.length < padding)
 		{
 			number = "0"+number;
@@ -437,7 +438,7 @@ function pausePollAction()
 {
 	try
 	{
-    	if(pausePoll)
+		if(pausePoll)
 		{
 			userPaused = false;
 			pausePoll = false;
@@ -844,16 +845,18 @@ function deleteAction()
 {
 	try
 	{
-    	var urlForSend = "core/php/clearAllLogs.php?format=json";
-	var data = "";
-	$.ajax({
-			  url: urlForSend,
-			  dataType: "json",
-			  data: data,
-			  type: "POST",
-	success: function(data){
-	  },
-	});
+		var urlForSend = "core/php/clearAllLogs.php?format=json";
+		var data = "";
+		$.ajax({
+			url: urlForSend,
+			dataType: "json",
+			data: data,
+			type: "POST",
+			success: function(data)
+			{
+
+			}
+		});
 	}
 	catch(e)
 	{
