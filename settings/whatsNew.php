@@ -12,6 +12,7 @@ require_once('../core/conf/config.php');
 require_once('../core/php/configStatic.php');
 require_once('../core/php/updateCheck.php');
 require_once('../core/php/loadVars.php');
+require_once('../core/php/commonFunctions.php');
 ?>
 <!doctype html>
 <head>
@@ -44,16 +45,48 @@ require_once('../core/php/loadVars.php');
 				</td>
 				</tr>
 
+
 				<tr>
-				<th colspan="2" style="border-bottom: 1px solid white; padding: 10px">
-					2.3
+				<th colspan="2" style="padding: 10px">
+					<h1>3.0</h1>
+				</th>
+				</tr>
+
+				<!-- 3.0 -->
+
+
+				<tr>
+				<td>
+					<b>Themes!</b>
+					<ul>
+						<li>
+						Change how Log-Hog looks by going to settings, then themes
+						</li>
+						<li>
+						3 new main themes
+						</li>
+						<li>
+						New customizability of the current and new themes. 
+						</li>
+					</ul>
+				</td>
+				<td>
+					<!-- <a href="../core/img/2.3-1.png" data-lightbox="3.0" ><img src="../core/img/2.3-1.png" style="width: 45%;"></a>
+					<a href="../core/img/2.3-2.png" data-lightbox="3.0" ><img src="../core/img/2.3-2.png" style="width: 45%;"></a> -->
+				</td>
+				</tr>
+
+
+				<tr>
+				<th colspan="2" style="border-top: 1px solid white; padding: 10px">
+					<h1>2.3</h1>
 				</th>
 				</tr>
 				<!-- 2.3 -->
 
 				<tr>
 				<td>
-					<b>Monitor!</b>
+					<b>Monitor</b>
 					<ul>
 						<li>
 						CPU usage

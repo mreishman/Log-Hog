@@ -1,4 +1,4 @@
-<?php 
+<?php
 $baseURLToMain =  baseURL();
 
 $baseUrl = $baseURLToMain."core/";
@@ -14,30 +14,32 @@ require_once($baseURLToMain.'core/conf/config.php');
 require_once($baseURLToMain.'core/php/configStatic.php');
 require_once($baseURLToMain.'core/php/loadVars.php');
 
-
-
-$customCSS = "
-<style type=\"text/css\">
-#menu a, #menu2 a, .link, .linkSmall, .context-menu{
-	background-color: ".$currentSelectedThemeColorValues[0].";
-}
-progress {
-color: ".$currentSelectedThemeColorValues[0].";
+?>
+<style type="text/css">
+#menu a, #menu2 a, .link, .linkSmall, .context-menu
+{
+	background-color: <?php echo $currentSelectedThemeColorValues[0]?>;
 }
 
-body{
-	background: ".$backgroundColor.";
+progress
+{
+	color: <?php echo $currentSelectedThemeColorValues[0]?>;
+}
+
+body
+{
+	background: <?php echo $backgroundColor?>;
 }
 
 /* Firefox */
-progress::-moz-progress-bar { 
-    background: ".$currentSelectedThemeColorValues[0].";  
+progress::-moz-progress-bar
+{ 
+    background: <?php echo $currentSelectedThemeColorValues[0]?>;  
 }
 
 /* Chrome */
-progress::-webkit-progress-value {
-    background: ".$currentSelectedThemeColorValues[0].";
+progress::-webkit-progress-value
+{
+    background: <?php echo $currentSelectedThemeColorValues[0]?>;
 }
-</style>";
-echo $customCSS;
-?>
+</style>
