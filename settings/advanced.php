@@ -159,24 +159,16 @@ $withLogHog = $monitorStatus['withLogHog'];
 			</div>
 		</div>
 		<div class="settingsDiv" >
-			<?php
-			//logic for urls
-
-			if($locationForStatus == "")
-			{
-				$locationForStatus = "https://" . $_SERVER['SERVER_NAME']."/status";
-			}
-			if($locationForMonitor == "")
-			{
-				$locationForMonitor = "https://" . $_SERVER['SERVER_NAME']."/monitor";
-			}
-			?>
 			<ul id="settingsUl">
 				<li>
 					<span class="settingsBuffer" >  Status Location:  </span> <input type="text" style="width: 400px;"  name="locationForStatus" value="<?php echo $locationForStatus;?>" > 
+					<br>
+					<p>Default = <?php echo "https://" . $_SERVER['SERVER_NAME']."/status"; ?></p>
 				</li>
 				<li>
 					<span class="settingsBuffer" >  Monitor Location:  </span> <input type="text" style="width: 400px;"  name="locationForMonitor" value="<?php echo $locationForMonitor;?>" > 
+					<br>
+					<p>Default = <?php echo "https://" . $_SERVER['SERVER_NAME']."/monitor"; ?></p>
 				</li>
 				<li>
 					<span style="font-size: 75%;">*<i>Please specify full url, blank if none</i></span>

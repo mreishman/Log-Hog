@@ -21,7 +21,6 @@ require_once($baseUrl.'conf/config.php');
 require_once($baseURL.'core/conf/config.php');
 require_once($baseURL.'core/php/configStatic.php');
 require_once($baseURL.'core/php/loadVars.php');
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -39,11 +38,9 @@ require_once($baseURL.'core/php/loadVars.php');
 		<div class="menuImageDiv">
 			<img id="deleteImage" class="menuImage" src="img/trashCanMulti.png" height="30px">
 		</div>
-		<?php //if($top): ?>
-			<div class="menuImageDiv">
-					<img id="taskmanagerImage" class="menuImage" src="img/task-manager.png" height="30px">
-			</div>
-		<?php //endif; ?>
+		<div class="menuImageDiv">
+				<img id="taskmanagerImage" class="menuImage" src="img/task-manager.png" height="30px">
+		</div>
 		<div class="menuImageDiv">
 			<img data-id="1" id="gear" class="menuImage" src="img/Gear.png" height="30px">
 		</div>
