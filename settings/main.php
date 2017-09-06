@@ -38,13 +38,13 @@ require_once('../core/php/commonFunctions.php');
 	</div>
 	<?php readfile('../core/html/popup.html') ?>	
 </body>
-<script src="../core/js/settings.js"></script>
+<script src="../core/js/settings.js?v=<?php echo $cssVersion?>"></script>
 <?php if($triggerSaveUpdate): ?>
 	<script type="text/javascript">
 	document.getElementById('settingsMainWatch').submit();
 	</script>
 <?php else: ?>
-	<script src="../core/js/settingsMain.js"></script>
+	<script src="../core/js/settingsMain.js?v=<?php echo $cssVersion?>"></script>
 	<script type="text/javascript">
 	document.getElementById("popupSelect").addEventListener("change", showOrHidePopupSubWindow, false);
 	document.getElementById("settingsSelect").addEventListener("change", showOrHideUpdateSubWindow, false);

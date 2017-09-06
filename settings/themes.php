@@ -32,6 +32,7 @@ $withLogHog = $monitorStatus['withLogHog'];
 
 	<div id="main">
 		<?php require_once('../core/php/template/themeMain.php'); ?>
+		<?php require_once('../core/php/template/generalThemeOptions.php'); ?>
 		<?php require_once('../core/php/template/folderGroupColor.php'); ?>
 	</div>
 	<?php readfile('../core/html/popup.html') ?>	

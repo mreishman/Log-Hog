@@ -61,6 +61,8 @@ $defaultConfig = array(
 		'theme-default-5'	=> array('#9ACD32',"#32CD32","#2A912A","#2E8B57","#9ACD32"),
 		),
 	'backgroundColor'	=> "#292929",
+	'mainFontColor'		=> '#FFFFFF',
+	'backgroundHeaderColor'	=> "#222222",
 	'watchList'		=> array(
 		'/var/www/html/var/log/system.log'	        => '',
 		'/var/log/hhvm/error.log'	=> '',

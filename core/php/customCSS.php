@@ -29,6 +29,12 @@ progress
 body
 {
 	background: <?php echo $backgroundColor?>;
+	color: <?php echo $mainFontColor; ?>
+}
+
+#menu
+{
+	background: <?php echo $backgroundHeaderColor?>;
 }
 
 /* Firefox */
