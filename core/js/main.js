@@ -325,6 +325,7 @@ function getFileSingle(current)
 			success(data)
 			{
 				arrayOfDataMainDataFilter(data);
+				update(arrayOfDataMain);
 			},
 			complete()
 			{
