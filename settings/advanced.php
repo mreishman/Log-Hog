@@ -116,12 +116,12 @@ $withLogHog = $monitorStatus['withLogHog'];
 			</ul>
 		</div>
 	</form>
-	<form id="loggingDisplay" action="../core/php/settingsSave.php" method="post">
+	<form id="jsPhpSend" action="../core/php/settingsSave.php" method="post">
 		<div class="settingsHeader">
 			Error / Crash Info
 			<div class="settingsHeaderButtons">
 				<?php if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
-					<a class="linkSmall" onclick="saveAndVerifyMain('loggingDisplay');" >Save Changes</a>
+					<a class="linkSmall" onclick="saveAndVerifyMain('jsPhpSend');" >Save Changes</a>
 				<?php else: ?>
 					<button  onclick="displayLoadingPopup();">Save Changes</button>
 				<?php endif; ?>
