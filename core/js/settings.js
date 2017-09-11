@@ -1,17 +1,21 @@
-var offsetHeight = 0;
-if(document.getElementById("menu"))
+function resize()
 {
-	offsetHeight += document.getElementById("menu").offsetHeight;
+	var offsetHeight = 0;
+	if(document.getElementById("menu"))
+	{
+		offsetHeight += document.getElementById("menu").offsetHeight;
+	}
+	if(document.getElementById("menu2"))
+	{
+		offsetHeight += document.getElementById("menu2").offsetHeight;
+	}
+	var heightOfMain = window.innerHeight - offsetHeight;
+	var heightOfMainStyle = "height:";
+	heightOfMainStyle += heightOfMain;
+	heightOfMainStyle += "px";
+	document.getElementById("main").setAttribute("style",heightOfMainStyle);
 }
-if(document.getElementById("menu2"))
-{
-	offsetHeight += document.getElementById("menu2").offsetHeight;
-}
-var heightOfMain = window.innerHeight - offsetHeight;
-var heightOfMainStyle = "height:";
-heightOfMainStyle += heightOfMain;
-heightOfMainStyle += "px";
-document.getElementById("main").setAttribute("style",heightOfMainStyle);
+
 var idForm = "";
 var countForVerifySave = 0;
 var pollCheckForUpdate;
@@ -118,4 +122,11 @@ function saveError()
 function fadeOutPopup()
 {
 	setTimeout(hidePopup, 1000);
+}
+
+$(document).ready(function()
+{
+	resize();
+	window.onresize = resize;
+
 }
