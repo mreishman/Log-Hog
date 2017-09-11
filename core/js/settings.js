@@ -129,4 +129,4 @@ $(document).ready(function()
 	resize();
 	window.onresize = resize;
 
-}
+});
