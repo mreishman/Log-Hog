@@ -116,7 +116,7 @@ elseif (is_dir("../Monitor"))
 			<?php  if($levelOfUpdate == 1){echo '<img id="updateImage" src="<?php echo $baseUrl; ?>img/yellowWarning.png" height="15px" style="position: absolute;margin-left: 13px;margin-top: -34px;">';} ?> <?php if($levelOfUpdate == 2 || $levelOfUpdate == 3){echo '<img id="updateImage" src="<?php echo $baseUrl; ?>img/redWarning.png" height="15px" style="position: absolute;margin-left: 13px;margin-top: -34px;">';} ?>
 		</div>
 		<?php if ($locationForStatusIndex != ""):?>
-			<div class="menuImage" style="display: inline-block; cursor: pointer; " onclick="window.location.href='<?php echo $locationForStatusIndex; ?>'" >gS</div>
+			<div class="menuImage" style="display: inline-block; cursor: pointer; color: white; " onclick="window.location.href='<?php echo $locationForStatusIndex; ?>'" >gS</div>
 		<?php endif; ?>
 	</div>
 	

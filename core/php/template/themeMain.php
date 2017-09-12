@@ -8,7 +8,7 @@ Theme Selector
 	$scanned_directory = array_diff(scandir($directory), array('..', '.'));
 	foreach ($scanned_directory as $key): 
 		if($key != ".DS_Store"):
-		?>
+			require_once("../core/Themes/".$key."/defaultSetting.php");?>
 			<div style="width: 600px; height: 400px; display: inline-block; background-color: grey; border: 1px solid white; margin: 20px;">
 				<div class="settingsHeader" style="margin: 0px;">
 					<?php echo $key;?>
@@ -25,6 +25,9 @@ Theme Selector
 					</div>
 					<form id="themeMainSelection-<?php echo $key;?>">
 						<input type="hidden" name="currentTheme" value="<?php echo $key?>">
+						<input type="hidden" name="backgroundColor" value="<?php echo $backgroundColorDefault;?>" >
+						<input type="hidden" name="mainFontColor" value="<?php echo $mainFontColorDefault;?>" >
+						<input type="hidden" name="backgroundHeaderColor" value="<?php echo $backgroundHeaderColorDefault;?>" >
 					</form>
 				</div>
 				<?php echo generateExampleIndex($key, $withLogHog);?>
