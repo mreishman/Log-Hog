@@ -98,6 +98,17 @@ div {
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c21a00', endColorstr='#b30c00', GradientType=0 );
 }
 
+#menu a.updated:hover {
+	background: rgba(239,188,179,1);
+	background: -moz-linear-gradient(top, rgba(239,188,179,1) 0%, rgba(247,226,222,1) 50%, rgba(231,147,136,1) 51%, rgba(230,157,148,1) 71%, rgba(228,161,155,1) 100%);
+	background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(239,188,179,1)), color-stop(50%, rgba(247,226,222,1)), color-stop(51%, rgba(231,147,136,1)), color-stop(71%, rgba(230,157,148,1)), color-stop(100%, rgba(228,161,155,1)));
+	background: -webkit-linear-gradient(top, rgba(239,188,179,1) 0%, rgba(247,226,222,1) 50%, rgba(231,147,136,1) 51%, rgba(230,157,148,1) 71%, rgba(228,161,155,1) 100%);
+	background: -o-linear-gradient(top, rgba(239,188,179,1) 0%, rgba(247,226,222,1) 50%, rgba(231,147,136,1) 51%, rgba(230,157,148,1) 71%, rgba(228,161,155,1) 100%);
+	background: -ms-linear-gradient(top, rgba(239,188,179,1) 0%, rgba(247,226,222,1) 50%, rgba(231,147,136,1) 51%, rgba(230,157,148,1) 71%, rgba(228,161,155,1) 100%);
+	background: linear-gradient(to bottom, rgba(239,188,179,1) 0%, rgba(247,226,222,1) 50%, rgba(231,147,136,1) 51%, rgba(230,157,148,1) 71%, rgba(228,161,155,1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#efbcb3', endColorstr='#e4a19b', GradientType=0 );
+}
+
 .menuImage{
 	vertical-align: middle;
 	-webkit-transition: .3s ease-in-out;

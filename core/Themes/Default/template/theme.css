@@ -79,6 +79,10 @@ div {
 	background-color: #912A2C !important; 
 }
 
+#menu a.updated:hover {
+	background-color: #FFDDFF !important; 
+}
+
 .menuImage{
 	vertical-align: middle;
 	-webkit-transition: .3s ease-in-out;
