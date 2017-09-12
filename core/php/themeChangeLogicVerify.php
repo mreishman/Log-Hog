@@ -14,19 +14,27 @@ require_once('../../core/php/loadVars.php');
 
 $directory = "../core/Themes/".$currentTheme."/";
 
+
 //Copy over CSS HERE
 $scanned_directory = array_diff(scandir($directory."template/"), array('..', '.'));
+$boolToReturn = true;
 foreach ($scanned_directory as $key)
 {
-	copy($scanned_directory.$key, $baseUrl."template/".$key);
+	if(!is_file($baseUrl."template/".$key))
+	{
+		$boolToReturn = false;
+	}
 }
 
 //Copy over Images HERE
 $scanned_directory = array_diff(scandir($directory."img/"), array('..', '.'));
 foreach ($scanned_directory as $key)
 {
-	copy($scanned_directory.$key, $baseUrl."img/".$key);
+	if(!is_file($scanned_directory.$key, $baseUrl."img/".$key))
+	{
+		$boolToReturn = false;
+	}
 }
 
-echo json_encode(true);
+echo json_encode($boolToReturn);
 ?>
