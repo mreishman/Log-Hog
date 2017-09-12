@@ -107,6 +107,23 @@ function saveVerified()
 		{
 			document.getElementById("devToolsLink").style.display = "none";
 		}
+		refreshSettingsDevAdvanced();
+	}
+	else if(idForFormMain === "pollAdvanced")
+	{
+		refreshSettingsPollAdvanced();
+	}
+	else if(idForFormMain === "loggingDisplay")
+	{
+		refreshSettingsLoggingDisplay();
+	}
+	else if(idForFormMain === "jsPhpSend")
+	{
+		refreshSettingsJsPhpSend();
+	}
+	else if(idForFormMain === "locationOtherApps")
+	{
+		refreshSettingsLocationOtherApps();
 	}
 
 	document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class='settingsHeader' >Saved Changes!</div><br><br><div style='width:100%;text-align:center;'> <img src='../core/img/greenCheck.png' height='50' width='50'> </div>";
@@ -122,6 +139,48 @@ function saveError()
 function fadeOutPopup()
 {
 	setTimeout(hidePopup, 1000);
+}
+
+function objectsAreSameInner(x, y) 
+{
+	try
+	{
+	   	var objectsAreSame = true;
+	   	for(var propertyName in x) 
+	   	{
+	      	if( (typeof(x) === "undefined") || (typeof(y) === "undefined") || x[propertyName] !== y[propertyName])
+	      	{
+	         objectsAreSame = false;
+	         break;
+	    	}
+		}
+		return objectsAreSame;
+	}
+	catch(e)
+	{
+		eventThrowException(e)
+	}
+}
+
+function objectsAreSame(x, y) 
+{
+	try
+	{
+		var returnValue = true;
+		for (var i = x.length - 1; i >= 0; i--) 
+		{
+			if(!objectsAreSameInner(x[i],y[i]))
+			{
+				returnValue = false;
+				break;
+			}
+		}
+		return returnValue;
+	}
+	catch(e)
+	{
+		eventThrowException(e)
+	}
 }
 
 $(document).ready(function()

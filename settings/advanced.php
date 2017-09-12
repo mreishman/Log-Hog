@@ -23,6 +23,7 @@ $withLogHog = $monitorStatus['withLogHog'];
 	<?php echo loadCSS($baseUrl, $cssVersion);?>
 	<link rel="icon" type="image/png" href="../core/img/favicon.png" />
 	<script src="../core/js/jquery.js"></script>
+	<script src="../core/js/advanced.js?v=<?php echo $cssVersion;?>"></script>
 </head>
 <body>
 	<?php require_once('header.php'); ?>
@@ -31,6 +32,7 @@ $withLogHog = $monitorStatus['withLogHog'];
 		<div class="settingsHeader">
 			Development  
 			<div class="settingsHeaderButtons">
+				<a onclick="resetSettingsDevAdvanced();" id="resetChangesDevAdvancedHeaderButton" style="display: none;" class="linkSmall" > Reset Current Changes</a>
 				<?php if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
 					<a class="linkSmall" onclick="saveAndVerifyMain('devAdvanced');" >Save Changes</a>
 				<?php else: ?>
@@ -54,6 +56,7 @@ $withLogHog = $monitorStatus['withLogHog'];
 		<div class="settingsHeader">
 			Advanced Poll Settings  
 			<div class="settingsHeaderButtons">
+				<a onclick="resetSettingsPollAdvanced();" id="resetChangesPollAdvancedHeaderButton" style="display: none;" class="linkSmall" > Reset Current Changes</a>
 				<?php if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
 					<a class="linkSmall" onclick="saveAndVerifyMain('devAdvanced');" >Save Changes</a>
 				<?php else: ?>
@@ -88,6 +91,7 @@ $withLogHog = $monitorStatus['withLogHog'];
 		<div class="settingsHeader">
 			Logging Information 
 			<div class="settingsHeaderButtons">
+				<a onclick="resetSettingsLoggingDisplay();" id="resetChangesLoggingDisplayHeaderButton" style="display: none;" class="linkSmall" > Reset Current Changes</a>
 				<?php if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
 					<a class="linkSmall" onclick="saveAndVerifyMain('loggingDisplay');" >Save Changes</a>
 				<?php else: ?>
@@ -119,7 +123,8 @@ $withLogHog = $monitorStatus['withLogHog'];
 	<form id="jsPhpSend" action="../core/php/settingsSave.php" method="post">
 		<div class="settingsHeader">
 			Error / Crash Info
-			<div class="settingsHeaderButtons">
+			<div class="settingsHeaderButtons"> 
+				<a onclick="resetSettingsJsPhpSend();" id="resetChangesJsPhpSendHeaderButton" style="display: none;" class="linkSmall" > Reset Current Changes</a>
 				<?php if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
 					<a class="linkSmall" onclick="saveAndVerifyMain('jsPhpSend');" >Save Changes</a>
 				<?php else: ?>
@@ -151,6 +156,7 @@ $withLogHog = $monitorStatus['withLogHog'];
 		<div class="settingsHeader">
 			File Locations
 			<div class="settingsHeaderButtons">
+				<a onclick="resetSettingsLocationOtherApps();" id="resetChangesLocationOtherAppsHeaderButton" style="display: none;" class="linkSmall" > Reset Current Changes</a>
 				<?php if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
 					<a class="linkSmall" onclick="saveAndVerifyMain('locationOtherApps');" >Save Changes</a>
 				<?php else: ?>
@@ -217,11 +223,15 @@ $withLogHog = $monitorStatus['withLogHog'];
 	function goToUrl(url)
 	{
 		var goToPage = true
-		if(document.getElementsByName("developmentTabEnabled")[0].value != "<?php echo $developmentTabEnabled;?>")
+		var change = checkForChangesDevAdvanced();
+		var change2 = checkForChangesPollAdvanced();
+		var change3 = checkForChangesLoggingDisplay();
+		var change4 = checkForChangesJsPhpSend();
+		var change5 = checkForChangesLocationOtherApps();
+		if(change || change2 || change3 || change4 || change5)
 		{
-			//goToPage = false;
+			goToPage = false;
 		}
-
 		if(goToPage || popupSettingsArray.saveSettings == "false")
 		{
 			window.location.href = url;
@@ -232,35 +242,14 @@ $withLogHog = $monitorStatus['withLogHog'];
 		}
 	}
 
-	function downloadLogHog()
+	$( document ).ready(function() 
 	{
-		window.location.href = 'monitorDownload.php';
-	}
+		refreshSettingsDevAdvanced();
+		refreshSettingsPollAdvanced();
+		refreshSettingsLoggingDisplay();
+		refreshSettingsJsPhpSend();
+		refreshSettingsLocationOtherApps();
+    	setInterval(poll, 100);
+	});
 
-	function removeLoghog()
-	{
-		window.location.href = 'monitorRemove.php';
-	}
-
-	function resetSettingsPopup()
-	{
-		showPopup();
-		document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Reset Settings?</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Are you sure you want to reset all settings back to defaults?</div><div class='link' onclick='submitResetSettings();' style='margin-left:125px; margin-right:50px;margin-top:25px;'>Yes</div><div onclick='hidePopup();' class='link'>No</div></div>";
-	}
-
-	function revertPopup()
-	{
-		showPopup();
-		document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Go back to previous version?</div><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Are you sure you want to revert back to a previous version? Version: <?php readfile('../core/html/restoreVersionOptions.html') ?> </div><div class='link' onclick='submitRevert();' style='margin-left:125px; margin-right:50px;margin-top:25px;'>Yes</div><div onclick='hidePopup();' class='link'>No</div></div>";
-	}
-
-	function submitRevert()
-	{
-		document.getElementById('revertForm').submit();
-	}
-
-	function submitResetSettings()
-	{
-		document.getElementById('resetSettings').submit();
-	}
 </script>

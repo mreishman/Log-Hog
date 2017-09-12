@@ -4,7 +4,7 @@ require_once('../setup/setupProcessFile.php');
 $withLogHog = $monitorStatus['withLogHog'];
 $URI = $_SERVER['REQUEST_URI'];
 require_once("../core/php/customCSS.php");
-?>
+echo loadSentryData($sendCrashInfoJS); ?>
 <div id="menu">
 	<div onclick="goToUrl('../index.php');" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">
 		<img id="pauseImage" class="menuImage" src="../core/img/backArrow.png" height="30px">

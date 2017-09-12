@@ -249,194 +249,264 @@ function showNoEmptyFolderPopup()
 
 function checkForChangesWatchListPoll()
 {
-	if(!objectsAreSame($("#settingsMainWatch").serializeArray(),watchlistData))
+	try
 	{
-		document.getElementById("resetChangesSettingsHeaderButton").style.display = "inline-block";
-		return true;
+		if(!objectsAreSame($("#settingsMainWatch").serializeArray(),watchlistData))
+		{
+			document.getElementById("resetChangesSettingsHeaderButton").style.display = "inline-block";
+			return true;
+		}
+		else
+		{
+			document.getElementById("resetChangesSettingsHeaderButton").style.display = "none";
+			return false;
+		}
 	}
-	else
+	catch(e)
 	{
-		document.getElementById("resetChangesSettingsHeaderButton").style.display = "none";
-		return false;
+		eventThrowException(e)
 	}
 }
 
 function checkForChangesMainSettings()
 {
-	if(!objectsAreSame($("#settingsMainVars").serializeArray(),mainData))
+	try
 	{
-		document.getElementById("resetChangesMainSettingsHeaderButton").style.display = "inline-block";
-		return true;
+		if(!objectsAreSame($("#settingsMainVars").serializeArray(),mainData))
+		{
+			document.getElementById("resetChangesMainSettingsHeaderButton").style.display = "inline-block";
+			return true;
+		}
+		else
+		{
+			document.getElementById("resetChangesMainSettingsHeaderButton").style.display = "none";
+			return false;
+		}
 	}
-	else
+	catch(e)
 	{
-		document.getElementById("resetChangesMainSettingsHeaderButton").style.display = "none";
-		return false;
+		eventThrowException(e)
 	}
 }
 
 function checkForChangesMenuSettings()
 {
-	if(!objectsAreSame($("#settingsMenuVars").serializeArray(), menuData))
+	try
 	{
-		document.getElementById("resetChangesMenuSettingsHeaderButton").style.display = "inline-block";
-		return true;
+		if(!objectsAreSame($("#settingsMenuVars").serializeArray(), menuData))
+		{
+			document.getElementById("resetChangesMenuSettingsHeaderButton").style.display = "inline-block";
+			return true;
+		}
+		else
+		{
+			document.getElementById("resetChangesMenuSettingsHeaderButton").style.display = "none";
+			return false;
+		}
 	}
-	else
+	catch(e)
 	{
-		document.getElementById("resetChangesMenuSettingsHeaderButton").style.display = "none";
-		return false;
+		eventThrowException(e)
 	}
 }
 
 function poll()
 {
-	var change = checkForChangesWatchListPoll();
-	var change2 = checkForChangesMainSettings();
-	var change3 = checkForChangesMenuSettings();
-	if(change || change2 || change3)
+	try
 	{
-		document.getElementById("mainLink").innerHTML = "Main*";
+		var change = checkForChangesWatchListPoll();
+		var change2 = checkForChangesMainSettings();
+		var change3 = checkForChangesMenuSettings();
+		if(change || change2 || change3)
+		{
+			document.getElementById("mainLink").innerHTML = "Main*";
+		}
+		else
+		{
+			document.getElementById("mainLink").innerHTML = "Main";
+		}
 	}
-	else
+	catch(e)
 	{
-		document.getElementById("mainLink").innerHTML = "Main";
+		eventThrowException(e)
 	}
 }
 
 function resetWatchListVars()
 {
-	document.getElementById("settingsMainWatch").innerHTML = savedInnerHtmlWatchList;
-	watchlistData = $("#settingsMainWatch").serializeArray();
-	countOfWatchList = countOfWatchListStatic;
-	countOfAddedFiles =  countOfAddedFilesStatic;
-	countOfClicks = countOfClicksStatic;
-	locationInsert = locationInsertStatic;
+	try
+	{
+		document.getElementById("settingsMainWatch").innerHTML = savedInnerHtmlWatchList;
+		watchlistData = $("#settingsMainWatch").serializeArray();
+		countOfWatchList = countOfWatchListStatic;
+		countOfAddedFiles =  countOfAddedFilesStatic;
+		countOfClicks = countOfClicksStatic;
+		locationInsert = locationInsertStatic;
+	}
+	catch(e)
+	{
+		eventThrowException(e)
+	}
 }
 
 function resetSettingsMainVar()
 {
-	document.getElementById("settingsMainVars").innerHTML = savedInnerHtmlMainVars;
-	mainData = $("#settingsMainVars").serializeArray();
+	try
+	{
+		document.getElementById("settingsMainVars").innerHTML = savedInnerHtmlMainVars;
+		mainData = $("#settingsMainVars").serializeArray();
+	}
+	catch(e)
+	{
+		eventThrowException(e)
+	}
 }
 
 function resetSettingsMenuVar()
 {
-	document.getElementById("settingsMenuVars").innerHTML = savedInnerHtmlMenu;
-	menuData = $("#settingsMenuVars").serializeArray();
+	try
+	{
+		document.getElementById("settingsMenuVars").innerHTML = savedInnerHtmlMenu;
+		menuData = $("#settingsMenuVars").serializeArray();
+	}
+	catch(e)
+	{
+		eventThrowException(e)
+	}
 }
 
 function refreshSettingsMainVar()
 {
-	mainData = $("#settingsMainVars").serializeArray();
-	savedInnerHtmlWatchList = document.getElementById("settingsMainWatch").innerHTML;
+	try
+	{
+		mainData = $("#settingsMainVars").serializeArray();
+		savedInnerHtmlWatchList = document.getElementById("settingsMainWatch").innerHTML;
+	}
+	catch(e)
+	{
+		eventThrowException(e)
+	}
 }
 
 function refreshSettingsMenuVar()
 {
-	menuData = $("#settingsMenuVars").serializeArray();
-	savedInnerHtmlMenu = document.getElementById("settingsMenuVars").innerHTML;
+	try
+	{
+		menuData = $("#settingsMenuVars").serializeArray();
+		savedInnerHtmlMenu = document.getElementById("settingsMenuVars").innerHTML;
+	}
+	catch(e)
+	{
+		eventThrowException(e)
+	}
 }
 
 function refreshSettingsWatchList()
 {
-	watchlistData = $("#settingsMainWatch").serializeArray();
-	savedInnerHtmlMainVars = document.getElementById("settingsMainVars").innerHTML;
-	countOfWatchListStatic = countOfWatchList;
-	countOfAddedFilesStatic = countOfAddedFiles;
-	countOfClicksStatic = countOfClicks;
-	locationInsertStatic = locationInsert;
-}
-
-function objectsAreSameInner(x, y) 
-{
-   	var objectsAreSame = true;
-   	for(var propertyName in x) 
-   	{
-      	if( (typeof(x) === "undefined") || (typeof(y) === "undefined") || x[propertyName] !== y[propertyName])
-      	{
-         objectsAreSame = false;
-         break;
-    	}
-		}
-		return objectsAreSame;
-}
-
-function objectsAreSame(x, y) 
-{
-	var returnValue = true;
-	for (var i = x.length - 1; i >= 0; i--) 
+	try
 	{
-		if(!objectsAreSameInner(x[i],y[i]))
-		{
-			returnValue = false;
-			break;
-		}
+		watchlistData = $("#settingsMainWatch").serializeArray();
+		savedInnerHtmlMainVars = document.getElementById("settingsMainVars").innerHTML;
+		countOfWatchListStatic = countOfWatchList;
+		countOfAddedFilesStatic = countOfAddedFiles;
+		countOfClicksStatic = countOfClicks;
+		locationInsertStatic = locationInsert;
 	}
-	return returnValue;
+	catch(e)
+	{
+		eventThrowException(e)
+	}
 }
 
 function highlightTopNavDepends()
 {
-	var offsetHeight = 0;
-	if(document.getElementById("menu"))
+	try
 	{
-		offsetHeight += document.getElementById("menu").offsetHeight;
-	}
-	if(document.getElementById("menu2"))
-	{
-		offsetHeight += document.getElementById("menu2").offsetHeight;
-	}
-	outerHeightMain = $("#settingsMainVars").outerHeight();
-	positionMain = $("#settingsMainVars").position();
-	if((outerHeightMain+positionMain.top-offsetHeight) < 0)
-	{
-		positionMain = $("#settingsMainWatch").position();
+		var offsetHeight = 0;
+		if(document.getElementById("menu"))
+		{
+			offsetHeight += document.getElementById("menu").offsetHeight;
+		}
+		if(document.getElementById("menu2"))
+		{
+			offsetHeight += document.getElementById("menu2").offsetHeight;
+		}
+		outerHeightMain = $("#settingsMainVars").outerHeight();
+		positionMain = $("#settingsMainVars").position();
 		if((outerHeightMain+positionMain.top-offsetHeight) < 0)
 		{
-			highlightSettingsMenu2Option("menuSettingsMenu2");
+			positionMain = $("#settingsMainWatch").position();
+			if((outerHeightMain+positionMain.top-offsetHeight) < 0)
+			{
+				highlightSettingsMenu2Option("menuSettingsMenu2");
+			}
+			else
+			{
+				highlightSettingsMenu2Option("watchListSettingsMenu2");
+			}
 		}
 		else
 		{
-			highlightSettingsMenu2Option("watchListSettingsMenu2");
+			//check if class is already there before adding
+			highlightSettingsMenu2Option("mainSettingsMenu2");
 		}
 	}
-	else
+	catch(e)
 	{
-		//check if class is already there before adding
-		highlightSettingsMenu2Option("mainSettingsMenu2");
+		eventThrowException(e)
 	}
 }
 
 function highlightSettingsMenu2Option(option)
 {
-	var titles = ["mainSettingsMenu2", "watchListSettingsMenu2", "menuSettingsMenu2"];
-	for (var i = titles.length - 1; i >= 0; i--)
+	try
 	{
-		
-		if(option != titles[i])
+		var titles = ["mainSettingsMenu2", "watchListSettingsMenu2", "menuSettingsMenu2"];
+		for (var i = titles.length - 1; i >= 0; i--)
 		{
-			removeActiveClass(titles[i]);
+			
+			if(option != titles[i])
+			{
+				removeActiveClass(titles[i]);
+			}
+			else
+			{
+				addActiveClass(titles[i]);
+			}
 		}
-		else
-		{
-			addActiveClass(titles[i]);
-		}
+	}
+	catch(e)
+	{
+		eventThrowException(e)
 	}
 }
 
 function addActiveClass(idToAdd)
 {
-	if(!$("#"+idToAdd).hasClass('active'))
+	try
 	{
-		$("#"+idToAdd).addClass('active');
+		if(!$("#"+idToAdd).hasClass('active'))
+		{
+			$("#"+idToAdd).addClass('active');
+		}
+	}
+	catch(e)
+	{
+		eventThrowException(e)
 	}
 }
 
 function removeActiveClass(idToAdd)
 {
-	if($("#"+idToAdd).hasClass('active'))
+	try
 	{
-		$("#"+idToAdd).removeClass('active');
+		if($("#"+idToAdd).hasClass('active'))
+		{
+			$("#"+idToAdd).removeClass('active');
+		}
+	}
+	catch(e)
+	{
+		eventThrowException(e)
 	}
 }
