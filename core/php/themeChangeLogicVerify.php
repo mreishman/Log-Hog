@@ -12,7 +12,7 @@ require_once('../../core/conf/config.php');
 require_once('../../core/php/configStatic.php');
 require_once('../../core/php/loadVars.php');
 
-$directory = "../core/Themes/".$currentTheme."/";
+$directory = "../../core/Themes/".$currentTheme."/";
 
 
 //Copy over CSS HERE
@@ -30,7 +30,7 @@ foreach ($scanned_directory as $key)
 $scanned_directory = array_diff(scandir($directory."img/"), array('..', '.'));
 foreach ($scanned_directory as $key)
 {
-	if(!is_file($scanned_directory.$key, $baseUrl."img/".$key))
+	if(!is_file($baseUrl."img/".$key))
 	{
 		$boolToReturn = false;
 	}

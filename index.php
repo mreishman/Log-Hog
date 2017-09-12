@@ -69,7 +69,7 @@ elseif (is_dir("../Monitor"))
 <head>
 	<title>Log Hog | Index</title>
 	<?php echo loadCSS($baseUrl, $cssVersion);?>
-	<link rel="icon" type="image/png" href="core/img/favicon.png" />
+	<link rel="icon" type="image/png" href="<?php echo $baseUrl; ?>img/favicon.png" />
 	<script src="core/js/jquery.js"></script>
 	<?php
 		echo loadSentryData($sendCrashInfoJS);
@@ -88,32 +88,32 @@ elseif (is_dir("../Monitor"))
 		<div onclick="pausePollAction();" class="menuImageDiv">
 			<img id="pauseImage" class="menuImage"
 				<?php if($pausePoll == 'true'):?>
-					 src="core/img/Play.png" 
+					 src="<?php echo $baseUrl; ?>img/Play.png" 
 				<?php else: ?>
-					 src="core/img/Pause.png"
+					 src="<?php echo $baseUrl; ?>img/Pause.png"
 				<?php endif;?>
 			height="30px">
 		</div>
 		<div onclick="refreshAction();" class="menuImageDiv">
-			<img id="refreshImage" class="menuImage" src="core/img/Refresh.png" height="30px">
+			<img id="refreshImage" class="menuImage" src="<?php echo $baseUrl; ?>img/Refresh.png" height="30px">
 		</div>
 		<?php if($truncateLog == 'true'): ?>
 		<div onclick="deleteAction();"  class="menuImageDiv">
-			<img id="deleteImage" class="menuImage" src="core/img/trashCanMulti.png" height="30px">
+			<img id="deleteImage" class="menuImage" src="<?php echo $baseUrl; ?>img/trashCanMulti.png" height="30px">
 		</div>
 		<?php else: ?>
 		<div onclick="clearLog();" class="menuImageDiv">
-			<img id="deleteImage" class="menuImage" src="core/img/trashCan.png" height="30px">
+			<img id="deleteImage" class="menuImage" src="<?php echo $baseUrl; ?>img/trashCan.png" height="30px">
 		</div>
 		<?php endif; ?>
 		<?php if($locationForMonitorIndex != ""): ?>
 		<div onclick="window.location.href = '<?php echo $locationForMonitorIndex; ?>'"  class="menuImageDiv">
-			<img id="taskmanagerImage" class="menuImage" src="core/img/task-manager.png" height="30px">
+			<img id="taskmanagerImage" class="menuImage" src="<?php echo $baseUrl; ?>img/task-manager.png" height="30px">
 		</div>
 		<?php endif; ?>
 		<div onclick="window.location.href = './settings/main.php';"  class="menuImageDiv">
-			<img data-id="1" id="gear" class="menuImage" src="core/img/Gear.png" height="30px">
-			<?php  if($levelOfUpdate == 1){echo '<img id="updateImage" src="core/img/yellowWarning.png" height="15px" style="position: absolute;margin-left: 13px;margin-top: -34px;">';} ?> <?php if($levelOfUpdate == 2 || $levelOfUpdate == 3){echo '<img id="updateImage" src="core/img/redWarning.png" height="15px" style="position: absolute;margin-left: 13px;margin-top: -34px;">';} ?>
+			<img data-id="1" id="gear" class="menuImage" src="<?php echo $baseUrl; ?>img/Gear.png" height="30px">
+			<?php  if($levelOfUpdate == 1){echo '<img id="updateImage" src="<?php echo $baseUrl; ?>img/yellowWarning.png" height="15px" style="position: absolute;margin-left: 13px;margin-top: -34px;">';} ?> <?php if($levelOfUpdate == 2 || $levelOfUpdate == 3){echo '<img id="updateImage" src="<?php echo $baseUrl; ?>img/redWarning.png" height="15px" style="position: absolute;margin-left: 13px;margin-top: -34px;">';} ?>
 		</div>
 		<?php if ($locationForStatusIndex != ""):?>
 			<div class="menuImage" style="display: inline-block; cursor: pointer; " onclick="window.location.href='<?php echo $locationForStatusIndex; ?>'" >gS</div>

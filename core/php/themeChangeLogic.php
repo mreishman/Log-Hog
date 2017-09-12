@@ -23,14 +23,14 @@ $scanned_directory = array_diff(scandir($directory."template/"), array('..', '.'
 
 foreach ($scanned_directory as $key)
 {
-	file_put_contents($scanned_directory.$key, $baseUrl."template/".$key);
+	copy($directory."template/".$key, $baseUrl."template/".$key);
 }
 
 //Copy over Images HERE
 $scanned_directory = array_diff(scandir($directory."img/"), array('..', '.'));
 foreach ($scanned_directory as $key)
 {
-	file_put_contents($scanned_directory.$key, $baseUrl."img/".$key);
+	copy($directory."img/".$key, $baseUrl."img/".$key);
 }
 
 //Set var to new one here
@@ -38,6 +38,7 @@ foreach ($scanned_directory as $key)
 $themeVersion = $defaultConfig['themeVersion'];
 
 $fileName = ''.$baseUrl.'conf/config.php';
+$cssVersion = $cssVersion++;
 
 $newInfoForConfig = "<?php
 	$"."config = array(
@@ -69,7 +70,6 @@ $newInfoForConfig .= "
 
 
 file_put_contents($fileName, $newInfoForConfig);
-*/
 
-
+echo json_encode(true);
 ?>

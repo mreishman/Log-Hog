@@ -29,6 +29,19 @@ require_once($varToIndexDir.'core/conf/config.php');
 $URI = $_SERVER['REQUEST_URI'];
 if($boolForUpgrade && (strpos($URI, 'upgradeLayout') === false) && (strpos($URI, 'upgradeConfig') === false) && (strpos($URI, 'core/php/template/upgrade') === false) && (strpos($URI, 'upgradeTheme') === false) && (strpos($URI, 'themeChangeLogic') === false)) //
 {
+	$themeVersion = 0;
+	if(isset($config['themeVersion']))
+	{
+		$themeVersion = $config['themeVersion'];
+	}
+	if($themeVersion != $defaultConfig['themeVersion'])
+	{
+		//redirect to themeVersion upgrade script (copy over theme files to local)
+		header("Location: ".$varToIndexDir."settings/themes.php");
+		exit();
+
+	}
+
 	//check if upgrade script is needed
 	$layoutVersion = 0;
 	if(isset($config['layoutVersion']))
@@ -52,19 +65,6 @@ if($boolForUpgrade && (strpos($URI, 'upgradeLayout') === false) && (strpos($URI,
 		//redirect to upgrade script for config page
 		header("Location: ".$varToIndexDir."core/php/template/upgradeConfig.php");
 		exit();
-	}
-
-	$themeVersion = 0;
-	if(isset($config['themeVersion']))
-	{
-		$themeVersion = $config['themeVersion'];
-	}
-	if($themeVersion != $defaultConfig['themeVersion'])
-	{
-		//redirect to themeVersion upgrade script (copy over theme files to local)
-		header("Location: ".$varToIndexDir."core/php/template/upgradeTheme.php");
-		exit();
-
 	}
 }
 //start loading vars
