@@ -28,5 +28,42 @@ foreach ($scanned_directory as $key)
 	copy($scanned_directory.$key, $baseUrl."img/".$key);
 }
 
+//Set var to new one here
+
+$themeVersion = $defaultConfig['themeVersion'];
+
+$fileName = ''.$baseUrl.'conf/config.php';
+
+$newInfoForConfig = "<?php
+	$"."config = array(
+	";
+foreach ($defaultConfig as $key => $value)
+{
+	if(is_string($value))
+	{
+		$newInfoForConfig .= "
+		'".$key."' => '".$$key."',
+	";
+	}
+	elseif(is_array($value))
+	{
+		$newInfoForConfig .= "
+		'".$key."' => array(".$$key."),
+	";
+	}
+	else
+	{
+		$newInfoForConfig .= "
+		'".$key."' => ".$$key.",
+	";
+	}
+}
+$newInfoForConfig .= "
+	);
+?>";
+
+file_put_contents($fileName, $newInfoForConfig);
+
+
 echo json_encode(true);
 ?>
