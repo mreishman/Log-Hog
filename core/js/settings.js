@@ -137,6 +137,10 @@ function saveVerified()
 	{
 		refreshSettingsDevAdvanced3();
 	}
+	else if(idForFormMain === "expFeatures")
+	{
+		refreshSettingsExpFeatures();
+	}
 
 	document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class='settingsHeader' >Saved Changes!</div><br><br><div style='width:100%;text-align:center;'> <img src='../core/img/greenCheck.png' height='50' width='50'> </div>";
 	fadeOutPopup();

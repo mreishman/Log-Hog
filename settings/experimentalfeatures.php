@@ -21,6 +21,7 @@ require_once('../core/php/updateCheck.php');
 	<?php echo loadCSS($baseUrl, $cssVersion);?>
 	<link rel="icon" type="image/png" href="../core/img/favicon.png" />
 	<script src="../core/js/jquery.js"></script>
+	<script src="../core/js/expFeatures.js?v=<?php echo $cssVersion;?>"></script>
 </head>
 <body>
 	<?php require_once('header.php');
@@ -54,12 +55,13 @@ else
 	
 
 	<div id="main">
-		<form id="devAdvanced" action="../core/php/settingsSave.php" method="post">
+		<form id="expFeatures" action="../core/php/settingsSave.php" method="post">
 		<div class="settingsHeader">
 		Experimental Features 
 			<div class="settingsHeaderButtons">
+				<a onclick="resetSettingsExpFeatures();" id="resetChangesExpFeaturesHeaderButton" style="display: none;" class="linkSmall" > Reset Current Changes</a>
 				<?php if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
-					<a class="linkSmall" onclick="saveAndVerifyMain('devAdvanced');" >Save Changes</a>
+					<a class="linkSmall" onclick="saveAndVerifyMain('expFeatures');" >Save Changes</a>
 				<?php else: ?>
 					<button  onclick="displayLoadingPopup();">Save Changes</button>
 				<?php endif; ?>
@@ -85,11 +87,7 @@ else
 	var popupSettingsArray = JSON.parse('<?php echo json_encode($popupSettingsArray) ?>');
 	function goToUrl(url)
 	{
-		var goToPage = true
-		if(document.getElementsByName("enableSystemPrefShellOrPhp")[0].value != "<?php echo $enableSystemPrefShellOrPhp;?>")
-		{
-			//goToPage = false;
-		}
+		var goToPage = !checkForChange();
 
 		if(goToPage || popupSettingsArray.saveSettings == "false")
 		{
@@ -100,4 +98,10 @@ else
 			displaySavePromptPopup(url);
 		}
 	}
+
+	$( document ).ready(function() 
+	{
+		refreshSettingsExpFeatures();
+		setInterval(poll, 100);
+	});
 </script>
