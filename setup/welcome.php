@@ -33,7 +33,7 @@ if(file_exists($baseUrl.'conf/config.php'))
 <html>
 <head>
 	<title>Welcome!</title>
-	<link rel="stylesheet" type="text/css" href="<?php echo $baseUrl ?>template/theme.css">
+	<link rel="stylesheet" type="text/css" href="../core/template/theme.css">
 	<script src="../core/js/jquery.js"></script>
 	<?php readfile('../core/html/popup.html') ?>	
 </head>

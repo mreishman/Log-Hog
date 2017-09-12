@@ -60,7 +60,7 @@ if($boolForUpgrade && (strpos($URI, 'upgradeLayout') === false) && (strpos($URI,
 	{
 		$configVersion = $config['configVersion'];
 	}
-	if($configVersion !== $defaultConfig['configVersion'])
+	if($configVersion !== $defaultConfig['configVersion'] || !is_file($baseUrl."/template/theme.css"))
 	{
 		//redirect to upgrade script for config page
 		header("Location: ".$varToIndexDir."core/php/template/upgradeConfig.php");
