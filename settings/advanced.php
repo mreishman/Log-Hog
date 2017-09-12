@@ -222,16 +222,7 @@ $withLogHog = $monitorStatus['withLogHog'];
 	var popupSettingsArray = JSON.parse('<?php echo json_encode($popupSettingsArray) ?>');
 	function goToUrl(url)
 	{
-		var goToPage = true
-		var change = checkForChangesDevAdvanced();
-		var change2 = checkForChangesPollAdvanced();
-		var change3 = checkForChangesLoggingDisplay();
-		var change4 = checkForChangesJsPhpSend();
-		var change5 = checkForChangesLocationOtherApps();
-		if(change || change2 || change3 || change4 || change5)
-		{
-			goToPage = false;
-		}
+		var goToPage = !checkIfChanges();
 		if(goToPage || popupSettingsArray.saveSettings == "false")
 		{
 			window.location.href = url;

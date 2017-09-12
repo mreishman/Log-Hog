@@ -45,12 +45,7 @@ function poll()
 {
 	try
 	{
-		var change = checkForChangesDevAdvanced();
-		var change2 = checkForChangesPollAdvanced();
-		var change3 = checkForChangesLoggingDisplay();
-		var change4 = checkForChangesJsPhpSend();
-		var change5 = checkForChangesLocationOtherApps();
-		if(change || change2 || change3 || change4 || change5)
+		if(checkIfChanges())
 		{
 			document.getElementById("advancedLink").innerHTML = "Advanced*";
 		}
@@ -63,6 +58,20 @@ function poll()
 	{
 		eventThrowException(e);
 	}
+}
+
+function checkIfChanges()
+{
+	var change = checkForChangesDevAdvanced();
+	var change2 = checkForChangesPollAdvanced();
+	var change3 = checkForChangesLoggingDisplay();
+	var change4 = checkForChangesJsPhpSend();
+	var change5 = checkForChangesLocationOtherApps();
+	if(change || change2 || change3 || change4 || change5)
+	{
+		return true;
+	}
+	return false;
 }
 
 //DEV ADVANCED
