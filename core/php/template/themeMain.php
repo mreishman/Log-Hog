@@ -15,7 +15,7 @@ Theme Selector
 					<div class="settingsHeaderButtons">
 						<?php if($key !== $currentTheme): ?>
 							<?php if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
-							<a class="linkSmall" onclick="saveAndVerifyMain('settingsMainVars');" >Select</a>
+							<a class="linkSmall" onclick="saveAndVerifyMain('themeMainSelection-<?php echo $key;?>');" >Select</a>
 							<?php else: ?>
 								<button  onclick="displayLoadingPopup();">Select</button>
 							<?php endif; ?>
@@ -23,6 +23,9 @@ Theme Selector
 							<a class="linkSmallHover"> Selected </a>
 						<?php endif;?>
 					</div>
+					<form id="themeMainSelection-<?php echo $key;?>">
+						<input type="hidden" name="currentTheme" value="<?php echo $key?>">
+					</form>
 				</div>
 				<?php echo generateExampleIndex($key, $withLogHog);?>
 			</div>

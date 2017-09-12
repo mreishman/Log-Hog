@@ -20,17 +20,6 @@ require_once('../../../core/conf/config.php');
 require_once('../../../core/php/configStatic.php');
 require_once('../../../core/php/loadVars.php');
 
-$boolForFile = "true";
-$themeVersion = 0;
-if(isset($config['themeVersion']))
-{
-	$themeVersion = $config['themeVersion'];
-}
-if($themeVersion != $defaultConfig['themeVersion'])
-{
-	$boolForFile = "false";
-}
-
 ?>
 
 <div id="main">
@@ -79,18 +68,10 @@ if($themeVersion != $defaultConfig['themeVersion'])
 	var lock = false;
 	var urlForSendMain0 = '../themeChangeLogic.php?format=json';
 	var urlForSendMain1 = '../themeChangeLogicVerify.php?format=json';
-	var boolForFile = "<?php echo $boolForFile;?>";
 
 	$( document ).ready(function()
 	{
-		if(boolForFile === "false")
-		{
-			copyFiles();
-		}
-		else
-		{
-			window.location.href = "../../../settings/whatsNew.php";
-		}
+		copyFiles();
 	});
 
 	function copyFiles()
@@ -197,7 +178,7 @@ if($themeVersion != $defaultConfig['themeVersion'])
 	{
 		document.getElementById('verifyCheck').style.display = "block";
 		document.getElementById('verifyLoad').style.display = "none";
-		window.location.href = "../../../settings/whatsNew.php";
+		window.location.href = "../../../settings/themes.php";
 	}
 
 </script> 

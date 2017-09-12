@@ -14,7 +14,6 @@ require_once('../core/conf/config.php');
 require_once('../core/php/configStatic.php');
 require_once('../core/php/updateCheck.php');
 require_once('../core/php/loadVars.php');
-require_once('../core/php/commonFunctions.php');
 require_once('../core/php/themeFunctions.php');
 require_once('../top/statusTest.php');
 $withLogHog = $monitorStatus['withLogHog'];
