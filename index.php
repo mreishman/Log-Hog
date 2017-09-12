@@ -84,7 +84,7 @@ elseif (is_dir("../Monitor"))
 	if($enablePollTimeLogging != "false"): ?>
 		<div id="loggTimerPollStyle" style="width: 100%;background-color: black;text-align: center; line-height: 200%;" ><span id="loggingTimerPollRate" >### MS /<?php echo $pollingRate; ?> MS</span> | <span id="loggSkipCount" >0</span>/<?php echo $pollForceTrue; ?> | <span id="loggAllCount" >0</span>/<?php echo $pollRefreshAll; ?></div>
 	<?php endif; ?>
-	<div id="menu">
+	<div class="backgroundForMenus" id="menu">
 		<div onclick="pausePollAction();" class="menuImageDiv">
 			<img id="pauseImage" class="menuImage"
 				<?php if($pausePoll == 'true'):?>
@@ -137,7 +137,8 @@ elseif (is_dir("../Monitor"))
 		</div>
 	</div>
 	
-	<div 
+	<div
+		class="backgroundForMenus" 
 		style=" 
 		<?php
 		if($bottomBarIndexShow == 'false')

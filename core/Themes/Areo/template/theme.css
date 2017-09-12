@@ -1,5 +1,5 @@
 body {
-	color: black;
+	color: white;
 	background-color: #CCCCCC;
 	font-family: monospace;
 	padding: 0;
@@ -124,7 +124,7 @@ div {
 
 #log {
 	padding: 1em 0;
-	color: white;
+	color: black;
 	white-space: pre-wrap;
 }
 
