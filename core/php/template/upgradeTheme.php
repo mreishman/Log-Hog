@@ -77,8 +77,8 @@ if($themeVersion != $defaultConfig['themeVersion'])
 <script src="../../../core/js/settings.js"></script>
 <script type="text/javascript"> 
 	var lock = false;
-	var urlForSendMain0 = '../../../core/php/themeChangeLogic.php?format=json';
-	var urlForSendMain1 = '../../../core/php/themeChangeLogicVerify.php?format=json';
+	var urlForSendMain0 = '../themeChangeLogic.php?format=json';
+	var urlForSendMain1 = '../themeChangeLogicVerify.php?format=json';
 	var boolForFile = "<?php echo $boolForFile;?>";
 
 	$( document ).ready(function()
@@ -95,9 +95,7 @@ if($themeVersion != $defaultConfig['themeVersion'])
 
 	function copyFiles()
 	{
-		document.getElementById('runLoad').style.display = "block";
-		document.getElementById('runLoad').style.display = "none";
-		document.getElementById('verifyLoad').style.display = "none";
+		console.log("Copy Files");
 		var urlForSend = urlForSendMain0;
 		var dataSend = {};
 		$.ajax({
@@ -107,11 +105,16 @@ if($themeVersion != $defaultConfig['themeVersion'])
 			type: 'POST',
 			success(data)
 			{
+				console.log(data);
 				verifyFile(data);
 			},
 			failure(data)
 			{
-				verifyFile(data);
+				verifyFile(false);
+			},
+			complete(data)
+			{
+				console.log("Finished?");
 			}
 		});
 	}

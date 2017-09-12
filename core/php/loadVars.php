@@ -27,7 +27,7 @@ else
 }
 require_once($varToIndexDir.'core/conf/config.php');
 $URI = $_SERVER['REQUEST_URI'];
-if($boolForUpgrade && (strpos($URI, 'upgradeLayout') === false) && (strpos($URI, 'upgradeConfig') === false) && (strpos($URI, 'core/php/template/upgrade') === false))
+if($boolForUpgrade && (strpos($URI, 'upgradeLayout') === false) && (strpos($URI, 'upgradeConfig') === false) && (strpos($URI, 'core/php/template/upgrade') === false) && (strpos($URI, 'upgradeTheme') === false) && (strpos($URI, 'themeChangeLogic') === false)) //
 {
 	//check if upgrade script is needed
 	$layoutVersion = 0;
@@ -62,7 +62,9 @@ if($boolForUpgrade && (strpos($URI, 'upgradeLayout') === false) && (strpos($URI,
 	if($themeVersion != $defaultConfig['themeVersion'])
 	{
 		//redirect to themeVersion upgrade script (copy over theme files to local)
-		
+		header("Location: ".$varToIndexDir."core/php/template/upgradeTheme.php");
+		exit();
+
 	}
 }
 //start loading vars
