@@ -53,6 +53,17 @@ if($boolForUpgrade && (strpos($URI, 'upgradeLayout') === false) && (strpos($URI,
 		header("Location: ".$varToIndexDir."core/php/template/upgradeConfig.php");
 		exit();
 	}
+
+	$themeVersion = 0;
+	if(isset($config['themeVersion']))
+	{
+		$themeVersion = $config['themeVersion'];
+	}
+	if($themeVersion != $defaultConfig['themeVersion'])
+	{
+		//redirect to themeVersion upgrade script (copy over theme files to local)
+		
+	}
 }
 //start loading vars
 $loadCustomConfigVars = true;

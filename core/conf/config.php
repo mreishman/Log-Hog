@@ -4,6 +4,7 @@ $defaultConfig = array(
 	'configVersion'	=> 1,
 	'layoutVersion'	=> 1,
 	'cssVersion'	=> 1,
+	'themeVersion'	=> 1,
 	'sendCrashInfoJS'	=> 'true',
 	'sendCrashInfoPHP'	=> 'true',
 	'themesEnabled'		=> 'true',
