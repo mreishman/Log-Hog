@@ -85,7 +85,7 @@ if($themeVersion != $defaultConfig['themeVersion'])
 	{
 		if(boolForFile === "false")
 		{
-			//copyFiles()
+			copyFiles();
 		}
 		else
 		{
@@ -105,11 +105,11 @@ if($themeVersion != $defaultConfig['themeVersion'])
 			dataType: 'json',
 			data: dataSend,
 			type: 'POST',
-			success: function(data)
+			success(data)
 			{
 				verifyFile(data);
 			},
-			failure: function(data)
+			failure(data)
 			{
 				verifyFile(data);
 			}
@@ -137,17 +137,17 @@ if($themeVersion != $defaultConfig['themeVersion'])
 				$.ajax({
 					url: urlForSend,
 					dataType: 'json',
-					data: data,
+					data,
 					type: 'POST',
-					success: function(data)
+					success(data)
 					{
-						verifyPostEnd(data, _data);
+						verifyPostEnd(data);
 					},
-					failure: function(data)
+					failure(data)
 					{
-						verifyPostEnd(data, _data);
+						verifyPostEnd(data);
 					},
-					complete: function()
+					complete()
 					{
 						lock = false;
 					}
@@ -156,12 +156,12 @@ if($themeVersion != $defaultConfig['themeVersion'])
 		}
 	}
 
-	function verifyPostEnd(verified, data)
+	function verifyPostEnd(verified)
 	{
 		if(verified == true)
 		{
 			clearInterval(verifyFileTimer);
-			verifySucceded(data['lastAction']);
+			verifySucceded();
 		}
 		else
 		{
@@ -169,7 +169,7 @@ if($themeVersion != $defaultConfig['themeVersion'])
 			if(verifyCount > 29)
 			{
 				clearInterval(verifyFileTimer);
-				verifyFail(data['lastAction']);
+				verifyFail();
 			}
 		}
 	}
@@ -179,12 +179,12 @@ if($themeVersion != $defaultConfig['themeVersion'])
 		document.getElementById('innerDisplayUpdate').innerHTML = "<p>An error occured while trying to copy over your selected theme. </p>";
 	}
 
-	function verifyFail(action)
+	function verifyFail()
 	{
 		updateError();
 	}
 
-	function verifySucceded(action)
+	function verifySucceded()
 	{
 		retryCount = 0;
 		finishedTmpUpdate();
