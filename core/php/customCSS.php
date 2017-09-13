@@ -18,12 +18,12 @@ require_once($baseURLToMain.'core/php/loadVars.php');
 <style type="text/css">
 #menu a, #menu2 a, .link, .linkSmall, .context-menu
 {
-	background-color: <?php echo $currentSelectedThemeColorValues['main'][0]?>;
+	background-color: <?php echo $currentSelectedThemeColorValues['main']['main-1']['background']?>;
 }
 
 progress
 {
-	color: <?php echo $currentSelectedThemeColorValues['main'][0]?>;
+	color: <?php echo $currentSelectedThemeColorValues['main']['main-1']['background']?>;
 }
 
 body
@@ -40,12 +40,12 @@ body
 /* Firefox */
 progress::-moz-progress-bar
 { 
-    background: <?php echo $currentSelectedThemeColorValues['main'][0]?>;  
+    background: <?php echo $currentSelectedThemeColorValues['main']['main-1']['background']?>;  
 }
 
 /* Chrome */
 progress::-webkit-progress-value
 {
-    background: <?php echo $currentSelectedThemeColorValues['main'][0]?>;
+    background: <?php echo $currentSelectedThemeColorValues['main']['main-1']['background']?>;
 }
 </style>
