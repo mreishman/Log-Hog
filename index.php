@@ -133,7 +133,7 @@ elseif (is_dir("../Monitor"))
 	
 	<div id="storage">
 		<div class="menuItem">
-			<a style="{{style}}" class="{{id}}Button" onclick="show(this, '{{id}}')">{{title}}</a>
+			<a class="{{id}}Button {{class}}" onclick="show(this, '{{id}}')">{{title}}</a>
 		</div>
 	</div>
 	

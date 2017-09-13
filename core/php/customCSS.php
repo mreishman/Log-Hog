@@ -22,6 +22,20 @@ require_once($baseURLToMain.'core/php/loadVars.php');
 	color: <?php echo $currentSelectedThemeColorValues['main']['main-1']['fontColor']?>;
 }
 
+<?php 
+$count = 1;
+foreach ($currentSelectedThemeColorValues['main'] as $value): 
+	$count++;
+	?>
+
+	#menu .buttonColor<?php echo $count;?>
+	{
+		color: <?php echo $value['fontColor'];?>;
+		background: <?php echo $value['background'];?>;
+	}
+
+<?php endforeach; ?>
+
 #menu a:hover, #menu a.active, #menu2 a:hover, #menu2 a.active, .link:hover, .linkSmall:hover, .settingsHeader button:hover {
 	color: <?php echo $currentSelectedThemeColorValues['highlight']['highlight-1']['fontColor']?>;
 	background: <?php echo $currentSelectedThemeColorValues['highlight']['highlight-1']['background']?>;

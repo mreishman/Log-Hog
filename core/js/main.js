@@ -584,13 +584,13 @@ function update(data) {
 						if($("#menu ." + id + "Button").length === 0) 
 						{
 							shortName = files[i].replace(/.*\//g, "");
-							style = "background-color: "+colorArray["main"]["main-"+(folderNameCount+1)]["background"];
+							classInsert = "buttonColor"+(folderNameCount+1);
 							item = blank;
 							item = item.replace(/{{title}}/g, shortName);
 							item = item.replace(/{{id}}/g, id);
 							if(groupByColorEnabled === true)
 							{
-								item = item.replace(/{{style}}/g, style);
+								item = item.replace(/{{class}}/g, classInsert);
 							}
 							menu.append(item);
 						}
