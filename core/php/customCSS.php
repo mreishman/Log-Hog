@@ -18,12 +18,28 @@ require_once($baseURLToMain.'core/php/loadVars.php');
 <style type="text/css">
 #menu a, #menu2 a, .link, .linkSmall, .context-menu
 {
-	background-color: <?php echo $currentSelectedThemeColorValues['main']['main-1']['background']?>;
+	background: <?php echo $currentSelectedThemeColorValues['main']['main-1']['background']?>;
+	color: <?php echo $currentSelectedThemeColorValues['main']['main-1']['fontColor']?>;
+}
+
+#menu a:hover, #menu a.active, #menu2 a:hover, #menu2 a.active, .link:hover, .linkSmall:hover, .settingsHeader button:hover {
+	color: <?php echo $currentSelectedThemeColorValues['highlight']['highlight-1']['fontColor']?>;
+	background: <?php echo $currentSelectedThemeColorValues['highlight']['highlight-1']['background']?>;
+}
+
+#menu a.updated {
+	background: <?php echo $currentSelectedThemeColorValues['active']['active-1']['background']?>;
+	color: <?php echo $currentSelectedThemeColorValues['active']['active-1']['fontColor']?>; 
+}
+
+#menu a.updated:hover {
+	background: <?php echo $currentSelectedThemeColorValues['highlightActive']['highlightActive-1']['background']?>;
+	color: <?php echo $currentSelectedThemeColorValues['highlightActive']['highlightActive-1']['fontColor']?>; 
 }
 
 progress
 {
-	color: <?php echo $currentSelectedThemeColorValues['main']['main-1']['background']?>;
+	background: <?php echo $currentSelectedThemeColorValues['main']['main-1']['background']?>;
 }
 
 body
@@ -35,6 +51,7 @@ body
 #menu
 {
 	background: <?php echo $backgroundHeaderColor?>;
+	color: <?php echo $currentSelectedThemeColorValues['main']['main-1']['fontColor']?>;
 }
 
 /* Firefox */
