@@ -183,15 +183,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 		else
 		{
 			$popupSettingsArraySave = "";
-			$count = 0;
 			foreach ($popupSettingsArray as $key => $value)
 			{
-				$popupSettingsArraySave .= "'".$key."'	=>	'".$value."'";
-				$count++;
-				if($count != 4)
-				{
-					$popupSettingsArraySave .= ",";
-				}
+				$popupSettingsArraySave .= "'".$key."'	=>	'".$value."',";
 			}
 		}
 	}
@@ -204,13 +198,67 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 		for($i = 0; $i < $intFolderThemeCount; $i++ )
 		{
 			$folderColorArraysSave .= "'".$_POST['folderColorThemeNameForPost'.($i+1)]."'	=>	array(";
-			$colorCount = 0;
-			while (isset($_POST['folderColorValue'.($i+1).'-'.($colorCount+1)]))
-			{
-				$colorCount++;
-				$folderColorArraysSave .= "'".$_POST['folderColorValue'.($i+1).'-'.($colorCount)]."',";
-			}
-			$folderColorArraysSave = substr($folderColorArraysSave, 0, -1);
+
+				//main
+				$folderColorArraysSave .= " main => array( ";
+
+					$colorCount = 0;
+					while (isset($_POST['folderColorValueMainBackground'.($i+1).'-'.($colorCount+1)]))
+					{
+						$colorCount++;
+						$folderColorArraysSave .= " main-".($colorCount)." => array( ";
+						$folderColorArraysSave .= " 'background' => '".$_POST['folderColorValueMainBackground'.($i+1).'-'.($colorCount)]."',";
+						$folderColorArraysSave .= " 'fontColor' => '".$_POST['folderColorValueMainFont'.($i+1).'-'.($colorCount)]."',";
+						$folderColorArraysSave .= "),";
+					}
+
+				$folderColorArraysSave .= "),";
+
+				//highlight
+				$folderColorArraysSave .= " highlight => array( ";
+
+					$colorCount = 0;
+					while (isset($_POST['folderColorValueHighlightBackground'.($i+1).'-'.($colorCount+1)]))
+					{
+						$colorCount++;
+						$folderColorArraysSave .= " highlight-".($colorCount)." => array( ";
+						$folderColorArraysSave .= " 'background' => '".$_POST['folderColorValueHighlightBackground'.($i+1).'-'.($colorCount)]."',";
+						$folderColorArraysSave .= " 'fontColor' => '".$_POST['folderColorValueHighlightFont'.($i+1).'-'.($colorCount)]."',";
+						$folderColorArraysSave .= "),";
+					}
+
+				$folderColorArraysSave .= "),";
+
+				//active
+				$folderColorArraysSave .= " active => array( ";
+
+					$colorCount = 0;
+					while (isset($_POST['folderColorValueActiveBackground'.($i+1).'-'.($colorCount+1)]))
+					{
+						$colorCount++;
+						$folderColorArraysSave .= " active-".($colorCount)." => array( ";
+						$folderColorArraysSave .= " 'background' => '".$_POST['folderColorValueActiveBackground'.($i+1).'-'.($colorCount)]."',";
+						$folderColorArraysSave .= " 'fontColor' => '".$_POST['folderColorValueActiveFont'.($i+1).'-'.($colorCount)]."',";
+						$folderColorArraysSave .= "),";
+					}
+
+				$folderColorArraysSave .= "),";
+
+				//highlightActive
+				$folderColorArraysSave .= " highlightActive => array( ";
+
+					$colorCount = 0;
+					while (isset($_POST['folderColorValueActiveHighlightBackground'.($i+1).'-'.($colorCount+1)]))
+					{
+						$colorCount++;
+						$folderColorArraysSave .= " highlightActive-".($colorCount)." => array( ";
+						$folderColorArraysSave .= " 'background' => '".$_POST['folderColorValueActiveHighlightBackground'.($i+1).'-'.($colorCount)]."',";
+						$folderColorArraysSave .= " 'fontColor' => '".$_POST['folderColorValueActiveHighlightFont'.($i+1).'-'.($colorCount)]."',";
+						$folderColorArraysSave .= "),";
+					}
+
+				$folderColorArraysSave .= "),";
+				
 			$folderColorArraysSave .= "),";
 		}
 	}
