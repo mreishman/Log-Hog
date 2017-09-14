@@ -23,8 +23,6 @@ div {
 	max-height: 300px;
 	border-bottom: 1px solid white;
 	overflow-y: auto;
-	overflow-x: hidden;
-	box-shadow: 0px 5px 10px rgba(0,0,0,.5);
 }
 
 #menu2 {

@@ -85,39 +85,43 @@ elseif (is_dir("../Monitor"))
 		<div id="loggTimerPollStyle" style="width: 100%;background-color: black;text-align: center; line-height: 200%;" ><span id="loggingTimerPollRate" >### MS /<?php echo $pollingRate; ?> MS</span> | <span id="loggSkipCount" >0</span>/<?php echo $pollForceTrue; ?> | <span id="loggAllCount" >0</span>/<?php echo $pollRefreshAll; ?></div>
 	<?php endif; ?>
 	<div class="backgroundForMenus" id="menu">
-		<div onclick="pausePollAction();" class="menuImageDiv">
-			<img id="pauseImage" class="menuImage"
-				<?php if($pausePoll == 'true'):?>
-					 src="<?php echo $baseUrl; ?>img/Play.png" 
-				<?php else: ?>
-					 src="<?php echo $baseUrl; ?>img/Pause.png"
-				<?php endif;?>
-			height="30px">
+		<div style="display: inline-block;">
+			<div onclick="pausePollAction();" class="menuImageDiv">
+				<img id="pauseImage" class="menuImage"
+					<?php if($pausePoll == 'true'):?>
+						 src="<?php echo $baseUrl; ?>img/Play.png" 
+					<?php else: ?>
+						 src="<?php echo $baseUrl; ?>img/Pause.png"
+					<?php endif;?>
+				height="30px">
+			</div>
+			<div onclick="refreshAction();" class="menuImageDiv">
+				<img id="refreshImage" class="menuImage" src="<?php echo $baseUrl; ?>img/Refresh.png" height="30px">
+			</div>
+			<?php if($truncateLog == 'true'): ?>
+			<div onclick="deleteAction();"  class="menuImageDiv">
+				<img id="deleteImage" class="menuImage" src="<?php echo $baseUrl; ?>img/trashCanMulti.png" height="30px">
+			</div>
+			<?php else: ?>
+			<div onclick="clearLog();" class="menuImageDiv">
+				<img id="deleteImage" class="menuImage" src="<?php echo $baseUrl; ?>img/trashCan.png" height="30px">
+			</div>
+			<?php endif; ?>
+			<?php if($locationForMonitorIndex != ""): ?>
+			<div onclick="window.location.href = '<?php echo $locationForMonitorIndex; ?>'"  class="menuImageDiv">
+				<img id="taskmanagerImage" class="menuImage" src="<?php echo $baseUrl; ?>img/task-manager.png" height="30px">
+			</div>
+			<?php endif; ?>
+			<div onclick="window.location.href = './settings/main.php';"  class="menuImageDiv">
+				<img data-id="1" id="gear" class="menuImage" src="<?php echo $baseUrl; ?>img/Gear.png" height="30px">
+				<?php  if($levelOfUpdate == 1){echo '<img id="updateImage" src="<?php echo $baseUrl; ?>img/yellowWarning.png" height="15px" style="position: absolute;margin-left: 13px;margin-top: -34px;">';} ?> <?php if($levelOfUpdate == 2 || $levelOfUpdate == 3){echo '<img id="updateImage" src="<?php echo $baseUrl; ?>img/redWarning.png" height="15px" style="position: absolute;margin-left: 13px;margin-top: -34px;">';} ?>
+			</div>
+			<?php if ($locationForStatusIndex != ""):?>
+				<div class="menuImage" style="display: inline-block; cursor: pointer; color: white; " onclick="window.location.href='<?php echo $locationForStatusIndex; ?>'" >
+					gS
+				</div>
+			<?php endif; ?>
 		</div>
-		<div onclick="refreshAction();" class="menuImageDiv">
-			<img id="refreshImage" class="menuImage" src="<?php echo $baseUrl; ?>img/Refresh.png" height="30px">
-		</div>
-		<?php if($truncateLog == 'true'): ?>
-		<div onclick="deleteAction();"  class="menuImageDiv">
-			<img id="deleteImage" class="menuImage" src="<?php echo $baseUrl; ?>img/trashCanMulti.png" height="30px">
-		</div>
-		<?php else: ?>
-		<div onclick="clearLog();" class="menuImageDiv">
-			<img id="deleteImage" class="menuImage" src="<?php echo $baseUrl; ?>img/trashCan.png" height="30px">
-		</div>
-		<?php endif; ?>
-		<?php if($locationForMonitorIndex != ""): ?>
-		<div onclick="window.location.href = '<?php echo $locationForMonitorIndex; ?>'"  class="menuImageDiv">
-			<img id="taskmanagerImage" class="menuImage" src="<?php echo $baseUrl; ?>img/task-manager.png" height="30px">
-		</div>
-		<?php endif; ?>
-		<div onclick="window.location.href = './settings/main.php';"  class="menuImageDiv">
-			<img data-id="1" id="gear" class="menuImage" src="<?php echo $baseUrl; ?>img/Gear.png" height="30px">
-			<?php  if($levelOfUpdate == 1){echo '<img id="updateImage" src="<?php echo $baseUrl; ?>img/yellowWarning.png" height="15px" style="position: absolute;margin-left: 13px;margin-top: -34px;">';} ?> <?php if($levelOfUpdate == 2 || $levelOfUpdate == 3){echo '<img id="updateImage" src="<?php echo $baseUrl; ?>img/redWarning.png" height="15px" style="position: absolute;margin-left: 13px;margin-top: -34px;">';} ?>
-		</div>
-		<?php if ($locationForStatusIndex != ""):?>
-			<div class="menuImage" style="display: inline-block; cursor: pointer; color: white; " onclick="window.location.href='<?php echo $locationForStatusIndex; ?>'" >gS</div>
-		<?php endif; ?>
 	</div>
 	
 	<div id="main">
