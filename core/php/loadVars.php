@@ -1,5 +1,24 @@
 <?php
 
+function forEachAddVars($variable)
+{
+	$returnText = "array(";
+	foreach ($variable as $key => $value)
+	{
+		$returnText .= "'".$key."'	=>	";
+		if(is_array($value) || is_object($value))
+		{
+			$returnText .= forEachAddVars($value);
+		}
+		else
+		{
+			$returnText .= "'".$value."',";
+		}
+	}
+	$returnText .= "),";
+	return $returnText;
+}
+
 $varToIndexDir = "";
 $countOfSlash = 0;
 while($countOfSlash < 20 && !file_exists($varToIndexDir."error.php"))
@@ -192,24 +211,15 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 				$folderColorArraysSave .= "'".$_POST['folderColorValue'.($i+1).'-'.($colorCount)]."',";
 			}
 			$folderColorArraysSave = substr($folderColorArraysSave, 0, -1);
-			$folderColorArraysSave .= ")";
-			$folderColorArraysSave .= ",";
+			$folderColorArraysSave .= "),";
 		}
 	}
 	else
 	{
-		$count = 0;
 		foreach ($folderColorArrays as $key => $value)
 		{
-			$folderColorArraysSave .= "'".$key."'	=>	array(";
-			$count++;
-			foreach ($value as $key2 => $value2)
-			{
-				$folderColorArraysSave .= "'".$value2."',";
-			}
-			$folderColorArraysSave = substr($folderColorArraysSave, 0, -1);
-			$folderColorArraysSave .= ")";
-			$folderColorArraysSave .= ",";
+			$folderColorArraysSave .= "'".$key."'	=>	";
+			$folderColorArraysSave .= forEachAddVars($value);
 		}
 	}
 	$folderColorArrays = $folderColorArraysSave;
