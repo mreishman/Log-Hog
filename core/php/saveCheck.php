@@ -1,5 +1,24 @@
 <?php
 
+function forEachAddVars($variable)
+{
+	$returnText = "array(";
+	foreach ($variable as $key => $value)
+	{
+		$returnText .= " '".$key."' => ";
+		if(is_array($value) || is_object($value))
+		{
+			$returnText .= forEachAddVars($value);
+		}
+		else
+		{
+			$returnText .= "'".$value."',";
+		}
+	}
+	$returnText .= "),";
+	return $returnText;
+}
+
 $varToIndexDir = "";
 $countOfSlash = 0;
 while($countOfSlash < 20 && !file_exists($varToIndexDir."error.php"))
@@ -79,35 +98,80 @@ if(isset($_POST['saveSettings']))
 if(isset($_POST['folderThemeCount']))
 {
 	$folderColorArraysSave = "";
-	$count = 0;
 	foreach ($config['folderColorArrays'] as $key => $value)
 	{
-		$folderColorArraysSave .= "'".$key."'	=>	array(";
-		$count++;
-		foreach ($value as $key2 => $value2)
-		{
-			$folderColorArraysSave .= "'".$value2."',";
-		}
-		$folderColorArraysSave = substr($folderColorArraysSave, 0, -1);
-		$folderColorArraysSave .= ")";
-		$folderColorArraysSave .= ",";
+		$folderColorArraysSave .= "'".$key."'	=>	";
+		$folderColorArraysSave .= forEachAddVars($value);
 	}
 	$folderColorArrays = $folderColorArraysSave;
 	$folderColorArraysSave = "";
 	$intFolderThemeCount = intval($_POST['folderThemeCount']);
-	for($i = 0; $i < $intFolderThemeCount; $i++ )
-	{
-		$folderColorArraysSave .= "'".$_POST['folderColorThemeNameForPost'.($i+1)]."'	=>	array(";
-		$colorCount = 0;
-		while (isset($_POST['folderColorValue'.($i+1).'-'.($colorCount+1)]))
+		for($i = 0; $i < $intFolderThemeCount; $i++ )
 		{
-			$colorCount++;
-			$folderColorArraysSave .= "'".$_POST['folderColorValue'.($i+1).'-'.($colorCount)]."',";
+			$folderColorArraysSave .= "'".$_POST['folderColorThemeNameForPost'.($i+1)]."'	=>	array(";
+
+				//main
+				$folderColorArraysSave .= " 'main' => array(";
+
+					$colorCount = 0;
+					while (isset($_POST['folderColorValueMainBackground'.($i+1).'-'.($colorCount+1)]))
+					{
+						$colorCount++;
+						$folderColorArraysSave .= " 'main-".($colorCount)."' => array(";
+						$folderColorArraysSave .= " 'background' => '".$_POST['folderColorValueMainBackground'.($i+1).'-'.($colorCount)]."',";
+						$folderColorArraysSave .= " 'fontColor' => '".$_POST['folderColorValueMainFont'.($i+1).'-'.($colorCount)]."',";
+						$folderColorArraysSave .= "),";
+					}
+
+				$folderColorArraysSave .= "),";
+
+				//highlight
+				$folderColorArraysSave .= " 'highlight' => array(";
+
+					$colorCount = 0;
+					while (isset($_POST['folderColorValueHighlightBackground'.($i+1).'-'.($colorCount+1)]))
+					{
+						$colorCount++;
+						$folderColorArraysSave .= " 'highlight-".($colorCount)."' => array(";
+						$folderColorArraysSave .= " 'background' => '".$_POST['folderColorValueHighlightBackground'.($i+1).'-'.($colorCount)]."',";
+						$folderColorArraysSave .= " 'fontColor' => '".$_POST['folderColorValueHighlightFont'.($i+1).'-'.($colorCount)]."',";
+						$folderColorArraysSave .= "),";
+					}
+
+				$folderColorArraysSave .= "),";
+
+				//active
+				$folderColorArraysSave .= " 'active' => array(";
+
+					$colorCount = 0;
+					while (isset($_POST['folderColorValueActiveBackground'.($i+1).'-'.($colorCount+1)]))
+					{
+						$colorCount++;
+						$folderColorArraysSave .= " 'active-".($colorCount)."' => array(";
+						$folderColorArraysSave .= " 'background' => '".$_POST['folderColorValueActiveBackground'.($i+1).'-'.($colorCount)]."',";
+						$folderColorArraysSave .= " 'fontColor' => '".$_POST['folderColorValueActiveFont'.($i+1).'-'.($colorCount)]."',";
+						$folderColorArraysSave .= "),";
+					}
+
+				$folderColorArraysSave .= "),";
+
+				//highlightActive
+				$folderColorArraysSave .= " 'highlightActive' => array(";
+
+					$colorCount = 0;
+					while (isset($_POST['folderColorValueActiveHighlightBackground'.($i+1).'-'.($colorCount+1)]))
+					{
+						$colorCount++;
+						$folderColorArraysSave .= " 'highlightActive-".($colorCount)."' => array(";
+						$folderColorArraysSave .= " 'background' => '".$_POST['folderColorValueActiveHighlightBackground'.($i+1).'-'.($colorCount)]."',";
+						$folderColorArraysSave .= " 'fontColor' => '".$_POST['folderColorValueActiveHighlightFont'.($i+1).'-'.($colorCount)]."',";
+						$folderColorArraysSave .= "),";
+					}
+
+				$folderColorArraysSave .= "),";
+
+			$folderColorArraysSave .= "),";
 		}
-		$folderColorArraysSave = substr($folderColorArraysSave, 0, -1);
-		$folderColorArraysSave .= ")";
-		$folderColorArraysSave .= ",";
-	}
 }
 
 foreach ($defaultConfig as $key => $value)

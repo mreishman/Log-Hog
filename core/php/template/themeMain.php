@@ -23,14 +23,25 @@ Theme Selector
 							<a class="linkSmallHover"> Selected </a>
 						<?php endif;?>
 					</div>
+				</div>
+				<?php echo generateExampleIndex($key, $withLogHog);?>
+				<span style="display: none;">
 					<form id="themeMainSelection-<?php echo $key;?>">
 						<input type="hidden" name="currentTheme" value="<?php echo $key?>">
 						<input type="hidden" name="backgroundColor" value="<?php echo $backgroundColorDefault;?>" >
 						<input type="hidden" name="mainFontColor" value="<?php echo $mainFontColorDefault;?>" >
 						<input type="hidden" name="backgroundHeaderColor" value="<?php echo $backgroundHeaderColorDefault;?>" >
+						<?php
+							$tmpcurrentFolderColorTheme = $currentFolderColorTheme;
+							$currentFolderColorTheme = $currentFolderColorThemeDefault; 
+							$tmpfolderColorArrays = $folderColorArrays;
+							$folderColorArrays = $folderColorArraysDefault;
+							include('innerFolderGroupColor.php');
+							$folderColorArrays = $tmpfolderColorArrays;
+							$currentFolderColorTheme = $tmpcurrentFolderColorTheme;
+						?>
 					</form>
-				</div>
-				<?php echo generateExampleIndex($key, $withLogHog);?>
+				</span>
 			</div>
 		<?php endif; 
 	endforeach; ?>
