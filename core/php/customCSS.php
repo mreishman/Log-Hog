@@ -23,7 +23,7 @@ require_once($baseURLToMain.'core/php/loadVars.php');
 }
 
 <?php 
-$count = 1;
+$count = 0;
 foreach ($currentSelectedThemeColorValues['main'] as $value): 
 	$count++;
 	?>

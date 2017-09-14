@@ -15,20 +15,12 @@ $folderColorArraysDefault	= array(
 				'fontColor'		=> '#FFFFFF'
 				),
 			'main-2'		=> array(
-				'background'	=> "#32CD32",
+				'background'	=> "rgba(0,0,0,.4)",
 				'fontColor'		=> "#FFFFFF"
 				),
 			'main-3'		=> array(
-				'background'	=> "#9ACD32",
+				'background'	=> "rgba(50,50,50,.2)",
 				'fontColor'		=> '#FFFFFF'
-				),
-			'main-4'		=> array(
-				'background'	=> "#556B2F",
-				'fontColor'		=> "#FFFFFF"
-				),
-			'main-5'		=> array(
-				'background'	=> "#6B8E23",
-				'fontColor'		=> "#FFFFFF"
 				)
 			),
 		'highlight' => array(
