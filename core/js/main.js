@@ -518,8 +518,6 @@ function update(data) {
 		var stop = files.length;
 		var updated = false;
 		var initialized = $("#menu a").length !== 0;
-		var colorArray = currentFolderColorThemeArrayOfColors;
-		var colorArrayLength = Object.keys(colorArray["main"]).length;
 		var folderNamePrev = "?-1";
 		var folderNameCount = -1;
 		for(i = 0; i !== stop; ++i) {

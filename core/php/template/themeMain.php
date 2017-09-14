@@ -24,8 +24,20 @@ Theme Selector
 						<?php endif;?>
 					</div>
 				</div>
-				<?php echo generateExampleIndex($key, $withLogHog);?>
+				<span id="loadingSpinner-<?php echo $key;?>">
+					<img src="<?php echo $baseUrl;?>/img/loading.gif" style="position: relative; height: 60px; top: 170px; left: 270px;" >
+				</span>
+				<span id="htmlContent-<?php echo $key;?>" style="display: none;">
+					<?php echo generateExampleIndex($key, $withLogHog);?>
+				</span>
 				<span style="display: none;">
+					<script type="text/javascript">
+						$( document ).ready(function()
+						{
+						   document.getElementById("loadingSpinner-<?php echo $key;?>").style.display = "none";
+						   document.getElementById("htmlContent-<?php echo $key;?>").style.display = "block";
+						});
+					</script>
 					<form id="themeMainSelection-<?php echo $key;?>">
 						<input type="hidden" name="currentTheme" value="<?php echo $key?>">
 						<input type="hidden" name="backgroundColor" value="<?php echo $backgroundColorDefault;?>" >

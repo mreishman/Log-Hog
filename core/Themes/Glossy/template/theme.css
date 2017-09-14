@@ -95,7 +95,7 @@ div {
 	background: -o-linear-gradient(top, rgba(194,26,0,1) 0%, rgba(219,26,0,1) 50%, rgba(173,17,0,1) 51%, rgba(173,17,0,1) 71%, rgba(179,12,0,1) 100%);
 	background: -ms-linear-gradient(top, rgba(194,26,0,1) 0%, rgba(219,26,0,1) 50%, rgba(173,17,0,1) 51%, rgba(173,17,0,1) 71%, rgba(179,12,0,1) 100%);
 	background: linear-gradient(to bottom, rgba(194,26,0,1) 0%, rgba(219,26,0,1) 50%, rgba(173,17,0,1) 51%, rgba(173,17,0,1) 71%, rgba(179,12,0,1) 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c21a00', endColorstr='#b30c00', GradientType=0 );
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr="#c21a00", endColorstr="#b30c00", GradientType=0 );
 }
 
 #menu a.updated:hover {

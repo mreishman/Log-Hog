@@ -181,7 +181,7 @@ elseif (is_dir("../Monitor"))
 				echo "Rightclick_ID_list.push('updateImage');";
 			}
 		endif;
-		echo "var currentFolderColorThemeArrayOfColors = JSON.parse('".json_encode($currentSelectedThemeColorValues)."');";
+		echo "var colorArrayLength = ".count($currentSelectedThemeColorValues).";";
 		echo "var pausePollOnNotFocus = ".$pauseOnNotFocus.";";
 		echo "var autoCheckUpdate = ".$autoCheckUpdate.";";
 		echo "var flashTitleUpdateLog = ".$flashTitleUpdateLog.";";
