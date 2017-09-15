@@ -63,7 +63,7 @@ require_once('../../../core/php/loadVars.php');
 </div>
 </body>
 
-<script src="../../../core/js/settings.js"></script>
+<script src="../../../core/js/settings.js?v=<?php echo $cssVersion?>"></script>
 <script type="text/javascript"> 
 	var lock = false;
 	var urlForSendMain0 = '../themeChangeLogic.php?format=json';

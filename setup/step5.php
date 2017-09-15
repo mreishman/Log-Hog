@@ -90,6 +90,6 @@ require_once('../core/php/loadVarsTop.php'); ?>
 	}
 
 </script>
-<script src="stepsJavascript.js"></script>
-<script src="../core/js/settingsMain.js"></script>
+<script src="stepsJavascript.js?v=<?php echo $cssVersion?>"></script>
+<script src="../core/js/settingsMain.js?v=<?php echo $cssVersion?>"></script>
 </html>

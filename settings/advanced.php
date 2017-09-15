@@ -224,7 +224,6 @@ $withLogHog = $monitorStatus['withLogHog'];
 	</div>
 	<?php readfile('../core/html/popup.html') ?>	
 </body>
-<script src="../core/js/settings.js"></script>
 <script type="text/javascript">
 	var popupSettingsArray = JSON.parse('<?php echo json_encode($popupSettingsArray) ?>');
 	function goToUrl(url)

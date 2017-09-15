@@ -76,6 +76,6 @@ $( document ).ready(function()
 	}
 	
 </script>
-<script src="../core/js/settingsMain.js"></script>
-<script src="../core/js/loghogDownloadJS.js"></script>
+<script src="../core/js/settingsMain.js?v=<?php echo $cssVersion?>"></script>
+<script src="../core/js/loghogDownloadJS.js?v=<?php echo $cssVersion?>"></script>
 </html>

@@ -88,7 +88,6 @@ $daysSince = calcuateDaysSince($configStatic['lastCheck']);
 	</div>
 	<?php readfile('../core/html/popup.html') ?>	
 </body>
-<script src="../core/js/settings.js"></script>
 <script type="text/javascript">
 
 	var timeoutVar;

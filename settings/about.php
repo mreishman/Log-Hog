@@ -72,7 +72,6 @@ require_once('../core/php/updateCheck.php');
 		</div>
 	</div>
 </body>
-<script src="../core/js/settings.js"></script>
 <script type="text/javascript">
 	function goToUrl(url)
 	{

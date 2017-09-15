@@ -48,7 +48,7 @@ require_once('../top/statusTest.php');
 		</div>
 	</div>
 </div>
-<script src="../core/js/settings.js"></script>
+<script src="../core/js/settings.js?v=<?php echo $cssVersion?>"></script>
 <script type="text/javascript">
 
 var counter = 0;	

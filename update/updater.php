@@ -176,7 +176,7 @@ if(count($arrayOfVersions) === 0)
 </div>
 </body>
 
-<script src="../core/js/settings.js"></script>
+<script src="../core/js/settings.js?v=<?php echo $cssVersion?>"></script>
 <script type="text/javascript"> 
 	var updateStatus = '<?php echo $updateStatus; ?>'
 	var headerForUpdate = document.getElementById('headerForUpdate');

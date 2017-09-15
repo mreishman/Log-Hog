@@ -91,6 +91,6 @@ require_once('../core/php/loadVars.php'); ?>
 	var locationInsert = "newRowLocationForWatchList";
 	var logTrimType = "<?php echo $logTrimType; ?>";
 </script>
-<script src="stepsJavascript.js"></script>
-<script src="../core/js/settingsMain.js"></script>
+<script src="stepsJavascript.js?v=<?php echo $cssVersion?>"></script>
+<script src="../core/js/settingsMain.js?v=<?php echo $cssVersion?>"></script>
 </html>
