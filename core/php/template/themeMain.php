@@ -20,6 +20,7 @@ Theme Selector
 								<button  onclick="displayLoadingPopup();">Select</button>
 							<?php endif; ?>
 						<?php else: ?>
+							<a class="linkSmall" onclick="saveAndVerifyMain('themeMainSelection-<?php echo $key;?>');" >Reset / Update</a>
 							<a class="linkSmallHover"> Selected </a>
 						<?php endif;?>
 					</div>

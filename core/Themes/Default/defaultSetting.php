@@ -3,28 +3,28 @@
 $backgroundColorDefault = "#292929";
 $mainFontColorDefault = "#FFFFFF";
 $backgroundHeaderColorDefault = "#222222";
-$currentFolderColorThemeDefault = "theme-default-3";
+$currentFolderColorThemeDefault = "theme-default-2";
 $folderColorArraysDefault	= array(
 	'theme-default-1'	=> array( 
 		'main' 		=> array(
 			'main-1'		=> array(
-				'background'	=> '#2A912A',
+				'background'	=> '#EA7AF4',
 				'fontColor'		=> '#FFFFFF'
 				),
 			'main-2'		=> array(
-				'background'	=> "#32CD32",
+				'background'	=> "#B43E8F",
 				'fontColor'		=> "#FFFFFF"
 				),
 			'main-3'		=> array(
-				'background'	=> "#9ACD32",
+				'background'	=> "#6200B3",
 				'fontColor'		=> '#FFFFFF'
 				),
 			'main-4'		=> array(
-				'background'	=> "#556B2F",
+				'background'	=> "#3B0086",
 				'fontColor'		=> "#FFFFFF"
 				),
 			'main-5'		=> array(
-				'background'	=> "#6B8E23",
+				'background'	=> "#290628",
 				'fontColor'		=> "#FFFFFF"
 				)
 			),
@@ -92,15 +92,19 @@ $folderColorArraysDefault	= array(
 	'theme-default-3'	=> array(
 		'main' 		=> array(
 			'main-1'		=> array(
-				'background'	=> '#228B22',
+				'background'	=> '#03256C',
 				'fontColor'		=> '#FFFFFF'
 				),
 			'main-2'		=> array(
-				'background'	=> "#008000",
+				'background'	=> "#2541B2",
 				'fontColor'		=> "#FFFFFF"
 				),
 			'main-3'		=> array(
-				'background'	=> "#006400",
+				'background'	=> "#1768AC",
+				'fontColor'		=> '#FFFFFF'
+				),
+			'main-4'		=> array(
+				'background'	=> "#06BEE1",
 				'fontColor'		=> '#FFFFFF'
 				)
 			),
@@ -126,20 +130,20 @@ $folderColorArraysDefault	= array(
 	'theme-default-4'	=> array(
 		'main' 		=> array(
 			'main-1'		=> array(
-				'background'	=> '#2E8B57',
+				'background'	=> '#012A36',
 				'fontColor'		=> '#FFFFFF'
 				),
 			'main-2'		=> array(
-				'background'	=> "#20B2AA",
+				'background'	=> "#29274C",
 				'fontColor'		=> "#FFFFFF"
 				),
 			'main-3'		=> array(
-				'background'	=> "#3CB371",
+				'background'	=> "#7E52A0",
 				'fontColor'		=> '#FFFFFF'
 				),
 			'main-4'		=> array(
-				'background'	=> "#8FBC8F",
-				'fontColor'		=> "#FFFFFF"
+				'background'	=> "#D295BF",
+				'fontColor'		=> "#000000"
 				)
 			),
 		'highlight' => array(
@@ -164,20 +168,24 @@ $folderColorArraysDefault	= array(
 	'theme-default-5'	=> array(
 		'main' 		=> array(
 			'main-1'		=> array(
-				'background'	=> '#9ACD32',
-				'fontColor'		=> '#FFFFFF'
+				'background'	=> '#69626D',
+				'fontColor'		=> '#000000'
 				),
 			'main-2'		=> array(
-				'background'	=> "#32CD32",
-				'fontColor'		=> "#FFFFFF"
+				'background'	=> "#BCAF9C",
+				'fontColor'		=> "#000000"
 				),
 			'main-3'		=> array(
-				'background'	=> "#2A912A",
-				'fontColor'		=> '#FFFFFF'
+				'background'	=> "#CBBEB3",
+				'fontColor'		=> '#000000'
 				),
 			'main-4'		=> array(
-				'background'	=> "#2E8B57",
-				'fontColor'		=> "#FFFFFF"
+				'background'	=> "#D9BDC5",
+				'fontColor'		=> "#000000"
+				),
+			'main-5'		=> array(
+				'background'	=> "#E8C7DE",
+				'fontColor'		=> "#000000"
 				)
 			),
 		'highlight' => array(
