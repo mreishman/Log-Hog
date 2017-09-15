@@ -29,7 +29,7 @@ Main Settings
 				<option <?php if($backgroundPollingRateType == 'Seconds'){echo "selected";} ?> value="Seconds">Seconds</option>
 		</select>
 		<br>
-		<i style="font-size: 75%;" >Only if Pause On Not Focus is set to True</i>
+		<i style="font-size: 75%;" >Only if Pause On Not Focus is set to False</i>
 	</li>
 	<li>
 		<span class="settingsBuffer" > Log trim:  </span>
