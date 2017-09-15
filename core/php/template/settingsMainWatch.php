@@ -57,7 +57,7 @@
 				value='<?php echo $item; ?>'
 			>
 			<a 
-				class="link"
+				class="deleteIconPosition"
 				onclick="deleteRowFunctionPopup(
 					<?php echo $i; ?>,
 					true,

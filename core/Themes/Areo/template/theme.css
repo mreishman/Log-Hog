@@ -536,3 +536,9 @@ div {
   opacity: 0;
   transition: visibility 0s 1s, opacity 1s linear;
 }
+
+.deleteIconPosition{
+	position: relative;
+	top: 3px;
+	cursor: pointer;
+}
