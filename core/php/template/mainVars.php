@@ -23,6 +23,15 @@ Main Settings
 		</select>
 	</li>
 	<li>
+		<span class="settingsBuffer" > Background Poll Rate: </span>  <input type="text" name="backgroundPollingRate" value="<?php echo $backgroundPollingRate;?>" >
+		<select name="backgroundPollingRateType">
+				<option <?php if($backgroundPollingRateType == 'Milliseconds'){echo "selected";} ?> value="Milliseconds">Milliseconds</option>
+				<option <?php if($backgroundPollingRateType == 'Seconds'){echo "selected";} ?> value="Seconds">Seconds</option>
+		</select>
+		<br>
+		<i style="font-size: 75%;" >Only if Pause On Not Focus is set to True</i>
+	</li>
+	<li>
 		<span class="settingsBuffer" > Log trim:  </span>
 		<select id="logTrimOn" name="logTrimOn">
 			<option <?php if($logTrimOn == 'true'){echo "selected";} ?> value="true">True</option>

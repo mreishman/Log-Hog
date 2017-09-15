@@ -28,6 +28,10 @@ if($pollingRateType == 'Seconds')
 {
 	$pollingRate *= 1000;
 }
+if($backgroundPollingRateType == 'Seconds')
+{
+	$backgroundPollingRate *= 1000;
+}
 
 require_once('top/statusTest.php');
 $withLogHog = $monitorStatus['withLogHog'];
@@ -73,10 +77,7 @@ elseif (is_dir("../Monitor"))
 	<script src="core/js/jquery.js"></script>
 	<?php
 		echo loadSentryData($sendCrashInfoJS);
-		if($pauseOnNotFocus == "true")
-		{
-			echo loadVisibilityJS(baseURL());
-		}
+		echo loadVisibilityJS(baseURL());
 	?>
 </head>
 <body>
@@ -193,6 +194,7 @@ elseif (is_dir("../Monitor"))
 		echo "var daysSinceLastCheck = '".$daysSince."';";
 		echo "var daysSetToUpdate = '".$autoCheckDaysUpdate."';";
 		echo "var pollingRate = ".$pollingRate.";";
+		echo "var backgroundPollingRate = ".$backgroundPollingRate.";";
 		echo "var pausePollFromFile = ".$pausePoll.";";
 		echo "var groupByColorEnabled = ".$groupByColorEnabled.";";
 		echo "var pollForceTrue = ".$pollForceTrue.";";

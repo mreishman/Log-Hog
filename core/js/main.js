@@ -756,12 +756,26 @@ function focus()
 
 function startPollTimer()
 {
-	pollTimer = setInterval(poll, pollingRate);
+	if(pausePollOnNotFocus === "true")
+	{
+		pollTimer = setInterval(poll, pollingRate);
+	}
+	else
+	{
+		pollTimer = Visibility.every(pollingRate, backgroundPollingRate, poll());
+	}
 }
 
 function clearPollTimer()
 {
-	clearInterval(pollTimer);
+	if(pausePollOnNotFocus === "true")
+	{
+		clearInterval(pollTimer);
+	}
+	else
+	{
+		Visibility.stop(pollTimer);
+	}
 	pollTimer = null;
 }
 
