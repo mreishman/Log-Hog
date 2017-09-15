@@ -38,7 +38,7 @@ foreach ($scanned_directory as $key)
 $themeVersion = $defaultConfig['themeVersion'];
 
 $fileName = ''.$baseUrl.'conf/config.php';
-$cssVersion = $cssVersion++;
+$cssVersion = $cssVersion + 1;
 
 $newInfoForConfig = "<?php
 	$"."config = array(
