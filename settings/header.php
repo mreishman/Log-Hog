@@ -40,8 +40,19 @@ echo loadSentryData($sendCrashInfoJS); ?>
 		<a style="cursor: default;" class="active" id="updateLink">
 	<?php else: ?>
 		<a id="updateLink" onclick="goToUrl('update.php');">
-	<?php endif; ?>	
-			<?php  if($levelOfUpdate == 1){echo '<img src="../core/img/yellowWarning.png" height="10px">';} ?> <?php if($levelOfUpdate == 2){echo '<img src="../core/img/redWarning.png" height="10px">';} ?>Update
+	<?php endif; ?>
+			<?php if($updateNotificationEnabled === "true")
+			{	
+				if($levelOfUpdate == 1)
+				{
+					echo '<img src="../core/img/yellowWarning.png" height="10px">';
+				} 
+				elseif($levelOfUpdate !== 0)
+				{
+					echo '<img src="../core/img/redWarning.png" height="10px">';
+				}
+			}?>
+			Update
 		</a>
 	<?php if(strpos($URI, 'advanced.php') !== false): ?>
 		<a style="cursor: default;" class="active" id="advancedLink">Advanced</a>

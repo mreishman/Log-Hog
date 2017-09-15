@@ -107,6 +107,13 @@ Main Settings
 			</select>
 	</li>
 	<li>
+		<span class="settingsBuffer" > Show Update Notification: </span> 
+			<select name="updateNotificationEnabled">
+					<option <?php if($updateNotificationEnabled == 'true'){echo "selected";} ?> value="true">True</option>
+					<option <?php if($updateNotificationEnabled == 'false'){echo "selected";} ?> value="false">False</option>
+			</select>
+	</li>
+	<li>
 		<span class="settingsBuffer" > Auto Check Update: </span> 
 			<select id="settingsSelect" name="autoCheckUpdate">
 					<option <?php if($autoCheckUpdate == 'true'){echo "selected";} ?> value="true">True</option>
