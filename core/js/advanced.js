@@ -41,6 +41,11 @@ function submitResetSettings()
 	document.getElementById('resetSettings').submit();
 }
 
+function resetUpdateNotification()
+{
+	document.getElementById('devAdvanced2').submit();
+}
+
 function poll()
 {
 	try

@@ -212,6 +212,13 @@ $withLogHog = $monitorStatus['withLogHog'];
 					<a onclick="downloadLogHog();" class="link">Download Monitor</a>
 				<?php endif; ?>
 				</li>
+				<form id="devAdvanced2" action="../core/php/settingsSaveConfigStatic.php" method="post">
+					<li>
+						<a onclick="resetUpdateNotification();" class="link">Reset Update Notification</a> <i style="font-size: 75%;">*Could take up to 60 seconds to save.</i>
+					</li>
+					<input type="hidden" style="width: 400px;"  name="newestVersion" value="<?php echo $configStatic['version'];?>" > 
+				</form>
+				
 			</ul>
 		</div>
 	</div>
