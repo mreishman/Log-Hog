@@ -191,7 +191,7 @@ function showOrHideSubWindow(valueForPopupInner, valueForVarsInner)
 {
 	try
 	{
-		if(valueForPopupInner.value === "true")
+		if((valueForPopupInner.value === "true") || (valueForPopupInner.value === "custom"))
 		{
 			valueForVarsInner.style.display = "block";
 		}
