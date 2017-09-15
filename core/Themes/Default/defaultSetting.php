@@ -207,5 +207,203 @@ $folderColorArraysDefault	= array(
 				)
 			)
 		),
+	'theme-default-6'	=> array(
+		'main' 		=> array(
+			'main-1'		=> array(
+				'background'	=> '#388659',
+				'fontColor'		=> '#FFFFFF'
+				),
+			'main-2'		=> array(
+				'background'	=> "#52AA5E",
+				'fontColor'		=> "#FFFFFF"
+				),
+			'main-3'		=> array(
+				'background'	=> "#52AA8A",
+				'fontColor'		=> '#FFFFFF'
+				),
+			'main-4'		=> array(
+				'background'	=> "#3AAED8",
+				'fontColor'		=> "#FFFFFF"
+				),
+			'main-5'		=> array(
+				'background'	=> "#2BD9FE",
+				'fontColor'		=> "#FFFFFF"
+				)
+			),
+		'highlight' => array(
+			'highlight-1'	=> array(
+				'background'	=> '#FFFFFF',
+				'fontColor'		=> '#000000'
+				)
+			),
+		'active'	=> array(
+			'active-1'		=> array(
+				'background'	=> '#912A2C',
+				'fontColor'		=> '#000000'
+				)
+			),
+		'highlightActive'	=> array(
+			'highlightActive-1'	=> array(
+				'background'	=> '#FFDDFF',
+				'fontColor'		=> '#000000'
+				)
+			)
+		),
+	'theme-default-7'	=> array(
+		'main' 		=> array(
+			'main-1'		=> array(
+				'background'	=> '#C4F1BE',
+				'fontColor'		=> '#000000'
+				),
+			'main-2'		=> array(
+				'background'	=> "#A2C3A4",
+				'fontColor'		=> "#000000"
+				),
+			'main-3'		=> array(
+				'background'	=> "#869D96",
+				'fontColor'		=> '#FFFFFF'
+				),
+			'main-4'		=> array(
+				'background'	=> "#525B76",
+				'fontColor'		=> "#FFFFFF"
+				),
+			'main-5'		=> array(
+				'background'	=> "#201E50",
+				'fontColor'		=> "#FFFFFF"
+				)
+			),
+		'highlight' => array(
+			'highlight-1'	=> array(
+				'background'	=> '#FFFFFF',
+				'fontColor'		=> '#000000'
+				)
+			),
+		'active'	=> array(
+			'active-1'		=> array(
+				'background'	=> '#912A2C',
+				'fontColor'		=> '#000000'
+				)
+			),
+		'highlightActive'	=> array(
+			'highlightActive-1'	=> array(
+				'background'	=> '#FFDDFF',
+				'fontColor'		=> '#000000'
+				)
+			)
+		),
+	'theme-default-8'	=> array(
+		'main' 		=> array(
+			'main-1'		=> array(
+				'background'	=> '#1B2F33',
+				'fontColor'		=> '#000000'
+				),
+			'main-2'		=> array(
+				'background'	=> "#28502E",
+				'fontColor'		=> "#000000"
+				),
+			'main-3'		=> array(
+				'background'	=> "#2D421B",
+				'fontColor'		=> '#000000'
+				),
+			'main-4'		=> array(
+				'background'	=> "#3F3324",
+				'fontColor'		=> "#000000"
+				)
+			),
+		'highlight' => array(
+			'highlight-1'	=> array(
+				'background'	=> '#FFFFFF',
+				'fontColor'		=> '#000000'
+				)
+			),
+		'active'	=> array(
+			'active-1'		=> array(
+				'background'	=> '#EF3054',
+				'fontColor'		=> '#000000'
+				)
+			),
+		'highlightActive'	=> array(
+			'highlightActive-1'	=> array(
+				'background'	=> '#F7A0B1',
+				'fontColor'		=> '#000000'
+				)
+			)
+		),
+	'theme-default-9'	=> array(
+		'main' 		=> array(
+			'main-1'		=> array(
+				'background'	=> '#79B791',
+				'fontColor'		=> '#FFFFFF'
+				),
+			'main-2'		=> array(
+				'background'	=> "#ABD1B5",
+				'fontColor'		=> "#000000"
+				),
+			'main-3'		=> array(
+				'background'	=> "#2D421B",
+				'fontColor'		=> '#FFFFFF'
+				)
+			),
+		'highlight' => array(
+			'highlight-1'	=> array(
+				'background'	=> '#EDF4ED',
+				'fontColor'		=> '#000000'
+				)
+			),
+		'active'	=> array(
+			'active-1'		=> array(
+				'background'	=> '#301014',
+				'fontColor'		=> '#FFFFFF'
+				)
+			),
+		'highlightActive'	=> array(
+			'highlightActive-1'	=> array(
+				'background'	=> '#FF5468',
+				'fontColor'		=> '#000000'
+				)
+			)
+		),
+	'theme-default-10'	=> array(
+		'main' 		=> array(
+			'main-1'		=> array(
+				'background'	=> '#E2D4B7',
+				'fontColor'		=> '#000000'
+				),
+			'main-2'		=> array(
+				'background'	=> "#9C9583",
+				'fontColor'		=> "#000000"
+				),
+			'main-3'		=> array(
+				'background'	=> "#A1A499",
+				'fontColor'		=> '#000000'
+				),
+			'main-4'		=> array(
+				'background'	=> "#B0BBBF",
+				'fontColor'		=> "#000000"
+				),
+			'main-5'		=> array(
+				'background'	=> "#CADBC8",
+				'fontColor'		=> "#000000"
+				)
+			),
+		'highlight' => array(
+			'highlight-1'	=> array(
+				'background'	=> '#FFEECE',
+				'fontColor'		=> '#000000'
+				)
+			),
+		'active'	=> array(
+			'active-1'		=> array(
+				'background'	=> '#912A2C',
+				'fontColor'		=> '#000000'
+				)
+			),
+		'highlightActive'	=> array(
+			'highlightActive-1'	=> array(
+				'background'	=> '#FFDDFF',
+				'fontColor'		=> '#000000'
+				)
+			)
+		),
 	)
 ?>
