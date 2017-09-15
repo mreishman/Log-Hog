@@ -60,7 +60,7 @@ div {
 
 #menu a:hover, #menu a.active, #menu2 a:hover, #menu2 a.active, .link:hover, .linkSmall:hover, .settingsHeader button:hover {
 	color: black;
-	background-color: white !important; 
+	background-color: white ; 
 }
 
 .linkSmallHover
@@ -71,7 +71,7 @@ div {
 	cursor: default;
 	line-height: 100%;
 	color: black;
-	background-color: white !important;
+	background-color: white;
 }
 
 .settingsHeader button:hover, .settingsHeader .linkSmall:hover{
@@ -84,11 +84,11 @@ div {
 }
 
 #menu a.updated {
-	background-color: #912A2C !important; 
+	background-color: #912A2C; 
 }
 
 #menu a.updated:hover {
-	background-color: #FFDDFF !important; 
+	background-color: #FFDDFF; 
 }
 
 .menuImage{

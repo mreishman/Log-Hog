@@ -41,6 +41,40 @@ $folderColorArraysDefault	= array(
 				'fontColor'		=> '#000000'
 				)
 			)
-		)
+		),
+	'theme-default-2'	=> array( 
+		'main' 		=> array(
+			'main-1'		=> array(
+				'background'	=> 'rgba(255,255,255,.3)',
+				'fontColor'		=> '#000000'
+				),
+			'main-2'		=> array(
+				'background'	=> "rgba(255,255,255,.4)",
+				'fontColor'		=> "#000000"
+				),
+			'main-3'		=> array(
+				'background'	=> "rgba(200,200,200,.3)",
+				'fontColor'		=> '#000000'
+				)
+			),
+		'highlight' => array(
+			'highlight-1'	=> array(
+				'background'	=> '#000000',
+				'fontColor'		=> '#FFFFFF'
+				)
+			),
+		'active'	=> array(
+			'active-1'		=> array(
+				'background'	=> '#8b0000',
+				'fontColor'		=> '#FFFFFF'
+				)
+			),
+		'highlightActive'	=> array(
+			'highlightActive-1'	=> array(
+				'background'	=> '#330000',
+				'fontColor'		=> '#FFFFFF'
+				)
+			)
+		),
 	)
 ?>
