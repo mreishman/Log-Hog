@@ -37,7 +37,6 @@ require_once('../core/php/commonFunctions.php');
 	</div>
 	<?php readfile('../core/html/popup.html') ?>	
 </body>
-<script src="../core/js/settings.js?v=<?php echo $cssVersion?>"></script>
 <?php if($triggerSaveUpdate): ?>
 	<script type="text/javascript">
 	document.getElementById('settingsMainWatch').submit();

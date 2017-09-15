@@ -17,7 +17,7 @@ require_once('../core/php/commonFunctions.php');
 <!doctype html>
 <head>
 	<title>Settings | Update</title>
-	<link rel="stylesheet" type="text/css" href="<?php echo $baseUrl ?>template/theme.css">
+	<?php echo loadCSS($baseUrl, $cssVersion);?>
 	<link rel="icon" type="image/png" href="../core/img/favicon.png" />
 	<script src="../core/js/jquery.js"></script>
 </head>

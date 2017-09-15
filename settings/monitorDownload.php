@@ -14,7 +14,7 @@ require_once('../core/php/loadVars.php'); ?>
 <html>
 <head>
 	<title>Welcome!</title>
-	<link rel="stylesheet" type="text/css" href="<?php echo $baseUrl ?>template/theme.css">
+	<?php echo loadCSS($baseUrl, $cssVersion);?>
 	<script src="../core/js/jquery.js"></script>
 	<?php readfile('../core/html/popup.html') ?>	
 	<style type="text/css">

@@ -16,7 +16,7 @@ require_once('../top/statusTest.php');
 <!doctype html>
 <head>
 	<title>Log Hog | Updater</title>
-	<link rel="stylesheet" type="text/css" href="<?php echo $baseUrl ?>template/theme.css">
+	<?php echo loadCSS($baseUrl, $cssVersion);?>
 	<link rel="icon" type="image/png" href="../core/img/favicon.png" />
 	<script src="../core/js/jquery.js"></script>
 </head>
