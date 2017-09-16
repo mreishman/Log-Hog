@@ -71,8 +71,13 @@ require_once('../core/php/commonFunctions.php');
 					</ul>
 				</td>
 				<td>
-					<!-- <a href="../core/img/2.3-1.png" data-lightbox="3.0" ><img src="../core/img/2.3-1.png" style="width: 45%;"></a>
-					<a href="../core/img/2.3-2.png" data-lightbox="3.0" ><img src="../core/img/2.3-2.png" style="width: 45%;"></a> -->
+					<a href="../core/img/3.0-1.png" data-lightbox="3.0" ><img src="../core/img/3.0-1.png" style="width: 45%;"></a>
+					<a href="../core/img/3.0-2.png" data-lightbox="3.0" ><img src="../core/img/3.0-2.png" style="width: 45%;"></a>
+					<br>
+					<a href="../core/img/3.0-3.png" data-lightbox="3.0" ><img src="../core/img/3.0-1.png" style="width: 45%;"></a>
+					<a href="../core/img/3.0-4.png" data-lightbox="3.0" ><img src="../core/img/3.0-2.png" style="width: 45%;"></a>
+					<br>
+					<a href="../core/img/3.0-5.png" data-lightbox="3.0" ><img src="../core/img/3.0-1.png" style="width: 45%;"></a>
 				</td>
 				</tr>
 

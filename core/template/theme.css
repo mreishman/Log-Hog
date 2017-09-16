@@ -535,6 +535,7 @@ div {
 	display: inline-block;
 	padding: 2px;
 	padding-right: 7px;
+	border: 1px solid white;
 }
 
 .selectDiv select{
