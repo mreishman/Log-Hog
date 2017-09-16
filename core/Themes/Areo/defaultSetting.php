@@ -76,5 +76,77 @@ $folderColorArraysDefault	= array(
 				)
 			)
 		),
+	'theme-default-3'	=> array( 
+		'main' 		=> array(
+			'main-1'		=> array(
+				'background'	=> 'rgba(107,142,35,.4)',
+				'fontColor'		=> '#FFFFFF'
+				),
+			'main-2'		=> array(
+				'background'	=> "rgba(85,107,47,.4)",
+				'fontColor'		=> "#FFFFFF"
+				),
+			'main-3'		=> array(
+				'background'	=> "rgba(46,139,87,.4)",
+				'fontColor'		=> '#FFFFFF'
+				),
+			'main-4'		=> array(
+				'background'	=> "rgba(60,179,113,.4)",
+				'fontColor'		=> '#FFFFFF'
+				),
+			),
+		'highlight' => array(
+			'highlight-1'	=> array(
+				'background'	=> '#FFFFFF',
+				'fontColor'		=> '#000000'
+				)
+			),
+		'active'	=> array(
+			'active-1'		=> array(
+				'background'	=> '#912A2C',
+				'fontColor'		=> '#000000'
+				)
+			),
+		'highlightActive'	=> array(
+			'highlightActive-1'	=> array(
+				'background'	=> '#FFDDFF',
+				'fontColor'		=> '#000000'
+				)
+			)
+		),
+	'theme-default-4'	=> array( 
+		'main' 		=> array(
+			'main-1'		=> array(
+				'background'	=> 'rgba(3,37,108,.4)',
+				'fontColor'		=> '#FFFFFF'
+				),
+			'main-2'		=> array(
+				'background'	=> "rgba(37,65,178,.4)",
+				'fontColor'		=> "#FFFFFF"
+				),
+			'main-3'		=> array(
+				'background'	=> "rgba(23,104,172,.4)",
+				'fontColor'		=> '#FFFFFF'
+				)
+			),
+		'highlight' => array(
+			'highlight-1'	=> array(
+				'background'	=> '#FFFFFF',
+				'fontColor'		=> '#000000'
+				)
+			),
+		'active'	=> array(
+			'active-1'		=> array(
+				'background'	=> '#912A2C',
+				'fontColor'		=> '#000000'
+				)
+			),
+		'highlightActive'	=> array(
+			'highlightActive-1'	=> array(
+				'background'	=> '#FFDDFF',
+				'fontColor'		=> '#000000'
+				)
+			)
+		),
 	)
 ?>
