@@ -89,17 +89,17 @@ elseif (is_dir("../Monitor"))
 		<div style="display: inline-block;">
 			<div onclick="pausePollAction();" class="menuImageDiv">
 				<img id="playImage" class="menuImage" src="<?php echo $baseUrl; ?>img/Play.png"
-					<?php if($pausePoll === 'true'):?>
-						style="display: none;"
-					<?php else: ?>
-						style="display: none;"
-					<?php endif;?>
-				height="30px">
-				<img id="pauseImage" class="menuImage" src="<?php echo $baseUrl; ?>img/Pause.png"
 					<?php if($pausePoll !== 'true'):?>
 						style="display: none;"
 					<?php else: ?>
+						style="display: inline-block;"
+					<?php endif;?>
+				height="30px">
+				<img id="pauseImage" class="menuImage" src="<?php echo $baseUrl; ?>img/Pause.png"
+					<?php if($pausePoll === 'true'):?>
 						style="display: none;"
+					<?php else: ?>
+						style="display: inline-block;"
 					<?php endif;?>
 				height="30px">
 			</div>
