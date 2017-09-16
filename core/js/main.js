@@ -30,6 +30,7 @@ var refreshing = false;
 var percent = 0;
 var pollRefreshAllBoolStatic = pollRefreshAllBool;
 var firstLoad = true;
+var timer;
 
 function escapeHTML(unsafeStr)
 {
@@ -813,7 +814,7 @@ function startPauseOnNotFocus()
 	try
 	{
 		startedPauseOnNonFocus = true;
-		Visibility.every(100, 1000, function () { checkIfPageHidden(); });
+		timer = Visibility.every(100, 1000, checkIfPageHidden());
 	}
 	catch(e)
 	{

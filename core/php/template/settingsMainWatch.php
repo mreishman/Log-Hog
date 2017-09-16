@@ -33,15 +33,15 @@
 		<?php
 		if(!file_exists($key))
 		{
-			echo '"fileNotFoundImage'.$i.'" src="../core/img/redWarning.png"';
+			echo '"fileNotFoundImage'.$i.'" src="<?php echo $baseUrl;?>redWarning.png"';
 		}
 		elseif(is_dir($key))
 		{
-			echo '"fileNotFoundImage'.$i.'" src="../core/img/folderIcon.png"';
+			echo '"fileNotFoundImage'.$i.'" src="<?php echo $baseUrl;?>folderIcon.png"';
 		}
 		else
 		{
-			echo '"fileNotFoundImage'.$i.'" src="../core/img/fileIcon.png"';
+			echo '"fileNotFoundImage'.$i.'" src="<?php echo $baseUrl;?>fileIcon.png"';
 		}
 		?> 
 		width="15px">
@@ -63,7 +63,7 @@
 					true,
 					'<?php echo $key; ?>')"
 			>
-				<img src="../core/img/trashCan.png" height="15px;" >
+				<img src="<?php echo $baseUrl;?>trashCan.png" height="15px;" >
 			</a>
 	</li>
 
@@ -83,9 +83,9 @@
 	<li>
 		<ul id="settingsUl">
 			<li>
-				<img src="../core/img/redWarning.png" height="10px"> - File / Folder not found! &nbsp; &nbsp; &nbsp; 
-				<img src="../core/img/fileIcon.png" height="10px"> - File &nbsp; &nbsp; &nbsp; 
-				<img src="../core/img/folderIcon.png" height="10px"> - Folder
+				<img src="<?php echo $baseUrl;?>redWarning.png" height="10px"> - File / Folder not found! &nbsp; &nbsp; &nbsp; 
+				<img src="<?php echo $baseUrl;?>fileIcon.png" height="10px"> - File &nbsp; &nbsp; &nbsp; 
+				<img src="<?php echo $baseUrl;?>folderIcon.png" height="10px"> - Folder
 			</li>
 			<li>
 				f - file &nbsp; &nbsp; &nbsp; | &nbsp; &nbsp; &nbsp;

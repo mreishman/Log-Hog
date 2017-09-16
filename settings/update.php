@@ -49,16 +49,16 @@ $daysSince = calcuateDaysSince($configStatic['lastCheck']);
 					</form>
 				</li>
 				<li id="noUpdate" <?php if($levelOfUpdate != 0){echo "style='display: none;'";} ?> >
-					<h2><img id="statusImage1" src="../core/img/greenCheck.png" height="15px"> &nbsp; No new updates - You are on the current version!</h2>
+					<h2><img id="statusImage1" src="<?php echo $baseUrl;?>img/greenCheck.png" height="15px"> &nbsp; No new updates - You are on the current version!</h2>
 				</li>
 				<li id="minorUpdate" <?php if($levelOfUpdate != 1){echo "style='display: none;'";} ?> >
-					<h2><img id="statusImage2" src="../core/img/yellowWarning.png" height="15px"> &nbsp; Minor Updates - <span id="minorUpdatesVersionNumber"><?php echo $configStatic['newestVersion'];?></span> - bug fixes </h2>
+					<h2><img id="statusImage2" src="<?php echo $baseUrl;?>yellowWarning.png" height="15px"> &nbsp; Minor Updates - <span id="minorUpdatesVersionNumber"><?php echo $configStatic['newestVersion'];?></span> - bug fixes </h2>
 				</li>
 				<li id="majorUpdate" <?php if($levelOfUpdate != 2){echo "style='display: none;'";} ?> >
-					<h2><img id="statusImage3" src="../core/img/redWarning.png" height="15px"> &nbsp; Major Updates - <span id="majorUpdatesVersionNumber"><?php echo $configStatic['newestVersion'];?></span> - new features!</h2>
+					<h2><img id="statusImage3" src="<?php echo $baseUrl;?>redWarning.png" height="15px"> &nbsp; Major Updates - <span id="majorUpdatesVersionNumber"><?php echo $configStatic['newestVersion'];?></span> - new features!</h2>
 				</li>
 				<li id="NewXReleaseUpdate" <?php if($levelOfUpdate != 3){echo "style='display: none;'";} ?> >
-					<h2><img id="statusImage3" src="../core/img/redWarning.png" height="15px"><img id="statusImage3" src="../core/img/redWarning.png" height="15px"><img id="statusImage3" src="../core/img/redWarning.png" height="15px"> &nbsp; Very Major Updates - <span id="veryMajorUpdatesVersionNumber"><?php echo $configStatic['newestVersion'];?></span> - a lot of new features!</h2>
+					<h2><img id="statusImage3" src="<?php echo $baseUrl;?>redWarning.png" height="15px"><img id="statusImage3" src="<?php echo $baseUrl;?>redWarning.png" height="15px"><img id="statusImage3" src="<?php echo $baseUrl;?>redWarning.png" height="15px"> &nbsp; Very Major Updates - <span id="veryMajorUpdatesVersionNumber"><?php echo $configStatic['newestVersion'];?></span> - a lot of new features!</h2>
 				</li>
 			</ul>
 		</div>

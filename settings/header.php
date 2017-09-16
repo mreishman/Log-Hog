@@ -93,3 +93,9 @@ echo loadSentryData($sendCrashInfoJS); ?>
 		<a <?php if(strpos($URI, 'changeLog.php') !== false): ?> class='active' <?php else: ?>  onclick="goToUrl('./changeLog.php');"  <?php endif;?> > Changelog </a>
 	</div>
 <?php endif; ?>
+
+<script type="text/javascript">
+	
+	var baseUrl = "<?php echo $baseUrl;?>";
+
+</script>

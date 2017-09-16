@@ -14,38 +14,46 @@
 		<ul id="settingsUl">
 			<li>
 				<span class="settingsBuffer" > Hide logs that are empty: </span>
-				<select name="hideEmptyLog">
+				<div class="selectDiv">
+					<select name="hideEmptyLog">
 						<option <?php if($hideEmptyLog == 'true'){echo "selected";} ?> value="true">True</option>
 						<option <?php if($hideEmptyLog == 'false'){echo "selected";} ?> value="false">False</option>
-				</select>
-				
+					</select>
+				</div>
 			</li>
 			<li>
-				<span class="settingsBuffer" > Truncate Log Button: </span> 
-				<select name="truncateLog">
+				<span class="settingsBuffer" > Truncate Log Button: </span>
+				<div class="selectDiv">
+					<select name="truncateLog">
 						<option <?php if($truncateLog == 'true'){echo "selected";} ?> value="true">All Logs</option>
 						<option <?php if($truncateLog == 'false'){echo "selected";} ?> value="false">Current Log</option>
-				</select>
+					</select>
+				</div>
 			</li>
 			<li>
 				<span class="settingsBuffer" > Show Lower Bar: </span>
-				<select name="bottomBarIndexShow">
+				<div class="selectDiv">
+					<select name="bottomBarIndexShow">
 						<option <?php if($bottomBarIndexShow == 'true'){echo "selected";} ?> value="true">True</option>
 						<option <?php if($bottomBarIndexShow == 'false'){echo "selected";} ?> value="false">False</option>
-				</select>
-				
+					</select>
+				</div>
 			</li>
 			<li> 
-				<span class="settingsBuffer" > Group 
-					<select name="groupByType">
-						<option <?php if($groupByType == 'folder'){echo "selected";} ?> value="folder">Folders</option>
-						<option <?php if($groupByType == 'file'){echo "selected";} ?> value="file">Files</option>
-					</select>
+				<span class="settingsBuffer" > Group
+					<div class="selectDiv"> 
+						<select name="groupByType">
+							<option <?php if($groupByType == 'folder'){echo "selected";} ?> value="folder">Folders</option>
+							<option <?php if($groupByType == 'file'){echo "selected";} ?> value="file">Files</option>
+						</select>
+					</div>
 				 by color: </span>
-				<select name="groupByColorEnabled">
-						<option <?php if($groupByColorEnabled == 'true'){echo "selected";} ?> value="true">True</option>
-						<option <?php if($groupByColorEnabled == 'false'){echo "selected";} ?> value="false">False</option>
-				</select>
+				<div class="selectDiv">
+					<select name="groupByColorEnabled">
+							<option <?php if($groupByColorEnabled == 'true'){echo "selected";} ?> value="true">True</option>
+							<option <?php if($groupByColorEnabled == 'false'){echo "selected";} ?> value="false">False</option>
+					</select>
+				</div>
 			</li>
 		</ul>
 		</div>

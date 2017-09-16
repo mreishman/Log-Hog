@@ -71,10 +71,12 @@ else
 			<ul id="settingsUl">
 				<li>
 					System preference:
+					<div class="selectDiv">
 						<select name="enableSystemPrefShellOrPhp">
-  						<option <?php if($enableSystemPrefShellOrPhp == 'true'){echo "selected";} ?> value="true">PHP</option>
-  						<option <?php if($enableSystemPrefShellOrPhp == 'false'){echo "selected";} ?> value="false">shell_exec</option>
-					</select>
+  							<option <?php if($enableSystemPrefShellOrPhp == 'true'){echo "selected";} ?> value="true">PHP</option>
+  							<option <?php if($enableSystemPrefShellOrPhp == 'false'){echo "selected";} ?> value="false">shell_exec</option>
+						</select>
+					</div>
 				</li>
 			</ul>
 		</div>

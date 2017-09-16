@@ -44,10 +44,12 @@ $withLogHog = $monitorStatus['withLogHog'];
 			<ul id="settingsUl">
 				<li>
 					Enable Development Tools
+					<div class="selectDiv">
 						<select name="developmentTabEnabled">
-  						<option <?php if($developmentTabEnabled == 'true'){echo "selected";} ?> value="true">True</option>
-  						<option <?php if($developmentTabEnabled == 'false'){echo "selected";} ?> value="false">False</option>
-					</select>
+  							<option <?php if($developmentTabEnabled == 'true'){echo "selected";} ?> value="true">True</option>
+  							<option <?php if($developmentTabEnabled == 'false'){echo "selected";} ?> value="false">False</option>
+						</select>
+					</div>
 				</li>
 			</ul>
 		</div>
@@ -70,19 +72,23 @@ $withLogHog = $monitorStatus['withLogHog'];
 					Poll refresh all data every 
 					<input type="text" style="width: 100px;"  name="pollRefreshAll" value="<?php echo $pollRefreshAll;?>" > 
 					poll requests
-					<select name="pollRefreshAllBool">
-  						<option <?php if($pollRefreshAllBool == 'true'){echo "selected";} ?> value="true">True</option>
-  						<option <?php if($pollRefreshAllBool == 'false'){echo "selected";} ?> value="false">False</option>
-					</select>
+					<div class="selectDiv">
+						<select name="pollRefreshAllBool">
+	  						<option <?php if($pollRefreshAllBool == 'true'){echo "selected";} ?> value="true">True</option>
+	  						<option <?php if($pollRefreshAllBool == 'false'){echo "selected";} ?> value="false">False</option>
+						</select>
+					</div>
 				</li>
 				<li>
 					Force poll refresh after 
 					<input type="text" style="width: 100px;"  name="pollForceTrue" value="<?php echo $pollForceTrue;?>" > 
 					skipped poll requests
-					<select name="pollForceTrueBool">
-  						<option <?php if($pollForceTrueBool == 'true'){echo "selected";} ?> value="true">True</option>
-  						<option <?php if($pollForceTrueBool == 'false'){echo "selected";} ?> value="false">False</option>
-					</select>
+					<div class="selectDiv">
+						<select name="pollForceTrueBool">
+	  						<option <?php if($pollForceTrueBool == 'true'){echo "selected";} ?> value="true">True</option>
+	  						<option <?php if($pollForceTrueBool == 'false'){echo "selected";} ?> value="false">False</option>
+						</select>
+					</div>
 				</li>
 			</ul>
 		</div>
@@ -103,19 +109,23 @@ $withLogHog = $monitorStatus['withLogHog'];
 			<ul id="settingsUl">
 				<li>
 					File Info Logging
+					<div class="selectDiv">
 						<select name="enableLogging">
-  						<option <?php if($enableLogging == 'true'){echo "selected";} ?> value="true">True</option>
-  						<option <?php if($enableLogging == 'false'){echo "selected";} ?> value="false">False</option>
+  							<option <?php if($enableLogging == 'true'){echo "selected";} ?> value="true">True</option>
+  							<option <?php if($enableLogging == 'false'){echo "selected";} ?> value="false">False</option>
 						</select>
+					</div>
 					<br>
 					<span style="font-size: 75%;">*<i>This will increase poll times by 2x to 4x</i></span>
 				</li>
 				<li>
 					Poll Time Logging
+					<div class="selectDiv">
 						<select name="enablePollTimeLogging">
-  						<option <?php if($enablePollTimeLogging == 'true'){echo "selected";} ?> value="true">True</option>
-  						<option <?php if($enablePollTimeLogging == 'false'){echo "selected";} ?> value="false">False</option>
+  							<option <?php if($enablePollTimeLogging == 'true'){echo "selected";} ?> value="true">True</option>
+  							<option <?php if($enablePollTimeLogging == 'false'){echo "selected";} ?> value="false">False</option>
 						</select>
+					</div>
 				</li>
 			</ul>
 		</div>
@@ -136,17 +146,21 @@ $withLogHog = $monitorStatus['withLogHog'];
 			<ul id="settingsUl">
 				<li>
 					Send anonymous information about javascript errors/crashes:
+					<div class="selectDiv">
 						<select name="sendCrashInfoJS">
-  						<option <?php if($sendCrashInfoJS == 'true'){echo "selected";} ?> value="true">True</option>
-  						<option <?php if($sendCrashInfoJS == 'false'){echo "selected";} ?> value="false">False</option>
+  							<option <?php if($sendCrashInfoJS == 'true'){echo "selected";} ?> value="true">True</option>
+  							<option <?php if($sendCrashInfoJS == 'false'){echo "selected";} ?> value="false">False</option>
 						</select>
+					</div>
 				</li>
 				<li>
 					Send anonymous information about php errors/crashes:
+					<div class="selectDiv">
 						<select name="sendCrashInfoPHP">
-  						<option <?php if($sendCrashInfoPHP == 'true'){echo "selected";} ?> value="true">True</option>
-  						<option <?php if($sendCrashInfoPHP == 'false'){echo "selected";} ?> value="false">False</option>
+  							<option <?php if($sendCrashInfoPHP == 'true'){echo "selected";} ?> value="true">True</option>
+  							<option <?php if($sendCrashInfoPHP == 'false'){echo "selected";} ?> value="false">False</option>
 						</select>
+					</div>
 				</li>
 				<img src="../core/img/exampleErrorJS.png" height="200px;">
 			</ul>

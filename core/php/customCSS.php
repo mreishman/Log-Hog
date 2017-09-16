@@ -79,4 +79,17 @@ progress::-webkit-progress-value
 {
     background: <?php echo $currentSelectedThemeColorValues['main']['main-1']['background']?>;
 }
+
+
+.selectDiv
+{
+	background: <?php echo $currentSelectedThemeColorValues['highlight']['highlight-1']['background']?>;
+}
+
+.selectDiv select
+{
+	color: <?php echo $currentSelectedThemeColorValues['main']['main-1']['fontColor']?>;
+}
+
+
 </style>

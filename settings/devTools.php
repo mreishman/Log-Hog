@@ -42,10 +42,12 @@ require_once('../core/php/updateCheck.php');
 			<ul id="settingsUl">
 				<li>
 					<span class="settingsBuffer" >  Enable Development Branch: </span>
+					<div class="selectDiv">
 						<select name="enableDevBranchDownload">
-  						<option <?php if($enableDevBranchDownload == 'true'){echo "selected";} ?> value="true">True</option>
-  						<option <?php if($enableDevBranchDownload == 'false'){echo "selected";} ?> value="false">False</option>
-					</select>
+  							<option <?php if($enableDevBranchDownload == 'true'){echo "selected";} ?> value="true">True</option>
+  							<option <?php if($enableDevBranchDownload == 'false'){echo "selected";} ?> value="false">False</option>
+						</select>
+					</div>
 				</li>
 				<li>
 					<span class="settingsBuffer" >  Base URL:  </span> <input type="text" style="width: 400px;"  name="baseUrlUpdate" value="<?php echo $baseUrlUpdate;?>" > 
