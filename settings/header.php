@@ -92,10 +92,21 @@ echo loadSentryData($sendCrashInfoJS); ?>
 		<a <?php if(strpos($URI, 'whatsNew.php') !== false): ?> class='active' <?php else: ?>  onclick="goToUrl('./whatsNew.php');"  <?php endif;?> > What's New? </a>
 		<a <?php if(strpos($URI, 'changeLog.php') !== false): ?> class='active' <?php else: ?>  onclick="goToUrl('./changeLog.php');"  <?php endif;?> > Changelog </a>
 	</div>
-<?php endif; ?>
+<?php endif; 
+
+$baseUrlImages = "../core/";
+if(file_exists('../local/layout.php'))
+{
+	$baseUrlImages = "../local/";
+	//there is custom information, use this
+	require_once('../local/layout.php');
+	$baseUrlImages .= $currentSelectedTheme."/";
+}
+
+?>
 
 <script type="text/javascript">
 	
-	var baseUrl = "<?php echo $baseUrl;?>";
+	var baseUrl = "<?php echo $baseUrlImages;?>";
 
 </script>

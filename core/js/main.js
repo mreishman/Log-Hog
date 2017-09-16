@@ -772,54 +772,39 @@ function focus()
 
 function startPollTimer()
 {
-	try
+	/* Dont try catch visibility  */
+
+	if(pausePollOnNotFocus === true || pausePollOnNotFocus === "true")
 	{
-		if(pausePollOnNotFocus === "true")
-		{
-			pollTimer = setInterval(poll, pollingRate);
-		}
-		else
-		{
-			pollTimer = Visibility.every(pollingRate, backgroundPollingRate, poll());
-		}
+		pollTimer = setInterval(poll, pollingRate);
 	}
-	catch(e)
+	else
 	{
-		eventThrowException(e);
+		pollTimer = Visibility.every(pollingRate, backgroundPollingRate, function () { poll(); });
 	}
 }
 
 function clearPollTimer()
 {
-	try
+	/* Dont try catch visibility  */
+	
+	if(pausePollOnNotFocus === true || pausePollOnNotFocus === "true")
 	{
-		if(pausePollOnNotFocus === "true")
-		{
-			clearInterval(pollTimer);
-		}
-		else
-		{
-			Visibility.stop(pollTimer);
-		}
-		pollTimer = null;
+		clearInterval(pollTimer);
 	}
-	catch(e)
+	else
 	{
-		eventThrowException(e);
+		Visibility.stop(pollTimer);
 	}
+	pollTimer = null;
 }
 
 function startPauseOnNotFocus()
 {
-	try
-	{
-		startedPauseOnNonFocus = true;
-		timer = Visibility.every(100, 1000, checkIfPageHidden());
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
+	/* Dont try catch visibility  */
+
+	startedPauseOnNonFocus = true;
+	Visibility.every(100, 1000, function () { checkIfPageHidden(); });
 }
 
 function checkIfPageHidden()
