@@ -53,10 +53,10 @@ if($boolForUpgrade && (strpos($URI, 'upgradeLayout') === false) && (strpos($URI,
 	{
 		$themeVersion = $config['themeVersion'];
 	}
-	if($themeVersion != $defaultConfig['themeVersion'])
+	if($themeVersion !== $defaultConfig['themeVersion'] || !is_file($baseUrl."/template/theme.css"))
 	{
 		//redirect to themeVersion upgrade script (copy over theme files to local)
-		header("Location: ".$varToIndexDir."settings/themes.php");
+		header("Location: ".$varToIndexDir."core/php/template/upgradeTheme.php");
 		exit();
 
 	}
@@ -79,7 +79,7 @@ if($boolForUpgrade && (strpos($URI, 'upgradeLayout') === false) && (strpos($URI,
 	{
 		$configVersion = $config['configVersion'];
 	}
-	if($configVersion !== $defaultConfig['configVersion'] || !is_file($baseUrl."/template/theme.css"))
+	if($configVersion !== $defaultConfig['configVersion'])
 	{
 		//redirect to upgrade script for config page
 		header("Location: ".$varToIndexDir."core/php/template/upgradeConfig.php");

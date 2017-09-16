@@ -64,5 +64,5 @@ if(file_exists($baseUrl.'conf/config.php'))
 		document.getElementById('defaultVarsForm').submit();
 	}
 </script>
-<script src="stepsJavascript.js?v=<?php echo $cssVersion?>"></script>
+<script src="stepsJavascript.js?v=1"></script> <!-- Try to remember to manually increment this one? -->
 </html>
