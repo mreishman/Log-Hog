@@ -83,6 +83,21 @@ function updateAllRefreshCounter(num)
 	
 }
 
+function updateDocumentTitle(updateText)
+{
+	try
+	{
+		if(document.title !== "Log Hog | "+updateText)
+		{
+			document.title = "Log Hog | "+updateText;
+		}
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
 function poll()
 {
 	try
@@ -90,11 +105,11 @@ function poll()
 		checkForUpdateMaybe();
 		if(refreshing)
 		{
-			document.title = "Log Hog | Refreshing";
+			updateDocumentTitle("Refreshing");
 		}
 		else
 		{
-			document.title = "Log Hog | Index";
+			updateDocumentTitle("Index");
 		}
 		counterForPoll++;
 		if(!polling)
@@ -443,7 +458,7 @@ function pausePollAction()
 		{
 			userPaused = false;
 			pausePoll = false;
-			document.getElementById("pauseImage").src="core/img/Pause.png";
+			showPauseButton();
 			if(pollTimer == null)
 			{
 				poll();
@@ -472,7 +487,7 @@ function refreshAction()
     		pollRefreshAllBool = "true";
 		}
     	counterForPollForceRefreshAll = 1+pollRefreshAll;
-		document.getElementById("refreshImage").src="core/img/loading.gif";
+		showRefreshingButton();
 		refreshing = true;
 		poll();
 	}
@@ -490,15 +505,15 @@ function endRefreshAction()
     	{
     		pollRefreshAllBool = "false";
     	}
-	    document.getElementById("refreshImage").src="core/img/Refresh.png"; 
+	    showRefreshButton(); 
 		refreshing = false;
 		if(pausePoll)
 		{
-			document.title = "Log Hog | Paused";
+			updateDocumentTitle("Paused");
 		}
 		else
 		{
-			document.title = "Log Hog | Index";
+			updateDocumentTitle("Index");
 		}
 	}
 	catch(e)
@@ -756,79 +771,122 @@ function focus()
 
 function startPollTimer()
 {
-	if(pausePollOnNotFocus === "true")
+	try
 	{
-		pollTimer = setInterval(poll, pollingRate);
+		if(pausePollOnNotFocus === "true")
+		{
+			pollTimer = setInterval(poll, pollingRate);
+		}
+		else
+		{
+			pollTimer = Visibility.every(pollingRate, backgroundPollingRate, poll());
+		}
 	}
-	else
+	catch(e)
 	{
-		pollTimer = Visibility.every(pollingRate, backgroundPollingRate, poll());
+		eventThrowException(e);
 	}
 }
 
 function clearPollTimer()
 {
-	if(pausePollOnNotFocus === "true")
+	try
 	{
-		clearInterval(pollTimer);
+		if(pausePollOnNotFocus === "true")
+		{
+			clearInterval(pollTimer);
+		}
+		else
+		{
+			Visibility.stop(pollTimer);
+		}
+		pollTimer = null;
 	}
-	else
+	catch(e)
 	{
-		Visibility.stop(pollTimer);
+		eventThrowException(e);
 	}
-	pollTimer = null;
 }
 
 function startPauseOnNotFocus()
 {
-	startedPauseOnNonFocus = true;
-	Visibility.every(100, 1000, function () { checkIfPageHidden(); });
+	try
+	{
+		startedPauseOnNonFocus = true;
+		Visibility.every(100, 1000, function () { checkIfPageHidden(); });
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
 }
 
 function checkIfPageHidden()
 {
-	if(isPageHidden())
+	try
 	{
-		//hidden
-		if(!pausePoll)
+		if(isPageHidden())
 		{
-			pausePollFunction();
-		}
-	}
-	else
-	{
-		//not hidden
-		if(!userPaused && pausePoll)
-		{
-			pausePoll = false;
-			document.getElementById("pauseImage").src="core/img/Pause.png";
-			stopFlashTitle();
-			if(pollTimer == null)
+			//hidden
+			if(!pausePoll)
 			{
-				poll();
-				startPollTimer();
+				pausePollFunction();
 			}
 		}
-		if(userPaused)
+		else
 		{
-			document.title = "Log Hog | Paused";
+			//not hidden
+			if(!userPaused && pausePoll)
+			{
+				pausePoll = false;
+				showPauseButton();
+				stopFlashTitle();
+				if(pollTimer == null)
+				{
+					poll();
+					startPollTimer();
+				}
+			}
+			if(userPaused)
+			{
+				updateDocumentTitle("Paused");
+			}
 		}
+	}
+	catch(e)
+	{
+		eventThrowException(e);
 	}
 }
 
 function pausePollFunction()
 {
-	pausePoll = true;
-	document.getElementById("pauseImage").src="core/img/Play.png";
-	document.title = "Log Hog | Paused";
-	if(pollTimer != null)
+	try
 	{
-		clearPollTimer();
+		pausePoll = true;
+		showPlayButton();
+		updateDocumentTitle("Paused");
+		if(pollTimer != null)
+		{
+			clearPollTimer();
+		}
+	}
+	catch(e)
+	{
+		eventThrowException(e);
 	}
 }
 
-function isPageHidden(){
-     return document.hidden || document.msHidden || document.webkitHidden || document.mozHidden;
+function isPageHidden()
+{
+	try
+	{
+		return document.hidden || document.msHidden || document.webkitHidden || document.mozHidden;
+    }
+	catch(e)
+	{
+		eventThrowException(e);
+	}
 }
 
 function clearLog()
@@ -1039,7 +1097,7 @@ function checkForUpdateDefinitely(showPopupForNoUpdate = false)
 			updating = true;
 			if(showPopupForNoUpdate)
 			{
-				displayLoadingPopup("./core/img/");
+				displayLoadingPopup(baseUrl+"img/");
 			}
 			$.getJSON('core/php/settingsCheckForUpdateAjax.php', {}, function(data) 
 			{
@@ -1117,6 +1175,58 @@ function showUpdateCheckPopup(data)
 		dontNotifyVersion = data.versionNumber;
 		textForInnerHTML += "type='checkbox'>Don't notify me about this update again</div></div>";
 		document.getElementById("popupContentInnerHTMLDiv").innerHTML = textForInnerHTML;
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
+function showPauseButton()
+{
+	try
+	{
+		document.getElementById("pauseImage").style.display = "block";
+		document.getElementById("playImage").style.display = "none";
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
+function showPlayButton()
+{
+	try
+	{
+		document.getElementById("pauseImage").style.display = "none";
+		document.getElementById("playImage").style.display = "block";
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
+function showRefreshButton()
+{
+	try
+	{
+		document.getElementById("refreshImage").style.display = "block";
+		document.getElementById("refreshingImage").style.display = "none";
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
+function showRefreshingButton()
+{
+	try
+	{
+		document.getElementById("refreshImage").style.display = "none";
+		document.getElementById("refreshingImage").style.display = "block";
 	}
 	catch(e)
 	{

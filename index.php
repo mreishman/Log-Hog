@@ -88,16 +88,24 @@ elseif (is_dir("../Monitor"))
 	<div class="backgroundForMenus" id="menu">
 		<div style="display: inline-block;">
 			<div onclick="pausePollAction();" class="menuImageDiv">
-				<img id="pauseImage" class="menuImage"
-					<?php if($pausePoll == 'true'):?>
-						 src="<?php echo $baseUrl; ?>img/Play.png" 
+				<img id="playImage" class="menuImage" src="<?php echo $baseUrl; ?>img/Play.png"
+					<?php if($pausePoll === 'true'):?>
+						style="display: none;"
 					<?php else: ?>
-						 src="<?php echo $baseUrl; ?>img/Pause.png"
+						style="display: none;"
+					<?php endif;?>
+				height="30px">
+				<img id="pauseImage" class="menuImage" src="<?php echo $baseUrl; ?>img/Pause.png"
+					<?php if($pausePoll !== 'true'):?>
+						style="display: none;"
+					<?php else: ?>
+						style="display: none;"
 					<?php endif;?>
 				height="30px">
 			</div>
 			<div onclick="refreshAction();" class="menuImageDiv">
 				<img id="refreshImage" class="menuImage" src="<?php echo $baseUrl; ?>img/Refresh.png" height="30px">
+				<img id="refreshingImage" class="menuImage" style="display: none;" src="<?php echo $baseUrl; ?>img/loading.gif" height="30px">
 			</div>
 			<?php if($truncateLog == 'true'): ?>
 			<div onclick="deleteAction();"  class="menuImageDiv">
@@ -221,6 +229,7 @@ elseif (is_dir("../Monitor"))
 		var updateNoticeMeter = "<?php echo $updateNoticeMeter;?>";
 		var pollRefreshAllBool = "<?php echo $pollRefreshAllBool;?>";
 		var pollForceTrueBool = "<?php echo $pollRefreshAllBool;?>";
+		var baseUrl = "<?php echo $baseUrl;?>";
 
 	</script>
 	<?php readfile('core/html/popup.html') ?>
