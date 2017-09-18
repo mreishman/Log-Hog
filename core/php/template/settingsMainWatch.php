@@ -33,15 +33,15 @@
 		<?php
 		if(!file_exists($key))
 		{
-			echo '"fileNotFoundImage'.$i.'" src="<?php echo $baseUrlImages;?>img/redWarning.png"';
+			echo '"fileNotFoundImage'.$i.'" src="'.$baseUrlImages.'img/redWarning.png"';
 		}
 		elseif(is_dir($key))
 		{
-			echo '"fileNotFoundImage'.$i.'" src="<?php echo $baseUrlImages;?>img/folderIcon.png"';
+			echo '"fileNotFoundImage'.$i.'" src="'.$baseUrlImages.'img/folderIcon.png"';
 		}
 		else
 		{
-			echo '"fileNotFoundImage'.$i.'" src="<?php echo $baseUrlImages;?>img/fileIcon.png"';
+			echo '"fileNotFoundImage'.$i.'" src="'.$baseUrlImages.'img/fileIcon.png"';
 		}
 		?> 
 		width="15px">
