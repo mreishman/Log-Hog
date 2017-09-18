@@ -558,3 +558,7 @@ div {
 	cursor: pointer;
 	border: none;
 }
+
+.selectDiv option{
+	color: black;
+}

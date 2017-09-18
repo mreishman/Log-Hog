@@ -28,7 +28,7 @@ require_once('../core/php/commonFunctions.php');
 <?php require_once('header.php');?>	
 
 	<div id="main" > 
-		<h1 style="width: 100%; text-align: center; " >You are on version <?php echo $configStatic['version'];?>!</h1>
+		<h1 style="width: 100%; text-align: center;  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black; " >You are on version <?php echo $configStatic['version'];?>!</h1>
 		<div class="settingsDiv" >
 			<table width="100%;">
 				<tr>
@@ -63,7 +63,7 @@ require_once('../core/php/commonFunctions.php');
 						Change how Log-Hog looks by going to settings, then themes
 						</li>
 						<li>
-						3 new main themes
+						4 new main themes
 						</li>
 						<li>
 						New customizability of the current and new themes. 
@@ -74,10 +74,10 @@ require_once('../core/php/commonFunctions.php');
 					<a href="../core/img/3.0-1.png" data-lightbox="3.0" ><img src="../core/img/3.0-1.png" style="width: 45%;"></a>
 					<a href="../core/img/3.0-2.png" data-lightbox="3.0" ><img src="../core/img/3.0-2.png" style="width: 45%;"></a>
 					<br>
-					<a href="../core/img/3.0-3.png" data-lightbox="3.0" ><img src="../core/img/3.0-1.png" style="width: 45%;"></a>
-					<a href="../core/img/3.0-4.png" data-lightbox="3.0" ><img src="../core/img/3.0-2.png" style="width: 45%;"></a>
+					<a href="../core/img/3.0-3.png" data-lightbox="3.0" ><img src="../core/img/3.0-3.png" style="width: 45%;"></a>
+					<a href="../core/img/3.0-4.png" data-lightbox="3.0" ><img src="../core/img/3.0-4.png" style="width: 45%;"></a>
 					<br>
-					<a href="../core/img/3.0-5.png" data-lightbox="3.0" ><img src="../core/img/3.0-1.png" style="width: 45%;"></a>
+					<a href="../core/img/3.0-5.png" data-lightbox="3.0" ><img src="../core/img/3.0-5.png" style="width: 45%;"></a>
 				</td>
 				</tr>
 
