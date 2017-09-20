@@ -18,7 +18,7 @@ div {
 	position: absolute;
 	width: 100%;
 	z-index: 20;
-	background-color: #222;
+	background-color: #565656;
 	padding: .5em 1em;
 	max-height: 300px;
 	border-bottom: 1px solid white;
@@ -41,10 +41,11 @@ div {
 
 #menu a, #menu2 a {
 	display: inline-block;
-	padding: .5em 1em;
+	padding: .28em 1em;
 	margin: .5em 0;
-	background-color: #2A912A;
+	background-color: #656565;
 	cursor: pointer;
+	border-style: outset;
 }
 
 #menu a:hover, #menu a.active, #menu2 a:hover, #menu2 a.active, .link:hover, .linkSmall:hover, .settingsHeader button:hover {
@@ -125,13 +126,14 @@ div {
 	bottom: 0;
 	width: 100%;
 	color: black;
-	background-color: #ccc;
+	background-color: #565656;
 	padding: 0 1em;
 	line-height: 2em;
 }
 
 #title{
 	display: inline-block;
+	color: white;
 }
 
 #settingsUl
@@ -154,11 +156,12 @@ div {
 
 .settingsHeader
 {
-	background-color: white;
+	background-color: #565656;
 	margin: 10px;
 	margin-bottom: 0px;
-	color: black;
-	padding: 5px;
+	color: white;
+	padding: 2px;
+	border-style: outset;
 }
 
 .settingsDiv p a
