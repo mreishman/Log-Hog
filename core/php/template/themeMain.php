@@ -1,4 +1,4 @@
-<form id="themeMainVars" action="../core/php/settingsSave.php" method="post">
+
 <div class="settingsHeader">
 Theme Selector
 </div>
@@ -59,4 +59,3 @@ Theme Selector
 		<?php endif; 
 	endforeach; ?>
 </div>
-</form>

@@ -49,9 +49,9 @@ require_once($baseURL.'core/php/loadVars.php');
 
 		<a class="varwwwhtmlvarlogauthnetcimachlogButton" >server_system.log</a>
 
-		<a style="background-color: #32CD32" class="varlogapache2errorlogButton" >error.log</a>
+		<a class="varlogapache2errorlogButton" >error.log</a>
 
-		<a style="background-color: #9ACD32" class="varlogalternativeslogButton updated">alternatives.log</a>
+		<a class="varlogalternativeslogButton updated">alternatives.log</a>
 	</div>
 
 		<!-- LOG -->
