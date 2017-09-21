@@ -46,6 +46,7 @@ div {
 	background-color: #656565;
 	cursor: pointer;
 	border-style: outset;
+	border-width: 2px;
 }
 
 #menu a:hover, #menu a.active, #menu2 a:hover, #menu2 a.active, .link:hover, .linkSmall:hover, .settingsHeader button:hover {
