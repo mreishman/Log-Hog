@@ -8,24 +8,34 @@ $folderColorArraysDefault	= array(
 	'theme-default-1'	=> array( 
 		'main' 		=> array(
 			'main-1'		=> array(
-				'background'	=> '#2A912A',
-				'fontColor'		=> '#FFFFFF'
+				'background'	=> 'rgba(255,255,255,1);
+background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 30%, rgba(243,243,243,1) 45%, rgba(237,237,237,1) 60%, rgba(238,238,238,1) 100%);
+background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(255,255,255,1)), color-stop(30%, rgba(246,246,246,1)), color-stop(45%, rgba(243,243,243,1)), color-stop(60%, rgba(237,237,237,1)), color-stop(100%, rgba(238,238,238,1)));
+background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 30%, rgba(243,243,243,1) 45%, rgba(237,237,237,1) 60%, rgba(238,238,238,1) 100%);
+background: -o-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 30%, rgba(243,243,243,1) 45%, rgba(237,237,237,1) 60%, rgba(238,238,238,1) 100%);
+background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 30%, rgba(243,243,243,1) 45%, rgba(237,237,237,1) 60%, rgba(238,238,238,1) 100%);
+background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 30%, rgba(243,243,243,1) 45%, rgba(237,237,237,1) 60%, rgba(238,238,238,1) 100%)',
+				'fontColor'		=> '#000000'
 				),
 			'main-2'		=> array(
-				'background'	=> "#32CD32",
+				'background'	=> "rgba(222,222,222,1);
+background: -moz-linear-gradient(top, rgba(222,222,222,1) 0%, rgba(214,214,214,1) 30%, rgba(212,212,212,1) 45%, rgba(207,207,207,1) 60%, rgba(207,207,207,1) 100%);
+background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(222,222,222,1)), color-stop(30%, rgba(214,214,214,1)), color-stop(45%, rgba(212,212,212,1)), color-stop(60%, rgba(207,207,207,1)), color-stop(100%, rgba(207,207,207,1)));
+background: -webkit-linear-gradient(top, rgba(222,222,222,1) 0%, rgba(214,214,214,1) 30%, rgba(212,212,212,1) 45%, rgba(207,207,207,1) 60%, rgba(207,207,207,1) 100%);
+background: -o-linear-gradient(top, rgba(222,222,222,1) 0%, rgba(214,214,214,1) 30%, rgba(212,212,212,1) 45%, rgba(207,207,207,1) 60%, rgba(207,207,207,1) 100%);
+background: -ms-linear-gradient(top, rgba(222,222,222,1) 0%, rgba(214,214,214,1) 30%, rgba(212,212,212,1) 45%, rgba(207,207,207,1) 60%, rgba(207,207,207,1) 100%);
+background: linear-gradient(to bottom, rgba(222,222,222,1) 0%, rgba(214,214,214,1) 30%, rgba(212,212,212,1) 45%, rgba(207,207,207,1) 60%, rgba(207,207,207,1) 100%)",
 				'fontColor'		=> "#FFFFFF"
 				),
 			'main-3'		=> array(
-				'background'	=> "#9ACD32",
+				'background'	=> "rgba(191,191,191,1);
+background: -moz-linear-gradient(top, rgba(191,191,191,1) 0%, rgba(184,184,184,1) 30%, rgba(181,181,181,1) 45%, rgba(179,179,179,1) 60%, rgba(179,179,179,1) 100%);
+background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(191,191,191,1)), color-stop(30%, rgba(184,184,184,1)), color-stop(45%, rgba(181,181,181,1)), color-stop(60%, rgba(179,179,179,1)), color-stop(100%, rgba(179,179,179,1)));
+background: -webkit-linear-gradient(top, rgba(191,191,191,1) 0%, rgba(184,184,184,1) 30%, rgba(181,181,181,1) 45%, rgba(179,179,179,1) 60%, rgba(179,179,179,1) 100%);
+background: -o-linear-gradient(top, rgba(191,191,191,1) 0%, rgba(184,184,184,1) 30%, rgba(181,181,181,1) 45%, rgba(179,179,179,1) 60%, rgba(179,179,179,1) 100%);
+background: -ms-linear-gradient(top, rgba(191,191,191,1) 0%, rgba(184,184,184,1) 30%, rgba(181,181,181,1) 45%, rgba(179,179,179,1) 60%, rgba(179,179,179,1) 100%);
+background: linear-gradient(to bottom, rgba(191,191,191,1) 0%, rgba(184,184,184,1) 30%, rgba(181,181,181,1) 45%, rgba(179,179,179,1) 60%, rgba(179,179,179,1) 100%)",
 				'fontColor'		=> '#FFFFFF'
-				),
-			'main-4'		=> array(
-				'background'	=> "#556B2F",
-				'fontColor'		=> "#FFFFFF"
-				),
-			'main-5'		=> array(
-				'background'	=> "#6B8E23",
-				'fontColor'		=> "#FFFFFF"
 				)
 			),
 		'highlight' => array(
@@ -42,7 +52,13 @@ background: linear-gradient(to bottom, rgba(172,197,233,1) 0%, rgba(163,192,242,
 			),
 		'active'	=> array(
 			'active-1'		=> array(
-				'background'	=> '#912A2C',
+				'background'	=> 'rgba(233,170,181,1);
+background: -moz-linear-gradient(top, rgba(233,170,181,1) 0%, rgba(242,166,173,1) 18%, rgba(237,94,123,1) 39%, rgba(242,84,124,1) 70%, rgba(241,131,168,1) 92%, rgba(242,156,190,1) 100%);
+background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(233,170,181,1)), color-stop(18%, rgba(242,166,173,1)), color-stop(39%, rgba(237,94,123,1)), color-stop(70%, rgba(242,84,124,1)), color-stop(92%, rgba(241,131,168,1)), color-stop(100%, rgba(242,156,190,1)));
+background: -webkit-linear-gradient(top, rgba(233,170,181,1) 0%, rgba(242,166,173,1) 18%, rgba(237,94,123,1) 39%, rgba(242,84,124,1) 70%, rgba(241,131,168,1) 92%, rgba(242,156,190,1) 100%);
+background: -o-linear-gradient(top, rgba(233,170,181,1) 0%, rgba(242,166,173,1) 18%, rgba(237,94,123,1) 39%, rgba(242,84,124,1) 70%, rgba(241,131,168,1) 92%, rgba(242,156,190,1) 100%);
+background: -ms-linear-gradient(top, rgba(233,170,181,1) 0%, rgba(242,166,173,1) 18%, rgba(237,94,123,1) 39%, rgba(242,84,124,1) 70%, rgba(241,131,168,1) 92%, rgba(242,156,190,1) 100%);
+background: linear-gradient(to bottom, rgba(233,170,181,1) 0%, rgba(242,166,173,1) 18%, rgba(237,94,123,1) 39%, rgba(242,84,124,1) 70%, rgba(241,131,168,1) 92%, rgba(242,156,190,1) 100%)',
 				'fontColor'		=> '#000000'
 				)
 			),
