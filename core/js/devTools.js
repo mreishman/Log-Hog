@@ -1,3 +1,5 @@
+/global eventThrowException /
+
 var devBranchData;
 var savedInnerHtmlDevBranch;
 var savedInnerHtmlDevAdvanced2;
@@ -55,7 +57,7 @@ function checkForChangesDevBranch()
 	}
 	catch(e)
 	{
-		eventThrowException(e)
+		eventThrowException(e);
 	}
 }
 

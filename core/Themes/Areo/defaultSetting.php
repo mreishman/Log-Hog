@@ -6,7 +6,7 @@ $backgroundHeaderColorDefault = "repeating-linear-gradient(45deg, rgba(25,40,55,
 	box-shadow: inset 0 0 0 1px rgba(246,246,247,0.92), 0 7px 19px rgba(0,0,0,0.9);	background-attachment: fixed; background-clip: padding-box";
 $currentFolderColorThemeDefault = "theme-default-1";
 $folderColorArraysDefault	= array(
-	'theme-default-1'	=> array( 
+	'theme-default-1'	=> array(
 		'main' 		=> array(
 			'main-1'		=> array(
 				'background'	=> 'rgba(0,0,0,.2)',
@@ -40,7 +40,7 @@ $folderColorArraysDefault	= array(
 				)
 			)
 		),
-	'theme-default-2'	=> array( 
+	'theme-default-2'	=> array(
 		'main' 		=> array(
 			'main-1'		=> array(
 				'background'	=> 'rgba(255,255,255,.3)',
@@ -74,7 +74,7 @@ $folderColorArraysDefault	= array(
 				)
 			)
 		),
-	'theme-default-3'	=> array( 
+	'theme-default-3'	=> array(
 		'main' 		=> array(
 			'main-1'		=> array(
 				'background'	=> 'rgba(107,142,35,.4)',
@@ -112,7 +112,7 @@ $folderColorArraysDefault	= array(
 				)
 			)
 		),
-	'theme-default-4'	=> array( 
+	'theme-default-4'	=> array(
 		'main' 		=> array(
 			'main-1'		=> array(
 				'background'	=> 'rgba(3,37,108,.4)',

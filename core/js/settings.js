@@ -1,3 +1,5 @@
+/global eventThrowException displayLoadingPopup refreshSettingsDevAdvanced refreshSettingsPollAdvanced refreshSettingsLoggingDisplay refreshSettingsJsPhpSend refreshSettingsLocationOtherApps refreshSettingsDevBranch refreshSettingsDevAdvanced3 refreshSettingsDevAdvanced2 /
+
 function resize()
 {
 	var offsetHeight = 0;
@@ -180,19 +182,19 @@ function objectsAreSameInner(x, y)
 	try
 	{
 	   	var objectsAreSame = true;
-	   	for(var propertyName in x) 
-	   	{
-	      	if( (typeof(x) === "undefined") || (typeof(y) === "undefined") || x[propertyName] !== y[propertyName])
-	      	{
-	         objectsAreSame = false;
-	         break;
-	    	}
+		for(var propertyName in x) 
+		{
+			if( (typeof(x) === "undefined") || (typeof(y) === "undefined") || x[propertyName] !== y[propertyName])
+			{
+				objectsAreSame = false;
+				break;
+			}
 		}
 		return objectsAreSame;
 	}
 	catch(e)
 	{
-		eventThrowException(e)
+		eventThrowException(e);
 	}
 }
 
@@ -213,7 +215,7 @@ function objectsAreSame(x, y)
 	}
 	catch(e)
 	{
-		eventThrowException(e)
+		eventThrowException(e);
 	}
 }
 

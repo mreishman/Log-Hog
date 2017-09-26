@@ -8,7 +8,7 @@ $backgroundHeaderColorDefault = "#eeeeee; background: -moz-linear-gradient(top, 
 background-image: repeating-linear-gradient(180deg,rgb(240,240,240),rgb(240,240,240) 2.5%, rgb(220,220,220) 2.51%, rgb(220,220,220) 5%)";
 $currentFolderColorThemeDefault = "theme-default-1";
 $folderColorArraysDefault	= array(
-	'theme-default-1'	=> array( 
+	'theme-default-1'	=> array(
 		'main' 		=> array(
 			'main-1'		=> array(
 				'background'	=> 'rgba(255,255,255,1);

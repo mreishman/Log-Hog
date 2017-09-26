@@ -58,7 +58,7 @@ $defaultConfig = array(
 		'versionCheck'	=> 'true'
 		),
 	'folderColorArrays'	=> array(
-		'theme-default-1'	=> array( 
+		'theme-default-1'	=> array(
 			'main' 		=> array(
 				'main-1'		=> array(
 					'background'	=> '#2A912A',

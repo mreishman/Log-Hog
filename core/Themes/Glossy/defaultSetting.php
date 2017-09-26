@@ -5,7 +5,7 @@ $mainFontColorDefault = "#FFFFFF";
 $backgroundHeaderColorDefault = "#111111";
 $currentFolderColorThemeDefault = "theme-default-1";
 $folderColorArraysDefault	= array(
-	'theme-default-1'	=> array( 
+	'theme-default-1'	=> array(
 		'main' 		=> array(
 			'main-1'		=> array(
 				'background'	=> '
@@ -86,7 +86,7 @@ $folderColorArraysDefault	= array(
 				)
 			)
 		),
-	'theme-default-2'	=> array( 
+	'theme-default-2'	=> array(
 		'main' 		=> array(
 			'main-1'		=> array(
 				'background'	=> '
@@ -168,7 +168,7 @@ $folderColorArraysDefault	= array(
 				)
 			)
 		),
-	'theme-default-3'	=> array( 
+	'theme-default-3'	=> array(
 		'main' 		=> array(
 			'main-1'		=> array(
 				'background'	=> '
@@ -250,7 +250,7 @@ $folderColorArraysDefault	= array(
 				)
 			)
 		),
-	'theme-default-4'	=> array( 
+	'theme-default-4'	=> array(
 		'main' 		=> array(
 			'main-1'		=> array(
 				'background'	=> '
@@ -332,7 +332,7 @@ $folderColorArraysDefault	= array(
 				)
 			)
 		),
-	'theme-default-5'	=> array( 
+	'theme-default-5'	=> array(
 		'main' 		=> array(
 			'main-1'		=> array(
 				'background'	=> '

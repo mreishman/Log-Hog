@@ -1,3 +1,5 @@
+/global eventThrowException /
+
 var expFeaturesData;
 var savedInnerHtmlExpFeatures;
 
@@ -50,7 +52,7 @@ function checkForChangesExpFeatures()
 	}
 	catch(e)
 	{
-		eventThrowException(e)
+		eventThrowException(e);
 	}
 }
 

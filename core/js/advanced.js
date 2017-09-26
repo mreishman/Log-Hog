@@ -1,3 +1,5 @@
+/global eventThrowException /
+
 var savedInnerHtmlDevAdvanced;
 var devAdvancedData;
 var savedInnerHtmlPollAdvanced;
@@ -11,12 +13,12 @@ var locationOtherAppsData;
 
 function downloadLogHog()
 {
-	window.location.href = 'monitorDownload.php';
+	window.location.href = "monitorDownload.php";
 }
 
 function removeLoghog()
 {
-	window.location.href = 'monitorRemove.php';
+	window.location.href = "monitorRemove.php";
 }
 
 function resetSettingsPopup()
@@ -33,17 +35,17 @@ function revertPopup()
 
 function submitRevert()
 {
-	document.getElementById('revertForm').submit();
+	document.getElementById("revertForm").submit();
 }
 
 function submitResetSettings()
 {
-	document.getElementById('resetSettings').submit();
+	document.getElementById("resetSettings").submit();
 }
 
 function resetUpdateNotification()
 {
-	document.getElementById('devAdvanced2').submit();
+	document.getElementById("devAdvanced2").submit();
 }
 
 function poll()
@@ -98,7 +100,7 @@ function checkForChangesDevAdvanced()
 	}
 	catch(e)
 	{
-		eventThrowException(e)
+		eventThrowException(e);
 	}
 }
 
