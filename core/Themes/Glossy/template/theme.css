@@ -113,6 +113,7 @@ div {
 	transition: .3s ease-in-out;
 	-webkit-transform: scale(1);
 	transform: scale(1);
+	color: white;
 }
 
 .menuImageDiv{

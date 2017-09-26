@@ -98,6 +98,7 @@ div {
 	-webkit-transform: scale(1);
 	transform: scale(1);
 	text-shadow: 0 0 2px black, 0 0 5px black, 0 0 9px black, 0 0 14px black, 0 0 20px black;
+	color: white;
 }
 
 .menuImageDiv{

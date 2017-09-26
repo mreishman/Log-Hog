@@ -64,7 +64,7 @@ require_once('../core/php/commonFunctions.php');
 						Change how Log-Hog looks by going to settings, then themes
 						</li>
 						<li>
-						4 new main themes
+						3 new main themes
 						</li>
 						<li>
 						New customizability of the current and new themes. 
@@ -77,8 +77,6 @@ require_once('../core/php/commonFunctions.php');
 					<br>
 					<a href="../core/img/3.0-3.png" data-lightbox="3.0" ><img src="../core/img/3.0-3.png" style="width: 45%;"></a>
 					<a href="../core/img/3.0-4.png" data-lightbox="3.0" ><img src="../core/img/3.0-4.png" style="width: 45%;"></a>
-					<br>
-					<a href="../core/img/3.0-5.png" data-lightbox="3.0" ><img src="../core/img/3.0-5.png" style="width: 45%;"></a>
 				</td>
 				</tr>
 

@@ -136,7 +136,7 @@ elseif (is_dir("../Monitor"))
 				}?>
 			</div>
 			<?php if ($locationForStatusIndex != ""):?>
-				<div class="menuImage" style="display: inline-block; cursor: pointer; color: white; " onclick="window.location.href='<?php echo $locationForStatusIndex; ?>'" >
+				<div class="menuImage" style="display: inline-block; cursor: pointer;" onclick="window.location.href='<?php echo $locationForStatusIndex; ?>'" >
 					gS
 				</div>
 			<?php endif; ?>
