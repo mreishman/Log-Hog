@@ -397,12 +397,12 @@ function afterPollFunctionComplete()
 		if(firstLoad)
 		{
 			firstLoad = false;
-			document.getElementById("firstLoad").style.display = 'none';
+			document.getElementById("firstLoad").style.display = "none";
 		}
-    	if(refreshing)
+		if(refreshing)
 		{
 			endRefreshAction();
-    	}
+		}
 		polling = false;
 		if(enablePollTimeLogging !== "false")
 		{
@@ -483,7 +483,7 @@ function refreshAction()
 {
 	try
 	{
-    	if(pollRefreshAllBoolStatic == "false")
+		if(pollRefreshAllBoolStatic == "false")
 		{
     		pollRefreshAllBool = "true";
 		}
@@ -503,7 +503,7 @@ function endRefreshAction()
 	try
 	{
 		if(pollRefreshAllBoolStatic == "false")
-    	{
+		{
     		pollRefreshAllBool = "false";
     	}
 	    showRefreshButton(); 

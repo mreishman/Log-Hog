@@ -1,5 +1,3 @@
-/global eventThrowException displayLoadingPopup refreshSettingsDevAdvanced refreshSettingsPollAdvanced refreshSettingsLoggingDisplay refreshSettingsJsPhpSend refreshSettingsLocationOtherApps refreshSettingsDevBranch refreshSettingsDevAdvanced3 refreshSettingsDevAdvanced2 /
-
 function resize()
 {
 	var offsetHeight = 0;
@@ -31,14 +29,14 @@ function saveAndVerifyMain(idForForm)
 	displayLoadingPopup(baseUrl+"img/"); //displayLoadingPopup is defined in popup.html
 	data = $(idForm).serializeArray();
 	$.ajax({
-            type: "post",
-            url: "../core/php/settingsSaveAjax.php",
-            data: data,
-            complete: function () {
-              //verify saved
-              verifySaveTimer();
-            }
-          });
+        type: "post",
+        url: "../core/php/settingsSaveAjax.php",
+        data: data,
+        complete: function () {
+          //verify saved
+          verifySaveTimer();
+        }
+      });
 
 }
 

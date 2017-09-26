@@ -154,7 +154,7 @@ function checkForChangesDevAdvanced3()
 	}
 	catch(e)
 	{
-		eventThrowException(e)
+		eventThrowException(e);
 	}
 }
 
