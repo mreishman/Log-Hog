@@ -43,11 +43,11 @@ echo loadSentryData($sendCrashInfoJS); ?>
 		<a id="updateLink" onclick="goToUrl('update.php');">
 	<?php endif; ?>
 			<?php if($updateNotificationEnabled === "true")
-			{	
+			{
 				if($levelOfUpdate == 1)
 				{
 					echo '<img src="<?php echo $localURL;?>img/yellowWarning.png" height="10px">';
-				} 
+				}
 				elseif($levelOfUpdate !== 0)
 				{
 					echo '<img src="<?php echo $localURL;?>img/redWarning.png" height="10px">';
@@ -92,13 +92,9 @@ echo loadSentryData($sendCrashInfoJS); ?>
 		<a <?php if(strpos($URI, 'whatsNew.php') !== false): ?> class='active' <?php else: ?>  onclick="goToUrl('./whatsNew.php');"  <?php endif;?> > What's New? </a>
 		<a <?php if(strpos($URI, 'changeLog.php') !== false): ?> class='active' <?php else: ?>  onclick="goToUrl('./changeLog.php');"  <?php endif;?> > Changelog </a>
 	</div>
-<?php endif; 
-
+<?php endif;
 $baseUrlImages = $localURL;
-
-
 ?>
-
 <script type="text/javascript">
 	
 	var baseUrl = "<?php echo $baseUrlImages;?>";

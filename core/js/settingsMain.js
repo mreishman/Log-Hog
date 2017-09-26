@@ -158,7 +158,7 @@ function deleteRowFunction(currentRow, decreaseCountWatchListNum)
 	}
 	catch(e)
 	{
-		eventThrowException(e)
+		eventThrowException(e);
 	}
 }	
 function showOrHidePopupSubWindow()
@@ -171,7 +171,7 @@ function showOrHidePopupSubWindow()
 	}
 	catch(e)
 	{
-		eventThrowException(e)
+		eventThrowException(e);
 	}
 }
 function showOrHideUpdateSubWindow()
@@ -184,7 +184,7 @@ function showOrHideUpdateSubWindow()
 	}
 	catch(e)
 	{
-		eventThrowException(e)
+		eventThrowException(e);
 	}
 }
 function showOrHideSubWindow(valueForPopupInner, valueForVarsInner)
@@ -202,7 +202,7 @@ function showOrHideSubWindow(valueForPopupInner, valueForVarsInner)
 	}
 	catch(e)
 	{
-		eventThrowException(e)
+		eventThrowException(e);
 	}
 }
 function checkWatchList()
@@ -231,7 +231,7 @@ function checkWatchList()
 	}
 	catch(e)
 	{
-		eventThrowException(e)
+		eventThrowException(e);
 	}
 }
 function showNoEmptyFolderPopup()
@@ -243,7 +243,7 @@ function showNoEmptyFolderPopup()
 	}
 	catch(e)
 	{
-		eventThrowException(e)
+		eventThrowException(e);
 	}
 }
 
@@ -264,7 +264,7 @@ function checkForChangesWatchListPoll()
 	}
 	catch(e)
 	{
-		eventThrowException(e)
+		eventThrowException(e);
 	}
 }
 
@@ -285,7 +285,7 @@ function checkForChangesMainSettings()
 	}
 	catch(e)
 	{
-		eventThrowException(e)
+		eventThrowException(e);
 	}
 }
 
@@ -306,7 +306,7 @@ function checkForChangesMenuSettings()
 	}
 	catch(e)
 	{
-		eventThrowException(e)
+		eventThrowException(e);
 	}
 }
 
@@ -328,7 +328,7 @@ function poll()
 	}
 	catch(e)
 	{
-		eventThrowException(e)
+		eventThrowException(e);
 	}
 }
 
@@ -345,7 +345,7 @@ function resetWatchListVars()
 	}
 	catch(e)
 	{
-		eventThrowException(e)
+		eventThrowException(e);
 	}
 }
 
@@ -358,7 +358,7 @@ function resetSettingsMainVar()
 	}
 	catch(e)
 	{
-		eventThrowException(e)
+		eventThrowException(e);
 	}
 }
 
@@ -371,7 +371,7 @@ function resetSettingsMenuVar()
 	}
 	catch(e)
 	{
-		eventThrowException(e)
+		eventThrowException(e);
 	}
 }
 
@@ -384,7 +384,7 @@ function refreshSettingsMainVar()
 	}
 	catch(e)
 	{
-		eventThrowException(e)
+		eventThrowException(e);
 	}
 }
 
@@ -397,7 +397,7 @@ function refreshSettingsMenuVar()
 	}
 	catch(e)
 	{
-		eventThrowException(e)
+		eventThrowException(e);
 	}
 }
 
@@ -414,7 +414,7 @@ function refreshSettingsWatchList()
 	}
 	catch(e)
 	{
-		eventThrowException(e)
+		eventThrowException(e);
 	}
 }
 
@@ -453,7 +453,7 @@ function highlightTopNavDepends()
 	}
 	catch(e)
 	{
-		eventThrowException(e)
+		eventThrowException(e);
 	}
 }
 
@@ -465,7 +465,7 @@ function highlightSettingsMenu2Option(option)
 		for (var i = titles.length - 1; i >= 0; i--)
 		{
 			
-			if(option != titles[i])
+			if(option !== titles[i])
 			{
 				removeActiveClass(titles[i]);
 			}
@@ -477,7 +477,7 @@ function highlightSettingsMenu2Option(option)
 	}
 	catch(e)
 	{
-		eventThrowException(e)
+		eventThrowException(e);
 	}
 }
 
@@ -485,14 +485,14 @@ function addActiveClass(idToAdd)
 {
 	try
 	{
-		if(!$("#"+idToAdd).hasClass('active'))
+		if(!$("#"+idToAdd).hasClass("active"))
 		{
-			$("#"+idToAdd).addClass('active');
+			$("#"+idToAdd).addClass("active");
 		}
 	}
 	catch(e)
 	{
-		eventThrowException(e)
+		eventThrowException(e);
 	}
 }
 
@@ -500,13 +500,13 @@ function removeActiveClass(idToAdd)
 {
 	try
 	{
-		if($("#"+idToAdd).hasClass('active'))
+		if($("#"+idToAdd).hasClass("active"))
 		{
-			$("#"+idToAdd).removeClass('active');
+			$("#"+idToAdd).removeClass("active");
 		}
 	}
 	catch(e)
 	{
-		eventThrowException(e)
+		eventThrowException(e);
 	}
 }

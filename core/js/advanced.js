@@ -1,5 +1,3 @@
-/global eventThrowException /
-
 var savedInnerHtmlDevAdvanced;
 var devAdvancedData;
 var savedInnerHtmlPollAdvanced;

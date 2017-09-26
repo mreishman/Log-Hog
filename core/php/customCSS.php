@@ -22,9 +22,9 @@ require_once($baseURLToMain.'core/php/loadVars.php');
 	color: <?php echo $currentSelectedThemeColorValues['main']['main-1']['fontColor']?>;
 }
 
-<?php 
+<?php
 $count = 0;
-foreach ($currentSelectedThemeColorValues['main'] as $value): 
+foreach ($currentSelectedThemeColorValues['main'] as $value):
 	$count++;
 	?>
 

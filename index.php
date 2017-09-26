@@ -128,7 +128,7 @@ elseif (is_dir("../Monitor"))
 					if($levelOfUpdate == 1)
 					{
 						echo '<img id="updateImage" src="<?php echo $baseUrl; ?>img/yellowWarning.png" height="15px" style="position: absolute;margin-left: 13px;margin-top: -34px;">';
-					} 
+					}
 					elseif($levelOfUpdate == 2 || $levelOfUpdate == 3)
 					{
 						echo '<img id="updateImage" src="<?php echo $baseUrl; ?>img/redWarning.png" height="15px" style="position: absolute;margin-left: 13px;margin-top: -34px;">';

@@ -1,5 +1,3 @@
-/global eventThrowException /
-
 var expFeaturesData;
 var savedInnerHtmlExpFeatures;
 

@@ -1,5 +1,5 @@
 <ul id="settingsUl">
-<?php 
+<?php
 $mainFolderColorMax = 0;
 $highlightFolderColorMax = 0;
 $activeFolderColorMax = 0;
@@ -25,7 +25,7 @@ foreach ($folderColorArrays as $key => $value):
 			</div>
 			<input style="width: 100px; display: none;" type="text" name="folderColorValueMainFont<?php echo $i; ?>-<?php echo $j;?>" value="<?php echo $value2['fontColor']; ?>" >
 		</div>
-		<?php endforeach; 
+		<?php endforeach;
 		if($j > $mainFolderColorMax)
 		{
 			$mainFolderColorMax = $j;

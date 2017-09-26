@@ -6,7 +6,7 @@ Theme Selector
 	<?php
 	$directory = '../core/Themes/';
 	$scanned_directory = array_diff(scandir($directory), array('..', '.'));
-	foreach ($scanned_directory as $key): 
+	foreach ($scanned_directory as $key):
 		if($key != ".DS_Store"):
 			require_once("../core/Themes/".$key."/defaultSetting.php");?>
 			<div style="width: 600px; height: 400px; display: inline-block; background-color: grey; border: 1px solid white; margin: 20px;">
@@ -46,7 +46,7 @@ Theme Selector
 						<input type="hidden" name="backgroundHeaderColor" value="<?php echo $backgroundHeaderColorDefault;?>" >
 						<?php
 							$tmpcurrentFolderColorTheme = $currentFolderColorTheme;
-							$currentFolderColorTheme = $currentFolderColorThemeDefault; 
+							$currentFolderColorTheme = $currentFolderColorThemeDefault;
 							$tmpfolderColorArrays = $folderColorArrays;
 							$folderColorArrays = $folderColorArraysDefault;
 							include('innerFolderGroupColor.php');
@@ -56,6 +56,6 @@ Theme Selector
 					</form>
 				</span>
 			</div>
-		<?php endif; 
+		<?php endif;
 	endforeach; ?>
 </div>
