@@ -11,7 +11,19 @@ if(file_exists('../../../../local/layout.php'))
 $localURL = $baseUrl;
 require_once($baseUrl.'conf/config.php');
 require_once('../../../../core/conf/config.php');
-require_once('../../../../core/php/loadVars.php');
+
+
+foreach ($defaultConfig as $key => $value)
+{
+	if(array_key_exists($key, $config))
+	{
+		$$key = $config[$key];
+	}
+	else
+	{
+		$$key = $value;
+	}
+}
 
 $folderColorArrays	= array(
 	'theme-default-1'	=> array(
