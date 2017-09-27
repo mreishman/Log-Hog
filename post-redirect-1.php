@@ -1,5 +1,5 @@
 <?php
 
-echo json_encode("index.php");
+echo json_encode("updater.php");
 
 ?>
