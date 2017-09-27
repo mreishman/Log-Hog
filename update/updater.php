@@ -587,10 +587,12 @@ if(count($arrayOfVersions) === 0)
 		{
 			if(action === "preScriptRun")
 			{
+				preScriptCount--;
 				preScriptRun();
 			}
 			else
 			{
+				postScriptCount--;
 				postScriptRun();
 			}
 		}
@@ -602,13 +604,13 @@ if(count($arrayOfVersions) === 0)
 		if(preScriptCount != 1)
 		{
 			var totalCount = 1;
-			var fileName = "pre-script-"+totalCount;
-			var loop = ($.inArray(fileName,arrayOfFilesExtracted)!= "-1");
+			var fileName = "pre-script-"+totalCount+".php";
+			var loop = ($.inArray(fileName,arrayOfFilesExtracted)!== -1);
 			while(loop)
 			{
 				totalCount++;
-				fileName = "pre-script-"+totalCount;
-				loop = ($.inArray(fileName,arrayOfFilesExtracted)!= "-1");
+				fileName = "pre-script-"+totalCount+".php";
+				loop = ($.inArray(fileName,arrayOfFilesExtracted)!== -1);
 			}
 			updateProgressBar(((1/totalCount)*5));
 		}
@@ -743,13 +745,13 @@ if(count($arrayOfVersions) === 0)
 		if(postScriptCount != 1)
 		{
 			var totalCount = 1;
-			var fileName = "post-script-"+totalCount;
-			var loop = ($.inArray(fileName,arrayOfFilesExtracted)!= "-1");
+			var fileName = "post-script-"+totalCount+".php";
+			var loop = ($.inArray(fileName,arrayOfFilesExtracted)!== -1);
 			while(loop)
 			{
 				totalCount++;
-				fileName = "post-script-"+totalCount;
-				loop = ($.inArray(fileName,arrayOfFilesExtracted)!= "-1");
+				fileName = "post-script-"+totalCount+".php";
+				loop = ($.inArray(fileName,arrayOfFilesExtracted)!== -1);
 			}
 			updateProgressBar(((1/totalCount)*5));
 		}
