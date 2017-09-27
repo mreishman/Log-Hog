@@ -7,7 +7,7 @@ if (!file_exists("../../../../core/Themes/"))
 
 sleep(3);
 
-echo json_encode("../../../../core/Themes/");
+echo json_encode("../../core/Themes/");
 
 //TRUE for no check, or filename / path for check
 ?>
