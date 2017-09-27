@@ -609,7 +609,7 @@ if(count($arrayOfVersions) === 0)
 			while(loop)
 			{
 				totalCount++;
-				fileName = "pre-script-"+totalCount;
+				fileName = "pre-script-"+totalCount+".php";
 				loop = ($.inArray(fileName,arrayOfFilesExtracted)!== -1);
 			}
 			updateProgressBar(((1/totalCount)*5));
@@ -750,7 +750,7 @@ if(count($arrayOfVersions) === 0)
 			while(loop)
 			{
 				totalCount++;
-				fileName = "post-script-"+totalCount;
+				fileName = "post-script-"+totalCount+".php";
 				loop = ($.inArray(fileName,arrayOfFilesExtracted)!== -1);
 			}
 			updateProgressBar(((1/totalCount)*5));
