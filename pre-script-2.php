@@ -9,7 +9,7 @@ if (!file_exists("../../../../local/default/img/"))
 
 sleep(3);
 
-echo json_encode(true);
+echo json_encode("../../local/default/img/");
 
 //TRUE for no check, or filename / path for check
 ?>
