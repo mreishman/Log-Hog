@@ -587,10 +587,12 @@ if(count($arrayOfVersions) === 0)
 		{
 			if(action === "preScriptRun")
 			{
+				preScriptCount--;
 				preScriptRun();
 			}
 			else
 			{
+				postScriptCount--;
 				postScriptRun();
 			}
 		}
