@@ -448,6 +448,63 @@ $folderColorArrays	= array(
 	);
 
 
+
+foreach ($folderColorArrays as $key => $value)
+{
+	if($key == $currentFolderColorTheme)
+	{
+		$currentSelectedThemeColorValues = $value;
+	}
+}
+
+
+$arrayWatchList = "";
+
+$numberOfRows = count($watchList);
+$i = 0;
+foreach ($watchList as $key => $value)
+{
+	$i++;
+	$arrayWatchList .= "'".$key."' => '".$value."'";
+	if($i != $numberOfRows)
+	{
+		$arrayWatchList .= ",";
+	}
+}
+
+$watchList = $arrayWatchList;
+
+$popupSettingsArraySave = "";
+if($popupWarnings == "all")
+{
+	$popupSettingsArraySave = "
+		'saveSettings'	=>	'true',
+		'blankFolder'	=>	'true',
+		'deleteLog'	=>	'true',
+		'removeFolder'	=> 	'true',
+		'versionCheck'	=> 'true'
+		";
+}
+elseif($popupWarnings == "none")
+{
+	$popupSettingsArraySave = "
+		'saveSettings'	=>	'false',
+		'blankFolder'	=>	'false',
+		'deleteLog'	=>	'false',
+		'removeFolder'	=> 	'false',
+		'versionCheck'	=> 'false'
+		";
+}
+else
+{
+	$popupSettingsArraySave = "";
+	foreach ($popupSettingsArray as $key => $value)
+	{
+		$popupSettingsArraySave .= "'".$key."'	=>	'".$value."',";
+	}
+}
+$popupSettingsArray = $popupSettingsArraySave;
+
 $folderColorArraysSave = "";
 foreach ($folderColorArrays as $key => $value)
 {
