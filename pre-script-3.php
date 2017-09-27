@@ -24,7 +24,7 @@ if (!file_exists("../../../../core/Themes/Glossy/"))
 
 sleep(3);
 
-echo json_encode("../../../../core/Themes/Aqua/");
+echo json_encode("../../core/Themes/Aqua/");
 
 //TRUE for no check, or filename / path for check
 ?>
