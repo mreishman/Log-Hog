@@ -30,6 +30,7 @@ if(file_exists('../../../../local/layout.php'))
 $localURL = $baseUrl;
 require_once($baseUrl.'conf/config.php');
 require_once('../../../../core/conf/config.php');
+require_once('../../../../core/php/loadVars.php');
 
 $folderColorArrays	= array(
 	'theme-default-1'	=> array(
