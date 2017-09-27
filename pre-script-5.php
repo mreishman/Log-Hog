@@ -44,7 +44,7 @@ if (!file_exists("../../../../core/Themes/Glossy/template/"))
 
 sleep(3);
 
-echo json_encode("../../../../core/Themes/Aqua/img/");
+echo json_encode("../../core/Themes/Aqua/img/");
 
 //TRUE for no check, or filename / path for check
 ?>
