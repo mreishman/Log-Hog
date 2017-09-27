@@ -1,5 +1,24 @@
 <?php
 
+function forEachAddVars($variable)
+{
+	$returnText = "array(";
+	foreach ($variable as $key => $value)
+	{
+		$returnText .= " '".$key."' => ";
+		if(is_array($value) || is_object($value))
+		{
+			$returnText .= forEachAddVars($value);
+		}
+		else
+		{
+			$returnText .= "'".$value."',";
+		}
+	}
+	$returnText .= "),";
+	return $returnText;
+}
+
 $baseUrl = "../../../../core/";
 if(file_exists('../../../../local/layout.php'))
 {
