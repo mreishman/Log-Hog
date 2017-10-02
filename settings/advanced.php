@@ -39,18 +39,8 @@ $withLogHog = $monitorStatus['withLogHog'];
 		<div class="settingsDiv" >
 			<ul id="settingsUl">
 				<li>
-					Branch:
-					<select name="branchSelected">
-						<option <?php if($branchSelected == 'default'){echo "selected";} ?> value="default" >Default</option>
-						<option <?php if($branchSelected == 'beta'){echo "selected";} ?> value="beta">Beta</option>
-						<?php if($enableDevBranchDownload == 'true'):?>
-							<option <?php if($branchSelected == 'dev'){echo "selected";} ?> value="dev">Dev</option>
-						<?php endif;?>
-					</select>
-				</li>
-				<li>
 					Enable Development Tools
-					<select name="developmentTabEnabled">
+						<select name="developmentTabEnabled">
   						<option <?php if($developmentTabEnabled == 'true'){echo "selected";} ?> value="true">True</option>
   						<option <?php if($developmentTabEnabled == 'false'){echo "selected";} ?> value="false">False</option>
 					</select>
