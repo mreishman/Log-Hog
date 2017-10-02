@@ -151,7 +151,7 @@ function pollTwo()
 	try
 	{
 		var urlForSend = "core/php/pollCheck.php?format=json";
-		var data = {currentVersion: currentVersion};
+		var data = {currentVersion};
 		$.ajax({
 			url: urlForSend,
 			dataType: "json",
@@ -213,7 +213,7 @@ function pollTwoPartTwo(data)
 			updateAllRefreshCounter("-");
 		}
 
-		if(arrayOfData1 == null || boolForAllUpdateForce)
+		if(arrayOfData1 === null || boolForAllUpdateForce)
 		{
 			arrayOfData1 = data;
 			filesNew = Object.keys(arrayOfData1);
@@ -270,11 +270,11 @@ function pollThree(arrayToUpdate)
 {
 	try
 	{
-		if(arrayOfDataMain != null)
+		if(arrayOfDataMain !== null)
 		{
 			for (var i = arrayToUpdate.length - 1; i >= 0; i--) 
 			{
-				if(arrayOfDataMain[arrayToUpdate[i]] == null)
+				if(arrayOfDataMain[arrayToUpdate[i]] === null)
 				{
 					delete arrayOfDataMain[arrayToUpdate[i]];
 				}
@@ -295,7 +295,7 @@ function pollThree(arrayToUpdate)
 			else
 			{
 				var urlForSend = "core/php/poll.php?format=json";
-				var data = {arrayToUpdate: arrayToUpdate};
+				var data = {arrayToUpdate};
 				$.ajax({
 					url: urlForSend,
 					dataType: "json",
@@ -336,7 +336,7 @@ function getFileSingle(current)
 		$.ajax({
 			url: urlForSend,
 			dataType: "json",
-			data: data,
+			data,
 			type: "POST",
 			success(data)
 			{
@@ -372,7 +372,7 @@ function arrayOfDataMainDataFilter(data)
 	try
 	{
 		var filesInner = Object.keys(data);
-		if(arrayOfDataMain == null)
+		if(arrayOfDataMain === null)
 		{
 			arrayOfDataMain = data;
 		}
@@ -460,7 +460,7 @@ function pausePollAction()
 			userPaused = false;
 			pausePoll = false;
 			showPauseButton();
-			if(pollTimer == null)
+			if(pollTimer === null)
 			{
 				poll();
 				startPollTimer();
@@ -547,7 +547,7 @@ function update(data) {
 				}
 				else
 				{
-					if(data[name] != null)
+					if(data[name] !== null)
 					{
 						folderName = name.substr(0, name.lastIndexOf("/"));
 						if(folderName !== folderNamePrev || i === 0 || groupByType === "file")
@@ -827,7 +827,7 @@ function checkIfPageHidden()
 				pausePoll = false;
 				showPauseButton();
 				stopFlashTitle();
-				if(pollTimer == null)
+				if(pollTimer === null)
 				{
 					poll();
 					startPollTimer();
@@ -852,7 +852,7 @@ function pausePollFunction()
 		pausePoll = true;
 		showPlayButton();
 		updateDocumentTitle("Paused");
-		if(pollTimer != null)
+		if(pollTimer !== null)
 		{
 			clearPollTimer();
 		}
@@ -976,7 +976,7 @@ function filterTitle(title)
 {
 	try
 	{
-    	if(title.substring(0, title.indexOf("|")) != null && title.substring(0, title.indexOf("|")) != "")
+    	if(title.substring(0, title.indexOf("|")) !== null && title.substring(0, title.indexOf("|")) != "")
 		{
 			title = title.substring(0, title.indexOf("|"));
 		}
