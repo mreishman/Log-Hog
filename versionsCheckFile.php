@@ -1,7 +1,7 @@
 <?php
 
 $versionCheckArray = array(
-	'version'		=> '2.3.5.1',
+	'version'		=> '3.0',
 	'versionList'		=> array(
 		'2.0.1'	        => array(
 			'branchName'	=> '2.0.1Update',
@@ -9,7 +9,7 @@ $versionCheckArray = array(
 		),
 		'2.0.2'	        => array(
 			'branchName'	=> '2.0.2Update',
-			'releaseNotes'	=> '<ul><li>Bug Fixes<ul><li>Renamed titles for settings pages</li><li>Moved changelog info from update page to separate php file.</li><li>File extractor now extracts files other than php, includes:<ul><li>.css</li><li>.html</li><li>.js</li><li>.png</li><li>.jpg</li><li>.jpeg</li></ul></li><li>Moved var loading part in update scripts to separate file. Helps to update vars in future.</li></ul></li></ul>'
+			'releaseNotes'	=> '<ul><li>Bug Fixes<ul><li>Renamed titles for settings pages</li><li>Moved changelog info from update page to seperate php file.</li><li>File extractor now extracts files other than php, includes:<ul><li>.css</li><li>.html</li><li>.js</li><li>.png</li><li>.jpg</li><li>.jpeg</li></ul></li><li>Moved var loading part in update scripts to seperate file. Helps updating vars in future.</li></ul></li></ul>'
 		),
 		'2.0.3'		=> array(
 			'branchName'	=> '2.0.3Update',
@@ -54,6 +54,14 @@ $versionCheckArray = array(
 		'2.3.5.1'		=> array(
 			'branchName'	=> '2.3.5.1Update',
 			'releaseNotes'	=> "<ul><li>Bug Fixes</li></ul>"
+		),
+		'2.3.6'		=> array(
+			'branchName'	=> '2.3.6Update',
+			'releaseNotes'	=> "<ul><li>Added option to switch to beta branch for earlier testing of new features!</li></ul>"
+		),
+		'3.0'		=> array(
+			'branchName'	=> '3.0Update',
+			'releaseNotes'	=> "<ul><li>Features<ul><li>Loading bar on first load</li><li>Themes!</li><ul><li>More custom style options</li><li>Three new themes!</li></ul><li>Watchlist look improved for settings page</li><li>Added option for background refresh rate (if not using pause on not focus)</li><li>Added option to disable / reset update notifications</li></ul></li><li>Bug Fixes<ul><li>Clicking refresh forces refresh of all information</li><li>Devtab bugfixes</li><li>Tabs on sub-menus are now highlighted</li><li>Fixed issue with resizing the window while in the settings pages</li><li>Added reset changes to more pages when editing vars</li><li>Fixed issue with custom popup settings options not correctly displaying on first switch</li><li>Versioned css / js files (most of them anyway)</li></ul></li></ul>"
 		),
 	)
 );
