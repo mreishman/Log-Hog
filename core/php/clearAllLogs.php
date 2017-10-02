@@ -8,12 +8,12 @@ if(file_exists('../../local/layout.php'))
 	$baseUrl .= $currentSelectedTheme."/";
 }
 require_once($baseUrl.'conf/config.php');
-require_once('../../core/conf/config.php');
+require_once('../../core/conf/config.php'); 
 require_once('../../core/php/configStatic.php');
 
-foreach($config['watchList'] as $path => $filter)
+foreach($config['watchList'] as $path => $filter) 
 {
-	if(is_dir($path))
+	if(is_dir($path)) 
 	{
 		//folder
 		$path = preg_replace('/\/$/', '', $path);

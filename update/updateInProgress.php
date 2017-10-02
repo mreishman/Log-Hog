@@ -10,13 +10,13 @@ if(file_exists('../local/layout.php'))
 require_once($baseUrl.'conf/config.php');
 require_once('../core/php/configStatic.php');
 require_once('../core/php/updateProgressFile.php');
-require_once('../core/php/settingsInstallUpdate.php');
+require_once('../core/php/settingsInstallUpdate.php'); 
 require_once('../top/statusTest.php');
 ?>
 <!doctype html>
 <head>
 	<title>Log Hog | Updater</title>
-	<?php echo loadCSS($baseUrl, $cssVersion);?>
+	<link rel="stylesheet" type="text/css" href="<?php echo $baseUrl ?>template/theme.css">
 	<link rel="icon" type="image/png" href="../core/img/favicon.png" />
 	<script src="../core/js/jquery.js"></script>
 </head>
@@ -48,7 +48,7 @@ require_once('../top/statusTest.php');
 		</div>
 	</div>
 </div>
-<script src="../core/js/settings.js?v=<?php echo $cssVersion?>"></script>
+<script src="../core/js/settings.js"></script>
 <script type="text/javascript">
 
 var counter = 0;	

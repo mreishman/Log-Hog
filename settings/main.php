@@ -12,20 +12,26 @@ if(file_exists('../local/layout.php'))
 	require_once('../local/layout.php');
 	$baseUrl .= $currentSelectedTheme."/";
 }
-$localURL = $baseUrl;
-require_once($baseUrl.'conf/config.php');
+require_once($baseUrl.'conf/config.php'); 
 require_once('../core/conf/config.php');
 require_once('../core/php/configStatic.php');
 require_once('../core/php/updateCheck.php');
 require_once('../core/php/loadVars.php');
-require_once('../core/php/commonFunctions.php');
 ?>
 <!doctype html>
 <head>
 	<title>Settings | Main</title>
-	<?php echo loadCSS($baseUrl, $cssVersion);?>
+	<link rel="stylesheet" type="text/css" href="<?php echo $baseUrl ?>template/theme.css">
 	<link rel="icon" type="image/png" href="../core/img/favicon.png" />
 	<script src="../core/js/jquery.js"></script>
+	<?php if($sendCrashInfoJS === "true"): ?>
+	<script src="https://cdn.ravenjs.com/3.17.0/raven.min.js" crossorigin="anonymous"></script>
+	<script type="text/javascript">
+		Raven.config('https://2e455acb0e7a4f8b964b9b65b60743ed@sentry.io/205980', {
+		    release: '2.3.5'
+		}).install();
+	</script>
+	<?php endif; ?>
 </head>
 <body>
 
@@ -38,12 +44,13 @@ require_once('../core/php/commonFunctions.php');
 	</div>
 	<?php readfile('../core/html/popup.html') ?>	
 </body>
+<script src="../core/js/settings.js"></script>
 <?php if($triggerSaveUpdate): ?>
 	<script type="text/javascript">
 	document.getElementById('settingsMainWatch').submit();
 	</script>
 <?php else: ?>
-	<script src="../core/js/settingsMain.js?v=<?php echo $cssVersion?>"></script>
+	<script src="../core/js/settingsMain.js"></script>
 	<script type="text/javascript">
 	document.getElementById("popupSelect").addEventListener("change", showOrHidePopupSubWindow, false);
 	document.getElementById("settingsSelect").addEventListener("change", showOrHideUpdateSubWindow, false);
@@ -68,6 +75,7 @@ require_once('../core/php/commonFunctions.php');
 	var countOfAddedFilesStatic = countOfAddedFiles;
 	var countOfClicksStatic = countOfClicks;
 	var locationInsertStatic = locationInsert;
+	var sendCrashInfoJS = "<?php echo $sendCrashInfoJS;?>";
 
 	if(logTrimType == 'lines')
 	{
@@ -103,17 +111,142 @@ require_once('../core/php/commonFunctions.php');
 		}
 	}
 
+	function checkForChangesWatchListPoll()
+	{
+		if(!objectsAreSame($('#settingsMainWatch').serializeArray(),watchlistData))
+		{
+			document.getElementById('resetChangesSettingsHeaderButton').style.display = "inline-block";
+			return true;
+		}
+		else
+		{
+			document.getElementById('resetChangesSettingsHeaderButton').style.display = "none";
+			return false;
+		}
+	}
+
+	function checkForChangesMainSettings()
+	{
+		if(!objectsAreSame($('#settingsMainVars').serializeArray(),mainData))
+		{
+			document.getElementById('resetChangesMainSettingsHeaderButton').style.display = "inline-block";
+			return true;
+		}
+		else
+		{
+			document.getElementById('resetChangesMainSettingsHeaderButton').style.display = "none";
+			return false;
+		}
+	}
+
+	function checkForChangesMenuSettings()
+	{
+		if(!objectsAreSame($('#settingsMenuVars').serializeArray(), menuData))
+		{
+			document.getElementById('resetChangesMenuSettingsHeaderButton').style.display = "inline-block";
+			return true;
+		}
+		else
+		{
+			document.getElementById('resetChangesMenuSettingsHeaderButton').style.display = "none";
+			return false;
+		}
+	}
+
+	function poll()
+	{
+		var change = checkForChangesWatchListPoll();
+		var change2 = checkForChangesMainSettings();
+		var change3 = checkForChangesMenuSettings();
+		if(change || change2 || change3)
+		{
+			document.getElementById('mainLink').innerHTML = "Main*";
+		}
+		else
+		{
+			document.getElementById('mainLink').innerHTML = "Main";
+		}
+	}
+
 	$( document ).ready(function() 
 	{
 		refreshSettingsMainVar();
 		refreshSettingsMenuVar();
 		refreshSettingsWatchList();
     	setInterval(poll, 100);
-    	$( "#main" ).scroll(function()
-    	{
-			highlightTopNavDepends();
-		});
 	});
+
+	function resetWatchListVars()
+	{
+		document.getElementById('settingsMainWatch').innerHTML = savedInnerHtmlWatchList;
+		watchlistData = $('#settingsMainWatch').serializeArray();
+		countOfWatchList = countOfWatchListStatic;
+		countOfAddedFiles =  countOfAddedFilesStatic;
+		countOfClicks = countOfClicksStatic;
+		locationInsert = locationInsertStatic;
+	}
+
+	function resetSettingsMainVar()
+	{
+		document.getElementById('settingsMainVars').innerHTML = savedInnerHtmlMainVars;
+		mainData = $('#settingsMainVars').serializeArray();
+	}
+
+	function resetSettingsMenuVar()
+	{
+		document.getElementById('settingsMenuVars').innerHTML = savedInnerHtmlMenu;
+		menuData = $('#settingsMenuVars').serializeArray();
+	}
+
+	function refreshSettingsMainVar()
+	{
+		mainData = $('#settingsMainVars').serializeArray();
+		savedInnerHtmlWatchList = document.getElementById('settingsMainWatch').innerHTML;
+	}
+
+	function refreshSettingsMenuVar()
+	{
+		menuData = $('#settingsMenuVars').serializeArray();
+		savedInnerHtmlMenu = document.getElementById('settingsMenuVars').innerHTML;
+	}
+
+	function refreshSettingsWatchList()
+	{
+		watchlistData = $('#settingsMainWatch').serializeArray();
+		savedInnerHtmlMainVars = document.getElementById('settingsMainVars').innerHTML;
+		countOfWatchListStatic = countOfWatchList;
+		countOfAddedFilesStatic = countOfAddedFiles;
+		countOfClicksStatic = countOfClicks;
+		locationInsertStatic = locationInsert;
+	}
+
+	function objectsAreSameInner(x, y) 
+	{
+	   	var objectsAreSame = true;
+	   	for(var propertyName in x) 
+	   	{
+	      	if( (typeof(x) === 'undefined') || (typeof(y) === 'undefined') || x[propertyName] !== y[propertyName])
+	      	{
+	         objectsAreSame = false;
+	         break;
+	    	}
+   		}
+   		return objectsAreSame;
+	}
+
+	function objectsAreSame(x, y) 
+	{
+		var returnValue = true;
+		for (var i = x.length - 1; i >= 0; i--) 
+		{
+			if(!objectsAreSameInner(x[i],y[i]))
+			{
+				returnValue = false;
+				break;
+			}
+		}
+		return returnValue;
+	}
 
 	</script>
 <?php endif; ?>

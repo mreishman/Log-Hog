@@ -131,7 +131,7 @@ if(count($arrayOfVersions) === 0)
 <!doctype html>
 <head>
 	<title>Log Hog | Updater</title>
-	<?php echo loadCSS($baseUrl, $cssVersion);?>
+	<link rel="stylesheet" type="text/css" href="<?php echo $baseUrl ?>template/theme.css">
 	<link rel="icon" type="image/png" href="../core/img/favicon.png" />
 	<script src="../core/js/jquery.js"></script>
 </head>
@@ -176,7 +176,7 @@ if(count($arrayOfVersions) === 0)
 </div>
 </body>
 
-<script src="../core/js/settings.js?v=<?php echo $cssVersion?>"></script>
+<script src="../core/js/settings.js"></script>
 <script type="text/javascript"> 
 	var updateStatus = '<?php echo $updateStatus; ?>'
 	var headerForUpdate = document.getElementById('headerForUpdate');

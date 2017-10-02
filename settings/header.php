@@ -1,14 +1,17 @@
+<style type="text/css">
+	#menu a, #menu2 a, .link, .linkSmall, .settingsHeader button{
+		background-color: <?php echo $currentSelectedThemeColorValues[0]?>;
+	}
+</style>
 <?php
 require_once('../top/statusTest.php');
 require_once('../setup/setupProcessFile.php');
 $withLogHog = $monitorStatus['withLogHog'];
 $URI = $_SERVER['REQUEST_URI'];
-require_once("../core/php/customCSS.php");
-echo loadSentryData($sendCrashInfoJS); ?>
-<script src="../core/js/settings.js?v=<?php echo $cssVersion?>"></script>
+?>
 <div id="menu">
 	<div onclick="goToUrl('../index.php');" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">
-		<img id="pauseImage" class="menuImage" src="<?php echo $localURL;?>img/backArrow.png" height="30px">
+		<img id="pauseImage" class="menuImage" src="../core/img/backArrow.png" height="30px">
 	</div>
 	<?php if(strpos($URI, 'main.php') !== false): ?>
 		<a style="cursor: default;" class="active" id="mainLink" >Main</a>
@@ -22,16 +25,6 @@ echo loadSentryData($sendCrashInfoJS); ?>
 			<a id="topLink" onclick="goToUrl('settingsTop.php');" >Top</a>
 		<?php endif; ?>
 	<?php endif; ?>
-	<a id="themesLink" style="
-		<?php if($themesEnabled === "false"): ?>
-		display: none;
-		<?php endif; ?>
-		<?php if(strpos($URI, 'themes.php') !== false): ?>
-			cursor: default;" class="active" 
-		<?php else: ?>
-			" onclick="goToUrl('themes.php');" 
-		<?php endif; ?>
-	>Themes</a>
 	<?php if(strpos($URI, 'about.php') !== false): ?>
 		<a style="cursor: default;" class="active" id="aboutLink" >About</a>
 	<?php else: ?>	
@@ -41,35 +34,22 @@ echo loadSentryData($sendCrashInfoJS); ?>
 		<a style="cursor: default;" class="active" id="updateLink">
 	<?php else: ?>
 		<a id="updateLink" onclick="goToUrl('update.php');">
-	<?php endif; ?>
-			<?php if($updateNotificationEnabled === "true")
-			{
-				if($levelOfUpdate == 1)
-				{
-					echo '<img src="<?php echo $localURL;?>img/yellowWarning.png" height="10px">';
-				}
-				elseif($levelOfUpdate !== 0)
-				{
-					echo '<img src="<?php echo $localURL;?>img/redWarning.png" height="10px">';
-				}
-			}?>
-			Update
+	<?php endif; ?>	
+			<?php  if($levelOfUpdate == 1){echo '<img src="../core/img/yellowWarning.png" height="10px">';} ?> <?php if($levelOfUpdate == 2){echo '<img src="../core/img/redWarning.png" height="10px">';} ?>Update
 		</a>
 	<?php if(strpos($URI, 'advanced.php') !== false): ?>
 		<a style="cursor: default;" class="active" id="advancedLink">Advanced</a>
 	<?php else: ?>	
 		<a id="advancedLink" onclick="goToUrl('advanced.php');">Advanced</a>
 	<?php endif; ?>
-	<a id="devToolsLink"
-		<?php if(!(($developmentTabEnabled == 'true') || (strpos($URI, 'devTools.php') !== false))):?>
-			style="display: none;
-		<?php endif; ?>	
+	<?php
+	if($developmentTabEnabled == 'true'):?>
 		<?php if(strpos($URI, 'devTools.php') !== false): ?>
-			cursor: default;" class="active"
+			<a style="cursor: default;" class="active" id="devToolsLink"> Dev Tools </a>
 		<?php else: ?>
-			" onclick="goToUrl('devTools.php');"
-		<?php endif; ?>
-	> Dev Tools </a>
+			<a id="devToolsLink" onclick="goToUrl('devTools.php');"> Dev Tools </a>
+		<?php endif; ?>	
+	<?php endif; ?>
 	<?php
 	if($expSettingsAvail):?>
 		<?php if(strpos($URI, 'experimentalfeatures.php') !== false): ?>
@@ -81,9 +61,9 @@ echo loadSentryData($sendCrashInfoJS); ?>
 </div>
 <?php if(strpos($URI, 'main.php') !== false): ?>
 	<div id="menu2">
-		<a id="mainSettingsMenu2" onclick="goToUrl('#settingsMainVars');" class="active" > Main Settings </a>
-		<a id="watchListSettingsMenu2" onclick="goToUrl('#settingsMainWatch');" > WatchList </a>
-		<a id="menuSettingsMenu2" onclick="goToUrl('#settingsMenuVars');" > Menu Settings </a>
+		<a onclick="goToUrl('#settingsMainVars');" > Main Settings </a>
+		<a onclick="goToUrl('#settingsMainWatch');" > WatchList </a>
+		<a onclick="goToUrl('#settingsMenuVars');" > Menu Settings </a>
 	</div>
 <?php endif; ?>
 <?php if((strpos($URI, 'whatsNew.php') !== false) || (strpos($URI, 'update.php') !== false) || (strpos($URI, 'changeLog.php') !== false)): ?>
@@ -92,11 +72,4 @@ echo loadSentryData($sendCrashInfoJS); ?>
 		<a <?php if(strpos($URI, 'whatsNew.php') !== false): ?> class='active' <?php else: ?>  onclick="goToUrl('./whatsNew.php');"  <?php endif;?> > What's New? </a>
 		<a <?php if(strpos($URI, 'changeLog.php') !== false): ?> class='active' <?php else: ?>  onclick="goToUrl('./changeLog.php');"  <?php endif;?> > Changelog </a>
 	</div>
-<?php endif;
-$baseUrlImages = $localURL;
-?>
-<script type="text/javascript">
-	
-	var baseUrl = "<?php echo $baseUrlImages;?>";
-
-</script>
+<?php endif; ?>
