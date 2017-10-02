@@ -1138,7 +1138,7 @@ function updateUpdateCheckWaitTimer()
 			if(currentVersion != data)
 			{
 				clearInterval(timeoutVar);
-				showPopupForUpdate(dataFromUpdateCheck);
+				showUpdateCheckPopup(dataFromUpdateCheck);
 			}
 		});
 	}
