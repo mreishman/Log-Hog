@@ -1,4 +1,4 @@
-<?php 
+<?php
 if(array_key_exists('updateNoticeMeter', $config))
 {
 	$updateNoticeMeter = $config['updateNoticeMeter'];

@@ -1,3 +1,4 @@
+/global sendCrashInfoJS Raven displayLoadingPopup countOfAddedFiles countOfWatchList popupSettingsArray /;
 function showOrHideLogTrimSubWindow()
 {
 	try
@@ -39,7 +40,7 @@ function changeDescriptionLineSize()
 	}
 	catch(e)
 	{
-		eventThrowException(e)
+		eventThrowException(e);
 	}
 }
 
@@ -51,11 +52,11 @@ function addRowFunction()
 		countOfClicks++;
 		if(countOfWatchList < 10)
 		{
-			document.getElementById(locationInsert).outerHTML += "<li id='rowNumber"+countOfWatchList+"'>File #0" + countOfWatchList+ ": <input type='text' style='width: 500px;' name='watchListKey" + countOfWatchList + "' > <input type='text' name='watchListItem" + countOfWatchList + "' > <a class='link'  onclick='deleteRowFunctionPopup("+ countOfWatchList +", true, \"File #0" + countOfWatchList+"\")'>Remove</a></li><div id='newRowLocationForWatchList"+countOfClicks+"'></div>";
+			document.getElementById(locationInsert).outerHTML += "<li id='rowNumber"+countOfWatchList+"'>File #0" + countOfWatchList+ ": <div style=\"width: 130px; display: inline-block; text-align: center;\">----------</div><input type='text' style='width: 480px;' name='watchListKey" + countOfWatchList + "' > <input type='text' name='watchListItem" + countOfWatchList + "' > <a class='deleteIconPosition'  onclick='deleteRowFunctionPopup("+ countOfWatchList +", true, \"File #0" + countOfWatchList+"\")'><img src=\""+baseUrl+"img/trashCan.png\" height=\"15px;\" ></a></li><div id='newRowLocationForWatchList"+countOfClicks+"'></div>";
 		}
 		else
 		{
-			document.getElementById(locationInsert).outerHTML += "<li id='rowNumber"+countOfWatchList+"'>File #" + countOfWatchList+ ": <input type='text' style='width: 500px;' name='watchListKey" + countOfWatchList + "' > <input type='text' name='watchListItem" + countOfWatchList + "' > <a class='link' onclick='deleteRowFunctionPopup("+ countOfWatchList +", true, \"File #" + countOfWatchList+"\")'>Remove</a></li><div id='newRowLocationForWatchList"+countOfClicks+"'></div>";
+			document.getElementById(locationInsert).outerHTML += "<li id='rowNumber"+countOfWatchList+"'>File #" + countOfWatchList+ ": <div style=\"width: 130px; display: inline-block; text-align: center;\">----------</div><input type='text' style='width: 480px;' name='watchListKey" + countOfWatchList + "' > <input type='text' name='watchListItem" + countOfWatchList + "' > <a class='deleteIconPosition' onclick='deleteRowFunctionPopup("+ countOfWatchList +", true, \"File #" + countOfWatchList+"\")'><img src=\""+baseUrl+"img/trashCan.png\" height=\"15px;\" ></a></li><div id='newRowLocationForWatchList"+countOfClicks+"'></div>";
 		}
 		locationInsert = "newRowLocationForWatchList"+countOfClicks;
 		document.getElementById("numberOfRows").value = countOfWatchList;
@@ -63,7 +64,7 @@ function addRowFunction()
 	}
 	catch(e)
 	{
-		eventThrowException(e)
+		eventThrowException(e);
 	}
 }
 
@@ -83,7 +84,7 @@ function deleteRowFunctionPopup(currentRow, decreaseCountWatchListNum, keyName =
 	}
 	catch(e)
 	{
-		eventThrowException(e)
+		eventThrowException(e);
 	}	
 }
 
@@ -112,25 +113,32 @@ function deleteRowFunction(currentRow, decreaseCountWatchListNum)
 					{
 						documentUpdateText += "0";
 					}
-					documentUpdateText += updateItoIMinusOne+": ";
 					var nameForId = "fileNotFoundImage" + i;
 					var elementByIdPreCheck = document.getElementById(nameForId);
 					if(elementByIdPreCheck !== null)
 					{
-						documentUpdateText += "<img id='fileNotFoundImage"+updateItoIMinusOne+"' src='../core/img/redWarning.png' height='10px'>";
-					}
-					documentUpdateText += "<input style='width: ";
-					if(elementByIdPreCheck !== null)
-					{
-						documentUpdateText += "480";
+						documentUpdateText += updateItoIMinusOne+": <div style=\"width: 100px; display: inline-block; text-align: center;\">----------</div>";
+						var elementPreCheckSrc = elementByIdPreCheck.src;
+						if(elementPreCheckSrc.indexOf("folderIcon") !== -1)
+						{
+							documentUpdateText += "<img id='fileNotFoundImage"+updateItoIMinusOne+"' src='"+baseUrl+"img/folderIcon.png' width='15px'>  ";
+						}
+						else if(elementPreCheckSrc.indexOf("fileIcon") !== -1)
+						{
+							documentUpdateText += "<img id='fileNotFoundImage"+updateItoIMinusOne+"' src='"+baseUrl+"img/fileIcon.png' width='15px'>  ";
+						}
+						else
+						{
+							documentUpdateText += "<img id='fileNotFoundImage"+updateItoIMinusOne+"' src='"+baseUrl+"img/redWarning.png' width='15px'>  ";
+						}
 					}
 					else
 					{
-						documentUpdateText += "500";
+						documentUpdateText += updateItoIMinusOne+": <div style=\"width: 130px; display: inline-block; text-align: center;\">----------</div>";
 					}
-					documentUpdateText += "px' type='text' name='watchListKey"+updateItoIMinusOne+"' value='"+previousElementNumIdentifierForKey[0].value+"'> ";
+					documentUpdateText += "<input style='width: 480px' type='text' name='watchListKey"+updateItoIMinusOne+"' value='"+previousElementNumIdentifierForKey[0].value+"'> ";
 					documentUpdateText += "<input type='text' name='watchListItem"+updateItoIMinusOne+"' value='"+previousElementNumIdentifierForItem[0].value+"'>";
-					documentUpdateText += " <a class='link' onclick='deleteRowFunctionPopup("+updateItoIMinusOne+", true,\""+previousElementNumIdentifierForKey[0].value+"\")'>Remove</a>";
+					documentUpdateText += " <a class='deleteIconPosition' onclick='deleteRowFunctionPopup("+updateItoIMinusOne+", true,\""+previousElementNumIdentifierForKey[0].value+"\")'><img src=\""+baseUrl+"img/trashCan.png\" height=\"15px;\" ></a>";
 					documentUpdateText += "</li>";
 					document.getElementById(elementToUpdate).outerHTML = documentUpdateText;
 				}
@@ -150,7 +158,7 @@ function deleteRowFunction(currentRow, decreaseCountWatchListNum)
 	}
 	catch(e)
 	{
-		eventThrowException(e)
+		eventThrowException(e);
 	}
 }	
 function showOrHidePopupSubWindow()
@@ -163,7 +171,7 @@ function showOrHidePopupSubWindow()
 	}
 	catch(e)
 	{
-		eventThrowException(e)
+		eventThrowException(e);
 	}
 }
 function showOrHideUpdateSubWindow()
@@ -176,14 +184,14 @@ function showOrHideUpdateSubWindow()
 	}
 	catch(e)
 	{
-		eventThrowException(e)
+		eventThrowException(e);
 	}
 }
 function showOrHideSubWindow(valueForPopupInner, valueForVarsInner)
 {
 	try
 	{
-		if(valueForPopupInner.value === "true")
+		if((valueForPopupInner.value === "true") || (valueForPopupInner.value === "custom"))
 		{
 			valueForVarsInner.style.display = "block";
 		}
@@ -194,7 +202,7 @@ function showOrHideSubWindow(valueForPopupInner, valueForVarsInner)
 	}
 	catch(e)
 	{
-		eventThrowException(e)
+		eventThrowException(e);
 	}
 }
 function checkWatchList()
@@ -209,7 +217,7 @@ function checkWatchList()
 				blankValue = true;
 			}
 		}
-		if(blankValue && popupSettingsArray.blankFolder == "true")
+		if(blankValue && popupSettingsArray.blankFolder === "true")
 		{
 			showNoEmptyFolderPopup();
 			event.preventDefault();
@@ -223,7 +231,7 @@ function checkWatchList()
 	}
 	catch(e)
 	{
-		eventThrowException(e)
+		eventThrowException(e);
 	}
 }
 function showNoEmptyFolderPopup()
@@ -235,14 +243,270 @@ function showNoEmptyFolderPopup()
 	}
 	catch(e)
 	{
-		eventThrowException(e)
+		eventThrowException(e);
 	}
 }
 
-function eventThrowException(e)
+function checkForChangesWatchListPoll()
 {
-	if((typeof(sendCrashInfoJS) !== 'undefined') && (sendCrashInfoJS === "true"))
+	try
 	{
-		Raven.captureException(e);
+		if(!objectsAreSame($("#settingsMainWatch").serializeArray(),watchlistData))
+		{
+			document.getElementById("resetChangesSettingsHeaderButton").style.display = "inline-block";
+			return true;
+		}
+		else
+		{
+			document.getElementById("resetChangesSettingsHeaderButton").style.display = "none";
+			return false;
+		}
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
+function checkForChangesMainSettings()
+{
+	try
+	{
+		if(!objectsAreSame($("#settingsMainVars").serializeArray(),mainData))
+		{
+			document.getElementById("resetChangesMainSettingsHeaderButton").style.display = "inline-block";
+			return true;
+		}
+		else
+		{
+			document.getElementById("resetChangesMainSettingsHeaderButton").style.display = "none";
+			return false;
+		}
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
+function checkForChangesMenuSettings()
+{
+	try
+	{
+		if(!objectsAreSame($("#settingsMenuVars").serializeArray(), menuData))
+		{
+			document.getElementById("resetChangesMenuSettingsHeaderButton").style.display = "inline-block";
+			return true;
+		}
+		else
+		{
+			document.getElementById("resetChangesMenuSettingsHeaderButton").style.display = "none";
+			return false;
+		}
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
+function poll()
+{
+	try
+	{
+		var change = checkForChangesWatchListPoll();
+		var change2 = checkForChangesMainSettings();
+		var change3 = checkForChangesMenuSettings();
+		if(change || change2 || change3)
+		{
+			document.getElementById("mainLink").innerHTML = "Main*";
+		}
+		else
+		{
+			document.getElementById("mainLink").innerHTML = "Main";
+		}
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
+function resetWatchListVars()
+{
+	try
+	{
+		document.getElementById("settingsMainWatch").innerHTML = savedInnerHtmlWatchList;
+		watchlistData = $("#settingsMainWatch").serializeArray();
+		countOfWatchList = countOfWatchListStatic;
+		countOfAddedFiles =  countOfAddedFilesStatic;
+		countOfClicks = countOfClicksStatic;
+		locationInsert = locationInsertStatic;
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
+function resetSettingsMainVar()
+{
+	try
+	{
+		document.getElementById("settingsMainVars").innerHTML = savedInnerHtmlMainVars;
+		mainData = $("#settingsMainVars").serializeArray();
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
+function resetSettingsMenuVar()
+{
+	try
+	{
+		document.getElementById("settingsMenuVars").innerHTML = savedInnerHtmlMenu;
+		menuData = $("#settingsMenuVars").serializeArray();
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
+function refreshSettingsMainVar()
+{
+	try
+	{
+		mainData = $("#settingsMainVars").serializeArray();
+		savedInnerHtmlWatchList = document.getElementById("settingsMainWatch").innerHTML;
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
+function refreshSettingsMenuVar()
+{
+	try
+	{
+		menuData = $("#settingsMenuVars").serializeArray();
+		savedInnerHtmlMenu = document.getElementById("settingsMenuVars").innerHTML;
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
+function refreshSettingsWatchList()
+{
+	try
+	{
+		watchlistData = $("#settingsMainWatch").serializeArray();
+		savedInnerHtmlMainVars = document.getElementById("settingsMainVars").innerHTML;
+		countOfWatchListStatic = countOfWatchList;
+		countOfAddedFilesStatic = countOfAddedFiles;
+		countOfClicksStatic = countOfClicks;
+		locationInsertStatic = locationInsert;
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
+function highlightTopNavDepends()
+{
+	try
+	{
+		var offsetHeight = 0;
+		if(document.getElementById("menu"))
+		{
+			offsetHeight += document.getElementById("menu").offsetHeight;
+		}
+		if(document.getElementById("menu2"))
+		{
+			offsetHeight += document.getElementById("menu2").offsetHeight;
+		}
+		outerHeightMain = $("#settingsMainVars").outerHeight();
+		positionMain = $("#settingsMainVars").position();
+		if((outerHeightMain+positionMain.top-offsetHeight) < 0)
+		{
+			positionMain = $("#settingsMainWatch").position();
+			if((outerHeightMain+positionMain.top-offsetHeight) < 0)
+			{
+				highlightSettingsMenu2Option("menuSettingsMenu2");
+			}
+			else
+			{
+				highlightSettingsMenu2Option("watchListSettingsMenu2");
+			}
+		}
+		else
+		{
+			//check if class is already there before adding
+			highlightSettingsMenu2Option("mainSettingsMenu2");
+		}
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
+function highlightSettingsMenu2Option(option)
+{
+	try
+	{
+		var titles = ["mainSettingsMenu2", "watchListSettingsMenu2", "menuSettingsMenu2"];
+		for (var i = titles.length - 1; i >= 0; i--)
+		{
+			
+			if(option !== titles[i])
+			{
+				removeActiveClass(titles[i]);
+			}
+			else
+			{
+				addActiveClass(titles[i]);
+			}
+		}
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
+function addActiveClass(idToAdd)
+{
+	try
+	{
+		if(!$("#"+idToAdd).hasClass("active"))
+		{
+			$("#"+idToAdd).addClass("active");
+		}
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
+function removeActiveClass(idToAdd)
+{
+	try
+	{
+		if($("#"+idToAdd).hasClass("active"))
+		{
+			$("#"+idToAdd).removeClass("active");
+		}
+	}
+	catch(e)
+	{
+		eventThrowException(e);
 	}
 }

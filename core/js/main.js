@@ -24,10 +24,13 @@ var pollSkipCounter = 0;
 var counterForPollForceRefreshAll = 0;
 var filesNew;
 var pausePoll = false;
-var refreshActionVar;
 var refreshPauseActionVar;
 var userPaused = false;
 var refreshing = false;
+var percent = 0;
+var pollRefreshAllBoolStatic = pollRefreshAllBool;
+var firstLoad = true;
+var timer;
 
 function escapeHTML(unsafeStr)
 {
@@ -69,7 +72,7 @@ function updateAllRefreshCounter(num)
 {
 	try
 	{
-    	if(enablePollTimeLogging !== "false")
+		if(enablePollTimeLogging !== "false")
 		{
 			document.getElementById("loggAllCount").innerHTML = escapeHTML(num);
 		}
@@ -81,18 +84,33 @@ function updateAllRefreshCounter(num)
 	
 }
 
+function updateDocumentTitle(updateText)
+{
+	try
+	{
+		if(document.title !== "Log Hog | "+updateText)
+		{
+			document.title = "Log Hog | "+updateText;
+		}
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
 function poll()
 {
 	try
 	{
-    	checkForUpdateMaybe();
+		checkForUpdateMaybe();
 		if(refreshing)
 		{
-			document.title = "Log Hog | Refreshing";
+			updateDocumentTitle("Refreshing");
 		}
 		else
 		{
-			document.title = "Log Hog | Index";
+			updateDocumentTitle("Index");
 		}
 		counterForPoll++;
 		if(!polling)
@@ -132,12 +150,12 @@ function pollTwo()
 {
 	try
 	{
-    	var urlForSend = "core/php/pollCheck.php?format=json";
+		var urlForSend = "core/php/pollCheck.php?format=json";
 		var data = {currentVersion: currentVersion};
 		$.ajax({
 			url: urlForSend,
 			dataType: "json",
-			data: data,
+			data,
 			type: "POST",
 			success(data)
 			{
@@ -171,7 +189,11 @@ function pollTwoPartTwo(data)
 {
 	try
 	{
-	    t2 = performance.now();
+		if(firstLoad)
+		{
+			updateProgressBar(10, "Generating File Object");
+		}
+		t2 = performance.now();
 
 		//check for all update force
 		var boolForAllUpdateForce = false;
@@ -195,7 +217,8 @@ function pollTwoPartTwo(data)
 		{
 			arrayOfData1 = data;
 			filesNew = Object.keys(arrayOfData1);
-			for (i = filesNew.length - 1; i >= 0; i--)
+			var i = filesNew.length - 1;
+			for (i; i >= 0; i--)
 			{
 				arrayToUpdate.push(filesNew[i]);
 			}
@@ -207,13 +230,13 @@ function pollTwoPartTwo(data)
 			var filesOld = Object.keys(arrayOfData1);
 
 			arrayToUpdate = [];
-
-			for (i = filesNew.length - 1; i >= 0; i--)
+			var i = filesNew.length - 1;
+			for (i; i >= 0; i--)
 			{
 				if(filesOld.indexOf(filesNew[i]) > -1)
 				{
 					//file exists
-					if(arrayOfData2[filesNew[i]] != arrayOfData1[filesNew[i]])
+					if(arrayOfData2[filesNew[i]] !== arrayOfData1[filesNew[i]])
 					{
 						arrayToUpdate.push(filesNew[i]);
 					}
@@ -224,8 +247,8 @@ function pollTwoPartTwo(data)
 					arrayToUpdate.push(filesNew[i]);
 				}
 			}
-
-			for (i = filesOld.length - 1; i >= 0; i--)
+			i = filesOld.length - 1;
+			for (i; i >= 0; i--)
 			{
 				if(!(filesNew.indexOf(filesOld[i]) > -1))
 				{
@@ -264,35 +287,32 @@ function pollThree(arrayToUpdate)
 		t3 = performance.now();
 		if (typeof arrayToUpdate !== "undefined" && arrayToUpdate.length > 0) 
 		{
-			var urlForSend = "core/php/poll.php?format=json";
-			var data = {arrayToUpdate: arrayToUpdate};
-			$.ajax({
-				url: urlForSend,
-				dataType: "json",
-				data: data,
-				type: "POST",
-				success(data)
-				{
-					var filesInner = Object.keys(data);
-					if(arrayOfDataMain == null)
+			if(firstLoad)
+			{
+				updateProgressBar(10, "Loading file 1 of "+arrayToUpdate.length);
+				getFileSingle(arrayToUpdate.length-1, arrayToUpdate.length-1);
+			}
+			else
+			{
+				var urlForSend = "core/php/poll.php?format=json";
+				var data = {arrayToUpdate: arrayToUpdate};
+				$.ajax({
+					url: urlForSend,
+					dataType: "json",
+					data,
+					type: "POST",
+					success(data)
 					{
-						arrayOfDataMain = data;
-					}
-					else
+						arrayOfDataMainDataFilter(data);
+						update(arrayOfDataMain);
+						fresh = false;
+					},
+					complete()
 					{
-						for (var i = filesInner.length - 1; i >= 0; i--) 
-						{
-							arrayOfDataMain[filesInner[i]] = data[filesInner[i]];
-						}
+						afterPollFunctionComplete();
 					}
-					update(arrayOfDataMain);
-					fresh = false;
-				},
-				complete()
-				{
-					afterPollFunctionComplete();
-				}
-			});	
+				});	
+			}
 		}
 		else
 		{
@@ -305,11 +325,84 @@ function pollThree(arrayToUpdate)
 	}
 }
 
+function getFileSingle(current)
+{
+	try
+	{
+		var urlForSend = "core/php/poll.php?format=json";
+		var arrayToSend = new Array();
+		arrayToSend.push(arrayToUpdate[current]);
+		var data = {arrayToUpdate: arrayToSend};
+		$.ajax({
+			url: urlForSend,
+			dataType: "json",
+			data: data,
+			type: "POST",
+			success(data)
+			{
+				arrayOfDataMainDataFilter(data);
+				update(arrayOfDataMain);
+			},
+			complete()
+			{
+				var updateBy = (1/arrayToUpdate.length)*60;
+				updateProgressBar(updateBy, "Loading file "+(arrayToUpdate.length+1-current)+" of "+arrayToUpdate.length);
+				if(current != 0)
+				{
+					current--;
+					getFileSingle(current);
+				}
+				else
+				{
+					update(arrayOfDataMain);
+					fresh = false;
+					afterPollFunctionComplete();
+				}
+			}
+		});
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}	
+}
+
+function arrayOfDataMainDataFilter(data)
+{
+	try
+	{
+		var filesInner = Object.keys(data);
+		if(arrayOfDataMain == null)
+		{
+			arrayOfDataMain = data;
+		}
+		else
+		{
+			for (var i = filesInner.length - 1; i >= 0; i--) 
+			{
+				arrayOfDataMain[filesInner[i]] = data[filesInner[i]];
+			}
+		}
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
 function afterPollFunctionComplete()
 {
 	try
 	{
-    	//document.getElementById('firstLoad').style.display = 'none';
+		if(firstLoad)
+		{
+			firstLoad = false;
+			document.getElementById("firstLoad").style.display = "none";
+		}
+		if(refreshing)
+		{
+			endRefreshAction();
+		}
 		polling = false;
 		if(enablePollTimeLogging !== "false")
 		{
@@ -345,7 +438,7 @@ function addPaddingToNumber(number, padding = 4)
 {
 	try
 	{
-	    number = number.toString();
+		number = number.toString();
 		while(number.length < padding)
 		{
 			number = "0"+number;
@@ -362,11 +455,11 @@ function pausePollAction()
 {
 	try
 	{
-    	if(pausePoll)
+		if(pausePoll)
 		{
 			userPaused = false;
 			pausePoll = false;
-			document.getElementById("pauseImage").src="core/img/Pause.png";
+			showPauseButton();
 			if(pollTimer == null)
 			{
 				poll();
@@ -390,11 +483,14 @@ function refreshAction()
 {
 	try
 	{
-    	clearTimeout(refreshActionVar);
-		document.getElementById("refreshImage").src="core/img/refresh-animated.gif";
+		if(pollRefreshAllBoolStatic == "false")
+		{
+    		pollRefreshAllBool = "true";
+		}
+    	counterForPollForceRefreshAll = 1+pollRefreshAll;
+		showRefreshingButton();
 		refreshing = true;
 		poll();
-		refreshActionVar = setTimeout(endRefreshAction, 1500);
 	}
 	catch(e)
 	{
@@ -406,15 +502,19 @@ function endRefreshAction()
 {
 	try
 	{
-	    document.getElementById("refreshImage").src="core/img/Refresh.png"; 
+		if(pollRefreshAllBoolStatic == "false")
+		{
+    		pollRefreshAllBool = "false";
+    	}
+	    showRefreshButton(); 
 		refreshing = false;
 		if(pausePoll)
 		{
-			document.title = "Log Hog | Paused";
+			updateDocumentTitle("Paused");
 		}
 		else
 		{
-			document.title = "Log Hog | Index";
+			updateDocumentTitle("Index");
 		}
 	}
 	catch(e)
@@ -433,9 +533,7 @@ function update(data) {
 		var files = Object.keys(data);
 		var stop = files.length;
 		var updated = false;
-		var initialized = $("#menu a").length != 0;
-		var colorArray = currentFolderColorThemeArrayOfColors;
-		var colorArrayLength = colorArray.length;
+		var initialized = $("#menu a").length !== 0;
 		var folderNamePrev = "?-1";
 		var folderNameCount = -1;
 		for(i = 0; i !== stop; ++i) {
@@ -489,7 +587,7 @@ function update(data) {
 							titles[id] = name;
 						}
 						
-						if(enableLogging != "false")
+						if(enableLogging !== "false")
 						{
 							if(id === currentPage)
 							{
@@ -500,13 +598,13 @@ function update(data) {
 						if($("#menu ." + id + "Button").length === 0) 
 						{
 							shortName = files[i].replace(/.*\//g, "");
-							style = "background-color: "+colorArray[folderNameCount];
+							classInsert = "buttonColor"+(folderNameCount+1);
 							item = blank;
 							item = item.replace(/{{title}}/g, shortName);
 							item = item.replace(/{{id}}/g, id);
 							if(groupByColorEnabled === true)
 							{
-								item = item.replace(/{{style}}/g, style);
+								item = item.replace(/{{class}}/g, classInsert);
 							}
 							menu.append(item);
 						}
@@ -546,7 +644,7 @@ function update(data) {
 			$("#menu a:eq(0)").click();
 		}
 		
-		if(logs[currentPage] != lastLogs[currentPage]) {
+		if(logs[currentPage] !== lastLogs[currentPage]) {
 			lastLogs[currentPage] = logs[currentPage];
 			document.getElementById("main").scrollTop = $("#log").outerHeight();
 		}
@@ -658,7 +756,7 @@ function stopFlashTitle()
 	try
 	{
     	clearInterval(flasher);
-		$('title').text(title);
+		$("title").text(title);
 	}
 	catch(e)
 	{
@@ -674,65 +772,107 @@ function focus()
 
 function startPollTimer()
 {
-	pollTimer = setInterval(poll, pollingRate);
+	/* Dont try catch visibility  */
+
+	if(pausePollOnNotFocus === true || pausePollOnNotFocus === "true")
+	{
+		pollTimer = setInterval(poll, pollingRate);
+	}
+	else
+	{
+		pollTimer = Visibility.every(pollingRate, backgroundPollingRate, function () { poll(); });
+	}
 }
 
 function clearPollTimer()
 {
-	clearInterval(pollTimer);
+	/* Dont try catch visibility  */
+	
+	if(pausePollOnNotFocus === true || pausePollOnNotFocus === "true")
+	{
+		clearInterval(pollTimer);
+	}
+	else
+	{
+		Visibility.stop(pollTimer);
+	}
 	pollTimer = null;
 }
 
 function startPauseOnNotFocus()
 {
+	/* Dont try catch visibility  */
+
 	startedPauseOnNonFocus = true;
 	Visibility.every(100, 1000, function () { checkIfPageHidden(); });
 }
 
 function checkIfPageHidden()
 {
-	if(isPageHidden())
+	try
 	{
-		//hidden
-		if(!pausePoll)
+		if(isPageHidden())
 		{
-			pausePollFunction();
-		}
-	}
-	else
-	{
-		//not hidden
-		if(!userPaused && pausePoll)
-		{
-			pausePoll = false;
-			document.getElementById("pauseImage").src="core/img/Pause.png";
-			stopFlashTitle();
-			if(pollTimer == null)
+			//hidden
+			if(!pausePoll)
 			{
-				poll();
-				startPollTimer();
+				pausePollFunction();
 			}
 		}
-		if(userPaused)
+		else
 		{
-			document.title = "Log Hog | Paused";
+			//not hidden
+			if(!userPaused && pausePoll)
+			{
+				pausePoll = false;
+				showPauseButton();
+				stopFlashTitle();
+				if(pollTimer == null)
+				{
+					poll();
+					startPollTimer();
+				}
+			}
+			if(userPaused)
+			{
+				updateDocumentTitle("Paused");
+			}
 		}
+	}
+	catch(e)
+	{
+		eventThrowException(e);
 	}
 }
 
 function pausePollFunction()
 {
-	pausePoll = true;
-	document.getElementById('pauseImage').src="core/img/Play.png";
-	document.title = "Log Hog | Paused";
-	if(pollTimer != null)
+	try
 	{
-		clearPollTimer();
+		pausePoll = true;
+		showPlayButton();
+		updateDocumentTitle("Paused");
+		if(pollTimer != null)
+		{
+			clearPollTimer();
+		}
+	}
+	catch(e)
+	{
+		eventThrowException(e);
 	}
 }
 
-function isPageHidden(){
-     return document.hidden || document.msHidden || document.webkitHidden || document.mozHidden;
+function isPageHidden()
+{
+	try
+	{
+		return document.hidden || document.msHidden || document.webkitHidden || document.mozHidden;
+    }
+	catch(e)
+	{
+		eventThrowException(e);
+	}
 }
 
 function clearLog()
@@ -743,12 +883,11 @@ function clearLog()
 		var title = filterTitle(document.getElementById("title").innerHTML);
 		var data = {file: title};
 		$.ajax({
-				  url: urlForSend,
-				  dataType: "json",
-				  data: data,
-				  type: "POST",
+				url: urlForSend,
+				dataType: "json",
+				data: data,
+				type: "POST",
 		success: function(data){
-	    // we make a successful JSONP call!
 		  },
 		});
 	}
@@ -763,17 +902,18 @@ function deleteAction()
 {
 	try
 	{
-    	var urlForSend = "core/php/clearAllLogs.php?format=json";
-	var data = "";
-	$.ajax({
-			  url: urlForSend,
-			  dataType: "json",
-			  data: data,
-			  type: "POST",
-	success: function(data){
-    // we make a successful JSONP call!
-	  },
-	});
+		var urlForSend = "core/php/clearAllLogs.php?format=json";
+		var data = "";
+		$.ajax({
+			url: urlForSend,
+			dataType: "json",
+			data: data,
+			type: "POST",
+			success(data)
+			{
+
+			}
+		});
 	}
 	catch(e)
 	{
@@ -812,18 +952,18 @@ function deleteLog()
 		var data = {file: title};
 		name = title;
 		$.ajax({
-				  url: urlForSend,
-				  dataType: "json",
-				  data: data,
-				  type: "POST",
-		success(data)
-		{
-		    var idOfDeletedLog = data.replace(/[^a-z0-9]/g, "");
-			if($("#menu ." + idOfDeletedLog + "Button").length !== 0)
+			url: urlForSend,
+			dataType: "json",
+			data: data,
+			type: "POST",
+			success(data)
 			{
-				$("#menu ." + idOfDeletedLog + "Button").remove();
+			    var idOfDeletedLog = data.replace(/[^a-z0-9]/g, "");
+				if($("#menu ." + idOfDeletedLog + "Button").length !== 0)
+				{
+					$("#menu ." + idOfDeletedLog + "Button").remove();
+				}
 			}
-		}
 		});
 	}
 	catch(e)
@@ -943,7 +1083,7 @@ function checkForUpdateDefinitely(showPopupForNoUpdate = false)
 			updating = true;
 			if(showPopupForNoUpdate)
 			{
-				displayLoadingPopup("./core/img/");
+				displayLoadingPopup(baseUrl+"img/");
 			}
 			$.getJSON('core/php/settingsCheckForUpdateAjax.php', {}, function(data) 
 			{
@@ -1028,6 +1168,58 @@ function showUpdateCheckPopup(data)
 	}
 }
 
+function showPauseButton()
+{
+	try
+	{
+		document.getElementById("pauseImage").style.display = "inline-block";
+		document.getElementById("playImage").style.display = "none";
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
+function showPlayButton()
+{
+	try
+	{
+		document.getElementById("pauseImage").style.display = "none";
+		document.getElementById("playImage").style.display = "inline-block";
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
+function showRefreshButton()
+{
+	try
+	{
+		document.getElementById("refreshImage").style.display = "inline-block";
+		document.getElementById("refreshingImage").style.display = "none";
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
+function showRefreshingButton()
+{
+	try
+	{
+		document.getElementById("refreshImage").style.display = "none";
+		document.getElementById("refreshingImage").style.display = "inline-block";
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
 function saveSettingFromPopupNoCheckMaybe()
 {
 	try
@@ -1057,28 +1249,40 @@ function saveSettingFromPopupNoCheckMaybe()
 	}
 }
 
-function eventThrowException(e)
+function updateProgressBar(additonalPercent, text)
 {
-	if(sendCrashInfoJS === "true")
+	try
 	{
-		Raven.captureException(e);
+		if(firstLoad)
+		{
+			percent = percent + additonalPercent;
+			document.getElementById('progressBar').value = percent;
+			$('#progressBarSubInfo').empty();
+			$('#progressBarSubInfo').append(text);
+		}
+	}
+	catch(e)
+	{
+		eventThrowException(e);
 	}
 }
 
 $(document).ready(function()
 {
 	resize();
-
+	updateProgressBar(10, "Generating File List");
 	window.onresize = resize;
 	window.onfocus = focus;
+
+	refreshAction();
 
 	if(pausePollFromFile)
 	{
 		pausePoll = true;
+
 	}
 	else
 	{
-		poll();
 		startPollTimer();
 	}
 

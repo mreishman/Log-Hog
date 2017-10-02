@@ -9,7 +9,7 @@ function microtime_float()
 
 $time_start = microtime_float();
 
-require_once('settingsInstallUpdate.php'); 
+require_once('settingsInstallUpdate.php');
 require_once('updateProgressFile.php');
 
 $action = $_POST['actionVar'];
