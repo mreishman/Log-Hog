@@ -276,4 +276,6 @@ $withLogHog = $monitorStatus['withLogHog'];
     	setInterval(poll, 100);
 	});
 
+	var htmlRestoreOptions = "<?php readfile('../core/html/restoreVersionOptions.html') ?>";
+
 </script>
