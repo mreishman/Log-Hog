@@ -7,16 +7,18 @@ if(file_exists('../local/layout.php'))
 	require_once('../local/layout.php');
 	$baseUrl .= $currentSelectedTheme."/";
 }
+$localURL = $baseUrl;
 require_once($baseUrl.'conf/config.php');
 require_once('../core/conf/config.php');
 require_once('../core/php/configStatic.php');
 require_once('../core/php/loadVars.php');
 require_once('../core/php/updateCheck.php');
+require_once('../core/php/commonFunctions.php');
 ?>
 <!doctype html>
 <head>
 	<title>Settings | Update</title>
-	<link rel="stylesheet" type="text/css" href="<?php echo $baseUrl ?>template/theme.css">
+	<?php echo loadCSS($baseUrl, $cssVersion);?>
 	<link rel="icon" type="image/png" href="../core/img/favicon.png" />
 	<script src="../core/js/jquery.js"></script>
 </head>
@@ -30,7 +32,6 @@ require_once('../core/php/updateCheck.php');
 	</div>
 	<?php readfile('../core/html/popup.html') ?>	
 </body>
-<script src="../core/js/settings.js"></script>
 <script type="text/javascript">
 	function goToUrl(url)
 	{

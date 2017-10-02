@@ -12,7 +12,7 @@ if($action == 'downloadFile')
 		}
 	}
 	downloadFile($_POST['file'],$boolUp,$_POST['downloadFrom'],$_POST['downloadTo']);
-	$response = true; 
+	$response = true;
 }
 elseif($action == 'unzipFile')
 {

@@ -1,4 +1,6 @@
 <?php
+require_once('../core/php/commonFunctions.php');
+
 $baseUrl = "../core/";
 if(file_exists('../local/layout.php'))
 {
@@ -7,7 +9,8 @@ if(file_exists('../local/layout.php'))
 	require_once('../local/layout.php');
 	$baseUrl .= $currentSelectedTheme."/";
 }
-require_once($baseUrl.'conf/config.php'); 
+$localURL = $baseUrl;
+require_once($baseUrl.'conf/config.php');
 require_once('../core/conf/config.php');
 require_once('../core/php/configStatic.php');
 require_once('../core/php/loadVars.php');
@@ -16,19 +19,21 @@ require_once('../core/php/updateCheck.php');
 <!doctype html>
 <head>
 	<title>Settings | Dev Tools</title>
-	<link rel="stylesheet" type="text/css" href="<?php echo $baseUrl ?>template/theme.css">
+	<?php echo loadCSS($baseUrl, $cssVersion);?>
 	<link rel="icon" type="image/png" href="../core/img/favicon.png" />
 	<script src="../core/js/jquery.js"></script>
+	<script src="../core/js/devTools.js?v=<?php echo $cssVersion;?>"></script>
 </head>
 <body>
 	<?php require_once('header.php'); ?>
 	<div id="main">
-	<form id="devAdvanced" action="../core/php/settingsSave.php" method="post">
+	<form id="devBranch" action="../core/php/settingsSave.php" method="post">
 		<div class="settingsHeader">
 			Branch Settings  
 			<div class="settingsHeaderButtons">
+				<a onclick="resetSettingsDevBranch();" id="resetChangesDevBranchHeaderButton" style="display: none;" class="linkSmall" > Reset Current Changes</a>
 				<?php if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
-					<a class="linkSmall" onclick="saveAndVerifyMain('devAdvanced');" >Save Changes</a>
+					<a class="linkSmall" onclick="saveAndVerifyMain('devBranch');" >Save Changes</a>
 				<?php else: ?>
 					<button  onclick="displayLoadingPopup();">Save Changes</button>
 				<?php endif; ?>
@@ -38,10 +43,12 @@ require_once('../core/php/updateCheck.php');
 			<ul id="settingsUl">
 				<li>
 					<span class="settingsBuffer" >  Enable Development Branch: </span>
+					<div class="selectDiv">
 						<select name="enableDevBranchDownload">
-  						<option <?php if($enableDevBranchDownload == 'true'){echo "selected";} ?> value="true">True</option>
-  						<option <?php if($enableDevBranchDownload == 'false'){echo "selected";} ?> value="false">False</option>
-					</select>
+  							<option <?php if($enableDevBranchDownload == 'true'){echo "selected";} ?> value="true">True</option>
+  							<option <?php if($enableDevBranchDownload == 'false'){echo "selected";} ?> value="false">False</option>
+						</select>
+					</div>
 				</li>
 				<li>
 					<span class="settingsBuffer" >  Base URL:  </span> <input type="text" style="width: 400px;"  name="baseUrlUpdate" value="<?php echo $baseUrlUpdate;?>" > 
@@ -61,6 +68,7 @@ require_once('../core/php/updateCheck.php');
 		<div class="settingsHeader">
 			Static Config Settings  
 			<div class="settingsHeaderButtons">
+				<a onclick="resetSettingsDevAdvanced2();" id="resetChangesDevAdvanced2HeaderButton" style="display: none;" class="linkSmall" > Reset Current Changes</a>
 				<button onclick="displayLoadingPopup();" >Save Changes</button>
 			</div>
 		</div>
@@ -76,6 +84,7 @@ require_once('../core/php/updateCheck.php');
 		<div class="settingsHeader">
 			Update Progress File Settings
 			<div class="settingsHeaderButtons">
+				<a onclick="resetSettingsDevAdvanced3();" id="resetChangesDevAdvanced3HeaderButton" style="display: none;" class="linkSmall" > Reset Current Changes</a>
 				<button onclick="displayLoadingPopup();" >Save Changes</button>
 			</div>
 		</div>
@@ -104,24 +113,31 @@ require_once('../core/php/updateCheck.php');
 	</div>
 	<?php readfile('../core/html/popup.html') ?>	
 </body>
-<script src="../core/js/settings.js"></script>
 <script type="text/javascript">
-	var popupSettingsArray = JSON.parse('<?php echo json_encode($popupSettingsArray) ?>');
-	function goToUrl(url)
-	{
-		var goToPage = true
-		if(document.getElementsByName("enableDevBranchDownload")[0].value != "<?php echo $enableDevBranchDownload;?>")
-		{
-			//goToPage = false;
-		}
 
-		if(goToPage || popupSettingsArray.saveSettings == "false")
-		{
-			window.location.href = url;
-		}
-		else
-		{
-			displaySavePromptPopup(url);
-		}
+var popupSettingsArray = JSON.parse('<?php echo json_encode($popupSettingsArray) ?>');
+
+function goToUrl(url)
+{
+	var goToPage = !checkForChange();
+
+	if(goToPage || popupSettingsArray.saveSettings == "false")
+	{
+		window.location.href = url;
 	}
+	else
+	{
+		displaySavePromptPopup(url);
+	}
+}
+
+
+$( document ).ready(function() 
+{
+	refreshSettingsDevBranch();
+	refreshSettingsDevAdvanced2();
+	refreshSettingsDevAdvanced3();
+	setInterval(poll, 100);
+});
+
 </script>
