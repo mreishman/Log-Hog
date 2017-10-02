@@ -31,19 +31,11 @@ if(file_exists($baseUrl.'conf/topConfig.php'))
 } 
 require_once('../core/conf/configTop.php');
 require_once('../core/php/loadVarsTop.php');
-if(!$seperateFromLogHog)
-{
-	require_once('../core/php/commonFunctions.php');
-}
 ?>
 <!doctype html>
 <head>
 	<title>Settings | Top</title>
-	<?php if($seperateFromLogHog):?>
-		<link rel="stylesheet" type="text/css" href="<?php echo $baseUrl ?>template/theme.css">
-	<?php else: ?>
-		<?php echo loadCSS($baseUrl, $cssVersion);?>
-	<?php endif; ?>
+	<link rel="stylesheet" type="text/css" href="<?php echo $baseUrl ?>template/theme.css">
 	<link rel="icon" type="image/png" href="../core/img/favicon.png" />
 	<script src="../core/js/jquery.js"></script>
 </head>

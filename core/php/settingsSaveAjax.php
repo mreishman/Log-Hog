@@ -10,7 +10,7 @@ if(file_exists('../../local/layout.php'))
 }
 
 require_once($baseUrl.'conf/config.php');
-require_once('../../core/conf/config.php');
+require_once('../../core/conf/config.php'); 
 require_once('loadVars.php');
 
 

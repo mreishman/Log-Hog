@@ -1,24 +1,5 @@
 <?php
 
-function forEachAddVars($variable)
-{
-	$returnText = "array(";
-	foreach ($variable as $key => $value)
-	{
-		$returnText .= " '".$key."' => ";
-		if(is_array($value) || is_object($value))
-		{
-			$returnText .= forEachAddVars($value);
-		}
-		else
-		{
-			$returnText .= "'".$value."',";
-		}
-	}
-	$returnText .= "),";
-	return $returnText;
-}
-
 $varToIndexDir = "";
 $countOfSlash = 0;
 while($countOfSlash < 20 && !file_exists($varToIndexDir."error.php"))
@@ -46,21 +27,8 @@ else
 }
 require_once($varToIndexDir.'core/conf/config.php');
 $URI = $_SERVER['REQUEST_URI'];
-if($boolForUpgrade && (strpos($URI, 'upgradeLayout') === false) && (strpos($URI, 'upgradeConfig') === false) && (strpos($URI, 'core/php/template/upgrade') === false) && (strpos($URI, 'upgradeTheme') === false) && (strpos($URI, 'themeChangeLogic') === false)) //
+if($boolForUpgrade && (strpos($URI, 'upgradeLayout') === false) && (strpos($URI, 'upgradeConfig') === false) && (strpos($URI, 'core/php/template/upgrade') === false))
 {
-	$themeVersion = 0;
-	if(isset($config['themeVersion']))
-	{
-		$themeVersion = $config['themeVersion'];
-	}
-	if($themeVersion !== $defaultConfig['themeVersion'] || !is_file($baseUrl."/template/theme.css"))
-	{
-		//redirect to themeVersion upgrade script (copy over theme files to local)
-		header("Location: ".$varToIndexDir."core/php/template/upgradeTheme.php");
-		exit();
-
-	}
-
 	//check if upgrade script is needed
 	$layoutVersion = 0;
 	if(isset($config['layoutVersion']))
@@ -183,9 +151,15 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 		else
 		{
 			$popupSettingsArraySave = "";
+			$count = 0;
 			foreach ($popupSettingsArray as $key => $value)
 			{
-				$popupSettingsArraySave .= "'".$key."'	=>	'".$value."',";
+				$popupSettingsArraySave .= "'".$key."'	=>	'".$value."'";
+				$count++;
+				if($count != 4)
+				{
+					$popupSettingsArraySave .= ",";
+				}
 			}
 		}
 	}
@@ -198,76 +172,31 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 		for($i = 0; $i < $intFolderThemeCount; $i++ )
 		{
 			$folderColorArraysSave .= "'".$_POST['folderColorThemeNameForPost'.($i+1)]."'	=>	array(";
-
-				//main
-				$folderColorArraysSave .= " 'main' => array(";
-
-					$colorCount = 0;
-					while (isset($_POST['folderColorValueMainBackground'.($i+1).'-'.($colorCount+1)]))
-					{
-						$colorCount++;
-						$folderColorArraysSave .= " 'main-".($colorCount)."' => array(";
-						$folderColorArraysSave .= " 'background' => '".$_POST['folderColorValueMainBackground'.($i+1).'-'.($colorCount)]."',";
-						$folderColorArraysSave .= " 'fontColor' => '".$_POST['folderColorValueMainFont'.($i+1).'-'.($colorCount)]."',";
-						$folderColorArraysSave .= "),";
-					}
-
-				$folderColorArraysSave .= "),";
-
-				//highlight
-				$folderColorArraysSave .= " 'highlight' => array(";
-
-					$colorCount = 0;
-					while (isset($_POST['folderColorValueHighlightBackground'.($i+1).'-'.($colorCount+1)]))
-					{
-						$colorCount++;
-						$folderColorArraysSave .= " 'highlight-".($colorCount)."' => array(";
-						$folderColorArraysSave .= " 'background' => '".$_POST['folderColorValueHighlightBackground'.($i+1).'-'.($colorCount)]."',";
-						$folderColorArraysSave .= " 'fontColor' => '".$_POST['folderColorValueHighlightFont'.($i+1).'-'.($colorCount)]."',";
-						$folderColorArraysSave .= "),";
-					}
-
-				$folderColorArraysSave .= "),";
-
-				//active
-				$folderColorArraysSave .= " 'active' => array(";
-
-					$colorCount = 0;
-					while (isset($_POST['folderColorValueActiveBackground'.($i+1).'-'.($colorCount+1)]))
-					{
-						$colorCount++;
-						$folderColorArraysSave .= " 'active-".($colorCount)."' => array(";
-						$folderColorArraysSave .= " 'background' => '".$_POST['folderColorValueActiveBackground'.($i+1).'-'.($colorCount)]."',";
-						$folderColorArraysSave .= " 'fontColor' => '".$_POST['folderColorValueActiveFont'.($i+1).'-'.($colorCount)]."',";
-						$folderColorArraysSave .= "),";
-					}
-
-				$folderColorArraysSave .= "),";
-
-				//highlightActive
-				$folderColorArraysSave .= " 'highlightActive' => array(";
-
-					$colorCount = 0;
-					while (isset($_POST['folderColorValueActiveHighlightBackground'.($i+1).'-'.($colorCount+1)]))
-					{
-						$colorCount++;
-						$folderColorArraysSave .= " 'highlightActive-".($colorCount)."' => array(";
-						$folderColorArraysSave .= " 'background' => '".$_POST['folderColorValueActiveHighlightBackground'.($i+1).'-'.($colorCount)]."',";
-						$folderColorArraysSave .= " 'fontColor' => '".$_POST['folderColorValueActiveHighlightFont'.($i+1).'-'.($colorCount)]."',";
-						$folderColorArraysSave .= "),";
-					}
-
-				$folderColorArraysSave .= "),";
-
-			$folderColorArraysSave .= "),";
+			$colorCount = 0;
+			while (isset($_POST['folderColorValue'.($i+1).'-'.($colorCount+1)]))
+			{
+				$colorCount++;
+				$folderColorArraysSave .= "'".$_POST['folderColorValue'.($i+1).'-'.($colorCount)]."',";
+			}
+			$folderColorArraysSave = substr($folderColorArraysSave, 0, -1);
+			$folderColorArraysSave .= ")";
+			$folderColorArraysSave .= ",";
 		}
 	}
 	else
 	{
+		$count = 0;
 		foreach ($folderColorArrays as $key => $value)
 		{
-			$folderColorArraysSave .= "'".$key."'	=>	";
-			$folderColorArraysSave .= forEachAddVars($value);
+			$folderColorArraysSave .= "'".$key."'	=>	array(";
+			$count++;
+			foreach ($value as $key2 => $value2)
+			{
+				$folderColorArraysSave .= "'".$value2."',";
+			}
+			$folderColorArraysSave = substr($folderColorArraysSave, 0, -1);
+			$folderColorArraysSave .= ")";
+			$folderColorArraysSave .= ",";
 		}
 	}
 	$folderColorArrays = $folderColorArraysSave;
