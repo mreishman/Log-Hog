@@ -37,6 +37,7 @@ $defaultConfig = array(
 	'logSizeLimit'	=>	2000,
 	'logTrimMacBSD'	=> 'false',
 	'baseUrlUpdate'	=> 'https://github.com/mreishman/Log-Hog/archive/',
+	'branchSelected'	=> 'default',
 	'logTrimType'	=>	'lines',
 	'TrimSize'	=> 'K',
 	'hideEmptyLog'	=> 'false',
