@@ -35,13 +35,13 @@ if(file_exists("../../update/downloads/versionCheck/extracted/"))
 
 
 
-if(array_key_exists('branchSelected', $config))
+if(array_key_exists('enableDevBranchDownload', $config))
 {
-  $branchSelected = $config['branchSelected'];
+  $enableDevBranchDownload = $config['enableDevBranchDownload'];
 }
 else
 {
-  $branchSelected = $defaultConfig['branchSelected'];
+  $enableDevBranchDownload = $defaultConfig['enableDevBranchDownload'];
 }
 if(array_key_exists('baseUrlUpdate', $config))
 {
@@ -52,16 +52,10 @@ else
   $baseUrlUpdate = $defaultConfig['baseUrlUpdate'];
 }
 
-if($branchSelected === "dev")
+if($enableDevBranchDownload == "true")
 {
   file_put_contents("../../update/downloads/versionCheck/versionCheck.zip", 
   file_get_contents($baseUrlUpdate ."versionCheckDev.zip")
-  );
-}
-elseif($branchSelected == "beta")
-{
-  file_put_contents("../../update/downloads/versionCheck/versionCheck.zip", 
-  file_get_contents($baseUrlUpdate ."versionCheckBeta.zip")
   );
 }
 else

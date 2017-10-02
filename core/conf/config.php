@@ -18,7 +18,6 @@ $defaultConfig = array(
 	'autoCheckDaysUpdate'	=>	'7',
 	'developmentTabEnabled' => 'false',
 	'enableDevBranchDownload' => 'false',
-	'branchSelected'	=> 'default',
 	'enableSystemPrefShellOrPhp'	=> 'false',
 	'rightClickMenuEnable'	=> 'true',
 	'enableHtopLink'	=> 'false',
