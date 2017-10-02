@@ -7,7 +7,7 @@ if(file_exists('../local/layout.php'))
 	require_once('../local/layout.php');
 	$baseUrl .= $currentSelectedTheme."/";
 }
-require_once($baseUrl.'conf/config.php'); 
+require_once($baseUrl.'conf/config.php');
 require_once('setupProcessFile.php');
 
 function clean_url($url) {
@@ -36,7 +36,7 @@ require_once('../core/php/loadVarsTop.php'); ?>
 <html>
 <head>
 	<title>Welcome!</title>
-	<link rel="stylesheet" type="text/css" href="<?php echo $baseUrl ?>template/theme.css">
+	<link rel="stylesheet" type="text/css" href="../core/template/theme.css">
 	<script src="../core/js/jquery.js"></script>
 	<?php readfile('../core/html/popup.html') ?>	
 	<style type="text/css">
@@ -90,6 +90,6 @@ require_once('../core/php/loadVarsTop.php'); ?>
 	}
 
 </script>
-<script src="stepsJavascript.js"></script>
-<script src="../core/js/settingsMain.js"></script>
+<script src="stepsJavascript.js?v=<?php echo $cssVersion?>"></script>
+<script src="../core/js/settingsMain.js?v=<?php echo $cssVersion?>"></script>
 </html>

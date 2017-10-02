@@ -1,8 +1,5 @@
 <?php
-function clean_url($url) {
-    $parts = parse_url($url);
-    return $parts['path'];
-}
+require_once('core/php/commonFunctions.php');
 
 $baseUrl = "core/";
 if(file_exists('local/layout.php'))
@@ -25,19 +22,15 @@ require_once('core/php/configStatic.php');
 require_once('core/php/loadVars.php');
 require_once('core/php/updateCheck.php');
 
-$today = date('Y-m-d');
-$old_date = $configStatic['lastCheck'];
-$old_date_array = preg_split("/-/", $old_date);
-$old_date = $old_date_array[2]."-".$old_date_array[0]."-".$old_date_array[1];
-
-$datetime1 = date_create($old_date_array[2]."-".$old_date_array[0]."-".$old_date_array[1]);
-$datetime2 = date_create($today);
-$interval = date_diff($datetime1, $datetime2);
-$daysSince = $interval->format('%a');
+$daysSince = calcuateDaysSince($configStatic['lastCheck']);
 
 if($pollingRateType == 'Seconds')
 {
 	$pollingRate *= 1000;
+}
+if($backgroundPollingRateType == 'Seconds')
+{
+	$backgroundPollingRate *= 1000;
 }
 
 require_once('top/statusTest.php');
@@ -62,6 +55,10 @@ if($locationForMonitor != "")
 {
 	$locationForMonitorIndex = $locationForMonitor;
 }
+elseif($withLogHog == 'true')
+{
+	$locationForMonitorIndex = './top/index.php';
+}
 elseif (is_dir("../monitor"))
 {
 	$locationForMonitorIndex = "../monitor/";
@@ -70,93 +67,123 @@ elseif (is_dir("../Monitor"))
 {
 	$locationForMonitorIndex = "../Monitor/";
 }
-elseif($withLogHog == 'true')
-{
-	$locationForMonitorIndex = './top/index.php';
-}
 
 ?>
 <!doctype html>
 <head>
 	<title>Log Hog | Index</title>
-	<link rel="stylesheet" type="text/css" href="<?php echo $baseUrl ?>template/theme.css">
-	<link rel="icon" type="image/png" href="core/img/favicon.png" />
-	<?php if($sendCrashInfoJS === "true"): ?>
-	<script src="https://cdn.ravenjs.com/3.17.0/raven.min.js" crossorigin="anonymous"></script>
-	<script type="text/javascript">
-		Raven.config('https://2e455acb0e7a4f8b964b9b65b60743ed@sentry.io/205980', {
-		    release: '2.3.5'
-		}).install();
-	</script>
-	<?php endif; ?>
+	<?php echo loadCSS($baseUrl, $cssVersion);?>
+	<link rel="icon" type="image/png" href="<?php echo $baseUrl; ?>img/favicon.png" />
 	<script src="core/js/jquery.js"></script>
-	<script src="core/js/visibility.core.js"></script>
-	<script src="core/js/visibility.fallback.js"></script>
-	<script src="core/js/visibility.js"></script>
-	<script src="core/js/visibility.timers.js"></script>
+	<?php
+		echo loadSentryData($sendCrashInfoJS);
+		echo loadVisibilityJS(baseURL());
+	?>
 </head>
 <body>
-<style type="text/css">
-	#menu a, .link, .linkSmall, .context-menu{
-		background-color: <?php echo $currentSelectedThemeColorValues[0]?>;
-	}
-</style>
-	<?php if($enablePollTimeLogging != "false"): ?>
+	<?php require_once("core/php/customCSS.php");
+	if($enablePollTimeLogging != "false"): ?>
 		<div id="loggTimerPollStyle" style="width: 100%;background-color: black;text-align: center; line-height: 200%;" ><span id="loggingTimerPollRate" >### MS /<?php echo $pollingRate; ?> MS</span> | <span id="loggSkipCount" >0</span>/<?php echo $pollForceTrue; ?> | <span id="loggAllCount" >0</span>/<?php echo $pollRefreshAll; ?></div>
 	<?php endif; ?>
-	<div id="menu">
-		<div onclick="pausePollAction();" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">
-			<?php if($pausePoll == 'true'):?>
-				<img id="pauseImage" class="menuImage" src="core/img/Play.png" height="30px">
+	<div class="backgroundForMenus" id="menu">
+		<div style="display: inline-block;">
+			<div onclick="pausePollAction();" class="menuImageDiv">
+				<img id="playImage" class="menuImage" src="<?php echo $baseUrl; ?>img/Play.png"
+					<?php if($pausePoll !== 'true'):?>
+						style="display: none;"
+					<?php else: ?>
+						style="display: inline-block;"
+					<?php endif;?>
+				height="30px">
+				<img id="pauseImage" class="menuImage" src="<?php echo $baseUrl; ?>img/Pause.png"
+					<?php if($pausePoll === 'true'):?>
+						style="display: none;"
+					<?php else: ?>
+						style="display: inline-block;"
+					<?php endif;?>
+				height="30px">
+			</div>
+			<div onclick="refreshAction();" class="menuImageDiv">
+				<img id="refreshImage" class="menuImage" src="<?php echo $baseUrl; ?>img/Refresh.png" height="30px">
+				<img id="refreshingImage" class="menuImage" style="display: none;" src="<?php echo $baseUrl; ?>img/loading.gif" height="30px">
+			</div>
+			<?php if($truncateLog == 'true'): ?>
+			<div onclick="deleteAction();"  class="menuImageDiv">
+				<img id="deleteImage" class="menuImage" src="<?php echo $baseUrl; ?>img/trashCanMulti.png" height="30px">
+			</div>
 			<?php else: ?>
-				<img id="pauseImage" class="menuImage" src="core/img/Pause.png" height="30px">
-			<?php endif;?>
+			<div onclick="clearLog();" class="menuImageDiv">
+				<img id="deleteImage" class="menuImage" src="<?php echo $baseUrl; ?>img/trashCan.png" height="30px">
+			</div>
+			<?php endif; ?>
+			<?php if($locationForMonitorIndex != ""): ?>
+			<div onclick="window.location.href = '<?php echo $locationForMonitorIndex; ?>'"  class="menuImageDiv">
+				<img id="taskmanagerImage" class="menuImage" src="<?php echo $baseUrl; ?>img/task-manager.png" height="30px">
+			</div>
+			<?php endif; ?>
+			<div onclick="window.location.href = './settings/main.php';"  class="menuImageDiv">
+				<img data-id="1" id="gear" class="menuImage" src="<?php echo $baseUrl; ?>img/Gear.png" height="30px">
+				<?php if($updateNotificationEnabled === "true")
+				{
+					if($levelOfUpdate == 1)
+					{
+						echo '<img id="updateImage" src="<?php echo $baseUrl; ?>img/yellowWarning.png" height="15px" style="position: absolute;margin-left: 13px;margin-top: -34px;">';
+					}
+					elseif($levelOfUpdate == 2 || $levelOfUpdate == 3)
+					{
+						echo '<img id="updateImage" src="<?php echo $baseUrl; ?>img/redWarning.png" height="15px" style="position: absolute;margin-left: 13px;margin-top: -34px;">';
+					}
+				}?>
+			</div>
+			<?php if ($locationForStatusIndex != ""):?>
+				<div class="menuImage" style="display: inline-block; cursor: pointer;" onclick="window.location.href='<?php echo $locationForStatusIndex; ?>'" >
+					gS
+				</div>
+			<?php endif; ?>
 		</div>
-		<div onclick="refreshAction();" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">
-			<img id="refreshImage" class="menuImage" src="core/img/Refresh.png" height="30px">
-		</div>
-		<?php if($truncateLog == 'true'): ?>
-		<div onclick="deleteAction();" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">
-			<img id="deleteImage" class="menuImage" src="core/img/trashCanMulti.png" height="30px">
-		</div>
-		<?php else: ?>
-		<div onclick="clearLog();" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">
-			<img id="deleteImage" class="menuImage" src="core/img/trashCan.png" height="30px">
-		</div>
-		<?php endif; ?>
-		<?php if($locationForMonitorIndex != ""): ?>
-		<div onclick="window.location.href = '<?php echo $locationForMonitorIndex; ?>'" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">
-			<img id="taskmanagerImage" class="menuImage" src="core/img/task-manager.png" height="30px">
-		</div>
-		<?php endif; ?>
-		<div onclick="window.location.href = './settings/main.php';" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">
-			<img data-id="1" id="gear" class="menuImage" src="core/img/Gear.png" height="30px">
-			<?php  if($levelOfUpdate == 1){echo '<img id="updateImage" src="core/img/yellowWarning.png" height="15px" style="position: absolute;margin-left: 13px;margin-top: -34px;">';} ?> <?php if($levelOfUpdate == 2 || $levelOfUpdate == 3){echo '<img id="updateImage" src="core/img/redWarning.png" height="15px" style="position: absolute;margin-left: 13px;margin-top: -34px;">';} ?>
-		</div>
-		<?php if ($locationForStatusIndex != ""):?>
-			<div style="display: inline-block; cursor: pointer; " onclick="window.location.href='<?php echo $locationForStatusIndex; ?>'" >gS</div>
-		<?php endif; ?>
 	</div>
 	
 	<div id="main">
 		<div id="log"></div>
-		<!-- 
 		<div id="firstLoad" style="width: 100%; height: 100%;">
 			<h1 style="margin-right: auto; margin-left: auto; width: 100%; text-align: center;  margin-top: 100px; font-size: 150%;" >Loading...</h1>
 			<div style="width: 80%; height: 50px; background-color: #999; border: 1px solid white; margin-left: auto; margin-right: auto;">
-			
+				<progress id="progressBar" value="0" max="100" style="width: 100%; height: 100%; -webkit-appearance: none; appearance: none;" ></progress>
 			</div>
+			<h3 id="progressBarSubInfo" style="margin-right: auto; margin-left: auto; width: 100%; text-align: center;  margin-top: 10px; font-size: 150%;" >Loading Javascript</h3>
 		</div>
-		-->
 	</div>
 	
 	<div id="storage">
 		<div class="menuItem">
-			<a style="{{style}}" class="{{id}}Button" onclick="show(this, '{{id}}')">{{title}}</a>
+			<a class="{{id}}Button {{class}}" onclick="show(this, '{{id}}')">{{title}}</a>
 		</div>
 	</div>
 	
-	<div style=" <?php if($bottomBarIndexShow == 'false'){echo 'display: none;';}?> " id="titleContainer"><div id="title">&nbsp;</div>&nbsp;&nbsp;<form style="display: inline-block; float: right;" ><a class="linkSmall" onclick="clearLog()" >Clear Log</a><a class="linkSmall" onclick="deleteLogPopup()" >Delete Log</a></form></div>
+	<div
+		class="backgroundForMenus" 
+		style=" 
+		<?php
+		if($bottomBarIndexShow == 'false')
+		{
+			echo 'display: none;';
+		}
+		?>"
+		id="titleContainer"
+	>
+		<div id="title">
+			&nbsp;
+		</div>
+		&nbsp;&nbsp;
+		<form style="display: inline-block; float: right;" >
+			<a class="linkSmall" onclick="clearLog()" >
+				Clear Log
+			</a>
+			<a class="linkSmall" onclick="deleteLogPopup()" >
+				Delete Log
+			</a>
+		</form>
+	</div>
 	<form id="settingsInstallUpdate" action="update/updater.php" method="post" style="display: none"></form>
 	<script>
 
@@ -177,7 +204,7 @@ elseif($withLogHog == 'true')
 				echo "Rightclick_ID_list.push('updateImage');";
 			}
 		endif;
-		echo "var currentFolderColorThemeArrayOfColors = JSON.parse('".json_encode($currentSelectedThemeColorValues)."');";
+		echo "var colorArrayLength = ".count($currentSelectedThemeColorValues).";";
 		echo "var pausePollOnNotFocus = ".$pauseOnNotFocus.";";
 		echo "var autoCheckUpdate = ".$autoCheckUpdate.";";
 		echo "var flashTitleUpdateLog = ".$flashTitleUpdateLog.";";
@@ -185,6 +212,7 @@ elseif($withLogHog == 'true')
 		echo "var daysSinceLastCheck = '".$daysSince."';";
 		echo "var daysSetToUpdate = '".$autoCheckDaysUpdate."';";
 		echo "var pollingRate = ".$pollingRate.";";
+		echo "var backgroundPollingRate = ".$backgroundPollingRate.";";
 		echo "var pausePollFromFile = ".$pausePoll.";";
 		echo "var groupByColorEnabled = ".$groupByColorEnabled.";";
 		echo "var pollForceTrue = ".$pollForceTrue.";";
@@ -201,12 +229,12 @@ elseif($withLogHog == 'true')
 		var updateNoticeMeter = "<?php echo $updateNoticeMeter;?>";
 		var pollRefreshAllBool = "<?php echo $pollRefreshAllBool;?>";
 		var pollForceTrueBool = "<?php echo $pollRefreshAllBool;?>";
-		var sendCrashInfoJS = "<?php echo $sendCrashInfoJS;?>";
+		var baseUrl = "<?php echo $baseUrl;?>";
 
 	</script>
 	<?php readfile('core/html/popup.html') ?>
-	<script src="core/js/main.js"></script>
-	<script src="core/js/rightClickJS.js"></script>	
+	<script src="core/js/main.js?v=<?php echo $cssVersion?>"></script>
+	<script src="core/js/rightClickJS.js?v=<?php echo $cssVersion?>"></script>	
 
 	<nav id="context-menu" class="context-menu">
 	  <ul id="context-menu-items" class="context-menu__items">

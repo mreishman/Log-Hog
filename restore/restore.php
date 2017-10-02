@@ -315,5 +315,4 @@ function finishedDownload()
 	}
 	
 </script>
-<!-- <script src="../core/js/settingsMain.js"></script> -->
 </html>
