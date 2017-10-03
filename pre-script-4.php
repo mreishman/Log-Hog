@@ -1,5 +1,5 @@
 <?php
-
+sleep(3);
 function forEachAddVars($variable)
 {
 	$returnText = "array(";
@@ -544,7 +544,7 @@ $newInfoForConfig .= "
 ?>";
 
 file_put_contents($fileName, $newInfoForConfig);	
-
+sleep(3);
 echo json_encode(true);
 
 //TRUE for no check, or filename / path for check
