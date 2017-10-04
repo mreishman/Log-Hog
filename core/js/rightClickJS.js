@@ -8,7 +8,7 @@ $( document ).ready(function() {
 
     var checkForUpdateRightClickMenu = {action: "checkForUpdateDefinitely(true);", name: "Check For Update"};
     var aboutRightClickMenu = {action: "window.location.href = \"./settings/about.php\"", name: "About"};
-    var changeLogRightClickMenu = {action: "window.location.href = \"./settings/update.php\"", name: "Change Log"};
+    var changeLogRightClickMenu = {action: "window.location.href = \"./settings/changeLog.php\"", name: "Change Log"};
     var advancedRightClickMenu = {action: "window.location.href = \"./settings/advanced.php\"", name: "Advanced"};
     var devToolsRightClickMenu = {action: "window.location.href = \"./settings/devTools.php\"", name: "Dev Tools"};
     var experimentalFeaturesRightClickMenu = {action: "window.location.href = \"./settings/experimentalfeatures.php\"", name: "Experimental Features"};
