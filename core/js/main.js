@@ -976,7 +976,7 @@ function filterTitle(title)
 {
 	try
 	{
-    	if(title.substring(0, title.indexOf("|")) !== null && title.substring(0, title.indexOf("|")) != "")
+		if(title.substring(0, title.indexOf("|")) !== null && title.substring(0, title.indexOf("|")) !== "")
 		{
 			title = title.substring(0, title.indexOf("|"));
 		}
