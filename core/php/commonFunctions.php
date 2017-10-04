@@ -61,11 +61,13 @@ function loadSentryData($sendCrashInfoJS)
 {
 	if($sendCrashInfoJS === "true")
 	{
+		include(baseURL()."core/php/configStatic.php");
+		$versionForSentry = $configStatic["version"];
 		return  "
 		<script src=\"https://cdn.ravenjs.com/3.17.0/raven.min.js\" crossorigin=\"anonymous\"></script>
 		<script type=\"text/javascript\">
 		Raven.config(\"https://2e455acb0e7a4f8b964b9b65b60743ed@sentry.io/205980\", {
-		    release: \"3.0\"
+		    release: \"".$versionForSentry."\"
 		}).install();
 
 		function eventThrowException(e)
@@ -88,14 +90,14 @@ function loadSentryData($sendCrashInfoJS)
 
 function baseURL()
 {
-	$baseURL = "";
-	$boolBaseURL = file_exists($baseURL."error.php");
+	$tmpFuncBaseURL = "";
+	$boolBaseURL = file_exists($tmpFuncBaseURL."error.php");
 	while(!$boolBaseURL)
 	{
-		$baseURL .= "../";
-		$boolBaseURL = file_exists($baseURL."error.php");
+		$tmpFuncBaseURL .= "../";
+		$boolBaseURL = file_exists($tmpFuncBaseURL."error.php");
 	}
-	return $baseURL;
+	return $tmpFuncBaseURL;
 }
 
 function clean_url($url)

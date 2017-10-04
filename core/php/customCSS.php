@@ -16,7 +16,7 @@ require_once($baseURLToMain.'core/php/loadVars.php');
 
 ?>
 <style type="text/css">
-#menu a, #menu2 a, .link, .linkSmall, .context-menu
+#menu a, #menu2 a, .link, .linkSmall
 {
 	background: <?php echo $currentSelectedThemeColorValues['main']['main-1']['background']?>;
 	color: <?php echo $currentSelectedThemeColorValues['main']['main-1']['fontColor']?>;

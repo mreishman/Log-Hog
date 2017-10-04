@@ -7,12 +7,11 @@ $( document ).ready(function() {
     //Settings Menu Options
 
     var checkForUpdateRightClickMenu = {action: "checkForUpdateDefinitely(true);", name: "Check For Update"};
-    var aboutRightClickMenu = {action: "window.location.href = './settings/about.php'", name: "About"};
-    var changeLogRightClickMenu = {action: "window.location.href = './settings/update.php'", name: "Change Log"};
-    var advancedRightClickMenu = {action: "window.location.href = './settings/advanced.php'", name: "Advanced"};
-    var devToolsRightClickMenu = {action: "window.location.href = './settings/devTools.php'", name: "Dev Tools"};
-    var experimentalFeaturesRightClickMenu = {action: "window.location.href = './settings/experimentalfeatures.php'", name: "Experimental Features"};
-    var taskManagerSettingsRightClickMenu =  {action: "window.location.href = './settings/settingsTop.php'", name: "Top Settings"};
+    var aboutRightClickMenu = {action: "window.location.href = \"./settings/about.php\"", name: "About"};
+    var changeLogRightClickMenu = {action: "window.location.href = \"./settings/changeLog.php\"", name: "Change Log"};
+    var advancedRightClickMenu = {action: "window.location.href = \"./settings/advanced.php\"", name: "Advanced"};
+    var devToolsRightClickMenu = {action: "window.location.href = \"./settings/devTools.php\"", name: "Dev Tools"};
+    var experimentalFeaturesRightClickMenu = {action: "window.location.href = \"./settings/experimentalfeatures.php\"", name: "Experimental Features"};
 
     //Clear Logs Menu Button
 
@@ -25,7 +24,7 @@ $( document ).ready(function() {
 
     var updateRightClickAction = {action: "installUpdates();", name: "Update"};
 
-    var gearMenu = [devToolsRightClickMenu,experimentalFeaturesRightClickMenu,taskManagerSettingsRightClickMenu,advancedRightClickMenu,changeLogRightClickMenu,checkForUpdateRightClickMenu,aboutRightClickMenu];
+    var gearMenu = [devToolsRightClickMenu,experimentalFeaturesRightClickMenu,advancedRightClickMenu,changeLogRightClickMenu,checkForUpdateRightClickMenu,aboutRightClickMenu];
     var deleteMenu = [clearAllLogs,clearCurrentLog,deleteCurrentLog];
     var updateMenu = [updateRightClickAction];
 
@@ -71,7 +70,7 @@ $( document ).ready(function() {
               var rightClickMenuHTML = "";
               for (var i = rightClickMenuArrayLength - 1; i >= 0; i--) 
               {
-                rightClickMenuHTML += "<li class='context-menu__item'><a class='context-menu__link' onClick='"+rightClickMenuArray[i].action+"'> "+rightClickMenuArray[i].name+" </a> </li>";
+                rightClickMenuHTML += "<li class=\"context-menu__item\"><a class=\"context-menu__link\" onclick='"+rightClickMenuArray[i].action+"'> "+rightClickMenuArray[i].name+" </a> </li>";
               }
               document.getElementById("context-menu-items").innerHTML = rightClickMenuHTML;
               positionMenu(e);
@@ -181,8 +180,6 @@ $( document ).ready(function() {
     clickListener();
     keyupListener();
     resizeListener();
-
-
 
   })();
 });
