@@ -8,7 +8,7 @@ if(file_exists('../local/layout.php'))
 	$baseUrl .= $currentSelectedTheme."/";
 }
 require_once($baseUrl.'conf/config.php');
-
+require_once('../core/php/commonFunctions.php'); 
 require_once('../core/php/loadVars.php'); ?>
 <!DOCTYPE html>
 <html>
@@ -17,21 +17,6 @@ require_once('../core/php/loadVars.php'); ?>
 	<?php echo loadCSS($baseUrl, $cssVersion);?>
 	<script src="../core/js/jquery.js"></script>
 	<?php readfile('../core/html/popup.html') ?>	
-	<style type="text/css">
-		#settingsMainVars .settingsHeader{
-			display: none;
-		}
-		li .settingsHeader{
-			display: block !important;
-		}
-		#widthForWatchListSection{
-			width: 100% !important;
-		}
-		#menu a, .link, .linkSmall, .context-menu
-		{
-			background-color: <?php echo $currentSelectedThemeColorValues[0]?>;
-		}
-	</style>
 </head>
 <body>
 <div style="width: 90%; margin: auto; margin-right: auto; margin-left: auto; display: block; height: auto; margin-top: 15px; max-height: 500px;" >

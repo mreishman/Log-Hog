@@ -63,7 +63,7 @@ function loadSentryData($sendCrashInfoJS)
 	{
 		include(baseURL()."core/php/configStatic.php");
 		$versionForSentry = $configStatic["version"];
-		return  "
+		$returnString =  "
 		<script src=\"https://cdn.ravenjs.com/3.17.0/raven.min.js\" crossorigin=\"anonymous\"></script>
 		<script type=\"text/javascript\">
 		Raven.config(\"https://2e455acb0e7a4f8b964b9b65b60743ed@sentry.io/205980\", {
@@ -73,7 +73,15 @@ function loadSentryData($sendCrashInfoJS)
 		function eventThrowException(e)
 		{
 			Raven.captureException(e);
-		}
+			";
+			if($branchSelected === 'beta')
+			{
+				$returnString .= "
+					Raven.showReportDialog();
+				";
+			}
+			
+		$returnString .= "}
 
 		</script>";
 	}
