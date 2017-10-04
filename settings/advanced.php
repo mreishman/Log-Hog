@@ -223,6 +223,10 @@ require_once('../core/php/updateCheck.php');
 					</li>
 				</form>
 				<li>
+					Re-do setup
+					<a style="text-decoration: none;" href="../setup/step1.php" class="link">Setup</a>
+				</li>
+				<li>
 					<a onclick="revertPopup();" class="link">Revert to Previous Version</a>
 				</li>
 				<li>
