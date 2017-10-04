@@ -15,8 +15,6 @@ require_once('../core/conf/config.php');
 require_once('../core/php/configStatic.php');
 require_once('../core/php/loadVars.php');
 require_once('../core/php/updateCheck.php');
-require_once('../top/statusTest.php');
-$withLogHog = $monitorStatus['withLogHog'];
 ?>
 <!doctype html>
 <head>
@@ -223,17 +221,12 @@ $withLogHog = $monitorStatus['withLogHog'];
 	  							<option selected value="true">True</option>
 							</select>
 					</li>
-					<?php if($withLogHog == 'true'): ?>
-					<li>
-						*Doesn't include monitor config settings
-					</li>
-					<?php endif; ?>
 				</form>
 				<li>
 					<a onclick="revertPopup();" class="link">Revert to Previous Version</a>
 				</li>
 				<li>
-				<?php if($withLogHog == 'true'): ?>
+				<?php if(is_file("../monitor/index.php") === 'true'): ?>
 					<a onclick="removeLoghog();" class="link">Remove Monitor</a>
 				<?php else: ?>
 					<a onclick="downloadLogHog();" class="link">Download Monitor</a>

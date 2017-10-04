@@ -33,9 +33,6 @@ if($backgroundPollingRateType == 'Seconds')
 	$backgroundPollingRate *= 1000;
 }
 
-require_once('top/statusTest.php');
-$withLogHog = $monitorStatus['withLogHog'];
-
 $locationForStatusIndex = "";
 if($locationForStatus != "")
 {
@@ -55,9 +52,9 @@ if($locationForMonitor != "")
 {
 	$locationForMonitorIndex = $locationForMonitor;
 }
-elseif($withLogHog == 'true')
+elseif(is_file("monitor/index.php"))
 {
-	$locationForMonitorIndex = './top/index.php';
+	$locationForMonitorIndex = './monitor/index.php';
 }
 elseif (is_dir("../monitor"))
 {
