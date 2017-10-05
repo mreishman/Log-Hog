@@ -46,11 +46,11 @@ echo loadSentryData($sendCrashInfoJS); ?>
 			{
 				if($levelOfUpdate == 1)
 				{
-					echo '<img src="<?php echo $localURL;?>img/yellowWarning.png" height="10px">';
+					echo '<img src="'.$localURL.'img/yellowWarning.png" height="10px">';
 				}
 				elseif($levelOfUpdate !== 0)
 				{
-					echo '<img src="<?php echo $localURL;?>img/redWarning.png" height="10px">';
+					echo '<img src="'.$localURL.'img/redWarning.png" height="10px">';
 				}
 			}?>
 			Update
