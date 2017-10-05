@@ -12,6 +12,7 @@ require_once('../core/php/configStatic.php');
 require_once('../core/php/updateProgressFile.php');
 require_once('../core/php/settingsInstallUpdate.php');
 require_once('../top/statusTest.php');
+require_once('../core/php/commonFunctions.php');
 
 $noUpdateNeeded = true;
 $versionToUpdate = "";
