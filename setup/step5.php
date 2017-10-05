@@ -9,12 +9,7 @@ if(file_exists('../local/layout.php'))
 }
 require_once($baseUrl.'conf/config.php');
 require_once('setupProcessFile.php');
-
-function clean_url($url) {
-    $parts = parse_url($url);
-    return $parts['path'];
-}
-
+require_once('../core/php/commonFunctions.php');
 
 if($setupProcess != "step5")
 {
@@ -30,8 +25,7 @@ while(file_exists('step'.$counterSteps.'.php'))
 	$counterSteps++;
 }
 $counterSteps--;
-require_once('../core/php/loadVars.php');
-require_once('../core/php/loadVarsTop.php'); ?>
+require_once('../core/php/loadVars.php');?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -49,10 +43,6 @@ require_once('../core/php/loadVarsTop.php'); ?>
 		#widthForWatchListSection{
 			width: 100% !important;
 		}
-		#menu a, .link, .linkSmall, .context-menu
-		{
-			background-color: <?php echo $currentSelectedThemeColorValues[0]?>;
-		}
 	</style>
 </head>
 <body>
@@ -60,8 +50,8 @@ require_once('../core/php/loadVarsTop.php'); ?>
 	<div class="settingsHeader">
 		<h1>Step 5 of <?php echo $counterSteps; ?></h1>
 	</div>
-	<p style="padding: 10px;">Top Settings:</p>
-		<?php require_once('../core/php/settingsTop.php'); ?>
+	<p style="padding: 10px;">Theme Settings:</p>
+		<?php require_once('../core/php/template/themeMain.php'); ?>
 	<table style="width: 100%; padding-left: 20px; padding-right: 20px;" ><tr><th style="text-align: right;" >
 		<?php if($counterSteps == 5): ?>
 			<a onclick="updateStatus('finished');" class="link">Finish</a>
@@ -78,15 +68,13 @@ require_once('../core/php/loadVarsTop.php'); ?>
 	function defaultSettings()
 	{
 		//change setupProcess to finished
-		document.getElementById('settingsMainVars').action = "../core/php/settingsSaveTop.php";
-		document.getElementById('settingsMainVars').submit();
+		location.reload();
 	}
 
 	function customSettings()
 	{
 		//change setupProcess to page1
-		document.getElementById('settingsMainVars').action = "../core/php/settingsSaveTop.php";
-		document.getElementById('settingsMainVars').submit();
+		location.reload();
 	}
 
 </script>

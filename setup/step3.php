@@ -48,10 +48,6 @@ require_once('../core/php/loadVars.php'); ?>
 		#widthForWatchListSection{
 			width: 100% !important;
 		}
-		#menu a, .link, .linkSmall, .context-menu
-		{
-			background-color: <?php echo $currentSelectedThemeColorValues[0]?>;
-		}
 	</style>
 </head>
 <body>
