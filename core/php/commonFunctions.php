@@ -80,7 +80,7 @@ function loadSentryData($sendCrashInfoJS, $branchSelected)
 					Raven.showReportDialog();
 				";
 			}
-			
+
 		$returnString .= "}
 
 		</script>";
