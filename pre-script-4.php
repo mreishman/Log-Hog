@@ -335,19 +335,19 @@ $folderColorArrays	= array(
 		'main' 		=> array(
 			'main-1'		=> array(
 				'background'	=> '#1B2F33',
-				'fontColor'		=> '#000000'
+				'fontColor'		=> '#656565'
 				),
 			'main-2'		=> array(
 				'background'	=> "#28502E",
-				'fontColor'		=> "#000000"
+				'fontColor'		=> "#656565"
 				),
 			'main-3'		=> array(
 				'background'	=> "#2D421B",
-				'fontColor'		=> '#000000'
+				'fontColor'		=> '#656565'
 				),
 			'main-4'		=> array(
 				'background'	=> "#3F3324",
-				'fontColor'		=> "#000000"
+				'fontColor'		=> "#656565"
 				)
 			),
 		'highlight' => array(
