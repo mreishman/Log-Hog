@@ -76,7 +76,7 @@ elseif (is_dir("../Monitor"))
 	<link rel="icon" type="image/png" href="<?php echo $baseUrl; ?>img/favicon.png" />
 	<script src="core/js/jquery.js"></script>
 	<?php
-		echo loadSentryData($sendCrashInfoJS);
+		echo loadSentryData($sendCrashInfoJS, $branchSelected);
 		echo loadVisibilityJS(baseURL());
 	?>
 </head>
@@ -127,11 +127,11 @@ elseif (is_dir("../Monitor"))
 				{
 					if($levelOfUpdate == 1)
 					{
-						echo '<img id="updateImage" src="<?php echo $baseUrl; ?>img/yellowWarning.png" height="15px" style="position: absolute;margin-left: 13px;margin-top: -34px;">';
+						echo '<img id="updateImage" src="'.$baseUrl.'img/yellowWarning.png" height="15px" style="position: absolute;margin-left: 13px;margin-top: -34px;">';
 					}
 					elseif($levelOfUpdate == 2 || $levelOfUpdate == 3)
 					{
-						echo '<img id="updateImage" src="<?php echo $baseUrl; ?>img/redWarning.png" height="15px" style="position: absolute;margin-left: 13px;margin-top: -34px;">';
+						echo '<img id="updateImage" src="'.$baseUrl.'img/redWarning.png" height="15px" style="position: absolute;margin-left: 13px;margin-top: -34px;">';
 					}
 				}?>
 			</div>

@@ -36,5 +36,12 @@ foreach ($scanned_directory as $key)
 	}
 }
 
+//check if version in current css is equal to default
+
+if($config['themeVersion'] !== $defaultConfig['themeVersion'])
+{
+	$boolToReturn = false;
+}
+
 echo json_encode($boolToReturn);
 ?>

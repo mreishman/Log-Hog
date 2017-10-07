@@ -57,7 +57,7 @@ function filePermsDisplay($key)
 	return $info;
 }
 
-function loadSentryData($sendCrashInfoJS)
+function loadSentryData($sendCrashInfoJS, $branchSelected)
 {
 	if($sendCrashInfoJS === "true")
 	{
@@ -80,7 +80,7 @@ function loadSentryData($sendCrashInfoJS)
 					Raven.showReportDialog();
 				";
 			}
-			
+
 		$returnString .= "}
 
 		</script>";
