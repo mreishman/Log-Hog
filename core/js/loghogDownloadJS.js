@@ -1,4 +1,6 @@
-var lock = false;	
+var lock = false;
+var localFolderLocation = "monitor";
+var repoName = "Monitor";
 
 function updateText(text)
 {
@@ -9,7 +11,7 @@ function checkIfTopDirIsEmpty()
 {
 	updateText("Verifying that Directory is empty");
 	var urlForSend = urlForSendMain;
-	var data = {action: "checkIfDirIsEmpty", dir: "../../monitor/"};
+	var data = {action: "checkIfDirIsEmpty", dir: "../../"+localFolderLocation+"/"};
 	$.ajax({
 		url: urlForSend,
 		dataType: "json",
@@ -33,7 +35,7 @@ function removeFilesFromToppFolder(skip = false)
 {
 	updateText("Directory has files in it, removing files");
 	var urlForSend = urlForSendMain;
-	var data = {action: "removeUnZippedFiles", locationOfFilesThatNeedToBeRemovedRecursivally: "../../monitor/",removeDir: true};
+	var data = {action: "removeUnZippedFiles", locationOfFilesThatNeedToBeRemovedRecursivally: "../../"+localFolderLocation+"/",removeDir: true};
 	$.ajax({
 		url: urlForSend,
 		dataType: "json",
@@ -51,7 +53,7 @@ function removeFilesFromToppFolder(skip = false)
 			{
 				//re-add folder / one file
 
-				verifyFile("removeFilesFromToppFolderSkip", "../../monitor/",false);
+				verifyFile("removeFilesFromToppFolderSkip", "../../"+localFolderLocation+"/",false);
 			}
 		}
 	});	
@@ -68,7 +70,7 @@ function downloadFile()
 		updateText("Attempt "+(retryCount+1)+" of 3 for downloading Monitor");
 	}
 	var urlForSend = urlForSendMain;
-	var data = {action: "downloadFile", file: "master",downloadFrom: "monitor/archive/", downloadTo: "../../top.zip"};
+	var data = {action: "downloadFile", file: "master",downloadFrom: repoName+"/archive/", downloadTo: "../../tmp.zip"};
 	$.ajax({
 		url: urlForSend,
 		dataType: "json",
@@ -78,7 +80,7 @@ function downloadFile()
 		{
 			//verify if downloaded
 			updateText("Verifying Download");
-			verifyFile("downloadMonitor", "../../top.zip");
+			verifyFile("downloadMonitor", "../../tmp.zip");
 		}
 	});	
 }
@@ -86,7 +88,7 @@ function downloadFile()
 function unzipFile()
 {
 	var urlForSend = urlForSendMain;
-	var data = {action: "unzipFile", locationExtractTo: "../../monitor/", locationExtractFrom: "../../top.zip", tmpCache: "../../"};
+	var data = {action: "unzipFile", locationExtractTo: "../../"+localFolderLocation+"/", locationExtractFrom: "../../tmp.zip", tmpCache: "../../"};
 	$.ajax({
 		url: urlForSend,
 		dataType: "json",
@@ -95,7 +97,7 @@ function unzipFile()
 		complete: function()
 		{
 			//verify if downloaded
-			verifyFile("unzipFile", "../../monitor-master/index.php");
+			verifyFile("unzipFile", "../../"+localFolderLocation+"/index.php");
 		}
 	});	
 }
@@ -104,7 +106,7 @@ function removeZipFile()
 {
 	updateText("Removing Downloaded File");
 	var urlForSend = urlForSendMain;
-	var data = {action: "removeZipFile", fileToUnlink: "../../top.zip"};
+	var data = {action: "removeZipFile", fileToUnlink: "../../tmp.zip"};
 	$.ajax({
 		url: urlForSend,
 		dataType: "json",
@@ -113,7 +115,7 @@ function removeZipFile()
 		complete: function()
 		{
 			//verify if downloaded
-			verifyFile("removeZipFile", "../../top.zip",false);
+			verifyFile("removeZipFile", "../../tmp.zip",false);
 		}
 	});
 }
@@ -233,5 +235,5 @@ function verifyPostEnd(verified, data)
 function updateError()
 {
 	clearInterval(dotsTimer);
-	document.getElementById("innerSettingsText").innerHTML = "<p>An error occured while trying to download Monitor. </p>";
+	document.getElementById("innerSettingsText").innerHTML = "<p>An error occured while trying to download "+repoName+". </p>";
 }
