@@ -11,7 +11,6 @@ require_once($baseUrl.'conf/config.php');
 require_once('../core/php/configStatic.php');
 require_once('../core/php/updateProgressFile.php');
 require_once('../core/php/settingsInstallUpdate.php');
-require_once('../top/statusTest.php');
 require_once('../core/php/commonFunctions.php');
 
 $noUpdateNeeded = true;
@@ -187,7 +186,6 @@ if(count($arrayOfVersions) === 0)
 	var versionToUpdateTo = "<?php echo $versionToUpdate; ?>";
 	var percent = 0;
 	var arrayOfFilesExtracted;
-	var monitorLocation = "<?php echo $monitorStatus['withLogHog']?>";
 	var lock = false;
 	var settingsForBranchStuff = JSON.parse('<?php echo json_encode($configStatic);?>');
 	var filteredArray = new Array();
@@ -672,15 +670,7 @@ if(count($arrayOfVersions) === 0)
 		{
 			var file = arrayOfFilesExtracted[i];
 			var copyFile = true;
-			if(file.startsWith("top_"))
-			{
-				copyFile = false;
-				if(file == "top_statusTest.php" || monitorLocation == "true")
-				{
-					copyFile = true;
-				}
-			}
-			else if(file.startsWith("pre-script-") || file.startsWith("post-script-") || file.startsWith("post-redirect-") || file.startsWith("exclude-this-file-from-copy-"))
+			f(file.startsWith("pre-script-") || file.startsWith("post-script-") || file.startsWith("post-redirect-") || file.startsWith("exclude-this-file-from-copy-"))
 			{
 				copyFile = false;
 			}

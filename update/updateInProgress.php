@@ -11,7 +11,6 @@ require_once($baseUrl.'conf/config.php');
 require_once('../core/php/configStatic.php');
 require_once('../core/php/updateProgressFile.php');
 require_once('../core/php/settingsInstallUpdate.php');
-require_once('../top/statusTest.php');
 ?>
 <!doctype html>
 <head>

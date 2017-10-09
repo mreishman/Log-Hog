@@ -65,6 +65,8 @@ elseif (is_dir("../Monitor"))
 	$locationForMonitorIndex = "../Monitor/";
 }
 
+$locationForSearch = "";
+
 ?>
 <!doctype html>
 <head>
@@ -116,6 +118,11 @@ elseif (is_dir("../Monitor"))
 			<?php if($locationForMonitorIndex != ""): ?>
 			<div onclick="window.location.href = '<?php echo $locationForMonitorIndex; ?>'"  class="menuImageDiv">
 				<img id="taskmanagerImage" class="menuImage" src="<?php echo $baseUrl; ?>img/task-manager.png" height="30px">
+			</div>
+			<?php endif; ?>
+			<?php if($locationForSearch != ""): ?>
+			<div onclick="window.location.href = '<?php echo $locationForSearch; ?>'"  class="menuImageDiv">
+				<img id="searchImage" class="menuImage" src="<?php echo $baseUrl; ?>img/search.png" height="30px">
 			</div>
 			<?php endif; ?>
 			<div onclick="window.location.href = './settings/main.php';"  class="menuImageDiv">

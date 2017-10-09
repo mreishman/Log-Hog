@@ -73,30 +73,6 @@ elseif($action == 'cleanUpMonitor')
 
 	$response = true; 
 }
-elseif($action == 'changeMonSettings')
-{
-	$string = "<?php
-		$"."monitorStatus = array(
-	'withLogHog'	=> 'true'
-	);
-	?>";
-
-	file_put_contents("../../top/statusTest.php", $string);
-
-	$response = true; 
-}
-elseif($action == 'changeMonSettingsRevert')
-{
-	$string = "<?php
-		$"."monitorStatus = array(
-	'withLogHog'	=> 'false'
-	);
-	?>";
-
-	file_put_contents("../../top/statusTest.php", $string);
-
-	$response = true; 
-}
 elseif($action == 'removeUnneededFoldersMonitor')
 {
 	$removeDir = true;
