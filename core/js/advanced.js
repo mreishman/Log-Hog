@@ -11,12 +11,12 @@ var locationOtherAppsData;
 
 function downloadLogHog()
 {
-	window.location.href = "monitorDownload.php";
+	window.location.href = "addonDownload.php";
 }
 
 function removeLoghog()
 {
-	window.location.href = "monitorRemove.php";
+	window.location.href = "addonRemove.php";
 }
 
 function resetSettingsPopup()
