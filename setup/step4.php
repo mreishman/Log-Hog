@@ -125,10 +125,17 @@ var dotsTimer = null;
 		else
 		{
 			hidePopup();
-			//download Monitor from github
 			document.getElementById('innerSettingsText').innerHTML = "";
 			dotsTimer = setInterval(function() {document.getElementById('innerSettingsText').innerHTML = ' .'+document.getElementById('innerSettingsText').innerHTML;}, '120');
-			checkIfTopDirIsEmpty();
+			if(statusExt == 'step5')
+			{
+				//download Monitor from github
+				checkIfTopDirIsEmpty();
+			}
+			else
+			{
+				removeFilesFromToppFolder(true);
+			}
 		}
 	}
 
