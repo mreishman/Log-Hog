@@ -1,6 +1,4 @@
 var lock = false;
-var localFolderLocation = "monitor";
-var repoName = "Monitor";
 
 function updateText(text)
 {

@@ -9,19 +9,43 @@ if(file_exists('../local/layout.php'))
 }
 require_once($baseUrl.'conf/config.php');
 require_once('../core/php/commonFunctions.php'); 
-require_once('../core/php/loadVars.php'); ?>
+require_once('../core/php/loadVars.php');
+
+$localFolderLocation = "";
+if(isset($_POST['localFolderLocation']))
+{
+	$localFolderLocation = $_POST['localFolderLocation'];
+}
+
+$repoName = "";
+if(isset($_POST['repoName']))
+{
+	$repoName = $_POST['repoName'];
+}
+
+if($localFolderLocation === "" || $repoName === "")
+{
+	header("Location: "."advanced.php", true, 302); /* Redirect browser */
+	exit();
+}
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Removing Monitor</title>
+	<title>Removing <?php echo $repoName;?></title>
 	<?php echo loadCSS($baseUrl, $cssVersion);?>
 	<script src="../core/js/jquery.js"></script>
-	<?php readfile('../core/html/popup.html') ?>	
+	<?php readfile('../core/html/popup.html') ?>
+	<script type="text/javascript">
+		var localFolderLocation = "<?php echo $localFolderLocation;?>";
+		var repoName = "<?php echo $repoName;?>";
+	</script>	
 </head>
 <body>
 <div style="width: 90%; margin: auto; margin-right: auto; margin-left: auto; display: block; height: auto; margin-top: 15px; max-height: 500px;" >
 	<div class="settingsHeader">
-		<h1>Removing Monitor</h1>
+		<h1>Removing <?php echo $repoName;?></h1>
 	</div>
 	<div style="word-break: break-all; margin-left: auto; margin-right: auto; max-width: 800px; overflow: auto; max-height: 500px;" id="innerSettingsText">
 		<img src='../core/img/loading.gif' height='50' width='50'> 
@@ -52,7 +76,7 @@ $( document ).ready(function()
 	function finishedDownload()
 	{
 		clearInterval(dotsTimer);
-		document.getElementById('innerSettingsText').innerHTML = "<br> <h1>Finished Removing Monitor<h1><br> <br> <a class='link' onclick='goBack();' >< Back to Settings</a>"
+		document.getElementById('innerSettingsText').innerHTML = "<br> <h1>Finished Removing <?php echo $repoName;?><h1><br> <br> <a class='link' onclick='goBack();' >< Back to Settings</a>"
 	}
 
 	function goBack()

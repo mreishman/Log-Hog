@@ -202,6 +202,11 @@ require_once('../core/php/updateCheck.php');
 					<p>Default = <?php echo "https://" . $_SERVER['SERVER_NAME']."/monitor"; ?></p>
 				</li>
 				<li>
+					<span class="settingsBuffer" >  Search Location:  </span> <input type="text" style="width: 400px;"  name="locationForSearch" value="<?php echo $locationForSearch;?>" > 
+					<br>
+					<p>Default = <?php echo "https://" . $_SERVER['SERVER_NAME']."/search"; ?></p>
+				</li>
+				<li>
 					<span style="font-size: 75%;">*<i>Please specify full url, blank if none</i></span>
 				</li>
 			</ul>
@@ -231,9 +236,17 @@ require_once('../core/php/updateCheck.php');
 				</li>
 				<li>
 				<?php if(is_file("../monitor/index.php") === true): ?>
-					<a onclick="removeLoghog();" class="link">Remove Monitor</a>
+					<form id="monitorForm" action="addonRemove.php" method="post">
+						<input type="hidden" name="localFolderLocation" value="monitor"> 
+						<input type="hidden" name="repoName" value="Monitor">
+					</form>
+					<a onclick="addonMonitorAction();" class="link">Remove Monitor</a>
 				<?php else: ?>
-					<a onclick="downloadLogHog();" class="link">Download Monitor</a>
+					<form id="monitorForm" action="addonDownload.php" method="post">
+						<input type="hidden" name="localFolderLocation" value="monitor"> 
+						<input type="hidden" name="repoName" value="Monitor">
+					</form>
+					<a onclick="addonMonitorAction();" class="link">Download Monitor</a>
 				<?php endif; ?>
 				</li>
 				<form id="devAdvanced2" action="../core/php/settingsSaveConfigStatic.php" method="post">

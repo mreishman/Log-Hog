@@ -9,14 +9,9 @@ var jsPhpSendData;
 var savedInnerHtmlLocationOtherApps;
 var locationOtherAppsData;
 
-function downloadLogHog()
+function addonMonitorAction()
 {
-	window.location.href = "addonDownload.php";
-}
-
-function removeLoghog()
-{
-	window.location.href = "addonRemove.php";
+	document.getElementById("monitorForm").submit();
 }
 
 function resetSettingsPopup()
