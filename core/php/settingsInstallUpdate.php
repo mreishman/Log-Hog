@@ -227,9 +227,12 @@ function unzipFileAndSub($zipfile, $subpath, $destination, $temp_cache, $travers
 	    $zip->extractTo($temp_cache);
 	    $zip->close();
 
-	    //rename($zip_dir . DIRECTORY_SEPARATOR . $subpath, $destination);
+	    if($zip_dir !== $destination)
+	    {
+		    rename($zip_dir . DIRECTORY_SEPARATOR . $subpath, $destination);
 
-	    //rrmdir($zip_dir);
+		    rrmdir($zip_dir);
+		}
 	    return true;
 	}
 	else

@@ -13,7 +13,7 @@ require_once('../core/php/loadVars.php'); ?>
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Welcome!</title>
+	<title>Downloading Monitor</title>
 	<?php echo loadCSS($baseUrl, $cssVersion);?>
 	<script src="../core/js/jquery.js"></script>
 	<?php readfile('../core/html/popup.html') ?>	

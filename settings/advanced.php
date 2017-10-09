@@ -230,7 +230,7 @@ require_once('../core/php/updateCheck.php');
 					<a onclick="revertPopup();" class="link">Revert to Previous Version</a>
 				</li>
 				<li>
-				<?php if(is_file("../monitor/index.php") === 'true'): ?>
+				<?php if(is_file("../monitor/index.php") === true): ?>
 					<a onclick="removeLoghog();" class="link">Remove Monitor</a>
 				<?php else: ?>
 					<a onclick="downloadLogHog();" class="link">Download Monitor</a>
