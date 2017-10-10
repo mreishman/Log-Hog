@@ -23,6 +23,12 @@ if(isset($_POST['repoName']))
 	$repoName = $_POST['repoName'];
 }
 
+$action = "";
+if(isset($_POST['action']))
+{
+	$action = $_POST['action'];
+}
+
 if($localFolderLocation === "" || $repoName === "")
 {
 	header("Location: "."advanced.php", true, 302); /* Redirect browser */
@@ -33,7 +39,7 @@ if($localFolderLocation === "" || $repoName === "")
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Downloading <?php echo $repoName;?></title>
+	<title><?php echo $action;?> <?php echo $repoName;?></title>
 	<?php echo loadCSS($baseUrl, $cssVersion);?>
 	<script src="../core/js/jquery.js"></script>
 	<?php readfile('../core/html/popup.html') ?>
@@ -45,7 +51,7 @@ if($localFolderLocation === "" || $repoName === "")
 <body>
 <div style="width: 90%; margin: auto; margin-right: auto; margin-left: auto; display: block; height: auto; margin-top: 15px; max-height: 500px;" >
 	<div class="settingsHeader">
-		<h1>Downloading <?php echo $repoName;?></h1>
+		<h1><?php echo $action;?> <?php echo $repoName;?></h1>
 	</div>
 	<div style="word-break: break-all; margin-left: auto; margin-right: auto; max-width: 800px; overflow: auto; max-height: 500px;" id="innerSettingsText">
 		<img src='../core/img/loading.gif' height='50' width='50'> 
@@ -61,21 +67,29 @@ var retryCount = 0;
 var verifyCount = 0;
 var lock = false;
 var directory = "../../top/";
-var urlForSendMain = '../core/php/performSettingsInstallUpdateAction.php?format=json';
+var urlForSendMain = "../core/php/performSettingsInstallUpdateAction.php?format=json";
 var verifyFileTimer = null;
 var dotsTimer = null;
+var action = "<?php echo $action;?>";
 
 $( document ).ready(function() 
 {
 	dotsTimer = setInterval(function() {document.getElementById('innerSettingsText').innerHTML = ' .'+document.getElementById('innerSettingsText').innerHTML;}, '120');
 	document.getElementById('innerSettingsText').innerHTML = "";
-	checkIfTopDirIsEmpty();
+	if(action === "Downloading")
+	{
+		checkIfTopDirIsEmpty();
+	}
+	else
+	{
+		removeFilesFromToppFolder(true);
+	}
 });
 
 function finishedDownload()
 	{
 		clearInterval(dotsTimer);
-		document.getElementById('innerSettingsText').innerHTML = "<br> <h1>Finished Downloading <?php echo $repoName;?><h1><br> <br> <a class='link' onclick='goBack();' >< Back to Settings</a>"
+		document.getElementById('innerSettingsText').innerHTML = "<br> <h1>Finished <?php echo $action;?> <?php echo $repoName;?><h1><br> <br> <a class='link' onclick='goBack();' >< Back to Settings</a>"
 	}
 
 	function goBack()

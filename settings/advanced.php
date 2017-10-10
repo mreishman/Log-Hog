@@ -239,12 +239,14 @@ require_once('../core/php/updateCheck.php');
 						<form id="monitorForm" action="addonRemove.php" method="post">
 							<input type="hidden" name="localFolderLocation" value="monitor"> 
 							<input type="hidden" name="repoName" value="Monitor">
+							<input type="hidden" name="action" value="Removing">
 						</form>
 						<a onclick="addonMonitorAction();" class="link">Remove Monitor</a>
 					<?php else: ?>
 						<form id="monitorForm" action="addonDownload.php" method="post">
 							<input type="hidden" name="localFolderLocation" value="monitor"> 
 							<input type="hidden" name="repoName" value="Monitor">
+							<input type="hidden" name="action" value="Downloading">
 						</form>
 						<a onclick="addonMonitorAction();" class="link">Download Monitor</a>
 					<?php endif; ?>
@@ -254,12 +256,14 @@ require_once('../core/php/updateCheck.php');
 					<form id="monitorForm" action="addonRemove.php" method="post">
 						<input type="hidden" name="localFolderLocation" value="search"> 
 						<input type="hidden" name="repoName" value="Search">
+						<input type="hidden" name="action" value="Removing">
 					</form>
 					<a onclick="addonMonitorAction();" class="link">Remove Search</a>
 					<?php else: ?>
 						<form id="monitorForm" action="addonDownload.php" method="post">
 							<input type="hidden" name="localFolderLocation" value="search"> 
 							<input type="hidden" name="repoName" value="Search">
+							<input type="hidden" name="action" value="Downloading">
 						</form>
 						<a onclick="addonMonitorAction();" class="link">Download Search</a>
 					<?php endif; ?>
