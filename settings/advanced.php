@@ -235,19 +235,34 @@ require_once('../core/php/updateCheck.php');
 					<a onclick="revertPopup();" class="link">Revert to Previous Version</a>
 				</li>
 				<li>
-				<?php if(is_file("../monitor/index.php") === true): ?>
+					<?php if(is_file("../monitor/index.php") === true): ?>
+						<form id="monitorForm" action="addonRemove.php" method="post">
+							<input type="hidden" name="localFolderLocation" value="monitor"> 
+							<input type="hidden" name="repoName" value="Monitor">
+						</form>
+						<a onclick="addonMonitorAction();" class="link">Remove Monitor</a>
+					<?php else: ?>
+						<form id="monitorForm" action="addonDownload.php" method="post">
+							<input type="hidden" name="localFolderLocation" value="monitor"> 
+							<input type="hidden" name="repoName" value="Monitor">
+						</form>
+						<a onclick="addonMonitorAction();" class="link">Download Monitor</a>
+					<?php endif; ?>
+				</li>
+				<li>
+					<?php if(is_file("../search/index.php") === true): ?>
 					<form id="monitorForm" action="addonRemove.php" method="post">
-						<input type="hidden" name="localFolderLocation" value="monitor"> 
-						<input type="hidden" name="repoName" value="Monitor">
+						<input type="hidden" name="localFolderLocation" value="search"> 
+						<input type="hidden" name="repoName" value="Search">
 					</form>
-					<a onclick="addonMonitorAction();" class="link">Remove Monitor</a>
-				<?php else: ?>
-					<form id="monitorForm" action="addonDownload.php" method="post">
-						<input type="hidden" name="localFolderLocation" value="monitor"> 
-						<input type="hidden" name="repoName" value="Monitor">
-					</form>
-					<a onclick="addonMonitorAction();" class="link">Download Monitor</a>
-				<?php endif; ?>
+					<a onclick="addonMonitorAction();" class="link">Remove Search</a>
+					<?php else: ?>
+						<form id="monitorForm" action="addonDownload.php" method="post">
+							<input type="hidden" name="localFolderLocation" value="search"> 
+							<input type="hidden" name="repoName" value="Search">
+						</form>
+						<a onclick="addonMonitorAction();" class="link">Download Search</a>
+					<?php endif; ?>
 				</li>
 				<form id="devAdvanced2" action="../core/php/settingsSaveConfigStatic.php" method="post">
 					<li>
