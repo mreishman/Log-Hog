@@ -68,7 +68,19 @@ elseif (is_dir("../Monitor"))
 $locationForSearchIndex = "";
 if($locationForSearch != "")
 {
-	$locationForSearch = $locationForSearch;
+	$locationForSearchIndex = $locationForSearch;
+}
+elseif(is_file("search/index.php"))
+{
+	$locationForSearchIndex = './search/index.php';
+}
+elseif (is_dir("../search"))
+{
+	$locationForSearchIndex = "../search/";
+}
+elseif (is_dir("../Search"))
+{
+	$locationForSearchIndex = "../Search/";
 }
 
 ?>
