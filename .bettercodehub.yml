@@ -1,0 +1,12 @@
+languages:
+- java
+- php
+exclude:
+- .*/lightbox-2.6.min\.js
+- .*/jquery\.js
+- .*/jscolor\.js
+- .*/visibility.core\.js
+- .*/visibility.fallback\.js
+- .*/visibility\.js
+- .*/visibility.timers\.js
+component_depth: 2
