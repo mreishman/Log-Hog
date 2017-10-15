@@ -34,8 +34,37 @@ require_once('../core/php/settingsInstallUpdate.php');
 			<progress id="progressBar" value="<?php echo $updateProgress['percent'];?>" max="100" style="width: 95%; margin-top: 10px; margin-bottom: 10px; margin-left: 2.5%;" ></progress>
 			<p style="border-bottom: 1px solid white;"></p>
 			<div id="innerDisplayUpdate" style="height: 300px; overflow: auto; max-height: 300px; padding: 5px;">
-			<br>
-			An update is currently in progress... please wait for it to finish. <br><br> If there is no progress in around 2 minutes, this page will auto redirect to the updater page. <br><br> You can also click here to redirect to this page if a previous update failed to retry the update: <a class="link" onclick="window.location.href = '../settings/update.php'"  >Retry Update</a> <br><br> or here to revert back to a previous version <a class="link" onclick="window.location=href = '../restore/restore.php'" > Revert to a previous version </a>
+				<br>
+				<p>
+					An update is currently in progress... please wait for it to finish or try one of the following options:
+				</p>
+				<br>
+				<h2>
+					Option 1:
+				</h2>
+				<p>
+					If there is no progress in around <b><span id="counterDisplay">2 minutes</span></b>, this page will auto redirect to the updater page.
+				</p>
+				<br>
+				<h2>
+					Option 2:
+				</h2>
+				<p>
+					Click here to retry an update if previous update failed or was inturrepted: 
+					<a class="link" onclick="window.location.href = '../settings/update.php'"  >
+						Retry Update
+					</a>
+				</p>
+				<br>
+				<h2>
+					Option 3:
+				</h2>
+				<p>
+					Click here to revert back to a previous version 
+					<a class="link" onclick="window.location=href = '../restore/restore.php'" >
+						Revert to a previous version
+					</a>
+				</p>
 			</div>
 			<p style="border-bottom: 1px solid white;"></p>
 			<div class="settingsHeader">
@@ -85,6 +114,10 @@ function checkIfChange()
 		  			finishedUpdate();
 		  			clearInterval(counterInt);
 		  		}
+		  		else
+		  		{
+		  			updateCounter();
+		  		}
 		  	}
 		  	else
 		  	{
@@ -96,9 +129,36 @@ function checkIfChange()
 		  			finishedUpdate();
 		  			clearInterval(counterInt);
 		  		}
+		  		else
+		  		{
+		  			updateCounter();
+		  		}
 		  	}
 		}
 	});	
+}
+
+function updateCounter()
+{
+	var textToUpdateTo = "2 Minutes";
+	var counterInner = counter;
+	if(counterInner !== 0)
+	{
+		if(counter <= 20)
+		{
+			textToUpdateTo = "1 Minute ";
+			counterInner -= 20;
+		}
+		else
+		{
+			textToUpdateTo = "";
+		}
+		if(counterInner !== 0)
+		{
+			textToUpdateTo += ((20-counterInner) * 3) + " Seconds".;
+		}
+	}
+	document.getElementById("counterDisplay").innerHTML = "";
 }
 
 function finishedUpdate()

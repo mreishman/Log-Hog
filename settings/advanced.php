@@ -237,7 +237,7 @@ require_once('../core/php/updateCheck.php');
 				<li>
 					<?php if(is_file("../monitor/index.php") === true): ?>
 						<script type="text/javascript">
-							var monitorRemove = "monitorRemove"
+							var monitorRemove = "monitorRemove";
 						</script>
 						<form id="monitorRemove" action="addonAction.php" method="post">
 							<input type="hidden" name="localFolderLocation" value="monitor"> 
@@ -247,7 +247,7 @@ require_once('../core/php/updateCheck.php');
 						<a onclick="addonMonitorAction(monitorRemove);" class="link">Remove Monitor</a>
 					<?php else: ?>
 						<script type="text/javascript">
-							var monitorDownload = "monitorDownload"
+							var monitorDownload = "monitorDownload";
 						</script>
 						<form id="monitorDownload" action="addonAction.php" method="post">
 							<input type="hidden" name="localFolderLocation" value="monitor"> 
@@ -260,7 +260,7 @@ require_once('../core/php/updateCheck.php');
 				<li>
 					<?php if(is_file("../search/index.php") === true): ?>
 						<script type="text/javascript">
-							var searchRemove = "searchRemove"
+							var searchRemove = "searchRemove";
 						</script>
 						<form id="searchRemove" action="addonAction.php" method="post">
 							<input type="hidden" name="localFolderLocation" value="search"> 
@@ -269,7 +269,9 @@ require_once('../core/php/updateCheck.php');
 						</form>
 					<a onclick="addonMonitorAction(searchRemove);" class="link">Remove Search</a>
 					<?php else: ?>
-						<script type="text/javascript"> var searchDownload = "searchDownload" </script>
+						<script type="text/javascript">
+							var searchDownload = "searchDownload";
+						</script>
 						<form id="searchDownload" action="addonAction.php" method="post">
 							<input type="hidden" name="localFolderLocation" value="search"> 
 							<input type="hidden" name="repoName" value="Search">
@@ -284,7 +286,6 @@ require_once('../core/php/updateCheck.php');
 					</li>
 					<input type="hidden" style="width: 400px;"  name="newestVersion" value="<?php echo $configStatic['version'];?>" > 
 				</form>
-				
 			</ul>
 		</div>
 	</div>
