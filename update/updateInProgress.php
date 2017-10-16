@@ -1,4 +1,5 @@
 <?php
+require_once("../core/php/commonFunctions.php");
 $baseUrl = "../core/";
 if(file_exists('../local/layout.php'))
 {
@@ -12,6 +13,7 @@ require_once('../core/php/configStatic.php');
 require_once('../core/php/updateProgressFile.php');
 require_once('../core/php/settingsInstallUpdate.php');
 require_once('../top/statusTest.php');
+$cssVersion = rand(1, 999999);
 ?>
 <!doctype html>
 <head>
