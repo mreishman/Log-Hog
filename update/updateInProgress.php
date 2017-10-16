@@ -40,14 +40,12 @@ $cssVersion = rand(1, 999999);
 				<p>
 					An update is currently in progress... please wait for it to finish or try one of the following options:
 				</p>
-				<br>
 				<h2>
 					Option 1:
 				</h2>
 				<p>
 					If there is no progress in around <b><span id="counterDisplay">2 minutes</span></b>, this page will auto redirect to the updater page.
 				</p>
-				<br>
 				<h2>
 					Option 2:
 				</h2>
@@ -57,7 +55,6 @@ $cssVersion = rand(1, 999999);
 						Retry Update
 					</a>
 				</p>
-				<br>
 				<h2>
 					Option 3:
 				</h2>
@@ -149,18 +146,18 @@ function updateCounter()
 		if(counter <= 20)
 		{
 			textToUpdateTo = "1 Minute ";
-			counterInner -= 20;
 		}
 		else
 		{
 			textToUpdateTo = "";
+			counterInner -= 20;
 		}
 		if(counterInner !== 0)
 		{
-			textToUpdateTo += ((20-counterInner) * 3) + " Seconds".;
+			textToUpdateTo += ((20-counterInner) * 3) + " Seconds";
 		}
 	}
-	document.getElementById("counterDisplay").innerHTML = "";
+	document.getElementById("counterDisplay").innerHTML = textToUpdateTo;
 }
 
 function finishedUpdate()
