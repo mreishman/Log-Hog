@@ -49,6 +49,28 @@ require_once('../core/php/commonFunctions.php');
 
 				<tr>
 				<th colspan="2" style="padding: 10px">
+					<h1>3.1</h1>
+				</th>
+				</tr>
+
+
+				<tr>
+				<td>
+					<b>Search!</b>
+					<ul>
+						<li>
+						Run visual grep's from the new search addon
+						</li>
+					</ul>
+				</td>
+				<td>
+					
+				</td>
+				</tr>
+
+
+				<tr>
+				<th colspan="2" style="border-top: 1px solid white; padding: 10px">
 					<h1>3.0</h1>
 				</th>
 				</tr>
