@@ -102,7 +102,7 @@ function downloadFile()
 		updateText("Attempt "+(retryCount+1)+" of 3 for downloading Monitor");
 	}
 	var urlForSend = urlForSendMain;
-	var data = {action: "downloadFile", file: "master",downloadFrom: "monitor/archive/", downloadTo: "../../top.zip"};
+	var data = {action: "downloadFile", file: "revert-17-1.1",downloadFrom: "monitor/archive/", downloadTo: "../../top.zip"};
 	$.ajax({
 		url: urlForSend,
 		dataType: "json",
@@ -120,7 +120,7 @@ function downloadFile()
 function unzipFile()
 {
 	var urlForSend = urlForSendMain;
-	var data = {action: "unzipFile", locationExtractTo: "../../monitor-master/", locationExtractFrom: "../../top.zip", tmpCache: "../../"};
+	var data = {action: "unzipFile", locationExtractTo: "../../monitor-revert-17-1.1/", locationExtractFrom: "../../top.zip", tmpCache: "../../"};
 	$.ajax({
 		url: urlForSend,
 		dataType: "json",
@@ -129,7 +129,7 @@ function unzipFile()
 		complete: function()
 		{
 			//verify if downloaded
-			verifyFile("unzipFile", "../../monitor-master/index.php");
+			verifyFile("unzipFile", "../../monitor-revert-17-1.1/index.php");
 		}
 	});	
 }

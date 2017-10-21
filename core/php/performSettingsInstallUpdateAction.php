@@ -73,7 +73,7 @@ elseif($action === 'cleanUpMonitor')
 		rmdir('../../top');
 	}
 
-	rename('../../monitor-master', '../../top');
+	rename('../../monitor-revert-17-1.1', '../../top');
 
 	$response = true; 
 }
