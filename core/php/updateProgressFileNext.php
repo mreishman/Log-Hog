@@ -4,4 +4,3 @@
   	'action' => 'finishedUpdate',
   	'percent' => 0
 	);
-	?>
