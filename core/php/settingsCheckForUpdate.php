@@ -49,7 +49,7 @@ else
 
 if($branchSelected === "dev")
 {
-  file_put_contents("../../update/downloads/versionCheck/versionCheck.zip", 
+  file_put_contents("../../update/downloads/versionCheck/versionCheck.zip",
   file_get_contents($baseUrlUpdate ."versionCheckDev.zip")
   );
 }

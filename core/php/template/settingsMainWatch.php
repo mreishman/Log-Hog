@@ -103,4 +103,4 @@
 	<input id="numberOfRows" type="text" name="numberOfRows" value="<?php echo $i;?>">
 </div>	
 </form>
-<?php $folderCount = $i; ?>
+<?php $folderCount = $i;

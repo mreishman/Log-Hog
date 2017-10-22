@@ -52,4 +52,3 @@ foreach ($arrayOfFiles as $key)
     echo $info;
     echo "</p>";
 }
-?>
