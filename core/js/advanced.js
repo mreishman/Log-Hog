@@ -8,6 +8,7 @@ var savedInnerHtmlJsPhpSend;
 var jsPhpSendData;
 var savedInnerHtmlLocationOtherApps;
 var locationOtherAppsData;
+var timeoutVar;
 
 function resetSettingsPopup()
 {
@@ -34,6 +35,27 @@ function submitResetSettings()
 function resetUpdateNotification()
 {
 	document.getElementById("devAdvanced2").submit();
+}
+
+//timeoutVar = setInterval(function(){updateNoNewVersionCheck();},3000);
+
+function updateNoNewVersionCheck()
+{
+	try
+	{
+		$.getJSON("core/php/configStaticCheck.php", {}, function(data) 
+		{
+			if(currentVersion === data)
+			{
+				clearInterval(timeoutVar);
+				//show saved popup
+			}
+		});
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
 }
 
 function poll()
