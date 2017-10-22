@@ -51,6 +51,11 @@ echo loadSentryData($sendCrashInfoJS, $branchSelected); ?>
 	<?php else: ?>	
 		<a id="advancedLink" onclick="goToUrl('advanced.php');">Advanced</a>
 	<?php endif; ?>
+	<?php if(strpos($URI, 'addons.php') !== false): ?>
+		<a style="cursor: default;" class="active" id="addonsLink" >Addons</a>
+	<?php else: ?>	
+		<a id="addonsLink" onclick="goToUrl('addons.php');">Addons</a>
+	<?php endif; ?>
 	<a id="devToolsLink"
 		<?php if(!(($developmentTabEnabled == 'true') || (strpos($URI, 'devTools.php') !== false))):?>
 			style="display: none;

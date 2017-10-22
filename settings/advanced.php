@@ -234,52 +234,6 @@ require_once('../core/php/updateCheck.php');
 				<li>
 					<a onclick="revertPopup();" class="link">Revert to Previous Version</a>
 				</li>
-				<li>
-					<?php if(is_file("../monitor/index.php") === true): ?>
-						<script type="text/javascript">
-							var monitorRemove = "monitorRemove";
-						</script>
-						<form id="monitorRemove" action="addonAction.php" method="post">
-							<input type="hidden" name="localFolderLocation" value="monitor"> 
-							<input type="hidden" name="repoName" value="Monitor">
-							<input type="hidden" name="action" value="Removing">
-						</form>
-						<a onclick="addonMonitorAction(monitorRemove);" class="link">Remove Monitor</a>
-					<?php else: ?>
-						<script type="text/javascript">
-							var monitorDownload = "monitorDownload";
-						</script>
-						<form id="monitorDownload" action="addonAction.php" method="post">
-							<input type="hidden" name="localFolderLocation" value="monitor"> 
-							<input type="hidden" name="repoName" value="Monitor">
-							<input type="hidden" name="action" value="Downloading">
-						</form>
-						<a onclick="addonMonitorAction(monitorDownload);" class="link">Download Monitor</a>
-					<?php endif; ?>
-				</li>
-				<li>
-					<?php if(is_file("../search/index.php") === true): ?>
-						<script type="text/javascript">
-							var searchRemove = "searchRemove";
-						</script>
-						<form id="searchRemove" action="addonAction.php" method="post">
-							<input type="hidden" name="localFolderLocation" value="search"> 
-							<input type="hidden" name="repoName" value="Search">
-							<input type="hidden" name="action" value="Removing">
-						</form>
-					<a onclick="addonMonitorAction(searchRemove);" class="link">Remove Search</a>
-					<?php else: ?>
-						<script type="text/javascript">
-							var searchDownload = "searchDownload";
-						</script>
-						<form id="searchDownload" action="addonAction.php" method="post">
-							<input type="hidden" name="localFolderLocation" value="search"> 
-							<input type="hidden" name="repoName" value="Search">
-							<input type="hidden" name="action" value="Downloading">
-						</form>
-						<a onclick="addonMonitorAction(searchDownload);" class="link">Download Search</a>
-					<?php endif; ?>
-				</li>
 				<form id="devAdvanced2" action="../core/php/settingsSaveConfigStatic.php" method="post">
 					<li>
 						<a onclick="resetUpdateNotification();" class="link">Reset Update Notification</a> <i style="font-size: 75%;">*Could take up to 60 seconds to save.</i>

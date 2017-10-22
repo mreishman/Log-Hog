@@ -9,11 +9,6 @@ var jsPhpSendData;
 var savedInnerHtmlLocationOtherApps;
 var locationOtherAppsData;
 
-function addonMonitorAction(idToSubmit)
-{
-	document.getElementById(idToSubmit).submit();
-}
-
 function resetSettingsPopup()
 {
 	showPopup();
