@@ -101,7 +101,7 @@ function updateMainProgressLogFile($dotsTime)
 	}
 	$dots .= "</p>";
 	$varForHeader = '"'.$updateProgress['currentStep'].'"';
-	
+
 	$stringToFindHead = "$"."updateProgress['currentStep']";
 	
 	$headerFileContents = file_get_contents("updateProgressLogHead.php");
@@ -147,24 +147,29 @@ function rrmdir($dir)
 {
 	if (is_dir($dir))
 	{
-		$objects = scandir($dir);
-		foreach ($objects as $object)
+		actuallyRemoveDir($dir);
+	}
+}
+
+function actuallyRemoveDir()
+{
+	$objects = scandir($dir);
+	foreach ($objects as $object)
+	{
+		if ($object != "." && $object != "..")
 		{
-			if ($object != "." && $object != "..") 
+			if (filetype($dir."/".$object) == "dir")
 			{
-				if (filetype($dir."/".$object) == "dir")
-				{
-					rrmdir($dir."/".$object);
-				}
-				else
-				{
-					unlink($dir."/".$object);
-				}
+				rrmdir($dir."/".$object);
+			}
+			else
+			{
+				unlink($dir."/".$object);
 			}
 		}
-    reset($objects);
-    rmdir($dir);
 	}
+	reset($objects);
+	rmdir($dir);
 }
 
 function unzipFile($locationExtractTo = '../../update/downloads/updateFiles/extracted/', $locationExtractFrom = '../../update/downloads/updateFiles/updateFiles.zip')
@@ -270,13 +275,13 @@ function removeZipFile($fileToUnlink = "../../update/downloads/updateFiles/updat
 }
 
 
-function removeUnZippedFiles($locationOfFilesThatNeedToBeRemovedRecursivally = '../../update/downloads/updateFiles/extracted', $removeDirectory = true)
+function removeUnZippedFiles($recRemovedFileLoc = '../../update/downloads/updateFiles/extracted', $removeDirectory = true)
 {
-	if($locationOfFilesThatNeedToBeRemovedRecursivally == "")
+	if($recRemovedFileLoc == "")
 	{
-		$locationOfFilesThatNeedToBeRemovedRecursivally = '../../update/downloads/updateFiles/extracted';
+		$recRemovedFileLoc = '../../update/downloads/updateFiles/extracted';
 	}
-	$files = glob($locationOfFilesThatNeedToBeRemovedRecursivally."/*"); // get all file names
+	$files = glob($recRemovedFileLoc."/*"); // get all file names
 	foreach($files as $file){ // iterate files
 	  if(is_file($file))
 	    unlink($file); // delete file
@@ -364,21 +369,21 @@ function copyFileToFile($currentFile, $indexToExtracted = "update/downloads/upda
 {
 	$varToIndexDir = "../../";
 
-	$currentFileArray = explode("_", $currentFile );  
-	$sizeOfCurrentFileArray = sizeOf($currentFileArray);
-	$nameOfFile = $currentFileArray[$sizeOfCurrentFileArray - 1];
+	$currentFileArray = explode("_", $currentFile );
+	$sizeCurrentFileArray = sizeOf($currentFileArray);
+	$nameOfFile = $currentFileArray[$sizeCurrentFileArray - 1];
 	$directoryPath = "";
 	  
-	for($i = 0; $i < $sizeOfCurrentFileArray - 1; $i++)
+	for($i = 0; $i < $sizeCurrentFileArray - 1; $i++)
 	{
-	  $directoryPath .= $currentFileArray[$i]."/"; 
+	  $directoryPath .= $currentFileArray[$i]."/";
 	}
 	 
 	$newFile = $directoryPath.$nameOfFile;
 	$fileTransfer = file_get_contents($varToIndexDir.$indexToExtracted.$currentFile);
 	$newFileWithIndexVar = $varToIndexDir.$newFile;
 	file_put_contents($newFileWithIndexVar,$fileTransfer);
-	return ($newFileWithIndexVar);   
+	return ($newFileWithIndexVar);
 }
 
 function updateConfigStatic($versionToUpdate)
@@ -393,7 +398,7 @@ function updateConfigStatic($versionToUpdate)
 	  $arrayForVersionList .= "'".$key."' => array(";
 	  $countOfArraySub = count($value);
 	  $j = 0;
-	  foreach ($value as $keySub => $valueSub) 
+	  foreach ($value as $keySub => $valueSub)
 	  {
 	    $j++;
 	    $arrayForVersionList .= "'".$keySub."' => '".$valueSub."'";

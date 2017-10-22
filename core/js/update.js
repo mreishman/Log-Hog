@@ -100,17 +100,17 @@ function verifyChange()
 	$.ajax(
 	{
 		url: urlForSend,
-		dataType: 'json',
-		data: data,
-		type: 'POST',
-		success: function(data)
+		dataType: "json",
+		data,
+		type: "POST",
+		success(data)
 		{
-			if(data == 'finishedUpdate')
+			if(data == "finishedUpdate")
 			{
 				clearInterval(timeoutVar);
 				actuallyInstallUpdates();
 			}
-	  	}
+		}
 	});
 }
 
