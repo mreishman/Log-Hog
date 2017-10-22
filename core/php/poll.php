@@ -249,4 +249,3 @@ foreach($_POST['arrayToUpdate'] as $path)
 	$response[$path] = $dataVar;
 }
 echo json_encode($response);
-?>

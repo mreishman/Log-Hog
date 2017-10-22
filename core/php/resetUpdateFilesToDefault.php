@@ -29,5 +29,3 @@ $newInfoForConfig = "<p id='headerForUpdate'><?php echo $"."updateProgress['curr
 file_put_contents($fileName, $newInfoForConfig);
 
 echo json_encode(true);
-
-?>

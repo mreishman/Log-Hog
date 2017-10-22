@@ -103,7 +103,7 @@ function updateMainProgressLogFile($dotsTime)
 	$varForHeader = '"'.$updateProgress['currentStep'].'"';
 
 	$stringToFindHead = "$"."updateProgress['currentStep']";
-	
+
 	$headerFileContents = file_get_contents("updateProgressLogHead.php");
 	$headerFileContents = str_replace('id="headerForUpdate"', "", $headerFileContents);
 	$headerFileContents = str_replace($stringToFindHead, $varForHeader , $headerFileContents);
@@ -392,9 +392,9 @@ function updateConfigStatic($versionToUpdate)
 
 	$arrayForVersionList = "";
 	$countOfArray = count($configStatic['versionList']);
-	$i = 0;
+	$count = 0;
 	foreach ($configStatic['versionList'] as $key => $value) {
-	  $i++;
+	  $count++;
 	  $arrayForVersionList .= "'".$key."' => array(";
 	  $countOfArraySub = count($value);
 	  $j = 0;
@@ -408,7 +408,7 @@ function updateConfigStatic($versionToUpdate)
 	    }
 	  }
 	  $arrayForVersionList .= ")";
-	  if($i != $countOfArray)
+	  if($count != $countOfArray)
 	  {
 	    $arrayForVersionList .= ",";
 	  }
@@ -431,5 +431,3 @@ function finishedUpdate()
 {
 	//nothing!
 }
-
-?>
