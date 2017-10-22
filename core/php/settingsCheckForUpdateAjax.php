@@ -10,11 +10,8 @@ if(file_exists('../../local/layout.php'))
   require_once('../../local/layout.php');
   $baseUrl .= $currentSelectedTheme."/";
 }
-require_once($baseUrl.'conf/config.php'); 
+require_once($baseUrl.'conf/config.php');
 require_once('../conf/config.php');
-
-require_once('verifyWriteStatus.php');
-checkForUpdate($_SERVER['REQUEST_URI']);
 
 if(file_exists("../../update/downloads/versionCheck/extracted/"))
 {
@@ -32,8 +29,6 @@ if(file_exists("../../update/downloads/versionCheck/extracted/"))
   }
 
 }
-
-
 
 if(array_key_exists('branchSelected', $config))
 {
@@ -54,7 +49,7 @@ else
 
 if($branchSelected === "dev")
 {
-  file_put_contents("../../update/downloads/versionCheck/versionCheck.zip", 
+  file_put_contents("../../update/downloads/versionCheck/versionCheck.zip",
   file_get_contents($baseUrlUpdate ."versionCheckDev.zip")
   );
 }
@@ -71,14 +66,11 @@ else
   );
 }
 
-
-
-
 mkdir("../../update/downloads/versionCheck/extracted/");
 $zip = new ZipArchive;
 $path = "../../update/downloads/versionCheck/versionCheck.zip";
 $res = $zip->open($path);
-if ($res === TRUE) {
+if ($res === true) {
   for($i = 0; $i < $zip->numFiles; $i++) {
         $filename = $zip->getNameIndex($i);
         $fileinfo = pathinfo($filename);
@@ -86,8 +78,8 @@ if ($res === TRUE) {
         {
           copy("zip://".$path."#".$filename, "../../update/downloads/versionCheck/extracted/".$fileinfo['basename']);
         }
-    }                   
-    $zip->close();  
+    }
+    $zip->close();
 }
 
 unlink("../../update/downloads/versionCheck/versionCheck.zip");
@@ -103,7 +95,7 @@ foreach ($versionCheckArray['versionList'] as $key => $value) {
   $arrayForVersionList .= "'".$key."' => array(";
   $countOfArraySub = count($value);
   $j = 0;
-  foreach ($value as $keySub => $valueSub) 
+  foreach ($value as $keySub => $valueSub)
   {
     $j++;
     $arrayForVersionList .= "'".$keySub."' => '".$valueSub."'";
@@ -131,7 +123,6 @@ $"."configStatic = array(
 );
 ";
 
-
 //write new info to version file in core/php/configStatic.php
 
 $files = glob("../../update/downloads/versionCheck/extracted/*"); // get all file names
@@ -144,11 +135,10 @@ file_put_contents("configStatic.php", $newInfoForConfig);
 
 rmdir("../../update/downloads/versionCheck/extracted/");
 
-
 $version = $configStatic['version'];
 $newestVersion = $versionCheckArray['version'];
 
-$version = explode('.', $configStatic['version'] ); 
+$version = explode('.', $configStatic['version'] );
 $newestVersion =  explode('.', $versionCheckArray['version']);
 
 $newestVersionCount = count($newestVersion);
@@ -158,13 +148,11 @@ $levelOfUpdate = $levelOfUpdate = findUpdateValue($newestVersionCount, $versionC
 $data['version'] = $levelOfUpdate;
 $data['versionNumber'] = $versionCheckArray['version'];
 
-
-
 $Changelog = "<ul id='settingsUl'>";
 $version = explode('.', $configStatic['version'] ); 
 $versionCount = count($version);
 
-foreach ($versionCheckArray['versionList'] as $key => $value) 
+foreach ($versionCheckArray['versionList'] as $key => $value)
 {
   $newestVersion = explode('.', $key);
   $newestVersionCount = count($newestVersion);
@@ -179,9 +167,6 @@ foreach ($versionCheckArray['versionList'] as $key => $value)
 
 $Changelog .= "</ul>";
 
-
 $data['changeLog'] = $Changelog;
 
-echo json_encode($data); 
-
-?>
+echo json_encode($data);

@@ -213,12 +213,11 @@ function pollTwoPartTwo(data)
 			updateAllRefreshCounter("-");
 		}
 
+		filesNew = Object.keys(data);
+
 		if(arrayOfData1 === null || boolForAllUpdateForce)
 		{
-			arrayOfData1 = data;
-			filesNew = Object.keys(arrayOfData1);
-			var i = filesNew.length - 1;
-			for (i; i >= 0; i--)
+			for (var i = filesNew.length - 1; i >= 0; i--)
 			{
 				arrayToUpdate.push(filesNew[i]);
 			}
@@ -226,12 +225,9 @@ function pollTwoPartTwo(data)
 		else
 		{
 			var arrayOfData2 = data; 
-			filesNew = Object.keys(arrayOfData2);
 			var filesOld = Object.keys(arrayOfData1);
-
 			arrayToUpdate = [];
-			var i = filesNew.length - 1;
-			for (i; i >= 0; i--)
+			for (var i = filesNew.length - 1; i >= 0; i--)
 			{
 				if(filesOld.indexOf(filesNew[i]) > -1)
 				{
@@ -247,8 +243,8 @@ function pollTwoPartTwo(data)
 					arrayToUpdate.push(filesNew[i]);
 				}
 			}
-			i = filesOld.length - 1;
-			for (i; i >= 0; i--)
+			
+			for (var i = filesOld.length - 1; i >= 0; i--)
 			{
 				if(!(filesNew.indexOf(filesOld[i]) > -1))
 				{
@@ -906,7 +902,7 @@ function deleteAction()
 		$.ajax({
 			url: urlForSend,
 			dataType: "json",
-			data: data,
+			data,
 			type: "POST",
 			success(data)
 			{
@@ -1018,17 +1014,17 @@ function verifyChange()
 {
 	try
 	{
-	    var urlForSend = '../update/updateActionCheck.php?format=json'
+		var urlForSend = "../update/updateActionCheck.php?format=json";
 		var data = {status: "" };
 		$.ajax(
 		{
 			url: urlForSend,
 			dataType: "json",
-			data: data,
+			data,
 			type: "POST",
 			success(data)
 			{
-				if(data == 'finishedUpdate')
+				if(data == "finishedUpdate")
 				{
 					clearInterval(timeoutVar);
 					actuallyInstallUpdates();
@@ -1046,7 +1042,7 @@ function actuallyInstallUpdates()
 {
 	try
 	{
-    	$("#settingsInstallUpdate").submit();
+		$("#settingsInstallUpdate").submit();
 	}
 	catch(e)
 	{
@@ -1058,7 +1054,7 @@ function checkForUpdateMaybe()
 {
 	try
 	{
-    	if (autoCheckUpdate == true)
+		if (autoCheckUpdate == true)
 		{
 			if(daysSinceLastCheck > (daysSetToUpdate - 1))
 			{
@@ -1077,7 +1073,7 @@ function checkForUpdateDefinitely(showPopupForNoUpdate = false)
 {
 	try
 	{
-    	if(!updating)
+		if(!updating)
 		{
 			updating = true;
 			if(showPopupForNoUpdate)
@@ -1155,7 +1151,7 @@ function showUpdateCheckPopup(data)
 		var textForInnerHTML = "<div class='settingsHeader' >New Version Available!</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Version "+escapeHTML(data.versionNumber)+" is now available!</div><div class='link' onclick='installUpdates();' style='margin-left:74px; margin-right:50px;margin-top:25px;'>Update Now</div><div onclick='saveSettingFromPopupNoCheckMaybe();' class='link'>Maybe Later</div><br><div style='width:100%; padding-left:45px; padding-top:5px;'><input id='dontShowPopuForThisUpdateAgain'";
 		if(dontNotifyVersion == data.versionNumber)
 		{
-			textForInnerHTML += " checked "
+			textForInnerHTML += " checked ";
 		}
 		dontNotifyVersion = data.versionNumber;
 		textForInnerHTML += "type='checkbox'>Don't notify me about this update again</div></div>";
@@ -1223,10 +1219,10 @@ function saveSettingFromPopupNoCheckMaybe()
 {
 	try
 	{
-    	if(document.getElementById("dontShowPopuForThisUpdateAgain").checked)
+		if(document.getElementById("dontShowPopuForThisUpdateAgain").checked)
 		{
 			var urlForSend = "core/php/settingsSaveAjax.php?format=json";
-			var data = {dontNotifyVersion: dontNotifyVersion };
+			var data = {dontNotifyVersion};
 			$.ajax({
 				url: urlForSend,
 				dataType: "json",
@@ -1234,7 +1230,7 @@ function saveSettingFromPopupNoCheckMaybe()
 				type: "POST",
 			complete(data){
 				hidePopup();
-	  	},
+				},
 			});
 		}
 		else
@@ -1255,9 +1251,9 @@ function updateProgressBar(additonalPercent, text)
 		if(firstLoad)
 		{
 			percent = percent + additonalPercent;
-			document.getElementById('progressBar').value = percent;
-			$('#progressBarSubInfo').empty();
-			$('#progressBarSubInfo').append(text);
+			document.getElementById("progressBar").value = percent;
+			$("#progressBarSubInfo").empty();
+			$("#progressBarSubInfo").append(text);
 		}
 	}
 	catch(e)
