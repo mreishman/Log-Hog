@@ -48,6 +48,7 @@ $listOfAddons = array(
 		"lowercase"		=>	"monitor",
 		"uppercase"		=>	"Monitor",
 		"Repo"			=>	"Monitor",
+		"Description"	=> 	"A simple php server monitoring tool.",
 		"ConfigStatic"	=>	$configStaticMonitor
 	),
 	"Search" => array(
@@ -55,6 +56,7 @@ $listOfAddons = array(
 		"lowercase"		=>	"search",
 		"uppercase"		=>	"Search",
 		"Repo"			=>	"Search",
+		"Description"	=> 	"A simple visual grep tool that is intended for use on dev boxes.",
 		"ConfigStatic"	=>	$configStaticSearch
 	)
 );
@@ -74,48 +76,64 @@ $listOfAddons = array(
 			Addons
 		</div>
 		<div class="settingsDiv" >
-			<ul id="settingsUl">
+			<table>
 				<?php foreach ($listOfAddons as $key => $value):
 				$lowercase = $value["lowercase"];
 				$uppercase = $value["uppercase"];
 				$repo = $value["Repo"];
 				$installed = $value["Installed"];
+				$description = $value["Description"];
 				?> 
-					<li>
+					<tr>
+						<td>
+							<?php echo $uppercase; ?>
+						</td>
+						<td>
+							<?php echo $description; ?>
+						</td>
 						<?php if($installed):?>
-							Version: <?php echo $value['ConfigStatic']['version'];?>
-							|
-							<?php if $value['ConfigStatic']['version'] !== $value['ConfigStatic']['newestVersion']: ?>
-								Update Available
-							<?php else: ?>
-								No Update
-							<?php endif; ?>
-							|
-							Check For Updates
-							|
-							<script type="text/javascript">
-							var <?php echo $key; ?> = "<?php echo $lowercase; ?>Download"
-							</script>
-							<form id="<?php echo $lowercase; ?>Download" action="addonAction.php" method="post">
-								<input type="hidden" name="localFolderLocation" value="<?php echo $lowercase; ?>"> 
-								<input type="hidden" name="repoName" value="<?php echo $repo; ?>">
-								<input type="hidden" name="action" value="Downloading">
-							</form>
-							<a onclick="addonMonitorAction(<?php echo $key; ?>);" class="link">Download <?php echo $uppercase; ?></a>
+							<td>
+								Version: <?php echo $value['ConfigStatic']['version'];?>
+							</td>
+							<td>
+								<?php if $value['ConfigStatic']['version'] !== $value['ConfigStatic']['newestVersion']: ?>
+									Update Available - <?php echo $value['ConfigStatic']['newestVersion']; ?>
+								<?php else: ?>
+									No Update
+								<?php endif; ?>
+							</td>
+							<td>
+								<a class="link">Check For Updates</a>
+							</td>
+							<td>
+								<script type="text/javascript">
+								var <?php echo $key; ?> = "<?php echo $lowercase; ?>Download"
+								</script>
+								<form id="<?php echo $lowercase; ?>Download" action="addonAction.php" method="post">
+									<input type="hidden" name="localFolderLocation" value="<?php echo $lowercase; ?>"> 
+									<input type="hidden" name="repoName" value="<?php echo $repo; ?>">
+									<input type="hidden" name="action" value="Downloading">
+								</form>
+								<a onclick="addonMonitorAction(<?php echo $key; ?>);" class="link">Download <?php echo $uppercase; ?></a>
+							</td>
 						<?php else: ?>
-							<script type="text/javascript">
-							var <?php echo $key; ?> = "<?php echo $lowercase; ?>Remove"
-							</script>
-							<form id="<?php echo $lowercase; ?>Remove" action="addonAction.php" method="post">
-								<input type="hidden" name="localFolderLocation" value="<?php echo $lowercase; ?>"> 
-								<input type="hidden" name="repoName" value="<?php echo $repo; ?>">
-								<input type="hidden" name="action" value="Removing">
-							</form>
-							<a onclick="addonMonitorAction(<?php echo $key; ?>);" class="link">Remove <?php echo $uppercase; ?></a>
+							<td colspan="3">
+							</td>
+							<td>
+								<script type="text/javascript">
+								var <?php echo $key; ?> = "<?php echo $lowercase; ?>Remove"
+								</script>
+								<form id="<?php echo $lowercase; ?>Remove" action="addonAction.php" method="post">
+									<input type="hidden" name="localFolderLocation" value="<?php echo $lowercase; ?>"> 
+									<input type="hidden" name="repoName" value="<?php echo $repo; ?>">
+									<input type="hidden" name="action" value="Removing">
+								</form>
+								<a onclick="addonMonitorAction(<?php echo $key; ?>);" class="link">Remove <?php echo $uppercase; ?></a>
+							</td>
 						<?php endif; ?>
-					</li>
+					</tr>
 				<?php endforeach; ?>
-			</ul>
+			</table>
 		</div>
 	</div>
 </body>
