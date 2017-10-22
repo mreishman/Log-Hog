@@ -17,7 +17,7 @@ if($action == 'downloadFile')
 elseif($action == 'unzipFile')
 {
 	unzipFileAndSub($_POST['locationExtractFrom'],"",$_POST['locationExtractTo'],"../../");
-	$response = true; 
+	$response = true;
 }
 elseif($action == 'unzipUpdateAndReturnArray')
 {
@@ -53,7 +53,7 @@ elseif($action == 'verifyDirIsThere')
 }
 elseif($action == 'checkIfDirIsEmpty')
 {
-	if (verifyDirIsEmpty($_POST['dir'])) 
+	if (verifyDirIsEmpty($_POST['dir']))
 	{
   		$response = true; 
 	}

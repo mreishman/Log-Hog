@@ -37,7 +37,7 @@
 				<div class="selectDiv">
 					<select name="fontFamily">
 						<?php
-						$fonts = array('monospace','sans-serif','Courier','Monaco','Verdana','Geneva','Helvetica','Tahoma','Charcoal','Impact','cursive','Gadget','Arial'); 
+						$fonts = array('monospace','sans-serif','Courier','Monaco','Verdana','Geneva','Helvetica','Tahoma','Charcoal','Impact','cursive','Gadget','Arial');
 						foreach ($fonts as $value): ?>
 							<option <?php if($fontFamily === $value){echo "selected";} ?> value="<?php echo $value; ?>"><?php echo $value; ?></option>
 						<?php endforeach; ?>
