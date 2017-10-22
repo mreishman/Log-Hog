@@ -31,8 +31,9 @@ function saveAndVerifyMain(idForForm)
 	$.ajax({
         type: "post",
         url: "../core/php/settingsSaveAjax.php",
-        data: data,
-        complete: function () {
+        data,
+        complete()
+        {
           //verify saved
           verifySaveTimer();
         }
@@ -58,7 +59,7 @@ function timerVerifySave()
 			dataType: "json",
 			data: data,
 			type: "POST",
-			success: function(data)
+			success(data)
 			{
 				if(data === true)
 				{

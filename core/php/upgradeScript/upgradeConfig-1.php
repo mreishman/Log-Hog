@@ -48,4 +48,3 @@ $newInfoForConfig .= "
 file_put_contents($fileName, $newInfoForConfig);
 
 echo json_encode($_POST['version']);
-?>

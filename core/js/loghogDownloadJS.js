@@ -37,7 +37,7 @@ function removeFilesFromToppFolder(skip = false)
 	$.ajax({
 		url: urlForSend,
 		dataType: "json",
-		data: data,
+		data,
 		type: "POST",
 		complete()
 		{
@@ -74,7 +74,7 @@ function downloadFile()
 		dataType: "json",
 		data: data,
 		type: "POST",
-		complete: function()
+		complete()
 		{
 			//verify if downloaded
 			updateText("Verifying Download");

@@ -132,4 +132,3 @@ else
 	$response = "ACTION";
 }
 echo json_encode($response);
-?>
