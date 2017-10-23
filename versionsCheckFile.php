@@ -1,7 +1,7 @@
 <?php
 
 $versionCheckArray = array(
-	'version'		=> '3.0.2',
+	'version'		=> '3.0.3',
 	'versionList'		=> array(
 		'2.0.1'	        => array(
 			'branchName'	=> '2.0.1Update',
@@ -70,6 +70,10 @@ $versionCheckArray = array(
 		'3.0.2'		=> array(
 			'branchName'	=> '3.0.2Update',
 			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed bug with updating css / js</li><li>Added feedback popup for errors for beta branch users</li><li>Fixed some image issues</li></ul></li></ul>"
+		),
+		'3.0.3'		=> array(
+			'branchName'	=> '3.0.3Update',
+			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed issue with update in progress page</li><li>Fixed bug with download monitor because of version 1.1</li><li>Fixed some style issues with right click menu</li></ul></li></ul>"
 		),
 	)
 );
