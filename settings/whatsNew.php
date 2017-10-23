@@ -64,7 +64,8 @@ require_once('../core/php/commonFunctions.php');
 					</ul>
 				</td>
 				<td>
-					
+					<a href="../core/img/3.1-1.png" data-lightbox="3.1" ><img src="../core/img/3.1-1.png" style="width: 45%;"></a>
+					<a href="../core/img/3.1-2.png" data-lightbox="3.1" ><img src="../core/img/3.1-2.png" style="width: 45%;"></a>
 				</td>
 				</tr>
 
