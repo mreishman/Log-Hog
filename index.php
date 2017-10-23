@@ -101,7 +101,7 @@ elseif (is_dir("../Search"))
 		<div id="loggTimerPollStyle" style="width: 100%;background-color: black;text-align: center; line-height: 200%;" ><span id="loggingTimerPollRate" >### MS /<?php echo $pollingRate; ?> MS</span> | <span id="loggSkipCount" >0</span>/<?php echo $pollForceTrue; ?> | <span id="loggAllCount" >0</span>/<?php echo $pollRefreshAll; ?></div>
 	<?php endif; ?>
 	<div class="backgroundForMenus" id="menu">
-		<div style="display: inline-block;">
+		<div id="menuButtons" style="display: block;">
 			<div onclick="pausePollAction();" class="menuImageDiv">
 				<img id="playImage" class="menuImage" src="<?php echo $baseUrl; ?>img/Play.png"
 					<?php if($pausePoll !== 'true'):?>

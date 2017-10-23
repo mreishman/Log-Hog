@@ -84,10 +84,14 @@ $listOfAddons = array(
 				$installed = $value["Installed"];
 				$description = $value["Description"];
 				?> 
-					<tr>
-						<td>
-							<?php echo $uppercase; ?>
+					<tr style="height: 10px;">
+						<td colspan="6">
 						</td>
+					</tr>
+					<tr>
+						<th style="padding-left: 5px;">
+							<?php echo $uppercase; ?>:
+						</th>
 						<td>
 							<?php echo $description; ?>
 						</td>
@@ -131,6 +135,10 @@ $listOfAddons = array(
 								<a onclick="addonMonitorAction(<?php echo $key; ?>);" class="link">Download <?php echo $uppercase; ?></a>
 							</td>
 						<?php endif; ?>
+					</tr>
+					<tr style="height: 10px;">
+						<td colspan="6">
+						</td>
 					</tr>
 				<?php endforeach; ?>
 			</table>

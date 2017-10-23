@@ -587,3 +587,11 @@ div {
 .selectDiv option{
 	color: black;
 }
+
+
+#menuButtons{
+	display: block;
+	border-bottom: 1px solid white;
+	padding-bottom: 5px;
+	margin-bottom: 5px;
+}
