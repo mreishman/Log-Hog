@@ -19,6 +19,18 @@
 				<span class="settingsBuffer" > Main Font Color: </span> 
 				<input type="text" name="mainFontColor" value="<?php echo $mainFontColor;?>" >
 			</li>
+			<li>
+				<span class="settingsBuffer"> Font: </span>
+				<div class="selectDiv">
+					<select name="fontFamily">
+						<?php
+						$fonts = array('monospace','sans-serif','Courier','Monaco','Verdana','Geneva','Helvetica','Tahoma','Charcoal','Impact','cursive','Gadget','Arial');
+						foreach ($fonts as $value): ?>
+							<option <?php if($fontFamily === $value){echo "selected";} ?> value="<?php echo $value; ?>"><?php echo $value; ?></option>
+						<?php endforeach; ?>
+					</select>
+				</div>
+			</li>
 			<li> 
 				<span class="settingsBuffer" > Header Background: </span> 
 				<input type="text" name="backgroundHeaderColor" value="<?php echo $backgroundHeaderColor;?>" >
@@ -29,18 +41,6 @@
 					<select name="invertMenuImages">
 						<option <?php if($invertMenuImages === 'true'){echo "selected";} ?> value="true">True</option>
 						<option <?php if($invertMenuImages === 'false'){echo "selected";} ?> value="false">False</option>
-					</select>
-				</div>
-			</li>
-			<li>
-				<span class="settingsBuffer"> Font: </span>
-				<div class="selectDiv">
-					<select name="fontFamily">
-						<?php
-						$fonts = array('monospace','sans-serif','Courier','Monaco','Verdana','Geneva','Helvetica','Tahoma','Charcoal','Impact','cursive','Gadget','Arial');
-						foreach ($fonts as $value): ?>
-							<option <?php if($fontFamily === $value){echo "selected";} ?> value="<?php echo $value; ?>"><?php echo $value; ?></option>
-						<?php endforeach; ?>
 					</select>
 				</div>
 			</li>

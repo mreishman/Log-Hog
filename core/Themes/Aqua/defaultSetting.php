@@ -78,5 +78,4 @@ background: linear-gradient(to bottom, rgba(172,197,233,1) 0%, rgba(163,192,242,
 				)
 			)
 		)
-	)
-?>
+	);

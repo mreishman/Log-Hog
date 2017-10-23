@@ -97,15 +97,16 @@ function returnActualFilePerms($key)
 			evaluateBool(
 				$value["Execute"]["Boolval2"],
 				"s",
-				"x",
+				"x"
 			),
 			evaluateBool(
 				$value["Execute"]["Boolval2"],
 				"S",
-				"-",
+				"-"
 			)
 		);
 	}
+	return $info;
 }
 
 function evaluateBool($boolVal, $trueVal, $falseVal)

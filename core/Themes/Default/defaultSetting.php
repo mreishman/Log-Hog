@@ -405,4 +405,4 @@ $folderColorArraysDefault	= array(
 				)
 			)
 		),
-	)
+	);

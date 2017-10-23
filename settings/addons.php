@@ -18,7 +18,7 @@ require_once('../core/php/updateCheck.php');
 
 //check if monitor is installed
 $monitorInstalled = false;
-$configStaticMonitor;
+$configStaticMonitor = null;
 
 if(is_file("../monitor/index.php") === true)
 {
@@ -31,7 +31,7 @@ if(is_file("../monitor/index.php") === true)
 
 //check if search is installed
 $searchInstalled = false;
-$configStaticSearch;
+$configStaticSearch = null;
 
 if(is_file("../search/index.php") === true)
 {
@@ -96,7 +96,7 @@ $listOfAddons = array(
 								Version: <?php echo $value['ConfigStatic']['version'];?>
 							</td>
 							<td>
-								<?php if $value['ConfigStatic']['version'] !== $value['ConfigStatic']['newestVersion']: ?>
+								<?php if ($value['ConfigStatic']['version'] !== $value['ConfigStatic']['newestVersion']): ?>
 									Update Available - <?php echo $value['ConfigStatic']['newestVersion']; ?>
 								<?php else: ?>
 									No Update
@@ -104,20 +104,6 @@ $listOfAddons = array(
 							</td>
 							<td>
 								<a class="link">Check For Updates</a>
-							</td>
-							<td>
-								<script type="text/javascript">
-								var <?php echo $key; ?> = "<?php echo $lowercase; ?>Download"
-								</script>
-								<form id="<?php echo $lowercase; ?>Download" action="addonAction.php" method="post">
-									<input type="hidden" name="localFolderLocation" value="<?php echo $lowercase; ?>"> 
-									<input type="hidden" name="repoName" value="<?php echo $repo; ?>">
-									<input type="hidden" name="action" value="Downloading">
-								</form>
-								<a onclick="addonMonitorAction(<?php echo $key; ?>);" class="link">Download <?php echo $uppercase; ?></a>
-							</td>
-						<?php else: ?>
-							<td colspan="3">
 							</td>
 							<td>
 								<script type="text/javascript">
@@ -129,6 +115,20 @@ $listOfAddons = array(
 									<input type="hidden" name="action" value="Removing">
 								</form>
 								<a onclick="addonMonitorAction(<?php echo $key; ?>);" class="link">Remove <?php echo $uppercase; ?></a>
+							</td>
+						<?php else: ?>
+							<td colspan="3">
+							</td>
+							<td>
+								<script type="text/javascript">
+								var <?php echo $key; ?> = "<?php echo $lowercase; ?>Download"
+								</script>
+								<form id="<?php echo $lowercase; ?>Download" action="addonAction.php" method="post">
+									<input type="hidden" name="localFolderLocation" value="<?php echo $lowercase; ?>"> 
+									<input type="hidden" name="repoName" value="<?php echo $repo; ?>">
+									<input type="hidden" name="action" value="Downloading">
+								</form>
+								<a onclick="addonMonitorAction(<?php echo $key; ?>);" class="link">Download <?php echo $uppercase; ?></a>
 							</td>
 						<?php endif; ?>
 					</tr>
