@@ -123,7 +123,7 @@ function poll()
 		}
 		else
 		{
-			if(pollForceTrueBool === "true")
+			if(pollForceTrueBool === "true" && firstLoad !== true)
 			{
 				pollSkipCounter++;
 				updateSkipCounterLog(pollSkipCounter);
