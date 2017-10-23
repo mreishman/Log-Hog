@@ -120,7 +120,7 @@ if($updateProgress['currentStep'] == "Finished Updating to ")
 require_once('../core/php/updateProgressFileNext.php');
 $newestVersionCheck = '"'.$configStatic['newestVersion'].'"';
 $versionCheck = '"'.$configStatic['version'].'"';
-
+$cssVersion = rand(1, 999999);
 $update = true;
 if(count($arrayOfVersions) === 0)
 {
