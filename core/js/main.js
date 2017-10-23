@@ -993,7 +993,7 @@ function installUpdates()
 	{
 		displayLoadingPopup();
 		//reset vars in post request
-		var urlForSend = "../core/php/resetUpdateFilesToDefault.php?format=json";
+		var urlForSend = "core/php/resetUpdateFilesToDefault.php?format=json";
 		var data = {status: "" };
 		$.ajax(
 		{
@@ -1018,7 +1018,7 @@ function verifyChange()
 {
 	try
 	{
-	    var urlForSend = '../update/updateActionCheck.php?format=json'
+	    var urlForSend = 'update/updateActionCheck.php?format=json'
 		var data = {status: "" };
 		$.ajax(
 		{
