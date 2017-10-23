@@ -22,7 +22,7 @@ for ($i=$backupNumConfig; $i > 0; $i--)
 	}
 	$fileNameOld = ''.$baseUrl.'conf/config'.$addonNum.'.php';
 	$fileNameNew = ''.$baseUrl.'conf/config'.$i.'.php';
-	if (file_exists($fileName))
+	if (file_exists($fileNameOld))
 	{
 		rename($fileNameOld, $fileNameNew);
 	}
