@@ -147,12 +147,8 @@ function deleteRowFunction(currentRow, decreaseCountWatchListNum)
 			if(countOfAddedFiles > 0)
 			{
 				countOfAddedFiles--;
-				countOfWatchList--;
 			}
-			else
-			{
-				countOfWatchList--;
-			}
+			countOfWatchList--;
 			document.getElementById("numberOfRows").value = newValue;
 		}
 	}
@@ -422,15 +418,7 @@ function highlightTopNavDepends()
 {
 	try
 	{
-		var offsetHeight = 0;
-		if(document.getElementById("menu"))
-		{
-			offsetHeight += document.getElementById("menu").offsetHeight;
-		}
-		if(document.getElementById("menu2"))
-		{
-			offsetHeight += document.getElementById("menu2").offsetHeight;
-		}
+		var offsetHeight = document.getElementById("menu").offsetHeight + document.getElementById("menu2").offsetHeight;
 		outerHeightMain = $("#settingsMainVars").outerHeight();
 		positionMain = $("#settingsMainVars").position();
 		if((outerHeightMain+positionMain.top-offsetHeight) < 0)

@@ -180,16 +180,14 @@ function objectsAreSameInner(x, y)
 {
 	try
 	{
-		var objectsAreSame = true;
 		for(var propertyName in x) 
 		{
 			if( (typeof(x) === "undefined") || (typeof(y) === "undefined") || x[propertyName] !== y[propertyName])
 			{
-				objectsAreSame = false;
-				break;
+				return false;
 			}
 		}
-		return objectsAreSame;
+		return true;
 	}
 	catch(e)
 	{

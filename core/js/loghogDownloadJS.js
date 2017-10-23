@@ -129,24 +129,28 @@ function verifyFail(action)
 	}
 	else
 	{
-		if(action === "downloadMonitor")
-		{
-			updateText("File Could NOT be found");
-			downloadFile();
-		}
-		else if(action === "unzipFile")
-		{
-			unzipFile();
-		}
-		else if(action === "removeZipFile")
-		{
-			removeZipFile();
-		}
-		else if(action === "removeFilesFromToppFolderSkip")
-		{
-			removeFilesFromToppFolder(true);
-		}
-		//run previous ajax
+		verifyFailAction(action);
+	}
+}
+
+function verifyFailAction(action)
+{
+	if(action === "downloadMonitor")
+	{
+		updateText("File Could NOT be found");
+		downloadFile();
+	}
+	else if(action === "unzipFile")
+	{
+		unzipFile();
+	}
+	else if(action === "removeZipFile")
+	{
+		removeZipFile();
+	}
+	else if(action === "removeFilesFromToppFolderSkip")
+	{
+		removeFilesFromToppFolder(true);
 	}
 }
 

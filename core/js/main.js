@@ -813,25 +813,26 @@ function checkIfPageHidden()
 			{
 				pausePollFunction();
 			}
+			return;
 		}
-		else
+
+		//not hidden
+		if(!userPaused && pausePoll)
 		{
-			//not hidden
-			if(!userPaused && pausePoll)
+			pausePoll = false;
+			showPauseButton();
+			stopFlashTitle();
+			if(pollTimer === null)
 			{
-				pausePoll = false;
-				showPauseButton();
-				stopFlashTitle();
-				if(pollTimer === null)
-				{
-					poll();
-					startPollTimer();
-				}
+				poll();
+				startPollTimer();
 			}
-			if(userPaused)
-			{
-				updateDocumentTitle("Paused");
-			}
+			return;
+		}
+
+		if(userPaused)
+		{
+			updateDocumentTitle("Paused");
 		}
 	}
 	catch(e)
