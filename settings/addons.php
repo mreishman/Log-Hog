@@ -77,6 +77,20 @@ $listOfAddons = array(
 		</div>
 		<div class="settingsDiv" >
 			<table style="width: 100%;">
+				<tr>
+					<td>
+					</td>
+					<td width="25%">
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+					<td>
+					</td>
+				</tr>
 				<?php foreach ($listOfAddons as $key => $value):
 				$lowercase = $value["lowercase"];
 				$uppercase = $value["uppercase"];
