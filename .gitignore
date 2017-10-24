@@ -36,3 +36,5 @@ local/default/conf/config2.php
 local/default/conf/config3.php
 local/default/conf/config4.php
 local/default/conf/config5.php
+monitor/*
+search/*
