@@ -71,8 +71,10 @@ require_once('../core/php/updateCheck.php');
 					</div>
 				</li>
 				<li>
-					<a class="link">View restore options for config</a>
-					<span> | </span>
+					<?php if($backupNumConfigEnabled == 'true'): ?>
+						<a class="link">View restore options for config</a>
+						<span> | </span>
+					<?php endif; ?>
 					<a onclick="resetSettingsPopup();" class="link">Reset Settings back to Default</a>
 				</li>
 			</ul>
@@ -257,18 +259,12 @@ require_once('../core/php/updateCheck.php');
 		<div class="settingsDiv" >
 			<ul id="settingsUl">
 				<li>
-					Re-do setup
-					<a style="text-decoration: none;" href="../setup/step1.php" class="link">Setup</a>
+					<a style="text-decoration: none;" href="../setup/step1.php" class="link">Re-do Setup</a>
+					<span> | </span>
+					<a onclick="revertPopup();" class="link">Revert Version</a>
+					<span> | </span>
+					<a onclick="resetUpdateNotification();" class="link">Reset Update Notification</a>
 				</li>
-				<li>
-					<a onclick="revertPopup();" class="link">Revert to Previous Version</a>
-				</li>
-				<form id="devAdvanced2" action="../core/php/settingsSaveConfigStatic.php" method="post">
-					<li>
-						<a onclick="resetUpdateNotification();" class="link">Reset Update Notification</a> <i style="font-size: 75%;">*Could take up to 60 seconds to save.</i>
-					</li>
-					<input type="hidden" style="width: 400px;"  name="newestVersion" value="<?php echo $configStatic['version'];?>" > 
-				</form>
 			</ul>
 		</div>
 	</div>
@@ -277,6 +273,9 @@ require_once('../core/php/updateCheck.php');
 		<select style="display: none;" name="resetConfigValuesBackToDefault">
 				<option selected value="true">True</option>
 		</select>
+	</form>
+	<form id="devAdvanced2" action="../core/php/settingsSaveConfigStatic.php" method="post">
+		<input type="hidden" style="width: 400px;"  name="newestVersion" value="<?php echo $configStatic['version'];?>" > 
 	</form>
 </body>
 <script type="text/javascript">
