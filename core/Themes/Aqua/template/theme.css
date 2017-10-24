@@ -614,7 +614,6 @@ background: linear-gradient(to bottom, rgba(233,170,181,1) 0%, rgba(242,166,173,
 
 #menuButtons{
 	display: block;
-	border-bottom: 1px solid white;
 	padding-bottom: 5px;
 	margin-bottom: 5px;
 }

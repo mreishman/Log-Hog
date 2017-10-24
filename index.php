@@ -160,6 +160,9 @@ elseif (is_dir("../Search"))
 					gS
 				</div>
 			<?php endif; ?>
+			<div style="float: right;">
+				<input type="text" name="search" placeholder="filter title" style="height: 30px; width: 200px;">
+			</div>
 		</div>
 	</div>
 	
