@@ -54,7 +54,7 @@ if($locationForMonitor != "")
 }
 elseif(is_file("monitor/index.php"))
 {
-	$locationForMonitorIndex = './monitor/index.php';
+	$locationForMonitorIndex = './monitor/';
 }
 elseif (is_dir("../monitor"))
 {
@@ -72,7 +72,7 @@ if($locationForSearch != "")
 }
 elseif(is_file("search/index.php"))
 {
-	$locationForSearchIndex = './search/index.php';
+	$locationForSearchIndex = './search/';
 }
 elseif (is_dir("../search"))
 {
