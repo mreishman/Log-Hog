@@ -12,19 +12,21 @@ if(file_exists('../../local/layout.php'))
 require_once($baseUrl.'conf/config.php');
 require_once('../../core/conf/config.php');
 require_once('loadVars.php');
-
-for ($i=$backupNumConfig; $i > 0; $i--)
+if($backupNumConfigEnabled === "true")
 {
-	$addonNum = "";
-	if($i !== 1)
+	for ($i=$backupNumConfig; $i > 0; $i--)
 	{
-		$addonNum = $i-1;
-	}
-	$fileNameOld = ''.$baseUrl.'conf/config'.$addonNum.'.php';
-	$fileNameNew = ''.$baseUrl.'conf/config'.$i.'.php';
-	if (file_exists($fileNameOld))
-	{
-		rename($fileNameOld, $fileNameNew);
+		$addonNum = "";
+		if($i !== 1)
+		{
+			$addonNum = $i-1;
+		}
+		$fileNameOld = ''.$baseUrl.'conf/config'.$addonNum.'.php';
+		$fileNameNew = ''.$baseUrl.'conf/config'.$i.'.php';
+		if (file_exists($fileNameOld))
+		{
+			rename($fileNameOld, $fileNameNew);
+		}
 	}
 }
 

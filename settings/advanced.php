@@ -27,6 +27,57 @@ require_once('../core/php/updateCheck.php');
 <body>
 	<?php require_once('header.php'); ?>
 	<div id="main">
+	<form id="advancedConfig" action="../core/php/settingsSave.php" method="post">
+		<div class="settingsHeader">
+			Config
+			<div class="settingsHeaderButtons">
+				<a onclick="resetSettingsAdvancedConfig();" id="resetChangesAdvancedConfigHeaderButton" style="display: none;" class="linkSmall" > Reset Current Changes</a>
+				<?php if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
+					<a class="linkSmall" onclick="saveAndVerifyMain('advancedConfig');" >Save Changes</a>
+				<?php else: ?>
+					<button  onclick="displayLoadingPopup();">Save Changes</button>
+				<?php endif; ?>
+			</div>
+		</div>
+		<div class="settingsDiv" >
+			<ul id="settingsUl">
+				<li>
+					<span class="settingsBuffer"> Branch: </span>
+					<div class="selectDiv">	
+						<select name="branchSelected">		
+							<option <?php if($branchSelected == 'default'){echo "selected";} ?> value="default" >Default</option>		
+							<option <?php if($branchSelected == 'beta'){echo "selected";} ?> value="beta">Beta</option>		
+							<?php if($enableDevBranchDownload == 'true'):?>		
+								<option <?php if($branchSelected == 'dev'){echo "selected";} ?> value="dev">Dev</option>		
+							<?php endif;?>		
+						</select>
+					</div>
+				</li>
+				<li>
+					<span class="settingsBuffer"> Number of versions saved:</span>
+					<div class="selectDiv">
+						<select name="backupNumConfig">
+							<?php for ($i=1; $i <= 10; $i++): ?> 
+								<option <?php if($backupNumConfig === $i){echo "selected";} ?> value=<?php echo $i;?>><?php echo $i;?></option>
+							<?php endfor; ?>
+						</select>
+					</div>
+					Enabled
+					<div class="selectDiv">
+						<select name="backupNumConfigEnabled">
+  							<option <?php if($backupNumConfigEnabled == 'true'){echo "selected";} ?> value="true">True</option>
+  							<option <?php if($backupNumConfigEnabled == 'false'){echo "selected";} ?> value="false">False</option>
+						</select>
+					</div>
+				</li>
+				<li>
+					<a class="link">View restore options for config</a>
+					<span> | </span>
+					<a onclick="resetSettingsPopup();" class="link">Reset Settings back to Default</a>
+				</li>
+			</ul>
+		</div>
+	</form>
 	<form id="devAdvanced" action="../core/php/settingsSave.php" method="post">
 		<div class="settingsHeader">
 			Development  
@@ -42,19 +93,7 @@ require_once('../core/php/updateCheck.php');
 		<div class="settingsDiv" >
 			<ul id="settingsUl">
 				<li>
-					Branch:	
-					<div class="selectDiv">	
-						<select name="branchSelected">		
-							<option <?php if($branchSelected == 'default'){echo "selected";} ?> value="default" >Default</option>		
-							<option <?php if($branchSelected == 'beta'){echo "selected";} ?> value="beta">Beta</option>		
-							<?php if($enableDevBranchDownload == 'true'):?>		
-								<option <?php if($branchSelected == 'dev'){echo "selected";} ?> value="dev">Dev</option>		
-							<?php endif;?>		
-						</select>
-					</div>
-				</li>
-				<li>
-					Enable Development Tools
+					<span class="settingsBuffer"> Enable Development Tools:</span>
 					<div class="selectDiv">
 						<select name="developmentTabEnabled">
   							<option <?php if($developmentTabEnabled == 'true'){echo "selected";} ?> value="true">True</option>
@@ -80,7 +119,7 @@ require_once('../core/php/updateCheck.php');
 		<div class="settingsDiv" >
 			<ul id="settingsUl">
 				<li>
-					Poll refresh all data every 
+					<span class="settingsBuffer"> Poll refresh all data every </span>
 					<input type="text" style="width: 100px;"  name="pollRefreshAll" value="<?php echo $pollRefreshAll;?>" > 
 					poll requests
 					<div class="selectDiv">
@@ -91,7 +130,7 @@ require_once('../core/php/updateCheck.php');
 					</div>
 				</li>
 				<li>
-					Force poll refresh after 
+					<span class="settingsBuffer"> Force poll refresh after </span>
 					<input type="text" style="width: 100px;"  name="pollForceTrue" value="<?php echo $pollForceTrue;?>" > 
 					skipped poll requests
 					<div class="selectDiv">
@@ -119,7 +158,7 @@ require_once('../core/php/updateCheck.php');
 		<div class="settingsDiv" >
 			<ul id="settingsUl">
 				<li>
-					File Info Logging
+					<span class="settingsBuffer"> File Info Logging </span>
 					<div class="selectDiv">
 						<select name="enableLogging">
   							<option <?php if($enableLogging == 'true'){echo "selected";} ?> value="true">True</option>
@@ -130,7 +169,7 @@ require_once('../core/php/updateCheck.php');
 					<span style="font-size: 75%;">*<i>This will increase poll times by 2x to 4x</i></span>
 				</li>
 				<li>
-					Poll Time Logging
+					<span class="settingsBuffer"> Poll Time Logging </span>
 					<div class="selectDiv">
 						<select name="enablePollTimeLogging">
   							<option <?php if($enablePollTimeLogging == 'true'){echo "selected";} ?> value="true">True</option>
@@ -217,16 +256,6 @@ require_once('../core/php/updateCheck.php');
 		</div>
 		<div class="settingsDiv" >
 			<ul id="settingsUl">
-				<form id="resetSettings" action="../core/php/settingsSave.php" method="post">
-					<li>
-						<a onclick="resetSettingsPopup();" class="link">Reset Settings</a>
-					</li>
-					<li style="display: none;"  >
-							<select name="resetConfigValuesBackToDefault">
-	  							<option selected value="true">True</option>
-							</select>
-					</li>
-				</form>
 				<li>
 					Re-do setup
 					<a style="text-decoration: none;" href="../setup/step1.php" class="link">Setup</a>
@@ -243,7 +272,12 @@ require_once('../core/php/updateCheck.php');
 			</ul>
 		</div>
 	</div>
-	<?php readfile('../core/html/popup.html') ?>	
+	<?php readfile('../core/html/popup.html') ?>
+	<form id="resetSettings" action="../core/php/settingsSave.php" method="post">
+		<select style="display: none;" name="resetConfigValuesBackToDefault">
+				<option selected value="true">True</option>
+		</select>
+	</form>
 </body>
 <script type="text/javascript">
 	var popupSettingsArray = JSON.parse('<?php echo json_encode($popupSettingsArray) ?>');

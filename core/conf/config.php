@@ -8,6 +8,7 @@ $defaultConfig = array(
 	'backgroundPollingRate'			=> 5000,
 	'backgroundPollingRateType'		=> 'Milliseconds',
 	'backupNumConfig'				=> 5,
+	'backupNumConfigEnabled'		=> 'true',
 	'baseUrlUpdate'					=> 'https://github.com/mreishman/Log-Hog/archive/',
 	'bottomBarIndexShow'			=> 'true',
 	'branchSelected'				=> 'default',
