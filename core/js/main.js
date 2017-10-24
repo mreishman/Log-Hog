@@ -217,6 +217,7 @@ function pollTwoPartTwo(data)
 
 		if(arrayOfData1 === null || boolForAllUpdateForce)
 		{
+			arrayOfData1 = data;
 			for (var i = filesNew.length - 1; i >= 0; i--)
 			{
 				arrayToUpdate.push(filesNew[i]);
