@@ -151,7 +151,7 @@ function rrmdir($dir)
 	}
 }
 
-function actuallyRemoveDir()
+function actuallyRemoveDir($dir)
 {
 	$objects = scandir($dir);
 	foreach ($objects as $object)
