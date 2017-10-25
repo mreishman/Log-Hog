@@ -68,6 +68,7 @@ $listOfAddons = array(
 	<?php echo loadCSS($baseUrl, $cssVersion);?>
 	<link rel="icon" type="image/png" href="../core/img/favicon.png" />
 	<script src="../core/js/jquery.js"></script>
+	<script src="../core/js/update.js"></script>
 </head>
 <body>
 	<?php require_once('header.php'); ?>
@@ -100,6 +101,7 @@ $listOfAddons = array(
 				?> 
 					<tr style="height: 10px;">
 						<td colspan="6">
+							<form id="<?php echo $lowercase; ?>UpdateForm" action="../<?php echo $lowercase; ?>/update/updater.php" method="post" ></form>
 						</td>
 					</tr>
 					<tr>
@@ -121,7 +123,11 @@ $listOfAddons = array(
 								<?php endif; ?>
 							</td>
 							<td>
-								<a class="link">Check For Updates</a>
+								<?php if ($value['ConfigStatic']['version'] !== $value['ConfigStatic']['newestVersion']): ?>
+									<a class="link" onclick="installUpdates('../<?php echo $lowercase; ?>/','<?php echo $lowercase; ?>UpdateForm');">Install <?php echo $value['ConfigStatic']["newestVersion"];?> Update</a>
+								<?php else: ?>
+									<a onclick="checkForUpdates('../<?php echo $lowercase; ?>/','<?php echo $uppercase; ?>','<?php echo $value['ConfigStatic']['version'];?>','<?php echo $lowercase; ?>UpdateForm');" class="link">Check For Updates</a>
+								<?php endif; ?>
 							</td>
 							<td>
 								<script type="text/javascript">
@@ -155,9 +161,15 @@ $listOfAddons = array(
 						</td>
 					</tr>
 				<?php endforeach; ?>
+				<tr>
+					<td colspan="6">
+						<i>Make sure you have run through setup before trying to update</i>
+					</td>
+				</tr>
 			</table>
 		</div>
 	</div>
+	<?php readfile('../core/html/popup.html') ?>	
 </body>
 <script type="text/javascript">
 	function goToUrl(url)
@@ -169,4 +181,6 @@ $listOfAddons = array(
 	{
 		document.getElementById(idToSubmit).submit();
 	}
+
+	currentVersion = "";
 </script>
