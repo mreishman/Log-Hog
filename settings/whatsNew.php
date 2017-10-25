@@ -49,6 +49,16 @@ require_once('../core/php/commonFunctions.php');
 
 				<tr>
 				<th colspan="2" style="padding: 10px">
+					<h1>3.2</h1>
+				</th>
+				</tr>
+
+
+
+
+
+				<tr>
+				<th colspan="2" style="border-top: 1px solid white; padding: 10px">
 					<h1>3.1</h1>
 				</th>
 				</tr>
