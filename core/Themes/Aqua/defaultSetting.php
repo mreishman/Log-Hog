@@ -2,6 +2,7 @@
 
 $backgroundColorDefault = "#292929";
 $mainFontColorDefault = "#FFFFFF";
+$logFontColor = "#FFFFFF";
 $backgroundHeaderColorDefault = "#eeeeee; background: -moz-linear-gradient(top, #eeeeee 0%, #dddddd 25%, #dddddd 75%, #eeeeee 100%); background: -webkit-linear-gradient(top, #eeeeee 0%,#dddddd 25%,#dddddd 75%,#eeeeee 100%); background: linear-gradient(to bottom, #eeeeee 0%,#dddddd 25%,#dddddd 75%,#eeeeee 100%);  background-image: -moz-repeating-linear-gradient(180deg,rgb(240,240,240),rgb(240,240,240) 2.5%, rgb(220,220,220) 2.51%, rgb(220,220,220) 5%);
   background-image: -webkit-repeating-linear-gradient(180deg,rgb(240,240,240),rgb(240,240,240) 2.5%, rgb(220,220,220) 2.51%, rgb(220,220,220) 5%);
   background-image: -o-repeating-linear-gradient(180deg,rgb(240,240,240),rgb(240,240,240) 2.5%, rgb(220,220,220) 2.51%, rgb(220,220,220) 5%);

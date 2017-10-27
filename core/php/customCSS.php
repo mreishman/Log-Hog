@@ -62,9 +62,9 @@ body
 	color: <?php echo $mainFontColor; ?>
 }
 
-#log
+#log, #firstLoad
 {
-	color: <?php echo $mainFontColor; ?>;
+	color: <?php echo $logFontColor; ?>;
 }
 
 #menu
