@@ -2,7 +2,7 @@
 
 $backgroundColorDefault = "#292929";
 $mainFontColorDefault = "#FFFFFF";
-$logFontColor = "#FFFFFF";
+$logFontColorDefault = "#FFFFFF";
 $backgroundHeaderColorDefault = "#111111";
 $currentFolderColorThemeDefault = "theme-default-1";
 $folderColorArraysDefault	= array(
