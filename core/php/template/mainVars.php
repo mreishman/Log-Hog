@@ -32,7 +32,6 @@ Main Settings
 		<br>
 		<i style="font-size: 75%;" >Only if Pause On Not Focus is set to False</i>
 	</li>
-	<li>
 		<div class="settingsHeader">
 		Log Settings
 		</div>
@@ -125,7 +124,6 @@ Main Settings
 				</li>
 			</ul>
 		</div>
-	</li>
 	<li>
 		<span class="settingsBuffer" > Pause Poll By Default:  </span>
 		<div class="selectDiv">
