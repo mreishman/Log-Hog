@@ -12,7 +12,7 @@ $baseUrlImages = $baseUrl;
 require_once($baseUrl.'conf/config.php');
 require_once('setupProcessFile.php');
 
-if($setupProcess != "step3")
+if($setupProcess != "step2")
 {
 	$partOfUrl = clean_url($_SERVER['REQUEST_URI']);
 	$partOfUrl = substr($partOfUrl, 0, strpos($partOfUrl, 'setup'));
@@ -39,15 +39,15 @@ require_once('../core/php/loadVars.php'); ?>
 <body>
 <div style="width: 90%; margin: auto; margin-right: auto; margin-left: auto; display: block; height: auto; margin-top: 15px;" >
 	<div class="settingsHeader">
-		<h1>Step 3 of <?php echo $counterSteps; ?></h1>
+		<h1>Step 2 of <?php echo $counterSteps; ?></h1>
 	</div>
 	<p style="padding: 10px;">More Settings:</p>
-	<?php require_once('../core/php/template/mainVars.php'); ?>
+	<?php require_once('../core/php/template/settingsMenuVars.php'); ?>
 	<table style="width: 100%; padding-left: 20px; padding-right: 20px;" ><tr><th style="text-align: right;" >
-		<?php if($counterSteps == 3): ?>
+		<?php if($counterSteps == 2): ?>
 			<a onclick="updateStatus('finished');" class="link">Finish</a>
 		<?php else: ?>
-			<a onclick="updateStatus('step4');" class="link">Continue</a>
+			<a onclick="updateStatus('step3');" class="link">Continue</a>
 		<?php endif; ?>
 	</th></tr></table>
 	<br>
@@ -65,8 +65,8 @@ require_once('../core/php/loadVars.php'); ?>
 	function customSettings()
 	{
 		//change setupProcess to page1
-		document.getElementById('settingsMainVars').action = "../core/php/settingsSave.php";
-		document.getElementById('settingsMainVars').submit();
+		document.getElementById('settingsMenuVars').action = "../core/php/settingsSave.php";
+		document.getElementById('settingsMenuVars').submit();
 	}
 	var popupSettingsArray = JSON.parse('<?php echo json_encode($popupSettingsArray) ?>');
 	var fileArray = JSON.parse('<?php echo json_encode($config['watchList']) ?>');
