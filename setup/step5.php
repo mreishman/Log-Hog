@@ -1,4 +1,5 @@
 <?php
+require_once("../core/php/commonFunctions.php");
 $baseUrl = "../core/";
 if(file_exists('../local/layout.php'))
 {
@@ -7,14 +8,9 @@ if(file_exists('../local/layout.php'))
 	require_once('../local/layout.php');
 	$baseUrl .= $currentSelectedTheme."/";
 }
+$baseUrlImages = $baseUrl;
 require_once($baseUrl.'conf/config.php');
 require_once('setupProcessFile.php');
-
-function clean_url($url) {
-    $parts = parse_url($url);
-    return $parts['path'];
-}
-
 
 if($setupProcess != "step5")
 {
@@ -38,22 +34,9 @@ require_once('../core/php/loadVarsTop.php'); ?>
 	<title>Welcome!</title>
 	<link rel="stylesheet" type="text/css" href="../core/template/theme.css">
 	<script src="../core/js/jquery.js"></script>
-	<?php readfile('../core/html/popup.html') ?>	
-	<style type="text/css">
-		#settingsMainVars .settingsHeader{
-			display: none;
-		}
-		li .settingsHeader{
-			display: block !important;
-		}
-		#widthForWatchListSection{
-			width: 100% !important;
-		}
-		#menu a, .link, .linkSmall, .context-menu
-		{
-			background-color: <?php echo $currentSelectedThemeColorValues[0]?>;
-		}
-	</style>
+	<?php readfile('../core/html/popup.html');
+	echo loadCSS($baseUrl, $cssVersion);
+	require_once("../core/php/customCSS.php");?>
 </head>
 <body>
 <div style="width: 90%; margin: auto; margin-right: auto; margin-left: auto; display: block; height: auto; margin-top: 15px;" >

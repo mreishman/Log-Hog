@@ -62,6 +62,11 @@ body
 	color: <?php echo $mainFontColor; ?>
 }
 
+#log, #firstLoad
+{
+	color: <?php echo $logFontColor; ?>;
+}
+
 #menu
 {
 	background: <?php echo $backgroundHeaderColor?>;
