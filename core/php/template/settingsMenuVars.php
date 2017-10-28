@@ -13,15 +13,6 @@
 		<div class="settingsDiv" >
 		<ul id="settingsUl">
 			<li>
-				<span class="settingsBuffer" > Hide logs that are empty: </span>
-				<div class="selectDiv">
-					<select name="hideEmptyLog">
-						<option <?php if($hideEmptyLog == 'true'){echo "selected";} ?> value="true">True</option>
-						<option <?php if($hideEmptyLog == 'false'){echo "selected";} ?> value="false">False</option>
-					</select>
-				</div>
-			</li>
-			<li>
 				<span class="settingsBuffer" > Truncate Log Button: </span>
 				<div class="selectDiv">
 					<select name="truncateLog">

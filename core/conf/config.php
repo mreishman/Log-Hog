@@ -257,6 +257,7 @@ $defaultConfig = array(
 		),
 	'backgroundColor'	=> "#292929",
 	'mainFontColor'		=> '#FFFFFF',
+	'logFontColor'		=> '#FFFFFF',
 	'invertMenuImages'	=> 'false',
 	'backgroundHeaderColor'	=> "#222222",
 	'watchList'		=> array(
