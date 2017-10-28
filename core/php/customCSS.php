@@ -63,6 +63,11 @@ body
 	font-family: <?php echo $fontFamily;?>;
 }
 
+#log, #firstLoad
+{
+	color: <?php echo $logFontColor; ?>;
+}
+
 #menu
 {
 	background: <?php echo $backgroundHeaderColor?>;

@@ -35,10 +35,10 @@ $daysSince = calcuateDaysSince($configStatic['lastCheck']);
 		<div class="settingsDiv" >
 			<ul id="settingsUl">
 				<li>
-					<h2>Current Version - <?php echo $configStatic['version'];?></h2>
+					<h2>Current Version of Log-Hog: <?php echo $configStatic['version'];?></h2>
 				</li>	
 				<li>
-					<h2>Last Check for updates -  <span id="spanNumOfDaysUpdateSince" ><?php echo $daysSince;?> Day<?php if($daysSince != 1){ echo "s";} ?></span> Ago</h2>
+					<h2>You last checked for updates <span id="spanNumOfDaysUpdateSince" ><u><?php echo $daysSince;?> Day<?php if($daysSince != 1){ echo "s";} ?></span></u> Ago</h2>
 				</li>
 				<li>
 					<form id="settingsCheckForUpdate" style="float: left; padding: 10px;">
@@ -65,7 +65,7 @@ $daysSince = calcuateDaysSince($configStatic['lastCheck']);
 			</ul>
 		</div>
 		<div id="releaseNotesHeader" <?php if($levelOfUpdate == 0){echo "style='display: none;'";} ?> class="settingsHeader">
-			Update - Release Notes
+			Release Notes
 		</div>
 		<div id="releaseNotesBody" <?php if($levelOfUpdate == 0){echo "style='display: none;'";} ?> class="settingsDiv" >
 			<ul id="settingsUl">

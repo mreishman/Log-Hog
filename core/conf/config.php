@@ -231,6 +231,7 @@ $defaultConfig = array(
 	'locationForMonitor'			=> '',
 	'locationForSearch'				=> '',
 	'locationForStatus'				=> '',
+	'logFontColor'					=> '#FFFFFF',
 	'logSizeLimit'					=>	2000,
 	'logTrimMacBSD'					=> 'false',
 	'logTrimOn'						=> 'true',

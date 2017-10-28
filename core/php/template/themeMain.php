@@ -44,6 +44,7 @@ Theme Selector
 						<input type="hidden" name="backgroundColor" value="<?php echo $backgroundColorDefault;?>" >
 						<input type="hidden" name="mainFontColor" value="<?php echo $mainFontColorDefault;?>" >
 						<input type="hidden" name="backgroundHeaderColor" value="<?php echo $backgroundHeaderColorDefault;?>" >
+						<input type="hidden" name="logFontColor" value="<?php echo $logFontColorDefault;?>">
 						<?php
 							$tmpcurrentFolderColorTheme = $currentFolderColorTheme;
 							$currentFolderColorTheme = $currentFolderColorThemeDefault;
