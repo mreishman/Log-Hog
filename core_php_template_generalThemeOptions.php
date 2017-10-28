@@ -19,6 +19,9 @@
 				<span class="settingsBuffer" > Main Font Color: </span> 
 				<input type="text" name="mainFontColor" value="<?php echo $mainFontColor;?>" >
 			</li>
+			<li>
+				<span class="settingsBuffer" > Log Font Color: </span>  <input type="text" name="logFontColor" value="<?php echo $logFontColor;?>" >
+			</li>
 			<li> 
 				<span class="settingsBuffer" > Header Background: </span> 
 				<input type="text" name="backgroundHeaderColor" value="<?php echo $backgroundHeaderColor;?>" >
