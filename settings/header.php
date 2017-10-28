@@ -1,6 +1,5 @@
 <?php
 require_once('../setup/setupProcessFile.php');
-$URI = $_SERVER['REQUEST_URI'];
 require_once("../core/php/customCSS.php");
 echo loadSentryData($sendCrashInfoJS, $branchSelected); ?>
 <script src="../core/js/settings.js?v=<?php echo $cssVersion?>"></script>

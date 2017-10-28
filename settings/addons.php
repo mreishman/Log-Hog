@@ -115,20 +115,25 @@ $listOfAddons = array(
 							<td>
 								Version: <?php echo $value['ConfigStatic']['version'];?>
 							</td>
-							<td>
-								<?php if ($value['ConfigStatic']['version'] !== $value['ConfigStatic']['newestVersion']): ?>
-									Update Available - <?php echo $value['ConfigStatic']['newestVersion']; ?>
-								<?php else: ?>
-									No Update
-								<?php endif; ?>
-							</td>
-							<td>
-								<?php if ($value['ConfigStatic']['version'] !== $value['ConfigStatic']['newestVersion']): ?>
-									<a class="link" onclick="installUpdates('../<?php echo $lowercase; ?>/','<?php echo $lowercase; ?>UpdateForm');">Install <?php echo $value['ConfigStatic']["newestVersion"];?> Update</a>
-								<?php else: ?>
-									<a onclick="checkForUpdates('../<?php echo $lowercase; ?>/','<?php echo $uppercase; ?>','<?php echo $value['ConfigStatic']['version'];?>','<?php echo $lowercase; ?>UpdateForm');" class="link">Check For Updates</a>
-								<?php endif; ?>
-							</td>
+							<?php if(strpos($URI, 'addons.php') !== false): ?>
+								<td>
+									<?php if ($value['ConfigStatic']['version'] !== $value['ConfigStatic']['newestVersion']): ?>
+										Update Available - <?php echo $value['ConfigStatic']['newestVersion']; ?>
+									<?php else: ?>
+										No Update
+									<?php endif; ?>
+								</td>
+								<td>
+									<?php if ($value['ConfigStatic']['version'] !== $value['ConfigStatic']['newestVersion']): ?>
+										<a class="link" onclick="installUpdates('../<?php echo $lowercase; ?>/','<?php echo $lowercase; ?>UpdateForm');">Install <?php echo $value['ConfigStatic']["newestVersion"];?> Update</a>
+									<?php else: ?>
+										<a onclick="checkForUpdates('../<?php echo $lowercase; ?>/','<?php echo $uppercase; ?>','<?php echo $value['ConfigStatic']['version'];?>','<?php echo $lowercase; ?>UpdateForm');" class="link">Check For Updates</a>
+									<?php endif; ?>
+								</td>
+							<?php else: ?>
+								<td colspan="2">
+								</td>
+							<?php endif; ?>
 							<td>
 								<script type="text/javascript">
 								var <?php echo $key; ?> = "<?php echo $lowercase; ?>Remove"
