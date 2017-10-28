@@ -4,7 +4,7 @@ $defaultConfig = array(
 	'configVersion'	=> 1,
 	'layoutVersion'	=> 1,
 	'cssVersion'	=> 1,
-	'themeVersion'	=> 3,
+	'themeVersion'	=> 2,
 	'sendCrashInfoJS'	=> 'true',
 	'sendCrashInfoPHP'	=> 'true',
 	'themesEnabled'		=> 'true',
@@ -257,6 +257,7 @@ $defaultConfig = array(
 		),
 	'backgroundColor'	=> "#292929",
 	'mainFontColor'		=> '#FFFFFF',
+	'logFontColor'		=> '#FFFFFF',
 	'invertMenuImages'	=> 'false',
 	'backgroundHeaderColor'	=> "#222222",
 	'watchList'		=> array(
