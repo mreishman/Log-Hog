@@ -80,20 +80,8 @@ require_once('../core/php/commonFunctions.php');
 
 	function goToUrl(url)
 	{
-		var goToPage = true
-		if(popupSettingsArray.saveSettings != "false")
-		{
-			goToPage = !checkForChangesMainSettings();
-			if(goToPage)
-			{
-				goToPage = !checkForChangesWatchListPoll();
-				if(goToPage)
-				{
-					goToPage = !checkForChangesMenuSettings();
-				}
-			}
-		}
-		if(goToPage)
+		goToPage = !checkIfChanges();
+		if(goToPage || popupSettingsArray.saveSettings == "false")
 		{
 			window.location.href = url;
 		}

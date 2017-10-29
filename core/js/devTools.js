@@ -26,10 +26,9 @@ function poll()
 
 function checkForChange()
 {
-	var change = checkForChangesDevBranch();
-	var change2 = checkForChangesDevAdvanced2();
-	var change3 = checkForChangesDevAdvanced3();
-	if(change || change2 || change3)
+	if(	checkForChanges("devBranch", devBranchData, "resetChangesDevBranchHeaderButton") ||
+		checkForChanges("devAdvanced2", devAdvanced2Data, "resetChangesDevAdvanced2HeaderButton") ||
+		checkForChanges("devAdvanced3", devAdvanced3Data, "resetChangesDevAdvanced3HeaderButton"))
 	{
 		return true;
 	}
@@ -37,27 +36,6 @@ function checkForChange()
 }
 
 //DEV Branch
-
-function checkForChangesDevBranch()
-{
-	try
-	{
-		if(!objectsAreSame($("#devBranch").serializeArray(), devBranchData))
-		{
-			document.getElementById("resetChangesDevBranchHeaderButton").style.display = "inline-block";
-			return true;
-		}
-		else
-		{
-			document.getElementById("resetChangesDevBranchHeaderButton").style.display = "none";
-			return false;
-		}
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
 
 function resetSettingsDevBranch()
 {
@@ -88,27 +66,6 @@ function refreshSettingsDevBranch()
 
 //Config Static
 
-function checkForChangesDevAdvanced2()
-{
-	try
-	{
-		if(!objectsAreSame($("#devAdvanced2").serializeArray(), devAdvanced2Data))
-		{
-			document.getElementById("resetChangesDevAdvanced2HeaderButton").style.display = "inline-block";
-			return true;
-		}
-		else
-		{
-			document.getElementById("resetChangesDevAdvanced2HeaderButton").style.display = "none";
-			return false;
-		}
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
 function resetSettingsDevAdvanced2()
 {
 	try
@@ -136,27 +93,6 @@ function refreshSettingsDevAdvanced2()
 }
 
 //Progress File
-
-function checkForChangesDevAdvanced3()
-{
-	try
-	{
-		if(!objectsAreSame($("#devAdvanced3").serializeArray(), devAdvanced3Data))
-		{
-			document.getElementById("resetChangesDevAdvanced3HeaderButton").style.display = "inline-block";
-			return true;
-		}
-		else
-		{
-			document.getElementById("resetChangesDevAdvanced3HeaderButton").style.display = "none";
-			return false;
-		}
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
 
 function resetSettingsDevAdvanced3()
 {

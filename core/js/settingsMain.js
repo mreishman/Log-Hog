@@ -243,77 +243,11 @@ function showNoEmptyFolderPopup()
 	}
 }
 
-function checkForChangesWatchListPoll()
-{
-	try
-	{
-		if(!objectsAreSame($("#settingsMainWatch").serializeArray(),watchlistData))
-		{
-			document.getElementById("resetChangesSettingsHeaderButton").style.display = "inline-block";
-			return true;
-		}
-		else
-		{
-			document.getElementById("resetChangesSettingsHeaderButton").style.display = "none";
-			return false;
-		}
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
-function checkForChangesMainSettings()
-{
-	try
-	{
-		if(!objectsAreSame($("#settingsMainVars").serializeArray(),mainData))
-		{
-			document.getElementById("resetChangesMainSettingsHeaderButton").style.display = "inline-block";
-			return true;
-		}
-		else
-		{
-			document.getElementById("resetChangesMainSettingsHeaderButton").style.display = "none";
-			return false;
-		}
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
-function checkForChangesMenuSettings()
-{
-	try
-	{
-		if(!objectsAreSame($("#settingsMenuVars").serializeArray(), menuData))
-		{
-			document.getElementById("resetChangesMenuSettingsHeaderButton").style.display = "inline-block";
-			return true;
-		}
-		else
-		{
-			document.getElementById("resetChangesMenuSettingsHeaderButton").style.display = "none";
-			return false;
-		}
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
 function poll()
 {
 	try
 	{
-		var change = checkForChangesWatchListPoll();
-		var change2 = checkForChangesMainSettings();
-		var change3 = checkForChangesMenuSettings();
-		if(change || change2 || change3)
+		if(checkIfChanges())
 		{
 			document.getElementById("mainLink").innerHTML = "Main*";
 		}
@@ -326,6 +260,17 @@ function poll()
 	{
 		eventThrowException(e);
 	}
+}
+
+function checkIfChanges()
+{
+	if(	checkForChanges("settingsMainWatch", watchlistData, "resetChangesSettingsHeaderButton") ||
+			checkForChanges("settingsMainVars", mainData, "resetChangesMainSettingsHeaderButton") ||
+			checkForChanges("settingsMenuVars", menuData, "resetChangesMenuSettingsHeaderButton"))
+	{
+		return true;
+	}
+	return false;
 }
 
 function resetWatchListVars()

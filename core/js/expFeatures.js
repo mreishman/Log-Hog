@@ -23,8 +23,7 @@ function poll()
 
 function checkForChange()
 {
-	var change = checkForChangesExpFeatures();
-	if(change)
+	if(checkForChanges("expFeatures", expFeaturesData, "resetChangesExpFeaturesHeaderButton"))
 	{
 		return true;
 	}
@@ -32,27 +31,6 @@ function checkForChange()
 }
 
 //expFeatures
-
-function checkForChangesExpFeatures()
-{
-	try
-	{
-		if(!objectsAreSame($("#expFeatures").serializeArray(), expFeaturesData))
-		{
-			document.getElementById("resetChangesExpFeaturesHeaderButton").style.display = "inline-block";
-			return true;
-		}
-		else
-		{
-			document.getElementById("resetChangesExpFeaturesHeaderButton").style.display = "none";
-			return false;
-		}
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
 
 function resetSettingsExpFeatures()
 {

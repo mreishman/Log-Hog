@@ -2,9 +2,7 @@ function poll()
 {
 	try
 	{
-		var change = checkForChangesGeneralThemeOptions();
-		var change2 = checkForFolderGroupColor();
-		if(change || change2)
+		if(checkIfChanges())
 		{
 			document.getElementById("themesLink").innerHTML = "Themes*";
 		}
@@ -19,46 +17,14 @@ function poll()
 	}
 }
 
-function checkForChangesGeneralThemeOptions()
+function checkIfChanges()
 {
-	try
+	if(	checkForChanges("settingsColorFolderVars", generalThemeOptions, "resetGeneralThemeOptionsHeaderButton") ||
+		 	checkForChanges("settingsColorFolderGroupVars", folderGroupColor, "resetFolderGroupColorHeaderButton"))
 	{
-		if(!objectsAreSame($("#settingsColorFolderVars").serializeArray(), generalThemeOptions))
-		{
-			document.getElementById("resetGeneralThemeOptionsHeaderButton").style.display = "inline-block";
-			return true;
-		}
-		else
-		{
-			document.getElementById("resetGeneralThemeOptionsHeaderButton").style.display = "none";
-			return false;
-		}
+		return true;
 	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
-function checkForFolderGroupColor()
-{
-	try
-	{
-		if(!objectsAreSame($("#settingsColorFolderGroupVars").serializeArray(), folderGroupColor))
-		{
-			document.getElementById("resetFolderGroupColorHeaderButton").style.display = "inline-block";
-			return true;
-		}
-		else
-		{
-			document.getElementById("resetFolderGroupColorHeaderButton").style.display = "none";
-			return false;
-		}
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
+	return false;
 }
 
 function refreshGeneralThemeOptions()

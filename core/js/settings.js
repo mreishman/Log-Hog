@@ -216,6 +216,27 @@ function objectsAreSame(x, y)
 	}
 }
 
+function checkForChanges(idOfObject, varOfObject, idOfButton)
+{
+	try
+	{
+		if(!objectsAreSame($("#"+idOfObject).serializeArray(), varOfObject))
+		{
+			document.getElementById(idOfButton).style.display = "inline-block";
+			return true;
+		}
+		else
+		{
+			document.getElementById(idOfButton).style.display = "none";
+			return false;
+		}
+	}
+	catch(e)
+	{
+		eventThrowException(e)
+	}
+}
+
 $(document).ready(function()
 {
 	resize();

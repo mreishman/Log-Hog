@@ -81,12 +81,12 @@ function poll()
 
 function checkIfChanges()
 {
-	var change = checkForChangesDevAdvanced();
-	var change2 = checkForChangesPollAdvanced();
-	var change3 = checkForChangesLoggingDisplay();
-	var change4 = checkForChangesJsPhpSend();
-	var change5 = checkForChangesLocationOtherApps();
-	if(change || change2 || change3 || change4 || change5)
+	if(	checkForChanges("devAdvanced", devAdvancedData, "resetChangesDevAdvancedHeaderButton") ||
+		checkForChanges("pollAdvanced", pollAdvancedData, "resetChangesPollAdvancedHeaderButton") ||
+		checkForChanges("loggingDisplay", loggingDisplayData, "resetChangesLoggingDisplayHeaderButton") ||
+		checkForChanges("jsPhpSend", jsPhpSendData, "resetChangesJsPhpSendHeaderButton") ||
+		checkForChanges("locationOtherApps", locationOtherAppsData, "resetChangesLocationOtherAppsHeaderButton") ||
+		checkForChanges("advancedConfig", advancedConfig, "resetChangesAdvancedConfigHeaderButton"))
 	{
 		return true;
 	}
@@ -94,27 +94,6 @@ function checkIfChanges()
 }
 
 //DEV ADVANCED
-
-function checkForChangesDevAdvanced()
-{
-	try
-	{
-		if(!objectsAreSame($("#devAdvanced").serializeArray(), devAdvancedData))
-		{
-			document.getElementById("resetChangesDevAdvancedHeaderButton").style.display = "inline-block";
-			return true;
-		}
-		else
-		{
-			document.getElementById("resetChangesDevAdvancedHeaderButton").style.display = "none";
-			return false;
-		}
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
 
 function resetSettingsDevAdvanced()
 {
@@ -144,27 +123,6 @@ function refreshSettingsDevAdvanced()
 
 //POLL ADVANCED
 
-function checkForChangesPollAdvanced()
-{
-	try
-	{
-		if(!objectsAreSame($("#pollAdvanced").serializeArray(), pollAdvancedData))
-		{
-			document.getElementById("resetChangesPollAdvancedHeaderButton").style.display = "inline-block";
-			return true;
-		}
-		else
-		{
-			document.getElementById("resetChangesPollAdvancedHeaderButton").style.display = "none";
-			return false;
-		}
-	}
-	catch(e)
-	{
-		eventThrowException(e)
-	}
-}
-
 function resetSettingsPollAdvanced()
 {
 	try
@@ -192,27 +150,6 @@ function refreshSettingsPollAdvanced()
 }
 
 //Logging Display
-
-function checkForChangesLoggingDisplay()
-{
-	try
-	{
-		if(!objectsAreSame($("#loggingDisplay").serializeArray(), loggingDisplayData))
-		{
-			document.getElementById("resetChangesLoggingDisplayHeaderButton").style.display = "inline-block";
-			return true;
-		}
-		else
-		{
-			document.getElementById("resetChangesLoggingDisplayHeaderButton").style.display = "none";
-			return false;
-		}
-	}
-	catch(e)
-	{
-		eventThrowException(e)
-	}
-}
 
 function resetSettingsLoggingDisplay()
 {
@@ -243,27 +180,6 @@ function refreshSettingsLoggingDisplay()
 
 //JS-PHP Send
 
-function checkForChangesJsPhpSend()
-{
-	try
-	{
-		if(!objectsAreSame($("#jsPhpSend").serializeArray(), jsPhpSendData))
-		{
-			document.getElementById("resetChangesJsPhpSendHeaderButton").style.display = "inline-block";
-			return true;
-		}
-		else
-		{
-			document.getElementById("resetChangesJsPhpSendHeaderButton").style.display = "none";
-			return false;
-		}
-	}
-	catch(e)
-	{
-		eventThrowException(e)
-	}
-}
-
 function resetSettingsJsPhpSend()
 {
 	try
@@ -293,27 +209,6 @@ function refreshSettingsJsPhpSend()
 
 //File Locations
 
-function checkForChangesLocationOtherApps()
-{
-	try
-	{
-		if(!objectsAreSame($("#locationOtherApps").serializeArray(), locationOtherAppsData))
-		{
-			document.getElementById("resetChangesLocationOtherAppsHeaderButton").style.display = "inline-block";
-			return true;
-		}
-		else
-		{
-			document.getElementById("resetChangesLocationOtherAppsHeaderButton").style.display = "none";
-			return false;
-		}
-	}
-	catch(e)
-	{
-		eventThrowException(e)
-	}
-}
-
 function resetSettingsLocationOtherApps()
 {
 	try
@@ -342,27 +237,6 @@ function refreshSettingsLocationOtherApps()
 
 
 // CONFIG
-
-function checkForChangesAdvancedConfig()
-{
-	try
-	{
-		if(!objectsAreSame($("#advancedConfig").serializeArray(), advancedConfig))
-		{
-			document.getElementById("resetChangesAdvancedConfigHeaderButton").style.display = "inline-block";
-			return true;
-		}
-		else
-		{
-			document.getElementById("resetChangesAdvancedConfigHeaderButton").style.display = "none";
-			return false;
-		}
-	}
-	catch(e)
-	{
-		eventThrowException(e)
-	}
-}
 
 function resetSettingsAdvancedConfig()
 {

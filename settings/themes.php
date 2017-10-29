@@ -43,14 +43,22 @@ var savedInnerHTMLfolderGroupColor;
 
 function goToUrl(url)
 {
-	window.location.href = url;
+	goToPage = !checkIfChanges();
+	if(goToPage || popupSettingsArray.saveSettings == "false")
+	{
+		window.location.href = url;
+	}
+	else
+	{
+		displaySavePromptPopup(url);
+	}
 }
 
 $( document ).ready(function() 
-	{
-		refreshGeneralThemeOptions();
-		refreshFolderGroupColor();
-    	setInterval(poll, 100);
-	});
+{
+	refreshGeneralThemeOptions();
+	refreshFolderGroupColor();
+	setInterval(poll, 100);
+});
 
 </script>
