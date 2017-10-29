@@ -1,3 +1,5 @@
+var savedInnerHtmlAdvancedConfig;
+var advancedConfig;
 var savedInnerHtmlDevAdvanced;
 var devAdvancedData;
 var savedInnerHtmlPollAdvanced;
@@ -337,6 +339,59 @@ function refreshSettingsLocationOtherApps()
 		eventThrowException(e);
 	}
 }
+
+
+// CONFIG
+
+function checkForChangesAdvancedConfig()
+{
+	try
+	{
+		if(!objectsAreSame($("#advancedConfig").serializeArray(), advancedConfig))
+		{
+			document.getElementById("resetChangesAdvancedConfigHeaderButton").style.display = "inline-block";
+			return true;
+		}
+		else
+		{
+			document.getElementById("resetChangesAdvancedConfigHeaderButton").style.display = "none";
+			return false;
+		}
+	}
+	catch(e)
+	{
+		eventThrowException(e)
+	}
+}
+
+function resetSettingsAdvancedConfig()
+{
+	try
+	{
+		document.getElementById("advancedConfig").innerHTML = savedInnerHtmlAdvancedConfig;
+		advancedConfig = $("#advancedConfig").serializeArray();
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
+function refreshSettingsAdvancedConfig()
+{
+	try
+	{
+		advancedConfig = $("#advancedConfig").serializeArray();
+		savedInnerHtmlAdvancedConfig = document.getElementById("advancedConfig").innerHTML;
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
+
+// Other stuffs
 
 function showConfigPopup()
 {
