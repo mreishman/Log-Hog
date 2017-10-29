@@ -251,6 +251,30 @@ function poll()
 	}
 }
 
+function goToUrl(url)
+{
+	try
+	{
+		var goToPage = true;
+		if(typeof checkIfChanges == "function" || $.isFunction(checkIfChanges))
+		{
+			goToPage = !checkIfChanges();
+		}
+		if(goToPage || popupSettingsArray.saveSettings == "false")
+		{
+			window.location.href = url;
+		}
+		else
+		{
+			displaySavePromptPopup(url);
+		}
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
 $(document).ready(function()
 {
 	resize();

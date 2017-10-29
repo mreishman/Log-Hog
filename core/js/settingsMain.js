@@ -380,19 +380,6 @@ function removeActiveClass(idToAdd)
 	}
 }
 
-function goToUrl(url)
-{
-	goToPage = !checkIfChanges();
-	if(goToPage || popupSettingsArray.saveSettings == "false")
-	{
-		window.location.href = url;
-	}
-	else
-	{
-		displaySavePromptPopup(url);
-	}
-}
-
 $( document ).ready(function() 
 {
 	if(logTrimType == 'lines')

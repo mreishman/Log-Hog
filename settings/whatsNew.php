@@ -169,9 +169,3 @@ require_once('../core/php/commonFunctions.php');
 	</div>
 	<?php readfile('../core/html/popup.html') ?>	
 </body>
-<script type="text/javascript">
-	function goToUrl(url)
-	{
-		window.location.href = url;
-	}
-</script>

@@ -11,18 +11,6 @@ function checkForChange()
 	return false;
 }
 
-function goToUrl(url)
-{
-	if(!checkForChange() || popupSettingsArray.saveSettings == "false")
-	{
-		window.location.href = url;
-	}
-	else
-	{
-		displaySavePromptPopup(url);
-	}
-}
-
 $( document ).ready(function() 
 {
 	refreshArrayObject("expFeatures");

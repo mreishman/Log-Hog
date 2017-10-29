@@ -15,20 +15,6 @@ function checkForChange()
 	return false;
 }
 
-function goToUrl(url)
-{
-	var goToPage = !checkForChange();
-
-	if(goToPage || popupSettingsArray.saveSettings == "false")
-	{
-		window.location.href = url;
-	}
-	else
-	{
-		displaySavePromptPopup(url);
-	}
-}
-
 $( document ).ready(function() 
 {
 	refreshArrayObject("devBranch");

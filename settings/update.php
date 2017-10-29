@@ -91,13 +91,7 @@ $daysSince = calcuateDaysSince($configStatic['lastCheck']);
 	<?php readfile('../core/html/popup.html') ?>	
 </body>
 <script type="text/javascript">
-
 	var timeoutVar;
 	var dataFromJSON;
 	var currentVersion = "<?php echo $configStatic['version']?>";
-
-	function goToUrl(url)
-	{
-		window.location.href = url;
-	}
 </script>

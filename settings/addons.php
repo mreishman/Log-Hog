@@ -177,11 +177,6 @@ $listOfAddons = array(
 	<?php readfile('../core/html/popup.html') ?>	
 </body>
 <script type="text/javascript">
-	function goToUrl(url)
-	{
-		window.location.href = url;
-	}
-
 	function addonMonitorAction(idToSubmit)
 	{
 		document.getElementById(idToSubmit).submit();

@@ -82,19 +82,6 @@ function showConfigPopup()
 	}
 }
 
-function goToUrl(url)
-{
-	var goToPage = !checkIfChanges();
-	if(goToPage || popupSettingsArray.saveSettings == "false")
-	{
-		window.location.href = url;
-	}
-	else
-	{
-		displaySavePromptPopup(url);
-	}
-}
-
 $( document ).ready(function() 
 {
 	refreshArrayObject("devAdvanced");
