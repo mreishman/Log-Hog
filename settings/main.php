@@ -1,8 +1,3 @@
-
-<meta http-equiv="cache-control" content="no-cache, must-revalidate, post-check=0, pre-check=0">
-<meta http-equiv="expires" content="Sat, 31 Oct 2014 00:00:00 GMT">
-<meta http-equiv="pragma" content="no-cache">
-
 <?php
 $baseUrl = "../core/";
 if(file_exists('../local/layout.php'))
@@ -38,70 +33,8 @@ require_once('../core/php/commonFunctions.php');
 	</div>
 	<?php readfile('../core/html/popup.html') ?>	
 </body>
-<?php if($triggerSaveUpdate): ?>
-	<script type="text/javascript">
-	document.getElementById('settingsMainWatch').submit();
-	</script>
-<?php else: ?>
-	<script src="../core/js/settingsMain.js?v=<?php echo $cssVersion?>"></script>
-	<script type="text/javascript">
-	document.getElementById("popupSelect").addEventListener("change", showOrHidePopupSubWindow, false);
-	document.getElementById("settingsSelect").addEventListener("change", showOrHideUpdateSubWindow, false);
-	document.getElementById("logTrimTypeToggle").addEventListener("change", changeDescriptionLineSize, false);
-	document.getElementById("logTrimOn").addEventListener("change", showOrHideLogTrimSubWindow, false);
-	var mainData;
-	var watchlistData;
-	var menuData;
-	var popupSettingsArray = JSON.parse('<?php echo json_encode($popupSettingsArray) ?>');
-	var fileArray = JSON.parse('<?php echo json_encode($config['watchList']) ?>');
-	var fileArrayKeys = Object.keys(fileArray);
-	var countOfWatchList = fileArrayKeys.length;
-	var countOfAddedFiles = 0;
-	var countOfClicks = 0;
-	var locationInsert = "newRowLocationForWatchList";
-	var logTrimType = "<?php echo $logTrimType; ?>";
- 	var savedInnerHtmlWatchList;
- 	var savedInnerHtmlMainVars;
- 	var savedInnerHtmlMenu;
-
- 	var countOfWatchListStatic = countOfWatchList;
-	var countOfAddedFilesStatic = countOfAddedFiles;
-	var countOfClicksStatic = countOfClicks;
-	var locationInsertStatic = locationInsert;
-
-	if(logTrimType == 'lines')
-	{
-		document.getElementById('logTrimTypeText').innerHTML = "Lines";
-	}
-	else if (logTrimType == 'size')
-	{
-		document.getElementById('logTrimTypeText').innerHTML = "Size";
-	}
-
-	function goToUrl(url)
-	{
-		goToPage = !checkIfChanges();
-		if(goToPage || popupSettingsArray.saveSettings == "false")
-		{
-			window.location.href = url;
-		}
-		else
-		{
-			displaySavePromptPopup(url);
-		}
-	}
-
-	$( document ).ready(function() 
-	{
-		refreshSettingsMainVar();
-		refreshSettingsMenuVar();
-		refreshSettingsWatchList();
-    	setInterval(poll, 100);
-    	$( "#main" ).scroll(function()
-    	{
-			highlightTopNavDepends();
-		});
-	});
-
-	</script>
-<?php endif; ?>
+<script type="text/javascript">
+var fileArray = JSON.parse('<?php echo json_encode($config['watchList']) ?>');
+var logTrimType = "<?php echo $logTrimType; ?>";
+</script>
+<script src="../core/js/settingsMain.js?v=<?php echo $cssVersion?>"></script>

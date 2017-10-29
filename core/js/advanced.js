@@ -1,16 +1,5 @@
-var savedInnerHtmlAdvancedConfig;
-var advancedConfig;
-var savedInnerHtmlDevAdvanced;
-var devAdvancedData;
-var savedInnerHtmlPollAdvanced;
-var pollAdvancedData;
-var savedInnerHtmlLoggingDisplay;
-var loggingDisplayData;
-var savedInnerHtmlJsPhpSend;
-var jsPhpSendData;
-var savedInnerHtmlLocationOtherApps;
-var locationOtherAppsData;
 var timeoutVar;
+var titleOfPage = "Advanced";
 
 function resetSettingsPopup()
 {
@@ -60,212 +49,14 @@ function updateNoNewVersionCheck()
 	}
 }
 
-function poll()
-{
-	try
-	{
-		if(checkIfChanges())
-		{
-			document.getElementById("advancedLink").innerHTML = "Advanced*";
-		}
-		else
-		{
-			document.getElementById("advancedLink").innerHTML = "Advanced";
-		}
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
 function checkIfChanges()
 {
-	if(	checkForChanges("devAdvanced", devAdvancedData, "resetChangesDevAdvancedHeaderButton") ||
-		checkForChanges("pollAdvanced", pollAdvancedData, "resetChangesPollAdvancedHeaderButton") ||
-		checkForChanges("loggingDisplay", loggingDisplayData, "resetChangesLoggingDisplayHeaderButton") ||
-		checkForChanges("jsPhpSend", jsPhpSendData, "resetChangesJsPhpSendHeaderButton") ||
-		checkForChanges("locationOtherApps", locationOtherAppsData, "resetChangesLocationOtherAppsHeaderButton") ||
-		checkForChanges("advancedConfig", advancedConfig, "resetChangesAdvancedConfigHeaderButton"))
+	if(	checkForChanges("devAdvanced") || checkForChanges("pollAdvanced") || checkForChanges("loggingDisplay") || checkForChanges("jsPhpSend") || checkForChanges("locationOtherApps") || checkForChanges("advancedConfig"))
 	{
 		return true;
 	}
 	return false;
 }
-
-//DEV ADVANCED
-
-function resetSettingsDevAdvanced()
-{
-	try
-	{
-		document.getElementById("devAdvanced").innerHTML = savedInnerHtmlDevAdvanced;
-		devAdvancedData = $("#devAdvanced").serializeArray();
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
-function refreshSettingsDevAdvanced()
-{
-	try
-	{
-		devAdvancedData = $("#devAdvanced").serializeArray();
-		savedInnerHtmlDevAdvanced = document.getElementById("devAdvanced").innerHTML;
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
-//POLL ADVANCED
-
-function resetSettingsPollAdvanced()
-{
-	try
-	{
-		document.getElementById("pollAdvanced").innerHTML = savedInnerHtmlPollAdvanced;
-		pollAdvancedData = $("#pollAdvanced").serializeArray();
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
-function refreshSettingsPollAdvanced()
-{
-	try
-	{
-		pollAdvancedData = $("#pollAdvanced").serializeArray();
-		savedInnerHtmlPollAdvanced = document.getElementById("pollAdvanced").innerHTML;
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
-//Logging Display
-
-function resetSettingsLoggingDisplay()
-{
-	try
-	{
-		document.getElementById("loggingDisplay").innerHTML = savedInnerHtmlLoggingDisplay;
-		loggingDisplayData = $("#loggingDisplay").serializeArray();
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
-function refreshSettingsLoggingDisplay()
-{
-	try
-	{
-		loggingDisplayData = $("#loggingDisplay").serializeArray();
-		savedInnerHtmlLoggingDisplay = document.getElementById("loggingDisplay").innerHTML;
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
-
-//JS-PHP Send
-
-function resetSettingsJsPhpSend()
-{
-	try
-	{
-		document.getElementById("jsPhpSend").innerHTML = savedInnerHtmlJsPhpSend;
-		jsPhpSendData = $("#jsPhpSend").serializeArray();
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
-function refreshSettingsJsPhpSend()
-{
-	try
-	{
-		jsPhpSendData = $("#jsPhpSend").serializeArray();
-		savedInnerHtmlJsPhpSend = document.getElementById("jsPhpSend").innerHTML;
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
-
-//File Locations
-
-function resetSettingsLocationOtherApps()
-{
-	try
-	{
-		document.getElementById("locationOtherApps").innerHTML = savedInnerHtmlLocationOtherApps;
-		locationOtherAppsData = $("#locationOtherApps").serializeArray();
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
-function refreshSettingsLocationOtherApps()
-{
-	try
-	{
-		locationOtherAppsData = $("#locationOtherApps").serializeArray();
-		savedInnerHtmlLocationOtherApps = document.getElementById("locationOtherApps").innerHTML;
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
-
-// CONFIG
-
-function resetSettingsAdvancedConfig()
-{
-	try
-	{
-		document.getElementById("advancedConfig").innerHTML = savedInnerHtmlAdvancedConfig;
-		advancedConfig = $("#advancedConfig").serializeArray();
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
-function refreshSettingsAdvancedConfig()
-{
-	try
-	{
-		advancedConfig = $("#advancedConfig").serializeArray();
-		savedInnerHtmlAdvancedConfig = document.getElementById("advancedConfig").innerHTML;
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
-
-// Other stuffs
 
 function showConfigPopup()
 {
@@ -290,3 +81,27 @@ function showConfigPopup()
 		eventThrowException(e);
 	}
 }
+
+function goToUrl(url)
+{
+	var goToPage = !checkIfChanges();
+	if(goToPage || popupSettingsArray.saveSettings == "false")
+	{
+		window.location.href = url;
+	}
+	else
+	{
+		displaySavePromptPopup(url);
+	}
+}
+
+$( document ).ready(function() 
+{
+	refreshArrayObject("devAdvanced");
+	refreshArrayObject("pollAdvanced");
+	refreshArrayObject("loggingDisplay");
+	refreshArrayObject("jsPhpSend");
+	refreshArrayObject("locationOtherApps");
+	refreshArrayObject("advancedConfig");
+	setInterval(poll, 100);
+});

@@ -1,6 +1,5 @@
 <?php
 require_once('../core/php/commonFunctions.php');
-
 $baseUrl = "../core/";
 if(file_exists('../local/layout.php'))
 {
@@ -24,9 +23,7 @@ require_once('../core/php/loadVars.php');
 	<script src="../core/js/jquery.js"></script>
 </head>
 <body>
-
 <?php require_once('header.php');?>	
-
 	<div id="main">
 		<?php require_once('../core/php/template/themeMain.php'); ?>
 		<?php require_once('../core/php/template/generalThemeOptions.php'); ?>
@@ -34,31 +31,3 @@ require_once('../core/php/loadVars.php');
 	</div>
 	<?php readfile('../core/html/popup.html') ?>	
 </body>
-<script type="text/javascript">
-
-var generalThemeOptions;
-var folderGroupColor;
-var savedInnerHTMLgeneralThemeOptions;
-var savedInnerHTMLfolderGroupColor;
-
-function goToUrl(url)
-{
-	goToPage = !checkIfChanges();
-	if(goToPage || popupSettingsArray.saveSettings == "false")
-	{
-		window.location.href = url;
-	}
-	else
-	{
-		displaySavePromptPopup(url);
-	}
-}
-
-$( document ).ready(function() 
-{
-	refreshGeneralThemeOptions();
-	refreshFolderGroupColor();
-	setInterval(poll, 100);
-});
-
-</script>

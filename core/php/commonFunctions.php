@@ -222,3 +222,8 @@ function findUpdateValue($newestVersionCount, $versionCount, $newestVersion, $ve
 	}
 	return 0;
 }
+
+function addResetButton($idOfForm)
+{
+	return "<a onclick=\"resetArrayObject('".$idOfForm."');\" id=\"".$idOfForm."ResetButton\" style=\"display: none;\" class=\"linkSmall\" > Reset Current Changes</a>";
+}

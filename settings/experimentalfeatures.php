@@ -60,8 +60,8 @@ else
 		<div class="settingsHeader">
 		Experimental Features 
 			<div class="settingsHeaderButtons">
-				<a onclick="resetSettingsExpFeatures();" id="resetChangesExpFeaturesHeaderButton" style="display: none;" class="linkSmall" > Reset Current Changes</a>
-				<?php if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
+				<?php echo addResetButton("expFeatures");
+				if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
 					<a class="linkSmall" onclick="saveAndVerifyMain('expFeatures');" >Save Changes</a>
 				<?php else: ?>
 					<button  onclick="displayLoadingPopup();">Save Changes</button>
@@ -85,25 +85,3 @@ else
 	</div>	
 	<?php readfile('../core/html/popup.html') ?>	
 </body>
-<script type="text/javascript">
-	var popupSettingsArray = JSON.parse('<?php echo json_encode($popupSettingsArray) ?>');
-	function goToUrl(url)
-	{
-		var goToPage = !checkForChange();
-
-		if(goToPage || popupSettingsArray.saveSettings == "false")
-		{
-			window.location.href = url;
-		}
-		else
-		{
-			displaySavePromptPopup(url);
-		}
-	}
-
-	$( document ).ready(function() 
-	{
-		refreshSettingsExpFeatures();
-		setInterval(poll, 100);
-	});
-</script>

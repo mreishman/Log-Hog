@@ -21,6 +21,8 @@ var countForVerifySave = 0;
 var pollCheckForUpdate;
 var data;
 var idForFormMain;
+var arrayObject = {};
+var innerHtmlObject = {};
 
 function saveAndVerifyMain(idForForm)
 {
@@ -78,9 +80,17 @@ function timerVerifySave()
 
 function saveVerified()
 {
+	if(idForFormMain === "settingsMainWatch")
+	{
+		refreshSettingsWatchList();
+	}
+	else
+	{
+		refreshArrayObject(idForFormMain);
+	}
+
 	if(idForFormMain === "settingsMainVars")
 	{
-		refreshSettingsMainVar();
 		if(document.getElementsByName("themesEnabled")[0].value === "true")
 		{
 			document.getElementById("themesLink").style.display = "inline-block";
@@ -89,14 +99,6 @@ function saveVerified()
 		{
 			document.getElementById("themesLink").style.display = "none";
 		}
-	}
-	else if(idForFormMain === "settingsMenuVars")
-	{
-		refreshSettingsMenuVar();
-	}
-	else if(idForFormMain === "settingsMainWatch")
-	{
-		refreshSettingsWatchList();
 	}
 	else if(idForFormMain === "devAdvanced")
 	{
@@ -108,54 +110,21 @@ function saveVerified()
 		{
 			document.getElementById("devToolsLink").style.display = "none";
 		}
-		refreshSettingsDevAdvanced();
 	}
-	else if(idForFormMain === "pollAdvanced")
+
+	saveSuccess();
+	
+	if(idForFormMain.includes("themeMainSelection"))
 	{
-		refreshSettingsPollAdvanced();
-	}
-	else if(idForFormMain === "loggingDisplay")
-	{
-		refreshSettingsLoggingDisplay();
-	}
-	else if(idForFormMain === "jsPhpSend")
-	{
-		refreshSettingsJsPhpSend();
-	}
-	else if(idForFormMain === "locationOtherApps")
-	{
-		refreshSettingsLocationOtherApps();
-	}
-	else if(idForFormMain === "devBranch")
-	{
-		refreshSettingsDevBranch();
-	}
-	else if(idForFormMain === "devAdvanced2")
-	{
-		refreshSettingsDevAdvanced2();
-	}
-	else if(idForFormMain === "devAdvanced3")
-	{
-		refreshSettingsDevAdvanced3();
-	}
-	else if(idForFormMain === "expFeatures")
-	{
-		refreshSettingsExpFeatures();
-	}
-	else if(idForFormMain.includes("themeMainSelection"))
-	{
-		saveSuccess();
+		
 		window.location.href = "../core/php/template/upgradeTheme.php";
 	}
 	else if(idForFormMain === "settingsColorFolderGroupVars" || idForFormMain === "settingsColorFolderVars")
 	{
-		saveSuccess();
 		location.reload();
 	}
-
-	if(!idForFormMain.includes("themeMainSelection") && (!(idForFormMain === "settingsColorFolderGroupVars" || idForFormMain === "settingsColorFolderVars")))
+	else
 	{
-		saveSuccess();
 		fadeOutPopup();
 	}
 }
@@ -216,24 +185,69 @@ function objectsAreSame(x, y)
 	}
 }
 
-function checkForChanges(idOfObject, varOfObject, idOfButton)
+function checkForChanges(idOfObject)
 {
 	try
 	{
-		if(!objectsAreSame($("#"+idOfObject).serializeArray(), varOfObject))
+		if(!objectsAreSame($("#"+idOfObject).serializeArray(), arrayObject[idOfObject]))
 		{
-			document.getElementById(idOfButton).style.display = "inline-block";
+			document.getElementById(idOfObject+"ResetButton").style.display = "inline-block";
 			return true;
 		}
 		else
 		{
-			document.getElementById(idOfButton).style.display = "none";
+			document.getElementById(idOfObject+"ResetButton").style.display = "none";
 			return false;
 		}
 	}
 	catch(e)
 	{
 		eventThrowException(e)
+	}
+}
+
+function refreshArrayObject(idOfForm)
+{
+	try
+	{
+		arrayObject[idOfForm] = $("#"+idOfForm).serializeArray();
+		innerHtmlObject[idOfForm] = document.getElementById(idOfForm).innerHTML;
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
+function resetArrayObject(idOfForm)
+{
+	try
+	{
+		document.getElementById(idOfForm).innerHTML = innerHtmlObject[idOfForm];
+		arrayObject[idOfForm] = $("#"+idOfForm).serializeArray();
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
+function poll()
+{
+	try
+	{
+		if(checkIfChanges())
+		{
+			document.getElementById(titleOfPage+"Link").innerHTML = titleOfPage+"*";
+		}
+		else
+		{
+			document.getElementById(titleOfPage+"Link").innerHTML = titleOfPage;
+		}
+	}
+	catch(e)
+	{
+		eventThrowException(e);
 	}
 }
 

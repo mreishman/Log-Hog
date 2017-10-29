@@ -44,8 +44,8 @@ while (file_exists($baseUrl."conf/config".$count.".php"))
 		<div class="settingsHeader">
 			Config
 			<div class="settingsHeaderButtons">
-				<a onclick="resetSettingsAdvancedConfig();" id="resetChangesAdvancedConfigHeaderButton" style="display: none;" class="linkSmall" > Reset Current Changes</a>
-				<?php if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
+				<?php echo addResetButton("advancedConfig");
+				if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
 					<a class="linkSmall" onclick="saveAndVerifyMain('advancedConfig');" >Save Changes</a>
 				<?php else: ?>
 					<button  onclick="displayLoadingPopup();">Save Changes</button>
@@ -101,8 +101,8 @@ while (file_exists($baseUrl."conf/config".$count.".php"))
 		<div class="settingsHeader">
 			Development  
 			<div class="settingsHeaderButtons">
-				<a onclick="resetSettingsDevAdvanced();" id="resetChangesDevAdvancedHeaderButton" style="display: none;" class="linkSmall" > Reset Current Changes</a>
-				<?php if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
+				<?php echo addResetButton("devAdvanced");
+				if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
 					<a class="linkSmall" onclick="saveAndVerifyMain('devAdvanced');" >Save Changes</a>
 				<?php else: ?>
 					<button  onclick="displayLoadingPopup();">Save Changes</button>
@@ -127,9 +127,9 @@ while (file_exists($baseUrl."conf/config".$count.".php"))
 		<div class="settingsHeader">
 			Advanced Poll Settings  
 			<div class="settingsHeaderButtons">
-				<a onclick="resetSettingsPollAdvanced();" id="resetChangesPollAdvancedHeaderButton" style="display: none;" class="linkSmall" > Reset Current Changes</a>
-				<?php if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
-					<a class="linkSmall" onclick="saveAndVerifyMain('devAdvanced');" >Save Changes</a>
+				<?php echo addResetButton("pollAdvanced");
+				if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
+					<a class="linkSmall" onclick="saveAndVerifyMain('pollAdvanced');" >Save Changes</a>
 				<?php else: ?>
 					<button  onclick="displayLoadingPopup();">Save Changes</button>
 				<?php endif; ?>
@@ -166,8 +166,8 @@ while (file_exists($baseUrl."conf/config".$count.".php"))
 		<div class="settingsHeader">
 			Logging Information 
 			<div class="settingsHeaderButtons">
-				<a onclick="resetSettingsLoggingDisplay();" id="resetChangesLoggingDisplayHeaderButton" style="display: none;" class="linkSmall" > Reset Current Changes</a>
-				<?php if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
+				<?php echo addResetButton("loggingDisplay");
+				if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
 					<a class="linkSmall" onclick="saveAndVerifyMain('loggingDisplay');" >Save Changes</a>
 				<?php else: ?>
 					<button  onclick="displayLoadingPopup();">Save Changes</button>
@@ -203,8 +203,8 @@ while (file_exists($baseUrl."conf/config".$count.".php"))
 		<div class="settingsHeader">
 			Error / Crash Info
 			<div class="settingsHeaderButtons"> 
-				<a onclick="resetSettingsJsPhpSend();" id="resetChangesJsPhpSendHeaderButton" style="display: none;" class="linkSmall" > Reset Current Changes</a>
-				<?php if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
+				<?php echo addResetButton("jsPhpSend");
+				if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
 					<a class="linkSmall" onclick="saveAndVerifyMain('jsPhpSend');" >Save Changes</a>
 				<?php else: ?>
 					<button  onclick="displayLoadingPopup();">Save Changes</button>
@@ -239,8 +239,8 @@ while (file_exists($baseUrl."conf/config".$count.".php"))
 		<div class="settingsHeader">
 			File Locations
 			<div class="settingsHeaderButtons">
-				<a onclick="resetSettingsLocationOtherApps();" id="resetChangesLocationOtherAppsHeaderButton" style="display: none;" class="linkSmall" > Reset Current Changes</a>
-				<?php if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
+				<?php echo addResetButton("locationOtherApps");
+				if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
 					<a class="linkSmall" onclick="saveAndVerifyMain('locationOtherApps');" >Save Changes</a>
 				<?php else: ?>
 					<button  onclick="displayLoadingPopup();">Save Changes</button>
@@ -296,30 +296,5 @@ while (file_exists($baseUrl."conf/config".$count.".php"))
 	</form>
 </body>
 <script type="text/javascript">
-	var popupSettingsArray = JSON.parse('<?php echo json_encode($popupSettingsArray) ?>');
-	function goToUrl(url)
-	{
-		var goToPage = !checkIfChanges();
-		if(goToPage || popupSettingsArray.saveSettings == "false")
-		{
-			window.location.href = url;
-		}
-		else
-		{
-			displaySavePromptPopup(url);
-		}
-	}
-
-	$( document ).ready(function() 
-	{
-		refreshSettingsDevAdvanced();
-		refreshSettingsPollAdvanced();
-		refreshSettingsLoggingDisplay();
-		refreshSettingsJsPhpSend();
-		refreshSettingsLocationOtherApps();
-    	setInterval(poll, 100);
-	});
-
 	var htmlRestoreOptions = "<?php readfile('../core/html/restoreVersionOptions.html') ?>";
-
 </script>

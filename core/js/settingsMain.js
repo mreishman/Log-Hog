@@ -1,4 +1,15 @@
-/global sendCrashInfoJS Raven displayLoadingPopup countOfAddedFiles countOfWatchList popupSettingsArray /;
+var fileArrayKeys = Object.keys(fileArray);
+var countOfWatchList = fileArrayKeys.length;
+var countOfAddedFiles = 0;
+var countOfClicks = 0;
+var locationInsert = "newRowLocationForWatchList";
+var countOfWatchListStatic = countOfWatchList;
+var countOfAddedFilesStatic = countOfAddedFiles;
+var countOfClicksStatic = countOfClicks;
+var locationInsertStatic = locationInsert;
+var titleOfPage = "Main";
+
+
 function showOrHideLogTrimSubWindow()
 {
 	try
@@ -243,30 +254,9 @@ function showNoEmptyFolderPopup()
 	}
 }
 
-function poll()
-{
-	try
-	{
-		if(checkIfChanges())
-		{
-			document.getElementById("mainLink").innerHTML = "Main*";
-		}
-		else
-		{
-			document.getElementById("mainLink").innerHTML = "Main";
-		}
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
 function checkIfChanges()
 {
-	if(	checkForChanges("settingsMainWatch", watchlistData, "resetChangesSettingsHeaderButton") ||
-			checkForChanges("settingsMainVars", mainData, "resetChangesMainSettingsHeaderButton") ||
-			checkForChanges("settingsMenuVars", menuData, "resetChangesMenuSettingsHeaderButton"))
+	if(	checkForChanges("settingsMainWatch", watchlistData, "resetChangesSettingsHeaderButton") || checkForChanges("settingsMainVars") || checkForChanges("settingsMenuVars"))
 	{
 		return true;
 	}
@@ -277,8 +267,7 @@ function resetWatchListVars()
 {
 	try
 	{
-		document.getElementById("settingsMainWatch").innerHTML = savedInnerHtmlWatchList;
-		watchlistData = $("#settingsMainWatch").serializeArray();
+		resetArrayObject("settingsMainWatch");
 		countOfWatchList = countOfWatchListStatic;
 		countOfAddedFiles =  countOfAddedFilesStatic;
 		countOfClicks = countOfClicksStatic;
@@ -290,64 +279,11 @@ function resetWatchListVars()
 	}
 }
 
-function resetSettingsMainVar()
-{
-	try
-	{
-		document.getElementById("settingsMainVars").innerHTML = savedInnerHtmlMainVars;
-		mainData = $("#settingsMainVars").serializeArray();
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
-function resetSettingsMenuVar()
-{
-	try
-	{
-		document.getElementById("settingsMenuVars").innerHTML = savedInnerHtmlMenu;
-		menuData = $("#settingsMenuVars").serializeArray();
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
-function refreshSettingsMainVar()
-{
-	try
-	{
-		mainData = $("#settingsMainVars").serializeArray();
-		savedInnerHtmlWatchList = document.getElementById("settingsMainWatch").innerHTML;
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
-function refreshSettingsMenuVar()
-{
-	try
-	{
-		menuData = $("#settingsMenuVars").serializeArray();
-		savedInnerHtmlMenu = document.getElementById("settingsMenuVars").innerHTML;
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
 function refreshSettingsWatchList()
 {
 	try
 	{
-		watchlistData = $("#settingsMainWatch").serializeArray();
-		savedInnerHtmlMainVars = document.getElementById("settingsMainVars").innerHTML;
+		refreshArrayObject("settingsMainWatch");
 		countOfWatchListStatic = countOfWatchList;
 		countOfAddedFilesStatic = countOfAddedFiles;
 		countOfClicksStatic = countOfClicks;
@@ -443,3 +379,43 @@ function removeActiveClass(idToAdd)
 		eventThrowException(e);
 	}
 }
+
+function goToUrl(url)
+{
+	goToPage = !checkIfChanges();
+	if(goToPage || popupSettingsArray.saveSettings == "false")
+	{
+		window.location.href = url;
+	}
+	else
+	{
+		displaySavePromptPopup(url);
+	}
+}
+
+$( document ).ready(function() 
+{
+	if(logTrimType == 'lines')
+	{
+		document.getElementById('logTrimTypeText').innerHTML = "Lines";
+	}
+	else if (logTrimType == 'size')
+	{
+		document.getElementById('logTrimTypeText').innerHTML = "Size";
+	}
+
+	document.getElementById("popupSelect").addEventListener("change", showOrHidePopupSubWindow, false);
+	document.getElementById("settingsSelect").addEventListener("change", showOrHideUpdateSubWindow, false);
+	document.getElementById("logTrimTypeToggle").addEventListener("change", changeDescriptionLineSize, false);
+	document.getElementById("logTrimOn").addEventListener("change", showOrHideLogTrimSubWindow, false);
+
+	refreshArrayObject("settingsMainVars");
+	refreshArrayObject("settingsMenuVars");
+	refreshSettingsWatchList();
+	setInterval(poll, 100);
+
+	$( "#main" ).scroll(function()
+	{
+		highlightTopNavDepends();
+	});
+});

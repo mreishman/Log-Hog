@@ -2,7 +2,7 @@
 <div class="settingsHeader">
 	WatchList
 	<div class="settingsHeaderButtons">
-		<a onclick="resetWatchListVars();" id="resetChangesSettingsHeaderButton" style="display: none;" class="linkSmall" > Reset Current Changes</a>
+		<a onclick="resetWatchListVars();" id="settingsMainWatchResetButton" style="display: none;" class="linkSmall" > Reset Current Changes</a>
 		<?php if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
 			<a class="linkSmall" onclick="saveAndVerifyMain('settingsMainWatch');" >Save Changes</a>
 		<?php else: ?>

@@ -1,59 +1,30 @@
 var expFeaturesData;
 var savedInnerHtmlExpFeatures;
-
-
-function poll()
-{
-	try
-	{
-		if(checkForChange())
-		{
-			document.getElementById("experimentalfeaturesLink").innerHTML = "Experimental Features*";
-		}
-		else
-		{
-			document.getElementById("experimentalfeaturesLink").innerHTML = "Experimental Features";
-		}
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
+var titleOfPage = "Experimental-Features";
 
 function checkForChange()
 {
-	if(checkForChanges("expFeatures", expFeaturesData, "resetChangesExpFeaturesHeaderButton"))
+	if(checkForChanges("expFeatures"))
 	{
 		return true;
 	}
 	return false;
 }
 
-//expFeatures
-
-function resetSettingsExpFeatures()
+function goToUrl(url)
 {
-	try
+	if(!checkForChange() || popupSettingsArray.saveSettings == "false")
 	{
-		document.getElementById("expFeatures").innerHTML = savedInnerHtmlExpFeatures;
-		expFeaturesData = $("#expFeatures").serializeArray();
+		window.location.href = url;
 	}
-	catch(e)
+	else
 	{
-		eventThrowException(e);
+		displaySavePromptPopup(url);
 	}
 }
 
-function refreshSettingsExpFeatures()
+$( document ).ready(function() 
 {
-	try
-	{
-		expFeaturesData = $("#expFeatures").serializeArray();
-		savedInnerHtmlExpFeatures = document.getElementById("expFeatures").innerHTML;
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
+	refreshArrayObject("expFeatures");
+	setInterval(poll, 100);
+});

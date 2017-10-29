@@ -1,80 +1,30 @@
-function poll()
-{
-	try
-	{
-		if(checkIfChanges())
-		{
-			document.getElementById("themesLink").innerHTML = "Themes*";
-		}
-		else
-		{
-			document.getElementById("themesLink").innerHTML = "Themes";
-		}
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
+var titleOfPage = "Themes";
 
 function checkIfChanges()
 {
-	if(	checkForChanges("settingsColorFolderVars", generalThemeOptions, "resetGeneralThemeOptionsHeaderButton") ||
-		 	checkForChanges("settingsColorFolderGroupVars", folderGroupColor, "resetFolderGroupColorHeaderButton"))
+	if(	checkForChanges("settingsColorFolderVars") || checkForChanges("settingsColorFolderGroupVars"))
 	{
 		return true;
 	}
 	return false;
 }
 
-function refreshGeneralThemeOptions()
+function goToUrl(url)
 {
-	try
+	goToPage = !checkIfChanges();
+	if(goToPage || popupSettingsArray.saveSettings == "false")
 	{
-		generalThemeOptions = $("#settingsColorFolderVars").serializeArray();
-		savedInnerHTMLgeneralThemeOptions = document.getElementById("settingsColorFolderVars").innerHTML;
+		window.location.href = url;
 	}
-	catch(e)
+	else
 	{
-		eventThrowException(e);
+		displaySavePromptPopup(url);
 	}
 }
 
-function refreshFolderGroupColor()
+$( document ).ready(function() 
 {
-	try
-	{
-		folderGroupColor = $("#settingsColorFolderGroupVars").serializeArray();
-		savedInnerHTMLfolderGroupColor = document.getElementById("settingsColorFolderGroupVars").innerHTML;
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
-function resetGeneralThemeOptions()
-{
-	try
-	{
-		document.getElementById("settingsColorFolderVars").innerHTML = savedInnerHTMLgeneralThemeOptions;
-		generalThemeOptions = $("#settingsColorFolderVars").serializeArray();
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
-function resetFolderGroupColor()
-{
-	try
-	{
-		document.getElementById("settingsColorFolderGroupVars").innerHTML = savedInnerHTMLfolderGroupColor;
-		folderGroupColor = $("#settingsColorFolderGroupVars").serializeArray();
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
+	refreshArrayObject("settingsColorFolderVars");
+	refreshArrayObject("settingsColorFolderGroupVars");
+	setInterval(poll, 100);
+});

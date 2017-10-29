@@ -8,11 +8,11 @@ echo loadSentryData($sendCrashInfoJS, $branchSelected); ?>
 		<img id="pauseImage" class="menuImage" src="<?php echo $localURL;?>img/backArrow.png" height="30px">
 	</div>
 	<?php if(strpos($URI, 'main.php') !== false): ?>
-		<a style="cursor: default;" class="active" id="mainLink" >Main</a>
+		<a style="cursor: default;" class="active" id="MainLink" >Main</a>
 	<?php else: ?>
-		<a id="mainLink" onclick="goToUrl('main.php');" >Main</a>
+		<a id="MainLink" onclick="goToUrl('main.php');" >Main</a>
 	<?php endif; ?>
-	<a id="themesLink" style="
+	<a id="ThemesLink" style="
 		<?php if($themesEnabled === "false"): ?>
 		display: none;
 		<?php endif; ?>
@@ -46,16 +46,16 @@ echo loadSentryData($sendCrashInfoJS, $branchSelected); ?>
 			Update
 		</a>
 	<?php if(strpos($URI, 'advanced.php') !== false): ?>
-		<a style="cursor: default;" class="active" id="advancedLink">Advanced</a>
+		<a style="cursor: default;" class="active" id="AdvancedLink">Advanced</a>
 	<?php else: ?>	
-		<a id="advancedLink" onclick="goToUrl('advanced.php');">Advanced</a>
+		<a id="AdvancedLink" onclick="goToUrl('advanced.php');">Advanced</a>
 	<?php endif; ?>
 	<?php if(strpos($URI, 'addons.php') !== false): ?>
 		<a style="cursor: default;" class="active" id="addonsLink" >Addons</a>
 	<?php else: ?>	
 		<a id="addonsLink" onclick="goToUrl('addons.php');">Addons</a>
 	<?php endif; ?>
-	<a id="devToolsLink"
+	<a id="DevLink"
 		<?php if(!(($developmentTabEnabled == 'true') || (strpos($URI, 'devTools.php') !== false))):?>
 			style="display: none;
 		<?php endif; ?>	
@@ -64,13 +64,13 @@ echo loadSentryData($sendCrashInfoJS, $branchSelected); ?>
 		<?php else: ?>
 			" onclick="goToUrl('devTools.php');"
 		<?php endif; ?>
-	> Dev Tools </a>
+	> Dev</a>
 	<?php
 	if($expSettingsAvail):?>
 		<?php if(strpos($URI, 'experimentalfeatures.php') !== false): ?>
-			<a style="cursor: default;" class="active" id="experimentalfeaturesLink"> Experimental Features </a>
+			<a style="cursor: default;" class="active" id="Experimental-FeaturesLink"> Experimental-Features </a>
 		<?php else: ?>
-			<a id="experimentalfeaturesLink" onclick="goToUrl('experimentalfeatures.php');"> Experimental Features </a>
+			<a id="Experimental-FeaturesLink" onclick="goToUrl('experimentalfeatures.php');"> Experimental-Features </a>
 		<?php endif; ?>	
 	<?php endif; ?>
 </div>
@@ -91,7 +91,6 @@ echo loadSentryData($sendCrashInfoJS, $branchSelected); ?>
 $baseUrlImages = $localURL;
 ?>
 <script type="text/javascript">
-	
 	var baseUrl = "<?php echo $baseUrlImages;?>";
-
+	var popupSettingsArray = JSON.parse('<?php echo json_encode($popupSettingsArray) ?>');
 </script>
