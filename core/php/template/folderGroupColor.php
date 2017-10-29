@@ -2,6 +2,7 @@
 	<div class="settingsHeader">
 	Folder Color Options
 	<div class="settingsHeaderButtons">
+		<a onclick="resetFolderGroupColor();" id="resetFolderGroupColorHeaderButton" style="display: none;" class="linkSmall" > Reset Current Changes</a>
 		<?php if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
 		<a class="linkSmall" onclick="saveAndVerifyMain('settingsColorFolderGroupVars');" >Save Changes</a>
 		<?php else: ?>

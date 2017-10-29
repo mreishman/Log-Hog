@@ -36,9 +36,21 @@ require_once('../core/php/loadVars.php');
 </body>
 <script type="text/javascript">
 
+var generalThemeOptions;
+var folderGroupColor;
+var savedInnerHTMLgeneralThemeOptions;
+var savedInnerHTMLfolderGroupColor;
+
 function goToUrl(url)
 {
 	window.location.href = url;
 }
+
+$( document ).ready(function() 
+	{
+		refreshGeneralThemeOptions();
+		refreshFolderGroupColor();
+    	setInterval(poll, 100);
+	});
 
 </script>

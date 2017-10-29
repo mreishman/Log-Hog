@@ -2,6 +2,7 @@
 	<div class="settingsHeader">
 	Main Theme Options
 	<div class="settingsHeaderButtons">
+		<a onclick="resetGeneralThemeOptions();" id="resetGeneralThemeOptionsHeaderButton" style="display: none;" class="linkSmall" > Reset Current Changes</a>
 		<?php if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
 		<a class="linkSmall" onclick="saveAndVerifyMain('settingsColorFolderVars');" >Save Changes</a>
 		<?php else: ?>
