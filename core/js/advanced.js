@@ -337,3 +337,27 @@ function refreshSettingsLocationOtherApps()
 		eventThrowException(e);
 	}
 }
+
+function showConfigPopup()
+{
+	try
+	{
+		displayLoadingPopup();
+		$.getJSON("core/php/configVersionsPopup.php", {}, function(data) 
+		{
+			if(data['backupCopiesPresent'])
+			{
+				//adjust size of popup
+			}
+			else
+			{
+				//no backups there to show, current size is file
+				document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >No Backups</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>There are currently no other versions of config to restore to</div></div>";
+			}
+		});
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}

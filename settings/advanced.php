@@ -15,6 +15,19 @@ require_once('../core/conf/config.php');
 require_once('../core/php/configStatic.php');
 require_once('../core/php/loadVars.php');
 require_once('../core/php/updateCheck.php');
+
+/* Check for backup config stuff */
+$count = 1;
+$showConfigBackupClear = false;
+while (file_exists($baseUrl."conf/config".$count.".php"))
+{
+	if(!$showConfigBackupClear)
+	{
+		$showConfigBackupClear = true;
+	}
+	$count++;
+}
+
 ?>
 <!doctype html>
 <head>
@@ -72,7 +85,11 @@ require_once('../core/php/updateCheck.php');
 				</li>
 				<li>
 					<?php if($backupNumConfigEnabled == 'true'): ?>
-						<a class="link">View restore options for config</a>
+						<a onclick="showConfigPopup();" class="link">View restore options for config</a>
+						<span> | </span>
+					<?php endif; ?>
+					<?php if($showConfigBackupClear): ?>
+						<a class="link">Clear (<?php echo $count;?>) Backup Config Files</a>
 						<span> | </span>
 					<?php endif; ?>
 					<a onclick="resetSettingsPopup();" class="link">Reset Settings back to Default</a>
