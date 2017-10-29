@@ -1061,103 +1061,9 @@ function checkForUpdateMaybe()
 			if(daysSinceLastCheck > (daysSetToUpdate - 1))
 			{
 				daysSinceLastCheck = -1;
-				checkForUpdateDefinitely();
+				checkForUpdates("","Log-Hog", currentVersion, "settingsInstallUpdate", false, dontNotifyVersion);
 			}
 		}
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
-function checkForUpdateDefinitely(showPopupForNoUpdate = false)
-{
-	try
-	{
-		if(!updating)
-		{
-			updating = true;
-			if(showPopupForNoUpdate)
-			{
-				displayLoadingPopup(baseUrl+"img/");
-			}
-			$.getJSON('core/php/settingsCheckForUpdateAjax.php', {}, function(data) 
-			{
-				if((data.version == "1" && updateNoticeMeter == "every")|| data.version == "2" | data.version == "3")
-				{
-					//Update needed
-					if(dontNotifyVersion != data.versionNumber)
-					{
-
-						if(popupSettingsArray.versionCheck != "false")
-						{
-							dataFromUpdateCheck = data;
-							timeoutVar = setInterval(function(){updateUpdateCheckWaitTimer();},3000);
-						}
-						else
-						{
-							location.reload();
-						}
-					}
-				}
-				else if (data.version == "0")
-				{
-					if(showPopupForNoUpdate)
-					{
-						showPopup();
-						document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class='settingsHeader' >No Update Needed</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>You are on the most current version</div><div class='link' onclick='hidePopup();' style='margin-left:165px; margin-right:50px;margin-top:25px;'>Okay!</div></div>";
-					}
-				}
-				else
-				{
-					//error?
-					showPopup();
-					document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class='settingsHeader' >Error when checking for update</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>An error occured while trying to check for updates. Make sure you are connected to the internet and settingsCheckForUpdate.php has sufficient rights to write / create files. </div><div class='link' onclick='hidePopup();' style='margin-left:165px; margin-right:50px;margin-top:5px;'>Okay!</div></div>";
-				}
-				
-			});
-			updating = false;
-		}
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
-function updateUpdateCheckWaitTimer()
-{
-	try
-	{
-		$.getJSON("core/php/configStaticCheck.php", {}, function(data) 
-		{
-			if(currentVersion != data)
-			{
-				clearInterval(timeoutVar);
-				showUpdateCheckPopup(dataFromUpdateCheck);
-			}
-		});
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
-function showUpdateCheckPopup(data)
-{
-	try
-	{
-		showPopup();
-		var textForInnerHTML = "<div class='settingsHeader' >New Version Available!</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Version "+escapeHTML(data.versionNumber)+" is now available!</div><div class='link' onclick='installUpdates();' style='margin-left:74px; margin-right:50px;margin-top:25px;'>Update Now</div><div onclick='saveSettingFromPopupNoCheckMaybe();' class='link'>Maybe Later</div><br><div style='width:100%; padding-left:45px; padding-top:5px;'><input id='dontShowPopuForThisUpdateAgain'";
-		if(dontNotifyVersion == data.versionNumber)
-		{
-			textForInnerHTML += " checked ";
-		}
-		dontNotifyVersion = data.versionNumber;
-		textForInnerHTML += "type='checkbox'>Don't notify me about this update again</div></div>";
-		document.getElementById("popupContentInnerHTMLDiv").innerHTML = textForInnerHTML;
 	}
 	catch(e)
 	{
@@ -1210,35 +1116,6 @@ function showRefreshingButton()
 	{
 		document.getElementById("refreshImage").style.display = "none";
 		document.getElementById("refreshingImage").style.display = "inline-block";
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
-function saveSettingFromPopupNoCheckMaybe()
-{
-	try
-	{
-		if(document.getElementById("dontShowPopuForThisUpdateAgain").checked)
-		{
-			var urlForSend = "core/php/settingsSaveAjax.php?format=json";
-			var data = {dontNotifyVersion};
-			$.ajax({
-				url: urlForSend,
-				dataType: "json",
-				data: data,
-				type: "POST",
-			complete(data){
-				hidePopup();
-				},
-			});
-		}
-		else
-		{
-		hidePopup();
-		}
 	}
 	catch(e)
 	{

@@ -1,20 +1,31 @@
 var urlSend = "";
 var whatAmIUpdating = "";
 var updateFormID = "settingsInstallUpdate";
+var showPopupForUpdate = true;
+var dontNotifyVersionNotSet = "";
+var dataFromJSON = "";
 
-function checkForUpdates(urlSend = "../", whatAmIUpdating = "Log-Hog", currentNewVersion = currentVersion, updateFormIDLocal = "settingsInstallUpdate")
+function checkForUpdates(urlSend = "../", whatAmIUpdating = "Log-Hog", currentNewVersion = currentVersion, updateFormIDLocal = "settingsInstallUpdate", showPopupForUpdateInner = true, dontNotifyVersionInner = "")
 {
 	versionUpdate = currentNewVersion;
 	urlSend = urlSend;
 	whatAmIUpdating = whatAmIUpdating;
 	updateFormID = updateFormIDLocal;
-	displayLoadingPopup();
+	showPopupForUpdate = showPopupForUpdateInner;
+	dontNotifyVersionNotSet = dontNotifyVersionInner;
+	if(showPopupForUpdate)
+	{
+		displayLoadingPopup();
+	}
 	$.getJSON(urlSend + "core/php/settingsCheckForUpdateAjax.php", {}, function(data) 
 	{
 		if(data.version == "1" || data.version == "2" | data.version == "3")
 		{
-			dataFromJSON = data;
-			timeoutVar = setInterval(function(){checkForUpdateTimer(urlSend, whatAmIUpdating);},3000);
+			if(dontNotifyVersionNotSet === "" || dontNotifyVersionNotSet != data.versionNumber)
+			{
+				dataFromJSON = data;
+				timeoutVar = setInterval(function(){checkForUpdateTimer(urlSend, whatAmIUpdating);},3000);
+			}
 		}
 		else if (data.version == "0")
 		{
@@ -75,7 +86,52 @@ function showPopupForUpdate(urlSend,whatAmIUpdating)
 
 	//Update needed
 	showPopup();
-	document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class='settingsHeader' >New Version of "+whatAmIUpdating+" Available!</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Version "+dataFromJSON.versionNumber+" is now available!</div><div class='link' onclick='installUpdates(\""+urlSend+"\");' style='margin-left:74px; margin-right:50px;margin-top:25px;'>Update Now</div><div onclick='hidePopup();' class='link'>Maybe Later</div></div>";
+	var innerHtmlPopup = "<div class='settingsHeader' >New Version of "+whatAmIUpdating+" Available!</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Version "+dataFromJSON.versionNumber+" is now available!</div><div class='link' onclick='installUpdates(\""+urlSend+"\");' style='margin-left:74px; margin-right:50px;margin-top:25px;'>Update Now</div>";
+	if(dontNotifyVersionNotSet !== "")
+	{
+		innerHtmlPopup += "type='checkbox'>Don't notify me about this update again</div><input id='dontShowPopuForThisUpdateAgain'";
+		if(dontNotifyVersion == dataFromJSON.versionNumber)
+		{
+			innerHtmlPopup += " checked ";
+		}
+		dontNotifyVersion = dataFromJSON.versionNumber;
+		innerHtmlPopup += "type='checkbox'>Don't notify me about this update again</div>";
+	}
+	else
+	{
+		innerHtmlPopup += "<div onclick='saveSettingFromPopupNoCheckMaybe();' class='link'>Maybe Later</div>";
+	}
+	innerHtmlPopup += "</div>";
+	document.getElementById("popupContentInnerHTMLDiv").innerHTML = innerHtmlPopup;
+}
+
+function saveSettingFromPopupNoCheckMaybe()
+{
+	try
+	{
+		if(document.getElementById("dontShowPopuForThisUpdateAgain").checked)
+		{
+			var urlForSend = urlSend+"core/php/settingsSaveAjax.php?format=json";
+			var data = {dontNotifyVersion};
+			$.ajax({
+				url: urlForSend,
+				dataType: "json",
+				data: data,
+				type: "POST",
+			complete(data){
+				closePopupNoUpdate();
+				},
+			});
+		}
+		else
+		{
+			closePopupNoUpdate();
+		}
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
 }
 
 function closePopupNoUpdate()
