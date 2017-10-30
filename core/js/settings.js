@@ -278,7 +278,7 @@ function goToUrl(url)
 	try
 	{
 		var goToPage = true;
-		if(typeof checkIfChanges == "function" || $.isFunction(checkIfChanges))
+		if(typeof checkIfChanges == "function")
 		{
 			goToPage = !checkIfChanges();
 		}

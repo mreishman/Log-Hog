@@ -31,3 +31,4 @@ require_once('../core/php/loadVars.php');
 	</div>
 	<?php readfile('../core/html/popup.html') ?>	
 </body>
+<script src="../core/js/themes.js?v=<?php echo $cssVersion?>"></script>
