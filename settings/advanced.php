@@ -89,8 +89,10 @@ while (file_exists($baseUrl."conf/config".$count.".php"))
 						<span> | </span>
 					<?php endif; ?>
 					<?php if($showConfigBackupClear): ?>
-						<a class="link">Clear (<?php echo $count;?>) Backup Config Files</a>
-						<span> | </span>
+						<span id="showConfigClearButton">
+							<a onclick="clearBackupFiles();" class="link">Clear (<?php echo $count;?>) Backup Config Files</a>
+							<span> | </span>
+						</span>
 					<?php endif; ?>
 					<a onclick="resetSettingsPopup();" class="link">Reset Settings back to Default</a>
 				</li>

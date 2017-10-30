@@ -82,6 +82,53 @@ function showConfigPopup()
 	}
 }
 
+function clearBackupFiles()
+{
+	try
+	{
+		displayLoadingPopup();
+		$.getJSON("core/php/clearConfigBackups.php", {}, function(data) 
+		{
+			if(data)
+			{
+				//verify that it was removed
+				timeoutVar = setInterval(function(){verifyNoConfigBackups();},3000);
+			}
+			else
+			{
+				document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Error</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>There was an error deleting backups. Please ensure that the php folder has correct permissions to remove files</div></div>";
+			}
+		});
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
+function verifyNoConfigBackups()
+{
+	try
+	{
+		displayLoadingPopup();
+		$.getJSON("core/php/configVersionsPopup.php", {}, function(data) 
+		{
+			if(!data['backupCopiesPresent'])
+			{
+				//no backups there to show, current size is file
+				clearInterval(timeoutVar);
+				saveSuccess();
+				fadeOutPopup();
+				document.getElementById("showConfigClearButton").style.display = "none";
+			}
+		});
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
 $( document ).ready(function() 
 {
 	refreshArrayObjectOfArrays(["devAdvanced","pollAdvanced","loggingDisplay","jsPhpSend","locationOtherApps","advancedConfig"]);
