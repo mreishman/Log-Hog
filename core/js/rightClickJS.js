@@ -6,7 +6,7 @@ $( document ).ready(function() {
 
     //Settings Menu Options
 
-    var checkForUpdateRightClickMenu = {action: "checkForUpdateDefinitely(true);", name: "Check For Update"};
+    var checkForUpdateRightClickMenu = {action: "checkForUpdates(\"\",\"Log-Hog\", currentVersion, \"settingsInstallUpdate\", true, dontNotifyVersion);", name: "Check For Update"};
     var aboutRightClickMenu = {action: "window.location.href = \"./settings/about.php\"", name: "About"};
     var changeLogRightClickMenu = {action: "window.location.href = \"./settings/changeLog.php\"", name: "Change Log"};
     var advancedRightClickMenu = {action: "window.location.href = \"./settings/advanced.php\"", name: "Advanced"};
