@@ -34,7 +34,7 @@ function updateNoNewVersionCheck()
 {
 	try
 	{
-		$.getJSON("core/php/configStaticCheck.php", {}, function(data) 
+		$.getJSON("../core/php/configStaticCheck.php", {}, function(data) 
 		{
 			if(currentVersion === data)
 			{
@@ -63,7 +63,7 @@ function showConfigPopup()
 	try
 	{
 		displayLoadingPopup();
-		$.getJSON("core/php/configVersionsPopup.php", {}, function(data) 
+		$.getJSON("../core/php/configVersionsPopup.php", {}, function(data) 
 		{
 			if(data['backupCopiesPresent'])
 			{
@@ -87,7 +87,7 @@ function clearBackupFiles()
 	try
 	{
 		displayLoadingPopup();
-		$.getJSON("core/php/clearConfigBackups.php", {}, function(data) 
+		$.getJSON("../core/php/clearConfigBackups.php", {}, function(data) 
 		{
 			if(data)
 			{
@@ -111,7 +111,7 @@ function verifyNoConfigBackups()
 	try
 	{
 		displayLoadingPopup();
-		$.getJSON("core/php/configVersionsPopup.php", {}, function(data) 
+		$.getJSON("../core/php/configVersionsPopup.php", {}, function(data) 
 		{
 			if(!data['backupCopiesPresent'])
 			{

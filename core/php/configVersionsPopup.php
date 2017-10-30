@@ -6,7 +6,7 @@ $returnData = array(
 
 require_once('../../local/layout.php');
 $baseUrl = "../../local/".$currentSelectedTheme."/";
-if(file_exists($baseUrl)."conf/config1.php")
+if(file_exists($baseUrl."conf/config1.php"))
 {
 	/* build popup with files*/
 	$returnData['backupCopiesPresent'] = true;

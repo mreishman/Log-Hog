@@ -8,7 +8,7 @@ $baseUrl .= $currentSelectedTheme."/";
 /* Check for backup config stuff */
 $count = 1;
 $showConfigBackupClear = false;
-$arrayOfFiles = new Array();
+$arrayOfFiles = array();
 while (file_exists($baseUrl."conf/config".$count.".php"))
 {
 	array_push($arrayOfFiles, $baseUrl."conf/config".$count.".php");
