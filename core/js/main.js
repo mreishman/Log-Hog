@@ -543,6 +543,7 @@ function update(data) {
 				var filterTextField = document.getElementsByName("search")[0].value;
 				if(selectedListFilterType === "title" && (filterTextField === "" || name.indexOf(filterTextField) !== -1))
 				{
+					showLogByName(name);
 					if(dataForCheck === "This file is empty. This should not be displayed." && hideEmptyLog === "true")
 					{
 						removeLogByName(name);
@@ -640,7 +641,7 @@ function update(data) {
 				}
 				else
 				{
-					removeLogByName(name);
+					hideLogByName(name);
 				}
 			}
 		}
@@ -660,6 +661,38 @@ function update(data) {
 		for(i = 0; i !== stop; ++i) {
 			id = ids[i];
 			lastLogs[id] = logs[id];
+		}
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
+function hideLogByName(name)
+{
+	try
+	{
+		var idOfName = name.replace(/[^a-z0-9]/g, "");
+		if($("#menu ." + idOfName + "Button").length !== 0)
+		{
+			$("#menu ." + idOfName + "Button").hide();
+		}
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
+function showLogByName(name)
+{
+	try
+	{
+		var idOfName = name.replace(/[^a-z0-9]/g, "");
+		if($("#menu ." + idOfName + "Button").length !== 0)
+		{
+			$("#menu ." + idOfName + "Button").show();
 		}
 	}
 	catch(e)
