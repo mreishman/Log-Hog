@@ -164,7 +164,7 @@ elseif (is_dir("../Search"))
 				<select name="searchType" style="display: none;">
 					<option selected value="title">Title</option>
 				</select>
-				<input id="searchFieldInput" type="text" name="search" placeholder="filter title" style="height: 30px; width: 200px;">
+				<input id="searchFieldInput" type="search" name="search" placeholder="filter title" style="height: 30px; width: 200px;">
 			</div>
 		</div>
 	</div>
