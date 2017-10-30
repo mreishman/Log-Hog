@@ -2,7 +2,7 @@ var titleOfPage = "Themes";
 
 function checkIfChanges()
 {
-	if(	checkForChanges("settingsColorFolderVars") || checkForChanges("settingsColorFolderGroupVars"))
+	if(	checkForChangesArray(["settingsColorFolderVars","settingsColorFolderGroupVars"]))
 	{
 		return true;
 	}
@@ -11,7 +11,6 @@ function checkIfChanges()
 
 $( document ).ready(function() 
 {
-	refreshArrayObject("settingsColorFolderVars");
-	refreshArrayObject("settingsColorFolderGroupVars");
+	refreshArrayObjectOfArrays(["settingsColorFolderVars","settingsColorFolderGroupVars"]);
 	setInterval(poll, 100);
 });

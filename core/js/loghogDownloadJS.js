@@ -92,7 +92,7 @@ function unzipFile()
 		dataType: "json",
 		data: data,
 		type: "POST",
-		complete: function()
+		complete()
 		{
 			//verify if downloaded
 			verifyFile("unzipFile", "../../"+localFolderLocation+"/index.php");

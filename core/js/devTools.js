@@ -8,7 +8,7 @@ var titleOfPage = "Dev";
 
 function checkForChange()
 {
-	if(	checkForChanges("devBranch") || checkForChanges("devAdvanced2") || checkForChanges("devAdvanced3"))
+	if(	checkForChangesArray(["devBranch","devAdvanced2","devAdvanced3"]))
 	{
 		return true;
 	}
@@ -17,8 +17,6 @@ function checkForChange()
 
 $( document ).ready(function() 
 {
-	refreshArrayObject("devBranch");
-	refreshArrayObject("devAdvanced2");
-	refreshArrayObject("devAdvanced3");
+	refreshArrayObjectOfArrays(["devBranch","devAdvanced2","devAdvanced3"]);
 	setInterval(poll, 100);
 });

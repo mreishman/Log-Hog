@@ -185,6 +185,20 @@ function objectsAreSame(x, y)
 	}
 }
 
+function checkForChangesArray(idsOfObjects)
+{
+	var returnValue = false;
+	for (var i = idsOfObjects.length - 1; i >= 0; i--)
+	{
+		var newValue = checkForChanges(idsOfObjects[i]);
+		if(!returnValue)
+		{
+			returnValue = newValue;
+		}
+	}
+	return returnValue;
+}
+
 function checkForChanges(idOfObject)
 {
 	try
@@ -203,6 +217,14 @@ function checkForChanges(idOfObject)
 	catch(e)
 	{
 		eventThrowException(e)
+	}
+}
+
+function refreshArrayObjectOfArrays(idsOfForms)
+{
+	for (var i = idsOfForms.length - 1; i >= 0; i--)
+	{
+		refreshArrayObject(idsOfForms[i]);
 	}
 }
 

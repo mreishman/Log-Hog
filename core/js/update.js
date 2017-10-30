@@ -198,6 +198,5 @@ function verifyChange(urlSend)
 
 function actuallyInstallUpdates()
 {
-	console.log(updateFormID);
 	document.getElementById(updateFormID).submit();
 }
