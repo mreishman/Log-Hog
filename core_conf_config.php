@@ -1,7 +1,7 @@
 <?php
 
 $defaultConfig = array(
-	'configVersion'	=> 1,
+	'configVersion'	=> 2,
 	'layoutVersion'	=> 1,
 	'cssVersion'	=> 1,
 	'themeVersion'	=> 3,
