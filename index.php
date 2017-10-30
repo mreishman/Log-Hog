@@ -161,7 +161,10 @@ elseif (is_dir("../Search"))
 				</div>
 			<?php endif; ?>
 			<div style="float: right;">
-				<input type="text" name="search" placeholder="filter title" style="height: 30px; width: 200px;">
+				<select name="searchType" style="display: none;">
+					<option selected value="title">Title</option>
+				</select>
+				<input id="searchFieldInput" type="text" name="search" placeholder="filter title" style="height: 30px; width: 200px;">
 			</div>
 		</div>
 	</div>

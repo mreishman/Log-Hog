@@ -532,104 +532,115 @@ function update(data) {
 		var initialized = $("#menu a").length !== 0;
 		var folderNamePrev = "?-1";
 		var folderNameCount = -1;
-		for(i = 0; i !== stop; ++i) {
+		for(i = 0; i !== stop; ++i)
+		{
 			if(files[i].indexOf("dataForLoggingLogHog051620170928") === -1)
 			{
 				var dataForCheck = data[files[i]];
 				name = files[i];
-				if(dataForCheck === "This file is empty. This should not be displayed." && hideEmptyLog === "true")
+				var selectListForFilter = document.getElementsByName("searchType")[0];
+				var selectedListFilterType = selectListForFilter.options[selectListForFilter.selectedIndex].value;
+				var filterTextField = document.getElementsByName("search")[0].value;
+				if(selectedListFilterType === "title" && (filterTextField === "" || name.indexOf(filterTextField) !== -1))
 				{
-					removeLogByName(name);
-				}
-				else
-				{
-					if(data[name] !== null)
-					{
-						folderName = name.substr(0, name.lastIndexOf("/"));
-						if(folderName !== folderNamePrev || i === 0 || groupByType === "file")
-						{
-							folderNameCount++;
-							folderNamePrev = folderName;
-							if(folderNameCount >= colorArrayLength)
-							{
-								folderNameCount = 0;
-							}
-						}
-						id = name.replace(/[^a-z0-9]/g, "");
-						if(data[name] === "")
-						{
-							data[name] = "<div class='errorMessageLog errorMessageRedBG' >Error - Unknown error? Check file permissions or clear log to fix?</div>";
-						}
-						else if(data[name] === "This file is empty. This should not be displayed.")
-						{
-							data[name] = "<div class='errorMessageLog errorMessageGreenBG' > This file is empty. </div>";
-						}
-						else if((data[name] === "Error - File is not Readable") || (data[name] === "Error - Maybe insufficient access to read file?"))
-						{
-							var mainMessage = "Error - Maybe insufficient access to read file?";
-							if(data[name] === "Error - File is not Readable")
-							{
-								mainMessage = "Error - File is not Readable";
-							}
-							data[name] = "<div class='errorMessageLog errorMessageRedBG' > "+mainMessage+" <br> <span style='font-size:75%;'> Try entering: <br> chown -R www-data:www-data "+name+" <br> or <br> chmod 664 "+name+" </span> </div>";
-						}
-						logs[id] = data[name];
-						if(enableLogging !== "false")
-						{
-							titles[id] = name + " | " + data[name+"dataForLoggingLogHog051620170928"];
-						}
-						else
-						{
-							titles[id] = name;
-						}
-						
-						if(enableLogging !== "false")
-						{
-							if(id === currentPage)
-							{
-								$("#title").html(titles[id]);
-							}
-						}
-
-						if($("#menu ." + id + "Button").length === 0) 
-						{
-							shortName = files[i].replace(/.*\//g, "");
-							classInsert = "buttonColor"+(folderNameCount+1);
-							item = blank;
-							item = item.replace(/{{title}}/g, shortName);
-							item = item.replace(/{{id}}/g, id);
-							if(groupByColorEnabled === true)
-							{
-								item = item.replace(/{{class}}/g, classInsert);
-							}
-							menu.append(item);
-						}
-						
-						if(logs[id] !== lastLogs[id]) 
-						{
-							updated = true;
-							if(id === currentPage)
-							{
-								$("#log").html(makePretty(logs[id]));
-							}
-							else if(!fresh && !$("#menu a." + id + "Button").hasClass("updated"))
-							{
-								$("#menu a." + id + "Button").addClass("updated");
-							}
-						}
-						
-						if(initialized && updated && $(window).filter(":focus").length === 0) 
-						{
-							if(flashTitleUpdateLog)
-							{
-								flashTitle();
-							}
-						}
-					}
-					else
+					if(dataForCheck === "This file is empty. This should not be displayed." && hideEmptyLog === "true")
 					{
 						removeLogByName(name);
 					}
+					else
+					{
+						if(data[name] !== null)
+						{
+							folderName = name.substr(0, name.lastIndexOf("/"));
+							if(folderName !== folderNamePrev || i === 0 || groupByType === "file")
+							{
+								folderNameCount++;
+								folderNamePrev = folderName;
+								if(folderNameCount >= colorArrayLength)
+								{
+									folderNameCount = 0;
+								}
+							}
+							id = name.replace(/[^a-z0-9]/g, "");
+							if(data[name] === "")
+							{
+								data[name] = "<div class='errorMessageLog errorMessageRedBG' >Error - Unknown error? Check file permissions or clear log to fix?</div>";
+							}
+							else if(data[name] === "This file is empty. This should not be displayed.")
+							{
+								data[name] = "<div class='errorMessageLog errorMessageGreenBG' > This file is empty. </div>";
+							}
+							else if((data[name] === "Error - File is not Readable") || (data[name] === "Error - Maybe insufficient access to read file?"))
+							{
+								var mainMessage = "Error - Maybe insufficient access to read file?";
+								if(data[name] === "Error - File is not Readable")
+								{
+									mainMessage = "Error - File is not Readable";
+								}
+								data[name] = "<div class='errorMessageLog errorMessageRedBG' > "+mainMessage+" <br> <span style='font-size:75%;'> Try entering: <br> chown -R www-data:www-data "+name+" <br> or <br> chmod 664 "+name+" </span> </div>";
+							}
+							logs[id] = data[name];
+							if(enableLogging !== "false")
+							{
+								titles[id] = name + " | " + data[name+"dataForLoggingLogHog051620170928"];
+							}
+							else
+							{
+								titles[id] = name;
+							}
+							
+							if(enableLogging !== "false")
+							{
+								if(id === currentPage)
+								{
+									$("#title").html(titles[id]);
+								}
+							}
+
+							if($("#menu ." + id + "Button").length === 0) 
+							{
+								shortName = files[i].replace(/.*\//g, "");
+								classInsert = "buttonColor"+(folderNameCount+1);
+								item = blank;
+								item = item.replace(/{{title}}/g, shortName);
+								item = item.replace(/{{id}}/g, id);
+								if(groupByColorEnabled === true)
+								{
+									item = item.replace(/{{class}}/g, classInsert);
+								}
+								menu.append(item);
+							}
+							
+							if(logs[id] !== lastLogs[id]) 
+							{
+								updated = true;
+								if(id === currentPage)
+								{
+									$("#log").html(makePretty(logs[id]));
+								}
+								else if(!fresh && !$("#menu a." + id + "Button").hasClass("updated"))
+								{
+									$("#menu a." + id + "Button").addClass("updated");
+								}
+							}
+							
+							if(initialized && updated && $(window).filter(":focus").length === 0) 
+							{
+								if(flashTitleUpdateLog)
+								{
+									flashTitle();
+								}
+							}
+						}
+						else
+						{
+							removeLogByName(name);
+						}
+					}
+				}
+				else
+				{
+					removeLogByName(name);
 				}
 			}
 		}
@@ -1167,4 +1178,9 @@ $(document).ready(function()
 
 	checkForUpdateMaybe();
 
+
+	$("#searchFieldInput").on('input', function()
+	{
+	  update(arrayOfDataMain);
+	});
 });
