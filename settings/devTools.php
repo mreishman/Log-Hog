@@ -64,18 +64,18 @@ require_once('../core/php/updateCheck.php');
 
 		</div>
 	</form>
-	<form id="devAdvanced2" action="../core/php/settingsSaveConfigStatic.php" method="post">
+	<form id="devAdvanced2">
 		<div class="settingsHeader">
 			Static Config Settings  
 			<div class="settingsHeaderButtons">
 				<?php echo addResetButton("devAdvanced2");?>
-				<button onclick="displayLoadingPopup();" >Save Changes</button>
+				<a class="linkSmall" onclick="saveConfigStatic();" >Save Changes</a>
 			</div>
 		</div>
 		<div class="settingsDiv" >
 			<ul id="settingsUl">
 				<li>
-					<span class="settingsBuffer" >  Version Number:  </span> <input type="text" style="width: 400px;"  name="version" value="<?php echo $configStatic['version'];?>" > 
+					<span class="settingsBuffer" >  Version Number:  </span> <input id="versionNumberConfigStaticInput" type="text" style="width: 400px;"  name="version" value="<?php echo $configStatic['version'];?>" > 
 				</li>
 			</ul>
 		</div>

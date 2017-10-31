@@ -36,11 +36,11 @@ echo loadSentryData($sendCrashInfoJS, $branchSelected); ?>
 			{
 				if($levelOfUpdate == 1)
 				{
-					echo '<img src="'.$localURL.'img/yellowWarning.png" height="10px">';
+					echo '<img id="updateNoticeImage" src="'.$localURL.'img/yellowWarning.png" height="10px">';
 				}
 				elseif($levelOfUpdate !== 0)
 				{
-					echo '<img src="'.$localURL.'img/redWarning.png" height="10px">';
+					echo '<img id="updateNoticeImage" src="'.$localURL.'img/redWarning.png" height="10px">';
 				}
 			}?>
 			Update
@@ -93,4 +93,6 @@ $baseUrlImages = $localURL;
 <script type="text/javascript">
 	var baseUrl = "<?php echo $baseUrlImages;?>";
 	var popupSettingsArray = JSON.parse('<?php echo json_encode($popupSettingsArray) ?>');
+	var currentVersion = "<?php echo $configStatic['version']; ?>";
+	var newestVersion = "<?php echo $configStatic['newestVersion']; ?>";
 </script>

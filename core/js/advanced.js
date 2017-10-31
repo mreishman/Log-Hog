@@ -25,10 +25,19 @@ function submitResetSettings()
 
 function resetUpdateNotification()
 {
-	document.getElementById("devAdvanced2").submit();
+	displayLoadingPopup();
+	var data = $("#devAdvanced2").serializeArray();
+	$.ajax({
+        type: "post",
+        url: "../core/php/settingsSaveConfigStatic.php",
+        data,
+        complete()
+        {
+          //verify saved
+          timeoutVar = setInterval(function(){updateNoNewVersionCheck();},3000);
+        }
+      });
 }
-
-//timeoutVar = setInterval(function(){updateNoNewVersionCheck();},3000);
 
 function updateNoNewVersionCheck()
 {
@@ -36,10 +45,15 @@ function updateNoNewVersionCheck()
 	{
 		$.getJSON("../core/php/configStaticCheck.php", {}, function(data) 
 		{
-			if(currentVersion === data)
+			if(data['version'] === data['newestVersion'])
 			{
 				clearInterval(timeoutVar);
-				//show saved popup
+				saveSuccess();
+				fadeOutPopup();
+				if(document.getElementById("updateNoticeImage"))
+				{
+					document.getElementById("updateNoticeImage").style.display = "none";
+				}
 			}
 		});
 	}
