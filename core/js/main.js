@@ -649,7 +649,15 @@ function update(data) {
 		
 		if($("#menu .active").length === 0)
 		{
-			$("#menu a:eq(0)").click();
+			var arrayOfLogs = $("#menu a");
+			for (var i = 0; i < arrayOfLogs.length; i++)
+			{
+				if(arrayOfLogs[i].style.display !== "none")
+				{
+					arrayOfLogs[i].onclick.apply(arrayOfLogs[i]);
+					break;
+				}
+			}
 		}
 		
 		if(logs[currentPage] !== lastLogs[currentPage]) {
@@ -676,6 +684,10 @@ function hideLogByName(name)
 		var idOfName = name.replace(/[^a-z0-9]/g, "");
 		if($("#menu ." + idOfName + "Button").length !== 0)
 		{
+			if($("#menu ." + idOfName + "Button").hasClass("active"))
+			{
+				$("#menu ." + idOfName + "Button").removeClass("active");
+			}
 			$("#menu ." + idOfName + "Button").hide();
 		}
 	}
