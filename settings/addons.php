@@ -42,6 +42,19 @@ if(is_file("../search/index.php") === true)
 	$configStatic = $configStaticMain;
 }
 
+//check if seleniumMonitor is installed
+$seleniumMonitorInstalled = false;
+$configStaticSeleniumMonitor = null;
+
+if(is_file("../seleniumMonitor/index.php") === true)
+{
+	$seleniumMonitorInstalled = true;
+	$configStaticMain = $configStatic;
+	require_once('../seleniumMonitor/core/php/configStatic.php');
+	$configStaticSeleniumMonitor = $configStatic;
+	$configStatic = $configStaticMain;
+}
+
 $listOfAddons = array(
 	"Monitor" => array(
 		"Installed"		=> 	$monitorInstalled,
@@ -58,6 +71,14 @@ $listOfAddons = array(
 		"Repo"			=>	"Search",
 		"Description"	=> 	"A simple visual grep tool that is intended for use on dev boxes.",
 		"ConfigStatic"	=>	$configStaticSearch
+	),
+	"seleniumMonitor" => array(
+		"Installed"		=> 	$seleniumMonitorInstalled,
+		"lowercase"		=>	"seleniumMonitor",
+		"uppercase"		=>	"SeleniumMonitor",
+		"Repo"			=>	"SeleniumMonitor",
+		"Description"	=> 	"A php based web monitor for selenium grids / an easy way to run tests",
+		"ConfigStatic"	=>	$configStaticSeleniumMonitor
 	)
 );
 
