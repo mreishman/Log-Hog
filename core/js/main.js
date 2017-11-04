@@ -525,14 +525,14 @@ function update(data) {
 	{
 		var menu = $("#menu");
 		var blank = $("#storage .menuItem").html();
-		var i, id, name, shortName, item, style, folderName;
+		var id, name, shortName, item, style, folderName;
 		var files = Object.keys(data);
 		var stop = files.length;
 		var updated = false;
 		var initialized = $("#menu a").length !== 0;
 		var folderNamePrev = "?-1";
 		var folderNameCount = -1;
-		for(i = 0; i !== stop; ++i)
+		for(var i = 0; i !== stop; ++i)
 		{
 			if(files[i].indexOf("dataForLoggingLogHog051620170928") === -1)
 			{
@@ -666,7 +666,7 @@ function update(data) {
 		}
 		
 		var ids = Object.keys(logs);
-		for(i = 0; i !== stop; ++i) {
+		for(var i = 0; i !== stop; ++i) {
 			id = ids[i];
 			lastLogs[id] = logs[id];
 		}
@@ -1007,7 +1007,7 @@ function deleteLog()
 		$.ajax({
 			url: urlForSend,
 			dataType: "json",
-			data: data,
+			data,
 			type: "POST",
 			success(data)
 			{
@@ -1224,8 +1224,8 @@ $(document).ready(function()
 	checkForUpdateMaybe();
 
 
-	$("#searchFieldInput").on('input', function()
+	$("#searchFieldInput").on("input", function()
 	{
-	  update(arrayOfDataMain);
+		update(arrayOfDataMain);
 	});
 });
