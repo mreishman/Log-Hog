@@ -7,7 +7,7 @@ var devAdvanced3Data;
 var titleOfPage = "Dev";
 var timeoutVar;
 
-function checkForChange()
+function checkIfChanges()
 {
 	if(	checkForChangesArray(["devBranch","devAdvanced2","devAdvanced3"]))
 	{
