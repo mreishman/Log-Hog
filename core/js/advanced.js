@@ -81,12 +81,33 @@ function showConfigPopup()
 		{
 			if(data['backupCopiesPresent'])
 			{
-				//adjust size of popup
+				// Verify config diff file is there
+				timeoutVar = setInterval(function(){verifyConfigDiffPresent();},3000);
 			}
 			else
 			{
 				//no backups there to show, current size is file
 				document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >No Backups</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>There are currently no other versions of config to restore to</div></div>";
+			}
+		});
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
+function verifyConfigDiffPresent()
+{
+	try
+	{
+		$.getJSON("../core/php/configDiffPresent.php", {}, function(data) 
+		{
+			if(data === true)
+			{
+				clearInterval(timeoutVar);
+
+				//show popup
 			}
 		});
 	}

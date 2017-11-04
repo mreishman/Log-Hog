@@ -110,7 +110,7 @@ require_once('../core/php/updateCheck.php');
 			</ul>
 		</div>
 	</form>
-
+	<!-- 
 	<div class="settingsHeader">
 			Edit Files
 		</div>
@@ -121,8 +121,7 @@ require_once('../core/php/updateCheck.php');
 				</li>
 			</ul>
 		</div>
-
-
+	-->
 	</div>
 	<?php readfile('../core/html/popup.html') ?>	
 </body>
