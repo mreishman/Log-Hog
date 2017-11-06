@@ -84,7 +84,7 @@ function showConfigPopup()
 			{
 				var heightOffset = document.getElementById("menu").offsetHeight;
 
-				popupHtml = "<div class='settingsHeader' >Backup List</div><br><div style='width:100%; height: "+((((window.innerHeight * 0.9)-heightOffset).toFixed(2))-70)+"px; overflow-y: scroll; padding-left:10px;padding-right:10px;'><table style=\"width: 100%;\">";
+				popupHtml = "<div class='settingsHeader' >Backup List <span><a onclick=\"hidePopup();\" class=\"link\">Close</a></span></div><br><div style='width:100%; height: "+((((window.innerHeight * 0.9)-heightOffset).toFixed(2))-70)+"px; overflow-y: scroll; padding-left:10px;padding-right:10px;'><table style=\"width: 100%;\">";
 				for (var i = data["arrayOfFiles"].length - 1; i >= 0; i--)
 				{
 					popupHtml += "<tr><td width=\"25%\"><div>Config"+i+"</div>";
