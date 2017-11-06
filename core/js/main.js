@@ -658,6 +658,16 @@ function update(data) {
 					break;
 				}
 			}
+
+			if($("#menu .active").length === 0)
+			{
+				//if still none active, none to display - add popup here
+			}
+		}
+
+		if($("#menu .updated").length !== 0)
+		{
+			//there is at least one updated thing, show button for clear all notifications
 		}
 		
 		if(logs[currentPage] !== lastLogs[currentPage]) {
