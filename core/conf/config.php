@@ -230,6 +230,7 @@ $defaultConfig = array(
 	'layoutVersion'					=> 1,
 	'locationForMonitor'			=> '',
 	'locationForSearch'				=> '',
+	'locationForSeleniumMonitor'	=> '',
 	'locationForStatus'				=> '',
 	'logFontColor'					=> '#FFFFFF',
 	'logSizeLimit'					=>	2000,

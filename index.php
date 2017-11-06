@@ -83,6 +83,25 @@ elseif (is_dir("../Search"))
 	$locationForSearchIndex = "../Search/";
 }
 
+
+$locationForSeleniumMonitorIndex = "";
+if($locationForSeleniumMonitor != "")
+{
+	$locationForSeleniumMonitorIndex = $locationForSeleniumMonitor;
+}
+elseif(is_file("seleniumMonitor/index.php"))
+{
+	$locationForSeleniumMonitorIndex = './seleniumMonitor/';
+}
+elseif (is_dir("../seleniumMonitor"))
+{
+	$locationForSeleniumMonitorIndex = "../seleniumMonitor/";
+}
+elseif (is_dir("../SeleniumMonitor"))
+{
+	$locationForSeleniumMonitorIndex = "../SeleniumMonitor/";
+}
+
 ?>
 <!doctype html>
 <head>
@@ -139,6 +158,11 @@ elseif (is_dir("../Search"))
 			<?php if($locationForSearchIndex != ""): ?>
 			<div onclick="window.location.href = '<?php echo $locationForSearchIndex; ?>'"  class="menuImageDiv">
 				<img id="searchImage" class="menuImage" src="<?php echo $baseUrl; ?>img/search.png" height="30px">
+			</div>
+			<?php endif; ?>
+			<?php if($locationForSeleniumMonitorIndex != ""): ?>
+			<div onclick="window.location.href = '<?php echo $locationForSeleniumMonitorIndex; ?>'"  class="menuImageDiv">
+				<img id="searchImage" class="menuImage" src="<?php echo $baseUrl; ?>img/seleniumMonitor.png" height="30px">
 			</div>
 			<?php endif; ?>
 			<div onclick="window.location.href = './settings/main.php';"  class="menuImageDiv">
