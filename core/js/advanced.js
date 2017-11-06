@@ -85,11 +85,12 @@ function showConfigPopup()
 				var heightOffset = document.getElementById("menu").offsetHeight;
 
 				popupHtml = "<div class='settingsHeader' >Backup List <span><a onclick=\"hidePopup();\" class=\"link\">Close</a></span></div><br><div style='width:100%; height: "+((((window.innerHeight * 0.9)-heightOffset).toFixed(2))-70)+"px; overflow-y: scroll; padding-left:10px;padding-right:10px;'><table style=\"width: 100%;\">";
-				for (var i = data["arrayOfFiles"].length - 1; i >= 0; i--)
+				for (var i = 1; i <= data["arrayOfFiles"].length ; i++)
 				{
-					popupHtml += "<tr><td width=\"25%\"><div>Config"+i+"</div>";
-					popupHtml += "</td><td width=\"75%\" ";
-					popupHtml += "<div>"+data["arrayOfDiffs"][i]+"</div></tr>";
+					popupHtml += "<tr><td style=\"border-bottom: 1px solid white;\" width=\"25%\"><div>Config"+i+"</div>";
+					popupHtml += "<br><a onclick=\"restoreToVersion("+i+")\" class=\"link\"> Restore to this version</a>"
+					popupHtml += "</td><td style=\"border-bottom: 1px solid white;\" width=\"75%\" ";
+					popupHtml += "<div>"+data["arrayOfDiffs"][i-1]+"</div></tr>";
 				}
 				popupHtml += "</td></tr></table></div>";
 
@@ -118,6 +119,24 @@ function showConfigPopup()
 	{
 		eventThrowException(e);
 	}
+}
+
+function restoreToVersion(restoreTo)
+{
+	displayLoadingPopup();
+	var urlForSend = '../core/php/restoreConfig.php?format=json';
+	var data = {restoreTo};
+	$.ajax(
+	{
+		url: urlForSend,
+		dataType: "json",
+		data,
+		type: "POST",
+		success(data)
+		{
+			//verify data saved
+		}
+	});
 }
 
 function clearBackupFiles()
