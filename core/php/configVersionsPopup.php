@@ -4,6 +4,7 @@ $returnData = array(
 	'backupCopiesPresent' => false, 
 );
 
+require_once('./class.Diff.php');
 require_once('../../local/layout.php');
 $baseUrl = "../../local/".$currentSelectedTheme."/";
 if(file_exists($baseUrl."conf/config1.php"))
@@ -13,15 +14,15 @@ if(file_exists($baseUrl."conf/config1.php"))
 	$count = 1;
 	$boolVarForLoop = true;
 	$arrayOfFiles = array();
+	$arrayOfDiffs = array();
 	while($boolVarForLoop)
 	{
 		$baseFile = $baseUrl."conf/config.php";
 		$configBackupFile = $baseUrl."conf/config".$count.".php";
-		$newFile = $baseUrl."conf/config".$count."Diff.php";
 		if(file_exists($configBackupFile))
 		{
-			xdiff_file_diff($baseFile, $configBackupFile, $newFile);
-			array_push($arrayOfFiles, $newFile);
+			array_push($arrayOfDiffs, Diff::toHTML(Diff::compareFiles($baseFile, $configBackupFile)));
+			array_push($arrayOfFiles, $configBackupFile);
 			$count++;
 		}
 		else
@@ -31,6 +32,7 @@ if(file_exists($baseUrl."conf/config1.php"))
 	}
 	$count--;
 	$returnData["arrayOfFiles"] = $arrayOfFiles ;
+	$returnData["arrayOfDiffs"] = $arrayOfDiffs ;
 }
 
 echo json_encode($returnData);

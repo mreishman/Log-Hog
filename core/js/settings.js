@@ -93,11 +93,11 @@ function saveVerified()
 	{
 		if(document.getElementsByName("themesEnabled")[0].value === "true")
 		{
-			document.getElementById("themesLink").style.display = "inline-block";
+			document.getElementById("ThemesLink").style.display = "inline-block";
 		}
 		else
 		{
-			document.getElementById("themesLink").style.display = "none";
+			document.getElementById("ThemesLink").style.display = "none";
 		}
 	}
 	else if(idForFormMain === "devAdvanced")

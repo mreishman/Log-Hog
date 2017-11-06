@@ -17,17 +17,17 @@ require_once('../core/php/loadVars.php');
 require_once('../core/php/updateCheck.php');
 
 /* Check for backup config stuff */
-$count = 1;
+$countConfig = 1;
 $showConfigBackupClear = false;
-while (file_exists($baseUrl."conf/config".$count.".php"))
+while (file_exists($baseUrl."conf/config".$countConfig.".php"))
 {
 	if(!$showConfigBackupClear)
 	{
 		$showConfigBackupClear = true;
 	}
-	$count++;
+	$countConfig++;
 }
-
+$countConfig--;
 ?>
 <!doctype html>
 <head>
@@ -90,7 +90,7 @@ while (file_exists($baseUrl."conf/config".$count.".php"))
 					<?php endif; ?>
 					<?php if($showConfigBackupClear): ?>
 						<span id="showConfigClearButton">
-							<a onclick="clearBackupFiles();" class="link">Clear (<?php echo $count;?>) Backup Config Files</a>
+							<a onclick="clearBackupFiles();" class="link">Clear (<?php echo $countConfig;?>) Backup Config Files</a>
 							<span> | </span>
 						</span>
 					<?php endif; ?>
