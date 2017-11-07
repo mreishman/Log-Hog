@@ -134,7 +134,8 @@ function restoreToVersion(restoreTo)
 		type: "POST",
 		success(data)
 		{
-			//verify data saved
+			saveSuccess();
+			fadeOutPopup();
 		}
 	});
 }
