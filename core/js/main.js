@@ -336,6 +336,7 @@ function getFileSingle(current)
 		$.ajax({
 			url: urlForSend,
 			dataType: "json",
+			currentFile: current,
 			data,
 			type: "POST",
 			success(data)
@@ -345,12 +346,14 @@ function getFileSingle(current)
 			},
 			complete()
 			{
+				var currentNew = this.currentFile;
 				var updateBy = (1/arrayToUpdate.length)*60;
-				updateProgressBar(updateBy, "Loading file "+(arrayToUpdate.length+1-current)+" of "+arrayToUpdate.length);
-				if(current !== 0)
+				updateProgressBar(updateBy, "Loading file "+(arrayToUpdate.length+1-currentNew)+" of "+arrayToUpdate.length);
+				if(currentNew > 0)
 				{
-					current--;
-					getFileSingle(current);
+					currentNew--;
+					setTimeout(function(){ getFileSingle(currentNew); }, 100);
+					
 				}
 				else
 				{
