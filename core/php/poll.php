@@ -130,7 +130,7 @@ function tail($filename, $sliceSize, $shellOrPhp, $logTrimCheck, $logSizeLimit,$
 			}
 		}
 	}
-	
+
 	if($shellOrPhp == "true")
 	{
 		$data =  trim(tailCustom($filename, $sliceSize));
