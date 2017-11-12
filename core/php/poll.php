@@ -82,50 +82,44 @@ function tail($filename, $sliceSize, $shellOrPhp, $logTrimCheck, $logSizeLimit,$
 {
 	if($logTrimCheck == "true")
 	{
-		$lineCount = shell_exec('wc -l < ' . $filename);
-		if($logTrimType == 'lines' && ($lineCount > ($logSizeLimit+$buffer)))
+		if($logTrimType == 'lines')
 		{
-			if($logTrimMacBSD == "true")
+			$lineCount = shell_exec('wc -l < ' . $filename);
+			if($lineCount > ($logSizeLimit+$buffer))
 			{
-				shell_exec('sed -i "'.$filename.'" "1,' . ($lineCount - $logSizeLimit) . 'd" ' . $filename);
-			}
-			else
-			{
-				shell_exec('sed -i "1,' . ($lineCount - $logSizeLimit) . 'd" ' . $filename);
+				if($logTrimMacBSD == "true")
+				{
+					shell_exec('sed -i "'.$filename.'" "1,' . ($lineCount - $logSizeLimit) . 'd" ' . $filename);
+				}
+				else
+				{
+					shell_exec('sed -i "1,' . ($lineCount - $logSizeLimit) . 'd" ' . $filename);
+				}
 			}
 		}
 		elseif($logTrimType == 'size') //compair to trimsize value
 		{
 			$maxForLoop = 0;
 			$trimFileBool = true;
-			while ($trimFileBool && $maxForLoop != 10)
+			while ($trimFileBool && $maxForLoop < 10)
 			{
 				$filesizeForFile = shell_exec('wc -c < '.$filename);
 				if($filesizeForFile > $logSizeLimit+$buffer)
 				{
+					$numOfLinesToRemoveTo = 2;
 					if($filesizeForFile > (2*$logSizeLimit) && $maxForLoop < 2)
 					{
 						$lineCountForFile = shell_exec('wc -l < ' . $filename);
 						$numOfLinesAllowed = 2*($logSizeLimit/($filesizeForFile/$lineCountForFile));
-						if($logTrimMacBSD == "true")
-						{
-							shell_exec('sed -i "'.$filename.'" "1,' . round($lineCountForFile - $numOfLinesAllowed) . 'd" ' . $filename);
-						}
-						elseif($logTrimMacBSD == "false")
-						{
-							shell_exec('sed -i "1,' . round($lineCountForFile - $numOfLinesAllowed) . 'd" ' . $filename);
-						}
+						$numOfLinesToRemoveTo = round($lineCountForFile - $numOfLinesAllowed);
 					}
-					else //remove first line in file
+					if($logTrimMacBSD == "true")
 					{
-						if($logTrimMacBSD == "true")
-						{
-							shell_exec('sed -i "'.$filename.'" "1,2d" ' . $filename);
-						}
-						elseif($logTrimMacBSD == "false")
-						{
-							shell_exec('sed -i "1,2d" ' . $filename);
-						}
+						shell_exec('sed -i "'.$filename.'" "1,' . $numOfLinesToRemoveTo . 'd" ' . $filename);
+					}
+					elseif($logTrimMacBSD == "false")
+					{
+						shell_exec('sed -i "1,' . $numOfLinesToRemoveTo . 'd" ' . $filename);
 					}
 				}
 				else
@@ -146,7 +140,7 @@ function tail($filename, $sliceSize, $shellOrPhp, $logTrimCheck, $logSizeLimit,$
 		$data = trim(shell_exec('tail -n ' . $sliceSize . ' "' . $filename . '"'));
 	}
 
-	if($data === "" || is_null($data) || $data === "Error - File is not Readable")
+	if($data === "" || is_null($data))
 	{
 		if($shellOrPhp == "true")
 		{
@@ -157,7 +151,7 @@ function tail($filename, $sliceSize, $shellOrPhp, $logTrimCheck, $logSizeLimit,$
 			$data = trim(tailCustom($filename, $sliceSize));
 		}
 
-		if($data === "" || is_null($data) || $data === "Error - File is not Readable")
+		if($data === "" || is_null($data))
 		{
 			$data = "Error - Maybe insufficient access to read file?";
 		}
@@ -243,7 +237,7 @@ foreach($_POST['arrayToUpdate'] as $path)
 		{
 			$lineCount = "0";
 			$filesizeForFile = "0";
-			if($dataVar == "" || is_null($dataVar) || $dataVar == "Error - Maybe insufficient access to read file?")
+			if($dataVar == "" || is_null($dataVar) || $dataVar === "Error - Maybe insufficient access to read file?" || $dataVar === "Error - File is not Readable")
 			{
 				$lineCount = "---";
 				$filesizeForFile = "---";
@@ -265,7 +259,8 @@ foreach($_POST['arrayToUpdate'] as $path)
 	}
 	catch (Exception $e)
 	{
-		
+		$response[$path] = "Error - Maybe insufficient access to read file?";
+		$response[$path."dataForLoggingLogHog051620170928"] = " Limit: ".$logSizeLimit."(".($logSizeLimit+$buffer).") ".$modifier." | Line Count: --- | File Size: --- | Time: ---";
 	}
 }
 echo json_encode($response);
