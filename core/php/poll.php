@@ -222,7 +222,7 @@ foreach($_POST['arrayToUpdate'] as $path)
 		{
 			$dataVar = "Error - File is not Readable";
 		}
-		elseif(filesize($filename) !== 0)
+		elseif(filesize($filename) === 0)
 		{
 			$dataVar = "This file is empty. This should not be displayed.";
 		}
