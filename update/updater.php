@@ -670,7 +670,7 @@ if(count($arrayOfVersions) === 0)
 		{
 			var file = arrayOfFilesExtracted[i];
 			var copyFile = true;
-			f(file.startsWith("pre-script-") || file.startsWith("post-script-") || file.startsWith("post-redirect-") || file.startsWith("exclude-this-file-from-copy-"))
+			if(file.startsWith("pre-script-") || file.startsWith("post-script-") || file.startsWith("post-redirect-") || file.startsWith("exclude-this-file-from-copy-"))
 			{
 				copyFile = false;
 			}
