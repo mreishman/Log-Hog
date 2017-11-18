@@ -94,4 +94,5 @@ $daysSince = calcuateDaysSince($configStatic['lastCheck']);
 	var timeoutVar;
 	var dataFromJSON;
 	var currentVersion = "<?php echo $configStatic['version']?>";
+	var updateFromID = "settingsInstallUpdate";
 </script>
