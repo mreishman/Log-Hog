@@ -1,0 +1,555 @@
+body {
+	color: white;
+	background-color: #191919;
+	font-family: monospace;
+	padding: 0;
+	margin: 0;
+}
+
+div {
+	box-sizing: border-box;
+}
+
+#storage {
+	display: none;
+}
+
+#menu {
+	position: absolute;
+	width: 100%;
+	z-index: 20;
+	background-color: #222;
+	padding: .5em 1em;
+	max-height: 300px;
+	border-bottom: 1px solid white;
+	overflow-y: auto;
+}
+
+#menu2 {
+	position: absolute;
+	width: 100%;
+	z-index: 10;
+	background-color: #ddd;
+	padding: .25em .5em;
+	max-height: 300px;
+	border-bottom: 1px solid white;
+	overflow-y: auto;
+	overflow-x: hidden;
+	top: 55px;
+	box-shadow: 0 5px 10px rgba(0,0,0,.5);
+}
+
+#menu a, #menu2 a {
+	display: inline-block;
+	padding: .5em 1em;
+	margin: .5em 0;
+	background-color: #2A912A;
+	cursor: pointer;
+}
+
+#menu a:hover, #menu a.active, #menu2 a:hover, #menu2 a.active, .link:hover, .linkSmall:hover, .settingsHeader button:hover {
+	color: black;
+	background-color: white; 
+}
+
+.linkSmallHover
+{
+	display: inline-block;
+	padding: 3px 5px;
+	margin: 1px;
+	cursor: default;
+	line-height: 100%;
+	color: black;
+	background-color: white;
+	border: 1px solid black;
+}
+
+.settingsHeader button:hover, .settingsHeader .linkSmall:hover{
+	border: 1px solid black;
+}
+
+.settingsHeaderButtons{
+	float: right;
+	margin-top: -4px;
+}
+
+#menu a.updated {
+	background-color: #912A2C; 
+}
+
+#menu a.updated:hover {
+	background-color: #FFDDFF; 
+}
+
+.menuImage{
+	vertical-align: middle;
+	-webkit-transition: .3s ease-in-out;
+	transition: .3s ease-in-out;
+	-webkit-transform: scale(1);
+	transform: scale(1);
+}
+
+.menuImageDiv{
+	display: inline-block;
+	cursor: pointer;
+	height: 30px;
+	width: 30px;
+}
+
+.menuImage:hover{
+	-webkit-transform: scale(1.3);
+	transform: scale(1.3);
+}
+
+#main {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	overflow: auto;
+}
+
+#log {
+	padding: 1em 0;
+	color: white;
+	white-space: pre-wrap;
+}
+
+#log > div {
+	padding: .25em 1em;
+}
+
+#titleContainer {
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	color: black;
+	background-color: #ccc;
+	padding: 0 1em;
+	line-height: 2em;
+}
+
+#title{
+	display: inline-block;
+}
+
+#settingsUl
+{
+	list-style: none;
+}
+
+#settingsUl li
+{
+	padding: 10px;
+}
+
+.settingsDiv
+{
+	background-color: #444444;
+	border: 1px solid white;
+	margin: 10px;
+	margin-top: 0px;
+}
+
+.settingsHeader
+{
+	background-color: white;
+	margin: 10px;
+	margin-bottom: 0;
+	color: black;
+	padding: 5px;
+}
+
+.settingsDiv p a
+{
+	color: white;
+}
+
+.updatingDiv p
+{
+	margin: 2px;
+	padding-left: 10px;
+	word-wrap: break-word;
+}
+
+.settingsBuffer
+{
+	width: 200px;
+	display: inline-block;
+}
+
+.link
+{
+	display: inline-block;
+	padding: .5em 1em;
+	background-color: #2A912A;
+	cursor: pointer;
+	border: solid 1px white;
+	color: white;
+}
+
+.linkSmall, .linkSmall, .settingsHeader button
+{
+	display: inline-block;
+	padding: 3px 5px;
+	margin: 1px;
+	background-color: #2A912A;
+	cursor: pointer;
+	border: solid 1px white;
+	line-height: 100%;
+	color: white;
+}
+
+.colorSelectorDiv
+{
+	border: 1px solid white;
+	width: 20px;
+	height: 20px;
+	display: inline-block;
+}
+
+.inner-triangle{
+    border-left: 7px solid transparent;
+    border-bottom: 7px solid white;
+    height: 0;
+    width: 0;
+    position: relative;
+    right: 0;
+    z-index: 2;
+    top: 11px;
+    left: 11px;
+}
+
+.errorMessageLog{
+	
+	font-size: 200%;
+	text-align: center;
+	line-height: 200%;
+}
+
+.errorMessageRedBG{
+	background-color: red;
+}
+
+.errorMessageGreenBG{
+	background-color: green;
+}
+
+.context-menu {
+  display: none;
+  position: absolute;
+  z-index: 30;
+  background-color: green;
+  border: 1px solid white;
+  box-shadow: 0px 0px 5px black;
+}
+
+.context-menu__items{
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.context-menu--active {
+  display: block;
+}
+
+.context-menu__item{
+	padding: 5px 3px;
+	cursor: pointer;
+}
+
+.context-menu__item:hover{
+	background-color: white;
+}
+
+.context-menu__item a{
+	color: white;
+}
+
+.context-menu__item:hover a{
+	color: black;
+}
+
+.canvasMonitor{
+	border: 1px solid white;
+	background-color: #333;
+}
+
+.canvasMonitorDiv{
+	margin: 20px;
+	display: inline-block;
+	box-shadow: 0px 0px 5px black;
+}
+
+.canvasMonitorText{
+	background-color: white;
+	color: black;
+	padding: 5px;
+	text-align: center;
+}
+
+#topBarOverview{
+	border-bottom: 1px solid #999;
+	background-color: #555;
+	overflow-x: scroll;
+	height: 310px;
+	white-space: nowrap;
+}
+
+#processIds table tr:hover{
+	background-color: #ccc;
+	color: black;
+	cursor: default;
+}
+
+#processIds table tr th{
+	background-color: #ccc;
+	color: black;
+	cursor: pointer;
+	text-align: left;
+}
+
+#processIds table tr td{
+	max-width: 50px;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+#processIds table tr:hover td .expandMenu{
+	color: black;
+}
+
+#processIds table tr td .expandMenu{
+	color: #191919;
+}
+
+.canvasMonitorDiv table tr:hover{
+	background-color: #ccc;
+	color: black;
+	cursor: default;
+}
+
+.canvasMonitorDiv table tr td{
+	max-width: 50px;
+	overflow: hidden;
+}
+
+.canvasMonitorDiv table tr:hover td .expandMenu{
+	color: black;
+}
+
+.expandMenu{
+	display: inline-block;
+	float: right;
+	cursor: pointer;
+}
+.expandMenu:after{
+	content: '\2807';
+ 	font-size: 20px;
+}
+
+
+.bottomBarOverviewHalf{
+	width: 48%; 
+	display: inline-block;
+	overflow: auto;
+}
+
+.bottomBarOverviewLeft{
+	margin-left: 10px;
+	border-right: 1px solid white;
+}
+
+.bottomBarOverviewRight{
+	float: right;
+	margin-right: 10px;
+}
+
+.led-red {
+  margin: 0 auto;
+  width: 24px;
+  height: 24px;
+  background-color: #F00;
+  border-radius: 50%;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px, rgba(255, 0, 0, 0.5) 0 2px 12px;
+  -webkit-animation: blinkRed 0.5s infinite;
+  -moz-animation: blinkRed 0.5s infinite;
+  -ms-animation: blinkRed 0.5s infinite;
+  -o-animation: blinkRed 0.5s infinite;
+  animation: blinkRed 0.5s infinite;
+  scale: 0.5 0.5;
+}
+
+@-webkit-keyframes blinkRed {
+    from { background-color: #F00; }
+    50% { background-color: #A00; box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px, rgba(255, 0, 0, 0.5) 0 2px 0;}
+    to { background-color: #F00; }
+}
+@-moz-keyframes blinkRed {
+    from { background-color: #F00; }
+    50% { background-color: #A00; box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px, rgba(255, 0, 0, 0.5) 0 2px 0;}
+    to { background-color: #F00; }
+}
+@-o-keyframes blinkRed {
+    from { background-color: #F00; }
+    50% { background-color: #A00; box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px, rgba(255, 0, 0, 0.5) 0 2px 0;}
+    to { background-color: #F00; }
+}
+@keyframes blinkRed {
+    from { background-color: #F00; }
+    50% { background-color: #A00; box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px, rgba(255, 0, 0, 0.5) 0 2px 0;}
+    to { background-color: #F00; }
+}
+
+.led-yellow {
+  margin: 0 auto;
+  width: 24px;
+  height: 24px;
+  background-color: #FF0;
+  border-radius: 50%;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #808002 0 -1px 9px, #FF0 0 2px 12px;
+  -webkit-animation: blinkYellow 1s infinite;
+  -moz-animation: blinkYellow 1s infinite;
+  -ms-animation: blinkYellow 1s infinite;
+  -o-animation: blinkYellow 1s infinite;
+  animation: blinkYellow 1s infinite;
+  scale: 0.5 0.5;
+}
+
+@-webkit-keyframes blinkYellow {
+    from { background-color: #FF0; }
+    50% { background-color: #AA0; box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #808002 0 -1px 9px, #FF0 0 2px 0; }
+    to { background-color: #FF0; }
+}
+@-moz-keyframes blinkYellow {
+    from { background-color: #FF0; }
+    50% { background-color: #AA0; box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #808002 0 -1px 9px, #FF0 0 2px 0; }
+    to { background-color: #FF0; }
+}
+@-o-keyframes blinkYellow {
+    from { background-color: #FF0; }
+    50% { background-color: #AA0; box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #808002 0 -1px 9px, #FF0 0 2px 0; }
+    to { background-color: #FF0; }
+}
+@keyframes blinkYellow {
+    from { background-color: #FF0; }
+    50% { background-color: #AA0; box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #808002 0 -1px 9px, #FF0 0 2px 0; }
+    to { background-color: #FF0; }
+}
+
+.led-green {
+  margin: 0 auto;
+  width: 24px;
+  height: 24px;
+  background-color: #ABFF00;
+  border-radius: 50%;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #304701 0 -1px 9px, #89FF00 0 2px 12px;
+  scale: 0.5 0.5;
+}
+
+.led-blue {
+  margin: 0 auto;
+  width: 24px;
+  height: 24px;
+  background-color: #24E0FF;
+  border-radius: 50%;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #006 0 -1px 9px, #3F8CFF 0 2px 14px;
+  scale: 0.5 0.5;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: green;
+    overflow: auto;
+    border: 1px solid white;
+ 	box-shadow: 0 0 5px black;
+    z-index: 30;
+    margin-left: 12px;
+    margin-top: -70px;
+}
+.dropdown-content a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+.dropdown-content a:hover {
+    color: black;
+}
+
+.dropdown-content__items{
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.dropdown-content--active {
+  display: block;
+}
+
+.dropdown-content__item{
+	padding: 5px 3px;
+	cursor: pointer;
+}
+
+.dropdown-content__item:hover{
+	background-color: white;
+}
+
+.TableInfoForNet{
+	padding: 5px;
+}
+
+.loadingSpinner{
+	padding: 75px;
+	background-color: #333;
+	border: 1px solid white;
+}
+
+.visible {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 1s linear;
+}
+
+.hidden {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s 1s, opacity 1s linear;
+}
+
+.deleteIconPosition{
+	position: relative;
+	top: 3px;
+	cursor: pointer;
+}
+
+
+.selectDiv{
+	background-color: #6B8E23;
+	display: inline-block;
+	padding: 2px;
+	padding-right: 7px;
+	border: 1px solid white;
+}
+
+.selectDiv select{
+	color: white;
+	background-color: transparent;
+	cursor: pointer;
+	border: none;
+}
+
+.selectDiv option{
+	color: black;
+}
+
+
+#menuButtons{
+	display: block;
+	padding-bottom: 5px;
+	margin-bottom: 5px;
+}
