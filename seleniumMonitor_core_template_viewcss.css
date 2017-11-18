@@ -1,0 +1,85 @@
+.img-responsive
+{
+	width: 100%;
+}
+
+.mainBox
+{
+	width: 333px;
+	height: 450px;
+	display: inline-table;
+	background-color: #777;
+	padding: 10px;
+	margin: 20px;
+	border: 2px solid white;
+	border-radius: 15px;
+	box-shadow: 5px 5px 5px black;
+}
+
+.jumbotron
+{
+	border: 1px solid white;
+}
+
+.jumbotronDisconnect
+{
+	filter: grayscale(1);
+}
+
+.videos
+{
+	text-decoration: none;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.menu
+{
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	display: inline-block;
+	vertical-align: bottom;
+	color: white;
+}
+
+.menu li
+{
+	float: left;
+	padding: 4px;
+	background-color: #555;
+	border-radius: 10px 10px 0 0;
+	margin: 0 4px 0 4px;
+	cursor: pointer;
+}
+
+.menu .active
+{
+	color: black;
+	background-color: white;
+}
+
+.conainerSub
+{
+	height: 200px;
+	overflow-y: auto;
+	word-wrap:break-word; 
+	word-break: break-all;
+}
+
+.busy
+{
+	opacity: 0.4;
+	filter: alpha(opacity=40);
+}
+
+.linkActions
+{
+	list-style: none;
+}
+
+.linkActions li
+{
+	padding: 5px;
+}

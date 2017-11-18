@@ -1,0 +1,175 @@
+.runNewTest
+{
+	display: inline-block;
+    width: 1000px;
+    margin-top: 2%;
+    background: rgba(0,0,0,.6);
+    border: 1px solid white;
+    padding: 25px;
+    border-radius: 20px;
+}
+
+.testSelectPartBorder
+{
+	border-right: 1px solid white;
+}
+
+.testSelectPart
+{
+	padding: 5px;
+	width: 310px;
+	height: 150px;
+	display: inline-table;
+}
+
+.testSelectPart select, .testSelectPart input, .testSelectPart button
+{
+	width: 100%;
+	padding: 0;
+	margin-left: 0;
+}
+
+.title
+{
+	text-align: center;
+}
+
+.newTestPartFive
+{
+	margin-top: 30px;
+	border-top: 1px solid white;
+}
+
+.list
+{
+	text-decoration: none;
+	list-style: none;
+}
+
+.partFiveContainer
+{
+	display: inline-block;
+	vertical-align: top;
+}
+
+.containerMain
+{
+	width: 80%;
+	margin-left: 10%;
+	padding: 5px;
+	margin-bottom: 20px;
+	margin-top: 20px;
+	word-break: break-all;
+}
+
+.block
+{
+	width: 15px;
+	height: 15px;
+	margin: 3px;
+	display: inline-block;
+	cursor: pointer;
+}
+
+.blockEmpty
+{
+	background-color: darkgrey;
+	border: 1px solid black;
+}
+
+.blockInProgress
+{
+	background-color: cyan;
+	border: 1px solid white;
+}
+
+.blockPass
+{
+	background-color: limegreen;
+	border: 1px solid black;
+}
+
+.blockError
+{
+	background-color: yellow;
+	border: 1px solid black;
+}
+
+.blockFail
+{
+	background-color: red;
+	border: 1px solid black;
+}
+
+.blockSkip
+{
+	background-color: orange;
+	border: 1px solid black;
+}
+
+.blockRisky
+{
+	background-color: purple;
+	border: 1px solid black;
+}
+
+.bannerPHP
+{
+	background-color: red;
+	color: black;
+	padding: 2px;
+}
+
+.blockKey
+{
+	margin-bottom: -3px;
+}
+
+.fontChange
+{
+	color: black;
+}
+
+.key
+{
+	text-align: center;
+}
+
+.containerBox
+{
+	background-color: grey;
+	border: 1px solid black;
+	margin-top: 10px;	
+}
+
+.containerMaxHeight
+{
+	min-height: 1px;
+	max-height: 400px;
+	overflow-y: scroll;
+}
+
+.subTitleEF
+{
+	margin-top: 10px;
+}
+
+.imageInHeaderContainer
+{
+	width: 25px;
+	height: 25px;
+	margin-top: -4px;
+	cursor: pointer;
+}
+
+.testPopupBlock
+{
+	display: none;
+	color: black;
+	background-color: white;
+	border: 1px solid black;
+	transition: 1s ease-out;
+	-webkit-transition: 1s ease-out ease-in;
+  	-moz-transition: 1s ease-out ease-in;
+  	-o-transition: 1s ease-out ease-in;
+}
