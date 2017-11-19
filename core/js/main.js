@@ -543,7 +543,6 @@ function update(data) {
 				var filterTextField = document.getElementsByName("search")[0].value;
 				if(selectedListFilterType === "title" && (filterTextField === "" || name.indexOf(filterTextField) !== -1))
 				{
-					showLogByName(name);
 					if(dataForCheck === "This file is empty. This should not be displayed." && hideEmptyLog === "true")
 					{
 						removeLogByName(name);
@@ -552,6 +551,7 @@ function update(data) {
 					{
 						if(data[name] !== null)
 						{
+							showLogByName(name);
 							folderName = name.substr(0, name.lastIndexOf("/"));
 							if(folderName !== folderNamePrev || i === 0 || groupByType === "file")
 							{
@@ -580,7 +580,11 @@ function update(data) {
 								}
 								data[name] = "<div class='errorMessageLog errorMessageRedBG' > "+mainMessage+" <br> <span style='font-size:75%;'> Try entering: <br> chown -R www-data:www-data "+name+" <br> or <br> chmod 664 "+name+" </span> </div>";
 							}
-							logs[id] = data[name];
+							if(logs[id] === undefined)
+							{
+								logs[id] = [];
+							}
+							logs[id]["log"] = data[name];
 							if(enableLogging !== "false")
 							{
 								titles[id] = name + " | " + data[name+"dataForLoggingLogHog051620170928"];
@@ -611,17 +615,25 @@ function update(data) {
 								}
 								menu.append(item);
 							}
-							
-							if(logs[id] !== lastLogs[id]) 
+
+							if(lastLogs[id] != undefined)
 							{
-								updated = true;
-								if(id === currentPage)
+								if(logs[id]["log"] !== lastLogs[id]["log"]) 
 								{
-									$("#log").html(makePretty(logs[id]));
-								}
-								else if(!fresh && !$("#menu a." + id + "Button").hasClass("updated"))
-								{
-									$("#menu a." + id + "Button").addClass("updated");
+									updated = true;
+									if(id === currentPage)
+									{
+										$("#log").html(makePretty(logs[id]["log"]));
+									}
+									else
+									{
+										var diff = logs[id]["log"].length - lastLogs[id]["countOld"];
+
+										if(!fresh && !$("#menu a." + id + "Button").hasClass("updated"))
+										{
+											$("#menu a." + id + "Button").addClass("updated");
+										}
+									}
 								}
 							}
 							
@@ -681,15 +693,22 @@ function update(data) {
 			document.getElementById("clearNotificationsImage").style.display = "none";
 		}
 		
-		if(logs[currentPage] !== lastLogs[currentPage]) {
+		if(logs[currentPage] !== lastLogs[currentPage])
+		{
 			lastLogs[currentPage] = logs[currentPage];
 			document.getElementById("main").scrollTop = $("#log").outerHeight();
 		}
 		
 		var ids = Object.keys(logs);
-		for(var i = 0; i !== stop; ++i) {
+		for(var i = 0; i !== stop; ++i)
+		{
 			id = ids[i];
-			lastLogs[id] = logs[id];
+			if(lastLogs[id] === undefined)
+			{
+				lastLogs[id] = [];
+				lastLogs[id]["countOld"] = logs[id]["log"].length;
+			}
+			lastLogs[id]["log"] = logs[id]["log"];
 		}
 	}
 	catch(e)
@@ -705,7 +724,7 @@ function clearNotifications()
 		var arrayOfLogs = $("#menu a");
 		for (var i = 0; i < arrayOfLogs.length; i++)
 		{
-			arrayOfLogs[i].classList.remove("updated");
+			arrayOfLogs[i].removeClass("updated");
 		}
 	}
 	document.getElementById("clearNotificationsImage").style.display = "none";
@@ -770,10 +789,11 @@ function show(e, id)
 	{
 		$(e).siblings().removeClass("active");
 		$(e).addClass("active").removeClass("updated");
-		$("#log").html(makePretty(logs[id]));
+		$("#log").html(makePretty(logs[id]["log"]));
 		currentPage = id;
 		$("#title").html(titles[id]);
 		document.getElementById("main").scrollTop = $("#log").outerHeight();
+		lastLogs[id]["countOld"] = logs[id]["log"].length;
 	}
 	catch(e)
 	{
