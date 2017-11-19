@@ -28,6 +28,7 @@ require_once('../core/php/commonFunctions.php');
 
 	<div id="main">
 		<?php require_once('../core/php/template/logSettings.php'); ?>
+		<?php require_once('../core/php/template/pollVars.php'); ?>
 		<?php require_once('../core/php/template/mainVars.php'); ?>
 		<?php require_once('../core/php/template/settingsMainWatch.php'); ?>
 		<?php require_once('../core/php/template/settingsMenuVars.php'); ?>

@@ -256,7 +256,7 @@ function showNoEmptyFolderPopup()
 
 function checkIfChanges()
 {
-	if(	checkForChangesArray(["settingsMainWatch","settingsMainVars","settingsMenuVars","settingsLogVars"]))
+	if(	checkForChangesArray(["settingsMainWatch","settingsMainVars","settingsMenuVars","settingsLogVars","settingsPollVars"]))
 	{
 		return true;
 	}
@@ -396,7 +396,7 @@ $( document ).ready(function()
 	document.getElementById("logTrimTypeToggle").addEventListener("change", changeDescriptionLineSize, false);
 	document.getElementById("logTrimOn").addEventListener("change", showOrHideLogTrimSubWindow, false);
 
-	refreshArrayObjectOfArrays(["settingsMainVars","settingsMenuVars","settingsLogVars"]);
+	refreshArrayObjectOfArrays(["settingsMainVars","settingsMenuVars","settingsLogVars","settingsPollVars"]);
 	refreshSettingsWatchList();
 	setInterval(poll, 100);
 
