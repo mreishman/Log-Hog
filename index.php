@@ -280,7 +280,7 @@ elseif (is_dir("../SeleniumMonitor"))
 		var pollRefreshAllBool = "<?php echo $pollRefreshAllBool;?>";
 		var pollForceTrueBool = "<?php echo $pollRefreshAllBool;?>";
 		var baseUrl = "<?php echo $baseUrl;?>";
-
+		var updateFromID = "settingsInstallUpdate";
 	</script>
 	<?php readfile('core/html/popup.html') ?>
 	<script src="core/js/main.js?v=<?php echo $cssVersion?>"></script>
