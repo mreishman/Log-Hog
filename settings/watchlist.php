@@ -17,7 +17,7 @@ require_once('../core/php/commonFunctions.php');
 ?>
 <!doctype html>
 <head>
-	<title>Settings | Main</title>
+	<title>Settings | Watchlist</title>
 	<?php echo loadCSS($baseUrl, $cssVersion);?>
 	<link rel="icon" type="image/png" href="../core/img/favicon.png" />
 	<script src="../core/js/jquery.js"></script>
@@ -27,16 +27,11 @@ require_once('../core/php/commonFunctions.php');
 <?php require_once('header.php');?>	
 
 	<div id="main">
-		<?php require_once('../core/php/template/logSettings.php'); ?>
-		<?php require_once('../core/php/template/pollVars.php'); ?>
-		<?php require_once('../core/php/template/updateVars.php'); ?>
-		<?php require_once('../core/php/template/settingsMenuVars.php'); ?>
-		<?php require_once('../core/php/template/mainVars.php'); ?>
+		<?php require_once('../core/php/template/settingsMainWatch.php'); ?>
 	</div>
 	<?php readfile('../core/html/popup.html') ?>	
 </body>
 <script type="text/javascript">
 var fileArray = JSON.parse('<?php echo json_encode($config['watchList']) ?>');
-var logTrimType = "<?php echo $logTrimType; ?>";
 </script>
-<script src="../core/js/settingsMain.js?v=<?php echo $cssVersion?>"></script>
+<script src="../core/js/settingsWatchlist.js?v=<?php echo $cssVersion?>"></script>

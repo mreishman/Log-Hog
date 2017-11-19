@@ -12,6 +12,11 @@ echo loadSentryData($sendCrashInfoJS, $branchSelected); ?>
 	<?php else: ?>
 		<a id="MainLink" onclick="goToUrl('main.php');" >Main</a>
 	<?php endif; ?>
+	<?php if(strpos($URI, 'watchlist.php') !== false): ?>
+		<a style="cursor: default;" class="active" id="Watchlist" >Watchlist</a>
+	<?php else: ?>
+		<a id="Watchlist" onclick="goToUrl('watchlist.php');" >Watchlist</a>
+	<?php endif; ?>
 	<a id="ThemesLink" style="
 		<?php if($themesEnabled === "false"): ?>
 		display: none;
