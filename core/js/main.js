@@ -674,6 +674,11 @@ function update(data) {
 		if($("#menu .updated").length !== 0)
 		{
 			//there is at least one updated thing, show button for clear all notifications
+			document.getElementById("clearNotificationsImage").style.display = "inline-block";
+		}
+		else
+		{
+			document.getElementById("clearNotificationsImage").style.display = "none";
 		}
 		
 		if(logs[currentPage] !== lastLogs[currentPage]) {
@@ -691,6 +696,19 @@ function update(data) {
 	{
 		eventThrowException(e);
 	}
+}
+
+function clearNotifications()
+{
+	if($("#menu .updated").length !== 0)
+	{
+		var arrayOfLogs = $("#menu a");
+		for (var i = 0; i < arrayOfLogs.length; i++)
+		{
+			arrayOfLogs[i].classList.remove("updated");
+		}
+	}
+	document.getElementById("clearNotificationsImage").style.display = "none";
 }
 
 function hideLogByName(name)
