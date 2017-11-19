@@ -185,7 +185,7 @@ elseif (is_dir("../SeleniumMonitor"))
 				</div>
 			<?php endif; ?>
 			<div onclick="clearNotifications();" class="menuImageDiv">
-				<img id="clearNotificationsImage" class="menuImage" src="<?php echo $baseUrl; ?>img/trashCan.png" height="30px">
+				<img id="clearNotificationsImage" class="menuImage" src="<?php echo $baseUrl; ?>img/notificationClear.png" height="30px">
 			</div>
 			<div style="float: right;">
 				<select name="searchType" style="display: none;">
