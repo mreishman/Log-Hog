@@ -31,6 +31,7 @@ var percent = 0;
 var pollRefreshAllBoolStatic = pollRefreshAllBool;
 var firstLoad = true;
 var timer;
+var clearingNotifications = false;
 
 function escapeHTML(unsafeStr)
 {
@@ -113,7 +114,7 @@ function poll()
 			updateDocumentTitle("Index");
 		}
 		counterForPoll++;
-		if(!polling)
+		if(!polling && !clearingNotifications)
 		{
 			pollSkipCounter = 0;
 			updateSkipCounterLog(pollSkipCounter);
@@ -123,7 +124,7 @@ function poll()
 		}
 		else
 		{
-			if(pollForceTrueBool === "true" && firstLoad !== true)
+			if(pollForceTrueBool === "true" && firstLoad !== true && !clearingNotifications)
 			{
 				pollSkipCounter++;
 				updateSkipCounterLog(pollSkipCounter);
@@ -680,22 +681,34 @@ function update(data) {
 			if($("#menu .active").length === 0)
 			{
 				//if still none active, none to display - add popup here
-				document.getElementById("noLogToDisplay").style.display = "block";
+				if(document.getElementById("noLogToDisplay").style.display !== "block")
+				{
+					document.getElementById("noLogToDisplay").style.display = "block";
+				}
 			}
 			else
 			{
-				document.getElementById("noLogToDisplay").style.display = "none";
+				if(document.getElementById("noLogToDisplay").style.display !== "none")
+				{
+					document.getElementById("noLogToDisplay").style.display = "none";
+				}
 			}
 		}
 
 		if($("#menu .updated").length !== 0)
 		{
 			//there is at least one updated thing, show button for clear all notifications
-			document.getElementById("clearNotificationsImage").style.display = "inline-block";
+			if(document.getElementById("clearNotificationsImage").style.display !== "inline-block")
+			{
+				document.getElementById("clearNotificationsImage").style.display = "inline-block";
+			}
 		}
 		else
 		{
-			document.getElementById("clearNotificationsImage").style.display = "none";
+			if(document.getElementById("clearNotificationsImage").style.display !== "none")
+			{
+				document.getElementById("clearNotificationsImage").style.display = "none";
+			}
 		}
 		
 		if(logs[currentPage] !== lastLogs[currentPage])
@@ -704,17 +717,7 @@ function update(data) {
 			document.getElementById("main").scrollTop = $("#log").outerHeight();
 		}
 		
-		var ids = Object.keys(logs);
-		for(var i = 0; i !== stop; ++i)
-		{
-			id = ids[i];
-			if(lastLogs[id] === undefined)
-			{
-				lastLogs[id] = [];
-				lastLogs[id]["countOld"] = logs[id]["log"].length;
-			}
-			lastLogs[id]["log"] = logs[id]["log"];
-		}
+		refreshLastLogsArray(false);
 	}
 	catch(e)
 	{
@@ -724,15 +727,51 @@ function update(data) {
 
 function clearNotifications()
 {
-	if($("#menu .updated").length !== 0)
+	clearingNotifications = true;
+	try
 	{
-		var arrayOfLogs = $("#menu a");
-		for (var i = 0; i < arrayOfLogs.length; i++)
+		if($("#menu .updated").length !== 0)
 		{
-			arrayOfLogs[i].removeClass("updated");
+			var arrayOfLogs = $("#menu a");
+			for (var i = 0; i < arrayOfLogs.length; i++)
+			{
+				arrayOfLogs[i].removeClass("updated");
+			}
+		}
+		refreshLastLogsArray(true);
+		document.getElementById("clearNotificationsImage").style.display = "none";
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+	clearingNotifications = false;
+}
+
+function refreshLastLogsArray(forceNewCount)
+{
+	try
+	{
+		var ids = Object.keys(logs);
+		for(var i = 0; i !== stop; ++i)
+		{
+			id = ids[i];
+			if(lastLogs[id] === undefined)
+			{
+				lastLogs[id] = [];
+				lastLogs[id]["countOld"] = logs[id]["log"].length;
+			}
+			else if(forceNewCount)
+			{
+				lastLogs[id]["countOld"] = logs[id]["log"].length;
+			}
+			lastLogs[id]["log"] = logs[id]["log"];
 		}
 	}
-	document.getElementById("clearNotificationsImage").style.display = "none";
+	catch(e)
+	{
+		eventThrowException(e);
+	}
 }
 
 function hideLogByName(name)
