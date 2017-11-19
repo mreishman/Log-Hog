@@ -256,7 +256,7 @@ function showNoEmptyFolderPopup()
 
 function checkIfChanges()
 {
-	if(	checkForChangesArray(["settingsMainWatch","settingsMainVars","settingsMenuVars","settingsLogVars","settingsPollVars"]))
+	if(	checkForChangesArray(["settingsMainWatch","settingsMainVars","settingsMenuVars","settingsLogVars","settingsPollVars","settingsUpdateVars"]))
 	{
 		return true;
 	}
@@ -295,91 +295,6 @@ function refreshSettingsWatchList()
 	}
 }
 
-function highlightTopNavDepends()
-{
-	try
-	{
-		var offsetHeight = document.getElementById("menu").offsetHeight + document.getElementById("menu2").offsetHeight;
-		outerHeightMain = $("#settingsMainVars").outerHeight();
-		positionMain = $("#settingsMainVars").position();
-		if((outerHeightMain+positionMain.top-offsetHeight) < 0)
-		{
-			positionMain = $("#settingsMainWatch").position();
-			if((outerHeightMain+positionMain.top-offsetHeight) < 0)
-			{
-				highlightSettingsMenu2Option("menuSettingsMenu2");
-			}
-			else
-			{
-				highlightSettingsMenu2Option("watchListSettingsMenu2");
-			}
-		}
-		else
-		{
-			//check if class is already there before adding
-			highlightSettingsMenu2Option("mainSettingsMenu2");
-		}
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
-function highlightSettingsMenu2Option(option)
-{
-	try
-	{
-		var titles = ["mainSettingsMenu2", "watchListSettingsMenu2", "menuSettingsMenu2"];
-		for (var i = titles.length - 1; i >= 0; i--)
-		{
-			
-			if(option !== titles[i])
-			{
-				removeActiveClass(titles[i]);
-			}
-			else
-			{
-				addActiveClass(titles[i]);
-			}
-		}
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
-function addActiveClass(idToAdd)
-{
-	try
-	{
-		if(!$("#"+idToAdd).hasClass("active"))
-		{
-			$("#"+idToAdd).addClass("active");
-		}
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
-function removeActiveClass(idToAdd)
-{
-	try
-	{
-		if($("#"+idToAdd).hasClass("active"))
-		{
-			$("#"+idToAdd).removeClass("active");
-		}
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
 $( document ).ready(function() 
 {
 	if(logTrimType == 'lines')
@@ -396,12 +311,7 @@ $( document ).ready(function()
 	document.getElementById("logTrimTypeToggle").addEventListener("change", changeDescriptionLineSize, false);
 	document.getElementById("logTrimOn").addEventListener("change", showOrHideLogTrimSubWindow, false);
 
-	refreshArrayObjectOfArrays(["settingsMainVars","settingsMenuVars","settingsLogVars","settingsPollVars"]);
+	refreshArrayObjectOfArrays(["settingsMainVars","settingsMenuVars","settingsLogVars","settingsPollVars","settingsUpdateVars"]);
 	refreshSettingsWatchList();
 	setInterval(poll, 100);
-
-	$( "#main" ).scroll(function()
-	{
-		highlightTopNavDepends();
-	});
 });

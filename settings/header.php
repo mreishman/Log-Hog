@@ -76,9 +76,11 @@ echo loadSentryData($sendCrashInfoJS, $branchSelected); ?>
 </div>
 <?php if(strpos($URI, 'main.php') !== false): ?>
 	<div id="menu2">
-		<a id="mainSettingsMenu2" onclick="goToUrl('#settingsMainVars');" class="active" > Main Settings </a>
-		<a id="watchListSettingsMenu2" onclick="goToUrl('#settingsMainWatch');" > WatchList </a>
-		<a id="menuSettingsMenu2" onclick="goToUrl('#settingsMenuVars');" > Menu Settings </a>
+		<a onclick="goToUrl('#settingsLogVars');" > Logs </a>
+		<a onclick="goToUrl('#settingsPollVars');" > Poll </a>
+		<a onclick="goToUrl('#settingsUpdateVars');" > Update </a>
+		<a onclick="goToUrl('#settingsMenuVars');" > Menu </a>
+		<a onclick="goToUrl('#settingsMainVars');" > Other </a>
 	</div>
 <?php endif; ?>
 <?php if((strpos($URI, 'whatsNew.php') !== false) || (strpos($URI, 'update.php') !== false) || (strpos($URI, 'changeLog.php') !== false)): ?>
