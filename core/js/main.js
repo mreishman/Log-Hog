@@ -581,7 +581,7 @@ function update(data) {
 								}
 								data[name] = "<div class='errorMessageLog errorMessageRedBG' > "+mainMessage+" <br> <span style='font-size:75%;'> Try entering: <br> chown -R www-data:www-data "+name+" <br> or <br> chmod 664 "+name+" </span> </div>";
 							}
-							if(logs[id] === undefined)
+							if(!(id in logs))
 							{
 								logs[id] = [];
 							}
@@ -617,7 +617,7 @@ function update(data) {
 								menu.append(item);
 							}
 
-							if(lastLogs[id] != undefined)
+							if(id in lastLogs)
 							{
 								if(logs[id]["log"] !== lastLogs[id]["log"]) 
 								{
@@ -756,12 +756,13 @@ function refreshLastLogsArray(forceNewCount)
 		for(var i = 0; i !== stop; ++i)
 		{
 			id = ids[i];
-			if(lastLogs[id] === undefined)
+			if(!(id in lastLogs))
 			{
 				lastLogs[id] = [];
-				lastLogs[id]["countOld"] = logs[id]["log"].length;
+				forceNewCount = true;
 			}
-			else if(forceNewCount)
+
+			if(forceNewCount)
 			{
 				lastLogs[id]["countOld"] = logs[id]["log"].length;
 			}
@@ -1151,7 +1152,7 @@ function installUpdates()
 		{
 			url: urlForSend,
 			dataType: "json",
-			data: data,
+			data,
 			type: "POST",
 			complete(data)
 			{

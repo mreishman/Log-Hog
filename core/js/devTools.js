@@ -39,9 +39,7 @@ function newVersionNumberCheck()
 		$.getJSON("../core/php/configStaticCheck.php", {}, function(data) 
 		{
 			var dataExt = document.getElementById("versionNumberConfigStaticInput").value;
-			console.log(dataExt + " === " + data['version']);
-			console.log(dataExt === data['version']);
-			if(dataExt === data['version'])
+			if(dataExt === data["version"])
 			{
 				clearInterval(timeoutVar);
 				saveSuccess();
