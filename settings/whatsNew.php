@@ -54,6 +54,27 @@ require_once('../core/php/commonFunctions.php');
 				</tr>
 
 
+				<tr>
+				<td>
+					<b>SeleniumMonitor</b>
+					<ul>
+						<li>
+						Monitor your selenium grid, and run new tests from a web interface
+						</li>
+					</ul>
+					<br>
+					<b>Title Filter</b>
+					<ul>
+						<li>
+							Filter logs by title / path.
+						</li>
+					</ul>
+				</td>
+				<td>
+					<a href="../core/img/3.2-1.png" data-lightbox="3.1" ><img src="../core/img/3.2-1.png" style="width: 45%;"></a>
+					<a href="../core/img/3.2-2.png" data-lightbox="3.1" ><img src="../core/img/3.2-2.png" style="width: 45%;"></a>
+				</td>
+				</tr>
 
 
 
