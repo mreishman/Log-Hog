@@ -202,6 +202,7 @@ elseif (is_dir("../SeleniumMonitor"))
 			</div>
 			<h3 id="progressBarSubInfo" style="margin-right: auto; margin-left: auto; width: 100%; text-align: center;  margin-top: 10px; font-size: 150%;" >Loading Javascript</h3>
 		</div>
+		<div id="noLogToDisplay" class='errorMessageLog errorMessageGreenBG' style="display: none;" > There are currently no logs to display. </div>
 	</div>
 	
 	<div id="storage">

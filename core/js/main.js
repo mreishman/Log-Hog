@@ -647,6 +647,7 @@ function update(data) {
 		}
 		resize();
 		
+		//Check if a tab is active, if none... click on first in array that's visible
 		if($("#menu .active").length === 0)
 		{
 			var arrayOfLogs = $("#menu a");
@@ -662,6 +663,11 @@ function update(data) {
 			if($("#menu .active").length === 0)
 			{
 				//if still none active, none to display - add popup here
+				document.getElementById("noLogToDisplay").style.display = "block";
+			}
+			else
+			{
+				document.getElementById("noLogToDisplay").style.display = "none";
 			}
 		}
 
