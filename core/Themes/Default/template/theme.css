@@ -248,9 +248,9 @@ div {
 
 .context-menu__items{
 	list-style: none;
-	margin: 0px;
-	padding: 0px;
-	margin-top: 0px;
+	margin: 0;
+	padding: 0;
+	margin-top: 0;
 }
 
 .context-menu--active {
@@ -467,7 +467,7 @@ div {
     background-color: green;
     overflow: auto;
     border: 1px solid white;
- 	box-shadow: 0px 0px 5px black;
+ 	box-shadow: 0 0 5px black;
     z-index: 30;
     margin-left: 12px;
     margin-top: -70px;

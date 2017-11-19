@@ -43,7 +43,7 @@ div {
 	overflow-y: auto;
 	overflow-x: hidden;
 	top: 55px;
-	box-shadow: 0px 5px 10px rgba(0,0,0,.5);
+	box-shadow: 0 5px 10px rgba(0,0,0,.5);
 }
 
 #menu a, #menu2 a {
@@ -174,9 +174,10 @@ background: linear-gradient(to bottom, rgba(233,170,181,1) 0%, rgba(242,166,173,
 	color: black;
 	padding: 0 1em;
 	line-height: 2em;
-	background: -moz-linear-gradient(top, #eeeeee 0%, #dddddd 25%, #dddddd 75%, #eeeeee 100%); /* FF3.6-15 */
-	background: -webkit-linear-gradient(top, #eeeeee 0%,#dddddd 25%,#dddddd 75%,#eeeeee 100%); /* Chrome10-25,Safari5.1-6 */
-	background: linear-gradient(to bottom, #eeeeee 0%,#dddddd 25%,#dddddd 75%,#eeeeee 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	background: -moz-linear-gradient(top, #eeeeee 0%, #dddddd 25%, #dddddd 75%, #eeeeee 100%);
+	background: -webkit-linear-gradient(top, #eeeeee 0%,#dddddd 25%,#dddddd 75%,#eeeeee 100%);
+	background: -o-linear-gradient(top, #eeeeee 0%,#dddddd 25%,#dddddd 75%,#eeeeee 100%);
+	background: linear-gradient(to bottom, #eeeeee 0%,#dddddd 25%,#dddddd 75%,#eeeeee 100%);
 	background-image: -moz-repeating-linear-gradient(180deg,rgb(240,240,240),rgb(240,240,240) 2.5%, rgb(220,220,220) 2.51%, rgb(220,220,220) 5%);
   	background-image: -webkit-repeating-linear-gradient(180deg,rgb(240,240,240),rgb(240,240,240) 2.5%, rgb(220,220,220) 2.51%, rgb(220,220,220) 5%);
   	background-image: -o-repeating-linear-gradient(180deg,rgb(240,240,240),rgb(240,240,240) 2.5%, rgb(220,220,220) 2.51%, rgb(220,220,220) 5%);
@@ -202,14 +203,14 @@ background: linear-gradient(to bottom, rgba(233,170,181,1) 0%, rgba(242,166,173,
 	background-color: #444444;
 	border: 1px solid white;
 	margin: 10px;
-	margin-top: 0px;
+	margin-top: 0;
 }
 
 .settingsHeader
 {
 	background-color: white;
 	margin: 10px;
-	margin-bottom: 0px;
+	margin-bottom: 0;
 	color: black;
 	padding: 5px;
 }
@@ -304,15 +305,15 @@ background: linear-gradient(to bottom, rgba(233,170,181,1) 0%, rgba(242,166,173,
   z-index: 30;
   background-color: black;
   border: 1px solid white;
-  box-shadow: 0px 0px 5px black;
+  box-shadow: 0 0 5px black;
   color: white;
 }
 
 .context-menu__items{
 	list-style: none;
-	margin: 0px;
-	padding: 0px;
-	margin-top: 0px;
+	margin: 0;
+	padding: 0;
+	margin-top: 0;
 }
 
 .context-menu--active {
@@ -529,7 +530,7 @@ background: linear-gradient(to bottom, rgba(233,170,181,1) 0%, rgba(242,166,173,
     background-color: green;
     overflow: auto;
     border: 1px solid white;
- 	box-shadow: 0px 0px 5px black;
+ 	box-shadow: 0 0 5px black;
     z-index: 30;
     margin-left: 12px;
     margin-top: -70px;
@@ -546,9 +547,9 @@ background: linear-gradient(to bottom, rgba(233,170,181,1) 0%, rgba(242,166,173,
 
 .dropdown-content__items{
 	list-style: none;
-	margin: 0px;
-	padding: 0px;
-	margin-top: 0px;
+	margin: 0;
+	padding: 0;
+	margin-top: 0;
 }
 
 .dropdown-content--active {
