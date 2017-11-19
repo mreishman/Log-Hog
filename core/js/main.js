@@ -644,6 +644,11 @@ function update(data) {
 									flashTitle();
 								}
 							}
+							var lastLogLine = logs[id]["log"].count - 1;
+							if(document.getElementById(id).title !== logs[id]["log"][lastLogLine])
+							{
+								document.getElementById(id).title = logs[id]["log"][lastLogLine];
+							}
 						}
 						else
 						{
