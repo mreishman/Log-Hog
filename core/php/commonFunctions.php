@@ -146,15 +146,21 @@ function loadSentryData($sendCrashInfoJS, $branchSelected)
 
 		</script>";
 	}
-	return "
+	$returnString = "
 	<script>
 
 		function eventThrowException(e)
 		{
-			//this would send errors, but it is disabled
+			//this would send errors, but it is disabled";
+			if($branchSelected === 'dev' || $branchSelected === 'beta')
+			{
+				$returnString .= "	console.log(e);";
+			}
+			$returnString	.= "
 		}
 
 	</script>";
+	return	$returnString;
 }
 
 function baseURL()
