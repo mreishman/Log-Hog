@@ -52,6 +52,25 @@ function escapeHTML(unsafeStr)
 	
 }
 
+function unescapeHTML(unsafeStr)
+{
+	try
+	{
+		return unsafeStr.toString()
+		.replace(/&amp;/g, "&")
+		.replace(/&lt;/g, "<")
+		.replace(/&gt;/g, ">")
+		.replace(/&quot;/g, "\"")
+		.replace(/&#39;/g, "\'")
+		.replace(/&#x2F;/g, "\/");
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+	
+}
+
 function updateSkipCounterLog(num)
 {
 	try
@@ -655,7 +674,7 @@ function update(data) {
 							var buttonReference = document.getElementById("menu").getElementsByClassName(id+"Button")[0];
 							var tmpText = logs[id]["log"].split("\n");
 							var tmpTextLength = tmpText.length;
-							tmpText = tmpText[tmpTextLength-1];
+							tmpText = unescapeHTML(tmpText[tmpTextLength-1]);
 							if(buttonReference.title !== tmpText)
 							{
 								buttonReference.title = tmpText;
