@@ -526,7 +526,7 @@ function update(data) {
 	{
 		var menu = $("#menu");
 		var blank = $("#storage .menuItem").html();
-		var id, name, shortName, item, style, folderName;
+		var id, shortName, item, style, folderName;
 		var files = Object.keys(data);
 		var stop = files.length;
 		var updated = false;
@@ -538,12 +538,13 @@ function update(data) {
 			if(files[i].indexOf("dataForLoggingLogHog051620170928") === -1)
 			{
 				var dataForCheck = data[files[i]];
-				name = files[i];
+				var name = files[i];
 				var selectListForFilter = document.getElementsByName("searchType")[0];
 				var selectedListFilterType = selectListForFilter.options[selectListForFilter.selectedIndex].value;
 				var filterTextField = document.getElementsByName("search")[0].value;
 				if(selectedListFilterType === "title" && (filterTextField === "" || name.indexOf(filterTextField) !== -1))
 				{
+					showLogByName(name);
 					if(dataForCheck === "This file is empty. This should not be displayed." && hideEmptyLog === "true")
 					{
 						removeLogByName(name);
@@ -552,7 +553,6 @@ function update(data) {
 					{
 						if(data[name] !== null)
 						{
-							showLogByName(name);
 							folderName = name.substr(0, name.lastIndexOf("/"));
 							if(folderName !== folderNamePrev || i === 0 || groupByType === "file")
 							{
@@ -617,26 +617,29 @@ function update(data) {
 								menu.append(item);
 							}
 
-							if(id in lastLogs)
+							
+							if(!(id in lastLogs) || logs[id]["log"] !== lastLogs[id]["log"]) 
 							{
-								if(logs[id]["log"] !== lastLogs[id]["log"]) 
+								updated = true;
+								if(id === currentPage)
 								{
-									updated = true;
-									if(id === currentPage)
+									$("#log").html(makePretty(logs[id]["log"]));
+								}
+								else
+								{
+									var diff = 0;
+									if(id in lastLogs)
 									{
-										$("#log").html(makePretty(logs[id]["log"]));
+										diff = logs[id]["log"].length - lastLogs[id]["countOld"];
 									}
-									else
-									{
-										var diff = logs[id]["log"].length - lastLogs[id]["countOld"];
 
-										if(!fresh && !$("#menu a." + id + "Button").hasClass("updated"))
-										{
-											$("#menu a." + id + "Button").addClass("updated");
-										}
+									if(!fresh && !$("#menu a." + id + "Button").hasClass("updated"))
+									{
+										$("#menu a." + id + "Button").addClass("updated");
 									}
 								}
 							}
+							
 							
 							if(initialized && updated && $(window).filter(":focus").length === 0) 
 							{
@@ -646,9 +649,9 @@ function update(data) {
 								}
 							}
 							var lastLogLine = logs[id]["log"].count - 1;
-							if(document.getElementById(id).title !== logs[id]["log"][lastLogLine])
+							if($("#menu ." + id + "Button").title !== logs[id]["log"][lastLogLine])
 							{
-								document.getElementById(id).title = logs[id]["log"][lastLogLine];
+								$("#menu ." + id + "Button").title = logs[id]["log"][lastLogLine];
 							}
 						}
 						else
@@ -684,6 +687,7 @@ function update(data) {
 				if(document.getElementById("noLogToDisplay").style.display !== "block")
 				{
 					document.getElementById("noLogToDisplay").style.display = "block";
+					document.getElementById("log").style.display = "none";
 				}
 			}
 			else
@@ -691,6 +695,7 @@ function update(data) {
 				if(document.getElementById("noLogToDisplay").style.display !== "none")
 				{
 					document.getElementById("noLogToDisplay").style.display = "none";
+					document.getElementById("log").style.display = "block";
 				}
 			}
 		}
@@ -753,6 +758,7 @@ function refreshLastLogsArray(forceNewCount)
 	try
 	{
 		var ids = Object.keys(logs);
+		var stop = ids.length;
 		for(var i = 0; i !== stop; ++i)
 		{
 			id = ids[i];
@@ -764,9 +770,15 @@ function refreshLastLogsArray(forceNewCount)
 
 			if(forceNewCount)
 			{
-				lastLogs[id]["countOld"] = logs[id]["log"].length;
+				if(id in logs)
+				{
+					lastLogs[id]["countOld"] = logs[id]["log"].length;
+				}
 			}
-			lastLogs[id]["log"] = logs[id]["log"];
+			if(id in logs)
+			{
+				lastLogs[id]["log"] = logs[id]["log"];
+			}
 		}
 	}
 	catch(e)
@@ -838,7 +850,10 @@ function show(e, id)
 		currentPage = id;
 		$("#title").html(titles[id]);
 		document.getElementById("main").scrollTop = $("#log").outerHeight();
-		lastLogs[id]["countOld"] = logs[id]["log"].length;
+		if(id in lastLogs)
+		{
+			lastLogs[id]["countOld"] = logs[id]["log"].length;
+		}
 	}
 	catch(e)
 	{
