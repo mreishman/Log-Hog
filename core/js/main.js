@@ -766,7 +766,7 @@ function clearNotifications()
 			var arrayOfLogs = $("#menu a");
 			for (var i = 0; i < arrayOfLogs.length; i++)
 			{
-				arrayOfLogs[i].removeClass("updated");
+				arrayOfLogs[i].classList.remove("updated");
 			}
 		}
 		refreshLastLogsArray(true);
