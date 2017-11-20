@@ -603,6 +603,8 @@ function update(data) {
 								}
 							}
 
+							var lastLogLine = logs[id]["log"].count - 1;
+
 							if($("#menu ." + id + "Button").length === 0) 
 							{
 								shortName = files[i].replace(/.*\//g, "");
@@ -610,6 +612,7 @@ function update(data) {
 								item = blank;
 								item = item.replace(/{{title}}/g, shortName);
 								item = item.replace(/{{id}}/g, id);
+								item = item.replace(/{{title}}/g, shortName);
 								if(groupByColorEnabled === true)
 								{
 									item = item.replace(/{{class}}/g, classInsert);
@@ -648,10 +651,14 @@ function update(data) {
 									flashTitle();
 								}
 							}
-							var lastLogLine = logs[id]["log"].count - 1;
-							if($("#menu ." + id + "Button").title !== logs[id]["log"][lastLogLine])
+							
+							var buttonReference = document.getElementById("menu").getElementsByClassName(id+"Button")[0];
+							var tmpText = logs[id]["log"].split("\n");
+							var tmpTextLength = tmpText.length;
+							tmpText = tmpText[tmpTextLength-1];
+							if(buttonReference.title !== tmpText)
 							{
-								$("#menu ." + id + "Button").title = logs[id]["log"][lastLogLine];
+								buttonReference.title = tmpText;
 							}
 						}
 						else
