@@ -69,10 +69,20 @@ require_once('../core/php/commonFunctions.php');
 							Filter logs by title / path.
 						</li>
 					</ul>
+					<br>
+					<b>Config file versions</b>
+					<ul>
+						<li>
+							Restore versions of config.
+						</li>
+					</ul>
 				</td>
 				<td>
-					<a href="../core/img/3.2-1.png" data-lightbox="3.1" ><img src="../core/img/3.2-1.png" style="width: 45%;"></a>
-					<a href="../core/img/3.2-2.png" data-lightbox="3.1" ><img src="../core/img/3.2-2.png" style="width: 45%;"></a>
+					<a href="../core/img/3.2-1.png" data-lightbox="3.2" ><img src="../core/img/3.2-1.png" style="width: 45%;"></a>
+					<a href="../core/img/3.2-2.png" data-lightbox="3.2" ><img src="../core/img/3.2-2.png" style="width: 45%;"></a>
+					<br>
+					<a href="../core/img/3.2-3.png" data-lightbox="3.2" ><img src="../core/img/3.2-3.png" style="width: 45%;"></a>
+					<a href="../core/img/3.2-4.png" data-lightbox="3.2" ><img src="../core/img/3.2-4.png" style="width: 45%;"></a>
 				</td>
 				</tr>
 
