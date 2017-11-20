@@ -141,26 +141,25 @@ function loadSentryData($sendCrashInfoJS, $branchSelected)
 					Raven.showReportDialog();
 				";
 			}
+			if($branchSelected === 'dev' || $branchSelected === 'beta')
+			{
+				$returnString .= "	console.log(e);";
+			}
 
 		$returnString .= "}
 
 		</script>";
 	}
-	$returnString = "
+	return "
 	<script>
 
 		function eventThrowException(e)
 		{
-			//this would send errors, but it is disabled";
-			if($branchSelected === 'dev' || $branchSelected === 'beta')
-			{
-				$returnString .= "	console.log(e);";
-			}
-			$returnString	.= "
+			//this would send errors, but it is disabled
+			console.log(e);
 		}
 
 	</script>";
-	return	$returnString;
 }
 
 function baseURL()
