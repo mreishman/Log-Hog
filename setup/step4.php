@@ -88,6 +88,8 @@ require_once('../core/php/loadVars.php'); ?>
 </body>
 <form id="defaultVarsForm" action="../core/php/settingsSave.php" method="post"></form>
 <script type="text/javascript">
+	
+	var baseUrl = "<?php echo $baseUrlImages;?>";
 
 var retryCount = 0;
 var verifyCount = 0;
