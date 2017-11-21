@@ -726,21 +726,7 @@ function update(data) {
 			}
 		}
 
-		if($("#menu .updated").length !== 0)
-		{
-			//there is at least one updated thing, show button for clear all notifications
-			if(document.getElementById("clearNotificationsImage").style.display !== "inline-block")
-			{
-				document.getElementById("clearNotificationsImage").style.display = "inline-block";
-			}
-		}
-		else
-		{
-			if(document.getElementById("clearNotificationsImage").style.display !== "none")
-			{
-				document.getElementById("clearNotificationsImage").style.display = "none";
-			}
-		}
+		toggleNotificationClearButton();
 		
 		if(logs[currentPage] !== lastLogs[currentPage])
 		{
@@ -753,6 +739,25 @@ function update(data) {
 	catch(e)
 	{
 		eventThrowException(e);
+	}
+}
+
+function toggleNotificationClearButton()
+{
+	if($("#menu .updated").length !== 0)
+	{
+		//there is at least one updated thing, show button for clear all notifications
+		if(document.getElementById("clearNotificationsImage").style.display !== "inline-block")
+		{
+			document.getElementById("clearNotificationsImage").style.display = "inline-block";
+		}
+	}
+	else
+	{
+		if(document.getElementById("clearNotificationsImage").style.display !== "none")
+		{
+			document.getElementById("clearNotificationsImage").style.display = "none";
+		}
 	}
 }
 
@@ -880,6 +885,7 @@ function show(e, id)
 		{
 			lastLogs[id]["countOld"] = logs[id]["log"].length;
 		}
+		toggleNotificationClearButton();
 	}
 	catch(e)
 	{
