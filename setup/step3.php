@@ -56,6 +56,9 @@ require_once('../core/php/loadVars.php'); ?>
 </body>
 <form id="defaultVarsForm" action="../core/php/settingsSave.php" method="post"></form>
 <script type="text/javascript">
+	
+	var baseUrl = "<?php echo $baseUrlImages;?>";
+
 	function defaultSettings()
 	{
 		//change setupProcess to finished
