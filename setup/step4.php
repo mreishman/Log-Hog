@@ -35,6 +35,7 @@ require_once('../core/php/loadVars.php');?>
 	<script src="../core/js/jquery.js"></script>
 	<?php readfile('../core/html/popup.html');
 	echo loadCSS($baseUrl, $cssVersion);
+	echo loadSentryData($sendCrashInfoJS, $branchSelected);
 	require_once("../core/php/customCSS.php");?>
 </head>
 <body>
