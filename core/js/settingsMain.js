@@ -256,7 +256,20 @@ function showNoEmptyFolderPopup()
 
 function checkIfChanges()
 {
-	if(	checkForChangesArray(["settingsMainWatch","settingsMainVars","settingsMenuVars"]))
+	var arrayToCheck = new Array();
+	if(document.getElementById("settingsMenuVars"))
+	{
+		arrayToCheck.push("settingsMenuVars");
+	}
+	if(document.getElementById("settingsMainVars"))
+	{
+		arrayToCheck.push("settingsMainVars");
+	}
+	if(document.getElementById("settingsMainWatch"))
+	{
+		arrayToCheck.push("settingsMainWatch");
+	}
+	if(	checkForChangesArray(arrayToCheck))
 	{
 		return true;
 	}
@@ -410,8 +423,22 @@ $( document ).ready(function()
 		document.getElementById("logTrimOn").addEventListener("change", showOrHideLogTrimSubWindow, false);
 	}
 
-	refreshArrayObjectOfArrays(["settingsMainVars","settingsMenuVars"]);
-	refreshSettingsWatchList();
+	var arrayToRefresh = new Array();
+	if(document.getElementById("settingsMainVars"))
+	{
+		arrayToRefresh.push("settingsMainVars");
+	}
+
+	if(document.getElementById("settingsMenuVars"))
+	{
+		arrayToRefresh.push("settingsMenuVars");
+	}
+
+	refreshArrayObjectOfArrays(arrayToRefresh);
+	if(document.getElementById("settingsMainWatch"))
+	{
+		refreshSettingsWatchList();
+	}
 	setInterval(poll, 100);
 
 	$( "#main" ).scroll(function()

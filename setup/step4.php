@@ -71,8 +71,10 @@ require_once('../core/php/loadVars.php');?>
 		//change setupProcess to page1
 		location.reload();
 	}
-
+	
+	var titleOfPage = "Welcome";
 </script>
+<script src="../core/js/settings.js?v=<?php echo $cssVersion?>"></script>
 <script src="stepsJavascript.js?v=<?php echo $cssVersion?>"></script>
 <script src="../core/js/settingsMain.js?v=<?php echo $cssVersion?>"></script>
 </html>
