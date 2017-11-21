@@ -34,6 +34,7 @@ require_once('../core/php/loadVars.php'); ?>
 	<script src="../core/js/jquery.js"></script>
 	<?php readfile('../core/html/popup.html');
 	echo loadCSS($baseUrl, $cssVersion);
+	echo loadSentryData($sendCrashInfoJS, $branchSelected);
 	require_once("../core/php/customCSS.php");?>
 </head>
 <body>
@@ -56,6 +57,9 @@ require_once('../core/php/loadVars.php'); ?>
 </body>
 <form id="defaultVarsForm" action="../core/php/settingsSave.php" method="post"></form>
 <script type="text/javascript">
+	
+	var baseUrl = "<?php echo $baseUrlImages;?>";
+
 	function defaultSettings()
 	{
 		//change setupProcess to finished
@@ -68,6 +72,7 @@ require_once('../core/php/loadVars.php'); ?>
 		document.getElementById('settingsMenuVars').action = "../core/php/settingsSave.php";
 		document.getElementById('settingsMenuVars').submit();
 	}
+	var titleOfPage = "Welcome";
 	var popupSettingsArray = JSON.parse('<?php echo json_encode($popupSettingsArray) ?>');
 	var fileArray = JSON.parse('<?php echo json_encode($config['watchList']) ?>');
 	var countOfAddedFiles = 0;
@@ -75,6 +80,7 @@ require_once('../core/php/loadVars.php'); ?>
 	var locationInsert = "newRowLocationForWatchList";
 	var logTrimType = "<?php echo $logTrimType; ?>";
 </script>
+<script src="../core/js/settings.js?v=<?php echo $cssVersion?>"></script>
 <script src="stepsJavascript.js?v=<?php echo $cssVersion?>"></script>
 <script src="../core/js/settingsMain.js?v=<?php echo $cssVersion?>"></script>
 </html>

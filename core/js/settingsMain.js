@@ -94,7 +94,29 @@ function showOrHideSubWindow(valueForPopupInner, valueForVarsInner)
 
 function checkIfChanges()
 {
-	if(	checkForChangesArray(["settingsMainVars","settingsMenuVars","settingsLogVars","settingsPollVars","settingsUpdateVars"]))
+	var arrayToCheck = new Array();
+	if(document.getElementById("settingsMenuVars"))
+	{
+		arrayToCheck.push("settingsMenuVars");
+	}
+	if(document.getElementById("settingsMainVars"))
+	{
+		arrayToCheck.push("settingsMainVars");
+	}
+	if(document.getElementById("settingsLogVars"))
+	{
+		arrayToCheck.push("settingsLogVars");
+	}
+	if(document.getElementById("settingsPollVars"))
+	{
+		arrayToCheck.push("settingsPollVars");
+	}
+	if(document.getElementById("settingsUpdateVars"))
+	{
+		arrayToCheck.push("settingsUpdateVars");
+	}
+
+	if(	checkForChangesArray(arrayToCheck))
 	{
 		return true;
 	}
@@ -131,6 +153,27 @@ $( document ).ready(function()
 		document.getElementById("logTrimOn").addEventListener("change", showOrHideLogTrimSubWindow, false);
 	}
 
-	refreshArrayObjectOfArrays(["settingsMainVars","settingsMenuVars","settingsLogVars","settingsPollVars","settingsUpdateVars"]);
+	var arrayToRefresh = new Array();
+	if(document.getElementById("settingsMainVars"))
+	{
+		arrayToRefresh.push("settingsMainVars");
+	}
+	if(document.getElementById("settingsMenuVars"))
+	{
+		arrayToRefresh.push("settingsMenuVars");
+	}
+	if(document.getElementById("settingsLogVars"))
+	{
+		arrayToRefresh.push("settingsLogVars");
+	}
+	if(document.getElementById("settingsPollVars"))
+	{
+		arrayToRefresh.push("settingsPollVars");
+	}
+	if(document.getElementById("settingsUpdateVars"))
+	{
+		arrayToRefresh.push("settingsUpdateVars");
+	}
+	refreshArrayObjectOfArrays(arrayToRefresh);
 	setInterval(poll, 100);
 });
