@@ -70,14 +70,6 @@ echo loadSentryData($sendCrashInfoJS, $branchSelected); ?>
 			" onclick="goToUrl('devTools.php');"
 		<?php endif; ?>
 	> Dev</a>
-	<?php
-	if($expSettingsAvail):?>
-		<?php if(strpos($URI, 'experimentalfeatures.php') !== false): ?>
-			<a style="cursor: default;" class="active" id="Experimental-FeaturesLink"> Experimental-Features </a>
-		<?php else: ?>
-			<a id="Experimental-FeaturesLink" onclick="goToUrl('experimentalfeatures.php');"> Experimental-Features </a>
-		<?php endif; ?>	
-	<?php endif; ?>
 </div>
 <?php if(strpos($URI, 'main.php') !== false): ?>
 	<div id="menu2">
