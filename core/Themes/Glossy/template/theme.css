@@ -54,11 +54,11 @@ div {
 }
 
 
-#menu a{
+#menu .index{
 	padding: .5em 0em .5em 1em;
 }
 
-#menu2 a {
+#menu2 a, #menu a:not(.index) {
 	padding: .5em 1em;
 }
 

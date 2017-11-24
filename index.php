@@ -210,7 +210,7 @@ elseif (is_dir("../SeleniumMonitor"))
 	
 	<div id="storage">
 		<div class="menuItem">
-			<a title="{{title}}" class="{{id}}Button {{class}}" onclick="show(this, '{{id}}')">{{title}} <span id="{{id}}Count" class="menuCounter"></span></a>
+			<a title="{{title}}" class="{{id}}Button {{class}} index" onclick="show(this, '{{id}}')">{{title}} <span id="{{id}}Count" class="menuCounter"></span></a>
 		</div>
 	</div>
 	
@@ -285,6 +285,7 @@ elseif (is_dir("../SeleniumMonitor"))
 		var pollForceTrueBool = "<?php echo $pollRefreshAllBool;?>";
 		var baseUrl = "<?php echo $baseUrl;?>";
 		var updateFromID = "settingsInstallUpdate";
+		var notificationCountVisible = "<?php echo $notificationCountVisible;?>";
 	</script>
 	<?php readfile('core/html/popup.html') ?>
 	<script src="core/js/main.js?v=<?php echo $cssVersion?>"></script>

@@ -653,17 +653,20 @@ function update(data) {
 								}
 								else
 								{
-									var diff = 0;
-									if(id in lastLogs)
+									if(!fresh && notificationCountVisible === "true")
 									{
-										diff = getDiffLogAndLastLog(id);
-										if(document.getElementById(id+"Count").innerHTML !== "" && diff != "")
+										var diff = 0;
+										if(id in lastLogs)
 										{
-											document.getElementById(id+"Count").innerHTML = parseInt(document.getElementById(id+"Count").innerHTML) + diff;
-										}
-										else
-										{
-											document.getElementById(id+"Count").innerHTML = diff;
+											diff = getDiffLogAndLastLog(id);
+											if(document.getElementById(id+"Count").innerHTML !== "" && diff != "")
+											{
+												document.getElementById(id+"Count").innerHTML = parseInt(document.getElementById(id+"Count").innerHTML) + diff;
+											}
+											else
+											{
+												document.getElementById(id+"Count").innerHTML = diff;
+											}
 										}
 									}
 
