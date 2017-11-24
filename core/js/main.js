@@ -924,7 +924,27 @@ function getDiffLogAndLastLog(id)
 	{
 		if(tmpTextLog[i] === lastLine)
 		{
-			return (lengthOfArray - 1 - i);
+			//confirm the next two also
+			var returnNewNum = true;
+			var j = i-1;
+			var lastStart = lengthOfLastArray-2;
+			while(j >= 0)
+			{
+				if(tmpTextLog[j] !== tmpTextLast[lastStart])
+				{
+					returnNewNum = false;
+					break;
+				}
+				else
+				{
+					j--;
+					lastStart--;
+				}
+			}
+			if(returnNewNum)
+			{
+				return (lengthOfArray - 1 - i);
+			}
 		}
 	}
 	return "";
