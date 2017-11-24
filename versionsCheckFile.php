@@ -1,7 +1,7 @@
 <?php
 
 $versionCheckArray = array(
-	'version'		=> '3.1.1',
+	'version'		=> '3.1.2',
 	'versionList'		=> array(
 		'2.0.1'	        => array(
 			'branchName'	=> '2.0.1Update',
@@ -86,6 +86,10 @@ $versionCheckArray = array(
 		'3.1.1'		=> array(
 			'branchName'	=> '3.1.1Update',
 			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed updater in search addon</li><li>Poll logic changes</li><li>First load logic changes</li></ul></li></ul>"
+		),
+		'3.1.2'		=> array(
+			'branchName'	=> '3.1.2Update',
+			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Changed redirects for upgrade files.</li></ul></li></ul>"
 		),
 	)
 );
