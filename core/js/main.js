@@ -646,13 +646,25 @@ function update(data) {
 								if(id === currentPage)
 								{
 									$("#log").html(makePretty(logs[id]["log"]));
+									if(document.getElementById(id+"Count").innerHTML !== "")
+									{
+										document.getElementById(id+"Count").innerHTML = "";
+									}
 								}
 								else
 								{
 									var diff = 0;
 									if(id in lastLogs)
 									{
-										diff = logs[id]["log"].length - lastLogs[id]["countOld"];
+										diff = getDiffLogAndLastLog(id);
+										if(document.getElementById(id+"Count").innerHTML !== "" && diff != "")
+										{
+											document.getElementById(id+"Count").innerHTML = parseInt(document.getElementById(id+"Count").innerHTML) + diff;
+										}
+										else
+										{
+											document.getElementById(id+"Count").innerHTML = diff;
+										}
 									}
 
 									if(!fresh && !$("#menu a." + id + "Button").hasClass("updated"))
@@ -734,7 +746,7 @@ function update(data) {
 			document.getElementById("main").scrollTop = $("#log").outerHeight();
 		}
 		
-		refreshLastLogsArray(false);
+		refreshLastLogsArray();
 	}
 	catch(e)
 	{
@@ -773,8 +785,13 @@ function clearNotifications()
 			{
 				arrayOfLogs[i].classList.remove("updated");
 			}
+			var arrayOfCounts = $("#menu a .menuCounter");
+			for (var i = 0; i < arrayOfCounts.length; i++)
+			{
+				arrayOfCounts[i].innerHTML = "";
+			}
 		}
-		refreshLastLogsArray(true);
+		refreshLastLogsArray();
 		document.getElementById("clearNotificationsImage").style.display = "none";
 	}
 	catch(e)
@@ -784,7 +801,7 @@ function clearNotifications()
 	clearingNotifications = false;
 }
 
-function refreshLastLogsArray(forceNewCount)
+function refreshLastLogsArray()
 {
 	try
 	{
@@ -796,16 +813,8 @@ function refreshLastLogsArray(forceNewCount)
 			if(!(id in lastLogs))
 			{
 				lastLogs[id] = [];
-				forceNewCount = true;
 			}
 
-			if(forceNewCount)
-			{
-				if(id in logs)
-				{
-					lastLogs[id]["countOld"] = logs[id]["log"].length;
-				}
-			}
 			if(id in logs)
 			{
 				lastLogs[id]["log"] = logs[id]["log"];
@@ -881,16 +890,41 @@ function show(e, id)
 		currentPage = id;
 		$("#title").html(titles[id]);
 		document.getElementById("main").scrollTop = $("#log").outerHeight();
-		if(id in lastLogs)
-		{
-			lastLogs[id]["countOld"] = logs[id]["log"].length;
-		}
 		toggleNotificationClearButton();
+		document.getElementById(id+"Count").innerHTML = "";
 	}
 	catch(e)
 	{
 		eventThrowException(e);
 	}
+}
+
+function getDiffLogAndLastLog(id)
+{
+	var tmpTextLog = logs[id]["log"].split("\n");
+	var tmpTextLast = lastLogs[id]["log"].split("\n");
+	var lengthOfLastArray = tmpTextLast.length;
+	var lengthOfArray = tmpTextLog.length;
+	if(lengthOfLastArray === 0)
+	{
+		return lengthOfArray;
+	}
+	else if(lengthOfLastArray > lengthOfArray)
+	{
+		return "";
+	}
+	var lastLine = tmpTextLast[lengthOfLastArray-1];
+	console.log(lastLine);
+	//console.log(tmpTextLog);
+	var counter = 0;
+	for (var i = lengthOfArray - 1; i >= 0; i--)
+	{
+		if(tmpTextLog[i] === lastLine)
+		{
+			return (lengthOfArray - 1 - i);
+		}
+	}
+	return "";
 }
 
 function makePretty(text) 

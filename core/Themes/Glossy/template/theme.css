@@ -41,7 +41,6 @@ div {
 
 #menu a, #menu2 a {
 	display: inline-block;
-	padding: .5em 1em;
 	margin: .5em 0;
 	background: rgba(55,115,2,1);
 	background: -moz-linear-gradient(top, rgba(55,115,2,1) 0%, rgba(62,119,8,1) 50%, rgba(51,100,2,1) 51%, rgba(51,97,5,1) 71%, rgba(56,97,10,1) 100%);
@@ -52,6 +51,20 @@ div {
 	background: linear-gradient(to bottom, rgba(55,115,2,1) 0%, rgba(62,119,8,1) 50%, rgba(51,100,2,1) 51%, rgba(51,97,5,1) 71%, rgba(56,97,10,1) 100%);
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#377302', endColorstr='#38610a', GradientType=0 );
 	cursor: pointer;
+}
+
+
+#menu a{
+	padding: .5em 0em .5em 1em;
+}
+
+#menu2 a {
+	padding: .5em 1em;
+}
+
+#menu a .menuCounter{
+	padding-right: 1em;
+	display: inline-block;
 }
 
 #menu a:hover, #menu a.active, #menu2 a:hover, #menu2 a.active, .link:hover, .linkSmall:hover, .settingsHeader button:hover {
