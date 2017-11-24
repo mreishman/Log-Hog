@@ -655,15 +655,25 @@ function update(data) {
 								{
 									if(!fresh && notificationCountVisible === "true")
 									{
-										var diff = 0;
+										var diff = "";
 										if(id in lastLogs)
 										{
 											diff = getDiffLogAndLastLog(id);
-											if(document.getElementById(id+"Count").innerHTML !== "" && diff != "")
+											if(diff !== "")
 											{
-												document.getElementById(id+"Count").innerHTML = parseInt(document.getElementById(id+"Count").innerHTML) + diff;
+												if(document.getElementById(id+"Count").innerHTML !== "" )
+												{
+													var count = document.getElementById(id+"Count").innerHTML;
+													count = count.substring(1, count.length-1);
+													var diff = parseInt(count) + diff;
+													if(diff > sliceSize)
+													{
+														diff = sliceSize;
+													}
+												}
+												diff = "("+diff+")";
 											}
-											else
+											if(document.getElementById(id+"Count").innerHTML !== diff)
 											{
 												document.getElementById(id+"Count").innerHTML = diff;
 											}
@@ -917,8 +927,6 @@ function getDiffLogAndLastLog(id)
 		return "";
 	}
 	var lastLine = tmpTextLast[lengthOfLastArray-1];
-	console.log(lastLine);
-	//console.log(tmpTextLog);
 	var counter = 0;
 	for (var i = lengthOfArray - 1; i >= 0; i--)
 	{

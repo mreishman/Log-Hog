@@ -271,6 +271,7 @@ elseif (is_dir("../SeleniumMonitor"))
 		echo "var groupByColorEnabled = ".$groupByColorEnabled.";";
 		echo "var pollForceTrue = ".$pollForceTrue.";";
 		echo "var pollRefreshAll = ".$pollRefreshAll.";";
+		echo "var sliceSize = ".$sliceSize.";";
 		?>
 		var dontNotifyVersion = "<?php echo $dontNotifyVersion;?>";
 		var currentVersion = "<?php echo $configStatic['version'];?>";
