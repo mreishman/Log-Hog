@@ -202,7 +202,7 @@ $totalUpgradeScripts = floatval($configVersionToUpgradeTo) - floatval($configVer
 	{
 		document.getElementById('verifyCheck').style.display = "block";
 		document.getElementById('verifyLoad').style.display = "none";
-		window.location.href = "../../../settings/whatsNew.php";
+		window.location.href = "<?php echo $_SERVER['HTTP_REFERER']; ?>";
 	}
 
 </script> 
