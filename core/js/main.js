@@ -655,24 +655,23 @@ function update(data) {
 								{
 									if(!fresh && notificationCountVisible === "true")
 									{
-										var diff = "";
 										if(id in lastLogs)
 										{
-											diff = getDiffLogAndLastLog(id);
+											var diff = getDiffLogAndLastLog(id);
 											if(diff !== "")
 											{
 												if(document.getElementById(id+"Count").innerHTML !== "" )
 												{
 													var count = document.getElementById(id+"Count").innerHTML;
 													count = count.substring(1, count.length-1);
-													var diff = parseInt(count) + diff;
+													diff = parseInt(count) + diff;
 													if(diff > sliceSize)
 													{
 														diff = sliceSize;
 													}
 												}
-												diff = "("+diff+")";
 											}
+											diff = "("+diff+")";
 											if(document.getElementById(id+"Count").innerHTML !== diff)
 											{
 												document.getElementById(id+"Count").innerHTML = diff;
@@ -794,14 +793,14 @@ function clearNotifications()
 		if($("#menu .updated").length !== 0)
 		{
 			var arrayOfLogs = $("#menu a");
-			for (var i = 0; i < arrayOfLogs.length; i++)
+			for (var clearNotifCountOne = 0; clearNotifCountOne < arrayOfLogs.length; clearNotifCountOne++)
 			{
-				arrayOfLogs[i].classList.remove("updated");
+				arrayOfLogs[clearNotifCountOne].classList.remove("updated");
 			}
 			var arrayOfCounts = $("#menu a .menuCounter");
-			for (var i = 0; i < arrayOfCounts.length; i++)
+			for (var clearNotifCountTwo = 0; clearNotifCountTwo < arrayOfCounts.length; clearNotifCountTwo++)
 			{
-				arrayOfCounts[i].innerHTML = "";
+				arrayOfCounts[clearNotifCountTwo].innerHTML = "";
 			}
 		}
 		refreshLastLogsArray();
