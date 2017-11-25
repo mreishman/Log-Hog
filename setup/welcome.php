@@ -44,7 +44,20 @@ if(file_exists($baseUrl.'conf/config.php'))
 	</div>
 	<div class="settingsDiv" >
 	<p style="min-height: 200px; padding: 10px;">Please follow these steps to complete the setup process or click default to accept default setting</p>
-	<table style="width: 100%; padding-left: 20px; padding-right: 20px;" ><tr><th style="text-align: left;"><a onclick="updateStatus('finished');" class="link">Accept Default Settings</a></th><th style="text-align: right;" ><a onclick="updateStatus('step1');" class="link">Customize Settings (advised)</a></th></tr></table>
+	<table style="width: 100%; padding-left: 20px; padding-right: 20px;" >
+		<tr>
+			<th style="text-align: left;">
+				<?php if(file_exists($baseUrl.'conf/config.php')):?>
+					<a onclick="updateStatus('finished');" class="link">Accept Current Settings</a>
+				<?php else: ?>
+					<a onclick="updateStatus('finished');" class="link">Accept Default Settings</a>
+				<?php endif;?>
+			</th>
+			<th style="text-align: right;" >
+				<a onclick="updateStatus('step1');" class="link">Customize Settings (advised)</a>
+			</th>
+		</tr>
+	</table>
 	<br>
 	<br>
 	</div>

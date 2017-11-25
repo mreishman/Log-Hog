@@ -1,4 +1,4 @@
-
+<?php require_once(baseUrl().'core/php/themeFunctions.php'); ?>
 <div class="settingsHeader">
 Theme Selector
 </div>
@@ -15,9 +15,9 @@ Theme Selector
 					<div class="settingsHeaderButtons">
 						<?php if($key !== $currentTheme): ?>
 							<?php if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
-							<a class="linkSmall" onclick="saveAndVerifyMain('themeMainSelection-<?php echo $key;?>');" >Select</a>
+								<a class="linkSmall" onclick="saveAndVerifyMain('themeMainSelection-<?php echo $key;?>');" >Select</a>
 							<?php else: ?>
-								<button  onclick="displayLoadingPopup();">Select</button>
+								<button  onclick="displayLoadingPopup(); document.getElementById('themeMainSelection-<?php echo $key;?>').submit();">Select</button>
 							<?php endif; ?>
 						<?php else: ?>
 							<a class="linkSmall" onclick="saveAndVerifyMain('themeMainSelection-<?php echo $key;?>');" >Reset / Update</a>
@@ -29,7 +29,7 @@ Theme Selector
 					<img src="<?php echo $baseUrl;?>/img/loading.gif" style="position: relative; height: 60px; top: 170px; left: 270px;" >
 				</span>
 				<span id="htmlContent-<?php echo $key;?>" style="display: none;">
-					<?php echo generateExampleIndex($key, $withLogHog);?>
+					<?php echo generateExampleIndex($key);?>
 				</span>
 				<span style="display: none;">
 					<script type="text/javascript">
@@ -39,7 +39,7 @@ Theme Selector
 						   document.getElementById("htmlContent-<?php echo $key;?>").style.display = "block";
 						});
 					</script>
-					<form id="themeMainSelection-<?php echo $key;?>">
+					<form action="../core/php/settingsSave.php" method="post" id="themeMainSelection-<?php echo $key;?>">
 						<input type="hidden" name="currentTheme" value="<?php echo $key?>">
 						<input type="hidden" name="backgroundColor" value="<?php echo $backgroundColorDefault;?>" >
 						<input type="hidden" name="mainFontColor" value="<?php echo $mainFontColorDefault;?>" >

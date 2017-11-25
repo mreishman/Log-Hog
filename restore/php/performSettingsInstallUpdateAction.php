@@ -62,56 +62,6 @@ elseif($action == 'checkIfDirIsEmpty')
   		$response = false;
 	}
 }
-elseif($action == 'cleanUpMonitor')
-{
-	if(is_dir('../../top'))
-	{
-		rmdir('../../top');
-	}
-
-	rename('../../monitor-master', '../../top');
-
-	$response = true; 
-}
-elseif($action == 'changeMonSettings')
-{
-	$string = "<?php
-		$"."monitorStatus = array(
-	'withLogHog'	=> 'true'
-	);
-	?>";
-
-	file_put_contents("../../top/statusTest.php", $string);
-
-	$response = true; 
-}
-elseif($action == 'changeMonSettingsRevert')
-{
-	$string = "<?php
-		$"."monitorStatus = array(
-	'withLogHog'	=> 'false'
-	);
-	?>";
-
-	file_put_contents("../../top/statusTest.php", $string);
-
-	$response = true; 
-}
-elseif($action == 'removeUnneededFoldersMonitor')
-{
-	$removeDir = true;
-	rrmdir('../../top/core/',$removeDir);
-	rrmdir('../../top/local/',$removeDir);
-	rrmdir('../../top/settings/',$removeDir);
-	rrmdir('../../top/setup/',$removeDir);
-	rrmdir('../../top/update/',$removeDir);
-	removeZipFile('../../top/.gitattributes');
-	removeZipFile('../../top/.gitignore');
-	removeZipFile('../../top/README.md');
-	removeZipFile('../../top/error.php');
-
-	$response = true; 
-}
 elseif($action == 'removeAllFilesFromLogHogExceptRestore')
 {
 	$files = scandir('../../');
@@ -147,14 +97,6 @@ elseif($action == 'moveDirUnzipped')
 {
 	rename("../../Log-Hog-".$_POST['version'], "../../restore/extracted");
 	$response = true; 
-}
-elseif($action == 'readdSomeFilesFromUninstallProcess')
-{
-	if(!is_dir('../../top'))
-	{
-		mkdir('../../top');
-	}
-	$response = true;
 }
 elseif($action == 'updateProgressFile')
 {

@@ -73,7 +73,7 @@
 </ul>
 <ul id="settingsUl">
 	<li>
-		<a class="link" onclick="addRowFunction()">Add New File / Folder</a>
+		<a class="link" onclick="addRowFunction()">+ Add New File / Folder</a>
 	</li>
 	<li>
 		<div class="settingsHeader">

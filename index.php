@@ -33,9 +33,6 @@ if($backgroundPollingRateType == 'Seconds')
 	$backgroundPollingRate *= 1000;
 }
 
-require_once('top/statusTest.php');
-$withLogHog = $monitorStatus['withLogHog'];
-
 $locationForStatusIndex = "";
 if($locationForStatus != "")
 {
@@ -55,9 +52,9 @@ if($locationForMonitor != "")
 {
 	$locationForMonitorIndex = $locationForMonitor;
 }
-elseif($withLogHog == 'true')
+elseif(is_file("monitor/index.php"))
 {
-	$locationForMonitorIndex = './top/index.php';
+	$locationForMonitorIndex = './monitor/';
 }
 elseif (is_dir("../monitor"))
 {
@@ -66,6 +63,24 @@ elseif (is_dir("../monitor"))
 elseif (is_dir("../Monitor"))
 {
 	$locationForMonitorIndex = "../Monitor/";
+}
+
+$locationForSearchIndex = "";
+if($locationForSearch != "")
+{
+	$locationForSearchIndex = $locationForSearch;
+}
+elseif(is_file("search/index.php"))
+{
+	$locationForSearchIndex = './search/';
+}
+elseif (is_dir("../search"))
+{
+	$locationForSearchIndex = "../search/";
+}
+elseif (is_dir("../Search"))
+{
+	$locationForSearchIndex = "../Search/";
 }
 
 ?>
@@ -119,6 +134,11 @@ elseif (is_dir("../Monitor"))
 			<?php if($locationForMonitorIndex != ""): ?>
 			<div onclick="window.location.href = '<?php echo $locationForMonitorIndex; ?>'"  class="menuImageDiv">
 				<img id="taskmanagerImage" class="menuImage" src="<?php echo $baseUrl; ?>img/task-manager.png" height="30px">
+			</div>
+			<?php endif; ?>
+			<?php if($locationForSearchIndex != ""): ?>
+			<div onclick="window.location.href = '<?php echo $locationForSearchIndex; ?>'"  class="menuImageDiv">
+				<img id="searchImage" class="menuImage" src="<?php echo $baseUrl; ?>img/search.png" height="30px">
 			</div>
 			<?php endif; ?>
 			<div onclick="window.location.href = './settings/main.php';"  class="menuImageDiv">

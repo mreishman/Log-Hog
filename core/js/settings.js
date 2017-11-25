@@ -146,13 +146,13 @@ function saveVerified()
 		saveSuccess();
 		window.location.href = "../core/php/template/upgradeTheme.php";
 	}
-	else if(idForFormMain === "settingsColorFolderGroupVars")
+	else if(idForFormMain === "settingsColorFolderGroupVars" || idForFormMain === "settingsColorFolderVars")
 	{
 		saveSuccess();
 		location.reload();
 	}
 
-	if(!idForFormMain.includes("themeMainSelection") && (!(idForFormMain === "settingsColorFolderGroupVars")))
+	if(!idForFormMain.includes("themeMainSelection") && (!(idForFormMain === "settingsColorFolderGroupVars" || idForFormMain === "settingsColorFolderVars")))
 	{
 		saveSuccess();
 		fadeOutPopup();

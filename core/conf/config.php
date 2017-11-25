@@ -1,10 +1,10 @@
 <?php
 
 $defaultConfig = array(
-	'configVersion'	=> 1,
+	'configVersion'	=> 2,
 	'layoutVersion'	=> 1,
 	'cssVersion'	=> 1,
-	'themeVersion'	=> 2,
+	'themeVersion'	=> 3,
 	'sendCrashInfoJS'	=> 'true',
 	'sendCrashInfoPHP'	=> 'true',
 	'themesEnabled'		=> 'true',
@@ -49,6 +49,7 @@ $defaultConfig = array(
 	'updateNoticeMeter'	=> 'every',
 	'locationForStatus'	=> '',
 	'locationForMonitor'	=> '',
+	'locationForSearch'		=> '',
 	'bottomBarIndexShow'	=> 'true',
 	'enablePollTimeLogging'	=> 'false',
 	'popupSettingsArray'	=> array(
@@ -257,6 +258,7 @@ $defaultConfig = array(
 	'backgroundColor'	=> "#292929",
 	'mainFontColor'		=> '#FFFFFF',
 	'logFontColor'		=> '#FFFFFF',
+	'invertMenuImages'	=> 'false',
 	'backgroundHeaderColor'	=> "#222222",
 	'watchList'		=> array(
 		'/var/www/html/var/log/system.log'	        => '',

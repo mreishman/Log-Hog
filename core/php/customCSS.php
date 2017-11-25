@@ -96,5 +96,12 @@ progress::-webkit-progress-value
 	color: <?php echo $currentSelectedThemeColorValues['main']['main-1']['fontColor']?>;
 }
 
+<?php if($invertMenuImages === 'true'): ?>
 
+.menuImage
+{
+	filter: invert(100%);
+}
+
+<?php endif; ?>
 </style>

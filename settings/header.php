@@ -1,7 +1,5 @@
 <?php
-require_once('../top/statusTest.php');
 require_once('../setup/setupProcessFile.php');
-$withLogHog = $monitorStatus['withLogHog'];
 $URI = $_SERVER['REQUEST_URI'];
 require_once("../core/php/customCSS.php");
 echo loadSentryData($sendCrashInfoJS, $branchSelected); ?>
@@ -14,13 +12,6 @@ echo loadSentryData($sendCrashInfoJS, $branchSelected); ?>
 		<a style="cursor: default;" class="active" id="mainLink" >Main</a>
 	<?php else: ?>
 		<a id="mainLink" onclick="goToUrl('main.php');" >Main</a>
-	<?php endif; ?>
-	<?php if ($withLogHog == "true"):?>
-		<?php if(strpos($URI, 'settingsTop.php') !== false): ?>
-			<a style="cursor: default;" class="active" id="topLink" >Top</a>
-		<?php else: ?>
-			<a id="topLink" onclick="goToUrl('settingsTop.php');" >Top</a>
-		<?php endif; ?>
 	<?php endif; ?>
 	<a id="themesLink" style="
 		<?php if($themesEnabled === "false"): ?>

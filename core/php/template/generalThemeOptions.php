@@ -12,16 +12,28 @@
 	<div class="settingsDiv" >
 		<ul id="settingsUl">
 			<li>
-				<span class="settingsBuffer" > Background: </span>  <input type="text" name="backgroundColor" value="<?php echo $backgroundColor;?>" >
+				<span class="settingsBuffer" > Background: </span> 
+				<input type="text" name="backgroundColor" value="<?php echo $backgroundColor;?>" >
 			</li>
 			<li>
-				<span class="settingsBuffer" > Main Font Color: </span>  <input type="text" name="mainFontColor" value="<?php echo $mainFontColor;?>" >
+				<span class="settingsBuffer" > Main Font Color: </span> 
+				<input type="text" name="mainFontColor" value="<?php echo $mainFontColor;?>" >
 			</li>
 			<li>
 				<span class="settingsBuffer" > Log Font Color: </span>  <input type="text" name="logFontColor" value="<?php echo $logFontColor;?>" >
 			</li>
 			<li> 
-				<span class="settingsBuffer" > Header Background: </span>  <input type="text" name="backgroundHeaderColor" value="<?php echo $backgroundHeaderColor;?>" >
+				<span class="settingsBuffer" > Header Background: </span> 
+				<input type="text" name="backgroundHeaderColor" value="<?php echo $backgroundHeaderColor;?>" >
+			</li>
+			<li>
+				<span class="settingsBuffer"> Invert Header Images: </span>
+				<div class="selectDiv">
+					<select name="invertMenuImages">
+						<option <?php if($invertMenuImages === 'true'){echo "selected";} ?> value="true">True</option>
+						<option <?php if($invertMenuImages === 'false'){echo "selected";} ?> value="false">False</option>
+					</select>
+				</div>
 			</li>
 		</ul>
 	</div>

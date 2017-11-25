@@ -347,7 +347,7 @@ function getFileSingle(current)
 			{
 				var updateBy = (1/arrayToUpdate.length)*60;
 				updateProgressBar(updateBy, "Loading file "+(arrayToUpdate.length+1-current)+" of "+arrayToUpdate.length);
-				if(current != 0)
+				if(current !== 0)
 				{
 					current--;
 					getFileSingle(current);
@@ -483,11 +483,11 @@ function refreshAction()
 {
 	try
 	{
-		if(pollRefreshAllBoolStatic == "false")
+		if(pollRefreshAllBoolStatic === "false")
 		{
-    		pollRefreshAllBool = "true";
+			pollRefreshAllBool = "true";
 		}
-    	counterForPollForceRefreshAll = 1+pollRefreshAll;
+		counterForPollForceRefreshAll = 1+pollRefreshAll;
 		showRefreshingButton();
 		refreshing = true;
 		poll();
@@ -502,11 +502,11 @@ function endRefreshAction()
 {
 	try
 	{
-		if(pollRefreshAllBoolStatic == "false")
+		if(pollRefreshAllBoolStatic === "false")
 		{
-    		pollRefreshAllBool = "false";
-    	}
-	    showRefreshButton(); 
+			pollRefreshAllBool = "false";
+		}
+		showRefreshButton(); 
 		refreshing = false;
 		if(pausePoll)
 		{
@@ -526,7 +526,6 @@ function endRefreshAction()
 function update(data) {
 	try
 	{
-	    //console.log(data);
 		var menu = $("#menu");
 		var blank = $("#storage .menuItem").html();
 		var i, id, name, shortName, item, style, folderName;
@@ -665,7 +664,7 @@ function removeLogByName(name)
 {
 	try
 	{
-    	var idOfName = name.replace(/[^a-z0-9]/g, "");
+		var idOfName = name.replace(/[^a-z0-9]/g, "");
 		if($("#menu ." + idOfName + "Button").length !== 0)
 		{
 			$("#menu ." + idOfName + "Button").remove();
@@ -682,7 +681,7 @@ function show(e, id)
 {
 	try
 	{
-    	$(e).siblings().removeClass("active");
+		$(e).siblings().removeClass("active");
 		$(e).addClass("active").removeClass("updated");
 		$("#log").html(makePretty(logs[id]));
 		currentPage = id;
@@ -699,7 +698,7 @@ function makePretty(text)
 {
 	try
 	{
-    	text = text.split("\n");
+		text = text.split("\n");
 		text = text.join("</div><div>");
 		
 		return "<div>" + text + "</div>";
@@ -714,7 +713,7 @@ function resize()
 {
 	try
 	{
-	    var targetHeight = window.innerHeight - $("#menu").outerHeight() - $("#title").outerHeight();
+		var targetHeight = window.innerHeight - $("#menu").outerHeight() - $("#title").outerHeight();
 		if(enablePollTimeLogging !== "false")
 		{
 			targetHeight -= 25;
@@ -738,7 +737,7 @@ function flashTitle()
 {
 	try
 	{
-    	stopFlashTitle();
+		stopFlashTitle();
 		$("title").text("");
 		flasher = setInterval(function() {
 			$("title").text($("title").text() === "" ? title : "");
@@ -755,7 +754,7 @@ function stopFlashTitle()
 {
 	try
 	{
-    	clearInterval(flasher);
+		clearInterval(flasher);
 		$("title").text(title);
 	}
 	catch(e)
@@ -879,16 +878,16 @@ function clearLog()
 {
 	try
 	{
-	    var urlForSend = "core/php/clearLog.php?format=json";
+		var urlForSend = "core/php/clearLog.php?format=json";
 		var title = filterTitle(document.getElementById("title").innerHTML);
 		var data = {file: title};
 		$.ajax({
 				url: urlForSend,
 				dataType: "json",
-				data: data,
+				data,
 				type: "POST",
-		success: function(data){
-		  },
+		success(data){
+		},
 		});
 	}
 	catch(e)
@@ -925,11 +924,11 @@ function deleteLogPopup()
 {
 	try
 	{
-    	if(popupSettingsArray.deleteLog == "true")
+		if(popupSettingsArray.deleteLog == "true")
 		{
 			showPopup();
 			var title = filterTitle(document.getElementById("title").innerHTML);
-			document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Are you sure you want to delete this log?</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>"+title+"</div><div><div class='link' onclick='deleteLog();hidePopup();' style='margin-left:125px; margin-right:50px;margin-top:35px;'>Yes</div><div onclick='hidePopup();' class='link'>No</div></div>";
+			document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class=\"settingsHeader\" >Are you sure you want to delete this log?</div><br><div style=\"width:100%;text-align:center;padding-left:10px;padding-right:10px;\">"+title+"</div><div><div class=\"link\" onclick=\"deleteLog();hidePopup();\" style=\"margin-left:125px; margin-right:50px;margin-top:35px;\">Yes</div><div onclick=\"hidePopup();\" class=\"link\">No</div></div>";
 		}
 		else
 		{
@@ -946,9 +945,9 @@ function deleteLog()
 {
 	try
 	{
-    	var urlForSend = 'core/php/deleteLog.php?format=json';
+		var urlForSend = "core/php/deleteLog.php?format=json";
 		var title = filterTitle(document.getElementById("title").innerHTML);
-		title = title.replace(/\s/g, '');
+		title = title.replace(/\s/g, "");
 		var data = {file: title};
 		name = title;
 		$.ajax({
@@ -958,7 +957,7 @@ function deleteLog()
 			type: "POST",
 			success(data)
 			{
-			    var idOfDeletedLog = data.replace(/[^a-z0-9]/g, "");
+				var idOfDeletedLog = data.replace(/[^a-z0-9]/g, "");
 				if($("#menu ." + idOfDeletedLog + "Button").length !== 0)
 				{
 					$("#menu ." + idOfDeletedLog + "Button").remove();
@@ -992,9 +991,9 @@ function installUpdates()
 {
 	try
 	{
-	    displayLoadingPopup();
+		displayLoadingPopup();
 		//reset vars in post request
-		var urlForSend = 'core/php/resetUpdateFilesToDefault.php?format=json'
+		var urlForSend = "core/php/resetUpdateFilesToDefault.php?format=json";
 		var data = {status: "" };
 		$.ajax(
 		{
@@ -1002,7 +1001,7 @@ function installUpdates()
 			dataType: "json",
 			data: data,
 			type: "POST",
-			complete: function(data)
+			complete(data)
 			{
 				//set thing to check for updated files. 	
 				timeoutVar = setInterval(function(){verifyChange();},3000);
@@ -1229,11 +1228,11 @@ function saveSettingFromPopupNoCheckMaybe()
 			var urlForSend = "core/php/settingsSaveAjax.php?format=json";
 			var data = {dontNotifyVersion: dontNotifyVersion };
 			$.ajax({
-					  url: urlForSend,
-					  dataType: "json",
-					  data: data,
-					  type: "POST",
-			complete: function(data){
+				url: urlForSend,
+				dataType: "json",
+				data: data,
+				type: "POST",
+			complete(data){
 				hidePopup();
 	  	},
 			});

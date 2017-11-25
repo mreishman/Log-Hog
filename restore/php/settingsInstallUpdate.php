@@ -10,23 +10,34 @@ function downloadFile($file = null, $update = true, $downloadFrom = 'Log-Hog/arc
 		$file = $arrayForFile['branchName'];
 	}
 
-	file_put_contents($downloadTo, 
+	file_put_contents($downloadTo,
 	file_get_contents("https://github.com/mreishman/".$downloadFrom.$file.".zip")
 	);
 }
 
-function rrmdir($dir) {
-   if (is_dir($dir)) {
-     $objects = scandir($dir);
-     foreach ($objects as $object) {
-       if ($object != "." && $object != "..") {
-         if (filetype($dir."/".$object) == "dir") rrmdir($dir."/".$object); else unlink($dir."/".$object);
-       }
-     }
-     reset($objects);
-     rmdir($dir);
-   }
- }
+function rrmdir($dir)
+{
+	if (is_dir($dir))
+	{
+		$objects = scandir($dir);
+		foreach ($objects as $object)
+		{
+			if ($object != "." && $object != "..")
+			{
+				if (filetype($dir."/".$object) == "dir")
+				{
+					rrmdir($dir."/".$object);
+				}
+				else
+				{ 
+					unlink($dir."/".$object);
+				}
+			}
+		}
+	reset($objects);
+	rmdir($dir);
+	}
+}
 
 function unzipFile($locationExtractTo = '../../update/downloads/updateFiles/extracted/', $locationExtractFrom = '../../update/downloads/updateFiles/updateFiles.zip')
 {
@@ -44,17 +55,17 @@ function unzipFile($locationExtractTo = '../../update/downloads/updateFiles/extr
 	$res = $zip->open($path);
 	$arrayOfExtensions = array('.php','.js','.css','.html','.png','.jpg','.jpeg','.gif');
 	$arrayOfFiles = array();
-	if ($res === TRUE) {
+	if ($res === true) {
 	  for($i = 0; $i < $zip->numFiles; $i++) {
 	        $filename = $zip->getNameIndex($i);
 	        $fileinfo = pathinfo($filename);
-	        if (strposa($fileinfo['basename'], $arrayOfExtensions, 1)) 
+	        if (strposa($fileinfo['basename'], $arrayOfExtensions, 1))
 	        {
 	          copy("zip://".$path."#".$filename, $locationExtractTo.$fileinfo['basename']);
 	          array_push($arrayOfFiles, $fileinfo['basename']);
 	        }
-	    }                   
-	    $zip->close();  
+	    }
+	    $zip->close();
 	}
 	if(empty($arrayOfFiles))
 	{
@@ -66,14 +77,14 @@ function unzipFile($locationExtractTo = '../../update/downloads/updateFiles/extr
 	}
 }
 
-function unzipFileAndSub($zipfile, $subpath, $destination, $temp_cache, $traverse_first_subdir=true){
+function unzipFileAndSub($zipfile, $subpath, $destination, $temp_cache, $traverseFirstSubdir=true){
 	$zip = new ZipArchive;
 	if(substr($temp_cache, -1) !== DIRECTORY_SEPARATOR) {
 		$temp_cache .= DIRECTORY_SEPARATOR;
 	}
 	$res = $zip->open($zipfile);
 	if ($res === TRUE) {
-	    if ($traverse_first_subdir==true){
+	    if ($traverseFirstSubdir==true){
 	        $zip_dir = $temp_cache . $zip->getNameIndex(0);
 	    }
 	    else {
@@ -84,9 +95,6 @@ function unzipFileAndSub($zipfile, $subpath, $destination, $temp_cache, $travers
 	    $zip->extractTo($temp_cache);
 	    $zip->close();
 
-	    //rename($zip_dir . DIRECTORY_SEPARATOR . $subpath, $destination);
-
-	    //rrmdir($zip_dir);
 	    return true;
 	} else {
 	    return false;
@@ -111,13 +119,13 @@ function removeZipFile($fileToUnlink = "../../update/downloads/updateFiles/updat
 }
 
 
-function removeUnZippedFiles($locationOfFilesThatNeedToBeRemovedRecursivally = '../../update/downloads/updateFiles/extracted', $removeDirectory = true)
+function removeUnZippedFiles($filesRemoveRecursiv = '../../update/downloads/updateFiles/extracted', $removeDirectory = true)
 {
-	if($locationOfFilesThatNeedToBeRemovedRecursivally == "")
+	if($filesRemoveRecursiv == "")
 	{
-		$locationOfFilesThatNeedToBeRemovedRecursivally = '../../update/downloads/updateFiles/extracted';
+		$filesRemoveRecursiv = '../../update/downloads/updateFiles/extracted';
 	}
-	$files = glob($locationOfFilesThatNeedToBeRemovedRecursivally."/*"); // get all file names
+	$files = glob($filesRemoveRecursiv."/*"); // get all file names
 	foreach($files as $file){ // iterate files
 	  if(is_file($file))
 	    unlink($file); // delete file
@@ -160,7 +168,6 @@ function verifyFileIsThere($file, $notInvert = true)
 			return false;
 		}
 	}
-	
 }
 
 function verifyDirIsThere($file)
@@ -175,9 +182,12 @@ function verifyDirIsThere($file)
 	}
 }
 
-function verifyDirIsEmpty($dir) 
+function verifyDirIsEmpty($dir)
 {
-  if (!is_readable($dir)) return NULL; 
-  return (count(scandir($dir)) == 2);
+	if (!is_readable($dir))
+	{
+		return null;
+	}
+	return (count(scandir($dir)) == 2);
 }
 ?>

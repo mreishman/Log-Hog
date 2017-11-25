@@ -12,6 +12,8 @@ $baseUrlImages = $baseUrl;
 require_once($baseUrl.'conf/config.php');
 require_once('setupProcessFile.php');
 
+$monitorInstalled = is_file("../monitor/index.php");
+
 if($setupProcess != "step4")
 {
 	$partOfUrl = clean_url($_SERVER['REQUEST_URI']);
@@ -31,7 +33,6 @@ require_once('../core/php/loadVars.php'); ?>
 <html>
 <head>
 	<title>Welcome!</title>
-	<link rel="stylesheet" type="text/css" href="../core/template/theme.css">
 	<script src="../core/js/jquery.js"></script>
 	<?php readfile('../core/html/popup.html');
 	echo loadCSS($baseUrl, $cssVersion);
@@ -43,23 +44,43 @@ require_once('../core/php/loadVars.php'); ?>
 		<h1>Step 4 of <?php echo $counterSteps; ?></h1>
 	</div>
 	<div style="word-break: break-all; margin-left: auto; margin-right: auto; max-width: 800px; overflow: auto; max-height: 500px;" id="innerSettingsText">
-	<p style="padding: 10px;">Would you also like to install Monitor?</p>
-	<p style="padding: 10px;">Monitor is a htop like program that allows you to monitor system resources from the web.</p>
-	<table style="width: 100%; padding-left: 20px; padding-right: 20px;" ><tr>
-	<th style="text-align: left;">
-		<?php if($counterSteps < 6): ?>
-			<a onclick="updateStatus('finished');" class="link">No Thanks, Continue to Log-Hog</a>
+		<?php if($monitorInstalled):?>
+			<p style="padding: 10px;">You currently have monitor installed</p>
+			<p style="padding: 10px;">Would you like to remove monitor?</p>
+			<table style="width: 100%; padding-left: 20px; padding-right: 20px;" ><tr>
+			<th style="text-align: left;">
+				<?php if($counterSteps < 6): ?>
+					<a onclick="updateStatus('finished');" class="link">No Thanks, Continue to Log-Hog</a>
+				<?php else: ?>
+					<a onclick="updateStatus('step6');" class="link">No Thanks, Continue Setup</a>
+				<?php endif; ?>
+			</th>
+			<th style="text-align: right;" >
+				<?php if($counterSteps == 4): ?>
+					<a onclick="updateStatus('step5-1');" class="link">Yes, Remove :c</a>
+				<?php else: ?>
+					<a onclick="updateStatus('step5-1');" class="link">Yes, Remove :c</a>
+				<?php endif; ?>
+			</th></tr></table>
 		<?php else: ?>
-			<a onclick="updateStatus('step6');" class="link">No Thanks, Continue Setup</a>
-		<?php endif; ?>
-	</th>
-	<th style="text-align: right;" >
-		<?php if($counterSteps == 4): ?>
-			<a onclick="updateStatus('step5');" class="link">Yes, Download!</a>
-		<?php else: ?>
-			<a onclick="updateStatus('step5');" class="link">Yes, Download!</a>
-		<?php endif; ?>
-	</th></tr></table>
+			<p style="padding: 10px;">Would you also like to install Monitor?</p>
+			<p style="padding: 10px;">Monitor is a htop like program that allows you to monitor system resources from the web.</p>
+			<table style="width: 100%; padding-left: 20px; padding-right: 20px;" ><tr>
+			<th style="text-align: left;">
+				<?php if($counterSteps < 6): ?>
+					<a onclick="updateStatus('finished');" class="link">No Thanks, Continue to Log-Hog</a>
+				<?php else: ?>
+					<a onclick="updateStatus('step6');" class="link">No Thanks, Continue Setup</a>
+				<?php endif; ?>
+			</th>
+			<th style="text-align: right;" >
+				<?php if($counterSteps == 4): ?>
+					<a onclick="updateStatus('step5');" class="link">Yes, Download!</a>
+				<?php else: ?>
+					<a onclick="updateStatus('step5');" class="link">Yes, Download!</a>
+				<?php endif; ?>
+			</th></tr></table>
+		<?php endif;?>
 	</div>
 	<br>
 	<br>
@@ -91,10 +112,17 @@ var dotsTimer = null;
 		else
 		{
 			hidePopup();
-			//download Monitor from github
 			document.getElementById('innerSettingsText').innerHTML = "";
 			dotsTimer = setInterval(function() {document.getElementById('innerSettingsText').innerHTML = ' .'+document.getElementById('innerSettingsText').innerHTML;}, '120');
-			checkIfTopDirIsEmpty();
+			if(statusExt == 'step5')
+			{
+				//download Monitor from github
+				checkIfTopDirIsEmpty();
+			}
+			else
+			{
+				removeFilesFromToppFolder(true);
+			}
 		}
 	}
 

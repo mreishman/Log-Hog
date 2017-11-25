@@ -15,8 +15,6 @@ require_once('../core/conf/config.php');
 require_once('../core/php/configStatic.php');
 require_once('../core/php/loadVars.php');
 require_once('../core/php/updateCheck.php');
-require_once('../top/statusTest.php');
-$withLogHog = $monitorStatus['withLogHog'];
 ?>
 <!doctype html>
 <head>
@@ -204,6 +202,11 @@ $withLogHog = $monitorStatus['withLogHog'];
 					<p>Default = <?php echo "https://" . $_SERVER['SERVER_NAME']."/monitor"; ?></p>
 				</li>
 				<li>
+					<span class="settingsBuffer" >  Search Location:  </span> <input type="text" style="width: 400px;"  name="locationForSearch" value="<?php echo $locationForSearch;?>" > 
+					<br>
+					<p>Default = <?php echo "https://" . $_SERVER['SERVER_NAME']."/search"; ?></p>
+				</li>
+				<li>
 					<span style="font-size: 75%;">*<i>Please specify full url, blank if none</i></span>
 				</li>
 			</ul>
@@ -223,21 +226,59 @@ $withLogHog = $monitorStatus['withLogHog'];
 	  							<option selected value="true">True</option>
 							</select>
 					</li>
-					<?php if($withLogHog == 'true'): ?>
-					<li>
-						*Doesn't include monitor config settings
-					</li>
-					<?php endif; ?>
 				</form>
+				<li>
+					Re-do setup
+					<a style="text-decoration: none;" href="../setup/step1.php" class="link">Setup</a>
+				</li>
 				<li>
 					<a onclick="revertPopup();" class="link">Revert to Previous Version</a>
 				</li>
 				<li>
-				<?php if($withLogHog == 'true'): ?>
-					<a onclick="removeLoghog();" class="link">Remove Monitor</a>
-				<?php else: ?>
-					<a onclick="downloadLogHog();" class="link">Download Monitor</a>
-				<?php endif; ?>
+					<?php if(is_file("../monitor/index.php") === true): ?>
+						<script type="text/javascript">
+							var monitorRemove = "monitorRemove";
+						</script>
+						<form id="monitorRemove" action="addonAction.php" method="post">
+							<input type="hidden" name="localFolderLocation" value="monitor"> 
+							<input type="hidden" name="repoName" value="Monitor">
+							<input type="hidden" name="action" value="Removing">
+						</form>
+						<a onclick="addonMonitorAction(monitorRemove);" class="link">Remove Monitor</a>
+					<?php else: ?>
+						<script type="text/javascript">
+							var monitorDownload = "monitorDownload";
+						</script>
+						<form id="monitorDownload" action="addonAction.php" method="post">
+							<input type="hidden" name="localFolderLocation" value="monitor"> 
+							<input type="hidden" name="repoName" value="Monitor">
+							<input type="hidden" name="action" value="Downloading">
+						</form>
+						<a onclick="addonMonitorAction(monitorDownload);" class="link">Download Monitor</a>
+					<?php endif; ?>
+				</li>
+				<li>
+					<?php if(is_file("../search/index.php") === true): ?>
+						<script type="text/javascript">
+							var searchRemove = "searchRemove";
+						</script>
+						<form id="searchRemove" action="addonAction.php" method="post">
+							<input type="hidden" name="localFolderLocation" value="search"> 
+							<input type="hidden" name="repoName" value="Search">
+							<input type="hidden" name="action" value="Removing">
+						</form>
+					<a onclick="addonMonitorAction(searchRemove);" class="link">Remove Search</a>
+					<?php else: ?>
+						<script type="text/javascript">
+							var searchDownload = "searchDownload";
+						</script>
+						<form id="searchDownload" action="addonAction.php" method="post">
+							<input type="hidden" name="localFolderLocation" value="search"> 
+							<input type="hidden" name="repoName" value="Search">
+							<input type="hidden" name="action" value="Downloading">
+						</form>
+						<a onclick="addonMonitorAction(searchDownload);" class="link">Download Search</a>
+					<?php endif; ?>
 				</li>
 				<form id="devAdvanced2" action="../core/php/settingsSaveConfigStatic.php" method="post">
 					<li>
@@ -245,7 +286,6 @@ $withLogHog = $monitorStatus['withLogHog'];
 					</li>
 					<input type="hidden" style="width: 400px;"  name="newestVersion" value="<?php echo $configStatic['version'];?>" > 
 				</form>
-				
 			</ul>
 		</div>
 	</div>
