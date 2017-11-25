@@ -34,6 +34,7 @@ require_once('../core/php/loadVars.php'); ?>
 	<script src="../core/js/jquery.js"></script>
 	<?php readfile('../core/html/popup.html');
 	echo loadCSS($baseUrl, $cssVersion);
+	echo loadSentryData($sendCrashInfoJS, $branchSelected);
 	require_once("../core/php/customCSS.php");?>
 </head>
 <body>
@@ -56,6 +57,9 @@ require_once('../core/php/loadVars.php'); ?>
 </body>
 <form id="defaultVarsForm" action="../core/php/settingsSave.php" method="post"></form>
 <script type="text/javascript">
+	
+	var baseUrl = "<?php echo $baseUrlImages;?>";
+
 	function defaultSettings()
 	{
 		//change setupProcess to finished
