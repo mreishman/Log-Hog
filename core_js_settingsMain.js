@@ -256,7 +256,20 @@ function showNoEmptyFolderPopup()
 
 function checkIfChanges()
 {
-	if(	checkForChangesArray(["settingsMainWatch","settingsMainVars","settingsMenuVars"]))
+	var arrayToCheck = new Array();
+	if(document.getElementById("settingsMenuVars"))
+	{
+		arrayToCheck.push("settingsMenuVars");
+	}
+	if(document.getElementById("settingsMainVars"))
+	{
+		arrayToCheck.push("settingsMainVars");
+	}
+	if(document.getElementById("settingsMainWatch"))
+	{
+		arrayToCheck.push("settingsMainWatch");
+	}
+	if(	checkForChangesArray(arrayToCheck))
 	{
 		return true;
 	}
@@ -382,22 +395,50 @@ function removeActiveClass(idToAdd)
 
 $( document ).ready(function() 
 {
-	if(logTrimType == 'lines')
+	if(document.getElementById('logTrimTypeText'))
 	{
-		document.getElementById('logTrimTypeText').innerHTML = "Lines";
+		if(logTrimType == 'lines')
+		{
+			document.getElementById('logTrimTypeText').innerHTML = "Lines";
+		}
+		else if (logTrimType == 'size')
+		{
+			document.getElementById('logTrimTypeText').innerHTML = "Size";
+		}
 	}
-	else if (logTrimType == 'size')
+	if(document.getElementById("popupSelect"))
 	{
-		document.getElementById('logTrimTypeText').innerHTML = "Size";
+		document.getElementById("popupSelect").addEventListener("change", showOrHidePopupSubWindow, false);
+	}
+	if(document.getElementById("settingsSelect"))
+	{
+		document.getElementById("settingsSelect").addEventListener("change", showOrHideUpdateSubWindow, false);
+	}
+	if(document.getElementById("logTrimTypeToggle"))
+	{
+		document.getElementById("logTrimTypeToggle").addEventListener("change", changeDescriptionLineSize, false);
+	}
+	if(document.getElementById("logTrimOn"))
+	{
+		document.getElementById("logTrimOn").addEventListener("change", showOrHideLogTrimSubWindow, false);
 	}
 
-	document.getElementById("popupSelect").addEventListener("change", showOrHidePopupSubWindow, false);
-	document.getElementById("settingsSelect").addEventListener("change", showOrHideUpdateSubWindow, false);
-	document.getElementById("logTrimTypeToggle").addEventListener("change", changeDescriptionLineSize, false);
-	document.getElementById("logTrimOn").addEventListener("change", showOrHideLogTrimSubWindow, false);
+	var arrayToRefresh = new Array();
+	if(document.getElementById("settingsMainVars"))
+	{
+		arrayToRefresh.push("settingsMainVars");
+	}
 
-	refreshArrayObjectOfArrays(["settingsMainVars","settingsMenuVars"]);
-	refreshSettingsWatchList();
+	if(document.getElementById("settingsMenuVars"))
+	{
+		arrayToRefresh.push("settingsMenuVars");
+	}
+
+	refreshArrayObjectOfArrays(arrayToRefresh);
+	if(document.getElementById("settingsMainWatch"))
+	{
+		refreshSettingsWatchList();
+	}
 	setInterval(poll, 100);
 
 	$( "#main" ).scroll(function()

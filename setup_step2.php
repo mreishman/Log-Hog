@@ -11,9 +11,8 @@ if(file_exists('../local/layout.php'))
 $baseUrlImages = $baseUrl;
 require_once($baseUrl.'conf/config.php');
 require_once('setupProcessFile.php');
-require_once('../core/php/commonFunctions.php');
 
-if($setupProcess != "step4")
+if($setupProcess != "step2")
 {
 	$partOfUrl = clean_url($_SERVER['REQUEST_URI']);
 	$partOfUrl = substr($partOfUrl, 0, strpos($partOfUrl, 'setup'));
@@ -27,7 +26,7 @@ while(file_exists('step'.$counterSteps.'.php'))
 	$counterSteps++;
 }
 $counterSteps--;
-require_once('../core/php/loadVars.php');?>
+require_once('../core/php/loadVars.php'); ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -41,15 +40,15 @@ require_once('../core/php/loadVars.php');?>
 <body>
 <div style="width: 90%; margin: auto; margin-right: auto; margin-left: auto; display: block; height: auto; margin-top: 15px;" >
 	<div class="settingsHeader">
-		<h1>Step 4 of <?php echo $counterSteps; ?></h1>
+		<h1>Step 2 of <?php echo $counterSteps; ?></h1>
 	</div>
-	<p style="padding: 10px;">Theme Settings:</p>
-		<?php require_once('../core/php/template/themeMain.php'); ?>
+	<p style="padding: 10px;">More Settings:</p>
+	<?php require_once('../core/php/template/settingsMenuVars.php'); ?>
 	<table style="width: 100%; padding-left: 20px; padding-right: 20px;" ><tr><th style="text-align: right;" >
-		<?php if($counterSteps == 4): ?>
+		<?php if($counterSteps == 2): ?>
 			<a onclick="updateStatus('finished');" class="link">Finish</a>
 		<?php else: ?>
-			<a onclick="updateStatus('step5');" class="link">Continue</a>
+			<a onclick="updateStatus('step3');" class="link">Continue</a>
 		<?php endif; ?>
 	</th></tr></table>
 	<br>
@@ -70,10 +69,16 @@ require_once('../core/php/loadVars.php');?>
 	function customSettings()
 	{
 		//change setupProcess to page1
-		location.reload();
+		document.getElementById('settingsMenuVars').action = "../core/php/settingsSave.php";
+		document.getElementById('settingsMenuVars').submit();
 	}
-	
 	var titleOfPage = "Welcome";
+	var popupSettingsArray = JSON.parse('<?php echo json_encode($popupSettingsArray) ?>');
+	var fileArray = JSON.parse('<?php echo json_encode($config['watchList']) ?>');
+	var countOfAddedFiles = 0;
+	var countOfClicks = 0;
+	var locationInsert = "newRowLocationForWatchList";
+	var logTrimType = "<?php echo $logTrimType; ?>";
 </script>
 <script src="../core/js/settings.js?v=<?php echo $cssVersion?>"></script>
 <script src="stepsJavascript.js?v=<?php echo $cssVersion?>"></script>

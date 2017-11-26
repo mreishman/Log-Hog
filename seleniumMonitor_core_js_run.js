@@ -138,7 +138,7 @@ function showStartTestNewPopup()
 
 function createNewTestPopup(data)
 {
-	var maxTestsStatic = 0;
+	var maxTests = 0;
 	var splitData = data.split("<div class='proxy'>");
 	for (var i = 1; i < splitData.length; i++)
 	{
@@ -147,7 +147,7 @@ function createNewTestPopup(data)
 		browserConfig = browserConfig[0].split("maxSession:");
 		browserConfig = browserConfig[1].split("</p>");
 		browserConfig = parseInt(browserConfig[0]);
-		maxTestsStatic += browserConfig;
+		maxTests += browserConfig;
 	}
 
 
@@ -159,7 +159,7 @@ function createNewTestPopup(data)
 	item = item.replace(/{{id}}/g, "Test"+testNumber);
 
 	var maxTestsHtml = "<ul style=\"list-style: none;\">";
-	for (var i = 1; i <= maxTestsStatic; i++)
+	for (var i = 1; i <= maxTests; i++)
 	{
 		maxTestsHtml += "<li><input style=\"width: auto;\" ";
 		if(i === maxTests)
@@ -301,6 +301,7 @@ function poll()
 									{
 										document.getElementById(_data["id"]+_data["testName"]).classList.remove("blockInProgress");
 										document.getElementById(_data["id"]+_data["testName"]).title = _data['testName'];
+										currentTestsRunning--;
 
 										var arrayForPopup = "<table>";
 										arrayForPopup += "<tr><td>"+JSON.stringify(xhr)+"</td><tr>";
