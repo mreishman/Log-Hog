@@ -671,7 +671,11 @@ function update(data) {
 													}
 												}
 											}
-											var diffNew = "("+diff+")";
+											var diffNew = diff;
+											if(diff !== "")
+											{
+												diffNew = "("+diff+")";
+											}
 											if(document.getElementById(id+"Count").innerHTML !== diffNew)
 											{
 												document.getElementById(id+"CountHidden").innerHTML = diff;
