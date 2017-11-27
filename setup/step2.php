@@ -43,7 +43,7 @@ require_once('../core/php/loadVars.php'); ?>
 		<h1>Step 2 of <?php echo $counterSteps; ?></h1>
 	</div>
 	<p style="padding: 10px;">More Settings:</p>
-	<?php require_once('../core/php/template/settingsMenuVars.php'); ?>
+	<?php require_once('../core/php/template/logSettings.php'); ?>
 	<table style="width: 100%; padding-left: 20px; padding-right: 20px;" ><tr><th style="text-align: right;" >
 		<?php if($counterSteps == 2): ?>
 			<a onclick="updateStatus('finished');" class="link">Finish</a>
@@ -69,8 +69,8 @@ require_once('../core/php/loadVars.php'); ?>
 	function customSettings()
 	{
 		//change setupProcess to page1
-		document.getElementById('settingsMenuVars').action = "../core/php/settingsSave.php";
-		document.getElementById('settingsMenuVars').submit();
+		document.getElementById('settingsLogVars').action = "../core/php/settingsSave.php";
+		document.getElementById('settingsLogVars').submit();
 	}
 	var titleOfPage = "Welcome";
 	var popupSettingsArray = JSON.parse('<?php echo json_encode($popupSettingsArray) ?>');
