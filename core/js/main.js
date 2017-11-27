@@ -552,7 +552,7 @@ function update(data) {
 		var initialized = $("#menu a").length !== 0;
 		var folderNamePrev = "?-1";
 		var folderNameCount = -1;
-		for(var i = 0; i !== stop; ++i)
+		for(var i = 0; i !== stop; i++)
 		{
 			if(files[i].indexOf("dataForLoggingLogHog051620170928") === -1)
 			{
@@ -631,12 +631,40 @@ function update(data) {
 								item = blank;
 								item = item.replace(/{{title}}/g, shortName);
 								item = item.replace(/{{id}}/g, id);
-								item = item.replace(/{{title}}/g, shortName);
 								if(groupByColorEnabled === true)
 								{
 									item = item.replace(/{{class}}/g, classInsert);
 								}
-								menu.append(item);
+
+								var itemAdded = false;
+
+								if(!fresh)
+								{
+									var moveToFrontOnUpdate = false;
+									var innerCount = i;
+									for (var i = filesNew.length - 1; i >= 0; i--)
+									{
+										if(filesNew[i] === files[i])
+										{
+											innerCount = i;
+											break;
+										}
+									}
+									var innerCountStatic = innerCount;
+									var idCheck = files[i].replace(/[^a-z0-9]/g, "");
+									
+									itemAdded = tryToInsertBeforeLog(innerCountStatic, stop, idCheck, item);
+
+									if(!itemAdded)
+									{
+										itemAdded = tryToInsertAfterLog(innerCountStatic, stop, idCheck, item);
+									}
+								}
+
+								if(!itemAdded)
+								{
+									menu.append(item);
+								}
 							}
 
 							
@@ -711,7 +739,7 @@ function update(data) {
 						}
 						else
 						{
-							hideLogByName(name);
+							removeLogByName(name);
 						}
 					}
 				}
@@ -771,22 +799,69 @@ function update(data) {
 	}
 }
 
+function tryToInsertBeforeLog(innerCount, stop, idCheck, item)
+{
+	var itemToBefore = null;
+	while(itemToBefore === null && innerCount < stop)
+	{
+		var itemCheck = $("#menu ." + idCheck + "Button");
+		if(itemCheck.length !== 0) 
+		{
+			itemToBefore = itemCheck;
+		}
+		innerCount++;
+	}
+	if(itemToBefore !== null)
+	{
+		itemToBefore.before(item);
+	}
+
+	return (itemToBefore !== null);
+}
+
+function tryToInsertAfterLog(innerCount, stop, idCheck, item)
+{
+	var itemToBefore = null;
+	while(itemToBefore === null && innerCount > 0)
+	{
+		var itemCheck = $("#menu ." + idCheck + "Button");
+		if(itemCheck.length !== 0) 
+		{
+			itemToBefore = itemCheck;
+		}
+		innerCount--;
+	}
+	if(itemToBefore !== null)
+	{
+		itemToBefore.after(item);
+	}
+
+	return (itemToBefore !== null);
+}
+
 function toggleNotificationClearButton()
 {
-	if($("#menu .updated").length !== 0)
+	try
 	{
-		//there is at least one updated thing, show button for clear all notifications
-		if(document.getElementById("clearNotificationsImage").style.display !== "inline-block")
+		if($("#menu .updated").length !== 0)
 		{
-			document.getElementById("clearNotificationsImage").style.display = "inline-block";
+			//there is at least one updated thing, show button for clear all notifications
+			if(document.getElementById("clearNotificationsImage").style.display !== "inline-block")
+			{
+				document.getElementById("clearNotificationsImage").style.display = "inline-block";
+			}
+		}
+		else
+		{
+			if(document.getElementById("clearNotificationsImage").style.display !== "none")
+			{
+				document.getElementById("clearNotificationsImage").style.display = "none";
+			}
 		}
 	}
-	else
+	catch(e)
 	{
-		if(document.getElementById("clearNotificationsImage").style.display !== "none")
-		{
-			document.getElementById("clearNotificationsImage").style.display = "none";
-		}
+		eventThrowException(e);
 	}
 }
 
@@ -1227,7 +1302,7 @@ function deleteLog()
 			type: "POST",
 			success(data)
 			{
-				hideLogByName(data);
+				removeLogByName(data);
 			}
 		});
 	}
