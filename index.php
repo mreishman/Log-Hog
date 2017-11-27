@@ -210,7 +210,10 @@ elseif (is_dir("../SeleniumMonitor"))
 	
 	<div id="storage">
 		<div class="menuItem">
-			<a title="{{title}}" class="{{id}}Button {{class}} index" onclick="show(this, '{{id}}')">{{title}} <span id="{{id}}Count" class="menuCounter"></span></a>
+			<a title="{{title}}" class="{{id}}Button {{class}} index" onclick="show(this, '{{id}}')">{{title}}
+				<span id="{{id}}Count" class="menuCounter"></span>
+				<span id="{{id}}CountHidden" style="display: none;"></span>
+			</a>
 		</div>
 	</div>
 	

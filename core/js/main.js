@@ -649,6 +649,7 @@ function update(data) {
 									if(document.getElementById(id+"Count").innerHTML !== "")
 									{
 										document.getElementById(id+"Count").innerHTML = "";
+										document.getElementById(id+"CountHidden").innerHTML = "";
 									}
 								}
 								else
@@ -662,8 +663,7 @@ function update(data) {
 											{
 												if(document.getElementById(id+"Count").innerHTML !== "" )
 												{
-													var count = document.getElementById(id+"Count").innerHTML;
-													count = count.substring(1, count.length-1);
+													var count = document.getElementById(id+"CountHidden").innerHTML;
 													diff = parseInt(count) + diff;
 													if(diff > sliceSize)
 													{
@@ -671,10 +671,11 @@ function update(data) {
 													}
 												}
 											}
-											diff = "("+diff+")";
-											if(document.getElementById(id+"Count").innerHTML !== diff)
+											var diffNew = "("+diff+")";
+											if(document.getElementById(id+"Count").innerHTML !== diffNew)
 											{
-												document.getElementById(id+"Count").innerHTML = diff;
+												document.getElementById(id+"CountHidden").innerHTML = diff;
+												document.getElementById(id+"Count").innerHTML = diffNew;
 											}
 										}
 									}
@@ -904,6 +905,7 @@ function show(e, id)
 		document.getElementById("main").scrollTop = $("#log").outerHeight();
 		toggleNotificationClearButton();
 		document.getElementById(id+"Count").innerHTML = "";
+		document.getElementById(id+"CountHidden").innerHTML = "";
 	}
 	catch(e)
 	{
