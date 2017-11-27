@@ -26,6 +26,7 @@ function filterPoll(data)
 		browsersContentDetail = browsersContentDetail[1].split("</div>");
 		browsersContentDetail = browsersContentDetail[0];
 		browsersContentDetail = browsersContentDetail.split('/grid/resources/org/openqa/grid/images/').join('../core/img/');
+		browsersContentDetail = browsersContentDetail.split('internet_explore').join('internet-explore');
 		var browserConfig = splitData[i].split("<div type='config' class='content_detail'>");
 		browserConfig = browserConfig[1].split("</div>");
 		browserConfig = browserConfig[0];
