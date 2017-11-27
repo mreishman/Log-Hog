@@ -14,11 +14,7 @@ Theme Selector
 					<?php echo $key;?>
 					<div class="settingsHeaderButtons">
 						<?php if($key !== $currentTheme): ?>
-							<?php if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
-								<a class="linkSmall" onclick="saveAndVerifyMain('themeMainSelection-<?php echo $key;?>');" >Select</a>
-							<?php else: ?>
-								<button  onclick="displayLoadingPopup(); document.getElementById('themeMainSelection-<?php echo $key;?>').submit();">Select</button>
-							<?php endif; ?>
+							<a class="linkSmall" onclick="saveAndVerifyMain('themeMainSelection-<?php echo $key;?>');" >Select</a>
 						<?php else: ?>
 							<a class="linkSmall" onclick="saveAndVerifyMain('themeMainSelection-<?php echo $key;?>');" >Reset / Update</a>
 							<a class="linkSmallHover"> Selected </a>

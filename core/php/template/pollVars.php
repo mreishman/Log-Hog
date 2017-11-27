@@ -5,8 +5,6 @@ Poll Settings
 	<?php echo addResetButton("settingsPollVars");
 	if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
 		<a class="linkSmall" onclick="saveAndVerifyMain('settingsPollVars');" >Save Changes</a>
-	<?php else: ?>
-		<button  onclick="displayLoadingPopup();">Save Changes</button>
 	<?php endif; ?>
 </div>
 </div>

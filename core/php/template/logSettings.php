@@ -5,8 +5,6 @@
 		<?php echo addResetButton("settingsLogVars");
 		if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
 			<a class="linkSmall" onclick="saveAndVerifyMain('settingsLogVars');" >Save Changes</a>
-		<?php else: ?>
-			<button  onclick="displayLoadingPopup();">Save Changes</button>
 		<?php endif; ?>
 	</div>
 	</div>
