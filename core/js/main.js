@@ -306,7 +306,7 @@ function pollThree(arrayToUpdate)
 		{
 			if(firstLoad)
 			{
-				updateProgressBar(10, "Loading file 1 of "+arrayToUpdate.length);
+				updateProgressBar(10,arrayToUpdate[arrayToUpdate.length-1],  "Loading file 1 of "+arrayToUpdate.length);
 				getFileSingle(arrayToUpdate.length-1, arrayToUpdate.length-1);
 			}
 			else
@@ -362,7 +362,7 @@ function getFileSingle(current)
 			{
 				var currentNew = this.currentFile;
 				var updateBy = (1/arrayToUpdate.length)*60;
-				updateProgressBar(updateBy, "Loading file "+(arrayToUpdate.length+1-currentNew)+" of "+arrayToUpdate.length);
+				updateProgressBar(updateBy, arrayToUpdate[arrayToUpdate.length+1-currentNew], "Loading file "+(arrayToUpdate.length+1-currentNew)+" of "+arrayToUpdate.length);
 				if(currentNew > 0)
 				{
 					currentNew--;
@@ -1395,7 +1395,7 @@ function showRefreshingButton()
 	}
 }
 
-function updateProgressBar(additonalPercent, text)
+function updateProgressBar(additonalPercent, text, topText = "Loading...")
 {
 	try
 	{
@@ -1405,6 +1405,8 @@ function updateProgressBar(additonalPercent, text)
 			document.getElementById("progressBar").value = percent;
 			$("#progressBarSubInfo").empty();
 			$("#progressBarSubInfo").append(text);
+			$("#progressBarMainInfo").empty();
+			$("#progressBarMainInfo").append(topText);
 		}
 	}
 	catch(e)

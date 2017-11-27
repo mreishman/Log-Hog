@@ -199,7 +199,7 @@ elseif (is_dir("../SeleniumMonitor"))
 	<div id="main">
 		<div id="log"></div>
 		<div id="firstLoad" style="width: 100%; height: 100%;">
-			<h1 style="margin-right: auto; margin-left: auto; width: 100%; text-align: center;  margin-top: 100px; font-size: 150%;" >Loading...</h1>
+			<h1 id="progressBarMainInfo" style="margin-right: auto; margin-left: auto; width: 100%; text-align: center;  margin-top: 100px; font-size: 150%;" >Loading...</h1>
 			<div style="width: 80%; height: 50px; background-color: #999; border: 1px solid white; margin-left: auto; margin-right: auto;">
 				<progress id="progressBar" value="0" max="100" style="width: 100%; height: 100%; -webkit-appearance: none; appearance: none;" ></progress>
 			</div>
