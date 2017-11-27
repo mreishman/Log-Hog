@@ -566,7 +566,7 @@ function update(data) {
 					showLogByName(name);
 					if(dataForCheck === "This file is empty. This should not be displayed." && hideEmptyLog === "true")
 					{
-						removeLogByName(name);
+						hideLogByName(name);
 					}
 					else
 					{
@@ -711,7 +711,7 @@ function update(data) {
 						}
 						else
 						{
-							removeLogByName(name);
+							hideLogByName(name);
 						}
 					}
 				}
@@ -1227,11 +1227,7 @@ function deleteLog()
 			type: "POST",
 			success(data)
 			{
-				var idOfDeletedLog = data.replace(/[^a-z0-9]/g, "");
-				if($("#menu ." + idOfDeletedLog + "Button").length !== 0)
-				{
-					$("#menu ." + idOfDeletedLog + "Button").remove();
-				}
+				hideLogByName(data);
 			}
 		});
 	}
