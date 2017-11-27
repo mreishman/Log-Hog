@@ -1,7 +1,7 @@
 <?php
 
 $versionCheckArray = array(
-	'version'		=> '3.0.4',
+	'version'		=> '3.1.2',
 	'versionList'		=> array(
 		'2.0.1'	        => array(
 			'branchName'	=> '2.0.1Update',
@@ -78,6 +78,18 @@ $versionCheckArray = array(
 		'3.0.4'		=> array(
 			'branchName'	=> '3.0.4Update',
 			'releaseNotes'	=> "<ul><li>Features<ul><li>Seperated options for main font color and log font color</li></ul></li><li>Bug Fixes<ul><li>Fixed issues with setup process</li><li>Fixed some css issues</li><li>Small text changes to update page</li></ul></li></ul>"
+		),
+		'3.1'		=> array(
+			'branchName'	=> '3.1Update',
+			'releaseNotes'	=> "<ul><li>Features<ul><li>Search addon added!<ul><li>Use search to visually grep your current repo</li><li>Can be downloaded from the admin page</li></ul></li><li>Added setup access from advanced page</li><li>More theme style options</li></ul></li><li>Bug Fixes<ul><li>Added refresh to more saves that change styles</li><li>Fixed some issues with monitor download from setup</li><li>Added monitor remove to setup (if installed)</li></ul></li></ul>"
+		),
+		'3.1.1'		=> array(
+			'branchName'	=> '3.1.1Update',
+			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed updater in search addon</li><li>Poll logic changes</li><li>First load logic changes</li></ul></li></ul>"
+		),
+		'3.1.2'		=> array(
+			'branchName'	=> '3.1.2Update',
+			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Changed redirects for upgrade files.</li></ul></li></ul>"
 		),
 	)
 );
