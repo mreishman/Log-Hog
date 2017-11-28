@@ -306,7 +306,7 @@ function pollThree(arrayToUpdate)
 		{
 			if(firstLoad)
 			{
-				updateProgressBar(10,arrayToUpdate[arrayToUpdate.length-1],  "Loading file 1 of "+arrayToUpdate.length);
+				updateProgressBar(10,arrayToUpdate[0],  "Loading file 1 of "+arrayToUpdate.length);
 				getFileSingle(arrayToUpdate.length-1, arrayToUpdate.length-1);
 			}
 			else
@@ -362,7 +362,7 @@ function getFileSingle(current)
 			{
 				var currentNew = this.currentFile;
 				var updateBy = (1/arrayToUpdate.length)*60;
-				updateProgressBar(updateBy, arrayToUpdate[arrayToUpdate.length+1-currentNew], "Loading file "+(arrayToUpdate.length+1-currentNew)+" of "+arrayToUpdate.length);
+				updateProgressBar(updateBy, arrayToUpdate[currentNew], "Loading file "+(arrayToUpdate.length+1-currentNew)+" of "+arrayToUpdate.length);
 				if(currentNew > 0)
 				{
 					currentNew--;
@@ -652,13 +652,25 @@ function update(data) {
 									}
 									var innerCountStatic = innerCount;
 									var idCheck = files[i].replace(/[^a-z0-9]/g, "");
-									
-									itemAdded = tryToInsertBeforeLog(innerCountStatic, stop, idCheck, item);
-
-									if(!itemAdded)
+									if(innerCountStatic === 0)
+									{
+										itemAdded = tryToInsertBeforeLog(innerCountStatic, stop, idCheck, item);
+										if(!itemAdded)
+										{
+											itemAdded = tryToInsertAfterLog(innerCountStatic, stop, idCheck, item);
+										}
+									}
+									else
 									{
 										itemAdded = tryToInsertAfterLog(innerCountStatic, stop, idCheck, item);
+										if(!itemAdded)
+										{
+											itemAdded = tryToInsertBeforeLog(innerCountStatic, stop, idCheck, item);
+										}
 									}
+									
+
+									
 								}
 
 								if(!itemAdded)
@@ -809,7 +821,7 @@ function tryToInsertBeforeLog(innerCount, stop, idCheck, item)
 		{
 			itemToBefore = itemCheck;
 		}
-		innerCount++;
+		innerCount--;
 	}
 	if(itemToBefore !== null)
 	{
@@ -829,7 +841,7 @@ function tryToInsertAfterLog(innerCount, stop, idCheck, item)
 		{
 			itemToBefore = itemCheck;
 		}
-		innerCount--;
+		innerCount++;
 	}
 	if(itemToBefore !== null)
 	{
