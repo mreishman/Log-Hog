@@ -32,6 +32,7 @@ var pollRefreshAllBoolStatic = pollRefreshAllBool;
 var firstLoad = true;
 var timer;
 var clearingNotifications = false;
+var progressBar;
 
 function escapeHTML(unsafeStr)
 {
@@ -1254,7 +1255,7 @@ function clearLog()
 				dataType: "json",
 				data,
 				type: "POST",
-		success(data
+		success(data)
 		{
 			refreshLastLogsArray();
 		},
@@ -1498,7 +1499,7 @@ function updateProgressBar(additonalPercent, text, topText = "Loading...")
 		if(firstLoad)
 		{
 			percent = percent + additonalPercent;
-			document.getElementById("progressBar").value = percent;
+			progressBar.set(percent);
 			$("#progressBarSubInfo").empty();
 			$("#progressBarSubInfo").append(text);
 			$("#progressBarMainInfo").empty();
@@ -1513,6 +1514,7 @@ function updateProgressBar(additonalPercent, text, topText = "Loading...")
 
 $(document).ready(function()
 {
+	progressBar = new ldBar("#progressBar");
 	resize();
 	updateProgressBar(10, "Generating File List");
 	window.onresize = resize;

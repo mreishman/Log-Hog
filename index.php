@@ -113,6 +113,8 @@ elseif (is_dir("../SeleniumMonitor"))
 		echo loadSentryData($sendCrashInfoJS, $branchSelected);
 		echo loadVisibilityJS(baseURL());
 	?>
+	<link rel="stylesheet" type="text/css" href="core/template/loading-bar.css"/>
+	<script type="text/javascript" src="core/js/loading-bar.min.js"></script>
 </head>
 <body>
 	<?php require_once("core/php/customCSS.php");
@@ -200,8 +202,8 @@ elseif (is_dir("../SeleniumMonitor"))
 		<div id="log"></div>
 		<div id="firstLoad" style="width: 100%; height: 100%;">
 			<h1 id="progressBarMainInfo" style="margin-right: auto; margin-left: auto; width: 100%; text-align: center;  margin-top: 100px; font-size: 150%;" >Loading...</h1>
-			<div style="width: 80%; height: 50px; background-color: #999; border: 1px solid white; margin-left: auto; margin-right: auto;">
-				<progress id="progressBar" value="0" max="100" style="width: 100%; height: 100%; -webkit-appearance: none; appearance: none;" ></progress>
+			<div id="divForProgressBar" style="width: 80%; height: 100px; margin-left: auto; margin-right: auto; margin-top: -15px; margin-bottom: -15px;">
+				<div data-type="stroke" data-stroke="green" data-stroke-trail="darkGreen" data-stroke-width="3" data-stroke-trail-width="3" class="ldBar label-center" id="progressBar" data-value="0" style="width: 100%; height: 100%; margin: auto;"></div>
 			</div>
 			<h3 id="progressBarSubInfo" style="margin-right: auto; margin-left: auto; width: 100%; text-align: center;  margin-top: 10px; font-size: 150%;" >Loading Javascript</h3>
 		</div>
