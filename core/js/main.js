@@ -677,6 +677,14 @@ function update(data) {
 								{
 									menu.append(item);
 								}
+
+								if(!fresh)
+								{
+									if(!$("#menu a." + id + "Button").hasClass("updated"))
+									{
+										$("#menu a." + id + "Button").addClass("updated");
+									}
+								}
 							}
 
 							
@@ -1246,7 +1254,9 @@ function clearLog()
 				dataType: "json",
 				data,
 				type: "POST",
-		success(data){
+		success(data
+		{
+			refreshLastLogsArray();
 		},
 		});
 	}
