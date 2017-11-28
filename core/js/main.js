@@ -694,39 +694,42 @@ function update(data) {
 								}
 								else
 								{
-									if(!fresh && notificationCountVisible === "true")
+									if(!fresh)
 									{
-										if(id in lastLogs)
+										if(!$("#menu a." + id + "Button").hasClass("updated"))
 										{
-											var diff = getDiffLogAndLastLog(id);
-											if(diff !== "")
+											$("#menu a." + id + "Button").addClass("updated");
+										}
+
+										if(notificationCountVisible === "true")
+										{
+											if(id in lastLogs)
 											{
-												if(document.getElementById(id+"Count").innerHTML !== "" )
+												var diff = getDiffLogAndLastLog(id);
+												if(diff !== "")
 												{
-													var count = document.getElementById(id+"CountHidden").innerHTML;
-													diff = parseInt(count) + diff;
-													if(diff > sliceSize)
+													if(document.getElementById(id+"Count").innerHTML !== "" )
 													{
-														diff = sliceSize;
+														var count = document.getElementById(id+"CountHidden").innerHTML;
+														diff = parseInt(count) + diff;
+														if(diff > sliceSize)
+														{
+															diff = sliceSize;
+														}
 													}
 												}
-											}
-											var diffNew = diff;
-											if(diff !== "")
-											{
-												diffNew = "("+diff+")";
-											}
-											if(document.getElementById(id+"Count").innerHTML !== diffNew)
-											{
-												document.getElementById(id+"CountHidden").innerHTML = diff;
-												document.getElementById(id+"Count").innerHTML = diffNew;
+												var diffNew = diff;
+												if(diff !== "")
+												{
+													diffNew = "("+diff+")";
+												}
+												if(document.getElementById(id+"Count").innerHTML !== diffNew)
+												{
+													document.getElementById(id+"CountHidden").innerHTML = diff;
+													document.getElementById(id+"Count").innerHTML = diffNew;
+												}
 											}
 										}
-									}
-
-									if(!fresh && !$("#menu a." + id + "Button").hasClass("updated"))
-									{
-										$("#menu a." + id + "Button").addClass("updated");
 									}
 								}
 							}
