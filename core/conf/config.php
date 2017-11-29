@@ -228,6 +228,7 @@ $defaultConfig = array(
 	'hideEmptyLog'					=> 'false',
 	'invertMenuImages'				=> 'false',
 	'layoutVersion'					=> 1,
+	'loadingBarVersion'				=> 1,
 	'locationForMonitor'			=> '',
 	'locationForSearch'				=> '',
 	'locationForSeleniumMonitor'	=> '',

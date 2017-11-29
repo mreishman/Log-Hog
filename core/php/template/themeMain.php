@@ -36,6 +36,7 @@ Theme Selector
 						});
 					</script>
 					<form action="../core/php/settingsSave.php" method="post" id="themeMainSelection-<?php echo $key;?>">
+						<input type="hidden" name="loadingBarVersion" value="<?php echo $loadingBarVersion;?>">
 						<input type="hidden" name="currentTheme" value="<?php echo $key?>">
 						<input type="hidden" name="backgroundColor" value="<?php echo $backgroundColorDefault;?>" >
 						<input type="hidden" name="mainFontColor" value="<?php echo $mainFontColorDefault;?>" >
