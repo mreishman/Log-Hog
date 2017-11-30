@@ -104,8 +104,8 @@ $folderColorArraysDefault	= array(
 			),
 		'highlight' => array(
 			'highlight-1'	=> array(
-				'background'	=> '#FFFFFF',
-				'fontColor'		=> '#000000'
+				'background'	=> '#000000',
+				'fontColor'		=> '#ffffff'
 				)
 			),
 		'active'	=> array(
@@ -116,8 +116,8 @@ $folderColorArraysDefault	= array(
 			),
 		'highlightActive'	=> array(
 			'highlightActive-1'	=> array(
-				'background'	=> '#FFDDFF',
-				'fontColor'		=> '#000000'
+				'background'	=> '#2b0808',
+				'fontColor'		=> '#ffffff'
 				)
 			)
 		),

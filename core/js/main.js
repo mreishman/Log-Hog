@@ -1018,6 +1018,10 @@ function show(e, id)
 
 function getDiffLogAndLastLog(id)
 {
+	if(logs[id]["log"] === lastLogs[id]["log"])
+	{
+		return 0;
+	}
 	var tmpTextLog = logs[id]["log"].split("\n");
 	var tmpTextLast = lastLogs[id]["log"].split("\n");
 	var lengthOfLastArray = tmpTextLast.length;
@@ -1030,22 +1034,22 @@ function getDiffLogAndLastLog(id)
 	{
 		return "";
 	}
+
 	var lastLine = tmpTextLast[lengthOfLastArray-1];
 	var counter = 0;
 	for (var i = lengthOfArray - 1; i >= 0; i--)
 	{
-		if(tmpTextLog[i] === lastLine)
+		if(tmpTextLog[i].trim() === lastLine.trim())
 		{
 			//confirm the next two also
 			var returnNewNum = true;
-			var j = i-1;
-			var lastStart = lengthOfLastArray-2;
-			while(j >= 0)
+			var j = i;
+			var lastStart = lengthOfLastArray-1;
+			while(j >= 0 && returnNewNum)
 			{
-				if(tmpTextLog[j] !== tmpTextLast[lastStart])
+				if(tmpTextLog[j].trim() !== tmpTextLast[lastStart].trim())
 				{
 					returnNewNum = false;
-					break;
 				}
 				else
 				{
@@ -1059,7 +1063,14 @@ function getDiffLogAndLastLog(id)
 			}
 		}
 	}
-	return "";
+	if(lastLine === tmpTextLog[lengthOfArray-1])
+	{
+		return 0;
+	}
+	else
+	{
+		return "";
+	}
 }
 
 function makePretty(text) 
