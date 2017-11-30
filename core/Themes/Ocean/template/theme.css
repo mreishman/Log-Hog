@@ -18,7 +18,7 @@ div {
 	position: absolute;
 	width: 100%;
 	z-index: 20;
-	background-color: #222;
+	background-color: rgba(25,25,100,1);
 	padding: .5em 1em;
 	max-height: 300px;
 	border-bottom: 1px solid white;
@@ -42,7 +42,7 @@ div {
 #menu a, #menu2 a {
 	display: inline-block;
 	margin: .5em 0;
-	background-color: #2A912A;
+	background-color: #2A90EF;
 	cursor: pointer;
 }
 
