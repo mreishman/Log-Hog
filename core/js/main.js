@@ -669,9 +669,6 @@ function update(data) {
 											itemAdded = tryToInsertBeforeLog(innerCountStatic, stop, idCheck, item);
 										}
 									}
-									
-
-									
 								}
 
 								if(!itemAdded)
