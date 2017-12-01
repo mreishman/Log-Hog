@@ -688,8 +688,7 @@ function update(data) {
 								}
 							}
 
-							
-							if(!(id in lastLogs) || logs[id]["log"] !== lastLogs[id]["log"]) 
+							if((!(id in lastLogs)) || !(logs[id]["log"] === lastLogs[id]["log"]))
 							{
 								updated = true;
 								if(id === currentPage)
