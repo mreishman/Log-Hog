@@ -612,7 +612,7 @@ function update(data) {
 								menu.append(item);
 							}
 							
-							if(logs[id] !== lastLogs[id]) 
+							if(logs[id] != lastLogs[id]) 
 							{
 								updated = true;
 								if(id === currentPage)
