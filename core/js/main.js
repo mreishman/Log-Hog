@@ -363,7 +363,7 @@ function getFileSingle(current)
 			{
 				var currentNew = this.currentFile;
 				var updateBy = (1/arrayToUpdate.length)*60;
-				updateProgressBar(updateBy, arrayToUpdate[currentNew], "Loading file "+(arrayToUpdate.length+1-currentNew)+" of "+arrayToUpdate.length);
+				updateProgressBar(updateBy, arrayToUpdate[currentNew-1], "Loading file "+(arrayToUpdate.length+1-currentNew)+" of "+arrayToUpdate.length);
 				if(currentNew > 0)
 				{
 					currentNew--;
@@ -601,11 +601,7 @@ function update(data) {
 								}
 								data[name] = "<div class='errorMessageLog errorMessageRedBG' > "+mainMessage+" <br> <span style='font-size:75%;'> Try entering: <br> chown -R www-data:www-data "+name+" <br> or <br> chmod 664 "+name+" </span> </div>";
 							}
-							if(!(id in logs))
-							{
-								logs[id] = [];
-							}
-							logs[id]["log"] = data[name];
+							logs[id] = data[name];
 							if(enableLogging !== "false")
 							{
 								titles[id] = name + " | " + data[name+"dataForLoggingLogHog051620170928"];
@@ -623,7 +619,7 @@ function update(data) {
 								}
 							}
 
-							var lastLogLine = logs[id]["log"].count - 1;
+							var lastLogLine = logs[id].count - 1;
 
 							if($("#menu ." + id + "Button").length === 0) 
 							{
@@ -685,12 +681,12 @@ function update(data) {
 								}
 							}
 
-							if((!(id in lastLogs)) || !(logs[id]["log"] === lastLogs[id]["log"]))
+							if(!(logs[id] === lastLogs[id]))
 							{
 								updated = true;
 								if(id === currentPage)
 								{
-									$("#log").html(makePretty(logs[id]["log"]));
+									$("#log").html(makePretty(logs[id]));
 									if(document.getElementById(id+"Count").innerHTML !== "")
 									{
 										document.getElementById(id+"Count").innerHTML = "";
@@ -708,31 +704,28 @@ function update(data) {
 
 										if(notificationCountVisible === "true")
 										{
-											if(id in lastLogs)
+											var diff = getDiffLogAndLastLog(id);
+											if(diff !== "")
 											{
-												var diff = getDiffLogAndLastLog(id);
-												if(diff !== "")
+												if(document.getElementById(id+"Count").innerHTML !== "" )
 												{
-													if(document.getElementById(id+"Count").innerHTML !== "" )
+													var count = document.getElementById(id+"CountHidden").innerHTML;
+													diff = parseInt(count) + diff;
+													if(diff > sliceSize)
 													{
-														var count = document.getElementById(id+"CountHidden").innerHTML;
-														diff = parseInt(count) + diff;
-														if(diff > sliceSize)
-														{
-															diff = sliceSize;
-														}
+														diff = sliceSize;
 													}
 												}
-												var diffNew = diff;
-												if(diff !== "")
-												{
-													diffNew = "("+diff+")";
-												}
-												if(document.getElementById(id+"Count").innerHTML !== diffNew)
-												{
-													document.getElementById(id+"CountHidden").innerHTML = diff;
-													document.getElementById(id+"Count").innerHTML = diffNew;
-												}
+											}
+											var diffNew = diff;
+											if(diff !== "")
+											{
+												diffNew = "("+diff+")";
+											}
+											if(document.getElementById(id+"Count").innerHTML !== diffNew)
+											{
+												document.getElementById(id+"CountHidden").innerHTML = diff;
+												document.getElementById(id+"Count").innerHTML = diffNew;
 											}
 										}
 									}
@@ -749,7 +742,7 @@ function update(data) {
 							}
 							
 							var buttonReference = document.getElementById("menu").getElementsByClassName(id+"Button")[0];
-							var tmpText = logs[id]["log"].split("\n");
+							var tmpText = logs[id].split("\n");
 							var tmpTextLength = tmpText.length;
 							tmpText = unescapeHTML(tmpText[tmpTextLength-1]);
 							if(buttonReference.title !== tmpText)
@@ -922,15 +915,7 @@ function refreshLastLogsArray()
 		for(var i = 0; i !== stop; ++i)
 		{
 			id = ids[i];
-			if(!(id in lastLogs))
-			{
-				lastLogs[id] = [];
-			}
-
-			if(id in logs)
-			{
-				lastLogs[id]["log"] = logs[id]["log"];
-			}
+			lastLogs[id] = logs[id];
 		}
 	}
 	catch(e)
@@ -998,7 +983,7 @@ function show(e, id)
 	{
 		$(e).siblings().removeClass("active");
 		$(e).addClass("active").removeClass("updated");
-		$("#log").html(makePretty(logs[id]["log"]));
+		$("#log").html(makePretty(logs[id]));
 		currentPage = id;
 		$("#title").html(titles[id]);
 		document.getElementById("main").scrollTop = $("#log").outerHeight();
@@ -1014,12 +999,12 @@ function show(e, id)
 
 function getDiffLogAndLastLog(id)
 {
-	if(logs[id]["log"] === lastLogs[id]["log"])
+	if(logs[id] === lastLogs[id])
 	{
 		return 0;
 	}
-	var tmpTextLog = logs[id]["log"].split("\n");
-	var tmpTextLast = lastLogs[id]["log"].split("\n");
+	var tmpTextLog = logs[id].split("\n");
+	var tmpTextLast = lastLogs[id].split("\n");
 	var lengthOfLastArray = tmpTextLast.length;
 	var lengthOfArray = tmpTextLog.length;
 	if(lengthOfLastArray === 0)
