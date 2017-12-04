@@ -383,3 +383,12 @@ function convertToSize($TrimSize, $logSizeLimit)
 	
 	return $logSizeLimit * 1000;
 }
+
+function getCookieRedirect()
+{
+	if(isset($_COOKIE["locationRedirectLogHogUpgrade"]) && $_COOKIE["locationRedirectLogHogUpgrade"] !== "")
+	{
+		return $_COOKIE["locationRedirectLogHogUpgrade"];
+	}
+	return $_SERVER['HTTP_REFERER'];
+}

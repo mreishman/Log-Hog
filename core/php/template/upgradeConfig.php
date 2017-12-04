@@ -7,6 +7,7 @@
 </head>
 <body>
 <?php
+require_once('../../../core/php/commonFunctions.php');
 $baseUrl = "../../../core/";
 if(file_exists('../../../local/layout.php'))
 {
@@ -202,7 +203,7 @@ $totalUpgradeScripts = floatval($configVersionToUpgradeTo) - floatval($configVer
 	{
 		document.getElementById('verifyCheck').style.display = "block";
 		document.getElementById('verifyLoad').style.display = "none";
-		window.location.href = "<?php echo $_SERVER['HTTP_REFERER']; ?>";
+		window.location.href = "<?php echo getCookieRedirect(); ?>";
 	}
 
 </script> 
