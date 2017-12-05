@@ -49,6 +49,42 @@ require_once('../core/php/commonFunctions.php');
 
 				<tr>
 				<th colspan="2" style="padding: 10px">
+					<h1>3.3</h1>
+				</th>
+				</tr>
+
+
+
+
+				<tr>
+				<td>
+					<ul>
+						<li>
+							New ocean theme!
+						</li>
+						<li>
+							Notification count
+						</li>
+						<li>
+							Clear all notifications button
+						</li>
+						<li>
+							Last line shown on name hover
+						</li>
+					</ul>
+				</td>
+				<td>
+					<a href="../core/img/3.3-1.png" data-lightbox="3.3" ><img src="../core/img/3.3-1.png" style="width: 45%;"></a>
+					<a href="../core/img/3.3-3.png" data-lightbox="3.3" ><img src="../core/img/3.3-3.png" style="width: 45%;"></a>
+					<br>
+					<a href="../core/img/3.3-4.png" data-lightbox="3.3" ><img src="../core/img/3.3-4.png" style="width: 45%;"></a>
+				</td>
+				</tr>
+
+
+
+				<tr>
+				<th colspan="2" style="border-top: 1px solid white; padding: 10px">
 					<h1>3.2</h1>
 				</th>
 				</tr>
