@@ -97,6 +97,18 @@ progress::-webkit-progress-value
 	color: <?php echo $currentSelectedThemeColorValues['main']['main-1']['fontColor']?>;
 }
 
+div.sidebarLeft
+{
+	background: <?php echo $currentSelectedThemeColorValues['main']['main-1']['background']?>;
+	color: <?php echo $currentSelectedThemeColorValues['main']['main-1']['fontColor']?>;
+}
+
+div#fixed
+{
+	background: <?php echo $currentSelectedThemeColorValues['main']['main-2']['background']?>;
+	color: <?php echo $currentSelectedThemeColorValues['main']['main-2']['fontColor']?>;
+}
+
 <?php if($invertMenuImages === 'true'): ?>
 
 .menuImage

@@ -25,6 +25,38 @@ require_once('../core/php/updateCheck.php');
 	<script src="../core/js/jquery.js"></script>
 </head>
 <body>
-	
+	<?php require_once("../core/php/customCSS.php");?>
+	<table width="100%">
+		<tr>
+			<td>
+				<div class="sidebarLeft">
+					<div id="fixed">
+	        			<h2 align="center" style="margin-top:0px;">Files</h2>        
+	    			</div>
+				    <div id="scrollable" style="color:black;">
+				        <table style="font-size:135%" width="100%" align="center">
+					        <tr>
+					        	<tr>
+						            <ul style="list-style: none; cursor: pointer;">
+										<li> 
+					                    	 <a>File Name</a>
+					                    </li>
+						            </ul>
+					            </th>
+					        </tr>
+						</table>
+			    	</div>
+				    <table width="100%">
+				    	<tr height="1000px">
+				    		<th>
+				    		</th>
+				    	</tr>
+				    </table>
+				</div>
+			</td>
+			<td width="85%">
+			</td>
+		</tr>
+	</table>
 </body>
 </html>
