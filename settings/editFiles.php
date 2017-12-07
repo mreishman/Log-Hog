@@ -110,9 +110,12 @@ $fileNameArray = array(
 	<table width="100%">
 		<tr>
 			<td>
-				<div class="sidebarLeft">
+				<div id="leftCol" class="sidebarLeft">
 					<div id="fixed">
-	        			<h2 align="center" style="margin-top:0px;">Files</h2>        
+	        			<h2 align="center" style="margin-top:0px;">
+	        				<img onclick="window.location = './devTools.php'" src="<?php echo $localURL; ?>img/backArrow.png" width="50px" style="display: inline-block; margin-top: 10px; margin-bottom: -15px; cursor: pointer;" >
+	        				Files
+	        			</h2>        
 	    			</div>
 				    <div id="scrollable" style="color:black;">
 				        <table style="font-size:135%" width="100%" align="center">
@@ -121,7 +124,12 @@ $fileNameArray = array(
 						            <ul style="list-style: none; cursor: pointer; ">
 						            	<?php foreach ($fileNameArray as $key => $value)
 						            	{
-						            		echo "<li style='padding-top: 15px; '><a class='link' onclick='loadFile\"".$value['path']."\"'>".$value['name']."</a></li>";
+						            		echo "<li style='padding-top: 15px; '><a class='link ";
+						            		if($key === "LocalConfig")
+						            		{
+						            			echo "active";
+						            		}
+						            		echo "' onclick='loadFile\"".$value['path']."\"'>".$value['name']."</a></li>";
 						            	}
 										?>
 						            </ul>
@@ -137,7 +145,7 @@ $fileNameArray = array(
 				    </table>
 				</div>
 			</td>
-			<td width="85%">
+			<td id="rightCol">
 				<form style="background-color: white;" id="document">
 				</form>
 			</td>
@@ -150,9 +158,19 @@ $value = json_encode(highlight_file('../core/conf/config.php', true));
 
 ?>
 <script type="text/javascript">
-	
-	var newValue = (<?php echo $value; ?>);
-	document.getElementById("document").innerHTML = newValue;
+
+	$(document).ready(function()
+	{
+		var newValue = (<?php echo $value; ?>);
+		document.getElementById("document").innerHTML = newValue;
+
+		var targetHeight = window.innerHeight - $("#fixed").outerHeight() - 10;
+		$("#scrollable").outerHeight(targetHeight);
+
+		var targetWidth = window.innerWidth - $("#leftCol").outerWidth() - 30;
+		$("#rightCol").outerWidth(targetWidth);
+
+	});
 
 </script>
 </html>
