@@ -2,14 +2,12 @@ var devBranchData;
 var savedInnerHtmlDevBranch;
 var savedInnerHtmlDevAdvanced2;
 var devAdvanced2Data;
-var savedInnerHtmlDevAdvanced3;
-var devAdvanced3Data;
 var titleOfPage = "Dev";
 var timeoutVar;
 
 function checkIfChanges()
 {
-	if(	checkForChangesArray(["devBranch","devAdvanced2","devAdvanced3"]))
+	if(	checkForChangesArray(["devBranch","devAdvanced2"]))
 	{
 		return true;
 	}
@@ -55,6 +53,6 @@ function newVersionNumberCheck()
 
 $( document ).ready(function() 
 {
-	refreshArrayObjectOfArrays(["devBranch","devAdvanced2","devAdvanced3"]);
+	refreshArrayObjectOfArrays(["devBranch","devAdvanced2"]);
 	setInterval(poll, 100);
 });
