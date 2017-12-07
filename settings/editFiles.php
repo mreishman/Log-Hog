@@ -19,7 +19,7 @@ require_once('../core/php/updateCheck.php');
 $fileNameArray = array(
 	"LocalConfig"	=> array(
 		"name"		=>	"Local Config",
-		"path"		=>	'local/'.$currentSelectedTheme.'conf/config.php'
+		"path"		=>	'local/'.$currentSelectedTheme.'/conf/config.php'
 	),
 	"CoreConfig"	=>	array(
 		"name"		=>	"Core Config",
@@ -85,9 +85,9 @@ $fileNameArray = array(
 		"name"		=>	"Update Check",
 		"path"		=>	"update/updateCheck.php"
 	),
-	"updatInProgress"	=>	array(
+	"updateInProgress"	=>	array(
 		"name"		=>	"Updat In Progress",
-		"path"		=>	"update/updatInProgress.php"
+		"path"		=>	"update/updateInProgress.php"
 	),
 	"updateActionCheck"	=>	array(
 		"name"		=>	"Update Action Check",
@@ -124,12 +124,7 @@ $fileNameArray = array(
 						            <ul style="list-style: none; cursor: pointer; ">
 						            	<?php foreach ($fileNameArray as $key => $value)
 						            	{
-						            		echo "<li style='padding-top: 15px; '><a class='link ";
-						            		if($key === "LocalConfig")
-						            		{
-						            			echo "active";
-						            		}
-						            		echo "' onclick='loadFile\"".$value['path']."\"'>".$value['name']."</a></li>";
+						            		echo "<li style='padding-top: 15px; '><a id='".$key."Link' class='link documentLink' onclick='loadFile(\"".$value['path']."\",\"".$key."\")'>".$value['name']."</a></li>";
 						            	}
 										?>
 						            </ul>
@@ -162,15 +157,48 @@ $value = json_encode(highlight_file('../core/conf/config.php', true));
 	$(document).ready(function()
 	{
 		var newValue = (<?php echo $value; ?>);
-		document.getElementById("document").innerHTML = newValue;
+		showFile(newValue, "LocalConfig");
 
 		var targetHeight = window.innerHeight - $("#fixed").outerHeight() - 10;
 		$("#scrollable").outerHeight(targetHeight);
 
 		var targetWidth = window.innerWidth - $("#leftCol").outerWidth() - 30;
 		$("#rightCol").outerWidth(targetWidth);
-
+		$("#document").outerWidth(targetWidth);
 	});
+
+	function loadFile(filepath, name)
+	{
+		var urlForSend = "../core/php/returnFileContents.php?format=json";
+		var data = {file: "../../"+filepath};
+		$.ajax(
+		{
+			url: urlForSend,
+			data,
+			name,
+			type: "POST",
+			success(data)
+			{
+				showFile(data, this.name)
+			},
+			error(data, data2)
+			{
+				console.log(data);
+				console.log(data2);
+			},
+			complete()
+			{
+				console.log("Fin");
+			}
+		});
+	}
+
+	function showFile(data, name)
+	{
+		$(".documentLink").removeClass("active");
+		$("#"+name+"Link").addClass("active");
+		document.getElementById("document").innerHTML = data;
+	}
 
 </script>
 </html>
