@@ -24,10 +24,6 @@ $folderColorArraysDefault	= array(
 			'main-4'		=> array(
 				'background'	=> "#36F1CD",
 				'fontColor'		=> "#FFFFFF"
-				),
-			'main-5'		=> array(
-				'background'	=> "#290628",
-				'fontColor'		=> "#FFFFFF"
 				)
 			),
 		'highlight' => array(
