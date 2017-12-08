@@ -392,3 +392,16 @@ function getCookieRedirect()
 	}
 	return $_SERVER['HTTP_REFERER'];
 }
+
+function generateRestoreList($configStatic)
+{
+	$returnHtml = "<form id='revertForm' action='../restore/restore.php'  method='post'  style='display: inline-block;' ><select name='versionRevertTo' >";
+	$versionList = $configStatic['versionList'];
+	$versionListText = "";
+	foreach ($versionList as $key => $value)
+	{
+		$versionListText = "<option value='".$value['branchName']."' >".$key."</option>".$versionListText;
+	}
+	$returnHtml .= $versionListText."</select></form>";
+	return $returnHtml;
+}

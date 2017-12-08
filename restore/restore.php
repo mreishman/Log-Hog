@@ -6,7 +6,10 @@ if(isset($_POST['versionRevertTo']))
 {
 	$versionToRestoreTo = $_POST['versionRevertTo'];
 }
-require_once('../core/php/loadVars.php'); ?>
+require_once('../core/php/loadVars.php');
+require_once('../core/php/commonFunctions.php');
+require_once('../core/php/configStatic.php');
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,7 +23,7 @@ require_once('../core/php/loadVars.php'); ?>
 	<?php if($versionToRestoreTo != 0): ?>
 		<h1>Restoring to version <?php echo $versionToRestoreTo; ?></h1>
 	<?php else: ?>
-		<h1>Select a version to restore to: <?php readfile('../core/html/restoreVersionOptions.html') ?> <button class="link" onclick="document.getElementById('revertForm').submit();"  >Restore</button></h1>
+		<h1>Select a version to restore to: <?php echo generateRestoreList($configStatic);?> <button class="link" onclick="document.getElementById('revertForm').submit();"  >Restore</button></h1>
 	<?php endif;?>
 	</div>
 	<div style="word-break: break-all; margin-left: auto; margin-right: auto; max-width: 800px; overflow: auto; max-height: 500px;" id="innerSettingsText">

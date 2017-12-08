@@ -324,5 +324,5 @@ $countConfig--;
 	</form>
 </body>
 <script type="text/javascript">
-	var htmlRestoreOptions = "<?php readfile('../core/html/restoreVersionOptions.html') ?>";
+	var htmlRestoreOptions = "<? echo generateRestoreList($configStatic); ?>";
 </script>
