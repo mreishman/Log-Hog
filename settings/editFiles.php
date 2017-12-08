@@ -141,7 +141,7 @@ $fileNameArray = array(
 				</div>
 			</td>
 			<td id="rightCol">
-				<form style="background-color: white;" id="document">
+				<form style="background-color: white;  word-wrap: break-word;" id="document">
 				</form>
 			</td>
 		</tr>
@@ -149,7 +149,7 @@ $fileNameArray = array(
 </body>
 <?php
 
-$value = json_encode(highlight_file('../core/conf/config.php', true));
+$value = json_encode(highlight_file('../local/'.$currentSelectedTheme.'/conf/config.php', true));
 
 ?>
 <script type="text/javascript">
