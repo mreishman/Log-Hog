@@ -219,10 +219,11 @@ elseif($loadingBarVersion === 5)
 				<img class="menuImage" src="<?php echo $baseUrl; ?>img/notificationClear.png" height="30px">
 			</div>
 			<div style="float: right;">
-				<select name="searchType" style="display: none;">
+				<select id="searchType" disabled class="selectDiv" name="searchType" style="height: 30px;">
 					<option selected value="title">Title</option>
+					<option value="content">Content</option>
 				</select>
-				<input id="searchFieldInput" type="search" name="search" placeholder="filter title" style="height: 30px; width: 200px;">
+				<input id="searchFieldInput" type="search" name="search" placeholder="Filter title" style="height: 30px; width: 200px;">
 			</div>
 		</div>
 	</div>

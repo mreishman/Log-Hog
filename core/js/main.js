@@ -416,6 +416,7 @@ function afterPollFunctionComplete()
 		{
 			firstLoad = false;
 			document.getElementById("firstLoad").style.display = "none";
+			document.getElementById("searchType").disabled = false;
 		}
 		if(refreshing)
 		{
@@ -562,7 +563,26 @@ function update(data) {
 				var selectListForFilter = document.getElementsByName("searchType")[0];
 				var selectedListFilterType = selectListForFilter.options[selectListForFilter.selectedIndex].value;
 				var filterTextField = document.getElementsByName("search")[0].value;
-				if(selectedListFilterType === "title" && (filterTextField === "" || name.indexOf(filterTextField) !== -1))
+				var showFile = false;
+				if(selectedListFilterType === "title")
+				{
+					if(filterTextField === "" || name.indexOf(filterTextField) !== -1)
+					{
+						showFile = true;
+					}
+				}
+				else if(selectedListFilterType === "content")
+				{
+					if(filterTextField === "" || dataForCheck.indexOf(filterTextField) !== -1)
+					{
+						showFile = true;
+					}
+				}
+				else
+				{
+					showFile = true;
+				}
+				if(showFile)
 				{
 					showLogByName(name);
 					if(dataForCheck === "This file is empty. This should not be displayed." && hideEmptyLog === "true")
@@ -1504,6 +1524,13 @@ function updateProgressBar(additonalPercent, text, topText = "Loading...")
 	}
 }
 
+function changeSearchplaceholder()
+{
+	var selectListForFilter = document.getElementsByName("searchType")[0];
+	var selectedListFilterType = selectListForFilter.options[selectListForFilter.selectedIndex].value;
+	document.getElementById("searchFieldInput").placeholder = "Filter "+selectedListFilterType;
+}
+
 $(document).ready(function()
 {
 	progressBar = new ldBar("#progressBar");
@@ -1536,4 +1563,9 @@ $(document).ready(function()
 	{
 		update(arrayOfDataMain);
 	});
+
+	if(document.getElementById("searchType"))
+	{
+		document.getElementById("searchType").addEventListener("change", changeSearchplaceholder, false);
+	}
 });
