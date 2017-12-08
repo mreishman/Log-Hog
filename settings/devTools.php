@@ -81,12 +81,12 @@ require_once('../core/php/updateCheck.php');
 		</div>
 	</form>
 	<div class="settingsHeader">
-			Edit Files
+			Files
 		</div>
 		<div class="settingsDiv" >
 			<ul id="settingsUl">
 				<li>
-					<a class="link" href="editFiles.php" >Edit Files</a>
+					<a class="link" href="editFiles.php" >View Files</a>
 				</li>
 			</ul>
 		</div>
