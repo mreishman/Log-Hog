@@ -267,6 +267,11 @@ $countConfig--;
 					<p>Default = <?php echo "https://" . $_SERVER['SERVER_NAME']."/search"; ?></p>
 				</li>
 				<li>
+					<span class="settingsBuffer" >  Selenium Monitor Location:  </span> <input type="text" style="width: 400px;"  name="locationForSeleniumMonitor" value="<?php echo $locationForSeleniumMonitor;?>" > 
+					<br>
+					<p>Default = <?php echo "https://" . $_SERVER['SERVER_NAME']."/seleniumMonitor"; ?></p>
+				</li>
+				<li>
 					<span style="font-size: 75%;"><img style="margin-bottom: -4px;" id="aboutImage" src="<?php echo $localURL; ?>img/info.png" height="20px"> <i>Please specify full url, blank if none</i></span>
 				</li>
 			</ul>
