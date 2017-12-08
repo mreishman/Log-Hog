@@ -24,7 +24,7 @@ require_once('../core/php/updateCheck.php');
 	<script src="../core/js/jquery.js"></script>
 </head>
 <body>
-	<?php require_once('header.php'); ?>
+	<?php require_once('header2.php'); ?>
 	<div id="main">
 		<div class="settingsHeader">
 			About
@@ -32,7 +32,10 @@ require_once('../core/php/updateCheck.php');
 		<div class="settingsDiv" >
 			<ul id="settingsUl">
 				<li>
-					<h2>Version - <?php echo $configStatic['version'];?></h2>
+					<h2>
+						<img style="margin-bottom: -7px;" id="aboutImage" src="<?php echo $localURL; ?>img/info.png" height="30px">
+						Version - <?php echo $configStatic['version'];?>
+					</h2>
 				</li>
 			</ul>
 		</div>

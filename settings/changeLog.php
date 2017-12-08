@@ -23,7 +23,7 @@ require_once('../core/php/commonFunctions.php');
 	<script src="../core/js/jquery.js"></script>
 </head>
 <body>
-	<?php require_once('header.php'); ?>
+	<?php require_once('header2.php'); ?>
 	<div id="main">
 		<div class="settingsHeader">
 			Changelog

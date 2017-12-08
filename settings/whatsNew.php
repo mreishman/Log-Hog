@@ -26,7 +26,7 @@ require_once('../core/php/commonFunctions.php');
 </head>
 <body>
 
-<?php require_once('header.php');?>	
+<?php require_once('header2.php');?>	
 
 	<div id="main" > 
 		<h1 style="width: 100%; text-align: center;  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black; " >You are on version <?php echo $configStatic['version'];?>!</h1>

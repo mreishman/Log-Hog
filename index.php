@@ -193,6 +193,9 @@ elseif($loadingBarVersion === 5)
 				<img id="seleniumMonitorImage" class="menuImage" src="<?php echo $baseUrl; ?>img/seleniumMonitor.png" height="30px">
 			</div>
 			<?php endif; ?>
+			<div onclick="window.location.href = './settings/about.php'" class="menuImageDiv">
+				<img id="aboutImage" class="menuImage" src="<?php echo $baseUrl; ?>img/info.png" height="30px">
+			</div>
 			<div onclick="window.location.href = './settings/main.php';"  class="menuImageDiv">
 				<img data-id="1" id="gear" class="menuImage" src="<?php echo $baseUrl; ?>img/Gear.png" height="30px">
 				<?php if($updateNotificationEnabled === "true")
