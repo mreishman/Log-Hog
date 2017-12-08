@@ -220,10 +220,10 @@ elseif($loadingBarVersion === 5)
 			</div>
 			<div style="float: right;">
 				<select id="searchType" disabled class="selectDiv" name="searchType" style="height: 30px;">
-					<option selected value="title">Title</option>
-					<option value="content">Content</option>
+					<option <?php if ($filterDefault === "title"){echo "selected"; }?> value="title">Title</option>
+					<option <?php if ($filterDefault === "content"){echo "selected"; }?> value="content">Content</option>
 				</select>
-				<input id="searchFieldInput" type="search" name="search" placeholder="Filter title" style="height: 30px; width: 200px;">
+				<input id="searchFieldInput" type="search" name="search" placeholder="Filter <?php echo $filterDefault; ?>" style="height: 30px; width: 200px;">
 			</div>
 		</div>
 	</div>
@@ -322,6 +322,7 @@ elseif($loadingBarVersion === 5)
 		var baseUrl = "<?php echo $baseUrl;?>";
 		var updateFromID = "settingsInstallUpdate";
 		var notificationCountVisible = "<?php echo $notificationCountVisible;?>";
+		var caseInsensitiveSearch = "<?php echo $caseInsensitiveSearch; ?>";
 	</script>
 	<?php readfile('core/html/popup.html') ?>
 	<script src="core/js/main.js?v=<?php echo $cssVersion?>"></script>

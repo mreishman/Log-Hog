@@ -70,6 +70,7 @@ echo loadSentryData($sendCrashInfoJS, $branchSelected); ?>
 	<div id="menu2">
 		<a onclick="goToUrl('#settingsLogVars');" > Logs </a>
 		<a onclick="goToUrl('#settingsPollVars');" > Poll </a>
+		<a onclick="goToUrl('#settingsFilterVars');" > Filter </a>
 		<a onclick="goToUrl('#settingsUpdateVars');" > Update </a>
 		<a onclick="goToUrl('#settingsMenuVars');" > Menu </a>
 		<a onclick="goToUrl('#settingsMainVars');" > Other </a>

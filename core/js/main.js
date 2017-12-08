@@ -564,6 +564,13 @@ function update(data) {
 				var selectedListFilterType = selectListForFilter.options[selectListForFilter.selectedIndex].value;
 				var filterTextField = document.getElementsByName("search")[0].value;
 				var showFile = false;
+
+				if(caseInsensitiveSearch === "true")
+				{
+					selectedListFilterType = selectedListFilterType.toLowerCase();
+					filterTextField = filterTextField.toLowerCase();
+				}
+
 				if(selectedListFilterType === "title")
 				{
 					if(filterTextField === "" || name.indexOf(filterTextField) !== -1)
