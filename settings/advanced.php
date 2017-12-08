@@ -187,7 +187,7 @@ $countConfig--;
 						</select>
 					</div>
 					<br>
-					<span style="font-size: 75%;">*<i>This will increase poll times by 2x to 4x</i></span>
+					<span style="font-size: 75%;"><img style="margin-bottom: -4px;" id="aboutImage" src="<?php echo $localURL; ?>img/info.png" height="20px"> <i>This will increase poll times by 2x to 4x</i></span>
 				</li>
 				<li>
 					<span class="settingsBuffer"> Poll Time Logging </span>
@@ -267,7 +267,7 @@ $countConfig--;
 					<p>Default = <?php echo "https://" . $_SERVER['SERVER_NAME']."/search"; ?></p>
 				</li>
 				<li>
-					<span style="font-size: 75%;">*<i>Please specify full url, blank if none</i></span>
+					<span style="font-size: 75%;"><img style="margin-bottom: -4px;" id="aboutImage" src="<?php echo $localURL; ?>img/info.png" height="20px"> <i>Please specify full url, blank if none</i></span>
 				</li>
 			</ul>
 		</div>

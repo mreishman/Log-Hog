@@ -189,7 +189,7 @@ $listOfAddons = array(
 				<?php endforeach; ?>
 				<tr>
 					<td colspan="6">
-						<i>Make sure you have run through setup before trying to update</i>
+						<img style="margin-bottom: -4px;" id="aboutImage" src="<?php echo $localURL; ?>img/info.png" height="20px">  <i>Make sure you have run through setup before trying to update</i>
 					</td>
 				</tr>
 			</table>
