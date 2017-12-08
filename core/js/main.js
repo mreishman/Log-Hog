@@ -417,6 +417,7 @@ function afterPollFunctionComplete()
 			firstLoad = false;
 			document.getElementById("firstLoad").style.display = "none";
 			document.getElementById("searchType").disabled = false;
+			document.getElementById("searchFieldInput").disabled = false;
 		}
 		if(refreshing)
 		{
@@ -1086,9 +1087,39 @@ function makePretty(text)
 	try
 	{
 		text = text.split("\n");
-		text = text.join("</div><div>");
+		var returnText = "";
+		var lengthOfTextArray = text.length;
+		var selectListForFilter = document.getElementsByName("searchType")[0];
+		var selectedListFilterType = selectListForFilter.options[selectListForFilter.selectedIndex].value;
+		for (var i = 0; i < lengthOfTextArray; i++)
+		{
+			var addLine = true;
+			if(selectedListFilterType === "content")
+			{
+				//check for padding number 
+			}
+			if(addLine)
+			{
+				var customStyle = "";
+				if(selectedListFilterType === "content")
+				{
+					var filterTextField = document.getElementsByName("search")[0].value;
+					if(caseInsensitiveSearch === "true")
+					{
+						selectedListFilterType = selectedListFilterType.toLowerCase();
+						filterTextField = filterTextField.toLowerCase();
+					}
+					//check if match, and if supposed to highlight
+					if(text[i].indexOf(filterTextField) !== -1)
+					{
+						customStyle += "class = 'highlight' ";
+					}
+				}
+				returnText += "<div "+customStyle+" >"+text[i]+"</div>";
+			}
+		}
 		
-		return "<div>" + text + "</div>";
+		return returnText;
 	}
 	catch(e)
 	{

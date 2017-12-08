@@ -223,7 +223,7 @@ elseif($loadingBarVersion === 5)
 					<option <?php if ($filterDefault === "title"){echo "selected"; }?> value="title">Title</option>
 					<option <?php if ($filterDefault === "content"){echo "selected"; }?> value="content">Content</option>
 				</select>
-				<input id="searchFieldInput" type="search" name="search" placeholder="Filter <?php echo $filterDefault; ?>" style="height: 30px; width: 200px;">
+				<input disabled id="searchFieldInput" type="search" name="search" placeholder="Filter <?php echo $filterDefault; ?>" style="height: 30px; width: 200px;">
 			</div>
 		</div>
 	</div>

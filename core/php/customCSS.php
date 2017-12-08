@@ -117,4 +117,11 @@ div#fixed
 }
 
 <?php endif; ?>
+
+.highlight
+{
+	background-color: yellow;
+	color: black;
+}
+
 </style>
