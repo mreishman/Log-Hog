@@ -190,7 +190,7 @@ elseif($loadingBarVersion === 5)
 			<?php endif; ?>
 			<?php if($locationForSeleniumMonitorIndex != ""): ?>
 			<div onclick="window.location.href = '<?php echo $locationForSeleniumMonitorIndex; ?>'"  class="menuImageDiv">
-				<img id="searchImage" class="menuImage" src="<?php echo $baseUrl; ?>img/seleniumMonitor.png" height="30px">
+				<img id="seleniumMonitorImage" class="menuImage" src="<?php echo $baseUrl; ?>img/seleniumMonitor.png" height="30px">
 			</div>
 			<?php endif; ?>
 			<div onclick="window.location.href = './settings/main.php';"  class="menuImageDiv">
