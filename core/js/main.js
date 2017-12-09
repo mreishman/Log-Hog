@@ -709,9 +709,28 @@ function update(data) {
 								}
 							}
 
+							updated = false;
+							
 							if(!(logs[id] === lastLogs[id]))
 							{
 								updated = true;
+							}
+							else
+							{
+								if(selectedListFilterType === "content" && filterTextField !== "")
+								{
+									if(!(makePretty(logs[id]) === makePretty(lastLogs[id])))
+									{
+										if(id === currentPage)
+										{
+											updated = true;
+										}
+									}
+								}
+							}
+
+							if(updated)
+							{
 								if(id === currentPage)
 								{
 									$("#log").html(makePretty(logs[id]));
