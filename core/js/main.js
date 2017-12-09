@@ -1114,26 +1114,63 @@ function makePretty(text)
 		var lengthOfTextArray = text.length;
 		var selectListForFilter = document.getElementsByName("searchType")[0];
 		var selectedListFilterType = selectListForFilter.options[selectListForFilter.selectedIndex].value;
+		var bottomPadding = filterContentLinePadding;
+		var topPadding = filterContentLinePadding;
+		var foundOne = false;
 		for (var i = 0; i < lengthOfTextArray; i++)
 		{
-			var addLine = true;
-			if(selectedListFilterType === "content")
+			var addLine = false;
+			if(selectedListFilterType === "content" && filterContentLimit === "true" && filterContentLinePadding !== 0)
 			{
-				//check for padding number 
+				//check for content on current line
+				if(filterContentCheck(text[i]))
+				{
+					//current line is thing, reset counter.
+					bottomPadding = filterContentLinePadding;
+					topPadding = filterContentLinePadding;
+					addLine = true;
+					foundOne = true;
+				}
+				else
+				{
+					//check for line in next few lines 
+					for (var j = 0; j <= bottomPadding; j++) 
+					{
+						if(lengthOfTextArray > i+j)
+						{
+							if(filterContentCheck(text[i+j]))
+							{
+								addLine = true;
+								bottomPadding--;
+								break;
+							}
+						}
+					}
+					if(!addLine)
+					{
+						if(topPadding > 0 && foundOne)
+						{
+							addLine = true;
+							topPadding--;
+						}
+						else
+						{
+							foundOne = false;
+						}
+					}
+				}
+			}
+			else
+			{
+				addLine = true;
 			}
 			if(addLine)
 			{
 				var customStyle = "";
 				if(selectedListFilterType === "content" && filterContentHighlight === "true")
 				{
-					var textToMatch = text[i];
-					var filterTextField = getFilterTextField();
-					if(caseInsensitiveSearch === "true")
-					{
-						textToMatch = textToMatch.toLowerCase();
-					}
 					//check if match, and if supposed to highlight
-					if(textToMatch.indexOf(filterTextField) !== -1)
+					if(filterContentCheck(text[i]))
 					{
 						customStyle += "class = 'highlight' ";
 					}
@@ -1148,6 +1185,16 @@ function makePretty(text)
 	{
 		eventThrowException(e);
 	}
+}
+
+function filterContentCheck(textToMatch)
+{
+	var filterTextField = getFilterTextField();
+	if(caseInsensitiveSearch === "true")
+	{
+		textToMatch = textToMatch.toLowerCase();
+	}
+	return (textToMatch.indexOf(filterTextField) !== -1);
 }
 
 function getFilterTextField()

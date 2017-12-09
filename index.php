@@ -307,6 +307,7 @@ elseif($loadingBarVersion === 5)
 		echo "var pollForceTrue = ".$pollForceTrue.";";
 		echo "var pollRefreshAll = ".$pollRefreshAll.";";
 		echo "var sliceSize = ".$sliceSize.";";
+		echo "var filterContentLinePadding = ".$filterContentLinePadding.";";
 		?>
 		var dontNotifyVersion = "<?php echo $dontNotifyVersion;?>";
 		var currentVersion = "<?php echo $configStatic['version'];?>";
@@ -324,6 +325,7 @@ elseif($loadingBarVersion === 5)
 		var notificationCountVisible = "<?php echo $notificationCountVisible;?>";
 		var caseInsensitiveSearch = "<?php echo $caseInsensitiveSearch; ?>";
 		var filterContentHighlight = "<?php echo $filterContentHighlight; ?>";
+		var filterContentLimit = "<?php echo $filterContentLimit; ?>";
 	</script>
 	<?php readfile('core/html/popup.html') ?>
 	<script src="core/js/main.js?v=<?php echo $cssVersion?>"></script>
