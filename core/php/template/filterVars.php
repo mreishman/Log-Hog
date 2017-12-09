@@ -30,6 +30,15 @@ Filter Settings
 			</select>
 		</div>
 	</li>
+	<li>
+		<span class="settingsBuffer" > Highlight Content match: </span>
+		<div class="selectDiv">
+			<select name="filterContentHighlight">
+				<option <?php if($filterContentHighlight == 'true'){echo "selected";} ?> value="true">True</option>
+				<option <?php if($filterContentHighlight == 'false'){echo "selected";} ?> value="false">False</option>
+			</select>
+		</div>
+	</li>
 </ul>
 </div>
 </form>

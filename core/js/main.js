@@ -563,25 +563,29 @@ function update(data) {
 				var name = files[i];
 				var selectListForFilter = document.getElementsByName("searchType")[0];
 				var selectedListFilterType = selectListForFilter.options[selectListForFilter.selectedIndex].value;
-				var filterTextField = document.getElementsByName("search")[0].value;
+				var filterTextField = getFilterTextField();
 				var showFile = false;
 
-				if(caseInsensitiveSearch === "true")
-				{
-					selectedListFilterType = selectedListFilterType.toLowerCase();
-					filterTextField = filterTextField.toLowerCase();
-				}
+				
 
+				var filterOffOf = "";
 				if(selectedListFilterType === "title")
 				{
-					if(filterTextField === "" || name.indexOf(filterTextField) !== -1)
-					{
-						showFile = true;
-					}
+					filterOffOf = name;
 				}
 				else if(selectedListFilterType === "content")
 				{
-					if(filterTextField === "" || dataForCheck.indexOf(filterTextField) !== -1)
+					filterOffOf = dataForCheck;
+				}
+
+				if(caseInsensitiveSearch === "true")
+				{
+					filterOffOf = filterOffOf.toLowerCase();
+				}
+
+				if(filterOffOf !== "")
+				{
+					if(filterTextField === "" || filterOffOf.indexOf(filterTextField) !== -1)
 					{
 						showFile = true;
 					}
@@ -710,14 +714,14 @@ function update(data) {
 							}
 
 							updated = false;
-							
+
 							if(!(logs[id] === lastLogs[id]))
 							{
 								updated = true;
 							}
 							else
 							{
-								if(selectedListFilterType === "content" && filterTextField !== "")
+								if(selectedListFilterType === "content" && filterTextField !== "" && filterContentHighlight === "true")
 								{
 									if(!(makePretty(logs[id]) === makePretty(lastLogs[id])))
 									{
@@ -1120,16 +1124,16 @@ function makePretty(text)
 			if(addLine)
 			{
 				var customStyle = "";
-				if(selectedListFilterType === "content")
+				if(selectedListFilterType === "content" && filterContentHighlight === "true")
 				{
-					var filterTextField = document.getElementsByName("search")[0].value;
+					var textToMatch = text[i];
+					var filterTextField = getFilterTextField();
 					if(caseInsensitiveSearch === "true")
 					{
-						selectedListFilterType = selectedListFilterType.toLowerCase();
-						filterTextField = filterTextField.toLowerCase();
+						textToMatch = textToMatch.toLowerCase();
 					}
 					//check if match, and if supposed to highlight
-					if(text[i].indexOf(filterTextField) !== -1)
+					if(textToMatch.indexOf(filterTextField) !== -1)
 					{
 						customStyle += "class = 'highlight' ";
 					}
@@ -1144,6 +1148,16 @@ function makePretty(text)
 	{
 		eventThrowException(e);
 	}
+}
+
+function getFilterTextField()
+{
+	var filterTextField = document.getElementsByName("search")[0].value;
+	if(caseInsensitiveSearch === "true")
+	{
+		filterTextField = filterTextField.toLowerCase();
+	}
+	return filterTextField;
 }
 
 function resize() 

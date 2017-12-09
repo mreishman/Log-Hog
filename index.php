@@ -323,6 +323,7 @@ elseif($loadingBarVersion === 5)
 		var updateFromID = "settingsInstallUpdate";
 		var notificationCountVisible = "<?php echo $notificationCountVisible;?>";
 		var caseInsensitiveSearch = "<?php echo $caseInsensitiveSearch; ?>";
+		var filterContentHighlight = "<?php echo $filterContentHighlight; ?>";
 	</script>
 	<?php readfile('core/html/popup.html') ?>
 	<script src="core/js/main.js?v=<?php echo $cssVersion?>"></script>

@@ -27,6 +27,7 @@ $defaultConfig = array(
 	'enableSystemPrefShellOrPhp'	=> 'false',
 	'expSettingsAvail'				=> 'true',
 	'filterDefault'					=> 'title',
+	'filterContentHighlight'		=> 'true',
 	'flashTitleUpdateLog'			=> 'false',
 	'folderColorArrays'	=> array(
 		'theme-default-1'	=> array(
