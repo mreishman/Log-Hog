@@ -275,5 +275,6 @@ $defaultConfig = array(
 		'/var/www/html/var/log/system.log'	        => '',
 		'/var/log/hhvm/error.log'	=> '',
 		'/var/log/apache2'			=> '.log$'
-	)
+	),
+	'windowCount'					=> 1
 );

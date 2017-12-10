@@ -1,18 +1,7 @@
-var title = $("title").text();
-var currentPage;
-var logs = {};
-var titles = {};
-var lastLogs = {};
-var fresh = true;
-var flasher;
+var counterForPoll, counterForPollForceRefreshAll, currentPage, currentSelectWindow ,filesNew, firstLoad, flasher, fresh, lastLogs, logs, percent, pollSkipCounter, progressBar, refreshPauseActionVar, t0, t1, t2, t3, timer, titles;
 var updating = false;
 var startedPauseOnNonFocus = false;
 var polling = false;
-var t0 = performance.now();
-var t1 = performance.now();
-var t2 = performance.now();
-var t3 = performance.now();
-var counterForPoll = 0;
 var arrayOfData1 = null;
 var arrayOfData2 = null;
 var arrayToUpdate = [];
@@ -20,19 +9,16 @@ var arrayOfDataMain = null;
 var pollTimer = null;
 var dataFromUpdateCheck = null;
 var timeoutVar = null;
-var pollSkipCounter = 0;
-var counterForPollForceRefreshAll = 0;
-var filesNew;
 var pausePoll = false;
-var refreshPauseActionVar;
 var userPaused = false;
 var refreshing = false;
-var percent = 0;
 var pollRefreshAllBoolStatic = pollRefreshAllBool;
-var firstLoad = true;
-var timer;
 var clearingNotifications = false;
-var progressBar;
+t0 = t1 = t2 = t3 = performance.now();
+lastLogs = logs = titles = {};
+firstLoad = fresh = true;
+counterForPoll = counterForPollForceRefreshAll = currentSelectWindow = percent = pollSkipCounter = 0;
+var title = $("title").text();
 
 function escapeHTML(unsafeStr)
 {
