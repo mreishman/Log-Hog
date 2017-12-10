@@ -1,23 +1,12 @@
-var counterForPoll, counterForPollForceRefreshAll, currentPage, currentSelectWindow ,filesNew, firstLoad, flasher, fresh, lastLogs, logs, percent, pollSkipCounter, progressBar, refreshPauseActionVar, t0, t1, t2, t3, timer, titles;
-var updating = false;
-var startedPauseOnNonFocus = false;
-var polling = false;
-var arrayOfData1 = null;
-var arrayOfData2 = null;
-var arrayToUpdate = [];
-var arrayOfDataMain = null;
-var pollTimer = null;
-var dataFromUpdateCheck = null;
-var timeoutVar = null;
-var pausePoll = false;
-var userPaused = false;
-var refreshing = false;
+var arrayToUpdate, arrayOfData1, arrayOfData2, arrayOfDataMain, clearingNotifications, counterForPoll, counterForPollForceRefreshAll, currentPage, currentSelectWindow , dataFromUpdateCheck, filesNew, firstLoad, flasher, fresh, lastLogs, logs, pausePoll, percent, polling, pollSkipCounter, pollTimer, progressBar, refreshing, refreshPauseActionVar, startedPauseOnNonFocus, t0, t1, t2, t3, timeoutVar, timer, titles, updating, userPaused;
 var pollRefreshAllBoolStatic = pollRefreshAllBool;
-var clearingNotifications = false;
 t0 = t1 = t2 = t3 = performance.now();
 lastLogs = logs = titles = {};
 firstLoad = fresh = true;
+clearingNotifications = startedPauseOnNonFocus = pausePoll = polling = refreshing = updating = userPaused = false;
 counterForPoll = counterForPollForceRefreshAll = currentSelectWindow = percent = pollSkipCounter = 0;
+arrayOfData1 = arrayOfData2 = arrayOfDataMain = dataFromUpdateCheck = pollTimer = timeoutVar = null;
+arrayToUpdate = []
 var title = $("title").text();
 
 function escapeHTML(unsafeStr)
