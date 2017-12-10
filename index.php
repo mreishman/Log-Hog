@@ -131,13 +131,13 @@ elseif($loadingBarVersion === 5)
 $windowDisplayConfig = explode("x", $windowConfig);
 $logDisplayArray = "{";
 $logDisplay = "";
-for ($i=0; $i < $windowConfig[0]; $i++)
+for ($i=0; $i < $windowDisplayConfig[0]; $i++)
 {
-	$logDisplay .= "<tr>";
-	for ($j=0; $j < $windowConfig[1]; $j++)
+	$logDisplay .= "<tr class=\"logTrHeight\" >";
+	for ($j=0; $j < $windowDisplayConfig[1]; $j++)
 	{
-		$counter = $j+($i*$windowConfig[1]);
-		$logDisplay .= "<td id=\"log".$counter."\" ></td>";
+		$counter = $j+($i*$windowDisplayConfig[1]);
+		$logDisplay .= "<td class=\"logTdWidth\" id=\"log".$counter."\" ></td>";
 		$logDisplayArray .= " ".$counter": null,";
 	}
 	$logDisplay .= "</tr>";
@@ -327,6 +327,8 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 		echo "var sliceSize = ".$sliceSize.";";
 		echo "var filterContentLinePadding = ".$filterContentLinePadding.";";
 		echo "var logDisplayArray = ".$logDisplayArray.";";
+		echo "var windowDisplayConfigRowCount = ".$windowDisplayConfig[0].";";
+		echo "var windowDisplayConfigColCount = ".$windowDisplayConfig[1].";"; 
 		?>
 		var dontNotifyVersion = "<?php echo $dontNotifyVersion;?>";
 		var currentVersion = "<?php echo $configStatic['version'];?>";

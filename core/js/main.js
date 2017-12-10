@@ -1009,10 +1009,10 @@ function show(e, id)
 	{
 		$(e).siblings().removeClass("active");
 		$(e).addClass("active").removeClass("updated");
-		$("#log0").html(makePretty(logs[id]));
+		$("#log"+currentSelectWindow).html(makePretty(logs[id]));
 		currentPage = id;
 		$("#title").html(titles[id]);
-		document.getElementById("main").scrollTop = $("#log0").outerHeight();
+		document.getElementById("main").scrollTop = $("#log"+currentSelectWindow).outerHeight();
 		toggleNotificationClearButton();
 		document.getElementById(id+"Count").innerHTML = "";
 		document.getElementById(id+"CountHidden").innerHTML = "";
@@ -1187,6 +1187,7 @@ function resize()
 	try
 	{
 		var targetHeight = window.innerHeight - $("#menu").outerHeight() - $("#title").outerHeight();
+		var targetWidth = window.innerWidth;
 		if(enablePollTimeLogging !== "false")
 		{
 			targetHeight -= 25;
@@ -1198,6 +1199,16 @@ function resize()
 		if($("#main").css("bottom") !== $("#title").outerHeight() + "px")
 		{
 			$("#main").css("bottom", $("#title").outerHeight() + "px");
+		}
+		var tdElementWidth = (targetWidth/windowDisplayConfigColCount).toFixed(4);
+		if($(".logTdWidth").outerHeight() !== tdElementWidth)
+		{
+			$(".logTdWidth").outerHeight(tdElementWidth);
+		}
+		var trElementHeight = (targetHeight/windowDisplayConfigRowCount).toFixed(4);
+		if($(".logTrHeight").outerHeight() !== trElementHeight)
+		{
+			$(".logTrHeight").outerHeight(trElementHeight);
 		}
 	}
 	catch(e)
