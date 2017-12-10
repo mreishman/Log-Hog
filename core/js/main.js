@@ -710,9 +710,21 @@ function update(data) {
 
 							if(updated)
 							{
-								if(id === currentPage)
+								//determine if id is one of the values in the array of open files (use instead of currentPage)
+								var windows = Object.keys(logDisplayArray);
+								var lengthOfWindows = logDisplayArray.length;
+								var currentIdPos = -1;
+								for(var j = 0; j < lengthOfWindows; j++)
 								{
-									$("#log0").html(makePretty(logs[id]));
+									if(id === logDisplayArray[j])
+									{
+										currentIdPos = j;
+										break;
+									}
+								}
+								if(currentIdPos !== -1)
+								{
+									$("#log"+currentIdPos).html(makePretty(logs[id]));
 									if(document.getElementById(id+"Count").innerHTML !== "")
 									{
 										document.getElementById(id+"Count").innerHTML = "";
@@ -1011,6 +1023,7 @@ function show(e, id)
 		$(e).addClass("active").removeClass("updated");
 		$("#log"+currentSelectWindow).html(makePretty(logs[id]));
 		currentPage = id;
+		logDisplayArray[currentSelectWindow] = id;
 		$("#title").html(titles[id]);
 		document.getElementById("main").scrollTop = $("#log"+currentSelectWindow).outerHeight();
 		toggleNotificationClearButton();
