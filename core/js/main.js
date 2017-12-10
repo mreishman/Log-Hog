@@ -1635,6 +1635,11 @@ function changeSearchplaceholder()
 	document.getElementById("searchFieldInput").placeholder = "Filter "+selectedListFilterType;
 }
 
+function changeCurrentSelectWindow(newSelectWindow)
+{
+	currentSelectWindow = newSelectWindow;
+}
+
 $(document).ready(function()
 {
 	progressBar = new ldBar("#progressBar");
