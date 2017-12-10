@@ -276,5 +276,5 @@ $defaultConfig = array(
 		'/var/log/hhvm/error.log'	=> '',
 		'/var/log/apache2'			=> '.log$'
 	),
-	'windowCount'					=> 1
+	'windowConfig'					=> '1x1'
 );

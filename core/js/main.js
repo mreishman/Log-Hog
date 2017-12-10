@@ -712,7 +712,7 @@ function update(data) {
 							{
 								if(id === currentPage)
 								{
-									$("#log").html(makePretty(logs[id]));
+									$("#log0").html(makePretty(logs[id]));
 									if(document.getElementById(id+"Count").innerHTML !== "")
 									{
 										document.getElementById(id+"Count").innerHTML = "";
@@ -827,7 +827,7 @@ function update(data) {
 		if(logs[currentPage] !== lastLogs[currentPage])
 		{
 			lastLogs[currentPage] = logs[currentPage];
-			document.getElementById("main").scrollTop = $("#log").outerHeight();
+			document.getElementById("main").scrollTop = $("#log0").outerHeight();
 		}
 		
 		refreshLastLogsArray();
@@ -1009,10 +1009,10 @@ function show(e, id)
 	{
 		$(e).siblings().removeClass("active");
 		$(e).addClass("active").removeClass("updated");
-		$("#log").html(makePretty(logs[id]));
+		$("#log0").html(makePretty(logs[id]));
 		currentPage = id;
 		$("#title").html(titles[id]);
-		document.getElementById("main").scrollTop = $("#log").outerHeight();
+		document.getElementById("main").scrollTop = $("#log0").outerHeight();
 		toggleNotificationClearButton();
 		document.getElementById(id+"Count").innerHTML = "";
 		document.getElementById(id+"CountHidden").innerHTML = "";

@@ -128,6 +128,22 @@ elseif($loadingBarVersion === 5)
 }
 
 
+$windowDisplayConfig = explode("x", $windowConfig);
+$logDisplayArray = "{";
+$logDisplay = "";
+for ($i=0; $i < $windowConfig[0]; $i++)
+{
+	$logDisplay .= "<tr>";
+	for ($j=0; $j < $windowConfig[1]; $j++)
+	{
+		$counter = $j+($i*$windowConfig[1]);
+		$logDisplay .= "<td id=\"log".$counter."\" ></td>";
+		$logDisplayArray .= " ".$counter": null,";
+	}
+	$logDisplay .= "</tr>";
+}
+$logDisplayArray = rtrim($logDisplayArray, ",")."}";
+
 ?>
 <!doctype html>
 <head>
@@ -229,7 +245,9 @@ elseif($loadingBarVersion === 5)
 	</div>
 	
 	<div id="main">
-		<div id="log"></div>
+		<table style="width: 100%;" >
+			<?php echo $logDisplay; ?>
+		</table>
 		<div id="firstLoad" style="width: 100%; height: 100%;">
 			<h1 id="progressBarMainInfo" style="margin-right: auto; margin-left: auto; width: 100%; text-align: center;  margin-top: 100px; font-size: 150%;" >Loading...</h1>
 			<div id="divForProgressBar" style="width: 80%; height: 100px; margin-left: auto; margin-right: auto; margin-top: -15px; margin-bottom: -15px;">
@@ -308,6 +326,7 @@ elseif($loadingBarVersion === 5)
 		echo "var pollRefreshAll = ".$pollRefreshAll.";";
 		echo "var sliceSize = ".$sliceSize.";";
 		echo "var filterContentLinePadding = ".$filterContentLinePadding.";";
+		echo "var logDisplayArray = ".$logDisplayArray.";";
 		?>
 		var dontNotifyVersion = "<?php echo $dontNotifyVersion;?>";
 		var currentVersion = "<?php echo $configStatic['version'];?>";
