@@ -739,7 +739,7 @@ function update(data) {
 							{
 								//determine if id is one of the values in the array of open files (use instead of currentPage)
 								var windows = Object.keys(logDisplayArray);
-								var lengthOfWindows = logDisplayArray.length;
+								var lengthOfWindows = windows.length;
 								var currentIdPos = -1;
 								for(var j = 0; j < lengthOfWindows; j++)
 								{
