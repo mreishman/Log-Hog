@@ -12,7 +12,7 @@ if(file_exists('../local/layout.php'))
 if(!file_exists($baseUrl.'conf/config.php'))
 {
 	$partOfUrl = clean_url($_SERVER['REQUEST_URI']);
-	$url = "http://" . $_SERVER['HTTP_HOST'] .$partOfUrl ."setup/welcome.php";
+	$url = "http://" . $_SERVER['HTTP_HOST'] .substr($partOfUrl,0,4) ."setup/welcome.php"
 	header('Location: ' . $url, true, 302);
 	exit();
 }
