@@ -137,7 +137,7 @@ for ($i=0; $i < $windowDisplayConfig[0]; $i++)
 	for ($j=0; $j < $windowDisplayConfig[1]; $j++)
 	{
 		$counter = $j+($i*$windowDisplayConfig[1]);
-		$logDisplay .= "<td onclick=\"changeCurrentSelectWindow(".$counter.")\" class=\"logTdWidth\" id=\"log".$counter."\" ></td>";
+		$logDisplay .= "<td style=\"vertical-align: top;\" onclick=\"changeCurrentSelectWindow(".$counter.")\" class=\"logTdWidth\" id=\"log".$counter."\" ></td>";
 		$logDisplayArray .= " ".$counter.": null,";
 	}
 	$logDisplay .= "</tr>";
@@ -245,7 +245,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 	</div>
 	
 	<div id="main">
-		<table style="width: 100%;" >
+		<table id="log" style="display: none;" style="width: 100%;" >
 			<?php echo $logDisplay; ?>
 		</table>
 		<div id="firstLoad" style="width: 100%; height: 100%;">

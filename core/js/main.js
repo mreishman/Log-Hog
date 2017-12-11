@@ -419,6 +419,7 @@ function afterPollFunctionComplete()
 			document.getElementById("firstLoad").style.display = "none";
 			document.getElementById("searchType").disabled = false;
 			document.getElementById("searchFieldInput").disabled = false;
+			document.getElementById("log").style.display = "table";
 		}
 		if(refreshing)
 		{
@@ -1258,9 +1259,9 @@ function resize()
 			$("#main").css("bottom", $("#title").outerHeight() + "px");
 		}
 		var tdElementWidth = (targetWidth/windowDisplayConfigColCount).toFixed(4);
-		if($(".logTdWidth").outerHeight() !== tdElementWidth)
+		if($(".logTdWidth").outerWidth() !== tdElementWidth)
 		{
-			$(".logTdWidth").outerHeight(tdElementWidth);
+			$(".logTdWidth").outerWidth(tdElementWidth);
 		}
 		var trElementHeight = (targetHeight/windowDisplayConfigRowCount).toFixed(4);
 		if($(".logTrHeight").outerHeight() !== trElementHeight)

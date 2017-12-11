@@ -155,7 +155,7 @@ div {
 	white-space: pre-wrap;
 }
 
-#log > div {
+#log div {
 	padding: .25em 1em;
 }
 
