@@ -138,7 +138,7 @@ for ($i=0; $i < $windowDisplayConfig[0]; $i++)
 	{
 		$counter = $j+($i*$windowDisplayConfig[1]);
 		$logDisplay .= "<td onclick=\"changeCurrentSelectWindow(".$counter.")\" class=\"logTdWidth\" id=\"log".$counter."\" ></td>";
-		$logDisplayArray .= " ".$counter": null,";
+		$logDisplayArray .= " ".$counter.": null,";
 	}
 	$logDisplay .= "</tr>";
 }
