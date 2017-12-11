@@ -836,10 +836,28 @@ function update(data) {
 
 		toggleNotificationClearButton();
 		
-		if(logs[currentPage] !== lastLogs[currentPage])
+		var windows = Object.keys(logDisplayArray);
+		var lengthOfWindows = logDisplayArray.length;
+		for(var i = 0; i < lengthOfWindows; i++)
 		{
-			lastLogs[currentPage] = logs[currentPage];
-			document.getElementById("main").scrollTop = $("#log0").outerHeight();
+			if(logDisplayArray[i] !== null)
+			{
+				var logsCheck = Object.keys(logs);
+				var lengthOfLogsCheck = logsCheck.length;
+				for(var j = 0; j < lengthOfLogsCheck; j++)
+				{
+					if(logDisplayArray[i] === logsCheck[j])
+					{
+						var currentPageId = logsCheck[j];
+						if(logs[currentPageId] !== lastLogs[currentPageId])
+						{
+							lastLogs[currentPageId] = logs[currentPageId];
+							document.getElementById("main").scrollTop = $("#log"+i).outerHeight();
+						}
+						break;
+					}
+				}
+			}
 		}
 		
 		refreshLastLogsArray();
