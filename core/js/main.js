@@ -864,7 +864,7 @@ function update(data) {
 		toggleNotificationClearButton();
 		
 		var windows = Object.keys(logDisplayArray);
-		var lengthOfWindows = logDisplayArray.length;
+		var lengthOfWindows = windows.length;
 		for(var i = 0; i < lengthOfWindows; i++)
 		{
 			if(logDisplayArray[i] !== null)
