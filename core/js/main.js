@@ -1089,7 +1089,7 @@ function show(e, id)
 			}
 		}
 		$("#title").html(titles[id]);
-		document.getElementById("main").scrollTop = $("#log"+currentSelectWindow).outerHeight();
+		document.getElementById("log"+currentSelectWindow+"Td").scrollTop = $("#log"+currentSelectWindow).outerHeight();
 		toggleNotificationClearButton();
 		document.getElementById(id+"Count").innerHTML = "";
 		document.getElementById(id+"CountHidden").innerHTML = "";

@@ -137,7 +137,7 @@ for ($i=0; $i < $windowDisplayConfig[0]; $i++)
 	for ($j=0; $j < $windowDisplayConfig[1]; $j++)
 	{
 		$counter = $j+($i*$windowDisplayConfig[1]);
-		$logDisplay .= "<td style=\"vertical-align: top; padding: 0;\" onclick=\"changeCurrentSelectWindow(".$counter.")\" class=\"logTdWidth\" > <span class=\"logTrHeight\" style=\"overflow: auto; display: block; word-break: break-word; white-space: pre-wrap;\" id=\"log".$counter."\" >  </span> </td>";
+		$logDisplay .= "<td style=\"vertical-align: top; padding: 0;\" onclick=\"changeCurrentSelectWindow(".$counter.")\" class=\"logTdWidth\" > <span id=\"log".$counter."Td\"  class=\"logTrHeight\" style=\"overflow: auto; display: block; word-break: break-word; white-space: pre-wrap;\" > <div style=\"padding: 0\" id=\"log".$counter."\"  ></div>  </span> </td>";
 		$logDisplayArray .= " ".$counter.": null,";
 	}
 	$logDisplay .= "</tr>";
