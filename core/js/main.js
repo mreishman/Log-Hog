@@ -880,7 +880,7 @@ function update(data) {
 						if(logs[currentPageId] !== lastLogs[currentPageId])
 						{
 							lastLogs[currentPageId] = logs[currentPageId];
-							document.getElementById("main").scrollTop = $("#log"+i).outerHeight();
+							document.getElementById("log"+i+"Td").scrollTop = $("#log"+i).outerHeight();
 						}
 						break;
 					}
