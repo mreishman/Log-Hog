@@ -1067,11 +1067,27 @@ function show(e, id)
 {
 	try
 	{
-		$(e).siblings().removeClass("active");
-		$(e).addClass("active").removeClass("updated");
+		$(e).siblings().removeClass("active");		
 		$("#log"+currentSelectWindow).html(makePretty(logs[id]));
 		currentPage = id;
 		logDisplayArray[currentSelectWindow] = id;
+		var windows = Object.keys(logDisplayArray);
+		var lengthOfWindows = windows.length;
+		for(var i = 0; i < lengthOfWindows; i++)
+		{
+			if(logDisplayArray[i] !== null)
+			{
+				var logsCheck = Object.keys(logs);
+				var lengthOfLogsCheck = logsCheck.length;
+				for(var j = 0; j < lengthOfLogsCheck; j++)
+				{
+					if(logDisplayArray[i] === logsCheck[j])
+					{
+						$("."+logsCheck[j]+"Button").addClass("active").removeClass("updated");
+					}
+				}
+			}
+		}
 		$("#title").html(titles[id]);
 		document.getElementById("main").scrollTop = $("#log"+currentSelectWindow).outerHeight();
 		toggleNotificationClearButton();
