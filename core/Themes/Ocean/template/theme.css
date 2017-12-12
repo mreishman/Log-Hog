@@ -207,11 +207,11 @@ div {
 	display: inline-block;
 	padding: 3px 5px;
 	margin: 1px;
-	background-color: #2A912A;
+	background-color: #BBCDE5;
 	cursor: pointer;
 	border: solid 1px white;
 	line-height: 100%;
-	color: white;
+	color: black;
 }
 
 .colorSelectorDiv
