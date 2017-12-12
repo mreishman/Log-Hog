@@ -12,6 +12,7 @@ var filesNew;
 var firstLoad = true;
 var flasher;
 var fresh = true;
+var lastContentSearch = "";
 var lastLogs = {};
 var logs = {};
 var pausePoll = false;
@@ -723,9 +724,9 @@ function update(data) {
 							}
 							else
 							{
-								if(selectedListFilterType === "content" && filterTextField !== "" && filterContentHighlight === "true")
+								if(selectedListFilterType === "content" && filterContentHighlight === "true")
 								{
-									if(!(makePretty(logs[id]) === makePretty(lastLogs[id])))
+									if(lastContentSearch !== getFilterTextField())
 									{
 										if(id === currentPage)
 										{
@@ -887,6 +888,8 @@ function update(data) {
 			}
 		}
 		
+		lastContentSearch = getFilterTextField();
+
 		refreshLastLogsArray();
 	}
 	catch(e)
@@ -1153,7 +1156,7 @@ function makePretty(text)
 		for (var i = 0; i < lengthOfTextArray; i++)
 		{
 			var addLine = false;
-			if(selectedListFilterType === "content" && filterContentLimit === "true" && filterContentLinePadding !== 0)
+			if(selectedListFilterType === "content" && filterContentLimit === "true" && filterContentLinePadding !== 0 && getFilterTextField() !== "")
 			{
 				//check for content on current line
 				if(filterContentCheck(text[i]))
@@ -1200,7 +1203,7 @@ function makePretty(text)
 			if(addLine)
 			{
 				var customStyle = "";
-				if(selectedListFilterType === "content" && filterContentHighlight === "true")
+				if(selectedListFilterType === "content" && filterContentHighlight === "true" && getFilterTextField() !== "")
 				{
 					//check if match, and if supposed to highlight
 					if(filterContentCheck(text[i]))
