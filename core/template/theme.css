@@ -124,7 +124,6 @@ div {
 #log {
 	padding: 1em 0;
 	color: white;
-	white-space: pre-wrap;
 }
 
 #log div {

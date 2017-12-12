@@ -136,7 +136,6 @@ div {
 #log {
 	padding: 1em 0;
 	color: black;
-	white-space: pre-wrap;
 }
 
 #log div {

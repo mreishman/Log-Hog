@@ -133,11 +133,11 @@ $logDisplayArray = "{";
 $logDisplay = "";
 for ($i=0; $i < $windowDisplayConfig[0]; $i++)
 {
-	$logDisplay .= "<tr class=\"logTrHeight\" >";
+	$logDisplay .= "<tr>";
 	for ($j=0; $j < $windowDisplayConfig[1]; $j++)
 	{
 		$counter = $j+($i*$windowDisplayConfig[1]);
-		$logDisplay .= "<td style=\"vertical-align: top;\" onclick=\"changeCurrentSelectWindow(".$counter.")\" class=\"logTdWidth\" id=\"log".$counter."\" ></td>";
+		$logDisplay .= "<td style=\"vertical-align: top; padding: 0;\" onclick=\"changeCurrentSelectWindow(".$counter.")\" class=\"logTdWidth\" > <span class=\"logTrHeight\" style=\"overflow: auto; display: block; word-break: break-word; white-space: pre-wrap;\" id=\"log".$counter."\" >  </span> </td>";
 		$logDisplayArray .= " ".$counter.": null,";
 	}
 	$logDisplay .= "</tr>";
@@ -245,7 +245,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 	</div>
 	
 	<div id="main">
-		<table id="log" style="display: none; margin: 0px;padding: 0px;" style="width: 100%;" >
+		<table id="log" style="display: none; margin: 0px;padding: 0px; border-spacing: 0px;" style="width: 100%;" >
 			<?php echo $logDisplay; ?>
 		</table>
 		<div id="firstLoad" style="width: 100%; height: 100%;">
