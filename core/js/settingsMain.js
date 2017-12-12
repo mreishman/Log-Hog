@@ -168,9 +168,9 @@ $( document ).ready(function()
 	{
 		document.getElementById("logTrimOn").addEventListener("change", showOrHideLogTrimSubWindow, false);
 	}
-	if(document.getElementById("filterContentSettings"))
+	if(document.getElementById("filterContentLimit"))
 	{
-		document.getElementById("filterContentSettings").addEventListener("change", showOrHideFilterContentSettings, false);
+		document.getElementById("filterContentLimit").addEventListener("change", showOrHideFilterContentSettings, false);
 	}
 
 	var arrayToRefresh = new Array();
