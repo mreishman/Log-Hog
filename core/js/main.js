@@ -1156,7 +1156,7 @@ function makePretty(text)
 		for (var i = 0; i < lengthOfTextArray; i++)
 		{
 			var addLine = false;
-			if(selectedListFilterType === "content" && filterContentLimit === "true" && filterContentLinePadding !== 0 && getFilterTextField() !== "")
+			if(selectedListFilterType === "content" && filterContentLimit === "true" && getFilterTextField() !== "")
 			{
 				//check for content on current line
 				if(filterContentCheck(text[i]))
