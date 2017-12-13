@@ -262,6 +262,7 @@ $defaultConfig = array(
 		'versionCheck'		=> 'true'
 		),
 	'rightClickMenuEnable'			=> 'true',
+	'scrollOnUpdate'				=> 'true',
 	'sendCrashInfoJS'				=> 'true',
 	'sendCrashInfoPHP'				=> 'true',
 	'sliceSize'						=> 500,

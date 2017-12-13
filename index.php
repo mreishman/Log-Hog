@@ -347,6 +347,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 		var caseInsensitiveSearch = "<?php echo $caseInsensitiveSearch; ?>";
 		var filterContentHighlight = "<?php echo $filterContentHighlight; ?>";
 		var filterContentLimit = "<?php echo $filterContentLimit; ?>";
+		var scrollOnUpdate = "<?php echo $scrollOnUpdate; ?>";
 	</script>
 	<?php readfile('core/html/popup.html') ?>
 	<script src="core/js/main.js?v=<?php echo $cssVersion?>"></script>

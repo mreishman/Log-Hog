@@ -863,7 +863,6 @@ function update(data) {
 		}
 
 		toggleNotificationClearButton();
-		
 		var windows = Object.keys(logDisplayArray);
 		var lengthOfWindows = windows.length;
 		for(var i = 0; i < lengthOfWindows; i++)
@@ -880,7 +879,10 @@ function update(data) {
 						if(logs[currentPageId] !== lastLogs[currentPageId])
 						{
 							lastLogs[currentPageId] = logs[currentPageId];
-							document.getElementById("log"+i+"Td").scrollTop = $("#log"+i).outerHeight();
+							if(scrollOnUpdate === "true")
+							{
+								document.getElementById("log"+i+"Td").scrollTop = $("#log"+i).outerHeight();
+							}
 						}
 						break;
 					}
