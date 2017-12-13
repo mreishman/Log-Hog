@@ -131,13 +131,15 @@ elseif($loadingBarVersion === 5)
 $windowDisplayConfig = explode("x", $windowConfig);
 $logDisplayArray = "{";
 $logDisplay = "";
+$borderPadding = 0;
 for ($i=0; $i < $windowDisplayConfig[0]; $i++)
 {
 	$logDisplay .= "<tr>";
 	for ($j=0; $j < $windowDisplayConfig[1]; $j++)
 	{
+		$borderPadding += 2;
 		$counter = $j+($i*$windowDisplayConfig[1]);
-		$logDisplay .= "<td style=\"vertical-align: top; padding: 0;\" onclick=\"changeCurrentSelectWindow(".$counter.")\" class=\"logTdWidth\" > <span id=\"log".$counter."Td\"  class=\"logTrHeight\" style=\"overflow: auto; display: block; word-break: break-word; white-space: pre-wrap;\" > <div style=\"padding: 0\" id=\"log".$counter."\"  ></div>  </span> </td>";
+		$logDisplay .= "<td style=\"vertical-align: top; padding: 0; border: 1px solid white;\" onclick=\"changeCurrentSelectWindow(".$counter.")\" class=\"logTdWidth\" > <span id=\"log".$counter."Td\"  class=\"logTrHeight\" style=\"overflow: auto; display: block; word-break: break-word;\" > <div style=\"padding: 0; white-space: pre-wrap;\" id=\"log".$counter."\"  ></div>  </span> </td>";
 		$logDisplayArray .= " ".$counter.": null,";
 	}
 	$logDisplay .= "</tr>";
@@ -328,7 +330,8 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 		echo "var filterContentLinePadding = ".$filterContentLinePadding.";";
 		echo "var logDisplayArray = ".$logDisplayArray.";";
 		echo "var windowDisplayConfigRowCount = ".$windowDisplayConfig[0].";";
-		echo "var windowDisplayConfigColCount = ".$windowDisplayConfig[1].";"; 
+		echo "var windowDisplayConfigColCount = ".$windowDisplayConfig[1].";";
+		echo "var borderPadding = ".$borderPadding.";"; 
 		?>
 		var dontNotifyVersion = "<?php echo $dontNotifyVersion;?>";
 		var currentVersion = "<?php echo $configStatic['version'];?>";

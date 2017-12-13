@@ -1277,7 +1277,7 @@ function resize()
 		{
 			$(".logTdWidth").outerWidth(tdElementWidth);
 		}
-		var trElementHeight = (targetHeight/windowDisplayConfigRowCount).toFixed(4);
+		var trElementHeight = ((targetHeight-borderPadding)/windowDisplayConfigRowCount).toFixed(4);
 		if($(".logTrHeight").outerHeight() !== trElementHeight)
 		{
 			$(".logTrHeight").outerHeight(trElementHeight);
