@@ -893,6 +893,8 @@ function update(data) {
 		lastContentSearch = getFilterTextField();
 
 		refreshLastLogsArray();
+
+		resize();
 	}
 	catch(e)
 	{
@@ -1095,6 +1097,7 @@ function show(e, id)
 		toggleNotificationClearButton();
 		document.getElementById(id+"Count").innerHTML = "";
 		document.getElementById(id+"CountHidden").innerHTML = "";
+		resize();
 	}
 	catch(e)
 	{
@@ -1717,8 +1720,8 @@ $(document).ready(function()
 	progressBar = new ldBar("#progressBar");
 	resize();
 	updateProgressBar(10, "Generating File List");
-	window.onresize = resize;
-	window.onfocus = focus;
+	window.addEventListener('resize', resize);
+	window.addEventListener('focus', focus);
 
 	refreshAction();
 
