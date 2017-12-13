@@ -1044,14 +1044,7 @@ function getDiffLogAndLastLog(id)
 			}
 		}
 	}
-	if(lastLine === tmpTextLog[lengthOfArray-1])
-	{
-		return 0;
-	}
-	else
-	{
-		return "";
-	}
+	return lengthOfArray;
 }
 
 function makePretty(text) 
