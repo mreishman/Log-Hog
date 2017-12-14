@@ -68,7 +68,7 @@ body
 	color: <?php echo $logFontColor; ?>;
 }
 
-#menu
+#menu, .backgroundForSideBarMenu
 {
 	background: <?php echo $backgroundHeaderColor?>;
 	color: <?php echo $currentSelectedThemeColorValues['main']['main-1']['fontColor']?>;

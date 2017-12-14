@@ -139,7 +139,18 @@ for ($i=0; $i < $windowDisplayConfig[0]; $i++)
 	{
 		$borderPadding += 2;
 		$counter = $j+($i*$windowDisplayConfig[1]);
-		$logDisplay .= "<td style=\"vertical-align: top; padding: 0; border: 1px solid white;\" onclick=\"changeCurrentSelectWindow(".$counter.")\" class=\"logTdWidth\" > <span id=\"log".$counter."Td\"  class=\"logTrHeight\" style=\"overflow: auto; display: block; word-break: break-word;\" > <div style=\"padding: 0; white-space: pre-wrap;\" id=\"log".$counter."\"  ></div>  </span> </td>";
+		$logDisplay .= "<td style=\"vertical-align: top; padding: 0; border: 1px solid white;\" onclick=\"changeCurrentSelectWindow(".$counter.")\" class=\"logTdWidth\" >";
+		$logDisplay .= "<div class=\"backgroundForSideBarMenu\" style=\"";
+		if($bottomBarIndexShow == 'false')
+		{
+			$logDisplay .= "display: none;";
+		}
+		$logDisplay .= " width: 30px; float: left; display: inline; padding: 0px; \" id=\"titleContainer".$counter."\">	<div style=\"display: none;\" id=\"title".$counter."\"></div>";
+		$logDisplay .= "<a onclick=\"showInfo();\" style=\"cursor: pointer;\" > <img src=\"".$baseUrl."img/info.png\" height=\"20px;\" style=\"margin: 5px;\" ></a>"; 
+		$logDisplay .= "<a class=\"linkSmall\" onclick=\"clearLog();\" > CL</a>"; 
+		$logDisplay .= "<a onclick=\"deleteLogPopup();\" style=\"cursor: pointer;\" > <img src=\"".$baseUrl."img/trashCan.png\" height=\"20px;\" style=\"margin: 5px;\" ></a>"; 
+		$logDisplay .= "</div> <span id=\"log".$counter."Td\"  class=\"logTrHeight\" style=\"overflow: auto; display: block; word-break: break-word; float: right;\" > <div style=\"padding: 0; white-space: pre-wrap;\" id=\"log".$counter."\"  ></div> </span>";
+		$logDisplay .= "</td>";
 		$logDisplayArray .= " ".$counter.": null,";
 	}
 	$logDisplay .= "</tr>";
@@ -267,31 +278,6 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 				<span id="{{id}}CountHidden" style="display: none;"></span>
 			</a>
 		</div>
-	</div>
-	
-	<div
-		class="backgroundForMenus" 
-		style=" 
-		<?php
-		if($bottomBarIndexShow == 'false')
-		{
-			echo 'display: none;';
-		}
-		?>"
-		id="titleContainer"
-	>
-		<div id="title">
-			&nbsp;
-		</div>
-		&nbsp;&nbsp;
-		<form style="display: inline-block; float: right;" >
-			<a class="linkSmall" onclick="clearLog();" >
-				Clear Log
-			</a>
-			<a onclick="deleteLogPopup();" style="cursor: pointer;" >
-				<img src="<?php echo $baseUrl;?>img/trashCan.png" height="15px;" style="margin-bottom: -3px;" >
-			</a>
-		</form>
 	</div>
 	<form id="settingsInstallUpdate" action="update/updater.php" method="post" style="display: none"></form>
 	<script>

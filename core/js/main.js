@@ -650,7 +650,7 @@ function update(data) {
 							{
 								if(id === currentPage)
 								{
-									$("#title").html(titles[id]);
+									$("#title"+currentSelectWindow).html(titles[id]);
 								}
 							}
 
@@ -1092,7 +1092,7 @@ function show(e, id)
 				}
 			}
 		}
-		$("#title").html(titles[id]);
+		$("#title"+currentSelectWindow).html(titles[id]);
 		document.getElementById("log"+currentSelectWindow+"Td").scrollTop = $("#log"+currentSelectWindow).outerHeight();
 		toggleNotificationClearButton();
 		document.getElementById(id+"Count").innerHTML = "";
@@ -1257,11 +1257,37 @@ function getFilterTextField()
 	return filterTextField;
 }
 
+function getScrollbarWidth() {
+    var outer = document.createElement("div");
+    outer.style.visibility = "hidden";
+    outer.style.width = "100px";
+    outer.style.msOverflowStyle = "scrollbar"; // needed for WinJS apps
+
+    document.body.appendChild(outer);
+
+    var widthNoScroll = outer.offsetWidth;
+    // force scrollbars
+    outer.style.overflow = "scroll";
+
+    // add innerdiv
+    var inner = document.createElement("div");
+    inner.style.width = "100%";
+    outer.appendChild(inner);        
+
+    var widthWithScroll = inner.offsetWidth;
+
+    // remove divs
+    outer.parentNode.removeChild(outer);
+
+    return widthNoScroll - widthWithScroll;
+}
+
 function resize() 
 {
 	try
 	{
-		var targetHeight = window.innerHeight - $("#menu").outerHeight() - $("#title").outerHeight();
+		var targetHeight = window.innerHeight - $("#menu").outerHeight();
+		var sideBarWidth = ($("#titleContainer0").outerWidth()+getScrollbarWidth())*1.1;
 		var targetWidth = window.innerWidth;
 		if(enablePollTimeLogging !== "false")
 		{
@@ -1271,19 +1297,15 @@ function resize()
 		{
 			$("#main").outerHeight(targetHeight);
 		}
-		if($("#main").css("bottom") !== $("#title").outerHeight() + "px")
-		{
-			$("#main").css("bottom", $("#title").outerHeight() + "px");
-		}
 		var tdElementWidth = (targetWidth/windowDisplayConfigColCount).toFixed(4);
-		if($(".logTdWidth").outerWidth() !== tdElementWidth)
-		{
-			$(".logTdWidth").outerWidth(tdElementWidth);
-		}
 		var trElementHeight = ((targetHeight-borderPadding)/windowDisplayConfigRowCount).toFixed(4);
-		if($(".logTrHeight").outerHeight() !== trElementHeight)
+		var trElementWidth = ((targetWidth/windowDisplayConfigColCount)-sideBarWidth).toFixed(4);
+		if(($(".logTrHeight").outerHeight() !== trElementHeight) || ($(".logTrHeight").outerWidth() !== trElementWidth) || ($(".logTdWidth").outerWidth() !== tdElementWidth) || ($(".backgroundForSideBarMenu").outerHeight() !== trElementHeight))
 		{
 			$(".logTrHeight").outerHeight(trElementHeight);
+			$(".logTrHeight").outerWidth(trElementWidth);
+			$(".logTdWidth").outerWidth(tdElementWidth);
+			$(".backgroundForSideBarMenu").outerHeight(trElementHeight)
 		}
 	}
 	catch(e)
