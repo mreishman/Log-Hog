@@ -285,11 +285,11 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 		</div>
 		&nbsp;&nbsp;
 		<form style="display: inline-block; float: right;" >
-			<a class="linkSmall" onclick="clearLog()" >
+			<a class="linkSmall" onclick="clearLog();" >
 				Clear Log
 			</a>
-			<a class="linkSmall" onclick="deleteLogPopup()" >
-				Delete Log
+			<a onclick="deleteLogPopup();" style="cursor: pointer;" >
+				<img src="<?php echo $baseUrl;?>img/trashCan.png" height="15px;" style="margin-bottom: -3px;" >
 			</a>
 		</form>
 	</div>
