@@ -142,6 +142,11 @@ div {
 	line-height: 2em;
 }
 
+.backgroundForSideBarMenu
+{
+	background-color: #ccc;
+}
+
 #title{
 	display: inline-block;
 }

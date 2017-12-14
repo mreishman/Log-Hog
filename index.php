@@ -147,8 +147,8 @@ for ($i=0; $i < $windowDisplayConfig[0]; $i++)
 		}
 		$logDisplay .= " width: 30px; float: left; display: inline; padding: 0px; \" id=\"titleContainer".$counter."\">	<div style=\"display: none;\" id=\"title".$counter."\"></div>";
 		$logDisplay .= "<a onclick=\"showInfo();\" style=\"cursor: pointer;\" > <img src=\"".$baseUrl."img/info.png\" height=\"20px;\" style=\"margin: 5px;\" ></a>"; 
-		$logDisplay .= "<a class=\"linkSmall\" onclick=\"clearLog();\" > CL</a>"; 
-		$logDisplay .= "<a onclick=\"deleteLogPopup();\" style=\"cursor: pointer;\" > <img src=\"".$baseUrl."img/trashCan.png\" height=\"20px;\" style=\"margin: 5px;\" ></a>"; 
+		$logDisplay .= "<a title=\"Clear Log\" class=\"linkSmall\" onclick=\"clearLog();\" > CL</a>"; 
+		$logDisplay .= "<a title=\"Delete Log\" onclick=\"deleteLogPopup();\" style=\"cursor: pointer;\" > <img src=\"".$baseUrl."img/trashCan.png\" height=\"20px;\" style=\"margin: 5px;\" ></a>"; 
 		$logDisplay .= "</div> <span id=\"log".$counter."Td\"  class=\"logTrHeight\" style=\"overflow: auto; display: block; word-break: break-word; float: right;\" > <div style=\"padding: 0; white-space: pre-wrap;\" id=\"log".$counter."\"  ></div> </span>";
 		$logDisplay .= "</td>";
 		$logDisplayArray .= " ".$counter.": null,";
