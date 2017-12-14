@@ -1013,7 +1013,7 @@ function getDiffLogAndLastLog(id)
 	}
 	else if(lengthOfLastArray > lengthOfArray)
 	{
-		return "";
+		return 0;
 	}
 
 	var lastLine = tmpTextLast[lengthOfLastArray-1];
