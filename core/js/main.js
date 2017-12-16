@@ -1073,6 +1073,7 @@ function show(e, id)
 	{
 		$(e).siblings().removeClass("active");		
 		$("#log"+currentSelectWindow).html(makePretty(logs[id]));
+		$("#"+id+"CurrentWindow").html(""+(currentSelectWindow+1)+". ");
 		currentPage = id;
 		logDisplayArray[currentSelectWindow] = id;
 		var windows = Object.keys(logDisplayArray);
@@ -1734,6 +1735,11 @@ function changeSearchplaceholder()
 function changeCurrentSelectWindow(newSelectWindow)
 {
 	currentSelectWindow = newSelectWindow;
+}
+
+function showInfo(idNum)
+{
+
 }
 
 $(document).ready(function()
