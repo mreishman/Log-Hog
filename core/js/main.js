@@ -1456,12 +1456,12 @@ function isPageHidden()
 	}
 }
 
-function clearLog()
+function clearLog(idNum)
 {
 	try
 	{
 		var urlForSend = "core/php/clearLog.php?format=json";
-		var title = filterTitle(document.getElementById("title").innerHTML);
+		var title = filterTitle(document.getElementById("title"+idNum).innerHTML);
 		var data = {file: title};
 		$.ajax({
 				url: urlForSend,
@@ -1504,19 +1504,19 @@ function deleteAction()
 	}
 }
 
-function deleteLogPopup()
+function deleteLogPopup(idNum)
 {
 	try
 	{
+		var title = filterTitle(document.getElementById("title"+idNum).innerHTML);
 		if(popupSettingsArray.deleteLog == "true")
 		{
 			showPopup();
-			var title = filterTitle(document.getElementById("title").innerHTML);
-			document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class=\"settingsHeader\" >Are you sure you want to delete this log?</div><br><div style=\"width:100%;text-align:center;padding-left:10px;padding-right:10px;\">"+title+"</div><div><div class=\"link\" onclick=\"deleteLog();hidePopup();\" style=\"margin-left:125px; margin-right:50px;margin-top:35px;\">Yes</div><div onclick=\"hidePopup();\" class=\"link\">No</div></div>";
+			document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class=\"settingsHeader\" >Are you sure you want to delete this log?</div><br><div style=\"width:100%;text-align:center;padding-left:10px;padding-right:10px;\">"+title+"</div><div><div class=\"link\" onclick=\"deleteLog('"+title+"');hidePopup();\" style=\"margin-left:125px; margin-right:50px;margin-top:35px;\">Yes</div><div onclick=\"hidePopup();\" class=\"link\">No</div></div>";
 		}
 		else
 		{
-			deleteLog();
+			deleteLog(title);
 		}
 	}
 	catch(e)
@@ -1525,12 +1525,11 @@ function deleteLogPopup()
 	}
 }
 
-function deleteLog()
+function deleteLog(title)
 {
 	try
 	{
 		var urlForSend = "core/php/deleteLog.php?format=json";
-		var title = filterTitle(document.getElementById("title").innerHTML);
 		title = title.replace(/\s/g, "");
 		var data = {file: title};
 		name = title;
