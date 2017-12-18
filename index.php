@@ -1,6 +1,6 @@
 <?php
 require_once('core/php/commonFunctions.php');
-
+setCookieRedirect();
 $baseUrl = "core/";
 if(file_exists('local/layout.php'))
 {
