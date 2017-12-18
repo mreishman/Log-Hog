@@ -386,9 +386,25 @@ function convertToSize($TrimSize, $logSizeLimit)
 
 function getCookieRedirect()
 {
+	$urlRedirectValue = "";
 	if(isset($_COOKIE["locationRedirectLogHogUpgrade"]) && $_COOKIE["locationRedirectLogHogUpgrade"] !== "")
 	{
-		return $_COOKIE["locationRedirectLogHogUpgrade"];
+		$urlRedirectValue =  $_COOKIE["locationRedirectLogHogUpgrade"];
 	}
-	return $_SERVER['HTTP_REFERER'];
+	if($urlRedirectValue !== null && $urlRedirectValue !== "" && strpos($urlRedirectValue, "settingsSaveAjax"))
+	{
+		return $urlRedirectValue;
+	}
+	$urlRedirectValue = $_SERVER['HTTP_REFERER'];
+	return $urlRedirectValue;	
+}
+
+function setCookieRedirect()
+{
+	$actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+	while (isset($_COOKIE["locationRedirectLogHogUpgrade"]))
+	{
+		unset($_COOKIE["locationRedirectLogHogUpgrade"]);
+	}
+	setcookie("locationRedirectLogHogUpgrade",$actual_link);
 }
