@@ -127,6 +127,12 @@ if(!($windowDisplayConfig[0] > 1 || $windowDisplayConfig[1] > 1)): ?>
 	display: none;
 }
 
+<?php else: ?>
+
+.currentWindowNum
+{
+	text-align: center;
+}
 <?php endif; ?>
 
 .highlight
