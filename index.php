@@ -147,7 +147,16 @@ for ($i=0; $i < $windowDisplayConfig[0]; $i++)
 		}
 		$logDisplay .= " width: 30px; float: left; display: inline; padding: 0px; \" id=\"titleContainer".$counter."\">";
 		$logDisplay .= "<div class=\"popupForInfo\" style=\"display: none;\" id=\"title".$counter."\"></div>";
-		$logDisplay .= "<p class=\"currentWindowNum\" >".($counter+1)."</p>";
+		$logDisplay .= "<p id=\"numSelectIndecatorForWindow".$counter."\"  class=\" ";
+		if($counter === 0)
+		{
+			$logDisplay .= "currentWindowNumSelected";
+		}
+		else
+		{
+			$logDisplay .= "sidebarCurrentWindowNum";
+		}
+		$logDisplay .= " \" >".($counter+1)."</p>";
 		$logDisplay .= "<a title=\"More Info\" onclick=\"showInfo('".$counter."');\" style=\"cursor: pointer;\" > <img src=\"".$baseUrl."img/info.png\" height=\"20px;\" style=\"margin: 5px;\" ></a>"; 
 		$logDisplay .= "<a title=\"Clear Log\"  onclick=\"clearLog('".$counter."');\" style=\"cursor: pointer;\" >  <img src=\"".$baseUrl."img/eraser.png\" height=\"20px;\" style=\"margin: 5px;\" ></a>"; 
 		$logDisplay .= "<a title=\"Delete Log\" onclick=\"deleteLogPopup('".$counter."');\" style=\"cursor: pointer;\" > <img src=\"".$baseUrl."img/trashCan.png\" height=\"20px;\" style=\"margin: 5px;\" ></a>"; 

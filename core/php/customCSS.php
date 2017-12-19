@@ -132,6 +132,7 @@ if(!($windowDisplayConfig[0] > 1 || $windowDisplayConfig[1] > 1)): ?>
 .currentWindowNum
 {
 	text-align: center;
+	color: <?php echo $currentSelectedThemeColorValues['highlight']['highlight-1']['fontColor']?>;
 }
 <?php endif; ?>
 

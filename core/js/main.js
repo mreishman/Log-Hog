@@ -1734,7 +1734,9 @@ function changeSearchplaceholder()
 
 function changeCurrentSelectWindow(newSelectWindow)
 {
+	$("#numSelectIndecatorForWindow"+currentSelectWindow).removeClass("currentWindowNumSelected").addClass("sidebarCurrentWindowNum");
 	currentSelectWindow = newSelectWindow;
+	$("#numSelectIndecatorForWindow"+newSelectWindow).removeClass("sidebarCurrentWindowNum").addClass("currentWindowNumSelected");
 }
 
 function showInfo(idNum)
