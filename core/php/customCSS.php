@@ -127,6 +127,11 @@ if(!($windowDisplayConfig[0] > 1 || $windowDisplayConfig[1] > 1)): ?>
 	display: none;
 }
 
+.currentWindowNumSelected
+{
+	display: none;
+}
+
 <?php else: ?>
 
 .currentWindowNum

@@ -1288,7 +1288,6 @@ function resize()
 	try
 	{
 		var targetHeight = window.innerHeight - $("#menu").outerHeight();
-		var sideBarWidth = ($("#titleContainer0").outerWidth()+getScrollbarWidth())*1.1;
 		var targetWidth = window.innerWidth;
 		if(enablePollTimeLogging !== "false")
 		{
@@ -1300,11 +1299,10 @@ function resize()
 		}
 		var tdElementWidth = (targetWidth/windowDisplayConfigColCount).toFixed(4);
 		var trElementHeight = ((targetHeight-borderPadding)/windowDisplayConfigRowCount).toFixed(4);
-		var trElementWidth = ((targetWidth/windowDisplayConfigColCount)-sideBarWidth).toFixed(4);
-		if(($(".logTrHeight").outerHeight() !== trElementHeight) || ($(".logTrHeight").outerWidth() !== trElementWidth) || ($(".logTdWidth").outerWidth() !== tdElementWidth) || ($(".backgroundForSideBarMenu").outerHeight() !== trElementHeight))
+		if(($(".logTrHeight").outerHeight() !== trElementHeight)|| ($(".logTdWidth").outerWidth() !== tdElementWidth) || ($(".backgroundForSideBarMenu").outerHeight() !== trElementHeight))
 		{
 			$(".logTrHeight").outerHeight(trElementHeight);
-			$(".logTrHeight").outerWidth(trElementWidth);
+			
 			$(".logTdWidth").outerWidth(tdElementWidth);
 			$(".backgroundForSideBarMenu").outerHeight(trElementHeight)
 		}

@@ -140,6 +140,7 @@ for ($i=0; $i < $windowDisplayConfig[0]; $i++)
 		$borderPadding += 2;
 		$counter = $j+($i*$windowDisplayConfig[1]);
 		$logDisplay .= "<td style=\"vertical-align: top; padding: 0; border: 1px solid white;\" onclick=\"changeCurrentSelectWindow(".$counter.")\" class=\"logTdWidth\" >";
+		$logDisplay .= "<table style=\"margin: 0px;padding: 0px; border-spacing: 0px; width:100%;\" ><tr><td style=\"padding: 0; width: 30px;\" >";
 		$logDisplay .= "<div class=\"backgroundForSideBarMenu\" style=\"";
 		if($bottomBarIndexShow == 'false')
 		{
@@ -160,7 +161,10 @@ for ($i=0; $i < $windowDisplayConfig[0]; $i++)
 		$logDisplay .= "<a title=\"More Info\" onclick=\"showInfo('".$counter."');\" style=\"cursor: pointer;\" > <img src=\"".$baseUrl."img/info.png\" height=\"20px;\" style=\"margin: 5px;\" ></a>"; 
 		$logDisplay .= "<a title=\"Clear Log\"  onclick=\"clearLog('".$counter."');\" style=\"cursor: pointer;\" >  <img src=\"".$baseUrl."img/eraser.png\" height=\"20px;\" style=\"margin: 5px;\" ></a>"; 
 		$logDisplay .= "<a title=\"Delete Log\" onclick=\"deleteLogPopup('".$counter."');\" style=\"cursor: pointer;\" > <img src=\"".$baseUrl."img/trashCan.png\" height=\"20px;\" style=\"margin: 5px;\" ></a>"; 
-		$logDisplay .= "</div> <span id=\"log".$counter."Td\"  class=\"logTrHeight\" style=\"overflow: auto; display: block; word-break: break-word; float: right;\" > <div style=\"padding: 0; white-space: pre-wrap;\" id=\"log".$counter."\"  ></div> </span>";
+		$logDisplay .= "</div> ";
+		$logDisplay .= "</td><td style=\"padding: 0;\" >";
+		$logDisplay .= " <span id=\"log".$counter."Td\"  class=\"logTrHeight\" style=\"overflow: auto; display: block; word-break: break-word;\" > <div style=\"padding: 0; white-space: pre-wrap;\" id=\"log".$counter."\"  ></div> </span>";
+		$logDisplay .= "</td></tr></table>";
 		$logDisplay .= "</td>";
 		$logDisplayArray .= " ".$counter.": null,";
 	}
