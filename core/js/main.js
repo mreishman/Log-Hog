@@ -1739,7 +1739,14 @@ function changeCurrentSelectWindow(newSelectWindow)
 
 function showInfo(idNum)
 {
-
+	if(document.getElementById("title"+idNum).style.display === "none")
+	{
+		document.getElementById("title"+idNum).style.display = "block";
+	}
+	else
+	{
+		document.getElementById("title"+idNum).style.display = "none";
+	}
 }
 
 $(document).ready(function()

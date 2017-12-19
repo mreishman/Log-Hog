@@ -147,6 +147,17 @@ div {
 	background-color: #ccc;
 }
 
+.popupForInfo
+{
+	background-color: #CCC;
+	z-index: 10;
+	position: absolute;
+	left: 31px;
+	top: 5px;
+	border: 1px solid white;
+	color: black;
+}
+
 #title{
 	display: inline-block;
 }
