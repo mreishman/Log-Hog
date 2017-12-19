@@ -406,5 +406,5 @@ function setCookieRedirect()
 	{
 		unset($_COOKIE["locationRedirectLogHogUpgrade"]);
 	}
-	setcookie("locationRedirectLogHogUpgrade",$actual_link);
+	setcookie("locationRedirectLogHogUpgrade",$actual_link, time()+3600);
 }
