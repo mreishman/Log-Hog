@@ -1,19 +1,19 @@
 <?php
-$baseUrl = "core/";
-if(file_exists('local/layout.php'))
-{
-	$baseUrl = "local/";
+//$baseUrl = "core/";
+//if(file_exists('local/layout.php'))
+//{
+//	$baseUrl = "local/";
 	//there is custom information, use this
-	require_once('local/layout.php');
-	$baseUrl .= $currentSelectedTheme."/";
-}
-require_once($baseUrl.'conf/config.php');
-require_once('core/conf/config.php');
+//	require_once('local/layout.php');
+//	$baseUrl .= $currentSelectedTheme."/";
+//}
+//require_once($baseUrl.'conf/config.php');
+//require_once('core/conf/config.php');
 require_once('core/php/configStatic.php');
 require_once('core/php/commonFunctions.php');
 require_once('core/php/template/listOfFiles.php');
 
-$error = "";
+$error = 0;
 if(isset($_GET["error"]))
 {
     $error = $_GET["error"];
@@ -23,6 +23,34 @@ $page = "";
 if(isset($_GET["page"]))
 {
     $page = $_GET["page"];
+}
+
+$errorArray = array(
+    0   =>  array(
+        "firstMessage"      =>  "General Error",
+        "secondMessage"     =>  "A general error occured, or you navigated to this page directly."
+    ),
+    1   =>  array(
+        "firstMessage"      =>  "Watch-List Config Error",
+        "secondMessage"     =>  "Please remove all reference of double backslash (\\\\) from the watchList var in config.php (Local/default/conf/config.php)"
+    ),
+    550   =>  array(
+        "firstMessage"      =>  "File Permission Error",
+        "secondMessage"     =>  "Make sure the file permissions are set correctly for all of the files within loghog."
+    ),
+    1072   =>  array(
+        "firstMessage"      =>  "File Is Readable Error",
+        "secondMessage"     =>  "This error occured when a file tried to read another file. Please ensure that the file permissions of the file allow it to be read / read other files."
+    ),
+    1073   =>  array(
+        "firstMessage"      =>  "File Is Writable Error",
+        "secondMessage"     =>  "This error occured when a file tried to write to it. Please ensure that the file permissions of the file allow it to be written to, and that the file trying to write has permission to do so."
+    )
+);
+
+if(!isset($errorArray[$error]))
+{
+    $error = 0;
 }
 
 ?>
@@ -66,28 +94,8 @@ if(isset($_GET["page"]))
     <tr class="tableRow">
         <td width="33%">
             <h3> More Info: </h3>
-            <?php
-            if($error == 550)
-            {
-                echo "<h2>File Permission Error</h2>";
-                echo "Make sure the file permissions are set correctly for all of the files within loghog.";
-            }
-            elseif($error == 1073)
-            {
-                echo "<h2>File Is Writable Error</h2>";
-                echo "This error occured when a file tried to write to it. Please ensure that the file permissions of the file allow it to be written to, and that the file trying to write has permission to do so.";
-            }
-            elseif($error == 1072)
-            {
-                echo "<h2>File Is Readable Error</h2>";
-                echo "This error occured when a file tried to read another file. Please ensure that the file permissions of the file allow it to be read / read other files.";
-            }
-            else
-            {
-                echo "<h2>General Error</h2>";
-                echo "A general error occured, or you navigated to this page directly.";
-            }
-            ?>
+            <h2><?php echo $errorArray[$error]["firstMessage"]; ?></h2>
+            <?php echo $errorArray[$error]["secondMessage"]; ?>
             <h2> Version: </h2>
             <?php echo $configStatic['version']; ?>
         </td>
@@ -99,9 +107,6 @@ if(isset($_GET["page"]))
                 </li>
                 <li>
                     <a onclick="revertPopup();" class="link">Revert Version</a>
-                </li>
-                <li>
-                    <a onclick="resetUpdateNotification();" class="link">Reset Update Notification</a>
                 </li>
                 <li>
                     <a class="link" href="editFiles.php" >View Files</a>

@@ -1,5 +1,10 @@
 <?php
+require_once('core/php/errorCheckFunctions.php');
+checkIfFilesAreReadable(
+	array("core/conf/config.php","core/php/configStatic.php","core/php/loadVars.php","core/php/updateCheck.php","core/js/jquery.js","core/template/loading-bar.css","core/js/loading-bar.min.js","core/php/customCSS.php","core/html/popup.html","core/js/main.js","core/js/rightClickJS.js","core/js/update.js","core/php/commonFunctions.php"),
+	 "");
 require_once('core/php/commonFunctions.php');
+
 setCookieRedirect();
 $baseUrl = "core/";
 if(file_exists('local/layout.php'))
