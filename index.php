@@ -306,6 +306,10 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 			{
 				Rightclick_ID_list.push('gear');
 			}
+			if(document.getElementById('aboutImage'))
+			{
+				Rightclick_ID_list.push('aboutImage');
+			}
 			if(document.getElementById('deleteImage'))
 			{
 				Rightclick_ID_list.push('deleteImage');

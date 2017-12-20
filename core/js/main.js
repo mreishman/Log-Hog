@@ -1728,6 +1728,7 @@ function changeSearchplaceholder()
 	var selectListForFilter = document.getElementsByName("searchType")[0];
 	var selectedListFilterType = selectListForFilter.options[selectListForFilter.selectedIndex].value;
 	document.getElementById("searchFieldInput").placeholder = "Filter "+selectedListFilterType;
+	update(arrayOfDataMain);
 }
 
 function changeCurrentSelectWindow(newSelectWindow)
