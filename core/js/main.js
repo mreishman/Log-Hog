@@ -1484,6 +1484,7 @@ function deleteAction()
 {
 	try
 	{
+		//Clear All Log Function (not delete actual file, just contents)
 		var urlForSend = "core/php/clearAllLogs.php?format=json";
 		var data = "";
 		$.ajax({

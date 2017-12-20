@@ -218,8 +218,8 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 				<img id="deleteImage" class="menuImage" src="<?php echo $baseUrl; ?>img/trashCanMulti.png" height="30px">
 			</div>
 			<?php else: ?>
-			<div onclick="clearLog();" class="menuImageDiv">
-				<img id="deleteImage" class="menuImage" src="<?php echo $baseUrl; ?>img/trashCan.png" height="30px">
+			<div onclick="clearLog(currentSelectWindow);" class="menuImageDiv">
+				<img id="deleteImage" class="menuImage" src="<?php echo $baseUrl; ?>img/eraser.png" height="30px">
 			</div>
 			<?php endif; ?>
 			<?php if($locationForMonitorIndex != ""): ?>
