@@ -1,8 +1,20 @@
 <?php
 
+function testErrorBase()
+{
+	$tmpFuncBaseURL = "";
+	$boolTestBaseURL = file_exists($tmpFuncBaseURL."error.php");
+	while(!$boolTestBaseURL)
+	{
+		$tmpFuncBaseURL .= "../";
+		$boolTestBaseURL = file_exists($tmpFuncBaseURL."error.php");
+	}
+	return $tmpFuncBaseURL;
+}
+
 function checkIfFilesAreReadable($arrayOfFiles, $urlPath, $currentFile)
 {
-	$checkIfFilesAreReadableBaseUrl = baseURL();
+	$checkIfFilesAreReadableBaseUrl = testErrorBase();
 	foreach ($arrayOfFiles as $file)
 	{
 		if(!is_readable($checkIfFilesAreReadableBaseUrl.$file))
@@ -14,7 +26,7 @@ function checkIfFilesAreReadable($arrayOfFiles, $urlPath, $currentFile)
 
 function checkIfFilesAreWritable($arrayOfFiles, $urlPath, $currentFile)
 {
-	$checkIfFilesAreWritableBaseUrl = baseURL();
+	$checkIfFilesAreWritableBaseUrl = testErrorBase();
 	foreach ($arrayOfFiles as $file)
 	{
 		if(!is_writable($checkIfFilesAreWritableBaseUrl.$file))
@@ -26,7 +38,7 @@ function checkIfFilesAreWritable($arrayOfFiles, $urlPath, $currentFile)
 
 function checkIfFilesExist($arrayOfFiles, $urlPath, $currentFile)
 {
-	$checkIfFilesAreThereBaseUrl = baseURL();
+	$checkIfFilesAreThereBaseUrl = testErrorBase();
 	foreach ($arrayOfFiles as $file)
 	{
 		if(!file_exists($checkIfFilesAreThereBaseUrl.$file))
@@ -58,7 +70,7 @@ function fileMissingError($file, $urlPath, $currentFile)
 
 function throwSetupError($urlPath)
 {
-	echoErrorJavaScript($urlPath, "An error occured durring setup", 2)
+	echoErrorJavaScript($urlPath, "An error occured durring setup", 2);
 }
 
 function echoErrorJavaScript($urlPath, $mainMessage, $errorNumber)

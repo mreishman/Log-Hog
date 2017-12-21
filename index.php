@@ -2,11 +2,11 @@
 require_once('core/php/errorCheckFunctions.php');
 $currentPage = "index.php";
 checkIfFilesExist(
-	array("core/conf/config.php","core/php/configStatic.php","core/php/loadVars.php","core/php/updateCheck.php","core/js/jquery.js","core/template/loading-bar.css","core/js/loading-bar.min.js","core/php/customCSS.php","core/html/popup.html","core/js/main.js","core/js/rightClickJS.js","core/js/update.js","core/php/commonFunctions.php","local/layout.php","setup/setupProcessFile.php"),
+	array("core/conf/config.php","core/php/configStatic.php","core/php/loadVars.php","core/php/updateCheck.php","core/js/jquery.js","core/template/loading-bar.css","core/js/loading-bar.min.js","core/php/customCSS.php","core/html/popup.html","core/js/main.js","core/js/rightClickJS.js","core/js/update.js","core/php/commonFunctions.php","local/layout.php","setup/setupProcessFile.php","error.php"),
 	 "",
 	 $currentPage);
 checkIfFilesAreReadable(
-	array("core/conf/config.php","core/php/configStatic.php","core/php/loadVars.php","core/php/updateCheck.php","core/js/jquery.js","core/template/loading-bar.css","core/js/loading-bar.min.js","core/php/customCSS.php","core/html/popup.html","core/js/main.js","core/js/rightClickJS.js","core/js/update.js","core/php/commonFunctions.php","local/layout.php","setup/setupProcessFile.php"),
+	array("core/conf/config.php","core/php/configStatic.php","core/php/loadVars.php","core/php/updateCheck.php","core/js/jquery.js","core/template/loading-bar.css","core/js/loading-bar.min.js","core/php/customCSS.php","core/html/popup.html","core/js/main.js","core/js/rightClickJS.js","core/js/update.js","core/php/commonFunctions.php","local/layout.php","setup/setupProcessFile.php","error.php"),
 	 "",
 	 $currentPage);
 require_once('core/php/commonFunctions.php');

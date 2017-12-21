@@ -1,15 +1,12 @@
 <?php
-//$baseUrl = "core/";
-//if(file_exists('local/layout.php'))
-//{
-//	$baseUrl = "local/";
-	//there is custom information, use this
-//	require_once('local/layout.php');
-//	$baseUrl .= $currentSelectedTheme."/";
-//}
-//require_once($baseUrl.'conf/config.php');
-//require_once('core/conf/config.php');
-require_once('core/php/configStatic.php');
+
+$version = "Unknown - Error reading core/php/configStatic.php";
+if(file_exists('core/php/configStatic.php'))
+{
+    require_once('core/php/configStatic.php');
+    $version = $configStatic['version'];
+}
+
 require_once('core/php/commonFunctions.php');
 require_once('core/php/template/listOfFiles.php');
 
@@ -105,7 +102,7 @@ if(!isset($errorArray[$error]))
             <h2><?php echo $errorArray[$error]["firstMessage"]; ?></h2>
             <?php echo $errorArray[$error]["secondMessage"]; ?>
             <h2> Version: </h2>
-            <?php echo $configStatic['version']; ?>
+            <?php echo $version; ?>
         </td>
         <td width="33%">
             <h3> Actions: </h3>
@@ -118,6 +115,9 @@ if(!isset($errorArray[$error]))
                 </li>
                 <li>
                     <a class="link" href="editFiles.php" >View Files</a>
+                </li>
+                <li>
+                    <a onclick="resetSettingsPopup();" class="link">Reset Settings back to Default</a>
                 </li>
             </ul>
         </td>

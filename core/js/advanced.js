@@ -2,12 +2,6 @@ var timeoutVar;
 var titleOfPage = "Advanced";
 var popupHtml = "";
 
-function resetSettingsPopup()
-{
-	showPopup();
-	document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Reset Settings?</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Are you sure you want to reset all settings back to defaults?</div><div class='link' onclick='submitResetSettings();' style='margin-left:125px; margin-right:50px;margin-top:25px;'>Yes</div><div onclick='hidePopup();' class='link'>No</div></div>";
-}
-
 function revertPopup()
 {
 	showPopup();
@@ -17,11 +11,6 @@ function revertPopup()
 function submitRevert()
 {
 	document.getElementById("revertForm").submit();
-}
-
-function submitResetSettings()
-{
-	document.getElementById("resetSettings").submit();
 }
 
 function resetUpdateNotification()

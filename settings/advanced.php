@@ -36,6 +36,7 @@ $countConfig--;
 	<link rel="icon" type="image/png" href="../core/img/favicon.png" />
 	<script src="../core/js/jquery.js"></script>
 	<script src="../core/js/advanced.js?v=<?php echo $cssVersion;?>"></script>
+	<script src="../core/js/resetSettingsJs.js?v=<?php echo $cssVersion;?>"></script>
 </head>
 <body>
 	<?php require_once('header.php'); ?>
@@ -346,11 +347,6 @@ $countConfig--;
 		</form>
 	</div>
 	<?php readfile('../core/html/popup.html') ?>
-	<form id="resetSettings" action="../core/php/settingsSave.php" method="post">
-		<select style="display: none;" name="resetConfigValuesBackToDefault">
-				<option selected value="true">True</option>
-		</select>
-	</form>
 	<form id="devAdvanced2" action="../core/php/settingsSaveConfigStatic.php" method="post">
 		<input type="hidden" style="width: 400px;"  name="newestVersion" value="<?php echo $configStatic['version'];?>" > 
 	</form>

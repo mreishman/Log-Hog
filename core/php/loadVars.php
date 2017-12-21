@@ -19,6 +19,37 @@ function forEachAddVars($variable)
 	return $returnText;
 }
 
+function checkIfShouldLoad($loadCustomConfigVars, $key)
+{
+	if(!$loadCustomConfigVars)
+	{
+		$type = $_POST['resetConfigValuesBackToDefault'];
+		if($type === "all")
+		{
+			return false;
+		}
+		
+		if($type === "justWatch")
+		{
+			if($key === "watchList")
+			{
+				return false;
+			}
+			return true;
+		}
+		
+		if($type === "allButWatch")
+		{
+			if($key !== "watchList")
+			{
+				return false;
+			}
+			return true;
+		}
+	}
+	return true;
+}
+
 $varToIndexDir = "";
 $countOfSlash = 0;
 while($countOfSlash < 20 && !file_exists($varToIndexDir."error.php"))
@@ -98,7 +129,7 @@ foreach ($defaultConfig as $key => $value)
 	{
 		$$key = $_POST[$key];
 	}
-	elseif(array_key_exists($key, $config) && $loadCustomConfigVars)
+	elseif(array_key_exists($key, $config) && checkIfShouldLoad($loadCustomConfigVars, $key))
 	{
 		$$key = $config[$key];
 	}
