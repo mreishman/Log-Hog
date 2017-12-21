@@ -1,13 +1,14 @@
 <?php
 
 $version = "Unknown - Could not find core/php/configStatic.php";
-if(file_exists('core/php/configStatic.php'))
+$file = 'core/php/configStatic.php';
+if(file_exists($file))
 {
-    if(is_readable('core/php/configStatic.php'))
+    if(is_readable($file))
     {
         try
         {
-            require_once('core/php/configStatic.php');
+            require_once($file);
             if(isset($configStatic['version']))
             {
                 $version = $configStatic['version'];
@@ -29,11 +30,12 @@ if(file_exists('core/php/configStatic.php'))
 }
 
 $commonFunctionsLoaded = false;
-if(file_exists('core/php/commonFunctions.php'))
+$file = 'core/php/commonFunctions.php';
+if(file_exists($file))
 {
     try
     {
-        require_once('core/php/commonFunctions.php');
+        require_once($file);
         $commonFunctionsLoaded = true;
     }
     catch (Exception $e)
@@ -50,13 +52,14 @@ $fileNameArray = array(
         "path"      =>  ""
     )
 );
-if(file_exists('core/php/template/listOfFiles.php'))
+$file = 'core/php/template/listOfFiles.php';
+if(file_exists($file))
 {
-    if(is_readable('core/php/template/listOfFiles.php'))
+    if(is_readable($file))
     {
         try
         {
-            require_once('core/php/template/listOfFiles.php');
+            require_once($file);
         }
         catch (Exception $e)
         {
@@ -127,6 +130,16 @@ if(!isset($errorArray[$error]))
     $error = 0;
 }
 
+$jsForResetToDefaultLoaded = false;
+$file = 'core/js/resetSettingsJs.js';
+if(file_exists($file))
+{
+    if(is_readable($file))
+    {
+        $jsForResetToDefaultLoaded = true;
+    }
+}
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -156,6 +169,32 @@ if(!isset($errorArray[$error]))
             vertical-align: top;
         }
     </style>
+    <script type="text/javascript">
+        function showPopup()
+        {
+            document.getElementById('popup').style.display = "block";
+            document.getElementById('popupContentInnerHTMLDiv').innerHTML = "";
+        }
+        function hidePopup()
+        {
+            document.getElementById('popup').style.display = "none";
+            document.getElementById('popupContentInnerHTMLDiv').innerHTML = "";
+        }
+        function toggleReset()
+        {
+            if(document.getElementById('popup').style.display === "none")
+            {
+                resetSettingsPopup();
+            }
+            else
+            {
+                hidePopup();
+            }
+        }
+    </script>
+    <?php if($jsForResetToDefaultLoaded): ?>
+        <script type="text/javascript" src="core/js/resetSettingsJs.js" ></script>
+    <?php endif;?>
 </head>
 <body>
 
@@ -195,11 +234,16 @@ if(!isset($errorArray[$error]))
                     </li>
                 <?php
                 endif;
-                if(file_exists("core/php/loadVars.php") && file_exists("core/conf/config.php")):
+                if(file_exists("core/php/loadVars.php") && file_exists("core/conf/config.php") && $jsForResetToDefaultLoaded):
                 ?>
                     <li>
-                        <a onclick="resetSettingsPopup();" class="link">Reset Settings back to Default</a>
+                        <a onclick="toggleReset();" class="link">Reset Settings back to Default</a>
                     </li>
+                    <div id="popup" style="background-color: #444444; border: 1px solid black; display: none; color: white;">
+                            <div id="popupContentInnerHTMLDiv">
+                            </div>
+                        </div>
+                    </div>
                 <?php
                 endif;
                 ?>
