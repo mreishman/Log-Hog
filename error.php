@@ -34,18 +34,26 @@ $errorArray = array(
         "firstMessage"      =>  "Watch-List Config Error",
         "secondMessage"     =>  "Please remove all reference of double backslash (\\\\) from the watchList var in config.php (Local/default/conf/config.php)"
     ),
+    2   =>  array(
+        "firstMessage"      =>  "Setup Error",
+        "secondMessage"     =>  "An error occured when trying to complete the setup process. Please check that the save file has correct access to write to and create a local config file.  If that doesn't work: Copy core/conf/config.php to local/default/conf/config.php and change defaultConfig to config."
+    ),
     550   =>  array(
         "firstMessage"      =>  "File Permission Error",
         "secondMessage"     =>  "Make sure the file permissions are set correctly for all of the files within loghog."
     ),
     1072   =>  array(
         "firstMessage"      =>  "File Is Readable Error",
-        "secondMessage"     =>  "This error occured when a file tried to read another file. Please ensure that the file permissions of the file allow it to be read / read other files."
+        "secondMessage"     =>  "This error occured when a file tried to read another file. Please ensure that the file permissions of the file allow it to be read / read other files. (is_readable check) "
     ),
     1073   =>  array(
         "firstMessage"      =>  "File Is Writable Error",
-        "secondMessage"     =>  "This error occured when a file tried to write to it. Please ensure that the file permissions of the file allow it to be written to, and that the file trying to write has permission to do so."
-    )
+        "secondMessage"     =>  "This error occured when a file tried to write to it. Please ensure that the file permissions of the file allow it to be written to, and that the file trying to write has permission to do so. (is_writable check) "
+    ),
+    1074   =>  array(
+        "firstMessage"      =>  "File Is Accessable Error",
+        "secondMessage"     =>  "This error occured when a file is trying to be accessed, but cant be found. (file_exists check) "
+    ),
 );
 
 if(!isset($errorArray[$error]))
@@ -103,10 +111,10 @@ if(!isset($errorArray[$error]))
             <h3> Actions: </h3>
             <ul class="list">
                 <li>
-                    <a href="../setup/step1.php" class="link">Re-do Setup</a>
+                    <a href="setup/step1.php" class="link">Re-do Setup</a>
                 </li>
                 <li>
-                    <a onclick="revertPopup();" class="link">Revert Version</a>
+                    <a href="restore/restore.php" class="link">Revert Version</a>
                 </li>
                 <li>
                     <a class="link" href="editFiles.php" >View Files</a>

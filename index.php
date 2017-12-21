@@ -1,8 +1,14 @@
 <?php
 require_once('core/php/errorCheckFunctions.php');
+$currentPage = "index.php";
+checkIfFilesExist(
+	array("core/conf/config.php","core/php/configStatic.php","core/php/loadVars.php","core/php/updateCheck.php","core/js/jquery.js","core/template/loading-bar.css","core/js/loading-bar.min.js","core/php/customCSS.php","core/html/popup.html","core/js/main.js","core/js/rightClickJS.js","core/js/update.js","core/php/commonFunctions.php","local/layout.php","setup/setupProcessFile.php"),
+	 "",
+	 $currentPage);
 checkIfFilesAreReadable(
-	array("core/conf/config.php","core/php/configStatic.php","core/php/loadVars.php","core/php/updateCheck.php","core/js/jquery.js","core/template/loading-bar.css","core/js/loading-bar.min.js","core/php/customCSS.php","core/html/popup.html","core/js/main.js","core/js/rightClickJS.js","core/js/update.js","core/php/commonFunctions.php"),
-	 "");
+	array("core/conf/config.php","core/php/configStatic.php","core/php/loadVars.php","core/php/updateCheck.php","core/js/jquery.js","core/template/loading-bar.css","core/js/loading-bar.min.js","core/php/customCSS.php","core/html/popup.html","core/js/main.js","core/js/rightClickJS.js","core/js/update.js","core/php/commonFunctions.php","local/layout.php","setup/setupProcessFile.php"),
+	 "",
+	 $currentPage);
 require_once('core/php/commonFunctions.php');
 
 setCookieRedirect();
@@ -14,12 +20,22 @@ if(file_exists('local/layout.php'))
 	require_once('local/layout.php');
 	$baseUrl .= $currentSelectedTheme."/";
 }
+
 if(!file_exists($baseUrl.'conf/config.php'))
 {
-	$partOfUrl = clean_url($_SERVER['REQUEST_URI']);
-	$url = "http://" . $_SERVER['HTTP_HOST'] .$partOfUrl ."setup/welcome.php";
-	header('Location: ' . $url, true, 302);
-	exit();
+	require_once("setup/setupProcessFile.php");
+	if($setupProcess === 'preStart')
+	{
+		$partOfUrl = clean_url($_SERVER['REQUEST_URI']);
+		$url = "http://" . $_SERVER['HTTP_HOST'] .$partOfUrl ."setup/welcome.php";
+		header('Location: ' . $url, true, 302);
+		exit();
+	}
+	else
+	{
+		//setup either errored out, or was incomplete. throw error. 
+		throwSetupError("");
+	}
 }
 require_once($baseUrl.'conf/config.php');
 require_once('core/conf/config.php');
