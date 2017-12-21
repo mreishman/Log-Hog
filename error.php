@@ -1,14 +1,83 @@
 <?php
 
-$version = "Unknown - Error reading core/php/configStatic.php";
+$version = "Unknown - Could not find core/php/configStatic.php";
 if(file_exists('core/php/configStatic.php'))
 {
-    require_once('core/php/configStatic.php');
-    $version = $configStatic['version'];
+    if(is_readable('core/php/configStatic.php'))
+    {
+        try
+        {
+            require_once('core/php/configStatic.php');
+            if(isset($configStatic['version']))
+            {
+                $version = $configStatic['version'];
+            }
+            else
+            {
+                $version = "Config Static was loaded, but errored when loading the version number";
+            }
+        }
+        catch (Exception $e)
+        {
+            $version = "Unknown - Error reading core/php/configStatic.php";
+        }
+    }
+    else
+    {
+        $version = "Unknown - core/php/configStatic.php is there, but is not readable by this file";
+    }
 }
 
-require_once('core/php/commonFunctions.php');
-require_once('core/php/template/listOfFiles.php');
+$commonFunctionsLoaded = false;
+if(file_exists('core/php/commonFunctions.php'))
+{
+    try
+    {
+        require_once('core/php/commonFunctions.php');
+        $commonFunctionsLoaded = true;
+    }
+    catch (Exception $e)
+    {
+        
+    }
+    
+}
+
+
+$fileNameArray = array(
+    "Error"    =>  array(
+        "name"      =>  "Could not load list of files",
+        "path"      =>  ""
+    )
+);
+if(file_exists('core/php/template/listOfFiles.php'))
+{
+    if(is_readable('core/php/template/listOfFiles.php'))
+    {
+        try
+        {
+            require_once('core/php/template/listOfFiles.php');
+        }
+        catch (Exception $e)
+        {
+            $fileNameArray = array(
+                "Error"    =>  array(
+                    "name"      =>  "List of files exists, but cant be loaded",
+                    "path"      =>  ""
+                )
+            );
+        }
+    }
+    else
+    {
+        $fileNameArray = array(
+            "Error"    =>  array(
+                "name"      =>  "List of files exists, but is not readable",
+                "path"      =>  ""
+            )
+        );
+    }
+}
 
 $error = 0;
 if(isset($_GET["error"]))
@@ -107,18 +176,33 @@ if(!isset($errorArray[$error]))
         <td width="33%">
             <h3> Actions: </h3>
             <ul class="list">
-                <li>
-                    <a href="setup/step1.php" class="link">Re-do Setup</a>
-                </li>
-                <li>
-                    <a href="restore/restore.php" class="link">Revert Version</a>
-                </li>
-                <li>
-                    <a class="link" href="editFiles.php" >View Files</a>
-                </li>
-                <li>
-                    <a onclick="resetSettingsPopup();" class="link">Reset Settings back to Default</a>
-                </li>
+                <?php
+                if(file_exists("setup/step1.php")): ?>
+                    <li>
+                        <a href="setup/step1.php" class="link">Re-do Setup</a>
+                    </li>
+                <?php
+                endif;
+                if(file_exists("restore/restore.php")): ?>
+                    <li>
+                        <a href="restore/restore.php" class="link">Revert Version</a>
+                    </li>
+                <?php
+                endif;
+                if(file_exists("settings/editFiles.php")): ?>
+                    <li>
+                        <a class="link" href="settings/editFiles.php" >View Files</a>
+                    </li>
+                <?php
+                endif;
+                if(file_exists("core/php/loadVars.php") && file_exists("core/conf/config.php")):
+                ?>
+                    <li>
+                        <a onclick="resetSettingsPopup();" class="link">Reset Settings back to Default</a>
+                    </li>
+                <?php
+                endif;
+                ?>
             </ul>
         </td>
         <td width="33%">
@@ -127,8 +211,11 @@ if(!isset($errorArray[$error]))
 
             foreach ($fileNameArray as $key => $value)
             {
-
-                $info = filePermsDisplay($value["path"]);
+                $info = "";
+                if($commonFunctionsLoaded)
+                {
+                    $info = filePermsDisplay($value["path"]);
+                }
 
                 echo "<p>";
                 echo "  ";
