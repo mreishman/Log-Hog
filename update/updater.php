@@ -273,7 +273,7 @@ if(count($arrayOfVersions) === 0)
 		}
 		else if(updateStatus == "finishedUpdate")
 		{
-			updateProgressBar(99);
+			updateProgressBar(98);
 			document.getElementById('innerDisplayUpdate').innerHTML = settingsForBranchStuff['versionList'][versionToUpdateTo]['releaseNotes'];
 			finishedUpdate();
 		}
@@ -282,30 +282,31 @@ if(count($arrayOfVersions) === 0)
 
 	function updateStatusFunc(updateStatusInner, actionLocal, percentToSave = (document.getElementById('progressBar').value))
 	{
-		var urlForSend = urlForSendMain;
-		var data = {action: 'updateProgressFile', status: updateStatusInner, typeOfProgress: "updateProgressFileNext.php", actionSave: actionLocal, percent: percentToSave, pathToFile: ''};
-		$.ajax({
-			url: urlForSend,
-			dataType: 'json',
-			data: data,
-			type: 'POST',
-			complete: function()
-			{
-				
-			}
-		});	
+		var urlForSend = urlForSendMain;	
 
 		var data = {action: 'updateProgressFile', status: updateStatusInner, typeOfProgress: "updateProgressFile.php", actionSave: actionLocal, percent: percentToSave, pathToFile: ''};
 		$.ajax({
 			url: urlForSend,
 			dataType: 'json',
-			data: data,
+			data,
 			type: 'POST',
-			complete: function()
+			complete()
 			{
 				
 			}
 		});	
+
+		data = {action: 'updateProgressFile', status: updateStatusInner, typeOfProgress: "updateProgressFileNext.php", actionSave: actionLocal, percent: percentToSave, pathToFile: ''};
+		$.ajax({
+			url: urlForSend,
+			dataType: 'json',
+			data,
+			type: 'POST',
+			complete()
+			{
+				
+			}
+		});
 	}
 
 	function downloadBranch()
@@ -945,6 +946,52 @@ if(count($arrayOfVersions) === 0)
 				{
 					retryCount = 0;
 					clearInterval(verifyFileTimer);
+					finishedUpdateAfterAjaxSetToOneHundred();
+				}
+			},
+			failure: function(data)
+			{
+				retryCount++;
+			}
+		});
+	}
+
+	function finishedUpdateAfterAjaxSetToOneHundred()
+	{
+		updateProgressBar(99);
+		updateStatusFunc("Finished Updating to ","finishedUpdate",100);
+		retryCount = 0;
+		verifyFileTimer = setInterval(function(){finishUpdateOneHundredCheck();},2000);
+	}
+
+	function finishUpdateOneHundredCheck()
+	{
+		if(retryCount == 0)
+		{
+			updateText("Verifying Update Complete");
+		}
+		else
+		{
+			updateText("Attempt "+(retryCount+1)+" of 3 for Verifying Update Complete");
+		}
+		if(retryCount > 3)
+		{
+			clearInterval(verifyFileTimer);
+			updateError();
+		}
+		var urlForSend = "../core/php/verifyVersionInstallComplete.php";
+		var dataSend = {};
+		$.ajax({
+			url: urlForSend,
+			dataType: "json",
+			data: dataSend,
+			type: "POST",
+			success: function(data)
+			{
+				if(data === true)
+				{
+					retryCount = 0;
+					clearInterval(verifyFileTimer);
 					finishedUpdateAfterAjax();
 				}
 			},
@@ -965,7 +1012,6 @@ if(count($arrayOfVersions) === 0)
 			document.getElementById('menu').style.display = "block";
 			document.getElementById('titleHeader').innerHTML = "<h1>Finished Update</h1>";
 			document.getElementById('progressBar').value = 100;
-			updateStatusFunc("Finished Updating to ","finishedUpdate",100);
 			setTimeout(function(){ window.location.href = "../settings/whatsNew.php"; }, 3000);
 			
 		}
