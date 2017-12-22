@@ -308,11 +308,119 @@ else
 	// Image Vars
 
 	$arrayOfImages = array(
+		"backArrow"			=> array(
+			"alt"			=>	"Back",
+			"src"			=>	"",
+			"title"			=>	"Back",
+			"baseName"		=>	"backArrow.png"
+		),
+		"eraser"			=> array(
+			"alt"			=>	"Clear",
+			"src"			=>	"",
+			"title"			=>	"Clear",
+			"baseName"		=>	"eraser.png"
+		),
+		"fileIcon"			=> array(
+			"alt"			=>	"File",
+			"src"			=>	"",
+			"title"			=>	"File",
+			"baseName"		=>	"fileIcon.png"
+		),
+		"folderIcon"		=> array(
+			"alt"			=>	"Folder",
+			"src"			=>	"",
+			"title"			=>	"Folder",
+			"baseName"		=>	"folderIcon.png"
+		),
+		"gear"		=> array(
+			"alt"			=>	"Settings",
+			"src"			=>	"",
+			"title"			=>	"Settings",
+			"baseName"		=>	"Gear.png"
+		),
+		"greenCheck"		=> array(
+			"alt"			=>	"Ok",
+			"src"			=>	"",
+			"title"			=>	"Ok!",
+			"baseName"		=>	"greenCheck.png"
+		),
+		"info"			=> array(
+			"alt"			=>	"Info",
+			"src"			=>	"",
+			"title"			=>	"Info",
+			"baseName"		=>	"info.png"
+		),
+		"loading"			=> array(
+			"alt"			=>	"Loading",
+			"src"			=>	"",
+			"title"			=>	"Loading...",
+			"baseName"		=>	"loading.gif"
+		),
+		"notificationClear"	=> array(
+			"alt"			=>	"Clear Notifications",
+			"src"			=>	"",
+			"title"			=>	"Clear Notifications",
+			"baseName"		=>	"notificationClear.png"
+		),
 		"pause"			=> array(
 			"alt"			=>	"Pause",
 			"src"			=>	"",
 			"title"			=>	"Pause",
 			"baseName"		=>	"Pause.png"
+		),
+		"play"			=> array(
+			"alt"			=>	"Play",
+			"src"			=>	"",
+			"title"			=>	"Play",
+			"baseName"		=>	"Play.png"
+		),
+		"redWarning"		=> array(
+			"alt"			=>	"Warning!",
+			"src"			=>	"",
+			"title"			=>	"Warning!!",
+			"baseName"		=>	"redWarning.png"
+		),
+		"refresh"			=> array(
+			"alt"			=>	"Refresh",
+			"src"			=>	"",
+			"title"			=>	"Refresh",
+			"baseName"		=>	"Refresh.png"
+		),
+		"search"			=> array(
+			"alt"			=>	"Search",
+			"src"			=>	"",
+			"title"			=>	"Search",
+			"baseName"		=>	"Search.png"
+		),
+		"seleniumMonitor"	=> array(
+			"alt"			=>	"Selenium Monitor",
+			"src"			=>	"",
+			"title"			=>	"Selenium Monitor",
+			"baseName"		=>	"seleniumMonitor.png"
+		),
+		"taskManager"		=> array(
+			"alt"			=>	"TaskManager",
+			"src"			=>	"",
+			"title"			=>	"TaskManager",
+			"baseName"		=>	"task-manager.png"
+		),
+		"trashCan"			=> array(
+			"alt"			=>	"Delete",
+			"src"			=>	"",
+			"title"			=>	"Delete",
+			"baseName"		=>	"trashCan.png"
+		),
+		"trashCanMulti"			=> array(
+			"alt"			=>	"Delete Multiple",
+			"src"			=>	"",
+			"title"			=>	"Delete Multiple",
+			"baseName"		=>	"trashCanMulti.png"
+		),
+		"yellowWarning"		=> array(
+			"alt"			=>	"Notice",
+			"src"			=>	"",
+			"title"			=>	"Notice!",
+			"baseName"		=>	"yellowWarning.png"
 		)
 	);
 

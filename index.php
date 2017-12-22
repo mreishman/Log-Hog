@@ -215,65 +215,174 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 	<div class="backgroundForMenus" id="menu">
 		<div id="menuButtons" style="display: block;">
 			<div onclick="pausePollAction();" class="menuImageDiv">
-				<img id="playImage" class="menuImage" src="<?php echo $baseUrl; ?>img/Play.png"
-					<?php if($pausePoll !== 'true'):?>
-						style="display: none;"
-					<?php else: ?>
-						style="display: inline-block;"
-					<?php endif;?>
-				height="30px">
-				<img id="pauseImage" class="menuImage" src="<?php echo $arrayOfImages["pause"]["src"]; ?>"
-					<?php if($pausePoll === 'true'):?>
-						style="display: none;"
-					<?php else: ?>
-						style="display: inline-block;"
-					<?php endif;?>
-				height="30px">
+				<?php
+					$styleString = "display: inline-block;";
+					if($pausePoll !== 'true')
+					{
+						$styleString = "display: none;";
+					}
+					echo generateImage(
+					$arrayOfImages["play"],
+					$imageConfig = array(
+						"id"		=>	"playImage",
+						"class"		=>	"menuImage",
+						"height"	=>	"30px",
+						"style"		=>	$styleString
+						)
+					);
+
+					$styleString = "display: inline-block;";
+					if($pausePoll === 'true')
+					{
+						$styleString = "display: none;";
+					}
+					echo generateImage(
+					$arrayOfImages["pause"],
+					$imageConfig = array(
+						"id"		=>	"pauseImage",
+						"class"		=>	"menuImage",
+						"height"	=>	"30px",
+						"style"		=>	$styleString
+						)
+					); 
+				?>
 			</div>
 			<div onclick="refreshAction();" class="menuImageDiv">
-				<img id="refreshImage" class="menuImage" src="<?php echo $baseUrl; ?>img/Refresh.png" height="30px">
-				<img id="refreshingImage" class="menuImage" style="display: none;" src="<?php echo $baseUrl; ?>img/loading.gif" height="30px">
+				<?php
+					echo generateImage(
+					$arrayOfImages["refresh"],
+					$imageConfig = array(
+						"id"		=>	"refreshImage",
+						"class"		=>	"menuImage",
+						"height"	=>	"30px"
+						)
+					);
+
+					echo generateImage(
+					$arrayOfImages["loading"],
+					$imageConfig = array(
+						"id"		=>	"refreshingImage",
+						"class"		=>	"menuImage",
+						"height"	=>	"30px",
+						"style"		=>	"display: none;"
+						)
+					);
+				?> 
 			</div>
 			<?php if($truncateLog == 'true'): ?>
-			<div onclick="deleteAction();"  class="menuImageDiv">
-				<img id="deleteImage" class="menuImage" src="<?php echo $baseUrl; ?>img/trashCanMulti.png" height="30px">
-			</div>
+				<div onclick="deleteAction();"  class="menuImageDiv">
+					<?php echo generateImage(
+						$arrayOfImages["trashCanMulti"],
+						$imageConfig = array(
+							"id"		=>	"deleteImage",
+							"class"		=>	"menuImage",
+							"height"	=>	"30px"
+							)
+						); 
+					?>
+				</div>
 			<?php else: ?>
-			<div onclick="clearLog(currentSelectWindow);" class="menuImageDiv">
-				<img id="deleteImage" class="menuImage" src="<?php echo $baseUrl; ?>img/eraser.png" height="30px">
-			</div>
+				<div onclick="clearLog(currentSelectWindow);" class="menuImageDiv">
+					<?php echo generateImage(
+						$arrayOfImages["eraser"],
+						$imageConfig = array(
+							"id"		=>	"deleteImage",
+							"class"		=>	"menuImage",
+							"height"	=>	"30px"
+							)
+						); 
+					?>
+				</div>
 			<?php endif; ?>
 			<?php if($locationForMonitorIndex != ""): ?>
-			<div onclick="window.location.href = '<?php echo $locationForMonitorIndex; ?>'"  class="menuImageDiv">
-				<img id="taskmanagerImage" class="menuImage" src="<?php echo $baseUrl; ?>img/task-manager.png" height="30px">
-			</div>
+				<div onclick="window.location.href = '<?php echo $locationForMonitorIndex; ?>'"  class="menuImageDiv">
+					<?php echo generateImage(
+						$arrayOfImages["taskManager"],
+						$imageConfig = array(
+							"id"		=>	"taskmanagerImage",
+							"class"		=>	"menuImage",
+							"height"	=>	"30px"
+							)
+						); 
+					?>
+				</div>
 			<?php endif; ?>
 			<?php if($locationForSearchIndex != ""): ?>
-			<div onclick="window.location.href = '<?php echo $locationForSearchIndex; ?>'"  class="menuImageDiv">
-				<img id="searchImage" class="menuImage" src="<?php echo $baseUrl; ?>img/search.png" height="30px">
-			</div>
+				<div onclick="window.location.href = '<?php echo $locationForSearchIndex; ?>'"  class="menuImageDiv">
+					<?php echo generateImage(
+						$arrayOfImages["search"],
+						$imageConfig = array(
+							"id"		=>	"searchImage",
+							"class"		=>	"menuImage",
+							"height"	=>	"30px"
+							)
+						); 
+					?>
+				</div>
 			<?php endif; ?>
 			<?php if($locationForSeleniumMonitorIndex != ""): ?>
-			<div onclick="window.location.href = '<?php echo $locationForSeleniumMonitorIndex; ?>'"  class="menuImageDiv">
-				<img id="seleniumMonitorImage" class="menuImage" src="<?php echo $baseUrl; ?>img/seleniumMonitor.png" height="30px">
-			</div>
+				<div onclick="window.location.href = '<?php echo $locationForSeleniumMonitorIndex; ?>'"  class="menuImageDiv">
+					<?php echo generateImage(
+						$arrayOfImages["seleniumMonitor"],
+						$imageConfig = array(
+							"id"		=>	"seleniumMonitorImage",
+							"class"		=>	"menuImage",
+							"height"	=>	"30px"
+							)
+						); 
+					?>
+				</div>
 			<?php endif; ?>
 			<div onclick="window.location.href = './settings/about.php'" class="menuImageDiv">
-				<img id="aboutImage" class="menuImage" src="<?php echo $baseUrl; ?>img/info.png" height="30px">
+				<?php echo generateImage(
+					$arrayOfImages["info"],
+					$imageConfig = array(
+						"id"		=>	"aboutImage",
+						"class"		=>	"menuImage",
+						"height"	=>	"30px"
+						)
+					); 
+				?>
 			</div>
 			<div onclick="window.location.href = './settings/main.php';"  class="menuImageDiv">
-				<img data-id="1" id="gear" class="menuImage" src="<?php echo $baseUrl; ?>img/Gear.png" height="30px">
-				<?php if($updateNotificationEnabled === "true")
+				<?php echo generateImage(
+					$arrayOfImages["gear"],
+					$imageConfig = array(
+						"id"		=>	"gear",
+						"class"		=>	"menuImage",
+						"height"	=>	"30px",
+						"data-id"	=>	"1"
+						)
+					); 
+				
+				if($updateNotificationEnabled === "true")
 				{
 					if($levelOfUpdate == 1)
 					{
-						echo '<img id="updateImage" src="'.$baseUrl.'img/yellowWarning.png" height="15px" style="position: absolute;margin-left: 13px;margin-top: -34px;">';
+						echo generateImage(
+							$arrayOfImages["yellowWarning"],
+							$imageConfig = array(
+								"id"		=>	"updateImage",
+								"class"		=>	"menuImage",
+								"height"	=>	"15px",
+								"style"		=>	"position: absolute;margin-left: 13px;margin-top: -34px;"
+							)
+						);
 					}
 					elseif($levelOfUpdate == 2 || $levelOfUpdate == 3)
 					{
-						echo '<img id="updateImage" src="'.$baseUrl.'img/redWarning.png" height="15px" style="position: absolute;margin-left: 13px;margin-top: -34px;">';
+						echo generateImage(
+							$arrayOfImages["redWarning"],
+							$imageConfig = array(
+								"id"		=>	"updateImage",
+								"class"		=>	"menuImage",
+								"height"	=>	"15px",
+								"style"		=>	"position: absolute;margin-left: 13px;margin-top: -34px;"
+							)
+						);
 					}
-				}?>
+				}
+				?>
 			</div>
 			<?php if ($locationForStatusIndex != ""):?>
 				<div class="menuImage" style="display: inline-block; cursor: pointer;" onclick="window.location.href='<?php echo $locationForStatusIndex; ?>'" >
@@ -281,7 +390,15 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 				</div>
 			<?php endif; ?>
 			<div  id="clearNotificationsImage" style="display: none;" onclick="clearNotifications();" class="menuImageDiv">
-				<img class="menuImage" src="<?php echo $baseUrl; ?>img/notificationClear.png" height="30px">
+				<?php echo generateImage(
+					$arrayOfImages["notificationClear"],
+					$imageConfig = array(
+						"id"		=>	"notificationClearImage",
+						"class"		=>	"menuImage",
+						"height"	=>	"30px"
+						)
+					); 
+				?>
 			</div>
 			<div style="float: right;">
 				<select id="searchType" disabled class="selectDiv" name="searchType" style="height: 30px;">

@@ -421,3 +421,49 @@ function generateRestoreList($configStatic)
 	$returnHtml .= $versionListText."</select></form>";
 	return $returnHtml;
 }
+
+function generateImage($imageArray, $customConfig)
+{
+	$image = "<img ";
+	if(isset($customConfig["data-id"]))
+	{
+		$image .=  " data-id=\"";
+		$image .= $customConfig["data-id"];
+		$image .= "\" ";
+	}
+	if(isset($customConfig["id"]))
+	{
+		$image .=  " id=\"";
+		$image .= $customConfig["id"];
+		$image .= "\" ";
+	}
+	if(isset($customConfig["class"]))
+	{
+		$image .= " class=\"";
+		$image .= $customConfig["class"];
+		$image .= "\" ";
+	}
+	$image .= " src=\"";
+	$image .= $imageArray["src"];
+	$image .= "\" ";
+	$image .= " alt=\"";
+	$image .= $imageArray["alt"];
+	$image .= "\" ";
+	$image .= " title=\"";
+	$image .= $imageArray["title"];
+	$image .= "\" ";
+	if(isset($customConfig["style"]))
+	{
+		$image .= " style=\"";
+		$image .= $customConfig["style"];
+		$image .= "\" ";
+	}
+	if(isset($customConfig["height"]))
+	{
+		$image .= " height=\"";
+		$image .= $customConfig["height"];
+		$image .= "\" ";
+	}			
+	$image .= " >";
+	return $image;
+}
