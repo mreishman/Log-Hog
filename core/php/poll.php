@@ -264,4 +264,3 @@ foreach($_POST['arrayToUpdate'] as $path)
 	}
 }
 echo json_encode($response);
-?>

@@ -21,4 +21,3 @@ if((string)$layoutVersion === (string)$_POST['version'])
 	$value = true;
 }
 echo json_encode($value);
-?>

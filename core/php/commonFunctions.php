@@ -5,56 +5,117 @@ function filePermsDisplay($key)
 	$info = "u---------";
 	if(file_exists($key))
 	{
-		$perms  =  fileperms($key);
-
-		switch ($perms & 0xF000) {
-		    case 0xC000: // socket
-		        $info = 's';
-		        break;
-		    case 0xA000: // symbolic link
-		        $info = 'l';
-		        break;
-		    case 0x8000: // regular
-		        $info = 'f';
-		        break;
-		    case 0x6000: // block special
-		        $info = 'b';
-		        break;
-		    case 0x4000: // directory
-		        $info = 'd';
-		        break;
-		    case 0x2000: // character special
-		        $info = 'c';
-		        break;
-		    case 0x1000: // FIFO pipe
-		        $info = 'p';
-		        break;
-		    default: // unknown
-		        $info = 'u';
-		}
-
-		// Owner
-		$info .= (($perms & 0x0100) ? 'r' : '-');
-		$info .= (($perms & 0x0080) ? 'w' : '-');
-		$info .= (($perms & 0x0040) ?
-		            (($perms & 0x0800) ? 's' : 'x' ) :
-		            (($perms & 0x0800) ? 'S' : '-'));
-
-		// Group
-		$info .= (($perms & 0x0020) ? 'r' : '-');
-		$info .= (($perms & 0x0010) ? 'w' : '-');
-		$info .= (($perms & 0x0008) ?
-		            (($perms & 0x0400) ? 's' : 'x' ) :
-		            (($perms & 0x0400) ? 'S' : '-'));
-
-		// World
-		$info .= (($perms & 0x0004) ? 'r' : '-');
-		$info .= (($perms & 0x0002) ? 'w' : '-');
-		$info .= (($perms & 0x0001) ?
-		            (($perms & 0x0200) ? 't' : 'x' ) :
-		            (($perms & 0x0200) ? 'T' : '-'));
+		$info = returnActualFilePerms($key);
 	}
 	return $info;
+}
+
+function returnActualFilePerms($key)
+{
+	$perms  =  fileperms($key);
+
+	switch ($perms & 0xF000)
+	{
+	    case 0xC000: // socket
+	        $info = 's';
+	        break;
+	    case 0xA000: // symbolic link
+	        $info = 'l';
+	        break;
+	    case 0x8000: // regular
+	        $info = 'f';
+	        break;
+	    case 0x6000: // block special
+	        $info = 'b';
+	        break;
+	    case 0x4000: // directory
+	        $info = 'd';
+	        break;
+	    case 0x2000: // character special
+	        $info = 'c';
+	        break;
+	    case 0x1000: // FIFO pipe
+	        $info = 'p';
+	        break;
+	    default: // unknown
+	        $info = 'u';
+	}
+
+	$filePermsArray = array(
+		"Owner" => array(
+			"Read"		=> array(
+				"Boolval"	=> ($perms & 0x0100)
+			),
+			"Write"		=> array(
+				"Boolval"	=>	($perms & 0x0080)
+			),
+			"Execute"	=> array(
+				"Boolval"	=>	($perms & 0x0040),
+				"Boolval2"	=>	($perms & 0x0800)
+			)
+		),
+		"Group" => array(
+			"Read"		=> array(
+				"Boolval"	=> ($perms & 0x0020)
+			),
+			"Write"		=> array(
+				"Boolval"	=>	($perms & 0x0010)
+			),
+			"Execute"	=> array(
+				"Boolval"	=>	($perms & 0x0008),
+				"Boolval2"	=>	($perms & 0x0400)
+			)
+		),
+		"Owner" => array(
+			"Read"		=> array(
+				"Boolval"	=> ($perms & 0x0004)
+			),
+			"Write"		=> array(
+				"Boolval"	=>	($perms & 0x0002)
+			),
+			"Execute"	=> array(
+				"Boolval"	=>	($perms & 0x0001),
+				"Boolval2"	=>	($perms & 0x0200)
+			)
+		),
+	);
+
+	foreach ($filePermsArray as $key => $value)
+	{
+		$info .= evaluateBool(
+			$value["Read"]["Boolval"],
+			"r",
+			"-"
+		);
+		$info .= evaluateBool(
+			$value["Write"]["Boolval"],
+			"w",
+			"-"
+		);
+		$info .= evaluateBool(
+			$value["Execute"]["Boolval"],
+			evaluateBool(
+				$value["Execute"]["Boolval2"],
+				"s",
+				"x"
+			),
+			evaluateBool(
+				$value["Execute"]["Boolval2"],
+				"S",
+				"-"
+			)
+		);
+	}
+	return $info;
+}
+
+function evaluateBool($boolVal, $trueVal, $falseVal)
+{
+	if($boolVal)
+	{
+		return $trueVal;
+	}
+	return $falseVal;
 }
 
 function loadSentryData($sendCrashInfoJS, $branchSelected)
@@ -146,52 +207,23 @@ function findUpdateValue($newestVersionCount, $versionCount, $newestVersion, $ve
 	{
 		if($i < $versionCount)
 		{
-			if($i == 0)
+			if(isset($newestVersion[$i]) && $newestVersion[$i] !== $version[$i])
 			{
 				if($newestVersion[$i] > $version[$i])
 				{
-					return 3;
+					$calcuation = 3-$i;
+					return max(1, $calcuation);
 				}
-				elseif($newestVersion[$i] < $version[$i])
-				{
-					break;
-				}
+				break;
 			}
-			elseif($i == 1)
-			{
-				if($newestVersion[$i] > $version[$i])
-				{
-					return 2;
-				}
-				elseif($newestVersion[$i] < $version[$i])
-				{
-					break;
-				}
-			}
-			else
-			{
-				if(isset($newestVersion[$i]))
-				{
-					if($newestVersion[$i] > $version[$i])
-					{
-						return 1;
-					}
-					elseif($newestVersion[$i] < $version[$i])
-					{
-						break;
-					}
-				}
-				else
-				{
-					break;
-				}
-			}
+			break;
 		}
-		else
-		{
-			return 1;
-		}
+		return 1;
 	}
 	return 0;
 }
-?>
+
+function addResetButton($idOfForm)
+{
+	return "<a onclick=\"resetArrayObject('".$idOfForm."');\" id=\"".$idOfForm."ResetButton\" style=\"display: none;\" class=\"linkSmall\" > Reset Current Changes</a>";
+}

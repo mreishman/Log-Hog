@@ -1,18 +1,6 @@
-var savedInnerHtmlDevAdvanced;
-var devAdvancedData;
-var savedInnerHtmlPollAdvanced;
-var pollAdvancedData;
-var savedInnerHtmlLoggingDisplay;
-var loggingDisplayData;
-var savedInnerHtmlJsPhpSend;
-var jsPhpSendData;
-var savedInnerHtmlLocationOtherApps;
-var locationOtherAppsData;
-
-function addonMonitorAction(idToSubmit)
-{
-	document.getElementById(idToSubmit).submit();
-}
+var timeoutVar;
+var titleOfPage = "Advanced";
+var popupHtml = "";
 
 function resetSettingsPopup()
 {
@@ -38,21 +26,37 @@ function submitResetSettings()
 
 function resetUpdateNotification()
 {
-	document.getElementById("devAdvanced2").submit();
+	displayLoadingPopup();
+	var data = $("#devAdvanced2").serializeArray();
+	$.ajax({
+        type: "post",
+        url: "../core/php/settingsSaveConfigStatic.php",
+        data,
+        complete()
+        {
+          //verify saved
+          timeoutVar = setInterval(function(){updateNoNewVersionCheck();},3000);
+        }
+      });
 }
 
-function poll()
+function updateNoNewVersionCheck()
 {
 	try
 	{
-		if(checkIfChanges())
+		$.getJSON("../core/php/configStaticCheck.php", {}, function(data) 
 		{
-			document.getElementById("advancedLink").innerHTML = "Advanced*";
-		}
-		else
-		{
-			document.getElementById("advancedLink").innerHTML = "Advanced";
-		}
+			if(data['version'] === data['newestVersion'])
+			{
+				clearInterval(timeoutVar);
+				saveSuccess();
+				fadeOutPopup();
+				if(document.getElementById("updateNoticeImage"))
+				{
+					document.getElementById("updateNoticeImage").style.display = "none";
+				}
+			}
+		});
 	}
 	catch(e)
 	{
@@ -62,96 +66,120 @@ function poll()
 
 function checkIfChanges()
 {
-	var change = checkForChangesDevAdvanced();
-	var change2 = checkForChangesPollAdvanced();
-	var change3 = checkForChangesLoggingDisplay();
-	var change4 = checkForChangesJsPhpSend();
-	var change5 = checkForChangesLocationOtherApps();
-	if(change || change2 || change3 || change4 || change5)
+	if(checkForChangesArray(["devAdvanced","pollAdvanced","loggingDisplay","jsPhpSend","locationOtherApps","advancedConfig"]))
 	{
 		return true;
 	}
 	return false;
 }
 
-//DEV ADVANCED
-
-function checkForChangesDevAdvanced()
+function showConfigPopup()
 {
 	try
 	{
-		if(!objectsAreSame($("#devAdvanced").serializeArray(), devAdvancedData))
+		displayLoadingPopup();
+		$.getJSON("../core/php/configVersionsPopup.php", {}, function(data) 
 		{
-			document.getElementById("resetChangesDevAdvancedHeaderButton").style.display = "inline-block";
-			return true;
-		}
-		else
+			if(data['backupCopiesPresent'])
+			{
+				var heightOffset = document.getElementById("menu").offsetHeight;
+
+				popupHtml = "<div class='settingsHeader' >Backup List <span><a onclick=\"hidePopup();\" class=\"link\">Close</a></span></div><br><div style='width:100%; height: "+((((window.innerHeight * 0.9)-heightOffset).toFixed(2))-70)+"px; overflow-y: scroll; padding-left:10px;padding-right:10px;'><table style=\"width: 100%;\">";
+				for (var i = 1; i <= data["arrayOfFiles"].length ; i++)
+				{
+					popupHtml += "<tr><td style=\"border-bottom: 1px solid white;\" width=\"25%\"><div>Config"+i+"</div>";
+					popupHtml += "<br><a onclick=\"restoreToVersion("+i+")\" class=\"link\"> Restore to this version</a>"
+					popupHtml += "</td><td style=\"border-bottom: 1px solid white;\" width=\"75%\" ";
+					popupHtml += "<div>"+data["arrayOfDiffs"][i-1]+"</div></tr>";
+				}
+				popupHtml += "</td></tr></table></div>";
+
+				document.getElementById("popupContent").style.width = ""+((window.innerWidth * 0.9).toFixed(2))+"px";
+				document.getElementById("popupContent").style.height = ""+(((window.innerHeight * 0.9)-heightOffset).toFixed(2))+"px";
+				
+				document.getElementById("popupContent").style.left = ""+((window.innerWidth * 0.05).toFixed(2))+"px";
+				document.getElementById("popupContent").style.top = ""+(((window.innerHeight * 0.05)+heightOffset).toFixed(2))+"px";
+
+				document.getElementById("popupContent").style.zIndex = 21;
+
+				document.getElementById("popupContent").style.marginTop = 0;
+				document.getElementById("popupContent").style.marginLeft = 0;
+
+				document.getElementById('popupContentInnerHTMLDiv').innerHTML = popupHtml;
+				
+			}
+			else
+			{
+				//no backups there to show, current size is file
+				document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >No Backups</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>There are currently no other versions of config to restore to</div><div class='link' onclick='hidePopup();' style='margin-left:165px; margin-right:50px;margin-top:25px;'>Okay!</div></div>";
+			}
+		});
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
+function restoreToVersion(restoreTo)
+{
+	displayLoadingPopup();
+	var urlForSend = '../core/php/restoreConfig.php?format=json';
+	var data = {restoreTo};
+	$.ajax(
+	{
+		url: urlForSend,
+		dataType: "json",
+		data,
+		type: "POST",
+		success(data)
 		{
-			document.getElementById("resetChangesDevAdvancedHeaderButton").style.display = "none";
-			return false;
+			saveSuccess();
+			fadeOutPopup();
 		}
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
+	});
 }
 
-function resetSettingsDevAdvanced()
+function clearBackupFiles()
 {
 	try
 	{
-		document.getElementById("devAdvanced").innerHTML = savedInnerHtmlDevAdvanced;
-		devAdvancedData = $("#devAdvanced").serializeArray();
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
-function refreshSettingsDevAdvanced()
-{
-	try
-	{
-		devAdvancedData = $("#devAdvanced").serializeArray();
-		savedInnerHtmlDevAdvanced = document.getElementById("devAdvanced").innerHTML;
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
-//POLL ADVANCED
-
-function checkForChangesPollAdvanced()
-{
-	try
-	{
-		if(!objectsAreSame($("#pollAdvanced").serializeArray(), pollAdvancedData))
+		displayLoadingPopup();
+		$.getJSON("../core/php/clearConfigBackups.php", {}, function(data) 
 		{
-			document.getElementById("resetChangesPollAdvancedHeaderButton").style.display = "inline-block";
-			return true;
-		}
-		else
+			if(data)
+			{
+				//verify that it was removed
+				timeoutVar = setInterval(function(){verifyNoConfigBackups();},3000);
+			}
+			else
+			{
+				document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Error</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>There was an error deleting backups. Please ensure that the php folder has correct permissions to remove files</div></div>";
+			}
+		});
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
+function verifyNoConfigBackups()
+{
+	try
+	{
+		displayLoadingPopup();
+		$.getJSON("../core/php/configVersionsPopup.php", {}, function(data) 
 		{
-			document.getElementById("resetChangesPollAdvancedHeaderButton").style.display = "none";
-			return false;
-		}
-	}
-	catch(e)
-	{
-		eventThrowException(e)
-	}
-}
-
-function resetSettingsPollAdvanced()
-{
-	try
-	{
-		document.getElementById("pollAdvanced").innerHTML = savedInnerHtmlPollAdvanced;
-		pollAdvancedData = $("#pollAdvanced").serializeArray();
+			if(!data['backupCopiesPresent'])
+			{
+				//no backups there to show, current size is file
+				clearInterval(timeoutVar);
+				saveSuccess();
+				fadeOutPopup();
+				document.getElementById("showConfigClearButton").style.display = "none";
+			}
+		});
 	}
 	catch(e)
 	{
@@ -159,164 +187,8 @@ function resetSettingsPollAdvanced()
 	}
 }
 
-function refreshSettingsPollAdvanced()
+$( document ).ready(function() 
 {
-	try
-	{
-		pollAdvancedData = $("#pollAdvanced").serializeArray();
-		savedInnerHtmlPollAdvanced = document.getElementById("pollAdvanced").innerHTML;
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
-//Logging Display
-
-function checkForChangesLoggingDisplay()
-{
-	try
-	{
-		if(!objectsAreSame($("#loggingDisplay").serializeArray(), loggingDisplayData))
-		{
-			document.getElementById("resetChangesLoggingDisplayHeaderButton").style.display = "inline-block";
-			return true;
-		}
-		else
-		{
-			document.getElementById("resetChangesLoggingDisplayHeaderButton").style.display = "none";
-			return false;
-		}
-	}
-	catch(e)
-	{
-		eventThrowException(e)
-	}
-}
-
-function resetSettingsLoggingDisplay()
-{
-	try
-	{
-		document.getElementById("loggingDisplay").innerHTML = savedInnerHtmlLoggingDisplay;
-		loggingDisplayData = $("#loggingDisplay").serializeArray();
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
-function refreshSettingsLoggingDisplay()
-{
-	try
-	{
-		loggingDisplayData = $("#loggingDisplay").serializeArray();
-		savedInnerHtmlLoggingDisplay = document.getElementById("loggingDisplay").innerHTML;
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
-
-//JS-PHP Send
-
-function checkForChangesJsPhpSend()
-{
-	try
-	{
-		if(!objectsAreSame($("#jsPhpSend").serializeArray(), jsPhpSendData))
-		{
-			document.getElementById("resetChangesJsPhpSendHeaderButton").style.display = "inline-block";
-			return true;
-		}
-		else
-		{
-			document.getElementById("resetChangesJsPhpSendHeaderButton").style.display = "none";
-			return false;
-		}
-	}
-	catch(e)
-	{
-		eventThrowException(e)
-	}
-}
-
-function resetSettingsJsPhpSend()
-{
-	try
-	{
-		document.getElementById("jsPhpSend").innerHTML = savedInnerHtmlJsPhpSend;
-		jsPhpSendData = $("#jsPhpSend").serializeArray();
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
-function refreshSettingsJsPhpSend()
-{
-	try
-	{
-		jsPhpSendData = $("#jsPhpSend").serializeArray();
-		savedInnerHtmlJsPhpSend = document.getElementById("jsPhpSend").innerHTML;
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
-
-//File Locations
-
-function checkForChangesLocationOtherApps()
-{
-	try
-	{
-		if(!objectsAreSame($("#locationOtherApps").serializeArray(), locationOtherAppsData))
-		{
-			document.getElementById("resetChangesLocationOtherAppsHeaderButton").style.display = "inline-block";
-			return true;
-		}
-		else
-		{
-			document.getElementById("resetChangesLocationOtherAppsHeaderButton").style.display = "none";
-			return false;
-		}
-	}
-	catch(e)
-	{
-		eventThrowException(e)
-	}
-}
-
-function resetSettingsLocationOtherApps()
-{
-	try
-	{
-		document.getElementById("locationOtherApps").innerHTML = savedInnerHtmlLocationOtherApps;
-		locationOtherAppsData = $("#locationOtherApps").serializeArray();
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
-function refreshSettingsLocationOtherApps()
-{
-	try
-	{
-		locationOtherAppsData = $("#locationOtherApps").serializeArray();
-		savedInnerHtmlLocationOtherApps = document.getElementById("locationOtherApps").innerHTML;
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
+	refreshArrayObjectOfArrays(["devAdvanced","pollAdvanced","loggingDisplay","jsPhpSend","locationOtherApps","advancedConfig"]);
+	setInterval(poll, 100);
+});

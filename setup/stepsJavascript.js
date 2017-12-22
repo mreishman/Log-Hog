@@ -6,12 +6,12 @@ function updateStatus(status)
 	statusExt = status;
 	displayLoadingPopup();
 	var urlForSend = "./updateSetupStatus.php?format=json";
-	var data = {status: status };
+	var data = {status};
 	$.ajax(
 	{
 		url: urlForSend,
 		dataType: "json",
-		data: data,
+		data,
 		type: "POST",
 		success(data)
 		{

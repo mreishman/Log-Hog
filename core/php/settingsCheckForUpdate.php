@@ -13,9 +13,6 @@ if(file_exists('../../local/layout.php'))
 require_once($baseUrl.'conf/config.php');
 require_once('../conf/config.php');
 
-require_once('verifyWriteStatus.php');
-checkForUpdate($_SERVER['REQUEST_URI']);
-
 if(file_exists("../../update/downloads/versionCheck/extracted/"))
 {
   //dir exists
@@ -32,8 +29,6 @@ if(file_exists("../../update/downloads/versionCheck/extracted/"))
   }
 
 }
-
-
 
 if(array_key_exists('branchSelected', $config))
 {
@@ -54,7 +49,7 @@ else
 
 if($branchSelected === "dev")
 {
-  file_put_contents("../../update/downloads/versionCheck/versionCheck.zip", 
+  file_put_contents("../../update/downloads/versionCheck/versionCheck.zip",
   file_get_contents($baseUrlUpdate ."versionCheckDev.zip")
   );
 }
@@ -70,9 +65,6 @@ else
   file_get_contents($baseUrlUpdate ."versionCheck.zip")
   );
 }
-
-
-
 
 mkdir("../../update/downloads/versionCheck/extracted/");
 $zip = new ZipArchive;
@@ -131,7 +123,6 @@ $"."configStatic = array(
 );
 ";
 
-
 //write new info to version file in core/php/configStatic.php
 
 $files = glob("../../update/downloads/versionCheck/extracted/*"); // get all file names
@@ -149,4 +140,3 @@ if(array_key_exists('HTTP_REFERER', $_SERVER))
   header('Location: ' . $_SERVER['HTTP_REFERER']);
 }
 exit();
-?>

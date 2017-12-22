@@ -15,6 +15,19 @@ require_once('../core/conf/config.php');
 require_once('../core/php/configStatic.php');
 require_once('../core/php/loadVars.php');
 require_once('../core/php/updateCheck.php');
+
+/* Check for backup config stuff */
+$countConfig = 1;
+$showConfigBackupClear = false;
+while (file_exists($baseUrl."conf/config".$countConfig.".php"))
+{
+	if(!$showConfigBackupClear)
+	{
+		$showConfigBackupClear = true;
+	}
+	$countConfig++;
+}
+$countConfig--;
 ?>
 <!doctype html>
 <head>
@@ -27,13 +40,13 @@ require_once('../core/php/updateCheck.php');
 <body>
 	<?php require_once('header.php'); ?>
 	<div id="main">
-	<form id="devAdvanced" action="../core/php/settingsSave.php" method="post">
+	<form id="advancedConfig" action="../core/php/settingsSave.php" method="post">
 		<div class="settingsHeader">
-			Development  
+			Config
 			<div class="settingsHeaderButtons">
-				<a onclick="resetSettingsDevAdvanced();" id="resetChangesDevAdvancedHeaderButton" style="display: none;" class="linkSmall" > Reset Current Changes</a>
-				<?php if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
-					<a class="linkSmall" onclick="saveAndVerifyMain('devAdvanced');" >Save Changes</a>
+				<?php echo addResetButton("advancedConfig");
+				if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
+					<a class="linkSmall" onclick="saveAndVerifyMain('advancedConfig');" >Save Changes</a>
 				<?php else: ?>
 					<button  onclick="displayLoadingPopup();">Save Changes</button>
 				<?php endif; ?>
@@ -42,7 +55,7 @@ require_once('../core/php/updateCheck.php');
 		<div class="settingsDiv" >
 			<ul id="settingsUl">
 				<li>
-					Branch:	
+					<span class="settingsBuffer"> Branch: </span>
 					<div class="selectDiv">	
 						<select name="branchSelected">		
 							<option <?php if($branchSelected == 'default'){echo "selected";} ?> value="default" >Default</option>		
@@ -54,7 +67,54 @@ require_once('../core/php/updateCheck.php');
 					</div>
 				</li>
 				<li>
-					Enable Development Tools
+					<span class="settingsBuffer"> Number of versions saved:</span>
+					<div class="selectDiv">
+						<select name="backupNumConfig">
+							<?php for ($i=1; $i <= 10; $i++): ?> 
+								<option <?php if($backupNumConfig === $i){echo "selected";} ?> value=<?php echo $i;?>><?php echo $i;?></option>
+							<?php endfor; ?>
+						</select>
+					</div>
+					Enabled
+					<div class="selectDiv">
+						<select name="backupNumConfigEnabled">
+  							<option <?php if($backupNumConfigEnabled == 'true'){echo "selected";} ?> value="true">True</option>
+  							<option <?php if($backupNumConfigEnabled == 'false'){echo "selected";} ?> value="false">False</option>
+						</select>
+					</div>
+				</li>
+				<li>
+					<?php if($backupNumConfigEnabled == 'true'): ?>
+						<a onclick="showConfigPopup();" class="link">View restore options for config</a>
+						<span> | </span>
+					<?php endif; ?>
+					<?php if($showConfigBackupClear): ?>
+						<span id="showConfigClearButton">
+							<a onclick="clearBackupFiles();" class="link">Clear (<?php echo $countConfig;?>) Backup Config Files</a>
+							<span> | </span>
+						</span>
+					<?php endif; ?>
+					<a onclick="resetSettingsPopup();" class="link">Reset Settings back to Default</a>
+				</li>
+			</ul>
+		</div>
+	</form>
+	<form id="devAdvanced" action="../core/php/settingsSave.php" method="post">
+		<div class="settingsHeader">
+			Development  
+			<div class="settingsHeaderButtons">
+				<?php echo addResetButton("devAdvanced");
+				if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
+					<a class="linkSmall" onclick="saveAndVerifyMain('devAdvanced');" >Save Changes</a>
+				<?php else: ?>
+					<button  onclick="displayLoadingPopup();">Save Changes</button>
+				<?php endif; ?>
+			</div>
+		</div>
+		<div class="settingsDiv" >
+			<ul id="settingsUl">
+				<li>
+					<span class="settingsBuffer"> Enable Development Tools:</span>
 					<div class="selectDiv">
 						<select name="developmentTabEnabled">
   							<option <?php if($developmentTabEnabled == 'true'){echo "selected";} ?> value="true">True</option>
@@ -69,9 +129,9 @@ require_once('../core/php/updateCheck.php');
 		<div class="settingsHeader">
 			Advanced Poll Settings  
 			<div class="settingsHeaderButtons">
-				<a onclick="resetSettingsPollAdvanced();" id="resetChangesPollAdvancedHeaderButton" style="display: none;" class="linkSmall" > Reset Current Changes</a>
-				<?php if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
-					<a class="linkSmall" onclick="saveAndVerifyMain('devAdvanced');" >Save Changes</a>
+				<?php echo addResetButton("pollAdvanced");
+				if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
+					<a class="linkSmall" onclick="saveAndVerifyMain('pollAdvanced');" >Save Changes</a>
 				<?php else: ?>
 					<button  onclick="displayLoadingPopup();">Save Changes</button>
 				<?php endif; ?>
@@ -80,7 +140,7 @@ require_once('../core/php/updateCheck.php');
 		<div class="settingsDiv" >
 			<ul id="settingsUl">
 				<li>
-					Poll refresh all data every 
+					<span class="settingsBuffer"> Poll refresh all data every </span>
 					<input type="text" style="width: 100px;"  name="pollRefreshAll" value="<?php echo $pollRefreshAll;?>" > 
 					poll requests
 					<div class="selectDiv">
@@ -91,7 +151,7 @@ require_once('../core/php/updateCheck.php');
 					</div>
 				</li>
 				<li>
-					Force poll refresh after 
+					<span class="settingsBuffer"> Force poll refresh after </span>
 					<input type="text" style="width: 100px;"  name="pollForceTrue" value="<?php echo $pollForceTrue;?>" > 
 					skipped poll requests
 					<div class="selectDiv">
@@ -108,8 +168,8 @@ require_once('../core/php/updateCheck.php');
 		<div class="settingsHeader">
 			Logging Information 
 			<div class="settingsHeaderButtons">
-				<a onclick="resetSettingsLoggingDisplay();" id="resetChangesLoggingDisplayHeaderButton" style="display: none;" class="linkSmall" > Reset Current Changes</a>
-				<?php if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
+				<?php echo addResetButton("loggingDisplay");
+				if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
 					<a class="linkSmall" onclick="saveAndVerifyMain('loggingDisplay');" >Save Changes</a>
 				<?php else: ?>
 					<button  onclick="displayLoadingPopup();">Save Changes</button>
@@ -119,7 +179,7 @@ require_once('../core/php/updateCheck.php');
 		<div class="settingsDiv" >
 			<ul id="settingsUl">
 				<li>
-					File Info Logging
+					<span class="settingsBuffer"> File Info Logging </span>
 					<div class="selectDiv">
 						<select name="enableLogging">
   							<option <?php if($enableLogging == 'true'){echo "selected";} ?> value="true">True</option>
@@ -130,7 +190,7 @@ require_once('../core/php/updateCheck.php');
 					<span style="font-size: 75%;">*<i>This will increase poll times by 2x to 4x</i></span>
 				</li>
 				<li>
-					Poll Time Logging
+					<span class="settingsBuffer"> Poll Time Logging </span>
 					<div class="selectDiv">
 						<select name="enablePollTimeLogging">
   							<option <?php if($enablePollTimeLogging == 'true'){echo "selected";} ?> value="true">True</option>
@@ -145,8 +205,8 @@ require_once('../core/php/updateCheck.php');
 		<div class="settingsHeader">
 			Error / Crash Info
 			<div class="settingsHeaderButtons"> 
-				<a onclick="resetSettingsJsPhpSend();" id="resetChangesJsPhpSendHeaderButton" style="display: none;" class="linkSmall" > Reset Current Changes</a>
-				<?php if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
+				<?php echo addResetButton("jsPhpSend");
+				if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
 					<a class="linkSmall" onclick="saveAndVerifyMain('jsPhpSend');" >Save Changes</a>
 				<?php else: ?>
 					<button  onclick="displayLoadingPopup();">Save Changes</button>
@@ -181,8 +241,8 @@ require_once('../core/php/updateCheck.php');
 		<div class="settingsHeader">
 			File Locations
 			<div class="settingsHeaderButtons">
-				<a onclick="resetSettingsLocationOtherApps();" id="resetChangesLocationOtherAppsHeaderButton" style="display: none;" class="linkSmall" > Reset Current Changes</a>
-				<?php if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
+				<?php echo addResetButton("locationOtherApps");
+				if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
 					<a class="linkSmall" onclick="saveAndVerifyMain('locationOtherApps');" >Save Changes</a>
 				<?php else: ?>
 					<button  onclick="displayLoadingPopup();">Save Changes</button>
@@ -217,105 +277,26 @@ require_once('../core/php/updateCheck.php');
 		</div>
 		<div class="settingsDiv" >
 			<ul id="settingsUl">
-				<form id="resetSettings" action="../core/php/settingsSave.php" method="post">
-					<li>
-						<a onclick="resetSettingsPopup();" class="link">Reset Settings</a>
-					</li>
-					<li style="display: none;"  >
-							<select name="resetConfigValuesBackToDefault">
-	  							<option selected value="true">True</option>
-							</select>
-					</li>
-				</form>
 				<li>
-					Re-do setup
-					<a style="text-decoration: none;" href="../setup/step1.php" class="link">Setup</a>
+					<a style="text-decoration: none;" href="../setup/step1.php" class="link">Re-do Setup</a>
+					<span> | </span>
+					<a onclick="revertPopup();" class="link">Revert Version</a>
+					<span> | </span>
+					<a onclick="resetUpdateNotification();" class="link">Reset Update Notification</a>
 				</li>
-				<li>
-					<a onclick="revertPopup();" class="link">Revert to Previous Version</a>
-				</li>
-				<li>
-					<?php if(is_file("../monitor/index.php") === true): ?>
-						<script type="text/javascript">
-							var monitorRemove = "monitorRemove";
-						</script>
-						<form id="monitorRemove" action="addonAction.php" method="post">
-							<input type="hidden" name="localFolderLocation" value="monitor"> 
-							<input type="hidden" name="repoName" value="Monitor">
-							<input type="hidden" name="action" value="Removing">
-						</form>
-						<a onclick="addonMonitorAction(monitorRemove);" class="link">Remove Monitor</a>
-					<?php else: ?>
-						<script type="text/javascript">
-							var monitorDownload = "monitorDownload";
-						</script>
-						<form id="monitorDownload" action="addonAction.php" method="post">
-							<input type="hidden" name="localFolderLocation" value="monitor"> 
-							<input type="hidden" name="repoName" value="Monitor">
-							<input type="hidden" name="action" value="Downloading">
-						</form>
-						<a onclick="addonMonitorAction(monitorDownload);" class="link">Download Monitor</a>
-					<?php endif; ?>
-				</li>
-				<li>
-					<?php if(is_file("../search/index.php") === true): ?>
-						<script type="text/javascript">
-							var searchRemove = "searchRemove";
-						</script>
-						<form id="searchRemove" action="addonAction.php" method="post">
-							<input type="hidden" name="localFolderLocation" value="search"> 
-							<input type="hidden" name="repoName" value="Search">
-							<input type="hidden" name="action" value="Removing">
-						</form>
-					<a onclick="addonMonitorAction(searchRemove);" class="link">Remove Search</a>
-					<?php else: ?>
-						<script type="text/javascript">
-							var searchDownload = "searchDownload";
-						</script>
-						<form id="searchDownload" action="addonAction.php" method="post">
-							<input type="hidden" name="localFolderLocation" value="search"> 
-							<input type="hidden" name="repoName" value="Search">
-							<input type="hidden" name="action" value="Downloading">
-						</form>
-						<a onclick="addonMonitorAction(searchDownload);" class="link">Download Search</a>
-					<?php endif; ?>
-				</li>
-				<form id="devAdvanced2" action="../core/php/settingsSaveConfigStatic.php" method="post">
-					<li>
-						<a onclick="resetUpdateNotification();" class="link">Reset Update Notification</a> <i style="font-size: 75%;">*Could take up to 60 seconds to save.</i>
-					</li>
-					<input type="hidden" style="width: 400px;"  name="newestVersion" value="<?php echo $configStatic['version'];?>" > 
-				</form>
 			</ul>
 		</div>
 	</div>
-	<?php readfile('../core/html/popup.html') ?>	
+	<?php readfile('../core/html/popup.html') ?>
+	<form id="resetSettings" action="../core/php/settingsSave.php" method="post">
+		<select style="display: none;" name="resetConfigValuesBackToDefault">
+				<option selected value="true">True</option>
+		</select>
+	</form>
+	<form id="devAdvanced2" action="../core/php/settingsSaveConfigStatic.php" method="post">
+		<input type="hidden" style="width: 400px;"  name="newestVersion" value="<?php echo $configStatic['version'];?>" > 
+	</form>
 </body>
 <script type="text/javascript">
-	var popupSettingsArray = JSON.parse('<?php echo json_encode($popupSettingsArray) ?>');
-	function goToUrl(url)
-	{
-		var goToPage = !checkIfChanges();
-		if(goToPage || popupSettingsArray.saveSettings == "false")
-		{
-			window.location.href = url;
-		}
-		else
-		{
-			displaySavePromptPopup(url);
-		}
-	}
-
-	$( document ).ready(function() 
-	{
-		refreshSettingsDevAdvanced();
-		refreshSettingsPollAdvanced();
-		refreshSettingsLoggingDisplay();
-		refreshSettingsJsPhpSend();
-		refreshSettingsLocationOtherApps();
-    	setInterval(poll, 100);
-	});
-
 	var htmlRestoreOptions = "<?php readfile('../core/html/restoreVersionOptions.html') ?>";
-
 </script>

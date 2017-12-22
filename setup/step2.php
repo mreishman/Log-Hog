@@ -72,6 +72,7 @@ require_once('../core/php/loadVars.php'); ?>
 		document.getElementById('settingsMenuVars').action = "../core/php/settingsSave.php";
 		document.getElementById('settingsMenuVars').submit();
 	}
+	var titleOfPage = "Welcome";
 	var popupSettingsArray = JSON.parse('<?php echo json_encode($popupSettingsArray) ?>');
 	var fileArray = JSON.parse('<?php echo json_encode($config['watchList']) ?>');
 	var countOfAddedFiles = 0;
@@ -79,6 +80,7 @@ require_once('../core/php/loadVars.php'); ?>
 	var locationInsert = "newRowLocationForWatchList";
 	var logTrimType = "<?php echo $logTrimType; ?>";
 </script>
+<script src="../core/js/settings.js?v=<?php echo $cssVersion?>"></script>
 <script src="stepsJavascript.js?v=<?php echo $cssVersion?>"></script>
 <script src="../core/js/settingsMain.js?v=<?php echo $cssVersion?>"></script>
 </html>

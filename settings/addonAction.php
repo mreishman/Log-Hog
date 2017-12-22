@@ -8,8 +8,8 @@ if(file_exists('../local/layout.php'))
 	$baseUrl .= $currentSelectedTheme."/";
 }
 require_once($baseUrl.'conf/config.php');
-require_once('../core/php/commonFunctions.php'); 
-require_once('../core/php/loadVars.php'); 
+require_once('../core/php/commonFunctions.php');
+require_once('../core/php/loadVars.php');
 
 $localFolderLocation = "";
 if(isset($_POST['localFolderLocation']))

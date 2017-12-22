@@ -2,7 +2,8 @@
 	<div class="settingsHeader">
 	Main Theme Options
 	<div class="settingsHeaderButtons">
-		<?php if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
+		<?php echo addResetButton("settingsColorFolderVars");
+		if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
 		<a class="linkSmall" onclick="saveAndVerifyMain('settingsColorFolderVars');" >Save Changes</a>
 		<?php else: ?>
 			<button  onclick="displayLoadingPopup();">Save Changes</button>
@@ -18,6 +19,18 @@
 			<li>
 				<span class="settingsBuffer" > Main Font Color: </span> 
 				<input type="text" name="mainFontColor" value="<?php echo $mainFontColor;?>" >
+			</li>
+			<li>
+				<span class="settingsBuffer"> Font: </span>
+				<div class="selectDiv">
+					<select name="fontFamily">
+						<?php
+						$fonts = array('monospace','sans-serif','Courier','Monaco','Verdana','Geneva','Helvetica','Tahoma','Charcoal','Impact','cursive','Gadget','Arial');
+						foreach ($fonts as $value): ?>
+							<option <?php if($fontFamily === $value){echo "selected";} ?> value="<?php echo $value; ?>"><?php echo $value; ?></option>
+						<?php endforeach; ?>
+					</select>
+				</div>
 			</li>
 			<li>
 				<span class="settingsBuffer" > Log Font Color: </span>  <input type="text" name="logFontColor" value="<?php echo $logFontColor;?>" >

@@ -1,19 +1,22 @@
 function resize()
 {
-	var offsetHeight = 0;
-	if(document.getElementById("menu"))
+	if(document.getElementById("main"))
 	{
-		offsetHeight += document.getElementById("menu").offsetHeight;
+		var offsetHeight = 0;
+		if(document.getElementById("menu"))
+		{
+			offsetHeight += document.getElementById("menu").offsetHeight;
+		}
+		if(document.getElementById("menu2"))
+		{
+			offsetHeight += document.getElementById("menu2").offsetHeight;
+		}
+		var heightOfMain = window.innerHeight - offsetHeight;
+		var heightOfMainStyle = "height:";
+		heightOfMainStyle += heightOfMain;
+		heightOfMainStyle += "px";
+		document.getElementById("main").setAttribute("style",heightOfMainStyle);
 	}
-	if(document.getElementById("menu2"))
-	{
-		offsetHeight += document.getElementById("menu2").offsetHeight;
-	}
-	var heightOfMain = window.innerHeight - offsetHeight;
-	var heightOfMainStyle = "height:";
-	heightOfMainStyle += heightOfMain;
-	heightOfMainStyle += "px";
-	document.getElementById("main").setAttribute("style",heightOfMainStyle);
 }
 
 var idForm = "";
@@ -21,6 +24,8 @@ var countForVerifySave = 0;
 var pollCheckForUpdate;
 var data;
 var idForFormMain;
+var arrayObject = {};
+var innerHtmlObject = {};
 
 function saveAndVerifyMain(idForForm)
 {
@@ -31,8 +36,9 @@ function saveAndVerifyMain(idForForm)
 	$.ajax({
         type: "post",
         url: "../core/php/settingsSaveAjax.php",
-        data: data,
-        complete: function () {
+        data,
+        complete()
+        {
           //verify saved
           verifySaveTimer();
         }
@@ -58,7 +64,7 @@ function timerVerifySave()
 			dataType: "json",
 			data: data,
 			type: "POST",
-			success: function(data)
+			success(data)
 			{
 				if(data === true)
 				{
@@ -77,25 +83,25 @@ function timerVerifySave()
 
 function saveVerified()
 {
+	if(idForFormMain === "settingsMainWatch")
+	{
+		refreshSettingsWatchList();
+	}
+	else
+	{
+		refreshArrayObject(idForFormMain);
+	}
+
 	if(idForFormMain === "settingsMainVars")
 	{
-		refreshSettingsMainVar();
 		if(document.getElementsByName("themesEnabled")[0].value === "true")
 		{
-			document.getElementById("themesLink").style.display = "inline-block";
+			document.getElementById("ThemesLink").style.display = "inline-block";
 		}
 		else
 		{
-			document.getElementById("themesLink").style.display = "none";
+			document.getElementById("ThemesLink").style.display = "none";
 		}
-	}
-	else if(idForFormMain === "settingsMenuVars")
-	{
-		refreshSettingsMenuVar();
-	}
-	else if(idForFormMain === "settingsMainWatch")
-	{
-		refreshSettingsWatchList();
 	}
 	else if(idForFormMain === "devAdvanced")
 	{
@@ -107,54 +113,21 @@ function saveVerified()
 		{
 			document.getElementById("devToolsLink").style.display = "none";
 		}
-		refreshSettingsDevAdvanced();
 	}
-	else if(idForFormMain === "pollAdvanced")
+
+	saveSuccess();
+	
+	if(idForFormMain.includes("themeMainSelection"))
 	{
-		refreshSettingsPollAdvanced();
-	}
-	else if(idForFormMain === "loggingDisplay")
-	{
-		refreshSettingsLoggingDisplay();
-	}
-	else if(idForFormMain === "jsPhpSend")
-	{
-		refreshSettingsJsPhpSend();
-	}
-	else if(idForFormMain === "locationOtherApps")
-	{
-		refreshSettingsLocationOtherApps();
-	}
-	else if(idForFormMain === "devBranch")
-	{
-		refreshSettingsDevBranch();
-	}
-	else if(idForFormMain === "devAdvanced2")
-	{
-		refreshSettingsDevAdvanced2();
-	}
-	else if(idForFormMain === "devAdvanced3")
-	{
-		refreshSettingsDevAdvanced3();
-	}
-	else if(idForFormMain === "expFeatures")
-	{
-		refreshSettingsExpFeatures();
-	}
-	else if(idForFormMain.includes("themeMainSelection"))
-	{
-		saveSuccess();
+		
 		window.location.href = "../core/php/template/upgradeTheme.php";
 	}
 	else if(idForFormMain === "settingsColorFolderGroupVars" || idForFormMain === "settingsColorFolderVars")
 	{
-		saveSuccess();
 		location.reload();
 	}
-
-	if(!idForFormMain.includes("themeMainSelection") && (!(idForFormMain === "settingsColorFolderGroupVars" || idForFormMain === "settingsColorFolderVars")))
+	else
 	{
-		saveSuccess();
 		fadeOutPopup();
 	}
 }
@@ -179,16 +152,14 @@ function objectsAreSameInner(x, y)
 {
 	try
 	{
-		var objectsAreSame = true;
 		for(var propertyName in x) 
 		{
 			if( (typeof(x) === "undefined") || (typeof(y) === "undefined") || x[propertyName] !== y[propertyName])
 			{
-				objectsAreSame = false;
-				break;
+				return false;
 			}
 		}
-		return objectsAreSame;
+		return true;
 	}
 	catch(e)
 	{
@@ -210,6 +181,124 @@ function objectsAreSame(x, y)
 			}
 		}
 		return returnValue;
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
+function checkForChangesArray(idsOfObjects)
+{
+	var returnValue = false;
+	for (var i = idsOfObjects.length - 1; i >= 0; i--)
+	{
+		var newValue = checkForChanges(idsOfObjects[i]);
+		if(!returnValue)
+		{
+			returnValue = newValue;
+		}
+	}
+	return returnValue;
+}
+
+function checkForChanges(idOfObject)
+{
+	try
+	{
+		if(!objectsAreSame($("#"+idOfObject).serializeArray(), arrayObject[idOfObject]))
+		{
+			document.getElementById(idOfObject+"ResetButton").style.display = "inline-block";
+			return true;
+		}
+		else
+		{
+			document.getElementById(idOfObject+"ResetButton").style.display = "none";
+			return false;
+		}
+	}
+	catch(e)
+	{
+		eventThrowException(e)
+	}
+}
+
+function refreshArrayObjectOfArrays(idsOfForms)
+{
+	for (var i = idsOfForms.length - 1; i >= 0; i--)
+	{
+		refreshArrayObject(idsOfForms[i]);
+	}
+}
+
+function refreshArrayObject(idOfForm)
+{
+	try
+	{
+		arrayObject[idOfForm] = $("#"+idOfForm).serializeArray();
+		innerHtmlObject[idOfForm] = document.getElementById(idOfForm).innerHTML;
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
+function resetArrayObject(idOfForm)
+{
+	try
+	{
+		document.getElementById(idOfForm).innerHTML = innerHtmlObject[idOfForm];
+		arrayObject[idOfForm] = $("#"+idOfForm).serializeArray();
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
+function poll()
+{
+	try
+	{
+		if(checkIfChanges())
+		{
+			if(document.getElementById(titleOfPage+"Link"))
+			{
+				document.getElementById(titleOfPage+"Link").innerHTML = titleOfPage+"*";
+			}
+		}
+		else
+		{
+			if(document.getElementById(titleOfPage+"Link"))
+			{
+				document.getElementById(titleOfPage+"Link").innerHTML = titleOfPage;
+			}
+		}
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
+function goToUrl(url)
+{
+	try
+	{
+		var goToPage = true;
+		if(typeof checkIfChanges == "function")
+		{
+			goToPage = !checkIfChanges();
+		}
+		if(goToPage || popupSettingsArray.saveSettings == "false")
+		{
+			window.location.href = url;
+		}
+		else
+		{
+			displaySavePromptPopup(url);
+		}
 	}
 	catch(e)
 	{

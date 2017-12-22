@@ -36,7 +36,7 @@ div {
 	overflow-y: auto;
 	overflow-x: hidden;
 	top: 55px;
-	box-shadow: 0px 5px 10px rgba(0,0,0,.5);
+	box-shadow: 0 5px 10px rgba(0,0,0,.5);
 }
 
 #menu a, #menu2 a {
@@ -150,14 +150,14 @@ div {
 	background-color: #444444;
 	border: 1px solid white;
 	margin: 10px;
-	margin-top: 0px;
+	margin-top: 0;
 }
 
 .settingsHeader
 {
 	background-color: white;
 	margin: 10px;
-	margin-bottom: 0px;
+	margin-bottom: 0;
 	color: black;
 	padding: 5px;
 }
@@ -216,7 +216,7 @@ div {
     height: 0;
     width: 0;
     position: relative;
-    right: 0px;
+    right: 0;
     z-index: 2;
     top: 11px;
     left: 11px;
@@ -282,7 +282,7 @@ div {
 .canvasMonitorDiv{
 	margin: 20px;
 	display: inline-block;
-	box-shadow: 0px 0px 5px black;
+	box-shadow: 0 0 5px black;
 }
 
 .canvasMonitorText{
@@ -484,9 +484,8 @@ div {
 
 .dropdown-content__items{
 	list-style: none;
-	margin: 0px;
-	padding: 0px;
-	margin-top: 0px;
+	margin: 0;
+	padding: 0;
 }
 
 .dropdown-content--active {
@@ -547,4 +546,11 @@ div {
 
 .selectDiv option{
 	color: black;
+}
+
+
+#menuButtons{
+	display: block;
+	padding-bottom: 5px;
+	margin-bottom: 5px;
 }

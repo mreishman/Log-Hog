@@ -75,6 +75,4 @@ $"."configStatic = array(
 
 	file_put_contents($fileName, $newInfoForConfig);
 
-	header('Location: ' . $_SERVER['HTTP_REFERER']);
-	exit();
-?>
+	echo json_encode(true);

@@ -18,7 +18,7 @@ require_once('../core/php/updateCheck.php');
 ?>
 <!doctype html>
 <head>
-	<title>Settings | Dev Tools</title>
+	<title>Settings | Dev</title>
 	<?php echo loadCSS($baseUrl, $cssVersion);?>
 	<link rel="icon" type="image/png" href="../core/img/favicon.png" />
 	<script src="../core/js/jquery.js"></script>
@@ -31,8 +31,8 @@ require_once('../core/php/updateCheck.php');
 		<div class="settingsHeader">
 			Branch Settings  
 			<div class="settingsHeaderButtons">
-				<a onclick="resetSettingsDevBranch();" id="resetChangesDevBranchHeaderButton" style="display: none;" class="linkSmall" > Reset Current Changes</a>
-				<?php if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
+				<?php echo addResetButton("devBranch");
+				if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
 					<a class="linkSmall" onclick="saveAndVerifyMain('devBranch');" >Save Changes</a>
 				<?php else: ?>
 					<button  onclick="displayLoadingPopup();">Save Changes</button>
@@ -64,18 +64,18 @@ require_once('../core/php/updateCheck.php');
 
 		</div>
 	</form>
-	<form id="devAdvanced2" action="../core/php/settingsSaveConfigStatic.php" method="post">
+	<form id="devAdvanced2">
 		<div class="settingsHeader">
 			Static Config Settings  
 			<div class="settingsHeaderButtons">
-				<a onclick="resetSettingsDevAdvanced2();" id="resetChangesDevAdvanced2HeaderButton" style="display: none;" class="linkSmall" > Reset Current Changes</a>
-				<button onclick="displayLoadingPopup();" >Save Changes</button>
+				<?php echo addResetButton("devAdvanced2");?>
+				<a class="linkSmall" onclick="saveConfigStatic();" >Save Changes</a>
 			</div>
 		</div>
 		<div class="settingsDiv" >
 			<ul id="settingsUl">
 				<li>
-					<span class="settingsBuffer" >  Version Number:  </span> <input type="text" style="width: 400px;"  name="version" value="<?php echo $configStatic['version'];?>" > 
+					<span class="settingsBuffer" >  Version Number:  </span> <input id="versionNumberConfigStaticInput" type="text" style="width: 400px;"  name="version" value="<?php echo $configStatic['version'];?>" > 
 				</li>
 			</ul>
 		</div>
@@ -84,7 +84,7 @@ require_once('../core/php/updateCheck.php');
 		<div class="settingsHeader">
 			Update Progress File Settings
 			<div class="settingsHeaderButtons">
-				<a onclick="resetSettingsDevAdvanced3();" id="resetChangesDevAdvanced3HeaderButton" style="display: none;" class="linkSmall" > Reset Current Changes</a>
+				<?php echo addResetButton("devAdvanced3");?>
 				<button onclick="displayLoadingPopup();" >Save Changes</button>
 			</div>
 		</div>
@@ -110,34 +110,18 @@ require_once('../core/php/updateCheck.php');
 			</ul>
 		</div>
 	</form>
+	<!-- 
+	<div class="settingsHeader">
+			Edit Files
+		</div>
+		<div class="settingsDiv" >
+			<ul id="settingsUl">
+				<li>
+				Insert Links Here
+				</li>
+			</ul>
+		</div>
+	-->
 	</div>
 	<?php readfile('../core/html/popup.html') ?>	
 </body>
-<script type="text/javascript">
-
-var popupSettingsArray = JSON.parse('<?php echo json_encode($popupSettingsArray) ?>');
-
-function goToUrl(url)
-{
-	var goToPage = !checkForChange();
-
-	if(goToPage || popupSettingsArray.saveSettings == "false")
-	{
-		window.location.href = url;
-	}
-	else
-	{
-		displaySavePromptPopup(url);
-	}
-}
-
-
-$( document ).ready(function() 
-{
-	refreshSettingsDevBranch();
-	refreshSettingsDevAdvanced2();
-	refreshSettingsDevAdvanced3();
-	setInterval(poll, 100);
-});
-
-</script>

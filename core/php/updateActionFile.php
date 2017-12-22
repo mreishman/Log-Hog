@@ -6,7 +6,6 @@ function microtime_float()
     return ((float)$usec + (float)$sec);
 }
 
-
 $time_start = microtime_float();
 
 require_once('settingsInstallUpdate.php');
@@ -23,5 +22,3 @@ updateMainProgressLogFile($time);
 
 header('Location: ' . $_SERVER['HTTP_REFERER']);
 exit();
-
-?>

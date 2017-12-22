@@ -610,3 +610,10 @@ background: linear-gradient(to bottom, rgba(233,170,181,1) 0%, rgba(242,166,173,
 .selectDiv option{
 	color: black;
 }
+
+
+#menuButtons{
+	display: block;
+	padding-bottom: 5px;
+	margin-bottom: 5px;
+}

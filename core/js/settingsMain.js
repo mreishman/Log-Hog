@@ -1,4 +1,15 @@
-/global sendCrashInfoJS Raven displayLoadingPopup countOfAddedFiles countOfWatchList popupSettingsArray /;
+var fileArrayKeys = Object.keys(fileArray);
+var countOfWatchList = fileArrayKeys.length;
+var countOfAddedFiles = 0;
+var countOfClicks = 0;
+var locationInsert = "newRowLocationForWatchList";
+var countOfWatchListStatic = countOfWatchList;
+var countOfAddedFilesStatic = countOfAddedFiles;
+var countOfClicksStatic = countOfClicks;
+var locationInsertStatic = locationInsert;
+var titleOfPage = "Main";
+
+
 function showOrHideLogTrimSubWindow()
 {
 	try
@@ -147,12 +158,8 @@ function deleteRowFunction(currentRow, decreaseCountWatchListNum)
 			if(countOfAddedFiles > 0)
 			{
 				countOfAddedFiles--;
-				countOfWatchList--;
 			}
-			else
-			{
-				countOfWatchList--;
-			}
+			countOfWatchList--;
 			document.getElementById("numberOfRows").value = newValue;
 		}
 	}
@@ -247,97 +254,33 @@ function showNoEmptyFolderPopup()
 	}
 }
 
-function checkForChangesWatchListPoll()
+function checkIfChanges()
 {
-	try
+	var arrayToCheck = new Array();
+	if(document.getElementById("settingsMenuVars"))
 	{
-		if(!objectsAreSame($("#settingsMainWatch").serializeArray(),watchlistData))
-		{
-			document.getElementById("resetChangesSettingsHeaderButton").style.display = "inline-block";
-			return true;
-		}
-		else
-		{
-			document.getElementById("resetChangesSettingsHeaderButton").style.display = "none";
-			return false;
-		}
+		arrayToCheck.push("settingsMenuVars");
 	}
-	catch(e)
+	if(document.getElementById("settingsMainVars"))
 	{
-		eventThrowException(e);
+		arrayToCheck.push("settingsMainVars");
 	}
-}
-
-function checkForChangesMainSettings()
-{
-	try
+	if(document.getElementById("settingsMainWatch"))
 	{
-		if(!objectsAreSame($("#settingsMainVars").serializeArray(),mainData))
-		{
-			document.getElementById("resetChangesMainSettingsHeaderButton").style.display = "inline-block";
-			return true;
-		}
-		else
-		{
-			document.getElementById("resetChangesMainSettingsHeaderButton").style.display = "none";
-			return false;
-		}
+		arrayToCheck.push("settingsMainWatch");
 	}
-	catch(e)
+	if(	checkForChangesArray(arrayToCheck))
 	{
-		eventThrowException(e);
+		return true;
 	}
-}
-
-function checkForChangesMenuSettings()
-{
-	try
-	{
-		if(!objectsAreSame($("#settingsMenuVars").serializeArray(), menuData))
-		{
-			document.getElementById("resetChangesMenuSettingsHeaderButton").style.display = "inline-block";
-			return true;
-		}
-		else
-		{
-			document.getElementById("resetChangesMenuSettingsHeaderButton").style.display = "none";
-			return false;
-		}
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
-function poll()
-{
-	try
-	{
-		var change = checkForChangesWatchListPoll();
-		var change2 = checkForChangesMainSettings();
-		var change3 = checkForChangesMenuSettings();
-		if(change || change2 || change3)
-		{
-			document.getElementById("mainLink").innerHTML = "Main*";
-		}
-		else
-		{
-			document.getElementById("mainLink").innerHTML = "Main";
-		}
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
+	return false;
 }
 
 function resetWatchListVars()
 {
 	try
 	{
-		document.getElementById("settingsMainWatch").innerHTML = savedInnerHtmlWatchList;
-		watchlistData = $("#settingsMainWatch").serializeArray();
+		resetArrayObject("settingsMainWatch");
 		countOfWatchList = countOfWatchListStatic;
 		countOfAddedFiles =  countOfAddedFilesStatic;
 		countOfClicks = countOfClicksStatic;
@@ -349,64 +292,11 @@ function resetWatchListVars()
 	}
 }
 
-function resetSettingsMainVar()
-{
-	try
-	{
-		document.getElementById("settingsMainVars").innerHTML = savedInnerHtmlMainVars;
-		mainData = $("#settingsMainVars").serializeArray();
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
-function resetSettingsMenuVar()
-{
-	try
-	{
-		document.getElementById("settingsMenuVars").innerHTML = savedInnerHtmlMenu;
-		menuData = $("#settingsMenuVars").serializeArray();
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
-function refreshSettingsMainVar()
-{
-	try
-	{
-		mainData = $("#settingsMainVars").serializeArray();
-		savedInnerHtmlWatchList = document.getElementById("settingsMainWatch").innerHTML;
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
-function refreshSettingsMenuVar()
-{
-	try
-	{
-		menuData = $("#settingsMenuVars").serializeArray();
-		savedInnerHtmlMenu = document.getElementById("settingsMenuVars").innerHTML;
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
 function refreshSettingsWatchList()
 {
 	try
 	{
-		watchlistData = $("#settingsMainWatch").serializeArray();
-		savedInnerHtmlMainVars = document.getElementById("settingsMainVars").innerHTML;
+		refreshArrayObject("settingsMainWatch");
 		countOfWatchListStatic = countOfWatchList;
 		countOfAddedFilesStatic = countOfAddedFiles;
 		countOfClicksStatic = countOfClicks;
@@ -422,15 +312,7 @@ function highlightTopNavDepends()
 {
 	try
 	{
-		var offsetHeight = 0;
-		if(document.getElementById("menu"))
-		{
-			offsetHeight += document.getElementById("menu").offsetHeight;
-		}
-		if(document.getElementById("menu2"))
-		{
-			offsetHeight += document.getElementById("menu2").offsetHeight;
-		}
+		var offsetHeight = document.getElementById("menu").offsetHeight + document.getElementById("menu2").offsetHeight;
 		outerHeightMain = $("#settingsMainVars").outerHeight();
 		positionMain = $("#settingsMainVars").position();
 		if((outerHeightMain+positionMain.top-offsetHeight) < 0)
@@ -510,3 +392,57 @@ function removeActiveClass(idToAdd)
 		eventThrowException(e);
 	}
 }
+
+$( document ).ready(function() 
+{
+	if(document.getElementById('logTrimTypeText'))
+	{
+		if(logTrimType == 'lines')
+		{
+			document.getElementById('logTrimTypeText').innerHTML = "Lines";
+		}
+		else if (logTrimType == 'size')
+		{
+			document.getElementById('logTrimTypeText').innerHTML = "Size";
+		}
+	}
+	if(document.getElementById("popupSelect"))
+	{
+		document.getElementById("popupSelect").addEventListener("change", showOrHidePopupSubWindow, false);
+	}
+	if(document.getElementById("settingsSelect"))
+	{
+		document.getElementById("settingsSelect").addEventListener("change", showOrHideUpdateSubWindow, false);
+	}
+	if(document.getElementById("logTrimTypeToggle"))
+	{
+		document.getElementById("logTrimTypeToggle").addEventListener("change", changeDescriptionLineSize, false);
+	}
+	if(document.getElementById("logTrimOn"))
+	{
+		document.getElementById("logTrimOn").addEventListener("change", showOrHideLogTrimSubWindow, false);
+	}
+
+	var arrayToRefresh = new Array();
+	if(document.getElementById("settingsMainVars"))
+	{
+		arrayToRefresh.push("settingsMainVars");
+	}
+
+	if(document.getElementById("settingsMenuVars"))
+	{
+		arrayToRefresh.push("settingsMenuVars");
+	}
+
+	refreshArrayObjectOfArrays(arrayToRefresh);
+	if(document.getElementById("settingsMainWatch"))
+	{
+		refreshSettingsWatchList();
+	}
+	setInterval(poll, 100);
+
+	$( "#main" ).scroll(function()
+	{
+		highlightTopNavDepends();
+	});
+});

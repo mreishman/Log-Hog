@@ -83,6 +83,25 @@ elseif (is_dir("../Search"))
 	$locationForSearchIndex = "../Search/";
 }
 
+
+$locationForSeleniumMonitorIndex = "";
+if($locationForSeleniumMonitor != "")
+{
+	$locationForSeleniumMonitorIndex = $locationForSeleniumMonitor;
+}
+elseif(is_file("seleniumMonitor/index.php"))
+{
+	$locationForSeleniumMonitorIndex = './seleniumMonitor/';
+}
+elseif (is_dir("../seleniumMonitor"))
+{
+	$locationForSeleniumMonitorIndex = "../seleniumMonitor/";
+}
+elseif (is_dir("../SeleniumMonitor"))
+{
+	$locationForSeleniumMonitorIndex = "../SeleniumMonitor/";
+}
+
 ?>
 <!doctype html>
 <head>
@@ -101,7 +120,7 @@ elseif (is_dir("../Search"))
 		<div id="loggTimerPollStyle" style="width: 100%;background-color: black;text-align: center; line-height: 200%;" ><span id="loggingTimerPollRate" >### MS /<?php echo $pollingRate; ?> MS</span> | <span id="loggSkipCount" >0</span>/<?php echo $pollForceTrue; ?> | <span id="loggAllCount" >0</span>/<?php echo $pollRefreshAll; ?></div>
 	<?php endif; ?>
 	<div class="backgroundForMenus" id="menu">
-		<div style="display: inline-block;">
+		<div id="menuButtons" style="display: block;">
 			<div onclick="pausePollAction();" class="menuImageDiv">
 				<img id="playImage" class="menuImage" src="<?php echo $baseUrl; ?>img/Play.png"
 					<?php if($pausePoll !== 'true'):?>
@@ -141,6 +160,11 @@ elseif (is_dir("../Search"))
 				<img id="searchImage" class="menuImage" src="<?php echo $baseUrl; ?>img/search.png" height="30px">
 			</div>
 			<?php endif; ?>
+			<?php if($locationForSeleniumMonitorIndex != ""): ?>
+			<div onclick="window.location.href = '<?php echo $locationForSeleniumMonitorIndex; ?>'"  class="menuImageDiv">
+				<img id="searchImage" class="menuImage" src="<?php echo $baseUrl; ?>img/seleniumMonitor.png" height="30px">
+			</div>
+			<?php endif; ?>
 			<div onclick="window.location.href = './settings/main.php';"  class="menuImageDiv">
 				<img data-id="1" id="gear" class="menuImage" src="<?php echo $baseUrl; ?>img/Gear.png" height="30px">
 				<?php if($updateNotificationEnabled === "true")
@@ -160,6 +184,12 @@ elseif (is_dir("../Search"))
 					gS
 				</div>
 			<?php endif; ?>
+			<div style="float: right;">
+				<select name="searchType" style="display: none;">
+					<option selected value="title">Title</option>
+				</select>
+				<input id="searchFieldInput" type="search" name="search" placeholder="filter title" style="height: 30px; width: 200px;">
+			</div>
 		</div>
 	</div>
 	
@@ -250,12 +280,12 @@ elseif (is_dir("../Search"))
 		var pollRefreshAllBool = "<?php echo $pollRefreshAllBool;?>";
 		var pollForceTrueBool = "<?php echo $pollRefreshAllBool;?>";
 		var baseUrl = "<?php echo $baseUrl;?>";
-
+		var updateFromID = "settingsInstallUpdate";
 	</script>
 	<?php readfile('core/html/popup.html') ?>
 	<script src="core/js/main.js?v=<?php echo $cssVersion?>"></script>
 	<script src="core/js/rightClickJS.js?v=<?php echo $cssVersion?>"></script>	
-
+	<script src="core/js/update.js?v=<?php echo $cssVersion?>"></script>
 	<nav id="context-menu" class="context-menu">
 	  <ul id="context-menu-items" class="context-menu__items">
 	  </ul>

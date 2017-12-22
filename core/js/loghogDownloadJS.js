@@ -37,7 +37,7 @@ function removeFilesFromToppFolder(skip = false)
 	$.ajax({
 		url: urlForSend,
 		dataType: "json",
-		data: data,
+		data,
 		type: "POST",
 		complete()
 		{
@@ -74,7 +74,7 @@ function downloadFile()
 		dataType: "json",
 		data: data,
 		type: "POST",
-		complete: function()
+		complete()
 		{
 			//verify if downloaded
 			updateText("Verifying Download");
@@ -92,7 +92,7 @@ function unzipFile()
 		dataType: "json",
 		data: data,
 		type: "POST",
-		complete: function()
+		complete()
 		{
 			//verify if downloaded
 			verifyFile("unzipFile", "../../"+localFolderLocation+"/index.php");
@@ -129,24 +129,28 @@ function verifyFail(action)
 	}
 	else
 	{
-		if(action === "downloadMonitor")
-		{
-			updateText("File Could NOT be found");
-			downloadFile();
-		}
-		else if(action === "unzipFile")
-		{
-			unzipFile();
-		}
-		else if(action === "removeZipFile")
-		{
-			removeZipFile();
-		}
-		else if(action === "removeFilesFromToppFolderSkip")
-		{
-			removeFilesFromToppFolder(true);
-		}
-		//run previous ajax
+		verifyFailAction(action);
+	}
+}
+
+function verifyFailAction(action)
+{
+	if(action === "downloadMonitor")
+	{
+		updateText("File Could NOT be found");
+		downloadFile();
+	}
+	else if(action === "unzipFile")
+	{
+		unzipFile();
+	}
+	else if(action === "removeZipFile")
+	{
+		removeZipFile();
+	}
+	else if(action === "removeFilesFromToppFolderSkip")
+	{
+		removeFilesFromToppFolder(true);
 	}
 }
 

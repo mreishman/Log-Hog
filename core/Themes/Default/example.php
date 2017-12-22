@@ -29,25 +29,27 @@ require_once($baseURL.'core/php/loadVars.php');
 </head>
 <body>
 	<div id="menu" style="position: relative; ">
-		<div class="menuImageDiv">
-			<img id="pauseImage" class="menuImage" src="img/Pause.png" height="30px">
+		<div id="menuButtons">
+			<div class="menuImageDiv">
+				<img id="pauseImage" class="menuImage" src="img/Pause.png" height="30px">
+			</div>
+			<div class="menuImageDiv">
+				<img id="refreshImage" class="menuImage" src="img/Refresh.png" height="30px">
+			</div>
+			<div class="menuImageDiv">
+				<img id="deleteImage" class="menuImage" src="img/trashCanMulti.png" height="30px">
+			</div>
+			<div class="menuImageDiv">
+					<img id="taskmanagerImage" class="menuImage" src="img/task-manager.png" height="30px">
+			</div>
+			<div class="menuImageDiv">
+					<img id="searchImage" class="menuImage" src="img/search.png" height="30px">
+			</div>
+			<div class="menuImageDiv">
+				<img data-id="1" id="gear" class="menuImage" src="img/Gear.png" height="30px">
+			</div>
+			<div class="menuImage" style="display: inline-block; cursor: pointer; " >gS</div>
 		</div>
-		<div class="menuImageDiv">
-			<img id="refreshImage" class="menuImage" src="img/Refresh.png" height="30px">
-		</div>
-		<div class="menuImageDiv">
-			<img id="deleteImage" class="menuImage" src="img/trashCanMulti.png" height="30px">
-		</div>
-		<div class="menuImageDiv">
-				<img id="taskmanagerImage" class="menuImage" src="img/task-manager.png" height="30px">
-		</div>
-		<div class="menuImageDiv">
-				<img id="searchImage" class="menuImage" src="img/search.png" height="30px">
-		</div>
-		<div class="menuImageDiv">
-			<img data-id="1" id="gear" class="menuImage" src="img/Gear.png" height="30px">
-		</div>
-		<div class="menuImage" style="display: inline-block; cursor: pointer; " >gS</div>
 		<a class="varwwwhtmlvarlogauthnetcimlogButton active" >server_hhvm.log</a>
 
 		<a class="varwwwhtmlvarlogauthnetcimachlogButton" >server_system.log</a>

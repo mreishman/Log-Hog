@@ -2,7 +2,8 @@
 	<div class="settingsHeader">
 	Folder Color Options
 	<div class="settingsHeaderButtons">
-		<?php if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
+		<?php echo addResetButton("settingsColorFolderGroupVars");
+		if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
 		<a class="linkSmall" onclick="saveAndVerifyMain('settingsColorFolderGroupVars');" >Save Changes</a>
 		<?php else: ?>
 			<button  onclick="displayLoadingPopup();">Save Changes</button>

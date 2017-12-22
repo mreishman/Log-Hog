@@ -73,9 +73,3 @@ require_once('../core/php/updateCheck.php');
 		</div>
 	</div>
 </body>
-<script type="text/javascript">
-	function goToUrl(url)
-	{
-		window.location.href = url;
-	}
-</script>

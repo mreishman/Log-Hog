@@ -74,7 +74,7 @@ require_once('../core/php/loadVars.php'); ?>
 		document.getElementById('settingsMainWatch').action = "../core/php/settingsSave.php";
 		document.getElementById('settingsMainWatch').submit();
 	}
-
+	var titleOfPage = "Welcome";
 	var popupSettingsArray = JSON.parse('<?php echo json_encode($popupSettingsArray) ?>');
 	var fileArray = JSON.parse('<?php echo json_encode($config['watchList']) ?>');
 	var countOfWatchList = <?php echo $i; ?>;
@@ -85,6 +85,7 @@ require_once('../core/php/loadVars.php'); ?>
 
 
 </script>
+<script src="../core/js/settings.js?v=<?php echo $cssVersion?>"></script>
 <script src="../core/js/settingsMain.js?v=<?php echo $cssVersion?>"></script>
 <script src="stepsJavascript.js?v=<?php echo $cssVersion?>"></script>
 </html>

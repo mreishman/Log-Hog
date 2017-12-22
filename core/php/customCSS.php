@@ -59,7 +59,8 @@ progress
 body
 {
 	background: <?php echo $backgroundColor?>;
-	color: <?php echo $mainFontColor; ?>
+	color: <?php echo $mainFontColor; ?>;
+	font-family: <?php echo $fontFamily;?>;
 }
 
 #log, #firstLoad
