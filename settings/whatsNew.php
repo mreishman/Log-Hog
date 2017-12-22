@@ -47,6 +47,30 @@ require_once('../core/php/commonFunctions.php');
 				</tr>
 
 
+
+				<tr>
+				<th colspan="2" style="padding: 10px">
+					<h1>3.4</h1>
+				</th>
+				</tr>
+
+
+				<tr>
+				<td>
+					<ul>
+						<li>
+							Content filter for logs! (search and highlight content of logs)
+						</li>
+					</ul>
+				</td>
+				<td>
+					<a href="../core/img/3.4-1.png" data-lightbox="3.4" ><img src="../core/img/3.4-1.png" style="width: 45%;"></a>
+					<a href="../core/img/3.4-3.png" data-lightbox="3.4" ><img src="../core/img/3.4-3.png" style="width: 45%;"></a>
+				</td>
+				</tr>
+
+
+
 				<tr>
 				<th colspan="2" style="padding: 10px">
 					<h1>3.3</h1>
