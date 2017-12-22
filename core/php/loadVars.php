@@ -303,3 +303,53 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 	}
 	$folderColorArrays = $folderColorArraysSave;
 }
+else
+{
+	// Image Vars
+
+	$arrayOfImages = array(
+		"pause"			=> array(
+			"alt"			=>	"Pause",
+			"src"			=>	"",
+			"title"			=>	"Pause",
+			"baseName"		=>	"Pause.png"
+		)
+	);
+
+
+
+	foreach ($arrayOfImages as $key => $value)
+	{
+		$src = null;
+		//check for local version
+		$src = "local/".$currentSelectedTheme."/img/".$value["baseName"];
+		if(!file_exists($varToIndexDir.$src))
+		{
+			$src = null;
+		}
+		if($src === null)
+		{
+			//check for custom theme
+			$src = "local/Themes/".$currentTheme."img/".$value["baseName"];
+			if(!file_exists($varToIndexDir.$src))
+			{
+				$src = null;
+			}
+		}
+		if($src === null)
+		{
+			//check for base theme
+			$src = "core/Themes/".$currentTheme."img/".$value["baseName"];
+			if(!file_exists($varToIndexDir.$src))
+			{
+				$src = null;
+			}
+		}
+		if($src === null)
+		{
+			//use core image
+			$src = "core/img/".$value["baseName"];
+		}
+		$arrayOfImages[$key]["src"] = $src;
+	}
+}

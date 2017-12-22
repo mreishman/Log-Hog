@@ -18,6 +18,7 @@ $defaultConfig = array(
 	'cssVersion'					=> 1,
 	'currentFolderColorTheme'		=> 'theme-default-2',
 	'currentTheme'					=> 'Default',
+	'currentThemeBase'				=> 'Default',
 	'developmentTabEnabled'			=> 'false',
 	'dontNotifyVersion'				=> '0',
 	'enableDevBranchDownload' 		=> 'false',

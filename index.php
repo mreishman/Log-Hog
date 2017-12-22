@@ -222,7 +222,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 						style="display: inline-block;"
 					<?php endif;?>
 				height="30px">
-				<img id="pauseImage" class="menuImage" src="<?php echo $baseUrl; ?>img/Pause.png"
+				<img id="pauseImage" class="menuImage" src="<?php echo $arrayOfImages["pause"]["src"]; ?>"
 					<?php if($pausePoll === 'true'):?>
 						style="display: none;"
 					<?php else: ?>
