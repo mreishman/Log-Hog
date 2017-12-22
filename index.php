@@ -156,6 +156,30 @@ $borderPadding = 0;
 for ($i=0; $i < $windowDisplayConfig[0]; $i++)
 {
 	$logDisplay .= "<tr>";
+	$infoImageForWindowTableLoop = generateImage(
+		$arrayOfImages["info"],
+		$imageConfig = array(
+			"height"	=>	"20px",
+			"style"		=>	"margin: 5px;",
+			"title"		=>	"More Info"
+			)
+		);
+	$clearImageForWindowTableLoop = generateImage(
+		$arrayOfImages["eraser"],
+		$imageConfig = array(
+			"height"	=>	"20px",
+			"style"		=>	"margin: 5px;",
+			"title"		=>	"Clear Log"
+			)
+		);
+	$deleteImageForWindowTableLoop =  generateImage(
+		$arrayOfImages["trashCan"],
+		$imageConfig = array(
+			"height"	=>	"20px",
+			"style"		=>	"margin: 5px;",
+			"title"		=>	"Delete Log"
+			)
+		);
 	for ($j=0; $j < $windowDisplayConfig[1]; $j++)
 	{
 		$borderPadding += 2;
@@ -179,9 +203,15 @@ for ($i=0; $i < $windowDisplayConfig[0]; $i++)
 			$logDisplay .= "sidebarCurrentWindowNum";
 		}
 		$logDisplay .= " \" >".($counter+1)."</p>";
-		$logDisplay .= "<a title=\"More Info\" onclick=\"showInfo('".$counter."');\" style=\"cursor: pointer;\" > <img src=\"".$baseUrl."img/info.png\" height=\"20px;\" style=\"margin: 5px;\" ></a>"; 
-		$logDisplay .= "<a title=\"Clear Log\"  onclick=\"clearLog('".$counter."');\" style=\"cursor: pointer;\" >  <img src=\"".$baseUrl."img/eraser.png\" height=\"20px;\" style=\"margin: 5px;\" ></a>"; 
-		$logDisplay .= "<a title=\"Delete Log\" onclick=\"deleteLogPopup('".$counter."');\" style=\"cursor: pointer;\" > <img src=\"".$baseUrl."img/trashCan.png\" height=\"20px;\" style=\"margin: 5px;\" ></a>"; 
+		$logDisplay .= "<a onclick=\"showInfo('".$counter."');\" style=\"cursor: pointer;\" >";
+		$logDisplay .= $infoImageForWindowTableLoop;
+		$logDisplay .= "</a>";
+		$logDisplay .= "<a onclick=\"clearLog('".$counter."');\" style=\"cursor: pointer;\" >";
+		$logDisplay .= $clearImageForWindowTableLoop;
+		$logDisplay .= "</a>";
+		$logDisplay .= "<a onclick=\"deleteLogPopup('".$counter."');\" style=\"cursor: pointer;\" >"; 
+		$logDisplay .= $deleteImageForWindowTableLoop;
+		$logDisplay .= "</a>";
 		$logDisplay .= "</div> ";
 		$logDisplay .= "</td><td style=\"padding: 0;\" >";
 		$logDisplay .= " <span id=\"log".$counter."Td\"  class=\"logTrHeight\" style=\"overflow: auto; display: block; word-break: break-word;\" > <div style=\"padding: 0; white-space: pre-wrap;\" id=\"log".$counter."\"  ></div> </span>";

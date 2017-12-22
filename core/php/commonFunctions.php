@@ -446,12 +446,36 @@ function generateImage($imageArray, $customConfig)
 	$image .= " src=\"";
 	$image .= $imageArray["src"];
 	$image .= "\" ";
-	$image .= " alt=\"";
-	$image .= $imageArray["alt"];
-	$image .= "\" ";
-	$image .= " title=\"";
-	$image .= $imageArray["title"];
-	$image .= "\" ";
+	if(isset($customConfig["alt"]))
+	{
+		if($customConfig["alt"] !== null)
+		{
+			$image .= " alt=\"";
+			$image .= $customConfig["alt"];
+			$image .= "\" ";
+		}
+	}
+	else
+	{
+		$image .= " alt=\"";
+		$image .= $imageArray["alt"];
+		$image .= "\" ";
+	}
+	if(isset($customConfig["title"]))
+	{
+		if($customConfig["title"] !== null)
+		{
+			$image .= " title=\"";
+			$image .= $customConfig["title"];
+			$image .= "\" ";
+		}
+	}
+	else
+	{
+		$image .= " title=\"";
+		$image .= $imageArray["title"];
+		$image .= "\" ";
+	}
 	if(isset($customConfig["style"]))
 	{
 		$image .= " style=\"";
