@@ -107,6 +107,22 @@ $errorArray = array(
         "firstMessage"      =>  "Setup Error",
         "secondMessage"     =>  "An error occured when trying to complete the setup process. Please check that the save file has correct access to write to and create a local config file.  If that doesn't work: Copy core/conf/config.php to local/default/conf/config.php and change defaultConfig to config."
     ),
+    3   =>  array(
+        "firstMessage"      =>  "Config Save Error",
+        "secondMessage"     =>  "An error occured when SettingsSaveAjax tried to save the config file. This file does not have write access to the specific folder (Local/default/conf) to save the updated config file. Please give the correct write access to settingsSaveAjax to save and update the config with the new values."
+    ),
+    4   =>  array(
+        "firstMessage"      =>  "Config Save Error",
+        "secondMessage"     =>  "An error occured when SettingsSaveAjax tried to save the config file. This file does not have write access to the specific file (Local/default/conf/config.php) to save the updated config file. Please give the correct write access to settingsSaveAjax to save and update the config with the new values."
+    ),
+    5   =>  array(
+        "firstMessage"      =>  "Config Save Error",
+        "secondMessage"     =>  "An unknown error occured when SettingsSaveAjax tried to save the config file. This file  (Local/default/conf/config.php) could not be updated with the new values."
+    ),
+    6   =>  array(
+        "firstMessage"      =>  "Config Backup Error",
+        "secondMessage"     =>  "An unknown error occured when SettingsSaveAjax tried to save a backup of the config file."
+    ),
     550   =>  array(
         "firstMessage"      =>  "File Permission Error",
         "secondMessage"     =>  "Make sure the file permissions are set correctly for all of the files within loghog."

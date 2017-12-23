@@ -1,13 +1,9 @@
 <?php
 
-$baseUrl = "../../core/";
-if(file_exists('../../local/layout.php'))
-{
-	$baseUrl = "../../local/";
-	//there is custom information, use this
-	require_once('../../local/layout.php');
-	$baseUrl .= $currentSelectedTheme."/";
-}
+$baseUrl = "../../local/";
+//there is custom information, use this
+require_once('../../local/layout.php');
+$baseUrl .= $currentSelectedTheme."/";
 
 require_once($baseUrl.'conf/config.php');
 require_once('../../core/conf/config.php');
@@ -25,7 +21,16 @@ if($backupNumConfigEnabled === "true")
 		$fileNameNew = ''.$baseUrl.'conf/config'.$i.'.php';
 		if (file_exists($fileNameOld))
 		{
-			rename($fileNameOld, $fileNameNew);
+			try
+			{
+				rename($fileNameOld, $fileNameNew);
+			}
+			catch (Exception $e)
+			{
+				echo json_encode(6);
+				exit();
+			}
+			
 		}
 	}
 }
@@ -64,7 +69,29 @@ if($backupNumConfigEnabled === "true")
 
 	//Don't forget to update Normal version
 
-	file_put_contents($fileName, $newInfoForConfig);
-	echo json_encode(true);
+	if(is_writable($baseUrl."conf/"))
+	{
+		if(file_exists($fileName))
+		{
+			if(!is_writable($fileName))
+			{
+				echo json_encode(4);
+				exit();
+			}
+		}
+		try
+		{
+			file_put_contents($fileName, $newInfoForConfig);
+		}
+		catch (Exception $e)
+		{
+			echo json_encode(5);
+			exit();
+		}
+		
+		echo json_encode(true);
+		exit();
+	}
+	echo json_encode(3)
 	exit();
 ?>

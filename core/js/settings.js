@@ -37,6 +37,13 @@ function saveAndVerifyMain(idForForm)
         type: "post",
         url: "../core/php/settingsSaveAjax.php",
         data,
+        success(data)
+        {
+        	if(data !== true)
+        	{
+        		window.location.href = "../error.php?error="+data+"&page=core/php/settingsSaveAjax.php";
+        	}
+        }
         complete()
         {
           //verify saved
