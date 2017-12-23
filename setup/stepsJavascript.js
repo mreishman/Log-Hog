@@ -24,7 +24,7 @@ function updateStatus(status)
 function verifyStatusChange(status)
 {
 	countChecker++;
-	if(countChecker < 10)
+	if(countChecker < 20)
 	{
 		var urlForSend = "./updateSetupCheck.php?format=json";
 		var data = {status: status };
