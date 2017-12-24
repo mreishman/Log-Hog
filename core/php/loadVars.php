@@ -428,36 +428,30 @@ else
 
 	foreach ($arrayOfImages as $key => $value)
 	{
-		$src = null;
-		//check for local version
-		$src = "local/".$currentSelectedTheme."/img/".$value["baseName"];
-		if(!file_exists($varToIndexDir.$src))
+		$src = "core/img/".$value["baseName"];
+		
+		
+		if(file_exists($varToIndexDir."local/".$currentSelectedTheme."/img/".$value["baseName"]))
 		{
-			$src = null;
+			//check for local version
+			$src = "local/".$currentSelectedTheme."/img/".$value["baseName"];
 		}
-		if($src === null)
+		elseif(!file_exists($varToIndexDir."local/Themes/".$currentTheme."img/".$value["baseName"]))
 		{
-			//check for custom theme
+			//check for current theme in local
 			$src = "local/Themes/".$currentTheme."img/".$value["baseName"];
-			if(!file_exists($varToIndexDir.$src))
-			{
-				$src = null;
-			}
 		}
-		if($src === null)
+		elseif(!file_exists($varToIndexDir."core/Themes/".$currentTheme."img/".$value["baseName"]))
+		{
+			//check for current theme in core
+			$src = "core/Themes/".$currentTheme."img/".$value["baseName"];
+		}
+		elseif(!file_exists($varToIndexDir."core/Themes/".$currentThemeBase."img/".$value["baseName"]))
 		{
 			//check for base theme
-			$src = "core/Themes/".$currentTheme."img/".$value["baseName"];
-			if(!file_exists($varToIndexDir.$src))
-			{
-				$src = null;
-			}
+			$src = "core/Themes/".$currentThemeBase."img/".$value["baseName"];
 		}
-		if($src === null)
-		{
-			//use core image
-			$src = "core/img/".$value["baseName"];
-		}
+
 		$arrayOfImages[$key]["src"] = $src;
 	}
 }
