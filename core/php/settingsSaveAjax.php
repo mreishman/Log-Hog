@@ -2,11 +2,39 @@
 
 $baseUrl = "../../local/";
 //there is custom information, use this
-require_once('../../local/layout.php');
+if(!file_exists($baseUrl."layout.php") || !is_readable($baseUrl."layout.php"))
+{
+	echo json_encode(7);
+	exit();
+}
+require_once($baseUrl."layout.php");
+if(!isset($currentSelectedTheme))
+{
+	echo json_encode(9);
+	exit();
+}
 $baseUrl .= $currentSelectedTheme."/";
 
-require_once($baseUrl.'conf/config.php');
+$config = array();
+if(file_exists($baseUrl.'conf/config.php'))
+{
+	require_once($baseUrl.'conf/config.php');
+	// Ok if it doesn't exist, user might have deleted to reset settings or something?
+}
+
+if (!file_exists("../../core/conf/config.php") || !is_readable("../../core/conf/config.php"))
+{
+	echo json_encode(8);
+	exit();
+}
 require_once('../../core/conf/config.php');
+
+if(!isset($defaultConfig))
+{
+	echo json_encode(10);
+	exit();
+}
+
 require_once('loadVars.php');
 if($backupNumConfigEnabled === "true")
 {

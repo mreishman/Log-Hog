@@ -108,11 +108,11 @@ $errorArray = array(
         "secondMessage"     =>  "An error occured when trying to complete the setup process. Please check that the save file has correct access to write to and create a local config file.  If that doesn't work: Copy core/conf/config.php to local/default/conf/config.php and change defaultConfig to config."
     ),
     3   =>  array(
-        "firstMessage"      =>  "Config Save Error",
+        "firstMessage"      =>  "Config Folder Save Error",
         "secondMessage"     =>  "An error occured when SettingsSaveAjax tried to save the config file. This file does not have write access to the specific folder (Local/default/conf) to save the updated config file. Please give the correct write access to settingsSaveAjax to save and update the config with the new values."
     ),
     4   =>  array(
-        "firstMessage"      =>  "Config Save Error",
+        "firstMessage"      =>  "Config File Save Error",
         "secondMessage"     =>  "An error occured when SettingsSaveAjax tried to save the config file. This file does not have write access to the specific file (Local/default/conf/config.php) to save the updated config file. Please give the correct write access to settingsSaveAjax to save and update the config with the new values."
     ),
     5   =>  array(
@@ -122,6 +122,22 @@ $errorArray = array(
     6   =>  array(
         "firstMessage"      =>  "Config Backup Error",
         "secondMessage"     =>  "An unknown error occured when SettingsSaveAjax tried to save a backup of the config file."
+    ),
+    7   =>  array(
+        "firstMessage"      =>  "Local Layout File Error",
+        "secondMessage"     =>  "An error occured when trying to locate the local layout file. Please make sure the file is readable and in the correct folder (local/layout.php)"
+    ),
+    8   =>  array(
+        "firstMessage"      =>  "Core Config File Error",
+        "secondMessage"     =>  "An error occured when trying to locate the core config file. Please make sure the file is readable and in the correct folder (core/conf/config.php)"
+    ),
+    9   =>  array(
+        "firstMessage"      =>  "Local Layout File Error",
+        "secondMessage"     =>  "An error occured when loading the layout file. The file loaded does not contain the expected variable. Please check that the local layout file contains the currentSelectedTheme variable, and is defined (probably default) (local/layout.php)"
+    ),
+    10   =>  array(
+        "firstMessage"      =>  "Core Config File Error",
+        "secondMessage"     =>  "An error occured when loading the core config file. The file loaded does not contain the expected variable. Please check that the local layout file contains the defaultConfig variable, and is defined. If it is empty, re copy it from the repo (core/conf/config.php)"
     ),
     550   =>  array(
         "firstMessage"      =>  "File Permission Error",
