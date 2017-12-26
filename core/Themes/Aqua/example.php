@@ -40,15 +40,14 @@ require_once($baseURL.'core/php/loadVars.php');
 				<img id="deleteImage" class="menuImage" src="img/trashCanMulti.png" height="30px">
 			</div>
 			<div class="menuImageDiv">
-					<img id="taskmanagerImage" class="menuImage" src="img/task-manager.png" height="30px">
-			</div>
-			<div class="menuImageDiv">
-					<img id="searchImage" class="menuImage" src="img/search.png" height="30px">
-			</div>
-			<div class="menuImageDiv">
 				<img data-id="1" id="gear" class="menuImage" src="img/Gear.png" height="30px">
 			</div>
-			<div class="menuImage" style="display: inline-block; cursor: pointer; " >gS</div>
+			<div class="menuImageDiv">
+					<img id="notificationClear" class="menuImage" src="img/notificationClear.png" height="30px">
+			</div>
+			<div style="float: right;">
+				<input type="search" placeholder="Filter Title" style="height: 30px; width: 200px;">
+			</div>
 		</div>
 		<a class="varwwwhtmlvarlogauthnetcimlogButton active" >server_hhvm.log</a>
 
