@@ -6,7 +6,7 @@ Theme Selector
 	<h2>Default</h2>
 	<hr>
 	<?php
-	$customThemeCreateNew = true;
+	$customThemeCreateNew = false;
 	$directory = '../core/Themes/';
 	$scanned_directory = array_diff(scandir($directory), array('..', '.'));
 		include("themeSub.php");
