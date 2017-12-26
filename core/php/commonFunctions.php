@@ -444,6 +444,10 @@ function generateImage($imageArray, $customConfig)
 		$image .= "\" ";
 	}
 	$image .= " src=\"";
+	if(isset($customConfig["srcModifier"]))
+	{
+		$image .= $customConfig["srcModifier"];
+	}
 	$image .= $imageArray["src"];
 	$image .= "\" ";
 	if(isset($customConfig["alt"]))

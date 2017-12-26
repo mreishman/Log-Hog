@@ -6,7 +6,15 @@ echo loadSentryData($sendCrashInfoJS, $branchSelected); ?>
 <script src="../core/js/settings.js?v=<?php echo $cssVersion?>"></script>
 <div id="menu">
 	<div onclick="goToUrl('../index.php');" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">
-		<img id="pauseImage" class="menuImage" src="<?php echo $localURL;?>img/backArrow.png" height="30px">
+		<?php echo generateImage(
+			$arrayOfImages["backArrow"],
+			array(
+				"height"		=>	"30px",
+				"srcModifier"	=>	"../",
+				"class"			=>	"menuImage",
+				"id"			=>	"back"
+			)
+		); ?>
 	</div>
 	<?php if(strpos($URI, 'about.php') !== false): ?>
 		<a style="cursor: default;" class="active" id="aboutLink" >About</a>
@@ -34,3 +42,4 @@ $baseUrlImages = $localURL;
 	var currentVersion = "<?php echo $configStatic['version']; ?>";
 	var newestVersion = "<?php echo $configStatic['newestVersion']; ?>";
 </script>
+<?php require_once("../core/php/template/popup.php"); ?>

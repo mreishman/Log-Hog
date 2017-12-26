@@ -189,7 +189,15 @@ $listOfAddons = array(
 				<?php endforeach; ?>
 				<tr>
 					<td colspan="6">
-						<img style="margin-bottom: -4px;" id="aboutImage" src="<?php echo $localURL; ?>img/info.png" height="20px">  <i>Make sure you have run through setup before trying to update</i>
+						<?php echo generateImage(
+							$arrayOfImages["info"],
+							array(
+								"style"			=>	"margin-bottom: -4px;",
+								"height"		=>	"20px",
+								"srcModifier"	=>	"../"
+							)
+						); ?>
+			  			<i>Make sure you have run through setup before trying to update</i>
 					</td>
 				</tr>
 			</table>

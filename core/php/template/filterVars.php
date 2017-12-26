@@ -48,7 +48,17 @@ Filter Settings
 			</select>
 		</div>
 		<br>
-		<span style="font-size: 75%;"><img style="margin-bottom: -4px;" id="aboutImage" src="<?php echo $localURL; ?>img/info.png" height="20px"> <i>When filtering by content, only show the line (or some sorrounding lines) containing the search content</i></span>
+		<span style="font-size: 75%;">
+			<?php echo generateImage(
+				$arrayOfImages["info"],
+				array(
+					"style"			=>	"margin-bottom: -4px;",
+					"height"		=>	"20px",
+					"srcModifier"	=>	"../"
+				)
+			); ?>
+			<i>When filtering by content, only show the line (or some sorrounding lines) containing the search content</i>
+		</span>
 	</li>
 	<li>
 		<div id="filterContentSettings" style=" <?php if($filterContentLimit === 'false'){ echo 'display: none;'; }?> " >
