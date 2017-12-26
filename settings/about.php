@@ -33,7 +33,14 @@ require_once('../core/php/updateCheck.php');
 			<ul id="settingsUl">
 				<li>
 					<h2>
-						<img style="margin-bottom: -7px;" id="aboutImage" src="<?php echo $localURL; ?>img/info.png" height="30px">
+						<?php echo generateImage(
+							$arrayOfImages["info"],
+							array(
+								"style"			=>	"margin-bottom: -7px;",
+								"height"		=>	"30px",
+								"srcModifier"	=>	"../"
+							)
+						); ?>
 						Version - <?php echo $configStatic['version'];?>
 					</h2>
 				</li>

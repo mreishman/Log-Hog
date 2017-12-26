@@ -27,22 +27,43 @@
 		<div style="width: 100px; display: inline-block; text-align: center;">
 			<?php echo $info; ?>
 		</div>
-		<img id=
+		
 		<?php
 		if(!file_exists($key))
 		{
-			echo '"fileNotFoundImage'.$i.'" src="'.$baseUrlImages.'img/redWarning.png"';
+			echo generateImage(
+				$arrayOfImages["redWarning"],
+				array(
+					"width"			=>	"15px",
+					"id"			=>	"fileNotFoundImage".$i,
+					"srcModifier"	=>	"../"
+				)
+			);
 		}
 		elseif(is_dir($key))
 		{
-			echo '"fileNotFoundImage'.$i.'" src="'.$baseUrlImages.'img/folderIcon.png"';
+			echo generateImage(
+				$arrayOfImages["folderIcon"],
+				array(
+					"width"			=>	"15px",
+					"id"			=>	"fileNotFoundImage".$i,
+					"srcModifier"	=>	"../"
+				)
+			);
 		}
 		else
 		{
-			echo '"fileNotFoundImage'.$i.'" src="'.$baseUrlImages.'img/fileIcon.png"';
+			echo generateImage(
+				$arrayOfImages["fileIcon"],
+				array(
+					"width"			=>	"15px",
+					"id"			=>	"fileNotFoundImage".$i,
+					"srcModifier"	=>	"../"
+				)
+			);
 		}
 		?> 
-		width="15px">
+		
 			<input 
 				style='width: 480px;' 
 				type='text'
@@ -61,7 +82,16 @@
 					true,
 					'<?php echo $key; ?>')"
 			>
-				<img src="<?php echo $baseUrlImages;?>img/trashCan.png" height="15px;" >
+			<?php
+				echo generateImage(
+					$arrayOfImages["trashCan"],
+					array(
+						"height"		=>	"15px",
+						"id"			=>	"fileNotFoundImage".$i,
+						"srcModifier"	=>	"../"
+					)
+				);
+			?>
 			</a>
 	</li>
 
@@ -81,9 +111,36 @@
 	<li>
 		<ul id="settingsUl">
 			<li>
-				<img src="<?php echo $baseUrlImages;?>img/redWarning.png" height="10px"> - File / Folder not found! &nbsp; &nbsp; &nbsp; 
-				<img src="<?php echo $baseUrlImages;?>img/fileIcon.png" height="10px"> - File &nbsp; &nbsp; &nbsp; 
-				<img src="<?php echo $baseUrlImages;?>img/folderIcon.png" height="10px"> - Folder
+				<?php
+					echo generateImage(
+						$arrayOfImages["redWarning"],
+						array(
+							"height"		=>	"10px",
+							"srcModifier"	=>	"../"
+						)
+					);
+				?>
+				 - File / Folder not found! &nbsp; &nbsp; &nbsp; 
+				<?php
+					echo generateImage(
+						$arrayOfImages["fileIcon"],
+						array(
+							"height"		=>	"10px",
+							"srcModifier"	=>	"../"
+						)
+					);
+				?>
+				 - File &nbsp; &nbsp; &nbsp; 
+				<?php
+					echo generateImage(
+						$arrayOfImages["folderIcon"],
+						array(
+							"height"		=>	"10px",
+							"srcModifier"	=>	"../"
+						)
+					);
+				?>
+				 - Folder
 			</li>
 			<li>
 				f - file &nbsp; &nbsp; &nbsp; | &nbsp; &nbsp; &nbsp;

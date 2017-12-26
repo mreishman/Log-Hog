@@ -491,7 +491,13 @@ function generateImage($imageArray, $customConfig)
 		$image .= " height=\"";
 		$image .= $customConfig["height"];
 		$image .= "\" ";
-	}			
+	}
+	if(isset($customConfig["width"]))
+	{
+		$image .= " width=\"";
+		$image .= $customConfig["width"];
+		$image .= "\" ";
+	}
 	$image .= " >";
 	return $image;
 }
