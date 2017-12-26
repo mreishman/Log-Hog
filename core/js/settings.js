@@ -31,7 +31,7 @@ function saveAndVerifyMain(idForForm)
 {
 	idForFormMain = idForForm;
 	idForm = "#"+idForForm;
-	displayLoadingPopup(baseUrl+"img/"); //displayLoadingPopup is defined in popup.html
+	displayLoadingPopup(baseUrl); //displayLoadingPopup is defined in popup.php
 	data = $(idForm).serializeArray();
 	$.ajax({
         type: "post",

@@ -90,6 +90,5 @@ require_once('../core/php/updateCheck.php');
 				</li>
 			</ul>
 		</div>
-	</div>
-	<?php readfile('../core/html/popup.html') ?>	
+	</div>	
 </body>

@@ -2,11 +2,11 @@
 require_once('core/php/errorCheckFunctions.php');
 $currentPage = "welcome.php";
 checkIfFilesExist(
-	array("../local/layout.php","setupProcessFile.php","../error.php","step1.php","../core/template/theme.css","../core/js/jquery.js","../core/html/popup.html","../core/php/settingsSave.php","../core/conf.config.php","stepsJavascript.js"),
+	array("../local/layout.php","setupProcessFile.php","../error.php","step1.php","../core/template/theme.css","../core/js/jquery.js","../core/php/template/popup.php","../core/php/settingsSave.php","../core/conf.config.php","stepsJavascript.js"),
 	 "",
 	 $currentPage);
 checkIfFilesAreReadable(
-	array("../local/layout.php","setupProcessFile.php","../error.php","step1.php","../core/template/theme.css","../core/js/jquery.js","../core/html/popup.html","../core/php/settingsSave.php","../core/conf.config.php","stepsJavascript.js"),
+	array("../local/layout.php","setupProcessFile.php","../error.php","step1.php","../core/template/theme.css","../core/js/jquery.js","../core/php/template/popup.php","../core/php/settingsSave.php","../core/conf.config.php","stepsJavascript.js"),
 	 "",
 	 $currentPage);
 
@@ -48,7 +48,7 @@ if(file_exists($baseUrl.'conf/config.php'))
 	<title>Welcome!</title>
 	<link rel="stylesheet" type="text/css" href="../core/template/theme.css">
 	<script src="../core/js/jquery.js"></script>
-	<?php readfile('../core/html/popup.html') ?>	
+	<?php require_once("../core/php/template/popup.php"); ?>	
 </head>
 <body>
 <div style="width: 90%; margin: auto; margin-right: auto; margin-left: auto; display: block; height: auto; margin-top: 15px;" >

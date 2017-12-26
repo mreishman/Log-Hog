@@ -258,5 +258,4 @@ require_once('../core/php/commonFunctions.php');
 	
 		</div>
 	</div>
-	<?php readfile('../core/html/popup.html') ?>	
 </body>

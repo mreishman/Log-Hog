@@ -29,6 +29,5 @@ require_once('../core/php/loadVars.php');
 		<?php require_once('../core/php/template/generalThemeOptions.php'); ?>
 		<?php require_once('../core/php/template/folderGroupColor.php'); ?>
 	</div>
-	<?php readfile('../core/html/popup.html') ?>	
 </body>
 <script src="../core/js/themes.js?v=<?php echo $cssVersion?>"></script>

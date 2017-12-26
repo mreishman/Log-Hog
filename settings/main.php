@@ -34,7 +34,6 @@ require_once('../core/php/commonFunctions.php');
 		<?php require_once('../core/php/template/settingsMenuVars.php'); ?>
 		<?php require_once('../core/php/template/mainVars.php'); ?>
 	</div>
-	<?php readfile('../core/html/popup.html') ?>	
 </body>
 <script type="text/javascript">
 var fileArray = JSON.parse('<?php echo json_encode($config['watchList']) ?>');

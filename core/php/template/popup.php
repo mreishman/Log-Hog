@@ -34,8 +34,16 @@ function showPopup()
 	document.getElementById('popupContent').style.left = "50%";
 	document.getElementById('popupContent').style.backgroundColor = "#444444";
 }
-function displayLoadingPopup(pathToImg = "../core/img/")
+function displayLoadingPopup(pathToImg = "../")
 {
+	<?php
+	$srcForImage = "core/img/loading.gif";
+	if(isset($arrayOfImages))
+	{
+		$srcForImage = $arrayOfImages["loading"]["src"];
+	}
+	?>
+	var srcForImage = "<?php echo $srcForImage; ?>";
 	showPopup();
 	document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Loading...</div><br><br><div style='width:100%;text-align:center;'> <img src='"+pathToImg+"loading.gif' height='50' width='50'> </div>";
 }

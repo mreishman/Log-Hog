@@ -23,13 +23,10 @@ require_once('../core/php/commonFunctions.php');
 	<script src="../core/js/jquery.js"></script>
 </head>
 <body>
-
 <?php require_once('header.php');?>	
-
 	<div id="main">
 		<?php require_once('../core/php/template/settingsMainWatch.php'); ?>
-	</div>
-	<?php readfile('../core/html/popup.html') ?>	
+	</div>	
 </body>
 <script type="text/javascript">
 var fileArray = JSON.parse('<?php echo json_encode($config['watchList']) ?>');

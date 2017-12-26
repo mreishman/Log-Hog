@@ -346,7 +346,6 @@ $countConfig--;
 		</div>
 		</form>
 	</div>
-	<?php readfile('../core/html/popup.html') ?>
 	<form id="devAdvanced2" action="../core/php/settingsSaveConfigStatic.php" method="post">
 		<input type="hidden" style="width: 400px;"  name="newestVersion" value="<?php echo $configStatic['version'];?>" > 
 	</form>

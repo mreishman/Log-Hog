@@ -29,7 +29,7 @@ echo loadSentryData($sendCrashInfoJS, $branchSelected); ?>
 $baseUrlImages = $localURL;
 ?>
 <script type="text/javascript">
-	var baseUrl = "<?php echo $baseUrlImages;?>";
+	var baseUrl = "<?php echo baseURL();?>";
 	var popupSettingsArray = JSON.parse('<?php echo json_encode($popupSettingsArray) ?>');
 	var currentVersion = "<?php echo $configStatic['version']; ?>";
 	var newestVersion = "<?php echo $configStatic['newestVersion']; ?>";

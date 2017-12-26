@@ -195,7 +195,7 @@ $listOfAddons = array(
 			</table>
 		</div>
 	</div>
-	<?php readfile('../core/html/popup.html') ?>	
+	<?php require_once("../core/php/template/popup.php"); ?>	
 </body>
 <script type="text/javascript">
 	function addonMonitorAction(idToSubmit)
