@@ -163,6 +163,11 @@ div {
 	color: white;
 }
 
+.backgroundForMenus
+{
+	background-color: #ccc;
+}
+
 .sidebarCurrentWindowNum
 {
 	border-top: 1px solid black;

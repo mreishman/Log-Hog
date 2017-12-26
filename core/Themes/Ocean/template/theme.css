@@ -1,6 +1,6 @@
 body {
 	color: white;
-	background-color: #191919;
+	background-color: #0f0f28;
 	font-family: monospace;
 	padding: 0;
 	margin: 0;
@@ -8,6 +8,11 @@ body {
 
 div {
 	box-sizing: border-box;
+}
+
+.backgroundForMenus
+{
+	background-color: #ccc;
 }
 
 #storage {

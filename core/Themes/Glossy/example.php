@@ -59,11 +59,11 @@ require_once($baseURL.'core/php/loadVars.php');
 	</div>
 
 	<!-- LOG -->
-	<div id="main" style="height: 278px; position: inherit; background-color: #292929;">
+	<div id="main" style="height: 278px; position: inherit;">
 		<table style="margin: 0px;padding: 0px; border-spacing: 0px; width:100%; height: 278px; " >
 				<tr>
 					<td style="padding: 0; width: 30px;" >
-						<div class="backgroundForMenus" style="width: 30px; float: left; display: inline; padding: 0px; height: 100%; background-color: #ccc;">
+						<div class="backgroundForMenus" style="width: 30px; float: left; display: inline; padding: 0px; height: 100%;">
 							<a style="cursor: pointer;" >
 								<img src="img/info.png" style="padding: 5px;" width="20px;">
 							</a>

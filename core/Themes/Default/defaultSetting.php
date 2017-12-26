@@ -1,6 +1,6 @@
 <?php
 
-$loadingBarVersion = 1;
+$loadingBarVersionDefault = 1;
 $backgroundColorDefault = "#292929";
 $mainFontColorDefault = "#FFFFFF";
 $logFontColorDefault = "#FFFFFF";

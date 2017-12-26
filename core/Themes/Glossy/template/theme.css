@@ -185,6 +185,11 @@ div {
 	color: black;
 }
 
+.backgroundForMenus
+{
+	background-color: #ccc;
+}
+
 .currentWindowNum
 {
 	color: white;
