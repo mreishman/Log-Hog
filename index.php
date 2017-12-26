@@ -186,7 +186,7 @@ for ($i=0; $i < $windowDisplayConfig[0]; $i++)
 		$counter = $j+($i*$windowDisplayConfig[1]);
 		$logDisplay .= "<td style=\"vertical-align: top; padding: 0; border: 1px solid white;\" onclick=\"changeCurrentSelectWindow(".$counter.")\" class=\"logTdWidth\" >";
 		$logDisplay .= "<table style=\"margin: 0px;padding: 0px; border-spacing: 0px; width:100%;\" ><tr><td style=\"padding: 0; width: 30px;\" >";
-		$logDisplay .= "<div class=\"backgroundForSideBarMenu\" style=\"";
+		$logDisplay .= "<div class=\"backgroundForSideBarMenu backgroundForMenus\" style=\"";
 		if($bottomBarIndexShow == 'false')
 		{
 			$logDisplay .= "display: none;";
