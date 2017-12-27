@@ -1,5 +1,5 @@
 <?php
-
+$displayName = "Areo";
 $loadingBarVersionDefault = 3;
 $backgroundColorDefault = "#CCCCCC";
 $mainFontColorDefault = "#FFFFFF";

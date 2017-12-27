@@ -1,5 +1,5 @@
 <?php
-
+$displayName = "Glossy";
 $loadingBarVersionDefault = 5;
 $backgroundColorDefault = "#292929";
 $mainFontColorDefault = "#FFFFFF";

@@ -40,9 +40,9 @@ $daysSince = calcuateDaysSince($configStatic['lastCheck']);
 				<li>
 					<h2>You last checked for updates
 						<span id="spanNumOfDaysUpdateSince" >
-							<u> <?php echo $daysSince;?> Day<?php if($daysSince != 1){ echo "s";} ?> </u>
+							<u onclick="checkForUpdates();" style="cursor: pointer;" > <?php echo $daysSince;?> Day<?php if($daysSince != 1){ echo "s";} ?></u>
 						</span>
-						Ago
+						 Ago
 					</h2>
 				</li>
 				<li>
@@ -61,8 +61,9 @@ $daysSince = calcuateDaysSince($configStatic['lastCheck']);
 						echo generateImage(
 							$arrayOfImages["greenCheck"],
 							$imageConfig = array(
-								"id"		=>	"statusImage1",
-								"height"	=>	"15px"
+								"id"			=>	"statusImage1",
+								"height"		=>	"15px",
+								"srcModifier"	=> "../"
 							)
 						);
 						?>
@@ -75,8 +76,9 @@ $daysSince = calcuateDaysSince($configStatic['lastCheck']);
 						echo generateImage(
 							$arrayOfImages["yellowWarning"],
 							$imageConfig = array(
-								"id"		=>	"statusImage2",
-								"height"	=>	"15px"
+								"id"			=>	"statusImage2",
+								"height"		=>	"15px",
+								"srcModifier"	=> "../"
 							)
 						);
 						?>
@@ -93,8 +95,9 @@ $daysSince = calcuateDaysSince($configStatic['lastCheck']);
 						echo generateImage(
 							$arrayOfImages["redWarning"],
 							$imageConfig = array(
-								"id"		=>	"statusImage3",
-								"height"	=>	"15px"
+								"id"			=>	"statusImage3",
+								"height"		=>	"15px",
+								"srcModifier"	=> "../"
 							)
 						);
 						?>
@@ -110,8 +113,9 @@ $daysSince = calcuateDaysSince($configStatic['lastCheck']);
 						echo generateImage(
 							$arrayOfImages["redWarning"],
 							$imageConfig = array(
-								"id"		=>	"statusImage3",
-								"height"	=>	"15px"
+								"id"			=>	"statusImage3",
+								"height"		=>	"30px",
+								"srcModifier"	=> "../"
 							)
 						);
 						?>

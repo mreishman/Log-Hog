@@ -1,5 +1,5 @@
 <?php
-
+$displayName = "Ocean";
 $loadingBarVersionDefault = 4;
 $backgroundColorDefault = "#0f0f28";
 $mainFontColorDefault = "#FFFFFF";

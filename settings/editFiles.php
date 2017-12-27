@@ -34,7 +34,18 @@ require_once('../core/php/template/listOfFiles.php');
 				<div id="leftCol" class="sidebarLeft">
 					<div id="fixed">
 	        			<h2 align="center" style="margin-top:0px;">
-	        				<img onclick="window.location = './devTools.php'" src="<?php echo $localURL; ?>img/backArrow.png" width="50px" style="display: inline-block; margin-top: 10px; margin-bottom: -15px; cursor: pointer;" >
+	        				<a onclick="window.location = './devTools.php'" >
+	        				<?php
+	        				echo generateImage(
+									$arrayOfImages["backArrow"],
+									array(
+										"width"		=>	"50px",
+										"srcModifier"	=>	"../",
+										"style"			=>	"display: inline-block; margin-top: 10px; margin-bottom: -15px; cursor: pointer;"
+									)
+								);
+	        				?>
+	        				</a>
 	        				Files
 	        			</h2>        
 	    			</div>
