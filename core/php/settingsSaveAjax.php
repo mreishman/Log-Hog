@@ -120,6 +120,6 @@ if($backupNumConfigEnabled === "true")
 		echo json_encode(true);
 		exit();
 	}
-	echo json_encode(3)
+	echo json_encode(3);
 	exit();
 ?>
