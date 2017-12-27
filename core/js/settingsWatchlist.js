@@ -15,14 +15,15 @@ function addRowFunction()
 	{
 		countOfWatchList++;
 		countOfClicks++;
+
+		var fileName = ""+countOfWatchList;
 		if(countOfWatchList < 10)
 		{
-			document.getElementById(locationInsert).outerHTML += "<li id='rowNumber"+countOfWatchList+"'>File #0" + countOfWatchList+ ": <div style=\"width: 130px; display: inline-block; text-align: center;\">----------</div><input type='text' style='width: 480px;' name='watchListKey" + countOfWatchList + "' > <input type='text' name='watchListItem" + countOfWatchList + "' > <a class='deleteIconPosition'  onclick='deleteRowFunctionPopup("+ countOfWatchList +", true, \"File #0" + countOfWatchList+"\")'>"+defaultTrashCanIcon+"</a></li><div id='newRowLocationForWatchList"+countOfClicks+"'></div>";
+			fileName = "0"+fileName;
 		}
-		else
-		{
-			document.getElementById(locationInsert).outerHTML += "<li id='rowNumber"+countOfWatchList+"'>File #" + countOfWatchList+ ": <div style=\"width: 130px; display: inline-block; text-align: center;\">----------</div><input type='text' style='width: 480px;' name='watchListKey" + countOfWatchList + "' > <input type='text' name='watchListItem" + countOfWatchList + "' > <a class='deleteIconPosition' onclick='deleteRowFunctionPopup("+ countOfWatchList +", true, \"File #" + countOfWatchList+"\")'>"+defaultTrashCanIcon+"</a></li><div id='newRowLocationForWatchList"+countOfClicks+"'></div>";
-		}
+		
+		document.getElementById(locationInsert).outerHTML += "<li id='rowNumber"+countOfWatchList+"'>File #" + fileName+ ": <div style=\"width: 130px; display: inline-block; text-align: center;\">----------</div><input type='text' style='width: 480px;' name='watchListKey" + countOfWatchList + "' > <input type='text' name='watchListItem" + countOfWatchList + "' > <a class='deleteIconPosition' onclick='deleteRowFunctionPopup("+ countOfWatchList +", true, \"File #" + fileName+"\")'>"+defaultTrashCanIcon+"</a></li><div id='newRowLocationForWatchList"+countOfClicks+"'></div>";
+		
 		locationInsert = "newRowLocationForWatchList"+countOfClicks;
 		document.getElementById("numberOfRows").value = countOfWatchList;
 		countOfAddedFiles++;
