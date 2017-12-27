@@ -1459,8 +1459,21 @@ function clearLog(idNum)
 {
 	try
 	{
+		var title = document.getElementById("title"+idNum).innerHTML;
+		clearLogBase(title)
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
+function clearLogBase(pathToFile)
+{
+	try
+	{
 		var urlForSend = "core/php/clearLog.php?format=json";
-		var title = filterTitle(document.getElementById("title"+idNum).innerHTML);
+		var title = filterTitle(pathToFile);
 		var data = {file: title};
 		$.ajax({
 				url: urlForSend,

@@ -36,8 +36,23 @@ require_once('../../../core/php/loadVars.php');
 			<table style="padding: 10px;">
 				<tr>
 					<td style="height: 50px;">
-						<img id="runLoad" src="../../../core/img/loading.gif" height="30px;">
-						<img id="runCheck" style="display: none;" src="../../../core/img/greenCheck.png" height="30px;">
+						<?php echo generateImage(
+							$arrayOfImages["loading"],
+							array(
+								"height"		=>	"30px",
+								"srcModifier"	=>	"../../../",
+								"id"			=>	"runLoad"
+							)
+						); ?>
+						<?php echo generateImage(
+							$arrayOfImages["greenCheck"],
+							array(
+								"height"		=>	"30px",
+								"srcModifier"	=>	"../../../",
+								"id"			=>	"runCheck",
+								"style"			=>	"display: none;"
+							)
+						); ?>
 					</td>
 					<td style="width: 20px;">
 					</td>
@@ -47,8 +62,24 @@ require_once('../../../core/php/loadVars.php');
 				</tr>
 				<tr>
 					<td style="height: 50px;">
-						<img id="verifyLoad" style="display: none;" src="../../../core/img/loading.gif" height="30px;">
-						<img id="verifyCheck" style="display: none;" src="../../../core/img/greenCheck.png" height="30px;">
+						<?php echo generateImage(
+							$arrayOfImages["loading"],
+							array(
+								"height"		=>	"30px",
+								"srcModifier"	=>	"../../../",
+								"id"			=>	"verifyLoad",
+								"style"			=>	"display: none;"
+							)
+						); ?>
+						<?php echo generateImage(
+							$arrayOfImages["greenCheck"],
+							array(
+								"height"		=>	"30px",
+								"srcModifier"	=>	"../../../",
+								"id"			=>	"verifyCheck",
+								"style"			=>	"display: none;"
+							)
+						); ?>
 					</td>
 					<td style="width: 20px;">
 					</td>

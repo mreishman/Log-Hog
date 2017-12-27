@@ -141,7 +141,7 @@ function saveVerified()
 
 function saveSuccess()
 {
-	document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class='settingsHeader' >Saved Changes!</div><br><br><div style='width:100%;text-align:center;'> <img src='"+baseUrl+"img/greenCheck.png' height='50' width='50'> </div>";
+	document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class='settingsHeader' >Saved Changes!</div><br><br><div style='width:100%;text-align:center;'> "+saveVerifyImage+" </div>";
 }
 
 function saveError()
