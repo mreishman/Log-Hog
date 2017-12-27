@@ -1,13 +1,13 @@
 <?php
-require_once('core/php/errorCheckFunctions.php');
+require_once('../core/php/errorCheckFunctions.php');
 $currentPage = "welcome.php";
 checkIfFilesExist(
-	array("../local/layout.php","setupProcessFile.php","../error.php","step1.php","../core/template/theme.css","../core/js/jquery.js","../core/php/template/popup.php","../core/php/settingsSave.php","../core/conf.config.php","stepsJavascript.js"),
-	 "",
+	array("local/layout.php","setup/setupProcessFile.php","error.php","setup/step1.php","core/template/theme.css","core/js/jquery.js","core/php/template/popup.php","core/php/settingsSave.php","core/conf/config.php","setup/stepsJavascript.js"),
+	 "../",
 	 $currentPage);
 checkIfFilesAreReadable(
-	array("../local/layout.php","setupProcessFile.php","../error.php","step1.php","../core/template/theme.css","../core/js/jquery.js","../core/php/template/popup.php","../core/php/settingsSave.php","../core/conf.config.php","stepsJavascript.js"),
-	 "",
+	array("local/layout.php","setup/setupProcessFile.php","error.php","setup/step1.php","core/template/theme.css","core/js/jquery.js","core/php/template/popup.php","core/php/settingsSave.php","core/conf/config.php","setup/stepsJavascript.js"),
+	 "../",
 	 $currentPage);
 
 
@@ -25,8 +25,8 @@ $baseUrl .= $currentSelectedTheme."/";
 
 
 checkIfFilesAreWritable(
-	array("../core/php/settingsSave.php",$baseUrl, "setupProcessFile.php"),
-	 "",
+	array("core/php/settingsSave.php","local/".$currentSelectedTheme, "setup/setupProcessFile.php"),
+	 "../",
 	 $currentPage);
 
 require_once('setupProcessFile.php');
