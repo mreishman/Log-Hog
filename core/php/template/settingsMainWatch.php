@@ -11,9 +11,19 @@
 <div class="settingsDiv" >	
 <ul id="settingsUl">
 	<?php
-		$i = 0;
-		$triggerSaveUpdate = false;
-		foreach($config['watchList'] as $key => $item): $i++;
+
+	$defaultTrashCanIcon = generateImage(
+		$arrayOfImages["trashCan"],
+		array(
+			"height"		=>	"15px",
+			"srcModifier"	=>	"../"
+		)
+	);
+
+	$i = 0;
+	$triggerSaveUpdate = false;
+	foreach($config['watchList'] as $key => $item):
+		$i++;
 		$info = filePermsDisplay($key);
 
 		if(strpos($item, "\\") !== false)
@@ -24,7 +34,7 @@
 		?>
 	<li id="rowNumber<?php echo $i; ?>" >
 		File #<?php if($i < 10){echo "0";} ?><?php echo $i; ?>: 
-		<div style="width: 100px; display: inline-block; text-align: center;">
+		<div id="infoFile<?php echo $i;?>" style="width: 100px; display: inline-block; text-align: center;">
 			<?php echo $info; ?>
 		</div>
 		
@@ -83,21 +93,15 @@
 					'<?php echo $key; ?>')"
 			>
 			<?php
-				echo generateImage(
-					$arrayOfImages["trashCan"],
-					array(
-						"height"		=>	"15px",
-						"id"			=>	"fileNotFoundImage".$i,
-						"srcModifier"	=>	"../"
-					)
-				);
+				echo $defaultTrashCanIcon;
 			?>
 			</a>
 	</li>
 
-<?php endforeach; ?>
-<div id="newRowLocationForWatchList">
-</div>
+	<?php endforeach; ?>
+
+	<div id="newRowLocationForWatchList">
+	</div>
 </ul>
 <ul id="settingsUl">
 	<li>
@@ -158,4 +162,7 @@
 	<input id="numberOfRows" type="text" name="numberOfRows" value="<?php echo $i;?>">
 </div>	
 </form>
+<script type="text/javascript">
+	var defaultTrashCanIcon = <?php json_encode($defaultTrashCanIcon); ?>
+</script>
 <?php $folderCount = $i;
