@@ -38,7 +38,12 @@ $daysSince = calcuateDaysSince($configStatic['lastCheck']);
 					<h2>Current Version of Log-Hog: <?php echo $configStatic['version'];?></h2>
 				</li>	
 				<li>
-					<h2>You last checked for updates <span id="spanNumOfDaysUpdateSince" ><u><?php echo $daysSince;?> Day<?php if($daysSince != 1){ echo "s";} ?></span></u> Ago</h2>
+					<h2>You last checked for updates
+						<span id="spanNumOfDaysUpdateSince" >
+							<u> <?php echo $daysSince;?> Day<?php if($daysSince != 1){ echo "s";} ?> </u>
+						</span>
+						Ago
+					</h2>
 				</li>
 				<li>
 					<form id="settingsCheckForUpdate" style="float: left; padding: 10px;">
@@ -51,16 +56,71 @@ $daysSince = calcuateDaysSince($configStatic['lastCheck']);
 					</form>
 				</li>
 				<li id="noUpdate" <?php if($levelOfUpdate != 0){echo "style='display: none;'";} ?> >
-					<h2><img id="statusImage1" src="<?php echo $baseUrlImages;?>img/greenCheck.png" height="15px"> &nbsp; No new updates - You are on the current version!</h2>
+					<h2>
+						<?php
+						echo generateImage(
+							$arrayOfImages["greenCheck"],
+							$imageConfig = array(
+								"id"		=>	"statusImage1",
+								"height"	=>	"15px"
+							)
+						);
+						?>
+						&nbsp; No new updates - You are on the current version!
+					</h2>
 				</li>
 				<li id="minorUpdate" <?php if($levelOfUpdate != 1){echo "style='display: none;'";} ?> >
-					<h2><img id="statusImage2" src="<?php echo $baseUrlImages;?>img/yellowWarning.png" height="15px"> &nbsp; Minor Updates - <span id="minorUpdatesVersionNumber"><?php echo $configStatic['newestVersion'];?></span> - bug fixes </h2>
+					<h2>
+						<?php
+						echo generateImage(
+							$arrayOfImages["yellowWarning"],
+							$imageConfig = array(
+								"id"		=>	"statusImage2",
+								"height"	=>	"15px"
+							)
+						);
+						?>
+						&nbsp; Minor Updates -
+						<span id="minorUpdatesVersionNumber">
+							<?php echo " ".$configStatic['newestVersion']." ";?>
+						</span>
+						- bug fixes 
+					</h2>
 				</li>
 				<li id="majorUpdate" <?php if($levelOfUpdate != 2){echo "style='display: none;'";} ?> >
-					<h2><img id="statusImage3" src="<?php echo $baseUrlImages;?>img/redWarning.png" height="15px"> &nbsp; Major Updates - <span id="majorUpdatesVersionNumber"><?php echo $configStatic['newestVersion'];?></span> - new features!</h2>
+					<h2>
+						<?php
+						echo generateImage(
+							$arrayOfImages["redWarning"],
+							$imageConfig = array(
+								"id"		=>	"statusImage3",
+								"height"	=>	"15px"
+							)
+						);
+						?>
+						&nbsp; Major Updates -
+						<span id="majorUpdatesVersionNumber">
+							<?php echo " ".$configStatic['newestVersion']." ";?>
+						</span>
+						- new features!</h2>
 				</li>
 				<li id="NewXReleaseUpdate" <?php if($levelOfUpdate != 3){echo "style='display: none;'";} ?> >
-					<h2><img id="statusImage3" src="<?php echo $baseUrlImages;?>img/redWarning.png" height="15px"><img id="statusImage3" src="<?php echo $baseUrlImages;?>img/redWarning.png" height="15px"><img id="statusImage3" src="<?php echo $baseUrlImages;?>img/redWarning.png" height="15px"> &nbsp; Very Major Updates - <span id="veryMajorUpdatesVersionNumber"><?php echo $configStatic['newestVersion'];?></span> - a lot of new features!</h2>
+					<h2>
+						<?php
+						echo generateImage(
+							$arrayOfImages["redWarning"],
+							$imageConfig = array(
+								"id"		=>	"statusImage3",
+								"height"	=>	"15px"
+							)
+						);
+						?>
+						&nbsp; Very Major Updates -
+						<span id="veryMajorUpdatesVersionNumber">
+							<?php echo " ".$configStatic['newestVersion']." ";?>
+						</span>
+						- a lot of new features!
+					</h2>
 				</li>
 			</ul>
 		</div>
