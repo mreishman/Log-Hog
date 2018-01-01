@@ -394,8 +394,29 @@ function getCookieRedirect()
 	{
 		return $urlRedirectValue;
 	}
-	$urlRedirectValue = $_SERVER['HTTP_REFERER'];
-	return $urlRedirectValue;
+	if(isset($_SERVER['HTTP_REFERER']))
+	{
+		return $_SERVER['HTTP_REFERER'];
+	}
+
+	$baseUrl = "";
+	$count = 0;
+	while ($count < 20)
+	{
+		$baseUrl .= "../";
+		$count++;
+		if(is_dir($baseUrl."Log-Hog") || is_dir($baseUrl."loghog"))
+		{
+			break;
+		}
+	}
+	$baseRedirect = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]/";
+	if($count < 20)
+	{
+		return $baseRedirect . (is_dir($baseUrl."Log-Hog/") ? "Log-Hog/" : "loghog/");
+	}
+	return $baseRedirect . "Log-Hog/";
+	
 }
 
 function setCookieRedirect()
@@ -499,4 +520,47 @@ function generateImage($imageArray, $customConfig)
 	}
 	$image .= " >";
 	return $image;
+}
+
+function upgradeConfig($configVersionStatic)
+{
+	$baseBaseUrl = baseURL();
+	$baseUrl = $baseBaseUrl."local/";
+	require_once($baseUrl.'layout.php');
+	$baseUrl .= $currentSelectedTheme."/";
+	require_once($baseUrl.'conf/config.php');
+	require_once($baseBaseUrl.'core/conf/config.php');
+	require_once($baseBaseUrl.'core/php/loadVars.php');
+
+	$configVersion = $configVersionStatic;
+
+	$fileName = ''.$baseUrl.'conf/config.php';
+	$newInfoForConfig = "<?php
+		$"."config = array(
+		";
+	foreach ($defaultConfig as $key => $value)
+	{
+		if(is_string($value))
+		{
+			$newInfoForConfig .= "
+			'".$key."' => '".$$key."',
+		";
+		}
+		elseif(is_array($value))
+		{
+			$newInfoForConfig .= "
+			'".$key."' => array(".$$key."),
+		";
+		}
+		else
+		{
+			$newInfoForConfig .= "
+			'".$key."' => ".$$key.",
+		";
+		}
+	}
+	$newInfoForConfig .= "
+		);
+	?>";
+	file_put_contents($fileName, $newInfoForConfig);
 }
