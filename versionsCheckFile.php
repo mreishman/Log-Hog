@@ -1,7 +1,7 @@
 <?php
 
 $versionCheckArray = array(
-	'version'		=> '3.2.1',
+	'version'		=> '3.3',
 	'versionList'		=> array(
 		'2.0.1'	        => array(
 			'branchName'	=> '2.0.1Update',
@@ -98,6 +98,10 @@ $versionCheckArray = array(
 		'3.2.1'		=> array(
 			'branchName'	=> '3.2.1Update',
 			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed possible issue with update validation at end of update</li></ul></li></ul>"
+		),
+		'3.3'		=> array(
+			'branchName'	=> '3.3Update',
+			'releaseNotes'	=> "<ul><li>Features<ul><li>Added notification count for tabs</li><li>Added no logs to display message when filtered / or no logs are visible</li><li>Added on hover to tabs to show last line</li><li>Added clear all button for notifications</li><li>Added new ocean theme!</li><li>View some files from Log-Hog (dev tools)</li></ul></li><li>Bug Fixes<ul><li>Cleaned up / grouped settings.</li></ul></li></ul>"
 		),
 	)
 );
