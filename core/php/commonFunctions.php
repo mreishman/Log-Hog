@@ -239,59 +239,56 @@ function getFileSize($filename)
 	return htmlentities(filesize($filename));
 }
 
-function tail($filename, $sliceSize, $shellOrPhp, $logTrimCheck, $logSizeLimit,$logTrimMacBSD,$logTrimType,$buffer)
+function trimLogLine($filename, $logSizeLimit,$logTrimMacBSD,$buffer)
 {
-	if($logTrimCheck == "true")
+	$lineCount = shell_exec('wc -l < ' . $filename);
+	if($lineCount > ($logSizeLimit+$buffer))
 	{
-		if($logTrimType == 'lines')
-		{
-			$lineCount = shell_exec('wc -l < ' . $filename);
-			if($lineCount > ($logSizeLimit+$buffer))
-			{
-				if($logTrimMacBSD == "true")
-				{
-					shell_exec('sed -i "'.$filename.'" "1,' . ($lineCount - $logSizeLimit) . 'd" ' . $filename);
-				}
-				else
-				{
-					shell_exec('sed -i "1,' . ($lineCount - $logSizeLimit) . 'd" ' . $filename);
-				}
-			}
-		}
-		elseif($logTrimType == 'size') //compair to trimsize value
-		{
-			$maxForLoop = 0;
-			$trimFileBool = true;
-			while ($trimFileBool && $maxForLoop < 10)
-			{
-				$filesizeForFile = shell_exec('wc -c < '.$filename);
-				if($filesizeForFile > $logSizeLimit+$buffer)
-				{
-					$numOfLinesToRemoveTo = 2;
-					if($filesizeForFile > (2*$logSizeLimit) && $maxForLoop < 2)
-					{
-						$lineCountForFile = shell_exec('wc -l < ' . $filename);
-						$numOfLinesAllowed = 2*($logSizeLimit/($filesizeForFile/$lineCountForFile));
-						$numOfLinesToRemoveTo = round($lineCountForFile - $numOfLinesAllowed);
-					}
-					if($logTrimMacBSD == "true")
-					{
-						shell_exec('sed -i "'.$filename.'" "1,' . $numOfLinesToRemoveTo . 'd" ' . $filename);
-					}
-					elseif($logTrimMacBSD == "false")
-					{
-						shell_exec('sed -i "1,' . $numOfLinesToRemoveTo . 'd" ' . $filename);
-					}
-				}
-				else
-				{
-					$trimFileBool = false;
-				}
-				$maxForLoop++;
-			}
-		}
+		trimLogInner($logTrimMacBSD,$filename,($lineCount - $logSizeLimit));
 	}
+}
 
+function trimLogSize($filename, $logSizeLimit,$logTrimMacBSD,$buffer)
+{
+	$maxForLoop = 0;
+	$trimFileBool = true;
+	while ($trimFileBool && $maxForLoop < 10)
+	{
+		$filesizeForFile = shell_exec('wc -c < '.$filename);
+		if($filesizeForFile > $logSizeLimit+$buffer)
+		{
+			$numOfLinesToRemoveTo = 2;
+			if($filesizeForFile > (2*$logSizeLimit) && $maxForLoop < 2)
+			{
+				$lineCountForFile = shell_exec('wc -l < ' . $filename);
+				$numOfLinesAllowed = 2*($logSizeLimit/($filesizeForFile/$lineCountForFile));
+				$numOfLinesToRemoveTo = round($lineCountForFile - $numOfLinesAllowed);
+			}
+
+			trimLogInner($logTrimMacBSD,$filename,$numOfLinesToRemoveTo);
+		}
+		else
+		{
+			$trimFileBool = false;
+		}
+		$maxForLoop++;
+	}
+}
+
+function trimLogInner($logTrimMacBSD,$filename,$lineEnd)
+{
+	if($logTrimMacBSD == "true")
+	{
+		shell_exec('sed -i "'.$filename.'" "1,' . $lineEnd . 'd" ' . $filename);
+	}
+	else
+	{
+		shell_exec('sed -i "1,' . $lineEnd . 'd" ' . $filename);
+	}
+}
+
+function tail($filename, $sliceSize, $shellOrPhp)
+{
 	if($shellOrPhp == "true")
 	{
 		$data =  trim(tailCustom($filename, $sliceSize));
