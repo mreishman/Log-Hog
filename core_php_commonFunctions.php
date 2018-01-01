@@ -221,9 +221,11 @@ function findUpdateValue($newestVersionCount, $versionCount, $newestVersion, $ve
 				}
 				break;
 			}
-			break;
 		}
+		else
+		{
 		return 1;
+		}
 	}
 	return 0;
 }
