@@ -16,6 +16,7 @@ $logTrimType = $defaultConfig['logTrimType'];
 $TrimSize = $defaultConfig['TrimSize'];
 $enableLogging = $defaultConfig['enableLogging'];
 $buffer = $defaultConfig['buffer'];
+$sliceSize = $defaultConfig['sliceSize'];
 
 if(array_key_exists('enableSystemPrefShellOrPhp', $config))
 {
@@ -49,6 +50,10 @@ if(array_key_exists('buffer', $config))
 {
 	$buffer = $config['buffer'];
 }
+if(array_key_exists('sliceSize', $config))
+{
+	$sliceSize = $config['sliceSize'];
+}
 
 $logSizeLimit = intval($logSizeLimit);
 
@@ -58,8 +63,15 @@ if($logTrimType == 'size')
 	$logSizeLimit = convertToSize($TrimSize, $logSizeLimit);
 }
 
+$arrayToUpdate = array();
 $response = array();
-foreach($_POST['arrayToUpdate'] as $path)
+
+if(isset($_POST['arrayToUpdate']))
+{
+	$arrayToUpdate = $_POST['arrayToUpdate'];
+}
+
+foreach($arrayToUpdate as $path)
 {
 	try
 	{
@@ -79,7 +91,20 @@ foreach($_POST['arrayToUpdate'] as $path)
 		}
 		else
 		{
-			$dataVar =  tail($filename, $config['sliceSize'], $enableSystemPrefShellOrPhp, $logTrimOn, $logSizeLimit,$logTrimMacBSD,$logTrimType,$buffer);
+			//trim file
+			if($logTrimCheck == "true")
+			{
+				if($logTrimType == 'lines')
+				{
+					trimLogLine($filename, $logSizeLimit,$logTrimMacBSD,$buffer);
+				}
+				elseif($logTrimType == 'size') //compair to trimsize value
+				{
+					trimLogSize($filename, $logSizeLimit,$logTrimMacBSD,$buffer);
+				}
+			}
+			//poll logic
+			$dataVar =  tail($filename, $sliceSize, $enableSystemPrefShellOrPhp);
 		}
 		$dataVar = htmlentities($dataVar);
 
