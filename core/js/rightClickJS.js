@@ -19,7 +19,7 @@ $( document ).ready(function() {
     //Clear Logs Menu Button
 
     var clearAllLogs = {action: "deleteAction();", name: "Clear All Logs"};
-    var clearCurrentLog = {action: "clearLog();", name: "Clear Current Log"};
+    var clearCurrentLog = {action: "clearLog(currentSelectWindow);", name: "Clear Current Log"};
     var deleteAllLogs = {action: "", name: "Delete All Logs"};
     var deleteCurrentLog = {action: "deleteLogPopup();", name: "Delete Current Log"};
 
