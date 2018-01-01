@@ -1,7 +1,7 @@
 <?php
 foreach ($scanned_directory as $key):
 		if($key != ".DS_Store"):
-			require_once("../core/Themes/".$key."/defaultSetting.php");
+			require_once($directory.$key."/defaultSetting.php");
 			$thisThemeIsSelected = false;
 			?>
 			<div style="width: 600px; height: 400px; display: inline-block; background-color: grey; border: 1px solid white; margin: 20px;">
@@ -10,6 +10,9 @@ foreach ($scanned_directory as $key):
 					<div class="settingsHeaderButtons">
 						<?php if($key !== $currentTheme): ?>
 							<a class="linkSmall" onclick="saveAndVerifyMain('themeMainSelection-<?php echo $key;?>');" >Select</a>
+							<?php if($directory === '../local/Themes/'): ?>
+								<a class="linkSmall" onclick="deleteTheme('<?php echo "../../local/Themes/".$key; ?>')" >Delete</a>
+							<?php endif; ?>
 						<?php else: 
 							$thisThemeIsSelected = true;
 							?>
