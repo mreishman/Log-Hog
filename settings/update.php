@@ -140,7 +140,7 @@ $daysSince = calcuateDaysSince($configStatic['lastCheck']);
 				{
 					$version = explode('.', $configStatic['version']);
 					$newestVersion = explode('.', $key);
-					$levelOfUpdate = findUpdateValue($newestVersionCount, $versionCount, $newestVersion, $version);
+					$levelOfUpdate = findUpdateValue(count($newestVersion), count($version), $newestVersion, $version);
 					if($levelOfUpdate != 0)
 					{
 						echo "<li><h2>Changelog For ".$key." update</h2></li>";
