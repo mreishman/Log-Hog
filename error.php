@@ -82,7 +82,7 @@ if(file_exists($file))
     }
 }
 
-$error = 0;
+$error = 42;
 if(isset($_GET["error"]))
 {
     $error = $_GET["error"];
@@ -96,8 +96,8 @@ if(isset($_GET["page"]))
 
 $errorArray = array(
     0   =>  array(
-        "firstMessage"      =>  "General Error",
-        "secondMessage"     =>  "A general error occured, or you navigated to this page directly."
+        "firstMessage"      =>  "",
+        "secondMessage"     =>  ""
     ),
     1   =>  array(
         "firstMessage"      =>  "Watch-List Config Error",
@@ -138,6 +138,10 @@ $errorArray = array(
     10   =>  array(
         "firstMessage"      =>  "Core Config File Error",
         "secondMessage"     =>  "An error occured when loading the core config file. The file loaded does not contain the expected variable. Please check that the local layout file contains the defaultConfig variable, and is defined. If it is empty, re copy it from the repo (core/conf/config.php)"
+    ),
+    42   =>  array(
+        "firstMessage"      =>  "General Error",
+        "secondMessage"     =>  "A general error occured, or you navigated to this page directly."
     ),
     550   =>  array(
         "firstMessage"      =>  "File Permission Error",
@@ -230,11 +234,12 @@ if(file_exists($file))
 </head>
 <body>
 
-
-<div style="text-align: center; background-color: black; color: white; padding: 20px; min-height: 100px;" >
-    <h1 style="line-height: 60px;"> <img style="vertical-align: middle;" src="core/img/redWarning.png" height="60px"> Error <?php echo $error ?> <img  style="vertical-align: middle;" src="core/img/redWarning.png" height="60px"> </h1>
-    <h1> <?php echo $page ?> </h1>
-</div>
+<?php if($error != 0): ?>
+    <div style="text-align: center; background-color: black; color: white; padding: 20px; min-height: 100px;" >
+        <h1 style="line-height: 60px;"> <img style="vertical-align: middle;" src="core/img/redWarning.png" height="60px"> Error <?php echo $error ?> <img  style="vertical-align: middle;" src="core/img/redWarning.png" height="60px"> </h1>
+        <h1> <?php echo $page ?> </h1>
+    </div> 
+<?php endif; ?>
 <table style="width: 100%;" >
     <tr class="tableRow">
         <td width="33%">

@@ -92,7 +92,7 @@ foreach($arrayToUpdate as $path)
 		else
 		{
 			//trim file
-			if($logTrimCheck == "true")
+			if($logTrimOn == "true")
 			{
 				if($logTrimType == 'lines')
 				{
