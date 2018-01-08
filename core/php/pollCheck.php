@@ -30,15 +30,23 @@ foreach($config['watchList'] as $path => $filter)
 	if(is_dir($path))
 	{
 		$path = preg_replace('/\/$/', '', $path);
-		$files = array_diff(scandir($path), array('..', '.'));
-		if($files)
+		if(file_exists($path))
 		{
-			foreach($files as $k => $filename)
+			$scannedDir = scandir($path);
+			if(!is_array($scannedDir))
 			{
-				$fullPath = $path . DIRECTORY_SEPARATOR . $filename;
-				if(preg_match('/' . $filter . '/S', $filename) && is_file($fullPath))
+				$scannedDir = array($scannedDir);
+			}
+			$files = array_diff($scannedDir, array('..', '.'));
+			if($files)
+			{
+				foreach($files as $k => $filename)
 				{
-					$response[$fullPath] = getFileSize($fullPath);
+					$fullPath = $path . DIRECTORY_SEPARATOR . $filename;
+					if(preg_match('/' . $filter . '/S', $filename) && is_file($fullPath))
+					{
+						$response[$fullPath] = getFileSize($fullPath);
+					}
 				}
 			}
 		}
