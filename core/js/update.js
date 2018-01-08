@@ -151,7 +151,7 @@ function closePopupNoUpdate()
 
 function installUpdates(urlSend = "../", updateFormIDLocal = "settingsInstallUpdate")
 {
-	if(typeof updateFromID === "undefined" ||  updateFromID !== "settingsInstallUpdate")
+	if(typeof updateFromID !== "undefined" &&  updateFromID !== "settingsInstallUpdate")
 	{
 		updateFormIDLocal = updateFormID;
 	}
