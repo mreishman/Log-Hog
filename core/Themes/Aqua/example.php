@@ -65,13 +65,13 @@ require_once($baseURL.'core/php/loadVars.php');
 					<td style="padding: 0; width: 30px;" >
 						<div class="backgroundForSideBarMenu" style="width: 30px; float: left; display: inline; padding: 0px; height: 100%;">
 							<a style="cursor: pointer;" >
-								<img src="img/info.png" style="padding: 5px;" width="20px;">
+								<img src="img/infoSideBar.png" style="padding: 5px;" width="20px;">
 							</a>
 							<a style="cursor: pointer;">
-								<img src="img/eraser.png" style="padding: 5px;" width="20px;">
+								<img src="img/eraserSideBar.png" style="padding: 5px;" width="20px;">
 							</a>
 							<a style="cursor: pointer;">
-								<img src="img/trashCan.png" style="padding: 5px;" width="20px;">
+								<img src="img/trashCanSideBar.png" style="padding: 5px;" width="20px;">
 							</a>
 						</div>
 					</td>

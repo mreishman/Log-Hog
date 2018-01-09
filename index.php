@@ -157,7 +157,7 @@ for ($i=0; $i < $windowDisplayConfig[0]; $i++)
 {
 	$logDisplay .= "<tr>";
 	$infoImageForWindowTableLoop = generateImage(
-		$arrayOfImages["info"],
+		$arrayOfImages["infoSideBar"],
 		$imageConfig = array(
 			"height"	=>	"20px",
 			"style"		=>	"margin: 5px;",
@@ -165,7 +165,7 @@ for ($i=0; $i < $windowDisplayConfig[0]; $i++)
 			)
 		);
 	$clearImageForWindowTableLoop = generateImage(
-		$arrayOfImages["eraser"],
+		$arrayOfImages["eraserSideBar"],
 		$imageConfig = array(
 			"height"	=>	"20px",
 			"style"		=>	"margin: 5px;",
@@ -173,7 +173,7 @@ for ($i=0; $i < $windowDisplayConfig[0]; $i++)
 			)
 		);
 	$deleteImageForWindowTableLoop =  generateImage(
-		$arrayOfImages["trashCan"],
+		$arrayOfImages["trashCanSideBar"],
 		$imageConfig = array(
 			"height"	=>	"20px",
 			"style"		=>	"margin: 5px;",

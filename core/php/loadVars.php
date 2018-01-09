@@ -320,6 +320,12 @@ else
 			"title"			=>	"Clear",
 			"baseName"		=>	"eraser.png"
 		),
+		"eraserSideBar"		=> array(
+			"alt"			=>	"Clear",
+			"src"			=>	"",
+			"title"			=>	"Clear",
+			"baseName"		=>	"eraserSideBar.png"
+		),
 		"fileIcon"			=> array(
 			"alt"			=>	"File",
 			"src"			=>	"",
@@ -349,6 +355,12 @@ else
 			"src"			=>	"",
 			"title"			=>	"Info",
 			"baseName"		=>	"info.png"
+		),
+		"infoSideBar"		=> array(
+			"alt"			=>	"Info",
+			"src"			=>	"",
+			"title"			=>	"Info",
+			"baseName"		=>	"infoSideBar.png"
 		),
 		"loading"			=> array(
 			"alt"			=>	"Loading",
@@ -416,6 +428,12 @@ else
 			"title"			=>	"Delete Multiple",
 			"baseName"		=>	"trashCanMulti.png"
 		),
+		"trashCanSideBar"	=> array(
+			"alt"			=>	"Delete",
+			"src"			=>	"",
+			"title"			=>	"Delete",
+			"baseName"		=>	"trashCanSideBar.png"
+		),
 		"yellowWarning"		=> array(
 			"alt"			=>	"Notice",
 			"src"			=>	"",
@@ -436,20 +454,20 @@ else
 			//check for local version
 			$src = "local/".$currentSelectedTheme."/img/".$value["baseName"];
 		}
-		elseif(!file_exists($varToIndexDir."local/Themes/".$currentTheme."img/".$value["baseName"]))
+		elseif(file_exists($varToIndexDir."local/Themes/".$currentTheme."/img/".$value["baseName"]))
 		{
 			//check for current theme in local
-			$src = "local/Themes/".$currentTheme."img/".$value["baseName"];
+			$src = "local/Themes/".$currentTheme."/img/".$value["baseName"];
 		}
-		elseif(!file_exists($varToIndexDir."core/Themes/".$currentTheme."img/".$value["baseName"]))
+		elseif(file_exists($varToIndexDir."core/Themes/".$currentTheme."/img/".$value["baseName"]))
 		{
 			//check for current theme in core
-			$src = "core/Themes/".$currentTheme."img/".$value["baseName"];
+			$src = "core/Themes/".$currentTheme."/img/".$value["baseName"];
 		}
-		elseif(!file_exists($varToIndexDir."core/Themes/".$currentThemeBase."img/".$value["baseName"]))
+		elseif(file_exists($varToIndexDir."core/Themes/".$currentThemeBase."/img/".$value["baseName"]))
 		{
 			//check for base theme
-			$src = "core/Themes/".$currentThemeBase."img/".$value["baseName"];
+			$src = "core/Themes/".$currentThemeBase."/img/".$value["baseName"];
 		}
 
 		$arrayOfImages[$key]["src"] = $src;
