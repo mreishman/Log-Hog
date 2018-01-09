@@ -302,7 +302,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 			<?php if($truncateLog == 'true'): ?>
 				<div onclick="deleteAction();"  class="menuImageDiv">
 					<?php echo generateImage(
-						$arrayOfImages["trashCanMulti"],
+						$arrayOfImages["eraserMulti"],
 						$imageConfig = array(
 							"id"		=>	"deleteImage",
 							"class"		=>	"menuImage",

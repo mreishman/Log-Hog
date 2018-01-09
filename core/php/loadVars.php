@@ -320,6 +320,12 @@ else
 			"title"			=>	"Clear",
 			"baseName"		=>	"eraser.png"
 		),
+		"eraserMulti"			=> array(
+			"alt"			=>	"Clear All",
+			"src"			=>	"",
+			"title"			=>	"Clear All",
+			"baseName"		=>	"eraserMulti.png"
+		),
 		"eraserSideBar"		=> array(
 			"alt"			=>	"Clear",
 			"src"			=>	"",

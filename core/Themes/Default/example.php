@@ -37,7 +37,7 @@ require_once($baseURL.'core/php/loadVars.php');
 				<img id="refreshImage" class="menuImage" src="img/Refresh.png" height="30px">
 			</div>
 			<div class="menuImageDiv">
-				<img id="deleteImage" class="menuImage" src="img/trashCanMulti.png" height="30px">
+				<img id="deleteImage" class="menuImage" src="img/eraserMulti.png" height="30px">
 			</div>
 			<div class="menuImageDiv">
 				<img data-id="1" id="gear" class="menuImage" src="img/Gear.png" height="30px">
