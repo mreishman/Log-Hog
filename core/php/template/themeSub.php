@@ -1,12 +1,12 @@
 <?php
 foreach ($scanned_directory as $key):
 		if($key != ".DS_Store"):
-			require_once($directory.$key."/defaultSetting.php");
+			include($directory.$key."/defaultSetting.php");
 			$thisThemeIsSelected = false;
 			?>
 			<div style="width: 600px; height: 400px; display: inline-block; background-color: grey; border: 1px solid white; margin: 20px;">
 				<div class="settingsHeader" style="margin: 0px;">
-					<?php echo $displayName;?>
+					<?php echo $themeDefaultSettings['displayName'];?>
 					<div class="settingsHeaderButtons">
 						<?php if($key !== $currentTheme): ?>
 							<a class="linkSmall" onclick="saveAndVerifyMain('themeMainSelection-<?php echo $key;?>');" >Select</a>
@@ -39,7 +39,7 @@ foreach ($scanned_directory as $key):
 						<?php
 							$arrayOfInputValues = array(
 								"loadingBarVersion"			=>	array(
-									'value'					=>	$loadingBarVersionDefault,
+									'value'					=>	$themeDefaultSettings['loadingBarVersionDefault'],
 									'default'				=>	$loadingBarVersion
 								),
 								"currentTheme"				=>	array(
@@ -47,19 +47,19 @@ foreach ($scanned_directory as $key):
 									'default'				=>	$currentTheme
 								),
 								"backgroundColor"			=>	array(
-									'value'					=>	$backgroundColorDefault,
+									'value'					=>	$themeDefaultSettings['backgroundColor'],
 									'default'				=>	$backgroundColor
 								),
 								"mainFontColor"				=>	array(
-									'value'					=>	$mainFontColorDefault,
+									'value'					=>	$themeDefaultSettings['mainFontColor'],
 									'default'				=>	$mainFontColor
 								),
 								"backgroundHeaderColor"		=>	array(
-									'value'					=>	$backgroundHeaderColorDefault,
+									'value'					=>	$themeDefaultSettings['backgroundHeaderColor'],
 									'default'				=>	$backgroundHeaderColor
 								),
 								"logFontColor"				=>	array(
-									'value'					=>	$logFontColorDefault,
+									'value'					=>	$themeDefaultSettings["logFontColor"],
 									'default'				=>	$logFontColor
 								)
 							);
@@ -81,9 +81,9 @@ foreach ($scanned_directory as $key):
 							<?php endforeach;
 
 							$tmpcurrentFolderColorTheme = $currentFolderColorTheme;
-							$currentFolderColorTheme = $currentFolderColorThemeDefault;
+							$currentFolderColorTheme = $themeDefaultSettings["currentFolderColorTheme"];
 							$tmpfolderColorArrays = $folderColorArrays;
-							$folderColorArrays = $folderColorArraysDefault;
+							$folderColorArrays = $themeDefaultSettings["folderColorArrays"];
 							if($thisThemeIsSelected && !$customThemeCreateNew)
 							{
 								if($tmpcurrentFolderColorTheme !== $currentFolderColorTheme || $tmpfolderColorArrays !== $folderColorArrays)

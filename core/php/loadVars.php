@@ -133,6 +133,10 @@ foreach ($defaultConfig as $key => $value)
 	{
 		$$key = $config[$key];
 	}
+	elseif(isset($themeDefaultSettings) && array_key_exists($key, $themeDefaultSettings))
+	{
+		$$key = $themeDefaultSettings[$key];
+	}
 	else
 	{
 		$$key = $value;
