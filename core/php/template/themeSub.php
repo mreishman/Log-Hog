@@ -25,7 +25,7 @@ foreach ($scanned_directory as $key):
 					<img src="<?php echo $baseUrl;?>/img/loading.gif" style="position: relative; height: 60px; top: 170px; left: 270px;" >
 				</span>
 				<span id="htmlContent-<?php echo $key;?>" style="display: none;">
-					<iframe style="width: 598px; border: 0px; height: 373px;" src="../core/Themes/example.php?type=<?php echo $key;?>">
+					<iframe style="width: 598px; border: 0px; height: 373px;" src="../core/Themes/example.php?type=../<?php echo $directory.$key;?>">
 					</iframe>
 				</span>
 				<span style="display: none;">
