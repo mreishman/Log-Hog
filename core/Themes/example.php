@@ -1,49 +1,29 @@
 <?php
-require_once('../../php/commonFunctions.php');
-
-$baseURL = baseURL();
-$baseUrl = $baseURL."core/";
-if(file_exists('local/layout.php'))
-{
-	$baseUrl = "local/";
-	//there is custom information, use this
-	require_once('local/layout.php');
-	$baseUrl .= $currentSelectedTheme."/";
-}
-if(!file_exists($baseUrl.'conf/config.php'))
-{
-	$partOfUrl = clean_url($_SERVER['REQUEST_URI']);
-	$url = "http://" . $_SERVER['HTTP_HOST'] .$partOfUrl ."setup/welcome.php";
-	header('Location: ' . $url, true, 302);
-	exit();
-}
-require_once($baseUrl.'conf/config.php');
-require_once($baseURL.'core/conf/config.php');
-require_once($baseURL.'core/php/configStatic.php');
-require_once($baseURL.'core/php/loadVars.php');
+	$theme = $_GET["type"];
+	$cssVersion = rand(0 , 9000000);
 ?>
 <!DOCTYPE html>
 <html>
 <head> 
-	<link rel="stylesheet" type="text/css" href="template/theme.css?v=<?php echo $cssVersion;?>">
+	<link rel="stylesheet" type="text/css" href="<?php echo $theme; ?>/template/theme.css?v=<?php echo $cssVersion;?>">
 </head>
 <body>
 	<div id="menu" style="position: relative; ">
 		<div id="menuButtons">
 			<div class="menuImageDiv">
-				<img id="pauseImage" class="menuImage" src="img/Pause.png" height="30px">
+				<img id="pauseImage" class="menuImage" src="<?php echo $theme; ?>/img/Pause.png" height="30px">
 			</div>
 			<div class="menuImageDiv">
-				<img id="refreshImage" class="menuImage" src="img/Refresh.png" height="30px">
+				<img id="refreshImage" class="menuImage" src="<?php echo $theme; ?>/img/Refresh.png" height="30px">
 			</div>
 			<div class="menuImageDiv">
-				<img id="deleteImage" class="menuImage" src="img/trashCanMulti.png" height="30px">
+				<img id="deleteImage" class="menuImage" src="<?php echo $theme; ?>/img/eraserMulti.png" height="30px">
 			</div>
 			<div class="menuImageDiv">
-				<img data-id="1" id="gear" class="menuImage" src="img/Gear.png" height="30px">
+				<img data-id="1" id="gear" class="menuImage" src="<?php echo $theme; ?>/img/Gear.png" height="30px">
 			</div>
 			<div class="menuImageDiv">
-					<img id="notificationClear" class="menuImage" src="img/notificationClear.png" height="30px">
+					<img id="notificationClear" class="menuImage" src="<?php echo $theme; ?>/img/notificationClear.png" height="30px">
 			</div>
 			<div style="float: right;">
 				<input type="search" placeholder="Filter Title" style="height: 30px; width: 200px;">
@@ -59,19 +39,19 @@ require_once($baseURL.'core/php/loadVars.php');
 	</div>
 
 		<!-- LOG -->
-		<div id="main" style="height: 278px; position: inherit;">
-			<table style="margin: 0px;padding: 0px; border-spacing: 0px; width:100%; height: 278px; " >
+	<div id="main" style="height: 278px; position: inherit;">
+		<table style="margin: 0px;padding: 0px; border-spacing: 0px; width:100%; height: 278px; " >
 				<tr>
 					<td style="padding: 0; width: 30px;" >
-						<div class="backgroundForSideBarMenu" style="width: 30px; float: left; display: inline; padding: 0px; height: 100%;">
+						<div class="backgroundForMenus" style="width: 30px; float: left; display: inline; padding: 0px; height: 100%;">
 							<a style="cursor: pointer;" >
-								<img src="img/infoSideBar.png" style="padding: 5px;" width="20px;">
+								<img src="<?php echo $theme; ?>/img/infoSideBar.png" style="padding: 5px;" width="20px;">
 							</a>
 							<a style="cursor: pointer;">
-								<img src="img/eraserSideBar.png" style="padding: 5px;" width="20px;">
+								<img src="<?php echo $theme; ?>/img/eraserSideBar.png" style="padding: 5px;" width="20px;">
 							</a>
 							<a style="cursor: pointer;">
-								<img src="img/trashCanSideBar.png" style="padding: 5px;" width="20px;">
+								<img src="<?php echo $theme; ?>/img/trashCanSideBar.png" style="padding: 5px;" width="20px;">
 							</a>
 						</div>
 					</td>
@@ -344,7 +324,6 @@ require_once($baseURL.'core/php/loadVars.php');
 					</td>
 				</tr>
 			</table>
-		</div>
 	</div>
 </body>
 </html>
