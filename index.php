@@ -24,17 +24,24 @@ if(file_exists('local/layout.php'))
 if(!file_exists($baseUrl.'conf/config.php'))
 {
 	require_once("setup/setupProcessFile.php");
-	if($setupProcess === 'preStart')
+	if($setupProcess !== "finished")
 	{
-		$partOfUrl = clean_url($_SERVER['REQUEST_URI']);
-		$url = "http://" . $_SERVER['HTTP_HOST'] .$partOfUrl ."setup/welcome.php";
-		header('Location: ' . $url, true, 302);
-		exit();
-	}
-	else
-	{
-		//setup either errored out, or was incomplete. throw error. 
-		throwSetupError("");
+		if($setupProcess === 'preStart')
+		{
+			$partOfUrl = clean_url($_SERVER['REQUEST_URI']);
+			if(strpos($partOfUrl, "index.php") !== false)
+			{
+				$partOfUrl = str_replace("index.php", "", $partOfUrl);
+			}
+			$url = "http://" . $_SERVER['HTTP_HOST'] .$partOfUrl ."setup/welcome.php";
+			header('Location: ' . $url, true, 302);
+			exit();
+		}
+		else
+		{
+			//setup either errored out, or was incomplete. throw error. 
+			throwSetupError("");
+		}
 	}
 }
 require_once($baseUrl.'conf/config.php');
