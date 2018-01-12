@@ -1,4 +1,6 @@
 <?php
+require_once('../core/php/commonFunctions.php');
+setCookieRedirect();
 $baseUrl = "../core/";
 if(file_exists('../local/layout.php'))
 {
@@ -13,7 +15,6 @@ require_once('../core/conf/config.php');
 require_once('../core/php/configStatic.php');
 require_once('../core/php/updateCheck.php');
 require_once('../core/php/loadVars.php');
-require_once('../core/php/commonFunctions.php');
 ?>
 <!doctype html>
 <head>
