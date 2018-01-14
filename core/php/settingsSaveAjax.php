@@ -35,6 +35,27 @@ if(!isset($defaultConfig))
 	exit();
 }
 
+function putIntoCorrectFormat($keyKey, $keyValue, $value)
+{
+	if(is_string($value))
+	{
+		return "
+		'".$keyKey."' => '".$keyValue."',
+	";
+	}
+	
+	if(is_array($value))
+	{
+		return "
+		'".$keyKey."' => array(".$keyValue."),
+	";
+	}
+
+	return "
+		'".$keyKey."' => ".$keyValue.",
+	";
+}
+
 require_once('loadVars.php');
 if($backupNumConfigEnabled === "true")
 {
@@ -72,23 +93,19 @@ if($backupNumConfigEnabled === "true")
 		";
 	foreach ($defaultConfig as $key => $value)
 	{
-		if(is_string($value))
+		(isset($themeDefaultSettings) && array_key_exists($key, $themeDefaultSettings))
+		if(
+			$$key !== $defaultConfig[$key] &&
+			(
+				!isset($themeDefaultSettings) || 
+				isset($themeDefaultSettings) && !array_key_exists($key, $themeDefaultSettings) ||
+				isset($themeDefaultSettings) && array_key_exists($key, $themeDefaultSettings) && $themeDefaultSettings[$key] !== $$key
+			)
+			||
+			$$key === $defaultConfig[$key] && isset($themeDefaultSettings) && array_key_exists($key, $themeDefaultSettings) && $themeDefaultSettings[$key] !== $$key
+		)
 		{
-			$newInfoForConfig .= "
-			'".$key."' => '".$$key."',
-		";
-		}
-		elseif(is_array($value))
-		{
-			$newInfoForConfig .= "
-			'".$key."' => array(".$$key."),
-		";
-		}
-		else
-		{
-			$newInfoForConfig .= "
-			'".$key."' => ".$$key.",
-		";
+			$newInfoForConfig .= putIntoCorrectFormat($key, $$key, $value);
 		}
 	}
 	$newInfoForConfig .= "
