@@ -483,3 +483,10 @@ else
 		$arrayOfImages[$key]["src"] = $src;
 	}
 }
+
+$arrayOfCustomConfig = array(
+	'themeVersion' => 1,
+	'layoutVersion'	=> 1,
+	'cssVersion'	=> 1,
+	'configVersion'	=> 1
+);

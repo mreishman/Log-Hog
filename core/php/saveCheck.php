@@ -215,7 +215,7 @@ foreach ($defaultConfig as $key => $value)
 		}
 
 	}
-	elseif(isset($$key))
+	elseif(isset($$key) && $key !== "currentTheme")
 	{
 		$key2 = $key."Save";
 		if($$key != $$key2)

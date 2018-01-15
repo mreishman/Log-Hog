@@ -73,13 +73,6 @@ if($backupNumConfigEnabled === "true")
 	}
 }
 
-$arrayOfCustomConfig = array(
-	'themeVersion' => 1,
-	'layoutVersion'	=> 1,
-	'cssVersion'	=> 1,
-	'configVersion'	=> 1
-);
-
 	$fileName = ''.$baseUrl.'conf/config.php';
 
 	//Don't forget to update Normal version
