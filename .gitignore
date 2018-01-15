@@ -41,3 +41,7 @@ search/*
 local/default/img/seleniumMonitor.png
 local/default/img/notificationClear.png
 local/default/img/eraser.png
+local/default/img/trashCanSideBar.png
+local/default/img/infoSideBar.png
+local/default/img/eraserSideBar.png
+local/default/img/eraserMulti.png

@@ -530,6 +530,15 @@ function upgradeConfig($configVersionStatic)
 	$baseUrl .= $currentSelectedTheme."/";
 	require_once($baseUrl.'conf/config.php');
 	require_once($baseBaseUrl.'core/conf/config.php');
+	$currentTheme = loadSpecificVar($defaultConfig, $config, "currentTheme");
+	if(is_dir($baseBaseUrl.'local/'.$currentSelectedTheme.'/Themes/'.$currentTheme))
+	{
+		require_once($baseBaseUrl.'local/'.$currentSelectedTheme.'/Themes/'.$currentTheme."/defaultSetting.php");
+	}
+	else
+	{
+		require_once($baseBaseUrl.'core/Themes/'.$currentTheme."/defaultSetting.php");
+	}
 	require_once($baseBaseUrl.'core/php/loadVars.php');
 
 	$configVersion = $configVersionStatic;
@@ -540,23 +549,20 @@ function upgradeConfig($configVersionStatic)
 		";
 	foreach ($defaultConfig as $key => $value)
 	{
-		if(is_string($value))
+		if(
+			$$key !== $defaultConfig[$key] &&
+			(
+				!isset($themeDefaultSettings) || 
+				isset($themeDefaultSettings) && !array_key_exists($key, $themeDefaultSettings) ||
+				isset($themeDefaultSettings) && array_key_exists($key, $themeDefaultSettings) && $themeDefaultSettings[$key] !== $$key
+			)
+			||
+			$$key === $defaultConfig[$key] && isset($themeDefaultSettings) && array_key_exists($key, $themeDefaultSettings) && $themeDefaultSettings[$key] !== $$key
+			||
+			isset($arrayOfCustomConfig[$key]) 
+		)
 		{
-			$newInfoForConfig .= "
-			'".$key."' => '".$$key."',
-		";
-		}
-		elseif(is_array($value))
-		{
-			$newInfoForConfig .= "
-			'".$key."' => array(".$$key."),
-		";
-		}
-		else
-		{
-			$newInfoForConfig .= "
-			'".$key."' => ".$$key.",
-		";
+			$newInfoForConfig .= putIntoCorrectFormat($key, $$key, $value);
 		}
 	}
 	$newInfoForConfig .= "
@@ -573,4 +579,25 @@ function loadSpecificVar($default, $custom, $configLookFor)
 		$currentTheme = $custom[$configLookFor];
 	}
 	return $currentTheme;
+}
+
+function putIntoCorrectFormat($keyKey, $keyValue, $value)
+{
+	if(is_string($value))
+	{
+		return "
+		'".$keyKey."' => '".$keyValue."',
+	";
+	}
+	
+	if(is_array($value))
+	{
+		return "
+		'".$keyKey."' => array(".$keyValue."),
+	";
+	}
+
+	return "
+		'".$keyKey."' => ".$keyValue.",
+	";
 }

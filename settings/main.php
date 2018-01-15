@@ -1,4 +1,5 @@
 <?php
+require_once('../core/php/commonFunctions.php');
 $baseUrl = "../local/";
 //there is custom information, use this
 require_once('../local/layout.php');
@@ -18,7 +19,6 @@ else
 require_once('../core/php/configStatic.php');
 require_once('../core/php/updateCheck.php');
 require_once('../core/php/loadVars.php');
-require_once('../core/php/commonFunctions.php');
 ?>
 <!doctype html>
 <head>

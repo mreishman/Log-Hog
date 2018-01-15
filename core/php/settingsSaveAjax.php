@@ -1,5 +1,5 @@
 <?php
-
+require_once("../../core/php/commonFunctions.php");
 $baseUrl = "../../local/";
 //there is custom information, use this
 if(!file_exists($baseUrl."layout.php") || !is_readable($baseUrl."layout.php"))
@@ -45,27 +45,6 @@ else
 	require_once('../../core/Themes/'.$currentTheme."/defaultSetting.php");
 }
 
-function putIntoCorrectFormat($keyKey, $keyValue, $value)
-{
-	if(is_string($value))
-	{
-		return "
-		'".$keyKey."' => '".$keyValue."',
-	";
-	}
-	
-	if(is_array($value))
-	{
-		return "
-		'".$keyKey."' => array(".$keyValue."),
-	";
-	}
-
-	return "
-		'".$keyKey."' => ".$keyValue.",
-	";
-}
-
 require_once('loadVars.php');
 if($backupNumConfigEnabled === "true")
 {
@@ -94,6 +73,13 @@ if($backupNumConfigEnabled === "true")
 	}
 }
 
+$arrayOfCustomConfig = array(
+	'themeVersion' => 1,
+	'layoutVersion'	=> 1,
+	'cssVersion'	=> 1,
+	'configVersion'	=> 1
+);
+
 	$fileName = ''.$baseUrl.'conf/config.php';
 
 	//Don't forget to update Normal version
@@ -103,7 +89,6 @@ if($backupNumConfigEnabled === "true")
 		";
 	foreach ($defaultConfig as $key => $value)
 	{
-		(isset($themeDefaultSettings) && array_key_exists($key, $themeDefaultSettings))
 		if(
 			$$key !== $defaultConfig[$key] &&
 			(
@@ -113,6 +98,8 @@ if($backupNumConfigEnabled === "true")
 			)
 			||
 			$$key === $defaultConfig[$key] && isset($themeDefaultSettings) && array_key_exists($key, $themeDefaultSettings) && $themeDefaultSettings[$key] !== $$key
+			||
+			isset($arrayOfCustomConfig[$key]) 
 		)
 		{
 			$newInfoForConfig .= putIntoCorrectFormat($key, $$key, $value);
