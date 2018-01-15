@@ -40,7 +40,7 @@ foreach ($scanned_directory as $key):
 						<?php
 							$arrayOfInputValues = array(
 								"loadingBarVersion"			=>	array(
-									'value'					=>	$themeDefaultSettings['loadingBarVersionDefault'],
+									'value'					=>	$themeDefaultSettings['loadingBarVersion'],
 									'default'				=>	$loadingBarVersion
 								),
 								"currentTheme"				=>	array(
