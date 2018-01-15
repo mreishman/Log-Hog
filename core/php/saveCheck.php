@@ -25,6 +25,7 @@ while($countOfSlash < 20 && !file_exists($varToIndexDir."error.php"))
 {
   $varToIndexDir .= "../";
 }
+require_once($varToIndexDir."core/php/commonFunctions.php");
 
 $baseUrl = $varToIndexDir."core/";
 if(file_exists($varToIndexDir.'local/layout.php'))
@@ -43,6 +44,16 @@ else
 	$config = array();
 }
 require_once($varToIndexDir.'core/conf/config.php');
+
+$currentTheme = loadSpecificVar($defaultConfig, $config, "currentTheme");
+if(is_dir($varToIndexDir.'local/'.$currentSelectedTheme.'/Themes/'.$currentTheme))
+{
+	require_once($varToIndexDir.'local/'.$currentSelectedTheme.'/Themes/'.$currentTheme."/defaultSetting.php");
+}
+else
+{
+	require_once($varToIndexDir.'core/Themes/'.$currentTheme."/defaultSetting.php");
+}
 
 $response = true;
 
@@ -181,6 +192,14 @@ foreach ($defaultConfig as $key => $value)
 		if(array_key_exists($key, $config))
 		{
 			if($_POST[$key] != $config[$key])
+			{
+				$response = false;
+				break;
+			}
+		}
+		elseif(array_key_exists($key, $themeDefaultSettings))
+		{
+			if($_POST[$key] != $themeDefaultSettings[$key])
 			{
 				$response = false;
 				break;
