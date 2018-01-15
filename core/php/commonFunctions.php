@@ -564,3 +564,13 @@ function upgradeConfig($configVersionStatic)
 	?>";
 	file_put_contents($fileName, $newInfoForConfig);
 }
+
+function loadSpecificVar($default, $custom, $configLookFor)
+{
+	$currentTheme = $default[$configLookFor];
+	if(isset($custom[$configLookFor]))
+	{
+		$currentTheme = $custom[$configLookFor];
+	}
+	return $currentTheme;
+}

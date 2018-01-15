@@ -35,6 +35,16 @@ if(!isset($defaultConfig))
 	exit();
 }
 
+$currentTheme = loadSpecificVar($defaultConfig, $config, "currentTheme");
+if(is_dir('../../local/'.$currentSelectedTheme.'/Themes/'.$currentTheme))
+{
+	require_once('../../local/'.$currentSelectedTheme.'/Themes/'.$currentTheme."/defaultSetting.php")
+}
+else
+{
+	require_once('../../core/Themes/'.$currentTheme."/defaultSetting.php")
+}
+
 function putIntoCorrectFormat($keyKey, $keyValue, $value)
 {
 	if(is_string($value))
