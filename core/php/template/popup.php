@@ -45,7 +45,7 @@ function displayLoadingPopup(pathToImg = "../")
 	?>
 	var srcForImage = "<?php echo $srcForImage; ?>";
 	showPopup();
-	document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Loading...</div><br><br><div style='width:100%;text-align:center;'> <img src='"+pathToImg+srcForImage+"' height='50' width='50'> </div>";
+	document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' id='popupHeaderText' >Loading...</div><br><br><div style='width:100%;text-align:center;'> <img src='"+pathToImg+srcForImage+"' height='50' width='50'> </div>";
 }
 function displaySavePromptPopup(url)
 {

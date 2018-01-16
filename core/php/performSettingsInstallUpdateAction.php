@@ -127,6 +127,15 @@ elseif($action === 'updateConfigStatic')
 	updateConfigStatic($_POST['versionToUpdate']);
 	$response = true;
 }
+elseif($action === 'createFolder')
+{
+	$newDir = $_POST["newDir"];
+	if(!file_exists($newDir))
+	{
+		mkdir($newDir);
+	}
+	$response = true;
+}
 else
 {
 	$response = "ACTION";

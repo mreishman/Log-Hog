@@ -36,3 +36,6 @@ require_once('../core/php/loadVars.php');
 	</div>
 </body>
 <script src="../core/js/themes.js?v=<?php echo $cssVersion?>"></script>
+<script type="text/javascript">
+	var currentTheme = "<?php echo $currentSelectedTheme; ?>";
+</script>
