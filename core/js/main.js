@@ -1484,6 +1484,27 @@ function deleteAction()
 {
 	try
 	{
+		if(popupSettingsArray.deleteLog == "true")
+		{
+			showPopup();
+			document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class=\"settingsHeader\" >Are you sure you want to clear all logs?</div><br><div style=\"width:100%;text-align:center;padding-left:10px;padding-right:10px;\"></div><div><div class=\"link\" onclick=\"deleteActionAfter();hidePopup();\" style=\"margin-left:125px; margin-right:50px;margin-top:35px;\">Yes</div><div onclick=\"hidePopup();\" class=\"link\">No</div></div>";
+		}
+		else
+		{
+			deleteLog(title);
+		}
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
+
+function deleteActionAfter()
+{
+	try
+	{
 		//Clear All Log Function (not delete actual file, just contents)
 		var urlForSend = "core/php/clearAllLogs.php?format=json";
 		var data = "";
