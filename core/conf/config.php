@@ -21,6 +21,7 @@ $defaultConfig = array(
 	'currentThemeBase'				=> 'Default',
 	'developmentTabEnabled'			=> 'false',
 	'dontNotifyVersion'				=> '0',
+	'displayName'					=> 'forThemesOnly',
 	'enableDevBranchDownload' 		=> 'false',
 	'enableHtopLink'				=> 'false',
 	'enableLogging'					=> 'false',

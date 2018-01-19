@@ -36,6 +36,9 @@ Theme Selector
 					<h1 style="text-align: center;" >Save as New Theme</h1>
 				</span>
 			</div>
+			<form id="themeMainSelectionCustomNew">
+				<input type="hidden" name="currentTheme" value="Custom-Theme-<?php echo $customThemeNum; ?>" >
+			</form>
 		<?php endif;
 		endif; ?>
 </div>

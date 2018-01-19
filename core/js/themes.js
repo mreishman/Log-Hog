@@ -2,7 +2,7 @@ var titleOfPage = "Themes";
 var externalThemeNumber = 1;
 var themeName = "";
 var timeoutVar = null;
-var numberOfStepsForThemeCreate = 6;
+var numberOfStepsForThemeCreate = 12;
 
 function checkIfChanges()
 {
@@ -95,7 +95,7 @@ function saveCustomThemeCustomFolder()
 		type: 'POST',
 		success()
 		{
-			verifyFolderInFolder();
+			timeoutVar = setInterval(function(){verifyFolderInFolder();},3000);
 		}
 	});
 }
@@ -126,13 +126,142 @@ function verifyFolderInFolder()
 
 function createNewFiles()
 {
-
+	//default settings file
+	document.getElementById("popupHeaderText").innerHTML = "Creating config file (step 5 of "+numberOfStepsForThemeCreate+")";
+	var themeNumber = externalThemeNumber;
+	var displayName = themeName;
+	var urlForSend = '../core/php/saveCustomThemeDefaults.php?format=json';
+	var data = {themeNumber, displayName};
+	$.ajax({
+		url: urlForSend,
+		dataType: 'json',
+		data,
+		type: 'POST',
+		success(data)
+		{
+			if(data === true)
+			{
+				timeoutVar = setInterval(function(){verifyNewFiles();},3000);
+			}
+		}
+	});
 }
 
 function verifyNewFiles()
 {
+	document.getElementById("popupHeaderText").innerHTML = "verifying config file (step 6 of "+numberOfStepsForThemeCreate+")";
+	var filePath = "../../local/"+currentTheme+"/Themes/Custom-Theme-"+externalThemeNumber+"/defaultSetting.php";
+	var urlForSend = '../core/php/performSettingsInstallUpdateAction.php?format=json';
+	var data = {action: 'verifyFileIsThere', fileLocation: filePath, isThere: true};
+	$.ajax({
+		url: urlForSend,
+		dataType: 'json',
+		data,
+		type: 'POST',
+		success(data)
+		{
+			if(data === true)
+			{
+				clearInterval(timeoutVar);
+				createImageFolder();
+			}
+		}
+	});
+}
+
+function createImageFolder()
+{
+	var folderPath = "../../local/"+currentTheme+"/Themes/Custom-Theme-"+externalThemeNumber+"/img";
+	document.getElementById("popupHeaderText").innerHTML = "creating new image folder (step 7 of "+numberOfStepsForThemeCreate+")";
+	var urlForSend = '../core/php/performSettingsInstallUpdateAction.php?format=json';
+	var data = {action: 'createFolder', newDir: folderPath};
+	$.ajax({
+		url: urlForSend,
+		dataType: 'json',
+		data,
+		type: 'POST',
+		success()
+		{
+			timeoutVar = setInterval(function(){verifyImageFolder();},3000);
+		}
+	});
+}
+
+function verifyImageFolder()
+{
+	document.getElementById("popupHeaderText").innerHTML = "verifying /img/ folder (step 8 of "+numberOfStepsForThemeCreate+")";
+	var folderPath = "../../local/"+currentTheme+"/Themes/Custom-Theme-"+externalThemeNumber+"/img";
+	var urlForSend = '../core/php/performSettingsInstallUpdateAction.php?format=json';
+	var data = {action: 'verifyDirIsThere', dirLocation: folderPath};
+	$.ajax({
+		url: urlForSend,
+		dataType: 'json',
+		data,
+		type: 'POST',
+		success(data)
+		{
+			if(data === true)
+			{
+				clearInterval(timeoutVar);
+				createTemplateFolder();
+			}
+		}
+	});
+}
+
+function createTemplateFolder()
+{
+	var folderPath = "../../local/"+currentTheme+"/Themes/Custom-Theme-"+externalThemeNumber+"/template";
+	document.getElementById("popupHeaderText").innerHTML = "creating new template folder (step 9 of "+numberOfStepsForThemeCreate+")";
+	var urlForSend = '../core/php/performSettingsInstallUpdateAction.php?format=json';
+	var data = {action: 'createFolder', newDir: folderPath};
+	$.ajax({
+		url: urlForSend,
+		dataType: 'json',
+		data,
+		type: 'POST',
+		success()
+		{
+			timeoutVar = setInterval(function(){verifyTemplateFolder();},3000);
+		}
+	});
+}
+
+function verifyTemplateFolder()
+{
+	document.getElementById("popupHeaderText").innerHTML = "verifying /template/ folder (step 10 of "+numberOfStepsForThemeCreate+")";
+	var folderPath = "../../local/"+currentTheme+"/Themes/Custom-Theme-"+externalThemeNumber+"/template";
+	var urlForSend = '../core/php/performSettingsInstallUpdateAction.php?format=json';
+	var data = {action: 'verifyDirIsThere', dirLocation: folderPath};
+	$.ajax({
+		url: urlForSend,
+		dataType: 'json',
+		data,
+		type: 'POST',
+		success(data)
+		{
+			if(data === true)
+			{
+				clearInterval(timeoutVar);
+				copyFiles();
+			}
+		}
+	});
+}
+
+function copyFiles()
+{
+	//copy images to new folder, as well as template css to new folder
+}
+
+function verifyCopiedFiles()
+{
 
 }
+
+//saveAndVerifyMain('themeMainSelectionCustomNew');
+
+
 
 $( document ).ready(function() 
 {
