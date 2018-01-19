@@ -15,6 +15,8 @@ function checkIfChanges()
 
 function deleteTheme(themeName)
 {
+	displayLoadingPopup();
+	themeName = themeName;
 	var urlForSend = '../core/php/performSettingsInstallUpdateAction.php?format=json';
 	var data = {action: 'removeUnZippedFiles', removeDir: true, locationOfFilesThatNeedToBeRemovedRecursivally: themeName};
 	$.ajax({
@@ -22,9 +24,30 @@ function deleteTheme(themeName)
 		dataType: 'json',
 		data,
 		type: 'POST',
-		complete()
+		success(data)
 		{
 			//verify folder is removed
+			timeoutVar = setInterval(function(){verifyThemeRemoved();},3000);
+		}
+	});
+}
+
+function verifyThemeRemoved()
+{
+	var urlForSend = '../core/php/performSettingsInstallUpdateAction.php?format=json';
+	var data = {action: 'verifyFileIsThere', fileLocation: themeName, isThere: false};
+	$.ajax({
+		url: urlForSend,
+		dataType: 'json',
+		data,
+		type: 'POST',
+		success(data)
+		{
+			if(data === true)
+			{
+				clearInterval(timeoutVar);
+				location.reload();
+			}
 		}
 	});
 }

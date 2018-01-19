@@ -9,10 +9,10 @@ foreach ($scanned_directory as $key):
 					<?php echo $themeDefaultSettings['displayName'];?>
 					<div class="settingsHeaderButtons">
 						<?php if($key !== $currentTheme): ?>
-							<a class="linkSmall" onclick="saveAndVerifyMain('themeMainSelection-<?php echo $key;?>');" >Select</a>
-							<?php if($directory === '../local/Themes/'): ?>
-								<a class="linkSmall" onclick="deleteTheme('<?php echo "../../local/Themes/".$key; ?>')" >Delete</a>
+							<?php if(strpos($directory, "local") !== false): ?>
+								<a class="linkSmall" onclick="deleteTheme('<?php echo "../../local/".$currentSelectedTheme."/Themes/".$key; ?>')" >Delete</a>
 							<?php endif; ?>
+							<a class="linkSmall" onclick="saveAndVerifyMain('themeMainSelection-<?php echo $key;?>');" >Select</a>
 						<?php else: 
 							$thisThemeIsSelected = true;
 							?>
