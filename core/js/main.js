@@ -842,22 +842,24 @@ function update(data) {
 					break;
 				}
 			}
-
-			if($("#menu .active").length === 0)
+			if(!firstLoad)
 			{
-				//if still none active, none to display - add popup here
-				if(document.getElementById("noLogToDisplay").style.display !== "block")
+				if($("#menu .active").length === 0)
 				{
-					document.getElementById("noLogToDisplay").style.display = "block";
-					document.getElementById("log").style.display = "none";
+					//if still none active, none to display - add popup here
+					if(document.getElementById("noLogToDisplay").style.display !== "block")
+					{
+						document.getElementById("noLogToDisplay").style.display = "block";
+						document.getElementById("log").style.display = "none";
+					}
 				}
-			}
-			else
-			{
-				if(document.getElementById("noLogToDisplay").style.display !== "none")
+				else
 				{
-					document.getElementById("noLogToDisplay").style.display = "none";
-					document.getElementById("log").style.display = "block";
+					if(document.getElementById("noLogToDisplay").style.display !== "none")
+					{
+						document.getElementById("noLogToDisplay").style.display = "none";
+						document.getElementById("log").style.display = "block";
+					}
 				}
 			}
 		}
@@ -1108,52 +1110,59 @@ function show(e, id)
 
 function getDiffLogAndLastLog(id)
 {
-	if(logs[id] === lastLogs[id])
+	try
 	{
-		return 0;
-	}
-	var tmpTextLog = logs[id].split("\n");
-	var tmpTextLast = lastLogs[id].split("\n");
-	var lengthOfLastArray = tmpTextLast.length;
-	var lengthOfArray = tmpTextLog.length;
-	if(lengthOfLastArray === 0)
-	{
-		return lengthOfArray;
-	}
-	else if(lengthOfLastArray > lengthOfArray)
-	{
-		return 0;
-	}
-
-	var lastLine = tmpTextLast[lengthOfLastArray-1];
-	var counter = 0;
-	for (var i = lengthOfArray - 1; i >= 0; i--)
-	{
-		if(tmpTextLog[i].trim() === lastLine.trim())
+		if(logs[id] === lastLogs[id])
 		{
-			//confirm the next two also
-			var returnNewNum = true;
-			var j = i;
-			var lastStart = lengthOfLastArray-1;
-			while(j >= 0 && returnNewNum)
+			return 0;
+		}
+		var tmpTextLog = logs[id].split("\n");
+		var tmpTextLast = lastLogs[id].split("\n");
+		var lengthOfLastArray = tmpTextLast.length;
+		var lengthOfArray = tmpTextLog.length;
+		if(lengthOfLastArray === 0)
+		{
+			return lengthOfArray;
+		}
+		else if(lengthOfLastArray > lengthOfArray)
+		{
+			return 0;
+		}
+
+		var lastLine = tmpTextLast[lengthOfLastArray-1];
+		var counter = 0;
+		for (var i = lengthOfArray - 1; i >= 0; i--)
+		{
+			if(tmpTextLog[i].trim() === lastLine.trim())
 			{
-				if(tmpTextLog[j].trim() !== tmpTextLast[lastStart].trim())
+				//confirm the next two also
+				var returnNewNum = true;
+				var j = i;
+				var lastStart = lengthOfLastArray-1;
+				while(j >= 0 && returnNewNum)
 				{
-					returnNewNum = false;
+					if(tmpTextLog[j].trim() !== tmpTextLast[lastStart].trim())
+					{
+						returnNewNum = false;
+					}
+					else
+					{
+						j--;
+						lastStart--;
+					}
 				}
-				else
+				if(returnNewNum)
 				{
-					j--;
-					lastStart--;
+					return (lengthOfArray - 1 - i);
 				}
-			}
-			if(returnNewNum)
-			{
-				return (lengthOfArray - 1 - i);
 			}
 		}
+		return lengthOfArray;
 	}
-	return lengthOfArray;
+	catch(e)
+	{
+		eventThrowException(e);
+	}
 }
 
 function makePretty(text) 
