@@ -252,14 +252,46 @@ function verifyTemplateFolder()
 function copyFiles()
 {
 	//copy images to new folder, as well as template css to new folder
+	document.getElementById("popupHeaderText").innerHTML = "Copying base images to theme folder (step 11 of "+numberOfStepsForThemeCreate+")";
+	var themeNumber = externalThemeNumber;
+	var urlForSend = '../core/php/copyImagesToNewTheme.php?format=json';
+	var data = {themeNumber};
+	$.ajax({
+		url: urlForSend,
+		dataType: 'json',
+		data,
+		type: 'POST',
+		success(data)
+		{
+			if(data === true)
+			{
+				timeoutVar = setInterval(function(){verifyCopiedFiles();},3000);
+			}
+		}
+	});
 }
 
 function verifyCopiedFiles()
 {
-
+	document.getElementById("popupHeaderText").innerHTML = "verifying config file (step 12 of "+numberOfStepsForThemeCreate+")";
+	var filePath = "../../local/"+currentTheme+"/Themes/Custom-Theme-"+externalThemeNumber+"/img/Gear.png";
+	var urlForSend = '../core/php/performSettingsInstallUpdateAction.php?format=json';
+	var data = {action: 'verifyFileIsThere', fileLocation: filePath, isThere: true};
+	$.ajax({
+		url: urlForSend,
+		dataType: 'json',
+		data,
+		type: 'POST',
+		success(data)
+		{
+			if(data === true)
+			{
+				clearInterval(timeoutVar);
+				saveAndVerifyMain('themeMainSelectionCustomNew');
+			}
+		}
+	});
 }
-
-//saveAndVerifyMain('themeMainSelectionCustomNew');
 
 
 
