@@ -17,13 +17,13 @@ function deleteTheme(themeName)
 {
 	displayLoadingPopup();
 	themeName = themeName;
-	var urlForSend = '../core/php/performSettingsInstallUpdateAction.php?format=json';
+	var urlForSend = "../core/php/performSettingsInstallUpdateAction.php?format=json";
 	var data = {action: 'removeUnZippedFiles', removeDir: true, locationOfFilesThatNeedToBeRemovedRecursivally: themeName};
 	$.ajax({
 		url: urlForSend,
-		dataType: 'json',
+		dataType: "json",
 		data,
-		type: 'POST',
+		type: "POST",
 		success(data)
 		{
 			//verify folder is removed
@@ -174,8 +174,8 @@ function verifyNewFiles()
 {
 	document.getElementById("popupHeaderText").innerHTML = "verifying config file (step 6 of "+numberOfStepsForThemeCreate+")";
 	var filePath = "../../local/"+currentTheme+"/Themes/Custom-Theme-"+externalThemeNumber+"/defaultSetting.php";
-	var urlForSend = '../core/php/performSettingsInstallUpdateAction.php?format=json';
-	var data = {action: 'verifyFileIsThere', fileLocation: filePath, isThere: true};
+	var urlForSend = "../core/php/performSettingsInstallUpdateAction.php?format=json";
+	var data = {action: "verifyFileIsThere", fileLocation: filePath, isThere: true};
 	$.ajax({
 		url: urlForSend,
 		dataType: 'json',

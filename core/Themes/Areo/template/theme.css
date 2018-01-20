@@ -55,7 +55,7 @@ div {
 	border: 1px solid white;
 	cursor: pointer;
 	border-radius: 3px;
-	box-shadow: 0px 2px 4px rgba(0,0,0,.25);
+	box-shadow: 0 2px 4px rgba(0,0,0,.25);
 }
 
 #menu .index{
@@ -213,14 +213,14 @@ div {
 	background-color: #444444;
 	border: 1px solid white;
 	margin: 10px;
-	margin-top: 0px;
+	margin-top: 0;
 }
 
 .settingsHeader
 {
 	background-color: #CCC;
 	margin: 10px;
-	margin-bottom: 0px;
+	margin-bottom: 0;
 	color: black;
 	padding: 5px;
 }
@@ -281,7 +281,7 @@ div {
     height: 0;
     width: 0;
     position: relative;
-    right: 0px;
+    right: 0;
     z-index: 2;
     top: 11px;
     left: 11px;
@@ -533,7 +533,7 @@ div {
     background-color: green;
     overflow: auto;
     border: 1px solid white;
- 	box-shadow: 0px 0px 5px black;
+ 	box-shadow: 0 0 5px black;
     z-index: 30;
     margin-left: 12px;
     margin-top: -70px;
@@ -633,11 +633,11 @@ div#scrollable {
 }
 
 div.sidebarLeft {
-	padding: 0px;
+	padding: 0;
     padding-bottom: 60px;
     border: 4px solid  #222222;
     position: fixed;
-    top: 0px;
-    left: 0px;
-    bottom: 0px;
+    top: 0;
+    left: 0;
+    bottom: 0;
 }

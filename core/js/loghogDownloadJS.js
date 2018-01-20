@@ -108,9 +108,9 @@ function removeZipFile()
 	$.ajax({
 		url: urlForSend,
 		dataType: "json",
-		data: data,
+		data,
 		type: "POST",
-		complete: function()
+		complete()
 		{
 			//verify if downloaded
 			verifyFile("removeZipFile", "../../tmp.zip",false);
