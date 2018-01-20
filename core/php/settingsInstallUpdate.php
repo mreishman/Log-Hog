@@ -324,7 +324,7 @@ function verifyFileIsThere($file, $notInvert = true)
 			return false;
 		}
 	}
-	
+
 }
 
 function verifyDirIsThere($file)

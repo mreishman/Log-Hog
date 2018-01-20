@@ -45,7 +45,7 @@ foreach ($defaultConfig as $key => $value)
 	if(
 		$$key !== $defaultConfig[$key] &&
 		(
-			!isset($themeDefaultSettings) || 
+			!isset($themeDefaultSettings) ||
 			isset($themeDefaultSettings) && !array_key_exists($key, $themeDefaultSettings) ||
 			isset($themeDefaultSettings) && array_key_exists($key, $themeDefaultSettings) && $themeDefaultSettings[$key] !== $$key
 		)

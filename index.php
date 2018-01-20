@@ -39,7 +39,7 @@ if(!file_exists($baseUrl.'conf/config.php'))
 		}
 		else
 		{
-			//setup either errored out, or was incomplete. throw error. 
+			//setup either errored out, or was incomplete. throw error.
 			throwSetupError("");
 		}
 	}
@@ -290,7 +290,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 						"height"	=>	"30px",
 						"style"		=>	$styleString
 						)
-					); 
+					);
 				?>
 			</div>
 			<div onclick="refreshAction();" class="menuImageDiv">
@@ -400,7 +400,6 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 						"data-id"	=>	"1"
 						)
 					); 
-				
 				if($updateNotificationEnabled === "true")
 				{
 					if($levelOfUpdate == 1)

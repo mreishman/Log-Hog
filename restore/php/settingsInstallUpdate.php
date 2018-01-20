@@ -190,4 +190,3 @@ function verifyDirIsEmpty($dir)
 	}
 	return (count(scandir($dir)) == 2);
 }
-?>

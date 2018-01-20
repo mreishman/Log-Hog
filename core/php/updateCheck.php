@@ -67,5 +67,3 @@ for($i = 0; $i < $newestVersionCount; $i++)
 		break;
 	}
 }
-
-?>

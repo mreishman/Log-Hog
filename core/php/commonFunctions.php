@@ -379,7 +379,7 @@ function convertToSize($TrimSize, $logSizeLimit)
 	{
 		return $logSizeLimit * (1024 * 1024);
 	}
-	
+
 	return $logSizeLimit * 1000;
 }
 
@@ -559,7 +559,7 @@ function upgradeConfig($configVersionStatic)
 			||
 			$$key === $defaultConfig[$key] && isset($themeDefaultSettings) && array_key_exists($key, $themeDefaultSettings) && $themeDefaultSettings[$key] !== $$key
 			||
-			isset($arrayOfCustomConfig[$key]) 
+			isset($arrayOfCustomConfig[$key])
 		)
 		{
 			$newInfoForConfig .= putIntoCorrectFormat($key, $$key, $value);

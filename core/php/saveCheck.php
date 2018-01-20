@@ -227,4 +227,3 @@ foreach ($defaultConfig as $key => $value)
 }
 
 echo json_encode($response);
-?>

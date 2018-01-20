@@ -68,7 +68,6 @@ if($backupNumConfigEnabled === "true")
 				echo json_encode(6);
 				exit();
 			}
-			
 		}
 	}
 }
@@ -85,14 +84,14 @@ foreach ($defaultConfig as $key => $value)
 	if(
 		$$key !== $defaultConfig[$key] &&
 		(
-			!isset($themeDefaultSettings) || 
+			!isset($themeDefaultSettings) ||
 			isset($themeDefaultSettings) && !array_key_exists($key, $themeDefaultSettings) ||
 			isset($themeDefaultSettings) && array_key_exists($key, $themeDefaultSettings) && $themeDefaultSettings[$key] !== $$key
 		)
 		||
 		$$key === $defaultConfig[$key] && isset($themeDefaultSettings) && array_key_exists($key, $themeDefaultSettings) && $themeDefaultSettings[$key] !== $$key
 		||
-		isset($arrayOfCustomConfig[$key]) 
+		isset($arrayOfCustomConfig[$key])
 	)
 	{
 		$newInfoForConfig .= putIntoCorrectFormat($key, $$key, $value);
