@@ -40,8 +40,8 @@ function saveAndVerifyMain(idForForm)
         success(data)
         {
         	if(data !== "true")
-        	{
-        		window.location.href = "../error.php?error="+data+"&page=core/php/settingsSaveAjax.php";
+			{
+				window.location.href = "../error.php?error="+data+"&page=core/php/settingsSaveAjax.php";
 			}
 		},
         complete()

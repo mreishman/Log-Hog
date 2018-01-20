@@ -5,7 +5,7 @@ var popupHtml = "";
 function revertPopup()
 {
 	showPopup();
-	document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Go back to previous version?</div><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Are you sure you want to revert back to a previous version? Version: "+htmlRestoreOptions+" </div><div class='link' onclick='submitRevert();' style='margin-left:125px; margin-right:50px;margin-top:25px;'>Yes</div><div onclick='hidePopup();' class='link'>No</div></div>";
+	document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class=\"settingsHeader\" >Go back to previous version?</div><div style=\"width:100%;text-align:center;padding-left:10px;padding-right:10px;\">Are you sure you want to revert back to a previous version? Version: "+htmlRestoreOptions+" </div><div class=\"link\" onclick=\"submitRevert();\" style=\"margin-left:125px; margin-right:50px;margin-top:25px;\">Yes</div><div onclick=\"hidePopup();\" class=\"link\">No</div></div>";
 }
 
 function submitRevert()
@@ -94,13 +94,13 @@ function showConfigPopup()
 				document.getElementById("popupContent").style.marginTop = 0;
 				document.getElementById("popupContent").style.marginLeft = 0;
 
-				document.getElementById('popupContentInnerHTMLDiv').innerHTML = popupHtml;
+				document.getElementById("popupContentInnerHTMLDiv").innerHTML = popupHtml;
 				
 			}
 			else
 			{
 				//no backups there to show, current size is file
-				document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >No Backups</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>There are currently no other versions of config to restore to</div><div class='link' onclick='hidePopup();' style='margin-left:165px; margin-right:50px;margin-top:25px;'>Okay!</div></div>";
+				document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class=\"settingsHeader\" >No Backups</div><br><div style=\"width:100%;text-align:center;padding-left:10px;padding-right:10px;\">There are currently no other versions of config to restore to</div><div class=\"link\" onclick=\"hidePopup();\" style=\"margin-left:165px; margin-right:50px;margin-top:25px;\">Okay!</div></div>";
 			}
 		});
 	}
@@ -113,7 +113,7 @@ function showConfigPopup()
 function restoreToVersion(restoreTo)
 {
 	displayLoadingPopup();
-	var urlForSend = '../core/php/restoreConfig.php?format=json';
+	var urlForSend = "../core/php/restoreConfig.php?format=json";
 	var data = {restoreTo};
 	$.ajax(
 	{
@@ -143,7 +143,7 @@ function clearBackupFiles()
 			}
 			else
 			{
-				document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Error</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>There was an error deleting backups. Please ensure that the php folder has correct permissions to remove files</div></div>";
+				document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class=\"settingsHeader\" >Error</div><br><div style=\"width:100%;text-align:center;padding-left:10px;padding-right:10px;\">There was an error deleting backups. Please ensure that the php folder has correct permissions to remove files</div></div>";
 			}
 		});
 	}

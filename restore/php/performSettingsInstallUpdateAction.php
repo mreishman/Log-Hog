@@ -80,7 +80,7 @@ elseif($action == 'removeAllFilesFromLogHogExceptRestore')
 			}
 		}
 	}
-	$response = true; 
+	$response = true;
 }
 elseif($action == "changeDirUnzipped")
 {

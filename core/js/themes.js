@@ -55,7 +55,7 @@ function newThemePopup(themeNum)
 {
 	externalThemeNumber = themeNum;
 	showPopup();
-	document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Save custom theme ("+themeNum+")</div><br><div style='width:100%;text-align:center;'> Insert name for new custom theme: <br> <input id=\"newCustomThemeName\" type=\"text\" value=\"Custom-Theme-"+themeNum+"\"> <br> <div class='link' onclick='saveCustomTheme();' style='margin-right:50px;margin-top:25px;'>Save</div><div onclick='hidePopup();' class='link'>Cancel</div> </div>";
+	document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class=\"settingsHeader\" >Save custom theme ("+themeNum+")</div><br><div style=\"width:100%;text-align:center;\"> Insert name for new custom theme: <br> <input id=\"newCustomThemeName\" type=\"text\" value=\"Custom-Theme-"+themeNum+"\"> <br> <div class=\"link\" onclick=\"saveCustomTheme();\" style=\"margin-right:50px;margin-top:25px;\">Save</div><div onclick=\"hidePopup();\" class=\"link\">Cancel</div> </div>";
 }
 
 function saveCustomTheme()
@@ -65,7 +65,7 @@ function saveCustomTheme()
 	document.getElementById("popupHeaderText").innerHTML = "creating /Theme/ folder (step 1 of "+numberOfStepsForThemeCreate+")";
 	//create folder
 	var folderPath = "../../local/"+currentTheme+"/Themes/";
-	var data = {action: 'createFolder', newDir: folderPath};
+	var data = {action: "createFolder", newDir: folderPath};
 	$.ajax({
 		url: urlForSendUpdateAction,
 		dataType: "json",
@@ -83,7 +83,7 @@ function verifyFolder()
 	//verify folder
 	document.getElementById("popupHeaderText").innerHTML = "verifying /Theme/ folder (step 2 of "+numberOfStepsForThemeCreate+")";
 	var folderPath = "../../local/"+currentTheme+"/Themes/";
-	var data = {action: 'verifyDirIsThere', dirLocation: folderPath};
+	var data = {action: "verifyDirIsThere", dirLocation: folderPath};
 	$.ajax({
 		url: urlForSendUpdateAction,
 		dataType: "json",
@@ -148,7 +148,7 @@ function createNewFiles()
 	document.getElementById("popupHeaderText").innerHTML = "Creating config file (step 5 of "+numberOfStepsForThemeCreate+")";
 	var themeNumber = externalThemeNumber;
 	var displayName = themeName;
-	var urlForSend = '../core/php/saveCustomThemeDefaults.php?format=json';
+	var urlForSend = "../core/php/saveCustomThemeDefaults.php?format=json";
 	var data = {themeNumber, displayName};
 	$.ajax({
 		url: urlForSend,
@@ -299,7 +299,7 @@ function verifyCopiedFiles()
 			if(data === true)
 			{
 				clearInterval(timeoutVar);
-				saveAndVerifyMain('themeMainSelectionCustomNew');
+				saveAndVerifyMain("themeMainSelectionCustomNew");
 			}
 		}
 	});

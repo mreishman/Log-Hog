@@ -589,7 +589,7 @@ function putIntoCorrectFormat($keyKey, $keyValue, $value)
 		'".$keyKey."' => '".$keyValue."',
 	";
 	}
-	
+
 	if(is_array($value))
 	{
 		return "

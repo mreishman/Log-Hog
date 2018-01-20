@@ -264,7 +264,7 @@ function copyFileToFile($currentFile, $indexToExtracted = "update/downloads/upda
 	{
 	  $directoryPath .= $currentFileArray[$i]."/";
 	}
-	 
+
 	$newFile = $directoryPath.$nameOfFile;
 	$fileTransfer = file_get_contents($varToIndexDir.$indexToExtracted.$currentFile);
 	$newFileWithIndexVar = $varToIndexDir.$newFile;

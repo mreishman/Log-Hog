@@ -27,12 +27,12 @@ function verifyStatusChange(status)
 	if(countChecker < 20)
 	{
 		var urlForSend = "./updateSetupCheck.php?format=json";
-		var data = {status: status };
+		var data = {status};
 		$.ajax(
 		{
 			url: urlForSend,
 			dataType: "json",
-			data: data,
+			data,
 			type: "POST",
 			success(data)
 			{

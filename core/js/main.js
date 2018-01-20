@@ -1313,7 +1313,7 @@ function resize()
 			$(".logTrHeight").outerHeight(trElementHeight);
 			
 			$(".logTdWidth").outerWidth(tdElementWidth);
-			$(".backgroundForSideBarMenu").outerHeight(trElementHeight)
+			$(".backgroundForSideBarMenu").outerHeight(trElementHeight);
 		}
 	}
 	catch(e)
