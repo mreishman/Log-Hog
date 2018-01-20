@@ -122,7 +122,7 @@ if(is_writable($baseUrl."conf/"))
 		echo json_encode(5);
 		exit();
 	}
-	
+
 	echo json_encode(true);
 	exit();
 }

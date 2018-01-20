@@ -1,7 +1,7 @@
 <?php
 
 $returnData = array(
-	'backupCopiesPresent' => false, 
+	'backupCopiesPresent' => false,
 );
 
 require_once('./class.Diff.php');

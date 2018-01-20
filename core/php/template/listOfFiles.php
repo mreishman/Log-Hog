@@ -41,10 +41,6 @@ $fileNameArray = array(
         "name"      =>  "Perform Settings Install Update Action",
         "path"      =>  "core/php/performSettingsInstallUpdateAction.php"
     ),
-    "updateActionFile"  =>  array(
-        "name"      =>  "Update Action File",
-        "path"      =>  "core/php/updateActionFile.php"
-    ),
     "updateProgressFile"    =>  array(
         "name"      =>  "Update Progress File",
         "path"      =>  "core/php/updateProgressFile.php"

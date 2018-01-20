@@ -225,7 +225,7 @@ for ($i=0; $i < $windowDisplayConfig[0]; $i++)
 		$logDisplay .= "<a onclick=\"clearLog('".$counter."');\" style=\"cursor: pointer;\" >";
 		$logDisplay .= $clearImageForWindowTableLoop;
 		$logDisplay .= "</a>";
-		$logDisplay .= "<a onclick=\"deleteLogPopup('".$counter."');\" style=\"cursor: pointer;\" >"; 
+		$logDisplay .= "<a onclick=\"deleteLogPopup('".$counter."');\" style=\"cursor: pointer;\" >";
 		$logDisplay .= $deleteImageForWindowTableLoop;
 		$logDisplay .= "</a>";
 		$logDisplay .= "</div> ";

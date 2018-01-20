@@ -52,7 +52,7 @@ div {
 }
 
 #menu .index{
-	padding: .5em 0em .5em 1em;
+	padding: .5em 0 .5em 1em;
 }
 
 #menu2 a, #menu a:not(.index) {
@@ -298,7 +298,7 @@ div {
   z-index: 30;
   background-color: green;
   border: 1px solid white;
-  box-shadow: 0px 0px 5px black;
+  box-shadow: 0 0 5px black;
 }
 
 .context-menu__items{

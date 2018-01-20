@@ -416,7 +416,7 @@ function getCookieRedirect()
 		return $baseRedirect . (is_dir($baseUrl."Log-Hog/") ? "Log-Hog/" : "loghog/");
 	}
 	return $baseRedirect . "Log-Hog/";
-	
+
 }
 
 function setCookieRedirect()

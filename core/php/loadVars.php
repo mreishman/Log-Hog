@@ -37,7 +37,7 @@ function checkIfShouldLoad($loadCustomConfigVars, $key)
 			}
 			return true;
 		}
-		
+
 		if($type === "allButWatch")
 		{
 			if($key !== "watchList")

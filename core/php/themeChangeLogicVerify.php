@@ -56,4 +56,3 @@ if($config['themeVersion'] !== $defaultConfig['themeVersion'])
 }
 
 echo json_encode($boolToReturn);
-?>
