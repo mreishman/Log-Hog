@@ -522,7 +522,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 		echo "var logDisplayArray = ".$logDisplayArray.";";
 		echo "var windowDisplayConfigRowCount = ".$windowDisplayConfig[0].";";
 		echo "var windowDisplayConfigColCount = ".$windowDisplayConfig[1].";";
-		echo "var borderPadding = ".$borderPadding.";"; 
+		echo "var borderPadding = ".$borderPadding.";";
 		?>
 		var dontNotifyVersion = "<?php echo $dontNotifyVersion;?>";
 		var currentVersion = "<?php echo $configStatic['version'];?>";

@@ -149,7 +149,7 @@ $data['version'] = $levelOfUpdate;
 $data['versionNumber'] = $versionCheckArray['version'];
 
 $Changelog = "<ul id='settingsUl'>";
-$version = explode('.', $configStatic['version'] ); 
+$version = explode('.', $configStatic['version'] );
 $versionCount = count($version);
 
 foreach ($versionCheckArray['versionList'] as $key => $value)

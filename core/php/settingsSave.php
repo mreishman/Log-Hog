@@ -33,39 +33,38 @@ else
 require_once('loadVars.php');
 
 
-	$fileName = ''.$baseUrl.'conf/config.php';
+$fileName = ''.$baseUrl.'conf/config.php';
 
-	//Don't forget to update Ajax version
+//Don't forget to update Ajax version
 
-	$newInfoForConfig = "<?php
-		$"."config = array(
-		";
-	foreach ($defaultConfig as $key => $value)
-	{
-		if(
-			$$key !== $defaultConfig[$key] &&
-			(
-				!isset($themeDefaultSettings) || 
-				isset($themeDefaultSettings) && !array_key_exists($key, $themeDefaultSettings) ||
-				isset($themeDefaultSettings) && array_key_exists($key, $themeDefaultSettings) && $themeDefaultSettings[$key] !== $$key
-			)
-			||
-			$$key === $defaultConfig[$key] && isset($themeDefaultSettings) && array_key_exists($key, $themeDefaultSettings) && $themeDefaultSettings[$key] !== $$key
-			||
-			isset($arrayOfCustomConfig[$key]) 
+$newInfoForConfig = "<?php
+	$"."config = array(
+	";
+foreach ($defaultConfig as $key => $value)
+{
+	if(
+		$$key !== $defaultConfig[$key] &&
+		(
+			!isset($themeDefaultSettings) || 
+			isset($themeDefaultSettings) && !array_key_exists($key, $themeDefaultSettings) ||
+			isset($themeDefaultSettings) && array_key_exists($key, $themeDefaultSettings) && $themeDefaultSettings[$key] !== $$key
 		)
-		{
-			$newInfoForConfig .= putIntoCorrectFormat($key, $$key, $value);
-		}
+		||
+		$$key === $defaultConfig[$key] && isset($themeDefaultSettings) && array_key_exists($key, $themeDefaultSettings) && $themeDefaultSettings[$key] !== $$key
+		||
+		isset($arrayOfCustomConfig[$key])
+	)
+	{
+		$newInfoForConfig .= putIntoCorrectFormat($key, $$key, $value);
 	}
-	$newInfoForConfig .= "
-		);
-	?>";
+}
+$newInfoForConfig .= "
+	);
+?>";
 
-	//Don't forget to update Ajax version
+//Don't forget to update Ajax version
 
-	file_put_contents($fileName, $newInfoForConfig);
+file_put_contents($fileName, $newInfoForConfig);
 
-	header('Location: ' . $_SERVER['HTTP_REFERER']);
-	exit();
-?>
+header('Location: ' . $_SERVER['HTTP_REFERER']);
+exit();

@@ -68,7 +68,7 @@ foreach ($defaultConfig as $key => $value)
 		||
 		$$key === $defaultConfig[$key] && isset($themeDefaultSettings) && array_key_exists($key, $themeDefaultSettings) && $themeDefaultSettings[$key] !== $$key
 		||
-		isset($arrayOfCustomConfig[$key]) 
+		isset($arrayOfCustomConfig[$key])
 	)
 	{
 		$newInfoForConfig .= putIntoCorrectFormat($key, $$key, $value);
@@ -82,4 +82,3 @@ $newInfoForConfig .= "
 file_put_contents($fileName, $newInfoForConfig);
 
 echo json_encode(true);
-?>

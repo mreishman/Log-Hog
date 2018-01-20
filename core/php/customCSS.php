@@ -118,7 +118,7 @@ div#fixed
 	filter: invert(100%);
 }
 
-<?php endif; 
+<?php endif;
 
 if(!($windowDisplayConfig[0] > 1 || $windowDisplayConfig[1] > 1)): ?>
 
