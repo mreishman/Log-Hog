@@ -324,7 +324,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 							"class"		=>	"menuImage",
 							"height"	=>	"30px"
 							)
-						); 
+						);
 					?>
 				</div>
 			<?php else: ?>

@@ -26,7 +26,7 @@ elseif($action === 'unzipUpdateAndReturnArray')
 elseif($action === 'removeZipFile')
 {
 	removeZipFile($_POST['fileToUnlink']);
-	$response = true; 
+	$response = true;
 }
 elseif($action === 'removeUnZippedFiles')
 {
