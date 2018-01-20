@@ -259,7 +259,7 @@ function copyFileToFile($currentFile, $indexToExtracted = "update/downloads/upda
 	$sizeCurrentFileArray = sizeOf($currentFileArray);
 	$nameOfFile = $currentFileArray[$sizeCurrentFileArray - 1];
 	$directoryPath = "";
-	  
+
 	for($i = 0; $i < $sizeCurrentFileArray - 1; $i++)
 	{
 	  $directoryPath .= $currentFileArray[$i]."/";

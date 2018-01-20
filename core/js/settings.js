@@ -42,7 +42,7 @@ function saveAndVerifyMain(idForForm)
         	if(data !== "true")
         	{
         		window.location.href = "../error.php?error="+data+"&page=core/php/settingsSaveAjax.php";
-        	}
+			}
 		},
         complete()
         {

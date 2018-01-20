@@ -1786,8 +1786,8 @@ $(document).ready(function()
 	progressBar = new ldBar("#progressBar");
 	resize();
 	updateProgressBar(10, "Generating File List");
-	window.addEventListener('resize', resize);
-	window.addEventListener('focus', focus);
+	window.addEventListener("resize", resize);
+	window.addEventListener("focus", focus);
 
 	refreshAction();
 

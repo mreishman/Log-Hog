@@ -141,15 +141,15 @@ function checkIfChanges()
 
 $( document ).ready(function() 
 {
-	if(document.getElementById('logTrimTypeText'))
+	if(document.getElementById("logTrimTypeText"))
 	{
-		if(logTrimType == 'lines')
+		if(logTrimType == "lines")
 		{
-			document.getElementById('logTrimTypeText').innerHTML = "Lines";
+			document.getElementById("logTrimTypeText").innerHTML = "Lines";
 		}
-		else if (logTrimType == 'size')
+		else if (logTrimType == "size")
 		{
-			document.getElementById('logTrimTypeText').innerHTML = "Size";
+			document.getElementById("logTrimTypeText").innerHTML = "Size";
 		}
 	}
 	if(document.getElementById("popupSelect"))

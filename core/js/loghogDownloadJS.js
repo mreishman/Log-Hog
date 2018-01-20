@@ -90,7 +90,7 @@ function unzipFile()
 	$.ajax({
 		url: urlForSend,
 		dataType: "json",
-		data: data,
+		data,
 		type: "POST",
 		complete()
 		{
