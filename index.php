@@ -40,7 +40,7 @@ if(!file_exists($baseUrl.'conf/config.php'))
 		else
 		{
 			//setup either errored out, or was incomplete. throw error. 
-			throwSetupError("");
+			//throwSetupError("");
 		}
 	}
 }
