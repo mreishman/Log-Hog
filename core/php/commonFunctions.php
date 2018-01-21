@@ -601,3 +601,15 @@ function putIntoCorrectFormat($keyKey, $keyValue, $value)
 		'".$keyKey."' => ".$keyValue.",
 	";
 }
+
+function returnCurrentSelectedTheme();
+{
+	$baseBaseUrl = baseURL();
+	$returnTheme = "default";
+	if(is_file($baseBaseUrl.'local/layout.php'))
+	{
+		require_once($baseBaseUrl.'local/layout.php');
+		$returnTheme = $currentSelectedTheme;
+	}
+	return $returnTheme;
+}

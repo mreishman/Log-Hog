@@ -2,23 +2,34 @@
 require_once('core/php/errorCheckFunctions.php');
 $currentPage = "index.php";
 checkIfFilesExist(
-	array("core/conf/config.php","core/php/configStatic.php","core/php/loadVars.php","core/php/updateCheck.php","core/js/jquery.js","core/template/loading-bar.css","core/js/loading-bar.min.js","core/php/customCSS.php","core/php/template/popup.php","core/js/main.js","core/js/rightClickJS.js","core/js/update.js","core/php/commonFunctions.php","local/layout.php","setup/setupProcessFile.php","error.php"),
+	array("core/conf/config.php","core/php/configStatic.php","core/php/loadVars.php","core/php/updateCheck.php","core/js/jquery.js","core/template/loading-bar.css","core/js/loading-bar.min.js","core/php/customCSS.php","core/php/template/popup.php","core/js/main.js","core/js/rightClickJS.js","core/js/update.js","core/php/commonFunctions.php","setup/setupProcessFile.php","error.php"),
 	 "",
 	 $currentPage);
 checkIfFilesAreReadable(
-	array("core/conf/config.php","core/php/configStatic.php","core/php/loadVars.php","core/php/updateCheck.php","core/js/jquery.js","core/template/loading-bar.css","core/js/loading-bar.min.js","core/php/customCSS.php","core/php/template/popup.php","core/js/main.js","core/js/rightClickJS.js","core/js/update.js","core/php/commonFunctions.php","local/layout.php","setup/setupProcessFile.php","error.php"),
+	array("core/conf/config.php","core/php/configStatic.php","core/php/loadVars.php","core/php/updateCheck.php","core/js/jquery.js","core/template/loading-bar.css","core/js/loading-bar.min.js","core/php/customCSS.php","core/php/template/popup.php","core/js/main.js","core/js/rightClickJS.js","core/js/update.js","core/php/commonFunctions.php","setup/setupProcessFile.php","error.php"),
 	 "",
 	 $currentPage);
 require_once('core/php/commonFunctions.php');
 
 setCookieRedirect();
 $baseUrl = "core/";
-if(file_exists('local/layout.php'))
+if(file_exists('local/layout.php') && is_readable('local/layout.php'))
 {
 	$baseUrl = "local/";
 	//there is custom information, use this
 	require_once('local/layout.php');
-	$baseUrl .= $currentSelectedTheme."/";
+	if(isset($currentSelectedTheme))
+	{
+		$baseUrl .= $currentSelectedTheme."/";
+	}
+	else
+	{
+		echoErrorJavaScript("", "Error when getting current selected theme.", 9);
+	}
+}
+else
+{
+	echoErrorJavaScript("", "Could not find local layout file. Please make sure that local/layout.php is setup correctly.", 7);
 }
 
 if(!file_exists($baseUrl.'conf/config.php'))

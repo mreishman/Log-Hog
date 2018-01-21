@@ -1,9 +1,7 @@
 <?php
 require_once('../core/php/commonFunctions.php');
-
-$baseUrl = "../local/";
-require_once($baseUrl.'layout.php');
-$baseUrl .= $currentSelectedTheme."/";
+$currentSelectedTheme = returnCurrentSelectedTheme();
+$baseUrl = "../local/".$currentSelectedTheme."/";
 $localURL = $baseUrl;
 require_once($baseUrl.'conf/config.php');
 require_once('../core/conf/config.php');
