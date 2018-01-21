@@ -2,3 +2,4 @@ top/*
 monitor/*
 search/*
 local/default/*
+.DS_Store
