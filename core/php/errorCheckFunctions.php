@@ -38,10 +38,10 @@ function checkIfFilesAreWritable($arrayOfFiles, $urlPath, $currentFile)
 
 function checkIfFilesExist($arrayOfFiles, $urlPath, $currentFile)
 {
-	$checkIfFilesAreThereBaseUrl = testErrorBase();
+	$cIFATBaseUrl = testErrorBase();
 	foreach ($arrayOfFiles as $file)
 	{
-		if(!file_exists($checkIfFilesAreThereBaseUrl.$file))
+		if(!file_exists($cIFATBaseUrl.$file))
 		{
 			fileMissingError($file, $urlPath, $currentFile);
 		}

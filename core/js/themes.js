@@ -106,7 +106,7 @@ function saveCustomThemeCustomFolder()
 	//create folder
 	var folderPath = "../../local/"+currentTheme+"/Themes/Custom-Theme-"+externalThemeNumber;
 	document.getElementById("popupHeaderText").innerHTML = "creating new folder (step 3 of "+numberOfStepsForThemeCreate+")";
-	var data = {action: 'createFolder', newDir: folderPath};
+	var data = {action: "createFolder", newDir: folderPath};
 	$.ajax({
 		url: urlForSendUpdateAction,
 		dataType: "json",
@@ -125,7 +125,7 @@ function verifyFolderInFolder()
 	//verify folder
 	document.getElementById("popupHeaderText").innerHTML = "verifying new folder (step 4 of "+numberOfStepsForThemeCreate+")";
 	var folderPath = "../../local/"+currentTheme+"/Themes/Custom-Theme-"+externalThemeNumber;
-	var data = {action: 'verifyDirIsThere', dirLocation: folderPath};
+	var data = {action: "verifyDirIsThere", dirLocation: folderPath};
 	$.ajax({
 		url: urlForSendUpdateAction,
 		dataType: "json",

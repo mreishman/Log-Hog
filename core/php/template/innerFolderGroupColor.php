@@ -99,7 +99,7 @@ foreach ($folderColorArrays as $key => $value):
 		?>
 		</span>
 	</li>
-<?php endforeach; 
+<?php endforeach;
 $mainFolderColorMax = 10+($mainFolderColorMax*26);
 $highlightFolderColorMax = 10+($highlightFolderColorMax*26);
 $activeFolderColorMax = 10+($activeFolderColorMax*26);

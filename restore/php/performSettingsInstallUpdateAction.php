@@ -91,7 +91,7 @@ elseif($action == "changeDirUnzipped")
 		$fileDirOld = '../../restore/extracted/'.$file;
 		rename($fileDirOld, $fileDirNew);
 	}
-	$response = true; 
+	$response = true;
 }
 elseif($action == 'moveDirUnzipped')
 {

@@ -59,7 +59,7 @@ elseif($action === 'checkIfDirIsEmpty')
 {
 	if (verifyDirIsEmpty($_POST['dir']))
 	{
-  		$response = true; 
+  		$response = true;
 	}
 	else
 	{

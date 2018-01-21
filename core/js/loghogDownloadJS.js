@@ -197,7 +197,7 @@ function verifyFilePoll(action, fileLocation,isThere)
 			$.ajax({
 				url: urlForSend,
 				dataType: "json",
-				data: data,
+				data,
 				type: "POST",
 				success(data)
 				{

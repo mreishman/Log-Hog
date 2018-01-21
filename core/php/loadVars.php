@@ -457,7 +457,7 @@ else
 	foreach ($arrayOfImages as $key => $value)
 	{
 		$src = "core/img/".$value["baseName"];
-		
+
 		if(file_exists($varToIndexDir."local/".$currentSelectedTheme."/img/".$value["baseName"]))
 		{
 			//check for local version
