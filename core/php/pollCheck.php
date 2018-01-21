@@ -25,31 +25,41 @@ if(array_key_exists('percent', $updateProgress) && ($updateProgress['percent'] !
 	exit();
 }
 
+function sizeFilesInDir($path, $filter, $response)
+{
+	$path = preg_replace('/\/$/', '', $path);
+	if(file_exists($path))
+	{
+		$scannedDir = scandir($path);
+		if(!is_array($scannedDir))
+		{
+			$scannedDir = array($scannedDir);
+		}
+		$files = array_diff($scannedDir, array('..', '.'));
+		if($files)
+		{
+			foreach($files as $k => $filename)
+			{
+				$fullPath = $path . DIRECTORY_SEPARATOR . $filename;
+				if(is_dir($fullPath))
+				{
+					//$response = sizeFilesInDir($path, $filter, $response);
+				}
+				elseif(preg_match('/' . $filter . '/S', $filename) && is_file($fullPath))
+				{
+					$response[$fullPath] = getFileSize($fullPath);
+				}
+			}
+		}
+	}
+	return $response;
+}
+
 foreach($config['watchList'] as $path => $filter)
 {
 	if(is_dir($path))
 	{
-		$path = preg_replace('/\/$/', '', $path);
-		if(file_exists($path))
-		{
-			$scannedDir = scandir($path);
-			if(!is_array($scannedDir))
-			{
-				$scannedDir = array($scannedDir);
-			}
-			$files = array_diff($scannedDir, array('..', '.'));
-			if($files)
-			{
-				foreach($files as $k => $filename)
-				{
-					$fullPath = $path . DIRECTORY_SEPARATOR . $filename;
-					if(preg_match('/' . $filter . '/S', $filename) && is_file($fullPath))
-					{
-						$response[$fullPath] = getFileSize($fullPath);
-					}
-				}
-			}
-		}
+		$response = sizeFilesInDir($path, $filter, $response);
 	}
 	elseif(file_exists($path))
 	{

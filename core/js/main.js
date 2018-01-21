@@ -8,6 +8,7 @@ var counterForPollForceRefreshAll = 0;
 var currentPage;
 var currentSelectWindow = 0;
 var dataFromUpdateCheck = null;
+var fileSizes;
 var filesNew;
 var firstLoad = true;
 var flasher;
@@ -72,6 +73,19 @@ function unescapeHTML(unsafeStr)
 		eventThrowException(e);
 	}
 	
+}
+
+function formatBytes(bytes,decimals)
+{
+	if(bytes == 0)
+	{
+		return '0 Bytes';
+	}
+	var k = 1024;
+	var dm = decimals || 2;
+	var izes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+	var i = Math.floor(Math.log(bytes) / Math.log(k));
+	return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
 }
 
 function updateSkipCounterLog(num)
@@ -173,6 +187,10 @@ function pollTwo()
 {
 	try
 	{
+		if(firstLoad)
+		{
+			updateProgressBar(5, "Generating File List");
+		}
 		var urlForSend = "core/php/pollCheck.php?format=json";
 		var data = {currentVersion};
 		$.ajax({
@@ -193,6 +211,7 @@ function pollTwo()
 				}
 				else
 				{
+					fileSizes = data;
 					pollTwoPartTwo(data);
 				}
 			},
@@ -214,7 +233,7 @@ function pollTwoPartTwo(data)
 	{
 		if(firstLoad)
 		{
-			updateProgressBar(10, "Generating File Object");
+			updateProgressBar(5, "Generating File Object");
 		}
 		t2 = performance.now();
 
@@ -309,7 +328,7 @@ function pollThree(arrayToUpdate)
 		{
 			if(firstLoad)
 			{
-				updateProgressBar(10,arrayToUpdate[0],  "Loading file 1 of "+arrayToUpdate.length);
+				updateProgressBar(10,arrayToUpdate[0],  "Loading file 1 of "+arrayToUpdate.length+" <br>  "+formatBytes(fileSizes[arrayToUpdate[0]]));
 				getFileSingle(arrayToUpdate.length-1, arrayToUpdate.length-1);
 			}
 			else
@@ -365,7 +384,7 @@ function getFileSingle(current)
 			{
 				var currentNew = this.currentFile;
 				var updateBy = (1/arrayToUpdate.length)*60;
-				updateProgressBar(updateBy, arrayToUpdate[currentNew-1], "Loading file "+(arrayToUpdate.length+1-currentNew)+" of "+arrayToUpdate.length);
+				updateProgressBar(updateBy, arrayToUpdate[currentNew-1], "Loading file "+(arrayToUpdate.length+1-currentNew)+" of "+arrayToUpdate.length+" <br>  "+formatBytes(fileSizes[arrayToUpdate[currentNew-1]]));
 				if(currentNew > 0)
 				{
 					currentNew--;
@@ -1267,7 +1286,8 @@ function getFilterTextField()
 	return filterTextField;
 }
 
-function getScrollbarWidth() {
+function getScrollbarWidth()
+{
     var outer = document.createElement("div");
     outer.style.visibility = "hidden";
     outer.style.width = "100px";
