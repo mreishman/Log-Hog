@@ -69,7 +69,15 @@
 					: </span> 
 						<input type="text" name="logSizeLimit" value="<?php echo $logSizeLimit;?>" > 
 						<span id="logTrimTypeText" >
-							
+							<?php if($logTrimType == 'lines')
+							{
+								echo "Lines";
+							}
+							elseif($logTrimType == 'size')
+							{
+								echo $TrimSize;
+							}
+							?>
 						</span>
 					</li>
 					<li>
@@ -89,7 +97,7 @@
 					<li id="LiForlogTrimSize" <?php if($logTrimType != 'size'){echo "style='display:none;'";} ?> >
 						<span class="settingsBuffer" > Size is measured in: </span>
 						<div class="selectDiv">
-							<select name="TrimSize">
+							<select id="TrimSize" name="TrimSize">
 									<option <?php if($TrimSize == 'KB'){echo "selected";} ?> value="KB">KB</option>
 									<option <?php if($TrimSize == 'K'){echo "selected";} ?> value="K">K</option>
 									<option <?php if($TrimSize == 'MB'){echo "selected";} ?> value="MB">MB</option>

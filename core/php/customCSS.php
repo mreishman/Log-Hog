@@ -143,8 +143,8 @@ if(!($windowDisplayConfig[0] > 1 || $windowDisplayConfig[1] > 1)): ?>
 
 .highlight
 {
-	background-color: yellow;
-	color: black;
+	background-color: <?php echo $highlightColorBG; ?>;
+	color: <?php echo $highlightColorFont; ?>
 }
 
 </style>

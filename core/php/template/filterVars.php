@@ -33,10 +33,29 @@ Filter Settings
 	<li>
 		<span class="settingsBuffer" > Highlight Content match: </span>
 		<div class="selectDiv">
-			<select name="filterContentHighlight">
+			<select id="filterContentHighlight" name="filterContentHighlight">
 				<option <?php if($filterContentHighlight == 'true'){echo "selected";} ?> value="true">True</option>
 				<option <?php if($filterContentHighlight == 'false'){echo "selected";} ?> value="false">False</option>
 			</select>
+		</div>
+	</li>
+	<li>
+		<div id="highlightContentSettings" style=" <?php if($filterContentHighlight == 'false'){ echo 'display: none;'; }?> " >
+			<div class="settingsHeader">
+			Filter Highlight Settings
+			</div>
+			<div class="settingsDiv" >
+				<ul id="settingsUl">
+					<li>
+						<span class="settingsBuffer" > Background: </span> 
+						<input type="text" name="highlightColorBG" value="<?php echo $highlightColorBG;?>" >
+					</li>
+					<li>
+						<span class="settingsBuffer" > Font: </span> 
+						<input type="text" name="highlightColorFont" value="<?php echo $highlightColorFont;?>" >
+					</li>
+				</ul>
+			</div>
 		</div>
 	</li>
 	<li>
@@ -71,16 +90,15 @@ Filter Settings
 						<span class="settingsBuffer" > Line Padding: </span>
 						<div class="selectDiv">
 							<select name="filterContentLinePadding">
-								<option <?php if($filterContentLinePadding == 0){echo "selected";} ?> value=0>0</option>
-								<option <?php if($filterContentLinePadding == 1){echo "selected";} ?> value=1>1</option>
-								<option <?php if($filterContentLinePadding == 2){echo "selected";} ?> value=2>2</option>
-								<option <?php if($filterContentLinePadding == 3){echo "selected";} ?> value=3>3</option>
-								<option <?php if($filterContentLinePadding == 4){echo "selected";} ?> value=4>4</option>
-								<option <?php if($filterContentLinePadding == 5){echo "selected";} ?> value=5>5</option>
-								<option <?php if($filterContentLinePadding == 6){echo "selected";} ?> value=6>6</option>
-								<option <?php if($filterContentLinePadding == 7){echo "selected";} ?> value=7>7</option>
-								<option <?php if($filterContentLinePadding == 8){echo "selected";} ?> value=8>8</option>
-								<option <?php if($filterContentLinePadding == 9){echo "selected";} ?> value=9>9</option>
+								<?php for ($i=0; $i < 10; $i++)
+								{
+									echo "<option ";
+									if($filterContentLinePadding == $i)
+									{
+										echo " selected ";
+									}
+									echo " value=".$i.">".$i."</option>";
+								}?>
 							</select>
 						</div>
 					</li>
