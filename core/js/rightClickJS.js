@@ -73,7 +73,7 @@ $( document ).ready(function() {
               var rightClickMenuHTML = "";
               for (var i = rightClickMenuArrayLength - 1; i >= 0; i--) 
               {
-                rightClickMenuHTML += "<li class=\"context-menu__item\"><a class=\"context-menu__link\" onclick='"+rightClickMenuArray[i].action+"'> "+rightClickMenuArray[i].name+" </a> </li>";
+                rightClickMenuHTML += "<li onclick='"+rightClickMenuArray[i].action+"' class=\"context-menu__item\"><a class=\"context-menu__link\"> "+rightClickMenuArray[i].name+" </a> </li>";
               }
               document.getElementById("context-menu-items").innerHTML = rightClickMenuHTML;
               positionMenu(e);
