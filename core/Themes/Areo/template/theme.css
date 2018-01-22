@@ -641,3 +641,28 @@ div.sidebarLeft {
     left: 0;
     bottom: 0;
 }
+
+/* width */
+::-webkit-scrollbar
+{
+	width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track
+{
+	background: rgba(65,85,100,1);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb
+{
+	background: rgba(255,255,255,1);
+	border-radius: 2px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover
+{
+	background: rgba(50,50,50,1);
+}

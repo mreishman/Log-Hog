@@ -628,3 +628,28 @@ div.sidebarLeft {
     left: 0;
     bottom: 0;
 }
+
+
+/* width */
+::-webkit-scrollbar
+{
+	width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track
+{
+	background: #CCC;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb
+{
+	background: #026C7C;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover
+{
+	background: #2A90EF;
+}
