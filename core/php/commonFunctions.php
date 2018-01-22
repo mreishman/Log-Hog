@@ -605,11 +605,20 @@ function putIntoCorrectFormat($keyKey, $keyValue, $value)
 function returnCurrentSelectedTheme();
 {
 	$baseBaseUrl = baseURL();
-	$returnTheme = "default";
-	if(is_file($baseBaseUrl.'local/layout.php'))
+	if(file_exists($baseBaseUrl.'local/layout.php') && is_readable($baseBaseUrl.'local/layout.php'))
 	{
 		require_once($baseBaseUrl.'local/layout.php');
-		$returnTheme = $currentSelectedTheme;
+		if(isset($currentSelectedTheme))
+		{
+			return $currentSelectedTheme;
+		}
+		else
+		{
+			echoErrorJavaScript("", "Error when getting current selected theme.", 9);
+		}
 	}
-	return $returnTheme;
+	else
+	{
+		echoErrorJavaScript("", "Could not find local layout file. Please make sure that local/layout.php is setup correctly.", 7);
+	}
 }

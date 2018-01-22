@@ -12,25 +12,8 @@ checkIfFilesAreReadable(
 require_once('core/php/commonFunctions.php');
 
 setCookieRedirect();
-$baseUrl = "core/";
-if(file_exists('local/layout.php') && is_readable('local/layout.php'))
-{
-	$baseUrl = "local/";
-	//there is custom information, use this
-	require_once('local/layout.php');
-	if(isset($currentSelectedTheme))
-	{
-		$baseUrl .= $currentSelectedTheme."/";
-	}
-	else
-	{
-		echoErrorJavaScript("", "Error when getting current selected theme.", 9);
-	}
-}
-else
-{
-	echoErrorJavaScript("", "Could not find local layout file. Please make sure that local/layout.php is setup correctly.", 7);
-}
+$currentSelectedTheme = returnCurrentSelectedTheme();
+$baseUrl = "local/".$currentSelectedTheme."/";
 
 if(!file_exists($baseUrl.'conf/config.php'))
 {
