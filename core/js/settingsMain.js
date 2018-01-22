@@ -145,6 +145,10 @@ function checkIfChanges()
 	{
 		arrayToCheck.push("settingsUpdateVars");
 	}
+	if(document.getElementById("settingsFilterVars"))
+	{
+		arrayToCheck.push("settingsFilterVars");
+	}
 
 	if(	checkForChangesArray(arrayToCheck))
 	{
@@ -200,6 +204,10 @@ $( document ).ready(function()
 	if(document.getElementById("settingsUpdateVars"))
 	{
 		arrayToRefresh.push("settingsUpdateVars");
+	}
+	if(document.getElementById("settingsFilterVars"))
+	{
+		arrayToRefresh.push("settingsFilterVars");
 	}
 	refreshArrayObjectOfArrays(arrayToRefresh);
 	setInterval(poll, 100);
