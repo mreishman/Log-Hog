@@ -266,9 +266,9 @@ $defaultConfig = array(
 		'versionCheck'		=> 'true'
 		),
 	'rightClickMenuEnable'			=> 'true',
-	'scrollBarHandle'				=> '#999999;',
-	'scrollBarHandleHover'			=> '#FFFFFF',
-	'scrollBarTrack'				=> 'background: #333333;',
+	'scrollBarHandle'				=> 'background: #CCC;',
+	'scrollBarHandleHover'			=> 'background: #FFF;',
+	'scrollBarTrack'				=> 'background: #222;',
 	'scrollOnUpdate'				=> 'true',
 	'sendCrashInfoJS'				=> 'true',
 	'sendCrashInfoPHP'				=> 'true',

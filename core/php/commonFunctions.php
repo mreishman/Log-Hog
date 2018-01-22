@@ -602,7 +602,7 @@ function putIntoCorrectFormat($keyKey, $keyValue, $value)
 	";
 }
 
-function returnCurrentSelectedTheme();
+function returnCurrentSelectedTheme()
 {
 	$baseBaseUrl = baseURL();
 	if(file_exists($baseBaseUrl.'local/layout.php') && is_readable($baseBaseUrl.'local/layout.php'))

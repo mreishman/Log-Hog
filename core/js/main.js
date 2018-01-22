@@ -83,7 +83,7 @@ function formatBytes(bytes,decimals)
 	}
 	var k = 1024;
 	var dm = decimals || 2;
-	var izes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+	var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
 	var i = Math.floor(Math.log(bytes) / Math.log(k));
 	return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
 }
@@ -187,10 +187,6 @@ function pollTwo()
 {
 	try
 	{
-		if(firstLoad)
-		{
-			updateProgressBar(5, "Generating File List");
-		}
 		var urlForSend = "core/php/pollCheck.php?format=json";
 		var data = {currentVersion};
 		$.ajax({
@@ -233,7 +229,7 @@ function pollTwoPartTwo(data)
 	{
 		if(firstLoad)
 		{
-			updateProgressBar(5, "Generating File Object");
+			updateProgressBar(10, "Generating File Object");
 		}
 		t2 = performance.now();
 
