@@ -147,4 +147,28 @@ if(!($windowDisplayConfig[0] > 1 || $windowDisplayConfig[1] > 1)): ?>
 	color: <?php echo $highlightColorFont; ?>
 }
 
+/* width */
+::-webkit-scrollbar
+{
+	width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track
+{
+	<?php echo $scrollBarTrack; ?>
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb
+{
+	<?php echo $scrollBarHandle; ?>
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover
+{
+	<?php echo $scrollBarHandleHover; ?>
+}
+
 </style>
