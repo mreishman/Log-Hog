@@ -62,18 +62,21 @@ require_once('../core/php/loadVars.php');
 						<li>
 							Content filter for logs! (search and highlight content of logs)
 						</li>
+						<li>
+							Save custom themes!
+						</li>
 					</ul>
 				</td>
 				<td>
 					<a href="../core/img/3.4-1.png" data-lightbox="3.4" ><img src="../core/img/3.4-1.png" style="width: 45%;"></a>
-					<a href="../core/img/3.4-3.png" data-lightbox="3.4" ><img src="../core/img/3.4-3.png" style="width: 45%;"></a>
+					<a href="../core/img/3.4-2.png" data-lightbox="3.4" ><img src="../core/img/3.4-2.png" style="width: 45%;"></a>
 				</td>
 				</tr>
 
 
 
 				<tr>
-				<th colspan="2" style="padding: 10px">
+				<th colspan="2" style="border-top: 1px solid white; padding: 10px">
 					<h1>3.3</h1>
 				</th>
 				</tr>
