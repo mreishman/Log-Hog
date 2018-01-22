@@ -1088,8 +1088,16 @@ function show(e, id)
 {
 	try
 	{
-		$(e).siblings().removeClass("active");		
+		$(e).siblings().removeClass("active");
 		$("#log"+currentSelectWindow).html(makePretty(logs[id]));
+		
+		$('.currentWindowNum').each(function(i, obj) {
+		    if(obj.innerHTML ==  ""+(currentSelectWindow+1)+". ")
+		    {
+		    	obj.innerHTML = "";
+		    }
+		});
+		
 		$("#"+id+"CurrentWindow").html(""+(currentSelectWindow+1)+". ");
 		currentPage = id;
 		logDisplayArray[currentSelectWindow] = id;
