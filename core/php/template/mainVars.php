@@ -2,12 +2,8 @@
 <div class="settingsHeader">
 Other Settings 
 <div class="settingsHeaderButtons">
-	<?php echo addResetButton("settingsMainVars");
-	if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
-		<a class="linkSmall" onclick="saveAndVerifyMain('settingsMainVars');" >Save Changes</a>
-	<?php else: ?>
-		<button  onclick="displayLoadingPopup();">Save Changes</button>
-	<?php endif; ?>
+	<?php echo addResetButton("settingsMainVars"); ?>
+	<a class="linkSmall" onclick="saveAndVerifyMain('settingsMainVars');" >Save Changes</a>
 </div>
 </div>
 <div class="settingsDiv" >

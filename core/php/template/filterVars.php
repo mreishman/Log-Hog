@@ -2,12 +2,8 @@
 <div class="settingsHeader">
 Filter Settings 
 <div class="settingsHeaderButtons">
-	<?php echo addResetButton("settingsFilterVars");
-	if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
-		<a class="linkSmall" onclick="saveAndVerifyMain('settingsFilterVars');" >Save Changes</a>
-	<?php else: ?>
-		<button  onclick="displayLoadingPopup();">Save Changes</button>
-	<?php endif; ?>
+	<?php echo addResetButton("settingsFilterVars"); ?>
+	<a class="linkSmall" onclick="saveAndVerifyMain('settingsFilterVars');" >Save Changes</a>
 </div>
 </div>
 <div class="settingsDiv" >

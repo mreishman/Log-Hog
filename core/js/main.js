@@ -1200,9 +1200,11 @@ function makePretty(text)
 		var bottomPadding = filterContentLinePadding;
 		var topPadding = filterContentLinePadding;
 		var foundOne = false;
+		var addLine = false;
+		var customStyle = "";
 		for (var i = 0; i < lengthOfTextArray; i++)
 		{
-			var addLine = false;
+			addLine = false;
 			if(selectedListFilterType === "content" && filterContentLimit === "true" && getFilterTextField() !== "")
 			{
 				//check for content on current line
@@ -1249,7 +1251,7 @@ function makePretty(text)
 			}
 			if(addLine)
 			{
-				var customStyle = "";
+				customStyle = "";
 				if(selectedListFilterType === "content" && filterContentHighlight === "true" && getFilterTextField() !== "")
 				{
 					//check if match, and if supposed to highlight

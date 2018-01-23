@@ -47,12 +47,8 @@ $countConfig--;
 		<div class="settingsHeader">
 			Config
 			<div class="settingsHeaderButtons">
-				<?php echo addResetButton("advancedConfig");
-				if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
-					<a class="linkSmall" onclick="saveAndVerifyMain('advancedConfig');" >Save Changes</a>
-				<?php else: ?>
-					<button  onclick="displayLoadingPopup();">Save Changes</button>
-				<?php endif; ?>
+				<?php echo addResetButton("advancedConfig"); ?>
+				<a class="linkSmall" onclick="saveAndVerifyMain('advancedConfig');" >Save Changes</a>
 			</div>
 		</div>
 		<div class="settingsDiv" >
@@ -106,12 +102,8 @@ $countConfig--;
 		<div class="settingsHeader">
 			Development  
 			<div class="settingsHeaderButtons">
-				<?php echo addResetButton("devAdvanced");
-				if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
-					<a class="linkSmall" onclick="saveAndVerifyMain('devAdvanced');" >Save Changes</a>
-				<?php else: ?>
-					<button  onclick="displayLoadingPopup();">Save Changes</button>
-				<?php endif; ?>
+				<?php echo addResetButton("devAdvanced"); ?>
+				<a class="linkSmall" onclick="saveAndVerifyMain('devAdvanced');" >Save Changes</a>
 			</div>
 		</div>
 		<div class="settingsDiv" >
@@ -132,12 +124,8 @@ $countConfig--;
 		<div class="settingsHeader">
 			Advanced Poll Settings  
 			<div class="settingsHeaderButtons">
-				<?php echo addResetButton("pollAdvanced");
-				if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
-					<a class="linkSmall" onclick="saveAndVerifyMain('pollAdvanced');" >Save Changes</a>
-				<?php else: ?>
-					<button  onclick="displayLoadingPopup();">Save Changes</button>
-				<?php endif; ?>
+				<?php echo addResetButton("pollAdvanced"); ?>
+				<a class="linkSmall" onclick="saveAndVerifyMain('pollAdvanced');" >Save Changes</a>
 			</div>
 		</div>
 		<div class="settingsDiv" >

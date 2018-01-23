@@ -33,12 +33,8 @@ require_once('../core/php/updateCheck.php');
 		<div class="settingsHeader">
 			Branch Settings  
 			<div class="settingsHeaderButtons">
-				<?php echo addResetButton("devBranch");
-				if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
-					<a class="linkSmall" onclick="saveAndVerifyMain('devBranch');" >Save Changes</a>
-				<?php else: ?>
-					<button  onclick="displayLoadingPopup();">Save Changes</button>
-				<?php endif; ?>
+				<?php echo addResetButton("devBranch"); ?>
+				<a class="linkSmall" onclick="saveAndVerifyMain('devBranch');" >Save Changes</a>
 			</div>
 		</div>
 		<div class="settingsDiv" >

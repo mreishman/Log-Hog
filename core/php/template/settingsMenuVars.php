@@ -2,12 +2,8 @@
 <div class="settingsHeader">
 Menu Settings
 <div class="settingsHeaderButtons">
-	<?php echo addResetButton("settingsMenuVars");
-	if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
+	<?php echo addResetButton("settingsMenuVars"); ?>
 	<a class="linkSmall" onclick="saveAndVerifyMain('settingsMenuVars');" >Save Changes</a>
-	<?php else: ?>
-		<button  onclick="displayLoadingPopup();">Save Changes</button>
-	<?php endif; ?>
 </div>
 </div>
 <div class="settingsDiv" >
