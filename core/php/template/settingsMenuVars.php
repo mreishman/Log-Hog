@@ -18,7 +18,7 @@ Menu Settings
 		</div>
 	</li>
 	<li>
-		<span class="settingsBuffer" > Show Lower Bar: </span>
+		<span class="settingsBuffer" > Show Side Bar: </span>
 		<div class="selectDiv">
 			<select name="bottomBarIndexShow">
 				<option <?php if($bottomBarIndexShow == 'true'){echo "selected";} ?> value="true">True</option>

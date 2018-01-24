@@ -195,13 +195,26 @@ for ($i=0; $i < $windowDisplayConfig[0]; $i++)
 		$borderPadding += 2;
 		$counter = $j+($i*$windowDisplayConfig[1]);
 		$logDisplay .= "<td style=\"vertical-align: top; padding: 0; border: 1px solid white;\" onclick=\"changeCurrentSelectWindow(".$counter.")\" class=\"logTdWidth\" >";
-		$logDisplay .= "<table style=\"margin: 0px;padding: 0px; border-spacing: 0px; width:100%;\" ><tr><td style=\"padding: 0; width: 30px;\" >";
+		$logDisplay .= "<table style=\"margin: 0px;padding: 0px; border-spacing: 0px; width:100%;\" ><tr><td style=\"padding: 0;";
+		if($bottomBarIndexShow == 'false')
+		{
+			$logDisplay .= " width: 0; ";
+		}
+		else
+		{
+			$logDisplay .= " width: 30px; ";
+		}
+		$logDisplay .=  " \" >";
 		$logDisplay .= "<div class=\"backgroundForSideBarMenu\" style=\"";
 		if($bottomBarIndexShow == 'false')
 		{
-			$logDisplay .= "display: none;";
+			$logDisplay .= "display: none; width: 0; ";
 		}
-		$logDisplay .= " width: 30px; float: left; display: inline; padding: 0px; \" id=\"titleContainer".$counter."\">";
+		else
+		{
+			$logDisplay .= "display: inline; width: 30px; ";
+		}
+		$logDisplay .= " float: left; padding: 0px; \" id=\"titleContainer".$counter."\">";
 		$logDisplay .= "<div class=\"popupForInfo\" style=\"display: none;\" id=\"title".$counter."\"></div>";
 		$logDisplay .= "<p id=\"numSelectIndecatorForWindow".$counter."\"  class=\" ";
 		if($counter === 0)
