@@ -123,10 +123,18 @@ function updateAllRefreshCounter(num)
 
 function updateLogTitle(id)
 {
-	var buttonReference = document.getElementById("menu").getElementsByClassName(id+"Button")[0];
-	var tmpText = logs[id].split("\n");
-	var tmpTextLength = tmpText.length;
-	tmpText = unescapeHTML(tmpText[tmpTextLength-1]);
+	var tmpText = "";
+	if(logTitle === "lastLine")
+	{
+		var buttonReference = document.getElementById("menu").getElementsByClassName(id+"Button")[0];
+		tmpText = logs[id].split("\n");
+		var tmpTextLength = tmpText.length;
+		tmpText = unescapeHTML(tmpText[tmpTextLength-1]);
+	}
+	else if(logTitle === "filePath")
+	{
+		tmpText = titles[id];
+	}
 	if(buttonReference.title !== tmpText)
 	{
 		buttonReference.title = tmpText;

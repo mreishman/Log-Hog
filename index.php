@@ -535,6 +535,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 		var filterContentHighlight = "<?php echo $filterContentHighlight; ?>";
 		var filterContentLimit = "<?php echo $filterContentLimit; ?>";
 		var scrollOnUpdate = "<?php echo $scrollOnUpdate; ?>";
+		var logTitle = "<?php echo $logTitle; ?>";
 	</script>
 	<?php require_once('core/php/template/popup.php') ?>
 	<script src="core/js/main.js?v=<?php echo $cssVersion?>"></script>

@@ -244,6 +244,7 @@ $defaultConfig = array(
 	'locationForStatus'				=> '',
 	'logFontColor'					=> '#FFFFFF',
 	'logSizeLimit'					=>	2000,
+	'logTitle'						=> 'lastLine',
 	'logTrimMacBSD'					=> 'false',
 	'logTrimOn'						=> 'true',
 	'logTrimType'					=> 'lines',
