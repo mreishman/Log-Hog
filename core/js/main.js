@@ -121,6 +121,18 @@ function updateAllRefreshCounter(num)
 	
 }
 
+function updateLogTitle(id)
+{
+	var buttonReference = document.getElementById("menu").getElementsByClassName(id+"Button")[0];
+	var tmpText = logs[id].split("\n");
+	var tmpTextLength = tmpText.length;
+	tmpText = unescapeHTML(tmpText[tmpTextLength-1]);
+	if(buttonReference.title !== tmpText)
+	{
+		buttonReference.title = tmpText;
+	}
+}
+
 function updateDocumentTitle(updateText)
 {
 	try
@@ -822,14 +834,7 @@ function update(data) {
 								}
 							}
 							
-							var buttonReference = document.getElementById("menu").getElementsByClassName(id+"Button")[0];
-							var tmpText = logs[id].split("\n");
-							var tmpTextLength = tmpText.length;
-							tmpText = unescapeHTML(tmpText[tmpTextLength-1]);
-							if(buttonReference.title !== tmpText)
-							{
-								buttonReference.title = tmpText;
-							}
+							updateLogTitle(id);
 						}
 						else
 						{
