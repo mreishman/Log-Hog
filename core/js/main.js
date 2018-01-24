@@ -124,9 +124,9 @@ function updateAllRefreshCounter(num)
 function updateLogTitle(id)
 {
 	var tmpText = "";
+	var buttonReference = document.getElementById("menu").getElementsByClassName(id+"Button")[0];
 	if(logTitle === "lastLine")
 	{
-		var buttonReference = document.getElementById("menu").getElementsByClassName(id+"Button")[0];
 		tmpText = logs[id].split("\n");
 		var tmpTextLength = tmpText.length;
 		tmpText = unescapeHTML(tmpText[tmpTextLength-1]);
