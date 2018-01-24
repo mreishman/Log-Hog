@@ -14,15 +14,6 @@
 			<span class="settingsBuffer" >Number of lines to display:</span>  <input type="text" name="sliceSize" value="<?php echo $sliceSize;?>" >
 		</li>
 		<li>
-			<span class="settingsBuffer" > Hide logs that are empty: </span>
-			<div class="selectDiv">
-				<select name="hideEmptyLog">
-					<option <?php if($hideEmptyLog == 'true'){echo "selected";} ?> value="true">True</option>
-					<option <?php if($hideEmptyLog == 'false'){echo "selected";} ?> value="false">False</option>
-				</select>
-			</div>
-		</li>
-			<li>
 			<span class="settingsBuffer" > Flash title on log update: </span>
 			<div class="selectDiv">
 				<select name="flashTitleUpdateLog">
