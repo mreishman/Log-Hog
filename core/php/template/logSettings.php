@@ -2,10 +2,8 @@
 	<div class="settingsHeader">
 	Log Settings
 	<div class="settingsHeaderButtons">
-		<?php echo addResetButton("settingsLogVars");
-		if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
-			<a class="linkSmall" onclick="saveAndVerifyMain('settingsLogVars');" >Save Changes</a>
-		<?php endif; ?>
+		<?php echo addResetButton("settingsLogVars");?>
+		<a class="linkSmall" onclick="saveAndVerifyMain('settingsLogVars');" >Save Changes</a>
 	</div>
 	</div>
 	<div class="settingsDiv" >

@@ -39,11 +39,16 @@ require_once('../core/php/loadVars.php'); ?>
 	<p style="padding: 10px;">More Settings:</p>
 	<?php require_once('../core/php/template/pollVars.php'); ?>
 	<table style="width: 100%; padding-left: 20px; padding-right: 20px;" ><tr><th style="text-align: right;" >
-		<?php if($counterSteps == 3): ?>
-			<a onclick="updateStatus('finished');" class="link">Finish</a>
-		<?php else: ?>
-			<a onclick="updateStatus('step4');" class="link">Continue</a>
-		<?php endif; ?>
+		<span id="setupButtonContinue">
+			<?php if($counterSteps == 3): ?>
+				<a onclick="updateStatus('finished');" class="link">Finish</a>
+			<?php else: ?>
+				<a onclick="updateStatus('step4');" class="link">Continue</a>
+			<?php endif; ?>
+		</span>
+		<span id="setupButtonDisabled" style="display: none;">
+			Click save to continue to next page
+		</span>
 	</th></tr></table>
 	<br>
 	<br>
@@ -63,8 +68,7 @@ require_once('../core/php/loadVars.php'); ?>
 	function customSettings()
 	{
 		//change setupProcess to page1
-		document.getElementById('settingsPollVars').action = "../core/php/settingsSave.php";
-		document.getElementById('settingsPollVars').submit();
+		location.reload();
 	}
 	var titleOfPage = "Welcome";
 	var popupSettingsArray = JSON.parse('<?php echo json_encode($popupSettingsArray) ?>');

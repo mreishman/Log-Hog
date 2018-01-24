@@ -21,6 +21,10 @@ Theme Selector
 			$scanned_directory = array_diff(scandir($directory), array('..', '.'));
 			$customThemeNum = count($scanned_directory) + 1;
 		}
+		if(strpos($URI, "setup") !== false)
+		{
+			$customThemeCreateNew = false;
+		}
 		if($customThemeCreateNew || $scanned_directory !== array()): ?>
 			<h2>Custom</h2>
 			<hr>
