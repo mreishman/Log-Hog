@@ -1153,7 +1153,15 @@ function getDiffLogAndLastLog(id)
 			return 0;
 		}
 		var tmpTextLog = logs[id].split("\n");
-		var tmpTextLast = lastLogs[id].split("\n");
+		var tmpTextLast;
+		if(id in lastLogs)
+		{
+			tmpTextLast = lastLogs[id].split("\n");
+		}
+		else
+		{
+			return 0;
+		}
 		var lengthOfLastArray = tmpTextLast.length;
 		var lengthOfArray = tmpTextLog.length;
 		if(lengthOfLastArray === 0)
