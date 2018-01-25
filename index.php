@@ -194,7 +194,7 @@ for ($i=0; $i < $windowDisplayConfig[0]; $i++)
 	{
 		$borderPadding += 2;
 		$counter = $j+($i*$windowDisplayConfig[1]);
-		$logDisplay .= "<td style=\"vertical-align: top; padding: 0; border: 1px solid white;\" onclick=\"changeCurrentSelectWindow(".$counter.")\" class=\"logTdWidth\" >";
+		$logDisplay .= "<td style=\"vertical-align: top; padding: 0; border: 1px solid white;\" class=\"logTdWidth\" >";
 		$logDisplay .= "<table style=\"margin: 0px;padding: 0px; border-spacing: 0px; width:100%;\" ><tr><td style=\"padding: 0;";
 		if($bottomBarIndexShow == 'false')
 		{
@@ -236,7 +236,7 @@ for ($i=0; $i < $windowDisplayConfig[0]; $i++)
 		$logDisplay .= $deleteImageForWindowTableLoop;
 		$logDisplay .= "</a>";
 		$logDisplay .= "</div> ";
-		$logDisplay .= "</td><td style=\"padding: 0;\" >";
+		$logDisplay .= "</td><td onclick=\"changeCurrentSelectWindow(".$counter.")\" style=\"padding: 0;\" >";
 		$logDisplay .= " <span id=\"log".$counter."Td\"  class=\"logTrHeight\" style=\"overflow: auto; display: block; word-break: break-all;\" > <div style=\"padding: 0; white-space: pre-wrap;\" id=\"log".$counter."\"  ></div> </span>";
 		$logDisplay .= "</td></tr></table>";
 		$logDisplay .= "</td>";
