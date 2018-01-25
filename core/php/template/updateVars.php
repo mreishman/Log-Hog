@@ -1,4 +1,4 @@
-<form id="settingsUpdateVars" action="../core/php/settingsSave.php" method="post">
+<form id="settingsUpdateVars">
 <div class="settingsHeader">
 Update Settings 
 <div class="settingsHeaderButtons">

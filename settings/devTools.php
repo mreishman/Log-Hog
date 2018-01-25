@@ -29,7 +29,7 @@ require_once('../core/php/updateCheck.php');
 <body>
 	<?php require_once('header.php'); ?>
 	<div id="main">
-	<form id="devBranch" action="../core/php/settingsSave.php" method="post">
+	<form id="devBranch">
 		<div class="settingsHeader">
 			Branch Settings  
 			<div class="settingsHeaderButtons">

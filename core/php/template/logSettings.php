@@ -1,4 +1,4 @@
-<form id="settingsLogVars" action="../core/php/settingsSave.php" method="post">
+<form id="settingsLogVars">
 	<div class="settingsHeader">
 	Log Settings
 	<div class="settingsHeaderButtons">

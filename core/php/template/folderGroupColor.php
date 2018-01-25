@@ -1,4 +1,4 @@
-<form id="settingsColorFolderGroupVars" action="../core/php/settingsSave.php" method="post">
+<form id="settingsColorFolderGroupVars">
 	<div class="settingsHeader">
 	Folder Color Options
 	<div class="settingsHeaderButtons">

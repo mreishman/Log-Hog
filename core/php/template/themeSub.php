@@ -36,7 +36,7 @@ foreach ($scanned_directory as $key):
 						   document.getElementById("htmlContent-<?php echo $key;?>").style.display = "block";
 						});
 					</script>
-					<form action="../core/php/settingsSave.php" method="post" id="themeMainSelection-<?php echo $key;?>">
+					<form id="themeMainSelection-<?php echo $key;?>">
 						<?php
 							$arrayOfInputValues = array(
 								"loadingBarVersion"			=>	array(

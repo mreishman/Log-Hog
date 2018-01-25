@@ -54,7 +54,6 @@ if($localFolderLocation === "" || $repoName === "")
 	<br>
 </div>
 </body>
-<form id="defaultVarsForm" action="../core/php/settingsSave.php" method="post"></form>
 <script type="text/javascript">
 
 var retryCount = 0;

@@ -1,4 +1,4 @@
-<form id="settingsFilterVars" action="../core/php/settingsSave.php" method="post">
+<form id="settingsFilterVars">
 <div class="settingsHeader">
 Filter Settings 
 <div class="settingsHeaderButtons">

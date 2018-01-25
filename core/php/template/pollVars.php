@@ -1,4 +1,4 @@
-<form id="settingsPollVars" action="../core/php/settingsSave.php" method="post">
+<form id="settingsPollVars">
 <div class="settingsHeader">
 Poll Settings 
 <div class="settingsHeaderButtons">

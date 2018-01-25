@@ -1,4 +1,4 @@
-<form id="settingsColorFolderVars" action="../core/php/settingsSave.php" method="post">
+<form id="settingsColorFolderVars">
 	<div class="settingsHeader">
 	Main Theme Options
 	<div class="settingsHeaderButtons">

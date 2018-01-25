@@ -2,7 +2,7 @@ function resetSettingsPopup()
 {
 	showPopup();
 	var popupString = "<div class='settingsHeader' >Reset Settings?</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>";
-	popupString += "<form id=\"resetSettings\" action=\"../core/php/settingsSave.php\" method=\"post\">";
+	popupString += "<form id=\"resetSettings\">";
 	popupString +=  "Option to reset: ";
 	popupString += "<select name=\"resetConfigValuesBackToDefault\">";
 	popupString +=  "<option selected value=\"all\">All</option>";

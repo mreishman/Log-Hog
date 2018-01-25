@@ -1,4 +1,4 @@
-<form onsubmit="checkWatchList()" id="settingsMainWatch" action="../core/php/settingsSave.php" method="post">
+<form onsubmit="checkWatchList()" id="settingsMainWatch" >
 <div class="settingsHeader">
 	WatchList
 	<div class="settingsHeaderButtons">

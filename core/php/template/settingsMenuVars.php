@@ -1,4 +1,4 @@
-<form id="settingsMenuVars" action="../core/php/settingsSave.php" method="post">
+<form id="settingsMenuVars">
 <div class="settingsHeader">
 Menu Settings
 <div class="settingsHeaderButtons">

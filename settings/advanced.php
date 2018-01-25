@@ -43,7 +43,7 @@ $countConfig--;
 <body>
 	<?php require_once('header.php'); ?>
 	<div id="main">
-	<form id="advancedConfig" action="../core/php/settingsSave.php" method="post">
+	<form id="advancedConfig">
 		<div class="settingsHeader">
 			Config
 			<div class="settingsHeaderButtons">
@@ -98,7 +98,7 @@ $countConfig--;
 			</ul>
 		</div>
 	</form>
-	<form id="devAdvanced" action="../core/php/settingsSave.php" method="post">
+	<form id="devAdvanced">
 		<div class="settingsHeader">
 			Development  
 			<div class="settingsHeaderButtons">
@@ -120,7 +120,7 @@ $countConfig--;
 			</ul>
 		</div>
 	</form>
-	<form id="pollAdvanced" action="../core/php/settingsSave.php" method="post">
+	<form id="pollAdvanced">
 		<div class="settingsHeader">
 			Advanced Poll Settings  
 			<div class="settingsHeaderButtons">
@@ -155,7 +155,7 @@ $countConfig--;
 			</ul>
 		</div>
 	</form>
-	<form id="loggingDisplay" action="../core/php/settingsSave.php" method="post">
+	<form id="loggingDisplay">
 		<div class="settingsHeader">
 			Logging Information 
 			<div class="settingsHeaderButtons">
@@ -201,7 +201,7 @@ $countConfig--;
 			</ul>
 		</div>
 	</form>
-	<form id="jsPhpSend" action="../core/php/settingsSave.php" method="post">
+	<form id="jsPhpSend">
 		<div class="settingsHeader">
 			Error / Crash Info
 			<div class="settingsHeaderButtons"> 
@@ -237,7 +237,7 @@ $countConfig--;
 			</ul>
 		</div>
 	</form>
-	<form id="locationOtherApps" action="../core/php/settingsSave.php" method="post">
+	<form id="locationOtherApps">
 		<div class="settingsHeader">
 			File Locations
 			<div class="settingsHeaderButtons">
@@ -300,7 +300,7 @@ $countConfig--;
 				</li>
 			</ul>
 		</div>
-		<form id="expFeatures" action="../core/php/settingsSave.php" method="post">
+		<form id="expFeatures">
 		<div class="settingsHeader">
 		Experimental Features 
 			<div class="settingsHeaderButtons">

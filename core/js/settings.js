@@ -90,7 +90,11 @@ function timerVerifySave()
 
 function saveVerified()
 {
-	if(idForFormMain === "settingsMainWatch")
+	if(idForFormMain === "welcomeForm")
+	{
+		//do nothing
+	}
+	else if(idForFormMain === "settingsMainWatch")
 	{
 		refreshSettingsWatchList();
 	}
@@ -129,7 +133,7 @@ function saveVerified()
 		
 		window.location.href = "../core/php/template/upgradeTheme.php";
 	}
-	else if(idForFormMain === "settingsColorFolderGroupVars" || idForFormMain === "settingsColorFolderVars")
+	else if(idForFormMain === "settingsColorFolderGroupVars" || idForFormMain === "settingsColorFolderVars" || idForFormMain === "welcomeForm")
 	{
 		location.reload();
 	}
