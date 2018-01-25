@@ -1507,19 +1507,22 @@ function clearLog(idNum)
 {
 	try
 	{
-		var urlForSend = "core/php/clearLog.php?format=json";
-		var title = filterTitle(document.getElementById("title"+idNum).innerHTML);
-		var data = {file: title};
-		$.ajax({
-				url: urlForSend,
-				dataType: "json",
-				data,
-				type: "POST",
-		success(data)
+		if(document.getElementById("title"+idNum).textContent !== "")
 		{
-			refreshLastLogsArray();
-		},
-		});
+			var urlForSend = "core/php/clearLog.php?format=json";
+			var title = filterTitle(document.getElementById("title"+idNum).textContent);
+			var data = {file: title};
+			$.ajax({
+					url: urlForSend,
+					dataType: "json",
+					data,
+					type: "POST",
+			success(data)
+			{
+				refreshLastLogsArray();
+			},
+			});
+		}
 	}
 	catch(e)
 	{
@@ -1577,15 +1580,18 @@ function deleteLogPopup(idNum)
 {
 	try
 	{
-		var title = filterTitle(document.getElementById("title"+idNum).innerHTML);
-		if(popupSettingsArray.deleteLog == "true")
+		var title = filterTitle(document.getElementById("title"+idNum).textContent);
+		if(title !== "")
 		{
-			showPopup();
-			document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class=\"settingsHeader\" >Are you sure you want to delete this log?</div><br><div style=\"width:100%;text-align:center;padding-left:10px;padding-right:10px;\">"+title+"</div><div><div class=\"link\" onclick=\"deleteLog('"+title+"');hidePopup();\" style=\"margin-left:125px; margin-right:50px;margin-top:35px;\">Yes</div><div onclick=\"hidePopup();\" class=\"link\">No</div></div>";
-		}
-		else
-		{
-			deleteLog(title);
+			if(popupSettingsArray.deleteLog == "true")
+			{
+				showPopup();
+				document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class=\"settingsHeader\" >Are you sure you want to delete this log?</div><br><div style=\"width:100%;text-align:center;padding-left:10px;padding-right:10px;\">"+title+"</div><div><div class=\"link\" onclick=\"deleteLog('"+title+"');hidePopup();\" style=\"margin-left:125px; margin-right:50px;margin-top:35px;\">Yes</div><div onclick=\"hidePopup();\" class=\"link\">No</div></div>";
+			}
+			else
+			{
+				deleteLog(title);
+			}
 		}
 	}
 	catch(e)
@@ -1810,13 +1816,16 @@ function changeCurrentSelectWindow(newSelectWindow)
 
 function showInfo(idNum)
 {
-	if(document.getElementById("title"+idNum).style.display === "none")
+	if(document.getElementById("title"+idNum).textContent !== "")
 	{
-		document.getElementById("title"+idNum).style.display = "block";
-	}
-	else
-	{
-		document.getElementById("title"+idNum).style.display = "none";
+		if(document.getElementById("title"+idNum).style.display === "none")
+		{
+			document.getElementById("title"+idNum).style.display = "block";
+		}
+		else
+		{
+			document.getElementById("title"+idNum).style.display = "none";
+		}
 	}
 }
 

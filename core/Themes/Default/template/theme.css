@@ -151,11 +151,13 @@ div {
 {
 	background-color: #CCC;
 	z-index: 10;
-	position: absolute;
+	position: relative;
 	left: 31px;
-	top: 5px;
+	margin-top: -30px;
 	border: 1px solid white;
 	color: black;
+	width: fit-content;
+	margin-bottom: 6px;
 }
 
 .currentWindowNum

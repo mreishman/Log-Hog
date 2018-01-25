@@ -215,7 +215,6 @@ for ($i=0; $i < $windowDisplayConfig[0]; $i++)
 			$logDisplay .= "display: inline; width: 30px; ";
 		}
 		$logDisplay .= " float: left; padding: 0px; \" id=\"titleContainer".$counter."\">";
-		$logDisplay .= "<div class=\"popupForInfo\" style=\"display: none;\" id=\"title".$counter."\"></div>";
 		$logDisplay .= "<p id=\"numSelectIndecatorForWindow".$counter."\"  class=\" ";
 		if($counter === 0)
 		{
@@ -229,6 +228,7 @@ for ($i=0; $i < $windowDisplayConfig[0]; $i++)
 		$logDisplay .= "<a onclick=\"showInfo('".$counter."');\" style=\"cursor: pointer;\" >";
 		$logDisplay .= $infoImageForWindowTableLoop;
 		$logDisplay .= "</a>";
+		$logDisplay .= "<div class=\"popupForInfo\" style=\"display: none;\" id=\"title".$counter."\"></div>";
 		$logDisplay .= "<a onclick=\"clearLog('".$counter."');\" style=\"cursor: pointer;\" >";
 		$logDisplay .= $clearImageForWindowTableLoop;
 		$logDisplay .= "</a>";
