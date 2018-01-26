@@ -203,7 +203,7 @@ for ($i=0; $i < $windowDisplayConfig[0]; $i++)
 		}
 		else
 		{
-			$logDisplay .= " width: 30px; ";
+			$logDisplay .= " width: 31px; ";
 		}
 		$logDisplay .=  " \" >";
 		$logDisplay .= "<div class=\"backgroundForSideBarMenu\" style=\"";
@@ -213,7 +213,7 @@ for ($i=0; $i < $windowDisplayConfig[0]; $i++)
 		}
 		else
 		{
-			$logDisplay .= "display: inline; width: 30px; ";
+			$logDisplay .= "display: inline; width: 31px; ";
 		}
 		$logDisplay .= " float: left; padding: 0px; \" id=\"titleContainer".$counter."\">";
 		$logDisplay .= "<p id=\"numSelectIndecatorForWindow".$counter."\"  class=\" ";
