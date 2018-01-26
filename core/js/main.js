@@ -456,6 +456,23 @@ function afterPollFunctionComplete()
 			document.getElementById("searchType").disabled = false;
 			document.getElementById("searchFieldInput").disabled = false;
 			document.getElementById("log").style.display = "table";
+			var windows = Object.keys(logDisplayArray);
+			var lengthOfWindows = windows.length;
+			for(var i = 0; i < lengthOfWindows; i++)
+			{
+				if(logDisplayArray[i] !== null)
+				{
+					var logsCheck = Object.keys(logs);
+					var lengthOfLogsCheck = logsCheck.length;
+					for(var j = 0; j < lengthOfLogsCheck; j++)
+					{
+						if(logDisplayArray[i] === logsCheck[j])
+						{
+							document.getElementById("log"+i+"Td").scrollTop = $("#log"+i).outerHeight();
+						}
+					}
+				}
+			}
 		}
 		if(refreshing)
 		{
