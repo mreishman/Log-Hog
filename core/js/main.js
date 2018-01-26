@@ -1102,6 +1102,13 @@ function show(e, id)
 	try
 	{
 		$(e).siblings().removeClass("active");
+		var windowNumInTitle = $("#"+id+"CurrentWindow").html();
+		if(windowNumInTitle !== "")
+		{
+			windowNumInTitle = windowNumInTitle + "0";
+			var windowNumAsNum = parseInt(windowNumInTitle);
+			$("#log"+(windowNumAsNum-1)).html("");
+		}
 		$("#log"+currentSelectWindow).html(makePretty(logs[id]));
 		
 		$('.currentWindowNum').each(function(i, obj) {
@@ -1110,7 +1117,6 @@ function show(e, id)
 		    	obj.innerHTML = "";
 		    }
 		});
-		
 		$("#"+id+"CurrentWindow").html(""+(currentSelectWindow+1)+". ");
 		currentPage = id;
 		logDisplayArray[currentSelectWindow] = id;
