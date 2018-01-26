@@ -162,6 +162,7 @@ elseif($loadingBarVersion === 5)
 $windowDisplayConfig = explode("x", $windowConfig);
 $logDisplayArray = "{";
 $logDisplay = "";
+$popupInfoLog = "";
 $borderPadding = 0;
 for ($i=0; $i < $windowDisplayConfig[0]; $i++)
 {
@@ -225,10 +226,10 @@ for ($i=0; $i < $windowDisplayConfig[0]; $i++)
 			$logDisplay .= "sidebarCurrentWindowNum";
 		}
 		$logDisplay .= " \" >".($counter+1)."</p>";
-		$logDisplay .= "<a onclick=\"showInfo('".$counter."');\" style=\"cursor: pointer;\" >";
+		$logDisplay .= "<a id=\"showInfoLink".$counter."\" onclick=\"showInfo('".$counter."');\" style=\"cursor: pointer;\" >";
 		$logDisplay .= $infoImageForWindowTableLoop;
 		$logDisplay .= "</a>";
-		$logDisplay .= "<div class=\"popupForInfo\" style=\"display: none;\" id=\"title".$counter."\"></div>";
+		$popupInfoLog .= "<div class=\"popupForInfo\" style=\"display: none;\" id=\"title".$counter."\"></div>";
 		$logDisplay .= "<a onclick=\"clearLog('".$counter."');\" style=\"cursor: pointer;\" >";
 		$logDisplay .= $clearImageForWindowTableLoop;
 		$logDisplay .= "</a>";
@@ -461,7 +462,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 			</div>
 		</div>
 	</div>
-	
+	<?php echo $popupInfoLog; ?>
 	<div id="main">
 		<table id="log" style="display: none; margin: 0px;padding: 0px; border-spacing: 0px;" style="width: 100%;" >
 			<?php echo $logDisplay; ?>

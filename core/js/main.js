@@ -1828,7 +1828,12 @@ function showInfo(idNum)
 	{
 		if(document.getElementById("title"+idNum).style.display === "none")
 		{
-			document.getElementById("title"+idNum).style.display = "block";
+			var posOfInfo = document.getElementById("showInfoLink"+idNum).getBoundingClientRect();
+			var infoPopup = document.getElementById("title"+idNum);
+			infoPopup.style.display = "block";
+			infoPopup.style.left = (posOfInfo.x + 32 )+ "px";
+			infoPopup.style.top = (posOfInfo.y - 16) + "px";
+			infoPopup.style.maxWidth = document.getElementById("log"+idNum).getBoundingClientRect().width + "px";
 		}
 		else
 		{

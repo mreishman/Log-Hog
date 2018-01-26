@@ -205,7 +205,12 @@ background: linear-gradient(to bottom, rgba(233,170,181,1) 0%, rgba(242,166,173,
   	background-image: -webkit-repeating-linear-gradient(180deg,rgb(240,240,240),rgb(240,240,240) 2.5%, rgb(220,220,220) 2.51%, rgb(220,220,220) 5%);
   	background-image: -o-repeating-linear-gradient(180deg,rgb(240,240,240),rgb(240,240,240) 2.5%, rgb(220,220,220) 2.51%, rgb(220,220,220) 5%);
 	background-image: repeating-linear-gradient(180deg,rgb(240,240,240),rgb(240,240,240) 2.5%, rgb(220,220,220) 2.51%, rgb(220,220,220) 5%);
+	overflow-y: auto;
+}
 
+.backgroundForSideBarMenu::-webkit-scrollbar {
+	width: 1px;
+	
 }
 
 .backgroundForMenus
@@ -225,13 +230,12 @@ background: linear-gradient(to bottom, rgba(233,170,181,1) 0%, rgba(242,166,173,
 {
 	background-color: #CCC;
 	z-index: 10;
-	position: relative;
-	left: 31px;
-	margin-top: -30px;
+	position: absolute;
 	border: 1px solid white;
 	color: black;
 	width: fit-content;
-	margin-bottom: 6px;
+	padding: 5px;
+	word-break: break-all;
 }
 
 .currentWindowNum
