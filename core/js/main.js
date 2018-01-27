@@ -16,6 +16,7 @@ var fresh = true;
 var lastContentSearch = "";
 var lastLogs = {};
 var logs = {};
+var logsToHide = new Array();
 var pausePoll = false;
 var percent = 0;
 var polling = false;
@@ -622,7 +623,7 @@ function update(data) {
 				var selectedListFilterType = selectListForFilter.options[selectListForFilter.selectedIndex].value;
 				var filterTextField = getFilterTextField();
 				var showFile = false;
-
+				id = name.replace(/[^a-z0-9]/g, "");
 				
 
 				var filterOffOf = "";
@@ -640,16 +641,18 @@ function update(data) {
 					filterOffOf = filterOffOf.toLowerCase();
 				}
 
-				if(filterOffOf !== "")
-				{
-					if(filterTextField === "" || filterOffOf.indexOf(filterTextField) !== -1)
+				if(logsToHide === array() || $.inArray(name, logsToHide) !== -1 )
+					if(filterOffOf !== "")
+					{
+						if(filterTextField === "" || filterOffOf.indexOf(filterTextField) !== -1)
+						{
+							showFile = true;
+						}
+					}
+					else
 					{
 						showFile = true;
 					}
-				}
-				else
-				{
-					showFile = true;
 				}
 				if(showFile)
 				{
@@ -672,7 +675,6 @@ function update(data) {
 									folderNameCount = 0;
 								}
 							}
-							id = name.replace(/[^a-z0-9]/g, "");
 							if(data[name] === "")
 							{
 								data[name] = "<div class='errorMessageLog errorMessageRedBG' >Error - Unknown error? Check file permissions or clear log to fix?</div>";
@@ -768,6 +770,15 @@ function update(data) {
 										$("#menu a." + id + "Button").addClass("updated");
 									}
 								}
+
+								//add rightclick menu
+								menuObjectRightClick[id] = [
+									{action: "tmpHideLog("+name+");", name: "Tmp Hide Log"},
+									{action: "clearLogInner(titles['"+id+"'']);", name: "Clear Log"},
+									{action: "deleteLogPopupInner(titles['"+id+"'']);", name: "Delete Log"},
+									{action: "copyToClipBoard("+shortName+");", name: "Copy Name"},
+									{action: "copyToClipBoard(titles['"+id+"'']);", name: "Copy Filepath"}
+								]
 							}
 
 							updated = false;
@@ -949,6 +960,21 @@ function update(data) {
 	{
 		eventThrowException(e);
 	}
+}
+
+function tmpHideLog(name)
+{
+	hideLogByName(name);
+	logsToHide.push(name);
+}
+
+function copyToClipBoard(whatToCopy)
+{
+	var $temp = $("<input>");
+	$("body").append($temp);
+	$temp.val($(element).text()).select();
+	document.execCommand("copy");
+	$temp.remove();
 }
 
 function tryToInsertBeforeLog(innerCount, stop, idCheck, item)
@@ -1558,25 +1584,31 @@ function isPageHidden()
 	}
 }
 
+function clearLogInner(title)
+{
+	var urlForSend = "core/php/clearLog.php?format=json";
+	title = filterTitle(title);
+	var data = {file: title};
+	$.ajax({
+			url: urlForSend,
+			dataType: "json",
+			data,
+			type: "POST",
+	success(data)
+	{
+		refreshLastLogsArray();
+	},
+	});
+}
+
 function clearLog(idNum)
 {
 	try
 	{
 		if(document.getElementById("title"+idNum).textContent !== "")
 		{
-			var urlForSend = "core/php/clearLog.php?format=json";
-			var title = filterTitle(document.getElementById("title"+idNum).textContent);
-			var data = {file: title};
-			$.ajax({
-					url: urlForSend,
-					dataType: "json",
-					data,
-					type: "POST",
-			success(data)
-			{
-				refreshLastLogsArray();
-			},
-			});
+			var title = document.getElementById("title"+idNum).textContent;
+			clearLogInner(title);
 		}
 	}
 	catch(e)
@@ -1635,23 +1667,30 @@ function deleteLogPopup(idNum)
 {
 	try
 	{
-		var title = filterTitle(document.getElementById("title"+idNum).textContent);
-		if(title !== "")
-		{
-			if(popupSettingsArray.deleteLog == "true")
-			{
-				showPopup();
-				document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class=\"settingsHeader\" >Are you sure you want to delete this log?</div><br><div style=\"width:100%;text-align:center;padding-left:10px;padding-right:10px;\">"+title+"</div><div><div class=\"link\" onclick=\"deleteLog('"+title+"');hidePopup();\" style=\"margin-left:125px; margin-right:50px;margin-top:35px;\">Yes</div><div onclick=\"hidePopup();\" class=\"link\">No</div></div>";
-			}
-			else
-			{
-				deleteLog(title);
-			}
-		}
+		var title = document.getElementById("title"+idNum).textContent;
+		deleteLogPopupInner(title);
+		
 	}
 	catch(e)
 	{
 		eventThrowException(e);
+	}
+}
+
+function deleteLogPopupInner(title)
+{
+	title = filterTitle(title);
+	if(title !== "")
+	{
+		if(popupSettingsArray.deleteLog == "true")
+		{
+			showPopup();
+			document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class=\"settingsHeader\" >Are you sure you want to delete this log?</div><br><div style=\"width:100%;text-align:center;padding-left:10px;padding-right:10px;\">"+title+"</div><div><div class=\"link\" onclick=\"deleteLog('"+title+"');hidePopup();\" style=\"margin-left:125px; margin-right:50px;margin-top:35px;\">Yes</div><div onclick=\"hidePopup();\" class=\"link\">No</div></div>";
+		}
+		else
+		{
+			deleteLog(title);
+		}
 	}
 }
 
