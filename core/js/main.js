@@ -275,6 +275,7 @@ function pollTwoPartTwo(data)
 		}
 
 		filesNew = Object.keys(data);
+		arrayToUpdate = [];
 
 		if(arrayOfData1 === null || boolForAllUpdateForce)
 		{
@@ -288,7 +289,6 @@ function pollTwoPartTwo(data)
 		{
 			var arrayOfData2 = data; 
 			var filesOld = Object.keys(arrayOfData1);
-			arrayToUpdate = [];
 			for (var i = filesNew.length - 1; i >= 0; i--)
 			{
 				if(filesOld.indexOf(filesNew[i]) > -1)
