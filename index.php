@@ -534,6 +534,13 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 		echo "var windowDisplayConfigRowCount = ".$windowDisplayConfig[0].";";
 		echo "var windowDisplayConfigColCount = ".$windowDisplayConfig[1].";";
 		echo "var borderPadding = ".$borderPadding.";";
+		$srcForLoadImage = "core/img/loading.gif";
+		if(isset($arrayOfImages))
+		{
+			$srcForLoadImage = $arrayOfImages["loading"]["src"];
+		}
+		?>
+		var srcForLoadImage = "<?php echo $srcForLoadImage; ?>";
 		?>
 		var dontNotifyVersion = "<?php echo $dontNotifyVersion;?>";
 		var currentVersion = "<?php echo $configStatic['version'];?>";

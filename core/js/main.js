@@ -1146,6 +1146,7 @@ function show(e, id)
 {
 	try
 	{
+		$("#log"+currentSelectWindow).html("<div class=\"errorMessageLog\"  ><img src=\""+srcForLoadImage+"\" width=\"50px\" height=\"auto\"></div>");
 		$(e).siblings().removeClass("active");
 		var windowNumInTitle = $("#"+id+"CurrentWindow").html();
 		if(windowNumInTitle !== "")
