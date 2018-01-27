@@ -27,12 +27,17 @@ $( document ).ready(function() {
 
     var updateRightClickAction = {action: "installUpdates();", name: "Update"};
 
+    //Pause Icon
+
+    var tmpTogglePauseOnUnfocus = {action: "switchPollType();", name: "Toggle pause on unfocus"};
+
     var gearMenu = [devToolsRightClickMenu,watchListRightClickMenu,advancedRightClickMenu,themesRightClickMenu,addonsRightClickMenu,checkForUpdateRightClickMenu];
     var deleteMenu = [clearAllLogs,clearCurrentLog,deleteCurrentLog];
     var updateMenu = [updateRightClickAction];
     var aboutMenu = [changeLogRightClickMenu,aboutRightClickMenu,whatsNewRightClickMenu];
+    var pauseMenu = [tmpTogglePauseOnUnfocus];
     
-    var menuObjectRightClick = {gear: gearMenu, deleteImage: deleteMenu, updateImage: updateMenu, aboutImage: aboutMenu};
+    var menuObjectRightClick = {gear: gearMenu, deleteImage: deleteMenu, updateImage: updateMenu, aboutImage: aboutMenu, pauseImage: pauseMenu};
     
     /*
     <li class="context-menu__item">

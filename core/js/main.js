@@ -1459,6 +1459,28 @@ function clearPollTimer()
 	pollTimer = null;
 }
 
+function switchPollType()
+{
+	if(pausePollOnNotFocus === true || pausePollOnNotFocus === "true")
+	{
+		clearInterval(pollTimer);
+		pausePollOnNotFocus = false;
+		pollTimer = Visibility.every(pollingRate, backgroundPollingRate, function () { poll(); });
+		showPopup();
+		document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Toggled off!</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Toggled off auto pause in background</div></div>";
+		hidePopup();
+	}
+	else
+	{
+		Visibility.stop(pollTimer);
+		pausePollOnNotFocus = true;
+		pollTimer = setInterval(poll, pollingRate);
+		showPopup();
+		document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Toggled on!</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Toggled on auto pause in background</div></div>";
+		hidePopup();
+	}
+}
+
 function startPauseOnNotFocus()
 {
 	/* Dont try catch visibility  */

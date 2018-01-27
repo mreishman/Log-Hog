@@ -505,6 +505,10 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 			{
 				Rightclick_ID_list.push('deleteImage');
 			}
+			if(document.getElementById('pauseImage'))
+			{
+				Rightclick_ID_list.push('pauseImage');
+			}
 			<?php
 			if($levelOfUpdate == 1 || $levelOfUpdate == 2 || $levelOfUpdate == 3)
 			{
