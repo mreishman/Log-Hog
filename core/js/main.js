@@ -695,11 +695,11 @@ function update(data) {
 							logs[id] = data[name];
 							if(enableLogging !== "false")
 							{
-								titles[id] = name + " | " + data[name+"dataForLoggingLogHog051620170928"];
+								titles[id] = name + " | " + data[name+"dataForLoggingLogHog051620170928"] + " | Size: " + formatBytes(fileSizes[files[i]]);
 							}
 							else
 							{
-								titles[id] = name;
+								titles[id] = name + " | Size: " + formatBytes(fileSizes[files[i]]);
 							}
 							
 							if(enableLogging !== "false")

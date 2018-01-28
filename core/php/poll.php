@@ -111,20 +111,17 @@ foreach($arrayToUpdate as $path)
 		if($enableLogging != "false")
 		{
 			$lineCount = "0";
-			$filesizeForFile = "0";
 			if($dataVar === "" || is_null($dataVar) || $dataVar === "Error - Maybe insufficient access to read file?" || $dataVar === "Error - File is not Readable")
 			{
 				$lineCount = "---";
-				$filesizeForFile = "---";
 			}
 			elseif($dataVar !== "This file is empty. This should not be displayed.")
 			{
 				$lineCount = shell_exec('wc -l < ' . $filename);
-				$filesizeForFile = shell_exec('wc -c < '.$filename);
 			}
 
 			$time = (microtime(true) - $time_start)*1000;
-			$response[$path."dataForLoggingLogHog051620170928"] = " Limit: ".$logSizeLimit."(".($logSizeLimit+$buffer).") ".$modifier." | Line Count: ".$lineCount." | File Size: ".$filesizeForFile." | Time: ".round($time);
+			$response[$path."dataForLoggingLogHog051620170928"] = " Limit: ".$logSizeLimit."(".($logSizeLimit+$buffer).") ".$modifier." | Line Count: ".$lineCount." | Time: ".round($time);
 		}
 		$response[$path] = $dataVar;
 	}
