@@ -235,6 +235,7 @@ $defaultConfig = array(
 	'hideEmptyLog'					=> 'false',
 	'highlightColorBG'				=> '#FFFF00',
 	'highlightColorFont'			=> '#000000',
+	'highlightNew'					=> 'true',
 	'invertMenuImages'				=> 'false',
 	'layoutVersion'					=> 1,
 	'loadingBarVersion'				=> 1,

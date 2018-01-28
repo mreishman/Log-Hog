@@ -817,7 +817,7 @@ function update(data) {
 								}
 								if(currentIdPos !== -1)
 								{
-									$("#log"+currentIdPos).html(makePretty(logs[id]));
+									$("#log"+currentIdPos).html(makePretty(id));
 									if(document.getElementById(id+"Count").innerHTML !== "")
 									{
 										document.getElementById(id+"Count").innerHTML = "";
@@ -1162,14 +1162,17 @@ function show(e, id)
 			var windowNumAsNum = parseInt(windowNumInTitle);
 			$("#log"+(windowNumAsNum-1)).html("");
 		}
-		$("#log"+currentSelectWindow).html(makePretty(logs[id]));
+		$("#log"+currentSelectWindow).html(makePretty(id));
 		
-		$('.currentWindowNum').each(function(i, obj) {
+		//window number clear
+		$('.currentWindowNum').each(function(i, obj)
+		{
 		    if(obj.innerHTML ==  ""+(currentSelectWindow+1)+". ")
 		    {
 		    	obj.innerHTML = "";
 		    }
 		});
+		//window number add
 		$("#"+id+"CurrentWindow").html(""+(currentSelectWindow+1)+". ");
 		currentPage = id;
 		logDisplayArray[currentSelectWindow] = id;
@@ -1268,10 +1271,12 @@ function getDiffLogAndLastLog(id)
 	}
 }
 
-function makePretty(text) 
+function makePretty(id) 
 {
 	try
 	{
+		var text = logs[id];
+		var count = parseInt(document.getElementById(id+"CountHidden"));
 		text = text.split("\n");
 		var returnText = "";
 		var lengthOfTextArray = text.length;
@@ -1281,7 +1286,6 @@ function makePretty(text)
 		var topPadding = filterContentLinePadding;
 		var foundOne = false;
 		var addLine = false;
-		var customStyle = "";
 		for (var i = 0; i < lengthOfTextArray; i++)
 		{
 			addLine = false;
@@ -1331,16 +1335,29 @@ function makePretty(text)
 			}
 			if(addLine)
 			{
-				customStyle = "";
+				var customClass = " class = '";
+				var customClassAdd = false;
 				if(selectedListFilterType === "content" && filterContentHighlight === "true" && getFilterTextField() !== "")
 				{
 					//check if match, and if supposed to highlight
 					if(filterContentCheck(text[i]))
 					{
-						customStyle += "class = 'highlight' ";
+						customClass += " highlight ";
+						customClassAdd = true;
 					}
 				}
-				returnText += "<div "+customStyle+" >"+text[i]+"</div>";
+				if(highlightNew === "true" && i < count)
+				{
+					customClass += " newLine ";
+					customClassAdd = true;
+				}
+				customClass += " '";
+				returnText += "<div ";
+				if(customClassAdd)
+				{
+					returnText += " "+customClass+" ";
+				}
+				returnText += " >"+text[i]+"</div>";
 			}
 		}
 		
