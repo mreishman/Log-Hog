@@ -271,6 +271,7 @@ $defaultConfig = array(
 	'scrollBarHandleHover'			=> 'background: #FFF;',
 	'scrollBarTrack'				=> 'background: #222;',
 	'scrollOnUpdate'				=> 'true',
+	'scrollEvenIfScrolled'			=> 'true',
 	'sendCrashInfoJS'				=> 'true',
 	'sendCrashInfoPHP'				=> 'true',
 	'sliceSize'						=> 500,

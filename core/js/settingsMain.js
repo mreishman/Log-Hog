@@ -5,16 +5,10 @@ function showOrHideLogTrimSubWindow()
 {
 	try
 	{
-		var valueToSeeIfShowOrHideSubWindowLogTrim = document.getElementById("logTrimOn").value;
 
-		if(valueToSeeIfShowOrHideSubWindowLogTrim === "true")
-		{
-			document.getElementById("settingsLogTrimVars").style.display = "block";
-		}
-		else
-		{
-			document.getElementById("settingsLogTrimVars").style.display = "none";
-		}
+		var valueForPopup = document.getElementById("logTrimOn");
+		var valueForVars = document.getElementById("settingsLogTrimVars");
+		showOrHideSubWindow(valueForPopup, valueForVars);
 	}
 	catch(e)
 	{
@@ -102,6 +96,21 @@ function showOrHideFilterHighlightSettings()
 	}
 }
 
+function showOrHideScrollLogSettings()
+{
+	try
+	{
+		var valueForPopup = document.getElementById("scrollOnUpdate");
+		var valueForVars = document.getElementById("scrollLogOnUpdateSettings");
+		showOrHideSubWindow(valueForPopup, valueForVars);
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
+
 function showOrHideSubWindow(valueForPopupInner, valueForVarsInner)
 {
 	try
@@ -182,6 +191,10 @@ $( document ).ready(function()
 	if(document.getElementById("filterContentHighlight"))
 	{
 		document.getElementById("filterContentHighlight").addEventListener("change", showOrHideFilterHighlightSettings, false);
+	}
+	if (document.getElementById("scrollLogOnUpdateSettings"))
+	{
+		document.getElementById("scrollLogOnUpdateSettings").addEventListener("change", showOrHideScrollLogSettings, false);
 	}
 
 	var arrayToRefresh = new Array();

@@ -941,6 +941,13 @@ function update(data) {
 							lastLogs[currentPageId] = logs[currentPageId];
 							if(scrollOnUpdate === "true")
 							{
+								var actuallyScroll = true;
+								if(scrollEvenIfScrolled === "false")
+								{
+									var logTdCalc = document.getElementById("log"+i+"Td").getBoundingClientRect();
+									var logCalc = document.getElementById("log"+i).getBoundingClientRect();
+									//do calc to see if scrolled, if scrolled don't scroll to bottom 
+								}
 								document.getElementById("log"+i+"Td").scrollTop = $("#log"+i).outerHeight();
 							}
 						}

@@ -23,11 +23,29 @@
 		<li>
 			<span class="settingsBuffer" > Scroll Log on update: </span>
 			<div class="selectDiv">
-				<select name="scrollOnUpdate">
+				<select id="scrollOnUpdate" name="scrollOnUpdate">
 					<option <?php if($scrollOnUpdate == 'true'){echo "selected";} ?> value="true">True</option>
 					<option <?php if($scrollOnUpdate == 'false'){echo "selected";} ?> value="false">False</option>
 				</select>
 			</div>
+			<div id="scrollLogOnUpdateSettings" style=" <?php if($scrollOnUpdate == 'false'){ echo 'display: none;'; }?> " >
+			<div class="settingsHeader">
+			Scroll Log On Update Settings
+			</div>
+			<div class="settingsDiv" >
+				<ul id="settingsUl">
+					<li>
+						<span class="settingsBuffer" > Scroll even if Scrolled: </span>
+						<div class="selectDiv"> 
+							<select name="scrollEvenIfScrolled">
+								<option <?php if($scrollEvenIfScrolled == 'true'){echo "selected";} ?> value="true">True</option>
+								<option <?php if($scrollEvenIfScrolled == 'false'){echo "selected";} ?> value="false">False</option>
+							</select>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
 		</li>
 		<li>
 			<span class="settingsBuffer" > Log trim:  </span>

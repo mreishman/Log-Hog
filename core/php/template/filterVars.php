@@ -34,8 +34,6 @@ Filter Settings
 				<option <?php if($filterContentHighlight == 'false'){echo "selected";} ?> value="false">False</option>
 			</select>
 		</div>
-	</li>
-	<li>
 		<div id="highlightContentSettings" style=" <?php if($filterContentHighlight == 'false'){ echo 'display: none;'; }?> " >
 			<div class="settingsHeader">
 			Filter Highlight Settings
