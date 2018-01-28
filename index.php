@@ -243,7 +243,7 @@ for ($i=0; $i < $windowDisplayConfig[0]; $i++)
 		$logDisplay .= "</a>";
 		$logDisplay .= "</div> ";
 		$logDisplay .= "</td><td style=\"padding: 0;\" >";
-		$logDisplay .= " <span id=\"log".$counter."Td\"  class=\"logTrHeight\" style=\"overflow: auto; display: block; word-break: break-all;\" > <div style=\"padding: 0; white-space: pre-wrap;\" id=\"log".$counter."\"  ></div> </span>";
+		$logDisplay .= " <span id=\"log".$counter."Td\"  class=\"logTrHeight\" style=\"overflow: auto; display: block; word-break: break-all;\" > <div style=\"padding: 0; white-space: pre-wrap;\" id=\"log".$counter."\" class=\"log\"  ></div> </span>";
 		$logDisplay .= "</td></tr></table>";
 		$logDisplay .= "</td>";
 		$logDisplayArray .= " ".$counter.": null,";
