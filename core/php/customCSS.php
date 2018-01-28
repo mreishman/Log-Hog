@@ -70,6 +70,14 @@ body
 	color: <?php echo $logFontColor; ?>;
 }
 
+.log div
+{
+	-webkit-transition: 0.5s ease-in-out;
+    -moz-transition: 0.5s ease-in-out;
+    -ms-transition: 0.5s ease-in-out;
+    -o-transition: 0.5s ease-in-out;
+}
+
 #menu
 {
 	background: <?php echo $backgroundHeaderColor?>;
