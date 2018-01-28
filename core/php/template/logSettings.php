@@ -48,6 +48,32 @@
 		</div>
 		</li>
 		<li>
+		<span class="settingsBuffer" > Temp Highlight New Lines: </span>
+		<div class="selectDiv">
+			<select id="highlightNew" name="highlightNew">
+				<option <?php if($highlightNew == 'true'){echo "selected";} ?> value="true">True</option>
+				<option <?php if($highlightNew == 'false'){echo "selected";} ?> value="false">False</option>
+			</select>
+		</div>
+		<div id="highlightNewSettings" style=" <?php if($highlightNew == 'false'){ echo 'display: none;'; }?> " >
+			<div class="settingsHeader">
+			Highlight New Lines Settings
+			</div>
+			<div class="settingsDiv" >
+				<ul id="settingsUl">
+					<li>
+						<span class="settingsBuffer" > Background: </span> 
+						<input type="text" name="highlightNewColorBG" value="<?php echo $highlightNewColorBG;?>" >
+					</li>
+					<li>
+						<span class="settingsBuffer" > Font: </span> 
+						<input type="text" name="highlightNewColorFont" value="<?php echo $highlightNewColorFont;?>" >
+					</li>
+				</ul>
+			</div>
+		</div>
+	</li>
+		<li>
 			<span class="settingsBuffer" > Log trim:  </span>
 			<div class="selectDiv">
 				<select id="logTrimOn" name="logTrimOn">

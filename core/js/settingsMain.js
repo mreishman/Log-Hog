@@ -110,6 +110,20 @@ function showOrHideScrollLogSettings()
 	}
 }
 
+function showOrHideHighlightNewLinesSettings()
+{
+	try
+	{
+		var valueForPopup = document.getElementById("highlightNew");
+		var valueForVars = document.getElementById("highlightNewSettings");
+		showOrHideSubWindow(valueForPopup, valueForVars);
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
 
 function showOrHideSubWindow(valueForPopupInner, valueForVarsInner)
 {
@@ -195,6 +209,10 @@ $( document ).ready(function()
 	if (document.getElementById("scrollLogOnUpdateSettings"))
 	{
 		document.getElementById("scrollLogOnUpdateSettings").addEventListener("change", showOrHideScrollLogSettings, false);
+	}
+	if (document.getElementById("highlightNewSettings"))
+	{
+		document.getElementById("highlightNewSettings").addEventListener("change", showOrHideHighlightNewLinesSettings, false);
 	}
 
 	var arrayToRefresh = new Array();
