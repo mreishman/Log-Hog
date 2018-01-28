@@ -125,6 +125,7 @@ if(isset($_POST['resetConfigValuesBackToDefault']))
 }
 foreach ($defaultConfig as $key => $value)
 {
+	$$key = $value;
 	if(isset($_POST[$key]))
 	{
 		$$key = $_POST[$key];
@@ -136,10 +137,6 @@ foreach ($defaultConfig as $key => $value)
 	elseif(isset($themeDefaultSettings) && array_key_exists($key, $themeDefaultSettings))
 	{
 		$$key = $themeDefaultSettings[$key];
-	}
-	else
-	{
-		$$key = $value;
 	}
 }
 
