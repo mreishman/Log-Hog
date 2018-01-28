@@ -65,7 +65,7 @@ body
 	font-family: <?php echo $fontFamily;?>;
 }
 
-#log, #firstLoad
+.log, #firstLoad
 {
 	color: <?php echo $logFontColor; ?>;
 }
