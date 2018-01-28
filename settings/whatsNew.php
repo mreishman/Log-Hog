@@ -51,10 +51,36 @@ require_once('../core/php/loadVars.php');
 				</tr>
 
 
-
 				<tr>
 				<th colspan="2" style="padding: 10px">
+					<h1>3.5</h1>
+					<h3>Keep all your tabs in a row</h3>
+				</th>
+				</tr>
+
+
+				<tr>
+				<td>
+					<ul>
+						<li>
+							...
+						</li>
+					</ul>
+				</td>
+				<td>
+					<a href="../core/img/3.5-1.png" data-lightbox="3.5" ><img src="../core/img/3.5-1.png" style="width: 45%;"></a>
+					<a href="../core/img/3.5-2.png" data-lightbox="3.5" ><img src="../core/img/3.5-2.png" style="width: 45%;"></a>
+				</td>
+				</tr>
+
+
+
+
+
+				<tr>
+				<th colspan="2" style="border-top: 1px solid white; padding: 10px">
 					<h1>3.4</h1>
+					<h3>Still Searching</h3>
 				</th>
 				</tr>
 
@@ -81,6 +107,7 @@ require_once('../core/php/loadVars.php');
 				<tr>
 				<th colspan="2" style="border-top: 1px solid white; padding: 10px">
 					<h1>3.3</h1>
+					<h3>I Can Count?</h3>
 				</th>
 				</tr>
 
@@ -117,6 +144,7 @@ require_once('../core/php/loadVars.php');
 				<tr>
 				<th colspan="2" style="border-top: 1px solid white; padding: 10px">
 					<h1>3.2</h1>
+					<h3>Found it!</h3>
 				</th>
 				</tr>
 
@@ -158,6 +186,7 @@ require_once('../core/php/loadVars.php');
 				<tr>
 				<th colspan="2" style="border-top: 1px solid white; padding: 10px">
 					<h1>3.1</h1>
+					<h3>Couldn't find it</h3>
 				</th>
 				</tr>
 
@@ -181,6 +210,7 @@ require_once('../core/php/loadVars.php');
 				<tr>
 				<th colspan="2" style="border-top: 1px solid white; padding: 10px">
 					<h1>3.0</h1>
+					<h3>Stylin'</h3>
 				</th>
 				</tr>
 
@@ -215,6 +245,7 @@ require_once('../core/php/loadVars.php');
 				<tr>
 				<th colspan="2" style="border-top: 1px solid white; padding: 10px">
 					<h1>2.3</h1>
+					<h3>Processes</h3>
 				</th>
 				</tr>
 				<!-- 2.3 -->
