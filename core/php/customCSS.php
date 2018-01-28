@@ -144,7 +144,13 @@ if(!($windowDisplayConfig[0] > 1 || $windowDisplayConfig[1] > 1)): ?>
 .highlight
 {
 	background-color: <?php echo $highlightColorBG; ?>;
-	color: <?php echo $highlightColorFont; ?>
+	color: <?php echo $highlightColorFont; ?>;
+}
+
+.newLine
+{
+	background-color: <?php echo $highlightColorBG; ?>;
+	color: <?php echo $highlightColorFont; ?>;
 }
 
 /* width */

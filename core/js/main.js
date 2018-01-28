@@ -818,6 +818,7 @@ function update(data) {
 								if(currentIdPos !== -1)
 								{
 									$("#log"+currentIdPos).html(makePretty(id));
+									removeNewHighlights("#log"+currentIdPos);
 									if(document.getElementById(id+"Count").innerHTML !== "")
 									{
 										document.getElementById(id+"Count").innerHTML = "";
@@ -1163,7 +1164,7 @@ function show(e, id)
 			$("#log"+(windowNumAsNum-1)).html("");
 		}
 		$("#log"+currentSelectWindow).html(makePretty(id));
-		
+		removeNewHighlights("#log"+currentSelectWindow);
 		//window number clear
 		$('.currentWindowNum').each(function(i, obj)
 		{
@@ -1204,6 +1205,11 @@ function show(e, id)
 	{
 		eventThrowException(e);
 	}
+}
+
+function removeNewHighlights(area)
+{
+	$(area + " div").removeClass("newLine");
 }
 
 function getDiffLogAndLastLog(id)
@@ -1337,6 +1343,12 @@ function makePretty(id)
 			{
 				var customClass = " class = '";
 				var customClassAdd = false;
+				if(highlightNew === "true" && i < count)
+				{
+					customClass += " newLine ";
+					customClassAdd = true;
+				}
+
 				if(selectedListFilterType === "content" && filterContentHighlight === "true" && getFilterTextField() !== "")
 				{
 					//check if match, and if supposed to highlight
@@ -1346,11 +1358,7 @@ function makePretty(id)
 						customClassAdd = true;
 					}
 				}
-				if(highlightNew === "true" && i < count)
-				{
-					customClass += " newLine ";
-					customClassAdd = true;
-				}
+
 				customClass += " '";
 				returnText += "<div ";
 				if(customClassAdd)
