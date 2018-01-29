@@ -191,6 +191,12 @@ for ($i=0; $i < $windowDisplayConfig[0]; $i++)
 			"title"		=>	"Delete Log"
 			)
 		);
+	$loadingImage = generateImage(
+					$arrayOfImages["loading"],
+					$imageConfig = array(
+						"height"	=>	"30px",
+						)
+					);
 	for ($j=0; $j < $windowDisplayConfig[1]; $j++)
 	{
 		$borderPadding += 2;
@@ -238,7 +244,9 @@ for ($i=0; $i < $windowDisplayConfig[0]; $i++)
 		$logDisplay .= "</a>";
 		$logDisplay .= "</div> ";
 		$logDisplay .= "</td><td onclick=\"changeCurrentSelectWindow(".$counter.")\" style=\"padding: 0;\" >";
-		$logDisplay .= " <span id=\"log".$counter."Td\"  class=\"logTrHeight\" style=\"overflow: auto; display: block; word-break: break-all;\" > <div style=\"padding: 0; white-space: pre-wrap;\" id=\"log".$counter."\" class=\"log\" ></div> </span>";
+		$logDisplay .= " <span id=\"log".$counter."Td\"  class=\"logTrHeight\" style=\"overflow: auto; display: block; word-break: break-all;\" > ";
+		$logDisplay .= " <div id=\"log".$counter."load\" style=\"display: none;\" class=\"errorMessageLog\"  >".$loadingImage."</div>";
+		$logDisplay .= " <div style=\"padding: 0; white-space: pre-wrap;\" id=\"log".$counter."\" class=\"log\" ></div> </span>";
 		$logDisplay .= "</td></tr></table>";
 		$logDisplay .= "</td>";
 		$logDisplayArray .= " ".$counter.": null,";

@@ -1156,7 +1156,10 @@ function show(e, id)
 {
 	try
 	{
-		$("#log"+currentSelectWindow).html("<div class=\"errorMessageLog\"  ><img src=\""+srcForLoadImage+"\" width=\"50px\" height=\"auto\"></div>");
+		$("#log"+currentSelectWindow).hide();
+		$("#log"+currentSelectWindow+"load").show();
+		resize();
+
 		$(e).siblings().removeClass("active");
 		var windowNumInTitle = $("#"+id+"CurrentWindow").html();
 		if(windowNumInTitle !== "")
@@ -1201,6 +1204,9 @@ function show(e, id)
 		toggleNotificationClearButton();
 		document.getElementById(id+"Count").innerHTML = "";
 		document.getElementById(id+"CountHidden").innerHTML = "";
+
+		$("#log"+currentSelectWindow+"load").hide();
+		$("#log"+currentSelectWindow).show();
 		resize();
 	}
 	catch(e)
