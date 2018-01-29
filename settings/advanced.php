@@ -152,6 +152,17 @@ $countConfig--;
 						</select>
 					</div>
 				</li>
+				<li>
+					System preference:
+					<div class="selectDiv">
+						<select name="shellOrPhp">
+  							<option <?php if($shellOrPhp == 'shellPreferred'){echo "selected";} ?> value="shellPreferred">Shell Preferred</option>
+  							<option <?php if($shellOrPhp == 'phpPreferred'){echo "selected";} ?> value="phpPreferred">Php Preferred</option>
+  							<option <?php if($shellOrPhp == 'shellOnly'){echo "selected";} ?> value="shellOnly">Shell Only</option>
+  							<option <?php if($shellOrPhp == 'phpOnly'){echo "selected";} ?> value="phpOnly">Php Only</option>
+						</select>
+					</div>
+				</li>
 			</ul>
 		</div>
 	</form>
@@ -314,15 +325,6 @@ $countConfig--;
 		</div>
 		<div class="settingsDiv" >
 			<ul id="settingsUl">
-				<li>
-					System preference:
-					<div class="selectDiv">
-						<select name="enableSystemPrefShellOrPhp">
-  							<option <?php if($enableSystemPrefShellOrPhp == 'true'){echo "selected";} ?> value="true">PHP</option>
-  							<option <?php if($enableSystemPrefShellOrPhp == 'false'){echo "selected";} ?> value="false">shell_exec</option>
-						</select>
-					</div>
-				</li>
 				<li>
 					Log Layout
 					<?php $arrayOfwindowConfigOptions = array();

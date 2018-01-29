@@ -7,7 +7,7 @@ require_once($baseModifier.'core/conf/config.php');
 require_once('configStatic.php');
 require_once('commonFunctions.php');
 
-$varsLoadLite = array("enableSystemPrefShellOrPhp", "logTrimOn", "logSizeLimit","logTrimMacBSD", "logTrimType","TrimSize","enableLogging","buffer","sliceSize");
+$varsLoadLite = array("shellOrPhp", "logTrimOn", "logSizeLimit","logTrimMacBSD", "logTrimType","TrimSize","enableLogging","buffer","sliceSize");
 
 foreach ($varsLoadLite as $varLoadLite)
 {
@@ -58,15 +58,15 @@ if(isset($_POST['arrayToUpdate']))
 				{
 					if($logTrimType == 'lines')
 					{
-						trimLogLine($filename, $logSizeLimit,$logTrimMacBSD,$buffer);
+						trimLogLine($filename, $logSizeLimit,$logTrimMacBSD,$buffer, $shellOrPhp);
 					}
 					elseif($logTrimType == 'size') //compair to trimsize value
 					{
-						trimLogSize($filename, $logSizeLimit,$logTrimMacBSD,$buffer);
+						trimLogSize($filename, $logSizeLimit,$logTrimMacBSD,$buffer, $shellOrPhp);
 					}
 				}
 				//poll logic
-				$dataVar =  tail($filename, $sliceSize, $enableSystemPrefShellOrPhp);
+				$dataVar =  tail($filename, $sliceSize, $shellOrPhp);
 			}
 			$dataVar = htmlentities($dataVar);
 
@@ -79,7 +79,7 @@ if(isset($_POST['arrayToUpdate']))
 				}
 				elseif($dataVar !== "This file is empty. This should not be displayed.")
 				{
-					$lineCount = shell_exec('wc -l < ' . $filename);
+					$lineCount = shellOrPhp($filename, $shellOrPhp);
 				}
 
 				$time = (microtime(true) - $time_start)*1000;
