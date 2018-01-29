@@ -774,12 +774,12 @@ function update(data)
 								}
 
 								var hideLogAction = {action: "tmpHideLog(\""+name+"\");", name: "Tmp Hide Log"};
-								var clearLogAction = {action: "clearLogInner(titles['"+id+"']);", name: "Clear Log"};
-								var deleteLogAction = {action: "deleteLogPopupInner(titles['"+id+"']);", name: "Delete Log"};
-								var copyNameAction = {action: "copyToClipBoard('"+shortName+"');", name: "Copy Name"};
-								var copyFullPathAction = {action: "copyToClipBoard(titles['"+id+"']);", name: "Copy Filepath"};
+								var clearLogAction = {action: "clearLogInner(titles[\""+id+"\"]);", name: "Clear Log"};
+								var deleteLogAction = {action: "deleteLogPopupInner(titles[\""+id+"\"]);", name: "Delete Log"};
+								var copyNameAction = {action: "copyToClipBoard(\""+shortName+"\");", name: "Copy Name"};
+								var copyFullPathAction = {action: "copyToClipBoard(titles[\""+id+"\"]);", name: "Copy Filepath"};
 								//add rightclick menu
-								menuObjectRightClick[id] = [hideLogAction];
+								menuObjectRightClick[id] = [hideLogAction, clearLogAction,deleteLogAction,copyNameAction,copyFullPathAction];
 								Rightclick_ID_list.push(id);
 							}
 
@@ -985,7 +985,7 @@ function copyToClipBoard(whatToCopy)
 {
 	var $temp = $("<input>");
 	$("body").append($temp);
-	$temp.val($(whatToCopy).text()).select();
+	$temp.val(filterTitle(whatToCopy)).select();
 	document.execCommand("copy");
 	$temp.remove();
 }
