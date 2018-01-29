@@ -541,7 +541,6 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 		}
 		?>
 		var srcForLoadImage = "<?php echo $srcForLoadImage; ?>";
-		?>
 		var dontNotifyVersion = "<?php echo $dontNotifyVersion;?>";
 		var currentVersion = "<?php echo $configStatic['version'];?>";
 		var enablePollTimeLogging = "<?php echo $enablePollTimeLogging;?>";

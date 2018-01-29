@@ -601,7 +601,8 @@ function endRefreshAction()
 	}
 }
 
-function update(data) {
+function update(data)
+{
 	try
 	{
 		var menu = $("#menu");
@@ -641,7 +642,8 @@ function update(data) {
 					filterOffOf = filterOffOf.toLowerCase();
 				}
 
-				if(logsToHide === array() || $.inArray(name, logsToHide) !== -1 )
+				if(logsToHide instanceof Array && (logsToHide.length === 0 || $.inArray(name, logsToHide) !== -1 ))
+				{
 					if(filterOffOf !== "")
 					{
 						if(filterTextField === "" || filterOffOf.indexOf(filterTextField) !== -1)
