@@ -3,9 +3,22 @@ $baseModifier = "../../";
 require_once($baseModifier.'local/layout.php');
 $baseUrl = $baseModifier."local/".$currentSelectedTheme."/";
 require_once($baseUrl.'conf/config.php');
+require_once($baseModifier.'core/conf/config.php');
 require_once('configStatic.php');
 require_once('updateProgressFile.php');
 require_once('commonFunctions.php');
+
+$varsLoadLite = array("watchList");
+
+foreach ($varsLoadLite as $varLoadLite)
+{
+	$$varLoadLite = $defaultConfig[$varLoadLite];
+	if(array_key_exists($varLoadLite, $config))
+	{
+		$$varLoadLite = $config[$varLoadLite];
+	}
+}
+
 $response = array();
 $currentVersionPost = $configStatic["version"];
 if(isset($_POST['currentVersion']))
@@ -25,7 +38,7 @@ if(array_key_exists('percent', $updateProgress) && ($updateProgress['percent'] !
 	exit();
 }
 
-foreach($config['watchList'] as $path => $filter)
+foreach($watchList as $path => $filter)
 {
 	if(is_dir($path))
 	{
