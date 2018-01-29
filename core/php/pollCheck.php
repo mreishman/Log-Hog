@@ -8,7 +8,7 @@ require_once('configStatic.php');
 require_once('updateProgressFile.php');
 require_once('commonFunctions.php');
 
-$varsLoadLite = array("shellOrPhp","watchList");
+$varsLoadLite = array("watchList");
 
 foreach ($varsLoadLite as $varLoadLite)
 {
