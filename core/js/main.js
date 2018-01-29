@@ -773,14 +773,13 @@ function update(data)
 									}
 								}
 
+								var hideLogAction = {action: "tmpHideLog(\""+name+"\");", name: "Tmp Hide Log"};
+								var clearLogAction = {action: "clearLogInner(titles['"+id+"']);", name: "Clear Log"};
+								var deleteLogAction = {action: "deleteLogPopupInner(titles['"+id+"']);", name: "Delete Log"};
+								var copyNameAction = {action: "copyToClipBoard('"+shortName+"');", name: "Copy Name"};
+								var copyFullPathAction = {action: "copyToClipBoard(titles['"+id+"']);", name: "Copy Filepath"};
 								//add rightclick menu
-								menuObjectRightClick[id] = [
-									{action: "tmpHideLog('"+name+"');", name: "Tmp Hide Log"},
-									{action: "clearLogInner(titles['"+id+"']);", name: "Clear Log"},
-									{action: "deleteLogPopupInner(titles['"+id+"']);", name: "Delete Log"},
-									{action: "copyToClipBoard('"+shortName+"');", name: "Copy Name"},
-									{action: "copyToClipBoard(titles['"+id+"']);", name: "Copy Filepath"}
-								];
+								menuObjectRightClick[id] = [hideLogAction];
 								Rightclick_ID_list.push(id);
 							}
 
@@ -979,6 +978,7 @@ function tmpHideLog(name)
 {
 	hideLogByName(name);
 	logsToHide.push(name);
+	resize();
 }
 
 function copyToClipBoard(whatToCopy)
