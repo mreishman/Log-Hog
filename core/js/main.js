@@ -448,34 +448,65 @@ function arrayOfDataMainDataFilter(data)
 	}
 }
 
+function firstLoadEndAction()
+{
+	firstLoad = false;
+	document.getElementById("firstLoad").style.display = "none";
+	document.getElementById("searchType").disabled = false;
+	document.getElementById("searchFieldInput").disabled = false;
+	document.getElementById("log").style.display = "table";
+	var windows = Object.keys(logDisplayArray);
+	var lengthOfWindows = windows.length;
+	for(var i = 0; i < lengthOfWindows; i++)
+	{
+		if(logDisplayArray[i] !== null)
+		{
+			var logsCheck = Object.keys(logs);
+			var lengthOfLogsCheck = logsCheck.length;
+			for(var j = 0; j < lengthOfLogsCheck; j++)
+			{
+				if(logDisplayArray[i] === logsCheck[j])
+				{
+					document.getElementById("log"+i+"Td").scrollTop = $("#log"+i).outerHeight();
+				}
+			}
+		}
+	}
+}
+
+function pollTimeLogEndAction()
+{
+	t1 = performance.now();
+	document.getElementById("loggingTimerPollRate").innerText = "Ajax refresh took    "+addPaddingToNumber(Math.round(t2 - t0))+":"+addPaddingToNumber(Math.round(t3 - t2),2)+":"+addPaddingToNumber(Math.round(t1 - t3))+"    " + addPaddingToNumber(Math.round(t1 - t0)) + "/" + addPaddingToNumber(pollingRate) +"("+addPaddingToNumber(parseInt(pollingRate)*counterForPoll)+") milliseconds.";
+	document.getElementById("loggingTimerPollRate").style.color = "";
+	counterForPoll = 0;
+	var time = Math.round(t1-t0);
+	var rate = parseInt(pollingRate);
+	if(time > rate)
+	{
+		if(time > (2*rate))
+		{
+			document.getElementById("loggingTimerPollRate").style.color = "#ff0000";
+		}
+		else
+		{
+			document.getElementById("loggingTimerPollRate").style.color = "#ffff00";
+		}
+		
+	}
+	else
+	{
+		document.getElementById("loggingTimerPollRate").style.color = "#00ff00";
+	}
+}
+
 function afterPollFunctionComplete()
 {
 	try
 	{
 		if(firstLoad)
 		{
-			firstLoad = false;
-			document.getElementById("firstLoad").style.display = "none";
-			document.getElementById("searchType").disabled = false;
-			document.getElementById("searchFieldInput").disabled = false;
-			document.getElementById("log").style.display = "table";
-			var windows = Object.keys(logDisplayArray);
-			var lengthOfWindows = windows.length;
-			for(var i = 0; i < lengthOfWindows; i++)
-			{
-				if(logDisplayArray[i] !== null)
-				{
-					var logsCheck = Object.keys(logs);
-					var lengthOfLogsCheck = logsCheck.length;
-					for(var j = 0; j < lengthOfLogsCheck; j++)
-					{
-						if(logDisplayArray[i] === logsCheck[j])
-						{
-							document.getElementById("log"+i+"Td").scrollTop = $("#log"+i).outerHeight();
-						}
-					}
-				}
-			}
+			firstLoadEndAction();
 		}
 		if(refreshing)
 		{
@@ -484,26 +515,7 @@ function afterPollFunctionComplete()
 		polling = false;
 		if(enablePollTimeLogging !== "false")
 		{
-			t1 = performance.now();
-			document.getElementById("loggingTimerPollRate").innerText = "Ajax refresh took    "+addPaddingToNumber(Math.round(t2 - t0))+":"+addPaddingToNumber(Math.round(t3 - t2),2)+":"+addPaddingToNumber(Math.round(t1 - t3))+"    " + addPaddingToNumber(Math.round(t1 - t0)) + "/" + addPaddingToNumber(pollingRate) +"("+addPaddingToNumber(parseInt(pollingRate)*counterForPoll)+") milliseconds.";
-			document.getElementById("loggingTimerPollRate").style.color = "";
-			counterForPoll = 0;
-			if(Math.round(t1-t0) > parseInt(pollingRate))
-			{
-				if(Math.round(t1-t0) > (2*parseInt(pollingRate)))
-				{
-					document.getElementById("loggingTimerPollRate").style.color = "#ff0000";
-				}
-				else
-				{
-					document.getElementById("loggingTimerPollRate").style.color = "#ffff00";
-				}
-				
-			}
-			else
-			{
-				document.getElementById("loggingTimerPollRate").style.color = "#00ff00";
-			}
+			pollTimeLogEndAction();
 		}
 	}
 	catch(e)
