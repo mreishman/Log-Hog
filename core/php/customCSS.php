@@ -63,6 +63,7 @@ body
 	background: <?php echo $backgroundColor?>;
 	color: <?php echo $mainFontColor; ?>;
 	font-family: <?php echo $fontFamily;?>;
+	filter: brightness(<?php echo $overallBrightness; ?>%);
 }
 
 .log, #firstLoad

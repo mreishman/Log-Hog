@@ -54,7 +54,7 @@ require_once('../core/php/loadVars.php');
 				<tr>
 				<th colspan="2" style="padding: 10px">
 					<h1>3.5</h1>
-					<h3>Keep all your tabs in a row</h3>
+					<h3>Settings Update 2</h3>
 				</th>
 				</tr>
 

@@ -252,6 +252,7 @@ $defaultConfig = array(
 	'logTrimType'					=> 'lines',
 	'mainFontColor'					=> '#FFFFFF',
 	'notificationCountVisible'		=> 'true',
+	'overallBrightness'				=> 100,
 	'pauseOnNotFocus'				=> 'true',
 	'pausePoll'						=> 'false',
 	'pollingRate'					=> 500,
