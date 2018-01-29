@@ -63,13 +63,25 @@ require_once('../core/php/loadVars.php');
 				<td>
 					<ul>
 						<li>
-							...
+							Option to change color of highlight
+						</li>
+						<li>
+							On hover option to change to full path for log titles
+						</li>
+						<li>
+							Highlights new lines of logs (for 1 sec) (with options to change color)
+						</li>
+						<li>
+							Added right click menus for log titles and pause icon
 						</li>
 					</ul>
 				</td>
 				<td>
 					<a href="../core/img/3.5-1.png" data-lightbox="3.5" ><img src="../core/img/3.5-1.png" style="width: 45%;"></a>
 					<a href="../core/img/3.5-2.png" data-lightbox="3.5" ><img src="../core/img/3.5-2.png" style="width: 45%;"></a>
+					<br>
+					<a href="../core/img/3.5-3.png" data-lightbox="3.5" ><img src="../core/img/3.5-3.png" style="width: 45%;"></a>
+					<a href="../core/img/3.5-4.png" data-lightbox="3.5" ><img src="../core/img/3.5-4.png" style="width: 45%;"></a>
 				</td>
 				</tr>
 

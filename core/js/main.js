@@ -845,8 +845,24 @@ function update(data)
 									}
 								}
 
+								var updateHtml = true;
+								if(currentIdPos === -1)
+								{
+									updateHtml = false
+								}
+								else if(scrollOnUpdate === "true" && scrollEvenIfScrolled === "false")
+								{
+									var logTdCalc = document.getElementById("log"+currentIdPos+"Td").getBoundingClientRect();
+									var logCalc = document.getElementById("log"+currentIdPos).getBoundingClientRect();
+									//do calc to see if scrolled, if scrolled don't scroll to bottom 
+									if(logCalc.bottom !== logTdCalc.bottom)
+									{
+										updateHtml = false;
+									}
+								}
 
-								if(currentIdPos !== -1)
+
+								if(updateHtml)
 								{
 									$("#log"+currentIdPos).html(makePretty(id));
 									fadeHighlight(currentIdPos);
@@ -952,8 +968,15 @@ function update(data)
 									var logTdCalc = document.getElementById("log"+i+"Td").getBoundingClientRect();
 									var logCalc = document.getElementById("log"+i).getBoundingClientRect();
 									//do calc to see if scrolled, if scrolled don't scroll to bottom 
+									if(logCalc.bottom !== logTdCalc.bottom)
+									{
+										actuallyScroll = false;
+									}
 								}
-								document.getElementById("log"+i+"Td").scrollTop = $("#log"+i).outerHeight();
+								if(actuallyScroll)
+								{
+									document.getElementById("log"+i+"Td").scrollTop = $("#log"+i).outerHeight();
+								}
 							}
 						}
 						break;
