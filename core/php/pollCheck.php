@@ -8,7 +8,7 @@ require_once('configStatic.php');
 require_once('updateProgressFile.php');
 require_once('commonFunctions.php');
 
-$varsLoadLite = array("shellOrPhp");
+$varsLoadLite = array("shellOrPhp", "watchList");
 
 foreach ($varsLoadLite as $varLoadLite)
 {
@@ -68,7 +68,7 @@ function sizeFilesInDir($path, $filter, $response, $shellOrPhp)
 	return $response;
 }
 
-foreach($config['watchList'] as $path => $filter)
+foreach($watchList as $path => $filter)
 {
 	if(is_dir($path))
 	{
