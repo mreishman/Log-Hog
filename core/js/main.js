@@ -1001,7 +1001,7 @@ function tmpHideLog(name)
 {
 	hideLogByName(name);
 	logsToHide.push(name);
-	resize();
+	update(arrayOfDataMain);
 }
 
 function copyToClipBoard(whatToCopy)
