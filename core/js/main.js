@@ -775,12 +775,13 @@ function update(data)
 
 								//add rightclick menu
 								menuObjectRightClick[id] = [
-									{action: "tmpHideLog("+name+");", name: "Tmp Hide Log"},
-									{action: "clearLogInner(titles['"+id+"'']);", name: "Clear Log"},
-									{action: "deleteLogPopupInner(titles['"+id+"'']);", name: "Delete Log"},
-									{action: "copyToClipBoard("+shortName+");", name: "Copy Name"},
-									{action: "copyToClipBoard(titles['"+id+"'']);", name: "Copy Filepath"}
-								]
+									{action: "tmpHideLog('"+name+"');", name: "Tmp Hide Log"},
+									{action: "clearLogInner(titles['"+id+"']);", name: "Clear Log"},
+									{action: "deleteLogPopupInner(titles['"+id+"']);", name: "Delete Log"},
+									{action: "copyToClipBoard('"+shortName+"');", name: "Copy Name"},
+									{action: "copyToClipBoard(titles['"+id+"']);", name: "Copy Filepath"}
+								];
+								Rightclick_ID_list.push(id);
 							}
 
 							updated = false;
@@ -984,7 +985,7 @@ function copyToClipBoard(whatToCopy)
 {
 	var $temp = $("<input>");
 	$("body").append($temp);
-	$temp.val($(element).text()).select();
+	$temp.val($(whatToCopy).text()).select();
 	document.execCommand("copy");
 	$temp.remove();
 }

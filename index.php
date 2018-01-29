@@ -487,7 +487,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 	
 	<div id="storage">
 		<div class="menuItem">
-			<a title="{{title}}" class="{{id}}Button {{class}} index" onclick="show(this, '{{id}}')">
+			<a title="{{title}}" id="{{id}}" class="{{id}}Button {{class}} index" onclick="show(this, '{{id}}')">
 				<span class="currentWindowNum" id="{{id}}CurrentWindow"></span>
 				{{title}}
 				<span id="{{id}}Count" class="menuCounter"></span>
