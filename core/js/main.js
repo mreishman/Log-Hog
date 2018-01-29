@@ -1556,7 +1556,6 @@ function switchPollType()
 		pollTimer = Visibility.every(pollingRate, backgroundPollingRate, function () { poll(); });
 		showPopup();
 		document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Toggled off!</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Toggled off auto pause in background</div></div>";
-		hidePopup();
 	}
 	else
 	{
@@ -1565,8 +1564,8 @@ function switchPollType()
 		pollTimer = setInterval(poll, pollingRate);
 		showPopup();
 		document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Toggled on!</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Toggled on auto pause in background</div></div>";
-		hidePopup();
 	}
+	setTimeout(function(){ hidePopup(); }, 500);
 }
 
 function startPauseOnNotFocus()
@@ -1581,7 +1580,7 @@ function checkIfPageHidden()
 {
 	try
 	{
-		if(isPageHidden())
+		if(isPageHidden() && pausePollOnNotFocus)
 		{
 			//hidden
 			if(!pausePoll)
