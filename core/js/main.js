@@ -817,10 +817,39 @@ function update(data)
 										break;
 									}
 								}
+
+								var diff = getDiffLogAndLastLog(id);
+								if(diff !== "")
+								{
+									if(document.getElementById(id+"Count").innerHTML !== "" )
+									{
+										var count = document.getElementById(id+"CountHidden").innerHTML;
+										diff = parseInt(count) + diff;
+										if(diff > sliceSize)
+										{
+											diff = sliceSize;
+										}
+									}
+								}
+								var diffNew = diff;
+								if(diff !== "")
+								{
+									diffNew = "("+diff+")";
+								}
+								if(document.getElementById(id+"CountHidden").innerHTML !== diff)
+								{
+									document.getElementById(id+"CountHidden").innerHTML = diff;
+									if(notificationCountVisible === "true" && diff !== 0)
+									{
+										document.getElementById(id+"Count").innerHTML = diffNew;
+									}
+								}
+
+
 								if(currentIdPos !== -1)
 								{
 									$("#log"+currentIdPos).html(makePretty(id));
-									removeNewHighlights("#log"+currentIdPos);
+									fadeHighlight(currentIdPos);
 									if(document.getElementById(id+"Count").innerHTML !== "")
 									{
 										document.getElementById(id+"Count").innerHTML = "";
@@ -834,33 +863,6 @@ function update(data)
 										if(!$("#menu a." + id + "Button").hasClass("updated"))
 										{
 											$("#menu a." + id + "Button").addClass("updated");
-										}
-
-										if(notificationCountVisible === "true")
-										{
-											var diff = getDiffLogAndLastLog(id);
-											if(diff !== "")
-											{
-												if(document.getElementById(id+"Count").innerHTML !== "" )
-												{
-													var count = document.getElementById(id+"CountHidden").innerHTML;
-													diff = parseInt(count) + diff;
-													if(diff > sliceSize)
-													{
-														diff = sliceSize;
-													}
-												}
-											}
-											var diffNew = diff;
-											if(diff !== "")
-											{
-												diffNew = "("+diff+")";
-											}
-											if(document.getElementById(id+"Count").innerHTML !== diffNew)
-											{
-												document.getElementById(id+"CountHidden").innerHTML = diff;
-												document.getElementById(id+"Count").innerHTML = diffNew;
-											}
 										}
 									}
 								}
@@ -1152,6 +1154,11 @@ function removeLogByName(name)
 	
 }
 
+function fadeHighlight(id)
+{
+	setTimeout(function(){ removeNewHighlights("#log"+id); }, 30);
+}
+
 function show(e, id) 
 {
 	try
@@ -1169,7 +1176,7 @@ function show(e, id)
 			$("#log"+(windowNumAsNum-1)).html("");
 		}
 		$("#log"+currentSelectWindow).html(makePretty(id));
-		removeNewHighlights("#log"+currentSelectWindow);
+		fadeHighlight(currentSelectWindow);
 		//window number clear
 		$('.currentWindowNum').each(function(i, obj)
 		{
@@ -1200,13 +1207,18 @@ function show(e, id)
 			}
 		}
 		$("#title"+currentSelectWindow).html(titles[id]);
+
+		$("#log"+currentSelectWindow+"load").hide();
+		$("#log"+currentSelectWindow).show();
+
+		resize();
+
 		document.getElementById("log"+currentSelectWindow+"Td").scrollTop = $("#log"+currentSelectWindow).outerHeight();
 		toggleNotificationClearButton();
 		document.getElementById(id+"Count").innerHTML = "";
 		document.getElementById(id+"CountHidden").innerHTML = "";
 
-		$("#log"+currentSelectWindow+"load").hide();
-		$("#log"+currentSelectWindow).show();
+		
 		resize();
 	}
 	catch(e)
@@ -1290,7 +1302,15 @@ function makePretty(id)
 	try
 	{
 		var text = logs[id];
-		var count = parseInt(document.getElementById(id+"CountHidden"));
+		var count = document.getElementById(id+"CountHidden").innerHTML;
+		if(count !== "")
+		{
+			count = parseInt(count);
+		}
+		else
+		{
+			count = 0;
+		}
 		text = text.split("\n");
 		var returnText = "";
 		var lengthOfTextArray = text.length;
@@ -1351,7 +1371,7 @@ function makePretty(id)
 			{
 				var customClass = " class = '";
 				var customClassAdd = false;
-				if(highlightNew === "true" && i < count)
+				if(highlightNew === "true" && ((i + count + 1) > lengthOfTextArray))
 				{
 					customClass += " newLine ";
 					customClassAdd = true;

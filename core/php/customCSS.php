@@ -157,8 +157,8 @@ if(!($windowDisplayConfig[0] > 1 || $windowDisplayConfig[1] > 1)): ?>
 
 .newLine
 {
-	background-color: <?php echo $highlightColorBG; ?>;
-	color: <?php echo $highlightColorFont; ?>;
+	background-color: <?php echo $highlightNewColorBG; ?>;
+	color: <?php echo $highlightNewColorFont; ?>;
 }
 
 /* width */
