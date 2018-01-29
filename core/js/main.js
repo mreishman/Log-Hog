@@ -642,7 +642,7 @@ function update(data)
 					filterOffOf = filterOffOf.toLowerCase();
 				}
 
-				if(logsToHide instanceof Array && (logsToHide.length === 0 || $.inArray(name, logsToHide) !== -1 ))
+				if(logsToHide instanceof Array && (logsToHide.length === 0 || $.inArray(name, logsToHide) === -1 ))
 				{
 					if(filterOffOf !== "")
 					{
