@@ -864,13 +864,7 @@ function update(data)
 								}
 								else if(scrollOnUpdate === "true" && scrollEvenIfScrolled === "false")
 								{
-									var logTdCalc = document.getElementById("log"+currentIdPos+"Td").getBoundingClientRect();
-									var logCalc = document.getElementById("log"+currentIdPos).getBoundingClientRect();
-									//do calc to see if scrolled, if scrolled don't scroll to bottom 
-									if(logCalc.bottom !== logTdCalc.bottom)
-									{
-										updateHtml = false;
-									}
+									updateHtml = scrollPauseLogic(currentIdPos);
 								}
 
 
@@ -977,13 +971,7 @@ function update(data)
 								var actuallyScroll = true;
 								if(scrollEvenIfScrolled === "false")
 								{
-									var logTdCalc = document.getElementById("log"+i+"Td").getBoundingClientRect();
-									var logCalc = document.getElementById("log"+i).getBoundingClientRect();
-									//do calc to see if scrolled, if scrolled don't scroll to bottom 
-									if(logCalc.bottom !== logTdCalc.bottom)
-									{
-										actuallyScroll = false;
-									}
+									actuallyScroll = scrollPauseLogic(i);
 								}
 								if(actuallyScroll)
 								{
@@ -1007,6 +995,18 @@ function update(data)
 	{
 		eventThrowException(e);
 	}
+}
+
+function scrollPauseLogic(id)
+{
+	var logTdCalc = document.getElementById("log"+id+"Td").getBoundingClientRect();  //const
+	var logCalc = document.getElementById("log"+id).getBoundingClientRect(); //changes
+	//do calc to see if scrolled, if scrolled don't scroll to bottom 
+	if(logCalc.bottom > (logTdCalc.bottom * 1.05))
+	{
+		return false;
+	}
+	return true;
 }
 
 function tmpHideLog(name)
