@@ -409,7 +409,7 @@ else
 			"alt"			=>	"Search",
 			"src"			=>	"",
 			"title"			=>	"Search",
-			"baseName"		=>	"Search.png"
+			"baseName"		=>	"search.png"
 		),
 		"seleniumMonitor"	=> array(
 			"alt"			=>	"Selenium Monitor",
