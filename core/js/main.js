@@ -1102,6 +1102,11 @@ function clearNotifications()
 			{
 				arrayOfCounts[clearNotifCountTwo].innerHTML = "";
 			}
+			var arrayOfCounts = $("#menu a .menuCounterHidden");
+			for (var clearNotifCountTwo = 0; clearNotifCountTwo < arrayOfCounts.length; clearNotifCountTwo++)
+			{
+				arrayOfCounts[clearNotifCountTwo].innerHTML = "";
+			}
 		}
 		refreshLastLogsArray();
 		document.getElementById("clearNotificationsImage").style.display = "none";

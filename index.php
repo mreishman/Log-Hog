@@ -491,7 +491,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 				<span class="currentWindowNum" id="{{id}}CurrentWindow"></span>
 				{{title}}
 				<span id="{{id}}Count" class="menuCounter"></span>
-				<span id="{{id}}CountHidden" style="display: none;"></span>
+				<span id="{{id}}CountHidden" class="menuCounterHidden" style="display: none;"></span>
 			</a>
 		</div>
 	</div>
