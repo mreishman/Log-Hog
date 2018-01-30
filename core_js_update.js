@@ -101,9 +101,7 @@ function showPopupForUpdate(urlSend,whatAmIUpdating)
 
 		//Update needed
 		showPopup();
-		var 
-		
-		= "<div class='settingsHeader' >New Version of "+whatAmIUpdating+" Available!</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Version "+dataFromJSON.versionNumber+" is now available!</div><div class='link' onclick='installUpdates(\""+urlSend+"\");' style='margin-left:74px; margin-right:50px;margin-top:25px;'>Update Now</div>";
+		var innerHtmlPopup = "<div class='settingsHeader' >New Version of "+whatAmIUpdating+" Available!</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Version "+dataFromJSON.versionNumber+" is now available!</div><div class='link' onclick='installUpdates(\""+urlSend+"\");' style='margin-left:74px; margin-right:50px;margin-top:25px;'>Update Now</div>";
 		if(dontNotifyVersionNotSet !== "")
 		{
 			innerHtmlPopup += "Don't notify me about this update again</div><input id='dontShowPopuForThisUpdateAgain'";
