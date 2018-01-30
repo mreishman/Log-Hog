@@ -459,13 +459,13 @@ function firstLoadEndAction()
 	var lengthOfWindows = windows.length;
 	for(var i = 0; i < lengthOfWindows; i++)
 	{
-		if(logDisplayArray[i] !== null)
+		if(logDisplayArray[i]["id"] !== null)
 		{
 			var logsCheck = Object.keys(logs);
 			var lengthOfLogsCheck = logsCheck.length;
 			for(var j = 0; j < lengthOfLogsCheck; j++)
 			{
-				if(logDisplayArray[i] === logsCheck[j])
+				if(logDisplayArray[i]["id"] === logsCheck[j])
 				{
 					document.getElementById("log"+i+"Td").scrollTop = $("#log"+i).outerHeight();
 				}
@@ -626,6 +626,7 @@ function update(data)
 		var initialized = $("#menu a").length !== 0;
 		var folderNamePrev = "?-1";
 		var folderNameCount = -1;
+
 		for(var i = 0; i !== stop; i++)
 		{
 			if(files[i].indexOf("dataForLoggingLogHog051620170928") === -1)
@@ -823,7 +824,7 @@ function update(data)
 								var currentIdPos = -1;
 								for(var j = 0; j < lengthOfWindows; j++)
 								{
-									if(id === logDisplayArray[j])
+									if(id === logDisplayArray[j]["id"])
 									{
 										currentIdPos = j;
 										break;
@@ -865,6 +866,7 @@ function update(data)
 								else if(scrollOnUpdate === "true" && scrollEvenIfScrolled === "false")
 								{
 									updateHtml = scrollPauseLogic(currentIdPos);
+									logDisplayArray[currentIdPos]["scroll"] = updateHtml;
 								}
 
 
@@ -954,29 +956,21 @@ function update(data)
 		var lengthOfWindows = windows.length;
 		for(var i = 0; i < lengthOfWindows; i++)
 		{
-			if(logDisplayArray[i] !== null)
+			if(logDisplayArray[i]["id"] !== null)
 			{
 				var logsCheck = Object.keys(logs);
 				var lengthOfLogsCheck = logsCheck.length;
 				for(var j = 0; j < lengthOfLogsCheck; j++)
 				{
-					if(logDisplayArray[i] === logsCheck[j])
+					if(logDisplayArray[i]["id"] === logsCheck[j])
 					{
 						var currentPageId = logsCheck[j];
 						if(logs[currentPageId] !== lastLogs[currentPageId])
 						{
 							lastLogs[currentPageId] = logs[currentPageId];
-							if(scrollOnUpdate === "true")
+							if(scrollOnUpdate === "true" && logDisplayArray[i]["scroll"])
 							{
-								var actuallyScroll = true;
-								if(scrollEvenIfScrolled === "false")
-								{
-									actuallyScroll = scrollPauseLogic(i);
-								}
-								if(actuallyScroll)
-								{
-									document.getElementById("log"+i+"Td").scrollTop = $("#log"+i).outerHeight();
-								}
+								document.getElementById("log"+i+"Td").scrollTop = $("#log"+i).outerHeight();
 							}
 						}
 						break;
@@ -1002,7 +996,7 @@ function scrollPauseLogic(id)
 	var logTdCalc = document.getElementById("log"+id+"Td").getBoundingClientRect();  //const
 	var logCalc = document.getElementById("log"+id).getBoundingClientRect(); //changes
 	//do calc to see if scrolled, if scrolled don't scroll to bottom 
-	if(logCalc.bottom > (logTdCalc.bottom * 1.05))
+	if(logCalc.bottom > logTdCalc.bottom)
 	{
 		return false;
 	}
@@ -1224,18 +1218,18 @@ function show(e, id)
 		//window number add
 		$("#"+id+"CurrentWindow").html(""+(currentSelectWindow+1)+". ");
 		currentPage = id;
-		logDisplayArray[currentSelectWindow] = id;
+		logDisplayArray[currentSelectWindow]["id"] = id;
 		var windows = Object.keys(logDisplayArray);
 		var lengthOfWindows = windows.length;
 		for(var i = 0; i < lengthOfWindows; i++)
 		{
-			if(logDisplayArray[i] !== null)
+			if(logDisplayArray[i]["id"] !== null)
 			{
 				var logsCheck = Object.keys(logs);
 				var lengthOfLogsCheck = logsCheck.length;
 				for(var j = 0; j < lengthOfLogsCheck; j++)
 				{
-					if(logDisplayArray[i] === logsCheck[j])
+					if(logDisplayArray[i]["id"] === logsCheck[j])
 					{
 						$("."+logsCheck[j]+"Button").addClass("active").removeClass("updated");
 					}

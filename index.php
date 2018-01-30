@@ -249,7 +249,7 @@ for ($i=0; $i < $windowDisplayConfig[0]; $i++)
 		$logDisplay .= " <div style=\"padding: 0; white-space: pre-wrap;\" id=\"log".$counter."\" class=\"log\" ></div> </span>";
 		$logDisplay .= "</td></tr></table>";
 		$logDisplay .= "</td>";
-		$logDisplayArray .= " ".$counter.": null,";
+		$logDisplayArray .= " ".$counter.": {id: null, scroll: true } ,";
 	}
 	$logDisplay .= "</tr>";
 }
