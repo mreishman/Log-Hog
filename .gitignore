@@ -39,3 +39,4 @@ local/default/conf/config5.php
 monitor/*
 search/*
 local/default/img/seleniumMonitor.png
+local/default/img/notificationClear.png

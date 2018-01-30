@@ -80,48 +80,16 @@ require_once('../core/php/updateCheck.php');
 			</ul>
 		</div>
 	</form>
-	<form id="devAdvanced3" action="../core/php/performSettingsInstallUpdateAction.php" method="post">
-		<div class="settingsHeader">
-			Update Progress File Settings
-			<div class="settingsHeaderButtons">
-				<?php echo addResetButton("devAdvanced3");?>
-				<button onclick="displayLoadingPopup();" >Save Changes</button>
-			</div>
-		</div>
-		<div class="settingsDiv" >
-			<ul id="settingsUl">
-				<li>
-				(Default values below)
-				</li>
-				<li>
-					<span class="settingsBuffer" >  Current Step:  </span> <input type="text" style="width: 400px;"  name="status" value="Finished Updating to " >
-				</li>
-				<li>
-					<span class="settingsBuffer" >  Action:  </span> <input type="text" style="width: 400px;"  name="actionSave" value="finishedUpdate" >
-				</li>
-				<li>
-					<span class="settingsBuffer" >  Percent:  </span> <input type="text" style="width: 400px;"  name="percent" value=0 >
-				</li>
-				<li style="display: none;">
-					<input type="text" name="typeOfProgress" value="updateProgressFileNext.php" >
-					<input type="text" name="pathToFile" value="">
-					<input type="text" name="action" value="updateProgressFile">
-				</li>
-			</ul>
-		</div>
-	</form>
-	<!-- 
 	<div class="settingsHeader">
-			Edit Files
+			Files
 		</div>
 		<div class="settingsDiv" >
 			<ul id="settingsUl">
 				<li>
-				Insert Links Here
+					<a class="link" href="editFiles.php" >View Files</a>
 				</li>
 			</ul>
 		</div>
-	-->
 	</div>
 	<?php readfile('../core/html/popup.html') ?>	
 </body>

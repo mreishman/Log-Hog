@@ -53,6 +53,8 @@ require_once('../core/php/updateCheck.php');
 					<p>Includes files from the following project: </p>
 
 					<p> <a href="https://github.com/ai/visibilityjs">https://github.com/ai/visibilityjs </a> </p> 
+
+					<p> <a href="https://loading.io/progress/">https://loading.io/progress/</a></p>
 				</li>
 			</ul>
 		</div>

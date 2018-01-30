@@ -46,6 +46,15 @@ Menu Settings
 			</select>
 		</div>
 	</li>
+	<li>
+		<span class="settingsBuffer" > Notification Count </span>
+		<div class="selectDiv">
+			<select name="notificationCountVisible">
+				<option <?php if($notificationCountVisible == 'true'){echo "selected";} ?> value="true">Enabled</option>
+				<option <?php if($notificationCountVisible == 'false'){echo "selected";} ?> value="false">Disabled</option>
+			</select>
+		</div>
+	</li>
 </ul>
 </div>
 </form>

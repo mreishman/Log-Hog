@@ -2,14 +2,12 @@ var devBranchData;
 var savedInnerHtmlDevBranch;
 var savedInnerHtmlDevAdvanced2;
 var devAdvanced2Data;
-var savedInnerHtmlDevAdvanced3;
-var devAdvanced3Data;
 var titleOfPage = "Dev";
 var timeoutVar;
 
 function checkIfChanges()
 {
-	if(	checkForChangesArray(["devBranch","devAdvanced2","devAdvanced3"]))
+	if(	checkForChangesArray(["devBranch","devAdvanced2"]))
 	{
 		return true;
 	}
@@ -39,9 +37,7 @@ function newVersionNumberCheck()
 		$.getJSON("../core/php/configStaticCheck.php", {}, function(data) 
 		{
 			var dataExt = document.getElementById("versionNumberConfigStaticInput").value;
-			console.log(dataExt + " === " + data['version']);
-			console.log(dataExt === data['version']);
-			if(dataExt === data['version'])
+			if(dataExt === data["version"])
 			{
 				clearInterval(timeoutVar);
 				saveSuccess();
@@ -57,6 +53,6 @@ function newVersionNumberCheck()
 
 $( document ).ready(function() 
 {
-	refreshArrayObjectOfArrays(["devBranch","devAdvanced2","devAdvanced3"]);
+	refreshArrayObjectOfArrays(["devBranch","devAdvanced2"]);
 	setInterval(poll, 100);
 });

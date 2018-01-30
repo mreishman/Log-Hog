@@ -9,9 +9,9 @@ $baseUrl = "../../local/".$currentSelectedTheme."/";
 if($restoreTo > 1)
 {
 	for ($i=1; $i < $restoreTo; $i++)
-	{ 
+	{
 		unlink($baseUrl."conf/config".$i.".php");
-	}	
+	}
 }
 
 //move current restore to to tmp file
@@ -26,7 +26,7 @@ rename($baseUrl."conf/config.php", $baseUrl."conf/config1.php");
 
 rename($baseUrl."conf/configTmp.php", $baseUrl."conf/config.php");
 
-//move files after current restore (if any) back up to below previous restore to 
+//move files after current restore (if any) back up to below previous restore to
 
 $newCount = 1;
 $boolForLoop = file_exists($baseUrl."conf/config".($restoreTo+$newCount).".php");

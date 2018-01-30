@@ -1,4 +1,5 @@
 <?php
+setCookieRedirect();
 require_once('../setup/setupProcessFile.php');
 require_once("../core/php/customCSS.php");
 echo loadSentryData($sendCrashInfoJS, $branchSelected); ?>
@@ -11,6 +12,11 @@ echo loadSentryData($sendCrashInfoJS, $branchSelected); ?>
 		<a style="cursor: default;" class="active" id="MainLink" >Main</a>
 	<?php else: ?>
 		<a id="MainLink" onclick="goToUrl('main.php');" >Main</a>
+	<?php endif; ?>
+	<?php if(strpos($URI, 'watchlist.php') !== false): ?>
+		<a style="cursor: default;" class="active" id="Watchlist" >Watchlist</a>
+	<?php else: ?>
+		<a id="Watchlist" onclick="goToUrl('watchlist.php');" >Watchlist</a>
 	<?php endif; ?>
 	<a id="ThemesLink" style="
 		<?php if($themesEnabled === "false"): ?>
@@ -65,20 +71,14 @@ echo loadSentryData($sendCrashInfoJS, $branchSelected); ?>
 			" onclick="goToUrl('devTools.php');"
 		<?php endif; ?>
 	> Dev</a>
-	<?php
-	if($expSettingsAvail):?>
-		<?php if(strpos($URI, 'experimentalfeatures.php') !== false): ?>
-			<a style="cursor: default;" class="active" id="Experimental-FeaturesLink"> Experimental-Features </a>
-		<?php else: ?>
-			<a id="Experimental-FeaturesLink" onclick="goToUrl('experimentalfeatures.php');"> Experimental-Features </a>
-		<?php endif; ?>	
-	<?php endif; ?>
 </div>
 <?php if(strpos($URI, 'main.php') !== false): ?>
 	<div id="menu2">
-		<a id="mainSettingsMenu2" onclick="goToUrl('#settingsMainVars');" class="active" > Main Settings </a>
-		<a id="watchListSettingsMenu2" onclick="goToUrl('#settingsMainWatch');" > WatchList </a>
-		<a id="menuSettingsMenu2" onclick="goToUrl('#settingsMenuVars');" > Menu Settings </a>
+		<a onclick="goToUrl('#settingsLogVars');" > Logs </a>
+		<a onclick="goToUrl('#settingsPollVars');" > Poll </a>
+		<a onclick="goToUrl('#settingsUpdateVars');" > Update </a>
+		<a onclick="goToUrl('#settingsMenuVars');" > Menu </a>
+		<a onclick="goToUrl('#settingsMainVars');" > Other </a>
 	</div>
 <?php endif; ?>
 <?php if((strpos($URI, 'whatsNew.php') !== false) || (strpos($URI, 'update.php') !== false) || (strpos($URI, 'changeLog.php') !== false)): ?>

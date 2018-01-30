@@ -46,7 +46,7 @@ function updateNoNewVersionCheck()
 	{
 		$.getJSON("../core/php/configStaticCheck.php", {}, function(data) 
 		{
-			if(data['version'] === data['newestVersion'])
+			if(data["version"] === data["newestVersion"])
 			{
 				clearInterval(timeoutVar);
 				saveSuccess();
@@ -66,7 +66,7 @@ function updateNoNewVersionCheck()
 
 function checkIfChanges()
 {
-	if(checkForChangesArray(["devAdvanced","pollAdvanced","loggingDisplay","jsPhpSend","locationOtherApps","advancedConfig"]))
+	if(checkForChangesArray(["devAdvanced","pollAdvanced","loggingDisplay","jsPhpSend","locationOtherApps","advancedConfig","expFeatures"]))
 	{
 		return true;
 	}
@@ -80,15 +80,15 @@ function showConfigPopup()
 		displayLoadingPopup();
 		$.getJSON("../core/php/configVersionsPopup.php", {}, function(data) 
 		{
-			if(data['backupCopiesPresent'])
+			if(data["backupCopiesPresent"])
 			{
 				var heightOffset = document.getElementById("menu").offsetHeight;
 
 				popupHtml = "<div class='settingsHeader' >Backup List <span><a onclick=\"hidePopup();\" class=\"link\">Close</a></span></div><br><div style='width:100%; height: "+((((window.innerHeight * 0.9)-heightOffset).toFixed(2))-70)+"px; overflow-y: scroll; padding-left:10px;padding-right:10px;'><table style=\"width: 100%;\">";
-				for (var i = 1; i <= data["arrayOfFiles"].length ; i++)
+				for (var i = 1; i <= data["arrayOfFiles"].length; i++)
 				{
 					popupHtml += "<tr><td style=\"border-bottom: 1px solid white;\" width=\"25%\"><div>Config"+i+"</div>";
-					popupHtml += "<br><a onclick=\"restoreToVersion("+i+")\" class=\"link\"> Restore to this version</a>"
+					popupHtml += "<br><a onclick=\"restoreToVersion("+i+")\" class=\"link\"> Restore to this version</a>";
 					popupHtml += "</td><td style=\"border-bottom: 1px solid white;\" width=\"75%\" ";
 					popupHtml += "<div>"+data["arrayOfDiffs"][i-1]+"</div></tr>";
 				}
@@ -171,7 +171,7 @@ function verifyNoConfigBackups()
 		displayLoadingPopup();
 		$.getJSON("../core/php/configVersionsPopup.php", {}, function(data) 
 		{
-			if(!data['backupCopiesPresent'])
+			if(!data["backupCopiesPresent"])
 			{
 				//no backups there to show, current size is file
 				clearInterval(timeoutVar);
@@ -189,6 +189,6 @@ function verifyNoConfigBackups()
 
 $( document ).ready(function() 
 {
-	refreshArrayObjectOfArrays(["devAdvanced","pollAdvanced","loggingDisplay","jsPhpSend","locationOtherApps","advancedConfig"]);
+	refreshArrayObjectOfArrays(["devAdvanced","pollAdvanced","loggingDisplay","jsPhpSend","locationOtherApps","advancedConfig","expFeatures"]);
 	setInterval(poll, 100);
 });

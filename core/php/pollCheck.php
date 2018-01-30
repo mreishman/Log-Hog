@@ -1,51 +1,53 @@
 <?php
-require_once('../../local/layout.php');
-$baseUrl = "../../local/".$currentSelectedTheme."/";
+$baseModifier = "../../";
+require_once($baseModifier.'local/layout.php');
+$baseUrl = $baseModifier."local/".$currentSelectedTheme."/";
 require_once($baseUrl.'conf/config.php');
-require_once('../../core/php/configStatic.php');
-require_once('../../core/php/updateProgressFile.php');
-
-function tail($filename)
+require_once('configStatic.php');
+require_once('updateProgressFile.php');
+require_once('commonFunctions.php');
+$response = array();
+$currentVersionPost = $configStatic["version"];
+if(isset($_POST['currentVersion']))
 {
-	$filename = preg_replace('/([()"])/S', '$1', $filename);
-	return filesize($filename);
+	$currentVersionPost = $_POST['currentVersion'];
 }
 
-if($configStatic['version'] != $_POST['currentVersion'])
+if($configStatic['version'] != $currentVersionPost)
 {
-	$response = false;
+	echo json_encode(false);
+	exit();
 }
-elseif(array_key_exists('percent', $updateProgress) && ($updateProgress['percent'] != 0) && $updateProgress['percent'] != 100)
-{
-	$response = "update in progress";
-}
-else
-{
-	$response = array();
 
-	foreach($config['watchList'] as $path => $filter)
+if(array_key_exists('percent', $updateProgress) && ($updateProgress['percent'] != 0) && $updateProgress['percent'] != 100)
+{
+	echo json_encode("update in progress");
+	exit();
+}
+
+foreach($config['watchList'] as $path => $filter)
+{
+	if(is_dir($path))
 	{
-		if(is_dir($path))
+		$path = preg_replace('/\/$/', '', $path);
+		$files = array_diff(scandir($path), array('..', '.'));
+		if($files)
 		{
-			$path = preg_replace('/\/$/', '', $path);
-			$files = scandir($path);
-			if($files)
+			foreach($files as $k => $filename)
 			{
-				unset($files[0], $files[1]);
-				foreach($files as $k => $filename) {
-					$fullPath = $path . '/' . $filename;
-					if(preg_match('/' . $filter . '/S', $filename) && is_file($fullPath))
-					{
-						$response[$fullPath] = htmlentities(tail($fullPath));
-					}
+				$fullPath = $path . DIRECTORY_SEPARATOR . $filename;
+				if(preg_match('/' . $filter . '/S', $filename) && is_file($fullPath))
+				{
+					$response[$fullPath] = getFileSize($fullPath);
 				}
 			}
 		}
-		elseif(file_exists($path))
-		{
-			$response[$path] = htmlentities(tail($path));
-		}
+	}
+	elseif(file_exists($path))
+	{
+		$response[$path] = getFileSize($path);
 	}
 }
 
 echo json_encode($response);
+exit();

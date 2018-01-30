@@ -265,14 +265,20 @@ function poll()
 		{
 			if(document.getElementById(titleOfPage+"Link"))
 			{
-				document.getElementById(titleOfPage+"Link").innerHTML = titleOfPage+"*";
+				if(document.getElementById(titleOfPage+"Link").innerHTML !== titleOfPage+"*")
+				{
+					document.getElementById(titleOfPage+"Link").innerHTML = titleOfPage+"*";
+				}
 			}
 		}
 		else
 		{
 			if(document.getElementById(titleOfPage+"Link"))
 			{
-				document.getElementById(titleOfPage+"Link").innerHTML = titleOfPage;
+				if(document.getElementById(titleOfPage+"Link").innerHTML !== titleOfPage)
+				{
+					document.getElementById(titleOfPage+"Link").innerHTML = titleOfPage;
+				}
 			}
 		}
 	}

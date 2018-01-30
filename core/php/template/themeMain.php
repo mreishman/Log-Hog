@@ -14,11 +14,7 @@ Theme Selector
 					<?php echo $key;?>
 					<div class="settingsHeaderButtons">
 						<?php if($key !== $currentTheme): ?>
-							<?php if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
-								<a class="linkSmall" onclick="saveAndVerifyMain('themeMainSelection-<?php echo $key;?>');" >Select</a>
-							<?php else: ?>
-								<button  onclick="displayLoadingPopup(); document.getElementById('themeMainSelection-<?php echo $key;?>').submit();">Select</button>
-							<?php endif; ?>
+							<a class="linkSmall" onclick="saveAndVerifyMain('themeMainSelection-<?php echo $key;?>');" >Select</a>
 						<?php else: ?>
 							<a class="linkSmall" onclick="saveAndVerifyMain('themeMainSelection-<?php echo $key;?>');" >Reset / Update</a>
 							<a class="linkSmallHover"> Selected </a>
@@ -40,6 +36,7 @@ Theme Selector
 						});
 					</script>
 					<form action="../core/php/settingsSave.php" method="post" id="themeMainSelection-<?php echo $key;?>">
+						<input type="hidden" name="loadingBarVersion" value="<?php echo $loadingBarVersion;?>">
 						<input type="hidden" name="currentTheme" value="<?php echo $key?>">
 						<input type="hidden" name="backgroundColor" value="<?php echo $backgroundColorDefault;?>" >
 						<input type="hidden" name="mainFontColor" value="<?php echo $mainFontColorDefault;?>" >

@@ -267,6 +267,11 @@ $countConfig--;
 					<p>Default = <?php echo "https://" . $_SERVER['SERVER_NAME']."/search"; ?></p>
 				</li>
 				<li>
+					<span class="settingsBuffer" >  Selenium Monitor Location:  </span> <input type="text" style="width: 400px;"  name="locationForSeleniumMonitor" value="<?php echo $locationForSeleniumMonitor;?>" > 
+					<br>
+					<p>Default = <?php echo "https://" . $_SERVER['SERVER_NAME']."/seleniumMonitor"; ?></p>
+				</li>
+				<li>
 					<span style="font-size: 75%;">*<i>Please specify full url, blank if none</i></span>
 				</li>
 			</ul>
@@ -286,6 +291,32 @@ $countConfig--;
 				</li>
 			</ul>
 		</div>
+		<form id="expFeatures" action="../core/php/settingsSave.php" method="post">
+		<div class="settingsHeader">
+		Experimental Features 
+			<div class="settingsHeaderButtons">
+				<?php echo addResetButton("expFeatures");
+				if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
+					<a class="linkSmall" onclick="saveAndVerifyMain('expFeatures');" >Save Changes</a>
+				<?php else: ?>
+					<button  onclick="displayLoadingPopup();">Save Changes</button>
+				<?php endif; ?>
+			</div>
+		</div>
+		<div class="settingsDiv" >
+			<ul id="settingsUl">
+				<li>
+					System preference:
+					<div class="selectDiv">
+						<select name="enableSystemPrefShellOrPhp">
+  							<option <?php if($enableSystemPrefShellOrPhp == 'true'){echo "selected";} ?> value="true">PHP</option>
+  							<option <?php if($enableSystemPrefShellOrPhp == 'false'){echo "selected";} ?> value="false">shell_exec</option>
+						</select>
+					</div>
+				</li>
+			</ul>
+		</div>
+		</form>
 	</div>
 	<?php readfile('../core/html/popup.html') ?>
 	<form id="resetSettings" action="../core/php/settingsSave.php" method="post">

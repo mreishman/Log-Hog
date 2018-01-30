@@ -36,7 +36,7 @@ foreach ($currentSelectedThemeColorValues['main'] as $value):
 
 <?php endforeach; ?>
 
-#menu a:hover, #menu a.active, #menu2 a:hover, #menu2 a.active, .link:hover, .linkSmall:hover, .settingsHeader button:hover {
+#menu a:hover, #menu a.active, #menu2 a:hover, #menu2 a.active, .link:hover, .linkSmall:hover, .settingsHeader button:hover, .sidebarLeft .active {
 	color: <?php echo $currentSelectedThemeColorValues['highlight']['highlight-1']['fontColor']?>;
 	background: <?php echo $currentSelectedThemeColorValues['highlight']['highlight-1']['background']?>;
 }
@@ -95,6 +95,18 @@ progress::-webkit-progress-value
 .selectDiv select
 {
 	color: <?php echo $currentSelectedThemeColorValues['main']['main-1']['fontColor']?>;
+}
+
+div.sidebarLeft
+{
+	background: <?php echo $currentSelectedThemeColorValues['main']['main-1']['background']?>;
+	color: <?php echo $currentSelectedThemeColorValues['main']['main-1']['fontColor']?>;
+}
+
+div#fixed
+{
+	background: <?php echo $currentSelectedThemeColorValues['main']['main-2']['background']?>;
+	color: <?php echo $currentSelectedThemeColorValues['main']['main-2']['fontColor']?>;
 }
 
 <?php if($invertMenuImages === 'true'): ?>

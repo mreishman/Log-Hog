@@ -31,6 +31,8 @@ var percent = 0;
 var pollRefreshAllBoolStatic = pollRefreshAllBool;
 var firstLoad = true;
 var timer;
+var clearingNotifications = false;
+var progressBar;
 
 function escapeHTML(unsafeStr)
 {
@@ -43,6 +45,25 @@ function escapeHTML(unsafeStr)
 		.replace(/\"/g, "&quot;")
 		.replace(/\'/g, "&#39;")
 		.replace(/\//g, "&#x2F;");
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+	
+}
+
+function unescapeHTML(unsafeStr)
+{
+	try
+	{
+		return unsafeStr.toString()
+		.replace(/&amp;/g, "&")
+		.replace(/&lt;/g, "<")
+		.replace(/&gt;/g, ">")
+		.replace(/&quot;/g, "\"")
+		.replace(/&#39;/g, "\'")
+		.replace(/&#x2F;/g, "\/");
 	}
 	catch(e)
 	{
@@ -113,7 +134,7 @@ function poll()
 			updateDocumentTitle("Index");
 		}
 		counterForPoll++;
-		if(!polling)
+		if(!polling && !clearingNotifications)
 		{
 			pollSkipCounter = 0;
 			updateSkipCounterLog(pollSkipCounter);
@@ -123,7 +144,7 @@ function poll()
 		}
 		else
 		{
-			if(pollForceTrueBool === "true" && firstLoad !== true)
+			if(pollForceTrueBool === "true" && firstLoad !== true && !clearingNotifications)
 			{
 				pollSkipCounter++;
 				updateSkipCounterLog(pollSkipCounter);
@@ -286,7 +307,7 @@ function pollThree(arrayToUpdate)
 		{
 			if(firstLoad)
 			{
-				updateProgressBar(10, "Loading file 1 of "+arrayToUpdate.length);
+				updateProgressBar(10,arrayToUpdate[0],  "Loading file 1 of "+arrayToUpdate.length);
 				getFileSingle(arrayToUpdate.length-1, arrayToUpdate.length-1);
 			}
 			else
@@ -342,7 +363,7 @@ function getFileSingle(current)
 			{
 				var currentNew = this.currentFile;
 				var updateBy = (1/arrayToUpdate.length)*60;
-				updateProgressBar(updateBy, "Loading file "+(arrayToUpdate.length+1-currentNew)+" of "+arrayToUpdate.length);
+				updateProgressBar(updateBy, arrayToUpdate[currentNew-1], "Loading file "+(arrayToUpdate.length+1-currentNew)+" of "+arrayToUpdate.length);
 				if(currentNew > 0)
 				{
 					currentNew--;
@@ -525,19 +546,19 @@ function update(data) {
 	{
 		var menu = $("#menu");
 		var blank = $("#storage .menuItem").html();
-		var id, name, shortName, item, style, folderName;
+		var id, shortName, item, style, folderName;
 		var files = Object.keys(data);
 		var stop = files.length;
 		var updated = false;
 		var initialized = $("#menu a").length !== 0;
 		var folderNamePrev = "?-1";
 		var folderNameCount = -1;
-		for(var i = 0; i !== stop; ++i)
+		for(var i = 0; i !== stop; i++)
 		{
 			if(files[i].indexOf("dataForLoggingLogHog051620170928") === -1)
 			{
 				var dataForCheck = data[files[i]];
-				name = files[i];
+				var name = files[i];
 				var selectListForFilter = document.getElementsByName("searchType")[0];
 				var selectedListFilterType = selectListForFilter.options[selectListForFilter.selectedIndex].value;
 				var filterTextField = document.getElementsByName("search")[0].value;
@@ -546,7 +567,7 @@ function update(data) {
 					showLogByName(name);
 					if(dataForCheck === "This file is empty. This should not be displayed." && hideEmptyLog === "true")
 					{
-						removeLogByName(name);
+						hideLogByName(name);
 					}
 					else
 					{
@@ -598,6 +619,8 @@ function update(data) {
 								}
 							}
 
+							var lastLogLine = logs[id].count - 1;
+
 							if($("#menu ." + id + "Button").length === 0) 
 							{
 								shortName = files[i].replace(/.*\//g, "");
@@ -609,21 +632,106 @@ function update(data) {
 								{
 									item = item.replace(/{{class}}/g, classInsert);
 								}
-								menu.append(item);
+
+								var itemAdded = false;
+
+								if(!fresh)
+								{
+									var moveToFrontOnUpdate = false;
+									var innerCount = i;
+									for (var i = filesNew.length - 1; i >= 0; i--)
+									{
+										if(filesNew[i] === files[i])
+										{
+											innerCount = i;
+											break;
+										}
+									}
+									var innerCountStatic = innerCount;
+									var idCheck = files[i].replace(/[^a-z0-9]/g, "");
+									if(innerCountStatic === 0)
+									{
+										itemAdded = tryToInsertBeforeLog(innerCountStatic, stop, idCheck, item);
+										if(!itemAdded)
+										{
+											itemAdded = tryToInsertAfterLog(innerCountStatic, stop, idCheck, item);
+										}
+									}
+									else
+									{
+										itemAdded = tryToInsertAfterLog(innerCountStatic, stop, idCheck, item);
+										if(!itemAdded)
+										{
+											itemAdded = tryToInsertBeforeLog(innerCountStatic, stop, idCheck, item);
+										}
+									}
+								}
+
+								if(!itemAdded)
+								{
+									menu.append(item);
+								}
+
+								if(!fresh)
+								{
+									if(!$("#menu a." + id + "Button").hasClass("updated"))
+									{
+										$("#menu a." + id + "Button").addClass("updated");
+									}
+								}
 							}
-							
-							if(logs[id] != lastLogs[id]) 
+
+							if(!(logs[id] === lastLogs[id]))
 							{
 								updated = true;
 								if(id === currentPage)
 								{
 									$("#log").html(makePretty(logs[id]));
+									if(document.getElementById(id+"Count").innerHTML !== "")
+									{
+										document.getElementById(id+"Count").innerHTML = "";
+										document.getElementById(id+"CountHidden").innerHTML = "";
+									}
 								}
-								else if(!fresh && !$("#menu a." + id + "Button").hasClass("updated"))
+								else
 								{
-									$("#menu a." + id + "Button").addClass("updated");
+									if(!fresh)
+									{
+										if(!$("#menu a." + id + "Button").hasClass("updated"))
+										{
+											$("#menu a." + id + "Button").addClass("updated");
+										}
+
+										if(notificationCountVisible === "true")
+										{
+											var diff = getDiffLogAndLastLog(id);
+											if(diff !== "")
+											{
+												if(document.getElementById(id+"Count").innerHTML !== "" )
+												{
+													var count = document.getElementById(id+"CountHidden").innerHTML;
+													diff = parseInt(count) + diff;
+													if(diff > sliceSize)
+													{
+														diff = sliceSize;
+													}
+												}
+											}
+											var diffNew = diff;
+											if(diff !== "")
+											{
+												diffNew = "("+diff+")";
+											}
+											if(document.getElementById(id+"Count").innerHTML !== diffNew)
+											{
+												document.getElementById(id+"CountHidden").innerHTML = diff;
+												document.getElementById(id+"Count").innerHTML = diffNew;
+											}
+										}
+									}
 								}
 							}
+							
 							
 							if(initialized && updated && $(window).filter(":focus").length === 0) 
 							{
@@ -631,6 +739,15 @@ function update(data) {
 								{
 									flashTitle();
 								}
+							}
+							
+							var buttonReference = document.getElementById("menu").getElementsByClassName(id+"Button")[0];
+							var tmpText = logs[id].split("\n");
+							var tmpTextLength = tmpText.length;
+							tmpText = unescapeHTML(tmpText[tmpTextLength-1]);
+							if(buttonReference.title !== tmpText)
+							{
+								buttonReference.title = tmpText;
 							}
 						}
 						else
@@ -647,6 +764,7 @@ function update(data) {
 		}
 		resize();
 		
+		//Check if a tab is active, if none... click on first in array that's visible
 		if($("#menu .active").length === 0)
 		{
 			var arrayOfLogs = $("#menu a");
@@ -662,21 +780,140 @@ function update(data) {
 			if($("#menu .active").length === 0)
 			{
 				//if still none active, none to display - add popup here
+				if(document.getElementById("noLogToDisplay").style.display !== "block")
+				{
+					document.getElementById("noLogToDisplay").style.display = "block";
+					document.getElementById("log").style.display = "none";
+				}
+			}
+			else
+			{
+				if(document.getElementById("noLogToDisplay").style.display !== "none")
+				{
+					document.getElementById("noLogToDisplay").style.display = "none";
+					document.getElementById("log").style.display = "block";
+				}
 			}
 		}
 
-		if($("#menu .updated").length !== 0)
-		{
-			//there is at least one updated thing, show button for clear all notifications
-		}
+		toggleNotificationClearButton();
 		
-		if(logs[currentPage] !== lastLogs[currentPage]) {
+		if(logs[currentPage] !== lastLogs[currentPage])
+		{
 			lastLogs[currentPage] = logs[currentPage];
 			document.getElementById("main").scrollTop = $("#log").outerHeight();
 		}
 		
+		refreshLastLogsArray();
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
+function tryToInsertBeforeLog(innerCount, stop, idCheck, item)
+{
+	var itemToBefore = null;
+	while(itemToBefore === null && innerCount < stop)
+	{
+		var itemCheck = $("#menu ." + idCheck + "Button");
+		if(itemCheck.length !== 0) 
+		{
+			itemToBefore = itemCheck;
+		}
+		innerCount--;
+	}
+	if(itemToBefore !== null)
+	{
+		itemToBefore.before(item);
+	}
+
+	return (itemToBefore !== null);
+}
+
+function tryToInsertAfterLog(innerCount, stop, idCheck, item)
+{
+	var itemToBefore = null;
+	while(itemToBefore === null && innerCount > 0)
+	{
+		var itemCheck = $("#menu ." + idCheck + "Button");
+		if(itemCheck.length !== 0) 
+		{
+			itemToBefore = itemCheck;
+		}
+		innerCount++;
+	}
+	if(itemToBefore !== null)
+	{
+		itemToBefore.after(item);
+	}
+
+	return (itemToBefore !== null);
+}
+
+function toggleNotificationClearButton()
+{
+	try
+	{
+		if($("#menu .updated").length !== 0)
+		{
+			//there is at least one updated thing, show button for clear all notifications
+			if(document.getElementById("clearNotificationsImage").style.display !== "inline-block")
+			{
+				document.getElementById("clearNotificationsImage").style.display = "inline-block";
+			}
+		}
+		else
+		{
+			if(document.getElementById("clearNotificationsImage").style.display !== "none")
+			{
+				document.getElementById("clearNotificationsImage").style.display = "none";
+			}
+		}
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
+function clearNotifications()
+{
+	clearingNotifications = true;
+	try
+	{
+		if($("#menu .updated").length !== 0)
+		{
+			var arrayOfLogs = $("#menu a");
+			for (var clearNotifCountOne = 0; clearNotifCountOne < arrayOfLogs.length; clearNotifCountOne++)
+			{
+				arrayOfLogs[clearNotifCountOne].classList.remove("updated");
+			}
+			var arrayOfCounts = $("#menu a .menuCounter");
+			for (var clearNotifCountTwo = 0; clearNotifCountTwo < arrayOfCounts.length; clearNotifCountTwo++)
+			{
+				arrayOfCounts[clearNotifCountTwo].innerHTML = "";
+			}
+		}
+		refreshLastLogsArray();
+		document.getElementById("clearNotificationsImage").style.display = "none";
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+	clearingNotifications = false;
+}
+
+function refreshLastLogsArray()
+{
+	try
+	{
 		var ids = Object.keys(logs);
-		for(var i = 0; i !== stop; ++i) {
+		var stop = ids.length;
+		for(var i = 0; i !== stop; ++i)
+		{
 			id = ids[i];
 			lastLogs[id] = logs[id];
 		}
@@ -750,11 +987,64 @@ function show(e, id)
 		currentPage = id;
 		$("#title").html(titles[id]);
 		document.getElementById("main").scrollTop = $("#log").outerHeight();
+		toggleNotificationClearButton();
+		document.getElementById(id+"Count").innerHTML = "";
+		document.getElementById(id+"CountHidden").innerHTML = "";
 	}
 	catch(e)
 	{
 		eventThrowException(e);
 	}
+}
+
+function getDiffLogAndLastLog(id)
+{
+	if(logs[id] === lastLogs[id])
+	{
+		return 0;
+	}
+	var tmpTextLog = logs[id].split("\n");
+	var tmpTextLast = lastLogs[id].split("\n");
+	var lengthOfLastArray = tmpTextLast.length;
+	var lengthOfArray = tmpTextLog.length;
+	if(lengthOfLastArray === 0)
+	{
+		return lengthOfArray;
+	}
+	else if(lengthOfLastArray > lengthOfArray)
+	{
+		return 0;
+	}
+
+	var lastLine = tmpTextLast[lengthOfLastArray-1];
+	var counter = 0;
+	for (var i = lengthOfArray - 1; i >= 0; i--)
+	{
+		if(tmpTextLog[i].trim() === lastLine.trim())
+		{
+			//confirm the next two also
+			var returnNewNum = true;
+			var j = i;
+			var lastStart = lengthOfLastArray-1;
+			while(j >= 0 && returnNewNum)
+			{
+				if(tmpTextLog[j].trim() !== tmpTextLast[lastStart].trim())
+				{
+					returnNewNum = false;
+				}
+				else
+				{
+					j--;
+					lastStart--;
+				}
+			}
+			if(returnNewNum)
+			{
+				return (lengthOfArray - 1 - i);
+			}
+		}
+	}
+	return lengthOfArray;
 }
 
 function makePretty(text) 
@@ -950,7 +1240,9 @@ function clearLog()
 				dataType: "json",
 				data,
 				type: "POST",
-		success(data){
+		success(data)
+		{
+			refreshLastLogsArray();
 		},
 		});
 	}
@@ -1021,11 +1313,7 @@ function deleteLog()
 			type: "POST",
 			success(data)
 			{
-				var idOfDeletedLog = data.replace(/[^a-z0-9]/g, "");
-				if($("#menu ." + idOfDeletedLog + "Button").length !== 0)
-				{
-					$("#menu ." + idOfDeletedLog + "Button").remove();
-				}
+				removeLogByName(data);
 			}
 		});
 	}
@@ -1063,7 +1351,7 @@ function installUpdates()
 		{
 			url: urlForSend,
 			dataType: "json",
-			data: data,
+			data,
 			type: "POST",
 			complete(data)
 			{
@@ -1189,16 +1477,18 @@ function showRefreshingButton()
 	}
 }
 
-function updateProgressBar(additonalPercent, text)
+function updateProgressBar(additonalPercent, text, topText = "Loading...")
 {
 	try
 	{
 		if(firstLoad)
 		{
 			percent = percent + additonalPercent;
-			document.getElementById("progressBar").value = percent;
+			progressBar.set(percent);
 			$("#progressBarSubInfo").empty();
 			$("#progressBarSubInfo").append(text);
+			$("#progressBarMainInfo").empty();
+			$("#progressBarMainInfo").append(topText);
 		}
 	}
 	catch(e)
@@ -1209,6 +1499,7 @@ function updateProgressBar(additonalPercent, text)
 
 $(document).ready(function()
 {
+	progressBar = new ldBar("#progressBar");
 	resize();
 	updateProgressBar(10, "Generating File List");
 	window.onresize = resize;

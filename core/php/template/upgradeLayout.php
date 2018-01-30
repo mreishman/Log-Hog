@@ -16,6 +16,7 @@ if(file_exists('../../../local/layout.php'))
 	$baseUrl .= $currentSelectedTheme."/";
 }
 require_once($baseUrl.'conf/config.php');
+require_once('../../../core/php/commonFunctions.php');
 require_once('../../../core/conf/config.php');
 require_once('../../../core/php/configStatic.php');
 require_once('../../../core/php/loadVars.php');
@@ -202,7 +203,7 @@ $totalUpgradeScripts = floatval($layoutVersionToUpgradeTo) - floatval($layoutVer
 	{
 		document.getElementById('verifyCheck').style.display = "block";
 		document.getElementById('verifyLoad').style.display = "none";
-		window.location.href = "<?php echo $_SERVER['HTTP_REFERER']; ?>";
+		window.location.href = "<?php echo getCookieRedirect(); ?>";
 	}
 
 </script> 

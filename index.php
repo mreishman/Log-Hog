@@ -1,6 +1,6 @@
 <?php
 require_once('core/php/commonFunctions.php');
-
+setCookieRedirect();
 $baseUrl = "core/";
 if(file_exists('local/layout.php'))
 {
@@ -102,6 +102,32 @@ elseif (is_dir("../SeleniumMonitor"))
 	$locationForSeleniumMonitorIndex = "../SeleniumMonitor/";
 }
 
+$loadingBarStyle = "";
+
+$loadingBarDefaultWidth = "data-stroke-width=\"3\" data-stroke-trail-width=\"3\"";
+
+if($loadingBarVersion === 1)
+{
+	$loadingBarStyle = "data-type=\"stroke\" data-stroke=\"green\" data-stroke-trail=\"darkGreen\" ".$loadingBarDefaultWidth;
+}
+elseif($loadingBarVersion === 2)
+{
+	$loadingBarStyle = "data-type=\"stroke\" data-stroke=\"data:ldbar/res,stripe(#fff,#4fb3f0,1)\" data-stroke-trail=\"#082a36\" data-pattern-size=\"10\" ".$loadingBarDefaultWidth;
+}
+elseif($loadingBarVersion === 3)
+{
+	$loadingBarStyle = "data-type=\"stroke\" data-stroke=\"data:ldbar/res,gradient(0,1,#3E8486,#A5F1F1)\" data-stroke-trail=\"#082a36\" ".$loadingBarDefaultWidth;
+}
+elseif($loadingBarVersion === 4)
+{
+	$loadingBarStyle = "data-type=\"stroke\"  data-stroke=\"data:ldbar/res,bubble(#248,#fff,50,1)\" data-stroke-trail=\"#082a36\" data-pattern-size=\"10\" ".$loadingBarDefaultWidth;
+}
+elseif($loadingBarVersion === 5)
+{
+	$loadingBarStyle = "data-type=\"stroke\" data-stroke=\"green\" data-stroke-trail=\"#063305\" "."data-stroke-width=\"3\" data-stroke-trail-width=\"1\"";
+}
+
+
 ?>
 <!doctype html>
 <head>
@@ -113,6 +139,8 @@ elseif (is_dir("../SeleniumMonitor"))
 		echo loadSentryData($sendCrashInfoJS, $branchSelected);
 		echo loadVisibilityJS(baseURL());
 	?>
+	<link rel="stylesheet" type="text/css" href="core/template/loading-bar.css"/>
+	<script type="text/javascript" src="core/js/loading-bar.min.js"></script>
 </head>
 <body>
 	<?php require_once("core/php/customCSS.php");
@@ -162,7 +190,7 @@ elseif (is_dir("../SeleniumMonitor"))
 			<?php endif; ?>
 			<?php if($locationForSeleniumMonitorIndex != ""): ?>
 			<div onclick="window.location.href = '<?php echo $locationForSeleniumMonitorIndex; ?>'"  class="menuImageDiv">
-				<img id="searchImage" class="menuImage" src="<?php echo $baseUrl; ?>img/seleniumMonitor.png" height="30px">
+				<img id="seleniumMonitorImage" class="menuImage" src="<?php echo $baseUrl; ?>img/seleniumMonitor.png" height="30px">
 			</div>
 			<?php endif; ?>
 			<div onclick="window.location.href = './settings/main.php';"  class="menuImageDiv">
@@ -184,6 +212,9 @@ elseif (is_dir("../SeleniumMonitor"))
 					gS
 				</div>
 			<?php endif; ?>
+			<div  id="clearNotificationsImage" style="display: none;" onclick="clearNotifications();" class="menuImageDiv">
+				<img class="menuImage" src="<?php echo $baseUrl; ?>img/notificationClear.png" height="30px">
+			</div>
 			<div style="float: right;">
 				<select name="searchType" style="display: none;">
 					<option selected value="title">Title</option>
@@ -196,17 +227,21 @@ elseif (is_dir("../SeleniumMonitor"))
 	<div id="main">
 		<div id="log"></div>
 		<div id="firstLoad" style="width: 100%; height: 100%;">
-			<h1 style="margin-right: auto; margin-left: auto; width: 100%; text-align: center;  margin-top: 100px; font-size: 150%;" >Loading...</h1>
-			<div style="width: 80%; height: 50px; background-color: #999; border: 1px solid white; margin-left: auto; margin-right: auto;">
-				<progress id="progressBar" value="0" max="100" style="width: 100%; height: 100%; -webkit-appearance: none; appearance: none;" ></progress>
+			<h1 id="progressBarMainInfo" style="margin-right: auto; margin-left: auto; width: 100%; text-align: center;  margin-top: 100px; font-size: 150%;" >Loading...</h1>
+			<div id="divForProgressBar" style="width: 80%; height: 100px; margin-left: auto; margin-right: auto; margin-top: -15px; margin-bottom: -15px;">
+				<div <?php echo $loadingBarStyle; ?> class="ldBar label-center" id="progressBar" data-value="0" style="width: 100%; height: 100%; margin: auto;"></div>
 			</div>
 			<h3 id="progressBarSubInfo" style="margin-right: auto; margin-left: auto; width: 100%; text-align: center;  margin-top: 10px; font-size: 150%;" >Loading Javascript</h3>
 		</div>
+		<div id="noLogToDisplay" class='errorMessageLog errorMessageGreenBG' style="display: none; margin-top: 2%;" > There are currently no logs to display. </div>
 	</div>
 	
 	<div id="storage">
 		<div class="menuItem">
-			<a class="{{id}}Button {{class}}" onclick="show(this, '{{id}}')">{{title}}</a>
+			<a title="{{title}}" class="{{id}}Button {{class}} index" onclick="show(this, '{{id}}')">{{title}}
+				<span id="{{id}}Count" class="menuCounter"></span>
+				<span id="{{id}}CountHidden" style="display: none;"></span>
+			</a>
 		</div>
 	</div>
 	
@@ -267,6 +302,7 @@ elseif (is_dir("../SeleniumMonitor"))
 		echo "var groupByColorEnabled = ".$groupByColorEnabled.";";
 		echo "var pollForceTrue = ".$pollForceTrue.";";
 		echo "var pollRefreshAll = ".$pollRefreshAll.";";
+		echo "var sliceSize = ".$sliceSize.";";
 		?>
 		var dontNotifyVersion = "<?php echo $dontNotifyVersion;?>";
 		var currentVersion = "<?php echo $configStatic['version'];?>";
@@ -281,6 +317,7 @@ elseif (is_dir("../SeleniumMonitor"))
 		var pollForceTrueBool = "<?php echo $pollRefreshAllBool;?>";
 		var baseUrl = "<?php echo $baseUrl;?>";
 		var updateFromID = "settingsInstallUpdate";
+		var notificationCountVisible = "<?php echo $notificationCountVisible;?>";
 	</script>
 	<?php readfile('core/html/popup.html') ?>
 	<script src="core/js/main.js?v=<?php echo $cssVersion?>"></script>

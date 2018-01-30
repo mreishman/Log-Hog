@@ -33,3 +33,4 @@ This will download the latested version from github and copy over only the chang
 ## Includes files from the following project:
 
 https://github.com/ai/visibilityjs  
+https://loading.io/progress/
