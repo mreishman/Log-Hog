@@ -161,6 +161,6 @@
 </div>	
 </form>
 <script type="text/javascript">
-	var defaultTrashCanIcon = <?php json_encode($defaultTrashCanIcon); ?>
+	var defaultTrashCanIcon = <?php echo json_encode($defaultTrashCanIcon); ?>
 </script>
 <?php $folderCount = $i;
