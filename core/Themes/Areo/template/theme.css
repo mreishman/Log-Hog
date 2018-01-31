@@ -167,16 +167,16 @@ div {
 
 .backgroundForSideBarMenu::-webkit-scrollbar {
 	width: 1px;
-	
 }
 
 .popupForInfo
 {
-	background-color: #CCC;
+	background-color: black;
+  	border: 1px solid white;
+  	box-shadow: 0 0 5px black;
+  	color: white;
 	z-index: 10;
 	position: absolute;
-	border: 1px solid white;
-	color: black;
 	width: fit-content;
 	padding: 5px;
 	word-break: break-all;
