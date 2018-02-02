@@ -736,7 +736,7 @@ function update(data)
 								item = item.replace(/{{id}}/g, id);
 								if(groupByColorEnabled === true)
 								{
-									classInsert = "buttonColor"+(folderNameCount+1);
+									classInsert += " buttonColor"+(folderNameCount+1)+" ";
 								}
 								item = item.replace(/{{class}}/g, classInsert);
 
