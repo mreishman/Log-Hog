@@ -544,6 +544,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 		echo "var windowDisplayConfigRowCount = ".$windowDisplayConfig[0].";";
 		echo "var windowDisplayConfigColCount = ".$windowDisplayConfig[1].";";
 		echo "var borderPadding = ".$borderPadding.";";
+		echo "var autoMoveUpdateLog = ".$autoMoveUpdateLog.";";
 		$srcForLoadImage = "core/img/loading.gif";
 		if(isset($arrayOfImages))
 		{

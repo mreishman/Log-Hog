@@ -3,6 +3,7 @@
 $defaultConfig = array(
 	'autoCheckDaysUpdate'			=>	'7',
 	'autoCheckUpdate' 				=> 'true',
+	'autoMoveUpdateLog'				=> 'false',
 	'backgroundColor'				=> "#292929",
 	'backgroundHeaderColor'			=> "#222222",
 	'backgroundPollingRate'			=> 5000,

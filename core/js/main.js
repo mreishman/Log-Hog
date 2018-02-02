@@ -885,9 +885,17 @@ function update(data)
 								{
 									if(!fresh)
 									{
-										if(!$("#menu a." + id + "Button").hasClass("updated"))
+										if(autoMoveUpdateLog === "true")
 										{
-											$("#menu a." + id + "Button").addClass("updated");
+											//'click' on log to switch to log
+											$("#menu a." + id + "Button").click();
+										}
+										else
+										{
+											if(!$("#menu a." + id + "Button").hasClass("updated"))
+											{
+												$("#menu a." + id + "Button").addClass("updated");
+											}
 										}
 									}
 								}
