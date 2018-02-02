@@ -619,7 +619,7 @@ function update(data)
 	{
 		var menu = $("#menu");
 		var blank = $("#storage .menuItem").html();
-		var id, shortName, item, style, folderName;
+		var id, shortName, item, style, folderName, classInsert;
 		var files = Object.keys(data);
 		var stop = files.length;
 		var updated = false;
@@ -730,14 +730,15 @@ function update(data)
 							if($("#menu ." + id + "Button").length === 0) 
 							{
 								shortName = files[i].replace(/.*\//g, "");
-								classInsert = "buttonColor"+(folderNameCount+1);
+								classInsert = "";
 								item = blank;
 								item = item.replace(/{{title}}/g, shortName);
 								item = item.replace(/{{id}}/g, id);
 								if(groupByColorEnabled === true)
 								{
-									item = item.replace(/{{class}}/g, classInsert);
+									classInsert = "buttonColor"+(folderNameCount+1);
 								}
+								item = item.replace(/{{class}}/g, classInsert);
 
 								var itemAdded = false;
 
