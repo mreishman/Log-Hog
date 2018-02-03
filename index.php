@@ -446,8 +446,16 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 				?>
 			</div>
 			<?php if ($locationForStatusIndex != ""):?>
-				<div class="menuImage" style="display: inline-block; cursor: pointer;" onclick="window.location.href='<?php echo $locationForStatusIndex; ?>'" >
-					gS
+				<div style="display: inline-block; cursor: pointer;" onclick="window.location.href='<?php echo $locationForStatusIndex; ?>'" >
+					<?php echo generateImage(
+						$arrayOfImages["gitStatus"],
+						$imageConfig = array(
+							"id"		=>	"gitStatusImage",
+							"class"		=>	"menuImage",
+							"height"	=>	"30px"
+							)
+						); 
+					?>
 				</div>
 			<?php endif; ?>
 			<div  id="clearNotificationsImage" style="display: none;" onclick="clearNotifications();" class="menuImageDiv">

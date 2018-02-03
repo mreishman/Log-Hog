@@ -351,6 +351,12 @@ else
 			"title"			=>	"Settings",
 			"baseName"		=>	"Gear.png"
 		),
+		"gitStatus"			=> array(
+			"alt"			=> "gitStatus",
+			'src'			=> "",
+			"title"			=> "gitStatus",
+			"baseName"		=> 'gitStatus.png'
+		),	
 		"greenCheck"		=> array(
 			"alt"			=>	"Ok",
 			"src"			=>	"",
