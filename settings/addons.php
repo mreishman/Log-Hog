@@ -19,12 +19,11 @@ require_once('../core/php/loadVars.php');
 require_once('../core/php/updateCheck.php');
 
 //check if monitor is installed
-$monitorInstalled = false;
+$monitorInfo = checkForMonitorInstall($locationForMonitor, "../");
 $configStaticMonitor = null;
 
-if(is_file("../monitor/index.php") === true)
+if($monitorInfo["local"])
 {
-	$monitorInstalled = true;
 	$configStaticMain = $configStatic;
 	require_once('../monitor/core/php/configStatic.php');
 	$configStaticMonitor = $configStatic;
@@ -32,12 +31,11 @@ if(is_file("../monitor/index.php") === true)
 }
 
 //check if search is installed
-$searchInstalled = false;
+$searchInfo = checkForSearchInstall($locationForSearch, "../");
 $configStaticSearch = null;
 
-if(is_file("../search/index.php") === true)
+if($searchInfo["local"])
 {
-	$searchInstalled = true;
 	$configStaticMain = $configStatic;
 	require_once('../search/core/php/configStatic.php');
 	$configStaticSearch = $configStatic;
@@ -45,12 +43,11 @@ if(is_file("../search/index.php") === true)
 }
 
 //check if seleniumMonitor is installed
-$seleniumMonitorInstalled = false;
+$seleniumMonitorInfo = checkForSeleniumMonitorInstall($locationForSeleniumMonitor, "../");
 $configStaticSeleniumMonitor = null;
 
-if(is_file("../seleniumMonitor/index.php") === true)
+if($seleniumMonitorInfo["local"])
 {
-	$seleniumMonitorInstalled = true;
 	$configStaticMain = $configStatic;
 	require_once('../seleniumMonitor/core/php/configStatic.php');
 	$configStaticSeleniumMonitor = $configStatic;
@@ -59,7 +56,8 @@ if(is_file("../seleniumMonitor/index.php") === true)
 
 $listOfAddons = array(
 	"Monitor" => array(
-		"Installed"		=> 	$monitorInstalled,
+		"Installed"		=> 	$monitorInfo["loc"],
+		"Local"			=>	$monitorInfo["local"],
 		"lowercase"		=>	"monitor",
 		"uppercase"		=>	"Monitor",
 		"Repo"			=>	"Monitor",
@@ -67,7 +65,8 @@ $listOfAddons = array(
 		"ConfigStatic"	=>	$configStaticMonitor
 	),
 	"Search" => array(
-		"Installed"		=> 	$searchInstalled,
+		"Installed"		=> 	$searchInfo["loc"],
+		"Local"			=>	$searchInfo["local"],
 		"lowercase"		=>	"search",
 		"uppercase"		=>	"Search",
 		"Repo"			=>	"Search",
@@ -75,7 +74,8 @@ $listOfAddons = array(
 		"ConfigStatic"	=>	$configStaticSearch
 	),
 	"seleniumMonitor" => array(
-		"Installed"		=> 	$seleniumMonitorInstalled,
+		"Installed"		=> 	$seleniumMonitorInfo["loc"],
+		"Local"			=>	$seleniumMonitorInfo["local"],
 		"lowercase"		=>	"seleniumMonitor",
 		"uppercase"		=>	"SeleniumMonitor",
 		"Repo"			=>	"SeleniumMonitor",
@@ -120,6 +120,7 @@ $listOfAddons = array(
 				$uppercase = $value["uppercase"];
 				$repo = $value["Repo"];
 				$installed = $value["Installed"];
+				$localInstall = $value["Local"];
 				$description = $value["Description"];
 				?> 
 					<tr style="height: 10px;">
@@ -135,39 +136,44 @@ $listOfAddons = array(
 							<?php echo $description; ?>
 						</td>
 						<?php if($installed):?>
-							<td>
-								Version: <?php echo $value['ConfigStatic']['version'];?>
-							</td>
-							<?php if(strpos($URI, 'addons.php') !== false): ?>
+							<?php if($localInstall):?>
 								<td>
-									<?php if ($value['ConfigStatic']['version'] !== $value['ConfigStatic']['newestVersion']): ?>
-										Update Available - <?php echo $value['ConfigStatic']['newestVersion']; ?>
-									<?php else: ?>
-										No Update
-									<?php endif; ?>
+									Version: <?php echo $value['ConfigStatic']['version'];?>
 								</td>
+								<?php if(strpos($URI, 'addons.php') !== false): ?>
+									<td>
+										<?php if ($value['ConfigStatic']['version'] !== $value['ConfigStatic']['newestVersion']): ?>
+											Update Available - <?php echo $value['ConfigStatic']['newestVersion']; ?>
+										<?php else: ?>
+											No Update
+										<?php endif; ?>
+									</td>
+									<td>
+										<?php if ($value['ConfigStatic']['version'] !== $value['ConfigStatic']['newestVersion']): ?>
+											<a class="link" onclick="installUpdates('../<?php echo $lowercase; ?>/','<?php echo $lowercase; ?>UpdateForm');">Install <?php echo $value['ConfigStatic']["newestVersion"];?> Update</a>
+										<?php else: ?>
+											<a onclick="checkForUpdates('../<?php echo $lowercase; ?>/','<?php echo $uppercase; ?>','<?php echo $value['ConfigStatic']['version'];?>','<?php echo $lowercase; ?>UpdateForm');" class="link">Check For Updates</a>
+										<?php endif; ?>
+									</td>
+								<?php else: ?>
+									<td colspan="2">
+									</td>
+								<?php endif; ?>
 								<td>
-									<?php if ($value['ConfigStatic']['version'] !== $value['ConfigStatic']['newestVersion']): ?>
-										<a class="link" onclick="installUpdates('../<?php echo $lowercase; ?>/','<?php echo $lowercase; ?>UpdateForm');">Install <?php echo $value['ConfigStatic']["newestVersion"];?> Update</a>
-									<?php else: ?>
-										<a onclick="checkForUpdates('../<?php echo $lowercase; ?>/','<?php echo $uppercase; ?>','<?php echo $value['ConfigStatic']['version'];?>','<?php echo $lowercase; ?>UpdateForm');" class="link">Check For Updates</a>
-									<?php endif; ?>
+									<script type="text/javascript">
+									var <?php echo $key; ?> = "<?php echo $lowercase; ?>Remove"
+									</script>
+									<form id="<?php echo $lowercase; ?>Remove" action="addonAction.php" method="post">
+										<input type="hidden" name="localFolderLocation" value="<?php echo $lowercase; ?>"> 
+										<input type="hidden" name="repoName" value="<?php echo $repo; ?>">
+										<input type="hidden" name="action" value="Removing">
+									</form>
+									<a onclick="addonMonitorAction(<?php echo $key; ?>);" class="link">Remove <?php echo $uppercase; ?></a>
 								</td>
 							<?php else: ?>
-								<td colspan="2">
+								<td colspan="4">
+									This is installed, but not within Log-Hog
 								</td>
-							<?php endif; ?>
-							<td>
-								<script type="text/javascript">
-								var <?php echo $key; ?> = "<?php echo $lowercase; ?>Remove"
-								</script>
-								<form id="<?php echo $lowercase; ?>Remove" action="addonAction.php" method="post">
-									<input type="hidden" name="localFolderLocation" value="<?php echo $lowercase; ?>"> 
-									<input type="hidden" name="repoName" value="<?php echo $repo; ?>">
-									<input type="hidden" name="action" value="Removing">
-								</form>
-								<a onclick="addonMonitorAction(<?php echo $key; ?>);" class="link">Remove <?php echo $uppercase; ?></a>
-							</td>
 						<?php else: ?>
 							<td colspan="3">
 							</td>

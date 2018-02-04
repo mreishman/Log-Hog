@@ -64,74 +64,13 @@ if($backgroundPollingRateType == 'Seconds')
 	$backgroundPollingRate *= 1000;
 }
 
-$locationForStatusIndex = "";
-if($locationForStatus != "")
-{
-	$locationForStatusIndex = $locationForStatus;
-}
-elseif (is_dir("../status"))
-{
-	$locationForStatusIndex = "../status/";
-}
-elseif (is_dir("../Status"))
-{
-	$locationForStatusIndex = "../Status/";
-}
+$locationForStatusIndex = checkForStatusInstall($locationForStatus, "./");
 
-$locationForMonitorIndex = "";
-if($locationForMonitor != "")
-{
-	$locationForMonitorIndex = $locationForMonitor;
-}
-elseif(is_file("monitor/index.php"))
-{
-	$locationForMonitorIndex = './monitor/';
-}
-elseif (is_dir("../monitor"))
-{
-	$locationForMonitorIndex = "../monitor/";
-}
-elseif (is_dir("../Monitor"))
-{
-	$locationForMonitorIndex = "../Monitor/";
-}
+$locationForMonitorIndex = checkForMonitorInstall($locationForMonitor, "./");
 
-$locationForSearchIndex = "";
-if($locationForSearch != "")
-{
-	$locationForSearchIndex = $locationForSearch;
-}
-elseif(is_file("search/index.php"))
-{
-	$locationForSearchIndex = './search/';
-}
-elseif (is_dir("../search"))
-{
-	$locationForSearchIndex = "../search/";
-}
-elseif (is_dir("../Search"))
-{
-	$locationForSearchIndex = "../Search/";
-}
+$locationForSearchIndex = checkForSearchInstall($locationForSearch, "./");
 
-
-$locationForSeleniumMonitorIndex = "";
-if($locationForSeleniumMonitor != "")
-{
-	$locationForSeleniumMonitorIndex = $locationForSeleniumMonitor;
-}
-elseif(is_file("seleniumMonitor/index.php"))
-{
-	$locationForSeleniumMonitorIndex = './seleniumMonitor/';
-}
-elseif (is_dir("../seleniumMonitor"))
-{
-	$locationForSeleniumMonitorIndex = "../seleniumMonitor/";
-}
-elseif (is_dir("../SeleniumMonitor"))
-{
-	$locationForSeleniumMonitorIndex = "../SeleniumMonitor/";
-}
+$locationForSeleniumMonitorIndex = checkForSeleniumMonitorInstall($locationForSeleniumMonitor, "./");
 
 $loadingBarStyle = "";
 
@@ -356,8 +295,8 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 					?>
 				</div>
 			<?php endif; ?>
-			<?php if($locationForMonitorIndex != ""): ?>
-				<div onclick="window.location.href = '<?php echo $locationForMonitorIndex; ?>'"  class="menuImageDiv">
+			<?php if($locationForMonitorIndex["loc"]): ?>
+				<div onclick="window.location.href = '<?php echo $locationForMonitorIndex["loc"]; ?>'"  class="menuImageDiv">
 					<?php echo generateImage(
 						$arrayOfImages["taskManager"],
 						$imageConfig = array(
@@ -369,8 +308,8 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 					?>
 				</div>
 			<?php endif; ?>
-			<?php if($locationForSearchIndex != ""): ?>
-				<div onclick="window.location.href = '<?php echo $locationForSearchIndex; ?>'"  class="menuImageDiv">
+			<?php if($locationForSearchIndex["loc"]): ?>
+				<div onclick="window.location.href = '<?php echo $locationForSearchIndex["loc"]; ?>'"  class="menuImageDiv">
 					<?php echo generateImage(
 						$arrayOfImages["search"],
 						$imageConfig = array(
@@ -382,8 +321,8 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 					?>
 				</div>
 			<?php endif; ?>
-			<?php if($locationForSeleniumMonitorIndex != ""): ?>
-				<div onclick="window.location.href = '<?php echo $locationForSeleniumMonitorIndex; ?>'"  class="menuImageDiv">
+			<?php if($locationForSeleniumMonitorIndex["loc"]): ?>
+				<div onclick="window.location.href = '<?php echo $locationForSeleniumMonitorIndex["loc"]; ?>'"  class="menuImageDiv">
 					<?php echo generateImage(
 						$arrayOfImages["seleniumMonitor"],
 						$imageConfig = array(
@@ -445,8 +384,8 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 				}
 				?>
 			</div>
-			<?php if ($locationForStatusIndex != ""):?>
-				<div style="display: inline-block; cursor: pointer;" onclick="window.location.href='<?php echo $locationForStatusIndex; ?>'" >
+			<?php if ($locationForStatusIndex["loc"]):?>
+				<div style="display: inline-block; cursor: pointer;" onclick="window.location.href='<?php echo $locationForStatusIndex["loc"]; ?>'" >
 					<?php echo generateImage(
 						$arrayOfImages["gitStatus"],
 						$imageConfig = array(
