@@ -385,7 +385,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 				?>
 			</div>
 			<?php if ($locationForStatusIndex["loc"]):?>
-				<div style="display: inline-block; cursor: pointer;" onclick="window.location.href='<?php echo $locationForStatusIndex["loc"]; ?>'" >
+				<div onclick="window.location.href='<?php echo $locationForStatusIndex["loc"]; ?>'" class="menuImageDiv">
 					<?php echo generateImage(
 						$arrayOfImages["gitStatus"],
 						$imageConfig = array(

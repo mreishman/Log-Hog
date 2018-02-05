@@ -171,9 +171,13 @@ $listOfAddons = array(
 									<a onclick="addonMonitorAction(<?php echo $key; ?>);" class="link">Remove <?php echo $uppercase; ?></a>
 								</td>
 							<?php else: ?>
-								<td colspan="4">
+								<td colspan="3">
 									This is installed, but not within Log-Hog
 								</td>
+								<td>
+									<a onclick="window.location.href= '<?php echo $installed; ?>'" class="link">View</a>
+								</td>
+							<?php endif; ?>
 						<?php else: ?>
 							<td colspan="3">
 							</td>
