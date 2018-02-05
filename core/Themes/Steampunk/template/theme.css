@@ -42,7 +42,7 @@ div {
 #menu a, #menu2 a {
 	display: inline-block;
 	margin: .5em 0;
-	background-color: #2A912A;
+	background-color: #684E32;
 	cursor: pointer;
 }
 
@@ -86,11 +86,12 @@ div {
 }
 
 #menu a.updated {
-	background-color: #912A2C; 
+	background-color: #FFAE42;
+	color: black; 
 }
 
 #menu a.updated:hover {
-	background-color: #FFDDFF; 
+	background-color: #FFECD3; 
 }
 
 .menuImage{
@@ -155,11 +156,11 @@ div {
 
 .popupForInfo
 {
-	background-color: #CCC;
+	background-color: black;
 	z-index: 10;
 	position: absolute;
 	border: 1px solid white;
-	color: black;
+	color: white;
 	width: fit-content;
 	padding: 5px;
 	word-break: break-all;
@@ -303,7 +304,7 @@ div {
   display: none;
   position: absolute;
   z-index: 30;
-  background-color: green;
+  background-color: black;
   border: 1px solid white;
   box-shadow: 0 0 5px black;
 }
