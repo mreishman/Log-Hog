@@ -12,7 +12,6 @@ var fileSizes;
 var filesNew;
 var firstLoad = true;
 var flasher;
-var fresh = true;
 var lastContentSearch = "";
 var lastLogs = {};
 var logs = {};
@@ -363,7 +362,6 @@ function pollThree(arrayToUpdate)
 					{
 						arrayOfDataMainDataFilter(data);
 						update(arrayOfDataMain);
-						fresh = false;
 					},
 					complete()
 					{
@@ -413,7 +411,6 @@ function getFileSingle(current)
 				else
 				{
 					update(arrayOfDataMain);
-					fresh = false;
 					afterPollFunctionComplete();
 				}
 			}
@@ -742,7 +739,7 @@ function update(data)
 
 								var itemAdded = false;
 
-								if(!fresh)
+								if(!firstLoad)
 								{
 									var moveToFrontOnUpdate = false;
 									var innerCount = i;
@@ -779,7 +776,7 @@ function update(data)
 									menu.append(item);
 								}
 
-								if(!fresh)
+								if(!firstLoad)
 								{
 									if(!$("#menu a." + id + "Button").hasClass("updated"))
 									{
@@ -883,7 +880,7 @@ function update(data)
 								}
 								else
 								{
-									if(!fresh)
+									if(!firstLoad)
 									{
 										if(autoMoveUpdateLog === "true")
 										{
