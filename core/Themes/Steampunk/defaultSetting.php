@@ -1,11 +1,11 @@
 <?php
 $themeDefaultSettings = array(
-	'displayName' => "Default",
-	'loadingBarVersion' => 1,
-	'backgroundColor' => "#292929",
+	'displayName' => "Steampunk",
+	'loadingBarVersion' => 6,
+	'backgroundColor' => "#2e303f",
 	'mainFontColor' => "#FFFFFF",
 	'logFontColor' => "#FFFFFF",
-	'backgroundHeaderColor' => "#222222",
+	'backgroundHeaderColor' => "#2b1f05",
 	'currentFolderColorTheme' => "theme-default-2",
 	'scrollBarHandle'				=> 'background: #CCC;',
 	'scrollBarHandleHover'			=> 'background: #FFFFFF;',

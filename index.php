@@ -96,6 +96,10 @@ elseif($loadingBarVersion === 5)
 {
 	$loadingBarStyle = "data-type=\"stroke\" data-stroke=\"green\" data-stroke-trail=\"#063305\" "."data-stroke-width=\"3\" data-stroke-trail-width=\"1\"";
 }
+elseif($loadingBarVersion === 6)
+{
+	$loadingBarStyle = "data-type=\"stroke\" data-stroke=\"green\" data-stroke-trail=\"#063305\" "."data-stroke-width=\"3\" data-stroke-trail-width=\"1\"";
+}
 
 
 $windowDisplayConfig = explode("x", $windowConfig);
