@@ -153,13 +153,22 @@ $countConfig--;
 					</div>
 				</li>
 				<li>
-					System preference:
+					<span class="settingsBuffer"> System preference: </span>
 					<div class="selectDiv">
 						<select name="shellOrPhp">
   							<option <?php if($shellOrPhp == 'shellPreferred'){echo "selected";} ?> value="shellPreferred">Shell Preferred</option>
   							<option <?php if($shellOrPhp == 'phpPreferred'){echo "selected";} ?> value="phpPreferred">Php Preferred</option>
   							<option <?php if($shellOrPhp == 'shellOnly'){echo "selected";} ?> value="shellOnly">Shell Only</option>
   							<option <?php if($shellOrPhp == 'phpOnly'){echo "selected";} ?> value="phpOnly">Php Only</option>
+						</select>
+					</div>
+				</li>
+				<li>
+					<span class="settingsBuffer">Individual File Load:</span>
+					<div class="selectDiv">
+						<select name="pollForceSingleFile">
+  							<option <?php if($pollForceSingleFile == 'true'){echo "selected";} ?> value="true">True</option>
+  							<option <?php if($pollForceSingleFile == 'false'){echo "selected";} ?> value="false">False</option>
 						</select>
 					</div>
 				</li>

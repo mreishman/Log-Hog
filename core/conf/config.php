@@ -258,6 +258,7 @@ $defaultConfig = array(
 	'pausePoll'						=> 'false',
 	'pollingRate'					=> 500,
 	'pollingRateType'				=> 'Milliseconds',
+	'pollForceSingleFile'			=> 'false',
 	'pollForceTrue'					=> 60,
 	'pollForceTrueBool'				=> 'true',
 	'pollRefreshAll'				=> 120,

@@ -344,9 +344,16 @@ function pollThree(arrayToUpdate)
 		t3 = performance.now();
 		if (typeof arrayToUpdate !== "undefined" && arrayToUpdate.length > 0) 
 		{
-			if(firstLoad)
+			if(firstLoad || pollForceSingleFile === "true")
 			{
-				updateProgressBar(10,arrayToUpdate[0],  "Loading file 1 of "+arrayToUpdate.length+" <br>  "+formatBytes(fileSizes[arrayToUpdate[0]]));
+				if(firstLoad)
+				{
+					updateProgressBar(10,arrayToUpdate[0],  "Loading file 1 of "+arrayToUpdate.length+" <br>  "+formatBytes(fileSizes[arrayToUpdate[0]]));
+				}
+				else
+				{
+
+				}
 				getFileSingle(arrayToUpdate.length-1, arrayToUpdate.length-1);
 			}
 			else
@@ -401,7 +408,14 @@ function getFileSingle(current)
 			{
 				var currentNew = this.currentFile;
 				var updateBy = (1/arrayToUpdate.length)*60;
-				updateProgressBar(updateBy, arrayToUpdate[currentNew-1], "Loading file "+(arrayToUpdate.length+1-currentNew)+" of "+arrayToUpdate.length+" <br>  "+formatBytes(fileSizes[arrayToUpdate[currentNew-1]]));
+				if(firstLoad)
+				{
+					updateProgressBar(updateBy, arrayToUpdate[currentNew-1], "Loading file "+(arrayToUpdate.length+1-currentNew)+" of "+arrayToUpdate.length+" <br>  "+formatBytes(fileSizes[arrayToUpdate[currentNew-1]]));
+				}
+				else
+				{
+
+				}
 				if(currentNew > 0)
 				{
 					currentNew--;
