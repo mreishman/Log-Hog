@@ -338,6 +338,19 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 					?>
 				</div>
 			<?php endif; ?>
+			<?php if ($locationForStatusIndex["loc"]):?>
+				<div onclick="window.location.href='<?php echo $locationForStatusIndex["loc"]; ?>'" class="menuImageDiv">
+					<?php echo generateImage(
+						$arrayOfImages["gitStatus"],
+						$imageConfig = array(
+							"id"		=>	"gitStatusImage",
+							"class"		=>	"menuImage",
+							"height"	=>	"30px"
+							)
+						); 
+					?>
+				</div>
+			<?php endif; ?>
 			<div onclick="window.location.href = './settings/about.php'" class="menuImageDiv">
 				<?php echo generateImage(
 					$arrayOfImages["info"],
@@ -388,19 +401,6 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 				}
 				?>
 			</div>
-			<?php if ($locationForStatusIndex["loc"]):?>
-				<div onclick="window.location.href='<?php echo $locationForStatusIndex["loc"]; ?>'" class="menuImageDiv">
-					<?php echo generateImage(
-						$arrayOfImages["gitStatus"],
-						$imageConfig = array(
-							"id"		=>	"gitStatusImage",
-							"class"		=>	"menuImage",
-							"height"	=>	"30px"
-							)
-						); 
-					?>
-				</div>
-			<?php endif; ?>
 			<div  id="clearNotificationsImage" style="display: none;" onclick="clearNotifications();" class="menuImageDiv">
 				<?php echo generateImage(
 					$arrayOfImages["notificationClear"],
