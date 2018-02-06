@@ -1,6 +1,6 @@
 body {
 	color: white;
-	background-color: #2e303f;
+	background-color: #191205;
 	font-family: monospace;
 	padding: 0;
 	margin: 0;
@@ -18,7 +18,7 @@ div {
 	position: absolute;
 	width: 100%;
 	z-index: 20;
-	background-color: #2b1f05;
+	background-color: #2e303f;
 	padding: .5em 1em;
 	max-height: 300px;
 	border-bottom: 1px solid white;
@@ -145,7 +145,7 @@ div {
 
 .backgroundForSideBarMenu
 {
-	background-color: #2b1f05;
+	background-color: #2e303f;
 	overflow-y: auto;
 }
 
@@ -173,7 +173,7 @@ div {
 
 .backgroundForMenus
 {
-	background-color: #2b1f05;
+	background-color: #2e303f;
 }
 
 .sidebarCurrentWindowNum
