@@ -15,6 +15,7 @@ require_once('../core/php/configStatic.php');
 <head>
 	<title>Welcome!</title>
 	<link rel="stylesheet" type="text/css" href="../core/template/theme.css">
+	<link rel="stylesheet" type="text/css" href="../core/template/base.css">
 	<script src="../core/js/jquery.js"></script>	
 </head>
 <body>

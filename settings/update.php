@@ -23,7 +23,7 @@ $daysSince = calcuateDaysSince($configStatic['lastCheck']);
 <!doctype html>
 <head>
 	<title>Settings | Update</title>
-	<?php echo loadCSS($baseUrl, $cssVersion);?>
+	<?php echo loadCSS("../",$baseUrl, $cssVersion);?>
 	<link rel="icon" type="image/png" href="../core/img/favicon.png" />
 	<script src="../core/js/jquery.js"></script>
 	<script src="../core/js/update.js?v=<?php echo $cssVersion; ?>"></script>

@@ -115,10 +115,6 @@
 	overflow-y: auto;
 }
 
-.backgroundForSideBarMenu::-webkit-scrollbar {
-	width: 1px;
-}
-
 .popupForInfo
 {
 	background-color: black;
@@ -158,16 +154,6 @@
 #title{
 	display: inline-block;
 	text-shadow: 0 0 2px black, 0 0 5px black, 0 0 9px black, 0 0 14px black, 0 0 20px black;
-}
-
-#settingsUl
-{
-	list-style: none;
-}
-
-#settingsUl li
-{
-	padding: 10px;
 }
 
 .settingsDiv
@@ -351,12 +337,6 @@
 	padding: 75px;
 	background-color: #333;
 	border: 1px solid white;
-}
-
-.deleteIconPosition{
-	position: relative;
-	top: 3px;
-	cursor: pointer;
 }
 
 .selectDiv{

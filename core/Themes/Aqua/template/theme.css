@@ -159,11 +159,6 @@ background: linear-gradient(to bottom, rgba(233,170,181,1) 0%, rgba(242,166,173,
 	overflow-y: auto;
 }
 
-.backgroundForSideBarMenu::-webkit-scrollbar {
-	width: 1px;
-	
-}
-
 .backgroundForMenus
 {
 	background: -moz-linear-gradient(top, #eeeeee 0%, #dddddd 25%, #dddddd 75%, #eeeeee 100%);
@@ -215,16 +210,6 @@ background: linear-gradient(to bottom, rgba(233,170,181,1) 0%, rgba(242,166,173,
 
 #title{
 	display: inline-block;
-}
-
-#settingsUl
-{
-	list-style: none;
-}
-
-#settingsUl li
-{
-	padding: 10px;
 }
 
 .settingsDiv
@@ -415,12 +400,6 @@ background: linear-gradient(to bottom, rgba(233,170,181,1) 0%, rgba(242,166,173,
 	padding: 75px;
 	background-color: #333;
 	border: 1px solid white;
-}
-
-.deleteIconPosition{
-	position: relative;
-	top: 3px;
-	cursor: pointer;
 }
 
 .selectDiv{

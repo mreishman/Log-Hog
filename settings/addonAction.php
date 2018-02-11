@@ -34,7 +34,7 @@ if($localFolderLocation === "" || $repoName === "")
 <html>
 <head>
 	<title><?php echo $action;?> <?php echo $repoName;?></title>
-	<?php echo loadCSS($baseUrl, $cssVersion);?>
+	<?php echo loadCSS("../",$baseUrl, $cssVersion);?>
 	<script src="../core/js/jquery.js"></script>
 	<?php require_once("../core/php/template/popup.php"); ?>
 	<script type="text/javascript">

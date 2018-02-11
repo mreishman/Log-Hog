@@ -209,3 +209,24 @@ div.sidebarLeft {
 .errorMessageGreenBG{
 	background-color: green;
 }
+
+#settingsUl
+{
+	list-style: none;
+}
+
+#settingsUl li
+{
+	padding: 10px;
+}
+
+.deleteIconPosition{
+	position: relative;
+	top: 3px;
+	cursor: pointer;
+}
+
+.backgroundForSideBarMenu::-webkit-scrollbar {
+	width: 1px;
+	
+}

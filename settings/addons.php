@@ -88,7 +88,7 @@ $listOfAddons = array(
 <!doctype html>
 <head>
 	<title>Settings | Addons</title>
-	<?php echo loadCSS($baseUrl, $cssVersion);?>
+	<?php echo loadCSS("../",$baseUrl, $cssVersion);?>
 	<link rel="icon" type="image/png" href="../core/img/favicon.png" />
 	<script src="../core/js/jquery.js"></script>
 	<script src="../core/js/update.js"></script>
