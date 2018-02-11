@@ -253,41 +253,6 @@
 	color: black;
 }
 
-#topBarOverview{
-	border-bottom: 1px solid #999;
-	background-color: #555;
-	overflow-x: scroll;
-	height: 310px;
-	white-space: nowrap;
-}
-
-.expandMenu{
-	display: inline-block;
-	float: right;
-	cursor: pointer;
-}
-.expandMenu:after{
-	content: '\2807';
- 	font-size: 20px;
-}
-
-
-.bottomBarOverviewHalf{
-	width: 48%; 
-	display: inline-block;
-	overflow: auto;
-}
-
-.bottomBarOverviewLeft{
-	margin-left: 10px;
-	border-right: 1px solid white;
-}
-
-.bottomBarOverviewRight{
-	float: right;
-	margin-right: 10px;
-}
-
 .dropdown-content {
     display: none;
     position: absolute;
@@ -327,10 +292,6 @@
 
 .dropdown-content__item:hover{
 	background-color: white;
-}
-
-.TableInfoForNet{
-	padding: 5px;
 }
 
 .loadingSpinner{
