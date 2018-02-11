@@ -253,72 +253,12 @@
 	color: black;
 }
 
-.canvasMonitor{
-	border: 1px solid white;
-	background-color: #333;
-}
-
-.canvasMonitorDiv{
-	margin: 20px;
-	display: inline-block;
-	box-shadow: 0 0 5px black;
-}
-
-.canvasMonitorText{
-	background-color: white;
-	color: black;
-	padding: 5px;
-	text-align: center;
-}
-
 #topBarOverview{
 	border-bottom: 1px solid #999;
 	background-color: #555;
 	overflow-x: scroll;
 	height: 310px;
 	white-space: nowrap;
-}
-
-#processIds table tr:hover{
-	background-color: #ccc;
-	color: black;
-	cursor: default;
-}
-
-#processIds table tr th{
-	background-color: #ccc;
-	color: black;
-	cursor: pointer;
-	text-align: left;
-}
-
-#processIds table tr td{
-	max-width: 50px;
-	overflow: hidden;
-	white-space: nowrap;
-}
-
-#processIds table tr:hover td .expandMenu{
-	color: black;
-}
-
-#processIds table tr td .expandMenu{
-	color: #191919;
-}
-
-.canvasMonitorDiv table tr:hover{
-	background-color: #ccc;
-	color: black;
-	cursor: default;
-}
-
-.canvasMonitorDiv table tr td{
-	max-width: 50px;
-	overflow: hidden;
-}
-
-.canvasMonitorDiv table tr:hover td .expandMenu{
-	color: black;
 }
 
 .expandMenu{
