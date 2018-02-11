@@ -9,7 +9,7 @@ Poll Settings
 <div class="settingsDiv" >
 <ul id="settingsUl">
 	<li>
-		<span class="settingsBuffer" > Polling Rate: </span>  <input type="text" name="pollingRate" value="<?php echo $pollingRate;?>" >
+		<span class="settingsBuffer" > Polling Rate: </span>  <input type="number" pattern="[0-9]*" name="pollingRate" value="<?php echo $pollingRate;?>" >
 		<div class="selectDiv">
 			<select name="pollingRateType">
 				<option <?php if($pollingRateType == 'Milliseconds'){echo "selected";} ?> value="Milliseconds">Milliseconds</option>
@@ -18,7 +18,7 @@ Poll Settings
 		</div>
 	</li>
 	<li>
-		<span class="settingsBuffer" > Background Poll Rate: </span>  <input type="text" name="backgroundPollingRate" value="<?php echo $backgroundPollingRate;?>" >
+		<span class="settingsBuffer" > Background Poll Rate: </span>  <input type="number" pattern="[0-9]*" name="backgroundPollingRate" value="<?php echo $backgroundPollingRate;?>" >
 		<div class="selectDiv">
 			<select name="backgroundPollingRateType">
 				<option <?php if($backgroundPollingRateType == 'Milliseconds'){echo "selected";} ?> value="Milliseconds">Milliseconds</option>

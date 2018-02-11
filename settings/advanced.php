@@ -132,7 +132,7 @@ $countConfig--;
 			<ul id="settingsUl">
 				<li>
 					<span class="settingsBuffer"> Poll refresh all data every </span>
-					<input type="text" style="width: 100px;"  name="pollRefreshAll" value="<?php echo $pollRefreshAll;?>" > 
+					<input type="number" pattern="[0-9]*" style="width: 100px;"  name="pollRefreshAll" value="<?php echo $pollRefreshAll;?>" > 
 					poll requests
 					<div class="selectDiv">
 						<select name="pollRefreshAllBool">
@@ -143,7 +143,7 @@ $countConfig--;
 				</li>
 				<li>
 					<span class="settingsBuffer"> Force poll refresh after </span>
-					<input type="text" style="width: 100px;"  name="pollForceTrue" value="<?php echo $pollForceTrue;?>" > 
+					<input type="number" pattern="[0-9]*" style="width: 100px;"  name="pollForceTrue" value="<?php echo $pollForceTrue;?>" > 
 					skipped poll requests
 					<div class="selectDiv">
 						<select name="pollForceTrueBool">

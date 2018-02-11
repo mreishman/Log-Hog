@@ -35,7 +35,7 @@ Update Settings
 			
 				<li>
 				<span class="settingsBuffer" > Check for update every: </span> 
-					<input type="text" name="autoCheckDaysUpdate" value="<?php echo $autoCheckDaysUpdate;?>" >  Day(s)
+					<input type="number" pattern="[0-9]*" name="autoCheckDaysUpdate" value="<?php echo $autoCheckDaysUpdate;?>" >  Day(s)
 				</li>
 				<li>
 				<span class="settingsBuffer" > Notify Updates on: </span>

@@ -9,7 +9,7 @@
 	<div class="settingsDiv" >
 	<ul id="settingsUl">
 		<li>
-			<span class="settingsBuffer" >Number of lines to display:</span>  <input type="text" name="sliceSize" value="<?php echo $sliceSize;?>" >
+			<span class="settingsBuffer" >Number of lines to display:</span>  <input type="number" pattern="[0-9]*" name="sliceSize" value="<?php echo $sliceSize;?>" >
 		</li>
 		<li>
 			<span class="settingsBuffer" > Flash title on log update: </span>
@@ -109,7 +109,7 @@
 
 
 					: </span> 
-						<input type="text" name="logSizeLimit" value="<?php echo $logSizeLimit;?>" > 
+						<input type="number" pattern="[0-9]*" name="logSizeLimit" value="<?php echo $logSizeLimit;?>" > 
 						<span id="logTrimTypeText" >
 							<?php if($logTrimType == 'lines')
 							{
@@ -124,7 +124,7 @@
 					</li>
 					<li>
 					<span class="settingsBuffer" > Buffer Size: </span>
-					 	<input type="text" name="buffer" value="<?php echo $buffer;?>" > 
+					 	<input type="number" pattern="[0-9]*" name="buffer" value="<?php echo $buffer;?>" > 
 					</li>
 					<li id="LiForlogTrimMacBSD">
 						<span class="settingsBuffer" > Use Mac/Free BSD Command: </span>
