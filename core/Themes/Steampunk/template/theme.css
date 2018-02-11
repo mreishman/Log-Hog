@@ -1,19 +1,3 @@
-body {
-	color: white;
-	background-color: #191205;
-	font-family: monospace;
-	padding: 0;
-	margin: 0;
-}
-
-div {
-	box-sizing: border-box;
-}
-
-#storage {
-	display: none;
-}
-
 #menu {
 	position: absolute;
 	width: 100%;
@@ -94,42 +78,9 @@ div {
 	background-color: #FFECD3; 
 }
 
-.menuImage{
-	vertical-align: middle;
-	-webkit-transition: .3s ease-in-out;
-	transition: .3s ease-in-out;
-	-webkit-transform: scale(1);
-	transform: scale(1);
-	color: white;
-}
-
-.menuImageDiv{
-	display: inline-block;
-	cursor: pointer;
-	height: 30px;
-	width: 30px;
-}
-
-.menuImage:hover{
-	-webkit-transform: scale(1.3);
-	transform: scale(1.3);
-}
-
-#main {
-	position: fixed;
-	bottom: 0;
-	left: 0;
-	width: 100%;
-	overflow: auto;
-}
-
 #log {
 	padding: 1em 0;
 	color: white;
-}
-
-#log div {
-	padding: .25em 1em;
 }
 
 #titleContainer {
@@ -432,98 +383,6 @@ div {
 	margin-right: 10px;
 }
 
-.led-red {
-  margin: 0 auto;
-  width: 24px;
-  height: 24px;
-  background-color: #F00;
-  border-radius: 50%;
-  box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px, rgba(255, 0, 0, 0.5) 0 2px 12px;
-  -webkit-animation: blinkRed 0.5s infinite;
-  -moz-animation: blinkRed 0.5s infinite;
-  -ms-animation: blinkRed 0.5s infinite;
-  -o-animation: blinkRed 0.5s infinite;
-  animation: blinkRed 0.5s infinite;
-  scale: 0.5 0.5;
-}
-
-@-webkit-keyframes blinkRed {
-    from { background-color: #F00; }
-    50% { background-color: #A00; box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px, rgba(255, 0, 0, 0.5) 0 2px 0;}
-    to { background-color: #F00; }
-}
-@-moz-keyframes blinkRed {
-    from { background-color: #F00; }
-    50% { background-color: #A00; box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px, rgba(255, 0, 0, 0.5) 0 2px 0;}
-    to { background-color: #F00; }
-}
-@-o-keyframes blinkRed {
-    from { background-color: #F00; }
-    50% { background-color: #A00; box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px, rgba(255, 0, 0, 0.5) 0 2px 0;}
-    to { background-color: #F00; }
-}
-@keyframes blinkRed {
-    from { background-color: #F00; }
-    50% { background-color: #A00; box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px, rgba(255, 0, 0, 0.5) 0 2px 0;}
-    to { background-color: #F00; }
-}
-
-.led-yellow {
-  margin: 0 auto;
-  width: 24px;
-  height: 24px;
-  background-color: #FF0;
-  border-radius: 50%;
-  box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #808002 0 -1px 9px, #FF0 0 2px 12px;
-  -webkit-animation: blinkYellow 1s infinite;
-  -moz-animation: blinkYellow 1s infinite;
-  -ms-animation: blinkYellow 1s infinite;
-  -o-animation: blinkYellow 1s infinite;
-  animation: blinkYellow 1s infinite;
-  scale: 0.5 0.5;
-}
-
-@-webkit-keyframes blinkYellow {
-    from { background-color: #FF0; }
-    50% { background-color: #AA0; box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #808002 0 -1px 9px, #FF0 0 2px 0; }
-    to { background-color: #FF0; }
-}
-@-moz-keyframes blinkYellow {
-    from { background-color: #FF0; }
-    50% { background-color: #AA0; box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #808002 0 -1px 9px, #FF0 0 2px 0; }
-    to { background-color: #FF0; }
-}
-@-o-keyframes blinkYellow {
-    from { background-color: #FF0; }
-    50% { background-color: #AA0; box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #808002 0 -1px 9px, #FF0 0 2px 0; }
-    to { background-color: #FF0; }
-}
-@keyframes blinkYellow {
-    from { background-color: #FF0; }
-    50% { background-color: #AA0; box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #808002 0 -1px 9px, #FF0 0 2px 0; }
-    to { background-color: #FF0; }
-}
-
-.led-green {
-  margin: 0 auto;
-  width: 24px;
-  height: 24px;
-  background-color: #ABFF00;
-  border-radius: 50%;
-  box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #304701 0 -1px 9px, #89FF00 0 2px 12px;
-  scale: 0.5 0.5;
-}
-
-.led-blue {
-  margin: 0 auto;
-  width: 24px;
-  height: 24px;
-  background-color: #24E0FF;
-  border-radius: 50%;
-  box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #006 0 -1px 9px, #3F8CFF 0 2px 14px;
-  scale: 0.5 0.5;
-}
-
 .dropdown-content {
     display: none;
     position: absolute;
@@ -572,18 +431,6 @@ div {
 	padding: 75px;
 	background-color: #333;
 	border: 1px solid white;
-}
-
-.visible {
-  visibility: visible;
-  opacity: 1;
-  transition: opacity 1s linear;
-}
-
-.hidden {
-  visibility: hidden;
-  opacity: 0;
-  transition: visibility 0s 1s, opacity 1s linear;
 }
 
 .deleteIconPosition{
