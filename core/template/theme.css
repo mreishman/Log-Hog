@@ -210,41 +210,6 @@
 	color: white;
 }
 
-.colorSelectorDiv
-{
-	border: 1px solid white;
-	width: 20px;
-	height: 20px;
-	display: inline-block;
-}
-
-.inner-triangle{
-    border-left: 7px solid transparent;
-    border-bottom: 7px solid white;
-    height: 0;
-    width: 0;
-    position: relative;
-    right: 0;
-    z-index: 2;
-    top: 11px;
-    left: 11px;
-}
-
-.errorMessageLog{
-	
-	font-size: 200%;
-	text-align: center;
-	line-height: 200%;
-}
-
-.errorMessageRedBG{
-	background-color: red;
-}
-
-.errorMessageGreenBG{
-	background-color: green;
-}
-
 .context-menu {
   display: none;
   position: absolute;
@@ -305,33 +270,6 @@
 	overflow-x: scroll;
 	height: 310px;
 	white-space: nowrap;
-}
-
-#processIds table tr:hover{
-	background-color: #ccc;
-	color: black;
-	cursor: default;
-}
-
-#processIds table tr th{
-	background-color: #ccc;
-	color: black;
-	cursor: pointer;
-	text-align: left;
-}
-
-#processIds table tr td{
-	max-width: 50px;
-	overflow: hidden;
-	white-space: nowrap;
-}
-
-#processIds table tr:hover td .expandMenu{
-	color: black;
-}
-
-#processIds table tr td .expandMenu{
-	color: #191919;
 }
 
 .canvasMonitorDiv table tr:hover{
@@ -453,27 +391,27 @@
 }
 
 
-#menuButtons{
-	display: block;
-	padding-bottom: 5px;
-	margin-bottom: 5px;
+/* width */
+::-webkit-scrollbar
+{
+	width: 10px;
 }
 
-div#fixed {
-    padding-bottom: 10px;
+/* Track */
+::-webkit-scrollbar-track
+{
+	background: #EEE;
 }
 
-div#scrollable {
-    overflow-y: scroll;
-	height: 80%;
+/* Handle */
+::-webkit-scrollbar-thumb
+{
+	background: rgba(105,159,236,1);
+	border-radius: 5px;
 }
 
-div.sidebarLeft {
-	padding: 0;
-    padding-bottom: 60px;
-    border: 4px solid  #222222;
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover
+{
+	background: rgba(172,197,233,1);
 }
