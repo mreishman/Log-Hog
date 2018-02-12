@@ -58,7 +58,7 @@ progress
 	background: <?php echo $currentSelectedThemeColorValues['main']['main-1']['background']?>;
 }
 
-body
+body, #main
 {
 	background: <?php echo $backgroundColor?>;
 	color: <?php echo $mainFontColor; ?>;

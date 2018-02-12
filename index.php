@@ -202,7 +202,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 <!doctype html>
 <head>
 	<title>Log Hog | Index</title>
-	<?php echo loadCSS($base, $baseUrl, $cssVersion);?>
+	<?php echo loadCSS("", $baseUrl, $cssVersion);?>
 	<link rel="icon" type="image/png" href="<?php echo $baseUrl; ?>img/favicon.png" />
 	<script src="core/js/jquery.js"></script>
 	<?php

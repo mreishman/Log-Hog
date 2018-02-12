@@ -18,6 +18,11 @@
 	color: white;
 }
 
+#main
+{
+	background-color: #CCCCCC;
+}
+
 #menu2 {
 	position: absolute;
 	width: 100%;

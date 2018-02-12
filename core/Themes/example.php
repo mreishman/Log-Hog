@@ -6,6 +6,7 @@
 <html>
 <head> 
 	<link rel="stylesheet" type="text/css" href="<?php echo $theme; ?>/template/theme.css?v=<?php echo $cssVersion;?>">
+	<link rel="stylesheet" type="text/css" href="../template/base.css?v=<?php echo $cssVersion;?>">
 </head>
 <body>
 	<div id="menu" style="position: relative; ">
