@@ -1,7 +1,7 @@
 <?php
 
 $configStatic = array(
-  'version'   => '3.5',
+  'version'   => '3.5.9',
   'lastCheck'   => '02-06-2018',
   'newestVersion' => '3.4',
   'versionList' => array(
