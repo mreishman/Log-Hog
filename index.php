@@ -420,6 +420,19 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 					</select>
 				</div>
 				<input disabled id="searchFieldInput" type="search" name="search" placeholder="Filter <?php echo $filterDefault; ?>" style="height: 30px; width: 200px;">
+				<div onclick="toggleFilterSettingsPopup();" style="display: inline-block; cursor: pointer;">
+					<?php echo generateImage(
+						$arrayOfImages["gear"],
+						$imageConfig = array(
+							"id"		=>	"filterGear",
+							"class"		=>	"menuImage",
+							"height"	=>	"15px",
+							"title"		=>  "Filter Settings",
+							"style"		=>  "margin-top: -15px;"
+							)
+						); 
+					?>
+				</div>
 			</div>
 		</div>
 	</div>

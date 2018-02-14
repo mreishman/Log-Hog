@@ -2029,6 +2029,11 @@ function showInfo(idNum)
 	}
 }
 
+function toggleFilterSettingsPopup()
+{
+	
+}
+
 $(document).ready(function()
 {
 	progressBar = new ldBar("#progressBar");
