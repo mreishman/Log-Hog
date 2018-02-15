@@ -634,13 +634,21 @@ function update(data)
 				var selectedListFilterType = selectListForFilter.options[selectListForFilter.selectedIndex].value;
 				var filterTextField = getFilterTextField();
 				var showFile = false;
+				shortName = files[i].replace(/.*\//g, "");
 				id = name.replace(/[^a-z0-9]/g, "");
 				
 
 				var filterOffOf = "";
 				if(selectedListFilterType === "title")
 				{
-					filterOffOf = name;
+					if(filterTitleIncludePath === "true")
+					{
+						filterOffOf = name;
+					}
+					else
+					{
+						filterOffOf = shortName;
+					}
 				}
 				else if(selectedListFilterType === "content")
 				{
@@ -726,7 +734,6 @@ function update(data)
 
 							if($("#menu ." + id + "Button").length === 0) 
 							{
-								shortName = files[i].replace(/.*\//g, "");
 								classInsert = "";
 								item = blank;
 								item = item.replace(/{{title}}/g, shortName);
@@ -2048,6 +2055,21 @@ function toggleFilterSettingsPopup()
 	}
 	innerHtmlForSettings += " value=\"false\">False</option>";
 	innerHtmlForSettings += " </select></div></li>";
+	innerHtmlForSettings += "<li><span class=\"settingsBuffer\" > Filter Title Includes Path: </span>";
+	innerHtmlForSettings += " <div class=\"selectDiv\"><select onchange=\"changeFilterTitleIncludePath();\" id=\"filterTitleIncludePath\">";
+	innerHtmlForSettings += "<option ";
+	if(filterTitleIncludePath === 'true')
+	{
+		innerHtmlForSettings += " selected ";
+	}
+	innerHtmlForSettings += " value=\"true\">True</option>";
+	innerHtmlForSettings += "<option ";
+	if(filterTitleIncludePath === 'false')
+	{
+		innerHtmlForSettings += " selected ";
+	}
+	innerHtmlForSettings += " value=\"false\">False</option>";
+	innerHtmlForSettings += " </select></div></li>";
 	innerHtmlForSettings += "<li><span class=\"settingsBuffer\" > Highlight Content match: </span>";
 	innerHtmlForSettings += " <div class=\"selectDiv\"><select onchange=\"changeHighlightContentMatch();\" id=\"filterContentHighlight\">";
 	innerHtmlForSettings += "<option";
@@ -2117,6 +2139,12 @@ function changeFilterContentMatch()
 function changeFilterContentLinePadding()
 {
 	filterContentLinePadding = document.getElementById("filterContentLinePadding").value;
+	possiblyUpdateFromFilter();
+}
+
+function changeFilterTitleIncludePath()
+{
+	filterTitleIncludePath = document.getElementById("filterTitleIncludePath").value;
 	possiblyUpdateFromFilter();
 }
 

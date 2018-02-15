@@ -537,6 +537,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 		var logTitle = "<?php echo $logTitle; ?>";
 		var scrollEvenIfScrolled = "<?php echo $scrollEvenIfScrolled; ?>";
 		var highlightNew = "<?php echo $highlightNew; ?>";
+		var filterTitleIncludePath = "<?php echo $filterTitleIncludePath; ?>";
 	</script>
 	<?php require_once('core/php/template/popup.php') ?>
 	<script src="core/js/main.js?v=<?php echo $cssVersion?>"></script>

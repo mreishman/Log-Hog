@@ -32,6 +32,7 @@ $defaultConfig = array(
 	'filterContentHighlight'		=> 'true',
 	'filterContentLimit'			=> 'true',
 	'filterContentLinePadding'		=> 3,
+	'filterTitleIncludePath'		=> 'true',
 	'flashTitleUpdateLog'			=> 'false',
 	'folderColorArrays'	=> array(
 		'theme-default-1'	=> array(
