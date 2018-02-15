@@ -2114,8 +2114,8 @@ function toggleFilterSettingsPopup()
 	innerHtmlForSettings += "</select></div></li>";
 	innerHtmlForSettings += "</ul></div>";
 	document.getElementById("popupContentInnerHTMLDiv").innerHTML = innerHtmlForSettings;
-	document.getElementById("popupContent").style.height = "238px";
-	document.getElementById("popupContent").style.marginTop = "-119px";
+	document.getElementById("popupContent").style.height = "273px";
+	document.getElementById("popupContent").style.marginTop = "-136px";
 }
 
 function changeFilterCase()
