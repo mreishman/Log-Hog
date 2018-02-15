@@ -2031,7 +2031,101 @@ function showInfo(idNum)
 
 function toggleFilterSettingsPopup()
 {
-	
+	showPopup();
+	var innerHtmlForSettings = "<div class='settingsHeader' id='popupHeaderText' ><span id='popupHeaderText' >Local Filter Content Settings</span><a style=\"float: right; margin-top: -3px;\" onclick=\"hidePopup();\" class=\"linkSmall\" >Close</a></div><div style='width:100%;'>";
+	innerHtmlForSettings += "<ul id=\"settingsUl\" ><li><span class=\"settingsBuffer\" > Case Insensitive Search: </span> <div class=\"selectDiv\">";
+	innerHtmlForSettings += "<select onchange=\"changeFilterCase();\" id=\"caseInsensitiveSearch\">";
+	innerHtmlForSettings += "<option";
+	if(caseInsensitiveSearch === 'true')
+	{
+		innerHtmlForSettings += " selected ";
+	}
+	innerHtmlForSettings += " value=\"true\">True</option>";
+	innerHtmlForSettings += "<option";
+	if(caseInsensitiveSearch === 'false')
+	{
+		innerHtmlForSettings += " selected ";
+	}
+	innerHtmlForSettings += " value=\"false\">False</option>";
+	innerHtmlForSettings += " </select></div></li>";
+	innerHtmlForSettings += "<li><span class=\"settingsBuffer\" > Highlight Content match: </span>";
+	innerHtmlForSettings += " <div class=\"selectDiv\"><select onchange=\"changeHighlightContentMatch();\" id=\"filterContentHighlight\">";
+	innerHtmlForSettings += "<option";
+	if(filterContentHighlight === 'true')
+	{
+		innerHtmlForSettings += " selected ";
+	}
+	innerHtmlForSettings += " value=\"true\">True</option>";
+	innerHtmlForSettings += "<option";
+	if(filterContentHighlight === 'false')
+	{
+		innerHtmlForSettings += " selected ";
+	}
+	innerHtmlForSettings += " value=\"false\">False</option>";
+	innerHtmlForSettings += " </select></div></li>";
+	innerHtmlForSettings += " <li><span class=\"settingsBuffer\" > Filter Content match: </span>";
+	innerHtmlForSettings += " <div class=\"selectDiv\"><select onchange=\"changeFilterContentMatch();\" id=\"filterContentLimit\">";
+	innerHtmlForSettings += "<option";
+	if(filterContentLimit === 'true')
+	{
+		innerHtmlForSettings += " selected ";
+	}
+	innerHtmlForSettings += " value=\"true\">True</option>";
+	innerHtmlForSettings += "<option";
+	if(filterContentLimit === 'false')
+	{
+		innerHtmlForSettings += " selected ";
+	} 
+	innerHtmlForSettings += " value=\"false\">False</option>";
+	innerHtmlForSettings += "</select></div></li>";
+	innerHtmlForSettings += "<li><span class=\"settingsBuffer\" > Line Padding: </span>";
+	innerHtmlForSettings += " <div class=\"selectDiv\">	<select onchange=\"changeFilterContentLinePadding();\" id=\"filterContentLinePadding\">";
+	for (var i=0; i < 10; i++)
+	{
+		innerHtmlForSettings += "<option ";
+		if(filterContentLinePadding === i)
+		{
+			innerHtmlForSettings += " selected ";
+		}
+		innerHtmlForSettings += " value="+i+">"+i+"</option>";
+	}
+	innerHtmlForSettings += "</select></div></li>";
+	innerHtmlForSettings += "</ul></div>";
+	document.getElementById("popupContentInnerHTMLDiv").innerHTML = innerHtmlForSettings;
+	document.getElementById("popupContent").style.height = "238px";
+	document.getElementById("popupContent").style.marginTop = "-119px";
+}
+
+function changeFilterCase()
+{
+	caseInsensitiveSearch = document.getElementById("caseInsensitiveSearch").value;
+	possiblyUpdateFromFilter();
+}
+
+function changeHighlightContentMatch()
+{
+	filterContentHighlight = document.getElementById("filterContentHighlight").value;
+	possiblyUpdateFromFilter();
+}
+
+function changeFilterContentMatch()
+{
+	filterContentLimit = document.getElementById("filterContentLimit").value;
+	possiblyUpdateFromFilter();
+}
+
+function changeFilterContentLinePadding()
+{
+	filterContentLinePadding = document.getElementById("filterContentLinePadding").value;
+	possiblyUpdateFromFilter();
+}
+
+function possiblyUpdateFromFilter()
+{
+	if(document.getElementById("searchFieldInput").value !== "")
+	{
+		update(arrayOfDataMain);
+	}
 }
 
 $(document).ready(function()
