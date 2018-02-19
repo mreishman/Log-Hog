@@ -72,17 +72,17 @@ $listOfAddons = array(
 
 <table style="width: 100%;">
 	<tr>
-		<td>
+		<td width="15%">
 		</td>
 		<td width="25%">
 		</td>
-		<td>
+		<td width="15%">
 		</td>
-		<td>
+		<td width="15%">
 		</td>
-		<td>
+		<td width="15%">
 		</td>
-		<td>
+		<td width="10%">
 		</td>
 	</tr>
 	<?php foreach ($listOfAddons as $key => $value):

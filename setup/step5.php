@@ -40,7 +40,7 @@ require_once('../core/php/loadVars.php');?>
 	<p style="padding: 10px;">Would you like to install a plugin?:</p>
 		<?php require_once("../core/php/template/innerAddon.php"); ?>
 	<table style="width: 100%; padding-left: 20px; padding-right: 20px;" ><tr><th style="text-align: right;" >
-		<?php if($counterSteps == 4): ?>
+		<?php if($counterSteps == 5): ?>
 			<a onclick="updateStatus('finished');" class="link">Finish</a>
 		<?php else: ?>
 			<a onclick="updateStatus('step6');" class="link">Continue</a>
