@@ -134,6 +134,14 @@ for ($i=0; $i < $windowDisplayConfig[0]; $i++)
 			"title"		=>	"Delete Log"
 			)
 		);
+	$downImageForWindowTableLoop =  generateImage(
+		$arrayOfImages["downArrowSideBar"],
+		$imageConfig = array(
+			"height"	=>	"20px",
+			"style"		=>	"margin: 5px;",
+			"title"		=>	"Scroll to Bottom"
+			)
+		);
 	$loadingImage = generateImage(
 					$arrayOfImages["loading"],
 					$imageConfig = array(
@@ -184,6 +192,9 @@ for ($i=0; $i < $windowDisplayConfig[0]; $i++)
 		$logDisplay .= "</a>";
 		$logDisplay .= "<a onclick=\"deleteLogPopup('".$counter."');\" style=\"cursor: pointer;\" >";
 		$logDisplay .= $deleteImageForWindowTableLoop;
+		$logDisplay .= "</a>";
+		$logDisplay .= "<a onclick=\"#\" style=\"cursor: pointer;\" >";
+		$logDisplay .= $downImageForWindowTableLoop;
 		$logDisplay .= "</a>";
 		$logDisplay .= "</div> ";
 		$logDisplay .= "</td><td onclick=\"changeCurrentSelectWindow(".$counter.")\" style=\"padding: 0;\" >";

@@ -315,6 +315,12 @@ else
 			"title"			=>	"Back",
 			"baseName"		=>	"backArrow.png"
 		),
+		"downArrowSideBar"	=> array(
+			"alt"			=>	"Down",
+			"src"			=>	"",
+			"title"			=>	"Scroll To Bottom",
+			"baseName"		=>	"downArrowSideBar.png"
+		),
 		"eraser"			=> array(
 			"alt"			=>	"Clear",
 			"src"			=>	"",
