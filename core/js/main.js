@@ -1692,6 +1692,11 @@ function isPageHidden()
 	}
 }
 
+function scrollToBottom(idNum)
+{
+	document.getElementById("log"+idNum+"Td").scrollTop = $("#log"+idNum).outerHeight();
+}
+
 function clearLogInner(title)
 {
 	var urlForSend = "core/php/clearLog.php?format=json";

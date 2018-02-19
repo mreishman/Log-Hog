@@ -193,7 +193,7 @@ for ($i=0; $i < $windowDisplayConfig[0]; $i++)
 		$logDisplay .= "<a onclick=\"deleteLogPopup('".$counter."');\" style=\"cursor: pointer;\" >";
 		$logDisplay .= $deleteImageForWindowTableLoop;
 		$logDisplay .= "</a>";
-		$logDisplay .= "<a onclick=\"#\" style=\"cursor: pointer;\" >";
+		$logDisplay .= "<a onclick=\"scrollToBottom('".$counter."');\" style=\"cursor: pointer;\" >";
 		$logDisplay .= $downImageForWindowTableLoop;
 		$logDisplay .= "</a>";
 		$logDisplay .= "</div> ";
