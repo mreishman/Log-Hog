@@ -86,6 +86,8 @@ if(file_exists($baseUrl.'conf/config.php'))
 		//change setupProcess to page1
 		saveAndVerifyMain("welcomeForm");
 	}
+
+	var saveVerifyImage = "../core/img/greenCheck.png";
 </script>
 <script src="../core/js/settings.js?v=<?php echo $cssVersion?>"></script>
 <script src="stepsJavascript.js?v=1"></script> <!-- Try to remember to manually increment this one? -->
