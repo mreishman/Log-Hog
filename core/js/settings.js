@@ -31,12 +31,19 @@ function saveAndVerifyMain(idForForm)
 {
 	idForFormMain = idForForm;
 	idForm = "#"+idForForm;
-	displayLoadingPopup(baseUrl+"img/"); //displayLoadingPopup is defined in popup.html
+	displayLoadingPopup(baseUrl); //displayLoadingPopup is defined in popup.php
 	data = $(idForm).serializeArray();
 	$.ajax({
         type: "post",
         url: "../core/php/settingsSaveAjax.php",
         data,
+        success(data)
+        {
+        	if(data !== "true")
+        	{
+        		window.location.href = "../error.php?error="+data+"&page=core/php/settingsSaveAjax.php";
+        	}
+        },
         complete()
         {
           //verify saved
@@ -107,11 +114,11 @@ function saveVerified()
 	{
 		if(document.getElementsByName("developmentTabEnabled")[0].value === "true")
 		{
-			document.getElementById("devToolsLink").style.display = "inline-block";
+			document.getElementById("DevLink").style.display = "inline-block";
 		}
 		else
 		{
-			document.getElementById("devToolsLink").style.display = "none";
+			document.getElementById("DevLink").style.display = "none";
 		}
 	}
 
@@ -134,7 +141,7 @@ function saveVerified()
 
 function saveSuccess()
 {
-	document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class='settingsHeader' >Saved Changes!</div><br><br><div style='width:100%;text-align:center;'> <img src='"+baseUrl+"img/greenCheck.png' height='50' width='50'> </div>";
+	document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class='settingsHeader' >Saved Changes!</div><br><br><div style='width:100%;text-align:center;'> "+saveVerifyImage+" </div>";
 }
 
 function saveError()

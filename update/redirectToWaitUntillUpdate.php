@@ -6,7 +6,7 @@
 	<script src="../core/js/jquery.js"></script>
 </head>
 <body>
-<?php readfile('../core/html/popup.html') ?>	
+<?php require_once("../core/php/template/popup.php"); ?>	
 <script type="text/javascript">
 $( document ).ready(function() {
 displayLoadingPopup();

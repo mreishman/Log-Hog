@@ -11,9 +11,19 @@
 <div class="settingsDiv" >	
 <ul id="settingsUl">
 	<?php
-		$i = 0;
-		$triggerSaveUpdate = false;
-		foreach($config['watchList'] as $key => $item): $i++;
+
+	$defaultTrashCanIcon = generateImage(
+		$arrayOfImages["trashCan"],
+		array(
+			"height"		=>	"15px",
+			"srcModifier"	=>	"../"
+		)
+	);
+
+	$i = 0;
+	$triggerSaveUpdate = false;
+	foreach($config['watchList'] as $key => $item):
+		$i++;
 		$info = filePermsDisplay($key);
 
 		if(strpos($item, "\\") !== false)
@@ -24,25 +34,46 @@
 		?>
 	<li id="rowNumber<?php echo $i; ?>" >
 		File #<?php if($i < 10){echo "0";} ?><?php echo $i; ?>: 
-		<div style="width: 100px; display: inline-block; text-align: center;">
+		<div id="infoFile<?php echo $i;?>" style="width: 100px; display: inline-block; text-align: center;">
 			<?php echo $info; ?>
 		</div>
-		<img id=
+		
 		<?php
 		if(!file_exists($key))
 		{
-			echo '"fileNotFoundImage'.$i.'" src="'.$baseUrlImages.'img/redWarning.png"';
+			echo generateImage(
+				$arrayOfImages["redWarning"],
+				array(
+					"width"			=>	"15px",
+					"id"			=>	"fileNotFoundImage".$i,
+					"srcModifier"	=>	"../"
+				)
+			);
 		}
 		elseif(is_dir($key))
 		{
-			echo '"fileNotFoundImage'.$i.'" src="'.$baseUrlImages.'img/folderIcon.png"';
+			echo generateImage(
+				$arrayOfImages["folderIcon"],
+				array(
+					"width"			=>	"15px",
+					"id"			=>	"fileNotFoundImage".$i,
+					"srcModifier"	=>	"../"
+				)
+			);
 		}
 		else
 		{
-			echo '"fileNotFoundImage'.$i.'" src="'.$baseUrlImages.'img/fileIcon.png"';
+			echo generateImage(
+				$arrayOfImages["fileIcon"],
+				array(
+					"width"			=>	"15px",
+					"id"			=>	"fileNotFoundImage".$i,
+					"srcModifier"	=>	"../"
+				)
+			);
 		}
 		?> 
-		width="15px">
+		
 			<input 
 				style='width: 480px;' 
 				type='text'
@@ -61,13 +92,16 @@
 					true,
 					'<?php echo $key; ?>')"
 			>
-				<img src="<?php echo $baseUrlImages;?>img/trashCan.png" height="15px;" >
+			<?php
+				echo $defaultTrashCanIcon;
+			?>
 			</a>
 	</li>
 
-<?php endforeach; ?>
-<div id="newRowLocationForWatchList">
-</div>
+	<?php endforeach; ?>
+
+	<div id="newRowLocationForWatchList">
+	</div>
 </ul>
 <ul id="settingsUl">
 	<li>
@@ -81,9 +115,36 @@
 	<li>
 		<ul id="settingsUl">
 			<li>
-				<img src="<?php echo $baseUrlImages;?>img/redWarning.png" height="10px"> - File / Folder not found! &nbsp; &nbsp; &nbsp; 
-				<img src="<?php echo $baseUrlImages;?>img/fileIcon.png" height="10px"> - File &nbsp; &nbsp; &nbsp; 
-				<img src="<?php echo $baseUrlImages;?>img/folderIcon.png" height="10px"> - Folder
+				<?php
+					echo generateImage(
+						$arrayOfImages["redWarning"],
+						array(
+							"height"		=>	"10px",
+							"srcModifier"	=>	"../"
+						)
+					);
+				?>
+				 - File / Folder not found! &nbsp; &nbsp; &nbsp; 
+				<?php
+					echo generateImage(
+						$arrayOfImages["fileIcon"],
+						array(
+							"height"		=>	"10px",
+							"srcModifier"	=>	"../"
+						)
+					);
+				?>
+				 - File &nbsp; &nbsp; &nbsp; 
+				<?php
+					echo generateImage(
+						$arrayOfImages["folderIcon"],
+						array(
+							"height"		=>	"10px",
+							"srcModifier"	=>	"../"
+						)
+					);
+				?>
+				 - Folder
 			</li>
 			<li>
 				f - file &nbsp; &nbsp; &nbsp; | &nbsp; &nbsp; &nbsp;
@@ -101,4 +162,7 @@
 	<input id="numberOfRows" type="text" name="numberOfRows" value="<?php echo $i;?>">
 </div>	
 </form>
+<script type="text/javascript">
+	var defaultTrashCanIcon = <?php echo json_encode($defaultTrashCanIcon); ?>
+</script>
 <?php $folderCount = $i;

@@ -42,7 +42,7 @@ if($localFolderLocation === "" || $repoName === "")
 	<title><?php echo $action;?> <?php echo $repoName;?></title>
 	<?php echo loadCSS($baseUrl, $cssVersion);?>
 	<script src="../core/js/jquery.js"></script>
-	<?php readfile('../core/html/popup.html') ?>
+	<?php require_once("../core/php/template/popup.php"); ?>
 	<script type="text/javascript">
 		var localFolderLocation = "<?php echo $localFolderLocation;?>";
 		var repoName = "<?php echo $repoName;?>";

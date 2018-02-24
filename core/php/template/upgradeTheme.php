@@ -19,6 +19,15 @@ require_once($baseUrl.'conf/config.php');
 require_once('../../../core/php/commonFunctions.php');
 require_once('../../../core/conf/config.php');
 require_once('../../../core/php/configStatic.php');
+$currentTheme = loadSpecificVar($defaultConfig, $config, "currentTheme");
+if(is_dir('../../../local/'.$currentSelectedTheme.'/Themes/'.$currentTheme))
+{
+	require_once('../../../local/'.$currentSelectedTheme.'/Themes/'.$currentTheme."/defaultSetting.php");
+}
+else
+{
+	require_once('../../../core/Themes/'.$currentTheme."/defaultSetting.php");
+}
 require_once('../../../core/php/loadVars.php');
 
 ?>
@@ -36,8 +45,23 @@ require_once('../../../core/php/loadVars.php');
 			<table style="padding: 10px;">
 				<tr>
 					<td style="height: 50px;">
-						<img id="runLoad" src="../../../core/img/loading.gif" height="30px;">
-						<img id="runCheck" style="display: none;" src="../../../core/img/greenCheck.png" height="30px;">
+						<?php echo generateImage(
+							$arrayOfImages["loading"],
+							array(
+								"height"		=>	"30px",
+								"srcModifier"	=>	"../../../",
+								"id"			=>	"runLoad"
+							)
+						); ?>
+						<?php echo generateImage(
+							$arrayOfImages["greenCheck"],
+							array(
+								"height"		=>	"30px",
+								"srcModifier"	=>	"../../../",
+								"id"			=>	"runCheck",
+								"style"			=>	"display: none;"
+							)
+						); ?>
 					</td>
 					<td style="width: 20px;">
 					</td>
@@ -47,8 +71,24 @@ require_once('../../../core/php/loadVars.php');
 				</tr>
 				<tr>
 					<td style="height: 50px;">
-						<img id="verifyLoad" style="display: none;" src="../../../core/img/loading.gif" height="30px;">
-						<img id="verifyCheck" style="display: none;" src="../../../core/img/greenCheck.png" height="30px;">
+						<?php echo generateImage(
+							$arrayOfImages["loading"],
+							array(
+								"height"		=>	"30px",
+								"srcModifier"	=>	"../../../",
+								"id"			=>	"verifyLoad",
+								"style"			=>	"display: none;"
+							)
+						); ?>
+						<?php echo generateImage(
+							$arrayOfImages["greenCheck"],
+							array(
+								"height"		=>	"30px",
+								"srcModifier"	=>	"../../../",
+								"id"			=>	"verifyCheck",
+								"style"			=>	"display: none;"
+							)
+						); ?>
 					</td>
 					<td style="width: 20px;">
 					</td>

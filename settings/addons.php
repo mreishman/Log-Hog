@@ -13,6 +13,15 @@ $localURL = $baseUrl;
 require_once($baseUrl.'conf/config.php');
 require_once('../core/conf/config.php');
 require_once('../core/php/configStatic.php');
+$currentTheme = loadSpecificVar($defaultConfig, $config, "currentTheme");
+if(is_dir('../local/'.$currentSelectedTheme.'/Themes/'.$currentTheme))
+{
+	require_once('../local/'.$currentSelectedTheme.'/Themes/'.$currentTheme."/defaultSetting.php");
+}
+else
+{
+	require_once('../core/Themes/'.$currentTheme."/defaultSetting.php");
+}
 require_once('../core/php/loadVars.php');
 require_once('../core/php/updateCheck.php');
 
@@ -189,13 +198,21 @@ $listOfAddons = array(
 				<?php endforeach; ?>
 				<tr>
 					<td colspan="6">
-						<i>Make sure you have run through setup before trying to update</i>
+						<?php echo generateImage(
+							$arrayOfImages["info"],
+							array(
+								"style"			=>	"margin-bottom: -4px;",
+								"height"		=>	"20px",
+								"srcModifier"	=>	"../"
+							)
+						); ?>
+			  			<i>Make sure you have run through setup before trying to update</i>
 					</td>
 				</tr>
 			</table>
 		</div>
 	</div>
-	<?php readfile('../core/html/popup.html') ?>	
+	<?php require_once("../core/php/template/popup.php"); ?>	
 </body>
 <script type="text/javascript">
 	function addonMonitorAction(idToSubmit)

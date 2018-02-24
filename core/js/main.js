@@ -1,38 +1,40 @@
-var title = $("title").text();
+var arrayToUpdate = [];
+var arrayOfData1 = null;
+var arrayOfData2 = null;
+var arrayOfDataMain = null;
+var clearingNotifications = false;
+var counterForPoll = 0;
+var counterForPollForceRefreshAll = 0;
 var currentPage;
-var logs = {};
-var titles = {};
-var lastLogs = {};
-var fresh = true;
+var currentSelectWindow = 0;
+var dataFromUpdateCheck = null;
+var filesNew;
+var firstLoad = true;
 var flasher;
-var updating = false;
-var startedPauseOnNonFocus = false;
+var fresh = true;
+var lastContentSearch = "";
+var lastLogs = {};
+var logs = {};
+var pausePoll = false;
+var percent = 0;
 var polling = false;
+var pollRefreshAllBoolStatic = pollRefreshAllBool;
+var pollSkipCounter = 0;
+var pollTimer = null;
+var progressBar;
+var refreshing = false;
+var refreshPauseActionVar;
+var startedPauseOnNonFocus = false;
 var t0 = performance.now();
 var t1 = performance.now();
 var t2 = performance.now();
 var t3 = performance.now();
-var counterForPoll = 0;
-var arrayOfData1 = null;
-var arrayOfData2 = null;
-var arrayToUpdate = [];
-var arrayOfDataMain = null;
-var pollTimer = null;
-var dataFromUpdateCheck = null;
 var timeoutVar = null;
-var pollSkipCounter = 0;
-var counterForPollForceRefreshAll = 0;
-var filesNew;
-var pausePoll = false;
-var refreshPauseActionVar;
-var userPaused = false;
-var refreshing = false;
-var percent = 0;
-var pollRefreshAllBoolStatic = pollRefreshAllBool;
-var firstLoad = true;
 var timer;
-var clearingNotifications = false;
-var progressBar;
+var titles = {};
+var updating = false;
+var userPaused = false;
+var title = $("title").text();
 
 function escapeHTML(unsafeStr)
 {
@@ -416,6 +418,26 @@ function afterPollFunctionComplete()
 		{
 			firstLoad = false;
 			document.getElementById("firstLoad").style.display = "none";
+			document.getElementById("searchType").disabled = false;
+			document.getElementById("searchFieldInput").disabled = false;
+			document.getElementById("log").style.display = "table";
+			var windows = Object.keys(logDisplayArray);
+			var lengthOfWindows = windows.length;
+			for(var i = 0; i < lengthOfWindows; i++)
+			{
+				if(logDisplayArray[i] !== null)
+				{
+					var logsCheck = Object.keys(logs);
+					var lengthOfLogsCheck = logsCheck.length;
+					for(var j = 0; j < lengthOfLogsCheck; j++)
+					{
+						if(logDisplayArray[i] === logsCheck[j])
+						{
+							document.getElementById("log"+i+"Td").scrollTop = $("#log"+i).outerHeight();
+						}
+					}
+				}
+			}
 		}
 		if(refreshing)
 		{
@@ -561,8 +583,38 @@ function update(data) {
 				var name = files[i];
 				var selectListForFilter = document.getElementsByName("searchType")[0];
 				var selectedListFilterType = selectListForFilter.options[selectListForFilter.selectedIndex].value;
-				var filterTextField = document.getElementsByName("search")[0].value;
-				if(selectedListFilterType === "title" && (filterTextField === "" || name.indexOf(filterTextField) !== -1))
+				var filterTextField = getFilterTextField();
+				var showFile = false;
+
+				
+
+				var filterOffOf = "";
+				if(selectedListFilterType === "title")
+				{
+					filterOffOf = name;
+				}
+				else if(selectedListFilterType === "content")
+				{
+					filterOffOf = dataForCheck;
+				}
+
+				if(caseInsensitiveSearch === "true")
+				{
+					filterOffOf = filterOffOf.toLowerCase();
+				}
+
+				if(filterOffOf !== "")
+				{
+					if(filterTextField === "" || filterOffOf.indexOf(filterTextField) !== -1)
+					{
+						showFile = true;
+					}
+				}
+				else
+				{
+					showFile = true;
+				}
+				if(showFile)
 				{
 					showLogByName(name);
 					if(dataForCheck === "This file is empty. This should not be displayed." && hideEmptyLog === "true")
@@ -615,7 +667,7 @@ function update(data) {
 							{
 								if(id === currentPage)
 								{
-									$("#title").html(titles[id]);
+									$("#title"+currentSelectWindow).html(titles[id]);
 								}
 							}
 
@@ -681,12 +733,43 @@ function update(data) {
 								}
 							}
 
+							updated = false;
+
 							if(!(logs[id] === lastLogs[id]))
 							{
 								updated = true;
-								if(id === currentPage)
+							}
+							else
+							{
+								if(selectedListFilterType === "content" && filterContentHighlight === "true")
 								{
-									$("#log").html(makePretty(logs[id]));
+									if(lastContentSearch !== getFilterTextField())
+									{
+										if(id === currentPage)
+										{
+											updated = true;
+										}
+									}
+								}
+							}
+
+							if(updated)
+							{
+								//determine if id is one of the values in the array of open files (use instead of currentPage)
+								var windows = Object.keys(logDisplayArray);
+								var lengthOfWindows = windows.length;
+								var currentIdPos = -1;
+								for(var j = 0; j < lengthOfWindows; j++)
+								{
+									if(id === logDisplayArray[j])
+									{
+										currentIdPos = j;
+										break;
+									}
+								}
+								if(currentIdPos !== -1)
+								{
+									$("#log"+currentIdPos).html(makePretty(logs[id]));
 									if(document.getElementById(id+"Count").innerHTML !== "")
 									{
 										document.getElementById(id+"Count").innerHTML = "";
@@ -776,35 +859,61 @@ function update(data) {
 					break;
 				}
 			}
-
-			if($("#menu .active").length === 0)
+			if(!firstLoad)
 			{
-				//if still none active, none to display - add popup here
-				if(document.getElementById("noLogToDisplay").style.display !== "block")
+				if($("#menu .active").length === 0)
 				{
-					document.getElementById("noLogToDisplay").style.display = "block";
-					document.getElementById("log").style.display = "none";
+					//if still none active, none to display - add popup here
+					if(document.getElementById("noLogToDisplay").style.display !== "block")
+					{
+						document.getElementById("noLogToDisplay").style.display = "block";
+						document.getElementById("log").style.display = "none";
+					}
 				}
-			}
-			else
-			{
-				if(document.getElementById("noLogToDisplay").style.display !== "none")
+				else
 				{
-					document.getElementById("noLogToDisplay").style.display = "none";
-					document.getElementById("log").style.display = "block";
+					if(document.getElementById("noLogToDisplay").style.display !== "none")
+					{
+						document.getElementById("noLogToDisplay").style.display = "none";
+						document.getElementById("log").style.display = "block";
+					}
 				}
 			}
 		}
 
 		toggleNotificationClearButton();
-		
-		if(logs[currentPage] !== lastLogs[currentPage])
+		var windows = Object.keys(logDisplayArray);
+		var lengthOfWindows = windows.length;
+		for(var i = 0; i < lengthOfWindows; i++)
 		{
-			lastLogs[currentPage] = logs[currentPage];
-			document.getElementById("main").scrollTop = $("#log").outerHeight();
+			if(logDisplayArray[i] !== null)
+			{
+				var logsCheck = Object.keys(logs);
+				var lengthOfLogsCheck = logsCheck.length;
+				for(var j = 0; j < lengthOfLogsCheck; j++)
+				{
+					if(logDisplayArray[i] === logsCheck[j])
+					{
+						var currentPageId = logsCheck[j];
+						if(logs[currentPageId] !== lastLogs[currentPageId])
+						{
+							lastLogs[currentPageId] = logs[currentPageId];
+							if(scrollOnUpdate === "true")
+							{
+								document.getElementById("log"+i+"Td").scrollTop = $("#log"+i).outerHeight();
+							}
+						}
+						break;
+					}
+				}
+			}
 		}
 		
+		lastContentSearch = getFilterTextField();
+
 		refreshLastLogsArray();
+
+		resize();
 	}
 	catch(e)
 	{
@@ -981,15 +1090,34 @@ function show(e, id)
 {
 	try
 	{
-		$(e).siblings().removeClass("active");
-		$(e).addClass("active").removeClass("updated");
-		$("#log").html(makePretty(logs[id]));
+		$(e).siblings().removeClass("active");		
+		$("#log"+currentSelectWindow).html(makePretty(logs[id]));
+		$("#"+id+"CurrentWindow").html(""+(currentSelectWindow+1)+". ");
 		currentPage = id;
-		$("#title").html(titles[id]);
-		document.getElementById("main").scrollTop = $("#log").outerHeight();
+		logDisplayArray[currentSelectWindow] = id;
+		var windows = Object.keys(logDisplayArray);
+		var lengthOfWindows = windows.length;
+		for(var i = 0; i < lengthOfWindows; i++)
+		{
+			if(logDisplayArray[i] !== null)
+			{
+				var logsCheck = Object.keys(logs);
+				var lengthOfLogsCheck = logsCheck.length;
+				for(var j = 0; j < lengthOfLogsCheck; j++)
+				{
+					if(logDisplayArray[i] === logsCheck[j])
+					{
+						$("."+logsCheck[j]+"Button").addClass("active").removeClass("updated");
+					}
+				}
+			}
+		}
+		$("#title"+currentSelectWindow).html(titles[id]);
+		document.getElementById("log"+currentSelectWindow+"Td").scrollTop = $("#log"+currentSelectWindow).outerHeight();
 		toggleNotificationClearButton();
 		document.getElementById(id+"Count").innerHTML = "";
 		document.getElementById(id+"CountHidden").innerHTML = "";
+		resize();
 	}
 	catch(e)
 	{
@@ -999,62 +1127,54 @@ function show(e, id)
 
 function getDiffLogAndLastLog(id)
 {
-	if(logs[id] === lastLogs[id])
-	{
-		return 0;
-	}
-	var tmpTextLog = logs[id].split("\n");
-	var tmpTextLast = lastLogs[id].split("\n");
-	var lengthOfLastArray = tmpTextLast.length;
-	var lengthOfArray = tmpTextLog.length;
-	if(lengthOfLastArray === 0)
-	{
-		return lengthOfArray;
-	}
-	else if(lengthOfLastArray > lengthOfArray)
-	{
-		return 0;
-	}
-
-	var lastLine = tmpTextLast[lengthOfLastArray-1];
-	var counter = 0;
-	for (var i = lengthOfArray - 1; i >= 0; i--)
-	{
-		if(tmpTextLog[i].trim() === lastLine.trim())
-		{
-			//confirm the next two also
-			var returnNewNum = true;
-			var j = i;
-			var lastStart = lengthOfLastArray-1;
-			while(j >= 0 && returnNewNum)
-			{
-				if(tmpTextLog[j].trim() !== tmpTextLast[lastStart].trim())
-				{
-					returnNewNum = false;
-				}
-				else
-				{
-					j--;
-					lastStart--;
-				}
-			}
-			if(returnNewNum)
-			{
-				return (lengthOfArray - 1 - i);
-			}
-		}
-	}
-	return lengthOfArray;
-}
-
-function makePretty(text) 
-{
 	try
 	{
-		text = text.split("\n");
-		text = text.join("</div><div>");
-		
-		return "<div>" + text + "</div>";
+		if(logs[id] === lastLogs[id])
+		{
+			return 0;
+		}
+		var tmpTextLog = logs[id].split("\n");
+		var tmpTextLast = lastLogs[id].split("\n");
+		var lengthOfLastArray = tmpTextLast.length;
+		var lengthOfArray = tmpTextLog.length;
+		if(lengthOfLastArray === 0)
+		{
+			return lengthOfArray;
+		}
+		else if(lengthOfLastArray > lengthOfArray)
+		{
+			return 0;
+		}
+
+		var lastLine = tmpTextLast[lengthOfLastArray-1];
+		var counter = 0;
+		for (var i = lengthOfArray - 1; i >= 0; i--)
+		{
+			if(tmpTextLog[i].trim() === lastLine.trim())
+			{
+				//confirm the next two also
+				var returnNewNum = true;
+				var j = i;
+				var lastStart = lengthOfLastArray-1;
+				while(j >= 0 && returnNewNum)
+				{
+					if(tmpTextLog[j].trim() !== tmpTextLast[lastStart].trim())
+					{
+						returnNewNum = false;
+					}
+					else
+					{
+						j--;
+						lastStart--;
+					}
+				}
+				if(returnNewNum)
+				{
+					return (lengthOfArray - 1 - i);
+				}
+			}
+		}
+		return lengthOfArray;
 	}
 	catch(e)
 	{
@@ -1062,11 +1182,139 @@ function makePretty(text)
 	}
 }
 
+function makePretty(text) 
+{
+	try
+	{
+		text = text.split("\n");
+		var returnText = "";
+		var lengthOfTextArray = text.length;
+		var selectListForFilter = document.getElementsByName("searchType")[0];
+		var selectedListFilterType = selectListForFilter.options[selectListForFilter.selectedIndex].value;
+		var bottomPadding = filterContentLinePadding;
+		var topPadding = filterContentLinePadding;
+		var foundOne = false;
+		for (var i = 0; i < lengthOfTextArray; i++)
+		{
+			var addLine = false;
+			if(selectedListFilterType === "content" && filterContentLimit === "true" && getFilterTextField() !== "")
+			{
+				//check for content on current line
+				if(filterContentCheck(text[i]))
+				{
+					//current line is thing, reset counter.
+					bottomPadding = filterContentLinePadding;
+					topPadding = filterContentLinePadding;
+					addLine = true;
+					foundOne = true;
+				}
+				else
+				{
+					//check for line in next few lines 
+					for (var j = 0; j <= bottomPadding; j++) 
+					{
+						if(lengthOfTextArray > i+j)
+						{
+							if(filterContentCheck(text[i+j]))
+							{
+								addLine = true;
+								bottomPadding--;
+								break;
+							}
+						}
+					}
+					if(!addLine)
+					{
+						if(topPadding > 0 && foundOne)
+						{
+							addLine = true;
+							topPadding--;
+						}
+						else
+						{
+							foundOne = false;
+						}
+					}
+				}
+			}
+			else
+			{
+				addLine = true;
+			}
+			if(addLine)
+			{
+				var customStyle = "";
+				if(selectedListFilterType === "content" && filterContentHighlight === "true" && getFilterTextField() !== "")
+				{
+					//check if match, and if supposed to highlight
+					if(filterContentCheck(text[i]))
+					{
+						customStyle += "class = 'highlight' ";
+					}
+				}
+				returnText += "<div "+customStyle+" >"+text[i]+"</div>";
+			}
+		}
+		
+		return returnText;
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
+function filterContentCheck(textToMatch)
+{
+	var filterTextField = getFilterTextField();
+	if(caseInsensitiveSearch === "true")
+	{
+		textToMatch = textToMatch.toLowerCase();
+	}
+	return (textToMatch.indexOf(filterTextField) !== -1);
+}
+
+function getFilterTextField()
+{
+	var filterTextField = document.getElementsByName("search")[0].value;
+	if(caseInsensitiveSearch === "true")
+	{
+		filterTextField = filterTextField.toLowerCase();
+	}
+	return filterTextField;
+}
+
+function getScrollbarWidth() {
+    var outer = document.createElement("div");
+    outer.style.visibility = "hidden";
+    outer.style.width = "100px";
+    outer.style.msOverflowStyle = "scrollbar"; // needed for WinJS apps
+
+    document.body.appendChild(outer);
+
+    var widthNoScroll = outer.offsetWidth;
+    // force scrollbars
+    outer.style.overflow = "scroll";
+
+    // add innerdiv
+    var inner = document.createElement("div");
+    inner.style.width = "100%";
+    outer.appendChild(inner);        
+
+    var widthWithScroll = inner.offsetWidth;
+
+    // remove divs
+    outer.parentNode.removeChild(outer);
+
+    return widthNoScroll - widthWithScroll;
+}
+
 function resize() 
 {
 	try
 	{
-		var targetHeight = window.innerHeight - $("#menu").outerHeight() - $("#title").outerHeight();
+		var targetHeight = window.innerHeight - $("#menu").outerHeight();
+		var targetWidth = window.innerWidth;
 		if(enablePollTimeLogging !== "false")
 		{
 			targetHeight -= 25;
@@ -1075,9 +1323,14 @@ function resize()
 		{
 			$("#main").outerHeight(targetHeight);
 		}
-		if($("#main").css("bottom") !== $("#title").outerHeight() + "px")
+		var tdElementWidth = (targetWidth/windowDisplayConfigColCount).toFixed(4);
+		var trElementHeight = ((targetHeight-borderPadding)/windowDisplayConfigRowCount).toFixed(4);
+		if(($(".logTrHeight").outerHeight() !== trElementHeight)|| ($(".logTdWidth").outerWidth() !== tdElementWidth) || ($(".backgroundForSideBarMenu").outerHeight() !== trElementHeight))
 		{
-			$("#main").css("bottom", $("#title").outerHeight() + "px");
+			$(".logTrHeight").outerHeight(trElementHeight);
+			
+			$(".logTdWidth").outerWidth(tdElementWidth);
+			$(".backgroundForSideBarMenu").outerHeight(trElementHeight)
 		}
 	}
 	catch(e)
@@ -1228,12 +1481,12 @@ function isPageHidden()
 	}
 }
 
-function clearLog()
+function clearLog(idNum)
 {
 	try
 	{
 		var urlForSend = "core/php/clearLog.php?format=json";
-		var title = filterTitle(document.getElementById("title").innerHTML);
+		var title = filterTitle(document.getElementById("title"+idNum).innerHTML);
 		var data = {file: title};
 		$.ajax({
 				url: urlForSend,
@@ -1257,6 +1510,28 @@ function deleteAction()
 {
 	try
 	{
+		if(popupSettingsArray.deleteLog == "true")
+		{
+			showPopup();
+			document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class=\"settingsHeader\" >Are you sure you want to clear all logs?</div><br><div style=\"width:100%;text-align:center;padding-left:10px;padding-right:10px;\"></div><div><div class=\"link\" onclick=\"deleteActionAfter();hidePopup();\" style=\"margin-left:125px; margin-right:50px;margin-top:35px;\">Yes</div><div onclick=\"hidePopup();\" class=\"link\">No</div></div>";
+		}
+		else
+		{
+			deleteLog(title);
+		}
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
+
+function deleteActionAfter()
+{
+	try
+	{
+		//Clear All Log Function (not delete actual file, just contents)
 		var urlForSend = "core/php/clearAllLogs.php?format=json";
 		var data = "";
 		$.ajax({
@@ -1276,19 +1551,19 @@ function deleteAction()
 	}
 }
 
-function deleteLogPopup()
+function deleteLogPopup(idNum)
 {
 	try
 	{
+		var title = filterTitle(document.getElementById("title"+idNum).innerHTML);
 		if(popupSettingsArray.deleteLog == "true")
 		{
 			showPopup();
-			var title = filterTitle(document.getElementById("title").innerHTML);
-			document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class=\"settingsHeader\" >Are you sure you want to delete this log?</div><br><div style=\"width:100%;text-align:center;padding-left:10px;padding-right:10px;\">"+title+"</div><div><div class=\"link\" onclick=\"deleteLog();hidePopup();\" style=\"margin-left:125px; margin-right:50px;margin-top:35px;\">Yes</div><div onclick=\"hidePopup();\" class=\"link\">No</div></div>";
+			document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class=\"settingsHeader\" >Are you sure you want to delete this log?</div><br><div style=\"width:100%;text-align:center;padding-left:10px;padding-right:10px;\">"+title+"</div><div><div class=\"link\" onclick=\"deleteLog('"+title+"');hidePopup();\" style=\"margin-left:125px; margin-right:50px;margin-top:35px;\">Yes</div><div onclick=\"hidePopup();\" class=\"link\">No</div></div>";
 		}
 		else
 		{
-			deleteLog();
+			deleteLog(title);
 		}
 	}
 	catch(e)
@@ -1297,12 +1572,11 @@ function deleteLogPopup()
 	}
 }
 
-function deleteLog()
+function deleteLog(title)
 {
 	try
 	{
 		var urlForSend = "core/php/deleteLog.php?format=json";
-		var title = filterTitle(document.getElementById("title").innerHTML);
 		title = title.replace(/\s/g, "");
 		var data = {file: title};
 		name = title;
@@ -1497,13 +1771,40 @@ function updateProgressBar(additonalPercent, text, topText = "Loading...")
 	}
 }
 
+function changeSearchplaceholder()
+{
+	var selectListForFilter = document.getElementsByName("searchType")[0];
+	var selectedListFilterType = selectListForFilter.options[selectListForFilter.selectedIndex].value;
+	document.getElementById("searchFieldInput").placeholder = "Filter "+selectedListFilterType;
+	update(arrayOfDataMain);
+}
+
+function changeCurrentSelectWindow(newSelectWindow)
+{
+	$("#numSelectIndecatorForWindow"+currentSelectWindow).removeClass("currentWindowNumSelected").addClass("sidebarCurrentWindowNum");
+	currentSelectWindow = newSelectWindow;
+	$("#numSelectIndecatorForWindow"+newSelectWindow).removeClass("sidebarCurrentWindowNum").addClass("currentWindowNumSelected");
+}
+
+function showInfo(idNum)
+{
+	if(document.getElementById("title"+idNum).style.display === "none")
+	{
+		document.getElementById("title"+idNum).style.display = "block";
+	}
+	else
+	{
+		document.getElementById("title"+idNum).style.display = "none";
+	}
+}
+
 $(document).ready(function()
 {
 	progressBar = new ldBar("#progressBar");
 	resize();
 	updateProgressBar(10, "Generating File List");
-	window.onresize = resize;
-	window.onfocus = focus;
+	window.addEventListener('resize', resize);
+	window.addEventListener('focus', focus);
 
 	refreshAction();
 
@@ -1529,4 +1830,9 @@ $(document).ready(function()
 	{
 		update(arrayOfDataMain);
 	});
+
+	if(document.getElementById("searchType"))
+	{
+		document.getElementById("searchType").addEventListener("change", changeSearchplaceholder, false);
+	}
 });

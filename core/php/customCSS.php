@@ -14,6 +14,8 @@ require_once($baseURLToMain.'core/conf/config.php');
 require_once($baseURLToMain.'core/php/configStatic.php');
 require_once($baseURLToMain.'core/php/loadVars.php');
 
+$windowDisplayConfig = explode("x", $windowConfig);
+
 ?>
 <style type="text/css">
 #menu a, #menu2 a, .link, .linkSmall
@@ -63,7 +65,7 @@ body
 	font-family: <?php echo $fontFamily;?>;
 }
 
-#log, #firstLoad
+.log, #firstLoad
 {
 	color: <?php echo $logFontColor; ?>;
 }
@@ -116,5 +118,33 @@ div#fixed
 	filter: invert(100%);
 }
 
+<?php endif; 
+
+if(!($windowDisplayConfig[0] > 1 || $windowDisplayConfig[1] > 1)): ?>
+
+.currentWindowNum
+{
+	display: none;
+}
+
+.currentWindowNumSelected
+{
+	display: none;
+}
+
+<?php else: ?>
+
+.currentWindowNum
+{
+	text-align: center;
+	color: <?php echo $currentSelectedThemeColorValues['highlight']['highlight-1']['fontColor']?>;
+}
 <?php endif; ?>
+
+.highlight
+{
+	background-color: yellow;
+	color: black;
+}
+
 </style>

@@ -19,6 +19,37 @@ function forEachAddVars($variable)
 	return $returnText;
 }
 
+function checkIfShouldLoad($loadCustomConfigVars, $key)
+{
+	if(!$loadCustomConfigVars)
+	{
+		$type = $_POST['resetConfigValuesBackToDefault'];
+		if($type === "all")
+		{
+			return false;
+		}
+		
+		if($type === "justWatch")
+		{
+			if($key === "watchList")
+			{
+				return false;
+			}
+			return true;
+		}
+		
+		if($type === "allButWatch")
+		{
+			if($key !== "watchList")
+			{
+				return false;
+			}
+			return true;
+		}
+	}
+	return true;
+}
+
 $varToIndexDir = "";
 $countOfSlash = 0;
 while($countOfSlash < 20 && !file_exists($varToIndexDir."error.php"))
@@ -98,9 +129,13 @@ foreach ($defaultConfig as $key => $value)
 	{
 		$$key = $_POST[$key];
 	}
-	elseif(array_key_exists($key, $config) && $loadCustomConfigVars)
+	elseif(array_key_exists($key, $config) && checkIfShouldLoad($loadCustomConfigVars, $key))
 	{
 		$$key = $config[$key];
+	}
+	elseif(isset($themeDefaultSettings) && array_key_exists($key, $themeDefaultSettings))
+	{
+		$$key = $themeDefaultSettings[$key];
 	}
 	else
 	{
@@ -272,3 +307,186 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 	}
 	$folderColorArrays = $folderColorArraysSave;
 }
+else
+{
+	// Image Vars
+
+	$arrayOfImages = array(
+		"backArrow"			=> array(
+			"alt"			=>	"Back",
+			"src"			=>	"",
+			"title"			=>	"Back",
+			"baseName"		=>	"backArrow.png"
+		),
+		"eraser"			=> array(
+			"alt"			=>	"Clear",
+			"src"			=>	"",
+			"title"			=>	"Clear",
+			"baseName"		=>	"eraser.png"
+		),
+		"eraserMulti"			=> array(
+			"alt"			=>	"Clear All",
+			"src"			=>	"",
+			"title"			=>	"Clear All",
+			"baseName"		=>	"eraserMulti.png"
+		),
+		"eraserSideBar"		=> array(
+			"alt"			=>	"Clear",
+			"src"			=>	"",
+			"title"			=>	"Clear",
+			"baseName"		=>	"eraserSideBar.png"
+		),
+		"fileIcon"			=> array(
+			"alt"			=>	"File",
+			"src"			=>	"",
+			"title"			=>	"File",
+			"baseName"		=>	"fileIcon.png"
+		),
+		"folderIcon"		=> array(
+			"alt"			=>	"Folder",
+			"src"			=>	"",
+			"title"			=>	"Folder",
+			"baseName"		=>	"folderIcon.png"
+		),
+		"gear"		=> array(
+			"alt"			=>	"Settings",
+			"src"			=>	"",
+			"title"			=>	"Settings",
+			"baseName"		=>	"Gear.png"
+		),
+		"greenCheck"		=> array(
+			"alt"			=>	"Ok",
+			"src"			=>	"",
+			"title"			=>	"Ok!",
+			"baseName"		=>	"greenCheck.png"
+		),
+		"info"			=> array(
+			"alt"			=>	"Info",
+			"src"			=>	"",
+			"title"			=>	"Info",
+			"baseName"		=>	"info.png"
+		),
+		"infoSideBar"		=> array(
+			"alt"			=>	"Info",
+			"src"			=>	"",
+			"title"			=>	"Info",
+			"baseName"		=>	"infoSideBar.png"
+		),
+		"loading"			=> array(
+			"alt"			=>	"Loading",
+			"src"			=>	"",
+			"title"			=>	"Loading...",
+			"baseName"		=>	"loading.gif"
+		),
+		"notificationClear"	=> array(
+			"alt"			=>	"Clear Notifications",
+			"src"			=>	"",
+			"title"			=>	"Clear Notifications",
+			"baseName"		=>	"notificationClear.png"
+		),
+		"pause"			=> array(
+			"alt"			=>	"Pause",
+			"src"			=>	"",
+			"title"			=>	"Pause",
+			"baseName"		=>	"Pause.png"
+		),
+		"play"			=> array(
+			"alt"			=>	"Play",
+			"src"			=>	"",
+			"title"			=>	"Play",
+			"baseName"		=>	"Play.png"
+		),
+		"redWarning"		=> array(
+			"alt"			=>	"Warning!",
+			"src"			=>	"",
+			"title"			=>	"Warning!!",
+			"baseName"		=>	"redWarning.png"
+		),
+		"refresh"			=> array(
+			"alt"			=>	"Refresh",
+			"src"			=>	"",
+			"title"			=>	"Refresh",
+			"baseName"		=>	"Refresh.png"
+		),
+		"search"			=> array(
+			"alt"			=>	"Search",
+			"src"			=>	"",
+			"title"			=>	"Search",
+			"baseName"		=>	"search.png"
+		),
+		"seleniumMonitor"	=> array(
+			"alt"			=>	"Selenium Monitor",
+			"src"			=>	"",
+			"title"			=>	"Selenium Monitor",
+			"baseName"		=>	"seleniumMonitor.png"
+		),
+		"taskManager"		=> array(
+			"alt"			=>	"TaskManager",
+			"src"			=>	"",
+			"title"			=>	"TaskManager",
+			"baseName"		=>	"task-manager.png"
+		),
+		"trashCan"			=> array(
+			"alt"			=>	"Delete",
+			"src"			=>	"",
+			"title"			=>	"Delete",
+			"baseName"		=>	"trashCan.png"
+		),
+		"trashCanMulti"			=> array(
+			"alt"			=>	"Delete Multiple",
+			"src"			=>	"",
+			"title"			=>	"Delete Multiple",
+			"baseName"		=>	"trashCanMulti.png"
+		),
+		"trashCanSideBar"	=> array(
+			"alt"			=>	"Delete",
+			"src"			=>	"",
+			"title"			=>	"Delete",
+			"baseName"		=>	"trashCanSideBar.png"
+		),
+		"yellowWarning"		=> array(
+			"alt"			=>	"Notice",
+			"src"			=>	"",
+			"title"			=>	"Notice!",
+			"baseName"		=>	"yellowWarning.png"
+		)
+	);
+
+
+
+	foreach ($arrayOfImages as $key => $value)
+	{
+		$src = "core/img/".$value["baseName"];
+		
+		
+		if(file_exists($varToIndexDir."local/".$currentSelectedTheme."/img/".$value["baseName"]))
+		{
+			//check for local version
+			$src = "local/".$currentSelectedTheme."/img/".$value["baseName"];
+		}
+		elseif(file_exists($varToIndexDir."local/Themes/".$currentTheme."/img/".$value["baseName"]))
+		{
+			//check for current theme in local
+			$src = "local/Themes/".$currentTheme."/img/".$value["baseName"];
+		}
+		elseif(file_exists($varToIndexDir."core/Themes/".$currentTheme."/img/".$value["baseName"]))
+		{
+			//check for current theme in core
+			$src = "core/Themes/".$currentTheme."/img/".$value["baseName"];
+		}
+		elseif(file_exists($varToIndexDir."core/Themes/".$currentThemeBase."/img/".$value["baseName"]))
+		{
+			//check for base theme
+			$src = "core/Themes/".$currentThemeBase."/img/".$value["baseName"];
+		}
+
+		$arrayOfImages[$key]["src"] = $src;
+	}
+}
+
+$arrayOfCustomConfig = array(
+	'themeVersion' => 1,
+	'layoutVersion'	=> 1,
+	'cssVersion'	=> 1,
+	'configVersion'	=> 1
+);

@@ -13,6 +13,15 @@ $localURL = $baseUrl;
 require_once($baseUrl.'conf/config.php');
 require_once('../core/conf/config.php');
 require_once('../core/php/configStatic.php');
+$currentTheme = loadSpecificVar($defaultConfig, $config, "currentTheme");
+if(is_dir('../local/'.$currentSelectedTheme.'/Themes/'.$currentTheme))
+{
+	require_once('../local/'.$currentSelectedTheme.'/Themes/'.$currentTheme."/defaultSetting.php");
+}
+else
+{
+	require_once('../core/Themes/'.$currentTheme."/defaultSetting.php");
+}
 require_once('../core/php/loadVars.php');
 require_once('../core/php/updateCheck.php');
 ?>
@@ -24,7 +33,7 @@ require_once('../core/php/updateCheck.php');
 	<script src="../core/js/jquery.js"></script>
 </head>
 <body>
-	<?php require_once('header.php'); ?>
+	<?php require_once('header2.php'); ?>
 	<div id="main">
 		<div class="settingsHeader">
 			About
@@ -32,7 +41,17 @@ require_once('../core/php/updateCheck.php');
 		<div class="settingsDiv" >
 			<ul id="settingsUl">
 				<li>
-					<h2>Version - <?php echo $configStatic['version'];?></h2>
+					<h2>
+						<?php echo generateImage(
+							$arrayOfImages["info"],
+							array(
+								"style"			=>	"margin-bottom: -7px;",
+								"height"		=>	"30px",
+								"srcModifier"	=>	"../"
+							)
+						); ?>
+						Version - <?php echo $configStatic['version'];?>
+					</h2>
 				</li>
 			</ul>
 		</div>

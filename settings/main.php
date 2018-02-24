@@ -1,19 +1,24 @@
 <?php
-$baseUrl = "../core/";
-if(file_exists('../local/layout.php'))
-{
-	$baseUrl = "../local/";
-	//there is custom information, use this
-	require_once('../local/layout.php');
-	$baseUrl .= $currentSelectedTheme."/";
-}
+require_once('../core/php/commonFunctions.php');
+$baseUrl = "../local/";
+//there is custom information, use this
+require_once('../local/layout.php');
+$baseUrl .= $currentSelectedTheme."/";
 $localURL = $baseUrl;
 require_once($baseUrl.'conf/config.php');
 require_once('../core/conf/config.php');
+$currentTheme = loadSpecificVar($defaultConfig, $config, "currentTheme");
+if(is_dir('../local/'.$currentSelectedTheme.'/Themes/'.$currentTheme))
+{
+	require_once('../local/'.$currentSelectedTheme.'/Themes/'.$currentTheme."/defaultSetting.php");
+}
+else
+{
+	require_once('../core/Themes/'.$currentTheme."/defaultSetting.php");
+}
 require_once('../core/php/configStatic.php');
 require_once('../core/php/updateCheck.php');
 require_once('../core/php/loadVars.php');
-require_once('../core/php/commonFunctions.php');
 ?>
 <!doctype html>
 <head>
@@ -29,11 +34,11 @@ require_once('../core/php/commonFunctions.php');
 	<div id="main">
 		<?php require_once('../core/php/template/logSettings.php'); ?>
 		<?php require_once('../core/php/template/pollVars.php'); ?>
+		<?php require_once('../core/php/template/filterVars.php'); ?>
 		<?php require_once('../core/php/template/updateVars.php'); ?>
 		<?php require_once('../core/php/template/settingsMenuVars.php'); ?>
 		<?php require_once('../core/php/template/mainVars.php'); ?>
 	</div>
-	<?php readfile('../core/html/popup.html') ?>	
 </body>
 <script type="text/javascript">
 var fileArray = JSON.parse('<?php echo json_encode($config['watchList']) ?>');

@@ -59,6 +59,7 @@ function showOrHidePopupSubWindow()
 		eventThrowException(e);
 	}
 }
+
 function showOrHideUpdateSubWindow()
 {
 	try
@@ -72,6 +73,21 @@ function showOrHideUpdateSubWindow()
 		eventThrowException(e);
 	}
 }
+
+function showOrHideFilterContentSettings()
+{
+	try
+	{
+		var valueForPopup = document.getElementById("filterContentLimit");
+		var valueForVars = document.getElementById("filterContentSettings");
+		showOrHideSubWindow(valueForPopup, valueForVars);
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
 function showOrHideSubWindow(valueForPopupInner, valueForVarsInner)
 {
 	try
@@ -151,6 +167,10 @@ $( document ).ready(function()
 	if(document.getElementById("logTrimOn"))
 	{
 		document.getElementById("logTrimOn").addEventListener("change", showOrHideLogTrimSubWindow, false);
+	}
+	if(document.getElementById("filterContentLimit"))
+	{
+		document.getElementById("filterContentLimit").addEventListener("change", showOrHideFilterContentSettings, false);
 	}
 
 	var arrayToRefresh = new Array();

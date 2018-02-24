@@ -32,6 +32,15 @@
 			</div>
 		</li>
 		<li>
+			<span class="settingsBuffer" > Scroll Log on update: </span>
+			<div class="selectDiv">
+				<select name="scrollOnUpdate">
+					<option <?php if($scrollOnUpdate == 'true'){echo "selected";} ?> value="true">True</option>
+					<option <?php if($scrollOnUpdate == 'false'){echo "selected";} ?> value="false">False</option>
+				</select>
+			</div>
+		</li>
+		<li>
 			<span class="settingsBuffer" > Log trim:  </span>
 			<div class="selectDiv">
 				<select id="logTrimOn" name="logTrimOn">

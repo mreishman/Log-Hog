@@ -125,10 +125,9 @@ div {
 #log {
 	padding: 1em 0;
 	color: white;
-	white-space: pre-wrap;
 }
 
-#log > div {
+#log div {
 	padding: .25em 1em;
 }
 
@@ -141,6 +140,50 @@ div {
 	background-color: #ccc;
 	padding: 0 1em;
 	line-height: 2em;
+}
+
+.backgroundForSideBarMenu
+{
+	background-color: #ccc;
+}
+
+.popupForInfo
+{
+	background-color: #CCC;
+	z-index: 10;
+	position: absolute;
+	left: 31px;
+	top: 5px;
+	border: 1px solid white;
+	color: black;
+}
+
+.currentWindowNum
+{
+	color: white;
+}
+
+.backgroundForMenus
+{
+	background-color: #ccc;
+}
+
+.sidebarCurrentWindowNum
+{
+	border-top: 1px solid black;
+	border-bottom: 1px solid black;
+	background-color: white;
+	color: black;
+	text-align: center;
+}
+
+.currentWindowNumSelected
+{
+	color: white;
+	background-color: black;
+	border-top: 1px solid black;
+	border-bottom: 1px solid black;
+	text-align: center;
 }
 
 #title{

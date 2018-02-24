@@ -25,6 +25,7 @@ while($countOfSlash < 20 && !file_exists($varToIndexDir."error.php"))
 {
   $varToIndexDir .= "../";
 }
+require_once($varToIndexDir."core/php/commonFunctions.php");
 
 $baseUrl = $varToIndexDir."core/";
 if(file_exists($varToIndexDir.'local/layout.php'))
@@ -43,6 +44,16 @@ else
 	$config = array();
 }
 require_once($varToIndexDir.'core/conf/config.php');
+
+$currentTheme = loadSpecificVar($defaultConfig, $config, "currentTheme");
+if(is_dir($varToIndexDir.'local/'.$currentSelectedTheme.'/Themes/'.$currentTheme))
+{
+	require_once($varToIndexDir.'local/'.$currentSelectedTheme.'/Themes/'.$currentTheme."/defaultSetting.php");
+}
+else
+{
+	require_once($varToIndexDir.'core/Themes/'.$currentTheme."/defaultSetting.php");
+}
 
 $response = true;
 
@@ -186,6 +197,14 @@ foreach ($defaultConfig as $key => $value)
 				break;
 			}
 		}
+		elseif(array_key_exists($key, $themeDefaultSettings))
+		{
+			if($_POST[$key] != $themeDefaultSettings[$key])
+			{
+				$response = false;
+				break;
+			}
+		}
 		else
 		{
 			if($_POST[$key] != $value)
@@ -196,7 +215,7 @@ foreach ($defaultConfig as $key => $value)
 		}
 
 	}
-	elseif(isset($$key))
+	elseif(isset($$key) && $key !== "currentTheme")
 	{
 		$key2 = $key."Save";
 		if($$key != $$key2)

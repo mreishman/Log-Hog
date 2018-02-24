@@ -1,4 +1,16 @@
 <?php
+require_once('../core/php/errorCheckFunctions.php');
+$currentPage = "welcome.php";
+checkIfFilesExist(
+	array("local/layout.php","setup/setupProcessFile.php","error.php","setup/step1.php","core/template/theme.css","core/js/jquery.js","core/php/template/popup.php","core/php/settingsSave.php","core/conf/config.php","setup/stepsJavascript.js"),
+	 "../",
+	 $currentPage);
+checkIfFilesAreReadable(
+	array("local/layout.php","setup/setupProcessFile.php","error.php","setup/step1.php","core/template/theme.css","core/js/jquery.js","core/php/template/popup.php","core/php/settingsSave.php","core/conf/config.php","setup/stepsJavascript.js"),
+	 "../",
+	 $currentPage);
+
+
 
 function clean_url($url) {
     $parts = parse_url($url);
@@ -6,15 +18,16 @@ function clean_url($url) {
 }
 
 
+$baseUrl = "../local/";
+//there is custom information, use this
+require_once('../local/layout.php');
+$baseUrl .= $currentSelectedTheme."/";
 
-$baseUrl = "../core/";
-if(file_exists('../local/layout.php'))
-{
-	$baseUrl = "../local/";
-	//there is custom information, use this
-	require_once('../local/layout.php');
-	$baseUrl .= $currentSelectedTheme."/";
-}
+
+checkIfFilesAreWritable(
+	array("core/php/settingsSave.php","local/".$currentSelectedTheme, "setup/setupProcessFile.php"),
+	 "../",
+	 $currentPage);
 
 require_once('setupProcessFile.php');
 if(file_exists($baseUrl.'conf/config.php'))
@@ -35,7 +48,7 @@ if(file_exists($baseUrl.'conf/config.php'))
 	<title>Welcome!</title>
 	<link rel="stylesheet" type="text/css" href="../core/template/theme.css">
 	<script src="../core/js/jquery.js"></script>
-	<?php readfile('../core/html/popup.html') ?>	
+	<?php require_once("../core/php/template/popup.php"); ?>	
 </head>
 <body>
 <div style="width: 90%; margin: auto; margin-right: auto; margin-left: auto; display: block; height: auto; margin-top: 15px;" >
@@ -47,11 +60,7 @@ if(file_exists($baseUrl.'conf/config.php'))
 	<table style="width: 100%; padding-left: 20px; padding-right: 20px;" >
 		<tr>
 			<th style="text-align: left;">
-				<?php if(file_exists($baseUrl.'conf/config.php')):?>
-					<a onclick="updateStatus('finished');" class="link">Accept Current Settings</a>
-				<?php else: ?>
-					<a onclick="updateStatus('finished');" class="link">Accept Default Settings</a>
-				<?php endif;?>
+				<a onclick="updateStatus('finished');" class="link">Accept Default Settings</a>
 			</th>
 			<th style="text-align: right;" >
 				<a onclick="updateStatus('step1');" class="link">Customize Settings (advised)</a>
@@ -76,6 +85,8 @@ if(file_exists($baseUrl.'conf/config.php'))
 		//change setupProcess to page1
 		document.getElementById('defaultVarsForm').submit();
 	}
+
+	var saveVerifyImage = "../core/img/greenCheck.png";
 </script>
 <script src="stepsJavascript.js?v=1"></script> <!-- Try to remember to manually increment this one? -->
 </html>

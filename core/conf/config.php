@@ -13,18 +13,25 @@ $defaultConfig = array(
 	'bottomBarIndexShow'			=> 'true',
 	'branchSelected'				=> 'default',
 	'buffer'						=> 500,
+	'caseInsensitiveSearch'			=> 'true',
 	'configVersion'					=> 2,
 	'cssVersion'					=> 1,
 	'currentFolderColorTheme'		=> 'theme-default-2',
 	'currentTheme'					=> 'Default',
+	'currentThemeBase'				=> 'Default',
 	'developmentTabEnabled'			=> 'false',
 	'dontNotifyVersion'				=> '0',
+	'displayName'					=> 'forThemesOnly',
 	'enableDevBranchDownload' 		=> 'false',
 	'enableHtopLink'				=> 'false',
 	'enableLogging'					=> 'false',
 	'enablePollTimeLogging'			=> 'false',
 	'enableSystemPrefShellOrPhp'	=> 'false',
 	'expSettingsAvail'				=> 'true',
+	'filterDefault'					=> 'title',
+	'filterContentHighlight'		=> 'true',
+	'filterContentLimit'			=> 'true',
+	'filterContentLinePadding'		=> 3,
 	'flashTitleUpdateLog'			=> 'false',
 	'folderColorArrays'	=> array(
 		'theme-default-1'	=> array(
@@ -257,6 +264,7 @@ $defaultConfig = array(
 		'versionCheck'		=> 'true'
 		),
 	'rightClickMenuEnable'			=> 'true',
+	'scrollOnUpdate'				=> 'true',
 	'sendCrashInfoJS'				=> 'true',
 	'sendCrashInfoPHP'				=> 'true',
 	'sliceSize'						=> 500,
@@ -270,5 +278,6 @@ $defaultConfig = array(
 		'/var/www/html/var/log/system.log'	        => '',
 		'/var/log/hhvm/error.log'	=> '',
 		'/var/log/apache2'			=> '.log$'
-	)
+	),
+	'windowConfig'					=> '1x1'
 );

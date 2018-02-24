@@ -32,7 +32,7 @@ require_once('../core/php/loadVars.php'); ?>
 <head>
 	<title>Welcome!</title>
 	<script src="../core/js/jquery.js"></script>
-	<?php readfile('../core/html/popup.html');
+	<?php require_once("../core/php/template/popup.php");;
 	echo loadCSS($baseUrl, $cssVersion);
 	echo loadSentryData($sendCrashInfoJS, $branchSelected);
 	require_once("../core/php/customCSS.php");?>
@@ -79,6 +79,14 @@ require_once('../core/php/loadVars.php'); ?>
 	var countOfClicks = 0;
 	var locationInsert = "newRowLocationForWatchList";
 	var logTrimType = "<?php echo $logTrimType; ?>";
+
+	var saveVerifyImage = <?php echo json_encode(generateImage(
+			$arrayOfImages["greenCheck"],
+			array(
+				"height"		=>	"50px",
+				"srcModifier"	=>	"../"
+			)
+		)); ?>
 </script>
 <script src="../core/js/settings.js?v=<?php echo $cssVersion?>"></script>
 <script src="stepsJavascript.js?v=<?php echo $cssVersion?>"></script>

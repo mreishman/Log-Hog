@@ -1,4 +1,5 @@
 <?php
+require_once("../../core/php/commonFunctions.php");
 $baseUrl = "../../core/";
 if(file_exists('../../local/layout.php'))
 {
@@ -10,9 +11,20 @@ if(file_exists('../../local/layout.php'))
 require_once($baseUrl.'conf/config.php');
 require_once('../../core/conf/config.php');
 require_once('../../core/php/configStatic.php');
-require_once('../../core/php/loadVars.php');
 
-$directory = "../../core/Themes/".$currentTheme."/";
+$currentTheme = loadSpecificVar($defaultConfig, $config, "currentTheme");
+if(is_dir('../../local/'.$currentSelectedTheme.'/Themes/'.$currentTheme))
+{
+	$directory = "../../local/".$currentSelectedTheme."/Themes/".$currentTheme."/";
+	require_once('../../local/'.$currentSelectedTheme.'/Themes/'.$currentTheme."/defaultSetting.php");
+}
+else
+{
+	$directory = "../../core/Themes/".$currentTheme."/";
+	require_once('../../core/Themes/'.$currentTheme."/defaultSetting.php");
+}
+
+require_once('../../core/php/loadVars.php');
 
 
 //Copy over CSS HERE

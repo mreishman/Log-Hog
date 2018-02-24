@@ -1,17 +1,21 @@
 <?php
 require_once('../core/php/commonFunctions.php');
 
-$baseUrl = "../core/";
-if(file_exists('../local/layout.php'))
-{
-	$baseUrl = "../local/";
-	//there is custom information, use this
-	require_once('../local/layout.php');
-	$baseUrl .= $currentSelectedTheme."/";
-}
+$baseUrl = "../local/";
+require_once($baseUrl.'layout.php');
+$baseUrl .= $currentSelectedTheme."/";
 $localURL = $baseUrl;
 require_once($baseUrl.'conf/config.php');
 require_once('../core/conf/config.php');
+$currentTheme = loadSpecificVar($defaultConfig, $config, "currentTheme");
+if(is_dir('../local/'.$currentSelectedTheme.'/Themes/'.$currentTheme))
+{
+	require_once('../local/'.$currentSelectedTheme.'/Themes/'.$currentTheme."/defaultSetting.php");
+}
+else
+{
+	require_once('../core/Themes/'.$currentTheme."/defaultSetting.php");
+}
 require_once('../core/php/configStatic.php');
 require_once('../core/php/loadVars.php');
 require_once('../core/php/updateCheck.php');
@@ -36,6 +40,7 @@ $countConfig--;
 	<link rel="icon" type="image/png" href="../core/img/favicon.png" />
 	<script src="../core/js/jquery.js"></script>
 	<script src="../core/js/advanced.js?v=<?php echo $cssVersion;?>"></script>
+	<script src="../core/js/resetSettingsJs.js?v=<?php echo $cssVersion;?>"></script>
 </head>
 <body>
 	<?php require_once('header.php'); ?>
@@ -187,7 +192,16 @@ $countConfig--;
 						</select>
 					</div>
 					<br>
-					<span style="font-size: 75%;">*<i>This will increase poll times by 2x to 4x</i></span>
+					<span style="font-size: 75%;">
+						<?php echo generateImage(
+							$arrayOfImages["info"],
+							array(
+								"style"			=>	"margin-bottom: -4px;",
+								"height"		=>	"20px",
+								"srcModifier"	=>	"../"
+							)
+						); ?>
+						<i>This will increase poll times by 2x to 4x</i></span>
 				</li>
 				<li>
 					<span class="settingsBuffer"> Poll Time Logging </span>
@@ -272,7 +286,16 @@ $countConfig--;
 					<p>Default = <?php echo "https://" . $_SERVER['SERVER_NAME']."/seleniumMonitor"; ?></p>
 				</li>
 				<li>
-					<span style="font-size: 75%;">*<i>Please specify full url, blank if none</i></span>
+					<span style="font-size: 75%;">
+						<?php echo generateImage(
+							$arrayOfImages["info"],
+							array(
+								"style"			=>	"margin-bottom: -4px;",
+								"height"		=>	"20px",
+								"srcModifier"	=>	"../"
+							)
+						); ?> 
+						<i>Please specify full url, blank if none</i></span>
 				</li>
 			</ul>
 		</div>
@@ -314,20 +337,41 @@ $countConfig--;
 						</select>
 					</div>
 				</li>
+				<li>
+					Log Layout
+					<?php $arrayOfwindowConfigOptions = array();
+					for ($i=0; $i < 3; $i++)
+					{
+						for ($j=0; $j < 3; $j++)
+						{
+							array_push($arrayOfwindowConfigOptions, "".($i+1)."x".($j+1));
+						}
+					}
+					?>
+					<div class="selectDiv">
+						<select name="windowConfig">
+							<?php foreach ($arrayOfwindowConfigOptions as $value)
+							{
+								$stringToEcho = "<option ";
+								if($value === $windowConfig)
+								{
+									$stringToEcho .= " selected ";
+								}
+								$stringToEcho .= " value=\"".$value."\"> ".$value."</option>";
+								echo $stringToEcho;
+							}
+							?>
+						</select>
+					</div>
+				</li>
 			</ul>
 		</div>
 		</form>
 	</div>
-	<?php readfile('../core/html/popup.html') ?>
-	<form id="resetSettings" action="../core/php/settingsSave.php" method="post">
-		<select style="display: none;" name="resetConfigValuesBackToDefault">
-				<option selected value="true">True</option>
-		</select>
-	</form>
 	<form id="devAdvanced2" action="../core/php/settingsSaveConfigStatic.php" method="post">
 		<input type="hidden" style="width: 400px;"  name="newestVersion" value="<?php echo $configStatic['version'];?>" > 
 	</form>
 </body>
 <script type="text/javascript">
-	var htmlRestoreOptions = "<?php readfile('../core/html/restoreVersionOptions.html') ?>";
+	var htmlRestoreOptions = "<? echo generateRestoreList($configStatic); ?>";
 </script>

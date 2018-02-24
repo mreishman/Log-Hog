@@ -6,7 +6,15 @@ echo loadSentryData($sendCrashInfoJS, $branchSelected); ?>
 <script src="../core/js/settings.js?v=<?php echo $cssVersion?>"></script>
 <div id="menu">
 	<div onclick="goToUrl('../index.php');" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">
-		<img id="pauseImage" class="menuImage" src="<?php echo $localURL;?>img/backArrow.png" height="30px">
+		<?php echo generateImage(
+			$arrayOfImages["backArrow"],
+			array(
+				"height"		=>	"30px",
+				"srcModifier"	=>	"../",
+				"class"			=>	"menuImage",
+				"id"			=>	"back"
+			)
+		); ?>
 	</div>
 	<?php if(strpos($URI, 'main.php') !== false): ?>
 		<a style="cursor: default;" class="active" id="MainLink" >Main</a>
@@ -28,12 +36,7 @@ echo loadSentryData($sendCrashInfoJS, $branchSelected); ?>
 			" onclick="goToUrl('themes.php');" 
 		<?php endif; ?>
 	>Themes</a>
-	<?php if(strpos($URI, 'about.php') !== false): ?>
-		<a style="cursor: default;" class="active" id="aboutLink" >About</a>
-	<?php else: ?>	
-		<a id="aboutLink" onclick="goToUrl('about.php');">About</a>
-	<?php endif; ?>
-	<?php if((strpos($URI, 'whatsNew.php') !== false) || (strpos($URI, 'update.php') !== false) || (strpos($URI, 'changeLog.php') !== false)): ?>
+	<?php if(strpos($URI, 'update.php') !== false): ?>
 		<a style="cursor: default;" class="active" id="updateLink">
 	<?php else: ?>
 		<a id="updateLink" onclick="goToUrl('update.php');">
@@ -76,23 +79,25 @@ echo loadSentryData($sendCrashInfoJS, $branchSelected); ?>
 	<div id="menu2">
 		<a onclick="goToUrl('#settingsLogVars');" > Logs </a>
 		<a onclick="goToUrl('#settingsPollVars');" > Poll </a>
+		<a onclick="goToUrl('#settingsFilterVars');" > Filter </a>
 		<a onclick="goToUrl('#settingsUpdateVars');" > Update </a>
 		<a onclick="goToUrl('#settingsMenuVars');" > Menu </a>
 		<a onclick="goToUrl('#settingsMainVars');" > Other </a>
-	</div>
-<?php endif; ?>
-<?php if((strpos($URI, 'whatsNew.php') !== false) || (strpos($URI, 'update.php') !== false) || (strpos($URI, 'changeLog.php') !== false)): ?>
-	<div id="menu2">
-		<a <?php if(strpos($URI, 'update.php') !== false): ?> class='active' <?php else: ?>  onclick="goToUrl('./update.php');"  <?php endif;?> > Update </a>
-		<a <?php if(strpos($URI, 'whatsNew.php') !== false): ?> class='active' <?php else: ?>  onclick="goToUrl('./whatsNew.php');"  <?php endif;?> > What's New? </a>
-		<a <?php if(strpos($URI, 'changeLog.php') !== false): ?> class='active' <?php else: ?>  onclick="goToUrl('./changeLog.php');"  <?php endif;?> > Changelog </a>
 	</div>
 <?php endif;
 $baseUrlImages = $localURL;
 ?>
 <script type="text/javascript">
-	var baseUrl = "<?php echo $baseUrlImages;?>";
+	var baseUrl = "<?php echo baseURL();?>";
 	var popupSettingsArray = JSON.parse('<?php echo json_encode($popupSettingsArray) ?>');
 	var currentVersion = "<?php echo $configStatic['version']; ?>";
 	var newestVersion = "<?php echo $configStatic['newestVersion']; ?>";
+	var saveVerifyImage = <?php echo json_encode(generateImage(
+			$arrayOfImages["greenCheck"],
+			array(
+				"height"		=>	"50px",
+				"srcModifier"	=>	"../"
+			)
+		)); ?>
 </script>
+<?php require_once("../core/php/template/popup.php"); ?>

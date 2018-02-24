@@ -1,5 +1,16 @@
 <?php
+require_once('core/php/errorCheckFunctions.php');
+$currentPage = "index.php";
+checkIfFilesExist(
+	array("core/conf/config.php","core/php/configStatic.php","core/php/loadVars.php","core/php/updateCheck.php","core/js/jquery.js","core/template/loading-bar.css","core/js/loading-bar.min.js","core/php/customCSS.php","core/php/template/popup.php","core/js/main.js","core/js/rightClickJS.js","core/js/update.js","core/php/commonFunctions.php","local/layout.php","setup/setupProcessFile.php","error.php"),
+	 "",
+	 $currentPage);
+checkIfFilesAreReadable(
+	array("core/conf/config.php","core/php/configStatic.php","core/php/loadVars.php","core/php/updateCheck.php","core/js/jquery.js","core/template/loading-bar.css","core/js/loading-bar.min.js","core/php/customCSS.php","core/php/template/popup.php","core/js/main.js","core/js/rightClickJS.js","core/js/update.js","core/php/commonFunctions.php","local/layout.php","setup/setupProcessFile.php","error.php"),
+	 "",
+	 $currentPage);
 require_once('core/php/commonFunctions.php');
+
 setCookieRedirect();
 $baseUrl = "core/";
 if(file_exists('local/layout.php'))
@@ -9,15 +20,41 @@ if(file_exists('local/layout.php'))
 	require_once('local/layout.php');
 	$baseUrl .= $currentSelectedTheme."/";
 }
+
 if(!file_exists($baseUrl.'conf/config.php'))
 {
-	$partOfUrl = clean_url($_SERVER['REQUEST_URI']);
-	$url = "http://" . $_SERVER['HTTP_HOST'] .$partOfUrl ."setup/welcome.php";
-	header('Location: ' . $url, true, 302);
-	exit();
+	require_once("setup/setupProcessFile.php");
+	if($setupProcess !== "finished")
+	{
+		if($setupProcess === 'preStart')
+		{
+			$partOfUrl = clean_url($_SERVER['REQUEST_URI']);
+			if(strpos($partOfUrl, "index.php") !== false)
+			{
+				$partOfUrl = str_replace("index.php", "", $partOfUrl);
+			}
+			$url = "http://" . $_SERVER['HTTP_HOST'] .$partOfUrl ."setup/welcome.php";
+			header('Location: ' . $url, true, 302);
+			exit();
+		}
+		else
+		{
+			//setup either errored out, or was incomplete. throw error. 
+			//throwSetupError("");
+		}
+	}
 }
 require_once($baseUrl.'conf/config.php');
 require_once('core/conf/config.php');
+$currentTheme = loadSpecificVar($defaultConfig, $config, "currentTheme");
+if(is_dir('local/'.$currentSelectedTheme.'/Themes/'.$currentTheme))
+{
+	require_once('local/'.$currentSelectedTheme.'/Themes/'.$currentTheme."/defaultSetting.php");
+}
+else
+{
+	require_once('core/Themes/'.$currentTheme."/defaultSetting.php");
+}
 require_once('core/php/configStatic.php');
 require_once('core/php/loadVars.php');
 require_once('core/php/updateCheck.php');
@@ -128,6 +165,93 @@ elseif($loadingBarVersion === 5)
 }
 
 
+$windowDisplayConfig = explode("x", $windowConfig);
+$logDisplayArray = "{";
+$logDisplay = "";
+$borderPadding = 0;
+for ($i=0; $i < $windowDisplayConfig[0]; $i++)
+{
+	$logDisplay .= "<tr>";
+	$infoImageForWindowTableLoop = generateImage(
+		$arrayOfImages["infoSideBar"],
+		$imageConfig = array(
+			"height"	=>	"20px",
+			"style"		=>	"margin: 5px;",
+			"title"		=>	"More Info"
+			)
+		);
+	$clearImageForWindowTableLoop = generateImage(
+		$arrayOfImages["eraserSideBar"],
+		$imageConfig = array(
+			"height"	=>	"20px",
+			"style"		=>	"margin: 5px;",
+			"title"		=>	"Clear Log"
+			)
+		);
+	$deleteImageForWindowTableLoop =  generateImage(
+		$arrayOfImages["trashCanSideBar"],
+		$imageConfig = array(
+			"height"	=>	"20px",
+			"style"		=>	"margin: 5px;",
+			"title"		=>	"Delete Log"
+			)
+		);
+	for ($j=0; $j < $windowDisplayConfig[1]; $j++)
+	{
+		$borderPadding += 2;
+		$counter = $j+($i*$windowDisplayConfig[1]);
+		$logDisplay .= "<td style=\"vertical-align: top; padding: 0; border: 1px solid white;\" onclick=\"changeCurrentSelectWindow(".$counter.")\" class=\"logTdWidth\" >";
+		$logDisplay .= "<table style=\"margin: 0px;padding: 0px; border-spacing: 0px; width:100%;\" ><tr><td style=\"padding: 0;";
+		if($bottomBarIndexShow == 'false')
+		{
+			$logDisplay .= " width: 0; ";
+		}
+		else
+		{
+			$logDisplay .= " width: 30px; ";
+		}
+		$logDisplay .=  " \" >";
+		$logDisplay .= "<div class=\"backgroundForSideBarMenu\" style=\"";
+		if($bottomBarIndexShow == 'false')
+		{
+			$logDisplay .= "display: none; width: 0; ";
+		}
+		else
+		{
+			$logDisplay .= "display: inline; width: 30px; ";
+		}
+		$logDisplay .= " float: left; padding: 0px; \" id=\"titleContainer".$counter."\">";
+		$logDisplay .= "<div class=\"popupForInfo\" style=\"display: none;\" id=\"title".$counter."\"></div>";
+		$logDisplay .= "<p id=\"numSelectIndecatorForWindow".$counter."\"  class=\" ";
+		if($counter === 0)
+		{
+			$logDisplay .= "currentWindowNumSelected";
+		}
+		else
+		{
+			$logDisplay .= "sidebarCurrentWindowNum";
+		}
+		$logDisplay .= " \" >".($counter+1)."</p>";
+		$logDisplay .= "<a onclick=\"showInfo('".$counter."');\" style=\"cursor: pointer;\" >";
+		$logDisplay .= $infoImageForWindowTableLoop;
+		$logDisplay .= "</a>";
+		$logDisplay .= "<a onclick=\"clearLog('".$counter."');\" style=\"cursor: pointer;\" >";
+		$logDisplay .= $clearImageForWindowTableLoop;
+		$logDisplay .= "</a>";
+		$logDisplay .= "<a onclick=\"deleteLogPopup('".$counter."');\" style=\"cursor: pointer;\" >"; 
+		$logDisplay .= $deleteImageForWindowTableLoop;
+		$logDisplay .= "</a>";
+		$logDisplay .= "</div> ";
+		$logDisplay .= "</td><td style=\"padding: 0;\" >";
+		$logDisplay .= " <span id=\"log".$counter."Td\"  class=\"logTrHeight\" style=\"overflow: auto; display: block; word-break: break-all;\" > <div style=\"padding: 0; white-space: pre-wrap;\" id=\"log".$counter."\" class=\"log\"  ></div> </span>";
+		$logDisplay .= "</td></tr></table>";
+		$logDisplay .= "</td>";
+		$logDisplayArray .= " ".$counter.": null,";
+	}
+	$logDisplay .= "</tr>";
+}
+$logDisplayArray = rtrim($logDisplayArray, ",")."}";
+
 ?>
 <!doctype html>
 <head>
@@ -150,62 +274,174 @@ elseif($loadingBarVersion === 5)
 	<div class="backgroundForMenus" id="menu">
 		<div id="menuButtons" style="display: block;">
 			<div onclick="pausePollAction();" class="menuImageDiv">
-				<img id="playImage" class="menuImage" src="<?php echo $baseUrl; ?>img/Play.png"
-					<?php if($pausePoll !== 'true'):?>
-						style="display: none;"
-					<?php else: ?>
-						style="display: inline-block;"
-					<?php endif;?>
-				height="30px">
-				<img id="pauseImage" class="menuImage" src="<?php echo $baseUrl; ?>img/Pause.png"
-					<?php if($pausePoll === 'true'):?>
-						style="display: none;"
-					<?php else: ?>
-						style="display: inline-block;"
-					<?php endif;?>
-				height="30px">
+				<?php
+					$styleString = "display: inline-block;";
+					if($pausePoll !== 'true')
+					{
+						$styleString = "display: none;";
+					}
+					echo generateImage(
+					$arrayOfImages["play"],
+					$imageConfig = array(
+						"id"		=>	"playImage",
+						"class"		=>	"menuImage",
+						"height"	=>	"30px",
+						"style"		=>	$styleString
+						)
+					);
+
+					$styleString = "display: inline-block;";
+					if($pausePoll === 'true')
+					{
+						$styleString = "display: none;";
+					}
+					echo generateImage(
+					$arrayOfImages["pause"],
+					$imageConfig = array(
+						"id"		=>	"pauseImage",
+						"class"		=>	"menuImage",
+						"height"	=>	"30px",
+						"style"		=>	$styleString
+						)
+					); 
+				?>
 			</div>
 			<div onclick="refreshAction();" class="menuImageDiv">
-				<img id="refreshImage" class="menuImage" src="<?php echo $baseUrl; ?>img/Refresh.png" height="30px">
-				<img id="refreshingImage" class="menuImage" style="display: none;" src="<?php echo $baseUrl; ?>img/loading.gif" height="30px">
+				<?php
+					echo generateImage(
+					$arrayOfImages["refresh"],
+					$imageConfig = array(
+						"id"		=>	"refreshImage",
+						"class"		=>	"menuImage",
+						"height"	=>	"30px"
+						)
+					);
+
+					echo generateImage(
+					$arrayOfImages["loading"],
+					$imageConfig = array(
+						"id"		=>	"refreshingImage",
+						"class"		=>	"menuImage",
+						"height"	=>	"30px",
+						"style"		=>	"display: none;"
+						)
+					);
+				?> 
 			</div>
 			<?php if($truncateLog == 'true'): ?>
-			<div onclick="deleteAction();"  class="menuImageDiv">
-				<img id="deleteImage" class="menuImage" src="<?php echo $baseUrl; ?>img/trashCanMulti.png" height="30px">
-			</div>
+				<div onclick="deleteAction();"  class="menuImageDiv">
+					<?php echo generateImage(
+						$arrayOfImages["eraserMulti"],
+						$imageConfig = array(
+							"id"		=>	"deleteImage",
+							"class"		=>	"menuImage",
+							"height"	=>	"30px"
+							)
+						); 
+					?>
+				</div>
 			<?php else: ?>
-			<div onclick="clearLog();" class="menuImageDiv">
-				<img id="deleteImage" class="menuImage" src="<?php echo $baseUrl; ?>img/trashCan.png" height="30px">
-			</div>
+				<div onclick="clearLog(currentSelectWindow);" class="menuImageDiv">
+					<?php echo generateImage(
+						$arrayOfImages["eraser"],
+						$imageConfig = array(
+							"id"		=>	"deleteImage",
+							"class"		=>	"menuImage",
+							"height"	=>	"30px"
+							)
+						); 
+					?>
+				</div>
 			<?php endif; ?>
 			<?php if($locationForMonitorIndex != ""): ?>
-			<div onclick="window.location.href = '<?php echo $locationForMonitorIndex; ?>'"  class="menuImageDiv">
-				<img id="taskmanagerImage" class="menuImage" src="<?php echo $baseUrl; ?>img/task-manager.png" height="30px">
-			</div>
+				<div onclick="window.location.href = '<?php echo $locationForMonitorIndex; ?>'"  class="menuImageDiv">
+					<?php echo generateImage(
+						$arrayOfImages["taskManager"],
+						$imageConfig = array(
+							"id"		=>	"taskmanagerImage",
+							"class"		=>	"menuImage",
+							"height"	=>	"30px"
+							)
+						); 
+					?>
+				</div>
 			<?php endif; ?>
 			<?php if($locationForSearchIndex != ""): ?>
-			<div onclick="window.location.href = '<?php echo $locationForSearchIndex; ?>'"  class="menuImageDiv">
-				<img id="searchImage" class="menuImage" src="<?php echo $baseUrl; ?>img/search.png" height="30px">
-			</div>
+				<div onclick="window.location.href = '<?php echo $locationForSearchIndex; ?>'"  class="menuImageDiv">
+					<?php echo generateImage(
+						$arrayOfImages["search"],
+						$imageConfig = array(
+							"id"		=>	"searchImage",
+							"class"		=>	"menuImage",
+							"height"	=>	"30px"
+							)
+						); 
+					?>
+				</div>
 			<?php endif; ?>
 			<?php if($locationForSeleniumMonitorIndex != ""): ?>
-			<div onclick="window.location.href = '<?php echo $locationForSeleniumMonitorIndex; ?>'"  class="menuImageDiv">
-				<img id="seleniumMonitorImage" class="menuImage" src="<?php echo $baseUrl; ?>img/seleniumMonitor.png" height="30px">
-			</div>
+				<div onclick="window.location.href = '<?php echo $locationForSeleniumMonitorIndex; ?>'"  class="menuImageDiv">
+					<?php echo generateImage(
+						$arrayOfImages["seleniumMonitor"],
+						$imageConfig = array(
+							"id"		=>	"seleniumMonitorImage",
+							"class"		=>	"menuImage",
+							"height"	=>	"30px"
+							)
+						); 
+					?>
+				</div>
 			<?php endif; ?>
+			<div onclick="window.location.href = './settings/about.php'" class="menuImageDiv">
+				<?php echo generateImage(
+					$arrayOfImages["info"],
+					$imageConfig = array(
+						"id"		=>	"aboutImage",
+						"class"		=>	"menuImage",
+						"height"	=>	"30px"
+						)
+					); 
+				?>
+			</div>
 			<div onclick="window.location.href = './settings/main.php';"  class="menuImageDiv">
-				<img data-id="1" id="gear" class="menuImage" src="<?php echo $baseUrl; ?>img/Gear.png" height="30px">
-				<?php if($updateNotificationEnabled === "true")
+				<?php echo generateImage(
+					$arrayOfImages["gear"],
+					$imageConfig = array(
+						"id"		=>	"gear",
+						"class"		=>	"menuImage",
+						"height"	=>	"30px",
+						"data-id"	=>	"1"
+						)
+					); 
+				
+				if($updateNotificationEnabled === "true")
 				{
 					if($levelOfUpdate == 1)
 					{
-						echo '<img id="updateImage" src="'.$baseUrl.'img/yellowWarning.png" height="15px" style="position: absolute;margin-left: 13px;margin-top: -34px;">';
+						echo generateImage(
+							$arrayOfImages["yellowWarning"],
+							$imageConfig = array(
+								"id"		=>	"updateImage",
+								"class"		=>	"menuImage",
+								"height"	=>	"15px",
+								"style"		=>	"position: absolute;margin-left: 13px;margin-top: -34px;"
+							)
+						);
 					}
 					elseif($levelOfUpdate == 2 || $levelOfUpdate == 3)
 					{
-						echo '<img id="updateImage" src="'.$baseUrl.'img/redWarning.png" height="15px" style="position: absolute;margin-left: 13px;margin-top: -34px;">';
+						echo generateImage(
+							$arrayOfImages["redWarning"],
+							$imageConfig = array(
+								"id"		=>	"updateImage",
+								"class"		=>	"menuImage",
+								"height"	=>	"15px",
+								"style"		=>	"position: absolute;margin-left: 13px;margin-top: -34px;"
+							)
+						);
 					}
-				}?>
+				}
+				?>
 			</div>
 			<?php if ($locationForStatusIndex != ""):?>
 				<div class="menuImage" style="display: inline-block; cursor: pointer;" onclick="window.location.href='<?php echo $locationForStatusIndex; ?>'" >
@@ -213,19 +449,30 @@ elseif($loadingBarVersion === 5)
 				</div>
 			<?php endif; ?>
 			<div  id="clearNotificationsImage" style="display: none;" onclick="clearNotifications();" class="menuImageDiv">
-				<img class="menuImage" src="<?php echo $baseUrl; ?>img/notificationClear.png" height="30px">
+				<?php echo generateImage(
+					$arrayOfImages["notificationClear"],
+					$imageConfig = array(
+						"id"		=>	"notificationClearImage",
+						"class"		=>	"menuImage",
+						"height"	=>	"30px"
+						)
+					); 
+				?>
 			</div>
 			<div style="float: right;">
-				<select name="searchType" style="display: none;">
-					<option selected value="title">Title</option>
+				<select id="searchType" disabled class="selectDiv" name="searchType" style="height: 30px;">
+					<option <?php if ($filterDefault === "title"){echo "selected"; }?> value="title">Title</option>
+					<option <?php if ($filterDefault === "content"){echo "selected"; }?> value="content">Content</option>
 				</select>
-				<input id="searchFieldInput" type="search" name="search" placeholder="filter title" style="height: 30px; width: 200px;">
+				<input disabled id="searchFieldInput" type="search" name="search" placeholder="Filter <?php echo $filterDefault; ?>" style="height: 30px; width: 200px;">
 			</div>
 		</div>
 	</div>
 	
 	<div id="main">
-		<div id="log"></div>
+		<table id="log" style="display: none; margin: 0px;padding: 0px; border-spacing: 0px;" style="width: 100%;" >
+			<?php echo $logDisplay; ?>
+		</table>
 		<div id="firstLoad" style="width: 100%; height: 100%;">
 			<h1 id="progressBarMainInfo" style="margin-right: auto; margin-left: auto; width: 100%; text-align: center;  margin-top: 100px; font-size: 150%;" >Loading...</h1>
 			<div id="divForProgressBar" style="width: 80%; height: 100px; margin-left: auto; margin-right: auto; margin-top: -15px; margin-bottom: -15px;">
@@ -238,36 +485,13 @@ elseif($loadingBarVersion === 5)
 	
 	<div id="storage">
 		<div class="menuItem">
-			<a title="{{title}}" class="{{id}}Button {{class}} index" onclick="show(this, '{{id}}')">{{title}}
+			<a title="{{title}}" class="{{id}}Button {{class}} index" onclick="show(this, '{{id}}')">
+				<span class="currentWindowNum" id="{{id}}CurrentWindow"></span>
+				{{title}}
 				<span id="{{id}}Count" class="menuCounter"></span>
 				<span id="{{id}}CountHidden" style="display: none;"></span>
 			</a>
 		</div>
-	</div>
-	
-	<div
-		class="backgroundForMenus" 
-		style=" 
-		<?php
-		if($bottomBarIndexShow == 'false')
-		{
-			echo 'display: none;';
-		}
-		?>"
-		id="titleContainer"
-	>
-		<div id="title">
-			&nbsp;
-		</div>
-		&nbsp;&nbsp;
-		<form style="display: inline-block; float: right;" >
-			<a class="linkSmall" onclick="clearLog()" >
-				Clear Log
-			</a>
-			<a class="linkSmall" onclick="deleteLogPopup()" >
-				Delete Log
-			</a>
-		</form>
 	</div>
 	<form id="settingsInstallUpdate" action="update/updater.php" method="post" style="display: none"></form>
 	<script>
@@ -278,6 +502,10 @@ elseif($loadingBarVersion === 5)
 			if(document.getElementById('gear'))
 			{
 				Rightclick_ID_list.push('gear');
+			}
+			if(document.getElementById('aboutImage'))
+			{
+				Rightclick_ID_list.push('aboutImage');
 			}
 			if(document.getElementById('deleteImage'))
 			{
@@ -303,6 +531,11 @@ elseif($loadingBarVersion === 5)
 		echo "var pollForceTrue = ".$pollForceTrue.";";
 		echo "var pollRefreshAll = ".$pollRefreshAll.";";
 		echo "var sliceSize = ".$sliceSize.";";
+		echo "var filterContentLinePadding = ".$filterContentLinePadding.";";
+		echo "var logDisplayArray = ".$logDisplayArray.";";
+		echo "var windowDisplayConfigRowCount = ".$windowDisplayConfig[0].";";
+		echo "var windowDisplayConfigColCount = ".$windowDisplayConfig[1].";";
+		echo "var borderPadding = ".$borderPadding.";"; 
 		?>
 		var dontNotifyVersion = "<?php echo $dontNotifyVersion;?>";
 		var currentVersion = "<?php echo $configStatic['version'];?>";
@@ -318,8 +551,12 @@ elseif($loadingBarVersion === 5)
 		var baseUrl = "<?php echo $baseUrl;?>";
 		var updateFromID = "settingsInstallUpdate";
 		var notificationCountVisible = "<?php echo $notificationCountVisible;?>";
+		var caseInsensitiveSearch = "<?php echo $caseInsensitiveSearch; ?>";
+		var filterContentHighlight = "<?php echo $filterContentHighlight; ?>";
+		var filterContentLimit = "<?php echo $filterContentLimit; ?>";
+		var scrollOnUpdate = "<?php echo $scrollOnUpdate; ?>";
 	</script>
-	<?php readfile('core/html/popup.html') ?>
+	<?php require_once('core/php/template/popup.php') ?>
 	<script src="core/js/main.js?v=<?php echo $cssVersion?>"></script>
 	<script src="core/js/rightClickJS.js?v=<?php echo $cssVersion?>"></script>	
 	<script src="core/js/update.js?v=<?php echo $cssVersion?>"></script>

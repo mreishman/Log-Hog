@@ -15,14 +15,15 @@ function addRowFunction()
 	{
 		countOfWatchList++;
 		countOfClicks++;
+
+		var fileName = ""+countOfWatchList;
 		if(countOfWatchList < 10)
 		{
-			document.getElementById(locationInsert).outerHTML += "<li id='rowNumber"+countOfWatchList+"'>File #0" + countOfWatchList+ ": <div style=\"width: 130px; display: inline-block; text-align: center;\">----------</div><input type='text' style='width: 480px;' name='watchListKey" + countOfWatchList + "' > <input type='text' name='watchListItem" + countOfWatchList + "' > <a class='deleteIconPosition'  onclick='deleteRowFunctionPopup("+ countOfWatchList +", true, \"File #0" + countOfWatchList+"\")'><img src=\""+baseUrl+"img/trashCan.png\" height=\"15px;\" ></a></li><div id='newRowLocationForWatchList"+countOfClicks+"'></div>";
+			fileName = "0"+fileName;
 		}
-		else
-		{
-			document.getElementById(locationInsert).outerHTML += "<li id='rowNumber"+countOfWatchList+"'>File #" + countOfWatchList+ ": <div style=\"width: 130px; display: inline-block; text-align: center;\">----------</div><input type='text' style='width: 480px;' name='watchListKey" + countOfWatchList + "' > <input type='text' name='watchListItem" + countOfWatchList + "' > <a class='deleteIconPosition' onclick='deleteRowFunctionPopup("+ countOfWatchList +", true, \"File #" + countOfWatchList+"\")'><img src=\""+baseUrl+"img/trashCan.png\" height=\"15px;\" ></a></li><div id='newRowLocationForWatchList"+countOfClicks+"'></div>";
-		}
+		
+		document.getElementById(locationInsert).outerHTML += "<li id='rowNumber"+countOfWatchList+"'>File #" + fileName+ ": <div style=\"width: 130px; display: inline-block; text-align: center;\">----------</div><input type='text' style='width: 480px;' name='watchListKey" + countOfWatchList + "' > <input type='text' name='watchListItem" + countOfWatchList + "' > <a class='deleteIconPosition' onclick='deleteRowFunctionPopup("+ countOfWatchList +", true, \"File #" + fileName+"\")'>"+defaultTrashCanIcon+"</a></li><div id='newRowLocationForWatchList"+countOfClicks+"'></div>";
+		
 		locationInsert = "newRowLocationForWatchList"+countOfClicks;
 		document.getElementById("numberOfRows").value = countOfWatchList;
 		countOfAddedFiles++;
@@ -80,22 +81,14 @@ function deleteRowFunction(currentRow, decreaseCountWatchListNum)
 					}
 					var nameForId = "fileNotFoundImage" + i;
 					var elementByIdPreCheck = document.getElementById(nameForId);
-					if(elementByIdPreCheck !== null)
+					var elementByIdAlsoPreCheck = document.getElementById("infoFile"+i);
+					if(elementByIdPreCheck !== null && elementByIdAlsoPreCheck !== null)
 					{
-						documentUpdateText += updateItoIMinusOne+": <div style=\"width: 100px; display: inline-block; text-align: center;\">----------</div>";
-						var elementPreCheckSrc = elementByIdPreCheck.src;
-						if(elementPreCheckSrc.indexOf("folderIcon") !== -1)
-						{
-							documentUpdateText += "<img id='fileNotFoundImage"+updateItoIMinusOne+"' src='"+baseUrl+"img/folderIcon.png' width='15px'>  ";
-						}
-						else if(elementPreCheckSrc.indexOf("fileIcon") !== -1)
-						{
-							documentUpdateText += "<img id='fileNotFoundImage"+updateItoIMinusOne+"' src='"+baseUrl+"img/fileIcon.png' width='15px'>  ";
-						}
-						else
-						{
-							documentUpdateText += "<img id='fileNotFoundImage"+updateItoIMinusOne+"' src='"+baseUrl+"img/redWarning.png' width='15px'>  ";
-						}
+						documentUpdateText += updateItoIMinusOne+": ";
+						elementByIdAlsoPreCheck.id = "infoFile"+updateItoIMinusOne;
+						documentUpdateText += elementByIdAlsoPreCheck.html();
+						elementByIdPreCheck.id = "fileNotFoundImage"+updateItoIMinusOne;
+						documentUpdateText += elementByIdPreCheck.html();
 					}
 					else
 					{
@@ -103,7 +96,7 @@ function deleteRowFunction(currentRow, decreaseCountWatchListNum)
 					}
 					documentUpdateText += "<input style='width: 480px' type='text' name='watchListKey"+updateItoIMinusOne+"' value='"+previousElementNumIdentifierForKey[0].value+"'> ";
 					documentUpdateText += "<input type='text' name='watchListItem"+updateItoIMinusOne+"' value='"+previousElementNumIdentifierForItem[0].value+"'>";
-					documentUpdateText += " <a class='deleteIconPosition' onclick='deleteRowFunctionPopup("+updateItoIMinusOne+", true,\""+previousElementNumIdentifierForKey[0].value+"\")'><img src=\""+baseUrl+"img/trashCan.png\" height=\"15px;\" ></a>";
+					documentUpdateText += " <a class='deleteIconPosition' onclick='deleteRowFunctionPopup("+updateItoIMinusOne+", true,\""+previousElementNumIdentifierForKey[0].value+"\")'>"+defaultTrashCanIcon+"</a>";
 					documentUpdateText += "</li>";
 					document.getElementById(elementToUpdate).outerHTML = documentUpdateText;
 				}

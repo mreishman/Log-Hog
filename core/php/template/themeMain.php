@@ -3,57 +3,42 @@
 Theme Selector
 </div>
 <div class="settingsDiv" >
+	<h2>Default</h2>
+	<hr>
 	<?php
+	$customThemeCreateNew = false;
 	$directory = '../core/Themes/';
 	$scanned_directory = array_diff(scandir($directory), array('..', '.'));
-	foreach ($scanned_directory as $key):
-		if($key != ".DS_Store"):
-			require_once("../core/Themes/".$key."/defaultSetting.php");?>
+		include("themeSub.php");
+	?>
+	<br>
+	<?php
+		$directory = '../local/'.$currentSelectedTheme.'/Themes/';
+		$scanned_directory = array();
+		$customThemeNum = 1;
+		if(is_dir($directory))
+		{
+			$scanned_directory = array_diff(scandir($directory), array('..', '.'));
+			$customThemeNum = count($scanned_directory) + 1;
+		}
+		if($customThemeCreateNew || $scanned_directory !== array()): ?>
+			<h2>Custom</h2>
+			<hr>
+		<?php
+			if($scanned_directory !== array())
+			{
+				include("themeSub.php");
+			}
+			if($customThemeCreateNew): ?>
 			<div style="width: 600px; height: 400px; display: inline-block; background-color: grey; border: 1px solid white; margin: 20px;">
-				<div class="settingsHeader" style="margin: 0px;">
-					<?php echo $key;?>
-					<div class="settingsHeaderButtons">
-						<?php if($key !== $currentTheme): ?>
-							<a class="linkSmall" onclick="saveAndVerifyMain('themeMainSelection-<?php echo $key;?>');" >Select</a>
-						<?php else: ?>
-							<a class="linkSmall" onclick="saveAndVerifyMain('themeMainSelection-<?php echo $key;?>');" >Reset / Update</a>
-							<a class="linkSmallHover"> Selected </a>
-						<?php endif;?>
-					</div>
-				</div>
-				<span id="loadingSpinner-<?php echo $key;?>">
-					<img src="<?php echo $baseUrl;?>/img/loading.gif" style="position: relative; height: 60px; top: 170px; left: 270px;" >
-				</span>
-				<span id="htmlContent-<?php echo $key;?>" style="display: none;">
-					<?php echo generateExampleIndex($key);?>
-				</span>
-				<span style="display: none;">
-					<script type="text/javascript">
-						$( document ).ready(function()
-						{
-						   document.getElementById("loadingSpinner-<?php echo $key;?>").style.display = "none";
-						   document.getElementById("htmlContent-<?php echo $key;?>").style.display = "block";
-						});
-					</script>
-					<form action="../core/php/settingsSave.php" method="post" id="themeMainSelection-<?php echo $key;?>">
-						<input type="hidden" name="loadingBarVersion" value="<?php echo $loadingBarVersion;?>">
-						<input type="hidden" name="currentTheme" value="<?php echo $key?>">
-						<input type="hidden" name="backgroundColor" value="<?php echo $backgroundColorDefault;?>" >
-						<input type="hidden" name="mainFontColor" value="<?php echo $mainFontColorDefault;?>" >
-						<input type="hidden" name="backgroundHeaderColor" value="<?php echo $backgroundHeaderColorDefault;?>" >
-						<input type="hidden" name="logFontColor" value="<?php echo $logFontColorDefault;?>">
-						<?php
-							$tmpcurrentFolderColorTheme = $currentFolderColorTheme;
-							$currentFolderColorTheme = $currentFolderColorThemeDefault;
-							$tmpfolderColorArrays = $folderColorArrays;
-							$folderColorArrays = $folderColorArraysDefault;
-							include('innerFolderGroupColor.php');
-							$folderColorArrays = $tmpfolderColorArrays;
-							$currentFolderColorTheme = $tmpcurrentFolderColorTheme;
-						?>
-					</form>
+				<span onclick="newThemePopup(<?php echo $customThemeNum; ?>)" style="cursor: pointer;" >
+					<h1 style="text-align: center; font-size: 400%" >+</h1>
+					<h1 style="text-align: center;" >Save as New Theme</h1>
 				</span>
 			</div>
+			<form id="themeMainSelectionCustomNew">
+				<input type="hidden" name="currentTheme" value="Custom-Theme-<?php echo $customThemeNum; ?>" >
+			</form>
 		<?php endif;
-	endforeach; ?>
+		endif; ?>
 </div>

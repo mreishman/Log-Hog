@@ -1,4 +1,6 @@
 <?php
+require_once('../core/php/commonFunctions.php');
+setCookieRedirect();
 $baseUrl = "../core/";
 if(file_exists('../local/layout.php'))
 {
@@ -11,9 +13,17 @@ $localURL = $baseUrl;
 require_once($baseUrl.'conf/config.php');
 require_once('../core/conf/config.php');
 require_once('../core/php/configStatic.php');
+$currentTheme = loadSpecificVar($defaultConfig, $config, "currentTheme");
+if(is_dir('../local/'.$currentSelectedTheme.'/Themes/'.$currentTheme))
+{
+	require_once('../local/'.$currentSelectedTheme.'/Themes/'.$currentTheme."/defaultSetting.php");
+}
+else
+{
+	require_once('../core/Themes/'.$currentTheme."/defaultSetting.php");
+}
 require_once('../core/php/updateCheck.php');
 require_once('../core/php/loadVars.php');
-require_once('../core/php/commonFunctions.php');
 ?>
 <!doctype html>
 <head>
@@ -26,7 +36,7 @@ require_once('../core/php/commonFunctions.php');
 </head>
 <body>
 
-<?php require_once('header.php');?>	
+<?php require_once('header2.php');?>	
 
 	<div id="main" > 
 		<h1 style="width: 100%; text-align: center;  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black; " >You are on version <?php echo $configStatic['version'];?>!</h1>
@@ -47,8 +57,35 @@ require_once('../core/php/commonFunctions.php');
 				</tr>
 
 
+
 				<tr>
 				<th colspan="2" style="padding: 10px">
+					<h1>3.4</h1>
+				</th>
+				</tr>
+
+
+				<tr>
+				<td>
+					<ul>
+						<li>
+							Content filter for logs! (search and highlight content of logs)
+						</li>
+						<li>
+							Save custom themes!
+						</li>
+					</ul>
+				</td>
+				<td>
+					<a href="../core/img/3.4-1.png" data-lightbox="3.4" ><img src="../core/img/3.4-1.png" style="width: 45%;"></a>
+					<a href="../core/img/3.4-2.png" data-lightbox="3.4" ><img src="../core/img/3.4-2.png" style="width: 45%;"></a>
+				</td>
+				</tr>
+
+
+
+				<tr>
+				<th colspan="2" style="border-top: 1px solid white; padding: 10px">
 					<h1>3.3</h1>
 				</th>
 				</tr>
@@ -234,5 +271,4 @@ require_once('../core/php/commonFunctions.php');
 	
 		</div>
 	</div>
-	<?php readfile('../core/html/popup.html') ?>	
 </body>

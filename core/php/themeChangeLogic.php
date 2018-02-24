@@ -1,5 +1,5 @@
 <?php
-
+require_once("../../core/php/commonFunctions.php");
 $baseUrl = "../../core/";
 if(file_exists('../../local/layout.php'))
 {
@@ -11,9 +11,22 @@ if(file_exists('../../local/layout.php'))
 require_once($baseUrl.'conf/config.php');
 require_once('../../core/conf/config.php');
 require_once('../../core/php/configStatic.php');
+
+$currentTheme = loadSpecificVar($defaultConfig, $config, "currentTheme");
+if(is_dir('../../local/'.$currentSelectedTheme.'/Themes/'.$currentTheme))
+{
+	$directory = "../../local/".$currentSelectedTheme."/Themes/".$currentTheme."/";
+	require_once('../../local/'.$currentSelectedTheme.'/Themes/'.$currentTheme."/defaultSetting.php");
+}
+else
+{
+	$directory = "../../core/Themes/".$currentTheme."/";
+	require_once('../../core/Themes/'.$currentTheme."/defaultSetting.php");
+}
+
 require_once('../../core/php/loadVars.php');
 
-$directory = "../../core/Themes/".$currentTheme."/";
+
 
 
 
@@ -45,23 +58,20 @@ $newInfoForConfig = "<?php
 	";
 foreach ($defaultConfig as $key => $value)
 {
-	if(is_string($value))
+	if(
+		$$key !== $defaultConfig[$key] &&
+		(
+			!isset($themeDefaultSettings) || 
+			isset($themeDefaultSettings) && !array_key_exists($key, $themeDefaultSettings) ||
+			isset($themeDefaultSettings) && array_key_exists($key, $themeDefaultSettings) && $themeDefaultSettings[$key] !== $$key
+		)
+		||
+		$$key === $defaultConfig[$key] && isset($themeDefaultSettings) && array_key_exists($key, $themeDefaultSettings) && $themeDefaultSettings[$key] !== $$key
+		||
+		isset($arrayOfCustomConfig[$key]) 
+	)
 	{
-		$newInfoForConfig .= "
-		'".$key."' => '".$$key."',
-	";
-	}
-	elseif(is_array($value))
-	{
-		$newInfoForConfig .= "
-		'".$key."' => array(".$$key."),
-	";
-	}
-	else
-	{
-		$newInfoForConfig .= "
-		'".$key."' => ".$$key.",
-	";
+		$newInfoForConfig .= putIntoCorrectFormat($key, $$key, $value);
 	}
 }
 $newInfoForConfig .= "

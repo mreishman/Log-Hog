@@ -241,59 +241,56 @@ function getFileSize($filename)
 	return htmlentities(filesize($filename));
 }
 
-function tail($filename, $sliceSize, $shellOrPhp, $logTrimCheck, $logSizeLimit,$logTrimMacBSD,$logTrimType,$buffer)
+function trimLogLine($filename, $logSizeLimit,$logTrimMacBSD,$buffer)
 {
-	if($logTrimCheck == "true")
+	$lineCount = shell_exec('wc -l < ' . $filename);
+	if($lineCount > ($logSizeLimit+$buffer))
 	{
-		if($logTrimType == 'lines')
-		{
-			$lineCount = shell_exec('wc -l < ' . $filename);
-			if($lineCount > ($logSizeLimit+$buffer))
-			{
-				if($logTrimMacBSD == "true")
-				{
-					shell_exec('sed -i "'.$filename.'" "1,' . ($lineCount - $logSizeLimit) . 'd" ' . $filename);
-				}
-				else
-				{
-					shell_exec('sed -i "1,' . ($lineCount - $logSizeLimit) . 'd" ' . $filename);
-				}
-			}
-		}
-		elseif($logTrimType == 'size') //compair to trimsize value
-		{
-			$maxForLoop = 0;
-			$trimFileBool = true;
-			while ($trimFileBool && $maxForLoop < 10)
-			{
-				$filesizeForFile = shell_exec('wc -c < '.$filename);
-				if($filesizeForFile > $logSizeLimit+$buffer)
-				{
-					$numOfLinesToRemoveTo = 2;
-					if($filesizeForFile > (2*$logSizeLimit) && $maxForLoop < 2)
-					{
-						$lineCountForFile = shell_exec('wc -l < ' . $filename);
-						$numOfLinesAllowed = 2*($logSizeLimit/($filesizeForFile/$lineCountForFile));
-						$numOfLinesToRemoveTo = round($lineCountForFile - $numOfLinesAllowed);
-					}
-					if($logTrimMacBSD == "true")
-					{
-						shell_exec('sed -i "'.$filename.'" "1,' . $numOfLinesToRemoveTo . 'd" ' . $filename);
-					}
-					elseif($logTrimMacBSD == "false")
-					{
-						shell_exec('sed -i "1,' . $numOfLinesToRemoveTo . 'd" ' . $filename);
-					}
-				}
-				else
-				{
-					$trimFileBool = false;
-				}
-				$maxForLoop++;
-			}
-		}
+		trimLogInner($logTrimMacBSD,$filename,($lineCount - $logSizeLimit));
 	}
+}
 
+function trimLogSize($filename, $logSizeLimit,$logTrimMacBSD,$buffer)
+{
+	$maxForLoop = 0;
+	$trimFileBool = true;
+	while ($trimFileBool && $maxForLoop < 10)
+	{
+		$filesizeForFile = shell_exec('wc -c < '.$filename);
+		if($filesizeForFile > $logSizeLimit+$buffer)
+		{
+			$numOfLinesToRemoveTo = 2;
+			if($filesizeForFile > (2*$logSizeLimit) && $maxForLoop < 2)
+			{
+				$lineCountForFile = shell_exec('wc -l < ' . $filename);
+				$numOfLinesAllowed = 2*($logSizeLimit/($filesizeForFile/$lineCountForFile));
+				$numOfLinesToRemoveTo = round($lineCountForFile - $numOfLinesAllowed);
+			}
+
+			trimLogInner($logTrimMacBSD,$filename,$numOfLinesToRemoveTo);
+		}
+		else
+		{
+			$trimFileBool = false;
+		}
+		$maxForLoop++;
+	}
+}
+
+function trimLogInner($logTrimMacBSD,$filename,$lineEnd)
+{
+	if($logTrimMacBSD == "true")
+	{
+		shell_exec('sed -i "'.$filename.'" "1,' . $lineEnd . 'd" ' . $filename);
+	}
+	else
+	{
+		shell_exec('sed -i "1,' . $lineEnd . 'd" ' . $filename);
+	}
+}
+
+function tail($filename, $sliceSize, $shellOrPhp)
+{
 	if($shellOrPhp == "true")
 	{
 		$data =  trim(tailCustom($filename, $sliceSize));
@@ -397,8 +394,29 @@ function getCookieRedirect()
 	{
 		return $urlRedirectValue;
 	}
-	$urlRedirectValue = $_SERVER['HTTP_REFERER'];
-	return $urlRedirectValue;	
+	if(isset($_SERVER['HTTP_REFERER']))
+	{
+		return $_SERVER['HTTP_REFERER'];
+	}
+
+	$baseUrl = "";
+	$count = 0;
+	while ($count < 20)
+	{
+		$baseUrl .= "../";
+		$count++;
+		if(is_dir($baseUrl."Log-Hog") || is_dir($baseUrl."loghog"))
+		{
+			break;
+		}
+	}
+	$baseRedirect = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]/";
+	if($count < 20)
+	{
+		return $baseRedirect . (is_dir($baseUrl."Log-Hog/") ? "Log-Hog/" : "loghog/");
+	}
+	return $baseRedirect . "Log-Hog/";
+	
 }
 
 function setCookieRedirect()
@@ -409,4 +427,177 @@ function setCookieRedirect()
 		unset($_COOKIE["locationRedirectLogHogUpgrade"]);
 	}
 	setcookie("locationRedirectLogHogUpgrade",$actual_link, time()+3600);
+}
+
+function generateRestoreList($configStatic)
+{
+	$returnHtml = "<form id='revertForm' action='../restore/restore.php'  method='post'  style='display: inline-block;' ><select name='versionRevertTo' >";
+	$versionList = $configStatic['versionList'];
+	$versionListText = "";
+	foreach ($versionList as $key => $value)
+	{
+		$versionListText = "<option value='".$value['branchName']."' >".$key."</option>".$versionListText;
+	}
+	$returnHtml .= $versionListText."</select></form>";
+	return $returnHtml;
+}
+
+function generateImage($imageArray, $customConfig)
+{
+	$image = "<img ";
+	if(isset($customConfig["data-id"]))
+	{
+		$image .=  " data-id=\"";
+		$image .= $customConfig["data-id"];
+		$image .= "\" ";
+	}
+	if(isset($customConfig["id"]))
+	{
+		$image .=  " id=\"";
+		$image .= $customConfig["id"];
+		$image .= "\" ";
+	}
+	if(isset($customConfig["class"]))
+	{
+		$image .= " class=\"";
+		$image .= $customConfig["class"];
+		$image .= "\" ";
+	}
+	$image .= " src=\"";
+	if(isset($customConfig["srcModifier"]))
+	{
+		$image .= $customConfig["srcModifier"];
+	}
+	$image .= $imageArray["src"];
+	$image .= "\" ";
+	if(isset($customConfig["alt"]))
+	{
+		if($customConfig["alt"] !== null)
+		{
+			$image .= " alt=\"";
+			$image .= $customConfig["alt"];
+			$image .= "\" ";
+		}
+	}
+	else
+	{
+		$image .= " alt=\"";
+		$image .= $imageArray["alt"];
+		$image .= "\" ";
+	}
+	if(isset($customConfig["title"]))
+	{
+		if($customConfig["title"] !== null)
+		{
+			$image .= " title=\"";
+			$image .= $customConfig["title"];
+			$image .= "\" ";
+		}
+	}
+	else
+	{
+		$image .= " title=\"";
+		$image .= $imageArray["title"];
+		$image .= "\" ";
+	}
+	if(isset($customConfig["style"]))
+	{
+		$image .= " style=\"";
+		$image .= $customConfig["style"];
+		$image .= "\" ";
+	}
+	if(isset($customConfig["height"]))
+	{
+		$image .= " height=\"";
+		$image .= $customConfig["height"];
+		$image .= "\" ";
+	}
+	if(isset($customConfig["width"]))
+	{
+		$image .= " width=\"";
+		$image .= $customConfig["width"];
+		$image .= "\" ";
+	}
+	$image .= " >";
+	return $image;
+}
+
+function upgradeConfig($configVersionStatic)
+{
+	$baseBaseUrl = baseURL();
+	$baseUrl = $baseBaseUrl."local/";
+	require_once($baseUrl.'layout.php');
+	$baseUrl .= $currentSelectedTheme."/";
+	require_once($baseUrl.'conf/config.php');
+	require_once($baseBaseUrl.'core/conf/config.php');
+	$currentTheme = loadSpecificVar($defaultConfig, $config, "currentTheme");
+	if(is_dir($baseBaseUrl.'local/'.$currentSelectedTheme.'/Themes/'.$currentTheme))
+	{
+		require_once($baseBaseUrl.'local/'.$currentSelectedTheme.'/Themes/'.$currentTheme."/defaultSetting.php");
+	}
+	else
+	{
+		require_once($baseBaseUrl.'core/Themes/'.$currentTheme."/defaultSetting.php");
+	}
+	require_once($baseBaseUrl.'core/php/loadVars.php');
+
+	$configVersion = $configVersionStatic;
+
+	$fileName = ''.$baseUrl.'conf/config.php';
+	$newInfoForConfig = "<?php
+		$"."config = array(
+		";
+	foreach ($defaultConfig as $key => $value)
+	{
+		if(
+			$$key !== $defaultConfig[$key] &&
+			(
+				!isset($themeDefaultSettings) || 
+				isset($themeDefaultSettings) && !array_key_exists($key, $themeDefaultSettings) ||
+				isset($themeDefaultSettings) && array_key_exists($key, $themeDefaultSettings) && $themeDefaultSettings[$key] !== $$key
+			)
+			||
+			$$key === $defaultConfig[$key] && isset($themeDefaultSettings) && array_key_exists($key, $themeDefaultSettings) && $themeDefaultSettings[$key] !== $$key
+			||
+			isset($arrayOfCustomConfig[$key]) 
+		)
+		{
+			$newInfoForConfig .= putIntoCorrectFormat($key, $$key, $value);
+		}
+	}
+	$newInfoForConfig .= "
+		);
+	?>";
+	file_put_contents($fileName, $newInfoForConfig);
+}
+
+function loadSpecificVar($default, $custom, $configLookFor)
+{
+	$currentTheme = $default[$configLookFor];
+	if(isset($custom[$configLookFor]))
+	{
+		$currentTheme = $custom[$configLookFor];
+	}
+	return $currentTheme;
+}
+
+function putIntoCorrectFormat($keyKey, $keyValue, $value)
+{
+	if(is_string($value))
+	{
+		return "
+		'".$keyKey."' => '".$keyValue."',
+	";
+	}
+	
+	if(is_array($value))
+	{
+		return "
+		'".$keyKey."' => array(".$keyValue."),
+	";
+	}
+
+	return "
+		'".$keyKey."' => ".$keyValue.",
+	";
 }
