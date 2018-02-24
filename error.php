@@ -40,9 +40,8 @@ if(file_exists($file))
     }
     catch (Exception $e)
     {
-        
+
     }
-    
 }
 
 

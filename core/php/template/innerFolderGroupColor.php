@@ -91,7 +91,7 @@ foreach ($folderColorArrays as $key => $value):
 			</div>
 			<input style="width: 100px; display: none;" type="text" name="folderColorValueActiveHighlightFont<?php echo $i; ?>-<?php echo $j;?>" value="<?php echo $value2['fontColor']; ?>" >
 		</div>
-		<?php endforeach; 
+		<?php endforeach;
 		if($j > $activeHighlightFolderColorMax)
 		{
 			$activeHighlightFolderColorMax = $j;
@@ -99,7 +99,7 @@ foreach ($folderColorArrays as $key => $value):
 		?>
 		</span>
 	</li>
-<?php endforeach; 
+<?php endforeach;
 $mainFolderColorMax = 10+($mainFolderColorMax*26);
 $highlightFolderColorMax = 10+($highlightFolderColorMax*26);
 $activeFolderColorMax = 10+($activeFolderColorMax*26);

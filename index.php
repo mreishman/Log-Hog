@@ -39,7 +39,7 @@ if(!file_exists($baseUrl.'conf/config.php'))
 		}
 		else
 		{
-			//setup either errored out, or was incomplete. throw error. 
+			//setup either errored out, or was incomplete. throw error.
 			//throwSetupError("");
 		}
 	}
@@ -238,7 +238,7 @@ for ($i=0; $i < $windowDisplayConfig[0]; $i++)
 		$logDisplay .= "<a onclick=\"clearLog('".$counter."');\" style=\"cursor: pointer;\" >";
 		$logDisplay .= $clearImageForWindowTableLoop;
 		$logDisplay .= "</a>";
-		$logDisplay .= "<a onclick=\"deleteLogPopup('".$counter."');\" style=\"cursor: pointer;\" >"; 
+		$logDisplay .= "<a onclick=\"deleteLogPopup('".$counter."');\" style=\"cursor: pointer;\" >";
 		$logDisplay .= $deleteImageForWindowTableLoop;
 		$logDisplay .= "</a>";
 		$logDisplay .= "</div> ";
@@ -303,7 +303,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 						"height"	=>	"30px",
 						"style"		=>	$styleString
 						)
-					); 
+					);
 				?>
 			</div>
 			<div onclick="refreshAction();" class="menuImageDiv">
@@ -337,7 +337,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 							"class"		=>	"menuImage",
 							"height"	=>	"30px"
 							)
-						); 
+						);
 					?>
 				</div>
 			<?php else: ?>
@@ -349,7 +349,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 							"class"		=>	"menuImage",
 							"height"	=>	"30px"
 							)
-						); 
+						);
 					?>
 				</div>
 			<?php endif; ?>
@@ -362,7 +362,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 							"class"		=>	"menuImage",
 							"height"	=>	"30px"
 							)
-						); 
+						);
 					?>
 				</div>
 			<?php endif; ?>
@@ -413,7 +413,6 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 						"data-id"	=>	"1"
 						)
 					); 
-				
 				if($updateNotificationEnabled === "true")
 				{
 					if($levelOfUpdate == 1)
@@ -535,7 +534,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 		echo "var logDisplayArray = ".$logDisplayArray.";";
 		echo "var windowDisplayConfigRowCount = ".$windowDisplayConfig[0].";";
 		echo "var windowDisplayConfigColCount = ".$windowDisplayConfig[1].";";
-		echo "var borderPadding = ".$borderPadding.";"; 
+		echo "var borderPadding = ".$borderPadding.";";
 		?>
 		var dontNotifyVersion = "<?php echo $dontNotifyVersion;?>";
 		var currentVersion = "<?php echo $configStatic['version'];?>";

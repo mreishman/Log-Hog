@@ -36,5 +36,3 @@ foreach($config['watchList'] as $path => $filter)
 		shell_exec($command);
 	}
 }
-
-?>

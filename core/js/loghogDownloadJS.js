@@ -72,7 +72,7 @@ function downloadFile()
 	$.ajax({
 		url: urlForSend,
 		dataType: "json",
-		data: data,
+		data,
 		type: "POST",
 		complete()
 		{
@@ -90,7 +90,7 @@ function unzipFile()
 	$.ajax({
 		url: urlForSend,
 		dataType: "json",
-		data: data,
+		data,
 		type: "POST",
 		complete()
 		{
@@ -108,9 +108,9 @@ function removeZipFile()
 	$.ajax({
 		url: urlForSend,
 		dataType: "json",
-		data: data,
+		data,
 		type: "POST",
-		complete: function()
+		complete()
 		{
 			//verify if downloaded
 			verifyFile("removeZipFile", "../../tmp.zip",false);
@@ -197,7 +197,7 @@ function verifyFilePoll(action, fileLocation,isThere)
 			$.ajax({
 				url: urlForSend,
 				dataType: "json",
-				data: data,
+				data,
 				type: "POST",
 				success(data)
 				{

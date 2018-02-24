@@ -29,7 +29,7 @@ function rrmdir($dir)
 					rrmdir($dir."/".$object);
 				}
 				else
-				{ 
+				{
 					unlink($dir."/".$object);
 				}
 			}
@@ -83,7 +83,7 @@ function unzipFileAndSub($zipfile, $subpath, $destination, $temp_cache, $travers
 		$temp_cache .= DIRECTORY_SEPARATOR;
 	}
 	$res = $zip->open($zipfile);
-	if ($res === TRUE) {
+	if ($res === true) {
 	    if ($traverseFirstSubdir==true){
 	        $zip_dir = $temp_cache . $zip->getNameIndex(0);
 	    }
@@ -190,4 +190,3 @@ function verifyDirIsEmpty($dir)
 	}
 	return (count(scandir($dir)) == 2);
 }
-?>

@@ -17,7 +17,7 @@ if($action === 'downloadFile')
 elseif($action === 'unzipFile')
 {
 	unzipFileAndSub($_POST['locationExtractFrom'],"",$_POST['locationExtractTo'],"../../");
-	$response = true; 
+	$response = true;
 }
 elseif($action === 'unzipUpdateAndReturnArray')
 {
@@ -26,7 +26,7 @@ elseif($action === 'unzipUpdateAndReturnArray')
 elseif($action === 'removeZipFile')
 {
 	removeZipFile($_POST['fileToUnlink']);
-	$response = true; 
+	$response = true;
 }
 elseif($action === 'removeUnZippedFiles')
 {
@@ -36,7 +36,7 @@ elseif($action === 'removeUnZippedFiles')
 		$removeDir = $_POST['removeDir'];
 	}
 	rrmdir($_POST['locationOfFilesThatNeedToBeRemovedRecursivally']);
-	$response = true; 
+	$response = true;
 }
 elseif($action === 'removeDirUpdate')
 {
@@ -57,9 +57,9 @@ elseif($action === "verifyFileOrDirIsThere")
 }
 elseif($action === 'checkIfDirIsEmpty')
 {
-	if (verifyDirIsEmpty($_POST['dir'])) 
+	if (verifyDirIsEmpty($_POST['dir']))
 	{
-  		$response = true; 
+  		$response = true;
 	}
 	else
 	{

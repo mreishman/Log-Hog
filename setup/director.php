@@ -14,7 +14,8 @@ if($setupProcess == "preStart")
 	header('Location: ' . $url, true, 301);
 	exit();
 }
-elseif ($setupProcess == "finished")
+
+if ($setupProcess == "finished")
 {
 	$partOfUrl = clean_url($_SERVER['REQUEST_URI']);
 	$partOfUrl = substr($partOfUrl, 0, strpos($partOfUrl, 'setup'));
@@ -22,13 +23,9 @@ elseif ($setupProcess == "finished")
 	header('Location: ' . $url, true, 301);
 	exit();
 }
-else
-{
-	$partOfUrl = clean_url($_SERVER['REQUEST_URI']);
-	$partOfUrl = substr($partOfUrl, 0, strpos($partOfUrl, 'setup'));
-	$url = "http://" . $_SERVER['HTTP_HOST'] .$partOfUrl ."setup/".$setupProcess.".php";
-	header('Location: ' . $url, true, 301);
-	exit();
-}
 
-?>
+$partOfUrl = clean_url($_SERVER['REQUEST_URI']);
+$partOfUrl = substr($partOfUrl, 0, strpos($partOfUrl, 'setup'));
+$url = "http://" . $_SERVER['HTTP_HOST'] .$partOfUrl ."setup/".$setupProcess.".php";
+header('Location: ' . $url, true, 301);
+exit();

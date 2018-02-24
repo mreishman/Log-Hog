@@ -39,11 +39,11 @@ function saveAndVerifyMain(idForForm)
         data,
         success(data)
         {
-        	if(data !== "true")
-        	{
-        		window.location.href = "../error.php?error="+data+"&page=core/php/settingsSaveAjax.php";
-        	}
-        },
+			if(data !== "true")
+			{
+				window.location.href = "../error.php?error="+data+"&page=core/php/settingsSaveAjax.php";
+			}
+		},
         complete()
         {
           //verify saved
@@ -69,7 +69,7 @@ function timerVerifySave()
 		{
 			url: urlForSend,
 			dataType: "json",
-			data: data,
+			data,
 			type: "POST",
 			success(data)
 			{
@@ -226,7 +226,7 @@ function checkForChanges(idOfObject)
 	}
 	catch(e)
 	{
-		eventThrowException(e)
+		eventThrowException(e);
 	}
 }
 

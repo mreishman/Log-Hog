@@ -68,65 +68,63 @@ if($backupNumConfigEnabled === "true")
 				echo json_encode(6);
 				exit();
 			}
-			
 		}
 	}
 }
 
-	$fileName = ''.$baseUrl.'conf/config.php';
+$fileName = ''.$baseUrl.'conf/config.php';
 
-	//Don't forget to update Normal version
+//Don't forget to update Normal version
 
-	$newInfoForConfig = "<?php
-		$"."config = array(
-		";
-	foreach ($defaultConfig as $key => $value)
-	{
-		if(
-			$$key !== $defaultConfig[$key] &&
-			(
-				!isset($themeDefaultSettings) || 
-				isset($themeDefaultSettings) && !array_key_exists($key, $themeDefaultSettings) ||
-				isset($themeDefaultSettings) && array_key_exists($key, $themeDefaultSettings) && $themeDefaultSettings[$key] !== $$key
-			)
-			||
-			$$key === $defaultConfig[$key] && isset($themeDefaultSettings) && array_key_exists($key, $themeDefaultSettings) && $themeDefaultSettings[$key] !== $$key
-			||
-			isset($arrayOfCustomConfig[$key]) 
+$newInfoForConfig = "<?php
+	$"."config = array(
+	";
+foreach ($defaultConfig as $key => $value)
+{
+	if(
+		$$key !== $defaultConfig[$key] &&
+		(
+			!isset($themeDefaultSettings) ||
+			isset($themeDefaultSettings) && !array_key_exists($key, $themeDefaultSettings) ||
+			isset($themeDefaultSettings) && array_key_exists($key, $themeDefaultSettings) && $themeDefaultSettings[$key] !== $$key
 		)
-		{
-			$newInfoForConfig .= putIntoCorrectFormat($key, $$key, $value);
-		}
-	}
-	$newInfoForConfig .= "
-		);
-	?>";
-
-	//Don't forget to update Normal version
-
-	if(is_writable($baseUrl."conf/"))
+		||
+		$$key === $defaultConfig[$key] && isset($themeDefaultSettings) && array_key_exists($key, $themeDefaultSettings) && $themeDefaultSettings[$key] !== $$key
+		||
+		isset($arrayOfCustomConfig[$key])
+	)
 	{
-		if(file_exists($fileName))
+		$newInfoForConfig .= putIntoCorrectFormat($key, $$key, $value);
+	}
+}
+$newInfoForConfig .= "
+	);
+?>";
+
+//Don't forget to update Normal version
+
+if(is_writable($baseUrl."conf/"))
+{
+	if(file_exists($fileName))
+	{
+		if(!is_writable($fileName))
 		{
-			if(!is_writable($fileName))
-			{
-				echo json_encode(4);
-				exit();
-			}
-		}
-		try
-		{
-			file_put_contents($fileName, $newInfoForConfig);
-		}
-		catch (Exception $e)
-		{
-			echo json_encode(5);
+			echo json_encode(4);
 			exit();
 		}
-		
-		echo json_encode(true);
+	}
+	try
+	{
+		file_put_contents($fileName, $newInfoForConfig);
+	}
+	catch (Exception $e)
+	{
+		echo json_encode(5);
 		exit();
 	}
-	echo json_encode(3);
+
+	echo json_encode(true);
 	exit();
-?>
+}
+echo json_encode(3);
+exit();

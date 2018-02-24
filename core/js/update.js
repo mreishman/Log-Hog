@@ -96,7 +96,7 @@ function showPopupForUpdate(urlSend,whatAmIUpdating)
 			document.getElementById("releaseNotesHeader").style.display = "block";
 			document.getElementById("releaseNotesBody").style.display = "block";
 			document.getElementById("releaseNotesBody").innerHTML = dataFromJSON.changeLog;
-			document.getElementById("settingsInstallUpdate").innerHTML = '<a class="link" onclick="installUpdates();">Install '+dataFromJSON.versionNumber+' Update</a>';
+			document.getElementById("settingsInstallUpdate").innerHTML = "<a class=\"link\" onclick=\"installUpdates();\">Install "+dataFromJSON.versionNumber+" Update</a>";
 		}
 
 		//Update needed

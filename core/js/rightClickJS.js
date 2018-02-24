@@ -30,7 +30,7 @@ $( document ).ready(function() {
     var gearMenu = [devToolsRightClickMenu,watchListRightClickMenu,advancedRightClickMenu,themesRightClickMenu,addonsRightClickMenu,checkForUpdateRightClickMenu];
     var deleteMenu = [clearAllLogs,clearCurrentLog,deleteCurrentLog];
     var updateMenu = [updateRightClickAction];
-    var aboutMenu = [changeLogRightClickMenu,aboutRightClickMenu,whatsNewRightClickMenu]
+    var aboutMenu = [changeLogRightClickMenu,aboutRightClickMenu,whatsNewRightClickMenu];
     
     var menuObjectRightClick = {gear: gearMenu, deleteImage: deleteMenu, updateImage: updateMenu, aboutImage: aboutMenu};
     

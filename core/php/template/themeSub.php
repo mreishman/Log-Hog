@@ -13,7 +13,7 @@ foreach ($scanned_directory as $key):
 								<a class="linkSmall" onclick="deleteTheme('<?php echo "../../local/".$currentSelectedTheme."/Themes/".$key; ?>')" >Delete</a>
 							<?php endif; ?>
 							<a class="linkSmall" onclick="saveAndVerifyMain('themeMainSelection-<?php echo $key;?>');" >Select</a>
-						<?php else: 
+						<?php else:
 							$thisThemeIsSelected = true;
 							?>
 							<a class="linkSmall" onclick="saveAndVerifyMain('themeMainSelection-<?php echo $key;?>');" >Reset / Update</a>

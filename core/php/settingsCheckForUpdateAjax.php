@@ -55,13 +55,13 @@ if($branchSelected === "dev")
 }
 elseif($branchSelected == "beta")
 {
-  file_put_contents("../../update/downloads/versionCheck/versionCheck.zip", 
+  file_put_contents("../../update/downloads/versionCheck/versionCheck.zip",
   file_get_contents($baseUrlUpdate ."versionCheckBeta.zip")
   );
 }
 else
 {
-  file_put_contents("../../update/downloads/versionCheck/versionCheck.zip", 
+  file_put_contents("../../update/downloads/versionCheck/versionCheck.zip",
   file_get_contents($baseUrlUpdate ."versionCheck.zip")
   );
 }
@@ -149,7 +149,7 @@ $data['version'] = $levelOfUpdate;
 $data['versionNumber'] = $versionCheckArray['version'];
 
 $Changelog = "<ul id='settingsUl'>";
-$version = explode('.', $configStatic['version'] ); 
+$version = explode('.', $configStatic['version'] );
 $versionCount = count($version);
 
 foreach ($versionCheckArray['versionList'] as $key => $value)

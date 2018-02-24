@@ -1,119 +1,5 @@
 <?php
 
-
-function updateMainProgressLogFile($dotsTime)
-{
-
-	require_once('configStatic.php');
-	require_once('updateProgressFileNext.php');
-
-	$dots = "";
-	while($dotsTime > 0.1)
-	{
-		$dots .= " .";
-		$dotsTime -= 0.1;
-	}
-	$versionToUpdate = "";
-
-	//find next version to update to
-	if(!empty($configStatic))
-	{
-		$keys = array_keys($configStatic['versionList']);
-		foreach ($keys as $key)
-		{
-			$version = explode('.', $configStatic['version']);
-			$newestVersion = explode('.', $key);
-
-			$levelOfUpdate = 0; // 0 is no updated, 1 is minor update and 2 is major update
-
-			$newestVersionCount = count($newestVersion);
-			$versionCount = count($version);
-
-			for($i = 0; $i < $newestVersionCount; $i++)
-			{
-				if($i < $versionCount)
-				{
-					if($i === 0)
-					{
-						if($newestVersion[$i] > $version[$i])
-						{
-							$levelOfUpdate = 3;
-							$versionToUpdate = $key;
-							break;
-						}
-						elseif($newestVersion[$i] < $version[$i])
-						{
-							break;
-						}
-					}
-					elseif($i === 1)
-					{
-						if($newestVersion[$i] > $version[$i])
-						{
-							$levelOfUpdate = 2;
-							$versionToUpdate = $key;
-							break;
-						}
-						elseif($newestVersion[$i] < $version[$i])
-						{
-							break;
-						}
-					}
-					elseif($i > 1)
-					{
-						if($newestVersion[$i] > $version[$i])
-						{
-							$levelOfUpdate = 1;
-							$versionToUpdate = $key;
-							break;
-						}
-						elseif($newestVersion[$i] < $version[$i])
-						{
-							break;
-						}
-					}
-				}
-				else
-				{
-					$levelOfUpdate = 1;
-					$versionToUpdate = $key;
-					break;
-				}
-			}
-
-			if($levelOfUpdate != 0)
-			{
-				break;
-			}
-
-		}
-	}
-
-	if(!empty($configStatic))
-	{
-		$varForHeaderTwo = '"'.$versionToUpdate.'"';
-		$stringToFindHeadTwo = "$"."versionToUpdate";
-	}
-	else
-	{
-		$varForHeaderTwo = '"New Version"';
-		$stringToFindHeadTwo = "$"."versionToUpdate";
-	}
-	$dots .= "</p>";
-	$varForHeader = '"'.$updateProgress['currentStep'].'"';
-
-	$stringToFindHead = "$"."updateProgress['currentStep']";
-
-	$headerFileContents = file_get_contents("updateProgressLogHead.php");
-	$headerFileContents = str_replace('id="headerForUpdate"', "", $headerFileContents);
-	$headerFileContents = str_replace($stringToFindHead, $varForHeader , $headerFileContents);
-	$headerFileContents = str_replace($stringToFindHeadTwo, $varForHeaderTwo , $headerFileContents);
-	$headerFileContents = str_replace('.</p>', $dots, $headerFileContents);
-	$mainFileContents = file_get_contents("updateProgressLog.php");
-	$mainFileContents = $headerFileContents.$mainFileContents;
-	file_put_contents("updateProgressLog.php", $mainFileContents);
-}
-
 function updateProgressFile($status, $pathToFile, $typeOfProgress, $action, $percent = 0)
 {
 	$writtenTextTofile = "<?php
@@ -324,7 +210,7 @@ function verifyFileIsThere($file, $notInvert = true)
 			return false;
 		}
 	}
-	
+
 }
 
 function verifyDirIsThere($file)
@@ -373,12 +259,12 @@ function copyFileToFile($currentFile, $indexToExtracted = "update/downloads/upda
 	$sizeCurrentFileArray = sizeOf($currentFileArray);
 	$nameOfFile = $currentFileArray[$sizeCurrentFileArray - 1];
 	$directoryPath = "";
-	  
+
 	for($i = 0; $i < $sizeCurrentFileArray - 1; $i++)
 	{
 	  $directoryPath .= $currentFileArray[$i]."/";
 	}
-	 
+
 	$newFile = $directoryPath.$nameOfFile;
 	$fileTransfer = file_get_contents($varToIndexDir.$indexToExtracted.$currentFile);
 	$newFileWithIndexVar = $varToIndexDir.$newFile;

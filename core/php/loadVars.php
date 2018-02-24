@@ -28,7 +28,7 @@ function checkIfShouldLoad($loadCustomConfigVars, $key)
 		{
 			return false;
 		}
-		
+
 		if($type === "justWatch")
 		{
 			if($key === "watchList")
@@ -37,7 +37,7 @@ function checkIfShouldLoad($loadCustomConfigVars, $key)
 			}
 			return true;
 		}
-		
+
 		if($type === "allButWatch")
 		{
 			if($key !== "watchList")
@@ -457,8 +457,7 @@ else
 	foreach ($arrayOfImages as $key => $value)
 	{
 		$src = "core/img/".$value["baseName"];
-		
-		
+
 		if(file_exists($varToIndexDir."local/".$currentSelectedTheme."/img/".$value["baseName"]))
 		{
 			//check for local version

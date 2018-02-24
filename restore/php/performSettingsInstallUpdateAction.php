@@ -26,7 +26,7 @@ elseif($action == 'unzipUpdateAndReturnArray')
 elseif($action == 'removeZipFile')
 {
 	removeZipFile($_POST['fileToUnlink']);
-	$response = true; 
+	$response = true;
 }
 elseif($action == 'removeUnZippedFiles')
 {
@@ -36,7 +36,7 @@ elseif($action == 'removeUnZippedFiles')
 		$removeDir = $_POST['removeDir'];
 	}
 	rrmdir($_POST['locationOfFilesThatNeedToBeRemovedRecursivally']);
-	$response = true; 
+	$response = true;
 }
 elseif($action == 'removeDirUpdate')
 {
@@ -55,7 +55,7 @@ elseif($action == 'checkIfDirIsEmpty')
 {
 	if (verifyDirIsEmpty($_POST['dir']))
 	{
-  		$response = true; 
+  		$response = true;
 	}
 	else
 	{
@@ -80,7 +80,7 @@ elseif($action == 'removeAllFilesFromLogHogExceptRestore')
 			}
 		}
 	}
-	$response = true; 
+	$response = true;
 }
 elseif($action == "changeDirUnzipped")
 {
@@ -91,7 +91,7 @@ elseif($action == "changeDirUnzipped")
 		$fileDirOld = '../../restore/extracted/'.$file;
 		rename($fileDirOld, $fileDirNew);
 	}
-	$response = true; 
+	$response = true;
 }
 elseif($action == 'moveDirUnzipped')
 {
@@ -109,4 +109,3 @@ else
 	$response = "ACTION";
 }
 echo json_encode($response);
-?>

@@ -49,4 +49,4 @@ $baseUrlImages = $localURL;
 			)
 		)); ?>
 </script>
-<?php require_once("../core/php/template/popup.php"); ?>
+<?php require_once("../core/php/template/popup.php");
