@@ -69,7 +69,7 @@ $listOfAddons = array(
 
 ?>
 
-
+<script src="../core/js/loghogDownloadJS.js"></script>
 <table style="width: 100%;">
 	<tr>
 		<td width="15%">
@@ -186,9 +186,36 @@ $listOfAddons = array(
 
 
 <script type="text/javascript">
+
+	var retryCount = 0;
+	var verifyCount = 0;
+	var lock = false;
+	var directory = "../../top/";
+	var urlForSendMain = "../core/php/performSettingsInstallUpdateAction.php?format=json";
+	var action = "";
+	var localFolderLocation = "";
+	var repoName = "";
+
+
 	function addonMonitorAction(idToSubmit)
 	{
-		document.getElementById(idToSubmit).submit();
+		var formData = $(idToSubmit).serializeArray();
+		action = formData["action"];
+		localFolderLocation = formData["localFolderLocation"];
+		repoName = formData["repoName"];
+		if(action === "Downloading")
+		{
+			checkIfTopDirIsEmpty();
+		}
+		else
+		{
+			removeFilesFromToppFolder(true);
+		}
+	}
+
+	function finishedDownload()
+	{
+
 	}
 
 	currentVersion = "";

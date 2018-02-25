@@ -2,7 +2,7 @@ var lock = false;
 
 function updateText(text)
 {
-	document.getElementById("innerSettingsText").innerHTML = "<p>"+text+"</p>"+document.getElementById("innerSettingsText").innerHTML;
+	document.getElementById("innerSettingsText").innerHTML = "<p>"+text+"</p>";
 }
 
 function checkIfTopDirIsEmpty()
