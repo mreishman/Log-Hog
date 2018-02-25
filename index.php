@@ -226,8 +226,16 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 <body>
 	<?php require_once("core/php/customCSS.php");
 	if($enablePollTimeLogging != "false"): ?>
-		<div id="loggTimerPollStyle" style="width: 100%;background-color: black;text-align: center; line-height: 200%;" ><span id="loggingTimerPollRate" >### MS /<?php echo $pollingRate; ?> MS</span> | <span id="loggSkipCount" >0</span>/<?php echo $pollForceTrue; ?> | <span id="loggAllCount" >0</span>/<?php echo $pollRefreshAll; ?></div>
+		<div id="loggTimerPollStyle" class="noticeBar"><span id="loggingTimerPollRate" >### MS /<?php echo $pollingRate; ?> MS</span> | <span id="loggSkipCount" >0</span>/<?php echo $pollForceTrue; ?> | <span id="loggAllCount" >0</span>/<?php echo $pollRefreshAll; ?></div>
 	<?php endif; ?>
+		<div id="noticeBar" class="noticeBar" style="display: none;" >
+			<span id="connectionNotice" style="color: yellow;" >
+				Notice  - <?php echo ($pollForceTrue * 2); ?> poll requests have failed. Please check server connectivity or refresh page.
+			</span>
+			<span id="connectionWarning" style="color: red;">
+				Warning - <?php echo ($pollForceTrue * 4); ?> poll requests have failed. Please check server connectivity or refresh page.
+			</span>
+		</div>
 	<div class="backgroundForMenus" id="menu">
 		<div id="menuButtons" style="display: block;">
 			<div onclick="pausePollAction();" class="menuImageDiv">

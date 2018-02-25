@@ -5,6 +5,7 @@ var arrayOfDataMain = null;
 var clearingNotifications = false;
 var counterForPoll = 0;
 var counterForPollForceRefreshAll = 0;
+var counterForPollForceRefreshErr = 0;
 var currentPage;
 var currentSelectWindow = 0;
 var dataFromUpdateCheck = null;
@@ -173,8 +174,13 @@ function poll()
 		if(!polling && !clearingNotifications)
 		{
 			pollSkipCounter = 0;
+			counterForPollForceRefreshErr = 0;
 			updateSkipCounterLog(pollSkipCounter);
 			polling = true;
+			if(document.getElementById("noticeBar").style.display !== "none")
+			{
+				document.getElementById("noticeBar").style.display = "none";
+			}
 			t0 = performance.now();
 			pollTwo();
 		}
@@ -194,6 +200,38 @@ function poll()
 			else
 			{
 				updateSkipCounterLog("-");
+			}
+			counterForPollForceRefreshErr++;
+			if(counterForPollForceRefreshErr > (2 * pollForceTrue))
+			{
+				if(document.getElementById("noticeBar").style.display === "none")
+				{
+					document.getElementById("noticeBar").style.display = "block";
+				}
+				if(counterForPollForceRefreshErr > (4 * pollForceTrue))
+				{
+					//show Warning message for no connect in x times
+					if(document.getElementById("connectionWarning").style.display === "none")
+					{
+						document.getElementById("connectionWarning").style.display = "block";
+					}
+					if(document.getElementById("connectionNotice").style.display !== "none")
+					{
+						document.getElementById("connectionNotice").style.display = "none";
+					}
+				}
+				else if(counterForPollForceRefreshErr > (2 * pollForceTrue))
+				{
+					//show notice message of no connect in x times 
+					if(document.getElementById("connectionNotice").style.display === "none")
+					{
+						document.getElementById("connectionNotice").style.display = "block";
+					}
+					if(document.getElementById("connectionWarning").style.display !== "none")
+					{
+						document.getElementById("connectionWarning").style.display = "none";
+					}
+				}
 			}
 		}
 	}
