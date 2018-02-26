@@ -7,7 +7,7 @@ $configStaticMonitor = null;
 if($monitorInfo["local"])
 {
 	$configStaticMain = $configStatic;
-	require_once('../../../monitor/core/php/configStatic.php');
+	require_once('../monitor/core/php/configStatic.php');
 	$configStaticMonitor = $configStatic;
 	$configStatic = $configStaticMain;
 }
@@ -19,7 +19,7 @@ $configStaticSearch = null;
 if($searchInfo["local"])
 {
 	$configStaticMain = $configStatic;
-	require_once('../../../search/core/php/configStatic.php');
+	require_once('../search/core/php/configStatic.php');
 	$configStaticSearch = $configStatic;
 	$configStatic = $configStaticMain;
 }
@@ -31,7 +31,7 @@ $configStaticSeleniumMonitor = null;
 if($seleniumMonitorInfo["local"])
 {
 	$configStaticMain = $configStatic;
-	require_once('../../../seleniumMonitor/core/php/configStatic.php');
+	require_once('../seleniumMonitor/core/php/configStatic.php');
 	$configStaticSeleniumMonitor = $configStatic;
 	$configStatic = $configStaticMain;
 }
@@ -109,6 +109,8 @@ $listOfAddons = array(
 				<?php if($localInstall):?>
 					<td>
 						Version: <?php echo $value['ConfigStatic']['version'];?>
+						<br>
+						<progress id="<?php echo $lowercase; ?>RemoveProgressBar" style="width: 100%;" value="0" max="100"></progress>
 					</td>
 					<?php if(strpos($URI, 'addons.php') !== false): ?>
 						<td>
@@ -150,13 +152,13 @@ $listOfAddons = array(
 				<?php endif; ?>
 			<?php else: ?>
 				<td colspan="3">
-					<progress id="<?php echo $key; ?>ProgressBar" style="width: 100%;" value="0" max="100"></progress>
+					<progress id="<?php echo $lowercase; ?>DownloadProgressBar" style="width: 100%;" value="0" max="100"></progress>
 				</td>
 				<td>
 					<script type="text/javascript">
 					var <?php echo $key; ?> = "<?php echo $lowercase; ?>Download"
 					</script>
-					<form id="<?php echo $lowercase; ?>Download" action="addonAction.php" method="post">
+					<form id="<?php echo $lowercase; ?>Download">
 						<input type="hidden" name="localFolderLocation" value="<?php echo $lowercase; ?>"> 
 						<input type="hidden" name="repoName" value="<?php echo $repo; ?>">
 						<input type="hidden" name="action" value="Downloading">
@@ -201,10 +203,17 @@ $listOfAddons = array(
 	function addonMonitorAction(idToSubmit)
 	{
 		idToSubmitStatic = idToSubmit;
-		var formData = $(idToSubmit).serializeArray();
-		action = formData["action"];
-		localFolderLocation = formData["localFolderLocation"];
-		repoName = formData["repoName"];
+		var formData = $("#"+idToSubmit).serializeArray();
+		var newObject = {};
+		var keysInfo = Object.keys(formData);
+		var keysInfoLength = keysInfo.length;
+		for(var i = 0; i < keysInfoLength; i++)
+		{
+			newObject[formData[i]["name"]] = formData[i]["value"];
+		}
+		action = newObject["action"];
+		localFolderLocation = newObject["localFolderLocation"];
+		repoName = newObject["repoName"];
 		if(action === "Downloading")
 		{
 			checkIfTopDirIsEmpty();

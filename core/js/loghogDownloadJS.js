@@ -2,7 +2,7 @@ var lock = false;
 
 function updateText(newValue)
 {
-	document.getElementById(idToSubmitStatic).value = newValue;
+	document.getElementById(idToSubmitStatic+"ProgressBar").value = newValue;
 }
 
 function checkIfTopDirIsEmpty()
@@ -229,4 +229,6 @@ function verifyPostEnd(verified, data)
 function updateError()
 {
 	//error popup
+	showPopup();
+	document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' id='popupHeaderText' ><span id='popupHeaderText' >Error</span></div><br><br><div style='width:100%;text-align:center;'> Error when trying to modify addon <a class=\"link\" onclick=\"hidePopup();\" >Close</a> </div>";
 }
