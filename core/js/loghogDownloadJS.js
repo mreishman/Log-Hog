@@ -1,13 +1,13 @@
 var lock = false;
 
-function updateText(text)
+function updateText(newValue)
 {
-	document.getElementById("innerSettingsText").innerHTML = "<p>"+text+"</p>";
+	document.getElementById(idToSubmitStatic).value = newValue;
 }
 
 function checkIfTopDirIsEmpty()
 {
-	updateText("Verifying that Directory is empty");
+	updateText(10);
 	var urlForSend = urlForSendMain;
 	var data = {action: "checkIfDirIsEmpty", dir: "../../"+localFolderLocation+"/"};
 	$.ajax({
@@ -31,7 +31,7 @@ function checkIfTopDirIsEmpty()
 
 function removeFilesFromToppFolder(skip = false)
 {
-	updateText("Directory has files in it, removing files");
+	updateText(20);
 	var urlForSend = urlForSendMain;
 	var data = {action: "removeUnZippedFiles", locationOfFilesThatNeedToBeRemovedRecursivally: "../../"+localFolderLocation+"/",removeDir: true};
 	$.ajax({
@@ -42,7 +42,6 @@ function removeFilesFromToppFolder(skip = false)
 		complete()
 		{
 			//verify if downloaded
-			updateText("Download Files");
 			if(!skip)
 			{
 				downloadFile();
@@ -61,11 +60,7 @@ function downloadFile()
 {
 	if(retryCount === 0)
 	{
-		updateText("Downloading Monitor");
-	}
-	else
-	{
-		updateText("Attempt "+(retryCount+1)+" of 3 for downloading Monitor");
+		updateText(40);
 	}
 	var urlForSend = urlForSendMain;
 	var data = {action: "downloadFile", file: "master",downloadFrom: repoName+"/archive/", downloadTo: "../../tmp.zip"};
@@ -77,7 +72,7 @@ function downloadFile()
 		complete()
 		{
 			//verify if downloaded
-			updateText("Verifying Download");
+			updateText(60);
 			verifyFile("downloadMonitor", "../../tmp.zip");
 		}
 	});	
@@ -102,7 +97,7 @@ function unzipFile()
 
 function removeZipFile()
 {
-	updateText("Removing Downloaded File");
+	updateText(70);
 	var urlForSend = urlForSendMain;
 	var data = {action: "removeZipFile", fileToUnlink: "../../tmp.zip"};
 	$.ajax({
@@ -137,7 +132,6 @@ function verifyFailAction(action)
 {
 	if(action === "downloadMonitor")
 	{
-		updateText("File Could NOT be found");
 		downloadFile();
 	}
 	else if(action === "unzipFile")
@@ -160,8 +154,6 @@ function verifySucceded(action)
 	retryCount = 0;
 	if(action === "downloadMonitor")
 	{
-		updateText("File Download Verified");
-		updateText("Unzipping Downloaded File");
 		unzipFile();
 	}
 	else if(action === "unzipFile")
@@ -181,7 +173,7 @@ function verifySucceded(action)
 function verifyFile(action, fileLocation,isThere = true)
 {
 	verifyCount = 0;
-	updateText("Verifying "+action+" with"+fileLocation);
+	updateText(80);
 	verifyFileTimer = setInterval(function(){verifyFilePoll(action,fileLocation,isThere);},6000);
 }
 
@@ -190,7 +182,7 @@ function verifyFilePoll(action, fileLocation,isThere)
 	if(lock === false)
 	{
 		lock = true;
-		updateText("verifying "+(verifyCount+1)+" of 10");
+		updateText(90);
 		var urlForSend = urlForSendMain;
 		var data = {action: "verifyFileIsThere", fileLocation, isThere , lastAction: action};
 		(function(_data){
@@ -236,6 +228,5 @@ function verifyPostEnd(verified, data)
 
 function updateError()
 {
-	clearInterval(dotsTimer);
-	document.getElementById("innerSettingsText").innerHTML = "<p>An error occured while trying to download "+repoName+". </p>";
+	//error popup
 }

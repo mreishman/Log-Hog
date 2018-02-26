@@ -196,10 +196,11 @@ $listOfAddons = array(
 	var action = "";
 	var localFolderLocation = "";
 	var repoName = "";
-
+	var idToSubmitStatic = "";
 
 	function addonMonitorAction(idToSubmit)
 	{
+		idToSubmitStatic = idToSubmit;
 		var formData = $(idToSubmit).serializeArray();
 		action = formData["action"];
 		localFolderLocation = formData["localFolderLocation"];
@@ -216,7 +217,9 @@ $listOfAddons = array(
 
 	function finishedDownload()
 	{
-
+		//reload page on finish?
+		updateText(100);
+		location.reload();
 	}
 
 	currentVersion = "";
