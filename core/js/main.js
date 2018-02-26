@@ -2159,7 +2159,7 @@ function toggleFilterSettingsPopup()
 	for (var i=0; i < 10; i++)
 	{
 		innerHtmlForSettings += "<option ";
-		if(filterContentLinePadding === i)
+		if(parseInt(filterContentLinePadding) === i)
 		{
 			innerHtmlForSettings += " selected ";
 		}
@@ -2192,7 +2192,7 @@ function changeFilterContentMatch()
 
 function changeFilterContentLinePadding()
 {
-	filterContentLinePadding = document.getElementById("filterContentLinePadding").value;
+	filterContentLinePadding = parseInt(document.getElementById("filterContentLinePadding").value);
 	possiblyUpdateFromFilter();
 }
 
@@ -2206,6 +2206,7 @@ function possiblyUpdateFromFilter()
 {
 	if(document.getElementById("searchFieldInput").value !== "")
 	{
+		lastContentSearch = "";
 		update(arrayOfDataMain);
 	}
 }
