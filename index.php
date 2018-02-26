@@ -225,6 +225,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 </head>
 <body>
 	<?php require_once("core/php/customCSS.php");
+	require_once("core/php/customIndexCSS.php");
 	if($enablePollTimeLogging != "false"): ?>
 		<div id="loggTimerPollStyle" class="noticeBar"><span id="loggingTimerPollRate" >### MS /<?php echo $pollingRate; ?> MS</span> | <span id="loggSkipCount" >0</span>/<?php echo $pollForceTrue; ?> | <span id="loggAllCount" >0</span>/<?php echo $pollRefreshAll; ?></div>
 	<?php endif; ?>

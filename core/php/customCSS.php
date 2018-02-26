@@ -66,20 +66,6 @@ body, #main
 	filter: brightness(<?php echo $overallBrightness; ?>%);
 }
 
-.log, #firstLoad
-{
-	color: <?php echo $logFontColor; ?>;
-}
-
-/* this needs to be moved */
-.log div
-{
-	-webkit-transition: 1s ease-in-out;
-    -moz-transition: 1s ease-in-out;
-    -ms-transition: 1s ease-in-out;
-    -o-transition: 1s ease-in-out;
-}
-
 #menu
 {
 	background: <?php echo $backgroundHeaderColor?>;
@@ -150,18 +136,6 @@ if(!($windowDisplayConfig[0] > 1 || $windowDisplayConfig[1] > 1)): ?>
 	color: <?php echo $currentSelectedThemeColorValues['highlight']['highlight-1']['fontColor']?>;
 }
 <?php endif; ?>
-
-.highlight
-{
-	background-color: <?php echo $highlightColorBG; ?>;
-	color: <?php echo $highlightColorFont; ?>;
-}
-
-.newLine
-{
-	background-color: <?php echo $highlightNewColorBG; ?>;
-	color: <?php echo $highlightNewColorFont; ?>;
-}
 
 /* width */
 ::-webkit-scrollbar

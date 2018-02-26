@@ -69,6 +69,16 @@ Menu Settings
 			</select>
 		</div>
 	</li>
+	<li>
+		<span class="settingsBuffer" > Log List Location: </span>
+			<div class="selectDiv">
+				<select name="logMenuLocation">
+					<option <?php if($logMenuLocation == 'top'){echo "selected";} ?> value="top">Top</option>
+					<option <?php if($logMenuLocation == 'bottom'){echo "selected";} ?> value="bottom">Bottom</option>
+				</select>
+			</div>
+		</li>
+	</li>
 </ul>
 </div>
 </form>

@@ -1557,9 +1557,9 @@ function resize()
 		}
 		if(logMenuLocation === "bottom")
 		{
-			if($("#main").bottom() !== $("#menu").outerHeight())
+			if(document.getElementById("main").style.bottom !== $("#menu").outerHeight())
 			{
-				$("#main").bottom($("#menu").outerHeight());
+				document.getElementById("main").style.bottom = $("#menu").outerHeight()+"px";
 			}
 		}
 		var tdElementWidth = (targetWidth/windowDisplayConfigColCount).toFixed(4);

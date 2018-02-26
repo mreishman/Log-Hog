@@ -53,6 +53,14 @@ div {
 	padding: .25em 1em;
 }
 
+.log div
+{
+  -webkit-transition: 1s ease-in-out;
+    -moz-transition: 1s ease-in-out;
+    -ms-transition: 1s ease-in-out;
+    -o-transition: 1s ease-in-out;
+}
+
 .led-red {
   margin: 0 auto;
   width: 24px;
