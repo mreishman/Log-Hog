@@ -1541,7 +1541,11 @@ function resize()
 {
 	try
 	{
-		var targetHeight = window.innerHeight - $("#menu").outerHeight();
+		var targetHeight = window.innerHeight - $("#header").outerHeight();
+		if(logMenuLocation === "top" || logMenuLocation === "bottom")
+		{
+			targetHeight = targetHeight - $("#menu").outerHeight();
+		}
 		var targetWidth = window.innerWidth;
 		if(enablePollTimeLogging !== "false")
 		{
@@ -1550,6 +1554,13 @@ function resize()
 		if($("#main").outerHeight() !== targetHeight)
 		{
 			$("#main").outerHeight(targetHeight);
+		}
+		if(logMenuLocation === "bottom")
+		{
+			if($("#main").bottom() !== $("#menu").outerHeight())
+			{
+				$("#main").bottom($("#menu").outerHeight());
+			}
 		}
 		var tdElementWidth = (targetWidth/windowDisplayConfigColCount).toFixed(4);
 		var trElementHeight = ((targetHeight-borderPadding)/windowDisplayConfigRowCount).toFixed(4);

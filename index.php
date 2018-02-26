@@ -236,7 +236,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 				Warning - <?php echo ($pollForceTrue * 4); ?> poll requests have failed. Please check server connectivity or refresh page.
 			</span>
 		</div>
-	<div class="backgroundForMenus" id="menu">
+	<div class="backgroundForMenus" id="header" >
 		<div id="menuButtons" style="display: block;">
 			<div onclick="pausePollAction();" class="menuImageDiv">
 				<?php
@@ -455,6 +455,8 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 			</div>
 		</div>
 	</div>
+	<div class="backgroundForMenus" id="menu">
+	</div>
 	<?php echo $popupInfoLog; ?>
 	<div id="main">
 		<table id="log" style="display: none; margin: 0px;padding: 0px; border-spacing: 0px;" style="width: 100%;" >
@@ -557,6 +559,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 		var scrollEvenIfScrolled = "<?php echo $scrollEvenIfScrolled; ?>";
 		var highlightNew = "<?php echo $highlightNew; ?>";
 		var filterTitleIncludePath = "<?php echo $filterTitleIncludePath; ?>";
+		var logMenuLocation = "<?php echo $logMenuLocation; ?>";
 	</script>
 	<?php require_once('core/php/template/popup.php') ?>
 	<script src="core/js/main.js?v=<?php echo $cssVersion?>"></script>
