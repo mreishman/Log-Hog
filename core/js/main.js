@@ -174,13 +174,8 @@ function poll()
 		if(!polling && !clearingNotifications)
 		{
 			pollSkipCounter = 0;
-			counterForPollForceRefreshErr = 0;
 			updateSkipCounterLog(pollSkipCounter);
 			polling = true;
-			if(document.getElementById("noticeBar").style.display !== "none")
-			{
-				document.getElementById("noticeBar").style.display = "none";
-			}
 			t0 = performance.now();
 			pollTwo();
 		}
@@ -254,6 +249,11 @@ function pollTwo()
 			type: "POST",
 			success(data)
 			{
+				counterForPollForceRefreshErr = 0;
+				if(document.getElementById("noticeBar").style.display !== "none")
+				{
+					document.getElementById("noticeBar").style.display = "none";
+				}
 				if(data === false)
 				{
 					showPopup();

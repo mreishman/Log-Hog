@@ -150,6 +150,7 @@ $listOfAddons = array(
 				<?php endif; ?>
 			<?php else: ?>
 				<td colspan="3">
+					<progress id="<?php echo $key; ?>ProgressBar" style="width: 100%;" value="0" max="100"></progress>
 				</td>
 				<td>
 					<script type="text/javascript">
