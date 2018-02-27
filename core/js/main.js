@@ -227,6 +227,7 @@ function poll()
 						document.getElementById("connectionWarning").style.display = "none";
 					}
 				}
+				resize();
 			}
 		}
 	}
@@ -1550,6 +1551,10 @@ function resize()
 		if(enablePollTimeLogging !== "false")
 		{
 			targetHeight -= 25;
+		}
+		if(document.getElementById("noticeBar").style.display !== "none")
+		{
+			targetHeight = targetHeight - $("#noticeBar").outerHeight();
 		}
 		if($("#main").outerHeight() !== targetHeight)
 		{
