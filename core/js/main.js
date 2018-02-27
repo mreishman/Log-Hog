@@ -1562,6 +1562,13 @@ function resize()
 				document.getElementById("main").style.bottom = $("#menu").outerHeight()+"px";
 			}
 		}
+		else if(logMenuLocation === "left" || logMenuLocation === "right")
+		{
+			if($("#menu").outerHeight() !== targetHeight)
+			{
+				$("#menu").outerHeight(targetHeight);
+			}
+		}
 		var tdElementWidth = (targetWidth/windowDisplayConfigColCount).toFixed(4);
 		var trElementHeight = ((targetHeight-borderPadding)/windowDisplayConfigRowCount).toFixed(4);
 		if(($(".logTrHeight").outerHeight() !== trElementHeight)|| ($(".logTdWidth").outerWidth() !== tdElementWidth) || ($(".backgroundForSideBarMenu").outerHeight() !== trElementHeight))

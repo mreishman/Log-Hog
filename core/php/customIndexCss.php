@@ -47,6 +47,45 @@ elseif($logMenuLocation === "bottom"): ?>
 	bottom: 0;
 }
 
+<?php elseif($logMenuLocation === "left"): ?>
+
+#menu
+{
+	bottom: 0;
+	width: 200px;
+	max-height: none;
+}
+
+#main
+{
+	padding-left: 200px;
+}
+
+#menu a
+{
+	display: block;
+}
+
+<?php elseif($logMenuLocation === "right"): ?>
+
+#menu
+{
+	bottom: 0;
+	right: 0;
+	width: 200px;
+	max-height: none;
+}
+
+#main
+{
+	padding-right: 200px;
+}
+
+#menu a
+{
+	display: block;
+}
+
 <?php endif; ?>
 
 </style>

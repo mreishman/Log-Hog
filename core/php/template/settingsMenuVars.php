@@ -75,6 +75,8 @@ Menu Settings
 				<select name="logMenuLocation">
 					<option <?php if($logMenuLocation == 'top'){echo "selected";} ?> value="top">Top</option>
 					<option <?php if($logMenuLocation == 'bottom'){echo "selected";} ?> value="bottom">Bottom</option>
+					<option <?php if($logMenuLocation == 'left'){echo "selected";} ?> value="left">Left</option>
+					<option <?php if($logMenuLocation == 'right'){echo "selected";} ?> value="right">Right</option>
 				</select>
 			</div>
 		</li>
