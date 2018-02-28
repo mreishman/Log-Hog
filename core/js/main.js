@@ -1007,26 +1007,6 @@ function update(data)
 						document.getElementById("noLogToDisplay").style.display = "none";
 						document.getElementById("log").style.display = "block";
 					}
-					//now check if active is still less than target length to empty out shown logs
-					if(currentSelectWindowTmp < targetLength)
-					{
-						for(var i = currentSelectWindowTmp; i < targetLength; i++)
-						{
-							$("#log"+i).html("");
-							for (var j = 0; j < arrayOfLogs.length; j++)
-							{
-								if(arrayOfLogs[j].classList.contains("active") && arrayOfLogs[j].style.display === "none")
-								{
-									var numCheck = arrayOfLogs[j].getElementsByClassName("currentWindowNum")[0];
-									if(parseInt(numCheck.innerHTML) == (i+1))
-									{
-										numCheck.innerHTML = "";
-									}
-									arrayOfLogs[j].classList.remove("active");
-								}
-							}
-						}
-					}
 				}
 			}
 		}
@@ -1217,6 +1197,26 @@ function refreshLastLogsArray()
 	}
 }
 
+function removeFromMultiLog(idOfName)
+{
+	var lengthOfLogDisplayArray = Object.keys(logDisplayArray).length;
+	var windowNum = -1;
+	for(var i = 0; i < lengthOfLogDisplayArray; i++)
+	{
+		if(logDisplayArray[i]["id"] === idOfName)
+		{
+			logDisplayArray[i]["id"] = null;
+			windowNum = i;
+			break;	
+		}
+	}
+	if(windowNum > -1)
+	{
+		$("#log"+i).html("");
+		$("#menu ." + idOfName + "Button currentWindowNum").html("");
+	}
+}
+
 function hideLogByName(name)
 {
 	try
@@ -1230,6 +1230,7 @@ function hideLogByName(name)
 			}
 			$("#menu ." + idOfName + "Button").hide();
 		}
+		removeFromMultiLog(idOfName);
 	}
 	catch(e)
 	{
@@ -1262,6 +1263,7 @@ function removeLogByName(name)
 		{
 			$("#menu ." + idOfName + "Button").remove();
 		}
+		removeFromMultiLog(idOfName);
 	}
 	catch(e)
 	{
