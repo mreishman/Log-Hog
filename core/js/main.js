@@ -970,16 +970,22 @@ function update(data)
 		resize();
 		
 		//Check if a tab is active, if none... click on first in array that's visible
-		if($("#menu .active").length === 0)
+		var targetLength = Object.keys(logDisplayArray).length;
+		if($("#menu .active").length < targetLength)
 		{
 			var arrayOfLogs = $("#menu a");
+			currentSelectWindow = 0;
 			for (var i = 0; i < arrayOfLogs.length; i++)
 			{
 				if(arrayOfLogs[i].style.display !== "none")
 				{
 					arrayOfLogs[i].onclick.apply(arrayOfLogs[i]);
-					break;
+					if((currentSelectWindow+1) >= targetLength)
+					{
+						break;
+					}
 				}
+				currentSelectWindow++;
 			}
 			if(!firstLoad)
 			{
