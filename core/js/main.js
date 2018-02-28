@@ -980,12 +980,12 @@ function update(data)
 				if(arrayOfLogs[i].style.display !== "none")
 				{
 					arrayOfLogs[i].onclick.apply(arrayOfLogs[i]);
-					if((currentSelectWindow+1) >= targetLength)
-					{
-						break;
-					}
 				}
 				currentSelectWindow++;
+				if(currentSelectWindow >= targetLength)
+				{
+					break;
+				}
 			}
 			if(!firstLoad)
 			{
