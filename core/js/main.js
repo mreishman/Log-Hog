@@ -972,23 +972,35 @@ function update(data)
 		//Check if a tab is active, if none... click on first in array that's visible
 		var targetLength = Object.keys(logDisplayArray).length;
 		var tmpCurrentSelectWindow = currentSelectWindow;
+		var arrayOfLogs = $("#menu a");
 		if($("#menu .active").length < targetLength)
 		{
-			var arrayOfLogs = $("#menu a");
-			var currentSelectWindowTmp = 0;
-			for (var i = 0; i < arrayOfLogs.length; i++)
+			for(var h = 0; h < targetLength; h++)
 			{
-				if(arrayOfLogs[i].style.display !== "none")
+				if(logDisplayArray[h]["id"] === null)
 				{
-					changeCurrentSelectWindow(currentSelectWindowTmp);
-					arrayOfLogs[i].onclick.apply(arrayOfLogs[i]);
-					currentSelectWindowTmp++;
-				}
-				if(currentSelectWindowTmp >= targetLength)
-				{
-					break;
+					//show first available log
+					for (var i = 0; i < arrayOfLogs.length; i++)
+					{
+						var logIsAlreadyShown = false;
+						for(var j = 0; j < targetLength; j++)
+						{
+							if(logDisplayArray[j]["id"] === arrayOfLogs[i].id)
+							{
+								logIsAlreadyShown = true;
+								break;
+							}
+						}
+						if(arrayOfLogs[i].style.display !== "none" && !logIsAlreadyShown)
+						{
+							changeCurrentSelectWindow(h);
+							arrayOfLogs[i].onclick.apply(arrayOfLogs[i]);
+							break;
+						}
+					}
 				}
 			}
+
 			if(!firstLoad)
 			{
 				if($("#menu .active").length === 0)
