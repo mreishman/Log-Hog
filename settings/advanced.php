@@ -95,6 +95,27 @@ $countConfig--;
 					<?php endif; ?>
 					<a onclick="resetSettingsPopup();" class="link">Reset Settings back to Default</a>
 				</li>
+				<li>
+					<span class="settingsBuffer"> Save verification number:</span>
+					<div class="selectDiv">
+						<select name="successVerifyNum">
+							<?php for ($i=1; $i <= 5; $i++): ?> 
+								<option <?php if($successVerifyNum === $i){echo "selected";} ?> value=<?php echo $i;?>><?php echo $i;?></option>
+							<?php endfor; ?>
+						</select>
+					</div>
+					<br>
+					<span style="font-size: 75%;">
+						<?php echo generateImage(
+							$arrayOfImages["info"],
+							array(
+								"style"			=>	"margin-bottom: -4px;",
+								"height"		=>	"20px",
+								"srcModifier"	=>	"../"
+							)
+						); ?>
+						<i>This is for platforms where saving files might not be in sync with containers. Increasing from one will make saves take longer, but it will be more accurate if there is that sync delay</i></span>
+				</li>
 			</ul>
 		</div>
 	</form>

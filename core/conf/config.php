@@ -282,6 +282,7 @@ $defaultConfig = array(
 	'sendCrashInfoPHP'				=> 'true',
 	'shellOrPhp'					=> 'phpPreferred',
 	'sliceSize'						=> 500,
+	'successVerifyNum'				=> 2,
 	'themesEnabled'					=> 'true',
 	'themeVersion'					=> 9,
 	'TrimSize'						=> 'K',
