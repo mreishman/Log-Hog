@@ -971,18 +971,20 @@ function update(data)
 		
 		//Check if a tab is active, if none... click on first in array that's visible
 		var targetLength = Object.keys(logDisplayArray).length;
+		var tmpCurrentSelectWindow = currentSelectWindow;
 		if($("#menu .active").length < targetLength)
 		{
 			var arrayOfLogs = $("#menu a");
-			currentSelectWindow = 0;
+			var currentSelectWindowTmp = 0;
 			for (var i = 0; i < arrayOfLogs.length; i++)
 			{
 				if(arrayOfLogs[i].style.display !== "none")
 				{
+					changeCurrentSelectWindow(currentSelectWindowTmp);
 					arrayOfLogs[i].onclick.apply(arrayOfLogs[i]);
+					currentSelectWindowTmp++;
 				}
-				currentSelectWindow++;
-				if(currentSelectWindow >= targetLength)
+				if(currentSelectWindowTmp >= targetLength)
 				{
 					break;
 				}
@@ -1008,6 +1010,7 @@ function update(data)
 				}
 			}
 		}
+		changeCurrentSelectWindow(tmpCurrentSelectWindow);
 
 		toggleNotificationClearButton();
 		var windows = Object.keys(logDisplayArray);
