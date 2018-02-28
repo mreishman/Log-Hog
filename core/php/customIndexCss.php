@@ -54,6 +54,7 @@ elseif($logMenuLocation === "bottom"): ?>
 	bottom: 0;
 	width: 200px;
 	max-height: none;
+	word-break: break-all;
 }
 
 #main
@@ -74,6 +75,7 @@ elseif($logMenuLocation === "bottom"): ?>
 	right: 0;
 	width: 200px;
 	max-height: none;
+	word-break: break-all;
 }
 
 #main
