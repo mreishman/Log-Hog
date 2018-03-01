@@ -852,9 +852,15 @@ function update(data)
 								{
 									if(lastContentSearch !== getFilterTextField())
 									{
-										if(id === currentPage)
+										var windows = Object.keys(logDisplayArray);
+										var lengthOfWindows = windows.length;
+										for(var j = 0; j < lengthOfWindows; j++)
 										{
-											updated = true;
+											if(windows[j]["id"] === id)
+											{
+												updated = true;
+												break;
+											}
 										}
 									}
 								}
