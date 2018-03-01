@@ -696,7 +696,10 @@ function update(data)
 
 				if(caseInsensitiveSearch === "true")
 				{
-					filterOffOf = filterOffOf.toLowerCase();
+					if(filterOffOf !== "")
+					{
+						filterOffOf = filterOffOf.toLowerCase();
+					}
 				}
 
 				if(logsToHide instanceof Array && (logsToHide.length === 0 || $.inArray(name, logsToHide) === -1 ))
@@ -856,7 +859,7 @@ function update(data)
 										var lengthOfWindows = windows.length;
 										for(var j = 0; j < lengthOfWindows; j++)
 										{
-											if(windows[j]["id"] === id)
+											if(logDisplayArray[j]["id"] === id)
 											{
 												updated = true;
 												break;
