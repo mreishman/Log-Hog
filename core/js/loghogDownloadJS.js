@@ -1,4 +1,5 @@
 var lock = false;
+var verifyCountSuccess = 0;
 
 function updateText(newValue)
 {
@@ -49,7 +50,6 @@ function removeFilesFromToppFolder(skip = false)
 			else
 			{
 				//re-add folder / one file
-
 				verifyFile("removeFilesFromToppFolderSkip", "../../"+localFolderLocation+"/",false);
 			}
 		}
@@ -173,7 +173,7 @@ function verifySucceded(action)
 function verifyFile(action, fileLocation,isThere = true)
 {
 	verifyCount = 0;
-	updateText(80);
+	verifyCountSuccess = 0;
 	verifyFileTimer = setInterval(function(){verifyFilePoll(action,fileLocation,isThere);},6000);
 }
 
@@ -212,11 +212,17 @@ function verifyPostEnd(verified, data)
 {
 	if(verified === true)
 	{
-		clearInterval(verifyFileTimer);
-		verifySucceded(data["lastAction"]);
+		verifyCountSuccess++;
+		if(verifyCountSuccess >= successVerifyNum)
+		{
+			clearInterval(verifyFileTimer);
+			verifyCountSuccess = 0;
+			verifySucceded(data["lastAction"]);
+		}
 	}
 	else
 	{
+		verifyCountSuccess = 0;
 		verifyCount++;
 		if(verifyCount > 9)
 		{

@@ -26,6 +26,7 @@ var data;
 var idForFormMain;
 var arrayObject = {};
 var innerHtmlObject = {};
+var countForVerifySaveSuccess = 0;
 
 function saveAndVerifyMain(idForForm)
 {
@@ -75,8 +76,17 @@ function timerVerifySave()
 			{
 				if(data === true)
 				{
-					clearInterval(pollCheckForUpdate);
-					saveVerified();
+					countForVerifySaveSuccess++;
+					if(countForVerifySaveSuccess >= successVerifyNum)
+					{
+						clearInterval(pollCheckForUpdate);
+						countForVerifySaveSuccess = 0;
+						saveVerified();
+					}
+				}
+				else
+				{
+					countForVerifySaveSuccess = 0;
 				}
 			},
 		});

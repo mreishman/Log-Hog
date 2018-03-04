@@ -37,6 +37,7 @@ var titles = {};
 var updating = false;
 var userPaused = false;
 var title = $("title").text();
+var verifyChangeCounter = 0;
 
 function escapeHTML(unsafeStr)
 {
@@ -1977,7 +1978,8 @@ function installUpdates()
 			type: "POST",
 			complete(data)
 			{
-				//set thing to check for updated files. 	
+				//set thing to check for updated files. 
+				verifyChangeCounter = 0;	
 				timeoutVar = setInterval(function(){verifyChange();},3000);
 			}
 		});
@@ -2004,8 +2006,17 @@ function verifyChange()
 			{
 				if(data == "finishedUpdate")
 				{
-					clearInterval(timeoutVar);
-					actuallyInstallUpdates();
+					verifyChangeCounter++;
+					if(verifyChangeCounter >= successVerifyNum)
+					{
+						clearInterval(timeoutVar);
+						verifyChangeCounter = 0;
+						actuallyInstallUpdates();
+					}
+				}
+				else
+				{
+					verifyChangeCounter = 0;
 				}
 			}
 		});

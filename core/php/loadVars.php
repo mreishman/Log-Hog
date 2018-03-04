@@ -490,6 +490,10 @@ else
 
 		$arrayOfImages[$key]["src"] = $src;
 	}
+
+	echo "<script>";
+	echo "var successVerifyNum = ".$successVerifyNum.";";
+	echo "</script>";
 }
 
 $arrayOfCustomConfig = array(
