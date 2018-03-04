@@ -371,6 +371,27 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 					?>
 				</div>
 			<?php endif; ?>
+			<div class="menuImageDiv" id="notificationDiv" >
+				<?php echo generateImage(
+					$arrayOfImages["notificationr"],
+					$imageConfig = array(
+						"id"		=>	"notificationImage",
+						"class"		=>	"menuImage",
+						"height"	=>	"30px"
+						)
+					); 
+				?>
+				<?php echo generateImage(
+					$arrayOfImages["notificationrFull"],
+					$imageConfig = array(
+						"id"		=>	"notificationImageFull",
+						"class"		=>	"menuImage",
+						"height"	=>	"30px",
+						"style"		=>  "display: none;"
+						)
+					); 
+				?>
+			</div>
 			<div onclick="window.location.href = './settings/about.php'" class="menuImageDiv">
 				<?php echo generateImage(
 					$arrayOfImages["info"],
@@ -391,47 +412,22 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 						"height"	=>	"30px",
 						"data-id"	=>	"1"
 						)
-					); 
-				if($updateNotificationEnabled === "true")
-				{
-					if($levelOfUpdate == 1)
-					{
-						echo generateImage(
-							$arrayOfImages["yellowWarning"],
-							$imageConfig = array(
-								"id"		=>	"updateImage",
-								"class"		=>	"menuImage",
-								"height"	=>	"15px",
-								"style"		=>	"position: absolute;margin-left: 13px;margin-top: -34px;"
-							)
-						);
-					}
-					elseif($levelOfUpdate == 2 || $levelOfUpdate == 3)
-					{
-						echo generateImage(
-							$arrayOfImages["redWarning"],
-							$imageConfig = array(
-								"id"		=>	"updateImage",
-								"class"		=>	"menuImage",
-								"height"	=>	"15px",
-								"style"		=>	"position: absolute;margin-left: 13px;margin-top: -34px;"
-							)
-						);
-					}
-				}
+					);
 				?>
 			</div>
-			<div  id="clearNotificationsImage" style="display: none;" onclick="clearNotifications();" class="menuImageDiv">
-				<?php echo generateImage(
-					$arrayOfImages["notificationClear"],
-					$imageConfig = array(
-						"id"		=>	"notificationClearImage",
-						"class"		=>	"menuImage",
-						"height"	=>	"30px"
-						)
-					); 
-				?>
-			</div>
+			<span <?php if($hideClearAllNotifications === "true"){ echo "style=\" display: none; \""; }?> >
+				<div  id="clearNotificationsImage" style="display: none;" onclick="clearNotifications();" class="menuImageDiv">
+					<?php echo generateImage(
+						$arrayOfImages["notificationClear"],
+						$imageConfig = array(
+							"id"		=>	"notificationClearImage",
+							"class"		=>	"menuImage",
+							"height"	=>	"30px"
+							)
+						); 
+					?>
+				</div>
+			</span>
 			<div style="float: right;">
 				<div class="selectDiv" >
 					<select id="searchType" disabled name="searchType" style="height: 30px;">
@@ -482,6 +478,32 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 				<span id="{{id}}CountHidden" class="menuCounterHidden" style="display: none;"></span>
 			</a>
 		</div>
+		<div class="notificationContainer">
+			<div id="{{id}}">
+				<span style="width: 100%;">
+					<table style="width: 100%; padding-top: 5px; padding-bottom: 5px;" >
+						<tr>
+							<td style="border-right: 1px solid black; width: 65px;"> {{time}} </td>
+							<td onclick="removeNotification('{{idNum}}'); {{action}}" style="padding-left: 5px; cursor: pointer; word-wrap:break-word;  word-break: break-all;"> {{name}} </td>
+						</tr>
+					</table>
+				</span>
+			</div>
+		</div>
+		<div class="notificationButtons">
+			<div>
+				<table style="width: 100%; border-top: 1px solid #aaa; padding-bottom: 3px; padding-top: 3px;">
+					<tr>
+						<th>
+							<span style="cursor: pointer;" onclick="toggleNotifications();">Close</span>
+						</th>
+						<th>
+							<span style="cursor: pointer;" onclick="removeAllNotifications();">Clear</span>
+						</th>
+					</tr>
+				</table>
+			</div>
+		</div>
 	</div>
 	<form id="settingsInstallUpdate" action="update/updater.php" method="post" style="display: none"></form>
 	<script>
@@ -511,6 +533,47 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 				echo "Rightclick_ID_list.push('updateImage');";
 			}
 		endif;
+		if($levelOfUpdate !== 0 && $configStatic["version"] !== $dontNotifyVersion && $updateNotificationEnabled): 
+			if($updateNoticeMeter === "every" || $levelOfUpdate > 1):
+				$updateImage = "";
+				if($levelOfUpdate == 1)
+				{
+					$updateImage = json_encode(generateImage(
+						$arrayOfImages["yellowWarning"],
+						$imageConfig = array(
+							"id"		=>	"updateImage",
+							"class"		=>	"menuImage",
+							"height"	=>	"15px",
+							"style"		=>	"position: absolute;margin-left: 13px;margin-top: -34px;"
+						)
+					));
+				}
+				elseif($levelOfUpdate == 2 || $levelOfUpdate == 3)
+				{
+					$updateImage = json_encode(generateImage(
+						$arrayOfImages["redWarning"],
+						$imageConfig = array(
+							"id"		=>	"updateImage",
+							"class"		=>	"menuImage",
+							"height"	=>	"15px",
+							"style"		=>	"position: absolute;margin-left: 13px;margin-top: -34px;"
+						)
+					));
+				}
+
+				?>
+				function addUpdateNotification()
+				{
+					var currentId = notifications.length;
+					notifications[currentId] = new Array();
+					notifications[currentId]["id"] = currentId;
+					notifications[currentId]["name"] = "New update available: <?php echo $configStatic['newestVersion'];?>";
+					notifications[currentId]["time"] = formatAMPM(new Date());
+					notifications[currentId]["action"] = "window.location = './settings/update.php';";
+					notifications[currentId]["image"] = <?php echo $updateImage; ?>;
+				}
+			<?php endif; 
+		endif; ?>
 		echo "var colorArrayLength = ".count($currentSelectedThemeColorValues).";";
 		echo "var pausePollOnNotFocus = ".$pauseOnNotFocus.";";
 		echo "var autoCheckUpdate = ".$autoCheckUpdate.";";

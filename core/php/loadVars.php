@@ -387,11 +387,23 @@ else
 			"title"			=>	"Loading...",
 			"baseName"		=>	"loading.gif"
 		),
+		"notification"	=> array(
+			"alt"			=>	"Notifications",
+			"src"			=>	"",
+			"title"			=>	"Notifications",
+			"baseName"		=>	"notification.png"
+		),
 		"notificationClear"	=> array(
 			"alt"			=>	"Clear Notifications",
 			"src"			=>	"",
 			"title"			=>	"Clear Notifications",
 			"baseName"		=>	"notificationClear.png"
+		),
+		"notificationFull"	=> array(
+			"alt"			=>	"Notifications",
+			"src"			=>	"",
+			"title"			=>	"Notifications",
+			"baseName"		=>	"notificationFull.png"
 		),
 		"pause"			=> array(
 			"alt"			=>	"Pause",

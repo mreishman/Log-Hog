@@ -233,6 +233,7 @@ $defaultConfig = array(
 	'fontFamily'					=> 'monospace',
 	'groupByColorEnabled'			=> 'true',
 	'groupByType'					=> 'folder',
+	'hideClearAllNotifications'		=> 'true',
 	'hideEmptyLog'					=> 'false',
 	'highlightColorBG'				=> '#FFFF00',
 	'highlightColorFont'			=> '#000000',

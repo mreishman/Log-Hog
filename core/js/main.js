@@ -2286,6 +2286,131 @@ function possiblyUpdateFromFilter()
 	}
 }
 
+function toggleNotifications()
+{
+	if(document.getElementById("notifications").style.display === "block")
+	{
+		document.getElementById("notifications").style.display = "none";
+		document.getElementById("notificationNotClicked").style.display = "block";
+		document.getElementById("notificationClicked").style.display = "none";
+	}
+	else
+	{
+		showNotifications();
+		document.getElementById("notificationNotClicked").style.display = "none";
+		document.getElementById("notificationClicked").style.display = "block";
+		document.getElementById("notifications").style.display = "block";
+	}
+}
+
+function showNotifications()
+{
+	var arrayInternalNotifications = new Array();
+	if(notifications.length < 1)
+	{
+		//no notifications to show
+		arrayInternalNotifications[0] = new Array();
+		arrayInternalNotifications[0]["id"] = 0;
+		arrayInternalNotifications[0]["name"] = "No Notifications to Display";
+		arrayInternalNotifications[0]["time"] = formatAMPM(new Date());
+		arrayInternalNotifications[0]["action"] = "";
+		
+	}
+	else
+	{
+		arrayInternalNotifications = notifications;
+	}
+	displayNotifications(arrayInternalNotifications);
+
+}
+
+function clearAllNotifications()
+{
+	$("#notificationHolder").empty();
+}
+
+function formatAMPM(date)
+{
+  var hours = date.getHours();
+  var minutes = date.getMinutes();
+  var ampm = hours >= 12 ? 'pm' : 'am';
+  hours = hours % 12;
+  hours = hours ? hours : 12; // the hour '0' should be '12'
+  minutes = minutes < 10 ? '0'+minutes : minutes;
+  var strTime = hours + ':' + minutes + ' ' + ampm;
+  return strTime;
+}
+
+function displayNotifications(notificationsArray)
+{
+	clearAllNotifications();
+	for (var i = notificationsArray.length - 1; i >= 0; i--)
+	{
+		var blank = $("#storage .notificationContainer").html();
+		var item = blank;
+		item = item.replace(/{{id}}/g, "notification"+notificationsArray[i]['id']);
+		item = item.replace(/{{idNum}}/g, notificationsArray[i]['id']);
+		item = item.replace(/{{name}}/g, notificationsArray[i]['name']);
+		item = item.replace(/{{time}}/g, notificationsArray[i]['time']);
+		item = item.replace(/{{action}}/g, notificationsArray[i]['action']);
+		$("#notificationHolder").append(item);
+	}
+	$("#notificationHolder").append($("#storage .notificationButtons").html());
+}
+
+function removeAllNotifications()
+{
+	notifications = new Array();
+	updateNotificationStuff();
+}
+
+function removeNotification(idToRemove)
+{
+	//remove from array
+	var position = notifications.indexOf(idToRemove);
+	notifications.splice(position, 1);
+	updateNotificationStuff();
+}
+
+function updateNotificationCount()
+{
+	var currentCount = notifications.length;
+	$("#notificationCount").empty();
+	if(currentCount > 0)
+	{
+		if(currentCount < 10)
+		{
+			currentCount = "0" + currentCount;
+		}
+		document.getElementById("notificationIcon").style.display = "block";
+		$("#notificationCount").append(currentCount);
+	}
+	else
+	{
+		document.getElementById("notificationIcon").style.display = "none";
+	}
+}
+
+function addNotification(notificationArray)
+{
+
+	var currentId = notifications.length;
+
+	notifications[currentId] = new Array();
+	notifications[currentId]["id"] = currentId;
+	notifications[currentId]["name"] = notificationArray["name"];
+	notifications[currentId]["time"] = formatAMPM(new Date());
+	notifications[currentId]["action"] = notificationArray["action"];
+
+	updateNotificationStuff();
+}
+
+function updateNotificationStuff()
+{
+	updateNotificationCount();
+	showNotifications();
+}
+
 $(document).ready(function()
 {
 	progressBar = new ldBar("#progressBar");
@@ -2323,4 +2448,10 @@ $(document).ready(function()
 	{
 		document.getElementById("searchType").addEventListener("change", changeSearchplaceholder, false);
 	}
+
+	if (typeof addUpdateNotification == 'function')
+	{
+		addUpdateNotification();
+	}
+	updateNotificationCount();
 });
