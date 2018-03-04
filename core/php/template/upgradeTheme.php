@@ -109,7 +109,7 @@ require_once('../../../core/php/loadVars.php');
 	var lock = false;
 	var urlForSendMain0 = '../themeChangeLogic.php?format=json';
 	var urlForSendMain1 = '../themeChangeLogicVerify.php?format=json';
-
+	var verifyCountSuccess = 0;
 	$( document ).ready(function()
 	{
 		copyFiles();
@@ -148,6 +148,7 @@ require_once('../../../core/php/loadVars.php');
 		document.getElementById('runLoad').style.display = "none";
 		document.getElementById('verifyLoad').style.display = "block";
 		verifyCount = 0;
+		verifyCountSuccess = 0;
 		verifyFileTimer = setInterval(function(){verifyFilePoll(version);},2000);
 	}
 
@@ -185,11 +186,17 @@ require_once('../../../core/php/loadVars.php');
 	{
 		if(verified == true)
 		{
-			clearInterval(verifyFileTimer);
-			verifySucceded();
+			verifyCountSuccess++;
+			if(verifyCountSuccess >= successVerifyNum)
+			{
+				verifyCountSuccess = 0;
+				clearInterval(verifyFileTimer);
+				verifySucceded();
+			}
 		}
 		else
 		{
+			verifyCountSuccess = 0;
 			verifyCount++;
 			if(verifyCount > 29)
 			{

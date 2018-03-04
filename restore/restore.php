@@ -49,6 +49,7 @@ var fileVersionDownload = null;
 <?php if($versionToRestoreTo != 0): ?>
 fileVersionDownload = '<?php echo $versionToRestoreTo; ?>';
 <?php endif ;?>
+var verifyCountSuccess = 0;
 
 $( document ).ready(function() 
 {
@@ -258,6 +259,7 @@ function finishedDownload()
 	function verifyFile(action, fileLocation,isThere = true)
 	{
 		verifyCount = 0;
+		verifyCountSuccess = 0;
 		updateText('Verifying '+action+' with'+fileLocation);
 		verifyFileTimer = setInterval(function(){verifyFilePoll(action,fileLocation,isThere);},6000);
 	}
@@ -297,11 +299,17 @@ function finishedDownload()
 	{
 		if(verified == true)
 		{
-			clearInterval(verifyFileTimer);
-			verifySucceded(data['lastAction']);
+			verifyCountSuccess++;
+			if(verifyCountSuccess >= successVerifyNum)
+			{
+				verifyCountSuccess = 0;
+				clearInterval(verifyFileTimer);
+				verifySucceded(data['lastAction']);
+			}
 		}
 		else
 		{
+			verifyCountSuccess = 0;
 			verifyCount++;
 			if(verifyCount > 9)
 			{

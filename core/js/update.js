@@ -4,6 +4,7 @@ var updateFormID = "settingsInstallUpdate";
 var showPopupForUpdateBool = true;
 var dontNotifyVersionNotSet = "";
 var dataFromJSON = "";
+var verifyCountSuccess = 0;
 
 function checkForUpdates(urlSend = "../", whatAmIUpdating = "Log-Hog", currentNewVersion = currentVersion, updateFormIDLocal = "settingsInstallUpdate", showPopupForUpdateInner = true, dontNotifyVersionInner = "")
 {
@@ -185,6 +186,7 @@ function installUpdates(urlSend = "../", updateFormIDLocal = "settingsInstallUpd
 			type: "POST",
 			complete(data)
 			{
+				verifyCountSuccess = 0;
 				timeoutVar = setInterval(function(){verifyChange(urlSend);},3000);
 			}
 		});
@@ -211,8 +213,17 @@ function verifyChange(urlSend)
 			{
 				if(data == "finishedUpdate")
 				{
-					clearInterval(timeoutVar);
-					actuallyInstallUpdates();
+					verifyCountSuccess++;
+					if(verifyCountSuccess >= successVerifyNum)
+					{
+						verifyCountSuccess = 0;
+						clearInterval(timeoutVar);
+						actuallyInstallUpdates();
+					}
+				}
+				else
+				{
+					verifyCountSuccess = 0;
 				}
 			}
 		});
