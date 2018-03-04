@@ -10,6 +10,13 @@ div {
 	box-sizing: border-box;
 }
 
+.notificationText{
+  padding-left: 5px;
+  cursor: pointer;
+  word-wrap:break-word; 
+  word-break: break-all;
+}
+
 #storage {
 	display: none;
 }

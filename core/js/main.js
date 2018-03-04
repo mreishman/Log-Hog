@@ -2346,13 +2346,25 @@ function displayNotifications(notificationsArray)
 	clearAllNotifications();
 	for (var i = notificationsArray.length - 1; i >= 0; i--)
 	{
-		var blank = $("#storage .notificationContainer").html();
+		var blank;
+		if("image" in notificationsArray[i])
+		{
+			blank = $("#storage .notificationContainerWithImage").html();
+		}
+		else
+		{
+			blank = $("#storage .notificationContainer").html();
+		}
 		var item = blank;
 		item = item.replace(/{{id}}/g, "notification"+notificationsArray[i]['id']);
 		item = item.replace(/{{idNum}}/g, notificationsArray[i]['id']);
 		item = item.replace(/{{name}}/g, notificationsArray[i]['name']);
 		item = item.replace(/{{time}}/g, notificationsArray[i]['time']);
 		item = item.replace(/{{action}}/g, notificationsArray[i]['action']);
+		if("image" in notificationsArray[i])
+		{
+			item = item.replace(/{{image}}/g, notificationsArray[i]['image']);
+		}
 		$("#notificationHolder").append(item);
 	}
 	$("#notificationHolder").append($("#storage .notificationButtons").html());
@@ -2360,6 +2372,7 @@ function displayNotifications(notificationsArray)
 
 function removeAllNotifications()
 {
+	clearNotifications();
 	notifications = new Array();
 	updateNotificationStuff();
 }

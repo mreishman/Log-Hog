@@ -416,7 +416,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 				?>
 			</div>
 			<span <?php if($hideClearAllNotifications === "true"){ echo "style=\" display: none; \""; }?> >
-				<div  id="clearNotificationsImage" style="display: none;" onclick="clearNotifications();" class="menuImageDiv">
+				<div  id="clearNotificationsImage" style="display: none;" onclick="removeAllNotifications();" class="menuImageDiv">
 					<?php echo generateImage(
 						$arrayOfImages["notificationClear"],
 						$imageConfig = array(
@@ -484,7 +484,21 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 					<table style="width: 100%; padding-top: 5px; padding-bottom: 5px;" >
 						<tr>
 							<td style="border-right: 1px solid black; width: 65px;"> {{time}} </td>
-							<td onclick="removeNotification('{{idNum}}'); {{action}}" style="padding-left: 5px; cursor: pointer; word-wrap:break-word;  word-break: break-all;"> {{name}} </td>
+							<td onclick="removeNotification('{{idNum}}'); {{action}}" class="notificationText"> {{name}} </td>
+							<td style="width: 20px;" onclick="removeNotification('{{idNum}}');" >x</td>
+						</tr>
+					</table>
+				</span>
+			</div>
+		</div>
+		<div class="notificationContainerWithImage">
+			<div id="{{id}}">
+				<span style="width: 100%;">
+					<table style="width: 100%; padding-top: 5px; padding-bottom: 5px;" >
+						<tr>
+							<td style="border-right: 1px solid black; width: 65px;"> {{time}} </td>
+							<td onclick="removeNotification('{{idNum}}'); {{action}}" class="notificationText"> {{image}} {{name}} </td>
+							<td style="width: 20px;" onclick="removeNotification('{{idNum}}');" >x</td>
 						</tr>
 					</table>
 				</span>
