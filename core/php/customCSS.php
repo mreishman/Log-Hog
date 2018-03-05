@@ -161,4 +161,9 @@ if(!($windowDisplayConfig[0] > 1 || $windowDisplayConfig[1] > 1)): ?>
 	<?php echo $scrollBarHandleHover; ?>
 }
 
+#notificationHolder td, #notificationHolder th
+{
+	color: black;
+}
+
 </style>

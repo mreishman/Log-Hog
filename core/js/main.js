@@ -2300,6 +2300,7 @@ function toggleNotifications()
 		document.getElementById("notificationNotClicked").style.display = "none";
 		document.getElementById("notificationClicked").style.display = "inline-block";
 		document.getElementById("notifications").style.display = "inline-block";
+		document.getElementById("notifications").style.left = (document.getElementById("notificationDiv").getBoundingClientRect().left-27) + "px";
 	}
 }
 
@@ -2311,7 +2312,7 @@ function showNotifications()
 		//no notifications to show
 		arrayInternalNotifications[0] = new Array();
 		arrayInternalNotifications[0]["id"] = 0;
-		arrayInternalNotifications[0]["name"] = "No Notifications to Display";
+		arrayInternalNotifications[0]["name"] = "No Notifications";
 		arrayInternalNotifications[0]["time"] = formatAMPM(new Date());
 		arrayInternalNotifications[0]["action"] = "";
 		
@@ -2350,6 +2351,10 @@ function displayNotifications(notificationsArray)
 		if("image" in notificationsArray[i])
 		{
 			blank = $("#storage .notificationContainerWithImage").html();
+		}
+		else if(notificationsArray[i]["name"] === "No Notifications")
+		{
+			blank = $("#storage .notificationContainerEmpty").html();
 		}
 		else
 		{
