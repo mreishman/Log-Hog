@@ -2,7 +2,7 @@
 	position: absolute;
 	width: 100%;
 	z-index: 20;
-	background-color: #222;
+	background-color: #111;
 	padding: .5em 1em;
 	max-height: 300px;
 	border-bottom: 1px solid white;
@@ -13,7 +13,7 @@
 	position: absolute;
 	width: 100%;
 	z-index: 10;
-	background-color: #ddd;
+	background-color: #333;
 	padding: .25em .5em;
 	max-height: 300px;
 	border-bottom: 1px solid white;
@@ -79,7 +79,7 @@
 
 #log {
 	padding: 1em 0;
-	color: white;
+	color: #009900;
 }
 
 #titleContainer {
@@ -88,14 +88,14 @@
 	bottom: 0;
 	width: 100%;
 	color: black;
-	background-color: #ccc;
+	background-color: #111;
 	padding: 0 1em;
 	line-height: 2em;
 }
 
 .backgroundForSideBarMenu
 {
-	background-color: #ccc;
+	background-color: #111;
 	overflow-y: auto;
 }
 
@@ -118,7 +118,7 @@
 
 .backgroundForMenus
 {
-	background-color: #ccc;
+	background-color: #111;
 }
 
 .sidebarCurrentWindowNum
@@ -145,15 +145,15 @@
 
 .settingsDiv
 {
-	background-color: #444444;
-	border: 1px solid white;
+	background-color: #222;
+	border: 1px solid #090;
 	margin: 10px;
 	margin-top: 0;
 }
 
 .settingsHeader
 {
-	background-color: white;
+	background-color: #090;
 	margin: 10px;
 	margin-bottom: 0;
 	color: black;
@@ -311,17 +311,17 @@
 /* Track */
 ::-webkit-scrollbar-track
 {
-	background: #222;
+	background: #131;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb
 {
-	background: #CCC;
+	background: #090;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover
 {
-	background: #FFFFFF;
+	background: #9f9;
 }
