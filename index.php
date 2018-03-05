@@ -373,24 +373,27 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 			<?php endif; ?>
 			<div class="menuImageDiv" id="notificationDiv" >
 				<?php echo generateImage(
-					$arrayOfImages["notificationr"],
+					$arrayOfImages["notification"],
 					$imageConfig = array(
-						"id"		=>	"notificationImage",
+						"id"		=>	"notificationNotClicked",
 						"class"		=>	"menuImage",
 						"height"	=>	"30px"
 						)
 					); 
 				?>
 				<?php echo generateImage(
-					$arrayOfImages["notificationrFull"],
+					$arrayOfImages["notificationFull"],
 					$imageConfig = array(
-						"id"		=>	"notificationImageFull",
+						"id"		=>	"notificationClicked",
 						"class"		=>	"menuImage",
 						"height"	=>	"30px",
 						"style"		=>  "display: none;"
 						)
 					); 
 				?>
+				<div id="notificationIcon" style="display: none;">
+					<span id="notificationCount" style="width: 10px;height: 10px;border-radius: 50%;background-color: red;display: inline-block;margin-left: 5px;position: absolute;top: 21px; left: 51px; font-size: 68%;"></span>
+				</div>
 			</div>
 			<div onclick="window.location.href = './settings/about.php'" class="menuImageDiv">
 				<?php echo generateImage(
@@ -587,7 +590,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 					notifications[currentId]["image"] = <?php echo $updateImage; ?>;
 				}
 			<?php endif; 
-		endif; ?>
+		endif;
 		echo "var colorArrayLength = ".count($currentSelectedThemeColorValues).";";
 		echo "var pausePollOnNotFocus = ".$pauseOnNotFocus.";";
 		echo "var autoCheckUpdate = ".$autoCheckUpdate.";";
@@ -614,6 +617,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 			$srcForLoadImage = $arrayOfImages["loading"]["src"];
 		}
 		?>
+		var notifications = new Array();
 		var srcForLoadImage = "<?php echo $srcForLoadImage; ?>";
 		var dontNotifyVersion = "<?php echo $dontNotifyVersion;?>";
 		var currentVersion = "<?php echo $configStatic['version'];?>";
