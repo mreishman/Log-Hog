@@ -18,6 +18,15 @@ Menu Settings
 		</div>
 	</li>
 	<li>
+		<span class="settingsBuffer" >Clear Notifications Button:</span>
+		<div class="selectDiv">
+			<select name="hideClearAllNotifications">
+				<option <?php if($hideClearAllNotifications == 'true'){echo "selected";} ?> value="true">Hide</option>
+				<option <?php if($hideClearAllNotifications == 'false'){echo "selected";} ?> value="false">Show</option>
+			</select>
+		</div>
+	</li>
+	<li>
 		<span class="settingsBuffer" > Show Side Bar: </span>
 		<div class="selectDiv">
 			<select name="bottomBarIndexShow">

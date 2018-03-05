@@ -494,7 +494,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 						<tr>
 							<td style="border-right: 1px solid black; width: 65px;"> {{time}} </td>
 							<td onclick="removeNotification('{{idNum}}'); {{action}}" class="notificationText"> {{name}} </td>
-							<td style="width: 20px;" onclick="removeNotification('{{idNum}}');" >x</td>
+							<td style="width: 10px; cursor: pointer;" onclick="removeNotification('{{idNum}}');" >x</td>
 						</tr>
 					</table>
 				</span>
@@ -521,7 +521,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 							<span style="cursor: pointer;" onclick="toggleNotifications();">Close</span>
 						</th>
 						<th>
-							<span style="cursor: pointer;" onclick="removeAllNotifications();">Clear</span>
+							<span style="cursor: pointer;" onclick="removeAllNotifications(); toggleNotifications();">Clear</span>
 						</th>
 					</tr>
 				</table>
