@@ -371,7 +371,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 					?>
 				</div>
 			<?php endif; ?>
-			<div class="menuImageDiv" id="notificationDiv" >
+			<div class="menuImageDiv" id="notificationDiv" onclick="toggleNotifications();" >
 				<?php echo generateImage(
 					$arrayOfImages["notification"],
 					$imageConfig = array(
@@ -391,9 +391,6 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 						)
 					); 
 				?>
-				<div id="notificationIcon" style="display: none;">
-					<span id="notificationCount" style="width: 10px;height: 10px;border-radius: 50%;background-color: red;display: inline-block;margin-left: 5px;position: absolute;top: 21px; left: 51px; font-size: 68%;"></span>
-				</div>
 			</div>
 			<div onclick="window.location.href = './settings/about.php'" class="menuImageDiv">
 				<?php echo generateImage(
@@ -457,7 +454,16 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 	</div>
 	<div class="backgroundForMenus" id="menu">
 	</div>
-	<?php echo $popupInfoLog; ?>
+	<?php echo $popupInfoLog; ?>.
+	<div style="display: inline-block; position: absolute; z-index: 30; left: 300px; top: 30px;" >
+		<div id="notificationIcon" style="display: none;">
+			<span id="notificationCount" style="width: 10px;height: 10px;border-radius: 50%;background-color: red;display: inline-block;margin-left: 5px;position: absolute;top: 21px; left: 51px; font-size: 68%;"></span>
+		</div>
+		<div id="notifications" style="margin-top: 10px; display: none;">
+			<div style="width: 0; height: 0; border-left: 12px solid transparent; border-right: 12px solid transparent;  border-bottom: 12px solid white; margin-left: 29px;" ></div>
+			<div id="notificationHolder" style="display: block; width: 300px; color: black; background-color: white; border: 1px solid black; border-bottom: 3px solid black; padding: 10px; padding-bottom: 0px;"></div>
+		</div>
+	</div>
 	<div id="main">
 		<table id="log" style="display: none; margin: 0px;padding: 0px; border-spacing: 0px;" style="width: 100%;" >
 			<?php echo $logDisplay; ?>

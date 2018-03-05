@@ -2288,18 +2288,18 @@ function possiblyUpdateFromFilter()
 
 function toggleNotifications()
 {
-	if(document.getElementById("notifications").style.display === "block")
+	if(document.getElementById("notifications").style.display === "inline-block")
 	{
 		document.getElementById("notifications").style.display = "none";
-		document.getElementById("notificationNotClicked").style.display = "block";
+		document.getElementById("notificationNotClicked").style.display = "inline-block";
 		document.getElementById("notificationClicked").style.display = "none";
 	}
 	else
 	{
 		showNotifications();
 		document.getElementById("notificationNotClicked").style.display = "none";
-		document.getElementById("notificationClicked").style.display = "block";
-		document.getElementById("notifications").style.display = "block";
+		document.getElementById("notificationClicked").style.display = "inline-block";
+		document.getElementById("notifications").style.display = "inline-block";
 	}
 }
 

@@ -1,6 +1,6 @@
 <?php
 $themeDefaultSettings = array(
-	'displayName' => "Default",
+	'displayName' => "Terminal",
 	'loadingBarVersion' => 5,
 	'backgroundColor' => "#111",
 	'mainFontColor' => "#090",
