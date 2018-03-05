@@ -949,6 +949,11 @@ function update(data)
 											{
 												$("#menu a." + id + "Button").addClass("updated");
 											}
+											var objectToSend = new Array();
+											objectToSend["log"] = id;
+											objectToSend["name"] = shortName+" Update "+diffNew;
+											objectToSend["action"] = "show(this, '"+id+"')";
+											addLogNotification(objectToSend);
 										}
 									}
 								}
@@ -1355,8 +1360,7 @@ function show(e, id)
 
 		document.getElementById("log"+currentSelectWindow+"Td").scrollTop = $("#log"+currentSelectWindow).outerHeight();
 		toggleNotificationClearButton();
-		document.getElementById(id+"Count").innerHTML = "";
-		document.getElementById(id+"CountHidden").innerHTML = "";
+		removeNotificationByLog(id);
 
 		
 		resize();
@@ -2384,11 +2388,32 @@ function removeAllNotifications()
 	updateNotificationStuff();
 }
 
+function removeNotificationByLog(logId)
+{
+	for (var i = notifications.length - 1; i >= 0; i--)
+	{
+		if("log" in notifications[i])
+		{
+			if(notifications[i]["log"] === logId)
+			{
+				removeNotification(i);
+				break;
+			}
+		}
+	}
+}
+
 function removeNotification(idToRemove)
 {
 	//remove from array
-	var position = notifications.indexOf(idToRemove);
-	notifications.splice(position, 1);
+	if("log" in notifications[idToRemove])
+	{
+		var logId = notifications[idToRemove]["log"];
+		document.getElementById(logId).classList.remove("updated");
+		document.getElementById(logId+"Count").innerHTML = "";
+		document.getElementById(logId+"CountHidden").innerHTML = "";
+	}
+	notifications.splice(idToRemove, 1);
 	updateNotificationStuff();
 }
 
@@ -2413,16 +2438,40 @@ function updateNotificationCount()
 	}
 }
 
+function addLogNotification(notificationArray)
+{
+	//check if log notification is already displayed. If so, get ID of that for current ID
+	for (var i = notifications.length - 1; i >= 0; i--)
+	{
+		if("log" in notifications[i])
+		{
+			if(notifications[i]["log"] === notificationArray["log"])
+			{
+				notificationArray["currentId"] = i;
+				break;
+			}
+		}
+	}
+	addNotification(notificationArray);
+}
+
 function addNotification(notificationArray)
 {
 
 	var currentId = notifications.length;
-
+	if("currentId" in notificationArray)
+	{
+		currentId = notificationArray["currentId"];
+	}
 	notifications[currentId] = new Array();
 	notifications[currentId]["id"] = currentId;
 	notifications[currentId]["name"] = notificationArray["name"];
 	notifications[currentId]["time"] = formatAMPM(new Date());
 	notifications[currentId]["action"] = notificationArray["action"];
+	if("log" in notificationArray)
+	{
+		notifications[currentId]["log"] = notificationArray["log"];
+	}
 
 	updateNotificationStuff();
 }
