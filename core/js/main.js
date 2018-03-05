@@ -2293,6 +2293,7 @@ function toggleNotifications()
 		document.getElementById("notifications").style.display = "none";
 		document.getElementById("notificationNotClicked").style.display = "inline-block";
 		document.getElementById("notificationClicked").style.display = "none";
+		document.getElementById("notificationCount").style.color = "white";
 	}
 	else
 	{
@@ -2301,6 +2302,7 @@ function toggleNotifications()
 		document.getElementById("notificationClicked").style.display = "inline-block";
 		document.getElementById("notifications").style.display = "inline-block";
 		document.getElementById("notifications").style.left = (document.getElementById("notificationDiv").getBoundingClientRect().left-27) + "px";
+		document.getElementById("notificationCount").style.color = "black";
 	}
 }
 
@@ -2402,6 +2404,8 @@ function updateNotificationCount()
 		}
 		document.getElementById("notificationIcon").style.display = "block";
 		$("#notificationCount").append(currentCount);
+		document.getElementById("notificationCount").style.left = (document.getElementById("notificationDiv").getBoundingClientRect().left+5) + "px";
+		document.getElementById("notificationBadge").style.left = (document.getElementById("notificationDiv").getBoundingClientRect().left-5) + "px";
 	}
 	else
 	{

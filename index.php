@@ -457,7 +457,8 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 	<?php echo $popupInfoLog; ?>.
 	<div style="display: inline-block; position: absolute; top: 0; left: 0;" >
 		<div id="notificationIcon" style="display: none; z-index: 30;">
-			<span id="notificationCount" style="width: 10px;height: 10px;border-radius: 50%;background-color: red;display: inline-block;margin-left: 5px;position: absolute;top: 21px; left: 51px; font-size: 68%;"></span>
+			<span onclick="toggleNotifications();" id="notificationCount" style="width: 10px;height: 10px;display: inline-block;margin-left: 5px;position: absolute;top: 16px;font-size: 68%; cursor: pointer;"></span>
+			<span onclick="toggleNotifications();" id="notificationBadge" style="width: 10px;height: 10px;border-radius: 50%;display: inline-block;margin-left: 5px;position: absolute;top: 24px; background-color: red; cursor: pointer;" ></span>
 		</div>
 		<div id="notifications" style="margin-top: 10px; display: none; position: absolute; z-index: 30; top: 30px;">
 			<div style="width: 0; height: 0; border-left: 12px solid transparent; border-right: 12px solid transparent;  border-bottom: 12px solid white; margin-left: 29px;" ></div>
@@ -507,7 +508,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 						<tr>
 							<td style="border-right: 1px solid black; width: 65px;"> {{time}} </td>
 							<td onclick="removeNotification('{{idNum}}'); {{action}}" class="notificationText"> {{image}} {{name}} </td>
-							<td style="width: 20px;" onclick="removeNotification('{{idNum}}');" >x</td>
+							<td style="width: 10px; cursor: pointer;" onclick="removeNotification('{{idNum}}');" >x</td>
 						</tr>
 					</table>
 				</span>
@@ -530,10 +531,10 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 				<table style="width: 100%; border-top: 1px solid #aaa; padding-bottom: 3px; padding-top: 3px;">
 					<tr>
 						<th>
-							<span style="cursor: pointer;" onclick="toggleNotifications();">Close</span>
+							<span class="linkSmall" style="cursor: pointer;" onclick="toggleNotifications();">Close</span>
 						</th>
 						<th>
-							<span style="cursor: pointer;" onclick="removeAllNotifications(); toggleNotifications();">Clear</span>
+							<span class="linkSmall" style="cursor: pointer;" onclick="removeAllNotifications(); toggleNotifications();">Clear</span>
 						</th>
 					</tr>
 				</table>
@@ -578,8 +579,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 						$imageConfig = array(
 							"id"		=>	"updateImage",
 							"class"		=>	"menuImage",
-							"height"	=>	"15px",
-							"style"		=>	"position: absolute;margin-left: 13px;margin-top: -34px;"
+							"height"	=>	"15px"
 						)
 					));
 				}
@@ -590,8 +590,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 						$imageConfig = array(
 							"id"		=>	"updateImage",
 							"class"		=>	"menuImage",
-							"height"	=>	"15px",
-							"style"		=>	"position: absolute;margin-left: 13px;margin-top: -34px;"
+							"height"	=>	"15px"
 						)
 					));
 				}
@@ -602,7 +601,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 					var currentId = notifications.length;
 					notifications[currentId] = new Array();
 					notifications[currentId]["id"] = currentId;
-					notifications[currentId]["name"] = "New update available: <?php echo $configStatic['newestVersion'];?>";
+					notifications[currentId]["name"] = "New Update: <?php echo $configStatic['newestVersion'];?>";
 					notifications[currentId]["time"] = formatAMPM(new Date());
 					notifications[currentId]["action"] = "window.location = './settings/update.php';";
 					notifications[currentId]["image"] = <?php echo $updateImage; ?>;
