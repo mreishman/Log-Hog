@@ -44,7 +44,7 @@
 		<table style="margin: 0px;padding: 0px; border-spacing: 0px; width:100%; height: 278px; " >
 				<tr>
 					<td style="padding: 0; width: 30px;" >
-						<div class="backgroundForMenus" style="width: 30px; float: left; display: inline; padding: 0px; height: 100%;">
+						<div class="backgroundForSideBarMenu" style="width: 30px; float: left; display: inline; padding: 0px; height: 100%;">
 							<a style="cursor: pointer;" >
 								<img src="<?php echo $theme; ?>/img/infoSideBar.png" style="padding: 5px;" width="20px;">
 							</a>

@@ -10,6 +10,57 @@ div {
 	box-sizing: border-box;
 }
 
+#notifications {
+  margin-top: 10px;
+  display: none;
+  position: absolute;
+  z-index: 30;
+  top: 30px;
+}
+
+#notificationIcon {
+  display: none;
+  z-index: 30;
+}
+
+#notificationCount {
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  margin-left: 5px;
+  position: absolute;
+  top: 16px;
+  font-size: 68%;
+  cursor: pointer;
+}
+
+#notificationBadge {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-left: 5px;
+  position: absolute;
+  top: 24px;
+  background-color: red;
+  cursor: pointer;
+}
+
+.notificationTriangle {
+  width: 0;
+  height: 0;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent; 
+  margin-left: 29px;
+}
+
+#notificationHolder {
+  display: block;
+  width: 300px;
+  padding: 10px;
+  padding-bottom: 0px;
+}
+
 .notificationText{
   padding-left: 5px;
   cursor: pointer;

@@ -48,6 +48,23 @@
 	background-color: white; 
 }
 
+#notificationHolder td, #notificationHolder th
+{
+	color: black;
+}
+
+.notificationTriangle {
+  border-bottom: 12px solid white;
+}
+
+#notificationHolder {
+  color: black;
+  background-color: white;
+  border: 1px solid black;
+  border-bottom: 3px solid black;
+}
+
+
 .linkSmallHover
 {
 	display: inline-block;

@@ -456,13 +456,13 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 	</div>
 	<?php echo $popupInfoLog; ?>.
 	<div style="display: inline-block; position: absolute; top: 0; left: 0;" >
-		<div id="notificationIcon" style="display: none; z-index: 30;">
-			<span onclick="toggleNotifications();" id="notificationCount" style="width: 10px;height: 10px;display: inline-block;margin-left: 5px;position: absolute;top: 16px;font-size: 68%; cursor: pointer;"></span>
-			<span onclick="toggleNotifications();" id="notificationBadge" style="width: 10px;height: 10px;border-radius: 50%;display: inline-block;margin-left: 5px;position: absolute;top: 24px; background-color: red; cursor: pointer;" ></span>
+		<div id="notificationIcon">
+			<span onclick="toggleNotifications();" id="notificationCount"></span>
+			<span onclick="toggleNotifications();" id="notificationBadge"></span>
 		</div>
-		<div id="notifications" style="margin-top: 10px; display: none; position: absolute; z-index: 30; top: 30px;">
-			<div style="width: 0; height: 0; border-left: 12px solid transparent; border-right: 12px solid transparent;  border-bottom: 12px solid white; margin-left: 29px;" ></div>
-			<div id="notificationHolder" style="display: block; width: 300px; color: black; background-color: white; border: 1px solid black; border-bottom: 3px solid black; padding: 10px; padding-bottom: 0px;"></div>
+		<div id="notifications">
+			<div class="notificationTriangle"></div>
+			<div id="notificationHolder"></div>
 		</div>
 	</div>
 	<div id="main">
@@ -520,7 +520,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 					<table style="width: 100%; padding-top: 5px; padding-bottom: 5px;" >
 						<tr>
 							<td style="border-right: 1px solid black; width: 65px;"> {{time}} </td>
-							<td onclick="removeNotification('{{idNum}}'); {{action}}" class="notificationText"> {{name}} </td>
+							<td class="notificationText"> {{name}} </td>
 						</tr>
 					</table>
 				</span>
