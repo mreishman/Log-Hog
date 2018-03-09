@@ -957,7 +957,12 @@ function update(data)
 											}
 											var objectToSend = new Array();
 											objectToSend["log"] = id;
-											objectToSend["name"] = shortName+" Update "+diffNew;
+											var numForNot = "";
+											if (diffNew !== "(0)")
+											{
+												numForNot = diffNew;
+											}
+											objectToSend["name"] = shortName+" Update "+numForNot;
 											objectToSend["action"] = "show(this, '"+id+"');  toggleNotifications();";
 											addLogNotification(objectToSend);
 										}
