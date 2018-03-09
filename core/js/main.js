@@ -831,6 +831,12 @@ function update(data)
 									if(!$("#menu a." + id + "Button").hasClass("updated"))
 									{
 										$("#menu a." + id + "Button").addClass("updated");
+
+										var objectToSend = new Array();
+										objectToSend["log"] = id;
+										objectToSend["name"] = "New Log "+shortName;
+										objectToSend["action"] = "show(this, '"+id+"');  toggleNotifications();";
+										addLogNotification(objectToSend);
 									}
 								}
 
@@ -952,7 +958,7 @@ function update(data)
 											var objectToSend = new Array();
 											objectToSend["log"] = id;
 											objectToSend["name"] = shortName+" Update "+diffNew;
-											objectToSend["action"] = "show(this, '"+id+"')";
+											objectToSend["action"] = "show(this, '"+id+"');  toggleNotifications();";
 											addLogNotification(objectToSend);
 										}
 									}

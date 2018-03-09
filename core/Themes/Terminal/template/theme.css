@@ -26,7 +26,7 @@
 #menu a, #menu2 a {
 	display: inline-block;
 	margin: .5em 0;
-	background-color: #2A912A;
+	background-color: #009900;
 	cursor: pointer;
 }
 
@@ -45,7 +45,7 @@
 
 #menu a:hover, #menu a.active, #menu2 a:hover, #menu2 a.active, .link:hover, .linkSmall:hover, .settingsHeader button:hover {
 	color: black;
-	background-color: white; 
+	background-color: #A0EADE; 
 }
 
 #notificationHolder td, #notificationHolder th
@@ -86,11 +86,11 @@
 }
 
 #menu a.updated {
-	background-color: #912A2C; 
+	background-color: #1D263B; 
 }
 
 #menu a.updated:hover {
-	background-color: #FFDDFF; 
+	background-color: #5C6784; 
 }
 
 #log {

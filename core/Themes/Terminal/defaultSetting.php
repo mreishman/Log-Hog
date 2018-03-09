@@ -11,86 +11,66 @@ $themeDefaultSettings = array(
 	'scrollBarHandleHover'			=> 'background: #9f9;',
 	'scrollBarTrack'				=> 'background: #131;',
 	'folderColorArrays'	=> array(
-		'theme-default-1'	=> array(
+		'theme-default-2'	=> array(
 			'main' 		=> array(
 				'main-1'		=> array(
-					'background'	=> '#EA7AF4',
+					'background'	=> '#009900',
 					'fontColor'		=> '#FFFFFF'
 				),
 				'main-2'		=> array(
-					'background'	=> "#B43E8F",
+					'background'	=> "#4CB963",
 					'fontColor'		=> "#FFFFFF"
 				),
-				'main-3'		=> array(
-					'background'	=> "#6200B3",
-					'fontColor'		=> '#FFFFFF'
-				),
-				'main-4'		=> array(
-					'background'	=> "#3B0086",
-					'fontColor'		=> "#FFFFFF"
-				),
-				'main-5'		=> array(
-					'background'	=> "#290628",
-					'fontColor'		=> "#FFFFFF"
-				)
 			),
 			'highlight' => array(
 				'highlight-1'	=> array(
-					'background'	=> '#FFFFFF',
-					'fontColor'		=> '#000000'
+					'background'	=> '#A0EADE',
+					'fontColor'		=> '#FFFFFF'
 				)
 			),
 			'active'	=> array(
 				'active-1'		=> array(
-					'background'	=> '#912A2C',
+					'background'	=> '#1D263B',
 					'fontColor'		=> '#000000'
 				)
 			),
 			'highlightActive'	=> array(
 				'highlightActive-1'	=> array(
-					'background'	=> '#FFDDFF',
+					'background'	=> '#5C6784',
 					'fontColor'		=> '#000000'
 				)
 			)
 		),
-		'theme-default-2'	=> array(
+		'theme-default-1'	=> array(
 			'main' 		=> array(
 				'main-1'		=> array(
-					'background'	=> '#6B8E23',
+					'background'	=> '#009900',
 					'fontColor'		=> '#FFFFFF'
 				),
 				'main-2'		=> array(
-					'background'	=> "#556B2F",
+					'background'	=> "#152614",
 					'fontColor'		=> "#FFFFFF"
 				),
 				'main-3'		=> array(
-					'background'	=> "#2E8B57",
+					'background'	=> "#1E441E",
 					'fontColor'		=> '#FFFFFF'
 				),
-				'main-4'		=> array(
-					'background'	=> "#3CB371",
-					'fontColor'		=> "#FFFFFF"
-				),
-				'main-5'		=> array(
-					'background'	=> "#8FBC8F",
-					'fontColor'		=> "#FFFFFF"
-				)
 			),
 			'highlight' => array(
 				'highlight-1'	=> array(
-					'background'	=> '#FFFFFF',
+					'background'	=> '#343A1A',
 					'fontColor'		=> '#000000'
 				)
 			),
 			'active'	=> array(
 				'active-1'		=> array(
-					'background'	=> '#912A2C',
+					'background'	=> '#31CB00',
 					'fontColor'		=> '#000000'
 				)
 			),
 			'highlightActive'	=> array(
 				'highlightActive-1'	=> array(
-					'background'	=> '#FFDDFF',
+					'background'	=> '#343A1A',
 					'fontColor'		=> '#000000'
 				)
 			)
@@ -98,37 +78,33 @@ $themeDefaultSettings = array(
 		'theme-default-3'	=> array(
 			'main' 		=> array(
 				'main-1'		=> array(
-					'background'	=> '#03256C',
+					'background'	=> '#009900',
 					'fontColor'		=> '#FFFFFF'
 				),
 				'main-2'		=> array(
-					'background'	=> "#2541B2",
+					'background'	=> "#152614",
 					'fontColor'		=> "#FFFFFF"
 				),
 				'main-3'		=> array(
-					'background'	=> "#1768AC",
+					'background'	=> "#1E441E",
 					'fontColor'		=> '#FFFFFF'
 				),
-				'main-4'		=> array(
-					'background'	=> "#06BEE1",
-					'fontColor'		=> '#FFFFFF'
-				)
 			),
 			'highlight' => array(
 				'highlight-1'	=> array(
-					'background'	=> '#FFFFFF',
+					'background'	=> '#31CB00',
 					'fontColor'		=> '#000000'
 				)
 			),
 			'active'	=> array(
 				'active-1'		=> array(
-					'background'	=> '#912A2C',
+					'background'	=> '#FF9914',
 					'fontColor'		=> '#000000'
 				)
 			),
 			'highlightActive'	=> array(
 				'highlightActive-1'	=> array(
-					'background'	=> '#FFDDFF',
+					'background'	=> '#31CB00',
 					'fontColor'		=> '#000000'
 				)
 			)
