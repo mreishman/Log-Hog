@@ -32,7 +32,7 @@ require_once('../core/php/updateCheck.php');
 		<div class="settingsHeader">
 			Changelog
 		</div>
-		<?php readfile('changelog.html') ?>
+		<?php readfile('../core/html/changelog.html') ?>
 	</div>
 </body>
 <script type="text/javascript">

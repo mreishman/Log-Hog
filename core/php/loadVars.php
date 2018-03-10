@@ -387,6 +387,12 @@ else
 			"title"			=>	"Loading...",
 			"baseName"		=>	"loading.gif"
 		),
+		"menu"	=> array(
+			"alt"			=>	"Menu",
+			"src"			=>	"",
+			"title"			=>	"Menu",
+			"baseName"		=>	"menu.png"
+		),
 		"notification"	=> array(
 			"alt"			=>	"Notifications",
 			"src"			=>	"",

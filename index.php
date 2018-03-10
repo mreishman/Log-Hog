@@ -239,6 +239,17 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 		</div>
 	<div class="backgroundForMenus" id="header" >
 		<div id="menuButtons" style="display: block;">
+			<div onclick=""  class="menuImageDiv">
+				<?php echo generateImage(
+					$arrayOfImages["menu"],
+					$imageConfig = array(
+						"id"		=>	"menu",
+						"class"		=>	"menuImage",
+						"height"	=>	"30px"
+						)
+					);
+				?>
+			</div>
 			<div onclick="pausePollAction();" class="menuImageDiv">
 				<?php
 					$styleString = "display: inline-block;";
@@ -319,7 +330,9 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 					?>
 				</div>
 			<?php endif; ?>
-			<?php if($locationForMonitorIndex["loc"]): ?>
+			<?php 
+			/*
+			if($locationForMonitorIndex["loc"]): ?>
 				<div onclick="window.location.href = '<?php echo $locationForMonitorIndex["loc"]; ?>'"  class="menuImageDiv">
 					<?php echo generateImage(
 						$arrayOfImages["taskManager"],
@@ -370,7 +383,9 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 						); 
 					?>
 				</div>
-			<?php endif; ?>
+			<?php endif; 
+			*/
+			?>
 			<div class="menuImageDiv" id="notificationDiv" onclick="toggleNotifications();" >
 				<?php echo generateImage(
 					$arrayOfImages["notification"],
@@ -479,68 +494,17 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 		<div id="noLogToDisplay" class='errorMessageLog errorMessageGreenBG' style="display: none; margin-top: 2%;" > There are currently no logs to display. </div>
 	</div>
 	
-	<div id="storage">
-		<div class="menuItem">
-			<a title="{{title}}" id="{{id}}" class="{{id}}Button {{class}} index" onclick="show(this, '{{id}}')">
-				<span class="currentWindowNum" id="{{id}}CurrentWindow"></span>
-				{{title}}
-				<span id="{{id}}Count" class="menuCounter"></span>
-				<span id="{{id}}CountHidden" class="menuCounterHidden" style="display: none;"></span>
-			</a>
+	<?php readfile('core/html/indexStorage.html'); ?>
+
+	<div id="fullScreenMenu" style="display: none;">
+		<div id="fullScreenMenuChangeLog" style="display: none;" >
+			<?php readfile('core/html/changelog.html'); ?>
 		</div>
-		<div class="notificationContainer">
-			<div id="{{id}}">
-				<span style="width: 100%;">
-					<table style="width: 100%; padding-top: 5px; padding-bottom: 5px;" >
-						<tr>
-							<td style="border-right: 1px solid black; width: 65px;"> {{time}} </td>
-							<td onclick="removeNotification('{{idNum}}'); {{action}}" class="notificationText"> {{name}} </td>
-							<td style="width: 10px; cursor: pointer;" onclick="removeNotification('{{idNum}}');" >x</td>
-						</tr>
-					</table>
-				</span>
-			</div>
-		</div>
-		<div class="notificationContainerWithImage">
-			<div id="{{id}}">
-				<span style="width: 100%;">
-					<table style="width: 100%; padding-top: 5px; padding-bottom: 5px;" >
-						<tr>
-							<td style="border-right: 1px solid black; width: 65px;"> {{time}} </td>
-							<td onclick="removeNotification('{{idNum}}'); {{action}}" class="notificationText"> {{image}} {{name}} </td>
-							<td style="width: 10px; cursor: pointer;" onclick="removeNotification('{{idNum}}');" >x</td>
-						</tr>
-					</table>
-				</span>
-			</div>
-		</div>
-		<div class="notificationContainerEmpty">
-			<div id="{{id}}">
-				<span style="width: 100%;">
-					<table style="width: 100%; padding-top: 5px; padding-bottom: 5px;" >
-						<tr>
-							<td style="border-right: 1px solid black; width: 65px;"> {{time}} </td>
-							<td class="notificationText"> {{name}} </td>
-						</tr>
-					</table>
-				</span>
-			</div>
-		</div>
-		<div class="notificationButtons">
-			<div>
-				<table style="width: 100%; border-top: 1px solid #aaa; padding-bottom: 3px; padding-top: 3px;">
-					<tr>
-						<th>
-							<span class="linkSmall" style="cursor: pointer;" onclick="toggleNotifications();">Close</span>
-						</th>
-						<th>
-							<span class="linkSmall" style="cursor: pointer;" onclick="removeAllNotifications(); toggleNotifications();">Clear</span>
-						</th>
-					</tr>
-				</table>
-			</div>
+		<div id="fullScreenMenuWhatsNew" style="display: none;" >
+			<?php readfile('core/html/whatsNew.html'); ?>
 		</div>
 	</div>
+
 	<form id="settingsInstallUpdate" action="update/updater.php" method="post" style="display: none"></form>
 	<script>
 
