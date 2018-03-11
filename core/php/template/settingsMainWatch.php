@@ -18,28 +18,91 @@
 		)
 	);
 
+	function generateSaveBlock($data = array())
+	{
+		$rowNumber = "{{rowNumber}}";
+		$fileNumber = "{{fileNumber}}";
+		$filePermsDisplay = "{{filePermsDisplay}}";
+		$fileImage = "{{fileImage}}";
+		$location = "{{location}}";
+		$pattern = "{{pattern}}";
+
+		if(isset($data["rowNumber"]))
+		{
+			$rowNumber = $data["rowNumber"];
+		}
+
+		if(isset($data["fileNumber"]))
+		{
+			$fileNumber = $data["fileNumber"];
+			if ($fileNumber < 10)
+			{
+				$fileNumber = "0".$fileNumber;
+			}
+		}
+
+		if(isset($data["filePermsDisplay"]))
+		{
+			$filePermsDisplay = $data["filePermsDisplay"];
+		}
+
+		if(isset($data["fileImage"]))
+		{
+			$fileImage = $data["fileImage"];
+		}
+
+		if(isset($data["location"]))
+		{
+			$location = $data["location"];
+		}
+
+		if(isset($data["pattern"]))
+		{
+			$pattern = $data["pattern"];
+		}
+
+		$saveBlock = "<li id=\"rowNumber".$rowNumber."\" >";
+		$saveBlock .= "File ".$fileNumber.":";
+		$saveBlock .= "<div id=\"infoFile".$rowNumber."\" style=\"width: 100px; display: inline-block; text-align: center;\">";
+		$saveBlock .= $filePermsDisplay;
+		$saveBlock .= "</div>";
+		$saveBlock .= $fileImage;
+		$saveBlock .=  "<input style=\"width: 480px;\" type=\"text\" name=\"watchListKey".$rowNumber."\" value=\"".$location."\" >";
+		$saveBlock .= "<input type=\"text\" name=\"watchListItem".$rowNumber."\" value=\"".$pattern."\" >";
+		$saveBlock .= "<a class=\"deleteIconPosition\"	onclick=\"deleteRowFunctionPopup(".$rowNumber.", true, '".$location."');\"	>";
+		$saveBlock .= $defaultTrashCanIcon;
+		$saveBlock .= "</a> </li>";
+
+		return $saveBlock;
+	}
+
 	$i = 0;
 	$triggerSaveUpdate = false;
-	foreach($config['watchList'] as $key => $item):
+	foreach($watchlist as $fileName => $values)
+	{
 		$i++;
-		$info = filePermsDisplay($key);
+		$location = $values["Location"];
+		$pattern = $values["Pattern"];
+		$info = filePermsDisplay($location);
 
-		if(strpos($item, "\\") !== false)
+		if(strpos($pattern, "\\") !== false)
 		{
-			$item = str_replace("\\", "", $item);
+			$pattern = str_replace("\\", "", $pattern);
 			$triggerSaveUpdate = true;
 		}
-		?>
-	<li id="rowNumber<?php echo $i; ?>" >
-		File #<?php if($i < 10){echo "0";} ?><?php echo $i; ?>: 
-		<div id="infoFile<?php echo $i;?>" style="width: 100px; display: inline-block; text-align: center;">
-			<?php echo $info; ?>
-		</div>
-		
-		<?php
-		if(!file_exists($key))
+
+		$fileImage = generateImage(
+			$arrayOfImages["yellowWarning"],
+			array(
+				"width"			=>	"15px",
+				"id"			=>	"fileNotFoundImage".$i,
+				"srcModifier"	=>	"../"
+			)
+		);
+
+		if(!file_exists($location))
 		{
-			echo generateImage(
+			$fileImage = generateImage(
 				$arrayOfImages["redWarning"],
 				array(
 					"width"			=>	"15px",
@@ -48,9 +111,9 @@
 				)
 			);
 		}
-		elseif(is_dir($key))
+		elseif(is_dir($location))
 		{
-			echo generateImage(
+			$fileImage = generateImage(
 				$arrayOfImages["folderIcon"],
 				array(
 					"width"			=>	"15px",
@@ -59,9 +122,9 @@
 				)
 			);
 		}
-		else
+		elseif(is_file($location))
 		{
-			echo generateImage(
+			$fileImage = generateImage(
 				$arrayOfImages["fileIcon"],
 				array(
 					"width"			=>	"15px",
@@ -70,33 +133,20 @@
 				)
 			);
 		}
-		?> 
-		
-			<input 
-				style='width: 480px;' 
-				type='text'
-				name='watchListKey<?php echo $i; ?>'
-				value='<?php echo $key; ?>'
-			>
-			<input 
-				type='text'
-				name='watchListItem<?php echo $i; ?>'
-				value='<?php echo $item; ?>'
-			>
-			<a 
-				class="deleteIconPosition"
-				onclick="deleteRowFunctionPopup(
-					<?php echo $i; ?>,
-					true,
-					'<?php echo $key; ?>')"
-			>
-			<?php
-				echo $defaultTrashCanIcon;
-			?>
-			</a>
-	</li>
 
-	<?php endforeach; ?>
+		echo generateSaveBlock(
+			array(
+				"rowNumber"			=>	$i,
+				"fileNumber"		=>	$i,
+				"filePermsDisplay"	=>	$info,
+				"fileImage"			=>	$fileImage,
+				"location"			=>	$location,
+				"pattern"			=>	$pattern
+			)
+		);
+	
+	}
+	?>
 
 	<div id="newRowLocationForWatchList">
 	</div>
@@ -160,6 +210,11 @@
 	<input id="numberOfRows" type="text" name="numberOfRows" value="<?php echo $i;?>">
 </div>	
 </form>
+<div id="storage">
+	<div class="saveBlock">
+		<?php echo generateSaveBlock(); ?>
+	</div>
+</div>
 <script type="text/javascript">
 	var defaultTrashCanIcon = <?php echo json_encode($defaultTrashCanIcon); ?>
 </script>
