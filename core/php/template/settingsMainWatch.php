@@ -7,7 +7,7 @@
 	</div>
 </div>
 <div class="settingsDiv" >	
-<ul id="settingsUl">
+<ul id="settingsUl" class="uniqueClassForAppendSettingsMainWatchNew">
 	<?php
 
 	$defaultTrashCanIcon = generateImage(
@@ -61,7 +61,7 @@
 			$pattern = $data["pattern"];
 		}
 
-		$saveBlock = "<li id=\"rowNumber".$rowNumber."\" >";
+		$saveBlock = "<li class=\"watchRow\" id=\"rowNumber".$rowNumber."\" >";
 		$saveBlock .= "File ".$fileNumber.":";
 		$saveBlock .= "<div id=\"infoFile".$rowNumber."\" style=\"width: 100px; display: inline-block; text-align: center;\">";
 		$saveBlock .= $filePermsDisplay;

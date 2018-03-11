@@ -1,32 +1,27 @@
 var fileArrayKeys = Object.keys(fileArray);
-var countOfWatchList = fileArrayKeys.length;
-var countOfAddedFiles = 0;
-var countOfClicks = 0;
-var locationInsert = "newRowLocationForWatchList";
-var countOfWatchListStatic = countOfWatchList;
-var countOfAddedFilesStatic = countOfAddedFiles;
-var countOfClicksStatic = countOfClicks;
-var locationInsertStatic = locationInsert;
 var titleOfPage = "Watchlist";
 
 function addRowFunction()
 {
 	try
 	{
+		var countOfWatchList = document.getElementById("numberOfRows").value;
 		countOfWatchList++;
-		countOfClicks++;
 
 		var fileName = ""+countOfWatchList;
 		if(countOfWatchList < 10)
 		{
 			fileName = "0"+fileName;
 		}
-		
-		document.getElementById(locationInsert).outerHTML += "<li id='rowNumber"+countOfWatchList+"'>File #" + fileName+ ": <div style=\"width: 130px; display: inline-block; text-align: center;\">----------</div><input type='text' style='width: 480px;' name='watchListKey" + countOfWatchList + "' > <input type='text' name='watchListItem" + countOfWatchList + "' > <a class='deleteIconPosition' onclick='deleteRowFunctionPopup("+ countOfWatchList +", true, \"File #" + fileName+"\")'>"+defaultTrashCanIcon+"</a></li><div id='newRowLocationForWatchList"+countOfClicks+"'></div>";
-		
-		locationInsert = "newRowLocationForWatchList"+countOfClicks;
+		var item = $("#storage .saveBlock").html();
+		item = item.replace(/{{rowNumber}}/g, countOfWatchList);
+		item = item.replace(/{{fileNumber}}/g, fileName);
+		item = item.replace(/{{filePermsDisplay}}/g, "----------");
+		item = item.replace(/{{fileImage}}/g, "");
+		item = item.replace(/{{location}}/g, "");
+		item = item.replace(/{{pattern}}/g, "");
+		$(".uniqueClassForAppendSettingsMainWatchNew").append(item);
 		document.getElementById("numberOfRows").value = countOfWatchList;
-		countOfAddedFiles++;
 	}
 	catch(e)
 	{
@@ -38,7 +33,7 @@ function deleteRowFunctionPopup(currentRow, decreaseCountWatchListNum, keyName =
 {
 	try
 	{
-		if(popupSettingsArray.removeFolder === "true")
+		if("removeFolder" in popupSettingsArray && popupSettingsArray.removeFolder === "true")
 		{
 			showPopup();
 			document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class='settingsHeader' >Are you sure you want to remove this file/folder?</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>"+keyName+"</div><div><div class='link' onclick='deleteRowFunction("+currentRow+","+ decreaseCountWatchListNum+");hidePopup();' style='margin-left:125px; margin-right:50px;margin-top:35px;'>Yes</div><div onclick='hidePopup();' class='link'>No</div></div>";
@@ -102,11 +97,6 @@ function deleteRowFunction(currentRow, decreaseCountWatchListNum)
 				}
 			}
 			newValue--;
-			if(countOfAddedFiles > 0)
-			{
-				countOfAddedFiles--;
-			}
-			countOfWatchList--;
 			document.getElementById("numberOfRows").value = newValue;
 		}
 	}
@@ -120,6 +110,7 @@ function checkWatchList()
 {
 	try
 	{
+		var countOfWatchList = document.getElementById("numberOfRows").value;
 		var blankValue = false;
 		for (var i = 1; i <= countOfWatchList; i++) 
 		{
@@ -172,10 +163,6 @@ function resetWatchListVars()
 	try
 	{
 		resetArrayObject("settingsMainWatch");
-		countOfWatchList = countOfWatchListStatic;
-		countOfAddedFiles =  countOfAddedFilesStatic;
-		countOfClicks = countOfClicksStatic;
-		locationInsert = locationInsertStatic;
 	}
 	catch(e)
 	{
@@ -188,10 +175,6 @@ function refreshSettingsWatchList()
 	try
 	{
 		refreshArrayObject("settingsMainWatch");
-		countOfWatchListStatic = countOfWatchList;
-		countOfAddedFilesStatic = countOfAddedFiles;
-		countOfClicksStatic = countOfClicks;
-		locationInsertStatic = locationInsert;
 	}
 	catch(e)
 	{
