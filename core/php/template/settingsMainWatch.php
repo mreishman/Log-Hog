@@ -192,7 +192,17 @@
 						)
 					);
 				?>
-				 - Folder
+				 - Folder &nbsp; &nbsp; &nbsp; 
+				<?php 
+					echo generateImage(
+						$arrayOfImages["yellowWarning"],
+						array(
+							"height"		=>	"10px",
+							"srcModifier"	=>	"../"
+						)
+					);
+				?>
+				 - Unknown
 			</li>
 			<li>
 				f - file &nbsp; &nbsp; &nbsp; | &nbsp; &nbsp; &nbsp;
