@@ -84,6 +84,23 @@ echo loadSentryData($sendCrashInfoJS, $branchSelected); ?>
 		<a onclick="goToUrl('#settingsMenuVars');" > Menu </a>
 		<a onclick="goToUrl('#settingsMainVars');" > Other </a>
 	</div>
+<?php elseif(strpos($URI, 'themes.php') !== false): ?>
+	<div id="menu2">
+		<a onclick="goToUrl('#themeMain');" > Themes </a>
+		<a onclick="goToUrl('#settingsColorFolderVars');" > Theme Options </a>
+		<a onclick="goToUrl('#settingsColorFolderGroupVars');" > Tab Style </a>
+	</div>
+<?php elseif(strpos($URI, 'advanced.php') !== false): ?>
+	<div id="menu2">
+		<a onclick="goToUrl('#advancedConfig');" > Advanced </a>
+		<a onclick="goToUrl('#devAdvanced');" > Dev </a>
+		<a onclick="goToUrl('#pollAdvanced');" > Poll</a>
+		<a onclick="goToUrl('#loggingDisplay');" > Logs </a>
+		<a onclick="goToUrl('#jsPhpSend');" > Reporting </a>
+		<a onclick="goToUrl('#locationOtherApps');" > Apps </a>
+		<a onclick="goToUrl('#moreAdvanced');" > Actions </a>
+		<a onclick="goToUrl('#expFeatures');" > Experimental </a>
+	</div>
 <?php endif;
 $baseUrlImages = $localURL;
 ?>
