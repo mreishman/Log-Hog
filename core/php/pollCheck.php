@@ -68,8 +68,10 @@ function sizeFilesInDir($path, $filter, $response, $shellOrPhp)
 	return $response;
 }
 
-foreach($watchList as $path => $filter)
+foreach($watchList as $key => $value)
 {
+	$path = $value["Location"];
+	$filter = $value["Pattern"];
 	if(is_dir($path))
 	{
 		$response = sizeFilesInDir($path, $filter, $response, $shellOrPhp);

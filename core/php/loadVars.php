@@ -156,7 +156,18 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 	{
 		for($i = 1; $i <= $_POST['numberOfRows']; $i++ )
 		{
-			$arrayWatchList .= "'".$_POST['watchListKey'.$i]."' => '".$_POST['watchListItem'.$i]."'";
+			$j = 0;
+			$arrayWatchList .= "'".$_POST['watchListKey'.$i]."' => array(";
+			while (isset($_POST['watchListItem'.$j]))
+			{
+				$arrayWatchList .= "'".$_POST['watchListKey'.$j]."' => '".$_POST['watchListItem'.$j]."'";
+				if(isset($_POST['watchListItem'.($j+1)]))
+				{
+					$arrayWatchList .= ",";
+				}
+				$j++;
+			}
+			$arrayWatchList .= ")";
 			if($i != $_POST['numberOfRows'])
 			{
 				$arrayWatchList .= ",";
@@ -170,7 +181,17 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 		foreach ($watchList as $key => $value)
 		{
 			$i++;
-			$arrayWatchList .= "'".$key."' => '".$value."'";
+			$arrayWatchList .= "'".$key."' => array(";
+			$numberOfRows2 = count($value);
+			foreach ($value as $key2 => $value2)
+			{
+				$arrayWatchList .= "'".$key2."' => '".$value2."'";
+				if($i != $numberOfRows2)
+				{
+					$arrayWatchList .= ",";
+				}
+			}
+			$arrayWatchList .= ")";
 			if($i != $numberOfRows)
 			{
 				$arrayWatchList .= ",";

@@ -15,7 +15,7 @@ $defaultConfig = array(
 	'branchSelected'				=> 'default',
 	'buffer'						=> 500,
 	'caseInsensitiveSearch'			=> 'true',
-	'configVersion'					=> 2,
+	'configVersion'					=> 3,
 	'cssVersion'					=> 1,
 	'currentFolderColorTheme'		=> 'theme-default-2',
 	'currentTheme'					=> 'Default',
@@ -291,9 +291,18 @@ $defaultConfig = array(
 	'updateNoticeMeter'				=> 'every',
 	'updateNotificationEnabled'		=> 'true',
 	'watchList'		=> array(
-		'/var/www/html/var/log/system.log'	        => '',
-		'/var/log/hhvm/error.log'	=> '',
-		'/var/log/apache2'			=> '.log$'
+		'System Log'	    => array(
+			"Location"			=>	"/var/www/html/var/log/system.log",
+			"Pattern"			=>	""
+		),
+		'HHVM'				=> array(
+			"Location"			=>	"/var/log/hhvm/error.log",
+			"Pattern"			=>	""
+		),
+		'Apache2'			=> array(
+			"Location"			=>	"/var/log/apache2",
+			"Pattern"			=>	".log$"
+		)
 	),
 	'windowConfig'					=> '1x1'
 );
