@@ -156,17 +156,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 	{
 		for($i = 1; $i <= $_POST['numberOfRows']; $i++ )
 		{
-			$j = 0;
 			$arrayWatchList .= "'".$_POST['watchListKey'.$i]."' => array(";
-			while (isset($_POST['watchListItem'.$j]))
-			{
-				$arrayWatchList .= "'".$_POST['watchListKey'.$j]."' => '".$_POST['watchListItem'.$j]."'";
-				if(isset($_POST['watchListItem'.($j+1)]))
-				{
-					$arrayWatchList .= ",";
-				}
-				$j++;
-			}
+			$arrayWatchList .= "'Location' => '".$_POST['watchListKey'.$i.'Location']."',";
+			$arrayWatchList .= "'Pattern' => '".$_POST['watchListKey'.$i.'Pattern']."'";
 			$arrayWatchList .= ")";
 			if($i != $_POST['numberOfRows'])
 			{

@@ -503,6 +503,9 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 		<div id="fullScreenMenuWhatsNew" style="display: none;" >
 			<?php readfile('core/html/whatsNew.html'); ?>
 		</div>
+		<div id="fullScreenMenuAbout" style="display: none;" >
+			<?php require_once('../core/php/template/about.php'); ?>
+		</div>
 	</div>
 
 	<form id="settingsInstallUpdate" action="update/updater.php" method="post" style="display: none"></form>
