@@ -1,5 +1,5 @@
 <?php require_once(baseUrl().'core/php/themeFunctions.php'); ?>
-<div class="settingsHeader">
+<div id="themeMain" class="settingsHeader">
 Theme Selector
 </div>
 <div class="settingsDiv" >

@@ -318,7 +318,7 @@ $countConfig--;
 			</ul>
 		</div>
 	</form>
-		<div class="settingsHeader">
+		<div id="moreAdvanced" class="settingsHeader">
 			Advanced
 		</div>
 		<div class="settingsDiv" >
