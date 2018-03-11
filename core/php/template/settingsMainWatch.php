@@ -26,6 +26,7 @@
 		$fileImage = "{{fileImage}}";
 		$location = "{{location}}";
 		$pattern = "{{pattern}}";
+		$key = "{{key}}";
 
 		if(isset($data["rowNumber"]))
 		{
@@ -61,14 +62,20 @@
 			$pattern = $data["pattern"];
 		}
 
+		if(isset($data["key"]))
+		{
+			$key = $data["key"];
+		}
+
 		$saveBlock = "<li class=\"watchRow\" id=\"rowNumber".$rowNumber."\" >";
 		$saveBlock .= "File ".$fileNumber.":";
 		$saveBlock .= "<div id=\"infoFile".$rowNumber."\" style=\"width: 100px; display: inline-block; text-align: center;\">";
 		$saveBlock .= $filePermsDisplay;
 		$saveBlock .= "</div>";
 		$saveBlock .= $fileImage;
-		$saveBlock .=  "<input style=\"width: 480px;\" type=\"text\" name=\"watchListKey".$rowNumber."\" value=\"".$location."\" >";
-		$saveBlock .= "<input type=\"text\" name=\"watchListItem".$rowNumber."\" value=\"".$pattern."\" >";
+		$saveBlock .= "<input style=\"width: 480px;\" type=\"text\" name=\"watchListKey".$rowNumber."\" value=\"".$key."\" >";
+		$saveBlock .= "<input style=\"width: 480px;\" type=\"text\" name=\"watchListKey".$rowNumber."Location\" value=\"".$location."\" >";
+		$saveBlock .= "<input type=\"text\" name=\"watchListKey".$rowNumber."Pattern\" value=\"".$pattern."\" >";
 		$saveBlock .= "<a class=\"deleteIconPosition\"	onclick=\"deleteRowFunctionPopup(".$rowNumber.", true, '".$location."');\"	>";
 		$saveBlock .= $defaultTrashCanIcon;
 		$saveBlock .= "</a> </li>";
@@ -78,7 +85,7 @@
 
 	$i = 0;
 	$triggerSaveUpdate = false;
-	foreach($watchlist as $fileName => $values)
+	foreach($watchlist as $key => $values)
 	{
 		$i++;
 		$location = $values["Location"];
@@ -141,7 +148,8 @@
 				"filePermsDisplay"	=>	$info,
 				"fileImage"			=>	$fileImage,
 				"location"			=>	$location,
-				"pattern"			=>	$pattern
+				"pattern"			=>	$pattern,
+				"key"				=>	$key
 			)
 		);
 	
