@@ -105,8 +105,7 @@ $aboutImage = generateImage(
 	$arrayOfImages["info"],
 	array(
 		"style"			=>	"margin-bottom: -7px;",
-		"height"		=>	"30px",
-		"srcModifier"	=>	"../"
+		"height"		=>	"30px"
 	)
 );
 
@@ -248,7 +247,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 		</div>
 	<div class="backgroundForMenus" id="header" >
 		<div id="menuButtons" style="display: block;">
-			<div onclick=""  class="menuImageDiv">
+			<div onclick="toggleFullScreenMenu();"  class="menuImageDiv">
 				<?php echo generateImage(
 					$arrayOfImages["menu"],
 					$imageConfig = array(
@@ -257,6 +256,27 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 						"height"	=>	"30px"
 						)
 					);
+				?>
+			</div>
+			<div class="menuImageDiv" id="notificationDiv" onclick="toggleNotifications();" >
+				<?php echo generateImage(
+					$arrayOfImages["notification"],
+					$imageConfig = array(
+						"id"		=>	"notificationNotClicked",
+						"class"		=>	"menuImage",
+						"height"	=>	"30px"
+						)
+					); 
+				?>
+				<?php echo generateImage(
+					$arrayOfImages["notificationFull"],
+					$imageConfig = array(
+						"id"		=>	"notificationClicked",
+						"class"		=>	"menuImage",
+						"height"	=>	"30px",
+						"style"		=>  "display: none;"
+						)
+					); 
 				?>
 			</div>
 			<div onclick="pausePollAction();" class="menuImageDiv">
@@ -339,106 +359,6 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 					?>
 				</div>
 			<?php endif; ?>
-			<?php 
-			/*
-			if($locationForMonitorIndex["loc"]): ?>
-				<div onclick="window.location.href = '<?php echo $locationForMonitorIndex["loc"]; ?>'"  class="menuImageDiv">
-					<?php echo generateImage(
-						$arrayOfImages["taskManager"],
-						$imageConfig = array(
-							"id"		=>	"taskmanagerImage",
-							"class"		=>	"menuImage",
-							"height"	=>	"30px"
-							)
-						);
-					?>
-				</div>
-			<?php endif; ?>
-			<?php if($locationForSearchIndex["loc"]): ?>
-				<div onclick="window.location.href = '<?php echo $locationForSearchIndex["loc"]; ?>'"  class="menuImageDiv">
-					<?php echo generateImage(
-						$arrayOfImages["search"],
-						$imageConfig = array(
-							"id"		=>	"searchImage",
-							"class"		=>	"menuImage",
-							"height"	=>	"30px"
-							)
-						); 
-					?>
-				</div>
-			<?php endif; ?>
-			<?php if($locationForSeleniumMonitorIndex["loc"]): ?>
-				<div onclick="window.location.href = '<?php echo $locationForSeleniumMonitorIndex["loc"]; ?>'"  class="menuImageDiv">
-					<?php echo generateImage(
-						$arrayOfImages["seleniumMonitor"],
-						$imageConfig = array(
-							"id"		=>	"seleniumMonitorImage",
-							"class"		=>	"menuImage",
-							"height"	=>	"30px"
-							)
-						); 
-					?>
-				</div>
-			<?php endif; ?>
-			<?php if ($locationForStatusIndex["loc"]):?>
-				<div onclick="window.location.href='<?php echo $locationForStatusIndex["loc"]; ?>'" class="menuImageDiv">
-					<?php echo generateImage(
-						$arrayOfImages["gitStatus"],
-						$imageConfig = array(
-							"id"		=>	"gitStatusImage",
-							"class"		=>	"menuImage",
-							"height"	=>	"30px"
-							)
-						); 
-					?>
-				</div>
-			<?php endif; 
-			*/
-			?>
-			<div class="menuImageDiv" id="notificationDiv" onclick="toggleNotifications();" >
-				<?php echo generateImage(
-					$arrayOfImages["notification"],
-					$imageConfig = array(
-						"id"		=>	"notificationNotClicked",
-						"class"		=>	"menuImage",
-						"height"	=>	"30px"
-						)
-					); 
-				?>
-				<?php echo generateImage(
-					$arrayOfImages["notificationFull"],
-					$imageConfig = array(
-						"id"		=>	"notificationClicked",
-						"class"		=>	"menuImage",
-						"height"	=>	"30px",
-						"style"		=>  "display: none;"
-						)
-					); 
-				?>
-			</div>
-			<div onclick="window.location.href = './settings/about.php'" class="menuImageDiv">
-				<?php echo generateImage(
-					$arrayOfImages["info"],
-					$imageConfig = array(
-						"id"		=>	"aboutImage",
-						"class"		=>	"menuImage",
-						"height"	=>	"30px"
-						)
-					); 
-				?>
-			</div>
-			<div onclick="window.location.href = './settings/main.php';"  class="menuImageDiv">
-				<?php echo generateImage(
-					$arrayOfImages["gear"],
-					$imageConfig = array(
-						"id"		=>	"gear",
-						"class"		=>	"menuImage",
-						"height"	=>	"30px",
-						"data-id"	=>	"1"
-						)
-					);
-				?>
-			</div>
 			<span <?php if($hideClearAllNotifications === "true"){ echo "style=\" display: none; \""; }?> >
 				<div  id="clearNotificationsImage" style="display: none;" onclick="removeAllNotifications();" class="menuImageDiv">
 					<?php echo generateImage(
@@ -506,6 +426,119 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 	<?php readfile('core/html/indexStorage.html'); ?>
 
 	<div id="fullScreenMenu" style="display: none;">
+		<div style="padding: 5px 5px 10px 5px;" >
+			<div onclick="toggleFullScreenMenu();"  class="menuImageDiv">
+				<?php echo generateImage(
+					$arrayOfImages["menu"],
+					$imageConfig = array(
+						"id"		=>	"menuImage",
+						"class"		=>	"menuImage",
+						"height"	=>	"30px"
+						)
+					);
+				?>
+			</div>
+		</div>
+		<ul style="list-style: none;" >
+			<li onclick="window.location.href = './settings/about.php'" >
+				<div class="menuImageDiv">
+					<?php echo generateImage(
+						$arrayOfImages["info"],
+						$imageConfig = array(
+							"id"		=>	"aboutImage",
+							"class"		=>	"menuImage",
+							"height"	=>	"30px"
+							)
+						); 
+					?>
+				</div>
+				About
+			</li>
+			<li onclick="window.location.href = './settings/main.php';"  >
+				<div class="menuImageDiv">
+					<?php echo generateImage(
+						$arrayOfImages["gear"],
+						$imageConfig = array(
+							"id"		=>	"gear",
+							"class"		=>	"menuImage",
+							"height"	=>	"30px",
+							"data-id"	=>	"1"
+							)
+						);
+					?>
+				</div>
+				Settings
+			</li>
+			<?php if($locationForMonitorIndex["loc"] || $locationForSearchIndex["loc"] || $locationForSeleniumMonitorIndex["loc"] || $locationForStatusIndex["loc"]): ?>
+				<li>
+					Other Apps
+				</li>
+			<?php endif;?>
+			<?php if($locationForMonitorIndex["loc"]): ?>
+				<li>
+					<div onclick="window.location.href = '<?php echo $locationForMonitorIndex["loc"]; ?>'"  class="menuImageDiv">
+						<?php echo generateImage(
+							$arrayOfImages["taskManager"],
+							$imageConfig = array(
+								"id"		=>	"taskmanagerImage",
+								"class"		=>	"menuImage",
+								"height"	=>	"30px"
+								)
+							);
+						?>
+					</div>
+					Monitor
+				</li>
+			<?php endif; ?>
+			<?php if($locationForSearchIndex["loc"]): ?>
+				<li>
+					<div onclick="window.location.href = '<?php echo $locationForSearchIndex["loc"]; ?>'"  class="menuImageDiv">
+						<?php echo generateImage(
+							$arrayOfImages["search"],
+							$imageConfig = array(
+								"id"		=>	"searchImage",
+								"class"		=>	"menuImage",
+								"height"	=>	"30px"
+								)
+							); 
+						?>
+					</div>
+					Search
+				</li>
+			<?php endif; ?>
+			<?php if($locationForSeleniumMonitorIndex["loc"]): ?>
+				<li>
+					<div onclick="window.location.href = '<?php echo $locationForSeleniumMonitorIndex["loc"]; ?>'"  class="menuImageDiv">
+						<?php echo generateImage(
+							$arrayOfImages["seleniumMonitor"],
+							$imageConfig = array(
+								"id"		=>	"seleniumMonitorImage",
+								"class"		=>	"menuImage",
+								"height"	=>	"30px"
+								)
+							); 
+						?>
+					</div>
+					Selenium Monitor
+				</li>
+			<?php endif; ?>
+			<?php if ($locationForStatusIndex["loc"]):?>
+				<li>
+					<div onclick="window.location.href='<?php echo $locationForStatusIndex["loc"]; ?>'" class="menuImageDiv">
+						<?php echo generateImage(
+							$arrayOfImages["gitStatus"],
+							$imageConfig = array(
+								"id"		=>	"gitStatusImage",
+								"class"		=>	"menuImage",
+								"height"	=>	"30px"
+								)
+							); 
+						?>
+					</div>
+					gitStatus
+				</li>
+			<?php endif; ?>
+		</ul>
 		<div id="fullScreenMenuChangeLog" style="display: none;" >
 			<?php readfile('core/html/changelog.html'); ?>
 		</div>

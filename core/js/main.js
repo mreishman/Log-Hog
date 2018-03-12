@@ -2493,6 +2493,18 @@ function updateNotificationStuff()
 	showNotifications();
 }
 
+function toggleFullScreenMenu()
+{
+	if(document.getElementById("fullScreenMenu").style.display === "none")
+	{
+		document.getElementById("fullScreenMenu").style.display = "block";
+	}
+	else
+	{
+		document.getElementById("fullScreenMenu").style.display = "none";
+	}
+}
+
 $(document).ready(function()
 {
 	progressBar = new ldBar("#progressBar");

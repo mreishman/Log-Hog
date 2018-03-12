@@ -161,4 +161,16 @@ if(!($windowDisplayConfig[0] > 1 || $windowDisplayConfig[1] > 1)): ?>
 	<?php echo $scrollBarHandleHover; ?>
 }
 
+/* MOVE OUT OF HERE */
+#fullScreenMenu
+{
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,.7);
+	z-index: 25;
+}
+
 </style>

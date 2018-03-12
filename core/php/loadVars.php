@@ -177,10 +177,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 			{
 				$arrayWatchList .= "'".$key."' => array(";
 				$numberOfRows2 = count($value);
+				$j = 0;
 				foreach ($value as $key2 => $value2)
 				{
+					$j++;
 					$arrayWatchList .= "'".$key2."' => '".$value2."'";
-					if($i != $numberOfRows2)
+					if($j != $numberOfRows2)
 					{
 						$arrayWatchList .= ",";
 					}
