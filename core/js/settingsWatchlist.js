@@ -5,7 +5,7 @@ function generateRow(data)
 {
 	var item = $("#storage .saveBlock").html();
 	item = item.replace(/{{rowNumber}}/g, data["rowNumber"]);
-	item = item.replace(/{{fileNumber}}/g, data["fileName"]);
+	item = item.replace(/{{fileNumber}}/g, data["fileNumber"]);
 	item = item.replace(/{{filePermsDisplay}}/g, data["filePermsDisplay"]);
 	item = item.replace(/{{fileImage}}/g, data["fileImage"]);
 	item = item.replace(/{{location}}/g, data["location"]);
@@ -93,14 +93,17 @@ function deleteRowFunction(currentRow, decreaseCountWatchListNum)
 						{
 							rowNumber: updateItoIMinusOne,
 							fileNumber: fileName,
-							filePermsDisplay: $("infoFile"+i).html(),
-							fileImage: $("#ImageFile"+i).html();,
+							filePermsDisplay: $("#infoFile"+i).html(),
+							fileImage: $("#imageFile"+i).html(),
 							location: document.getElementsByName("watchListKey"+i+"Location")[0].value,
 							pattern: document.getElementsByName("watchListKey"+i+"Pattern")[0].value,
 							key: document.getElementsByName("watchListKey"+i)[0].value,
 						}
 					);
+					//add new one
 					$(".uniqueClassForAppendSettingsMainWatchNew").append(item);
+					//remove old one
+					$("#rowNumber"+i).remove();
 				}
 			}
 			newValue--;
