@@ -426,7 +426,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 	<?php readfile('core/html/indexStorage.html'); ?>
 
 	<div id="fullScreenMenu" style="display: none;">
-		<div style="padding: 5px 5px 10px 5px;" >
+		<div style="padding: 5px 5px 10px 5px; border-bottom: 1px solid white;" >
 			<div onclick="toggleFullScreenMenu();"  class="menuImageDiv">
 				<?php echo generateImage(
 					$arrayOfImages["menu"],
@@ -439,7 +439,10 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 				?>
 			</div>
 		</div>
-		<ul style="list-style: none;" >
+		<ul id="settingsUl" style="width: 200px; position: absolute; bottom: 0; top: 46px; left: 0; -webkit-padding-start: 0; background-color: black; -webkit-margin-before: 0; -webkit-margin-after: 0; border-right: 1px solid white; overflow: auto;">
+			<li style="background-color: white; color: black;" >
+					Main Menu
+				</li>
 			<li onclick="window.location.href = './settings/about.php'" >
 				<div class="menuImageDiv">
 					<?php echo generateImage(
@@ -470,7 +473,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 				Settings
 			</li>
 			<?php if($locationForMonitorIndex["loc"] || $locationForSearchIndex["loc"] || $locationForSeleniumMonitorIndex["loc"] || $locationForStatusIndex["loc"]): ?>
-				<li>
+				<li style="background-color: white; color: black;" >
 					Other Apps
 				</li>
 			<?php endif;?>
