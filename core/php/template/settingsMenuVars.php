@@ -14,6 +14,7 @@ Menu Settings
 			<select name="truncateLog">
 				<option <?php if($truncateLog == 'true'){echo "selected";} ?> value="true">All Logs</option>
 				<option <?php if($truncateLog == 'false'){echo "selected";} ?> value="false">Current Log</option>
+				<option <?php if($truncateLog == 'hide'){echo "selected";} ?> value="hide">Hide</option>
 			</select>
 		</div>
 	</li>

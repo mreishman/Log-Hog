@@ -29,13 +29,7 @@ require_once('../core/php/updateCheck.php');
 	<?php require_once('header2.php'); ?>
 	<div id="main">
 		<?php
-		$aboutImage = generateImage(
-		$arrayOfImages["info"],
-		array(
-			"style"			=>	"margin-bottom: -7px;",
-			"height"		=>	"30px",
-			"srcModifier"	=>	"../"
-		));
+		$aboutImage = "<img src=\"../core/img/LogHog.png\" width=\"100px\" style=\"margin-bottom: -40px;\" >";
 		require_once('../core/php/template/about.php');
 		?>
 	</div>

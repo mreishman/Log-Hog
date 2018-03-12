@@ -101,13 +101,7 @@ elseif($loadingBarVersion === 6)
 	$loadingBarStyle = "data-type=\"stroke\"  data-stroke=\"data:ldbar/res,bubble(#ffae42,#000,50,2)\" data-stroke-trail=\"#924012\" data-pattern-size=\"20\" ".$loadingBarDefaultWidth;
 }
 
-$aboutImage = generateImage(
-	$arrayOfImages["info"],
-	array(
-		"style"			=>	"margin-bottom: -7px;",
-		"height"		=>	"30px"
-	)
-);
+$aboutImage = "<img src=\"core/img/LogHog.png\" width=\"100px\" style=\"margin-bottom: -40px;\" >";
 
 
 $windowDisplayConfig = explode("x", $windowConfig);
@@ -346,7 +340,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 						);
 					?>
 				</div>
-			<?php else: ?>
+			<?php elseif($truncateLog == 'false'): ?>
 				<div onclick="clearLog(currentSelectWindow);" class="menuImageDiv">
 					<?php echo generateImage(
 						$arrayOfImages["eraser"],
@@ -440,7 +434,10 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 			</div>
 		</div>
 		<ul id="settingsUl" style="width: 200px; position: absolute; bottom: 0; top: 46px; left: 0; -webkit-padding-start: 0; background-color: black; -webkit-margin-before: 0; -webkit-margin-after: 0; border-right: 1px solid white; overflow: auto;">
-			<li style="background-color: white; color: black;" >
+			<li style="text-align: center;" >
+				Log-Hog
+			</li>
+			<li style="background-color: #999; color: black;" >
 					Main Menu
 				</li>
 			<li onclick="window.location.href = './settings/about.php'" >
@@ -473,7 +470,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 				Settings
 			</li>
 			<?php if($locationForMonitorIndex["loc"] || $locationForSearchIndex["loc"] || $locationForSeleniumMonitorIndex["loc"] || $locationForStatusIndex["loc"]): ?>
-				<li style="background-color: white; color: black;" >
+				<li style="background-color: #999; color: black;" >
 					Other Apps
 				</li>
 			<?php endif;?>
