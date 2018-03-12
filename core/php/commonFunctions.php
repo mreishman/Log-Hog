@@ -534,26 +534,24 @@ function generateImage($imageArray, $customConfig)
 	return $image;
 }
 
-function upgradeConfig($configVersionStatic)
+function upgradeConfig($newSaveStuff = array())
 {
 	$baseBaseUrl = baseURL();
 	$baseUrl = $baseBaseUrl."local/";
-	require_once($baseUrl.'layout.php');
+	include($baseUrl.'layout.php');
 	$baseUrl .= $currentSelectedTheme."/";
-	require_once($baseUrl.'conf/config.php');
-	require_once($baseBaseUrl.'core/conf/config.php');
+	include($baseUrl.'conf/config.php');
+	include($baseBaseUrl.'core/conf/config.php');
 	$currentTheme = loadSpecificVar($defaultConfig, $config, "currentTheme");
 	if(is_dir($baseBaseUrl.'local/'.$currentSelectedTheme.'/Themes/'.$currentTheme))
 	{
-		require_once($baseBaseUrl.'local/'.$currentSelectedTheme.'/Themes/'.$currentTheme."/defaultSetting.php");
+		include($baseBaseUrl.'local/'.$currentSelectedTheme.'/Themes/'.$currentTheme."/defaultSetting.php");
 	}
 	else
 	{
-		require_once($baseBaseUrl.'core/Themes/'.$currentTheme."/defaultSetting.php");
+		include($baseBaseUrl.'core/Themes/'.$currentTheme."/defaultSetting.php");
 	}
-	require_once($baseBaseUrl.'core/php/loadVars.php');
-
-	$configVersion = $configVersionStatic;
+	include($baseBaseUrl.'core/php/loadVars.php');
 
 	$fileName = ''.$baseUrl.'conf/config.php';
 	$newInfoForConfig = "<?php
@@ -561,7 +559,11 @@ function upgradeConfig($configVersionStatic)
 		";
 	foreach ($defaultConfig as $key => $value)
 	{
-		if(
+		if(isset($newSaveStuff[$key]))
+		{
+			$newInfoForConfig .= putIntoCorrectFormat($key, $newSaveStuff[$key], $value);
+		}
+		elseif(
 			$$key !== $defaultConfig[$key] &&
 			(
 				!isset($themeDefaultSettings) ||

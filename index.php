@@ -243,7 +243,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 				<?php echo generateImage(
 					$arrayOfImages["menu"],
 					$imageConfig = array(
-						"id"		=>	"menu",
+						"id"		=>	"menuImage",
 						"class"		=>	"menuImage",
 						"height"	=>	"30px"
 						)
@@ -504,7 +504,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 			<?php readfile('core/html/whatsNew.html'); ?>
 		</div>
 		<div id="fullScreenMenuAbout" style="display: none;" >
-			<?php require_once('../core/php/template/about.php'); ?>
+			<?php require_once('core/php/template/about.php'); ?>
 		</div>
 	</div>
 

@@ -173,17 +173,24 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 		foreach ($watchList as $key => $value)
 		{
 			$i++;
-			$arrayWatchList .= "'".$key."' => array(";
-			$numberOfRows2 = count($value);
-			foreach ($value as $key2 => $value2)
+			if(is_array($value))
 			{
-				$arrayWatchList .= "'".$key2."' => '".$value2."'";
-				if($i != $numberOfRows2)
+				$arrayWatchList .= "'".$key."' => array(";
+				$numberOfRows2 = count($value);
+				foreach ($value as $key2 => $value2)
 				{
-					$arrayWatchList .= ",";
+					$arrayWatchList .= "'".$key2."' => '".$value2."'";
+					if($i != $numberOfRows2)
+					{
+						$arrayWatchList .= ",";
+					}
 				}
+				$arrayWatchList .= ")";
 			}
-			$arrayWatchList .= ")";
+			else
+			{
+				$arrayWatchList .= "'".$key."' => '".$value."'";
+			}
 			if($i != $numberOfRows)
 			{
 				$arrayWatchList .= ",";
