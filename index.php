@@ -101,6 +101,15 @@ elseif($loadingBarVersion === 6)
 	$loadingBarStyle = "data-type=\"stroke\"  data-stroke=\"data:ldbar/res,bubble(#ffae42,#000,50,2)\" data-stroke-trail=\"#924012\" data-pattern-size=\"20\" ".$loadingBarDefaultWidth;
 }
 
+$aboutImage = generateImage(
+	$arrayOfImages["info"],
+	array(
+		"style"			=>	"margin-bottom: -7px;",
+		"height"		=>	"30px",
+		"srcModifier"	=>	"../"
+	)
+);
+
 
 $windowDisplayConfig = explode("x", $windowConfig);
 $logDisplayArray = "{";
