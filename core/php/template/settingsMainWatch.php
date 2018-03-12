@@ -105,12 +105,14 @@
 		$saveBlock .= $filePermsDisplay;
 		$saveBlock .= "</div>";
 		$saveBlock .= "<span id=\"imageFile".$rowNumber."\" >".$fileImage."</span>";
-		$saveBlock .= "<input style=\"width: 480px;\" type=\"text\" name=\"watchListKey".$rowNumber."\" value=\"".$key."\" >";
-		$saveBlock .= "<input style=\"width: 480px;\" type=\"text\" name=\"watchListKey".$rowNumber."Location\" value=\"".$location."\" >";
-		$saveBlock .= "<input type=\"text\" name=\"watchListKey".$rowNumber."Pattern\" value=\"".$pattern."\" >";
+		$saveBlock .= "<input type=\"text\" name=\"watchListKey".$rowNumber."\" value=\"".$key."\" >";
 		$saveBlock .= "<a class=\"deleteIconPosition\"	onclick=\"deleteRowFunctionPopup(".$rowNumber.", true, '".$location."');\"	>";
 		$saveBlock .= $defaultTrashCanIcon;
-		$saveBlock .= "</a> </li>";
+		$saveBlock .= "</a>";
+		$saveBlock .= "<br><ul>";
+		$saveBlock .= "<li>Location: <input style=\"width: 480px;\" type=\"text\" name=\"watchListKey".$rowNumber."Location\" value=\"".$location."\" ></li>";
+		$saveBlock .= "<li>Pattern: <input type=\"text\" name=\"watchListKey".$rowNumber."Pattern\" value=\"".$pattern."\" ></li>";
+		$saveBlock .= "</ul></li>";
 
 		return $saveBlock;
 	}
