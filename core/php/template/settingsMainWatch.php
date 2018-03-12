@@ -50,7 +50,7 @@
 		)
 	);
 
-	function generateSaveBlock($data = array())
+	function generateSaveBlock($data = array(), $defaultTrashCanIcon)
 	{
 		$rowNumber = "{{rowNumber}}";
 		$fileNumber = "{{fileNumber}}";
@@ -117,7 +117,7 @@
 
 	$i = 0;
 	$triggerSaveUpdate = false;
-	foreach($watchlist as $key => $values)
+	foreach($watchList as $key => $values)
 	{
 		$i++;
 		$location = $values["Location"];
@@ -162,7 +162,8 @@
 				"location"			=>	$location,
 				"pattern"			=>	$pattern,
 				"key"				=>	$key
-			)
+			),
+			$defaultTrashCanIcon
 		);
 	
 	}
@@ -242,7 +243,7 @@
 </form>
 <div id="storage">
 	<div class="saveBlock">
-		<?php echo generateSaveBlock(); ?>
+		<?php echo generateSaveBlock(array(), $defaultTrashCanIcon); ?>
 	</div>
 </div>
 <script type="text/javascript">

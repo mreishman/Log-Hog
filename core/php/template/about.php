@@ -5,14 +5,7 @@
 	<ul id="settingsUl">
 		<li>
 			<h2>
-				<?php echo generateImage(
-					$arrayOfImages["info"],
-					array(
-						"style"			=>	"margin-bottom: -7px;",
-						"height"		=>	"30px",
-						"srcModifier"	=>	"../"
-					)
-				); ?>
+				<?php echo $aboutImage; ?>
 				Version - <?php echo $configStatic['version'];?>
 			</h2>
 		</li>

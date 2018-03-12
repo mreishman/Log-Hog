@@ -501,7 +501,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 			<?php readfile('core/html/changelog.html'); ?>
 		</div>
 		<div id="fullScreenMenuWhatsNew" style="display: none;" >
-			<?php readfile('core/html/whatsNew.html'); ?>
+			<?php //readfile('core/html/whatsNew.html'); ?>
 		</div>
 		<div id="fullScreenMenuAbout" style="display: none;" >
 			<?php require_once('core/php/template/about.php'); ?>
