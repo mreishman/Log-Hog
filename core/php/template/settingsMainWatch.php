@@ -18,6 +18,38 @@
 		)
 	);
 
+	$defaultRedErrorIcon = generateImage(
+		$arrayOfImages["redWarning"],
+		array(
+			"width"			=>	"15px",
+			"srcModifier"	=>	"../"
+		)
+	);
+
+	$defaultYellowErrorIcon = generateImage(
+		$arrayOfImages["yellowWarning"],
+		array(
+			"width"			=>	"15px",
+			"srcModifier"	=>	"../"
+		)
+	);
+
+	$defaultFolderIcon = generateImage(
+		$arrayOfImages["folderIcon"],
+		array(
+			"width"			=>	"15px",
+			"srcModifier"	=>	"../"
+		)
+	);
+
+	$defaultFileIcon = generateImage(
+		$arrayOfImages["fileIcon"],
+		array(
+			"width"			=>	"15px",
+			"srcModifier"	=>	"../"
+		)
+	);
+
 	function generateSaveBlock($data = array())
 	{
 		$rowNumber = "{{rowNumber}}";
@@ -72,7 +104,7 @@
 		$saveBlock .= "<div id=\"infoFile".$rowNumber."\" style=\"width: 100px; display: inline-block; text-align: center;\">";
 		$saveBlock .= $filePermsDisplay;
 		$saveBlock .= "</div>";
-		$saveBlock .= $fileImage;
+		$saveBlock .= "<span id=\"imageFile".$rowNumber."\" >".$fileImage."</span>";
 		$saveBlock .= "<input style=\"width: 480px;\" type=\"text\" name=\"watchListKey".$rowNumber."\" value=\"".$key."\" >";
 		$saveBlock .= "<input style=\"width: 480px;\" type=\"text\" name=\"watchListKey".$rowNumber."Location\" value=\"".$location."\" >";
 		$saveBlock .= "<input type=\"text\" name=\"watchListKey".$rowNumber."Pattern\" value=\"".$pattern."\" >";
@@ -98,47 +130,27 @@
 			$triggerSaveUpdate = true;
 		}
 
-		$fileImage = generateImage(
-			$arrayOfImages["yellowWarning"],
-			array(
-				"width"			=>	"15px",
-				"id"			=>	"fileNotFoundImage".$i,
-				"srcModifier"	=>	"../"
-			)
-		);
+		$fileImage = $defaultYellowErrorIcon;
 
 		if(!file_exists($location))
 		{
-			$fileImage = generateImage(
-				$arrayOfImages["redWarning"],
-				array(
-					"width"			=>	"15px",
-					"id"			=>	"fileNotFoundImage".$i,
-					"srcModifier"	=>	"../"
-				)
-			);
+			$fileImage = $defaultRedErrorIcon;
 		}
 		elseif(is_dir($location))
 		{
-			$fileImage = generateImage(
-				$arrayOfImages["folderIcon"],
-				array(
-					"width"			=>	"15px",
-					"id"			=>	"fileNotFoundImage".$i,
-					"srcModifier"	=>	"../"
-				)
-			);
+			if(is_readable($location))
+			{
+				//add icon here?
+			}
+			$fileImage = $defaultFolderIcon;
 		}
 		elseif(is_file($location))
 		{
-			$fileImage = generateImage(
-				$arrayOfImages["fileIcon"],
-				array(
-					"width"			=>	"15px",
-					"id"			=>	"fileNotFoundImage".$i,
-					"srcModifier"	=>	"../"
-				)
-			);
+			if(is_readable($location))
+			{
+				//add icon here?
+			}
+			$fileImage = $defaultFileIcon;
 		}
 
 		echo generateSaveBlock(

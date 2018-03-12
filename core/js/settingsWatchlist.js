@@ -88,34 +88,16 @@ function deleteRowFunction(currentRow, decreaseCountWatchListNum)
 						fileName += "0";
 					}
 					fileName += updateItoIMinusOne;
-					var nameForId = "fileNotFoundImage" + i;
-					var elementByIdPreCheck = document.getElementById(nameForId);
-					var elementByIdAlsoPreCheck = document.getElementById("infoFile"+i);
-					if(elementByIdPreCheck !== null && elementByIdAlsoPreCheck !== null)
-					{
-						documentUpdateText += updateItoIMinusOne+": ";
-						elementByIdAlsoPreCheck.id = "infoFile"+updateItoIMinusOne;
-						documentUpdateText += elementByIdAlsoPreCheck.html();
-						elementByIdPreCheck.id = "fileNotFoundImage"+updateItoIMinusOne;
-						documentUpdateText += elementByIdPreCheck.html();
-					}
-					else
-					{
-						documentUpdateText += updateItoIMinusOne+": <div style=\"width: 130px; display: inline-block; text-align: center;\">----------</div>";
-					}
-					documentUpdateText += "<input style='width: 480px' type='text' name='watchListKey"+updateItoIMinusOne+"' value=''> ";
-					documentUpdateText += "<input type='text' name='watchListItem"+updateItoIMinusOne+"' value=''>";
-					documentUpdateText += " <a class='deleteIconPosition' onclick='deleteRowFunctionPopup("+updateItoIMinusOne+", true,\"\")'>"+defaultTrashCanIcon+"</a>";
 
 					var item = generateRow(
 						{
 							rowNumber: updateItoIMinusOne,
 							fileNumber: fileName,
-							filePermsDisplay: "----------",
-							fileImage: "",
-							location: document.getElementsByName("watchListKey"+1+"Location")[0].value,
-							pattern: document.getElementsByName("watchListKey"+1+"Pattern")[0].value,
-							key: document.getElementsByName("watchListKey"+1)[0].value,
+							filePermsDisplay: $("infoFile"+i).html(),
+							fileImage: $("#ImageFile"+i).html();,
+							location: document.getElementsByName("watchListKey"+i+"Location")[0].value,
+							pattern: document.getElementsByName("watchListKey"+i+"Pattern")[0].value,
+							key: document.getElementsByName("watchListKey"+i)[0].value,
 						}
 					);
 					$(".uniqueClassForAppendSettingsMainWatchNew").append(item);
@@ -139,9 +121,10 @@ function checkWatchList()
 		var blankValue = false;
 		for (var i = 1; i <= countOfWatchList; i++) 
 		{
-			if(document.getElementsByName("watchListKey"+i)[0].value === "")
+			if(document.getElementsByName("watchListKey"+i)[0].value === "" || document.getElementsByName("watchListKey"+i+"Location")[0].value === "")
 			{
 				blankValue = true;
+				break;
 			}
 		}
 		if(blankValue && popupSettingsArray.blankFolder === "true")
