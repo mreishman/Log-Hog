@@ -475,8 +475,8 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 				</li>
 			<?php endif;?>
 			<?php if($locationForMonitorIndex["loc"]): ?>
-				<li>
-					<div onclick="window.location.href = '<?php echo $locationForMonitorIndex["loc"]; ?>'"  class="menuImageDiv">
+				<li onclick="window.location.href = '<?php echo $locationForMonitorIndex["loc"]; ?>'" >
+					<div class="menuImageDiv">
 						<?php echo generateImage(
 							$arrayOfImages["taskManager"],
 							$imageConfig = array(
@@ -491,8 +491,8 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 				</li>
 			<?php endif; ?>
 			<?php if($locationForSearchIndex["loc"]): ?>
-				<li>
-					<div onclick="window.location.href = '<?php echo $locationForSearchIndex["loc"]; ?>'"  class="menuImageDiv">
+				<li onclick="window.location.href = '<?php echo $locationForSearchIndex["loc"]; ?>'" >
+					<div class="menuImageDiv">
 						<?php echo generateImage(
 							$arrayOfImages["search"],
 							$imageConfig = array(
@@ -507,8 +507,8 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 				</li>
 			<?php endif; ?>
 			<?php if($locationForSeleniumMonitorIndex["loc"]): ?>
-				<li>
-					<div onclick="window.location.href = '<?php echo $locationForSeleniumMonitorIndex["loc"]; ?>'"  class="menuImageDiv">
+				<li onclick="window.location.href = '<?php echo $locationForSeleniumMonitorIndex["loc"]; ?>'" >
+					<div class="menuImageDiv">
 						<?php echo generateImage(
 							$arrayOfImages["seleniumMonitor"],
 							$imageConfig = array(
@@ -523,8 +523,8 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 				</li>
 			<?php endif; ?>
 			<?php if ($locationForStatusIndex["loc"]):?>
-				<li>
-					<div onclick="window.location.href='<?php echo $locationForStatusIndex["loc"]; ?>'" class="menuImageDiv">
+				<li onclick="window.location.href='<?php echo $locationForStatusIndex["loc"]; ?>'" >
+					<div class="menuImageDiv">
 						<?php echo generateImage(
 							$arrayOfImages["gitStatus"],
 							$imageConfig = array(

@@ -52,7 +52,7 @@ $countConfig--;
 			</div>
 		</div>
 		<div class="settingsDiv" >
-			<ul id="settingsUl">
+			<ul class="settingsUl">
 				<li>
 					<span class="settingsBuffer"> Branch: </span>
 					<div class="selectDiv">	
@@ -128,7 +128,7 @@ $countConfig--;
 			</div>
 		</div>
 		<div class="settingsDiv" >
-			<ul id="settingsUl">
+			<ul class="settingsUl">
 				<li>
 					<span class="settingsBuffer"> Enable Development Tools:</span>
 					<div class="selectDiv">
@@ -150,7 +150,7 @@ $countConfig--;
 			</div>
 		</div>
 		<div class="settingsDiv" >
-			<ul id="settingsUl">
+			<ul class="settingsUl">
 				<li>
 					<span class="settingsBuffer"> Poll refresh all data every </span>
 					<input type="number" pattern="[0-9]*" style="width: 100px;"  name="pollRefreshAll" value="<?php echo $pollRefreshAll;?>" > 
@@ -200,7 +200,7 @@ $countConfig--;
 			</div>
 		</div>
 		<div class="settingsDiv" >
-			<ul id="settingsUl">
+			<ul class="settingsUl">
 				<li>
 					<span class="settingsBuffer"> File Info Logging </span>
 					<div class="selectDiv">
@@ -246,7 +246,7 @@ $countConfig--;
 			</div>
 		</div>
 		<div class="settingsDiv" >
-			<ul id="settingsUl">
+			<ul class="settingsUl">
 				<li>
 					Send anonymous information about javascript errors/crashes:
 					<div class="selectDiv">
@@ -282,7 +282,7 @@ $countConfig--;
 			</div>
 		</div>
 		<div class="settingsDiv" >
-			<ul id="settingsUl">
+			<ul class="settingsUl">
 				<li>
 					<span class="settingsBuffer" >  Status Location:  </span> <input type="text" style="width: 400px;"  name="locationForStatus" value="<?php echo $locationForStatus;?>" > 
 					<br>
@@ -322,7 +322,7 @@ $countConfig--;
 			Advanced
 		</div>
 		<div class="settingsDiv" >
-			<ul id="settingsUl">
+			<ul class="settingsUl">
 				<li>
 					<a style="text-decoration: none;" href="../setup/step1.php" class="link">Re-do Setup</a>
 					<span> | </span>
@@ -345,7 +345,7 @@ $countConfig--;
 			</div>
 		</div>
 		<div class="settingsDiv" >
-			<ul id="settingsUl">
+			<ul class="settingsUl">
 				<li>
 					Log Layout
 					<?php $arrayOfwindowConfigOptions = array();

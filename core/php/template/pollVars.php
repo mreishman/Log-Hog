@@ -7,7 +7,7 @@ Poll Settings
 </div>
 </div>
 <div class="settingsDiv" >
-<ul id="settingsUl">
+<ul class="settingsUl">
 	<li>
 		<span class="settingsBuffer" > Polling Rate: </span>  <input type="number" pattern="[0-9]*" name="pollingRate" value="<?php echo $pollingRate;?>" >
 		<div class="selectDiv">

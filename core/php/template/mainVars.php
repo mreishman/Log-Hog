@@ -7,7 +7,7 @@ Other Settings
 </div>
 </div>
 <div class="settingsDiv" >
-<ul id="settingsUl">
+<ul class="settingsUl">
 	<li>
 		<span class="settingsBuffer" > Popup Warnings: </span>
 		<div class="selectDiv">
@@ -23,7 +23,7 @@ Other Settings
 			Popup Settings
 			</div>
 			<div class="settingsDiv" >
-			<ul id="settingsUl">
+			<ul class="settingsUl">
 			<?php foreach ($popupSettingsArray as $key => $value):?>
 				<li>
 				<span class="settingsBuffer" > <?php echo $key;?>: </span>
