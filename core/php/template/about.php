@@ -2,7 +2,7 @@
 	About
 </div>
 <div class="settingsDiv" >
-	<ul id="settingsUl">
+	<ul class="settingsUl">
 		<li>
 			<h2>
 				<?php echo $aboutImage; ?>
@@ -15,7 +15,7 @@
 	Info
 </div>
 <div class="settingsDiv" >
-	<ul id="settingsUl">
+	<ul class="settingsUl">
 		<li>
 			<h2>Log-Hog</h2>
 		</li>
@@ -37,7 +37,7 @@
 	GitHub
 </div>
 <div class="settingsDiv" >
-	<ul id="settingsUl">
+	<ul class="settingsUl">
 		<li>
 			<h2>Github</h2>
 		</li>

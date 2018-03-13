@@ -2505,6 +2505,49 @@ function toggleFullScreenMenu()
 	}
 }
 
+function toggleAbout()
+{
+	hideAboutStuff();
+	hideMainStuff();
+	document.getElementById("aboutSubMenu").style.display = "block";
+	$("#mainMenuAbout").addClass("selected");
+	toggleAboutLogHog();
+}
+
+function toggleAboutLogHog()
+{
+	hideAboutStuff();
+	document.getElementById("fullScreenMenuAbout").style.display = "block";
+	$("#aboutSubMenuAbout").addClass("selected");
+}
+
+function toggleWhatsNew()
+{
+	hideAboutStuff();
+	document.getElementById("fullScreenMenuWhatsNew").style.display = "block";
+	$("#aboutSubMenuWhatsNew").addClass("selected");
+}
+
+function toggleChangeLog()
+{
+	hideAboutStuff();
+	document.getElementById("fullScreenMenuChangeLog").style.display = "block";
+	$("#aboutSubMenuChangelog").addClass("selected");
+}
+
+function hideAboutStuff()
+{
+	document.getElementById("fullScreenMenuAbout").style.display = "none";
+	$("#aboutSubMenuAbout").removeClass("selected");
+	document.getElementById("fullScreenMenuChangeLog").style.display = "none";
+	$("#aboutSubMenuChangelog").removeClass("selected");
+}
+
+function hideMainStuff()
+{
+	$("#mainMenuAbout").removeClass("selected");
+}
+
 $(document).ready(function()
 {
 	progressBar = new ldBar("#progressBar");

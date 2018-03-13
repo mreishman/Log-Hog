@@ -7,7 +7,7 @@
 	</div>
 </div>
 <div class="settingsDiv" >	
-<ul id="settingsUl" class="uniqueClassForAppendSettingsMainWatchNew">
+<ul class="settingsUl" class="uniqueClassForAppendSettingsMainWatchNew">
 	<?php
 
 	$defaultTrashCanIcon = generateImage(
@@ -104,14 +104,14 @@
 		$saveBlock .= "<div id=\"infoFile".$rowNumber."\" style=\"width: 100px; display: inline-block; text-align: center;\">";
 		$saveBlock .= $filePermsDisplay;
 		$saveBlock .= "</div>";
-		$saveBlock .= "<span id=\"imageFile".$rowNumber."\" >".$fileImage."</span>";
-		$saveBlock .= "<input type=\"text\" name=\"watchListKey".$rowNumber."\" value=\"".$key."\" >";
+		$saveBlock .= "<span style=\"width: 25px; display: inline-block;\" id=\"imageFile".$rowNumber."\" >".$fileImage."</span>";
+		$saveBlock .= "<input type=\"hidden\" name=\"watchListKey".$rowNumber."\" value=\"FileOrFolder".$rowNumber."\" >";
 		$saveBlock .= "<a class=\"deleteIconPosition\"	onclick=\"deleteRowFunctionPopup(".$rowNumber.", true, '".$location."');\"	>";
 		$saveBlock .= $defaultTrashCanIcon;
 		$saveBlock .= "</a>";
-		$saveBlock .= "<br><ul>";
-		$saveBlock .= "<li>Location: <input style=\"width: 480px;\" type=\"text\" name=\"watchListKey".$rowNumber."Location\" value=\"".$location."\" ></li>";
-		$saveBlock .= "<li>Pattern: <input type=\"text\" name=\"watchListKey".$rowNumber."Pattern\" value=\"".$pattern."\" ></li>";
+		$saveBlock .= "<br><ul class=\"settingsUl\" >";
+		$saveBlock .= "<li><span class=\"settingsBuffer\" >Location: </span><input style=\"width: 480px;\" type=\"text\" name=\"watchListKey".$rowNumber."Location\" value=\"".$location."\" ></li>";
+		$saveBlock .= "<li><span class=\"settingsBuffer\" >Pattern: </span><input type=\"text\" name=\"watchListKey".$rowNumber."Pattern\" value=\"".$pattern."\" ></li>";
 		$saveBlock .= "</ul></li>";
 
 		return $saveBlock;
@@ -174,7 +174,7 @@
 	<div id="newRowLocationForWatchList">
 	</div>
 </ul>
-<ul id="settingsUl">
+<ul class="settingsUl">
 	<li>
 		<a class="link" onclick="addRowFunction()">+ Add New File / Folder</a>
 	</li>
@@ -184,7 +184,7 @@
 		</div>
 	</li>
 	<li>
-		<ul id="settingsUl">
+		<ul class="settingsUl">
 			<li>
 				<?php
 					echo generateImage(

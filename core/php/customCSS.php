@@ -173,4 +173,20 @@ if(!($windowDisplayConfig[0] > 1 || $windowDisplayConfig[1] > 1)): ?>
 	z-index: 25;
 }
 
+.fullScreenMenuUL li
+{
+	background-color: black;
+	color: white;
+}
+
+.fullScreenMenuUL li:not(.menuTitle)
+{
+	cursor: pointer;
+}
+
+.fullScreenMenuUL li:not(.menuTitle):hover, #fullScreenMenu .selected
+{
+	filter: invert();
+}
+
 </style>

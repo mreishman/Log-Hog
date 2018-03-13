@@ -433,14 +433,14 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 				?>
 			</div>
 		</div>
-		<ul id="settingsUl" style="width: 200px; position: absolute; bottom: 0; top: 46px; left: 0; -webkit-padding-start: 0; background-color: black; -webkit-margin-before: 0; -webkit-margin-after: 0; border-right: 1px solid white; overflow: auto;">
-			<li style="text-align: center;" >
+		<ul class="settingsUl fullScreenMenuUL" style="width: 200px; position: absolute; bottom: 0; top: 46px; left: 0; -webkit-padding-start: 0; background-color: black; -webkit-margin-before: 0; -webkit-margin-after: 0; border-right: 1px solid white; overflow: auto;">
+			<li class="menuTitle" style="text-align: center;" >
 				Log-Hog
 			</li>
-			<li style="background-color: #999; color: black;" >
+			<li class="menuTitle" style="background-color: #999; color: black;" >
 					Main Menu
 				</li>
-			<li onclick="window.location.href = './settings/about.php'" >
+			<li id="mainMenuAbout" class="selected" onclick="toggleAbout();" >
 				<div class="menuImageDiv">
 					<?php echo generateImage(
 						$arrayOfImages["info"],
@@ -470,7 +470,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 				Settings
 			</li>
 			<?php if($locationForMonitorIndex["loc"] || $locationForSearchIndex["loc"] || $locationForSeleniumMonitorIndex["loc"] || $locationForStatusIndex["loc"]): ?>
-				<li style="background-color: #999; color: black;" >
+				<li class="menuTitle" style="background-color: #999; color: black;" >
 					Other Apps
 				</li>
 			<?php endif;?>
@@ -539,14 +539,31 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 				</li>
 			<?php endif; ?>
 		</ul>
-		<div id="fullScreenMenuChangeLog" style="display: none;" >
-			<?php readfile('core/html/changelog.html'); ?>
-		</div>
-		<div id="fullScreenMenuWhatsNew" style="display: none;" >
-			<?php //readfile('core/html/whatsNew.html'); ?>
-		</div>
-		<div id="fullScreenMenuAbout" style="display: none;" >
-			<?php require_once('core/php/template/about.php'); ?>
+
+		<ul id="aboutSubMenu" class="settingsUl fullScreenMenuUL" style="width: 200px; position: absolute; bottom: 0; top: 46px; left: 201; -webkit-padding-start: 0; background-color: black; -webkit-margin-before: 0; -webkit-margin-after: 0; border-right: 1px solid white; overflow: auto;">
+			<li class="menuTitle" style="text-align: center;" >
+				About
+			</li>
+			<li id="aboutSubMenuAbout" onclick="toggleAboutLogHog();" class="selected">
+				About Log-Hog
+			</li>
+			<li id="aboutSubMenuWhatsNew">
+				What's New
+			</li>
+			<li id="aboutSubMenuChangelog" onclick="toggleChangeLog();">
+				Changelog
+			</li>
+		</ul>
+		<div style="position: absolute; bottom: 0; top: 46px; left: 402px; right: 0; overflow: auto;">
+			<div id="fullScreenMenuChangeLog" style="display: none;" >
+				<?php readfile('core/html/changelog.html'); ?>
+			</div>
+			<div id="fullScreenMenuWhatsNew" style="display: none;" >
+				<?php //readfile('core/html/whatsNew.html'); ?>
+			</div>
+			<div id="fullScreenMenuAbout" >
+				<?php require_once('core/php/template/about.php'); ?>
+			</div>
 		</div>
 	</div>
 

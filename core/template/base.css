@@ -282,12 +282,12 @@ div.sidebarLeft {
 	background-color: green;
 }
 
-#settingsUl
+.settingsUl
 {
 	list-style: none;
 }
 
-#settingsUl li
+.settingsUl li
 {
 	padding: 10px;
 }
