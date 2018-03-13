@@ -36,10 +36,10 @@
 				</ul>
 			</td>
 			<td>
-				<a href="<?php echo $imageDirModifierAbout; ?>core/img/3.6-1.png" data-lightbox="3.6" ><img src="<?php echo $imageDirModifierAbout; ?>core/img/3.6-1.png" style="width: 45%;"></a>
-				<a href="<?php echo $imageDirModifierAbout; ?>core/img/3.6-2.png" data-lightbox="3.6" ><img src="<?php echo $imageDirModifierAbout; ?>core/img/3.6-2.png" style="width: 45%;"></a>
+				<img src="<?php echo $imageDirModifierAbout; ?>core/img/3.6-1.png" style="width: 45%;">
+				<img src="<?php echo $imageDirModifierAbout; ?>core/img/3.6-2.png" style="width: 45%;">
 				<br>
-				<a href="<?php echo $imageDirModifierAbout; ?>core/img/3.6-3.png" data-lightbox="3.6" ><img src="<?php echo $imageDirModifierAbout; ?>core/img/3.6-3.png" style="width: 45%;"></a>
+				<img src="<?php echo $imageDirModifierAbout; ?>core/img/3.6-3.png" style="width: 45%;">
 			</td>
 		</tr>
 
@@ -68,11 +68,11 @@
 				</ul>
 			</td>
 			<td>
-				<a href="<?php echo $imageDirModifierAbout; ?>core/img/3.5-1.png" data-lightbox="3.5" ><img src="<?php echo $imageDirModifierAbout; ?>core/img/3.5-1.png" style="width: 45%;"></a>
-				<a href="<?php echo $imageDirModifierAbout; ?>core/img/3.5-2.png" data-lightbox="3.5" ><img src="<?php echo $imageDirModifierAbout; ?>core/img/3.5-2.png" style="width: 45%;"></a>
+				<img src="<?php echo $imageDirModifierAbout; ?>core/img/3.5-1.png" style="width: 45%;">
+				<img src="<?php echo $imageDirModifierAbout; ?>core/img/3.5-2.png" style="width: 45%;">
 				<br>
-				<a href="<?php echo $imageDirModifierAbout; ?>core/img/3.5-3.png" data-lightbox="3.5" ><img src="<?php echo $imageDirModifierAbout; ?>core/img/3.5-3.png" style="width: 45%;"></a>
-				<a href="<?php echo $imageDirModifierAbout; ?>core/img/3.5-4.png" data-lightbox="3.5" ><img src="<?php echo $imageDirModifierAbout; ?>core/img/3.5-4.png" style="width: 45%;"></a>
+				<img src="<?php echo $imageDirModifierAbout; ?>core/img/3.5-3.png" style="width: 45%;">
+				<img src="<?php echo $imageDirModifierAbout; ?>core/img/3.5-4.png" style="width: 45%;">
 			</td>
 		</tr>
 
@@ -95,8 +95,8 @@
 				</ul>
 			</td>
 			<td>
-				<a href="<?php echo $imageDirModifierAbout; ?>core/img/3.4-1.png" data-lightbox="3.4" ><img src="<?php echo $imageDirModifierAbout; ?>core/img/3.4-1.png" style="width: 45%;"></a>
-				<a href="<?php echo $imageDirModifierAbout; ?>core/img/3.4-2.png" data-lightbox="3.4" ><img src="<?php echo $imageDirModifierAbout; ?>core/img/3.4-2.png" style="width: 45%;"></a>
+				<img src="<?php echo $imageDirModifierAbout; ?>core/img/3.4-1.png" style="width: 45%;">
+				<img src="<?php echo $imageDirModifierAbout; ?>core/img/3.4-2.png" style="width: 45%;">
 			</td>
 		</tr>
 
@@ -125,10 +125,10 @@
 				</ul>
 			</td>
 			<td>
-				<a href="<?php echo $imageDirModifierAbout; ?>core/img/3.3-1.png" data-lightbox="3.3" ><img src="<?php echo $imageDirModifierAbout; ?>core/img/3.3-1.png" style="width: 45%;"></a>
-				<a href="<?php echo $imageDirModifierAbout; ?>core/img/3.3-3.png" data-lightbox="3.3" ><img src="<?php echo $imageDirModifierAbout; ?>core/img/3.3-3.png" style="width: 45%;"></a>
+				<img src="<?php echo $imageDirModifierAbout; ?>core/img/3.3-1.png" style="width: 45%;">
+				<img src="<?php echo $imageDirModifierAbout; ?>core/img/3.3-3.png" style="width: 45%;">
 				<br>
-				<a href="<?php echo $imageDirModifierAbout; ?>core/img/3.3-4.png" data-lightbox="3.3" ><img src="<?php echo $imageDirModifierAbout; ?>core/img/3.3-4.png" style="width: 45%;"></a>
+				<img src="<?php echo $imageDirModifierAbout; ?>core/img/3.3-4.png" style="width: 45%;">
 			</td>
 		</tr>
 
@@ -163,11 +163,11 @@
 				</ul>
 			</td>
 			<td>
-				<a href="<?php echo $imageDirModifierAbout; ?>core/img/3.2-1.png" data-lightbox="3.2" ><img src="<?php echo $imageDirModifierAbout; ?>core/img/3.2-1.png" style="width: 45%;"></a>
-				<a href="<?php echo $imageDirModifierAbout; ?>core/img/3.2-2.png" data-lightbox="3.2" ><img src="<?php echo $imageDirModifierAbout; ?>core/img/3.2-2.png" style="width: 45%;"></a>
+				<img src="<?php echo $imageDirModifierAbout; ?>core/img/3.2-1.png" style="width: 45%;">
+				<img src="<?php echo $imageDirModifierAbout; ?>core/img/3.2-2.png" style="width: 45%;">
 				<br>
-				<a href="<?php echo $imageDirModifierAbout; ?>core/img/3.2-3.png" data-lightbox="3.2" ><img src="<?php echo $imageDirModifierAbout; ?>core/img/3.2-3.png" style="width: 45%;"></a>
-				<a href="<?php echo $imageDirModifierAbout; ?>core/img/3.2-4.png" data-lightbox="3.2" ><img src="<?php echo $imageDirModifierAbout; ?>core/img/3.2-4.png" style="width: 45%;"></a>
+				<img src="<?php echo $imageDirModifierAbout; ?>core/img/3.2-3.png" style="width: 45%;">
+				<img src="<?php echo $imageDirModifierAbout; ?>core/img/3.2-4.png" style="width: 45%;">
 			</td>
 		</tr>
 
@@ -188,8 +188,8 @@
 				</ul>
 			</td>
 			<td>
-				<a href="<?php echo $imageDirModifierAbout; ?>core/img/3.1-1.png" data-lightbox="3.1" ><img src="<?php echo $imageDirModifierAbout; ?>core/img/3.1-1.png" style="width: 45%;"></a>
-				<a href="<?php echo $imageDirModifierAbout; ?>core/img/3.1-2.png" data-lightbox="3.1" ><img src="<?php echo $imageDirModifierAbout; ?>core/img/3.1-2.png" style="width: 45%;"></a>
+				<img src="<?php echo $imageDirModifierAbout; ?>core/img/3.1-1.png" style="width: 45%;">
+				<img src="<?php echo $imageDirModifierAbout; ?>core/img/3.1-2.png" style="width: 45%;">
 			</td>
 		</tr>
 
@@ -216,11 +216,11 @@
 				</ul>
 			</td>
 			<td>
-				<a href="<?php echo $imageDirModifierAbout; ?>core/img/3.0-1.png" data-lightbox="3.0" ><img src="<?php echo $imageDirModifierAbout; ?>core/img/3.0-1.png" style="width: 45%;"></a>
-				<a href="<?php echo $imageDirModifierAbout; ?>core/img/3.0-2.png" data-lightbox="3.0" ><img src="<?php echo $imageDirModifierAbout; ?>core/img/3.0-2.png" style="width: 45%;"></a>
+				<img src="<?php echo $imageDirModifierAbout; ?>core/img/3.0-1.png" style="width: 45%;">
+				<img src="<?php echo $imageDirModifierAbout; ?>core/img/3.0-2.png" style="width: 45%;">
 				<br>
-				<a href="<?php echo $imageDirModifierAbout; ?>core/img/3.0-3.png" data-lightbox="3.0" ><img src="<?php echo $imageDirModifierAbout; ?>core/img/3.0-3.png" style="width: 45%;"></a>
-				<a href="<?php echo $imageDirModifierAbout; ?>core/img/3.0-4.png" data-lightbox="3.0" ><img src="<?php echo $imageDirModifierAbout; ?>core/img/3.0-4.png" style="width: 45%;"></a>
+				<img src="<?php echo $imageDirModifierAbout; ?>core/img/3.0-3.png" style="width: 45%;">
+				<img src="<?php echo $imageDirModifierAbout; ?>core/img/3.0-4.png" style="width: 45%;">
 			</td>
 		</tr>
 
@@ -256,8 +256,8 @@
 				</ul>
 			</td>
 			<td>
-				<a href="<?php echo $imageDirModifierAbout; ?>core/img/2.3-1.png" data-lightbox="2.3" ><img src="<?php echo $imageDirModifierAbout; ?>core/img/2.3-1.png" style="width: 45%;"></a>
-				<a href="<?php echo $imageDirModifierAbout; ?>core/img/2.3-2.png" data-lightbox="2.3" ><img src="<?php echo $imageDirModifierAbout; ?>core/img/2.3-2.png" style="width: 45%;"></a>
+				<img src="<?php echo $imageDirModifierAbout; ?>core/img/2.3-1.png" style="width: 45%;">
+				<img src="<?php echo $imageDirModifierAbout; ?>core/img/2.3-2.png" style="width: 45%;">
 			</td>
 		</tr>
 	</table>

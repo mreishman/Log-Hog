@@ -164,7 +164,7 @@ if(!($windowDisplayConfig[0] > 1 || $windowDisplayConfig[1] > 1)): ?>
 /* MOVE OUT OF HERE */
 #fullScreenMenu
 {
-	position: absolute;
+	position: fixed;
 	left: 0;
 	top: 0;
 	width: 100%;

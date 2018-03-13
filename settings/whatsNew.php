@@ -25,8 +25,7 @@ require_once('../core/php/loadVars.php');
 	<?php echo loadCSS("../",$baseUrl, $cssVersion);?>
 	<link href="../core/template/lightbox.css" rel="stylesheet" type="text/css" />
 	<link rel="icon" type="image/png" href="../core/img/favicon.png" />
-	<script src="../core/js/jquery.js"></script>
-	<script src="../core/js/lightbox-2.6.min.js"></script>
+	<script type="text/javascript" src="../core/js/jquery.js"></script>
 </head>
 <body>
 
