@@ -34,6 +34,9 @@ require_once('../core/php/loadVars.php');
 
 	<div id="main" > 
 		<h1 style="width: 100%; text-align: center;  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black; " >You are on version <?php echo $configStatic['version'];?>!</h1>
-		<?php readfile('../core/html/whatsNew.html') ?>
+		<?php
+		$imageDirModifierAbout = "../";
+		require_once('../core/php/template/whatsNew.php');
+		?>
 	</div>
 </body>

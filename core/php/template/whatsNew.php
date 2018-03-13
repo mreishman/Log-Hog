@@ -1,0 +1,264 @@
+<div class="settingsDiv" >
+	<table width="100%;">
+		<tr>
+			<td width="25%" >
+			</td>
+			<td width="75%">
+			</td>
+		</tr>
+
+		<tr>
+			<td>
+			</td>
+			<td>
+			</td>
+		</tr>
+
+		<tr>
+			<th colspan="2" style="padding: 10px">
+				<h1>3.6</h1>
+				<h3>Get Notified?</h3>
+			</th>
+		</tr>
+
+		<tr>
+			<td>
+				<ul>
+					<li>
+						Content filter quick settings
+					</li>
+					<li>
+						Internal Notifications
+					</li>
+					<li>
+						New Theme! (Terminal)
+					</li>
+				</ul>
+			</td>
+			<td>
+				<a href="<?php echo $imageDirModifierAbout; ?>core/img/3.6-1.png" data-lightbox="3.6" ><img src="<?php echo $imageDirModifierAbout; ?>core/img/3.6-1.png" style="width: 45%;"></a>
+				<a href="<?php echo $imageDirModifierAbout; ?>core/img/3.6-2.png" data-lightbox="3.6" ><img src="<?php echo $imageDirModifierAbout; ?>core/img/3.6-2.png" style="width: 45%;"></a>
+				<br>
+				<a href="<?php echo $imageDirModifierAbout; ?>core/img/3.6-3.png" data-lightbox="3.6" ><img src="<?php echo $imageDirModifierAbout; ?>core/img/3.6-3.png" style="width: 45%;"></a>
+			</td>
+		</tr>
+
+		<tr>
+			<th colspan="2" style="border-top: 1px solid white; padding: 10px">
+				<h1>3.5</h1>
+				<h3>Settings Update 2</h3>
+			</th>
+		</tr>
+
+		<tr>
+			<td>
+				<ul>
+					<li>
+						New Theme! (Steampunk)
+					</li>
+					<li>
+						On hover option to change to full path for log titles
+					</li>
+					<li>
+						Highlights new lines of logs (for 1 sec) (with options to change color)
+					</li>
+					<li>
+						Added right click menus for log titles and pause icon
+					</li>
+				</ul>
+			</td>
+			<td>
+				<a href="<?php echo $imageDirModifierAbout; ?>core/img/3.5-1.png" data-lightbox="3.5" ><img src="<?php echo $imageDirModifierAbout; ?>core/img/3.5-1.png" style="width: 45%;"></a>
+				<a href="<?php echo $imageDirModifierAbout; ?>core/img/3.5-2.png" data-lightbox="3.5" ><img src="<?php echo $imageDirModifierAbout; ?>core/img/3.5-2.png" style="width: 45%;"></a>
+				<br>
+				<a href="<?php echo $imageDirModifierAbout; ?>core/img/3.5-3.png" data-lightbox="3.5" ><img src="<?php echo $imageDirModifierAbout; ?>core/img/3.5-3.png" style="width: 45%;"></a>
+				<a href="<?php echo $imageDirModifierAbout; ?>core/img/3.5-4.png" data-lightbox="3.5" ><img src="<?php echo $imageDirModifierAbout; ?>core/img/3.5-4.png" style="width: 45%;"></a>
+			</td>
+		</tr>
+
+		<tr>
+			<th colspan="2" style="border-top: 1px solid white; padding: 10px">
+				<h1>3.4</h1>
+				<h3>Still Searching</h3>
+			</th>
+		</tr>
+
+		<tr>
+			<td>
+				<ul>
+					<li>
+						Content filter for logs! (search and highlight content of logs)
+					</li>
+					<li>
+						Save custom themes!
+					</li>
+				</ul>
+			</td>
+			<td>
+				<a href="<?php echo $imageDirModifierAbout; ?>core/img/3.4-1.png" data-lightbox="3.4" ><img src="<?php echo $imageDirModifierAbout; ?>core/img/3.4-1.png" style="width: 45%;"></a>
+				<a href="<?php echo $imageDirModifierAbout; ?>core/img/3.4-2.png" data-lightbox="3.4" ><img src="<?php echo $imageDirModifierAbout; ?>core/img/3.4-2.png" style="width: 45%;"></a>
+			</td>
+		</tr>
+
+		<tr>
+			<th colspan="2" style="border-top: 1px solid white; padding: 10px">
+				<h1>3.3</h1>
+				<h3>I Can Count?</h3>
+			</th>
+		</tr>
+
+		<tr>
+			<td>
+				<ul>
+					<li>
+						New ocean theme!
+					</li>
+					<li>
+						Notification count
+					</li>
+					<li>
+						Clear all notifications button
+					</li>
+					<li>
+						Last line shown on name hover
+					</li>
+				</ul>
+			</td>
+			<td>
+				<a href="<?php echo $imageDirModifierAbout; ?>core/img/3.3-1.png" data-lightbox="3.3" ><img src="<?php echo $imageDirModifierAbout; ?>core/img/3.3-1.png" style="width: 45%;"></a>
+				<a href="<?php echo $imageDirModifierAbout; ?>core/img/3.3-3.png" data-lightbox="3.3" ><img src="<?php echo $imageDirModifierAbout; ?>core/img/3.3-3.png" style="width: 45%;"></a>
+				<br>
+				<a href="<?php echo $imageDirModifierAbout; ?>core/img/3.3-4.png" data-lightbox="3.3" ><img src="<?php echo $imageDirModifierAbout; ?>core/img/3.3-4.png" style="width: 45%;"></a>
+			</td>
+		</tr>
+
+		<tr>
+			<th colspan="2" style="border-top: 1px solid white; padding: 10px">
+				<h1>3.2</h1>
+				<h3>Found it!</h3>
+			</th>
+		</tr>
+
+		<tr>
+			<td>
+				<b>SeleniumMonitor</b>
+				<ul>
+					<li>
+					Monitor your selenium grid, and run new tests from a web interface
+					</li>
+				</ul>
+				<br>
+				<b>Title Filter</b>
+				<ul>
+					<li>
+						Filter logs by title / path.
+					</li>
+				</ul>
+				<br>
+				<b>Config file versions</b>
+				<ul>
+					<li>
+						Restore versions of config.
+					</li>
+				</ul>
+			</td>
+			<td>
+				<a href="<?php echo $imageDirModifierAbout; ?>core/img/3.2-1.png" data-lightbox="3.2" ><img src="<?php echo $imageDirModifierAbout; ?>core/img/3.2-1.png" style="width: 45%;"></a>
+				<a href="<?php echo $imageDirModifierAbout; ?>core/img/3.2-2.png" data-lightbox="3.2" ><img src="<?php echo $imageDirModifierAbout; ?>core/img/3.2-2.png" style="width: 45%;"></a>
+				<br>
+				<a href="<?php echo $imageDirModifierAbout; ?>core/img/3.2-3.png" data-lightbox="3.2" ><img src="<?php echo $imageDirModifierAbout; ?>core/img/3.2-3.png" style="width: 45%;"></a>
+				<a href="<?php echo $imageDirModifierAbout; ?>core/img/3.2-4.png" data-lightbox="3.2" ><img src="<?php echo $imageDirModifierAbout; ?>core/img/3.2-4.png" style="width: 45%;"></a>
+			</td>
+		</tr>
+
+		<tr>
+			<th colspan="2" style="border-top: 1px solid white; padding: 10px">
+				<h1>3.1</h1>
+				<h3>Couldn't find it</h3>
+			</th>
+		</tr>
+
+		<tr>
+			<td>
+				<b>Search!</b>
+				<ul>
+					<li>
+					Run visual grep's from the new search addon
+					</li>
+				</ul>
+			</td>
+			<td>
+				<a href="<?php echo $imageDirModifierAbout; ?>core/img/3.1-1.png" data-lightbox="3.1" ><img src="<?php echo $imageDirModifierAbout; ?>core/img/3.1-1.png" style="width: 45%;"></a>
+				<a href="<?php echo $imageDirModifierAbout; ?>core/img/3.1-2.png" data-lightbox="3.1" ><img src="<?php echo $imageDirModifierAbout; ?>core/img/3.1-2.png" style="width: 45%;"></a>
+			</td>
+		</tr>
+
+		<tr>
+			<th colspan="2" style="border-top: 1px solid white; padding: 10px">
+				<h1>3.0</h1>
+				<h3>Stylin'</h3>
+			</th>
+		</tr>
+
+		<tr>
+			<td>
+				<b>Themes!</b>
+				<ul>
+					<li>
+					Change how Log-Hog looks by going to settings, then themes
+					</li>
+					<li>
+					3 new main themes
+					</li>
+					<li>
+					New customizability of the current and new themes. 
+					</li>
+				</ul>
+			</td>
+			<td>
+				<a href="<?php echo $imageDirModifierAbout; ?>core/img/3.0-1.png" data-lightbox="3.0" ><img src="<?php echo $imageDirModifierAbout; ?>core/img/3.0-1.png" style="width: 45%;"></a>
+				<a href="<?php echo $imageDirModifierAbout; ?>core/img/3.0-2.png" data-lightbox="3.0" ><img src="<?php echo $imageDirModifierAbout; ?>core/img/3.0-2.png" style="width: 45%;"></a>
+				<br>
+				<a href="<?php echo $imageDirModifierAbout; ?>core/img/3.0-3.png" data-lightbox="3.0" ><img src="<?php echo $imageDirModifierAbout; ?>core/img/3.0-3.png" style="width: 45%;"></a>
+				<a href="<?php echo $imageDirModifierAbout; ?>core/img/3.0-4.png" data-lightbox="3.0" ><img src="<?php echo $imageDirModifierAbout; ?>core/img/3.0-4.png" style="width: 45%;"></a>
+			</td>
+		</tr>
+
+		<tr>
+			<th colspan="2" style="border-top: 1px solid white; padding: 10px">
+				<h1>2.3</h1>
+				<h3>Processes</h3>
+			</th>
+		</tr>
+
+		<tr>
+			<td>
+				<b>Monitor</b>
+				<ul>
+					<li>
+					CPU usage
+					</li>
+					<li>
+					Ram / swap usage
+					</li>
+					<li>
+					Disk usage / IO
+					</li>
+					<li>
+					PHP User time used / system time used
+					</li>
+					<li>
+					Network Interface receive / transmit
+					</li>
+					<li>
+					Shows list of processes
+					</li>
+				</ul>
+			</td>
+			<td>
+				<a href="<?php echo $imageDirModifierAbout; ?>core/img/2.3-1.png" data-lightbox="2.3" ><img src="<?php echo $imageDirModifierAbout; ?>core/img/2.3-1.png" style="width: 45%;"></a>
+				<a href="<?php echo $imageDirModifierAbout; ?>core/img/2.3-2.png" data-lightbox="2.3" ><img src="<?php echo $imageDirModifierAbout; ?>core/img/2.3-2.png" style="width: 45%;"></a>
+			</td>
+		</tr>
+	</table>
+</div>

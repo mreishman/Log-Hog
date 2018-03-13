@@ -2541,6 +2541,8 @@ function hideAboutStuff()
 	$("#aboutSubMenuAbout").removeClass("selected");
 	document.getElementById("fullScreenMenuChangeLog").style.display = "none";
 	$("#aboutSubMenuChangelog").removeClass("selected");
+	document.getElementById("fullScreenMenuWhatsNew").style.display = "none";
+	$("#aboutSubMenuWhatsNew").removeClass("selected");
 }
 
 function hideMainStuff()

@@ -547,7 +547,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 			<li id="aboutSubMenuAbout" onclick="toggleAboutLogHog();" class="selected">
 				About Log-Hog
 			</li>
-			<li id="aboutSubMenuWhatsNew">
+			<li id="aboutSubMenuWhatsNew" onclick="toggleWhatsNew();">
 				What's New
 			</li>
 			<li id="aboutSubMenuChangelog" onclick="toggleChangeLog();">
@@ -559,7 +559,10 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 				<?php readfile('core/html/changelog.html'); ?>
 			</div>
 			<div id="fullScreenMenuWhatsNew" style="display: none;" >
-				<?php //readfile('core/html/whatsNew.html'); ?>
+				<?php
+				$imageDirModifierAbout = "";
+				require_once('core/php/template/whatsNew.php');
+				?>
 			</div>
 			<div id="fullScreenMenuAbout" >
 				<?php require_once('core/php/template/about.php'); ?>
