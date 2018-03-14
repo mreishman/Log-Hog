@@ -158,7 +158,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 		{
 			$arrayWatchList .= "'".$_POST['watchListKey'.$i]."' => array(";
 			$arrayWatchList .= "'Location' => '".$_POST['watchListKey'.$i.'Location']."',";
-			$arrayWatchList .= "'Pattern' => '".$_POST['watchListKey'.$i.'Pattern']."'";
+			$arrayWatchList .= "'Pattern' => '".$_POST['watchListKey'.$i.'Pattern']."',";
+			$arrayWatchList .= "'Recursive' => '".$_POST['watchListKey'.$i.'Recursive']."'";
 			$arrayWatchList .= ")";
 			if($i != $_POST['numberOfRows'])
 			{

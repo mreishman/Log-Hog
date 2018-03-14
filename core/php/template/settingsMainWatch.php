@@ -59,6 +59,7 @@
 		$location = "{{location}}";
 		$pattern = "{{pattern}}";
 		$key = "{{key}}";
+		$recursiveOptions = "{{recursiveOptions}}";
 
 		if(isset($data["rowNumber"]))
 		{
@@ -99,6 +100,11 @@
 			$key = $data["key"];
 		}
 
+		if(isset($data["recursiveOptions"]))
+		{
+			$recursiveOptions = $data["recursiveOptions"];
+		}
+
 		$saveBlock = "<li class=\"watchRow\" id=\"rowNumber".$rowNumber."\" >";
 		$saveBlock .= "File ".$fileNumber.":";
 		$saveBlock .= "<div id=\"infoFile".$rowNumber."\" style=\"width: 100px; display: inline-block; text-align: center;\">";
@@ -112,6 +118,27 @@
 		$saveBlock .= "<br><ul class=\"settingsUl\" >";
 		$saveBlock .= "<li><span class=\"settingsBuffer\" >Location: </span><input style=\"width: 480px;\" type=\"text\" name=\"watchListKey".$rowNumber."Location\" value=\"".$location."\" ></li>";
 		$saveBlock .= "<li><span class=\"settingsBuffer\" >Pattern: </span><input type=\"text\" name=\"watchListKey".$rowNumber."Pattern\" value=\"".$pattern."\" ></li>";
+		$saveBlock .= "<li><span class=\"settingsBuffer\" >Recursive: </span><select name=\"watchListKey".$rowNumber."Recursive\" >";
+		if(isset($data["recursiveOptions"]))
+		{
+			$saveBlock .=  "<option value=\"true\" ";
+			if($recursiveOptions === 'true')
+			{
+				$saveBlock .= " selected ";
+			}
+			$saveBlock .= "  >True</option>";
+			$saveBlock .=  "<option value=\"false\" ";
+			if($recursiveOptions !== 'true')
+			{
+				$saveBlock .= " selected ";
+			}
+			$saveBlock .= "  >False</option>";
+		}
+		else
+		{
+			$saveBlock .=  $recursiveOptions;
+		}
+		$saveBlock .= "</select></li>";
 		$saveBlock .= "</ul></li>";
 
 		return $saveBlock;
@@ -123,14 +150,7 @@
 	{
 		$i++;
 		$location = $values["Location"];
-		$pattern = $values["Pattern"];
 		$info = filePermsDisplay($location);
-
-		if(strpos($pattern, "\\") !== false)
-		{
-			$pattern = str_replace("\\", "", $pattern);
-			$triggerSaveUpdate = true;
-		}
 
 		$fileImage = $defaultYellowErrorIcon;
 
@@ -162,8 +182,9 @@
 				"filePermsDisplay"	=>	$info,
 				"fileImage"			=>	$fileImage,
 				"location"			=>	$location,
-				"pattern"			=>	$pattern,
-				"key"				=>	$key
+				"pattern"			=>	$values["Pattern"],
+				"key"				=>	$key,
+				"recursiveOptions"	=>	$values["Recursive"]
 			),
 			$defaultTrashCanIcon
 		);
@@ -180,7 +201,7 @@
 			Key
 		</div>
 	</li>
-	<li>
+	<li> 
 		<ul class="settingsUl">
 			<li>
 				<?php

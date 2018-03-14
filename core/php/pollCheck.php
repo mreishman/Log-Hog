@@ -38,8 +38,14 @@ if(array_key_exists('percent', $updateProgress) && ($updateProgress['percent'] !
 	exit();
 }
 
-function sizeFilesInDir($path, $filter, $response, $shellOrPhp)
+function sizeFilesInDir($data)
 {
+	$path = $data["path"];
+	$filter = $data["filter"];
+	$response = $data["response"];
+	$shellOrPhp = $data["shellOrPhp"];
+	$recursive = $data["recursive"];
+
 	$path = preg_replace('/\/$/', '', $path);
 	if(file_exists($path))
 	{
@@ -54,9 +60,16 @@ function sizeFilesInDir($path, $filter, $response, $shellOrPhp)
 			foreach($files as $k => $filename)
 			{
 				$fullPath = $path . DIRECTORY_SEPARATOR . $filename;
-				if(is_dir($fullPath))
+				if(is_dir($fullPath) && $recursive === "true")
 				{
-					//$response = sizeFilesInDir($path, $filter, $response, $shellOrPhp);
+					$response = sizeFilesInDir(array(
+						"path" 			=> $fullPath,
+						"filter"		=> $filter,
+						"response"		=> $response,
+						"shellOrPhp"	=> $shellOrPhp,
+						"recursive"		=> "true"
+
+					));
 				}
 				elseif(preg_match('/' . $filter . '/S', $filename) && is_file($fullPath))
 				{
@@ -74,7 +87,14 @@ foreach($watchList as $key => $value)
 	$filter = $value["Pattern"];
 	if(is_dir($path))
 	{
-		$response = sizeFilesInDir($path, $filter, $response, $shellOrPhp);
+		$response = sizeFilesInDir(array(
+			"path" 			=> $path,
+			"filter"		=> $filter,
+			"response"		=> $response,
+			"shellOrPhp"	=> $shellOrPhp,
+			"recursive"		=> $value["Recursive"]
+
+		));
 	}
 	elseif(file_exists($path))
 	{

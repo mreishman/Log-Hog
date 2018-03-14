@@ -11,7 +11,26 @@ function generateRow(data)
 	item = item.replace(/{{location}}/g, data["location"]);
 	item = item.replace(/{{pattern}}/g, data["pattern"]);
 	item = item.replace(/{{key}}/g, data["key"]);
+	item = item.replace(/{{recursiveOptions}}/g, generateSelectRecursive(data["recursive"]));
 	return item;
+}
+
+function generateSelectRecursive(recVal)
+{
+	var selectHtml = "";
+	selectHtml += "<option value=\"true\" ";
+	if(recVal === "true")
+	{
+		selectHtml += " selected ";
+	}
+	selectHtml += " >True</option>";
+	selectHtml += "<option value=\"false\" ";
+	if(recVal !== "true")
+	{
+		selectHtml += " selected ";
+	}
+	selectHtml += " >False</option>";
+	return selectHtml;
 } 
 
 
@@ -35,7 +54,8 @@ function addRowFunction()
 				fileImage: "",
 				location: "",
 				pattern: "",
-				key: "Log "+countOfWatchList
+				key: "Log "+countOfWatchList,
+				recursive: "false"
 			}
 		);
 		$(".uniqueClassForAppendSettingsMainWatchNew").append(item);
@@ -96,6 +116,7 @@ function deleteRowFunction(currentRow)
 						location: document.getElementsByName("watchListKey"+i+"Location")[0].value,
 						pattern: document.getElementsByName("watchListKey"+i+"Pattern")[0].value,
 						key: document.getElementsByName("watchListKey"+i)[0].value,
+						recursive: document.getElementsByName("watchListKey"+i+"Recursive")[0].value,
 					}
 				);
 				//add new one
