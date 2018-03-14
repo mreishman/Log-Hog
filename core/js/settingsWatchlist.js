@@ -19,7 +19,7 @@ function addRowFunction()
 {
 	try
 	{
-		var countOfWatchList = document.getElementById("numberOfRows").value;
+		var countOfWatchList = parseInt(document.getElementById("numberOfRows").value);
 		countOfWatchList++;
 
 		var fileName = ""+countOfWatchList;
@@ -47,18 +47,18 @@ function addRowFunction()
 	}
 }
 
-function deleteRowFunctionPopup(currentRow, decreaseCountWatchListNum, keyName = "")
+function deleteRowFunctionPopup(currentRow, keyName = "")
 {
 	try
 	{
 		if("removeFolder" in popupSettingsArray && popupSettingsArray.removeFolder === "true")
 		{
 			showPopup();
-			document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class='settingsHeader' >Are you sure you want to remove this file/folder?</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>"+keyName+"</div><div><div class='link' onclick='deleteRowFunction("+currentRow+","+ decreaseCountWatchListNum+");hidePopup();' style='margin-left:125px; margin-right:50px;margin-top:35px;'>Yes</div><div onclick='hidePopup();' class='link'>No</div></div>";
+			document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class='settingsHeader' >Are you sure you want to remove this file/folder?</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>"+keyName+"</div><div><div class='link' onclick='deleteRowFunction("+currentRow+");hidePopup();' style='margin-left:125px; margin-right:50px;margin-top:35px;'>Yes</div><div onclick='hidePopup();' class='link'>No</div></div>";
 		}
 		else
 		{
-			deleteRowFunction(currentRow, decreaseCountWatchListNum);
+			deleteRowFunction(currentRow);
 		}
 	}
 	catch(e)
@@ -67,48 +67,45 @@ function deleteRowFunctionPopup(currentRow, decreaseCountWatchListNum, keyName =
 	}	
 }
 
-function deleteRowFunction(currentRow, decreaseCountWatchListNum)
+function deleteRowFunction(currentRow)
 {
 	try
 	{
 		var elementToFind = "rowNumber" + currentRow;
 		document.getElementById(elementToFind).outerHTML = "";
-		if(decreaseCountWatchListNum)
+		var newValue = parseInt(document.getElementById("numberOfRows").value);
+		if(currentRow < newValue)
 		{
-			var newValue = document.getElementById("numberOfRows").value;
-			if(currentRow < newValue)
+			//this wasn't the last folder deleted, update others
+			for(var i = currentRow + 1; i <= newValue; i++)
 			{
-				//this wasn't the last folder deleted, update others
-				for(var i = currentRow + 1; i <= newValue; i++)
+				var updateItoIMinusOne = i - 1;
+				var fileName = "";
+				if(updateItoIMinusOne < 10)
 				{
-					var updateItoIMinusOne = i - 1;
-					var fileName = "";
-					if(updateItoIMinusOne < 10)
-					{
-						fileName += "0";
-					}
-					fileName += updateItoIMinusOne;
-
-					var item = generateRow(
-						{
-							rowNumber: updateItoIMinusOne,
-							fileNumber: fileName,
-							filePermsDisplay: $("#infoFile"+i).html(),
-							fileImage: $("#imageFile"+i).html(),
-							location: document.getElementsByName("watchListKey"+i+"Location")[0].value,
-							pattern: document.getElementsByName("watchListKey"+i+"Pattern")[0].value,
-							key: document.getElementsByName("watchListKey"+i)[0].value,
-						}
-					);
-					//add new one
-					$(".uniqueClassForAppendSettingsMainWatchNew").append(item);
-					//remove old one
-					$("#rowNumber"+i).remove();
+					fileName += "0";
 				}
+				fileName += updateItoIMinusOne;
+
+				var item = generateRow(
+					{
+						rowNumber: updateItoIMinusOne,
+						fileNumber: fileName,
+						filePermsDisplay: $("#infoFile"+i).html(),
+						fileImage: $("#imageFile"+i).html(),
+						location: document.getElementsByName("watchListKey"+i+"Location")[0].value,
+						pattern: document.getElementsByName("watchListKey"+i+"Pattern")[0].value,
+						key: document.getElementsByName("watchListKey"+i)[0].value,
+					}
+				);
+				//add new one
+				$(".uniqueClassForAppendSettingsMainWatchNew").append(item);
+				//remove old one
+				$("#rowNumber"+i).remove();
 			}
-			newValue--;
-			document.getElementById("numberOfRows").value = newValue;
 		}
+		newValue--;
+		document.getElementById("numberOfRows").value = newValue;
 	}
 	catch(e)
 	{
@@ -120,7 +117,7 @@ function checkWatchList()
 {
 	try
 	{
-		var countOfWatchList = document.getElementById("numberOfRows").value;
+		var countOfWatchList = parseInt(document.getElementById("numberOfRows").value);
 		var blankValue = false;
 		for (var i = 1; i <= countOfWatchList; i++) 
 		{

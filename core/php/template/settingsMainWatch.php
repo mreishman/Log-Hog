@@ -7,7 +7,7 @@
 	</div>
 </div>
 <div class="settingsDiv" >	
-<ul class="settingsUl" class="uniqueClassForAppendSettingsMainWatchNew">
+<ul class="settingsUl uniqueClassForAppendSettingsMainWatchNew">
 	<?php
 
 	$defaultTrashCanIcon = generateImage(
@@ -106,7 +106,7 @@
 		$saveBlock .= "</div>";
 		$saveBlock .= "<span style=\"width: 25px; display: inline-block;\" id=\"imageFile".$rowNumber."\" >".$fileImage."</span>";
 		$saveBlock .= "<input type=\"hidden\" name=\"watchListKey".$rowNumber."\" value=\"FileOrFolder".$rowNumber."\" >";
-		$saveBlock .= "<a class=\"deleteIconPosition\"	onclick=\"deleteRowFunctionPopup(".$rowNumber.", true, '".$location."');\"	>";
+		$saveBlock .= "<a class=\"deleteIconPosition\"	onclick=\"deleteRowFunctionPopup(".$rowNumber.", '".$location."');\"	>";
 		$saveBlock .= $defaultTrashCanIcon;
 		$saveBlock .= "</a>";
 		$saveBlock .= "<br><ul class=\"settingsUl\" >";
@@ -170,9 +170,6 @@
 	
 	}
 	?>
-
-	<div id="newRowLocationForWatchList">
-	</div>
 </ul>
 <ul class="settingsUl">
 	<li>
