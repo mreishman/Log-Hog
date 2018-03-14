@@ -63,7 +63,10 @@ if(isset($_POST['numberOfRows']))
 {
 	for($i = 1; $i <= $_POST['numberOfRows']; $i++ )
 	{
-		$arrayWatchList .= "'".$_POST['watchListKey'.$i]."' => '".$_POST['watchListItem'.$i]."'";
+		$arrayWatchList .= "'".$_POST['watchListKey'.$i]."' => array(";
+		$arrayWatchList .= "'Location' => '".$_POST['watchListKey'.$i.'Location']."',";
+		$arrayWatchList .= "'Pattern' => '".$_POST['watchListKey'.$i.'Pattern']."'";
+		$arrayWatchList .= ")";
 		if($i != $_POST['numberOfRows'])
 		{
 			$arrayWatchList .= ",";
@@ -77,7 +80,26 @@ if(isset($_POST['numberOfRows']))
 	foreach ($config['watchList'] as $key => $value)
 	{
 		$i++;
-		$arrayWatchList .= "'".$key."' => '".$value."'";
+		if(is_array($value))
+		{
+			$arrayWatchList .= "'".$key."' => array(";
+			$numberOfRows2 = count($value);
+			$j = 0;
+			foreach ($value as $key2 => $value2)
+			{
+				$j++;
+				$arrayWatchList .= "'".$key2."' => '".$value2."'";
+				if($j != $numberOfRows2)
+				{
+					$arrayWatchList .= ",";
+				}
+			}
+			$arrayWatchList .= ")";
+		}
+		else
+		{
+			$arrayWatchList .= "'".$key."' => '".$value."'";
+		}
 		if($i != $numberOfRows)
 		{
 			$arrayWatchList .= ",";

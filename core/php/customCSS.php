@@ -186,7 +186,7 @@ if(!($windowDisplayConfig[0] > 1 || $windowDisplayConfig[1] > 1)): ?>
 
 .fullScreenMenuUL li:not(.menuTitle):hover, #fullScreenMenu .selected
 {
-	filter: invert();
+	filter: invert(100%);
 }
 
 </style>
