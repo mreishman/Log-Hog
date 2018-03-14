@@ -61,6 +61,9 @@
 		$key = "{{key}}";
 		$recursiveOptions = "{{recursiveOptions}}";
 		$excludeTrimOptions = "{{excludeTrimOptions}}";
+		$typeFolder = " {{typeFolder}} ";
+		$typeFile = " {{typeFile}} ";
+		$FileType = "{{FileTypeOptions}}";
 
 		if(isset($data["rowNumber"]))
 		{
@@ -111,6 +114,27 @@
 			$excludeTrimOptions = $data["excludeTrimOptions"];
 		}
 
+		if(isset($data["FileType"]))
+		{
+			$FileType = $data["FileType"];
+		}
+
+		if(isset($data["typeFolder"]))
+		{
+			if($data["typeFolder"] == true)
+			{
+				$typeFolder = " style=\" display: none; \" ";
+			}
+		}
+
+		if(isset($data["typeFile"]))
+		{
+			if($data["typeFile"] == true)
+			{
+				$typeFile = " style=\" display: none; \" ";
+			}
+		}
+
 		$saveBlock = "<li class=\"watchRow\" id=\"rowNumber".$rowNumber."\" >";
 		$saveBlock .= "File ".$fileNumber.":";
 		$saveBlock .= "<div id=\"infoFile".$rowNumber."\" style=\"width: 100px; display: inline-block; text-align: center;\">";
@@ -123,8 +147,8 @@
 		$saveBlock .= "</a>";
 		$saveBlock .= "<br><ul class=\"settingsUl\" >";
 		$saveBlock .= "<li><span class=\"settingsBuffer\" >Location: </span><input style=\"width: 480px;\" type=\"text\" name=\"watchListKey".$rowNumber."Location\" value=\"".$location."\" ></li>";
-		$saveBlock .= "<li><span class=\"settingsBuffer\" >Pattern: </span><input type=\"text\" name=\"watchListKey".$rowNumber."Pattern\" value=\"".$pattern."\" ></li>";
-		$saveBlock .= "<li><span class=\"settingsBuffer\" >Recursive: </span><select name=\"watchListKey".$rowNumber."Recursive\" >";
+		$saveBlock .= "<li ".$typeFile."><span class=\"settingsBuffer\" >Pattern: </span><input type=\"text\" name=\"watchListKey".$rowNumber."Pattern\" value=\"".$pattern."\" ></li>";
+		$saveBlock .= "<li ".$typeFile."><span class=\"settingsBuffer\" >Recursive: </span><select name=\"watchListKey".$rowNumber."Recursive\" >";
 		if(isset($data["recursiveOptions"]))
 		{
 			$saveBlock .=  "<option value=\"true\" ";
@@ -166,6 +190,33 @@
 			$saveBlock .=  $excludeTrimOptions;
 		}
 		$saveBlock .= "</select></li>";
+		$saveBlock .= "<li><span class=\"settingsBuffer\" >FileType: </span><select name=\"watchListKey".$rowNumber."FileType\" >";
+		if(isset($data["FileType"]))
+		{
+			$saveBlock .=  "<option value=\"file\" ";
+			if($FileType === 'file')
+			{
+				$saveBlock .= " selected ";
+			}
+			$saveBlock .= "  >File</option>";
+			$saveBlock .=  "<option value=\"folder\" ";
+			if($FileType === 'folder')
+			{
+				$saveBlock .= " selected ";
+			}
+			$saveBlock .= "  >Folder</option>";
+			$saveBlock .=  "<option value=\"other\" ";
+			if($FileType !== 'folder' && $FileType !== 'file')
+			{
+				$saveBlock .= " selected ";
+			}
+			$saveBlock .= "  >Other</option>";
+		}
+		else
+		{
+			$saveBlock .=  $FileType;
+		}
+		$saveBlock .= "</select></li>";
 		$saveBlock .= "</ul></li>";
 
 		return $saveBlock;
@@ -180,6 +231,7 @@
 		$info = filePermsDisplay($location);
 
 		$fileImage = $defaultYellowErrorIcon;
+		$FileType = "auto";
 
 		if(!file_exists($location))
 		{
@@ -187,6 +239,10 @@
 		}
 		elseif(is_dir($location))
 		{
+			if($FileType !== "other")
+			{
+				$FileType = "folder";
+			}
 			if(is_readable($location))
 			{
 				//add icon here?
@@ -195,11 +251,20 @@
 		}
 		elseif(is_file($location))
 		{
+			if($FileType !== "other")
+			{
+				$FileType = "file";
+			}
 			if(is_readable($location))
 			{
 				//add icon here?
 			}
 			$fileImage = $defaultFileIcon;
+		}
+
+		if($values["FileType"] != "auto")
+		{
+			$FileType = $values["FileType"];
 		}
 
 		echo generateSaveBlock(
@@ -212,7 +277,10 @@
 				"pattern"				=>	$values["Pattern"],
 				"key"					=>	$key,
 				"recursiveOptions"		=>	$values["Recursive"],
-				"excludeTrimOptions"	=>	$values["ExcludeTrim"]
+				"excludeTrimOptions"	=>	$values["ExcludeTrim"],
+				"typeFile"				=>	($FileType === "file"),
+				"typeFolder"			=>	($FileType === "folder"),
+				"FileType"				=> 	$FileType
 			),
 			$defaultTrashCanIcon
 		);
@@ -222,7 +290,9 @@
 </ul>
 <ul class="settingsUl">
 	<li>
-		<a class="link" onclick="addRowFunction()">+ Add New File / Folder</a>
+		<a class="link" onclick="addFile();">+ Add New File</a>
+		<a class="link" onclick="addFolder();">+ Add New Folder</a>
+		<a class="link" onclick="addOther();">+ Add Other</a>
 	</li>
 	<li>
 		<div class="settingsHeader">

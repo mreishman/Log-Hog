@@ -1,8 +1,17 @@
-var fileArrayKeys = Object.keys(fileArray);
 var titleOfPage = "Watchlist";
 
 function generateRow(data)
 {
+	var fileTypeIsFolder = false;
+	if(data["fileType"] === "folder")
+	{
+		fileTypeIsFolder = true;
+	}
+	var fileTypeIsFile = false;
+	if(data["fileType"] === "file")
+	{
+		fileTypeIsFile = true;
+	}
 	var item = $("#storage .saveBlock").html();
 	item = item.replace(/{{rowNumber}}/g, data["rowNumber"]);
 	item = item.replace(/{{fileNumber}}/g, data["fileNumber"]);
@@ -13,7 +22,43 @@ function generateRow(data)
 	item = item.replace(/{{key}}/g, data["key"]);
 	item = item.replace(/{{recursiveOptions}}/g, generateTrueFalseSelect(data["recursive"]));
 	item = item.replace(/{{excludeTrimOptions}}/g, generateTrueFalseSelect(data["excludeTrim"]));
+	item = item.replace(/{{typefile}}/g, displayNoneIfTrue(fileTypeIsFile));
+	item = item.replace(/{{typefolder}}/g, displayNoneIfTrue(fileTypeIsFolder));
+	item = item.replace(/{{FileTypeOptions}}/g, generateFileTypeSelect(data["fileType"]));
 	return item;
+}
+
+function displayNoneIfTrue(selectValue)
+{
+	if(selectValue)
+	{
+		return "style=\"display: none;\"";
+	}
+	return "";
+}
+
+function generateFileTypeSelect(selectValue)
+{
+	var selectHtml = "";
+	selectHtml += "<option value=\"file\" ";
+	if(selectValue === "file")
+	{
+		selectHtml += " selected ";
+	}
+	selectHtml += " >File</option>";
+	selectHtml += "<option value=\"folder\" ";
+	if(selectValue === "folder")
+	{
+		selectHtml += " selected ";
+	}
+	selectHtml += " >Folder</option>";
+	selectHtml += "<option value=\"other\" ";
+	if(selectValue !== "file" && selectValue !== "folder")
+	{
+		selectHtml += " selected ";
+	}
+	selectHtml += " >Other</option>";
+	return selectHtml;
 }
 
 function generateTrueFalseSelect(selectValue)
@@ -32,10 +77,36 @@ function generateTrueFalseSelect(selectValue)
 	}
 	selectHtml += " >False</option>";
 	return selectHtml;
+}
+
+function addFile()
+{
+	addRowFunction(
+		{
+			fileType: "file"
+		}
+	);
 } 
 
+function addFolder()
+{
+	addRowFunction(
+		{
+			fileType: "folder"
+		}
+	);
+}
 
-function addRowFunction()
+function addOther()
+{
+	addRowFunction(
+		{
+			fileType: "other"
+		}
+	);
+}
+
+function addRowFunction(data)
 {
 	try
 	{
@@ -47,6 +118,11 @@ function addRowFunction()
 		{
 			fileName = "0"+fileName;
 		}
+		var fileTypeFromData = "other";
+		if("fileType" in data)
+		{
+			fileTypeFromData = data["fileType"];
+		}
 		var item = generateRow(
 			{
 				rowNumber: countOfWatchList,
@@ -57,7 +133,8 @@ function addRowFunction()
 				pattern: "",
 				key: "Log "+countOfWatchList,
 				recursive: "false",
-				excludeTrim: "false"
+				excludeTrim: "false",
+				fileType: fileTypeFromData
 			}
 		);
 		$(".uniqueClassForAppendSettingsMainWatchNew").append(item);
@@ -120,6 +197,7 @@ function deleteRowFunction(currentRow)
 						key: document.getElementsByName("watchListKey"+i)[0].value,
 						recursive: document.getElementsByName("watchListKey"+i+"Recursive")[0].value,
 						excludeTrim: document.getElementsByName("watchListKey"+i+"ExcludeTrim")[0].value,
+						fileType: document.getElementsByName("watchListKey"+i+"FileType")[0].value
 					}
 				);
 				//add new one

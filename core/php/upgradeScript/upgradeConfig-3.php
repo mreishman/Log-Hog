@@ -21,6 +21,7 @@ if (isset($config["watchList"]))
 		$count++;
 		$arrayWatchList .= "'".$key."' => array(";
 		$arrayWatchList .= "'ExcludeTrim' => 'false',";
+		$arrayWatchList .= "'FileType' => 'auto',";
 		$arrayWatchList .= "'Location' => '".$key."',";
 		$arrayWatchList .= "'Pattern' => '".$value."'";
 		$arrayWatchList .= "'Recursive' => 'false'";
