@@ -43,7 +43,11 @@ if(isset($_POST['arrayToUpdate']))
 			}
 
 			$filename = preg_replace('/([()"])/S', '$1', $path);
-			if(!is_readable($filename))
+			if(!file_exists($filename))
+			{
+				$dataVar = "Error - File does not exist";
+			}
+			elseif(!is_readable($filename))
 			{
 				$dataVar = "Error - File is not Readable";
 			}

@@ -292,16 +292,22 @@ $defaultConfig = array(
 	'updateNotificationEnabled'		=> 'true',
 	'watchList'		=> array(
 		'System Log'	    => array(
+			"ExcludeTrim"		=>	"false",
 			"Location"			=>	"/var/www/html/var/log/system.log",
-			"Pattern"			=>	""
+			"Pattern"			=>	"",
+			"Recursive"			=>	"false"
 		),
 		'HHVM'				=> array(
+			"ExcludeTrim"		=>	"false",
 			"Location"			=>	"/var/log/hhvm/error.log",
-			"Pattern"			=>	""
+			"Pattern"			=>	"",
+			"Recursive"			=>	"false"
 		),
 		'Apache2'			=> array(
+			"ExcludeTrim"		=>	"false",
 			"Location"			=>	"/var/log/apache2",
-			"Pattern"			=>	".log$"
+			"Pattern"			=>	".log$",
+			"Recursive"			=>	"false"
 		)
 	),
 	'windowConfig'					=> '1x1'

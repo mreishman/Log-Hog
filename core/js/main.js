@@ -720,7 +720,7 @@ function update(data)
 				if(showFile)
 				{
 					showLogByName(name);
-					if(dataForCheck === "This file is empty. This should not be displayed." && hideEmptyLog === "true")
+					if(dataForCheck === "This file is empty. This should not be displayed." && hideEmptyLog === "true" || data[name] === "Error - File does not exist")
 					{
 						hideLogByName(name);
 					}
@@ -755,6 +755,7 @@ function update(data)
 								}
 								data[name] = "<div class='errorMessageLog errorMessageRedBG' > "+mainMessage+" <br> <span style='font-size:75%;'> Try entering: <br> chown -R www-data:www-data "+name+" <br> or <br> chmod 664 "+name+" </span> </div>";
 							}
+
 							logs[id] = data[name];
 							if(enableLogging !== "false")
 							{
