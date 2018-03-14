@@ -576,14 +576,6 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 		<?php
 		if($rightClickMenuEnable == "true"): ?>
 			var Rightclick_ID_list = [];
-			if(document.getElementById('gear'))
-			{
-				Rightclick_ID_list.push('gear');
-			}
-			if(document.getElementById('aboutImage'))
-			{
-				Rightclick_ID_list.push('aboutImage');
-			}
 			if(document.getElementById('deleteImage'))
 			{
 				Rightclick_ID_list.push('deleteImage');
@@ -593,10 +585,6 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 				Rightclick_ID_list.push('pauseImage');
 			}
 			<?php
-			if($levelOfUpdate == 1 || $levelOfUpdate == 2 || $levelOfUpdate == 3)
-			{
-				echo "Rightclick_ID_list.push('updateImage');";
-			}
 		endif;
 		if($levelOfUpdate !== 0 && $configStatic["version"] !== $dontNotifyVersion && $updateNotificationEnabled): 
 			if($updateNoticeMeter === "every" || $levelOfUpdate > 1):
