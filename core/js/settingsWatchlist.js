@@ -223,13 +223,13 @@ function checkWatchList()
 		var blankValue = false;
 		for (var i = 1; i <= countOfWatchList; i++) 
 		{
-			if(document.getElementsByName("watchListKey"+i)[0].value === "" || document.getElementsByName("watchListKey"+i+"Location")[0].value === "")
+			if(document.getElementsByName("watchListKey"+i+"Location")[0].value === "")
 			{
 				blankValue = true;
 				break;
 			}
 		}
-		if(blankValue && popupSettingsArray.blankFolder === "true")
+		if(blankValue && "blankFolder" in popupSettingsArray && popupSettingsArray.blankFolder === "true")
 		{
 			showNoEmptyFolderPopup();
 			event.preventDefault();

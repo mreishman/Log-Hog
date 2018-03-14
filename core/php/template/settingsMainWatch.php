@@ -11,7 +11,7 @@
 	<?php
 
 	$defaultTrashCanIcon = generateImage(
-		$arrayOfImages["trashCan"],
+		$arrayOfImages["trashCanSideBar"],
 		array(
 			"height"		=>	"15px",
 			"srcModifier"	=>	"../"
@@ -50,6 +50,7 @@
 		)
 	);
 
+
 	function generateSaveBlock($data = array(), $defaultTrashCanIcon)
 	{
 		$rowNumber = "{{rowNumber}}";
@@ -64,6 +65,7 @@
 		$typeFolder = " {{typeFolder}} ";
 		$typeFile = " {{typeFile}} ";
 		$FileType = "{{FileTypeOptions}}";
+		$filesInFolder = "{{filesInFolder}}";
 
 		if(isset($data["rowNumber"]))
 		{
@@ -119,11 +121,20 @@
 			$FileType = $data["FileType"];
 		}
 
+		if(isset($data["filesInFolder"]))
+		{
+			$filesInFolder = $data["filesInFolder"];
+		}
+
 		if(isset($data["typeFolder"]))
 		{
 			if($data["typeFolder"] == true)
 			{
 				$typeFolder = " style=\" display: none; \" ";
+			}
+			else
+			{
+				$typeFolder = "";
 			}
 		}
 
@@ -133,9 +144,14 @@
 			{
 				$typeFile = " style=\" display: none; \" ";
 			}
+			else
+			{
+				$typeFile = "";
+			}
 		}
+		
 
-		$saveBlock = "<li class=\"watchRow\" id=\"rowNumber".$rowNumber."\" >";
+		$saveBlock = "<li class=\"watchRow\" id=\"rowNumber".$rowNumber."\" ><div class=\"settingsHeader\" >";
 		$saveBlock .= "File ".$fileNumber.":";
 		$saveBlock .= "<div id=\"infoFile".$rowNumber."\" style=\"width: 100px; display: inline-block; text-align: center;\">";
 		$saveBlock .= $filePermsDisplay;
@@ -145,7 +161,7 @@
 		$saveBlock .= "<a class=\"deleteIconPosition\"	onclick=\"deleteRowFunctionPopup(".$rowNumber.", '".$location."');\"	>";
 		$saveBlock .= $defaultTrashCanIcon;
 		$saveBlock .= "</a>";
-		$saveBlock .= "<br><ul class=\"settingsUl\" >";
+		$saveBlock .= "</div><div class=\"settingsDiv\" ><ul class=\"settingsUl\" >";
 		$saveBlock .= "<li><span class=\"settingsBuffer\" >Location: </span><input style=\"width: 480px;\" type=\"text\" name=\"watchListKey".$rowNumber."Location\" value=\"".$location."\" ></li>";
 		$saveBlock .= "<li ".$typeFile."><span class=\"settingsBuffer\" >Pattern: </span><input type=\"text\" name=\"watchListKey".$rowNumber."Pattern\" value=\"".$pattern."\" ></li>";
 		$saveBlock .= "<li ".$typeFile."><span class=\"settingsBuffer\" >Recursive: </span><select name=\"watchListKey".$rowNumber."Recursive\" >";
@@ -217,7 +233,8 @@
 			$saveBlock .=  $FileType;
 		}
 		$saveBlock .= "</select></li>";
-		$saveBlock .= "</ul></li>";
+		$saveBlock .= "<li ".$typeFile."><span class=\"settingsBuffer\" >Files: </span> <div class=\"settingsDiv\" style=\"max-height: 150px; width: 400px; display: inline-flex; overflow: auto;\" ><ul class=\"settingsUl\" style=\"-webkit-padding-start: 0;\" >".$filesInFolder."</ul></div> </li>";
+		$saveBlock .= "</ul></div></li>";
 
 		return $saveBlock;
 	}
@@ -229,7 +246,7 @@
 		$i++;
 		$location = $values["Location"];
 		$info = filePermsDisplay($location);
-
+		$filesInFolder = "";
 		$fileImage = $defaultYellowErrorIcon;
 		$FileType = "auto";
 
@@ -266,6 +283,40 @@
 		{
 			$FileType = $values["FileType"];
 		}
+		$fileSize = "";
+
+		if($FileType === "folder")
+		{
+			$response = sizeFilesInDir(array(
+				"path" 			=> $location,
+				"filter"		=> $values["Pattern"],
+				"response"		=> array(),
+				"shellOrPhp"	=> $shellOrPhp,
+				"recursive"		=> $values["Recursive"]
+
+			));
+			$fileList = array_keys($response);
+			foreach ($response as $key2 => $value2)
+			{
+				$filesInFolder .= "<li>".$key2."</li>";
+			}
+			if($filesInFolder === "")
+			{
+				$filesInFolder = "<li>No Files Found In Folder</li>";
+			}
+			//$fileSize = 
+		}
+		elseif($FileType === "file")
+		{
+			//$fileSize = 
+		}
+		else
+		{
+			if($filesInFolder === "")
+			{
+				$filesInFolder = "<li>No Files Found</li>";
+			}
+		}
 
 		echo generateSaveBlock(
 			array(
@@ -280,7 +331,8 @@
 				"excludeTrimOptions"	=>	$values["ExcludeTrim"],
 				"typeFile"				=>	($FileType === "file"),
 				"typeFolder"			=>	($FileType === "folder"),
-				"FileType"				=> 	$FileType
+				"FileType"				=> 	$FileType,
+				"filesInFolder"			=>	$filesInFolder
 			),
 			$defaultTrashCanIcon
 		);
