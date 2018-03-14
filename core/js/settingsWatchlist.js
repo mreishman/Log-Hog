@@ -12,6 +12,7 @@ function generateRow(data)
 	item = item.replace(/{{pattern}}/g, data["pattern"]);
 	item = item.replace(/{{key}}/g, data["key"]);
 	item = item.replace(/{{recursiveOptions}}/g, generateTrueFalseSelect(data["recursive"]));
+	item = item.replace(/{{excludeTrimOptions}}/g, generateTrueFalseSelect(data["excludeTrim"]));
 	return item;
 }
 
@@ -55,7 +56,8 @@ function addRowFunction()
 				location: "",
 				pattern: "",
 				key: "Log "+countOfWatchList,
-				recursive: "false"
+				recursive: "false",
+				excludeTrim: "false"
 			}
 		);
 		$(".uniqueClassForAppendSettingsMainWatchNew").append(item);
@@ -117,6 +119,7 @@ function deleteRowFunction(currentRow)
 						pattern: document.getElementsByName("watchListKey"+i+"Pattern")[0].value,
 						key: document.getElementsByName("watchListKey"+i)[0].value,
 						recursive: document.getElementsByName("watchListKey"+i+"Recursive")[0].value,
+						excludeTrim: document.getElementsByName("watchListKey"+i+"ExcludeTrim")[0].value,
 					}
 				);
 				//add new one

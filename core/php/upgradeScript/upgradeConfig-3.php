@@ -20,6 +20,7 @@ if (isset($config["watchList"]))
 	{
 		$count++;
 		$arrayWatchList .= "'".$key."' => array(";
+		$arrayWatchList .= "'ExcludeTrim' => 'false',";
 		$arrayWatchList .= "'Location' => '".$key."',";
 		$arrayWatchList .= "'Pattern' => '".$value."'";
 		$arrayWatchList .= "'Recursive' => 'false'";
@@ -32,4 +33,4 @@ if (isset($config["watchList"]))
 	$arrayForNewStuff["watchList"] = $arrayWatchList;
 }
 upgradeConfig($arrayForNewStuff);
-echo json_encode($_POST['version']);
+echo json_encode($_POST['version']); 

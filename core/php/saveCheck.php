@@ -64,6 +64,7 @@ if(isset($_POST['numberOfRows']))
 	for($i = 1; $i <= $_POST['numberOfRows']; $i++ )
 	{
 		$arrayWatchList .= "'".$_POST['watchListKey'.$i]."' => array(";
+		$arrayWatchList .= "'ExcludeTrim' => '".$_POST['watchListKey'.$i.'ExcludeTrim']."',";
 		$arrayWatchList .= "'Location' => '".$_POST['watchListKey'.$i.'Location']."',";
 		$arrayWatchList .= "'Pattern' => '".$_POST['watchListKey'.$i.'Pattern']."',";
 		$arrayWatchList .= "'Recursive' => '".$_POST['watchListKey'.$i.'Recursive']."'";

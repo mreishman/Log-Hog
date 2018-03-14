@@ -60,6 +60,7 @@
 		$pattern = "{{pattern}}";
 		$key = "{{key}}";
 		$recursiveOptions = "{{recursiveOptions}}";
+		$excludeTrimOptions = "{{excludeTrimOptions}}";
 
 		if(isset($data["rowNumber"]))
 		{
@@ -105,6 +106,11 @@
 			$recursiveOptions = $data["recursiveOptions"];
 		}
 
+		if(isset($data["excludeTrimOptions"]))
+		{
+			$excludeTrimOptions = $data["excludeTrimOptions"];
+		}
+
 		$saveBlock = "<li class=\"watchRow\" id=\"rowNumber".$rowNumber."\" >";
 		$saveBlock .= "File ".$fileNumber.":";
 		$saveBlock .= "<div id=\"infoFile".$rowNumber."\" style=\"width: 100px; display: inline-block; text-align: center;\">";
@@ -137,6 +143,27 @@
 		else
 		{
 			$saveBlock .=  $recursiveOptions;
+		}
+		$saveBlock .= "</select></li>";
+		$saveBlock .= "<li><span class=\"settingsBuffer\" >Exclude Trim: </span><select name=\"watchListKey".$rowNumber."ExcludeTrim\" >";
+		if(isset($data["excludeTrimOptions"]))
+		{
+			$saveBlock .=  "<option value=\"true\" ";
+			if($excludeTrimOptions === 'true')
+			{
+				$saveBlock .= " selected ";
+			}
+			$saveBlock .= "  >True</option>";
+			$saveBlock .=  "<option value=\"false\" ";
+			if($excludeTrimOptions !== 'true')
+			{
+				$saveBlock .= " selected ";
+			}
+			$saveBlock .= "  >False</option>";
+		}
+		else
+		{
+			$saveBlock .=  $excludeTrimOptions;
 		}
 		$saveBlock .= "</select></li>";
 		$saveBlock .= "</ul></li>";
@@ -177,14 +204,15 @@
 
 		echo generateSaveBlock(
 			array(
-				"rowNumber"			=>	$i,
-				"fileNumber"		=>	$i,
-				"filePermsDisplay"	=>	$info,
-				"fileImage"			=>	$fileImage,
-				"location"			=>	$location,
-				"pattern"			=>	$values["Pattern"],
-				"key"				=>	$key,
-				"recursiveOptions"	=>	$values["Recursive"]
+				"rowNumber"				=>	$i,
+				"fileNumber"			=>	$i,
+				"filePermsDisplay"		=>	$info,
+				"fileImage"				=>	$fileImage,
+				"location"				=>	$location,
+				"pattern"				=>	$values["Pattern"],
+				"key"					=>	$key,
+				"recursiveOptions"		=>	$values["Recursive"],
+				"excludeTrimOptions"	=>	$values["ExcludeTrim"]
 			),
 			$defaultTrashCanIcon
 		);
