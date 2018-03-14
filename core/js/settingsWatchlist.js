@@ -11,21 +11,21 @@ function generateRow(data)
 	item = item.replace(/{{location}}/g, data["location"]);
 	item = item.replace(/{{pattern}}/g, data["pattern"]);
 	item = item.replace(/{{key}}/g, data["key"]);
-	item = item.replace(/{{recursiveOptions}}/g, generateSelectRecursive(data["recursive"]));
+	item = item.replace(/{{recursiveOptions}}/g, generateTrueFalseSelect(data["recursive"]));
 	return item;
 }
 
-function generateSelectRecursive(recVal)
+function generateTrueFalseSelect(selectValue)
 {
 	var selectHtml = "";
 	selectHtml += "<option value=\"true\" ";
-	if(recVal === "true")
+	if(selectValue === "true")
 	{
 		selectHtml += " selected ";
 	}
 	selectHtml += " >True</option>";
 	selectHtml += "<option value=\"false\" ";
-	if(recVal !== "true")
+	if(selectValue !== "true")
 	{
 		selectHtml += " selected ";
 	}
