@@ -233,7 +233,7 @@
 			$saveBlock .=  $FileType;
 		}
 		$saveBlock .= "</select></span></li>";
-		$saveBlock .= "<li ".$typeFile."><div class=\"settingsHeader\" style=\"margin: 0;\" ><span class=\"settingsBuffer\" >Files: </span> </div> <div class=\"settingsDiv\" style=\"max-height: 150px; display: block; overflow: auto; margin: 0;\" ><ul class=\"settingsUl\" style=\"-webkit-padding-start: 0;\" >".$filesInFolder."</ul></div> </li>";
+		$saveBlock .= "<li ".$typeFile."><div class=\"settingsHeader\" style=\"margin: 0;\" ><span class=\"settingsBuffer\" >Files: </span> </div> <div class=\"settingsDiv\" style=\"max-height: 150px; display: block; overflow: auto; margin: 0;\" ><ul id=\"watchListKey".$rowNumber."FilesInFolder\" class=\"settingsUl\" style=\"-webkit-padding-start: 0;\" >".$filesInFolder."</ul></div> </li>";
 		$saveBlock .= "</ul></div></li>";
 
 		return $saveBlock;

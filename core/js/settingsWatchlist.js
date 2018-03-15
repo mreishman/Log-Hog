@@ -25,6 +25,7 @@ function generateRow(data)
 	item = item.replace(/{{typefile}}/g, displayNoneIfTrue(fileTypeIsFile));
 	item = item.replace(/{{typefolder}}/g, displayNoneIfTrue(fileTypeIsFolder));
 	item = item.replace(/{{FileTypeOptions}}/g, generateFileTypeSelect(data["fileType"]));
+	item = item.replace(/{{filesInFolder}}/g, data["filesInFolder"]);
 	return item;
 }
 
@@ -123,6 +124,11 @@ function addRowFunction(data)
 		{
 			fileTypeFromData = data["fileType"];
 		}
+		var filesInFolderFromData = "<li>Unknown files in folder</li>";
+		if("filesInFolder" in data)
+		{
+			filesInFolderFromData = data["filesInFolder"];
+		}
 		var item = generateRow(
 			{
 				rowNumber: countOfWatchList,
@@ -134,7 +140,8 @@ function addRowFunction(data)
 				key: "Log "+countOfWatchList,
 				recursive: "false",
 				excludeTrim: "false",
-				fileType: fileTypeFromData
+				fileType: fileTypeFromData,
+				filesInFolder: filesInFolderFromData
 			}
 		);
 		$(".uniqueClassForAppendSettingsMainWatchNew").append(item);
@@ -197,7 +204,8 @@ function deleteRowFunction(currentRow)
 						key: document.getElementsByName("watchListKey"+i)[0].value,
 						recursive: document.getElementsByName("watchListKey"+i+"Recursive")[0].value,
 						excludeTrim: document.getElementsByName("watchListKey"+i+"ExcludeTrim")[0].value,
-						fileType: document.getElementsByName("watchListKey"+i+"FileType")[0].value
+						fileType: document.getElementsByName("watchListKey"+i+"FileType")[0].value,
+						filesInFolder: document.getElementById("watchListKey"+i+"FilesInFolder").innerHTML
 					}
 				);
 				//add new one
