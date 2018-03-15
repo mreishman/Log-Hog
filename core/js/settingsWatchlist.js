@@ -188,9 +188,18 @@ function splitFilesPopup(currentRow, keyName = "")
 function splitFiles(currentRow)
 {
 	//do for loop with current list of files
+	var listOfFiles = document.getElementsByName("watchListKey"+currentRow+"FileInFolder");
+	for (var i = 0; i < listOfFiles.length; i++)
+	{
+	  var fileLocation = listOfFiles[i].value;
+	  addRowFunction(
+	  	{
+	  		fileType: "file",
+	  		location: fileLocation
+	  	});
+	}
 
-
-	//deleteRowFunction(currentRow);
+	deleteRowFunction(currentRow);
 }
 
 function deleteRowFunctionPopup(currentRow, keyName = "")
