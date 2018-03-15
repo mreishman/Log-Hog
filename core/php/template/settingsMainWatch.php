@@ -7,7 +7,7 @@
 	</div>
 </div>
 <div class="settingsDiv" >	
-<ul class="settingsUl uniqueClassForAppendSettingsMainWatchNew">
+<ul class="settingsUl uniqueClassForAppendSettingsMainWatchNew" style=" -webkit-padding-start: 0;" >
 	<?php
 
 	$defaultTrashCanIcon = generateImage(
@@ -162,9 +162,9 @@
 		$saveBlock .= $defaultTrashCanIcon;
 		$saveBlock .= "</a>";
 		$saveBlock .= "</div><div class=\"settingsDiv\" ><ul class=\"settingsUl\" >";
-		$saveBlock .= "<li><span class=\"settingsBuffer\" >Location: </span><input style=\"width: 480px;\" type=\"text\" name=\"watchListKey".$rowNumber."Location\" value=\"".$location."\" ></li>";
-		$saveBlock .= "<li ".$typeFile."><span class=\"settingsBuffer\" >Pattern: </span><input type=\"text\" name=\"watchListKey".$rowNumber."Pattern\" value=\"".$pattern."\" ></li>";
-		$saveBlock .= "<li ".$typeFile."><span class=\"settingsBuffer\" >Recursive: </span><select name=\"watchListKey".$rowNumber."Recursive\" >";
+		$saveBlock .= "<li><span class=\"settingsBuffer\" >Location: </span><input style=\"width: 600px;\" type=\"text\" name=\"watchListKey".$rowNumber."Location\" value=\"".$location."\" ></li>";
+		$saveBlock .= "<li ".$typeFile."><span class=\"settingsBuffer\" >Pattern: </span><span class=\"settingsBuffer\" ><input type=\"text\" name=\"watchListKey".$rowNumber."Pattern\" value=\"".$pattern."\" ></span>";
+		$saveBlock .= "<span class=\"settingsBuffer\" >Recursive: </span><span class=\"settingsBuffer\" ><select name=\"watchListKey".$rowNumber."Recursive\" >";
 		if(isset($data["recursiveOptions"]))
 		{
 			$saveBlock .=  "<option value=\"true\" ";
@@ -184,8 +184,8 @@
 		{
 			$saveBlock .=  $recursiveOptions;
 		}
-		$saveBlock .= "</select></li>";
-		$saveBlock .= "<li><span class=\"settingsBuffer\" >Exclude Trim: </span><select name=\"watchListKey".$rowNumber."ExcludeTrim\" >";
+		$saveBlock .= "</select></span></li>";
+		$saveBlock .= "<li><span class=\"settingsBuffer\" >Exclude Trim: </span><span class=\"settingsBuffer\" ><select name=\"watchListKey".$rowNumber."ExcludeTrim\" >";
 		if(isset($data["excludeTrimOptions"]))
 		{
 			$saveBlock .=  "<option value=\"true\" ";
@@ -205,8 +205,8 @@
 		{
 			$saveBlock .=  $excludeTrimOptions;
 		}
-		$saveBlock .= "</select></li>";
-		$saveBlock .= "<li><span class=\"settingsBuffer\" >FileType: </span><select name=\"watchListKey".$rowNumber."FileType\" >";
+		$saveBlock .= "</select></span>";
+		$saveBlock .= "<span class=\"settingsBuffer\" >FileType: </span><span class=\"settingsBuffer\" ><select name=\"watchListKey".$rowNumber."FileType\" >";
 		if(isset($data["FileType"]))
 		{
 			$saveBlock .=  "<option value=\"file\" ";
@@ -232,8 +232,8 @@
 		{
 			$saveBlock .=  $FileType;
 		}
-		$saveBlock .= "</select></li>";
-		$saveBlock .= "<li ".$typeFile."><span class=\"settingsBuffer\" >Files: </span> <div class=\"settingsDiv\" style=\"max-height: 150px; width: 400px; display: inline-flex; overflow: auto;\" ><ul class=\"settingsUl\" style=\"-webkit-padding-start: 0;\" >".$filesInFolder."</ul></div> </li>";
+		$saveBlock .= "</select></span></li>";
+		$saveBlock .= "<li ".$typeFile."><div class=\"settingsHeader\" style=\"margin: 0;\" ><span class=\"settingsBuffer\" >Files: </span> </div> <div class=\"settingsDiv\" style=\"max-height: 150px; display: block; overflow: auto; margin: 0;\" ><ul class=\"settingsUl\" style=\"-webkit-padding-start: 0;\" >".$filesInFolder."</ul></div> </li>";
 		$saveBlock .= "</ul></div></li>";
 
 		return $saveBlock;
