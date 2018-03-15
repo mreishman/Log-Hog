@@ -129,14 +129,26 @@ function addRowFunction(data)
 		{
 			filesInFolderFromData = data["filesInFolder"];
 		}
+		var locationFromData = "";
+		if("location" in data)
+		{
+			locationFromData = data["location"];
+		}
+
+		var patternFromData = "";
+		if("pattern" in data)
+		{
+			patternFromData = data["pattern"];
+		}
+
 		var item = generateRow(
 			{
 				rowNumber: countOfWatchList,
 				fileNumber: fileName,
 				filePermsDisplay: "----------",
 				fileImage: "",
-				location: "",
-				pattern: "",
+				location: locationFromData,
+				pattern: patternFromData,
 				key: "Log "+countOfWatchList,
 				recursive: "false",
 				excludeTrim: "false",
@@ -151,6 +163,34 @@ function addRowFunction(data)
 	{
 		eventThrowException(e);
 	}
+}
+
+function splitFilesPopup(currentRow, keyName = "")
+{
+	try
+	{
+		if("removeFolder" in popupSettingsArray && popupSettingsArray.removeFolder === "true")
+		{
+			showPopup();
+			document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class='settingsHeader' >Are you sure you want to split the files into new watch blocks?</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>"+keyName+"</div><div><div class='link' onclick='splitFiles("+currentRow+");hidePopup();' style='margin-left:125px; margin-right:50px;margin-top:35px;'>Yes</div><div onclick='hidePopup();' class='link'>No</div></div>";
+		}
+		else
+		{
+			splitFiles(currentRow);
+		}
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
+function splitFiles(currentRow)
+{
+	//do for loop with current list of files
+
+
+	//deleteRowFunction(currentRow);
 }
 
 function deleteRowFunctionPopup(currentRow, keyName = "")
