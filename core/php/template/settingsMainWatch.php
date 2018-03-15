@@ -287,16 +287,24 @@
 
 		if($FileType === "folder")
 		{
-			$response = getListOfFiles(array(
-				"path" 			=> $location,
-				"filter"		=> $values["Pattern"],
-				"response"		=> array(),
-				"recursive"		=> $values["Recursive"]
+			$response = array();
+			if(file_exists($location))
+			{
+				$response = getListOfFiles(array(
+					"path" 			=> $location,
+					"filter"		=> $values["Pattern"],
+					"response"		=> array(),
+					"recursive"		=> $values["Recursive"]
 
-			));
+				));
+			}
 			foreach ($response as $key2)
 			{
-				$filesInFolder .= "<li>".$key2."</li>";
+				$filesInFolder .= "<li>";
+				
+				$filesInFolder .= $defaultFileIcon;
+				
+				$filesInFolder .= str_replace($location, "", $key2)."</li>";
 			}
 			if($filesInFolder === "")
 			{
