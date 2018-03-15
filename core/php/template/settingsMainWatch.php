@@ -300,13 +300,16 @@
 
 				));
 			}
+			$countFiles = 0;
 			foreach ($response as $key2)
 			{
+				$countFiles++;
 				$filesInFolder .= "<li>";
-				
 				$filesInFolder .= $defaultFileIcon;
-				
-				$filesInFolder .= str_replace($location, "", $key2)."</li>";
+				$filesInFolder .= "<span style=\"width: 300px; overflow: auto; display: inline-block;\" >".str_replace($location, "", $key2)."</span><input name=\"watchListKey".$i."FileInFolder".$countFiles."\"  type=\"hidden\" value=\"".$key2."\" >";
+				$filesInFolder .= "<span class=\"settingsBuffer\" > <input type=\"checkbox\" checked > Include </span>";
+				$filesInFolder .= "<span class=\"settingsBuffer\" > <input type=\"checkbox\" checked > Trim </span>";
+				$filesInFolder .= "</li>";
 			}
 			if($filesInFolder === "")
 			{
