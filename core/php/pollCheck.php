@@ -20,6 +20,7 @@ foreach ($varsLoadLite as $varLoadLite)
 }
 
 $response = array();
+$responseFilelist = array();
 $currentVersionPost = $configStatic["version"];
 if(isset($_POST['currentVersion']))
 {
@@ -44,19 +45,23 @@ foreach($watchList as $key => $value)
 	$filter = $value["Pattern"];
 	if(is_dir($path))
 	{
-		$response = sizeFilesInDir(array(
+		$responseFilelist = getListOfFiles(array(
 			"path" 			=> $path,
 			"filter"		=> $filter,
-			"response"		=> $response,
-			"shellOrPhp"	=> $shellOrPhp,
+			"response"		=> $responseFilelist,
 			"recursive"		=> $value["Recursive"]
 
 		));
 	}
 	elseif(file_exists($path))
 	{
-		$response[$path] = getFileSize($path, $shellOrPhp);
+		array_push($responseFilelist, $path);
 	}
+}
+
+foreach ($responseFilelist as $file)
+{
+	$response[$file] = getFileSize($file, $shellOrPhp);
 }
 
 echo json_encode($response);

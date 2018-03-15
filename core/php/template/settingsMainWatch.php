@@ -287,16 +287,14 @@
 
 		if($FileType === "folder")
 		{
-			$response = sizeFilesInDir(array(
+			$response = getListOfFiles(array(
 				"path" 			=> $location,
 				"filter"		=> $values["Pattern"],
 				"response"		=> array(),
-				"shellOrPhp"	=> $shellOrPhp,
 				"recursive"		=> $values["Recursive"]
 
 			));
-			$fileList = array_keys($response);
-			foreach ($response as $key2 => $value2)
+			foreach ($response as $key2)
 			{
 				$filesInFolder .= "<li>".$key2."</li>";
 			}
