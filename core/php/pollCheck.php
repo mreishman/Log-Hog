@@ -39,6 +39,8 @@ if(array_key_exists('percent', $updateProgress) && ($updateProgress['percent'] !
 	exit();
 }
 
+$watchListFolder = array();
+
 foreach($watchList as $key => $value)
 {
 	$path = $value["Location"];
@@ -52,6 +54,12 @@ foreach($watchList as $key => $value)
 			"recursive"		=> $value["Recursive"]
 
 		));
+		$watchListFolder[$key] = getListOfFiles(array(
+			"path" 			=> $path,
+			"filter"		=> $filter,
+			"response"		=> array(),
+			"recursive"		=> $value["Recursive"]
+		));
 	}
 	elseif(file_exists($path))
 	{
@@ -62,6 +70,41 @@ foreach($watchList as $key => $value)
 foreach ($responseFilelist as $file)
 {
 	$response[$file]["size"] = getFileSize($file, $shellOrPhp);
+	if(isset($watchList[$file]))
+	{
+		//this is a file that is set in watchlist, use that info
+		$response[$file]["ExcludeTrim"] = $watchList[$file]["ExcludeTrim"];
+	}
+	else
+	{
+		foreach ($watchListFolder as $key => $value)
+		{
+			$found = false;
+			foreach ($value as $fileInner)
+			{
+				if($fileInner === $file)
+				{
+					$found = true;
+					break;
+				}
+			}
+			if($found)
+			{
+				//this file is in that folder, use that info
+
+				//check if file has specific info in folder
+				if(false)
+				{
+
+				}
+				else
+				{
+					$response[$file]["ExcludeTrim"] = $watchList[$key]["ExcludeTrim"];
+				}
+				break;
+			}
+		}
+	}
 }
 
 echo json_encode($response);

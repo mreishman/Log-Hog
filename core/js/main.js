@@ -1,4 +1,4 @@
-var arrayToUpdate = [];
+var arrayToUpdate = {};
 var arrayOfData1 = null;
 var arrayOfData2 = null;
 var arrayOfDataMain = null;
@@ -314,14 +314,14 @@ function pollTwoPartTwo(data)
 		}
 
 		filesNew = Object.keys(data);
-		arrayToUpdate = [];
+		arrayToUpdate = {};
 
 		if(arrayOfData1 === null || boolForAllUpdateForce)
 		{
 			arrayOfData1 = data;
 			for (var i = filesNew.length - 1; i >= 0; i--)
 			{
-				arrayToUpdate.push(filesNew[i]);
+				arrayToUpdate[filesNew[i]] = data[filesNew[i]];
 			}
 		}
 		else
@@ -335,13 +335,13 @@ function pollTwoPartTwo(data)
 					//file exists
 					if(arrayOfData2[filesNew[i]] !== arrayOfData1[filesNew[i]])
 					{
-						arrayToUpdate.push(filesNew[i]);
+						arrayToUpdate[filesNew[i]] = data[filesNew[i]];
 					}
 				}
 				else
 				{
 					//file is new, add to array
-					arrayToUpdate.push(filesNew[i]);
+					arrayToUpdate[filesNew[i]] = data[filesNew[i]];
 				}
 			}
 			
@@ -350,7 +350,7 @@ function pollTwoPartTwo(data)
 				if(!(filesNew.indexOf(filesOld[i]) > -1))
 				{
 					//files old file isn't there in new file
-					arrayToUpdate.push(filesOld[i]);
+					arrayToUpdate[filesOld[i]] = arrayOfData1[filesOld[i]];
 				}
 			}
 			arrayOfData1 = data;
@@ -367,27 +367,28 @@ function pollThree(arrayToUpdate)
 {
 	try
 	{
+		var arrayUpdateKeys = Object.keys(arrayToUpdate);
 		if(arrayOfDataMain !== null)
 		{
-			for (var i = arrayToUpdate.length - 1; i >= 0; i--) 
+			for (var i = arrayUpdateKeys.length - 1; i >= 0; i--) 
 			{
-				if(arrayOfDataMain[arrayToUpdate[i]] === null)
+				if(arrayOfDataMain[arrayUpdateKeys[i]] === null)
 				{
-					delete arrayOfDataMain[arrayToUpdate[i]];
+					delete arrayOfDataMain[arrayUpdateKeys[i]];
 				}
 				else
 				{
-					arrayOfDataMain[arrayToUpdate[i]] = null;
+					arrayOfDataMain[arrayUpdateKeys[i]] = null;
 				}
 			}
 		}
 		t3 = performance.now();
-		if (typeof arrayToUpdate !== "undefined" && arrayToUpdate.length > 0) 
+		if (typeof arrayToUpdate !== "undefined" && arrayUpdateKeys.length > 0) 
 		{
 			if(firstLoad)
 			{
-				updateProgressBar(10,arrayToUpdate[0],  "Loading file 1 of "+arrayToUpdate.length+" <br>  "+formatBytes(fileData[arrayToUpdate[0]]["size"]));
-				getFileSingle(arrayToUpdate.length-1, arrayToUpdate.length-1);
+				updateProgressBar(10,arrayUpdateKeys[0],  "Loading file 1 of "+arrayUpdateKeys.length+" <br>  "+formatBytes(fileData[arrayUpdateKeys[0]]["size"]));
+				getFileSingle(arrayUpdateKeys.length-1, arrayUpdateKeys.length-1);
 			}
 			else
 			{
@@ -425,7 +426,11 @@ function getFileSingle(current)
 {
 	try
 	{
-		var data = {arrayToUpdate: [arrayToUpdate[current]]};
+		var arrayUpdateKeys = Object.keys(arrayToUpdate);
+		var arraySend = {};
+		var keyForThis = arrayUpdateKeys[current];
+		arraySend[keyForThis] = arrayToUpdate[keyForThis];
+		var data = {arrayToUpdate: arraySend};
 		$.ajax({
 			url: "core/php/poll.php?format=json",
 			dataType: "json",
@@ -439,11 +444,12 @@ function getFileSingle(current)
 			},
 			complete()
 			{
+				var arrayUpdateKeys = Object.keys(arrayToUpdate);
 				var currentNew = this.currentFile;
-				var updateBy = (1/arrayToUpdate.length)*60;
+				var updateBy = (1/arrayUpdateKeys.length)*60;
 				if(currentNew > 0)
 				{
-					updateProgressBar(updateBy, arrayToUpdate[currentNew-1], "Loading file "+(arrayToUpdate.length+1-currentNew)+" of "+arrayToUpdate.length+" <br>  "+formatBytes(fileData[arrayToUpdate[currentNew-1]]["size"]));
+					updateProgressBar(updateBy, arrayUpdateKeys[currentNew-1], "Loading file "+(arrayUpdateKeys.length+1-currentNew)+" of "+arrayUpdateKeys.length+" <br>  "+formatBytes(fileData[arrayUpdateKeys[currentNew-1]]["size"]));
 					currentNew--;
 					setTimeout(function(){ getFileSingle(currentNew); }, 100);
 					

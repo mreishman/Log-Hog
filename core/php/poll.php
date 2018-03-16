@@ -33,7 +33,7 @@ $response = array();
 if(isset($_POST['arrayToUpdate']))
 {
 	$arrayToUpdate = $_POST['arrayToUpdate'];
-	foreach($arrayToUpdate as $path)
+	foreach($arrayToUpdate as $path => $pathData)
 	{
 		try
 		{
@@ -58,7 +58,7 @@ if(isset($_POST['arrayToUpdate']))
 			else
 			{
 				//trim file
-				if($logTrimOn == "true")
+				if($logTrimOn == "true" && $pathData["ExcludeTrim"] === "false")
 				{
 					if($logTrimType == 'lines')
 					{
