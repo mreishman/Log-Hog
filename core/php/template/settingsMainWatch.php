@@ -13,7 +13,7 @@
 	$defaultTrashCanIcon = generateImage(
 		$arrayOfImages["trashCanSideBar"],
 		array(
-			"height"		=>	"15px",
+			"height"		=>	"25px",
 			"srcModifier"	=>	"../"
 		)
 	);
@@ -21,7 +21,7 @@
 	$defaultRedErrorIcon = generateImage(
 		$arrayOfImages["redWarning"],
 		array(
-			"width"			=>	"15px",
+			"width"			=>	"25px",
 			"srcModifier"	=>	"../"
 		)
 	);
@@ -29,7 +29,7 @@
 	$defaultYellowErrorIcon = generateImage(
 		$arrayOfImages["yellowWarning"],
 		array(
-			"width"			=>	"15px",
+			"width"			=>	"25px",
 			"srcModifier"	=>	"../"
 		)
 	);
@@ -37,7 +37,7 @@
 	$defaultFolderIcon = generateImage(
 		$arrayOfImages["folderIcon"],
 		array(
-			"width"			=>	"15px",
+			"width"			=>	"25px",
 			"srcModifier"	=>	"../"
 		)
 	);
@@ -45,7 +45,7 @@
 	$defaultFileIcon = generateImage(
 		$arrayOfImages["fileIcon"],
 		array(
-			"width"			=>	"15px",
+			"width"			=>	"25px",
 			"srcModifier"	=>	"../"
 		)
 	);
@@ -156,7 +156,7 @@
 		$saveBlock .= "<div id=\"infoFile".$rowNumber."\" style=\"width: 100px; display: inline-block; text-align: center;\">";
 		$saveBlock .= $filePermsDisplay;
 		$saveBlock .= "</div>";
-		$saveBlock .= "<span style=\"width: 25px; display: inline-block;\" id=\"imageFile".$rowNumber."\" >".$fileImage."</span>";
+		$saveBlock .= "<span style=\"width: 50px; display: inline-block;\" id=\"imageFile".$rowNumber."\" >".$fileImage."</span>";
 		$saveBlock .= "<input type=\"hidden\" name=\"watchListKey".$rowNumber."\" value=\"FileOrFolder".$rowNumber."\" >";
 		$saveBlock .= "<a class=\"deleteIconPosition\"	onclick=\"deleteRowFunctionPopup(".$rowNumber.", '".$location."');\"	>";
 		$saveBlock .= $defaultTrashCanIcon;
@@ -373,6 +373,18 @@
 					);
 				?>
 				 - File / Folder not found! &nbsp; &nbsp; &nbsp; 
+				<?php 
+					echo generateImage(
+						$arrayOfImages["yellowWarning"],
+						array(
+							"height"		=>	"10px",
+							"srcModifier"	=>	"../"
+						)
+					);
+				?>
+				 - Unknown
+			</li>
+			<li>
 				<?php
 					echo generateImage(
 						$arrayOfImages["fileIcon"],
@@ -385,6 +397,28 @@
 				 - File &nbsp; &nbsp; &nbsp; 
 				<?php
 					echo generateImage(
+						$arrayOfImages["fileIcon"],
+						array(
+							"height"		=>	"10px",
+							"srcModifier"	=>	"../"
+						)
+					);
+				?>
+				 - File Not Readable &nbsp; &nbsp; &nbsp; 
+				<?php
+					echo generateImage(
+						$arrayOfImages["fileIcon"],
+						array(
+							"height"		=>	"10px",
+							"srcModifier"	=>	"../"
+						)
+					);
+				?>
+				 - File Not Writeable
+			</li>
+			<li>
+				<?php
+					echo generateImage(
 						$arrayOfImages["folderIcon"],
 						array(
 							"height"		=>	"10px",
@@ -393,16 +427,26 @@
 					);
 				?>
 				 - Folder &nbsp; &nbsp; &nbsp; 
-				<?php 
+				<?php
 					echo generateImage(
-						$arrayOfImages["yellowWarning"],
+						$arrayOfImages["folderIcon"],
 						array(
 							"height"		=>	"10px",
 							"srcModifier"	=>	"../"
 						)
 					);
 				?>
-				 - Unknown
+				 - Folder Not Readable &nbsp; &nbsp; &nbsp; 
+				<?php
+					echo generateImage(
+						$arrayOfImages["folderIcon"],
+						array(
+							"height"		=>	"10px",
+							"srcModifier"	=>	"../"
+						)
+					);
+				?>
+				 - Folder Not Writeable &nbsp; &nbsp; &nbsp; 
 			</li>
 			<li>
 				f - file &nbsp; &nbsp; &nbsp; | &nbsp; &nbsp; &nbsp;
