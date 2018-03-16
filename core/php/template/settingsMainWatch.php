@@ -318,6 +318,10 @@
 		elseif($FileType === "file")
 		{
 			//$fileSize = 
+			if($filesInFolder === "")
+			{
+				$filesInFolder = "<li>FileType was set to file</li>";
+			}
 		}
 		else
 		{

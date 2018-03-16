@@ -2192,7 +2192,7 @@ function toggleFilterSettingsPopup()
 {
 	showPopup();
 	var innerHtmlForSettings = "<div class='settingsHeader' id='popupHeaderText' ><span id='popupHeaderText' >Local Filter Content Settings</span><a style=\"float: right; margin-top: -3px;\" onclick=\"hidePopup();\" class=\"linkSmall\" >Close</a></div><div style='width:100%;'>";
-	innerHtmlForSettings += "<ul id=\"settingsUl\" ><li><span class=\"settingsBuffer\" > Case Insensitive Search: </span> <div class=\"selectDiv\">";
+	innerHtmlForSettings += "<ul class=\"settingsUl\" ><li><span class=\"settingsBuffer\" > Case Insensitive Search: </span> <div class=\"selectDiv\">";
 	innerHtmlForSettings += "<select onchange=\"changeFilterCase();\" id=\"caseInsensitiveSearch\">";
 	innerHtmlForSettings += "<option";
 	if(caseInsensitiveSearch === 'true')
