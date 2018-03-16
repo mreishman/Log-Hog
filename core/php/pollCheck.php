@@ -47,19 +47,13 @@ foreach($watchList as $key => $value)
 	$filter = $value["Pattern"];
 	if(is_dir($path))
 	{
-		$responseFilelist = getListOfFiles(array(
-			"path" 			=> $path,
-			"filter"		=> $filter,
-			"response"		=> $responseFilelist,
-			"recursive"		=> $value["Recursive"]
-
-		));
 		$watchListFolder[$key] = getListOfFiles(array(
 			"path" 			=> $path,
 			"filter"		=> $filter,
 			"response"		=> array(),
 			"recursive"		=> $value["Recursive"]
 		));
+		$responseFilelist = array_merge($responseFilelist, $watchListFolder[$key]);
 	}
 	elseif(file_exists($path))
 	{
@@ -70,6 +64,7 @@ foreach($watchList as $key => $value)
 foreach ($responseFilelist as $file)
 {
 	$response[$file]["size"] = getFileSize($file, $shellOrPhp);
+
 	if(isset($watchList[$file]))
 	{
 		//this is a file that is set in watchlist, use that info
