@@ -61,7 +61,7 @@ foreach($watchList as $key => $value)
 
 foreach ($responseFilelist as $file)
 {
-	$response[$file] = getFileSize($file, $shellOrPhp);
+	$response[$file]["size"] = getFileSize($file, $shellOrPhp);
 }
 
 echo json_encode($response);

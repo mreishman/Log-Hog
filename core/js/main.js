@@ -9,7 +9,7 @@ var counterForPollForceRefreshErr = 0;
 var currentPage;
 var currentSelectWindow = 0;
 var dataFromUpdateCheck = null;
-var fileSizes;
+var fileData;
 var filesNew;
 var firstLoad = true;
 var flasher;
@@ -269,7 +269,7 @@ function pollTwo()
 				}
 				else
 				{
-					fileSizes = data;
+					fileData = data;
 					pollTwoPartTwo(data);
 				}
 			},
@@ -386,7 +386,7 @@ function pollThree(arrayToUpdate)
 		{
 			if(firstLoad)
 			{
-				updateProgressBar(10,arrayToUpdate[0],  "Loading file 1 of "+arrayToUpdate.length+" <br>  "+formatBytes(fileSizes[arrayToUpdate[0]]));
+				updateProgressBar(10,arrayToUpdate[0],  "Loading file 1 of "+arrayToUpdate.length+" <br>  "+formatBytes(fileData[arrayToUpdate[0]]["size"]));
 				getFileSingle(arrayToUpdate.length-1, arrayToUpdate.length-1);
 			}
 			else
@@ -441,15 +441,16 @@ function getFileSingle(current)
 			{
 				var currentNew = this.currentFile;
 				var updateBy = (1/arrayToUpdate.length)*60;
-				updateProgressBar(updateBy, arrayToUpdate[currentNew-1], "Loading file "+(arrayToUpdate.length+1-currentNew)+" of "+arrayToUpdate.length+" <br>  "+formatBytes(fileSizes[arrayToUpdate[currentNew-1]]));
 				if(currentNew > 0)
 				{
+					updateProgressBar(updateBy, arrayToUpdate[currentNew-1], "Loading file "+(arrayToUpdate.length+1-currentNew)+" of "+arrayToUpdate.length+" <br>  "+formatBytes(fileData[arrayToUpdate[currentNew-1]]["size"]));
 					currentNew--;
 					setTimeout(function(){ getFileSingle(currentNew); }, 100);
 					
 				}
 				else
 				{
+					updateProgressBar(updateBy, "", "Finishing loading....");
 					update(arrayOfDataMain);
 					afterPollFunctionComplete();
 				}
@@ -759,11 +760,11 @@ function update(data)
 							logs[id] = data[name];
 							if(enableLogging !== "false")
 							{
-								titles[id] = name + " | " + data[name+"dataForLoggingLogHog051620170928"] + " | Size: " + formatBytes(fileSizes[files[i]]);
+								titles[id] = name + " | " + data[name+"dataForLoggingLogHog051620170928"] + " | Size: " + formatBytes(fileData[files[i]]["size"]);
 							}
 							else
 							{
-								titles[id] = name + " | Size: " + formatBytes(fileSizes[files[i]]);
+								titles[id] = name + " | Size: " + formatBytes(fileData[files[i]]["size"]);
 							}
 							
 							if(enableLogging !== "false")
