@@ -333,7 +333,7 @@ function pollTwoPartTwo(data)
 				if(filesOld.indexOf(filesNew[i]) > -1)
 				{
 					//file exists
-					if(arrayOfData2[filesNew[i]] !== arrayOfData1[filesNew[i]])
+					if(JSON.stringify(arrayOfData2[filesNew[i]]) !== JSON.stringify(arrayOfData1[filesNew[i]]))
 					{
 						arrayToUpdate[filesNew[i]] = data[filesNew[i]];
 					}
