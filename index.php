@@ -109,47 +109,56 @@ $logDisplayArray = "{";
 $logDisplay = "";
 $popupInfoLog = "";
 $borderPadding = 0;
+
+$infoImageForWindowTableLoop = generateImage(
+	$arrayOfImages["infoSideBar"],
+	$imageConfig = array(
+		"height"	=>	"20px",
+		"style"		=>	"margin: 5px;",
+		"title"		=>	"More Info"
+		)
+	);
+$clearImageForWindowTableLoop = generateImage(
+	$arrayOfImages["eraserSideBar"],
+	$imageConfig = array(
+		"height"	=>	"20px",
+		"style"		=>	"margin: 5px;",
+		"title"		=>	"Clear Log"
+		)
+	);
+$deleteImageForWindowTableLoop =  generateImage(
+	$arrayOfImages["trashCanSideBar"],
+	$imageConfig = array(
+		"height"	=>	"20px",
+		"style"		=>	"margin: 5px;",
+		"title"		=>	"Delete Log"
+		)
+	);
+$downImageForWindowTableLoop =  generateImage(
+	$arrayOfImages["downArrowSideBar"],
+	$imageConfig = array(
+		"height"	=>	"20px",
+		"style"		=>	"margin: 5px;",
+		"title"		=>	"Scroll to Bottom"
+		)
+	);
+$loadingImage = generateImage(
+	$arrayOfImages["loading"],
+	$imageConfig = array(
+		"height"	=>	"30px",
+		)
+	);
+$externalLinkImage = generateImage(
+	$arrayOfImages["externalLink"],
+	$imageConfig = array(
+		"height"	=>	"30px",
+		)
+	);
+
 for ($i=0; $i < $windowDisplayConfig[0]; $i++)
 {
 	$logDisplay .= "<tr>";
-	$infoImageForWindowTableLoop = generateImage(
-		$arrayOfImages["infoSideBar"],
-		$imageConfig = array(
-			"height"	=>	"20px",
-			"style"		=>	"margin: 5px;",
-			"title"		=>	"More Info"
-			)
-		);
-	$clearImageForWindowTableLoop = generateImage(
-		$arrayOfImages["eraserSideBar"],
-		$imageConfig = array(
-			"height"	=>	"20px",
-			"style"		=>	"margin: 5px;",
-			"title"		=>	"Clear Log"
-			)
-		);
-	$deleteImageForWindowTableLoop =  generateImage(
-		$arrayOfImages["trashCanSideBar"],
-		$imageConfig = array(
-			"height"	=>	"20px",
-			"style"		=>	"margin: 5px;",
-			"title"		=>	"Delete Log"
-			)
-		);
-	$downImageForWindowTableLoop =  generateImage(
-		$arrayOfImages["downArrowSideBar"],
-		$imageConfig = array(
-			"height"	=>	"20px",
-			"style"		=>	"margin: 5px;",
-			"title"		=>	"Scroll to Bottom"
-			)
-		);
-	$loadingImage = generateImage(
-					$arrayOfImages["loading"],
-					$imageConfig = array(
-						"height"	=>	"30px",
-						)
-					);
+
 	for ($j=0; $j < $windowDisplayConfig[1]; $j++)
 	{
 		$borderPadding += 2;
@@ -468,6 +477,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 					?>
 				</div>
 				Settings
+				<?php echo $externalLinkImage; ?>
 			</li>
 			<?php if($locationForMonitorIndex["loc"] || $locationForSearchIndex["loc"] || $locationForSeleniumMonitorIndex["loc"] || $locationForStatusIndex["loc"]): ?>
 				<li class="menuTitle" style="background-color: #999; color: black;" >
@@ -488,6 +498,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 						?>
 					</div>
 					Monitor
+					<?php echo $externalLinkImage; ?>
 				</li>
 			<?php endif; ?>
 			<?php if($locationForSearchIndex["loc"]): ?>
@@ -504,6 +515,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 						?>
 					</div>
 					Search
+					<?php echo $externalLinkImage; ?>
 				</li>
 			<?php endif; ?>
 			<?php if($locationForSeleniumMonitorIndex["loc"]): ?>
@@ -520,6 +532,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 						?>
 					</div>
 					Selenium Monitor
+					<?php echo $externalLinkImage; ?>
 				</li>
 			<?php endif; ?>
 			<?php if ($locationForStatusIndex["loc"]):?>
@@ -536,6 +549,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 						?>
 					</div>
 					gitStatus
+					<?php echo $externalLinkImage; ?>
 				</li>
 			<?php endif; ?>
 		</ul>

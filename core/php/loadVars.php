@@ -364,6 +364,12 @@ else
 			"title"			=>	"Clear",
 			"baseName"		=>	"eraserSideBar.png"
 		),
+		"externalLink"		=> array(
+			"alt"			=>	"External Link",
+			"src"			=>	"",
+			"title"			=>	"External Link",
+			"baseName"		=>	"externalLink.png"
+		),
 		"fileIcon"			=> array(
 			"alt"			=>	"File",
 			"src"			=>	"",
