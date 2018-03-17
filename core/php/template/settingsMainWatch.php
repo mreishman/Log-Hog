@@ -50,6 +50,38 @@
 		)
 	);
 
+	$defaultFolderNRIcon = generateImage(
+		$arrayOfImages["folderIconNR"],
+		array(
+			"width"			=>	"25px",
+			"srcModifier"	=>	"../"
+		)
+	);
+
+	$defaultFileNRIcon = generateImage(
+		$arrayOfImages["fileIconNR"],
+		array(
+			"width"			=>	"25px",
+			"srcModifier"	=>	"../"
+		)
+	);
+
+	$defaultFolderNWIcon = generateImage(
+		$arrayOfImages["folderIconNW"],
+		array(
+			"width"			=>	"25px",
+			"srcModifier"	=>	"../"
+		)
+	);
+
+	$defaultFileNWIcon = generateImage(
+		$arrayOfImages["fileIconNW"],
+		array(
+			"width"			=>	"25px",
+			"srcModifier"	=>	"../"
+		)
+	);
+
 
 	function generateSaveBlock($data = array(), $defaultTrashCanIcon)
 	{
@@ -258,27 +290,35 @@
 		}
 		elseif(is_dir($location))
 		{
+			$fileImage = $defaultFolderIcon;
 			if($FileType !== "other")
 			{
 				$FileType = "folder";
 			}
-			if(is_readable($location))
+			if(!is_readable($location))
 			{
-				//add icon here?
+				$fileImage = $defaultFolderNRIcon;
 			}
-			$fileImage = $defaultFolderIcon;
+			elseif(!is_writeable($location))
+			{
+				$fileImage = $defaultFolderNWIcon;
+			}
 		}
 		elseif(is_file($location))
 		{
+			$fileImage = $defaultFileIcon;
 			if($FileType !== "other")
 			{
 				$FileType = "file";
 			}
-			if(is_readable($location))
+			if(!is_readable($location))
 			{
-				//add icon here?
+				$fileImage = $defaultFileNRIcon;
 			}
-			$fileImage = $defaultFileIcon;
+			elseif(!is_writeable($location))
+			{
+				$fileImage = $defaultFileNWIcon;
+			}
 		}
 
 		if($values["FileType"] != "auto")
@@ -401,7 +441,7 @@
 				 - File &nbsp; &nbsp; &nbsp; 
 				<?php
 					echo generateImage(
-						$arrayOfImages["fileIcon"],
+						$arrayOfImages["fileIconNR"],
 						array(
 							"height"		=>	"10px",
 							"srcModifier"	=>	"../"
@@ -411,7 +451,7 @@
 				 - File Not Readable &nbsp; &nbsp; &nbsp; 
 				<?php
 					echo generateImage(
-						$arrayOfImages["fileIcon"],
+						$arrayOfImages["fileIconNW"],
 						array(
 							"height"		=>	"10px",
 							"srcModifier"	=>	"../"
@@ -433,7 +473,7 @@
 				 - Folder &nbsp; &nbsp; &nbsp; 
 				<?php
 					echo generateImage(
-						$arrayOfImages["folderIcon"],
+						$arrayOfImages["folderIconNR"],
 						array(
 							"height"		=>	"10px",
 							"srcModifier"	=>	"../"
@@ -443,7 +483,7 @@
 				 - Folder Not Readable &nbsp; &nbsp; &nbsp; 
 				<?php
 					echo generateImage(
-						$arrayOfImages["folderIcon"],
+						$arrayOfImages["folderIconNW"],
 						array(
 							"height"		=>	"10px",
 							"srcModifier"	=>	"../"

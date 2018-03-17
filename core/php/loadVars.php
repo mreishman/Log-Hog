@@ -370,11 +370,35 @@ else
 			"title"			=>	"File",
 			"baseName"		=>	"fileIcon.png"
 		),
+		"fileIconNW"		=> array(
+			"alt"			=>	"File Not Writeable",
+			"src"			=>	"",
+			"title"			=>	"File Not Writeable",
+			"baseName"		=>	"fileIconNW.png"
+		),
+		"fileIconNR"		=> array(
+			"alt"			=>	"File Not Readable",
+			"src"			=>	"",
+			"title"			=>	"File Not Readable",
+			"baseName"		=>	"fileIconNR.png"
+		),
 		"folderIcon"		=> array(
 			"alt"			=>	"Folder",
 			"src"			=>	"",
 			"title"			=>	"Folder",
 			"baseName"		=>	"folderIcon.png"
+		),
+		"folderIconNR"		=> array(
+			"alt"			=>	"Folder Not Readable",
+			"src"			=>	"",
+			"title"			=>	"Folder Not Readable",
+			"baseName"		=>	"folderIconNR.png"
+		),
+		"folderIconNW"		=> array(
+			"alt"			=>	"Folder Not Writeable",
+			"src"			=>	"",
+			"title"			=>	"Folder Not Writeable",
+			"baseName"		=>	"folderIconNW.png"
 		),
 		"gear"		=> array(
 			"alt"			=>	"Settings",
