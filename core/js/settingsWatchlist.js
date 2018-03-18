@@ -26,6 +26,7 @@ function generateRow(data)
 	item = item.replace(/{{typefolder}}/g, displayNoneIfTrue(fileTypeIsFolder));
 	item = item.replace(/{{FileTypeOptions}}/g, generateFileTypeSelect(data["fileType"]));
 	item = item.replace(/{{filesInFolder}}/g, data["filesInFolder"]);
+	item = item.replace(/{{AutoDeleteFiles}}/g, data["AutoDeleteFiles"]);
 	return item;
 }
 
@@ -153,7 +154,8 @@ function addRowFunction(data)
 				recursive: "false",
 				excludeTrim: "false",
 				fileType: fileTypeFromData,
-				filesInFolder: filesInFolderFromData
+				filesInFolder: filesInFolderFromData,
+				AutoDeleteFiles: ""
 			}
 		);
 		$(".uniqueClassForAppendSettingsMainWatchNew").append(item);
@@ -257,7 +259,8 @@ function deleteRowFunction(currentRow)
 						recursive: document.getElementsByName("watchListKey"+i+"Recursive")[0].value,
 						excludeTrim: document.getElementsByName("watchListKey"+i+"ExcludeTrim")[0].value,
 						fileType: document.getElementsByName("watchListKey"+i+"FileType")[0].value,
-						filesInFolder: document.getElementById("watchListKey"+i+"FilesInFolder").innerHTML
+						filesInFolder: document.getElementById("watchListKey"+i+"FilesInFolder").innerHTML,
+						AutoDeleteFiles: document.getElementsByName("watchListKey"+i+"AutoDeleteFiles")[0].value
 					}
 				);
 				//add new one

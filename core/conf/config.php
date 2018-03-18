@@ -292,18 +292,21 @@ $defaultConfig = array(
 	'updateNotificationEnabled'		=> 'true',
 	'watchList'		=> array(
 		'System Log'	    => array(
+			"AutoDeleteFiles"	=>	"",
 			"ExcludeTrim"		=>	"false",
 			"Location"			=>	"/var/www/html/var/log/system.log",
 			"Pattern"			=>	"",
 			"Recursive"			=>	"false"
 		),
 		'HHVM'				=> array(
+			"AutoDeleteFiles"	=>	"",
 			"ExcludeTrim"		=>	"false",
 			"Location"			=>	"/var/log/hhvm/error.log",
 			"Pattern"			=>	"",
 			"Recursive"			=>	"false"
 		),
 		'Apache2'			=> array(
+			"AutoDeleteFiles"	=>	"",
 			"ExcludeTrim"		=>	"false",
 			"Location"			=>	"/var/log/apache2",
 			"Pattern"			=>	".log$",

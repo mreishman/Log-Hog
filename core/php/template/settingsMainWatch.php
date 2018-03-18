@@ -98,6 +98,7 @@
 		$typeFile = " {{typeFile}} ";
 		$FileType = "{{FileTypeOptions}}";
 		$filesInFolder = "{{filesInFolder}}";
+		$AutoDeleteFiles = "{{AutoDeleteFiles}}";
 
 		if(isset($data["rowNumber"]))
 		{
@@ -156,6 +157,11 @@
 		if(isset($data["filesInFolder"]))
 		{
 			$filesInFolder = $data["filesInFolder"];
+		}
+
+		if(isset($data["AutoDeleteFiles"]))
+		{
+			$AutoDeleteFiles = $data["AutoDeleteFiles"];
 		}
 
 		if(isset($data["typeFolder"]))
@@ -217,6 +223,7 @@
 			$saveBlock .=  $recursiveOptions;
 		}
 		$saveBlock .= "</select></span></li>";
+		$saveBlock .= "<li ".$typeFile."><span class=\"settingsBuffer\" >Auto Delete Files After: </span><span class=\"settingsBuffer\" ><input type=\"text\" name=\"watchListKey".$rowNumber."AutoDeleteFiles\" value=\"".$AutoDeleteFiles."\" > Days No Change</span></li>";
 		$saveBlock .= "<li><span class=\"settingsBuffer\" >Exclude Trim: </span><span class=\"settingsBuffer\" ><select name=\"watchListKey".$rowNumber."ExcludeTrim\" >";
 		if(isset($data["excludeTrimOptions"]))
 		{

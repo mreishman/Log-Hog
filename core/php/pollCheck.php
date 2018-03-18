@@ -53,7 +53,7 @@ foreach($watchList as $key => $value)
 			"response"		=> array(),
 			"recursive"		=> $value["Recursive"]
 		));
-		if(isset($value["AutoDeleteFiles"]) && $value["AutoDeleteFiles"] !== "")
+		if($value["AutoDeleteFiles"] !== "")
 		{
 			foreach ($watchListFolder[$key] as $file)
 			{
