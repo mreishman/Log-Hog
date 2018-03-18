@@ -536,6 +536,12 @@ function generateImage($imageArray, $customConfig)
 
 function upgradeConfig($newSaveStuff = array())
 {
+	if(!is_array($newSaveStuff))
+	{
+		$newSaveStuff = array(
+			"configVersion" => (Int)$newSaveStuff
+		);
+	}
 	$baseBaseUrl = baseURL();
 	$baseUrl = $baseBaseUrl."local/";
 	include($baseUrl.'layout.php');
