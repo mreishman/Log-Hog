@@ -53,6 +53,20 @@ foreach($watchList as $key => $value)
 			"response"		=> array(),
 			"recursive"		=> $value["Recursive"]
 		));
+		if(isset($value["AutoDeleteFiles"]) && $value["AutoDeleteFiles"] !== "")
+		{
+			foreach ($watchListFolder[$key] as $file)
+			{
+				$diff = time()-filemtime($file);
+				$days = round($diff/86400);
+				if($days > (int)$value["AutoDeleteFiles"])
+				{
+					unlink($file);
+					$keyInSubArray = array_search($file, $watchListFolder[$key]);
+					unset($watchListFolder[$key][$keyInSubArray]);
+				}
+			}
+		}
 		$responseFilelist = array_merge($responseFilelist, $watchListFolder[$key]);
 	}
 	elseif(file_exists($path))
