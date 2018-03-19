@@ -2317,6 +2317,7 @@ function toggleNotifications()
 		document.getElementById("notificationClicked").style.display = "inline-block";
 		document.getElementById("notifications").style.display = "inline-block";
 		document.getElementById("notifications").style.left = (document.getElementById("notificationDiv").getBoundingClientRect().left-27) + "px";
+		document.getElementById("notifications").style.top = (document.getElementById("notificationDiv").getBoundingClientRect().top+25) + "px";
 		document.getElementById("notificationCount").style.color = "black";
 	}
 }
@@ -2442,6 +2443,8 @@ function updateNotificationCount()
 		$("#notificationCount").append(currentCount);
 		document.getElementById("notificationCount").style.left = (document.getElementById("notificationDiv").getBoundingClientRect().left+5) + "px";
 		document.getElementById("notificationBadge").style.left = (document.getElementById("notificationDiv").getBoundingClientRect().left-5) + "px";
+		document.getElementById("notificationCount").style.top = (document.getElementById("notificationDiv").getBoundingClientRect().top+11) + "px";
+		document.getElementById("notificationBadge").style.top = (document.getElementById("notificationDiv").getBoundingClientRect().top+19) + "px";
 	}
 	else
 	{
