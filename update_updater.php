@@ -193,6 +193,7 @@ if(count($arrayOfVersions) === 0)
 	var lastFileCheck = "";
 	var update = "<?php echo $update;?>";
 	var verifyCountSuccess = 0;
+	var successVerifyNum = 4; 
 
 	$( document ).ready(function()
 	{
