@@ -151,7 +151,8 @@ $loadingImage = generateImage(
 $externalLinkImage = generateImage(
 	$arrayOfImages["externalLink"],
 	$imageConfig = array(
-		"height"	=>	"30px",
+		"height"	=>	"15px",
+		"style"		=>	"margin-bottom: -10px;"
 		)
 	);
 

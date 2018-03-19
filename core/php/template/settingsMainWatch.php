@@ -223,7 +223,7 @@
 			$saveBlock .=  $recursiveOptions;
 		}
 		$saveBlock .= "</select></span></li>";
-		$saveBlock .= "<li ".$typeFile."><span class=\"settingsBuffer\" >Auto Delete Files After: </span><span class=\"settingsBuffer\" ><input type=\"text\" name=\"watchListKey".$rowNumber."AutoDeleteFiles\" value=\"".$AutoDeleteFiles."\" > Days No Change</span></li>";
+		$saveBlock .= "<li ".$typeFile."><span class=\"settingsBuffer\" >Auto Delete Files After: </span><span class=\"settingsBuffer\" ><input style=\"width: 56px;\" type=\"text\" name=\"watchListKey".$rowNumber."AutoDeleteFiles\" value=\"".$AutoDeleteFiles."\" > Days No Change</span></li>";
 		$saveBlock .= "<li><span class=\"settingsBuffer\" >Exclude Trim: </span><span class=\"settingsBuffer\" ><select name=\"watchListKey".$rowNumber."ExcludeTrim\" >";
 		if(isset($data["excludeTrimOptions"]))
 		{
@@ -355,7 +355,7 @@
 				{
 					$filesInFolder .= $defaultFileNRIcon;
 				}
-				elseif(!is_writeable(($key2))
+				elseif(!is_writeable($key2))
 				{
 					$filesInFolder .= $defaultFileNWIcon;
 				}
@@ -404,7 +404,8 @@
 				"typeFile"				=>	($FileType === "file"),
 				"typeFolder"			=>	($FileType === "folder"),
 				"FileType"				=> 	$FileType,
-				"filesInFolder"			=>	$filesInFolder
+				"filesInFolder"			=>	$filesInFolder,
+				"AutoDeleteFiles"		=>	$values["AutoDeleteFiles"]
 			),
 			$defaultTrashCanIcon
 		);
