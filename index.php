@@ -363,6 +363,14 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 					?>
 				</div>
 			<?php endif; ?>
+			<div id="selectForGroupDiv" style="display: none;">
+				Groups: 
+				<div class="selectDiv">
+					<select onclick="toggleGroupedGroups();" id="selectForGroup" >
+						<option value="all" >All</option>
+					</select>
+				</div>
+			</div>
 			<span <?php if($hideClearAllNotifications === "true"){ echo "style=\" display: none; \""; }?> >
 				<div  id="clearNotificationsImage" style="display: none;" onclick="removeAllNotifications();" class="menuImageDiv">
 					<?php echo generateImage(
