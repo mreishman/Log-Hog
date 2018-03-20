@@ -2380,7 +2380,7 @@ function displayNotifications(notificationsArray)
 		}
 		var item = blank;
 		item = item.replace(/{{id}}/g, "notification"+notificationsArray[i]['id']);
-		item = item.replace(/{{idNum}}/g, i;
+		item = item.replace(/{{idNum}}/g, i);
 		item = item.replace(/{{name}}/g, notificationsArray[i]['name']);
 		item = item.replace(/{{time}}/g, notificationsArray[i]['time']);
 		item = item.replace(/{{action}}/g, notificationsArray[i]['action']);
