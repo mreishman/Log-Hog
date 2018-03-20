@@ -322,7 +322,7 @@ function pollTwoPartTwo(data)
 			for (var i = filesNew.length - 1; i >= 0; i--)
 			{
 				arrayToUpdate[filesNew[i]] = data[filesNew[i]];
-				if($("#selectForGroup option[value='"+data[filesNew[i]]["Group"]+"']").length > 0 && data[filesNew[i]]["Group"] !== "")
+				if(!($("#selectForGroup option[value='"+data[filesNew[i]]["Group"]+"']").length > 0) && data[filesNew[i]]["Group"] !== "")
 				{
 					$("#selectForGroup").append("<option value='"+data[filesNew[i]]["Group"]+"'>"+data[filesNew[i]]["Group"]+"</option>");
 					if(document.getElementById("selectForGroupDiv").style.display === "none")
@@ -351,7 +351,7 @@ function pollTwoPartTwo(data)
 					//file is new, add to array
 					arrayToUpdate[filesNew[i]] = data[filesNew[i]];
 				}
-				if(!$("#selectForGroup option[value='"+data[filesNew[i]]["Group"]+"']").length > 0 && data[filesNew[i]]["Group"] !== "")
+				if(!($("#selectForGroup option[value='"+data[filesNew[i]]["Group"]+"']").length > 0) && data[filesNew[i]]["Group"] !== "")
 				{
 					$("#selectForGroup").append("<option value='"+data[filesNew[i]]["Group"]+"'>"+data[filesNew[i]]["Group"]+"</option>");
 					if(document.getElementById("selectForGroupDiv").style.display === "none")
