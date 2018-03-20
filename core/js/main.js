@@ -2586,8 +2586,9 @@ function toggleGroupedGroups()
 {
 	var groupSelect = document.getElementById("selectForGroup").value;
 	$(".allGroup").hide();
-	$(".active").hide();
+	$(".active").show();
 	$("."+groupSelect+"Group").show();
+	resize();
 }
 
 $(document).ready(function()
