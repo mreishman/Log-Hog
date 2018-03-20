@@ -26,6 +26,7 @@ if (isset($config["watchList"]))
 			$arrayWatchList .= "'AutoDeleteFiles' => '',";
 			$arrayWatchList .= "'ExcludeTrim' => 'false',";
 			$arrayWatchList .= "'FileType' => 'auto',";
+			$arrayWatchList .= "'Group' => '',";
 			$arrayWatchList .= "'Location' => '".$key."',";
 			$arrayWatchList .= "'Pattern' => '".$value."'";
 			$arrayWatchList .= "'Recursive' => 'false'";

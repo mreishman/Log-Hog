@@ -78,11 +78,23 @@ foreach($watchList as $key => $value)
 foreach ($responseFilelist as $file)
 {
 	$response[$file]["size"] = getFileSize($file, $shellOrPhp);
+	$found = false;
+	$keyFound = "";
+	foreach ($watchList as $key => $value)
+	{
+		if($value["Location"] === $file)
+		{
+			$keyFound = $key;
+			$found = true;
+			break;
+		}
+	}
 
-	if(isset($watchList[$file]))
+	if($found)
 	{
 		//this is a file that is set in watchlist, use that info
-		$response[$file]["ExcludeTrim"] = $watchList[$file]["ExcludeTrim"];
+		$response[$file]["ExcludeTrim"] = $watchList[$keyFound]["ExcludeTrim"];
+		$response[$file]["Group"] = $watchList[$keyFound]["Group"];
 	}
 	else
 	{
@@ -100,6 +112,9 @@ foreach ($responseFilelist as $file)
 			if($found)
 			{
 				//this file is in that folder, use that info
+				$response[$file]["Group"] = $watchList[$key]["Group"];
+
+
 
 				//check if file has specific info in folder
 				if(false)

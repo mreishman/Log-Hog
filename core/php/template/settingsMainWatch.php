@@ -99,6 +99,7 @@
 		$FileType = "{{FileTypeOptions}}";
 		$filesInFolder = "{{filesInFolder}}";
 		$AutoDeleteFiles = "{{AutoDeleteFiles}}";
+		$Group = "{{Group}}";
 
 		if(isset($data["rowNumber"]))
 		{
@@ -162,6 +163,11 @@
 		if(isset($data["AutoDeleteFiles"]))
 		{
 			$AutoDeleteFiles = $data["AutoDeleteFiles"];
+		}
+
+		if(isset($data["Group"]))
+		{
+			$Group = $data["Group"];
 		}
 
 		if(isset($data["typeFolder"]))
@@ -272,6 +278,7 @@
 			$saveBlock .=  $FileType;
 		}
 		$saveBlock .= "</select></span></li>";
+		$saveBlock .= "<li ><span class=\"settingsBuffer\" >Group: </span><span class=\"settingsBuffer\" ><input type=\"text\" name=\"watchListKey".$rowNumber."Group\" value=\"".$Group."\" ></span>";
 		$saveBlock .= "<li ".$typeFile."><div class=\"settingsHeader\" style=\"margin: 0;\" >Files: ";
 		$saveBlock .= "<div class=\"settingsHeaderButtons\"><a class=\"linkSmall\" onclick=\"splitFilesPopup(".$rowNumber.", '".$location."');\"	 >Split Files</a></div>";
 		$saveBlock .= "</div> <div class=\"settingsDiv\" style=\"max-height: 150px; display: block; overflow: auto; margin: 0;\" ><ul id=\"watchListKey".$rowNumber."FilesInFolder\" class=\"settingsUl\" style=\"-webkit-padding-start: 0;\" >".$filesInFolder."</ul></div> </li>";
@@ -405,7 +412,8 @@
 				"typeFolder"			=>	($FileType === "folder"),
 				"FileType"				=> 	$FileType,
 				"filesInFolder"			=>	$filesInFolder,
-				"AutoDeleteFiles"		=>	$values["AutoDeleteFiles"]
+				"AutoDeleteFiles"		=>	$values["AutoDeleteFiles"],
+				"Group"					=>	$values["Group"]
 			),
 			$defaultTrashCanIcon
 		);
