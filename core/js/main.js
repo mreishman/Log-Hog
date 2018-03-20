@@ -835,7 +835,7 @@ function update(data)
 										var objectToSend = new Array();
 										objectToSend["log"] = id;
 										objectToSend["name"] = "New Log "+shortName;
-										objectToSend["action"] = "show(this, '"+id+"');  toggleNotifications();";
+										objectToSend["action"] = "$('#"+id+"').click();  toggleNotifications();";
 										addLogNotification(objectToSend);
 									}
 								}
@@ -963,7 +963,7 @@ function update(data)
 												numForNot = diffNew;
 											}
 											objectToSend["name"] = shortName+" Update "+numForNot;
-											objectToSend["action"] = "show(this, '"+id+"');  toggleNotifications();";
+											objectToSend["action"] = "$('#"+id+"').click();  toggleNotifications();";
 											addLogNotification(objectToSend);
 										}
 									}
@@ -2380,7 +2380,7 @@ function displayNotifications(notificationsArray)
 		}
 		var item = blank;
 		item = item.replace(/{{id}}/g, "notification"+notificationsArray[i]['id']);
-		item = item.replace(/{{idNum}}/g, notificationsArray[i]['id']);
+		item = item.replace(/{{idNum}}/g, i;
 		item = item.replace(/{{name}}/g, notificationsArray[i]['name']);
 		item = item.replace(/{{time}}/g, notificationsArray[i]['time']);
 		item = item.replace(/{{action}}/g, notificationsArray[i]['action']);
