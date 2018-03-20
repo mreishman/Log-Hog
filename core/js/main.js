@@ -742,7 +742,10 @@ function update(data)
 				}
 				if(showFile)
 				{
-					showLogByName(name);
+					if(!firstLoad &&  document.getElementById("selectForGroup").value === "all")
+					{
+						showLogByName(name);
+					}
 					if(dataForCheck === "This file is empty. This should not be displayed." && hideEmptyLog === "true" || data[name] === "Error - File does not exist")
 					{
 						hideLogByName(name);

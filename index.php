@@ -367,7 +367,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 				Groups: 
 				<div class="selectDiv">
 					<select onclick="toggleGroupedGroups();" id="selectForGroup" >
-						<option value="all" >All</option>
+						<option selected="true" value="all" >All</option>
 					</select>
 				</div>
 			</div>
