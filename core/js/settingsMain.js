@@ -5,16 +5,10 @@ function showOrHideLogTrimSubWindow()
 {
 	try
 	{
-		var valueToSeeIfShowOrHideSubWindowLogTrim = document.getElementById("logTrimOn").value;
 
-		if(valueToSeeIfShowOrHideSubWindowLogTrim === "true")
-		{
-			document.getElementById("settingsLogTrimVars").style.display = "block";
-		}
-		else
-		{
-			document.getElementById("settingsLogTrimVars").style.display = "none";
-		}
+		var valueForPopup = document.getElementById("logTrimOn");
+		var valueForVars = document.getElementById("settingsLogTrimVars");
+		showOrHideSubWindow(valueForPopup, valueForVars);
 	}
 	catch(e)
 	{
@@ -36,7 +30,7 @@ function changeDescriptionLineSize()
 		}
 		else if (valueForDesc === "size")
 		{
-			document.getElementById("logTrimTypeText").innerHTML = "Size";
+			document.getElementById("logTrimTypeText").innerHTML = document.getElementById("TrimSize").value;
 			document.getElementById("LiForlogTrimSize").style.display = "block";
 		}
 	}
@@ -88,6 +82,49 @@ function showOrHideFilterContentSettings()
 	}
 }
 
+function showOrHideFilterHighlightSettings()
+{
+	try
+	{
+		var valueForPopup = document.getElementById("filterContentHighlight");
+		var valueForVars = document.getElementById("highlightContentSettings");
+		showOrHideSubWindow(valueForPopup, valueForVars);
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
+function showOrHideScrollLogSettings()
+{
+	try
+	{
+		var valueForPopup = document.getElementById("scrollOnUpdate");
+		var valueForVars = document.getElementById("scrollLogOnUpdateSettings");
+		showOrHideSubWindow(valueForPopup, valueForVars);
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
+function showOrHideHighlightNewLinesSettings()
+{
+	try
+	{
+		var valueForPopup = document.getElementById("highlightNew");
+		var valueForVars = document.getElementById("highlightNewSettings");
+		showOrHideSubWindow(valueForPopup, valueForVars);
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
+
 function showOrHideSubWindow(valueForPopupInner, valueForVarsInner)
 {
 	try
@@ -131,6 +168,10 @@ function checkIfChanges()
 	{
 		arrayToCheck.push("settingsUpdateVars");
 	}
+	if(document.getElementById("settingsFilterVars"))
+	{
+		arrayToCheck.push("settingsFilterVars");
+	}
 
 	if(	checkForChangesArray(arrayToCheck))
 	{
@@ -141,17 +182,6 @@ function checkIfChanges()
 
 $( document ).ready(function() 
 {
-	if(document.getElementById("logTrimTypeText"))
-	{
-		if(logTrimType == "lines")
-		{
-			document.getElementById("logTrimTypeText").innerHTML = "Lines";
-		}
-		else if (logTrimType == "size")
-		{
-			document.getElementById("logTrimTypeText").innerHTML = "Size";
-		}
-	}
 	if(document.getElementById("popupSelect"))
 	{
 		document.getElementById("popupSelect").addEventListener("change", showOrHidePopupSubWindow, false);
@@ -171,6 +201,18 @@ $( document ).ready(function()
 	if(document.getElementById("filterContentLimit"))
 	{
 		document.getElementById("filterContentLimit").addEventListener("change", showOrHideFilterContentSettings, false);
+	}
+	if(document.getElementById("filterContentHighlight"))
+	{
+		document.getElementById("filterContentHighlight").addEventListener("change", showOrHideFilterHighlightSettings, false);
+	}
+	if (document.getElementById("scrollLogOnUpdateSettings"))
+	{
+		document.getElementById("scrollLogOnUpdateSettings").addEventListener("change", showOrHideScrollLogSettings, false);
+	}
+	if (document.getElementById("highlightNewSettings"))
+	{
+		document.getElementById("highlightNewSettings").addEventListener("change", showOrHideHighlightNewLinesSettings, false);
 	}
 
 	var arrayToRefresh = new Array();
@@ -193,6 +235,10 @@ $( document ).ready(function()
 	if(document.getElementById("settingsUpdateVars"))
 	{
 		arrayToRefresh.push("settingsUpdateVars");
+	}
+	if(document.getElementById("settingsFilterVars"))
+	{
+		arrayToRefresh.push("settingsFilterVars");
 	}
 	refreshArrayObjectOfArrays(arrayToRefresh);
 	setInterval(poll, 100);

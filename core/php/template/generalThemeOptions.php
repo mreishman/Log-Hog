@@ -1,13 +1,9 @@
-<form id="settingsColorFolderVars" action="../core/php/settingsSave.php" method="post">
+<form id="settingsColorFolderVars">
 	<div class="settingsHeader">
 	Main Theme Options
 	<div class="settingsHeaderButtons">
-		<?php echo addResetButton("settingsColorFolderVars");
-		if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
+		<?php echo addResetButton("settingsColorFolderVars"); ?>
 		<a class="linkSmall" onclick="saveAndVerifyMain('settingsColorFolderVars');" >Save Changes</a>
-		<?php else: ?>
-			<button  onclick="displayLoadingPopup();">Save Changes</button>
-		<?php endif; ?>
 	</div>
 	</div>
 	<div class="settingsDiv" >
@@ -47,6 +43,11 @@
 						<option <?php if($invertMenuImages === 'false'){echo "selected";} ?> value="false">False</option>
 					</select>
 				</div>
+			</li>
+			<li>
+				<span class="settingsBuffer"> Overall Brightness: </span>
+				<input name="overallBrightness" onchange="updateSlider(this.value);" type="range" min="25" max="150" value="<?php echo $overallBrightness; ?>">
+				<span id="sliderShowVal" ><?php echo $overallBrightness; ?>%</span>
 			</li>
 		</ul>
 	</div>

@@ -1,11 +1,9 @@
-<form id="settingsPollVars" action="../core/php/settingsSave.php" method="post">
+<form id="settingsPollVars">
 <div class="settingsHeader">
 Poll Settings 
 <div class="settingsHeaderButtons">
-	<?php echo addResetButton("settingsPollVars");
-	if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
-		<a class="linkSmall" onclick="saveAndVerifyMain('settingsPollVars');" >Save Changes</a>
-	<?php endif; ?>
+	<?php echo addResetButton("settingsPollVars");?>
+	<a class="linkSmall" onclick="saveAndVerifyMain('settingsPollVars');" >Save Changes</a>
 </div>
 </div>
 <div class="settingsDiv" >

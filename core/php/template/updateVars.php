@@ -1,13 +1,9 @@
-<form id="settingsUpdateVars" action="../core/php/settingsSave.php" method="post">
+<form id="settingsUpdateVars">
 <div class="settingsHeader">
 Update Settings 
 <div class="settingsHeaderButtons">
-	<?php echo addResetButton("settingsUpdateVars");
-	if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
-		<a class="linkSmall" onclick="saveAndVerifyMain('settingsUpdateVars');" >Save Changes</a>
-	<?php else: ?>
-		<button  onclick="displayLoadingPopup();">Save Changes</button>
-	<?php endif; ?>
+	<?php echo addResetButton("settingsUpdateVars"); ?>
+	<a class="linkSmall" onclick="saveAndVerifyMain('settingsUpdateVars');" >Save Changes</a>
 </div>
 </div>
 <div class="settingsDiv" >

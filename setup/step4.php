@@ -1,13 +1,7 @@
 <?php
 require_once("../core/php/commonFunctions.php");
-$baseUrl = "../core/";
-if(file_exists('../local/layout.php'))
-{
-	$baseUrl = "../local/";
-	//there is custom information, use this
-	require_once('../local/layout.php');
-	$baseUrl .= $currentSelectedTheme."/";
-}
+$currentSelectedTheme = returnCurrentSelectedTheme();
+$baseUrl = "../local/".$currentSelectedTheme."/";
 $baseUrlImages = $baseUrl;
 require_once($baseUrl.'conf/config.php');
 require_once('setupProcessFile.php');
@@ -56,7 +50,6 @@ require_once('../core/php/loadVars.php');?>
 	<br>
 </div>
 </body>
-<form id="defaultVarsForm" action="../core/php/settingsSave.php" method="post"></form>
 <script type="text/javascript">
 	
 	var baseUrl = "<?php echo $baseUrlImages;?>";

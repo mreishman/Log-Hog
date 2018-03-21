@@ -1,11 +1,9 @@
-<form id="settingsLogVars" action="../core/php/settingsSave.php" method="post">
+<form id="settingsLogVars">
 	<div class="settingsHeader">
 	Log Settings
 	<div class="settingsHeaderButtons">
-		<?php echo addResetButton("settingsLogVars");
-		if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
-			<a class="linkSmall" onclick="saveAndVerifyMain('settingsLogVars');" >Save Changes</a>
-		<?php endif; ?>
+		<?php echo addResetButton("settingsLogVars");?>
+		<a class="linkSmall" onclick="saveAndVerifyMain('settingsLogVars');" >Save Changes</a>
 	</div>
 	</div>
 	<div class="settingsDiv" >
@@ -14,15 +12,6 @@
 			<span class="settingsBuffer" >Number of lines to display:</span>  <input type="text" name="sliceSize" value="<?php echo $sliceSize;?>" >
 		</li>
 		<li>
-			<span class="settingsBuffer" > Hide logs that are empty: </span>
-			<div class="selectDiv">
-				<select name="hideEmptyLog">
-					<option <?php if($hideEmptyLog == 'true'){echo "selected";} ?> value="true">True</option>
-					<option <?php if($hideEmptyLog == 'false'){echo "selected";} ?> value="false">False</option>
-				</select>
-			</div>
-		</li>
-			<li>
 			<span class="settingsBuffer" > Flash title on log update: </span>
 			<div class="selectDiv">
 				<select name="flashTitleUpdateLog">
@@ -32,14 +21,67 @@
 			</div>
 		</li>
 		<li>
+			<span class="settingsBuffer" > Auto show log on update: </span>
+			<div class="selectDiv">
+				<select name="autoMoveUpdateLog">
+					<option <?php if($autoMoveUpdateLog == 'true'){echo "selected";} ?> value="true">True</option>
+					<option <?php if($autoMoveUpdateLog == 'false'){echo "selected";} ?> value="false">False</option>
+				</select>
+			</div>
+		</li>
+		<li>
 			<span class="settingsBuffer" > Scroll Log on update: </span>
 			<div class="selectDiv">
-				<select name="scrollOnUpdate">
+				<select id="scrollOnUpdate" name="scrollOnUpdate">
 					<option <?php if($scrollOnUpdate == 'true'){echo "selected";} ?> value="true">True</option>
 					<option <?php if($scrollOnUpdate == 'false'){echo "selected";} ?> value="false">False</option>
 				</select>
 			</div>
+			<div id="scrollLogOnUpdateSettings" style=" <?php if($scrollOnUpdate == 'false'){ echo 'display: none;'; }?> " >
+			<div class="settingsHeader">
+			Scroll Log On Update Settings
+			</div>
+			<div class="settingsDiv" >
+				<ul id="settingsUl">
+					<li>
+						<span class="settingsBuffer" > Scroll even if Scrolled: </span>
+						<div class="selectDiv"> 
+							<select name="scrollEvenIfScrolled">
+								<option <?php if($scrollEvenIfScrolled == 'true'){echo "selected";} ?> value="true">True</option>
+								<option <?php if($scrollEvenIfScrolled == 'false'){echo "selected";} ?> value="false">False</option>
+							</select>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
 		</li>
+		<li>
+		<span class="settingsBuffer" > Temp Highlight New Lines: </span>
+		<div class="selectDiv">
+			<select id="highlightNew" name="highlightNew">
+				<option <?php if($highlightNew == 'true'){echo "selected";} ?> value="true">True</option>
+				<option <?php if($highlightNew == 'false'){echo "selected";} ?> value="false">False</option>
+			</select>
+		</div>
+		<div id="highlightNewSettings" style=" <?php if($highlightNew == 'false'){ echo 'display: none;'; }?> " >
+			<div class="settingsHeader">
+			Highlight New Lines Settings
+			</div>
+			<div class="settingsDiv" >
+				<ul id="settingsUl">
+					<li>
+						<span class="settingsBuffer" > Background: </span> 
+						<input type="text" name="highlightNewColorBG" value="<?php echo $highlightNewColorBG;?>" >
+					</li>
+					<li>
+						<span class="settingsBuffer" > Font: </span> 
+						<input type="text" name="highlightNewColorFont" value="<?php echo $highlightNewColorFont;?>" >
+					</li>
+				</ul>
+			</div>
+		</div>
+	</li>
 		<li>
 			<span class="settingsBuffer" > Log trim:  </span>
 			<div class="selectDiv">
@@ -69,7 +111,15 @@
 					: </span> 
 						<input type="text" name="logSizeLimit" value="<?php echo $logSizeLimit;?>" > 
 						<span id="logTrimTypeText" >
-							
+							<?php if($logTrimType == 'lines')
+							{
+								echo "Lines";
+							}
+							elseif($logTrimType == 'size')
+							{
+								echo $TrimSize;
+							}
+							?>
 						</span>
 					</li>
 					<li>
@@ -89,7 +139,7 @@
 					<li id="LiForlogTrimSize" <?php if($logTrimType != 'size'){echo "style='display:none;'";} ?> >
 						<span class="settingsBuffer" > Size is measured in: </span>
 						<div class="selectDiv">
-							<select name="TrimSize">
+							<select id="TrimSize" name="TrimSize">
 									<option <?php if($TrimSize == 'KB'){echo "selected";} ?> value="KB">KB</option>
 									<option <?php if($TrimSize == 'K'){echo "selected";} ?> value="K">K</option>
 									<option <?php if($TrimSize == 'MB'){echo "selected";} ?> value="MB">MB</option>

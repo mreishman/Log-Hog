@@ -145,6 +145,12 @@ div {
 .backgroundForSideBarMenu
 {
 	background-color: #ccc;
+	overflow-y: auto;
+}
+
+.backgroundForSideBarMenu::-webkit-scrollbar {
+	width: 1px;
+	
 }
 
 .popupForInfo
@@ -152,10 +158,11 @@ div {
 	background-color: #CCC;
 	z-index: 10;
 	position: absolute;
-	left: 31px;
-	top: 5px;
 	border: 1px solid white;
 	color: black;
+	width: fit-content;
+	padding: 5px;
+	word-break: break-all;
 }
 
 .currentWindowNum
@@ -627,4 +634,28 @@ div.sidebarLeft {
     top: 0;
     left: 0;
     bottom: 0;
+}
+
+/* width */
+::-webkit-scrollbar
+{
+	width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track
+{
+	background: #222;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb
+{
+	background: #CCC;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover
+{
+	background: #FFFFFF;
 }

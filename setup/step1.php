@@ -1,13 +1,7 @@
 <?php
 require_once("../core/php/commonFunctions.php");
-$baseUrl = "../core/";
-if(file_exists('../local/layout.php'))
-{
-	$baseUrl = "../local/";
-	//there is custom information, use this
-	require_once('../local/layout.php');
-	$baseUrl .= $currentSelectedTheme."/";
-}
+$currentSelectedTheme = returnCurrentSelectedTheme();
+$baseUrl = "../local/".$currentSelectedTheme."/";
 $baseUrlImages = $baseUrl;
 require_once($baseUrl.'conf/config.php');
 require_once('setupProcessFile.php');
@@ -46,21 +40,24 @@ require_once('../core/php/loadVars.php'); ?>
 	<p style="padding: 10px;">Watch List: These are the files/folder Log-Hog will track. Please enter in some of the folders you would like.</p>
 	<?php require_once('../core/php/template/settingsMainWatch.php'); ?>
 	<table style="width: 100%; padding-left: 20px; padding-right: 20px;" ><tr><th style="text-align: right;" >
-		<?php if($counterSteps == 1): ?>
-			<a onclick="updateStatus('finished');" class="link">Finish</a>
-		<?php else: ?>
-			<a onclick="updateStatus('step2');" class="link">Continue</a>
-		<?php endif; ?>
+		<span id="setupButtonContinue">
+			<?php if($counterSteps == 1): ?>
+				<a onclick="updateStatus('finished');" class="link">Finish</a>
+			<?php else: ?>
+				<a onclick="updateStatus('step2');" class="link">Continue</a>
+			<?php endif; ?>
+		</span>
+		<span id="setupButtonDisabled" style="display: none;">
+			Click save to continue to next page
+		</span>
 	</th></tr></table>
 	<br>
 	<br>
 </div>
 </body>
-<form id="defaultVarsForm" action="../core/php/settingsSave.php" method="post"></form>
 <script type="text/javascript">
 	
 	var baseUrl = "<?php echo $baseUrlImages;?>";
-
 	
 	function defaultSettings()
 	{
@@ -71,8 +68,7 @@ require_once('../core/php/loadVars.php'); ?>
 	function customSettings()
 	{
 		//change setupProcess to page2
-		document.getElementById('settingsMainWatch').action = "../core/php/settingsSave.php";
-		document.getElementById('settingsMainWatch').submit();
+		location.reload();
 	}
 	var titleOfPage = "Welcome";
 	var popupSettingsArray = JSON.parse('<?php echo json_encode($popupSettingsArray) ?>');
@@ -81,8 +77,6 @@ require_once('../core/php/loadVars.php'); ?>
 	var countOfAddedFiles = 0;
 	var countOfClicks = 0;
 	var locationInsert = "newRowLocationForWatchList";
-	var logTrimType = "<?php echo $logTrimType; ?>";
-
 	var saveVerifyImage = <?php echo json_encode(generateImage(
 			$arrayOfImages["greenCheck"],
 			array(

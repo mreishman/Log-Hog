@@ -90,7 +90,11 @@ function timerVerifySave()
 
 function saveVerified()
 {
-	if(idForFormMain === "settingsMainWatch")
+	if(idForFormMain === "welcomeForm")
+	{
+		//do nothing
+	}
+	else if(idForFormMain === "settingsMainWatch")
 	{
 		refreshSettingsWatchList();
 	}
@@ -129,7 +133,7 @@ function saveVerified()
 		
 		window.location.href = "../core/php/template/upgradeTheme.php";
 	}
-	else if(idForFormMain === "settingsColorFolderGroupVars" || idForFormMain === "settingsColorFolderVars")
+	else if(idForFormMain === "settingsColorFolderGroupVars" || idForFormMain === "settingsColorFolderVars" || idForFormMain === "welcomeForm")
 	{
 		location.reload();
 	}
@@ -216,11 +220,22 @@ function checkForChanges(idOfObject)
 		if(!objectsAreSame($("#"+idOfObject).serializeArray(), arrayObject[idOfObject]))
 		{
 			document.getElementById(idOfObject+"ResetButton").style.display = "inline-block";
+			if(document.getElementById("setupButtonContinue"))
+			{
+				document.getElementById("setupButtonContinue").style.display = "none";
+				document.getElementById("setupButtonDisabled").style.display = "inline-block";
+
+			}
 			return true;
 		}
 		else
 		{
 			document.getElementById(idOfObject+"ResetButton").style.display = "none";
+			if(document.getElementById("setupButtonContinue"))
+			{
+				document.getElementById("setupButtonContinue").style.display = "inline-block";
+				document.getElementById("setupButtonDisabled").style.display = "none";
+			}
 			return false;
 		}
 	}

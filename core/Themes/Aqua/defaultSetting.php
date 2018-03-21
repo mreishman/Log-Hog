@@ -11,6 +11,9 @@ $themeDefaultSettings = array(
   		background-image: -o-repeating-linear-gradient(180deg,rgb(240,240,240),rgb(240,240,240) 2.5%, rgb(220,220,220) 2.51%, rgb(220,220,220) 5%);
 		background-image: repeating-linear-gradient(180deg,rgb(240,240,240),rgb(240,240,240) 2.5%, rgb(220,220,220) 2.51%, rgb(220,220,220) 5%)",
 	'currentFolderColorTheme' => "theme-default-1",
+	'scrollBarHandle'				=> 'background: rgba(105,159,236,1); border-radius: 5px;',
+	'scrollBarHandleHover'			=> 'background: #FFFFFF;',
+	'scrollBarTrack'				=> 'background: #EEE;',
 	'folderColorArrays'	=> array(
 		'theme-default-1'	=> array(
 			'main' 		=> array(

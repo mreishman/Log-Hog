@@ -1,9 +1,7 @@
 <?php
 require_once('../core/php/commonFunctions.php');
-
-$baseUrl = "../local/";
-require_once($baseUrl.'layout.php');
-$baseUrl .= $currentSelectedTheme."/";
+$currentSelectedTheme = returnCurrentSelectedTheme();
+$baseUrl = "../local/".$currentSelectedTheme."/";
 $localURL = $baseUrl;
 require_once($baseUrl.'conf/config.php');
 require_once('../core/conf/config.php');
@@ -45,16 +43,12 @@ $countConfig--;
 <body>
 	<?php require_once('header.php'); ?>
 	<div id="main">
-	<form id="advancedConfig" action="../core/php/settingsSave.php" method="post">
+	<form id="advancedConfig">
 		<div class="settingsHeader">
 			Config
 			<div class="settingsHeaderButtons">
-				<?php echo addResetButton("advancedConfig");
-				if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
-					<a class="linkSmall" onclick="saveAndVerifyMain('advancedConfig');" >Save Changes</a>
-				<?php else: ?>
-					<button  onclick="displayLoadingPopup();">Save Changes</button>
-				<?php endif; ?>
+				<?php echo addResetButton("advancedConfig"); ?>
+				<a class="linkSmall" onclick="saveAndVerifyMain('advancedConfig');" >Save Changes</a>
 			</div>
 		</div>
 		<div class="settingsDiv" >
@@ -104,16 +98,12 @@ $countConfig--;
 			</ul>
 		</div>
 	</form>
-	<form id="devAdvanced" action="../core/php/settingsSave.php" method="post">
+	<form id="devAdvanced">
 		<div class="settingsHeader">
 			Development  
 			<div class="settingsHeaderButtons">
-				<?php echo addResetButton("devAdvanced");
-				if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
-					<a class="linkSmall" onclick="saveAndVerifyMain('devAdvanced');" >Save Changes</a>
-				<?php else: ?>
-					<button  onclick="displayLoadingPopup();">Save Changes</button>
-				<?php endif; ?>
+				<?php echo addResetButton("devAdvanced"); ?>
+				<a class="linkSmall" onclick="saveAndVerifyMain('devAdvanced');" >Save Changes</a>
 			</div>
 		</div>
 		<div class="settingsDiv" >
@@ -130,16 +120,12 @@ $countConfig--;
 			</ul>
 		</div>
 	</form>
-	<form id="pollAdvanced" action="../core/php/settingsSave.php" method="post">
+	<form id="pollAdvanced">
 		<div class="settingsHeader">
 			Advanced Poll Settings  
 			<div class="settingsHeaderButtons">
-				<?php echo addResetButton("pollAdvanced");
-				if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
-					<a class="linkSmall" onclick="saveAndVerifyMain('pollAdvanced');" >Save Changes</a>
-				<?php else: ?>
-					<button  onclick="displayLoadingPopup();">Save Changes</button>
-				<?php endif; ?>
+				<?php echo addResetButton("pollAdvanced"); ?>
+				<a class="linkSmall" onclick="saveAndVerifyMain('pollAdvanced');" >Save Changes</a>
 			</div>
 		</div>
 		<div class="settingsDiv" >
@@ -166,10 +152,21 @@ $countConfig--;
 						</select>
 					</div>
 				</li>
+				<li>
+					System preference:
+					<div class="selectDiv">
+						<select name="shellOrPhp">
+  							<option <?php if($shellOrPhp == 'shellPreferred'){echo "selected";} ?> value="shellPreferred">Shell Preferred</option>
+  							<option <?php if($shellOrPhp == 'phpPreferred'){echo "selected";} ?> value="phpPreferred">Php Preferred</option>
+  							<option <?php if($shellOrPhp == 'shellOnly'){echo "selected";} ?> value="shellOnly">Shell Only</option>
+  							<option <?php if($shellOrPhp == 'phpOnly'){echo "selected";} ?> value="phpOnly">Php Only</option>
+						</select>
+					</div>
+				</li>
 			</ul>
 		</div>
 	</form>
-	<form id="loggingDisplay" action="../core/php/settingsSave.php" method="post">
+	<form id="loggingDisplay">
 		<div class="settingsHeader">
 			Logging Information 
 			<div class="settingsHeaderButtons">
@@ -215,7 +212,7 @@ $countConfig--;
 			</ul>
 		</div>
 	</form>
-	<form id="jsPhpSend" action="../core/php/settingsSave.php" method="post">
+	<form id="jsPhpSend">
 		<div class="settingsHeader">
 			Error / Crash Info
 			<div class="settingsHeaderButtons"> 
@@ -251,7 +248,7 @@ $countConfig--;
 			</ul>
 		</div>
 	</form>
-	<form id="locationOtherApps" action="../core/php/settingsSave.php" method="post">
+	<form id="locationOtherApps">
 		<div class="settingsHeader">
 			File Locations
 			<div class="settingsHeaderButtons">
@@ -314,7 +311,7 @@ $countConfig--;
 				</li>
 			</ul>
 		</div>
-		<form id="expFeatures" action="../core/php/settingsSave.php" method="post">
+		<form id="expFeatures">
 		<div class="settingsHeader">
 		Experimental Features 
 			<div class="settingsHeaderButtons">
@@ -328,15 +325,6 @@ $countConfig--;
 		</div>
 		<div class="settingsDiv" >
 			<ul id="settingsUl">
-				<li>
-					System preference:
-					<div class="selectDiv">
-						<select name="enableSystemPrefShellOrPhp">
-  							<option <?php if($enableSystemPrefShellOrPhp == 'true'){echo "selected";} ?> value="true">PHP</option>
-  							<option <?php if($enableSystemPrefShellOrPhp == 'false'){echo "selected";} ?> value="false">shell_exec</option>
-						</select>
-					</div>
-				</li>
 				<li>
 					Log Layout
 					<?php $arrayOfwindowConfigOptions = array();

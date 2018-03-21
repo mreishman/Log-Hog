@@ -63,11 +63,21 @@ body
 	background: <?php echo $backgroundColor?>;
 	color: <?php echo $mainFontColor; ?>;
 	font-family: <?php echo $fontFamily;?>;
+	filter: brightness(<?php echo $overallBrightness; ?>%);
 }
 
 .log, #firstLoad
 {
 	color: <?php echo $logFontColor; ?>;
+}
+
+/* this needs to be moved */
+.log div
+{
+	-webkit-transition: 1s ease-in-out;
+    -moz-transition: 1s ease-in-out;
+    -ms-transition: 1s ease-in-out;
+    -o-transition: 1s ease-in-out;
 }
 
 #menu
@@ -143,8 +153,38 @@ if(!($windowDisplayConfig[0] > 1 || $windowDisplayConfig[1] > 1)): ?>
 
 .highlight
 {
-	background-color: yellow;
-	color: black;
+	background-color: <?php echo $highlightColorBG; ?>;
+	color: <?php echo $highlightColorFont; ?>;
+}
+
+.newLine
+{
+	background-color: <?php echo $highlightNewColorBG; ?>;
+	color: <?php echo $highlightNewColorFont; ?>;
+}
+
+/* width */
+::-webkit-scrollbar
+{
+	width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track
+{
+	<?php echo $scrollBarTrack; ?>
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb
+{
+	<?php echo $scrollBarHandle; ?>
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover
+{
+	<?php echo $scrollBarHandleHover; ?>
 }
 
 </style>

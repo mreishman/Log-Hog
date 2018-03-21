@@ -1,11 +1,7 @@
 <?php
 require_once('../core/php/commonFunctions.php');
-
-
-$baseUrl = "../local/";
-//there is custom information, use this
-require_once($baseUrl.'layout.php');
-$baseUrl .= $currentSelectedTheme."/";
+$currentSelectedTheme = returnCurrentSelectedTheme();
+$baseUrl = "../local/".$currentSelectedTheme."/";
 $localURL = $baseUrl;
 require_once($baseUrl.'conf/config.php');
 require_once('../core/conf/config.php');
@@ -33,16 +29,12 @@ require_once('../core/php/updateCheck.php');
 <body>
 	<?php require_once('header.php'); ?>
 	<div id="main">
-	<form id="devBranch" action="../core/php/settingsSave.php" method="post">
+	<form id="devBranch">
 		<div class="settingsHeader">
 			Branch Settings  
 			<div class="settingsHeaderButtons">
-				<?php echo addResetButton("devBranch");
-				if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
-					<a class="linkSmall" onclick="saveAndVerifyMain('devBranch');" >Save Changes</a>
-				<?php else: ?>
-					<button  onclick="displayLoadingPopup();">Save Changes</button>
-				<?php endif; ?>
+				<?php echo addResetButton("devBranch"); ?>
+				<a class="linkSmall" onclick="saveAndVerifyMain('devBranch');" >Save Changes</a>
 			</div>
 		</div>
 		<div class="settingsDiv" >

@@ -7,6 +7,19 @@ $themeDefaultSettings = array(
 	'logFontColor' => "#FFFFFF",
 	'backgroundHeaderColor' => "#111111",
 	'currentFolderColorTheme' => "theme-default-1",
+	'scrollBarHandle'				=> 'background: rgba(200,200,200,1);
+	background: -moz-linear-gradient(top, rgba(200,200,200,1) 0%, rgba(164,164,164,1) 50%, rgba(108,108,108,1) 51%, rgba(200,200,200,1) 100%);
+	background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(200,200,200,1)), color-stop(50%, rgba(164,164,164,1)), color-stop(51%, rgba(108,108,108,1)), color-stop(100%, rgba(200,200,200,1)));
+	background: -webkit-linear-gradient(top, rgba(200,200,200,1) 0%, rgba(164,164,164,1) 50%, rgba(108,108,108,1) 51%, rgba(200,200,200,1) 100%);
+	background: -o-linear-gradient(top, rgba(200,200,200,1) 0%, rgba(164,164,164,1) 50%, rgba(108,108,108,1) 51%, rgba(200,200,200,1) 100%);
+	background: -ms-linear-gradient(top, rgba(200,200,200,1) 0%, rgba(164,164,164,1) 50%, rgba(108,108,108,1) 51%, rgba(200,200,200,1) 100%);',
+	'scrollBarHandleHover'			=> 'background: rgba(255,255,255,1);
+	background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(219,219,219,1) 50%, rgba(163,163,163,1) 51%, rgba(255,255,255,1) 100%);
+	background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(255,255,255,1)), color-stop(50%, rgba(219,219,219,1)), color-stop(51%, rgba(163,163,163,1)), color-stop(100%, rgba(255,255,255,1)));
+	background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(219,219,219,1) 50%, rgba(163,163,163,1) 51%, rgba(255,255,255,1) 100%);
+	background: -o-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(219,219,219,1) 50%, rgba(163,163,163,1) 51%, rgba(255,255,255,1) 100%);
+	background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(219,219,219,1) 50%, rgba(163,163,163,1) 51%, rgba(255,255,255,1) 100%);',
+	'scrollBarTrack'				=> 'background: #333;',
 	'folderColorArrays'	=> array(
 		'theme-default-1'	=> array(
 			'main' 		=> array(

@@ -2,11 +2,11 @@
 require_once('../core/php/errorCheckFunctions.php');
 $currentPage = "welcome.php";
 checkIfFilesExist(
-	array("local/layout.php","setup/setupProcessFile.php","error.php","setup/step1.php","core/template/theme.css","core/js/jquery.js","core/php/template/popup.php","core/php/settingsSave.php","core/conf/config.php","setup/stepsJavascript.js"),
+	array("local/layout.php","setup/setupProcessFile.php","error.php","setup/step1.php","core/template/theme.css","core/js/jquery.js","core/php/template/popup.php","core/php/settingsSaveAjax.php","core/conf/config.php","setup/stepsJavascript.js"),
 	 "../",
 	 $currentPage);
 checkIfFilesAreReadable(
-	array("local/layout.php","setup/setupProcessFile.php","error.php","setup/step1.php","core/template/theme.css","core/js/jquery.js","core/php/template/popup.php","core/php/settingsSave.php","core/conf/config.php","setup/stepsJavascript.js"),
+	array("local/layout.php","setup/setupProcessFile.php","error.php","setup/step1.php","core/template/theme.css","core/js/jquery.js","core/php/template/popup.php","core/php/settingsSaveAjax.php","core/conf/config.php","setup/stepsJavascript.js"),
 	 "../",
 	 $currentPage);
 
@@ -25,7 +25,7 @@ $baseUrl .= $currentSelectedTheme."/";
 
 
 checkIfFilesAreWritable(
-	array("core/php/settingsSave.php","local/".$currentSelectedTheme, "setup/setupProcessFile.php"),
+	array("core/php/settingsSaveAjax.php","local/".$currentSelectedTheme, "setup/setupProcessFile.php"),
 	 "../",
 	 $currentPage);
 
@@ -72,21 +72,22 @@ if(file_exists($baseUrl.'conf/config.php'))
 	</div>
 </div>
 </body>
-<form id="defaultVarsForm" action="../core/php/settingsSave.php" method="post"></form>
+<form id="welcomeForm"></form>
 <script type="text/javascript">
 	function defaultSettings()
 	{
 		//change setupProcess to finished
-		document.getElementById('defaultVarsForm').submit();
+		saveAndVerifyMain("welcomeForm");
 	}
 
 	function customSettings()
 	{
 		//change setupProcess to page1
-		document.getElementById('defaultVarsForm').submit();
+		saveAndVerifyMain("welcomeForm");
 	}
 
 	var saveVerifyImage = "../core/img/greenCheck.png";
 </script>
+<script src="../core/js/settings.js?v=<?php echo $cssVersion?>"></script>
 <script src="stepsJavascript.js?v=1"></script> <!-- Try to remember to manually increment this one? -->
 </html>

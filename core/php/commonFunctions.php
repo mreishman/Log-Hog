@@ -235,34 +235,44 @@ function addResetButton($idOfForm)
 	return "<a onclick=\"resetArrayObject('".$idOfForm."');\" id=\"".$idOfForm."ResetButton\" style=\"display: none;\" class=\"linkSmall\" > Reset Current Changes</a>";
 }
 
-function getFileSize($filename)
+function getFileSize($filename, $shellOrPhp)
 {
 	$filename = preg_replace('/([()"])/S', '$1', $filename);
-	return htmlentities(filesize($filename));
+	$sof = getFileSizeInner($filename, $shellOrPhp);
+	return htmlentities($sof);
 }
 
-function trimLogLine($filename, $logSizeLimit,$logTrimMacBSD,$buffer)
+function getFileSizeInner($fileName, $shellOrPhp)
 {
-	$lineCount = shell_exec('wc -l < ' . $filename);
+	if($shellOrPhp === "phpPreferred" || $shellOrPhp ===  "phpOnly")
+	{
+		return filesize($fileName);
+	}
+	return shell_exec('wc -c < ' . $fileName);
+}
+
+function trimLogLine($filename, $logSizeLimit,$logTrimMacBSD,$buffer, $shellOrPhp)
+{
+	$lineCount = getLineCount($filename, $shellOrPhp);
 	if($lineCount > ($logSizeLimit+$buffer))
 	{
 		trimLogInner($logTrimMacBSD,$filename,($lineCount - $logSizeLimit));
 	}
 }
 
-function trimLogSize($filename, $logSizeLimit,$logTrimMacBSD,$buffer)
+function trimLogSize($filename, $logSizeLimit,$logTrimMacBSD,$buffer, $shellOrPhp)
 {
 	$maxForLoop = 0;
 	$trimFileBool = true;
 	while ($trimFileBool && $maxForLoop < 10)
 	{
-		$filesizeForFile = shell_exec('wc -c < '.$filename);
+		$filesizeForFile = getFileSizeInner($filename, $shellOrPhp);
 		if($filesizeForFile > $logSizeLimit+$buffer)
 		{
 			$numOfLinesToRemoveTo = 2;
 			if($filesizeForFile > (2*$logSizeLimit) && $maxForLoop < 2)
 			{
-				$lineCountForFile = shell_exec('wc -l < ' . $filename);
+				$lineCountForFile = getLineCount($filename, $shellOrPhp);
 				$numOfLinesAllowed = 2*($logSizeLimit/($filesizeForFile/$lineCountForFile));
 				$numOfLinesToRemoveTo = round($lineCountForFile - $numOfLinesAllowed);
 			}
@@ -291,7 +301,7 @@ function trimLogInner($logTrimMacBSD,$filename,$lineEnd)
 
 function tail($filename, $sliceSize, $shellOrPhp)
 {
-	if($shellOrPhp == "true")
+	if($shellOrPhp === "phpPreferred" || $shellOrPhp ===  "phpOnly")
 	{
 		$data =  trim(tailCustom($filename, $sliceSize));
 	}
@@ -300,9 +310,9 @@ function tail($filename, $sliceSize, $shellOrPhp)
 		$data = trim(shell_exec('tail -n ' . $sliceSize . ' "' . $filename . '"'));
 	}
 
-	if($data === "" || is_null($data))
+	if(($data === "" || is_null($data)) && ($shellOrPhp === "shellPreferred" || $shellOrPhp === "phpPreferred"))
 	{
-		if($shellOrPhp == "true")
+		if($shellOrPhp === "phpPreferred")
 		{
 			$data = trim(shell_exec('tail -n ' . $sliceSize . ' "' . $filename . '"'));
 		}
@@ -310,11 +320,11 @@ function tail($filename, $sliceSize, $shellOrPhp)
 		{
 			$data = trim(tailCustom($filename, $sliceSize));
 		}
+	}
 
-		if($data === "" || is_null($data))
-		{
-			$data = "Error - Maybe insufficient access to read file?";
-		}
+	if($data === "" || is_null($data))
+	{
+		$data = "Error - Maybe insufficient access to read file?";
 	}
 	return $data;
 }
@@ -600,4 +610,189 @@ function putIntoCorrectFormat($keyKey, $keyValue, $value)
 	return "
 		'".$keyKey."' => ".$keyValue.",
 	";
+}
+
+function returnCurrentSelectedTheme()
+{
+	$baseBaseUrl = baseURL();
+	if(file_exists($baseBaseUrl.'local/layout.php') && is_readable($baseBaseUrl.'local/layout.php'))
+	{
+		require_once($baseBaseUrl.'local/layout.php');
+		if(isset($currentSelectedTheme))
+		{
+			return $currentSelectedTheme;
+		}
+		else
+		{
+			echoErrorJavaScript("", "Error when getting current selected theme.", 9);
+		}
+	}
+	else
+	{
+		echoErrorJavaScript("", "Could not find local layout file. Please make sure that local/layout.php is setup correctly.", 7);
+	}
+}
+
+function getLineCount($fileName, $shellOrPhp)
+{
+	if($shellOrPhp === "phpPreferred" || $shellOrPhp ===  "phpOnly")
+	{
+		return phpLineCount($fileName);
+	}
+	return shell_exec('wc -l < ' . $fileName);	
+}
+
+function phpLineCount($fileName)
+{
+	$linecount = 0;
+	$handle = fopen($fileName, "r");
+	while(!feof($handle))
+	{
+	  $line = fgets($handle, 4096);
+	  $linecount = $linecount + substr_count($line, PHP_EOL);
+	}
+	fclose($handle);
+	return $linecount;
+}
+
+/* functions to check if X is installed, returns array of bool: local or not AND location: file location */
+function checkForStatusInstall($manualReturn, $relBase)
+{
+	$baseBaseUrl = baseURL();
+	if($manualReturn != "")
+	{
+		return array(
+			'local'	=> false,
+			'loc'	=> $manualReturn
+		);
+	}
+	elseif (is_dir($baseBaseUrl."../status"))
+	{
+		return array(
+			'local'	=> false,
+			'loc'	=> $relBase."../status/"
+		);
+	}
+	elseif (is_dir($baseBaseUrl."../Status"))
+	{
+		return array(
+			'local'	=> false,
+			'loc'	=> $relBase."../Status/"
+		);
+	}
+	return array(
+		'local'	=> false,
+		'loc'	=> false
+	);
+}
+
+function checkForMonitorInstall($manualReturn, $relBase)
+{
+	$baseBaseUrl = baseURL();
+	if($manualReturn != "")
+	{
+		return array(
+			'local'	=> false,
+			'loc'	=> $manualReturn
+		);
+	}
+	elseif(is_file($baseBaseUrl."monitor/index.php"))
+	{
+		return array(
+			'local'	=> true,
+			'loc'	=> $relBase."monitor"
+		);
+	}
+	elseif (is_dir($baseBaseUrl."../monitor"))
+	{
+		return array(
+			'local'	=> false,
+			'loc'	=> $relBase."../monitor/"
+		);
+	}
+	elseif (is_dir($baseBaseUrl."../Monitor"))
+	{
+		return array(
+			'local'	=> false,
+			'loc'	=> $relBase."../Monitor/"
+		);
+	}
+	return array(
+		'local'	=> false,
+		'loc'	=> false
+	);
+}
+
+function checkForSearchInstall($manualReturn, $relBase)
+{
+	$baseBaseUrl = baseURL();
+	if($manualReturn != "")
+	{
+		return array(
+			'local'	=> false,
+			'loc'	=> $manualReturn
+		);
+	}
+	elseif(is_file($baseBaseUrl."search/index.php"))
+	{
+		return array(
+			'local'	=> true,
+			'loc'	=> $relBase."search/"
+		);
+	}
+	elseif (is_dir($baseBaseUrl."../search"))
+	{
+		return array(
+			'local'	=> false,
+			'loc'	=> $relBase."../search/"
+		);
+	}
+	elseif (is_dir($baseBaseUrl."../Search"))
+	{
+		return array(
+			'local'	=> false,
+			'loc'	=> $relBase."../Search/"
+		);
+	}
+	return array(
+		'local'	=> false,
+		'loc'	=> false
+	);
+}
+
+function checkForSeleniumMonitorInstall($manualReturn, $relBase)
+{
+	$baseBaseUrl = baseURL();
+	if($manualReturn != "")
+	{
+		return array(
+			'local'	=> false,
+			'loc'	=> $manualReturn
+		);
+	}
+	elseif(is_file($baseBaseUrl."seleniumMonitor/index.php"))
+	{
+		return array(
+			'local'	=> true,
+			'loc'	=> $relBase."seleniumMonitor/"
+		);
+	}
+	elseif (is_dir($baseBaseUrl."../seleniumMonitor"))
+	{
+		return array(
+			'local'	=> false,
+			'loc'	=> $relBase."../seleniumMonitor/"
+		);
+	}
+	elseif (is_dir($baseBaseUrl."../SeleniumMonitor"))
+	{
+		return array(
+			'local'	=> false,
+			'loc'	=> $relBase."../SeleniumMonitor/"
+		);
+	}
+	return array(
+		'local'	=> false,
+		'loc'	=> false
+	);
 }

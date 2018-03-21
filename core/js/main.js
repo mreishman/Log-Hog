@@ -8,13 +8,14 @@ var counterForPollForceRefreshAll = 0;
 var currentPage;
 var currentSelectWindow = 0;
 var dataFromUpdateCheck = null;
+var fileSizes;
 var filesNew;
 var firstLoad = true;
 var flasher;
-var fresh = true;
 var lastContentSearch = "";
 var lastLogs = {};
 var logs = {};
+var logsToHide = new Array();
 var pausePoll = false;
 var percent = 0;
 var polling = false;
@@ -74,6 +75,19 @@ function unescapeHTML(unsafeStr)
 	
 }
 
+function formatBytes(bytes,decimals)
+{
+	if(bytes == 0)
+	{
+		return '0 Bytes';
+	}
+	var k = 1024;
+	var dm = decimals || 2;
+	var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+	var i = Math.floor(Math.log(bytes) / Math.log(k));
+	return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+}
+
 function updateSkipCounterLog(num)
 {
 	try
@@ -105,6 +119,26 @@ function updateAllRefreshCounter(num)
 		eventThrowException(e);
 	}
 	
+}
+
+function updateLogTitle(id)
+{
+	var tmpText = "";
+	var buttonReference = document.getElementById("menu").getElementsByClassName(id+"Button")[0];
+	if(logTitle === "lastLine")
+	{
+		tmpText = logs[id].split("\n");
+		var tmpTextLength = tmpText.length;
+		tmpText = unescapeHTML(tmpText[tmpTextLength-1]);
+	}
+	else if(logTitle === "filePath")
+	{
+		tmpText = titles[id];
+	}
+	if(buttonReference.title !== tmpText)
+	{
+		buttonReference.title = tmpText;
+	}
 }
 
 function updateDocumentTitle(updateText)
@@ -186,13 +220,16 @@ function pollTwo()
 				{
 					showPopup();
 					document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class='settingsHeader' >Log-Hog has been updated. Please Refresh</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Log-Hog has been updated, and is now on a new version. Please refresh the page.</div><div><div class='link' onclick='location.reload();' style='margin-left:165px; margin-right:50px;margin-top:35px;'>Reload</div></div>";
+					clearPollTimer()
 				}
 				else if(data === "update in progress")
 				{
+					clearPollTimer()
 					window.location.href = "update/updateInProgress.php";
 				}
 				else
 				{
+					fileSizes = data;
 					pollTwoPartTwo(data);
 				}
 			},
@@ -237,6 +274,7 @@ function pollTwoPartTwo(data)
 		}
 
 		filesNew = Object.keys(data);
+		arrayToUpdate = [];
 
 		if(arrayOfData1 === null || boolForAllUpdateForce)
 		{
@@ -250,7 +288,6 @@ function pollTwoPartTwo(data)
 		{
 			var arrayOfData2 = data; 
 			var filesOld = Object.keys(arrayOfData1);
-			arrayToUpdate = [];
 			for (var i = filesNew.length - 1; i >= 0; i--)
 			{
 				if(filesOld.indexOf(filesNew[i]) > -1)
@@ -309,7 +346,7 @@ function pollThree(arrayToUpdate)
 		{
 			if(firstLoad)
 			{
-				updateProgressBar(10,arrayToUpdate[0],  "Loading file 1 of "+arrayToUpdate.length);
+				updateProgressBar(10,arrayToUpdate[0],  "Loading file 1 of "+arrayToUpdate.length+" <br>  "+formatBytes(fileSizes[arrayToUpdate[0]]));
 				getFileSingle(arrayToUpdate.length-1, arrayToUpdate.length-1);
 			}
 			else
@@ -325,7 +362,6 @@ function pollThree(arrayToUpdate)
 					{
 						arrayOfDataMainDataFilter(data);
 						update(arrayOfDataMain);
-						fresh = false;
 					},
 					complete()
 					{
@@ -365,7 +401,7 @@ function getFileSingle(current)
 			{
 				var currentNew = this.currentFile;
 				var updateBy = (1/arrayToUpdate.length)*60;
-				updateProgressBar(updateBy, arrayToUpdate[currentNew-1], "Loading file "+(arrayToUpdate.length+1-currentNew)+" of "+arrayToUpdate.length);
+				updateProgressBar(updateBy, arrayToUpdate[currentNew-1], "Loading file "+(arrayToUpdate.length+1-currentNew)+" of "+arrayToUpdate.length+" <br>  "+formatBytes(fileSizes[arrayToUpdate[currentNew-1]]));
 				if(currentNew > 0)
 				{
 					currentNew--;
@@ -375,7 +411,6 @@ function getFileSingle(current)
 				else
 				{
 					update(arrayOfDataMain);
-					fresh = false;
 					afterPollFunctionComplete();
 				}
 			}
@@ -410,34 +445,65 @@ function arrayOfDataMainDataFilter(data)
 	}
 }
 
+function firstLoadEndAction()
+{
+	firstLoad = false;
+	document.getElementById("firstLoad").style.display = "none";
+	document.getElementById("searchType").disabled = false;
+	document.getElementById("searchFieldInput").disabled = false;
+	document.getElementById("log").style.display = "table";
+	var windows = Object.keys(logDisplayArray);
+	var lengthOfWindows = windows.length;
+	for(var i = 0; i < lengthOfWindows; i++)
+	{
+		if(logDisplayArray[i]["id"] !== null)
+		{
+			var logsCheck = Object.keys(logs);
+			var lengthOfLogsCheck = logsCheck.length;
+			for(var j = 0; j < lengthOfLogsCheck; j++)
+			{
+				if(logDisplayArray[i]["id"] === logsCheck[j])
+				{
+					document.getElementById("log"+i+"Td").scrollTop = $("#log"+i).outerHeight();
+				}
+			}
+		}
+	}
+}
+
+function pollTimeLogEndAction()
+{
+	t1 = performance.now();
+	document.getElementById("loggingTimerPollRate").innerText = "Ajax refresh took    "+addPaddingToNumber(Math.round(t2 - t0))+":"+addPaddingToNumber(Math.round(t3 - t2),2)+":"+addPaddingToNumber(Math.round(t1 - t3))+"    " + addPaddingToNumber(Math.round(t1 - t0)) + "/" + addPaddingToNumber(pollingRate) +"("+addPaddingToNumber(parseInt(pollingRate)*counterForPoll)+") milliseconds.";
+	document.getElementById("loggingTimerPollRate").style.color = "";
+	counterForPoll = 0;
+	var time = Math.round(t1-t0);
+	var rate = parseInt(pollingRate);
+	if(time > rate)
+	{
+		if(time > (2*rate))
+		{
+			document.getElementById("loggingTimerPollRate").style.color = "#ff0000";
+		}
+		else
+		{
+			document.getElementById("loggingTimerPollRate").style.color = "#ffff00";
+		}
+		
+	}
+	else
+	{
+		document.getElementById("loggingTimerPollRate").style.color = "#00ff00";
+	}
+}
+
 function afterPollFunctionComplete()
 {
 	try
 	{
 		if(firstLoad)
 		{
-			firstLoad = false;
-			document.getElementById("firstLoad").style.display = "none";
-			document.getElementById("searchType").disabled = false;
-			document.getElementById("searchFieldInput").disabled = false;
-			document.getElementById("log").style.display = "table";
-			var windows = Object.keys(logDisplayArray);
-			var lengthOfWindows = windows.length;
-			for(var i = 0; i < lengthOfWindows; i++)
-			{
-				if(logDisplayArray[i] !== null)
-				{
-					var logsCheck = Object.keys(logs);
-					var lengthOfLogsCheck = logsCheck.length;
-					for(var j = 0; j < lengthOfLogsCheck; j++)
-					{
-						if(logDisplayArray[i] === logsCheck[j])
-						{
-							document.getElementById("log"+i+"Td").scrollTop = $("#log"+i).outerHeight();
-						}
-					}
-				}
-			}
+			firstLoadEndAction();
 		}
 		if(refreshing)
 		{
@@ -446,26 +512,7 @@ function afterPollFunctionComplete()
 		polling = false;
 		if(enablePollTimeLogging !== "false")
 		{
-			t1 = performance.now();
-			document.getElementById("loggingTimerPollRate").innerText = "Ajax refresh took    "+addPaddingToNumber(Math.round(t2 - t0))+":"+addPaddingToNumber(Math.round(t3 - t2),2)+":"+addPaddingToNumber(Math.round(t1 - t3))+"    " + addPaddingToNumber(Math.round(t1 - t0)) + "/" + addPaddingToNumber(pollingRate) +"("+addPaddingToNumber(parseInt(pollingRate)*counterForPoll)+") milliseconds.";
-			document.getElementById("loggingTimerPollRate").style.color = "";
-			counterForPoll = 0;
-			if(Math.round(t1-t0) > parseInt(pollingRate))
-			{
-				if(Math.round(t1-t0) > (2*parseInt(pollingRate)))
-				{
-					document.getElementById("loggingTimerPollRate").style.color = "#ff0000";
-				}
-				else
-				{
-					document.getElementById("loggingTimerPollRate").style.color = "#ffff00";
-				}
-				
-			}
-			else
-			{
-				document.getElementById("loggingTimerPollRate").style.color = "#00ff00";
-			}
+			pollTimeLogEndAction();
 		}
 	}
 	catch(e)
@@ -563,18 +610,20 @@ function endRefreshAction()
 	}
 }
 
-function update(data) {
+function update(data)
+{
 	try
 	{
 		var menu = $("#menu");
 		var blank = $("#storage .menuItem").html();
-		var id, shortName, item, style, folderName;
+		var id, shortName, item, style, folderName, classInsert;
 		var files = Object.keys(data);
 		var stop = files.length;
 		var updated = false;
 		var initialized = $("#menu a").length !== 0;
 		var folderNamePrev = "?-1";
 		var folderNameCount = -1;
+
 		for(var i = 0; i !== stop; i++)
 		{
 			if(files[i].indexOf("dataForLoggingLogHog051620170928") === -1)
@@ -585,7 +634,7 @@ function update(data) {
 				var selectedListFilterType = selectListForFilter.options[selectListForFilter.selectedIndex].value;
 				var filterTextField = getFilterTextField();
 				var showFile = false;
-
+				id = name.replace(/[^a-z0-9]/g, "");
 				
 
 				var filterOffOf = "";
@@ -603,16 +652,19 @@ function update(data) {
 					filterOffOf = filterOffOf.toLowerCase();
 				}
 
-				if(filterOffOf !== "")
+				if(logsToHide instanceof Array && (logsToHide.length === 0 || $.inArray(name, logsToHide) === -1 ))
 				{
-					if(filterTextField === "" || filterOffOf.indexOf(filterTextField) !== -1)
+					if(filterOffOf !== "")
+					{
+						if(filterTextField === "" || filterOffOf.indexOf(filterTextField) !== -1)
+						{
+							showFile = true;
+						}
+					}
+					else
 					{
 						showFile = true;
 					}
-				}
-				else
-				{
-					showFile = true;
 				}
 				if(showFile)
 				{
@@ -635,7 +687,6 @@ function update(data) {
 									folderNameCount = 0;
 								}
 							}
-							id = name.replace(/[^a-z0-9]/g, "");
 							if(data[name] === "")
 							{
 								data[name] = "<div class='errorMessageLog errorMessageRedBG' >Error - Unknown error? Check file permissions or clear log to fix?</div>";
@@ -656,11 +707,11 @@ function update(data) {
 							logs[id] = data[name];
 							if(enableLogging !== "false")
 							{
-								titles[id] = name + " | " + data[name+"dataForLoggingLogHog051620170928"];
+								titles[id] = name + " | " + data[name+"dataForLoggingLogHog051620170928"] + " | Size: " + formatBytes(fileSizes[files[i]]);
 							}
 							else
 							{
-								titles[id] = name;
+								titles[id] = name + " | Size: " + formatBytes(fileSizes[files[i]]);
 							}
 							
 							if(enableLogging !== "false")
@@ -676,18 +727,19 @@ function update(data) {
 							if($("#menu ." + id + "Button").length === 0) 
 							{
 								shortName = files[i].replace(/.*\//g, "");
-								classInsert = "buttonColor"+(folderNameCount+1);
+								classInsert = "";
 								item = blank;
 								item = item.replace(/{{title}}/g, shortName);
 								item = item.replace(/{{id}}/g, id);
 								if(groupByColorEnabled === true)
 								{
-									item = item.replace(/{{class}}/g, classInsert);
+									classInsert += " buttonColor"+(folderNameCount+1)+" ";
 								}
+								item = item.replace(/{{class}}/g, classInsert);
 
 								var itemAdded = false;
 
-								if(!fresh)
+								if(!firstLoad)
 								{
 									var moveToFrontOnUpdate = false;
 									var innerCount = i;
@@ -724,13 +776,22 @@ function update(data) {
 									menu.append(item);
 								}
 
-								if(!fresh)
+								if(!firstLoad)
 								{
 									if(!$("#menu a." + id + "Button").hasClass("updated"))
 									{
 										$("#menu a." + id + "Button").addClass("updated");
 									}
 								}
+
+								var hideLogAction = {action: "tmpHideLog(\""+name+"\");", name: "Tmp Hide Log"};
+								var clearLogAction = {action: "clearLogInner(titles[\""+id+"\"]);", name: "Clear Log"};
+								var deleteLogAction = {action: "deleteLogPopupInner(titles[\""+id+"\"]);", name: "Delete Log"};
+								var copyNameAction = {action: "copyToClipBoard(\""+shortName+"\");", name: "Copy Name"};
+								var copyFullPathAction = {action: "copyToClipBoard(titles[\""+id+"\"]);", name: "Copy Filepath"};
+								//add rightclick menu
+								menuObjectRightClick[id] = [hideLogAction, clearLogAction,deleteLogAction,copyNameAction,copyFullPathAction];
+								Rightclick_ID_list.push(id);
 							}
 
 							updated = false;
@@ -761,15 +822,56 @@ function update(data) {
 								var currentIdPos = -1;
 								for(var j = 0; j < lengthOfWindows; j++)
 								{
-									if(id === logDisplayArray[j])
+									if(id === logDisplayArray[j]["id"])
 									{
 										currentIdPos = j;
 										break;
 									}
 								}
-								if(currentIdPos !== -1)
+
+								var diff = getDiffLogAndLastLog(id);
+								if(diff !== "")
 								{
-									$("#log"+currentIdPos).html(makePretty(logs[id]));
+									if(document.getElementById(id+"Count").innerHTML !== "" )
+									{
+										var count = document.getElementById(id+"CountHidden").innerHTML;
+										diff = parseInt(count) + diff;
+										if(diff > sliceSize)
+										{
+											diff = sliceSize;
+										}
+									}
+								}
+								var diffNew = diff;
+								if(diff !== "")
+								{
+									diffNew = "("+diff+")";
+								}
+								if(document.getElementById(id+"CountHidden").innerHTML !== diff)
+								{
+									document.getElementById(id+"CountHidden").innerHTML = diff;
+									if(notificationCountVisible === "true" && diff !== 0)
+									{
+										document.getElementById(id+"Count").innerHTML = diffNew;
+									}
+								}
+
+								var updateHtml = true;
+								if(currentIdPos === -1)
+								{
+									updateHtml = false
+								}
+								else if(scrollOnUpdate === "true" && scrollEvenIfScrolled === "false")
+								{
+									updateHtml = scrollPauseLogic(currentIdPos);
+									logDisplayArray[currentIdPos]["scroll"] = updateHtml;
+								}
+
+
+								if(updateHtml)
+								{
+									$("#log"+currentIdPos).html(makePretty(id));
+									fadeHighlight(currentIdPos);
 									if(document.getElementById(id+"Count").innerHTML !== "")
 									{
 										document.getElementById(id+"Count").innerHTML = "";
@@ -778,37 +880,18 @@ function update(data) {
 								}
 								else
 								{
-									if(!fresh)
+									if(!firstLoad)
 									{
-										if(!$("#menu a." + id + "Button").hasClass("updated"))
+										if(autoMoveUpdateLog === "true")
 										{
-											$("#menu a." + id + "Button").addClass("updated");
+											//'click' on log to switch to log
+											$("#menu a." + id + "Button").click();
 										}
-
-										if(notificationCountVisible === "true")
+										else
 										{
-											var diff = getDiffLogAndLastLog(id);
-											if(diff !== "")
+											if(!$("#menu a." + id + "Button").hasClass("updated"))
 											{
-												if(document.getElementById(id+"Count").innerHTML !== "" )
-												{
-													var count = document.getElementById(id+"CountHidden").innerHTML;
-													diff = parseInt(count) + diff;
-													if(diff > sliceSize)
-													{
-														diff = sliceSize;
-													}
-												}
-											}
-											var diffNew = diff;
-											if(diff !== "")
-											{
-												diffNew = "("+diff+")";
-											}
-											if(document.getElementById(id+"Count").innerHTML !== diffNew)
-											{
-												document.getElementById(id+"CountHidden").innerHTML = diff;
-												document.getElementById(id+"Count").innerHTML = diffNew;
+												$("#menu a." + id + "Button").addClass("updated");
 											}
 										}
 									}
@@ -824,14 +907,7 @@ function update(data) {
 								}
 							}
 							
-							var buttonReference = document.getElementById("menu").getElementsByClassName(id+"Button")[0];
-							var tmpText = logs[id].split("\n");
-							var tmpTextLength = tmpText.length;
-							tmpText = unescapeHTML(tmpText[tmpTextLength-1]);
-							if(buttonReference.title !== tmpText)
-							{
-								buttonReference.title = tmpText;
-							}
+							updateLogTitle(id);
 						}
 						else
 						{
@@ -886,19 +962,19 @@ function update(data) {
 		var lengthOfWindows = windows.length;
 		for(var i = 0; i < lengthOfWindows; i++)
 		{
-			if(logDisplayArray[i] !== null)
+			if(logDisplayArray[i]["id"] !== null)
 			{
 				var logsCheck = Object.keys(logs);
 				var lengthOfLogsCheck = logsCheck.length;
 				for(var j = 0; j < lengthOfLogsCheck; j++)
 				{
-					if(logDisplayArray[i] === logsCheck[j])
+					if(logDisplayArray[i]["id"] === logsCheck[j])
 					{
 						var currentPageId = logsCheck[j];
 						if(logs[currentPageId] !== lastLogs[currentPageId])
 						{
 							lastLogs[currentPageId] = logs[currentPageId];
-							if(scrollOnUpdate === "true")
+							if(scrollOnUpdate === "true" && logDisplayArray[i]["scroll"])
 							{
 								document.getElementById("log"+i+"Td").scrollTop = $("#log"+i).outerHeight();
 							}
@@ -919,6 +995,34 @@ function update(data) {
 	{
 		eventThrowException(e);
 	}
+}
+
+function scrollPauseLogic(id)
+{
+	var logTdCalc = document.getElementById("log"+id+"Td").getBoundingClientRect();  //const
+	var logCalc = document.getElementById("log"+id).getBoundingClientRect(); //changes
+	//do calc to see if scrolled, if scrolled don't scroll to bottom 
+	if(logCalc.bottom > logTdCalc.bottom)
+	{
+		return false;
+	}
+	return true;
+}
+
+function tmpHideLog(name)
+{
+	hideLogByName(name);
+	logsToHide.push(name);
+	update(arrayOfDataMain);
+}
+
+function copyToClipBoard(whatToCopy)
+{
+	var $temp = $("<input>");
+	$("body").append($temp);
+	$temp.val(filterTitle(whatToCopy)).select();
+	document.execCommand("copy");
+	$temp.remove();
 }
 
 function tryToInsertBeforeLog(innerCount, stop, idCheck, item)
@@ -1000,6 +1104,11 @@ function clearNotifications()
 				arrayOfLogs[clearNotifCountOne].classList.remove("updated");
 			}
 			var arrayOfCounts = $("#menu a .menuCounter");
+			for (var clearNotifCountTwo = 0; clearNotifCountTwo < arrayOfCounts.length; clearNotifCountTwo++)
+			{
+				arrayOfCounts[clearNotifCountTwo].innerHTML = "";
+			}
+			var arrayOfCounts = $("#menu a .menuCounterHidden");
 			for (var clearNotifCountTwo = 0; clearNotifCountTwo < arrayOfCounts.length; clearNotifCountTwo++)
 			{
 				arrayOfCounts[clearNotifCountTwo].innerHTML = "";
@@ -1086,26 +1195,52 @@ function removeLogByName(name)
 	
 }
 
+function fadeHighlight(id)
+{
+	setTimeout(function(){ removeNewHighlights("#log"+id); }, 30);
+}
+
 function show(e, id) 
 {
 	try
 	{
-		$(e).siblings().removeClass("active");		
-		$("#log"+currentSelectWindow).html(makePretty(logs[id]));
+		$("#log"+currentSelectWindow).hide();
+		$("#log"+currentSelectWindow+"load").show();
+		resize();
+
+		$(e).siblings().removeClass("active");
+		var windowNumInTitle = $("#"+id+"CurrentWindow").html();
+		if(windowNumInTitle !== "")
+		{
+			windowNumInTitle = windowNumInTitle + "0";
+			var windowNumAsNum = parseInt(windowNumInTitle);
+			$("#log"+(windowNumAsNum-1)).html("");
+		}
+		$("#log"+currentSelectWindow).html(makePretty(id));
+		fadeHighlight(currentSelectWindow);
+		//window number clear
+		$('.currentWindowNum').each(function(i, obj)
+		{
+		    if(obj.innerHTML ==  ""+(currentSelectWindow+1)+". ")
+		    {
+		    	obj.innerHTML = "";
+		    }
+		});
+		//window number add
 		$("#"+id+"CurrentWindow").html(""+(currentSelectWindow+1)+". ");
 		currentPage = id;
-		logDisplayArray[currentSelectWindow] = id;
+		logDisplayArray[currentSelectWindow]["id"] = id;
 		var windows = Object.keys(logDisplayArray);
 		var lengthOfWindows = windows.length;
 		for(var i = 0; i < lengthOfWindows; i++)
 		{
-			if(logDisplayArray[i] !== null)
+			if(logDisplayArray[i]["id"] !== null)
 			{
 				var logsCheck = Object.keys(logs);
 				var lengthOfLogsCheck = logsCheck.length;
 				for(var j = 0; j < lengthOfLogsCheck; j++)
 				{
-					if(logDisplayArray[i] === logsCheck[j])
+					if(logDisplayArray[i]["id"] === logsCheck[j])
 					{
 						$("."+logsCheck[j]+"Button").addClass("active").removeClass("updated");
 					}
@@ -1113,16 +1248,29 @@ function show(e, id)
 			}
 		}
 		$("#title"+currentSelectWindow).html(titles[id]);
+
+		$("#log"+currentSelectWindow+"load").hide();
+		$("#log"+currentSelectWindow).show();
+
+		resize();
+
 		document.getElementById("log"+currentSelectWindow+"Td").scrollTop = $("#log"+currentSelectWindow).outerHeight();
 		toggleNotificationClearButton();
 		document.getElementById(id+"Count").innerHTML = "";
 		document.getElementById(id+"CountHidden").innerHTML = "";
+
+		
 		resize();
 	}
 	catch(e)
 	{
 		eventThrowException(e);
 	}
+}
+
+function removeNewHighlights(area)
+{
+	$(area + " div").removeClass("newLine");
 }
 
 function getDiffLogAndLastLog(id)
@@ -1134,7 +1282,15 @@ function getDiffLogAndLastLog(id)
 			return 0;
 		}
 		var tmpTextLog = logs[id].split("\n");
-		var tmpTextLast = lastLogs[id].split("\n");
+		var tmpTextLast;
+		if(id in lastLogs)
+		{
+			tmpTextLast = lastLogs[id].split("\n");
+		}
+		else
+		{
+			return 0;
+		}
 		var lengthOfLastArray = tmpTextLast.length;
 		var lengthOfArray = tmpTextLog.length;
 		if(lengthOfLastArray === 0)
@@ -1182,10 +1338,20 @@ function getDiffLogAndLastLog(id)
 	}
 }
 
-function makePretty(text) 
+function makePretty(id) 
 {
 	try
 	{
+		var text = logs[id];
+		var count = document.getElementById(id+"CountHidden").innerHTML;
+		if(count !== "")
+		{
+			count = parseInt(count);
+		}
+		else
+		{
+			count = 0;
+		}
 		text = text.split("\n");
 		var returnText = "";
 		var lengthOfTextArray = text.length;
@@ -1194,9 +1360,10 @@ function makePretty(text)
 		var bottomPadding = filterContentLinePadding;
 		var topPadding = filterContentLinePadding;
 		var foundOne = false;
+		var addLine = false;
 		for (var i = 0; i < lengthOfTextArray; i++)
 		{
-			var addLine = false;
+			addLine = false;
 			if(selectedListFilterType === "content" && filterContentLimit === "true" && getFilterTextField() !== "")
 			{
 				//check for content on current line
@@ -1243,16 +1410,31 @@ function makePretty(text)
 			}
 			if(addLine)
 			{
-				var customStyle = "";
+				var customClass = " class = '";
+				var customClassAdd = false;
+				if(highlightNew === "true" && ((i + count + 1) > lengthOfTextArray))
+				{
+					customClass += " newLine ";
+					customClassAdd = true;
+				}
+
 				if(selectedListFilterType === "content" && filterContentHighlight === "true" && getFilterTextField() !== "")
 				{
 					//check if match, and if supposed to highlight
 					if(filterContentCheck(text[i]))
 					{
-						customStyle += "class = 'highlight' ";
+						customClass += " highlight ";
+						customClassAdd = true;
 					}
 				}
-				returnText += "<div "+customStyle+" >"+text[i]+"</div>";
+
+				customClass += " '";
+				returnText += "<div ";
+				if(customClassAdd)
+				{
+					returnText += " "+customClass+" ";
+				}
+				returnText += " >"+text[i]+"</div>";
 			}
 		}
 		
@@ -1284,7 +1466,8 @@ function getFilterTextField()
 	return filterTextField;
 }
 
-function getScrollbarWidth() {
+function getScrollbarWidth()
+{
     var outer = document.createElement("div");
     outer.style.visibility = "hidden";
     outer.style.width = "100px";
@@ -1404,6 +1587,27 @@ function clearPollTimer()
 	pollTimer = null;
 }
 
+function switchPollType()
+{
+	if(pausePollOnNotFocus === true || pausePollOnNotFocus === "true")
+	{
+		clearInterval(pollTimer);
+		pausePollOnNotFocus = false;
+		pollTimer = Visibility.every(pollingRate, backgroundPollingRate, function () { poll(); });
+		showPopup();
+		document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Toggled off!</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Toggled off auto pause in background</div></div>";
+	}
+	else
+	{
+		Visibility.stop(pollTimer);
+		pausePollOnNotFocus = true;
+		pollTimer = setInterval(poll, pollingRate);
+		showPopup();
+		document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Toggled on!</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Toggled on auto pause in background</div></div>";
+	}
+	setTimeout(function(){ hidePopup(); }, 500);
+}
+
 function startPauseOnNotFocus()
 {
 	/* Dont try catch visibility  */
@@ -1416,7 +1620,7 @@ function checkIfPageHidden()
 {
 	try
 	{
-		if(isPageHidden())
+		if(isPageHidden() && pausePollOnNotFocus)
 		{
 			//hidden
 			if(!pausePoll)
@@ -1481,23 +1685,32 @@ function isPageHidden()
 	}
 }
 
+function clearLogInner(title)
+{
+	var urlForSend = "core/php/clearLog.php?format=json";
+	title = filterTitle(title);
+	var data = {file: title};
+	$.ajax({
+			url: urlForSend,
+			dataType: "json",
+			data,
+			type: "POST",
+	success(data)
+	{
+		refreshLastLogsArray();
+	},
+	});
+}
+
 function clearLog(idNum)
 {
 	try
 	{
-		var urlForSend = "core/php/clearLog.php?format=json";
-		var title = filterTitle(document.getElementById("title"+idNum).innerHTML);
-		var data = {file: title};
-		$.ajax({
-				url: urlForSend,
-				dataType: "json",
-				data,
-				type: "POST",
-		success(data)
+		if(document.getElementById("title"+idNum).textContent !== "")
 		{
-			refreshLastLogsArray();
-		},
-		});
+			var title = document.getElementById("title"+idNum).textContent;
+			clearLogInner(title);
+		}
 	}
 	catch(e)
 	{
@@ -1555,7 +1768,21 @@ function deleteLogPopup(idNum)
 {
 	try
 	{
-		var title = filterTitle(document.getElementById("title"+idNum).innerHTML);
+		var title = document.getElementById("title"+idNum).textContent;
+		deleteLogPopupInner(title);
+		
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
+function deleteLogPopupInner(title)
+{
+	title = filterTitle(title);
+	if(title !== "")
+	{
 		if(popupSettingsArray.deleteLog == "true")
 		{
 			showPopup();
@@ -1565,10 +1792,6 @@ function deleteLogPopup(idNum)
 		{
 			deleteLog(title);
 		}
-	}
-	catch(e)
-	{
-		eventThrowException(e);
 	}
 }
 
@@ -1788,13 +2011,21 @@ function changeCurrentSelectWindow(newSelectWindow)
 
 function showInfo(idNum)
 {
-	if(document.getElementById("title"+idNum).style.display === "none")
+	if(document.getElementById("title"+idNum).textContent !== "")
 	{
-		document.getElementById("title"+idNum).style.display = "block";
-	}
-	else
-	{
-		document.getElementById("title"+idNum).style.display = "none";
+		if(document.getElementById("title"+idNum).style.display === "none")
+		{
+			var posOfInfo = document.getElementById("showInfoLink"+idNum).getBoundingClientRect();
+			var infoPopup = document.getElementById("title"+idNum);
+			infoPopup.style.display = "block";
+			infoPopup.style.left = (posOfInfo.x + 32 )+ "px";
+			infoPopup.style.top = (posOfInfo.y - 16) + "px";
+			infoPopup.style.maxWidth = document.getElementById("log"+idNum).getBoundingClientRect().width + "px";
+		}
+		else
+		{
+			document.getElementById("title"+idNum).style.display = "none";
+		}
 	}
 }
 

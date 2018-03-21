@@ -22,7 +22,16 @@ foreach ($scanned_directory as $key):
 					</div>
 				</div>
 				<span id="loadingSpinner-<?php echo $key;?>">
-					<img src="<?php echo $baseUrl;?>/img/loading.gif" style="position: relative; height: 60px; top: 170px; left: 270px;" >
+					<?php
+						echo generateImage(
+						$arrayOfImages["loading"],
+						$imageConfig = array(
+							"height"	=>	"60px",
+							"srcModifier"	=>	"../",
+							"style"		=>	"position: relative; height: 60px; top: 170px; left: 270px;"
+							)
+						);
+					?>
 				</span>
 				<span id="htmlContent-<?php echo $key;?>" style="display: none;">
 					<iframe style="width: 598px; border: 0px; height: 373px;" src="../core/Themes/example.php?type=../<?php echo $directory.$key;?>">
@@ -32,11 +41,13 @@ foreach ($scanned_directory as $key):
 					<script type="text/javascript">
 						$( document ).ready(function()
 						{
-						   document.getElementById("loadingSpinner-<?php echo $key;?>").style.display = "none";
-						   document.getElementById("htmlContent-<?php echo $key;?>").style.display = "block";
+							setTimeout(function(){
+								document.getElementById("loadingSpinner-<?php echo $key;?>").style.display = "none";
+								document.getElementById("htmlContent-<?php echo $key;?>").style.display = "block";
+							}, 2000);
 						});
 					</script>
-					<form action="../core/php/settingsSave.php" method="post" id="themeMainSelection-<?php echo $key;?>">
+					<form id="themeMainSelection-<?php echo $key;?>">
 						<?php
 							$arrayOfInputValues = array(
 								"loadingBarVersion"			=>	array(

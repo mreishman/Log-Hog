@@ -14,6 +14,11 @@ function checkIfChanges()
 	return false;
 }
 
+function updateSlider(val)
+{
+	document.getElementById('sliderShowVal').innerHTML=""+val+"%"; 
+}
+
 function deleteTheme(themeName)
 {
 	displayLoadingPopup();

@@ -1,13 +1,9 @@
-<form id="settingsMenuVars" action="../core/php/settingsSave.php" method="post">
+<form id="settingsMenuVars">
 <div class="settingsHeader">
 Menu Settings
 <div class="settingsHeaderButtons">
-	<?php echo addResetButton("settingsMenuVars");
-	if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
+	<?php echo addResetButton("settingsMenuVars"); ?>
 	<a class="linkSmall" onclick="saveAndVerifyMain('settingsMenuVars');" >Save Changes</a>
-	<?php else: ?>
-		<button  onclick="displayLoadingPopup();">Save Changes</button>
-	<?php endif; ?>
 </div>
 </div>
 <div class="settingsDiv" >
@@ -47,11 +43,29 @@ Menu Settings
 		</div>
 	</li>
 	<li>
+		<span class="settingsBuffer" > Hide logs that are empty: </span>
+			<div class="selectDiv">
+				<select name="hideEmptyLog">
+					<option <?php if($hideEmptyLog == 'true'){echo "selected";} ?> value="true">True</option>
+					<option <?php if($hideEmptyLog == 'false'){echo "selected";} ?> value="false">False</option>
+				</select>
+			</div>
+		</li>
+	<li>
 		<span class="settingsBuffer" > Notification Count </span>
 		<div class="selectDiv">
 			<select name="notificationCountVisible">
 				<option <?php if($notificationCountVisible == 'true'){echo "selected";} ?> value="true">Enabled</option>
 				<option <?php if($notificationCountVisible == 'false'){echo "selected";} ?> value="false">Disabled</option>
+			</select>
+		</div>
+	</li>
+	<li>
+		<span class="settingsBuffer" > On Log Title Hover Show: </span>
+		<div class="selectDiv">
+			<select name="logTitle">
+				<option <?php if($logTitle == 'lastLine'){echo "selected";} ?> value="lastLine">Last Line In Log</option>
+				<option <?php if($logTitle == 'filePath'){echo "selected";} ?> value="filePath">Full Path Of Log</option>
 			</select>
 		</div>
 	</li>

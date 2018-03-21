@@ -1,11 +1,9 @@
-<form onsubmit="checkWatchList()" id="settingsMainWatch" action="../core/php/settingsSave.php" method="post">
+<form onsubmit="checkWatchList()" id="settingsMainWatch" >
 <div class="settingsHeader">
 	WatchList
 	<div class="settingsHeaderButtons">
 		<a onclick="resetWatchListVars();" id="settingsMainWatchResetButton" style="display: none;" class="linkSmall" > Reset Current Changes</a>
-		<?php if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
-			<a class="linkSmall" onclick="saveAndVerifyMain('settingsMainWatch');" >Save Changes</a>
-		<?php endif; ?>
+		<a class="linkSmall" onclick="saveAndVerifyMain('settingsMainWatch');" >Save Changes</a>
 	</div>
 </div>
 <div class="settingsDiv" >	

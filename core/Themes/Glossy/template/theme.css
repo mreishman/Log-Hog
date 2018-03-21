@@ -172,6 +172,12 @@ div {
 .backgroundForSideBarMenu
 {
 	background-color: #ccc;
+	overflow-y: auto;
+}
+
+.backgroundForSideBarMenu::-webkit-scrollbar {
+	width: 1px;
+	
 }
 
 .popupForInfo
@@ -179,10 +185,11 @@ div {
 	background-color: #CCC;
 	z-index: 10;
 	position: absolute;
-	left: 31px;
-	top: 5px;
 	border: 1px solid white;
 	color: black;
+	width: fit-content;
+	padding: 5px;
+	word-break: break-all;
 }
 
 .backgroundForMenus
@@ -668,4 +675,38 @@ div.sidebarLeft {
     top: 0;
     left: 0;
     bottom: 0;
+}
+
+/* width */
+::-webkit-scrollbar
+{
+	width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track
+{
+	background: #333;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb
+{
+	background: rgba(200,200,200,1);
+	background: -moz-linear-gradient(top, rgba(200,200,200,1) 0%, rgba(164,164,164,1) 50%, rgba(108,108,108,1) 51%, rgba(200,200,200,1) 100%);
+	background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(200,200,200,1)), color-stop(50%, rgba(164,164,164,1)), color-stop(51%, rgba(108,108,108,1)), color-stop(100%, rgba(200,200,200,1)));
+	background: -webkit-linear-gradient(top, rgba(200,200,200,1) 0%, rgba(164,164,164,1) 50%, rgba(108,108,108,1) 51%, rgba(200,200,200,1) 100%);
+	background: -o-linear-gradient(top, rgba(200,200,200,1) 0%, rgba(164,164,164,1) 50%, rgba(108,108,108,1) 51%, rgba(200,200,200,1) 100%);
+	background: -ms-linear-gradient(top, rgba(200,200,200,1) 0%, rgba(164,164,164,1) 50%, rgba(108,108,108,1) 51%, rgba(200,200,200,1) 100%);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover
+{
+	background: rgba(255,255,255,1);
+	background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(219,219,219,1) 50%, rgba(163,163,163,1) 51%, rgba(255,255,255,1) 100%);
+	background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(255,255,255,1)), color-stop(50%, rgba(219,219,219,1)), color-stop(51%, rgba(163,163,163,1)), color-stop(100%, rgba(255,255,255,1)));
+	background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(219,219,219,1) 50%, rgba(163,163,163,1) 51%, rgba(255,255,255,1) 100%);
+	background: -o-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(219,219,219,1) 50%, rgba(163,163,163,1) 51%, rgba(255,255,255,1) 100%);
+	background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(219,219,219,1) 50%, rgba(163,163,163,1) 51%, rgba(255,255,255,1) 100%);
 }
