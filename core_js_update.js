@@ -130,7 +130,7 @@ function saveSettingFromPopupNoCheckMaybe()
 {
 	try
 	{
-		if(document.getElementById("dontShowPopuForThisUpdateAgain").checked)
+		if(document.getElementById("dontShowPopuForThisUpdateAgain") && document.getElementById("dontShowPopuForThisUpdateAgain").checked)
 		{
 			var urlForSend = urlSend+"core/php/settingsSaveAjax.php?format=json";
 			var data = {dontNotifyVersion};
