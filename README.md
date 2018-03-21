@@ -13,18 +13,13 @@ i.e. /html/Log-Hog/
 
 # Upgrade
 
-## Pre Version 2.0
+## From Pre Version 2.0
 
-Copy all of the files, except for config.php
-When upgrading, look at the config.php to compair var's 
-copy missing var's from the new file into the old file
+Backup the current config.php
+Copy all of the files
+move backup of old config.php to local/default/conf
 
-## Version 2.0
-
-Copy all of the files, except for config.php file (located in local/default/conf/
-Move the config.php file from the conf dir to the local/default/conf
-
-## Version 2.0+
+## From Version 2.0+
 
 Go to settings (gear icon) and then click update.
 This will download the latested version from github and copy over only the changed files / new vars.
