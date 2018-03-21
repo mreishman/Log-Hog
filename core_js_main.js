@@ -835,7 +835,7 @@ function update(data)
 										var objectToSend = new Array();
 										objectToSend["log"] = id;
 										objectToSend["name"] = "New Log "+shortName;
-										objectToSend["action"] = "show(this, '"+id+"');  toggleNotifications();";
+										objectToSend["action"] = "$('#"+id+"').click();  toggleNotifications();";
 										addLogNotification(objectToSend);
 									}
 								}
@@ -963,7 +963,7 @@ function update(data)
 												numForNot = diffNew;
 											}
 											objectToSend["name"] = shortName+" Update "+numForNot;
-											objectToSend["action"] = "show(this, '"+id+"');  toggleNotifications();";
+											objectToSend["action"] = "$('#"+id+"').click();  toggleNotifications();";
 											addLogNotification(objectToSend);
 										}
 									}
@@ -2317,6 +2317,7 @@ function toggleNotifications()
 		document.getElementById("notificationClicked").style.display = "inline-block";
 		document.getElementById("notifications").style.display = "inline-block";
 		document.getElementById("notifications").style.left = (document.getElementById("notificationDiv").getBoundingClientRect().left-27) + "px";
+		document.getElementById("notifications").style.top = (document.getElementById("notificationDiv").getBoundingClientRect().top+25) + "px";
 		document.getElementById("notificationCount").style.color = "black";
 	}
 }
@@ -2379,7 +2380,7 @@ function displayNotifications(notificationsArray)
 		}
 		var item = blank;
 		item = item.replace(/{{id}}/g, "notification"+notificationsArray[i]['id']);
-		item = item.replace(/{{idNum}}/g, notificationsArray[i]['id']);
+		item = item.replace(/{{idNum}}/g, i);
 		item = item.replace(/{{name}}/g, notificationsArray[i]['name']);
 		item = item.replace(/{{time}}/g, notificationsArray[i]['time']);
 		item = item.replace(/{{action}}/g, notificationsArray[i]['action']);
@@ -2442,6 +2443,8 @@ function updateNotificationCount()
 		$("#notificationCount").append(currentCount);
 		document.getElementById("notificationCount").style.left = (document.getElementById("notificationDiv").getBoundingClientRect().left+5) + "px";
 		document.getElementById("notificationBadge").style.left = (document.getElementById("notificationDiv").getBoundingClientRect().left-5) + "px";
+		document.getElementById("notificationCount").style.top = (document.getElementById("notificationDiv").getBoundingClientRect().top+11) + "px";
+		document.getElementById("notificationBadge").style.top = (document.getElementById("notificationDiv").getBoundingClientRect().top+19) + "px";
 	}
 	else
 	{
