@@ -2637,4 +2637,10 @@ $(document).ready(function()
 		addUpdateNotification();
 	}
 	updateNotificationCount();
+
+	$("#selectForGroup").on("keydown change", function(){
+	    setTimeout(function() {
+	      toggleGroupedGroups();
+	    }, 2);
+	});
 });

@@ -216,7 +216,7 @@ $( document ).ready(function()
 {
 	if(document.getElementById("popupSelect"))
 	{
-		$("#popupSelect").bind("keydown change", function(){
+		$("#popupSelect").on("keydown change", function(){
 		    var box = $(this);
 		    setTimeout(function() {
 		        updateJsonForPopupTheme();

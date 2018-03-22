@@ -66,7 +66,7 @@ Other Settings
 <script type="text/javascript">
 	
 	<?php foreach ($popupSettingsInArray as $key => $value):?>
-	$("#popup<?php echo $key; ?>").bind("keydown change", function(){
+	$("#popup<?php echo $key; ?>").on("keydown change", function(){
 	    var box = $(this);
 	    setTimeout(function() {
 	        updateJsonForPopupTheme();
