@@ -113,26 +113,6 @@ if(isset($_POST['numberOfRows']))
 	$watchList = $arrayWatchList;
 }
 
-if(isset($_POST['saveSettings']))
-{
-	if(array_key_exists('popupSettingsArray', $config))
-	{
-		$popupSettingsArray = $config['popupSettingsArray'];
-	}
-	else
-	{
-		$popupSettingsArray = $defaultConfig['popupSettingsArray'];
-	}
-
-	$popupSettingsArraySave = array(
-	'saveSettings'	=>	$_POST['saveSettings'],
-	'blankFolder'	=>	$_POST['blankFolder'],
-	'deleteLog'	=>	$_POST['deleteLog'],
-	'removeFolder'	=> 	$_POST['removeFolder'],
-	'versionCheck'	=> $_POST['versionCheck']
-	);
-}
-
 if(isset($_POST['folderThemeCount']))
 {
 	$folderColorArraysSave = "";

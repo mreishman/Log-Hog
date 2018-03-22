@@ -266,13 +266,7 @@ $defaultConfig = array(
 	'pollRefreshAll'				=> 120,
 	'pollRefreshAllBool'			=> 'true',
 	'popupWarnings'					=> 'all',
-	'popupSettingsArray'	=> array(
-		'saveSettings'		=>	'true',
-		'blankFolder'		=>	'true',
-		'deleteLog'			=>	'true',
-		'removeFolder'		=> 	'true',
-		'versionCheck'		=> 'true'
-		),
+	'popupSettingsArray'			=> '{"saveSettings":"true","blankFolder":"true","deleteLog":"true","removeFolder":"true","versionCheck":"true"}',
 	'rightClickMenuEnable'			=> 'true',
 	'scrollBarHandle'				=> 'background: #CCC;',
 	'scrollBarHandleHover'			=> 'background: #FFF;',

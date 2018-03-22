@@ -180,11 +180,49 @@ function checkIfChanges()
 	return false;
 }
 
+function updateJsonForPopupTheme()
+{
+	var saveSettingsVar = document.getElementById("popupsaveSettings").value;
+	var blankFolderVar = document.getElementById("popupblankFolder").value;
+	var deleteLogVar = document.getElementById("popupdeleteLog").value;
+	var removeFolderVar = document.getElementById("popupremoveFolder").value;
+	var versionCheckVar = document.getElementById("popupversionCheck").value;
+	var popupSelectValue = document.getElementById("popupSelect").value;
+	var toSet = "true";
+	if(popupSelectValue === "none")
+	{
+		toSet = "false";
+	}
+	if(popupSelectValue === "all" || popupSelectValue === "none")
+	{
+		saveSettingsVar = toSet;
+		blankFolderVar = toSet;
+		deleteLogVar = toSet;
+		removeFolderVar = toSet;
+		versionCheckVar = toSet;
+	}
+
+	var objectToSave = {
+		saveSettings :saveSettingsVar,
+		blankFolder:blankFolderVar,
+		deleteLog:deleteLogVar,
+		removeFolder:removeFolderVar,
+		versionCheck:versionCheckVar
+	}
+	document.getElementById("popupSettingsArray").value = JSON.stringify(objectToSave);
+}
+
 $( document ).ready(function() 
 {
 	if(document.getElementById("popupSelect"))
 	{
-		document.getElementById("popupSelect").addEventListener("change", showOrHidePopupSubWindow, false);
+		$("#popupSelect").bind("keydown change", function(){
+		    var box = $(this);
+		    setTimeout(function() {
+		        updateJsonForPopupTheme();
+		    }, 2);
+		    showOrHidePopupSubWindow();
+		});
 	}
 	if(document.getElementById("settingsSelect"))
 	{

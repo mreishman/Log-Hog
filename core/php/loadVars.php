@@ -206,50 +206,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 	}
 	$watchList = $arrayWatchList;
 
-	$popupSettingsArraySave = "";
-	if($popupWarnings == "all")
-	{
-		$popupSettingsArraySave = "
-			'saveSettings'	=>	'true',
-			'blankFolder'	=>	'true',
-			'deleteLog'	=>	'true',
-			'removeFolder'	=> 	'true',
-			'versionCheck'	=> 'true'
-			";
-	}
-	elseif($popupWarnings == "none")
-	{
-		$popupSettingsArraySave = "
-			'saveSettings'	=>	'false',
-			'blankFolder'	=>	'false',
-			'deleteLog'	=>	'false',
-			'removeFolder'	=> 	'false',
-			'versionCheck'	=> 'false'
-			";
-	}
-	else
-	{
-		if(isset($_POST['saveSettings']))
-		{
-			$popupSettingsArraySave = "
-			'saveSettings'	=>	'".$_POST['saveSettings']."',
-			'blankFolder'	=>	'".$_POST['blankFolder']."',
-			'deleteLog'	=>	'".$_POST['deleteLog']."',
-			'removeFolder'	=> 	'".$_POST['removeFolder']."',
-			'versionCheck'	=> '".$_POST['versionCheck']."'
-			";
-		}
-		else
-		{
-			$popupSettingsArraySave = "";
-			foreach ($popupSettingsArray as $key => $value)
-			{
-				$popupSettingsArraySave .= "'".$key."'	=>	'".$value."',";
-			}
-		}
-	}
-	$popupSettingsArray = $popupSettingsArraySave;
-
 	$folderColorArraysSave = "";
 	if(isset($_POST['folderThemeCount']))
 	{

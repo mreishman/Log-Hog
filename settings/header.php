@@ -106,8 +106,7 @@ $baseUrlImages = $localURL;
 ?>
 <script type="text/javascript">
 	var baseUrl = "<?php echo baseURL();?>";
-	//var popupSettingsArray = JSON.parse('<?php echo json_encode($popupSettingsArray) ?>');
-	var popupSettingsArray = {};
+	var popupSettingsArray = <?php echo $popupSettingsArray ?>;
 	var currentVersion = "<?php echo $configStatic['version']; ?>";
 	var newestVersion = "<?php echo $configStatic['newestVersion']; ?>";
 	var saveVerifyImage = <?php echo json_encode(generateImage(

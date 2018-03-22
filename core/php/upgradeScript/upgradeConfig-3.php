@@ -44,6 +44,7 @@ if (isset($config["watchList"]))
 	}
 	$arrayForNewStuff["watchList"] = $arrayWatchList;
 }
+$arrayForNewStuff['popupSettingsArray'] = '{"saveSettings":"true","blankFolder":"true","deleteLog":"true","removeFolder":"true","versionCheck":"true"}';
 if($alreadyRan)
 {
 	$arrayForNewStuff = array(
