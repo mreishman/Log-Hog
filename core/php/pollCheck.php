@@ -64,13 +64,25 @@ foreach($watchList as $key => $value)
 		{
 			foreach ($watchListFolder[$key] as $file)
 			{
-				$diff = time()-filemtime($file);
-				$days = round($diff/86400);
-				if($days > (int)$value["AutoDeleteFiles"])
+				$boolToDelete = true;
+				if(isset($fileData[$file]))
 				{
-					unlink($file);
-					$keyInSubArray = array_search($file, $watchListFolder[$key]);
-					unset($watchListFolder[$key][$keyInSubArray]);
+					$dataToUse = get_object_vars($fileData[$file]);
+					if($dataToUse["Delete"] === "true")
+					{
+						$boolToDelete = false;
+					}
+				}
+				if($boolToDelete)
+				{
+					$diff = time()-filemtime($file);
+					$days = round($diff/86400);
+					if($days > (int)$value["AutoDeleteFiles"])
+					{
+						unlink($file);
+						$keyInSubArray = array_search($file, $watchListFolder[$key]);
+						unset($watchListFolder[$key][$keyInSubArray]);
+					}
 				}
 			}
 		}

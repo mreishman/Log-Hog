@@ -213,6 +213,7 @@ function updateFileInfo(currentRow)
 	var listOfFiles = document.getElementsByName("watchListKey"+currentRow+"FileInFolder");
 	var listOfFilesInclude = document.getElementsByName("watchListKey"+currentRow+"FileInFolderInclude");
 	var listOfFilesTrim = document.getElementsByName("watchListKey"+currentRow+"FileInFolderTrim");
+	var listOfFilesDelete = document.getElementsByName("watchListKey"+currentRow+"ExcludeDelete");
 	if(listOfFiles)
 	{
 		listOfFilesLength = listOfFiles.length;
@@ -220,7 +221,9 @@ function updateFileInfo(currentRow)
 		{
 			stringToUpdateTo += "\""+listOfFiles[i].value+"\" : {";
 			stringToUpdateTo += " \"Include\": \""+listOfFilesInclude[i].value + "\" , ";
-			stringToUpdateTo += " \"Trim\":  \""+listOfFilesTrim[i].value + "\"  ";
+			stringToUpdateTo += " \"Trim\":  \""+listOfFilesTrim[i].value + "\" , ";
+			stringToUpdateTo += " \"Delete\":  \""+listOfFilesDelete[i].value + "\"  ";
+			
 			stringToUpdateTo += "}";
 			if(i !== (listOfFilesLength - 1))
 			{

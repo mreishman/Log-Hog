@@ -357,6 +357,12 @@
 
 				));
 			}
+			$fileData = array();
+			$tmpFileData = json_decode($values["FileInformation"]);
+			if(!is_null($tmpFileData))
+			{
+				$fileData = get_object_vars($tmpFileData);
+			}
 			foreach ($response as $key2)
 			{
 				$filesInFolder .= "<li>";
@@ -373,9 +379,36 @@
 				{
 					$filesInFolder .= $defaultFileIcon;
 				}
+
+				$includeBool = "true";
+				$excludeTrimBool = "false";
+				$excludeDelete = "false";
+				if(isset($fileData[$key2]))
+				{
+					$dataToUse = array();
+					$tmpFileData = get_object_vars($fileData[$key2]);
+					if(!is_null($tmpFileData) || empty($tmpFileData))
+					{
+						$dataToUse = $tmpFileData;
+					}
+					if(isset($dataToUse["Include"]))
+					{
+						$includeBool = $dataToUse["Include"];
+					}
+					if(isset($dataToUse["Trim"]))
+					{
+						$excludeTrimBool = $dataToUse["Trim"];
+					}
+					if(isset($dataToUse["Delete"]))
+					{
+						$excludeDelete = $dataToUse["Delete"];
+					}
+				}
+
 				$filesInFolder .= "<span style=\"width: 300px; overflow: auto; display: inline-block;\" >".str_replace($location, "", $key2)."</span><input name=\"watchListKey".$i."FileInFolder\"  type=\"hidden\" value=\"".$key2."\" >";
-				$filesInFolder .= "<span class=\"settingsBuffer\" >Include: <select onchange=\"updateFileInfo(".$i.")\" name=\"watchListKey".$i."FileInFolderInclude\" > ".makeTrueFalseSelect("true")." </select></span>";
-				$filesInFolder .= "<span class=\"settingsBuffer\" >Exclude Trim: <select onchange=\"updateFileInfo(".$i.")\" name=\"watchListKey".$i."FileInFolderTrim\"> ".makeTrueFalseSelect("false")." </select></span>";
+				$filesInFolder .= "<span class=\"settingsBuffer\" >Include: <select onchange=\"updateFileInfo(".$i.")\" name=\"watchListKey".$i."FileInFolderInclude\" > ".makeTrueFalseSelect($includeBool)." </select></span>";
+				$filesInFolder .= "<span class=\"settingsBuffer\" >Exclude Trim: <select onchange=\"updateFileInfo(".$i.")\" name=\"watchListKey".$i."FileInFolderTrim\"> ".makeTrueFalseSelect($excludeTrimBool)." </select></span>";
+				$filesInFolder .= "<span class=\"settingsBuffer\" >Exclude Delete: <select onchange=\"updateFileInfo(".$i.")\" name=\"watchListKey".$i."ExcludeDelete\"> ".makeTrueFalseSelect($excludeDelete)." </select></span>";
 				$filesInFolder .= "</li>";
 			}
 			if($filesInFolder === "")
