@@ -207,6 +207,26 @@ function splitFiles(currentRow)
 	}
 }
 
+function updateFileInfo(currentRow)
+{
+	var stringToUpdateTo = "{";
+	var listOfFiles = document.getElementsByName("watchListKey"+currentRow+"FileInFolder");
+	var listOfFilesInclude = document.getElementsByName("watchListKey"+currentRow+"FileInFolderInclude");
+	var listOfFilesTrim = document.getElementsByName("watchListKey"+currentRow+"FileInFolderTrim");
+	if(listOfFiles)
+	{
+		for (var i = 0; i < listOfFiles.length; i++)
+		{
+			stringToUpdateTo += "\""+listOfFiles[i].value+"\" : {";
+			stringToUpdateTo += " Include:  "+listOfFilesInclude[i].value + " , ";
+			stringToUpdateTo += " Trim:  "+listOfFilesTrim[i].value + "  ";
+			stringToUpdateTo += "}";
+		}
+	}
+	stringToUpdateTo += "}";
+	document.getElementsByName("watchListKey"+currentRow+"FileInformation")[0].value = stringToUpdateTo;
+}
+
 function deleteRowFunctionPopup(currentRow, keyName = "")
 {
 	try

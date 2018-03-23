@@ -82,6 +82,23 @@
 		)
 	);
 
+	function makeTrueFalseSelect($boolVal)
+	{
+		$optionBlock =  "<option value=\"true\" ";
+		if($boolVal === 'true')
+		{
+			$optionBlock .= " selected ";
+		}
+		$optionBlock .= "  >True</option>";
+		$optionBlock .=  "<option value=\"false\" ";
+		if($boolVal !== 'true')
+		{
+			$optionBlock .= " selected ";
+		}
+		$optionBlock .= "  >False</option>";
+		return $optionBlock;
+	}
+
 
 	function generateSaveBlock($data = array(), $defaultTrashCanIcon)
 	{
@@ -100,6 +117,7 @@
 		$filesInFolder = "{{filesInFolder}}";
 		$AutoDeleteFiles = "{{AutoDeleteFiles}}";
 		$Group = "{{Group}}";
+		$FileInformation = "{{FileInformation}}";
 
 		if(isset($data["rowNumber"]))
 		{
@@ -170,6 +188,11 @@
 			$Group = $data["Group"];
 		}
 
+		if(isset($data["FileInformation"]))
+		{
+			$FileInformation = $data["FileInformation"];
+		}
+
 		if(isset($data["typeFolder"]))
 		{
 			if($data["typeFolder"] == true)
@@ -211,18 +234,7 @@
 		$saveBlock .= "<span class=\"settingsBuffer\" >Recursive: </span><span class=\"settingsBuffer\" ><select name=\"watchListKey".$rowNumber."Recursive\" >";
 		if(isset($data["recursiveOptions"]))
 		{
-			$saveBlock .=  "<option value=\"true\" ";
-			if($recursiveOptions === 'true')
-			{
-				$saveBlock .= " selected ";
-			}
-			$saveBlock .= "  >True</option>";
-			$saveBlock .=  "<option value=\"false\" ";
-			if($recursiveOptions !== 'true')
-			{
-				$saveBlock .= " selected ";
-			}
-			$saveBlock .= "  >False</option>";
+			$saveBlock .=  makeTrueFalseSelect($recursiveOptions);
 		}
 		else
 		{
@@ -233,18 +245,7 @@
 		$saveBlock .= "<li><span class=\"settingsBuffer\" >Exclude Trim: </span><span class=\"settingsBuffer\" ><select name=\"watchListKey".$rowNumber."ExcludeTrim\" >";
 		if(isset($data["excludeTrimOptions"]))
 		{
-			$saveBlock .=  "<option value=\"true\" ";
-			if($excludeTrimOptions === 'true')
-			{
-				$saveBlock .= " selected ";
-			}
-			$saveBlock .= "  >True</option>";
-			$saveBlock .=  "<option value=\"false\" ";
-			if($excludeTrimOptions !== 'true')
-			{
-				$saveBlock .= " selected ";
-			}
-			$saveBlock .= "  >False</option>";
+			$saveBlock .=   makeTrueFalseSelect($excludeTrimOptions);
 		}
 		else
 		{
@@ -281,7 +282,8 @@
 		$saveBlock .= "<li ><span class=\"settingsBuffer\" >Group: </span><span class=\"settingsBuffer\" ><input type=\"text\" name=\"watchListKey".$rowNumber."Group\" value=\"".$Group."\" ></span>";
 		$saveBlock .= "<li ".$typeFile."><div class=\"settingsHeader\" style=\"margin: 0;\" >Files: ";
 		$saveBlock .= "<div class=\"settingsHeaderButtons\"><a class=\"linkSmall\" onclick=\"splitFilesPopup(".$rowNumber.", '".$location."');\"	 >Split Files</a></div>";
-		$saveBlock .= "</div> <div class=\"settingsDiv\" style=\"max-height: 150px; display: block; overflow: auto; margin: 0;\" ><ul id=\"watchListKey".$rowNumber."FilesInFolder\" class=\"settingsUl\" style=\"-webkit-padding-start: 0;\" >".$filesInFolder."</ul></div> </li>";
+		$saveBlock .= "</div> <div class=\"settingsDiv\" style=\"max-height: 150px; display: block; overflow: auto; margin: 0;\" ><ul id=\"watchListKey".$rowNumber."FilesInFolder\" class=\"settingsUl\" style=\"-webkit-padding-start: 0;\" >".$filesInFolder."</ul></div></li>";
+		$saveBlock .= "<input  name=\"watchListKey".$rowNumber."FileInformation\" type=\"text\" value='".$FileInformation."' >";
 		$saveBlock .= "</ul></div></li>";
 
 		return $saveBlock;
@@ -297,6 +299,7 @@
 		$filesInFolder = "";
 		$fileImage = $defaultYellowErrorIcon;
 		$FileType = "auto";
+		$FileInformation = $values["FileInformation"];
 
 		if(!file_exists($location))
 		{
@@ -371,8 +374,8 @@
 					$filesInFolder .= $defaultFileIcon;
 				}
 				$filesInFolder .= "<span style=\"width: 300px; overflow: auto; display: inline-block;\" >".str_replace($location, "", $key2)."</span><input name=\"watchListKey".$i."FileInFolder\"  type=\"hidden\" value=\"".$key2."\" >";
-				$filesInFolder .= "<span class=\"settingsBuffer\" > <input type=\"checkbox\" checked > Include </span>";
-				$filesInFolder .= "<span class=\"settingsBuffer\" > <input type=\"checkbox\" checked > Trim </span>";
+				$filesInFolder .= "<span class=\"settingsBuffer\" >Include: <select onchange=\"updateFileInfo(".$i.")\" name=\"watchListKey".$i."FileInFolderInclude\" > ".makeTrueFalseSelect("true")." </select></span>";
+				$filesInFolder .= "<span class=\"settingsBuffer\" >Trim: <select onchange=\"updateFileInfo(".$i.")\" name=\"watchListKey".$i."FileInFolderTrim\"> ".makeTrueFalseSelect("true")." </select></span>";
 				$filesInFolder .= "</li>";
 			}
 			if($filesInFolder === "")
@@ -397,6 +400,8 @@
 			}
 		}
 
+		
+
 		echo generateSaveBlock(
 			array(
 				"rowNumber"				=>	$i,
@@ -413,7 +418,8 @@
 				"FileType"				=> 	$FileType,
 				"filesInFolder"			=>	$filesInFolder,
 				"AutoDeleteFiles"		=>	$values["AutoDeleteFiles"],
-				"Group"					=>	$values["Group"]
+				"Group"					=>	$values["Group"],
+				"FileInformation"		=>	$FileInformation
 			),
 			$defaultTrashCanIcon
 		);

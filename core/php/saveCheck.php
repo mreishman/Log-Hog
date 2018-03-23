@@ -66,6 +66,7 @@ if(isset($_POST['numberOfRows']))
 		$arrayWatchList .= "'".$_POST['watchListKey'.$i]."' => array(";
 		$arrayWatchList .= "'AutoDeleteFiles' => '".$_POST['watchListKey'.$i.'AutoDeleteFiles']."',";
 		$arrayWatchList .= "'ExcludeTrim' => '".$_POST['watchListKey'.$i.'ExcludeTrim']."',";
+		$arrayWatchList .= "'FileInformation' => '".$_POST['watchListKey'.$i.'FileInformation']."',";
 		$arrayWatchList .= "'FileType' => '".$_POST['watchListKey'.$i.'FileType']."',";
 		$arrayWatchList .= "'Group' => '".$_POST['watchListKey'.$i.'Group']."',";
 		$arrayWatchList .= "'Location' => '".$_POST['watchListKey'.$i.'Location']."',";
