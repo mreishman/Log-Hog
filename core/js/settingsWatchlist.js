@@ -27,6 +27,10 @@ function generateRow(data)
 	item = item.replace(/{{FileTypeOptions}}/g, generateFileTypeSelect(data["fileType"]));
 	item = item.replace(/{{filesInFolder}}/g, data["filesInFolder"]);
 	item = item.replace(/{{AutoDeleteFiles}}/g, data["AutoDeleteFiles"]);
+	item = item.replace(/{{FileInformation}}/g, data["FileInformation"]);
+	item = item.replace('FileInformation" value="', 'FileInformation" value=\'');
+	item = item.replace('"></ul></div>', '\'></ul></div>');	
+	item = item.replace(/{{Group}}/g, data["Group"]);
 	return item;
 }
 
@@ -155,7 +159,9 @@ function addRowFunction(data)
 				excludeTrim: "false",
 				fileType: fileTypeFromData,
 				filesInFolder: filesInFolderFromData,
-				AutoDeleteFiles: ""
+				AutoDeleteFiles: "",
+				FileInformation: "{}",
+				Group: ""
 			}
 		);
 		$(".uniqueClassForAppendSettingsMainWatchNew").append(item);
@@ -288,7 +294,9 @@ function deleteRowFunction(currentRow)
 						excludeTrim: document.getElementsByName("watchListKey"+i+"ExcludeTrim")[0].value,
 						fileType: document.getElementsByName("watchListKey"+i+"FileType")[0].value,
 						filesInFolder: document.getElementById("watchListKey"+i+"FilesInFolder").innerHTML,
-						AutoDeleteFiles: document.getElementsByName("watchListKey"+i+"AutoDeleteFiles")[0].value
+						AutoDeleteFiles: document.getElementsByName("watchListKey"+i+"AutoDeleteFiles")[0].value,
+						FileInformation: document.getElementsByName("watchListKey"+i+"FileInformation")[0].value,
+						Group: document.getElementsByName("watchListKey"+i+"Group")[0].value
 					}
 				);
 				//add new one
