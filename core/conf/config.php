@@ -289,10 +289,10 @@ $defaultConfig = array(
 			"AutoDeleteFiles"	=>	"",
 			"ExcludeTrim"		=>	"false",
 			"FileInformation"	=>	'{}',
-			"FileType"			=>	"file",
+			"FileType"			=>	"folder",
 			"Group"				=>	"",
-			"Location"			=>	"/var/www/html/var/log/system.log",
-			"Pattern"			=>	"",
+			"Location"			=>	"/var/www/html/var/log/",
+			"Pattern"			=>	".log$",
 			"Recursive"			=>	"false"
 		),
 		'HHVM'				=> array(

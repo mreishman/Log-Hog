@@ -375,7 +375,7 @@
 				}
 				$filesInFolder .= "<span style=\"width: 300px; overflow: auto; display: inline-block;\" >".str_replace($location, "", $key2)."</span><input name=\"watchListKey".$i."FileInFolder\"  type=\"hidden\" value=\"".$key2."\" >";
 				$filesInFolder .= "<span class=\"settingsBuffer\" >Include: <select onchange=\"updateFileInfo(".$i.")\" name=\"watchListKey".$i."FileInFolderInclude\" > ".makeTrueFalseSelect("true")." </select></span>";
-				$filesInFolder .= "<span class=\"settingsBuffer\" >Trim: <select onchange=\"updateFileInfo(".$i.")\" name=\"watchListKey".$i."FileInFolderTrim\"> ".makeTrueFalseSelect("true")." </select></span>";
+				$filesInFolder .= "<span class=\"settingsBuffer\" >Exclude Trim: <select onchange=\"updateFileInfo(".$i.")\" name=\"watchListKey".$i."FileInFolderTrim\"> ".makeTrueFalseSelect("false")." </select></span>";
 				$filesInFolder .= "</li>";
 			}
 			if($filesInFolder === "")

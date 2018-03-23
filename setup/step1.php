@@ -72,7 +72,6 @@ require_once('../core/php/loadVars.php'); ?>
 	}
 	var titleOfPage = "Welcome";
 	var popupSettingsArray = JSON.parse('<?php echo json_encode($popupSettingsArray) ?>');
-	var fileArray = JSON.parse('<?php echo json_encode($config['watchList']) ?>');
 	var countOfWatchList = <?php echo $i; ?>;
 	var countOfAddedFiles = 0;
 	var countOfClicks = 0;

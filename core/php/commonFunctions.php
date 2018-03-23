@@ -813,6 +813,11 @@ function getListOfFiles($data)
 	$filter = $data["filter"];
 	$response = $data["response"];
 	$recursive = $data["recursive"];
+	$fileData = array();
+	if(isset($data["data"]))
+	{
+		$fileData = $data["data"];
+	}
 
 	$path = preg_replace('/\/$/', '', $path);
 	if(file_exists($path))
@@ -834,13 +839,26 @@ function getListOfFiles($data)
 						"path" 			=> $fullPath,
 						"filter"		=> $filter,
 						"response"		=> $response,
-						"recursive"		=> "true"
+						"recursive"		=> "true",
+						"data"			=> $fileData
 
 					));
 				}
 				elseif(preg_match('/' . $filter . '/S', $filename) && is_file($fullPath))
 				{
-					array_push($response, $fullPath);
+					$boolCheck = true;
+					if(isset($fileData[$fullPath]))
+					{
+						$dataToUse = get_object_vars($fileData[$fullPath]);
+						if($dataToUse["Include"] === "false")
+						{
+							$boolCheck = false;
+						}
+					}
+					if($boolCheck)
+					{
+						array_push($response, $fullPath);
+					}
 				}
 			}
 		}

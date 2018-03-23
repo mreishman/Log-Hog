@@ -215,12 +215,17 @@ function updateFileInfo(currentRow)
 	var listOfFilesTrim = document.getElementsByName("watchListKey"+currentRow+"FileInFolderTrim");
 	if(listOfFiles)
 	{
-		for (var i = 0; i < listOfFiles.length; i++)
+		listOfFilesLength = listOfFiles.length;
+		for (var i = 0; i < listOfFilesLength; i++)
 		{
 			stringToUpdateTo += "\""+listOfFiles[i].value+"\" : {";
-			stringToUpdateTo += " Include:  "+listOfFilesInclude[i].value + " , ";
-			stringToUpdateTo += " Trim:  "+listOfFilesTrim[i].value + "  ";
+			stringToUpdateTo += " \"Include\": \""+listOfFilesInclude[i].value + "\" , ";
+			stringToUpdateTo += " \"Trim\":  \""+listOfFilesTrim[i].value + "\"  ";
 			stringToUpdateTo += "}";
+			if(i !== (listOfFilesLength - 1))
+			{
+				stringToUpdateTo += ","
+			}
 		}
 	}
 	stringToUpdateTo += "}";

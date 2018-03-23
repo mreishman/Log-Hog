@@ -45,13 +45,20 @@ foreach($watchList as $key => $value)
 {
 	$path = $value["Location"];
 	$filter = $value["Pattern"];
+	$fileData = array();
+	$tmpFileData = json_decode($value["FileInformation"]);
+	if(!is_null($tmpFileData))
+	{
+		$fileData = get_object_vars($tmpFileData);
+	}
 	if(is_dir($path))
 	{
 		$watchListFolder[$key] = getListOfFiles(array(
 			"path" 			=> $path,
 			"filter"		=> $filter,
 			"response"		=> array(),
-			"recursive"		=> $value["Recursive"]
+			"recursive"		=> $value["Recursive"],
+			"data"			=> $fileData
 		));
 		if($value["AutoDeleteFiles"] !== "")
 		{
@@ -112,19 +119,23 @@ foreach ($responseFilelist as $file)
 			if($found)
 			{
 				//this file is in that folder, use that info
-				$response[$file]["Group"] = $watchList[$key]["Group"];
-
-
-
-				//check if file has specific info in folder
-				if(false)
+				$filesInFolderData = array();
+				$tmpFileData = json_decode($watchList[$key]["FileInformation"]);
+				if(!is_null($tmpFileData))
 				{
-
+					$filesInFolderData = get_object_vars($tmpFileData);
+				}
+				if(isset($filesInFolderData[$file]))
+				{
+					$dataToUse = get_object_vars($filesInFolderData[$file]);
+					$response[$file]["ExcludeTrim"] = $dataToUse["Trim"];
 				}
 				else
 				{
 					$response[$file]["ExcludeTrim"] = $watchList[$key]["ExcludeTrim"];
 				}
+
+				$response[$file]["Group"] = $watchList[$key]["Group"];
 				break;
 			}
 		}
