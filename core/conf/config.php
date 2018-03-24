@@ -292,6 +292,7 @@ $defaultConfig = array(
 			"FileType"			=>	"folder",
 			"Group"				=>	"",
 			"Location"			=>	"/var/www/html/var/log/",
+			"Name"				=>	"",
 			"Pattern"			=>	".log$",
 			"Recursive"			=>	"false"
 		),
@@ -302,6 +303,7 @@ $defaultConfig = array(
 			"FileType"			=>	"file",
 			"Group"				=>	"",
 			"Location"			=>	"/var/log/hhvm/error.log",
+			"Name"				=>	"",
 			"Pattern"			=>	"",
 			"Recursive"			=>	"false"
 		),
@@ -312,6 +314,7 @@ $defaultConfig = array(
 			"FileType"			=>	"folder",
 			"Group"				=>	"",
 			"Location"			=>	"/var/log/apache2",
+			"Name"				=>	"",
 			"Pattern"			=>	".log$",
 			"Recursive"			=>	"false"
 		),
@@ -322,6 +325,7 @@ $defaultConfig = array(
 			"FileType"			=>	"folder",
 			"Group"				=>	"",
 			"Location"			=>	"/var/log/nginx",
+			"Name"				=>	"",
 			"Pattern"			=>	".log$",
 			"Recursive"			=>	"false"
 		)

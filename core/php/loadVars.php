@@ -163,6 +163,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 			$arrayWatchList .= "'FileType' => '".$_POST['watchListKey'.$i.'FileType']."',";
 			$arrayWatchList .= "'Group' => '".$_POST['watchListKey'.$i.'Group']."',";
 			$arrayWatchList .= "'Location' => '".$_POST['watchListKey'.$i.'Location']."',";
+			$arrayWatchList .= "'Name' => '".$_POST['watchListKey'.$i.'Name']."',";
 			$arrayWatchList .= "'Pattern' => '".$_POST['watchListKey'.$i.'Pattern']."',";
 			$arrayWatchList .= "'Recursive' => '".$_POST['watchListKey'.$i.'Recursive']."'";
 			$arrayWatchList .= ")";

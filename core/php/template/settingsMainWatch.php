@@ -118,6 +118,7 @@
 		$AutoDeleteFiles = "{{AutoDeleteFiles}}";
 		$Group = "{{Group}}";
 		$FileInformation = "{{FileInformation}}";
+		$Name = "{{Name}}";
 
 		if(isset($data["rowNumber"]))
 		{
@@ -193,6 +194,11 @@
 			$FileInformation = $data["FileInformation"];
 		}
 
+		if(isset($data["Name"]))
+		{
+			$Name = $data["Name"];
+		}
+
 		if(isset($data["typeFolder"]))
 		{
 			if($data["typeFolder"] == true)
@@ -242,6 +248,7 @@
 		}
 		$saveBlock .= "</select></span></li>";
 		$saveBlock .= "<li ".$typeFile."><span class=\"settingsBuffer\" >Auto Delete Files After: </span><span class=\"settingsBuffer\" ><input style=\"width: 56px;\" type=\"text\" name=\"watchListKey".$rowNumber."AutoDeleteFiles\" value=\"".$AutoDeleteFiles."\" > Days No Change</span></li>";
+		$saveBlock .= "<li ".$typeFolder."><span class=\"settingsBuffer\" >Name: </span><span class=\"settingsBuffer\" ><input type=\"text\" name=\"watchListKey".$rowNumber."Name\" value=\"".$Name."\" > </span></li>";
 		$saveBlock .= "<li><span class=\"settingsBuffer\" >Exclude Trim: </span><span class=\"settingsBuffer\" ><select name=\"watchListKey".$rowNumber."ExcludeTrim\" >";
 		if(isset($data["excludeTrimOptions"]))
 		{
@@ -383,6 +390,7 @@
 				$includeBool = "true";
 				$excludeTrimBool = "false";
 				$excludeDelete = "false";
+				$nameValue = "";
 				if(isset($fileData[$key2]))
 				{
 					$dataToUse = array();
@@ -403,12 +411,17 @@
 					{
 						$excludeDelete = $dataToUse["Delete"];
 					}
+					if(isset($dataToUse["Name"]))
+					{
+						$nameValue = $dataToUse["Name"];
+					}
 				}
 
 				$filesInFolder .= "<span style=\"width: 300px; overflow: auto; display: inline-block;\" >".str_replace($location, "", $key2)."</span><input name=\"watchListKey".$i."FileInFolder\"  type=\"hidden\" value=\"".$key2."\" >";
 				$filesInFolder .= "<span class=\"settingsBuffer\" >Include: <select onchange=\"updateFileInfo(".$i.")\" name=\"watchListKey".$i."FileInFolderInclude\" > ".makeTrueFalseSelect($includeBool)." </select></span>";
 				$filesInFolder .= "<span class=\"settingsBuffer\" >Exclude Trim: <select onchange=\"updateFileInfo(".$i.")\" name=\"watchListKey".$i."FileInFolderTrim\"> ".makeTrueFalseSelect($excludeTrimBool)." </select></span>";
 				$filesInFolder .= "<span class=\"settingsBuffer\" >Exclude Delete: <select onchange=\"updateFileInfo(".$i.")\" name=\"watchListKey".$i."ExcludeDelete\"> ".makeTrueFalseSelect($excludeDelete)." </select></span>";
+				$filesInFolder .= "<span class=\"settingsBuffer\" >Name: <input type=\"text\" name=\"watchListKey".$i."FileInFolderName\" value=\".$nameValue.\" > </span>";
 				$filesInFolder .= "</li>";
 			}
 			if($filesInFolder === "")
@@ -452,7 +465,8 @@
 				"filesInFolder"			=>	$filesInFolder,
 				"AutoDeleteFiles"		=>	$values["AutoDeleteFiles"],
 				"Group"					=>	$values["Group"],
-				"FileInformation"		=>	$FileInformation
+				"FileInformation"		=>	$FileInformation,
+				"Name"					=>	$values["Name"]
 			),
 			$defaultTrashCanIcon
 		);
