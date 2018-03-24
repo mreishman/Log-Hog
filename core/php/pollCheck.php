@@ -114,6 +114,7 @@ foreach ($responseFilelist as $file)
 		//this is a file that is set in watchlist, use that info
 		$response[$file]["ExcludeTrim"] = $watchList[$keyFound]["ExcludeTrim"];
 		$response[$file]["Name"] = $watchList[$keyFound]["Name"];
+		$response[$file]["AlertEnabled"] = $watchList[$keyFound]["AlertEnabled"];
 		$response[$file]["Group"] = $watchList[$keyFound]["Group"];
 	}
 	else
@@ -143,11 +144,16 @@ foreach ($responseFilelist as $file)
 					$dataToUse = get_object_vars($filesInFolderData[$file]);
 					$response[$file]["ExcludeTrim"] = $dataToUse["Trim"];
 					$response[$file]["Name"] = $dataToUse["Name"];
+					if($watchList[$key]["AlertEnabled"] !== "false")
+					{
+						$response[$file]["AlertEnabled"] = $dataToUse]["Alert"];
+					}
 				}
 				else
 				{
 					$response[$file]["ExcludeTrim"] = $watchList[$key]["ExcludeTrim"];
 					$response[$file]["Name"] = "";
+					$response[$file]["AlertEnabled"] = $watchList[$key]["AlertEnabled"];
 				}
 
 				$response[$file]["Group"] = $watchList[$key]["Group"];

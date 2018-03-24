@@ -905,7 +905,7 @@ function update(data)
 
 								if(!firstLoad)
 								{
-									if(!$("#menu a." + id + "Button").hasClass("updated"))
+									if(!$("#menu a." + id + "Button").hasClass("updated") && fileData[id]["AlertEnabled"] === "true")
 									{
 										$("#menu a." + id + "Button").addClass("updated");
 
