@@ -161,27 +161,24 @@ if(!($windowDisplayConfig[0] > 1 || $windowDisplayConfig[1] > 1)): ?>
 	<?php echo $scrollBarHandleHover; ?>
 }
 
-/* MOVE OUT OF HERE */
+/* MOVE OUT OF HERE 
+
+- Aqua
+- Areo
+- Ocean
+- Steampunk
+- Terminal (CHECK)
+
+*/
 #fullScreenMenu
 {
-	position: fixed;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100%;
 	background-color: rgba(0,0,0,.7);
-	z-index: 25;
 }
 
 .fullScreenMenuUL li
 {
 	background-color: black;
 	color: white;
-}
-
-.fullScreenMenuUL li:not(.menuTitle)
-{
-	cursor: pointer;
 }
 
 .fullScreenMenuUL li:not(.menuTitle):hover, #fullScreenMenu .selected

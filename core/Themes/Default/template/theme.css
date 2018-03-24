@@ -342,3 +342,19 @@
 {
 	background: #FFFFFF;
 }
+
+#fullScreenMenu
+{
+	background-color: rgba(0,0,0,.7);
+}
+
+.fullScreenMenuUL li
+{
+	background-color: black;
+	color: white;
+}
+
+.fullScreenMenuUL li:not(.menuTitle):hover, #fullScreenMenu .selected
+{
+	filter: invert(100%);
+}
