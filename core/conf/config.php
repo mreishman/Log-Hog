@@ -249,6 +249,7 @@ $defaultConfig = array(
 	'locationForStatus'				=> '',
 	'logFontColor'					=> '#FFFFFF',
 	'logMenuLocation'				=> 'top',
+	'logNameFormat'					=> 'default',
 	'logSizeLimit'					=>	2000,
 	'logTitle'						=> 'lastLine',
 	'logTrimMacBSD'					=> 'false',
