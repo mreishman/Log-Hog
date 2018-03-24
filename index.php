@@ -699,6 +699,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 		var highlightNew = "<?php echo $highlightNew; ?>";
 		var filterTitleIncludePath = "<?php echo $filterTitleIncludePath; ?>";
 		var logMenuLocation = "<?php echo $logMenuLocation; ?>";
+		var logNameFormat = "<?php echo $logNameFormat; ?>";
 	</script>
 	<?php require_once('core/php/template/popup.php') ?>
 	<script src="core/js/main.js?v=<?php echo $cssVersion?>"></script>

@@ -809,9 +809,38 @@ function update(data)
 								{
 									nameForLog = fileData[id]["Name"];
 								}
-								else
+								else if(logNameFormat !== "default")
 								{
 									//check for other options in displaying name
+									if(logNameFormat === "noExt")
+									{
+										var newName = shortName.split(".");
+										newName = newName.splice(-1,1);
+										nameForLog = newName.join();
+									}
+									else if(logNameFormat === "firstFolder" || logNameFormat === "lastFolder")
+									{
+										var locationOfLast = 0;
+										if(logNameFormat === "lastFolder")
+										{
+											locationOfLast = newName.length-1;
+										}
+										var newName = "";
+										var splitType = "/";
+										if(id.indexOf("/") > -1)
+										{
+											newName = id.split("/");
+										}
+										else if(id.indexOf("\\") > -1)
+										{
+											newName = id.split("\\");
+											splitType = "\\";
+										}
+										if(newName !== "")
+										{
+											nameForLog = newName[locationOfLast]+splitType+shortName;
+										}
+									}
 								}
 								classInsert = "";
 								item = blank;
