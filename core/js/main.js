@@ -814,9 +814,12 @@ function update(data)
 									//check for other options in displaying name
 									if(logNameFormat === "noExt")
 									{
-										var newName = shortName.split(".");
-										newName = newName.splice(-1,1);
-										nameForLog = newName.join();
+										if(shortName.indexOf(".") > -1)
+										{
+											var newName = shortName.split(".");
+											newName = newName.splice(-1,1);
+											nameForLog = newName.join();
+										}
 									}
 									else if(logNameFormat === "firstFolder" || logNameFormat === "lastFolder")
 									{
@@ -840,6 +843,10 @@ function update(data)
 										{
 											nameForLog = newName[locationOfLast]+splitType+shortName;
 										}
+									}
+									else if(logNameFormat === "fullPath")
+									{
+										nameForLog = id;
 									}
 								}
 								classInsert = "";

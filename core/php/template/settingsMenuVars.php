@@ -98,6 +98,7 @@ Menu Settings
 				<option <?php if($logNameFormat == 'noExt'){echo "selected";} ?> value="noExt">No Extension</option>
 				<option <?php if($logNameFormat == 'firstFolder'){echo "selected";} ?> value="firstFolder">First Folder</option>
 				<option <?php if($logNameFormat == 'lastFolder'){echo "selected";} ?> value="lastFolder">Last Folder</option>
+				<option <?php if($logNameFormat == 'fullPath'){echo "selected";} ?> value="fullPath">Full Path</option>
 			</select>
 		</div>
 	</li>
