@@ -61,18 +61,21 @@ $response = true;
 $arrayWatchList = "";
 if(isset($_POST['numberOfRows']))
 {
+	$baseKeys = $defaultConfig["watchList"]["HHVM"];
+	$baseKeysCount = count($baseKeys);
 	for($i = 1; $i <= $_POST['numberOfRows']; $i++ )
 	{
 		$arrayWatchList .= "'".$_POST['watchListKey'.$i]."' => array(";
-		$arrayWatchList .= "'AutoDeleteFiles' => '".$_POST['watchListKey'.$i.'AutoDeleteFiles']."',";
-		$arrayWatchList .= "'ExcludeTrim' => '".$_POST['watchListKey'.$i.'ExcludeTrim']."',";
-		$arrayWatchList .= "'FileInformation' => '".$_POST['watchListKey'.$i.'FileInformation']."',";
-		$arrayWatchList .= "'FileType' => '".$_POST['watchListKey'.$i.'FileType']."',";
-		$arrayWatchList .= "'Group' => '".$_POST['watchListKey'.$i.'Group']."',";
-		$arrayWatchList .= "'Location' => '".$_POST['watchListKey'.$i.'Location']."',";
-		$arrayWatchList .= "'Name' => '".$_POST['watchListKey'.$i.'Name']."',";
-		$arrayWatchList .= "'Pattern' => '".$_POST['watchListKey'.$i.'Pattern']."',";
-		$arrayWatchList .= "'Recursive' => '".$_POST['watchListKey'.$i.'Recursive']."'";
+		$baseKeyCounter = 0;
+		foreach ($baseKeys as $key => $value)
+		{
+			$baseKeyCounter++;
+			$arrayWatchList .= "'".$key."' => '".$_POST['watchListKey'.$i.$key]."'";
+			if($baseKeyCounter !== $baseKeysCount)
+			{
+				$arrayWatchList .= ",";
+			}
+		}
 		$arrayWatchList .= ")";
 		if($i != $_POST['numberOfRows'])
 		{

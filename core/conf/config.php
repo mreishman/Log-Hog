@@ -296,7 +296,7 @@ $defaultConfig = array(
 			"Pattern"			=>	".log$",
 			"Recursive"			=>	"false"
 		),
-		'HHVM'				=> array(
+		'HHVM'				=> array( /* Do NOT delete, this is used for base of loading watchlist keys */
 			"AutoDeleteFiles"	=>	"",
 			"ExcludeTrim"		=>	"false",
 			"FileInformation"	=>	'{}',
