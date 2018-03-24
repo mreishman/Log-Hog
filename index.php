@@ -532,7 +532,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 						}
 					}
 				}
-				?>
+				echo $externalLinkImage; ?>
 			</li>
 			<?php if($locationForMonitorIndex["loc"] || $locationForSearchIndex["loc"] || $locationForSeleniumMonitorIndex["loc"] || $locationForStatusIndex["loc"]): ?>
 				<li class="menuTitle" style="background-color: #999; color: black;" >
