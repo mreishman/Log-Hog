@@ -456,8 +456,8 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 				Log-Hog
 			</li>
 			<li class="menuTitle" style="background-color: #999; color: black;" >
-					Main Menu
-				</li>
+				Main Menu
+			</li>
 			<li id="mainMenuAbout" class="selected" onclick="toggleAbout();" >
 				<div class="menuImageDiv">
 					<?php echo generateImage(
@@ -479,14 +479,60 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 						$imageConfig = array(
 							"id"		=>	"gear",
 							"class"		=>	"menuImage",
-							"height"	=>	"30px",
-							"data-id"	=>	"1"
+							"height"	=>	"30px"
 							)
 						);
 					?>
 				</div>
 				Settings
 				<?php echo $externalLinkImage; ?>
+			</li>
+			<li onclick="window.location.href = './settings/update.php';" >
+				<div class="menuImageDiv">
+					<?php echo generateImage(
+						$arrayOfImages["refresh"],
+						$imageConfig = array(
+							"id"		=>	"update",
+							"class"		=>	"menuImage",
+							"height"	=>	"30px",
+							"title"		=>	"Update"
+							)
+						);
+					?>
+				</div>
+				Update
+				<?php
+				if($levelOfUpdate !== 0 && $configStatic["version"] !== $dontNotifyVersion && $updateNotificationEnabled)
+				{ 
+					if($updateNoticeMeter === "every" || $levelOfUpdate > 1)
+					{
+						if($levelOfUpdate == 1)
+						{
+							echo generateImage(
+								$arrayOfImages["yellowWarning"],
+								$imageConfig = array(
+									"id"		=>	"updateMenuImage",
+									"class"		=>	"menuImage",
+									"height"	=>	"30px",
+									"title"		=>	"Minor Update"
+								)
+							);
+						}
+						elseif($levelOfUpdate == 2 || $levelOfUpdate == 3)
+						{
+							echo generateImage(
+								$arrayOfImages["redWarning"],
+								$imageConfig = array(
+									"id"		=>	"updateMenuImage",
+									"class"		=>	"menuImage",
+									"height"	=>	"30px",
+									"title"		=>	"Major Update"
+								)
+							);
+						}
+					}
+				}
+				?>
 			</li>
 			<?php if($locationForMonitorIndex["loc"] || $locationForSearchIndex["loc"] || $locationForSeleniumMonitorIndex["loc"] || $locationForStatusIndex["loc"]): ?>
 				<li class="menuTitle" style="background-color: #999; color: black;" >
