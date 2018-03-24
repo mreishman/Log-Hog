@@ -804,9 +804,18 @@ function update(data)
 
 							if($("#menu ." + id + "Button").length === 0) 
 							{
+								var nameForLog = shortName;
+								if(id in fileData && "Name" in fileData[id])
+								{
+									nameForLog = fileData[id]["Name"];
+								}
+								else
+								{
+									//check for other options in displaying name
+								}
 								classInsert = "";
 								item = blank;
-								item = item.replace(/{{title}}/g, shortName);
+								item = item.replace(/{{title}}/g, nameForLog);
 								item = item.replace(/{{id}}/g, id);
 								if(groupByColorEnabled === true)
 								{
@@ -866,7 +875,7 @@ function update(data)
 
 										var objectToSend = new Array();
 										objectToSend["log"] = id;
-										objectToSend["name"] = "New Log "+shortName;
+										objectToSend["name"] = "New Log "+nameForLog;
 										objectToSend["action"] = "$('#"+id+"').click();  toggleNotifications();";
 										addLogNotification(objectToSend);
 									}
@@ -875,7 +884,7 @@ function update(data)
 								var hideLogAction = {action: "tmpHideLog(\""+name+"\");", name: "Tmp Hide Log"};
 								var clearLogAction = {action: "clearLogInner(titles[\""+id+"\"]);", name: "Clear Log"};
 								var deleteLogAction = {action: "deleteLogPopupInner(titles[\""+id+"\"]);", name: "Delete Log"};
-								var copyNameAction = {action: "copyToClipBoard(\""+shortName+"\");", name: "Copy Name"};
+								var copyNameAction = {action: "copyToClipBoard(\""+shortName+"\");", name: "Copy File Name"};
 								var copyFullPathAction = {action: "copyToClipBoard(titles[\""+id+"\"]);", name: "Copy Filepath"};
 								//add rightclick menu
 								menuObjectRightClick[id] = [hideLogAction, clearLogAction,deleteLogAction,copyNameAction,copyFullPathAction];
