@@ -287,6 +287,7 @@ $defaultConfig = array(
 	'updateNotificationEnabled'		=> 'true',
 	'watchList'		=> array(
 		'System Log'	    => array(
+			"AlertEnabled"		=>	"true",
 			"AutoDeleteFiles"	=>	"",
 			"ExcludeTrim"		=>	"false",
 			"FileInformation"	=>	'{}',
@@ -298,6 +299,7 @@ $defaultConfig = array(
 			"Recursive"			=>	"false"
 		),
 		'HHVM'				=> array( /* Do NOT delete, this is used for base of loading watchlist keys */
+			"AlertEnabled"		=>	"true",
 			"AutoDeleteFiles"	=>	"",
 			"ExcludeTrim"		=>	"false",
 			"FileInformation"	=>	'{}',
@@ -309,6 +311,7 @@ $defaultConfig = array(
 			"Recursive"			=>	"false"
 		),
 		'Apache2'			=> array(
+			"AlertEnabled"		=>	"true",
 			"AutoDeleteFiles"	=>	"",
 			"ExcludeTrim"		=>	"false",
 			"FileInformation"	=>	'{}',
@@ -320,6 +323,7 @@ $defaultConfig = array(
 			"Recursive"			=>	"false"
 		),
 		'Nginx'			=> array(
+			"AlertEnabled"		=>	"true",
 			"AutoDeleteFiles"	=>	"",
 			"ExcludeTrim"		=>	"false",
 			"FileInformation"	=>	'{}',

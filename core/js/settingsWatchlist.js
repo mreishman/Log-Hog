@@ -32,6 +32,7 @@ function generateRow(data)
 	item = item.replace('"></ul></div>', '\'></ul></div>');	
 	item = item.replace(/{{Group}}/g, data["Group"]);
 	item = item.replace(/{{Name}}/g, data["Name"]);
+	item = item.replace(/{{AlertEnabled}}/g, generateTrueFalseSelect(data["AlertEnabled"]));
 	return item;
 }
 
@@ -163,7 +164,8 @@ function addRowFunction(data)
 				AutoDeleteFiles: "",
 				FileInformation: "{}",
 				Group: "",
-				Name: ""
+				Name: "",
+				AlertEnabled: "true"
 			}
 		);
 		$(".uniqueClassForAppendSettingsMainWatchNew").append(item);
@@ -223,6 +225,8 @@ function updateFileInfo(currentRow)
 	var listOfFilesTrim = document.getElementsByName("watchListKey"+currentRow+"FileInFolderTrim");
 	var listOfFilesDelete = document.getElementsByName("watchListKey"+currentRow+"ExcludeDelete");
 	var listOfFilesName = document.getElementsByName("watchListKey"+currentRow+"FileInFolderName");
+	var listOfFilesAlert = document.getElementsByName("watchListKey"+currentRow+"FileInFolderAlert");
+	
 	if(listOfFiles)
 	{
 		listOfFilesLength = listOfFiles.length;
@@ -233,6 +237,7 @@ function updateFileInfo(currentRow)
 			stringToUpdateTo += " \"Trim\":  \""+listOfFilesTrim[i].value + "\" , ";
 			stringToUpdateTo += " \"Delete\":  \""+listOfFilesDelete[i].value + "\"  ";
 			stringToUpdateTo += " \"Name\":  \""+listOfFilesName[i].value + "\"  ";
+			stringToUpdateTo += " \"Alert\":  \""+listOfFilesAlert[i].value + "\"  ";
 			stringToUpdateTo += "}";
 			if(i !== (listOfFilesLength - 1))
 			{
@@ -300,7 +305,8 @@ function deleteRowFunction(currentRow)
 						AutoDeleteFiles: document.getElementsByName("watchListKey"+i+"AutoDeleteFiles")[0].value,
 						FileInformation: document.getElementsByName("watchListKey"+i+"FileInformation")[0].value,
 						Group: document.getElementsByName("watchListKey"+i+"Group")[0].value,
-						Name: document.getElementsByName("watchListKey"+i+"Name")[0].value
+						Name: document.getElementsByName("watchListKey"+i+"Name")[0].value,
+						AlertEnabled: document.getElementsByName("watchListKey"+i+"AlertEnabled")[0].value
 					}
 				);
 				//add new one

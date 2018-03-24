@@ -119,6 +119,7 @@
 		$Group = "{{Group}}";
 		$FileInformation = "{{FileInformation}}";
 		$Name = "{{Name}}";
+		$AlertEnabled = "{{AlertEnabled}}";
 
 		if(isset($data["rowNumber"]))
 		{
@@ -198,6 +199,11 @@
 		{
 			$Name = $data["Name"];
 		}
+
+		if(isset($data["AlertEnabled"]))
+		{
+			$AlertEnabled = $data["AlertEnabled"];
+		}		
 
 		if(isset($data["typeFolder"]))
 		{
@@ -287,6 +293,16 @@
 		}
 		$saveBlock .= "</select></span></li>";
 		$saveBlock .= "<li ><span class=\"settingsBuffer\" >Group: </span><span class=\"settingsBuffer\" ><input type=\"text\" name=\"watchListKey".$rowNumber."Group\" value=\"".$Group."\" ></span>";
+		$saveBlock .= "<li><span class=\"settingsBuffer\" >Alert on Update: </span><span class=\"settingsBuffer\" ><select name=\"watchListKey".$rowNumber."AlertEnabled\" >";
+		if(isset($data["AlertEnabled"]))
+		{
+			$saveBlock .=   makeTrueFalseSelect($AlertEnabled);
+		}
+		else
+		{
+			$saveBlock .=  $AlertEnabled;
+		}
+		$saveBlock .= "</select></span></li>";
 		$saveBlock .= "<li ".$typeFile."><div class=\"settingsHeader\" style=\"margin: 0;\" >Files: ";
 		$saveBlock .= "<div class=\"settingsHeaderButtons\"><a class=\"linkSmall\" onclick=\"splitFilesPopup(".$rowNumber.", '".$location."');\"	 >Split Files</a></div>";
 		$saveBlock .= "</div> <div class=\"settingsDiv\" style=\"max-height: 150px; display: block; overflow: auto; margin: 0;\" ><ul id=\"watchListKey".$rowNumber."FilesInFolder\" class=\"settingsUl\" style=\"-webkit-padding-start: 0;\" >".$filesInFolder."</ul></div></li>";
@@ -391,6 +407,7 @@
 				$excludeTrimBool = "false";
 				$excludeDelete = "false";
 				$nameValue = "";
+				$notify = "true";
 				if(isset($fileData[$key2]))
 				{
 					$dataToUse = array();
@@ -415,12 +432,18 @@
 					{
 						$nameValue = $dataToUse["Name"];
 					}
+					if(isset($dataToUse["Alert"]))
+					{
+						$notify = $dataToUse["Alert"];
+					}
 				}
 
 				$filesInFolder .= "<span style=\"width: 300px; overflow: auto; display: inline-block;\" >".str_replace($location, "", $key2)."</span><input name=\"watchListKey".$i."FileInFolder\"  type=\"hidden\" value=\"".$key2."\" >";
 				$filesInFolder .= "<span class=\"settingsBuffer\" >Include: <select onchange=\"updateFileInfo(".$i.")\" name=\"watchListKey".$i."FileInFolderInclude\" > ".makeTrueFalseSelect($includeBool)." </select></span>";
 				$filesInFolder .= "<span class=\"settingsBuffer\" >Exclude Trim: <select onchange=\"updateFileInfo(".$i.")\" name=\"watchListKey".$i."FileInFolderTrim\"> ".makeTrueFalseSelect($excludeTrimBool)." </select></span>";
 				$filesInFolder .= "<span class=\"settingsBuffer\" >Exclude Delete: <select onchange=\"updateFileInfo(".$i.")\" name=\"watchListKey".$i."ExcludeDelete\"> ".makeTrueFalseSelect($excludeDelete)." </select></span>";
+				$filesInFolder .= "<span class=\"settingsBuffer\" >Alert on Update: <select onchange=\"updateFileInfo(".$i.")\" name=\"watchListKey".$i."FileInFolderAlert\"> ".makeTrueFalseSelect($notify)." </select></span>";
+
 				$filesInFolder .= "<span class=\"settingsBuffer\" >Name: <input type=\"text\" name=\"watchListKey".$i."FileInFolderName\" value=\".$nameValue.\" > </span>";
 				$filesInFolder .= "</li>";
 			}
@@ -466,7 +489,8 @@
 				"AutoDeleteFiles"		=>	$values["AutoDeleteFiles"],
 				"Group"					=>	$values["Group"],
 				"FileInformation"		=>	$FileInformation,
-				"Name"					=>	$values["Name"]
+				"Name"					=>	$values["Name"],
+				"AlertEnabled"			=>	$values["AlertEnabled"];
 			),
 			$defaultTrashCanIcon
 		);
