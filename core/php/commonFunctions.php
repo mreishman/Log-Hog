@@ -258,7 +258,7 @@ function trimLogLine($filename, $logSizeLimit,$logTrimMacBSD,$buffer, $shellOrPh
 	$lineCount = getLineCount($filename, $shellOrPhp);
 	if($lineCount > ($logSizeLimit+$buffer))
 	{
-		trimLogInner($logTrimMacBSD,$filename,($lineCount - $logSizeLimit));
+		trimLogInner($logTrimMacBSD,$filename,($lineCount - $logSizeLimit), $shellOrPhp);
 	}
 }
 
@@ -279,7 +279,7 @@ function trimLogSize($filename, $logSizeLimit,$logTrimMacBSD,$buffer, $shellOrPh
 				$numOfLinesToRemoveTo = round($lineCountForFile - $numOfLinesAllowed);
 			}
 
-			trimLogInner($logTrimMacBSD,$filename,$numOfLinesToRemoveTo);
+			trimLogInner($logTrimMacBSD,$filename,$numOfLinesToRemoveTo, $shellOrPhp);
 		}
 		else
 		{
@@ -289,7 +289,56 @@ function trimLogSize($filename, $logSizeLimit,$logTrimMacBSD,$buffer, $shellOrPh
 	}
 }
 
-function trimLogInner($logTrimMacBSD,$filename,$lineEnd)
+function trimLogInner($logTrimMacBSD,$filename,$lineEnd, $shellOrPhp)
+{
+	if($shellOrPhp === "phpPreferred" || $shellOrPhp ===  "phpOnly")
+	{
+		try
+		{
+			trimLogPhp($filename,$lineEnd);
+			return;
+		}
+		catch (Exception $e)
+		{
+			if($shellOrPhp === "phpPreferred")
+			{
+				try
+				{
+					trimLogShell($logTrimMacBSD,$filename,$lineEnd);
+				}
+				catch (Exception $e){}
+				return;
+			}
+		}
+	}
+	try
+	{
+		trimLogShell($logTrimMacBSD,$filename,$lineEnd);
+		return;
+	}
+	catch (Exception $e)
+	{
+		try
+		{
+			trimLogPhp($filename,$lineEnd);
+		}
+		catch (Exception $e){}
+		return;
+	}
+}
+
+function trimLogPhp($filename,$lineEnd)
+{
+	$lines = file($filename);
+	$first_line = $lines[0];
+	$lines = array_slice($lines, $lineEnd + 2);
+	$lines = array_merge(array($first_line, "\n"), $lines);
+	$file = fopen($filename, "w");
+	fwrite($file, implode("", $lines));
+	fclose($file);
+}
+
+function trimLogShell($logTrimMacBSD,$filename,$lineEnd)
 {
 	if($logTrimMacBSD == "true")
 	{
