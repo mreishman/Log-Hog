@@ -1105,153 +1105,209 @@ function update(data)
 
 function selectTabsInOrder(targetLength)
 {
-	var arrayOfLogs = $("#menu a");
-	//this is where on first load, tabs are selected to be visible (see here for issue 312)
-	for(var h = 0; h < targetLength; h++)
+	try
 	{
-		if(logDisplayArray[h]["id"] === null)
+		var arrayOfLogs = $("#menu a");
+		//this is where on first load, tabs are selected to be visible (see here for issue 312)
+		for(var h = 0; h < targetLength; h++)
 		{
-			//show first available log
-			for (var i = 0; i < arrayOfLogs.length; i++)
+			if(logDisplayArray[h]["id"] === null)
 			{
-				var logIsAlreadyShown = false;
-				for(var j = 0; j < targetLength; j++)
+				//show first available log
+				for (var i = 0; i < arrayOfLogs.length; i++)
 				{
-					if(logDisplayArray[j]["id"] === arrayOfLogs[i].id)
+					var logIsAlreadyShown = false;
+					for(var j = 0; j < targetLength; j++)
 					{
-						logIsAlreadyShown = true;
+						if(logDisplayArray[j]["id"] === arrayOfLogs[i].id)
+						{
+							logIsAlreadyShown = true;
+							break;
+						}
+					}
+					if(arrayOfLogs[i].style.display !== "none" && !logIsAlreadyShown)
+					{
+						changeCurrentSelectWindow(h);
+						arrayOfLogs[i].onclick.apply(arrayOfLogs[i]);
 						break;
 					}
 				}
-				if(arrayOfLogs[i].style.display !== "none" && !logIsAlreadyShown)
-				{
-					changeCurrentSelectWindow(h);
-					arrayOfLogs[i].onclick.apply(arrayOfLogs[i]);
-					break;
-				}
 			}
 		}
+	}
+	catch(e)
+	{
+		eventThrowException(e);
 	}
 }
 
 function toggleDisplayOfNoLogs()
 {
-	if($("#menu .active").length === 0)
+	try
 	{
-		//if still none active, none to display - add popup here
-		if(document.getElementById("noLogToDisplay").style.display !== "block")
+		if($("#menu .active").length === 0)
 		{
-			document.getElementById("noLogToDisplay").style.display = "block";
-			document.getElementById("log").style.display = "none";
+			//if still none active, none to display - add popup here
+			if(document.getElementById("noLogToDisplay").style.display !== "block")
+			{
+				document.getElementById("noLogToDisplay").style.display = "block";
+				document.getElementById("log").style.display = "none";
+			}
+		}
+		else
+		{
+			//we do not need this, hide popup
+			if(document.getElementById("noLogToDisplay").style.display !== "none")
+			{
+				document.getElementById("noLogToDisplay").style.display = "none";
+				document.getElementById("log").style.display = "block";
+			}
 		}
 	}
-	else
+	catch(e)
 	{
-		//we do not need this, hide popup
-		if(document.getElementById("noLogToDisplay").style.display !== "none")
-		{
-			document.getElementById("noLogToDisplay").style.display = "none";
-			document.getElementById("log").style.display = "block";
-		}
+		eventThrowException(e);
 	}
 }
 
 function updateScrollOnLogs()
 {
-	var windows = Object.keys(logDisplayArray);
-	var lengthOfWindows = windows.length;
-	for(var i = 0; i < lengthOfWindows; i++)
+	try
 	{
-		if(logDisplayArray[i]["id"] !== null)
+		var windows = Object.keys(logDisplayArray);
+		var lengthOfWindows = windows.length;
+		for(var i = 0; i < lengthOfWindows; i++)
 		{
-			var logsCheck = Object.keys(logs);
-			var lengthOfLogsCheck = logsCheck.length;
-			for(var j = 0; j < lengthOfLogsCheck; j++)
+			if(logDisplayArray[i]["id"] !== null)
 			{
-				if(logDisplayArray[i]["id"] === logsCheck[j])
+				var logsCheck = Object.keys(logs);
+				var lengthOfLogsCheck = logsCheck.length;
+				for(var j = 0; j < lengthOfLogsCheck; j++)
 				{
-					var currentPageId = logsCheck[j];
-					if(logs[currentPageId] !== lastLogs[currentPageId])
+					if(logDisplayArray[i]["id"] === logsCheck[j])
 					{
-						lastLogs[currentPageId] = logs[currentPageId];
-						if(scrollOnUpdate === "true" && logDisplayArray[i]["scroll"])
+						var currentPageId = logsCheck[j];
+						if(logs[currentPageId] !== lastLogs[currentPageId])
 						{
-							document.getElementById("log"+i+"Td").scrollTop = $("#log"+i).outerHeight();
+							lastLogs[currentPageId] = logs[currentPageId];
+							if(scrollOnUpdate === "true" && logDisplayArray[i]["scroll"])
+							{
+								document.getElementById("log"+i+"Td").scrollTop = $("#log"+i).outerHeight();
+							}
 						}
+						break;
 					}
-					break;
 				}
 			}
 		}
+	}
+	catch(e)
+	{
+		eventThrowException(e);
 	}
 }
 
 function scrollPauseLogic(id)
 {
-	var logTdCalc = document.getElementById("log"+id+"Td").getBoundingClientRect();  //const
-	var logCalc = document.getElementById("log"+id).getBoundingClientRect(); //changes
-	//do calc to see if scrolled, if scrolled don't scroll to bottom 
-	if(logCalc.bottom > logTdCalc.bottom)
+	try
 	{
-		return false;
+		var logTdCalc = document.getElementById("log"+id+"Td").getBoundingClientRect();  //const
+		var logCalc = document.getElementById("log"+id).getBoundingClientRect(); //changes
+		//do calc to see if scrolled, if scrolled don't scroll to bottom 
+		if(logCalc.bottom > logTdCalc.bottom)
+		{
+			return false;
+		}
+		return true;
 	}
-	return true;
+	catch(e)
+	{
+		eventThrowException(e);
+	}
 }
 
 function tmpHideLog(name)
 {
-	hideLogByName(name);
-	logsToHide.push(name);
-	update(arrayOfDataMain);
+	try
+	{
+		hideLogByName(name);
+		logsToHide.push(name);
+		update(arrayOfDataMain);
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
 }
 
 function copyToClipBoard(whatToCopy)
 {
-	var $temp = $("<input>");
-	$("body").append($temp);
-	$temp.val(filterTitle(whatToCopy)).select();
-	document.execCommand("copy");
-	$temp.remove();
+	try
+	{
+		var $temp = $("<input>");
+		$("body").append($temp);
+		$temp.val(filterTitle(whatToCopy)).select();
+		document.execCommand("copy");
+		$temp.remove();
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
 }
 
 function tryToInsertBeforeLog(innerCount, stop, idCheck, item)
 {
-	var itemToBefore = null;
-	while(itemToBefore === null && innerCount < stop)
+	try
 	{
-		var itemCheck = $("#menu ." + idCheck + "Button");
-		if(itemCheck.length !== 0) 
+		var itemToBefore = null;
+		while(itemToBefore === null && innerCount < stop)
 		{
-			itemToBefore = itemCheck;
+			var itemCheck = $("#menu ." + idCheck + "Button");
+			if(itemCheck.length !== 0) 
+			{
+				itemToBefore = itemCheck;
+			}
+			innerCount--;
 		}
-		innerCount--;
-	}
-	if(itemToBefore !== null)
-	{
-		itemToBefore.before(item);
-	}
+		if(itemToBefore !== null)
+		{
+			itemToBefore.before(item);
+		}
 
-	return (itemToBefore !== null);
+		return (itemToBefore !== null);
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
 }
 
 function tryToInsertAfterLog(innerCount, stop, idCheck, item)
 {
-	var itemToBefore = null;
-	while(itemToBefore === null && innerCount > 0)
+	try
 	{
-		var itemCheck = $("#menu ." + idCheck + "Button");
-		if(itemCheck.length !== 0) 
+		var itemToBefore = null;
+		while(itemToBefore === null && innerCount > 0)
 		{
-			itemToBefore = itemCheck;
+			var itemCheck = $("#menu ." + idCheck + "Button");
+			if(itemCheck.length !== 0) 
+			{
+				itemToBefore = itemCheck;
+			}
+			innerCount++;
 		}
-		innerCount++;
-	}
-	if(itemToBefore !== null)
-	{
-		itemToBefore.after(item);
-	}
+		if(itemToBefore !== null)
+		{
+			itemToBefore.after(item);
+		}
 
-	return (itemToBefore !== null);
+		return (itemToBefore !== null);
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
 }
 
 function toggleNotificationClearButton()
