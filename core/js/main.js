@@ -1075,85 +1075,21 @@ function update(data)
 		//Check if a tab is active, if none... click on first in array that's visible
 		var targetLength = Object.keys(logDisplayArray).length;
 		var tmpCurrentSelectWindow = currentSelectWindow;
-		var arrayOfLogs = $("#menu a");
+		
 		if($("#menu .active").length < targetLength)
 		{
-			for(var h = 0; h < targetLength; h++)
-			{
-				if(logDisplayArray[h]["id"] === null)
-				{
-					//show first available log
-					for (var i = 0; i < arrayOfLogs.length; i++)
-					{
-						var logIsAlreadyShown = false;
-						for(var j = 0; j < targetLength; j++)
-						{
-							if(logDisplayArray[j]["id"] === arrayOfLogs[i].id)
-							{
-								logIsAlreadyShown = true;
-								break;
-							}
-						}
-						if(arrayOfLogs[i].style.display !== "none" && !logIsAlreadyShown)
-						{
-							changeCurrentSelectWindow(h);
-							arrayOfLogs[i].onclick.apply(arrayOfLogs[i]);
-							break;
-						}
-					}
-				}
-			}
+			selectTabsInOrder(targetLength);
 
 			if(!firstLoad)
 			{
-				if($("#menu .active").length === 0)
-				{
-					//if still none active, none to display - add popup here
-					if(document.getElementById("noLogToDisplay").style.display !== "block")
-					{
-						document.getElementById("noLogToDisplay").style.display = "block";
-						document.getElementById("log").style.display = "none";
-					}
-				}
-				else
-				{
-					if(document.getElementById("noLogToDisplay").style.display !== "none")
-					{
-						document.getElementById("noLogToDisplay").style.display = "none";
-						document.getElementById("log").style.display = "block";
-					}
-				}
+				toggleDisplayOfNoLogs();
 			}
 		}
+		//below changes the current select window back to what was selected by user (could change by function above)
 		changeCurrentSelectWindow(tmpCurrentSelectWindow);
 
 		toggleNotificationClearButton();
-		var windows = Object.keys(logDisplayArray);
-		var lengthOfWindows = windows.length;
-		for(var i = 0; i < lengthOfWindows; i++)
-		{
-			if(logDisplayArray[i]["id"] !== null)
-			{
-				var logsCheck = Object.keys(logs);
-				var lengthOfLogsCheck = logsCheck.length;
-				for(var j = 0; j < lengthOfLogsCheck; j++)
-				{
-					if(logDisplayArray[i]["id"] === logsCheck[j])
-					{
-						var currentPageId = logsCheck[j];
-						if(logs[currentPageId] !== lastLogs[currentPageId])
-						{
-							lastLogs[currentPageId] = logs[currentPageId];
-							if(scrollOnUpdate === "true" && logDisplayArray[i]["scroll"])
-							{
-								document.getElementById("log"+i+"Td").scrollTop = $("#log"+i).outerHeight();
-							}
-						}
-						break;
-					}
-				}
-			}
-		}
+		updateScrollOnLogs();
 		
 		lastContentSearch = getFilterTextField();
 
@@ -1164,6 +1100,89 @@ function update(data)
 	catch(e)
 	{
 		eventThrowException(e);
+	}
+}
+
+function selectTabsInOrder(targetLength)
+{
+	var arrayOfLogs = $("#menu a");
+	//this is where on first load, tabs are selected to be visible (see here for issue 312)
+	for(var h = 0; h < targetLength; h++)
+	{
+		if(logDisplayArray[h]["id"] === null)
+		{
+			//show first available log
+			for (var i = 0; i < arrayOfLogs.length; i++)
+			{
+				var logIsAlreadyShown = false;
+				for(var j = 0; j < targetLength; j++)
+				{
+					if(logDisplayArray[j]["id"] === arrayOfLogs[i].id)
+					{
+						logIsAlreadyShown = true;
+						break;
+					}
+				}
+				if(arrayOfLogs[i].style.display !== "none" && !logIsAlreadyShown)
+				{
+					changeCurrentSelectWindow(h);
+					arrayOfLogs[i].onclick.apply(arrayOfLogs[i]);
+					break;
+				}
+			}
+		}
+	}
+}
+
+function toggleDisplayOfNoLogs()
+{
+	if($("#menu .active").length === 0)
+	{
+		//if still none active, none to display - add popup here
+		if(document.getElementById("noLogToDisplay").style.display !== "block")
+		{
+			document.getElementById("noLogToDisplay").style.display = "block";
+			document.getElementById("log").style.display = "none";
+		}
+	}
+	else
+	{
+		//we do not need this, hide popup
+		if(document.getElementById("noLogToDisplay").style.display !== "none")
+		{
+			document.getElementById("noLogToDisplay").style.display = "none";
+			document.getElementById("log").style.display = "block";
+		}
+	}
+}
+
+function updateScrollOnLogs()
+{
+	var windows = Object.keys(logDisplayArray);
+	var lengthOfWindows = windows.length;
+	for(var i = 0; i < lengthOfWindows; i++)
+	{
+		if(logDisplayArray[i]["id"] !== null)
+		{
+			var logsCheck = Object.keys(logs);
+			var lengthOfLogsCheck = logsCheck.length;
+			for(var j = 0; j < lengthOfLogsCheck; j++)
+			{
+				if(logDisplayArray[i]["id"] === logsCheck[j])
+				{
+					var currentPageId = logsCheck[j];
+					if(logs[currentPageId] !== lastLogs[currentPageId])
+					{
+						lastLogs[currentPageId] = logs[currentPageId];
+						if(scrollOnUpdate === "true" && logDisplayArray[i]["scroll"])
+						{
+							document.getElementById("log"+i+"Td").scrollTop = $("#log"+i).outerHeight();
+						}
+					}
+					break;
+				}
+			}
+		}
 	}
 }
 
