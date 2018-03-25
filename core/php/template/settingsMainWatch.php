@@ -404,10 +404,10 @@
 				}
 
 				$includeBool = "true";
-				$excludeTrimBool = "false";
+				$excludeTrimBool = $defaultNewAddExcludeTrim;
 				$excludeDelete = "false";
 				$nameValue = "";
-				$notify = "true";
+				$notify = $defaultNewAddAlertEnabled;
 				if(isset($fileData[$key2]))
 				{
 					$dataToUse = array();
