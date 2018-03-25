@@ -645,21 +645,45 @@ function returnCurrentSelectedTheme()
 
 function getLineCount($fileName, $shellOrPhp)
 {
+	$linesBase = 0;
 	if($shellOrPhp === "phpPreferred" || $shellOrPhp ===  "phpOnly")
 	{
-		return phpLineCount($fileName);
+		$linesBase = getLineCountPhp($fileName);
+	    if($linesBase === 0 || $linesBase === null)
+	    {
+	    	if($shellOrPhp === "phpPreferred")
+	    	{
+	    		$linesBase = shell_exec("wc -l \"".$fileName."\"");
+	    	}
+	    }
+	    if($linesBase === 0 || $linesBase === null)
+	    {
+	    	return $linesBase;
+	    }
+	    return 0;
 	}
-	return shell_exec('wc -l < ' . $fileName);	
+	$linesBase = shell_exec("wc -l \"".$fileName."\"");
+	if($linesBase === 0 || $linesBase === null)
+	{
+		if($shellOrPhp === "shellPreferred")
+    	{
+    		$linesBase = shell_exec("wc -l \"".$fileName."\"");
+    	}
+	}
+	if($linesBase === 0 || $linesBase === null)
+    {
+    	return $linesBase;
+    }
+	return 0;
 }
 
-function phpLineCount($fileName)
+function getLineCountPhp($fileName)
 {
 	$linecount = 0;
 	$handle = fopen($fileName, "r");
 	while(!feof($handle))
 	{
-	  $line = fgets($handle, 4096);
-	  $linecount = $linecount + substr_count($line, PHP_EOL);
+		$lineCount += substr_count(fread($handle, 8192), "\n");
 	}
 	fclose($handle);
 	return $linecount;

@@ -83,7 +83,7 @@ if(isset($_POST['arrayToUpdate']))
 				}
 				elseif($dataVar !== "This file is empty. This should not be displayed.")
 				{
-					$lineCount = shellOrPhp($filename, $shellOrPhp);
+					$lineCount = getLineCount($filename, $shellOrPhp);
 				}
 
 				$time = (microtime(true) - $time_start)*1000;
@@ -94,7 +94,7 @@ if(isset($_POST['arrayToUpdate']))
 		catch (Exception $e)
 		{
 			$response[$path] = "Error - Maybe insufficient access to read file?";
-			$response[$path."dataForLoggingLogHog051620170928"] = " Limit: ".$logSizeLimit."(".($logSizeLimit+$buffer).") ".$modifier." | Line Count: --- | File Size: --- | Time: ---";
+			$response[$path."dataForLoggingLogHog051620170928"] = " Limit: ".$logSizeLimit."(".($logSizeLimit+$buffer).") ".$modifier." | Line Count: --- | Time: ---";
 		}
 	}
 }
