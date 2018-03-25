@@ -1568,6 +1568,13 @@ function getDiffLogAndLastLog(id)
 			return 0;
 		}
 
+		var logDiff = $(lastLogs[id]).not(logs[id]).get();
+		var logDiffLength = logDiff.length;
+		if(logDiffLength > 0)
+		{
+			return logDiff.length;
+		}
+
 		var lastLine = tmpTextLast[lengthOfLastArray-1];
 		var counter = 0;
 		for (var i = lengthOfArray - 1; i >= 0; i--)
