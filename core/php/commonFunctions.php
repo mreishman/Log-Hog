@@ -680,10 +680,10 @@ function getLineCount($fileName, $shellOrPhp)
 function getLineCountPhp($fileName)
 {
 	$linecount = 0;
-	$handle = fopen($fileName, "r");
+	$handle = fopen($fileName, "rb");
 	while(!feof($handle))
 	{
-		$lineCount += substr_count(fread($handle, 8192), "\n");
+		$linecount += substr_count(fread($handle, 8192), "\n");
 	}
 	fclose($handle);
 	return $linecount;
