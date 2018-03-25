@@ -620,5 +620,10 @@
 </div>
 <script type="text/javascript">
 	var defaultTrashCanIcon = <?php echo json_encode($defaultTrashCanIcon); ?>
+	var defaultdefaultNewAddAlertEnabled = "<?php echo $defaultNewAddAlertEnabled; ?>";
+	var defaultNewAddAutoDeleteFiles = "<?php echo $defaultNewAddAutoDeleteFiles; ?>";
+	var defaultNewAddExcludeTrim = "<?php echo $defaultNewAddExcludeTrim; ?>";
+	var defaultNewAddPattern = "<?php echo $defaultNewAddPattern;?>";
+	var defaultNewAddRecursive = "<?php echo $defaultNewAddRecursive;?>";
 </script>
 <?php $folderCount = $i;

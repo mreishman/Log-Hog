@@ -142,7 +142,7 @@ function addRowFunction(data)
 			locationFromData = data["location"];
 		}
 
-		var patternFromData = "";
+		var patternFromData = defaultNewAddPattern;
 		if("pattern" in data)
 		{
 			patternFromData = data["pattern"];
@@ -157,15 +157,15 @@ function addRowFunction(data)
 				location: locationFromData,
 				pattern: patternFromData,
 				key: "Log "+countOfWatchList,
-				recursive: "false",
-				excludeTrim: "false",
+				recursive: defaultNewAddRecursive,
+				excludeTrim: defaultNewAddExcludeTrim,
 				fileType: fileTypeFromData,
 				filesInFolder: filesInFolderFromData,
-				AutoDeleteFiles: "",
+				AutoDeleteFiles: defaultNewAddAutoDeleteFiles,
 				FileInformation: "{}",
 				Group: "",
 				Name: "",
-				AlertEnabled: "true"
+				AlertEnabled: defaultdefaultNewAddAlertEnabled
 			}
 		);
 		$(".uniqueClassForAppendSettingsMainWatchNew").append(item);
