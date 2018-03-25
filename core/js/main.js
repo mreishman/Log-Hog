@@ -1603,7 +1603,7 @@ function getDiffLogAndLastLog(id)
 				}
 			}
 		}
-		return lengthOfArray;
+		return 0;
 	}
 	catch(e)
 	{
