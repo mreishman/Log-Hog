@@ -82,6 +82,7 @@ echo loadSentryData($sendCrashInfoJS, $branchSelected); ?>
 		<a href="#settingsFilterVars" > Filter </a>
 		<a href="#settingsUpdateVars" > Update </a>
 		<a href="#settingsMenuVars" > Menu </a>
+		<a href="#settingsWatchlistVars" > Watchlist </a>
 		<a href="#settingsMainVars" > Other </a>
 	</div>
 <?php elseif(strpos($URI, 'themes.php') !== false): ?>
