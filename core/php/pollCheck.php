@@ -8,7 +8,7 @@ require_once('configStatic.php');
 require_once('updateProgressFile.php');
 require_once('commonFunctions.php');
 
-$varsLoadLite = array("shellOrPhp", "watchList");
+$varsLoadLite = array("shellOrPhp", "watchList", "lineCountFromJS");
 
 foreach ($varsLoadLite as $varLoadLite)
 {
@@ -97,6 +97,12 @@ foreach($watchList as $key => $value)
 foreach ($responseFilelist as $file)
 {
 	$response[$file]["size"] = getFileSize($file, $shellOrPhp);
+	$responseFileLineCount = -1;
+	if($lineCountFromJS === "false")
+	{
+		$responseFileLineCount = getLineCount($file, $shellOrPhp);
+	}
+	$response[$file]["lineCount"] = $responseFileLineCount;
 	$found = false;
 	$keyFound = "";
 	foreach ($watchList as $key => $value)

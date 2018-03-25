@@ -247,6 +247,7 @@ $defaultConfig = array(
 	'highlightNewColorFont'			=> '#000000',
 	'invertMenuImages'				=> 'false',
 	'layoutVersion'					=> 1,
+	'lineCountFromJS'				=> "true",
 	'loadingBarVersion'				=> 1,
 	'locationForMonitor'			=> '',
 	'locationForSearch'				=> '',

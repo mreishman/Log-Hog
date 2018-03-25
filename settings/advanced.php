@@ -184,6 +184,25 @@ $countConfig--;
 						</select>
 					</div>
 				</li>
+				<li>
+					<span class="settingsBuffer"> Line count from </span>
+					<div class="selectDiv">
+						<select name="lineCountFromJS">
+	  						<option <?php if($lineCountFromJS == 'true'){echo "selected";} ?> value="true">JS</option>
+	  						<option <?php if($lineCountFromJS == 'false'){echo "selected";} ?> value="false">PHP</option>
+						</select>
+					</div>
+					<span style="font-size: 75%;">
+						<?php echo generateImage(
+							$arrayOfImages["info"],
+							array(
+								"style"			=>	"margin-bottom: -4px;",
+								"height"		=>	"20px",
+								"srcModifier"	=>	"../"
+							)
+						); ?> 
+						<i>PHP method is more accurate, but will increase poll times</i></span>
+				</li>
 			</ul>
 		</div>
 	</form>
