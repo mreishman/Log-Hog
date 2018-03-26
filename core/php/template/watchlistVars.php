@@ -12,8 +12,8 @@ Watchlist Settings
 		<span class="settingsBuffer" >Default AlertEnabled:</span>
 		<div class="selectDiv">
 			<select name="defaultNewAddAlertEnabled">
-				<option <?php if($defaultNewAddAlertEnabled == 'true'){echo "selected";} ?> value="true">Hide</option>
-				<option <?php if($defaultNewAddAlertEnabled == 'false'){echo "selected";} ?> value="false">Show</option>
+				<option <?php if($defaultNewAddAlertEnabled == 'true'){echo "selected";} ?> value="true">True</option>
+				<option <?php if($defaultNewAddAlertEnabled == 'false'){echo "selected";} ?> value="false">False</option>
 			</select>
 		</div>
 	</li>
