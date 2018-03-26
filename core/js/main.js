@@ -805,9 +805,10 @@ function update(data)
 							if($("#menu ." + id + "Button").length === 0) 
 							{
 								var nameForLog = shortName;
-								if(id in fileData && "Name" in fileData[id])
+								var fullPathSearch = filterTitle(titles[id]).trim();
+								if(fullPathSearch in fileData && "Name" in fileData[fullPathSearch] && fileData[fullPathSearch]["Name"] !== "" && fileData[fullPathSearch]["Name"] !== null)
 								{
-									nameForLog = fileData[id]["Name"];
+									nameForLog = fileData[fullPathSearch]["Name"];
 								}
 								else if(logNameFormat !== "default")
 								{
@@ -826,7 +827,6 @@ function update(data)
 										var locationOfLast = 1;
 										var newName = "";
 										var splitType = "/";
-										var fullPathSearch = titles[id];
 										if(fullPathSearch.indexOf("/") > -1)
 										{
 											newName = fullPathSearch.split("/");
@@ -847,7 +847,7 @@ function update(data)
 									}
 									else if(logNameFormat === "fullPath")
 									{
-										nameForLog = filterTitle(titles[id]);
+										nameForLog = fullPathSearch;
 									}
 								}
 								classInsert = "";

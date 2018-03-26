@@ -490,7 +490,7 @@
 				"Group"					=>	$values["Group"],
 				"FileInformation"		=>	$FileInformation,
 				"Name"					=>	$values["Name"],
-				"AlertEnabled"			=>	$values["AlertEnabled"];
+				"AlertEnabled"			=>	$values["AlertEnabled"]
 			),
 			$defaultTrashCanIcon
 		);
