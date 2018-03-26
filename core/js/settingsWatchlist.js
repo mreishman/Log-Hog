@@ -235,8 +235,8 @@ function updateFileInfo(currentRow)
 			stringToUpdateTo += "\""+listOfFiles[i].value+"\" : {";
 			stringToUpdateTo += " \"Include\": \""+listOfFilesInclude[i].value + "\" , ";
 			stringToUpdateTo += " \"Trim\":  \""+listOfFilesTrim[i].value + "\" , ";
-			stringToUpdateTo += " \"Delete\":  \""+listOfFilesDelete[i].value + "\"  ";
-			stringToUpdateTo += " \"Name\":  \""+listOfFilesName[i].value + "\"  ";
+			stringToUpdateTo += " \"Delete\":  \""+listOfFilesDelete[i].value + "\", ";
+			stringToUpdateTo += " \"Name\":  \""+listOfFilesName[i].value + "\", ";
 			stringToUpdateTo += " \"Alert\":  \""+listOfFilesAlert[i].value + "\"  ";
 			stringToUpdateTo += "}";
 			if(i !== (listOfFilesLength - 1))
