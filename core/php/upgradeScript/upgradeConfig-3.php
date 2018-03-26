@@ -23,6 +23,7 @@ if (isset($config["watchList"]))
 		if(!is_array($value))
 		{
 			$arrayWatchList .= "'".$key."' => array(";
+			$arrayWatchList .= "'AlertEnabled' => 'true',";
 			$arrayWatchList .= "'AutoDeleteFiles' => '',";
 			$arrayWatchList .= "'ExcludeTrim' => 'false',";
 			$arrayWatchList .= "'FileInformation' => '{}',";

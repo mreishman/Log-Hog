@@ -150,6 +150,7 @@ foreach ($responseFilelist as $file)
 					$dataToUse = get_object_vars($filesInFolderData[$file]);
 					$response[$file]["ExcludeTrim"] = $dataToUse["Trim"];
 					$response[$file]["Name"] = $dataToUse["Name"];
+					$response[$file]["AlertEnabled"] = $watchList[$key]["AlertEnabled"];
 					if($watchList[$key]["AlertEnabled"] !== "false")
 					{
 						$response[$file]["AlertEnabled"] = $dataToUse["Alert"];

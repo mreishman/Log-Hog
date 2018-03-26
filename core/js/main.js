@@ -801,11 +801,11 @@ function update(data)
 							}
 
 							var lastLogLine = logs[id].count - 1;
+							var fullPathSearch = filterTitle(titles[id]).trim();
 
 							if($("#menu ." + id + "Button").length === 0) 
 							{
 								var nameForLog = shortName;
-								var fullPathSearch = filterTitle(titles[id]).trim();
 								if(fullPathSearch in fileData && "Name" in fileData[fullPathSearch] && fileData[fullPathSearch]["Name"] !== "" && fileData[fullPathSearch]["Name"] !== null)
 								{
 									nameForLog = fileData[fullPathSearch]["Name"];
@@ -937,27 +937,43 @@ function update(data)
 							}
 
 							updated = false;
-
-							if(!(logs[id] === lastLogs[id]))
+							if(fileData[fullPathSearch]["AlertEnabled"] === "true")
 							{
-								updated = true;
+								if(!(logs[id] === lastLogs[id]))
+								{
+									updated = true;
+								}
+								else
+								{
+									if(selectedListFilterType === "content" && filterContentHighlight === "true")
+									{
+										if(lastContentSearch !== getFilterTextField())
+										{
+											var windows = Object.keys(logDisplayArray);
+											var lengthOfWindows = windows.length;
+											for(var j = 0; j < lengthOfWindows; j++)
+											{
+												if(logDisplayArray[j]["id"] === id)
+												{
+													updated = true;
+													break;
+												}
+											}
+										}
+									}
+								}
 							}
 							else
 							{
-								if(selectedListFilterType === "content" && filterContentHighlight === "true")
+								//check if displayed
+								var windows = Object.keys(logDisplayArray);
+								var lengthOfWindows = windows.length;
+								for(var j = 0; j < lengthOfWindows; j++)
 								{
-									if(lastContentSearch !== getFilterTextField())
+									if(logDisplayArray[j]["id"] === id)
 									{
-										var windows = Object.keys(logDisplayArray);
-										var lengthOfWindows = windows.length;
-										for(var j = 0; j < lengthOfWindows; j++)
-										{
-											if(logDisplayArray[j]["id"] === id)
-											{
-												updated = true;
-												break;
-											}
-										}
+										updated = true;
+										break;
 									}
 								}
 							}
