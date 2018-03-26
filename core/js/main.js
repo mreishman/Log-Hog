@@ -817,27 +817,28 @@ function update(data)
 										if(shortName.indexOf(".") > -1)
 										{
 											var newName = shortName.split(".");
-											newName = newName.splice(-1,1);
+											newName.splice(-1,1);
 											nameForLog = newName.join();
 										}
 									}
 									else if(logNameFormat === "firstFolder" || logNameFormat === "lastFolder")
 									{
-										var locationOfLast = 0;
-										if(logNameFormat === "lastFolder")
-										{
-											locationOfLast = newName.length-1;
-										}
+										var locationOfLast = 1;
 										var newName = "";
 										var splitType = "/";
-										if(id.indexOf("/") > -1)
+										var fullPathSearch = titles[id];
+										if(fullPathSearch.indexOf("/") > -1)
 										{
-											newName = id.split("/");
+											newName = fullPathSearch.split("/");
 										}
-										else if(id.indexOf("\\") > -1)
+										else if(fullPathSearch.indexOf("\\") > -1)
 										{
-											newName = id.split("\\");
+											newName = fullPathSearch.split("\\");
 											splitType = "\\";
+										}
+										if(logNameFormat === "lastFolder")
+										{
+											locationOfLast = newName.length-2;
 										}
 										if(newName !== "")
 										{
@@ -846,7 +847,7 @@ function update(data)
 									}
 									else if(logNameFormat === "fullPath")
 									{
-										nameForLog = id;
+										nameForLog = filterTitle(titles[id]);
 									}
 								}
 								classInsert = "";

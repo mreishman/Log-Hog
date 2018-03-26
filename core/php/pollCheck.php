@@ -152,7 +152,7 @@ foreach ($responseFilelist as $file)
 					$response[$file]["Name"] = $dataToUse["Name"];
 					if($watchList[$key]["AlertEnabled"] !== "false")
 					{
-						$response[$file]["AlertEnabled"] = $dataToUse]["Alert"];
+						$response[$file]["AlertEnabled"] = $dataToUse["Alert"];
 					}
 				}
 				else

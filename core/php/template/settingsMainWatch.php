@@ -444,7 +444,7 @@
 				$filesInFolder .= "<span class=\"settingsBuffer\" >Exclude Delete: <select onchange=\"updateFileInfo(".$i.")\" name=\"watchListKey".$i."ExcludeDelete\"> ".makeTrueFalseSelect($excludeDelete)." </select></span>";
 				$filesInFolder .= "<span class=\"settingsBuffer\" >Alert on Update: <select onchange=\"updateFileInfo(".$i.")\" name=\"watchListKey".$i."FileInFolderAlert\"> ".makeTrueFalseSelect($notify)." </select></span>";
 
-				$filesInFolder .= "<span class=\"settingsBuffer\" >Name: <input type=\"text\" name=\"watchListKey".$i."FileInFolderName\" value=\".$nameValue.\" > </span>";
+				$filesInFolder .= "<span class=\"settingsBuffer\" >Name: <input type=\"text\" name=\"watchListKey".$i."FileInFolderName\" value=\"".$nameValue."\" > </span>";
 				$filesInFolder .= "</li>";
 			}
 			if($filesInFolder === "")
