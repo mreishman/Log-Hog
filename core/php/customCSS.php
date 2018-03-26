@@ -166,8 +166,6 @@ if(!($windowDisplayConfig[0] > 1 || $windowDisplayConfig[1] > 1)): ?>
 - Aqua
 - Areo
 - Ocean
-- Steampunk
-- Terminal (CHECK)
 
 */
 #fullScreenMenu
