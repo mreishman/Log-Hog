@@ -858,7 +858,7 @@ function update(data)
 								{
 									classInsert += " buttonColor"+(folderNameCount+1)+" ";
 								}
-								if(fileData[files[i]]["Group"] !== "")
+								if(fileData[fullPathSearch]["Group"] !== "")
 								{
 									classInsert += " "+fileData[files[i]]["Group"]+"Group ";
 								}
@@ -906,7 +906,7 @@ function update(data)
 
 								if(!firstLoad)
 								{
-									if(!$("#menu a." + id + "Button").hasClass("updated") && fileData[id]["AlertEnabled"] === "true")
+									if(!$("#menu a." + id + "Button").hasClass("updated") && fileData[fullPathSearch]["AlertEnabled"] === "true")
 									{
 										$("#menu a." + id + "Button").addClass("updated");
 
