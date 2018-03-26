@@ -293,7 +293,7 @@
 		}
 		$saveBlock .= "</select></span></li>";
 		$saveBlock .= "<li ><span class=\"settingsBuffer\" >Group: </span><span class=\"settingsBuffer\" ><input type=\"text\" name=\"watchListKey".$rowNumber."Group\" value=\"".$Group."\" ></span>";
-		$saveBlock .= "<li><span class=\"settingsBuffer\" >Alert on Update: </span><span class=\"settingsBuffer\" ><select name=\"watchListKey".$rowNumber."AlertEnabled\" >";
+		$saveBlock .= "<span class=\"settingsBuffer\" >Alert on Update: </span><span class=\"settingsBuffer\" ><select name=\"watchListKey".$rowNumber."AlertEnabled\" >";
 		if(isset($data["AlertEnabled"]))
 		{
 			$saveBlock .=   makeTrueFalseSelect($AlertEnabled);
@@ -619,7 +619,7 @@
 	</div>
 </div>
 <script type="text/javascript">
-	var defaultTrashCanIcon = <?php echo json_encode($defaultTrashCanIcon); ?>
+	var defaultTrashCanIcon = <?php echo json_encode($defaultTrashCanIcon); ?>;
 	var defaultdefaultNewAddAlertEnabled = "<?php echo $defaultNewAddAlertEnabled; ?>";
 	var defaultNewAddAutoDeleteFiles = "<?php echo $defaultNewAddAutoDeleteFiles; ?>";
 	var defaultNewAddExcludeTrim = "<?php echo $defaultNewAddExcludeTrim; ?>";
