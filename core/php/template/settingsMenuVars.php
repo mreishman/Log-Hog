@@ -95,10 +95,27 @@ Menu Settings
 		<div class="selectDiv">
 			<select name="logNameFormat">
 				<option <?php if($logNameFormat == 'default'){echo "selected";} ?> value="default">Default</option>
-				<option <?php if($logNameFormat == 'noExt'){echo "selected";} ?> value="noExt">No Extension</option>
 				<option <?php if($logNameFormat == 'firstFolder'){echo "selected";} ?> value="firstFolder">First Folder</option>
 				<option <?php if($logNameFormat == 'lastFolder'){echo "selected";} ?> value="lastFolder">Last Folder</option>
 				<option <?php if($logNameFormat == 'fullPath'){echo "selected";} ?> value="fullPath">Full Path</option>
+			</select>
+		</div>
+	</li>
+	<li>
+		<span class="settingsBuffer" > Log Name Extension </span>
+		<div class="selectDiv">
+			<select name="logNameExtension">
+				<option <?php if($logNameExtension == 'true'){echo "selected";} ?> value="true">Show</option>
+				<option <?php if($logNameExtension == 'false'){echo "selected";} ?> value="false">Hide</option>
+			</select>
+		</div>
+	</li>
+	<li>
+		<span class="settingsBuffer" > Log Name Group </span>
+		<div class="selectDiv">
+			<select name="logNameGroup">
+				<option <?php if($logNameGroup == 'true'){echo "selected";} ?> value="true">Show</option>
+				<option <?php if($logNameGroup == 'false'){echo "selected";} ?> value="false">Hide</option>
 			</select>
 		</div>
 	</li>

@@ -810,45 +810,53 @@ function update(data)
 								{
 									nameForLog = fileData[fullPathSearch]["Name"];
 								}
-								else if(logNameFormat !== "default")
+								else
 								{
-									//check for other options in displaying name
-									if(logNameFormat === "noExt")
+									if(logNameFormat !== "default")
+									{
+										//check for other options in displaying name									
+										if(logNameFormat === "firstFolder" || logNameFormat === "lastFolder")
+										{
+											var locationOfLast = 1;
+											var newName = "";
+											var splitType = "/";
+											if(fullPathSearch.indexOf("/") > -1)
+											{
+												newName = fullPathSearch.split("/");
+											}
+											else if(fullPathSearch.indexOf("\\") > -1)
+											{
+												newName = fullPathSearch.split("\\");
+												splitType = "\\";
+											}
+											if(logNameFormat === "lastFolder")
+											{
+												locationOfLast = newName.length-2;
+											}
+											if(newName !== "")
+											{
+												nameForLog = newName[locationOfLast]+splitType+shortName;
+											}
+										}
+										else if(logNameFormat === "fullPath")
+										{
+											nameForLog = fullPathSearch;
+										}
+									}
+
+									if(logNameExtension === "false")
 									{
 										if(shortName.indexOf(".") > -1)
 										{
-											var newName = shortName.split(".");
+											var newName = nameForLog.split(".");
 											newName.splice(-1,1);
 											nameForLog = newName.join();
 										}
 									}
-									else if(logNameFormat === "firstFolder" || logNameFormat === "lastFolder")
-									{
-										var locationOfLast = 1;
-										var newName = "";
-										var splitType = "/";
-										if(fullPathSearch.indexOf("/") > -1)
-										{
-											newName = fullPathSearch.split("/");
-										}
-										else if(fullPathSearch.indexOf("\\") > -1)
-										{
-											newName = fullPathSearch.split("\\");
-											splitType = "\\";
-										}
-										if(logNameFormat === "lastFolder")
-										{
-											locationOfLast = newName.length-2;
-										}
-										if(newName !== "")
-										{
-											nameForLog = newName[locationOfLast]+splitType+shortName;
-										}
-									}
-									else if(logNameFormat === "fullPath")
-									{
-										nameForLog = fullPathSearch;
-									}
+								}
+								if(logNameGroup === "true" && fileData[files[i]]["Group"] !== "")
+								{
+									nameForLog = fileData[files[i]]["Group"]+":"+nameForLog;
 								}
 								classInsert = "";
 								item = blank;

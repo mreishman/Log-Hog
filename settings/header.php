@@ -77,6 +77,7 @@ echo loadSentryData($sendCrashInfoJS, $branchSelected); ?>
 </div>
 <?php if(strpos($URI, 'main.php') !== false): ?>
 	<div id="menu2">
+		<span style="color: black;">Settings:</span> 
 		<a href="#settingsLogVars" > Logs </a>
 		<a href="#settingsPollVars" > Poll </a>
 		<a href="#settingsFilterVars" > Filter </a>
