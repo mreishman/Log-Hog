@@ -185,7 +185,7 @@ $countConfig--;
 					</div>
 				</li>
 				<li>
-					<span class="settingsBuffer"> Line count from </span>
+					<span class="settingsBuffer"> Line count from:</span>
 					<div class="selectDiv">
 						<select name="lineCountFromJS">
 	  						<option <?php if($lineCountFromJS == 'true'){echo "selected";} ?> value="true">JS</option>
