@@ -174,7 +174,7 @@ $countConfig--;
 					</div>
 				</li>
 				<li>
-					System preference:
+					<span class="settingsBuffer"> System preference:</span>
 					<div class="selectDiv">
 						<select name="shellOrPhp">
   							<option <?php if($shellOrPhp == 'shellPreferred'){echo "selected";} ?> value="shellPreferred">Shell Preferred</option>
@@ -192,6 +192,7 @@ $countConfig--;
 	  						<option <?php if($lineCountFromJS == 'false'){echo "selected";} ?> value="false">PHP</option>
 						</select>
 					</div>
+					<br>
 					<span style="font-size: 75%;">
 						<?php echo generateImage(
 							$arrayOfImages["info"],
