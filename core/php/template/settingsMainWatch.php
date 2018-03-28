@@ -242,7 +242,7 @@
 		$saveBlock .= "</a>";
 		$saveBlock .= "</div><div class=\"settingsDiv\" ><ul class=\"settingsUl\" >";
 		$saveBlock .= "<li><span class=\"settingsBuffer\" >Location: </span><input style=\"width: 600px;\" type=\"text\" name=\"watchListKey".$rowNumber."Location\" value=\"".$location."\" ></li>";
-		$saveBlock .= "<li ".$typeFile."><span class=\"settingsBuffer\" >Pattern: </span><span class=\"settingsBuffer\" ><input type=\"text\" name=\"watchListKey".$rowNumber."Pattern\" value=\"".$pattern."\" ></span>";
+		$saveBlock .= "<li  class=\"typeFile\" ".$typeFile."><span class=\"settingsBuffer\" >Pattern: </span><span class=\"settingsBuffer\" ><input type=\"text\" name=\"watchListKey".$rowNumber."Pattern\" value=\"".$pattern."\" ></span>";
 		$saveBlock .= "<span class=\"settingsBuffer\" >Recursive: </span><span class=\"settingsBuffer\" ><select name=\"watchListKey".$rowNumber."Recursive\" >";
 		if(isset($data["recursiveOptions"]))
 		{
@@ -253,8 +253,8 @@
 			$saveBlock .=  $recursiveOptions;
 		}
 		$saveBlock .= "</select></span></li>";
-		$saveBlock .= "<li ".$typeFile."><span class=\"settingsBuffer\" >Auto Delete Files After: </span><span class=\"settingsBuffer\" ><input style=\"width: 56px;\" type=\"text\" name=\"watchListKey".$rowNumber."AutoDeleteFiles\" value=\"".$AutoDeleteFiles."\" > Days No Change</span></li>";
-		$saveBlock .= "<li ".$typeFolder."><span class=\"settingsBuffer\" >Name: </span><span class=\"settingsBuffer\" ><input type=\"text\" name=\"watchListKey".$rowNumber."Name\" value=\"".$Name."\" > </span></li>";
+		$saveBlock .= "<li class=\"typeFile\" ".$typeFile."><span class=\"settingsBuffer\" >Auto Delete Files After: </span><span class=\"settingsBuffer\" ><input style=\"width: 56px;\" type=\"text\" name=\"watchListKey".$rowNumber."AutoDeleteFiles\" value=\"".$AutoDeleteFiles."\" > Days No Change</span></li>";
+		$saveBlock .= "<li  class=\"typeFolder\" ".$typeFolder."><span class=\"settingsBuffer\" >Name: </span><span class=\"settingsBuffer\" ><input type=\"text\" name=\"watchListKey".$rowNumber."Name\" value=\"".$Name."\" > </span></li>";
 		$saveBlock .= "<li><span class=\"settingsBuffer\" >Exclude Trim: </span><span class=\"settingsBuffer\" ><select name=\"watchListKey".$rowNumber."ExcludeTrim\" >";
 		if(isset($data["excludeTrimOptions"]))
 		{
@@ -265,7 +265,7 @@
 			$saveBlock .=  $excludeTrimOptions;
 		}
 		$saveBlock .= "</select></span>";
-		$saveBlock .= "<span class=\"settingsBuffer\" >FileType: </span><span class=\"settingsBuffer\" ><select name=\"watchListKey".$rowNumber."FileType\" >";
+		$saveBlock .= "<span class=\"settingsBuffer\" >FileType: </span><span class=\"settingsBuffer\" ><select onchange=\"toggleTypeFolderFile(".$rowNumber.")\" name=\"watchListKey".$rowNumber."FileType\" >";
 		if(isset($data["FileType"]))
 		{
 			$saveBlock .=  "<option value=\"file\" ";
@@ -303,7 +303,7 @@
 			$saveBlock .=  $AlertEnabled;
 		}
 		$saveBlock .= "</select></span></li>";
-		$saveBlock .= "<li ".$typeFile."><div class=\"settingsHeader\" style=\"margin: 0;\" >Files: ";
+		$saveBlock .= "<li class=\"typeFile\" ".$typeFile."><div class=\"settingsHeader\" style=\"margin: 0;\" >Files: ";
 		$saveBlock .= "<div class=\"settingsHeaderButtons\"><a class=\"linkSmall\" onclick=\"splitFilesPopup(".$rowNumber.", '".$location."');\"	 >Split Files</a></div>";
 		$saveBlock .= "</div> <div class=\"settingsDiv\" style=\"max-height: 150px; display: block; overflow: auto; margin: 0;\" ><ul id=\"watchListKey".$rowNumber."FilesInFolder\" class=\"settingsUl\" style=\"-webkit-padding-start: 0;\" >".$filesInFolder."</ul></div></li>";
 		$saveBlock .= "<input type=\"hidden\"   name=\"watchListKey".$rowNumber."FileInformation\" value='".$FileInformation."' >";

@@ -249,6 +249,21 @@ function updateFileInfo(currentRow)
 	document.getElementsByName("watchListKey"+currentRow+"FileInformation")[0].value = stringToUpdateTo;
 }
 
+function toggleTypeFolderFile(currentRow)
+{
+	if(document.getElementsByName("watchListKey"+currentRow+"FileType")[0].value === "file")
+	{
+		$("#rowNumber"+currentRow+" .typeFile").hide();
+		$("#rowNumber"+currentRow+" .typeFolder").show();
+	}
+	else
+	{
+		$("#rowNumber"+currentRow+" .typeFile").show();
+		$("#rowNumber"+currentRow+" .typeFolder").hide();
+	}
+	
+}
+
 function deleteRowFunctionPopup(currentRow, keyName = "")
 {
 	try
