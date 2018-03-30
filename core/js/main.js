@@ -15,6 +15,7 @@ var firstLoad = true;
 var flasher;
 var lastContentSearch = "";
 var lastLogs = {};
+var logLines = {};
 var logs = {};
 var logsToHide = new Array();
 var pausePoll = false;
@@ -271,6 +272,10 @@ function pollTwo()
 				{
 					fileData = data;
 					pollTwoPartTwo(data);
+					if(lineCountFromJS === "false")
+					{
+						updatePollLineDiff(data);
+					}
 				}
 			},
 			failure(data)
@@ -282,6 +287,28 @@ function pollTwo()
 	catch(e)
 	{
 		eventThrowException(e);
+	}
+}
+
+function updatePollLineDiff(data)
+{
+	newLineCount = Object.keys(data);
+	countLength = newLineCount.length;
+	for(var i = 0; i < countLength; i++)
+	{
+		var currentLog = newLineCount[i];
+		if(currentLog in fileData)
+		{
+			logLines[currentLog] = 0;
+			if(data[currentLog]["lineCount"] > fileData[currentLog]["lineCount"])
+			{
+				logLines[currentLog] = data[currentLog]["lineCount"] - fileData[currentLog]["lineCount"];
+			}
+		}
+		else
+		{
+			logLines[currentLog] = data[currentLog]["lineCount"]
+		}
 	}
 }
 
@@ -499,6 +526,14 @@ function arrayOfDataMainDataFilter(data)
 			for (var i = filesInner.length - 1; i >= 0; i--) 
 			{
 				arrayOfDataMain[filesInner[i]] = data[filesInner[i]];
+			}
+		}
+
+		for (var i = filesInner.length - 1; i >= 0; i--) 
+		{
+			if(data[filesInner[i]]["lineCount"] !== "---")
+			{
+				fileData[filesInner[i]]["lineCount"] = data[filesInner[i]]["lineCount"];
 			}
 		}
 	}
@@ -1565,6 +1600,13 @@ function getDiffLogAndLastLog(id)
 {
 	try
 	{
+		if(lineCountFromJS === "false")
+		{
+			if(id in logLines)
+			{
+				return logLines[id];
+			}
+		}
 		if(logs[id] === lastLogs[id])
 		{
 			return 0;

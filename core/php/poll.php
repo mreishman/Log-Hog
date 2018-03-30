@@ -7,7 +7,7 @@ require_once($baseModifier.'core/conf/config.php');
 require_once('configStatic.php');
 require_once('commonFunctions.php');
 
-$varsLoadLite = array("shellOrPhp", "logTrimOn", "logSizeLimit","logTrimMacBSD", "logTrimType","TrimSize","enableLogging","buffer","sliceSize");
+$varsLoadLite = array("shellOrPhp", "logTrimOn", "logSizeLimit","logTrimMacBSD", "logTrimType","TrimSize","enableLogging","buffer","sliceSize","lineCountFromJS");
 
 foreach ($varsLoadLite as $varLoadLite)
 {
@@ -37,11 +37,8 @@ if(isset($_POST['arrayToUpdate']))
 	{
 		try
 		{
-			if($enableLogging != "false")
-			{
-				$time_start = microtime(true);
-			}
-
+			$time_start = microtime(true);
+			$lineCount = "---";
 			$filename = preg_replace('/([()"])/S', '$1', $path);
 			if(!file_exists($filename))
 			{
@@ -68,33 +65,34 @@ if(isset($_POST['arrayToUpdate']))
 					{
 						trimLogSize($filename, $logSizeLimit,$logTrimMacBSD,$buffer, $shellOrPhp);
 					}
+
+					if($lineCountFromJS === "false")
+					{
+						$lineCount = getLineCount($filename, $shellOrPhp);
+					}
 				}
 				//poll logic
 				$dataVar =  tail($filename, $sliceSize, $shellOrPhp);
 			}
 			$dataVar = htmlentities($dataVar);
-
+			if($lineCountFromJS !== "false" && $enableLogging != "false")
+			{
+				$lineCount = getLineCount($filename, $shellOrPhp);
+			}
+			$response[$path]["data"] = "";
 			if($enableLogging != "false")
 			{
-				$lineCount = "0";
-				if($dataVar === "" || is_null($dataVar) || $dataVar === "Error - Maybe insufficient access to read file?" || $dataVar === "Error - File is not Readable")
-				{
-					$lineCount = "---";
-				}
-				elseif($dataVar !== "This file is empty. This should not be displayed.")
-				{
-					$lineCount = getLineCount($filename, $shellOrPhp);
-				}
-
 				$time = (microtime(true) - $time_start)*1000;
 				$response[$path]["data"] = " Limit: ".$logSizeLimit."(".($logSizeLimit+$buffer).") ".$modifier." | Line Count: ".$lineCount." | Time: ".round($time);
 			}
+			$response[$path]["lineCount"] = $lineCount;
 			$response[$path]["log"] = $dataVar;
 		}
 		catch (Exception $e)
 		{
 			$response[$path]["log"] = "Error - Maybe insufficient access to read file?";
 			$response[$path]["data"] = " Limit: ".$logSizeLimit."(".($logSizeLimit+$buffer).") ".$modifier." | Line Count: --- | Time: ---";
+			$response[$path]["lineCount"] = "---";
 		}
 	}
 }
