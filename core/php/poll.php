@@ -87,14 +87,14 @@ if(isset($_POST['arrayToUpdate']))
 				}
 
 				$time = (microtime(true) - $time_start)*1000;
-				$response[$path."dataForLoggingLogHog051620170928"] = " Limit: ".$logSizeLimit."(".($logSizeLimit+$buffer).") ".$modifier." | Line Count: ".$lineCount." | Time: ".round($time);
+				$response[$path]["data"] = " Limit: ".$logSizeLimit."(".($logSizeLimit+$buffer).") ".$modifier." | Line Count: ".$lineCount." | Time: ".round($time);
 			}
-			$response[$path] = $dataVar;
+			$response[$path]["log"] = $dataVar;
 		}
 		catch (Exception $e)
 		{
-			$response[$path] = "Error - Maybe insufficient access to read file?";
-			$response[$path."dataForLoggingLogHog051620170928"] = " Limit: ".$logSizeLimit."(".($logSizeLimit+$buffer).") ".$modifier." | Line Count: --- | Time: ---";
+			$response[$path]["log"] = "Error - Maybe insufficient access to read file?";
+			$response[$path]["data"] = " Limit: ".$logSizeLimit."(".($logSizeLimit+$buffer).") ".$modifier." | Line Count: --- | Time: ---";
 		}
 	}
 }
