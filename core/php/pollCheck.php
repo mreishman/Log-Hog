@@ -26,6 +26,11 @@ if(isset($_POST['currentVersion']))
 {
 	$currentVersionPost = $_POST['currentVersion'];
 }
+$fileDataPOST = null;
+if(isset($_POST["fileData"]))
+{
+	$fileDataPOST = $_POST["fileData"];
+}
 
 if($configStatic['version'] != $currentVersionPost)
 {
@@ -96,13 +101,20 @@ foreach($watchList as $key => $value)
 
 foreach ($responseFilelist as $file)
 {
-	$response[$file]["size"] = getFileSize($file, $shellOrPhp);
+	$currentFileSize = getFileSize($file, $shellOrPhp);
+	$response[$file]["size"] = $currentFileSize;
 	$responseFileLineCount = -1;
 	if($lineCountFromJS === "false")
 	{
-		$responseFileLineCount = getLineCount($file, $shellOrPhp);
+		if($fileDataPOST !== null && isset($fileDataPOST[$file]) && $fileDataPOST[$file]["size"] === $currentFileSize)
+		{
+			$response[$file]["lineCount"] = $fileDataPOST[$file]["lineCount"];
+		}
+		else
+		{
+			$response[$file]["lineCount"] = getLineCount($file, $shellOrPhp);
+		}
 	}
-	$response[$file]["lineCount"] = $responseFileLineCount;
 	$found = false;
 	$keyFound = "";
 	foreach ($watchList as $key => $value)

@@ -239,7 +239,7 @@ $countConfig--;
 								"srcModifier"	=>	"../"
 							)
 						); ?>
-						<i>This will increase poll times by 2x to 4x</i></span>
+						<i>This will increase poll times</i></span>
 				</li>
 				<li>
 					<span class="settingsBuffer"> Poll Time Logging </span>
