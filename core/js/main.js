@@ -691,8 +691,8 @@ function update(data)
 		{
 			if(files[i].indexOf("dataForLoggingLogHog051620170928") === -1)
 			{
-				var dataForCheck = data[files[i]];
 				var name = files[i];
+				var logData = data[name];
 				var selectListForFilter = document.getElementsByName("searchType")[0];
 				var selectedListFilterType = selectListForFilter.options[selectListForFilter.selectedIndex].value;
 				var filterTextField = getFilterTextField();
@@ -715,7 +715,7 @@ function update(data)
 				}
 				else if(selectedListFilterType === "content")
 				{
-					filterOffOf = dataForCheck;
+					filterOffOf = logData;
 				}
 
 				if(caseInsensitiveSearch === "true")
@@ -746,13 +746,13 @@ function update(data)
 					{
 						showLogByName(name);
 					}
-					if(dataForCheck === "This file is empty. This should not be displayed." && hideEmptyLog === "true" || data[name] === "Error - File does not exist")
+					if(logData === "This file is empty. This should not be displayed." && hideEmptyLog === "true" || logData === "Error - File does not exist")
 					{
 						hideLogByName(name);
 					}
 					else
 					{
-						if(data[name] !== null)
+						if(logData !== null)
 						{
 							folderName = name.substr(0, name.lastIndexOf("/"));
 							if(folderName !== folderNamePrev || i === 0 || groupByType === "file")
@@ -764,25 +764,25 @@ function update(data)
 									folderNameCount = 0;
 								}
 							}
-							if(data[name] === "")
+							if(logData === "")
 							{
-								data[name] = "<div class='errorMessageLog errorMessageRedBG' >Error - Unknown error? Check file permissions or clear log to fix?</div>";
+								logData = "<div class='errorMessageLog errorMessageRedBG' >Error - Unknown error? Check file permissions or clear log to fix?</div>";
 							}
-							else if(data[name] === "This file is empty. This should not be displayed.")
+							else if(logData === "This file is empty. This should not be displayed.")
 							{
-								data[name] = "<div class='errorMessageLog errorMessageGreenBG' > This file is empty. </div>";
+								logData = "<div class='errorMessageLog errorMessageGreenBG' > This file is empty. </div>";
 							}
-							else if((data[name] === "Error - File is not Readable") || (data[name] === "Error - Maybe insufficient access to read file?"))
+							else if((logData === "Error - File is not Readable") || (logData === "Error - Maybe insufficient access to read file?"))
 							{
 								var mainMessage = "Error - Maybe insufficient access to read file?";
-								if(data[name] === "Error - File is not Readable")
+								if(logData === "Error - File is not Readable")
 								{
 									mainMessage = "Error - File is not Readable";
 								}
-								data[name] = "<div class='errorMessageLog errorMessageRedBG' > "+mainMessage+" <br> <span style='font-size:75%;'> Try entering: <br> chown -R www-data:www-data "+name+" <br> or <br> chmod 664 "+name+" </span> </div>";
+								logData = "<div class='errorMessageLog errorMessageRedBG' > "+mainMessage+" <br> <span style='font-size:75%;'> Try entering: <br> chown -R www-data:www-data "+name+" <br> or <br> chmod 664 "+name+" </span> </div>";
 							}
 
-							logs[id] = data[name];
+							logs[id] = logData
 							if(enableLogging !== "false")
 							{
 								titles[id] = name + " | " + data[name+"dataForLoggingLogHog051620170928"] + " | Size: " + formatBytes(fileData[files[i]]["size"]);
