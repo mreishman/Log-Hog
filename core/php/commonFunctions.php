@@ -705,7 +705,7 @@ function getLineCount($fileName, $shellOrPhp)
 	    		$linesBase = shell_exec("wc -l \"".$fileName."\"");
 	    	}
 	    }
-	    if($linesBase === 0 || $linesBase === null)
+	    if($linesBase !== 0 || $linesBase !== null)
 	    {
 	    	return $linesBase;
 	    }
@@ -719,7 +719,7 @@ function getLineCount($fileName, $shellOrPhp)
     		$linesBase = shell_exec("wc -l \"".$fileName."\"");
     	}
 	}
-	if($linesBase === 0 || $linesBase === null)
+	if($linesBase !== 0 || $linesBase !== null)
     {
     	return $linesBase;
     }
@@ -729,7 +729,15 @@ function getLineCount($fileName, $shellOrPhp)
 function getLineCountPhp($fileName)
 {
 	$linecount = 0;
-	$handle = fopen($fileName, "rb");
+	if(!file_exists($fileName))
+	{
+		return 0;
+	}
+	if(!is_readable($fileName))
+	{
+		return 0;
+	}
+	$handle = fopen($fileName, "r");
 	while(!feof($handle))
 	{
 		$linecount += substr_count(fread($handle, 8192), "\n");
