@@ -304,38 +304,7 @@ function deleteRowFunction(currentRow)
 			for(var i = currentRow + 1; i <= newValue; i++)
 			{
 				var updateItoIMinusOne = i - 1;
-				var fileName = "";
-				if(updateItoIMinusOne < 10)
-				{
-					fileName += "0";
-				}
-				fileName += updateItoIMinusOne;
-
-				var item = generateRow(
-					{
-						rowNumber: updateItoIMinusOne,
-						prevRowNum: i,
-						fileNumber: fileName,
-						filePermsDisplay: $("#infoFile"+i).html(),
-						fileImage: $("#imageFile"+i).html(),
-						location: document.getElementsByName("watchListKey"+i+"Location")[0].value,
-						pattern: document.getElementsByName("watchListKey"+i+"Pattern")[0].value,
-						key: document.getElementsByName("watchListKey"+i)[0].value,
-						recursive: document.getElementsByName("watchListKey"+i+"Recursive")[0].value,
-						excludeTrim: document.getElementsByName("watchListKey"+i+"ExcludeTrim")[0].value,
-						fileType: document.getElementsByName("watchListKey"+i+"FileType")[0].value,
-						filesInFolder: document.getElementById("watchListKey"+i+"FilesInFolder").innerHTML,
-						AutoDeleteFiles: document.getElementsByName("watchListKey"+i+"AutoDeleteFiles")[0].value,
-						FileInformation: document.getElementsByName("watchListKey"+i+"FileInformation")[0].value,
-						Group: document.getElementsByName("watchListKey"+i+"Group")[0].value,
-						Name: document.getElementsByName("watchListKey"+i+"Name")[0].value,
-						AlertEnabled: document.getElementsByName("watchListKey"+i+"AlertEnabled")[0].value
-					}
-				);
-				//add new one
-				$(".uniqueClassForAppendSettingsMainWatchNew").append(item);
-				//remove old one
-				$("#rowNumber"+i).remove();
+				moveRow(i, updateItoIMinusOne);
 			}
 		}
 		newValue--;
@@ -345,6 +314,41 @@ function deleteRowFunction(currentRow)
 	{
 		eventThrowException(e);
 	}
+}
+
+function moveRow(currentRow, newRow)
+{
+	var fileName = "";
+	if(newRow < 10)
+	{
+		fileName += "0";
+	}
+	fileName += newRow;
+	var item = generateRow(
+		{
+			rowNumber: newRow,
+			prevRowNum: currentRow,
+			fileNumber: fileName,
+			filePermsDisplay: $("#infoFile"+i).html(),
+			fileImage: $("#imageFile"+i).html(),
+			location: document.getElementsByName("watchListKey"+i+"Location")[0].value,
+			pattern: document.getElementsByName("watchListKey"+i+"Pattern")[0].value,
+			key: document.getElementsByName("watchListKey"+i)[0].value,
+			recursive: document.getElementsByName("watchListKey"+i+"Recursive")[0].value,
+			excludeTrim: document.getElementsByName("watchListKey"+i+"ExcludeTrim")[0].value,
+			fileType: document.getElementsByName("watchListKey"+i+"FileType")[0].value,
+			filesInFolder: document.getElementById("watchListKey"+i+"FilesInFolder").innerHTML,
+			AutoDeleteFiles: document.getElementsByName("watchListKey"+i+"AutoDeleteFiles")[0].value,
+			FileInformation: document.getElementsByName("watchListKey"+i+"FileInformation")[0].value,
+			Group: document.getElementsByName("watchListKey"+i+"Group")[0].value,
+			Name: document.getElementsByName("watchListKey"+i+"Name")[0].value,
+			AlertEnabled: document.getElementsByName("watchListKey"+i+"AlertEnabled")[0].value
+		}
+	);
+	//add new one
+	$(".uniqueClassForAppendSettingsMainWatchNew").append(item);
+	//remove old one
+	$("#rowNumber"+i).remove();
 }
 
 function checkWatchList()
