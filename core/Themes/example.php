@@ -12,19 +12,16 @@
 	<div id="menu" style="position: relative; ">
 		<div id="menuButtons">
 			<div class="menuImageDiv">
-				<img id="pauseImage" class="menuImage" src="<?php echo $theme; ?>/img/Pause.png" height="30px">
+				<img class="menuImage" src="<?php echo $theme; ?>/img/menu.png" height="30px">
 			</div>
 			<div class="menuImageDiv">
-				<img id="refreshImage" class="menuImage" src="<?php echo $theme; ?>/img/Refresh.png" height="30px">
+				<img class="menuImage" src="<?php echo $theme; ?>/img/notification.png" height="30px">
 			</div>
 			<div class="menuImageDiv">
-				<img id="deleteImage" class="menuImage" src="<?php echo $theme; ?>/img/eraserMulti.png" height="30px">
+				<img class="menuImage" src="<?php echo $theme; ?>/img/Pause.png" height="30px">
 			</div>
 			<div class="menuImageDiv">
-				<img data-id="1" id="gear" class="menuImage" src="<?php echo $theme; ?>/img/Gear.png" height="30px">
-			</div>
-			<div class="menuImageDiv">
-					<img id="notificationClear" class="menuImage" src="<?php echo $theme; ?>/img/notificationClear.png" height="30px">
+				<img class="menuImage" src="<?php echo $theme; ?>/img/Refresh.png" height="30px">
 			</div>
 			<div style="float: right;">
 				<input type="search" placeholder="Filter Title" style="height: 30px; width: 200px;">
