@@ -75,7 +75,7 @@ if(isset($_POST['arrayToUpdate']))
 				$dataVar =  tail($filename, $sliceSize, $shellOrPhp);
 			}
 			$dataVar = htmlentities($dataVar);
-			if($lineCountFromJS !== "false" && $enableLogging != "false")
+			if($lineCount === "---" && $enableLogging != "false")
 			{
 				$lineCount = getLineCount($filename, $shellOrPhp);
 			}

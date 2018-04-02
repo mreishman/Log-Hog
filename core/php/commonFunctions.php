@@ -248,9 +248,19 @@ function getFileSizeInner($fileName, $shellOrPhp)
 {
 	if($shellOrPhp === "phpPreferred" || $shellOrPhp ===  "phpOnly")
 	{
-		return filesize($fileName);
+		$fileSize = filesize($fileName);
+		if(($fileSize === 0 || $fileSize === null) && $shellOrPhp === "phpPreferred")
+		{
+			$fileSize = shell_exec('wc -c < ' . $fileName);
+		}
+		return $fileSize;
 	}
-	return shell_exec('wc -c < ' . $fileName);
+	$fileSize = shell_exec('wc -c < ' . $fileName);
+	if(($fileSize === 0 || $fileSize === null) && $shellOrPhp === "shellPreferred")
+	{
+		$fileSize = filesize($fileName);
+	}
+	return $fileSize;
 }
 
 function trimLogLine($filename, $logSizeLimit,$logTrimMacBSD,$buffer, $shellOrPhp)
