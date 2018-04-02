@@ -439,12 +439,12 @@
 				}
 
 				$filesInFolder .= "<span style=\"width: 300px; overflow: auto; display: inline-block;\" >".str_replace($location, "", $key2)."</span><input name=\"watchListKey".$i."FileInFolder\"  type=\"hidden\" value=\"".$key2."\" >";
-				$filesInFolder .= "<span class=\"settingsBuffer\" >Include: <select onchange=\"updateFileInfo(".$i.")\" name=\"watchListKey".$i."FileInFolderInclude\" > ".makeTrueFalseSelect($includeBool)." </select></span>";
-				$filesInFolder .= "<span class=\"settingsBuffer\" >Exclude Trim: <select onchange=\"updateFileInfo(".$i.")\" name=\"watchListKey".$i."FileInFolderTrim\"> ".makeTrueFalseSelect($excludeTrimBool)." </select></span>";
-				$filesInFolder .= "<span class=\"settingsBuffer\" >Exclude Delete: <select onchange=\"updateFileInfo(".$i.")\" name=\"watchListKey".$i."ExcludeDelete\"> ".makeTrueFalseSelect($excludeDelete)." </select></span>";
-				$filesInFolder .= "<span class=\"settingsBuffer\" >Alert on Update: <select onchange=\"updateFileInfo(".$i.")\" name=\"watchListKey".$i."FileInFolderAlert\"> ".makeTrueFalseSelect($notify)." </select></span>";
+				$filesInFolder .= "<span class=\"settingsBuffer\" >Include: <select onchange=\"updateFileInfo(".$i.");\" name=\"watchListKey".$i."FileInFolderInclude\" > ".makeTrueFalseSelect($includeBool)." </select></span>";
+				$filesInFolder .= "<span class=\"settingsBuffer\" >Exclude Trim: <select onchange=\"updateFileInfo(".$i.");\" name=\"watchListKey".$i."FileInFolderTrim\"> ".makeTrueFalseSelect($excludeTrimBool)." </select></span>";
+				$filesInFolder .= "<span class=\"settingsBuffer\" >Exclude Delete: <select onchange=\"updateFileInfo(".$i.");\" name=\"watchListKey".$i."ExcludeDelete\"> ".makeTrueFalseSelect($excludeDelete)." </select></span>";
+				$filesInFolder .= "<span class=\"settingsBuffer\" >Alert on Update: <select onchange=\"updateFileInfo(".$i.");\" name=\"watchListKey".$i."FileInFolderAlert\"> ".makeTrueFalseSelect($notify)." </select></span>";
 
-				$filesInFolder .= "<span class=\"settingsBuffer\" >Name: <input type=\"text\" name=\"watchListKey".$i."FileInFolderName\" value=\"".$nameValue."\" > </span>";
+				$filesInFolder .= "<span class=\"settingsBuffer\" >Name: <input onchange=\"updateFileInfo(".$i.");\"  type=\"text\" name=\"watchListKey".$i."FileInFolderName\" value=\"".$nameValue."\" > </span>";
 				$filesInFolder .= "</li>";
 			}
 			if($filesInFolder === "")

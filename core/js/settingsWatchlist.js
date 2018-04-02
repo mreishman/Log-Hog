@@ -12,6 +12,12 @@ function generateRow(data)
 	{
 		fileTypeIsFile = true;
 	}
+	var filesInFolder = data["filesInFolder"];
+	if(data["prevRowNum"] !== -1)
+	{
+		filesInFolder = filesInFolder.split("watchListKey"+data["prevRowNum"]).join("watchListKey"+data["rowNumber"]);
+		filesInFolder = filesInFolder.split("updateFileInfo("+data["prevRowNum"]).join("updateFileInfo("+data["rowNumber"]);
+	}
 	var item = $("#storage .saveBlock").html();
 	item = item.replace(/{{rowNumber}}/g, data["rowNumber"]);
 	item = item.replace(/{{fileNumber}}/g, data["fileNumber"]);
@@ -25,7 +31,7 @@ function generateRow(data)
 	item = item.replace(/{{typefile}}/g, displayNoneIfTrue(fileTypeIsFile));
 	item = item.replace(/{{typefolder}}/g, displayNoneIfTrue(fileTypeIsFolder));
 	item = item.replace(/{{FileTypeOptions}}/g, generateFileTypeSelect(data["fileType"]));
-	item = item.replace(/{{filesInFolder}}/g, data["filesInFolder"]);
+	item = item.replace(/{{filesInFolder}}/g, filesInFolder);
 	item = item.replace(/{{AutoDeleteFiles}}/g, data["AutoDeleteFiles"]);
 	item = item.replace(/{{FileInformation}}/g, data["FileInformation"]);
 	item = item.replace('FileInformation" value="', 'FileInformation" value=\'');
@@ -151,6 +157,7 @@ function addRowFunction(data)
 		var item = generateRow(
 			{
 				rowNumber: countOfWatchList,
+				prevRowNum: -1,
 				fileNumber: fileName,
 				filePermsDisplay: "----------",
 				fileImage: "",
@@ -307,6 +314,7 @@ function deleteRowFunction(currentRow)
 				var item = generateRow(
 					{
 						rowNumber: updateItoIMinusOne,
+						prevRowNum: i,
 						fileNumber: fileName,
 						filePermsDisplay: $("#infoFile"+i).html(),
 						fileImage: $("#imageFile"+i).html(),
