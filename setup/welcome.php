@@ -90,5 +90,5 @@ if(file_exists($baseUrl.'conf/config.php'))
 	var saveVerifyImage = "../core/img/greenCheck.png";
 </script>
 <script src="../core/js/settings.js?v=<?php echo rand(0,2000); ?>"></script>
-<script src="stepsJavascript.js?v=1"></script> <!-- Try to remember to manually increment this one? -->
+<script src="stepsJavascript.js?v=<?php echo rand(0,2000); ?>"></script> <!-- Try to remember to manually increment this one? -->
 </html>
