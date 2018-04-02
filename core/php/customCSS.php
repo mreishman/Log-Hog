@@ -66,10 +66,10 @@ body, #main
 	filter: brightness(<?php echo $overallBrightness; ?>%);
 }
 
-#menu
+#menu, .backgroundForMenus
 {
 	background: <?php echo $backgroundHeaderColor?>;
-	color: <?php echo $currentSelectedThemeColorValues['main']['main-1']['fontColor']?>;
+	color: <?php echo $mainFontColor; ?>;
 }
 
 /* Firefox */
@@ -159,29 +159,6 @@ if(!($windowDisplayConfig[0] > 1 || $windowDisplayConfig[1] > 1)): ?>
 ::-webkit-scrollbar-thumb:hover
 {
 	<?php echo $scrollBarHandleHover; ?>
-}
-
-/* MOVE OUT OF HERE 
-
-- Aqua
-- Areo
-- Ocean
-
-*/
-#fullScreenMenu
-{
-	background-color: rgba(0,0,0,.7);
-}
-
-.fullScreenMenuUL li
-{
-	background-color: black;
-	color: white;
-}
-
-.fullScreenMenuUL li:not(.menuTitle):hover, #fullScreenMenu .selected
-{
-	filter: invert(100%);
 }
 
 </style>

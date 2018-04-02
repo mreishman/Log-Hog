@@ -316,3 +316,39 @@ div.sidebarLeft {
 {
   cursor: pointer;
 }
+
+.settingsUlFS 
+{
+  width: 200px;
+  position: absolute;
+  bottom: 0;
+  top: 46px;
+  left: 0;
+  -webkit-padding-start: 0;
+  -webkit-margin-before: 0;
+  -webkit-margin-after: 0;
+  overflow: auto;
+}
+
+.settingsUlSub
+{
+  width: 200px;
+  position: absolute;
+  bottom: 0;
+  top: 46px;
+  left: 201;
+  -webkit-padding-start: 0;
+  -webkit-margin-before: 0;
+  -webkit-margin-after: 0; 
+  overflow: auto;
+}
+
+#mainContentFullScreenMenu
+{
+  position: absolute;
+  bottom: 0;
+  top: 46px;
+  left: 402px;
+  right: 0;
+  overflow: auto;
+}

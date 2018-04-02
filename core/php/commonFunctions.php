@@ -276,7 +276,7 @@ function trimLogSize($filename, $logSizeLimit,$logTrimMacBSD,$buffer, $shellOrPh
 {
 	$maxForLoop = 0;
 	$trimFileBool = true;
-	while ($trimFileBool && $maxForLoop < 10)
+	while ($trimFileBool && $maxForLoop < 5)
 	{
 		$filesizeForFile = getFileSizeInner($filename, $shellOrPhp);
 		if($filesizeForFile > $logSizeLimit+$buffer)

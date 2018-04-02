@@ -451,7 +451,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 				?>
 			</div>
 		</div>
-		<ul class="settingsUl fullScreenMenuUL" style="width: 200px; position: absolute; bottom: 0; top: 46px; left: 0; -webkit-padding-start: 0; background-color: black; -webkit-margin-before: 0; -webkit-margin-after: 0; border-right: 1px solid white; overflow: auto;">
+		<ul class="settingsUl settingsUlFS fullScreenMenuUL">
 			<li class="menuTitle" style="text-align: center;" >
 				Log-Hog
 			</li>
@@ -609,7 +609,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 			<?php endif; ?>
 		</ul>
 
-		<ul id="aboutSubMenu" class="settingsUl fullScreenMenuUL" style="width: 200px; position: absolute; bottom: 0; top: 46px; left: 201; -webkit-padding-start: 0; background-color: black; -webkit-margin-before: 0; -webkit-margin-after: 0; border-right: 1px solid white; overflow: auto;">
+		<ul id="aboutSubMenu" class="settingsUl fullScreenMenuUL settingsUlSub">
 			<li class="menuTitle" style="text-align: center;" >
 				About
 			</li>
@@ -623,7 +623,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 				Changelog
 			</li>
 		</ul>
-		<div style="position: absolute; bottom: 0; top: 46px; left: 402px; right: 0; overflow: auto;">
+		<div id="mainContentFullScreenMenu">
 			<div id="fullScreenMenuChangeLog" style="display: none;" >
 				<?php readfile('core/html/changelog.html'); ?>
 			</div>

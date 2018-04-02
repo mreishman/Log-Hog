@@ -108,13 +108,14 @@ foreach ($responseFilelist as $file)
 	{
 		if($fileDataPOST !== null && isset($fileDataPOST[$file]) && $fileDataPOST[$file]["size"] === $currentFileSize)
 		{
-			$response[$file]["lineCount"] = $fileDataPOST[$file]["lineCount"];
+			$responseFileLineCount = $fileDataPOST[$file]["lineCount"];
 		}
 		else
 		{
-			$response[$file]["lineCount"] = getLineCount($file, $shellOrPhp);
+			$responseFileLineCount = getLineCount($file, $shellOrPhp);
 		}
 	}
+	$response[$file]["lineCount"] = $responseFileLineCount;
 	$found = false;
 	$keyFound = "";
 	foreach ($watchList as $key => $value)
