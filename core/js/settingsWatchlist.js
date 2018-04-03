@@ -477,6 +477,12 @@ function moveDown(rowNumber)
 	}
 }
 
+function moveUp(rowNumber)
+{
+	rowNumber--;
+	moveDown(rowNumber);
+}
+
 $( document ).ready(function() 
 {
 	refreshSettingsWatchList();
