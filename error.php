@@ -138,6 +138,10 @@ $errorArray = array(
         "firstMessage"      =>  "Core Config File Error",
         "secondMessage"     =>  "An error occured when loading the core config file. The file loaded does not contain the expected variable. Please check that the local layout file contains the defaultConfig variable, and is defined. If it is empty, re copy it from the repo (core/conf/config.php)"
     ),
+    11   =>  array(
+        "firstMessage"      =>  "Zip Archive is not installed",
+        "secondMessage"     =>  "When trying to check for an update, php downloads a Zip file from github. This requires the php module Zip Archive to work. Please install Zip archive to use the update function in log-hog. An example command would be: sudo apt-get install php7.0-zip"
+    ),
     42   =>  array(
         "firstMessage"      =>  "General Error",
         "secondMessage"     =>  "A general error occured, or you navigated to this page directly."

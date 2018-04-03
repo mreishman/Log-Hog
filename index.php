@@ -53,6 +53,11 @@ require_once('core/php/configStatic.php');
 require_once('core/php/loadVars.php');
 require_once('core/php/updateCheck.php');
 
+if(!class_exists('ZipArchive') && $autoCheckUpdate === "true")
+{
+	echoErrorJavaScript("", "ZipArchive is not installed", 11);
+}
+
 $daysSince = calcuateDaysSince($configStatic['lastCheck']);
 
 if($pollingRateType == 'Seconds')
