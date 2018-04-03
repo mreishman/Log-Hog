@@ -166,7 +166,7 @@ $errorArray = array(
 
 if(!isset($errorArray[$error]))
 {
-    $error = 0;
+    $error = 42;
 }
 
 $jsForResetToDefaultLoaded = false;
