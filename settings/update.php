@@ -18,6 +18,7 @@ require_once('../core/php/configStatic.php');
 require_once('../core/php/loadVars.php');
 require_once('../core/php/updateCheck.php');
 
+
 $daysSince = calcuateDaysSince($configStatic['lastCheck']);
 ?>
 <!doctype html>
@@ -39,96 +40,99 @@ $daysSince = calcuateDaysSince($configStatic['lastCheck']);
 			<ul class="settingsUl">
 				<li>
 					<h2>Current Version of Log-Hog: <?php echo $configStatic['version'];?></h2>
-				</li>	
-				<li>
-					<h2>You last checked for updates
-						<span id="spanNumOfDaysUpdateSince" >
-							<u onclick="checkForUpdates();" style="cursor: pointer;" > <?php echo $daysSince;?> Day<?php if($daysSince != 1){ echo "s";} ?></u>
-						</span>
-						 Ago
-					</h2>
 				</li>
-				<li>
-					<form id="settingsCheckForUpdate" style="float: left; padding: 10px;">
-					<a class="link" onclick="checkForUpdates();">Check for updates</a>
-					</form>
-					<form id="settingsInstallUpdate" action="../update/updater.php" method="post" style="padding: 10px;">
-					<?php
-					if($levelOfUpdate != 0){echo '<a class="link" onclick="installUpdates();">Install '.$configStatic["newestVersion"].' Update</a>';}
-					?>
-					</form>
-				</li>
-				<li id="noUpdate" <?php if($levelOfUpdate != 0){echo "style='display: none;'";} ?> >
-					<h2>
+				<?php if(!class_exists('ZipArchive')): ?>
+				<?php else: ?>
+					<li>
+						<h2>You last checked for updates
+							<span id="spanNumOfDaysUpdateSince" >
+								<u onclick="checkForUpdates();" style="cursor: pointer;" > <?php echo $daysSince;?> Day<?php if($daysSince != 1){ echo "s";} ?></u>
+							</span>
+							 Ago
+						</h2>
+					</li>
+					<li>
+						<form id="settingsCheckForUpdate" style="float: left; padding: 10px;">
+						<a class="link" onclick="checkForUpdates();">Check for updates</a>
+						</form>
+						<form id="settingsInstallUpdate" action="../update/updater.php" method="post" style="padding: 10px;">
 						<?php
-						echo generateImage(
-							$arrayOfImages["greenCheck"],
-							$imageConfig = array(
-								"id"			=>	"statusImage1",
-								"height"		=>	"15px",
-								"srcModifier"	=> "../"
-							)
-						);
+						if($levelOfUpdate != 0){echo '<a class="link" onclick="installUpdates();">Install '.$configStatic["newestVersion"].' Update</a>';}
 						?>
-						&nbsp; No new updates - You are on the current version!
-					</h2>
-				</li>
-				<li id="minorUpdate" <?php if($levelOfUpdate != 1){echo "style='display: none;'";} ?> >
-					<h2>
-						<?php
-						echo generateImage(
-							$arrayOfImages["yellowWarning"],
-							$imageConfig = array(
-								"id"			=>	"statusImage2",
-								"height"		=>	"15px",
-								"srcModifier"	=> "../"
-							)
-						);
-						?>
-						&nbsp; Minor Updates -
-						<span id="minorUpdatesVersionNumber">
-							<?php echo " ".$configStatic['newestVersion']." ";?>
-						</span>
-						- bug fixes 
-					</h2>
-				</li>
-				<li id="majorUpdate" <?php if($levelOfUpdate != 2){echo "style='display: none;'";} ?> >
-					<h2>
-						<?php
-						echo generateImage(
-							$arrayOfImages["redWarning"],
-							$imageConfig = array(
-								"id"			=>	"statusImage3",
-								"height"		=>	"15px",
-								"srcModifier"	=> "../"
-							)
-						);
-						?>
-						&nbsp; Major Updates -
-						<span id="majorUpdatesVersionNumber">
-							<?php echo " ".$configStatic['newestVersion']." ";?>
-						</span>
-						- new features!</h2>
-				</li>
-				<li id="NewXReleaseUpdate" <?php if($levelOfUpdate != 3){echo "style='display: none;'";} ?> >
-					<h2>
-						<?php
-						echo generateImage(
-							$arrayOfImages["redWarning"],
-							$imageConfig = array(
-								"id"			=>	"statusImage3",
-								"height"		=>	"30px",
-								"srcModifier"	=> "../"
-							)
-						);
-						?>
-						&nbsp; Very Major Updates -
-						<span id="veryMajorUpdatesVersionNumber">
-							<?php echo " ".$configStatic['newestVersion']." ";?>
-						</span>
-						- a lot of new features!
-					</h2>
-				</li>
+						</form>
+					</li>
+					<li id="noUpdate" <?php if($levelOfUpdate != 0){echo "style='display: none;'";} ?> >
+						<h2>
+							<?php
+							echo generateImage(
+								$arrayOfImages["greenCheck"],
+								$imageConfig = array(
+									"id"			=>	"statusImage1",
+									"height"		=>	"15px",
+									"srcModifier"	=> "../"
+								)
+							);
+							?>
+							&nbsp; No new updates - You are on the current version!
+						</h2>
+					</li>
+					<li id="minorUpdate" <?php if($levelOfUpdate != 1){echo "style='display: none;'";} ?> >
+						<h2>
+							<?php
+							echo generateImage(
+								$arrayOfImages["yellowWarning"],
+								$imageConfig = array(
+									"id"			=>	"statusImage2",
+									"height"		=>	"15px",
+									"srcModifier"	=> "../"
+								)
+							);
+							?>
+							&nbsp; Minor Updates -
+							<span id="minorUpdatesVersionNumber">
+								<?php echo " ".$configStatic['newestVersion']." ";?>
+							</span>
+							- bug fixes 
+						</h2>
+					</li>
+					<li id="majorUpdate" <?php if($levelOfUpdate != 2){echo "style='display: none;'";} ?> >
+						<h2>
+							<?php
+							echo generateImage(
+								$arrayOfImages["redWarning"],
+								$imageConfig = array(
+									"id"			=>	"statusImage3",
+									"height"		=>	"15px",
+									"srcModifier"	=> "../"
+								)
+							);
+							?>
+							&nbsp; Major Updates -
+							<span id="majorUpdatesVersionNumber">
+								<?php echo " ".$configStatic['newestVersion']." ";?>
+							</span>
+							- new features!</h2>
+					</li>
+					<li id="NewXReleaseUpdate" <?php if($levelOfUpdate != 3){echo "style='display: none;'";} ?> >
+						<h2>
+							<?php
+							echo generateImage(
+								$arrayOfImages["redWarning"],
+								$imageConfig = array(
+									"id"			=>	"statusImage3",
+									"height"		=>	"30px",
+									"srcModifier"	=> "../"
+								)
+							);
+							?>
+							&nbsp; Very Major Updates -
+							<span id="veryMajorUpdatesVersionNumber">
+								<?php echo " ".$configStatic['newestVersion']." ";?>
+							</span>
+							- a lot of new features!
+						</h2>
+					</li>
+				<?php endif; ?>
 			</ul>
 		</div>
 		<div id="releaseNotesHeader" <?php if($levelOfUpdate == 0){echo "style='display: none;'";} ?> class="settingsHeader">
