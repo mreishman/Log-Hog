@@ -334,6 +334,16 @@ function moveRow(currentRow, newRow)
 	{
 		fileName += "0";
 	}
+	var upBool = true;
+	var downBool = true;
+	if(newRow === 1)
+	{
+		upBool = false;
+	}
+	else if(newRow === parseInt(document.getElementById("numberOfRows").value))
+	{
+		downBool = false;
+	}
 	fileName += newRow;
 	var item = generateRow(
 		{
@@ -354,8 +364,8 @@ function moveRow(currentRow, newRow)
 			Group: document.getElementsByName("watchListKey"+currentRow+"Group")[0].value,
 			Name: document.getElementsByName("watchListKey"+currentRow+"Name")[0].value,
 			AlertEnabled: document.getElementsByName("watchListKey"+currentRow+"AlertEnabled")[0].value,
-			up: true,
-			down: true
+			up: upBool,
+			down: downBool
 		}
 	);
 	//add new one
