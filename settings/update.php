@@ -42,6 +42,7 @@ $daysSince = calcuateDaysSince($configStatic['lastCheck']);
 					<h2>Current Version of Log-Hog: <?php echo $configStatic['version'];?></h2>
 				</li>
 				<?php if(!class_exists('ZipArchive')): ?>
+					Error - you must install ZipArchive to download / check for updates.
 				<?php else: ?>
 					<li>
 						<h2>You last checked for updates
