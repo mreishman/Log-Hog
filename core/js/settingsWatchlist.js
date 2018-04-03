@@ -39,6 +39,14 @@ function generateRow(data)
 	item = item.replace(/{{Group}}/g, data["Group"]);
 	item = item.replace(/{{Name}}/g, data["Name"]);
 	item = item.replace(/{{AlertEnabled}}/g, generateTrueFalseSelect(data["AlertEnabled"]));
+	if(!data["down"])
+	{
+		item = item.replace(/{{movedown}}/g, "style=\"display: none;\"");
+	}
+	if(!data["up"])
+	{
+		item = item.replace(/{{moveup}}/g, "style=\"display: none;\"");
+	}
 	return item;
 }
 
@@ -125,6 +133,7 @@ function addRowFunction(data)
 	try
 	{
 		var countOfWatchList = parseInt(document.getElementById("numberOfRows").value);
+		document.getElementById("moveDown"+countOfWatchList).style.display = "inline-block";
 		countOfWatchList++;
 
 		var fileName = ""+countOfWatchList;
@@ -172,7 +181,9 @@ function addRowFunction(data)
 				FileInformation: "{}",
 				Group: "",
 				Name: "",
-				AlertEnabled: defaultdefaultNewAddAlertEnabled
+				AlertEnabled: defaultdefaultNewAddAlertEnabled,
+				up: true,
+				down: false
 			}
 		);
 		$(".uniqueClassForAppendSettingsMainWatchNew").append(item);
@@ -342,7 +353,9 @@ function moveRow(currentRow, newRow)
 			FileInformation: document.getElementsByName("watchListKey"+i+"FileInformation")[0].value,
 			Group: document.getElementsByName("watchListKey"+i+"Group")[0].value,
 			Name: document.getElementsByName("watchListKey"+i+"Name")[0].value,
-			AlertEnabled: document.getElementsByName("watchListKey"+i+"AlertEnabled")[0].value
+			AlertEnabled: document.getElementsByName("watchListKey"+i+"AlertEnabled")[0].value,
+			up: true,
+			down: true
 		}
 	);
 	//add new one

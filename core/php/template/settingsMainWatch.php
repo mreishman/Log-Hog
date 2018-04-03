@@ -120,6 +120,20 @@
 		$FileInformation = "{{FileInformation}}";
 		$Name = "{{Name}}";
 		$AlertEnabled = "{{AlertEnabled}}";
+		$first = false;
+		$last = false;
+
+		if(isset($data["Position"]))
+		{
+			if($data["Position"] === "first")
+			{
+				$first = true;
+			}
+			elseif($data["Position"] === "last")
+			{
+				$last = true;
+			}
+		}
 
 		if(isset($data["rowNumber"]))
 		{
@@ -240,6 +254,25 @@
 		$saveBlock .= "<a class=\"deleteIconPosition\"	onclick=\"deleteRowFunctionPopup(".$rowNumber.", '".$location."');\"	>";
 		$saveBlock .= $defaultTrashCanIcon;
 		$saveBlock .= "</a>";
+		$saveBlock .= "  <a ";
+		if($first)
+		{
+			$saveBlock .= " style=\"display: none;\" ";
+		}
+		elseif(!isset($data["Position"]))
+		{
+			$saveBlock .= "{{moveup}}";
+		}
+		$saveBlock .= " class=\"linkSmall\" id=\"moveUp".$rowNumber."\" onclick=\"moveUp(".$rowNumber.");\" > Move Up </a>  <a ";
+		if($last)
+		{
+			$saveBlock .= " style=\"display: none;\" ";
+		}
+		elseif(!isset($data["Position"]))
+		{
+			$saveBlock .= "{{movedown}}";
+		}
+		$saveBlock .= " class=\"linkSmall\" id=\"moveDown".$rowNumber."\" onclick=\"moveDown(".$rowNumber.");\" > Move Down </a>";
 		$saveBlock .= "</div><div class=\"settingsDiv\" ><ul class=\"settingsUl\" >";
 		$saveBlock .= "<li><span class=\"settingsBuffer\" >Location: </span><input style=\"width: 600px;\" type=\"text\" name=\"watchListKey".$rowNumber."Location\" value=\"".$location."\" ></li>";
 		$saveBlock .= "<li  class=\"typeFile\" ".$typeFile."><span class=\"settingsBuffer\" >Pattern: </span><span class=\"settingsBuffer\" ><input type=\"text\" name=\"watchListKey".$rowNumber."Pattern\" value=\"".$pattern."\" ></span>";
@@ -314,6 +347,7 @@
 
 	$i = 0;
 	$triggerSaveUpdate = false;
+	$total = count($watchList);
 	foreach($watchList as $key => $values)
 	{
 		$i++;
@@ -323,6 +357,15 @@
 		$fileImage = $defaultYellowErrorIcon;
 		$FileType = "auto";
 		$FileInformation = $values["FileInformation"];
+		$Position = false;
+		if($i === 1)
+		{
+			$Position = "first";
+		}
+		elseif($total === $i)
+		{
+			$Position = "last";
+		}
 
 		if(!file_exists($location))
 		{
@@ -490,7 +533,8 @@
 				"Group"					=>	$values["Group"],
 				"FileInformation"		=>	$FileInformation,
 				"Name"					=>	$values["Name"],
-				"AlertEnabled"			=>	$values["AlertEnabled"]
+				"AlertEnabled"			=>	$values["AlertEnabled"],
+				"Position"				=>	$Position
 			),
 			$defaultTrashCanIcon
 		);
