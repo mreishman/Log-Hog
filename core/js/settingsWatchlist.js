@@ -340,20 +340,20 @@ function moveRow(currentRow, newRow)
 			rowNumber: newRow,
 			prevRowNum: currentRow,
 			fileNumber: fileName,
-			filePermsDisplay: $("#infoFile"+i).html(),
-			fileImage: $("#imageFile"+i).html(),
-			location: document.getElementsByName("watchListKey"+i+"Location")[0].value,
-			pattern: document.getElementsByName("watchListKey"+i+"Pattern")[0].value,
-			key: document.getElementsByName("watchListKey"+i)[0].value,
-			recursive: document.getElementsByName("watchListKey"+i+"Recursive")[0].value,
-			excludeTrim: document.getElementsByName("watchListKey"+i+"ExcludeTrim")[0].value,
-			fileType: document.getElementsByName("watchListKey"+i+"FileType")[0].value,
-			filesInFolder: document.getElementById("watchListKey"+i+"FilesInFolder").innerHTML,
-			AutoDeleteFiles: document.getElementsByName("watchListKey"+i+"AutoDeleteFiles")[0].value,
-			FileInformation: document.getElementsByName("watchListKey"+i+"FileInformation")[0].value,
-			Group: document.getElementsByName("watchListKey"+i+"Group")[0].value,
-			Name: document.getElementsByName("watchListKey"+i+"Name")[0].value,
-			AlertEnabled: document.getElementsByName("watchListKey"+i+"AlertEnabled")[0].value,
+			filePermsDisplay: $("#infoFile"+currentRow).html(),
+			fileImage: $("#imageFile"+currentRow).html(),
+			location: document.getElementsByName("watchListKey"+currentRow+"Location")[0].value,
+			pattern: document.getElementsByName("watchListKey"+currentRow+"Pattern")[0].value,
+			key: document.getElementsByName("watchListKey"+currentRow)[0].value,
+			recursive: document.getElementsByName("watchListKey"+currentRow+"Recursive")[0].value,
+			excludeTrim: document.getElementsByName("watchListKey"+currentRow+"ExcludeTrim")[0].value,
+			fileType: document.getElementsByName("watchListKey"+currentRow+"FileType")[0].value,
+			filesInFolder: document.getElementById("watchListKey"+currentRow+"FilesInFolder").innerHTML,
+			AutoDeleteFiles: document.getElementsByName("watchListKey"+currentRow+"AutoDeleteFiles")[0].value,
+			FileInformation: document.getElementsByName("watchListKey"+currentRow+"FileInformation")[0].value,
+			Group: document.getElementsByName("watchListKey"+currentRow+"Group")[0].value,
+			Name: document.getElementsByName("watchListKey"+currentRow+"Name")[0].value,
+			AlertEnabled: document.getElementsByName("watchListKey"+currentRow+"AlertEnabled")[0].value,
 			up: true,
 			down: true
 		}
@@ -361,7 +361,7 @@ function moveRow(currentRow, newRow)
 	//add new one
 	$(".uniqueClassForAppendSettingsMainWatchNew").append(item);
 	//remove old one
-	$("#rowNumber"+i).remove();
+	$("#rowNumber"+currentRow).remove();
 }
 
 function checkWatchList()
@@ -441,9 +441,34 @@ function refreshSettingsWatchList()
 	}
 }
 
+function moveDown(rowNumber)
+{
+	//rown number is current row
+	var countOfWatchList = parseInt(document.getElementById("numberOfRows").value);
+	var counter = 0;
+	for(var i = rowNumber; i <= countOfWatchList; i++)
+	{
+		counter++;
+		moveRow(i, (countOfWatchList+counter));
+	}
+
+	moveRow((countOfWatchList+2),rowNumber);
+	rowNumber++;
+	moveRow((countOfWatchList+1),rowNumber);
+	rowNumber++;
+	if(rowNumber !== countOfWatchList)
+	{
+		var counter = 2;
+		for(var i = rowNumber; i <= countOfWatchList; i++)
+		{
+			counter++;
+			moveRow((countOfWatchList+counter), i);
+		}
+	}
+}
+
 $( document ).ready(function() 
 {
 	refreshSettingsWatchList();
 	setInterval(poll, 100);
 });
-
