@@ -466,7 +466,7 @@ function moveDown(rowNumber)
 	rowNumber++;
 	moveRow((countOfWatchList+1),rowNumber);
 	rowNumber++;
-	if(rowNumber !== countOfWatchList)
+	if(rowNumber !== countOfWatchList + 1)
 	{
 		var counter = 2;
 		for(var i = rowNumber; i <= countOfWatchList; i++)
