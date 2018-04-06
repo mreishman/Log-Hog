@@ -1867,6 +1867,7 @@ function resize()
 			$(".logTdWidth").outerWidth(tdElementWidth);
 			$(".backgroundForSideBarMenu").outerHeight(trElementHeight);
 		}
+		updateNotificationCount();
 	}
 	catch(e)
 	{

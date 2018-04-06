@@ -490,10 +490,14 @@ function getCookieRedirect()
 
 }
 
-function setCookieRedirect()
+function setCookieRedirect($customUrl = null)
 {
 	$actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-	while (isset($_COOKIE["locationRedirectLogHogUpgrade"]))
+	if($customUrl !== null)
+	{
+		$actual_link = $customUrl;
+	}
+	if(isset($_COOKIE["locationRedirectLogHogUpgrade"]))
 	{
 		unset($_COOKIE["locationRedirectLogHogUpgrade"]);
 	}
