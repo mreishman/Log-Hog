@@ -1,3 +1,6 @@
+<div class="settingsHeader">
+	Whats New
+</div>
 <div class="settingsDiv" >
 	<table width="100%;">
 		<tr>
