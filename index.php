@@ -628,6 +628,30 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 				Changelog
 			</li>
 		</ul>
+		<ul id="settingsSubMenu" class="settingsUl fullScreenMenuUL settingsUlSub" style="display: none;">
+			<li class="menuTitle" style="text-align: center;">
+				Settings
+			</li>
+			<li id="settingsSubMenuWatchlist" onclick="toggleWatchListSubMenu();" class="selected">
+				Watchlist
+			</li>
+			<!--
+			<li id="settingsSubMenuWatchlist" onclick="toggleAddonsSubMenu();">
+				Addons
+			</li>
+			-->
+		</ul>
+		<ul id="updateSubMenu" class="settingsUl fullScreenMenuUL settingsUlSub" style="display: none;">
+			<li class="menuTitle" style="text-align: center;">
+				Update
+			</li>
+			<li id="settingsSubMenuWatchlist" onclick="toggleUpdateSubMenu();" class="selected">
+				Update
+			</li>
+			<li id="settingsSubMenuWatchlist" onclick="toggleUpdateChangelogSubMenu();">
+				Update Changelog
+			</li>
+		</ul>
 		<div id="mainContentFullScreenMenu">
 			<div id="fullScreenMenuChangeLog" style="display: none;" >
 				<?php readfile('core/html/changelog.html'); ?>
