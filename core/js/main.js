@@ -1477,6 +1477,7 @@ function hideLogByName(name)
 			}
 			$("#menu ." + idOfName + "Button").hide();
 		}
+		removeNotificationByLog(idOfName);
 		removeFromMultiLog(idOfName);
 	}
 	catch(e)
