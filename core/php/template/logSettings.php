@@ -9,7 +9,7 @@
 	<div class="settingsDiv" >
 	<ul id="settingsUl">
 		<li>
-			<span class="settingsBuffer" >Number of lines to display:</span>  <input type="text" name="sliceSize" value="<?php echo $sliceSize;?>" >
+			<span class="settingsBuffer" >Number of lines to display:</span>  <input type="number" pattern="[0-9]*" name="sliceSize" value="<?php echo $sliceSize;?>" >
 		</li>
 		<li>
 			<span class="settingsBuffer" > Flash title on log update: </span>
@@ -38,23 +38,23 @@
 				</select>
 			</div>
 			<div id="scrollLogOnUpdateSettings" style=" <?php if($scrollOnUpdate == 'false'){ echo 'display: none;'; }?> " >
-			<div class="settingsHeader">
-			Scroll Log On Update Settings
+				<div class="settingsHeader">
+				Scroll Log On Update Settings
+				</div>
+				<div class="settingsDiv" >
+					<ul id="settingsUl">
+						<li>
+							<span class="settingsBuffer" > Scroll even if Scrolled: </span>
+							<div class="selectDiv"> 
+								<select name="scrollEvenIfScrolled">
+									<option <?php if($scrollEvenIfScrolled == 'true'){echo "selected";} ?> value="true">True</option>
+									<option <?php if($scrollEvenIfScrolled == 'false'){echo "selected";} ?> value="false">False</option>
+								</select>
+							</div>
+						</li>
+					</ul>
+				</div>
 			</div>
-			<div class="settingsDiv" >
-				<ul id="settingsUl">
-					<li>
-						<span class="settingsBuffer" > Scroll even if Scrolled: </span>
-						<div class="selectDiv"> 
-							<select name="scrollEvenIfScrolled">
-								<option <?php if($scrollEvenIfScrolled == 'true'){echo "selected";} ?> value="true">True</option>
-								<option <?php if($scrollEvenIfScrolled == 'false'){echo "selected";} ?> value="false">False</option>
-							</select>
-						</div>
-					</li>
-				</ul>
-			</div>
-		</div>
 		</li>
 		<li>
 		<span class="settingsBuffer" > Temp Highlight New Lines: </span>
@@ -109,7 +109,7 @@
 
 
 					: </span> 
-						<input type="text" name="logSizeLimit" value="<?php echo $logSizeLimit;?>" > 
+						<input type="number" pattern="[0-9]*" name="logSizeLimit" value="<?php echo $logSizeLimit;?>" > 
 						<span id="logTrimTypeText" >
 							<?php if($logTrimType == 'lines')
 							{
@@ -124,7 +124,7 @@
 					</li>
 					<li>
 					<span class="settingsBuffer" > Buffer Size: </span>
-					 	<input type="text" name="buffer" value="<?php echo $buffer;?>" > 
+					 	<input type="number" pattern="[0-9]*" name="buffer" value="<?php echo $buffer;?>" > 
 					</li>
 					<li id="LiForlogTrimMacBSD">
 						<span class="settingsBuffer" > Use Mac/Free BSD Command: </span>

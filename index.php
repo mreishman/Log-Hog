@@ -53,6 +53,11 @@ require_once('core/php/configStatic.php');
 require_once('core/php/loadVars.php');
 require_once('core/php/updateCheck.php');
 
+if(!class_exists('ZipArchive') && $autoCheckUpdate === "true")
+{
+	echoErrorJavaScript("", "ZipArchive is not installed", 11);
+}
+
 $daysSince = calcuateDaysSince($configStatic['lastCheck']);
 
 if($pollingRateType == 'Seconds')
@@ -134,6 +139,14 @@ for ($i=0; $i < $windowDisplayConfig[0]; $i++)
 			"title"		=>	"Delete Log"
 			)
 		);
+	$downImageForWindowTableLoop =  generateImage(
+		$arrayOfImages["downArrowSideBar"],
+		$imageConfig = array(
+			"height"	=>	"20px",
+			"style"		=>	"margin: 5px;",
+			"title"		=>	"Scroll to Bottom"
+			)
+		);
 	$loadingImage = generateImage(
 					$arrayOfImages["loading"],
 					$imageConfig = array(
@@ -185,6 +198,9 @@ for ($i=0; $i < $windowDisplayConfig[0]; $i++)
 		$logDisplay .= "<a onclick=\"deleteLogPopup('".$counter."');\" style=\"cursor: pointer;\" >";
 		$logDisplay .= $deleteImageForWindowTableLoop;
 		$logDisplay .= "</a>";
+		$logDisplay .= "<a onclick=\"scrollToBottom('".$counter."');\" style=\"cursor: pointer;\" >";
+		$logDisplay .= $downImageForWindowTableLoop;
+		$logDisplay .= "</a>";
 		$logDisplay .= "</div> ";
 		$logDisplay .= "</td><td onclick=\"changeCurrentSelectWindow(".$counter.")\" style=\"padding: 0;\" >";
 		$logDisplay .= " <span id=\"log".$counter."Td\"  class=\"logTrHeight\" style=\"overflow: auto; display: block; word-break: break-all;\" > ";
@@ -202,7 +218,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 <!doctype html>
 <head>
 	<title>Log Hog | Index</title>
-	<?php echo loadCSS($baseUrl, $cssVersion);?>
+	<?php echo loadCSS("", $baseUrl, $cssVersion);?>
 	<link rel="icon" type="image/png" href="<?php echo $baseUrl; ?>img/favicon.png" />
 	<script src="core/js/jquery.js"></script>
 	<?php
@@ -214,10 +230,19 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 </head>
 <body>
 	<?php require_once("core/php/customCSS.php");
+	require_once("core/php/customIndexCSS.php");
 	if($enablePollTimeLogging != "false"): ?>
-		<div id="loggTimerPollStyle" style="width: 100%;background-color: black;text-align: center; line-height: 200%;" ><span id="loggingTimerPollRate" >### MS /<?php echo $pollingRate; ?> MS</span> | <span id="loggSkipCount" >0</span>/<?php echo $pollForceTrue; ?> | <span id="loggAllCount" >0</span>/<?php echo $pollRefreshAll; ?></div>
+		<div id="loggTimerPollStyle" class="noticeBar"><span id="loggingTimerPollRate" >### MS /<?php echo $pollingRate; ?> MS</span> | <span id="loggSkipCount" >0</span>/<?php echo $pollForceTrue; ?> | <span id="loggAllCount" >0</span>/<?php echo $pollRefreshAll; ?></div>
 	<?php endif; ?>
-	<div class="backgroundForMenus" id="menu">
+		<div id="noticeBar" class="noticeBar" style="display: none;" >
+			<span id="connectionNotice" style="color: yellow;" >
+				Notice  - <?php echo ($pollForceTrue * 2); ?> poll requests have failed. Please check server connectivity or refresh page.
+			</span>
+			<span id="connectionWarning" style="color: red;">
+				Warning - <?php echo ($pollForceTrue * 4); ?> poll requests have failed. Please check server connectivity or refresh page.
+			</span>
+		</div>
+	<div class="backgroundForMenus" id="header" >
 		<div id="menuButtons" style="display: block;">
 			<div onclick="pausePollAction();" class="menuImageDiv">
 				<?php
@@ -351,6 +376,27 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 					?>
 				</div>
 			<?php endif; ?>
+			<div class="menuImageDiv" id="notificationDiv" onclick="toggleNotifications();" >
+				<?php echo generateImage(
+					$arrayOfImages["notification"],
+					$imageConfig = array(
+						"id"		=>	"notificationNotClicked",
+						"class"		=>	"menuImage",
+						"height"	=>	"30px"
+						)
+					); 
+				?>
+				<?php echo generateImage(
+					$arrayOfImages["notificationFull"],
+					$imageConfig = array(
+						"id"		=>	"notificationClicked",
+						"class"		=>	"menuImage",
+						"height"	=>	"30px",
+						"style"		=>  "display: none;"
+						)
+					); 
+				?>
+			</div>
 			<div onclick="window.location.href = './settings/about.php'" class="menuImageDiv">
 				<?php echo generateImage(
 					$arrayOfImages["info"],
@@ -371,47 +417,22 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 						"height"	=>	"30px",
 						"data-id"	=>	"1"
 						)
-					); 
-				if($updateNotificationEnabled === "true")
-				{
-					if($levelOfUpdate == 1)
-					{
-						echo generateImage(
-							$arrayOfImages["yellowWarning"],
-							$imageConfig = array(
-								"id"		=>	"updateImage",
-								"class"		=>	"menuImage",
-								"height"	=>	"15px",
-								"style"		=>	"position: absolute;margin-left: 13px;margin-top: -34px;"
-							)
-						);
-					}
-					elseif($levelOfUpdate == 2 || $levelOfUpdate == 3)
-					{
-						echo generateImage(
-							$arrayOfImages["redWarning"],
-							$imageConfig = array(
-								"id"		=>	"updateImage",
-								"class"		=>	"menuImage",
-								"height"	=>	"15px",
-								"style"		=>	"position: absolute;margin-left: 13px;margin-top: -34px;"
-							)
-						);
-					}
-				}
+					);
 				?>
 			</div>
-			<div  id="clearNotificationsImage" style="display: none;" onclick="clearNotifications();" class="menuImageDiv">
-				<?php echo generateImage(
-					$arrayOfImages["notificationClear"],
-					$imageConfig = array(
-						"id"		=>	"notificationClearImage",
-						"class"		=>	"menuImage",
-						"height"	=>	"30px"
-						)
-					); 
-				?>
-			</div>
+			<span <?php if($hideClearAllNotifications === "true"){ echo "style=\" display: none; \""; }?> >
+				<div  id="clearNotificationsImage" style="display: none;" onclick="removeAllNotifications();" class="menuImageDiv">
+					<?php echo generateImage(
+						$arrayOfImages["notificationClear"],
+						$imageConfig = array(
+							"id"		=>	"notificationClearImage",
+							"class"		=>	"menuImage",
+							"height"	=>	"30px"
+							)
+						); 
+					?>
+				</div>
+			</span>
 			<div style="float: right;">
 				<div class="selectDiv" >
 					<select id="searchType" disabled name="searchType" style="height: 30px;">
@@ -420,10 +441,35 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 					</select>
 				</div>
 				<input disabled id="searchFieldInput" type="search" name="search" placeholder="Filter <?php echo $filterDefault; ?>" style="height: 30px; width: 200px;">
+				<div onclick="toggleFilterSettingsPopup();" style="display: inline-block; cursor: pointer;">
+					<?php echo generateImage(
+						$arrayOfImages["gear"],
+						$imageConfig = array(
+							"id"		=>	"filterGear",
+							"class"		=>	"menuImage",
+							"height"	=>	"15px",
+							"title"		=>  "Filter Settings",
+							"style"		=>  "margin-top: -15px;"
+							)
+						); 
+					?>
+				</div>
 			</div>
 		</div>
 	</div>
-	<?php echo $popupInfoLog; ?>
+	<div class="backgroundForMenus" id="menu">
+	</div>
+	<?php echo $popupInfoLog; ?>.
+	<div style="display: inline-block; position: absolute; top: 0; left: 0;" >
+		<div id="notificationIcon">
+			<span onclick="toggleNotifications();" id="notificationCount"></span>
+			<span onclick="toggleNotifications();" id="notificationBadge"></span>
+		</div>
+		<div id="notifications">
+			<div class="notificationTriangle"></div>
+			<div id="notificationHolder"></div>
+		</div>
+	</div>
 	<div id="main">
 		<table id="log" style="display: none; margin: 0px;padding: 0px; border-spacing: 0px;" style="width: 100%;" >
 			<?php echo $logDisplay; ?>
@@ -446,6 +492,58 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 				<span id="{{id}}Count" class="menuCounter"></span>
 				<span id="{{id}}CountHidden" class="menuCounterHidden" style="display: none;"></span>
 			</a>
+		</div>
+		<div class="notificationContainer">
+			<div id="{{id}}">
+				<span style="width: 100%;">
+					<table style="width: 100%; padding-top: 5px; padding-bottom: 5px;" >
+						<tr>
+							<td style="border-right: 1px solid black; width: 65px;"> {{time}} </td>
+							<td onclick="removeNotification('{{idNum}}'); {{action}}" class="notificationText"> {{name}} </td>
+							<td style="width: 10px; cursor: pointer;" onclick="removeNotification('{{idNum}}');" >x</td>
+						</tr>
+					</table>
+				</span>
+			</div>
+		</div>
+		<div class="notificationContainerWithImage">
+			<div id="{{id}}">
+				<span style="width: 100%;">
+					<table style="width: 100%; padding-top: 5px; padding-bottom: 5px;" >
+						<tr>
+							<td style="border-right: 1px solid black; width: 65px;"> {{time}} </td>
+							<td onclick="removeNotification('{{idNum}}'); {{action}}" class="notificationText"> {{image}} {{name}} </td>
+							<td style="width: 10px; cursor: pointer;" onclick="removeNotification('{{idNum}}');" >x</td>
+						</tr>
+					</table>
+				</span>
+			</div>
+		</div>
+		<div class="notificationContainerEmpty">
+			<div id="{{id}}">
+				<span style="width: 100%;">
+					<table style="width: 100%; padding-top: 5px; padding-bottom: 5px;" >
+						<tr>
+							<td style="border-right: 1px solid black; width: 65px;"> {{time}} </td>
+							<td class="notificationText"> {{name}} </td>
+						</tr>
+					</table>
+				</span>
+			</div>
+		</div>
+		<div class="notificationButtons">
+			<div>
+				<table style="width: 100%; border-top: 1px solid #aaa; padding-bottom: 3px; padding-top: 3px;">
+					<tr>
+						<th>
+							<span class="linkSmall" style="cursor: pointer;" onclick="toggleNotifications();">Close</span>
+						</th>
+						<th>
+							<span class="linkSmall" style="cursor: pointer;" onclick="removeAllNotifications(); toggleNotifications();">Clear</span>
+						</th>
+					</tr>
+				</table>
+			</div>
 		</div>
 	</div>
 	<form id="settingsInstallUpdate" action="update/updater.php" method="post" style="display: none"></form>
@@ -476,6 +574,45 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 				echo "Rightclick_ID_list.push('updateImage');";
 			}
 		endif;
+		if($levelOfUpdate !== 0 && $configStatic["version"] !== $dontNotifyVersion && $updateNotificationEnabled): 
+			if($updateNoticeMeter === "every" || $levelOfUpdate > 1):
+				$updateImage = "";
+				if($levelOfUpdate == 1)
+				{
+					$updateImage = json_encode(generateImage(
+						$arrayOfImages["yellowWarning"],
+						$imageConfig = array(
+							"id"		=>	"updateImage",
+							"class"		=>	"menuImage",
+							"height"	=>	"15px"
+						)
+					));
+				}
+				elseif($levelOfUpdate == 2 || $levelOfUpdate == 3)
+				{
+					$updateImage = json_encode(generateImage(
+						$arrayOfImages["redWarning"],
+						$imageConfig = array(
+							"id"		=>	"updateImage",
+							"class"		=>	"menuImage",
+							"height"	=>	"15px"
+						)
+					));
+				}
+
+				?>
+				function addUpdateNotification()
+				{
+					var currentId = notifications.length;
+					notifications[currentId] = new Array();
+					notifications[currentId]["id"] = currentId;
+					notifications[currentId]["name"] = "New Update: <?php echo $configStatic['newestVersion'];?>";
+					notifications[currentId]["time"] = formatAMPM(new Date());
+					notifications[currentId]["action"] = "window.location = './settings/update.php';";
+					notifications[currentId]["image"] = <?php echo $updateImage; ?>;
+				}
+			<?php endif; 
+		endif;
 		echo "var colorArrayLength = ".count($currentSelectedThemeColorValues).";";
 		echo "var pausePollOnNotFocus = ".$pauseOnNotFocus.";";
 		echo "var autoCheckUpdate = ".$autoCheckUpdate.";";
@@ -502,6 +639,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 			$srcForLoadImage = $arrayOfImages["loading"]["src"];
 		}
 		?>
+		var notifications = new Array();
 		var srcForLoadImage = "<?php echo $srcForLoadImage; ?>";
 		var dontNotifyVersion = "<?php echo $dontNotifyVersion;?>";
 		var currentVersion = "<?php echo $configStatic['version'];?>";
@@ -524,6 +662,8 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 		var logTitle = "<?php echo $logTitle; ?>";
 		var scrollEvenIfScrolled = "<?php echo $scrollEvenIfScrolled; ?>";
 		var highlightNew = "<?php echo $highlightNew; ?>";
+		var filterTitleIncludePath = "<?php echo $filterTitleIncludePath; ?>";
+		var logMenuLocation = "<?php echo $logMenuLocation; ?>";
 	</script>
 	<?php require_once('core/php/template/popup.php') ?>
 	<script src="core/js/main.js?v=<?php echo $cssVersion?>"></script>

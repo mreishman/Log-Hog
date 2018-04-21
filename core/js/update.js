@@ -4,6 +4,7 @@ var updateFormID = "settingsInstallUpdate";
 var showPopupForUpdateBool = true;
 var dontNotifyVersionNotSet = "";
 var dataFromJSON = "";
+var verifyCountSuccess = 0;
 
 function checkForUpdates(urlSend = "../", whatAmIUpdating = "Log-Hog", currentNewVersion = currentVersion, updateFormIDLocal = "settingsInstallUpdate", showPopupForUpdateInner = true, dontNotifyVersionInner = "")
 {
@@ -96,7 +97,7 @@ function showPopupForUpdate(urlSend,whatAmIUpdating)
 			document.getElementById("releaseNotesHeader").style.display = "block";
 			document.getElementById("releaseNotesBody").style.display = "block";
 			document.getElementById("releaseNotesBody").innerHTML = dataFromJSON.changeLog;
-			document.getElementById("settingsInstallUpdate").innerHTML = "<a class=\"link\" onclick=\"installUpdates();\">Install "+dataFromJSON.versionNumber+" Update</a>";
+			document.getElementById("settingsInstallUpdate").innerHTML = "<a class=\"link\" onclick=\"installUpdates(\""+urlSend+"\");\">Install "+dataFromJSON.versionNumber+" Update</a>";
 		}
 
 		//Update needed
@@ -129,7 +130,7 @@ function saveSettingFromPopupNoCheckMaybe()
 {
 	try
 	{
-		if(document.getElementById("dontShowPopuForThisUpdateAgain").checked)
+		if(document.getElementById("dontShowPopuForThisUpdateAgain") && document.getElementById("dontShowPopuForThisUpdateAgain").checked)
 		{
 			var urlForSend = urlSend+"core/php/settingsSaveAjax.php?format=json";
 			var data = {dontNotifyVersion};
@@ -185,6 +186,7 @@ function installUpdates(urlSend = "../", updateFormIDLocal = "settingsInstallUpd
 			type: "POST",
 			complete(data)
 			{
+				verifyCountSuccess = 0;
 				timeoutVar = setInterval(function(){verifyChange(urlSend);},3000);
 			}
 		});
@@ -211,8 +213,17 @@ function verifyChange(urlSend)
 			{
 				if(data == "finishedUpdate")
 				{
-					clearInterval(timeoutVar);
-					actuallyInstallUpdates();
+					verifyCountSuccess++;
+					if(verifyCountSuccess >= successVerifyNum)
+					{
+						verifyCountSuccess = 0;
+						clearInterval(timeoutVar);
+						actuallyInstallUpdates();
+					}
+				}
+				else
+				{
+					verifyCountSuccess = 0;
 				}
 			}
 		});

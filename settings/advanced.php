@@ -34,7 +34,7 @@ $countConfig--;
 <!doctype html>
 <head>
 	<title>Settings | Advanced</title>
-	<?php echo loadCSS($baseUrl, $cssVersion);?>
+	<?php echo loadCSS("../",$baseUrl, $cssVersion);?>
 	<link rel="icon" type="image/png" href="../core/img/favicon.png" />
 	<script src="../core/js/jquery.js"></script>
 	<script src="../core/js/advanced.js?v=<?php echo $cssVersion;?>"></script>
@@ -95,6 +95,27 @@ $countConfig--;
 					<?php endif; ?>
 					<a onclick="resetSettingsPopup();" class="link">Reset Settings back to Default</a>
 				</li>
+				<li>
+					<span class="settingsBuffer"> Save verification number:</span>
+					<div class="selectDiv">
+						<select name="successVerifyNum">
+							<?php for ($i=1; $i <= 5; $i++): ?> 
+								<option <?php if($successVerifyNum === $i){echo "selected";} ?> value=<?php echo $i;?>><?php echo $i;?></option>
+							<?php endfor; ?>
+						</select>
+					</div>
+					<br>
+					<span style="font-size: 75%;">
+						<?php echo generateImage(
+							$arrayOfImages["info"],
+							array(
+								"style"			=>	"margin-bottom: -4px;",
+								"height"		=>	"20px",
+								"srcModifier"	=>	"../"
+							)
+						); ?>
+						<i>This is for platforms where saving files might not be in sync with containers. Increasing from one will make saves take longer, but it will be more accurate if there is that sync delay</i></span>
+				</li>
 			</ul>
 		</div>
 	</form>
@@ -132,7 +153,7 @@ $countConfig--;
 			<ul id="settingsUl">
 				<li>
 					<span class="settingsBuffer"> Poll refresh all data every </span>
-					<input type="text" style="width: 100px;"  name="pollRefreshAll" value="<?php echo $pollRefreshAll;?>" > 
+					<input type="number" pattern="[0-9]*" style="width: 100px;"  name="pollRefreshAll" value="<?php echo $pollRefreshAll;?>" > 
 					poll requests
 					<div class="selectDiv">
 						<select name="pollRefreshAllBool">
@@ -143,7 +164,7 @@ $countConfig--;
 				</li>
 				<li>
 					<span class="settingsBuffer"> Force poll refresh after </span>
-					<input type="text" style="width: 100px;"  name="pollForceTrue" value="<?php echo $pollForceTrue;?>" > 
+					<input type="number" pattern="[0-9]*" style="width: 100px;"  name="pollForceTrue" value="<?php echo $pollForceTrue;?>" > 
 					skipped poll requests
 					<div class="selectDiv">
 						<select name="pollForceTrueBool">
@@ -297,7 +318,7 @@ $countConfig--;
 			</ul>
 		</div>
 	</form>
-		<div class="settingsHeader">
+		<div id="moreAdvanced" class="settingsHeader">
 			Advanced
 		</div>
 		<div class="settingsDiv" >

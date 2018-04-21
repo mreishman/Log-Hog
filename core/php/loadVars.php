@@ -315,6 +315,12 @@ else
 			"title"			=>	"Back",
 			"baseName"		=>	"backArrow.png"
 		),
+		"downArrowSideBar"	=> array(
+			"alt"			=>	"Down",
+			"src"			=>	"",
+			"title"			=>	"Scroll To Bottom",
+			"baseName"		=>	"downArrowSideBar.png"
+		),
 		"eraser"			=> array(
 			"alt"			=>	"Clear",
 			"src"			=>	"",
@@ -381,11 +387,23 @@ else
 			"title"			=>	"Loading...",
 			"baseName"		=>	"loading.gif"
 		),
+		"notification"	=> array(
+			"alt"			=>	"Notifications",
+			"src"			=>	"",
+			"title"			=>	"Notifications",
+			"baseName"		=>	"notification.png"
+		),
 		"notificationClear"	=> array(
 			"alt"			=>	"Clear Notifications",
 			"src"			=>	"",
 			"title"			=>	"Clear Notifications",
 			"baseName"		=>	"notificationClear.png"
+		),
+		"notificationFull"	=> array(
+			"alt"			=>	"Notifications",
+			"src"			=>	"",
+			"title"			=>	"Notifications",
+			"baseName"		=>	"notificationFull.png"
 		),
 		"pause"			=> array(
 			"alt"			=>	"Pause",
@@ -484,6 +502,10 @@ else
 
 		$arrayOfImages[$key]["src"] = $src;
 	}
+
+	echo "<script>";
+	echo "var successVerifyNum = ".$successVerifyNum.";";
+	echo "</script>";
 }
 
 $arrayOfCustomConfig = array(

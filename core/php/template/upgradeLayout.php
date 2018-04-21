@@ -81,7 +81,7 @@ $totalUpgradeScripts = floatval($layoutVersionToUpgradeTo) - floatval($layoutVer
 	echo "var startVersion = ".$layoutVersion.";";
 	echo "var endVersion = ".$layoutVersionToUpgradeTo.";";
 	?>
-
+	var verifyCountSuccess = 0;
 	$( document ).ready(function()
 	{
 		if(endVersion > startVersion)
@@ -124,6 +124,7 @@ $totalUpgradeScripts = floatval($layoutVersionToUpgradeTo) - floatval($layoutVer
 		document.getElementById('runLoad').style.display = "none";
 		document.getElementById('verifyLoad').style.display = "block";
 		verifyCount = 0;
+		verifyCountSuccess = 0;
 		verifyFileTimer = setInterval(function(){verifyFilePoll(version);},2000);
 	}
 
@@ -161,11 +162,17 @@ $totalUpgradeScripts = floatval($layoutVersionToUpgradeTo) - floatval($layoutVer
 	{
 		if(verified == true)
 		{
-			clearInterval(verifyFileTimer);
-			verifySucceded(data['lastAction']);
+			verifyCountSuccess++;
+			if(verifyCountSuccess >= successVerifyNum)
+			{
+				verifyCountSuccess = 0;
+				clearInterval(verifyFileTimer);
+				verifySucceded(data['lastAction']);
+			}
 		}
 		else
 		{
+			verifyCountSuccess = 0;
 			verifyCount++;
 			if(verifyCount > 29)
 			{

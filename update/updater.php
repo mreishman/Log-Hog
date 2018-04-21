@@ -125,7 +125,7 @@ if(count($arrayOfVersions) === 0)
 <!doctype html>
 <head>
 	<title>Log Hog | Updater</title>
-	<?php echo loadCSS($baseUrl, $cssVersion);?>
+	<?php echo loadCSS("../",$baseUrl, $cssVersion);?>
 	<link rel="icon" type="image/png" href="../core/img/favicon.png" />
 	<script src="../core/js/jquery.js"></script>
 </head>
@@ -192,6 +192,8 @@ if(count($arrayOfVersions) === 0)
 	var versionCountCurrent = 1;
 	var lastFileCheck = "";
 	var update = "<?php echo $update;?>";
+	var verifyCountSuccess = 0;
+	var successVerifyNum = 4; 
 
 	$( document ).ready(function()
 	{
@@ -368,6 +370,7 @@ if(count($arrayOfVersions) === 0)
 	function verifyFile(action, fileLocation,isThere = true)
 	{
 		verifyCount = 0;
+		verifyCountSuccess = 0;
 		updateText('Verifying '+action+' with '+fileLocation);
 		verifyFileTimer = setInterval(function(){verifyFilePoll(action,fileLocation,isThere);},2000);
 	}
@@ -407,11 +410,17 @@ if(count($arrayOfVersions) === 0)
 	{
 		if(verified == true)
 		{
-			clearInterval(verifyFileTimer);
-			verifySucceded(data['lastAction']);
+			verifyCountSuccess++;
+			if(verifyCountSuccess >= successVerifyNum)
+			{
+				verifyCountSuccess = 0;
+				clearInterval(verifyFileTimer);
+				verifySucceded(data['lastAction']);
+			}
 		}
 		else
 		{
+			verifyCountSuccess = 0;
 			verifyCount++;
 			if(verifyCount > 9)
 			{
@@ -501,6 +510,7 @@ if(count($arrayOfVersions) === 0)
 	function verifyFileOrDir(action, fileLocation)
 	{
 		verifyCount = 0;
+		verifyCountSuccess = 0;
 		updateText('Verifying '+action+' with '+fileLocation);
 		verifyFileTimer = setInterval(function(){verifyFileOrDirPoll(action,fileLocation);},2000);
 	}
@@ -540,11 +550,17 @@ if(count($arrayOfVersions) === 0)
 	{
 		if(verified == true)
 		{
-			clearInterval(verifyFileTimer);
-			verifySuccededTwo(data['lastAction']);
+			verifyCountSuccess++;
+			if(verifyCountSuccess >= successVerifyNum)
+			{
+				verifyCountSuccess = 0;
+				clearInterval(verifyFileTimer);
+				verifySuccededTwo(data['lastAction']);
+			}
 		}
 		else
 		{
+			verifyCountSuccess = 0;
 			verifyCount++;
 			if(verifyCount > 9)
 			{
@@ -904,6 +920,7 @@ if(count($arrayOfVersions) === 0)
 			complete: function(data)
 			{
 				retryCount = 0;
+				verifyCountSuccess = 0;
 				verifyFileTimer = setInterval(function(){finishUpdatePollCheck();},2000);
 				
 			}
@@ -938,9 +955,18 @@ if(count($arrayOfVersions) === 0)
 			{
 				if(data === arrayOfVersions[(versionCountCurrent-1)])
 				{
-					retryCount = 0;
-					clearInterval(verifyFileTimer);
-					finishedUpdateAfterAjaxSetToOneHundred();
+					verifyCountSuccess++;
+					if(verifyCountSuccess >= successVerifyNum)
+					{
+						verifyCountSuccess = 0;
+						retryCount = 0;
+						clearInterval(verifyFileTimer);
+						finishedUpdateAfterAjaxSetToOneHundred();
+					}
+				}
+				else
+				{
+					verifyCountSuccess = 0;
 				}
 			},
 			failure: function(data)
@@ -955,6 +981,7 @@ if(count($arrayOfVersions) === 0)
 		updateProgressBar(99);
 		updateStatusFunc("Finished Updating to ","finishedUpdate",100);
 		retryCount = 0;
+		verifyCountSuccess = 0;
 		verifyFileTimer = setInterval(function(){finishUpdateOneHundredCheck();},2000);
 	}
 
@@ -984,9 +1011,18 @@ if(count($arrayOfVersions) === 0)
 			{
 				if(data === true)
 				{
-					retryCount = 0;
-					clearInterval(verifyFileTimer);
-					finishedUpdateAfterAjax();
+					verifyCountSuccess++;
+					if(verifyCountSuccess >= successVerifyNum)
+					{
+						verifyCountSuccess = 0;
+						retryCount = 0;
+						clearInterval(verifyFileTimer);
+						finishedUpdateAfterAjax();
+					}
+				}
+				else
+				{
+					verifyCountSuccess = 0;
 				}
 			},
 			failure: function(data)

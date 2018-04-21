@@ -21,7 +21,7 @@ require_once('../core/php/updateCheck.php');
 <!doctype html>
 <head>
 	<title>Settings | Dev</title>
-	<?php echo loadCSS($baseUrl, $cssVersion);?>
+	<?php echo loadCSS("../",$baseUrl, $cssVersion);?>
 	<link rel="icon" type="image/png" href="../core/img/favicon.png" />
 	<script src="../core/js/jquery.js"></script>
 	<script src="../core/js/devTools.js?v=<?php echo $cssVersion;?>"></script>
@@ -52,10 +52,10 @@ require_once('../core/php/updateCheck.php');
 					<span class="settingsBuffer" >  Base URL:  </span> <input type="text" style="width: 400px;"  name="baseUrlUpdate" value="<?php echo $baseUrlUpdate;?>" > 
 				</li>
 				<li>
-					<span class="settingsBuffer" > Config Version:  </span> <input type="text" style="width: 400px;"  name="configVersion" value="<?php echo $configVersion;?>" > 
+					<span class="settingsBuffer" > Config Version:  </span> <input type="number" pattern="[0-9]*" style="width: 400px;"  name="configVersion" value="<?php echo $configVersion;?>" > 
 				</li>
 				<li>
-					<span class="settingsBuffer" > Layout Version:  </span> <input type="text" style="width: 400px;"  name="layoutVersion" value="<?php echo $layoutVersion;?>" > 
+					<span class="settingsBuffer" > Layout Version:  </span> <input type="number" pattern="[0-9]*" style="width: 400px;"  name="layoutVersion" value="<?php echo $layoutVersion;?>" > 
 				</li>
 			</ul>
 			

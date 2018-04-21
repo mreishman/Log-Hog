@@ -28,7 +28,7 @@ require_once('../core/php/loadVars.php');?>
 	<title>Welcome!</title>
 	<script src="../core/js/jquery.js"></script>
 	<?php require_once("../core/php/template/popup.php");
-	echo loadCSS($baseUrl, $cssVersion);
+	echo loadCSS("../",$baseUrl, $cssVersion);
 	echo loadSentryData($sendCrashInfoJS, $branchSelected);
 	require_once("../core/php/customCSS.php");?>
 </head>

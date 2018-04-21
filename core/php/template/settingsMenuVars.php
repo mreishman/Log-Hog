@@ -18,6 +18,15 @@ Menu Settings
 		</div>
 	</li>
 	<li>
+		<span class="settingsBuffer" >Clear Notifications Button:</span>
+		<div class="selectDiv">
+			<select name="hideClearAllNotifications">
+				<option <?php if($hideClearAllNotifications == 'true'){echo "selected";} ?> value="true">Hide</option>
+				<option <?php if($hideClearAllNotifications == 'false'){echo "selected";} ?> value="false">Show</option>
+			</select>
+		</div>
+	</li>
+	<li>
 		<span class="settingsBuffer" > Show Side Bar: </span>
 		<div class="selectDiv">
 			<select name="bottomBarIndexShow">
@@ -68,6 +77,18 @@ Menu Settings
 				<option <?php if($logTitle == 'filePath'){echo "selected";} ?> value="filePath">Full Path Of Log</option>
 			</select>
 		</div>
+	</li>
+	<li>
+		<span class="settingsBuffer" > Log List Location: </span>
+			<div class="selectDiv">
+				<select name="logMenuLocation">
+					<option <?php if($logMenuLocation == 'top'){echo "selected";} ?> value="top">Top</option>
+					<option <?php if($logMenuLocation == 'bottom'){echo "selected";} ?> value="bottom">Bottom</option>
+					<option <?php if($logMenuLocation == 'left'){echo "selected";} ?> value="left">Left</option>
+					<option <?php if($logMenuLocation == 'right'){echo "selected";} ?> value="right">Right</option>
+				</select>
+			</div>
+		</li>
 	</li>
 </ul>
 </div>

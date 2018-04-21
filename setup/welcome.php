@@ -47,6 +47,7 @@ if(file_exists($baseUrl.'conf/config.php'))
 <head>
 	<title>Welcome!</title>
 	<link rel="stylesheet" type="text/css" href="../core/template/theme.css">
+	<link rel="stylesheet" type="text/css" href="../core/template/base.css">
 	<script src="../core/js/jquery.js"></script>
 	<?php require_once("../core/php/template/popup.php"); ?>	
 </head>
@@ -88,6 +89,6 @@ if(file_exists($baseUrl.'conf/config.php'))
 
 	var saveVerifyImage = "../core/img/greenCheck.png";
 </script>
-<script src="../core/js/settings.js?v=<?php echo $cssVersion?>"></script>
+<script src="../core/js/settings.js?v=<?php echo rand(0,2000); ?>"></script>
 <script src="stepsJavascript.js?v=1"></script> <!-- Try to remember to manually increment this one? -->
 </html>

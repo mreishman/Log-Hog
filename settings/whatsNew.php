@@ -22,7 +22,7 @@ require_once('../core/php/loadVars.php');
 <!doctype html>
 <head>
 	<title>Settings | Main</title>
-	<?php echo loadCSS($baseUrl, $cssVersion);?>
+	<?php echo loadCSS("../",$baseUrl, $cssVersion);?>
 	<link href="../core/template/lightbox.css" rel="stylesheet" type="text/css" />
 	<link rel="icon" type="image/png" href="../core/img/favicon.png" />
 	<script src="../core/js/jquery.js"></script>

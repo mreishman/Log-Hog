@@ -27,6 +27,15 @@ Filter Settings
 		</div>
 	</li>
 	<li>
+		<span class="settingsBuffer" > Filter Title Includes Path: </span>
+		<div class="selectDiv">
+			<select name="filterTitleIncludePath">
+				<option <?php if($filterTitleIncludePath == 'true'){echo "selected";} ?> value="true">True</option>
+				<option <?php if($filterTitleIncludePath == 'false'){echo "selected";} ?> value="false">False</option>
+			</select>
+		</div>
+	</li>
+	<li>
 		<span class="settingsBuffer" > Highlight Content match: </span>
 		<div class="selectDiv">
 			<select id="filterContentHighlight" name="filterContentHighlight">

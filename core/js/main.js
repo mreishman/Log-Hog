@@ -5,6 +5,7 @@ var arrayOfDataMain = null;
 var clearingNotifications = false;
 var counterForPoll = 0;
 var counterForPollForceRefreshAll = 0;
+var counterForPollForceRefreshErr = 0;
 var currentPage;
 var currentSelectWindow = 0;
 var dataFromUpdateCheck = null;
@@ -36,6 +37,7 @@ var titles = {};
 var updating = false;
 var userPaused = false;
 var title = $("title").text();
+var verifyChangeCounter = 0;
 
 function escapeHTML(unsafeStr)
 {
@@ -195,6 +197,39 @@ function poll()
 			{
 				updateSkipCounterLog("-");
 			}
+			counterForPollForceRefreshErr++;
+			if(counterForPollForceRefreshErr > (2 * pollForceTrue))
+			{
+				if(document.getElementById("noticeBar").style.display === "none")
+				{
+					document.getElementById("noticeBar").style.display = "block";
+				}
+				if(counterForPollForceRefreshErr > (4 * pollForceTrue))
+				{
+					//show Warning message for no connect in x times
+					if(document.getElementById("connectionWarning").style.display === "none")
+					{
+						document.getElementById("connectionWarning").style.display = "block";
+					}
+					if(document.getElementById("connectionNotice").style.display !== "none")
+					{
+						document.getElementById("connectionNotice").style.display = "none";
+					}
+				}
+				else if(counterForPollForceRefreshErr > (2 * pollForceTrue))
+				{
+					//show notice message of no connect in x times 
+					if(document.getElementById("connectionNotice").style.display === "none")
+					{
+						document.getElementById("connectionNotice").style.display = "block";
+					}
+					if(document.getElementById("connectionWarning").style.display !== "none")
+					{
+						document.getElementById("connectionWarning").style.display = "none";
+					}
+				}
+				resize();
+			}
 		}
 	}
 	catch(e)
@@ -216,6 +251,11 @@ function pollTwo()
 			type: "POST",
 			success(data)
 			{
+				counterForPollForceRefreshErr = 0;
+				if(document.getElementById("noticeBar").style.display !== "none")
+				{
+					document.getElementById("noticeBar").style.display = "none";
+				}
 				if(data === false)
 				{
 					showPopup();
@@ -634,13 +674,21 @@ function update(data)
 				var selectedListFilterType = selectListForFilter.options[selectListForFilter.selectedIndex].value;
 				var filterTextField = getFilterTextField();
 				var showFile = false;
+				shortName = files[i].replace(/.*\//g, "");
 				id = name.replace(/[^a-z0-9]/g, "");
 				
 
 				var filterOffOf = "";
 				if(selectedListFilterType === "title")
 				{
-					filterOffOf = name;
+					if(filterTitleIncludePath === "true")
+					{
+						filterOffOf = name;
+					}
+					else
+					{
+						filterOffOf = shortName;
+					}
 				}
 				else if(selectedListFilterType === "content")
 				{
@@ -649,7 +697,10 @@ function update(data)
 
 				if(caseInsensitiveSearch === "true")
 				{
-					filterOffOf = filterOffOf.toLowerCase();
+					if(filterOffOf !== "")
+					{
+						filterOffOf = filterOffOf.toLowerCase();
+					}
 				}
 
 				if(logsToHide instanceof Array && (logsToHide.length === 0 || $.inArray(name, logsToHide) === -1 ))
@@ -726,7 +777,6 @@ function update(data)
 
 							if($("#menu ." + id + "Button").length === 0) 
 							{
-								shortName = files[i].replace(/.*\//g, "");
 								classInsert = "";
 								item = blank;
 								item = item.replace(/{{title}}/g, shortName);
@@ -781,6 +831,12 @@ function update(data)
 									if(!$("#menu a." + id + "Button").hasClass("updated"))
 									{
 										$("#menu a." + id + "Button").addClass("updated");
+
+										var objectToSend = new Array();
+										objectToSend["log"] = id;
+										objectToSend["name"] = "New Log "+shortName;
+										objectToSend["action"] = "$('#"+id+"').click();  toggleNotifications();";
+										addLogNotification(objectToSend);
 									}
 								}
 
@@ -806,9 +862,15 @@ function update(data)
 								{
 									if(lastContentSearch !== getFilterTextField())
 									{
-										if(id === currentPage)
+										var windows = Object.keys(logDisplayArray);
+										var lengthOfWindows = windows.length;
+										for(var j = 0; j < lengthOfWindows; j++)
 										{
-											updated = true;
+											if(logDisplayArray[j]["id"] === id)
+											{
+												updated = true;
+												break;
+											}
 										}
 									}
 								}
@@ -893,6 +955,16 @@ function update(data)
 											{
 												$("#menu a." + id + "Button").addClass("updated");
 											}
+											var objectToSend = new Array();
+											objectToSend["log"] = id;
+											var numForNot = "";
+											if (diffNew !== "(0)")
+											{
+												numForNot = diffNew;
+											}
+											objectToSend["name"] = shortName+" Update "+numForNot;
+											objectToSend["action"] = "$('#"+id+"').click();  toggleNotifications();";
+											addLogNotification(objectToSend);
 										}
 									}
 								}
@@ -924,17 +996,37 @@ function update(data)
 		resize();
 		
 		//Check if a tab is active, if none... click on first in array that's visible
-		if($("#menu .active").length === 0)
+		var targetLength = Object.keys(logDisplayArray).length;
+		var tmpCurrentSelectWindow = currentSelectWindow;
+		var arrayOfLogs = $("#menu a");
+		if($("#menu .active").length < targetLength)
 		{
-			var arrayOfLogs = $("#menu a");
-			for (var i = 0; i < arrayOfLogs.length; i++)
+			for(var h = 0; h < targetLength; h++)
 			{
-				if(arrayOfLogs[i].style.display !== "none")
+				if(logDisplayArray[h]["id"] === null)
 				{
-					arrayOfLogs[i].onclick.apply(arrayOfLogs[i]);
-					break;
+					//show first available log
+					for (var i = 0; i < arrayOfLogs.length; i++)
+					{
+						var logIsAlreadyShown = false;
+						for(var j = 0; j < targetLength; j++)
+						{
+							if(logDisplayArray[j]["id"] === arrayOfLogs[i].id)
+							{
+								logIsAlreadyShown = true;
+								break;
+							}
+						}
+						if(arrayOfLogs[i].style.display !== "none" && !logIsAlreadyShown)
+						{
+							changeCurrentSelectWindow(h);
+							arrayOfLogs[i].onclick.apply(arrayOfLogs[i]);
+							break;
+						}
+					}
 				}
 			}
+
 			if(!firstLoad)
 			{
 				if($("#menu .active").length === 0)
@@ -956,6 +1048,7 @@ function update(data)
 				}
 			}
 		}
+		changeCurrentSelectWindow(tmpCurrentSelectWindow);
 
 		toggleNotificationClearButton();
 		var windows = Object.keys(logDisplayArray);
@@ -1142,6 +1235,26 @@ function refreshLastLogsArray()
 	}
 }
 
+function removeFromMultiLog(idOfName)
+{
+	var lengthOfLogDisplayArray = Object.keys(logDisplayArray).length;
+	var windowNum = -1;
+	for(var i = 0; i < lengthOfLogDisplayArray; i++)
+	{
+		if(logDisplayArray[i]["id"] === idOfName)
+		{
+			logDisplayArray[i]["id"] = null;
+			windowNum = i;
+			break;	
+		}
+	}
+	if(windowNum > -1)
+	{
+		$("#log"+i).html("");
+		$("#menu ." + idOfName + "Button currentWindowNum").html("");
+	}
+}
+
 function hideLogByName(name)
 {
 	try
@@ -1155,6 +1268,7 @@ function hideLogByName(name)
 			}
 			$("#menu ." + idOfName + "Button").hide();
 		}
+		removeFromMultiLog(idOfName);
 	}
 	catch(e)
 	{
@@ -1187,6 +1301,7 @@ function removeLogByName(name)
 		{
 			$("#menu ." + idOfName + "Button").remove();
 		}
+		removeFromMultiLog(idOfName);
 	}
 	catch(e)
 	{
@@ -1256,8 +1371,7 @@ function show(e, id)
 
 		document.getElementById("log"+currentSelectWindow+"Td").scrollTop = $("#log"+currentSelectWindow).outerHeight();
 		toggleNotificationClearButton();
-		document.getElementById(id+"Count").innerHTML = "";
-		document.getElementById(id+"CountHidden").innerHTML = "";
+		removeNotificationByLog(id);
 
 		
 		resize();
@@ -1496,15 +1610,37 @@ function resize()
 {
 	try
 	{
-		var targetHeight = window.innerHeight - $("#menu").outerHeight();
+		var targetHeight = window.innerHeight - $("#header").outerHeight();
+		if(logMenuLocation === "top" || logMenuLocation === "bottom")
+		{
+			targetHeight = targetHeight - $("#menu").outerHeight();
+		}
 		var targetWidth = window.innerWidth;
 		if(enablePollTimeLogging !== "false")
 		{
 			targetHeight -= 25;
 		}
+		if(document.getElementById("noticeBar").style.display !== "none")
+		{
+			targetHeight = targetHeight - $("#noticeBar").outerHeight();
+		}
 		if($("#main").outerHeight() !== targetHeight)
 		{
 			$("#main").outerHeight(targetHeight);
+		}
+		if(logMenuLocation === "bottom")
+		{
+			if(document.getElementById("main").style.bottom !== $("#menu").outerHeight())
+			{
+				document.getElementById("main").style.bottom = $("#menu").outerHeight()+"px";
+			}
+		}
+		else if(logMenuLocation === "left" || logMenuLocation === "right")
+		{
+			if($("#menu").outerHeight() !== targetHeight)
+			{
+				$("#menu").outerHeight(targetHeight);
+			}
 		}
 		var tdElementWidth = (targetWidth/windowDisplayConfigColCount).toFixed(4);
 		var trElementHeight = ((targetHeight-borderPadding)/windowDisplayConfigRowCount).toFixed(4);
@@ -1685,6 +1821,11 @@ function isPageHidden()
 	}
 }
 
+function scrollToBottom(idNum)
+{
+	document.getElementById("log"+idNum+"Td").scrollTop = $("#log"+idNum).outerHeight();
+}
+
 function clearLogInner(title)
 {
 	var urlForSend = "core/php/clearLog.php?format=json";
@@ -1852,7 +1993,8 @@ function installUpdates()
 			type: "POST",
 			complete(data)
 			{
-				//set thing to check for updated files. 	
+				//set thing to check for updated files. 
+				verifyChangeCounter = 0;	
 				timeoutVar = setInterval(function(){verifyChange();},3000);
 			}
 		});
@@ -1879,8 +2021,17 @@ function verifyChange()
 			{
 				if(data == "finishedUpdate")
 				{
-					clearInterval(timeoutVar);
-					actuallyInstallUpdates();
+					verifyChangeCounter++;
+					if(verifyChangeCounter >= successVerifyNum)
+					{
+						clearInterval(timeoutVar);
+						verifyChangeCounter = 0;
+						actuallyInstallUpdates();
+					}
+				}
+				else
+				{
+					verifyChangeCounter = 0;
 				}
 			}
 		});
@@ -2029,6 +2180,322 @@ function showInfo(idNum)
 	}
 }
 
+function toggleFilterSettingsPopup()
+{
+	showPopup();
+	var innerHtmlForSettings = "<div class='settingsHeader' id='popupHeaderText' ><span id='popupHeaderText' >Local Filter Content Settings</span><a style=\"float: right; margin-top: -3px;\" onclick=\"hidePopup();\" class=\"linkSmall\" >Close</a></div><div style='width:100%;'>";
+	innerHtmlForSettings += "<ul id=\"settingsUl\" ><li><span class=\"settingsBuffer\" > Case Insensitive Search: </span> <div class=\"selectDiv\">";
+	innerHtmlForSettings += "<select onchange=\"changeFilterCase();\" id=\"caseInsensitiveSearch\">";
+	innerHtmlForSettings += "<option";
+	if(caseInsensitiveSearch === 'true')
+	{
+		innerHtmlForSettings += " selected ";
+	}
+	innerHtmlForSettings += " value=\"true\">True</option>";
+	innerHtmlForSettings += "<option";
+	if(caseInsensitiveSearch === 'false')
+	{
+		innerHtmlForSettings += " selected ";
+	}
+	innerHtmlForSettings += " value=\"false\">False</option>";
+	innerHtmlForSettings += " </select></div></li>";
+	innerHtmlForSettings += "<li><span class=\"settingsBuffer\" > Filter Title Includes Path: </span>";
+	innerHtmlForSettings += " <div class=\"selectDiv\"><select onchange=\"changeFilterTitleIncludePath();\" id=\"filterTitleIncludePath\">";
+	innerHtmlForSettings += "<option ";
+	if(filterTitleIncludePath === 'true')
+	{
+		innerHtmlForSettings += " selected ";
+	}
+	innerHtmlForSettings += " value=\"true\">True</option>";
+	innerHtmlForSettings += "<option ";
+	if(filterTitleIncludePath === 'false')
+	{
+		innerHtmlForSettings += " selected ";
+	}
+	innerHtmlForSettings += " value=\"false\">False</option>";
+	innerHtmlForSettings += " </select></div></li>";
+	innerHtmlForSettings += "<li><span class=\"settingsBuffer\" > Highlight Content match: </span>";
+	innerHtmlForSettings += " <div class=\"selectDiv\"><select onchange=\"changeHighlightContentMatch();\" id=\"filterContentHighlight\">";
+	innerHtmlForSettings += "<option";
+	if(filterContentHighlight === 'true')
+	{
+		innerHtmlForSettings += " selected ";
+	}
+	innerHtmlForSettings += " value=\"true\">True</option>";
+	innerHtmlForSettings += "<option";
+	if(filterContentHighlight === 'false')
+	{
+		innerHtmlForSettings += " selected ";
+	}
+	innerHtmlForSettings += " value=\"false\">False</option>";
+	innerHtmlForSettings += " </select></div></li>";
+	innerHtmlForSettings += " <li><span class=\"settingsBuffer\" > Filter Content match: </span>";
+	innerHtmlForSettings += " <div class=\"selectDiv\"><select onchange=\"changeFilterContentMatch();\" id=\"filterContentLimit\">";
+	innerHtmlForSettings += "<option";
+	if(filterContentLimit === 'true')
+	{
+		innerHtmlForSettings += " selected ";
+	}
+	innerHtmlForSettings += " value=\"true\">True</option>";
+	innerHtmlForSettings += "<option";
+	if(filterContentLimit === 'false')
+	{
+		innerHtmlForSettings += " selected ";
+	} 
+	innerHtmlForSettings += " value=\"false\">False</option>";
+	innerHtmlForSettings += "</select></div></li>";
+	innerHtmlForSettings += "<li><span class=\"settingsBuffer\" > Line Padding: </span>";
+	innerHtmlForSettings += " <div class=\"selectDiv\">	<select onchange=\"changeFilterContentLinePadding();\" id=\"filterContentLinePadding\">";
+	for (var i=0; i < 10; i++)
+	{
+		innerHtmlForSettings += "<option ";
+		if(parseInt(filterContentLinePadding) === i)
+		{
+			innerHtmlForSettings += " selected ";
+		}
+		innerHtmlForSettings += " value="+i+">"+i+"</option>";
+	}
+	innerHtmlForSettings += "</select></div></li>";
+	innerHtmlForSettings += "</ul></div>";
+	document.getElementById("popupContentInnerHTMLDiv").innerHTML = innerHtmlForSettings;
+	document.getElementById("popupContent").style.height = "273px";
+	document.getElementById("popupContent").style.marginTop = "-136px";
+}
+
+function changeFilterCase()
+{
+	caseInsensitiveSearch = document.getElementById("caseInsensitiveSearch").value;
+	possiblyUpdateFromFilter();
+}
+
+function changeHighlightContentMatch()
+{
+	filterContentHighlight = document.getElementById("filterContentHighlight").value;
+	possiblyUpdateFromFilter();
+}
+
+function changeFilterContentMatch()
+{
+	filterContentLimit = document.getElementById("filterContentLimit").value;
+	possiblyUpdateFromFilter();
+}
+
+function changeFilterContentLinePadding()
+{
+	filterContentLinePadding = parseInt(document.getElementById("filterContentLinePadding").value);
+	possiblyUpdateFromFilter();
+}
+
+function changeFilterTitleIncludePath()
+{
+	filterTitleIncludePath = document.getElementById("filterTitleIncludePath").value;
+	possiblyUpdateFromFilter();
+}
+
+function possiblyUpdateFromFilter()
+{
+	if(document.getElementById("searchFieldInput").value !== "")
+	{
+		lastContentSearch = "";
+		update(arrayOfDataMain);
+	}
+}
+
+function toggleNotifications()
+{
+	if(document.getElementById("notifications").style.display === "inline-block")
+	{
+		document.getElementById("notifications").style.display = "none";
+		document.getElementById("notificationNotClicked").style.display = "inline-block";
+		document.getElementById("notificationClicked").style.display = "none";
+		document.getElementById("notificationCount").style.color = "white";
+	}
+	else
+	{
+		showNotifications();
+		document.getElementById("notificationNotClicked").style.display = "none";
+		document.getElementById("notificationClicked").style.display = "inline-block";
+		document.getElementById("notifications").style.display = "inline-block";
+		document.getElementById("notifications").style.left = (document.getElementById("notificationDiv").getBoundingClientRect().left-27) + "px";
+		document.getElementById("notifications").style.top = (document.getElementById("notificationDiv").getBoundingClientRect().top+25) + "px";
+		document.getElementById("notificationCount").style.color = "black";
+	}
+}
+
+function showNotifications()
+{
+	var arrayInternalNotifications = new Array();
+	if(notifications.length < 1)
+	{
+		//no notifications to show
+		arrayInternalNotifications[0] = new Array();
+		arrayInternalNotifications[0]["id"] = 0;
+		arrayInternalNotifications[0]["name"] = "No Notifications";
+		arrayInternalNotifications[0]["time"] = formatAMPM(new Date());
+		arrayInternalNotifications[0]["action"] = "";
+		
+	}
+	else
+	{
+		arrayInternalNotifications = notifications;
+	}
+	displayNotifications(arrayInternalNotifications);
+
+}
+
+function clearAllNotifications()
+{
+	$("#notificationHolder").empty();
+}
+
+function formatAMPM(date)
+{
+  var hours = date.getHours();
+  var minutes = date.getMinutes();
+  var ampm = hours >= 12 ? 'pm' : 'am';
+  hours = hours % 12;
+  hours = hours ? hours : 12; // the hour '0' should be '12'
+  minutes = minutes < 10 ? '0'+minutes : minutes;
+  var strTime = hours + ':' + minutes + ' ' + ampm;
+  return strTime;
+}
+
+function displayNotifications(notificationsArray)
+{
+	clearAllNotifications();
+	for (var i = notificationsArray.length - 1; i >= 0; i--)
+	{
+		var blank;
+		if("image" in notificationsArray[i])
+		{
+			blank = $("#storage .notificationContainerWithImage").html();
+		}
+		else if(notificationsArray[i]["name"] === "No Notifications")
+		{
+			blank = $("#storage .notificationContainerEmpty").html();
+		}
+		else
+		{
+			blank = $("#storage .notificationContainer").html();
+		}
+		var item = blank;
+		item = item.replace(/{{id}}/g, "notification"+notificationsArray[i]['id']);
+		item = item.replace(/{{idNum}}/g, i);
+		item = item.replace(/{{name}}/g, notificationsArray[i]['name']);
+		item = item.replace(/{{time}}/g, notificationsArray[i]['time']);
+		item = item.replace(/{{action}}/g, notificationsArray[i]['action']);
+		if("image" in notificationsArray[i])
+		{
+			item = item.replace(/{{image}}/g, notificationsArray[i]['image']);
+		}
+		$("#notificationHolder").append(item);
+	}
+	$("#notificationHolder").append($("#storage .notificationButtons").html());
+}
+
+function removeAllNotifications()
+{
+	clearNotifications();
+	notifications = new Array();
+	updateNotificationStuff();
+}
+
+function removeNotificationByLog(logId)
+{
+	for (var i = notifications.length - 1; i >= 0; i--)
+	{
+		if("log" in notifications[i])
+		{
+			if(notifications[i]["log"] === logId)
+			{
+				removeNotification(i);
+				break;
+			}
+		}
+	}
+}
+
+function removeNotification(idToRemove)
+{
+	//remove from array
+	if("log" in notifications[idToRemove])
+	{
+		var logId = notifications[idToRemove]["log"];
+		document.getElementById(logId).classList.remove("updated");
+		document.getElementById(logId+"Count").innerHTML = "";
+		document.getElementById(logId+"CountHidden").innerHTML = "";
+	}
+	notifications.splice(idToRemove, 1);
+	updateNotificationStuff();
+}
+
+function updateNotificationCount()
+{
+	var currentCount = notifications.length;
+	$("#notificationCount").empty();
+	if(currentCount > 0)
+	{
+		if(currentCount < 10)
+		{
+			currentCount = "0" + currentCount;
+		}
+		document.getElementById("notificationIcon").style.display = "block";
+		$("#notificationCount").append(currentCount);
+		document.getElementById("notificationCount").style.left = (document.getElementById("notificationDiv").getBoundingClientRect().left+5) + "px";
+		document.getElementById("notificationBadge").style.left = (document.getElementById("notificationDiv").getBoundingClientRect().left-5) + "px";
+		document.getElementById("notificationCount").style.top = (document.getElementById("notificationDiv").getBoundingClientRect().top+11) + "px";
+		document.getElementById("notificationBadge").style.top = (document.getElementById("notificationDiv").getBoundingClientRect().top+19) + "px";
+	}
+	else
+	{
+		document.getElementById("notificationIcon").style.display = "none";
+	}
+}
+
+function addLogNotification(notificationArray)
+{
+	//check if log notification is already displayed. If so, get ID of that for current ID
+	for (var i = notifications.length - 1; i >= 0; i--)
+	{
+		if("log" in notifications[i])
+		{
+			if(notifications[i]["log"] === notificationArray["log"])
+			{
+				notificationArray["currentId"] = i;
+				break;
+			}
+		}
+	}
+	addNotification(notificationArray);
+}
+
+function addNotification(notificationArray)
+{
+
+	var currentId = notifications.length;
+	if("currentId" in notificationArray)
+	{
+		currentId = notificationArray["currentId"];
+	}
+	notifications[currentId] = new Array();
+	notifications[currentId]["id"] = currentId;
+	notifications[currentId]["name"] = notificationArray["name"];
+	notifications[currentId]["time"] = formatAMPM(new Date());
+	notifications[currentId]["action"] = notificationArray["action"];
+	if("log" in notificationArray)
+	{
+		notifications[currentId]["log"] = notificationArray["log"];
+	}
+
+	updateNotificationStuff();
+}
+
+function updateNotificationStuff()
+{
+	updateNotificationCount();
+	showNotifications();
+}
+
 $(document).ready(function()
 {
 	progressBar = new ldBar("#progressBar");
@@ -2066,4 +2533,10 @@ $(document).ready(function()
 	{
 		document.getElementById("searchType").addEventListener("change", changeSearchplaceholder, false);
 	}
+
+	if (typeof addUpdateNotification == 'function')
+	{
+		addUpdateNotification();
+	}
+	updateNotificationCount();
 });

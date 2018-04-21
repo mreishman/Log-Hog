@@ -180,9 +180,11 @@ function clean_url($url)
     return $parts['path'];
 }
 
-function loadCSS($baseUrl, $version)
+function loadCSS($base, $baseUrl, $version)
 {
-	return "<link rel=\"stylesheet\" type=\"text/css\" href=\"".$baseUrl."template/theme.css?v=".$version."\">";
+	$stringToReturn = "<link rel=\"stylesheet\" type=\"text/css\" href=\"".$baseUrl."template/theme.css?v=".$version."\">";
+	$stringToReturn .= "<link rel=\"stylesheet\" type=\"text/css\" href=\"".$base."core/template/base.css?v=".$version."\">";
+	return $stringToReturn;
 }
 
 function loadVisibilityJS($baseURL)
