@@ -1,7 +1,7 @@
 <?php
 
 $versionCheckArray = array(
-	'version'		=> '3.5',
+	'version'		=> '3.6',
 	'versionList'		=> array(
 		'2.0.1'	        => array(
 			'branchName'	=> '2.0.1Update',
@@ -110,6 +110,10 @@ $versionCheckArray = array(
 		'3.5'		=> array(
 			'branchName'	=> '3.5Update',
 			'releaseNotes'	=> "<ul><li>Features<ul><li>Added option to change highlight color (of content filter)</li><li>Added option to change hover content for log titles (last line or full path)</li><li>Added option for php or shell (php by default)</li><li>Highlights new lines of logs (for 1 sec) (with options to change color)</li><li>Added right click menus for log titles and pause icon<ul><li>Adds option to hide log until refresh of page</li><li>Clear / delete log by rightclick</li><li>Copy file name / file path on rightclick</li><li>Toggle auto pause option with rightclick on pause icon</li></ul></li><li>Added file size to loadbar on first load</li><li>Added option to not scroll on update if already scrolled up in log</li><li>Added brightness slider to themes settings page</li><li>Added new theme! (Steampunk)</li></ul></li><li>Bug Fixes<ul><li>Fixed issue with right click clicking not registering sometimes. </li><li>Fixed bug with counter for log showing undefined if log is new</li><li>Fixed some bugs with expermential feature log display</li><li>Fixed bug with pause on unfocus still pausing</li><li>Fixed rare poll js bug</li><li>Added loading icon between switch of logs (although, still to fast to show up)</li><li>Fixed bug where clear notifications would not fully clear notification counter</li><li>Fixed some style issues<ul><li>right click menu / info popup background and font for some themes</li><li>Fixed small style bug with select font</li><li>Fixed issue with load bar for default theme not reflecting correct color</li></ul></li><li>Loading theme preview loads smoother</li></ul></li></ul>"
+		),
+		'3.6'		=> array(
+			'branchName'	=> '3.6Update',
+			'releaseNotes'	=> "<ul><li>Features<ul><li>Added quick setting change for filter content (changes settings tmp for current window)</li><li>Added addon page to setup</li><li>Notice is shown for connectivity issues on index</li><li>Option to change position of log tabs (top, bottom, left, right)</li><li>New Theme! (Terminal)</li><li>Added internal notifications</li></ul></li><li>Bug Fixes<ul><li>Addon page does not redirect when installing or removing addons</li><li>More fixes for expermential feature log display</li><li>Changed verification counter to check for 2 success verifications in a row</li></ul></li></ul>"
 		),
 	)
 );
