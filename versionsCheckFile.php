@@ -1,7 +1,7 @@
 <?php
 
 $versionCheckArray = array(
-	'version'		=> '3.6',
+	'version'		=> '4.0',
 	'versionList'		=> array(
 		'2.0.1'	        => array(
 			'branchName'	=> '2.0.1Update',
@@ -114,6 +114,10 @@ $versionCheckArray = array(
 		'3.6'		=> array(
 			'branchName'	=> '3.6Update',
 			'releaseNotes'	=> "<ul><li>Features<ul><li>Added quick setting change for filter content (changes settings tmp for current window)</li><li>Added addon page to setup</li><li>Notice is shown for connectivity issues on index</li><li>Option to change position of log tabs (top, bottom, left, right)</li><li>New Theme! (Terminal)</li><li>Added internal notifications</li></ul></li><li>Bug Fixes<ul><li>Addon page does not redirect when installing or removing addons</li><li>More fixes for expermential feature log display</li><li>Changed verification counter to check for 2 success verifications in a row</li></ul></li></ul>"
+		),
+		'4.0'		=> array(
+			'branchName'	=> '4.0Update',
+			'releaseNotes'	=> "<ul><li>Features<ul><li>New Log Format!<ul><li>Changed format, allowing for more custom options for each entry in watchlist</li><li>Added dropdown option for recursive log finding in a folder</li><li>Option to delete logs in a folder after x days since last modification</li><li>Better visibility of log read/write status</li><li>Added option to ignore some files within folders</li><li>Option to split files in a folder into individual files</li><li>Option to exclude files within a folder from trim logic</li><li>Added option to add custom names for logs</li><li>Added option to change the order of logs in watchlist</li></ul></li><li>New main menu system!<ul><li>New flyout system allows for viewing about pages without reload</li><li>Added names to other apps instead of just icon</li><li>Cleans up visible menu icons on homepage</li></ul></li><li>Grouped Groups!<ul><li>Group logs / folders into groups</li><li>Show / hide groups of logs from select in header</li></ul></li><li>Other<ul><li>Custom options for how log titles display (no extension, last folder in path, etc)</li></ul></li></ul></li><li>Bug Fixes<ul><li>Removes log from display if file does not exist</li><li>Removed save verify from 2nd layer nav (same page nav)</li><li>Fixed small bug with update check.</li><li>Fixed bug with notification dot positioning when height changed</li><li>Fixed bug with redirect of update page after update</li><li>Fixed bug with notification not cleared when log is removed</li></ul></li></ul>"
 		),
 	)
 );
