@@ -2,6 +2,8 @@ var pollCheckForUpdate;
 var countChecker = 0;
 var statusExt = "";
 var baseUrl = "../";
+var successVerifyNum = 2;
+
 function updateStatus(status)
 {
 	statusExt = status;
