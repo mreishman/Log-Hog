@@ -662,8 +662,8 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 			<div id="fullScreenMenuAbout" >
 				<?php require_once('core/php/template/about.php'); ?>
 			</div>
-			<div id="fullScreenMenuUpdate">
-				TEST
+			<div id="fullScreenMenuUpdate" style="display: none;">
+				<?php require_once('core/php/template/update.php'); ?>
 			</div>
 		</div>
 	</div>
