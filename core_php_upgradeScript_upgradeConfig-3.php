@@ -30,7 +30,7 @@ if (isset($config["watchList"]))
 			$arrayWatchList .= "'FileType' => 'auto',";
 			$arrayWatchList .= "'Group' => '',";
 			$arrayWatchList .= "'Location' => '".$key."',";
-			$arrayWatchList .= "'Name' => '".$key."',";
+			$arrayWatchList .= "'Name' => '',";
 			$arrayWatchList .= "'Pattern' => '".$value."',";
 			$arrayWatchList .= "'Recursive' => 'false'";
 			$arrayWatchList .= ")";
