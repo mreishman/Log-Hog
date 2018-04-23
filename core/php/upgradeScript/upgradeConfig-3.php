@@ -31,7 +31,7 @@ if (isset($config["watchList"]))
 			$arrayWatchList .= "'Group' => '',";
 			$arrayWatchList .= "'Location' => '".$key."',";
 			$arrayWatchList .= "'Name' => '".$key."',";
-			$arrayWatchList .= "'Pattern' => '".$value."'";
+			$arrayWatchList .= "'Pattern' => '".$value."',";
 			$arrayWatchList .= "'Recursive' => 'false'";
 			$arrayWatchList .= ")";
 			if($count != $countOfWatchlist)
