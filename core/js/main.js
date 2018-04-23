@@ -2726,6 +2726,15 @@ function toggleFullScreenMenu()
 	}
 }
 
+function toggleUpdateMenu()
+{
+	hideMainStuff();
+	document.getElementById("fullScreenMenuUpdate").style.display = "block";
+	$("#mainMenuUpdate").addClass("selected");
+	document.getElementById("updateSubMenu").style.display = "block";
+	$("#settingsSubMenuUpdate").addClass("selected");
+}
+
 function toggleAbout()
 {
 	hideAboutStuff();
@@ -2756,6 +2765,12 @@ function toggleChangeLog()
 	$("#aboutSubMenuChangelog").addClass("selected");
 }
 
+function hideUpdateStuff()
+{
+	document.getElementById("fullScreenMenuUpdate").style.display = "none";
+	$("#settingsSubMenuUpdate").removeClass("selected");
+}
+
 function hideAboutStuff()
 {
 	document.getElementById("fullScreenMenuAbout").style.display = "none";
@@ -2768,7 +2783,21 @@ function hideAboutStuff()
 
 function hideMainStuff()
 {
+	if($("#mainMenuAbout").hasClass("selected"))
+	{
+		document.getElementById("aboutSubMenu").style.display = "none";
+		hideAboutStuff();
+	}
+
 	$("#mainMenuAbout").removeClass("selected");
+
+	if($("#mainMenuUpdate").hasClass("selected"))
+	{
+		document.getElementById("updateSubMenu").style.display = "none";
+		hideUpdateStuff();
+	}
+
+	$("#mainMenuUpdate").removeClass("selected");
 }
 
 function toggleGroupedGroups()

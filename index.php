@@ -492,7 +492,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 				Settings
 				<?php echo $externalLinkImage; ?>
 			</li>
-			<li onclick="window.location.href = './settings/update.php';" >
+			<li id="mainMenuUpdate" onclick="toggleUpdateMenu();" >
 				<div class="menuImageDiv">
 					<?php echo generateImage(
 						$arrayOfImages["refresh"],
@@ -537,7 +537,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 						}
 					}
 				}
-				echo $externalLinkImage; ?>
+				?>
 			</li>
 			<?php if($locationForMonitorIndex["loc"] || $locationForSearchIndex["loc"] || $locationForSeleniumMonitorIndex["loc"] || $locationForStatusIndex["loc"]): ?>
 				<li class="menuTitle" style="background-color: #999; color: black;" >
@@ -645,11 +645,8 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 			<li class="menuTitle" style="text-align: center;">
 				Update
 			</li>
-			<li id="settingsSubMenuWatchlist" onclick="toggleUpdateSubMenu();" class="selected">
+			<li id="settingsSubMenuUpdate" onclick="toggleUpdateSubMenu();" class="selected">
 				Update
-			</li>
-			<li id="settingsSubMenuWatchlist" onclick="toggleUpdateChangelogSubMenu();">
-				Update Changelog
 			</li>
 		</ul>
 		<div id="mainContentFullScreenMenu">
@@ -664,6 +661,9 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 			</div>
 			<div id="fullScreenMenuAbout" >
 				<?php require_once('core/php/template/about.php'); ?>
+			</div>
+			<div id="fullScreenMenuUpdate">
+				TEST
 			</div>
 		</div>
 	</div>
