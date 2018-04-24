@@ -103,20 +103,20 @@ function generateTrueFalseSelect(selectValue)
 
 function addFile()
 {
-	addRowFunction(
-		{
-			fileType: "file"
-		}
-	);
+	showPopup();
+	var htmlForPopoup = "<div class='settingsHeader' id='popupHeaderText' ><span id='popupHeaderText' >Add File</span></div>";
+	htmlForPopoup += "<br><div style='width:100%;text-align:center;'> <input id=\"inputFieldForFile\" type=\"text\" style=\"width: 90%;\" > </div>";
+	htmlForPopoup += "<div class='link' onclick='addRowFunction({fileType: \"file\", location: document.getElementById(\"inputFieldForFile\").value}); hidePopup();' style='margin-left:125px; margin-right:50px;margin-top:25px;'>Add</div><div onclick='hidePopup();' class='link'>Cancel</div";
+	document.getElementById('popupContentInnerHTMLDiv').innerHTML = htmlForPopoup;
 } 
 
 function addFolder()
 {
-	addRowFunction(
-		{
-			fileType: "folder"
-		}
-	);
+	showPopup();
+	var htmlForPopoup = "<div class='settingsHeader' id='popupHeaderText' ><span id='popupHeaderText' >Add Folder</span></div>";
+	htmlForPopoup += "<br><div style='width:100%;text-align:center;'> <input id=\"inputFieldForFolder\" type=\"text\" style=\"width: 90%;\" > </div>";
+	htmlForPopoup += "<div class='link' onclick='addRowFunction({fileType: \"folder\", location: document.getElementById(\"inputFieldForFolder\").value}); hidePopup();' style='margin-left:125px; margin-right:50px;margin-top:25px;'>Add</div><div onclick='hidePopup();' class='link'>Cancel</div";
+	document.getElementById('popupContentInnerHTMLDiv').innerHTML = htmlForPopoup;
 }
 
 function addOther()
