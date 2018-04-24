@@ -178,7 +178,12 @@ function getFileFolderData(currentFolder, hideFiles)
 					if(subData["type"] === "folder")
 					{
 						var expandButton =  "<a onclick=\"expandFileFolderView('"+listOfFileOrFolders[i]+"',"+hideFiles+")\" >[expand]</a>";
-						htmlSet += "<div style=\"padding: 5px;\" >"+name+" <span style=\"float:right;\" > "+selectButton+" "+expandButton+" </span> </div>";
+						htmlSet += "<div style=\"padding: 5px;\" >"+name+" <span style=\"float:right;\" > ";
+						if(hideFiles)
+						{
+							htmlSet += selectButton;
+						}
+						htmlSet += " "+expandButton+" </span> </div>";
 					}
 					else if(data["data"][listOfFileOrFolders[i]]["type"] === "file")
 					{
