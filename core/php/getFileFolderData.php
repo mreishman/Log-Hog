@@ -28,13 +28,15 @@ if(file_exists($path))
 			if(is_dir($fullPath))
 			{
 				$response[$fullPath] = array(
-					"type"	=>	"folder"
+					"type"		=>	"folder",
+					"filename"	=>	$filename
 				);
 			}
 			elseif(is_file($fullPath))
 			{
 				$response[$fullPath] = array(
-					"type"	=>	"file"
+					"type"	=>	"file",
+					"filename"	=>	$filename
 				);
 			}
 		}

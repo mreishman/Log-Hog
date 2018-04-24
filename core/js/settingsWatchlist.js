@@ -142,6 +142,17 @@ function addOther()
 	);
 }
 
+function setNewFileFolderValue(newValue)
+{
+	document.getElementById("inputFieldForFileOrFolder").value = newValue;
+}
+
+function expandFileFolderView(newValue, hideFiles)
+{
+	document.getElementById("inputFieldForFileOrFolder").value = newValue;
+	getFileFolderData(newValue, hideFiles)
+}
+
 function getFileFolderData(currentFolder, hideFiles)
 {
 	//make ajax to get file / folder data, return array
@@ -161,15 +172,19 @@ function getFileFolderData(currentFolder, hideFiles)
 				var listOfFileOrFoldersCount = listOfFileOrFolders.length;
 				for(var i = 0; i < listOfFileOrFoldersCount; i++)
 				{
-					if(data["data"][listOfFileOrFolders[i]]["type"] === "folder")
+					var subData = data["data"][listOfFileOrFolders[i]];
+					var selectButton = "<a onclick=\"setNewFileFolderValue('"+listOfFileOrFolders[i]+"')\" >[select]</a>";
+					var name = "<span style=\"max-width: 200px; word-break: break-all; display: inline-block; \" >"+subData["filename"]+"</span>"
+					if(subData["type"] === "folder")
 					{
-						htmlSet += "<div style=\"padding: 5px;\" >"+listOfFileOrFolders[i]+" <span style=\"float:right;\" > [select] [expand] </span> </div>";
+						var expandButton =  "<a onclick=\"expandFileFolderView('"+listOfFileOrFolders[i]+"',"+hideFiles+")\" >[expand]</a>";
+						htmlSet += "<div style=\"padding: 5px;\" >"+name+" <span style=\"float:right;\" > "+selectButton+" "+expandButton+" </span> </div>";
 					}
 					else if(data["data"][listOfFileOrFolders[i]]["type"] === "file")
 					{
 						if(!hideFiles)
 						{
-							htmlSet += "<div style=\"padding: 5px;\" >"+listOfFileOrFolders[i]+" <span style=\"float:right;\" > [select] </span> </div>";
+							htmlSet += "<div style=\"padding: 5px;\" >"+name+" <span style=\"float:right;\" > "+selectButton+" </span> </div>";
 						}
 					}
 				}
