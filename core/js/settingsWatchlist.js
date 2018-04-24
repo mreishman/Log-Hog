@@ -105,27 +105,78 @@ function addFile()
 {
 	showPopup();
 	var htmlForPopoup = "<div class='settingsHeader' id='popupHeaderText' ><span id='popupHeaderText' >Add File</span></div>";
-	htmlForPopoup += "<br><div style='width:100%;text-align:center;'> <input id=\"inputFieldForFile\" type=\"text\" style=\"width: 90%;\" > </div>";
-	htmlForPopoup += "<div class='link' onclick='addRowFunction({fileType: \"file\", location: document.getElementById(\"inputFieldForFile\").value}); hidePopup();' style='margin-left:125px; margin-right:50px;margin-top:25px;'>Add</div><div onclick='hidePopup();' class='link'>Cancel</div";
+	htmlForPopoup += "<br><div style='width:100%;text-align:center;'> <input value=\""+defaultNewPathFile+"\" id=\"inputFieldForFileOrFolder\" type=\"text\" style=\"width: 90%;\" > </div>";
+	htmlForPopoup += "<br><div id=\"folderFileInfoHolder\" style='margin-right:10px; margin-left: 10px;height:200px;border: 1px solid white;overflow: auto;'> --- </div>";
+	htmlForPopoup += "<div class='link' onclick='addRowFunction({fileType: \"file\", location: document.getElementById(\"inputFieldForFileOrFolder\").value}); hidePopup();' style='margin-left:125px; margin-right:50px;margin-top:25px;'>Add</div><div onclick='hidePopup();' class='link'>Cancel</div";
 	document.getElementById('popupContentInnerHTMLDiv').innerHTML = htmlForPopoup;
+	document.getElementById('popupContent').style.height = "400px";
+	document.getElementById('popupContent').style.marginTop = "-200px";
+	updateFileFolderGui(false);
 } 
 
 function addFolder()
 {
 	showPopup();
 	var htmlForPopoup = "<div class='settingsHeader' id='popupHeaderText' ><span id='popupHeaderText' >Add Folder</span></div>";
-	htmlForPopoup += "<br><div style='width:100%;text-align:center;'> <input id=\"inputFieldForFolder\" type=\"text\" style=\"width: 90%;\" > </div>";
-	htmlForPopoup += "<div class='link' onclick='addRowFunction({fileType: \"folder\", location: document.getElementById(\"inputFieldForFolder\").value}); hidePopup();' style='margin-left:125px; margin-right:50px;margin-top:25px;'>Add</div><div onclick='hidePopup();' class='link'>Cancel</div";
+	htmlForPopoup += "<br><div style='width:100%;text-align:center;'> <input value=\""+defaultNewPathFolder+"\" id=\"inputFieldForFileOrFolder\" type=\"text\" style=\"width: 90%;\" > </div>";
+	htmlForPopoup += "<br><div id=\"folderFileInfoHolder\" style='margin-right:10px; margin-left: 10px;height:200px;border: 1px solid white;overflow: auto;'> --- </div>";
+	htmlForPopoup += "<div class='link' onclick='addRowFunction({fileType: \"folder\", location: document.getElementById(\"inputFieldForFileOrFolder\").value}); hidePopup();' style='margin-left:125px; margin-right:50px;margin-top:25px;'>Add</div><div onclick='hidePopup();' class='link'>Cancel</div";
 	document.getElementById('popupContentInnerHTMLDiv').innerHTML = htmlForPopoup;
+	document.getElementById('popupContent').style.height = "400px";
+	document.getElementById('popupContent').style.marginTop = "-200px";
+	updateFileFolderGui(true);
+}
+
+function updateFileFolderGui(hideFiles)
+{
+	getFileFolderData(document.getElementById("inputFieldForFileOrFolder").value, hideFiles);
 }
 
 function addOther()
 {
 	addRowFunction(
 		{
-			fileType: "other"
+			fileType: "other",
+			location: defaultNewPathOther
 		}
 	);
+}
+
+function getFileFolderData(currentFolder, hideFiles)
+{
+	//make ajax to get file / folder data, return array
+	var urlForSend = "../core/php/getFileFolderData.php?format=json";
+	var data = {currentFolder};
+	$.ajax({
+		url: urlForSend,
+		dataType: "json",
+		data,
+		type: "POST",
+		success(data)
+		{
+			if(document.getElementById("inputFieldForFileOrFolder").value == data["orgPath"])
+			{
+				var htmlSet = "";
+				var listOfFileOrFolders = Object.keys(data["data"]);
+				var listOfFileOrFoldersCount = listOfFileOrFolders.length;
+				for(var i = 0; i < listOfFileOrFoldersCount; i++)
+				{
+					if(data["data"][listOfFileOrFolders[i]]["type"] === "folder")
+					{
+						htmlSet += "<div style=\"padding: 5px;\" >"+listOfFileOrFolders[i]+" <span style=\"float:right;\" > [select] [expand] </span> </div>";
+					}
+					else if(data["data"][listOfFileOrFolders[i]]["type"] === "file")
+					{
+						if(!hideFiles)
+						{
+							htmlSet += "<div style=\"padding: 5px;\" >"+listOfFileOrFolders[i]+" <span style=\"float:right;\" > [select] </span> </div>";
+						}
+					}
+				}
+				document.getElementById("folderFileInfoHolder").innerHTML = htmlSet;
+			}
+		}
+	});	
 }
 
 function addRowFunction(data)

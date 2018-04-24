@@ -669,5 +669,8 @@
 	var defaultNewAddExcludeTrim = "<?php echo $defaultNewAddExcludeTrim; ?>";
 	var defaultNewAddPattern = "<?php echo $defaultNewAddPattern;?>";
 	var defaultNewAddRecursive = "<?php echo $defaultNewAddRecursive;?>";
+	var defaultNewPathFile = "<?php echo $defaultNewPathFile; ?>";
+	var defaultNewPathFolder = "<?php echo $defaultNewPathFolder;?>";
+	var defaultNewPathOther = "<?php echo $defaultNewPathOther;?>";
 </script>
 <?php $folderCount = $i;
