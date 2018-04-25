@@ -215,6 +215,10 @@ function getFileFolderData(currentFolder, hideFiles, orgPath)
 					if(subData["filename"].indexOf(currentFile) === 0 && currentFile !== "")
 					{
 						highlightClass = "class=\"selected\"";
+						if(subData["filename"] === currentFile)
+						{
+							selectButton = "<a class=\"linkSmallHover\"> Selected </a>";
+						}
 					}
 					if(subData["type"] === "folder")
 					{
