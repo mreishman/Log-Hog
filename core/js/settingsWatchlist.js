@@ -105,8 +105,8 @@ function addFile()
 {
 	showPopup();
 	var htmlForPopoup = "<div class='settingsHeader' id='popupHeaderText' ><span id='popupHeaderText' >Add File</span></div>";
-	htmlForPopoup += "<br><div style='width:100%;text-align:center;'> <input value=\""+defaultNewPathFile+"\" id=\"inputFieldForFileOrFolder\" type=\"text\" style=\"width: 90%;\" > </div>";
-	htmlForPopoup += "<br><div id=\"folderFileInfoHolder\" style='margin-right:10px; margin-left: 10px;height:200px;border: 1px solid white;overflow: auto;'> --- </div>";
+	htmlForPopoup += "<br><div style='width:100%;text-align:center;'> <input onkeyup=\"getCurrentFileFolderInfoKeyPress(false);\" value=\""+defaultNewPathFile+"\" id=\"inputFieldForFileOrFolder\" type=\"text\" style=\"width: 90%;\" > </div>";
+	htmlForPopoup += "<br><div style='width:100%;height:30px;padding-left:20px;' id=\"folderNavUpHolder\"> </div><div id=\"folderFileInfoHolder\" style='margin-right:10px; margin-left: 10px;height:200px;border: 1px solid white;overflow: auto;'> --- </div>";
 	htmlForPopoup += "<div class='link' onclick='addRowFunction({fileType: \"file\", location: document.getElementById(\"inputFieldForFileOrFolder\").value}); hidePopup();' style='margin-left:125px; margin-right:50px;margin-top:25px;'>Add</div><div onclick='hidePopup();' class='link'>Cancel</div";
 	document.getElementById('popupContentInnerHTMLDiv').innerHTML = htmlForPopoup;
 	document.getElementById('popupContent').style.height = "400px";
@@ -118,7 +118,7 @@ function addFolder()
 {
 	showPopup();
 	var htmlForPopoup = "<div class='settingsHeader' id='popupHeaderText' ><span id='popupHeaderText' >Add Folder</span></div>";
-	htmlForPopoup += "<br><div style='width:100%;text-align:center;'> <input value=\""+defaultNewPathFolder+"\" id=\"inputFieldForFileOrFolder\" type=\"text\" style=\"width: 90%;\" > </div>";
+	htmlForPopoup += "<br><div style='width:100%;text-align:center;'> <input onkeyup=\"getCurrentFileFolderInfoKeyPress(true);\" value=\""+defaultNewPathFolder+"\" id=\"inputFieldForFileOrFolder\" type=\"text\" style=\"width: 90%;\" > </div>";
 	htmlForPopoup += "<br><div style='width:100%;height:30px;padding-left:20px;' id=\"folderNavUpHolder\"> </div><div id=\"folderFileInfoHolder\" style='margin-right:20px; margin-left: 20px;height:200px;border: 1px solid white;overflow: auto;'> --- </div>";
 	htmlForPopoup += "<div class='link' onclick='addRowFunction({fileType: \"folder\", location: document.getElementById(\"inputFieldForFileOrFolder\").value}); hidePopup();' style='margin-left:110px; margin-right:50px;margin-top:25px;'>Add</div><div onclick='hidePopup();' class='link'>Cancel</div";
 	document.getElementById('popupContentInnerHTMLDiv').innerHTML = htmlForPopoup;
@@ -129,7 +129,7 @@ function addFolder()
 
 function updateFileFolderGui(hideFiles)
 {
-	getFileFolderData(document.getElementById("inputFieldForFileOrFolder").value, hideFiles);
+	getFileFolderData(document.getElementById("inputFieldForFileOrFolder").value, hideFiles,document.getElementById("inputFieldForFileOrFolder").value);
 }
 
 function addOther()
@@ -142,18 +142,37 @@ function addOther()
 	);
 }
 
-function setNewFileFolderValue(newValue)
+function setNewFileFolderValue(newValue,hideFiles)
 {
 	document.getElementById("inputFieldForFileOrFolder").value = newValue;
+	getCurrentFileFolderInfoKeyPress(hideFiles);
 }
 
 function expandFileFolderView(newValue, hideFiles)
 {
 	document.getElementById("inputFieldForFileOrFolder").value = newValue;
-	getFileFolderData(newValue, hideFiles)
+	getFileFolderData(newValue, hideFiles,newValue)
 }
 
-function getFileFolderData(currentFolder, hideFiles)
+function getCurrentFileFolderInfoKeyPress(hideFiles)
+{
+	var currentDir = document.getElementById("inputFieldForFileOrFolder").value;
+	var joinChar = getJoinChar();
+	var currentDirArray = currentDir.split(joinChar);
+	var lengthOfArr = currentDirArray.length;
+	if(currentDirArray[lengthOfArr-1] !== "")
+	{
+		currentDirArray.pop();
+	}
+	var newDir = currentDirArray.join(joinChar);
+	if(newDir === "")
+	{
+		newDir = joinChar;
+	}
+	getFileFolderData(newDir, hideFiles,currentDir);
+}
+
+function getFileFolderData(currentFolder, hideFiles, orgPath)
 {
 	//make ajax to get file / folder data, return array
 	var urlForSend = "../core/php/getFileFolderData.php?format=json";
@@ -165,13 +184,21 @@ function getFileFolderData(currentFolder, hideFiles)
 		type: "POST",
 		success(data)
 		{
-			var orgPath = data["orgPath"];
 			if(document.getElementById("inputFieldForFileOrFolder").value == orgPath)
 			{
 				var htmlSet = "";
-				if(orgPath !== "/" && orgPath !== "\\")
+				var joinChar = getJoinChar();
+				var currentFile = "";
+				if(orgPath !== joinChar)
 				{
 					document.getElementById("folderNavUpHolder").innerHTML = "<a class=\"linkSmall\" onclick=\"navUpDir("+hideFiles+")\" >Navigate Up One Folder</a>";
+					var currentDirArray = orgPath.split(joinChar);
+					var lengthOfArr = currentDirArray.length;
+					var checkHighlight = currentDirArray[lengthOfArr-1];
+					if(checkHighlight !== "")
+					{
+						currentFile = checkHighlight;
+					}
 				}
 				else
 				{
@@ -182,12 +209,17 @@ function getFileFolderData(currentFolder, hideFiles)
 				for(var i = 0; i < listOfFileOrFoldersCount; i++)
 				{
 					var subData = data["data"][listOfFileOrFolders[i]];
-					var selectButton = "<a class=\"linkSmall\"  onclick=\"setNewFileFolderValue('"+listOfFileOrFolders[i]+"')\" >select</a>";
+					var selectButton = "<a class=\"linkSmall\"  onclick=\"setNewFileFolderValue('"+listOfFileOrFolders[i]+"',"+hideFiles+")\" >select</a>";
 					var name = "<span style=\"max-width: 200px; word-break: break-all; display: inline-block; \" >"+subData["filename"]+"</span>"
+					var highlightClass = "";
+					if(subData["filename"].indexOf(currentFile) === 0 && currentFile !== "")
+					{
+						highlightClass = "class=\"selected\"";
+					}
 					if(subData["type"] === "folder")
 					{
 						var expandButton =  "<a class=\"linkSmall\"  onclick=\"expandFileFolderView('"+listOfFileOrFolders[i]+"',"+hideFiles+")\" >expand</a>";
-						htmlSet += "<div style=\"padding: 5px;min-height:30px;\" >"+name+" <span style=\"float:right;\" > ";
+						htmlSet += "<div "+highlightClass+" style=\"padding: 5px;min-height:30px;\" >"+name+" <span style=\"float:right;\" > ";
 						if(hideFiles)
 						{
 							htmlSet += selectButton;
@@ -198,7 +230,7 @@ function getFileFolderData(currentFolder, hideFiles)
 					{
 						if(!hideFiles)
 						{
-							htmlSet += "<div style=\"padding: 5px;min-height:30px;\" >"+name+" <span style=\"float:right;\" > "+selectButton+" </span> </div>";
+							htmlSet += "<div "+highlightClass+" style=\"padding: 5px;min-height:30px;\" >"+name+" <span style=\"float:right;\" > "+selectButton+" </span> </div>";
 						}
 					}
 				}
@@ -212,17 +244,13 @@ function navUpDir(hideFiles)
 {
 	var lastDir = getLastDir();
 	document.getElementById("inputFieldForFileOrFolder").value = lastDir;
-	getFileFolderData(lastDir, hideFiles)
+	getFileFolderData(lastDir, hideFiles,lastDir)
 }
 
 function getLastDir()
 {
 	var currentDir = document.getElementById("inputFieldForFileOrFolder").value;
-	var joinChar = "/"
-	if(currentDir.indexOf("/") === -1)
-	{
-		currentDirArray = currentDir.split("\\");
-	}
+	var joinChar = getJoinChar();
 	var currentDirArray = currentDir.split(joinChar);
 	var lengthOfArr = currentDirArray.length;
 	if(currentDirArray[lengthOfArr-1] === "")
@@ -240,6 +268,15 @@ function getLastDir()
 		newDir = joinChar;
 	}
 	return newDir;
+}
+
+function getJoinChar()
+{
+	if(document.getElementById("inputFieldForFileOrFolder").value.indexOf("/") === -1)
+	{
+		return "\\";
+	}
+	return "/";
 }
 
 function addRowFunction(data)
