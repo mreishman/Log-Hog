@@ -189,7 +189,7 @@ function getFileFolderData(currentFolder, hideFiles, orgPath)
 				var htmlSet = "";
 				var joinChar = getJoinChar();
 				var currentFile = "";
-				if(orgPath !== joinChar)
+				if(orgPath !== joinChar && orgPath !== "")
 				{
 					document.getElementById("folderNavUpHolder").innerHTML = "<a class=\"linkSmall\" onclick=\"navUpDir("+hideFiles+")\" >Navigate Up One Folder</a>";
 					var currentDirArray = orgPath.split(joinChar);

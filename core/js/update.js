@@ -100,7 +100,7 @@ function checkForUpdateTimer(urlSend, whatAmIUpdating)
 			if(showPopupForUpdateBool && whatAmIUpdating === "Log-Hog")
 			{
 				document.getElementById("progressBarText").innerHTML = "Verifying version list file for "+whatAmIUpdating+" "+totalCounter+"/"+verifyCheckCount+"/"+(successVerifyNum+1);
-				document.getElementById("progressBarUpdateCheckActualBar").value = 50+(50*(verifyCheckCount/(successVerifyNum+1)));
+				document.getElementById("progressBarUpdateCheckActualBar").value = 50+(50*(verifyCheckCount/(successVerifyNum+2)));
 			}
 			if(verifyCheckCount > successVerifyNum)
 			{
