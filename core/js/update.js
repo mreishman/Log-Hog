@@ -160,24 +160,26 @@ function showPopupForUpdate(urlSend,whatAmIUpdating)
 		}
 
 		//Update needed
-		showPopup();
-		var innerHtmlPopup = "<div class='settingsHeader' >New Version of "+whatAmIUpdating+" Available!</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Version "+dataFromJSON.versionNumber+" is now available!</div><div class='link' onclick='installUpdates(\""+urlSend+"\");' style='margin-left:74px; margin-right:50px;margin-top:25px;'>Update Now</div>";
-		if(dontNotifyVersionNotSet !== "")
+		if(document.getElementById("fullScreenMenu").style.display === "none")
 		{
-			innerHtmlPopup += "</div><input id='dontShowPopuForThisUpdateAgain'";
-			if(dontNotifyVersion == dataFromJSON.versionNumber)
+			showPopup();
+			var innerHtmlPopup = "<div class='settingsHeader' >New Version of "+whatAmIUpdating+" Available!</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Version "+dataFromJSON.versionNumber+" is now available!<br><br><div class='link' onclick='installUpdates(\""+urlSend+"\");'>Update Now</div>";
+			if(dontNotifyVersionNotSet !== "")
 			{
-				innerHtmlPopup += " checked ";
+				innerHtmlPopup += "</div><br><input id='dontShowPopuForThisUpdateAgain'";
+				if(dontNotifyVersion == dataFromJSON.versionNumber)
+				{
+					innerHtmlPopup += " checked ";
+				}
+				dontNotifyVersion = dataFromJSON.versionNumber;
+				innerHtmlPopup += "type='checkbox'>Don't notify me about this update again</div>";
 			}
-			dontNotifyVersion = dataFromJSON.versionNumber;
-			innerHtmlPopup += "type='checkbox'>Don't notify me about this update again</div>";
+			else
+			{
+				innerHtmlPopup += "<div onclick='saveSettingFromPopupNoCheckMaybe();' class='link'>Maybe Later</div>";
+			}
+			document.getElementById("popupContentInnerHTMLDiv").innerHTML = innerHtmlPopup;
 		}
-		else
-		{
-			innerHtmlPopup += "<div onclick='saveSettingFromPopupNoCheckMaybe();' class='link'>Maybe Later</div>";
-		}
-		innerHtmlPopup += "</div>";
-		document.getElementById("popupContentInnerHTMLDiv").innerHTML = innerHtmlPopup;
 	}
 	catch(e)
 	{
