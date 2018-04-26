@@ -778,6 +778,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 		var logNameGroup = "<?php echo $logNameGroup; ?>";
 		var logNameExtension = "<?php echo $logNameExtension; ?>";
 		var lineCountFromJS = "<?php echo $lineCountFromJS; ?>";
+		var successVerifyNum = <?php echo $successVerifyNum; ?>;
 	</script>
 	<?php require_once('core/php/template/popup.php') ?>
 	<script src="core/js/main.js?v=<?php echo $cssVersion?>"></script>

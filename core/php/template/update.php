@@ -12,20 +12,23 @@
 			<li>
 				<h2>You last checked for updates
 					<span id="spanNumOfDaysUpdateSince" >
-						<u onclick="checkForUpdates();" style="cursor: pointer;" > <?php echo $daysSince;?> Day<?php if($daysSince != 1){ echo "s";} ?></u>
+						<u onclick="checkForUpdates('');" style="cursor: pointer;" > <?php echo $daysSince;?> Day<?php if($daysSince != 1){ echo "s";} ?></u>
 					</span>
 					 Ago
 				</h2>
 			</li>
 			<li>
-				<form id="settingsCheckForUpdate" style="float: left; padding: 10px;">
-				<a class="link" onclick="checkForUpdates();">Check for updates</a>
-				</form>
-				<form id="settingsInstallUpdate" action="update/updater.php" method="post" style="padding: 10px;">
+				<a id="checkForUpdateButton" class="link" onclick="checkForUpdates('');">Check for updates</a>
+			</li>
+			<li style="display: none;" id="progressBarUpdateCheck">
+				<progress id="progressBarUpdateCheckActualBar" value="50" max="100"></progress>
+				<br>
+				<p id="progressBarText" ></p>
+			</li>
+			<li>
 				<?php
 				if($levelOfUpdate != 0){echo '<a class="link" onclick="installUpdates();">Install '.$configStatic["newestVersion"].' Update</a>';}
 				?>
-				</form>
 			</li>
 			<li id="noUpdate" <?php if($levelOfUpdate != 0){echo "style='display: none;'";} ?> >
 				<h2>
