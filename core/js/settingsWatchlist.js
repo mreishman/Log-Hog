@@ -146,11 +146,28 @@ function addFileFolderAjax(fileType, sentLocation)
 				fileType: fileType,
 				fileImage: icons[data["img"]],
 				location: sentLocation,
-				filePermsDisplay: data["fileInfo"]
+				filePermsDisplay: data["fileInfo"],
+				filesInFolder: generateSubFiles(data["data"])
 			}
 			);
 		}
 	});	
+}
+
+function generateSubFiles(fileArray)
+{
+	var returnHtml = "";
+	var fileArrayList = Object.keys(fileArray);
+	var fileArrayListCount = fileArrayList.length;
+	for(var i = 0; i < fileArrayListCount; i++)
+	{
+		returnHtml += "<li>"+fileArrayList[i]+"</li>";
+	}
+	if(returnHtml === "")
+	{
+		returnHtml = "<li>No Files Found In Folder</li>";
+	}
+	return returnHtml;
 }
 
 function updateFileFolderGui(hideFiles)
