@@ -107,7 +107,7 @@ function addFile()
 	var htmlForPopoup = "<div class='settingsHeader' id='popupHeaderText' ><span id='popupHeaderText' >Add File</span></div>";
 	htmlForPopoup += "<br><div style='width:100%;text-align:center;'> <input onkeyup=\"getCurrentFileFolderInfoKeyPress(false);\" value=\""+defaultNewPathFile+"\" id=\"inputFieldForFileOrFolder\" type=\"text\" style=\"width: 90%;\" > </div>";
 	htmlForPopoup += "<br><div style='width:100%;height:30px;padding-left:20px;' id=\"folderNavUpHolder\"> </div><div id=\"folderFileInfoHolder\" style='margin-right:10px; margin-left: 10px;height:200px;border: 1px solid white;overflow: auto;'> --- </div>";
-	htmlForPopoup += "<div class='link' onclick='addRowFunction({fileType: \"file\", location: document.getElementById(\"inputFieldForFileOrFolder\").value}); hidePopup();' style='margin-left:125px; margin-right:50px;margin-top:25px;'>Add</div><div onclick='hidePopup();' class='link'>Cancel</div";
+	htmlForPopoup += "<div class='link' onclick='addRowFunction({fileType: \"file\",fileImage: defaultFileIcon ,location: document.getElementById(\"inputFieldForFileOrFolder\").value}); hidePopup();' style='margin-left:125px; margin-right:50px;margin-top:25px;'>Add</div><div onclick='hidePopup();' class='link'>Cancel</div";
 	document.getElementById('popupContentInnerHTMLDiv').innerHTML = htmlForPopoup;
 	document.getElementById('popupContent').style.height = "400px";
 	document.getElementById('popupContent').style.marginTop = "-200px";
@@ -120,7 +120,7 @@ function addFolder()
 	var htmlForPopoup = "<div class='settingsHeader' id='popupHeaderText' ><span id='popupHeaderText' >Add Folder</span></div>";
 	htmlForPopoup += "<br><div style='width:100%;text-align:center;'> <input onkeyup=\"getCurrentFileFolderInfoKeyPress(true);\" value=\""+defaultNewPathFolder+"\" id=\"inputFieldForFileOrFolder\" type=\"text\" style=\"width: 90%;\" > </div>";
 	htmlForPopoup += "<br><div style='width:100%;height:30px;padding-left:20px;' id=\"folderNavUpHolder\"> </div><div id=\"folderFileInfoHolder\" style='margin-right:20px; margin-left: 20px;height:200px;border: 1px solid white;overflow: auto;'> --- </div>";
-	htmlForPopoup += "<div class='link' onclick='addRowFunction({fileType: \"folder\", location: document.getElementById(\"inputFieldForFileOrFolder\").value}); hidePopup();' style='margin-left:110px; margin-right:50px;margin-top:25px;'>Add</div><div onclick='hidePopup();' class='link'>Cancel</div";
+	htmlForPopoup += "<div class='link' onclick='addRowFunction({fileType: \"folder\", fileImage: defaultFolderIcon , location: document.getElementById(\"inputFieldForFileOrFolder\").value}); hidePopup();' style='margin-left:110px; margin-right:50px;margin-top:25px;'>Add</div><div onclick='hidePopup();' class='link'>Cancel</div";
 	document.getElementById('popupContentInnerHTMLDiv').innerHTML = htmlForPopoup;
 	document.getElementById('popupContent').style.height = "400px";
 	document.getElementById('popupContent').style.marginTop = "-200px";
@@ -318,13 +318,19 @@ function addRowFunction(data)
 			patternFromData = data["pattern"];
 		}
 
+		var fileImg = "";
+		if("fileImage" in data)
+		{
+			fileImg = data["fileImage"];
+		}
+
 		var item = generateRow(
 			{
 				rowNumber: countOfWatchList,
 				prevRowNum: -1,
 				fileNumber: fileName,
 				filePermsDisplay: "----------",
-				fileImage: "",
+				fileImage: fileImg,
 				location: locationFromData,
 				pattern: patternFromData,
 				key: "Log "+countOfWatchList,
@@ -444,7 +450,7 @@ function deleteRowFunctionPopup(currentRow, keyName = "")
 		if("removeFolder" in popupSettingsArray && popupSettingsArray.removeFolder === "true")
 		{
 			showPopup();
-			document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class='settingsHeader' >Are you sure you want to remove this file/folder?</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>"+keyName+"</div><div><div class='link' onclick='deleteRowFunction("+currentRow+");hidePopup();' style='margin-left:125px; margin-right:50px;margin-top:35px;'>Yes</div><div onclick='hidePopup();' class='link'>No</div></div>";
+			document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class='settingsHeader' >Are you sure you want to remove this entry from your watchlist?</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>"+keyName+"</div><div><div class='link' onclick='deleteRowFunction("+currentRow+");hidePopup();' style='margin-left:125px; margin-right:50px;margin-top:35px;'>Yes</div><div onclick='hidePopup();' class='link'>No</div></div>";
 		}
 		else
 		{

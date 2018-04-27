@@ -663,14 +663,22 @@
 	</div>
 </div>
 <script type="text/javascript">
-	var defaultTrashCanIcon = <?php echo json_encode($defaultTrashCanIcon); ?>;
-	var defaultdefaultNewAddAlertEnabled = "<?php echo $defaultNewAddAlertEnabled; ?>";
-	var defaultNewAddAutoDeleteFiles = "<?php echo $defaultNewAddAutoDeleteFiles; ?>";
-	var defaultNewAddExcludeTrim = "<?php echo $defaultNewAddExcludeTrim; ?>";
-	var defaultNewAddPattern = "<?php echo $defaultNewAddPattern;?>";
-	var defaultNewAddRecursive = "<?php echo $defaultNewAddRecursive;?>";
-	var defaultNewPathFile = "<?php echo $defaultNewPathFile; ?>";
-	var defaultNewPathFolder = "<?php echo $defaultNewPathFolder;?>";
-	var defaultNewPathOther = "<?php echo $defaultNewPathOther;?>";
+	var defaultTrashCanIcon 				= <?php echo json_encode($defaultTrashCanIcon); ?>;
+	var defaultRedErrorIcon 				= <?php echo json_encode($defaultRedErrorIcon); ?>;
+	var defaultYellowErrorIcon 				= <?php echo json_encode($defaultYellowErrorIcon); ?>;
+	var defaultFolderIcon 					= <?php echo json_encode($defaultFolderIcon); ?>;
+	var defaultFileIcon 					= <?php echo json_encode($defaultFileIcon); ?>;
+	var defaultFolderNRIcon 				= <?php echo json_encode($defaultFolderNRIcon); ?>;
+	var defaultFileNRIcon 					= <?php echo json_encode($defaultFileNRIcon); ?>;
+	var defaultFolderNWIcon 				= <?php echo json_encode($defaultFolderNWIcon); ?>;
+	var defaultFileNWIcon 					= <?php echo json_encode($defaultFileNWIcon); ?>;
+	var defaultdefaultNewAddAlertEnabled 	= "<?php echo $defaultNewAddAlertEnabled; ?>";
+	var defaultNewAddAutoDeleteFiles 		= "<?php echo $defaultNewAddAutoDeleteFiles; ?>";
+	var defaultNewAddExcludeTrim 			= "<?php echo $defaultNewAddExcludeTrim; ?>";
+	var defaultNewAddPattern 				= "<?php echo $defaultNewAddPattern;?>";
+	var defaultNewAddRecursive 				= "<?php echo $defaultNewAddRecursive;?>";
+	var defaultNewPathFile 					= "<?php echo $defaultNewPathFile; ?>";
+	var defaultNewPathFolder				= "<?php echo $defaultNewPathFolder;?>";
+	var defaultNewPathOther 				= "<?php echo $defaultNewPathOther;?>";
 </script>
 <?php $folderCount = $i;
