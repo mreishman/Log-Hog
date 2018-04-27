@@ -122,6 +122,15 @@
 		$AlertEnabled = "{{AlertEnabled}}";
 		$first = false;
 		$last = false;
+		$boolHideSplit = "";
+
+		if(isset($data["hideSplitButton"]))
+		{
+			if($data["hideSplitButton"] === true)
+			{
+				$boolHideSplit = "style=\"display: none;\"";
+			}
+		}
 
 		if(isset($data["Position"]))
 		{
@@ -337,7 +346,7 @@
 		}
 		$saveBlock .= "</select></span></li>";
 		$saveBlock .= "<li class=\"typeFile\" ".$typeFile."><div class=\"settingsHeader\" style=\"margin: 0;\" >Files: ";
-		$saveBlock .= "<div class=\"settingsHeaderButtons\"><a class=\"linkSmall\" onclick=\"splitFilesPopup(".$rowNumber.", '".$location."');\"	 >Split Files</a></div>";
+		$saveBlock .= "<div class=\"settingsHeaderButtons\"><a id=\"watchListKey".$rowNumber."SplitFilesLink\" ".$boolHideSplit." class=\"linkSmall\" onclick=\"splitFilesPopup(".$rowNumber.", '".$location."');\"	 >Split Files</a></div>";
 		$saveBlock .= "</div> <div class=\"settingsDiv\" style=\"max-height: 150px; display: block; overflow: auto; margin: 0;\" ><ul id=\"watchListKey".$rowNumber."FilesInFolder\" class=\"settingsUl\" style=\"-webkit-padding-start: 0;\" >".$filesInFolder."</ul></div></li>";
 		$saveBlock .= "<input type=\"hidden\"   name=\"watchListKey".$rowNumber."FileInformation\" value='".$FileInformation."' >";
 		$saveBlock .= "</ul></div></li>";
@@ -358,6 +367,7 @@
 		$FileType = "auto";
 		$FileInformation = $values["FileInformation"];
 		$Position = false;
+		$boolHideSplit = false;
 		if($i === 1)
 		{
 			$Position = "first";
@@ -493,6 +503,7 @@
 			if($filesInFolder === "")
 			{
 				$filesInFolder = "<li>No Files Found In Folder</li>";
+				$boolHideSplit = true;
 			}
 			//$fileSize = 
 		}
@@ -502,6 +513,7 @@
 			if($filesInFolder === "")
 			{
 				$filesInFolder = "<li>FileType was set to file</li>";
+				$boolHideSplit = true;
 			}
 		}
 		else
@@ -509,6 +521,7 @@
 			if($filesInFolder === "")
 			{
 				$filesInFolder = "<li>No Files Found</li>";
+				$boolHideSplit = true;
 			}
 		}
 
@@ -529,6 +542,7 @@
 				"typeFolder"			=>	($FileType === "folder"),
 				"FileType"				=> 	$FileType,
 				"filesInFolder"			=>	$filesInFolder,
+				"hideSplitButton"		=>	$boolHideSplit,
 				"AutoDeleteFiles"		=>	$values["AutoDeleteFiles"],
 				"Group"					=>	$values["Group"],
 				"FileInformation"		=>	$FileInformation,
@@ -664,14 +678,15 @@
 </div>
 <script type="text/javascript">
 	var defaultTrashCanIcon 				= <?php echo json_encode($defaultTrashCanIcon); ?>;
-	var defaultRedErrorIcon 				= <?php echo json_encode($defaultRedErrorIcon); ?>;
-	var defaultYellowErrorIcon 				= <?php echo json_encode($defaultYellowErrorIcon); ?>;
-	var defaultFolderIcon 					= <?php echo json_encode($defaultFolderIcon); ?>;
-	var defaultFileIcon 					= <?php echo json_encode($defaultFileIcon); ?>;
-	var defaultFolderNRIcon 				= <?php echo json_encode($defaultFolderNRIcon); ?>;
-	var defaultFileNRIcon 					= <?php echo json_encode($defaultFileNRIcon); ?>;
-	var defaultFolderNWIcon 				= <?php echo json_encode($defaultFolderNWIcon); ?>;
-	var defaultFileNWIcon 					= <?php echo json_encode($defaultFileNWIcon); ?>;
+	var icons = {};
+	icons["defaultRedErrorIcon"]				= <?php echo json_encode($defaultRedErrorIcon); ?>;
+	icons["defaultYellowErrorIcon "]				= <?php echo json_encode($defaultYellowErrorIcon); ?>;
+	icons["defaultFolderIcon"] 					= <?php echo json_encode($defaultFolderIcon); ?>;
+	icons["defaultFileIcon"] 					= <?php echo json_encode($defaultFileIcon); ?>;
+	icons["defaultFolderNRIcon"] 				= <?php echo json_encode($defaultFolderNRIcon); ?>;
+	icons["defaultFileNRIcon"] 					= <?php echo json_encode($defaultFileNRIcon); ?>;
+	icons["defaultFolderNWIcon"] 				= <?php echo json_encode($defaultFolderNWIcon); ?>;
+	icons["defaultFileNWIcon"] 					= <?php echo json_encode($defaultFileNWIcon); ?>;
 	var defaultdefaultNewAddAlertEnabled 	= "<?php echo $defaultNewAddAlertEnabled; ?>";
 	var defaultNewAddAutoDeleteFiles 		= "<?php echo $defaultNewAddAutoDeleteFiles; ?>";
 	var defaultNewAddExcludeTrim 			= "<?php echo $defaultNewAddExcludeTrim; ?>";
