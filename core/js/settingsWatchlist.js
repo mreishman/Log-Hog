@@ -18,6 +18,11 @@ function generateRow(data)
 		filesInFolder = filesInFolder.split("watchListKey"+data["prevRowNum"]).join("watchListKey"+data["rowNumber"]);
 		filesInFolder = filesInFolder.split("updateFileInfo("+data["prevRowNum"]).join("updateFileInfo("+data["rowNumber"]);
 	}
+	var hideSplit = false;
+	if("hideSplit" in data)
+	{
+		hideSplit = data["hideSplit"];
+	}
 	var item = $("#storage .saveBlock").html();
 	item = item.replace(/{{rowNumber}}/g, data["rowNumber"]);
 	item = item.replace(/{{fileNumber}}/g, data["fileNumber"]);
@@ -39,6 +44,7 @@ function generateRow(data)
 	item = item.replace(/{{Group}}/g, data["Group"]);
 	item = item.replace(/{{Name}}/g, data["Name"]);
 	item = item.replace(/{{AlertEnabled}}/g, generateTrueFalseSelect(data["AlertEnabled"]));
+	item = item.replace(/{{HideSplitButton}}/g, displayNoneIfTrue(hideSplit));
 	if(!data["down"])
 	{
 		item = item.replace(/{{movedown}}/g, "style=\"display: none;\"");
@@ -141,6 +147,7 @@ function addFileFolderAjax(fileType, sentLocation)
 		success(data)
 		{
 			var countOfWatchList = parseInt(document.getElementById("numberOfRows").value);
+			var fileListData = generateSubFiles(data["data"], currentNum, sentLocation);
 			hidePopup();
 			addRowFunction(
 			{
@@ -148,7 +155,8 @@ function addFileFolderAjax(fileType, sentLocation)
 				fileImage: icons[data["img"]],
 				location: sentLocation,
 				filePermsDisplay: data["fileInfo"],
-				filesInFolder: generateSubFiles(data["data"], currentNum, sentLocation)
+				filesInFolder: fileListData["html"],
+				hideSplit: fileListData["filesFound"]
 			}
 			);
 		}
@@ -160,6 +168,7 @@ function generateSubFiles(fileArray, currentNum, mainFolder)
 	var returnHtml = "";
 	var fileArrayList = Object.keys(fileArray);
 	var fileArrayListCount = fileArrayList.length;
+	var filesFound = true;
 	for(var i = 0; i < fileArrayListCount; i++)
 	{
 		var keyTwo = fileArrayList[i];
@@ -175,8 +184,9 @@ function generateSubFiles(fileArray, currentNum, mainFolder)
 	if(returnHtml === "")
 	{
 		returnHtml = "<li>No Files Found In Folder</li>";
+		filesFound = false;
 	}
-	return returnHtml;
+	return {html: returnHtml, filesFound};
 }
 
 function updateFileFolderGui(hideFiles)
@@ -382,12 +392,18 @@ function addRowFunction(data)
 			filePermsDisplay = data["filePermsDisplay"];
 		}
 
+		var hideSplit = false;
+		if("hideSplit" in data)
+		{
+			hideSplit = data["hideSplit"];
+		}
+
 		var item = generateRow(
 			{
 				rowNumber: countOfWatchList,
 				prevRowNum: -1,
 				fileNumber: fileName,
-				filePermsDisplay: filePermsDisplay,
+				filePermsDisplay,
 				fileImage: fileImg,
 				location: locationFromData,
 				pattern: patternFromData,
@@ -402,7 +418,8 @@ function addRowFunction(data)
 				Name: "",
 				AlertEnabled: defaultdefaultNewAddAlertEnabled,
 				up: true,
-				down: false
+				down: false,
+				hideSplit
 			}
 		);
 		$(".uniqueClassForAppendSettingsMainWatchNew").append(item);

@@ -122,7 +122,7 @@
 		$AlertEnabled = "{{AlertEnabled}}";
 		$first = false;
 		$last = false;
-		$boolHideSplit = "";
+		$boolHideSplit = "{{HideSplitButton}}";
 
 		if(isset($data["hideSplitButton"]))
 		{
