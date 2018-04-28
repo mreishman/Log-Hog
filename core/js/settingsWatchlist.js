@@ -65,6 +65,24 @@ function displayNoneIfTrue(selectValue)
 	return "";
 }
 
+function generatePatternSelect(selectValue)
+{
+	var selectHtml += "";
+	selectHtml += "<option value=\".log$\" ";
+	if(selectValue === ".log$")
+	{
+		selectHtml += " selected ";
+	}
+	selectHtml += " >.Log</option>";
+	selectHtml += "<option value=\"other\" ";
+	if(selectValue !== ".log$")
+	{
+		selectHtml += " selected ";
+	}
+	selectHtml += " >Other</option>";
+	return selectHtml;
+}
+
 function generateFileTypeSelect(selectValue)
 {
 	var selectHtml = "";
@@ -105,6 +123,25 @@ function generateTrueFalseSelect(selectValue)
 	}
 	selectHtml += " >False</option>";
 	return selectHtml;
+}
+
+function generateSelect(data, selectValue)
+{
+	var optionList = Object.keys(data);
+	var optionListCount = optionList.length;
+	var selectHtml = "";
+	var selected = false;
+	for(var i = 0; i < optionListCount; i++)
+	{
+		selectHtml += "<option value=\""+data[optionList[i]]["value"]+"\" ";
+		if(selectValue === data[optionList[i]]["value"])
+		{
+			selectHtml += " selected ";
+			selected = true;
+		}
+		selectHtml += " >"+data[optionList[i]]["name"]+"</option>";
+	}
+	return {html: selectHtml, bool: selected};
 }
 
 function addFile()
