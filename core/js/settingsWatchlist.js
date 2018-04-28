@@ -140,6 +140,7 @@ function addFileFolderAjax(fileType, sentLocation)
 		type: "POST",
 		success(data)
 		{
+			var countOfWatchList = parseInt(document.getElementById("numberOfRows").value);
 			hidePopup();
 			addRowFunction(
 			{
@@ -147,21 +148,29 @@ function addFileFolderAjax(fileType, sentLocation)
 				fileImage: icons[data["img"]],
 				location: sentLocation,
 				filePermsDisplay: data["fileInfo"],
-				filesInFolder: generateSubFiles(data["data"])
+				filesInFolder: generateSubFiles(data["data"], currentNum, sentLocation)
 			}
 			);
 		}
 	});	
 }
 
-function generateSubFiles(fileArray)
+function generateSubFiles(fileArray, currentNum, mainFolder)
 {
 	var returnHtml = "";
 	var fileArrayList = Object.keys(fileArray);
 	var fileArrayListCount = fileArrayList.length;
 	for(var i = 0; i < fileArrayListCount; i++)
 	{
-		returnHtml += "<li>"+fileArrayList[i]+"</li>";
+		var keyTwo = fileArrayList[i];
+		returnHtml += "<li>"+icons[fileArray[keyTwo]["image"]];
+		returnHtml += "<span style=\"width: 300px; overflow: auto; display: inline-block;\" >"+keyTwo.replace(mainFolder,"")+"</span><input name=\"watchListKey"+currentNum+"FileInFolder\"  type=\"hidden\" value=\""+keyTwo+"\" >";
+		returnHtml += "<span class=\"settingsBuffer\" >Include: <select onchange=\"updateFileInfo("+currentNum+");\" name=\"watchListKey"+currentNum+"FileInFolderInclude\" > "+generateTrueFalseSelect("true")+" </select></span>";
+		returnHtml += "<span class=\"settingsBuffer\" >Exclude Trim: <select onchange=\"updateFileInfo("+currentNum+");\" name=\"watchListKey"+currentNum+"FileInFolderTrim\"> "+generateTrueFalseSelect(defaultNewAddExcludeTrim)+" </select></span>";
+		returnHtml += "<span class=\"settingsBuffer\" >Exclude Delete: <select onchange=\"updateFileInfo("+currentNum+");\" name=\"watchListKey"+currentNum+"ExcludeDelete\"> "+generateTrueFalseSelect("false")+" </select></span>";
+		returnHtml += "<span class=\"settingsBuffer\" >Alert on Update: <select onchange=\"updateFileInfo("+currentNum+");\" name=\"watchListKey"+currentNum+"FileInFolderAlert\"> "+generateTrueFalseSelect(defaultdefaultNewAddAlertEnabled)+" </select></span>";
+		returnHtml += "<span class=\"settingsBuffer\" >Name: <input onchange=\"updateFileInfo("+currentNum+");\"  type=\"text\" name=\"watchListKey"+currentNum+"FileInFolderName\" value=\"\" > </span>";
+		returnHtml += "</li>";
 	}
 	if(returnHtml === "")
 	{
