@@ -45,6 +45,7 @@ function generateRow(data)
 	item = item.replace(/{{Name}}/g, data["Name"]);
 	item = item.replace(/{{AlertEnabled}}/g, generateTrueFalseSelect(data["AlertEnabled"]));
 	item = item.replace(/{{HideSplitButton}}/g, displayNoneIfTrue(hideSplit));
+	item = item.replace(/{{patternSelect}}/g, displayNoneIfTrue(data["pattern"]));
 	if(!data["down"])
 	{
 		item = item.replace(/{{movedown}}/g, "style=\"display: none;\"");
@@ -67,65 +68,72 @@ function displayNoneIfTrue(selectValue)
 
 function generatePatternSelect(selectValue)
 {
-	var selectHtml += "";
-	selectHtml += "<option value=\".log$\" ";
-	if(selectValue === ".log$")
-	{
-		selectHtml += " selected ";
-	}
-	selectHtml += " >.Log</option>";
-	selectHtml += "<option value=\"other\" ";
-	if(selectValue !== ".log$")
-	{
-		selectHtml += " selected ";
-	}
-	selectHtml += " >Other</option>";
-	return selectHtml;
+	return generateSelect(
+		{
+			0:{
+				value: ".log$",
+				name: ".log"
+			},
+			1:{
+				value: ".txt$",
+				name: ".txt"
+			},
+			2:{
+				value: ".out$",
+				name: ".out"
+			},
+			3:{
+				value: "$",
+				name: "Any File"
+			}
+		},
+		{
+			value: "other",
+			name: "Other"
+		},
+		selectValue
+	);
 }
 
 function generateFileTypeSelect(selectValue)
 {
-	var selectHtml = "";
-	selectHtml += "<option value=\"file\" ";
-	if(selectValue === "file")
-	{
-		selectHtml += " selected ";
-	}
-	selectHtml += " >File</option>";
-	selectHtml += "<option value=\"folder\" ";
-	if(selectValue === "folder")
-	{
-		selectHtml += " selected ";
-	}
-	selectHtml += " >Folder</option>";
-	selectHtml += "<option value=\"other\" ";
-	if(selectValue !== "file" && selectValue !== "folder")
-	{
-		selectHtml += " selected ";
-	}
-	selectHtml += " >Other</option>";
-	return selectHtml;
+	return generateSelect(
+		{
+			0:{
+				value: "file",
+				name: "File"
+			},
+			1:{
+				value: "folder",
+				name: "Folder"
+			}
+		},
+		{
+			value: "other",
+			name: "Other"
+		},
+		selectValue
+	);
 }
 
 function generateTrueFalseSelect(selectValue)
 {
-	var selectHtml = "";
-	selectHtml += "<option value=\"true\" ";
-	if(selectValue === "true")
-	{
-		selectHtml += " selected ";
-	}
-	selectHtml += " >True</option>";
-	selectHtml += "<option value=\"false\" ";
-	if(selectValue !== "true")
-	{
-		selectHtml += " selected ";
-	}
-	selectHtml += " >False</option>";
-	return selectHtml;
+	return generateSelect(
+		{
+			0:{
+				value: "true",
+				name: "True"
+			}
+		},
+		{
+			value: "false",
+			name: "False"
+		}
+		selectValue
+	);
 }
 
-function generateSelect(data, selectValue)
+function generateSelect(data, defaultData, selectValue)
 {
 	var optionList = Object.keys(data);
 	var optionListCount = optionList.length;
@@ -134,14 +142,20 @@ function generateSelect(data, selectValue)
 	for(var i = 0; i < optionListCount; i++)
 	{
 		selectHtml += "<option value=\""+data[optionList[i]]["value"]+"\" ";
-		if(selectValue === data[optionList[i]]["value"])
+		if(selectValue === data[optionList[i]]["value"] && selected !== true)
 		{
 			selectHtml += " selected ";
 			selected = true;
 		}
 		selectHtml += " >"+data[optionList[i]]["name"]+"</option>";
 	}
-	return {html: selectHtml, bool: selected};
+	selectHtml += "<option value=\""+defaultData["value"]+"\" ";
+	if(selected !== true)
+	{
+		selectHtml += " selected ";
+	}
+	selectHtml += " >"+defaultData["name"]+"</option>";
+	return selectHtml;
 }
 
 function addFile()
@@ -639,6 +653,7 @@ function moveRow(currentRow, newRow)
 			AlertEnabled: document.getElementsByName("watchListKey"+currentRow+"AlertEnabled")[0].value,
 			up: upBool,
 			down: downBool
+			hideSplit: (document.getElementById("watchListKey"+currentRow+"SplitFilesLink").style.display === "none")
 		}
 	);
 	//add new one

@@ -1003,3 +1003,26 @@ function sizeFilesInDir($data)
 	}
 	return $response;
 }
+
+function createSelect($options, $defaultOption, $selectValue)
+{
+	$selectHtml = "";
+	$selected = false;
+	foreach ($options as $key => $value)
+	{
+		$selectHtml .= "<option value=\"".$options["value"]."\" ";
+		if($selectValue === $options["value"] && $selected !== true)
+		{
+			$selectHtml += " selected ";
+			$selected = true;
+		}
+		$selectHtml += " >"+$options["name"]+"</option>";
+	}
+	$selectHtml += "<option value=\""+$defaultOption["value"]+"\" ";
+	if($selected !== true)
+	{
+		$selectHtml += " selected ";
+	}
+	$selectHtml += " >"+$defaultOption["name"]+"</option>";
+	return $selectHtml;
+}
