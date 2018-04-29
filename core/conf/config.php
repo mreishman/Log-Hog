@@ -289,6 +289,7 @@ $defaultConfig = array(
 	'sendCrashInfoPHP'				=> 'true',
 	'shellOrPhp'					=> 'phpPreferred',
 	'sliceSize'						=> 500,
+	'sortTypeFileFolderPopup'		=> 'startsWithAndcontains',
 	'successVerifyNum'				=> 2,
 	'themesEnabled'					=> 'true',
 	'themeVersion'					=> 10,

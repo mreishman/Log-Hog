@@ -43,6 +43,16 @@ Watchlist Settings
 			</select>
 		</div>
 	</li>
+	<li>
+		<span class="settingsBuffer" >File popup sort:</span>
+		<div class="selectDiv">
+			<select name="sortTypeFileFolderPopup">
+				<option <?php if($sortTypeFileFolderPopup == 'startsWithAndcontains'){echo "selected";} ?> value="startsWithAndcontains">Starts With > Contains > Other</option>
+				<option <?php if($sortTypeFileFolderPopup == 'startsWith'){echo "selected";} ?> value="false">Starts With > Other</option>
+				<option <?php if($sortTypeFileFolderPopup == 'none'){echo "selected";} ?> value="none">None</option>
+			</select>
+		</div>
+	</li>
 </ul>
 </div>
 </form>

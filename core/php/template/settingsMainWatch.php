@@ -748,5 +748,6 @@
 	var defaultNewPathFile 					= "<?php echo $defaultNewPathFile; ?>";
 	var defaultNewPathFolder				= "<?php echo $defaultNewPathFolder;?>";
 	var defaultNewPathOther 				= "<?php echo $defaultNewPathOther;?>";
+	var sortTypeFileFolderPopup				= "<?php echo $sortTypeFileFolderPopup; ?>";
 </script>
 <?php $folderCount = $i;

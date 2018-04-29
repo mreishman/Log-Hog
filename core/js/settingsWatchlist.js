@@ -375,14 +375,20 @@ function getFileFolderSubFunction(data)
 			if(subData["filename"].indexOf(currentFile) === 0 && currentFile !== "")
 			{
 				highlightClass = "class=\"selected\"";
-				listKey = "startsWith";
+				if(sortTypeFileFolderPopup === "startsWithAndcontains" || sortTypeFileFolderPopup === "startsWith")
+				{
+					listKey = "startsWith";
+				}
 				if(subData["filename"] === currentFile)
 				{
 					selectButton = "<a class=\"linkSmallHover\"> Selected </a>";
-					listKey = "selected";
+					if(sortTypeFileFolderPopup === "startsWithAndcontains" || sortTypeFileFolderPopup === "startsWith")
+					{
+						listKey = "selected";
+					}
 				}
 			}
-			else if(subData["filename"].indexOf(currentFile) > 0 && currentFile !== "")
+			else if(subData["filename"].indexOf(currentFile) > 0 && currentFile !== "" && sortTypeFileFolderPopup === "startsWithAndcontains")
 			{
 				listKey = "contains";
 			}
