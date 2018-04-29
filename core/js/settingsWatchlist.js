@@ -1,4 +1,23 @@
 var titleOfPage = "Watchlist";
+var selectOptions =
+{
+	0:{
+		value: ".log$",
+		name: ".log"
+	},
+	1:{
+		value: ".txt$",
+		name: ".txt"
+	},
+	2:{
+		value: ".out$",
+		name: ".out"
+	},
+	3:{
+		value: "$",
+		name: "Any File"
+	}
+};
 
 function generateRow(data)
 {
@@ -23,6 +42,19 @@ function generateRow(data)
 	{
 		hideSplit = data["hideSplit"];
 	}
+
+	var hidePattern = false;
+	var optionList = Object.keys(data);
+	var optionListCount = optionList.length;
+	for(var i = 0; i < optionListCount; i++)
+	{
+		if(data["pattern"] === data[optionList[i]]["value"])
+		{
+			hidePattern = true;
+			break;
+		}
+	}
+
 	var item = $("#storage .saveBlock").html();
 	item = item.replace(/{{rowNumber}}/g, data["rowNumber"]);
 	item = item.replace(/{{fileNumber}}/g, data["fileNumber"]);
@@ -45,7 +77,8 @@ function generateRow(data)
 	item = item.replace(/{{Name}}/g, data["Name"]);
 	item = item.replace(/{{AlertEnabled}}/g, generateTrueFalseSelect(data["AlertEnabled"]));
 	item = item.replace(/{{HideSplitButton}}/g, displayNoneIfTrue(hideSplit));
-	item = item.replace(/{{patternSelect}}/g, displayNoneIfTrue(data["pattern"]));
+	item = item.replace(/{{patternSelect}}/g, generatePatternSelect(data["pattern"]));
+	item = item.replace(/{{hidePatternInput}}/g, displayNoneIfTrue(hidePattern));
 	if(!data["down"])
 	{
 		item = item.replace(/{{movedown}}/g, "style=\"display: none;\"");
@@ -69,24 +102,7 @@ function displayNoneIfTrue(selectValue)
 function generatePatternSelect(selectValue)
 {
 	return generateSelect(
-		{
-			0:{
-				value: ".log$",
-				name: ".log"
-			},
-			1:{
-				value: ".txt$",
-				name: ".txt"
-			},
-			2:{
-				value: ".out$",
-				name: ".out"
-			},
-			3:{
-				value: "$",
-				name: "Any File"
-			}
-		},
+		selectOptions,
 		{
 			value: "other",
 			name: "Other"
@@ -156,6 +172,21 @@ function generateSelect(data, defaultData, selectValue)
 	}
 	selectHtml += " >"+defaultData["name"]+"</option>";
 	return selectHtml;
+}
+
+function togglePatternSelect(rowNumber)
+{
+	var newPatternvalue = document.getElementById("watchListKey"+rowNumber+"PatternSelect").value;
+	if(newPatternvalue === "other")
+	{
+		document.getElementsByName("watchListKey"+rowNumber+"Pattern")[0].value = "";
+		document.getElementsByName("watchListKey"+rowNumber+"Pattern")[0].style.display = "inline-block";
+	}
+	else
+	{
+		document.getElementsByName("watchListKey"+rowNumber+"Pattern")[0].value = newPatternvalue;
+		document.getElementsByName("watchListKey"+rowNumber+"Pattern")[0].style.display = "none";
+	}
 }
 
 function addFile()

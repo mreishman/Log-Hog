@@ -174,10 +174,15 @@
 		$last = false;
 		$boolHideSplit = "{{HideSplitButton}}";
 		$patternSelect = "{{patternSelect}}";
+		$patternHideInput = "{{hidePatternInput}}";
 
 		if(isset($data["pattern"]))
 		{
 			$patternSelect = $data["pattern"];
+			if($patternSelect !== "other")
+			{
+				$patternHideInput = "style: \"display: none;\" ";
+			}
 		}
 
 		if(isset($data["hideSplitButton"]))
@@ -340,7 +345,7 @@
 		$saveBlock .= " class=\"linkSmall\" id=\"moveDown".$rowNumber."\" onclick=\"moveDown(".$rowNumber.");\" > Move Down </a>";
 		$saveBlock .= "</div><div class=\"settingsDiv\" ><ul class=\"settingsUl\" >";
 		$saveBlock .= "<li><span class=\"settingsBuffer\" >Location: </span><input style=\"width: 600px;\" type=\"text\" name=\"watchListKey".$rowNumber."Location\" value=\"".$location."\" ></li>";
-		$saveBlock .= "<li  class=\"typeFile\" ".$typeFile."><span class=\"settingsBuffer\" >Pattern: </span><span class=\"settingsBuffer\" >";
+		$saveBlock .= "<li  class=\"typeFile\" ".$typeFile."><span class=\"settingsBuffer\" >Pattern: </span><span class=\"settingsBuffer\" ><select onchange=\"togglePatternSelect(".$rowNumber.")\" id=\"watchListKey".$rowNumber."PatternSelect\" >";
 		if(isset($data["pattern"]))
 		{
 			$saveBlock .=  makePatternSelect($patternSelect);
@@ -349,7 +354,7 @@
 		{
 			$saveBlock .=  $patternSelect;
 		}
-		$saveBlock .= "</span><span class=\"settingsBuffer\" ><input type=\"text\" name=\"watchListKey".$rowNumber."Pattern\" value=\"".$pattern."\" ></span></li>";
+		$saveBlock .= "</select></span><span class=\"settingsBuffer\" ><input ".$patternHideInput." type=\"text\" name=\"watchListKey".$rowNumber."Pattern\" value=\"".$pattern."\" ></span></li>";
 		$saveBlock .= "<li class=\"typeFile\" ".$typeFile."><span class=\"settingsBuffer\" >Recursive: </span><span class=\"settingsBuffer\" ><select name=\"watchListKey".$rowNumber."Recursive\" >";
 		if(isset($data["recursiveOptions"]))
 		{
