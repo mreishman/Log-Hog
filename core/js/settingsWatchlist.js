@@ -350,38 +350,58 @@ function getFileFolderData(currentFolder, hideFiles, orgPath)
 				}
 				var listOfFileOrFolders = Object.keys(data["data"]);
 				var listOfFileOrFoldersCount = listOfFileOrFolders.length;
+				var fileFolderList = {
+					selected: "";
+					startsWith: "",
+					contains: "",
+					other: ""
+				};
 				for(var i = 0; i < listOfFileOrFoldersCount; i++)
 				{
 					var subData = data["data"][listOfFileOrFolders[i]];
 					var selectButton = "<a class=\"linkSmall\"  onclick=\"setNewFileFolderValue('"+listOfFileOrFolders[i]+"',"+hideFiles+")\" >select</a>";
 					var name = "<span style=\"max-width: 200px; word-break: break-all; display: inline-block; \" >"+subData["filename"]+"</span>"
 					var highlightClass = "";
+					var listKey = "other";
 					if(subData["filename"].indexOf(currentFile) === 0 && currentFile !== "")
 					{
 						highlightClass = "class=\"selected\"";
+						listKey = "startsWith";
 						if(subData["filename"] === currentFile)
 						{
 							selectButton = "<a class=\"linkSmallHover\"> Selected </a>";
+							listKey = "selected";
 						}
+					}
+					else if(subData["filename"].indexOf(currentFile) > 0 && currentFile !== "")
+					{
+						listKey = "contains";
 					}
 					if(subData["type"] === "folder")
 					{
+						var folderHtml = "";
 						var expandButton =  "<a class=\"linkSmall\"  onclick=\"expandFileFolderView('"+listOfFileOrFolders[i]+"',"+hideFiles+")\" >expand</a>";
-						htmlSet += "<div "+highlightClass+" style=\"padding: 5px;min-height:30px;\" >"+name+" <span style=\"float:right;\" > ";
+						folderHtml += "<div "+highlightClass+" style=\"padding: 5px;min-height:30px;\" >"+name+" <span style=\"float:right;\" > ";
 						if(hideFiles)
 						{
-							htmlSet += selectButton;
+							folderHtml += selectButton;
 						}
-						htmlSet += " "+expandButton+" </span> </div>";
+						folderHtml += " "+expandButton+" </span> </div>";
+						fileFolderList[listKey] += folderHtml;
 					}
 					else if(data["data"][listOfFileOrFolders[i]]["type"] === "file")
 					{
 						if(!hideFiles)
 						{
-							htmlSet += "<div "+highlightClass+" style=\"padding: 5px;min-height:30px;\" >"+name+" <span style=\"float:right;\" > "+selectButton+" </span> </div>";
+							var fileHtml = "<div "+highlightClass+" style=\"padding: 5px;min-height:30px;\" >"+name+" <span style=\"float:right;\" > "+selectButton+" </span> </div>";
+							fileFolderList[listKey] += fileHtml;
 						}
 					}
 				}
+				htmlSet += fileFolderList["selected"];
+				htmlSet += fileFolderList["startsWith"];
+				htmlSet += fileFolderList["contains"];
+				htmlSet += fileFolderList["other"];
 				document.getElementById("folderFileInfoHolder").innerHTML = htmlSet;
 			}
 		}
