@@ -10,25 +10,6 @@
 <ul class="settingsUl uniqueClassForAppendSettingsMainWatchNew" style=" -webkit-padding-start: 0;" >
 	<?php
 
-	$selectOptions = array(
-		0		=> array(
-			"value" => ".log$",
-			"name" => ".log"
-		),
-		1		=> array(
-			"value" => ".txt$",
-			"name" => ".txt"
-		),
-		2		=> array(
-			"value " => ".out$",
-			"name" => ".out"
-		),
-		3		=> array(
-			"value" => "$",
-			"name" => "Any File"
-		)
-	);
-
 	$defaultTrashCanIcon = generateImage(
 		$arrayOfImages["trashCanSideBar"],
 		array(
@@ -195,6 +176,25 @@
 		$patternSelect = "{{patternSelect}}";
 		$patternHideInput = "{{hidePatternInput}}";
 
+		$selectOptions = array(
+			0		=> array(
+				"value" => ".log$",
+				"name" => ".log"
+			),
+			1		=> array(
+				"value" => ".txt$",
+				"name" => ".txt"
+			),
+			2		=> array(
+				"value " => ".out$",
+				"name" => ".out"
+			),
+			3		=> array(
+				"value" => "$",
+				"name" => "Any File"
+			)
+		);
+
 		if(isset($data["pattern"]))
 		{
 			$patternSelect = $data["pattern"];
@@ -206,7 +206,7 @@
 					$foundPattern = true;
 				}
 			}
-			if(!$foundPattern)
+			if($foundPattern)
 			{
 				$patternHideInput = "style= \"display: none;\" ";
 			}
