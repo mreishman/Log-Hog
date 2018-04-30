@@ -120,27 +120,10 @@
 		);
 	}
 
-	function makePatternSelect($selectValue)
+	function makePatternSelect($selectValue, $selectOptions)
 	{
 		return createSelect(
-			array(
-				0		=> array(
-					"value" => ".log$",
-					"name" => ".log"
-				),
-				1		=> array(
-					"value" => ".txt$",
-					"name" => ".txt"
-				),
-				2		=> array(
-					"value " => ".out$",
-					"name" => ".out"
-				),
-				3		=> array(
-					"value" => "$",
-					"name" => "Any File"
-				)
-			),
+			$selectOptions,
 			array(
 				"value" => 	"other",
 				"name"	=>	"Other"
@@ -186,7 +169,7 @@
 				"name" => ".txt"
 			),
 			2		=> array(
-				"value " => ".out$",
+				"value" => ".out$",
 				"name" => ".out"
 			),
 			3		=> array(
@@ -375,7 +358,7 @@
 		$saveBlock .= "<li  class=\"typeFile\" ".$typeFile."><span class=\"settingsBuffer\" >Pattern: </span><span class=\"settingsBuffer\" ><select onchange=\"togglePatternSelect(".$rowNumber.")\" id=\"watchListKey".$rowNumber."PatternSelect\" >";
 		if(isset($data["pattern"]))
 		{
-			$saveBlock .=  makePatternSelect($patternSelect);
+			$saveBlock .=  makePatternSelect($patternSelect, $selectOptions);
 		}
 		else
 		{
