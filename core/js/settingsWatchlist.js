@@ -251,25 +251,28 @@ function generateSubFiles(fileArray, currentNum, mainFolder)
 	var returnHtml = "";
 	var fileArrayList = Object.keys(fileArray);
 	var fileArrayListCount = fileArrayList.length;
-	var filesFound = true;
+	var hideSplit = false;
 	for(var i = 0; i < fileArrayListCount; i++)
 	{
 		var keyTwo = fileArrayList[i];
-		returnHtml += "<li>"+icons[fileArray[keyTwo]["image"]];
-		returnHtml += "<span style=\"width: 300px; overflow: auto; display: inline-block;\" >"+keyTwo.replace(mainFolder,"")+"</span><input name=\"watchListKey"+currentNum+"FileInFolder\"  type=\"hidden\" value=\""+keyTwo+"\" >";
-		returnHtml += "<span class=\"settingsBuffer\" >Include: <select onchange=\"updateFileInfo("+currentNum+");\" name=\"watchListKey"+currentNum+"FileInFolderInclude\" > "+generateTrueFalseSelect("true")+" </select></span>";
-		returnHtml += "<span class=\"settingsBuffer\" >Exclude Trim: <select onchange=\"updateFileInfo("+currentNum+");\" name=\"watchListKey"+currentNum+"FileInFolderTrim\"> "+generateTrueFalseSelect(defaultNewAddExcludeTrim)+" </select></span>";
-		returnHtml += "<span class=\"settingsBuffer\" >Exclude Delete: <select onchange=\"updateFileInfo("+currentNum+");\" name=\"watchListKey"+currentNum+"ExcludeDelete\"> "+generateTrueFalseSelect("false")+" </select></span>";
-		returnHtml += "<span class=\"settingsBuffer\" >Alert on Update: <select onchange=\"updateFileInfo("+currentNum+");\" name=\"watchListKey"+currentNum+"FileInFolderAlert\"> "+generateTrueFalseSelect(defaultdefaultNewAddAlertEnabled)+" </select></span>";
-		returnHtml += "<span class=\"settingsBuffer\" >Name: <input onchange=\"updateFileInfo("+currentNum+");\"  type=\"text\" name=\"watchListKey"+currentNum+"FileInFolderName\" value=\"\" > </span>";
-		returnHtml += "</li>";
+		if(fileArray[keyTwo]["type"] !== "folder")
+		{
+			returnHtml += "<li>"+icons[fileArray[keyTwo]["image"]];
+			returnHtml += "<span style=\"width: 300px; overflow: auto; display: inline-block;\" >"+keyTwo.replace(mainFolder,"")+"</span><input name=\"watchListKey"+currentNum+"FileInFolder\"  type=\"hidden\" value=\""+keyTwo+"\" >";
+			returnHtml += "<span class=\"settingsBuffer\" >Include: <select onchange=\"updateFileInfo("+currentNum+");\" name=\"watchListKey"+currentNum+"FileInFolderInclude\" > "+generateTrueFalseSelect("true")+" </select></span>";
+			returnHtml += "<span class=\"settingsBuffer\" >Exclude Trim: <select onchange=\"updateFileInfo("+currentNum+");\" name=\"watchListKey"+currentNum+"FileInFolderTrim\"> "+generateTrueFalseSelect(defaultNewAddExcludeTrim)+" </select></span>";
+			returnHtml += "<span class=\"settingsBuffer\" >Exclude Delete: <select onchange=\"updateFileInfo("+currentNum+");\" name=\"watchListKey"+currentNum+"ExcludeDelete\"> "+generateTrueFalseSelect("false")+" </select></span>";
+			returnHtml += "<span class=\"settingsBuffer\" >Alert on Update: <select onchange=\"updateFileInfo("+currentNum+");\" name=\"watchListKey"+currentNum+"FileInFolderAlert\"> "+generateTrueFalseSelect(defaultdefaultNewAddAlertEnabled)+" </select></span>";
+			returnHtml += "<span class=\"settingsBuffer\" >Name: <input onchange=\"updateFileInfo("+currentNum+");\"  type=\"text\" name=\"watchListKey"+currentNum+"FileInFolderName\" value=\"\" > </span>";
+			returnHtml += "</li>";
+		}
 	}
 	if(returnHtml === "")
 	{
 		returnHtml = "<li>No Files Found In Folder</li>";
-		filesFound = false;
+		hideSplit = true;
 	}
-	return {html: returnHtml, filesFound};
+	return {html: returnHtml, hideSplit};
 }
 
 function updateFileFolderGui(hideFiles)
