@@ -77,7 +77,7 @@ function generateRow(data)
 	item = item.replace(/{{Group}}/g, data["Group"]);
 	item = item.replace(/{{Name}}/g, data["Name"]);
 	item = item.replace(/{{AlertEnabled}}/g, generateTrueFalseSelect(data["AlertEnabled"]));
-	item = item.replace(/{{HideSplitButton}}/g, displayNoneIfTrue(hideSplit));
+	item = item.replace(/{{hidesplitbutton}}/g, displayNoneIfTrue(hideSplit));
 	item = item.replace(/{{patternSelect}}/g, generatePatternSelect(data["pattern"]));
 	item = item.replace(/{{hidepatterninput}}/g, displayNoneIfTrue(hidePattern));
 	if(!data["down"])
