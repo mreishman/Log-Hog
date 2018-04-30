@@ -230,7 +230,7 @@ function addFileFolderAjax(fileType, sentLocation)
 		success(data)
 		{
 			var countOfWatchList = parseInt(document.getElementById("numberOfRows").value);
-			var fileListData = generateSubFiles(data["data"], currentNum, sentLocation);
+			var fileListData = generateSubFiles(data["data"], (countOfWatchList+1), sentLocation);
 			hidePopup();
 			addRowFunction(
 			{
@@ -330,12 +330,12 @@ function getFileFolderData(currentFolder, hideFiles, orgPath)
 		success(data)
 		{
 			staticFileData = data;
-			getFileFolderSubFunction(data);
+			getFileFolderSubFunction(data, orgPath, hideFiles);
 		}
 	});	
 }
 
-function getFileFolderSubFunction(data)
+function getFileFolderSubFunction(data, orgPath, hideFiles)
 {
 	if(document.getElementById("inputFieldForFileOrFolder").value == orgPath)
 	{
