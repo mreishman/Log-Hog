@@ -1010,19 +1010,19 @@ function createSelect($options, $defaultOption, $selectValue)
 	$selected = false;
 	foreach ($options as $key => $value)
 	{
-		$selectHtml .= "<option value=\"".$options["value"]."\" ";
-		if($selectValue === $options["value"] && $selected !== true)
+		$selectHtml .= "<option value=\"".$value["value"]."\" ";
+		if($selectValue === $value["value"] && $selected !== true)
 		{
-			$selectHtml += " selected ";
+			$selectHtml .= " selected ";
 			$selected = true;
 		}
-		$selectHtml += " >"+$options["name"]+"</option>";
+		$selectHtml .= " >".$value["name"]."</option>";
 	}
-	$selectHtml += "<option value=\""+$defaultOption["value"]+"\" ";
+	$selectHtml .= "<option value=\"".$defaultOption["value"]."\" ";
 	if($selected !== true)
 	{
-		$selectHtml += " selected ";
+		$selectHtml .= " selected ";
 	}
-	$selectHtml += " >"+$defaultOption["name"]+"</option>";
+	$selectHtml .= " >".$defaultOption["name"]."</option>";
 	return $selectHtml;
 }

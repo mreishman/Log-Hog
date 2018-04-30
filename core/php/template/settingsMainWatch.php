@@ -10,6 +10,25 @@
 <ul class="settingsUl uniqueClassForAppendSettingsMainWatchNew" style=" -webkit-padding-start: 0;" >
 	<?php
 
+	$selectOptions = array(
+		0		=> array(
+			"value" => ".log$",
+			"name" => ".log"
+		),
+		1		=> array(
+			"value" => ".txt$",
+			"name" => ".txt"
+		),
+		2		=> array(
+			"value " => ".out$",
+			"name" => ".out"
+		),
+		3		=> array(
+			"value" => "$",
+			"name" => "Any File"
+		)
+	);
+
 	$defaultTrashCanIcon = generateImage(
 		$arrayOfImages["trashCanSideBar"],
 		array(
@@ -95,8 +114,8 @@
 				"value" => 	"false",
 				"name"	=>	"False"
 			),
-			$selectValue
-		)
+			(String)$selectValue
+		);
 	}
 
 	function generateFileTypeSelect($selectValue)
@@ -116,8 +135,8 @@
 				"value" => 	"other",
 				"name"	=>	"Other"
 			),
-			$selectValue
-		)
+			(String)$selectValue
+		);
 	}
 
 	function makePatternSelect($selectValue)
@@ -130,23 +149,23 @@
 				),
 				1		=> array(
 					"value" => ".txt$",
-					"name:" => ".txt"
+					"name" => ".txt"
 				),
 				2		=> array(
-					"value: " => ".out$",
-					"name:" => ".out"
+					"value " => ".out$",
+					"name" => ".out"
 				),
 				3		=> array(
-					"value:" => "$",
-					"name:" => "Any File"
+					"value" => "$",
+					"name" => "Any File"
 				)
 			),
 			array(
 				"value" => 	"other",
 				"name"	=>	"Other"
 			),
-			$selectValue
-		)
+			(String)$selectValue
+		);
 	}
 
 
@@ -179,9 +198,17 @@
 		if(isset($data["pattern"]))
 		{
 			$patternSelect = $data["pattern"];
-			if($patternSelect !== "other")
+			$foundPattern = false;
+			foreach ($selectOptions as $key2 => $value2)
 			{
-				$patternHideInput = "style: \"display: none;\" ";
+				if($data["pattern"] === $value2["value"])
+				{
+					$foundPattern = true;
+				}
+			}
+			if(!$foundPattern)
+			{
+				$patternHideInput = "style= \"display: none;\" ";
 			}
 		}
 
@@ -364,7 +391,7 @@
 		{
 			$saveBlock .=  $recursiveOptions;
 		}
-		$saveBlock .= "</select></span></li>";
+		$saveBlock .= "</select></span>";
 		$saveBlock .= "<span class=\"settingsBuffer\" >Auto Delete Files After: </span><span class=\"settingsBuffer\" ><input style=\"width: 56px;\" type=\"text\" name=\"watchListKey".$rowNumber."AutoDeleteFiles\" value=\"".$AutoDeleteFiles."\" > Days No Change</span></li>";
 		$saveBlock .= "<li  class=\"typeFolder\" ".$typeFolder."><span class=\"settingsBuffer\" >Name: </span><span class=\"settingsBuffer\" ><input type=\"text\" name=\"watchListKey".$rowNumber."Name\" value=\"".$Name."\" > </span></li>";
 		$saveBlock .= "<li><span class=\"settingsBuffer\" >Exclude Trim: </span><span class=\"settingsBuffer\" ><select name=\"watchListKey".$rowNumber."ExcludeTrim\" >";

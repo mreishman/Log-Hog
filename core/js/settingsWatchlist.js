@@ -145,7 +145,7 @@ function generateTrueFalseSelect(selectValue)
 		{
 			value: "false",
 			name: "False"
-		}
+		},
 		selectValue
 	);
 }
@@ -360,7 +360,7 @@ function getFileFolderSubFunction(data)
 		var listOfFileOrFolders = Object.keys(data["data"]);
 		var listOfFileOrFoldersCount = listOfFileOrFolders.length;
 		var fileFolderList = {
-			selected: "";
+			selected: "",
 			startsWith: "",
 			contains: "",
 			other: ""
@@ -716,7 +716,7 @@ function moveRow(currentRow, newRow)
 			Name: document.getElementsByName("watchListKey"+currentRow+"Name")[0].value,
 			AlertEnabled: document.getElementsByName("watchListKey"+currentRow+"AlertEnabled")[0].value,
 			up: upBool,
-			down: downBool
+			down: downBool,
 			hideSplit: (document.getElementById("watchListKey"+currentRow+"SplitFilesLink").style.display === "none")
 		}
 	);
