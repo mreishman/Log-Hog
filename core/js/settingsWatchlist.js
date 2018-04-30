@@ -45,11 +45,11 @@ function generateRow(data)
 	}
 
 	var hidePattern = false;
-	var optionList = Object.keys(data);
+	var optionList = Object.keys(selectOptions);
 	var optionListCount = optionList.length;
 	for(var i = 0; i < optionListCount; i++)
 	{
-		if(data["pattern"] === data[optionList[i]]["value"])
+		if(String(data["pattern"]) === String(selectOptions[optionList[i]]["value"]))
 		{
 			hidePattern = true;
 			break;
@@ -79,7 +79,7 @@ function generateRow(data)
 	item = item.replace(/{{AlertEnabled}}/g, generateTrueFalseSelect(data["AlertEnabled"]));
 	item = item.replace(/{{HideSplitButton}}/g, displayNoneIfTrue(hideSplit));
 	item = item.replace(/{{patternSelect}}/g, generatePatternSelect(data["pattern"]));
-	item = item.replace(/{{hidePatternInput}}/g, displayNoneIfTrue(hidePattern));
+	item = item.replace(/{{hidepatterninput}}/g, displayNoneIfTrue(hidePattern));
 	if(!data["down"])
 	{
 		item = item.replace(/{{movedown}}/g, "style=\"display: none;\"");
