@@ -344,6 +344,38 @@ function goToUrl(url)
 	}
 }
 
+function onScrollShowFixedMiniBar(idsOfForms)
+{
+	var heightOne = 55;
+	if(document.getElementById("menu2"))
+	{
+		heightOne = 110;
+	}
+	var dis = false;
+	for (var i = idsOfForms.length - 1; i >= 0; i--)
+	{
+		var currentPos = document.getElementById(idsOfForms[i]).getBoundingClientRect().top;
+		if(currentPos < (heightOne+10))
+		{
+			$("#fixedPositionMiniMenu").html($("#"+idsOfForms[i]+" .settingsHeader").html());
+			if(document.getElementById("fixedPositionMiniMenu").style.display === "none")
+			{
+				document.getElementById("fixedPositionMiniMenu").style.display = "block";
+			}
+			dis = true;
+			break;
+		}
+	}
+	if(!dis)
+	{
+		$("#fixedPositionMiniMenu").html("");
+		if(document.getElementById("fixedPositionMiniMenu").style.display !== "none")
+		{
+			document.getElementById("fixedPositionMiniMenu").style.display = "none";
+		}
+	}
+}
+
 $(document).ready(function()
 {
 	resize();

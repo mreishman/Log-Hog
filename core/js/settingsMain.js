@@ -172,6 +172,10 @@ function checkIfChanges()
 	{
 		arrayToCheck.push("settingsFilterVars");
 	}
+	if(document.getElementById("settingsWatchlistVars"))
+	{
+		arrayToCheck.push("settingsWatchlistVars");
+	}
 
 	if(	checkForChangesArray(arrayToCheck))
 	{
@@ -254,14 +258,6 @@ $( document ).ready(function()
 	}
 
 	var arrayToRefresh = new Array();
-	if(document.getElementById("settingsMainVars"))
-	{
-		arrayToRefresh.push("settingsMainVars");
-	}
-	if(document.getElementById("settingsMenuVars"))
-	{
-		arrayToRefresh.push("settingsMenuVars");
-	}
 	if(document.getElementById("settingsLogVars"))
 	{
 		arrayToRefresh.push("settingsLogVars");
@@ -270,14 +266,36 @@ $( document ).ready(function()
 	{
 		arrayToRefresh.push("settingsPollVars");
 	}
-	if(document.getElementById("settingsUpdateVars"))
-	{
-		arrayToRefresh.push("settingsUpdateVars");
-	}
 	if(document.getElementById("settingsFilterVars"))
 	{
 		arrayToRefresh.push("settingsFilterVars");
 	}
+	if(document.getElementById("settingsUpdateVars"))
+	{
+		arrayToRefresh.push("settingsUpdateVars");
+	}
+	if(document.getElementById("settingsMenuVars"))
+	{
+		arrayToRefresh.push("settingsMenuVars");
+	}
+	if(document.getElementById("settingsWatchlistVars"))
+	{
+		arrayToRefresh.push("settingsWatchlistVars");
+	}
+	if(document.getElementById("settingsMainVars"))
+	{
+		arrayToRefresh.push("settingsMainVars");
+	}
 	refreshArrayObjectOfArrays(arrayToRefresh);
+
+	document.addEventListener(
+		'scroll',
+		function (event)
+		{
+			onScrollShowFixedMiniBar(arrayToRefresh);
+		},
+		true
+	);
+
 	setInterval(poll, 100);
 });
