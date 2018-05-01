@@ -353,7 +353,7 @@ function onScrollShowFixedMiniBar(idsOfForms)
 	var heightOne = 55;
 	if(document.getElementById("menu2") !== null)
 	{
-		heightOne = 110;
+		heightOne = 104;
 	}
 	if(document.getElementById("fixedPositionMiniMenu").style.top !== ""+heightOne+"px")
 	{
