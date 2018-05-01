@@ -346,10 +346,18 @@ function goToUrl(url)
 
 function onScrollShowFixedMiniBar(idsOfForms)
 {
+	if(!document.getElementById("fixedPositionMiniMenu"))
+	{
+		return;
+	}
 	var heightOne = 55;
-	if(document.getElementById("menu2"))
+	if(document.getElementById("menu2") !== null)
 	{
 		heightOne = 110;
+	}
+	if(document.getElementById("fixedPositionMiniMenu").style.top !== ""+heightOne+"px")
+	{
+		document.getElementById("fixedPositionMiniMenu").style.top = ""+heightOne+"px"
 	}
 	var dis = false;
 	for (var i = idsOfForms.length - 1; i >= 0; i--)

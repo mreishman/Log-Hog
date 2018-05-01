@@ -841,5 +841,15 @@ function moveUp(rowNumber)
 $( document ).ready(function() 
 {
 	refreshSettingsWatchList();
+
+	document.addEventListener(
+		'scroll',
+		function (event)
+		{
+			onScrollShowFixedMiniBar(["settingsMainWatch"]);
+		},
+		true
+	);
+
 	setInterval(poll, 100);
 });
