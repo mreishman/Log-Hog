@@ -32,7 +32,7 @@ Watchlist Settings
 	</li>
 	<li>
 		<span class="settingsBuffer" >Default Pattern:</span>
-		<input type="number" name="defaultNewAddPattern" value="<?php echo $defaultNewAddPattern;?>" >
+		<input type="text" name="defaultNewAddPattern" value="<?php echo $defaultNewAddPattern;?>" >
 	</li>
 	<li>
 		<span class="settingsBuffer" >Default Recursive:</span>
