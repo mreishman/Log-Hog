@@ -54,5 +54,15 @@ function newVersionNumberCheck()
 $( document ).ready(function() 
 {
 	refreshArrayObjectOfArrays(["devBranch","devAdvanced2"]);
+
+	document.addEventListener(
+		'scroll',
+		function (event)
+		{
+			onScrollShowFixedMiniBar(["devBranch","devAdvanced2"]);
+		},
+		true
+	);
+
 	setInterval(poll, 100);
 });
