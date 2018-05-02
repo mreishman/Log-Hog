@@ -650,6 +650,8 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 			</li>
 		</ul>
 		<div id="mainContentFullScreenMenu">
+			<div class="settingsHeader" style="position: fixed;width: 100%;z-index: 10;top: 0; margin: 0; border-bottom: 1px solid white; display: none;top: 46px;" id="fixedPositionMiniMenu" >
+			</div>
 			<div id="fullScreenMenuChangeLog" style="display: none;" >
 				<?php readfile('core/html/changelog.html'); ?>
 			</div>

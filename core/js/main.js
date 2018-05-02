@@ -2,6 +2,7 @@ var arrayToUpdate = {};
 var arrayOfData1 = null;
 var arrayOfData2 = null;
 var arrayOfDataMain = null;
+var arrayOfScrollHeaderUpdate = ["aboutSpanAbout","aboutSpanInfo","aboutSpanGithub"];
 var clearingNotifications = false;
 var counterForPoll = 0;
 var counterForPollForceRefreshAll = 0;
@@ -2719,6 +2720,7 @@ function toggleFullScreenMenu()
 	if(document.getElementById("fullScreenMenu").style.display === "none")
 	{
 		document.getElementById("fullScreenMenu").style.display = "block";
+		onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
 	}
 	else
 	{
@@ -2733,6 +2735,8 @@ function toggleUpdateMenu()
 	$("#mainMenuUpdate").addClass("selected");
 	document.getElementById("updateSubMenu").style.display = "block";
 	$("#settingsSubMenuUpdate").addClass("selected");
+	arrayOfScrollHeaderUpdate = ["updateUpdate","updateReleaseNotes"];
+	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
 }
 
 function toggleAbout()
@@ -2749,6 +2753,8 @@ function toggleAboutLogHog()
 	hideAboutStuff();
 	document.getElementById("fullScreenMenuAbout").style.display = "block";
 	$("#aboutSubMenuAbout").addClass("selected");
+	arrayOfScrollHeaderUpdate = ["aboutSpanAbout","aboutSpanInfo","aboutSpanGithub"];
+	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
 }
 
 function toggleWhatsNew()
@@ -2756,6 +2762,8 @@ function toggleWhatsNew()
 	hideAboutStuff();
 	document.getElementById("fullScreenMenuWhatsNew").style.display = "block";
 	$("#aboutSubMenuWhatsNew").addClass("selected");
+	arrayOfScrollHeaderUpdate = ["fullScreenMenuWhatsNew"];
+	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
 }
 
 function toggleChangeLog()
@@ -2763,6 +2771,8 @@ function toggleChangeLog()
 	hideAboutStuff();
 	document.getElementById("fullScreenMenuChangeLog").style.display = "block";
 	$("#aboutSubMenuChangelog").addClass("selected");
+	arrayOfScrollHeaderUpdate = ["fullScreenMenuChangeLog"];
+	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
 }
 
 function hideUpdateStuff()
@@ -2807,6 +2817,41 @@ function toggleGroupedGroups()
 	$(".active").show();
 	$("."+groupSelect+"Group").show();
 	resize();
+}
+
+function onScrollShowFixedMiniBar(idsOfForms)
+{
+	if(idsOfForms.length < 1)
+	{
+		return;
+	}
+	if(!document.getElementById("fixedPositionMiniMenu"))
+	{
+		return;
+	}
+	var dis = false;
+	for (var i = idsOfForms.length - 1; i >= 0; i--)
+	{
+		var currentPos = document.getElementById(idsOfForms[i]).getBoundingClientRect().top;
+		if(currentPos < 46)
+		{
+			$("#fixedPositionMiniMenu").html($("#"+idsOfForms[i]+" .settingsHeader").html());
+			if(document.getElementById("fixedPositionMiniMenu").style.display === "none")
+			{
+				document.getElementById("fixedPositionMiniMenu").style.display = "block";
+			}
+			dis = true;
+			break;
+		}
+	}
+	if(!dis)
+	{
+		$("#fixedPositionMiniMenu").html("");
+		if(document.getElementById("fixedPositionMiniMenu").style.display !== "none")
+		{
+			document.getElementById("fixedPositionMiniMenu").style.display = "none";
+		}
+	}
 }
 
 $(document).ready(function()
@@ -2854,8 +2899,17 @@ $(document).ready(function()
 	updateNotificationCount();
 
 	$("#selectForGroup").on("keydown change", function(){
-	    setTimeout(function() {
-	      toggleGroupedGroups();
-	    }, 2);
+		setTimeout(function() {
+			toggleGroupedGroups();
+		}, 2);
 	});
+
+	document.addEventListener(
+		'scroll',
+		function (event)
+		{
+			onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
+		},
+		true
+	);
 });
