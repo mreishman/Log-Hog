@@ -1547,10 +1547,10 @@ function show(e, id)
 		//window number clear
 		$('.currentWindowNum').each(function(i, obj)
 		{
-		    if(obj.innerHTML ==  ""+(currentSelectWindow+1)+". ")
-		    {
-		    	obj.innerHTML = "";
-		    }
+			if(obj.innerHTML ==  ""+(currentSelectWindow+1)+". ")
+			{
+				obj.innerHTML = "";
+			}
 		});
 		//window number add
 		$("#"+id+"CurrentWindow").html(""+(currentSelectWindow+1)+". ");
@@ -1586,6 +1586,8 @@ function show(e, id)
 
 		
 		resize();
+
+		toggleGroupedGroups();
 	}
 	catch(e)
 	{
