@@ -1268,6 +1268,7 @@ function tmpDisableAlerts(id)
 		}
 	}
 	alertEnabledArray[id] = "disabled";
+	removeNotificationByLog(id);
 }
 
 function updateScrollOnLogs()
