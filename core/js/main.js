@@ -1,3 +1,4 @@
+var alertEnabledArray = {};
 var arrayToUpdate = {};
 var arrayOfData1 = null;
 var arrayOfData2 = null;
@@ -948,7 +949,7 @@ function update(data)
 
 							if(!firstLoad)
 							{
-								if(!$("#menu a." + id + "Button").hasClass("updated") && fileData[fullPathSearch]["AlertEnabled"] === "true")
+								if(!$("#menu a." + id + "Button").hasClass("updated") && fileData[fullPathSearch]["AlertEnabled"] === "true" && (!(id in alertEnabledArray) || (id in alertEnabledArray && alertEnabledArray[id] === "enabled")))
 								{
 									$("#menu a." + id + "Button").addClass("updated");
 
@@ -965,13 +966,18 @@ function update(data)
 							var deleteLogAction = {action: "deleteLogPopupInner(titles[\""+id+"\"]);", name: "Delete Log"};
 							var copyNameAction = {action: "copyToClipBoard(\""+shortName+"\");", name: "Copy File Name"};
 							var copyFullPathAction = {action: "copyToClipBoard(titles[\""+id+"\"]);", name: "Copy Filepath"};
+							var alertToggle = {action: "tmpEnableAlerts(\""+id+"\");" ,name: "Enable Alerts"};
+							if(fileData[fullPathSearch]["AlertEnabled"] === "true")
+							{
+								alertToggle = {action: "tmpDisableAlerts(\""+id+"\");" ,name: "Disable Alerts"};
+							}
 							//add rightclick menu
-							menuObjectRightClick[id] = [hideLogAction, clearLogAction,deleteLogAction,copyNameAction,copyFullPathAction];
+							menuObjectRightClick[id] = [hideLogAction, clearLogAction,deleteLogAction,copyNameAction,copyFullPathAction,alertToggle];
 							Rightclick_ID_list.push(id);
 						}
 
 						updated = false;
-						if(fileData[fullPathSearch]["AlertEnabled"] === "true")
+						if(fileData[fullPathSearch]["AlertEnabled"] === "true" && (!(id in alertEnabledArray) || (id in alertEnabledArray && alertEnabledArray[id] === "enabled")))
 						{
 							if(!(logs[id] === lastLogs[id]))
 							{
@@ -1226,6 +1232,42 @@ function toggleDisplayOfNoLogs()
 	{
 		eventThrowException(e);
 	}
+}
+
+function tmpEnableAlerts(id)
+{
+	var menuObjectLocal = menuObjectRightClick[id];
+	var options = Object.keys(menuObjectLocal);
+	var lengthOfOptions = options.length;
+	for(var i = 0; i < lengthOfOptions; i++)
+	{
+		var currentOption = menuObjectLocal[options[i]];
+		if(currentOption["name"] === "Enable Alerts")
+		{
+			menuObjectRightClick[id][options[i]]["name"] = "Disable Alerts";
+			menuObjectRightClick[id][options[i]]["action"] = "tmpDisableAlerts(\""+id+"\")";
+			break;
+		}
+	}
+	alertEnabledArray[id] = "enabled";
+}
+
+function tmpDisableAlerts(id)
+{
+	var menuObjectLocal = menuObjectRightClick[id];
+	var options = Object.keys(menuObjectLocal);
+	var lengthOfOptions = options.length;
+	for(var i = 0; i < lengthOfOptions; i++)
+	{
+		var currentOption = menuObjectLocal[options[i]];
+		if(currentOption["name"] === "Disable Alerts")
+		{
+			menuObjectRightClick[id][options[i]]["name"] = "Enable Alerts";
+			menuObjectRightClick[id][options[i]]["action"] = "tmpEnableAlerts(\""+id+"\")";
+			break;
+		}
+	}
+	alertEnabledArray[id] = "disabled";
 }
 
 function updateScrollOnLogs()
