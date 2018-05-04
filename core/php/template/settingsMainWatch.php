@@ -133,7 +133,7 @@
 	}
 
 
-	function generateSaveBlock($data = array(), $defaultTrashCanIcon)
+	function generateSaveBlock($data = array(), $defaultTrashCanIcon, $arrayOfImages)
 	{
 		$rowNumber = "{{rowNumber}}";
 		$fileNumber = "{{fileNumber}}";
@@ -410,7 +410,17 @@
 		$saveBlock .= "</select></span></li>";
 		$saveBlock .= "<li class=\"typeFile\" ".$typeFile."><div class=\"settingsHeader\" style=\"margin: 0;\" >Files: ";
 		$saveBlock .= "<div class=\"settingsHeaderButtons\"><a id=\"watchListKey".$rowNumber."SplitFilesLink\" ".$boolHideSplit." class=\"linkSmall\" onclick=\"splitFilesPopup(".$rowNumber.", '".$location."');\"	 >Split Files</a></div>";
-		$saveBlock .= "</div> <div class=\"settingsDiv\" style=\"max-height: 150px; display: block; overflow: auto; margin: 0;\" ><ul id=\"watchListKey".$rowNumber."FilesInFolder\" class=\"settingsUl\" style=\"-webkit-padding-start: 0;\" >".$filesInFolder."</ul></div></li>";
+		$saveBlock .= "</div> <div class=\"settingsDiv\" style=\"max-height: 150px; display: block; overflow: auto; margin: 0;\" >";
+		$saveBlock .= generateImage(
+			$arrayOfImages["loading"],
+			array(
+				"width"			=>	"25px",
+				"srcModifier"	=>	"../",
+				"id"			=>	"watchListKey".$rowNumber."LoadingSubFilesIcon",
+				"style"			=>	"display: none;"
+			)
+		);
+		$saveBlock .= "<ul id=\"watchListKey".$rowNumber."FilesInFolder\" class=\"settingsUl\" style=\"-webkit-padding-start: 0;\" >".$filesInFolder."</ul></div></li>";
 		$saveBlock .= "<input type=\"hidden\"   name=\"watchListKey".$rowNumber."FileInformation\" value='".$FileInformation."' >";
 		$saveBlock .= "</ul></div></li>";
 
@@ -613,7 +623,8 @@
 				"AlertEnabled"			=>	$values["AlertEnabled"],
 				"Position"				=>	$Position
 			),
-			$defaultTrashCanIcon
+			$defaultTrashCanIcon,
+			$arrayOfImages
 		);
 	
 	}
@@ -736,7 +747,7 @@
 </form>
 <div id="storage">
 	<div class="saveBlock">
-		<?php echo generateSaveBlock(array(), $defaultTrashCanIcon); ?>
+		<?php echo generateSaveBlock(array(), $defaultTrashCanIcon, $arrayOfImages); ?>
 	</div>
 </div>
 <script type="text/javascript">

@@ -250,7 +250,6 @@ function updateSubFiles(id)
 {
 	var urlForSend = "../core/php/getFileFolderData.php?format=json";
 	var data = {currentFolder: document.getElementsByName("watchListKey"+id+"Location")[0].value};
-	console.log(data);
 	$.ajax({
 		url: urlForSend,
 		dataType: "json",
@@ -258,7 +257,6 @@ function updateSubFiles(id)
 		type: "POST",
 		success(data)
 		{
-			console.log(data);
 			var prevFolderData = JSON.parse(document.getElementsByName("watchListKey"+id+"FileInformation")[0].value);
 			var htmlReturn = generateSubFiles({fileArray: data["data"], currentNum: id, mainFolder: data["orgPath"], fileData: prevFolderData});
 			$("#watchListKey"+id+"FilesInFolder").html(htmlReturn["html"]);
@@ -278,10 +276,6 @@ function updateSubFiles(id)
 			}
 		}
 	});	
-
-
-	
-
 }
 
 function generateSubFiles(data)
