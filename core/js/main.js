@@ -2419,6 +2419,10 @@ function changeSearchplaceholder()
 
 function changeCurrentSelectWindow(newSelectWindow)
 {
+	if(currentSelectWindow === newSelectWindow)
+	{
+		return;
+	}
 	$("#numSelectIndecatorForWindow"+currentSelectWindow).removeClass("currentWindowNumSelected").addClass("sidebarCurrentWindowNum");
 	currentSelectWindow = newSelectWindow;
 	$("#numSelectIndecatorForWindow"+newSelectWindow).removeClass("sidebarCurrentWindowNum").addClass("currentWindowNumSelected");

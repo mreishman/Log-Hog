@@ -230,7 +230,7 @@ function addFileFolderAjax(fileType, sentLocation)
 		success(data)
 		{
 			var countOfWatchList = parseInt(document.getElementById("numberOfRows").value);
-			var fileListData = generateSubFiles(data["data"], (countOfWatchList+1), sentLocation);
+			var fileListData = generateSubFiles({fileArray: data["data"], currentNum: (countOfWatchList+1), mainFolder: sentLocation});
 			hidePopup();
 			addRowFunction(
 			{
@@ -246,8 +246,22 @@ function addFileFolderAjax(fileType, sentLocation)
 	});	
 }
 
-function generateSubFiles(fileArray, currentNum, mainFolder)
+function updateSubFiles(id)
 {
+	var urlForSend = "../core/php/getFileFolderData.php?format=json";
+	var data = {currentFolder: document.getElementById("watchListKey"+id+"Location")[0].value};
+}
+
+function generateSubFiles(data)
+{
+	var fileArray = data["fileArray"];
+	var currentNum = data["currentNum"];
+	var mainFolder = data["mainFolder"];
+	var fileData = {};
+	if("fileData" in data)
+	{
+		fileData = data["fileData"];
+	}
 	var returnHtml = "";
 	var fileArrayList = Object.keys(fileArray);
 	var fileArrayListCount = fileArrayList.length;
@@ -257,13 +271,38 @@ function generateSubFiles(fileArray, currentNum, mainFolder)
 		var keyTwo = fileArrayList[i];
 		if(fileArray[keyTwo]["type"] !== "folder")
 		{
+			var includeBool = "true";
+			if("Include" in fileData)
+			{
+				includeBool = fileData["Include"];
+			}
+			var excludeTrim = defaultNewAddExcludeTrim;
+			if("Trim" in fileData)
+			{
+				excludeTrim = fileData["Trim"];
+			}
+			var excludeDelete = "false";
+			if("Delete" in fileData)
+			{
+				excludeDelete = fileData["Delete"];
+			}
+			var alertOnUpdate = defaultdefaultNewAddAlertEnabled;
+			if("Alert" in fileData)
+			{
+				alertOnUpdate = fileData["Alert"];
+			}
+			var name = "";
+			if("Name" in fileData)
+			{
+				name = fileData["Name"];
+			}
 			returnHtml += "<li>"+icons[fileArray[keyTwo]["image"]];
 			returnHtml += "<span style=\"width: 300px; overflow: auto; display: inline-block;\" >"+keyTwo.replace(mainFolder,"")+"</span><input name=\"watchListKey"+currentNum+"FileInFolder\"  type=\"hidden\" value=\""+keyTwo+"\" >";
-			returnHtml += "<span class=\"settingsBuffer\" >Include: <select onchange=\"updateFileInfo("+currentNum+");\" name=\"watchListKey"+currentNum+"FileInFolderInclude\" > "+generateTrueFalseSelect("true")+" </select></span>";
-			returnHtml += "<span class=\"settingsBuffer\" >Exclude Trim: <select onchange=\"updateFileInfo("+currentNum+");\" name=\"watchListKey"+currentNum+"FileInFolderTrim\"> "+generateTrueFalseSelect(defaultNewAddExcludeTrim)+" </select></span>";
-			returnHtml += "<span class=\"settingsBuffer\" >Exclude Delete: <select onchange=\"updateFileInfo("+currentNum+");\" name=\"watchListKey"+currentNum+"ExcludeDelete\"> "+generateTrueFalseSelect("false")+" </select></span>";
-			returnHtml += "<span class=\"settingsBuffer\" >Alert on Update: <select onchange=\"updateFileInfo("+currentNum+");\" name=\"watchListKey"+currentNum+"FileInFolderAlert\"> "+generateTrueFalseSelect(defaultdefaultNewAddAlertEnabled)+" </select></span>";
-			returnHtml += "<span class=\"settingsBuffer\" >Name: <input onchange=\"updateFileInfo("+currentNum+");\"  type=\"text\" name=\"watchListKey"+currentNum+"FileInFolderName\" value=\"\" > </span>";
+			returnHtml += "<span class=\"settingsBuffer\" >Include: <select onchange=\"updateFileInfo("+currentNum+");\" name=\"watchListKey"+currentNum+"FileInFolderInclude\" > "+generateTrueFalseSelect(includeBool)+" </select></span>";
+			returnHtml += "<span class=\"settingsBuffer\" >Exclude Trim: <select onchange=\"updateFileInfo("+currentNum+");\" name=\"watchListKey"+currentNum+"FileInFolderTrim\"> "+generateTrueFalseSelect(excludeTrim)+" </select></span>";
+			returnHtml += "<span class=\"settingsBuffer\" >Exclude Delete: <select onchange=\"updateFileInfo("+currentNum+");\" name=\"watchListKey"+currentNum+"ExcludeDelete\"> "+generateTrueFalseSelect(excludeDelete)+" </select></span>";
+			returnHtml += "<span class=\"settingsBuffer\" >Alert on Update: <select onchange=\"updateFileInfo("+currentNum+");\" name=\"watchListKey"+currentNum+"FileInFolderAlert\"> "+generateTrueFalseSelect(alertOnUpdate)+" </select></span>";
+			returnHtml += "<span class=\"settingsBuffer\" >Name: <input onchange=\"updateFileInfo("+currentNum+");\"  type=\"text\" name=\"watchListKey"+currentNum+"FileInFolderName\" value=\""+name+"\" > </span>";
 			returnHtml += "</li>";
 		}
 	}
