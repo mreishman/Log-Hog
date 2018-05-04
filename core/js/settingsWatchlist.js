@@ -249,7 +249,39 @@ function addFileFolderAjax(fileType, sentLocation)
 function updateSubFiles(id)
 {
 	var urlForSend = "../core/php/getFileFolderData.php?format=json";
-	var data = {currentFolder: document.getElementById("watchListKey"+id+"Location")[0].value};
+	var data = {currentFolder: document.getElementsByName("watchListKey"+id+"Location")[0].value};
+	console.log(data);
+	$.ajax({
+		url: urlForSend,
+		dataType: "json",
+		data,
+		type: "POST",
+		success(data)
+		{
+			console.log(data);
+			var prevFolderData = JSON.parse(document.getElementsByName("watchListKey"+id+"FileInformation")[0].value);
+			var htmlReturn = generateSubFiles({fileArray: data["data"], currentNum: id, mainFolder: data["orgPath"], fileData: prevFolderData});
+			$("#watchListKey"+id+"FilesInFolder").html(htmlReturn["html"]);
+			if(htmlReturn["hideSplit"])
+			{
+				if(document.getElementById("watchListKey"+id+"SplitFilesLink").style.display !== "none")
+				{
+					document.getElementById("watchListKey"+id+"SplitFilesLink").style.display = "none";
+				}
+			}
+			else
+			{
+				if(document.getElementById("watchListKey"+id+"SplitFilesLink").style.display !== "inline-block")
+				{
+					document.getElementById("watchListKey"+id+"SplitFilesLink").style.display = "inline-block";
+				}
+			}
+		}
+	});	
+
+
+	
+
 }
 
 function generateSubFiles(data)
@@ -272,29 +304,33 @@ function generateSubFiles(data)
 		if(fileArray[keyTwo]["type"] !== "folder")
 		{
 			var includeBool = "true";
-			if("Include" in fileData)
-			{
-				includeBool = fileData["Include"];
-			}
 			var excludeTrim = defaultNewAddExcludeTrim;
-			if("Trim" in fileData)
-			{
-				excludeTrim = fileData["Trim"];
-			}
 			var excludeDelete = "false";
-			if("Delete" in fileData)
-			{
-				excludeDelete = fileData["Delete"];
-			}
 			var alertOnUpdate = defaultdefaultNewAddAlertEnabled;
-			if("Alert" in fileData)
-			{
-				alertOnUpdate = fileData["Alert"];
-			}
 			var name = "";
-			if("Name" in fileData)
+			
+			if(keyTwo in fileData)
 			{
-				name = fileData["Name"];
+				if("Name" in fileData[keyTwo])
+				{
+					name = fileData[keyTwo]["Name"];
+				}
+				if("Alert" in fileData[keyTwo])
+				{
+					alertOnUpdate = fileData[keyTwo]["Alert"];
+				}
+				if("Delete" in fileData[keyTwo])
+				{
+					excludeDelete = fileData[keyTwo]["Delete"];
+				}
+				if("Trim" in fileData[keyTwo])
+				{
+					excludeTrim = fileData[keyTwo]["Trim"];
+				}
+				if("Include" in fileData[keyTwo])
+				{
+					includeBool = fileData[keyTwo]["Include"];
+				}
 			}
 			returnHtml += "<li>"+icons[fileArray[keyTwo]["image"]];
 			returnHtml += "<span style=\"width: 300px; overflow: auto; display: inline-block;\" >"+keyTwo.replace(mainFolder,"")+"</span><input name=\"watchListKey"+currentNum+"FileInFolder\"  type=\"hidden\" value=\""+keyTwo+"\" >";
