@@ -250,7 +250,7 @@ function updateSubFiles(id)
 {
 	document.getElementById("watchListKey"+i+"LoadingSubFilesIcon").style.display = "none";
 	var urlForSend = "../core/php/getFileFolderData.php?format=json";
-	var data = {currentFolder: document.getElementsByName("watchListKey"+id+"Location")[0].value};
+	var data = {currentFolder: document.getElementsByName("watchListKey"+id+"Location")[0].value, recursive: document.getElementsByName("watchListKey"+i+"Recursive")[0].value};
 	$.ajax({
 		url: urlForSend,
 		dataType: "json",
