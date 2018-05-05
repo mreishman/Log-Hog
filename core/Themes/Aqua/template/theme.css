@@ -246,6 +246,12 @@ background: linear-gradient(to bottom, rgba(233,170,181,1) 0%, rgba(242,166,173,
 	padding: 5px;
 }
 
+.selected
+{
+	background-color: white;
+	color: black;
+}
+
 .settingsDiv p a
 {
 	color: white;

@@ -195,6 +195,12 @@
 	padding: 5px;
 }
 
+.selected
+{
+	background-color: #CCC;
+	color: black;
+}
+
 .settingsDiv p a
 {
 	color: white;
