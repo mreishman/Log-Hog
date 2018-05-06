@@ -703,6 +703,7 @@ function toggleTypeFolderFile(currentRow)
 	{
 		$("#rowNumber"+currentRow+" .typeFile").show();
 		$("#rowNumber"+currentRow+" .typeFolder").hide();
+		updateSubFiles(currentRow);
 	}
 	
 }
