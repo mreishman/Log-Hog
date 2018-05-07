@@ -923,6 +923,7 @@ function getListOfFiles($data)
 	$filter = $data["filter"];
 	$response = $data["response"];
 	$recursive = $data["recursive"];
+	$shellOrPhp = $data["shellOrPhp"];
 	$fileData = array();
 	if(isset($data["data"]))
 	{
@@ -950,6 +951,7 @@ function getListOfFiles($data)
 						"filter"		=> $filter,
 						"response"		=> $response,
 						"recursive"		=> "true",
+						"shellOrPhp"	=> $shellOrPhp,
 						"data"			=> $fileData
 
 					));

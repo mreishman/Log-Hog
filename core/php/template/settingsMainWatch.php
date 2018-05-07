@@ -502,6 +502,7 @@
 					"path" 			=> $location,
 					"filter"		=> $values["Pattern"],
 					"response"		=> array(),
+					"shellOrPhp"	=> $shellOrPhp,
 					"recursive"		=> $values["Recursive"]
 
 				));

@@ -63,6 +63,7 @@ foreach($watchList as $key => $value)
 			"filter"		=> $filter,
 			"response"		=> array(),
 			"recursive"		=> $value["Recursive"],
+			"shellOrPhp"	=> $shellOrPhp,
 			"data"			=> $fileData
 		));
 		if($value["AutoDeleteFiles"] !== "")
