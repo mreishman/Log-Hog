@@ -248,9 +248,10 @@ function addFileFolderAjax(fileType, sentLocation)
 
 function updateSubFiles(id)
 {
-	document.getElementById("watchListKey"+i+"LoadingSubFilesIcon").style.display = "none";
+	document.getElementById("watchListKey"+id+"LoadingSubFilesIcon").style.display = "inline-block";
+	document.getElementById("watchListKey"+id+"FilesInFolder").style.display = "none";
 	var urlForSend = "../core/php/getFileFolderData.php?format=json";
-	var data = {currentFolder: document.getElementsByName("watchListKey"+id+"Location")[0].value, recursive: document.getElementsByName("watchListKey"+i+"Recursive")[0].value};
+	var data = {currentFolder: document.getElementsByName("watchListKey"+id+"Location")[0].value, recursive: document.getElementsByName("watchListKey"+id+"Recursive")[0].value};
 	$.ajax({
 		url: urlForSend,
 		dataType: "json",
@@ -258,7 +259,7 @@ function updateSubFiles(id)
 		type: "POST",
 		success(data)
 		{
-			setTimeout(function(){ document.getElementById("watchListKey"+i+"LoadingSubFilesIcon").style.display = "inline-block"; }, 1000);
+			setTimeout(function(){ document.getElementById("watchListKey"+id+"LoadingSubFilesIcon").style.display = "none"; document.getElementById("watchListKey"+id+"FilesInFolder").style.display = "inline-block"; }, 1000);
 			var prevFolderData = JSON.parse(document.getElementsByName("watchListKey"+id+"FileInformation")[0].value);
 			var htmlReturn = generateSubFiles({fileArray: data["data"], currentNum: id, mainFolder: data["orgPath"], fileData: prevFolderData});
 			$("#watchListKey"+id+"FilesInFolder").html(htmlReturn["html"]);
