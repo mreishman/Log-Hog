@@ -38,7 +38,7 @@ function getFileInfoFromDir($data, $response)
 					"image"		=>	$subImg,
 					"fullpath"	=>	$fullPath
 				);
-				if($recursive)
+				if($recursive === "true")
 				{
 					$response = getFileInfoFromDir(
 						array(
