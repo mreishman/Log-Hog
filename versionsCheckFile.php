@@ -115,6 +115,10 @@ $versionCheckArray = array(
 			'branchName'	=> '3.6Update',
 			'releaseNotes'	=> "<ul><li>Features<ul><li>Added quick setting change for filter content (changes settings tmp for current window)</li><li>Added addon page to setup</li><li>Notice is shown for connectivity issues on index</li><li>Option to change position of log tabs (top, bottom, left, right)</li><li>New Theme! (Terminal)</li><li>Added internal notifications</li></ul></li><li>Bug Fixes<ul><li>Addon page does not redirect when installing or removing addons</li><li>More fixes for expermential feature log display</li><li>Changed verification counter to check for 2 success verifications in a row</li></ul></li></ul>"
 		),
+		'3.6.2'		=> array(
+			'branchName'	=> '3.6.2Update',
+			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed issue with setup</li></ul></li></ul>"
+		),
 	)
 );
 ?>
