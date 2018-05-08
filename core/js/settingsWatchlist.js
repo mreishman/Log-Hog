@@ -374,9 +374,27 @@ function expandFileFolderView(newValue, hideFiles)
 	getFileFolderData(newValue, hideFiles,newValue)
 }
 
+function getCurrentFileFolderMainPage(currentRow)
+{
+	var currentDir = document.getElementsByName("watchListKey"+currentRow+"Location")[0].value;
+	var hideFiles = false;
+	if(document.getElementsByName("watchListKey"+currentRow+"FileType")[0].value === "folder")
+	{
+		hideFiles = true;
+	}
+	var newDir = getCurrentDir(currentDir);
+	getFileFolderData(newDir, hideFiles, currentDir);
+}
+
 function getCurrentFileFolderInfoKeyPress(hideFiles)
 {
 	var currentDir = document.getElementById("inputFieldForFileOrFolder").value;
+	var newDir = getCurrentDir(currentDir);
+	getFileFolderData(newDir, hideFiles,currentDir);
+}
+
+function getCurrentDir(currentDir)
+{
 	var joinChar = getJoinChar();
 	var currentDirArray = currentDir.split(joinChar);
 	var lengthOfArr = currentDirArray.length;
@@ -389,7 +407,7 @@ function getCurrentFileFolderInfoKeyPress(hideFiles)
 	{
 		newDir = joinChar;
 	}
-	getFileFolderData(newDir, hideFiles,currentDir);
+	return newDir;
 }
 
 function getFileFolderData(currentFolder, hideFiles, orgPath)
@@ -494,6 +512,22 @@ function getFileFolderSubFunction(data, orgPath, hideFiles)
 		htmlSet += fileFolderList["other"];
 		document.getElementById("folderFileInfoHolder").innerHTML = htmlSet;
 	}
+}
+
+function showTypeDropdown(rowNumber)
+{
+	document.getElementById("fileFolderDropdown").style.display = "block";
+	document.getElementById("fileFolderDropdown").style.top = document.getElementsByName("watchListKey"+rowNumber+"Location")[0].getBoundingClientRect().bottom;
+	document.getElementById("fileFolderDropdown").style.left = document.getElementsByName("watchListKey"+rowNumber+"Location")[0].getBoundingClientRect().left;
+
+	var htmlForPopoup = "<br><div style='width:100%;height:30px;padding-left:20px;' id=\"folderNavUpHolder\"> </div><div id=\"folderFileInfoHolder\" style='margin-right:20px; margin-left: 20px;height:200px;border: 1px solid white;overflow: auto;'> --- </div>";
+	document.getElementById("fileFolderDropdown").innerHTML = htmlForPopoup;
+	getCurrentFileFolderMainPage(rowNumber);
+}
+
+function hideTypeDropdown(rowNumber)
+{
+	
 }
 
 function navUpDir(hideFiles)

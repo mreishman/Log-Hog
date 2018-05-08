@@ -354,7 +354,7 @@
 		}
 		$saveBlock .= " class=\"linkSmall\" id=\"moveDown".$rowNumber."\" onclick=\"moveDown(".$rowNumber.");\" > Move Down </a>";
 		$saveBlock .= "</div><div class=\"settingsDiv\" ><ul class=\"settingsUl\" >";
-		$saveBlock .= "<li><span class=\"settingsBuffer\" >Location: </span><input style=\"width: 600px;\" type=\"text\" name=\"watchListKey".$rowNumber."Location\" value=\"".$location."\" ></li>";
+		$saveBlock .= "<li><span class=\"settingsBuffer\" >Location: </span><input onchange=\"getCurrentFileFolderMainPage(".$rowNumber.")\" onfocusin=\"showTypeDropdown(".$rowNumber.");\" onfocusout=\"hideTypeDropdown(".$rowNumber.");\" style=\"width: 600px;\" type=\"text\" name=\"watchListKey".$rowNumber."Location\" value=\"".$location."\" ></li>";
 		$saveBlock .= "<li  class=\"typeFile\" ".$typeFile."><span class=\"settingsBuffer\" >Pattern: </span><span class=\"settingsBuffer\" ><select onchange=\"togglePatternSelect(".$rowNumber.")\" id=\"watchListKey".$rowNumber."PatternSelect\" >";
 		if(isset($data["pattern"]))
 		{
@@ -750,6 +750,8 @@
 	<div class="saveBlock">
 		<?php echo generateSaveBlock(array(), $defaultTrashCanIcon, $arrayOfImages); ?>
 	</div>
+</div>
+<div id="fileFolderDropdown" style="width: 600px; background-color: #444; border: 1px solid white; z-index: 120; position: fixed;"  >
 </div>
 <script type="text/javascript">
 	var defaultTrashCanIcon 				= <?php echo json_encode($defaultTrashCanIcon); ?>;
