@@ -382,20 +382,21 @@ function getCurrentFileFolderMainPage(currentRow)
 	{
 		hideFiles = true;
 	}
-	var newDir = getCurrentDir(currentDir);
-	getFileFolderData(newDir, hideFiles, currentDir);
+	var joinChar = getJoinCharMain(currentRow);
+	var newDir = getCurrentDir(currentDir, joinChar);
+	getFileFolderDataMain(newDir, hideFiles, currentDir, currentRow);
 }
 
 function getCurrentFileFolderInfoKeyPress(hideFiles)
 {
 	var currentDir = document.getElementById("inputFieldForFileOrFolder").value;
-	var newDir = getCurrentDir(currentDir);
+	var joinChar = getJoinChar();
+	var newDir = getCurrentDir(currentDir, joinChar);
 	getFileFolderData(newDir, hideFiles,currentDir);
 }
 
-function getCurrentDir(currentDir)
+function getCurrentDir(currentDir, joinChar)
 {
-	var joinChar = getJoinChar();
 	var currentDirArray = currentDir.split(joinChar);
 	var lengthOfArr = currentDirArray.length;
 	if(currentDirArray[lengthOfArr-1] !== "")
@@ -423,95 +424,118 @@ function getFileFolderData(currentFolder, hideFiles, orgPath)
 		success(data)
 		{
 			staticFileData = data;
-			getFileFolderSubFunction(data, orgPath, hideFiles);
+			if(document.getElementById("inputFieldForFileOrFolder").value == orgPath)
+			{
+				var joinChar = getJoinChar();
+				getFileFolderSubFunction(data, orgPath, hideFiles, joinChar);
+			}
 		}
 	});	
 }
 
-function getFileFolderSubFunction(data, orgPath, hideFiles)
+function getFileFolderDataMain(currentFolder, hideFiles, orgPath, currentRow)
 {
-	if(document.getElementById("inputFieldForFileOrFolder").value == orgPath)
-	{
-		var htmlSet = "";
-		var joinChar = getJoinChar();
-		var currentFile = "";
-		if(orgPath !== joinChar && orgPath !== "")
+	//make ajax to get file / folder data, return array
+	var urlForSend = "../core/php/getFileFolderData.php?format=json";
+	var data = {currentFolder};
+	$.ajax({
+		url: urlForSend,
+		dataType: "json",
+		data,
+		type: "POST",
+		success(data)
 		{
-			document.getElementById("folderNavUpHolder").innerHTML = "<a class=\"linkSmall\" onclick=\"navUpDir("+hideFiles+")\" >Navigate Up One Folder</a>";
-			var currentDirArray = orgPath.split(joinChar);
-			var lengthOfArr = currentDirArray.length;
-			var checkHighlight = currentDirArray[lengthOfArr-1];
-			if(checkHighlight !== "")
+			staticFileData = data;
+			if(document.getElementsByName("watchListKey"+currentRow+"Location")[0].value == orgPath)
 			{
-				currentFile = checkHighlight;
+				var joinChar = getJoinCharMain(currentRow);
+				getFileFolderSubFunction(data, orgPath, hideFiles, joinChar);
 			}
 		}
-		else
+	});	
+}
+
+function getFileFolderSubFunction(data, orgPath, hideFiles, joinChar)
+{
+	
+	var htmlSet = "";
+	var currentFile = "";
+	if(orgPath !== joinChar && orgPath !== "")
+	{
+		document.getElementById("folderNavUpHolder").innerHTML = "<a class=\"linkSmall\" onclick=\"navUpDir("+hideFiles+")\" >Navigate Up One Folder</a>";
+		var currentDirArray = orgPath.split(joinChar);
+		var lengthOfArr = currentDirArray.length;
+		var checkHighlight = currentDirArray[lengthOfArr-1];
+		if(checkHighlight !== "")
 		{
-			document.getElementById("folderNavUpHolder").innerHTML = "";
+			currentFile = checkHighlight;
 		}
-		var listOfFileOrFolders = Object.keys(data["data"]);
-		var listOfFileOrFoldersCount = listOfFileOrFolders.length;
-		var fileFolderList = {
-			selected: "",
-			startsWith: "",
-			contains: "",
-			other: ""
-		};
-		for(var i = 0; i < listOfFileOrFoldersCount; i++)
+	}
+	else
+	{
+		document.getElementById("folderNavUpHolder").innerHTML = "";
+	}
+	var listOfFileOrFolders = Object.keys(data["data"]);
+	var listOfFileOrFoldersCount = listOfFileOrFolders.length;
+	var fileFolderList = {
+		selected: "",
+		startsWith: "",
+		contains: "",
+		other: ""
+	};
+	for(var i = 0; i < listOfFileOrFoldersCount; i++)
+	{
+		var subData = data["data"][listOfFileOrFolders[i]];
+		var selectButton = "<a class=\"linkSmall\"  onclick=\"setNewFileFolderValue('"+listOfFileOrFolders[i]+"',"+hideFiles+")\" >select</a>";
+		var name = "<span style=\"max-width: 200px; word-break: break-all; display: inline-block; \" >"+subData["filename"]+"</span>"
+		var highlightClass = "";
+		var listKey = "other";
+		if(subData["filename"].indexOf(currentFile) === 0 && currentFile !== "")
 		{
-			var subData = data["data"][listOfFileOrFolders[i]];
-			var selectButton = "<a class=\"linkSmall\"  onclick=\"setNewFileFolderValue('"+listOfFileOrFolders[i]+"',"+hideFiles+")\" >select</a>";
-			var name = "<span style=\"max-width: 200px; word-break: break-all; display: inline-block; \" >"+subData["filename"]+"</span>"
-			var highlightClass = "";
-			var listKey = "other";
-			if(subData["filename"].indexOf(currentFile) === 0 && currentFile !== "")
+			highlightClass = "class=\"selected\"";
+			if(sortTypeFileFolderPopup === "startsWithAndcontains" || sortTypeFileFolderPopup === "startsWith")
 			{
-				highlightClass = "class=\"selected\"";
+				listKey = "startsWith";
+			}
+			if(subData["filename"] === currentFile)
+			{
+				selectButton = "<a class=\"linkSmallHover\"> Selected </a>";
 				if(sortTypeFileFolderPopup === "startsWithAndcontains" || sortTypeFileFolderPopup === "startsWith")
 				{
-					listKey = "startsWith";
-				}
-				if(subData["filename"] === currentFile)
-				{
-					selectButton = "<a class=\"linkSmallHover\"> Selected </a>";
-					if(sortTypeFileFolderPopup === "startsWithAndcontains" || sortTypeFileFolderPopup === "startsWith")
-					{
-						listKey = "selected";
-					}
-				}
-			}
-			else if(subData["filename"].indexOf(currentFile) > 0 && currentFile !== "" && sortTypeFileFolderPopup === "startsWithAndcontains")
-			{
-				listKey = "contains";
-			}
-			if(subData["type"] === "folder")
-			{
-				var folderHtml = "";
-				var expandButton =  "<a class=\"linkSmall\"  onclick=\"expandFileFolderView('"+listOfFileOrFolders[i]+"',"+hideFiles+")\" >expand</a>";
-				folderHtml += "<div "+highlightClass+" style=\"padding: 5px;min-height:30px;\" >"+name+" <span style=\"float:right;\" > ";
-				if(hideFiles)
-				{
-					folderHtml += selectButton;
-				}
-				folderHtml += " "+expandButton+" </span> </div>";
-				fileFolderList[listKey] += folderHtml;
-			}
-			else if(data["data"][listOfFileOrFolders[i]]["type"] === "file")
-			{
-				if(!hideFiles)
-				{
-					var fileHtml = "<div "+highlightClass+" style=\"padding: 5px;min-height:30px;\" >"+name+" <span style=\"float:right;\" > "+selectButton+" </span> </div>";
-					fileFolderList[listKey] += fileHtml;
+					listKey = "selected";
 				}
 			}
 		}
-		htmlSet += fileFolderList["selected"];
-		htmlSet += fileFolderList["startsWith"];
-		htmlSet += fileFolderList["contains"];
-		htmlSet += fileFolderList["other"];
-		document.getElementById("folderFileInfoHolder").innerHTML = htmlSet;
+		else if(subData["filename"].indexOf(currentFile) > 0 && currentFile !== "" && sortTypeFileFolderPopup === "startsWithAndcontains")
+		{
+			listKey = "contains";
+		}
+		if(subData["type"] === "folder")
+		{
+			var folderHtml = "";
+			var expandButton =  "<a class=\"linkSmall\"  onclick=\"expandFileFolderView('"+listOfFileOrFolders[i]+"',"+hideFiles+")\" >expand</a>";
+			folderHtml += "<div "+highlightClass+" style=\"padding: 5px;min-height:30px;\" >"+name+" <span style=\"float:right;\" > ";
+			if(hideFiles)
+			{
+				folderHtml += selectButton;
+			}
+			folderHtml += " "+expandButton+" </span> </div>";
+			fileFolderList[listKey] += folderHtml;
+		}
+		else if(data["data"][listOfFileOrFolders[i]]["type"] === "file")
+		{
+			if(!hideFiles)
+			{
+				var fileHtml = "<div "+highlightClass+" style=\"padding: 5px;min-height:30px;\" >"+name+" <span style=\"float:right;\" > "+selectButton+" </span> </div>";
+				fileFolderList[listKey] += fileHtml;
+			}
+		}
 	}
+	htmlSet += fileFolderList["selected"];
+	htmlSet += fileFolderList["startsWith"];
+	htmlSet += fileFolderList["contains"];
+	htmlSet += fileFolderList["other"];
+	document.getElementById("folderFileInfoHolder").innerHTML = htmlSet;
 }
 
 function showTypeDropdown(rowNumber)
@@ -527,7 +551,8 @@ function showTypeDropdown(rowNumber)
 
 function hideTypeDropdown(rowNumber)
 {
-	
+	document.getElementById("fileFolderDropdown").style.display = "none";
+	document.getElementById("fileFolderDropdown").innerHTML = "";
 }
 
 function navUpDir(hideFiles)
@@ -563,6 +588,15 @@ function getLastDir()
 function getJoinChar()
 {
 	if(document.getElementById("inputFieldForFileOrFolder").value.indexOf("/") === -1)
+	{
+		return "\\";
+	}
+	return "/";
+}
+
+function getJoinCharMain(rowNumber)
+{
+	if(document.getElementsByName("watchListKey"+rowNumber+"Location")[0].value.indexOf("/") === -1)
 	{
 		return "\\";
 	}
