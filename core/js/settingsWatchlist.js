@@ -19,6 +19,7 @@ var selectOptions =
 	}
 };
 var staticFileData;
+var staticRowNumber = 1;
 
 function generateRow(data)
 {
@@ -427,7 +428,7 @@ function getFileFolderData(currentFolder, hideFiles, orgPath)
 			if(document.getElementById("inputFieldForFileOrFolder").value == orgPath)
 			{
 				var joinChar = getJoinChar();
-				getFileFolderSubFunction(data, orgPath, hideFiles, joinChar);
+				getFileFolderSubFunction(data, orgPath, hideFiles, joinChar, false);
 			}
 		}
 	});	
@@ -449,20 +450,23 @@ function getFileFolderDataMain(currentFolder, hideFiles, orgPath, currentRow)
 			if(document.getElementsByName("watchListKey"+currentRow+"Location")[0].value == orgPath)
 			{
 				var joinChar = getJoinCharMain(currentRow);
-				getFileFolderSubFunction(data, orgPath, hideFiles, joinChar);
+				getFileFolderSubFunction(data, orgPath, hideFiles, joinChar, true);
 			}
 		}
 	});	
 }
 
-function getFileFolderSubFunction(data, orgPath, hideFiles, joinChar)
+function getFileFolderSubFunction(data, orgPath, hideFiles, joinChar, dropdown)
 {
 	
 	var htmlSet = "";
 	var currentFile = "";
 	if(orgPath !== joinChar && orgPath !== "")
 	{
-		document.getElementById("folderNavUpHolder").innerHTML = "<a class=\"linkSmall\" onclick=\"navUpDir("+hideFiles+")\" >Navigate Up One Folder</a>";
+		if(!dropdown)
+		{
+			document.getElementById("folderNavUpHolder").innerHTML = "<a class=\"linkSmall\" onclick=\"navUpDir("+hideFiles+")\" >Navigate Up One Folder</a>";
+		}
 		var currentDirArray = orgPath.split(joinChar);
 		var lengthOfArr = currentDirArray.length;
 		var checkHighlight = currentDirArray[lengthOfArr-1];
@@ -510,16 +514,28 @@ function getFileFolderSubFunction(data, orgPath, hideFiles, joinChar)
 		{
 			listKey = "contains";
 		}
+		if(dropdown)
+		{
+			selectButton = "";
+		}
 		if(subData["type"] === "folder")
 		{
 			var folderHtml = "";
 			var expandButton =  "<a class=\"linkSmall\"  onclick=\"expandFileFolderView('"+listOfFileOrFolders[i]+"',"+hideFiles+")\" >expand</a>";
+			if(dropdown)
+			{
+				expandButton = "";
+			}
 			folderHtml += "<div "+highlightClass+" style=\"padding: 5px;min-height:30px;\" >"+name+" <span style=\"float:right;\" > ";
 			if(hideFiles)
 			{
-				folderHtml += selectButton;
+				folderHtml += selectButton+" ";
 			}
-			folderHtml += " "+expandButton+" </span> </div>";
+			if(subData["dirEmpty"] !== true)
+			{
+				folderHtml += " "+expandButton+" ";
+			}
+			folderHtml += "</span> </div>";
 			fileFolderList[listKey] += folderHtml;
 		}
 		else if(data["data"][listOfFileOrFolders[i]]["type"] === "file")
@@ -541,10 +557,10 @@ function getFileFolderSubFunction(data, orgPath, hideFiles, joinChar)
 function showTypeDropdown(rowNumber)
 {
 	document.getElementById("fileFolderDropdown").style.display = "block";
-	document.getElementById("fileFolderDropdown").style.top = document.getElementsByName("watchListKey"+rowNumber+"Location")[0].getBoundingClientRect().bottom;
-	document.getElementById("fileFolderDropdown").style.left = document.getElementsByName("watchListKey"+rowNumber+"Location")[0].getBoundingClientRect().left;
+	staticRowNumber = rowNumber;
+	moveFileFolderDropdown();
 
-	var htmlForPopoup = "<br><div style='width:100%;height:30px;padding-left:20px;' id=\"folderNavUpHolder\"> </div><div id=\"folderFileInfoHolder\" style='margin-right:20px; margin-left: 20px;height:200px;border: 1px solid white;overflow: auto;'> --- </div>";
+	var htmlForPopoup = "<div id=\"folderNavUpHolder\"> </div><div id=\"folderFileInfoHolder\" style='margin-right:20px; margin-left: 20px;height:200px;border: 1px solid white;overflow: auto;'> --- </div>";
 	document.getElementById("fileFolderDropdown").innerHTML = htmlForPopoup;
 	getCurrentFileFolderMainPage(rowNumber);
 }
@@ -553,6 +569,7 @@ function hideTypeDropdown(rowNumber)
 {
 	document.getElementById("fileFolderDropdown").style.display = "none";
 	document.getElementById("fileFolderDropdown").innerHTML = "";
+	updateSubFiles(rowNumber);
 }
 
 function navUpDir(hideFiles)
@@ -979,6 +996,15 @@ function moveUp(rowNumber)
 	moveDown(rowNumber);
 }
 
+function moveFileFolderDropdown()
+{
+	if(document.getElementById("fileFolderDropdown").style.display !== "none")
+	{
+		document.getElementById("fileFolderDropdown").style.top = document.getElementsByName("watchListKey"+staticRowNumber+"Location")[0].getBoundingClientRect().bottom;
+		document.getElementById("fileFolderDropdown").style.left = document.getElementsByName("watchListKey"+staticRowNumber+"Location")[0].getBoundingClientRect().left;
+	}
+}
+
 $( document ).ready(function() 
 {
 	refreshSettingsWatchList();
@@ -988,6 +1014,7 @@ $( document ).ready(function()
 		function (event)
 		{
 			onScrollShowFixedMiniBar(["settingsMainWatch"]);
+			moveFileFolderDropdown();
 		},
 		true
 	);
