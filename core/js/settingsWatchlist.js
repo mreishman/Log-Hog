@@ -261,6 +261,8 @@ function updateSubFiles(id)
 		type: "POST",
 		success(data)
 		{
+			document.getElementById("infoFile"+id).innerHTML = data["fileInfo"];
+			document.getElementById("imageFile"+id).innerHTML = icons[data["img"]];
 			setTimeout(function(){ document.getElementById("watchListKey"+id+"LoadingSubFilesIcon").style.display = "none"; document.getElementById("watchListKey"+id+"FilesInFolder").style.display = "inline-block"; }, 1000);
 			var prevFolderData = JSON.parse(document.getElementsByName("watchListKey"+id+"FileInformation")[0].value);
 			var htmlReturn = generateSubFiles({fileArray: data["data"], currentNum: id, mainFolder: data["orgPath"], fileData: prevFolderData});
@@ -790,9 +792,8 @@ function toggleTypeFolderFile(currentRow)
 	{
 		$("#rowNumber"+currentRow+" .typeFile").show();
 		$("#rowNumber"+currentRow+" .typeFolder").hide();
-		updateSubFiles(currentRow);
 	}
-	
+	setTimeout(function(){ updateSubFiles(currentRow);  }, 50);
 }
 
 function deleteRowFunctionPopup(currentRow, keyName = "")
