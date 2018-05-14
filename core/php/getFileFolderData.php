@@ -1,10 +1,13 @@
 <?php
 require_once("commonFunctions.php");
 
+$filter = "$";
+
 function getFileInfoFromDir($data, $response)
 {
 	$path = $data["path"];
 	$recursive = $data["recursive"];
+	$filter = $data["filter"];
 	$scannedDir = scandir($path);
 	if(!is_array($scannedDir))
 	{
@@ -49,7 +52,7 @@ function getFileInfoFromDir($data, $response)
 					);
 				}
 			}
-			elseif(is_file($fullPath))
+			elseif(preg_match('/' . $filter . '/S', $filename) && is_file($fullPath))
 			{
 				$subImg = "defaultFileIcon";
 				if(!is_readable($fullPath))
@@ -77,6 +80,10 @@ $response = array();
 $imageResponse = "defaultRedErrorIcon";
 $info = filePermsDisplay($path);
 $recursive = false;
+if(isset($_POST["filter"]))
+{
+	$filter = $_POST["filter"];
+}
 if(isset($_POST["recursive"]))
 {
 	$recursive = $_POST["recursive"];
@@ -101,7 +108,8 @@ if(file_exists($path))
 		$response = getFileInfoFromDir(
 			array(
 				"path"			=>	$path,
-				"recursive"		=>	$recursive
+				"recursive"		=>	$recursive,
+				"filter"		=>	$filter
 			),
 			$response
 		);

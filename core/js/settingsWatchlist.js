@@ -222,7 +222,7 @@ function addFileFolderAjax(fileType, sentLocation)
 	hidePopup();
 	displayLoadingPopup("../");
 	var urlForSend = "../core/php/getFileFolderData.php?format=json";
-	var data = {currentFolder: sentLocation};
+	var data = {currentFolder: sentLocation, filter: defaultNewAddPattern};
 	$.ajax({
 		url: urlForSend,
 		dataType: "json",
@@ -252,7 +252,7 @@ function updateSubFiles(id)
 	document.getElementById("watchListKey"+id+"LoadingSubFilesIcon").style.display = "inline-block";
 	document.getElementById("watchListKey"+id+"FilesInFolder").style.display = "none";
 	var urlForSend = "../core/php/getFileFolderData.php?format=json";
-	var data = {currentFolder: document.getElementsByName("watchListKey"+id+"Location")[0].value, recursive: document.getElementsByName("watchListKey"+id+"Recursive")[0].value};
+	var data = {currentFolder: document.getElementsByName("watchListKey"+id+"Location")[0].value, recursive: document.getElementsByName("watchListKey"+id+"Recursive")[0].value, filter:  document.getElementsByName("watchListKey"+id+"Pattern")[0].value};
 	$.ajax({
 		url: urlForSend,
 		dataType: "json",
@@ -416,7 +416,7 @@ function getFileFolderData(currentFolder, hideFiles, orgPath)
 {
 	//make ajax to get file / folder data, return array
 	var urlForSend = "../core/php/getFileFolderData.php?format=json";
-	var data = {currentFolder};
+	var data = {currentFolder, filter: defaultNewAddPattern};
 	$.ajax({
 		url: urlForSend,
 		dataType: "json",
@@ -438,7 +438,7 @@ function getFileFolderDataMain(currentFolder, hideFiles, orgPath, currentRow)
 {
 	//make ajax to get file / folder data, return array
 	var urlForSend = "../core/php/getFileFolderData.php?format=json";
-	var data = {currentFolder};
+	var data = {currentFolder, filter: document.getElementsByName("watchListKey"+currentRow+"Pattern")[0].value};
 	$.ajax({
 		url: urlForSend,
 		dataType: "json",
