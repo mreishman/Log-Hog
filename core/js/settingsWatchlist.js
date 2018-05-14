@@ -189,6 +189,7 @@ function togglePatternSelect(rowNumber)
 		document.getElementsByName("watchListKey"+rowNumber+"Pattern")[0].value = newPatternvalue;
 		document.getElementsByName("watchListKey"+rowNumber+"Pattern")[0].style.display = "none";
 	}
+	setTimeout(function(){ updateSubFiles(rowNumber);  }, 50);
 }
 
 function addFile()
