@@ -544,6 +544,23 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 					Other Apps
 				</li>
 			<?php endif;?>
+			<?php if ($locationForStatusIndex["loc"]):?>
+				<li onclick="window.location.href='<?php echo $locationForStatusIndex["loc"]; ?>'" >
+					<div class="menuImageDiv">
+						<?php echo generateImage(
+							$arrayOfImages["gitStatus"],
+							$imageConfig = array(
+								"id"		=>	"gitStatusImage",
+								"class"		=>	"menuImage",
+								"height"	=>	"30px"
+								)
+							); 
+						?>
+					</div>
+					gitStatus
+					<?php echo $externalLinkImage; ?>
+				</li>
+			<?php endif; ?>
 			<?php if($locationForMonitorIndex["loc"]): ?>
 				<li onclick="window.location.href = '<?php echo $locationForMonitorIndex["loc"]; ?>'" >
 					<div class="menuImageDiv">
@@ -592,23 +609,6 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 						?>
 					</div>
 					Selenium Monitor
-					<?php echo $externalLinkImage; ?>
-				</li>
-			<?php endif; ?>
-			<?php if ($locationForStatusIndex["loc"]):?>
-				<li onclick="window.location.href='<?php echo $locationForStatusIndex["loc"]; ?>'" >
-					<div class="menuImageDiv">
-						<?php echo generateImage(
-							$arrayOfImages["gitStatus"],
-							$imageConfig = array(
-								"id"		=>	"gitStatusImage",
-								"class"		=>	"menuImage",
-								"height"	=>	"30px"
-								)
-							); 
-						?>
-					</div>
-					gitStatus
 					<?php echo $externalLinkImage; ?>
 				</li>
 			<?php endif; ?>
