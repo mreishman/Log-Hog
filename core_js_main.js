@@ -912,11 +912,11 @@ function update(data)
 							{
 								var moveToFrontOnUpdate = false;
 								var innerCount = i;
-								for (var i = filesNew.length - 1; i >= 0; i--)
+								for (var j = filesNew.length - 1; j >= 0; j--)
 								{
-									if(filesNew[i] === files[i])
+									if(filesNew[j] === files[j])
 									{
-										innerCount = i;
+										innerCount = j;
 										break;
 									}
 								}
