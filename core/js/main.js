@@ -914,30 +914,33 @@ function update(data)
 							{
 								var moveToFrontOnUpdate = false;
 								var innerCount = i;
-								for (var i = filesNew.length - 1; i >= 0; i--)
+								for (var j = filesNew.length - 1; j >= 0; j--)
 								{
-									if(filesNew[i] === files[i])
+									if(filesNew[j] === files[j])
 									{
-										innerCount = i;
+										innerCount = j;
 										break;
 									}
 								}
 								var innerCountStatic = innerCount;
-								var idCheck = files[i].replace(/[^a-z0-9]/g, "");
-								if(innerCountStatic === 0)
+								if(typeof files[i] !== "undefined")
 								{
-									itemAdded = tryToInsertBeforeLog(innerCountStatic, stop, idCheck, item);
-									if(!itemAdded)
-									{
-										itemAdded = tryToInsertAfterLog(innerCountStatic, stop, idCheck, item);
-									}
-								}
-								else
-								{
-									itemAdded = tryToInsertAfterLog(innerCountStatic, stop, idCheck, item);
-									if(!itemAdded)
+									var idCheck = files[i].replace(/[^a-z0-9]/g, "");
+									if(innerCountStatic === 0)
 									{
 										itemAdded = tryToInsertBeforeLog(innerCountStatic, stop, idCheck, item);
+										if(!itemAdded)
+										{
+											itemAdded = tryToInsertAfterLog(innerCountStatic, stop, idCheck, item);
+										}
+									}
+									else
+									{
+										itemAdded = tryToInsertAfterLog(innerCountStatic, stop, idCheck, item);
+										if(!itemAdded)
+										{
+											itemAdded = tryToInsertBeforeLog(innerCountStatic, stop, idCheck, item);
+										}
 									}
 								}
 							}
