@@ -120,6 +120,16 @@ function evaluateBool($boolVal, $trueVal, $falseVal)
 
 function loadSentryData($sendCrashInfoJS, $branchSelected)
 {
+	$returnString = "
+	<script>
+
+		function eventThrowException(e)
+		{
+			//this would send errors, but it is disabled
+			console.log(e);
+		}
+
+	</script>";
 	if($sendCrashInfoJS === "true")
 	{
 		include(baseURL()."core/php/configStatic.php");
@@ -150,16 +160,8 @@ function loadSentryData($sendCrashInfoJS, $branchSelected)
 
 		</script>";
 	}
-	return "
-	<script>
-
-		function eventThrowException(e)
-		{
-			//this would send errors, but it is disabled
-			console.log(e);
-		}
-
-	</script>";
+	
+	return $returnString;
 }
 
 function baseURL()
