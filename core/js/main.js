@@ -2574,6 +2574,10 @@ function possiblyUpdateFromFilter()
 
 function toggleNotifications()
 {
+	if(document.getElementById("fullScreenMenu").style.display !== "none")
+	{
+		toggleFullScreenMenu();
+	}
 	if(document.getElementById("notifications").style.display === "inline-block")
 	{
 		document.getElementById("notifications").style.display = "none";
@@ -2769,6 +2773,10 @@ function updateNotificationStuff()
 
 function toggleFullScreenMenu()
 {
+	if(document.getElementById("notifications").style.display === "inline-block")
+	{
+		toggleNotifications();
+	}
 	if(document.getElementById("fullScreenMenu").style.display === "none")
 	{
 		document.getElementById("fullScreenMenu").style.display = "block";

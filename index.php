@@ -455,6 +455,17 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 					);
 				?>
 			</div>
+			<div onclick="toggleNotifications();"  class="menuImageDiv">
+				<?php echo generateImage(
+					$arrayOfImages["notification"],
+					$imageConfig = array(
+						"id"		=>	"notificationNotClicked",
+						"class"		=>	"menuImage",
+						"height"	=>	"30px"
+						)
+					); 
+				?>
+			</div>
 		</div>
 		<ul class="settingsUl settingsUlFS fullScreenMenuUL">
 			<li class="menuTitle" style="text-align: center;" >
