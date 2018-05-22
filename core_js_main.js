@@ -914,7 +914,7 @@ function update(data)
 								var innerCount = i;
 								for (var j = filesNew.length - 1; j >= 0; j--)
 								{
-									if(filesNew[j] === files[j])
+									if(filesNew[j] === files[i])
 									{
 										innerCount = j;
 										break;
