@@ -2791,10 +2791,9 @@ function toggleFullScreenMenu()
 function toggleUpdateMenu()
 {
 	hideMainStuff();
+	document.getElementById("mainContentFullScreenMenu").style.left = ""+201+"px";
 	document.getElementById("fullScreenMenuUpdate").style.display = "block";
 	$("#mainMenuUpdate").addClass("selected");
-	document.getElementById("updateSubMenu").style.display = "block";
-	$("#settingsSubMenuUpdate").addClass("selected");
 	arrayOfScrollHeaderUpdate = ["updateUpdate","updateReleaseNotes"];
 	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
 }
@@ -2803,6 +2802,7 @@ function toggleAbout()
 {
 	hideAboutStuff();
 	hideMainStuff();
+	document.getElementById("mainContentFullScreenMenu").style.left = ""+402+"px";
 	document.getElementById("aboutSubMenu").style.display = "block";
 	$("#mainMenuAbout").addClass("selected");
 	toggleAboutLogHog();
@@ -2838,7 +2838,6 @@ function toggleChangeLog()
 function hideUpdateStuff()
 {
 	document.getElementById("fullScreenMenuUpdate").style.display = "none";
-	$("#settingsSubMenuUpdate").removeClass("selected");
 }
 
 function hideAboutStuff()
@@ -2863,7 +2862,6 @@ function hideMainStuff()
 
 	if($("#mainMenuUpdate").hasClass("selected"))
 	{
-		document.getElementById("updateSubMenu").style.display = "none";
 		hideUpdateStuff();
 	}
 

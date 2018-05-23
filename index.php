@@ -623,14 +623,6 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 			</li>
 			-->
 		</ul>
-		<ul id="updateSubMenu" class="settingsUl fullScreenMenuUL settingsUlSub" style="display: none;">
-			<li class="menuTitle" style="text-align: center;">
-				Update
-			</li>
-			<li id="settingsSubMenuUpdate" onclick="toggleUpdateSubMenu();" class="selected">
-				Update
-			</li>
-		</ul>
 		<div id="mainContentFullScreenMenu">
 			<div class="settingsHeader" style="position: fixed;width: 100%;z-index: 10;top: 0; margin: 0; border-bottom: 1px solid white; display: none;top: 46px;" id="fixedPositionMiniMenu" >
 			</div>
