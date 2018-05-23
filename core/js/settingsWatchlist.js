@@ -504,7 +504,10 @@ function getFileFolderSubFunction(data, orgPath, hideFiles, joinChar, dropdown)
 	{
 		document.getElementById("folderNavUpHolder").innerHTML = "";
 	}
-	document.getElementById("folderNavUpHolder").innerHTML += "<div style=\"float:right; margin-right: 20px\" class=\"selectDiv\"><select onchange=\"updateFilterPopup();\" id=\"patternSelectPopup\"  >"+generatePatternSelectNoOther(currentPatternSelect)+"</select></div>";
+	if(!hideFiles)
+	{
+		document.getElementById("folderNavUpHolder").innerHTML += "<div style=\"float:right; margin-right: 20px\" class=\"selectDiv\"><select onchange=\"updateFilterPopup();\" id=\"patternSelectPopup\"  >"+generatePatternSelectNoOther(currentPatternSelect)+"</select></div>";
+	}
 	var listOfFileOrFolders = Object.keys(data["data"]);
 	var listOfFileOrFoldersCount = listOfFileOrFolders.length;
 	var fileFolderList = {
