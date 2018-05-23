@@ -22,6 +22,7 @@ var staticFileData;
 var staticRowNumber = 1;
 var progressBarWatchList;
 var percentWatchList = 0;
+var currentPatternSelect = defaultNewAddPattern;
 
 function generateRow(data)
 {
@@ -115,6 +116,15 @@ function generatePatternSelect(selectValue)
 	);
 }
 
+function generatePatternSelectNoOther(selectValue)
+{
+	return generateSelect(
+		selectOptions,
+		false,
+		selectValue
+	);
+}
+
 function generateFileTypeSelect(selectValue)
 {
 	return generateSelect(
@@ -169,12 +179,15 @@ function generateSelect(data, defaultData, selectValue)
 		}
 		selectHtml += " >"+data[optionList[i]]["name"]+"</option>";
 	}
-	selectHtml += "<option value=\""+defaultData["value"]+"\" ";
-	if(selected !== true)
+	if(defaultData)
 	{
-		selectHtml += " selected ";
+		selectHtml += "<option value=\""+defaultData["value"]+"\" ";
+		if(selected !== true)
+		{
+			selectHtml += " selected ";
+		}
+		selectHtml += " >"+defaultData["name"]+"</option>";
 	}
-	selectHtml += " >"+defaultData["name"]+"</option>";
 	return selectHtml;
 }
 
@@ -222,10 +235,11 @@ function addFolder()
 
 function addFileFolderAjax(fileType, sentLocation)
 {
+	currentPatternSelect = defaultNewAddPattern;
 	hidePopup();
 	displayLoadingPopup("../");
 	var urlForSend = "../core/php/getFileFolderData.php?format=json";
-	var data = {currentFolder: sentLocation, filter: defaultNewAddPattern};
+	var data = {currentFolder: sentLocation, filter: currentPatternSelect};
 	$.ajax({
 		url: urlForSend,
 		dataType: "json",
@@ -421,7 +435,7 @@ function getFileFolderData(currentFolder, hideFiles, orgPath)
 {
 	//make ajax to get file / folder data, return array
 	var urlForSend = "../core/php/getFileFolderData.php?format=json";
-	var data = {currentFolder, filter: defaultNewAddPattern};
+	var data = {currentFolder, filter: currentPatternSelect};
 	$.ajax({
 		url: urlForSend,
 		dataType: "json",
@@ -461,6 +475,12 @@ function getFileFolderDataMain(currentFolder, hideFiles, orgPath, currentRow)
 	});	
 }
 
+function updateFilterPopup()
+{
+	currentPatternSelect = document.getElementById("patternSelectPopup").value;
+	getCurrentFileFolderInfoKeyPress(false);
+}
+
 function getFileFolderSubFunction(data, orgPath, hideFiles, joinChar, dropdown)
 {
 	
@@ -484,6 +504,7 @@ function getFileFolderSubFunction(data, orgPath, hideFiles, joinChar, dropdown)
 	{
 		document.getElementById("folderNavUpHolder").innerHTML = "";
 	}
+	document.getElementById("folderNavUpHolder").innerHTML += "<div style=\"float:right; margin-right: 20px\" class=\"selectDiv\"><select onchange=\"updateFilterPopup();\" id=\"patternSelectPopup\"  >"+generatePatternSelectNoOther(currentPatternSelect)+"</select></div>";
 	var listOfFileOrFolders = Object.keys(data["data"]);
 	var listOfFileOrFoldersCount = listOfFileOrFolders.length;
 	var fileFolderList = {
@@ -526,7 +547,7 @@ function getFileFolderSubFunction(data, orgPath, hideFiles, joinChar, dropdown)
 		if(subData["type"] === "folder")
 		{
 			var folderHtml = "";
-			var expandButton =  "<a class=\"linkSmall\"  onclick=\"expandFileFolderView('"+listOfFileOrFolders[i]+"',"+hideFiles+")\" >expand</a>";
+			var expandButton =  "<a class=\"linkSmall\"  onclick=\"expandFileFolderView('"+listOfFileOrFolders[i]+joinChar+"',"+hideFiles+")\" >expand</a>";
 			if(dropdown)
 			{
 				expandButton = "";
