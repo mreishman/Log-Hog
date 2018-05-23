@@ -140,7 +140,7 @@ $errorArray = array(
     ),
     11   =>  array(
         "firstMessage"      =>  "Zip Archive is not installed",
-        "secondMessage"     =>  "When trying to check for an update, php downloads a Zip file from github. This requires the php module Zip Archive to work. Please install Zip archive to use the update function in log-hog. An example command would be: sudo apt-get install php7.0-zip"
+        "secondMessage"     =>  "When trying to check for an update, php downloads a Zip file from github. This requires the php module Zip Archive to work. Please install Zip archive to use the update function in log-hog. An example command would be: sudo apt-get install php7.0-zip. If you are unable to install Zip Archive, you can disable automatic update checks under settings. <br><br> <form id=\"formUpdateSave\" ><span class=\"settingsBuffer\" > Auto Check Update: </span><select id=\"settingsSelect\" name=\"autoCheckUpdate\"><option selected value=\"true\">True</option><option value=\"false\">False</option></select><br><br></form><button onclick=\"saveAndVerifyMain('formUpdateSave');\" >Save</button><br><br>This could take up to 60 seconds to refresh the config file"
     ),
     42   =>  array(
         "firstMessage"      =>  "General Error",
@@ -184,6 +184,7 @@ if(file_exists($file))
 <html>
 <head>
     <title>Error Page</title>
+    <script src="core/js/jquery.js"></script>
     <style type="text/css">
         .link
         {
@@ -313,4 +314,24 @@ if(file_exists($file))
     </tr>
 </table>
 </body>
+<script type="text/javascript">
+    
+    function saveAndVerifyMain(idForForm)
+    {
+        idForm = "#"+idForForm;
+        data = $(idForm).serializeArray();
+        $.ajax({
+            type: "post",
+            url: "core/php/settingsSaveAjax.php",
+            data,
+            success(data)
+            {
+                if(data !== "true")
+                {
+                    window.location.href = "../error.php?error="+data+"&page=core/php/settingsSaveAjax.php";
+                }
+            }
+          });
+    }
+</script>
 </html>

@@ -55,7 +55,7 @@ $fileNameArray = array(
     ),
     "Updater"   =>  array(
         "name"      =>  "Updater",
-        "path"      =>  "update/Updater.php"
+        "path"      =>  "update/updater.php"
     ),
     "updateCheck"   =>  array(
         "name"      =>  "Update Check",
