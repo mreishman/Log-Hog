@@ -24,12 +24,12 @@ var staticRowNumber = 1;
 function generateRow(data)
 {
 	var fileTypeIsFolder = false;
-	if(data["fileType"] === "folder")
+	if(data["FileType"] === "folder")
 	{
 		fileTypeIsFolder = true;
 	}
 	var fileTypeIsFile = false;
-	if(data["fileType"] === "file")
+	if(data["FileType"] === "file")
 	{
 		fileTypeIsFile = true;
 	}
@@ -50,7 +50,7 @@ function generateRow(data)
 	var optionListCount = optionList.length;
 	for(var i = 0; i < optionListCount; i++)
 	{
-		if(String(data["pattern"]) === String(selectOptions[optionList[i]]["value"]))
+		if(String(data["Pattern"]) === String(selectOptions[optionList[i]]["value"]))
 		{
 			hidePattern = true;
 			break;
@@ -62,14 +62,14 @@ function generateRow(data)
 	item = item.replace(/{{fileNumber}}/g, data["fileNumber"]);
 	item = item.replace(/{{filePermsDisplay}}/g, data["filePermsDisplay"]);
 	item = item.replace(/{{fileImage}}/g, data["fileImage"]);
-	item = item.replace(/{{location}}/g, data["location"]);
-	item = item.replace(/{{pattern}}/g, data["pattern"]);
+	item = item.replace(/{{location}}/g, data["Location"]);
+	item = item.replace(/{{pattern}}/g, data["Pattern"]);
 	item = item.replace(/{{key}}/g, data["key"]);
 	item = item.replace(/{{recursiveOptions}}/g, generateTrueFalseSelect(data["recursive"]));
 	item = item.replace(/{{excludeTrimOptions}}/g, generateTrueFalseSelect(data["excludeTrim"]));
 	item = item.replace(/{{typefile}}/g, displayNoneIfTrue(fileTypeIsFile));
 	item = item.replace(/{{typefolder}}/g, displayNoneIfTrue(fileTypeIsFolder));
-	item = item.replace(/{{FileTypeOptions}}/g, generateFileTypeSelect(data["fileType"]));
+	item = item.replace(/{{FileTypeOptions}}/g, generateFileTypeSelect(data["FileType"]));
 	item = item.replace(/{{filesInFolder}}/g, filesInFolder);
 	item = item.replace(/{{AutoDeleteFiles}}/g, data["AutoDeleteFiles"]);
 	item = item.replace(/{{FileInformation}}/g, data["FileInformation"]);
@@ -79,7 +79,7 @@ function generateRow(data)
 	item = item.replace(/{{Name}}/g, data["Name"]);
 	item = item.replace(/{{AlertEnabled}}/g, generateTrueFalseSelect(data["AlertEnabled"]));
 	item = item.replace(/{{hidesplitbutton}}/g, displayNoneIfTrue(hideSplit));
-	item = item.replace(/{{patternSelect}}/g, generatePatternSelect(data["pattern"]));
+	item = item.replace(/{{patternSelect}}/g, generatePatternSelect(data["Pattern"]));
 	item = item.replace(/{{hidepatterninput}}/g, displayNoneIfTrue(hidePattern));
 	if(!data["down"])
 	{
@@ -236,9 +236,9 @@ function addFileFolderAjax(fileType, sentLocation)
 			hidePopup();
 			addRowFunction(
 			{
-				fileType: fileType,
+				FileType: fileType,
 				fileImage: icons[data["img"]],
-				location: sentLocation,
+				Location: sentLocation,
 				filePermsDisplay: data["fileInfo"],
 				filesInFolder: fileListData["html"],
 				hideSplit: fileListData["filesFound"]
@@ -360,8 +360,8 @@ function addOther()
 {
 	addRowFunction(
 		{
-			fileType: "other",
-			location: defaultNewPathOther
+			FileType: "other",
+			Location: defaultNewPathOther
 		}
 	);
 }
@@ -628,7 +628,10 @@ function addRowFunction(data)
 	try
 	{
 		var countOfWatchList = parseInt(document.getElementById("numberOfRows").value);
-		document.getElementById("moveDown"+countOfWatchList).style.display = "inline-block";
+		if(document.getElementById("moveDown"+countOfWatchList))
+		{
+			document.getElementById("moveDown"+countOfWatchList).style.display = "inline-block";
+		}
 		countOfWatchList++;
 
 		var fileName = ""+countOfWatchList;
@@ -637,9 +640,9 @@ function addRowFunction(data)
 			fileName = "0"+fileName;
 		}
 		var fileTypeFromData = "other";
-		if("fileType" in data)
+		if("FileType" in data)
 		{
-			fileTypeFromData = data["fileType"];
+			fileTypeFromData = data["FileType"];
 		}
 		var filesInFolderFromData = "<li>Unknown files in folder</li>";
 		if("filesInFolder" in data)
@@ -647,15 +650,15 @@ function addRowFunction(data)
 			filesInFolderFromData = data["filesInFolder"];
 		}
 		var locationFromData = "";
-		if("location" in data)
+		if("Location" in data)
 		{
-			locationFromData = data["location"];
+			locationFromData = data["Location"];
 		}
 
 		var patternFromData = defaultNewAddPattern;
-		if("pattern" in data)
+		if("Pattern" in data)
 		{
-			patternFromData = data["pattern"];
+			patternFromData = data["Pattern"];
 		}
 
 		var fileImg = "";
@@ -676,6 +679,48 @@ function addRowFunction(data)
 			hideSplit = data["hideSplit"];
 		}
 
+		var alertEnabled = defaultdefaultNewAddAlertEnabled;
+		if("AlertEnabled" in data)
+		{
+			alertEnabled = data["AlertEnabled"];
+		}
+
+		var autoDeleteFiles = defaultNewAddAutoDeleteFiles;
+		if("AutoDeleteFiles" in data)
+		{
+			autoDeleteFiles = data["AutoDeleteFiles"];
+		}
+
+		var excludeTrim = defaultNewAddExcludeTrim;
+		if("ExcludeTrim" in data)
+		{
+			excludeTrim = data["ExcludeTrim"];
+		}
+
+		var fileInformation = "{}";
+		if("FileInformation" in data)
+		{
+			fileInformation = data["FileInformation"];
+		}
+
+		var name = "";
+		if("Name" in data)
+		{
+			name = data["Name"];
+		}
+
+		var group = "";
+		if("Group" in data)
+		{
+			group = data["Group"];
+		}
+
+		var recursive = defaultNewAddRecursive;
+		if("Recursive" in data)
+		{
+			recursive = data["Recursive"];
+		}
+
 		var item = generateRow(
 			{
 				rowNumber: countOfWatchList,
@@ -683,18 +728,18 @@ function addRowFunction(data)
 				fileNumber: fileName,
 				filePermsDisplay,
 				fileImage: fileImg,
-				location: locationFromData,
-				pattern: patternFromData,
+				Location: locationFromData,
+				Pattern: patternFromData,
 				key: "Log "+countOfWatchList,
-				recursive: defaultNewAddRecursive,
-				excludeTrim: defaultNewAddExcludeTrim,
-				fileType: fileTypeFromData,
+				recursive: recursive,
+				excludeTrim: excludeTrim,
+				FileType: fileTypeFromData,
 				filesInFolder: filesInFolderFromData,
-				AutoDeleteFiles: defaultNewAddAutoDeleteFiles,
-				FileInformation: "{}",
-				Group: "",
-				Name: "",
-				AlertEnabled: defaultdefaultNewAddAlertEnabled,
+				AutoDeleteFiles: autoDeleteFiles,
+				FileInformation: fileInformation,
+				Group: group,
+				Name: name,
+				AlertEnabled: alertEnabled,
 				up: true,
 				down: false,
 				hideSplit
@@ -740,8 +785,8 @@ function splitFiles(currentRow)
 		  var fileLocation = listOfFiles[i].value;
 		  addRowFunction(
 		  	{
-		  		fileType: "file",
-		  		location: fileLocation
+		  		FileType: "file",
+		  		Location: fileLocation
 		  	});
 		}
 
@@ -866,12 +911,12 @@ function moveRow(currentRow, newRow)
 			fileNumber: fileName,
 			filePermsDisplay: $("#infoFile"+currentRow).html(),
 			fileImage: $("#imageFile"+currentRow).html(),
-			location: document.getElementsByName("watchListKey"+currentRow+"Location")[0].value,
-			pattern: document.getElementsByName("watchListKey"+currentRow+"Pattern")[0].value,
+			Location: document.getElementsByName("watchListKey"+currentRow+"Location")[0].value,
+			Pattern: document.getElementsByName("watchListKey"+currentRow+"Pattern")[0].value,
 			key: document.getElementsByName("watchListKey"+currentRow)[0].value,
 			recursive: document.getElementsByName("watchListKey"+currentRow+"Recursive")[0].value,
 			excludeTrim: document.getElementsByName("watchListKey"+currentRow+"ExcludeTrim")[0].value,
-			fileType: document.getElementsByName("watchListKey"+currentRow+"FileType")[0].value,
+			FileType: document.getElementsByName("watchListKey"+currentRow+"FileType")[0].value,
 			filesInFolder: document.getElementById("watchListKey"+currentRow+"FilesInFolder").innerHTML,
 			AutoDeleteFiles: document.getElementsByName("watchListKey"+currentRow+"AutoDeleteFiles")[0].value,
 			FileInformation: document.getElementsByName("watchListKey"+currentRow+"FileInformation")[0].value,
@@ -1007,10 +1052,75 @@ function moveFileFolderDropdown()
 	}
 }
 
+var fileFolderList = {};
+
+function getFileFolderList()
+{
+	document.getElementsByClassName("uniqueClassForAppendSettingsMainWatchNew")[0].innerHTML = "";
+	var urlForSend = "../core/php/getFileFolderList.php?format=json";
+	var data = {};
+	$.ajax({
+		url: urlForSend,
+		dataType: "json",
+		data,
+		type: "POST",
+		success(data)
+		{
+			fileFolderList = data;
+			var fileFolderListKeys = Object.keys(data);
+			var fileFolderListCount = fileFolderListKeys.length;
+			if(fileFolderListCount > 0)
+			{
+				ajaxAddRowFirstLoad(0);
+			}
+			else
+			{
+				//show message for no watchlist info
+			}
+		}
+	});	
+}
+
+function ajaxAddRowFirstLoad(currentCount)
+{
+	refreshSettingsWatchList();
+	var fileFolderListKeys = Object.keys(fileFolderList);
+	var fileFolderListCount = fileFolderListKeys.length;
+	if(fileFolderListCount > currentCount)
+	{
+		var data = fileFolderList[fileFolderListKeys[currentCount]];
+		var urlForSend = "../core/php/getFileFolderData.php?format=json";
+		var sendData = {currentFolder: data["Location"], filter: data["Pattern"]};
+		(function(_data){
+			$.ajax({
+				url: urlForSend,
+				dataType: "json",
+				data: sendData,
+				type: "POST",
+				success(data)
+				{
+					var countOfWatchList = parseInt(document.getElementById("numberOfRows").value);
+					var fileListData = generateSubFiles({fileArray: data["data"], currentNum: (countOfWatchList+1), mainFolder: _data["Location"]});					
+					_data["fileImage"] = icons[data["img"]];
+					_data["filePermsDisplay"] =  data["fileInfo"];
+					_data["filesInFolder"] =  fileListData["html"];
+					_data["hideSplit"] =  fileListData["filesFound"];
+					addRowFunction(_data)
+					currentCount++;
+					ajaxAddRowFirstLoad(currentCount);
+				}
+			});	
+		}(data));
+	}
+	else
+	{
+		//finished
+	}
+}
+
 $( document ).ready(function() 
 {
 	refreshSettingsWatchList();
-
 	document.addEventListener(
 		'scroll',
 		function (event)
@@ -1022,4 +1132,6 @@ $( document ).ready(function()
 	);
 
 	setInterval(poll, 100);
+
+	getFileFolderList();
 });
