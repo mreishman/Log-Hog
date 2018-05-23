@@ -527,7 +527,11 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 				</li>
 			<?php endif;?>
 			<?php if ($locationForStatusIndex["loc"]):?>
-				<li onclick="window.location.href='<?php echo $locationForStatusIndex["loc"]; ?>'" >
+				<?php if($addonsAsIframe === "true"): ?>
+					<li id="menuStatusAddon" onclick="toggleStatus('<?php echo $locationForStatusIndex["loc"]; ?>');" >
+				<?php else: ?>
+					<li id="menuStatusAddon" onclick="window.location.href='<?php echo $locationForStatusIndex["loc"]; ?>'" >
+				<?php endif; ?>
 					<div class="menuImageDiv">
 						<?php echo generateImage(
 							$arrayOfImages["gitStatus"],
@@ -540,11 +544,16 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 						?>
 					</div>
 					gitStatus
-					<?php echo $externalLinkImage; ?>
+					<?php
+					if($addonsAsIframe !== "true")
+					{
+						echo $externalLinkImage;
+					}
+					?>
 				</li>
 			<?php endif; ?>
 			<?php if($locationForMonitorIndex["loc"]): ?>
-				<li onclick="window.location.href = '<?php echo $locationForMonitorIndex["loc"]; ?>'" >
+				<li id="menuMonitorAddon" onclick="window.location.href = '<?php echo $locationForMonitorIndex["loc"]; ?>'" >
 					<div class="menuImageDiv">
 						<?php echo generateImage(
 							$arrayOfImages["taskManager"],
@@ -561,7 +570,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 				</li>
 			<?php endif; ?>
 			<?php if($locationForSearchIndex["loc"]): ?>
-				<li onclick="window.location.href = '<?php echo $locationForSearchIndex["loc"]; ?>'" >
+				<li id="menuSearchAddon" onclick="window.location.href = '<?php echo $locationForSearchIndex["loc"]; ?>'" >
 					<div class="menuImageDiv">
 						<?php echo generateImage(
 							$arrayOfImages["search"],
@@ -578,7 +587,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 				</li>
 			<?php endif; ?>
 			<?php if($locationForSeleniumMonitorIndex["loc"]): ?>
-				<li onclick="window.location.href = '<?php echo $locationForSeleniumMonitorIndex["loc"]; ?>'" >
+				<li id="menuSeleniumMonitorAddon" onclick="window.location.href = '<?php echo $locationForSeleniumMonitorIndex["loc"]; ?>'" >
 					<div class="menuImageDiv">
 						<?php echo generateImage(
 							$arrayOfImages["seleniumMonitor"],
@@ -640,6 +649,9 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 			</div>
 			<div id="fullScreenMenuUpdate" style="display: none;">
 				<?php require_once('core/php/template/update.php'); ?>
+			</div>
+			<div id="fullScreenMenuIFrame" style="display: none;">
+				<iframe style="border: 0;" id="iframeFullScreen" src=""></iframe>
 			</div>
 		</div>
 	</div>

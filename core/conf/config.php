@@ -1,6 +1,7 @@
 <?php
 
 $defaultConfig = array(
+	'addonsAsIframe'				=> 'true',
 	'autoCheckDaysUpdate'			=>	'7',
 	'autoCheckUpdate' 				=> 'true',
 	'autoMoveUpdateLog'				=> 'false',

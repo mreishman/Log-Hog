@@ -2802,6 +2802,7 @@ function toggleAbout()
 {
 	hideAboutStuff();
 	hideMainStuff();
+	hideIframeStuff();
 	document.getElementById("mainContentFullScreenMenu").style.left = ""+402+"px";
 	document.getElementById("aboutSubMenu").style.display = "block";
 	$("#mainMenuAbout").addClass("selected");
@@ -2850,6 +2851,27 @@ function hideAboutStuff()
 	$("#aboutSubMenuWhatsNew").removeClass("selected");
 }
 
+function hideIframeStuff()
+{
+	document.getElementById("fullScreenMenuIFrame").style.display = "none";
+	$('#iframeFullScreen').prop('src', "");
+}
+
+function toggleStatus(locHref)
+{
+	hideMainStuff();
+	document.getElementById("fullScreenMenuIFrame").style.display = "block";
+	document.getElementById("mainContentFullScreenMenu").style.left = ""+201+"px";
+	$('#iframeFullScreen').prop('src', locHref);
+	$("#menuStatusAddon").addClass("selected");
+	var mainContentRect = document.getElementById("mainContentFullScreenMenu").getBoundingClientRect();
+	document.getElementById("iframeFullScreen").style.width = ""+mainContentRect.width+"px";
+	document.getElementById("iframeFullScreen").style.height = ""+mainContentRect.height+"px";
+	arrayOfScrollHeaderUpdate = [];
+	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
+	return false;
+}
+
 function hideMainStuff()
 {
 	if($("#mainMenuAbout").hasClass("selected"))
@@ -2866,6 +2888,14 @@ function hideMainStuff()
 	}
 
 	$("#mainMenuUpdate").removeClass("selected");
+
+
+	if($("#menuStatusAddon").hasClass("selected"))
+	{
+		hideIframeStuff();
+	}
+
+	$("#menuStatusAddon").removeClass("selected");
 }
 
 function toggleGroupedGroups()
@@ -2879,12 +2909,17 @@ function toggleGroupedGroups()
 
 function onScrollShowFixedMiniBar(idsOfForms)
 {
-	if(idsOfForms.length < 1)
+	if(!document.getElementById("fixedPositionMiniMenu"))
 	{
 		return;
 	}
-	if(!document.getElementById("fixedPositionMiniMenu"))
+	if(idsOfForms.length < 1)
 	{
+		$("#fixedPositionMiniMenu").html("");
+		if(document.getElementById("fixedPositionMiniMenu").style.display !== "none")
+		{
+			document.getElementById("fixedPositionMiniMenu").style.display = "none";
+		}
 		return;
 	}
 	var dis = false;
