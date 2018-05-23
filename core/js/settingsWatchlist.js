@@ -20,6 +20,8 @@ var selectOptions =
 };
 var staticFileData;
 var staticRowNumber = 1;
+var progressBarWatchList;
+var percentWatchList = 0;
 
 function generateRow(data)
 {
@@ -1057,6 +1059,7 @@ var fileFolderList = {};
 function getFileFolderList()
 {
 	document.getElementsByClassName("uniqueClassForAppendSettingsMainWatchNew")[0].innerHTML = "";
+	document.getElementsByClassName("uniqueClassForAppendSettingsMainWatchNew")[0].style.display = "none";
 	var urlForSend = "../core/php/getFileFolderList.php?format=json";
 	var data = {};
 	$.ajax({
@@ -1089,6 +1092,7 @@ function ajaxAddRowFirstLoad(currentCount)
 	if(fileFolderListCount > currentCount)
 	{
 		var data = fileFolderList[fileFolderListKeys[currentCount]];
+		updateProgressBarWatchList((90*(1/fileFolderListCount)), data["Location"], "Loading file "+(currentCount+1)+" of "+fileFolderListCount);
 		var urlForSend = "../core/php/getFileFolderData.php?format=json";
 		var sendData = {currentFolder: data["Location"], filter: data["Pattern"]};
 		(function(_data){
@@ -1107,7 +1111,8 @@ function ajaxAddRowFirstLoad(currentCount)
 					_data["hideSplit"] =  fileListData["filesFound"];
 					addRowFunction(_data)
 					currentCount++;
-					ajaxAddRowFirstLoad(currentCount);
+					setTimeout(function(){ajaxAddRowFirstLoad(currentCount);},100);
+					
 				}
 			});	
 		}(data));
@@ -1115,11 +1120,34 @@ function ajaxAddRowFirstLoad(currentCount)
 	else
 	{
 		//finished
+		document.getElementById("loadingSpan").style.display = "none";
+		document.getElementsByClassName("uniqueClassForAppendSettingsMainWatchNew")[0].style.display = "block";
+	}
+}
+
+function updateProgressBarWatchList(additonalPercent, text, topText = "Loading...")
+{
+	try
+	{
+		percentWatchList = percentWatchList + additonalPercent;
+		progressBarWatchList.set(percentWatchList);
+		$("#progressBarSubInfoWatchList").empty();
+		$("#progressBarSubInfoWatchList").append(text);
+		$("#progressBarMainInfoWatchList").empty();
+		$("#progressBarMainInfoWatchList").append(topText);
+		
+	}
+	catch(e)
+	{
+		eventThrowException(e);
 	}
 }
 
 $( document ).ready(function() 
 {
+	percentWatchList = 0;
+	progressBarWatchList = new ldBar("#progressBarWatchList");
+	updateProgressBarWatchList(10, "Generating File List");
 	refreshSettingsWatchList();
 	document.addEventListener(
 		'scroll',
