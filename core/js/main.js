@@ -726,7 +726,6 @@ function update(data)
 
 		for(var i = 0; i !== stop; i++)
 		{
-			console.log("LOG: "+i);
 			var name = files[i];
 			var logData = data[name]["log"];
 			var selectListForFilter = document.getElementsByName("searchType")[0];
@@ -915,17 +914,10 @@ function update(data)
 							{
 								var moveToFrontOnUpdate = false;
 								var innerCount = i;
-								console.log(filesNew.length);
-								console.log(i);
 								if(filesNew.length > 0)
 								{
-									console.log("in if");
 									for (var j = filesNew.length - 1; j >= 0; j--)
 									{
-										console.log(j + " of loop");
-										console.log(i + " is static");
-										console.log(filesNew[j]);
-										console.log(files[i]);
 										if(filesNew[j] === files[i])
 										{
 											innerCount = j;
@@ -936,7 +928,6 @@ function update(data)
 								var innerCountStatic = innerCount;
 								if(typeof files[i] !== "undefined")
 								{
-									console.log("here");
 									var idCheck = files[i].replace(/[^a-z0-9]/g, "");
 									if(innerCountStatic === 0)
 									{
@@ -956,7 +947,6 @@ function update(data)
 									}
 								}
 							}
-							console.log("there");
 							if(!itemAdded)
 							{
 								menu.append(item);
