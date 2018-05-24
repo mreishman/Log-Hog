@@ -1372,7 +1372,7 @@ function tryToInsertBeforeLog(innerCount, stop, idCheck, item)
 			{
 				itemToBefore = itemCheck;
 			}
-			innerCount--;
+			innerCount++;
 		}
 		if(itemToBefore !== null)
 		{
@@ -1399,7 +1399,7 @@ function tryToInsertAfterLog(innerCount, stop, idCheck, item)
 			{
 				itemToBefore = itemCheck;
 			}
-			innerCount++;
+			innerCount--;
 		}
 		if(itemToBefore !== null)
 		{
