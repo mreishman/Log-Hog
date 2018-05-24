@@ -528,7 +528,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 			<?php endif;?>
 			<?php if ($locationForStatusIndex["loc"]):?>
 				<?php if($addonsAsIframe === "true"): ?>
-					<li id="menuStatusAddon" onclick="toggleStatus('<?php echo $locationForStatusIndex["loc"]; ?>');" >
+					<li id="menuStatusAddon" onclick="toggleIframe('<?php echo $locationForStatusIndex["loc"]; ?>','menuStatusAddon');" >
 				<?php else: ?>
 					<li id="menuStatusAddon" onclick="window.location.href='<?php echo $locationForStatusIndex["loc"]; ?>'" >
 				<?php endif; ?>
@@ -553,7 +553,11 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 				</li>
 			<?php endif; ?>
 			<?php if($locationForMonitorIndex["loc"]): ?>
-				<li id="menuMonitorAddon" onclick="window.location.href = '<?php echo $locationForMonitorIndex["loc"]; ?>'" >
+				<?php if($addonsAsIframe === "true"): ?>
+					<li id="menuMonitorAddon" onclick="toggleIframe('<?php echo $locationForMonitorIndex["loc"]; ?>','menuMonitorAddon');" >
+				<?php else: ?>
+					<li id="menuMonitorAddon" onclick="window.location.href='<?php echo $locationForMonitorIndex["loc"]; ?>'" >
+				<?php endif; ?>
 					<div class="menuImageDiv">
 						<?php echo generateImage(
 							$arrayOfImages["taskManager"],
@@ -566,11 +570,20 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 						?>
 					</div>
 					Monitor
-					<?php echo $externalLinkImage; ?>
+					<?php
+					if($addonsAsIframe !== "true")
+					{
+						echo $externalLinkImage;
+					}
+					?>
 				</li>
 			<?php endif; ?>
 			<?php if($locationForSearchIndex["loc"]): ?>
-				<li id="menuSearchAddon" onclick="window.location.href = '<?php echo $locationForSearchIndex["loc"]; ?>'" >
+				<?php if($addonsAsIframe === "true"): ?>
+					<li id="menuSearchAddon" onclick="toggleIframe('<?php echo $locationForSearchIndex["loc"]; ?>','menuSearchAddon');" >
+				<?php else: ?>
+					<li id="menuSearchAddon" onclick="window.location.href='<?php echo $locationForSearchIndex["loc"]; ?>'" >
+				<?php endif; ?>
 					<div class="menuImageDiv">
 						<?php echo generateImage(
 							$arrayOfImages["search"],
@@ -583,11 +596,20 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 						?>
 					</div>
 					Search
-					<?php echo $externalLinkImage; ?>
+					<?php
+					if($addonsAsIframe !== "true")
+					{
+						echo $externalLinkImage;
+					}
+					?>
 				</li>
 			<?php endif; ?>
 			<?php if($locationForSeleniumMonitorIndex["loc"]): ?>
-				<li id="menuSeleniumMonitorAddon" onclick="window.location.href = '<?php echo $locationForSeleniumMonitorIndex["loc"]; ?>'" >
+				<?php if($addonsAsIframe === "true"): ?>
+					<li id="menuSeleniumMonitorAddon" onclick="toggleIframe('<?php echo $locationForSeleniumMonitorIndex["loc"]; ?>','menuSeleniumMonitorAddon');" >
+				<?php else: ?>
+					<li id="menuSeleniumMonitorAddon" onclick="window.location.href='<?php echo $locationForSeleniumMonitorIndex["loc"]; ?>'" >
+				<?php endif; ?>
 					<div class="menuImageDiv">
 						<?php echo generateImage(
 							$arrayOfImages["seleniumMonitor"],
@@ -600,7 +622,12 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 						?>
 					</div>
 					Selenium Monitor
-					<?php echo $externalLinkImage; ?>
+					<?php
+					if($addonsAsIframe !== "true")
+					{
+						echo $externalLinkImage;
+					}
+					?>
 				</li>
 			<?php endif; ?>
 		</ul>

@@ -2783,9 +2783,26 @@ function toggleFullScreenMenu()
 	{
 		document.getElementById("fullScreenMenu").style.display = "block";
 		onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
+		if($("#menuStatusAddon").hasClass("selected"))
+		{
+			$("#menuStatusAddon").click();
+		}
+		else if($("#menuMonitorAddon").hasClass("selected"))
+		{
+			$("#menuMonitorAddon").click();
+		}
+		else if ($("#menuSearchAddon").hasClass("selected"))
+		{
+			$("#menuSearchAddon").click();
+		}
+		else if ($("#menuSeleniumMonitorAddon").hasClass("selected"))
+		{
+			$("#menuSeleniumMonitorAddon").click();
+		}
 	}
 	else
 	{
+		hideIframeStuff();
 		document.getElementById("fullScreenMenu").style.display = "none";
 	}
 }
@@ -2859,13 +2876,13 @@ function hideIframeStuff()
 	$('#iframeFullScreen').prop('src', "");
 }
 
-function toggleStatus(locHref)
+function toggleIframe(locHref, idOfAddon)
 {
 	hideMainStuff();
+	$("#"+idOfAddon).addClass("selected");
 	document.getElementById("fullScreenMenuIFrame").style.display = "block";
 	document.getElementById("mainContentFullScreenMenu").style.left = ""+201+"px";
 	$('#iframeFullScreen').prop('src', locHref);
-	$("#menuStatusAddon").addClass("selected");
 	var mainContentRect = document.getElementById("mainContentFullScreenMenu").getBoundingClientRect();
 	document.getElementById("iframeFullScreen").style.width = ""+mainContentRect.width+"px";
 	document.getElementById("iframeFullScreen").style.height = ""+mainContentRect.height+"px";
@@ -2892,12 +2909,15 @@ function hideMainStuff()
 	$("#mainMenuUpdate").removeClass("selected");
 
 
-	if($("#menuStatusAddon").hasClass("selected"))
+	if($("#menuStatusAddon").hasClass("selected") || $("#menuMonitorAddon").hasClass("selected") || $("#menuSearchAddon").hasClass("selected") || $("#menuSeleniumMonitorAddon").hasClass("selected"))
 	{
 		hideIframeStuff();
 	}
 
 	$("#menuStatusAddon").removeClass("selected");
+	$("#menuMonitorAddon").removeClass("selected");
+	$("#menuSearchAddon").removeClass("selected");
+	$("#menuSeleniumMonitorAddon").removeClass("selected");
 }
 
 function toggleGroupedGroups()
