@@ -726,6 +726,7 @@ function update(data)
 
 		for(var i = 0; i !== stop; i++)
 		{
+			console.log("LOG: "+i);
 			var name = files[i];
 			var logData = data[name]["log"];
 			var selectListForFilter = document.getElementsByName("searchType")[0];
@@ -914,17 +915,28 @@ function update(data)
 							{
 								var moveToFrontOnUpdate = false;
 								var innerCount = i;
-								for (var j = filesNew.length - 1; j >= 0; j--)
+								console.log(filesNew.length);
+								console.log(i);
+								if(filesNew.length > 0)
 								{
-									if(filesNew[j] === files[i])
+									console.log("in if");
+									for (var j = filesNew.length - 1; j >= 0; j--)
 									{
-										innerCount = j;
-										break;
+										console.log(j + " of loop");
+										console.log(i + " is static");
+										console.log(filesNew[j]);
+										console.log(files[i]);
+										if(filesNew[j] === files[i])
+										{
+											innerCount = j;
+											break;
+										}
 									}
 								}
 								var innerCountStatic = innerCount;
 								if(typeof files[i] !== "undefined")
 								{
+									console.log("here");
 									var idCheck = files[i].replace(/[^a-z0-9]/g, "");
 									if(innerCountStatic === 0)
 									{
@@ -944,7 +956,7 @@ function update(data)
 									}
 								}
 							}
-
+							console.log("there");
 							if(!itemAdded)
 							{
 								menu.append(item);
@@ -1372,7 +1384,7 @@ function tryToInsertBeforeLog(innerCount, stop, idCheck, item)
 			{
 				itemToBefore = itemCheck;
 			}
-			innerCount--;
+			innerCount++;
 		}
 		if(itemToBefore !== null)
 		{
@@ -1399,7 +1411,7 @@ function tryToInsertAfterLog(innerCount, stop, idCheck, item)
 			{
 				itemToBefore = itemCheck;
 			}
-			innerCount++;
+			innerCount--;
 		}
 		if(itemToBefore !== null)
 		{
