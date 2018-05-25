@@ -361,6 +361,65 @@ function trimLogShell($logTrimMacBSD,$filename,$lineEnd)
 	}
 }
 
+function tailWithGrep($filename, $sliceSize, $shellOrPhp, $whatGrepFor)
+{
+	$start = 0;
+	$total = getLineCount($filename, $shellOrPhp);
+	$inLoop = true;
+	$data = "";
+	while ($inLoop)
+	{
+		$innerSlice = $sliceSize;
+		if($start + $sliceSize > $total)
+		{
+			//last chance?
+			$innerSlice = $total - $start;
+		}
+
+		
+		if($shellOrPhp === "phpPreferred" || $shellOrPhp ===  "phpOnly")
+		{
+			$return = trim(tailCustom($filename, $innerSlice, true, $start));
+		}
+		else
+		{
+			$return = trim(shell_exec('tail -n +' . (($total - $start) - $innerSlice) . ' "' . $filename . '" || head -n ' . $innerSlice . ' "' . $filename . '"'));
+		}
+
+		if(($return === "" || is_null($return)) && ($shellOrPhp === "shellPreferred" || $shellOrPhp === "phpPreferred"))
+		{
+			if($shellOrPhp === "phpPreferred")
+			{
+				$return = trim(shell_exec('tail -n +' . (($total - $start) - $innerSlice) . ' "' . $filename . '" || head -n ' . $innerSlice . ' "' . $filename . '"'));
+			}
+			else
+			{
+				$return = trim(tailCustom($filename, $innerSlice, true, $start));
+			}
+		}
+
+		if(($data === "" || is_null($data)) && ($return === "" || is_null($return)))
+		{
+			return "Error - Maybe insufficient access to read file?";
+		}
+		$lines = explode("\n", $return);
+		foreach ($lines as $line)
+		{
+			if(strpos($line, $whatGrepFor) > -1)
+			{
+				$data .= $line . "\n";
+			}
+		}
+		if(count(explode("\n", $data)) >= $sliceSize)
+		{
+			$inLoop = false;
+		}
+		$start += $sliceSize;
+	}
+	//possibly need to remove last \n from string?
+	return $data;
+}
+
 function tail($filename, $sliceSize, $shellOrPhp)
 {
 	if($shellOrPhp === "phpPreferred" || $shellOrPhp ===  "phpOnly")
@@ -393,12 +452,13 @@ function tail($filename, $sliceSize, $shellOrPhp)
 
 
 /**
+ * Even more slightly modified, added start line for logic
  * Slightly modified version of http://www.geekality.net/2011/05/28/php-tail-tackling-large-files/
  * @author Torleif Berger, Lorenzo Stanco
  * @link http://stackoverflow.com/a/15025877/995958
  * @license http://creativecommons.org/licenses/by/3.0/
  */
-function tailCustom($filepath, $lines = 1, $adaptive = true)
+function tailCustom($filepath, $lines = 1, $adaptive = true, $startLine = 0)
 {
 	$fileOpened = @fopen($filepath, "rb");
 	if($fileOpened === false)
@@ -425,9 +485,16 @@ function tailCustom($filepath, $lines = 1, $adaptive = true)
 	{
 		$seek = min(ftell($fileOpened), $buffer);
 		fseek($fileOpened, -$seek, SEEK_CUR);
-		$output = ($chunk = fread($fileOpened, $seek)) . $output;
+		if($startLine <= 0)
+		{
+			$output = ($chunk = fread($fileOpened, $seek)) . $output;
+			$lines -= substr_count($chunk, "\n");
+		}
+		else
+		{
+			$startLine--;
+		}
 		fseek($fileOpened, -mb_strlen($chunk, '8bit'), SEEK_CUR);
-		$lines -= substr_count($chunk, "\n");
 	}
 	while ($lines++ < 0)
 	{
