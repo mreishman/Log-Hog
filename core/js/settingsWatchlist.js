@@ -900,7 +900,7 @@ function deleteRowFunction(currentRow)
 			for(var i = currentRow + 1; i <= newValue; i++)
 			{
 				var updateItoIMinusOne = i - 1;
-				moveRow(i, updateItoIMinusOne);
+				moveRow(i, updateItoIMinusOne, true);
 			}
 		}
 		newValue--;
@@ -912,7 +912,17 @@ function deleteRowFunction(currentRow)
 	}
 }
 
-function moveRow(currentRow, newRow)
+function duplicateRow(currentRow)
+{
+	var countOfWatchList = parseInt(document.getElementById("numberOfRows").value);
+	countOfWatchList++;
+	document.getElementById("numberOfRows").value = countOfWatchList;
+	moveRow(currentRow, countOfWatchList, false);
+	document.getElementById("moveDown"+(countOfWatchList-1)).style.display = "inline-block";
+	location.href = "#rowNumber"+countOfWatchList;
+}
+
+function moveRow(currentRow, newRow, removeOld = true)
 {
 	var fileName = "";
 	if(newRow < 10)
@@ -957,7 +967,10 @@ function moveRow(currentRow, newRow)
 	//add new one
 	$(".uniqueClassForAppendSettingsMainWatchNew").append(item);
 	//remove old one
-	$("#rowNumber"+currentRow).remove();
+	if(removeOld)
+	{
+		$("#rowNumber"+currentRow).remove();
+	}
 }
 
 function checkWatchList()
@@ -1045,12 +1058,12 @@ function moveDown(rowNumber)
 	for(var i = rowNumber; i <= countOfWatchList; i++)
 	{
 		counter++;
-		moveRow(i, (countOfWatchList+counter));
+		moveRow(i, (countOfWatchList+counter), true);
 	}
 
-	moveRow((countOfWatchList+2),rowNumber);
+	moveRow((countOfWatchList+2),rowNumber, true);
 	rowNumber++;
-	moveRow((countOfWatchList+1),rowNumber);
+	moveRow((countOfWatchList+1),rowNumber, true);
 	rowNumber++;
 	if(rowNumber !== countOfWatchList + 1)
 	{
@@ -1058,7 +1071,7 @@ function moveDown(rowNumber)
 		for(var i = rowNumber; i <= countOfWatchList; i++)
 		{
 			counter++;
-			moveRow((countOfWatchList+counter), i);
+			moveRow((countOfWatchList+counter), i, true);
 		}
 	}
 }
@@ -1146,6 +1159,7 @@ function ajaxAddRowFirstLoad(currentCount)
 		//finished
 		document.getElementById("loadingSpan").style.display = "none";
 		document.getElementsByClassName("uniqueClassForAppendSettingsMainWatchNew")[0].style.display = "block";
+		refreshSettingsWatchList();
 	}
 }
 
