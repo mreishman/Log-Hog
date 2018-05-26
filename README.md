@@ -13,6 +13,10 @@ i.e. /html/Log-Hog/
 
 # Upgrade
 
+## Required Stuff:
+
+- ZipArchive
+
 ## From Pre Version 2.0
 
 Backup the current config.php
