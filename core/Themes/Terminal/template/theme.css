@@ -169,7 +169,7 @@
 
 .settingsHeader
 {
-	background-color: #090;
+	background-color: #040;
 	margin: 10px;
 	margin-bottom: 0;
 	color: white;
@@ -340,4 +340,37 @@
 ::-webkit-scrollbar-thumb:hover
 {
 	background: #9f9;
+}
+
+#fullScreenMenu
+{
+	background-color: rgba(0,0,0,.7);
+}
+
+.fullScreenMenuUL li
+{
+	background-color: black;
+	color: white;
+}
+
+.fullScreenMenuUL li:not(.menuTitle):hover, #fullScreenMenu .selected
+{
+	filter: invert(100%);
+}
+
+.fullScreenMenuUL li:not(.menuTitle):hover .menuImage, #fullScreenMenu .selected .menuImage
+{
+	filter: invert(100%);
+}
+
+.fullScreenMenuUL
+{
+	background-color: black;
+	border-right: 1px solid white;
+}
+
+.settingsUlSub
+{
+	background-color: black;
+	border-right: 1px solid white;
 }

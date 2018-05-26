@@ -37,7 +37,7 @@ $daysSince = calcuateDaysSince($configStatic['lastCheck']);
 			Update
 		</div>
 		<div class="settingsDiv" >
-			<ul id="settingsUl">
+			<ul class="settingsUl">
 				<li>
 					<h2>Current Version of Log-Hog: <?php echo $configStatic['version'];?></h2>
 				</li>
@@ -140,7 +140,7 @@ $daysSince = calcuateDaysSince($configStatic['lastCheck']);
 			Release Notes
 		</div>
 		<div id="releaseNotesBody" <?php if($levelOfUpdate == 0){echo "style='display: none;'";} ?> class="settingsDiv" >
-			<ul id="settingsUl">
+			<ul class="settingsUl">
 			<?php
 			if(array_key_exists('versionList', $configStatic))
 			{

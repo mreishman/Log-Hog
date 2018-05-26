@@ -6,7 +6,10 @@ require_once($baseUrl.'conf/config.php');
 require_once('../core/php/configStatic.php');
 require_once('../core/php/updateProgressFile.php');
 require_once('../core/php/settingsInstallUpdate.php');
-setCookieRedirect();
+$redirectUrl = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+$redirectUrl = str_replace("updater.php", "whatsNew.php", $redirectUrl);
+$redirectUrl = str_replace("update", "settings", $redirectUrl);
+setCookieRedirect($redirectUrl);
 $noUpdateNeeded = true;
 $versionToUpdate = "";
 

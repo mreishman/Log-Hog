@@ -7,7 +7,7 @@ Update Settings
 </div>
 </div>
 <div class="settingsDiv" >
-<ul id="settingsUl">
+<ul class="settingsUl">
 	<li>
 		<span class="settingsBuffer" > Show Update Notification: </span>
 		<div class="selectDiv">
@@ -31,7 +31,7 @@ Update Settings
 			Auto Check Update Settings
 			</div>
 			<div class="settingsDiv" >
-			<ul id="settingsUl">
+			<ul class="settingsUl">
 			
 				<li>
 				<span class="settingsBuffer" > Check for update every: </span> 

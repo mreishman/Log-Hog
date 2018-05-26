@@ -7,13 +7,14 @@ Menu Settings
 </div>
 </div>
 <div class="settingsDiv" >
-<ul id="settingsUl">
+<ul class="settingsUl">
 	<li>
 		<span class="settingsBuffer" > Truncate Log Button: </span>
 		<div class="selectDiv">
 			<select name="truncateLog">
 				<option <?php if($truncateLog == 'true'){echo "selected";} ?> value="true">All Logs</option>
 				<option <?php if($truncateLog == 'false'){echo "selected";} ?> value="false">Current Log</option>
+				<option <?php if($truncateLog == 'hide'){echo "selected";} ?> value="hide">Hide</option>
 			</select>
 		</div>
 	</li>
@@ -37,29 +38,29 @@ Menu Settings
 	</li>
 	<li> 
 		<span class="settingsBuffer" > Group
-			<div class="selectDiv"> 
-				<select name="groupByType">
-					<option <?php if($groupByType == 'folder'){echo "selected";} ?> value="folder">Folders</option>
-					<option <?php if($groupByType == 'file'){echo "selected";} ?> value="file">Files</option>
-				</select>
-			</div>
+		<div class="selectDiv"> 
+			<select name="groupByType">
+				<option <?php if($groupByType == 'folder'){echo "selected";} ?> value="folder">Folders</option>
+				<option <?php if($groupByType == 'file'){echo "selected";} ?> value="file">Files</option>
+			</select>
+		</div>
 		 by color: </span>
 		<div class="selectDiv">
 			<select name="groupByColorEnabled">
-					<option <?php if($groupByColorEnabled == 'true'){echo "selected";} ?> value="true">True</option>
-					<option <?php if($groupByColorEnabled == 'false'){echo "selected";} ?> value="false">False</option>
+				<option <?php if($groupByColorEnabled == 'true'){echo "selected";} ?> value="true">True</option>
+				<option <?php if($groupByColorEnabled == 'false'){echo "selected";} ?> value="false">False</option>
 			</select>
 		</div>
 	</li>
 	<li>
 		<span class="settingsBuffer" > Hide logs that are empty: </span>
-			<div class="selectDiv">
-				<select name="hideEmptyLog">
-					<option <?php if($hideEmptyLog == 'true'){echo "selected";} ?> value="true">True</option>
-					<option <?php if($hideEmptyLog == 'false'){echo "selected";} ?> value="false">False</option>
-				</select>
-			</div>
-		</li>
+		<div class="selectDiv">
+			<select name="hideEmptyLog">
+				<option <?php if($hideEmptyLog == 'true'){echo "selected";} ?> value="true">True</option>
+				<option <?php if($hideEmptyLog == 'false'){echo "selected";} ?> value="false">False</option>
+			</select>
+		</div>
+	</li>
 	<li>
 		<span class="settingsBuffer" > Notification Count </span>
 		<div class="selectDiv">
@@ -80,15 +81,43 @@ Menu Settings
 	</li>
 	<li>
 		<span class="settingsBuffer" > Log List Location: </span>
-			<div class="selectDiv">
-				<select name="logMenuLocation">
-					<option <?php if($logMenuLocation == 'top'){echo "selected";} ?> value="top">Top</option>
-					<option <?php if($logMenuLocation == 'bottom'){echo "selected";} ?> value="bottom">Bottom</option>
-					<option <?php if($logMenuLocation == 'left'){echo "selected";} ?> value="left">Left</option>
-					<option <?php if($logMenuLocation == 'right'){echo "selected";} ?> value="right">Right</option>
-				</select>
-			</div>
-		</li>
+		<div class="selectDiv">
+			<select name="logMenuLocation">
+				<option <?php if($logMenuLocation == 'top'){echo "selected";} ?> value="top">Top</option>
+				<option <?php if($logMenuLocation == 'bottom'){echo "selected";} ?> value="bottom">Bottom</option>
+				<option <?php if($logMenuLocation == 'left'){echo "selected";} ?> value="left">Left</option>
+				<option <?php if($logMenuLocation == 'right'){echo "selected";} ?> value="right">Right</option>
+			</select>
+		</div>
+	</li>
+	<li>
+		<span class="settingsBuffer" > Log Name Format: </span>
+		<div class="selectDiv">
+			<select name="logNameFormat">
+				<option <?php if($logNameFormat == 'default'){echo "selected";} ?> value="default">Default</option>
+				<option <?php if($logNameFormat == 'firstFolder'){echo "selected";} ?> value="firstFolder">First Folder</option>
+				<option <?php if($logNameFormat == 'lastFolder'){echo "selected";} ?> value="lastFolder">Last Folder</option>
+				<option <?php if($logNameFormat == 'fullPath'){echo "selected";} ?> value="fullPath">Full Path</option>
+			</select>
+		</div>
+	</li>
+	<li>
+		<span class="settingsBuffer" > Log Name Extension </span>
+		<div class="selectDiv">
+			<select name="logNameExtension">
+				<option <?php if($logNameExtension == 'true'){echo "selected";} ?> value="true">Show</option>
+				<option <?php if($logNameExtension == 'false'){echo "selected";} ?> value="false">Hide</option>
+			</select>
+		</div>
+	</li>
+	<li>
+		<span class="settingsBuffer" > Log Name Group </span>
+		<div class="selectDiv">
+			<select name="logNameGroup">
+				<option <?php if($logNameGroup == 'true'){echo "selected";} ?> value="true">Show</option>
+				<option <?php if($logNameGroup == 'false'){echo "selected";} ?> value="false">Hide</option>
+			</select>
+		</div>
 	</li>
 </ul>
 </div>

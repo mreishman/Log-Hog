@@ -38,7 +38,7 @@ require_once('../core/php/updateCheck.php');
 			</div>
 		</div>
 		<div class="settingsDiv" >
-			<ul id="settingsUl">
+			<ul class="settingsUl">
 				<li>
 					<span class="settingsBuffer" >  Enable Development Branch: </span>
 					<div class="selectDiv">
@@ -57,6 +57,9 @@ require_once('../core/php/updateCheck.php');
 				<li>
 					<span class="settingsBuffer" > Layout Version:  </span> <input type="number" pattern="[0-9]*" style="width: 400px;"  name="layoutVersion" value="<?php echo $layoutVersion;?>" > 
 				</li>
+				<li>
+					<span class="settingsBuffer" > CSS Version:  </span> <input type="number" pattern="[0-9]*" style="width: 400px;"  name="cssVersion" value="<?php echo $cssVersion;?>" > 
+				</li>
 			</ul>
 			
 
@@ -71,7 +74,7 @@ require_once('../core/php/updateCheck.php');
 			</div>
 		</div>
 		<div class="settingsDiv" >
-			<ul id="settingsUl">
+			<ul class="settingsUl">
 				<li>
 					<span class="settingsBuffer" >  Version Number:  </span> <input id="versionNumberConfigStaticInput" type="text" style="width: 400px;"  name="version" value="<?php echo $configStatic['version'];?>" > 
 				</li>
@@ -82,7 +85,7 @@ require_once('../core/php/updateCheck.php');
 			Files
 		</div>
 		<div class="settingsDiv" >
-			<ul id="settingsUl">
+			<ul class="settingsUl">
 				<li>
 					<a class="link" href="editFiles.php" >View Files</a>
 				</li>

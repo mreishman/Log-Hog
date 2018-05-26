@@ -248,9 +248,19 @@ function getFileSizeInner($fileName, $shellOrPhp)
 {
 	if($shellOrPhp === "phpPreferred" || $shellOrPhp ===  "phpOnly")
 	{
-		return filesize($fileName);
+		$fileSize = filesize($fileName);
+		if(($fileSize === 0 || $fileSize === null) && $shellOrPhp === "phpPreferred")
+		{
+			$fileSize = shell_exec('wc -c < ' . $fileName);
+		}
+		return $fileSize;
 	}
-	return shell_exec('wc -c < ' . $fileName);
+	$fileSize = shell_exec('wc -c < ' . $fileName);
+	if(($fileSize === 0 || $fileSize === null) && $shellOrPhp === "shellPreferred")
+	{
+		$fileSize = filesize($fileName);
+	}
+	return $fileSize;
 }
 
 function trimLogLine($filename, $logSizeLimit,$logTrimMacBSD,$buffer, $shellOrPhp)
@@ -258,7 +268,7 @@ function trimLogLine($filename, $logSizeLimit,$logTrimMacBSD,$buffer, $shellOrPh
 	$lineCount = getLineCount($filename, $shellOrPhp);
 	if($lineCount > ($logSizeLimit+$buffer))
 	{
-		trimLogInner($logTrimMacBSD,$filename,($lineCount - $logSizeLimit));
+		trimLogInner($logTrimMacBSD,$filename,($lineCount - $logSizeLimit), $shellOrPhp);
 	}
 }
 
@@ -266,7 +276,7 @@ function trimLogSize($filename, $logSizeLimit,$logTrimMacBSD,$buffer, $shellOrPh
 {
 	$maxForLoop = 0;
 	$trimFileBool = true;
-	while ($trimFileBool && $maxForLoop < 10)
+	while ($trimFileBool && $maxForLoop < 5)
 	{
 		$filesizeForFile = getFileSizeInner($filename, $shellOrPhp);
 		if($filesizeForFile > $logSizeLimit+$buffer)
@@ -279,7 +289,7 @@ function trimLogSize($filename, $logSizeLimit,$logTrimMacBSD,$buffer, $shellOrPh
 				$numOfLinesToRemoveTo = round($lineCountForFile - $numOfLinesAllowed);
 			}
 
-			trimLogInner($logTrimMacBSD,$filename,$numOfLinesToRemoveTo);
+			trimLogInner($logTrimMacBSD,$filename,$numOfLinesToRemoveTo, $shellOrPhp);
 		}
 		else
 		{
@@ -289,7 +299,56 @@ function trimLogSize($filename, $logSizeLimit,$logTrimMacBSD,$buffer, $shellOrPh
 	}
 }
 
-function trimLogInner($logTrimMacBSD,$filename,$lineEnd)
+function trimLogInner($logTrimMacBSD,$filename,$lineEnd, $shellOrPhp)
+{
+	if($shellOrPhp === "phpPreferred" || $shellOrPhp ===  "phpOnly")
+	{
+		try
+		{
+			trimLogPhp($filename,$lineEnd);
+			return;
+		}
+		catch (Exception $e)
+		{
+			if($shellOrPhp === "phpPreferred")
+			{
+				try
+				{
+					trimLogShell($logTrimMacBSD,$filename,$lineEnd);
+				}
+				catch (Exception $e){}
+				return;
+			}
+		}
+	}
+	try
+	{
+		trimLogShell($logTrimMacBSD,$filename,$lineEnd);
+		return;
+	}
+	catch (Exception $e)
+	{
+		try
+		{
+			trimLogPhp($filename,$lineEnd);
+		}
+		catch (Exception $e){}
+		return;
+	}
+}
+
+function trimLogPhp($filename,$lineEnd)
+{
+	$lines = file($filename);
+	$first_line = $lines[0];
+	$lines = array_slice($lines, $lineEnd + 2);
+	$lines = array_merge(array($first_line, "\n"), $lines);
+	$file = fopen($filename, "w");
+	fwrite($file, implode("", $lines));
+	fclose($file);
+}
+
+function trimLogShell($logTrimMacBSD,$filename,$lineEnd)
 {
 	if($logTrimMacBSD == "true")
 	{
@@ -431,10 +490,14 @@ function getCookieRedirect()
 
 }
 
-function setCookieRedirect()
+function setCookieRedirect($customUrl = null)
 {
 	$actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-	while (isset($_COOKIE["locationRedirectLogHogUpgrade"]))
+	if($customUrl !== null)
+	{
+		$actual_link = $customUrl;
+	}
+	if(isset($_COOKIE["locationRedirectLogHogUpgrade"]))
 	{
 		unset($_COOKIE["locationRedirectLogHogUpgrade"]);
 	}
@@ -534,26 +597,30 @@ function generateImage($imageArray, $customConfig)
 	return $image;
 }
 
-function upgradeConfig($configVersionStatic)
+function upgradeConfig($newSaveStuff = array())
 {
+	if(!is_array($newSaveStuff))
+	{
+		$newSaveStuff = array(
+			"configVersion" => (Int)$newSaveStuff
+		);
+	}
 	$baseBaseUrl = baseURL();
 	$baseUrl = $baseBaseUrl."local/";
-	require_once($baseUrl.'layout.php');
+	include($baseUrl.'layout.php');
 	$baseUrl .= $currentSelectedTheme."/";
-	require_once($baseUrl.'conf/config.php');
-	require_once($baseBaseUrl.'core/conf/config.php');
+	include($baseUrl.'conf/config.php');
+	include($baseBaseUrl.'core/conf/config.php');
 	$currentTheme = loadSpecificVar($defaultConfig, $config, "currentTheme");
 	if(is_dir($baseBaseUrl.'local/'.$currentSelectedTheme.'/Themes/'.$currentTheme))
 	{
-		require_once($baseBaseUrl.'local/'.$currentSelectedTheme.'/Themes/'.$currentTheme."/defaultSetting.php");
+		include($baseBaseUrl.'local/'.$currentSelectedTheme.'/Themes/'.$currentTheme."/defaultSetting.php");
 	}
 	else
 	{
-		require_once($baseBaseUrl.'core/Themes/'.$currentTheme."/defaultSetting.php");
+		include($baseBaseUrl.'core/Themes/'.$currentTheme."/defaultSetting.php");
 	}
-	require_once($baseBaseUrl.'core/php/loadVars.php');
-
-	$configVersion = $configVersionStatic;
+	include($baseBaseUrl.'core/php/loadVars.php');
 
 	$fileName = ''.$baseUrl.'conf/config.php';
 	$newInfoForConfig = "<?php
@@ -561,7 +628,11 @@ function upgradeConfig($configVersionStatic)
 		";
 	foreach ($defaultConfig as $key => $value)
 	{
-		if(
+		if(isset($newSaveStuff[$key]))
+		{
+			$newInfoForConfig .= putIntoCorrectFormat($key, $newSaveStuff[$key], $value);
+		}
+		elseif(
 			$$key !== $defaultConfig[$key] &&
 			(
 				!isset($themeDefaultSettings) ||
@@ -637,21 +708,53 @@ function returnCurrentSelectedTheme()
 
 function getLineCount($fileName, $shellOrPhp)
 {
+	$linesBase = 0;
 	if($shellOrPhp === "phpPreferred" || $shellOrPhp ===  "phpOnly")
 	{
-		return phpLineCount($fileName);
+		$linesBase = getLineCountPhp($fileName);
+	    if($linesBase === 0 || $linesBase === null)
+	    {
+	    	if($shellOrPhp === "phpPreferred")
+	    	{
+	    		$linesBase = shell_exec("wc -l \"".$fileName."\"");
+	    	}
+	    }
+	    if($linesBase !== 0 || $linesBase !== null)
+	    {
+	    	return $linesBase;
+	    }
+	    return 0;
 	}
-	return shell_exec('wc -l < ' . $fileName);	
+	$linesBase = shell_exec("wc -l \"".$fileName."\"");
+	if($linesBase === 0 || $linesBase === null)
+	{
+		if($shellOrPhp === "shellPreferred")
+    	{
+    		$linesBase = shell_exec("wc -l \"".$fileName."\"");
+    	}
+	}
+	if($linesBase !== 0 || $linesBase !== null)
+    {
+    	return $linesBase;
+    }
+	return 0;
 }
 
-function phpLineCount($fileName)
+function getLineCountPhp($fileName)
 {
 	$linecount = 0;
+	if(!file_exists($fileName))
+	{
+		return 0;
+	}
+	if(!is_readable($fileName))
+	{
+		return 0;
+	}
 	$handle = fopen($fileName, "r");
 	while(!feof($handle))
 	{
-	  $line = fgets($handle, 4096);
-	  $linecount = $linecount + substr_count($line, PHP_EOL);
+		$linecount += substr_count(fread($handle, 8192), "\n");
 	}
 	fclose($handle);
 	return $linecount;
@@ -797,4 +900,106 @@ function checkForSeleniumMonitorInstall($manualReturn, $relBase)
 		'local'	=> false,
 		'loc'	=> false
 	);
+}
+
+function getListOfFiles($data)
+{
+	$path = $data["path"];
+	$filter = $data["filter"];
+	$response = $data["response"];
+	$recursive = $data["recursive"];
+	$fileData = array();
+	if(isset($data["data"]))
+	{
+		$fileData = $data["data"];
+	}
+
+	$path = preg_replace('/\/$/', '', $path);
+	if(file_exists($path))
+	{
+		$scannedDir = scandir($path);
+		if(!is_array($scannedDir))
+		{
+			$scannedDir = array($scannedDir);
+		}
+		$files = array_diff($scannedDir, array('..', '.'));
+		if($files)
+		{
+			foreach($files as $k => $filename)
+			{
+				$fullPath = $path . DIRECTORY_SEPARATOR . $filename;
+				if(is_dir($fullPath) && $recursive === "true")
+				{
+					$response = sizeFilesInDir(array(
+						"path" 			=> $fullPath,
+						"filter"		=> $filter,
+						"response"		=> $response,
+						"recursive"		=> "true",
+						"data"			=> $fileData
+
+					));
+				}
+				elseif(preg_match('/' . $filter . '/S', $filename) && is_file($fullPath))
+				{
+					$boolCheck = true;
+					if(isset($fileData[$fullPath]))
+					{
+						$dataToUse = get_object_vars($fileData[$fullPath]);
+						if($dataToUse["Include"] === "false")
+						{
+							$boolCheck = false;
+						}
+					}
+					if($boolCheck)
+					{
+						array_push($response, $fullPath);
+					}
+				}
+			}
+		}
+	}
+	return $response;
+}
+
+function sizeFilesInDir($data)
+{
+	$path = $data["path"];
+	$filter = $data["filter"];
+	$response = $data["response"];
+	$shellOrPhp = $data["shellOrPhp"];
+	$recursive = $data["recursive"];
+
+	$path = preg_replace('/\/$/', '', $path);
+	if(file_exists($path))
+	{
+		$scannedDir = scandir($path);
+		if(!is_array($scannedDir))
+		{
+			$scannedDir = array($scannedDir);
+		}
+		$files = array_diff($scannedDir, array('..', '.'));
+		if($files)
+		{
+			foreach($files as $k => $filename)
+			{
+				$fullPath = $path . DIRECTORY_SEPARATOR . $filename;
+				if(is_dir($fullPath) && $recursive === "true")
+				{
+					$response = sizeFilesInDir(array(
+						"path" 			=> $fullPath,
+						"filter"		=> $filter,
+						"response"		=> $response,
+						"shellOrPhp"	=> $shellOrPhp,
+						"recursive"		=> "true"
+
+					));
+				}
+				elseif(preg_match('/' . $filter . '/S', $filename) && is_file($fullPath))
+				{
+					$response[$fullPath] = getFileSize($fullPath, $shellOrPhp);
+				}
+			}
+		}
+	}
+	return $response;
 }

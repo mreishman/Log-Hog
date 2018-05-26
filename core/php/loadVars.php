@@ -154,9 +154,22 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 	$arrayWatchList = "";
 	if(isset($_POST['numberOfRows']))
 	{
+		$baseKeys = $defaultConfig["watchList"]["HHVM"];
+		$baseKeysCount = count($baseKeys);
 		for($i = 1; $i <= $_POST['numberOfRows']; $i++ )
 		{
-			$arrayWatchList .= "'".$_POST['watchListKey'.$i]."' => '".$_POST['watchListItem'.$i]."'";
+			$arrayWatchList .= "'".$_POST['watchListKey'.$i]."' => array(";
+			$baseKeyCounter = 0;
+			foreach ($baseKeys as $key => $value)
+			{
+				$baseKeyCounter++;
+				$arrayWatchList .= "'".$key."' => '".$_POST['watchListKey'.$i.$key]."'";
+				if($baseKeyCounter !== $baseKeysCount)
+				{
+					$arrayWatchList .= ",";
+				}
+			}
+			$arrayWatchList .= ")";
 			if($i != $_POST['numberOfRows'])
 			{
 				$arrayWatchList .= ",";
@@ -170,7 +183,26 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 		foreach ($watchList as $key => $value)
 		{
 			$i++;
-			$arrayWatchList .= "'".$key."' => '".$value."'";
+			if(is_array($value))
+			{
+				$arrayWatchList .= "'".$key."' => array(";
+				$numberOfRows2 = count($value);
+				$j = 0;
+				foreach ($value as $key2 => $value2)
+				{
+					$j++;
+					$arrayWatchList .= "'".$key2."' => '".$value2."'";
+					if($j != $numberOfRows2)
+					{
+						$arrayWatchList .= ",";
+					}
+				}
+				$arrayWatchList .= ")";
+			}
+			else
+			{
+				$arrayWatchList .= "'".$key."' => '".$value."'";
+			}
 			if($i != $numberOfRows)
 			{
 				$arrayWatchList .= ",";
@@ -178,50 +210,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 		}
 	}
 	$watchList = $arrayWatchList;
-
-	$popupSettingsArraySave = "";
-	if($popupWarnings == "all")
-	{
-		$popupSettingsArraySave = "
-			'saveSettings'	=>	'true',
-			'blankFolder'	=>	'true',
-			'deleteLog'	=>	'true',
-			'removeFolder'	=> 	'true',
-			'versionCheck'	=> 'true'
-			";
-	}
-	elseif($popupWarnings == "none")
-	{
-		$popupSettingsArraySave = "
-			'saveSettings'	=>	'false',
-			'blankFolder'	=>	'false',
-			'deleteLog'	=>	'false',
-			'removeFolder'	=> 	'false',
-			'versionCheck'	=> 'false'
-			";
-	}
-	else
-	{
-		if(isset($_POST['saveSettings']))
-		{
-			$popupSettingsArraySave = "
-			'saveSettings'	=>	'".$_POST['saveSettings']."',
-			'blankFolder'	=>	'".$_POST['blankFolder']."',
-			'deleteLog'	=>	'".$_POST['deleteLog']."',
-			'removeFolder'	=> 	'".$_POST['removeFolder']."',
-			'versionCheck'	=> '".$_POST['versionCheck']."'
-			";
-		}
-		else
-		{
-			$popupSettingsArraySave = "";
-			foreach ($popupSettingsArray as $key => $value)
-			{
-				$popupSettingsArraySave .= "'".$key."'	=>	'".$value."',";
-			}
-		}
-	}
-	$popupSettingsArray = $popupSettingsArraySave;
 
 	$folderColorArraysSave = "";
 	if(isset($_POST['folderThemeCount']))
@@ -339,17 +327,47 @@ else
 			"title"			=>	"Clear",
 			"baseName"		=>	"eraserSideBar.png"
 		),
+		"externalLink"		=> array(
+			"alt"			=>	"External Link",
+			"src"			=>	"",
+			"title"			=>	"External Link",
+			"baseName"		=>	"externalLink.png"
+		),
 		"fileIcon"			=> array(
 			"alt"			=>	"File",
 			"src"			=>	"",
 			"title"			=>	"File",
 			"baseName"		=>	"fileIcon.png"
 		),
+		"fileIconNW"		=> array(
+			"alt"			=>	"File Not Writeable",
+			"src"			=>	"",
+			"title"			=>	"File Not Writeable",
+			"baseName"		=>	"fileIconNW.png"
+		),
+		"fileIconNR"		=> array(
+			"alt"			=>	"File Not Readable",
+			"src"			=>	"",
+			"title"			=>	"File Not Readable",
+			"baseName"		=>	"fileIconNR.png"
+		),
 		"folderIcon"		=> array(
 			"alt"			=>	"Folder",
 			"src"			=>	"",
 			"title"			=>	"Folder",
 			"baseName"		=>	"folderIcon.png"
+		),
+		"folderIconNR"		=> array(
+			"alt"			=>	"Folder Not Readable",
+			"src"			=>	"",
+			"title"			=>	"Folder Not Readable",
+			"baseName"		=>	"folderIconNR.png"
+		),
+		"folderIconNW"		=> array(
+			"alt"			=>	"Folder Not Writeable",
+			"src"			=>	"",
+			"title"			=>	"Folder Not Writeable",
+			"baseName"		=>	"folderIconNW.png"
 		),
 		"gear"		=> array(
 			"alt"			=>	"Settings",
@@ -386,6 +404,12 @@ else
 			"src"			=>	"",
 			"title"			=>	"Loading...",
 			"baseName"		=>	"loading.gif"
+		),
+		"menu"	=> array(
+			"alt"			=>	"Menu",
+			"src"			=>	"",
+			"title"			=>	"Menu",
+			"baseName"		=>	"menu.png"
 		),
 		"notification"	=> array(
 			"alt"			=>	"Notifications",

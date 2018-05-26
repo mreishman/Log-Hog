@@ -89,7 +89,7 @@ function showConfigPopup()
 				document.getElementById("popupContent").style.left = ""+((window.innerWidth * 0.05).toFixed(2))+"px";
 				document.getElementById("popupContent").style.top = ""+(((window.innerHeight * 0.05)+heightOffset).toFixed(2))+"px";
 
-				document.getElementById("popupContent").style.zIndex = 21;
+				document.getElementById("popupContent").style.zIndex = 120;
 
 				document.getElementById("popupContent").style.marginTop = 0;
 				document.getElementById("popupContent").style.marginLeft = 0;

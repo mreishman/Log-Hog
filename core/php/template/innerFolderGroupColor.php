@@ -1,4 +1,4 @@
-<ul id="settingsUl">
+<ul class="settingsUl">
 <?php
 $mainFolderColorMax = 0;
 $highlightFolderColorMax = 0;

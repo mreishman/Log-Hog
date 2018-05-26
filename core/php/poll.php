@@ -7,7 +7,7 @@ require_once($baseModifier.'core/conf/config.php');
 require_once('configStatic.php');
 require_once('commonFunctions.php');
 
-$varsLoadLite = array("shellOrPhp", "logTrimOn", "logSizeLimit","logTrimMacBSD", "logTrimType","TrimSize","enableLogging","buffer","sliceSize");
+$varsLoadLite = array("shellOrPhp", "logTrimOn", "logSizeLimit","logTrimMacBSD", "logTrimType","TrimSize","enableLogging","buffer","sliceSize","lineCountFromJS");
 
 foreach ($varsLoadLite as $varLoadLite)
 {
@@ -33,17 +33,18 @@ $response = array();
 if(isset($_POST['arrayToUpdate']))
 {
 	$arrayToUpdate = $_POST['arrayToUpdate'];
-	foreach($arrayToUpdate as $path)
+	foreach($arrayToUpdate as $path => $pathData)
 	{
 		try
 		{
-			if($enableLogging != "false")
-			{
-				$time_start = microtime(true);
-			}
-
+			$time_start = microtime(true);
+			$lineCount = "---";
 			$filename = preg_replace('/([()"])/S', '$1', $path);
-			if(!is_readable($filename))
+			if(!file_exists($filename))
+			{
+				$dataVar = "Error - File does not exist";
+			}
+			elseif(!is_readable($filename))
 			{
 				$dataVar = "Error - File is not Readable";
 			}
@@ -54,7 +55,7 @@ if(isset($_POST['arrayToUpdate']))
 			else
 			{
 				//trim file
-				if($logTrimOn == "true")
+				if($logTrimOn == "true" && $pathData["ExcludeTrim"] === "false")
 				{
 					if($logTrimType == 'lines')
 					{
@@ -64,33 +65,34 @@ if(isset($_POST['arrayToUpdate']))
 					{
 						trimLogSize($filename, $logSizeLimit,$logTrimMacBSD,$buffer, $shellOrPhp);
 					}
+
+					if($lineCountFromJS === "false")
+					{
+						$lineCount = getLineCount($filename, $shellOrPhp);
+					}
 				}
 				//poll logic
 				$dataVar =  tail($filename, $sliceSize, $shellOrPhp);
 			}
 			$dataVar = htmlentities($dataVar);
-
+			if($lineCount === "---" && $enableLogging != "false")
+			{
+				$lineCount = getLineCount($filename, $shellOrPhp);
+			}
+			$response[$path]["data"] = "";
 			if($enableLogging != "false")
 			{
-				$lineCount = "0";
-				if($dataVar === "" || is_null($dataVar) || $dataVar === "Error - Maybe insufficient access to read file?" || $dataVar === "Error - File is not Readable")
-				{
-					$lineCount = "---";
-				}
-				elseif($dataVar !== "This file is empty. This should not be displayed.")
-				{
-					$lineCount = shellOrPhp($filename, $shellOrPhp);
-				}
-
 				$time = (microtime(true) - $time_start)*1000;
-				$response[$path."dataForLoggingLogHog051620170928"] = " Limit: ".$logSizeLimit."(".($logSizeLimit+$buffer).") ".$modifier." | Line Count: ".$lineCount." | Time: ".round($time);
+				$response[$path]["data"] = " Limit: ".$logSizeLimit."(".($logSizeLimit+$buffer).") ".$modifier." | Line Count: ".$lineCount." | Time: ".round($time);
 			}
-			$response[$path] = $dataVar;
+			$response[$path]["lineCount"] = $lineCount;
+			$response[$path]["log"] = $dataVar;
 		}
 		catch (Exception $e)
 		{
-			$response[$path] = "Error - Maybe insufficient access to read file?";
-			$response[$path."dataForLoggingLogHog051620170928"] = " Limit: ".$logSizeLimit."(".($logSizeLimit+$buffer).") ".$modifier." | Line Count: --- | File Size: --- | Time: ---";
+			$response[$path]["log"] = "Error - Maybe insufficient access to read file?";
+			$response[$path]["data"] = " Limit: ".$logSizeLimit."(".($logSizeLimit+$buffer).") ".$modifier." | Line Count: --- | Time: ---";
+			$response[$path]["lineCount"] = "---";
 		}
 	}
 }

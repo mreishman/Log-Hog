@@ -7,7 +7,7 @@
 	</div>
 	</div>
 	<div class="settingsDiv" >
-	<ul id="settingsUl">
+	<ul class="settingsUl">
 		<li>
 			<span class="settingsBuffer" >Number of lines to display:</span>  <input type="number" pattern="[0-9]*" name="sliceSize" value="<?php echo $sliceSize;?>" >
 		</li>
@@ -42,7 +42,7 @@
 				Scroll Log On Update Settings
 				</div>
 				<div class="settingsDiv" >
-					<ul id="settingsUl">
+					<ul class="settingsUl">
 						<li>
 							<span class="settingsBuffer" > Scroll even if Scrolled: </span>
 							<div class="selectDiv"> 
@@ -69,7 +69,7 @@
 			Highlight New Lines Settings
 			</div>
 			<div class="settingsDiv" >
-				<ul id="settingsUl">
+				<ul class="settingsUl">
 					<li>
 						<span class="settingsBuffer" > Background: </span> 
 						<input type="text" name="highlightNewColorBG" value="<?php echo $highlightNewColorBG;?>" >
@@ -96,7 +96,7 @@
 				Log Trim Settings
 			</div>
 			<div class="settingsDiv" >
-				<ul id="settingsUl">
+				<ul class="settingsUl">
 				
 					<li>
 					<span class="settingsBuffer" > Max 

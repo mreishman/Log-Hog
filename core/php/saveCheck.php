@@ -61,9 +61,22 @@ $response = true;
 $arrayWatchList = "";
 if(isset($_POST['numberOfRows']))
 {
+	$baseKeys = $defaultConfig["watchList"]["HHVM"];
+	$baseKeysCount = count($baseKeys);
 	for($i = 1; $i <= $_POST['numberOfRows']; $i++ )
 	{
-		$arrayWatchList .= "'".$_POST['watchListKey'.$i]."' => '".$_POST['watchListItem'.$i]."'";
+		$arrayWatchList .= "'".$_POST['watchListKey'.$i]."' => array(";
+		$baseKeyCounter = 0;
+		foreach ($baseKeys as $key => $value)
+		{
+			$baseKeyCounter++;
+			$arrayWatchList .= "'".$key."' => '".$_POST['watchListKey'.$i.$key]."'";
+			if($baseKeyCounter !== $baseKeysCount)
+			{
+				$arrayWatchList .= ",";
+			}
+		}
+		$arrayWatchList .= ")";
 		if($i != $_POST['numberOfRows'])
 		{
 			$arrayWatchList .= ",";
@@ -77,33 +90,32 @@ if(isset($_POST['numberOfRows']))
 	foreach ($config['watchList'] as $key => $value)
 	{
 		$i++;
-		$arrayWatchList .= "'".$key."' => '".$value."'";
+		if(is_array($value))
+		{
+			$arrayWatchList .= "'".$key."' => array(";
+			$numberOfRows2 = count($value);
+			$j = 0;
+			foreach ($value as $key2 => $value2)
+			{
+				$j++;
+				$arrayWatchList .= "'".$key2."' => '".$value2."'";
+				if($j != $numberOfRows2)
+				{
+					$arrayWatchList .= ",";
+				}
+			}
+			$arrayWatchList .= ")";
+		}
+		else
+		{
+			$arrayWatchList .= "'".$key."' => '".$value."'";
+		}
 		if($i != $numberOfRows)
 		{
 			$arrayWatchList .= ",";
 		}
 	}
 	$watchList = $arrayWatchList;
-}
-
-if(isset($_POST['saveSettings']))
-{
-	if(array_key_exists('popupSettingsArray', $config))
-	{
-		$popupSettingsArray = $config['popupSettingsArray'];
-	}
-	else
-	{
-		$popupSettingsArray = $defaultConfig['popupSettingsArray'];
-	}
-
-	$popupSettingsArraySave = array(
-	'saveSettings'	=>	$_POST['saveSettings'],
-	'blankFolder'	=>	$_POST['blankFolder'],
-	'deleteLog'	=>	$_POST['deleteLog'],
-	'removeFolder'	=> 	$_POST['removeFolder'],
-	'versionCheck'	=> $_POST['versionCheck']
-	);
 }
 
 if(isset($_POST['folderThemeCount']))

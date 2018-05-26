@@ -7,7 +7,7 @@
 	</div>
 	</div>
 	<div class="settingsDiv" >
-		<ul id="settingsUl">
+		<ul class="settingsUl">
 			<li>
 				<span class="settingsBuffer" > Background: </span> 
 				<input type="text" name="backgroundColor" value="<?php echo $backgroundColor;?>" >

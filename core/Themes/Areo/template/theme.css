@@ -366,3 +366,31 @@
 {
 	background: rgba(50,50,50,1);
 }
+
+.fullScreenMenuUL
+{
+	background: repeating-linear-gradient(45deg, rgba(25,40,55,0.75) 35%, rgba(65,85,100,0.75) 40%, rgba(65,85,100,0.75) 42%, rgba(25,40,55,0.75) 50%, rgba(25,40,55,0.75) 55%, rgba(70,85,100,0.75) 60%, rgba(70,85,100,0.75) 75%, rgba(25,40,55,0.75) 90%);
+	border-right: 1px solid white;
+}
+
+.settingsUlSub
+{
+	background-color: rgba(0,0,0,.25);
+	border-right: 1px solid white;
+}
+
+#fullScreenMenu
+{
+	background-color: rgba(0,0,0,.3);
+}
+
+.fullScreenMenuUL li
+{
+	color: white;
+}
+
+.fullScreenMenuUL li:not(.menuTitle):hover, #fullScreenMenu .selected
+{
+	background-color: black;
+	filter: invert(100%);
+}

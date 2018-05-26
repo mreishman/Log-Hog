@@ -66,7 +66,10 @@ else
   );
 }
 
-mkdir("../../update/downloads/versionCheck/extracted/");
+if(!is_dir("../../update/downloads/versionCheck/extracted/"))
+{
+  mkdir("../../update/downloads/versionCheck/extracted/");
+}
 $zip = new ZipArchive;
 $path = "../../update/downloads/versionCheck/versionCheck.zip";
 $res = $zip->open($path);

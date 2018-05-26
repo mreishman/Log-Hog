@@ -66,10 +66,10 @@ body, #main
 	filter: brightness(<?php echo $overallBrightness; ?>%);
 }
 
-#menu
+#menu, .backgroundForMenus
 {
 	background: <?php echo $backgroundHeaderColor?>;
-	color: <?php echo $currentSelectedThemeColorValues['main']['main-1']['fontColor']?>;
+	color: <?php echo $mainFontColor; ?>;
 }
 
 /* Firefox */

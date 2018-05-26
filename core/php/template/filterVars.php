@@ -7,7 +7,7 @@ Filter Settings
 </div>
 </div>
 <div class="settingsDiv" >
-<ul id="settingsUl">
+<ul class="settingsUl">
 	<li>
 		<span class="settingsBuffer" > Default Filter By: </span>
 		<div class="selectDiv">
@@ -48,7 +48,7 @@ Filter Settings
 			Filter Highlight Settings
 			</div>
 			<div class="settingsDiv" >
-				<ul id="settingsUl">
+				<ul class="settingsUl">
 					<li>
 						<span class="settingsBuffer" > Background: </span> 
 						<input type="text" name="highlightColorBG" value="<?php echo $highlightColorBG;?>" >
@@ -88,7 +88,7 @@ Filter Settings
 			Filter Content Match Settings
 			</div>
 			<div class="settingsDiv" >
-				<ul id="settingsUl">
+				<ul class="settingsUl">
 					<li>
 						<span class="settingsBuffer" > Line Padding: </span>
 						<div class="selectDiv">

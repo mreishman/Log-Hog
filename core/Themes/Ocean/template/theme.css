@@ -337,3 +337,36 @@
 {
 	background: #2A90EF;
 }
+
+#fullScreenMenu
+{
+	background-color: rgba(0,0,0,.7);
+}
+
+.fullScreenMenuUL li
+{
+	background-color: rgba(25,25,100,1);
+	color: white;
+}
+
+.fullScreenMenuUL li:not(.menuTitle):hover, #fullScreenMenu .selected
+{
+	filter: invert(100%);
+}
+
+.fullScreenMenuUL li:not(.menuTitle):hover .menuImage, #fullScreenMenu .selected .menuImage
+{
+	filter: invert(100%);
+}
+
+.fullScreenMenuUL
+{
+	background-color: rgba(25,25,100,1);
+	border-right: 1px solid white;
+}
+
+.settingsUlSub
+{
+	background-color: rgba(25,25,100,1);
+	border-right: 1px solid white;
+}

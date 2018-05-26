@@ -8,7 +8,7 @@ require_once('configStatic.php');
 require_once('updateProgressFile.php');
 require_once('commonFunctions.php');
 
-$varsLoadLite = array("shellOrPhp", "watchList");
+$varsLoadLite = array("shellOrPhp", "watchList", "lineCountFromJS");
 
 foreach ($varsLoadLite as $varLoadLite)
 {
@@ -20,10 +20,16 @@ foreach ($varsLoadLite as $varLoadLite)
 }
 
 $response = array();
+$responseFilelist = array();
 $currentVersionPost = $configStatic["version"];
 if(isset($_POST['currentVersion']))
 {
 	$currentVersionPost = $_POST['currentVersion'];
+}
+$fileDataPOST = null;
+if(isset($_POST["fileData"]))
+{
+	$fileDataPOST = $_POST["fileData"];
 }
 
 if($configStatic['version'] != $currentVersionPost)
@@ -38,45 +44,142 @@ if(array_key_exists('percent', $updateProgress) && ($updateProgress['percent'] !
 	exit();
 }
 
-function sizeFilesInDir($path, $filter, $response, $shellOrPhp)
+$watchListFolder = array();
+
+foreach($watchList as $key => $value)
 {
-	$path = preg_replace('/\/$/', '', $path);
-	if(file_exists($path))
+	$path = $value["Location"];
+	$filter = $value["Pattern"];
+	$fileData = array();
+	$tmpFileData = json_decode($value["FileInformation"]);
+	if(!is_null($tmpFileData))
 	{
-		$scannedDir = scandir($path);
-		if(!is_array($scannedDir))
+		$fileData = get_object_vars($tmpFileData);
+	}
+	if(is_dir($path))
+	{
+		$watchListFolder[$key] = getListOfFiles(array(
+			"path" 			=> $path,
+			"filter"		=> $filter,
+			"response"		=> array(),
+			"recursive"		=> $value["Recursive"],
+			"data"			=> $fileData
+		));
+		if($value["AutoDeleteFiles"] !== "")
 		{
-			$scannedDir = array($scannedDir);
-		}
-		$files = array_diff($scannedDir, array('..', '.'));
-		if($files)
-		{
-			foreach($files as $k => $filename)
+			foreach ($watchListFolder[$key] as $file)
 			{
-				$fullPath = $path . DIRECTORY_SEPARATOR . $filename;
-				if(is_dir($fullPath))
+				$boolToDelete = true;
+				if(isset($fileData[$file]))
 				{
-					//$response = sizeFilesInDir($path, $filter, $response, $shellOrPhp);
+					$dataToUse = get_object_vars($fileData[$file]);
+					if($dataToUse["Delete"] === "true")
+					{
+						$boolToDelete = false;
+					}
 				}
-				elseif(preg_match('/' . $filter . '/S', $filename) && is_file($fullPath))
+				if($boolToDelete)
 				{
-					$response[$fullPath] = getFileSize($fullPath, $shellOrPhp);
+					$diff = time()-filemtime($file);
+					$days = round($diff/86400);
+					if($days > (int)$value["AutoDeleteFiles"])
+					{
+						unlink($file);
+						$keyInSubArray = array_search($file, $watchListFolder[$key]);
+						unset($watchListFolder[$key][$keyInSubArray]);
+					}
 				}
 			}
 		}
-	}
-	return $response;
-}
-
-foreach($watchList as $path => $filter)
-{
-	if(is_dir($path))
-	{
-		$response = sizeFilesInDir($path, $filter, $response, $shellOrPhp);
+		$responseFilelist = array_merge($responseFilelist, $watchListFolder[$key]);
 	}
 	elseif(file_exists($path))
 	{
-		$response[$path] = getFileSize($path, $shellOrPhp);
+		array_push($responseFilelist, $path);
+	}
+}
+
+foreach ($responseFilelist as $file)
+{
+	$currentFileSize = getFileSize($file, $shellOrPhp);
+	$response[$file]["size"] = $currentFileSize;
+	$responseFileLineCount = -1;
+	if($lineCountFromJS === "false")
+	{
+		if($fileDataPOST !== null && isset($fileDataPOST[$file]) && $fileDataPOST[$file]["size"] === $currentFileSize)
+		{
+			$responseFileLineCount = $fileDataPOST[$file]["lineCount"];
+		}
+		else
+		{
+			$responseFileLineCount = getLineCount($file, $shellOrPhp);
+		}
+	}
+	$response[$file]["lineCount"] = $responseFileLineCount;
+	$found = false;
+	$keyFound = "";
+	foreach ($watchList as $key => $value)
+	{
+		if($value["Location"] === $file)
+		{
+			$keyFound = $key;
+			$found = true;
+			break;
+		}
+	}
+
+	if($found)
+	{
+		//this is a file that is set in watchlist, use that info
+		$response[$file]["ExcludeTrim"] = $watchList[$keyFound]["ExcludeTrim"];
+		$response[$file]["Name"] = $watchList[$keyFound]["Name"];
+		$response[$file]["AlertEnabled"] = $watchList[$keyFound]["AlertEnabled"];
+		$response[$file]["Group"] = $watchList[$keyFound]["Group"];
+	}
+	else
+	{
+		foreach ($watchListFolder as $key => $value)
+		{
+			$found = false;
+			foreach ($value as $fileInner)
+			{
+				if($fileInner === $file)
+				{
+					$found = true;
+					break;
+				}
+			}
+			if($found)
+			{
+				//this file is in that folder, use that info
+				$filesInFolderData = array();
+				$tmpFileData = json_decode($watchList[$key]["FileInformation"]);
+				if(!is_null($tmpFileData))
+				{
+					$filesInFolderData = get_object_vars($tmpFileData);
+				}
+				if(isset($filesInFolderData[$file]))
+				{
+					$dataToUse = get_object_vars($filesInFolderData[$file]);
+					$response[$file]["ExcludeTrim"] = $dataToUse["Trim"];
+					$response[$file]["Name"] = $dataToUse["Name"];
+					$response[$file]["AlertEnabled"] = $watchList[$key]["AlertEnabled"];
+					if($watchList[$key]["AlertEnabled"] !== "false")
+					{
+						$response[$file]["AlertEnabled"] = $dataToUse["Alert"];
+					}
+				}
+				else
+				{
+					$response[$file]["ExcludeTrim"] = $watchList[$key]["ExcludeTrim"];
+					$response[$file]["Name"] = "";
+					$response[$file]["AlertEnabled"] = $watchList[$key]["AlertEnabled"];
+				}
+
+				$response[$file]["Group"] = $watchList[$key]["Group"];
+				break;
+			}
+		}
 	}
 }
 

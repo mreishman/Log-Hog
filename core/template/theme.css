@@ -133,6 +133,11 @@
 	color: white;
 }
 
+.backgroundForMenus
+{
+	background-color: #222;
+}
+
 .sidebarCurrentWindowNum
 {
 	border-top: 1px solid black;
@@ -225,6 +230,7 @@
 	list-style: none;
 	margin: 0;
 	padding: 0;
+	margin-top: 0;
 }
 
 .context-menu--active {
@@ -294,7 +300,6 @@
 	border: 1px solid white;
 }
 
-
 .selectDiv{
 	background-color: #6B8E23;
 	display: inline-block;
@@ -314,7 +319,6 @@
 	color: black;
 }
 
-
 /* width */
 ::-webkit-scrollbar
 {
@@ -324,18 +328,44 @@
 /* Track */
 ::-webkit-scrollbar-track
 {
-	background: #EEE;
+	background: #222;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb
 {
-	background: rgba(105,159,236,1);
-	border-radius: 5px;
+	background: #CCC;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover
 {
-	background: rgba(172,197,233,1);
+	background: #FFFFFF;
+}
+
+#fullScreenMenu
+{
+	background-color: rgba(0,0,0,.7);
+}
+
+.fullScreenMenuUL li
+{
+	background-color: black;
+	color: white;
+}
+
+.fullScreenMenuUL li:not(.menuTitle):hover, #fullScreenMenu .selected
+{
+	filter: invert(100%);
+}
+.fullScreenMenuUL
+{
+	background-color: black;
+	border-right: 1px solid white;
+}
+
+.settingsUlSub
+{
+	background-color: black;
+	border-right: 1px solid white;
 }

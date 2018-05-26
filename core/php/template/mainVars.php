@@ -7,7 +7,7 @@ Other Settings
 </div>
 </div>
 <div class="settingsDiv" >
-<ul id="settingsUl">
+<ul class="settingsUl">
 	<li>
 		<span class="settingsBuffer" > Popup Warnings: </span>
 		<div class="selectDiv">
@@ -23,12 +23,14 @@ Other Settings
 			Popup Settings
 			</div>
 			<div class="settingsDiv" >
-			<ul id="settingsUl">
-			<?php foreach ($popupSettingsArray as $key => $value):?>
+			<ul class="settingsUl">
+			<?php
+			$popupSettingsInArray = json_decode($popupSettingsArray);
+			foreach ($popupSettingsInArray as $key => $value):?>
 				<li>
 				<span class="settingsBuffer" > <?php echo $key;?>: </span>
 				<div class="selectDiv">
-					<select name="<?php echo $key;?>">
+					<select id="popup<?php echo $key;?>">
   						<option <?php if($value == 'true'){echo "selected";} ?> value="true">Yes</option>
   						<option <?php if($value == 'false'){echo "selected";} ?> value="false">No</option>
 					</select>
@@ -37,6 +39,7 @@ Other Settings
 			<?php endforeach;?>
 			</ul>
 			</div>
+			<input id="popupSettingsArray" type="hidden" name="popupSettingsArray" value='<?php echo $popupSettingsArray; ?>' >
 		</div>
 	</li>
 	<li>
@@ -60,3 +63,15 @@ Other Settings
 </ul>
 </div>
 </form>
+<script type="text/javascript">
+	
+	<?php foreach ($popupSettingsInArray as $key => $value):?>
+	$("#popup<?php echo $key; ?>").on("keydown change", function(){
+	    var box = $(this);
+	    setTimeout(function() {
+	        updateJsonForPopupTheme();
+	    }, 2);
+	});
+	<?php endforeach; ?>
+
+</script>

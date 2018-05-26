@@ -29,10 +29,7 @@ require_once('../core/php/updateCheck.php');
 <body>
 	<?php require_once('header2.php'); ?>
 	<div id="main">
-		<div class="settingsHeader">
-			Changelog
-		</div>
-		<?php readfile('changelog.html') ?>
+		<?php readfile('../core/html/changelog.html') ?>
 	</div>
 </body>
 <script type="text/javascript">

@@ -25,8 +25,7 @@ require_once('../core/php/loadVars.php');
 	<?php echo loadCSS("../",$baseUrl, $cssVersion);?>
 	<link href="../core/template/lightbox.css" rel="stylesheet" type="text/css" />
 	<link rel="icon" type="image/png" href="../core/img/favicon.png" />
-	<script src="../core/js/jquery.js"></script>
-	<script src="../core/js/lightbox-2.6.min.js"></script>
+	<script type="text/javascript" src="../core/js/jquery.js"></script>
 </head>
 <body>
 
@@ -34,6 +33,9 @@ require_once('../core/php/loadVars.php');
 
 	<div id="main" > 
 		<h1 style="width: 100%; text-align: center;  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black; " >You are on version <?php echo $configStatic['version'];?>!</h1>
-		<?php readfile('whatsNew.html') ?>
+		<?php
+		$imageDirModifierAbout = "../";
+		require_once('../core/php/template/whatsNew.php');
+		?>
 	</div>
 </body>

@@ -1,15 +1,3 @@
-//Settings Menu Options
-
-var checkForUpdateRightClickMenu = {action: "checkForUpdates(\"\",\"Log-Hog\", currentVersion, \"settingsInstallUpdate\", true, dontNotifyVersion);", name: "Check For Update"};
-var aboutRightClickMenu = {action: "window.location.href = \"./settings/about.php\"", name: "About"};
-var changeLogRightClickMenu = {action: "window.location.href = \"./settings/changeLog.php\"", name: "Change Log"};
-var advancedRightClickMenu = {action: "window.location.href = \"./settings/advanced.php\"", name: "Advanced"};
-var devToolsRightClickMenu = {action: "window.location.href = \"./settings/devTools.php\"", name: "Dev Tools"};
-var watchListRightClickMenu = {action: "window.location.href = \"./settings/watchList.php\"", name: "Watchlist"};
-var whatsNewRightClickMenu = {action: "window.location.href = \"./settings/whatsNew.php\"", name: "Whats New"};
-var themesRightClickMenu = {action: "window.location.href = \"./settings/themes.php\"", name: "Themes"};
-var addonsRightClickMenu = {action: "window.location.href = \"./settings/addons.php\"", name: "Addons"};
-
 //Clear Logs Menu Button
 
 var clearAllLogs = {action: "deleteAction();", name: "Clear All Logs"};
@@ -17,24 +5,15 @@ var clearCurrentLog = {action: "clearLog(currentSelectWindow);", name: "Clear Cu
 var deleteAllLogs = {action: "", name: "Delete All Logs"};
 var deleteCurrentLog = {action: "deleteLogPopup();", name: "Delete Current Log"};
 
-//Update Icon Menu
-
-var updateRightClickAction = {action: "installUpdates();", name: "Update"};
 
 //Pause Icon
 
 var tmpTogglePauseOnUnfocus = {action: "switchPollType();", name: "Toggle pause on unfocus"};
 
-var gearMenu = [devToolsRightClickMenu,watchListRightClickMenu,advancedRightClickMenu,themesRightClickMenu,addonsRightClickMenu,checkForUpdateRightClickMenu];
 var deleteMenu = [clearAllLogs,clearCurrentLog,deleteCurrentLog];
-var updateMenu = [updateRightClickAction];
-var aboutMenu = [changeLogRightClickMenu,aboutRightClickMenu,whatsNewRightClickMenu];
 var pauseMenu = [tmpTogglePauseOnUnfocus];
 
-var menuObjectRightClick = {gear: gearMenu, deleteImage: deleteMenu, updateImage: updateMenu, aboutImage: aboutMenu, pauseImage: pauseMenu};
-
-
-
+var menuObjectRightClick = {deleteImage: deleteMenu, pauseImage: pauseMenu};
 
 $( document ).ready(function() {
   (function() {

@@ -35,11 +35,11 @@ require_once('../core/php/loadVars.php');
 		<?php require_once('../core/php/template/filterVars.php'); ?>
 		<?php require_once('../core/php/template/updateVars.php'); ?>
 		<?php require_once('../core/php/template/settingsMenuVars.php'); ?>
+		<?php require_once('../core/php/template/watchlistVars.php'); ?>
 		<?php require_once('../core/php/template/mainVars.php'); ?>
 	</div>
 </body>
 <script type="text/javascript">
-var fileArray = JSON.parse('<?php echo json_encode($config['watchList']) ?>');
 var logTrimType = "<?php echo $logTrimType; ?>";
 </script>
 <script src="../core/js/settingsMain.js?v=<?php echo $cssVersion?>"></script>

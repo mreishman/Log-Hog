@@ -77,36 +77,38 @@ echo loadSentryData($sendCrashInfoJS, $branchSelected); ?>
 </div>
 <?php if(strpos($URI, 'main.php') !== false): ?>
 	<div id="menu2">
-		<a onclick="goToUrl('#settingsLogVars');" > Logs </a>
-		<a onclick="goToUrl('#settingsPollVars');" > Poll </a>
-		<a onclick="goToUrl('#settingsFilterVars');" > Filter </a>
-		<a onclick="goToUrl('#settingsUpdateVars');" > Update </a>
-		<a onclick="goToUrl('#settingsMenuVars');" > Menu </a>
-		<a onclick="goToUrl('#settingsMainVars');" > Other </a>
+		<span style="color: black;">Settings:</span> 
+		<a href="#settingsLogVars" > Logs </a>
+		<a href="#settingsPollVars" > Poll </a>
+		<a href="#settingsFilterVars" > Filter </a>
+		<a href="#settingsUpdateVars" > Update </a>
+		<a href="#settingsMenuVars" > Menu </a>
+		<a href="#settingsWatchlistVars" > Watchlist </a>
+		<a href="#settingsMainVars" > Other </a>
 	</div>
 <?php elseif(strpos($URI, 'themes.php') !== false): ?>
 	<div id="menu2">
-		<a onclick="goToUrl('#themeMain');" > Themes </a>
-		<a onclick="goToUrl('#settingsColorFolderVars');" > Theme Options </a>
-		<a onclick="goToUrl('#settingsColorFolderGroupVars');" > Tab Style </a>
+		<a href="#themeMain" > Themes </a>
+		<a href="#settingsColorFolderVars" > Theme Options </a>
+		<a href="#settingsColorFolderGroupVars" > Tab Style </a>
 	</div>
 <?php elseif(strpos($URI, 'advanced.php') !== false): ?>
 	<div id="menu2">
-		<a onclick="goToUrl('#advancedConfig');" > Advanced </a>
-		<a onclick="goToUrl('#devAdvanced');" > Dev </a>
-		<a onclick="goToUrl('#pollAdvanced');" > Poll</a>
-		<a onclick="goToUrl('#loggingDisplay');" > Logs </a>
-		<a onclick="goToUrl('#jsPhpSend');" > Reporting </a>
-		<a onclick="goToUrl('#locationOtherApps');" > Apps </a>
-		<a onclick="goToUrl('#moreAdvanced');" > Actions </a>
-		<a onclick="goToUrl('#expFeatures');" > Experimental </a>
+		<a href="#advancedConfig" > Advanced </a>
+		<a href="#devAdvanced" > Dev </a>
+		<a href="#pollAdvanced" > Poll</a>
+		<a href="#loggingDisplay" > Logs </a>
+		<a href="#jsPhpSend" > Reporting </a>
+		<a href="#locationOtherApps" > Apps </a>
+		<a href="#moreAdvanced" > Actions </a>
+		<a href="#expFeatures" > Experimental </a>
 	</div>
 <?php endif;
 $baseUrlImages = $localURL;
 ?>
 <script type="text/javascript">
 	var baseUrl = "<?php echo baseURL();?>";
-	var popupSettingsArray = JSON.parse('<?php echo json_encode($popupSettingsArray) ?>');
+	var popupSettingsArray = <?php echo $popupSettingsArray ?>;
 	var currentVersion = "<?php echo $configStatic['version']; ?>";
 	var newestVersion = "<?php echo $configStatic['newestVersion']; ?>";
 	var saveVerifyImage = <?php echo json_encode(generateImage(

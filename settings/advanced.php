@@ -52,7 +52,7 @@ $countConfig--;
 			</div>
 		</div>
 		<div class="settingsDiv" >
-			<ul id="settingsUl">
+			<ul class="settingsUl">
 				<li>
 					<span class="settingsBuffer"> Branch: </span>
 					<div class="selectDiv">	
@@ -128,7 +128,7 @@ $countConfig--;
 			</div>
 		</div>
 		<div class="settingsDiv" >
-			<ul id="settingsUl">
+			<ul class="settingsUl">
 				<li>
 					<span class="settingsBuffer"> Enable Development Tools:</span>
 					<div class="selectDiv">
@@ -150,7 +150,7 @@ $countConfig--;
 			</div>
 		</div>
 		<div class="settingsDiv" >
-			<ul id="settingsUl">
+			<ul class="settingsUl">
 				<li>
 					<span class="settingsBuffer"> Poll refresh all data every </span>
 					<input type="number" pattern="[0-9]*" style="width: 100px;"  name="pollRefreshAll" value="<?php echo $pollRefreshAll;?>" > 
@@ -174,7 +174,7 @@ $countConfig--;
 					</div>
 				</li>
 				<li>
-					System preference:
+					<span class="settingsBuffer"> System preference:</span>
 					<div class="selectDiv">
 						<select name="shellOrPhp">
   							<option <?php if($shellOrPhp == 'shellPreferred'){echo "selected";} ?> value="shellPreferred">Shell Preferred</option>
@@ -183,6 +183,26 @@ $countConfig--;
   							<option <?php if($shellOrPhp == 'phpOnly'){echo "selected";} ?> value="phpOnly">Php Only</option>
 						</select>
 					</div>
+				</li>
+				<li>
+					<span class="settingsBuffer"> Line count from:</span>
+					<div class="selectDiv">
+						<select name="lineCountFromJS">
+	  						<option <?php if($lineCountFromJS == 'true'){echo "selected";} ?> value="true">JS</option>
+	  						<option <?php if($lineCountFromJS == 'false'){echo "selected";} ?> value="false">PHP</option>
+						</select>
+					</div>
+					<br>
+					<span style="font-size: 75%;">
+						<?php echo generateImage(
+							$arrayOfImages["info"],
+							array(
+								"style"			=>	"margin-bottom: -4px;",
+								"height"		=>	"20px",
+								"srcModifier"	=>	"../"
+							)
+						); ?> 
+						<i>PHP method is more accurate, but will increase poll times</i></span>
 				</li>
 			</ul>
 		</div>
@@ -200,7 +220,7 @@ $countConfig--;
 			</div>
 		</div>
 		<div class="settingsDiv" >
-			<ul id="settingsUl">
+			<ul class="settingsUl">
 				<li>
 					<span class="settingsBuffer"> File Info Logging </span>
 					<div class="selectDiv">
@@ -219,7 +239,7 @@ $countConfig--;
 								"srcModifier"	=>	"../"
 							)
 						); ?>
-						<i>This will increase poll times by 2x to 4x</i></span>
+						<i>This will increase poll times</i></span>
 				</li>
 				<li>
 					<span class="settingsBuffer"> Poll Time Logging </span>
@@ -246,7 +266,7 @@ $countConfig--;
 			</div>
 		</div>
 		<div class="settingsDiv" >
-			<ul id="settingsUl">
+			<ul class="settingsUl">
 				<li>
 					Send anonymous information about javascript errors/crashes:
 					<div class="selectDiv">
@@ -282,7 +302,7 @@ $countConfig--;
 			</div>
 		</div>
 		<div class="settingsDiv" >
-			<ul id="settingsUl">
+			<ul class="settingsUl">
 				<li>
 					<span class="settingsBuffer" >  Status Location:  </span> <input type="text" style="width: 400px;"  name="locationForStatus" value="<?php echo $locationForStatus;?>" > 
 					<br>
@@ -322,7 +342,7 @@ $countConfig--;
 			Advanced
 		</div>
 		<div class="settingsDiv" >
-			<ul id="settingsUl">
+			<ul class="settingsUl">
 				<li>
 					<a style="text-decoration: none;" href="../setup/step1.php" class="link">Re-do Setup</a>
 					<span> | </span>
@@ -345,7 +365,7 @@ $countConfig--;
 			</div>
 		</div>
 		<div class="settingsDiv" >
-			<ul id="settingsUl">
+			<ul class="settingsUl">
 				<li>
 					Log Layout
 					<?php $arrayOfwindowConfigOptions = array();
