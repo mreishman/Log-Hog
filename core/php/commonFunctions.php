@@ -344,8 +344,11 @@ function trimLogPhp($filename,$lineEnd)
 	$lines = array_slice($lines, $lineEnd + 2);
 	$lines = array_merge(array($first_line, "\n"), $lines);
 	$file = fopen($filename, "w");
-	fwrite($file, implode("", $lines));
-	fclose($file);
+	if(gettype($file) !== "boolean")
+	{
+		fwrite($file, implode("", $lines));
+		fclose($file);
+	}
 }
 
 function trimLogShell($logTrimMacBSD,$filename,$lineEnd)
