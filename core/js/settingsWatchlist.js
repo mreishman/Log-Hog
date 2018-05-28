@@ -1198,6 +1198,6 @@ $( document ).ready(function()
 	);
 
 	setInterval(poll, 100);
-
-	getFileFolderList();
+	setTimeout(function(){getFileFolderList();},100);
+	
 });
