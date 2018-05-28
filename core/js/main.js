@@ -2964,5 +2964,4 @@ $(document).ready(function()
 		},
 		true
 	);
-
 });
