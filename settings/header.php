@@ -60,30 +60,39 @@ echo loadSentryData($sendCrashInfoJS, $branchSelected); ?>
 <?php if(strpos($URI, 'main.php') !== false): ?>
 	<div id="menu2">
 		<span style="color: black;">Settings:</span> 
-		<a href="#settingsLogVars" > Logs </a>
-		<a href="#settingsPollVars" > Poll </a>
-		<a href="#settingsFilterVars" > Filter </a>
-		<a href="#settingsUpdateVars" > Update </a>
-		<a href="#settingsMenuVars" > Menu </a>
-		<a href="#settingsWatchlistVars" > Watchlist </a>
-		<a href="#settingsMainVars" > Other </a>
+		<a class="link" href="#settingsLogVars" > Logs </a>
+		<a class="link" href="#settingsPollVars" > Poll </a>
+		<a class="link" href="#settingsFilterVars" > Filter </a>
+		<a class="link" href="#settingsUpdateVars" > Update </a>
+		<a class="link" href="#settingsMenuVars" > Menu </a>
+		<a class="link" href="#settingsWatchlistVars" > Watchlist </a>
+		<a class="link" href="#settingsMainVars" > Other </a>
 	</div>
 <?php elseif(strpos($URI, 'themes.php') !== false): ?>
 	<div id="menu2">
-		<a href="#themeMain" > Themes </a>
-		<a href="#settingsColorFolderVars" > Theme Options </a>
-		<a href="#settingsColorFolderGroupVars" > Tab Style </a>
+		<a class="link" href="#themeMain" > Themes </a>
+		<a class="link" href="#settingsColorFolderVars" > Theme Options </a>
+		<a class="link" href="#settingsColorFolderGroupVars" > Tab Style </a>
 	</div>
 <?php elseif(strpos($URI, 'advanced.php') !== false): ?>
 	<div id="menu2">
-		<a href="#advancedConfig" > Advanced </a>
-		<a href="#devAdvanced" > Dev </a>
-		<a href="#pollAdvanced" > Poll</a>
-		<a href="#loggingDisplay" > Logs </a>
-		<a href="#jsPhpSend" > Reporting </a>
-		<a href="#locationOtherApps" > Apps </a>
-		<a href="#moreAdvanced" > Actions </a>
-		<a href="#expFeatures" > Experimental </a>
+		<a class="link" href="#advancedConfig" > Advanced </a>
+		<a class="link" href="#devAdvanced" > Dev </a>
+		<a class="link" href="#pollAdvanced" > Poll</a>
+		<a class="link" href="#loggingDisplay" > Logs </a>
+		<a class="link" href="#jsPhpSend" > Reporting </a>
+		<a class="link" href="#locationOtherApps" > Apps </a>
+		<a class="link" href="#moreAdvanced" > Actions </a>
+		<a class="link" href="#expFeatures" > Experimental </a>
+	</div>
+<?php elseif(strpos($URI, 'watchlist.php') !== false): ?>
+	<div id="menu2">
+		<a class="link" href="#settingsMainWatch" > Watchlist </a>
+		<a class="link" href="#archive" > Archive </a>
+		<a class="link" href="#watchKey" > Key</a>
+		<a class="link" onclick="addFile();">+ Add New File</a>
+		<a class="link" onclick="addFolder();">+ Add New Folder</a>
+		<a class="link" onclick="addOther();">+ Add Other</a>
 	</div>
 <?php endif;
 $baseUrlImages = $localURL;

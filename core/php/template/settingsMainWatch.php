@@ -443,116 +443,107 @@
 	$i = 0;
 	?>
 </ul>
-<ul class="settingsUl">
-	<li>
-		<a class="link" onclick="addFile();">+ Add New File</a>
-		<a class="link" onclick="addFolder();">+ Add New Folder</a>
-		<a class="link" onclick="addOther();">+ Add Other</a>
-	</li>
-	<li>
-		<div class="settingsHeader">
-			Key
-		</div>
-	</li>
-	<li> 
-		<ul class="settingsUl">
-			<li>
-				<?php
-					echo generateImage(
-						$arrayOfImages["redWarning"],
-						array(
-							"height"		=>	"10px",
-							"srcModifier"	=>	"../"
-						)
-					);
-				?>
-				 - File / Folder not found! &nbsp; &nbsp; &nbsp; 
-				<?php 
-					echo generateImage(
-						$arrayOfImages["yellowWarning"],
-						array(
-							"height"		=>	"10px",
-							"srcModifier"	=>	"../"
-						)
-					);
-				?>
-				 - Unknown
-			</li>
-			<li>
-				<?php
-					echo generateImage(
-						$arrayOfImages["fileIcon"],
-						array(
-							"height"		=>	"10px",
-							"srcModifier"	=>	"../"
-						)
-					);
-				?>
-				 - File &nbsp; &nbsp; &nbsp; 
-				<?php
-					echo generateImage(
-						$arrayOfImages["fileIconNR"],
-						array(
-							"height"		=>	"10px",
-							"srcModifier"	=>	"../"
-						)
-					);
-				?>
-				 - File Not Readable &nbsp; &nbsp; &nbsp; 
-				<?php
-					echo generateImage(
-						$arrayOfImages["fileIconNW"],
-						array(
-							"height"		=>	"10px",
-							"srcModifier"	=>	"../"
-						)
-					);
-				?>
-				 - File Not Writeable
-			</li>
-			<li>
-				<?php
-					echo generateImage(
-						$arrayOfImages["folderIcon"],
-						array(
-							"height"		=>	"10px",
-							"srcModifier"	=>	"../"
-						)
-					);
-				?>
-				 - Folder &nbsp; &nbsp; &nbsp; 
-				<?php
-					echo generateImage(
-						$arrayOfImages["folderIconNR"],
-						array(
-							"height"		=>	"10px",
-							"srcModifier"	=>	"../"
-						)
-					);
-				?>
-				 - Folder Not Readable &nbsp; &nbsp; &nbsp; 
-				<?php
-					echo generateImage(
-						$arrayOfImages["folderIconNW"],
-						array(
-							"height"		=>	"10px",
-							"srcModifier"	=>	"../"
-						)
-					);
-				?>
-				 - Folder Not Writeable &nbsp; &nbsp; &nbsp; 
-			</li>
-			<li>
-				f - file &nbsp; &nbsp; &nbsp; | &nbsp; &nbsp; &nbsp;
-				d - directory &nbsp; &nbsp; &nbsp; | &nbsp; &nbsp; &nbsp;
-				u - unknown / file not found &nbsp; &nbsp; &nbsp; | &nbsp; &nbsp; &nbsp;
-				r - readable &nbsp; &nbsp; &nbsp; | &nbsp; &nbsp; &nbsp;
-				w - writeable &nbsp; &nbsp; &nbsp; | &nbsp; &nbsp; &nbsp;
-				x - executable
-			</li>
-		</ul>
-	</li>
-</ul>
+</div>
+<div class="settingsHeader" id="watchKey" >
+	Key
+</div>
+<div class="settingsDiv" >
+	<ul class="settingsUl">
+		<li>
+			<?php
+				echo generateImage(
+					$arrayOfImages["redWarning"],
+					array(
+						"height"		=>	"10px",
+						"srcModifier"	=>	"../"
+					)
+				);
+			?>
+			 - File / Folder not found! &nbsp; &nbsp; &nbsp; 
+			<?php 
+				echo generateImage(
+					$arrayOfImages["yellowWarning"],
+					array(
+						"height"		=>	"10px",
+						"srcModifier"	=>	"../"
+					)
+				);
+			?>
+			 - Unknown
+		</li>
+		<li>
+			<?php
+				echo generateImage(
+					$arrayOfImages["fileIcon"],
+					array(
+						"height"		=>	"10px",
+						"srcModifier"	=>	"../"
+					)
+				);
+			?>
+			 - File &nbsp; &nbsp; &nbsp; 
+			<?php
+				echo generateImage(
+					$arrayOfImages["fileIconNR"],
+					array(
+						"height"		=>	"10px",
+						"srcModifier"	=>	"../"
+					)
+				);
+			?>
+			 - File Not Readable &nbsp; &nbsp; &nbsp; 
+			<?php
+				echo generateImage(
+					$arrayOfImages["fileIconNW"],
+					array(
+						"height"		=>	"10px",
+						"srcModifier"	=>	"../"
+					)
+				);
+			?>
+			 - File Not Writeable
+		</li>
+		<li>
+			<?php
+				echo generateImage(
+					$arrayOfImages["folderIcon"],
+					array(
+						"height"		=>	"10px",
+						"srcModifier"	=>	"../"
+					)
+				);
+			?>
+			 - Folder &nbsp; &nbsp; &nbsp; 
+			<?php
+				echo generateImage(
+					$arrayOfImages["folderIconNR"],
+					array(
+						"height"		=>	"10px",
+						"srcModifier"	=>	"../"
+					)
+				);
+			?>
+			 - Folder Not Readable &nbsp; &nbsp; &nbsp; 
+			<?php
+				echo generateImage(
+					$arrayOfImages["folderIconNW"],
+					array(
+						"height"		=>	"10px",
+						"srcModifier"	=>	"../"
+					)
+				);
+			?>
+			 - Folder Not Writeable &nbsp; &nbsp; &nbsp; 
+		</li>
+		<li>
+			f - file &nbsp; &nbsp; &nbsp; | &nbsp; &nbsp; &nbsp;
+			d - directory &nbsp; &nbsp; &nbsp; | &nbsp; &nbsp; &nbsp;
+			u - unknown / file not found &nbsp; &nbsp; &nbsp; | &nbsp; &nbsp; &nbsp;
+			r - readable &nbsp; &nbsp; &nbsp; | &nbsp; &nbsp; &nbsp;
+			w - writeable &nbsp; &nbsp; &nbsp; | &nbsp; &nbsp; &nbsp;
+			x - executable
+		</li>
+	</ul>
 </div>
 <div id="hidden" style="display: none">
 	<input id="numberOfRows" type="text" name="numberOfRows" value="<?php echo $i;?>">

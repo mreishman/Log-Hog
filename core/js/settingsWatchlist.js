@@ -260,6 +260,7 @@ function addFileFolderAjax(fileType, sentLocation)
 				hideSplit: fileListData["filesFound"]
 			}
 			);
+			location.href = "#rowNumber"+countOfWatchList;
 		}
 	});	
 }
@@ -380,6 +381,8 @@ function addOther()
 			Location: defaultNewPathOther
 		}
 	);
+	var countOfWatchList = parseInt(document.getElementById("numberOfRows").value);
+	location.href = "#rowNumber"+countOfWatchList;
 }
 
 function setNewFileFolderValue(newValue,hideFiles)
