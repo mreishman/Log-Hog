@@ -88,7 +88,7 @@ echo loadSentryData($sendCrashInfoJS, $branchSelected); ?>
 <?php elseif(strpos($URI, 'watchlist.php') !== false): ?>
 	<div id="menu2">
 		<a class="link" href="#settingsMainWatch" > Watchlist </a>
-		<a class="link" href="#archive" > Archive </a>
+		<a class="link" href="#archiveMessage" > Archive </a>
 		<a class="link" href="#watchKey" > Key</a>
 		<a class="link" onclick="addFile();">+ Add New File</a>
 		<a class="link" onclick="addFolder();">+ Add New Folder</a>
