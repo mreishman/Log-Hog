@@ -243,7 +243,7 @@ function generateSaveBlock($data = array(), $defaultTrashCanIcon, $arrayOfImages
 	
 
 	$saveBlock = "<li class=\"watchRow\" id=\"rowNumber".$rowNumber."\" ><div class=\"settingsHeader\" >";
-	$saveBlock .= "File ".$fileNumber.":";
+	$saveBlock .= $fileNumber.":";
 	$saveBlock .= "<div id=\"infoFile".$rowNumber."\" style=\"width: 100px; display: inline-block; text-align: center;\">";
 	$saveBlock .= $filePermsDisplay;
 	$saveBlock .= "</div>";

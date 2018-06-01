@@ -48,6 +48,10 @@ $watchListFolder = array();
 
 foreach($watchList as $key => $value)
 {
+	if($value["SaveGroup"] !== "false")
+	{
+		continue;
+	}
 	$path = $value["Location"];
 	$filter = $value["Pattern"];
 	$fileData = array();
