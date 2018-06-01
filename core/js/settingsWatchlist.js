@@ -811,12 +811,8 @@ function splitFiles(currentRow)
 	{
 		for (var i = 0; i < listOfFiles.length; i++)
 		{
-		  var fileLocation = listOfFiles[i].value;
-		  addRowFunction(
-		  	{
-		  		FileType: "file",
-		  		Location: fileLocation
-		  	});
+			var fileLocation = listOfFiles[i].value;
+			addFileFolderAjax("file", fileLocation);
 		}
 
 		deleteRowFunction(currentRow);
@@ -1144,11 +1140,11 @@ function ajaxAddRowFirstLoad(currentCount)
 				success(data)
 				{
 					var countOfWatchList = parseInt(document.getElementById("numberOfRows").value);
-					var fileListData = generateSubFiles({fileArray: data["data"], currentNum: (countOfWatchList+1), mainFolder: _data["Location"]});					
+					var fileListData = generateSubFiles({fileArray: data["data"], currentNum: (countOfWatchList+1), mainFolder: _data["Location"]});				
 					_data["fileImage"] = icons[data["img"]];
 					_data["filePermsDisplay"] =  data["fileInfo"];
 					_data["filesInFolder"] =  fileListData["html"];
-					_data["hideSplit"] =  fileListData["filesFound"];
+					_data["hideSplit"] =  fileListData["hideSplit"];
 					addRowFunction(_data)
 					currentCount++;
 					setTimeout(function(){ajaxAddRowFirstLoad(currentCount);},100);
