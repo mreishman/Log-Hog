@@ -204,6 +204,15 @@ $countConfig--;
 						); ?> 
 						<i>PHP method is more accurate, but will increase poll times</i></span>
 				</li>
+				<li>
+					<span class="settingsBuffer">Show Php errors from file open fails:</span>
+					<div class="selectDiv">
+						<select name="showErrorPhpFileOpen">
+	  						<option <?php if($showErrorPhpFileOpen == 'true'){echo "selected";} ?> value="true">JS</option>
+	  						<option <?php if($showErrorPhpFileOpen == 'false'){echo "selected";} ?> value="false">PHP</option>
+						</select>
+					</div>
+				</li>
 			</ul>
 		</div>
 	</form>

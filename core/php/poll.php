@@ -7,7 +7,7 @@ require_once($baseModifier.'core/conf/config.php');
 require_once('configStatic.php');
 require_once('commonFunctions.php');
 
-$varsLoadLite = array("shellOrPhp", "logTrimOn", "logSizeLimit","logTrimMacBSD", "logTrimType","TrimSize","enableLogging","buffer","sliceSize","lineCountFromJS");
+$varsLoadLite = array("shellOrPhp", "logTrimOn", "logSizeLimit","logTrimMacBSD", "logTrimType","TrimSize","enableLogging","buffer","sliceSize","lineCountFromJS","showErrorPhpFileOpen");
 
 foreach ($varsLoadLite as $varLoadLite)
 {
@@ -59,11 +59,11 @@ if(isset($_POST['arrayToUpdate']))
 				{
 					if($logTrimType == 'lines')
 					{
-						trimLogLine($filename, $logSizeLimit,$logTrimMacBSD,$buffer, $shellOrPhp);
+						trimLogLine($filename, $logSizeLimit,$logTrimMacBSD,$buffer, $shellOrPhp, $showErrorPhpFileOpen);
 					}
 					elseif($logTrimType == 'size') //compair to trimsize value
 					{
-						trimLogSize($filename, $logSizeLimit,$logTrimMacBSD,$buffer, $shellOrPhp);
+						trimLogSize($filename, $logSizeLimit,$logTrimMacBSD,$buffer, $shellOrPhp. $showErrorPhpFileOpen);
 					}
 
 					if($lineCountFromJS === "false")

@@ -264,16 +264,16 @@ function getFileSizeInner($fileName, $shellOrPhp)
 	return $fileSize;
 }
 
-function trimLogLine($filename, $logSizeLimit,$logTrimMacBSD,$buffer, $shellOrPhp)
+function trimLogLine($filename, $logSizeLimit,$logTrimMacBSD,$buffer, $shellOrPhp, $showErrorPhpFileOpen)
 {
 	$lineCount = getLineCount($filename, $shellOrPhp);
 	if($lineCount > ($logSizeLimit+$buffer))
 	{
-		trimLogInner($logTrimMacBSD,$filename,($lineCount - $logSizeLimit), $shellOrPhp);
+		trimLogInner($logTrimMacBSD,$filename,($lineCount - $logSizeLimit), $shellOrPhp, $showErrorPhpFileOpen);
 	}
 }
 
-function trimLogSize($filename, $logSizeLimit,$logTrimMacBSD,$buffer, $shellOrPhp)
+function trimLogSize($filename, $logSizeLimit,$logTrimMacBSD,$buffer, $shellOrPhp, $showErrorPhpFileOpen)
 {
 	$maxForLoop = 0;
 	$trimFileBool = true;
@@ -290,7 +290,7 @@ function trimLogSize($filename, $logSizeLimit,$logTrimMacBSD,$buffer, $shellOrPh
 				$numOfLinesToRemoveTo = round($lineCountForFile - $numOfLinesAllowed);
 			}
 
-			trimLogInner($logTrimMacBSD,$filename,$numOfLinesToRemoveTo, $shellOrPhp);
+			trimLogInner($logTrimMacBSD,$filename,$numOfLinesToRemoveTo, $shellOrPhp, $showErrorPhpFileOpen);
 		}
 		else
 		{
@@ -300,13 +300,13 @@ function trimLogSize($filename, $logSizeLimit,$logTrimMacBSD,$buffer, $shellOrPh
 	}
 }
 
-function trimLogInner($logTrimMacBSD,$filename,$lineEnd, $shellOrPhp)
+function trimLogInner($logTrimMacBSD,$filename,$lineEnd, $shellOrPhp, $showErrorPhpFileOpen)
 {
 	if($shellOrPhp === "phpPreferred" || $shellOrPhp ===  "phpOnly")
 	{
 		try
 		{
-			trimLogPhp($filename,$lineEnd);
+			trimLogPhp($filename,$lineEnd, $showErrorPhpFileOpen);
 			return;
 		}
 		catch (Exception $e)
@@ -331,20 +331,29 @@ function trimLogInner($logTrimMacBSD,$filename,$lineEnd, $shellOrPhp)
 	{
 		try
 		{
-			trimLogPhp($filename,$lineEnd);
+			trimLogPhp($filename,$lineEnd, $showErrorPhpFileOpen);
 		}
 		catch (Exception $e){}
 		return;
 	}
 }
 
-function trimLogPhp($filename,$lineEnd)
+function trimLogPhp($filename,$lineEnd,$showErrorPhpFileOpen)
 {
+	
 	$lines = file($filename);
 	$first_line = $lines[0];
 	$lines = array_slice($lines, $lineEnd + 2);
 	$lines = array_merge(array($first_line, "\n"), $lines);
-	$file = fopen($filename, "w");
+	$file = false;
+	if($showErrorPhpFileOpen === "false")
+	{
+		$file = fopen($filename, "w");
+	}
+	else
+	{
+		$file = @fopen($filename, "w");
+	}
 	if(gettype($file) !== "boolean")
 	{
 		fwrite($file, implode("", $lines));
