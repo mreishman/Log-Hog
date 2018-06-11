@@ -262,6 +262,7 @@ $defaultConfig = array(
 	'logNameExtension'				=> 'true',
 	'logNameFormat'					=> 'default',
 	'logNameGroup'					=> 'false',
+	'logShowMoreOptions'			=> 'false',
 	'logSizeLimit'					=>	2000,
 	'logTitle'						=> 'lastLine',
 	'logTrimMacBSD'					=> 'false',

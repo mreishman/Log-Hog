@@ -286,7 +286,7 @@ function generateSaveBlock($data = array(), $defaultTrashCanIcon, $arrayOfImages
 	}
 	$saveBlock .= "</select></div></span><span class=\"settingsBuffer\" ><input ".$patternHideInput." type=\"text\" onchange=\"updateSubFiles(".$rowNumber.");\"  name=\"watchListKey".$rowNumber."Pattern\" value=\"".$pattern."\" ></span></li>";
 	$saveBlock .= "<input type=\"hidden\" name=\"watchListKey".$rowNumber."Archive\" value=\"{{archiveValue}}\"  >";
-	$saveBlock .= "<li class=\"typeFile\" ".$typeFile."><span class=\"settingsBuffer\" >Recursive: </span><span class=\"settingsBuffer\" ><div class=\"selectDiv\"><select onchange=\"updateSubFiles(".$rowNumber.");\" name=\"watchListKey".$rowNumber."Recursive\" >";
+	$saveBlock .= "<li class=\"typeFile condensed\" ".$typeFile."><span class=\"settingsBuffer\" >Recursive: </span><span class=\"settingsBuffer\" ><div class=\"selectDiv\"><select onchange=\"updateSubFiles(".$rowNumber.");\" name=\"watchListKey".$rowNumber."Recursive\" >";
 	if(isset($data["recursiveOptions"]))
 	{
 		$saveBlock .=  makeTrueFalseSelect($recursiveOptions);
@@ -297,17 +297,9 @@ function generateSaveBlock($data = array(), $defaultTrashCanIcon, $arrayOfImages
 	}
 	$saveBlock .= "</select></div></span>";
 	$saveBlock .= "<span class=\"settingsBuffer\" >Auto Delete Files After: </span><span class=\"settingsBuffer\" ><input style=\"width: 56px;\" type=\"text\" name=\"watchListKey".$rowNumber."AutoDeleteFiles\" value=\"".$AutoDeleteFiles."\" > Days No Change</span></li>";
-	$saveBlock .= "<li  class=\"typeFolder\" ".$typeFolder."><span class=\"settingsBuffer\" >Name: </span><span class=\"settingsBuffer\" ><input type=\"text\" name=\"watchListKey".$rowNumber."Name\" value=\"".$Name."\" > </span></li>";
-	$saveBlock .= "<li><span class=\"settingsBuffer\" >Exclude Trim: </span><span class=\"settingsBuffer\" ><div class=\"selectDiv\"><select name=\"watchListKey".$rowNumber."ExcludeTrim\" >";
-	if(isset($data["excludeTrimOptions"]))
-	{
-		$saveBlock .=   makeTrueFalseSelect($excludeTrimOptions);
-	}
-	else
-	{
-		$saveBlock .=  $excludeTrimOptions;
-	}
-	$saveBlock .= "</select></div></span>";
+	$saveBlock .= "<li  class=\"typeFolder condensed\" ".$typeFolder."><span class=\"settingsBuffer\" >Name: </span><span class=\"settingsBuffer\" ><input type=\"text\" name=\"watchListKey".$rowNumber."Name\" value=\"".$Name."\" > </span></li>";
+	$saveBlock .= "<li>";
+	$saveBlock .= "<span class=\"settingsBuffer\" >Group: </span><span class=\"settingsBuffer\" ><input type=\"text\" name=\"watchListKey".$rowNumber."Group\" value=\"".$Group."\" ></span>";
 	$saveBlock .= "<span class=\"settingsBuffer\" >FileType: </span><span class=\"settingsBuffer\" ><div class=\"selectDiv\"><select onchange=\"toggleTypeFolderFile(".$rowNumber.")\" name=\"watchListKey".$rowNumber."FileType\" >";
 	if(isset($data["FileType"]))
 	{
@@ -318,7 +310,16 @@ function generateSaveBlock($data = array(), $defaultTrashCanIcon, $arrayOfImages
 		$saveBlock .=  $FileType;
 	}
 	$saveBlock .= "</select></div></span></li>";
-	$saveBlock .= "<li ><span class=\"settingsBuffer\" >Group: </span><span class=\"settingsBuffer\" ><input type=\"text\" name=\"watchListKey".$rowNumber."Group\" value=\"".$Group."\" ></span>";
+	$saveBlock .= "<li class=\"condensed\" ><span class=\"settingsBuffer\" >Exclude Trim: </span><span class=\"settingsBuffer\" ><div class=\"selectDiv\"><select name=\"watchListKey".$rowNumber."ExcludeTrim\" >";
+	if(isset($data["excludeTrimOptions"]))
+	{
+		$saveBlock .=   makeTrueFalseSelect($excludeTrimOptions);
+	}
+	else
+	{
+		$saveBlock .=  $excludeTrimOptions;
+	}
+	$saveBlock .= "</select></div></span>";
 	$saveBlock .= "<span class=\"settingsBuffer\" >Alert on Update: </span><span class=\"settingsBuffer\" ><div class=\"selectDiv\"><select name=\"watchListKey".$rowNumber."AlertEnabled\" >";
 	if(isset($data["AlertEnabled"]))
 	{
@@ -329,7 +330,7 @@ function generateSaveBlock($data = array(), $defaultTrashCanIcon, $arrayOfImages
 		$saveBlock .=  $AlertEnabled;
 	}
 	$saveBlock .= "</select></div></span></li>";
-	$saveBlock .= "<li class=\"typeFile\" ".$typeFile."><div class=\"settingsHeader\" style=\"margin: 0;\" >Files: ";
+	$saveBlock .= "<li class=\"typeFile condensed\" ".$typeFile."><div class=\"settingsHeader\" style=\"margin: 0;\" >Files: ";
 	$saveBlock .= "<div class=\"settingsHeaderButtons\"><span id=\"watchListKey".$rowNumber."SplitFilesLink\" ".$boolHideSplit." ><a class=\"linkSmall\" style=\"margin-right: 10px;\" onclick=\"updateSubFiles(".$rowNumber.");\" >Refresh</a><a class=\"linkSmall\" onclick=\"splitFilesPopup(".$rowNumber.", '".$location."');\"	 >Split Files</a></span></div>";
 	$saveBlock .= "</div> <div class=\"settingsDiv\" style=\"max-height: 150px; display: block; overflow: auto; margin: 0;\" >";
 	$saveBlock .= generateImage(

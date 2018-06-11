@@ -89,9 +89,22 @@ echo loadSentryData($sendCrashInfoJS, $branchSelected); ?>
 	<div id="menu2">
 		<a class="link" href="#settingsMainWatch" > Watchlist </a>
 		<a class="link" href="#watchKey" > Key</a>
+		&nbsp | &nbsp
 		<a class="link" onclick="addFile();">+ Add New File</a>
 		<a class="link" onclick="addFolder();">+ Add New Folder</a>
 		<a class="link" onclick="addOther();">+ Add Other</a>
+		&nbsp | &nbsp
+		<?php if($logShowMoreOptions === "false"): ?>
+			<a id="condensedLink" class="link" onclick="toggleCondensed();" >Show More Options</a>
+			<style type="text/css">
+				.condensed
+				{
+					display: none;
+				}
+			</style>
+		<?php else: ?>
+			<a  id="condensedLink" class="link" onclick="toggleCondensed();" >Show Condensed Options</a>
+		<?php endif; ?>
 	</div>
 <?php endif;
 $baseUrlImages = $localURL;

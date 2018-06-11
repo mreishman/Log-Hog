@@ -367,7 +367,7 @@ function generateSubFiles(data)
 			returnHtml += "<span class=\"settingsBuffer\" >Exclude Trim: <select onchange=\"updateFileInfo("+currentNum+");\" name=\"watchListKey"+currentNum+"FileInFolderTrim\"> "+generateTrueFalseSelect(excludeTrim)+" </select></span>";
 			returnHtml += "<span class=\"settingsBuffer\" >Exclude Delete: <select onchange=\"updateFileInfo("+currentNum+");\" name=\"watchListKey"+currentNum+"ExcludeDelete\"> "+generateTrueFalseSelect(excludeDelete)+" </select></span>";
 			returnHtml += "<span class=\"settingsBuffer\" >Alert on Update: <select onchange=\"updateFileInfo("+currentNum+");\" name=\"watchListKey"+currentNum+"FileInFolderAlert\"> "+generateTrueFalseSelect(alertOnUpdate)+" </select></span>";
-			returnHtml += "<span class=\"settingsBuffer\" >Name: <input onchange=\"updateFileInfo("+currentNum+");\"  type=\"text\" name=\"watchListKey"+currentNum+"FileInFolderName\" value=\""+name+"\" > </span>";
+			returnHtml += "<span class=\"settingsBuffer\" style=\"text-align: right; width: 50px; padding-right:5px; \" >Name:  </span><span class=\"settingsBuffer\" > <input onchange=\"updateFileInfo("+currentNum+");\"  type=\"text\" name=\"watchListKey"+currentNum+"FileInFolderName\" value=\""+name+"\" > </span>";
 			returnHtml += "</li>";
 		}
 	}
@@ -377,6 +377,20 @@ function generateSubFiles(data)
 		hideSplit = true;
 	}
 	return {html: returnHtml, hideSplit};
+}
+
+function toggleCondensed()
+{
+	if(getComputedStyle(document.getElementsByClassName("condensed")[0], null).display !== "none")
+	{
+		$(".condensed").hide();
+		document.getElementById("condensedLink").innerHTML = "Show More Options";
+	}
+	else
+	{
+		$(".condensed").show();
+		document.getElementById("condensedLink").innerHTML = "Show Condensed Options";
+	}
 }
 
 function updateFileFolderGui(hideFiles)
