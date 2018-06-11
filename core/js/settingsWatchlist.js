@@ -23,6 +23,7 @@ var staticRowNumber = 1;
 var progressBarWatchList;
 var percentWatchList = 0;
 var currentPatternSelect = defaultNewAddPattern;
+var fileFolderList = {};
 
 function generateRow(data)
 {
@@ -59,7 +60,6 @@ function generateRow(data)
 			break;
 		}
 	}
-
 	var item = $("#storage .saveBlock").html();
 	item = item.replace(/{{rowNumber}}/g, data["rowNumber"]);
 	item = item.replace(/{{fileNumber}}/g, data["fileNumber"]);
@@ -84,6 +84,8 @@ function generateRow(data)
 	item = item.replace(/{{hidesplitbutton}}/g, displayNoneIfTrue(hideSplit));
 	item = item.replace(/{{patternSelect}}/g, generatePatternSelect(data["Pattern"]));
 	item = item.replace(/{{hidepatterninput}}/g, displayNoneIfTrue(hidePattern));
+	item = item.replace(/{{archiveButton}}/g, generateArchiveButton(data["SaveGroup"]));
+	item = item.replace(/{{archiveValue}}/g, data["SaveGroup"]);
 	if(!data["down"])
 	{
 		item = item.replace(/{{movedown}}/g, "style=\"display: none;\"");
@@ -93,6 +95,15 @@ function generateRow(data)
 		item = item.replace(/{{moveup}}/g, "style=\"display: none;\"");
 	}
 	return item;
+}
+
+function generateArchiveButton(value)
+{
+	if(!value)
+	{
+		return "Unarchive";
+	}
+	return "Archive";
 }
 
 function displayNoneIfTrue(selectValue)
@@ -750,6 +761,12 @@ function addRowFunction(data)
 			recursive = data["Recursive"];
 		}
 
+		var saveGroup = "false";
+		if("SaveGroup" in data)
+		{
+			saveGroup = data["SaveGroup"];
+		}
+
 		var item = generateRow(
 			{
 				rowNumber: countOfWatchList,
@@ -771,7 +788,8 @@ function addRowFunction(data)
 				AlertEnabled: alertEnabled,
 				up: true,
 				down: false,
-				hideSplit
+				hideSplit,
+				SaveGroup: saveGroup
 			}
 		);
 		$(".uniqueClassForAppendSettingsMainWatchNew").append(item);
@@ -960,7 +978,8 @@ function moveRow(currentRow, newRow, removeOld = true)
 			AlertEnabled: document.getElementsByName("watchListKey"+currentRow+"AlertEnabled")[0].value,
 			up: upBool,
 			down: downBool,
-			hideSplit: (document.getElementById("watchListKey"+currentRow+"SplitFilesLink").style.display === "none")
+			hideSplit: (document.getElementById("watchListKey"+currentRow+"SplitFilesLink").style.display === "none"),
+			SaveGroup: document.getElementsByName("watchListKey"+currentRow+"Archive")[0].value
 		}
 	);
 	//add new one
@@ -1083,14 +1102,12 @@ function moveUp(rowNumber)
 
 function moveFileFolderDropdown()
 {
-	if(document.getElementById("fileFolderDropdown").style.display !== "none")
+	if(document.getElementById("fileFolderDropdown").style.display !== "none" && document.getElementById("fileFolderDropdown").style.display !== "")
 	{
 		document.getElementById("fileFolderDropdown").style.top = document.getElementsByName("watchListKey"+staticRowNumber+"Location")[0].getBoundingClientRect().bottom;
 		document.getElementById("fileFolderDropdown").style.left = document.getElementsByName("watchListKey"+staticRowNumber+"Location")[0].getBoundingClientRect().left;
 	}
 }
-
-var fileFolderList = {};
 
 function getFileFolderList()
 {
@@ -1177,6 +1194,25 @@ function updateProgressBarWatchList(additonalPercent, text, topText = "Loading..
 	catch(e)
 	{
 		eventThrowException(e);
+	}
+}
+
+function toggleArchive(rowNumber)
+{
+	var archiveValue = document.getElementsByName("watchListKey"+rowNumber+"Archive")[0].value;
+	if(archiveValue === "true")
+	{
+		//set to false
+		document.getElementsByName("watchListKey"+rowNumber+"Archive")[0].value = "false";
+		$("#rowNumber"+rowNumber).removeClass("archiveLog");
+		document.getElementById("archive"+rowNumber).innerHTML = "Archive";
+	}
+	else
+	{
+		//set to true
+		document.getElementsByName("watchListKey"+rowNumber+"Archive")[0].value = "true";
+		$("#rowNumber"+rowNumber).addClass("archiveLog");
+		document.getElementById("archive"+rowNumber).innerHTML = "Unarchive";
 	}
 }
 

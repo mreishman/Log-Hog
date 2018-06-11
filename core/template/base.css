@@ -353,3 +353,9 @@ div.sidebarLeft {
   right: 0;
   overflow: auto;
 }
+
+.archiveLog .settingsDiv
+{
+  filter: invert(35%);
+  opacity: 0.5;
+}

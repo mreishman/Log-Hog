@@ -217,7 +217,7 @@ function findUpdateValue($newestVersionCount, $versionCount, $newestVersion, $ve
 		{
 			if(isset($newestVersion[$i]) && $newestVersion[$i] !== $version[$i])
 			{
-				if($newestVersion[$i] > $version[$i])
+				if(intval($newestVersion[$i]) > intval($version[$i]))
 				{
 					$calcuation = 3-$i;
 					return max(1, $calcuation);

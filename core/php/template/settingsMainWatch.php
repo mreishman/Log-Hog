@@ -100,24 +100,6 @@ $defaultFileNWIcon = generateImage(
 		<ul class="settingsUl uniqueClassForAppendSettingsMainWatchNew" style=" -webkit-padding-start: 0;" >
 		</ul>
 	</div>
-	<div class="settingsHeader">
-		Watchlist Archive
-		<div class="settingsHeaderButtons">
-			<a onclick="resetWatchListVars();" id="settingsMainWatchResetButton" style="display: none;" class="linkSmall" > Reset Current Changes</a>
-			<a class="linkSmall" onclick="saveAndVerifyMain('settingsMainWatch');" >Save Changes</a>
-		</div>
-	</div>
-	<div class="settingsDiv" >
-		<span id="archiveMessage">
-			<ul class="settingsUl">
-				<li>
-					No Files / Folders found in archive
-				</li>
-			</ul>
-		</span>
-		<ul class="settingsUl uniqueClassForAppendSettingsMainWatchArchive" style=" -webkit-padding-start: 0;" >
-		</ul>
-	</div>
 	<div id="hidden" style="display: none">
 		<input id="numberOfRows" type="text" name="numberOfRows" value="<?php echo $i;?>">
 	</div>
