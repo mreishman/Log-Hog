@@ -2709,13 +2709,17 @@ function removeNotification(idToRemove)
 function updateNotificationCount()
 {
 	var currentCount = notifications.length;
-	$("#notificationCount").empty();
 	if(currentCount > 0)
 	{
 		if(currentCount < 10)
 		{
 			currentCount = "0" + currentCount;
 		}
+		if(document.getElementById("notificationCount").innerHTML == currentCount)
+		{
+			return;
+		}
+		$("#notificationCount").empty();
 		document.getElementById("notificationIcon").style.display = "block";
 		$("#notificationCount").append(currentCount);
 		document.getElementById("notificationCount").style.left = (document.getElementById("notificationDiv").getBoundingClientRect().left+5) + "px";
@@ -2725,6 +2729,7 @@ function updateNotificationCount()
 	}
 	else
 	{
+		$("#notificationCount").empty();
 		document.getElementById("notificationIcon").style.display = "none";
 	}
 }
