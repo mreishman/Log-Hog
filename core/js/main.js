@@ -2640,6 +2640,7 @@ function formatAMPM(date)
 function displayNotifications(notificationsArray)
 {
 	clearAllNotifications();
+	var htmlForNotifications = "<span style=\"overflow: auto; max-height: 300px; display: block;\" >";
 	for (var i = notificationsArray.length - 1; i >= 0; i--)
 	{
 		var blank;
@@ -2665,8 +2666,10 @@ function displayNotifications(notificationsArray)
 		{
 			item = item.replace(/{{image}}/g, notificationsArray[i]['image']);
 		}
-		$("#notificationHolder").append(item);
+		htmlForNotifications += item;
 	}
+	htmlForNotifications += "</span>";
+	$("#notificationHolder").append(htmlForNotifications);
 	$("#notificationHolder").append($("#storage .notificationButtons").html());
 }
 
