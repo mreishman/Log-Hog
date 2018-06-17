@@ -33,7 +33,6 @@ $defaultConfig = array(
 	'dontNotifyVersion'				=> '0',
 	'displayName'					=> 'forThemesOnly',
 	'enableDevBranchDownload' 		=> 'false',
-	'enableHtopLink'				=> 'false',
 	'enableLogging'					=> 'false',
 	'enablePollTimeLogging'			=> 'false',
 	'expSettingsAvail'				=> 'true',

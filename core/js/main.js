@@ -20,7 +20,8 @@ var lastLogs = {};
 var logLines = {};
 var logs = {};
 var logsToHide = new Array();
-var pausePoll = false;
+var notifications = new Array();
+var pausePollCurrentSession = false;
 var percent = 0;
 var polling = false;
 var pollRefreshAllBoolStatic = pollRefreshAllBool;
@@ -37,6 +38,7 @@ var t3 = performance.now();
 var timeoutVar = null;
 var timer;
 var titles = {};
+var updateFromID = "settingsInstallUpdate";
 var updating = false;
 var userPaused = false;
 var title = $("title").text();
@@ -573,12 +575,17 @@ function firstLoadEndAction()
 
 function pollTimeLogEndAction()
 {
+	pollRateCalc = pollingRate;
+	if(pollingRateType === "Seconds")
+	{
+		pollRateCalc *= 1000;
+	}
 	t1 = performance.now();
-	document.getElementById("loggingTimerPollRate").innerText = "Ajax refresh took    "+addPaddingToNumber(Math.round(t2 - t0))+":"+addPaddingToNumber(Math.round(t3 - t2),2)+":"+addPaddingToNumber(Math.round(t1 - t3))+"    " + addPaddingToNumber(Math.round(t1 - t0)) + "/" + addPaddingToNumber(pollingRate) +"("+addPaddingToNumber(parseInt(pollingRate)*counterForPoll)+") milliseconds.";
+	document.getElementById("loggingTimerPollRate").innerText = "Ajax refresh took    "+addPaddingToNumber(Math.round(t2 - t0))+":"+addPaddingToNumber(Math.round(t3 - t2),2)+":"+addPaddingToNumber(Math.round(t1 - t3))+"    " + addPaddingToNumber(Math.round(t1 - t0)) + "/" + addPaddingToNumber(pollRateCalc) +"("+addPaddingToNumber(parseInt(pollRateCalc)*counterForPoll)+") milliseconds.";
 	document.getElementById("loggingTimerPollRate").style.color = "";
 	counterForPoll = 0;
 	var time = Math.round(t1-t0);
-	var rate = parseInt(pollingRate);
+	var rate = parseInt(pollRateCalc);
 	if(time > rate)
 	{
 		if(time > (2*rate))
@@ -642,10 +649,10 @@ function pausePollAction()
 {
 	try
 	{
-		if(pausePoll)
+		if(pausePollCurrentSession)
 		{
 			userPaused = false;
-			pausePoll = false;
+			pausePollCurrentSession = false;
 			showPauseButton();
 			if(pollTimer === null)
 			{
@@ -695,7 +702,7 @@ function endRefreshAction()
 		}
 		showRefreshButton(); 
 		refreshing = false;
-		if(pausePoll)
+		if(pausePollCurrentSession)
 		{
 			updateDocumentTitle("Paused");
 		}
@@ -897,7 +904,7 @@ function update(data)
 							item = blank;
 							item = item.replace(/{{title}}/g, nameForLog);
 							item = item.replace(/{{id}}/g, id);
-							if(groupByColorEnabled === true)
+							if(groupByColorEnabled === "true")
 							{
 								classInsert += " buttonColor"+(folderNameCount+1)+" ";
 							}
@@ -1120,7 +1127,7 @@ function update(data)
 						
 						if(initialized && updated && $(window).filter(":focus").length === 0) 
 						{
-							if(flashTitleUpdateLog)
+							if(flashTitleUpdateLog === "true")
 							{
 								flashTitle();
 							}
@@ -1739,6 +1746,7 @@ function makePretty(id)
 		var lengthOfTextArray = text.length;
 		var selectListForFilter = document.getElementsByName("searchType")[0];
 		var selectedListFilterType = selectListForFilter.options[selectListForFilter.selectedIndex].value;
+		filterContentLinePadding = parseInt(filterContentLinePadding);
 		var bottomPadding = filterContentLinePadding;
 		var topPadding = filterContentLinePadding;
 		var foundOne = false;
@@ -1967,13 +1975,23 @@ function startPollTimer()
 {
 	/* Dont try catch visibility  */
 
-	if(pausePollOnNotFocus === true || pausePollOnNotFocus === "true")
+	pollRateCalc = pollingRate;
+	if(pollingRateType === "Seconds")
 	{
-		pollTimer = setInterval(poll, pollingRate);
+		pollRateCalc *= 1000;
+	}
+	if(pauseOnNotFocus === "true")
+	{
+		pollTimer = setInterval(poll, pollRateCalc);
 	}
 	else
 	{
-		pollTimer = Visibility.every(pollingRate, backgroundPollingRate, function () { poll(); });
+		var bgPollRateCalc = backgroundPollingRate;
+		if(backgroundPollingRateType === "Seconds")
+		{
+			bgPollRateCalc *= 1000;
+		}
+		pollTimer = Visibility.every(pollRateCalc, bgPollRateCalc, function () { poll(); });
 	}
 }
 
@@ -1981,7 +1999,7 @@ function clearPollTimer()
 {
 	/* Dont try catch visibility  */
 	
-	if(pausePollOnNotFocus === true || pausePollOnNotFocus === "true")
+	if(pauseOnNotFocus === "true")
 	{
 		clearInterval(pollTimer);
 	}
@@ -1994,19 +2012,29 @@ function clearPollTimer()
 
 function switchPollType()
 {
-	if(pausePollOnNotFocus === true || pausePollOnNotFocus === "true")
+	pollRateCalc = pollingRate;
+	if(pollingRateType === "Seconds")
+	{
+		pollRateCalc *= 1000;
+	}
+	if(pauseOnNotFocus === "true")
 	{
 		clearInterval(pollTimer);
-		pausePollOnNotFocus = false;
-		pollTimer = Visibility.every(pollingRate, backgroundPollingRate, function () { poll(); });
+		pauseOnNotFocus = "false";
+		var bgPollRateCalc = backgroundPollingRate;
+		if(backgroundPollingRateType === "Seconds")
+		{
+			bgPollRateCalc *= 1000;
+		}
+		pollTimer = Visibility.every(pollRateCalc, bgPollRateCalc, function () { poll(); });
 		showPopup();
 		document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Toggled off!</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Toggled off auto pause in background</div></div>";
 	}
 	else
 	{
 		Visibility.stop(pollTimer);
-		pausePollOnNotFocus = true;
-		pollTimer = setInterval(poll, pollingRate);
+		pauseOnNotFocus = "true";
+		pollTimer = setInterval(poll, pollRateCalc);
 		showPopup();
 		document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Toggled on!</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Toggled on auto pause in background</div></div>";
 	}
@@ -2025,10 +2053,10 @@ function checkIfPageHidden()
 {
 	try
 	{
-		if(isPageHidden() && pausePollOnNotFocus)
+		if(isPageHidden() && pauseOnNotFocus === "true")
 		{
 			//hidden
-			if(!pausePoll)
+			if(!pausePollCurrentSession)
 			{
 				pausePollFunction();
 			}
@@ -2036,9 +2064,9 @@ function checkIfPageHidden()
 		}
 
 		//not hidden
-		if(!userPaused && pausePoll)
+		if(!userPaused && pausePollCurrentSession)
 		{
-			pausePoll = false;
+			pausePollCurrentSession = false;
 			showPauseButton();
 			stopFlashTitle();
 			if(pollTimer === null)
@@ -2064,7 +2092,7 @@ function pausePollFunction()
 {
 	try
 	{
-		pausePoll = true;
+		pausePollCurrentSession = true;
 		showPlayButton();
 		updateDocumentTitle("Paused");
 		if(pollTimer !== null)
@@ -2327,9 +2355,9 @@ function checkForUpdateMaybe()
 {
 	try
 	{
-		if (autoCheckUpdate == true)
+		if (autoCheckUpdate == "true")
 		{
-			if(daysSinceLastCheck > (daysSetToUpdate - 1))
+			if(daysSinceLastCheck > (autoCheckDaysUpdate - 1))
 			{
 				daysSinceLastCheck = -1;
 				checkForUpdates("","Log-Hog", currentVersion, "settingsInstallUpdate", false, dontNotifyVersion);
@@ -2987,9 +3015,9 @@ $(document).ready(function()
 
 	refreshAction();
 
-	if(pausePollFromFile)
+	if(pausePoll === "true")
 	{
-		pausePoll = true;
+		pausePollCurrentSession = true;
 
 	}
 	else
@@ -2997,7 +3025,7 @@ $(document).ready(function()
 		startPollTimer();
 	}
 
-	if(pausePollOnNotFocus)
+	if(pauseOnNotFocus === "true")
 	{
 		startPauseOnNotFocus();
 	}

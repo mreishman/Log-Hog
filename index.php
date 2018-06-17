@@ -2,11 +2,11 @@
 require_once('core/php/errorCheckFunctions.php');
 $currentPage = "index.php";
 checkIfFilesExist(
-	array("core/conf/config.php","core/php/configStatic.php","core/php/loadVars.php","core/php/updateCheck.php","core/js/jquery.js","core/template/loading-bar.css","core/js/loading-bar.min.js","core/php/customCSS.php","core/php/template/popup.php","core/js/main.js","core/js/rightClickJS.js","core/js/update.js","core/php/commonFunctions.php","setup/setupProcessFile.php","error.php"),
+	array("core/conf/config.php","core/php/configStatic.php","core/php/loadVars.php","core/php/loadVarsToJs.php","core/php/updateCheck.php","core/js/jquery.js","core/template/loading-bar.css","core/js/loading-bar.min.js","core/php/customCSS.php","core/php/template/popup.php","core/js/main.js","core/js/rightClickJS.js","core/js/update.js","core/php/commonFunctions.php","setup/setupProcessFile.php","error.php"),
 	 "",
 	 $currentPage);
 checkIfFilesAreReadable(
-	array("core/conf/config.php","core/php/configStatic.php","core/php/loadVars.php","core/php/updateCheck.php","core/js/jquery.js","core/template/loading-bar.css","core/js/loading-bar.min.js","core/php/customCSS.php","core/php/template/popup.php","core/js/main.js","core/js/rightClickJS.js","core/js/update.js","core/php/commonFunctions.php","setup/setupProcessFile.php","error.php"),
+	array("core/conf/config.php","core/php/configStatic.php","core/php/loadVars.php","core/php/loadVarsToJs.php","core/php/updateCheck.php","core/js/jquery.js","core/template/loading-bar.css","core/js/loading-bar.min.js","core/php/customCSS.php","core/php/template/popup.php","core/js/main.js","core/js/rightClickJS.js","core/js/update.js","core/php/commonFunctions.php","setup/setupProcessFile.php","error.php"),
 	 "",
 	 $currentPage);
 require_once('core/php/commonFunctions.php');
@@ -51,6 +51,7 @@ else
 }
 require_once('core/php/configStatic.php');
 require_once('core/php/loadVars.php');
+require_once('core/php/loadVarsToJs.php');
 require_once('core/php/updateCheck.php');
 
 if(!class_exists('ZipArchive') && $autoCheckUpdate === "true")
@@ -59,15 +60,6 @@ if(!class_exists('ZipArchive') && $autoCheckUpdate === "true")
 }
 
 $daysSince = calcuateDaysSince($configStatic['lastCheck']);
-
-if($pollingRateType == 'Seconds')
-{
-	$pollingRate *= 1000;
-}
-if($backgroundPollingRateType == 'Seconds')
-{
-	$backgroundPollingRate *= 1000;
-}
 
 $locationForStatusIndex = checkForStatusInstall($locationForStatus, "./");
 
@@ -489,7 +481,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 				</div>
 				Update
 				<?php
-				if($levelOfUpdate !== 0 && $configStatic["version"] !== $dontNotifyVersion && $updateNotificationEnabled)
+				if($levelOfUpdate !== 0 && $configStatic["version"] !== $dontNotifyVersion && $updateNotificationEnabled === "true")
 				{ 
 					if($updateNoticeMeter === "every" || $levelOfUpdate > 1)
 					{
@@ -699,7 +691,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 			}
 			<?php
 		endif;
-		if($levelOfUpdate !== 0 && $configStatic["version"] !== $dontNotifyVersion && $updateNotificationEnabled): 
+		if($levelOfUpdate !== 0 && $configStatic["version"] !== $dontNotifyVersion && $updateNotificationEnabled === "true"): 
 			if($updateNoticeMeter === "every" || $levelOfUpdate > 1):
 				$updateImage = "";
 				if($levelOfUpdate == 1)
@@ -739,61 +731,21 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 			<?php endif; 
 		endif;
 		echo "var colorArrayLength = ".count($currentSelectedThemeColorValues).";";
-		echo "var pausePollOnNotFocus = ".$pauseOnNotFocus.";";
-		echo "var autoCheckUpdate = ".$autoCheckUpdate.";";
-		echo "var flashTitleUpdateLog = ".$flashTitleUpdateLog.";";
 		echo "var dateOfLastUpdate = '".$configStatic['lastCheck']."';";
 		echo "var daysSinceLastCheck = '".$daysSince."';";
-		echo "var daysSetToUpdate = '".$autoCheckDaysUpdate."';";
-		echo "var pollingRate = ".$pollingRate.";";
-		echo "var backgroundPollingRate = ".$backgroundPollingRate.";";
-		echo "var pausePollFromFile = ".$pausePoll.";";
-		echo "var groupByColorEnabled = ".$groupByColorEnabled.";";
-		echo "var pollForceTrue = ".$pollForceTrue.";";
-		echo "var pollRefreshAll = ".$pollRefreshAll.";";
-		echo "var sliceSize = ".$sliceSize.";";
-		echo "var filterContentLinePadding = ".$filterContentLinePadding.";";
 		echo "var logDisplayArray = ".$logDisplayArray.";";
 		echo "var windowDisplayConfigRowCount = ".$windowDisplayConfig[0].";";
 		echo "var windowDisplayConfigColCount = ".$windowDisplayConfig[1].";";
 		echo "var borderPadding = ".$borderPadding.";";
-		echo "var autoMoveUpdateLog = ".$autoMoveUpdateLog.";";
 		$srcForLoadImage = "core/img/loading.gif";
 		if(isset($arrayOfImages))
 		{
 			$srcForLoadImage = $arrayOfImages["loading"]["src"];
 		}
 		?>
-		var notifications = new Array();
 		var srcForLoadImage = "<?php echo $srcForLoadImage; ?>";
-		var dontNotifyVersion = "<?php echo $dontNotifyVersion;?>";
 		var currentVersion = "<?php echo $configStatic['version'];?>";
-		var enablePollTimeLogging = "<?php echo $enablePollTimeLogging;?>";
-		var enableLogging = "<?php echo $enableLogging; ?>";
-		var groupByType = "<?php echo $groupByType; ?>";
-		var hideEmptyLog = "<?php echo $hideEmptyLog; ?>";
-		var currentFolderColorTheme = "<?php echo $currentFolderColorTheme; ?>";
-		var popupSettingsArray = <?php echo $popupSettingsArray; ?>;
-		var updateNoticeMeter = "<?php echo $updateNoticeMeter;?>";
-		var pollRefreshAllBool = "<?php echo $pollRefreshAllBool;?>";
-		var pollForceTrueBool = "<?php echo $pollRefreshAllBool;?>";
 		var baseUrl = "<?php echo $baseUrl;?>";
-		var updateFromID = "settingsInstallUpdate";
-		var notificationCountVisible = "<?php echo $notificationCountVisible;?>";
-		var caseInsensitiveSearch = "<?php echo $caseInsensitiveSearch; ?>";
-		var filterContentHighlight = "<?php echo $filterContentHighlight; ?>";
-		var filterContentLimit = "<?php echo $filterContentLimit; ?>";
-		var scrollOnUpdate = "<?php echo $scrollOnUpdate; ?>";
-		var logTitle = "<?php echo $logTitle; ?>";
-		var scrollEvenIfScrolled = "<?php echo $scrollEvenIfScrolled; ?>";
-		var highlightNew = "<?php echo $highlightNew; ?>";
-		var filterTitleIncludePath = "<?php echo $filterTitleIncludePath; ?>";
-		var logMenuLocation = "<?php echo $logMenuLocation; ?>";
-		var logNameFormat = "<?php echo $logNameFormat; ?>";
-		var logNameGroup = "<?php echo $logNameGroup; ?>";
-		var logNameExtension = "<?php echo $logNameExtension; ?>";
-		var lineCountFromJS = "<?php echo $lineCountFromJS; ?>";
-		var successVerifyNum = <?php echo $successVerifyNum; ?>;
 	</script>
 	<?php require_once('core/php/template/popup.php') ?>
 	<script src="core/js/main.js?v=<?php echo $cssVersion?>"></script>
