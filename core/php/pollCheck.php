@@ -1,12 +1,20 @@
 <?php
-$baseModifier = "../../";
-require_once($baseModifier.'local/layout.php');
-$baseUrl = $baseModifier."local/".$currentSelectedTheme."/";
-require_once($baseUrl.'conf/config.php');
-require_once($baseModifier.'core/conf/config.php');
-require_once('configStatic.php');
-require_once('updateProgressFile.php');
-require_once('commonFunctions.php');
+try 
+{
+	$baseModifier = "../../";
+	require_once($baseModifier.'local/layout.php');
+	$baseUrl = $baseModifier."local/".$currentSelectedTheme."/";
+	require_once($baseUrl.'conf/config.php');
+	require_once($baseModifier.'core/conf/config.php');
+	require_once('configStatic.php');
+	require_once('updateProgressFile.php');
+	require_once('commonFunctions.php');	
+}
+catch (Exception $e)
+{
+	echo json_encode("error in file permissions");
+	exit();
+}
 
 $varsLoadLite = array("shellOrPhp", "watchList", "lineCountFromJS");
 

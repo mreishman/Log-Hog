@@ -256,29 +256,37 @@ function pollTwo()
 			type: "POST",
 			success(data)
 			{
-				counterForPollForceRefreshErr = 0;
-				if(document.getElementById("noticeBar").style.display !== "none")
-				{
-					document.getElementById("noticeBar").style.display = "none";
-				}
-				if(data === false)
-				{
-					showPopup();
-					document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class='settingsHeader' >Log-Hog has been updated. Please Refresh</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Log-Hog has been updated, and is now on a new version. Please refresh the page.</div><div><div class='link' onclick='location.reload();' style='margin-left:165px; margin-right:50px;margin-top:35px;'>Reload</div></div>";
-					clearPollTimer()
-				}
-				else if(data === "update in progress")
+				if(data === "error in file permissions")
 				{
 					clearPollTimer()
-					window.location.href = "update/updateInProgress.php";
+					window.location.href = "error.php?error=550&page=pollCheck.php";
 				}
 				else
 				{
-					fileData = data;
-					pollTwoPartTwo(data);
-					if(lineCountFromJS === "false")
+					counterForPollForceRefreshErr = 0;
+					if(document.getElementById("noticeBar").style.display !== "none")
 					{
-						updatePollLineDiff(data);
+						document.getElementById("noticeBar").style.display = "none";
+					}
+					if(data === false)
+					{
+						showPopup();
+						document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class='settingsHeader' >Log-Hog has been updated. Please Refresh</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Log-Hog has been updated, and is now on a new version. Please refresh the page.</div><div><div class='link' onclick='location.reload();' style='margin-left:165px; margin-right:50px;margin-top:35px;'>Reload</div></div>";
+						clearPollTimer()
+					}
+					else if(data === "update in progress")
+					{
+						clearPollTimer()
+						window.location.href = "update/updateInProgress.php";
+					}
+					else
+					{
+						fileData = data;
+						pollTwoPartTwo(data);
+						if(lineCountFromJS === "false")
+						{
+							updatePollLineDiff(data);
+						}
 					}
 				}
 			},
