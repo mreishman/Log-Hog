@@ -376,7 +376,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 			</div>
 		</div>
 	</div>
-	<div class="backgroundForMenus" id="menu">
+	<div class="backgroundForMenus" id="menu" style="position: inherit;">
 	</div>
 	<?php echo $popupInfoLog; ?>.
 	<div style="display: inline-block; position: absolute; top: 0; left: 0; z-index: 30;" >
