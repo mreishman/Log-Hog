@@ -72,7 +72,14 @@ if(isset($_POST['arrayToUpdate']))
 					}
 				}
 				//poll logic
-				$dataVar =  tail($filename, $sliceSize, $shellOrPhp);
+				if($pathData["GrepFilter"] == "")
+				{
+					$dataVar =  tail($filename, $sliceSize, $shellOrPhp);
+				}
+				else
+				{
+					$dataVar = tailWithGrep($filename, $sliceSize, $shellOrPhp, $pathData["GrepFilter"]);
+				}
 			}
 			$dataVar = htmlentities($dataVar);
 			if($lineCount === "---" && $enableLogging != "false")

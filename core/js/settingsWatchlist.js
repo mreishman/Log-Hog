@@ -338,6 +338,7 @@ function generateSubFiles(data)
 			var excludeDelete = "false";
 			var alertOnUpdate = defaultdefaultNewAddAlertEnabled;
 			var name = "";
+			var grepFilter = "";
 			
 			if(keyTwo in fileData)
 			{
@@ -361,6 +362,10 @@ function generateSubFiles(data)
 				{
 					includeBool = fileData[keyTwo]["Include"];
 				}
+				if("GrepFilter" in fileData[keyTwo])
+				{
+					grepFilter = fileData[keyTwo]["GrepFilter"];
+				}
 			}
 			returnHtml += "<li>"+icons[fileArray[keyTwo]["image"]];
 			returnHtml += "<span style=\"width: 300px; overflow: auto; display: inline-block;\" >"+keyTwo.replace(mainFolder,"")+"</span><input name=\"watchListKey"+currentNum+"FileInFolder\"  type=\"hidden\" value=\""+keyTwo+"\" >";
@@ -369,6 +374,7 @@ function generateSubFiles(data)
 			returnHtml += "<span class=\"settingsBuffer\" >Exclude Delete: <select onchange=\"updateFileInfo("+currentNum+");\" name=\"watchListKey"+currentNum+"ExcludeDelete\"> "+generateTrueFalseSelect(excludeDelete)+" </select></span>";
 			returnHtml += "<span class=\"settingsBuffer\" >Alert on Update: <select onchange=\"updateFileInfo("+currentNum+");\" name=\"watchListKey"+currentNum+"FileInFolderAlert\"> "+generateTrueFalseSelect(alertOnUpdate)+" </select></span>";
 			returnHtml += "<span class=\"settingsBuffer\" style=\"text-align: right; width: 50px; padding-right:5px; \" >Name:  </span><span class=\"settingsBuffer\" > <input onchange=\"updateFileInfo("+currentNum+");\"  type=\"text\" name=\"watchListKey"+currentNum+"FileInFolderName\" value=\""+name+"\" > </span>";
+			returnHtml += "<span class=\"settingsBuffer\" style=\"text-align: right; width: 75px; padding-right:5px; \" >Filter:  </span><span class=\"settingsBuffer\" > <input onchange=\"updateFileInfo("+currentNum+");\"  type=\"text\" name=\"watchListKey"+currentNum+"GrepFilter\" value=\""+name+"\" > </span>";
 			returnHtml += "</li>";
 		}
 	}
@@ -868,6 +874,7 @@ function updateFileInfo(currentRow)
 	var listOfFilesDelete = document.getElementsByName("watchListKey"+currentRow+"ExcludeDelete");
 	var listOfFilesName = document.getElementsByName("watchListKey"+currentRow+"FileInFolderName");
 	var listOfFilesAlert = document.getElementsByName("watchListKey"+currentRow+"FileInFolderAlert");
+	var listOfGrepFilters = document.getElementsByName("watchListKey"+currentRow+"GrepFilter");
 	
 	if(listOfFiles)
 	{
@@ -879,7 +886,8 @@ function updateFileInfo(currentRow)
 			stringToUpdateTo += " \"Trim\":  \""+listOfFilesTrim[i].value + "\" , ";
 			stringToUpdateTo += " \"Delete\":  \""+listOfFilesDelete[i].value + "\", ";
 			stringToUpdateTo += " \"Name\":  \""+listOfFilesName[i].value + "\", ";
-			stringToUpdateTo += " \"Alert\":  \""+listOfFilesAlert[i].value + "\"  ";
+			stringToUpdateTo += " \"Alert\":  \""+listOfFilesAlert[i].value + "\",  ";
+			stringToUpdateTo += " \"GrepFilter\":  \""+listOfGrepFilters[i].value + "\"  ";
 			stringToUpdateTo += "}";
 			if(i !== (listOfFilesLength - 1))
 			{

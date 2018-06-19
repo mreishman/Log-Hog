@@ -153,6 +153,7 @@ foreach ($responseFilelist as $file)
 		$response[$file]["Name"] = $watchList[$keyFound]["Name"];
 		$response[$file]["AlertEnabled"] = $watchList[$keyFound]["AlertEnabled"];
 		$response[$file]["Group"] = $watchList[$keyFound]["Group"];
+		$response[$file]["GrepFilter"] = $watchlist[$keyFound]["GrepFilter"];
 	}
 	else
 	{
@@ -186,12 +187,18 @@ foreach ($responseFilelist as $file)
 					{
 						$response[$file]["AlertEnabled"] = $dataToUse["Alert"];
 					}
+					$response[$file]["GrepFilter"] = "";
+					if(isset($dataToUse["GrepFilter"]))
+					{
+						$response[$file]["GrepFilter"] = $dataToUse["GrepFilter"];
+					}
 				}
 				else
 				{
 					$response[$file]["ExcludeTrim"] = $watchList[$key]["ExcludeTrim"];
 					$response[$file]["Name"] = "";
 					$response[$file]["AlertEnabled"] = $watchList[$key]["AlertEnabled"];
+					$response[$file]["GrepFilter"] = "";
 				}
 
 				$response[$file]["Group"] = $watchList[$key]["Group"];
