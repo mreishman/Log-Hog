@@ -29,16 +29,15 @@
 			<td>
 				<ul>
 					<li>
-						
+						Added condensed mode for watch list files
 					</li>
 					<li>
-						
+						Added archive button to watchlist
 					</li>
 				</ul>
 			</td>
 			<td>
 				<img src="<?php echo $imageDirModifierAbout; ?>core/img/4.2-1.png" style="width: 45%;">
-				<img src="<?php echo $imageDirModifierAbout; ?>core/img/4.2-2.png" style="width: 45%;">
 			</td>
 		</tr>
 
