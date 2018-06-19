@@ -378,7 +378,7 @@ function tailWithGrep($filename, $sliceSize, $shellOrPhp, $whatGrepFor)
 	$start = 0;
 	$total = getLineCount($filename, $shellOrPhp);
 	$inLoop = true;
-	$data = "";
+	$data = array();
 	while ($inLoop)
 	{
 		$innerSlice = $sliceSize;
@@ -410,7 +410,7 @@ function tailWithGrep($filename, $sliceSize, $shellOrPhp, $whatGrepFor)
 			}
 		}
 
-		if(($data === "" || is_null($data)) && ($return === "" || is_null($return)))
+		if($return === "" || is_null($return))
 		{
 			return "Error - Maybe insufficient access to read file?";
 		}
@@ -419,7 +419,7 @@ function tailWithGrep($filename, $sliceSize, $shellOrPhp, $whatGrepFor)
 		{
 			if(strpos($line, $whatGrepFor) > -1)
 			{
-				$data .= $line . "\n";
+				array_push($data, $line);
 			}
 		}
 		if(count(explode("\n", $data)) >= $sliceSize)
@@ -429,7 +429,7 @@ function tailWithGrep($filename, $sliceSize, $shellOrPhp, $whatGrepFor)
 		$start += $sliceSize;
 	}
 	//possibly need to remove last \n from string?
-	return $data;
+	return implode("\n", $data);
 }
 
 function tail($filename, $sliceSize, $shellOrPhp)
