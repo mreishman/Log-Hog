@@ -2,6 +2,11 @@
 try 
 {
 	$baseModifier = "../../";
+	if(!is_readable($baseModifier.'local/layout.php'))
+	{
+		echo json_encode("error in file permissions");
+		exit();
+	}
 	require_once($baseModifier.'local/layout.php');
 	$baseUrl = $baseModifier."local/".$currentSelectedTheme."/";
 	require_once($baseUrl.'conf/config.php');

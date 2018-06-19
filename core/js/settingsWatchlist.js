@@ -77,7 +77,7 @@ function generateRow(data)
 	item = item.replace(/{{AutoDeleteFiles}}/g, data["AutoDeleteFiles"]);
 	item = item.replace(/{{FileInformation}}/g, data["FileInformation"]);
 	item = item.replace('FileInformation" value="', 'FileInformation" value=\'');
-	item = item.replace('"></ul></div>', '\'></ul></div>');	
+	item = item.replace('"></span></span></ul></div>', '\'></span></span></ul></div>');	
 	item = item.replace(/{{Group}}/g, data["Group"]);
 	item = item.replace(/{{Name}}/g, data["Name"]);
 	item = item.replace(/{{AlertEnabled}}/g, generateTrueFalseSelect(data["AlertEnabled"]));
@@ -86,6 +86,7 @@ function generateRow(data)
 	item = item.replace(/{{hidepatterninput}}/g, displayNoneIfTrue(hidePattern));
 	item = item.replace(/{{archiveButton}}/g, generateArchiveButton(data["SaveGroup"]));
 	item = item.replace(/{{archiveValue}}/g, data["SaveGroup"]);
+	item = item.replace(/{{GrepFilter}}/g, data["GrepFilter"]);
 	if(!data["down"])
 	{
 		item = item.replace(/{{movedown}}/g, "style=\"display: none;\"");
@@ -781,6 +782,12 @@ function addRowFunction(data)
 			saveGroup = data["SaveGroup"];
 		}
 
+		var grepFilter = "";
+		if("GrepFilter" in data)
+		{
+			grepFilter = data["GrepFilter"];
+		}
+
 		var item = generateRow(
 			{
 				rowNumber: countOfWatchList,
@@ -803,7 +810,8 @@ function addRowFunction(data)
 				up: true,
 				down: false,
 				hideSplit,
-				SaveGroup: saveGroup
+				SaveGroup: saveGroup,
+				GrepFilter: grepFilter
 			}
 		);
 		$(".uniqueClassForAppendSettingsMainWatchNew").append(item);
@@ -993,7 +1001,8 @@ function moveRow(currentRow, newRow, removeOld = true)
 			up: upBool,
 			down: downBool,
 			hideSplit: (document.getElementById("watchListKey"+currentRow+"SplitFilesLink").style.display === "none"),
-			SaveGroup: document.getElementsByName("watchListKey"+currentRow+"Archive")[0].value
+			SaveGroup: document.getElementsByName("watchListKey"+currentRow+"Archive")[0].value,
+			GrepFilter: document.getElementsByName("watchListKey"+currentRow+"GrepFilter")[0].value
 		}
 	);
 	//add new one
