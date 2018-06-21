@@ -84,8 +84,8 @@ function generateRow(data)
 	item = item.replace(/{{hidesplitbutton}}/g, displayNoneIfTrue(hideSplit));
 	item = item.replace(/{{patternSelect}}/g, generatePatternSelect(data["Pattern"]));
 	item = item.replace(/{{hidepatterninput}}/g, displayNoneIfTrue(hidePattern));
-	item = item.replace(/{{archiveButton}}/g, generateArchiveButton(data["SaveGroup"]));
-	item = item.replace(/{{archiveValue}}/g, data["SaveGroup"]);
+	item = item.replace(/{{SaveGroupButton}}/g, generateSaveGroupButton(data["SaveGroup"]));
+	item = item.replace(/{{SaveGroupValue}}/g, data["SaveGroup"]);
 	item = item.replace(/{{GrepFilter}}/g, data["GrepFilter"]);
 	if(!data["down"])
 	{
@@ -98,11 +98,11 @@ function generateRow(data)
 	return item;
 }
 
-function generateArchiveButton(value)
+function generateSaveGroupButton(value)
 {
 	if(!value)
 	{
-		return "Unarchive";
+		return "UnArchive";
 	}
 	return "Archive";
 }
@@ -1009,7 +1009,7 @@ function moveRow(currentRow, newRow, removeOld = true)
 			up: upBool,
 			down: downBool,
 			hideSplit: (document.getElementById("watchListKey"+currentRow+"SplitFilesLink").style.display === "none"),
-			SaveGroup: document.getElementsByName("watchListKey"+currentRow+"Archive")[0].value,
+			SaveGroup: document.getElementsByName("watchListKey"+currentRow+"SaveGroup")[0].value,
 			GrepFilter: document.getElementsByName("watchListKey"+currentRow+"GrepFilter")[0].value
 		}
 	);
@@ -1228,22 +1228,22 @@ function updateProgressBarWatchList(additonalPercent, text, topText = "Loading..
 	}
 }
 
-function toggleArchive(rowNumber)
+function toggleSaveGroup(rowNumber)
 {
-	var archiveValue = document.getElementsByName("watchListKey"+rowNumber+"Archive")[0].value;
-	if(archiveValue === "true")
+	var SaveGroupValue = document.getElementsByName("watchListKey"+rowNumber+"SaveGroup")[0].value;
+	if(SaveGroupValue === "true")
 	{
 		//set to false
-		document.getElementsByName("watchListKey"+rowNumber+"Archive")[0].value = "false";
-		$("#rowNumber"+rowNumber).removeClass("archiveLog");
-		document.getElementById("archive"+rowNumber).innerHTML = "Archive";
+		document.getElementsByName("watchListKey"+rowNumber+"SaveGroup")[0].value = "false";
+		$("#rowNumber"+rowNumber).removeClass("SaveGroupLog");
+		document.getElementById("SaveGroup"+rowNumber).innerHTML = "Archive";
 	}
 	else
 	{
 		//set to true
-		document.getElementsByName("watchListKey"+rowNumber+"Archive")[0].value = "true";
-		$("#rowNumber"+rowNumber).addClass("archiveLog");
-		document.getElementById("archive"+rowNumber).innerHTML = "Unarchive";
+		document.getElementsByName("watchListKey"+rowNumber+"SaveGroup")[0].value = "true";
+		$("#rowNumber"+rowNumber).addClass("SaveGroupLog");
+		document.getElementById("SaveGroup"+rowNumber).innerHTML = "UnArchive";
 	}
 }
 

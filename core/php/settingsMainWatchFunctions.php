@@ -273,7 +273,7 @@ function generateSaveBlock($data = array(), $defaultTrashCanIcon, $arrayOfImages
 	}
 	$saveBlock .= " class=\"linkSmall\" id=\"moveDown".$rowNumber."\" onclick=\"moveDown(".$rowNumber.");\" > Move Down </a>";
 	$saveBlock .= "   <a onclick=\"duplicateRow(".$rowNumber.")\" class=\"linkSmall\"  >Duplicate</a>";
-	$saveBlock .= "   <a id=\"archive".$rowNumber."\" onclick=\"toggleArchive(".$rowNumber.")\" class=\"linkSmall\" > {{archiveButton}} </a>";
+	$saveBlock .= "   <a id=\"SaveGroup".$rowNumber."\" onclick=\"toggleSaveGroup(".$rowNumber.")\" class=\"linkSmall\" > {{SaveGroupButton}} </a>";
 	$saveBlock .= "</div><div class=\"settingsDiv\" ><ul class=\"settingsUl\" >";
 	$saveBlock .= "<li><span class=\"settingsBuffer\" >Location: </span><input onkeyup=\"getCurrentFileFolderMainPage(".$rowNumber.")\" onfocusin=\"showTypeDropdown(".$rowNumber.");\" onfocusout=\"hideTypeDropdown(".$rowNumber.");\" style=\"width: 600px;\" type=\"text\" name=\"watchListKey".$rowNumber."Location\" value=\"".$location."\" ></li>";
 	$saveBlock .= "<li  class=\"typeFile\" ".$typeFile."><span class=\"settingsBuffer\" >Pattern: </span><span class=\"settingsBuffer\" ><div class=\"selectDiv\"><select onchange=\"togglePatternSelect(".$rowNumber.")\" id=\"watchListKey".$rowNumber."PatternSelect\" >";
@@ -286,7 +286,7 @@ function generateSaveBlock($data = array(), $defaultTrashCanIcon, $arrayOfImages
 		$saveBlock .=  $patternSelect;
 	}
 	$saveBlock .= "</select></div></span><span class=\"settingsBuffer\" ><input ".$patternHideInput." type=\"text\" onchange=\"updateSubFiles(".$rowNumber.");\"  name=\"watchListKey".$rowNumber."Pattern\" value=\"".$pattern."\" ></span></li>";
-	$saveBlock .= "<input type=\"hidden\" name=\"watchListKey".$rowNumber."Archive\" value=\"{{archiveValue}}\"  >";
+	$saveBlock .= "<input type=\"hidden\" name=\"watchListKey".$rowNumber."SaveGroup\" value=\"{{SaveGroupValue}}\"  >";
 	$saveBlock .= "<span class=\"condensed\" ><li class=\"typeFile\" ".$typeFile."><span class=\"settingsBuffer\" >Recursive: </span><span class=\"settingsBuffer\" ><div class=\"selectDiv\"><select onchange=\"updateSubFiles(".$rowNumber.");\" name=\"watchListKey".$rowNumber."Recursive\" >";
 	if(isset($data["recursiveOptions"]))
 	{

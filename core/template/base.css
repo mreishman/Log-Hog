@@ -354,7 +354,7 @@ div.sidebarLeft {
   overflow: auto;
 }
 
-.archiveLog .settingsDiv
+.SaveGroupLog .settingsDiv
 {
   filter: invert(35%);
   opacity: 0.5;
