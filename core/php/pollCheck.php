@@ -58,10 +58,9 @@ if(array_key_exists('percent', $updateProgress) && ($updateProgress['percent'] !
 }
 
 $watchListFolder = array();
-
 foreach($watchList as $key => $value)
 {
-	if($value["SaveGroup"] !== "false")
+	if($value["SaveGroup"] === "true")
 	{
 		continue;
 	}
