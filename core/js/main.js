@@ -256,6 +256,10 @@ function pollTwo()
 			type: "POST",
 			success(data)
 			{
+				if(document.getElementById("noLogToDisplay").style.display !== "none")
+				{
+					document.getElementById("noLogToDisplay").style.display = "none";
+				}
 				if(data === "error in file permissions")
 				{
 					clearPollTimer()
@@ -278,6 +282,13 @@ function pollTwo()
 					{
 						clearPollTimer()
 						window.location.href = "update/updateInProgress.php";
+					}
+					else if(data == [])
+					{
+						if(document.getElementById("noLogToDisplay").style.display !== "block")
+						{
+							document.getElementById("noLogToDisplay").style.display = "block";
+						}
 					}
 					else
 					{
