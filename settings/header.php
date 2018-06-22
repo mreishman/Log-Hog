@@ -79,7 +79,6 @@ echo loadSentryData($sendCrashInfoJS, $branchSelected); ?>
 		<a class="link" href="#advancedConfig" > Config </a>
 		<a class="link" href="#devAdvanced" > Dev </a>
 		<a class="link" href="#loggingDisplay" > Logs </a>
-		<a class="link" href="#jsPhpSend" > Reporting </a>
 		<a class="link" href="#locationOtherApps" > Locations </a>
 		<a class="link" href="#moreAdvanced" > Advanced </a>
 		<a class="link" href="#expFeatures" > Experimental </a>

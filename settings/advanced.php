@@ -184,23 +184,6 @@ $countConfig--;
 						</select>
 					</div>
 				</li>
-			</ul>
-		</div>
-	</form>
-	<form id="jsPhpSend">
-		<div class="settingsHeader">
-			Error / Crash Info
-			<div class="settingsHeaderButtons"> 
-				<?php echo addResetButton("jsPhpSend");
-				if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
-					<a class="linkSmall" onclick="saveAndVerifyMain('jsPhpSend');" >Save Changes</a>
-				<?php else: ?>
-					<button  onclick="displayLoadingPopup();">Save Changes</button>
-				<?php endif; ?>
-			</div>
-		</div>
-		<div class="settingsDiv" >
-			<ul class="settingsUl">
 				<li>
 					Send anonymous information about javascript errors/crashes:
 					<div class="selectDiv">
@@ -210,7 +193,7 @@ $countConfig--;
 						</select>
 					</div>
 				</li>
-				<li>
+				<li style="display: none;" >
 					Send anonymous information about php errors/crashes:
 					<div class="selectDiv">
 						<select name="sendCrashInfoPHP">
@@ -219,7 +202,6 @@ $countConfig--;
 						</select>
 					</div>
 				</li>
-				<img src="../core/img/exampleErrorJS.png" height="200px;">
 			</ul>
 		</div>
 	</form>
