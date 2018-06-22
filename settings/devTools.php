@@ -60,6 +60,9 @@ require_once('../core/php/updateCheck.php');
 				<li>
 					<span class="settingsBuffer" > CSS Version:  </span> <input type="number" pattern="[0-9]*" style="width: 400px;"  name="cssVersion" value="<?php echo $cssVersion;?>" >
 				</li>
+				<li>
+					<span class="settingsBuffer" > Theme Version:  </span> <input type="number" pattern="[0-9]*" style="width: 400px;"  name="themeVersion" value="<?php echo $themeVersion;?>" >
+				</li>
 			</ul>
 
 		</div>
