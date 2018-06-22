@@ -31,25 +31,25 @@ echo loadSentryData($sendCrashInfoJS, $branchSelected); ?>
 		display: none;
 		<?php endif; ?>
 		<?php if(strpos($URI, 'themes.php') !== false): ?>
-			cursor: default;" class="active" 
+			cursor: default;" class="active"
 		<?php else: ?>
-			" onclick="goToUrl('themes.php');" 
+			" onclick="goToUrl('themes.php');"
 		<?php endif; ?>
 	>Themes</a>
 	<?php if(strpos($URI, 'advanced.php') !== false): ?>
 		<a style="cursor: default;" class="active" id="AdvancedLink">Advanced</a>
-	<?php else: ?>	
+	<?php else: ?>
 		<a id="AdvancedLink" onclick="goToUrl('advanced.php');">Advanced</a>
 	<?php endif; ?>
 	<?php if(strpos($URI, 'addons.php') !== false): ?>
 		<a style="cursor: default;" class="active" id="addonsLink" >Addons</a>
-	<?php else: ?>	
+	<?php else: ?>
 		<a id="addonsLink" onclick="goToUrl('addons.php');">Addons</a>
 	<?php endif; ?>
 	<a id="DevLink"
 		<?php if(!(($developmentTabEnabled == 'true') || (strpos($URI, 'devTools.php') !== false))):?>
 			style="display: none;
-		<?php endif; ?>	
+		<?php endif; ?>
 		<?php if(strpos($URI, 'devTools.php') !== false): ?>
 			cursor: default;" class="active"
 		<?php else: ?>
@@ -59,7 +59,7 @@ echo loadSentryData($sendCrashInfoJS, $branchSelected); ?>
 </div>
 <?php if(strpos($URI, 'main.php') !== false): ?>
 	<div id="menu2">
-		<span style="color: black;">Settings:</span> 
+		<span style="color: black;">Settings:</span>
 		<a class="link" href="#settingsLogVars" > Logs </a>
 		<a class="link" href="#settingsPollVars" > Poll </a>
 		<a class="link" href="#settingsFilterVars" > Filter </a>
@@ -76,13 +76,12 @@ echo loadSentryData($sendCrashInfoJS, $branchSelected); ?>
 	</div>
 <?php elseif(strpos($URI, 'advanced.php') !== false): ?>
 	<div id="menu2">
-		<a class="link" href="#advancedConfig" > Advanced </a>
+		<a class="link" href="#advancedConfig" > Config </a>
 		<a class="link" href="#devAdvanced" > Dev </a>
-		<a class="link" href="#pollAdvanced" > Poll</a>
 		<a class="link" href="#loggingDisplay" > Logs </a>
 		<a class="link" href="#jsPhpSend" > Reporting </a>
-		<a class="link" href="#locationOtherApps" > Apps </a>
-		<a class="link" href="#moreAdvanced" > Actions </a>
+		<a class="link" href="#locationOtherApps" > Locations </a>
+		<a class="link" href="#moreAdvanced" > Advanced </a>
 		<a class="link" href="#expFeatures" > Experimental </a>
 	</div>
 <?php elseif(strpos($URI, 'watchlist.php') !== false): ?>
