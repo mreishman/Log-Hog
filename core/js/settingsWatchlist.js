@@ -86,6 +86,14 @@ function generateRow(data)
 	item = item.replace(/{{hidepatterninput}}/g, displayNoneIfTrue(hidePattern));
 	item = item.replace(/{{SaveGroupButton}}/g, generateSaveGroupButton(data["SaveGroup"]));
 	item = item.replace(/{{SaveGroupValue}}/g, data["SaveGroup"]);
+	if(data["SaveGroup"] === "true")
+	{
+		item = item.replace(/{{saveGroupClass}}/g, "SaveGroupLog");
+	}
+	else
+	{
+		item = item.replace(/{{saveGroupClass}}/g, "");
+	}
 	item = item.replace(/{{GrepFilter}}/g, data["GrepFilter"]);
 	if(!data["down"])
 	{
@@ -100,7 +108,7 @@ function generateRow(data)
 
 function generateSaveGroupButton(value)
 {
-	if(!value)
+	if(value === "true")
 	{
 		return "UnArchive";
 	}

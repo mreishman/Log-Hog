@@ -77,6 +77,7 @@ function generateSaveBlock($data = array(), $defaultTrashCanIcon, $arrayOfImages
 	$patternSelect = "{{patternSelect}}";
 	$patternHideInput = "{{hidePatternInput}}";
 	$GrepFilter = "{{GrepFilter}}";
+	$saveGroupClass = "{{saveGroupClass}}";
 
 	$selectOptions = array(
 		0		=> array(
@@ -243,7 +244,7 @@ function generateSaveBlock($data = array(), $defaultTrashCanIcon, $arrayOfImages
 	}
 	
 
-	$saveBlock = "<li class=\"watchRow\" id=\"rowNumber".$rowNumber."\" ><div class=\"settingsHeader\" >";
+	$saveBlock = "<li class=\"watchRow ".$saveGroupClass." \" id=\"rowNumber".$rowNumber."\" ><div class=\"settingsHeader\" >";
 	$saveBlock .= $fileNumber.":";
 	$saveBlock .= "<div id=\"infoFile".$rowNumber."\" style=\"width: 100px; display: inline-block; text-align: center;\">";
 	$saveBlock .= $filePermsDisplay;
