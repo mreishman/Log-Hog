@@ -340,7 +340,7 @@ function trimLogInner($logTrimMacBSD,$filename,$lineEnd, $shellOrPhp, $showError
 
 function trimLogPhp($filename,$lineEnd,$showErrorPhpFileOpen)
 {
-	
+
 	$lines = file($filename);
 	$first_line = $lines[0];
 	$lines = array_slice($lines, $lineEnd + 2);
@@ -348,11 +348,11 @@ function trimLogPhp($filename,$lineEnd,$showErrorPhpFileOpen)
 	$file = false;
 	if($showErrorPhpFileOpen === "false")
 	{
-		$file = fopen($filename, "w");
+		$file = @fopen($filename, "w");
 	}
 	else
 	{
-		$file = @fopen($filename, "w");
+		$file = fopen($filename, "w");
 	}
 	if(gettype($file) !== "boolean")
 	{
