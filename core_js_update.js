@@ -229,6 +229,10 @@ function installUpdates(urlSend = "../", updateFormIDLocal = "settingsInstallUpd
 {
 	try
 	{
+		if(typeof pollTimer !== "undefined")
+		{
+			clearInterval(pollTimer);
+		}
 		if(typeof updateFromID !== "undefined" &&  updateFromID !== "settingsInstallUpdate")
 		{
 			updateFormIDLocal = updateFormID;
