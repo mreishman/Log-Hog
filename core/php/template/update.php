@@ -26,7 +26,7 @@
 					<br>
 					<p id="progressBarText" ></p>
 				</li>
-				<li id="loadingSpinnerForInstallUpdate">
+				<li style="display: none;" id="loadingSpinnerForInstallUpdate">
 					<?php
 						echo generateImage(
 							$arrayOfImages["loading"],
