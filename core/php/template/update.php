@@ -26,6 +26,19 @@
 					<br>
 					<p id="progressBarText" ></p>
 				</li>
+				<li id="loadingSpinnerForInstallUpdate">
+					<?php
+						echo generateImage(
+							$arrayOfImages["loading"],
+							$imageConfig = array(
+								"id"			=>	"statusImage0",
+								"height"		=>	"15px",
+								"srcModifier"	=> ""
+							)
+						);
+						?>
+					Loading ...
+				</li>
 				<li id="noUpdate" <?php if($levelOfUpdate != 0){echo "style='display: none;'";} ?> >
 					<h2>
 						<?php
