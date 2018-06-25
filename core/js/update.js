@@ -239,7 +239,14 @@ function installUpdates(urlSend = "../", updateFormIDLocal = "settingsInstallUpd
 		}
 		urlSend = urlSend;
 		updateFormID = updateFormIDLocal;
-		displayLoadingPopup();
+		if(document.getElementById("fullScreenMenu") && document.getElementById("fullScreenMenu").style.display !== "none")
+		{
+			document.getElementById("loadingSpinnerForInstallUpdate").style.display = "block";
+		}
+		else
+		{
+			displayLoadingPopup();
+		}
 		//reset vars in post request
 		var urlForSend = urlSend + "core/php/resetUpdateFilesToDefault.php?format=json";
 		var data = {status: "" };
