@@ -1,7 +1,7 @@
 <?php
 
 $versionCheckArray = array(
-	'version'		=> '4.1',
+	'version'		=> '4.2',
 	'versionList'		=> array(
 		'2.0.1'	        => array(
 			'branchName'	=> '2.0.1Update',
@@ -130,6 +130,10 @@ $versionCheckArray = array(
 		'4.1'		=> array(
 			'branchName'	=> '4.1Update',
 			'releaseNotes'	=> "<ul><li>Features<ul><li>New folder popup interface! (shows dir tree)</li><li>Changed patern to dropdown select (for easier filtering of folders)</li><li>Update page now included in main menu (no page navigation needed)</li><li>Added right click to tmp enable/disable alerts for specific logs</li></ul></li><li>Bug Fixes<ul><li>Fixed issues with split files button showing up on folders with no files</li><li>Subfiles for folders now show up when adding new files (without needing a reload of the page)</li><li>Fixed issue with menu settings not having reset button</li><li>Fixed bug with default watchlist pattern not showing up in settings</li><li>Fixed issue with when switching groups not hiding currently selected if not in group when switching</li><li>Fixed issue with current window class being replaced each poll request</li><li>Optimized images for web (lower file sizes)</li><li>Added some missing images for themes)</li></ul></li></ul>"
+		),
+		'4.2'		=> array(
+			'branchName'	=> '4.2Update',
+			'releaseNotes'	=> "<ul><li>Features<ul><li>Changed how watchlist loads, more visual</li><li>Added file format filter to file popup</li><li>Added option to disable auto check for update on error page</li><li>Moved addons to iframe (option to disable in settings)</li><li>Added archive to watchlist</li><li>Added view options for logs in watchlist (condensed / expanded)</li><li>Added option for filters on logs</li></ul></li><li>Bug Fixes<ul><li>Fixed bug with logs being added after load (new logs)</li><li>Added option for hiding / autoCheckUpdate php file open errors in log (off by default)</li><li>Now shows correct file info when splitting files from folder in watchlist</li><li>Fixed issue with file folder dropdown showign up on initial scroll (not that noticable though)</li><li>Fixed issue with notification count not displaying above full screen menu</li><li>Fixed bug where height of notification list could be off screen, addex max height of 300px</li><li>Fixed bug with popup not being over menu on index page</li><li>Properly shows no logs available when initial load returns empty array</li></ul></li></ul>"
 		),
 	)
 );
