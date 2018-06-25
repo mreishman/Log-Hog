@@ -26,11 +26,6 @@
 					<br>
 					<p id="progressBarText" ></p>
 				</li>
-				<li>
-					<?php
-					if($levelOfUpdate != 0){echo '<a class="link" onclick="installUpdates();">Install '.$configStatic["newestVersion"].' Update</a>';}
-					?>
-				</li>
 				<li id="noUpdate" <?php if($levelOfUpdate != 0){echo "style='display: none;'";} ?> >
 					<h2>
 						<?php
@@ -62,8 +57,9 @@
 						<span id="minorUpdatesVersionNumber">
 							<?php echo " ".$configStatic['newestVersion']." ";?>
 						</span>
-						- bug fixes 
+						- bug fixes
 					</h2>
+					<a class="link" onclick="installUpdates('');">Install Update</a>
 				</li>
 				<li id="majorUpdate" <?php if($levelOfUpdate != 2){echo "style='display: none;'";} ?> >
 					<h2>
@@ -82,6 +78,7 @@
 							<?php echo " ".$configStatic['newestVersion']." ";?>
 						</span>
 						- new features!</h2>
+						<a class="link" onclick="installUpdates('');">Install Update</a>
 				</li>
 				<li id="NewXReleaseUpdate" <?php if($levelOfUpdate != 3){echo "style='display: none;'";} ?> >
 					<h2>
@@ -101,6 +98,7 @@
 						</span>
 						- a lot of new features!
 					</h2>
+					<a class="link" onclick="installUpdates('');">Install Update</a>
 				</li>
 			<?php endif; ?>
 		</ul>
