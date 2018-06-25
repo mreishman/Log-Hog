@@ -152,7 +152,7 @@ foreach ($responseFilelist as $file)
 		$response[$file]["Name"] = $watchList[$keyFound]["Name"];
 		$response[$file]["AlertEnabled"] = $watchList[$keyFound]["AlertEnabled"];
 		$response[$file]["Group"] = $watchList[$keyFound]["Group"];
-		$response[$file]["GrepFilter"] = $watchlist[$keyFound]["GrepFilter"];
+		$response[$file]["GrepFilter"] = $watchList[$keyFound]["GrepFilter"];
 	}
 	else
 	{
