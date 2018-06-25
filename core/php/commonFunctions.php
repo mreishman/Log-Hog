@@ -120,12 +120,22 @@ function evaluateBool($boolVal, $trueVal, $falseVal)
 
 function loadSentryData($sendCrashInfoJS, $branchSelected)
 {
+	$returnString = "
+	<script>
+
+		function eventThrowException(e)
+		{
+			//this would send errors, but it is disabled
+			console.log(e);
+		}
+
+	</script>";
 	if($sendCrashInfoJS === "true")
 	{
 		include(baseURL()."core/php/configStatic.php");
 		$versionForSentry = $configStatic["version"];
 		$returnString =  "
-		<script src=\"https://cdn.ravenjs.com/3.17.0/raven.min.js\" crossorigin=\"anonymous\"></script>
+		<script src=\"https://cdn.ravenjs.com/3.25.2/raven.min.js\" crossorigin=\"anonymous\"></script>
 		<script type=\"text/javascript\">
 		Raven.config(\"https://2e455acb0e7a4f8b964b9b65b60743ed@sentry.io/205980\", {
 		    release: \"".$versionForSentry."\"
@@ -150,16 +160,7 @@ function loadSentryData($sendCrashInfoJS, $branchSelected)
 
 		</script>";
 	}
-	return "
-	<script>
-
-		function eventThrowException(e)
-		{
-			//this would send errors, but it is disabled
-			console.log(e);
-		}
-
-	</script>";
+	return $returnString;
 }
 
 function baseURL()
@@ -688,6 +689,21 @@ function putIntoCorrectFormat($keyKey, $keyValue, $value)
 	";
 }
 
+function putIntoCorrectJSFormat($keyKey, $keyValue, $value)
+{
+	if(is_string($value))
+	{
+		return " var ".$keyKey." = '".$keyValue."';";
+	}
+
+	if(is_array($value))
+	{
+		return " var ".$keyKey." = ".json_encode($keyValue).";";
+	}
+
+	return " var ".$keyKey." = ".$keyValue.";";
+}
+
 function returnCurrentSelectedTheme()
 {
 	$baseBaseUrl = baseURL();
@@ -911,6 +927,7 @@ function getListOfFiles($data)
 	$filter = $data["filter"];
 	$response = $data["response"];
 	$recursive = $data["recursive"];
+	$shellOrPhp = $data["shellOrPhp"];
 	$fileData = array();
 	if(isset($data["data"]))
 	{
@@ -938,6 +955,7 @@ function getListOfFiles($data)
 						"filter"		=> $filter,
 						"response"		=> $response,
 						"recursive"		=> "true",
+						"shellOrPhp"	=> $shellOrPhp,
 						"data"			=> $fileData
 
 					));
@@ -1005,4 +1023,27 @@ function sizeFilesInDir($data)
 		}
 	}
 	return $response;
+}
+
+function createSelect($options, $defaultOption, $selectValue)
+{
+	$selectHtml = "";
+	$selected = false;
+	foreach ($options as $key => $value)
+	{
+		$selectHtml .= "<option value=\"".$value["value"]."\" ";
+		if($selectValue === $value["value"] && $selected !== true)
+		{
+			$selectHtml .= " selected ";
+			$selected = true;
+		}
+		$selectHtml .= " >".$value["name"]."</option>";
+	}
+	$selectHtml .= "<option value=\"".$defaultOption["value"]."\" ";
+	if($selected !== true)
+	{
+		$selectHtml .= " selected ";
+	}
+	$selectHtml .= " >".$defaultOption["name"]."</option>";
+	return $selectHtml;
 }

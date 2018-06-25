@@ -338,6 +338,7 @@ $countConfig--;
 			</ul>
 		</div>
 	</form>
+	<span id="moreAdvancedSpan">
 		<div id="moreAdvanced" class="settingsHeader">
 			Advanced
 		</div>
@@ -352,7 +353,8 @@ $countConfig--;
 				</li>
 			</ul>
 		</div>
-		<form id="expFeatures">
+	</span>
+	<form id="expFeatures">
 		<div class="settingsHeader">
 		Experimental Features 
 			<div class="settingsHeaderButtons">
@@ -395,7 +397,7 @@ $countConfig--;
 				</li>
 			</ul>
 		</div>
-		</form>
+	</form>
 	</div>
 	<form id="devAdvanced2" action="../core/php/settingsSaveConfigStatic.php" method="post">
 		<input type="hidden" style="width: 400px;"  name="newestVersion" value="<?php echo $configStatic['version'];?>" > 

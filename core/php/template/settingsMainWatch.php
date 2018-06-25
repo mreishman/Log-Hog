@@ -82,25 +82,58 @@
 		)
 	);
 
-	function makeTrueFalseSelect($boolVal)
+	function makeTrueFalseSelect($selectValue)
 	{
-		$optionBlock =  "<option value=\"true\" ";
-		if($boolVal === 'true')
-		{
-			$optionBlock .= " selected ";
-		}
-		$optionBlock .= "  >True</option>";
-		$optionBlock .=  "<option value=\"false\" ";
-		if($boolVal !== 'true')
-		{
-			$optionBlock .= " selected ";
-		}
-		$optionBlock .= "  >False</option>";
-		return $optionBlock;
+		return createSelect(
+			array(
+				0		=> array(
+					"value" =>	"true",
+					"name"	=>	"True"
+				)
+			),
+			array(
+				"value" => 	"false",
+				"name"	=>	"False"
+			),
+			(String)$selectValue
+		);
+	}
+
+	function generateFileTypeSelect($selectValue)
+	{
+		return createSelect(
+			array(
+				0		=> array(
+					"value" =>	"file",
+					"name"	=>	"File"
+				),
+				1		=> array(
+					"value" =>	"folder",
+					"name"	=>	"Folder"
+				)
+			),
+			array(
+				"value" => 	"other",
+				"name"	=>	"Other"
+			),
+			(String)$selectValue
+		);
+	}
+
+	function makePatternSelect($selectValue, $selectOptions)
+	{
+		return createSelect(
+			$selectOptions,
+			array(
+				"value" => 	"other",
+				"name"	=>	"Other"
+			),
+			(String)$selectValue
+		);
 	}
 
 
-	function generateSaveBlock($data = array(), $defaultTrashCanIcon)
+	function generateSaveBlock($data = array(), $defaultTrashCanIcon, $arrayOfImages)
 	{
 		$rowNumber = "{{rowNumber}}";
 		$fileNumber = "{{fileNumber}}";
@@ -122,6 +155,53 @@
 		$AlertEnabled = "{{AlertEnabled}}";
 		$first = false;
 		$last = false;
+		$boolHideSplit = "{{HideSplitButton}}";
+		$patternSelect = "{{patternSelect}}";
+		$patternHideInput = "{{hidePatternInput}}";
+
+		$selectOptions = array(
+			0		=> array(
+				"value" => ".log$",
+				"name" => ".log"
+			),
+			1		=> array(
+				"value" => ".txt$",
+				"name" => ".txt"
+			),
+			2		=> array(
+				"value" => ".out$",
+				"name" => ".out"
+			),
+			3		=> array(
+				"value" => "$",
+				"name" => "Any File"
+			)
+		);
+
+		if(isset($data["pattern"]))
+		{
+			$patternSelect = $data["pattern"];
+			$foundPattern = false;
+			foreach ($selectOptions as $key2 => $value2)
+			{
+				if($data["pattern"] === $value2["value"])
+				{
+					$foundPattern = true;
+				}
+			}
+			if($foundPattern)
+			{
+				$patternHideInput = "style= \"display: none;\" ";
+			}
+		}
+
+		if(isset($data["hideSplitButton"]))
+		{
+			if($data["hideSplitButton"] === true)
+			{
+				$boolHideSplit = "style=\"display: none;\"";
+			}
+		}
 
 		if(isset($data["Position"]))
 		{
@@ -274,9 +354,18 @@
 		}
 		$saveBlock .= " class=\"linkSmall\" id=\"moveDown".$rowNumber."\" onclick=\"moveDown(".$rowNumber.");\" > Move Down </a>";
 		$saveBlock .= "</div><div class=\"settingsDiv\" ><ul class=\"settingsUl\" >";
-		$saveBlock .= "<li><span class=\"settingsBuffer\" >Location: </span><input style=\"width: 600px;\" type=\"text\" name=\"watchListKey".$rowNumber."Location\" value=\"".$location."\" ></li>";
-		$saveBlock .= "<li  class=\"typeFile\" ".$typeFile."><span class=\"settingsBuffer\" >Pattern: </span><span class=\"settingsBuffer\" ><input type=\"text\" name=\"watchListKey".$rowNumber."Pattern\" value=\"".$pattern."\" ></span>";
-		$saveBlock .= "<span class=\"settingsBuffer\" >Recursive: </span><span class=\"settingsBuffer\" ><select name=\"watchListKey".$rowNumber."Recursive\" >";
+		$saveBlock .= "<li><span class=\"settingsBuffer\" >Location: </span><input onkeyup=\"getCurrentFileFolderMainPage(".$rowNumber.")\" onfocusin=\"showTypeDropdown(".$rowNumber.");\" onfocusout=\"hideTypeDropdown(".$rowNumber.");\" style=\"width: 600px;\" type=\"text\" name=\"watchListKey".$rowNumber."Location\" value=\"".$location."\" ></li>";
+		$saveBlock .= "<li  class=\"typeFile\" ".$typeFile."><span class=\"settingsBuffer\" >Pattern: </span><span class=\"settingsBuffer\" ><div class=\"selectDiv\"><select onchange=\"togglePatternSelect(".$rowNumber.")\" id=\"watchListKey".$rowNumber."PatternSelect\" >";
+		if(isset($data["pattern"]))
+		{
+			$saveBlock .=  makePatternSelect($patternSelect, $selectOptions);
+		}
+		else
+		{
+			$saveBlock .=  $patternSelect;
+		}
+		$saveBlock .= "</select></div></span><span class=\"settingsBuffer\" ><input ".$patternHideInput." type=\"text\" onchange=\"updateSubFiles(".$rowNumber.");\"  name=\"watchListKey".$rowNumber."Pattern\" value=\"".$pattern."\" ></span></li>";
+		$saveBlock .= "<li class=\"typeFile\" ".$typeFile."><span class=\"settingsBuffer\" >Recursive: </span><span class=\"settingsBuffer\" ><div class=\"selectDiv\"><select onchange=\"updateSubFiles(".$rowNumber.");\" name=\"watchListKey".$rowNumber."Recursive\" >";
 		if(isset($data["recursiveOptions"]))
 		{
 			$saveBlock .=  makeTrueFalseSelect($recursiveOptions);
@@ -285,10 +374,10 @@
 		{
 			$saveBlock .=  $recursiveOptions;
 		}
-		$saveBlock .= "</select></span></li>";
-		$saveBlock .= "<li class=\"typeFile\" ".$typeFile."><span class=\"settingsBuffer\" >Auto Delete Files After: </span><span class=\"settingsBuffer\" ><input style=\"width: 56px;\" type=\"text\" name=\"watchListKey".$rowNumber."AutoDeleteFiles\" value=\"".$AutoDeleteFiles."\" > Days No Change</span></li>";
+		$saveBlock .= "</select></div></span>";
+		$saveBlock .= "<span class=\"settingsBuffer\" >Auto Delete Files After: </span><span class=\"settingsBuffer\" ><input style=\"width: 56px;\" type=\"text\" name=\"watchListKey".$rowNumber."AutoDeleteFiles\" value=\"".$AutoDeleteFiles."\" > Days No Change</span></li>";
 		$saveBlock .= "<li  class=\"typeFolder\" ".$typeFolder."><span class=\"settingsBuffer\" >Name: </span><span class=\"settingsBuffer\" ><input type=\"text\" name=\"watchListKey".$rowNumber."Name\" value=\"".$Name."\" > </span></li>";
-		$saveBlock .= "<li><span class=\"settingsBuffer\" >Exclude Trim: </span><span class=\"settingsBuffer\" ><select name=\"watchListKey".$rowNumber."ExcludeTrim\" >";
+		$saveBlock .= "<li><span class=\"settingsBuffer\" >Exclude Trim: </span><span class=\"settingsBuffer\" ><div class=\"selectDiv\"><select name=\"watchListKey".$rowNumber."ExcludeTrim\" >";
 		if(isset($data["excludeTrimOptions"]))
 		{
 			$saveBlock .=   makeTrueFalseSelect($excludeTrimOptions);
@@ -297,36 +386,19 @@
 		{
 			$saveBlock .=  $excludeTrimOptions;
 		}
-		$saveBlock .= "</select></span>";
-		$saveBlock .= "<span class=\"settingsBuffer\" >FileType: </span><span class=\"settingsBuffer\" ><select onchange=\"toggleTypeFolderFile(".$rowNumber.")\" name=\"watchListKey".$rowNumber."FileType\" >";
+		$saveBlock .= "</select></div></span>";
+		$saveBlock .= "<span class=\"settingsBuffer\" >FileType: </span><span class=\"settingsBuffer\" ><div class=\"selectDiv\"><select onchange=\"toggleTypeFolderFile(".$rowNumber.")\" name=\"watchListKey".$rowNumber."FileType\" >";
 		if(isset($data["FileType"]))
 		{
-			$saveBlock .=  "<option value=\"file\" ";
-			if($FileType === 'file')
-			{
-				$saveBlock .= " selected ";
-			}
-			$saveBlock .= "  >File</option>";
-			$saveBlock .=  "<option value=\"folder\" ";
-			if($FileType === 'folder')
-			{
-				$saveBlock .= " selected ";
-			}
-			$saveBlock .= "  >Folder</option>";
-			$saveBlock .=  "<option value=\"other\" ";
-			if($FileType !== 'folder' && $FileType !== 'file')
-			{
-				$saveBlock .= " selected ";
-			}
-			$saveBlock .= "  >Other</option>";
+			$saveBlock .= generateFileTypeSelect($FileType);
 		}
 		else
 		{
 			$saveBlock .=  $FileType;
 		}
-		$saveBlock .= "</select></span></li>";
+		$saveBlock .= "</select></div></span></li>";
 		$saveBlock .= "<li ><span class=\"settingsBuffer\" >Group: </span><span class=\"settingsBuffer\" ><input type=\"text\" name=\"watchListKey".$rowNumber."Group\" value=\"".$Group."\" ></span>";
-		$saveBlock .= "<span class=\"settingsBuffer\" >Alert on Update: </span><span class=\"settingsBuffer\" ><select name=\"watchListKey".$rowNumber."AlertEnabled\" >";
+		$saveBlock .= "<span class=\"settingsBuffer\" >Alert on Update: </span><span class=\"settingsBuffer\" ><div class=\"selectDiv\"><select name=\"watchListKey".$rowNumber."AlertEnabled\" >";
 		if(isset($data["AlertEnabled"]))
 		{
 			$saveBlock .=   makeTrueFalseSelect($AlertEnabled);
@@ -335,10 +407,20 @@
 		{
 			$saveBlock .=  $AlertEnabled;
 		}
-		$saveBlock .= "</select></span></li>";
+		$saveBlock .= "</select></div></span></li>";
 		$saveBlock .= "<li class=\"typeFile\" ".$typeFile."><div class=\"settingsHeader\" style=\"margin: 0;\" >Files: ";
-		$saveBlock .= "<div class=\"settingsHeaderButtons\"><a class=\"linkSmall\" onclick=\"splitFilesPopup(".$rowNumber.", '".$location."');\"	 >Split Files</a></div>";
-		$saveBlock .= "</div> <div class=\"settingsDiv\" style=\"max-height: 150px; display: block; overflow: auto; margin: 0;\" ><ul id=\"watchListKey".$rowNumber."FilesInFolder\" class=\"settingsUl\" style=\"-webkit-padding-start: 0;\" >".$filesInFolder."</ul></div></li>";
+		$saveBlock .= "<div class=\"settingsHeaderButtons\"><span id=\"watchListKey".$rowNumber."SplitFilesLink\" ".$boolHideSplit." ><a class=\"linkSmall\" style=\"margin-right: 10px;\" onclick=\"updateSubFiles(".$rowNumber.");\" >Refresh</a><a class=\"linkSmall\" onclick=\"splitFilesPopup(".$rowNumber.", '".$location."');\"	 >Split Files</a></span></div>";
+		$saveBlock .= "</div> <div class=\"settingsDiv\" style=\"max-height: 150px; display: block; overflow: auto; margin: 0;\" >";
+		$saveBlock .= generateImage(
+			$arrayOfImages["loading"],
+			array(
+				"width"			=>	"25px",
+				"srcModifier"	=>	"../",
+				"id"			=>	"watchListKey".$rowNumber."LoadingSubFilesIcon",
+				"style"			=>	"display: none;"
+			)
+		);
+		$saveBlock .= "<ul id=\"watchListKey".$rowNumber."FilesInFolder\" class=\"settingsUl\" style=\"-webkit-padding-start: 0;\" >".$filesInFolder."</ul></div></li>";
 		$saveBlock .= "<input type=\"hidden\"   name=\"watchListKey".$rowNumber."FileInformation\" value='".$FileInformation."' >";
 		$saveBlock .= "</ul></div></li>";
 
@@ -358,6 +440,7 @@
 		$FileType = "auto";
 		$FileInformation = $values["FileInformation"];
 		$Position = false;
+		$boolHideSplit = false;
 		if($i === 1)
 		{
 			$Position = "first";
@@ -419,6 +502,7 @@
 					"path" 			=> $location,
 					"filter"		=> $values["Pattern"],
 					"response"		=> array(),
+					"shellOrPhp"	=> $shellOrPhp,
 					"recursive"		=> $values["Recursive"]
 
 				));
@@ -493,6 +577,7 @@
 			if($filesInFolder === "")
 			{
 				$filesInFolder = "<li>No Files Found In Folder</li>";
+				$boolHideSplit = true;
 			}
 			//$fileSize = 
 		}
@@ -502,6 +587,7 @@
 			if($filesInFolder === "")
 			{
 				$filesInFolder = "<li>FileType was set to file</li>";
+				$boolHideSplit = true;
 			}
 		}
 		else
@@ -509,6 +595,7 @@
 			if($filesInFolder === "")
 			{
 				$filesInFolder = "<li>No Files Found</li>";
+				$boolHideSplit = true;
 			}
 		}
 
@@ -529,6 +616,7 @@
 				"typeFolder"			=>	($FileType === "folder"),
 				"FileType"				=> 	$FileType,
 				"filesInFolder"			=>	$filesInFolder,
+				"hideSplitButton"		=>	$boolHideSplit,
 				"AutoDeleteFiles"		=>	$values["AutoDeleteFiles"],
 				"Group"					=>	$values["Group"],
 				"FileInformation"		=>	$FileInformation,
@@ -536,7 +624,8 @@
 				"AlertEnabled"			=>	$values["AlertEnabled"],
 				"Position"				=>	$Position
 			),
-			$defaultTrashCanIcon
+			$defaultTrashCanIcon,
+			$arrayOfImages
 		);
 	
 	}
@@ -659,15 +748,30 @@
 </form>
 <div id="storage">
 	<div class="saveBlock">
-		<?php echo generateSaveBlock(array(), $defaultTrashCanIcon); ?>
+		<?php echo generateSaveBlock(array(), $defaultTrashCanIcon, $arrayOfImages); ?>
 	</div>
 </div>
+<div id="fileFolderDropdown" style="width: 600px; background-color: #444; border: 1px solid white; z-index: 120; position: fixed;"  >
+</div>
 <script type="text/javascript">
-	var defaultTrashCanIcon = <?php echo json_encode($defaultTrashCanIcon); ?>;
-	var defaultdefaultNewAddAlertEnabled = "<?php echo $defaultNewAddAlertEnabled; ?>";
-	var defaultNewAddAutoDeleteFiles = "<?php echo $defaultNewAddAutoDeleteFiles; ?>";
-	var defaultNewAddExcludeTrim = "<?php echo $defaultNewAddExcludeTrim; ?>";
-	var defaultNewAddPattern = "<?php echo $defaultNewAddPattern;?>";
-	var defaultNewAddRecursive = "<?php echo $defaultNewAddRecursive;?>";
+	var defaultTrashCanIcon 				= <?php echo json_encode($defaultTrashCanIcon); ?>;
+	var icons = {};
+	icons["defaultRedErrorIcon"]				= <?php echo json_encode($defaultRedErrorIcon); ?>;
+	icons["defaultYellowErrorIcon "]				= <?php echo json_encode($defaultYellowErrorIcon); ?>;
+	icons["defaultFolderIcon"] 					= <?php echo json_encode($defaultFolderIcon); ?>;
+	icons["defaultFileIcon"] 					= <?php echo json_encode($defaultFileIcon); ?>;
+	icons["defaultFolderNRIcon"] 				= <?php echo json_encode($defaultFolderNRIcon); ?>;
+	icons["defaultFileNRIcon"] 					= <?php echo json_encode($defaultFileNRIcon); ?>;
+	icons["defaultFolderNWIcon"] 				= <?php echo json_encode($defaultFolderNWIcon); ?>;
+	icons["defaultFileNWIcon"] 					= <?php echo json_encode($defaultFileNWIcon); ?>;
+	var defaultdefaultNewAddAlertEnabled 	= "<?php echo $defaultNewAddAlertEnabled; ?>";
+	var defaultNewAddAutoDeleteFiles 		= "<?php echo $defaultNewAddAutoDeleteFiles; ?>";
+	var defaultNewAddExcludeTrim 			= "<?php echo $defaultNewAddExcludeTrim; ?>";
+	var defaultNewAddPattern 				= "<?php echo $defaultNewAddPattern;?>";
+	var defaultNewAddRecursive 				= "<?php echo $defaultNewAddRecursive;?>";
+	var defaultNewPathFile 					= "<?php echo $defaultNewPathFile; ?>";
+	var defaultNewPathFolder				= "<?php echo $defaultNewPathFolder;?>";
+	var defaultNewPathOther 				= "<?php echo $defaultNewPathOther;?>";
+	var sortTypeFileFolderPopup				= "<?php echo $sortTypeFileFolderPopup; ?>";
 </script>
 <?php $folderCount = $i;

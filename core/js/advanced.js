@@ -179,5 +179,15 @@ function verifyNoConfigBackups()
 $( document ).ready(function() 
 {
 	refreshArrayObjectOfArrays(["devAdvanced","pollAdvanced","loggingDisplay","jsPhpSend","locationOtherApps","advancedConfig","expFeatures"]);
+
+	document.addEventListener(
+		'scroll',
+		function (event)
+		{
+			onScrollShowFixedMiniBar(["advancedConfig","devAdvanced","pollAdvanced","loggingDisplay","jsPhpSend","locationOtherApps","moreAdvancedSpan","expFeatures"]);
+		},
+		true
+	);
+
 	setInterval(poll, 100);
 });

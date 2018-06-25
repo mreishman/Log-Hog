@@ -492,7 +492,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 				Settings
 				<?php echo $externalLinkImage; ?>
 			</li>
-			<li onclick="window.location.href = './settings/update.php';" >
+			<li id="mainMenuUpdate" onclick="toggleUpdateMenu();" >
 				<div class="menuImageDiv">
 					<?php echo generateImage(
 						$arrayOfImages["refresh"],
@@ -537,13 +537,30 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 						}
 					}
 				}
-				echo $externalLinkImage; ?>
+				?>
 			</li>
 			<?php if($locationForMonitorIndex["loc"] || $locationForSearchIndex["loc"] || $locationForSeleniumMonitorIndex["loc"] || $locationForStatusIndex["loc"]): ?>
 				<li class="menuTitle" style="background-color: #999; color: black;" >
 					Other Apps
 				</li>
 			<?php endif;?>
+			<?php if ($locationForStatusIndex["loc"]):?>
+				<li onclick="window.location.href='<?php echo $locationForStatusIndex["loc"]; ?>'" >
+					<div class="menuImageDiv">
+						<?php echo generateImage(
+							$arrayOfImages["gitStatus"],
+							$imageConfig = array(
+								"id"		=>	"gitStatusImage",
+								"class"		=>	"menuImage",
+								"height"	=>	"30px"
+								)
+							); 
+						?>
+					</div>
+					gitStatus
+					<?php echo $externalLinkImage; ?>
+				</li>
+			<?php endif; ?>
 			<?php if($locationForMonitorIndex["loc"]): ?>
 				<li onclick="window.location.href = '<?php echo $locationForMonitorIndex["loc"]; ?>'" >
 					<div class="menuImageDiv">
@@ -595,23 +612,6 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 					<?php echo $externalLinkImage; ?>
 				</li>
 			<?php endif; ?>
-			<?php if ($locationForStatusIndex["loc"]):?>
-				<li onclick="window.location.href='<?php echo $locationForStatusIndex["loc"]; ?>'" >
-					<div class="menuImageDiv">
-						<?php echo generateImage(
-							$arrayOfImages["gitStatus"],
-							$imageConfig = array(
-								"id"		=>	"gitStatusImage",
-								"class"		=>	"menuImage",
-								"height"	=>	"30px"
-								)
-							); 
-						?>
-					</div>
-					gitStatus
-					<?php echo $externalLinkImage; ?>
-				</li>
-			<?php endif; ?>
 		</ul>
 
 		<ul id="aboutSubMenu" class="settingsUl fullScreenMenuUL settingsUlSub">
@@ -645,14 +645,13 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 			<li class="menuTitle" style="text-align: center;">
 				Update
 			</li>
-			<li id="settingsSubMenuWatchlist" onclick="toggleUpdateSubMenu();" class="selected">
+			<li id="settingsSubMenuUpdate" onclick="toggleUpdateSubMenu();" class="selected">
 				Update
-			</li>
-			<li id="settingsSubMenuWatchlist" onclick="toggleUpdateChangelogSubMenu();">
-				Update Changelog
 			</li>
 		</ul>
 		<div id="mainContentFullScreenMenu">
+			<div class="settingsHeader" style="position: fixed;width: 100%;z-index: 10;top: 0; margin: 0; border-bottom: 1px solid white; display: none;top: 46px;" id="fixedPositionMiniMenu" >
+			</div>
 			<div id="fullScreenMenuChangeLog" style="display: none;" >
 				<?php readfile('core/html/changelog.html'); ?>
 			</div>
@@ -664,6 +663,9 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 			</div>
 			<div id="fullScreenMenuAbout" >
 				<?php require_once('core/php/template/about.php'); ?>
+			</div>
+			<div id="fullScreenMenuUpdate" style="display: none;">
+				<?php require_once('core/php/template/update.php'); ?>
 			</div>
 		</div>
 	</div>
@@ -778,6 +780,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 		var logNameGroup = "<?php echo $logNameGroup; ?>";
 		var logNameExtension = "<?php echo $logNameExtension; ?>";
 		var lineCountFromJS = "<?php echo $lineCountFromJS; ?>";
+		var successVerifyNum = <?php echo $successVerifyNum; ?>;
 	</script>
 	<?php require_once('core/php/template/popup.php') ?>
 	<script src="core/js/main.js?v=<?php echo $cssVersion?>"></script>

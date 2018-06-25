@@ -20,6 +20,32 @@
 
 		<tr>
 			<th colspan="2" style="padding: 10px">
+				<h1>4.1</h1>
+				<h3>Files/Folders</h3>
+			</th>
+		</tr>
+
+
+		<tr>
+			<td>
+				<ul>
+					<li>
+						New add file / folder popup
+					</li>
+					<li>
+						See dir while editing previous entries
+					</li>
+				</ul>
+			</td>
+			<td>
+				<img src="<?php echo $imageDirModifierAbout; ?>core/img/4.1-1.png" style="width: 45%;">
+				<img src="<?php echo $imageDirModifierAbout; ?>core/img/4.1-2.png" style="width: 45%;">
+			</td>
+		</tr>
+
+
+		<tr>
+			<th colspan="2" style="border-top: 1px solid white; padding: 10px">
 				<h1>4.0</h1>
 				<h3>Back to focus</h3>
 			</th>

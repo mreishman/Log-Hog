@@ -1,7 +1,9 @@
+var alertEnabledArray = {};
 var arrayToUpdate = {};
 var arrayOfData1 = null;
 var arrayOfData2 = null;
 var arrayOfDataMain = null;
+var arrayOfScrollHeaderUpdate = ["aboutSpanAbout","aboutSpanInfo","aboutSpanGithub"];
 var clearingNotifications = false;
 var counterForPoll = 0;
 var counterForPollForceRefreshAll = 0;
@@ -921,21 +923,24 @@ function update(data)
 									}
 								}
 								var innerCountStatic = innerCount;
-								var idCheck = files[i].replace(/[^a-z0-9]/g, "");
-								if(innerCountStatic === 0)
+								if(typeof files[i] !== "undefined")
 								{
-									itemAdded = tryToInsertBeforeLog(innerCountStatic, stop, idCheck, item);
-									if(!itemAdded)
-									{
-										itemAdded = tryToInsertAfterLog(innerCountStatic, stop, idCheck, item);
-									}
-								}
-								else
-								{
-									itemAdded = tryToInsertAfterLog(innerCountStatic, stop, idCheck, item);
-									if(!itemAdded)
+									var idCheck = files[i].replace(/[^a-z0-9]/g, "");
+									if(innerCountStatic === 0)
 									{
 										itemAdded = tryToInsertBeforeLog(innerCountStatic, stop, idCheck, item);
+										if(!itemAdded)
+										{
+											itemAdded = tryToInsertAfterLog(innerCountStatic, stop, idCheck, item);
+										}
+									}
+									else
+									{
+										itemAdded = tryToInsertAfterLog(innerCountStatic, stop, idCheck, item);
+										if(!itemAdded)
+										{
+											itemAdded = tryToInsertBeforeLog(innerCountStatic, stop, idCheck, item);
+										}
 									}
 								}
 							}
@@ -947,7 +952,7 @@ function update(data)
 
 							if(!firstLoad)
 							{
-								if(!$("#menu a." + id + "Button").hasClass("updated") && fileData[fullPathSearch]["AlertEnabled"] === "true")
+								if(!$("#menu a." + id + "Button").hasClass("updated") && fileData[fullPathSearch]["AlertEnabled"] === "true" && (!(id in alertEnabledArray) || (id in alertEnabledArray && alertEnabledArray[id] === "enabled")))
 								{
 									$("#menu a." + id + "Button").addClass("updated");
 
@@ -964,13 +969,18 @@ function update(data)
 							var deleteLogAction = {action: "deleteLogPopupInner(titles[\""+id+"\"]);", name: "Delete Log"};
 							var copyNameAction = {action: "copyToClipBoard(\""+shortName+"\");", name: "Copy File Name"};
 							var copyFullPathAction = {action: "copyToClipBoard(titles[\""+id+"\"]);", name: "Copy Filepath"};
+							var alertToggle = {action: "tmpEnableAlerts(\""+id+"\");" ,name: "Enable Alerts"};
+							if(fileData[fullPathSearch]["AlertEnabled"] === "true")
+							{
+								alertToggle = {action: "tmpDisableAlerts(\""+id+"\");" ,name: "Disable Alerts"};
+							}
 							//add rightclick menu
-							menuObjectRightClick[id] = [hideLogAction, clearLogAction,deleteLogAction,copyNameAction,copyFullPathAction];
+							menuObjectRightClick[id] = [hideLogAction, clearLogAction,deleteLogAction,copyNameAction,copyFullPathAction,alertToggle];
 							Rightclick_ID_list.push(id);
 						}
 
 						updated = false;
-						if(fileData[fullPathSearch]["AlertEnabled"] === "true")
+						if(fileData[fullPathSearch]["AlertEnabled"] === "true" && (!(id in alertEnabledArray) || (id in alertEnabledArray && alertEnabledArray[id] === "enabled")))
 						{
 							if(!(logs[id] === lastLogs[id]))
 							{
@@ -1225,6 +1235,43 @@ function toggleDisplayOfNoLogs()
 	{
 		eventThrowException(e);
 	}
+}
+
+function tmpEnableAlerts(id)
+{
+	var menuObjectLocal = menuObjectRightClick[id];
+	var options = Object.keys(menuObjectLocal);
+	var lengthOfOptions = options.length;
+	for(var i = 0; i < lengthOfOptions; i++)
+	{
+		var currentOption = menuObjectLocal[options[i]];
+		if(currentOption["name"] === "Enable Alerts")
+		{
+			menuObjectRightClick[id][options[i]]["name"] = "Disable Alerts";
+			menuObjectRightClick[id][options[i]]["action"] = "tmpDisableAlerts(\""+id+"\")";
+			break;
+		}
+	}
+	alertEnabledArray[id] = "enabled";
+}
+
+function tmpDisableAlerts(id)
+{
+	var menuObjectLocal = menuObjectRightClick[id];
+	var options = Object.keys(menuObjectLocal);
+	var lengthOfOptions = options.length;
+	for(var i = 0; i < lengthOfOptions; i++)
+	{
+		var currentOption = menuObjectLocal[options[i]];
+		if(currentOption["name"] === "Disable Alerts")
+		{
+			menuObjectRightClick[id][options[i]]["name"] = "Enable Alerts";
+			menuObjectRightClick[id][options[i]]["action"] = "tmpEnableAlerts(\""+id+"\")";
+			break;
+		}
+	}
+	alertEnabledArray[id] = "disabled";
+	removeNotificationByLog(id);
 }
 
 function updateScrollOnLogs()
@@ -1546,10 +1593,10 @@ function show(e, id)
 		//window number clear
 		$('.currentWindowNum').each(function(i, obj)
 		{
-		    if(obj.innerHTML ==  ""+(currentSelectWindow+1)+". ")
-		    {
-		    	obj.innerHTML = "";
-		    }
+			if(obj.innerHTML ==  ""+(currentSelectWindow+1)+". ")
+			{
+				obj.innerHTML = "";
+			}
 		});
 		//window number add
 		$("#"+id+"CurrentWindow").html(""+(currentSelectWindow+1)+". ");
@@ -1585,6 +1632,8 @@ function show(e, id)
 
 		
 		resize();
+
+		toggleGroupedGroups();
 	}
 	catch(e)
 	{
@@ -2195,83 +2244,6 @@ function filterTitle(title)
 	}
 }
 
-function installUpdates()
-{
-	try
-	{
-		displayLoadingPopup();
-		//reset vars in post request
-		var urlForSend = "core/php/resetUpdateFilesToDefault.php?format=json";
-		var data = {status: "" };
-		$.ajax(
-		{
-			url: urlForSend,
-			dataType: "json",
-			data,
-			type: "POST",
-			complete(data)
-			{
-				//set thing to check for updated files. 
-				verifyChangeCounter = 0;	
-				timeoutVar = setInterval(function(){verifyChange();},3000);
-			}
-		});
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
-function verifyChange()
-{
-	try
-	{
-		var urlForSend = "update/updateActionCheck.php?format=json";
-		var data = {status: "" };
-		$.ajax(
-		{
-			url: urlForSend,
-			dataType: "json",
-			data,
-			type: "POST",
-			success(data)
-			{
-				if(data == "finishedUpdate")
-				{
-					verifyChangeCounter++;
-					if(verifyChangeCounter >= successVerifyNum)
-					{
-						clearInterval(timeoutVar);
-						verifyChangeCounter = 0;
-						actuallyInstallUpdates();
-					}
-				}
-				else
-				{
-					verifyChangeCounter = 0;
-				}
-			}
-		});
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
-function actuallyInstallUpdates()
-{
-	try
-	{
-		$("#settingsInstallUpdate").submit();
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
 function checkForUpdateMaybe()
 {
 	try
@@ -2373,6 +2345,10 @@ function changeSearchplaceholder()
 
 function changeCurrentSelectWindow(newSelectWindow)
 {
+	if(currentSelectWindow === newSelectWindow)
+	{
+		return;
+	}
 	$("#numSelectIndecatorForWindow"+currentSelectWindow).removeClass("currentWindowNumSelected").addClass("sidebarCurrentWindowNum");
 	currentSelectWindow = newSelectWindow;
 	$("#numSelectIndecatorForWindow"+newSelectWindow).removeClass("sidebarCurrentWindowNum").addClass("currentWindowNumSelected");
@@ -2719,11 +2695,23 @@ function toggleFullScreenMenu()
 	if(document.getElementById("fullScreenMenu").style.display === "none")
 	{
 		document.getElementById("fullScreenMenu").style.display = "block";
+		onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
 	}
 	else
 	{
 		document.getElementById("fullScreenMenu").style.display = "none";
 	}
+}
+
+function toggleUpdateMenu()
+{
+	hideMainStuff();
+	document.getElementById("fullScreenMenuUpdate").style.display = "block";
+	$("#mainMenuUpdate").addClass("selected");
+	document.getElementById("updateSubMenu").style.display = "block";
+	$("#settingsSubMenuUpdate").addClass("selected");
+	arrayOfScrollHeaderUpdate = ["updateUpdate","updateReleaseNotes"];
+	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
 }
 
 function toggleAbout()
@@ -2740,6 +2728,8 @@ function toggleAboutLogHog()
 	hideAboutStuff();
 	document.getElementById("fullScreenMenuAbout").style.display = "block";
 	$("#aboutSubMenuAbout").addClass("selected");
+	arrayOfScrollHeaderUpdate = ["aboutSpanAbout","aboutSpanInfo","aboutSpanGithub"];
+	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
 }
 
 function toggleWhatsNew()
@@ -2747,6 +2737,8 @@ function toggleWhatsNew()
 	hideAboutStuff();
 	document.getElementById("fullScreenMenuWhatsNew").style.display = "block";
 	$("#aboutSubMenuWhatsNew").addClass("selected");
+	arrayOfScrollHeaderUpdate = ["fullScreenMenuWhatsNew"];
+	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
 }
 
 function toggleChangeLog()
@@ -2754,6 +2746,14 @@ function toggleChangeLog()
 	hideAboutStuff();
 	document.getElementById("fullScreenMenuChangeLog").style.display = "block";
 	$("#aboutSubMenuChangelog").addClass("selected");
+	arrayOfScrollHeaderUpdate = ["fullScreenMenuChangeLog"];
+	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
+}
+
+function hideUpdateStuff()
+{
+	document.getElementById("fullScreenMenuUpdate").style.display = "none";
+	$("#settingsSubMenuUpdate").removeClass("selected");
 }
 
 function hideAboutStuff()
@@ -2768,7 +2768,21 @@ function hideAboutStuff()
 
 function hideMainStuff()
 {
+	if($("#mainMenuAbout").hasClass("selected"))
+	{
+		document.getElementById("aboutSubMenu").style.display = "none";
+		hideAboutStuff();
+	}
+
 	$("#mainMenuAbout").removeClass("selected");
+
+	if($("#mainMenuUpdate").hasClass("selected"))
+	{
+		document.getElementById("updateSubMenu").style.display = "none";
+		hideUpdateStuff();
+	}
+
+	$("#mainMenuUpdate").removeClass("selected");
 }
 
 function toggleGroupedGroups()
@@ -2778,6 +2792,41 @@ function toggleGroupedGroups()
 	$(".active").show();
 	$("."+groupSelect+"Group").show();
 	resize();
+}
+
+function onScrollShowFixedMiniBar(idsOfForms)
+{
+	if(idsOfForms.length < 1)
+	{
+		return;
+	}
+	if(!document.getElementById("fixedPositionMiniMenu"))
+	{
+		return;
+	}
+	var dis = false;
+	for (var i = idsOfForms.length - 1; i >= 0; i--)
+	{
+		var currentPos = document.getElementById(idsOfForms[i]).getBoundingClientRect().top;
+		if(currentPos < 46)
+		{
+			$("#fixedPositionMiniMenu").html($("#"+idsOfForms[i]+" .settingsHeader").html());
+			if(document.getElementById("fixedPositionMiniMenu").style.display === "none")
+			{
+				document.getElementById("fixedPositionMiniMenu").style.display = "block";
+			}
+			dis = true;
+			break;
+		}
+	}
+	if(!dis)
+	{
+		$("#fixedPositionMiniMenu").html("");
+		if(document.getElementById("fixedPositionMiniMenu").style.display !== "none")
+		{
+			document.getElementById("fixedPositionMiniMenu").style.display = "none";
+		}
+	}
 }
 
 $(document).ready(function()
@@ -2825,8 +2874,17 @@ $(document).ready(function()
 	updateNotificationCount();
 
 	$("#selectForGroup").on("keydown change", function(){
-	    setTimeout(function() {
-	      toggleGroupedGroups();
-	    }, 2);
+		setTimeout(function() {
+			toggleGroupedGroups();
+		}, 2);
 	});
+
+	document.addEventListener(
+		'scroll',
+		function (event)
+		{
+			onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
+		},
+		true
+	);
 });

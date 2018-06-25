@@ -36,24 +36,6 @@ echo loadSentryData($sendCrashInfoJS, $branchSelected); ?>
 			" onclick="goToUrl('themes.php');" 
 		<?php endif; ?>
 	>Themes</a>
-	<?php if(strpos($URI, 'update.php') !== false): ?>
-		<a style="cursor: default;" class="active" id="updateLink">
-	<?php else: ?>
-		<a id="updateLink" onclick="goToUrl('update.php');">
-	<?php endif; ?>
-			<?php if($updateNotificationEnabled === "true")
-			{
-				if($levelOfUpdate == 1)
-				{
-					echo '<img id="updateNoticeImage" src="'.$localURL.'img/yellowWarning.png" height="10px">';
-				}
-				elseif($levelOfUpdate !== 0)
-				{
-					echo '<img id="updateNoticeImage" src="'.$localURL.'img/redWarning.png" height="10px">';
-				}
-			}?>
-			Update
-		</a>
 	<?php if(strpos($URI, 'advanced.php') !== false): ?>
 		<a style="cursor: default;" class="active" id="AdvancedLink">Advanced</a>
 	<?php else: ?>	
@@ -106,6 +88,8 @@ echo loadSentryData($sendCrashInfoJS, $branchSelected); ?>
 <?php endif;
 $baseUrlImages = $localURL;
 ?>
+<div class="settingsHeader" style="position: absolute;width: 100%;z-index: 10;top: 104px; margin: 0; border-bottom: 1px solid white; display: none;" id="fixedPositionMiniMenu" >
+</div>
 <script type="text/javascript">
 	var baseUrl = "<?php echo baseURL();?>";
 	var popupSettingsArray = <?php echo $popupSettingsArray ?>;

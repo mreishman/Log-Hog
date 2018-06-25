@@ -29,7 +29,7 @@ Poll Settings
 		<i style="font-size: 75%;" >Only if Pause On Not Focus is set to False</i>
 	</li>
 	<li>
-		<span class="settingsBuffer" > Pause Poll By Default:  </span>
+		<span class="settingsBuffer" > Pause Poll On Load:  </span>
 		<div class="selectDiv">
 			<select name="pausePoll">
 				<option <?php if($pausePoll == 'true'){echo "selected";} ?> value="true">True</option>
