@@ -257,8 +257,8 @@ function addFileFolderAjax(fileType, sentLocation)
 {
 	currentPatternSelect = defaultNewAddPattern;
 	hidePopup();
-	displayLoadingPopup("../");
-	var urlForSend = "../core/php/getFileFolderData.php?format=json";
+	displayLoadingPopup("");
+	var urlForSend = "core/php/getFileFolderData.php?format=json";
 	var data = {currentFolder: sentLocation, filter: currentPatternSelect};
 	$.ajax({
 		url: urlForSend,
@@ -289,7 +289,7 @@ function updateSubFiles(id)
 {
 	document.getElementById("watchListKey"+id+"LoadingSubFilesIcon").style.display = "inline-block";
 	document.getElementById("watchListKey"+id+"FilesInFolder").style.display = "none";
-	var urlForSend = "../core/php/getFileFolderData.php?format=json";
+	var urlForSend = "core/php/getFileFolderData.php?format=json";
 	var data = {currentFolder: document.getElementsByName("watchListKey"+id+"Location")[0].value, recursive: document.getElementsByName("watchListKey"+id+"Recursive")[0].value, filter:  document.getElementsByName("watchListKey"+id+"Pattern")[0].value};
 	$.ajax({
 		url: urlForSend,
@@ -477,7 +477,7 @@ function getCurrentDir(currentDir, joinChar)
 function getFileFolderData(currentFolder, hideFiles, orgPath)
 {
 	//make ajax to get file / folder data, return array
-	var urlForSend = "../core/php/getFileFolderData.php?format=json";
+	var urlForSend = "core/php/getFileFolderData.php?format=json";
 	var data = {currentFolder, filter: currentPatternSelect};
 	$.ajax({
 		url: urlForSend,
@@ -499,7 +499,7 @@ function getFileFolderData(currentFolder, hideFiles, orgPath)
 function getFileFolderDataMain(currentFolder, hideFiles, orgPath, currentRow)
 {
 	//make ajax to get file / folder data, return array
-	var urlForSend = "../core/php/getFileFolderData.php?format=json";
+	var urlForSend = "core/php/getFileFolderData.php?format=json";
 	var data = {currentFolder, filter: document.getElementsByName("watchListKey"+currentRow+"Pattern")[0].value};
 	$.ajax({
 		url: urlForSend,
@@ -1036,7 +1036,7 @@ function checkWatchList()
 	{
 		var countOfWatchList = parseInt(document.getElementById("numberOfRows").value);
 		var blankValue = false;
-		for (var i = 1; i <= countOfWatchList; i++) 
+		for (var i = 1; i <= countOfWatchList; i++)
 		{
 			if(document.getElementsByName("watchListKey"+i+"Location")[0].value === "")
 			{
@@ -1152,7 +1152,7 @@ function getFileFolderList()
 {
 	document.getElementsByClassName("uniqueClassForAppendSettingsMainWatchNew")[0].innerHTML = "";
 	document.getElementsByClassName("uniqueClassForAppendSettingsMainWatchNew")[0].style.display = "none";
-	var urlForSend = "../core/php/getFileFolderList.php?format=json";
+	var urlForSend = "core/php/getFileFolderList.php?format=json";
 	var data = {};
 	$.ajax({
 		url: urlForSend,
@@ -1185,7 +1185,7 @@ function ajaxAddRowFirstLoad(currentCount)
 	{
 		var data = fileFolderList[fileFolderListKeys[currentCount]];
 		updateProgressBarWatchList((90*(1/fileFolderListCount)), data["Location"], "Loading file "+(currentCount+1)+" of "+fileFolderListCount);
-		var urlForSend = "../core/php/getFileFolderData.php?format=json";
+		var urlForSend = "core/php/getFileFolderData.php?format=json";
 		var sendData = {currentFolder: data["Location"], filter: data["Pattern"]};
 		(function(_data){
 			$.ajax({
@@ -1196,7 +1196,7 @@ function ajaxAddRowFirstLoad(currentCount)
 				success(data)
 				{
 					var countOfWatchList = parseInt(document.getElementById("numberOfRows").value);
-					var fileListData = generateSubFiles({fileArray: data["data"], currentNum: (countOfWatchList+1), mainFolder: _data["Location"]});				
+					var fileListData = generateSubFiles({fileArray: data["data"], currentNum: (countOfWatchList+1), mainFolder: _data["Location"]});
 					_data["fileImage"] = icons[data["img"]];
 					_data["filePermsDisplay"] =  data["fileInfo"];
 					_data["filesInFolder"] =  fileListData["html"];
@@ -1204,9 +1204,8 @@ function ajaxAddRowFirstLoad(currentCount)
 					addRowFunction(_data)
 					currentCount++;
 					setTimeout(function(){ajaxAddRowFirstLoad(currentCount);},100);
-					
 				}
-			});	
+			});
 		}(data));
 	}
 	else
@@ -1228,7 +1227,6 @@ function updateProgressBarWatchList(additonalPercent, text, topText = "Loading..
 		$("#progressBarSubInfoWatchList").append(text);
 		$("#progressBarMainInfoWatchList").empty();
 		$("#progressBarMainInfoWatchList").append(topText);
-		
 	}
 	catch(e)
 	{
@@ -1255,7 +1253,7 @@ function toggleSaveGroup(rowNumber)
 	}
 }
 
-$( document ).ready(function() 
+function loadWatchList()
 {
 	percentWatchList = 0;
 	progressBarWatchList = new ldBar("#progressBarWatchList");
@@ -1265,7 +1263,6 @@ $( document ).ready(function()
 		'scroll',
 		function (event)
 		{
-			onScrollShowFixedMiniBar(["settingsMainWatch"]);
 			moveFileFolderDropdown();
 		},
 		true
@@ -1273,5 +1270,4 @@ $( document ).ready(function()
 
 	setInterval(poll, 100);
 	setTimeout(function(){getFileFolderList();},100);
-	
-});
+}

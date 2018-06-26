@@ -217,7 +217,7 @@ function generateSaveBlock($data = array(), $defaultTrashCanIcon, $arrayOfImages
 	if(isset($data["AlertEnabled"]))
 	{
 		$AlertEnabled = $data["AlertEnabled"];
-	}		
+	}
 
 	if(isset($data["typeFolder"]))
 	{
@@ -242,7 +242,7 @@ function generateSaveBlock($data = array(), $defaultTrashCanIcon, $arrayOfImages
 			$typeFile = "";
 		}
 	}
-	
+
 
 	$saveBlock = "<li class=\"watchRow ".$saveGroupClass." \" id=\"rowNumber".$rowNumber."\" ><div class=\"settingsHeader\" >";
 	$saveBlock .= $fileNumber.":";
@@ -339,7 +339,6 @@ function generateSaveBlock($data = array(), $defaultTrashCanIcon, $arrayOfImages
 		$arrayOfImages["loading"],
 		array(
 			"width"			=>	"25px",
-			"srcModifier"	=>	"../",
 			"id"			=>	"watchListKey".$rowNumber."LoadingSubFilesIcon",
 			"style"			=>	"display: none;"
 		)

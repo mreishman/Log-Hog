@@ -380,7 +380,7 @@ else
 			'src'			=> "",
 			"title"			=> "gitStatus",
 			"baseName"		=> 'gitStatus.png'
-		),	
+		),
 		"greenCheck"		=> array(
 			"alt"			=>	"Ok",
 			"src"			=>	"",
@@ -488,6 +488,12 @@ else
 			"src"			=>	"",
 			"title"			=>	"Delete",
 			"baseName"		=>	"trashCanSideBar.png"
+		),
+		"watchList"	=> array(
+			"alt"			=>	"Watch List",
+			"src"			=>	"",
+			"title"			=>	"WatchList",
+			"baseName"		=>	"watchlist.png"
 		),
 		"yellowWarning"		=> array(
 			"alt"			=>	"Notice",

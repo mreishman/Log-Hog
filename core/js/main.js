@@ -2788,7 +2788,7 @@ function toggleFullScreenMenu()
 function toggleUpdateMenu()
 {
 	hideMainStuff();
-	document.getElementById("mainContentFullScreenMenu").style.left = ""+201+"px";
+	hideSidebar();
 	document.getElementById("fullScreenMenuUpdate").style.display = "block";
 	$("#mainMenuUpdate").addClass("selected");
 	arrayOfScrollHeaderUpdate = ["updateUpdate","updateReleaseNotes"];
@@ -2797,9 +2797,7 @@ function toggleUpdateMenu()
 
 function toggleAbout()
 {
-	hideAboutStuff();
 	hideMainStuff();
-	hideIframeStuff();
 	document.getElementById("mainContentFullScreenMenu").style.left = ""+402+"px";
 	document.getElementById("aboutSubMenu").style.display = "block";
 	$("#mainMenuAbout").addClass("selected");
@@ -2832,6 +2830,28 @@ function toggleChangeLog()
 	arrayOfScrollHeaderUpdate = ["fullScreenMenuChangeLog"];
 	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
 }
+
+function toggleWatchListMenu()
+{
+	hideMainStuff();
+	document.getElementById("fullScreenMenuWatchList").style.display = "block";
+	document.getElementById("watchListSubMenu").style.display = "block";
+	$("#watchListMenu").addClass("selected");
+	arrayOfScrollHeaderUpdate = ["settingsMainWatch"];
+	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
+}
+
+function hideSidebar()
+{
+	document.getElementById("mainContentFullScreenMenu").style.left = ""+201+"px";
+}
+
+function hideWatchListStuff()
+{
+	document.getElementById("fullScreenMenuWatchList").style.display = "none";
+	document.getElementById("watchListSubMenu").style.display = "none";
+}
+
 
 function hideUpdateStuff()
 {
@@ -2891,6 +2911,13 @@ function hideMainStuff()
 	{
 		hideIframeStuff();
 	}
+
+	if($("#watchListMenu").hasClass("selected"))
+	{
+		hideWatchListStuff();
+	}
+
+	$("#watchListMenu").removeClass("selected");
 
 	$("#menuStatusAddon").removeClass("selected");
 	$("#menuMonitorAddon").removeClass("selected");

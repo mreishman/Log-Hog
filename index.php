@@ -513,6 +513,20 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 				}
 				?>
 			</li>
+			<li id="watchListMenu" onclick="toggleWatchListMenu();" >
+				<div class="menuImageDiv">
+					<?php echo generateImage(
+						$arrayOfImages["watchList"],
+						$imageConfig = array(
+							"id"		=>	"watchList",
+							"class"		=>	"menuImage",
+							"height"	=>	"30px"
+							)
+						);
+					?>
+				</div>
+				Watchlist
+			</li>
 			<?php if($locationForMonitorIndex["loc"] || $locationForSearchIndex["loc"] || $locationForSeleniumMonitorIndex["loc"] || $locationForStatusIndex["loc"]): ?>
 				<li class="menuTitle" style="background-color: #999; color: black;" >
 					Other Apps
@@ -638,18 +652,35 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 				Changelog
 			</li>
 		</ul>
+		<ul id="watchListSubMenu" class="settingsUl fullScreenMenuUL settingsUlSub" style="display: none;">
+			<li class="menuTitle" style="text-align: center;" >
+				Watchlist
+			</li>
+			<li onclick="addFile();" >
+				Add File
+			</li>
+			<li onclick="addFolder();" >
+				Add Folder
+			</li>
+			<li onclick="addOther();" >
+				Add Other
+			</li>
+			<?php if($logShowMoreOptions === "false"): ?>
+				<li onclick="toggleCondensed();" >Show More Options</li>
+				<style type="text/css">
+					.condensed
+					{
+						display: none;
+					}
+				</style>
+			<?php else: ?>
+				<li onclick="toggleCondensed();" >Show Condensed Options</li>
+			<?php endif; ?>
+		</ul>
 		<ul id="settingsSubMenu" class="settingsUl fullScreenMenuUL settingsUlSub" style="display: none;">
 			<li class="menuTitle" style="text-align: center;">
 				Settings
 			</li>
-			<li id="settingsSubMenuWatchlist" onclick="toggleWatchListSubMenu();" class="selected">
-				Watchlist
-			</li>
-			<!--
-			<li id="settingsSubMenuWatchlist" onclick="toggleAddonsSubMenu();">
-				Addons
-			</li>
-			-->
 		</ul>
 		<div id="mainContentFullScreenMenu">
 			<div class="settingsHeader" style="position: fixed;width: 100%;z-index: 10;top: 0; margin: 0; border-bottom: 1px solid white; display: none;top: 46px;" id="fixedPositionMiniMenu" >
@@ -671,6 +702,10 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 			</div>
 			<div id="fullScreenMenuIFrame" style="display: none;">
 				<iframe style="border: 0;" id="iframeFullScreen" src=""></iframe>
+			</div>
+			<div id="fullScreenMenuWatchList" style="display: none;">
+				<?php require_once('core/php/settingsMainWatchFunctions.php'); ?>
+				<?php require_once('core/php/template/settingsMainWatch.php'); ?>
 			</div>
 		</div>
 	</div>
@@ -749,8 +784,9 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 	</script>
 	<?php require_once('core/php/template/popup.php') ?>
 	<script src="core/js/main.js?v=<?php echo $cssVersion?>"></script>
-	<script src="core/js/rightClickJS.js?v=<?php echo $cssVersion?>"></script>	
+	<script src="core/js/rightClickJS.js?v=<?php echo $cssVersion?>"></script>
 	<script src="core/js/update.js?v=<?php echo $cssVersion?>"></script>
+	<script src="core/js/settingsWatchlist.js?v=<?php echo $cssVersion?>"></script>
 	<nav id="context-menu" class="context-menu">
 	  <ul id="context-menu-items" class="context-menu__items">
 	  </ul>
