@@ -1260,10 +1260,7 @@ function loadWatchList()
 	document.getElementsByClassName("uniqueClassForAppendSettingsMainWatchNew")[0].style.display = "none";
 	document.getElementById("numberOfRows").value = 0;
 	percentWatchList = 0;
-	if(progressBarWatchList === null)
-	{
-		progressBarWatchList = new ldBar("#progressBarWatchList");
-	}
+	progressBarWatchList = new ldBar("#progressBarWatchList");
 	updateProgressBarWatchList(10, "Generating File List");
 	refreshSettingsWatchList();
 	document.addEventListener(
