@@ -2839,6 +2839,7 @@ function toggleWatchListMenu()
 	$("#watchListMenu").addClass("selected");
 	arrayOfScrollHeaderUpdate = ["settingsMainWatch"];
 	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
+	loadWatchList();
 }
 
 function hideSidebar()

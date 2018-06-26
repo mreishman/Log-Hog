@@ -20,7 +20,7 @@ var selectOptions =
 };
 var staticFileData;
 var staticRowNumber = 1;
-var progressBarWatchList;
+var progressBarWatchList = null;
 var percentWatchList = 0;
 var currentPatternSelect = defaultNewAddPattern;
 var fileFolderList = {};
@@ -1255,8 +1255,15 @@ function toggleSaveGroup(rowNumber)
 
 function loadWatchList()
 {
+	$("#progressBarWatchList").empty();
+	document.getElementById("loadingSpan").style.display = "block";
+	document.getElementsByClassName("uniqueClassForAppendSettingsMainWatchNew")[0].style.display = "none";
+	document.getElementById("numberOfRows").value = 0;
 	percentWatchList = 0;
-	progressBarWatchList = new ldBar("#progressBarWatchList");
+	if(progressBarWatchList === null)
+	{
+		progressBarWatchList = new ldBar("#progressBarWatchList");
+	}
 	updateProgressBarWatchList(10, "Generating File List");
 	refreshSettingsWatchList();
 	document.addEventListener(
@@ -1267,7 +1274,5 @@ function loadWatchList()
 		},
 		true
 	);
-
-	setInterval(poll, 100);
 	setTimeout(function(){getFileFolderList();},100);
 }
