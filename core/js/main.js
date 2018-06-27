@@ -1746,7 +1746,7 @@ function getDiffLogAndLastLog(id)
 	}
 }
 
-function makePretty(id) 
+function makePretty(id)
 {
 	try
 	{
@@ -1846,7 +1846,6 @@ function makePretty(id)
 				returnText += " >"+text[i]+"</div>";
 			}
 		}
-		
 		return returnText;
 	}
 	catch(e)
@@ -2957,6 +2956,11 @@ function onScrollShowFixedMiniBar(idsOfForms)
 			document.getElementById("fixedPositionMiniMenu").style.display = "none";
 		}
 		return;
+	}
+	var widthOfMainMenu = document.getElementById("mainContentFullScreenMenu").getBoundingClientRect().width;
+	if (document.getElementById("fixedPositionMiniMenu").style.width !==  widthOfMainMenu)
+	{
+		document.getElementById("fixedPositionMiniMenu").style.width = widthOfMainMenu;
 	}
 	var dis = false;
 	for (var i = idsOfForms.length - 1; i >= 0; i--)
