@@ -841,6 +841,10 @@ function splitFilesPopup(currentRow, keyName = "")
 {
 	try
 	{
+		if (typeof popupSettingsArray === 'string')
+		{
+			popupSettingsArray = JSON.parse(popupSettingsArray);
+		}
 		if("removeFolder" in popupSettingsArray && popupSettingsArray.removeFolder === "true")
 		{
 			showPopup();
@@ -926,6 +930,10 @@ function deleteRowFunctionPopup(currentRow, keyName = "")
 {
 	try
 	{
+		if (typeof popupSettingsArray === 'string')
+		{
+			popupSettingsArray = JSON.parse(popupSettingsArray);
+		}
 		if("removeFolder" in popupSettingsArray && popupSettingsArray.removeFolder === "true")
 		{
 			showPopup();
@@ -1043,6 +1051,10 @@ function checkWatchList()
 				blankValue = true;
 				break;
 			}
+		}
+		if (typeof popupSettingsArray === 'string')
+		{
+			popupSettingsArray = JSON.parse(popupSettingsArray);
 		}
 		if(blankValue && "blankFolder" in popupSettingsArray && popupSettingsArray.blankFolder === "true")
 		{
