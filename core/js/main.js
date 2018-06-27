@@ -2180,7 +2180,11 @@ function deleteAction()
 {
 	try
 	{
-		if(popupSettingsArray.deleteLog == "true")
+		if (typeof popupSettingsArray === 'string')
+		{
+			popupSettingsArray = JSON.parse(popupSettingsArray);
+		}
+		if("deleteLog" in popupSettingsArray && popupSettingsArray.deleteLog == "true")
 		{
 			showPopup();
 			document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class=\"settingsHeader\" >Are you sure you want to clear all logs?</div><br><div style=\"width:100%;text-align:center;padding-left:10px;padding-right:10px;\"></div><div><div class=\"link\" onclick=\"deleteActionAfter();hidePopup();\" style=\"margin-left:125px; margin-right:50px;margin-top:35px;\">Yes</div><div onclick=\"hidePopup();\" class=\"link\">No</div></div>";
@@ -2240,7 +2244,11 @@ function deleteLogPopupInner(title)
 	title = filterTitle(title);
 	if(title !== "")
 	{
-		if(popupSettingsArray.deleteLog == "true")
+		if (typeof popupSettingsArray === 'string')
+		{
+			popupSettingsArray = JSON.parse(popupSettingsArray);
+		}
+		if("deleteLog" in popupSettingsArray && popupSettingsArray.deleteLog == "true")
 		{
 			showPopup();
 			document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class=\"settingsHeader\" >Are you sure you want to delete this log?</div><br><div style=\"width:100%;text-align:center;padding-left:10px;padding-right:10px;\">"+title+"</div><div><div class=\"link\" onclick=\"deleteLog('"+title+"');hidePopup();\" style=\"margin-left:125px; margin-right:50px;margin-top:35px;\">Yes</div><div onclick=\"hidePopup();\" class=\"link\">No</div></div>";
