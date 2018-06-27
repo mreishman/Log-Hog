@@ -665,8 +665,9 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 			<li onclick="addOther();" >
 				Add Other
 			</li>
+			<li id="condensedLink" onclick="toggleCondensed();" >
 			<?php if($logShowMoreOptions === "false"): ?>
-				<li onclick="toggleCondensed();" >Show More Options</li>
+				Show More Options</li>
 				<style type="text/css">
 					.condensed
 					{
@@ -674,7 +675,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 					}
 				</style>
 			<?php else: ?>
-				<li onclick="toggleCondensed();" >Show Condensed Options</li>
+				Show Condensed Options</li>
 			<?php endif; ?>
 		</ul>
 		<ul id="settingsSubMenu" class="settingsUl fullScreenMenuUL settingsUlSub" style="display: none;">
@@ -786,6 +787,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 	<script src="core/js/main.js?v=<?php echo $cssVersion?>"></script>
 	<script src="core/js/rightClickJS.js?v=<?php echo $cssVersion?>"></script>
 	<script src="core/js/update.js?v=<?php echo $cssVersion?>"></script>
+	<script src="core/js/settings.js?v=<?php echo $cssVersion?>"></script>
 	<script src="core/js/settingsWatchlist.js?v=<?php echo $cssVersion?>"></script>
 	<nav id="context-menu" class="context-menu">
 	  <ul id="context-menu-items" class="context-menu__items">

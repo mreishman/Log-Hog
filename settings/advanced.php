@@ -66,6 +66,15 @@ $countConfig--;
 					</div>
 				</li>
 				<li>
+					<span class="settingsBuffer"> Enable Development Tools:</span>
+					<div class="selectDiv">
+						<select name="developmentTabEnabled">
+  							<option <?php if($developmentTabEnabled == 'true'){echo "selected";} ?> value="true">True</option>
+  							<option <?php if($developmentTabEnabled == 'false'){echo "selected";} ?> value="false">False</option>
+						</select>
+					</div>
+				</li>
+				<li>
 					<span class="settingsBuffer"> Number of versions saved:</span>
 					<div class="selectDiv">
 						<select name="backupNumConfig">
@@ -115,28 +124,6 @@ $countConfig--;
 							)
 						); ?>
 						<i>This is for platforms where saving files might not be in sync with containers. Increasing from one will make saves take longer, but it will be more accurate if there is that sync delay</i></span>
-				</li>
-			</ul>
-		</div>
-	</form>
-	<form id="devAdvanced">
-		<div class="settingsHeader">
-			Development  
-			<div class="settingsHeaderButtons">
-				<?php echo addResetButton("devAdvanced"); ?>
-				<a class="linkSmall" onclick="saveAndVerifyMain('devAdvanced');" >Save Changes</a>
-			</div>
-		</div>
-		<div class="settingsDiv" >
-			<ul class="settingsUl">
-				<li>
-					<span class="settingsBuffer"> Enable Development Tools:</span>
-					<div class="selectDiv">
-						<select name="developmentTabEnabled">
-  							<option <?php if($developmentTabEnabled == 'true'){echo "selected";} ?> value="true">True</option>
-  							<option <?php if($developmentTabEnabled == 'false'){echo "selected";} ?> value="false">False</option>
-						</select>
-					</div>
 				</li>
 			</ul>
 		</div>

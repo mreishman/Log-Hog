@@ -1,24 +1,3 @@
-function resize()
-{
-	if(document.getElementById("main"))
-	{
-		var offsetHeight = 0;
-		if(document.getElementById("menu"))
-		{
-			offsetHeight += document.getElementById("menu").offsetHeight;
-		}
-		if(document.getElementById("menu2"))
-		{
-			offsetHeight += document.getElementById("menu2").offsetHeight;
-		}
-		var heightOfMain = window.innerHeight - offsetHeight;
-		var heightOfMainStyle = "height:";
-		heightOfMainStyle += heightOfMain;
-		heightOfMainStyle += "px";
-		document.getElementById("main").setAttribute("style",heightOfMainStyle);
-	}
-}
-
 var idForm = "";
 var countForVerifySave = 0;
 var pollCheckForUpdate;
@@ -169,11 +148,11 @@ function fadeOutPopup()
 	setTimeout(hidePopup, 1000);
 }
 
-function objectsAreSameInner(x, y) 
+function objectsAreSameInner(x, y)
 {
 	try
 	{
-		for(var propertyName in x) 
+		for(var propertyName in x)
 		{
 			if( (typeof(x) === "undefined") || (typeof(y) === "undefined") || x[propertyName] !== y[propertyName])
 			{
@@ -188,12 +167,12 @@ function objectsAreSameInner(x, y)
 	}
 }
 
-function objectsAreSame(x, y) 
+function objectsAreSame(x, y)
 {
 	try
 	{
 		var returnValue = true;
-		for (var i = x.length - 1; i >= 0; i--) 
+		for (var i = x.length - 1; i >= 0; i--)
 		{
 			if(!objectsAreSameInner(x[i],y[i]))
 			{
@@ -291,105 +270,3 @@ function resetArrayObject(idOfForm)
 		eventThrowException(e);
 	}
 }
-
-function poll()
-{
-	try
-	{
-		if(checkIfChanges())
-		{
-			if(document.getElementById(titleOfPage+"Link"))
-			{
-				if(document.getElementById(titleOfPage+"Link").innerHTML !== titleOfPage+"*")
-				{
-					document.getElementById(titleOfPage+"Link").innerHTML = titleOfPage+"*";
-				}
-			}
-		}
-		else
-		{
-			if(document.getElementById(titleOfPage+"Link"))
-			{
-				if(document.getElementById(titleOfPage+"Link").innerHTML !== titleOfPage)
-				{
-					document.getElementById(titleOfPage+"Link").innerHTML = titleOfPage;
-				}
-			}
-		}
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
-function goToUrl(url)
-{
-	try
-	{
-		var goToPage = true;
-		if(typeof checkIfChanges == "function")
-		{
-			goToPage = !checkIfChanges();
-		}
-		if(goToPage || popupSettingsArray.saveSettings == "false")
-		{
-			window.location.href = url;
-		}
-		else
-		{
-			displaySavePromptPopup(url);
-		}
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
-function onScrollShowFixedMiniBar(idsOfForms)
-{
-	if(!document.getElementById("fixedPositionMiniMenu"))
-	{
-		return;
-	}
-	var heightOne = 55;
-	if(document.getElementById("menu2") !== null)
-	{
-		heightOne = 104;
-	}
-	if(document.getElementById("fixedPositionMiniMenu").style.top !== ""+heightOne+"px")
-	{
-		document.getElementById("fixedPositionMiniMenu").style.top = ""+heightOne+"px"
-	}
-	var dis = false;
-	for (var i = idsOfForms.length - 1; i >= 0; i--)
-	{
-		var currentPos = document.getElementById(idsOfForms[i]).getBoundingClientRect().top;
-		if(currentPos < (heightOne+10))
-		{
-			$("#fixedPositionMiniMenu").html($("#"+idsOfForms[i]+" .settingsHeader").html());
-			if(document.getElementById("fixedPositionMiniMenu").style.display === "none")
-			{
-				document.getElementById("fixedPositionMiniMenu").style.display = "block";
-			}
-			dis = true;
-			break;
-		}
-	}
-	if(!dis)
-	{
-		$("#fixedPositionMiniMenu").html("");
-		if(document.getElementById("fixedPositionMiniMenu").style.display !== "none")
-		{
-			document.getElementById("fixedPositionMiniMenu").style.display = "none";
-		}
-	}
-}
-
-$(document).ready(function()
-{
-	resize();
-	window.onresize = resize;
-
-});

@@ -4,6 +4,7 @@ require_once('../setup/setupProcessFile.php');
 require_once("../core/php/customCSS.php");
 echo loadSentryData($sendCrashInfoJS, $branchSelected); ?>
 <script src="../core/js/settings.js?v=<?php echo $cssVersion?>"></script>
+<script src="../core/js/settingsExt.js?v=<?php echo $cssVersion?>"></script>
 <div id="menu">
 	<div onclick="goToUrl('../index.php');" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">
 		<?php echo generateImage(
@@ -72,7 +73,6 @@ echo loadSentryData($sendCrashInfoJS, $branchSelected); ?>
 <?php elseif(strpos($URI, 'advanced.php') !== false): ?>
 	<div id="menu2">
 		<a class="link" href="#advancedConfig" > Config </a>
-		<a class="link" href="#devAdvanced" > Dev </a>
 		<a class="link" href="#loggingDisplay" > Logs </a>
 		<a class="link" href="#locationOtherApps" > Locations </a>
 		<a class="link" href="#moreAdvanced" > Advanced </a>
