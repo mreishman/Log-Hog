@@ -84,6 +84,15 @@ $countConfig--;
 					</div>
 				</li>
 				<li>
+					<span class="settingsBuffer" > Enable Multi-Log: </span>
+					<div class="selectDiv">
+						<select name="enableMultiLog">
+							<option <?php if($enableMultiLog == 'true'){echo "selected";} ?> value="true">True</option>
+							<option <?php if($enableMultiLog == 'false'){echo "selected";} ?> value="false">False</option>
+						</select>
+					</div>
+				</li>
+				<li>
 					<span class="settingsBuffer" > Right Click Menu Enabled: </span>
 					<div class="selectDiv">
 						<select name="rightClickMenuEnable">
@@ -190,7 +199,7 @@ $countConfig--;
 					</div>
 				</li>
 				<li>
-					Send anonymous information about javascript errors/crashes:
+					Send anonymous information about Log-Hog specific javascript errors:
 					<div class="selectDiv">
 						<select name="sendCrashInfoJS">
   							<option <?php if($sendCrashInfoJS == 'true'){echo "selected";} ?> value="true">True</option>
@@ -199,7 +208,7 @@ $countConfig--;
 					</div>
 				</li>
 				<li style="display: none;" >
-					Send anonymous information about php errors/crashes:
+					Send anonymous information about Log-Hog specific php errors:
 					<div class="selectDiv">
 						<select name="sendCrashInfoPHP">
   							<option <?php if($sendCrashInfoPHP == 'true'){echo "selected";} ?> value="true">True</option>

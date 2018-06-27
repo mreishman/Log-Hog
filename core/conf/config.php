@@ -34,6 +34,7 @@ $defaultConfig = array(
 	'displayName'					=> 'forThemesOnly',
 	'enableDevBranchDownload' 		=> 'false',
 	'enableLogging'					=> 'false',
+	'enableMultiLog'				=> 'true',
 	'enablePollTimeLogging'			=> 'false',
 	'expSettingsAvail'				=> 'true',
 	'filterDefault'					=> 'title',

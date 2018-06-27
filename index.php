@@ -71,7 +71,10 @@ $locationForSeleniumMonitorIndex = checkForSeleniumMonitorInstall($locationForSe
 
 $aboutImage = "<img src=\"core/img/LogHog.png\" width=\"100px\" style=\"margin-bottom: -40px;\" >";
 
-
+if($enableMultiLog === "false")
+{
+	$windowConfig = "1x1";
+}
 $windowDisplayConfig = explode("x", $windowConfig);
 $logDisplayArray = "{";
 $logDisplay = "";
@@ -124,14 +127,14 @@ $externalLinkImage = generateImage(
 		)
 	);
 
-for ($i=0; $i < $windowDisplayConfig[0]; $i++)
+for ($i=0; $i < (int)$windowDisplayConfig[0]; $i++)
 {
 	$logDisplay .= "<tr>";
 
-	for ($j=0; $j < $windowDisplayConfig[1]; $j++)
+	for ($j=0; $j < (int)$windowDisplayConfig[1]; $j++)
 	{
 		$borderPadding += 2;
-		$counter = $j+($i*$windowDisplayConfig[1]);
+		$counter = $j+($i*(int)$windowDisplayConfig[1]);
 		$logDisplay .= "<td style=\"vertical-align: top; padding: 0; border: 1px solid white;\" class=\"logTdWidth\" >";
 		$logDisplay .= "<table style=\"margin: 0px;padding: 0px; border-spacing: 0px; width:100%;\" ><tr><td style=\"padding: 0;";
 		if($bottomBarIndexShow == 'false')
