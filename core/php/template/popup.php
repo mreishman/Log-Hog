@@ -9,20 +9,27 @@
 </div>
 
 <script type="text/javascript">
-	
+
 function hidePopup()
 {
+	if(document.getElementById('fullScreenMenu') && document.getElementById('fullScreenMenu').style.display == "block")
+	{
+		document.getElementById('fullScreenMenu').style.zIndex = "25";
+	}
 	$('#popup').addClass("hidden");
 	setTimeout(function()
-	{ 
+	{
 		document.getElementById('popup').style.display = "none";
-		document.getElementById('popupContentInnerHTMLDiv').innerHTML = "";  
+		document.getElementById('popupContentInnerHTMLDiv').innerHTML = "";
 		$('#popup').removeClass("hidden");
-	}, 1000);  
+	}, 1000); 
 }
 function showPopup()
 {
-
+	if(document.getElementById('fullScreenMenu') && document.getElementById('fullScreenMenu').style.display == "block")
+	{
+		document.getElementById('fullScreenMenu').style.zIndex = "5";
+	}
 	document.getElementById('popup').style.display = "block";
 	document.getElementById('popupContentInnerHTMLDiv').innerHTML = "";
 	//reset popup css style vars if needed
