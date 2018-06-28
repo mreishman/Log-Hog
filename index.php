@@ -785,6 +785,12 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 		var srcForLoadImage = "<?php echo $srcForLoadImage; ?>";
 		var currentVersion = "<?php echo $configStatic['version'];?>";
 		var baseUrl = "<?php echo $baseUrl;?>";
+		var saveVerifyImage = <?php echo json_encode(generateImage(
+			$arrayOfImages["greenCheck"],
+			array(
+				"height"		=>	"50px"
+			)
+		)); ?>
 	</script>
 	<?php require_once('core/php/template/popup.php') ?>
 	<script src="core/js/main.js?v=<?php echo $cssVersion?>"></script>
@@ -796,6 +802,4 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 	  <ul id="context-menu-items" class="context-menu__items">
 	  </ul>
 	</nav>
-
-
 </body>

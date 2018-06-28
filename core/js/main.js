@@ -2760,6 +2760,7 @@ function updateNotificationStuff()
 
 function toggleFullScreenMenu()
 {
+	dirForAjaxSend = "";
 	if(document.getElementById("notifications").style.display === "inline-block")
 	{
 		toggleNotifications();

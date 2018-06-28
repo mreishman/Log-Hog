@@ -1,27 +1,28 @@
-var idForm = "";
-var countForVerifySave = 0;
-var pollCheckForUpdate;
-var data;
-var idForFormMain;
 var arrayObject = {};
-var innerHtmlObject = {};
+var countForVerifySave = 0;
 var countForVerifySaveSuccess = 0;
+var data;
+var dirForAjaxSend = "../";
+var idForFormMain;
+var idForm = "";
+var innerHtmlObject = {};
+var pollCheckForUpdate;
 
 function saveAndVerifyMain(idForForm)
 {
 	idForFormMain = idForForm;
 	idForm = "#"+idForForm;
-	displayLoadingPopup(baseUrl); //displayLoadingPopup is defined in popup.php
+	displayLoadingPopup(dirForAjaxSend); //displayLoadingPopup is defined in popup.php
 	data = $(idForm).serializeArray();
 	$.ajax({
         type: "post",
-        url: "../core/php/settingsSaveAjax.php",
+        url: dirForAjaxSend+"core/php/settingsSaveAjax.php",
         data,
         success(data)
         {
 			if(data !== "true")
 			{
-				window.location.href = "../error.php?error="+data+"&page=core/php/settingsSaveAjax.php";
+				window.location.href = dirForAjaxSend+"error.php?error="+data+"&page=core/php/settingsSaveAjax.php";
 			}
 		},
         complete()
@@ -44,7 +45,7 @@ function timerVerifySave()
 	countForVerifySave++;
 	if(countForVerifySave < 20)
 	{
-		var urlForSend = "../core/php/saveCheck.php?format=json";
+		var urlForSend = dirForAjaxSend+"core/php/saveCheck.php?format=json";
 		$.ajax(
 		{
 			url: urlForSend,
@@ -120,7 +121,7 @@ function saveVerified()
 	if(idForFormMain.includes("themeMainSelection"))
 	{
 		
-		window.location.href = "../core/php/template/upgradeTheme.php";
+		window.location.href = dirForAjaxSend+"core/php/template/upgradeTheme.php";
 	}
 	else if(idForFormMain === "settingsColorFolderGroupVars" || idForFormMain === "settingsColorFolderVars" || idForFormMain === "welcomeForm")
 	{
