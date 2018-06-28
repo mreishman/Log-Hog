@@ -2798,8 +2798,15 @@ function toggleFullScreenMenu()
 	}
 }
 
-function toggleUpdateMenu()
+function toggleUpdateMenu(force = false)
 {
+	if(!force)
+	{
+		if(!(goToPageCheck("toggleUpdateMenu(true)")))
+		{
+			return false;
+		}
+	}
 	hideMainStuff();
 	hideSidebar();
 	document.getElementById("fullScreenMenuUpdate").style.display = "block";
@@ -2808,8 +2815,15 @@ function toggleUpdateMenu()
 	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
 }
 
-function toggleAbout()
+function toggleAbout(force = false)
 {
+	if(!force)
+	{
+		if(!(goToPageCheck("toggleAbout(true)")))
+		{
+			return false;
+		}
+	}
 	hideMainStuff();
 	document.getElementById("mainContentFullScreenMenu").style.left = ""+402+"px";
 	document.getElementById("aboutSubMenu").style.display = "block";
@@ -2844,8 +2858,15 @@ function toggleChangeLog()
 	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
 }
 
-function toggleWatchListMenu()
+function toggleWatchListMenu(force = false)
 {
+	if(!force)
+	{
+		if(!(goToPageCheck("toggleWatchListMenu(true)")))
+		{
+			return false;
+		}
+	}
 	hideMainStuff();
 	arrayOfDataSettings = ["settingsMainWatch"];
 	startSettingsPollTimer();
@@ -2871,8 +2892,31 @@ function checkIfChanges()
 	return false;
 }
 
+function goToPageCheck(functionName)
+{
+	try
+	{
+		var goToPage = !checkIfChanges();
+		if (typeof popupSettingsArray === 'string')
+		{
+			popupSettingsArray = JSON.parse(popupSettingsArray);
+		}
+		if(!(goToPage || ("saveSettings" in popupSettingsArray  && popupSettingsArray.saveSettings == "false")))
+		{
+			displaySavePromptPopupIndex(functionName);
+			return false;
+		}
+		return true;
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
 function endSettingsPollTimer()
 {
+	arrayOfDataSettings = [];
 	clearInterval(timerForSettings);
 }
 
@@ -2909,8 +2953,15 @@ function hideIframeStuff()
 	$('#iframeFullScreen').prop('src', "");
 }
 
-function toggleIframe(locHref, idOfAddon)
+function toggleIframe(locHref, idOfAddon, force = false)
 {
+	if(!force)
+	{
+		if(!(goToPageCheck("toggleIframe(\""+locHref+"\",\""+idOfAddon+"\",true)")))
+		{
+			return false;
+		}
+	}
 	hideMainStuff();
 	$("#"+idOfAddon).addClass("selected");
 	document.getElementById("fullScreenMenuIFrame").style.display = "block";
