@@ -36,6 +36,7 @@ require_once('../core/php/loadVars.php');
 		<?php require_once('../core/php/template/updateVars.php'); ?>
 		<?php require_once('../core/php/template/settingsMenuVars.php'); ?>
 		<?php require_once('../core/php/template/watchlistVars.php'); ?>
+		<?php require_once('../core/php/template/multiLogVars.php'); ?>
 		<?php require_once('../core/php/template/mainVars.php'); ?>
 	</div>
 </body>

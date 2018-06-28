@@ -289,44 +289,13 @@ $countConfig--;
 	<form id="expFeatures">
 		<div class="settingsHeader">
 		Experimental Features 
-			<div class="settingsHeaderButtons">
-				<?php echo addResetButton("expFeatures");
-				if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
-					<a class="linkSmall" onclick="saveAndVerifyMain('expFeatures');" >Save Changes</a>
-				<?php else: ?>
-					<button  onclick="displayLoadingPopup();">Save Changes</button>
-				<?php endif; ?>
+			<div style="display: none;" class="settingsHeaderButtons">
+				<a class="linkSmall" onclick="saveAndVerifyMain('expFeatures');" >Save Changes</a>
 			</div>
 		</div>
 		<div class="settingsDiv" >
 			<ul class="settingsUl">
-				<li>
-					Log Layout
-					<?php $arrayOfwindowConfigOptions = array();
-					for ($i=0; $i < 3; $i++)
-					{
-						for ($j=0; $j < 3; $j++)
-						{
-							array_push($arrayOfwindowConfigOptions, "".($i+1)."x".($j+1));
-						}
-					}
-					?>
-					<div class="selectDiv">
-						<select name="windowConfig">
-							<?php foreach ($arrayOfwindowConfigOptions as $value)
-							{
-								$stringToEcho = "<option ";
-								if($value === $windowConfig)
-								{
-									$stringToEcho .= " selected ";
-								}
-								$stringToEcho .= " value=\"".$value."\"> ".$value."</option>";
-								echo $stringToEcho;
-							}
-							?>
-						</select>
-					</div>
-				</li>
+				No Experimental Features available at this time
 			</ul>
 		</div>
 	</form>

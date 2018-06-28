@@ -176,6 +176,10 @@ function checkIfChanges()
 	{
 		arrayToCheck.push("settingsWatchlistVars");
 	}
+	if(document.getElementById("settingsMultiLogVars"))
+	{
+		arrayToCheck.push("settingsMultiLogVars");
+	}
 
 	if(	checkForChangesArray(arrayToCheck))
 	{
@@ -285,6 +289,10 @@ $( document ).ready(function()
 	if(document.getElementById("settingsMainVars"))
 	{
 		arrayToRefresh.push("settingsMainVars");
+	}
+	if(document.getElementById("settingsMultiLogVars"))
+	{
+		arrayToRefresh.push("settingsMultiLogVars");
 	}
 	refreshArrayObjectOfArrays(arrayToRefresh);
 
