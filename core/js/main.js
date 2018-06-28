@@ -3,6 +3,7 @@ var arrayToUpdate = {};
 var arrayOfData1 = null;
 var arrayOfData2 = null;
 var arrayOfDataMain = null;
+var arrayOfDataSettings = [];
 var arrayOfScrollHeaderUpdate = ["aboutSpanAbout","aboutSpanInfo","aboutSpanGithub"];
 var clearingNotifications = false;
 var counterForPoll = 0;
@@ -37,6 +38,7 @@ var t2 = performance.now();
 var t3 = performance.now();
 var timeoutVar = null;
 var timer;
+var timerForSettings;
 var titles = {};
 var updateFromID = "settingsInstallUpdate";
 var updating = false;
@@ -753,6 +755,10 @@ function update(data)
 		for(var i = 0; i !== stop; i++)
 		{
 			var name = files[i];
+			if(!(name in fileData))
+			{
+				continue;
+			}
 			var logData = data[name]["log"];
 			var selectListForFilter = document.getElementsByName("searchType")[0];
 			var selectedListFilterType = selectListForFilter.options[selectListForFilter.selectedIndex].value;
@@ -760,7 +766,6 @@ function update(data)
 			var showFile = false;
 			shortName = files[i].replace(/.*\//g, "");
 			id = name.replace(/[^a-z0-9]/g, "");
-			
 
 			var filterOffOf = "";
 			if(selectedListFilterType === "title")
@@ -2842,12 +2847,33 @@ function toggleChangeLog()
 function toggleWatchListMenu()
 {
 	hideMainStuff();
+	arrayOfDataSettings = ["settingsMainWatch"];
+	startSettingsPollTimer();
 	document.getElementById("fullScreenMenuWatchList").style.display = "block";
 	document.getElementById("watchListSubMenu").style.display = "block";
 	$("#watchListMenu").addClass("selected");
 	arrayOfScrollHeaderUpdate = ["settingsMainWatch"];
 	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
 	loadWatchList();
+}
+
+function startSettingsPollTimer()
+{
+	timerForSettings = setInterval(checkIfChanges, 100);
+}
+
+function checkIfChanges()
+{
+	if(checkForChangesArray(arrayOfDataSettings))
+	{
+		return true;
+	}
+	return false;
+}
+
+function endSettingsPollTimer()
+{
+	clearInterval(timerForSettings);
 }
 
 function hideSidebar()
@@ -2900,6 +2926,8 @@ function toggleIframe(locHref, idOfAddon)
 
 function hideMainStuff()
 {
+	endSettingsPollTimer();
+
 	if($("#mainMenuAbout").hasClass("selected"))
 	{
 		document.getElementById("aboutSubMenu").style.display = "none";

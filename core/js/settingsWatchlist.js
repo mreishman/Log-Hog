@@ -1086,15 +1086,6 @@ function showNoEmptyFolderPopup()
 	}
 }
 
-function checkIfChanges()
-{
-	if(	checkForChangesArray(["settingsMainWatch"]))
-	{
-		return true;
-	}
-	return false;
-}
-
 function resetWatchListVars()
 {
 	try
