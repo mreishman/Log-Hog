@@ -547,7 +547,7 @@ function getFileFolderSubFunction(data, orgPath, hideFiles, joinChar, dropdown)
 	{
 		document.getElementById("folderNavUpHolder").innerHTML = "";
 	}
-	if(!hideFiles)
+	if(!hideFiles && document.getElementById("patternSelectPopup") === null)
 	{
 		document.getElementById("folderNavUpHolder").innerHTML += "<div style=\"float:right; margin-right: 20px\" class=\"selectDiv\"><select onchange=\"updateFilterPopup();\" id=\"patternSelectPopup\"  >"+generatePatternSelectNoOther(currentPatternSelect)+"</select></div>";
 	}
