@@ -981,7 +981,7 @@ if(count($arrayOfVersions) === 0)
 
 	function finishedUpdateAfterAjaxSetToOneHundred()
 	{
-		updateProgressBar(99);
+		updateProgressBar(1);
 		updateStatusFunc("Finished Updating to ","finishedUpdate",100);
 		retryCount = 0;
 		verifyCountSuccess = 0;
