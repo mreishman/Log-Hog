@@ -606,6 +606,12 @@ function generateImage($imageArray, $customConfig)
 		$image .= $customConfig["data-id"];
 		$image .= "\" ";
 	}
+	if(isset($customConfig["data-src"]))
+	{
+		$image .=  " data-src=\"";
+		$image .= $customConfig["data-src"];
+		$image .= "\" ";
+	}
 	if(isset($customConfig["id"]))
 	{
 		$image .=  " id=\"";

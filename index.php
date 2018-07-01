@@ -443,11 +443,12 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 			<li id="mainMenuAbout" class="selected" onclick="toggleAbout();" >
 				<div class="menuImageDiv">
 					<?php echo generateImage(
-						$arrayOfImages["info"],
+						$arrayOfImages["loadingImg"],
 						$imageConfig = array(
 							"id"		=>	"aboutImage",
-							"class"		=>	"menuImage",
-							"height"	=>	"30px"
+							"class"		=>	"menuImage mainMenuImage",
+							"height"	=>	"30px",
+							"data-src"	=>	$arrayOfImages["info"]
 							)
 						); 
 					?>
@@ -457,11 +458,12 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 			<li onclick="window.location.href = './settings/main.php';"  >
 				<div class="menuImageDiv">
 					<?php echo generateImage(
-						$arrayOfImages["gear"],
+						$arrayOfImages["loadingImg"],
 						$imageConfig = array(
 							"id"		=>	"gear",
-							"class"		=>	"menuImage",
-							"height"	=>	"30px"
+							"class"		=>	"menuImage mainMenuImage",
+							"height"	=>	"30px",
+							"data-src"	=> 	$arrayOfImages["gear"]
 							)
 						);
 					?>
@@ -472,12 +474,13 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 			<li id="mainMenuUpdate" onclick="toggleUpdateMenu();" >
 				<div class="menuImageDiv">
 					<?php echo generateImage(
-						$arrayOfImages["refresh"],
+						$arrayOfImages["loadingImg"],
 						$imageConfig = array(
 							"id"		=>	"update",
-							"class"		=>	"menuImage",
+							"class"		=>	"menuImage mainMenuImage",
 							"height"	=>	"30px",
-							"title"		=>	"Update"
+							"title"		=>	"Update",
+							"data-src"	=>	$arrayOfImages["refresh"]
 							)
 						);
 					?>
@@ -491,24 +494,26 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 						if($levelOfUpdate == 1)
 						{
 							echo generateImage(
-								$arrayOfImages["yellowWarning"],
+								$arrayOfImages["loadingImg"],
 								$imageConfig = array(
-									"id"		=>	"updateMenuImage",
+									"id"		=>	"updateMenuImage mainMenuImage",
 									"class"		=>	"menuImage",
 									"height"	=>	"30px",
-									"title"		=>	"Minor Update"
+									"title"		=>	"Minor Update",
+									"data-src"	=>	$arrayOfImages["yellowWarning"]
 								)
 							);
 						}
 						elseif($levelOfUpdate == 2 || $levelOfUpdate == 3)
 						{
 							echo generateImage(
-								$arrayOfImages["redWarning"],
+								$arrayOfImages["loadingImg"],
 								$imageConfig = array(
-									"id"		=>	"updateMenuImage",
+									"id"		=>	"updateMenuImage mainMenuImage",
 									"class"		=>	"menuImage",
 									"height"	=>	"30px",
-									"title"		=>	"Major Update"
+									"title"		=>	"Major Update",
+									"data-src"	=>	$arrayOfImages["redWarning"]
 								)
 							);
 						}
@@ -519,11 +524,13 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 			<li id="watchListMenu" onclick="toggleWatchListMenu();" >
 				<div class="menuImageDiv">
 					<?php echo generateImage(
-						$arrayOfImages["watchList"],
+						$arrayOfImages["loadingImg"],
 						$imageConfig = array(
 							"id"		=>	"watchList",
-							"class"		=>	"menuImage",
-							"height"	=>	"30px"
+							"class"		=>	"menuImage mainMenuImage",
+							"height"	=>	"30px",
+							"title"		=>	"WatchList",
+							"data-src"	=>	$arrayOfImages["watchList"]
 							)
 						);
 					?>
@@ -543,11 +550,12 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 				<?php endif; ?>
 					<div class="menuImageDiv">
 						<?php echo generateImage(
-							$arrayOfImages["gitStatus"],
+							$arrayOfImages["loadingImg"],
 							$imageConfig = array(
 								"id"		=>	"gitStatusImage",
-								"class"		=>	"menuImage",
-								"height"	=>	"30px"
+								"class"		=>	"menuImage mainMenuImage",
+								"height"	=>	"30px",
+								"data-src"	=>	$arrayOfImages["gitStatus"]
 								)
 							); 
 						?>
@@ -569,11 +577,12 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 				<?php endif; ?>
 					<div class="menuImageDiv">
 						<?php echo generateImage(
-							$arrayOfImages["taskManager"],
+							$arrayOfImages["loadingImg"],
 							$imageConfig = array(
 								"id"		=>	"taskmanagerImage",
-								"class"		=>	"menuImage",
-								"height"	=>	"30px"
+								"class"		=>	"menuImage mainMenuImage",
+								"height"	=>	"30px",
+								"data-src"	=>	$arrayOfImages["taskManager"]
 								)
 							);
 						?>
@@ -595,11 +604,12 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 				<?php endif; ?>
 					<div class="menuImageDiv">
 						<?php echo generateImage(
-							$arrayOfImages["search"],
+							$arrayOfImages["loadingImg"],
 							$imageConfig = array(
 								"id"		=>	"searchImage",
-								"class"		=>	"menuImage",
-								"height"	=>	"30px"
+								"class"		=>	"menuImage mainMenuImage",
+								"height"	=>	"30px",
+								"data-src"	=>	$arrayOfImages["search"]
 								)
 							); 
 						?>
@@ -621,11 +631,12 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 				<?php endif; ?>
 					<div class="menuImageDiv">
 						<?php echo generateImage(
-							$arrayOfImages["seleniumMonitor"],
+							$arrayOfImages["loadingImg"],
 							$imageConfig = array(
 								"id"		=>	"seleniumMonitorImage",
-								"class"		=>	"menuImage",
-								"height"	=>	"30px"
+								"class"		=>	"menuImage mainMenuImage",
+								"height"	=>	"30px",
+								"data-src"	=>	$arrayOfImages["seleniumMonitor"]
 								)
 							); 
 						?>

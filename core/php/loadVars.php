@@ -405,11 +405,23 @@ else
 			"title"			=>	"Loading...",
 			"baseName"		=>	"loading.gif"
 		),
+		"loadingImg"		=> array(
+			"alt"			=>	"Loading",
+			"src"			=>	"",
+			"title"			=>	"Loading...",
+			"baseName"		=>	"loading.png"
+		),
 		"menu"	=> array(
 			"alt"			=>	"Menu",
 			"src"			=>	"",
 			"title"			=>	"Menu",
 			"baseName"		=>	"menu.png"
+		),
+		"multiLog"	=> array(
+			"alt"			=>	"Multi-Log",
+			"src"			=>	"",
+			"title"			=>	"Multi-Log",
+			"baseName"		=>	"multiLog.png"
 		),
 		"notification"	=> array(
 			"alt"			=>	"Notifications",
@@ -434,6 +446,12 @@ else
 			"src"			=>	"",
 			"title"			=>	"Pause",
 			"baseName"		=>	"Pause.png"
+		),
+		"pin"				=> array(
+			"alt"			=>	"Pin",
+			"src"			=>	"",
+			"title"			=>	"Pin",
+			"baseName"		=>	"pin.png"
 		),
 		"play"			=> array(
 			"alt"			=>	"Play",

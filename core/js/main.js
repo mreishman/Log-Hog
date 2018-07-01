@@ -2772,6 +2772,7 @@ function toggleFullScreenMenu()
 	}
 	if(document.getElementById("fullScreenMenu").style.display === "none")
 	{
+		loadImgFromData("mainMenuImage");
 		document.getElementById("fullScreenMenu").style.display = "block";
 		onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
 		if($("#menuStatusAddon").hasClass("selected"))
@@ -3063,6 +3064,21 @@ function onScrollShowFixedMiniBar(idsOfForms)
 		if(document.getElementById("fixedPositionMiniMenu").style.display !== "none")
 		{
 			document.getElementById("fixedPositionMiniMenu").style.display = "none";
+		}
+	}
+}
+
+function loadImgFromData(imgClassName)
+{
+	var images = document.getElementsByClassName(imgClassName);
+	var countOfImg = images.length;
+	for(var imgCount = 0; imgCount < images; imgCount++)
+	{
+		var currentImg = images[imgCount].getAttribute('src');
+		var newImg = images[imgCount].getAttribute('data-src');
+		if(currentImg !== newImg)
+		{
+			images[imgCount].src = newImg;
 		}
 	}
 }
