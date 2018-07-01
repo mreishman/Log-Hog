@@ -39,3 +39,11 @@ require_once('../core/php/loadVars.php');
 		?>
 	</div>
 </body>
+<script type="text/javascript">
+	
+$(document).ready(function()
+{
+	loadImgFromData("whatsNewImage");
+});
+
+</script>

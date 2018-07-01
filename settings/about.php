@@ -29,8 +29,24 @@ require_once('../core/php/updateCheck.php');
 	<?php require_once('header2.php'); ?>
 	<div id="main">
 		<?php
-		$aboutImage = "<img src=\"../core/img/LogHog.png\" width=\"100px\" style=\"margin-bottom: -40px;\" >";
+		$aboutImage = generateImage(
+			$arrayOfImages["loadingImg"],
+			$imageConfig = array(
+				"class"		=>	"mainMenuImage",
+				"style"		=>	"margin-bottom: -40px;",
+				"data-src"	=>	"../core/img/LogHog.png",
+				"width"		=>	"100px"
+			)
+		);
 		require_once('../core/php/template/about.php');
 		?>
 	</div>
 </body>
+<script type="text/javascript">
+	
+$(document).ready(function()
+{
+	loadImgFromData("mainMenuImage");
+});
+
+</script>

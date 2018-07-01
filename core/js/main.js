@@ -2843,6 +2843,7 @@ function toggleAboutLogHog()
 
 function toggleWhatsNew()
 {
+	loadImgFromData("whatsNewImage");
 	hideAboutStuff();
 	document.getElementById("fullScreenMenuWhatsNew").style.display = "block";
 	$("#aboutSubMenuWhatsNew").addClass("selected");

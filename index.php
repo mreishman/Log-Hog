@@ -69,7 +69,15 @@ $locationForSearchIndex = checkForSearchInstall($locationForSearch, "./");
 
 $locationForSeleniumMonitorIndex = checkForSeleniumMonitorInstall($locationForSeleniumMonitor, "./");
 
-$aboutImage = "<img src=\"core/img/LogHog.png\" width=\"100px\" style=\"margin-bottom: -40px;\" >";
+$aboutImage = generateImage(
+	$arrayOfImages["loadingImg"],
+	$imageConfig = array(
+		"class"		=>	"mainMenuImage",
+		"style"		=>	"margin-bottom: -40px;",
+		"data-src"	=>	"core/img/LogHog.png",
+		"width"		=>	"100px"
+	)
+);
 
 if($enableMultiLog === "false")
 {
