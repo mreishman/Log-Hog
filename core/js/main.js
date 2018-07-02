@@ -3073,9 +3073,9 @@ function loadImgFromData(imgClassName)
 {
 	var images = document.getElementsByClassName(imgClassName);
 	var countOfImg = images.length;
-	for(var imgCount = 0; imgCount < images; imgCount++)
+	for(var imgCount = 0; imgCount < countOfImg; imgCount++)
 	{
-		var currentImg = images[imgCount].getAttribute('src');
+		var currentImg = images[imgCount].src;
 		var newImg = images[imgCount].getAttribute('data-src');
 		if(currentImg !== newImg)
 		{

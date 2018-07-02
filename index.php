@@ -456,7 +456,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 							"id"		=>	"aboutImage",
 							"class"		=>	"menuImage mainMenuImage",
 							"height"	=>	"30px",
-							"data-src"	=>	$arrayOfImages["info"]
+							"data-src"	=>	$arrayOfImages["info"]["src"]
 							)
 						); 
 					?>
@@ -471,7 +471,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 							"id"		=>	"gear",
 							"class"		=>	"menuImage mainMenuImage",
 							"height"	=>	"30px",
-							"data-src"	=> 	$arrayOfImages["gear"]
+							"data-src"	=> 	$arrayOfImages["gear"]["src"]
 							)
 						);
 					?>
@@ -488,7 +488,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 							"class"		=>	"menuImage mainMenuImage",
 							"height"	=>	"30px",
 							"title"		=>	"Update",
-							"data-src"	=>	$arrayOfImages["refresh"]
+							"data-src"	=>	$arrayOfImages["refresh"]["src"]
 							)
 						);
 					?>
@@ -508,7 +508,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 									"class"		=>	"menuImage",
 									"height"	=>	"30px",
 									"title"		=>	"Minor Update",
-									"data-src"	=>	$arrayOfImages["yellowWarning"]
+									"data-src"	=>	$arrayOfImages["yellowWarning"]["src"]
 								)
 							);
 						}
@@ -521,7 +521,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 									"class"		=>	"menuImage",
 									"height"	=>	"30px",
 									"title"		=>	"Major Update",
-									"data-src"	=>	$arrayOfImages["redWarning"]
+									"data-src"	=>	$arrayOfImages["redWarning"]["src"]
 								)
 							);
 						}
@@ -538,7 +538,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 							"class"		=>	"menuImage mainMenuImage",
 							"height"	=>	"30px",
 							"title"		=>	"WatchList",
-							"data-src"	=>	$arrayOfImages["watchList"]
+							"data-src"	=>	$arrayOfImages["watchList"]["src"]
 							)
 						);
 					?>
@@ -563,7 +563,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 								"id"		=>	"gitStatusImage",
 								"class"		=>	"menuImage mainMenuImage",
 								"height"	=>	"30px",
-								"data-src"	=>	$arrayOfImages["gitStatus"]
+								"data-src"	=>	$arrayOfImages["gitStatus"]["src"]
 								)
 							); 
 						?>
@@ -590,7 +590,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 								"id"		=>	"taskmanagerImage",
 								"class"		=>	"menuImage mainMenuImage",
 								"height"	=>	"30px",
-								"data-src"	=>	$arrayOfImages["taskManager"]
+								"data-src"	=>	$arrayOfImages["taskManager"]["src"]
 								)
 							);
 						?>
@@ -617,7 +617,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 								"id"		=>	"searchImage",
 								"class"		=>	"menuImage mainMenuImage",
 								"height"	=>	"30px",
-								"data-src"	=>	$arrayOfImages["search"]
+								"data-src"	=>	$arrayOfImages["search"]["src"]
 								)
 							); 
 						?>
@@ -644,7 +644,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 								"id"		=>	"seleniumMonitorImage",
 								"class"		=>	"menuImage mainMenuImage",
 								"height"	=>	"30px",
-								"data-src"	=>	$arrayOfImages["seleniumMonitor"]
+								"data-src"	=>	$arrayOfImages["seleniumMonitor"]["src"]
 								)
 							); 
 						?>
