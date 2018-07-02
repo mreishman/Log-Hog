@@ -29,11 +29,12 @@
 				<li style="display: none;" id="loadingSpinnerForInstallUpdate">
 					<?php
 						echo generateImage(
-							$arrayOfImages["loading"],
+							$arrayOfImages["loadingImg"],
 							$imageConfig = array(
 								"id"			=>	"statusImage0",
 								"height"		=>	"15px",
-								"srcModifier"	=> ""
+								"class"			=>	"updateImg",
+								"data-src"		=>	$arrayOfImages["loading"]
 							)
 						);
 						?>
@@ -43,11 +44,12 @@
 					<h2>
 						<?php
 						echo generateImage(
-							$arrayOfImages["greenCheck"],
+							$arrayOfImages["loadingImg"],
 							$imageConfig = array(
 								"id"			=>	"statusImage1",
 								"height"		=>	"15px",
-								"srcModifier"	=> ""
+								"class"			=>	"updateImg",
+								"data-src"		=>	$arrayOfImages["greenCheck"]
 							)
 						);
 						?>
@@ -58,11 +60,12 @@
 					<h2>
 						<?php
 						echo generateImage(
-							$arrayOfImages["yellowWarning"],
+							$arrayOfImages["loadingImg"],
 							$imageConfig = array(
 								"id"			=>	"statusImage2",
 								"height"		=>	"15px",
-								"srcModifier"	=> ""
+								"class"			=>	"updateImg",
+								"data-src"		=>	$arrayOfImages["yellowWarning"]
 							)
 						);
 						?>
@@ -78,11 +81,12 @@
 					<h2>
 						<?php
 						echo generateImage(
-							$arrayOfImages["redWarning"],
+							$arrayOfImages["loadingImg"],
 							$imageConfig = array(
 								"id"			=>	"statusImage3",
 								"height"		=>	"15px",
-								"srcModifier"	=> ""
+								"class"			=>	"updateImg",
+								"data-src"		=>	$arrayOfImages["redWarning"]
 							)
 						);
 						?>
@@ -97,11 +101,12 @@
 					<h2>
 						<?php
 						echo generateImage(
-							$arrayOfImages["redWarning"],
+							$arrayOfImages["loadingImg"],
 							$imageConfig = array(
 								"id"			=>	"statusImage3",
 								"height"		=>	"30px",
-								"srcModifier"	=> ""
+								"class"			=>	"updateImg",
+								"data-src"		=>	$arrayOfImages["redWarning"]
 							)
 						);
 						?>

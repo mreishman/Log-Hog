@@ -2809,6 +2809,7 @@ function toggleUpdateMenu(force = false)
 			return false;
 		}
 	}
+	loadImgFromData("updateImg");
 	hideMainStuff();
 	hideSidebar();
 	document.getElementById("fullScreenMenuUpdate").style.display = "block";
