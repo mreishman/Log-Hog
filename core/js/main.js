@@ -39,6 +39,7 @@ var t3 = performance.now();
 var timeoutVar = null;
 var timer;
 var timerForSettings;
+var timerForWatchlist;
 var titles = {};
 var updateFromID = "settingsInstallUpdate";
 var updating = false;
@@ -2869,15 +2870,31 @@ function toggleWatchListMenu(force = false)
 			return false;
 		}
 	}
+	if(typeof loadWatchList !== "function")
+	{
+		script("core/js/settingsWatchlist.js?v="+cssVersion);
+	}
+	loadImgFromData("watchlistImg");
 	hideMainStuff();
 	arrayOfDataSettings = ["settingsMainWatch"];
-	startSettingsPollTimer();
 	document.getElementById("fullScreenMenuWatchList").style.display = "block";
 	document.getElementById("watchListSubMenu").style.display = "block";
 	$("#watchListMenu").addClass("selected");
 	arrayOfScrollHeaderUpdate = ["settingsMainWatch"];
 	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
-	loadWatchList();
+	setTimeout(function() {
+		timerForWatchlist = setInterval(tryLoadWatch, 100);
+	}, 250);
+}
+
+function tryLoadWatch()
+{
+	if(typeof loadWatchList === "function")
+	{
+		clearInterval(timerForWatchlist);
+		startSettingsPollTimer();
+		loadWatchList();
+	}
 }
 
 function startSettingsPollTimer()
@@ -3065,21 +3082,6 @@ function onScrollShowFixedMiniBar(idsOfForms)
 		if(document.getElementById("fixedPositionMiniMenu").style.display !== "none")
 		{
 			document.getElementById("fixedPositionMiniMenu").style.display = "none";
-		}
-	}
-}
-
-function loadImgFromData(imgClassName)
-{
-	var images = document.getElementsByClassName(imgClassName);
-	var countOfImg = images.length;
-	for(var imgCount = 0; imgCount < countOfImg; imgCount++)
-	{
-		var currentImg = images[imgCount].src;
-		var newImg = images[imgCount].getAttribute('data-src');
-		if(currentImg !== newImg)
-		{
-			images[imgCount].src = newImg;
 		}
 	}
 }

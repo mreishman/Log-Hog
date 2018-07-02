@@ -456,7 +456,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 							"id"		=>	"aboutImage",
 							"class"		=>	"menuImage mainMenuImage",
 							"height"	=>	"30px",
-							"data-src"	=>	$arrayOfImages["info"]["src"]
+							"data-src"	=>	$arrayOfImages["info"]
 							)
 						); 
 					?>
@@ -471,7 +471,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 							"id"		=>	"gear",
 							"class"		=>	"menuImage mainMenuImage",
 							"height"	=>	"30px",
-							"data-src"	=> 	$arrayOfImages["gear"]["src"]
+							"data-src"	=> 	$arrayOfImages["gear"]
 							)
 						);
 					?>
@@ -488,7 +488,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 							"class"		=>	"menuImage mainMenuImage",
 							"height"	=>	"30px",
 							"title"		=>	"Update",
-							"data-src"	=>	$arrayOfImages["refresh"]["src"]
+							"data-src"	=>	$arrayOfImages["refresh"]
 							)
 						);
 					?>
@@ -508,7 +508,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 									"class"		=>	"menuImage",
 									"height"	=>	"30px",
 									"title"		=>	"Minor Update",
-									"data-src"	=>	$arrayOfImages["yellowWarning"]["src"]
+									"data-src"	=>	$arrayOfImages["yellowWarning"]
 								)
 							);
 						}
@@ -521,7 +521,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 									"class"		=>	"menuImage",
 									"height"	=>	"30px",
 									"title"		=>	"Major Update",
-									"data-src"	=>	$arrayOfImages["redWarning"]["src"]
+									"data-src"	=>	$arrayOfImages["redWarning"]
 								)
 							);
 						}
@@ -538,18 +538,22 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 							"class"		=>	"menuImage mainMenuImage",
 							"height"	=>	"30px",
 							"title"		=>	"WatchList",
-							"data-src"	=>	$arrayOfImages["watchList"]["src"]
+							"data-src"	=>	$arrayOfImages["watchList"]
 							)
 						);
 					?>
 				</div>
 				Watchlist
 			</li>
-			<?php if($locationForMonitorIndex["loc"] || $locationForSearchIndex["loc"] || $locationForSeleniumMonitorIndex["loc"] || $locationForStatusIndex["loc"]): ?>
-				<li class="menuTitle" style="background-color: #999; color: black;" >
+				<li id="menuOtherApps" class="menuTitle" style="background-color: #999; color: black;
+				<?php if(!($locationForMonitorIndex["loc"] || $locationForSearchIndex["loc"] || $locationForSeleniumMonitorIndex["loc"] || $locationForStatusIndex["loc"]))
+					{
+						echo " display: none; ";
+					}
+					?>
+				" >
 					Other Apps
 				</li>
-			<?php endif;?>
 			<?php if ($locationForStatusIndex["loc"]):?>
 				<?php if($addonsAsIframe === "true"): ?>
 					<li id="menuStatusAddon" onclick="toggleIframe('<?php echo $locationForStatusIndex["loc"]; ?>','menuStatusAddon');" >
@@ -563,7 +567,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 								"id"		=>	"gitStatusImage",
 								"class"		=>	"menuImage mainMenuImage",
 								"height"	=>	"30px",
-								"data-src"	=>	$arrayOfImages["gitStatus"]["src"]
+								"data-src"	=>	$arrayOfImages["gitStatus"]
 								)
 							); 
 						?>
@@ -590,7 +594,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 								"id"		=>	"taskmanagerImage",
 								"class"		=>	"menuImage mainMenuImage",
 								"height"	=>	"30px",
-								"data-src"	=>	$arrayOfImages["taskManager"]["src"]
+								"data-src"	=>	$arrayOfImages["taskManager"]
 								)
 							);
 						?>
@@ -617,7 +621,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 								"id"		=>	"searchImage",
 								"class"		=>	"menuImage mainMenuImage",
 								"height"	=>	"30px",
-								"data-src"	=>	$arrayOfImages["search"]["src"]
+								"data-src"	=>	$arrayOfImages["search"]
 								)
 							); 
 						?>
@@ -644,7 +648,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 								"id"		=>	"seleniumMonitorImage",
 								"class"		=>	"menuImage mainMenuImage",
 								"height"	=>	"30px",
-								"data-src"	=>	$arrayOfImages["seleniumMonitor"]["src"]
+								"data-src"	=>	$arrayOfImages["seleniumMonitor"]
 								)
 							); 
 						?>
@@ -812,11 +816,11 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 		)); ?>
 	</script>
 	<?php require_once('core/php/template/popup.php') ?>
+	<script src="core/js/lazyLoadImg.js?v=<?php echo $cssVersion?>"></script>
 	<script src="core/js/main.js?v=<?php echo $cssVersion?>"></script>
 	<script src="core/js/rightClickJS.js?v=<?php echo $cssVersion?>"></script>
 	<script src="core/js/update.js?v=<?php echo $cssVersion?>"></script>
 	<script src="core/js/settings.js?v=<?php echo $cssVersion?>"></script>
-	<script src="core/js/settingsWatchlist.js?v=<?php echo $cssVersion?>"></script>
 	<nav id="context-menu" class="context-menu">
 	  <ul id="context-menu-items" class="context-menu__items">
 	  </ul>

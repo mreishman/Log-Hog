@@ -608,9 +608,30 @@ function generateImage($imageArray, $customConfig)
 	}
 	if(isset($customConfig["data-src"]))
 	{
-		$image .=  " data-src=\"";
-		$image .= $customConfig["data-src"];
-		$image .= "\" ";
+		if(is_array($customConfig["data-src"]))
+		{
+			$image .=  " data-src=\"";
+			$image .= $customConfig["data-src"]["src"];
+			$image .= "\" ";
+			if(!isset($customConfig["title"]))
+			{
+				$image .=  " data-title=\"";
+				$image .= $customConfig["data-src"]["title"];
+				$image .= "\" ";
+			}
+			if(!isset($customConfig["alt"]))
+			{
+				$image .=  " data-alt=\"";
+				$image .= $customConfig["data-src"]["alt"];
+				$image .= "\" ";
+			}
+		}
+		else
+		{
+			$image .=  " data-src=\"";
+			$image .= $customConfig["data-src"];
+			$image .= "\" ";
+		}
 	}
 	if(isset($customConfig["id"]))
 	{

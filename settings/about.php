@@ -42,6 +42,7 @@ require_once('../core/php/updateCheck.php');
 		?>
 	</div>
 </body>
+<script src="../core/js/lazyLoadImg.js?v=<?php echo $cssVersion?>"></script>
 <script type="text/javascript">
 	
 $(document).ready(function()

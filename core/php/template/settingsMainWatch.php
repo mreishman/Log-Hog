@@ -1,70 +1,3 @@
-<?php
-
-$defaultTrashCanIcon = generateImage(
-	$arrayOfImages["trashCanSideBar"],
-	array(
-		"height"		=>	"25px"
-	)
-);
-
-$defaultRedErrorIcon = generateImage(
-	$arrayOfImages["redWarning"],
-	array(
-		"width"			=>	"25px"
-	)
-);
-
-$defaultYellowErrorIcon = generateImage(
-	$arrayOfImages["yellowWarning"],
-	array(
-		"width"			=>	"25px"
-	)
-);
-
-$defaultFolderIcon = generateImage(
-	$arrayOfImages["folderIcon"],
-	array(
-		"width"			=>	"25px"
-	)
-);
-
-$defaultFileIcon = generateImage(
-	$arrayOfImages["fileIcon"],
-	array(
-		"width"			=>	"25px"
-	)
-);
-
-$defaultFolderNRIcon = generateImage(
-	$arrayOfImages["folderIconNR"],
-	array(
-		"width"			=>	"25px"
-	)
-);
-
-$defaultFileNRIcon = generateImage(
-	$arrayOfImages["fileIconNR"],
-	array(
-		"width"			=>	"25px"
-	)
-);
-
-$defaultFolderNWIcon = generateImage(
-	$arrayOfImages["folderIconNW"],
-	array(
-		"width"			=>	"25px"
-	)
-);
-
-$defaultFileNWIcon = generateImage(
-	$arrayOfImages["fileIconNW"],
-	array(
-		"width"			=>	"25px"
-	)
-);
-
-?>
-
 <form onsubmit="checkWatchList()" id="settingsMainWatch" >
 	<div class="settingsHeader">
 		WatchList
@@ -94,25 +27,81 @@ $defaultFileNWIcon = generateImage(
 <div class="settingsDiv" >
 	<ul class="settingsUl">
 		<li>
-			<?php echo $defaultRedErrorIcon; ?>
+			<?php echo generateImage(
+				$arrayOfImages["loadingImg"],
+				array(
+					"width"			=>	"25px",
+					"class"			=>	"watchlistImg",
+					"data-src"	=>	$arrayOfImages["redWarning"]
+				)
+			); ?>
 			 - File / Folder not found! &nbsp; &nbsp; &nbsp;
-			<?php echo $defaultYellowErrorIcon; ?>
+			<?php echo generateImage(
+				$arrayOfImages["loadingImg"],
+				array(
+					"width"			=>	"25px",
+					"class"			=>	"watchlistImg",
+					"data-src"	=>	$arrayOfImages["yellowWarning"]
+				)
+			); ?>
 			 - Unknown
 		</li>
 		<li>
-			<?php echo $defaultFileIcon; ?>
+			<?php echo generateImage(
+				$arrayOfImages["loadingImg"],
+				array(
+					"width"			=>	"25px",
+					"class"			=>	"watchlistImg",
+					"data-src"	=>	$arrayOfImages["fileIcon"]
+				)
+			); ?>
 			 - File &nbsp; &nbsp; &nbsp;
-			<?php echo $defaultFileNRIcon; ?>
+			<?php echo generateImage(
+				$arrayOfImages["loadingImg"],
+				array(
+					"width"			=>	"25px",
+					"class"			=>	"watchlistImg",
+					"data-src"	=>	$arrayOfImages["fileIconNR"]
+				)
+			); ?>
 			 - File Not Readable &nbsp; &nbsp; &nbsp;
-			<?php echo $defaultFolderNWIcon; ?>
+			<?php echo generateImage(
+				$arrayOfImages["loadingImg"],
+				array(
+					"width"			=>	"25px",
+					"class"			=>	"watchlistImg",
+					"data-src"	=>	$arrayOfImages["folderIconNW"]
+				)
+			); ?>
 			 - File Not Writeable
 		</li>
 		<li>
-			<?php echo $defaultFolderIcon; ?>
+			<?php echo generateImage(
+				$arrayOfImages["loadingImg"],
+				array(
+					"width"			=>	"25px",
+					"class"			=>	"watchlistImg",
+					"data-src"	=>	$arrayOfImages["folderIcon"]
+				)
+			); ?>
 			 - Folder &nbsp; &nbsp; &nbsp;
-			<?php echo $defaultFolderNRIcon; ?>
+			<?php echo generateImage(
+				$arrayOfImages["loadingImg"],
+				array(
+					"width"			=>	"25px",
+					"class"			=>	"watchlistImg",
+					"data-src"	=>	$arrayOfImages["folderIconNR"]
+				)
+			); ?>
 			 - Folder Not Readable &nbsp; &nbsp; &nbsp;
-			<?php echo $defaultFileNWIcon; ?>
+			<?php echo generateImage(
+				$arrayOfImages["loadingImg"],
+				array(
+					"width"			=>	"25px",
+					"class"			=>	"watchlistImg",
+					"data-src"	=>	$arrayOfImages["fileIconNW"]
+				)
+			); ?>
 			 - Folder Not Writeable &nbsp; &nbsp; &nbsp;
 		</li>
 		<li>
@@ -127,22 +116,22 @@ $defaultFileNWIcon = generateImage(
 </div>
 <div id="storage">
 	<div class="saveBlock">
-		<?php echo generateSaveBlock(array(), $defaultTrashCanIcon, $arrayOfImages); ?>
+		<?php echo generateSaveBlock(array(), $arrayOfImages); ?>
 	</div>
 </div>
 <div id="fileFolderDropdown" style="width: 600px; background-color: #444; border: 1px solid white; z-index: 120; position: fixed;"  >
 </div>
 <script type="text/javascript">
-	var defaultTrashCanIcon 				= <?php echo json_encode($defaultTrashCanIcon); ?>;
 	var icons = {};
-	icons["defaultRedErrorIcon"]				= <?php echo json_encode($defaultRedErrorIcon); ?>;
-	icons["defaultYellowErrorIcon "]				= <?php echo json_encode($defaultYellowErrorIcon); ?>;
-	icons["defaultFolderIcon"] 					= <?php echo json_encode($defaultFolderIcon); ?>;
-	icons["defaultFileIcon"] 					= <?php echo json_encode($defaultFileIcon); ?>;
-	icons["defaultFolderNRIcon"] 				= <?php echo json_encode($defaultFolderNRIcon); ?>;
-	icons["defaultFileNRIcon"] 					= <?php echo json_encode($defaultFileNRIcon); ?>;
-	icons["defaultFolderNWIcon"] 				= <?php echo json_encode($defaultFolderNWIcon); ?>;
-	icons["defaultFileNWIcon"] 					= <?php echo json_encode($defaultFileNWIcon); ?>;
+	var defaultTrashCanIcon 					= <?php echo json_encode(generateImage($arrayOfImages["trashCanSideBar"],array("height" => "25px")));?>;
+	icons["defaultRedErrorIcon"]				= <?php echo json_encode(generateImage($arrayOfImages["redWarning"],array("width" => "25px")));?>;
+	icons["defaultYellowErrorIcon "]			= <?php echo json_encode(generateImage($arrayOfImages["yellowWarning"],array("width" => "25px"))); ?>;
+	icons["defaultFolderIcon"] 					= <?php echo json_encode(generateImage($arrayOfImages["folderIcon"],array("width" => "25px"))); ?>;
+	icons["defaultFileIcon"] 					= <?php echo json_encode(generateImage($arrayOfImages["fileIcon"],array("width" => "25px"))); ?>;
+	icons["defaultFolderNRIcon"] 				= <?php echo json_encode(generateImage($arrayOfImages["folderIconNR"],array("width" => "25px"))); ?>;
+	icons["defaultFileNRIcon"] 					= <?php echo json_encode(generateImage($arrayOfImages["fileIconNR"],array("width" => "25px"))); ?>;
+	icons["defaultFolderNWIcon"] 				= <?php echo json_encode(generateImage($arrayOfImages["folderIconNW"],array("width" => "25px"))); ?>;
+	icons["defaultFileNWIcon"] 					= <?php echo json_encode(generateImage($arrayOfImages["fileIconNW"],array("width" => "25px"))); ?>;
 	var defaultdefaultNewAddAlertEnabled 	= "<?php echo $defaultNewAddAlertEnabled; ?>";
 	var defaultNewAddAutoDeleteFiles 		= "<?php echo $defaultNewAddAutoDeleteFiles; ?>";
 	var defaultNewAddExcludeTrim 			= "<?php echo $defaultNewAddExcludeTrim; ?>";
