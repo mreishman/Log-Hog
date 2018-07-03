@@ -118,12 +118,7 @@ div#fixed
 
 if(!($windowDisplayConfig[0] > 1 || $windowDisplayConfig[1] > 1)): ?>
 
-.currentWindowNum
-{
-	display: none;
-}
-
-.currentWindowNumSelected
+.unPinWindow, .pinWindow, .currentWindowNumSelected, .currentWindowNum
 {
 	display: none;
 }
