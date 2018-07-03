@@ -3172,10 +3172,14 @@ function pinWindow(windowNum)
 	if(logDisplayArray[windowNum]["pin"] === true)
 	{
 		logDisplayArray[windowNum]["pin"] = false;
+		$("#pinWindow"+windowNum+" .pinWindow").show();
+		$("#pinWindow"+windowNum+" .unPinWindow").hide();
 	}
 	else
 	{
 		logDisplayArray[windowNum]["pin"] = true;
+		$("#pinWindow"+windowNum+" .pinWindow").hide();
+		$("#pinWindow"+windowNum+" .unPinWindow").show();
 	}
 }
 

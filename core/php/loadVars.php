@@ -453,6 +453,12 @@ else
 			"title"			=>	"Pin",
 			"baseName"		=>	"pin.png"
 		),
+		"pinPinned"			=> array(
+			"alt"			=>	"Pin",
+			"src"			=>	"",
+			"title"			=>	"Pin",
+			"baseName"		=>	"pinPinned.png"
+		),
 		"play"			=> array(
 			"alt"			=>	"Play",
 			"src"			=>	"",

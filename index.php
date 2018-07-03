@@ -102,7 +102,17 @@ $pinImageForWindowTableLoop = generateImage(
 	$imageConfig = array(
 		"height"	=>	"20px",
 		"style"		=>	"margin: 5px;",
-		"title"		=>	"Pin Window"
+		"title"		=>	"Pin Window",
+		"class"		=>	"pinWindow"
+		)
+	);
+$pinPinnedImageForWindowTableLoop = generateImage(
+	$arrayOfImages["pinPinned"],
+	$imageConfig = array(
+		"height"	=>	"20px",
+		"style"		=>	"margin: 5px; display: none;",
+		"title"		=>	"Un-Pin Window",
+		"class"		=>	"unPinWindow",
 		)
 	);
 $clearImageForWindowTableLoop = generateImage(
@@ -187,6 +197,7 @@ for ($i=0; $i < (int)$windowDisplayConfig[0]; $i++)
 		$logDisplay .= "</a>";
 		$logDisplay .= "<a id=\"pinWindow".$counter."\" onclick=\"pinWindow('".$counter."');\" style=\"cursor: pointer;\" >";
 		$logDisplay .= $pinImageForWindowTableLoop;
+		$logDisplay .= $pinPinnedImageForWindowTableLoop;
 		$logDisplay .= "</a>";
 		$popupInfoLog .= "<div class=\"popupForInfo\" style=\"display: none;\" id=\"title".$counter."\"></div>";
 		$logDisplay .= "<a onclick=\"clearLog('".$counter."');\" style=\"cursor: pointer;\" >";
