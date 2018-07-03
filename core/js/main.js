@@ -1751,6 +1751,7 @@ function makePretty(id)
 	try
 	{
 		var text = logs[id];
+		text = unescapeHTML(text);
 		var count = document.getElementById(id+"CountHidden").innerHTML;
 		if(count !== "")
 		{
@@ -1761,6 +1762,10 @@ function makePretty(id)
 			count = 0;
 		}
 		text = text.split("\n");
+		if(text.length < 2)
+		{
+			text = text[0].split("\\n");
+		}
 		var returnText = "";
 		var lengthOfTextArray = text.length;
 		var selectListForFilter = document.getElementsByName("searchType")[0];
@@ -1843,7 +1848,7 @@ function makePretty(id)
 				{
 					returnText += " "+customClass+" ";
 				}
-				returnText += " >"+text[i]+"</div>";
+				returnText += " >"+escapeHTML(text[i])+"</div>";
 			}
 		}
 		
