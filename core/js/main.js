@@ -63,7 +63,6 @@ function escapeHTML(unsafeStr)
 	{
 		eventThrowException(e);
 	}
-	
 }
 
 function unescapeHTML(unsafeStr)
@@ -82,7 +81,6 @@ function unescapeHTML(unsafeStr)
 	{
 		eventThrowException(e);
 	}
-	
 }
 
 function formatBytes(bytes,decimals)
@@ -111,8 +109,6 @@ function updateSkipCounterLog(num)
 	{
 		eventThrowException(e);
 	}
-
-	
 }
 
 function updateAllRefreshCounter(num)
@@ -128,7 +124,6 @@ function updateAllRefreshCounter(num)
 	{
 		eventThrowException(e);
 	}
-	
 }
 
 function updateLogTitle(id)
@@ -739,6 +734,90 @@ function endRefreshAction()
 	}
 }
 
+function getFilterData(name, shortName, logData)
+{
+	var selectListForFilter = document.getElementsByName("searchType")[0];
+	var selectedListFilterType = selectListForFilter.options[selectListForFilter.selectedIndex].value;
+	var filterOffOf = "";
+	if(selectedListFilterType === "title")
+	{
+		if(filterTitleIncludePath === "true")
+		{
+			filterOffOf = name;
+		}
+		else
+		{
+			filterOffOf = shortName;
+		}
+	}
+	else if(selectedListFilterType === "content")
+	{
+		filterOffOf = logData;
+	}
+
+	if(caseInsensitiveSearch === "true")
+	{
+		if(filterOffOf !== "")
+		{
+			filterOffOf = filterOffOf.toLowerCase();
+		}
+	}
+	return filterOffOf;
+}
+
+function showFileFromFilter(id, name, shortName, logData)
+{
+	var filterOffOf = getFilterData(name, shortName, logData);
+	if(logsToHide instanceof Array && (logsToHide.length === 0 || $.inArray(id, logsToHide) === -1 ))
+	{
+		if(filterOffOf !== "")
+		{
+			var filterTextField = getFilterTextField();
+			if(filterTextField === "" || filterOffOf.indexOf(filterTextField) !== -1)
+			{
+				return true;
+			}
+		}
+		else
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+function showFileFromGroup(id)
+{
+	var groupSelect = document.getElementById("selectForGroup").value;
+	if(groupSelect === "all")
+	{
+		return true;
+	}
+	if($("#"+id).hasClass(groupSelect+"Group"))
+	{
+		return true;
+	}
+}
+
+function showFileFromPinnedWindow(id)
+{
+	//look for pinned window
+	var windowKeys = Object.keys(logDisplayArray);
+	var lengthOfWindows = windowKeys.length;
+	for(var j = 0; j < lengthOfWindows; j++)
+	{
+		if(logDisplayArray[windowKeys[j]]["id"] === id)
+		{
+			if(logDisplayArray[windowKeys[j]]["pin"] === true)
+			{
+				return true;
+			}
+			return false;
+		}
+	}
+	return false;
+}
+
 function update(data)
 {
 	try
@@ -752,7 +831,6 @@ function update(data)
 		var initialized = $("#menu a").length !== 0;
 		var folderNamePrev = "?-1";
 		var folderNameCount = -1;
-
 		for(var i = 0; i !== stop; i++)
 		{
 			var name = files[i];
@@ -761,48 +839,17 @@ function update(data)
 				continue;
 			}
 			var logData = data[name]["log"];
-			var selectListForFilter = document.getElementsByName("searchType")[0];
-			var selectedListFilterType = selectListForFilter.options[selectListForFilter.selectedIndex].value;
-			var filterTextField = getFilterTextField();
 			var showFile = false;
 			shortName = files[i].replace(/.*\//g, "");
 			id = name.replace(/[^a-z0-9]/g, "");
 
-			var filterOffOf = "";
-			if(selectedListFilterType === "title")
+			if(showFileFromFilter(id, name, shortName, logData) && showFileFromGroup(id))
 			{
-				if(filterTitleIncludePath === "true")
-				{
-					filterOffOf = name;
-				}
-				else
-				{
-					filterOffOf = shortName;
-				}
+				showFile = true;
 			}
-			else if(selectedListFilterType === "content")
+			if(!showFile)
 			{
-				filterOffOf = logData;
-			}
-
-			if(caseInsensitiveSearch === "true")
-			{
-				if(filterOffOf !== "")
-				{
-					filterOffOf = filterOffOf.toLowerCase();
-				}
-			}
-
-			if(logsToHide instanceof Array && (logsToHide.length === 0 || $.inArray(name, logsToHide) === -1 ))
-			{
-				if(filterOffOf !== "")
-				{
-					if(filterTextField === "" || filterOffOf.indexOf(filterTextField) !== -1)
-					{
-						showFile = true;
-					}
-				}
-				else
+				if(showFileFromPinnedWindow(id))
 				{
 					showFile = true;
 				}
@@ -858,7 +905,6 @@ function update(data)
 						{
 							titles[id] = name + " | Size: " + formatBytes(fileData[files[i]]["size"]);
 						}
-						
 						if(enableLogging !== "false")
 						{
 							if(id === currentPage)
@@ -881,7 +927,7 @@ function update(data)
 							{
 								if(logNameFormat !== "default")
 								{
-									//check for other options in displaying name									
+									//check for other options in displaying name
 									if(logNameFormat === "firstFolder" || logNameFormat === "lastFolder")
 									{
 										var locationOfLast = 1;
@@ -998,7 +1044,7 @@ function update(data)
 								}
 							}
 
-							var hideLogAction = {action: "tmpHideLog(\""+name+"\");", name: "Tmp Hide Log"};
+							var hideLogAction = {action: "tmpHideLog(\""+id+"\");", name: "Tmp Hide Log"};
 							var clearLogAction = {action: "clearLogInner(titles[\""+id+"\"]);", name: "Clear Log"};
 							var deleteLogAction = {action: "deleteLogPopupInner(titles[\""+id+"\"]);", name: "Delete Log"};
 							var copyNameAction = {action: "copyToClipBoard(\""+shortName+"\");", name: "Copy File Name"};
@@ -1022,6 +1068,8 @@ function update(data)
 							}
 							else
 							{
+								var selectListForFilter = document.getElementsByName("searchType")[0];
+								var selectedListFilterType = selectListForFilter.options[selectListForFilter.selectedIndex].value;
 								if(selectedListFilterType === "content" && filterContentHighlight === "true")
 								{
 									if(lastContentSearch !== getFilterTextField())
@@ -1148,8 +1196,6 @@ function update(data)
 								}
 							}
 						}
-						
-						
 						if(initialized && updated && $(window).filter(":focus").length === 0) 
 						{
 							if(flashTitleUpdateLog === "true")
@@ -1157,7 +1203,6 @@ function update(data)
 								flashTitle();
 							}
 						}
-						
 						updateLogTitle(id);
 					}
 					else
@@ -1169,14 +1214,25 @@ function update(data)
 			else
 			{
 				hideLogByName(name);
+				//remove this log from array of window keys if there
+				var windowKeys = Object.keys(logDisplayArray);
+				var lengthOfWindows = windowKeys.length;
+				for(var j = 0; j < lengthOfWindows; j++)
+				{
+					if(logDisplayArray[windowKeys[j]]["id"] === id)
+					{
+						logDisplayArray[windowKeys[j]]["id"] = null;
+						logDisplayArray[windowKeys[j]]["pin"] = false;
+						logDisplayArray[windowKeys[j]]["scroll"] = true;
+						break;
+					}
+				}
 			}
 		}
 		resize();
-		
 		//Check if a tab is active, if none... click on first in array that's visible
 		var targetLength = Object.keys(logDisplayArray).length;
 		var tmpCurrentSelectWindow = currentSelectWindow;
-		
 		if($("#menu .active").length < targetLength)
 		{
 			selectTabsInOrder(targetLength);
@@ -1191,9 +1247,7 @@ function update(data)
 
 		toggleNotificationClearButton();
 		updateScrollOnLogs();
-		
 		lastContentSearch = getFilterTextField();
-
 		refreshLastLogsArray();
 
 		resize();
@@ -1664,7 +1718,6 @@ function show(e, id)
 		toggleNotificationClearButton();
 		removeNotificationByLog(id);
 
-		
 		resize();
 
 		toggleGroupedGroups();
@@ -3036,9 +3089,36 @@ function hideMainStuff()
 function toggleGroupedGroups()
 {
 	var groupSelect = document.getElementById("selectForGroup").value;
-	$(".allGroup").hide();
-	$(".active").show();
-	$("."+groupSelect+"Group").show();
+	var listOfTabs = $("#menu a");
+	var listOfTabsKeys = Object.keys(listOfTabs);
+	var listOfTabsKeysLength = listOfTabsKeys.length;
+	for(var groupCount = 0; groupCount < listOfTabsKeysLength; groupCount++)
+	{
+		var objectTab = listOfTabs[listOfTabsKeys[groupCount]];
+		if(!objectTab)
+		{
+			continue;
+		}
+		var idOfObject = objectTab.id;
+		if($("#"+idOfObject).hasClass("active"))
+		{
+			//show tab if hidden
+			$("#"+idOfObject).show();
+		}
+		else if(document.getElementById("searchFieldInput").value === "")
+		{
+			if($("#"+idOfObject).hasClass(groupSelect+"Group") || groupSelect === "all")
+			{
+				//show tab if valid
+				$("#"+idOfObject).show();
+			}
+			else
+			{
+				//hide tab if not valid
+				$("#"+idOfObject).hide();
+			}
+		}
+	}
 	resize();
 }
 
@@ -3084,6 +3164,18 @@ function onScrollShowFixedMiniBar(idsOfForms)
 		{
 			document.getElementById("fixedPositionMiniMenu").style.display = "none";
 		}
+	}
+}
+
+function pinWindow(windowNum)
+{
+	if(logDisplayArray[windowNum]["pin"] === true)
+	{
+		logDisplayArray[windowNum]["pin"] = false;
+	}
+	else
+	{
+		logDisplayArray[windowNum]["pin"] = true;
 	}
 }
 

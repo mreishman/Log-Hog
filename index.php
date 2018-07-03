@@ -97,6 +97,14 @@ $infoImageForWindowTableLoop = generateImage(
 		"title"		=>	"More Info"
 		)
 	);
+$pinImageForWindowTableLoop = generateImage(
+	$arrayOfImages["pin"],
+	$imageConfig = array(
+		"height"	=>	"20px",
+		"style"		=>	"margin: 5px;",
+		"title"		=>	"Pin Window"
+		)
+	);
 $clearImageForWindowTableLoop = generateImage(
 	$arrayOfImages["eraserSideBar"],
 	$imageConfig = array(
@@ -177,6 +185,9 @@ for ($i=0; $i < (int)$windowDisplayConfig[0]; $i++)
 		$logDisplay .= "<a id=\"showInfoLink".$counter."\" onclick=\"showInfo('".$counter."');\" style=\"cursor: pointer;\" >";
 		$logDisplay .= $infoImageForWindowTableLoop;
 		$logDisplay .= "</a>";
+		$logDisplay .= "<a id=\"pinWindow".$counter."\" onclick=\"pinWindow('".$counter."');\" style=\"cursor: pointer;\" >";
+		$logDisplay .= $pinImageForWindowTableLoop;
+		$logDisplay .= "</a>";
 		$popupInfoLog .= "<div class=\"popupForInfo\" style=\"display: none;\" id=\"title".$counter."\"></div>";
 		$logDisplay .= "<a onclick=\"clearLog('".$counter."');\" style=\"cursor: pointer;\" >";
 		$logDisplay .= $clearImageForWindowTableLoop;
@@ -194,7 +205,7 @@ for ($i=0; $i < (int)$windowDisplayConfig[0]; $i++)
 		$logDisplay .= " <div style=\"padding: 0; white-space: pre-wrap;\" id=\"log".$counter."\" class=\"log\" ></div> </span>";
 		$logDisplay .= "</td></tr></table>";
 		$logDisplay .= "</td>";
-		$logDisplayArray .= " ".$counter.": {id: null, scroll: true } ,";
+		$logDisplayArray .= " ".$counter.": {id: null, scroll: true, pin: false} ,";
 	}
 	$logDisplay .= "</tr>";
 }
