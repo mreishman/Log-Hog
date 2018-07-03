@@ -1810,7 +1810,6 @@ function makePretty(id)
 	try
 	{
 		var text = logs[id];
-		text = unescapeHTML(text);
 		var count = document.getElementById(id+"CountHidden").innerHTML;
 		if(count !== "")
 		{
@@ -1907,7 +1906,7 @@ function makePretty(id)
 				{
 					returnText += " "+customClass+" ";
 				}
-				returnText += " >"+escapeHTML(text[i])+"</div>";
+				returnText += " >"+text[i]+"</div>";
 			}
 		}
 		return returnText;
