@@ -69,6 +69,7 @@ $locationForSearchIndex = checkForSearchInstall($locationForSearch, "./");
 
 $locationForSeleniumMonitorIndex = checkForSeleniumMonitorInstall($locationForSeleniumMonitor, "./");
 
+/* USED IN ABOUT PAGE (template/about.php) */
 $aboutImage = generateImage(
 	$arrayOfImages["loadingImg"],
 	$imageConfig = array(
@@ -78,21 +79,14 @@ $aboutImage = generateImage(
 		"width"		=>	"100px"
 	)
 );
-
+/* Override window config if multi log is disabled */
 if($enableMultiLog === "false")
 {
 	$windowConfig = "1x1";
 }
 $windowDisplayConfig = explode("x", $windowConfig);
-$logDisplayArray = "{";
-$borderPadding = 0;
 
-$loadingImage = generateImage(
-	$arrayOfImages["loading"],
-	$imageConfig = array(
-		"height"	=>	"75px",
-		)
-	);
+/* Used for full screen menu */
 $externalLinkImage = generateImage(
 	$arrayOfImages["externalLink"],
 	$imageConfig = array(
@@ -100,18 +94,6 @@ $externalLinkImage = generateImage(
 		"style"		=>	"margin-bottom: -10px;"
 		)
 	);
-
-for ($i=0; $i < (int)$windowDisplayConfig[0]; $i++)
-{
-	for ($j=0; $j < (int)$windowDisplayConfig[1]; $j++)
-	{
-		$borderPadding += 2;
-		$counter = $j+($i*(int)$windowDisplayConfig[1]);
-		$logDisplayArray .= " ".$counter.": {id: null, scroll: true, pin: false} ,";
-	}
-}
-$logDisplayArray = rtrim($logDisplayArray, ",")."}";
-
 ?>
 <!doctype html>
 <head>
@@ -550,10 +532,8 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 		echo "var colorArrayLength = ".count($currentSelectedThemeColorValues).";";
 		echo "var dateOfLastUpdate = '".$configStatic['lastCheck']."';";
 		echo "var daysSinceLastCheck = '".$daysSince."';";
-		echo "var logDisplayArray = ".$logDisplayArray.";";
 		echo "var windowDisplayConfigRowCount = ".$windowDisplayConfig[0].";";
 		echo "var windowDisplayConfigColCount = ".$windowDisplayConfig[1].";";
-		echo "var borderPadding = ".$borderPadding.";";
 		$srcForLoadImage = "core/img/loading.gif";
 		if(isset($arrayOfImages))
 		{

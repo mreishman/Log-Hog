@@ -5,6 +5,7 @@ var arrayOfData2 = null;
 var arrayOfDataMain = null;
 var arrayOfDataSettings = [];
 var arrayOfScrollHeaderUpdate = ["aboutSpanAbout","aboutSpanInfo","aboutSpanGithub"];
+var borderPadding = 0;
 var clearingNotifications = false;
 var counterForPoll = 0;
 var counterForPollForceRefreshAll = 0;
@@ -18,6 +19,7 @@ var firstLoad = true;
 var flasher;
 var lastContentSearch = "";
 var lastLogs = {};
+var logDisplayArray = {};
 var logLines = {};
 var logs = {};
 var logsToHide = new Array();
@@ -409,7 +411,7 @@ function pollTwoPartTwo(data)
 					}
 				}
 			}
-			
+
 			for (var i = filesOld.length - 1; i >= 0; i--)
 			{
 				if(!(filesNew.indexOf(filesOld[i]) > -1))
@@ -2030,7 +2032,6 @@ function resize()
 		if(($(".logTrHeight").outerHeight() !== trElementHeight)|| ($(".logTdWidth").outerWidth() !== tdElementWidth) || ($(".backgroundForSideBarMenu").outerHeight() !== trElementHeight))
 		{
 			$(".logTrHeight").outerHeight(trElementHeight);
-			
 			$(".logTdWidth").outerWidth(tdElementWidth);
 			$(".backgroundForSideBarMenu").outerHeight(trElementHeight);
 		}
@@ -3235,12 +3236,19 @@ function multiLogPopup()
 
 function generateWindowDisplay()
 {
+	var windowDisplayConfig = document.getElementById("windowConfig").value;
+	var windowDisplayConfigArray = windowDisplayConfig.split("x");
+	windowDisplayConfigRowCount = windowDisplayConfigArray[0];
+	windowDisplayConfigColCount = windowDisplayConfigArray[1];
 	var logDisplayHtml = "";
+	var newBorderPadding = 0;
+	var newLogDisplayArray = {};
 	for(var i = 0; i < windowDisplayConfigRowCount; i++)
 	{
 		logDisplayHtml += "<tr>";
 		for(var j = 0; j < windowDisplayConfigColCount; j++)
 		{
+			newBorderPadding += 2;
 			var newBlock = $("#storage .logTdHolder").html();
 			var counterInternal = j+(i*windowDisplayConfigColCount);
 			newBlock = newBlock.replace(/{{counter}}/g, counterInternal);
@@ -3257,8 +3265,18 @@ function generateWindowDisplay()
 			var newPopupHolder = $("#storage .popuopInfoHolder").html();
 			newPopupHolder = newPopupHolder.replace(/{{counter}}/g, counterInternal);
 			$("body").append(newPopupHolder);
+			if(counterInternal in logDisplayArray)
+			{
+				newLogDisplayArray[counterInternal] = logDisplayArray[counterInternal];
+			}
+			else
+			{
+				newLogDisplayArray[counterInternal] = {id: null, scroll: true, pin: false};
+			}
 		}
 		logDisplayHtml += "</tr>";
+		borderPadding = newBorderPadding;
+		logDisplayArray = newLogDisplayArray;
 	}
 	document.getElementById("log").innerHTML = ""+logDisplayHtml+"";
 	if(startOfPollLogicRan === false)
@@ -3320,6 +3338,12 @@ $(document).ready(function()
 	$("#selectForGroup").on("keydown change", function(){
 		setTimeout(function() {
 			toggleGroupedGroups();
+		}, 2);
+	});
+
+	$("#windowConfig").on("keydown change", function(){
+		setTimeout(function() {
+			generateWindowDisplay();
 		}, 2);
 	});
 
