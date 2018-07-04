@@ -37,20 +37,70 @@
 							({{counterPlusOne}})
 						</p>
 						<a id="showInfoLink{{counter}}" onclick="showInfo('{{counter}}');" style="cursor: pointer;" >
-							<?php echo $infoImageForWindowTableLoop; ?>
+							<?php echo generateImage(
+								$arrayOfImages["infoSideBar"],
+								$imageConfig = array(
+									"height"	=>	"20px",
+									"style"		=>	"margin: 5px;",
+									"title"		=>	"More Info"
+									)
+								);
+							?>
 						</a>
 						<a id="pinWindow{{counter}}" onclick="pinWindow('{{counter}}');" style="cursor: pointer;" >
-							<?php echo $pinImageForWindowTableLoop; ?>
-							<?php echo $pinPinnedImageForWindowTableLoop; ?>
+							<?php
+								echo generateImage(
+								$arrayOfImages["pin"],
+								$imageConfig = array(
+									"height"	=>	"20px",
+									"style"		=>	"margin: 5px;",
+									"title"		=>	"Pin Window",
+									"class"		=>	"pinWindow"
+									)
+								);
+								echo generateImage(
+								$arrayOfImages["pinPinned"],
+								$imageConfig = array(
+									"height"	=>	"20px",
+									"style"		=>	"margin: 5px; display: none;",
+									"title"		=>	"Un-Pin Window",
+									"class"		=>	"unPinWindow",
+									)
+								);
+							?>
 						</a>
 						<a onclick="clearLog('{{counter}}');" style="cursor: pointer;">
-							<?php echo $clearImageForWindowTableLoop; ?>
+							<?php echo generateImage(
+								$arrayOfImages["eraserSideBar"],
+								$imageConfig = array(
+									"height"	=>	"20px",
+									"style"		=>	"margin: 5px;",
+									"title"		=>	"Clear Log"
+									)
+								);
+							?>
 						</a>
 						<a onclick="deleteLogPopup('{{counter}}');" style="cursor: pointer;">
-							<?php echo $deleteImageForWindowTableLoop; ?>
+							<?php echo  generateImage(
+								$arrayOfImages["trashCanSideBar"],
+								$imageConfig = array(
+									"height"	=>	"20px",
+									"style"		=>	"margin: 5px;",
+									"title"		=>	"Delete Log"
+									)
+								);
+							?>
 						</a>
 						<a onclick="scrollToBottom('{{counter}}');" style="cursor: pointer;" >
-							<?php echo $downImageForWindowTableLoop; ?>
+							<?php echo generateImage(
+								$arrayOfImages["downArrowSideBar"],
+								$imageConfig = array(
+									"height"	=>	"20px",
+									"style"		=>	"margin: 5px;",
+									"title"		=>	"Scroll to Bottom"
+									)
+								);
+							?>
 						</a>
 					</div>
 				</td>

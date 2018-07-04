@@ -32,6 +32,7 @@ var progressBar;
 var refreshing = false;
 var refreshPauseActionVar;
 var startedPauseOnNonFocus = false;
+var startOfPollLogicRan = false;
 var t0 = performance.now();
 var t1 = performance.now();
 var t2 = performance.now();
@@ -2069,10 +2070,10 @@ function stopFlashTitle()
 	{
 		eventThrowException(e);
 	}
-	
+
 }
 
-function focus() 
+function focus()
 {
 	stopFlashTitle();
 }
@@ -2103,7 +2104,7 @@ function startPollTimer()
 function clearPollTimer()
 {
 	/* Dont try catch visibility  */
-	
+
 	if(pauseOnNotFocus === "true")
 	{
 		clearInterval(pollTimer);
@@ -3260,11 +3261,19 @@ function generateWindowDisplay()
 		logDisplayHtml += "</tr>";
 	}
 	document.getElementById("log").innerHTML = ""+logDisplayHtml+"";
-	startOfPollLogic();
+	if(startOfPollLogicRan === false)
+	{
+		startOfPollLogic();
+	}
+	else
+	{
+		update(arrayOfDataMain);
+	}
 }
 
 function startOfPollLogic()
 {
+	startOfPollLogicRan = true;
 	refreshAction();
 
 	if(pausePoll === "true")
