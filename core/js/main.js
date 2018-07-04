@@ -676,6 +676,10 @@ function pausePollAction()
 				poll();
 				startPollTimer();
 			}
+			if(!startedPauseOnNonFocus && pauseOnNotFocus === "true")
+			{
+				startPauseOnNotFocus();
+			}
 
 		}
 		else
@@ -1652,7 +1656,6 @@ function removeLogByName(name)
 	{
 		eventThrowException(e);
 	}
-	
 }
 
 function fadeHighlight(id)
@@ -1660,14 +1663,27 @@ function fadeHighlight(id)
 	setTimeout(function(){ removeNewHighlights("#log"+id); }, 30);
 }
 
-function show(e, id) 
+function show(e, id)
 {
 	try
 	{
 		$("#log"+currentSelectWindow).hide();
 		$("#log"+currentSelectWindow+"load").show();
 		resize();
+		setTimeout(function() {
+			showPartTwo(e, id)
+		}, 2);
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
 
+function showPartTwo(e, id)
+{
+	try
+	{
 		$(e).siblings().removeClass("active");
 		var windowNumInTitle = $("#"+id+"CurrentWindow").html();
 		if(windowNumInTitle !== "")
@@ -1692,12 +1708,12 @@ function show(e, id)
 		logDisplayArray[currentSelectWindow]["id"] = id;
 		var windows = Object.keys(logDisplayArray);
 		var lengthOfWindows = windows.length;
+		var logsCheck = Object.keys(logs);
+		var lengthOfLogsCheck = logsCheck.length;
 		for(var i = 0; i < lengthOfWindows; i++)
 		{
 			if(logDisplayArray[i]["id"] !== null)
 			{
-				var logsCheck = Object.keys(logs);
-				var lengthOfLogsCheck = logsCheck.length;
 				for(var j = 0; j < lengthOfLogsCheck; j++)
 				{
 					if(logDisplayArray[i]["id"] === logsCheck[j])
@@ -1708,18 +1724,26 @@ function show(e, id)
 			}
 		}
 		$("#title"+currentSelectWindow).html(titles[id]);
+		setTimeout(function() {
+			showPartThree(e, id)
+		}, 2);
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
 
+function showPartThree(e, id)
+{
+	try
+	{
 		$("#log"+currentSelectWindow+"load").hide();
 		$("#log"+currentSelectWindow).show();
-
-		resize();
-
-		document.getElementById("log"+currentSelectWindow+"Td").scrollTop = $("#log"+currentSelectWindow).outerHeight();
+		scrollToBottom(currentSelectWindow);
 		toggleNotificationClearButton();
 		removeNotificationByLog(id);
-
-		resize();
-
+		//below function does resize
 		toggleGroupedGroups();
 	}
 	catch(e)
@@ -1833,10 +1857,11 @@ function makePretty(id)
 		var topPadding = filterContentLinePadding;
 		var foundOne = false;
 		var addLine = false;
+		var filterTextField = getFilterTextField();
 		for (var i = 0; i < lengthOfTextArray; i++)
 		{
 			addLine = false;
-			if(selectedListFilterType === "content" && filterContentLimit === "true" && getFilterTextField() !== "")
+			if(selectedListFilterType === "content" && filterContentLimit === "true" && filterTextField !== "")
 			{
 				//check for content on current line
 				if(filterContentCheck(text[i]))
@@ -2055,7 +2080,6 @@ function focus()
 function startPollTimer()
 {
 	/* Dont try catch visibility  */
-
 	pollRateCalc = pollingRate;
 	if(pollingRateType === "Seconds")
 	{
@@ -2464,6 +2488,10 @@ function changeSearchplaceholder()
 
 function changeCurrentSelectWindow(newSelectWindow)
 {
+	if(typeof newSelectWindow !== "int")
+	{
+		newSelectWindow = parseInt(newSelectWindow);
+	}
 	if(currentSelectWindow === newSelectWindow)
 	{
 		return;
@@ -3187,6 +3215,72 @@ function pinWindow(windowNum)
 	}
 }
 
+function multiLogPopup()
+{
+	if(document.getElementById("subMenuForGroup").style.display === "none")
+	{
+		//show menu
+		document.getElementById("menu2").style.display = "block";
+		document.getElementById("subMenuForGroup").style.display = "block";
+	}
+	else
+	{
+		//hide menu
+		document.getElementById("menu2").style.display = "none";
+		document.getElementById("subMenuForGroup").style.display = "none";
+	}
+	resize();
+}
+
+function generateWindowDisplay()
+{
+	var logDisplayHtml = "";
+	for(var i = 0; i < windowDisplayConfigRowCount; i++)
+	{
+		logDisplayHtml += "<tr>";
+		for(var j = 0; j < windowDisplayConfigColCount; j++)
+		{
+			var newBlock = $("#storage .logTdHolder").html();
+			var counterInternal = j+(i*windowDisplayConfigColCount);
+			newBlock = newBlock.replace(/{{counter}}/g, counterInternal);
+			newBlock = newBlock.replace(/{{counterPlusOne}}/g, (1+counterInternal));
+			if(counterInternal === 0)
+			{
+				newBlock = newBlock.replace(/{{windowSelect}}/g, "currentWindowNumSelected");
+			}
+			else
+			{
+				newBlock = newBlock.replace(/{{windowSelect}}/g, "sidebarCurrentWindowNum");
+			}
+			logDisplayHtml += newBlock;
+			var newPopupHolder = $("#storage .popuopInfoHolder").html();
+			newPopupHolder = newPopupHolder.replace(/{{counter}}/g, counterInternal);
+			$("body").append(newPopupHolder);
+		}
+		logDisplayHtml += "</tr>";
+	}
+	document.getElementById("log").innerHTML = ""+logDisplayHtml+"";
+	startOfPollLogic();
+}
+
+function startOfPollLogic()
+{
+	refreshAction();
+
+	if(pausePoll === "true")
+	{
+		pausePollCurrentSession = true;
+	}
+	else
+	{
+		startPollTimer();
+		if(pauseOnNotFocus === "true")
+		{
+			startPauseOnNotFocus();
+		}
+	}
+}
+
 $(document).ready(function()
 {
 	progressBar = new ldBar("#progressBar");
@@ -3195,25 +3289,8 @@ $(document).ready(function()
 	window.addEventListener("resize", resize);
 	window.addEventListener("focus", focus);
 
-	refreshAction();
-
-	if(pausePoll === "true")
-	{
-		pausePollCurrentSession = true;
-
-	}
-	else
-	{
-		startPollTimer();
-	}
-
-	if(pauseOnNotFocus === "true")
-	{
-		startPauseOnNotFocus();
-	}
-
 	checkForUpdateMaybe();
-
+	generateWindowDisplay();
 
 	$("#searchFieldInput").on("input", function()
 	{

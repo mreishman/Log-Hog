@@ -85,8 +85,6 @@ if($enableMultiLog === "false")
 }
 $windowDisplayConfig = explode("x", $windowConfig);
 $logDisplayArray = "{";
-$logDisplay = "";
-$popupInfoLog = "";
 $borderPadding = 0;
 
 $infoImageForWindowTableLoop = generateImage(
@@ -142,7 +140,7 @@ $downImageForWindowTableLoop =  generateImage(
 $loadingImage = generateImage(
 	$arrayOfImages["loading"],
 	$imageConfig = array(
-		"height"	=>	"30px",
+		"height"	=>	"75px",
 		)
 	);
 $externalLinkImage = generateImage(
@@ -155,70 +153,12 @@ $externalLinkImage = generateImage(
 
 for ($i=0; $i < (int)$windowDisplayConfig[0]; $i++)
 {
-	$logDisplay .= "<tr>";
-
 	for ($j=0; $j < (int)$windowDisplayConfig[1]; $j++)
 	{
 		$borderPadding += 2;
 		$counter = $j+($i*(int)$windowDisplayConfig[1]);
-		$logDisplay .= "<td style=\"vertical-align: top; padding: 0; border: 1px solid white;\" class=\"logTdWidth\" >";
-		$logDisplay .= "<table style=\"margin: 0px;padding: 0px; border-spacing: 0px; width:100%;\" ><tr><td style=\"padding: 0;";
-		if($bottomBarIndexShow == 'false')
-		{
-			$logDisplay .= " width: 0; ";
-		}
-		else
-		{
-			$logDisplay .= " width: 31px; ";
-		}
-		$logDisplay .=  " \" >";
-		$logDisplay .= "<div class=\"backgroundForSideBarMenu\" style=\"";
-		if($bottomBarIndexShow == 'false')
-		{
-			$logDisplay .= "display: none; width: 0; ";
-		}
-		else
-		{
-			$logDisplay .= "display: inline; width: 31px; ";
-		}
-		$logDisplay .= " float: left; padding: 0px; \" id=\"titleContainer".$counter."\">";
-		$logDisplay .= "<p id=\"numSelectIndecatorForWindow".$counter."\"  class=\" ";
-		if($counter === 0)
-		{
-			$logDisplay .= "currentWindowNumSelected";
-		}
-		else
-		{
-			$logDisplay .= "sidebarCurrentWindowNum";
-		}
-		$logDisplay .= " \" >".($counter+1)."</p>";
-		$logDisplay .= "<a id=\"showInfoLink".$counter."\" onclick=\"showInfo('".$counter."');\" style=\"cursor: pointer;\" >";
-		$logDisplay .= $infoImageForWindowTableLoop;
-		$logDisplay .= "</a>";
-		$logDisplay .= "<a id=\"pinWindow".$counter."\" onclick=\"pinWindow('".$counter."');\" style=\"cursor: pointer;\" >";
-		$logDisplay .= $pinImageForWindowTableLoop;
-		$logDisplay .= $pinPinnedImageForWindowTableLoop;
-		$logDisplay .= "</a>";
-		$popupInfoLog .= "<div class=\"popupForInfo\" style=\"display: none;\" id=\"title".$counter."\"></div>";
-		$logDisplay .= "<a onclick=\"clearLog('".$counter."');\" style=\"cursor: pointer;\" >";
-		$logDisplay .= $clearImageForWindowTableLoop;
-		$logDisplay .= "</a>";
-		$logDisplay .= "<a onclick=\"deleteLogPopup('".$counter."');\" style=\"cursor: pointer;\" >";
-		$logDisplay .= $deleteImageForWindowTableLoop;
-		$logDisplay .= "</a>";
-		$logDisplay .= "<a onclick=\"scrollToBottom('".$counter."');\" style=\"cursor: pointer;\" >";
-		$logDisplay .= $downImageForWindowTableLoop;
-		$logDisplay .= "</a>";
-		$logDisplay .= "</div> ";
-		$logDisplay .= "</td><td onclick=\"changeCurrentSelectWindow(".$counter.")\" style=\"padding: 0;\" >";
-		$logDisplay .= " <span id=\"log".$counter."Td\"  class=\"logTrHeight\" style=\"overflow: auto; display: block; word-break: break-all;\" > ";
-		$logDisplay .= " <div id=\"log".$counter."load\" style=\"display: none;\" class=\"errorMessageLog\"  >".$loadingImage."</div>";
-		$logDisplay .= " <div style=\"padding: 0; white-space: pre-wrap;\" id=\"log".$counter."\" class=\"log\" ></div> </span>";
-		$logDisplay .= "</td></tr></table>";
-		$logDisplay .= "</td>";
 		$logDisplayArray .= " ".$counter.": {id: null, scroll: true, pin: false} ,";
 	}
-	$logDisplay .= "</tr>";
 }
 $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 
@@ -364,8 +304,21 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 					?>
 				</div>
 			<?php endif; ?>
+			<?php if($enableMultiLog === "true"): ?>
+				<div onclick="multiLogPopup();"  class="menuImageDiv">
+				<?php echo generateImage(
+					$arrayOfImages["multiLog"],
+					$imageConfig = array(
+						"id"		=>	"menuImage",
+						"class"		=>	"menuImage",
+						"height"	=>	"30px"
+						)
+					);
+				?>
+			</div>
+			<?php endif; ?>
 			<div id="selectForGroupDiv" style="display: none;">
-				Groups: 
+				Groups:
 				<div class="selectDiv">
 					<select id="selectForGroup" >
 						<option selected="true" value="all" >All</option>
@@ -381,7 +334,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 							"class"		=>	"menuImage",
 							"height"	=>	"30px"
 							)
-						); 
+						);
 					?>
 				</div>
 			</span>
@@ -403,15 +356,43 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 							"title"		=>  "Filter Settings",
 							"style"		=>  "margin-top: -15px;"
 							)
-						); 
+						);
 					?>
+				</div>
+			</div>
+		</div>
+		<div id="menu2" style="display: none; position: inherit;">
+			<div id="subMenuForGroup" style="display: none;" >
+				Log Layout
+				<?php $arrayOfwindowConfigOptions = array();
+				for ($i=0; $i < 3; $i++)
+				{
+					for ($j=0; $j < 3; $j++)
+					{
+						array_push($arrayOfwindowConfigOptions, "".($i+1)."x".($j+1));
+					}
+				}
+				?>
+				<div class="selectDiv">
+					<select id="windowConfig">
+						<?php foreach ($arrayOfwindowConfigOptions as $value)
+						{
+							$stringToEcho = "<option ";
+							if($value === $windowConfig)
+							{
+								$stringToEcho .= " selected ";
+							}
+							$stringToEcho .= " value=\"".$value."\"> ".$value."</option>";
+							echo $stringToEcho;
+						}
+						?>
+					</select>
 				</div>
 			</div>
 		</div>
 	</div>
 	<div class="backgroundForMenus" id="menu" style="position: inherit;">
 	</div>
-	<?php echo $popupInfoLog; ?>.
 	<div style="display: inline-block; position: absolute; top: 0; left: 0; z-index: 30;" >
 		<div id="notificationIcon">
 			<span onclick="toggleNotifications();" id="notificationCount"></span>
@@ -423,8 +404,8 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 		</div>
 	</div>
 	<div id="main">
-		<table id="log" style="display: none; margin: 0px;padding: 0px; border-spacing: 0px;" style="width: 100%;" >
-			<?php echo $logDisplay; ?>
+		<table id="log" style="display: none; margin: 0px;padding: 0px; border-spacing: 0px; width: 100%;" >
+			<tbody><tr><td></td></tr></tbody>
 		</table>
 		<div id="firstLoad" style="width: 100%; height: 100%;">
 			<h1 id="progressBarMainInfo" style="margin-right: auto; margin-left: auto; width: 100%; text-align: center;  margin-top: 100px; font-size: 150%;" >Loading...</h1>
@@ -435,9 +416,12 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 		</div>
 		<div id="noLogToDisplay" class='errorMessageLog errorMessageGreenBG' style="display: none; margin-top: 2%;" > There are currently no logs to display. </div>
 	</div>
-	
-	<?php readfile('core/html/indexStorage.html'); ?>
-
+	<div id="storage">
+		<?php
+			readfile('core/html/indexStorage.html');
+			require_once('core/php/template/indexStorage.php');
+		?>
+	</div>
 	<div id="fullScreenMenu" style="display: none;">
 		<div style="padding: 5px 5px 10px 5px; border-bottom: 1px solid white;" >
 			<div onclick="toggleFullScreenMenu();"  class="menuImageDiv">
