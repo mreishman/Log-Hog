@@ -124,7 +124,7 @@ div#fixed
 
 if(!($windowDisplayConfig[0] > 1 || $windowDisplayConfig[1] > 1)): ?>
 
-.unPinWindow, .pinWindow, .currentWindowNumSelected, .currentWindowNum
+.pinWindowContainer, .currentWindowNumSelected, .currentWindowNum
 {
 	display: none;
 }

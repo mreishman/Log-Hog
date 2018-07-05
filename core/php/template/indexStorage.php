@@ -49,7 +49,7 @@
 										);
 									?>
 								</a>
-								<a id="pinWindow{{counter}}" onclick="pinWindow('{{counter}}');" style="cursor: pointer;" >
+								<a id="pinWindow{{counter}}" class="pinWindowContainer"  onclick="pinWindow('{{counter}}');" style="cursor: pointer;" >
 									<?php
 										echo generateImage(
 										$arrayOfImages["pin"],

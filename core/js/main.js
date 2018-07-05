@@ -3322,11 +3322,11 @@ function generateWindowDisplay()
 	document.getElementById("log").innerHTML = ""+logDisplayHtml+"";
 	if(windowDisplayConfigColCount > 1 || windowDisplayConfigRowCount > 1)
 	{
-		$(".unPinWindow, .pinWindow, .currentWindowNumSelected, .currentWindowNum").show();
+		$(".pinWindowContainer, .currentWindowNumSelected, .currentWindowNum").show();
 	}
 	else
 	{
-		$(".unPinWindow, .pinWindow, .currentWindowNumSelected, .currentWindowNum").hide();
+		$(".pinWindowContainer, .currentWindowNumSelected, .currentWindowNum").hide();
 	}
 	resize();
 	if(startOfPollLogicRan === false)
