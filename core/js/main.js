@@ -851,7 +851,7 @@ function update(data)
 			shortName = files[i].replace(/.*\//g, "");
 			id = name.replace(/[^a-z0-9]/g, "");
 
-			if(showFileFromFilter(id, name, shortName, logData) && showFileFromGroup(id))
+			if(showFileFromFilter(id, name, shortName, logData) && (showFileFromGroup(id) || $("#"+id).hasClass("active")))
 			{
 				showFile = true;
 			}
