@@ -123,14 +123,14 @@ if(!($windowDisplayConfig[0] > 1 || $windowDisplayConfig[1] > 1)): ?>
 	display: none;
 }
 
-<?php else: ?>
+<?php endif; ?>
 
 .currentWindowNum
 {
 	text-align: center;
 	color: <?php echo $currentSelectedThemeColorValues['highlight']['highlight-1']['fontColor']?>;
 }
-<?php endif; ?>
+
 
 /* width */
 ::-webkit-scrollbar

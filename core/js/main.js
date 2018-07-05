@@ -20,6 +20,7 @@ var flasher;
 var lastContentSearch = "";
 var lastLogs = {};
 var logDisplayArray = {};
+var logDisplayArrayOld = {};
 var logLines = {};
 var logs = {};
 var logsToHide = new Array();
@@ -1249,6 +1250,10 @@ function update(data)
 				toggleDisplayOfNoLogs();
 			}
 		}
+		else if($("#menu .active").length > targetLength)
+		{
+			removeTabsInOrder(targetLength);
+		}
 		//below changes the current select window back to what was selected by user (could change by function above)
 		changeCurrentSelectWindow(tmpCurrentSelectWindow);
 
@@ -1265,18 +1270,37 @@ function update(data)
 	}
 }
 
+function removeTabsInOrder(targetLength)
+{
+	try
+	{
+		var arrayOfLogsLength = Object.keys(logDisplayArrayOld).length;
+		//this is where on first load, tabs are selected to be visible (see here for issue 312)
+		for(var h = arrayOfLogsLength - 1; h >= targetLength; h--)
+		{
+			$("#"+logDisplayArrayOld[h]["id"]+"CurrentWindow").html("");
+			$("#"+logDisplayArrayOld[h]["id"]).removeClass("active");
+		}
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
 function selectTabsInOrder(targetLength)
 {
 	try
 	{
 		var arrayOfLogs = $("#menu a");
+		var arrayOfLogsLength = arrayOfLogs.length;
 		//this is where on first load, tabs are selected to be visible (see here for issue 312)
 		for(var h = 0; h < targetLength; h++)
 		{
 			if(logDisplayArray[h]["id"] === null)
 			{
 				//show first available log
-				for (var i = 0; i < arrayOfLogs.length; i++)
+				for (var i = 0; i < arrayOfLogsLength; i++)
 				{
 					var logIsAlreadyShown = false;
 					for(var j = 0; j < targetLength; j++)
@@ -1670,45 +1694,31 @@ function show(e, id)
 {
 	try
 	{
-		$("#log"+currentSelectWindow).hide();
-		$("#log"+currentSelectWindow+"load").show();
+		var internalID = id;
+		var currentCurrentSelectWindow = currentSelectWindow;
+		$("#log"+currentCurrentSelectWindow).hide();
+		$("#log"+currentCurrentSelectWindow+"load").show();
 		resize();
-		setTimeout(function() {
-			showPartTwo(e, id)
-		}, 2);
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
-function showPartTwo(e, id)
-{
-	try
-	{
 		$(e).siblings().removeClass("active");
-		var windowNumInTitle = $("#"+id+"CurrentWindow").html();
+		var windowNumInTitle = $("#"+internalID+"CurrentWindow").html();
 		if(windowNumInTitle !== "")
 		{
 			windowNumInTitle = windowNumInTitle + "0";
 			var windowNumAsNum = parseInt(windowNumInTitle);
 			$("#log"+(windowNumAsNum-1)).html("");
 		}
-		$("#log"+currentSelectWindow).html(makePretty(id));
-		fadeHighlight(currentSelectWindow);
 		//window number clear
 		$('.currentWindowNum').each(function(i, obj)
 		{
-			if(obj.innerHTML ==  ""+(currentSelectWindow+1)+". ")
+			if(obj.innerHTML ==  ""+(currentCurrentSelectWindow+1)+". ")
 			{
 				obj.innerHTML = "";
 			}
 		});
 		//window number add
-		$("#"+id+"CurrentWindow").html(""+(currentSelectWindow+1)+". ");
-		currentPage = id;
-		logDisplayArray[currentSelectWindow]["id"] = id;
+		$("#"+internalID+"CurrentWindow").html(""+(currentCurrentSelectWindow+1)+". ");
+		currentPage = internalID;
+		logDisplayArray[currentCurrentSelectWindow]["id"] = internalID;
 		var windows = Object.keys(logDisplayArray);
 		var lengthOfWindows = windows.length;
 		var logsCheck = Object.keys(logs);
@@ -1726,9 +1736,9 @@ function showPartTwo(e, id)
 				}
 			}
 		}
-		$("#title"+currentSelectWindow).html(titles[id]);
+		$("#title"+currentCurrentSelectWindow).html(titles[internalID]);
 		setTimeout(function() {
-			showPartThree(e, id)
+			showPartTwo(e, internalID, currentCurrentSelectWindow);
 		}, 2);
 	}
 	catch(e)
@@ -1737,15 +1747,31 @@ function showPartTwo(e, id)
 	}
 }
 
-function showPartThree(e, id)
+function showPartTwo(e, internalID, currentCurrentSelectWindow)
 {
 	try
 	{
-		$("#log"+currentSelectWindow+"load").hide();
-		$("#log"+currentSelectWindow).show();
-		scrollToBottom(currentSelectWindow);
+		$("#log"+currentCurrentSelectWindow).html(makePretty(internalID));
+		fadeHighlight(currentCurrentSelectWindow);
+		setTimeout(function() {
+			showPartThree(e, internalID, currentCurrentSelectWindow);
+		}, 2);
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
+function showPartThree(e, internalID, currentCurrentSelectWindow)
+{
+	try
+	{
+		$("#log"+currentCurrentSelectWindow+"load").hide();
+		$("#log"+currentCurrentSelectWindow).show();
+		scrollToBottom(currentCurrentSelectWindow);
 		toggleNotificationClearButton();
-		removeNotificationByLog(id);
+		removeNotificationByLog(internalID);
 		//below function does resize
 		toggleGroupedGroups();
 	}
@@ -3261,6 +3287,14 @@ function generateWindowDisplay()
 			{
 				newBlock = newBlock.replace(/{{windowSelect}}/g, "sidebarCurrentWindowNum");
 			}
+			if(document.getElementById("log"+counterInternal))
+			{
+				newBlock = newBlock.replace(/{{logContent}}/g, $("#log"+counterInternal).html());
+			}
+			else
+			{
+				newBlock = newBlock.replace(/{{logContent}}/g, "");
+			}
 			logDisplayHtml += newBlock;
 			var newPopupHolder = $("#storage .popuopInfoHolder").html();
 			newPopupHolder = newPopupHolder.replace(/{{counter}}/g, counterInternal);
@@ -3276,9 +3310,14 @@ function generateWindowDisplay()
 		}
 		logDisplayHtml += "</tr>";
 		borderPadding = newBorderPadding;
+		logDisplayArrayOld = logDisplayArray;
 		logDisplayArray = newLogDisplayArray;
 	}
 	document.getElementById("log").innerHTML = ""+logDisplayHtml+"";
+	if(windowDisplayConfigColCount > 1 || windowDisplayConfigRowCount > 1)
+	{
+		$(".unPinWindow, .pinWindow, .currentWindowNumSelected, .currentWindowNum").show();
+	}
 	if(startOfPollLogicRan === false)
 	{
 		startOfPollLogic();

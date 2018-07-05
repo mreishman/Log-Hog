@@ -117,7 +117,7 @@
 										);
 									?>
 								</div>
-								<div style="padding: 0; white-space: pre-wrap;" id="log{{counter}}" class="log" ></div>
+								<div style="padding: 0; white-space: pre-wrap;" id="log{{counter}}" class="log" >{{logContent}}</div>
 							</span>
 						</td>
 					</tr>
