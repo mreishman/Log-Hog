@@ -842,7 +842,7 @@ function update(data)
 		for(var i = 0; i !== stop; i++)
 		{
 			var name = files[i];
-			if(!(name in fileData))
+			if((!(name in fileData)) || data[name] === null)
 			{
 				continue;
 			}
@@ -3324,6 +3324,7 @@ function generateWindowDisplay()
 	{
 		$(".unPinWindow, .pinWindow, .currentWindowNumSelected, .currentWindowNum").hide();
 	}
+	resize();
 	if(startOfPollLogicRan === false)
 	{
 		startOfPollLogic();
@@ -3336,7 +3337,9 @@ function generateWindowDisplay()
 				loadPrevLogContent(arrayOfPrevLogs);
 			}, 1);
 		}
-		update(arrayOfDataMain);
+		setTimeout(function() {
+			update(arrayOfDataMain);
+		}, 2);
 	}
 }
 
