@@ -3269,6 +3269,7 @@ function generateWindowDisplay()
 	var logDisplayHtml = "";
 	var newBorderPadding = 0;
 	var newLogDisplayArray = {};
+	var arrayOfPrevLogs = {};
 	for(var i = 0; i < windowDisplayConfigRowCount; i++)
 	{
 		logDisplayHtml += "<tr>";
@@ -3289,11 +3290,12 @@ function generateWindowDisplay()
 			}
 			if(document.getElementById("log"+counterInternal))
 			{
-				newBlock = newBlock.replace(/{{logContent}}/g, $("#log"+counterInternal).html());
+				arrayOfPrevLogs[counterInternal] = $("#log"+counterInternal).html();
+				newBlock = newBlock.replace(/{{loadingStyle}}/g, "");
 			}
 			else
 			{
-				newBlock = newBlock.replace(/{{logContent}}/g, "");
+				newBlock = newBlock.replace(/{{loadingStyle}}/g, "style=\"display: none\"");
 			}
 			logDisplayHtml += newBlock;
 			var newPopupHolder = $("#storage .popuopInfoHolder").html();
@@ -3318,13 +3320,34 @@ function generateWindowDisplay()
 	{
 		$(".unPinWindow, .pinWindow, .currentWindowNumSelected, .currentWindowNum").show();
 	}
+	else
+	{
+		$(".unPinWindow, .pinWindow, .currentWindowNumSelected, .currentWindowNum").hide();
+	}
 	if(startOfPollLogicRan === false)
 	{
 		startOfPollLogic();
 	}
 	else
 	{
+		if(arrayOfPrevLogs !== {})
+		{
+			setTimeout(function() {
+				loadPrevLogContent(arrayOfPrevLogs);
+			}, 1);
+		}
 		update(arrayOfDataMain);
+	}
+}
+
+function loadPrevLogContent(arrayOfPrevLogs)
+{
+	var arrayOfPrevLogsKeys = Object.keys(arrayOfPrevLogs);
+	var totalarrayOfPrevLogs = arrayOfPrevLogsKeys.length;
+	for(var countAPLK = 0; countAPLK < totalarrayOfPrevLogs; countAPLK++)
+	{
+		$("#log"+arrayOfPrevLogsKeys[countAPLK]).html(arrayOfPrevLogs[arrayOfPrevLogsKeys[countAPLK]]);
+		$("#log"+arrayOfPrevLogsKeys[countAPLK]+"load").hide();
 	}
 }
 

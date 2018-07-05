@@ -108,7 +108,7 @@
 						</td>
 						<td onclick="changeCurrentSelectWindow('{{counter}}')" style="padding: 0;" >
 							<span id="log{{counter}}Td"  class="logTrHeight" style="overflow: auto; display: block; word-break: break-all;" >
-								<div id="log{{counter}}load" style="display: none;" class="errorMessageLog">
+								<div id="log{{counter}}load" {{loadingStyle}} class="errorMessageLog">
 									<?php echo generateImage(
 										$arrayOfImages["loading"],
 										$imageConfig = array(
@@ -117,7 +117,7 @@
 										);
 									?>
 								</div>
-								<div style="padding: 0; white-space: pre-wrap;" id="log{{counter}}" class="log" >{{logContent}}</div>
+								<div style="padding: 0; white-space: pre-wrap;" id="log{{counter}}" class="log" ></div>
 							</span>
 						</td>
 					</tr>
