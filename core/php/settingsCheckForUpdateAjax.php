@@ -134,6 +134,12 @@ foreach($files as $file){ // iterate files
     unlink($file); // delete file
 }
 
+if(!is_writable("configStatic.php"))
+{
+  echo json_encode(array("version" => -1, "error" => "configStatic is not writeable"));
+  exit();
+}
+
 file_put_contents("configStatic.php", $newInfoForConfig);
 
 rmdir("../../update/downloads/versionCheck/extracted/");

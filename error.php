@@ -142,6 +142,10 @@ $errorArray = array(
         "firstMessage"      =>  "Zip Archive is not installed",
         "secondMessage"     =>  "When trying to check for an update, php downloads a Zip file from github. This requires the php module Zip Archive to work. Please install Zip archive to use the update function in log-hog. An example command would be: sudo apt-get install php7.0-zip. If you are unable to install Zip Archive, you can disable automatic update checks under settings. <br><br> <form id=\"formUpdateSave\" ><span class=\"settingsBuffer\" > Auto Check Update: </span><select id=\"settingsSelect\" name=\"autoCheckUpdate\"><option selected value=\"true\">True</option><option value=\"false\">False</option></select><br><br></form><button onclick=\"saveAndVerifyMain('formUpdateSave');\" >Save</button><br><br>This could take up to 60 seconds to refresh the config file"
     ),
+    12   =>  array(
+        "firstMessage"      =>  "Update check failed because of incorrect write permissions",
+        "secondMessage"     =>  "The file configStatic.php could not be written to by settingsCheckForUpdateAjax.php because of incorrect file write permissions. Please update the settingsCheckForUpdateAjax file with correct file permissions to write to configStatic.php (under core/php). If this is not possible, change the auto check for update settings to false to prevent this message."
+    ),
     42   =>  array(
         "firstMessage"      =>  "General Error",
         "secondMessage"     =>  "A general error occured, or you navigated to this page directly."

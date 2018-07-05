@@ -123,7 +123,7 @@ $externalLinkImage = generateImage(
 			</span>
 		</div>
 	<?php require_once("core/php/template/indexHeader.php"); ?>
-	<div class="backgroundForMenus" id="menu" style="position: inherit;"></div>
+	<div class="backgroundForMenus" id="menu" style="position: absolute;"></div>
 	<div style="display: inline-block; position: absolute; top: 0; left: 0; z-index: 30;" >
 		<div id="notificationIcon">
 			<span onclick="toggleNotifications();" id="notificationCount"></span>

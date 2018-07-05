@@ -34,6 +34,22 @@ function checkForUpdates(urlSend = "../", whatAmIUpdating = "Log-Hog", currentNe
 		}
 		$.getJSON(urlSend + "core/php/settingsCheckForUpdateAjax.php", {}, function(data) 
 		{
+			if(data.version == "-1")
+			{
+				//error occured, show that
+				document.getElementById("progressBarUpdateCheck").style.display = "none";
+				if(showPopupForUpdateBool)
+				{
+					if(data.error === "configStatic is not writeable")
+					{
+						window.location.href = "./error.php?error=12&page=File Permission Error";
+					}
+					else
+					{
+						window.location.href = "./error.php?error=42&page=Update Error";
+					}
+				}
+			}
 			if(data.version == "1" || data.version == "2" | data.version == "3")
 			{
 				if(dontNotifyVersionNotSet === "" || dontNotifyVersionNotSet != data.versionNumber)
@@ -75,7 +91,6 @@ function checkForUpdates(urlSend = "../", whatAmIUpdating = "Log-Hog", currentNe
 					}
 				}
 			}
-			
 		});
 	}
 	catch(e)
