@@ -2527,6 +2527,10 @@ function changeCurrentSelectWindow(newSelectWindow)
 	$("#numSelectIndecatorForWindow"+currentSelectWindow).removeClass("currentWindowNumSelected").addClass("sidebarCurrentWindowNum");
 	currentSelectWindow = newSelectWindow;
 	$("#numSelectIndecatorForWindow"+newSelectWindow).removeClass("sidebarCurrentWindowNum").addClass("currentWindowNumSelected");
+	if(windowDisplayConfigColCount > 1 || windowDisplayConfigRowCount > 1)
+	{
+		$(".currentWindowNumSelected").show();
+	}
 }
 
 function showInfo(idNum)
@@ -3351,6 +3355,7 @@ function loadPrevLogContent(arrayOfPrevLogs)
 	{
 		$("#log"+arrayOfPrevLogsKeys[countAPLK]).html(arrayOfPrevLogs[arrayOfPrevLogsKeys[countAPLK]]);
 		$("#log"+arrayOfPrevLogsKeys[countAPLK]+"load").hide();
+		scrollToBottom(arrayOfPrevLogsKeys[countAPLK]);
 	}
 }
 
