@@ -842,8 +842,10 @@ function update(data)
 		for(var i = 0; i !== stop; i++)
 		{
 			var name = files[i];
-			if((!(name in fileData)) || data[name] === null)
+
+			if((!(name in data)) || typeof(data[name]) === 'undefined' || data[name] === null)
 			{
+				hideLogByName(name);
 				continue;
 			}
 			var logData = data[name]["log"];
@@ -1834,7 +1836,11 @@ function getDiffLogAndLastLog(id)
 				var lastStart = lengthOfLastArray-1;
 				while(j >= 0 && returnNewNum)
 				{
-					if(tmpTextLog[j].trim() !== tmpTextLast[lastStart].trim())
+					if(!(j in tmpTextLog))
+					{
+						returnNewNum = false;
+					}
+					else if(tmpTextLog[j].trim() !== tmpTextLast[lastStart].trim())
 					{
 						returnNewNum = false;
 					}
