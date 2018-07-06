@@ -1722,7 +1722,11 @@ function getDiffLogAndLastLog(id)
 				var lastStart = lengthOfLastArray-1;
 				while(j >= 0 && returnNewNum)
 				{
-					if(tmpTextLog[j].trim() !== tmpTextLast[lastStart].trim())
+					if(!(j in tmpTextLog))
+					{
+						returnNewNum = false;
+					}
+					else if(tmpTextLog[j].trim() !== tmpTextLast[lastStart].trim())
 					{
 						returnNewNum = false;
 					}
