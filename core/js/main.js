@@ -753,6 +753,11 @@ function update(data)
 		for(var i = 0; i !== stop; i++)
 		{
 			var name = files[i];
+			if((!(name in data)) || typeof(data[name]) === 'undefined')
+			{
+				hideLogByName(name);
+				continue;
+			}
 			var logData = data[name]["log"];
 			var selectListForFilter = document.getElementsByName("searchType")[0];
 			var selectedListFilterType = selectListForFilter.options[selectListForFilter.selectedIndex].value;
@@ -760,7 +765,6 @@ function update(data)
 			var showFile = false;
 			shortName = files[i].replace(/.*\//g, "");
 			id = name.replace(/[^a-z0-9]/g, "");
-			
 
 			var filterOffOf = "";
 			if(selectedListFilterType === "title")
