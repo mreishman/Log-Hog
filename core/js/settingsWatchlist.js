@@ -20,16 +20,20 @@ var selectOptions =
 };
 var staticFileData;
 var staticRowNumber = 1;
+var progressBarWatchList;
+var percentWatchList = 0;
+var currentPatternSelect = defaultNewAddPattern;
+var fileFolderList = {};
 
 function generateRow(data)
 {
 	var fileTypeIsFolder = false;
-	if(data["fileType"] === "folder")
+	if(data["FileType"] === "folder")
 	{
 		fileTypeIsFolder = true;
 	}
 	var fileTypeIsFile = false;
-	if(data["fileType"] === "file")
+	if(data["FileType"] === "file")
 	{
 		fileTypeIsFile = true;
 	}
@@ -50,37 +54,47 @@ function generateRow(data)
 	var optionListCount = optionList.length;
 	for(var i = 0; i < optionListCount; i++)
 	{
-		if(String(data["pattern"]) === String(selectOptions[optionList[i]]["value"]))
+		if(String(data["Pattern"]) === String(selectOptions[optionList[i]]["value"]))
 		{
 			hidePattern = true;
 			break;
 		}
 	}
-
 	var item = $("#storage .saveBlock").html();
 	item = item.replace(/{{rowNumber}}/g, data["rowNumber"]);
 	item = item.replace(/{{fileNumber}}/g, data["fileNumber"]);
 	item = item.replace(/{{filePermsDisplay}}/g, data["filePermsDisplay"]);
 	item = item.replace(/{{fileImage}}/g, data["fileImage"]);
-	item = item.replace(/{{location}}/g, data["location"]);
-	item = item.replace(/{{pattern}}/g, data["pattern"]);
+	item = item.replace(/{{location}}/g, data["Location"]);
+	item = item.replace(/{{pattern}}/g, data["Pattern"]);
 	item = item.replace(/{{key}}/g, data["key"]);
 	item = item.replace(/{{recursiveOptions}}/g, generateTrueFalseSelect(data["recursive"]));
 	item = item.replace(/{{excludeTrimOptions}}/g, generateTrueFalseSelect(data["excludeTrim"]));
 	item = item.replace(/{{typefile}}/g, displayNoneIfTrue(fileTypeIsFile));
 	item = item.replace(/{{typefolder}}/g, displayNoneIfTrue(fileTypeIsFolder));
-	item = item.replace(/{{FileTypeOptions}}/g, generateFileTypeSelect(data["fileType"]));
+	item = item.replace(/{{FileTypeOptions}}/g, generateFileTypeSelect(data["FileType"]));
 	item = item.replace(/{{filesInFolder}}/g, filesInFolder);
 	item = item.replace(/{{AutoDeleteFiles}}/g, data["AutoDeleteFiles"]);
 	item = item.replace(/{{FileInformation}}/g, data["FileInformation"]);
 	item = item.replace('FileInformation" value="', 'FileInformation" value=\'');
-	item = item.replace('"></ul></div>', '\'></ul></div>');	
+	item = item.replace('"></span></span></ul></div>', '\'></span></span></ul></div>');	
 	item = item.replace(/{{Group}}/g, data["Group"]);
 	item = item.replace(/{{Name}}/g, data["Name"]);
 	item = item.replace(/{{AlertEnabled}}/g, generateTrueFalseSelect(data["AlertEnabled"]));
 	item = item.replace(/{{hidesplitbutton}}/g, displayNoneIfTrue(hideSplit));
-	item = item.replace(/{{patternSelect}}/g, generatePatternSelect(data["pattern"]));
+	item = item.replace(/{{patternSelect}}/g, generatePatternSelect(data["Pattern"]));
 	item = item.replace(/{{hidepatterninput}}/g, displayNoneIfTrue(hidePattern));
+	item = item.replace(/{{SaveGroupButton}}/g, generateSaveGroupButton(data["SaveGroup"]));
+	item = item.replace(/{{SaveGroupValue}}/g, data["SaveGroup"]);
+	if(data["SaveGroup"] === "true")
+	{
+		item = item.replace(/{{saveGroupClass}}/g, "SaveGroupLog");
+	}
+	else
+	{
+		item = item.replace(/{{saveGroupClass}}/g, "");
+	}
+	item = item.replace(/{{GrepFilter}}/g, data["GrepFilter"]);
 	if(!data["down"])
 	{
 		item = item.replace(/{{movedown}}/g, "style=\"display: none;\"");
@@ -90,6 +104,15 @@ function generateRow(data)
 		item = item.replace(/{{moveup}}/g, "style=\"display: none;\"");
 	}
 	return item;
+}
+
+function generateSaveGroupButton(value)
+{
+	if(value === "true")
+	{
+		return "UnArchive";
+	}
+	return "Archive";
 }
 
 function displayNoneIfTrue(selectValue)
@@ -109,6 +132,15 @@ function generatePatternSelect(selectValue)
 			value: "other",
 			name: "Other"
 		},
+		selectValue
+	);
+}
+
+function generatePatternSelectNoOther(selectValue)
+{
+	return generateSelect(
+		selectOptions,
+		false,
 		selectValue
 	);
 }
@@ -167,12 +199,15 @@ function generateSelect(data, defaultData, selectValue)
 		}
 		selectHtml += " >"+data[optionList[i]]["name"]+"</option>";
 	}
-	selectHtml += "<option value=\""+defaultData["value"]+"\" ";
-	if(selected !== true)
+	if(defaultData)
 	{
-		selectHtml += " selected ";
+		selectHtml += "<option value=\""+defaultData["value"]+"\" ";
+		if(selected !== true)
+		{
+			selectHtml += " selected ";
+		}
+		selectHtml += " >"+defaultData["name"]+"</option>";
 	}
-	selectHtml += " >"+defaultData["name"]+"</option>";
 	return selectHtml;
 }
 
@@ -220,10 +255,11 @@ function addFolder()
 
 function addFileFolderAjax(fileType, sentLocation)
 {
+	currentPatternSelect = defaultNewAddPattern;
 	hidePopup();
 	displayLoadingPopup("../");
 	var urlForSend = "../core/php/getFileFolderData.php?format=json";
-	var data = {currentFolder: sentLocation, filter: defaultNewAddPattern};
+	var data = {currentFolder: sentLocation, filter: currentPatternSelect};
 	$.ajax({
 		url: urlForSend,
 		dataType: "json",
@@ -236,14 +272,15 @@ function addFileFolderAjax(fileType, sentLocation)
 			hidePopup();
 			addRowFunction(
 			{
-				fileType: fileType,
+				FileType: fileType,
 				fileImage: icons[data["img"]],
-				location: sentLocation,
+				Location: sentLocation,
 				filePermsDisplay: data["fileInfo"],
 				filesInFolder: fileListData["html"],
 				hideSplit: fileListData["filesFound"]
 			}
 			);
+			location.href = "#rowNumber"+countOfWatchList;
 		}
 	});	
 }
@@ -309,6 +346,7 @@ function generateSubFiles(data)
 			var excludeDelete = "false";
 			var alertOnUpdate = defaultdefaultNewAddAlertEnabled;
 			var name = "";
+			var grepFilter = "";
 			
 			if(keyTwo in fileData)
 			{
@@ -332,6 +370,10 @@ function generateSubFiles(data)
 				{
 					includeBool = fileData[keyTwo]["Include"];
 				}
+				if("GrepFilter" in fileData[keyTwo])
+				{
+					grepFilter = fileData[keyTwo]["GrepFilter"];
+				}
 			}
 			returnHtml += "<li>"+icons[fileArray[keyTwo]["image"]];
 			returnHtml += "<span style=\"width: 300px; overflow: auto; display: inline-block;\" >"+keyTwo.replace(mainFolder,"")+"</span><input name=\"watchListKey"+currentNum+"FileInFolder\"  type=\"hidden\" value=\""+keyTwo+"\" >";
@@ -339,7 +381,8 @@ function generateSubFiles(data)
 			returnHtml += "<span class=\"settingsBuffer\" >Exclude Trim: <select onchange=\"updateFileInfo("+currentNum+");\" name=\"watchListKey"+currentNum+"FileInFolderTrim\"> "+generateTrueFalseSelect(excludeTrim)+" </select></span>";
 			returnHtml += "<span class=\"settingsBuffer\" >Exclude Delete: <select onchange=\"updateFileInfo("+currentNum+");\" name=\"watchListKey"+currentNum+"ExcludeDelete\"> "+generateTrueFalseSelect(excludeDelete)+" </select></span>";
 			returnHtml += "<span class=\"settingsBuffer\" >Alert on Update: <select onchange=\"updateFileInfo("+currentNum+");\" name=\"watchListKey"+currentNum+"FileInFolderAlert\"> "+generateTrueFalseSelect(alertOnUpdate)+" </select></span>";
-			returnHtml += "<span class=\"settingsBuffer\" >Name: <input onchange=\"updateFileInfo("+currentNum+");\"  type=\"text\" name=\"watchListKey"+currentNum+"FileInFolderName\" value=\""+name+"\" > </span>";
+			returnHtml += "<span class=\"settingsBuffer\" style=\"text-align: right; width: 50px; padding-right:5px; \" >Name:  </span><span class=\"settingsBuffer\" > <input onchange=\"updateFileInfo("+currentNum+");\"  type=\"text\" name=\"watchListKey"+currentNum+"FileInFolderName\" value=\""+name+"\" > </span>";
+			returnHtml += "<span class=\"settingsBuffer\" style=\"text-align: right; width: 75px; padding-right:5px; \" >Filter:  </span><span class=\"settingsBuffer\" > <input onchange=\"updateFileInfo("+currentNum+");\"  type=\"text\" name=\"watchListKey"+currentNum+"GrepFilter\" value=\""+name+"\" > </span>";
 			returnHtml += "</li>";
 		}
 	}
@@ -351,6 +394,20 @@ function generateSubFiles(data)
 	return {html: returnHtml, hideSplit};
 }
 
+function toggleCondensed()
+{
+	if(getComputedStyle(document.getElementsByClassName("condensed")[0], null).display !== "none")
+	{
+		$(".condensed").hide();
+		document.getElementById("condensedLink").innerHTML = "Show More Options";
+	}
+	else
+	{
+		$(".condensed").show();
+		document.getElementById("condensedLink").innerHTML = "Show Condensed Options";
+	}
+}
+
 function updateFileFolderGui(hideFiles)
 {
 	getFileFolderData(document.getElementById("inputFieldForFileOrFolder").value, hideFiles,document.getElementById("inputFieldForFileOrFolder").value);
@@ -360,10 +417,12 @@ function addOther()
 {
 	addRowFunction(
 		{
-			fileType: "other",
-			location: defaultNewPathOther
+			FileType: "other",
+			Location: defaultNewPathOther
 		}
 	);
+	var countOfWatchList = parseInt(document.getElementById("numberOfRows").value);
+	location.href = "#rowNumber"+countOfWatchList;
 }
 
 function setNewFileFolderValue(newValue,hideFiles)
@@ -419,7 +478,7 @@ function getFileFolderData(currentFolder, hideFiles, orgPath)
 {
 	//make ajax to get file / folder data, return array
 	var urlForSend = "../core/php/getFileFolderData.php?format=json";
-	var data = {currentFolder, filter: defaultNewAddPattern};
+	var data = {currentFolder, filter: currentPatternSelect};
 	$.ajax({
 		url: urlForSend,
 		dataType: "json",
@@ -459,6 +518,12 @@ function getFileFolderDataMain(currentFolder, hideFiles, orgPath, currentRow)
 	});	
 }
 
+function updateFilterPopup()
+{
+	currentPatternSelect = document.getElementById("patternSelectPopup").value;
+	getCurrentFileFolderInfoKeyPress(false);
+}
+
 function getFileFolderSubFunction(data, orgPath, hideFiles, joinChar, dropdown)
 {
 	
@@ -481,6 +546,10 @@ function getFileFolderSubFunction(data, orgPath, hideFiles, joinChar, dropdown)
 	else
 	{
 		document.getElementById("folderNavUpHolder").innerHTML = "";
+	}
+	if(!hideFiles && document.getElementById("patternSelectPopup") === null)
+	{
+		document.getElementById("folderNavUpHolder").innerHTML += "<div style=\"float:right; margin-right: 20px\" class=\"selectDiv\"><select onchange=\"updateFilterPopup();\" id=\"patternSelectPopup\"  >"+generatePatternSelectNoOther(currentPatternSelect)+"</select></div>";
 	}
 	var listOfFileOrFolders = Object.keys(data["data"]);
 	var listOfFileOrFoldersCount = listOfFileOrFolders.length;
@@ -524,7 +593,7 @@ function getFileFolderSubFunction(data, orgPath, hideFiles, joinChar, dropdown)
 		if(subData["type"] === "folder")
 		{
 			var folderHtml = "";
-			var expandButton =  "<a class=\"linkSmall\"  onclick=\"expandFileFolderView('"+listOfFileOrFolders[i]+"',"+hideFiles+")\" >expand</a>";
+			var expandButton =  "<a class=\"linkSmall\"  onclick=\"expandFileFolderView('"+listOfFileOrFolders[i]+joinChar+"',"+hideFiles+")\" >expand</a>";
 			if(dropdown)
 			{
 				expandButton = "";
@@ -628,7 +697,10 @@ function addRowFunction(data)
 	try
 	{
 		var countOfWatchList = parseInt(document.getElementById("numberOfRows").value);
-		document.getElementById("moveDown"+countOfWatchList).style.display = "inline-block";
+		if(document.getElementById("moveDown"+countOfWatchList))
+		{
+			document.getElementById("moveDown"+countOfWatchList).style.display = "inline-block";
+		}
 		countOfWatchList++;
 
 		var fileName = ""+countOfWatchList;
@@ -637,9 +709,9 @@ function addRowFunction(data)
 			fileName = "0"+fileName;
 		}
 		var fileTypeFromData = "other";
-		if("fileType" in data)
+		if("FileType" in data)
 		{
-			fileTypeFromData = data["fileType"];
+			fileTypeFromData = data["FileType"];
 		}
 		var filesInFolderFromData = "<li>Unknown files in folder</li>";
 		if("filesInFolder" in data)
@@ -647,15 +719,15 @@ function addRowFunction(data)
 			filesInFolderFromData = data["filesInFolder"];
 		}
 		var locationFromData = "";
-		if("location" in data)
+		if("Location" in data)
 		{
-			locationFromData = data["location"];
+			locationFromData = data["Location"];
 		}
 
 		var patternFromData = defaultNewAddPattern;
-		if("pattern" in data)
+		if("Pattern" in data)
 		{
-			patternFromData = data["pattern"];
+			patternFromData = data["Pattern"];
 		}
 
 		var fileImg = "";
@@ -676,6 +748,60 @@ function addRowFunction(data)
 			hideSplit = data["hideSplit"];
 		}
 
+		var alertEnabled = defaultdefaultNewAddAlertEnabled;
+		if("AlertEnabled" in data)
+		{
+			alertEnabled = data["AlertEnabled"];
+		}
+
+		var autoDeleteFiles = defaultNewAddAutoDeleteFiles;
+		if("AutoDeleteFiles" in data)
+		{
+			autoDeleteFiles = data["AutoDeleteFiles"];
+		}
+
+		var excludeTrim = defaultNewAddExcludeTrim;
+		if("ExcludeTrim" in data)
+		{
+			excludeTrim = data["ExcludeTrim"];
+		}
+
+		var fileInformation = "{}";
+		if("FileInformation" in data)
+		{
+			fileInformation = data["FileInformation"];
+		}
+
+		var name = "";
+		if("Name" in data)
+		{
+			name = data["Name"];
+		}
+
+		var group = "";
+		if("Group" in data)
+		{
+			group = data["Group"];
+		}
+
+		var recursive = defaultNewAddRecursive;
+		if("Recursive" in data)
+		{
+			recursive = data["Recursive"];
+		}
+
+		var saveGroup = "false";
+		if("SaveGroup" in data)
+		{
+			saveGroup = data["SaveGroup"];
+		}
+
+		var grepFilter = "";
+		if("GrepFilter" in data)
+		{
+			grepFilter = data["GrepFilter"];
+		}
+
 		var item = generateRow(
 			{
 				rowNumber: countOfWatchList,
@@ -683,21 +809,23 @@ function addRowFunction(data)
 				fileNumber: fileName,
 				filePermsDisplay,
 				fileImage: fileImg,
-				location: locationFromData,
-				pattern: patternFromData,
+				Location: locationFromData,
+				Pattern: patternFromData,
 				key: "Log "+countOfWatchList,
-				recursive: defaultNewAddRecursive,
-				excludeTrim: defaultNewAddExcludeTrim,
-				fileType: fileTypeFromData,
+				recursive: recursive,
+				excludeTrim: excludeTrim,
+				FileType: fileTypeFromData,
 				filesInFolder: filesInFolderFromData,
-				AutoDeleteFiles: defaultNewAddAutoDeleteFiles,
-				FileInformation: "{}",
-				Group: "",
-				Name: "",
-				AlertEnabled: defaultdefaultNewAddAlertEnabled,
+				AutoDeleteFiles: autoDeleteFiles,
+				FileInformation: fileInformation,
+				Group: group,
+				Name: name,
+				AlertEnabled: alertEnabled,
 				up: true,
 				down: false,
-				hideSplit
+				hideSplit,
+				SaveGroup: saveGroup,
+				GrepFilter: grepFilter
 			}
 		);
 		$(".uniqueClassForAppendSettingsMainWatchNew").append(item);
@@ -737,12 +865,8 @@ function splitFiles(currentRow)
 	{
 		for (var i = 0; i < listOfFiles.length; i++)
 		{
-		  var fileLocation = listOfFiles[i].value;
-		  addRowFunction(
-		  	{
-		  		fileType: "file",
-		  		location: fileLocation
-		  	});
+			var fileLocation = listOfFiles[i].value;
+			addFileFolderAjax("file", fileLocation);
 		}
 
 		deleteRowFunction(currentRow);
@@ -758,6 +882,7 @@ function updateFileInfo(currentRow)
 	var listOfFilesDelete = document.getElementsByName("watchListKey"+currentRow+"ExcludeDelete");
 	var listOfFilesName = document.getElementsByName("watchListKey"+currentRow+"FileInFolderName");
 	var listOfFilesAlert = document.getElementsByName("watchListKey"+currentRow+"FileInFolderAlert");
+	var listOfGrepFilters = document.getElementsByName("watchListKey"+currentRow+"GrepFilter");
 	
 	if(listOfFiles)
 	{
@@ -769,7 +894,8 @@ function updateFileInfo(currentRow)
 			stringToUpdateTo += " \"Trim\":  \""+listOfFilesTrim[i].value + "\" , ";
 			stringToUpdateTo += " \"Delete\":  \""+listOfFilesDelete[i].value + "\", ";
 			stringToUpdateTo += " \"Name\":  \""+listOfFilesName[i].value + "\", ";
-			stringToUpdateTo += " \"Alert\":  \""+listOfFilesAlert[i].value + "\"  ";
+			stringToUpdateTo += " \"Alert\":  \""+listOfFilesAlert[i].value + "\",  ";
+			stringToUpdateTo += " \"GrepFilter\":  \""+listOfGrepFilters[i].value + "\"  ";
 			stringToUpdateTo += "}";
 			if(i !== (listOfFilesLength - 1))
 			{
@@ -829,7 +955,7 @@ function deleteRowFunction(currentRow)
 			for(var i = currentRow + 1; i <= newValue; i++)
 			{
 				var updateItoIMinusOne = i - 1;
-				moveRow(i, updateItoIMinusOne);
+				moveRow(i, updateItoIMinusOne, true);
 			}
 		}
 		newValue--;
@@ -841,7 +967,17 @@ function deleteRowFunction(currentRow)
 	}
 }
 
-function moveRow(currentRow, newRow)
+function duplicateRow(currentRow)
+{
+	var countOfWatchList = parseInt(document.getElementById("numberOfRows").value);
+	countOfWatchList++;
+	document.getElementById("numberOfRows").value = countOfWatchList;
+	moveRow(currentRow, countOfWatchList, false);
+	document.getElementById("moveDown"+(countOfWatchList-1)).style.display = "inline-block";
+	location.href = "#rowNumber"+countOfWatchList;
+}
+
+function moveRow(currentRow, newRow, removeOld = true)
 {
 	var fileName = "";
 	if(newRow < 10)
@@ -866,12 +1002,12 @@ function moveRow(currentRow, newRow)
 			fileNumber: fileName,
 			filePermsDisplay: $("#infoFile"+currentRow).html(),
 			fileImage: $("#imageFile"+currentRow).html(),
-			location: document.getElementsByName("watchListKey"+currentRow+"Location")[0].value,
-			pattern: document.getElementsByName("watchListKey"+currentRow+"Pattern")[0].value,
+			Location: document.getElementsByName("watchListKey"+currentRow+"Location")[0].value,
+			Pattern: document.getElementsByName("watchListKey"+currentRow+"Pattern")[0].value,
 			key: document.getElementsByName("watchListKey"+currentRow)[0].value,
 			recursive: document.getElementsByName("watchListKey"+currentRow+"Recursive")[0].value,
 			excludeTrim: document.getElementsByName("watchListKey"+currentRow+"ExcludeTrim")[0].value,
-			fileType: document.getElementsByName("watchListKey"+currentRow+"FileType")[0].value,
+			FileType: document.getElementsByName("watchListKey"+currentRow+"FileType")[0].value,
 			filesInFolder: document.getElementById("watchListKey"+currentRow+"FilesInFolder").innerHTML,
 			AutoDeleteFiles: document.getElementsByName("watchListKey"+currentRow+"AutoDeleteFiles")[0].value,
 			FileInformation: document.getElementsByName("watchListKey"+currentRow+"FileInformation")[0].value,
@@ -880,13 +1016,18 @@ function moveRow(currentRow, newRow)
 			AlertEnabled: document.getElementsByName("watchListKey"+currentRow+"AlertEnabled")[0].value,
 			up: upBool,
 			down: downBool,
-			hideSplit: (document.getElementById("watchListKey"+currentRow+"SplitFilesLink").style.display === "none")
+			hideSplit: (document.getElementById("watchListKey"+currentRow+"SplitFilesLink").style.display === "none"),
+			SaveGroup: document.getElementsByName("watchListKey"+currentRow+"SaveGroup")[0].value,
+			GrepFilter: document.getElementsByName("watchListKey"+currentRow+"GrepFilter")[0].value
 		}
 	);
 	//add new one
 	$(".uniqueClassForAppendSettingsMainWatchNew").append(item);
 	//remove old one
-	$("#rowNumber"+currentRow).remove();
+	if(removeOld)
+	{
+		$("#rowNumber"+currentRow).remove();
+	}
 }
 
 function checkWatchList()
@@ -974,12 +1115,12 @@ function moveDown(rowNumber)
 	for(var i = rowNumber; i <= countOfWatchList; i++)
 	{
 		counter++;
-		moveRow(i, (countOfWatchList+counter));
+		moveRow(i, (countOfWatchList+counter), true);
 	}
 
-	moveRow((countOfWatchList+2),rowNumber);
+	moveRow((countOfWatchList+2),rowNumber, true);
 	rowNumber++;
-	moveRow((countOfWatchList+1),rowNumber);
+	moveRow((countOfWatchList+1),rowNumber, true);
 	rowNumber++;
 	if(rowNumber !== countOfWatchList + 1)
 	{
@@ -987,7 +1128,7 @@ function moveDown(rowNumber)
 		for(var i = rowNumber; i <= countOfWatchList; i++)
 		{
 			counter++;
-			moveRow((countOfWatchList+counter), i);
+			moveRow((countOfWatchList+counter), i, true);
 		}
 	}
 }
@@ -1000,17 +1141,126 @@ function moveUp(rowNumber)
 
 function moveFileFolderDropdown()
 {
-	if(document.getElementById("fileFolderDropdown").style.display !== "none")
+	if(document.getElementById("fileFolderDropdown").style.display !== "none" && document.getElementById("fileFolderDropdown").style.display !== "")
 	{
 		document.getElementById("fileFolderDropdown").style.top = document.getElementsByName("watchListKey"+staticRowNumber+"Location")[0].getBoundingClientRect().bottom;
 		document.getElementById("fileFolderDropdown").style.left = document.getElementsByName("watchListKey"+staticRowNumber+"Location")[0].getBoundingClientRect().left;
 	}
 }
 
-$( document ).ready(function() 
+function getFileFolderList()
+{
+	document.getElementsByClassName("uniqueClassForAppendSettingsMainWatchNew")[0].innerHTML = "";
+	document.getElementsByClassName("uniqueClassForAppendSettingsMainWatchNew")[0].style.display = "none";
+	var urlForSend = "../core/php/getFileFolderList.php?format=json";
+	var data = {};
+	$.ajax({
+		url: urlForSend,
+		dataType: "json",
+		data,
+		type: "POST",
+		success(data)
+		{
+			fileFolderList = data;
+			var fileFolderListKeys = Object.keys(data);
+			var fileFolderListCount = fileFolderListKeys.length;
+			if(fileFolderListCount > 0)
+			{
+				ajaxAddRowFirstLoad(0);
+			}
+			else
+			{
+				//show message for no watchlist info
+			}
+		}
+	});	
+}
+
+function ajaxAddRowFirstLoad(currentCount)
 {
 	refreshSettingsWatchList();
+	var fileFolderListKeys = Object.keys(fileFolderList);
+	var fileFolderListCount = fileFolderListKeys.length;
+	if(fileFolderListCount > currentCount)
+	{
+		var data = fileFolderList[fileFolderListKeys[currentCount]];
+		updateProgressBarWatchList((90*(1/fileFolderListCount)), data["Location"], "Loading file "+(currentCount+1)+" of "+fileFolderListCount);
+		var urlForSend = "../core/php/getFileFolderData.php?format=json";
+		var sendData = {currentFolder: data["Location"], filter: data["Pattern"]};
+		(function(_data){
+			$.ajax({
+				url: urlForSend,
+				dataType: "json",
+				data: sendData,
+				type: "POST",
+				success(data)
+				{
+					var countOfWatchList = parseInt(document.getElementById("numberOfRows").value);
+					var fileListData = generateSubFiles({fileArray: data["data"], currentNum: (countOfWatchList+1), mainFolder: _data["Location"]});				
+					_data["fileImage"] = icons[data["img"]];
+					_data["filePermsDisplay"] =  data["fileInfo"];
+					_data["filesInFolder"] =  fileListData["html"];
+					_data["hideSplit"] =  fileListData["hideSplit"];
+					addRowFunction(_data)
+					currentCount++;
+					setTimeout(function(){ajaxAddRowFirstLoad(currentCount);},100);
+					
+				}
+			});	
+		}(data));
+	}
+	else
+	{
+		//finished
+		document.getElementById("loadingSpan").style.display = "none";
+		document.getElementsByClassName("uniqueClassForAppendSettingsMainWatchNew")[0].style.display = "block";
+		refreshSettingsWatchList();
+	}
+}
 
+function updateProgressBarWatchList(additonalPercent, text, topText = "Loading...")
+{
+	try
+	{
+		percentWatchList = percentWatchList + additonalPercent;
+		progressBarWatchList.set(percentWatchList);
+		$("#progressBarSubInfoWatchList").empty();
+		$("#progressBarSubInfoWatchList").append(text);
+		$("#progressBarMainInfoWatchList").empty();
+		$("#progressBarMainInfoWatchList").append(topText);
+		
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
+function toggleSaveGroup(rowNumber)
+{
+	var SaveGroupValue = document.getElementsByName("watchListKey"+rowNumber+"SaveGroup")[0].value;
+	if(SaveGroupValue === "true")
+	{
+		//set to false
+		document.getElementsByName("watchListKey"+rowNumber+"SaveGroup")[0].value = "false";
+		$("#rowNumber"+rowNumber).removeClass("SaveGroupLog");
+		document.getElementById("SaveGroup"+rowNumber).innerHTML = "Archive";
+	}
+	else
+	{
+		//set to true
+		document.getElementsByName("watchListKey"+rowNumber+"SaveGroup")[0].value = "true";
+		$("#rowNumber"+rowNumber).addClass("SaveGroupLog");
+		document.getElementById("SaveGroup"+rowNumber).innerHTML = "UnArchive";
+	}
+}
+
+$( document ).ready(function() 
+{
+	percentWatchList = 0;
+	progressBarWatchList = new ldBar("#progressBarWatchList");
+	updateProgressBarWatchList(10, "Generating File List");
+	refreshSettingsWatchList();
 	document.addEventListener(
 		'scroll',
 		function (event)
@@ -1022,4 +1272,6 @@ $( document ).ready(function()
 	);
 
 	setInterval(poll, 100);
+	setTimeout(function(){getFileFolderList();},100);
+	
 });

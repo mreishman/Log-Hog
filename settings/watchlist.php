@@ -28,6 +28,7 @@ require_once('../core/php/loadVars.php');
 <body>
 <?php require_once('header.php');?>	
 	<div id="main">
+		<?php require_once('../core/php/settingsMainWatchFunctions.php'); ?>
 		<?php require_once('../core/php/template/settingsMainWatch.php'); ?>
 	</div>	
 </body>

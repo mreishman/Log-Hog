@@ -55,7 +55,7 @@ function updateNoNewVersionCheck()
 
 function checkIfChanges()
 {
-	if(checkForChangesArray(["devAdvanced","pollAdvanced","loggingDisplay","jsPhpSend","locationOtherApps","advancedConfig","expFeatures"]))
+	if(checkForChangesArray(["devAdvanced","loggingDisplay","locationOtherApps","advancedConfig","expFeatures"]))
 	{
 		return true;
 	}
@@ -176,15 +176,15 @@ function verifyNoConfigBackups()
 	}
 }
 
-$( document ).ready(function() 
+$( document ).ready(function()
 {
-	refreshArrayObjectOfArrays(["devAdvanced","pollAdvanced","loggingDisplay","jsPhpSend","locationOtherApps","advancedConfig","expFeatures"]);
+	refreshArrayObjectOfArrays(["devAdvanced","loggingDisplay","locationOtherApps","advancedConfig","expFeatures"]);
 
 	document.addEventListener(
 		'scroll',
 		function (event)
 		{
-			onScrollShowFixedMiniBar(["advancedConfig","devAdvanced","pollAdvanced","loggingDisplay","jsPhpSend","locationOtherApps","moreAdvancedSpan","expFeatures"]);
+			onScrollShowFixedMiniBar(["advancedConfig","devAdvanced","loggingDisplay","locationOtherApps","moreAdvancedSpan","expFeatures"]);
 		},
 		true
 	);
