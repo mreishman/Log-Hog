@@ -1,7 +1,7 @@
 <?php
 
 $versionCheckArray = array(
-	'version'		=> '4.2',
+	'version'		=> '4.2.1',
 	'versionList'		=> array(
 		'2.0.1'	        => array(
 			'branchName'	=> '2.0.1Update',
@@ -130,6 +130,10 @@ $versionCheckArray = array(
 		'4.2'		=> array(
 			'branchName'	=> '4.2Update',
 			'releaseNotes'	=> "<ul><li>Features<ul><li>Changed how watchlist loads, more visual</li><li>Added file format filter to file popup</li><li>Added option to disable auto check for update on error page</li><li>Moved addons to iframe (option to disable in settings)</li><li>Added archive to watchlist</li><li>Added view options for logs in watchlist (condensed / expanded)</li><li>Added option for filters on logs</li></ul></li><li>Bug Fixes<ul><li>Fixed bug with logs being added after load (new logs)</li><li>Added option for hiding / autoCheckUpdate php file open errors in log (off by default)</li><li>Now shows correct file info when splitting files from folder in watchlist</li><li>Fixed issue with file folder dropdown showign up on initial scroll (not that noticable though)</li><li>Fixed issue with notification count not displaying above full screen menu</li><li>Fixed bug where height of notification list could be off screen, addex max height of 300px</li><li>Fixed bug with popup not being over menu on index page</li><li>Properly shows no logs available when initial load returns empty array</li></ul></li></ul>"
+		),
+		'4.2.1'		=> array(
+			'branchName'	=> '4.2Update',
+			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed issue with dropdown file typing in watchlist</li><li>Fixed bug with formatting on some logs</li><li>Fixed bug with popup settings not loadign correctly with new js loader</li><li>Fixed issue with setup and watchlist</li><li>Fixed possible issue with clearning logs?</li></ul></li></ul>"
 		),
 	)
 );
