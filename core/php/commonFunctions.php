@@ -217,7 +217,7 @@ function findUpdateValue($newestVersionCount, $versionCount, $newestVersion, $ve
 		{
 			if(isset($newestVersion[$i]) && $newestVersion[$i] !== $version[$i])
 			{
-				if($newestVersion[$i] > $version[$i])
+				if(intval($newestVersion[$i]) > intval($version[$i]))
 				{
 					$calcuation = 3-$i;
 					return max(1, $calcuation);
@@ -264,16 +264,16 @@ function getFileSizeInner($fileName, $shellOrPhp)
 	return $fileSize;
 }
 
-function trimLogLine($filename, $logSizeLimit,$logTrimMacBSD,$buffer, $shellOrPhp)
+function trimLogLine($filename, $logSizeLimit,$logTrimMacBSD,$buffer, $shellOrPhp, $showErrorPhpFileOpen)
 {
 	$lineCount = getLineCount($filename, $shellOrPhp);
 	if($lineCount > ($logSizeLimit+$buffer))
 	{
-		trimLogInner($logTrimMacBSD,$filename,($lineCount - $logSizeLimit), $shellOrPhp);
+		trimLogInner($logTrimMacBSD,$filename,($lineCount - $logSizeLimit), $shellOrPhp, $showErrorPhpFileOpen);
 	}
 }
 
-function trimLogSize($filename, $logSizeLimit,$logTrimMacBSD,$buffer, $shellOrPhp)
+function trimLogSize($filename, $logSizeLimit,$logTrimMacBSD,$buffer, $shellOrPhp, $showErrorPhpFileOpen)
 {
 	$maxForLoop = 0;
 	$trimFileBool = true;
@@ -290,7 +290,7 @@ function trimLogSize($filename, $logSizeLimit,$logTrimMacBSD,$buffer, $shellOrPh
 				$numOfLinesToRemoveTo = round($lineCountForFile - $numOfLinesAllowed);
 			}
 
-			trimLogInner($logTrimMacBSD,$filename,$numOfLinesToRemoveTo, $shellOrPhp);
+			trimLogInner($logTrimMacBSD,$filename,$numOfLinesToRemoveTo, $shellOrPhp, $showErrorPhpFileOpen);
 		}
 		else
 		{
@@ -300,13 +300,13 @@ function trimLogSize($filename, $logSizeLimit,$logTrimMacBSD,$buffer, $shellOrPh
 	}
 }
 
-function trimLogInner($logTrimMacBSD,$filename,$lineEnd, $shellOrPhp)
+function trimLogInner($logTrimMacBSD,$filename,$lineEnd, $shellOrPhp, $showErrorPhpFileOpen)
 {
 	if($shellOrPhp === "phpPreferred" || $shellOrPhp ===  "phpOnly")
 	{
 		try
 		{
-			trimLogPhp($filename,$lineEnd);
+			trimLogPhp($filename,$lineEnd, $showErrorPhpFileOpen);
 			return;
 		}
 		catch (Exception $e)
@@ -331,20 +331,29 @@ function trimLogInner($logTrimMacBSD,$filename,$lineEnd, $shellOrPhp)
 	{
 		try
 		{
-			trimLogPhp($filename,$lineEnd);
+			trimLogPhp($filename,$lineEnd, $showErrorPhpFileOpen);
 		}
 		catch (Exception $e){}
 		return;
 	}
 }
 
-function trimLogPhp($filename,$lineEnd)
+function trimLogPhp($filename,$lineEnd,$showErrorPhpFileOpen)
 {
+
 	$lines = file($filename);
 	$first_line = $lines[0];
 	$lines = array_slice($lines, $lineEnd + 2);
 	$lines = array_merge(array($first_line, "\n"), $lines);
-	$file = fopen($filename, "w");
+	$file = false;
+	if($showErrorPhpFileOpen === "false")
+	{
+		$file = @fopen($filename, "w");
+	}
+	else
+	{
+		$file = fopen($filename, "w");
+	}
 	if(gettype($file) !== "boolean")
 	{
 		fwrite($file, implode("", $lines));
@@ -362,6 +371,65 @@ function trimLogShell($logTrimMacBSD,$filename,$lineEnd)
 	{
 		shell_exec('sed -i "1,' . $lineEnd . 'd" ' . $filename);
 	}
+}
+
+function tailWithGrep($filename, $sliceSize, $shellOrPhp, $whatGrepFor)
+{
+	$start = 0;
+	$total = getLineCount($filename, $shellOrPhp);
+	$inLoop = true;
+	$data = array();
+	while ($inLoop)
+	{
+		$innerSlice = $sliceSize;
+		if($start + $sliceSize > $total)
+		{
+			//last chance?
+			$innerSlice = $total - $start;
+		}
+
+		
+		if($shellOrPhp === "phpPreferred" || $shellOrPhp ===  "phpOnly")
+		{
+			$return = trim(tailCustom($filename, $innerSlice, true, $start));
+		}
+		else
+		{
+			$return = trim(shell_exec('tail -n +' . (($total - $start) - $innerSlice) . ' "' . $filename . '" || head -n ' . $innerSlice . ' "' . $filename . '"'));
+		}
+
+		if(($return === "" || is_null($return)) && ($shellOrPhp === "shellPreferred" || $shellOrPhp === "phpPreferred"))
+		{
+			if($shellOrPhp === "phpPreferred")
+			{
+				$return = trim(shell_exec('tail -n +' . (($total - $start) - $innerSlice) . ' "' . $filename . '" || head -n ' . $innerSlice . ' "' . $filename . '"'));
+			}
+			else
+			{
+				$return = trim(tailCustom($filename, $innerSlice, true, $start));
+			}
+		}
+
+		if($return === "" || is_null($return))
+		{
+			return "Error - Maybe insufficient access to read file?";
+		}
+		$lines = explode("\n", $return);
+		foreach ($lines as $line)
+		{
+			if(strpos($line, $whatGrepFor) > -1)
+			{
+				array_push($data, $line);
+			}
+		}
+		if(count(explode("\n", $data)) >= $sliceSize)
+		{
+			$inLoop = false;
+		}
+		$start += $sliceSize;
+	}
+	//possibly need to remove last \n from string?
+	return implode("\n", $data);
 }
 
 function tail($filename, $sliceSize, $shellOrPhp)
@@ -396,12 +464,13 @@ function tail($filename, $sliceSize, $shellOrPhp)
 
 
 /**
+ * Even more slightly modified, added start line for logic
  * Slightly modified version of http://www.geekality.net/2011/05/28/php-tail-tackling-large-files/
  * @author Torleif Berger, Lorenzo Stanco
  * @link http://stackoverflow.com/a/15025877/995958
  * @license http://creativecommons.org/licenses/by/3.0/
  */
-function tailCustom($filepath, $lines = 1, $adaptive = true)
+function tailCustom($filepath, $lines = 1, $adaptive = true, $startLine = 0)
 {
 	$fileOpened = @fopen($filepath, "rb");
 	if($fileOpened === false)
@@ -428,9 +497,16 @@ function tailCustom($filepath, $lines = 1, $adaptive = true)
 	{
 		$seek = min(ftell($fileOpened), $buffer);
 		fseek($fileOpened, -$seek, SEEK_CUR);
-		$output = ($chunk = fread($fileOpened, $seek)) . $output;
+		if($startLine <= 0)
+		{
+			$output = ($chunk = fread($fileOpened, $seek)) . $output;
+			$lines -= substr_count($chunk, "\n");
+		}
+		else
+		{
+			$startLine--;
+		}
 		fseek($fileOpened, -mb_strlen($chunk, '8bit'), SEEK_CUR);
-		$lines -= substr_count($chunk, "\n");
 	}
 	while ($lines++ < 0)
 	{
@@ -693,7 +769,7 @@ function putIntoCorrectJSFormat($keyKey, $keyValue, $value)
 {
 	if(is_string($value))
 	{
-		return " var ".$keyKey." = '".$keyValue."';";
+		return " var ".$keyKey." = '".trim(preg_replace('/\s\s+/', ' ', $keyValue))."';";
 	}
 
 	if(is_array($value))
@@ -701,7 +777,7 @@ function putIntoCorrectJSFormat($keyKey, $keyValue, $value)
 		return " var ".$keyKey." = ".json_encode($keyValue).";";
 	}
 
-	return " var ".$keyKey." = ".$keyValue.";";
+	return " var ".$keyKey." = ".trim(preg_replace('/\s\s+/', ' ', $keyValue)).";";
 }
 
 function returnCurrentSelectedTheme()

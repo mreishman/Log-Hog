@@ -31,25 +31,25 @@ echo loadSentryData($sendCrashInfoJS, $branchSelected); ?>
 		display: none;
 		<?php endif; ?>
 		<?php if(strpos($URI, 'themes.php') !== false): ?>
-			cursor: default;" class="active" 
+			cursor: default;" class="active"
 		<?php else: ?>
-			" onclick="goToUrl('themes.php');" 
+			" onclick="goToUrl('themes.php');"
 		<?php endif; ?>
 	>Themes</a>
 	<?php if(strpos($URI, 'advanced.php') !== false): ?>
 		<a style="cursor: default;" class="active" id="AdvancedLink">Advanced</a>
-	<?php else: ?>	
+	<?php else: ?>
 		<a id="AdvancedLink" onclick="goToUrl('advanced.php');">Advanced</a>
 	<?php endif; ?>
 	<?php if(strpos($URI, 'addons.php') !== false): ?>
 		<a style="cursor: default;" class="active" id="addonsLink" >Addons</a>
-	<?php else: ?>	
+	<?php else: ?>
 		<a id="addonsLink" onclick="goToUrl('addons.php');">Addons</a>
 	<?php endif; ?>
 	<a id="DevLink"
 		<?php if(!(($developmentTabEnabled == 'true') || (strpos($URI, 'devTools.php') !== false))):?>
 			style="display: none;
-		<?php endif; ?>	
+		<?php endif; ?>
 		<?php if(strpos($URI, 'devTools.php') !== false): ?>
 			cursor: default;" class="active"
 		<?php else: ?>
@@ -59,31 +59,50 @@ echo loadSentryData($sendCrashInfoJS, $branchSelected); ?>
 </div>
 <?php if(strpos($URI, 'main.php') !== false): ?>
 	<div id="menu2">
-		<span style="color: black;">Settings:</span> 
-		<a href="#settingsLogVars" > Logs </a>
-		<a href="#settingsPollVars" > Poll </a>
-		<a href="#settingsFilterVars" > Filter </a>
-		<a href="#settingsUpdateVars" > Update </a>
-		<a href="#settingsMenuVars" > Menu </a>
-		<a href="#settingsWatchlistVars" > Watchlist </a>
-		<a href="#settingsMainVars" > Other </a>
+		<span style="color: black;">Settings:</span>
+		<a class="link" href="#settingsLogVars" > Logs </a>
+		<a class="link" href="#settingsPollVars" > Poll </a>
+		<a class="link" href="#settingsFilterVars" > Filter </a>
+		<a class="link" href="#settingsUpdateVars" > Update </a>
+		<a class="link" href="#settingsMenuVars" > Menu </a>
+		<a class="link" href="#settingsWatchlistVars" > Watchlist </a>
+		<a class="link" href="#settingsMainVars" > Other </a>
 	</div>
 <?php elseif(strpos($URI, 'themes.php') !== false): ?>
 	<div id="menu2">
-		<a href="#themeMain" > Themes </a>
-		<a href="#settingsColorFolderVars" > Theme Options </a>
-		<a href="#settingsColorFolderGroupVars" > Tab Style </a>
+		<a class="link" href="#themeMain" > Themes </a>
+		<a class="link" href="#settingsColorFolderVars" > Theme Options </a>
+		<a class="link" href="#settingsColorFolderGroupVars" > Tab Style </a>
 	</div>
 <?php elseif(strpos($URI, 'advanced.php') !== false): ?>
 	<div id="menu2">
-		<a href="#advancedConfig" > Advanced </a>
-		<a href="#devAdvanced" > Dev </a>
-		<a href="#pollAdvanced" > Poll</a>
-		<a href="#loggingDisplay" > Logs </a>
-		<a href="#jsPhpSend" > Reporting </a>
-		<a href="#locationOtherApps" > Apps </a>
-		<a href="#moreAdvanced" > Actions </a>
-		<a href="#expFeatures" > Experimental </a>
+		<a class="link" href="#advancedConfig" > Config </a>
+		<a class="link" href="#devAdvanced" > Dev </a>
+		<a class="link" href="#loggingDisplay" > Logs </a>
+		<a class="link" href="#locationOtherApps" > Locations </a>
+		<a class="link" href="#moreAdvanced" > Advanced </a>
+		<a class="link" href="#expFeatures" > Experimental </a>
+	</div>
+<?php elseif(strpos($URI, 'watchlist.php') !== false): ?>
+	<div id="menu2">
+		<a class="link" href="#settingsMainWatch" > Watchlist </a>
+		<a class="link" href="#watchKey" > Key</a>
+		&nbsp | &nbsp
+		<a class="link" onclick="addFile();">+ Add New File</a>
+		<a class="link" onclick="addFolder();">+ Add New Folder</a>
+		<a class="link" onclick="addOther();">+ Add Other</a>
+		&nbsp | &nbsp
+		<?php if($logShowMoreOptions === "false"): ?>
+			<a id="condensedLink" class="link" onclick="toggleCondensed();" >Show More Options</a>
+			<style type="text/css">
+				.condensed
+				{
+					display: none;
+				}
+			</style>
+		<?php else: ?>
+			<a  id="condensedLink" class="link" onclick="toggleCondensed();" >Show Condensed Options</a>
+		<?php endif; ?>
 	</div>
 <?php endif;
 $baseUrlImages = $localURL;

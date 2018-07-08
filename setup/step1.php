@@ -38,6 +38,7 @@ require_once('../core/php/loadVars.php'); ?>
 	</div>
 
 	<p style="padding: 10px;">Watch List: These are the files/folder Log-Hog will track. Please enter in some of the folders you would like.</p>
+	<?php require_once('../core/php/template/settingsMainWatchFunctions.php'); ?>
 	<?php require_once('../core/php/template/settingsMainWatch.php'); ?>
 	<table style="width: 100%; padding-left: 20px; padding-right: 20px;" ><tr><th style="text-align: right;" >
 		<span id="setupButtonContinue">
