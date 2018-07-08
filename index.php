@@ -553,6 +553,7 @@ $externalLinkImage = generateImage(
 	<?php require_once('core/php/template/popup.php') ?>
 	<script src="core/js/lazyLoadImg.js?v=<?php echo $cssVersion?>"></script>
 	<script src="core/js/main.js?v=<?php echo $cssVersion?>"></script>
+	<script src="core/js/format.js?v=<?php echo $cssVersion?>"></script>
 	<script src="core/js/rightClickJS.js?v=<?php echo $cssVersion?>"></script>
 	<script src="core/js/update.js?v=<?php echo $cssVersion?>"></script>
 	<script src="core/js/settings.js?v=<?php echo $cssVersion?>"></script>

@@ -1966,7 +1966,7 @@ function makePretty(id)
 				{
 					returnText += " "+customClass+" ";
 				}
-				returnText += " >"+text[i]+"</div>";
+				returnText += " >"+formatLine(text[i])+"</div>";
 			}
 		}
 		return returnText;
