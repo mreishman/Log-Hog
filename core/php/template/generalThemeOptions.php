@@ -9,11 +9,11 @@
 	<div class="settingsDiv" >
 		<ul class="settingsUl">
 			<li>
-				<span class="settingsBuffer" > Background: </span> 
+				<span class="settingsBuffer" > Background: </span>
 				<input type="text" name="backgroundColor" value="<?php echo $backgroundColor;?>" >
 			</li>
 			<li>
-				<span class="settingsBuffer" > Main Font Color: </span> 
+				<span class="settingsBuffer" > Main Font Color: </span>
 				<input type="text" name="mainFontColor" value="<?php echo $mainFontColor;?>" >
 			</li>
 			<li>
@@ -31,8 +31,8 @@
 			<li>
 				<span class="settingsBuffer" > Log Font Color: </span>  <input type="text" name="logFontColor" value="<?php echo $logFontColor;?>" >
 			</li>
-			<li> 
-				<span class="settingsBuffer" > Header Background: </span> 
+			<li>
+				<span class="settingsBuffer" > Header Background: </span>
 				<input type="text" name="backgroundHeaderColor" value="<?php echo $backgroundHeaderColor;?>" >
 			</li>
 			<li>
@@ -48,6 +48,16 @@
 				<span class="settingsBuffer"> Overall Brightness: </span>
 				<input name="overallBrightness" onchange="updateSlider(this.value);" type="range" min="25" max="150" value="<?php echo $overallBrightness; ?>">
 				<span id="sliderShowVal" ><?php echo $overallBrightness; ?>%</span>
+			</li>
+			<li>
+				<span class="settingsBuffer"> Log Line Padding: </span>
+				<div class="selectDiv">
+					<select name="logLinePadding">
+						<?php for ($logPadCount=2; $logPadCount <= 20; $logPadCount++): ?>
+							<option <?php if($logLinePadding === $logPadCount){echo "selected";} ?> value="<?php echo $logPadCount; ?>"><?php echo $logPadCount; ?>px</option>
+						<?php endfor; ?>
+					</select>
+				</div>
 			</li>
 		</ul>
 	</div>

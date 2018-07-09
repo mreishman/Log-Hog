@@ -1786,6 +1786,7 @@ function showPartThree(e, internalID, currentCurrentSelectWindow)
 function removeNewHighlights(area)
 {
 	$(area + " div").removeClass("newLine");
+	$(area + " tr").removeClass("newLine");
 }
 
 function getDiffLogAndLastLog(id)
@@ -1967,6 +1968,7 @@ function makePretty(id)
 					returnText += " "+customClass+" ";
 				}
 				returnText += " >"+formatLine(text[i])+"</tr>";
+				returnText += "<tr height=\""+(logLinePadding-2)+"px\" ><td colspan=\"2\"></td></tr>"
 			}
 		}
 		returnText += "</table>";

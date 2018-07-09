@@ -29,8 +29,6 @@
 		</div>
 		<a class="varwwwhtmlvarlogauthnetcimlogButton active" >server_hhvm.log</a>
 
-		<a class="varwwwhtmlvarlogauthnetcimachlogButton" >server_system.log</a>
-
 		<a class="varlogapache2errorlogButton" >error.log</a>
 
 		<a class="varlogalternativeslogButton updated">alternatives.log</a>

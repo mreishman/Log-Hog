@@ -289,13 +289,30 @@ $countConfig--;
 	<form id="expFeatures">
 		<div class="settingsHeader">
 		Experimental Features 
-			<div style="display: none;" class="settingsHeaderButtons">
+			<div class="settingsHeaderButtons">
 				<a class="linkSmall" onclick="saveAndVerifyMain('expFeatures');" >Save Changes</a>
 			</div>
 		</div>
 		<div class="settingsDiv" >
 			<ul class="settingsUl">
-				No Experimental Features available at this time
+				<li>
+					<span class="settingsBuffer"> New Log Formatting:</span>
+					<div class="selectDiv">
+						<select name="expFormatEnabled">
+  							<option <?php if($expFormatEnabled == 'true'){echo "selected";} ?> value="true">True</option>
+  							<option <?php if($expFormatEnabled == 'false'){echo "selected";} ?> value="false">False</option>
+						</select>
+					</div>
+				</li>
+				<li>
+					<span class="settingsBuffer"> Date Text Format:</span>
+					<div class="selectDiv">
+						<select name="dateTextFormat">
+  							<option <?php if($dateTextFormat == 'default'){echo "selected";} ?> value="default">Default</option>
+  							<option <?php if($dateTextFormat == 'hidden'){echo "selected";} ?> value="hidden">Hidden</option>
+						</select>
+					</div>
+				</li>
 			</ul>
 		</div>
 	</form>
