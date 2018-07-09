@@ -1,7 +1,7 @@
 function formatLine(text)
 {
 	var arrayOfText = dateTimeFormat(text);
-	return arrayOfText[0] + " " + arrayOfText[1];
+	return "<td style=\"white-space:nowrap;width: 1%;\" >" + arrayOfText[0].replace(/ /g,"_") + "</td><td >" + arrayOfText[1] + "</td>";
 }
 
 function dateTimeFormat(text)
@@ -13,7 +13,7 @@ function dateTimeFormat(text)
 	};
 	text = text.trim(); //remove extra spaces
 	//check for start of time stamp. Could be: ( [ or just a number
-	var regExpForTimeStamp = /[0-9]{1,4}(\W[0-9]{1,2}){5}((\WAM|AM)|(\WPM|PM))?/i;
+	var regExpForTimeStamp = /[0-9]{1,4}(.[0-9]{1,2}){5}((.AM|AM)|(.PM|PM))?(.[0-9]{1,2}){0,2}/i;
 	// /[0-9]{1,4}\W[0-9]{1,2}\W[0-9]{1,2}\W[0-9]{1,2}\W[0-9]{1,2}\W[0-9]{1,2}((\WAM|AM)|(\WPM|PM))?/i;
 	var textInfo = regExpForTimeStamp.exec(text);
 	//returns null if not found, data if found

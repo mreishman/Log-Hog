@@ -1883,7 +1883,7 @@ function makePretty(id)
 		{
 			text = text[0].split("\\n");
 		}
-		var returnText = "";
+		var returnText = "<table width=\"100%\" >";
 		var lengthOfTextArray = text.length;
 		var selectListForFilter = document.getElementsByName("searchType")[0];
 		var selectedListFilterType = selectListForFilter.options[selectListForFilter.selectedIndex].value;
@@ -1961,14 +1961,15 @@ function makePretty(id)
 				}
 
 				customClass += " '";
-				returnText += "<div ";
+				returnText += "<tr valign=\"top\" ";
 				if(customClassAdd)
 				{
 					returnText += " "+customClass+" ";
 				}
-				returnText += " >"+formatLine(text[i])+"</div>";
+				returnText += " >"+formatLine(text[i])+"</tr>";
 			}
 		}
+		returnText += "</table>";
 		return returnText;
 	}
 	catch(e)
