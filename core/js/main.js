@@ -2555,7 +2555,7 @@ function changeCurrentSelectWindow(newSelectWindow)
 	{
 		return;
 	}
-	$("#numSelectIndecatorForWindow"+currentSelectWindow).removeClass("currentWindowNumSelected").addClass("sidebarCurrentWindowNum");
+	$(".currentWindowNumSelected").removeClass("currentWindowNumSelected").addClass("sidebarCurrentWindowNum");
 	currentSelectWindow = newSelectWindow;
 	$("#numSelectIndecatorForWindow"+newSelectWindow).removeClass("sidebarCurrentWindowNum").addClass("currentWindowNumSelected");
 	if(windowDisplayConfigColCount > 1 || windowDisplayConfigRowCount > 1)

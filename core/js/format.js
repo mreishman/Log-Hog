@@ -76,6 +76,19 @@ function dateTimeFormat(dateTextArray)
 		{
 			sec = "0"+sec;
 		}
+		var day = newConfDate.getDate();
+		if(day < 10)
+		{
+		    day = "0"+day;
+		}
+		var month = newConfDate.getMonth()+1; //January is 0!
+		if(month < 10)
+		{
+		    month = "0"+month;
+		}
+		var yearFull = newConfDate.getFullYear();
+		var dayName = newConfDate.getDay(); //1 is monday, 2 tuesday, etc
+
 		if(dateTextFormat === "hhmmss")
 		{
 			return ""+hours+":"+min+":"+sec;
