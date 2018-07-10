@@ -888,13 +888,16 @@ function update(data)
 								folderNameCount = 0;
 							}
 						}
+						var standardMessage = false;
 						if(logData === "")
 						{
 							logData = "<div class='errorMessageLog errorMessageRedBG' >Error - Unknown error? Check file permissions or clear log to fix?</div>";
+							standardMessage = true;
 						}
 						else if(logData === "This file is empty. This should not be displayed.")
 						{
 							logData = "<div class='errorMessageLog errorMessageGreenBG' > This file is empty. </div>";
+							standardMessage = true;
 						}
 						else if((logData === "Error - File is not Readable") || (logData === "Error - Maybe insufficient access to read file?"))
 						{
@@ -904,6 +907,7 @@ function update(data)
 								mainMessage = "Error - File is not Readable";
 							}
 							logData = "<div class='errorMessageLog errorMessageRedBG' > "+mainMessage+" <br> <span style='font-size:75%;'> Try entering: <br> chown -R www-data:www-data "+name+" <br> or <br> chmod 664 "+name+" </span> </div>";
+							standardMessage = true;
 						}
 
 						logs[id] = logData
@@ -1169,7 +1173,16 @@ function update(data)
 
 							if(updateHtml)
 							{
-								$("#log"+currentIdPos).html(makePretty(id));
+								var logFormatted = "";
+								if(standardMessage)
+								{
+									logFormatted = logData;
+								}
+								else
+								{
+									logFormatted = makePretty(id);
+								}
+								$("#log"+currentIdPos).html(logFormatted);
 								fadeHighlight(currentIdPos);
 								if(document.getElementById(id+"Count").innerHTML !== "")
 								{
@@ -1753,7 +1766,16 @@ function showPartTwo(e, internalID, currentCurrentSelectWindow)
 {
 	try
 	{
-		$("#log"+currentCurrentSelectWindow).html(makePretty(internalID));
+		var formattedHtml = "";
+		if(logs[internalID].indexOf("errorMessageLog errorMessageRedBG") > -1 || logs[id].indexOf("errorMessageLog errorMessageGreenBG") > -1)
+		{
+			formattedHtml = logs[internalID];
+		}
+		else
+		{
+			formattedHtml = makePretty(internalID);
+		}
+		$("#log"+currentCurrentSelectWindow).html(formattedHtml);
 		fadeHighlight(currentCurrentSelectWindow);
 		setTimeout(function() {
 			showPartThree(e, internalID, currentCurrentSelectWindow);

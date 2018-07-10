@@ -196,7 +196,6 @@ function showPopupForUpdate(urlSend,whatAmIUpdating)
 				document.getElementById("NewXReleaseUpdate").style.display = "block";
 				document.getElementById("veryMajorUpdatesVersionNumber").innerHTML = dataFromJSON.versionNumber;
 			}
-		
 
 			document.getElementById("releaseNotesHeader").style.display = "block";
 			document.getElementById("releaseNotesBody").style.display = "block";
@@ -290,14 +289,7 @@ function installUpdates(urlSend = "../", updateFormIDLocal = "settingsInstallUpd
 		}
 		urlSend = urlSend;
 		updateFormID = updateFormIDLocal;
-		if(document.getElementById("fullScreenMenu") && document.getElementById("fullScreenMenu").style.display !== "none")
-		{
-			document.getElementById("loadingSpinnerForInstallUpdate").style.display = "block";
-		}
-		else
-		{
-			displayLoadingPopup();
-		}
+		displayLoadingPopup();
 		//reset vars in post request
 		var urlForSend = urlSend + "core/php/resetUpdateFilesToDefault.php?format=json";
 		var data = {status: "" };

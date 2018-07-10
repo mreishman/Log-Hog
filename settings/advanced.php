@@ -310,6 +310,7 @@ $countConfig--;
 						<select name="dateTextFormat">
   							<option <?php if($dateTextFormat == 'default'){echo "selected";} ?> value="default">Default</option>
   							<option <?php if($dateTextFormat == 'hidden'){echo "selected";} ?> value="hidden">Hidden</option>
+  							<option <?php if($dateTextFormat == 'hhmmss'){echo "selected";} ?> value="hhmmss">hh::mm::ss</option>
 						</select>
 					</div>
 				</li>
