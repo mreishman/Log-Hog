@@ -15,6 +15,7 @@ function hidePopup()
 	if(document.getElementById('fullScreenMenu') && document.getElementById('fullScreenMenu').style.display == "block")
 	{
 		document.getElementById('fullScreenMenu').style.zIndex = "25";
+		document.getElementById('menu').style.zIndex = "20";
 	}
 	$('#popup').addClass("hidden");
 	setTimeout(function()
@@ -29,6 +30,7 @@ function showPopup()
 	if(document.getElementById('fullScreenMenu') && document.getElementById('fullScreenMenu').style.display == "block")
 	{
 		document.getElementById('fullScreenMenu').style.zIndex = "5";
+		document.getElementById('menu').style.zIndex = "5";
 	}
 	document.getElementById('popup').style.display = "block";
 	document.getElementById('popupContentInnerHTMLDiv').innerHTML = "";

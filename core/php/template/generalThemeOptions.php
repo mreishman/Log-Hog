@@ -53,7 +53,7 @@
 				<span class="settingsBuffer"> Log Line Padding: </span>
 				<div class="selectDiv">
 					<select name="logLinePadding">
-						<?php for ($logPadCount=2; $logPadCount <= 20; $logPadCount++): ?>
+						<?php for ($logPadCount=0; $logPadCount <= 20; $logPadCount++): ?>
 							<option <?php if($logLinePadding === $logPadCount){echo "selected";} ?> value="<?php echo $logPadCount; ?>"><?php echo $logPadCount; ?>px</option>
 						<?php endfor; ?>
 					</select>

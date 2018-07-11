@@ -53,13 +53,13 @@ function dateTimeFormat(dateTextArray)
 		return "";
 	}
 
-	var newConfDate = null;
+	var newConfDate = "Invalid Date";
 	if(timeFormat === 1)
 	{
 		newConfDate = new Date(justDateText);
 	}
 
-	if(newConfDate !== null && newConfDate !== "Invalid Date")
+	if(newConfDate !== "Invalid Date")
 	{
 		var hours = newConfDate.getHours();
 		if(hours < 10)

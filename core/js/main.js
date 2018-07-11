@@ -1906,7 +1906,7 @@ function makePretty(id)
 		{
 			text = text[0].split("\\n");
 		}
-		var returnText = "<table width=\"100%\" >";
+		var returnText = "<table width=\"100%\" style=\"border-spacing: 2px 0;\" >";
 		var lengthOfTextArray = text.length;
 		var selectListForFilter = document.getElementsByName("searchType")[0];
 		var selectedListFilterType = selectListForFilter.options[selectListForFilter.selectedIndex].value;
@@ -1990,7 +1990,7 @@ function makePretty(id)
 					returnText += " "+customClass+" ";
 				}
 				returnText += " >"+formatLine(text[i])+"</tr>";
-				returnText += "<tr height=\""+(logLinePadding-2)+"px\" ><td colspan=\"2\"></td></tr>"
+				returnText += "<tr height=\""+logLinePadding+"px\" ><td colspan=\"2\"></td></tr>"
 			}
 		}
 		returnText += "</table>";
