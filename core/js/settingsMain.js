@@ -235,13 +235,13 @@ function selectLogPopup(locationForNewLogText)
 			var popupFileList = Object.keys(data);
 			var popupFileListLength = popupFileList.length;
 			var htmlForPopup = "";
-			htmlForPopup += "<select id=\"newLogSelectionFromPopup\" ><option value=\"\" >None</option>";
+			htmlForPopup += "<div class=\"selectDiv\"><select id=\"newLogSelectionFromPopup\" ><option value=\"\" >None</option>";
 			for(var i = 0; i < popupFileListLength; i++)
 			{
 				var fileName = popupFileList[i];
 				htmlForPopup += "<option value=\""+popupFileList[i]+"\">"+popupFileList[i]+"</option>";
 			}
-			htmlForPopup += "</select>";
+			htmlForPopup += "</select></div>";
 			document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Select Log:</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>"+htmlForPopup+"</div><div class='link' onclick='selectLog(\""+locationForNewLogText+"\")' style='margin-left:100px; margin-right:50px;margin-top:25px;'>Select</div><div onclick='hidePopup();' class='link'>Close</div></div>";
 		}
 	});

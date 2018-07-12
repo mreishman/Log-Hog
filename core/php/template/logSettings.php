@@ -30,6 +30,19 @@
 			</div>
 		</li>
 		<li>
+			<span style="font-size: 75%;">
+				<?php echo generateImage(
+					$arrayOfImages["info"],
+					array(
+						"style"			=>	"margin-bottom: -4px;",
+						"height"		=>	"20px",
+						"srcModifier"	=>	"../"
+					)
+				); ?>
+				<i>If a log updates, when the above value is true it will automatically switch to that log in the main view</i>
+			</span>
+		</li>
+		<li>
 			<span class="settingsBuffer" > Scroll Log on update: </span>
 			<div class="selectDiv">
 				<select id="scrollOnUpdate" name="scrollOnUpdate">
