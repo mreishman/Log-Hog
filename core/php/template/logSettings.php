@@ -154,6 +154,35 @@
 				</div>
 			</div>
 		</li>
+		<li>
+			<span class="settingsBuffer" > First Log Select: </span>
+			<span id="logSelectedFirstLoad" >
+				<?php if ($logSelectedFirstLoad === ""):?>
+					No Log Selected
+				<?php else: ?>
+					<?php echo $logSelectedFirstLoad; ?>
+				<?php endif; ?>
+			</span>
+			<span onclick="selectLogPopup('logSelectedFirstLoad');" class="link">Select Log</span>
+			<?php if ($logSelectedFirstLoad === ""):?>
+				<input type="hidden" name="logSelectedFirstLoad" value="" >
+			<?php else: ?>
+				<input type="hidden" name="logSelectedFirstLoad" value="<?php echo $logSelectedFirstLoad; ?>" >
+			<?php endif; ?>
+		</li>
+		<li>
+			<span style="font-size: 75%;">
+				<?php echo generateImage(
+					$arrayOfImages["info"],
+					array(
+						"style"			=>	"margin-bottom: -4px;",
+						"height"		=>	"20px",
+						"srcModifier"	=>	"../"
+					)
+				); ?>
+				<i>If Multi-Log is enabled, and a variable is set for intial load logs there, this var will be overridden</i>
+			</span>
+		</li>
 	</ul>
 	</div>
 </form>

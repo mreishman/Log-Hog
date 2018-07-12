@@ -195,10 +195,26 @@ $externalLinkImage = generateImage(
 							"height"	=>	"30px",
 							"data-src"	=>	$arrayOfImages["info"]
 							)
-						); 
+						);
 					?>
 				</div>
 				About
+			</li>
+			<li id="mainMenuAbout" onclick="window.location.href = './settings/addons.php';" >
+				<div class="menuImageDiv">
+					<?php echo generateImage(
+						$arrayOfImages["loadingImg"],
+						$imageConfig = array(
+							"id"		=>	"aboutImage",
+							"class"		=>	"menuImage mainMenuImage",
+							"height"	=>	"30px",
+							"data-src"	=>	$arrayOfImages["addons"]
+							)
+						);
+					?>
+				</div>
+				Addons
+				<?php echo $externalLinkImage; ?>
 			</li>
 			<li onclick="window.location.href = './settings/main.php';"  >
 				<div class="menuImageDiv">

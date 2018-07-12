@@ -19,6 +19,30 @@
 
 		<tr>
 			<th colspan="2" style="padding: 10px">
+				<h1>5.0</h1>
+				<h3>Multi-Log</h3>
+			</th>
+		</tr>
+
+
+		<tr>
+			<td>
+				<ul>
+					<li>
+						View more than one log at a time
+					</li>
+					<li>
+						Save log layout for initial load
+					</li>
+				</ul>
+			</td>
+			<td>
+			</td>
+		</tr>
+
+
+		<tr>
+			<th colspan="2" style="border-top: 1px solid white; padding: 10px">
 				<h1>4.2</h1>
 				<h3>Files/Folders [Side B]</h3>
 			</th>

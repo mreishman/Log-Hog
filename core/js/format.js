@@ -18,17 +18,17 @@ function dateTimeSplit(text)
 	};
 	text = text.trim(); //remove extra spaces
 	//check for start of time stamp. Could be: ( [ or just a number
-	var regExpForTimeStamp = /[0-9]{1,4}(\D[0-9]{1,2}){5}(\D?AM|\D?PM)?(\D[0-9]{1,2}){0,2}/i;
-	// /[0-9]{1,4}\W[0-9]{1,2}\W[0-9]{1,2}\W[0-9]{1,2}\W[0-9]{1,2}\W[0-9]{1,2}((\WAM|AM)|(\WPM|PM))?/i;
-	// WILL NOT WORK IF DATE IS FORMATTED LIKE: Mon Sep 4 16:05:04 2017
-	var textInfo = regExpForTimeStamp.exec(text);
+	var regExpForTimeStampV1 = /[0-9]{1,4}(\D[0-9]{1,2}){5}(\D?AM|\D?PM)?(\D[0-9]{1,2}){0,2}/i;
+	var regExpForTimeStampV2 = /(\w{3} ){2}[0-9]{1,2}(.[0-9]{2}){3}(.[0-9]{6})?.[0-9]{4}/i;
+	var textInfoV1 = regExpForTimeStampV1.exec(text);
+	var textInfoV2 = regExpForTimeStampV2.exec(text);
 	//returns null if not found, data if found
-	if(textInfo !== null)
+	if(textInfoV1 !== null)
 	{
-		var positionOfExpression = textInfo.index;
+		var positionOfExpression = textInfoV1.index;
 		if(positionOfExpression < 5)
 		{
-			var lengthOfExpression = textInfo[0].length;
+			var lengthOfExpression = textInfoV1[0].length;
 			var endPosition = (positionOfExpression * 2) + lengthOfExpression;
 			returnObject[0] = text.substring(0,endPosition).trim(); //date
 			returnObject[2] = text.substring(positionOfExpression,lengthOfExpression+1).trim(); //date no extras
@@ -36,6 +36,20 @@ function dateTimeSplit(text)
 			returnObject["timeFound"] = 1;
 		}
 	}
+	else if(textInfoV2 !== null)
+	{
+		var positionOfExpression = textInfoV2.index;
+		if(positionOfExpression < 5)
+		{
+			var lengthOfExpression = textInfoV2[0].length;
+			var endPosition = (positionOfExpression * 2) + lengthOfExpression;
+			returnObject[0] = text.substring(0,endPosition).trim(); //date
+			returnObject[2] = text.substring(positionOfExpression,lengthOfExpression+1).trim(); //date no extras
+			returnObject[1] = text.substring(endPosition).trim(); //rest of text
+			returnObject["timeFound"] = 2;
+		}
+	}
+
 	return returnObject;
 }
 
@@ -54,7 +68,7 @@ function dateTimeFormat(dateTextArray)
 	}
 
 	var newConfDate = "Invalid Date";
-	if(timeFormat === 1)
+	if(timeFormat === 1 || timeFormat === 2)
 	{
 		newConfDate = new Date(justDateText);
 	}

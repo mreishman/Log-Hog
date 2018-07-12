@@ -112,7 +112,7 @@
 				?>
 			</div>
 		<?php endif; ?>
-		<?php if($enableMultiLog === "true"): ?>
+		<?php if($enableMultiLog === "true" && $multiLogOnIndex === "true"): ?>
 			<div onclick="multiLogPopup();"  class="menuImageDiv">
 			<?php echo generateImage(
 				$arrayOfImages["multiLog"],

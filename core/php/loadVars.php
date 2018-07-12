@@ -297,6 +297,12 @@ else
 	// Image Vars
 
 	$arrayOfImages = array(
+		"addons"			=> array(
+			"alt"			=>	"Addons",
+			"src"			=>	"",
+			"title"			=>	"Addons",
+			"baseName"		=>	"addon.png"
+		),
 		"backArrow"			=> array(
 			"alt"			=>	"Back",
 			"src"			=>	"",

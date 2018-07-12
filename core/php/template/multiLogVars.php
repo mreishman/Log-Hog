@@ -9,7 +9,7 @@
 	<div class="settingsDiv" >
 		<ul class="settingsUl">
 			<li>
-				Log Layout
+				<span class="settingsBuffer"> Log Layout</span>
 				<?php $arrayOfwindowConfigOptions = array();
 				for ($i=0; $i < 3; $i++)
 				{
@@ -32,6 +32,15 @@
 							echo $stringToEcho;
 						}
 						?>
+					</select>
+				</div>
+			</li>
+			<li>
+				<span class="settingsBuffer"> Enable tmp Multilog (button in menu): </span>
+				<div class="selectDiv">
+					<select name="multiLogOnIndex">
+						<option <?php if($multiLogOnIndex === 'true'){echo "selected";} ?> value="true">True</option>
+						<option <?php if($multiLogOnIndex === 'false'){echo "selected";} ?> value="false">False</option>
 					</select>
 				</div>
 			</li>

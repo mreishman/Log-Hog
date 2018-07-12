@@ -1317,6 +1317,15 @@ function selectTabsInOrder(targetLength)
 				//show first available log
 				for (var i = 0; i < arrayOfLogsLength; i++)
 				{
+					if(logSelectedFirstLoad !== "" && logSelectedFirstLoad in fileData)
+					{
+						var checkName = logSelectedFirstLoad.replace(/[^a-z0-9]/g, "");
+						if(arrayOfLogs[i].id !== checkName)
+						{
+							continue;
+						}
+					}
+
 					var logIsAlreadyShown = false;
 					for(var j = 0; j < targetLength; j++)
 					{
@@ -1965,32 +1974,37 @@ function makePretty(id)
 			}
 			if(addLine)
 			{
-				var customClass = " class = '";
-				var customClassAdd = false;
-				if(highlightNew === "true" && ((i + count + 1) > lengthOfTextArray))
+				var lineText = text[i].split("\\n");
+				var lengthOflineTextArray = lineText.length;
+				for (var j = 0; j < lengthOflineTextArray; j++)
 				{
-					customClass += " newLine ";
-					customClassAdd = true;
-				}
-
-				if(selectedListFilterType === "content" && filterContentHighlight === "true" && getFilterTextField() !== "")
-				{
-					//check if match, and if supposed to highlight
-					if(filterContentCheck(text[i]))
+					var customClass = " class = '";
+					var customClassAdd = false;
+					if(highlightNew === "true" && ((i + count + 1) > lengthOfTextArray))
 					{
-						customClass += " highlight ";
+						customClass += " newLine ";
 						customClassAdd = true;
 					}
-				}
 
-				customClass += " '";
-				returnText += "<tr valign=\"top\" ";
-				if(customClassAdd)
-				{
-					returnText += " "+customClass+" ";
+					if(selectedListFilterType === "content" && filterContentHighlight === "true" && getFilterTextField() !== "")
+					{
+						//check if match, and if supposed to highlight
+						if(filterContentCheck(lineText[j]))
+						{
+							customClass += " highlight ";
+							customClassAdd = true;
+						}
+					}
+
+					customClass += " '";
+					returnText += "<tr valign=\"top\" ";
+					if(customClassAdd)
+					{
+						returnText += " "+customClass+" ";
+					}
+					returnText += " >"+formatLine(lineText[j])+"</tr>";
+					returnText += "<tr height=\""+logLinePadding+"px\" ><td colspan=\"2\"></td></tr>"
 				}
-				returnText += " >"+formatLine(text[i])+"</tr>";
-				returnText += "<tr height=\""+logLinePadding+"px\" ><td colspan=\"2\"></td></tr>"
 			}
 		}
 		returnText += "</table>";
