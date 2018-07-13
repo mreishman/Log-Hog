@@ -90,15 +90,15 @@ function unescapeHTML(unsafeStr)
 
 function formatBytes(bytes,decimals)
 {
-	if(bytes == 0)
+	if(parseInt(bytes) === 0)
 	{
-		return '0 Bytes';
+		return "0 Bytes";
 	}
 	var k = 1024;
 	var dm = decimals || 2;
-	var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+	var sizes = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
 	var i = Math.floor(Math.log(bytes) / Math.log(k));
-	return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+	return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i];
 }
 
 function updateSkipCounterLog(num)
@@ -265,7 +265,7 @@ function pollTwo()
 				}
 				if(data === "error in file permissions")
 				{
-					clearPollTimer()
+					clearPollTimer();
 					window.location.href = "error.php?error=550&page=pollCheck.php";
 				}
 				else
@@ -286,7 +286,7 @@ function pollTwo()
 						clearPollTimer()
 						window.location.href = "update/updateInProgress.php";
 					}
-					else if(data == [])
+					else if(data === [] || $.isEmptyObject(data))
 					{
 						if(document.getElementById("noLogToDisplay").style.display !== "block")
 						{
@@ -333,7 +333,7 @@ function updatePollLineDiff(data)
 		}
 		else
 		{
-			logLines[currentLog] = data[currentLog]["lineCount"]
+			logLines[currentLog] = data[currentLog]["lineCount"];
 		}
 	}
 }
@@ -911,7 +911,7 @@ function update(data)
 							standardMessage = true;
 						}
 
-						logs[id] = logData
+						logs[id] = logData;
 						if(enableLogging !== "false")
 						{
 							titles[id] = name + " | " + data[name]["data"] + " | Size: " + formatBytes(fileData[files[i]]["size"]);
@@ -976,9 +976,9 @@ function update(data)
 								{
 									if(shortName.indexOf(".") > -1)
 									{
-										var newName = nameForLog.split(".");
-										newName.splice(-1,1);
-										nameForLog = newName.join();
+										var secondNewName = nameForLog.split(".");
+										secondNewName.splice(-1,1);
+										nameForLog = secondNewName.join();
 									}
 								}
 							}

@@ -77,7 +77,7 @@ function generateRow(data)
 	item = item.replace(/{{AutoDeleteFiles}}/g, data["AutoDeleteFiles"]);
 	item = item.replace(/{{FileInformation}}/g, data["FileInformation"]);
 	item = item.replace('FileInformation" value="', 'FileInformation" value=\'');
-	item = item.replace('"></span></span></ul></div>', '\'></span></span></ul></div>');	
+	item = item.replace('"></span></span></ul></div>', '\'></span></span></ul></div>');
 	item = item.replace(/{{Group}}/g, data["Group"]);
 	item = item.replace(/{{Name}}/g, data["Name"]);
 	item = item.replace(/{{AlertEnabled}}/g, generateTrueFalseSelect(data["AlertEnabled"]));
@@ -234,9 +234,9 @@ function addFile()
 	htmlForPopoup += "<br><div style='width:100%;text-align:center;'> <input onkeyup=\"getCurrentFileFolderInfoKeyPress(false);\" value=\""+defaultNewPathFile+"\" id=\"inputFieldForFileOrFolder\" type=\"text\" style=\"width: 90%;\" > </div>";
 	htmlForPopoup += "<br><div style='width:100%;height:30px;padding-left:20px;' id=\"folderNavUpHolder\"> </div><div id=\"folderFileInfoHolder\" style='margin-right:10px; margin-left: 10px;height:200px;border: 1px solid white;overflow: auto;'> --- </div>";
 	htmlForPopoup += "<div class='link' onclick='addFileFolderAjax(\"file\", document.getElementById(\"inputFieldForFileOrFolder\").value);' style='margin-left:125px; margin-right:50px;margin-top:25px;'>Add</div><div onclick='hidePopup();' class='link'>Cancel</div";
-	document.getElementById('popupContentInnerHTMLDiv').innerHTML = htmlForPopoup;
-	document.getElementById('popupContent').style.height = "400px";
-	document.getElementById('popupContent').style.marginTop = "-200px";
+	document.getElementById("popupContentInnerHTMLDiv").innerHTML = htmlForPopoup;
+	document.getElementById("popupContent").style.height = "400px";
+	document.getElementById("popupContent").style.marginTop = "-200px";
 	updateFileFolderGui(false);
 } 
 
@@ -434,7 +434,7 @@ function setNewFileFolderValue(newValue,hideFiles)
 function expandFileFolderView(newValue, hideFiles)
 {
 	document.getElementById("inputFieldForFileOrFolder").value = newValue;
-	getFileFolderData(newValue, hideFiles,newValue)
+	getFileFolderData(newValue, hideFiles,newValue);
 }
 
 function getCurrentFileFolderMainPage(currentRow)
@@ -563,7 +563,7 @@ function getFileFolderSubFunction(data, orgPath, hideFiles, joinChar, dropdown)
 	{
 		var subData = data["data"][listOfFileOrFolders[i]];
 		var selectButton = "<a class=\"linkSmall\"  onclick=\"setNewFileFolderValue('"+listOfFileOrFolders[i]+"',"+hideFiles+")\" >select</a>";
-		var name = "<span style=\"max-width: 200px; word-break: break-all; display: inline-block; \" >"+subData["filename"]+"</span>"
+		var name = "<span style=\"max-width: 200px; word-break: break-all; display: inline-block; \" >"+subData["filename"]+"</span>";
 		var highlightClass = "";
 		var listKey = "other";
 		if(subData["filename"].indexOf(currentFile) === 0 && currentFile !== "")
@@ -648,7 +648,7 @@ function navUpDir(hideFiles)
 {
 	var lastDir = getLastDir();
 	document.getElementById("inputFieldForFileOrFolder").value = lastDir;
-	getFileFolderData(lastDir, hideFiles,lastDir)
+	getFileFolderData(lastDir, hideFiles,lastDir);
 }
 
 function getLastDir()
@@ -812,8 +812,8 @@ function addRowFunction(data)
 				Location: locationFromData,
 				Pattern: patternFromData,
 				key: "Log "+countOfWatchList,
-				recursive: recursive,
-				excludeTrim: excludeTrim,
+				recursive,
+				excludeTrim,
 				FileType: fileTypeFromData,
 				filesInFolder: filesInFolderFromData,
 				AutoDeleteFiles: autoDeleteFiles,
@@ -841,7 +841,7 @@ function splitFilesPopup(currentRow, keyName = "")
 {
 	try
 	{
-		if (typeof popupSettingsArray === 'string')
+		if (typeof popupSettingsArray === "string")
 		{
 			popupSettingsArray = JSON.parse(popupSettingsArray);
 		}
@@ -903,7 +903,7 @@ function updateFileInfo(currentRow)
 			stringToUpdateTo += "}";
 			if(i !== (listOfFilesLength - 1))
 			{
-				stringToUpdateTo += ","
+				stringToUpdateTo += ",";
 			}
 		}
 	}
@@ -1204,7 +1204,7 @@ function ajaxAddRowFirstLoad(currentCount)
 					_data["filePermsDisplay"] =  data["fileInfo"];
 					_data["filesInFolder"] =  fileListData["html"];
 					_data["hideSplit"] =  fileListData["hideSplit"];
-					addRowFunction(_data)
+					addRowFunction(_data);
 					currentCount++;
 					setTimeout(function(){ajaxAddRowFirstLoad(currentCount);},100);
 				}
@@ -1267,7 +1267,7 @@ function loadWatchList()
 	updateProgressBarWatchList(10, "Generating File List");
 	refreshSettingsWatchList();
 	document.addEventListener(
-		'scroll',
+		"scroll",
 		function (event)
 		{
 			moveFileFolderDropdown();
