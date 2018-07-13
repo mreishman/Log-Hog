@@ -110,9 +110,8 @@
 			</div>
 			<div class="settingsDiv" >
 				<ul class="settingsUl">
-				
 					<li>
-					<span class="settingsBuffer" > Max 
+					<span class="settingsBuffer" > Max
 					<div class="selectDiv">
 						<select id="logTrimTypeToggle" name="logTrimType">
 							<option <?php if($logTrimType == 'lines'){echo "selected";} ?> value="lines">Line Count</option>
@@ -121,8 +120,8 @@
 					</div>
 
 
-					: </span> 
-						<input type="number" pattern="[0-9]*" name="logSizeLimit" value="<?php echo $logSizeLimit;?>" > 
+					: </span>
+						<input type="number" pattern="[0-9]*" name="logSizeLimit" value="<?php echo $logSizeLimit;?>" >
 						<span id="logTrimTypeText" >
 							<?php if($logTrimType == 'lines')
 							{
@@ -137,7 +136,7 @@
 					</li>
 					<li>
 					<span class="settingsBuffer" > Buffer Size: </span>
-					 	<input type="number" pattern="[0-9]*" name="buffer" value="<?php echo $buffer;?>" > 
+					 	<input type="number" pattern="[0-9]*" name="buffer" value="<?php echo $buffer;?>" >
 					</li>
 					<li id="LiForlogTrimMacBSD">
 						<span class="settingsBuffer" > Use Mac/Free BSD Command: </span>

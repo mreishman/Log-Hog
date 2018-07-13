@@ -265,6 +265,7 @@ $defaultConfig = array(
 	'logNameExtension'				=> 'true',
 	'logNameFormat'					=> 'default',
 	'logNameGroup'					=> 'false',
+	'logLoadLayout'					=> array(),
 	'logSelectedFirstLoad'			=> '',
 	'logShowMoreOptions'			=> 'false',
 	'logSizeLimit'					=>	2000,

@@ -1320,9 +1320,12 @@ function selectTabsInOrder(targetLength)
 					if(logSelectedFirstLoad !== "" && logSelectedFirstLoad in fileData)
 					{
 						var checkName = logSelectedFirstLoad.replace(/[^a-z0-9]/g, "");
-						if(arrayOfLogs[i].id !== checkName)
+						if(!($("#"+checkName).hasClass("active")))
 						{
-							continue;
+							if(arrayOfLogs[i].id !== checkName)
+							{
+								continue;
+							}
 						}
 					}
 
