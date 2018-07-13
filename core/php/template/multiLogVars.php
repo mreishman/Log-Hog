@@ -45,6 +45,29 @@
 				</div>
 			</li>
 			<li>
+				<span class="settingsBuffer"> Keep Current on Switch: </span>
+				<div class="selectDiv">
+					<select name="logSwitchKeepCurrent">
+						<option <?php if($logSwitchKeepCurrent === 'true'){echo "selected";} ?> value="true">True</option>
+						<option <?php if($logSwitchKeepCurrent === 'onlyIfPresetDefined'){echo "selected";} ?> value="onlyIfPresetDefined" >Only If Preset Is Not Defined</option>
+						<option <?php if($logSwitchKeepCurrent === 'false'){echo "selected";} ?> value="false">False</option>
+					</select>
+				</div>
+			</li>
+			<li>
+			<span style="font-size: 75%;">
+				<?php echo generateImage(
+					$arrayOfImages["info"],
+					array(
+						"style"			=>	"margin-bottom: -4px;",
+						"height"		=>	"20px",
+						"srcModifier"	=>	"../"
+					)
+				); ?>
+				<i>When switching between layouts, keep current selected windows over config</i>
+			</span>
+		</li>
+			<li>
 				<?php foreach ($arrayOfwindowConfigOptions as $value): ?>
 					<div class="settingsHeader">
 					Initial Load Layout <?php echo $value; ?>
@@ -65,7 +88,7 @@
 										<div class="settingsDiv" >
 											<ul class="settingsUl">
 												<?php
-													$arrayOfLetters = array("A","B","C");
+													$arrayOfLetters = array("A","B","C"); //If you want more, change loadVars.php
 													foreach ($arrayOfLetters as $letter):
 														$logID = "logLoad".$value."-".$counterInternal."-".$letter;
 														?>

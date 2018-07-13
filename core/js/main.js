@@ -13,6 +13,7 @@ var counterForPollForceRefreshErr = 0;
 var currentPage;
 var currentSelectWindow = 0;
 var dataFromUpdateCheck = null;
+var defaultLogDisplayArrayEntry = {id: null, scroll: true, pin: false};
 var fileData;
 var filesNew;
 var firstLoad = true;
@@ -1285,6 +1286,17 @@ function update(data)
 	}
 }
 
+function unselectAllLogs()
+{
+	$("#menu .active").removeClass("active");
+	var arrayOfLogsLength = Object.keys(logDisplayArray).length;
+	for(var h = arrayOfLogsLength - 1; h >= targetLength; h--)
+	{
+		$("#log"+h).html("");
+		logDisplayArray[h] = defaultLogDisplayArrayEntry;
+	}
+}
+
 function removeTabsInOrder(targetLength)
 {
 	try
@@ -1317,7 +1329,7 @@ function selectTabsInOrder(targetLength)
 				//show first available log
 				for (var i = 0; i < arrayOfLogsLength; i++)
 				{
-					if(logSelectedFirstLoad !== "" && logSelectedFirstLoad in fileData)
+					if(h === 0 && logSelectedFirstLoad !== "" && logSelectedFirstLoad in fileData)
 					{
 						var checkName = logSelectedFirstLoad.replace(/[^a-z0-9]/g, "");
 						if(!($("#"+checkName).hasClass("active")))
@@ -3359,7 +3371,7 @@ function generateWindowDisplay()
 			}
 			else
 			{
-				newLogDisplayArray[counterInternal] = {id: null, scroll: true, pin: false};
+				newLogDisplayArray[counterInternal] = defaultLogDisplayArrayEntry;
 			}
 		}
 		logDisplayHtml += "</tr>";
@@ -3383,11 +3395,36 @@ function generateWindowDisplay()
 	}
 	else
 	{
-		if(arrayOfPrevLogs !== {})
+		if(logSwitchKeepCurrent === "true")
 		{
-			setTimeout(function() {
-				loadPrevLogContent(arrayOfPrevLogs);
-			}, 1);
+			if(arrayOfPrevLogs !== {})
+			{
+				setTimeout(function() {
+					loadPrevLogContent(arrayOfPrevLogs);
+				}, 1);
+			}
+		}
+		else if(logSwitchKeepCurrent === "onlyIfPresetDefined")
+		{
+			//Check for preset before unselect
+			if(false)
+			{
+				unselectAllLogs();
+			}
+			else
+			{
+				if(arrayOfPrevLogs !== {})
+				{
+					setTimeout(function() {
+						loadPrevLogContent(arrayOfPrevLogs);
+					}, 1);
+				}
+			}
+		}
+		else
+		{
+			//unselect all logs
+			unselectAllLogs();
 		}
 		setTimeout(function() {
 			update(arrayOfDataMain);

@@ -196,6 +196,11 @@
 					?>
 				</select>
 			</div>
+			|
+			Layout Version
+			<span class="linkSmall" >A</span>
+			<span class="linkSmall" >B</span>
+			<span class="linkSmall" >C</span>
 		</div>
 	</div>
 </div>
