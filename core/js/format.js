@@ -1,3 +1,51 @@
+var arrOfDaysSmall = {
+	1: "Mon",
+	2: "Tue",
+	3: "Wed",
+	4: "Thu",
+	5: "Fri",
+	6: "Sat",
+	7: "Sun"
+};
+var arrOfDaysLarge = {
+	1: "Monday",
+	2: "Tuesday",
+	3: "Wednesday",
+	4: "Thursday",
+	5: "Friday",
+	6: "Saturday",
+	7: "Sunday"
+};
+var arrOfMonthsSmall = {
+	1: "Jan.",
+	2: "Feb.",
+	3: "Mar.",
+	4: "Apr.",
+	5: "May",
+	6: "June",
+	7: "July",
+	8: "Aug.",
+	9: "Sept.",
+	10: "Oct.",
+	11: "Nov.",
+	12: "Dec."
+};
+var arrOfMonthsLarge = {
+	1: "January",
+	2: "February",
+	3: "March",
+	4: "April",
+	5: "May",
+	6: "June",
+	7: "July",
+	8: "August",
+	9: "September",
+	10: "October",
+	11: "November",
+	12: "December"
+};
+
+
 function formatLine(text)
 {
 	if(expFormatEnabled !== "true")
@@ -100,12 +148,81 @@ function dateTimeFormat(dateTextArray)
 		{
 		    month = "0"+month;
 		}
+		var mili = newConfDate.getMilliseconds();
 		var yearFull = newConfDate.getFullYear();
 		var dayName = newConfDate.getDay(); //1 is monday, 2 tuesday, etc
-
-		if(dateTextFormat === "hhmmss")
+		var dateTextFormatArray = dateTextFormat.split("|");
+		var dateTextFormatArrayLength = dateTextFormatArray.length;
+		var stringForNewTime = "";
+		var arrOfOptions = {
+			0: {
+				"search" : "hh",
+				"replace": hours
+			},
+			1: {
+				"search" : "mm",
+				"replace": min
+			},
+			2: {
+				"search" : "ss",
+				"replace": sec
+			},
+			3: {
+				"search" : "DD",
+				"replace": day
+			},
+			4: {
+				"search" : "MM",
+				"replace": month
+			},
+			5: {
+				"search" : "YYYY",
+				"replace": yearFull
+			},
+			6: {
+				"search" : "Day",
+				"replace": arrOfDaysSmall[parseInt(day)]
+			},
+			7: {
+				"search" : "FullDay",
+				"replace": arrOfDaysLarge[parseInt(day)]
+			},
+			8: {
+				"search" : "Month",
+				"replace": arrOfMonthsSmall[parseInt(month)]
+			},
+			9: {
+				"search" : "FullMonth",
+				"replace": arrOfMonthsLarge[parseInt(month)]
+			},
+			10: {
+				"search" : "mili",
+				"replace": mili
+			}
+		};
+		var arrOfOptionsKeys = Object.keys(arrOfOptions);
+		var lengthOfOptionKeys = arrOfOptionsKeys.length;
+		for(var dtfCount = 0; dtfCount < dateTextFormatArrayLength; dtfCount++)
 		{
-			return ""+hours+":"+min+":"+sec;
+			var currentSection = dateTextFormatArray[dtfCount];
+			if(currentSection === "" || currentSection === "none")
+			{
+				break;
+			}
+			for(var optionCount = 0; optionCount < lengthOfOptionKeys; optionCount++)
+			{
+				var currentSearch = arrOfOptions[arrOfOptionsKeys[optionCount]]["search"];
+				var currentReplace = arrOfOptions[arrOfOptionsKeys[optionCount]]["replace"];
+				if(currentSection.indexOf(currentSearch))
+				{
+					stringForNewTime += currentSection.replace(currentSearch, currentReplace);
+					break;
+				}
+			}
+		}
+		if(stringForNewTime !== "")
+		{
+			return stringForNewTime;
 		}
 	}
 

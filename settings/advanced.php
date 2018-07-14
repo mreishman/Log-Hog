@@ -310,7 +310,12 @@ $countConfig--;
 						<select name="dateTextFormat">
   							<option <?php if($dateTextFormat == 'default'){echo "selected";} ?> value="default">Default</option>
   							<option <?php if($dateTextFormat == 'hidden'){echo "selected";} ?> value="hidden">Hidden</option>
-  							<option <?php if($dateTextFormat == 'hhmmss'){echo "selected";} ?> value="hhmmss">hh::mm::ss</option>
+  							<option <?php if($dateTextFormat == 'hh:|mm:|ss'){echo "selected";} ?> value="hhmmss">hh:mm:ss</option>
+  							<option <?php if($dateTextFormat == 'DD/|MM/|YYYY'){echo "selected";} ?> value="hhmmss">DD/MM/YYYY</option>
+  							<option <?php if($dateTextFormat == 'MM/|DD/|YYYY'){echo "selected";} ?> value="hhmmss">MM/DD/YYYY</option>
+  							<option <?php if($dateTextFormat == 'DD/|MM/'){echo "selected";} ?> value="hhmmss">DD/MM</option>
+  							<option <?php if($dateTextFormat == 'DD/|MM/|YYYY |hh:|mm:|ss'){echo "selected";} ?> value="hhmmss">DD/MM/YYYY hh:mm:ss</option>
+  							<option <?php if($dateTextFormat == 'YYYY/|MM/|DD |hh:|mm:|ss'){echo "selected";} ?> value="hhmmss">YYYY/MM/DD hh:mm:ss</option>
 						</select>
 					</div>
 				</li>
