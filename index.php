@@ -200,12 +200,12 @@ $externalLinkImage = generateImage(
 				</div>
 				About
 			</li>
-			<li id="mainMenuAbout" onclick="window.location.href = './settings/addons.php';" >
+			<li id="mainMenuAddons" onclick="window.location.href = './settings/addons.php';" >
 				<div class="menuImageDiv">
 					<?php echo generateImage(
 						$arrayOfImages["loadingImg"],
 						$imageConfig = array(
-							"id"		=>	"aboutImage",
+							"id"		=>	"addonsImage",
 							"class"		=>	"menuImage mainMenuImage",
 							"height"	=>	"30px",
 							"data-src"	=>	$arrayOfImages["addons"]
