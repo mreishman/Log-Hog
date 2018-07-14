@@ -513,6 +513,23 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 				}
 				?>
 			</li>
+			<li onclick="window.location.href = './settings/watchlist.php';" >
+				<div class="menuImageDiv">
+					<?php echo generateImage(
+						$arrayOfImages["loadingImg"],
+						$imageConfig = array(
+							"id"		=>	"watchList",
+							"class"		=>	"menuImage mainMenuImage",
+							"height"	=>	"30px",
+							"title"		=>	"WatchList",
+							"data-src"	=>	$arrayOfImages["watchList"]
+							)
+						);
+					?>
+				</div>
+				Watchlist
+				<?php echo $externalLinkImage; ?>
+			</li>
 			<?php if($locationForMonitorIndex["loc"] || $locationForSearchIndex["loc"] || $locationForSeleniumMonitorIndex["loc"] || $locationForStatusIndex["loc"]): ?>
 				<li class="menuTitle" style="background-color: #999; color: black;" >
 					Other Apps

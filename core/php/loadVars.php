@@ -489,6 +489,12 @@ else
 			"title"			=>	"Delete",
 			"baseName"		=>	"trashCanSideBar.png"
 		),
+		"watchList"	=> array(
+			"alt"			=>	"Watch List",
+			"src"			=>	"",
+			"title"			=>	"WatchList",
+			"baseName"		=>	"watchlist.png"
+		),
 		"yellowWarning"		=> array(
 			"alt"			=>	"Notice",
 			"src"			=>	"",
