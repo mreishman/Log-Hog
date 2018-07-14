@@ -205,7 +205,7 @@ function dateTimeFormat(dateTextArray)
 		for(var dtfCount = 0; dtfCount < dateTextFormatArrayLength; dtfCount++)
 		{
 			var currentSection = dateTextFormatArray[dtfCount];
-			if(currentSection === "" || currentSection === "none")
+			if(currentSection === "" || currentSection.indexOf("none") > -1)
 			{
 				break;
 			}
@@ -213,7 +213,7 @@ function dateTimeFormat(dateTextArray)
 			{
 				var currentSearch = arrOfOptions[arrOfOptionsKeys[optionCount]]["search"];
 				var currentReplace = arrOfOptions[arrOfOptionsKeys[optionCount]]["replace"];
-				if(currentSection.indexOf(currentSearch))
+				if(currentSection.indexOf(currentSearch) > -1)
 				{
 					stringForNewTime += currentSection.replace(currentSearch, currentReplace);
 					break;
