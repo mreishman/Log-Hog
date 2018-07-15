@@ -17,18 +17,18 @@ var arrOfDaysLarge = {
 	7: "Sunday"
 };
 var arrOfMonthsSmall = {
-	1: "Jan.",
-	2: "Feb.",
-	3: "Mar.",
-	4: "Apr.",
+	1: "Jan",
+	2: "Feb",
+	3: "Mar",
+	4: "Apr",
 	5: "May",
 	6: "June",
 	7: "July",
-	8: "Aug.",
-	9: "Sept.",
-	10: "Oct.",
-	11: "Nov.",
-	12: "Dec."
+	8: "Aug",
+	9: "Sept",
+	10: "Oct",
+	11: "Nov",
+	12: "Dec"
 };
 var arrOfMonthsLarge = {
 	1: "January",
@@ -180,7 +180,7 @@ function dateTimeFormat(dateTextArray)
 				"replace": yearFull
 			},
 			6: {
-				"search" : "Day",
+				"search" : "PartDay",
 				"replace": arrOfDaysSmall[parseInt(day)]
 			},
 			7: {
@@ -188,7 +188,7 @@ function dateTimeFormat(dateTextArray)
 				"replace": arrOfDaysLarge[parseInt(day)]
 			},
 			8: {
-				"search" : "Month",
+				"search" : "PartMonth",
 				"replace": arrOfMonthsSmall[parseInt(month)]
 			},
 			9: {
