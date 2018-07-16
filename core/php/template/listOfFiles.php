@@ -13,6 +13,10 @@ $fileNameArray = array(
         "name"      =>  "Load Vars",
         "path"      =>  "core/php/loadVars.php"
     ),
+    "loadVarsToJS"      =>  array(
+        "name"      =>  "Convert PHP vars to JS vars",
+        "path"      =>  "core/php/loadVarsToJs.php"
+    ),
     "UpdateCheck"   =>  array(
         "name"      =>  "Update Check",
         "path"      =>  "core/php/updateCheck.php"
@@ -55,7 +59,7 @@ $fileNameArray = array(
     ),
     "Updater"   =>  array(
         "name"      =>  "Updater",
-        "path"      =>  "update/Updater.php"
+        "path"      =>  "update/updater.php"
     ),
     "updateCheck"   =>  array(
         "name"      =>  "Update Check",

@@ -53,6 +53,15 @@ Watchlist Settings
 			</select>
 		</div>
 	</li>
+	<li>
+		<span class="settingsBuffer" >Default View:</span>
+		<div class="selectDiv">
+			<select name="logShowMoreOptions">
+				<option <?php if($logShowMoreOptions == 'true'){echo "selected";} ?> value="true">Expanded</option>
+				<option <?php if($logShowMoreOptions == 'false'){echo "selected";} ?> value="false">Condensed</option>
+			</select>
+		</div>
+	</li>
 </ul>
 </div>
 </form>

@@ -1,12 +1,25 @@
 <?php
-$baseModifier = "../../";
-require_once($baseModifier.'local/layout.php');
-$baseUrl = $baseModifier."local/".$currentSelectedTheme."/";
-require_once($baseUrl.'conf/config.php');
-require_once($baseModifier.'core/conf/config.php');
-require_once('configStatic.php');
-require_once('updateProgressFile.php');
-require_once('commonFunctions.php');
+try 
+{
+	$baseModifier = "../../";
+	if(!is_readable($baseModifier.'local/layout.php'))
+	{
+		echo json_encode("error in file permissions");
+		exit();
+	}
+	require_once($baseModifier.'local/layout.php');
+	$baseUrl = $baseModifier."local/".$currentSelectedTheme."/";
+	require_once($baseUrl.'conf/config.php');
+	require_once($baseModifier.'core/conf/config.php');
+	require_once('configStatic.php');
+	require_once('updateProgressFile.php');
+	require_once('commonFunctions.php');	
+}
+catch (Exception $e)
+{
+	echo json_encode("error in file permissions");
+	exit();
+}
 
 $varsLoadLite = array("shellOrPhp", "watchList", "lineCountFromJS");
 
@@ -45,9 +58,12 @@ if(array_key_exists('percent', $updateProgress) && ($updateProgress['percent'] !
 }
 
 $watchListFolder = array();
-
 foreach($watchList as $key => $value)
 {
+	if($value["SaveGroup"] === "true")
+	{
+		continue;
+	}
 	$path = $value["Location"];
 	$filter = $value["Pattern"];
 	$fileData = array();
@@ -136,6 +152,7 @@ foreach ($responseFilelist as $file)
 		$response[$file]["Name"] = $watchList[$keyFound]["Name"];
 		$response[$file]["AlertEnabled"] = $watchList[$keyFound]["AlertEnabled"];
 		$response[$file]["Group"] = $watchList[$keyFound]["Group"];
+		$response[$file]["GrepFilter"] = $watchList[$keyFound]["GrepFilter"];
 	}
 	else
 	{
@@ -169,12 +186,18 @@ foreach ($responseFilelist as $file)
 					{
 						$response[$file]["AlertEnabled"] = $dataToUse["Alert"];
 					}
+					$response[$file]["GrepFilter"] = "";
+					if(isset($dataToUse["GrepFilter"]))
+					{
+						$response[$file]["GrepFilter"] = $dataToUse["GrepFilter"];
+					}
 				}
 				else
 				{
 					$response[$file]["ExcludeTrim"] = $watchList[$key]["ExcludeTrim"];
 					$response[$file]["Name"] = "";
 					$response[$file]["AlertEnabled"] = $watchList[$key]["AlertEnabled"];
+					$response[$file]["GrepFilter"] = "";
 				}
 
 				$response[$file]["Group"] = $watchList[$key]["Group"];

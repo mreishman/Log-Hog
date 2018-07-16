@@ -240,7 +240,10 @@ function checkForChanges(idOfObject)
 		}
 		else
 		{
-			document.getElementById(idOfObject+"ResetButton").style.display = "none";
+			if(document.getElementById(idOfObject+"ResetButton"))
+			{
+				document.getElementById(idOfObject+"ResetButton").style.display = "none";
+			}
 			if(document.getElementById("setupButtonContinue"))
 			{
 				document.getElementById("setupButtonContinue").style.display = "inline-block";
