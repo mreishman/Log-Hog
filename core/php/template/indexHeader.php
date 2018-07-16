@@ -198,9 +198,10 @@
 			</div>
 			|
 			Layout Version
-			<span class="linkSmall" >A</span>
-			<span class="linkSmall" >B</span>
-			<span class="linkSmall" >C</span>
+			<span onclick="swapLayoutLetters('A');" class="linkSmall" >A</span>
+			<span onclick="swapLayoutLetters('B');" class="linkSmall" >B</span>
+			<span onclick="swapLayoutLetters('C');" class="linkSmall" >C</span>
+			<input type="hidden" id="layoutVersionIndex" value="A" >
 		</div>
 	</div>
 </div>

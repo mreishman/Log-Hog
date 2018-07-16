@@ -13,7 +13,6 @@ var counterForPollForceRefreshErr = 0;
 var currentPage;
 var currentSelectWindow = 0;
 var dataFromUpdateCheck = null;
-var defaultLogDisplayArrayEntry = {id: null, scroll: true, pin: false};
 var fileData;
 var filesNew;
 var firstLoad = true;
@@ -471,7 +470,7 @@ function pollThree(arrayToUpdate)
 					success(data)
 					{
 						arrayOfDataMainDataFilter(data);
-						update(arrayOfDataMain);
+						generalUpdate();
 					},
 					complete()
 					{
@@ -509,7 +508,7 @@ function getFileSingle(current)
 			success(data)
 			{
 				arrayOfDataMainDataFilter(data);
-				update(arrayOfDataMain);
+				generalUpdate();
 			},
 			complete()
 			{
@@ -526,7 +525,7 @@ function getFileSingle(current)
 				else
 				{
 					updateProgressBar(updateBy, "", "Finishing loading....");
-					update(arrayOfDataMain);
+					generalUpdate();
 					afterPollFunctionComplete();
 				}
 			}
@@ -1290,10 +1289,10 @@ function unselectAllLogs()
 {
 	$("#menu .active").removeClass("active");
 	var arrayOfLogsLength = Object.keys(logDisplayArray).length;
-	for(var h = arrayOfLogsLength - 1; h >= targetLength; h--)
+	for(var h = arrayOfLogsLength - 1; h >= 0; h--)
 	{
 		$("#log"+h).html("");
-		logDisplayArray[h] = defaultLogDisplayArrayEntry;
+		logDisplayArray[h] = {id: null, scroll: true, pin: false};
 	}
 }
 
@@ -1329,6 +1328,19 @@ function selectTabsInOrder(targetLength)
 				//show first available log
 				for (var i = 0; i < arrayOfLogsLength; i++)
 				{
+					var currentLayout = document.getElementById("windowConfig").value;
+					var layoutVersionIndex = document.getElementById("layoutVersionIndex").value;
+					if(logLoadLayout !== [] && logLoadLayout[currentLayout][h][layoutVersionIndex] !== "" && logLoadLayout[currentLayout][h][layoutVersionIndex] in fileData )
+					{
+						var checkName = logLoadLayout[currentLayout][h][layoutVersionIndex].replace(/[^a-z0-9]/g, "");
+						if(!($("#"+checkName).hasClass("active")))
+						{
+							if(arrayOfLogs[i].id !== checkName)
+							{
+								continue;
+							}
+						}
+					}
 					if(h === 0 && logSelectedFirstLoad !== "" && logSelectedFirstLoad in fileData)
 					{
 						var checkName = logSelectedFirstLoad.replace(/[^a-z0-9]/g, "");
@@ -1494,7 +1506,7 @@ function tmpHideLog(name)
 	{
 		hideLogByName(name);
 		logsToHide.push(name);
-		update(arrayOfDataMain);
+		generalUpdate();
 	}
 	catch(e)
 	{
@@ -2571,7 +2583,7 @@ function changeSearchplaceholder()
 	var selectListForFilter = document.getElementsByName("searchType")[0];
 	var selectedListFilterType = selectListForFilter.options[selectListForFilter.selectedIndex].value;
 	document.getElementById("searchFieldInput").placeholder = "Filter "+selectedListFilterType;
-	update(arrayOfDataMain);
+	generalUpdate();
 }
 
 function changeCurrentSelectWindow(newSelectWindow)
@@ -2730,7 +2742,7 @@ function possiblyUpdateFromFilter()
 	if(document.getElementById("searchFieldInput").value !== "")
 	{
 		lastContentSearch = "";
-		update(arrayOfDataMain);
+		generalUpdate();
 	}
 }
 
@@ -3371,7 +3383,7 @@ function generateWindowDisplay()
 			}
 			else
 			{
-				newLogDisplayArray[counterInternal] = defaultLogDisplayArrayEntry;
+				newLogDisplayArray[counterInternal] = {id: null, scroll: true, pin: false};
 			}
 		}
 		logDisplayHtml += "</tr>";
@@ -3427,7 +3439,7 @@ function generateWindowDisplay()
 			unselectAllLogs();
 		}
 		setTimeout(function() {
-			update(arrayOfDataMain);
+			generalUpdate();
 		}, 2);
 	}
 }
@@ -3463,6 +3475,18 @@ function startOfPollLogic()
 	}
 }
 
+function swapLayoutLetters(letter)
+{
+	document.getElementById("layoutVersionIndex").value = letter;
+	unselectAllLogs();
+	generalUpdate();
+}
+
+function generalUpdate()
+{
+	update(arrayOfDataMain);
+}
+
 $(document).ready(function()
 {
 	progressBar = new ldBar("#progressBar");
@@ -3476,7 +3500,7 @@ $(document).ready(function()
 
 	$("#searchFieldInput").on("input", function()
 	{
-		update(arrayOfDataMain);
+		generalUpdate();
 	});
 
 	if(document.getElementById("searchType"))
