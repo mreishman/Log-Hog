@@ -1,7 +1,7 @@
 <?php
 
 $versionCheckArray = array(
-	'version'		=> '4.2.1',
+	'version'		=> '4.2.2',
 	'versionList'		=> array(
 		'2.0.1'	        => array(
 			'branchName'	=> '2.0.1Update',
@@ -134,6 +134,10 @@ $versionCheckArray = array(
 		'4.2.1'		=> array(
 			'branchName'	=> '4.2.1Update',
 			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed issue with dropdown file typing in watchlist</li><li>Fixed bug with formatting on some logs</li><li>Fixed bug with popup settings not loadign correctly with new js loader</li><li>Fixed issue with setup and watchlist</li><li>Fixed possible issue with clearning logs?</li></ul></li></ul>"
+		),
+		'4.2.2'		=> array(
+			'branchName'	=> '4.2.2Update',
+			'releaseNotes'	=> "<ul><li>Features<ul><li>Added link to watchlist to main menu (in prep for 5.0 release)</li></ul></li><li>Bug Fixes<ul><li>Possibly fixed issue with updater not redirecting correctly?</li><li>Possibly fixed issue with updater not setting percent bar correctly if more than one version in update</li></ul></li></ul>"
 		),
 	)
 );
