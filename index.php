@@ -516,13 +516,12 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 			<li onclick="window.location.href = './settings/watchlist.php';" >
 				<div class="menuImageDiv">
 					<?php echo generateImage(
-						$arrayOfImages["loadingImg"],
+						$arrayOfImages["watchList"],
 						$imageConfig = array(
 							"id"		=>	"watchList",
 							"class"		=>	"menuImage mainMenuImage",
 							"height"	=>	"30px",
 							"title"		=>	"WatchList",
-							"data-src"	=>	$arrayOfImages["watchList"]
 							)
 						);
 					?>
