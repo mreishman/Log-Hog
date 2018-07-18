@@ -386,7 +386,7 @@ function pollTwoPartTwo(data)
 		}
 		else
 		{
-			var arrayOfData2 = data; 
+			var arrayOfData2 = data;
 			var filesOld = Object.keys(arrayOfData1);
 			for (var updateOldCount = filesNew.length - 1; updateOldCount >= 0; updateOldCount--)
 			{
@@ -1265,10 +1265,10 @@ function checkIfDisplay(id)
 	{
 		if(logDisplayArray[j]["id"] === id)
 		{
-			return {display: true, location: j}
+			return {display: true, location: j};
 		}
 	}
-	return {display: false, location: -1}
+	return {display: false, location: -1};
 }
 
 function unselectAllLogs()

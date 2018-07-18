@@ -257,8 +257,8 @@ $externalLinkImage = generateImage(
 							echo generateImage(
 								$arrayOfImages["loadingImg"],
 								$imageConfig = array(
-									"id"		=>	"updateMenuImage mainMenuImage",
-									"class"		=>	"menuImage",
+									"id"		=>	"updateMenuImage",
+									"class"		=>	"menuImage mainMenuImage",
 									"height"	=>	"30px",
 									"title"		=>	"Minor Update",
 									"data-src"	=>	$arrayOfImages["yellowWarning"]
@@ -267,16 +267,18 @@ $externalLinkImage = generateImage(
 						}
 						elseif($levelOfUpdate == 2 || $levelOfUpdate == 3)
 						{
+							echo "<div class=\"menuImageDiv\">";
 							echo generateImage(
 								$arrayOfImages["loadingImg"],
 								$imageConfig = array(
-									"id"		=>	"updateMenuImage mainMenuImage",
-									"class"		=>	"menuImage",
+									"id"		=>	"updateMenuImage",
+									"class"		=>	"menuImage mainMenuImage",
 									"height"	=>	"30px",
 									"title"		=>	"Major Update",
 									"data-src"	=>	$arrayOfImages["redWarning"]
 								)
 							);
+							echo "</div>";
 						}
 					}
 				}
