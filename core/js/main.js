@@ -278,7 +278,7 @@ function pollTwo()
 					{
 						showPopup();
 						document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class='settingsHeader' >Log-Hog has been updated. Please Refresh</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Log-Hog has been updated, and is now on a new version. Please refresh the page.</div><div><div class='link' onclick='location.reload();' style='margin-left:165px; margin-right:50px;margin-top:35px;'>Reload</div></div>";
-						clearPollTimer()
+						clearPollTimer();
 					}
 					else if(data === "update in progress")
 					{
@@ -371,12 +371,12 @@ function pollTwoPartTwo(data)
 		if(arrayOfData1 === null || boolForAllUpdateForce)
 		{
 			arrayOfData1 = data;
-			for (var i = filesNew.length - 1; i >= 0; i--)
+			for (var updateCount = filesNew.length - 1; updateCount >= 0; updateCount--)
 			{
-				arrayToUpdate[filesNew[i]] = data[filesNew[i]];
-				if(!($("#selectForGroup option[value='"+data[filesNew[i]]["Group"]+"']").length > 0) && data[filesNew[i]]["Group"] !== "")
+				arrayToUpdate[filesNew[updateCount]] = data[filesNew[updateCount]];
+				if(!($("#selectForGroup option[value='"+data[filesNew[updateCount]]["Group"]+"']").length > 0) && data[filesNew[updateCount]]["Group"] !== "")
 				{
-					$("#selectForGroup").append("<option value='"+data[filesNew[i]]["Group"]+"'>"+data[filesNew[i]]["Group"]+"</option>");
+					$("#selectForGroup").append("<option value='"+data[filesNew[updateCount]]["Group"]+"'>"+data[filesNew[updateCount]]["Group"]+"</option>");
 					if(document.getElementById("selectForGroupDiv").style.display === "none")
 					{
 						document.getElementById("selectForGroupDiv").style.display = "inline-block";
@@ -388,24 +388,24 @@ function pollTwoPartTwo(data)
 		{
 			var arrayOfData2 = data; 
 			var filesOld = Object.keys(arrayOfData1);
-			for (var i = filesNew.length - 1; i >= 0; i--)
+			for (var updateOldCount = filesNew.length - 1; updateOldCount >= 0; updateOldCount--)
 			{
-				if(filesOld.indexOf(filesNew[i]) > -1)
+				if(filesOld.indexOf(filesNew[updateOldCount]) > -1)
 				{
 					//file exists
-					if(JSON.stringify(arrayOfData2[filesNew[i]]) !== JSON.stringify(arrayOfData1[filesNew[i]]))
+					if(JSON.stringify(arrayOfData2[filesNew[updateOldCount]]) !== JSON.stringify(arrayOfData1[filesNew[updateOldCount]]))
 					{
-						arrayToUpdate[filesNew[i]] = data[filesNew[i]];
+						arrayToUpdate[filesNew[updateOldCount]] = data[filesNew[updateOldCount]];
 					}
 				}
 				else
 				{
 					//file is new, add to array
-					arrayToUpdate[filesNew[i]] = data[filesNew[i]];
+					arrayToUpdate[filesNew[updateOldCount]] = data[filesNew[updateOldCount]];
 				}
-				if(!($("#selectForGroup option[value='"+data[filesNew[i]]["Group"]+"']").length > 0) && data[filesNew[i]]["Group"] !== "")
+				if(!($("#selectForGroup option[value='"+data[filesNew[updateOldCount]]["Group"]+"']").length > 0) && data[filesNew[updateOldCount]]["Group"] !== "")
 				{
-					$("#selectForGroup").append("<option value='"+data[filesNew[i]]["Group"]+"'>"+data[filesNew[i]]["Group"]+"</option>");
+					$("#selectForGroup").append("<option value='"+data[filesNew[updateOldCount]]["Group"]+"'>"+data[filesNew[updateOldCount]]["Group"]+"</option>");
 					if(document.getElementById("selectForGroupDiv").style.display === "none")
 					{
 						document.getElementById("selectForGroupDiv").style.display = "inline-block";
@@ -413,12 +413,12 @@ function pollTwoPartTwo(data)
 				}
 			}
 
-			for (var i = filesOld.length - 1; i >= 0; i--)
+			for (var oldSwapCount = filesOld.length - 1; oldSwapCount >= 0; oldSwapCount--)
 			{
-				if(!(filesNew.indexOf(filesOld[i]) > -1))
+				if(!(filesNew.indexOf(filesOld[oldSwapCount]) > -1))
 				{
 					//files old file isn't there in new file
-					arrayToUpdate[filesOld[i]] = arrayOfData1[filesOld[i]];
+					arrayToUpdate[filesOld[oldSwapCount]] = arrayOfData1[filesOld[oldSwapCount]];
 				}
 			}
 			arrayOfData1 = data;
@@ -534,7 +534,7 @@ function getFileSingle(current)
 	catch(e)
 	{
 		eventThrowException(e);
-	}	
+	}
 }
 
 function arrayOfDataMainDataFilter(data)
@@ -548,17 +548,17 @@ function arrayOfDataMainDataFilter(data)
 		}
 		else
 		{
-			for (var i = filesInner.length - 1; i >= 0; i--) 
+			for (var dataSwapCount = filesInner.length - 1; dataSwapCount >= 0; dataSwapCount--)
 			{
-				arrayOfDataMain[filesInner[i]] = data[filesInner[i]];
+				arrayOfDataMain[filesInner[dataSwapCount]] = data[filesInner[dataSwapCount]];
 			}
 		}
 
-		for (var i = filesInner.length - 1; i >= 0; i--) 
+		for (var lineCountUpdateCount = filesInner.length - 1; lineCountUpdateCount >= 0; lineCountUpdateCount--)
 		{
-			if(data[filesInner[i]]["lineCount"] !== "---")
+			if(data[filesInner[lineCountUpdateCount]]["lineCount"] !== "---")
 			{
-				fileData[filesInner[i]]["lineCount"] = data[filesInner[i]]["lineCount"];
+				fileData[filesInner[lineCountUpdateCount]]["lineCount"] = data[filesInner[lineCountUpdateCount]]["lineCount"];
 			}
 		}
 	}
@@ -843,7 +843,7 @@ function update(data)
 		{
 			var name = files[i];
 
-			if((!(name in data)) || typeof(data[name]) === 'undefined' || data[name] === null)
+			if((!(name in data)) || typeof(data[name]) === "undefined" || data[name] === null)
 			{
 				hideLogByName(name);
 				continue;
@@ -1008,11 +1008,11 @@ function update(data)
 								var innerCount = i;
 								if(filesNew.length > 0)
 								{
-									for (var j = filesNew.length - 1; j >= 0; j--)
+									for (var innerCountFind = filesNew.length - 1; innerCountFind >= 0; innerCountFind--)
 									{
-										if(filesNew[j] === files[i])
+										if(filesNew[innerCountFind] === files[i])
 										{
-											innerCount = j;
+											innerCount = innerCountFind;
 											break;
 										}
 									}
@@ -1050,11 +1050,11 @@ function update(data)
 								{
 									$("#menu a." + id + "Button").addClass("updated");
 
-									var objectToSend = new Array();
-									objectToSend["log"] = id;
-									objectToSend["name"] = "New Log "+nameForLog;
-									objectToSend["action"] = "$('#"+id+"').click();  toggleNotifications();";
-									addLogNotification(objectToSend);
+									addLogNotification({
+										log: id,
+										name: "New Log "+nameForLog,
+										action: "$('#"+id+"').click();  toggleNotifications();"
+									});
 								}
 							}
 
@@ -1088,16 +1088,7 @@ function update(data)
 								{
 									if(lastContentSearch !== getFilterTextField())
 									{
-										var windows = Object.keys(logDisplayArray);
-										var lengthOfWindows = windows.length;
-										for(var j = 0; j < lengthOfWindows; j++)
-										{
-											if(logDisplayArray[j]["id"] === id)
-											{
-												updated = true;
-												break;
-											}
-										}
+										updated = checkIfDisplay(id)["display"];
 									}
 								}
 							}
@@ -1105,32 +1096,13 @@ function update(data)
 						else
 						{
 							//check if displayed
-							var windows = Object.keys(logDisplayArray);
-							var lengthOfWindows = windows.length;
-							for(var j = 0; j < lengthOfWindows; j++)
-							{
-								if(logDisplayArray[j]["id"] === id)
-								{
-									updated = true;
-									break;
-								}
-							}
+							updated = checkIfDisplay(id)["display"];
 						}
 
 						if(updated)
 						{
 							//determine if id is one of the values in the array of open files (use instead of currentPage)
-							var windows = Object.keys(logDisplayArray);
-							var lengthOfWindows = windows.length;
-							var currentIdPos = -1;
-							for(var j = 0; j < lengthOfWindows; j++)
-							{
-								if(id === logDisplayArray[j]["id"])
-								{
-									currentIdPos = j;
-									break;
-								}
-							}
+							var currentIdPos = checkIfDisplay(id)["location"];
 
 							var diff = getDiffLogAndLastLog(id);
 							if(diff !== "")
@@ -1162,7 +1134,7 @@ function update(data)
 							var updateHtml = true;
 							if(currentIdPos === -1)
 							{
-								updateHtml = false
+								updateHtml = false;
 							}
 							else if(scrollOnUpdate === "true" && scrollEvenIfScrolled === "false")
 							{
@@ -1205,16 +1177,16 @@ function update(data)
 										{
 											$("#menu a." + id + "Button").addClass("updated");
 										}
-										var objectToSend = new Array();
-										objectToSend["log"] = id;
 										var numForNot = "";
 										if (diffNew !== "(0)")
 										{
 											numForNot = diffNew;
 										}
-										objectToSend["name"] = shortName+" Update "+numForNot;
-										objectToSend["action"] = "$('#"+id+"').click();  toggleNotifications();";
-										addLogNotification(objectToSend);
+										addLogNotification({
+											log: id,
+											name: shortName+" Update "+numForNot,
+											action: "$('#"+id+"').click();  toggleNotifications();"
+										});
 									}
 								}
 							}
@@ -1283,6 +1255,20 @@ function update(data)
 	{
 		eventThrowException(e);
 	}
+}
+
+function checkIfDisplay(id)
+{
+	var windows = Object.keys(logDisplayArray);
+	var lengthOfWindows = windows.length;
+	for(var j = 0; j < lengthOfWindows; j++)
+	{
+		if(logDisplayArray[j]["id"] === id)
+		{
+			return {display: true, location: j}
+		}
+	}
+	return {display: false, location: -1}
 }
 
 function unselectAllLogs()
