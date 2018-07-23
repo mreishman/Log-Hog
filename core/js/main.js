@@ -3077,6 +3077,13 @@ function toggleWatchListMenu(force = false)
 	{
 		script("core/js/settingsWatchlist.js?v="+cssVersion);
 	}
+	else
+	{
+		resetProgressBarWatchList();
+	}
+	$(".uniqueClassForAppendSettingsMainWatchNew").html("");
+	$("#loadingSpan").show();
+	document.getElementById("mainContentFullScreenMenu").style.left = ""+402+"px";
 	loadImgFromData("watchlistImg");
 	hideMainStuff();
 	arrayOfDataSettings = ["settingsMainWatch"];
@@ -3085,9 +3092,18 @@ function toggleWatchListMenu(force = false)
 	$("#watchListMenu").addClass("selected");
 	arrayOfScrollHeaderUpdate = ["settingsMainWatch"];
 	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
-	setTimeout(function() {
-		timerForWatchlist = setInterval(tryLoadWatch, 100);
-	}, 250);
+	if(typeof loadWatchList !== "function")
+	{
+		setTimeout(function() {
+			timerForWatchlist = setInterval(tryLoadWatch, 100);
+		}, 250);
+	}
+	else
+	{
+		setTimeout(function() {
+			timerForWatchlist = setInterval(tryLoadWatch, 100);
+		}, 25);
+	}
 }
 
 function tryLoadWatch()

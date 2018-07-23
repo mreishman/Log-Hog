@@ -1237,6 +1237,23 @@ function updateProgressBarWatchList(additonalPercent, text, topText = "Loading..
 	}
 }
 
+function resetProgressBarWatchList()
+{
+	try
+	{
+		percentWatchList = 0;
+		progressBarWatchList.set(percentWatchList);
+		$("#progressBarSubInfoWatchList").empty();
+		$("#progressBarSubInfoWatchList").append("Loading...");
+		$("#progressBarMainInfoWatchList").empty();
+		$("#progressBarMainInfoWatchList").append("Loading Javascript");
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
 function toggleSaveGroup(rowNumber)
 {
 	var SaveGroupValue = document.getElementsByName("watchListKey"+rowNumber+"SaveGroup")[0].value;
