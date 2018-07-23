@@ -1605,44 +1605,43 @@ function fadeHighlight(id)
 	setTimeout(function(){ removeNewHighlights("#log"+id); }, 30);
 }
 
-function show(e, id) 
+function show(e, id)
 {
 	try
 	{
-		$("#log"+currentSelectWindow).hide();
-		$("#log"+currentSelectWindow+"load").show();
+		var internalID = id;
+		var currentCurrentSelectWindow = currentSelectWindow;
+		$("#log"+currentCurrentSelectWindow).hide();
+		$("#log"+currentCurrentSelectWindow+"load").show();
 		resize();
-
 		$(e).siblings().removeClass("active");
-		var windowNumInTitle = $("#"+id+"CurrentWindow").html();
+		var windowNumInTitle = $("#"+internalID+"CurrentWindow").html();
 		if(windowNumInTitle !== "")
 		{
 			windowNumInTitle = windowNumInTitle + "0";
 			var windowNumAsNum = parseInt(windowNumInTitle);
 			$("#log"+(windowNumAsNum-1)).html("");
 		}
-		$("#log"+currentSelectWindow).html(makePretty(id));
-		fadeHighlight(currentSelectWindow);
 		//window number clear
 		$('.currentWindowNum').each(function(i, obj)
 		{
-			if(obj.innerHTML ==  ""+(currentSelectWindow+1)+". ")
+			if(obj.innerHTML ==  ""+(currentCurrentSelectWindow+1)+". ")
 			{
 				obj.innerHTML = "";
 			}
 		});
 		//window number add
-		$("#"+id+"CurrentWindow").html(""+(currentSelectWindow+1)+". ");
-		currentPage = id;
-		logDisplayArray[currentSelectWindow]["id"] = id;
+		$("#"+internalID+"CurrentWindow").html(""+(currentCurrentSelectWindow+1)+". ");
+		currentPage = internalID;
+		logDisplayArray[currentCurrentSelectWindow]["id"] = internalID;
 		var windows = Object.keys(logDisplayArray);
 		var lengthOfWindows = windows.length;
+		var logsCheck = Object.keys(logs);
+		var lengthOfLogsCheck = logsCheck.length;
 		for(var i = 0; i < lengthOfWindows; i++)
 		{
 			if(logDisplayArray[i]["id"] !== null)
 			{
-				var logsCheck = Object.keys(logs);
-				var lengthOfLogsCheck = logsCheck.length;
 				for(var j = 0; j < lengthOfLogsCheck; j++)
 				{
 					if(logDisplayArray[i]["id"] === logsCheck[j])
@@ -1652,20 +1651,52 @@ function show(e, id)
 				}
 			}
 		}
-		$("#title"+currentSelectWindow).html(titles[id]);
+		$("#title"+currentCurrentSelectWindow).html(titles[internalID]);
+		setTimeout(function() {
+			showPartTwo(e, internalID, currentCurrentSelectWindow);
+		}, 2);
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
 
-		$("#log"+currentSelectWindow+"load").hide();
-		$("#log"+currentSelectWindow).show();
+function showPartTwo(e, internalID, currentCurrentSelectWindow)
+{
+	try
+	{
+		var formattedHtml = "";
+		if(logs[internalID].indexOf("errorMessageLog errorMessageRedBG") > -1 || logs[id].indexOf("errorMessageLog errorMessageGreenBG") > -1)
+		{
+			formattedHtml = logs[internalID];
+		}
+		else
+		{
+			formattedHtml = makePretty(internalID);
+		}
+		$("#log"+currentCurrentSelectWindow).html(formattedHtml);
+		fadeHighlight(currentCurrentSelectWindow);
+		setTimeout(function() {
+			showPartThree(e, internalID, currentCurrentSelectWindow);
+		}, 2);
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
 
-		resize();
-
-		document.getElementById("log"+currentSelectWindow+"Td").scrollTop = $("#log"+currentSelectWindow).outerHeight();
+function showPartThree(e, internalID, currentCurrentSelectWindow)
+{
+	try
+	{
+		$("#log"+currentCurrentSelectWindow+"load").hide();
+		$("#log"+currentCurrentSelectWindow).show();
+		scrollToBottom(currentCurrentSelectWindow);
 		toggleNotificationClearButton();
-		removeNotificationByLog(id);
-
-		
-		resize();
-
+		removeNotificationByLog(internalID);
+		//below function does resize
 		toggleGroupedGroups();
 	}
 	catch(e)
