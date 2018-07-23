@@ -269,6 +269,7 @@ $defaultConfig = array(
 	'logSelectedFirstLoad'			=> '',
 	'logShowMoreOptions'			=> 'false',
 	'logSizeLimit'					=>	2000,
+	'logSwitchABCClearAll'			=> 'false',
 	'logSwitchKeepCurrent'			=> 'true',
 	'logTitle'						=> 'lastLine',
 	'logTrimMacBSD'					=> 'false',

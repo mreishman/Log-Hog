@@ -1282,6 +1282,25 @@ function unselectAllLogs()
 	}
 }
 
+function unselectLogsThatAreInNewLayout()
+{
+	$("#menu .active").removeClass("active");
+	var arrayOfLogsLength = Object.keys(logDisplayArray).length;
+	for(var h = arrayOfLogsLength - 1; h >= 0; h--)
+	{
+		if(logDisplayArray[h]["id"] !== null)
+		{
+			var currentLayout = document.getElementById("windowConfig").value;
+			var layoutVersionIndex = document.getElementById("layoutVersionIndex").value;
+			if(logLoadLayout !== [] && logLoadLayout[currentLayout][h][layoutVersionIndex] !== "" && logLoadLayout[currentLayout][h][layoutVersionIndex] in fileData )
+			{
+				$("#log"+h).html("");
+				logDisplayArray[h] = {id: null, scroll: true, pin: false};
+			}
+		}
+	}
+}
+
 function removeTabsInOrder(targetLength)
 {
 	try
@@ -3465,8 +3484,21 @@ function startOfPollLogic()
 function swapLayoutLetters(letter)
 {
 	document.getElementById("layoutVersionIndex").value = letter;
-	unselectAllLogs();
+	if(logSwitchABCClearAll === "true")
+	{
+		unselectAllLogs();
+	}
+	else
+	{
+		unselectLogsThatAreInNewLayout();
+	}
 	generalUpdate();
+}
+
+function resetSelection()
+{
+	var currentLayout = document.getElementById("layoutVersionIndex").value;
+	swapLayoutLetters(currentLayout);
 }
 
 function generalUpdate()

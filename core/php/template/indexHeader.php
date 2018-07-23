@@ -202,6 +202,8 @@
 			<span onclick="swapLayoutLetters('B');" class="linkSmall" >B</span>
 			<span onclick="swapLayoutLetters('C');" class="linkSmall" >C</span>
 			<input type="hidden" id="layoutVersionIndex" value="A" >
+			|
+			<span onclick="resetSelection();" class="linkSmall">Reset Selection</span>
 		</div>
 	</div>
 </div>

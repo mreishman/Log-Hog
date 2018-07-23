@@ -66,6 +66,29 @@
 				); ?>
 				<i>When switching between layouts, keep current selected windows over config</i>
 			</span>
+			</li>
+			<li>
+				<span class="settingsBuffer"> Clear windows if not in config: </span>
+				<div class="selectDiv">
+					<select name="logSwitchABCClearAll">
+						<option <?php if($logSwitchABCClearAll === 'true'){echo "selected";} ?> value="true">True</option>
+						<option <?php if($logSwitchABCClearAll === 'false'){echo "selected";} ?> value="false" >False</option>
+					</select>
+				</div>
+			</li>
+			<li>
+			<span style="font-size: 75%;">
+				<?php echo generateImage(
+					$arrayOfImages["info"],
+					array(
+						"style"			=>	"margin-bottom: -4px;",
+						"height"		=>	"20px",
+						"srcModifier"	=>	"../"
+					)
+				); ?>
+				<i>When switching between A B or C layouts, either clear all windows, OR keep current selected windows IF not defined in config</i>
+			</span>
+			</li>
 		</li>
 			<li>
 				<?php foreach ($arrayOfwindowConfigOptions as $value): ?>
