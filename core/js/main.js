@@ -1832,31 +1832,36 @@ function makePretty(id)
 			}
 			if(addLine)
 			{
-				var customClass = " class = '";
-				var customClassAdd = false;
-				if(highlightNew === "true" && ((i + count + 1) > lengthOfTextArray))
+				var lineText = text[i].split("\\n");
+				var lengthOflineTextArray = lineText.length;
+				for (var j = 0; j < lengthOflineTextArray; j++)
 				{
-					customClass += " newLine ";
-					customClassAdd = true;
-				}
-
-				if(selectedListFilterType === "content" && filterContentHighlight === "true" && getFilterTextField() !== "")
-				{
-					//check if match, and if supposed to highlight
-					if(filterContentCheck(text[i]))
+					var customClass = " class = '";
+					var customClassAdd = false;
+					if(highlightNew === "true" && ((i + count + 1) > lengthOfTextArray))
 					{
-						customClass += " highlight ";
+						customClass += " newLine ";
 						customClassAdd = true;
 					}
-				}
 
-				customClass += " '";
-				returnText += "<div ";
-				if(customClassAdd)
-				{
-					returnText += " "+customClass+" ";
+					if(selectedListFilterType === "content" && filterContentHighlight === "true" && getFilterTextField() !== "")
+					{
+						//check if match, and if supposed to highlight
+						if(filterContentCheck(lineText[j]))
+						{
+							customClass += " highlight ";
+							customClassAdd = true;
+						}
+					}
+
+					customClass += " '";
+					returnText += "<div ";
+					if(customClassAdd)
+					{
+						returnText += " "+customClass+" ";
+					}
+					returnText += " >"+lineText[j]+"</div>";
 				}
-				returnText += " >"+text[i]+"</div>";
 			}
 		}
 		
