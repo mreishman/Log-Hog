@@ -1591,6 +1591,7 @@ function removeLogByName(name)
 			$("#menu ." + idOfName + "Button").remove();
 		}
 		removeFromMultiLog(idOfName);
+		resize();
 	}
 	catch(e)
 	{
