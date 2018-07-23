@@ -1291,7 +1291,7 @@ function unselectLogsThatAreInNewLayout()
 		{
 			var currentLayout = document.getElementById("windowConfig").value;
 			var layoutVersionIndex = document.getElementById("layoutVersionIndex").value;
-			if(logLoadLayout !== [] && logLoadLayout[currentLayout][h][layoutVersionIndex] !== "" && logLoadLayout[currentLayout][h][layoutVersionIndex] in fileData )
+			if(logLoadLayout.length !== 0 && logLoadLayout[currentLayout][h][layoutVersionIndex] !== "" && logLoadLayout[currentLayout][h][layoutVersionIndex] in fileData )
 			{
 				$("#log"+h).html("");
 				$("#"+logDisplayArray[h]["id"]).removeClass("active");
@@ -1335,7 +1335,7 @@ function selectTabsInOrder(targetLength)
 				{
 					var currentLayout = document.getElementById("windowConfig").value;
 					var layoutVersionIndex = document.getElementById("layoutVersionIndex").value;
-					if(logLoadLayout !== [] && logLoadLayout[currentLayout][h][layoutVersionIndex] !== "" && logLoadLayout[currentLayout][h][layoutVersionIndex] in fileData )
+					if(logLoadLayout.length !== 0 && logLoadLayout[currentLayout][h][layoutVersionIndex] !== "" && logLoadLayout[currentLayout][h][layoutVersionIndex] in fileData )
 					{
 						if(checkNameCont(logLoadLayout[currentLayout][h][layoutVersionIndex].replace(/[^a-z0-9]/g, ""), arrayOfLogs[i]))
 						{
