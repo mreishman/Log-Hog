@@ -247,9 +247,9 @@ function addFolder()
 	htmlForPopoup += "<br><div style='width:100%;text-align:center;'> <input onkeyup=\"getCurrentFileFolderInfoKeyPress(true);\" value=\""+defaultNewPathFolder+"\" id=\"inputFieldForFileOrFolder\" type=\"text\" style=\"width: 90%;\" > </div>";
 	htmlForPopoup += "<br><div style='width:100%;height:30px;padding-left:20px;' id=\"folderNavUpHolder\"> </div><div id=\"folderFileInfoHolder\" style='margin-right:20px; margin-left: 20px;height:200px;border: 1px solid white;overflow: auto;'> --- </div>";
 	htmlForPopoup += "<div class='link' onclick='addFileFolderAjax(\"folder\", document.getElementById(\"inputFieldForFileOrFolder\").value);' style='margin-left:110px; margin-right:50px;margin-top:25px;'>Add</div><div onclick='hidePopup();' class='link'>Cancel</div";
-	document.getElementById('popupContentInnerHTMLDiv').innerHTML = htmlForPopoup;
-	document.getElementById('popupContent').style.height = "400px";
-	document.getElementById('popupContent').style.marginTop = "-200px";
+	document.getElementById("popupContentInnerHTMLDiv").innerHTML = htmlForPopoup;
+	document.getElementById("popupContent").style.height = "400px";
+	document.getElementById("popupContent").style.marginTop = "-200px";
 	updateFileFolderGui(true);
 }
 
@@ -930,7 +930,7 @@ function deleteRowFunctionPopup(currentRow, keyName = "")
 {
 	try
 	{
-		if (typeof popupSettingsArray === 'string')
+		if (typeof popupSettingsArray === "string")
 		{
 			popupSettingsArray = JSON.parse(popupSettingsArray);
 		}

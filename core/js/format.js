@@ -66,35 +66,32 @@ function dateTimeSplit(text)
 	};
 	text = text.trim(); //remove extra spaces
 	//check for start of time stamp. Could be: ( [ or just a number
-	var regExpForTimeStampV1 = /[0-9]{1,4}(\D[0-9]{1,2}){5}(\D?AM|\D?PM)?(\D[0-9]{1,2}){0,2}/i;
-	var regExpForTimeStampV2 = /(\w{3} ){2}[0-9]{1,2}(.[0-9]{2}){3}(.[0-9]{6})?.[0-9]{4}/i;
-	var textInfoV1 = regExpForTimeStampV1.exec(text);
-	var textInfoV2 = regExpForTimeStampV2.exec(text);
-	//returns null if not found, data if found
-	if(textInfoV1 !== null)
-	{
-		var positionOfExpression = textInfoV1.index;
-		if(positionOfExpression < 5)
-		{
-			var lengthOfExpression = textInfoV1[0].length;
-			var endPosition = (positionOfExpression * 2) + lengthOfExpression;
-			returnObject[0] = text.substring(0,endPosition).trim(); //date
-			returnObject[2] = text.substring(positionOfExpression,lengthOfExpression+1).trim(); //date no extras
-			returnObject[1] = text.substring(endPosition).trim(); //rest of text
-			returnObject["timeFound"] = 1;
+	var regExLoop = {
+		0: {
+			regex: /[0-9]{1,4}(\D[0-9]{1,2}){5}(\D?AM|\D?PM)?(\D[0-9]{1,2}){0,2}/i
+		},
+		1: {
+			regex: /(\w{3} ){2}[0-9]{1,2}(.[0-9]{2}){3}(.[0-9]{6})?.[0-9]{4}/i
 		}
 	}
-	else if(textInfoV2 !== null)
+	var keysOfRegExLoop = Object.keys(regExLoop);
+	var regExLoopCount = keysOfRegExLoop.length;
+	for(var regExLoopCounter = 0; regExLoopCounter < regExLoopCount; regExLoopCounter++)
 	{
-		var positionOfExpression = textInfoV2.index;
-		if(positionOfExpression < 5)
+		var textInfo = regExLoop[keysOfRegExLoop[regExLoopCounter]]["regex"].exec(text);
+		if(textInfo !== null)
 		{
-			var lengthOfExpression = textInfoV2[0].length;
-			var endPosition = (positionOfExpression * 2) + lengthOfExpression;
-			returnObject[0] = text.substring(0,endPosition).trim(); //date
-			returnObject[2] = text.substring(positionOfExpression,lengthOfExpression+1).trim(); //date no extras
-			returnObject[1] = text.substring(endPosition).trim(); //rest of text
-			returnObject["timeFound"] = 2;
+			var positionOfExpression = textInfo.index;
+			if(positionOfExpression < 5)
+			{
+				var lengthOfExpression = textInfo[0].length;
+				var endPosition = (positionOfExpression * 2) + lengthOfExpression;
+				returnObject[0] = text.substring(0,endPosition).trim(); //date
+				returnObject[2] = text.substring(positionOfExpression,lengthOfExpression+1).trim(); //date no extras
+				returnObject[1] = text.substring(endPosition).trim(); //rest of text
+				returnObject["timeFound"] = regExLoopCounter;
+			}
+			break;
 		}
 	}
 
@@ -141,12 +138,12 @@ function dateTimeFormat(dateTextArray)
 		var day = newConfDate.getDate();
 		if(day < 10)
 		{
-		    day = "0"+day;
+			day = "0"+day;
 		}
 		var month = newConfDate.getMonth()+1; //January is 0!
 		if(month < 10)
 		{
-		    month = "0"+month;
+			month = "0"+month;
 		}
 		var mili = newConfDate.getMilliseconds();
 		var yearFull = newConfDate.getFullYear();
