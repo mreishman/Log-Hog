@@ -91,6 +91,23 @@
 						<span class="settingsBuffer" > Font: </span> 
 						<input type="text" name="highlightNewColorFont" value="<?php echo $highlightNewColorFont;?>" >
 					</li>
+					<li>
+						<span class="settingsBuffer" > Timeout for fade: </span>
+						<input type="number" pattern="[0-9]*" name="timeoutHighlight" value="<?php echo $timeoutHighlight;?>" > MS
+					</li>
+					<li>
+						<span style="font-size: 75%;">
+						<?php echo generateImage(
+							$arrayOfImages["info"],
+							array(
+								"style"			=>	"margin-bottom: -4px;",
+								"height"		=>	"20px",
+								"srcModifier"	=>	"../"
+							)
+						); ?>
+						<i>Default 30 ms</i>
+					</span>
+					</li>
 				</ul>
 			</div>
 		</div>

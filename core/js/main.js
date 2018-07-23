@@ -1063,10 +1063,10 @@ function update(data)
 							var deleteLogAction = {action: "deleteLogPopupInner(titles[\""+id+"\"]);", name: "Delete Log"};
 							var copyNameAction = {action: "copyToClipBoard(\""+shortName+"\");", name: "Copy File Name"};
 							var copyFullPathAction = {action: "copyToClipBoard(titles[\""+id+"\"]);", name: "Copy Filepath"};
-							var alertToggle = {action: "tmpEnableAlerts(\""+id+"\");" ,name: "Enable Alerts"};
+							var alertToggle = {action: "tmpToggleAlerts(\""+id+"\");" ,name: "Enable Alerts"};
 							if(fileData[fullPathSearch]["AlertEnabled"] === "true")
 							{
-								alertToggle = {action: "tmpDisableAlerts(\""+id+"\");" ,name: "Disable Alerts"};
+								alertToggle = {action: "tmpToggleAlerts(\""+id+"\");" ,name: "Disable Alerts"};
 							}
 							//add rightclick menu
 							menuObjectRightClick[id] = [hideLogAction, clearLogAction,deleteLogAction,copyNameAction,copyFullPathAction,alertToggle];
@@ -1284,7 +1284,6 @@ function unselectAllLogs()
 
 function unselectLogsThatAreInNewLayout()
 {
-	$("#menu .active").removeClass("active");
 	var arrayOfLogsLength = Object.keys(logDisplayArray).length;
 	for(var h = arrayOfLogsLength - 1; h >= 0; h--)
 	{
@@ -1295,6 +1294,7 @@ function unselectLogsThatAreInNewLayout()
 			if(logLoadLayout !== [] && logLoadLayout[currentLayout][h][layoutVersionIndex] !== "" && logLoadLayout[currentLayout][h][layoutVersionIndex] in fileData )
 			{
 				$("#log"+h).html("");
+				$("#"+logDisplayArray[h]["id"]).removeClass("active");
 				logDisplayArray[h] = {id: null, scroll: true, pin: false};
 			}
 		}
@@ -1337,24 +1337,16 @@ function selectTabsInOrder(targetLength)
 					var layoutVersionIndex = document.getElementById("layoutVersionIndex").value;
 					if(logLoadLayout !== [] && logLoadLayout[currentLayout][h][layoutVersionIndex] !== "" && logLoadLayout[currentLayout][h][layoutVersionIndex] in fileData )
 					{
-						var checkName = logLoadLayout[currentLayout][h][layoutVersionIndex].replace(/[^a-z0-9]/g, "");
-						if(!($("#"+checkName).hasClass("active")))
+						if(checkNameCont(logLoadLayout[currentLayout][h][layoutVersionIndex].replace(/[^a-z0-9]/g, ""), arrayOfLogs[i]))
 						{
-							if(arrayOfLogs[i].id !== checkName)
-							{
-								continue;
-							}
+							continue;
 						}
 					}
 					if(h === 0 && logSelectedFirstLoad !== "" && logSelectedFirstLoad in fileData)
 					{
-						var checkName = logSelectedFirstLoad.replace(/[^a-z0-9]/g, "");
-						if(!($("#"+checkName).hasClass("active")))
+						if(checkNameCont(logSelectedFirstLoad.replace(/[^a-z0-9]/g, ""), arrayOfLogs[i]))
 						{
-							if(arrayOfLogs[i].id !== checkName)
-							{
-								continue;
-							}
+							continue;
 						}
 					}
 
@@ -1381,6 +1373,18 @@ function selectTabsInOrder(targetLength)
 	{
 		eventThrowException(e);
 	}
+}
+
+function checkNameCont(checkName, currentCheck)
+{
+	if(!($("#"+checkName).hasClass("active")))
+	{
+		if(currentCheck.id !== checkName)
+		{
+			return true;
+		}
+	}
+	return false;
 }
 
 function toggleDisplayOfNoLogs()
@@ -1412,41 +1416,37 @@ function toggleDisplayOfNoLogs()
 	}
 }
 
-function tmpEnableAlerts(id)
+function tmpToggleAlerts(id)
 {
-	var menuObjectLocal = menuObjectRightClick[id];
-	var options = Object.keys(menuObjectLocal);
-	var lengthOfOptions = options.length;
-	for(var i = 0; i < lengthOfOptions; i++)
+	try
 	{
-		var currentOption = menuObjectLocal[options[i]];
-		if(currentOption["name"] === "Enable Alerts")
+		var menuObjectLocal = menuObjectRightClick[id];
+		var options = Object.keys(menuObjectLocal);
+		var lengthOfOptions = options.length;
+		for(var i = 0; i < lengthOfOptions; i++)
 		{
-			menuObjectRightClick[id][options[i]]["name"] = "Disable Alerts";
-			menuObjectRightClick[id][options[i]]["action"] = "tmpDisableAlerts(\""+id+"\")";
-			break;
+			var currentOption = menuObjectLocal[options[i]];
+			if(currentOption["name"] === "Enable Alerts" || currentOption["name"] === "Disable Alerts")
+			{
+				menuObjectRightClick[id][options[i]]["name"] = "Disable Alerts";
+				if(currentOption["name"] === "Disable Alerts")
+				{
+					menuObjectRightClick[id][options[i]]["name"] = "Enable Alerts";
+				}
+				break;
+			}
 		}
-	}
-	alertEnabledArray[id] = "enabled";
-}
-
-function tmpDisableAlerts(id)
-{
-	var menuObjectLocal = menuObjectRightClick[id];
-	var options = Object.keys(menuObjectLocal);
-	var lengthOfOptions = options.length;
-	for(var i = 0; i < lengthOfOptions; i++)
-	{
-		var currentOption = menuObjectLocal[options[i]];
+		alertEnabledArray[id] = "enabled";
 		if(currentOption["name"] === "Disable Alerts")
 		{
-			menuObjectRightClick[id][options[i]]["name"] = "Enable Alerts";
-			menuObjectRightClick[id][options[i]]["action"] = "tmpEnableAlerts(\""+id+"\")";
-			break;
+			alertEnabledArray[id] = "disabled";
+			removeNotificationByLog(id);
 		}
 	}
-	alertEnabledArray[id] = "disabled";
-	removeNotificationByLog(id);
+	catch(e)
+	{
+		eventThrowException(e);
+	}
 }
 
 function updateScrollOnLogs()
@@ -1744,7 +1744,14 @@ function removeLogByName(name)
 
 function fadeHighlight(id)
 {
-	setTimeout(function(){ removeNewHighlights("#log"+id); }, 30);
+	try
+	{
+		setTimeout(function(){ removeNewHighlights("#log"+id); }, parseInt(timeoutHighlight));
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
 }
 
 function show(e, id)

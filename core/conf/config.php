@@ -304,6 +304,7 @@ $defaultConfig = array(
 	'successVerifyNum'				=> 2,
 	'themesEnabled'					=> 'true',
 	'themeVersion'					=> 13,
+	'timeoutHighlight'				=> 30,
 	'TrimSize'						=> 'K',
 	'truncateLog'					=> 'true',
 	'updateNoticeMeter'				=> 'every',
