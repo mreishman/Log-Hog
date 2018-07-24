@@ -1273,20 +1273,28 @@ function checkIfDisplay(id)
 
 function unselectAllLogs()
 {
+	var triggerUpdate = false;
 	var arrayOfLogsLength = Object.keys(logDisplayArray).length;
 	for(var h = arrayOfLogsLength - 1; h >= 0; h--)
 	{
-		if(logDisplayArray[h]["id"]["pin"] === false)
+		if(logDisplayArray[h]["pin"] === false)
 		{
 			$("#log"+h).html("");
 			$("#"+logDisplayArray[h]["id"]).removeClass("active");
+			$("#"+logDisplayArray[h]["id"]+"CurrentWindow").html("");
 			logDisplayArray[h] = {id: null, scroll: true, pin: false};
+			triggerUpdate = true;
 		}
+	}
+	if(triggerUpdate)
+	{
+		generalUpdate();
 	}
 }
 
 function unselectLogsThatAreInNewLayout()
 {
+	var triggerUpdate = false;
 	var arrayOfLogsLength = Object.keys(logDisplayArray).length;
 	for(var h = arrayOfLogsLength - 1; h >= 0; h--)
 	{
@@ -1294,16 +1302,28 @@ function unselectLogsThatAreInNewLayout()
 		{
 			var currentLayout = document.getElementById("windowConfig").value;
 			var layoutVersionIndex = document.getElementById("layoutVersionIndex").value;
-			if(logLoadLayout.length !== 0 && logLoadLayout[currentLayout][h][layoutVersionIndex] !== "" && logLoadLayout[currentLayout][h][layoutVersionIndex] in fileData )
+			if(
+				logLoadLayout.length === 0 ||
+				(
+					logLoadLayout[currentLayout][h][layoutVersionIndex] !== "" &&
+					logLoadLayout[currentLayout][h][layoutVersionIndex] in fileData
+				)
+			)
 			{
-				if(logDisplayArray[h]["id"]["pin"] === false)
+				if(logDisplayArray[h]["pin"] === false)
 				{
 					$("#log"+h).html("");
 					$("#"+logDisplayArray[h]["id"]).removeClass("active");
+					$("#"+logDisplayArray[h]["id"]+"CurrentWindow").html("");
 					logDisplayArray[h] = {id: null, scroll: true, pin: false};
+					triggerUpdate = true;
 				}
 			}
 		}
+	}
+	if(triggerUpdate)
+	{
+		generalUpdate();
 	}
 }
 
