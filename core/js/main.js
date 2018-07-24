@@ -2882,15 +2882,18 @@ function removeNotificationByLog(logId)
 
 function removeNotification(idToRemove)
 {
-	//remove from array
-	if("log" in notifications[idToRemove])
+	if(idToRemove in notifications)
 	{
-		var logId = notifications[idToRemove]["log"];
-		document.getElementById(logId).classList.remove("updated");
-		document.getElementById(logId+"Count").innerHTML = "";
-		document.getElementById(logId+"CountHidden").innerHTML = "";
+		//remove from array
+		if("log" in notifications[idToRemove])
+		{
+			var logId = notifications[idToRemove]["log"];
+			document.getElementById(logId).classList.remove("updated");
+			document.getElementById(logId+"Count").innerHTML = "";
+			document.getElementById(logId+"CountHidden").innerHTML = "";
+		}
+		notifications.splice(idToRemove, 1);
 	}
-	notifications.splice(idToRemove, 1);
 	updateNotificationStuff();
 }
 
