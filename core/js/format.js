@@ -217,7 +217,7 @@ function dateTimeFormat(dateTextArray)
 				}
 			}
 		}
-		if(stringForNewTime !== "")
+		if(stringForNewTime !== "" && stringForNewTime.indexOf("NaN") === -1)
 		{
 			return stringForNewTime;
 		}
