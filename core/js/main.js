@@ -1273,12 +1273,15 @@ function checkIfDisplay(id)
 
 function unselectAllLogs()
 {
-	$("#menu .active").removeClass("active");
 	var arrayOfLogsLength = Object.keys(logDisplayArray).length;
 	for(var h = arrayOfLogsLength - 1; h >= 0; h--)
 	{
-		$("#log"+h).html("");
-		logDisplayArray[h] = {id: null, scroll: true, pin: false};
+		if(logDisplayArray[h]["id"]["pin"] === false)
+		{
+			$("#log"+h).html("");
+			$("#"+logDisplayArray[h]["id"]).removeClass("active");
+			logDisplayArray[h] = {id: null, scroll: true, pin: false};
+		}
 	}
 }
 
@@ -1293,9 +1296,12 @@ function unselectLogsThatAreInNewLayout()
 			var layoutVersionIndex = document.getElementById("layoutVersionIndex").value;
 			if(logLoadLayout.length !== 0 && logLoadLayout[currentLayout][h][layoutVersionIndex] !== "" && logLoadLayout[currentLayout][h][layoutVersionIndex] in fileData )
 			{
-				$("#log"+h).html("");
-				$("#"+logDisplayArray[h]["id"]).removeClass("active");
-				logDisplayArray[h] = {id: null, scroll: true, pin: false};
+				if(logDisplayArray[h]["id"]["pin"] === false)
+				{
+					$("#log"+h).html("");
+					$("#"+logDisplayArray[h]["id"]).removeClass("active");
+					logDisplayArray[h] = {id: null, scroll: true, pin: false};
+				}
 			}
 		}
 	}
