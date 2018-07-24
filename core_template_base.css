@@ -1,0 +1,369 @@
+body {
+	color: white;
+	background-color: #191919;
+	font-family: monospace;
+	padding: 0;
+	margin: 0;
+  height: 100%;
+}
+
+div {
+	box-sizing: border-box;
+}
+
+#notifications {
+  margin-top: 10px;
+  display: none;
+  position: absolute;
+  z-index: 30;
+  top: 30px;
+}
+
+#notificationIcon {
+  display: none;
+  z-index: 30;
+}
+
+#notificationCount {
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  margin-left: 5px;
+  position: absolute;
+  top: 16px;
+  font-size: 68%;
+  cursor: pointer;
+}
+
+#notificationBadge {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-left: 5px;
+  position: absolute;
+  top: 24px;
+  background-color: red;
+  cursor: pointer;
+}
+
+.notificationTriangle {
+  width: 0;
+  height: 0;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent; 
+  margin-left: 29px;
+}
+
+#notificationHolder {
+  display: block;
+  width: 300px;
+  padding: 10px;
+  padding-bottom: 0px;
+}
+
+.notificationText{
+  padding-left: 5px;
+  cursor: pointer;
+  word-wrap:break-word; 
+  word-break: break-all;
+}
+
+#storage {
+	display: none;
+}
+
+.noticeBar{
+  width: 100%;
+  background-color: black;
+  text-align: center;
+  line-height: 200%;
+}
+
+.menuImage{
+	vertical-align: middle;
+	-webkit-transition: .3s ease-in-out;
+	transition: .3s ease-in-out;
+	-webkit-transform: scale(1);
+	transform: scale(1);
+}
+
+.menuImageDiv{
+	display: inline-block;
+	cursor: pointer;
+	height: 30px;
+	width: 30px;
+}
+
+.menuImage:hover{
+	-webkit-transform: scale(1.3);
+	transform: scale(1.3);
+}
+
+#main {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	overflow: auto;
+}
+
+#log div {
+	padding: .25em 1em;
+}
+
+.log div
+{
+  -webkit-transition: 1s ease-in-out;
+    -moz-transition: 1s ease-in-out;
+    -ms-transition: 1s ease-in-out;
+    -o-transition: 1s ease-in-out;
+}
+
+.led-red {
+  margin: 0 auto;
+  width: 24px;
+  height: 24px;
+  background-color: #F00;
+  border-radius: 50%;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px, rgba(255, 0, 0, 0.5) 0 2px 12px;
+  -webkit-animation: blinkRed 0.5s infinite;
+  -moz-animation: blinkRed 0.5s infinite;
+  -ms-animation: blinkRed 0.5s infinite;
+  -o-animation: blinkRed 0.5s infinite;
+  animation: blinkRed 0.5s infinite;
+  scale: 0.5 0.5;
+}
+
+@-webkit-keyframes blinkRed {
+    from { background-color: #F00; }
+    50% { background-color: #A00; box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px, rgba(255, 0, 0, 0.5) 0 2px 0;}
+    to { background-color: #F00; }
+}
+@-moz-keyframes blinkRed {
+    from { background-color: #F00; }
+    50% { background-color: #A00; box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px, rgba(255, 0, 0, 0.5) 0 2px 0;}
+    to { background-color: #F00; }
+}
+@-o-keyframes blinkRed {
+    from { background-color: #F00; }
+    50% { background-color: #A00; box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px, rgba(255, 0, 0, 0.5) 0 2px 0;}
+    to { background-color: #F00; }
+}
+@keyframes blinkRed {
+    from { background-color: #F00; }
+    50% { background-color: #A00; box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px, rgba(255, 0, 0, 0.5) 0 2px 0;}
+    to { background-color: #F00; }
+}
+
+.led-yellow {
+  margin: 0 auto;
+  width: 24px;
+  height: 24px;
+  background-color: #FF0;
+  border-radius: 50%;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #808002 0 -1px 9px, #FF0 0 2px 12px;
+  -webkit-animation: blinkYellow 1s infinite;
+  -moz-animation: blinkYellow 1s infinite;
+  -ms-animation: blinkYellow 1s infinite;
+  -o-animation: blinkYellow 1s infinite;
+  animation: blinkYellow 1s infinite;
+  scale: 0.5 0.5;
+}
+
+@-webkit-keyframes blinkYellow {
+    from { background-color: #FF0; }
+    50% { background-color: #AA0; box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #808002 0 -1px 9px, #FF0 0 2px 0; }
+    to { background-color: #FF0; }
+}
+@-moz-keyframes blinkYellow {
+    from { background-color: #FF0; }
+    50% { background-color: #AA0; box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #808002 0 -1px 9px, #FF0 0 2px 0; }
+    to { background-color: #FF0; }
+}
+@-o-keyframes blinkYellow {
+    from { background-color: #FF0; }
+    50% { background-color: #AA0; box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #808002 0 -1px 9px, #FF0 0 2px 0; }
+    to { background-color: #FF0; }
+}
+@keyframes blinkYellow {
+    from { background-color: #FF0; }
+    50% { background-color: #AA0; box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #808002 0 -1px 9px, #FF0 0 2px 0; }
+    to { background-color: #FF0; }
+}
+
+.led-green {
+  margin: 0 auto;
+  width: 24px;
+  height: 24px;
+  background-color: #ABFF00;
+  border-radius: 50%;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #304701 0 -1px 9px, #89FF00 0 2px 12px;
+  scale: 0.5 0.5;
+}
+
+.led-blue {
+  margin: 0 auto;
+  width: 24px;
+  height: 24px;
+  background-color: #24E0FF;
+  border-radius: 50%;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #006 0 -1px 9px, #3F8CFF 0 2px 14px;
+  scale: 0.5 0.5;
+}
+
+.visible {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 1s linear;
+}
+
+.hidden {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s 1s, opacity 1s linear;
+}
+
+#menuButtons{
+	display: block;
+	padding: 5px 5px 10px 5px;
+}
+
+div#fixed {
+    padding-bottom: 10px;
+}
+
+div#scrollable {
+    overflow-y: scroll;
+	height: 80%;
+}
+
+div.sidebarLeft {
+	padding: 0;
+    padding-bottom: 60px;
+    border: 4px solid  #222222;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+}
+
+.colorSelectorDiv
+{
+	border: 1px solid white;
+	width: 20px;
+	height: 20px;
+	display: inline-block;
+}
+
+.inner-triangle{
+    border-left: 7px solid transparent;
+    border-bottom: 7px solid white;
+    height: 0;
+    width: 0;
+    position: relative;
+    right: 0;
+    z-index: 2;
+    top: 11px;
+    left: 11px;
+}
+
+.errorMessageLog{
+	
+	font-size: 200%;
+	text-align: center;
+	line-height: 200%;
+}
+
+.errorMessageRedBG{
+	background-color: red;
+}
+
+.errorMessageGreenBG{
+	background-color: green;
+}
+
+.settingsUl
+{
+	list-style: none;
+}
+
+.settingsUl li
+{
+	padding: 10px;
+}
+
+.deleteIconPosition{
+	position: relative;
+	cursor: pointer;
+}
+
+.backgroundForSideBarMenu::-webkit-scrollbar {
+	width: 1px;
+	
+}
+
+#fullScreenMenu
+{
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 25;
+}
+
+.fullScreenMenuUL li:not(.menuTitle)
+{
+  cursor: pointer;
+}
+
+.settingsUlFS 
+{
+  width: 200px;
+  position: absolute;
+  bottom: 0;
+  top: 46px;
+  left: 0;
+  -webkit-padding-start: 0;
+  -webkit-margin-before: 0;
+  -webkit-margin-after: 0;
+  -moz-padding-start: 0;
+  -moz-margin-before: 0;
+  -moz-margin-after: 0;
+  overflow: auto;
+  margin: 0;
+}
+
+.settingsUlSub
+{
+  width: 200px;
+  position: absolute;
+  bottom: 0;
+  top: 46px;
+  left: 201;
+  -webkit-padding-start: 0;
+  -webkit-margin-before: 0;
+  -webkit-margin-after: 0;
+  -moz-padding-start: 0;
+  -moz-margin-before: 0;
+  -moz-margin-after: 0;
+  overflow: auto;
+  margin: 0;
+}
+
+#mainContentFullScreenMenu
+{
+  position: absolute;
+  bottom: 0;
+  top: 46px;
+  left: 402px;
+  right: 0;
+  overflow: auto;
+}
+
+.SaveGroupLog .settingsDiv
+{
+  filter: invert(35%);
+  opacity: 0.5;
+}
