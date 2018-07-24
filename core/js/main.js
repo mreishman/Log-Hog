@@ -3425,10 +3425,10 @@ function generateWindowDisplay()
 			}
 		}
 		logDisplayHtml += "</tr>";
-		borderPadding = newBorderPadding;
-		logDisplayArrayOld = logDisplayArray;
-		logDisplayArray = newLogDisplayArray;
 	}
+	borderPadding = newBorderPadding;
+	logDisplayArrayOld = logDisplayArray;
+	logDisplayArray = newLogDisplayArray;
 	document.getElementById("log").innerHTML = ""+logDisplayHtml+"";
 	if(windowDisplayConfigColCount > 1 || windowDisplayConfigRowCount > 1)
 	{
@@ -3457,7 +3457,7 @@ function generateWindowDisplay()
 		else if(logSwitchKeepCurrent === "onlyIfPresetDefined")
 		{
 			//Check for preset before unselect
-			if(false)
+			if(logSwitchABCClearAll === "true")
 			{
 				unselectAllLogs();
 			}
