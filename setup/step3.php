@@ -70,7 +70,7 @@ require_once('../core/php/loadVars.php'); ?>
 		location.reload();
 	}
 	var titleOfPage = "Welcome";
-	var popupSettingsArray = JSON.parse('<?php echo json_encode($popupSettingsArray) ?>');
+	var popupSettingsArray = JSON.parse(<?php echo json_encode($popupSettingsArray) ?>);
 	var countOfAddedFiles = 0;
 	var countOfClicks = 0;
 	var locationInsert = "newRowLocationForWatchList";
