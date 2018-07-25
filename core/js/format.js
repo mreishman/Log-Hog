@@ -113,12 +113,17 @@ function dateTimeFormat(dateTextArray)
 	}
 
 	var newConfDate = "Invalid Date";
-	if(timeFormat === 1 || timeFormat === 2)
+	console.log(timeFormat);
+	if(timeFormat === 0 || timeFormat === 1)
 	{
 		newConfDate = new Date(justDateText);
+		if(String(newConfDate) === "Invalid Date")
+		{
+			justDateText = justDateText.replace(/[A-Z]/," ");
+			newConfDate = new Date(justDateText);
+		}
 	}
-
-	if(newConfDate !== "Invalid Date")
+	if(String(newConfDate) !== "Invalid Date")
 	{
 		var hours = newConfDate.getHours();
 		if(hours < 10)
