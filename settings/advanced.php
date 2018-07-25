@@ -141,75 +141,9 @@ $countConfig--;
 			</ul>
 		</div>
 	</form>
-	<form id="pollAdvanced">
-		<div class="settingsHeader">
-			Advanced Poll Settings  
-			<div class="settingsHeaderButtons">
-				<?php echo addResetButton("pollAdvanced"); ?>
-				<a class="linkSmall" onclick="saveAndVerifyMain('pollAdvanced');" >Save Changes</a>
-			</div>
-		</div>
-		<div class="settingsDiv" >
-			<ul class="settingsUl">
-				<li>
-					<span class="settingsBuffer"> Poll refresh all data every </span>
-					<input type="number" pattern="[0-9]*" style="width: 100px;"  name="pollRefreshAll" value="<?php echo $pollRefreshAll;?>" > 
-					poll requests
-					<div class="selectDiv">
-						<select name="pollRefreshAllBool">
-	  						<option <?php if($pollRefreshAllBool == 'true'){echo "selected";} ?> value="true">True</option>
-	  						<option <?php if($pollRefreshAllBool == 'false'){echo "selected";} ?> value="false">False</option>
-						</select>
-					</div>
-				</li>
-				<li>
-					<span class="settingsBuffer"> Force poll refresh after </span>
-					<input type="number" pattern="[0-9]*" style="width: 100px;"  name="pollForceTrue" value="<?php echo $pollForceTrue;?>" > 
-					skipped poll requests
-					<div class="selectDiv">
-						<select name="pollForceTrueBool">
-	  						<option <?php if($pollForceTrueBool == 'true'){echo "selected";} ?> value="true">True</option>
-	  						<option <?php if($pollForceTrueBool == 'false'){echo "selected";} ?> value="false">False</option>
-						</select>
-					</div>
-				</li>
-				<li>
-					<span class="settingsBuffer"> System preference:</span>
-					<div class="selectDiv">
-						<select name="shellOrPhp">
-  							<option <?php if($shellOrPhp == 'shellPreferred'){echo "selected";} ?> value="shellPreferred">Shell Preferred</option>
-  							<option <?php if($shellOrPhp == 'phpPreferred'){echo "selected";} ?> value="phpPreferred">Php Preferred</option>
-  							<option <?php if($shellOrPhp == 'shellOnly'){echo "selected";} ?> value="shellOnly">Shell Only</option>
-  							<option <?php if($shellOrPhp == 'phpOnly'){echo "selected";} ?> value="phpOnly">Php Only</option>
-						</select>
-					</div>
-				</li>
-				<li>
-					<span class="settingsBuffer"> Line count from:</span>
-					<div class="selectDiv">
-						<select name="lineCountFromJS">
-	  						<option <?php if($lineCountFromJS == 'true'){echo "selected";} ?> value="true">JS</option>
-	  						<option <?php if($lineCountFromJS == 'false'){echo "selected";} ?> value="false">PHP</option>
-						</select>
-					</div>
-					<br>
-					<span style="font-size: 75%;">
-						<?php echo generateImage(
-							$arrayOfImages["info"],
-							array(
-								"style"			=>	"margin-bottom: -4px;",
-								"height"		=>	"20px",
-								"srcModifier"	=>	"../"
-							)
-						); ?> 
-						<i>PHP method is more accurate, but will increase poll times</i></span>
-				</li>
-			</ul>
-		</div>
-	</form>
 	<form id="loggingDisplay">
 		<div class="settingsHeader">
-			Logging Information 
+			Logging Information
 			<div class="settingsHeaderButtons">
 				<?php echo addResetButton("loggingDisplay");
 				if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
@@ -250,23 +184,6 @@ $countConfig--;
 						</select>
 					</div>
 				</li>
-			</ul>
-		</div>
-	</form>
-	<form id="jsPhpSend">
-		<div class="settingsHeader">
-			Error / Crash Info
-			<div class="settingsHeaderButtons"> 
-				<?php echo addResetButton("jsPhpSend");
-				if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
-					<a class="linkSmall" onclick="saveAndVerifyMain('jsPhpSend');" >Save Changes</a>
-				<?php else: ?>
-					<button  onclick="displayLoadingPopup();">Save Changes</button>
-				<?php endif; ?>
-			</div>
-		</div>
-		<div class="settingsDiv" >
-			<ul class="settingsUl">
 				<li>
 					Send anonymous information about javascript errors/crashes:
 					<div class="selectDiv">
@@ -276,7 +193,7 @@ $countConfig--;
 						</select>
 					</div>
 				</li>
-				<li>
+				<li style="display: none;" >
 					Send anonymous information about php errors/crashes:
 					<div class="selectDiv">
 						<select name="sendCrashInfoPHP">
@@ -285,7 +202,6 @@ $countConfig--;
 						</select>
 					</div>
 				</li>
-				<img src="../core/img/exampleErrorJS.png" height="200px;">
 			</ul>
 		</div>
 	</form>
@@ -332,7 +248,7 @@ $countConfig--;
 								"height"		=>	"20px",
 								"srcModifier"	=>	"../"
 							)
-						); ?> 
+						); ?>
 						<i>Please specify full url, blank if none</i></span>
 				</li>
 			</ul>
@@ -350,6 +266,8 @@ $countConfig--;
 					<a onclick="revertPopup();" class="link">Revert Version</a>
 					<span> | </span>
 					<a onclick="resetUpdateNotification();" class="link">Reset Update Notification</a>
+					<span> | </span>
+					<a class="link" href="editFiles.php" >View Files</a>
 				</li>
 			</ul>
 		</div>

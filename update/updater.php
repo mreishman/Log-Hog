@@ -146,6 +146,9 @@ if(count($arrayOfVersions) === 0)
 			<?php endif; ?>
 		<?php else: ?>
 			<h1>There are no updates</h1>
+			<script type="text/javascript">
+				setTimeout(function(){ window.location.href = "../settings/whatsNew.php"; }, 3000);
+			</script>
 		<?php endif; ?>
 		</span>
 		<div id="menu" style="margin-right: auto; margin-left: auto; position: relative; display: none;">
@@ -202,7 +205,7 @@ if(count($arrayOfVersions) === 0)
 	{
 		if(update === "1")
 		{
-			pickNextAction();
+			downloadBranch();
 		}
 		else
 		{
@@ -214,69 +217,16 @@ if(count($arrayOfVersions) === 0)
 	function updateProgressBar(additonalPercent)
 	{
 		percent = percent + additonalPercent;
-		document.getElementById('progressBar').value = percent/total*100;
-		if(percent/total*100 > 100)
+		if(percent > total)
 		{
-			document.getElementById('progressBar').value = ((percent/total*100)-100);
+			percent = percent - total;
 		}
+		document.getElementById('progressBar').value = percent/total*100;
 	}
-
 
 	function updateText(text)
 	{
 		document.getElementById('innerSettingsText').innerHTML = "<p>"+text+"</p>"+document.getElementById('innerSettingsText').innerHTML;
-	}
-
-	function pickNextAction()
-	{
-		if(updateStatus == "Downloading Zip Files For ")
-		{
-			downloadBranch();
-		}
-		else if(updateStatus == "Extracting Zip Files For ")
-		{
-			//already downloaded, verify download then extract
-			document.getElementById('innerDisplayUpdate').innerHTML = settingsForBranchStuff['versionList'][versionToUpdateTo]['releaseNotes'];
-			updateProgressBar(10);
-			unzipBranch();
-		}
-		else if(updateStatus == 'preUpgrade Scripts')
-		{
-			document.getElementById('innerDisplayUpdate').innerHTML = settingsForBranchStuff['versionList'][versionToUpdateTo]['releaseNotes'];
-			updateProgressBar(20);
-			preScriptRun();
-		}
-		else if(updateStatus == 'Copying Files')
-		{
-			downloadBranch();
-		}
-		else if(updateStatus == 'postUpgrade Scripts')
-		{
-			document.getElementById('innerDisplayUpdate').innerHTML = settingsForBranchStuff['versionList'][versionToUpdateTo]['releaseNotes'];
-			updateProgressBar(75);
-			postScriptRun();
-		}
-		else if(updateStatus == "Removing Extracted Files")
-		{
-			//remove extracted files
-			document.getElementById('innerDisplayUpdate').innerHTML = settingsForBranchStuff['versionList'][versionToUpdateTo]['releaseNotes'];
-			updateProgressBar(80);
-			removeExtractedDir();
-		}
-		else if(updateStatus == "Removing Zip File")
-		{
-			updateProgressBar(90);
-			document.getElementById('innerDisplayUpdate').innerHTML = settingsForBranchStuff['versionList'][versionToUpdateTo]['releaseNotes'];
-			//remove zip
-			removeDownloadedZip();
-		}
-		else if(updateStatus == "finishedUpdate")
-		{
-			updateProgressBar(98);
-			document.getElementById('innerDisplayUpdate').innerHTML = settingsForBranchStuff['versionList'][versionToUpdateTo]['releaseNotes'];
-			finishedUpdate();
-		}
-
 	}
 
 	function updateStatusFunc(updateStatusInner, actionLocal, percentToSave = (document.getElementById('progressBar').value))
@@ -981,7 +931,7 @@ if(count($arrayOfVersions) === 0)
 
 	function finishedUpdateAfterAjaxSetToOneHundred()
 	{
-		updateProgressBar(99);
+		updateProgressBar(0.5);
 		updateStatusFunc("Finished Updating to ","finishedUpdate",100);
 		retryCount = 0;
 		verifyCountSuccess = 0;
@@ -1063,10 +1013,4 @@ if(count($arrayOfVersions) === 0)
 	
 </script> 
 
-<?php
-if($newestVersionCheck == $versionCheck)
-{
-	file_put_contents("../core/php/updateProgressLog.php", "<p> Loading update file list. </p>");
-}
-?>
 </html>

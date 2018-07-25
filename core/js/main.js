@@ -20,7 +20,8 @@ var lastLogs = {};
 var logLines = {};
 var logs = {};
 var logsToHide = new Array();
-var pausePoll = false;
+var notifications = new Array();
+var pausePollCurrentSession = false;
 var percent = 0;
 var polling = false;
 var pollRefreshAllBoolStatic = pollRefreshAllBool;
@@ -37,6 +38,7 @@ var t3 = performance.now();
 var timeoutVar = null;
 var timer;
 var titles = {};
+var updateFromID = "settingsInstallUpdate";
 var updating = false;
 var userPaused = false;
 var title = $("title").text();
@@ -254,29 +256,48 @@ function pollTwo()
 			type: "POST",
 			success(data)
 			{
-				counterForPollForceRefreshErr = 0;
-				if(document.getElementById("noticeBar").style.display !== "none")
+				if(document.getElementById("noLogToDisplay").style.display !== "none")
 				{
-					document.getElementById("noticeBar").style.display = "none";
+					document.getElementById("noLogToDisplay").style.display = "none";
 				}
-				if(data === false)
-				{
-					showPopup();
-					document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class='settingsHeader' >Log-Hog has been updated. Please Refresh</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Log-Hog has been updated, and is now on a new version. Please refresh the page.</div><div><div class='link' onclick='location.reload();' style='margin-left:165px; margin-right:50px;margin-top:35px;'>Reload</div></div>";
-					clearPollTimer()
-				}
-				else if(data === "update in progress")
+				if(data === "error in file permissions")
 				{
 					clearPollTimer()
-					window.location.href = "update/updateInProgress.php";
+					window.location.href = "error.php?error=550&page=pollCheck.php";
 				}
 				else
 				{
-					fileData = data;
-					pollTwoPartTwo(data);
-					if(lineCountFromJS === "false")
+					counterForPollForceRefreshErr = 0;
+					if(document.getElementById("noticeBar").style.display !== "none")
 					{
-						updatePollLineDiff(data);
+						document.getElementById("noticeBar").style.display = "none";
+					}
+					if(data === false)
+					{
+						showPopup();
+						document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class='settingsHeader' >Log-Hog has been updated. Please Refresh</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Log-Hog has been updated, and is now on a new version. Please refresh the page.</div><div><div class='link' onclick='location.reload();' style='margin-left:165px; margin-right:50px;margin-top:35px;'>Reload</div></div>";
+						clearPollTimer()
+					}
+					else if(data === "update in progress")
+					{
+						clearPollTimer()
+						window.location.href = "update/updateInProgress.php";
+					}
+					else if(data == [])
+					{
+						if(document.getElementById("noLogToDisplay").style.display !== "block")
+						{
+							document.getElementById("noLogToDisplay").style.display = "block";
+						}
+					}
+					else
+					{
+						fileData = data;
+						pollTwoPartTwo(data);
+						if(lineCountFromJS === "false")
+						{
+							updatePollLineDiff(data);
+						}
 					}
 				}
 			},
@@ -573,12 +594,17 @@ function firstLoadEndAction()
 
 function pollTimeLogEndAction()
 {
+	pollRateCalc = pollingRate;
+	if(pollingRateType === "Seconds")
+	{
+		pollRateCalc *= 1000;
+	}
 	t1 = performance.now();
-	document.getElementById("loggingTimerPollRate").innerText = "Ajax refresh took    "+addPaddingToNumber(Math.round(t2 - t0))+":"+addPaddingToNumber(Math.round(t3 - t2),2)+":"+addPaddingToNumber(Math.round(t1 - t3))+"    " + addPaddingToNumber(Math.round(t1 - t0)) + "/" + addPaddingToNumber(pollingRate) +"("+addPaddingToNumber(parseInt(pollingRate)*counterForPoll)+") milliseconds.";
+	document.getElementById("loggingTimerPollRate").innerText = "Ajax refresh took    "+addPaddingToNumber(Math.round(t2 - t0))+":"+addPaddingToNumber(Math.round(t3 - t2),2)+":"+addPaddingToNumber(Math.round(t1 - t3))+"    " + addPaddingToNumber(Math.round(t1 - t0)) + "/" + addPaddingToNumber(pollRateCalc) +"("+addPaddingToNumber(parseInt(pollRateCalc)*counterForPoll)+") milliseconds.";
 	document.getElementById("loggingTimerPollRate").style.color = "";
 	counterForPoll = 0;
 	var time = Math.round(t1-t0);
-	var rate = parseInt(pollingRate);
+	var rate = parseInt(pollRateCalc);
 	if(time > rate)
 	{
 		if(time > (2*rate))
@@ -642,10 +668,10 @@ function pausePollAction()
 {
 	try
 	{
-		if(pausePoll)
+		if(pausePollCurrentSession)
 		{
 			userPaused = false;
-			pausePoll = false;
+			pausePollCurrentSession = false;
 			showPauseButton();
 			if(pollTimer === null)
 			{
@@ -695,7 +721,7 @@ function endRefreshAction()
 		}
 		showRefreshButton(); 
 		refreshing = false;
-		if(pausePoll)
+		if(pausePollCurrentSession)
 		{
 			updateDocumentTitle("Paused");
 		}
@@ -727,6 +753,11 @@ function update(data)
 		for(var i = 0; i !== stop; i++)
 		{
 			var name = files[i];
+			if((!(name in data)) || typeof(data[name]) === 'undefined')
+			{
+				hideLogByName(name);
+				continue;
+			}
 			var logData = data[name]["log"];
 			var selectListForFilter = document.getElementsByName("searchType")[0];
 			var selectedListFilterType = selectListForFilter.options[selectListForFilter.selectedIndex].value;
@@ -734,7 +765,6 @@ function update(data)
 			var showFile = false;
 			shortName = files[i].replace(/.*\//g, "");
 			id = name.replace(/[^a-z0-9]/g, "");
-			
 
 			var filterOffOf = "";
 			if(selectedListFilterType === "title")
@@ -897,7 +927,7 @@ function update(data)
 							item = blank;
 							item = item.replace(/{{title}}/g, nameForLog);
 							item = item.replace(/{{id}}/g, id);
-							if(groupByColorEnabled === true)
+							if(groupByColorEnabled === "true")
 							{
 								classInsert += " buttonColor"+(folderNameCount+1)+" ";
 							}
@@ -914,12 +944,15 @@ function update(data)
 							{
 								var moveToFrontOnUpdate = false;
 								var innerCount = i;
-								for (var j = filesNew.length - 1; j >= 0; j--)
+								if(filesNew.length > 0)
 								{
-									if(filesNew[j] === files[i])
+									for (var j = filesNew.length - 1; j >= 0; j--)
 									{
-										innerCount = j;
-										break;
+										if(filesNew[j] === files[i])
+										{
+											innerCount = j;
+											break;
+										}
 									}
 								}
 								var innerCountStatic = innerCount;
@@ -944,7 +977,6 @@ function update(data)
 									}
 								}
 							}
-
 							if(!itemAdded)
 							{
 								menu.append(item);
@@ -1118,7 +1150,7 @@ function update(data)
 						
 						if(initialized && updated && $(window).filter(":focus").length === 0) 
 						{
-							if(flashTitleUpdateLog)
+							if(flashTitleUpdateLog === "true")
 							{
 								flashTitle();
 							}
@@ -1559,6 +1591,7 @@ function removeLogByName(name)
 			$("#menu ." + idOfName + "Button").remove();
 		}
 		removeFromMultiLog(idOfName);
+		resize();
 	}
 	catch(e)
 	{
@@ -1572,44 +1605,43 @@ function fadeHighlight(id)
 	setTimeout(function(){ removeNewHighlights("#log"+id); }, 30);
 }
 
-function show(e, id) 
+function show(e, id)
 {
 	try
 	{
-		$("#log"+currentSelectWindow).hide();
-		$("#log"+currentSelectWindow+"load").show();
+		var internalID = id;
+		var currentCurrentSelectWindow = currentSelectWindow;
+		$("#log"+currentCurrentSelectWindow).hide();
+		$("#log"+currentCurrentSelectWindow+"load").show();
 		resize();
-
 		$(e).siblings().removeClass("active");
-		var windowNumInTitle = $("#"+id+"CurrentWindow").html();
+		var windowNumInTitle = $("#"+internalID+"CurrentWindow").html();
 		if(windowNumInTitle !== "")
 		{
 			windowNumInTitle = windowNumInTitle + "0";
 			var windowNumAsNum = parseInt(windowNumInTitle);
 			$("#log"+(windowNumAsNum-1)).html("");
 		}
-		$("#log"+currentSelectWindow).html(makePretty(id));
-		fadeHighlight(currentSelectWindow);
 		//window number clear
 		$('.currentWindowNum').each(function(i, obj)
 		{
-			if(obj.innerHTML ==  ""+(currentSelectWindow+1)+". ")
+			if(obj.innerHTML ==  ""+(currentCurrentSelectWindow+1)+". ")
 			{
 				obj.innerHTML = "";
 			}
 		});
 		//window number add
-		$("#"+id+"CurrentWindow").html(""+(currentSelectWindow+1)+". ");
-		currentPage = id;
-		logDisplayArray[currentSelectWindow]["id"] = id;
+		$("#"+internalID+"CurrentWindow").html(""+(currentCurrentSelectWindow+1)+". ");
+		currentPage = internalID;
+		logDisplayArray[currentCurrentSelectWindow]["id"] = internalID;
 		var windows = Object.keys(logDisplayArray);
 		var lengthOfWindows = windows.length;
+		var logsCheck = Object.keys(logs);
+		var lengthOfLogsCheck = logsCheck.length;
 		for(var i = 0; i < lengthOfWindows; i++)
 		{
 			if(logDisplayArray[i]["id"] !== null)
 			{
-				var logsCheck = Object.keys(logs);
-				var lengthOfLogsCheck = logsCheck.length;
 				for(var j = 0; j < lengthOfLogsCheck; j++)
 				{
 					if(logDisplayArray[i]["id"] === logsCheck[j])
@@ -1619,20 +1651,52 @@ function show(e, id)
 				}
 			}
 		}
-		$("#title"+currentSelectWindow).html(titles[id]);
+		$("#title"+currentCurrentSelectWindow).html(titles[internalID]);
+		setTimeout(function() {
+			showPartTwo(e, internalID, currentCurrentSelectWindow);
+		}, 2);
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
 
-		$("#log"+currentSelectWindow+"load").hide();
-		$("#log"+currentSelectWindow).show();
+function showPartTwo(e, internalID, currentCurrentSelectWindow)
+{
+	try
+	{
+		var formattedHtml = "";
+		if(logs[internalID].indexOf("errorMessageLog errorMessageRedBG") > -1 || logs[id].indexOf("errorMessageLog errorMessageGreenBG") > -1)
+		{
+			formattedHtml = logs[internalID];
+		}
+		else
+		{
+			formattedHtml = makePretty(internalID);
+		}
+		$("#log"+currentCurrentSelectWindow).html(formattedHtml);
+		fadeHighlight(currentCurrentSelectWindow);
+		setTimeout(function() {
+			showPartThree(e, internalID, currentCurrentSelectWindow);
+		}, 2);
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
 
-		resize();
-
-		document.getElementById("log"+currentSelectWindow+"Td").scrollTop = $("#log"+currentSelectWindow).outerHeight();
+function showPartThree(e, internalID, currentCurrentSelectWindow)
+{
+	try
+	{
+		$("#log"+currentCurrentSelectWindow+"load").hide();
+		$("#log"+currentCurrentSelectWindow).show();
+		scrollToBottom(currentCurrentSelectWindow);
 		toggleNotificationClearButton();
-		removeNotificationByLog(id);
-
-		
-		resize();
-
+		removeNotificationByLog(internalID);
+		//below function does resize
 		toggleGroupedGroups();
 	}
 	catch(e)
@@ -1694,7 +1758,11 @@ function getDiffLogAndLastLog(id)
 				var lastStart = lengthOfLastArray-1;
 				while(j >= 0 && returnNewNum)
 				{
-					if(tmpTextLog[j].trim() !== tmpTextLast[lastStart].trim())
+					if(!(j in tmpTextLog))
+					{
+						returnNewNum = false;
+					}
+					else if(tmpTextLog[j].trim() !== tmpTextLast[lastStart].trim())
 					{
 						returnNewNum = false;
 					}
@@ -1733,10 +1801,15 @@ function makePretty(id)
 			count = 0;
 		}
 		text = text.split("\n");
+		if(text.length < 2)
+		{
+			text = text[0].split("\\n");
+		}
 		var returnText = "";
 		var lengthOfTextArray = text.length;
 		var selectListForFilter = document.getElementsByName("searchType")[0];
 		var selectedListFilterType = selectListForFilter.options[selectListForFilter.selectedIndex].value;
+		filterContentLinePadding = parseInt(filterContentLinePadding);
 		var bottomPadding = filterContentLinePadding;
 		var topPadding = filterContentLinePadding;
 		var foundOne = false;
@@ -1790,31 +1863,36 @@ function makePretty(id)
 			}
 			if(addLine)
 			{
-				var customClass = " class = '";
-				var customClassAdd = false;
-				if(highlightNew === "true" && ((i + count + 1) > lengthOfTextArray))
+				var lineText = text[i].split("\\n");
+				var lengthOflineTextArray = lineText.length;
+				for (var j = 0; j < lengthOflineTextArray; j++)
 				{
-					customClass += " newLine ";
-					customClassAdd = true;
-				}
-
-				if(selectedListFilterType === "content" && filterContentHighlight === "true" && getFilterTextField() !== "")
-				{
-					//check if match, and if supposed to highlight
-					if(filterContentCheck(text[i]))
+					var customClass = " class = '";
+					var customClassAdd = false;
+					if(highlightNew === "true" && ((i + count + 1) > lengthOfTextArray))
 					{
-						customClass += " highlight ";
+						customClass += " newLine ";
 						customClassAdd = true;
 					}
-				}
 
-				customClass += " '";
-				returnText += "<div ";
-				if(customClassAdd)
-				{
-					returnText += " "+customClass+" ";
+					if(selectedListFilterType === "content" && filterContentHighlight === "true" && getFilterTextField() !== "")
+					{
+						//check if match, and if supposed to highlight
+						if(filterContentCheck(lineText[j]))
+						{
+							customClass += " highlight ";
+							customClassAdd = true;
+						}
+					}
+
+					customClass += " '";
+					returnText += "<div ";
+					if(customClassAdd)
+					{
+						returnText += " "+customClass+" ";
+					}
+					returnText += " >"+lineText[j]+"</div>";
 				}
-				returnText += " >"+text[i]+"</div>";
 			}
 		}
 		
@@ -1965,13 +2043,23 @@ function startPollTimer()
 {
 	/* Dont try catch visibility  */
 
-	if(pausePollOnNotFocus === true || pausePollOnNotFocus === "true")
+	pollRateCalc = pollingRate;
+	if(pollingRateType === "Seconds")
 	{
-		pollTimer = setInterval(poll, pollingRate);
+		pollRateCalc *= 1000;
+	}
+	if(pauseOnNotFocus === "true")
+	{
+		pollTimer = setInterval(poll, pollRateCalc);
 	}
 	else
 	{
-		pollTimer = Visibility.every(pollingRate, backgroundPollingRate, function () { poll(); });
+		var bgPollRateCalc = backgroundPollingRate;
+		if(backgroundPollingRateType === "Seconds")
+		{
+			bgPollRateCalc *= 1000;
+		}
+		pollTimer = Visibility.every(pollRateCalc, bgPollRateCalc, function () { poll(); });
 	}
 }
 
@@ -1979,7 +2067,7 @@ function clearPollTimer()
 {
 	/* Dont try catch visibility  */
 	
-	if(pausePollOnNotFocus === true || pausePollOnNotFocus === "true")
+	if(pauseOnNotFocus === "true")
 	{
 		clearInterval(pollTimer);
 	}
@@ -1992,19 +2080,29 @@ function clearPollTimer()
 
 function switchPollType()
 {
-	if(pausePollOnNotFocus === true || pausePollOnNotFocus === "true")
+	pollRateCalc = pollingRate;
+	if(pollingRateType === "Seconds")
+	{
+		pollRateCalc *= 1000;
+	}
+	if(pauseOnNotFocus === "true")
 	{
 		clearInterval(pollTimer);
-		pausePollOnNotFocus = false;
-		pollTimer = Visibility.every(pollingRate, backgroundPollingRate, function () { poll(); });
+		pauseOnNotFocus = "false";
+		var bgPollRateCalc = backgroundPollingRate;
+		if(backgroundPollingRateType === "Seconds")
+		{
+			bgPollRateCalc *= 1000;
+		}
+		pollTimer = Visibility.every(pollRateCalc, bgPollRateCalc, function () { poll(); });
 		showPopup();
 		document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Toggled off!</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Toggled off auto pause in background</div></div>";
 	}
 	else
 	{
 		Visibility.stop(pollTimer);
-		pausePollOnNotFocus = true;
-		pollTimer = setInterval(poll, pollingRate);
+		pauseOnNotFocus = "true";
+		pollTimer = setInterval(poll, pollRateCalc);
 		showPopup();
 		document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Toggled on!</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Toggled on auto pause in background</div></div>";
 	}
@@ -2023,10 +2121,10 @@ function checkIfPageHidden()
 {
 	try
 	{
-		if(isPageHidden() && pausePollOnNotFocus)
+		if(isPageHidden() && pauseOnNotFocus === "true")
 		{
 			//hidden
-			if(!pausePoll)
+			if(!pausePollCurrentSession)
 			{
 				pausePollFunction();
 			}
@@ -2034,9 +2132,9 @@ function checkIfPageHidden()
 		}
 
 		//not hidden
-		if(!userPaused && pausePoll)
+		if(!userPaused && pausePollCurrentSession)
 		{
-			pausePoll = false;
+			pausePollCurrentSession = false;
 			showPauseButton();
 			stopFlashTitle();
 			if(pollTimer === null)
@@ -2062,7 +2160,7 @@ function pausePollFunction()
 {
 	try
 	{
-		pausePoll = true;
+		pausePollCurrentSession = true;
 		showPlayButton();
 		updateDocumentTitle("Paused");
 		if(pollTimer !== null)
@@ -2131,7 +2229,11 @@ function deleteAction()
 {
 	try
 	{
-		if(popupSettingsArray.deleteLog == "true")
+		if (typeof popupSettingsArray === 'string')
+		{
+			popupSettingsArray = JSON.parse(popupSettingsArray);
+		}
+		if("deleteLog" in popupSettingsArray && popupSettingsArray.deleteLog == "true")
 		{
 			showPopup();
 			document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class=\"settingsHeader\" >Are you sure you want to clear all logs?</div><br><div style=\"width:100%;text-align:center;padding-left:10px;padding-right:10px;\"></div><div><div class=\"link\" onclick=\"deleteActionAfter();hidePopup();\" style=\"margin-left:125px; margin-right:50px;margin-top:35px;\">Yes</div><div onclick=\"hidePopup();\" class=\"link\">No</div></div>";
@@ -2191,7 +2293,11 @@ function deleteLogPopupInner(title)
 	title = filterTitle(title);
 	if(title !== "")
 	{
-		if(popupSettingsArray.deleteLog == "true")
+		if (typeof popupSettingsArray === 'string')
+		{
+			popupSettingsArray = JSON.parse(popupSettingsArray);
+		}
+		if("deleteLog" in popupSettingsArray && popupSettingsArray.deleteLog == "true")
 		{
 			showPopup();
 			document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class=\"settingsHeader\" >Are you sure you want to delete this log?</div><br><div style=\"width:100%;text-align:center;padding-left:10px;padding-right:10px;\">"+title+"</div><div><div class=\"link\" onclick=\"deleteLog('"+title+"');hidePopup();\" style=\"margin-left:125px; margin-right:50px;margin-top:35px;\">Yes</div><div onclick=\"hidePopup();\" class=\"link\">No</div></div>";
@@ -2248,9 +2354,9 @@ function checkForUpdateMaybe()
 {
 	try
 	{
-		if (autoCheckUpdate == true)
+		if (autoCheckUpdate == "true")
 		{
-			if(daysSinceLastCheck > (daysSetToUpdate - 1))
+			if(daysSinceLastCheck > (autoCheckDaysUpdate - 1))
 			{
 				daysSinceLastCheck = -1;
 				checkForUpdates("","Log-Hog", currentVersion, "settingsInstallUpdate", false, dontNotifyVersion);
@@ -2497,6 +2603,10 @@ function possiblyUpdateFromFilter()
 
 function toggleNotifications()
 {
+	if(document.getElementById("fullScreenMenu").style.display !== "none")
+	{
+		toggleFullScreenMenu();
+	}
 	if(document.getElementById("notifications").style.display === "inline-block")
 	{
 		document.getElementById("notifications").style.display = "none";
@@ -2557,6 +2667,7 @@ function formatAMPM(date)
 function displayNotifications(notificationsArray)
 {
 	clearAllNotifications();
+	var htmlForNotifications = "<span style=\"overflow: auto; max-height: 300px; display: block;\" >";
 	for (var i = notificationsArray.length - 1; i >= 0; i--)
 	{
 		var blank;
@@ -2582,8 +2693,10 @@ function displayNotifications(notificationsArray)
 		{
 			item = item.replace(/{{image}}/g, notificationsArray[i]['image']);
 		}
-		$("#notificationHolder").append(item);
+		htmlForNotifications += item;
 	}
+	htmlForNotifications += "</span>";
+	$("#notificationHolder").append(htmlForNotifications);
 	$("#notificationHolder").append($("#storage .notificationButtons").html());
 }
 
@@ -2626,13 +2739,17 @@ function removeNotification(idToRemove)
 function updateNotificationCount()
 {
 	var currentCount = notifications.length;
-	$("#notificationCount").empty();
 	if(currentCount > 0)
 	{
 		if(currentCount < 10)
 		{
 			currentCount = "0" + currentCount;
 		}
+		if(document.getElementById("notificationCount").innerHTML == currentCount)
+		{
+			return;
+		}
+		$("#notificationCount").empty();
 		document.getElementById("notificationIcon").style.display = "block";
 		$("#notificationCount").append(currentCount);
 		document.getElementById("notificationCount").style.left = (document.getElementById("notificationDiv").getBoundingClientRect().left+5) + "px";
@@ -2642,6 +2759,7 @@ function updateNotificationCount()
 	}
 	else
 	{
+		$("#notificationCount").empty();
 		document.getElementById("notificationIcon").style.display = "none";
 	}
 }
@@ -2692,13 +2810,34 @@ function updateNotificationStuff()
 
 function toggleFullScreenMenu()
 {
+	if(document.getElementById("notifications").style.display === "inline-block")
+	{
+		toggleNotifications();
+	}
 	if(document.getElementById("fullScreenMenu").style.display === "none")
 	{
 		document.getElementById("fullScreenMenu").style.display = "block";
 		onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
+		if($("#menuStatusAddon").hasClass("selected"))
+		{
+			$("#menuStatusAddon").click();
+		}
+		else if($("#menuMonitorAddon").hasClass("selected"))
+		{
+			$("#menuMonitorAddon").click();
+		}
+		else if ($("#menuSearchAddon").hasClass("selected"))
+		{
+			$("#menuSearchAddon").click();
+		}
+		else if ($("#menuSeleniumMonitorAddon").hasClass("selected"))
+		{
+			$("#menuSeleniumMonitorAddon").click();
+		}
 	}
 	else
 	{
+		hideIframeStuff();
 		document.getElementById("fullScreenMenu").style.display = "none";
 	}
 }
@@ -2706,10 +2845,9 @@ function toggleFullScreenMenu()
 function toggleUpdateMenu()
 {
 	hideMainStuff();
+	document.getElementById("mainContentFullScreenMenu").style.left = ""+201+"px";
 	document.getElementById("fullScreenMenuUpdate").style.display = "block";
 	$("#mainMenuUpdate").addClass("selected");
-	document.getElementById("updateSubMenu").style.display = "block";
-	$("#settingsSubMenuUpdate").addClass("selected");
 	arrayOfScrollHeaderUpdate = ["updateUpdate","updateReleaseNotes"];
 	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
 }
@@ -2718,6 +2856,8 @@ function toggleAbout()
 {
 	hideAboutStuff();
 	hideMainStuff();
+	hideIframeStuff();
+	document.getElementById("mainContentFullScreenMenu").style.left = ""+402+"px";
 	document.getElementById("aboutSubMenu").style.display = "block";
 	$("#mainMenuAbout").addClass("selected");
 	toggleAboutLogHog();
@@ -2753,7 +2893,6 @@ function toggleChangeLog()
 function hideUpdateStuff()
 {
 	document.getElementById("fullScreenMenuUpdate").style.display = "none";
-	$("#settingsSubMenuUpdate").removeClass("selected");
 }
 
 function hideAboutStuff()
@@ -2764,6 +2903,27 @@ function hideAboutStuff()
 	$("#aboutSubMenuChangelog").removeClass("selected");
 	document.getElementById("fullScreenMenuWhatsNew").style.display = "none";
 	$("#aboutSubMenuWhatsNew").removeClass("selected");
+}
+
+function hideIframeStuff()
+{
+	document.getElementById("fullScreenMenuIFrame").style.display = "none";
+	$('#iframeFullScreen').prop('src', "");
+}
+
+function toggleIframe(locHref, idOfAddon)
+{
+	hideMainStuff();
+	$("#"+idOfAddon).addClass("selected");
+	document.getElementById("fullScreenMenuIFrame").style.display = "block";
+	document.getElementById("mainContentFullScreenMenu").style.left = ""+201+"px";
+	$('#iframeFullScreen').prop('src', locHref);
+	var mainContentRect = document.getElementById("mainContentFullScreenMenu").getBoundingClientRect();
+	document.getElementById("iframeFullScreen").style.width = ""+mainContentRect.width+"px";
+	document.getElementById("iframeFullScreen").style.height = ""+mainContentRect.height+"px";
+	arrayOfScrollHeaderUpdate = [];
+	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
+	return false;
 }
 
 function hideMainStuff()
@@ -2778,11 +2938,21 @@ function hideMainStuff()
 
 	if($("#mainMenuUpdate").hasClass("selected"))
 	{
-		document.getElementById("updateSubMenu").style.display = "none";
 		hideUpdateStuff();
 	}
 
 	$("#mainMenuUpdate").removeClass("selected");
+
+
+	if($("#menuStatusAddon").hasClass("selected") || $("#menuMonitorAddon").hasClass("selected") || $("#menuSearchAddon").hasClass("selected") || $("#menuSeleniumMonitorAddon").hasClass("selected"))
+	{
+		hideIframeStuff();
+	}
+
+	$("#menuStatusAddon").removeClass("selected");
+	$("#menuMonitorAddon").removeClass("selected");
+	$("#menuSearchAddon").removeClass("selected");
+	$("#menuSeleniumMonitorAddon").removeClass("selected");
 }
 
 function toggleGroupedGroups()
@@ -2796,12 +2966,17 @@ function toggleGroupedGroups()
 
 function onScrollShowFixedMiniBar(idsOfForms)
 {
-	if(idsOfForms.length < 1)
+	if(!document.getElementById("fixedPositionMiniMenu"))
 	{
 		return;
 	}
-	if(!document.getElementById("fixedPositionMiniMenu"))
+	if(idsOfForms.length < 1)
 	{
+		$("#fixedPositionMiniMenu").html("");
+		if(document.getElementById("fixedPositionMiniMenu").style.display !== "none")
+		{
+			document.getElementById("fixedPositionMiniMenu").style.display = "none";
+		}
 		return;
 	}
 	var dis = false;
@@ -2839,9 +3014,9 @@ $(document).ready(function()
 
 	refreshAction();
 
-	if(pausePollFromFile)
+	if(pausePoll === "true")
 	{
-		pausePoll = true;
+		pausePollCurrentSession = true;
 
 	}
 	else
@@ -2849,7 +3024,7 @@ $(document).ready(function()
 		startPollTimer();
 	}
 
-	if(pausePollOnNotFocus)
+	if(pauseOnNotFocus === "true")
 	{
 		startPauseOnNotFocus();
 	}

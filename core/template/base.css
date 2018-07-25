@@ -328,7 +328,11 @@ div.sidebarLeft {
   -webkit-padding-start: 0;
   -webkit-margin-before: 0;
   -webkit-margin-after: 0;
+  -moz-padding-start: 0;
+  -moz-margin-before: 0;
+  -moz-margin-after: 0;
   overflow: auto;
+  margin: 0;
 }
 
 .settingsUlSub
@@ -340,8 +344,12 @@ div.sidebarLeft {
   left: 201;
   -webkit-padding-start: 0;
   -webkit-margin-before: 0;
-  -webkit-margin-after: 0; 
+  -webkit-margin-after: 0;
+  -moz-padding-start: 0;
+  -moz-margin-before: 0;
+  -moz-margin-after: 0;
   overflow: auto;
+  margin: 0;
 }
 
 #mainContentFullScreenMenu
@@ -352,4 +360,10 @@ div.sidebarLeft {
   left: 402px;
   right: 0;
   overflow: auto;
+}
+
+.SaveGroupLog .settingsDiv
+{
+  filter: invert(35%);
+  opacity: 0.5;
 }
