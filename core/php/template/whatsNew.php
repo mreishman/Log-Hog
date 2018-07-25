@@ -192,220 +192,6 @@
 				?>
 			</td>
 		</tr>
-
-		<tr>
-			<th colspan="2" style="border-top: 1px solid white; padding: 10px">
-				<h1>3.6</h1>
-				<h3>Get Notified?</h3>
-			</th>
-		</tr>
-
-		<tr>
-			<td>
-				<ul>
-					<li>
-						Content filter quick settings
-					</li>
-					<li>
-						Internal Notifications
-					</li>
-					<li>
-						New Theme! (Terminal)
-					</li>
-				</ul>
-			</td>
-			<td>
-				<?php echo generateImage(
-					$arrayOfImages["loadingImg"],
-					$imageConfig = array(
-						"class"		=>	"whatsNewImage",
-						"style"		=>	"width: 45%;",
-						"data-src"	=>	$imageDirModifierAbout."core/img/3.6-1.png"
-						)
-					);
-				?>
-				<?php echo generateImage(
-					$arrayOfImages["loadingImg"],
-					$imageConfig = array(
-						"class"		=>	"whatsNewImage",
-						"style"		=>	"width: 45%;",
-						"data-src"	=>	$imageDirModifierAbout."core/img/3.6-2.png"
-						)
-					);
-				?>
-				<br>
-				<?php echo generateImage(
-					$arrayOfImages["loadingImg"],
-					$imageConfig = array(
-						"class"		=>	"whatsNewImage",
-						"style"		=>	"width: 45%;",
-						"data-src"	=>	$imageDirModifierAbout."core/img/3.6-3.png"
-						)
-					);
-				?>
-			</td>
-		</tr>
-
-		<tr>
-			<th colspan="2" style="border-top: 1px solid white; padding: 10px">
-				<h1>3.5</h1>
-				<h3>Settings Update 2</h3>
-			</th>
-		</tr>
-
-		<tr>
-			<td>
-				<ul>
-					<li>
-						New Theme! (Steampunk)
-					</li>
-					<li>
-						On hover option to change to full path for log titles
-					</li>
-					<li>
-						Highlights new lines of logs (for 1 sec) (with options to change color)
-					</li>
-					<li>
-						Added right click menus for log titles and pause icon
-					</li>
-				</ul>
-			</td>
-			<td>
-				<?php echo generateImage(
-					$arrayOfImages["loadingImg"],
-					$imageConfig = array(
-						"class"		=>	"whatsNewImage",
-						"style"		=>	"width: 45%;",
-						"data-src"	=>	$imageDirModifierAbout."core/img/3.5-1.png"
-						)
-					);
-				?>
-				<?php echo generateImage(
-					$arrayOfImages["loadingImg"],
-					$imageConfig = array(
-						"class"		=>	"whatsNewImage",
-						"style"		=>	"width: 45%;",
-						"data-src"	=>	$imageDirModifierAbout."core/img/3.5-2.png"
-						)
-					);
-				?>
-				<br>
-				<?php echo generateImage(
-					$arrayOfImages["loadingImg"],
-					$imageConfig = array(
-						"class"		=>	"whatsNewImage",
-						"style"		=>	"width: 45%;",
-						"data-src"	=>	$imageDirModifierAbout."core/img/3.5-3.png"
-						)
-					);
-				?>
-				<?php echo generateImage(
-					$arrayOfImages["loadingImg"],
-					$imageConfig = array(
-						"class"		=>	"whatsNewImage",
-						"style"		=>	"width: 45%;",
-						"data-src"	=>	$imageDirModifierAbout."core/img/3.5-4.png"
-						)
-					);
-				?>
-			</td>
-		</tr>
-
-		<tr>
-			<th colspan="2" style="border-top: 1px solid white; padding: 10px">
-				<h1>3.4</h1>
-				<h3>Still Searching</h3>
-			</th>
-		</tr>
-
-		<tr>
-			<td>
-				<ul>
-					<li>
-						Content filter for logs! (search and highlight content of logs)
-					</li>
-					<li>
-						Save custom themes!
-					</li>
-				</ul>
-			</td>
-			<td>
-				<?php echo generateImage(
-					$arrayOfImages["loadingImg"],
-					$imageConfig = array(
-						"class"		=>	"whatsNewImage",
-						"style"		=>	"width: 45%;",
-						"data-src"	=>	$imageDirModifierAbout."core/img/3.4-1.png"
-						)
-					);
-				?>
-				<?php echo generateImage(
-					$arrayOfImages["loadingImg"],
-					$imageConfig = array(
-						"class"		=>	"whatsNewImage",
-						"style"		=>	"width: 45%;",
-						"data-src"	=>	$imageDirModifierAbout."core/img/3.4-2.png"
-						)
-					);
-				?>
-			</td>
-		</tr>
-
-		<tr>
-			<th colspan="2" style="border-top: 1px solid white; padding: 10px">
-				<h1>3.3</h1>
-				<h3>I Can Count?</h3>
-			</th>
-		</tr>
-
-		<tr>
-			<td>
-				<ul>
-					<li>
-						New ocean theme!
-					</li>
-					<li>
-						Notification count
-					</li>
-					<li>
-						Clear all notifications button
-					</li>
-					<li>
-						Last line shown on name hover
-					</li>
-				</ul>
-			</td>
-			<td>
-				<?php echo generateImage(
-					$arrayOfImages["loadingImg"],
-					$imageConfig = array(
-						"class"		=>	"whatsNewImage",
-						"style"		=>	"width: 45%;",
-						"data-src"	=>	$imageDirModifierAbout."core/img/3.3-1.png"
-						)
-					);
-				?>
-				<?php echo generateImage(
-					$arrayOfImages["loadingImg"],
-					$imageConfig = array(
-						"class"		=>	"whatsNewImage",
-						"style"		=>	"width: 45%;",
-						"data-src"	=>	$imageDirModifierAbout."core/img/3.3-3.png"
-						)
-					);
-				?>
-				<br>
-				<?php echo generateImage(
-					$arrayOfImages["loadingImg"],
-					$imageConfig = array(
-						"class"		=>	"whatsNewImage",
-						"style"		=>	"width: 45%;",
-						"data-src"	=>	$imageDirModifierAbout."core/img/3.3-4.png"
-						)
-					);
-				?>
-			</td>
-		</tr>
 		<?php
 		$dataForWhatsNew = array(
 			1	=>	array(
@@ -431,6 +217,30 @@
 				"Name"			=>	"Found it!",
 				"BP"			=>	array("Monitor your selenium grid, and run new tests from a web interface","Filter logs by title / path","Restore versions of config."),
 				"Images"		=>	array("3.2-1.png","3.2-2.png","3.2-3.png","3.2-4.png")
+			),
+			5	=>	array(
+				"Version"		=>	"3.3",
+				"Name"			=>	"I Can Count?",
+				"BP"			=>	array("New ocean theme!","Notification count","Clear all notifications button","Last line shown on name hover"),
+				"Images"		=>	array("3.3-1.png","3.3-3.png","3.3-4.png")
+			),
+			6	=>	array(
+				"Version"		=>	"3.4",
+				"Name"			=>	"Still Searching",
+				"BP"			=>	array("Content filter for logs! (search and highlight content of logs)","Save custom themes!"),
+				"Images"		=>	array("3.4-1.png","3.4-2.png")
+			),
+			7	=>	array(
+				"Version"		=>	"3.5",
+				"Name"			=>	"Settings Update 2",
+				"BP"			=>	array("New Theme! (Steampunk)","On hover option to change to full path for log titles","Highlights new lines of logs (for 1 sec) (with options to change color)","Added right click menus for log titles and pause icon"),
+				"Images"		=>	array("3.5-1.png","3.5-2.png","3.5-3.png","3.5-4.png")
+			),
+			8	=>	array(
+				"Version"		=>	"3.6",
+				"Name"			=>	"Get Notified?",
+				"BP"			=>	array("Content filter quick settings","Internal Notifications","New Theme! (Terminal)"),
+				"Images"		=>	array("3.6-3.png","3.6-2.png","3.6-1.png","3.6-4.png")
 			),
 		);
 		$dataForWhatsNew = array_reverse($dataForWhatsNew);
