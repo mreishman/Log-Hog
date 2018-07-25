@@ -9,189 +9,6 @@
 			<td width="75%">
 			</td>
 		</tr>
-
-		<tr>
-			<th colspan="2" style="padding: 10px">
-				<h1>5.0</h1>
-				<h3>Multi-Log</h3>
-			</th>
-		</tr>
-
-
-		<tr>
-			<td>
-				<ul>
-					<li>
-						View more than one log at a time
-					</li>
-					<li>
-						Save log layout for initial load
-					</li>
-				</ul>
-			</td>
-			<td>
-				<?php echo generateImage(
-					$arrayOfImages["loadingImg"],
-					$imageConfig = array(
-						"class"		=>	"whatsNewImage",
-						"style"		=>	"width: 45%;",
-						"data-src"	=>	$imageDirModifierAbout."core/img/5.0-1.png"
-						)
-					);
-				?>
-				<?php echo generateImage(
-					$arrayOfImages["loadingImg"],
-					$imageConfig = array(
-						"class"		=>	"whatsNewImage",
-						"style"		=>	"width: 45%;",
-						"data-src"	=>	$imageDirModifierAbout."core/img/5.0-2.png"
-						)
-					);
-				?>
-			</td>
-		</tr>
-
-
-		<tr>
-			<th colspan="2" style="border-top: 1px solid white; padding: 10px">
-				<h1>4.2</h1>
-				<h3>Files/Folders [Side B]</h3>
-			</th>
-		</tr>
-
-
-		<tr>
-			<td>
-				<ul>
-					<li>
-						Added condensed mode for watch list files
-					</li>
-					<li>
-						Added archive button to watchlist
-					</li>
-				</ul>
-			</td>
-			<td>
-				<?php echo generateImage(
-					$arrayOfImages["loadingImg"],
-					$imageConfig = array(
-						"class"		=>	"whatsNewImage",
-						"style"		=>	"width: 45%;",
-						"data-src"	=>	$imageDirModifierAbout."core/img/4.2-1.png"
-						)
-					);
-				?>
-			</td>
-		</tr>
-
-
-		<tr>
-			<th colspan="2" style="border-top: 1px solid white; padding: 10px">
-				<h1>4.1</h1>
-				<h3>Files/Folders [Side A]</h3>
-			</th>
-		</tr>
-
-
-		<tr>
-			<td>
-				<ul>
-					<li>
-						New add file / folder popup
-					</li>
-					<li>
-						See dir while editing previous entries
-					</li>
-				</ul>
-			</td>
-			<td>
-				<?php echo generateImage(
-					$arrayOfImages["loadingImg"],
-					$imageConfig = array(
-						"class"		=>	"whatsNewImage",
-						"style"		=>	"width: 45%;",
-						"data-src"	=>	$imageDirModifierAbout."core/img/4.1-1.png"
-						)
-					);
-				?>
-				<?php echo generateImage(
-					$arrayOfImages["loadingImg"],
-					$imageConfig = array(
-						"class"		=>	"whatsNewImage",
-						"style"		=>	"width: 45%;",
-						"data-src"	=>	$imageDirModifierAbout."core/img/4.1-2.png"
-						)
-					);
-				?>
-			</td>
-		</tr>
-
-
-		<tr>
-			<th colspan="2" style="border-top: 1px solid white; padding: 10px">
-				<h1>4.0</h1>
-				<h3>Back to focus</h3>
-			</th>
-		</tr>
-
-
-		<tr>
-			<td>
-				<ul>
-					<li>
-						New log format
-					</li>
-					<li>
-						New menu system
-					</li>
-					<li>
-						More log title display options
-					</li>
-					<li>
-						Grouped groups!
-					</li>
-				</ul>
-			</td>
-			<td>
-				<?php echo generateImage(
-					$arrayOfImages["loadingImg"],
-					$imageConfig = array(
-						"class"		=>	"whatsNewImage",
-						"style"		=>	"width: 45%;",
-						"data-src"	=>	$imageDirModifierAbout."core/img/4.0-1.png"
-						)
-					);
-				?>
-				<?php echo generateImage(
-					$arrayOfImages["loadingImg"],
-					$imageConfig = array(
-						"class"		=>	"whatsNewImage",
-						"style"		=>	"width: 45%;",
-						"data-src"	=>	$imageDirModifierAbout."core/img/4.0-2.png"
-						)
-					);
-				?>
-				<br>
-				<?php echo generateImage(
-					$arrayOfImages["loadingImg"],
-					$imageConfig = array(
-						"class"		=>	"whatsNewImage",
-						"style"		=>	"width: 45%;",
-						"data-src"	=>	$imageDirModifierAbout."core/img/4.0-3.png"
-						)
-					);
-				?>
-				<?php echo generateImage(
-					$arrayOfImages["loadingImg"],
-					$imageConfig = array(
-						"class"		=>	"whatsNewImage",
-						"style"		=>	"width: 45%;",
-						"data-src"	=>	$imageDirModifierAbout."core/img/4.0-4.png"
-						)
-					);
-				?>
-			</td>
-		</tr>
 		<?php
 		$dataForWhatsNew = array(
 			1	=>	array(
@@ -242,6 +59,30 @@
 				"BP"			=>	array("Content filter quick settings","Internal Notifications","New Theme! (Terminal)"),
 				"Images"		=>	array("3.6-3.png","3.6-2.png","3.6-1.png","3.6-4.png")
 			),
+			9	=>	array(
+				"Version"		=>	"4.0",
+				"Name"			=>	"Back to focus",
+				"BP"			=>	array("New save log format","New menu system","More log title display options","Grouped groups!"),
+				"Images"		=>	array("4.0-1.png","4.0-2.png","4.0-3.png","4.0-4.png")
+			),
+			10	=>	array(
+				"Version"		=>	"4.1",
+				"Name"			=>	"Files/Folders [Side A]",
+				"BP"			=>	array("New add file / folder popup","See dir while editing previous entries"),
+				"Images"		=>	array("4.1-1.png","4.1-2.png")
+			),
+			11	=>	array(
+				"Version"		=>	"4.2",
+				"Name"			=>	"Files/Folders [Side B]",
+				"BP"			=>	array("Added condensed mode for watch list files","Added archive button to watchlist"),
+				"Images"		=>	array("4.2-1.png")
+			),
+			12	=>	array(
+				"Version"		=>	"5.0",
+				"Name"			=>	"Multi-Log",
+				"BP"			=>	array("View more than one log at a time","Save log layout for initial loadt"),
+				"Images"		=>	array("5.0-1.png","5.0-2.png")
+			)
 		);
 		$dataForWhatsNew = array_reverse($dataForWhatsNew);
 		$first = false; //change to true when at top
