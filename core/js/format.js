@@ -113,7 +113,6 @@ function dateTimeFormat(dateTextArray)
 	}
 
 	var newConfDate = "Invalid Date";
-	console.log(timeFormat);
 	if(timeFormat === 0 || timeFormat === 1)
 	{
 		newConfDate = new Date(justDateText);
