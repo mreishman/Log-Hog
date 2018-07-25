@@ -85,7 +85,7 @@
 			)
 		);
 		$dataForWhatsNew = array_reverse($dataForWhatsNew);
-		$first = false; //change to true when at top
+		$first = true;
 		foreach($dataForWhatsNew as $value): ?>
 			<tr>
 				<?php if($first):
