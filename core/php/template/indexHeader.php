@@ -32,6 +32,19 @@
 				);
 			?>
 		</div>
+		<?php if($enableMultiLog === "true" && $multiLogOnIndex === "true"): ?>
+			<div onclick="multiLogPopup();"  class="menuImageDiv">
+			<?php echo generateImage(
+				$arrayOfImages["multiLog"],
+				$imageConfig = array(
+					"id"		=>	"menuImage",
+					"class"		=>	"menuImage",
+					"height"	=>	"30px"
+					)
+				);
+			?>
+		</div>
+		<?php endif; ?>
 		<div onclick="pausePollAction();" class="menuImageDiv">
 			<?php
 				$styleString = "display: inline-block;";
@@ -111,19 +124,6 @@
 					);
 				?>
 			</div>
-		<?php endif; ?>
-		<?php if($enableMultiLog === "true" && $multiLogOnIndex === "true"): ?>
-			<div onclick="multiLogPopup();"  class="menuImageDiv">
-			<?php echo generateImage(
-				$arrayOfImages["multiLog"],
-				$imageConfig = array(
-					"id"		=>	"menuImage",
-					"class"		=>	"menuImage",
-					"height"	=>	"30px"
-					)
-				);
-			?>
-		</div>
 		<?php endif; ?>
 		<div id="selectForGroupDiv" style="display: none;">
 			Groups:
