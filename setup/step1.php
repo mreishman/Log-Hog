@@ -38,7 +38,7 @@ require_once('../core/php/loadVars.php'); ?>
 	</div>
 
 	<p style="padding: 10px;">Watch List: These are the files/folder Log-Hog will track. Please enter in some of the folders you would like.</p>
-	<?php require_once('../core/php/template/settingsMainWatchFunctions.php'); ?>
+	<?php require_once('../core/php/settingsMainWatchFunctions.php'); ?>
 	<?php require_once('../core/php/template/settingsMainWatch.php'); ?>
 	<table style="width: 100%; padding-left: 20px; padding-right: 20px;" ><tr><th style="text-align: right;" >
 		<span id="setupButtonContinue">
@@ -72,7 +72,7 @@ require_once('../core/php/loadVars.php'); ?>
 		location.reload();
 	}
 	var titleOfPage = "Welcome";
-	var popupSettingsArray = JSON.parse('<?php echo json_encode($popupSettingsArray) ?>');
+	var popupSettingsArray = JSON.parse(<?php echo json_encode($popupSettingsArray) ?>);
 	var countOfWatchList = <?php echo $i; ?>;
 	var countOfAddedFiles = 0;
 	var countOfClicks = 0;
