@@ -249,7 +249,7 @@ $externalLinkImage = generateImage(
 				Update
 				<?php
 				if($levelOfUpdate !== 0 && $configStatic["version"] !== $dontNotifyVersion && $updateNotificationEnabled === "true")
-				{ 
+				{
 					if($updateNoticeMeter === "every" || $levelOfUpdate > 1)
 					{
 						if($levelOfUpdate == 1)
@@ -324,7 +324,7 @@ $externalLinkImage = generateImage(
 								"height"	=>	"30px",
 								"data-src"	=>	$arrayOfImages["gitStatus"]
 								)
-							); 
+							);
 						?>
 					</div>
 					gitStatus
@@ -508,7 +508,7 @@ $externalLinkImage = generateImage(
 			}
 			<?php
 		endif;
-		if($levelOfUpdate !== 0 && $configStatic["version"] !== $dontNotifyVersion && $updateNotificationEnabled === "true"): 
+		if($levelOfUpdate !== 0 && $configStatic["version"] !== $dontNotifyVersion && $updateNotificationEnabled === "true"):
 			if($updateNoticeMeter === "every" || $levelOfUpdate > 1):
 				$updateImage = "";
 				if($levelOfUpdate == 1)
@@ -545,7 +545,7 @@ $externalLinkImage = generateImage(
 					notifications[currentId]["action"] = "toggleFullScreenMenu(); toggleUpdateMenu();";
 					notifications[currentId]["image"] = <?php echo $updateImage; ?>;
 				}
-			<?php endif; 
+			<?php endif;
 		endif;
 		echo "var colorArrayLength = ".count($currentSelectedThemeColorValues).";";
 		echo "var dateOfLastUpdate = '".$configStatic['lastCheck']."';";

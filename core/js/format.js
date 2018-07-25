@@ -73,7 +73,7 @@ function dateTimeSplit(text)
 		1: {
 			regex: /(\w{3} ){2}[0-9]{1,2}(.[0-9]{2}){3}(.[0-9]{6})?.[0-9]{4}/i
 		}
-	}
+	};
 	var keysOfRegExLoop = Object.keys(regExLoop);
 	var regExLoopCount = keysOfRegExLoop.length;
 	for(var regExLoopCounter = 0; regExLoopCounter < regExLoopCount; regExLoopCounter++)

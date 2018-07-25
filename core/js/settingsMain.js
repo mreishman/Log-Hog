@@ -216,7 +216,7 @@ function updateJsonForPopupTheme()
 		deleteLog:deleteLogVar,
 		removeFolder:removeFolderVar,
 		versionCheck:versionCheckVar
-	}
+	};
 	document.getElementById("popupSettingsArray").value = JSON.stringify(objectToSave);
 }
 
@@ -266,11 +266,11 @@ $( document ).ready(function()
 	if(document.getElementById("popupSelect"))
 	{
 		$("#popupSelect").on("keydown change", function(){
-		    var box = $(this);
-		    setTimeout(function() {
-		        updateJsonForPopupTheme();
-		    }, 2);
-		    showOrHidePopupSubWindow();
+			var box = $(this);
+			setTimeout(function() {
+				updateJsonForPopupTheme();
+			}, 2);
+			showOrHidePopupSubWindow();
 		});
 	}
 	if(document.getElementById("settingsSelect"))
@@ -338,7 +338,7 @@ $( document ).ready(function()
 	refreshArrayObjectOfArrays(arrayToRefresh);
 
 	document.addEventListener(
-		'scroll',
+		"scroll",
 		function (event)
 		{
 			onScrollShowFixedMiniBar(arrayToRefresh);

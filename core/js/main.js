@@ -51,6 +51,16 @@ var userPaused = false;
 var title = $("title").text();
 var verifyChangeCounter = 0;
 
+
+function popupSettingsArrayCheck()
+{
+	if (typeof popupSettingsArray === "string")
+	{
+		popupSettingsArray = JSON.parse(popupSettingsArray);
+	}
+}
+
+
 function escapeHTML(unsafeStr)
 {
 	try
@@ -282,7 +292,7 @@ function pollTwo()
 					}
 					else if(data === "update in progress")
 					{
-						clearPollTimer()
+						clearPollTimer();
 						window.location.href = "update/updateInProgress.php";
 					}
 					else if(data === [] || $.isEmptyObject(data))
@@ -1795,7 +1805,7 @@ function show(e, id)
 			$("#log"+(windowNumAsNum-1)).html("");
 		}
 		//window number clear
-		$('.currentWindowNum').each(function(i, obj)
+		$(".currentWindowNum").each(function(i, obj)
 		{
 			if(obj.innerHTML ==  ""+(currentCurrentSelectWindow+1)+". ")
 			{
@@ -2066,7 +2076,7 @@ function makePretty(id)
 						returnText += " "+customClass+" ";
 					}
 					returnText += " >"+formatLine(lineText[j])+"</tr>";
-					returnText += "<tr height=\""+logLinePadding+"px\" ><td colspan=\"2\"></td></tr>"
+					returnText += "<tr height=\""+logLinePadding+"px\" ><td colspan=\"2\"></td></tr>";
 				}
 			}
 		}
@@ -2269,7 +2279,7 @@ function switchPollType()
 		}
 		pollTimer = Visibility.every(pollRateCalc, bgPollRateCalc, function () { poll(); });
 		showPopup();
-		document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Toggled off!</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Toggled off auto pause in background</div></div>";
+		document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class=\"settingsHeader\" >Toggled off!</div><br><div style=\"width:100%;text-align:center;padding-left:10px;padding-right:10px;\">Toggled off auto pause in background</div></div>";
 	}
 	else
 	{
@@ -2277,7 +2287,7 @@ function switchPollType()
 		pauseOnNotFocus = "true";
 		pollTimer = setInterval(poll, pollRateCalc);
 		showPopup();
-		document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Toggled on!</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Toggled on auto pause in background</div></div>";
+		document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class=\"settingsHeader\" >Toggled on!</div><br><div style=\"width:100%;text-align:center;padding-left:10px;padding-right:10px;\">Toggled on auto pause in background</div></div>";
 	}
 	setTimeout(function(){ hidePopup(); }, 500);
 }
@@ -2402,10 +2412,7 @@ function deleteAction()
 {
 	try
 	{
-		if (typeof popupSettingsArray === 'string')
-		{
-			popupSettingsArray = JSON.parse(popupSettingsArray);
-		}
+		popupSettingsArrayCheck();
 		if("deleteLog" in popupSettingsArray && popupSettingsArray.deleteLog == "true")
 		{
 			showPopup();
@@ -2466,10 +2473,7 @@ function deleteLogPopupInner(title)
 	title = filterTitle(title);
 	if(title !== "")
 	{
-		if (typeof popupSettingsArray === 'string')
-		{
-			popupSettingsArray = JSON.parse(popupSettingsArray);
-		}
+		popupSettingsArrayCheck();
 		if("deleteLog" in popupSettingsArray && popupSettingsArray.deleteLog == "true")
 		{
 			showPopup();
@@ -3161,10 +3165,7 @@ function goToPageCheck(functionName)
 	try
 	{
 		var goToPage = !checkIfChanges();
-		if (typeof popupSettingsArray === 'string')
-		{
-			popupSettingsArray = JSON.parse(popupSettingsArray);
-		}
+		popupSettingsArrayCheck();
 		if(!(goToPage || ("saveSettings" in popupSettingsArray  && popupSettingsArray.saveSettings == "false")))
 		{
 			displaySavePromptPopupIndex(functionName);

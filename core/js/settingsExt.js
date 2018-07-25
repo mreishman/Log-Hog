@@ -87,7 +87,7 @@ function onScrollShowFixedMiniBar(idsOfForms)
 	}
 	if(document.getElementById("fixedPositionMiniMenu").style.top !== ""+heightOne+"px")
 	{
-		document.getElementById("fixedPositionMiniMenu").style.top = ""+heightOne+"px"
+		document.getElementById("fixedPositionMiniMenu").style.top = ""+heightOne+"px";
 	}
 	var dis = false;
 	for (var i = idsOfForms.length - 1; i >= 0; i--)

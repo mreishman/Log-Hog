@@ -229,7 +229,7 @@
 						"style"		=>	"width: 45%;",
 						"data-src"	=>	$imageDirModifierAbout."core/img/3.6-1.png"
 						)
-					); 
+					);
 				?>
 				<?php echo generateImage(
 					$arrayOfImages["loadingImg"],
@@ -238,7 +238,7 @@
 						"style"		=>	"width: 45%;",
 						"data-src"	=>	$imageDirModifierAbout."core/img/3.6-2.png"
 						)
-					); 
+					);
 				?>
 				<br>
 				<?php echo generateImage(
@@ -248,7 +248,7 @@
 						"style"		=>	"width: 45%;",
 						"data-src"	=>	$imageDirModifierAbout."core/img/3.6-3.png"
 						)
-					); 
+					);
 				?>
 			</td>
 		</tr>
@@ -285,7 +285,7 @@
 						"style"		=>	"width: 45%;",
 						"data-src"	=>	$imageDirModifierAbout."core/img/3.5-1.png"
 						)
-					); 
+					);
 				?>
 				<?php echo generateImage(
 					$arrayOfImages["loadingImg"],
@@ -294,7 +294,7 @@
 						"style"		=>	"width: 45%;",
 						"data-src"	=>	$imageDirModifierAbout."core/img/3.5-2.png"
 						)
-					); 
+					);
 				?>
 				<br>
 				<?php echo generateImage(
@@ -304,7 +304,7 @@
 						"style"		=>	"width: 45%;",
 						"data-src"	=>	$imageDirModifierAbout."core/img/3.5-3.png"
 						)
-					); 
+					);
 				?>
 				<?php echo generateImage(
 					$arrayOfImages["loadingImg"],
@@ -313,7 +313,7 @@
 						"style"		=>	"width: 45%;",
 						"data-src"	=>	$imageDirModifierAbout."core/img/3.5-4.png"
 						)
-					); 
+					);
 				?>
 			</td>
 		</tr>
@@ -344,7 +344,7 @@
 						"style"		=>	"width: 45%;",
 						"data-src"	=>	$imageDirModifierAbout."core/img/3.4-1.png"
 						)
-					); 
+					);
 				?>
 				<?php echo generateImage(
 					$arrayOfImages["loadingImg"],
@@ -353,7 +353,7 @@
 						"style"		=>	"width: 45%;",
 						"data-src"	=>	$imageDirModifierAbout."core/img/3.4-2.png"
 						)
-					); 
+					);
 				?>
 			</td>
 		</tr>
@@ -382,7 +382,7 @@
 					</li>
 				</ul>
 			</td>
-			<td>	
+			<td>
 				<?php echo generateImage(
 					$arrayOfImages["loadingImg"],
 					$imageConfig = array(
@@ -390,7 +390,7 @@
 						"style"		=>	"width: 45%;",
 						"data-src"	=>	$imageDirModifierAbout."core/img/3.3-1.png"
 						)
-					); 
+					);
 				?>
 				<?php echo generateImage(
 					$arrayOfImages["loadingImg"],
@@ -399,7 +399,7 @@
 						"style"		=>	"width: 45%;",
 						"data-src"	=>	$imageDirModifierAbout."core/img/3.3-3.png"
 						)
-					); 
+					);
 				?>
 				<br>
 				<?php echo generateImage(
@@ -409,7 +409,7 @@
 						"style"		=>	"width: 45%;",
 						"data-src"	=>	$imageDirModifierAbout."core/img/3.3-4.png"
 						)
-					); 
+					);
 				?>
 			</td>
 		</tr>
@@ -452,7 +452,7 @@
 						"style"		=>	"width: 45%;",
 						"data-src"	=>	$imageDirModifierAbout."core/img/3.2-1.png"
 						)
-					); 
+					);
 				?>
 				<?php echo generateImage(
 					$arrayOfImages["loadingImg"],
@@ -461,7 +461,7 @@
 						"style"		=>	"width: 45%;",
 						"data-src"	=>	$imageDirModifierAbout."core/img/3.2-2.png"
 						)
-					); 
+					);
 				?>
 				<br>
 				<?php echo generateImage(
@@ -471,7 +471,7 @@
 						"style"		=>	"width: 45%;",
 						"data-src"	=>	$imageDirModifierAbout."core/img/3.2-3.png"
 						)
-					); 
+					);
 				?>
 				<?php echo generateImage(
 					$arrayOfImages["loadingImg"],
@@ -480,7 +480,7 @@
 						"style"		=>	"width: 45%;",
 						"data-src"	=>	$imageDirModifierAbout."core/img/3.2-4.png"
 						)
-					); 
+					);
 				?>
 			</td>
 		</tr>
@@ -509,7 +509,7 @@
 						"style"		=>	"width: 45%;",
 						"data-src"	=>	$imageDirModifierAbout."core/img/3.1-1.png"
 						)
-					); 
+					);
 				?>
 				<?php echo generateImage(
 					$arrayOfImages["loadingImg"],
@@ -518,7 +518,7 @@
 						"style"		=>	"width: 45%;",
 						"data-src"	=>	$imageDirModifierAbout."core/img/3.1-2.png"
 						)
-					); 
+					);
 				?>
 			</td>
 		</tr>
@@ -541,7 +541,7 @@
 					3 new main themes
 					</li>
 					<li>
-					New customizability of the current and new themes. 
+					New customizability of the current and new themes.
 					</li>
 				</ul>
 			</td>
@@ -553,7 +553,7 @@
 						"style"		=>	"width: 45%;",
 						"data-src"	=>	$imageDirModifierAbout."core/img/3.0-1.png"
 						)
-					); 
+					);
 				?>
 				<?php echo generateImage(
 					$arrayOfImages["loadingImg"],
@@ -562,7 +562,7 @@
 						"style"		=>	"width: 45%;",
 						"data-src"	=>	$imageDirModifierAbout."core/img/3.0-2.png"
 						)
-					); 
+					);
 				?>
 				<br>
 				<?php echo generateImage(
@@ -572,7 +572,7 @@
 						"style"		=>	"width: 45%;",
 						"data-src"	=>	$imageDirModifierAbout."core/img/3.0-3.png"
 						)
-					); 
+					);
 				?>
 				<?php echo generateImage(
 					$arrayOfImages["loadingImg"],
@@ -581,7 +581,7 @@
 						"style"		=>	"width: 45%;",
 						"data-src"	=>	$imageDirModifierAbout."core/img/3.0-4.png"
 						)
-					); 
+					);
 				?>
 			</td>
 		</tr>
@@ -625,7 +625,7 @@
 						"style"		=>	"width: 45%;",
 						"data-src"	=>	$imageDirModifierAbout."core/img/2.3-1.png"
 						)
-					); 
+					);
 				?>
 				<?php echo generateImage(
 					$arrayOfImages["loadingImg"],
@@ -634,7 +634,7 @@
 						"style"		=>	"width: 45%;",
 						"data-src"	=>	$imageDirModifierAbout."core/img/2.3-2.png"
 						)
-					); 
+					);
 				?>
 			</td>
 		</tr>
