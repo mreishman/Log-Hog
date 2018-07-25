@@ -3447,6 +3447,7 @@ function generateWindowDisplay()
 	logDisplayArrayOld = logDisplayArray;
 	logDisplayArray = newLogDisplayArray;
 	document.getElementById("log").innerHTML = ""+logDisplayHtml+"";
+	//show or hide numbers for windows if needed
 	if(windowDisplayConfigColCount > 1 || windowDisplayConfigRowCount > 1)
 	{
 		$(".pinWindowContainer, .currentWindowNumSelected, .currentWindowNum").show();
@@ -3454,6 +3455,11 @@ function generateWindowDisplay()
 	else
 	{
 		$(".pinWindowContainer, .currentWindowNumSelected, .currentWindowNum").hide();
+	}
+	//change select if needed
+	if(Object.keys(logDisplayArray).length < (currentSelectWindow + 1))
+	{
+		currentSelectWindow = (Object.keys(logDisplayArray).length -1);
 	}
 	resize();
 	if(startOfPollLogicRan === false)
