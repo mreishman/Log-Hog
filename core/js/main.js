@@ -1273,57 +1273,54 @@ function checkIfDisplay(id)
 
 function unselectAllLogs()
 {
-	var triggerUpdate = false;
-	var arrayOfLogsLength = Object.keys(logDisplayArray).length;
-	for(var h = arrayOfLogsLength - 1; h >= 0; h--)
-	{
-		if(logDisplayArray[h]["pin"] === false)
-		{
-			$("#log"+h).html("");
-			$("#"+logDisplayArray[h]["id"]).removeClass("active");
-			$("#"+logDisplayArray[h]["id"]+"CurrentWindow").html("");
-			logDisplayArray[h] = {id: null, scroll: true, pin: false};
-			triggerUpdate = true;
-		}
-	}
-	if(triggerUpdate)
-	{
-		generalUpdate();
-	}
+	unselectLogsInner(true);
 }
 
 function unselectLogsThatAreInNewLayout()
 {
-	var triggerUpdate = false;
-	var arrayOfLogsLength = Object.keys(logDisplayArray).length;
-	for(var h = arrayOfLogsLength - 1; h >= 0; h--)
+	unselectLogsInner(false);
+}
+
+function unselectLogsInner(boolForType)
+{
+	try
 	{
-		if(logDisplayArray[h]["id"] !== null)
+		var triggerUpdate = false;
+		var arrayOfLogsLength = Object.keys(logDisplayArray).length;
+		for(var h = arrayOfLogsLength - 1; h >= 0; h--)
 		{
-			var currentLayout = document.getElementById("windowConfig").value;
-			var layoutVersionIndex = document.getElementById("layoutVersionIndex").value;
-			if(
-				logLoadLayout.length === 0 ||
-				(
-					logLoadLayout[currentLayout][h][layoutVersionIndex] !== "" &&
-					logLoadLayout[currentLayout][h][layoutVersionIndex] in fileData
-				)
-			)
+			if(boolForType || logDisplayArray[h]["id"] !== null)
 			{
-				if(logDisplayArray[h]["pin"] === false)
+				var currentLayout = document.getElementById("windowConfig").value;
+				var layoutVersionIndex = document.getElementById("layoutVersionIndex").value;
+				if
+				(
+					boolForType || logLoadLayout.length === 0 ||
+					(
+						logLoadLayout[currentLayout][h][layoutVersionIndex] !== "" &&
+						logLoadLayout[currentLayout][h][layoutVersionIndex] in fileData
+					)
+				)
 				{
-					$("#log"+h).html("");
-					$("#"+logDisplayArray[h]["id"]).removeClass("active");
-					$("#"+logDisplayArray[h]["id"]+"CurrentWindow").html("");
-					logDisplayArray[h] = {id: null, scroll: true, pin: false};
-					triggerUpdate = true;
+					if(logDisplayArray[h]["pin"] === false)
+					{
+						$("#log"+h).html("");
+						$("#"+logDisplayArray[h]["id"]).removeClass("active");
+						$("#"+logDisplayArray[h]["id"]+"CurrentWindow").html("");
+						logDisplayArray[h] = {id: null, scroll: true, pin: false};
+						triggerUpdate = true;
+					}
 				}
 			}
 		}
+		if(triggerUpdate)
+		{
+			generalUpdate();
+		}
 	}
-	if(triggerUpdate)
+	catch(e)
 	{
-		generalUpdate();
+		eventThrowException(e);
 	}
 }
 
