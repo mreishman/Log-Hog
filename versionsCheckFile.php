@@ -105,7 +105,7 @@ $versionCheckArray = array(
 		),
 		'3.3.1'		=> array(
 			'branchName'	=> '3.3Update',
-			'releaseNotes'	=> "<ul><li>Features<ul><li>Added notification count for tabs</li><li>Added no logs to display message when filtered / or no logs are visible</li><li>Added on hover to tabs to show last line</li><li>Added clear all button for notifications</li><li>Added new ocean theme!</li><li>View some files from Log-Hog (dev tools)</li></ul></li><li>Bug Fixes<ul><li>Cleaned up / grouped settings.</li></ul></li></ul>"
+			'releaseNotes'	=> "<ul><li>Re-Install of 3.3</li></ul>"
 		),
 		'3.4'		=> array(
 			'branchName'	=> '3.4Update',
@@ -129,7 +129,7 @@ $versionCheckArray = array(
 		),
 		'4.1.1'		=> array(
 			'branchName'	=> '4.1Update',
-			'releaseNotes'	=> "<ul><li>Features<ul><li>New folder popup interface! (shows dir tree)</li><li>Changed patern to dropdown select (for easier filtering of folders)</li><li>Update page now included in main menu (no page navigation needed)</li><li>Added right click to tmp enable/disable alerts for specific logs</li></ul></li><li>Bug Fixes<ul><li>Fixed issues with split files button showing up on folders with no files</li><li>Subfiles for folders now show up when adding new files (without needing a reload of the page)</li><li>Fixed issue with menu settings not having reset button</li><li>Fixed bug with default watchlist pattern not showing up in settings</li><li>Fixed issue with when switching groups not hiding currently selected if not in group when switching</li><li>Fixed issue with current window class being replaced each poll request</li><li>Optimized images for web (lower file sizes)</li><li>Added some missing images for themes)</li></ul></li></ul>"
+			'releaseNotes'	=> "<ul><li>Re-Install of 4.1</li></ul>"
 		),
 		'4.1.2'		=> array(
 			'branchName'	=> '4.1.1Update',
