@@ -1,7 +1,7 @@
 <?php
 
 $versionCheckArray = array(
-	'version'		=> '4.2.3',
+	'version'		=> '4.2.4',
 	'versionList'		=> array(
 		'2.0.1'	        => array(
 			'branchName'	=> '2.0.1Update',
@@ -142,6 +142,10 @@ $versionCheckArray = array(
 		'4.2.3'		=> array(
 			'branchName'	=> '4.2.3Update',
 			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed issue with popup and menu on home page</li><li>Fixed menu style issues with firefox</li><li>Fixed bug with reszie menu bar on delete log</li><li>Fixed bug with viewing individual whats new / changelog / about page.</li><li>Fixed bugs with nested new lines in lines for logs (should fix some display issues)</li><li>Fixed bug with spinner not showing up between switch of logs (need to fix time though)</li></ul></li></ul>"
+		),
+		'4.2.4'		=> array(
+			'branchName'	=> '4.2.4Update',
+			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed bug in setup (also in 4.1.1.1)</li><li>Fixed issue with some selectors in settings not showing sub content correctly on toggle</li></ul></li></ul>"
 		),
 	)
 );
