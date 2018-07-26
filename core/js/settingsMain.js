@@ -1,11 +1,9 @@
 var titleOfPage = "Main";
 
-
 function showOrHideLogTrimSubWindow()
 {
 	try
 	{
-
 		var valueForPopup = document.getElementById("logTrimOn");
 		var valueForVars = document.getElementById("settingsLogTrimVars");
 		showOrHideSubWindow(valueForPopup, valueForVars);
@@ -39,14 +37,12 @@ function changeDescriptionLineSize()
 		eventThrowException(e);
 	}
 }
-	
+
 function showOrHidePopupSubWindow()
 {
 	try
 	{
-		var valueForPopup = document.getElementById("popupSelect");
-		var valueForVars = document.getElementById("settingsPopupVars");
-		showOrHideSubWindow(valueForPopup, valueForVars);
+		showOrHideSubWindow(document.getElementById("popupSelect"), document.getElementById("settingsPopupVars"));
 	}
 	catch(e)
 	{
@@ -58,9 +54,7 @@ function showOrHideUpdateSubWindow()
 {
 	try
 	{
-		var valueForPopup = document.getElementById("settingsSelect");
-		var valueForVars = document.getElementById("settingsAutoCheckVars");
-		showOrHideSubWindow(valueForPopup, valueForVars);
+		showOrHideSubWindow(document.getElementById("settingsSelect"), document.getElementById("settingsAutoCheckVars"));
 	}
 	catch(e)
 	{
@@ -72,9 +66,7 @@ function showOrHideFilterContentSettings()
 {
 	try
 	{
-		var valueForPopup = document.getElementById("filterContentLimit");
-		var valueForVars = document.getElementById("filterContentSettings");
-		showOrHideSubWindow(valueForPopup, valueForVars);
+		showOrHideSubWindow(document.getElementById("filterContentLimit"), document.getElementById("filterContentSettings"));
 	}
 	catch(e)
 	{
@@ -86,9 +78,7 @@ function showOrHideFilterHighlightSettings()
 {
 	try
 	{
-		var valueForPopup = document.getElementById("filterContentHighlight");
-		var valueForVars = document.getElementById("highlightContentSettings");
-		showOrHideSubWindow(valueForPopup, valueForVars);
+		showOrHideSubWindow(document.getElementById("filterContentHighlight"), document.getElementById("highlightContentSettings"));
 	}
 	catch(e)
 	{
@@ -100,9 +90,7 @@ function showOrHideScrollLogSettings()
 {
 	try
 	{
-		var valueForPopup = document.getElementById("scrollOnUpdate");
-		var valueForVars = document.getElementById("scrollLogOnUpdateSettings");
-		showOrHideSubWindow(valueForPopup, valueForVars);
+		showOrHideSubWindow(document.getElementById("scrollOnUpdate"), document.getElementById("scrollLogOnUpdateSettings"));
 	}
 	catch(e)
 	{
@@ -114,9 +102,7 @@ function showOrHideHighlightNewLinesSettings()
 {
 	try
 	{
-		var valueForPopup = document.getElementById("highlightNew");
-		var valueForVars = document.getElementById("highlightNewSettings");
-		showOrHideSubWindow(valueForPopup, valueForVars);
+		showOrHideSubWindow(document.getElementById("highlightNew"), document.getElementById("highlightNewSettings"));
 	}
 	catch(e)
 	{
@@ -261,7 +247,7 @@ function selectLog(locationForNewLogText)
 	hidePopup();
 }
 
-$( document ).ready(function() 
+$( document ).ready(function()
 {
 	if(document.getElementById("popupSelect"))
 	{
@@ -293,13 +279,13 @@ $( document ).ready(function()
 	{
 		document.getElementById("filterContentHighlight").addEventListener("change", showOrHideFilterHighlightSettings, false);
 	}
-	if (document.getElementById("scrollLogOnUpdateSettings"))
+	if (document.getElementById("scrollOnUpdate"))
 	{
-		document.getElementById("scrollLogOnUpdateSettings").addEventListener("change", showOrHideScrollLogSettings, false);
+		document.getElementById("scrollOnUpdate").addEventListener("change", showOrHideScrollLogSettings, false);
 	}
-	if (document.getElementById("highlightNewSettings"))
+	if (document.getElementById("highlightNew"))
 	{
-		document.getElementById("highlightNewSettings").addEventListener("change", showOrHideHighlightNewLinesSettings, false);
+		document.getElementById("highlightNew").addEventListener("change", showOrHideHighlightNewLinesSettings, false);
 	}
 
 	var arrayToRefresh = new Array();

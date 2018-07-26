@@ -268,7 +268,7 @@ function pollTwo()
 			type: "POST",
 			success(data)
 			{
-				hideNoticeBarIfThere()
+				hideNoticeBarIfThere();
 				if(document.getElementById("noLogToDisplay").style.display !== "none" && (!(data === [] || $.isEmptyObject(data))))
 				{
 					document.getElementById("noLogToDisplay").style.display = "none";
@@ -2366,7 +2366,7 @@ function pausePollFunction()
 
 function isPageHidden()
 {
-	document.hidden || document.msHidden || document.webkitHidden || document.mozHidden;
+	return document.hidden || document.msHidden || document.webkitHidden || document.mozHidden;
 }
 
 function scrollToBottom(idNum)
@@ -2669,13 +2669,13 @@ function toggleFilterSettingsPopup()
 	innerHtmlForSettings += "<ul class=\"settingsUl\" ><li><span class=\"settingsBuffer\" > Case Insensitive Search: </span> <div class=\"selectDiv\">";
 	innerHtmlForSettings += "<select onchange=\"changeFilterCase();\" id=\"caseInsensitiveSearch\">";
 	innerHtmlForSettings += "<option";
-	if(caseInsensitiveSearch === 'true')
+	if(caseInsensitiveSearch === "true")
 	{
 		innerHtmlForSettings += " selected ";
 	}
 	innerHtmlForSettings += " value=\"true\">True</option>";
 	innerHtmlForSettings += "<option";
-	if(caseInsensitiveSearch === 'false')
+	if(caseInsensitiveSearch === "false")
 	{
 		innerHtmlForSettings += " selected ";
 	}
@@ -2684,13 +2684,13 @@ function toggleFilterSettingsPopup()
 	innerHtmlForSettings += "<li><span class=\"settingsBuffer\" > Filter Title Includes Path: </span>";
 	innerHtmlForSettings += " <div class=\"selectDiv\"><select onchange=\"changeFilterTitleIncludePath();\" id=\"filterTitleIncludePath\">";
 	innerHtmlForSettings += "<option ";
-	if(filterTitleIncludePath === 'true')
+	if(filterTitleIncludePath === "true")
 	{
 		innerHtmlForSettings += " selected ";
 	}
 	innerHtmlForSettings += " value=\"true\">True</option>";
 	innerHtmlForSettings += "<option ";
-	if(filterTitleIncludePath === 'false')
+	if(filterTitleIncludePath === "false")
 	{
 		innerHtmlForSettings += " selected ";
 	}
@@ -2699,13 +2699,13 @@ function toggleFilterSettingsPopup()
 	innerHtmlForSettings += "<li><span class=\"settingsBuffer\" > Highlight Content match: </span>";
 	innerHtmlForSettings += " <div class=\"selectDiv\"><select onchange=\"changeHighlightContentMatch();\" id=\"filterContentHighlight\">";
 	innerHtmlForSettings += "<option";
-	if(filterContentHighlight === 'true')
+	if(filterContentHighlight === "true")
 	{
 		innerHtmlForSettings += " selected ";
 	}
 	innerHtmlForSettings += " value=\"true\">True</option>";
 	innerHtmlForSettings += "<option";
-	if(filterContentHighlight === 'false')
+	if(filterContentHighlight === "false")
 	{
 		innerHtmlForSettings += " selected ";
 	}
@@ -2714,16 +2714,16 @@ function toggleFilterSettingsPopup()
 	innerHtmlForSettings += " <li><span class=\"settingsBuffer\" > Filter Content match: </span>";
 	innerHtmlForSettings += " <div class=\"selectDiv\"><select onchange=\"changeFilterContentMatch();\" id=\"filterContentLimit\">";
 	innerHtmlForSettings += "<option";
-	if(filterContentLimit === 'true')
+	if(filterContentLimit === "true")
 	{
 		innerHtmlForSettings += " selected ";
 	}
 	innerHtmlForSettings += " value=\"true\">True</option>";
 	innerHtmlForSettings += "<option";
-	if(filterContentLimit === 'false')
+	if(filterContentLimit === "false")
 	{
 		innerHtmlForSettings += " selected ";
-	} 
+	}
 	innerHtmlForSettings += " value=\"false\">False</option>";
 	innerHtmlForSettings += "</select></div></li>";
 	innerHtmlForSettings += "<li><span class=\"settingsBuffer\" > Line Padding: </span>";
@@ -2819,7 +2819,6 @@ function showNotifications()
 		arrayInternalNotifications[0]["name"] = "No Notifications";
 		arrayInternalNotifications[0]["time"] = formatAMPM(new Date());
 		arrayInternalNotifications[0]["action"] = "";
-		
 	}
 	else
 	{
@@ -3192,7 +3191,6 @@ function hideWatchListStuff()
 	document.getElementById("fullScreenMenuWatchList").style.display = "none";
 	document.getElementById("watchListSubMenu").style.display = "none";
 }
-
 
 function hideUpdateStuff()
 {

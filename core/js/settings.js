@@ -31,7 +31,6 @@ function saveAndVerifyMain(idForForm)
           verifySaveTimer();
         }
       });
-
 }
 
 function verifySaveTimer()
@@ -117,10 +116,9 @@ function saveVerified()
 	}
 
 	saveSuccess();
-	
+
 	if(idForFormMain.includes("themeMainSelection"))
 	{
-		
 		window.location.href = dirForAjaxSend+"core/php/template/upgradeTheme.php";
 	}
 	else if(idForFormMain === "settingsColorFolderGroupVars" || idForFormMain === "settingsColorFolderVars" || idForFormMain === "welcomeForm")
@@ -221,19 +219,17 @@ function checkForChanges(idOfObject)
 			}
 			return true;
 		}
-		else
+
+		if(document.getElementById(idOfObject+"ResetButton"))
 		{
-			if(document.getElementById(idOfObject+"ResetButton"))
-			{
-				document.getElementById(idOfObject+"ResetButton").style.display = "none";
-			}
-			if(document.getElementById("setupButtonContinue"))
-			{
-				document.getElementById("setupButtonContinue").style.display = "inline-block";
-				document.getElementById("setupButtonDisabled").style.display = "none";
-			}
-			return false;
+			document.getElementById(idOfObject+"ResetButton").style.display = "none";
 		}
+		if(document.getElementById("setupButtonContinue"))
+		{
+			document.getElementById("setupButtonContinue").style.display = "inline-block";
+			document.getElementById("setupButtonDisabled").style.display = "none";
+		}
+		return false;
 	}
 	catch(e)
 	{

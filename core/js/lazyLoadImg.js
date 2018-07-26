@@ -23,7 +23,6 @@ function loadImgFromData(imgClassName)
 	}
 }
 
-
 function script(url)
 {
     var scriptLoad = document.createElement("script");
