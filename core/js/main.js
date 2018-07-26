@@ -1931,6 +1931,10 @@ function getDiffLogAndLastLog(id)
 		{
 			return 0;
 		}
+		else if(sliceSize < lengthOfArray)
+		{
+			return lengthOfArray - sliceSize;
+		}
 
 		var lastLine = tmpTextLast[lengthOfLastArray-1];
 		var counter = 0;
