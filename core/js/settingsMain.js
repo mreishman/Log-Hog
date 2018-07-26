@@ -248,13 +248,13 @@ $( document ).ready(function()
 	{
 		document.getElementById("filterContentHighlight").addEventListener("change", showOrHideFilterHighlightSettings, false);
 	}
-	if (document.getElementById("scrollLogOnUpdateSettings"))
+	if (document.getElementById("scrollOnUpdate"))
 	{
-		document.getElementById("scrollLogOnUpdateSettings").addEventListener("change", showOrHideScrollLogSettings, false);
+		document.getElementById("scrollOnUpdate").addEventListener("change", showOrHideScrollLogSettings, false);
 	}
-	if (document.getElementById("highlightNewSettings"))
+	if (document.getElementById("highlightNew"))
 	{
-		document.getElementById("highlightNewSettings").addEventListener("change", showOrHideHighlightNewLinesSettings, false);
+		document.getElementById("highlightNew").addEventListener("change", showOrHideHighlightNewLinesSettings, false);
 	}
 
 	var arrayToRefresh = new Array();
