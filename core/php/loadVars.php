@@ -401,6 +401,12 @@ else
 			"title"			=>	"File Not Readable",
 			"baseName"		=>	"fileIconNR.png"
 		),
+		"filter"			=> array(
+			"alt"			=>	"Filter",
+			"src"			=>	"",
+			"title"			=>	"Filter",
+			"baseName"		=>	"filter.png"
+		),
 		"folderIcon"		=> array(
 			"alt"			=>	"Folder",
 			"src"			=>	"",

@@ -3374,17 +3374,50 @@ function multiLogPopup()
 {
 	if(document.getElementById("subMenuForGroup").style.display === "none")
 	{
-		//show menu
+		hideSubMenus();
 		document.getElementById("menu2").style.display = "block";
 		document.getElementById("subMenuForGroup").style.display = "block";
 	}
 	else
 	{
-		//hide menu
-		document.getElementById("menu2").style.display = "none";
-		document.getElementById("subMenuForGroup").style.display = "none";
+		hideSubMenus();
 	}
 	resize();
+}
+
+function filterSubMenu()
+{
+	if(document.getElementById("groupSubMenu").style.display === "none")
+	{
+		hideSubMenus();
+		document.getElementById("menu2").style.display = "block";
+		document.getElementById("groupSubMenu").style.display = "block";
+	}
+	else
+	{
+		hideSubMenus();
+	}
+	resize();
+}
+
+function hideSubMenus()
+{
+	if(document.getElementById("subMenuForGroup").style.display !== "none")
+	{
+		document.getElementById("subMenuForGroup").style.display = "none";
+	}
+	if(document.getElementById("subMenuForGroup").style.display !== "none")
+	{
+		document.getElementById("subMenuForGroup").style.display = "none";
+	}
+	if(document.getElementById("groupSubMenu").style.display !== "none")
+	{
+		document.getElementById("groupSubMenu").style.display = "none";
+	}
+	if(document.getElementById("menu2").style.display !== "none")
+	{
+		document.getElementById("menu2").style.display = "none";
+	}
 }
 
 function generateWindowDisplay()
