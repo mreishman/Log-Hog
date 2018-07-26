@@ -4,10 +4,8 @@
 <div class="settingsDiv" >
 	<table width="100%;">
 		<tr>
-			<td width="25%" >
-			</td>
-			<td width="75%">
-			</td>
+			<td width="25%" ></td>
+			<td width="75%"></td>
 		</tr>
 		<?php
 		$dataForWhatsNew = array(
@@ -107,8 +105,8 @@
 					</ul>
 				</td>
 				<td>
-					<?php foreach ($value["Images"] as $IMGValue): ?>
-						<?php echo generateImage(
+					<?php foreach ($value["Images"] as $IMGValue):
+						echo generateImage(
 							$arrayOfImages["loadingImg"],
 							$imageConfig = array(
 								"class"		=>	"whatsNewImage",
@@ -116,8 +114,7 @@
 								"data-src"	=>	$imageDirModifierAbout."core/img/".$IMGValue
 								)
 							);
-						?>
-					<?php endforeach; ?>
+					endforeach; ?>
 				</td>
 			</tr>
 		<?php endforeach; ?>
