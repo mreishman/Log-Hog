@@ -268,48 +268,42 @@ function pollTwo()
 			type: "POST",
 			success(data)
 			{
-				if(document.getElementById("noLogToDisplay").style.display !== "none")
+				hideNoticeBarIfThere()
+				if(document.getElementById("noLogToDisplay").style.display !== "none" && (!(data === [] || $.isEmptyObject(data))))
 				{
 					document.getElementById("noLogToDisplay").style.display = "none";
 				}
+
 				if(data === "error in file permissions")
 				{
 					clearPollTimer();
 					window.location.href = "error.php?error=550&page=pollCheck.php";
 				}
+				else if(data === "update in progress")
+				{
+					clearPollTimer();
+					window.location.href = "update/updateInProgress.php";
+				}
+				else if(data === false)
+				{
+					clearPollTimer();
+					showPopup();
+					document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class='settingsHeader' >Log-Hog has been updated. Please Refresh</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Log-Hog has been updated, and is now on a new version. Please refresh the page.</div><div><div class='link' onclick='location.reload();' style='margin-left:165px; margin-right:50px;margin-top:35px;'>Reload</div></div>";
+				}
+				else if(data === [] || $.isEmptyObject(data))
+				{
+					if(document.getElementById("noLogToDisplay").style.display !== "block")
+					{
+						document.getElementById("noLogToDisplay").style.display = "block";
+					}
+				}
 				else
 				{
-					counterForPollForceRefreshErr = 0;
-					if(document.getElementById("noticeBar").style.display !== "none")
+					fileData = data;
+					pollTwoPartTwo(data);
+					if(lineCountFromJS === "false")
 					{
-						document.getElementById("noticeBar").style.display = "none";
-					}
-					if(data === false)
-					{
-						showPopup();
-						document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class='settingsHeader' >Log-Hog has been updated. Please Refresh</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Log-Hog has been updated, and is now on a new version. Please refresh the page.</div><div><div class='link' onclick='location.reload();' style='margin-left:165px; margin-right:50px;margin-top:35px;'>Reload</div></div>";
-						clearPollTimer();
-					}
-					else if(data === "update in progress")
-					{
-						clearPollTimer();
-						window.location.href = "update/updateInProgress.php";
-					}
-					else if(data === [] || $.isEmptyObject(data))
-					{
-						if(document.getElementById("noLogToDisplay").style.display !== "block")
-						{
-							document.getElementById("noLogToDisplay").style.display = "block";
-						}
-					}
-					else
-					{
-						fileData = data;
-						pollTwoPartTwo(data);
-						if(lineCountFromJS === "false")
-						{
-							updatePollLineDiff(data);
-						}
+						updatePollLineDiff(data);
 					}
 				}
 			},
@@ -317,11 +311,20 @@ function pollTwo()
 			{
 				polling = false;
 			}
-		});	
+		});
 	}
 	catch(e)
 	{
 		eventThrowException(e);
+	}
+}
+
+function hideNoticeBarIfThere()
+{
+	counterForPollForceRefreshErr = 0;
+	if(document.getElementById("noticeBar").style.display !== "none")
+	{
+		document.getElementById("noticeBar").style.display = "none";
 	}
 }
 
@@ -2135,7 +2138,7 @@ function getScrollbarWidth()
     return widthNoScroll - widthWithScroll;
 }
 
-function resize() 
+function resize()
 {
 	try
 	{
@@ -2359,14 +2362,7 @@ function pausePollFunction()
 
 function isPageHidden()
 {
-	try
-	{
-		return document.hidden || document.msHidden || document.webkitHidden || document.mozHidden;
-    }
-	catch(e)
-	{
-		eventThrowException(e);
-	}
+	document.hidden || document.msHidden || document.webkitHidden || document.mozHidden;
 }
 
 function scrollToBottom(idNum)
@@ -2531,7 +2527,7 @@ function checkForUpdateMaybe()
 {
 	try
 	{
-		if (autoCheckUpdate == "true")
+		if (autoCheckUpdate === "true")
 		{
 			if(daysSinceLastCheck > (autoCheckDaysUpdate - 1))
 			{
@@ -2628,10 +2624,7 @@ function changeSearchplaceholder()
 
 function changeCurrentSelectWindow(newSelectWindow)
 {
-	if(typeof newSelectWindow !== "int")
-	{
-		newSelectWindow = parseInt(newSelectWindow);
-	}
+	newSelectWindow = parseInt(newSelectWindow);
 	if(currentSelectWindow === newSelectWindow)
 	{
 		return;
