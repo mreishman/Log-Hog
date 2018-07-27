@@ -179,7 +179,7 @@ $listOfAddons = array(
 				array(
 					"style"			=>	"margin-bottom: -4px;",
 					"height"		=>	"20px",
-					"srcModifier"	=>	"../"
+					"srcModifier"	=>	""
 				)
 			); ?>
   			<i>Make sure you have run through setup before trying to update</i>
@@ -194,7 +194,7 @@ $listOfAddons = array(
 	var verifyCount = 0;
 	var lock = false;
 	var directory = "../../top/";
-	var urlForSendMain = "../core/php/performSettingsInstallUpdateAction.php?format=json";
+	var urlForSendMain = "core/php/performSettingsInstallUpdateAction.php?format=json";
 	var action = "";
 	var localFolderLocation = "";
 	var repoName = "";

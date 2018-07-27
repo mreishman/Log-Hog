@@ -3051,6 +3051,23 @@ function toggleUpdateMenu(force = false)
 	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
 }
 
+function toggleAboutMenu(force = false)
+{
+	if(!force)
+	{
+		if(!(goToPageCheck("toggleAboutMenu(true)")))
+		{
+			return false;
+		}
+	}
+	hideMainStuff();
+	hideSidebar();
+	document.getElementById("fullScreenMenuAddons").style.display = "block";
+	$("#mainMenuAddons").addClass("selected");
+	arrayOfScrollHeaderUpdate = [];
+	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
+}
+
 function toggleAbout(force = false)
 {
 	if(!force)
@@ -3212,6 +3229,12 @@ function hideAboutStuff()
 	$("#aboutSubMenuWhatsNew").removeClass("selected");
 }
 
+function hideAddonStuff()
+{
+	document.getElementById("fullScreenMenuAddons").style.display = "none";
+	$("#mainMenuAddons").removeClass("selected");
+}
+
 function hideIframeStuff()
 {
 	document.getElementById("fullScreenMenuIFrame").style.display = "none";
@@ -3268,6 +3291,11 @@ function hideMainStuff()
 	if($("#watchListMenu").hasClass("selected"))
 	{
 		hideWatchListStuff();
+	}
+
+	if($("#mainMenuAddons").hasClass("selected"))
+	{
+		 hideAddonStuff();
 	}
 
 	$("#watchListMenu").removeClass("selected");

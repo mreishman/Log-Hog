@@ -19,7 +19,7 @@
 	</div>
 	About
 </li>
-<li id="mainMenuAddons" onclick="window.location.href = './settings/addons.php';" >
+<li id="mainMenuAddons" onclick="toggleAboutMenu();" >
 	<div class="menuImageDiv">
 		<?php echo generateImage(
 			$arrayOfImages["loadingImg"],
@@ -33,7 +33,6 @@
 		?>
 	</div>
 	Addons
-	<?php echo $externalLinkImage; ?>
 </li>
 <li onclick="window.location.href = './settings/main.php';"  >
 	<div class="menuImageDiv">
