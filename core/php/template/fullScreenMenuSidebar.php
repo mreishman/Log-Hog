@@ -19,7 +19,7 @@
 	</div>
 	About
 </li>
-<li id="mainMenuAddons" onclick="toggleAboutMenu();" >
+<li id="mainMenuAddons" onclick="toggleAddons();" >
 	<div class="menuImageDiv">
 		<?php echo generateImage(
 			$arrayOfImages["loadingImg"],

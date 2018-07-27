@@ -3051,11 +3051,11 @@ function toggleUpdateMenu(force = false)
 	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
 }
 
-function toggleAboutMenu(force = false)
+function toggleAddons(force = false)
 {
 	if(!force)
 	{
-		if(!(goToPageCheck("toggleAboutMenu(true)")))
+		if(!(goToPageCheck("toggleAddons(true)")))
 		{
 			return false;
 		}
