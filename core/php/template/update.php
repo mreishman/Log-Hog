@@ -75,7 +75,7 @@
 						</span>
 						- bug fixes
 					</h2>
-					<a class="link" onclick="installUpdates('');">Install Update</a>
+					<a class="link" onclick="installUpdates('','settingsInstallUpdate','');">Install Update</a>
 				</li>
 				<li id="majorUpdate" <?php if($levelOfUpdate != 2){echo "style='display: none;'";} ?> >
 					<h2>
@@ -95,7 +95,7 @@
 							<?php echo " ".$configStatic['newestVersion']." ";?>
 						</span>
 						- new features!</h2>
-						<a class="link" onclick="installUpdates('');">Install Update</a>
+						<a class="link" onclick="installUpdates('','settingsInstallUpdate','');">Install Update</a>
 				</li>
 				<li id="NewXReleaseUpdate" <?php if($levelOfUpdate != 3){echo "style='display: none;'";} ?> >
 					<h2>
@@ -116,7 +116,7 @@
 						</span>
 						- a lot of new features!
 					</h2>
-					<a class="link" onclick="installUpdates('');">Install Update</a>
+					<a class="link" onclick="installUpdates('','settingsInstallUpdate','');">Install Update</a>
 				</li>
 			<?php endif; ?>
 		</ul>

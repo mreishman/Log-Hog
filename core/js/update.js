@@ -275,7 +275,7 @@ function closePopupNoUpdate()
 	hidePopup();
 }
 
-function installUpdates(urlSend = "../", updateFormIDLocal = "settingsInstallUpdate")
+function installUpdates(urlSend = "../", updateFormIDLocal = "settingsInstallUpdate", imgLocatin = "../")
 {
 	try
 	{
@@ -289,7 +289,7 @@ function installUpdates(urlSend = "../", updateFormIDLocal = "settingsInstallUpd
 		}
 		urlSend = urlSend;
 		updateFormID = updateFormIDLocal;
-		displayLoadingPopup();
+		displayLoadingPopup(imgLocatin);
 		//reset vars in post request
 		var urlForSend = urlSend + "core/php/resetUpdateFilesToDefault.php?format=json";
 		var data = {status: "" };
