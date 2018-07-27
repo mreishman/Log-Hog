@@ -103,10 +103,8 @@ $externalLinkImage = generateImage(
 	<script src="core/js/jquery.js"></script>
 	<?php
 		echo loadSentryData($sendCrashInfoJS, $branchSelected);
-		echo loadVisibilityJS(baseURL());
 	?>
 	<link rel="stylesheet" type="text/css" href="core/template/loading-bar.css"/>
-	<script type="text/javascript" src="core/js/loading-bar.min.js"></script>
 </head>
 <body>
 	<?php require_once("core/php/customCSS.php");
@@ -154,342 +152,7 @@ $externalLinkImage = generateImage(
 		?>
 	</div>
 	<div id="fullScreenMenu" style="display: none;">
-		<div style="padding: 5px 5px 10px 5px; border-bottom: 1px solid white;" >
-			<div onclick="toggleFullScreenMenu();"  class="menuImageDiv">
-				<?php echo generateImage(
-					$arrayOfImages["menu"],
-					$imageConfig = array(
-						"id"		=>	"menuImage",
-						"class"		=>	"menuImage",
-						"height"	=>	"30px"
-						)
-					);
-				?>
-			</div>
-			<div onclick="toggleNotifications();"  class="menuImageDiv">
-				<?php echo generateImage(
-					$arrayOfImages["notification"],
-					$imageConfig = array(
-						"id"		=>	"notificationNotClicked",
-						"class"		=>	"menuImage",
-						"height"	=>	"30px"
-						)
-					);
-				?>
-			</div>
-		</div>
-		<ul class="settingsUl settingsUlFS fullScreenMenuUL">
-			<li class="menuTitle" style="text-align: center;" >
-				Log-Hog
-			</li>
-			<li class="menuTitle" style="background-color: #999; color: black;" >
-				Main Menu
-			</li>
-			<li id="mainMenuAbout" class="selected" onclick="toggleAbout();" >
-				<div class="menuImageDiv">
-					<?php echo generateImage(
-						$arrayOfImages["loadingImg"],
-						$imageConfig = array(
-							"id"		=>	"aboutImage",
-							"class"		=>	"menuImage mainMenuImage",
-							"height"	=>	"30px",
-							"data-src"	=>	$arrayOfImages["info"]
-							)
-						);
-					?>
-				</div>
-				About
-			</li>
-			<li id="mainMenuAddons" onclick="window.location.href = './settings/addons.php';" >
-				<div class="menuImageDiv">
-					<?php echo generateImage(
-						$arrayOfImages["loadingImg"],
-						$imageConfig = array(
-							"id"		=>	"addonsImage",
-							"class"		=>	"menuImage mainMenuImage",
-							"height"	=>	"30px",
-							"data-src"	=>	$arrayOfImages["addons"]
-							)
-						);
-					?>
-				</div>
-				Addons
-				<?php echo $externalLinkImage; ?>
-			</li>
-			<li onclick="window.location.href = './settings/main.php';"  >
-				<div class="menuImageDiv">
-					<?php echo generateImage(
-						$arrayOfImages["loadingImg"],
-						$imageConfig = array(
-							"id"		=>	"gear",
-							"class"		=>	"menuImage mainMenuImage",
-							"height"	=>	"30px",
-							"data-src"	=> 	$arrayOfImages["gear"]
-							)
-						);
-					?>
-				</div>
-				Settings
-				<?php echo $externalLinkImage; ?>
-			</li>
-			<li id="mainMenuUpdate" onclick="toggleUpdateMenu();" >
-				<div class="menuImageDiv">
-					<?php echo generateImage(
-						$arrayOfImages["loadingImg"],
-						$imageConfig = array(
-							"id"		=>	"update",
-							"class"		=>	"menuImage mainMenuImage",
-							"height"	=>	"30px",
-							"title"		=>	"Update",
-							"data-src"	=>	$arrayOfImages["refresh"]
-							)
-						);
-					?>
-				</div>
-				Update
-				<?php
-				if($levelOfUpdate !== 0 && $configStatic["version"] !== $dontNotifyVersion && $updateNotificationEnabled === "true")
-				{
-					if($updateNoticeMeter === "every" || $levelOfUpdate > 1)
-					{
-						if($levelOfUpdate == 1)
-						{
-							echo generateImage(
-								$arrayOfImages["loadingImg"],
-								$imageConfig = array(
-									"id"		=>	"updateMenuImage",
-									"class"		=>	"menuImage mainMenuImage",
-									"height"	=>	"30px",
-									"title"		=>	"Minor Update",
-									"data-src"	=>	$arrayOfImages["yellowWarning"]
-								)
-							);
-						}
-						elseif($levelOfUpdate == 2 || $levelOfUpdate == 3)
-						{
-							echo "<div class=\"menuImageDiv\">";
-							echo generateImage(
-								$arrayOfImages["loadingImg"],
-								$imageConfig = array(
-									"id"		=>	"updateMenuImage",
-									"class"		=>	"menuImage mainMenuImage",
-									"height"	=>	"30px",
-									"title"		=>	"Major Update",
-									"data-src"	=>	$arrayOfImages["redWarning"]
-								)
-							);
-							echo "</div>";
-						}
-					}
-				}
-				?>
-			</li>
-			<li id="watchListMenu" onclick="toggleWatchListMenu();" >
-				<div class="menuImageDiv">
-					<?php echo generateImage(
-						$arrayOfImages["loadingImg"],
-						$imageConfig = array(
-							"id"		=>	"watchList",
-							"class"		=>	"menuImage mainMenuImage",
-							"height"	=>	"30px",
-							"title"		=>	"WatchList",
-							"data-src"	=>	$arrayOfImages["watchList"]
-							)
-						);
-					?>
-				</div>
-				Watchlist
-			</li>
-				<li id="menuOtherApps" class="menuTitle" style="background-color: #999; color: black;
-				<?php if(!($locationForMonitorIndex["loc"] || $locationForSearchIndex["loc"] || $locationForSeleniumMonitorIndex["loc"] || $locationForStatusIndex["loc"]))
-					{
-						echo " display: none; ";
-					}
-					?>
-				" >
-					Other Apps
-				</li>
-			<?php if ($locationForStatusIndex["loc"]):?>
-				<?php if($addonsAsIframe === "true"): ?>
-					<li id="menuStatusAddon" onclick="toggleIframe('<?php echo $locationForStatusIndex["loc"]; ?>','menuStatusAddon');" >
-				<?php else: ?>
-					<li id="menuStatusAddon" onclick="window.location.href='<?php echo $locationForStatusIndex["loc"]; ?>'" >
-				<?php endif; ?>
-					<div class="menuImageDiv">
-						<?php echo generateImage(
-							$arrayOfImages["loadingImg"],
-							$imageConfig = array(
-								"id"		=>	"gitStatusImage",
-								"class"		=>	"menuImage mainMenuImage",
-								"height"	=>	"30px",
-								"data-src"	=>	$arrayOfImages["gitStatus"]
-								)
-							);
-						?>
-					</div>
-					gitStatus
-					<?php
-					if($addonsAsIframe !== "true")
-					{
-						echo $externalLinkImage;
-					}
-					?>
-				</li>
-			<?php endif; ?>
-			<?php if($locationForMonitorIndex["loc"]): ?>
-				<?php if($addonsAsIframe === "true"): ?>
-					<li id="menuMonitorAddon" onclick="toggleIframe('<?php echo $locationForMonitorIndex["loc"]; ?>','menuMonitorAddon');" >
-				<?php else: ?>
-					<li id="menuMonitorAddon" onclick="window.location.href='<?php echo $locationForMonitorIndex["loc"]; ?>'" >
-				<?php endif; ?>
-					<div class="menuImageDiv">
-						<?php echo generateImage(
-							$arrayOfImages["loadingImg"],
-							$imageConfig = array(
-								"id"		=>	"taskmanagerImage",
-								"class"		=>	"menuImage mainMenuImage",
-								"height"	=>	"30px",
-								"data-src"	=>	$arrayOfImages["taskManager"]
-								)
-							);
-						?>
-					</div>
-					Monitor
-					<?php
-					if($addonsAsIframe !== "true")
-					{
-						echo $externalLinkImage;
-					}
-					?>
-				</li>
-			<?php endif; ?>
-			<?php if($locationForSearchIndex["loc"]): ?>
-				<?php if($addonsAsIframe === "true"): ?>
-					<li id="menuSearchAddon" onclick="toggleIframe('<?php echo $locationForSearchIndex["loc"]; ?>','menuSearchAddon');" >
-				<?php else: ?>
-					<li id="menuSearchAddon" onclick="window.location.href='<?php echo $locationForSearchIndex["loc"]; ?>'" >
-				<?php endif; ?>
-					<div class="menuImageDiv">
-						<?php echo generateImage(
-							$arrayOfImages["loadingImg"],
-							$imageConfig = array(
-								"id"		=>	"searchImage",
-								"class"		=>	"menuImage mainMenuImage",
-								"height"	=>	"30px",
-								"data-src"	=>	$arrayOfImages["search"]
-								)
-							); 
-						?>
-					</div>
-					Search
-					<?php
-					if($addonsAsIframe !== "true")
-					{
-						echo $externalLinkImage;
-					}
-					?>
-				</li>
-			<?php endif; ?>
-			<?php if($locationForSeleniumMonitorIndex["loc"]): ?>
-				<?php if($addonsAsIframe === "true"): ?>
-					<li id="menuSeleniumMonitorAddon" onclick="toggleIframe('<?php echo $locationForSeleniumMonitorIndex["loc"]; ?>','menuSeleniumMonitorAddon');" >
-				<?php else: ?>
-					<li id="menuSeleniumMonitorAddon" onclick="window.location.href='<?php echo $locationForSeleniumMonitorIndex["loc"]; ?>'" >
-				<?php endif; ?>
-					<div class="menuImageDiv">
-						<?php echo generateImage(
-							$arrayOfImages["loadingImg"],
-							$imageConfig = array(
-								"id"		=>	"seleniumMonitorImage",
-								"class"		=>	"menuImage mainMenuImage",
-								"height"	=>	"30px",
-								"data-src"	=>	$arrayOfImages["seleniumMonitor"]
-								)
-							); 
-						?>
-					</div>
-					Selenium Monitor
-					<?php
-					if($addonsAsIframe !== "true")
-					{
-						echo $externalLinkImage;
-					}
-					?>
-				</li>
-			<?php endif; ?>
-		</ul>
-
-		<ul id="aboutSubMenu" class="settingsUl fullScreenMenuUL settingsUlSub">
-			<li class="menuTitle" style="text-align: center;" >
-				About
-			</li>
-			<li id="aboutSubMenuAbout" onclick="toggleAboutLogHog();" class="selected">
-				About Log-Hog
-			</li>
-			<li id="aboutSubMenuWhatsNew" onclick="toggleWhatsNew();">
-				What's New
-			</li>
-			<li id="aboutSubMenuChangelog" onclick="toggleChangeLog();">
-				Changelog
-			</li>
-		</ul>
-		<ul id="watchListSubMenu" class="settingsUl fullScreenMenuUL settingsUlSub" style="display: none;">
-			<li class="menuTitle" style="text-align: center;" >
-				Watchlist
-			</li>
-			<li onclick="addFile();" >
-				Add File
-			</li>
-			<li onclick="addFolder();" >
-				Add Folder
-			</li>
-			<li onclick="addOther();" >
-				Add Other
-			</li>
-			<li id="condensedLink" onclick="toggleCondensed();" >
-			<?php if($logShowMoreOptions === "false"): ?>
-				Show More Options</li>
-				<style type="text/css">
-					.condensed
-					{
-						display: none;
-					}
-				</style>
-			<?php else: ?>
-				Show Condensed Options</li>
-			<?php endif; ?>
-		</ul>
-		<ul id="settingsSubMenu" class="settingsUl fullScreenMenuUL settingsUlSub" style="display: none;">
-			<li class="menuTitle" style="text-align: center;">
-				Settings
-			</li>
-		</ul>
-		<div id="mainContentFullScreenMenu">
-			<div class="settingsHeader" style="position: fixed;width: 100%;z-index: 10;top: 0; margin: 0; border-bottom: 1px solid white; display: none;top: 46px;" id="fixedPositionMiniMenu" >
-			</div>
-			<div id="fullScreenMenuChangeLog" style="display: none;" >
-				<?php require_once("core/php/template/changelog.php"); ?>
-			</div>
-			<div id="fullScreenMenuWhatsNew" style="display: none;" >
-				<?php
-				$imageDirModifierAbout = "";
-				require_once('core/php/template/whatsNew.php');
-				?>
-			</div>
-			<div id="fullScreenMenuAbout" >
-				<?php require_once('core/php/template/about.php'); ?>
-			</div>
-			<div id="fullScreenMenuUpdate" style="display: none;">
-				<?php require_once('core/php/template/update.php'); ?>
-			</div>
-			<div id="fullScreenMenuIFrame" style="display: none;">
-				<iframe style="border: 0;" id="iframeFullScreen" src=""></iframe>
-			</div>
-			<div id="fullScreenMenuWatchList" style="display: none;">
-				<?php require_once('core/php/settingsMainWatchFunctions.php'); ?>
-				<?php require_once('core/php/template/settingsMainWatch.php'); ?>
-			</div>
-		</div>
+		<?php require_once('core/php/template/fullScreenMenu.php'); ?>
 	</div>
 
 	<form id="settingsInstallUpdate" action="update/updater.php" method="post" style="display: none"></form>
@@ -568,13 +231,26 @@ $externalLinkImage = generateImage(
 			)
 		)); ?>
 	</script>
-	<?php require_once('core/php/template/popup.php') ?>
-	<script src="core/js/lazyLoadImg.js?v=<?php echo $cssVersion?>"></script>
-	<script src="core/js/main.js?v=<?php echo $cssVersion?>"></script>
-	<script src="core/js/format.js?v=<?php echo $cssVersion?>"></script>
-	<script src="core/js/rightClickJS.js?v=<?php echo $cssVersion?>"></script>
-	<script src="core/js/update.js?v=<?php echo $cssVersion?>"></script>
-	<script src="core/js/settings.js?v=<?php echo $cssVersion?>"></script>
+	<?php require_once('core/php/template/popup.php');
+
+	$jsToLoad = array(
+		0	=>	"visibility.core.js",
+		1	=>	"visibility.fallback.js",
+		2	=>	"visibility.js",
+		3	=>	"visibility.timers.js",
+		4	=>	"loading-bar.min.js",
+		5	=>	"lazyLoadImg.js",
+		6	=>	"main.js",
+		7	=>	"format.js",
+		8	=>	"rightClickJS.js",
+		9	=>	"update.js",
+		10	=>	"settings.js"
+	);
+	foreach ($jsToLoad as $jsFile): ?>
+		<script src="core/js/<?php echo $jsFile; ?>?v=<?php echo $cssVersion?>"></script>
+	<?php endforeach; ?>
+
+	?>
 	<nav id="context-menu" class="context-menu">
 	  <ul id="context-menu-items" class="context-menu__items">
 	  </ul>

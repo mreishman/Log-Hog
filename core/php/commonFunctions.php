@@ -188,14 +188,6 @@ function loadCSS($base, $baseUrl, $version)
 	return $stringToReturn;
 }
 
-function loadVisibilityJS($baseURL)
-{
-	return "<script src=\"".$baseURL."core/js/visibility.core.js\"></script>
-	<script src=\"".$baseURL."core/js/visibility.fallback.js\"></script>
-	<script src=\"".$baseURL."core/js/visibility.js\"></script>
-	<script src=\"".$baseURL."core/js/visibility.timers.js\"></script>";
-}
-
 function calcuateDaysSince($lastCheck)
 {
 	$today = date('Y-m-d');

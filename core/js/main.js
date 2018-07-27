@@ -2082,8 +2082,13 @@ function makePretty(id)
 					{
 						returnText += " "+customClass+" ";
 					}
-					returnText += " >"+formatLine(lineText[j])+"</tr>";
-					returnText += "<tr height=\""+logLinePadding+"px\" ><td colspan=\"2\"></td></tr>";
+					returnText += " >";
+					var lineToReturn = lineText[j];
+					if(expFormatEnabled === "true")
+					{
+						lineToReturn = formatLine(lineText[j]);
+					}
+					returnText += ""+lineToReturn+"</tr><tr height=\""+logLinePadding+"px\" ><td colspan=\"2\"></td></tr>";
 				}
 			}
 		}
