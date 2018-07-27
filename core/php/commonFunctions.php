@@ -1147,13 +1147,14 @@ function createSelect($options, $selectValue, $defaultOption = false)
 
 function generateFullSelect($confDataValue, $selectValue, $varName)
 {
-	$returnHtml = "<span class=\"settingsBuffer\" > ".$confDataValue["name"].": </span> <div class=\"selectDiv\"><select name=\"".$varName."\">";
+	$returnHtml = "";
+	if(isset($confDataValue["name"]) && $confDataValue["name"] !== "")
+	{
+		$returnHtml .= "<span class=\"settingsBuffer\" > ".$confDataValue["name"].": </span>";
+	}
+	$returnHtml .= " <div class=\"selectDiv\"><select name=\"".$varName."\">";
 	$returnHtml .= createSelect($confDataValue["options"], $selectValue);
 	$returnHtml .= "</select></div>";
-	if(isset($confDataValue["postText"]) && $confDataValue["postText"] !== "")
-	{
-		$returnHtml .= " ".$confDataValue["postText"];
-	}
 	return $returnHtml;
 }
 
@@ -1161,21 +1162,25 @@ function generateNumber($confDataValue,$numberValue,$varName)
 {
 	$returnHtml = "<span class=\"settingsBuffer\" > ".$confDataValue["name"].": </span>";
 	$returnHtml .= " <input type=\"number\" pattern=\"[0-9]*\" name=\"".$varName."\" value=\"".$numberValue."\" >";
-	if(isset($confDataValue["postText"]) && $confDataValue["postText"] !== "")
-	{
-		$returnHtml .= " ".$confDataValue["postText"];
-	}
 	return $returnHtml;
 }
 
 function generateGenericType($confDataValue, $confDataKeyValue, $confDataKey)
 {
+	$returnHtml = "";
 	if($confDataValue["type"] === "number")
 	{
-		return generateNumber($confDataValue,$confDataKeyValue,$confDataKey);
+		$returnHtml .= generateNumber($confDataValue,$confDataKeyValue,$confDataKey);
 	}
-	//default is dropdown
-	return generateFullSelect($confDataValue,$confDataKeyValue,$confDataKey);
+	elseif($confDataValue["type"] === "dropdown")
+	{
+		$returnHtml .= generateFullSelect($confDataValue,$confDataKeyValue,$confDataKey);
+	}
+	if(isset($confDataValue["postText"]) && $confDataValue["postText"] !== "")
+	{
+		$returnHtml .= " ".$confDataValue["postText"];
+	}
+	return $returnHtml;
 }
 
 function generateInfo($image, $info)
