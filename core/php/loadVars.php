@@ -123,6 +123,7 @@ if(isset($_POST['resetConfigValuesBackToDefault']))
 {
 	$loadCustomConfigVars = false;
 }
+$loadVarsArray = array();
 foreach ($defaultConfig as $key => $value)
 {
 	$$key = $value;
@@ -138,6 +139,7 @@ foreach ($defaultConfig as $key => $value)
 	{
 		$$key = $themeDefaultSettings[$key];
 	}
+	$loadVarsArray[$key] = $$key;
 }
 
 
@@ -425,7 +427,7 @@ else
 			"title"			=>	"Folder Not Writeable",
 			"baseName"		=>	"folderIconNW.png"
 		),
-		"gear"		=> array(
+		"gear"				=> array(
 			"alt"			=>	"Settings",
 			"src"			=>	"",
 			"title"			=>	"Settings",
@@ -645,6 +647,104 @@ else
 	{
 		$loadingBarStyle = "data-type=\"stroke\"  data-stroke=\"data:ldbar/res,bubble(#ffae42,#000,50,2)\" data-stroke-trail=\"#924012\" data-pattern-size=\"20\" ".$loadingBarDefaultWidth;
 	}
+
+	$trueFalsVars = array(
+		0 					=> array(
+			"value" 			=> "true",
+			"name" 				=> "True"),
+		1 					=> array(
+			"value" 			=> "false",
+			"name" 				=> "False")
+	);
+
+	$defaultConfigMoreData 	= array(
+		'pollVars'				=> array(
+			'fullScreenMenuPollSwitchDelay'		=> array(
+				'type'								=>	"single",
+				'var'								=>	array(
+					'name'								=>	"Full Screen Menu delay",
+					'postText'							=>	"Seconds",
+					'type'								=>	"number"
+				)
+			),
+			'fullScreenMenuPollSwitchType'		=> array(
+				'type'								=>	"single",
+				'var'								=>	array(
+					'name'								=>	"Full Screen Menu Click",
+					'options'							=>	array(
+						0 									=> array(
+							"value" 							=> "BGrate",
+							"name" 								=> "Use Background Rate"),
+						1 									=> array(
+							"value" 							=> "Pause",
+							"name" 							=> "Pause Poll")
+					),
+					'type'								=> "dropdown"
+				)
+			),
+			'lineCountFromJS'					=> array(
+				'type'								=>	"single",
+				'var'								=>	array(
+					'info'								=>	"PHP method is more accurate, but will increase poll times",
+					'name'								=>	"Line count from",
+					'options'							=>	array(
+						0 									=> array(
+							"value" 							=> "true",
+							"name" 								=> "JS"),
+						1 									=> array(
+							"value" 							=> "false",
+							"name" 								=> "PHP")
+					),
+					'type'								=> "dropdown"
+				)
+			),
+			"pauseOnNotFocus"					=>	array(
+				'type'								=>	"single",
+				'var'								=>	array(
+					'name'								=>	"Pause On Not Focus",
+					'options'							=>	$trueFalsVars,
+					'type'								=>	"dropdown"
+				)
+			),
+			"pausePoll"							=>	array(
+				'type'								=>	"single",
+				'var'								=>	array(
+					'name'								=>	"Pause Poll On Load",
+					'options'							=>	$trueFalsVars,
+					'type'								=>	"dropdown"
+				)
+			),
+			'shellOrPhp'						=> array(
+				'type'								=>	"single",
+				'var'								=>	array(
+					'name'								=>	"Line count from",
+					'options'							=>	array(
+						0 									=> array(
+							"value" 							=> "shellPreferred",
+							"name" 								=> "Shell Preferred"),
+						1 									=> array(
+							"value" 							=> "phpPreferred",
+							"name" 								=> "Php Preferred"),
+						2 									=> array(
+							"value" 							=> "shellOnly",
+							"name" 								=> "Shell Only"),
+						3 									=> array(
+							"value" 							=> "phpOnly",
+							"name" 								=> "Php Only"),
+					),
+					'type'								=> "dropdown"
+				)
+			),
+			'showErrorPhpFileOpen'				=> array(
+				'type'								=>	"single",
+				'var'								=>	array(
+					'name'								=>	"Show Php errors from file open fails",
+					'options'							=>	$trueFalsVars,
+					'type'								=> "dropdown"
+				)
+			)
+		)
+	);
 
 }
 

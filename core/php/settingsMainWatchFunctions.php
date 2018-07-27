@@ -9,11 +9,11 @@ function makeTrueFalseSelect($selectValue)
 				"name"	=>	"True"
 			)
 		),
+		(String)$selectValue,
 		array(
 			"value" => 	"false",
 			"name"	=>	"False"
-		),
-		(String)$selectValue
+		)
 	);
 }
 
@@ -30,11 +30,11 @@ function generateFileTypeSelect($selectValue)
 				"name"	=>	"Folder"
 			)
 		),
+		(String)$selectValue,
 		array(
 			"value" => 	"other",
 			"name"	=>	"Other"
-		),
-		(String)$selectValue
+		)
 	);
 }
 
@@ -42,11 +42,11 @@ function makePatternSelect($selectValue, $selectOptions)
 {
 	return createSelect(
 		$selectOptions,
+		(String)$selectValue,
 		array(
 			"value" => 	"other",
 			"name"	=>	"Other"
-		),
-		(String)$selectValue
+		)
 	);
 }
 

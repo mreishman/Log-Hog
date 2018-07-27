@@ -1,3 +1,12 @@
+<?php $infoImage = generateImage(
+	$arrayOfImages["info"],
+	array(
+		"style"			=>	"margin-bottom: -4px;",
+		"height"		=>	"20px",
+		"srcModifier"	=>	"../"
+	)
+);
+?>
 <form id="settingsPollVars">
 <div class="settingsHeader">
 Poll Settings
@@ -8,6 +17,23 @@ Poll Settings
 </div>
 <div class="settingsDiv" >
 <ul class="settingsUl">
+	<?php
+	foreach ($defaultConfigMoreData["pollVars"] as $confDataKey => $confDataValue)
+	{
+		if($confDataValue["type"] === "single")
+		{
+			echo "<li>".generateGenericType($confDataValue["var"], $loadVarsArray[$confDataKey], $confDataKey)."</li>";
+			if(isset($confDataValue["var"]["info"]) && $confDataValue["var"]["info"] !== "")
+			{
+				echo generateInfo($infoImage,$confDataValue["var"]["info"]);
+			}
+		}
+		if(isset($confDataValue["info"]) && $confDataValue["info"] !== "")
+		{
+			echo generateInfo($infoImage,$confDataValue["info"]);
+		}
+	}
+	?>
 	<li>
 		<span class="settingsBuffer" > Polling Rate: </span>  <input type="number" pattern="[0-9]*" name="pollingRate" value="<?php echo $pollingRate;?>" >
 		<div class="selectDiv">
@@ -25,36 +51,6 @@ Poll Settings
 				<option <?php if($backgroundPollingRateType == 'Seconds'){echo "selected";} ?> value="Seconds">Seconds</option>
 			</select>
 		</div>
-	</li>
-	<li>
-		<span class="settingsBuffer" > Pause Poll On Load:  </span>
-		<div class="selectDiv">
-			<select name="pausePoll">
-				<option <?php if($pausePoll == 'true'){echo "selected";} ?> value="true">True</option>
-				<option <?php if($pausePoll == 'false'){echo "selected";} ?> value="false">False</option>
-			</select>
-		</div>
-	</li>
-	<li>
-		<span class="settingsBuffer" > Pause On Not Focus: </span>
-		<div class="selectDiv">
-			<select name="pauseOnNotFocus">
-				<option <?php if($pauseOnNotFocus == 'true'){echo "selected";} ?> value="true">True</option>
-				<option <?php if($pauseOnNotFocus == 'false'){echo "selected";} ?> value="false">False</option>
-			</select>
-		</div>
-	</li>
-	<li>
-		<span class="settingsBuffer" > Full Screen Menu Click: </span>
-		<div class="selectDiv">
-			<select name="fullScreenMenuPollSwitchType">
-				<option <?php if($fullScreenMenuPollSwitchType == 'BGrate'){echo "selected";} ?> value="BGrate">Use Background Rate</option>
-				<option <?php if($fullScreenMenuPollSwitchType == 'Pause'){echo "selected";} ?> value="Pause">Pause Poll</option>
-			</select>
-		</div>
-	</li>
-	<li>
-		<span class="settingsBuffer" > Full Screen Menu delay: </span> <input type="number" pattern="[0-9]*" name="fullScreenMenuPollSwitchDelay" value="<?php echo $fullScreenMenuPollSwitchDelay;?>" > Seconds
 	</li>
 	<li>
 		<span class="settingsBuffer"> Poll refresh all data every </span>
@@ -75,46 +71,6 @@ Poll Settings
 			<select name="pollForceTrueBool">
 					<option <?php if($pollForceTrueBool == 'true'){echo "selected";} ?> value="true">True</option>
 					<option <?php if($pollForceTrueBool == 'false'){echo "selected";} ?> value="false">False</option>
-			</select>
-		</div>
-	</li>
-	<li>
-		<span class="settingsBuffer"> System preference:</span>
-		<div class="selectDiv">
-			<select name="shellOrPhp">
-					<option <?php if($shellOrPhp == 'shellPreferred'){echo "selected";} ?> value="shellPreferred">Shell Preferred</option>
-					<option <?php if($shellOrPhp == 'phpPreferred'){echo "selected";} ?> value="phpPreferred">Php Preferred</option>
-					<option <?php if($shellOrPhp == 'shellOnly'){echo "selected";} ?> value="shellOnly">Shell Only</option>
-					<option <?php if($shellOrPhp == 'phpOnly'){echo "selected";} ?> value="phpOnly">Php Only</option>
-			</select>
-		</div>
-	</li>
-	<li>
-		<span class="settingsBuffer"> Line count from:</span>
-		<div class="selectDiv">
-			<select name="lineCountFromJS">
-					<option <?php if($lineCountFromJS == 'true'){echo "selected";} ?> value="true">JS</option>
-					<option <?php if($lineCountFromJS == 'false'){echo "selected";} ?> value="false">PHP</option>
-			</select>
-		</div>
-		<br>
-		<span style="font-size: 75%;">
-			<?php echo generateImage(
-				$arrayOfImages["info"],
-				array(
-					"style"			=>	"margin-bottom: -4px;",
-					"height"		=>	"20px",
-					"srcModifier"	=>	"../"
-				)
-			); ?>
-			<i>PHP method is more accurate, but will increase poll times</i></span>
-	</li>
-	<li>
-		<span class="settingsBuffer">Show Php errors from file open fails:</span>
-		<div class="selectDiv">
-			<select name="showErrorPhpFileOpen">
-					<option <?php if($showErrorPhpFileOpen == 'true'){echo "selected";} ?> value="true">True</option>
-					<option <?php if($showErrorPhpFileOpen == 'false'){echo "selected";} ?> value="false">False</option>
 			</select>
 		</div>
 	</li>

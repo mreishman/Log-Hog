@@ -5,7 +5,6 @@ var clearCurrentLog = {action: "clearLog(currentSelectWindow);", name: "Clear Cu
 var deleteAllLogs = {action: "", name: "Delete All Logs"};
 var deleteCurrentLog = {action: "deleteLogPopup();", name: "Delete Current Log"};
 
-
 //Pause Icon
 
 var tmpTogglePauseOnUnfocus = {action: "switchPollType();", name: "Toggle pause on unfocus"};
@@ -20,14 +19,6 @@ $( document ).ready(function() {
 
     "use strict";
 
-    /*
-    <li class="context-menu__item">
-      <a href="#" class="context-menu__link">
-        View Task
-      </a>
-    </li>
-    */
-
     var menuPosition;
     var menuPositionX;
     var menuPositionY;
@@ -41,31 +32,29 @@ $( document ).ready(function() {
     var menuState = 0;
     var active = "context-menu--active";
     function contextListener() {
-
       document.addEventListener( "contextmenu", function(e) {
         var elementClicked = clickInsideElement(e);
         var rightClickIDListLength = Rightclick_ID_list.length;
         var hideMenu = true;
 
         for (var i =  rightClickIDListLength - 1; i >= 0; i--) {
-            if(document.getElementById(Rightclick_ID_list[i]) == elementClicked)
+          if(document.getElementById(Rightclick_ID_list[i]) == elementClicked)
+          {
+            var menuIDSelected = Rightclick_ID_list[i];
+            hideMenu = false;
+            e.preventDefault();
+            toggleMenuOn();
+            var rightClickMenuArray = menuObjectRightClick[menuIDSelected];
+            var rightClickMenuArrayLength = rightClickMenuArray.length;
+            var rightClickMenuHTML = "";
+            for (var i = rightClickMenuArrayLength - 1; i >= 0; i--) 
             {
-              var menuIDSelected = Rightclick_ID_list[i];
-              hideMenu = false;
-              e.preventDefault();
-              toggleMenuOn();
-              var rightClickMenuArray = menuObjectRightClick[menuIDSelected];
-              var rightClickMenuArrayLength = rightClickMenuArray.length;
-              var rightClickMenuHTML = "";
-              for (var i = rightClickMenuArrayLength - 1; i >= 0; i--) 
-              {
-                rightClickMenuHTML += "<li onclick='"+rightClickMenuArray[i].action+"' class=\"context-menu__item\"><a class=\"context-menu__link\"> "+rightClickMenuArray[i].name+" </a> </li>";
-              }
-              document.getElementById("context-menu-items").innerHTML = rightClickMenuHTML;
-              positionMenu(e);
+              rightClickMenuHTML += "<li onclick='"+rightClickMenuArray[i].action+"' class=\"context-menu__item\"><a class=\"context-menu__link\"> "+rightClickMenuArray[i].name+" </a> </li>";
             }
+            document.getElementById("context-menu-items").innerHTML = rightClickMenuHTML;
+            positionMenu(e);
+          }
         }
-
         if(hideMenu)
         {
           toggleMenuOff();
@@ -105,9 +94,9 @@ $( document ).ready(function() {
         posx = e.pageX;
         posy = e.pageY;
       } else if (e.clientX || e.clientY) {
-        posx = e.clientX + document.body.scrollLeft + 
+        posx = e.clientX + document.body.scrollLeft +
                            document.documentElement.scrollLeft;
-        posy = e.clientY + document.body.scrollTop + 
+        posy = e.clientY + document.body.scrollTop +
                            document.documentElement.scrollTop;
       }
 
@@ -139,7 +128,6 @@ $( document ).ready(function() {
      }else{
       document.getElementById("context-menu").style.top = menuPositionY+ "px";
      }
-      
     }
 
     function clickListener() {

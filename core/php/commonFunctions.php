@@ -1119,7 +1119,7 @@ function sizeFilesInDir($data)
 	return $response;
 }
 
-function createSelect($options, $defaultOption, $selectValue)
+function createSelect($options, $selectValue, $defaultOption = false)
 {
 	$selectHtml = "";
 	$selected = false;
@@ -1133,11 +1133,55 @@ function createSelect($options, $defaultOption, $selectValue)
 		}
 		$selectHtml .= " >".$value["name"]."</option>";
 	}
-	$selectHtml .= "<option value=\"".$defaultOption["value"]."\" ";
-	if($selected !== true)
+	if($defaultOption)
 	{
-		$selectHtml .= " selected ";
+		$selectHtml .= "<option value=\"".$defaultOption["value"]."\" ";
+		if($selected !== true)
+		{
+			$selectHtml .= " selected ";
+		}
+		$selectHtml .= " >".$defaultOption["name"]."</option>";
 	}
-	$selectHtml .= " >".$defaultOption["name"]."</option>";
 	return $selectHtml;
+}
+
+function generateFullSelect($confDataValue, $selectValue, $varName)
+{
+	$returnHtml = "<span class=\"settingsBuffer\" > ".$confDataValue["name"].": </span> <div class=\"selectDiv\"><select name=\"".$varName."\">";
+	$returnHtml .= createSelect($confDataValue["options"], $selectValue);
+	$returnHtml .= "</select></div>";
+	if(isset($confDataValue["postText"]) && $confDataValue["postText"] !== "")
+	{
+		$returnHtml .= " ".$confDataValue["postText"];
+	}
+	return $returnHtml;
+}
+
+function generateNumber($confDataValue,$numberValue,$varName)
+{
+	$returnHtml = "<span class=\"settingsBuffer\" > ".$confDataValue["name"].": </span>";
+	$returnHtml .= " <input type=\"number\" pattern=\"[0-9]*\" name=\"".$varName."\" value=\"".$numberValue."\" >";
+	if(isset($confDataValue["postText"]) && $confDataValue["postText"] !== "")
+	{
+		$returnHtml .= " ".$confDataValue["postText"];
+	}
+	return $returnHtml;
+}
+
+function generateGenericType($confDataValue, $confDataKeyValue, $confDataKey)
+{
+	if($confDataValue["type"] === "number")
+	{
+		return generateNumber($confDataValue,$confDataKeyValue,$confDataKey);
+	}
+	//default is dropdown
+	return generateFullSelect($confDataValue,$confDataKeyValue,$confDataKey);
+}
+
+function generateInfo($image, $info)
+{
+	$returnHtml = "<li><span style=\"font-size: 75%;\">";
+	$returnHtml .= $image;
+	$returnHtml .= "  <i>".$info."</i></span></li>";
+	return $returnHtml;
 }
