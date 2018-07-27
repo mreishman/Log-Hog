@@ -69,7 +69,7 @@ $listOfAddons = array(
 
 ?>
 
-<script src="../core/js/loghogDownloadJS.js"></script>
+<script src="core/js/loghogDownloadJS.js"></script>
 <table style="width: 100%;">
 	<tr>
 		<td width="15%">

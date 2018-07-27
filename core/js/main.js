@@ -17,6 +17,7 @@ var fileData;
 var filesNew;
 var firstLoad = true;
 var flasher;
+var fullScreenMenuClickCount = 0;
 var lastContentSearch = "";
 var lastLogs = {};
 var logDisplayArray = {};
@@ -28,6 +29,7 @@ var notifications = new Array();
 var pausePollCurrentSession = false;
 var percent = 0;
 var polling = false;
+var pollingRateBackup = 0;
 var pollRefreshAllBoolStatic = pollRefreshAllBool;
 var pollSkipCounter = 0;
 var pollTimer = null;
@@ -630,7 +632,6 @@ function pollTimeLogEndAction()
 		{
 			document.getElementById("loggingTimerPollRate").style.color = "#ffff00";
 		}
-		
 	}
 	else
 	{
@@ -2273,6 +2274,40 @@ function clearPollTimer()
 	pollTimer = null;
 }
 
+function togglePollSpeedDown(currentClick)
+{
+	if(userPaused || pausePollCurrentSession)
+	{
+		return;
+	}
+	if(currentClick !== fullScreenMenuClickCount)
+	{
+		return;
+	}
+	clearPollTimer();
+	if(fullScreenMenuPollSwitchType === "BGrate")
+	{
+		pollingRateBackup = pollingRate;
+		pollingRate = backgroundPollingRate;
+		startPollTimer();
+	}
+}
+
+function togglePollSpeedUp()
+{
+	if(userPaused || pausePollCurrentSession)
+	{
+		return;
+	}
+	clearPollTimer();
+	if(pollingRateBackup !== 0)
+	{
+		pollingRate = pollingRateBackup;
+	}
+	pollingRateBackup = 0;
+	startPollTimer();
+}
+
 function switchPollType()
 {
 	pollRateCalc = pollingRate;
@@ -2999,6 +3034,7 @@ function updateNotificationStuff()
 
 function toggleFullScreenMenu()
 {
+	fullScreenMenuClickCount++;
 	dirForAjaxSend = "";
 	if(document.getElementById("notifications").style.display === "inline-block")
 	{
@@ -3025,11 +3061,17 @@ function toggleFullScreenMenu()
 		{
 			$("#menuSeleniumMonitorAddon").click();
 		}
+		var fullScreenMenuClickCountCurrent = fullScreenMenuClickCount;
+		setTimeout(function() {
+			togglePollSpeedDown(fullScreenMenuClickCountCurrent);
+		}, 1000 * fullScreenMenuPollSwitchDelay);
+
 	}
 	else
 	{
 		hideIframeStuff();
 		document.getElementById("fullScreenMenu").style.display = "none";
+		togglePollSpeedUp();
 	}
 }
 

@@ -242,6 +242,8 @@ $defaultConfig = array(
 			),
 		),
 	'fontFamily'					=> 'monospace',
+	'fullScreenMenuPollSwitchDelay'	=> 0,
+	'fullScreenMenuPollSwitchType'	=> 'BGrate',
 	'groupByColorEnabled'			=> 'true',
 	'groupByType'					=> 'folder',
 	'hideClearAllNotifications'		=> 'true',

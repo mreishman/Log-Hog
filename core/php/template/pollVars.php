@@ -25,8 +25,6 @@ Poll Settings
 				<option <?php if($backgroundPollingRateType == 'Seconds'){echo "selected";} ?> value="Seconds">Seconds</option>
 			</select>
 		</div>
-		<br>
-		<i style="font-size: 75%;" >Only if Pause On Not Focus is set to False</i>
 	</li>
 	<li>
 		<span class="settingsBuffer" > Pause Poll On Load:  </span>
@@ -45,6 +43,18 @@ Poll Settings
 				<option <?php if($pauseOnNotFocus == 'false'){echo "selected";} ?> value="false">False</option>
 			</select>
 		</div>
+	</li>
+	<li>
+		<span class="settingsBuffer" > Full Screen Menu Click: </span>
+		<div class="selectDiv">
+			<select name="fullScreenMenuPollSwitchType">
+				<option <?php if($fullScreenMenuPollSwitchType == 'BGrate'){echo "selected";} ?> value="BGrate">Use Background Rate</option>
+				<option <?php if($fullScreenMenuPollSwitchType == 'Pause'){echo "selected";} ?> value="Pause">Pause Poll</option>
+			</select>
+		</div>
+	</li>
+	<li>
+		<span class="settingsBuffer" > Full Screen Menu delay: </span> <input type="number" pattern="[0-9]*" name="fullScreenMenuPollSwitchDelay" value="<?php echo $fullScreenMenuPollSwitchDelay;?>" > Seconds
 	</li>
 	<li>
 		<span class="settingsBuffer"> Poll refresh all data every </span>
