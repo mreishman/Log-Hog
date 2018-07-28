@@ -2,11 +2,11 @@
 require_once('core/php/errorCheckFunctions.php');
 $currentPage = "index.php";
 checkIfFilesExist(
-	array("core/conf/config.php","core/php/configStatic.php","core/php/loadVars.php","core/php/updateCheck.php","core/js/jquery.js","core/template/loading-bar.css","core/js/loading-bar.min.js","core/php/customCSS.php","core/php/template/popup.php","core/js/main.js","core/js/rightClickJS.js","core/js/update.js","core/php/commonFunctions.php","setup/setupProcessFile.php","error.php"),
+	array("core/conf/config.php","core/php/configStatic.php","core/php/loadVars.php","core/php/loadVarsToJs.php","core/php/updateCheck.php","core/js/jquery.js","core/template/loading-bar.css","core/js/loading-bar.min.js","core/php/customCSS.php","core/php/template/popup.php","core/js/main.js","core/js/rightClickJS.js","core/js/update.js","core/php/commonFunctions.php","setup/setupProcessFile.php","error.php"),
 	 "",
 	 $currentPage);
 checkIfFilesAreReadable(
-	array("core/conf/config.php","core/php/configStatic.php","core/php/loadVars.php","core/php/updateCheck.php","core/js/jquery.js","core/template/loading-bar.css","core/js/loading-bar.min.js","core/php/customCSS.php","core/php/template/popup.php","core/js/main.js","core/js/rightClickJS.js","core/js/update.js","core/php/commonFunctions.php","setup/setupProcessFile.php","error.php"),
+	array("core/conf/config.php","core/php/configStatic.php","core/php/loadVars.php","core/php/loadVarsToJs.php","core/php/updateCheck.php","core/js/jquery.js","core/template/loading-bar.css","core/js/loading-bar.min.js","core/php/customCSS.php","core/php/template/popup.php","core/js/main.js","core/js/rightClickJS.js","core/js/update.js","core/php/commonFunctions.php","setup/setupProcessFile.php","error.php"),
 	 "",
 	 $currentPage);
 require_once('core/php/commonFunctions.php');
@@ -51,6 +51,7 @@ else
 }
 require_once('core/php/configStatic.php');
 require_once('core/php/loadVars.php');
+require_once('core/php/loadVarsToJs.php');
 require_once('core/php/updateCheck.php');
 
 if(!class_exists('ZipArchive') && $autoCheckUpdate === "true")
@@ -60,15 +61,6 @@ if(!class_exists('ZipArchive') && $autoCheckUpdate === "true")
 
 $daysSince = calcuateDaysSince($configStatic['lastCheck']);
 
-if($pollingRateType == 'Seconds')
-{
-	$pollingRate *= 1000;
-}
-if($backgroundPollingRateType == 'Seconds')
-{
-	$backgroundPollingRate *= 1000;
-}
-
 $locationForStatusIndex = checkForStatusInstall($locationForStatus, "./");
 
 $locationForMonitorIndex = checkForMonitorInstall($locationForMonitor, "./");
@@ -76,35 +68,6 @@ $locationForMonitorIndex = checkForMonitorInstall($locationForMonitor, "./");
 $locationForSearchIndex = checkForSearchInstall($locationForSearch, "./");
 
 $locationForSeleniumMonitorIndex = checkForSeleniumMonitorInstall($locationForSeleniumMonitor, "./");
-
-$loadingBarStyle = "";
-
-$loadingBarDefaultWidth = "data-stroke-width=\"3\" data-stroke-trail-width=\"3\"";
-
-if($loadingBarVersion === 1)
-{
-	$loadingBarStyle = "data-type=\"stroke\" data-stroke=\"".$currentSelectedThemeColorValues['main']['main-2']['background']."\" data-stroke-trail=\"".$currentSelectedThemeColorValues['main']['main-1']['background']."\" ".$loadingBarDefaultWidth;
-}
-elseif($loadingBarVersion === 2)
-{
-	$loadingBarStyle = "data-type=\"stroke\" data-stroke=\"data:ldbar/res,stripe(#fff,#4fb3f0,1)\" data-stroke-trail=\"#082a36\" data-pattern-size=\"10\" ".$loadingBarDefaultWidth;
-}
-elseif($loadingBarVersion === 3)
-{
-	$loadingBarStyle = "data-type=\"stroke\" data-stroke=\"data:ldbar/res,gradient(0,1,#3E8486,#A5F1F1)\" data-stroke-trail=\"#082a36\" ".$loadingBarDefaultWidth;
-}
-elseif($loadingBarVersion === 4)
-{
-	$loadingBarStyle = "data-type=\"stroke\"  data-stroke=\"data:ldbar/res,bubble(#248,#fff,50,1)\" data-stroke-trail=\"#082a36\" data-pattern-size=\"10\" ".$loadingBarDefaultWidth;
-}
-elseif($loadingBarVersion === 5)
-{
-	$loadingBarStyle = "data-type=\"stroke\" data-stroke=\"green\" data-stroke-trail=\"#063305\" "."data-stroke-width=\"3\" data-stroke-trail-width=\"1\"";
-}
-elseif($loadingBarVersion === 6)
-{
-	$loadingBarStyle = "data-type=\"stroke\"  data-stroke=\"data:ldbar/res,bubble(#ffae42,#000,50,2)\" data-stroke-trail=\"#924012\" data-pattern-size=\"20\" ".$loadingBarDefaultWidth;
-}
 
 $aboutImage = "<img src=\"core/img/LogHog.png\" width=\"100px\" style=\"margin-bottom: -40px;\" >";
 
@@ -413,10 +376,10 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 			</div>
 		</div>
 	</div>
-	<div class="backgroundForMenus" id="menu">
+	<div class="backgroundForMenus" id="menu" style="position: inherit;">
 	</div>
 	<?php echo $popupInfoLog; ?>.
-	<div style="display: inline-block; position: absolute; top: 0; left: 0;" >
+	<div style="display: inline-block; position: absolute; top: 0; left: 0; z-index: 30;" >
 		<div id="notificationIcon">
 			<span onclick="toggleNotifications();" id="notificationCount"></span>
 			<span onclick="toggleNotifications();" id="notificationBadge"></span>
@@ -453,6 +416,17 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 						"height"	=>	"30px"
 						)
 					);
+				?>
+			</div>
+			<div onclick="toggleNotifications();"  class="menuImageDiv">
+				<?php echo generateImage(
+					$arrayOfImages["notification"],
+					$imageConfig = array(
+						"id"		=>	"notificationNotClicked",
+						"class"		=>	"menuImage",
+						"height"	=>	"30px"
+						)
+					); 
 				?>
 			</div>
 		</div>
@@ -507,7 +481,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 				</div>
 				Update
 				<?php
-				if($levelOfUpdate !== 0 && $configStatic["version"] !== $dontNotifyVersion && $updateNotificationEnabled)
+				if($levelOfUpdate !== 0 && $configStatic["version"] !== $dontNotifyVersion && $updateNotificationEnabled === "true")
 				{ 
 					if($updateNoticeMeter === "every" || $levelOfUpdate > 1)
 					{
@@ -539,13 +513,33 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 				}
 				?>
 			</li>
+			<li onclick="window.location.href = './settings/watchlist.php';" >
+				<div class="menuImageDiv">
+					<?php echo generateImage(
+						$arrayOfImages["watchList"],
+						$imageConfig = array(
+							"id"		=>	"watchList",
+							"class"		=>	"menuImage mainMenuImage",
+							"height"	=>	"30px",
+							"title"		=>	"WatchList",
+							)
+						);
+					?>
+				</div>
+				Watchlist
+				<?php echo $externalLinkImage; ?>
+			</li>
 			<?php if($locationForMonitorIndex["loc"] || $locationForSearchIndex["loc"] || $locationForSeleniumMonitorIndex["loc"] || $locationForStatusIndex["loc"]): ?>
 				<li class="menuTitle" style="background-color: #999; color: black;" >
 					Other Apps
 				</li>
 			<?php endif;?>
 			<?php if ($locationForStatusIndex["loc"]):?>
-				<li onclick="window.location.href='<?php echo $locationForStatusIndex["loc"]; ?>'" >
+				<?php if($addonsAsIframe === "true"): ?>
+					<li id="menuStatusAddon" onclick="toggleIframe('<?php echo $locationForStatusIndex["loc"]; ?>','menuStatusAddon');" >
+				<?php else: ?>
+					<li id="menuStatusAddon" onclick="window.location.href='<?php echo $locationForStatusIndex["loc"]; ?>'" >
+				<?php endif; ?>
 					<div class="menuImageDiv">
 						<?php echo generateImage(
 							$arrayOfImages["gitStatus"],
@@ -558,11 +552,20 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 						?>
 					</div>
 					gitStatus
-					<?php echo $externalLinkImage; ?>
+					<?php
+					if($addonsAsIframe !== "true")
+					{
+						echo $externalLinkImage;
+					}
+					?>
 				</li>
 			<?php endif; ?>
 			<?php if($locationForMonitorIndex["loc"]): ?>
-				<li onclick="window.location.href = '<?php echo $locationForMonitorIndex["loc"]; ?>'" >
+				<?php if($addonsAsIframe === "true"): ?>
+					<li id="menuMonitorAddon" onclick="toggleIframe('<?php echo $locationForMonitorIndex["loc"]; ?>','menuMonitorAddon');" >
+				<?php else: ?>
+					<li id="menuMonitorAddon" onclick="window.location.href='<?php echo $locationForMonitorIndex["loc"]; ?>'" >
+				<?php endif; ?>
 					<div class="menuImageDiv">
 						<?php echo generateImage(
 							$arrayOfImages["taskManager"],
@@ -575,11 +578,20 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 						?>
 					</div>
 					Monitor
-					<?php echo $externalLinkImage; ?>
+					<?php
+					if($addonsAsIframe !== "true")
+					{
+						echo $externalLinkImage;
+					}
+					?>
 				</li>
 			<?php endif; ?>
 			<?php if($locationForSearchIndex["loc"]): ?>
-				<li onclick="window.location.href = '<?php echo $locationForSearchIndex["loc"]; ?>'" >
+				<?php if($addonsAsIframe === "true"): ?>
+					<li id="menuSearchAddon" onclick="toggleIframe('<?php echo $locationForSearchIndex["loc"]; ?>','menuSearchAddon');" >
+				<?php else: ?>
+					<li id="menuSearchAddon" onclick="window.location.href='<?php echo $locationForSearchIndex["loc"]; ?>'" >
+				<?php endif; ?>
 					<div class="menuImageDiv">
 						<?php echo generateImage(
 							$arrayOfImages["search"],
@@ -592,11 +604,20 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 						?>
 					</div>
 					Search
-					<?php echo $externalLinkImage; ?>
+					<?php
+					if($addonsAsIframe !== "true")
+					{
+						echo $externalLinkImage;
+					}
+					?>
 				</li>
 			<?php endif; ?>
 			<?php if($locationForSeleniumMonitorIndex["loc"]): ?>
-				<li onclick="window.location.href = '<?php echo $locationForSeleniumMonitorIndex["loc"]; ?>'" >
+				<?php if($addonsAsIframe === "true"): ?>
+					<li id="menuSeleniumMonitorAddon" onclick="toggleIframe('<?php echo $locationForSeleniumMonitorIndex["loc"]; ?>','menuSeleniumMonitorAddon');" >
+				<?php else: ?>
+					<li id="menuSeleniumMonitorAddon" onclick="window.location.href='<?php echo $locationForSeleniumMonitorIndex["loc"]; ?>'" >
+				<?php endif; ?>
 					<div class="menuImageDiv">
 						<?php echo generateImage(
 							$arrayOfImages["seleniumMonitor"],
@@ -609,7 +630,12 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 						?>
 					</div>
 					Selenium Monitor
-					<?php echo $externalLinkImage; ?>
+					<?php
+					if($addonsAsIframe !== "true")
+					{
+						echo $externalLinkImage;
+					}
+					?>
 				</li>
 			<?php endif; ?>
 		</ul>
@@ -641,14 +667,6 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 			</li>
 			-->
 		</ul>
-		<ul id="updateSubMenu" class="settingsUl fullScreenMenuUL settingsUlSub" style="display: none;">
-			<li class="menuTitle" style="text-align: center;">
-				Update
-			</li>
-			<li id="settingsSubMenuUpdate" onclick="toggleUpdateSubMenu();" class="selected">
-				Update
-			</li>
-		</ul>
 		<div id="mainContentFullScreenMenu">
 			<div class="settingsHeader" style="position: fixed;width: 100%;z-index: 10;top: 0; margin: 0; border-bottom: 1px solid white; display: none;top: 46px;" id="fixedPositionMiniMenu" >
 			</div>
@@ -666,6 +684,9 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 			</div>
 			<div id="fullScreenMenuUpdate" style="display: none;">
 				<?php require_once('core/php/template/update.php'); ?>
+			</div>
+			<div id="fullScreenMenuIFrame" style="display: none;">
+				<iframe style="border: 0;" id="iframeFullScreen" src=""></iframe>
 			</div>
 		</div>
 	</div>
@@ -686,7 +707,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 			}
 			<?php
 		endif;
-		if($levelOfUpdate !== 0 && $configStatic["version"] !== $dontNotifyVersion && $updateNotificationEnabled): 
+		if($levelOfUpdate !== 0 && $configStatic["version"] !== $dontNotifyVersion && $updateNotificationEnabled === "true"): 
 			if($updateNoticeMeter === "every" || $levelOfUpdate > 1):
 				$updateImage = "";
 				if($levelOfUpdate == 1)
@@ -720,67 +741,27 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 					notifications[currentId]["id"] = currentId;
 					notifications[currentId]["name"] = "New Update: <?php echo $configStatic['newestVersion'];?>";
 					notifications[currentId]["time"] = formatAMPM(new Date());
-					notifications[currentId]["action"] = "window.location = './settings/update.php';";
+					notifications[currentId]["action"] = "toggleFullScreenMenu(); toggleUpdateMenu();";
 					notifications[currentId]["image"] = <?php echo $updateImage; ?>;
 				}
 			<?php endif; 
 		endif;
 		echo "var colorArrayLength = ".count($currentSelectedThemeColorValues).";";
-		echo "var pausePollOnNotFocus = ".$pauseOnNotFocus.";";
-		echo "var autoCheckUpdate = ".$autoCheckUpdate.";";
-		echo "var flashTitleUpdateLog = ".$flashTitleUpdateLog.";";
 		echo "var dateOfLastUpdate = '".$configStatic['lastCheck']."';";
 		echo "var daysSinceLastCheck = '".$daysSince."';";
-		echo "var daysSetToUpdate = '".$autoCheckDaysUpdate."';";
-		echo "var pollingRate = ".$pollingRate.";";
-		echo "var backgroundPollingRate = ".$backgroundPollingRate.";";
-		echo "var pausePollFromFile = ".$pausePoll.";";
-		echo "var groupByColorEnabled = ".$groupByColorEnabled.";";
-		echo "var pollForceTrue = ".$pollForceTrue.";";
-		echo "var pollRefreshAll = ".$pollRefreshAll.";";
-		echo "var sliceSize = ".$sliceSize.";";
-		echo "var filterContentLinePadding = ".$filterContentLinePadding.";";
 		echo "var logDisplayArray = ".$logDisplayArray.";";
 		echo "var windowDisplayConfigRowCount = ".$windowDisplayConfig[0].";";
 		echo "var windowDisplayConfigColCount = ".$windowDisplayConfig[1].";";
 		echo "var borderPadding = ".$borderPadding.";";
-		echo "var autoMoveUpdateLog = ".$autoMoveUpdateLog.";";
 		$srcForLoadImage = "core/img/loading.gif";
 		if(isset($arrayOfImages))
 		{
 			$srcForLoadImage = $arrayOfImages["loading"]["src"];
 		}
 		?>
-		var notifications = new Array();
 		var srcForLoadImage = "<?php echo $srcForLoadImage; ?>";
-		var dontNotifyVersion = "<?php echo $dontNotifyVersion;?>";
 		var currentVersion = "<?php echo $configStatic['version'];?>";
-		var enablePollTimeLogging = "<?php echo $enablePollTimeLogging;?>";
-		var enableLogging = "<?php echo $enableLogging; ?>";
-		var groupByType = "<?php echo $groupByType; ?>";
-		var hideEmptyLog = "<?php echo $hideEmptyLog; ?>";
-		var currentFolderColorTheme = "<?php echo $currentFolderColorTheme; ?>";
-		var popupSettingsArray = <?php echo $popupSettingsArray; ?>;
-		var updateNoticeMeter = "<?php echo $updateNoticeMeter;?>";
-		var pollRefreshAllBool = "<?php echo $pollRefreshAllBool;?>";
-		var pollForceTrueBool = "<?php echo $pollRefreshAllBool;?>";
 		var baseUrl = "<?php echo $baseUrl;?>";
-		var updateFromID = "settingsInstallUpdate";
-		var notificationCountVisible = "<?php echo $notificationCountVisible;?>";
-		var caseInsensitiveSearch = "<?php echo $caseInsensitiveSearch; ?>";
-		var filterContentHighlight = "<?php echo $filterContentHighlight; ?>";
-		var filterContentLimit = "<?php echo $filterContentLimit; ?>";
-		var scrollOnUpdate = "<?php echo $scrollOnUpdate; ?>";
-		var logTitle = "<?php echo $logTitle; ?>";
-		var scrollEvenIfScrolled = "<?php echo $scrollEvenIfScrolled; ?>";
-		var highlightNew = "<?php echo $highlightNew; ?>";
-		var filterTitleIncludePath = "<?php echo $filterTitleIncludePath; ?>";
-		var logMenuLocation = "<?php echo $logMenuLocation; ?>";
-		var logNameFormat = "<?php echo $logNameFormat; ?>";
-		var logNameGroup = "<?php echo $logNameGroup; ?>";
-		var logNameExtension = "<?php echo $logNameExtension; ?>";
-		var lineCountFromJS = "<?php echo $lineCountFromJS; ?>";
-		var successVerifyNum = <?php echo $successVerifyNum; ?>;
 	</script>
 	<?php require_once('core/php/template/popup.php') ?>
 	<script src="core/js/main.js?v=<?php echo $cssVersion?>"></script>

@@ -49,25 +49,27 @@ require_once('../core/php/updateCheck.php');
 					</div>
 				</li>
 				<li>
-					<span class="settingsBuffer" >  Base URL:  </span> <input type="text" style="width: 400px;"  name="baseUrlUpdate" value="<?php echo $baseUrlUpdate;?>" > 
+					<span class="settingsBuffer" >  Base URL:  </span> <input type="text" style="width: 400px;"  name="baseUrlUpdate" value="<?php echo $baseUrlUpdate;?>" >
 				</li>
 				<li>
-					<span class="settingsBuffer" > Config Version:  </span> <input type="number" pattern="[0-9]*" style="width: 400px;"  name="configVersion" value="<?php echo $configVersion;?>" > 
+					<span class="settingsBuffer" > Config Version:  </span> <input type="number" pattern="[0-9]*" style="width: 400px;"  name="configVersion" value="<?php echo $configVersion;?>" >
 				</li>
 				<li>
-					<span class="settingsBuffer" > Layout Version:  </span> <input type="number" pattern="[0-9]*" style="width: 400px;"  name="layoutVersion" value="<?php echo $layoutVersion;?>" > 
+					<span class="settingsBuffer" > Layout Version:  </span> <input type="number" pattern="[0-9]*" style="width: 400px;"  name="layoutVersion" value="<?php echo $layoutVersion;?>" >
 				</li>
 				<li>
-					<span class="settingsBuffer" > CSS Version:  </span> <input type="number" pattern="[0-9]*" style="width: 400px;"  name="cssVersion" value="<?php echo $cssVersion;?>" > 
+					<span class="settingsBuffer" > CSS Version:  </span> <input type="number" pattern="[0-9]*" style="width: 400px;"  name="cssVersion" value="<?php echo $cssVersion;?>" >
+				</li>
+				<li>
+					<span class="settingsBuffer" > Theme Version:  </span> <input type="number" pattern="[0-9]*" style="width: 400px;"  name="themeVersion" value="<?php echo $themeVersion;?>" >
 				</li>
 			</ul>
-			
 
 		</div>
 	</form>
 	<form id="devAdvanced2">
 		<div class="settingsHeader">
-			Static Config Settings  
+			Static Config Settings 
 			<div class="settingsHeaderButtons">
 				<?php echo addResetButton("devAdvanced2");?>
 				<a class="linkSmall" onclick="saveConfigStatic();" >Save Changes</a>
@@ -76,20 +78,9 @@ require_once('../core/php/updateCheck.php');
 		<div class="settingsDiv" >
 			<ul class="settingsUl">
 				<li>
-					<span class="settingsBuffer" >  Version Number:  </span> <input id="versionNumberConfigStaticInput" type="text" style="width: 400px;"  name="version" value="<?php echo $configStatic['version'];?>" > 
+					<span class="settingsBuffer" >  Version Number:  </span> <input id="versionNumberConfigStaticInput" type="text" style="width: 400px;"  name="version" value="<?php echo $configStatic['version'];?>" >
 				</li>
 			</ul>
 		</div>
 	</form>
-	<div class="settingsHeader">
-			Files
-		</div>
-		<div class="settingsDiv" >
-			<ul class="settingsUl">
-				<li>
-					<a class="link" href="editFiles.php" >View Files</a>
-				</li>
-			</ul>
-		</div>
-	</div>	
 </body>

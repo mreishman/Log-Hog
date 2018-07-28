@@ -9,20 +9,35 @@
 </div>
 
 <script type="text/javascript">
-	
+
 function hidePopup()
 {
+	if(document.getElementById('fullScreenMenu') && document.getElementById('fullScreenMenu').style.display == "block")
+	{
+		document.getElementById('fullScreenMenu').style.zIndex = "25";
+	}
+	if(document.getElementById('menu'))
+	{
+		document.getElementById('menu').style.zIndex = "20";
+	}
 	$('#popup').addClass("hidden");
 	setTimeout(function()
-	{ 
+	{
 		document.getElementById('popup').style.display = "none";
-		document.getElementById('popupContentInnerHTMLDiv').innerHTML = "";  
+		document.getElementById('popupContentInnerHTMLDiv').innerHTML = "";
 		$('#popup').removeClass("hidden");
-	}, 1000);  
+	}, 1000); 
 }
 function showPopup()
 {
-
+	if(document.getElementById('fullScreenMenu') && document.getElementById('fullScreenMenu').style.display == "block")
+	{
+		document.getElementById('fullScreenMenu').style.zIndex = "5";
+	}
+	if(document.getElementById('menu'))
+	{
+		document.getElementById('menu').style.zIndex = "5";
+	}
 	document.getElementById('popup').style.display = "block";
 	document.getElementById('popupContentInnerHTMLDiv').innerHTML = "";
 	//reset popup css style vars if needed
@@ -51,5 +66,11 @@ function displaySavePromptPopup(url)
 {
 	showPopup();
 	document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Changes not Saved!</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Are you sure you want to leave the page without saving changes?</div><div class='link' onclick='window.location.href = "+'"'+url+'"'+";' style='margin-left:125px; margin-right:50px;margin-top:25px;'>Yes</div><div onclick='hidePopup();' class='link'>No</div></div>";
+}
+
+function displaySavePromptPopupIndex(functionName)
+{
+	showPopup();
+	document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Changes not Saved!</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Are you sure you want to leave the page without saving changes?</div><div class='link' onclick='hidePopup();"+functionName+";' style='margin-left:125px; margin-right:50px;margin-top:25px;'>Yes</div><div onclick='hidePopup();' class='link'>No</div></div>";
 }
 </script>
