@@ -2084,7 +2084,7 @@ function makePretty(id)
 						returnText += " "+customClass+" ";
 					}
 					returnText += " >";
-					var lineToReturn = lineText[j];
+					var lineToReturn = "<td>"+lineText[j]+"</td>";
 					if(expFormatEnabled === "true")
 					{
 						lineToReturn = formatLine(lineText[j]);
@@ -2190,7 +2190,17 @@ function resize()
 		{
 			$(".logTrHeight").outerHeight(trElementHeight);
 			$(".logTdWidth").outerWidth(tdElementWidth);
-			//$(".backgroundForSideBarMenu").outerHeight(trElementHeight);
+			if(bottomBarIndexType === "none")
+			{
+				$(".backgroundForSideBarMenu").outerHeight(trElementHeight);
+			}
+			else
+			{
+				if($(".backgroundForSideBarMenu").outerHeight() > $(".logTrHeight").outerHeight())
+				{
+					$(".backgroundForSideBarMenu").outerHeight(trElementHeight);
+				}
+			}
 		}
 		updateNotificationCount();
 	}

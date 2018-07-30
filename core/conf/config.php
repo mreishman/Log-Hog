@@ -13,6 +13,7 @@ $defaultConfig = array(
 	'backupNumConfigEnabled'		=> 'true',
 	'baseUrlUpdate'					=> 'https://github.com/mreishman/Log-Hog/archive/',
 	'bottomBarIndexShow'			=> 'true',
+	'bottomBarIndexType'			=> 'center',
 	'branchSelected'				=> 'default',
 	'buffer'						=> 500,
 	'caseInsensitiveSearch'			=> 'true',
