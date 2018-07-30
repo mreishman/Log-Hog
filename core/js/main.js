@@ -2200,6 +2200,10 @@ function resize()
 				{
 					$(".backgroundForSideBarMenu").outerHeight(trElementHeight);
 				}
+				else
+				{
+					$(".backgroundForSideBarMenu").css("height","auto");
+				}
 			}
 		}
 		updateNotificationCount();
