@@ -4,6 +4,7 @@ require_once('../setup/setupProcessFile.php');
 require_once("../core/php/customCSS.php");
 echo loadSentryData($sendCrashInfoJS, $branchSelected); ?>
 <script src="../core/js/settings.js?v=<?php echo $cssVersion?>"></script>
+<script src="../core/js/settingsExt.js?v=<?php echo $cssVersion?>"></script>
 <div id="menu">
 	<div onclick="goToUrl('../index.php');" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">
 		<?php echo generateImage(
@@ -20,11 +21,6 @@ echo loadSentryData($sendCrashInfoJS, $branchSelected); ?>
 		<a style="cursor: default;" class="active" id="MainLink" >Main</a>
 	<?php else: ?>
 		<a id="MainLink" onclick="goToUrl('main.php');" >Main</a>
-	<?php endif; ?>
-	<?php if(strpos($URI, 'watchlist.php') !== false): ?>
-		<a style="cursor: default;" class="active" id="Watchlist" >Watchlist</a>
-	<?php else: ?>
-		<a id="Watchlist" onclick="goToUrl('watchlist.php');" >Watchlist</a>
 	<?php endif; ?>
 	<a id="ThemesLink" style="
 		<?php if($themesEnabled === "false"): ?>
@@ -66,6 +62,7 @@ echo loadSentryData($sendCrashInfoJS, $branchSelected); ?>
 		<a class="link" href="#settingsUpdateVars" > Update </a>
 		<a class="link" href="#settingsMenuVars" > Menu </a>
 		<a class="link" href="#settingsWatchlistVars" > Watchlist </a>
+		<a class="link" href="#settingsMultiLogVars" > Multi-Log </a>
 		<a class="link" href="#settingsMainVars" > Other </a>
 	</div>
 <?php elseif(strpos($URI, 'themes.php') !== false): ?>
@@ -77,32 +74,10 @@ echo loadSentryData($sendCrashInfoJS, $branchSelected); ?>
 <?php elseif(strpos($URI, 'advanced.php') !== false): ?>
 	<div id="menu2">
 		<a class="link" href="#advancedConfig" > Config </a>
-		<a class="link" href="#devAdvanced" > Dev </a>
 		<a class="link" href="#loggingDisplay" > Logs </a>
 		<a class="link" href="#locationOtherApps" > Locations </a>
 		<a class="link" href="#moreAdvanced" > Advanced </a>
 		<a class="link" href="#expFeatures" > Experimental </a>
-	</div>
-<?php elseif(strpos($URI, 'watchlist.php') !== false): ?>
-	<div id="menu2">
-		<a class="link" href="#settingsMainWatch" > Watchlist </a>
-		<a class="link" href="#watchKey" > Key</a>
-		&nbsp | &nbsp
-		<a class="link" onclick="addFile();">+ Add New File</a>
-		<a class="link" onclick="addFolder();">+ Add New Folder</a>
-		<a class="link" onclick="addOther();">+ Add Other</a>
-		&nbsp | &nbsp
-		<?php if($logShowMoreOptions === "false"): ?>
-			<a id="condensedLink" class="link" onclick="toggleCondensed();" >Show More Options</a>
-			<style type="text/css">
-				.condensed
-				{
-					display: none;
-				}
-			</style>
-		<?php else: ?>
-			<a  id="condensedLink" class="link" onclick="toggleCondensed();" >Show Condensed Options</a>
-		<?php endif; ?>
 	</div>
 <?php endif;
 $baseUrlImages = $localURL;

@@ -291,12 +291,62 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 		}
 	}
 	$folderColorArrays = $folderColorArraysSave;
+
+
+	$arrayLogLoadLayout = "";
+	if(isset($_POST['logLoad1x1-0-A']))
+	{
+		$counterOne = 1;
+		$counterTwo = 1;
+		$windowCounter = 0;
+		$arrayOfLetters = array(1 => "A", 2 => "B", 3 => "C", 4 => "D", 5 => "E", 6 => "F", 7 => "G");
+		$letterCounter = 1;
+		while (isset($_POST["logLoad".$counterOne."x".$counterTwo."-".$windowCounter."-".$arrayOfLetters[$letterCounter]]))
+		{
+			while (isset($_POST["logLoad".$counterOne."x".$counterTwo."-".$windowCounter."-".$arrayOfLetters[$letterCounter]]))
+			{
+				$arrayLogLoadLayout .= "'".$counterOne."x".$counterTwo."' => array(";
+				while (isset($_POST["logLoad".$counterOne."x".$counterTwo."-".$windowCounter."-".$arrayOfLetters[$letterCounter]]))
+				{
+					$arrayLogLoadLayout .= "".$windowCounter." => array(";
+					while (isset($_POST["logLoad".$counterOne."x".$counterTwo."-".$windowCounter."-".$arrayOfLetters[$letterCounter]]))
+					{
+						$arrayLogLoadLayout .= "'".$arrayOfLetters[$letterCounter]."' => '".$_POST["logLoad".$counterOne."x".$counterTwo."-".$windowCounter."-".$arrayOfLetters[$letterCounter]]."',";
+						$letterCounter++;
+					}
+					$arrayLogLoadLayout .= "),";
+					$letterCounter = 1;
+					$windowCounter++;
+				}
+				$arrayLogLoadLayout .= "),";
+				$windowCounter = 0;
+				$counterTwo++;
+			}
+			$counterTwo = 1;
+			$counterOne++;
+		}
+	}
+	else
+	{
+		foreach ($logLoadLayout as $key => $value)
+		{
+			$arrayLogLoadLayout .= "'".$key."'	=>	";
+			$arrayLogLoadLayout .= forEachAddVars($value);
+		}
+	}
+	$logLoadLayout = $arrayLogLoadLayout ;
 }
 else
 {
 	// Image Vars
 
 	$arrayOfImages = array(
+		"addons"			=> array(
+			"alt"			=>	"Addons",
+			"src"			=>	"",
+			"title"			=>	"Addons",
+			"baseName"		=>	"addon.png"
+		),
 		"backArrow"			=> array(
 			"alt"			=>	"Back",
 			"src"			=>	"",
@@ -380,7 +430,7 @@ else
 			'src'			=> "",
 			"title"			=> "gitStatus",
 			"baseName"		=> 'gitStatus.png'
-		),	
+		),
 		"greenCheck"		=> array(
 			"alt"			=>	"Ok",
 			"src"			=>	"",
@@ -405,11 +455,23 @@ else
 			"title"			=>	"Loading...",
 			"baseName"		=>	"loading.gif"
 		),
+		"loadingImg"		=> array(
+			"alt"			=>	"Loading",
+			"src"			=>	"",
+			"title"			=>	"Loading...",
+			"baseName"		=>	"loading.png"
+		),
 		"menu"	=> array(
 			"alt"			=>	"Menu",
 			"src"			=>	"",
 			"title"			=>	"Menu",
 			"baseName"		=>	"menu.png"
+		),
+		"multiLog"	=> array(
+			"alt"			=>	"Multi-Log",
+			"src"			=>	"",
+			"title"			=>	"Multi-Log",
+			"baseName"		=>	"multiLog.png"
 		),
 		"notification"	=> array(
 			"alt"			=>	"Notifications",
@@ -434,6 +496,18 @@ else
 			"src"			=>	"",
 			"title"			=>	"Pause",
 			"baseName"		=>	"Pause.png"
+		),
+		"pin"				=> array(
+			"alt"			=>	"Pin",
+			"src"			=>	"",
+			"title"			=>	"Pin",
+			"baseName"		=>	"pin.png"
+		),
+		"pinPinned"			=> array(
+			"alt"			=>	"Pin",
+			"src"			=>	"",
+			"title"			=>	"Pin",
+			"baseName"		=>	"pinPinned.png"
 		),
 		"play"			=> array(
 			"alt"			=>	"Play",

@@ -19,7 +19,7 @@ Watchlist Settings
 	</li>
 	<li>
 		<span class="settingsBuffer" >Default AutoDeleteFiles:</span>
-		<input type="number" pattern="[0-9]*" name="defaultNewAddAutoDeleteFiles" value="<?php echo $defaultNewAddAutoDeleteFiles;?>" >
+		<input type="number" pattern="[0-9]*" name="defaultNewAddAutoDeleteFiles" value="<?php echo $defaultNewAddAutoDeleteFiles;?>" > Days
 	</li>
 	<li>
 		<span class="settingsBuffer" >Default ExcludeTrim:</span>
