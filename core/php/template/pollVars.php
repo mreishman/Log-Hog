@@ -106,6 +106,38 @@ $defaultConfigMoreDataPollVars 	= array(
 		)
 	),
 	7									=> array(
+		'type'								=>	"linked",
+		'vars'								=>	array(
+			0									=>	array(
+				'key'								=>	"pollRefreshAll",
+				'name'								=>	"Poll refresh all data every",
+				'postText'							=>	"poll requests",
+				'type'								=>	"number"
+			),
+			1								=>	array(
+				'key'								=>	"pollRefreshAllBool",
+				'options'							=>	$trueFalsVars,
+				'type'								=>	"dropdown"
+			)
+		)
+	),
+	8									=> array(
+		'type'								=>	"linked",
+		'vars'								=>	array(
+			0									=>	array(
+				'key'								=>	"pollForceTrue",
+				'name'								=>	"Force poll refresh after",
+				'postText'							=>	"skipped poll requests",
+				'type'								=>	"number"
+			),
+			1								=>	array(
+				'key'								=>	"pollForceTrueBool",
+				'options'							=>	$trueFalsVars,
+				'type'								=>	"dropdown"
+			)
+		)
+	),
+	9									=> array(
 		'type'								=>	"single",
 		'var'								=>	array(
 			'key'								=>	"shellOrPhp",
@@ -127,45 +159,13 @@ $defaultConfigMoreDataPollVars 	= array(
 			'type'								=>	"dropdown"
 		)
 	),
-	8									=> array(
+	10									=> array(
 		'type'								=>	"single",
 		'var'								=>	array(
 			'key'								=>	"showErrorPhpFileOpen",
 			'name'								=>	"Show Php errors from file open fails",
 			'options'							=>	$trueFalsVars,
 			'type'								=>	"dropdown"
-		)
-	),
-	9									=> array(
-		'type'								=>	"linked",
-		'vars'								=>	array(
-			0									=>	array(
-				'key'								=>	"pollRefreshAll",
-				'name'								=>	"Poll refresh all data every",
-				'postText'							=>	"poll requests",
-				'type'								=>	"number"
-			),
-			1								=>	array(
-				'key'								=>	"pollRefreshAllBool",
-				'options'							=>	$trueFalsVars,
-				'type'								=>	"dropdown"
-			)
-		)
-	),
-	10									=> array(
-		'type'								=>	"linked",
-		'vars'								=>	array(
-			0									=>	array(
-				'key'								=>	"pollForceTrue",
-				'name'								=>	"Force poll refresh after",
-				'postText'							=>	"skipped poll requests",
-				'type'								=>	"number"
-			),
-			1								=>	array(
-				'key'								=>	"pollForceTrueBool",
-				'options'							=>	$trueFalsVars,
-				'type'								=>	"dropdown"
-			)
 		)
 	)
 );
