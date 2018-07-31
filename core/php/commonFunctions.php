@@ -1148,11 +1148,16 @@ function createSelect($options, $selectValue, $defaultOption = false)
 function generateFullSelect($confDataValue, $selectValue, $varName)
 {
 	$returnHtml = "";
+	$selectId = "";
+	if(isset($confDataValue["id"]))
+	{
+		$selectId = " id=\"".$confDataValue["id"]."\" ";
+	}
 	if(isset($confDataValue["name"]) && $confDataValue["name"] !== "")
 	{
 		$returnHtml .= "<span class=\"settingsBuffer\" > ".$confDataValue["name"].": </span>";
 	}
-	$returnHtml .= " <div class=\"selectDiv\"><select name=\"".$varName."\">";
+	$returnHtml .= " <div class=\"selectDiv\"><select ".$selectId." name=\"".$varName."\">";
 	$returnHtml .= createSelect($confDataValue["options"], $selectValue);
 	$returnHtml .= "</select></div>";
 	return $returnHtml;
@@ -1165,12 +1170,23 @@ function generateNumber($confDataValue,$numberValue,$varName)
 	return $returnHtml;
 }
 
+function generateText($confDataValue,$numberValue,$varName)
+{
+	$returnHtml = "<span class=\"settingsBuffer\" > ".$confDataValue["name"].": </span>";
+	$returnHtml .= " <input type=\"text\" name=\"".$varName."\" value=\"".$numberValue."\" >";
+	return $returnHtml;
+}
+
 function generateGenericType($confDataValue, $confDataKeyValue, $confDataKey)
 {
 	$returnHtml = "";
 	if($confDataValue["type"] === "number")
 	{
 		$returnHtml .= generateNumber($confDataValue,$confDataKeyValue,$confDataKey);
+	}
+	else if($confDataValue["type"] === "text")
+	{
+		$returnHtml .= generateText($confDataValue,$confDataKeyValue,$confDataKey);
 	}
 	elseif($confDataValue["type"] === "dropdown")
 	{

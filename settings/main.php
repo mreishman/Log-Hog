@@ -33,11 +33,13 @@ require_once('../core/php/loadVars.php');
 		<?php require_once('../core/php/template/logSettings.php');
 		$currentSection = "pollVars";
 		include('../core/php/template/varTemplate.php');
-		require_once('../core/php/template/filterVars.php');
+		$currentSection = "filterVars";
+		include('../core/php/template/varTemplate.php');
 		require_once('../core/php/template/updateVars.php');
 		$currentSection = "menuVars";
 		include('../core/php/template/varTemplate.php');
-		require_once('../core/php/template/watchlistVars.php');
+		$currentSection = "watchlistVars";
+		include('../core/php/template/varTemplate.php');
 		require_once('../core/php/template/multiLogVars.php');
 		require_once('../core/php/template/mainVars.php'); ?>
 	</div>

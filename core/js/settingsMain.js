@@ -271,10 +271,6 @@ $( document ).ready(function()
 	{
 		document.getElementById("logTrimOn").addEventListener("change", showOrHideLogTrimSubWindow, false);
 	}
-	if(document.getElementById("filterContentLimit"))
-	{
-		document.getElementById("filterContentLimit").addEventListener("change", showOrHideFilterContentSettings, false);
-	}
 	if(document.getElementById("filterContentHighlight"))
 	{
 		document.getElementById("filterContentHighlight").addEventListener("change", showOrHideFilterHighlightSettings, false);

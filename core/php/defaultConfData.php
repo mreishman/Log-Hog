@@ -1,6 +1,112 @@
 <?php
 
+$linePaddingOptions = array();
+for ($i=0; $i < 10; $i++)
+{
+	$linePaddingOptions[$i] = array(
+	"value" 					=> $i,
+	"name" 						=> $i);
+}
+
 $defaultConfigMoreData = array(
+	"filterVars"						=>	array(
+		"id"								=>	"settingsFilterVars",
+		"name"								=>	"Filter Settings ",
+		"vars"								=>	array(
+			0									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"filterDefault",
+					"name"								=>	"Default Filter By",
+					"options"							=>	array(
+						0 									=> array(
+							"value" 							=> "title",
+							"name" 								=> "Title"),
+						1 									=> array(
+							"value" 							=> "content",
+							"name" 								=> "Content")
+					),
+					"type"								=>	"dropdown"
+				)
+			),
+			1									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"caseInsensitiveSearch",
+					"name"								=>	"Case Insensitive Search",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			2									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"filterTitleIncludePath",
+					"name"								=>	"Filter Title Includes Path",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			3									=>	array(
+				"bool"								=>	($filterContentHighlight == 'false'),
+				"function"							=>	"showOrHideFilterHighlightSettings",
+				"id"								=>	"highlightContentSettings",
+				"name"								=>	"Filter Highlight Settings",
+				"type"								=>	"grouped",
+				"var"								=>	array(
+					"id"								=>	"filterContentHighlight",
+					"key"								=>	"filterContentHighlight",
+					"name"								=>	"Highlight Content match",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				),
+				"vars"								=>	array(
+					0									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"highlightColorBG",
+							"name"								=>	"Background",
+							"type"								=>	"text"
+						)
+					),
+					1									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"highlightColorFont",
+							"name"								=>	"Font",
+							"type"								=>	"text"
+						)
+					)
+				)
+			),
+			4									=>	array(
+				"bool"								=>	($filterContentLimit == 'false'),
+				"function"							=>	"showOrHideFilterContentSettings",
+				"id"								=>	"filterContentSettings",
+				"name"								=>	"Filter Content Match Settings",
+				"type"								=>	"grouped",
+				"var"								=>	array(
+					"id"								=>	"filterContentLimit",
+					"info"								=>	"When filtering by content, only show the line (or some sorrounding lines) containing the search content",
+					"key"								=>	"filterContentLimit",
+					"name"								=>	"Filter Content match",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				),
+				"vars"								=>	array(
+					0									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"filterContentLinePadding",
+							"name"								=>	"Line Padding",
+							"options"							=>	$linePaddingOptions,
+							"type"								=>	"dropdown"
+						)
+					),
+				)
+			)
+		)
+	),
 	"menuVars"							=>	array(
 		"id"								=>	"settingsMenuVars",
 		"name"								=>	"Menu Settings",
@@ -343,6 +449,84 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			)
+		)
+	),
+	"watchlistVars"						=>	array(
+		"id"								=>	"settingsWatchlistVars",
+		"name"								=>	"Watchlist Settings",
+		"vars"								=> array(
+			0									=> array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"defaultNewAddAlertEnabled",
+					"name"								=>	"Default AlertEnabled",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			1									=> array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"defaultNewAddAutoDeleteFiles",
+					"name"								=>	"Default AutoDeleteFiles",
+					"postText"							=>	"Days",
+					"type"								=>	"number"
+				)
+			),
+			2									=> array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"defaultNewAddExcludeTrim",
+					"name"								=>	"Default ExcludeTrim",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			3									=> array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"defaultNewAddPattern",
+					"name"								=>	"Default Pattern",
+					"type"								=>	"text"
+				)
+			),
+			4									=> array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"defaultNewAddRecursive",
+					"name"								=>	"Default Recursive",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			5									=> array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"sortTypeFileFolderPopup",
+					"name"								=>	"File popup sort",
+					"options"							=>	array(
+						0 									=> array(
+							"value" 							=> "startsWithAndcontains",
+							"name" 								=> "Starts With > Contains > Other"),
+						1 									=> array(
+							"value" 							=> "startsWith",
+							"name" 								=> "Starts With > Other"),
+						2 									=> array(
+							"value" 							=> "none",
+							"name" 								=> "None")
+					),
+					"type"								=>	"dropdown"
+				)
+			),
+			6									=> array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"logShowMoreOptions",
+					"name"								=>	"Default View",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
 		)
 	)
 );
