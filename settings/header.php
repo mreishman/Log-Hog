@@ -2,6 +2,15 @@
 setCookieRedirect();
 require_once('../setup/setupProcessFile.php');
 require_once("../core/php/customCSS.php");
+require_once("../core/php/defaultConfData.php");
+$infoImage = generateImage(
+	$arrayOfImages["info"],
+	array(
+		"style"			=>	"margin-bottom: -4px;",
+		"height"		=>	"20px",
+		"srcModifier"	=>	"../"
+	)
+);
 echo loadSentryData($sendCrashInfoJS, $branchSelected); ?>
 <script src="../core/js/settings.js?v=<?php echo $cssVersion?>"></script>
 <script src="../core/js/settingsExt.js?v=<?php echo $cssVersion?>"></script>

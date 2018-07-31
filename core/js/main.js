@@ -1238,7 +1238,7 @@ function update(data)
 				}
 			}
 		}
-		resize();
+
 		//Check if a tab is active, if none... click on first in array that's visible
 		var targetLength = Object.keys(logDisplayArray).length;
 		var tmpCurrentSelectWindow = currentSelectWindow;
@@ -2188,8 +2188,14 @@ function resize()
 		var trElementHeight = ((targetHeight-borderPadding)/windowDisplayConfigRowCount).toFixed(4);
 		if(($(".logTrHeight").outerHeight() !== trElementHeight)|| ($(".logTdWidth").outerWidth() !== tdElementWidth) || ($(".backgroundForSideBarMenu").outerHeight() !== trElementHeight))
 		{
-			$(".logTrHeight").outerHeight(trElementHeight);
-			$(".logTdWidth").outerWidth(tdElementWidth);
+			if($(".logTrHeight").outerHeight() !== trElementHeight)
+			{
+				$(".logTrHeight").outerHeight(trElementHeight);
+			}
+			if($(".logTdWidth").outerWidth() !== tdElementWidth)
+			{
+				$(".logTdWidth").outerWidth(tdElementWidth);
+			}
 			if(bottomBarIndexType === "none")
 			{
 				$(".backgroundForSideBarMenu").outerHeight(trElementHeight);
@@ -2202,7 +2208,10 @@ function resize()
 				}
 				else
 				{
-					$(".backgroundForSideBarMenu").css("height","auto");
+					if($(".backgroundForSideBarMenu").css("height") !== "auto")
+					{
+						$(".backgroundForSideBarMenu").css("height","auto");
+					}
 				}
 			}
 		}
