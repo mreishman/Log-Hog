@@ -1,6 +1,6 @@
 <span id="innerAddonSpanReplace">
 	<?php
-
+	$currentDir = "";
 	if(!function_exists("checkForMonitorInstall"))
 	{
 		require_once('../commonFunctions.php');
@@ -20,6 +20,7 @@
 			require_once('../../Themes/'.$currentTheme."/defaultSetting.php");
 		}
 		require_once('../loadVars.php');
+		$currentDir = "../../../";
 	}
 
 	//check if monitor is installed
@@ -29,7 +30,7 @@
 	if($monitorInfo["local"])
 	{
 		$configStaticMain = $configStatic;
-		require_once('monitor/core/php/configStatic.php');
+		require_once($currentDir.'monitor/core/php/configStatic.php');
 		$configStaticMonitor = $configStatic;
 		$configStatic = $configStaticMain;
 	}
@@ -41,7 +42,7 @@
 	if($searchInfo["local"])
 	{
 		$configStaticMain = $configStatic;
-		require_once('search/core/php/configStatic.php');
+		require_once($currentDir.'search/core/php/configStatic.php');
 		$configStaticSearch = $configStatic;
 		$configStatic = $configStaticMain;
 	}
@@ -53,7 +54,7 @@
 	if($seleniumMonitorInfo["local"])
 	{
 		$configStaticMain = $configStatic;
-		require_once('seleniumMonitor/core/php/configStatic.php');
+		require_once($currentDir.'seleniumMonitor/core/php/configStatic.php');
 		$configStaticSeleniumMonitor = $configStatic;
 		$configStatic = $configStaticMain;
 	}
@@ -251,7 +252,7 @@
 			//reload page on finish?
 			updateText(100);
 			$.get( "core/php/template/innerAddon.php", function( data ) {
-				$("innerAddonSpanReplace").html(data);
+				$("#innerAddonSpanReplace").html(data);
 			});
 		}
 
