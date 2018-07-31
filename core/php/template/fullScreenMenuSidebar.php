@@ -127,11 +127,16 @@
 	" >
 		Other Apps
 	</li>
-<?php if ($locationForStatusIndex["loc"]):?>
+<?php
+$statusDisplay = "display: none;";
+if($locationForStatusIndex["loc"])
+{
+	$statusDisplay = "";
+}?>
 	<?php if($addonsAsIframe === "true"): ?>
-		<li id="menuStatusAddon" onclick="toggleIframe('<?php echo $locationForStatusIndex["loc"]; ?>','menuStatusAddon');" >
+		<li id="menuStatusAddon" style="<?php echo $statusDisplay; ?>" onclick="toggleIframe('<?php echo $locationForStatusIndex["loc"]; ?>','menuStatusAddon');" >
 	<?php else: ?>
-		<li id="menuStatusAddon" onclick="window.location.href='<?php echo $locationForStatusIndex["loc"]; ?>'" >
+		<li id="menuStatusAddon" style="<?php echo $statusDisplay; ?>" onclick="window.location.href='<?php echo $locationForStatusIndex["loc"]; ?>'" >
 	<?php endif; ?>
 		<div class="menuImageDiv">
 			<?php echo generateImage(
@@ -153,13 +158,17 @@
 		}
 		?>
 	</li>
+<?php
+$monitorDisplay = "display: none;";
+if($locationForMonitorIndex["loc"])
+{
+	$monitorDisplay = "";
+}?>
+<?php if($addonsAsIframe === "true"): ?>
+	<li id="menuMonitorAddon" style="<?php echo $monitorDisplay; ?>" onclick="toggleIframe('<?php echo $locationForMonitorIndex["loc"]; ?>','menuMonitorAddon');" >
+<?php else: ?>
+	<li id="menuMonitorAddon" style="<?php echo $monitorDisplay; ?>" onclick="window.location.href='<?php echo $locationForMonitorIndex["loc"]; ?>'" >
 <?php endif; ?>
-<?php if($locationForMonitorIndex["loc"]): ?>
-	<?php if($addonsAsIframe === "true"): ?>
-		<li id="menuMonitorAddon" onclick="toggleIframe('<?php echo $locationForMonitorIndex["loc"]; ?>','menuMonitorAddon');" >
-	<?php else: ?>
-		<li id="menuMonitorAddon" onclick="window.location.href='<?php echo $locationForMonitorIndex["loc"]; ?>'" >
-	<?php endif; ?>
 		<div class="menuImageDiv">
 			<?php echo generateImage(
 				$arrayOfImages["loadingImg"],
@@ -180,12 +189,16 @@
 		}
 		?>
 	</li>
-<?php endif; ?>
-<?php if($locationForSearchIndex["loc"]): ?>
+<?php
+$searchDisplay = "display: none;";
+if($locationForSearchIndex["loc"])
+{
+	$searchDisplay = "";
+}?>
 	<?php if($addonsAsIframe === "true"): ?>
-		<li id="menuSearchAddon" onclick="toggleIframe('<?php echo $locationForSearchIndex["loc"]; ?>','menuSearchAddon');" >
+		<li id="menuSearchAddon" style="<?php echo $searchDisplay; ?>" onclick="toggleIframe('<?php echo $locationForSearchIndex["loc"]; ?>','menuSearchAddon');" >
 	<?php else: ?>
-		<li id="menuSearchAddon" onclick="window.location.href='<?php echo $locationForSearchIndex["loc"]; ?>'" >
+		<li id="menuSearchAddon" style="<?php echo $searchDisplay; ?>" onclick="window.location.href='<?php echo $locationForSearchIndex["loc"]; ?>'" >
 	<?php endif; ?>
 		<div class="menuImageDiv">
 			<?php echo generateImage(
@@ -207,12 +220,16 @@
 		}
 		?>
 	</li>
-<?php endif; ?>
-<?php if($locationForSeleniumMonitorIndex["loc"]): ?>
+<?php
+$seleniumMonitorDisplay = "display: none;";
+if($locationForSeleniumMonitorIndex["loc"])
+{
+	$seleniumMonitorDisplay = "";
+}?>
 	<?php if($addonsAsIframe === "true"): ?>
-		<li id="menuSeleniumMonitorAddon" onclick="toggleIframe('<?php echo $locationForSeleniumMonitorIndex["loc"]; ?>','menuSeleniumMonitorAddon');" >
+		<li id="menuSeleniumMonitorAddon" style="<?php echo $seleniumMonitorDisplay; ?>" onclick="toggleIframe('<?php echo $locationForSeleniumMonitorIndex["loc"]; ?>','menuSeleniumMonitorAddon');" >
 	<?php else: ?>
-		<li id="menuSeleniumMonitorAddon" onclick="window.location.href='<?php echo $locationForSeleniumMonitorIndex["loc"]; ?>'" >
+		<li id="menuSeleniumMonitorAddon" style="<?php echo $seleniumMonitorDisplay; ?>" onclick="window.location.href='<?php echo $locationForSeleniumMonitorIndex["loc"]; ?>'" >
 	<?php endif; ?>
 		<div class="menuImageDiv">
 			<?php echo generateImage(
@@ -234,4 +251,3 @@
 		}
 		?>
 	</li>
-<?php endif; ?>

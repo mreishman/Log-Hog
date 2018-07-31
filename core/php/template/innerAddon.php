@@ -59,6 +59,17 @@
 		$configStatic = $configStaticMain;
 	}
 
+	//check for status install
+	$statusInfo = checkForStatusInstall($locationForStatus, "../../");
+	$configStaticStatus = null;
+
+	if($seleniumMonitorInfo["local"])
+	{
+		$configStaticMain = $configStatic;
+		require_once($currentDir.'status/core/php/configStatic.php');
+		$configStaticStatus = $configStatic;
+		$configStatic = $configStaticMain;
+	}
 
 	$listOfAddons = array(
 		"Monitor" => array(
@@ -68,7 +79,8 @@
 			"uppercase"		=>	"Monitor",
 			"Repo"			=>	"Monitor",
 			"Description"	=> 	"A simple php server monitoring tool.",
-			"ConfigStatic"	=>	$configStaticMonitor
+			"ConfigStatic"	=>	$configStaticMonitor,
+			"id"			=>	"menuMonitorAddon"
 		),
 		"Search" => array(
 			"Installed"		=> 	$searchInfo["loc"],
@@ -77,7 +89,8 @@
 			"uppercase"		=>	"Search",
 			"Repo"			=>	"Search",
 			"Description"	=> 	"A simple visual grep tool that is intended for use on dev boxes.",
-			"ConfigStatic"	=>	$configStaticSearch
+			"ConfigStatic"	=>	$configStaticSearch,
+			"id"			=>	"menuSearchAddon"
 		),
 		"seleniumMonitor" => array(
 			"Installed"		=> 	$seleniumMonitorInfo["loc"],
@@ -86,12 +99,25 @@
 			"uppercase"		=>	"SeleniumMonitor",
 			"Repo"			=>	"SeleniumMonitor",
 			"Description"	=> 	"A php based web monitor for selenium grids / an easy way to run tests",
-			"ConfigStatic"	=>	$configStaticSeleniumMonitor
+			"ConfigStatic"	=>	$configStaticSeleniumMonitor,
+			"id"			=>	"menuSeleniumMonitorAddon"
+		),
+		"status"		=> array(
+			"Installed"		=> 	$statusInfo["loc"],
+			"Local"			=>	$statusInfo["local"],
+			"lowercase"		=>	"status",
+			"uppercase"		=>	"Status",
+			"Repo"			=>	"gitStatus",
+			"Description"	=> 	"A php based web monitor for repo git status",
+			"ConfigStatic"	=>	$configStaticStatus,
+			"id"			=>	"menuStatusAddon"
 		)
 	);
 
 	?>
-
+	<script type="text/javascript">
+		var listOfAddons = <?php echo json_encode($listOfAddons); ?>;
+	</script>
 	<script src="core/js/loghogDownloadJS.js"></script>
 	<table style="width: 100%;">
 		<tr>
@@ -253,6 +279,7 @@
 			updateText(100);
 			$.get( "core/php/template/innerAddon.php", function( data ) {
 				$("#innerAddonSpanReplace").html(data);
+				updateOtherApps();
 			});
 		}
 
