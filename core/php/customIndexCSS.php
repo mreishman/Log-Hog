@@ -19,7 +19,7 @@ $windowDisplayConfig = explode("x", $windowConfig);
 ?>
 <style type="text/css">
 
-.log, #firstLoad
+.log, #firstLoad, .log table tr td
 {
 	color: <?php echo $logFontColor; ?>;
 }
