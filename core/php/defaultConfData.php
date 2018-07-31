@@ -82,12 +82,12 @@ $defaultConfigMoreData = array(
 			4									=>	array(
 				"bool"								=>	($filterContentLimit == 'false'),
 				"function"							=>	"showOrHideFilterContentSettings",
+				"info"								=>	"When filtering by content, only show the line (or some sorrounding lines) containing the search content",
 				"id"								=>	"filterContentSettings",
 				"name"								=>	"Filter Content Match Settings",
 				"type"								=>	"grouped",
 				"var"								=>	array(
 					"id"								=>	"filterContentLimit",
-					"info"								=>	"When filtering by content, only show the line (or some sorrounding lines) containing the search content",
 					"key"								=>	"filterContentLimit",
 					"name"								=>	"Filter Content match",
 					"options"							=>	$trueFalsVars,

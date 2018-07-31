@@ -1,37 +1,37 @@
 <?php
 
 //check if monitor is installed
-$monitorInfo = checkForMonitorInstall($locationForMonitor, "../../../");
+$monitorInfo = checkForMonitorInstall($locationForMonitor, "../../");
 $configStaticMonitor = null;
 
 if($monitorInfo["local"])
 {
 	$configStaticMain = $configStatic;
-	require_once('../monitor/core/php/configStatic.php');
+	require_once('monitor/core/php/configStatic.php');
 	$configStaticMonitor = $configStatic;
 	$configStatic = $configStaticMain;
 }
 
 //check if search is installed
-$searchInfo = checkForSearchInstall($locationForSearch, "../../../");
+$searchInfo = checkForSearchInstall($locationForSearch, "../../");
 $configStaticSearch = null;
 
 if($searchInfo["local"])
 {
 	$configStaticMain = $configStatic;
-	require_once('../search/core/php/configStatic.php');
+	require_once('search/core/php/configStatic.php');
 	$configStaticSearch = $configStatic;
 	$configStatic = $configStaticMain;
 }
 
 //check if seleniumMonitor is installed
-$seleniumMonitorInfo = checkForSeleniumMonitorInstall($locationForSeleniumMonitor, "../../../");
+$seleniumMonitorInfo = checkForSeleniumMonitorInstall($locationForSeleniumMonitor, "../../");
 $configStaticSeleniumMonitor = null;
 
 if($seleniumMonitorInfo["local"])
 {
 	$configStaticMain = $configStatic;
-	require_once('../seleniumMonitor/core/php/configStatic.php');
+	require_once('seleniumMonitor/core/php/configStatic.php');
 	$configStaticSeleniumMonitor = $configStatic;
 	$configStatic = $configStaticMain;
 }
@@ -95,7 +95,7 @@ $listOfAddons = array(
 	?> 
 		<tr style="height: 10px;">
 			<td colspan="6">
-				<form id="<?php echo $lowercase; ?>UpdateForm" action="../<?php echo $lowercase; ?>/update/updater.php" method="post" ></form>
+				<form id="<?php echo $lowercase; ?>UpdateForm" action="<?php echo $lowercase; ?>/update/updater.php" method="post" ></form>
 			</td>
 		</tr>
 		<tr>
@@ -122,9 +122,9 @@ $listOfAddons = array(
 						</td>
 						<td>
 							<?php if ($value['ConfigStatic']['version'] !== $value['ConfigStatic']['newestVersion']): ?>
-								<a class="link" onclick="installUpdates('../<?php echo $lowercase; ?>/','<?php echo $lowercase; ?>UpdateForm');">Install <?php echo $value['ConfigStatic']["newestVersion"];?> Update</a>
+								<a class="link" onclick="installUpdates('<?php echo $lowercase; ?>/','<?php echo $lowercase; ?>UpdateForm');">Install <?php echo $value['ConfigStatic']["newestVersion"];?> Update</a>
 							<?php else: ?>
-								<a onclick="checkForUpdates('../<?php echo $lowercase; ?>/','<?php echo $uppercase; ?>','<?php echo $value['ConfigStatic']['version'];?>','<?php echo $lowercase; ?>UpdateForm');" class="link">Check For Updates</a>
+								<a onclick="checkForUpdates('<?php echo $lowercase; ?>/','<?php echo $uppercase; ?>','<?php echo $value['ConfigStatic']['version'];?>','<?php echo $lowercase; ?>UpdateForm');" class="link">Check For Updates</a>
 							<?php endif; ?>
 						</td>
 					<?php else: ?>
