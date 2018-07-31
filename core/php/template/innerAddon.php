@@ -112,7 +112,7 @@ $listOfAddons = array(
 						<br>
 						<progress id="<?php echo $lowercase; ?>RemoveProgressBar" style="width: 100%;" value="0" max="100"></progress>
 					</td>
-					<?php if(strpos($URI, 'addons.php') !== false): ?>
+					<?php if(strpos($URI, 'step') === false): ?>
 						<td>
 							<?php if ($value['ConfigStatic']['version'] !== $value['ConfigStatic']['newestVersion']): ?>
 								Update Available - <?php echo $value['ConfigStatic']['newestVersion']; ?>
@@ -228,7 +228,7 @@ $listOfAddons = array(
 	{
 		//reload page on finish?
 		updateText(100);
-		location.reload();
+		alert('reload page action');
 	}
 
 	currentVersion = "";
