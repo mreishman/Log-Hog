@@ -2196,7 +2196,7 @@ function resize()
 			{
 				$(".logTdWidth").outerWidth(tdElementWidth);
 			}
-			if(bottomBarIndexType === "none")
+			if(bottomBarIndexType === "full")
 			{
 				$(".backgroundForSideBarMenu").outerHeight(trElementHeight);
 			}

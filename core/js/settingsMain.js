@@ -14,6 +14,20 @@ function showOrHideLogTrimSubWindow()
 	}
 }
 
+function showOrHideSideBarSettings()
+{
+	try
+	{
+		var valueForPopup = document.getElementById("bottomBarIndexShow");
+		var valueForVars = document.getElementById("sidebarContentSettings");
+		showOrHideSubWindow(valueForPopup, valueForVars);
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
 
 function changeDescriptionLineSize()
 {

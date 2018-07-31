@@ -15,6 +15,14 @@
 							{
 								echo " width: 31px; ";
 							}
+							if($bottomBarIndexType === "top")
+							{
+								echo " vertical-align: top; ";
+							}
+							elseif($bottomBarIndexType === "bottom")
+							{
+								echo " vertical-align: bottom; ";
+							}
 							?>
 							"
 						>

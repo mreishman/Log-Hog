@@ -140,12 +140,41 @@ $defaultConfigMoreData = array(
 				)
 			),
 			2									=>	array(
-				"type"								=>	"single",
+				"bool"								=>	($bottomBarIndexShow == 'false'),
+				"function"							=>	"showOrHideSideBarSettings",
+				"id"								=>	"sidebarContentSettings",
+				"name"								=>	"Sidebar Settings",
+				"type"								=>	"grouped",
 				"var"								=>	array(
-					"key"								=>	"hideClearAllNotifications",
+					"id"								=>	"bottomBarIndexShow",
+					"key"								=>	"bottomBarIndexShow",
 					"name"								=>	"Show Side Bar",
 					"options"							=>	$trueFalsVars,
 					"type"								=>	"dropdown"
+				),
+				"vars"								=>	array(
+					0									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"bottomBarIndexType",
+							"name"								=>	"Sidebar Type",
+							"options"							=>	array(
+								0 									=> array(
+									"value" 							=> "center",
+									"name" 								=> "Center"),
+								1 									=> array(
+									"value" 							=> "top",
+									"name" 								=> "Top"),
+								2 									=> array(
+									"value" 							=> "bottom",
+									"name" 								=> "Bottom"),
+								3 									=> array(
+									"value" 							=> "full",
+									"name" 								=> "Full"),
+							),
+							"type"								=>	"dropdown"
+						)
+					)
 				)
 			),
 			3									=> array(

@@ -35,10 +35,7 @@
 			echo " \" ><div class=\"settingsHeader\">".$confDataValue["name"]."</div><div class=\"settingsDiv\" ><ul class=\"settingsUl\">";
 			foreach ($confDataValue["vars"] as $confDataInnerValue)
 			{
-				echo "<li>".generateGenericType(
-					$confDataInnerValue["var"],
-					$loadVarsArray[$confDataInnerValue["var"]["key"]],
-					$confDataInnerValue["var"]["key"])."</li>";
+				echo "<li>".generateGenericType($confDataInnerValue["var"],$loadVarsArray[$confDataInnerValue["var"]["key"]],$confDataInnerValue["var"]["key"])."</li>";
 			}
 			echo "</ul></div></div></li><script>$( document ).ready(function(){document.getElementById(\"".$confDataValue["var"]["id"]."\").addEventListener(\"change\", ".$confDataValue["function"].", false);});</script>";
 		}
