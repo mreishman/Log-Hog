@@ -113,7 +113,7 @@ div {
 	padding: .25em 1em;
 }
 
-.log div , .log tr, .log tr td
+.log div , .log tr
 {
   -webkit-transition: 1s ease-in-out;
   -moz-transition: 1s ease-in-out;
