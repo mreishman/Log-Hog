@@ -1,14 +1,125 @@
 <?php
 
-$linePaddingOptions = array();
+$oneToTenArr = array();
 for ($i=0; $i < 10; $i++)
 {
-	$linePaddingOptions[$i] = array(
+	$oneToTenArr[$i] = array(
 	"value" 					=> $i,
 	"name" 						=> $i);
 }
 
+$saveVerifyArr = array();
+for ($j=0; $j < 5; $j++)
+{
+	$saveVerifyArr[$j] = array(
+	"value" 					=> $j,
+	"name" 						=> $j);
+}
+
+$branchOptionsArr = array(
+0 					=> array(
+	"value" 			=> "default",
+	"name" 				=> "Stable"),
+1 					=> array(
+	"value" 			=> "beta",
+	"name" 				=> "Beta")
+);
+
+if($enableDevBranchDownload == 'true')
+{
+	$branchOptionsArr[2] = array(
+	"value" 			=> "dev",
+	"name" 				=> "Dev");
+}
+
+
 $defaultConfigMoreData = array(
+	"config"							=>	array(
+		"id"								=>	"advancedConfig",
+		"name"								=>	"Config",
+		"vars"								=>	array(
+			0									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"branchSelected",
+					"name"								=>	"Branch",
+					"options"							=>	$branchOptionsArr,
+					"type"								=>	"dropdown"
+				)
+			),
+			1									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"developmentTabEnabled",
+					"name"								=>	"Enable Development Tools",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			2									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"themesEnabled",
+					"name"								=>	"Enable Themes",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			3									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"enableMultiLog",
+					"name"								=>	"Enable Multi-Log",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			4									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"rightClickMenuEnable",
+					"name"								=>	"Right Click Menu Enabled",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			5									=>	array(
+				"bool"								=>	($backupNumConfigEnabled == 'false'),
+				"function"							=>	"showOrHideVersionSaveConfig",
+				"id"								=>	"versionSaveContentSettings",
+				"name"								=>	"Backup Config Settings",
+				"type"								=>	"grouped",
+				"var"								=>	array(
+					"id"								=>	"backupNumConfigEnabled",
+					"key"								=>	"backupNumConfigEnabled",
+					"name"								=>	"Enable Backup Config Files",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				),
+				"vars"								=>	array(
+					0									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"backupNumConfig",
+							"name"								=>	"Number of versions saved",
+							"options"							=>	$oneToTenArr,
+							"type"								=>	"dropdown"
+						)
+					)
+				)
+			),
+			6									=>	array(
+				"info"								=>	"This is for platforms where saving files might not be in sync with containers. Increasing from one will make saves take longer, but it will be more accurate if there is that sync delay",
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"successVerifyNum",
+					"name"								=>	"Save verification number",
+					"options"							=>	$saveVerifyArr,
+					"type"								=>	"dropdown"
+				)
+			)
+		)
+	),
 	"fileLocations"						=>	array(
 		"id"								=>	"locationOtherApps",
 		"name"								=>	"File Locations",
@@ -141,7 +252,7 @@ $defaultConfigMoreData = array(
 						"var"								=>	array(
 							"key"								=>	"filterContentLinePadding",
 							"name"								=>	"Line Padding",
-							"options"							=>	$linePaddingOptions,
+							"options"							=>	$oneToTenArr,
 							"type"								=>	"dropdown"
 						)
 					)
