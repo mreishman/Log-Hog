@@ -33,6 +33,27 @@ if($enableDevBranchDownload == 'true')
 }
 
 
+$customForFirstLogSelect = "<span class=\"settingsBuffer\" > First Log Select: </span><span id=\"logSelectedFirstLoad\" >";
+if ($logSelectedFirstLoad === "")
+{
+	$customForFirstLogSelect .=	"No Log Selected";
+}
+else
+{
+	$customForFirstLogSelect .= $logSelectedFirstLoad;
+}
+$customForFirstLogSelect .= "</span>  <span onclick=\"selectLogPopup('logSelectedFirstLoad');\" class=\"link\">Select Log</span>";
+if ($logSelectedFirstLoad === "")
+{
+	$customForFirstLogSelect .= "<input type=\"hidden\" name=\"logSelectedFirstLoad\" value=\"\" >";
+}
+else
+{
+	$customForFirstLogSelect .= "<input type=\"hidden\" name=\"logSelectedFirstLoad\" value=\"".$logSelectedFirstLoad."\" >";
+}
+
+
+
 $defaultConfigMoreData = array(
 	"config"							=>	array(
 		"id"								=>	"advancedConfig",
@@ -390,6 +411,11 @@ $defaultConfigMoreData = array(
 						)
 					)
 				)
+			),
+			6									=>	array(
+				"custom"							=>	$customForFirstLogSelect,
+				"info"								=>	"If Multi-Log is enabled, and a variable is set for intial load logs there, this var will be overridden",
+				"type"								=>	"custom"
 			)
 		)
 	),

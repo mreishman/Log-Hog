@@ -59,7 +59,7 @@
 			}
 			echo "</ul></div></div></li><script>$( document ).ready(function(){document.getElementById(\"".$confDataValue["var"]["id"]."\").addEventListener(\"change\", ".$confDataValue["function"].", false);});</script>";
 		}
-		elseif($confDataValue["type" === "custom"])
+		elseif($confDataValue["type"] === "custom")
 		{
 			echo "<li>".$confDataValue["custom"]."</li>";
 		}
