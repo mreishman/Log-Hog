@@ -1160,6 +1160,10 @@ function generateFullSelect($confDataValue, $selectValue, $varName)
 	$returnHtml .= " <div class=\"selectDiv\"><select ".$selectId." name=\"".$varName."\">";
 	$returnHtml .= createSelect($confDataValue["options"], $selectValue);
 	$returnHtml .= "</select></div>";
+	if(isset($confDataValue["function"]) && $confDataValue["function"] !== "")
+	{
+		$returnHtml .= "<script>$( document ).ready(function(){document.getElementById(\"".$confDataValue["id"]."\").addEventListener(\"change\", ".$confDataValue["function"].", false);});</script>";
+	}
 	return $returnHtml;
 }
 

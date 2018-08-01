@@ -38,12 +38,10 @@ function changeDescriptionLineSize()
 		if (valueForDesc === "lines")
 		{
 			document.getElementById("logTrimTypeText").innerHTML = "Lines";
-			document.getElementById("LiForlogTrimSize").style.display = "none";
 		}
 		else if (valueForDesc === "size")
 		{
 			document.getElementById("logTrimTypeText").innerHTML = document.getElementById("TrimSize").value;
-			document.getElementById("LiForlogTrimSize").style.display = "block";
 		}
 	}
 	catch(e)
@@ -276,14 +274,6 @@ $( document ).ready(function()
 	if(document.getElementById("settingsSelect"))
 	{
 		document.getElementById("settingsSelect").addEventListener("change", showOrHideUpdateSubWindow, false);
-	}
-	if(document.getElementById("logTrimTypeToggle"))
-	{
-		document.getElementById("logTrimTypeToggle").addEventListener("change", changeDescriptionLineSize, false);
-	}
-	if(document.getElementById("logTrimOn"))
-	{
-		document.getElementById("logTrimOn").addEventListener("change", showOrHideLogTrimSubWindow, false);
 	}
 	if(document.getElementById("filterContentHighlight"))
 	{

@@ -52,6 +52,16 @@ else
 	$customForFirstLogSelect .= "<input type=\"hidden\" name=\"logSelectedFirstLoad\" value=\"".$logSelectedFirstLoad."\" >";
 }
 
+$customPostTextLogSize = "<span id=\"logTrimTypeText\" >";
+if($logTrimType == 'lines')
+{
+	$customPostTextLogSize .= "Lines";
+}
+elseif($logTrimType == 'size')
+{
+	$customPostTextLogSize .= $TrimSize;
+}
+$customPostTextLogSize .= "</span>";
 
 
 $defaultConfigMoreData = array(
@@ -410,6 +420,90 @@ $defaultConfigMoreData = array(
 							"type"								=>	"number"
 						)
 					)
+				)
+			),
+			5									=>	array(
+				"bool"								=>	($logTrimOn == 'false'),
+				"function"							=>	"showOrHideLogTrimSubWindow",
+				"id"								=>	"settingsLogTrimVars",
+				"info"								=>	"This could increase poll times by 2x to 4x depending on size of files, file or line trim, etc.",
+				"name"								=>	"Log Trim Settings",
+				"type"								=>	"grouped",
+				"var"								=>	array(
+					"id"								=>	"logTrimOn",
+					"key"								=>	"logTrimOn",
+					"name"								=>	"Log trim",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				),
+				"vars"								=>	array(
+					0									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"function"							=>	"changeDescriptionLineSize",
+							"id"								=>	"logTrimTypeToggle",
+							"key"								=>	"logTrimType",
+							"name"								=>	"Trim based off of",
+							"options"							=>	array(
+								0 									=> array(
+									"value" 							=> "lines",
+									"name" 								=> "Line Count"),
+								1 									=> array(
+									"value" 							=> "size",
+									"name" 								=> "File Size")
+							),
+							"type"								=>	"dropdown"
+						)
+					),
+					1									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"logSizeLimit",
+							"name"								=>	"Maximum of",
+							"postText"							=>	$customPostTextLogSize,
+							"type"								=>	"number"
+						)
+					),
+					2									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"buffer",
+							"name"								=>	"Buffer Size",
+							"type"								=>	"number"
+						)
+					),
+					3									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"logTrimMacBSD",
+							"name"								=>	"Use Mac/Free BSD Command",
+							"options"							=>	$trueFalsVars,
+							"type"								=>	"dropdown"
+						)
+					),
+					4									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"id"								=>	"TrimSize",
+							"key"								=>	"TrimSize",
+							"name"								=>	"File size is measured in",
+							"options"							=>	array(
+								0 									=> array(
+									"value" 							=> "KB",
+									"name" 								=> "KB"),
+								1 									=> array(
+									"value" 							=> "K",
+									"name" 								=> "K"),
+								2 									=> array(
+									"value" 							=> "MB",
+									"name" 								=> "MB"),
+								3 									=> array(
+									"value" 							=> "M",
+									"name" 								=> "M")
+							),
+							"type"								=>	"dropdown"
+						)
+					),
 				)
 			),
 			6									=>	array(
