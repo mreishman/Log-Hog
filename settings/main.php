@@ -43,6 +43,7 @@ require_once('../core/php/loadVars.php');
 		$currentSection = "watchlistVars";
 		include('../core/php/template/varTemplate.php');
 		require_once('../core/php/template/multiLogVars.php');
+		require_once('../core/php/template/logLayout.php');
 		require_once('../core/php/template/mainVars.php'); ?>
 	</div>
 </body>

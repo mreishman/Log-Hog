@@ -116,11 +116,11 @@ $defaultConfigMoreData = array(
 			),
 			5									=>	array(
 				"bool"								=>	($backupNumConfigEnabled == 'false'),
-				"function"							=>	"showOrHideVersionSaveConfig",
 				"id"								=>	"versionSaveContentSettings",
 				"name"								=>	"Backup Config Settings",
 				"type"								=>	"grouped",
 				"var"								=>	array(
+					"function"							=>	"showOrHideVersionSaveConfig",
 					"id"								=>	"backupNumConfigEnabled",
 					"key"								=>	"backupNumConfigEnabled",
 					"name"								=>	"Enable Backup Config Files",
@@ -233,11 +233,11 @@ $defaultConfigMoreData = array(
 			),
 			3									=>	array(
 				"bool"								=>	($filterContentHighlight == 'false'),
-				"function"							=>	"showOrHideFilterHighlightSettings",
 				"id"								=>	"highlightContentSettings",
 				"name"								=>	"Filter Highlight Settings",
 				"type"								=>	"grouped",
 				"var"								=>	array(
+					"function"							=>	"showOrHideFilterHighlightSettings",
 					"id"								=>	"filterContentHighlight",
 					"key"								=>	"filterContentHighlight",
 					"name"								=>	"Highlight Content match",
@@ -265,12 +265,12 @@ $defaultConfigMoreData = array(
 			),
 			4									=>	array(
 				"bool"								=>	($filterContentLimit == 'false'),
-				"function"							=>	"showOrHideFilterContentSettings",
 				"info"								=>	"When filtering by content, only show the line (or some sorrounding lines) containing the search content",
 				"id"								=>	"filterContentSettings",
 				"name"								=>	"Filter Content Match Settings",
 				"type"								=>	"grouped",
 				"var"								=>	array(
+					"function"							=>	"showOrHideFilterContentSettings",
 					"id"								=>	"filterContentLimit",
 					"key"								=>	"filterContentLimit",
 					"name"								=>	"Filter Content match",
@@ -358,11 +358,11 @@ $defaultConfigMoreData = array(
 			),
 			3									=>	array(
 				"bool"								=>	($scrollOnUpdate == 'false'),
-				"function"							=>	"showOrHideScrollLogSettings",
 				"id"								=>	"scrollLogOnUpdateSettings",
 				"name"								=>	"Scroll Log On Update Settings",
 				"type"								=>	"grouped",
 				"var"								=>	array(
+					"function"							=>	"showOrHideScrollLogSettings",
 					"id"								=>	"scrollOnUpdate",
 					"key"								=>	"scrollOnUpdate",
 					"name"								=>	"Scroll Log on update",
@@ -383,11 +383,11 @@ $defaultConfigMoreData = array(
 			),
 			4									=>	array(
 				"bool"								=>	($highlightNew == 'false'),
-				"function"							=>	"showOrHideHighlightNewLinesSettings",
 				"id"								=>	"highlightNewSettings",
 				"name"								=>	"Highlight New Lines Settings",
 				"type"								=>	"grouped",
 				"var"								=>	array(
+					"function"							=>	"showOrHideHighlightNewLinesSettings",
 					"id"								=>	"highlightNew",
 					"key"								=>	"highlightNew",
 					"name"								=>	"Temp Highlight New Lines",
@@ -424,12 +424,12 @@ $defaultConfigMoreData = array(
 			),
 			5									=>	array(
 				"bool"								=>	($logTrimOn == 'false'),
-				"function"							=>	"showOrHideLogTrimSubWindow",
 				"id"								=>	"settingsLogTrimVars",
 				"info"								=>	"This could increase poll times by 2x to 4x depending on size of files, file or line trim, etc.",
 				"name"								=>	"Log Trim Settings",
 				"type"								=>	"grouped",
 				"var"								=>	array(
+					"function"							=>	"showOrHideLogTrimSubWindow",
 					"id"								=>	"logTrimOn",
 					"key"								=>	"logTrimOn",
 					"name"								=>	"Log trim",
@@ -547,11 +547,11 @@ $defaultConfigMoreData = array(
 			),
 			2									=>	array(
 				"bool"								=>	($bottomBarIndexShow == 'false'),
-				"function"							=>	"showOrHideSideBarSettings",
 				"id"								=>	"sidebarContentSettings",
 				"name"								=>	"Sidebar Settings",
 				"type"								=>	"grouped",
 				"var"								=>	array(
+					"function"							=>	"showOrHideSideBarSettings",
 					"id"								=>	"bottomBarIndexShow",
 					"key"								=>	"bottomBarIndexShow",
 					"name"								=>	"Show Side Bar",

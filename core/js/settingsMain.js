@@ -178,7 +178,10 @@ function checkIfChanges()
 	{
 		arrayToCheck.push("settingsMultiLogVars");
 	}
-
+	if(document.getElementById("settingsInitialLoadLayoutVars"))
+	{
+		arrayToCheck.push("settingsInitialLoadLayoutVars");
+	}
 	if(	checkForChangesArray(arrayToCheck))
 	{
 		return true;
@@ -312,6 +315,10 @@ $( document ).ready(function()
 	if(document.getElementById("settingsMultiLogVars"))
 	{
 		arrayToRefresh.push("settingsMultiLogVars");
+	}
+	if(document.getElementById("settingsInitialLoadLayoutVars"))
+	{
+		arrayToRefresh.push("settingsInitialLoadLayoutVars");
 	}
 	refreshArrayObjectOfArrays(arrayToRefresh);
 

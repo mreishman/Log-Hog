@@ -57,7 +57,7 @@
 					echo "<li>".$confDataInnerValue["custom"]."</li>";
 				}
 			}
-			echo "</ul></div></div></li><script>$( document ).ready(function(){document.getElementById(\"".$confDataValue["var"]["id"]."\").addEventListener(\"change\", ".$confDataValue["function"].", false);});</script>";
+			echo "</ul></div></div></li>";
 		}
 		elseif($confDataValue["type"] === "custom")
 		{
