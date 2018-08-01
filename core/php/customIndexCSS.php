@@ -19,12 +19,12 @@ $windowDisplayConfig = explode("x", $windowConfig);
 ?>
 <style type="text/css">
 
-.log, #firstLoad, .log table tr td
+.log, #firstLoad, .log table tr:not(.highlight, .newLine) td:not(.highlight, .newLine)
 {
 	color: <?php echo $logFontColor; ?>;
 }
 
-.highlight
+.highlight, .highlight td
 {
 	background-color: <?php echo $highlightColorBG; ?>;
 	color: <?php echo $highlightColorFont; ?>;
