@@ -33,7 +33,6 @@ require_once('../core/php/loadVars.php');
 		<?php
 		$currentSection = "logVars";
 		include('../core/php/template/varTemplate.php');
-		require_once('../core/php/template/logSettings.php');
 		$currentSection = "pollVars";
 		include('../core/php/template/varTemplate.php');
 		$currentSection = "filterVars";
