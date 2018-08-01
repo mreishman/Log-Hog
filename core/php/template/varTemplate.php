@@ -35,9 +35,33 @@
 			echo " \" ><div class=\"settingsHeader\">".$confDataValue["name"]."</div><div class=\"settingsDiv\" ><ul class=\"settingsUl\">";
 			foreach ($confDataValue["vars"] as $confDataInnerValue)
 			{
-				echo "<li>".generateGenericType($confDataInnerValue["var"],$loadVarsArray[$confDataInnerValue["var"]["key"]],$confDataInnerValue["var"]["key"])."</li>";
+				if($confDataInnerValue["type"] === "single")
+				{
+					echo "<li>".generateGenericType($confDataInnerValue["var"],$loadVarsArray[$confDataInnerValue["var"]["key"]],$confDataInnerValue["var"]["key"])."</li>";
+					if(isset($confDataInnerValue["info"]) && $confDataInnerValue["info"] !== "")
+					{
+						echo generateInfo($infoImage,$confDataInnerValue["info"]);
+					}
+				}
+				elseif($confDataValue["type"] === "linked")
+				{
+					echo "<li>";
+					foreach ($confDataInnerValue["vars"] as $confDataInnerValueTwo)
+					{
+						echo generateGenericType($confDataInnerValueTwo, $loadVarsArray[$confDataInnerValueTwo["key"]], $confDataInnerValueTwo["key"])." ";
+					}
+					echo "</li>";
+				}
+				elseif($confDataInnerValue["type"] === "custom")
+				{
+					echo "<li>".$confDataInnerValue["custom"]."</li>";
+				}
 			}
 			echo "</ul></div></div></li><script>$( document ).ready(function(){document.getElementById(\"".$confDataValue["var"]["id"]."\").addEventListener(\"change\", ".$confDataValue["function"].", false);});</script>";
+		}
+		elseif($confDataValue["type" === "custom"])
+		{
+			echo "<li>".$confDataValue["custom"]."</li>";
 		}
 
 		if(isset($confDataValue["info"]) && $confDataValue["info"] !== "")

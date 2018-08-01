@@ -9,9 +9,51 @@ for ($i=0; $i < 10; $i++)
 }
 
 $defaultConfigMoreData = array(
+	"fileLocations"						=>	array(
+		"id"								=>	"locationOtherApps",
+		"name"								=>	"File Locations",
+		"vars"								=>	array(
+			0									=> array(
+				"info"								=>	"Default = https://".$_SERVER['SERVER_NAME']."/status",
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"locationForStatus",
+					"name"								=>	"Status Location",
+					"type"								=>	"text"
+				)
+			),
+			1									=> array(
+				"info"								=>	"Default = https://".$_SERVER['SERVER_NAME']."/monitor",
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"locationForMonitor",
+					"name"								=>	"Monitor Location",
+					"type"								=>	"text"
+				)
+			),
+			2									=> array(
+				"info"								=>	"Default = https://".$_SERVER['SERVER_NAME']."/search",
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"locationForSearch",
+					"name"								=>	"Search Location",
+					"type"								=>	"text"
+				)
+			),
+			3									=> array(
+				"info"								=>	"Default = https://".$_SERVER['SERVER_NAME']."/seleniumMonitor",
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"locationForSeleniumMonitor",
+					"name"								=>	"Selenium Monitor Location",
+					"type"								=>	"text"
+				)
+			),
+		)
+	),
 	"filterVars"						=>	array(
 		"id"								=>	"settingsFilterVars",
-		"name"								=>	"Filter Settings ",
+		"name"								=>	"Filter Settings",
 		"vars"								=>	array(
 			0									=>	array(
 				"type"								=>	"single",
@@ -102,7 +144,140 @@ $defaultConfigMoreData = array(
 							"options"							=>	$linePaddingOptions,
 							"type"								=>	"dropdown"
 						)
+					)
+				)
+			)
+		)
+	),
+	"loggingVars"						=>	array(
+		"id"								=>	"loggingDisplay",
+		"name"								=>	"Log Settings ",
+		"vars"								=>	array(
+			0									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"info"								=>	"This will increase poll times",
+					"key"								=>	"enableLogging",
+					"name"								=>	"File Info Logging",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			1									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"enablePollTimeLogging",
+					"name"								=>	"Poll Time Logging",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			2									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"sendCrashInfoJS",
+					"name"								=>	"Send anonymous information about Log-Hog specific javascript errors",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+		)
+	),
+	"logVars"							=>	array(
+		"id"								=>	"settingsLogVars",
+		"name"								=>	"Log Settings ",
+		"vars"								=>	array(
+			0									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"sliceSize",
+					"name"								=>	"Number of lines to display",
+					"type"								=>	"number"
+				)
+			),
+			1									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"flashTitleUpdateLog",
+					"name"								=>	"Flash title on log update",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			2									=>	array(
+				"info"								=>	"If a log updates, when the above value is true it will automatically switch to that log in the main view",
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"autoMoveUpdateLog",
+					"name"								=>	"Auto show log on update",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			3									=>	array(
+				"bool"								=>	($scrollOnUpdate == 'false'),
+				"function"							=>	"showOrHideScrollLogSettings",
+				"id"								=>	"scrollLogOnUpdateSettings",
+				"name"								=>	"Scroll Log On Update Settings",
+				"type"								=>	"grouped",
+				"var"								=>	array(
+					"id"								=>	"scrollOnUpdate",
+					"key"								=>	"scrollOnUpdate",
+					"name"								=>	"Scroll Log on update",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				),
+				"vars"								=>	array(
+					0									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"scrollEvenIfScrolled",
+							"name"								=>	"Scroll even if Scrolled:",
+							"options"							=>	$trueFalsVars,
+							"type"								=>	"dropdown"
+						)
+					)
+				)
+			),
+			4									=>	array(
+				"bool"								=>	($highlightNew == 'false'),
+				"function"							=>	"showOrHideHighlightNewLinesSettings",
+				"id"								=>	"highlightNewSettings",
+				"name"								=>	"Highlight New Lines Settings",
+				"type"								=>	"grouped",
+				"var"								=>	array(
+					"id"								=>	"highlightNew",
+					"key"								=>	"highlightNew",
+					"name"								=>	"Temp Highlight New Lines",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				),
+				"vars"								=>	array(
+					0									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"highlightNewColorBG",
+							"name"								=>	"Background",
+							"type"								=>	"text"
+						)
 					),
+					1									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"highlightNewColorFont",
+							"name"								=>	"Font",
+							"type"								=>	"text"
+						)
+					),
+					2									=> array(
+						"info"								=>	"Default 30 ms",
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"timeoutHighlight",
+							"name"								=>	"Timeout for fade",
+							"type"								=>	"number"
+						)
+					)
 				)
 			)
 		)

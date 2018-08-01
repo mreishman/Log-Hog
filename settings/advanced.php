@@ -119,19 +119,6 @@ $countConfig--;
 					</div>
 				</li>
 				<li>
-					<?php if($backupNumConfigEnabled == 'true'): ?>
-						<a onclick="showConfigPopup();" class="link">View restore options for config</a>
-						<span> | </span>
-					<?php endif; ?>
-					<?php if($showConfigBackupClear): ?>
-						<span id="showConfigClearButton">
-							<a onclick="clearBackupFiles();" class="link">Clear (<?php echo $countConfig;?>) Backup Config Files</a>
-							<span> | </span>
-						</span>
-					<?php endif; ?>
-					<a onclick="resetSettingsPopup();" class="link">Reset Settings back to Default</a>
-				</li>
-				<li>
 					<span class="settingsBuffer"> Save verification number:</span>
 					<div class="selectDiv">
 						<select name="successVerifyNum">
@@ -155,119 +142,12 @@ $countConfig--;
 			</ul>
 		</div>
 	</form>
-	<form id="loggingDisplay">
-		<div class="settingsHeader">
-			Logging Information
-			<div class="settingsHeaderButtons">
-				<?php echo addResetButton("loggingDisplay");
-				if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
-					<a class="linkSmall" onclick="saveAndVerifyMain('loggingDisplay');" >Save Changes</a>
-				<?php else: ?>
-					<button  onclick="displayLoadingPopup();">Save Changes</button>
-				<?php endif; ?>
-			</div>
-		</div>
-		<div class="settingsDiv" >
-			<ul class="settingsUl">
-				<li>
-					<span class="settingsBuffer"> File Info Logging </span>
-					<div class="selectDiv">
-						<select name="enableLogging">
-  							<option <?php if($enableLogging == 'true'){echo "selected";} ?> value="true">True</option>
-  							<option <?php if($enableLogging == 'false'){echo "selected";} ?> value="false">False</option>
-						</select>
-					</div>
-					<br>
-					<span style="font-size: 75%;">
-						<?php echo generateImage(
-							$arrayOfImages["info"],
-							array(
-								"style"			=>	"margin-bottom: -4px;",
-								"height"		=>	"20px",
-								"srcModifier"	=>	"../"
-							)
-						); ?>
-						<i>This will increase poll times</i></span>
-				</li>
-				<li>
-					<span class="settingsBuffer"> Poll Time Logging </span>
-					<div class="selectDiv">
-						<select name="enablePollTimeLogging">
-  							<option <?php if($enablePollTimeLogging == 'true'){echo "selected";} ?> value="true">True</option>
-  							<option <?php if($enablePollTimeLogging == 'false'){echo "selected";} ?> value="false">False</option>
-						</select>
-					</div>
-				</li>
-				<li>
-					Send anonymous information about Log-Hog specific javascript errors:
-					<div class="selectDiv">
-						<select name="sendCrashInfoJS">
-  							<option <?php if($sendCrashInfoJS == 'true'){echo "selected";} ?> value="true">True</option>
-  							<option <?php if($sendCrashInfoJS == 'false'){echo "selected";} ?> value="false">False</option>
-						</select>
-					</div>
-				</li>
-				<li style="display: none;" >
-					Send anonymous information about Log-Hog specific php errors:
-					<div class="selectDiv">
-						<select name="sendCrashInfoPHP">
-  							<option <?php if($sendCrashInfoPHP == 'true'){echo "selected";} ?> value="true">True</option>
-  							<option <?php if($sendCrashInfoPHP == 'false'){echo "selected";} ?> value="false">False</option>
-						</select>
-					</div>
-				</li>
-			</ul>
-		</div>
-	</form>
-	<form id="locationOtherApps">
-		<div class="settingsHeader">
-			File Locations
-			<div class="settingsHeaderButtons">
-				<?php echo addResetButton("locationOtherApps");
-				if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
-					<a class="linkSmall" onclick="saveAndVerifyMain('locationOtherApps');" >Save Changes</a>
-				<?php else: ?>
-					<button  onclick="displayLoadingPopup();">Save Changes</button>
-				<?php endif; ?>
-			</div>
-		</div>
-		<div class="settingsDiv" >
-			<ul class="settingsUl">
-				<li>
-					<span class="settingsBuffer" >  Status Location:  </span> <input type="text" style="width: 400px;"  name="locationForStatus" value="<?php echo $locationForStatus;?>" > 
-					<br>
-					<p>Default = <?php echo "https://" . $_SERVER['SERVER_NAME']."/status"; ?></p>
-				</li>
-				<li>
-					<span class="settingsBuffer" >  Monitor Location:  </span> <input type="text" style="width: 400px;"  name="locationForMonitor" value="<?php echo $locationForMonitor;?>" > 
-					<br>
-					<p>Default = <?php echo "https://" . $_SERVER['SERVER_NAME']."/monitor"; ?></p>
-				</li>
-				<li>
-					<span class="settingsBuffer" >  Search Location:  </span> <input type="text" style="width: 400px;"  name="locationForSearch" value="<?php echo $locationForSearch;?>" > 
-					<br>
-					<p>Default = <?php echo "https://" . $_SERVER['SERVER_NAME']."/search"; ?></p>
-				</li>
-				<li>
-					<span class="settingsBuffer" >  Selenium Monitor Location:  </span> <input type="text" style="width: 400px;"  name="locationForSeleniumMonitor" value="<?php echo $locationForSeleniumMonitor;?>" > 
-					<br>
-					<p>Default = <?php echo "https://" . $_SERVER['SERVER_NAME']."/seleniumMonitor"; ?></p>
-				</li>
-				<li>
-					<span style="font-size: 75%;">
-						<?php echo generateImage(
-							$arrayOfImages["info"],
-							array(
-								"style"			=>	"margin-bottom: -4px;",
-								"height"		=>	"20px",
-								"srcModifier"	=>	"../"
-							)
-						); ?>
-						<i>Please specify full url, blank if none</i></span>
-				</li>
-			</ul>
-		</div>
-	</form>
+	<?php
+	$currentSection = "loggingVars";
+	include('../core/php/template/varTemplate.php');
+	$currentSection = "fileLocations";
+	include('../core/php/template/varTemplate.php');
+	?>
 	<span id="moreAdvancedSpan">
 		<div id="moreAdvanced" class="settingsHeader">
 			Advanced
@@ -282,6 +162,18 @@ $countConfig--;
 					<a onclick="resetUpdateNotification();" class="link">Reset Update Notification</a>
 					<span> | </span>
 					<a class="link" href="editFiles.php" >View Files</a>
+					<span> | </span>
+					<?php if($backupNumConfigEnabled == 'true'): ?>
+						<a onclick="showConfigPopup();" class="link">View restore options for config</a>
+						<span> | </span>
+					<?php endif; ?>
+					<?php if($showConfigBackupClear): ?>
+						<span id="showConfigClearButton">
+							<a onclick="clearBackupFiles();" class="link">Clear (<?php echo $countConfig;?>) Backup Config Files</a>
+							<span> | </span>
+						</span>
+					<?php endif; ?>
+					<a onclick="resetSettingsPopup();" class="link">Reset Settings back to Default</a>
 				</li>
 			</ul>
 		</div>

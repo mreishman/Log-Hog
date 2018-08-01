@@ -289,14 +289,6 @@ $( document ).ready(function()
 	{
 		document.getElementById("filterContentHighlight").addEventListener("change", showOrHideFilterHighlightSettings, false);
 	}
-	if (document.getElementById("scrollOnUpdate"))
-	{
-		document.getElementById("scrollOnUpdate").addEventListener("change", showOrHideScrollLogSettings, false);
-	}
-	if (document.getElementById("highlightNew"))
-	{
-		document.getElementById("highlightNew").addEventListener("change", showOrHideHighlightNewLinesSettings, false);
-	}
 
 	var arrayToRefresh = new Array();
 	if(document.getElementById("settingsLogVars"))

@@ -27,10 +27,13 @@ require_once('../core/php/loadVars.php');
 </head>
 <body>
 
-<?php require_once('header.php');?>	
+<?php require_once('header.php');?>
 
 	<div id="main">
-		<?php require_once('../core/php/template/logSettings.php');
+		<?php
+		$currentSection = "logVars";
+		include('../core/php/template/varTemplate.php');
+		require_once('../core/php/template/logSettings.php');
 		$currentSection = "pollVars";
 		include('../core/php/template/varTemplate.php');
 		$currentSection = "filterVars";

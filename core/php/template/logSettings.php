@@ -1,6 +1,6 @@
 <form id="settingsLogVars">
 	<div class="settingsHeader">
-	Log Settings
+	Log Settings Part 2
 	<div class="settingsHeaderButtons">
 		<?php echo addResetButton("settingsLogVars");?>
 		<a class="linkSmall" onclick="saveAndVerifyMain('settingsLogVars');" >Save Changes</a>
@@ -8,110 +8,6 @@
 	</div>
 	<div class="settingsDiv" >
 	<ul class="settingsUl">
-		<li>
-			<span class="settingsBuffer" >Number of lines to display:</span>  <input type="number" pattern="[0-9]*" name="sliceSize" value="<?php echo $sliceSize;?>" >
-		</li>
-		<li>
-			<span class="settingsBuffer" > Flash title on log update: </span>
-			<div class="selectDiv">
-				<select name="flashTitleUpdateLog">
-					<option <?php if($flashTitleUpdateLog == 'true'){echo "selected";} ?> value="true">True</option>
-					<option <?php if($flashTitleUpdateLog == 'false'){echo "selected";} ?> value="false">False</option>
-				</select>
-			</div>
-		</li>
-		<li>
-			<span class="settingsBuffer" > Auto show log on update: </span>
-			<div class="selectDiv">
-				<select name="autoMoveUpdateLog">
-					<option <?php if($autoMoveUpdateLog == 'true'){echo "selected";} ?> value="true">True</option>
-					<option <?php if($autoMoveUpdateLog == 'false'){echo "selected";} ?> value="false">False</option>
-				</select>
-			</div>
-		</li>
-		<li>
-			<span style="font-size: 75%;">
-				<?php echo generateImage(
-					$arrayOfImages["info"],
-					array(
-						"style"			=>	"margin-bottom: -4px;",
-						"height"		=>	"20px",
-						"srcModifier"	=>	"../"
-					)
-				); ?>
-				<i>If a log updates, when the above value is true it will automatically switch to that log in the main view</i>
-			</span>
-		</li>
-		<li>
-			<span class="settingsBuffer" > Scroll Log on update: </span>
-			<div class="selectDiv">
-				<select id="scrollOnUpdate" name="scrollOnUpdate">
-					<option <?php if($scrollOnUpdate == 'true'){echo "selected";} ?> value="true">True</option>
-					<option <?php if($scrollOnUpdate == 'false'){echo "selected";} ?> value="false">False</option>
-				</select>
-			</div>
-			<div id="scrollLogOnUpdateSettings" style=" <?php if($scrollOnUpdate == 'false'){ echo 'display: none;'; }?> " >
-				<div class="settingsHeader">
-				Scroll Log On Update Settings
-				</div>
-				<div class="settingsDiv" >
-					<ul class="settingsUl">
-						<li>
-							<span class="settingsBuffer" > Scroll even if Scrolled: </span>
-							<div class="selectDiv"> 
-								<select name="scrollEvenIfScrolled">
-									<option <?php if($scrollEvenIfScrolled == 'true'){echo "selected";} ?> value="true">True</option>
-									<option <?php if($scrollEvenIfScrolled == 'false'){echo "selected";} ?> value="false">False</option>
-								</select>
-							</div>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</li>
-		<li>
-		<span class="settingsBuffer" > Temp Highlight New Lines: </span>
-		<div class="selectDiv">
-			<select id="highlightNew" name="highlightNew">
-				<option <?php if($highlightNew == 'true'){echo "selected";} ?> value="true">True</option>
-				<option <?php if($highlightNew == 'false'){echo "selected";} ?> value="false">False</option>
-			</select>
-		</div>
-		<div id="highlightNewSettings" style=" <?php if($highlightNew == 'false'){ echo 'display: none;'; }?> " >
-			<div class="settingsHeader">
-			Highlight New Lines Settings
-			</div>
-			<div class="settingsDiv" >
-				<ul class="settingsUl">
-					<li>
-						<span class="settingsBuffer" > Background: </span> 
-						<input type="text" name="highlightNewColorBG" value="<?php echo $highlightNewColorBG;?>" >
-					</li>
-					<li>
-						<span class="settingsBuffer" > Font: </span> 
-						<input type="text" name="highlightNewColorFont" value="<?php echo $highlightNewColorFont;?>" >
-					</li>
-					<li>
-						<span class="settingsBuffer" > Timeout for fade: </span>
-						<input type="number" pattern="[0-9]*" name="timeoutHighlight" value="<?php echo $timeoutHighlight;?>" > MS
-					</li>
-					<li>
-						<span style="font-size: 75%;">
-						<?php echo generateImage(
-							$arrayOfImages["info"],
-							array(
-								"style"			=>	"margin-bottom: -4px;",
-								"height"		=>	"20px",
-								"srcModifier"	=>	"../"
-							)
-						); ?>
-						<i>Default 30 ms</i>
-					</span>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</li>
 		<li>
 			<span class="settingsBuffer" > Log trim:  </span>
 			<div class="selectDiv">
@@ -176,9 +72,18 @@
 							</select>
 						</div>
 						<br>
-						<span style="font-size: 75%;">*<i>This will increase poll times by 2x to 4x</i></span>
+						<span style="font-size: 75%;">
+							<?php echo generateImage(
+								$arrayOfImages["info"],
+								array(
+									"style"			=>	"margin-bottom: -4px;",
+									"height"		=>	"20px",
+									"srcModifier"	=>	"../"
+								)
+							); ?>
+							<i>This will increase poll times by 2x to 4x</i>
+						</span>
 					</li>
-
 				</ul>
 				</div>
 			</div>
