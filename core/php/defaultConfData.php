@@ -16,6 +16,20 @@ for ($j=0; $j < 5; $j++)
 	"name" 						=> $j);
 }
 
+
+$arrayOfwindowConfigOptions = array();
+$counter = 0;
+for ($k=0; $k < 3; $k++)
+{
+	for ($l=0; $l < 3; $l++)
+	{
+		$arrayOfwindowConfigOptions[$counter] = array(
+		"value" 					=> "".($k+1)."x".($l+1),
+		"name" 						=> "".($k+1)."x".($l+1));
+		$counter++;
+	}
+}
+
 $branchOptionsArr = array(
 0 					=> array(
 	"value" 			=> "default",
@@ -62,7 +76,6 @@ elseif($logTrimType == 'size')
 	$customPostTextLogSize .= $TrimSize;
 }
 $customPostTextLogSize .= "</span>";
-
 
 $defaultConfigMoreData = array(
 	"config"							=>	array(
@@ -882,6 +895,62 @@ $defaultConfigMoreData = array(
 					"name"								=>	"Show Php errors from file open fails",
 					"options"							=>	$trueFalsVars,
 					"type"								=>	"dropdown"
+				)
+			)
+		)
+	),
+	"updateVars"						=>	array(
+		"id"								=>	"settingsUpdateVars",
+		"name"								=>	"Update Settings ",
+		"vars"								=> array(
+			0									=> array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"updateNotificationEnabled",
+					"name"								=>	"Show Update Notification",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			1									=>	array(
+				"bool"								=>	($autoCheckUpdate == 'false'),
+				"id"								=>	"settingsAutoCheckVars",
+				"name"								=>	"Auto Check Update Settings",
+				"type"								=>	"grouped",
+				"var"								=>	array(
+					"function"							=>	"showOrHideUpdateSubWindow",
+					"id"								=>	"settingsSelect",
+					"key"								=>	"autoCheckUpdate",
+					"name"								=>	"Auto Check Update",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				),
+				"vars"								=>	array(
+					0									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"autoCheckDaysUpdate",
+							"name"								=>	"Check for update every",
+							"postText"							=>	"Days",
+							"type"								=>	"number"
+						)
+					),
+					1									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"updateNoticeMeter",
+							"name"								=>	"Notify Updates on",
+							"options"							=>	array(
+								0 									=> array(
+									"value" 							=> "every",
+									"name" 								=> "Every Update"),
+								1 									=> array(
+									"value" 							=> "major",
+									"name" 								=> "Only Major Updates")
+							),
+							"type"								=>	"dropdown"
+						)
+					)
 				)
 			)
 		)

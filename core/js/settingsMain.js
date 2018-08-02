@@ -274,10 +274,6 @@ $( document ).ready(function()
 			showOrHidePopupSubWindow();
 		});
 	}
-	if(document.getElementById("settingsSelect"))
-	{
-		document.getElementById("settingsSelect").addEventListener("change", showOrHideUpdateSubWindow, false);
-	}
 	if(document.getElementById("filterContentHighlight"))
 	{
 		document.getElementById("filterContentHighlight").addEventListener("change", showOrHideFilterHighlightSettings, false);
