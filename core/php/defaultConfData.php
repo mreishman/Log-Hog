@@ -85,6 +85,8 @@ foreach ($popupSettingsInArray as $key => $value)
 	$customVarPopup[$counterPopup]	= array(
 		"type"								=>	"single",
 		"var"								=>	array(
+			"function"							=>	"updateJsonForPopupTheme",
+			"id"								=>	"popup".$key,
 			"key"								=>	$key,
 			"name"								=>	$key,
 			"options"							=>	$trueFalsVars,
@@ -826,8 +828,16 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				),
 				"vars"								=>	$customVarPopup
+			),
+			1									=> array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"id"								=>	"popupSettingsArray",
+					"key"								=>	"popupSettingsArray",
+					"type"								=>	"hidden"
+				)
 			)
-		)
+		),
 	),
 	"pollVars"							=>	array(
 		"id"								=>	"settingsPollVars",

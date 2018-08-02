@@ -1176,7 +1176,7 @@ function generateNumber($confDataValue,$numberValue,$varName)
 
 function generateHidden($confDataValue,$numberValue,$varName)
 {
-	$returnHtml = " <input id=\"".$confDataValue["id"]."\" type=\"hidden\" name=\"".$varName."\" value=\"".$numberValue."\" >";
+	$returnHtml = " <input id=\"".$confDataValue["id"]."\" type=\"hidden\" name=\"".$varName."\" value='".$numberValue."' >";
 	return $returnHtml;
 }
 
@@ -1202,6 +1202,10 @@ function generateGenericType($confDataValue, $confDataKeyValue, $confDataKey)
 	{
 		$returnHtml .= generateFullSelect($confDataValue,$confDataKeyValue,$confDataKey);
 	}
+	elseif($confDataValue["type"] === "hidden")
+	{
+		$returnHtml .= generateHidden($confDataValue,$confDataKeyValue,$confDataKey);
+	}
 	if(isset($confDataValue["postText"]) && $confDataValue["postText"] !== "")
 	{
 		$returnHtml .= " ".$confDataValue["postText"];
@@ -1219,11 +1223,20 @@ function generateInfo($image, $info)
 
 function getData($loadVarsArray, $confDataValue)
 {
-	if(isset($loadVarsArray[$confDataValue["var"]["key"]]))
+	$keyVar = "";
+	if(isset($confDataValue["var"]) && isset($confDataValue["var"]["key"]))
 	{
-		return $loadVarsArray[$confDataValue["var"]["key"]];
+		$keyVar = $confDataValue["var"]["key"];
 	}
-	elseif(isset($confDataValue["value"]))
+	elseif(isset($confDataValue["key"]))
+	{
+		$keyVar = $confDataValue["key"];
+	}
+	if(isset($loadVarsArray[$keyVar]))
+	{
+		return $loadVarsArray[$keyVar];
+	}
+	if(isset($confDataValue["value"]))
 	{
 		return $confDataValue["value"];
 	}
