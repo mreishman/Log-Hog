@@ -1174,6 +1174,12 @@ function generateNumber($confDataValue,$numberValue,$varName)
 	return $returnHtml;
 }
 
+function generateHidden($confDataValue,$numberValue,$varName)
+{
+	$returnHtml = " <input id=\"".$confDataValue["id"]."\" type=\"hidden\" name=\"".$varName."\" value=\"".$numberValue."\" >";
+	return $returnHtml;
+}
+
 function generateText($confDataValue,$numberValue,$varName)
 {
 	$returnHtml = "<span class=\"settingsBuffer\" > ".$confDataValue["name"].": </span>";
@@ -1209,4 +1215,17 @@ function generateInfo($image, $info)
 	$returnHtml .= $image;
 	$returnHtml .= "  <i>".$info."</i></span></li>";
 	return $returnHtml;
+}
+
+function getData($loadVarsArray, $confDataValue)
+{
+	if(isset($loadVarsArray[$confDataValue["var"]["key"]]))
+	{
+		return $loadVarsArray[$confDataValue["var"]["key"]];
+	}
+	elseif(isset($confDataValue["value"]))
+	{
+		return $confDataValue["value"];
+	}
+	return "";
 }

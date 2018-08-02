@@ -77,6 +77,24 @@ elseif($logTrimType == 'size')
 }
 $customPostTextLogSize .= "</span>";
 
+$customVarPopup = array();
+$popupSettingsInArray = json_decode($popupSettingsArray);
+$counterPopup = 0;
+foreach ($popupSettingsInArray as $key => $value)
+{
+	$customVarPopup[$counterPopup]	= array(
+		"type"								=>	"single",
+		"var"								=>	array(
+			"key"								=>	$key,
+			"name"								=>	$key,
+			"options"							=>	$trueFalsVars,
+			"type"								=>	"dropdown",
+			"value"								=>	$value
+		)
+	);
+	$counterPopup++;
+}
+
 $defaultConfigMoreData = array(
 	"config"							=>	array(
 		"id"								=>	"advancedConfig",
@@ -777,6 +795,37 @@ $defaultConfigMoreData = array(
 					"options"							=>	$trueFalsVars,
 					"type"								=>	"dropdown"
 				)
+			)
+		)
+	),
+	"otherVars"							=>	array(
+		"id"								=>	"settingsMainVars",
+		"name"								=>	"Other Settings",
+		"vars"								=> array(
+			0									=> array(
+				"bool"								=>	"($popupWarnings != 'custom')",
+				"id"								=>	"settingsPopupVars",
+				"name"								=>	"Popup Settings",
+				"type"								=>	"grouped",
+				"var"								=>	array(
+					"function"							=>	"toggleUpdateDisplayCheck",
+					"id"								=>	"popupSelect",
+					"key"								=>	"popupWarnings",
+					"name"								=>	"Popup Warnings",
+					"options"							=>	array(
+							0 									=> array(
+								"value" 							=> "true",
+								"name" 								=> "True"),
+							1 									=> array(
+								"value" 							=> "custom",
+								"name" 								=> "Custom"),
+							2									=> array(
+								"value" 							=> "false",
+								"name" 								=> "False")
+						),
+					"type"								=>	"dropdown"
+				),
+				"vars"								=>	$customVarPopup
 			)
 		)
 	),

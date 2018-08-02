@@ -13,20 +13,20 @@
 	{
 		if($confDataValue["type"] === "single")
 		{
-			echo "<li>".generateGenericType($confDataValue["var"], $loadVarsArray[$confDataValue["var"]["key"]], $confDataValue["var"]["key"])."</li>";
+			echo "<li>".generateGenericType($confDataValue["var"], getData($loadVarsArray, $confDataValue), $confDataValue["var"]["key"])."</li>";
 		}
 		elseif($confDataValue["type"] === "linked")
 		{
 			echo "<li>";
 			foreach ($confDataValue["vars"] as $confDataInnerValue)
 			{
-				echo generateGenericType($confDataInnerValue, $loadVarsArray[$confDataInnerValue["key"]], $confDataInnerValue["key"])." ";
+				echo generateGenericType($confDataInnerValue, getData($loadVarsArray, $confDataInnerValue), $confDataInnerValue["key"])." ";
 			}
 			echo "</li>";
 		}
 		elseif($confDataValue["type"] === "grouped")
 		{
-			echo "<li>".generateGenericType($confDataValue["var"], $loadVarsArray[$confDataValue["var"]["key"]], $confDataValue["var"]["key"])."</li>";
+			echo "<li>".generateGenericType($confDataValue["var"], getData($loadVarsArray, $confDataValue), $confDataValue["var"]["key"])."</li>";
 			echo "<li><div id=\"".$confDataValue["id"]."\" style=\" ";
 			if($confDataValue["bool"])
 			{
@@ -37,7 +37,7 @@
 			{
 				if($confDataInnerValue["type"] === "single")
 				{
-					echo "<li>".generateGenericType($confDataInnerValue["var"],$loadVarsArray[$confDataInnerValue["var"]["key"]],$confDataInnerValue["var"]["key"])."</li>";
+					echo "<li>".generateGenericType($confDataInnerValue["var"],getData($loadVarsArray, $confDataInnerValue),$confDataInnerValue["var"]["key"])."</li>";
 					if(isset($confDataInnerValue["info"]) && $confDataInnerValue["info"] !== "")
 					{
 						echo generateInfo($infoImage,$confDataInnerValue["info"]);
@@ -48,7 +48,7 @@
 					echo "<li>";
 					foreach ($confDataInnerValue["vars"] as $confDataInnerValueTwo)
 					{
-						echo generateGenericType($confDataInnerValueTwo, $loadVarsArray[$confDataInnerValueTwo["key"]], $confDataInnerValueTwo["key"])." ";
+						echo generateGenericType($confDataInnerValueTwo, getData($loadVarsArray, $confDataInnerValueTwo), $confDataInnerValueTwo["key"])." ";
 					}
 					echo "</li>";
 				}

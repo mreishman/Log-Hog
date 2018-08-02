@@ -191,6 +191,13 @@ function checkIfChanges()
 
 function updateJsonForPopupTheme()
 {
+	setTimeout(function() {
+	        updateJsonForPopupThemeInner();
+	    }, 2);
+}
+
+function updateJsonForPopupThemeInner()
+{
 	var saveSettingsVar = document.getElementById("popupsaveSettings").value;
 	var blankFolderVar = document.getElementById("popupblankFolder").value;
 	var deleteLogVar = document.getElementById("popupdeleteLog").value;
@@ -262,23 +269,14 @@ function selectLog(locationForNewLogText)
 	hidePopup();
 }
 
+function toggleUpdateDisplayCheck()
+{
+	updateJsonForPopupTheme();
+	showOrHidePopupSubWindow();
+}
+
 $( document ).ready(function()
 {
-	if(document.getElementById("popupSelect"))
-	{
-		$("#popupSelect").on("keydown change", function(){
-			var box = $(this);
-			setTimeout(function() {
-				updateJsonForPopupTheme();
-			}, 2);
-			showOrHidePopupSubWindow();
-		});
-	}
-	if(document.getElementById("filterContentHighlight"))
-	{
-		document.getElementById("filterContentHighlight").addEventListener("change", showOrHideFilterHighlightSettings, false);
-	}
-
 	var arrayToRefresh = new Array();
 	if(document.getElementById("settingsLogVars"))
 	{

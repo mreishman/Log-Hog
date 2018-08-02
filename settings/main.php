@@ -49,7 +49,8 @@ require_once('../core/php/loadVars.php');
 			include('../core/php/template/varTemplate.php');
 			require_once('../core/php/template/logLayout.php');
 		}
-		require_once('../core/php/template/mainVars.php');
+		$currentSection = "otherVars";
+		include('../core/php/template/varTemplate.php');
 		?>
 	</div>
 </body>
