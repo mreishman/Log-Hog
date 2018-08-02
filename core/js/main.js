@@ -886,6 +886,7 @@ function update(data)
 				if(logData === "This file is empty. This should not be displayed." && hideEmptyLog === "true" || logData === "Error - File does not exist")
 				{
 					hideLogByName(name);
+					logs[id] ="<div class='errorMessageLog errorMessageGreenBG' > This file is empty. </div>";
 				}
 				else
 				{
@@ -3306,7 +3307,21 @@ function toggleGroupedGroups()
 			}
 		}
 	}
+	hideEmptyLogs();
 	resize();
+}
+
+function hideEmptyLogs()
+{
+	var logKeys = Object.keys(logs);
+	var logKeysLength = logKeys.length;
+	for(var logHideCheck = 0; logHideCheck < logKeysLength; logHideCheck++)
+	{
+		if(logs[logKeys[logHideCheck]] === "<div class='errorMessageLog errorMessageGreenBG' > This file is empty. </div>")
+		{
+			hideLogByName(logKeys[logHideCheck]);
+		}
+	}
 }
 
 function onScrollShowFixedMiniBar(idsOfForms)
