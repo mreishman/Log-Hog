@@ -517,6 +517,7 @@ $defaultConfigMoreData = array(
 					4									=> array(
 						"type"								=>	"single",
 						"var"								=>	array(
+							"function"							=>	"changeDescriptionLineSize",
 							"id"								=>	"TrimSize",
 							"key"								=>	"TrimSize",
 							"name"								=>	"File size is measured in",
