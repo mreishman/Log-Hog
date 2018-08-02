@@ -726,6 +726,60 @@ $defaultConfigMoreData = array(
 			)
 		)
 	),
+	"multiLogVars"						=>	array(
+		"id"								=>	"settingsMultiLogVars",
+		"name"								=>	"Multi-Log Settings",
+		"vars"								=> array(
+			0									=> array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"windowConfig",
+					"name"								=>	"Log Layout",
+					"options"							=>	$arrayOfwindowConfigOptions,
+					"type"								=>	"dropdown"
+				)
+			),
+			1									=> array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"multiLogOnIndex",
+					"name"								=>	"Enable tmp Multilog (button in menu)",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			2									=> array(
+				"type"								=>	"single",
+				"info"								=>	"When switching between layouts, keep current selected windows over config",
+				"var"								=>	array(
+					"key"								=>	"logSwitchKeepCurrent",
+					"name"								=>	"Keep Current on Switch",
+					"options"							=>	array(
+							0 									=> array(
+								"value" 							=> "true",
+								"name" 								=> "True"),
+							1 									=> array(
+								"value" 							=> "onlyIfPresetDefined",
+								"name" 								=> "Only If Preset Is Not Defined"),
+							2									=> array(
+								"value" 							=> "false",
+								"name" 								=> "False")
+						),
+					"type"								=>	"dropdown"
+				)
+			),
+			3									=> array(
+				"info"								=>	"When switching between A B or C layouts, either clear all windows, OR keep current selected windows IF not defined in config",
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"logSwitchABCClearAll",
+					"name"								=>	"Clear windows if not in config",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			)
+		)
+	),
 	"pollVars"							=>	array(
 		"id"								=>	"settingsPollVars",
 		"name"								=>	"Poll Settings",

@@ -45,9 +45,10 @@ require_once('../core/php/loadVars.php');
 		include('../core/php/template/varTemplate.php');
 		if($enableMultiLog === "true")
 		{
-			require_once('../core/php/template/multiLogVars.php');
+			$currentSection = "multiLogVars";
+			include('../core/php/template/varTemplate.php');
+			require_once('../core/php/template/logLayout.php');
 		}
-		require_once('../core/php/template/logLayout.php');
 		require_once('../core/php/template/mainVars.php');
 		?>
 	</div>

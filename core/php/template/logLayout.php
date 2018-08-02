@@ -7,8 +7,9 @@
 		</div>
 	</div>
 	<div class="settingsDiv" >
-		<?php foreach ($arrayOfwindowConfigOptions as $value): ?>
-			<div class="settingsHeader">
+		<?php foreach ($arrayOfwindowConfigOptions as $key => $valueOuter):
+			$value = $valueOuter["value"];?>
+			<div class="settingsHeader" id="logLayoutInitial<?php echo $key;?>" >
 			Initial Load Layout <?php echo $value; ?>
 			</div>
 			<div class="settingsDiv" >
