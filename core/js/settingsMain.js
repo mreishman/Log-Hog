@@ -192,8 +192,8 @@ function checkIfChanges()
 function updateJsonForPopupTheme()
 {
 	setTimeout(function() {
-	        updateJsonForPopupThemeInner();
-	    }, 2);
+			updateJsonForPopupThemeInner();
+		}, 2);
 }
 
 function updateJsonForPopupThemeInner()
