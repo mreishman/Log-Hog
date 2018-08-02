@@ -43,9 +43,13 @@ require_once('../core/php/loadVars.php');
 		include('../core/php/template/varTemplate.php');
 		$currentSection = "watchlistVars";
 		include('../core/php/template/varTemplate.php');
-		require_once('../core/php/template/multiLogVars.php');
+		if($enableMultiLog === "true")
+		{
+			require_once('../core/php/template/multiLogVars.php');
+		}
 		require_once('../core/php/template/logLayout.php');
-		require_once('../core/php/template/mainVars.php'); ?>
+		require_once('../core/php/template/mainVars.php');
+		?>
 	</div>
 </body>
 <script type="text/javascript">
