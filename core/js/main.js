@@ -814,6 +814,7 @@ function update(data)
 				if(logData === "This file is empty. This should not be displayed." && hideEmptyLog === "true" || logData === "Error - File does not exist")
 				{
 					hideLogByName(name);
+					logs[id] ="<div class='errorMessageLog errorMessageGreenBG' > This file is empty. </div>";
 				}
 				else
 				{
