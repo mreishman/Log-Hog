@@ -368,3 +368,11 @@ div.sidebarLeft {
   filter: invert(35%);
   opacity: 0.5;
 }
+
+#menu, .backgroundForMenus
+{
+  -webkit-transition: 0.25s ease-in-out;
+  -moz-transition: 0.25s ease-in-out;
+  -ms-transition: 0.25s ease-in-out;
+  -o-transition: 0.25s ease-in-out;
+}

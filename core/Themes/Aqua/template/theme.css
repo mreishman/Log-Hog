@@ -11,7 +11,6 @@
   	background-image: -o-repeating-linear-gradient(180deg,rgb(240,240,240),rgb(240,240,240) 2.5%, rgb(220,220,220) 2.51%, rgb(220,220,220) 5%);
 	background-image: repeating-linear-gradient(180deg,rgb(240,240,240),rgb(240,240,240) 2.5%, rgb(220,220,220) 2.51%, rgb(220,220,220) 5%);
 	padding: .5em 1em;
-	max-height: 300px;
 	border-bottom: 1px solid white;
 	overflow-y: auto;
 }
@@ -22,7 +21,6 @@
 	z-index: 10;
 	background-color: #ddd;
 	padding: .25em .5em;
-	max-height: 300px;
 	border-bottom: 1px solid white;
 	overflow-y: auto;
 	overflow-x: hidden;

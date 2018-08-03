@@ -744,6 +744,25 @@ $defaultConfigMoreData = array(
 					"options"							=>	$trueFalsVars,
 					"type"								=>	"dropdown"
 				)
+			),
+			12									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"maxHeightLogTabs",
+					"name"								=>	"Max height of log tabs",
+					"postText"							=>	"Pixles",
+					"type"								=>	"number"
+				)
+			),
+			13									=>	array(
+				"info"								=>	"If a log tab is not visible (either below of above scroll area), a bar will flash as notification",
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"offscreenLogNotify",
+					"name"								=>	"Show notification for offscreen log tabs",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
 			)
 		)
 	),

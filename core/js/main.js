@@ -18,6 +18,8 @@ var filesNew;
 var firstLoad = true;
 var flasher;
 var fullScreenMenuClickCount = 0;
+var hiddenLogUpdatePollBottom = null;
+var hiddenLogUpdatePollTop = null;
 var lastContentSearch = "";
 var lastLogs = {};
 var logDisplayArray = {};
@@ -1263,7 +1265,7 @@ function update(data)
 		updateScrollOnLogs();
 		lastContentSearch = getFilterTextField();
 		refreshLastLogsArray();
-
+		checkForUpdateLogsOffScreen();
 		resize();
 	}
 	catch(e)
@@ -3742,6 +3744,87 @@ function resetSelection()
 function generalUpdate()
 {
 	update(arrayOfDataMain);
+}
+
+function checkForUpdateLogsOffScreen()
+{
+	if(offscreenLogNotify === "false")
+	{
+		return;
+	}
+	var listOfLogsUpdated = document.getElementsByClassName("updated");
+	var listOfLogsUpdatedKeys = Object.keys(listOfLogsUpdated);
+	var lengthOfListOfLogsUpdatedKeys = listOfLogsUpdatedKeys.length;
+	if(lengthOfListOfLogsUpdatedKeys > 0)
+	{
+		var menuDim = document.getElementById("menu").getBoundingClientRect();
+		//check if any are hidden, then start flash poll to notify user of log offscreen updated
+		var topPoll = false;
+		var bottomPoll = false;
+		for(var counterLLU = 0; counterLLU < lengthOfListOfLogsUpdatedKeys; counterLLU++)
+		{
+			var currentDim = listOfLogsUpdated[listOfLogsUpdatedKeys[counterLLU]].getBoundingClientRect();
+			if(currentDim.y > (menuDim.height + menuDim.y - currentDim.height))
+			{
+				//this is off screen to bottom, start bottom poll.
+				bottomPoll = true;
+				if(hiddenLogUpdatePollBottom === null)
+				{
+					hiddenLogUpdatePollBottom = setInterval(toggleBottomLogNotice, 1000);
+				}
+			}
+			else if((currentDim.y) < menuDim.y)
+			{
+				//this is off screen to top, start top poll
+				topPoll = true;
+				if(hiddenLogUpdatePollTop === null)
+				{
+					hiddenLogUpdatePollTop = setInterval(toggleTopLogNotice, 1000);
+				}
+			}
+		}
+
+		if(!bottomPoll)
+		{
+			if(hiddenLogUpdatePollBottom !== null)
+			{
+				clearInterval(hiddenLogUpdatePollBottom);
+				hiddenLogUpdatePollBottom = null;
+			}
+		}
+		if(!topPoll)
+		{
+			if(hiddenLogUpdatePollTop !== null)
+			{
+				clearInterval(hiddenLogUpdatePollTop);
+				hiddenLogUpdatePollTop = null;
+			}
+		}
+	}
+}
+
+function toggleBottomLogNotice()
+{
+	if(document.getElementById("menu").style.borderBottom === "")
+	{
+		document.getElementById("menu").style.borderBottom = "5px solid red";
+	}
+	else
+	{
+		document.getElementById("menu").style.borderBottom = "";
+	}
+}
+
+function toggleTopLogNotice()
+{
+	if(document.getElementById("menu").style.borderTop === "")
+	{
+		document.getElementById("menu").style.borderTop = "5px solid red";
+	}
+	else
+	{
+		document.getElementById("menu").style.borderTop = "";
+	}
 }
 
 $(document).ready(function()
