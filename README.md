@@ -19,14 +19,24 @@ i.e. /html/Log-Hog/
 
 ## From Pre Version 2.0
 
-Backup the current config.php
-Copy all of the files
-move backup of old config.php to local/default/conf
+1. Backup the current config.php
+2. Download new version of Log-Hog
+3. Move backup of old config.php to local/default/conf
 
 ## From Version 2.0+
 
-Go to settings (gear icon) and then click update.
-This will download the latested version from github and copy over only the changed files / new vars.
+1. Go to settings (gear icon) and then click update.
+2. This will download the latested version from github and copy over only the changed files / new vars.
+
+
+## Version 2.3.5+
+
+1. Because of a change in how upgrade scripts work, cloning the repo and doing a git pull will correctly update the config file. (But you can also upgrade through gear icon)
+
+## 4.0+
+
+1. Go to main menu (hamburger icon top left)
+2. Click update in left sidebar then either check for update or install
 
 
 ## Includes files from the following project:
