@@ -3789,6 +3789,7 @@ function checkForUpdateLogsOffScreen()
 			if(hiddenLogUpdatePollBottom !== null)
 			{
 				clearInterval(hiddenLogUpdatePollBottom);
+				document.getElementById("menu").style.borderBottom = "";
 				hiddenLogUpdatePollBottom = null;
 			}
 		}
@@ -3797,6 +3798,7 @@ function checkForUpdateLogsOffScreen()
 			if(hiddenLogUpdatePollTop !== null)
 			{
 				clearInterval(hiddenLogUpdatePollTop);
+				document.getElementById("menu").style.borderTop = "";
 				hiddenLogUpdatePollTop = null;
 			}
 		}
