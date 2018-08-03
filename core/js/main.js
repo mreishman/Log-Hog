@@ -3812,11 +3812,9 @@ function toggleBottomLogNotice()
 	if(document.getElementById("menu").style.borderBottom === "")
 	{
 		document.getElementById("menu").style.borderBottom = "5px solid red";
+		return;
 	}
-	else
-	{
-		document.getElementById("menu").style.borderBottom = "";
-	}
+	document.getElementById("menu").style.borderBottom = "";
 }
 
 function toggleTopLogNotice()
@@ -3824,11 +3822,9 @@ function toggleTopLogNotice()
 	if(document.getElementById("menu").style.borderTop === "")
 	{
 		document.getElementById("menu").style.borderTop = "5px solid red";
+		return;
 	}
-	else
-	{
-		document.getElementById("menu").style.borderTop = "";
-	}
+	document.getElementById("menu").style.borderTop = "";
 }
 
 $(document).ready(function()
@@ -3875,6 +3871,15 @@ $(document).ready(function()
 		function (event)
 		{
 			onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
+		},
+		true
+	);
+
+	document.getElementById("menu").addEventListener(
+		'scroll',
+		function (event)
+		{
+			checkForUpdateLogsOffScreen();
 		},
 		true
 	);

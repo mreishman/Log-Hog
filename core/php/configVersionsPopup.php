@@ -1,9 +1,7 @@
 <?php
-
 $returnData = array(
 	'backupCopiesPresent' => false,
 );
-
 require_once('./class.Diff.php');
 require_once('../../local/layout.php');
 $baseUrl = "../../local/".$currentSelectedTheme."/";
@@ -30,9 +28,7 @@ if(file_exists($baseUrl."conf/config1.php"))
 			$boolVarForLoop = false;
 		}
 	}
-	$count--;
 	$returnData["arrayOfFiles"] = $arrayOfFiles ;
 	$returnData["arrayOfDiffs"] = $arrayOfDiffs ;
 }
-
 echo json_encode($returnData);

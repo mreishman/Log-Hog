@@ -216,7 +216,7 @@ function createTemplateFolder()
 	$.ajax({
 		url: urlForSendUpdateAction,
 		dataType: "json",
-		data: {action: 'createFolder', newDir: "../../local/"+currentTheme+"/Themes/Custom-Theme-"+externalThemeNumber+"/template"},
+		data: {action: "createFolder", newDir: "../../local/"+currentTheme+"/Themes/Custom-Theme-"+externalThemeNumber+"/template"},
 		type: "POST",
 		success()
 		{
@@ -231,7 +231,7 @@ function verifyTemplateFolder()
 	$.ajax({
 		url: urlForSendUpdateAction,
 		dataType: "json",
-		data: {action: 'verifyDirIsThere', dirLocation: "../../local/"+currentTheme+"/Themes/Custom-Theme-"+externalThemeNumber+"/template"},
+		data: {action: "verifyDirIsThere", dirLocation: "../../local/"+currentTheme+"/Themes/Custom-Theme-"+externalThemeNumber+"/template"},
 		type: "POST",
 		success(data)
 		{
