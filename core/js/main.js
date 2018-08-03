@@ -3405,7 +3405,11 @@ function toggleGroupedGroups()
 			}
 		}
 	}
-	hideEmptyLogs();
+	//hide empty files if needed
+	if(hideEmptyLog === "true")
+	{
+		hideEmptyLogs();
+	}
 	resize();
 }
 
