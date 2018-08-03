@@ -1,7 +1,7 @@
 <?php
 
 $versionCheckArray = array(
-	'version'		=> '4.2.4',
+	'version'		=> '4.2.5',
 	'versionList'		=> array(
 		'2.0.1'	        => array(
 			'branchName'	=> '2.0.1Update',
@@ -150,6 +150,10 @@ $versionCheckArray = array(
 		'4.2.4'		=> array(
 			'branchName'	=> '4.2.4Update',
 			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed bug in setup (also in 4.1.1.1)</li><li>Fixed issue with some selectors in settings not showing sub content correctly on toggle</li></ul></li></ul>"
+		),
+		'4.2.5'		=> array(
+			'branchName'	=> '4.2.5Update',
+			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed issue with clear log not hiding after clear</li></ul></li></ul>"
 		),
 	)
 );
