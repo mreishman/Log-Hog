@@ -2963,7 +2963,10 @@ function toggleGroupedGroups()
 	$(".active").show();
 	$("."+groupSelect+"Group").show();
 	//hide empty files if needed
-	hideEmptyLogs();
+	if(hideEmptyLog === "true")
+	{
+		hideEmptyLogs();
+	}
 	resize();
 }
 
