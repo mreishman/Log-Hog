@@ -3068,6 +3068,7 @@ function toggleFullScreenMenu()
 	}
 	if(document.getElementById("fullScreenMenu").style.display === "none")
 	{
+		document.getElementById('menu').style.zIndex = "4";
 		loadImgFromData("mainMenuImage");
 		document.getElementById("fullScreenMenu").style.display = "block";
 		onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
@@ -3095,6 +3096,7 @@ function toggleFullScreenMenu()
 	}
 	else
 	{
+		document.getElementById('menu').style.zIndex = "20";
 		hideIframeStuff();
 		document.getElementById("fullScreenMenu").style.display = "none";
 		togglePollSpeedUp();

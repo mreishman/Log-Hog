@@ -227,30 +227,55 @@ function togglePatternSelect(rowNumber)
 	setTimeout(function(){ updateSubFiles(rowNumber);  }, 50);
 }
 
-function addFile()
+function addFile(filePathSent = false)
 {
+	var filePathLocal = defaultNewPathFile;
+	if(filePathSent !== false)
+	{
+		filePathLocal = filePathSent;
+	}
 	showPopup();
 	var htmlForPopoup = "<div class='settingsHeader' id='popupHeaderText' ><span id='popupHeaderText' >Add File</span></div>";
-	htmlForPopoup += "<br><div style='width:100%;text-align:center;'> <input onkeyup=\"getCurrentFileFolderInfoKeyPress(false);\" value=\""+defaultNewPathFile+"\" id=\"inputFieldForFileOrFolder\" type=\"text\" style=\"width: 90%;\" > </div>";
+	htmlForPopoup += "<br><div style='width:100%;text-align:center;'> <input onkeyup=\"getCurrentFileFolderInfoKeyPress(false);\" value=\""+filePathLocal+"\" id=\"inputFieldForFileOrFolder\" type=\"text\" style=\"width: 90%;\" > </div>";
 	htmlForPopoup += "<br><div style='width:100%;height:30px;padding-left:20px;' id=\"folderNavUpHolder\"> </div><div id=\"folderFileInfoHolder\" style='margin-right:10px; margin-left: 10px;height:200px;border: 1px solid white;overflow: auto;'> --- </div>";
 	htmlForPopoup += "<div class='link' onclick='addFileFolderAjax(\"file\", document.getElementById(\"inputFieldForFileOrFolder\").value);' style='margin-left:125px; margin-right:50px;margin-top:25px;'>Add</div><div onclick='hidePopup();' class='link'>Cancel</div";
 	document.getElementById("popupContentInnerHTMLDiv").innerHTML = htmlForPopoup;
 	document.getElementById("popupContent").style.height = "400px";
 	document.getElementById("popupContent").style.marginTop = "-200px";
 	updateFileFolderGui(false);
-} 
+}
 
-function addFolder()
+function addFolder(folderPathSent = false)
 {
+	var folderPathLocal = defaultNewPathFolder;
+	if(folderPathSent !== false)
+	{
+		folderPathLocal = folderPathSent;
+	}
 	showPopup();
 	var htmlForPopoup = "<div class='settingsHeader' id='popupHeaderText' ><span id='popupHeaderText' >Add Folder</span></div>";
-	htmlForPopoup += "<br><div style='width:100%;text-align:center;'> <input onkeyup=\"getCurrentFileFolderInfoKeyPress(true);\" value=\""+defaultNewPathFolder+"\" id=\"inputFieldForFileOrFolder\" type=\"text\" style=\"width: 90%;\" > </div>";
+	htmlForPopoup += "<br><div style='width:100%;text-align:center;'> <input onkeyup=\"getCurrentFileFolderInfoKeyPress(true);\" value=\""+folderPathLocal+"\" id=\"inputFieldForFileOrFolder\" type=\"text\" style=\"width: 90%;\" > </div>";
 	htmlForPopoup += "<br><div style='width:100%;height:30px;padding-left:20px;' id=\"folderNavUpHolder\"> </div><div id=\"folderFileInfoHolder\" style='margin-right:20px; margin-left: 20px;height:200px;border: 1px solid white;overflow: auto;'> --- </div>";
 	htmlForPopoup += "<div class='link' onclick='addFileFolderAjax(\"folder\", document.getElementById(\"inputFieldForFileOrFolder\").value);' style='margin-left:110px; margin-right:50px;margin-top:25px;'>Add</div><div onclick='hidePopup();' class='link'>Cancel</div";
 	document.getElementById("popupContentInnerHTMLDiv").innerHTML = htmlForPopoup;
 	document.getElementById("popupContent").style.height = "400px";
 	document.getElementById("popupContent").style.marginTop = "-200px";
 	updateFileFolderGui(true);
+}
+
+function addFileFromLocation(currentRow)
+{
+	addFile(getCurrentBaseDir(currentRow));
+}
+
+function addFolderFromLocation(currentRow)
+{
+	addFolder(getCurrentBaseDir(currentRow));
+}
+
+function getCurrentBaseDir(currentRow)
+{
+	return getCurrentDir(document.getElementsByName("watchListKey"+currentRow+"Location")[0].value, getJoinCharMain(currentRow));
 }
 
 function addFileFolderAjax(fileType, sentLocation)

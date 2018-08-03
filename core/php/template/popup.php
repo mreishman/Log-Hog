@@ -1,4 +1,4 @@
-<div id="popup" class="visible" style="z-index: 10; position: fixed; display: none;" >
+<div id="popup" class="hidden" style="z-index: 10; position: fixed; display: none;" >
 	<div onclick='hidePopup();' id="popupBG" style="position: fixed; z-index: 100; left: 0; right: 0; top: 0; bottom: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,.50); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); " >
 	</div>
 
@@ -12,31 +12,36 @@
 
 function hidePopup()
 {
-	if(document.getElementById('fullScreenMenu') && document.getElementById('fullScreenMenu').style.display == "block")
+	if(document.getElementById('fullScreenMenu') && document.getElementById('fullScreenMenu').style.display === "block")
 	{
 		document.getElementById('fullScreenMenu').style.zIndex = "25";
 	}
 	if(document.getElementById('menu'))
 	{
-		document.getElementById('menu').style.zIndex = "20";
+		if(!document.getElementById('fullScreenMenu') || document.getElementById('fullScreenMenu').style.display === "none")
+		{
+			document.getElementById('menu').style.zIndex = "20";
+		}
 	}
 	$('#popup').addClass("hidden");
 	setTimeout(function()
 	{
-		document.getElementById('popup').style.display = "none";
-		document.getElementById('popupContentInnerHTMLDiv').innerHTML = "";
-		$('#popup').removeClass("hidden");
-	}, 1000); 
+		if($("#popup").hasClass("hidden"))
+		{
+			document.getElementById('popup').style.display = "none";
+			document.getElementById('popupContentInnerHTMLDiv').innerHTML = "";
+		}
+	}, 1000);
 }
 function showPopup()
 {
-	if(document.getElementById('fullScreenMenu') && document.getElementById('fullScreenMenu').style.display == "block")
-	{
-		document.getElementById('fullScreenMenu').style.zIndex = "5";
-	}
 	if(document.getElementById('menu'))
 	{
-		document.getElementById('menu').style.zIndex = "5";
+		document.getElementById('menu').style.zIndex = "4";
+	}
+	if(document.getElementById('fullScreenMenu') && document.getElementById('fullScreenMenu').style.display !== "none")
+	{
+		document.getElementById('fullScreenMenu').style.zIndex = "5";
 	}
 	document.getElementById('popup').style.display = "block";
 	document.getElementById('popupContentInnerHTMLDiv').innerHTML = "";
@@ -48,6 +53,7 @@ function showPopup()
 	document.getElementById('popupContent').style.top = "50%";
 	document.getElementById('popupContent').style.left = "50%";
 	document.getElementById('popupContent').style.backgroundColor = "#444444";
+	$('#popup').removeClass("hidden");
 }
 function displayLoadingPopup(pathToImg = "../")
 {
