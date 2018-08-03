@@ -50,6 +50,28 @@
 	Settings
 	<?php echo $externalLinkImage; ?>
 </li>
+<?php $themeStyle = "";
+if($themesEnabled === "false")
+{
+	$themeStyle = "display: none;";
+}
+?>
+<li id="ThemesLink" style=" <?php echo $themeStyle; ?>" onclick="window.location.href = './settings/themes.php';"  >
+	<div class="menuImageDiv">
+		<?php echo generateImage(
+			$arrayOfImages["loadingImg"],
+			$imageConfig = array(
+				"id"		=>	"theme",
+				"class"		=>	"menuImage mainMenuImage",
+				"height"	=>	"30px",
+				"data-src"	=> 	$arrayOfImages["theme"]
+				)
+			);
+		?>
+	</div>
+	Themes
+	<?php echo $externalLinkImage; ?>
+</li>
 <li id="mainMenuUpdate" onclick="toggleUpdateMenu();" >
 	<div class="menuImageDiv">
 		<?php echo generateImage(

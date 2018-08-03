@@ -31,16 +31,6 @@ echo loadSentryData($sendCrashInfoJS, $branchSelected); ?>
 	<?php else: ?>
 		<a id="MainLink" onclick="goToUrl('main.php');" >Main</a>
 	<?php endif; ?>
-	<a id="ThemesLink" style="
-		<?php if($themesEnabled === "false"): ?>
-		display: none;
-		<?php endif; ?>
-		<?php if(strpos($URI, 'themes.php') !== false): ?>
-			cursor: default;" class="active"
-		<?php else: ?>
-			" onclick="goToUrl('themes.php');"
-		<?php endif; ?>
-	>Themes</a>
 	<?php if(strpos($URI, 'advanced.php') !== false): ?>
 		<a style="cursor: default;" class="active" id="AdvancedLink">Advanced</a>
 	<?php else: ?>
@@ -72,12 +62,6 @@ echo loadSentryData($sendCrashInfoJS, $branchSelected); ?>
 		<?php endif; ?>
 		<a class="link" href="#settingsMainVars" > Other </a>
 	</div>
-<?php elseif(strpos($URI, 'themes.php') !== false): ?>
-	<div id="menu2">
-		<a class="link" href="#themeMain" > Themes </a>
-		<a class="link" href="#settingsColorFolderVars" > Theme Options </a>
-		<a class="link" href="#settingsColorFolderGroupVars" > Tab Style </a>
-	</div>
 <?php elseif(strpos($URI, 'advanced.php') !== false): ?>
 	<div id="menu2">
 		<a class="link" href="#advancedConfig" > Config </a>
@@ -89,8 +73,7 @@ echo loadSentryData($sendCrashInfoJS, $branchSelected); ?>
 <?php endif;
 $baseUrlImages = $localURL;
 ?>
-<div class="settingsHeader" style="position: absolute;width: 100%;z-index: 10;top: 104px; margin: 0; border-bottom: 1px solid white; display: none;" id="fixedPositionMiniMenu" >
-</div>
+<div class="settingsHeader" style="position: absolute;width: 100%;z-index: 10;top: 104px; margin: 0; border-bottom: 1px solid white; display: none;" id="fixedPositionMiniMenu" ></div>
 <script type="text/javascript">
 	var baseUrl = "<?php echo baseURL();?>";
 	var popupSettingsArray = <?php echo $popupSettingsArray ?>;

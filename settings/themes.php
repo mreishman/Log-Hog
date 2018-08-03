@@ -26,7 +26,7 @@ require_once('../core/php/loadVars.php');
 	<script src="../core/js/jquery.js"></script>
 </head>
 <body>
-<?php require_once('header.php');?>	
+<?php require_once('header3.php');?>	
 	<div id="main">
 		<?php require_once('../core/php/template/themeMain.php'); ?>
 		<?php require_once('../core/php/template/generalThemeOptions.php'); ?>

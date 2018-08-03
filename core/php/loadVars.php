@@ -553,6 +553,12 @@ else
 			"title"			=>	"TaskManager",
 			"baseName"		=>	"task-manager.png"
 		),
+		"theme"				=> array(
+			"alt"			=>	"Themes",
+			"src"			=>	"",
+			"title"			=>	"Themes",
+			"baseName"		=>	"theme.png"
+		),
 		"trashCan"			=> array(
 			"alt"			=>	"Delete",
 			"src"			=>	"",
