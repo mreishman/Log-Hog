@@ -1,22 +1,14 @@
 <?php
+$updateNoticeMeter = $defaultConfig['updateNoticeMeter'];
 if(array_key_exists('updateNoticeMeter', $config))
 {
 	$updateNoticeMeter = $config['updateNoticeMeter'];
 }
-else
-{
-	$updateNoticeMeter = $defaultConfig['updateNoticeMeter'];
-}
-
-
 $version = explode('.', $configStatic['version']);
 $newestVersion = explode('.', $configStatic['newestVersion']);
-
 $levelOfUpdate = 0; // 0 is no updated, 1 is minor update and 2 is major update
-
 $newestVersionCount = count($newestVersion);
 $versionCount = count($version);
-
 for($i = 0; $i < $newestVersionCount; $i++)
 {
 	if($i < $versionCount)
@@ -63,7 +55,10 @@ for($i = 0; $i < $newestVersionCount; $i++)
 	}
 	else
 	{
-		$levelOfUpdate = 1;
+		if($updateNoticeMeter == "every")
+		{
+			$levelOfUpdate = 1;
+		}
 		break;
 	}
 }
