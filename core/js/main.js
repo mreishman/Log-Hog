@@ -1686,6 +1686,7 @@ function clearNotifications()
 		eventThrowException(e);
 	}
 	clearingNotifications = false;
+	checkForUpdateLogsOffScreen();
 }
 
 function refreshLastLogsArray()
@@ -3056,6 +3057,7 @@ function updateNotificationStuff()
 {
 	updateNotificationCount();
 	showNotifications();
+	checkForUpdateLogsOffScreen();
 }
 
 function toggleFullScreenMenu()
