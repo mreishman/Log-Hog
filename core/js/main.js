@@ -1086,8 +1086,11 @@ function update(data)
 								alertToggle = {action: "tmpToggleAlerts(\""+id+"\");" ,name: "Disable Alerts"};
 							}
 							//add rightclick menu
-							menuObjectRightClick[id] = [hideLogAction, clearLogAction,deleteLogAction,copyNameAction,copyFullPathAction,alertToggle];
-							Rightclick_ID_list.push(id);
+							if(rightClickMenuEnable === "true")
+							{
+								menuObjectRightClick[id] = [hideLogAction, clearLogAction,deleteLogAction,copyNameAction,copyFullPathAction,alertToggle];
+								Rightclick_ID_list.push(id);
+							}
 						}
 
 						updated = false;
