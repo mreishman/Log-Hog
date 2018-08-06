@@ -69,7 +69,7 @@ file_put_contents("../../update/downloads/versionCheck/versionCheck.zip",
 if(!is_dir("../../update/downloads/versionCheck/extracted/"))
 {
   $dirMade = @mkdir("../../update/downloads/versionCheck/extracted/");
-  if(dirMade !== true)
+  if($dirMade !== true)
   {
     //throw custom error
     echo json_encode(array("version" => -1, "error" => "could not create folder for tmp versionCheck data"));
