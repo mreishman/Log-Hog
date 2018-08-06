@@ -169,6 +169,14 @@ $externalLinkImage = generateImage(
 			{
 				Rightclick_ID_list.push('pauseImage');
 			}
+			if(document.getElementById('notificationNotClicked'))
+			{
+				Rightclick_ID_list.push('notificationNotClicked');
+			}
+			if(document.getElementById('notificationClicked'))
+			{
+				Rightclick_ID_list.push('notificationClicked');
+			}
 			<?php
 		endif;
 		if($levelOfUpdate !== 0 && $configStatic["version"] !== $dontNotifyVersion && $updateNotificationEnabled === "true"):
