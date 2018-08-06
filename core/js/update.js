@@ -119,7 +119,11 @@ function checkForUpdates(urlSend = "../", whatAmIUpdating = "Log-Hog", currentNe
 			{
 				if(whatAmIUpdating === "Log-Hog")
 				{
-					document.getElementById("progressBarUpdateCheck").style.display = "none";
+					if(dataFromJSON === "")
+					{
+						document.getElementById("progressBarUpdateCheck").style.display = "none";
+						document.getElementById("checkForUpdateButton").style.display = "inline-block";
+					}
 				}
 				if(updateCheckFinished !== true)
 				{
@@ -138,6 +142,13 @@ function checkForUpdates(urlSend = "../", whatAmIUpdating = "Log-Hog", currentNe
 function checkForUpdateTimer(urlSend, whatAmIUpdating)
 {
 	whatAmIUpdating = whatAmIUpdating;
+	if(showPopupForUpdateBool && whatAmIUpdating === "Log-Hog")
+	{
+		if(document.getElementById("progressBarUpdateCheck").style.display === "none")
+		{
+			document.getElementById("progressBarUpdateCheck").style.display = "block";
+		}
+	}
 	$.getJSON(urlSend+"core/php/configStaticCheck.php", {}, function(data) 
 	{
 		totalCounter++;
