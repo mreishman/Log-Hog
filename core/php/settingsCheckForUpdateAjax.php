@@ -68,7 +68,7 @@ file_put_contents("../../update/downloads/versionCheck/versionCheck.zip",
 
 if(!is_dir("../../update/downloads/versionCheck/extracted/"))
 {
-  var dirMade = @mkdir("../../update/downloads/versionCheck/extracted/");
+  $dirMade = @mkdir("../../update/downloads/versionCheck/extracted/");
   if(dirMade !== true)
   {
     //throw custom error
