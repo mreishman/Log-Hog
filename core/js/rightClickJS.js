@@ -21,7 +21,7 @@ var doClearAllNotifications = {action: "removeAllNotifications();", name: "Clear
 var deleteMenu = [clearAllLogs,clearCurrentLog,deleteCurrentLog];
 var pauseMenu = [tmpTogglePauseOnUnfocus];
 var notificationMenuHidden = [doClearAllNotifications];
-var notificationMenuClicked = [doClearAllNotifications];
+var notificationMenuClicked = [doToggleClearAllNotifications];
 
 var menuObjectRightClick = {deleteImage: deleteMenu, pauseImage: pauseMenu, notificationNotClicked: notificationMenuHidden, notificationClicked: notificationMenuClicked};
 
