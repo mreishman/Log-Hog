@@ -2091,6 +2091,10 @@ function makePretty(id)
 						returnText += " "+customClass+" ";
 					}
 					returnText += " >";
+					// if(bottomBarIndexShow === "true")
+					// {
+					// 	returnText += "<td style=\"width: 31px;\" ></td>";
+					// }
 					var lineToReturn = "<td>"+lineText[j]+"</td>";
 					if(expFormatEnabled === "true")
 					{
