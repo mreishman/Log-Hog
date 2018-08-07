@@ -108,13 +108,11 @@ div {
 	overflow: auto;
 }
 
-#log div
-{
+#log div {
 	padding: .25em 1em;
 }
 
-.log div , .log tr, .log tr td
-{
+.log div , .log tr, .log tr td {
   -webkit-transition: 1s ease-in-out;
   -moz-transition: 1s ease-in-out;
   -ms-transition: 1s ease-in-out;
@@ -249,8 +247,7 @@ div.sidebarLeft {
     bottom: 0;
 }
 
-.colorSelectorDiv
-{
+.colorSelectorDiv {
 	border: 1px solid white;
 	width: 20px;
 	height: 20px;
@@ -270,7 +267,6 @@ div.sidebarLeft {
 }
 
 .errorMessageLog{
-	
 	font-size: 200%;
 	text-align: center;
 	line-height: 200%;
@@ -284,13 +280,11 @@ div.sidebarLeft {
 	background-color: green;
 }
 
-.settingsUl
-{
+.settingsUl {
 	list-style: none;
 }
 
-.settingsUl li
-{
+.settingsUl li {
 	padding: 10px;
 }
 
@@ -301,11 +295,9 @@ div.sidebarLeft {
 
 .backgroundForSideBarMenu::-webkit-scrollbar {
 	width: 1px;
-	
 }
 
-#fullScreenMenu
-{
+#fullScreenMenu {
   position: fixed;
   left: 0;
   top: 0;
@@ -314,12 +306,11 @@ div.sidebarLeft {
   z-index: 25;
 }
 
-.fullScreenMenuUL li:not(.menuTitle)
-{
+.fullScreenMenuUL li:not(.menuTitle) {
   cursor: pointer;
 }
 
-.settingsUlFS 
+.settingsUlFS
 {
   width: 200px;
   position: absolute;
@@ -336,8 +327,7 @@ div.sidebarLeft {
   margin: 0;
 }
 
-.settingsUlSub
-{
+.settingsUlSub {
   width: 200px;
   position: absolute;
   bottom: 0;
@@ -353,8 +343,7 @@ div.sidebarLeft {
   margin: 0;
 }
 
-#mainContentFullScreenMenu
-{
+#mainContentFullScreenMenu {
   position: absolute;
   bottom: 0;
   top: 46px;
@@ -363,14 +352,12 @@ div.sidebarLeft {
   overflow: auto;
 }
 
-.SaveGroupLog .settingsDiv
-{
+.SaveGroupLog .settingsDiv {
   filter: invert(35%);
   opacity: 0.5;
 }
 
-#menu, .backgroundForMenus
-{
+#menu, .backgroundForMenus {
   -webkit-transition: 0.25s ease-in-out;
   -moz-transition: 0.25s ease-in-out;
   -ms-transition: 0.25s ease-in-out;

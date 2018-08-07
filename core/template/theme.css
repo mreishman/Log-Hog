@@ -46,8 +46,7 @@
 	background-color: white; 
 }
 
-#notificationHolder td, #notificationHolder th
-{
+#notificationHolder td, #notificationHolder th {
 	color: black;
 }
 
@@ -62,9 +61,7 @@
   border-bottom: 3px solid black;
 }
 
-
-.linkSmallHover
-{
+.linkSmallHover {
 	display: inline-block;
 	padding: 3px 5px;
 	margin: 1px;
@@ -108,14 +105,12 @@
 	line-height: 2em;
 }
 
-.backgroundForSideBarMenu
-{
+.backgroundForSideBarMenu {
 	background-color: #ccc;
 	overflow-y: auto;
 }
 
-.popupForInfo
-{
+.popupForInfo {
 	background-color: #CCC;
 	z-index: 10;
 	position: absolute;
@@ -126,18 +121,15 @@
 	word-break: break-all;
 }
 
-.currentWindowNum
-{
+.currentWindowNum {
 	color: white;
 }
 
-.backgroundForMenus
-{
+.backgroundForMenus {
 	background-color: #222;
 }
 
-.sidebarCurrentWindowNum
-{
+.sidebarCurrentWindowNum {
 	border-top: 1px solid black;
 	border-bottom: 1px solid black;
 	background-color: white;
@@ -145,8 +137,7 @@
 	text-align: center;
 }
 
-.currentWindowNumSelected
-{
+.currentWindowNumSelected {
 	color: white;
 	background-color: black;
 	border-top: 1px solid black;
@@ -158,16 +149,14 @@
 	display: inline-block;
 }
 
-.settingsDiv
-{
+.settingsDiv {
 	background-color: #444444;
 	border: 1px solid white;
 	margin: 10px;
 	margin-top: 0;
 }
 
-.settingsHeader
-{
+.settingsHeader {
 	background-color: white;
 	margin: 10px;
 	margin-bottom: 0;
@@ -175,32 +164,27 @@
 	padding: 5px;
 }
 
-.selected
-{
+.selected {
 	background-color: white;
 	color: black;
 }
 
-.settingsDiv p a
-{
+.settingsDiv p a {
 	color: white;
 }
 
-.updatingDiv p
-{
+.updatingDiv p {
 	margin: 2px;
 	padding-left: 10px;
 	word-wrap: break-word;
 }
 
-.settingsBuffer
-{
+.settingsBuffer {
 	width: 200px;
 	display: inline-block;
 }
 
-.link
-{
+.link {
 	display: inline-block;
 	padding: .5em 1em;
 	background-color: #2A912A;
@@ -209,8 +193,7 @@
 	color: white;
 }
 
-.linkSmall, .linkSmall, .settingsHeader button
-{
+.linkSmall, .linkSmall, .settingsHeader button {
 	display: inline-block;
 	padding: 3px 5px;
 	margin: 1px;
@@ -324,52 +307,44 @@
 }
 
 /* width */
-::-webkit-scrollbar
-{
+::-webkit-scrollbar {
 	width: 10px;
 }
 
 /* Track */
-::-webkit-scrollbar-track
-{
+::-webkit-scrollbar-track {
 	background: #222;
 }
 
 /* Handle */
-::-webkit-scrollbar-thumb
-{
+::-webkit-scrollbar-thumb {
 	background: #CCC;
 }
 
 /* Handle on hover */
-::-webkit-scrollbar-thumb:hover
-{
+::-webkit-scrollbar-thumb:hover {
 	background: #FFFFFF;
 }
 
-#fullScreenMenu
-{
+#fullScreenMenu {
 	background-color: rgba(0,0,0,.7);
 }
 
-.fullScreenMenuUL li
-{
+.fullScreenMenuUL li {
 	background-color: black;
 	color: white;
 }
 
-.fullScreenMenuUL li:not(.menuTitle):hover, #fullScreenMenu .selected
-{
+.fullScreenMenuUL li:not(.menuTitle):hover, #fullScreenMenu .selected {
 	filter: invert(100%);
 }
-.fullScreenMenuUL
-{
+
+.fullScreenMenuUL {
 	background-color: black;
 	border-right: 1px solid white;
 }
 
-.settingsUlSub
-{
+.settingsUlSub {
 	background-color: black;
 	border-right: 1px solid white;
 }
