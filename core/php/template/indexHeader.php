@@ -32,6 +32,17 @@
 				);
 			?>
 		</div>
+		<div onclick="" class="menuImageDiv">
+			<?php echo generateImage(
+				$arrayOfImages["history"],
+				$imageConfig = array(
+					"id"		=>	"menuImage",
+					"class"		=>	"menuImage",
+					"height"	=>	"30px"
+					)
+				);
+			?>
+		</div>
 		<?php if($enableMultiLog === "true" && $multiLogOnIndex === "true"): ?>
 			<div onclick="multiLogPopup();"  class="menuImageDiv">
 				<?php echo generateImage(
@@ -55,7 +66,7 @@
 						)
 					);
 				?>
-			</div>
+		</div>
 		<div onclick="pausePollAction();" class="menuImageDiv">
 			<?php
 				$styleString = "display: inline-block;";

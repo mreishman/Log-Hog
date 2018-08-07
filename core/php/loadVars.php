@@ -445,6 +445,18 @@ else
 			"title"			=>	"Ok!",
 			"baseName"		=>	"greenCheck.png"
 		),
+		"history"			=> array(
+			"alt"			=>	"History",
+			"src"			=>	"",
+			"title"			=>	"History",
+			"baseName"		=>	"history.png"
+		),
+		"historySideBar"	=> array(
+			"alt"			=>	"History",
+			"src"			=>	"",
+			"title"			=>	"History",
+			"baseName"		=>	"historySideBar.png"
+		),
 		"info"			=> array(
 			"alt"			=>	"Info",
 			"src"			=>	"",

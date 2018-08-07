@@ -3762,12 +3762,12 @@ function checkForUpdateLogsOffScreen()
 	var listOfLogsUpdated = document.getElementsByClassName("updated");
 	var listOfLogsUpdatedKeys = Object.keys(listOfLogsUpdated);
 	var lengthOfListOfLogsUpdatedKeys = listOfLogsUpdatedKeys.length;
+	var topPoll = false;
+	var bottomPoll = false;
 	if(lengthOfListOfLogsUpdatedKeys > 0)
 	{
 		var menuDim = document.getElementById("menu").getBoundingClientRect();
 		//check if any are hidden, then start flash poll to notify user of log offscreen updated
-		var topPoll = false;
-		var bottomPoll = false;
 		for(var counterLLU = 0; counterLLU < lengthOfListOfLogsUpdatedKeys; counterLLU++)
 		{
 			var currentDim = listOfLogsUpdated[listOfLogsUpdatedKeys[counterLLU]].getBoundingClientRect();
@@ -3790,24 +3790,23 @@ function checkForUpdateLogsOffScreen()
 				}
 			}
 		}
-
-		if(!bottomPoll)
+	}
+	if(!bottomPoll)
+	{
+		if(hiddenLogUpdatePollBottom !== null)
 		{
-			if(hiddenLogUpdatePollBottom !== null)
-			{
-				clearInterval(hiddenLogUpdatePollBottom);
-				document.getElementById("menu").style.borderBottom = "";
-				hiddenLogUpdatePollBottom = null;
-			}
+			clearInterval(hiddenLogUpdatePollBottom);
+			document.getElementById("menu").style.borderBottom = "";
+			hiddenLogUpdatePollBottom = null;
 		}
-		if(!topPoll)
+	}
+	if(!topPoll)
+	{
+		if(hiddenLogUpdatePollTop !== null)
 		{
-			if(hiddenLogUpdatePollTop !== null)
-			{
-				clearInterval(hiddenLogUpdatePollTop);
-				document.getElementById("menu").style.borderTop = "";
-				hiddenLogUpdatePollTop = null;
-			}
+			clearInterval(hiddenLogUpdatePollTop);
+			document.getElementById("menu").style.borderTop = "";
+			hiddenLogUpdatePollTop = null;
 		}
 	}
 }
