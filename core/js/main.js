@@ -2450,11 +2450,11 @@ function scrollToBottom(idNum)
 
 function clearLogInner(title)
 {
-	var urlForSend = "core/php/clearLog.php?format=json";
+	archiveAction(title);
 	title = filterTitle(title);
 	var data = {file: title};
 	$.ajax({
-			url: urlForSend,
+			url: "core/php/clearLog.php?format=json",
 			dataType: "json",
 			data,
 			type: "POST",
@@ -2478,6 +2478,21 @@ function clearLog(idNum)
 	catch(e)
 	{
 		eventThrowException(e);
+	}
+}
+
+function archiveAction(title)
+{
+	if(saveTmpLogOnClear === "true")
+	{
+		var dataToSend = {subFolder: "tmp/loghogBackupHistoryLogs/", key: title, log: arrayOfDataMain[title]["log"]};
+		$.ajax({
+				url: "core/php/saveTmpVersionOfLog.php?format=json",
+				dataType: "json",
+				data: dataToSend,
+				type: "POST",
+		success(data){},
+		});
 	}
 }
 

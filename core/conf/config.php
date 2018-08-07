@@ -295,6 +295,7 @@ $defaultConfig = array(
 	'popupWarnings'					=> 'all',
 	'popupSettingsArray'			=> '{"saveSettings":"true","blankFolder":"true","deleteLog":"true","removeFolder":"true","versionCheck":"true"}',
 	'rightClickMenuEnable'			=> 'true',
+	'saveTmpLogOnClear'				=> 'true',
 	'scrollBarHandle'				=> 'background: #CCC;',
 	'scrollBarHandleHover'			=> 'background: #FFF;',
 	'scrollBarTrack'				=> 'background: #222;',
