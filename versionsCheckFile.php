@@ -157,7 +157,7 @@ $versionCheckArray = array(
 		),
 		'5.0.1'		=> array(
 			'branchName'	=> '5.0.1Update',
-			'releaseNotes'	=> "<ul><li>Fixed bug with main font color for logs not being applied correctly</li><li>Fixed bug with highlight font color for logs not being applied correctly</li><li>Fixed bug with multi log settings still showing up if disabled</li></ul>"
+			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed bug with main font color for logs not being applied correctly</li><li>Fixed bug with highlight font color for logs not being applied correctly</li><li>Fixed bug with multi log settings still showing up if disabled</li></ul></li></ul>"
 		),
 	)
 );
