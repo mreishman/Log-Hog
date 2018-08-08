@@ -165,7 +165,6 @@ foreach ($responseFilelist as $file)
 			if($found)
 			{
 				//this file is in that folder, use that info
-				$filesInFolderData = array();
 				$filesInFolderData = json_decode($watchList[$key]["FileInformation"], true);
 				if(isset($filesInFolderData[$file]))
 				{

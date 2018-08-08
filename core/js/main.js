@@ -2609,6 +2609,7 @@ function deleteLog(title)
 {
 	try
 	{
+		archiveAction(title);
 		var urlForSend = "core/php/deleteLog.php?format=json";
 		title = title.replace(/\s/g, "");
 		var data = {file: title};

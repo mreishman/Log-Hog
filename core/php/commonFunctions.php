@@ -1042,7 +1042,7 @@ function getListOfFiles($data)
 			foreach($files as $k => $filename)
 			{
 				$fullPath = $path . DIRECTORY_SEPARATOR . $filename;
-				if(is_dir($fullPath) && $recursive === "true")
+				if($recursive === "true" && is_dir($fullPath))
 				{
 					$response = sizeFilesInDir(array(
 						"path" 			=> $fullPath,
