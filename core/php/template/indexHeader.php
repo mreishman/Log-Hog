@@ -32,17 +32,19 @@
 				);
 			?>
 		</div>
-		<div onclick="" class="menuImageDiv">
-			<?php echo generateImage(
-				$arrayOfImages["history"],
-				$imageConfig = array(
-					"id"		=>	"menuImage",
-					"class"		=>	"menuImage",
-					"height"	=>	"30px"
-					)
-				);
-			?>
-		</div>
+		<?php if ($enableHistory === true): ?>
+			<div onclick="" class="menuImageDiv">
+				<?php echo generateImage(
+					$arrayOfImages["history"],
+					$imageConfig = array(
+						"id"		=>	"menuImage",
+						"class"		=>	"menuImage",
+						"height"	=>	"30px"
+						)
+					);
+				?>
+			</div>
+		<?php endif; ?>
 		<?php if($enableMultiLog === "true" && $multiLogOnIndex === "true"): ?>
 			<div onclick="multiLogPopup();"  class="menuImageDiv">
 				<?php echo generateImage(

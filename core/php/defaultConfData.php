@@ -181,7 +181,16 @@ $defaultConfigMoreData = array(
 					"options"							=>	$saveVerifyArr,
 					"type"								=>	"dropdown"
 				)
-			)
+			),
+			7									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"enableHistory",
+					"name"								=>	"Enable History",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
 		)
 	),
 	"fileLocations"						=>	array(

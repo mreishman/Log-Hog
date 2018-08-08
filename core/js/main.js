@@ -2483,7 +2483,7 @@ function clearLog(idNum)
 
 function archiveAction(title)
 {
-	if(saveTmpLogOnClear === "true")
+	if(saveTmpLogOnClear === "true" && enableHistory === "true")
 	{
 		var dataToSend = {subFolder: "tmp/loghogBackupHistoryLogs/", key: title, log: arrayOfDataMain[title]["log"]};
 		$.ajax({

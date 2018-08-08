@@ -35,6 +35,7 @@ $defaultConfig = array(
 	'dontNotifyVersion'				=> '0',
 	'displayName'					=> 'forThemesOnly',
 	'enableDevBranchDownload' 		=> 'false',
+	'enableHistory'					=> 'true',
 	'enableLogging'					=> 'false',
 	'enableMultiLog'				=> 'true',
 	'enablePollTimeLogging'			=> 'false',
