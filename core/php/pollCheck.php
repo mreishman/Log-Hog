@@ -13,7 +13,7 @@ try
 	require_once($baseModifier.'core/conf/config.php');
 	require_once('configStatic.php');
 	require_once('updateProgressFile.php');
-	require_once('commonFunctions.php');	
+	require_once('commonFunctions.php');
 }
 catch (Exception $e)
 {
@@ -26,7 +26,7 @@ $varsLoadLite = array("shellOrPhp", "watchList", "lineCountFromJS");
 foreach ($varsLoadLite as $varLoadLite)
 {
 	$$varLoadLite = $defaultConfig[$varLoadLite];
-	if(array_key_exists($varLoadLite, $config))
+	if(isset($config[$varLoadLite]))
 	{
 		$$varLoadLite = $config[$varLoadLite];
 	}
@@ -51,12 +51,12 @@ if($configStatic['version'] != $currentVersionPost)
 	exit();
 }
 
-if(array_key_exists('percent', $updateProgress) && ($updateProgress['percent'] != 0) && $updateProgress['percent'] != 100)
+if(isset($updateProgress['percent']) && ($updateProgress['percent'] != 0) && $updateProgress['percent'] != 100)
 {
 	echo json_encode("update in progress");
 	exit();
 }
-
+$currentTime = time();
 $watchListFolder = array();
 foreach($watchList as $key => $value)
 {
@@ -66,12 +66,7 @@ foreach($watchList as $key => $value)
 	}
 	$path = $value["Location"];
 	$filter = $value["Pattern"];
-	$fileData = array();
-	$tmpFileData = json_decode($value["FileInformation"]);
-	if(!is_null($tmpFileData))
-	{
-		$fileData = get_object_vars($tmpFileData);
-	}
+	$fileData = json_decode($value["FileInformation"], true);
 	if(is_dir($path))
 	{
 		$watchListFolder[$key] = getListOfFiles(array(
@@ -97,7 +92,7 @@ foreach($watchList as $key => $value)
 				}
 				if($boolToDelete)
 				{
-					$diff = time()-filemtime($file);
+					$diff = $currentTime-filemtime($file);
 					$days = round($diff/86400);
 					if($days > (int)$value["AutoDeleteFiles"])
 					{
@@ -112,7 +107,7 @@ foreach($watchList as $key => $value)
 	}
 	elseif(file_exists($path))
 	{
-		array_push($responseFilelist, $path);
+		$responseFilelist[] =  $path;
 	}
 }
 
@@ -171,14 +166,10 @@ foreach ($responseFilelist as $file)
 			{
 				//this file is in that folder, use that info
 				$filesInFolderData = array();
-				$tmpFileData = json_decode($watchList[$key]["FileInformation"]);
-				if(!is_null($tmpFileData))
-				{
-					$filesInFolderData = get_object_vars($tmpFileData);
-				}
+				$filesInFolderData = json_decode($watchList[$key]["FileInformation"], true);
 				if(isset($filesInFolderData[$file]))
 				{
-					$dataToUse = get_object_vars($filesInFolderData[$file]);
+					$dataToUse = $filesInFolderData[$file];
 					$response[$file]["ExcludeTrim"] = $dataToUse["Trim"];
 					$response[$file]["Name"] = $dataToUse["Name"];
 					$response[$file]["AlertEnabled"] = $watchList[$key]["AlertEnabled"];

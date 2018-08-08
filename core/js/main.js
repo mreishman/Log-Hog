@@ -2496,6 +2496,36 @@ function archiveAction(title)
 	}
 }
 
+function archiveLogPopupToggle()
+{
+	//get list of logs in tmpbackup
+}
+
+function getListOfArchiveLogs()
+{
+	$.ajax({
+			url: "core/php/getListOfTmpLogs.php?format=json",
+			dataType: "json",
+			data: {},
+			type: "POST",
+	success(data){
+		console.log(data);
+	}});
+}
+
+function viewArchiveLog(title)
+{
+	var dataToSend = {file: title};
+	$.ajax({
+			url: "core/php/getTmpVersionOfLog.php?format=json",
+			dataType: "json",
+			data: dataToSend,
+			type: "POST",
+	success(data){
+		arrayOfDataMain["Backup_"+title] = {log: data};
+		generalUpdate();
+	}});
+}
 
 function deleteAction()
 {

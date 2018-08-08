@@ -1059,8 +1059,7 @@ function getListOfFiles($data)
 					$boolCheck = true;
 					if(isset($fileData[$fullPath]))
 					{
-						$dataToUse = get_object_vars($fileData[$fullPath]);
-						if($dataToUse["Include"] === "false")
+						if($fileData[$fullPath]["Include"] === "false")
 						{
 							$boolCheck = false;
 						}

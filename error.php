@@ -1,5 +1,4 @@
 <?php
-
 $version = "Unknown - Could not find core/php/configStatic.php";
 $file = 'core/php/configStatic.php';
 if(file_exists($file))
@@ -43,7 +42,6 @@ if(file_exists($file))
 
     }
 }
-
 
 $fileNameArray = array(
     "Error"    =>  array(
@@ -309,7 +307,6 @@ if(file_exists($file))
         <td width="33%">
             <h3> File Permissions: </h3>
             <?php
-
             foreach ($fileNameArray as $key => $value)
             {
                 $info = "";
@@ -317,13 +314,7 @@ if(file_exists($file))
                 {
                     $info = filePermsDisplay($value["path"]);
                 }
-
-                echo "<p>";
-                echo "  ";
-                echo $value["name"];
-                echo "   -   ";
-                echo $info;
-                echo "</p>";
+                echo "<p>  ".$value["name"]."   -   ".$info."</p>";
             }
             ?>
         </td>
@@ -331,7 +322,6 @@ if(file_exists($file))
 </table>
 </body>
 <script type="text/javascript">
-    
     function saveAndVerifyMain(idForForm)
     {
         idForm = "#"+idForForm;
@@ -347,7 +337,7 @@ if(file_exists($file))
                     window.location.href = "../error.php?error="+data+"&page=core/php/settingsSaveAjax.php";
                 }
             }
-          });
+        });
     }
 </script>
 </html>
