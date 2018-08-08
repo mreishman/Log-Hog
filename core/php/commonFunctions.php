@@ -332,8 +332,14 @@ function trimLogInner($logTrimMacBSD,$filename,$lineEnd, $shellOrPhp, $showError
 
 function trimLogPhp($filename,$lineEnd,$showErrorPhpFileOpen)
 {
-
-	$lines = file($filename);
+	if($showErrorPhpFileOpen === "false")
+	{
+		$lines = @file($filename);
+	}
+	else
+	{
+		$lines = file($filename);
+	}
 	$first_line = $lines[0];
 	$lines = array_slice($lines, $lineEnd + 2);
 	$lines = array_merge(array($first_line, "\n"), $lines);

@@ -300,6 +300,10 @@ function pollTwo()
 					{
 						document.getElementById("noLogToDisplay").style.display = "block";
 					}
+					if(firstLoad)
+					{
+						firstLoadEndAction();
+					}
 				}
 				else
 				{
