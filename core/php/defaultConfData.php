@@ -98,6 +98,21 @@ foreach ($popupSettingsInArray as $key => $value)
 }
 
 $defaultConfigMoreData = array(
+	"archive"							=>	array(
+		"id"								=>	"archiveConfig",
+		"name"								=>	"Archive",
+		"vars"								=>	array(
+			0									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"saveTmpLogOnClear",
+					"name"								=>	"Save Tmp Log on Clear / Delete",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+		)
+	),
 	"config"							=>	array(
 		"id"								=>	"advancedConfig",
 		"name"								=>	"Config",

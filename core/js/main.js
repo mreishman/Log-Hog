@@ -1094,9 +1094,9 @@ function update(data)
 								}
 							}
 							var rightClickObjectNew = new Array();
-							rightClickObjectNew.push({action: "tmpHideLog(\""+id+"\");", name: "Tmp Hide Log"});
 							if(files[i].indexOf("LogHog/Backup/") !== 0)
 							{
+								rightClickObjectNew.push({action: "tmpHideLog(\""+id+"\");", name: "Tmp Hide Log"});
 								rightClickObjectNew.push({action: "clearLogInner(titles[\""+id+"\"]);", name: "Clear Log"});
 								rightClickObjectNew.push({action: "deleteLogPopupInner(titles[\""+id+"\"]);", name: "Delete Log"});
 								var alertToggle = {action: "tmpToggleAlerts(\""+id+"\");" ,name: "Enable Alerts"};
@@ -2595,13 +2595,32 @@ function showHistory(data)
 			for(var historyKey = 0; historyKey < historyKeysLength; historyKey++)
 			{
 				var historyName = data[historyKeys[historyKey]].replace(/_DIR_/g, "/").replace("Backup/", "");
-				htmlForHistory += "<tr><td style=\"word-break:break-all\" >"+historyName+"</td><td><a class=\"linkSmall\" onclick=\"viewArchiveLog('"+data[historyKeys[historyKey]]+"')\" >View</a> <a onclick=\"deleteArchiveLog('"+data[historyKeys[historyKey]]+"')\" class=\"linkSmall\" >Delete</a></td></tr>";
+				htmlForHistory += "<tr><td style=\"word-break:break-all\" >"+historyName+"</td><td>";
+				if("LogHog/"+data[historyKeys[historyKey]].replace(/_DIR_/g, "/") in arrayOfDataMain)
+				{
+					htmlForHistory += "<a class=\"linkSmall\" onclick=\"hideArchiveLog('"+data[historyKeys[historyKey]]+"')\" >Hide</a> ";
+				}
+				else
+				{
+					htmlForHistory += "<a class=\"linkSmall\" onclick=\"viewArchiveLog('"+data[historyKeys[historyKey]]+"')\" >View</a> ";
+				}
+				htmlForHistory += " <a onclick=\"deleteArchiveLog('"+data[historyKeys[historyKey]]+"')\" class=\"linkSmall\" >Delete</a></td></tr>";
 			}
 		}
 		htmlForHistory += "</table>";
 	}
 	$("#historyHolder").html(htmlForHistory);
 	$("#historyHolder").append($("#storage .notificationButtons").html());
+}
+
+function hideArchiveLog(title)
+{
+	archiveLogPopupToggle();
+	var newTitle = "LogHog/"+title.replace(/_DIR_/g, "/");
+	removeNotificationByLog(newTitle.replace(/[^a-z0-9]/g, ""));
+	delete arrayOfDataMain[newTitle];
+	$("#"+newTitle.replace(/[^a-z0-9]/g, "")).remove();
+	generalUpdate();
 }
 
 function viewArchiveLog(title)

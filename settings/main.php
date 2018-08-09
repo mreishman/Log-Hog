@@ -37,6 +37,8 @@ require_once('../core/php/loadVars.php');
 		include('../core/php/template/varTemplate.php');
 		$currentSection = "filterVars";
 		include('../core/php/template/varTemplate.php');
+		$currentSection = "archive";
+		include('../core/php/template/varTemplate.php');
 		$currentSection = "updateVars";
 		include('../core/php/template/varTemplate.php');
 		$currentSection = "menuVars";

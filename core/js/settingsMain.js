@@ -162,13 +162,17 @@ function checkIfChanges()
 	{
 		arrayToCheck.push("settingsPollVars");
 	}
-	if(document.getElementById("settingsUpdateVars"))
-	{
-		arrayToCheck.push("settingsUpdateVars");
-	}
 	if(document.getElementById("settingsFilterVars"))
 	{
 		arrayToCheck.push("settingsFilterVars");
+	}
+	if(document.getElementById("archiveConfig"))
+	{
+		arrayToCheck.push("archiveConfig");
+	}
+	if(document.getElementById("settingsUpdateVars"))
+	{
+		arrayToCheck.push("settingsUpdateVars");
 	}
 	if(document.getElementById("settingsWatchlistVars"))
 	{
@@ -289,6 +293,10 @@ $( document ).ready(function()
 	if(document.getElementById("settingsFilterVars"))
 	{
 		arrayToRefresh.push("settingsFilterVars");
+	}
+	if(document.getElementById("archiveConfig"))
+	{
+		arrayToRefresh.push("archiveConfig");
 	}
 	if(document.getElementById("settingsUpdateVars"))
 	{

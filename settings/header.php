@@ -53,6 +53,7 @@ echo loadSentryData($sendCrashInfoJS, $branchSelected); ?>
 		<a class="link" href="#settingsLogVars" > Logs </a>
 		<a class="link" href="#settingsPollVars" > Poll </a>
 		<a class="link" href="#settingsFilterVars" > Filter </a>
+		<a class="link" href="#archiveConfig" > Archive </a>
 		<a class="link" href="#settingsUpdateVars" > Update </a>
 		<a class="link" href="#settingsMenuVars" > Menu </a>
 		<a class="link" href="#settingsWatchlistVars" > Watchlist </a>
