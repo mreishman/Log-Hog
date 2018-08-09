@@ -11,7 +11,7 @@ div {
 	box-sizing: border-box;
 }
 
-#notifications {
+.dropdownMenu {
   margin-top: 10px;
   display: none;
   position: absolute;
@@ -55,7 +55,7 @@ div {
   margin-left: 29px;
 }
 
-#notificationHolder {
+.innerContentDropdownMenu {
   display: block;
   width: 300px;
   padding: 10px;

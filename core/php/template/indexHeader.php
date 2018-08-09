@@ -32,12 +32,12 @@
 				);
 			?>
 		</div>
-		<?php if ($enableHistory === true): ?>
-			<div onclick="" class="menuImageDiv">
+		<?php if ($enableHistory === "true"): ?>
+			<div onclick="archiveLogPopupToggle();" class="menuImageDiv">
 				<?php echo generateImage(
 					$arrayOfImages["history"],
 					$imageConfig = array(
-						"id"		=>	"menuImage",
+						"id"		=>	"historyImage",
 						"class"		=>	"menuImage",
 						"height"	=>	"30px"
 						)
@@ -50,7 +50,7 @@
 				<?php echo generateImage(
 					$arrayOfImages["multiLog"],
 					$imageConfig = array(
-						"id"		=>	"menuImage",
+						"id"		=>	"multiLogImage",
 						"class"		=>	"menuImage",
 						"height"	=>	"30px"
 						)

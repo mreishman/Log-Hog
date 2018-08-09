@@ -2503,6 +2503,21 @@ function archiveAction(title)
 function archiveLogPopupToggle()
 {
 	//get list of logs in tmpbackup
+	if(document.getElementById("fullScreenMenu").style.display !== "none")
+	{
+		toggleFullScreenMenu();
+	}
+	if(document.getElementById("historyDropdown").style.display === "inline-block")
+	{
+		document.getElementById("historyDropdown").style.display = "none";
+	}
+	else
+	{
+		getListOfArchiveLogs();
+		document.getElementById("historyDropdown").style.display = "inline-block";
+		document.getElementById("historyDropdown").style.left = (document.getElementById("historyImage").getBoundingClientRect().left-21) + "px";
+		document.getElementById("historyDropdown").style.top = (document.getElementById("historyImage").getBoundingClientRect().top+25) + "px";
+	}
 }
 
 function getListOfArchiveLogs()

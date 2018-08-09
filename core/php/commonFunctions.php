@@ -1042,10 +1042,10 @@ function getListOfFiles($data)
 		{
 			$scannedDir = array($scannedDir);
 		}
-		$files = array_diff($scannedDir, array('..', '.'));
-		if($files)
+		if($scannedDir)
 		{
-			foreach($files as $k => $filename)
+			unset($scannedDir[0], $scannedDir[1]);
+			foreach($scannedDir as $k => $filename)
 			{
 				$fullPath = $path . DIRECTORY_SEPARATOR . $filename;
 				if($recursive === "true" && is_dir($fullPath))

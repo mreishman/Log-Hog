@@ -119,7 +119,7 @@ $countConfig--;
 		</div>
 	</form>
 	</div>
-	<form id="devAdvanced2" action="../core/php/settingsSaveConfigStatic.php" method="post">
+	<form id="devAdvanced2" action="../core/php/settingsSaveConfigStatic.php" method="post"> <!-- Reset update notification form -->
 		<input type="hidden" style="width: 400px;"  name="newestVersion" value="<?php echo $configStatic['version'];?>" > 
 	</form>
 </body>
