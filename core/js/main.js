@@ -932,13 +932,17 @@ function update(data)
 						}
 
 						logs[id] = logData;
-						if(enableLogging !== "false")
+						titles[id] = name;
+						if(files[i] in fileData)
 						{
-							titles[id] = name + " | " + data[name]["data"] + " | Size: " + formatBytes(fileData[files[i]]["size"]);
-						}
-						else
-						{
-							titles[id] = name + " | Size: " + formatBytes(fileData[files[i]]["size"]);
+							if(enableLogging !== "false")
+							{
+								titles[id] = name + " | " + data[name]["data"] + " | Size: " + formatBytes(fileData[files[i]]["size"]);
+							}
+							else
+							{
+								titles[id] = name + " | Size: " + formatBytes(fileData[files[i]]["size"]);
+							}
 						}
 						if(enableLogging !== "false")
 						{
@@ -1002,9 +1006,16 @@ function update(data)
 									}
 								}
 							}
-							if(logNameGroup === "true" && fileData[files[i]]["Group"] !== "")
+							if(logNameGroup === "true")
 							{
-								nameForLog = fileData[files[i]]["Group"]+":"+nameForLog;
+								if(files[i] in fileData && fileData[files[i]]["Group"] !== "")
+								{
+									nameForLog = fileData[files[i]]["Group"]+":"+nameForLog;
+								}
+								else if(files[i].indexOf("Backup/") === 0)
+								{
+									nameForLog = "Backup:"+nameForLog;
+								}
 							}
 							classInsert = "";
 							item = blank;
@@ -1014,9 +1025,13 @@ function update(data)
 							{
 								classInsert += " buttonColor"+(folderNameCount+1)+" ";
 							}
-							if(fileData[fullPathSearch]["Group"] !== "")
+							if(fullPathSearch in fileData && fileData[fullPathSearch]["Group"] !== "")
 							{
 								classInsert += " "+fileData[files[i]]["Group"]+"Group ";
+							}
+							else if(fullPathSearch.indexOf("Backup/") === 0)
+							{
+								classInsert += " BackupGroup ";
 							}
 							classInsert += " allGroup ";
 							item = item.replace(/{{class}}/g, classInsert);
@@ -1067,7 +1082,7 @@ function update(data)
 
 							if(!firstLoad)
 							{
-								if(!$("#menu a." + id + "Button").hasClass("updated") && fileData[fullPathSearch]["AlertEnabled"] === "true" && (!(id in alertEnabledArray) || (id in alertEnabledArray && alertEnabledArray[id] === "enabled")))
+								if(!$("#menu a." + id + "Button").hasClass("updated") && ( (!(fullPathSearch in fileData)) || fileData[fullPathSearch]["AlertEnabled"] === "true" ) && (!(id in alertEnabledArray) || (id in alertEnabledArray && alertEnabledArray[id] === "enabled")))
 								{
 									$("#menu a." + id + "Button").addClass("updated");
 
@@ -1085,7 +1100,7 @@ function update(data)
 							var copyNameAction = {action: "copyToClipBoard(\""+shortName+"\");", name: "Copy File Name"};
 							var copyFullPathAction = {action: "copyToClipBoard(titles[\""+id+"\"]);", name: "Copy Filepath"};
 							var alertToggle = {action: "tmpToggleAlerts(\""+id+"\");" ,name: "Enable Alerts"};
-							if(fileData[fullPathSearch]["AlertEnabled"] === "true")
+							if( (!(fullPathSearch in fileData)) || fileData[fullPathSearch]["AlertEnabled"] === "true")
 							{
 								alertToggle = {action: "tmpToggleAlerts(\""+id+"\");" ,name: "Disable Alerts"};
 							}
@@ -1098,7 +1113,7 @@ function update(data)
 						}
 
 						updated = false;
-						if(fileData[fullPathSearch]["AlertEnabled"] === "true" && (!(id in alertEnabledArray) || (id in alertEnabledArray && alertEnabledArray[id] === "enabled")))
+						if(fullPathSearch in fileData && fileData[fullPathSearch]["AlertEnabled"] === "true" && (!(id in alertEnabledArray) || (id in alertEnabledArray && alertEnabledArray[id] === "enabled")))
 						{
 							if(!(logs[id] === lastLogs[id]))
 							{
@@ -2528,12 +2543,33 @@ function getListOfArchiveLogs()
 			data: {},
 			type: "POST",
 	success(data){
-		console.log(data);
+		showHistory(data);
 	}});
+}
+
+function showHistory(data)
+{
+	$("#historyHolder").html('');
+	var htmlForHistory = "No Log History To Display";
+	if(data)
+	{
+		htmlForHistory = "<table><tr><td width=\"55%\" ></td><td  width=\"45%\" ></td></tr>";
+		var historyKeys = Object.keys(data);
+		var historyKeysLength = historyKeys.length;
+		for(var historyKey = 0; historyKey < historyKeysLength; historyKey++)
+		{
+			var historyName = data[historyKeys[historyKey]].replace(/_DIR_/g, "/").replace("Backup/", "");
+			htmlForHistory += "<tr><td style=\"word-break:break-all\" >"+historyName+"</td><td><a class=\"linkSmall\" onclick=\"viewArchiveLog('"+data[historyKeys[historyKey]]+"')\" >View</a> <a class=\"linkSmall\" >Delete</a></td></tr>";
+		}
+		htmlForHistory += "</table>";
+	}
+	$("#historyHolder").html(htmlForHistory);
+	$("#historyHolder").append($("#storage .notificationButtons").html());
 }
 
 function viewArchiveLog(title)
 {
+	archiveLogPopupToggle(); //add option to not hide on view
 	var dataToSend = {file: title};
 	$.ajax({
 			url: "core/php/getTmpVersionOfLog.php?format=json",
@@ -2541,7 +2577,7 @@ function viewArchiveLog(title)
 			data: dataToSend,
 			type: "POST",
 	success(data){
-		arrayOfDataMain["Backup_"+title] = {log: data};
+		arrayOfDataMain[title.replace(/_DIR_/g, "/")] = {log: data, data: "", lineCount: "---"};
 		generalUpdate();
 	}});
 }
