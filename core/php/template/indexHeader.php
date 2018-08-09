@@ -37,7 +37,7 @@
 			<?php echo generateImage(
 				$arrayOfImages["multiLog"],
 				$imageConfig = array(
-					"id"		=>	"menuImage",
+					"id"		=>	"multiLogImage",
 					"class"		=>	"menuImage",
 					"height"	=>	"30px"
 					)
