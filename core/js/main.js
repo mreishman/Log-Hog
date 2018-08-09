@@ -2548,6 +2548,10 @@ function archiveLogPopupToggle()
 	{
 		toggleFullScreenMenu();
 	}
+	if(document.getElementById("notifications").style.display === "inline-block")
+	{
+		toggleNotifications();
+	}
 	if(document.getElementById("historyDropdown").style.display === "inline-block")
 	{
 		document.getElementById("historyDropdown").style.display = "none";
@@ -2591,7 +2595,7 @@ function showHistory(data)
 			for(var historyKey = 0; historyKey < historyKeysLength; historyKey++)
 			{
 				var historyName = data[historyKeys[historyKey]].replace(/_DIR_/g, "/").replace("Backup/", "");
-				htmlForHistory += "<tr><td style=\"word-break:break-all\" >"+historyName+"</td><td><a class=\"linkSmall\" onclick=\"viewArchiveLog('"+data[historyKeys[historyKey]]+"')\" >View</a> <a class=\"linkSmall\" >Delete</a></td></tr>";
+				htmlForHistory += "<tr><td style=\"word-break:break-all\" >"+historyName+"</td><td><a class=\"linkSmall\" onclick=\"viewArchiveLog('"+data[historyKeys[historyKey]]+"')\" >View</a> <a onclick=\"deleteArchiveLog('"+data[historyKeys[historyKey]]+"')\" class=\"linkSmall\" >Delete</a></td></tr>";
 			}
 		}
 		htmlForHistory += "</table>";
@@ -2602,7 +2606,7 @@ function showHistory(data)
 
 function viewArchiveLog(title)
 {
-	archiveLogPopupToggle(); //add option to not hide on view
+	archiveLogPopupToggle();
 	var dataToSend = {file: title};
 	$.ajax({
 			url: "core/php/getTmpVersionOfLog.php?format=json",
@@ -2611,6 +2615,43 @@ function viewArchiveLog(title)
 			type: "POST",
 	success(data){
 		arrayOfDataMain["LogHog/"+title.replace(/_DIR_/g, "/")] = {log: data, data: "", lineCount: "---"};
+		generalUpdate();
+	}});
+}
+
+function deleteArchiveLog(title)
+{
+	archiveLogPopupToggle();
+	var dataToSend = {file: title};
+	$.ajax({
+			url: "core/php/deleteArchiveLog.php?format=json",
+			dataType: "json",
+			data: dataToSend,
+			type: "POST",
+	success(data){
+		delete arrayOfDataMain["LogHog/"+title.replace(/_DIR_/g, "/")];
+		generalUpdate();
+	}});
+}
+
+function clearAllArchiveLogs()
+{
+	archiveLogPopupToggle();
+	$.ajax({
+			url: "core/php/deleteAllArchiveLogs.php?format=json",
+			dataType: "json",
+			data: dataToSend,
+			type: "POST",
+	success(data){
+		var arrayOfDataMainKeys = Object.keys(arrayOfDataMain);
+		var arrayOfDataMainKeysLength = arrayOfDataMainKeys.length;
+		for(var aodkcount = 0; aodkcount < arrayOfDataMainKeysLength; aodkcount++)
+		{
+			if(arrayOfDataMainKeys[aodkcount].indexOf("LogHog/Backup") === 0)
+			{
+				delete arrayOfDataMain[arrayOfDataMainKeys[aodkcount]];
+			}
+		}
 		generalUpdate();
 	}});
 }
@@ -2997,6 +3038,10 @@ function toggleNotifications()
 	{
 		toggleFullScreenMenu();
 	}
+	if(document.getElementById("historyDropdown").style.display === "inline-block")
+	{
+		archiveLogPopupToggle()
+	}
 	if(document.getElementById("notifications").style.display === "inline-block")
 	{
 		document.getElementById("notifications").style.display = "none";
@@ -3208,6 +3253,10 @@ function toggleFullScreenMenu()
 	if(document.getElementById("notifications").style.display === "inline-block")
 	{
 		toggleNotifications();
+	}
+	if(document.getElementById("historyDropdown").style.display === "inline-block")
+	{
+		archiveLogPopupToggle()
 	}
 	if(document.getElementById("fullScreenMenu").style.display === "none")
 	{
