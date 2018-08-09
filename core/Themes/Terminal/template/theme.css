@@ -46,7 +46,7 @@
 	background-color: #A0EADE; 
 }
 
-#notificationHolder td, #notificationHolder th
+.dropdownHolder td, .dropdownHolder th
 {
 	color: green;
 }
@@ -55,7 +55,7 @@
   border-bottom: 12px solid white;
 }
 
-#notificationHolder {
+.dropdownHolder {
   color: green;
   background-color: black;
   border: 1px solid white;

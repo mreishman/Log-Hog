@@ -70,7 +70,7 @@
 	background: linear-gradient(to bottom, rgba(172,197,233,1) 0%, rgba(163,192,242,1) 18%, rgba(97,160,237,1) 39%, rgba(85,163,242,1) 70%, rgba(130,194,241,1) 92%, rgba(154,210,242,1) 100%);
 }
 
-#notificationHolder td, #notificationHolder th
+.dropdownHolder td, .dropdownHolder th
 {
 	color: black;
 }
@@ -79,7 +79,7 @@
   border-bottom: 12px solid white;
 }
 
-#notificationHolder {
+.dropdownHolder {
   color: black;
   background-color: white;
   border: 1px solid black;

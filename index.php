@@ -129,11 +129,11 @@ $externalLinkImage = generateImage(
 		</div>
 		<div id="notifications" class="dropdownMenu" >
 			<div class="notificationTriangle"></div>
-			<div id="notificationHolder" class="innerContentDropdownMenu"></div>
+			<div id="notificationHolder" class="innerContentDropdownMenu dropdownHolder"></div>
 		</div>
 		<div id="historyDropdown" class="dropdownMenu" >
 			<div class="notificationTriangle"></div>
-			<div id="historyHolder" class="innerContentDropdownMenu"></div>
+			<div id="historyHolder" class="innerContentDropdownMenu dropdownHolder"></div>
 		</div>
 	</div>
 	<div id="main">
