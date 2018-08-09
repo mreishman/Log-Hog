@@ -80,6 +80,12 @@
 				"Name"			=>	"Multi-Log",
 				"BP"			=>	array("View more than one log at a time","Save log layout for initial loadt"),
 				"Images"		=>	array("5.0-1.png","5.0-2.png")
+			),
+			13	=>	array(
+				"Version"		=>	"5.1",
+				"Name"			=>	"A Brief History",
+				"BP"			=>	array("View backups of cleared logs","Cleaner menu with groups being in filter icon","Right click to clear all notifications on notification icon"),
+				"Images"		=>	array("5.1-1.png","5.1-2.png","5.1-3.png")
 			)
 		);
 		$dataForWhatsNew = array_reverse($dataForWhatsNew);

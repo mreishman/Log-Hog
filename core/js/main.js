@@ -2557,13 +2557,20 @@ function showHistory(data)
 	var htmlForHistory = "No Log History To Display";
 	if(data)
 	{
-		htmlForHistory = "<table><tr><td width=\"55%\" ></td><td  width=\"45%\" ></td></tr>";
+		htmlForHistory = "<table style=\"width: 100%;\" ><tr><td width=\"55%\" ></td><td  width=\"45%\" ></td></tr>";
 		var historyKeys = Object.keys(data);
 		var historyKeysLength = historyKeys.length;
-		for(var historyKey = 0; historyKey < historyKeysLength; historyKey++)
+		if(historyKeysLength === 0)
 		{
-			var historyName = data[historyKeys[historyKey]].replace(/_DIR_/g, "/").replace("Backup/", "");
-			htmlForHistory += "<tr><td style=\"word-break:break-all\" >"+historyName+"</td><td><a class=\"linkSmall\" onclick=\"viewArchiveLog('"+data[historyKeys[historyKey]]+"')\" >View</a> <a class=\"linkSmall\" >Delete</a></td></tr>";
+			htmlForHistory += "<tr><td colspan=\"2\" >No Log Backups To Display</td></tr>"
+		}
+		else
+		{
+			for(var historyKey = 0; historyKey < historyKeysLength; historyKey++)
+			{
+				var historyName = data[historyKeys[historyKey]].replace(/_DIR_/g, "/").replace("Backup/", "");
+				htmlForHistory += "<tr><td style=\"word-break:break-all\" >"+historyName+"</td><td><a class=\"linkSmall\" onclick=\"viewArchiveLog('"+data[historyKeys[historyKey]]+"')\" >View</a> <a class=\"linkSmall\" >Delete</a></td></tr>";
+			}
 		}
 		htmlForHistory += "</table>";
 	}
