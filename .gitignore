@@ -3,3 +3,5 @@ monitor/*
 search/*
 local/default/*
 .DS_Store
+Log-Hog.sublime-project
+Log-Hog.sublime-workspace

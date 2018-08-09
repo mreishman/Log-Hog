@@ -108,16 +108,17 @@ div {
 	overflow: auto;
 }
 
-#log div {
+#log div
+{
 	padding: .25em 1em;
 }
 
-.log div
+.log div , .log tr , .log tr td
 {
   -webkit-transition: 1s ease-in-out;
-    -moz-transition: 1s ease-in-out;
-    -ms-transition: 1s ease-in-out;
-    -o-transition: 1s ease-in-out;
+  -moz-transition: 1s ease-in-out;
+  -ms-transition: 1s ease-in-out;
+  -o-transition: 1s ease-in-out;
 }
 
 .led-red {

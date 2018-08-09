@@ -51,7 +51,7 @@ function makePatternSelect($selectValue, $selectOptions)
 }
 
 
-function generateSaveBlock($data = array(), $defaultTrashCanIcon, $arrayOfImages)
+function generateSaveBlock($data = array(), $arrayOfImages)
 {
 	$rowNumber = "{{rowNumber}}";
 	$fileNumber = "{{fileNumber}}";
@@ -217,7 +217,7 @@ function generateSaveBlock($data = array(), $defaultTrashCanIcon, $arrayOfImages
 	if(isset($data["AlertEnabled"]))
 	{
 		$AlertEnabled = $data["AlertEnabled"];
-	}		
+	}
 
 	if(isset($data["typeFolder"]))
 	{
@@ -242,7 +242,7 @@ function generateSaveBlock($data = array(), $defaultTrashCanIcon, $arrayOfImages
 			$typeFile = "";
 		}
 	}
-	
+
 
 	$saveBlock = "<li class=\"watchRow ".$saveGroupClass." \" id=\"rowNumber".$rowNumber."\" ><div class=\"settingsHeader\" >";
 	$saveBlock .= $fileNumber.":";
@@ -252,7 +252,12 @@ function generateSaveBlock($data = array(), $defaultTrashCanIcon, $arrayOfImages
 	$saveBlock .= "<span style=\"width: 50px; display: inline-block;\" id=\"imageFile".$rowNumber."\" >".$fileImage."</span>";
 	$saveBlock .= "<input type=\"hidden\" name=\"watchListKey".$rowNumber."\" value=\"FileOrFolder".$rowNumber."\" >";
 	$saveBlock .= "<a class=\"deleteIconPosition\"	onclick=\"deleteRowFunctionPopup(".$rowNumber.", '".$location."');\"	>";
-	$saveBlock .= $defaultTrashCanIcon;
+	$saveBlock .= generateImage(
+		$arrayOfImages["trashCanSideBar"],
+		array(
+			"height"		=>	"25px"
+		)
+	);
 	$saveBlock .= "</a>";
 	$saveBlock .= "  <a ";
 	if($first)
@@ -339,7 +344,6 @@ function generateSaveBlock($data = array(), $defaultTrashCanIcon, $arrayOfImages
 		$arrayOfImages["loading"],
 		array(
 			"width"			=>	"25px",
-			"srcModifier"	=>	"../",
 			"id"			=>	"watchListKey".$rowNumber."LoadingSubFilesIcon",
 			"style"			=>	"display: none;"
 		)

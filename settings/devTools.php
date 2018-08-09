@@ -52,6 +52,21 @@ require_once('../core/php/updateCheck.php');
 					<span class="settingsBuffer" >  Base URL:  </span> <input type="text" style="width: 400px;"  name="baseUrlUpdate" value="<?php echo $baseUrlUpdate;?>" >
 				</li>
 				<li>
+					<span style="font-size: 75%;">
+						<?php echo generateImage(
+							$arrayOfImages["info"],
+							array(
+								"style"			=>	"margin-bottom: -4px;",
+								"height"		=>	"20px",
+								"srcModifier"	=>	"../"
+							)
+						); ?>
+						<i>
+							Default: https://github.com/mreishman/Log-Hog/archive/
+						</i>
+					</span>
+				</li>
+				<li>
 					<span class="settingsBuffer" > Config Version:  </span> <input type="number" pattern="[0-9]*" style="width: 400px;"  name="configVersion" value="<?php echo $configVersion;?>" >
 				</li>
 				<li>

@@ -142,9 +142,25 @@ $errorArray = array(
         "firstMessage"      =>  "Zip Archive is not installed",
         "secondMessage"     =>  "When trying to check for an update, php downloads a Zip file from github. This requires the php module Zip Archive to work. Please install Zip archive to use the update function in log-hog. An example command would be: sudo apt-get install php7.0-zip. If you are unable to install Zip Archive, you can disable automatic update checks under settings. <br><br> <form id=\"formUpdateSave\" ><span class=\"settingsBuffer\" > Auto Check Update: </span><select id=\"settingsSelect\" name=\"autoCheckUpdate\"><option selected value=\"true\">True</option><option value=\"false\">False</option></select><br><br></form><button onclick=\"saveAndVerifyMain('formUpdateSave');\" >Save</button><br><br>This could take up to 60 seconds to refresh the config file"
     ),
+    12   =>  array(
+        "firstMessage"      =>  "Update check failed because of incorrect write permissions",
+        "secondMessage"     =>  "The file configStatic.php could not be written to by settingsCheckForUpdateAjax.php because of incorrect file write permissions. Please update the settingsCheckForUpdateAjax file with correct file permissions to write to configStatic.php (under core/php). If this is not possible, change the auto check for update settings to false to prevent this message."
+    ),
+    13   =>  array(
+        "firstMessage"      =>  "Update check failed because a temporary directory failed to create",
+        "secondMessage"     =>  "When checking for updates, a tmp directory is created under update/downloads/versionCheck/extracted/ to hold the zip file and list of versions.  This process errored out when trying to check for updates, throwing this error. Please check if settingsCheckForUpdateAjax.php has correct write permissions to create a folder, and that the target directory has enough free space."
+    ),
+    14   =>  array(
+        "firstMessage"      =>  "Update check failed because it could not open the downloaded zip file",
+        "secondMessage"     =>  "When checking for updates, a zip file is download that contains the new version list. An error occured when trying to open the zip file. This could either be due to a permission error or not enough space in the target directory."
+    ),
     42   =>  array(
         "firstMessage"      =>  "General Error",
         "secondMessage"     =>  "A general error occured, or you navigated to this page directly."
+    ),
+    43   =>  array(
+        "firstMessage"      =>  "General Update Error",
+        "secondMessage"     =>  "A general error occured when trying to check for an update."
     ),
     550   =>  array(
         "firstMessage"      =>  "File Permission Error",
