@@ -1012,7 +1012,7 @@ function update(data)
 								{
 									nameForLog = fileData[files[i]]["Group"]+":"+nameForLog;
 								}
-								else if(files[i].indexOf("Backup/") === 0)
+								else if(files[i].indexOf("LogHog/Backup/") === 0)
 								{
 									nameForLog = "Backup:"+nameForLog;
 								}
@@ -1029,7 +1029,7 @@ function update(data)
 							{
 								classInsert += " "+fileData[files[i]]["Group"]+"Group ";
 							}
-							else if(fullPathSearch.indexOf("Backup/") === 0)
+							else if(files[i].indexOf("LogHog/Backup/") !== 0)
 							{
 								classInsert += " BackupGroup ";
 							}
@@ -1093,21 +1093,25 @@ function update(data)
 									});
 								}
 							}
-
-							var hideLogAction = {action: "tmpHideLog(\""+id+"\");", name: "Tmp Hide Log"};
-							var clearLogAction = {action: "clearLogInner(titles[\""+id+"\"]);", name: "Clear Log"};
-							var deleteLogAction = {action: "deleteLogPopupInner(titles[\""+id+"\"]);", name: "Delete Log"};
-							var copyNameAction = {action: "copyToClipBoard(\""+shortName+"\");", name: "Copy File Name"};
-							var copyFullPathAction = {action: "copyToClipBoard(titles[\""+id+"\"]);", name: "Copy Filepath"};
-							var alertToggle = {action: "tmpToggleAlerts(\""+id+"\");" ,name: "Enable Alerts"};
-							if( (!(fullPathSearch in fileData)) || fileData[fullPathSearch]["AlertEnabled"] === "true")
+							var rightClickObjectNew = new Array();
+							rightClickObjectNew.push({action: "tmpHideLog(\""+id+"\");", name: "Tmp Hide Log"});
+							if(files[i].indexOf("LogHog/Backup/") !== 0)
 							{
-								alertToggle = {action: "tmpToggleAlerts(\""+id+"\");" ,name: "Disable Alerts"};
+								rightClickObjectNew.push({action: "clearLogInner(titles[\""+id+"\"]);", name: "Clear Log"});
+								rightClickObjectNew.push({action: "deleteLogPopupInner(titles[\""+id+"\"]);", name: "Delete Log"});
+								var alertToggle = {action: "tmpToggleAlerts(\""+id+"\");" ,name: "Enable Alerts"};
+								if( (!(fullPathSearch in fileData)) || fileData[fullPathSearch]["AlertEnabled"] === "true")
+								{
+									alertToggle = {action: "tmpToggleAlerts(\""+id+"\");" ,name: "Disable Alerts"};
+								}
+								rightClickObjectNew.push(alertToggle);
 							}
+							rightClickObjectNew.push({action: "copyToClipBoard(\""+shortName+"\");", name: "Copy File Name"});
+							rightClickObjectNew.push({action: "copyToClipBoard(titles[\""+id+"\"]);", name: "Copy Filepath"});
 							//add rightclick menu
 							if(rightClickMenuEnable === "true")
 							{
-								menuObjectRightClick[id] = [hideLogAction, clearLogAction,deleteLogAction,copyNameAction,copyFullPathAction,alertToggle];
+								menuObjectRightClick[id] = rightClickObjectNew;
 								Rightclick_ID_list.push(id);
 							}
 						}
@@ -2577,7 +2581,7 @@ function viewArchiveLog(title)
 			data: dataToSend,
 			type: "POST",
 	success(data){
-		arrayOfDataMain[title.replace(/_DIR_/g, "/")] = {log: data, data: "", lineCount: "---"};
+		arrayOfDataMain["LogHog/"+title.replace(/_DIR_/g, "/")] = {log: data, data: "", lineCount: "---"};
 		generalUpdate();
 	}});
 }
