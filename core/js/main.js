@@ -1907,6 +1907,28 @@ function showPartThree(e, internalID, currentCurrentSelectWindow)
 {
 	try
 	{
+		if(internalID.indexOf("ogogackup") === 0)
+		{
+			if(document.getElementById("clearLogSideBar"+currentCurrentSelectWindow).style.display !== "none")
+			{
+				document.getElementById("clearLogSideBar"+currentCurrentSelectWindow).style.display = "none";
+			}
+			if(document.getElementById("deleteLogSideBar"+currentCurrentSelectWindow).style.display !== "none")
+			{
+				document.getElementById("deleteLogSideBar"+currentCurrentSelectWindow).style.display = "none";
+			}
+		}
+		else
+		{
+			if(document.getElementById("clearLogSideBar"+currentCurrentSelectWindow).style.display === "none")
+			{
+				document.getElementById("clearLogSideBar"+currentCurrentSelectWindow).style.display = "block";
+			}
+			if(document.getElementById("deleteLogSideBar"+currentCurrentSelectWindow).style.display === "none")
+			{
+				document.getElementById("deleteLogSideBar"+currentCurrentSelectWindow).style.display = "block";
+			}
+		}
 		$("#log"+currentCurrentSelectWindow+"load").hide();
 		$("#log"+currentCurrentSelectWindow).show();
 		scrollToBottom(currentCurrentSelectWindow);

@@ -79,7 +79,7 @@
 										);
 									?>
 								</a>
-								<a onclick="clearLog('{{counter}}');" style="cursor: pointer;">
+								<a id="clearLogSideBar{{counter}}"  onclick="clearLog('{{counter}}');" style="cursor: pointer;">
 									<?php echo generateImage(
 										$arrayOfImages["eraserSideBar"],
 										$imageConfig = array(
@@ -90,7 +90,7 @@
 										);
 									?>
 								</a>
-								<a onclick="deleteLogPopup('{{counter}}');" style="cursor: pointer;">
+								<a id="deleteLogSideBar{{counter}}"  onclick="deleteLogPopup('{{counter}}');" style="cursor: pointer;">
 									<?php echo  generateImage(
 										$arrayOfImages["trashCanSideBar"],
 										$imageConfig = array(
