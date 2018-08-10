@@ -9,7 +9,10 @@
 	<link rel="stylesheet" type="text/css" href="../template/base.css?v=<?php echo $cssVersion;?>">
 </head>
 <body>
-	<div id="menu" style="position: relative; ">
+	<div id="menu" style="position: relative; overflow: hidden; ">
+		<span id="stars" style="display: block;" ></span>
+		<span id="stars2" style="display: block;" ></span>
+		<span id="stars3" style="display: block;" ></span>
 		<div id="menuButtons">
 			<div class="menuImageDiv">
 				<img class="menuImage" src="<?php echo $theme; ?>/img/menu.png" height="30px">

@@ -120,8 +120,13 @@ $externalLinkImage = generateImage(
 				Warning - <?php echo ($pollForceTrue * 4); ?> poll requests have failed. Please check server connectivity or refresh page.
 			</span>
 		</div>
-	<?php require_once("core/php/template/indexHeader.php"); ?>
-	<div class="backgroundForMenus" id="menu" style="position: absolute;"></div>
+	<div style="overflow: hidden; display: block;">
+		<?php require_once("core/php/template/indexHeader.php"); ?>
+		<div class="backgroundForMenus" id="menu" style="position: static;"></div>
+		<span id="stars" style="display: block;" ></span>
+		<span id="stars2" style="display: block;" ></span>
+		<span id="stars3" style="display: block;" ></span>
+	</div>
 	<div style="display: inline-block; position: absolute; top: 0; left: 0; z-index: 30;" >
 		<div id="notificationIcon">
 			<span onclick="toggleNotifications();" id="notificationCount"></span>
