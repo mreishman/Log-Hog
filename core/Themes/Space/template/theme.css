@@ -24,7 +24,7 @@
 #menu a, #menu2 a {
 	display: inline-block;
 	margin: .5em 0;
-	background-color: #2A912A;
+	background-color: #18314F;
 	cursor: pointer;
 }
 
@@ -43,7 +43,7 @@
 
 #menu a:hover, #menu a.active, #menu2 a:hover, #menu2 a.active, .link:hover, .linkSmall:hover, .settingsHeader button:hover {
 	color: black;
-	background-color: white; 
+	background-color: #8BBEB2;
 }
 
 .dropdownHolder td, .dropdownHolder th
@@ -85,11 +85,12 @@
 }
 
 #menu a.updated {
-	background-color: #912A2C; 
+	background-color: #E6F9AF;
+	color: black;
 }
 
 #menu a.updated:hover {
-	background-color: #FFDDFF; 
+	background-color: #C0FAD7;
 }
 
 #log {
