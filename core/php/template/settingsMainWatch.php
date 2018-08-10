@@ -42,7 +42,7 @@
 				array(
 					"width"			=>	"25px",
 					"class"			=>	"watchlistImg",
-					"data-src"	=>	$arrayOfImages["yellowWarning"],
+					"data-src"		=>	$arrayOfImages["yellowWarning"],
 					"srcModifier"	=>	$imageUrlModifier
 				)
 			); ?>
@@ -54,7 +54,7 @@
 				array(
 					"width"			=>	"25px",
 					"class"			=>	"watchlistImg",
-					"data-src"	=>	$arrayOfImages["fileIcon"],
+					"data-src"		=>	$arrayOfImages["fileIcon"],
 					"srcModifier"	=>	$imageUrlModifier
 				)
 			); ?>
@@ -64,7 +64,7 @@
 				array(
 					"width"			=>	"25px",
 					"class"			=>	"watchlistImg",
-					"data-src"	=>	$arrayOfImages["fileIconNR"],
+					"data-src"		=>	$arrayOfImages["fileIconNR"],
 					"srcModifier"	=>	$imageUrlModifier
 				)
 			); ?>
@@ -74,7 +74,7 @@
 				array(
 					"width"			=>	"25px",
 					"class"			=>	"watchlistImg",
-					"data-src"	=>	$arrayOfImages["folderIconNW"],
+					"data-src"		=>	$arrayOfImages["folderIconNW"],
 					"srcModifier"	=>	$imageUrlModifier
 				)
 			); ?>
@@ -86,7 +86,7 @@
 				array(
 					"width"			=>	"25px",
 					"class"			=>	"watchlistImg",
-					"data-src"	=>	$arrayOfImages["folderIcon"],
+					"data-src"		=>	$arrayOfImages["folderIcon"],
 					"srcModifier"	=>	$imageUrlModifier
 				)
 			); ?>
@@ -96,7 +96,7 @@
 				array(
 					"width"			=>	"25px",
 					"class"			=>	"watchlistImg",
-					"data-src"	=>	$arrayOfImages["folderIconNR"],
+					"data-src"		=>	$arrayOfImages["folderIconNR"],
 					"srcModifier"	=>	$imageUrlModifier
 				)
 			); ?>
@@ -106,7 +106,7 @@
 				array(
 					"width"			=>	"25px",
 					"class"			=>	"watchlistImg",
-					"data-src"	=>	$arrayOfImages["fileIconNW"],
+					"data-src"		=>	$arrayOfImages["fileIconNW"],
 					"srcModifier"	=>	$imageUrlModifier
 				)
 			); ?>
