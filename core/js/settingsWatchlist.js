@@ -24,6 +24,7 @@ var progressBarWatchList = null;
 var percentWatchList = 0;
 var currentPatternSelect = defaultNewAddPattern;
 var fileFolderList = {};
+var urlModifier = "";
 
 function generateRow(data)
 {
@@ -283,7 +284,7 @@ function addFileFolderAjax(fileType, sentLocation)
 	currentPatternSelect = defaultNewAddPattern;
 	hidePopup();
 	displayLoadingPopup("");
-	var urlForSend = "core/php/getFileFolderData.php?format=json";
+	var urlForSend = urlModifier+"core/php/getFileFolderData.php?format=json";
 	var data = {currentFolder: sentLocation, filter: currentPatternSelect};
 	$.ajax({
 		url: urlForSend,
@@ -314,7 +315,7 @@ function updateSubFiles(id)
 {
 	document.getElementById("watchListKey"+id+"LoadingSubFilesIcon").style.display = "inline-block";
 	document.getElementById("watchListKey"+id+"FilesInFolder").style.display = "none";
-	var urlForSend = "core/php/getFileFolderData.php?format=json";
+	var urlForSend = urlModifier+"core/php/getFileFolderData.php?format=json";
 	var data = {currentFolder: document.getElementsByName("watchListKey"+id+"Location")[0].value, recursive: document.getElementsByName("watchListKey"+id+"Recursive")[0].value, filter:  document.getElementsByName("watchListKey"+id+"Pattern")[0].value};
 	$.ajax({
 		url: urlForSend,
@@ -502,7 +503,7 @@ function getCurrentDir(currentDir, joinChar)
 function getFileFolderData(currentFolder, hideFiles, orgPath)
 {
 	//make ajax to get file / folder data, return array
-	var urlForSend = "core/php/getFileFolderData.php?format=json";
+	var urlForSend = urlModifier+"core/php/getFileFolderData.php?format=json";
 	var data = {currentFolder, filter: currentPatternSelect};
 	$.ajax({
 		url: urlForSend,
@@ -524,7 +525,7 @@ function getFileFolderData(currentFolder, hideFiles, orgPath)
 function getFileFolderDataMain(currentFolder, hideFiles, orgPath, currentRow)
 {
 	//make ajax to get file / folder data, return array
-	var urlForSend = "core/php/getFileFolderData.php?format=json";
+	var urlForSend = urlModifier+"core/php/getFileFolderData.php?format=json";
 	var data = {currentFolder, filter: document.getElementsByName("watchListKey"+currentRow+"Pattern")[0].value};
 	$.ajax({
 		url: urlForSend,
@@ -1180,7 +1181,7 @@ function getFileFolderList()
 {
 	document.getElementsByClassName("uniqueClassForAppendSettingsMainWatchNew")[0].innerHTML = "";
 	document.getElementsByClassName("uniqueClassForAppendSettingsMainWatchNew")[0].style.display = "none";
-	var urlForSend = "core/php/getFileFolderList.php?format=json";
+	var urlForSend = urlModifier+"core/php/getFileFolderList.php?format=json";
 	var data = {};
 	$.ajax({
 		url: urlForSend,
@@ -1213,7 +1214,7 @@ function ajaxAddRowFirstLoad(currentCount)
 	{
 		var data = fileFolderList[fileFolderListKeys[currentCount]];
 		updateProgressBarWatchList((90*(1/fileFolderListCount)), data["Location"], "Loading file "+(currentCount+1)+" of "+fileFolderListCount);
-		var urlForSend = "core/php/getFileFolderData.php?format=json";
+		var urlForSend = urlModifier+"core/php/getFileFolderData.php?format=json";
 		var sendData = {currentFolder: data["Location"], filter: data["Pattern"]};
 		(function(_data){
 			$.ajax({

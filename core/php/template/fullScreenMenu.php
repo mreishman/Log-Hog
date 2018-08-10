@@ -70,8 +70,11 @@
 		<iframe style="border: 0;" id="iframeFullScreen" src=""></iframe>
 	</div>
 	<div id="fullScreenMenuWatchList" style="display: none;">
-		<?php require_once('core/php/settingsMainWatchFunctions.php'); ?>
-		<?php require_once('settingsMainWatch.php'); ?>
+		<?php
+		$imageUrlModifier = "";
+		require_once('core/php/settingsMainWatchFunctions.php');
+		require_once('settingsMainWatch.php');
+		?>
 	</div>
 	<div id="fullScreenMenuAddons" style="display: none;" >
 		<div class="settingsHeader">

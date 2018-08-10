@@ -38,8 +38,22 @@ require_once('../core/php/loadVars.php'); ?>
 	</div>
 
 	<p style="padding: 10px;">Watch List: These are the files/folder Log-Hog will track. Please enter in some of the folders you would like.</p>
-	<?php require_once('../core/php/settingsMainWatchFunctions.php'); ?>
-	<?php require_once('../core/php/template/settingsMainWatch.php'); ?>
+	<span>
+		<a class="link" onclick="addFile();" >
+			Add File
+		</a>
+		<a class="link" onclick="addFolder();" >
+			Add Folder
+		</a>
+		<a class="link" onclick="addOther();" >
+			Add Other
+		</a>
+	</span>
+	<?php
+	$imageUrlModifier = "../";
+	require_once('../core/php/settingsMainWatchFunctions.php');
+	require_once('../core/php/template/settingsMainWatch.php');
+	?>
 	<table style="width: 100%; padding-left: 20px; padding-right: 20px;" ><tr><th style="text-align: right;" >
 		<span id="setupButtonContinue">
 			<?php if($counterSteps == 1): ?>
@@ -95,6 +109,7 @@ require_once('../core/php/loadVars.php'); ?>
 <script type="text/javascript">
 $(document).ready(function()
 {
+	urlModifier = "../";
 	loadImgFromData("watchlistImg");
 	loadWatchList();
 });

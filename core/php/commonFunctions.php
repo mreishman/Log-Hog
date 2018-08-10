@@ -608,6 +608,10 @@ function generateImage($imageArray, $customConfig)
 		if(is_array($customConfig["data-src"]))
 		{
 			$image .=  " data-src=\"";
+			if(isset($customConfig["srcModifier"]))
+			{
+				$image .= $customConfig["srcModifier"];
+			}
 			$image .= $customConfig["data-src"]["src"];
 			$image .= "\" ";
 			if(!isset($customConfig["title"]))

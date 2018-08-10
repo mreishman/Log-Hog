@@ -32,7 +32,8 @@
 				array(
 					"width"			=>	"25px",
 					"class"			=>	"watchlistImg",
-					"data-src"	=>	$arrayOfImages["redWarning"]
+					"data-src"		=>	$arrayOfImages["redWarning"],
+					"srcModifier"	=>	$imageUrlModifier
 				)
 			); ?>
 			 - File / Folder not found! &nbsp; &nbsp; &nbsp;
@@ -41,7 +42,8 @@
 				array(
 					"width"			=>	"25px",
 					"class"			=>	"watchlistImg",
-					"data-src"	=>	$arrayOfImages["yellowWarning"]
+					"data-src"		=>	$arrayOfImages["yellowWarning"],
+					"srcModifier"	=>	$imageUrlModifier
 				)
 			); ?>
 			 - Unknown
@@ -52,7 +54,8 @@
 				array(
 					"width"			=>	"25px",
 					"class"			=>	"watchlistImg",
-					"data-src"	=>	$arrayOfImages["fileIcon"]
+					"data-src"		=>	$arrayOfImages["fileIcon"],
+					"srcModifier"	=>	$imageUrlModifier
 				)
 			); ?>
 			 - File &nbsp; &nbsp; &nbsp;
@@ -61,7 +64,8 @@
 				array(
 					"width"			=>	"25px",
 					"class"			=>	"watchlistImg",
-					"data-src"	=>	$arrayOfImages["fileIconNR"]
+					"data-src"		=>	$arrayOfImages["fileIconNR"],
+					"srcModifier"	=>	$imageUrlModifier
 				)
 			); ?>
 			 - File Not Readable &nbsp; &nbsp; &nbsp;
@@ -70,7 +74,8 @@
 				array(
 					"width"			=>	"25px",
 					"class"			=>	"watchlistImg",
-					"data-src"	=>	$arrayOfImages["folderIconNW"]
+					"data-src"		=>	$arrayOfImages["folderIconNW"],
+					"srcModifier"	=>	$imageUrlModifier
 				)
 			); ?>
 			 - File Not Writeable
@@ -81,7 +86,8 @@
 				array(
 					"width"			=>	"25px",
 					"class"			=>	"watchlistImg",
-					"data-src"	=>	$arrayOfImages["folderIcon"]
+					"data-src"		=>	$arrayOfImages["folderIcon"],
+					"srcModifier"	=>	$imageUrlModifier
 				)
 			); ?>
 			 - Folder &nbsp; &nbsp; &nbsp;
@@ -90,7 +96,8 @@
 				array(
 					"width"			=>	"25px",
 					"class"			=>	"watchlistImg",
-					"data-src"	=>	$arrayOfImages["folderIconNR"]
+					"data-src"		=>	$arrayOfImages["folderIconNR"],
+					"srcModifier"	=>	$imageUrlModifier
 				)
 			); ?>
 			 - Folder Not Readable &nbsp; &nbsp; &nbsp;
@@ -99,7 +106,8 @@
 				array(
 					"width"			=>	"25px",
 					"class"			=>	"watchlistImg",
-					"data-src"	=>	$arrayOfImages["fileIconNW"]
+					"data-src"		=>	$arrayOfImages["fileIconNW"],
+					"srcModifier"	=>	$imageUrlModifier
 				)
 			); ?>
 			 - Folder Not Writeable &nbsp; &nbsp; &nbsp;
@@ -116,22 +124,22 @@
 </div>
 <div id="storage">
 	<div class="saveBlock">
-		<?php echo generateSaveBlock(array(), $arrayOfImages); ?>
+		<?php echo generateSaveBlock(array('srcModifier' => $imageUrlModifier), $arrayOfImages); ?>
 	</div>
 </div>
 <div id="fileFolderDropdown" style="width: 600px; background-color: #444; border: 1px solid white; z-index: 120; position: fixed;"  >
 </div>
 <script type="text/javascript">
 	var icons = {};
-	var defaultTrashCanIcon 					= <?php echo json_encode(generateImage($arrayOfImages["trashCanSideBar"],array("height" => "25px")));?>;
-	icons["defaultRedErrorIcon"]				= <?php echo json_encode(generateImage($arrayOfImages["redWarning"],array("width" => "25px")));?>;
-	icons["defaultYellowErrorIcon "]			= <?php echo json_encode(generateImage($arrayOfImages["yellowWarning"],array("width" => "25px"))); ?>;
-	icons["defaultFolderIcon"] 					= <?php echo json_encode(generateImage($arrayOfImages["folderIcon"],array("width" => "25px"))); ?>;
-	icons["defaultFileIcon"] 					= <?php echo json_encode(generateImage($arrayOfImages["fileIcon"],array("width" => "25px"))); ?>;
-	icons["defaultFolderNRIcon"] 				= <?php echo json_encode(generateImage($arrayOfImages["folderIconNR"],array("width" => "25px"))); ?>;
-	icons["defaultFileNRIcon"] 					= <?php echo json_encode(generateImage($arrayOfImages["fileIconNR"],array("width" => "25px"))); ?>;
-	icons["defaultFolderNWIcon"] 				= <?php echo json_encode(generateImage($arrayOfImages["folderIconNW"],array("width" => "25px"))); ?>;
-	icons["defaultFileNWIcon"] 					= <?php echo json_encode(generateImage($arrayOfImages["fileIconNW"],array("width" => "25px"))); ?>;
+	var defaultTrashCanIcon 					= <?php echo json_encode(generateImage($arrayOfImages["trashCanSideBar"],array("height" => "25px","srcModifier"	=>	$imageUrlModifier)));?>;
+	icons["defaultRedErrorIcon"]				= <?php echo json_encode(generateImage($arrayOfImages["redWarning"],array("width" => "25px","srcModifier"	=>	$imageUrlModifier)));?>;
+	icons["defaultYellowErrorIcon "]			= <?php echo json_encode(generateImage($arrayOfImages["yellowWarning"],array("width" => "25px","srcModifier"	=>	$imageUrlModifier))); ?>;
+	icons["defaultFolderIcon"] 					= <?php echo json_encode(generateImage($arrayOfImages["folderIcon"],array("width" => "25px","srcModifier"	=>	$imageUrlModifier))); ?>;
+	icons["defaultFileIcon"] 					= <?php echo json_encode(generateImage($arrayOfImages["fileIcon"],array("width" => "25px","srcModifier"	=>	$imageUrlModifier))); ?>;
+	icons["defaultFolderNRIcon"] 				= <?php echo json_encode(generateImage($arrayOfImages["folderIconNR"],array("width" => "25px","srcModifier"	=>	$imageUrlModifier))); ?>;
+	icons["defaultFileNRIcon"] 					= <?php echo json_encode(generateImage($arrayOfImages["fileIconNR"],array("width" => "25px","srcModifier"	=>	$imageUrlModifier))); ?>;
+	icons["defaultFolderNWIcon"] 				= <?php echo json_encode(generateImage($arrayOfImages["folderIconNW"],array("width" => "25px","srcModifier"	=>	$imageUrlModifier))); ?>;
+	icons["defaultFileNWIcon"] 					= <?php echo json_encode(generateImage($arrayOfImages["fileIconNW"],array("width" => "25px","srcModifier"	=>	$imageUrlModifier))); ?>;
 	var defaultdefaultNewAddAlertEnabled 	= "<?php echo $defaultNewAddAlertEnabled; ?>";
 	var defaultNewAddAutoDeleteFiles 		= "<?php echo $defaultNewAddAutoDeleteFiles; ?>";
 	var defaultNewAddExcludeTrim 			= "<?php echo $defaultNewAddExcludeTrim; ?>";
