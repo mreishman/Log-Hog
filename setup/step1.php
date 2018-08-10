@@ -73,7 +73,7 @@ require_once('../core/php/loadVars.php'); ?>
 	}
 	var titleOfPage = "Welcome";
 	var popupSettingsArray = JSON.parse(<?php echo json_encode($popupSettingsArray) ?>);
-	var countOfWatchList = <?php echo $i; ?>;
+	var countOfWatchList = 0;
 	var countOfAddedFiles = 0;
 	var countOfClicks = 0;
 	var locationInsert = "newRowLocationForWatchList";
@@ -90,11 +90,14 @@ require_once('../core/php/loadVars.php'); ?>
 <script src="../core/js/settings.js?v=<?php echo $cssVersion?>"></script>
 <script src="../core/js/settingsWatchlist.js?v=<?php echo $cssVersion?>"></script>
 <script src="../core/js/settingsExt.js?v=<?php echo $cssVersion?>"></script>
+<script src="../core/js/loading-bar.min.js?v=<?php echo $cssVersion?>"></script>
 <script src="stepsJavascript.js?v=<?php echo $cssVersion?>"></script>
 <script type="text/javascript">
 $(document).ready(function()
 {
+	urlModifier = "../";
 	loadImgFromData("watchlistImg");
+	loadWatchList();
 });
 
 </script>
