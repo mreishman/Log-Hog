@@ -486,8 +486,11 @@ $externalLinkImage = generateImage(
 				<iframe style="border: 0;" id="iframeFullScreen" src=""></iframe>
 			</div>
 			<div id="fullScreenMenuWatchList" style="display: none;">
-				<?php require_once('core/php/settingsMainWatchFunctions.php'); ?>
-				<?php require_once('core/php/template/settingsMainWatch.php'); ?>
+				<?php
+				$imageUrlModifier = "";
+				require_once('core/php/settingsMainWatchFunctions.php');
+				require_once('core/php/template/settingsMainWatch.php');
+				?>
 			</div>
 		</div>
 	</div>
