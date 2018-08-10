@@ -252,10 +252,16 @@ function generateSaveBlock($data = array(), $arrayOfImages)
 	$saveBlock .= "<span style=\"width: 50px; display: inline-block;\" id=\"imageFile".$rowNumber."\" >".$fileImage."</span>";
 	$saveBlock .= "<input type=\"hidden\" name=\"watchListKey".$rowNumber."\" value=\"FileOrFolder".$rowNumber."\" >";
 	$saveBlock .= "<a class=\"deleteIconPosition\"	onclick=\"deleteRowFunctionPopup(".$rowNumber.", '".$location."');\"	>";
+	$localSrcMod = "";
+	if(isset($data["srcModifier"]))
+	{
+		$localSrcMod = $data["srcModifier"];
+	}
 	$saveBlock .= generateImage(
 		$arrayOfImages["trashCanSideBar"],
 		array(
-			"height"		=>	"25px"
+			"height"		=>	"25px",
+			"srcModifier"	=>	$localSrcMod
 		)
 	);
 	$saveBlock .= "</a>";

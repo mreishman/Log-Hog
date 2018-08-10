@@ -124,7 +124,7 @@
 </div>
 <div id="storage">
 	<div class="saveBlock">
-		<?php echo generateSaveBlock(array(), $arrayOfImages); ?>
+		<?php echo generateSaveBlock(array('srcModifier' => $srcModifier), $arrayOfImages); ?>
 	</div>
 </div>
 <div id="fileFolderDropdown" style="width: 600px; background-color: #444; border: 1px solid white; z-index: 120; position: fixed;"  >
