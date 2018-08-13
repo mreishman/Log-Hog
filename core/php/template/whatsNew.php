@@ -84,8 +84,8 @@
 			13	=>	array(
 				"Version"		=>	"5.1",
 				"Name"			=>	"A Brief History",
-				"BP"			=>	array("View backups of cleared logs","Cleaner menu with groups being in filter icon","Right click to clear all notifications on notification icon"),
-				"Images"		=>	array("5.1-1.png","5.1-2.png","5.1-3.png")
+				"BP"			=>	array("View backups of cleared logs","Cleaner menu with groups being in filter icon","Right click to clear all notifications on notification icon","New Space Theme!"),
+				"Images"		=>	array("5.1-1.png","5.1-2.png","5.1-3.png","5.1-4.png")
 			)
 		);
 		$dataForWhatsNew = array_reverse($dataForWhatsNew);

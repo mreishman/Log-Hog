@@ -109,7 +109,7 @@ function saveVerified()
 			}
 		}
 	}
-	else if(idForFormMain === "devAdvanced")
+	else if(idForFormMain === "advancedConfig")
 	{
 		if(document.getElementsByName("developmentTabEnabled")[0].value === "true")
 		{
