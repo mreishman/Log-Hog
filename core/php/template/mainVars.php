@@ -42,24 +42,6 @@ Other Settings
 			<input id="popupSettingsArray" type="hidden" name="popupSettingsArray" value='<?php echo $popupSettingsArray; ?>' >
 		</div>
 	</li>
-	<li>
-		<span class="settingsBuffer" > Right Click Menu Enabled: </span>
-		<div class="selectDiv">
-			<select name="rightClickMenuEnable">
-				<option <?php if($rightClickMenuEnable == 'true'){echo "selected";} ?> value="true">True</option>
-				<option <?php if($rightClickMenuEnable == 'false'){echo "selected";} ?> value="false">False</option>
-			</select>
-		</div>
-	</li>
-	<li>
-		<span class="settingsBuffer" > Enable Themes: </span>
-		<div class="selectDiv">
-			<select name="themesEnabled">
-				<option <?php if($themesEnabled == 'true'){echo "selected";} ?> value="true">True</option>
-				<option <?php if($themesEnabled == 'false'){echo "selected";} ?> value="false">False</option>
-			</select>
-		</div>
-	</li>
 </ul>
 </div>
 </form>
