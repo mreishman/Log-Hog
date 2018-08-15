@@ -396,19 +396,7 @@ function pollTwoPartTwo(data)
 			for (var updateCount = filesNew.length - 1; updateCount >= 0; updateCount--)
 			{
 				arrayToUpdate[filesNew[updateCount]] = data[filesNew[updateCount]];
-				var newGroups = data[filesNew[updateCount]]["Group"].split(" ");
-				var newGroupsLength = newGroups.length;
-				for(var NGcount = 0; NGCount < newGroupsLength; NGCount++)
-				{
-					if(!($("#selectForGroup option[value='"+newGroups[NGcount]+"']").length > 0) && newGroups[NGcount] !== "")
-					{
-						$("#selectForGroup").append("<option value='"+newGroups[NGcount]+"'>"+newGroups[NGcount]+"</option>");
-						if(document.getElementById("selectForGroupDiv").style.display === "none")
-						{
-							document.getElementById("selectForGroupDiv").style.display = "inline-block";
-						}
-					}
-				}
+				addToGroupTab(data[filesNew[updateCount]]["Group"]);
 			}
 		}
 		else
@@ -430,14 +418,7 @@ function pollTwoPartTwo(data)
 					//file is new, add to array
 					arrayToUpdate[filesNew[updateOldCount]] = data[filesNew[updateOldCount]];
 				}
-				if(!($("#selectForGroup option[value='"+data[filesNew[updateOldCount]]["Group"]+"']").length > 0) && data[filesNew[updateOldCount]]["Group"] !== "")
-				{
-					$("#selectForGroup").append("<option value='"+data[filesNew[updateOldCount]]["Group"]+"'>"+data[filesNew[updateOldCount]]["Group"]+"</option>");
-					if(document.getElementById("selectForGroupDiv").style.display === "none")
-					{
-						document.getElementById("selectForGroupDiv").style.display = "inline-block";
-					}
-				}
+				addToGroupTab(data[filesNew[updateOldCount]]["Group"]);
 			}
 
 			for (var oldSwapCount = filesOld.length - 1; oldSwapCount >= 0; oldSwapCount--)
@@ -455,6 +436,23 @@ function pollTwoPartTwo(data)
 	catch(e)
 	{
 		eventThrowException(e);
+	}
+}
+
+function addToGroupTab(newGroups)
+{
+	newGroups = newGroups.split(" ");
+	var newGroupsLength = newGroups.length;
+	for(var NGcount = 0; NGcount < newGroupsLength; NGcount++)
+	{
+		if(!($("#selectForGroup option[value='"+newGroups[NGcount]+"']").length > 0) && newGroups[NGcount] !== "")
+		{
+			$("#selectForGroup").append("<option value='"+newGroups[NGcount]+"'>"+newGroups[NGcount]+"</option>");
+			if(document.getElementById("selectForGroupDiv").style.display === "none")
+			{
+				document.getElementById("selectForGroupDiv").style.display = "inline-block";
+			}
+		}
 	}
 }
 
@@ -1034,7 +1032,12 @@ function update(data)
 							}
 							if(fullPathSearch in fileData && fileData[fullPathSearch]["Group"] !== "")
 							{
-								classInsert += " "+fileData[files[i]]["Group"]+"Group ";
+								var classNameGroup = fileData[files[i]]["Group"].split(" ");
+								var classNameGroupLength = classNameGroup.length;
+								for(var NCGcount = 0; NCGcount < classNameGroupLength; NCGcount++)
+								{
+									classInsert += " "+classNameGroup[NCGcount]+"Group ";
+								}
 							}
 							else if(files[i].indexOf("LogHog/Backup/") !== 0)
 							{
