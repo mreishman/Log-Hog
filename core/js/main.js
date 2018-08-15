@@ -1,4 +1,5 @@
 var alertEnabledArray = {};
+var allLogOneLog = {};
 var arrayToUpdate = {};
 var arrayOfData1 = null;
 var arrayOfData2 = null;
@@ -395,12 +396,17 @@ function pollTwoPartTwo(data)
 			for (var updateCount = filesNew.length - 1; updateCount >= 0; updateCount--)
 			{
 				arrayToUpdate[filesNew[updateCount]] = data[filesNew[updateCount]];
-				if(!($("#selectForGroup option[value='"+data[filesNew[updateCount]]["Group"]+"']").length > 0) && data[filesNew[updateCount]]["Group"] !== "")
+				var newGroups = data[filesNew[updateCount]]["Group"].split(" ");
+				var newGroupsLength = newGroups.length;
+				for(var NGcount = 0; NGCount < newGroupsLength; NGCount++)
 				{
-					$("#selectForGroup").append("<option value='"+data[filesNew[updateCount]]["Group"]+"'>"+data[filesNew[updateCount]]["Group"]+"</option>");
-					if(document.getElementById("selectForGroupDiv").style.display === "none")
+					if(!($("#selectForGroup option[value='"+newGroups[NGcount]+"']").length > 0) && newGroups[NGcount] !== "")
 					{
-						document.getElementById("selectForGroupDiv").style.display = "inline-block";
+						$("#selectForGroup").append("<option value='"+newGroups[NGcount]+"'>"+newGroups[NGcount]+"</option>");
+						if(document.getElementById("selectForGroupDiv").style.display === "none")
+						{
+							document.getElementById("selectForGroupDiv").style.display = "inline-block";
+						}
 					}
 				}
 			}
@@ -1010,7 +1016,8 @@ function update(data)
 							{
 								if(files[i] in fileData && fileData[files[i]]["Group"] !== "")
 								{
-									nameForLog = fileData[files[i]]["Group"]+":"+nameForLog;
+									var newNameGroup = fileData[files[i]]["Group"].split(" ")[0];
+									nameForLog = newNameGroup+":"+nameForLog;
 								}
 								else if(files[i].indexOf("LogHog/Backup/") === 0)
 								{
