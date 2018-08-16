@@ -3300,6 +3300,11 @@ function toggleGroupedGroups()
 			//show tab if hidden
 			$("#"+idOfObject).show();
 		}
+		else if($.inArray(idOfObject, logsToHide) > -1)
+		{
+			//hide tab if not valid
+			$("#"+idOfObject).hide();
+		}
 		else if(document.getElementById("searchFieldInput").value === "")
 		{
 			if($("#"+idOfObject).hasClass(groupSelect+"Group") || groupSelect === "all")
