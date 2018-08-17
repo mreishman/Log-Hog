@@ -278,10 +278,12 @@ div.sidebarLeft {
 
 .errorMessageRedBG{
 	background-color: red;
+  color: black;
 }
 
 .errorMessageGreenBG{
 	background-color: green;
+  color: black;
 }
 
 .settingsUl
