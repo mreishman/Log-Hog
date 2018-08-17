@@ -395,6 +395,10 @@ function pollTwoPartTwo(data)
 			arrayOfData1 = data;
 			for (var updateCount = filesNew.length - 1; updateCount >= 0; updateCount--)
 			{
+				if($.inArray(filesNew[updateCount].replace(/[^a-z0-9]/g, ""), logsToHide) !== -1)
+				{
+					continue;
+				}
 				arrayToUpdate[filesNew[updateCount]] = data[filesNew[updateCount]];
 				if(!($("#selectForGroup option[value='"+data[filesNew[updateCount]]["Group"]+"']").length > 0) && data[filesNew[updateCount]]["Group"] !== "")
 				{
@@ -412,6 +416,10 @@ function pollTwoPartTwo(data)
 			var filesOld = Object.keys(arrayOfData1);
 			for (var updateOldCount = filesNew.length - 1; updateOldCount >= 0; updateOldCount--)
 			{
+				if($.inArray(filesNew[updateCount].replace(/[^a-z0-9]/g, ""), logsToHide) !== -1)
+				{
+					continue;
+				}
 				if(filesOld.indexOf(filesNew[updateOldCount]) > -1)
 				{
 					//file exists
@@ -461,7 +469,7 @@ function getArrayOfGroups(data)
 	for(var OGRcount = 0; OGRcount < fileDataKeysLength; OGRcount++)
 	{
 		var group = data[fileDataKeys[OGRcount]]["Group"];
-		if($.inArray(group, arrayOfGroups) === -1)
+		if($.inArray(group, arrayOfGroups) === -1 && $.inArray(fileDataKeys[OGRcount].replace(/[^a-z0-9]/g, ""), logsToHide) === -1)
 		{
 			arrayOfGroups.push(group);
 		}
@@ -531,10 +539,11 @@ function removeOldGroups(data, arrayOfGroups)
 	var currentOptionsSelectLength = currentOptionsSelect.length;
 	for(var COScount = 0; COScount < currentOptionsSelectLength; COScount++)
 	{
-		if(currentOptionsSelect[COScount].value !== "all" && $.inArray(currentOptionsSelect[COScount].value, arrayOfGroups) === -1)
+		if(currentOptionsSelect[modCOScount].value !== "all" && $.inArray(currentOptionsSelect[modCOScount].value, arrayOfGroups) === -1)
 		{
 			//remove because not in new array
-			document.getElementById('selectForGroup').remove(modCOScount);
+			var selectGroupSelector = document.getElementById('selectForGroup');
+			$('#selectForGroup option[value="'+currentOptionsSelect[modCOScount].value+'"]').remove();
 			modCOScount--;
 		}
 		modCOScount++;
