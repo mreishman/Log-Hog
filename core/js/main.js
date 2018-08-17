@@ -492,9 +492,18 @@ function updateGroupsOnTabs(data, arrayOfGroupsModded)
 				{
 					if($.inArray(classList[classCount], arrayOfGroupsModded) === -1)
 					{
-						console.log("Remove");
 						//class is not in group, remove it from tab
 						$("#"+idForTab).removeClass(classList[classCount]);
+						if($("#"+idForTab+"GroupInName"))
+						{
+							//group name shows, update if there is one
+							var possibleNewGroup = data[fileDataKeysTwo[UGRcount]]["Group"];
+							$("#"+idForTab+"GroupInName").html("");
+							if(possibleNewGroup !== "")
+							{
+								$("#"+idForTab+"GroupInName").html(possibleNewGroup+":");
+							}
+						}
 					}
 				}
 			}
@@ -1085,7 +1094,7 @@ function update(data)
 							}
 							if(logNameGroup === "true" && fileData[files[i]]["Group"] !== "")
 							{
-								nameForLog = fileData[files[i]]["Group"]+":"+nameForLog;
+								nameForLog = "<span id='"+id+"GroupInName' >"+fileData[files[i]]["Group"]+":</span>"+nameForLog;
 							}
 							classInsert = "";
 							item = blank;
