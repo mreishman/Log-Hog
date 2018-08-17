@@ -304,6 +304,11 @@ function pollTwo()
 				else
 				{
 					fileData = data;
+					if(!firstLoad)
+					{
+						updateGroupsOnTabs(data, getArrayOfGroups(data));
+						removeOldGroups(data, getArrayOfGroups(data));
+					}
 					pollTwoPartTwo(data);
 					if(lineCountFromJS === "false")
 					{
@@ -445,6 +450,85 @@ function pollTwoPartTwo(data)
 	catch(e)
 	{
 		eventThrowException(e);
+	}
+}
+
+function getArrayOfGroups(data)
+{
+	var fileDataKeys = Object.keys(data);
+	var fileDataKeysLength = fileDataKeys.length;
+	var arrayOfGroups = new Array();
+	for(var OGRcount = 0; OGRcount < fileDataKeysLength; OGRcount++)
+	{
+		var group = data[fileDataKeys[OGRcount]]["Group"];
+		if($.inArray(group, arrayOfGroups) === -1)
+		{
+			arrayOfGroups.push(group);
+		}
+	}
+	return arrayOfGroups;
+}
+
+function updateGroupsOnTabs(data, arrayOfGroupsModded)
+{
+	var arrayOfGroupsLength = arrayOfGroupsModded.length;
+	var fileDataKeysTwo = Object.keys(data);
+	var fileDataKeysLengthTwo = fileDataKeysTwo.length;
+	var idForTab = "";
+	for(var EGRcount = 0; EGRcount < arrayOfGroupsLength; EGRcount++)
+	{
+		arrayOfGroupsModded[EGRcount] = arrayOfGroupsModded[EGRcount] + "Group";
+	}
+	for(var UGRcount = 0; UGRcount < fileDataKeysLengthTwo; UGRcount++)
+	{
+		idForTab = fileDataKeysTwo[UGRcount].replace(/[^a-z0-9]/g, "");
+		if(document.getElementById(idForTab))
+		{
+			var classList = document.getElementById(idForTab).className.split(' ');
+			var classListLength = classList.length;
+			for(var classCount = 0; classCount < classListLength; classCount++)
+			{
+				if(classList[classCount].indexOf("Group") > -1 && classList[classCount] !== "allGroup")
+				{
+					if($.inArray(classList[classCount], arrayOfGroupsModded) === -1)
+					{
+						console.log("Remove");
+						//class is not in group, remove it from tab
+						$("#"+idForTab).removeClass(classList[classCount]);
+					}
+				}
+			}
+		}
+	}
+
+	for(var AGRcount = 0; AGRcount < fileDataKeysLengthTwo; AGRcount++)
+	{
+		idForTab = fileDataKeysTwo[AGRcount].replace(/[^a-z0-9]/g, "");
+		if(document.getElementById(idForTab))
+		{
+			var groupSearch = data[fileDataKeysTwo[AGRcount]]["Group"];
+			if(!$("#"+idForTab).hasClass(groupSearch+"Group"))
+			{
+				$("#"+idForTab).addClass(groupSearch+"Group");
+			}
+		}
+	}
+}
+
+function removeOldGroups(data, arrayOfGroups)
+{
+	var modCOScount = 0;
+	var currentOptionsSelect = document.getElementById('selectForGroup').options;
+	var currentOptionsSelectLength = currentOptionsSelect.length;
+	for(var COScount = 0; COScount < currentOptionsSelectLength; COScount++)
+	{
+		if(currentOptionsSelect[COScount].value !== "all" && $.inArray(currentOptionsSelect[COScount].value, arrayOfGroups) === -1)
+		{
+			//remove because not in new array
+			document.getElementById('selectForGroup').remove(modCOScount);
+			modCOScount--;
+		}
+		modCOScount++;
 	}
 }
 
