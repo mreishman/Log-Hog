@@ -416,7 +416,7 @@ function pollTwoPartTwo(data)
 			var filesOld = Object.keys(arrayOfData1);
 			for (var updateOldCount = filesNew.length - 1; updateOldCount >= 0; updateOldCount--)
 			{
-				if($.inArray(filesNew[updateCount].replace(/[^a-z0-9]/g, ""), logsToHide) !== -1)
+				if($.inArray(filesNew[updateOldCount].replace(/[^a-z0-9]/g, ""), logsToHide) !== -1)
 				{
 					continue;
 				}
