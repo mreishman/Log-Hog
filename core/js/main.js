@@ -477,9 +477,14 @@ function getArrayOfGroups(data)
 	for(var OGRcount = 0; OGRcount < fileDataKeysLength; OGRcount++)
 	{
 		var group = data[fileDataKeys[OGRcount]]["Group"];
-		if($.inArray(group, arrayOfGroups) === -1 && $.inArray(fileDataKeys[OGRcount].replace(/[^a-z0-9]/g, ""), logsToHide) === -1)
+		group = group.split(" ");
+		var groupsLength = group.length;
+		for(var CGcount = 0; CGcount < newGroupsLength; CGcount++)
 		{
-			arrayOfGroups.push(group);
+			if($.inArray(group[CGcount], arrayOfGroups) === -1 && $.inArray(fileDataKeys[OGRcount].replace(/[^a-z0-9]/g, ""), logsToHide) === -1)
+			{
+				arrayOfGroups.push(group[CGcount]);
+			}
 		}
 	}
 	return arrayOfGroups;
@@ -514,6 +519,7 @@ function updateGroupsOnTabs(data, arrayOfGroupsModded)
 						{
 							//group name shows, update if there is one
 							var possibleNewGroup = data[fileDataKeysTwo[UGRcount]]["Group"];
+							possibleNewGroup = possibleNewGroup.split(" ")[0];
 							$("#"+idForTab+"GroupInName").html("");
 							if(possibleNewGroup !== "")
 							{
@@ -532,9 +538,14 @@ function updateGroupsOnTabs(data, arrayOfGroupsModded)
 		if(document.getElementById(idForTab))
 		{
 			var groupSearch = data[fileDataKeysTwo[AGRcount]]["Group"];
-			if(!$("#"+idForTab).hasClass(groupSearch+"Group"))
+			groupSearch = groupSearch.split(" ");
+			var groupSearchLength = groupSearch.length;
+			for(var GScount = 0; GScount < groupSearchLength; GScount++)
 			{
-				$("#"+idForTab).addClass(groupSearch+"Group");
+				if(!$("#"+idForTab).hasClass(groupSearch[GScount]+"Group"))
+				{
+					$("#"+idForTab).addClass(groupSearch[GScount]+"Group");
+				}
 			}
 		}
 	}
