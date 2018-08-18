@@ -309,6 +309,11 @@ function pollTwo()
 				else
 				{
 					fileData = data;
+					if(!firstLoad)
+					{
+						updateGroupsOnTabs(data, getArrayOfGroups(data));
+						removeOldGroups(data, getArrayOfGroups(data));
+					}
 					pollTwoPartTwo(data);
 					if(lineCountFromJS === "false")
 					{
@@ -395,6 +400,10 @@ function pollTwoPartTwo(data)
 			arrayOfData1 = data;
 			for (var updateCount = filesNew.length - 1; updateCount >= 0; updateCount--)
 			{
+				if($.inArray(filesNew[updateCount].replace(/[^a-z0-9]/g, ""), logsToHide) !== -1)
+				{
+					continue;
+				}
 				arrayToUpdate[filesNew[updateCount]] = data[filesNew[updateCount]];
 				addToGroupTab(data[filesNew[updateCount]]["Group"]);
 			}
@@ -405,6 +414,10 @@ function pollTwoPartTwo(data)
 			var filesOld = Object.keys(arrayOfData1);
 			for (var updateOldCount = filesNew.length - 1; updateOldCount >= 0; updateOldCount--)
 			{
+				if($.inArray(filesNew[updateOldCount].replace(/[^a-z0-9]/g, ""), logsToHide) !== -1)
+				{
+					continue;
+				}
 				if(filesOld.indexOf(filesNew[updateOldCount]) > -1)
 				{
 					//file exists
@@ -453,6 +466,95 @@ function addToGroupTab(newGroups)
 				document.getElementById("selectForGroupDiv").style.display = "inline-block";
 			}
 		}
+	}
+}
+
+function getArrayOfGroups(data)
+{
+	var fileDataKeys = Object.keys(data);
+	var fileDataKeysLength = fileDataKeys.length;
+	var arrayOfGroups = new Array();
+	for(var OGRcount = 0; OGRcount < fileDataKeysLength; OGRcount++)
+	{
+		var group = data[fileDataKeys[OGRcount]]["Group"];
+		if($.inArray(group, arrayOfGroups) === -1 && $.inArray(fileDataKeys[OGRcount].replace(/[^a-z0-9]/g, ""), logsToHide) === -1)
+		{
+			arrayOfGroups.push(group);
+		}
+	}
+	return arrayOfGroups;
+}
+
+function updateGroupsOnTabs(data, arrayOfGroupsModded)
+{
+	var arrayOfGroupsLength = arrayOfGroupsModded.length;
+	var fileDataKeysTwo = Object.keys(data);
+	var fileDataKeysLengthTwo = fileDataKeysTwo.length;
+	var idForTab = "";
+	for(var EGRcount = 0; EGRcount < arrayOfGroupsLength; EGRcount++)
+	{
+		arrayOfGroupsModded[EGRcount] = arrayOfGroupsModded[EGRcount] + "Group";
+	}
+	for(var UGRcount = 0; UGRcount < fileDataKeysLengthTwo; UGRcount++)
+	{
+		idForTab = fileDataKeysTwo[UGRcount].replace(/[^a-z0-9]/g, "");
+		if(document.getElementById(idForTab))
+		{
+			var classList = document.getElementById(idForTab).className.split(' ');
+			var classListLength = classList.length;
+			for(var classCount = 0; classCount < classListLength; classCount++)
+			{
+				if(classList[classCount].indexOf("Group") > -1 && classList[classCount] !== "allGroup")
+				{
+					if($.inArray(classList[classCount], arrayOfGroupsModded) === -1)
+					{
+						//class is not in group, remove it from tab
+						$("#"+idForTab).removeClass(classList[classCount]);
+						if($("#"+idForTab+"GroupInName"))
+						{
+							//group name shows, update if there is one
+							var possibleNewGroup = data[fileDataKeysTwo[UGRcount]]["Group"];
+							$("#"+idForTab+"GroupInName").html("");
+							if(possibleNewGroup !== "")
+							{
+								$("#"+idForTab+"GroupInName").html(possibleNewGroup+":");
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	for(var AGRcount = 0; AGRcount < fileDataKeysLengthTwo; AGRcount++)
+	{
+		idForTab = fileDataKeysTwo[AGRcount].replace(/[^a-z0-9]/g, "");
+		if(document.getElementById(idForTab))
+		{
+			var groupSearch = data[fileDataKeysTwo[AGRcount]]["Group"];
+			if(!$("#"+idForTab).hasClass(groupSearch+"Group"))
+			{
+				$("#"+idForTab).addClass(groupSearch+"Group");
+			}
+		}
+	}
+}
+
+function removeOldGroups(data, arrayOfGroups)
+{
+	var modCOScount = 0;
+	var currentOptionsSelect = document.getElementById('selectForGroup').options;
+	var currentOptionsSelectLength = currentOptionsSelect.length;
+	for(var COScount = 0; COScount < currentOptionsSelectLength; COScount++)
+	{
+		if(currentOptionsSelect[modCOScount].value !== "all" && $.inArray(currentOptionsSelect[modCOScount].value, arrayOfGroups) === -1)
+		{
+			//remove because not in new array
+			var selectGroupSelector = document.getElementById('selectForGroup');
+			$('#selectForGroup option[value="'+currentOptionsSelect[modCOScount].value+'"]').remove();
+			modCOScount--;
+		}
+		modCOScount++;
 	}
 }
 
@@ -1015,7 +1117,7 @@ function update(data)
 								if(files[i] in fileData && fileData[files[i]]["Group"] !== "")
 								{
 									var newNameGroup = fileData[files[i]]["Group"].split(" ")[0];
-									nameForLog = newNameGroup+":"+nameForLog;
+									nameForLog = "<span id='"+id+"GroupInName' >"+newNameGroup+":</span>"+nameForLog;
 								}
 								else if(files[i].indexOf("LogHog/Backup/") === 0)
 								{
@@ -3615,6 +3717,11 @@ function toggleGroupedGroups()
 		{
 			//show tab if hidden
 			$("#"+idOfObject).show();
+		}
+		else if($.inArray(idOfObject, logsToHide) > -1)
+		{
+			//hide tab if not valid
+			$("#"+idOfObject).hide();
 		}
 		else if(document.getElementById("searchFieldInput").value === "")
 		{
