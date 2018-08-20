@@ -1218,6 +1218,8 @@ function ajaxAddRowFirstLoad(currentCount)
 		document.getElementById("loadingSpan").style.display = "none";
 		document.getElementsByClassName("uniqueClassForAppendSettingsMainWatchNew")[0].style.display = "block";
 		refreshSettingsWatchList();
+		startSettingsPollTimer();
+		$(".settingsMainWatchSaveChangesButton").css("display","inline-block");
 	}
 }
 

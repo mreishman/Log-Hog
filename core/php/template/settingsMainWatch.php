@@ -3,7 +3,7 @@
 		WatchList
 		<div class="settingsHeaderButtons">
 			<a onclick="resetWatchListVars();" style="display: none;" class="linkSmall settingsMainWatchResetButton" > Reset Current Changes</a>
-			<a class="linkSmall" onclick="saveAndVerifyMain('settingsMainWatch');" >Save Changes</a>
+			<a style="display: none;" class="linkSmall settingsMainWatchSaveChangesButton" onclick="saveAndVerifyMain('settingsMainWatch');" >Save Changes</a>
 		</div>
 	</div>
 	<div class="settingsDiv" >
