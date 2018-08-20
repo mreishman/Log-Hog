@@ -355,6 +355,12 @@ else
 			"title"			=>	"Back",
 			"baseName"		=>	"backArrow.png"
 		),
+		"close"				=> array(
+			"alt"			=>	"Close",
+			"src"			=>	"",
+			"title"			=>	"Close",
+			"baseName"		=>	"close.png"
+		),
 		"downArrowSideBar"	=> array(
 			"alt"			=>	"Down",
 			"src"			=>	"",

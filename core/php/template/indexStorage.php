@@ -112,6 +112,16 @@
 										);
 									?>
 								</a> -->
+								<a id="closeLogSideBar{{counter}}" onclick="#" style="cursor: pointer; display: none;" >
+									<?php echo generateImage(
+										$arrayOfImages["close"],
+										$imageConfig = array(
+											"height"	=>	"20px",
+											"style"		=>	"margin: 5px;"
+											)
+										);
+									?>
+								</a>
 								<a onclick="scrollToBottom('{{counter}}');" style="cursor: pointer;" >
 									<?php echo generateImage(
 										$arrayOfImages["downArrowSideBar"],
