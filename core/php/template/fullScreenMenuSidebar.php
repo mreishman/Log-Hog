@@ -1,7 +1,7 @@
-<li class="menuTitle" style="text-align: center;" >
+<li class="menuTitle fullScreenMenuText" style="text-align: center;" >
 	Log-Hog
 </li>
-<li class="menuTitle" style="background-color: #999; color: black;" >
+<li class="menuTitle fullScreenMenuText" style="background-color: #999; color: black;" >
 	Main Menu
 </li>
 <li id="mainMenuAbout" class="selected" onclick="toggleAbout();" >
@@ -17,7 +17,7 @@
 			);
 		?>
 	</div>
-	About
+	<span class="fullScreenMenuText">About</span>
 </li>
 <li id="mainMenuAddons" onclick="toggleAddons();" >
 	<div class="menuImageDiv">
@@ -32,7 +32,7 @@
 			);
 		?>
 	</div>
-	Addons
+	<span class="fullScreenMenuText">Addons</span>
 </li>
 <li onclick="window.location.href = './settings/main.php';"  >
 	<div class="menuImageDiv">
@@ -47,7 +47,7 @@
 			);
 		?>
 	</div>
-	Settings
+	<span class="fullScreenMenuText">Settings</span>
 	<?php echo $externalLinkImage; ?>
 </li>
 <?php $themeStyle = "";
@@ -69,7 +69,7 @@ if($themesEnabled === "false")
 			);
 		?>
 	</div>
-	Themes
+	<span class="fullScreenMenuText">Themes</span>
 	<?php echo $externalLinkImage; ?>
 </li>
 <li id="mainMenuUpdate" onclick="toggleUpdateMenu();" >
@@ -86,8 +86,18 @@ if($themesEnabled === "false")
 			);
 		?>
 	</div>
-	Update
+	<span class="fullScreenMenuText">Update</span>
 	<?php
+	echo generateImage(
+					$arrayOfImages["loadingImg"],
+					$imageConfig = array(
+						"id"		=>	"updateMenuImage",
+						"class"		=>	"menuImage mainMenuImage",
+						"height"	=>	"30px",
+						"title"		=>	"Minor Update",
+						"data-src"	=>	$arrayOfImages["yellowWarning"]
+					)
+				);
 	if($levelOfUpdate !== 0 && $configStatic["version"] !== $dontNotifyVersion && $updateNotificationEnabled === "true")
 	{
 		if($updateNoticeMeter === "every" || $levelOfUpdate > 1)
@@ -138,16 +148,16 @@ if($themesEnabled === "false")
 			);
 		?>
 	</div>
-	Watchlist
+	<span class="fullScreenMenuText">Watchlist</span>
 </li>
-	<li id="menuOtherApps" class="menuTitle" style="background-color: #999; color: black;
+	<li id="menuOtherApps" class="menuTitle" style="background-color: #999; color: black; min-height: 30px;
 	<?php if(!($locationForMonitorIndex["loc"] || $locationForSearchIndex["loc"] || $locationForSeleniumMonitorIndex["loc"] || $locationForStatusIndex["loc"]))
 		{
 			echo " display: none; ";
 		}
 		?>
 	" >
-		Other Apps
+		<span class="fullScreenMenuText">Other Apps</span>
 	</li>
 <?php
 $statusDisplay = "display: none;";
@@ -172,7 +182,7 @@ if($locationForStatusIndex["loc"])
 				);
 			?>
 		</div>
-		gitStatus
+		<span class="fullScreenMenuText">gitStatus</span>
 		<?php
 		if($addonsAsIframe !== "true")
 		{
@@ -203,7 +213,7 @@ if($locationForMonitorIndex["loc"])
 				);
 			?>
 		</div>
-		Monitor
+		<span class="fullScreenMenuText">Monitor</span>
 		<?php
 		if($addonsAsIframe !== "true")
 		{
@@ -234,7 +244,7 @@ if($locationForSearchIndex["loc"])
 				);
 			?>
 		</div>
-		Search
+		<span class="fullScreenMenuText">Search</span>
 		<?php
 		if($addonsAsIframe !== "true")
 		{
@@ -265,7 +275,7 @@ if($locationForSeleniumMonitorIndex["loc"])
 				);
 			?>
 		</div>
-		Selenium Monitor
+		<span class="fullScreenMenuText">Selenium Monitor</span>
 		<?php
 		if($addonsAsIframe !== "true")
 		{

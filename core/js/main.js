@@ -479,7 +479,7 @@ function getArrayOfGroups(data)
 		var group = data[fileDataKeys[OGRcount]]["Group"];
 		group = group.split(" ");
 		var groupsLength = group.length;
-		for(var CGcount = 0; CGcount < newGroupsLength; CGcount++)
+		for(var CGcount = 0; CGcount < groupsLength; CGcount++)
 		{
 			if($.inArray(group[CGcount], arrayOfGroups) === -1 && $.inArray(fileDataKeys[OGRcount].replace(/[^a-z0-9]/g, ""), logsToHide) === -1)
 			{
