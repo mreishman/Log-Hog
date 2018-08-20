@@ -36,6 +36,9 @@ require_once('../core/php/loadVars.php');
 		<?php require_once('../core/php/template/updateVars.php'); ?>
 		<?php require_once('../core/php/template/settingsMenuVars.php'); ?>
 		<?php require_once('../core/php/template/watchlistVars.php'); ?>
+		<?php if($enableMultiLog === "true"): ?>
+			<?php require_once('../core/php/template/multiLogVars.php'); ?>
+		<?php endif; ?>
 		<?php require_once('../core/php/template/mainVars.php'); ?>
 	</div>
 </body>

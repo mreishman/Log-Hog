@@ -29,11 +29,12 @@
 				<li style="display: none;" id="loadingSpinnerForInstallUpdate">
 					<?php
 						echo generateImage(
-							$arrayOfImages["loading"],
+							$arrayOfImages["loadingImg"],
 							$imageConfig = array(
 								"id"			=>	"statusImage0",
 								"height"		=>	"15px",
-								"srcModifier"	=> ""
+								"class"			=>	"updateImg",
+								"data-src"		=>	$arrayOfImages["loading"]
 							)
 						);
 						?>
@@ -43,11 +44,12 @@
 					<h2>
 						<?php
 						echo generateImage(
-							$arrayOfImages["greenCheck"],
+							$arrayOfImages["loadingImg"],
 							$imageConfig = array(
 								"id"			=>	"statusImage1",
 								"height"		=>	"15px",
-								"srcModifier"	=> ""
+								"class"			=>	"updateImg",
+								"data-src"		=>	$arrayOfImages["greenCheck"]
 							)
 						);
 						?>
@@ -58,11 +60,12 @@
 					<h2>
 						<?php
 						echo generateImage(
-							$arrayOfImages["yellowWarning"],
+							$arrayOfImages["loadingImg"],
 							$imageConfig = array(
 								"id"			=>	"statusImage2",
 								"height"		=>	"15px",
-								"srcModifier"	=> ""
+								"class"			=>	"updateImg",
+								"data-src"		=>	$arrayOfImages["yellowWarning"]
 							)
 						);
 						?>
@@ -72,17 +75,18 @@
 						</span>
 						- bug fixes
 					</h2>
-					<a class="link" onclick="installUpdates('');">Install Update</a>
+					<a class="link" onclick="installUpdates('','settingsInstallUpdate','');">Install Update</a>
 				</li>
 				<li id="majorUpdate" <?php if($levelOfUpdate != 2){echo "style='display: none;'";} ?> >
 					<h2>
 						<?php
 						echo generateImage(
-							$arrayOfImages["redWarning"],
+							$arrayOfImages["loadingImg"],
 							$imageConfig = array(
 								"id"			=>	"statusImage3",
 								"height"		=>	"15px",
-								"srcModifier"	=> ""
+								"class"			=>	"updateImg",
+								"data-src"		=>	$arrayOfImages["redWarning"]
 							)
 						);
 						?>
@@ -91,17 +95,18 @@
 							<?php echo " ".$configStatic['newestVersion']." ";?>
 						</span>
 						- new features!</h2>
-						<a class="link" onclick="installUpdates('');">Install Update</a>
+						<a class="link" onclick="installUpdates('','settingsInstallUpdate','');">Install Update</a>
 				</li>
 				<li id="NewXReleaseUpdate" <?php if($levelOfUpdate != 3){echo "style='display: none;'";} ?> >
 					<h2>
 						<?php
 						echo generateImage(
-							$arrayOfImages["redWarning"],
+							$arrayOfImages["loadingImg"],
 							$imageConfig = array(
 								"id"			=>	"statusImage3",
 								"height"		=>	"30px",
-								"srcModifier"	=> ""
+								"class"			=>	"updateImg",
+								"data-src"		=>	$arrayOfImages["redWarning"]
 							)
 						);
 						?>
@@ -111,7 +116,7 @@
 						</span>
 						- a lot of new features!
 					</h2>
-					<a class="link" onclick="installUpdates('');">Install Update</a>
+					<a class="link" onclick="installUpdates('','settingsInstallUpdate','');">Install Update</a>
 				</li>
 			<?php endif; ?>
 		</ul>
