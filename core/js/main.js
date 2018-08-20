@@ -3544,6 +3544,7 @@ function toggleWatchListMenu(force = false)
 	$("#watchListMenu").addClass("selected");
 	arrayOfScrollHeaderUpdate = ["settingsMainWatch"];
 	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
+	$(".settingsMainWatchSaveChangesButton").css("display","none");
 	if(typeof loadWatchList !== "function")
 	{
 		setTimeout(function() {
@@ -3563,7 +3564,6 @@ function tryLoadWatch()
 	if(typeof loadWatchList === "function")
 	{
 		clearInterval(timerForWatchlist);
-		startSettingsPollTimer();
 		loadWatchList();
 	}
 }

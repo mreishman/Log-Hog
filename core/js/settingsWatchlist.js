@@ -855,7 +855,7 @@ function addRowFunction(data)
 			}
 		);
 		$(".uniqueClassForAppendSettingsMainWatchNew").append(item);
-		document.getElementById("numberOfRows").value = countOfWatchList;
+		updateNumberOfRowsValue(countOfWatchList);
 	}
 	catch(e)
 	{
@@ -993,7 +993,7 @@ function deleteRowFunction(currentRow)
 			}
 		}
 		newValue--;
-		document.getElementById("numberOfRows").value = newValue;
+		updateNumberOfRowsValue(newValue);
 	}
 	catch(e)
 	{
@@ -1005,7 +1005,7 @@ function duplicateRow(currentRow)
 {
 	var countOfWatchList = parseInt(document.getElementById("numberOfRows").value);
 	countOfWatchList++;
-	document.getElementById("numberOfRows").value = countOfWatchList;
+	updateNumberOfRowsValue(countOfWatchList);
 	moveRow(currentRow, countOfWatchList, false);
 	document.getElementById("moveDown"+(countOfWatchList-1)).style.display = "inline-block";
 	location.href = "#rowNumber"+countOfWatchList;
@@ -1207,7 +1207,6 @@ function getFileFolderList()
 
 function ajaxAddRowFirstLoad(currentCount)
 {
-	refreshSettingsWatchList();
 	var fileFolderListKeys = Object.keys(fileFolderList);
 	var fileFolderListCount = fileFolderListKeys.length;
 	if(fileFolderListCount > currentCount)
@@ -1241,8 +1240,10 @@ function ajaxAddRowFirstLoad(currentCount)
 	{
 		//finished
 		document.getElementById("loadingSpan").style.display = "none";
+		$(".settingsMainWatchSaveChangesButton").css("display","inline-block");
 		document.getElementsByClassName("uniqueClassForAppendSettingsMainWatchNew")[0].style.display = "block";
 		refreshSettingsWatchList();
+		startSettingsPollTimer();
 	}
 }
 
@@ -1299,16 +1300,22 @@ function toggleSaveGroup(rowNumber)
 	}
 }
 
+function updateNumberOfRowsValue(newValue)
+{
+	var htmlToUpdateTo = "<input id=\"numberOfRows\" type=\"text\" name=\"numberOfRows\" value=\""+newValue+"\">";
+	$("#hidden").html(htmlToUpdateTo);
+	document.getElementById("numberOfRows").value = newValue;
+}
+
 function loadWatchList()
 {
 	$("#progressBarWatchList").empty();
 	document.getElementById("loadingSpan").style.display = "block";
 	document.getElementsByClassName("uniqueClassForAppendSettingsMainWatchNew")[0].style.display = "none";
-	document.getElementById("numberOfRows").value = 0;
+	updateNumberOfRowsValue(0);
 	percentWatchList = 0;
 	progressBarWatchList = new ldBar("#progressBarWatchList");
 	updateProgressBarWatchList(10, "Generating File List");
-	refreshSettingsWatchList();
 	document.addEventListener(
 		"scroll",
 		function (event)

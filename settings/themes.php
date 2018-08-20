@@ -28,6 +28,7 @@ require_once('../core/php/loadVars.php');
 <body>
 <?php require_once('header3.php');?>	
 	<div id="main">
+		<div style="display: block; height: 10px;" ></div>
 		<?php require_once('../core/php/template/themeMain.php'); ?>
 		<?php require_once('../core/php/template/generalThemeOptions.php'); ?>
 		<?php require_once('../core/php/template/folderGroupColor.php'); ?>

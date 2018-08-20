@@ -95,7 +95,10 @@ function onScrollShowFixedMiniBar(idsOfForms)
 		var currentPos = document.getElementById(idsOfForms[i]).getBoundingClientRect().top;
 		if(currentPos < (heightOne+10))
 		{
-			$("#fixedPositionMiniMenu").html($("#"+idsOfForms[i]+" .settingsHeader").html());
+			if($("#fixedPositionMiniMenu").html() !== $("#"+idsOfForms[i]+" .settingsHeader").html())
+			{
+				$("#fixedPositionMiniMenu").html($("#"+idsOfForms[i]+" .settingsHeader").html());
+			}
 			if(document.getElementById("fixedPositionMiniMenu").style.display === "none")
 			{
 				document.getElementById("fixedPositionMiniMenu").style.display = "block";
@@ -106,7 +109,10 @@ function onScrollShowFixedMiniBar(idsOfForms)
 	}
 	if(!dis)
 	{
-		$("#fixedPositionMiniMenu").html("");
+		if($("#fixedPositionMiniMenu").html() !== "")
+		{
+			$("#fixedPositionMiniMenu").html("");
+		}
 		if(document.getElementById("fixedPositionMiniMenu").style.display !== "none")
 		{
 			document.getElementById("fixedPositionMiniMenu").style.display = "none";
