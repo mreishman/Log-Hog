@@ -207,9 +207,9 @@ function checkForChanges(idOfObject)
 	{
 		if(!objectsAreSame($("#"+idOfObject).serializeArray(), arrayObject[idOfObject]))
 		{
-			if(document.getElementById(idOfObject+"ResetButton"))
+			if($("."+idOfObject+"ResetButton"))
 			{
-				document.getElementById(idOfObject+"ResetButton").style.display = "inline-block";
+				$("."+idOfObject+"ResetButton").css("display","inline-block");
 			}
 			if(document.getElementById("setupButtonContinue"))
 			{
@@ -220,9 +220,9 @@ function checkForChanges(idOfObject)
 			return true;
 		}
 
-		if(document.getElementById(idOfObject+"ResetButton"))
+		if($("."+idOfObject+"ResetButton"))
 		{
-			document.getElementById(idOfObject+"ResetButton").style.display = "none";
+			$("."+idOfObject+"ResetButton").css("display","none");
 		}
 		if(document.getElementById("setupButtonContinue"))
 		{
