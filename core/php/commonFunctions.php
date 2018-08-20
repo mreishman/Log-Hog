@@ -663,7 +663,7 @@ function generateImage($imageArray, $customConfig)
 	}
 	if(isset($customConfig["style"]))
 	{
-		$image .= " style=\"".$customConfig["style"];."\" ";
+		$image .= " style=\"".$customConfig["style"]."\" ";
 	}
 	if(isset($customConfig["height"]))
 	{
