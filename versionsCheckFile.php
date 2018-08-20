@@ -1,7 +1,7 @@
 <?php
 
 $versionCheckArray = array(
-	'version'		=> '5.0.2',
+	'version'		=> '5.0.3',
 	'versionList'		=> array(
 		'2.0.1'	        => array(
 			'branchName'	=> '2.0.1Update',
@@ -174,6 +174,10 @@ $versionCheckArray = array(
 		'5.0.2'		=> array(
 			'branchName'	=> '5.0.2Update',
 			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed bug with poll not working correctly if no logs on initial load.</li><li>Fixed bug with php file trim breaking poll logic by throwing errors on files that are too big to open.</li><li>Fixed bug with right click on log in menu not respecting right click menu enabled option</li><li>Fixed bug with setup stuff</li></ul></li></ul>"
+		),
+		'5.0.3'		=> array(
+			'branchName'	=> '5.0.3Update',
+			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed bug with temporarily hiding logs showing up when toggling groups</li><li>Fixed possible bug with restore CSS not being versioned</li><li>Fixed bug with groups not updating correctly when changing groups in watchlist (without reload)</li><li>Fixed bug with log names that include groups not updating correctly (without reload)</li><li>Fixed bug with group selector not updating correctly when removing logs (without reload)</li><li>Fixed bug with group selector not updating correctly temporary hiding logs</li><li>Fixed font style issue with some themes and error / no log messages</li></ul></li></ul>"
 		),
 	)
 );
