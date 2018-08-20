@@ -599,9 +599,7 @@ function generateImage($imageArray, $customConfig)
 	$image = "<img ";
 	if(isset($customConfig["data-id"]))
 	{
-		$image .=  " data-id=\"";
-		$image .= $customConfig["data-id"];
-		$image .= "\" ";
+		$image .=  " data-id=\"".$customConfig["data-id"]."\" ";
 	}
 	if(isset($customConfig["data-src"]))
 	{
@@ -612,94 +610,68 @@ function generateImage($imageArray, $customConfig)
 			{
 				$image .= $customConfig["srcModifier"];
 			}
-			$image .= $customConfig["data-src"]["src"];
-			$image .= "\" ";
+			$image .= $customConfig["data-src"]["src"]."\" ";
 			if(!isset($customConfig["title"]))
 			{
-				$image .=  " data-title=\"";
-				$image .= $customConfig["data-src"]["title"];
-				$image .= "\" ";
+				$image .=  " data-title=\"".$customConfig["data-src"]["title"]."\" ";
 			}
 			if(!isset($customConfig["alt"]))
 			{
-				$image .=  " data-alt=\"";
-				$image .= $customConfig["data-src"]["alt"];
-				$image .= "\" ";
+				$image .=  " data-alt=\"".$customConfig["data-src"]["alt"]."\" ";
 			}
 		}
 		else
 		{
-			$image .=  " data-src=\"";
-			$image .= $customConfig["data-src"];
-			$image .= "\" ";
+			$image .=  " data-src=\"".$customConfig["data-src"]."\" ";
 		}
 	}
 	if(isset($customConfig["id"]))
 	{
-		$image .=  " id=\"";
-		$image .= $customConfig["id"];
-		$image .= "\" ";
+		$image .=  " id=\"".$customConfig["id"]."\" ";
 	}
 	if(isset($customConfig["class"]))
 	{
-		$image .= " class=\"";
-		$image .= $customConfig["class"];
-		$image .= "\" ";
+		$image .= " class=\"".$customConfig["class"]."\" ";
 	}
 	$image .= " src=\"";
 	if(isset($customConfig["srcModifier"]))
 	{
 		$image .= $customConfig["srcModifier"];
 	}
-	$image .= $imageArray["src"];
-	$image .= "\" ";
+	$image .= $imageArray["src"]."\" ";
 	if(isset($customConfig["alt"]))
 	{
 		if($customConfig["alt"] !== null)
 		{
-			$image .= " alt=\"";
-			$image .= $customConfig["alt"];
-			$image .= "\" ";
+			$image .= " alt=\"".$customConfig["alt"]."\" ";
 		}
 	}
 	else
 	{
-		$image .= " alt=\"";
-		$image .= $imageArray["alt"];
-		$image .= "\" ";
+		$image .= " alt=\"".$imageArray["alt"]."\" ";
 	}
 	if(isset($customConfig["title"]))
 	{
 		if($customConfig["title"] !== null)
 		{
-			$image .= " title=\"";
-			$image .= $customConfig["title"];
-			$image .= "\" ";
+			$image .= " title=\"".$customConfig["title"]."\" ";
 		}
 	}
 	else
 	{
-		$image .= " title=\"";
-		$image .= $imageArray["title"];
-		$image .= "\" ";
+		$image .= " title=\"".$imageArray["title"]."\" ";
 	}
 	if(isset($customConfig["style"]))
 	{
-		$image .= " style=\"";
-		$image .= $customConfig["style"];
-		$image .= "\" ";
+		$image .= " style=\"".$customConfig["style"];."\" ";
 	}
 	if(isset($customConfig["height"]))
 	{
-		$image .= " height=\"";
-		$image .= $customConfig["height"];
-		$image .= "\" ";
+		$image .= " height=\"".$customConfig["height"]."\" ";
 	}
 	if(isset($customConfig["width"]))
 	{
-		$image .= " width=\"";
-		$image .= $customConfig["width"];
-		$image .= "\" ";
+		$image .= " width=\"".$customConfig["width"]."\" ";
 	}
 	$image .= " >";
 	return $image;

@@ -4053,7 +4053,6 @@ function loadPrevLogContent(arrayOfPrevLogs)
 		$("#log"+arrayOfPrevLogsKeys[countAPLK]).html(arrayOfPrevLogs[arrayOfPrevLogsKeys[countAPLK]]);
 		$("#log"+arrayOfPrevLogsKeys[countAPLK]+"load").hide();
 		scrollToBottom(arrayOfPrevLogsKeys[countAPLK]);
-		console.log(arrayOfPrevLogsKeys[countAPLK]);
 		toggleSideBarElements(logDisplayArrayOld[arrayOfPrevLogsKeys[countAPLK]]["id"],arrayOfPrevLogsKeys[countAPLK]);
 	}
 }

@@ -59,13 +59,13 @@ div {
   display: block;
   width: 300px;
   padding: 10px;
-  padding-bottom: 0px;
+  padding-bottom: 0;
 }
 
 .notificationText{
   padding-left: 5px;
   cursor: pointer;
-  word-wrap:break-word; 
+  word-wrap:break-word;
   word-break: break-all;
 }
 
