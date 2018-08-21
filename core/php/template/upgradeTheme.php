@@ -117,7 +117,6 @@ require_once('../../../core/php/loadVars.php');
 
 	function copyFiles()
 	{
-		console.log("Copy Files");
 		var urlForSend = urlForSendMain0;
 		var dataSend = {};
 		$.ajax({
@@ -127,17 +126,13 @@ require_once('../../../core/php/loadVars.php');
 			type: 'POST',
 			success(data)
 			{
-				console.log(data);
 				verifyFile(data);
 			},
 			failure(data)
 			{
 				verifyFile(false);
 			},
-			complete(data)
-			{
-				console.log("Finished?");
-			}
+			complete(data){}
 		});
 	}
 
