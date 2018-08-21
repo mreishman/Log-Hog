@@ -88,16 +88,6 @@ if($themesEnabled === "false")
 	</div>
 	<span class="fullScreenMenuText">Update</span>
 	<?php
-	echo generateImage(
-					$arrayOfImages["loadingImg"],
-					$imageConfig = array(
-						"id"		=>	"updateMenuImage",
-						"class"		=>	"menuImage mainMenuImage",
-						"height"	=>	"30px",
-						"title"		=>	"Minor Update",
-						"data-src"	=>	$arrayOfImages["yellowWarning"]
-					)
-				);
 	if($levelOfUpdate !== 0 && $configStatic["version"] !== $dontNotifyVersion && $updateNotificationEnabled === "true")
 	{
 		if($updateNoticeMeter === "every" || $levelOfUpdate > 1)
@@ -150,7 +140,7 @@ if($themesEnabled === "false")
 	</div>
 	<span class="fullScreenMenuText">Watchlist</span>
 </li>
-	<li id="menuOtherApps" class="menuTitle" style="background-color: #999; color: black; min-height: 30px;
+	<li id="menuOtherApps" class="menuTitle" style="background-color: #999; color: black;
 	<?php if(!($locationForMonitorIndex["loc"] || $locationForSearchIndex["loc"] || $locationForSeleniumMonitorIndex["loc"] || $locationForStatusIndex["loc"]))
 		{
 			echo " display: none; ";
