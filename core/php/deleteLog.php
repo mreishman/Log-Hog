@@ -12,8 +12,10 @@ require_once($baseUrl.'conf/config.php');
 require_once('../../core/conf/config.php');
 require_once('../../core/php/configStatic.php');
 
-foreach($config['watchList'] as $path => $filter)
+foreach($config['watchList'] as $value)
 {
+	$path = $value["Location"];
+	$filter = $value["Pattern"];
 	if(is_dir($path))
 	{
 		//folder
@@ -25,7 +27,7 @@ foreach($config['watchList'] as $path => $filter)
 				$fullPath = $path . '/' . $filename;
 				if(preg_match('/' . $filter . '/S', $filename) && is_file($fullPath))
 				{
-					if($verifyFile === $fullPath)
+					if($verifyFile == $fullPath)
 					{
 						unlink($_POST['file']);
 						echo json_encode($_POST['file']);
@@ -37,7 +39,7 @@ foreach($config['watchList'] as $path => $filter)
 	}
 	elseif(file_exists($path))
 	{
-		if($path === $verifyFile)
+		if($path == $verifyFile)
 		{
 			unlink($_POST['file']);
 			echo json_encode($_POST['file']);
