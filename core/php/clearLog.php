@@ -1,9 +1,14 @@
 <?php
+$returnData = array(
+	"success"	=> "false",
+	"file"		=>	$_POST['file'],
+	"fileFound"	=>	"false"
+);
 $verifyFile = $_POST['file'];
 require_once('../../local/layout.php');
 $baseUrl = "../../local/".$currentSelectedTheme."/";
 require_once($baseUrl.'conf/config.php');
-
+$command = "";
 foreach($config['watchList'] as $value){
 	$path = $value["Location"];
 	$filter = $value["Pattern"];
@@ -17,8 +22,10 @@ foreach($config['watchList'] as $value){
 				$fullPath = $path . '/' . $filename;
 				if(preg_match('/' . $filter . '/S', $filename) && is_file($fullPath)){
 					if($verifyFile == $fullPath){
+						$returnData["fileFound"] = "true";
 						$command = "truncate -s 0 ".$fullPath;
 						shell_exec($command);
+						$returnData["success"] = "true";
 						break;
 					}
 				}
@@ -27,10 +34,12 @@ foreach($config['watchList'] as $value){
 	}
 	elseif(file_exists($path)){
 		if($path == $verifyFile){
+			$returnData["fileFound"] = "true";
 			$command = "truncate -s 0 ".$path;
 			shell_exec($command);
+			$returnData["success"] = "true";
 			break;
 		}
 	}
 }
-echo json_encode($_POST['file']);
+echo json_encode($returnData);

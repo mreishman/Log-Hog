@@ -1,4 +1,9 @@
 <?php
+$returnData = array(
+	"success"	=> "false",
+	"file"		=>	$_POST['file'],
+	"fileFound"	=>	"false"
+);
 $verifyFile = $_POST['file'];
 require_once('../../local/layout.php');
 $baseUrl = "../../local/".$currentSelectedTheme."/";
@@ -16,7 +21,9 @@ foreach($config['watchList'] as $value){
 				$fullPath = $path . '/' . $filename;
 				if(preg_match('/' . $filter . '/S', $filename) && is_file($fullPath)){
 					if($verifyFile == $fullPath){
+						$returnData["fileFound"] = "true";
 						unlink($_POST['file']);
+						$returnData["success"] = "true";
 						break;
 					}
 				}
@@ -25,9 +32,11 @@ foreach($config['watchList'] as $value){
 	}
 	elseif(file_exists($path)){
 		if($path == $verifyFile){
+			$returnData["fileFound"] = "true";
 			unlink($_POST['file']);
+			$returnData["success"] = "true";
 			break;
 		}
 	}
 }
-echo json_encode($_POST['file']);
+echo json_encode($returnData);
