@@ -58,7 +58,7 @@
 				?>
 			</div>
 		<?php endif; ?>
-		<div onclick="filterSubMenu();" id="selectForGroupDiv" style="display: none;" class="menuImageDiv">
+		<div onclick="filterSubMenu();" class="menuImageDiv">
 				<?php echo generateImage(
 					$arrayOfImages["filter"],
 					$imageConfig = array(
@@ -163,26 +163,7 @@
 			</div>
 		</span>
 		<div style="float: right;">
-			<div class="selectDiv" >
-				<select id="searchType" disabled name="searchType" style="height: 30px;">
-					<option <?php if ($filterDefault === "title"){echo "selected"; }?> value="title">Title</option>
-					<option <?php if ($filterDefault === "content"){echo "selected"; }?> value="content">Content</option>
-				</select>
-			</div>
-			<input disabled id="searchFieldInput" type="search" name="search" placeholder="Filter <?php echo $filterDefault; ?>" style="height: 30px; width: 200px;">
-			<div onclick="toggleFilterSettingsPopup();" style="display: inline-block; cursor: pointer;">
-				<?php echo generateImage(
-					$arrayOfImages["gear"],
-					$imageConfig = array(
-						"id"		=>	"filterGear",
-						"class"		=>	"menuImage",
-						"height"	=>	"15px",
-						"title"		=>  "Filter Settings",
-						"style"		=>  "margin-top: -15px;"
-						)
-					);
-				?>
-			</div>
+			<input disabled id="searchFieldInput" type="search" name="search" placeholder="Filter <?php echo $filterDefault; ?>" style="height: 30px; width: 200px; margin-right: 10px;">
 		</div>
 	</div>
 	<div id="menu2" style="display: none; position: inherit;">
@@ -226,6 +207,50 @@
 			<div class="selectDiv">
 				<select id="selectForGroup" >
 					<option selected="true" value="all" >All</option>
+				</select>
+			</div>
+			|
+			Search:
+			<div class="selectDiv" >
+				<select id="searchType" disabled name="searchType">
+					<option <?php if ($filterDefault === "title"){echo "selected"; }?> value="title">Title</option>
+					<option <?php if ($filterDefault === "content"){echo "selected"; }?> value="content">Content</option>
+				</select>
+			</div>
+			Case Insensitive:
+			<div class="selectDiv" >
+				<select onchange=\"changeFilterCase();\" id=\"caseInsensitiveSearch\">
+					<option <?php if ($caseInsensitiveSearch === "true"){ echo "selected"; }?> value="true">True</option>
+					<option <?php if ($caseInsensitiveSearch === "false"){ echo "selected"; }?> value="false">False</option>
+				</select>
+			</div>
+			Title Includes Path:
+			<div class="selectDiv" >
+				<select onchange=\"changeFilterTitleIncludePath();\" id=\"filterTitleIncludePath\">
+					<option <?php if ($filterTitleIncludePath === "true"){ echo "selected"; }?> value="true">True</option>
+					<option <?php if ($filterTitleIncludePath === "false"){ echo "selected"; }?> value="false">False</option>
+				</select>
+			</div>
+			Highlight Content Match:
+			<div class="selectDiv" >
+				<select onchange=\"changeHighlightContentMatch();\" id=\"filterContentHighlight\">
+					<option <?php if ($filterContentHighlight === "true"){ echo "selected"; }?> value="true">True</option>
+					<option <?php if ($filterContentHighlight === "false"){ echo "selected"; }?> value="false">False</option>
+				</select>
+			</div>
+			Filter Content Match:
+			<div class="selectDiv" >
+				<select onchange=\"changeFilterContentMatch();\" id=\"filterContentLimit\">
+					<option <?php if ($filterContentLimit === "true"){ echo "selected"; }?> value="true">True</option>
+					<option <?php if ($filterContentLimit === "false"){ echo "selected"; }?> value="false">False</option>
+				</select>
+			</div>
+			Line Padding:
+			<div class="selectDiv" >
+				<select onchange=\"changeFilterContentLinePadding();\" id=\"filterContentLinePadding\">
+					<?php for($CFC = 0; $CFC < 10; $CFC++): ?>
+						<option <?php if ($filterContentLinePadding === $CFC){ echo "selected"; }?> value="<?php echo $CFC; ?>"><?php echo $CFC; ?></option>
+					<?php endfor; ?>
 				</select>
 			</div>
 		</div>

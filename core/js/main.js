@@ -468,10 +468,6 @@ function addToGroupTab(newGroups)
 		if(!($("#selectForGroup option[value='"+newGroups[NGcount]+"']").length > 0) && newGroups[NGcount] !== "")
 		{
 			$("#selectForGroup").append("<option value='"+newGroups[NGcount]+"'>"+newGroups[NGcount]+"</option>");
-			if(document.getElementById("selectForGroupDiv").style.display === "none")
-			{
-				document.getElementById("selectForGroupDiv").style.display = "inline-block";
-			}
 		}
 	}
 }
@@ -3098,88 +3094,6 @@ function showInfo(idNum)
 			document.getElementById("title"+idNum).style.display = "none";
 		}
 	}
-}
-
-function toggleFilterSettingsPopup()
-{
-	showPopup();
-	var innerHtmlForSettings = "<div class='settingsHeader' id='popupHeaderText' ><span id='popupHeaderText' >Local Filter Content Settings</span><a style=\"float: right; margin-top: -3px;\" onclick=\"hidePopup();\" class=\"linkSmall\" >Close</a></div><div style='width:100%;'>";
-	innerHtmlForSettings += "<ul class=\"settingsUl\" ><li><span class=\"settingsBuffer\" > Case Insensitive Search: </span> <div class=\"selectDiv\">";
-	innerHtmlForSettings += "<select onchange=\"changeFilterCase();\" id=\"caseInsensitiveSearch\">";
-	innerHtmlForSettings += "<option";
-	if(caseInsensitiveSearch === "true")
-	{
-		innerHtmlForSettings += " selected ";
-	}
-	innerHtmlForSettings += " value=\"true\">True</option>";
-	innerHtmlForSettings += "<option";
-	if(caseInsensitiveSearch === "false")
-	{
-		innerHtmlForSettings += " selected ";
-	}
-	innerHtmlForSettings += " value=\"false\">False</option>";
-	innerHtmlForSettings += " </select></div></li>";
-	innerHtmlForSettings += "<li><span class=\"settingsBuffer\" > Filter Title Includes Path: </span>";
-	innerHtmlForSettings += " <div class=\"selectDiv\"><select onchange=\"changeFilterTitleIncludePath();\" id=\"filterTitleIncludePath\">";
-	innerHtmlForSettings += "<option ";
-	if(filterTitleIncludePath === "true")
-	{
-		innerHtmlForSettings += " selected ";
-	}
-	innerHtmlForSettings += " value=\"true\">True</option>";
-	innerHtmlForSettings += "<option ";
-	if(filterTitleIncludePath === "false")
-	{
-		innerHtmlForSettings += " selected ";
-	}
-	innerHtmlForSettings += " value=\"false\">False</option>";
-	innerHtmlForSettings += " </select></div></li>";
-	innerHtmlForSettings += "<li><span class=\"settingsBuffer\" > Highlight Content match: </span>";
-	innerHtmlForSettings += " <div class=\"selectDiv\"><select onchange=\"changeHighlightContentMatch();\" id=\"filterContentHighlight\">";
-	innerHtmlForSettings += "<option";
-	if(filterContentHighlight === "true")
-	{
-		innerHtmlForSettings += " selected ";
-	}
-	innerHtmlForSettings += " value=\"true\">True</option>";
-	innerHtmlForSettings += "<option";
-	if(filterContentHighlight === "false")
-	{
-		innerHtmlForSettings += " selected ";
-	}
-	innerHtmlForSettings += " value=\"false\">False</option>";
-	innerHtmlForSettings += " </select></div></li>";
-	innerHtmlForSettings += " <li><span class=\"settingsBuffer\" > Filter Content match: </span>";
-	innerHtmlForSettings += " <div class=\"selectDiv\"><select onchange=\"changeFilterContentMatch();\" id=\"filterContentLimit\">";
-	innerHtmlForSettings += "<option";
-	if(filterContentLimit === "true")
-	{
-		innerHtmlForSettings += " selected ";
-	}
-	innerHtmlForSettings += " value=\"true\">True</option>";
-	innerHtmlForSettings += "<option";
-	if(filterContentLimit === "false")
-	{
-		innerHtmlForSettings += " selected ";
-	}
-	innerHtmlForSettings += " value=\"false\">False</option>";
-	innerHtmlForSettings += "</select></div></li>";
-	innerHtmlForSettings += "<li><span class=\"settingsBuffer\" > Line Padding: </span>";
-	innerHtmlForSettings += " <div class=\"selectDiv\">	<select onchange=\"changeFilterContentLinePadding();\" id=\"filterContentLinePadding\">";
-	for (var i=0; i < 10; i++)
-	{
-		innerHtmlForSettings += "<option ";
-		if(parseInt(filterContentLinePadding) === i)
-		{
-			innerHtmlForSettings += " selected ";
-		}
-		innerHtmlForSettings += " value="+i+">"+i+"</option>";
-	}
-	innerHtmlForSettings += "</select></div></li>";
-	innerHtmlForSettings += "</ul></div>";
-	document.getElementById("popupContentInnerHTMLDiv").innerHTML = innerHtmlForSettings;
-	document.getElementById("popupContent").style.height = "273px";
-	document.getElementById("popupContent").style.marginTop = "-136px";
 }
 
 function changeFilterCase()
