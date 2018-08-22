@@ -404,9 +404,12 @@ function generateSubFiles(data)
 	return {html: returnHtml, hideSplit};
 }
 
-function toggleCondensed()
+function toggleCondensed(increaseCount)
 {
-	toggleCondensedCount++;
+	if(increaseCount)
+	{
+		toggleCondensedCount++;
+	}
 	if(getComputedStyle(document.getElementsByClassName("condensed")[0], null).display !== "none")
 	{
 		$(".condensed").hide();
@@ -1104,7 +1107,7 @@ function resetWatchListVars()
 		resetArrayObject("settingsMainWatch");
 		if(toggleCondensedCount % 2 !== 0)
 		{
-			toggleCondensed();
+			toggleCondensed(false);
 		}
 	}
 	catch(e)

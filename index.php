@@ -446,7 +446,7 @@ $externalLinkImage = generateImage(
 			<li onclick="addOther();" >
 				Add Other
 			</li>
-			<li id="condensedLink" onclick="toggleCondensed();" >
+			<li id="condensedLink" onclick="toggleCondensed(true);" >
 			<?php if($logShowMoreOptions === "false"): ?>
 				Show More Options</li>
 				<style type="text/css">
