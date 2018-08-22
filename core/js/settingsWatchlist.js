@@ -25,6 +25,7 @@ var percentWatchList = 0;
 var currentPatternSelect = defaultNewAddPattern;
 var fileFolderList = {};
 var urlModifier = "";
+var toggleCondensedCount = 0;
 
 function generateRow(data)
 {
@@ -405,6 +406,7 @@ function generateSubFiles(data)
 
 function toggleCondensed()
 {
+	toggleCondensedCount++;
 	if(getComputedStyle(document.getElementsByClassName("condensed")[0], null).display !== "none")
 	{
 		$(".condensed").hide();
@@ -1100,7 +1102,7 @@ function resetWatchListVars()
 	try
 	{
 		resetArrayObject("settingsMainWatch");
-		if((getComputedStyle(document.getElementsByClassName("condensed")[0], null).display === "none" && logShowMoreOptions === "false") || (logShowMoreOptions === "true" && getComputedStyle(document.getElementsByClassName("condensed")[0], null).display !== "none"))
+		if(toggleCondensedCount % 2 !== 0)
 		{
 			toggleCondensed();
 		}
