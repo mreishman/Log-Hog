@@ -561,10 +561,10 @@ function pollThree(arrayToUpdate)
 {
 	try
 	{
-		var arrayOfDataMainKeys = Object.keys(arrayOfDataMain);
 		var arrayUpdateKeys = Object.keys(arrayToUpdate);
 		if(arrayOfDataMain !== null)
 		{
+			var arrayOfDataMainKeys = Object.keys(arrayOfDataMain);
 			for (var i = arrayOfDataMainKeys.length - 1; i >= 0; i--) 
 			{
 				if(arrayOfDataMain[arrayOfDataMainKeys[i]] === null)
