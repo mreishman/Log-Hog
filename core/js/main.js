@@ -222,10 +222,7 @@ function poll()
 			counterForPollForceRefreshErr++;
 			if(counterForPollForceRefreshErr > (2 * pollForceTrue))
 			{
-				if(document.getElementById("noticeBar").style.display === "none")
-				{
-					document.getElementById("noticeBar").style.display = "block";
-				}
+				showNoticeBarIfNotThere();
 				if(counterForPollForceRefreshErr > (4 * pollForceTrue))
 				{
 					//show Warning message for no connect in x times
@@ -339,6 +336,16 @@ function hideNoticeBarIfThere()
 	if(document.getElementById("noticeBar").style.display !== "none")
 	{
 		document.getElementById("noticeBar").style.display = "none";
+		resizeNotificationCounter();
+	}
+}
+
+function showNoticeBarIfNotThere()
+{
+	if(document.getElementById("noticeBar").style.display === "none")
+	{
+		document.getElementById("noticeBar").style.display = "block";
+		resizeNotificationCounter();
 	}
 }
 
@@ -576,15 +583,16 @@ function pollThree(arrayToUpdate)
 		var arrayUpdateKeys = Object.keys(arrayToUpdate);
 		if(arrayOfDataMain !== null)
 		{
-			for (var i = arrayUpdateKeys.length - 1; i >= 0; i--) 
+			var arrayOfDataMainKeys = Object.keys(arrayOfDataMain);
+			for (var i = arrayOfDataMainKeys.length - 1; i >= 0; i--) 
 			{
-				if(arrayOfDataMain[arrayUpdateKeys[i]] === null)
+				if(arrayOfDataMain[arrayOfDataMainKeys[i]] === null)
 				{
-					delete arrayOfDataMain[arrayUpdateKeys[i]];
+					delete arrayOfDataMain[arrayOfDataMainKeys[i]];
 				}
 				else
 				{
-					arrayOfDataMain[arrayUpdateKeys[i]] = null;
+					arrayOfDataMain[arrayOfDataMainKeys[i]] = null;
 				}
 			}
 		}
@@ -3370,15 +3378,27 @@ function updateNotificationCount()
 		$("#notificationCount").empty();
 		document.getElementById("notificationIcon").style.display = "block";
 		$("#notificationCount").append(currentCount);
-		document.getElementById("notificationCount").style.left = (document.getElementById("notificationDiv").getBoundingClientRect().left+5) + "px";
-		document.getElementById("notificationBadge").style.left = (document.getElementById("notificationDiv").getBoundingClientRect().left-5) + "px";
-		document.getElementById("notificationCount").style.top = (document.getElementById("notificationDiv").getBoundingClientRect().top+11) + "px";
-		document.getElementById("notificationBadge").style.top = (document.getElementById("notificationDiv").getBoundingClientRect().top+19) + "px";
+		resizeNotificationCounter();
 	}
 	else
 	{
 		$("#notificationCount").empty();
 		document.getElementById("notificationIcon").style.display = "none";
+	}
+}
+
+function resizeNotificationCounter()
+{
+	var boundingRectForNotificationDiv = document.getElementById("notificationDiv").getBoundingClientRect();
+	if(document.getElementById("notificationCount").style.left !== (boundingRectForNotificationDiv.left+5) + "px")
+	{
+		document.getElementById("notificationCount").style.left = (boundingRectForNotificationDiv.left+5) + "px";
+		document.getElementById("notificationBadge").style.left = (boundingRectForNotificationDiv.left-5) + "px";
+	}
+	if(document.getElementById("notificationCount").style.top !== (boundingRectForNotificationDiv.top+11) + "px")
+	{
+		document.getElementById("notificationCount").style.top = (boundingRectForNotificationDiv.top+11) + "px";
+		document.getElementById("notificationBadge").style.top = (boundingRectForNotificationDiv.top+19) + "px";
 	}
 }
 
