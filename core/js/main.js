@@ -2411,6 +2411,26 @@ function resize()
 				}
 			}
 		}
+		if(targetWidth < 1200)
+		{
+			$(".fullScreenMenuText").hide();
+			if(document.getElementById("mainFullScreenMenu").getBoundingClientRect().width !== 52)
+			{
+				document.getElementById("mainFullScreenMenu").style.width = "51px";
+				document.getElementById("aboutSubMenu").style.left = "52px";
+				document.getElementById("mainContentFullScreenMenu").style.left = "252px";
+			}
+		}
+		else
+		{
+			$(".fullScreenMenuText").show();
+			if(document.getElementById("mainFullScreenMenu").getBoundingClientRect().width !== 201)
+			{
+				document.getElementById("mainFullScreenMenu").style.width = "200px";
+				document.getElementById("aboutSubMenu").style.left = "201px";
+				document.getElementById("mainContentFullScreenMenu").style.left = "402px";
+			}
+		}
 		updateNotificationCount();
 	}
 	catch(e)

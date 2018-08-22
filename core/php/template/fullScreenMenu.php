@@ -1,5 +1,5 @@
 <?php require_once('indexHeaderFullScreen.php'); ?>
-<ul class="settingsUl settingsUlFS fullScreenMenuUL">
+<ul id="mainFullScreenMenu" class="settingsUl settingsUlFS fullScreenMenuUL">
 	<?php require_once('fullScreenMenuSidebar.php'); ?>
 </ul>
 
