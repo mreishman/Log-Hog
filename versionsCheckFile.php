@@ -1,7 +1,7 @@
 <?php
 
 $versionCheckArray = array(
-	'version'		=> '5.0.3',
+	'version'		=> '5.0.4',
 	'versionList'		=> array(
 		'2.0.1'	        => array(
 			'branchName'	=> '2.0.1Update',
@@ -174,6 +174,10 @@ $versionCheckArray = array(
 		'5.0.3'		=> array(
 			'branchName'	=> '5.0.3Update',
 			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed bug with temporarily hiding logs showing up when toggling groups</li><li>Fixed possible bug with restore CSS not being versioned</li><li>Fixed bug with groups not updating correctly when changing groups in watchlist (without reload)</li><li>Fixed bug with log names that include groups not updating correctly (without reload)</li><li>Fixed bug with group selector not updating correctly when removing logs (without reload)</li><li>Fixed bug with group selector not updating correctly temporary hiding logs</li><li>Fixed font style issue with some themes and error / no log messages</li></ul></li></ul>"
+		),
+		'5.0.4'		=> array(
+			'branchName'	=> '5.0.4Update',
+			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed flickering of reset button on scroll in settings pages</li><li>Changed load of watchlist buttons until after load</li><li>Fixed bug with watchlist reset and adding after reset</li><li>Fixed small style bug on theme page</li><li>Fixed styling bug with upgrade config and upgrade layout pages</li><li>Shows popup message if an error occurs when trying to clear a log or delete a log</li><li>Fixed display bug with notification count icon with poll notice banner</li><li>Fixed bug with ajax request and closing file list popup too quickly</li><li>Fixed bug with ajax request and update sub files display of folder</li><li>Fixed bug with reset watchlist and default display of expanded / condensed</li><li>Fixed bug with archive / delete log not reflecting until refresh of page</li></ul></li></ul>"
 		),
 	)
 );
