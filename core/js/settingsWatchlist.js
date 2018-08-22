@@ -1100,6 +1100,10 @@ function resetWatchListVars()
 	try
 	{
 		resetArrayObject("settingsMainWatch");
+		if((getComputedStyle(document.getElementsByClassName("condensed")[0], null).display === "none" && logShowMoreOptions === "false") || (logShowMoreOptions === "true" && getComputedStyle(document.getElementsByClassName("condensed")[0], null).display !== "none"))
+		{
+			toggleCondensed();
+		}
 	}
 	catch(e)
 	{
