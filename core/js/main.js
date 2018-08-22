@@ -561,18 +561,19 @@ function pollThree(arrayToUpdate)
 {
 	try
 	{
+		var arrayOfDataMainKeys = Object.keys(arrayOfDataMain);
 		var arrayUpdateKeys = Object.keys(arrayToUpdate);
 		if(arrayOfDataMain !== null)
 		{
-			for (var i = arrayUpdateKeys.length - 1; i >= 0; i--) 
+			for (var i = arrayOfDataMainKeys.length - 1; i >= 0; i--) 
 			{
-				if(arrayOfDataMain[arrayUpdateKeys[i]] === null)
+				if(arrayOfDataMain[arrayOfDataMainKeys[i]] === null)
 				{
-					delete arrayOfDataMain[arrayUpdateKeys[i]];
+					delete arrayOfDataMain[arrayOfDataMainKeys[i]];
 				}
 				else
 				{
-					arrayOfDataMain[arrayUpdateKeys[i]] = null;
+					arrayOfDataMain[arrayOfDataMainKeys[i]] = null;
 				}
 			}
 		}
@@ -1038,13 +1039,16 @@ function update(data)
 						}
 
 						logs[id] = logData;
-						if(enableLogging !== "false")
+						if(files[i] in fileData)
 						{
-							titles[id] = name + " | " + data[name]["data"] + " | Size: " + formatBytes(fileData[files[i]]["size"]);
-						}
-						else
-						{
-							titles[id] = name + " | Size: " + formatBytes(fileData[files[i]]["size"]);
+							if(enableLogging !== "false")
+							{
+								titles[id] = name + " | " + data[name]["data"] + " | Size: " + formatBytes(fileData[files[i]]["size"]);
+							}
+							else
+							{
+								titles[id] = name + " | Size: " + formatBytes(fileData[files[i]]["size"]);
+							}
 						}
 						if(enableLogging !== "false")
 						{
@@ -1204,7 +1208,7 @@ function update(data)
 						}
 
 						updated = false;
-						if(fileData[fullPathSearch]["AlertEnabled"] === "true" && (!(id in alertEnabledArray) || (id in alertEnabledArray && alertEnabledArray[id] === "enabled")))
+						if(fullPathSearch in fileData && fileData[fullPathSearch]["AlertEnabled"] === "true" && (!(id in alertEnabledArray) || (id in alertEnabledArray && alertEnabledArray[id] === "enabled")))
 						{
 							if(!(logs[id] === lastLogs[id]))
 							{
