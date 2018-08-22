@@ -488,7 +488,7 @@ function getFileFolderData(currentFolder, hideFiles, orgPath)
 		success(data)
 		{
 			staticFileData = data;
-			if(document.getElementById("inputFieldForFileOrFolder").value == orgPath)
+			if(document.getElementById("inputFieldForFileOrFolder") && document.getElementById("inputFieldForFileOrFolder").value == orgPath)
 			{
 				var joinChar = getJoinChar();
 				getFileFolderSubFunction(data, orgPath, hideFiles, joinChar, false);
