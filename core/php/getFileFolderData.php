@@ -8,6 +8,10 @@ function getFileInfoFromDir($data, $response)
 	$path = $data["path"];
 	$recursive = $data["recursive"];
 	$filter = $data["filter"];
+	if(!is_readable($path))
+	{
+		return $response;
+	}
 	$scannedDir = scandir($path);
 	if(!is_array($scannedDir))
 	{
