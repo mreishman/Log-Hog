@@ -387,6 +387,10 @@ function pollTwoPartTwo(data)
 			var arrayOfDataMainKeys = Object.keys(arrayOfDataMain);
 			for (var i = arrayOfDataMainKeys.length - 1; i >= 0; i--) 
 			{
+				if(arrayOfDataMainKeys[i].indexOf("LogHog/Backup") > -1)
+				{
+					continue;
+				}
 				if(arrayOfDataMain[arrayOfDataMainKeys[i]] === null)
 				{
 					delete arrayOfDataMain[arrayOfDataMainKeys[i]];
@@ -1887,6 +1891,16 @@ function removeFromMultiLog(idOfName)
 		$("#log"+i).html("");
 		$("#menu ." + idOfName + "Button currentWindowNum").html("");
 	}
+}
+
+function removeArchiveLogFromDisplay(currentLogNum)
+{
+	hideArchiveLog([logDisplayArray[currentLogNum]["id"]]);
+}
+
+function hideLogByLogDisplayArray(currentLogNum)
+{
+	hideLogByName(logDisplayArray[currentLogNum]["id"]);
 }
 
 function hideLogByName(name)
