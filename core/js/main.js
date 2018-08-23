@@ -382,18 +382,11 @@ function pollTwoPartTwo(data)
 			var arrayOfDataMainKeys = Object.keys(arrayOfDataMain);
 			for (var i = arrayOfDataMainKeys.length - 1; i >= 0; i--) 
 			{
-				if(arrayOfDataMain[arrayOfDataMainKeys[i]] === null)
+				if(arrayOfDataMainKeys[i] in data)
 				{
-					delete arrayOfDataMain[arrayOfDataMainKeys[i]];
+					continue;
 				}
-				else
-				{
-					arrayOfDataMain[arrayOfDataMainKeys[i]] = null;
-				}
-			}
-			for(var repCount = filesNew.length - 1; repCount >= 0; repCount--)
-			{
-				arrayOfDataMain[filesNew[repCount]] = data[filesNew[repCount]];
+				delete arrayOfDataMain[arrayOfDataMainKeys[i]];
 			}
 		}
 
