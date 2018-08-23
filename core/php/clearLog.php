@@ -1,10 +1,10 @@
 <?php
+$verifyFile = trim($_POST['file']);
 $returnData = array(
 	"success"	=> "false",
-	"file"		=>	$_POST['file'],
+	"file"		=>	$verifyFile,
 	"fileFound"	=>	"false"
 );
-$verifyFile = $_POST['file'];
 require_once('../../local/layout.php');
 $baseUrl = "../../local/".$currentSelectedTheme."/";
 require_once($baseUrl.'conf/config.php');
