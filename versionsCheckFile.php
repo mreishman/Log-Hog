@@ -1,7 +1,7 @@
 <?php
 
 $versionCheckArray = array(
-	'version'		=> '4.2.7',
+	'version'		=> '4.2.8',
 	'versionList'		=> array(
 		'2.0.1'	        => array(
 			'branchName'	=> '2.0.1Update',
@@ -162,6 +162,10 @@ $versionCheckArray = array(
 		'4.2.7'		=> array(
 			'branchName'	=> '4.2.7Update',
 			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed bugs with file verification in clear log and delete log functions</li><li>Fixed bug with clear all logs not working correctly</li></ul></li></ul>"
+		),
+		'4.2.8'		=> array(
+			'branchName'	=> '4.2.8Update',
+			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed bugs with file verification in clear log and delete log functions</li></ul></li></ul>"
 		),
 	)
 );
