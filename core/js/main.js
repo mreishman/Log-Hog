@@ -380,6 +380,27 @@ function pollTwoPartTwo(data)
 			updateProgressBar(10, "Generating File Object");
 		}
 		t2 = performance.now();
+		filesNew = Object.keys(data);
+		var backupArrayOfDataMain = arrayOfDataMain;
+		if(arrayOfDataMain !== null)
+		{
+			var arrayOfDataMainKeys = Object.keys(arrayOfDataMain);
+			for (var i = arrayOfDataMainKeys.length - 1; i >= 0; i--) 
+			{
+				if(arrayOfDataMain[arrayOfDataMainKeys[i]] === null)
+				{
+					delete arrayOfDataMain[arrayOfDataMainKeys[i]];
+				}
+				else
+				{
+					arrayOfDataMain[arrayOfDataMainKeys[i]] = null;
+				}
+			}
+			for(var repCount = filesNew.length - 1; repCount >= 0; repCount--)
+			{
+				arrayOfDataMain[filesNew[repCount]] = data[filesNew[repCount]];
+			}
+		}
 
 		//check for all update force
 		var boolForAllUpdateForce = false;
@@ -399,7 +420,6 @@ function pollTwoPartTwo(data)
 			updateAllRefreshCounter("-");
 		}
 
-		filesNew = Object.keys(data);
 		arrayToUpdate = {};
 
 		if(arrayOfData1 === null || boolForAllUpdateForce)
@@ -581,21 +601,6 @@ function pollThree(arrayToUpdate)
 	try
 	{
 		var arrayUpdateKeys = Object.keys(arrayToUpdate);
-		if(arrayOfDataMain !== null)
-		{
-			var arrayOfDataMainKeys = Object.keys(arrayOfDataMain);
-			for (var i = arrayOfDataMainKeys.length - 1; i >= 0; i--) 
-			{
-				if(arrayOfDataMain[arrayOfDataMainKeys[i]] === null)
-				{
-					delete arrayOfDataMain[arrayOfDataMainKeys[i]];
-				}
-				else
-				{
-					arrayOfDataMain[arrayOfDataMainKeys[i]] = null;
-				}
-			}
-		}
 		t3 = performance.now();
 		if (typeof arrayToUpdate !== "undefined" && arrayUpdateKeys.length > 0) 
 		{
@@ -616,7 +621,7 @@ function pollThree(arrayToUpdate)
 					success(data)
 					{
 						arrayOfDataMainDataFilter(data);
-						generalUpdate();
+						update(data);
 					},
 					complete()
 					{
