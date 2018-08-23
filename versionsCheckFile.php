@@ -163,6 +163,10 @@ $versionCheckArray = array(
 			'branchName'	=> '4.2.7Update',
 			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed bugs with file verification in clear log and delete log functions</li><li>Fixed bug with clear all logs not working correctly</li></ul></li></ul>"
 		),
+		'4.2.8'		=> array(
+			'branchName'	=> '4.2.8Update',
+			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed bugs with file verification in clear log and delete log functions</li></ul></li></ul>"
+		),
 		'5.0'		=> array(
 			'branchName'	=> '5.0Update',
 			'releaseNotes'	=> "<ul><li>Features<ul><li>Multi-Log<ul><li>View 1 log or up to 9 logs in different arrangements  (i.e. 1x1, 2x1, 2x2, etc)</li><li>Switch between views quickly with multi-log button in menu</li></ul></li><li>Log Layouts<ul><li>Added option to select what log is loaded first</li><li>With multi-log enabled, have up to 3 different layout versions per grid layout (1x1 Layout A, 1x1 Layout B, etc.)</li><li>Switch between layouts in top nav by clicking on MultiLog then Log Layout A B or C.</li></ul></li><li>Added watchlist to main menu (Update watchlist without refresh)</li><li>Reduced initial load times by reducing the transfer ammount on initial load from 697KB to 318KB (with default theme, including 83KB for poll log requests)</li><li>Added option to pin windows when using filter/search</li><li>Added Experimental Log Formatting (in advanced tab)</li><li>Added log line padding options (default 2px, min 0px, max 20px)</li><li>Added option to set fadeout start time for log highlight</li></ul></li><li>Bug Fixes<ul><li>Fixed issue with updating logs sometimes requiring a refresh of index</li><li>Fixed issue with adding folders that are unreadable not generating proper error message</li><li>Fixed bug with search while using groups</li><li>Fixed bug with pause on page load interfering with the pause on unfocus logic.</li><li>Fixed possible bug with remove notification</li><li>Fixed bug with counter if line count changed for log before refresh (sorta)</li></ul></li></ul>"
