@@ -63,7 +63,10 @@ $newInfoForConfig .= "
 ?>";
 
 //Don't forget to update Ajax version
-
+if(file_exists($fileName))
+{
+	unlink($fileName);
+}
 file_put_contents($fileName, $newInfoForConfig);
 
 header('Location: ' . $_SERVER['HTTP_REFERER']);

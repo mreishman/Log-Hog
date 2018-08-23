@@ -72,7 +72,10 @@ $"."configStatic = array(
 ";
 
 	//Don't forget to update Ajax version
-
+if(file_exists($fileName))
+{
+  unlink($fileName);
+}
 	file_put_contents($fileName, $newInfoForConfig);
 
 	echo json_encode(true);

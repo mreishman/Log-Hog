@@ -767,6 +767,10 @@ function upgradeConfig($newSaveStuff = array())
 	$newInfoForConfig .= "
 		);
 	?>";
+	if(file_exists($fileName))
+	{
+		unlink($fileName);
+	}
 	file_put_contents($fileName, $newInfoForConfig);
 }
 

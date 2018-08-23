@@ -47,6 +47,11 @@ else
   $baseUrlUpdate = $defaultConfig['baseUrlUpdate'];
 }
 
+if(file_exists("../../update/downloads/versionCheck/versionCheck.zip"))
+{
+  unlink("../../update/downloads/versionCheck/versionCheck.zip");
+}
+
 if($branchSelected === "dev")
 {
   file_put_contents("../../update/downloads/versionCheck/versionCheck.zip",
@@ -129,6 +134,11 @@ $files = glob("../../update/downloads/versionCheck/extracted/*"); // get all fil
 foreach($files as $file){ // iterate files
   if(is_file($file))
     unlink($file); // delete file
+}
+
+if(file_exists("configStatic.php"))
+{
+  unlink("configStatic.php");
 }
 
 file_put_contents("configStatic.php", $newInfoForConfig);
