@@ -1,5 +1,5 @@
 <?php
-$verifyFile = $_POST['file'];
+$verifyFile = trim($_POST['file']);
 require_once('../../local/layout.php');
 $baseUrl = "../../local/".$currentSelectedTheme."/";
 require_once($baseUrl.'conf/config.php');
