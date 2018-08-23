@@ -1,62 +1,60 @@
-<div id="storage">
-	<div class="menuItem">
-		<a title="{{title}}" id="{{id}}" class="{{id}}Button {{class}} index" onclick="show(this, '{{id}}')">
-			<span class="currentWindowNum" id="{{id}}CurrentWindow"></span>
-			{{title}}
-			<span id="{{id}}Count" class="menuCounter"></span>
-			<span id="{{id}}CountHidden" class="menuCounterHidden" style="display: none;"></span>
-		</a>
-	</div>
-	<div class="notificationContainer">
-		<div id="{{id}}">
-			<span style="width: 100%;">
-				<table style="width: 100%; padding-top: 5px; padding-bottom: 5px;" >
-					<tr>
-						<td style="border-right: 1px solid black; width: 65px;"> {{time}} </td>
-						<td onclick="removeNotification('{{idNum}}'); {{action}}" class="notificationText"> {{name}} </td>
-						<td style="width: 10px; cursor: pointer;" onclick="removeNotification('{{idNum}}');" >x</td>
-					</tr>
-				</table>
-			</span>
-		</div>
-	</div>
-	<div class="notificationContainerWithImage">
-		<div id="{{id}}">
-			<span style="width: 100%;">
-				<table style="width: 100%; padding-top: 5px; padding-bottom: 5px;" >
-					<tr>
-						<td style="border-right: 1px solid black; width: 65px;"> {{time}} </td>
-						<td onclick="removeNotification('{{idNum}}'); {{action}}" class="notificationText"> {{image}} {{name}} </td>
-						<td style="width: 10px; cursor: pointer;" onclick="removeNotification('{{idNum}}');" >x</td>
-					</tr>
-				</table>
-			</span>
-		</div>
-	</div>
-	<div class="notificationContainerEmpty">
-		<div id="{{id}}">
-			<span style="width: 100%;">
-				<table style="width: 100%; padding-top: 5px; padding-bottom: 5px;" >
-					<tr>
-						<td style="border-right: 1px solid black; width: 65px;"> {{time}} </td>
-						<td class="notificationText"> {{name}} </td>
-					</tr>
-				</table>
-			</span>
-		</div>
-	</div>
-	<div class="notificationButtons">
-		<div>
-			<table style="width: 100%; border-top: 1px solid #aaa; padding-bottom: 3px; padding-top: 3px;">
+<div class="menuItem">
+	<a title="{{title}}" id="{{id}}" class="{{id}}Button {{class}} index" onclick="show(this, '{{id}}')">
+		<span class="currentWindowNum" id="{{id}}CurrentWindow"></span>
+		{{title}}
+		<span id="{{id}}Count" class="menuCounter"></span>
+		<span id="{{id}}CountHidden" class="menuCounterHidden" style="display: none;"></span>
+	</a>
+</div>
+<div class="notificationContainer">
+	<div id="{{id}}">
+		<span style="width: 100%;">
+			<table style="width: 100%; padding-top: 5px; padding-bottom: 5px;" >
 				<tr>
-					<th>
-						<span class="linkSmall" style="cursor: pointer;" onclick="toggleNotifications();">Close</span>
-					</th>
-					<th>
-						<span class="linkSmall" style="cursor: pointer;" onclick="removeAllNotifications(); toggleNotifications();">Clear</span>
-					</th>
+					<td style="border-right: 1px solid black; width: 65px;"> {{time}} </td>
+					<td onclick="removeNotification('{{idNum}}'); {{action}}" class="notificationText"> {{name}} </td>
+					<td style="width: 10px; cursor: pointer;" onclick="removeNotification('{{idNum}}');" >x</td>
 				</tr>
 			</table>
-		</div>
+		</span>
+	</div>
+</div>
+<div class="notificationContainerWithImage">
+	<div id="{{id}}">
+		<span style="width: 100%;">
+			<table style="width: 100%; padding-top: 5px; padding-bottom: 5px;" >
+				<tr>
+					<td style="border-right: 1px solid black; width: 65px;"> {{time}} </td>
+					<td onclick="removeNotification('{{idNum}}'); {{action}}" class="notificationText"> {{image}} {{name}} </td>
+					<td style="width: 10px; cursor: pointer;" onclick="removeNotification('{{idNum}}');" >x</td>
+				</tr>
+			</table>
+		</span>
+	</div>
+</div>
+<div class="notificationContainerEmpty">
+	<div id="{{id}}">
+		<span style="width: 100%;">
+			<table style="width: 100%; padding-top: 5px; padding-bottom: 5px;" >
+				<tr>
+					<td style="border-right: 1px solid black; width: 65px;"> {{time}} </td>
+					<td class="notificationText"> {{name}} </td>
+				</tr>
+			</table>
+		</span>
+	</div>
+</div>
+<div class="notificationButtons">
+	<div>
+		<table style="width: 100%; border-top: 1px solid #aaa; padding-bottom: 3px; padding-top: 3px;">
+			<tr>
+				<th>
+					<span class="linkSmall" style="cursor: pointer;" onclick="toggleNotifications();">Close</span>
+				</th>
+				<th>
+					<span class="linkSmall" style="cursor: pointer;" onclick="removeAllNotifications(); toggleNotifications();">Clear</span>
+				</th>
+			</tr>
+		</table>
 	</div>
 </div>

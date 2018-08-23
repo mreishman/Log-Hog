@@ -77,6 +77,7 @@ $totalUpgradeScripts = floatval($configVersionToUpgradeTo) - floatval($configVer
 	var urlForSendMain0 = '../../../core/php/checkVersionOfConfig.php?format=json';
 	var urlForSendMain = '../../../core/php/upgradeScript/upgradeConfig-';
 	var urlForSendMain2 = '.php?format=json';
+	var globalVersionBase = 1;
 	<?php
 	echo "var startVersion = ".$configVersion.";";
 	echo "var endVersion = ".$configVersionToUpgradeTo.";";
@@ -96,8 +97,9 @@ $totalUpgradeScripts = floatval($configVersionToUpgradeTo) - floatval($configVer
 
 	function runScript(version)
 	{
+		document.getElementById("runCount").innerHTML = globalVersionBase;
+		document.getElementById("verifyCount").innerHTML = globalVersionBase;
 		document.getElementById('runLoad').style.display = "block";
-		document.getElementById('runLoad').style.display = "none";
 		document.getElementById('verifyLoad').style.display = "none";
 		var urlForSend = urlForSendMain+version+urlForSendMain2;
 		var dataSend = {version: version};
@@ -196,6 +198,7 @@ $totalUpgradeScripts = floatval($configVersionToUpgradeTo) - floatval($configVer
 	{
 		retryCount = 0;
 		startVersion++;
+		globalVersionBase++;
 		if(endVersion > startVersion)
 		{
 			runScript(startVersion+1);

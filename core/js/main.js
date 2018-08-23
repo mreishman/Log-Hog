@@ -3,7 +3,9 @@ var arrayToUpdate = {};
 var arrayOfData1 = null;
 var arrayOfData2 = null;
 var arrayOfDataMain = null;
+var arrayOfDataSettings = [];
 var arrayOfScrollHeaderUpdate = ["aboutSpanAbout","aboutSpanInfo","aboutSpanGithub"];
+var borderPadding = 0;
 var clearingNotifications = false;
 var counterForPoll = 0;
 var counterForPollForceRefreshAll = 0;
@@ -17,6 +19,8 @@ var firstLoad = true;
 var flasher;
 var lastContentSearch = "";
 var lastLogs = {};
+var logDisplayArray = {};
+var logDisplayArrayOld = {};
 var logLines = {};
 var logs = {};
 var logsToHide = new Array();
@@ -31,18 +35,31 @@ var progressBar;
 var refreshing = false;
 var refreshPauseActionVar;
 var startedPauseOnNonFocus = false;
+var startOfPollLogicRan = false;
 var t0 = performance.now();
 var t1 = performance.now();
 var t2 = performance.now();
 var t3 = performance.now();
 var timeoutVar = null;
 var timer;
+var timerForSettings;
+var timerForWatchlist;
 var titles = {};
 var updateFromID = "settingsInstallUpdate";
 var updating = false;
 var userPaused = false;
 var title = $("title").text();
 var verifyChangeCounter = 0;
+
+
+function popupSettingsArrayCheck()
+{
+	if (typeof popupSettingsArray === "string")
+	{
+		popupSettingsArray = JSON.parse(popupSettingsArray);
+	}
+}
+
 
 function escapeHTML(unsafeStr)
 {
@@ -60,7 +77,6 @@ function escapeHTML(unsafeStr)
 	{
 		eventThrowException(e);
 	}
-	
 }
 
 function unescapeHTML(unsafeStr)
@@ -79,20 +95,19 @@ function unescapeHTML(unsafeStr)
 	{
 		eventThrowException(e);
 	}
-	
 }
 
 function formatBytes(bytes,decimals)
 {
-	if(bytes == 0)
+	if(parseInt(bytes) === 0)
 	{
-		return '0 Bytes';
+		return "0 Bytes";
 	}
 	var k = 1024;
 	var dm = decimals || 2;
-	var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+	var sizes = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
 	var i = Math.floor(Math.log(bytes) / Math.log(k));
-	return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+	return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i];
 }
 
 function updateSkipCounterLog(num)
@@ -108,8 +123,6 @@ function updateSkipCounterLog(num)
 	{
 		eventThrowException(e);
 	}
-
-	
 }
 
 function updateAllRefreshCounter(num)
@@ -125,7 +138,6 @@ function updateAllRefreshCounter(num)
 	{
 		eventThrowException(e);
 	}
-	
 }
 
 function updateLogTitle(id)
@@ -205,10 +217,7 @@ function poll()
 			counterForPollForceRefreshErr++;
 			if(counterForPollForceRefreshErr > (2 * pollForceTrue))
 			{
-				if(document.getElementById("noticeBar").style.display === "none")
-				{
-					document.getElementById("noticeBar").style.display = "block";
-				}
+				showNoticeBarIfNotThere();
 				if(counterForPollForceRefreshErr > (4 * pollForceTrue))
 				{
 					//show Warning message for no connect in x times
@@ -256,48 +265,51 @@ function pollTwo()
 			type: "POST",
 			success(data)
 			{
-				if(document.getElementById("noLogToDisplay").style.display !== "none")
+				hideNoticeBarIfThere();
+				if(document.getElementById("noLogToDisplay").style.display !== "none" && (!(data === [] || $.isEmptyObject(data))))
 				{
 					document.getElementById("noLogToDisplay").style.display = "none";
 				}
+
 				if(data === "error in file permissions")
 				{
-					clearPollTimer()
+					clearPollTimer();
 					window.location.href = "error.php?error=550&page=pollCheck.php";
+				}
+				else if(data === "update in progress")
+				{
+					clearPollTimer();
+					window.location.href = "update/updateInProgress.php";
+				}
+				else if(data === false)
+				{
+					clearPollTimer();
+					showPopup();
+					document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class='settingsHeader' >Log-Hog has been updated. Please Refresh</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Log-Hog has been updated, and is now on a new version. Please refresh the page.</div><div><div class='link' onclick='location.reload();' style='margin-left:165px; margin-right:50px;margin-top:35px;'>Reload</div></div>";
+				}
+				else if(data === [] || $.isEmptyObject(data))
+				{
+					if(document.getElementById("noLogToDisplay").style.display !== "block")
+					{
+						document.getElementById("noLogToDisplay").style.display = "block";
+					}
+					if(firstLoad)
+					{
+						firstLoadEndAction();
+					}
 				}
 				else
 				{
-					counterForPollForceRefreshErr = 0;
-					if(document.getElementById("noticeBar").style.display !== "none")
+					fileData = data;
+					if(!firstLoad)
 					{
-						document.getElementById("noticeBar").style.display = "none";
+						updateGroupsOnTabs(data, getArrayOfGroups(data));
+						removeOldGroups(data, getArrayOfGroups(data));
 					}
-					if(data === false)
+					pollTwoPartTwo(data);
+					if(lineCountFromJS === "false")
 					{
-						showPopup();
-						document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class='settingsHeader' >Log-Hog has been updated. Please Refresh</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Log-Hog has been updated, and is now on a new version. Please refresh the page.</div><div><div class='link' onclick='location.reload();' style='margin-left:165px; margin-right:50px;margin-top:35px;'>Reload</div></div>";
-						clearPollTimer()
-					}
-					else if(data === "update in progress")
-					{
-						clearPollTimer()
-						window.location.href = "update/updateInProgress.php";
-					}
-					else if(data == [])
-					{
-						if(document.getElementById("noLogToDisplay").style.display !== "block")
-						{
-							document.getElementById("noLogToDisplay").style.display = "block";
-						}
-					}
-					else
-					{
-						fileData = data;
-						pollTwoPartTwo(data);
-						if(lineCountFromJS === "false")
-						{
-							updatePollLineDiff(data);
-						}
+						updatePollLineDiff(data);
 					}
 				}
 			},
@@ -305,11 +317,30 @@ function pollTwo()
 			{
 				polling = false;
 			}
-		});	
+		});
 	}
 	catch(e)
 	{
 		eventThrowException(e);
+	}
+}
+
+function hideNoticeBarIfThere()
+{
+	counterForPollForceRefreshErr = 0;
+	if(document.getElementById("noticeBar").style.display !== "none")
+	{
+		document.getElementById("noticeBar").style.display = "none";
+		resizeNotificationCounter();
+	}
+}
+
+function showNoticeBarIfNotThere()
+{
+	if(document.getElementById("noticeBar").style.display === "none")
+	{
+		document.getElementById("noticeBar").style.display = "block";
+		resizeNotificationCounter();
 	}
 }
 
@@ -330,7 +361,7 @@ function updatePollLineDiff(data)
 		}
 		else
 		{
-			logLines[currentLog] = data[currentLog]["lineCount"]
+			logLines[currentLog] = data[currentLog]["lineCount"];
 		}
 	}
 }
@@ -369,12 +400,16 @@ function pollTwoPartTwo(data)
 		if(arrayOfData1 === null || boolForAllUpdateForce)
 		{
 			arrayOfData1 = data;
-			for (var i = filesNew.length - 1; i >= 0; i--)
+			for (var updateCount = filesNew.length - 1; updateCount >= 0; updateCount--)
 			{
-				arrayToUpdate[filesNew[i]] = data[filesNew[i]];
-				if(!($("#selectForGroup option[value='"+data[filesNew[i]]["Group"]+"']").length > 0) && data[filesNew[i]]["Group"] !== "")
+				if($.inArray(filesNew[updateCount].replace(/[^a-z0-9]/g, ""), logsToHide) !== -1)
 				{
-					$("#selectForGroup").append("<option value='"+data[filesNew[i]]["Group"]+"'>"+data[filesNew[i]]["Group"]+"</option>");
+					continue;
+				}
+				arrayToUpdate[filesNew[updateCount]] = data[filesNew[updateCount]];
+				if(!($("#selectForGroup option[value='"+data[filesNew[updateCount]]["Group"]+"']").length > 0) && data[filesNew[updateCount]]["Group"] !== "")
+				{
+					$("#selectForGroup").append("<option value='"+data[filesNew[updateCount]]["Group"]+"'>"+data[filesNew[updateCount]]["Group"]+"</option>");
 					if(document.getElementById("selectForGroupDiv").style.display === "none")
 					{
 						document.getElementById("selectForGroupDiv").style.display = "inline-block";
@@ -384,39 +419,43 @@ function pollTwoPartTwo(data)
 		}
 		else
 		{
-			var arrayOfData2 = data; 
+			var arrayOfData2 = data;
 			var filesOld = Object.keys(arrayOfData1);
-			for (var i = filesNew.length - 1; i >= 0; i--)
+			for (var updateOldCount = filesNew.length - 1; updateOldCount >= 0; updateOldCount--)
 			{
-				if(filesOld.indexOf(filesNew[i]) > -1)
+				if($.inArray(filesNew[updateOldCount].replace(/[^a-z0-9]/g, ""), logsToHide) !== -1)
+				{
+					continue;
+				}
+				if(filesOld.indexOf(filesNew[updateOldCount]) > -1)
 				{
 					//file exists
-					if(JSON.stringify(arrayOfData2[filesNew[i]]) !== JSON.stringify(arrayOfData1[filesNew[i]]))
+					if(JSON.stringify(arrayOfData2[filesNew[updateOldCount]]) !== JSON.stringify(arrayOfData1[filesNew[updateOldCount]]))
 					{
-						arrayToUpdate[filesNew[i]] = data[filesNew[i]];
+						arrayToUpdate[filesNew[updateOldCount]] = data[filesNew[updateOldCount]];
 					}
 				}
 				else
 				{
 					//file is new, add to array
-					arrayToUpdate[filesNew[i]] = data[filesNew[i]];
+					arrayToUpdate[filesNew[updateOldCount]] = data[filesNew[updateOldCount]];
 				}
-				if(!($("#selectForGroup option[value='"+data[filesNew[i]]["Group"]+"']").length > 0) && data[filesNew[i]]["Group"] !== "")
+				if(!($("#selectForGroup option[value='"+data[filesNew[updateOldCount]]["Group"]+"']").length > 0) && data[filesNew[updateOldCount]]["Group"] !== "")
 				{
-					$("#selectForGroup").append("<option value='"+data[filesNew[i]]["Group"]+"'>"+data[filesNew[i]]["Group"]+"</option>");
+					$("#selectForGroup").append("<option value='"+data[filesNew[updateOldCount]]["Group"]+"'>"+data[filesNew[updateOldCount]]["Group"]+"</option>");
 					if(document.getElementById("selectForGroupDiv").style.display === "none")
 					{
 						document.getElementById("selectForGroupDiv").style.display = "inline-block";
 					}
 				}
 			}
-			
-			for (var i = filesOld.length - 1; i >= 0; i--)
+
+			for (var oldSwapCount = filesOld.length - 1; oldSwapCount >= 0; oldSwapCount--)
 			{
-				if(!(filesNew.indexOf(filesOld[i]) > -1))
+				if(!(filesNew.indexOf(filesOld[oldSwapCount]) > -1))
 				{
 					//files old file isn't there in new file
-					arrayToUpdate[filesOld[i]] = arrayOfData1[filesOld[i]];
+					arrayToUpdate[filesOld[oldSwapCount]] = arrayOfData1[filesOld[oldSwapCount]];
 				}
 			}
 			arrayOfData1 = data;
@@ -429,6 +468,95 @@ function pollTwoPartTwo(data)
 	}
 }
 
+function getArrayOfGroups(data)
+{
+	var fileDataKeys = Object.keys(data);
+	var fileDataKeysLength = fileDataKeys.length;
+	var arrayOfGroups = new Array();
+	for(var OGRcount = 0; OGRcount < fileDataKeysLength; OGRcount++)
+	{
+		var group = data[fileDataKeys[OGRcount]]["Group"];
+		if($.inArray(group, arrayOfGroups) === -1 && $.inArray(fileDataKeys[OGRcount].replace(/[^a-z0-9]/g, ""), logsToHide) === -1)
+		{
+			arrayOfGroups.push(group);
+		}
+	}
+	return arrayOfGroups;
+}
+
+function updateGroupsOnTabs(data, arrayOfGroupsModded)
+{
+	var arrayOfGroupsLength = arrayOfGroupsModded.length;
+	var fileDataKeysTwo = Object.keys(data);
+	var fileDataKeysLengthTwo = fileDataKeysTwo.length;
+	var idForTab = "";
+	for(var EGRcount = 0; EGRcount < arrayOfGroupsLength; EGRcount++)
+	{
+		arrayOfGroupsModded[EGRcount] = arrayOfGroupsModded[EGRcount] + "Group";
+	}
+	for(var UGRcount = 0; UGRcount < fileDataKeysLengthTwo; UGRcount++)
+	{
+		idForTab = fileDataKeysTwo[UGRcount].replace(/[^a-z0-9]/g, "");
+		if(document.getElementById(idForTab))
+		{
+			var classList = document.getElementById(idForTab).className.split(' ');
+			var classListLength = classList.length;
+			for(var classCount = 0; classCount < classListLength; classCount++)
+			{
+				if(classList[classCount].indexOf("Group") > -1 && classList[classCount] !== "allGroup")
+				{
+					if($.inArray(classList[classCount], arrayOfGroupsModded) === -1)
+					{
+						//class is not in group, remove it from tab
+						$("#"+idForTab).removeClass(classList[classCount]);
+						if($("#"+idForTab+"GroupInName"))
+						{
+							//group name shows, update if there is one
+							var possibleNewGroup = data[fileDataKeysTwo[UGRcount]]["Group"];
+							$("#"+idForTab+"GroupInName").html("");
+							if(possibleNewGroup !== "")
+							{
+								$("#"+idForTab+"GroupInName").html(possibleNewGroup+":");
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	for(var AGRcount = 0; AGRcount < fileDataKeysLengthTwo; AGRcount++)
+	{
+		idForTab = fileDataKeysTwo[AGRcount].replace(/[^a-z0-9]/g, "");
+		if(document.getElementById(idForTab))
+		{
+			var groupSearch = data[fileDataKeysTwo[AGRcount]]["Group"];
+			if(!$("#"+idForTab).hasClass(groupSearch+"Group"))
+			{
+				$("#"+idForTab).addClass(groupSearch+"Group");
+			}
+		}
+	}
+}
+
+function removeOldGroups(data, arrayOfGroups)
+{
+	var modCOScount = 0;
+	var currentOptionsSelect = document.getElementById('selectForGroup').options;
+	var currentOptionsSelectLength = currentOptionsSelect.length;
+	for(var COScount = 0; COScount < currentOptionsSelectLength; COScount++)
+	{
+		if(currentOptionsSelect[modCOScount].value !== "all" && $.inArray(currentOptionsSelect[modCOScount].value, arrayOfGroups) === -1)
+		{
+			//remove because not in new array
+			var selectGroupSelector = document.getElementById('selectForGroup');
+			$('#selectForGroup option[value="'+currentOptionsSelect[modCOScount].value+'"]').remove();
+			modCOScount--;
+		}
+		modCOScount++;
+	}
+}
+
 function pollThree(arrayToUpdate)
 {
 	try
@@ -436,15 +564,16 @@ function pollThree(arrayToUpdate)
 		var arrayUpdateKeys = Object.keys(arrayToUpdate);
 		if(arrayOfDataMain !== null)
 		{
-			for (var i = arrayUpdateKeys.length - 1; i >= 0; i--) 
+			var arrayOfDataMainKeys = Object.keys(arrayOfDataMain);
+			for (var i = arrayOfDataMainKeys.length - 1; i >= 0; i--) 
 			{
-				if(arrayOfDataMain[arrayUpdateKeys[i]] === null)
+				if(arrayOfDataMain[arrayOfDataMainKeys[i]] === null)
 				{
-					delete arrayOfDataMain[arrayUpdateKeys[i]];
+					delete arrayOfDataMain[arrayOfDataMainKeys[i]];
 				}
 				else
 				{
-					arrayOfDataMain[arrayUpdateKeys[i]] = null;
+					arrayOfDataMain[arrayOfDataMainKeys[i]] = null;
 				}
 			}
 		}
@@ -468,7 +597,7 @@ function pollThree(arrayToUpdate)
 					success(data)
 					{
 						arrayOfDataMainDataFilter(data);
-						update(arrayOfDataMain);
+						generalUpdate();
 					},
 					complete()
 					{
@@ -506,7 +635,7 @@ function getFileSingle(current)
 			success(data)
 			{
 				arrayOfDataMainDataFilter(data);
-				update(arrayOfDataMain);
+				generalUpdate();
 			},
 			complete()
 			{
@@ -523,7 +652,7 @@ function getFileSingle(current)
 				else
 				{
 					updateProgressBar(updateBy, "", "Finishing loading....");
-					update(arrayOfDataMain);
+					generalUpdate();
 					afterPollFunctionComplete();
 				}
 			}
@@ -532,7 +661,7 @@ function getFileSingle(current)
 	catch(e)
 	{
 		eventThrowException(e);
-	}	
+	}
 }
 
 function arrayOfDataMainDataFilter(data)
@@ -546,17 +675,17 @@ function arrayOfDataMainDataFilter(data)
 		}
 		else
 		{
-			for (var i = filesInner.length - 1; i >= 0; i--) 
+			for (var dataSwapCount = filesInner.length - 1; dataSwapCount >= 0; dataSwapCount--)
 			{
-				arrayOfDataMain[filesInner[i]] = data[filesInner[i]];
+				arrayOfDataMain[filesInner[dataSwapCount]] = data[filesInner[dataSwapCount]];
 			}
 		}
 
-		for (var i = filesInner.length - 1; i >= 0; i--) 
+		for (var lineCountUpdateCount = filesInner.length - 1; lineCountUpdateCount >= 0; lineCountUpdateCount--)
 		{
-			if(data[filesInner[i]]["lineCount"] !== "---")
+			if(data[filesInner[lineCountUpdateCount]]["lineCount"] !== "---")
 			{
-				fileData[filesInner[i]]["lineCount"] = data[filesInner[i]]["lineCount"];
+				fileData[filesInner[lineCountUpdateCount]]["lineCount"] = data[filesInner[lineCountUpdateCount]]["lineCount"];
 			}
 		}
 	}
@@ -678,6 +807,10 @@ function pausePollAction()
 				poll();
 				startPollTimer();
 			}
+			if(!startedPauseOnNonFocus && pauseOnNotFocus === "true")
+			{
+				startPauseOnNotFocus();
+			}
 
 		}
 		else
@@ -736,6 +869,90 @@ function endRefreshAction()
 	}
 }
 
+function getFilterData(name, shortName, logData)
+{
+	var selectListForFilter = document.getElementsByName("searchType")[0];
+	var selectedListFilterType = selectListForFilter.options[selectListForFilter.selectedIndex].value;
+	var filterOffOf = "";
+	if(selectedListFilterType === "title")
+	{
+		if(filterTitleIncludePath === "true")
+		{
+			filterOffOf = name;
+		}
+		else
+		{
+			filterOffOf = shortName;
+		}
+	}
+	else if(selectedListFilterType === "content")
+	{
+		filterOffOf = logData;
+	}
+
+	if(caseInsensitiveSearch === "true")
+	{
+		if(filterOffOf !== "")
+		{
+			filterOffOf = filterOffOf.toLowerCase();
+		}
+	}
+	return filterOffOf;
+}
+
+function showFileFromFilter(id, name, shortName, logData)
+{
+	var filterOffOf = getFilterData(name, shortName, logData);
+	if(logsToHide instanceof Array && (logsToHide.length === 0 || $.inArray(id, logsToHide) === -1 ))
+	{
+		if(filterOffOf !== "")
+		{
+			var filterTextField = getFilterTextField();
+			if(filterTextField === "" || filterOffOf.indexOf(filterTextField) !== -1)
+			{
+				return true;
+			}
+		}
+		else
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+function showFileFromGroup(id)
+{
+	var groupSelect = document.getElementById("selectForGroup").value;
+	if(groupSelect === "all")
+	{
+		return true;
+	}
+	if($("#"+id).hasClass(groupSelect+"Group"))
+	{
+		return true;
+	}
+}
+
+function showFileFromPinnedWindow(id)
+{
+	//look for pinned window
+	var windowKeys = Object.keys(logDisplayArray);
+	var lengthOfWindows = windowKeys.length;
+	for(var j = 0; j < lengthOfWindows; j++)
+	{
+		if(logDisplayArray[windowKeys[j]]["id"] === id)
+		{
+			if(logDisplayArray[windowKeys[j]]["pin"] === true)
+			{
+				return true;
+			}
+			return false;
+		}
+	}
+	return false;
+}
+
 function update(data)
 {
 	try
@@ -749,58 +966,27 @@ function update(data)
 		var initialized = $("#menu a").length !== 0;
 		var folderNamePrev = "?-1";
 		var folderNameCount = -1;
-
 		for(var i = 0; i !== stop; i++)
 		{
 			var name = files[i];
-			if((!(name in data)) || typeof(data[name]) === 'undefined')
+
+			if((!(name in data)) || typeof(data[name]) === "undefined" || data[name] === null)
 			{
 				hideLogByName(name);
 				continue;
 			}
 			var logData = data[name]["log"];
-			var selectListForFilter = document.getElementsByName("searchType")[0];
-			var selectedListFilterType = selectListForFilter.options[selectListForFilter.selectedIndex].value;
-			var filterTextField = getFilterTextField();
 			var showFile = false;
 			shortName = files[i].replace(/.*\//g, "");
 			id = name.replace(/[^a-z0-9]/g, "");
 
-			var filterOffOf = "";
-			if(selectedListFilterType === "title")
+			if(showFileFromFilter(id, name, shortName, logData) && (showFileFromGroup(id) || $("#"+id).hasClass("active")))
 			{
-				if(filterTitleIncludePath === "true")
-				{
-					filterOffOf = name;
-				}
-				else
-				{
-					filterOffOf = shortName;
-				}
+				showFile = true;
 			}
-			else if(selectedListFilterType === "content")
+			if(!showFile)
 			{
-				filterOffOf = logData;
-			}
-
-			if(caseInsensitiveSearch === "true")
-			{
-				if(filterOffOf !== "")
-				{
-					filterOffOf = filterOffOf.toLowerCase();
-				}
-			}
-
-			if(logsToHide instanceof Array && (logsToHide.length === 0 || $.inArray(name, logsToHide) === -1 ))
-			{
-				if(filterOffOf !== "")
-				{
-					if(filterTextField === "" || filterOffOf.indexOf(filterTextField) !== -1)
-					{
-						showFile = true;
-					}
-				}
-				else
+				if(showFileFromPinnedWindow(id))
 				{
 					showFile = true;
 				}
@@ -830,13 +1016,16 @@ function update(data)
 								folderNameCount = 0;
 							}
 						}
+						var standardMessage = false;
 						if(logData === "")
 						{
 							logData = "<div class='errorMessageLog errorMessageRedBG' >Error - Unknown error? Check file permissions or clear log to fix?</div>";
+							standardMessage = true;
 						}
 						else if(logData === "This file is empty. This should not be displayed.")
 						{
 							logData = "<div class='errorMessageLog errorMessageGreenBG' > This file is empty. </div>";
+							standardMessage = true;
 						}
 						else if((logData === "Error - File is not Readable") || (logData === "Error - Maybe insufficient access to read file?"))
 						{
@@ -846,18 +1035,21 @@ function update(data)
 								mainMessage = "Error - File is not Readable";
 							}
 							logData = "<div class='errorMessageLog errorMessageRedBG' > "+mainMessage+" <br> <span style='font-size:75%;'> Try entering: <br> chown -R www-data:www-data "+name+" <br> or <br> chmod 664 "+name+" </span> </div>";
+							standardMessage = true;
 						}
 
-						logs[id] = logData
-						if(enableLogging !== "false")
+						logs[id] = logData;
+						if(files[i] in fileData)
 						{
-							titles[id] = name + " | " + data[name]["data"] + " | Size: " + formatBytes(fileData[files[i]]["size"]);
+							if(enableLogging !== "false")
+							{
+								titles[id] = name + " | " + data[name]["data"] + " | Size: " + formatBytes(fileData[files[i]]["size"]);
+							}
+							else
+							{
+								titles[id] = name + " | Size: " + formatBytes(fileData[files[i]]["size"]);
+							}
 						}
-						else
-						{
-							titles[id] = name + " | Size: " + formatBytes(fileData[files[i]]["size"]);
-						}
-						
 						if(enableLogging !== "false")
 						{
 							if(id === currentPage)
@@ -880,7 +1072,7 @@ function update(data)
 							{
 								if(logNameFormat !== "default")
 								{
-									//check for other options in displaying name									
+									//check for other options in displaying name
 									if(logNameFormat === "firstFolder" || logNameFormat === "lastFolder")
 									{
 										var locationOfLast = 1;
@@ -914,15 +1106,15 @@ function update(data)
 								{
 									if(shortName.indexOf(".") > -1)
 									{
-										var newName = nameForLog.split(".");
-										newName.splice(-1,1);
-										nameForLog = newName.join();
+										var secondNewName = nameForLog.split(".");
+										secondNewName.splice(-1,1);
+										nameForLog = secondNewName.join();
 									}
 								}
 							}
 							if(logNameGroup === "true" && fileData[files[i]]["Group"] !== "")
 							{
-								nameForLog = fileData[files[i]]["Group"]+":"+nameForLog;
+								nameForLog = "<span id='"+id+"GroupInName' >"+fileData[files[i]]["Group"]+":</span>"+nameForLog;
 							}
 							classInsert = "";
 							item = blank;
@@ -947,11 +1139,11 @@ function update(data)
 								var innerCount = i;
 								if(filesNew.length > 0)
 								{
-									for (var j = filesNew.length - 1; j >= 0; j--)
+									for (var innerCountFind = filesNew.length - 1; innerCountFind >= 0; innerCountFind--)
 									{
-										if(filesNew[j] === files[i])
+										if(filesNew[innerCountFind] === files[i])
 										{
-											innerCount = j;
+											innerCount = innerCountFind;
 											break;
 										}
 									}
@@ -989,31 +1181,34 @@ function update(data)
 								{
 									$("#menu a." + id + "Button").addClass("updated");
 
-									var objectToSend = new Array();
-									objectToSend["log"] = id;
-									objectToSend["name"] = "New Log "+nameForLog;
-									objectToSend["action"] = "$('#"+id+"').click();  toggleNotifications();";
-									addLogNotification(objectToSend);
+									addLogNotification({
+										log: id,
+										name: "New Log "+nameForLog,
+										action: "$('#"+id+"').click();  toggleNotifications();"
+									});
 								}
 							}
 
-							var hideLogAction = {action: "tmpHideLog(\""+name+"\");", name: "Tmp Hide Log"};
+							var hideLogAction = {action: "tmpHideLog(\""+id+"\");", name: "Tmp Hide Log"};
 							var clearLogAction = {action: "clearLogInner(titles[\""+id+"\"]);", name: "Clear Log"};
 							var deleteLogAction = {action: "deleteLogPopupInner(titles[\""+id+"\"]);", name: "Delete Log"};
 							var copyNameAction = {action: "copyToClipBoard(\""+shortName+"\");", name: "Copy File Name"};
 							var copyFullPathAction = {action: "copyToClipBoard(titles[\""+id+"\"]);", name: "Copy Filepath"};
-							var alertToggle = {action: "tmpEnableAlerts(\""+id+"\");" ,name: "Enable Alerts"};
+							var alertToggle = {action: "tmpToggleAlerts(\""+id+"\");" ,name: "Enable Alerts"};
 							if(fileData[fullPathSearch]["AlertEnabled"] === "true")
 							{
-								alertToggle = {action: "tmpDisableAlerts(\""+id+"\");" ,name: "Disable Alerts"};
+								alertToggle = {action: "tmpToggleAlerts(\""+id+"\");" ,name: "Disable Alerts"};
 							}
 							//add rightclick menu
-							menuObjectRightClick[id] = [hideLogAction, clearLogAction,deleteLogAction,copyNameAction,copyFullPathAction,alertToggle];
-							Rightclick_ID_list.push(id);
+							if(rightClickMenuEnable === "true")
+							{
+								menuObjectRightClick[id] = [hideLogAction, clearLogAction,deleteLogAction,copyNameAction,copyFullPathAction,alertToggle];
+								Rightclick_ID_list.push(id);
+							}
 						}
 
 						updated = false;
-						if(fileData[fullPathSearch]["AlertEnabled"] === "true" && (!(id in alertEnabledArray) || (id in alertEnabledArray && alertEnabledArray[id] === "enabled")))
+						if(fullPathSearch in fileData && fileData[fullPathSearch]["AlertEnabled"] === "true" && (!(id in alertEnabledArray) || (id in alertEnabledArray && alertEnabledArray[id] === "enabled")))
 						{
 							if(!(logs[id] === lastLogs[id]))
 							{
@@ -1021,20 +1216,13 @@ function update(data)
 							}
 							else
 							{
+								var selectListForFilter = document.getElementsByName("searchType")[0];
+								var selectedListFilterType = selectListForFilter.options[selectListForFilter.selectedIndex].value;
 								if(selectedListFilterType === "content" && filterContentHighlight === "true")
 								{
 									if(lastContentSearch !== getFilterTextField())
 									{
-										var windows = Object.keys(logDisplayArray);
-										var lengthOfWindows = windows.length;
-										for(var j = 0; j < lengthOfWindows; j++)
-										{
-											if(logDisplayArray[j]["id"] === id)
-											{
-												updated = true;
-												break;
-											}
-										}
+										updated = checkIfDisplay(id)["display"];
 									}
 								}
 							}
@@ -1042,32 +1230,13 @@ function update(data)
 						else
 						{
 							//check if displayed
-							var windows = Object.keys(logDisplayArray);
-							var lengthOfWindows = windows.length;
-							for(var j = 0; j < lengthOfWindows; j++)
-							{
-								if(logDisplayArray[j]["id"] === id)
-								{
-									updated = true;
-									break;
-								}
-							}
+							updated = checkIfDisplay(id)["display"];
 						}
 
 						if(updated)
 						{
 							//determine if id is one of the values in the array of open files (use instead of currentPage)
-							var windows = Object.keys(logDisplayArray);
-							var lengthOfWindows = windows.length;
-							var currentIdPos = -1;
-							for(var j = 0; j < lengthOfWindows; j++)
-							{
-								if(id === logDisplayArray[j]["id"])
-								{
-									currentIdPos = j;
-									break;
-								}
-							}
+							var currentIdPos = checkIfDisplay(id)["location"];
 
 							var diff = getDiffLogAndLastLog(id);
 							if(diff !== "")
@@ -1099,7 +1268,7 @@ function update(data)
 							var updateHtml = true;
 							if(currentIdPos === -1)
 							{
-								updateHtml = false
+								updateHtml = false;
 							}
 							else if(scrollOnUpdate === "true" && scrollEvenIfScrolled === "false")
 							{
@@ -1110,7 +1279,16 @@ function update(data)
 
 							if(updateHtml)
 							{
-								$("#log"+currentIdPos).html(makePretty(id));
+								var logFormatted = "";
+								if(standardMessage)
+								{
+									logFormatted = logData;
+								}
+								else
+								{
+									logFormatted = makePretty(id);
+								}
+								$("#log"+currentIdPos).html(logFormatted);
 								fadeHighlight(currentIdPos);
 								if(document.getElementById(id+"Count").innerHTML !== "")
 								{
@@ -1133,22 +1311,20 @@ function update(data)
 										{
 											$("#menu a." + id + "Button").addClass("updated");
 										}
-										var objectToSend = new Array();
-										objectToSend["log"] = id;
 										var numForNot = "";
 										if (diffNew !== "(0)")
 										{
 											numForNot = diffNew;
 										}
-										objectToSend["name"] = shortName+" Update "+numForNot;
-										objectToSend["action"] = "$('#"+id+"').click();  toggleNotifications();";
-										addLogNotification(objectToSend);
+										addLogNotification({
+											log: id,
+											name: shortName+" Update "+numForNot,
+											action: "$('#"+id+"').click();  toggleNotifications();"
+										});
 									}
 								}
 							}
 						}
-						
-						
 						if(initialized && updated && $(window).filter(":focus").length === 0) 
 						{
 							if(flashTitleUpdateLog === "true")
@@ -1156,7 +1332,6 @@ function update(data)
 								flashTitle();
 							}
 						}
-						
 						updateLogTitle(id);
 					}
 					else
@@ -1168,14 +1343,25 @@ function update(data)
 			else
 			{
 				hideLogByName(name);
+				//remove this log from array of window keys if there
+				var windowKeys = Object.keys(logDisplayArray);
+				var lengthOfWindows = windowKeys.length;
+				for(var j = 0; j < lengthOfWindows; j++)
+				{
+					if(logDisplayArray[windowKeys[j]]["id"] === id)
+					{
+						logDisplayArray[windowKeys[j]]["id"] = null;
+						logDisplayArray[windowKeys[j]]["pin"] = false;
+						logDisplayArray[windowKeys[j]]["scroll"] = true;
+						break;
+					}
+				}
 			}
 		}
 		resize();
-		
 		//Check if a tab is active, if none... click on first in array that's visible
 		var targetLength = Object.keys(logDisplayArray).length;
 		var tmpCurrentSelectWindow = currentSelectWindow;
-		
 		if($("#menu .active").length < targetLength)
 		{
 			selectTabsInOrder(targetLength);
@@ -1185,17 +1371,104 @@ function update(data)
 				toggleDisplayOfNoLogs();
 			}
 		}
+		else if($("#menu .active").length > targetLength)
+		{
+			removeTabsInOrder(targetLength);
+		}
 		//below changes the current select window back to what was selected by user (could change by function above)
 		changeCurrentSelectWindow(tmpCurrentSelectWindow);
 
 		toggleNotificationClearButton();
 		updateScrollOnLogs();
-		
 		lastContentSearch = getFilterTextField();
-
 		refreshLastLogsArray();
 
 		resize();
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
+function checkIfDisplay(id)
+{
+	var windows = Object.keys(logDisplayArray);
+	var lengthOfWindows = windows.length;
+	for(var j = 0; j < lengthOfWindows; j++)
+	{
+		if(logDisplayArray[j]["id"] === id)
+		{
+			return {display: true, location: j};
+		}
+	}
+	return {display: false, location: -1};
+}
+
+function unselectAllLogs()
+{
+	unselectLogsInner(true);
+}
+
+function unselectLogsThatAreInNewLayout()
+{
+	unselectLogsInner(false);
+}
+
+function unselectLogsInner(boolForType)
+{
+	try
+	{
+		var triggerUpdate = false;
+		var arrayOfLogsLength = Object.keys(logDisplayArray).length;
+		for(var h = arrayOfLogsLength - 1; h >= 0; h--)
+		{
+			if(boolForType || logDisplayArray[h]["id"] !== null)
+			{
+				var currentLayout = document.getElementById("windowConfig").value;
+				var layoutVersionIndex = document.getElementById("layoutVersionIndex").value;
+				if
+				(
+					boolForType || logLoadLayout.length === 0 ||
+					(
+						logLoadLayout[currentLayout][h][layoutVersionIndex] !== "" &&
+						logLoadLayout[currentLayout][h][layoutVersionIndex] in fileData
+					)
+				)
+				{
+					if(logDisplayArray[h]["pin"] === false)
+					{
+						$("#log"+h).html("");
+						$("#"+logDisplayArray[h]["id"]).removeClass("active");
+						$("#"+logDisplayArray[h]["id"]+"CurrentWindow").html("");
+						logDisplayArray[h] = {id: null, scroll: true, pin: false};
+						triggerUpdate = true;
+					}
+				}
+			}
+		}
+		if(triggerUpdate)
+		{
+			generalUpdate();
+		}
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
+function removeTabsInOrder(targetLength)
+{
+	try
+	{
+		var arrayOfLogsLength = Object.keys(logDisplayArrayOld).length;
+		//this is where on first load, tabs are selected to be visible (see here for issue 312)
+		for(var h = arrayOfLogsLength - 1; h >= targetLength; h--)
+		{
+			$("#"+logDisplayArrayOld[h]["id"]+"CurrentWindow").html("");
+			$("#"+logDisplayArrayOld[h]["id"]).removeClass("active");
+		}
 	}
 	catch(e)
 	{
@@ -1208,14 +1481,32 @@ function selectTabsInOrder(targetLength)
 	try
 	{
 		var arrayOfLogs = $("#menu a");
+		var arrayOfLogsLength = arrayOfLogs.length;
 		//this is where on first load, tabs are selected to be visible (see here for issue 312)
 		for(var h = 0; h < targetLength; h++)
 		{
 			if(logDisplayArray[h]["id"] === null)
 			{
 				//show first available log
-				for (var i = 0; i < arrayOfLogs.length; i++)
+				for (var i = 0; i < arrayOfLogsLength; i++)
 				{
+					var currentLayout = document.getElementById("windowConfig").value;
+					var layoutVersionIndex = document.getElementById("layoutVersionIndex").value;
+					if(logLoadLayout.length !== 0 && logLoadLayout[currentLayout][h][layoutVersionIndex] !== "" && logLoadLayout[currentLayout][h][layoutVersionIndex] in fileData )
+					{
+						if(checkNameCont(logLoadLayout[currentLayout][h][layoutVersionIndex].replace(/[^a-z0-9]/g, ""), arrayOfLogs[i]))
+						{
+							continue;
+						}
+					}
+					if(h === 0 && logSelectedFirstLoad !== "" && logSelectedFirstLoad in fileData)
+					{
+						if(checkNameCont(logSelectedFirstLoad.replace(/[^a-z0-9]/g, ""), arrayOfLogs[i]))
+						{
+							continue;
+						}
+					}
+
 					var logIsAlreadyShown = false;
 					for(var j = 0; j < targetLength; j++)
 					{
@@ -1239,6 +1530,18 @@ function selectTabsInOrder(targetLength)
 	{
 		eventThrowException(e);
 	}
+}
+
+function checkNameCont(checkName, currentCheck)
+{
+	if(!($("#"+checkName).hasClass("active")))
+	{
+		if(currentCheck.id !== checkName)
+		{
+			return true;
+		}
+	}
+	return false;
 }
 
 function toggleDisplayOfNoLogs()
@@ -1270,41 +1573,37 @@ function toggleDisplayOfNoLogs()
 	}
 }
 
-function tmpEnableAlerts(id)
+function tmpToggleAlerts(id)
 {
-	var menuObjectLocal = menuObjectRightClick[id];
-	var options = Object.keys(menuObjectLocal);
-	var lengthOfOptions = options.length;
-	for(var i = 0; i < lengthOfOptions; i++)
+	try
 	{
-		var currentOption = menuObjectLocal[options[i]];
-		if(currentOption["name"] === "Enable Alerts")
+		var menuObjectLocal = menuObjectRightClick[id];
+		var options = Object.keys(menuObjectLocal);
+		var lengthOfOptions = options.length;
+		for(var i = 0; i < lengthOfOptions; i++)
 		{
-			menuObjectRightClick[id][options[i]]["name"] = "Disable Alerts";
-			menuObjectRightClick[id][options[i]]["action"] = "tmpDisableAlerts(\""+id+"\")";
-			break;
+			var currentOption = menuObjectLocal[options[i]];
+			if(currentOption["name"] === "Enable Alerts" || currentOption["name"] === "Disable Alerts")
+			{
+				menuObjectRightClick[id][options[i]]["name"] = "Disable Alerts";
+				if(currentOption["name"] === "Disable Alerts")
+				{
+					menuObjectRightClick[id][options[i]]["name"] = "Enable Alerts";
+				}
+				break;
+			}
 		}
-	}
-	alertEnabledArray[id] = "enabled";
-}
-
-function tmpDisableAlerts(id)
-{
-	var menuObjectLocal = menuObjectRightClick[id];
-	var options = Object.keys(menuObjectLocal);
-	var lengthOfOptions = options.length;
-	for(var i = 0; i < lengthOfOptions; i++)
-	{
-		var currentOption = menuObjectLocal[options[i]];
+		alertEnabledArray[id] = "enabled";
 		if(currentOption["name"] === "Disable Alerts")
 		{
-			menuObjectRightClick[id][options[i]]["name"] = "Enable Alerts";
-			menuObjectRightClick[id][options[i]]["action"] = "tmpEnableAlerts(\""+id+"\")";
-			break;
+			alertEnabledArray[id] = "disabled";
+			removeNotificationByLog(id);
 		}
 	}
-	alertEnabledArray[id] = "disabled";
-	removeNotificationByLog(id);
+	catch(e)
+	{
+		eventThrowException(e);
+	}
 }
 
 function updateScrollOnLogs()
@@ -1369,7 +1668,7 @@ function tmpHideLog(name)
 	{
 		hideLogByName(name);
 		logsToHide.push(name);
-		update(arrayOfDataMain);
+		generalUpdate();
 	}
 	catch(e)
 	{
@@ -1598,12 +1897,18 @@ function removeLogByName(name)
 	{
 		eventThrowException(e);
 	}
-	
 }
 
 function fadeHighlight(id)
 {
-	setTimeout(function(){ removeNewHighlights("#log"+id); }, 30);
+	try
+	{
+		setTimeout(function(){ removeNewHighlights("#log"+id); }, parseInt(timeoutHighlight));
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
 }
 
 function show(e, id)
@@ -1624,7 +1929,7 @@ function show(e, id)
 			$("#log"+(windowNumAsNum-1)).html("");
 		}
 		//window number clear
-		$('.currentWindowNum').each(function(i, obj)
+		$(".currentWindowNum").each(function(i, obj)
 		{
 			if(obj.innerHTML ==  ""+(currentCurrentSelectWindow+1)+". ")
 			{
@@ -1709,6 +2014,7 @@ function showPartThree(e, internalID, currentCurrentSelectWindow)
 function removeNewHighlights(area)
 {
 	$(area + " div").removeClass("newLine");
+	$(area + " tr").removeClass("newLine");
 }
 
 function getDiffLogAndLastLog(id)
@@ -1745,6 +2051,10 @@ function getDiffLogAndLastLog(id)
 		else if(lengthOfLastArray > lengthOfArray)
 		{
 			return 0;
+		}
+		else if(sliceSize < lengthOfArray)
+		{
+			return lengthOfArray - sliceSize;
 		}
 
 		var lastLine = tmpTextLast[lengthOfLastArray-1];
@@ -1787,7 +2097,7 @@ function getDiffLogAndLastLog(id)
 	}
 }
 
-function makePretty(id) 
+function makePretty(id)
 {
 	try
 	{
@@ -1806,7 +2116,7 @@ function makePretty(id)
 		{
 			text = text[0].split("\\n");
 		}
-		var returnText = "";
+		var returnText = "<table width=\"100%\" style=\"border-spacing: 2px 0;\" >";
 		var lengthOfTextArray = text.length;
 		var selectListForFilter = document.getElementsByName("searchType")[0];
 		var selectedListFilterType = selectListForFilter.options[selectListForFilter.selectedIndex].value;
@@ -1815,10 +2125,11 @@ function makePretty(id)
 		var topPadding = filterContentLinePadding;
 		var foundOne = false;
 		var addLine = false;
+		var filterTextField = getFilterTextField();
 		for (var i = 0; i < lengthOfTextArray; i++)
 		{
 			addLine = false;
-			if(selectedListFilterType === "content" && filterContentLimit === "true" && getFilterTextField() !== "")
+			if(selectedListFilterType === "content" && filterContentLimit === "true" && filterTextField !== "")
 			{
 				//check for content on current line
 				if(filterContentCheck(text[i]))
@@ -1887,16 +2198,17 @@ function makePretty(id)
 					}
 
 					customClass += " '";
-					returnText += "<div ";
+					returnText += "<tr valign=\"top\" ";
 					if(customClassAdd)
 					{
 						returnText += " "+customClass+" ";
 					}
-					returnText += " >"+lineText[j]+"</div>";
+					returnText += " >"+formatLine(lineText[j])+"</tr>";
+					returnText += "<tr height=\""+logLinePadding+"px\" ><td colspan=\"2\"></td></tr>";
 				}
 			}
 		}
-		
+		returnText += "</table>";
 		return returnText;
 	}
 	catch(e)
@@ -1951,7 +2263,7 @@ function getScrollbarWidth()
     return widthNoScroll - widthWithScroll;
 }
 
-function resize() 
+function resize()
 {
 	try
 	{
@@ -1992,7 +2304,6 @@ function resize()
 		if(($(".logTrHeight").outerHeight() !== trElementHeight)|| ($(".logTdWidth").outerWidth() !== tdElementWidth) || ($(".backgroundForSideBarMenu").outerHeight() !== trElementHeight))
 		{
 			$(".logTrHeight").outerHeight(trElementHeight);
-			
 			$(".logTdWidth").outerWidth(tdElementWidth);
 			$(".backgroundForSideBarMenu").outerHeight(trElementHeight);
 		}
@@ -2032,10 +2343,10 @@ function stopFlashTitle()
 	{
 		eventThrowException(e);
 	}
-	
+
 }
 
-function focus() 
+function focus()
 {
 	stopFlashTitle();
 }
@@ -2043,7 +2354,6 @@ function focus()
 function startPollTimer()
 {
 	/* Dont try catch visibility  */
-
 	pollRateCalc = pollingRate;
 	if(pollingRateType === "Seconds")
 	{
@@ -2067,7 +2377,7 @@ function startPollTimer()
 function clearPollTimer()
 {
 	/* Dont try catch visibility  */
-	
+
 	if(pauseOnNotFocus === "true")
 	{
 		clearInterval(pollTimer);
@@ -2097,7 +2407,7 @@ function switchPollType()
 		}
 		pollTimer = Visibility.every(pollRateCalc, bgPollRateCalc, function () { poll(); });
 		showPopup();
-		document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Toggled off!</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Toggled off auto pause in background</div></div>";
+		document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class=\"settingsHeader\" >Toggled off!</div><br><div style=\"width:100%;text-align:center;padding-left:10px;padding-right:10px;\">Toggled off auto pause in background</div></div>";
 	}
 	else
 	{
@@ -2105,7 +2415,7 @@ function switchPollType()
 		pauseOnNotFocus = "true";
 		pollTimer = setInterval(poll, pollRateCalc);
 		showPopup();
-		document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Toggled on!</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Toggled on auto pause in background</div></div>";
+		document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class=\"settingsHeader\" >Toggled on!</div><br><div style=\"width:100%;text-align:center;padding-left:10px;padding-right:10px;\">Toggled on auto pause in background</div></div>";
 	}
 	setTimeout(function(){ hidePopup(); }, 500);
 }
@@ -2177,14 +2487,7 @@ function pausePollFunction()
 
 function isPageHidden()
 {
-	try
-	{
-		return document.hidden || document.msHidden || document.webkitHidden || document.mozHidden;
-    }
-	catch(e)
-	{
-		eventThrowException(e);
-	}
+	return document.hidden || document.msHidden || document.webkitHidden || document.mozHidden;
 }
 
 function scrollToBottom(idNum)
@@ -2204,7 +2507,20 @@ function clearLogInner(title)
 			type: "POST",
 	success(data)
 	{
-		refreshLastLogsArray();
+		if(data["fileFound"] === "false")
+		{
+			showPopup();
+			document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class=\"settingsHeader\" >An Error Occured when clearing this log</div><br><div style=\"width:100%;text-align:center;padding-left:10px;padding-right:10px;\">The log could not be found.</div><div><div style=\"margin-left: 160px; margin-top: 20px;\" onclick=\"hidePopup();\" class=\"link\">Close</div></div>";
+		}
+		else if(data["success"] === "false")
+		{
+			showPopup();
+			document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class=\"settingsHeader\" >An Error Occured when clearing this log</div><br><div style=\"width:100%;text-align:center;padding-left:10px;padding-right:10px;\">An unknown error occured when trying to clear this log.</div><div><div style=\"margin-left: 160px; margin-top: 20px;\" onclick=\"hidePopup();\" class=\"link\">Close</div></div>";
+		}
+		else
+		{
+			refreshLastLogsArray();
+		}
 	},
 	});
 }
@@ -2230,10 +2546,7 @@ function deleteAction()
 {
 	try
 	{
-		if (typeof popupSettingsArray === 'string')
-		{
-			popupSettingsArray = JSON.parse(popupSettingsArray);
-		}
+		popupSettingsArrayCheck();
 		if("deleteLog" in popupSettingsArray && popupSettingsArray.deleteLog == "true")
 		{
 			showPopup();
@@ -2294,10 +2607,7 @@ function deleteLogPopupInner(title)
 	title = filterTitle(title);
 	if(title !== "")
 	{
-		if (typeof popupSettingsArray === 'string')
-		{
-			popupSettingsArray = JSON.parse(popupSettingsArray);
-		}
+		popupSettingsArrayCheck();
 		if("deleteLog" in popupSettingsArray && popupSettingsArray.deleteLog == "true")
 		{
 			showPopup();
@@ -2325,7 +2635,20 @@ function deleteLog(title)
 			type: "POST",
 			success(data)
 			{
-				removeLogByName(data);
+				if(data["fileFound"] === "false")
+				{
+					showPopup();
+					document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class=\"settingsHeader\" >An Error Occured when deleting this log</div><br><div style=\"width:100%;text-align:center;padding-left:10px;padding-right:10px;\">The log could not be found.</div><div><div style=\"margin-left: 160px; margin-top: 20px;\" onclick=\"hidePopup();\" class=\"link\">Close</div></div>";
+				}
+				else if(data["success"] === "false")
+				{
+					showPopup();
+					document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class=\"settingsHeader\" >An Error Occured when deleting this log</div><br><div style=\"width:100%;text-align:center;padding-left:10px;padding-right:10px;\">An unknown error occured when trying to delete this log.</div><div><div style=\"margin-left: 160px; margin-top: 20px;\" onclick=\"hidePopup();\" class=\"link\">Close</div></div>";
+				}
+				else
+				{
+					removeLogByName(data["file"]);
+				}
 			}
 		});
 	}
@@ -2355,7 +2678,7 @@ function checkForUpdateMaybe()
 {
 	try
 	{
-		if (autoCheckUpdate == "true")
+		if (autoCheckUpdate === "true")
 		{
 			if(daysSinceLastCheck > (autoCheckDaysUpdate - 1))
 			{
@@ -2447,18 +2770,23 @@ function changeSearchplaceholder()
 	var selectListForFilter = document.getElementsByName("searchType")[0];
 	var selectedListFilterType = selectListForFilter.options[selectListForFilter.selectedIndex].value;
 	document.getElementById("searchFieldInput").placeholder = "Filter "+selectedListFilterType;
-	update(arrayOfDataMain);
+	generalUpdate();
 }
 
 function changeCurrentSelectWindow(newSelectWindow)
 {
+	newSelectWindow = parseInt(newSelectWindow);
 	if(currentSelectWindow === newSelectWindow)
 	{
 		return;
 	}
-	$("#numSelectIndecatorForWindow"+currentSelectWindow).removeClass("currentWindowNumSelected").addClass("sidebarCurrentWindowNum");
+	$(".currentWindowNumSelected").removeClass("currentWindowNumSelected").addClass("sidebarCurrentWindowNum");
 	currentSelectWindow = newSelectWindow;
 	$("#numSelectIndecatorForWindow"+newSelectWindow).removeClass("sidebarCurrentWindowNum").addClass("currentWindowNumSelected");
+	if(windowDisplayConfigColCount > 1 || windowDisplayConfigRowCount > 1)
+	{
+		$(".currentWindowNumSelected").show();
+	}
 }
 
 function showInfo(idNum)
@@ -2488,13 +2816,13 @@ function toggleFilterSettingsPopup()
 	innerHtmlForSettings += "<ul class=\"settingsUl\" ><li><span class=\"settingsBuffer\" > Case Insensitive Search: </span> <div class=\"selectDiv\">";
 	innerHtmlForSettings += "<select onchange=\"changeFilterCase();\" id=\"caseInsensitiveSearch\">";
 	innerHtmlForSettings += "<option";
-	if(caseInsensitiveSearch === 'true')
+	if(caseInsensitiveSearch === "true")
 	{
 		innerHtmlForSettings += " selected ";
 	}
 	innerHtmlForSettings += " value=\"true\">True</option>";
 	innerHtmlForSettings += "<option";
-	if(caseInsensitiveSearch === 'false')
+	if(caseInsensitiveSearch === "false")
 	{
 		innerHtmlForSettings += " selected ";
 	}
@@ -2503,13 +2831,13 @@ function toggleFilterSettingsPopup()
 	innerHtmlForSettings += "<li><span class=\"settingsBuffer\" > Filter Title Includes Path: </span>";
 	innerHtmlForSettings += " <div class=\"selectDiv\"><select onchange=\"changeFilterTitleIncludePath();\" id=\"filterTitleIncludePath\">";
 	innerHtmlForSettings += "<option ";
-	if(filterTitleIncludePath === 'true')
+	if(filterTitleIncludePath === "true")
 	{
 		innerHtmlForSettings += " selected ";
 	}
 	innerHtmlForSettings += " value=\"true\">True</option>";
 	innerHtmlForSettings += "<option ";
-	if(filterTitleIncludePath === 'false')
+	if(filterTitleIncludePath === "false")
 	{
 		innerHtmlForSettings += " selected ";
 	}
@@ -2518,13 +2846,13 @@ function toggleFilterSettingsPopup()
 	innerHtmlForSettings += "<li><span class=\"settingsBuffer\" > Highlight Content match: </span>";
 	innerHtmlForSettings += " <div class=\"selectDiv\"><select onchange=\"changeHighlightContentMatch();\" id=\"filterContentHighlight\">";
 	innerHtmlForSettings += "<option";
-	if(filterContentHighlight === 'true')
+	if(filterContentHighlight === "true")
 	{
 		innerHtmlForSettings += " selected ";
 	}
 	innerHtmlForSettings += " value=\"true\">True</option>";
 	innerHtmlForSettings += "<option";
-	if(filterContentHighlight === 'false')
+	if(filterContentHighlight === "false")
 	{
 		innerHtmlForSettings += " selected ";
 	}
@@ -2533,16 +2861,16 @@ function toggleFilterSettingsPopup()
 	innerHtmlForSettings += " <li><span class=\"settingsBuffer\" > Filter Content match: </span>";
 	innerHtmlForSettings += " <div class=\"selectDiv\"><select onchange=\"changeFilterContentMatch();\" id=\"filterContentLimit\">";
 	innerHtmlForSettings += "<option";
-	if(filterContentLimit === 'true')
+	if(filterContentLimit === "true")
 	{
 		innerHtmlForSettings += " selected ";
 	}
 	innerHtmlForSettings += " value=\"true\">True</option>";
 	innerHtmlForSettings += "<option";
-	if(filterContentLimit === 'false')
+	if(filterContentLimit === "false")
 	{
 		innerHtmlForSettings += " selected ";
-	} 
+	}
 	innerHtmlForSettings += " value=\"false\">False</option>";
 	innerHtmlForSettings += "</select></div></li>";
 	innerHtmlForSettings += "<li><span class=\"settingsBuffer\" > Line Padding: </span>";
@@ -2598,7 +2926,7 @@ function possiblyUpdateFromFilter()
 	if(document.getElementById("searchFieldInput").value !== "")
 	{
 		lastContentSearch = "";
-		update(arrayOfDataMain);
+		generalUpdate();
 	}
 }
 
@@ -2638,7 +2966,6 @@ function showNotifications()
 		arrayInternalNotifications[0]["name"] = "No Notifications";
 		arrayInternalNotifications[0]["time"] = formatAMPM(new Date());
 		arrayInternalNotifications[0]["action"] = "";
-		
 	}
 	else
 	{
@@ -2725,15 +3052,18 @@ function removeNotificationByLog(logId)
 
 function removeNotification(idToRemove)
 {
-	//remove from array
-	if("log" in notifications[idToRemove])
+	if(idToRemove in notifications)
 	{
-		var logId = notifications[idToRemove]["log"];
-		document.getElementById(logId).classList.remove("updated");
-		document.getElementById(logId+"Count").innerHTML = "";
-		document.getElementById(logId+"CountHidden").innerHTML = "";
+		//remove from array
+		if("log" in notifications[idToRemove])
+		{
+			var logId = notifications[idToRemove]["log"];
+			document.getElementById(logId).classList.remove("updated");
+			document.getElementById(logId+"Count").innerHTML = "";
+			document.getElementById(logId+"CountHidden").innerHTML = "";
+		}
+		notifications.splice(idToRemove, 1);
 	}
-	notifications.splice(idToRemove, 1);
 	updateNotificationStuff();
 }
 
@@ -2753,15 +3083,27 @@ function updateNotificationCount()
 		$("#notificationCount").empty();
 		document.getElementById("notificationIcon").style.display = "block";
 		$("#notificationCount").append(currentCount);
-		document.getElementById("notificationCount").style.left = (document.getElementById("notificationDiv").getBoundingClientRect().left+5) + "px";
-		document.getElementById("notificationBadge").style.left = (document.getElementById("notificationDiv").getBoundingClientRect().left-5) + "px";
-		document.getElementById("notificationCount").style.top = (document.getElementById("notificationDiv").getBoundingClientRect().top+11) + "px";
-		document.getElementById("notificationBadge").style.top = (document.getElementById("notificationDiv").getBoundingClientRect().top+19) + "px";
+		resizeNotificationCounter();
 	}
 	else
 	{
 		$("#notificationCount").empty();
 		document.getElementById("notificationIcon").style.display = "none";
+	}
+}
+
+function resizeNotificationCounter()
+{
+	var boundingRectForNotificationDiv = document.getElementById("notificationDiv").getBoundingClientRect();
+	if(document.getElementById("notificationCount").style.left !== (boundingRectForNotificationDiv.left+5) + "px")
+	{
+		document.getElementById("notificationCount").style.left = (boundingRectForNotificationDiv.left+5) + "px";
+		document.getElementById("notificationBadge").style.left = (boundingRectForNotificationDiv.left-5) + "px";
+	}
+	if(document.getElementById("notificationCount").style.top !== (boundingRectForNotificationDiv.top+11) + "px")
+	{
+		document.getElementById("notificationCount").style.top = (boundingRectForNotificationDiv.top+11) + "px";
+		document.getElementById("notificationBadge").style.top = (boundingRectForNotificationDiv.top+19) + "px";
 	}
 }
 
@@ -2811,12 +3153,14 @@ function updateNotificationStuff()
 
 function toggleFullScreenMenu()
 {
+	dirForAjaxSend = "";
 	if(document.getElementById("notifications").style.display === "inline-block")
 	{
 		toggleNotifications();
 	}
 	if(document.getElementById("fullScreenMenu").style.display === "none")
 	{
+		loadImgFromData("mainMenuImage");
 		document.getElementById("fullScreenMenu").style.display = "block";
 		onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
 		if($("#menuStatusAddon").hasClass("selected"))
@@ -2843,21 +3187,34 @@ function toggleFullScreenMenu()
 	}
 }
 
-function toggleUpdateMenu()
+function toggleUpdateMenu(force = false)
 {
+	if(!force)
+	{
+		if(!(goToPageCheck("toggleUpdateMenu(true)")))
+		{
+			return false;
+		}
+	}
+	loadImgFromData("updateImg");
 	hideMainStuff();
-	document.getElementById("mainContentFullScreenMenu").style.left = ""+201+"px";
+	hideSidebar();
 	document.getElementById("fullScreenMenuUpdate").style.display = "block";
 	$("#mainMenuUpdate").addClass("selected");
 	arrayOfScrollHeaderUpdate = ["updateUpdate","updateReleaseNotes"];
 	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
 }
 
-function toggleAbout()
+function toggleAbout(force = false)
 {
-	hideAboutStuff();
+	if(!force)
+	{
+		if(!(goToPageCheck("toggleAbout(true)")))
+		{
+			return false;
+		}
+	}
 	hideMainStuff();
-	hideIframeStuff();
 	document.getElementById("mainContentFullScreenMenu").style.left = ""+402+"px";
 	document.getElementById("aboutSubMenu").style.display = "block";
 	$("#mainMenuAbout").addClass("selected");
@@ -2875,6 +3232,7 @@ function toggleAboutLogHog()
 
 function toggleWhatsNew()
 {
+	loadImgFromData("whatsNewImage");
 	hideAboutStuff();
 	document.getElementById("fullScreenMenuWhatsNew").style.display = "block";
 	$("#aboutSubMenuWhatsNew").addClass("selected");
@@ -2889,6 +3247,108 @@ function toggleChangeLog()
 	$("#aboutSubMenuChangelog").addClass("selected");
 	arrayOfScrollHeaderUpdate = ["fullScreenMenuChangeLog"];
 	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
+}
+
+function toggleWatchListMenu(force = false)
+{
+	if(!force)
+	{
+		if(!(goToPageCheck("toggleWatchListMenu(true)")))
+		{
+			return false;
+		}
+	}
+	if(typeof loadWatchList !== "function")
+	{
+		script("core/js/settingsWatchlist.js?v="+cssVersion);
+	}
+	else
+	{
+		resetProgressBarWatchList();
+	}
+	$(".uniqueClassForAppendSettingsMainWatchNew").html("");
+	$("#loadingSpan").show();
+	document.getElementById("mainContentFullScreenMenu").style.left = ""+402+"px";
+	loadImgFromData("watchlistImg");
+	hideMainStuff();
+	arrayOfDataSettings = ["settingsMainWatch"];
+	document.getElementById("fullScreenMenuWatchList").style.display = "block";
+	document.getElementById("watchListSubMenu").style.display = "block";
+	$("#watchListMenu").addClass("selected");
+	arrayOfScrollHeaderUpdate = ["settingsMainWatch"];
+	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
+	$(".settingsMainWatchSaveChangesButton").css("display","none");
+	if(typeof loadWatchList !== "function")
+	{
+		setTimeout(function() {
+			timerForWatchlist = setInterval(tryLoadWatch, 100);
+		}, 250);
+	}
+	else
+	{
+		setTimeout(function() {
+			timerForWatchlist = setInterval(tryLoadWatch, 100);
+		}, 25);
+	}
+}
+
+function tryLoadWatch()
+{
+	if(typeof loadWatchList === "function")
+	{
+		clearInterval(timerForWatchlist);
+		loadWatchList();
+	}
+}
+
+function startSettingsPollTimer()
+{
+	timerForSettings = setInterval(checkIfChanges, 100);
+}
+
+function checkIfChanges()
+{
+	if(checkForChangesArray(arrayOfDataSettings))
+	{
+		return true;
+	}
+	return false;
+}
+
+function goToPageCheck(functionName)
+{
+	try
+	{
+		var goToPage = !checkIfChanges();
+		popupSettingsArrayCheck();
+		if(!(goToPage || ("saveSettings" in popupSettingsArray  && popupSettingsArray.saveSettings == "false")))
+		{
+			displaySavePromptPopupIndex(functionName);
+			return false;
+		}
+		return true;
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
+function endSettingsPollTimer()
+{
+	arrayOfDataSettings = [];
+	clearInterval(timerForSettings);
+}
+
+function hideSidebar()
+{
+	document.getElementById("mainContentFullScreenMenu").style.left = ""+201+"px";
+}
+
+function hideWatchListStuff()
+{
+	document.getElementById("fullScreenMenuWatchList").style.display = "none";
+	document.getElementById("watchListSubMenu").style.display = "none";
 }
 
 function hideUpdateStuff()
@@ -2912,8 +3372,15 @@ function hideIframeStuff()
 	$('#iframeFullScreen').prop('src', "");
 }
 
-function toggleIframe(locHref, idOfAddon)
+function toggleIframe(locHref, idOfAddon, force = false)
 {
+	if(!force)
+	{
+		if(!(goToPageCheck("toggleIframe(\""+locHref+"\",\""+idOfAddon+"\",true)")))
+		{
+			return false;
+		}
+	}
 	hideMainStuff();
 	$("#"+idOfAddon).addClass("selected");
 	document.getElementById("fullScreenMenuIFrame").style.display = "block";
@@ -2929,6 +3396,8 @@ function toggleIframe(locHref, idOfAddon)
 
 function hideMainStuff()
 {
+	endSettingsPollTimer();
+
 	if($("#mainMenuAbout").hasClass("selected"))
 	{
 		document.getElementById("aboutSubMenu").style.display = "none";
@@ -2950,6 +3419,13 @@ function hideMainStuff()
 		hideIframeStuff();
 	}
 
+	if($("#watchListMenu").hasClass("selected"))
+	{
+		hideWatchListStuff();
+	}
+
+	$("#watchListMenu").removeClass("selected");
+
 	$("#menuStatusAddon").removeClass("selected");
 	$("#menuMonitorAddon").removeClass("selected");
 	$("#menuSearchAddon").removeClass("selected");
@@ -2959,9 +3435,41 @@ function hideMainStuff()
 function toggleGroupedGroups()
 {
 	var groupSelect = document.getElementById("selectForGroup").value;
-	$(".allGroup").hide();
-	$(".active").show();
-	$("."+groupSelect+"Group").show();
+	var listOfTabs = $("#menu a");
+	var listOfTabsKeys = Object.keys(listOfTabs);
+	var listOfTabsKeysLength = listOfTabsKeys.length;
+	for(var groupCount = 0; groupCount < listOfTabsKeysLength; groupCount++)
+	{
+		var objectTab = listOfTabs[listOfTabsKeys[groupCount]];
+		if(!objectTab)
+		{
+			continue;
+		}
+		var idOfObject = objectTab.id;
+		if($("#"+idOfObject).hasClass("active"))
+		{
+			//show tab if hidden
+			$("#"+idOfObject).show();
+		}
+		else if($.inArray(idOfObject, logsToHide) > -1)
+		{
+			//hide tab if not valid
+			$("#"+idOfObject).hide();
+		}
+		else if(document.getElementById("searchFieldInput").value === "")
+		{
+			if($("#"+idOfObject).hasClass(groupSelect+"Group") || groupSelect === "all")
+			{
+				//show tab if valid
+				$("#"+idOfObject).show();
+			}
+			else
+			{
+				//hide tab if not valid
+				$("#"+idOfObject).hide();
+			}
+		}
+	}
 	//hide empty files if needed
 	if(hideEmptyLog === "true")
 	{
@@ -2998,6 +3506,11 @@ function onScrollShowFixedMiniBar(idsOfForms)
 		}
 		return;
 	}
+	var widthOfMainMenu = document.getElementById("mainContentFullScreenMenu").getBoundingClientRect().width;
+	if (document.getElementById("fixedPositionMiniMenu").style.width !==  widthOfMainMenu)
+	{
+		document.getElementById("fixedPositionMiniMenu").style.width = widthOfMainMenu;
+	}
 	var dis = false;
 	for (var i = idsOfForms.length - 1; i >= 0; i--)
 	{
@@ -3023,6 +3536,209 @@ function onScrollShowFixedMiniBar(idsOfForms)
 	}
 }
 
+function pinWindow(windowNum)
+{
+	if(logDisplayArray[windowNum]["pin"] === true)
+	{
+		logDisplayArray[windowNum]["pin"] = false;
+		$("#pinWindow"+windowNum+" .pinWindow").show();
+		$("#pinWindow"+windowNum+" .unPinWindow").hide();
+	}
+	else
+	{
+		logDisplayArray[windowNum]["pin"] = true;
+		$("#pinWindow"+windowNum+" .pinWindow").hide();
+		$("#pinWindow"+windowNum+" .unPinWindow").show();
+	}
+}
+
+function multiLogPopup()
+{
+	if(document.getElementById("subMenuForGroup").style.display === "none")
+	{
+		//show menu
+		document.getElementById("menu2").style.display = "block";
+		document.getElementById("subMenuForGroup").style.display = "block";
+	}
+	else
+	{
+		//hide menu
+		document.getElementById("menu2").style.display = "none";
+		document.getElementById("subMenuForGroup").style.display = "none";
+	}
+	resize();
+}
+
+function generateWindowDisplay()
+{
+	var windowDisplayConfig = document.getElementById("windowConfig").value;
+	var windowDisplayConfigArray = windowDisplayConfig.split("x");
+	windowDisplayConfigRowCount = windowDisplayConfigArray[0];
+	windowDisplayConfigColCount = windowDisplayConfigArray[1];
+	var logDisplayHtml = "";
+	var newBorderPadding = 0;
+	var newLogDisplayArray = {};
+	var arrayOfPrevLogs = {};
+	for(var i = 0; i < windowDisplayConfigRowCount; i++)
+	{
+		logDisplayHtml += "<tr>";
+		for(var j = 0; j < windowDisplayConfigColCount; j++)
+		{
+			newBorderPadding += 2;
+			var newBlock = $("#storage .logTdHolder").html();
+			var counterInternal = j+(i*windowDisplayConfigColCount);
+			newBlock = newBlock.replace(/{{counter}}/g, counterInternal);
+			newBlock = newBlock.replace(/{{counterPlusOne}}/g, (1+counterInternal));
+			if(counterInternal === 0)
+			{
+				newBlock = newBlock.replace(/{{windowSelect}}/g, "currentWindowNumSelected");
+			}
+			else
+			{
+				newBlock = newBlock.replace(/{{windowSelect}}/g, "sidebarCurrentWindowNum");
+			}
+			if(document.getElementById("log"+counterInternal))
+			{
+				arrayOfPrevLogs[counterInternal] = $("#log"+counterInternal).html();
+				newBlock = newBlock.replace(/{{loadingStyle}}/g, "");
+			}
+			else
+			{
+				newBlock = newBlock.replace(/{{loadingStyle}}/g, "style=\"display: none\"");
+			}
+			logDisplayHtml += newBlock;
+			var newPopupHolder = $("#storage .popuopInfoHolder").html();
+			newPopupHolder = newPopupHolder.replace(/{{counter}}/g, counterInternal);
+			$("body").append(newPopupHolder);
+			if(counterInternal in logDisplayArray)
+			{
+				newLogDisplayArray[counterInternal] = logDisplayArray[counterInternal];
+			}
+			else
+			{
+				newLogDisplayArray[counterInternal] = {id: null, scroll: true, pin: false};
+			}
+		}
+		logDisplayHtml += "</tr>";
+	}
+	borderPadding = newBorderPadding;
+	logDisplayArrayOld = logDisplayArray;
+	logDisplayArray = newLogDisplayArray;
+	document.getElementById("log").innerHTML = ""+logDisplayHtml+"";
+	//show or hide numbers for windows if needed
+	if(windowDisplayConfigColCount > 1 || windowDisplayConfigRowCount > 1)
+	{
+		$(".pinWindowContainer, .currentWindowNumSelected, .currentWindowNum").show();
+	}
+	else
+	{
+		$(".pinWindowContainer, .currentWindowNumSelected, .currentWindowNum").hide();
+	}
+	//change select if needed
+	if(Object.keys(logDisplayArray).length < (currentSelectWindow + 1))
+	{
+		currentSelectWindow = (Object.keys(logDisplayArray).length -1);
+	}
+	resize();
+	if(startOfPollLogicRan === false)
+	{
+		startOfPollLogic();
+	}
+	else
+	{
+		if(logSwitchKeepCurrent === "true")
+		{
+			if(arrayOfPrevLogs !== {})
+			{
+				setTimeout(function() {
+					loadPrevLogContent(arrayOfPrevLogs);
+				}, 1);
+			}
+		}
+		else if(logSwitchKeepCurrent === "onlyIfPresetDefined")
+		{
+			//Check for preset before unselect
+			if(logSwitchABCClearAll === "true")
+			{
+				unselectAllLogs();
+			}
+			else
+			{
+				if(arrayOfPrevLogs !== {})
+				{
+					setTimeout(function() {
+						loadPrevLogContent(arrayOfPrevLogs);
+					}, 1);
+				}
+			}
+		}
+		else
+		{
+			//unselect all logs
+			unselectAllLogs();
+		}
+		setTimeout(function() {
+			generalUpdate();
+		}, 2);
+	}
+}
+
+function loadPrevLogContent(arrayOfPrevLogs)
+{
+	var arrayOfPrevLogsKeys = Object.keys(arrayOfPrevLogs);
+	var totalarrayOfPrevLogs = arrayOfPrevLogsKeys.length;
+	for(var countAPLK = 0; countAPLK < totalarrayOfPrevLogs; countAPLK++)
+	{
+		$("#log"+arrayOfPrevLogsKeys[countAPLK]).html(arrayOfPrevLogs[arrayOfPrevLogsKeys[countAPLK]]);
+		$("#log"+arrayOfPrevLogsKeys[countAPLK]+"load").hide();
+		scrollToBottom(arrayOfPrevLogsKeys[countAPLK]);
+	}
+}
+
+function startOfPollLogic()
+{
+	startOfPollLogicRan = true;
+	refreshAction();
+
+	if(pausePoll === "true")
+	{
+		pausePollCurrentSession = true;
+	}
+	else
+	{
+		startPollTimer();
+		if(pauseOnNotFocus === "true")
+		{
+			startPauseOnNotFocus();
+		}
+	}
+}
+
+function swapLayoutLetters(letter)
+{
+	document.getElementById("layoutVersionIndex").value = letter;
+	if(logSwitchABCClearAll === "true")
+	{
+		unselectAllLogs();
+	}
+	else
+	{
+		unselectLogsThatAreInNewLayout();
+	}
+	generalUpdate();
+}
+
+function resetSelection()
+{
+	var currentLayout = document.getElementById("layoutVersionIndex").value;
+	swapLayoutLetters(currentLayout);
+}
+
+function generalUpdate()
+{
+	update(arrayOfDataMain);
+}
+
 $(document).ready(function()
 {
 	progressBar = new ldBar("#progressBar");
@@ -3031,29 +3747,12 @@ $(document).ready(function()
 	window.addEventListener("resize", resize);
 	window.addEventListener("focus", focus);
 
-	refreshAction();
-
-	if(pausePoll === "true")
-	{
-		pausePollCurrentSession = true;
-
-	}
-	else
-	{
-		startPollTimer();
-	}
-
-	if(pauseOnNotFocus === "true")
-	{
-		startPauseOnNotFocus();
-	}
-
 	checkForUpdateMaybe();
-
+	generateWindowDisplay();
 
 	$("#searchFieldInput").on("input", function()
 	{
-		update(arrayOfDataMain);
+		generalUpdate();
 	});
 
 	if(document.getElementById("searchType"))
@@ -3070,6 +3769,12 @@ $(document).ready(function()
 	$("#selectForGroup").on("keydown change", function(){
 		setTimeout(function() {
 			toggleGroupedGroups();
+		}, 2);
+	});
+
+	$("#windowConfig").on("keydown change", function(){
+		setTimeout(function() {
+			generateWindowDisplay();
 		}, 2);
 	});
 

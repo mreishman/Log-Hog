@@ -123,8 +123,8 @@ Menu Settings
 		<span class="settingsBuffer" > Addons as Iframe </span>
 		<div class="selectDiv">
 			<select name="addonsAsIframe">
-				<option <?php if($addonsAsIframe == 'true'){echo "selected";} ?> value="true">iframe</option>
-				<option <?php if($addonsAsIframe == 'false'){echo "selected";} ?> value="false">link</option>
+				<option <?php if($addonsAsIframe == 'true'){echo "selected";} ?> value="true">True</option>
+				<option <?php if($addonsAsIframe == 'false'){echo "selected";} ?> value="false">False</option>
 			</select>
 		</div>
 		

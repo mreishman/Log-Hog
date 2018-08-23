@@ -30,6 +30,19 @@
 			</div>
 		</li>
 		<li>
+			<span style="font-size: 75%;">
+				<?php echo generateImage(
+					$arrayOfImages["info"],
+					array(
+						"style"			=>	"margin-bottom: -4px;",
+						"height"		=>	"20px",
+						"srcModifier"	=>	"../"
+					)
+				); ?>
+				<i>If a log updates, when the above value is true it will automatically switch to that log in the main view</i>
+			</span>
+		</li>
+		<li>
 			<span class="settingsBuffer" > Scroll Log on update: </span>
 			<div class="selectDiv">
 				<select id="scrollOnUpdate" name="scrollOnUpdate">
@@ -78,6 +91,23 @@
 						<span class="settingsBuffer" > Font: </span> 
 						<input type="text" name="highlightNewColorFont" value="<?php echo $highlightNewColorFont;?>" >
 					</li>
+					<li>
+						<span class="settingsBuffer" > Timeout for fade: </span>
+						<input type="number" pattern="[0-9]*" name="timeoutHighlight" value="<?php echo $timeoutHighlight;?>" > MS
+					</li>
+					<li>
+						<span style="font-size: 75%;">
+						<?php echo generateImage(
+							$arrayOfImages["info"],
+							array(
+								"style"			=>	"margin-bottom: -4px;",
+								"height"		=>	"20px",
+								"srcModifier"	=>	"../"
+							)
+						); ?>
+						<i>Default 30 ms</i>
+					</span>
+					</li>
 				</ul>
 			</div>
 		</div>
@@ -97,9 +127,8 @@
 			</div>
 			<div class="settingsDiv" >
 				<ul class="settingsUl">
-				
 					<li>
-					<span class="settingsBuffer" > Max 
+					<span class="settingsBuffer" > Max
 					<div class="selectDiv">
 						<select id="logTrimTypeToggle" name="logTrimType">
 							<option <?php if($logTrimType == 'lines'){echo "selected";} ?> value="lines">Line Count</option>
@@ -108,8 +137,8 @@
 					</div>
 
 
-					: </span> 
-						<input type="number" pattern="[0-9]*" name="logSizeLimit" value="<?php echo $logSizeLimit;?>" > 
+					: </span>
+						<input type="number" pattern="[0-9]*" name="logSizeLimit" value="<?php echo $logSizeLimit;?>" >
 						<span id="logTrimTypeText" >
 							<?php if($logTrimType == 'lines')
 							{
@@ -124,7 +153,7 @@
 					</li>
 					<li>
 					<span class="settingsBuffer" > Buffer Size: </span>
-					 	<input type="number" pattern="[0-9]*" name="buffer" value="<?php echo $buffer;?>" > 
+					 	<input type="number" pattern="[0-9]*" name="buffer" value="<?php echo $buffer;?>" >
 					</li>
 					<li id="LiForlogTrimMacBSD">
 						<span class="settingsBuffer" > Use Mac/Free BSD Command: </span>
@@ -153,6 +182,35 @@
 				</ul>
 				</div>
 			</div>
+		</li>
+		<li>
+			<span class="settingsBuffer" > First Log Select: </span>
+			<span id="logSelectedFirstLoad" >
+				<?php if ($logSelectedFirstLoad === ""):?>
+					No Log Selected
+				<?php else: ?>
+					<?php echo $logSelectedFirstLoad; ?>
+				<?php endif; ?>
+			</span>
+			<span onclick="selectLogPopup('logSelectedFirstLoad');" class="link">Select Log</span>
+			<?php if ($logSelectedFirstLoad === ""):?>
+				<input type="hidden" name="logSelectedFirstLoad" value="" >
+			<?php else: ?>
+				<input type="hidden" name="logSelectedFirstLoad" value="<?php echo $logSelectedFirstLoad; ?>" >
+			<?php endif; ?>
+		</li>
+		<li>
+			<span style="font-size: 75%;">
+				<?php echo generateImage(
+					$arrayOfImages["info"],
+					array(
+						"style"			=>	"margin-bottom: -4px;",
+						"height"		=>	"20px",
+						"srcModifier"	=>	"../"
+					)
+				); ?>
+				<i>If Multi-Log is enabled, and a variable is set for intial load logs there, this var will be overridden</i>
+			</span>
 		</li>
 	</ul>
 	</div>

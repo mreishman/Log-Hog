@@ -1,11 +1,9 @@
 var titleOfPage = "Main";
 
-
 function showOrHideLogTrimSubWindow()
 {
 	try
 	{
-
 		var valueForPopup = document.getElementById("logTrimOn");
 		var valueForVars = document.getElementById("settingsLogTrimVars");
 		showOrHideSubWindow(valueForPopup, valueForVars);
@@ -39,14 +37,12 @@ function changeDescriptionLineSize()
 		eventThrowException(e);
 	}
 }
-	
+
 function showOrHidePopupSubWindow()
 {
 	try
 	{
-		var valueForPopup = document.getElementById("popupSelect");
-		var valueForVars = document.getElementById("settingsPopupVars");
-		showOrHideSubWindow(valueForPopup, valueForVars);
+		showOrHideSubWindow(document.getElementById("popupSelect"), document.getElementById("settingsPopupVars"));
 	}
 	catch(e)
 	{
@@ -58,9 +54,7 @@ function showOrHideUpdateSubWindow()
 {
 	try
 	{
-		var valueForPopup = document.getElementById("settingsSelect");
-		var valueForVars = document.getElementById("settingsAutoCheckVars");
-		showOrHideSubWindow(valueForPopup, valueForVars);
+		showOrHideSubWindow(document.getElementById("settingsSelect"), document.getElementById("settingsAutoCheckVars"));
 	}
 	catch(e)
 	{
@@ -72,9 +66,7 @@ function showOrHideFilterContentSettings()
 {
 	try
 	{
-		var valueForPopup = document.getElementById("filterContentLimit");
-		var valueForVars = document.getElementById("filterContentSettings");
-		showOrHideSubWindow(valueForPopup, valueForVars);
+		showOrHideSubWindow(document.getElementById("filterContentLimit"), document.getElementById("filterContentSettings"));
 	}
 	catch(e)
 	{
@@ -86,9 +78,7 @@ function showOrHideFilterHighlightSettings()
 {
 	try
 	{
-		var valueForPopup = document.getElementById("filterContentHighlight");
-		var valueForVars = document.getElementById("highlightContentSettings");
-		showOrHideSubWindow(valueForPopup, valueForVars);
+		showOrHideSubWindow(document.getElementById("filterContentHighlight"), document.getElementById("highlightContentSettings"));
 	}
 	catch(e)
 	{
@@ -100,9 +90,7 @@ function showOrHideScrollLogSettings()
 {
 	try
 	{
-		var valueForPopup = document.getElementById("scrollOnUpdate");
-		var valueForVars = document.getElementById("scrollLogOnUpdateSettings");
-		showOrHideSubWindow(valueForPopup, valueForVars);
+		showOrHideSubWindow(document.getElementById("scrollOnUpdate"), document.getElementById("scrollLogOnUpdateSettings"));
 	}
 	catch(e)
 	{
@@ -114,9 +102,7 @@ function showOrHideHighlightNewLinesSettings()
 {
 	try
 	{
-		var valueForPopup = document.getElementById("highlightNew");
-		var valueForVars = document.getElementById("highlightNewSettings");
-		showOrHideSubWindow(valueForPopup, valueForVars);
+		showOrHideSubWindow(document.getElementById("highlightNew"), document.getElementById("highlightNewSettings"));
 	}
 	catch(e)
 	{
@@ -176,6 +162,10 @@ function checkIfChanges()
 	{
 		arrayToCheck.push("settingsWatchlistVars");
 	}
+	if(document.getElementById("settingsMultiLogVars"))
+	{
+		arrayToCheck.push("settingsMultiLogVars");
+	}
 
 	if(	checkForChangesArray(arrayToCheck))
 	{
@@ -212,20 +202,61 @@ function updateJsonForPopupTheme()
 		deleteLog:deleteLogVar,
 		removeFolder:removeFolderVar,
 		versionCheck:versionCheckVar
-	}
+	};
 	document.getElementById("popupSettingsArray").value = JSON.stringify(objectToSave);
 }
 
-$( document ).ready(function() 
+function selectLogPopup(locationForNewLogText)
+{
+	displayLoadingPopup();
+	var urlForSend = "../core/php/pollCheck.php?format=json";
+	var data = {};
+	$.ajax({
+		url: urlForSend,
+		dataType: "json",
+		data,
+		type: "POST",
+		success(data)
+		{
+			var popupFileList = Object.keys(data);
+			var popupFileListLength = popupFileList.length;
+			var htmlForPopup = "";
+			htmlForPopup += "<div class=\"selectDiv\"><select id=\"newLogSelectionFromPopup\" ><option value=\"\" >None</option>";
+			for(var i = 0; i < popupFileListLength; i++)
+			{
+				var fileName = popupFileList[i];
+				htmlForPopup += "<option value=\""+popupFileList[i]+"\">"+popupFileList[i]+"</option>";
+			}
+			htmlForPopup += "</select></div>";
+			document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Select Log:</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>"+htmlForPopup+"</div><div class='link' onclick='selectLog(\""+locationForNewLogText+"\")' style='margin-left:100px; margin-right:50px;margin-top:25px;'>Select</div><div onclick='hidePopup();' class='link'>Close</div></div>";
+		}
+	});
+}
+
+function selectLog(locationForNewLogText)
+{
+	if(document.getElementById("newLogSelectionFromPopup").value === "")
+	{
+		document.getElementById(locationForNewLogText).innerHTML = "No Log Selected";
+	}
+	else
+	{
+		document.getElementById(locationForNewLogText).innerHTML = document.getElementById("newLogSelectionFromPopup").value;
+	}
+	document.getElementsByName(locationForNewLogText)[0].value = document.getElementById("newLogSelectionFromPopup").value;
+	hidePopup();
+}
+
+$( document ).ready(function()
 {
 	if(document.getElementById("popupSelect"))
 	{
 		$("#popupSelect").on("keydown change", function(){
-		    var box = $(this);
-		    setTimeout(function() {
-		        updateJsonForPopupTheme();
-		    }, 2);
-		    showOrHidePopupSubWindow();
+			var box = $(this);
+			setTimeout(function() {
+				updateJsonForPopupTheme();
+			}, 2);
+			showOrHidePopupSubWindow();
 		});
 	}
 	if(document.getElementById("settingsSelect"))
@@ -286,10 +317,14 @@ $( document ).ready(function()
 	{
 		arrayToRefresh.push("settingsMainVars");
 	}
+	if(document.getElementById("settingsMultiLogVars"))
+	{
+		arrayToRefresh.push("settingsMultiLogVars");
+	}
 	refreshArrayObjectOfArrays(arrayToRefresh);
 
 	document.addEventListener(
-		'scroll',
+		"scroll",
 		function (event)
 		{
 			onScrollShowFixedMiniBar(arrayToRefresh);

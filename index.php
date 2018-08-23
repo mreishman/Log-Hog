@@ -69,53 +69,24 @@ $locationForSearchIndex = checkForSearchInstall($locationForSearch, "./");
 
 $locationForSeleniumMonitorIndex = checkForSeleniumMonitorInstall($locationForSeleniumMonitor, "./");
 
-$aboutImage = "<img src=\"core/img/LogHog.png\" width=\"100px\" style=\"margin-bottom: -40px;\" >";
-
-
+/* USED IN ABOUT PAGE (template/about.php) */
+$aboutImage = generateImage(
+	$arrayOfImages["loadingImg"],
+	$imageConfig = array(
+		"class"		=>	"mainMenuImage",
+		"style"		=>	"margin-bottom: -40px;",
+		"data-src"	=>	"core/img/LogHog.png",
+		"width"		=>	"100px"
+	)
+);
+/* Override window config if multi log is disabled */
+if($enableMultiLog === "false")
+{
+	$windowConfig = "1x1";
+}
 $windowDisplayConfig = explode("x", $windowConfig);
-$logDisplayArray = "{";
-$logDisplay = "";
-$popupInfoLog = "";
-$borderPadding = 0;
 
-$infoImageForWindowTableLoop = generateImage(
-	$arrayOfImages["infoSideBar"],
-	$imageConfig = array(
-		"height"	=>	"20px",
-		"style"		=>	"margin: 5px;",
-		"title"		=>	"More Info"
-		)
-	);
-$clearImageForWindowTableLoop = generateImage(
-	$arrayOfImages["eraserSideBar"],
-	$imageConfig = array(
-		"height"	=>	"20px",
-		"style"		=>	"margin: 5px;",
-		"title"		=>	"Clear Log"
-		)
-	);
-$deleteImageForWindowTableLoop =  generateImage(
-	$arrayOfImages["trashCanSideBar"],
-	$imageConfig = array(
-		"height"	=>	"20px",
-		"style"		=>	"margin: 5px;",
-		"title"		=>	"Delete Log"
-		)
-	);
-$downImageForWindowTableLoop =  generateImage(
-	$arrayOfImages["downArrowSideBar"],
-	$imageConfig = array(
-		"height"	=>	"20px",
-		"style"		=>	"margin: 5px;",
-		"title"		=>	"Scroll to Bottom"
-		)
-	);
-$loadingImage = generateImage(
-	$arrayOfImages["loading"],
-	$imageConfig = array(
-		"height"	=>	"30px",
-		)
-	);
+/* Used for full screen menu */
 $externalLinkImage = generateImage(
 	$arrayOfImages["externalLink"],
 	$imageConfig = array(
@@ -123,72 +94,6 @@ $externalLinkImage = generateImage(
 		"style"		=>	"margin-bottom: -10px;"
 		)
 	);
-
-for ($i=0; $i < $windowDisplayConfig[0]; $i++)
-{
-	$logDisplay .= "<tr>";
-
-	for ($j=0; $j < $windowDisplayConfig[1]; $j++)
-	{
-		$borderPadding += 2;
-		$counter = $j+($i*$windowDisplayConfig[1]);
-		$logDisplay .= "<td style=\"vertical-align: top; padding: 0; border: 1px solid white;\" class=\"logTdWidth\" >";
-		$logDisplay .= "<table style=\"margin: 0px;padding: 0px; border-spacing: 0px; width:100%;\" ><tr><td style=\"padding: 0;";
-		if($bottomBarIndexShow == 'false')
-		{
-			$logDisplay .= " width: 0; ";
-		}
-		else
-		{
-			$logDisplay .= " width: 31px; ";
-		}
-		$logDisplay .=  " \" >";
-		$logDisplay .= "<div class=\"backgroundForSideBarMenu\" style=\"";
-		if($bottomBarIndexShow == 'false')
-		{
-			$logDisplay .= "display: none; width: 0; ";
-		}
-		else
-		{
-			$logDisplay .= "display: inline; width: 31px; ";
-		}
-		$logDisplay .= " float: left; padding: 0px; \" id=\"titleContainer".$counter."\">";
-		$logDisplay .= "<p id=\"numSelectIndecatorForWindow".$counter."\"  class=\" ";
-		if($counter === 0)
-		{
-			$logDisplay .= "currentWindowNumSelected";
-		}
-		else
-		{
-			$logDisplay .= "sidebarCurrentWindowNum";
-		}
-		$logDisplay .= " \" >".($counter+1)."</p>";
-		$logDisplay .= "<a id=\"showInfoLink".$counter."\" onclick=\"showInfo('".$counter."');\" style=\"cursor: pointer;\" >";
-		$logDisplay .= $infoImageForWindowTableLoop;
-		$logDisplay .= "</a>";
-		$popupInfoLog .= "<div class=\"popupForInfo\" style=\"display: none;\" id=\"title".$counter."\"></div>";
-		$logDisplay .= "<a onclick=\"clearLog('".$counter."');\" style=\"cursor: pointer;\" >";
-		$logDisplay .= $clearImageForWindowTableLoop;
-		$logDisplay .= "</a>";
-		$logDisplay .= "<a onclick=\"deleteLogPopup('".$counter."');\" style=\"cursor: pointer;\" >";
-		$logDisplay .= $deleteImageForWindowTableLoop;
-		$logDisplay .= "</a>";
-		$logDisplay .= "<a onclick=\"scrollToBottom('".$counter."');\" style=\"cursor: pointer;\" >";
-		$logDisplay .= $downImageForWindowTableLoop;
-		$logDisplay .= "</a>";
-		$logDisplay .= "</div> ";
-		$logDisplay .= "</td><td onclick=\"changeCurrentSelectWindow(".$counter.")\" style=\"padding: 0;\" >";
-		$logDisplay .= " <span id=\"log".$counter."Td\"  class=\"logTrHeight\" style=\"overflow: auto; display: block; word-break: break-all;\" > ";
-		$logDisplay .= " <div id=\"log".$counter."load\" style=\"display: none;\" class=\"errorMessageLog\"  >".$loadingImage."</div>";
-		$logDisplay .= " <div style=\"padding: 0; white-space: pre-wrap;\" id=\"log".$counter."\" class=\"log\" ></div> </span>";
-		$logDisplay .= "</td></tr></table>";
-		$logDisplay .= "</td>";
-		$logDisplayArray .= " ".$counter.": {id: null, scroll: true } ,";
-	}
-	$logDisplay .= "</tr>";
-}
-$logDisplayArray = rtrim($logDisplayArray, ",")."}";
-
 ?>
 <!doctype html>
 <head>
@@ -217,168 +122,8 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 				Warning - <?php echo ($pollForceTrue * 4); ?> poll requests have failed. Please check server connectivity or refresh page.
 			</span>
 		</div>
-	<div class="backgroundForMenus" id="header" >
-		<div id="menuButtons" style="display: block;">
-			<div onclick="toggleFullScreenMenu();"  class="menuImageDiv">
-				<?php echo generateImage(
-					$arrayOfImages["menu"],
-					$imageConfig = array(
-						"id"		=>	"menuImage",
-						"class"		=>	"menuImage",
-						"height"	=>	"30px"
-						)
-					);
-				?>
-			</div>
-			<div class="menuImageDiv" id="notificationDiv" onclick="toggleNotifications();" >
-				<?php echo generateImage(
-					$arrayOfImages["notification"],
-					$imageConfig = array(
-						"id"		=>	"notificationNotClicked",
-						"class"		=>	"menuImage",
-						"height"	=>	"30px"
-						)
-					); 
-				?>
-				<?php echo generateImage(
-					$arrayOfImages["notificationFull"],
-					$imageConfig = array(
-						"id"		=>	"notificationClicked",
-						"class"		=>	"menuImage",
-						"height"	=>	"30px",
-						"style"		=>  "display: none;"
-						)
-					); 
-				?>
-			</div>
-			<div onclick="pausePollAction();" class="menuImageDiv">
-				<?php
-					$styleString = "display: inline-block;";
-					if($pausePoll !== 'true')
-					{
-						$styleString = "display: none;";
-					}
-					echo generateImage(
-					$arrayOfImages["play"],
-					$imageConfig = array(
-						"id"		=>	"playImage",
-						"class"		=>	"menuImage",
-						"height"	=>	"30px",
-						"style"		=>	$styleString
-						)
-					);
-
-					$styleString = "display: inline-block;";
-					if($pausePoll === 'true')
-					{
-						$styleString = "display: none;";
-					}
-					echo generateImage(
-					$arrayOfImages["pause"],
-					$imageConfig = array(
-						"id"		=>	"pauseImage",
-						"class"		=>	"menuImage",
-						"height"	=>	"30px",
-						"style"		=>	$styleString
-						)
-					);
-				?>
-			</div>
-			<div onclick="refreshAction();" class="menuImageDiv">
-				<?php
-					echo generateImage(
-					$arrayOfImages["refresh"],
-					$imageConfig = array(
-						"id"		=>	"refreshImage",
-						"class"		=>	"menuImage",
-						"height"	=>	"30px"
-						)
-					);
-
-					echo generateImage(
-					$arrayOfImages["loading"],
-					$imageConfig = array(
-						"id"		=>	"refreshingImage",
-						"class"		=>	"menuImage",
-						"height"	=>	"30px",
-						"style"		=>	"display: none;"
-						)
-					);
-				?> 
-			</div>
-			<?php if($truncateLog == 'true'): ?>
-				<div onclick="deleteAction();"  class="menuImageDiv">
-					<?php echo generateImage(
-						$arrayOfImages["eraserMulti"],
-						$imageConfig = array(
-							"id"		=>	"deleteImage",
-							"class"		=>	"menuImage",
-							"height"	=>	"30px"
-							)
-						);
-					?>
-				</div>
-			<?php elseif($truncateLog == 'false'): ?>
-				<div onclick="clearLog(currentSelectWindow);" class="menuImageDiv">
-					<?php echo generateImage(
-						$arrayOfImages["eraser"],
-						$imageConfig = array(
-							"id"		=>	"deleteImage",
-							"class"		=>	"menuImage",
-							"height"	=>	"30px"
-							)
-						);
-					?>
-				</div>
-			<?php endif; ?>
-			<div id="selectForGroupDiv" style="display: none;">
-				Groups: 
-				<div class="selectDiv">
-					<select id="selectForGroup" >
-						<option selected="true" value="all" >All</option>
-					</select>
-				</div>
-			</div>
-			<span <?php if($hideClearAllNotifications === "true"){ echo "style=\" display: none; \""; }?> >
-				<div  id="clearNotificationsImage" style="display: none;" onclick="removeAllNotifications();" class="menuImageDiv">
-					<?php echo generateImage(
-						$arrayOfImages["notificationClear"],
-						$imageConfig = array(
-							"id"		=>	"notificationClearImage",
-							"class"		=>	"menuImage",
-							"height"	=>	"30px"
-							)
-						); 
-					?>
-				</div>
-			</span>
-			<div style="float: right;">
-				<div class="selectDiv" >
-					<select id="searchType" disabled name="searchType" style="height: 30px;">
-						<option <?php if ($filterDefault === "title"){echo "selected"; }?> value="title">Title</option>
-						<option <?php if ($filterDefault === "content"){echo "selected"; }?> value="content">Content</option>
-					</select>
-				</div>
-				<input disabled id="searchFieldInput" type="search" name="search" placeholder="Filter <?php echo $filterDefault; ?>" style="height: 30px; width: 200px;">
-				<div onclick="toggleFilterSettingsPopup();" style="display: inline-block; cursor: pointer;">
-					<?php echo generateImage(
-						$arrayOfImages["gear"],
-						$imageConfig = array(
-							"id"		=>	"filterGear",
-							"class"		=>	"menuImage",
-							"height"	=>	"15px",
-							"title"		=>  "Filter Settings",
-							"style"		=>  "margin-top: -15px;"
-							)
-						); 
-					?>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="backgroundForMenus" id="menu" style="position: inherit;">
-	</div>
-	<?php echo $popupInfoLog; ?>.
+	<?php require_once("core/php/template/indexHeader.php"); ?>
+	<div class="backgroundForMenus" id="menu" style="position: absolute;"></div>
 	<div style="display: inline-block; position: absolute; top: 0; left: 0; z-index: 30;" >
 		<div id="notificationIcon">
 			<span onclick="toggleNotifications();" id="notificationCount"></span>
@@ -390,8 +135,8 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 		</div>
 	</div>
 	<div id="main">
-		<table id="log" style="display: none; margin: 0px;padding: 0px; border-spacing: 0px;" style="width: 100%;" >
-			<?php echo $logDisplay; ?>
+		<table id="log" style="display: none; margin: 0px;padding: 0px; border-spacing: 0px; width: 100%;" >
+			<tbody><tr><td></td></tr></tbody>
 		</table>
 		<div id="firstLoad" style="width: 100%; height: 100%;">
 			<h1 id="progressBarMainInfo" style="margin-right: auto; margin-left: auto; width: 100%; text-align: center;  margin-top: 100px; font-size: 150%;" >Loading...</h1>
@@ -402,9 +147,12 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 		</div>
 		<div id="noLogToDisplay" class='errorMessageLog errorMessageGreenBG' style="display: none; margin-top: 2%;" > There are currently no logs to display. </div>
 	</div>
-	
-	<?php readfile('core/html/indexStorage.html'); ?>
-
+	<div id="storage">
+		<?php
+			readfile('core/html/indexStorage.html');
+			require_once('core/php/template/indexStorage.php');
+		?>
+	</div>
 	<div id="fullScreenMenu" style="display: none;">
 		<div style="padding: 5px 5px 10px 5px; border-bottom: 1px solid white;" >
 			<div onclick="toggleFullScreenMenu();"  class="menuImageDiv">
@@ -426,7 +174,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 						"class"		=>	"menuImage",
 						"height"	=>	"30px"
 						)
-					); 
+					);
 				?>
 			</div>
 		</div>
@@ -440,25 +188,43 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 			<li id="mainMenuAbout" class="selected" onclick="toggleAbout();" >
 				<div class="menuImageDiv">
 					<?php echo generateImage(
-						$arrayOfImages["info"],
+						$arrayOfImages["loadingImg"],
 						$imageConfig = array(
 							"id"		=>	"aboutImage",
-							"class"		=>	"menuImage",
-							"height"	=>	"30px"
+							"class"		=>	"menuImage mainMenuImage",
+							"height"	=>	"30px",
+							"data-src"	=>	$arrayOfImages["info"]
 							)
-						); 
+						);
 					?>
 				</div>
 				About
 			</li>
+			<li id="mainMenuAddons" onclick="window.location.href = './settings/addons.php';" >
+				<div class="menuImageDiv">
+					<?php echo generateImage(
+						$arrayOfImages["loadingImg"],
+						$imageConfig = array(
+							"id"		=>	"addonsImage",
+							"class"		=>	"menuImage mainMenuImage",
+							"height"	=>	"30px",
+							"data-src"	=>	$arrayOfImages["addons"]
+							)
+						);
+					?>
+				</div>
+				Addons
+				<?php echo $externalLinkImage; ?>
+			</li>
 			<li onclick="window.location.href = './settings/main.php';"  >
 				<div class="menuImageDiv">
 					<?php echo generateImage(
-						$arrayOfImages["gear"],
+						$arrayOfImages["loadingImg"],
 						$imageConfig = array(
 							"id"		=>	"gear",
-							"class"		=>	"menuImage",
-							"height"	=>	"30px"
+							"class"		=>	"menuImage mainMenuImage",
+							"height"	=>	"30px",
+							"data-src"	=> 	$arrayOfImages["gear"]
 							)
 						);
 					?>
@@ -469,12 +235,13 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 			<li id="mainMenuUpdate" onclick="toggleUpdateMenu();" >
 				<div class="menuImageDiv">
 					<?php echo generateImage(
-						$arrayOfImages["refresh"],
+						$arrayOfImages["loadingImg"],
 						$imageConfig = array(
 							"id"		=>	"update",
-							"class"		=>	"menuImage",
+							"class"		=>	"menuImage mainMenuImage",
 							"height"	=>	"30px",
-							"title"		=>	"Update"
+							"title"		=>	"Update",
+							"data-src"	=>	$arrayOfImages["refresh"]
 							)
 						);
 					?>
@@ -482,58 +249,66 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 				Update
 				<?php
 				if($levelOfUpdate !== 0 && $configStatic["version"] !== $dontNotifyVersion && $updateNotificationEnabled === "true")
-				{ 
+				{
 					if($updateNoticeMeter === "every" || $levelOfUpdate > 1)
 					{
 						if($levelOfUpdate == 1)
 						{
 							echo generateImage(
-								$arrayOfImages["yellowWarning"],
+								$arrayOfImages["loadingImg"],
 								$imageConfig = array(
 									"id"		=>	"updateMenuImage",
-									"class"		=>	"menuImage",
+									"class"		=>	"menuImage mainMenuImage",
 									"height"	=>	"30px",
-									"title"		=>	"Minor Update"
+									"title"		=>	"Minor Update",
+									"data-src"	=>	$arrayOfImages["yellowWarning"]
 								)
 							);
 						}
 						elseif($levelOfUpdate == 2 || $levelOfUpdate == 3)
 						{
+							echo "<div class=\"menuImageDiv\">";
 							echo generateImage(
-								$arrayOfImages["redWarning"],
+								$arrayOfImages["loadingImg"],
 								$imageConfig = array(
 									"id"		=>	"updateMenuImage",
-									"class"		=>	"menuImage",
+									"class"		=>	"menuImage mainMenuImage",
 									"height"	=>	"30px",
-									"title"		=>	"Major Update"
+									"title"		=>	"Major Update",
+									"data-src"	=>	$arrayOfImages["redWarning"]
 								)
 							);
+							echo "</div>";
 						}
 					}
 				}
 				?>
 			</li>
-			<li onclick="window.location.href = './settings/watchlist.php';" >
+			<li id="watchListMenu" onclick="toggleWatchListMenu();" >
 				<div class="menuImageDiv">
 					<?php echo generateImage(
-						$arrayOfImages["watchList"],
+						$arrayOfImages["loadingImg"],
 						$imageConfig = array(
 							"id"		=>	"watchList",
 							"class"		=>	"menuImage mainMenuImage",
 							"height"	=>	"30px",
 							"title"		=>	"WatchList",
+							"data-src"	=>	$arrayOfImages["watchList"]
 							)
 						);
 					?>
 				</div>
 				Watchlist
-				<?php echo $externalLinkImage; ?>
 			</li>
-			<?php if($locationForMonitorIndex["loc"] || $locationForSearchIndex["loc"] || $locationForSeleniumMonitorIndex["loc"] || $locationForStatusIndex["loc"]): ?>
-				<li class="menuTitle" style="background-color: #999; color: black;" >
+				<li id="menuOtherApps" class="menuTitle" style="background-color: #999; color: black;
+				<?php if(!($locationForMonitorIndex["loc"] || $locationForSearchIndex["loc"] || $locationForSeleniumMonitorIndex["loc"] || $locationForStatusIndex["loc"]))
+					{
+						echo " display: none; ";
+					}
+					?>
+				" >
 					Other Apps
 				</li>
-			<?php endif;?>
 			<?php if ($locationForStatusIndex["loc"]):?>
 				<?php if($addonsAsIframe === "true"): ?>
 					<li id="menuStatusAddon" onclick="toggleIframe('<?php echo $locationForStatusIndex["loc"]; ?>','menuStatusAddon');" >
@@ -542,13 +317,14 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 				<?php endif; ?>
 					<div class="menuImageDiv">
 						<?php echo generateImage(
-							$arrayOfImages["gitStatus"],
+							$arrayOfImages["loadingImg"],
 							$imageConfig = array(
 								"id"		=>	"gitStatusImage",
-								"class"		=>	"menuImage",
-								"height"	=>	"30px"
+								"class"		=>	"menuImage mainMenuImage",
+								"height"	=>	"30px",
+								"data-src"	=>	$arrayOfImages["gitStatus"]
 								)
-							); 
+							);
 						?>
 					</div>
 					gitStatus
@@ -568,11 +344,12 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 				<?php endif; ?>
 					<div class="menuImageDiv">
 						<?php echo generateImage(
-							$arrayOfImages["taskManager"],
+							$arrayOfImages["loadingImg"],
 							$imageConfig = array(
 								"id"		=>	"taskmanagerImage",
-								"class"		=>	"menuImage",
-								"height"	=>	"30px"
+								"class"		=>	"menuImage mainMenuImage",
+								"height"	=>	"30px",
+								"data-src"	=>	$arrayOfImages["taskManager"]
 								)
 							);
 						?>
@@ -594,11 +371,12 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 				<?php endif; ?>
 					<div class="menuImageDiv">
 						<?php echo generateImage(
-							$arrayOfImages["search"],
+							$arrayOfImages["loadingImg"],
 							$imageConfig = array(
 								"id"		=>	"searchImage",
-								"class"		=>	"menuImage",
-								"height"	=>	"30px"
+								"class"		=>	"menuImage mainMenuImage",
+								"height"	=>	"30px",
+								"data-src"	=>	$arrayOfImages["search"]
 								)
 							); 
 						?>
@@ -620,11 +398,12 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 				<?php endif; ?>
 					<div class="menuImageDiv">
 						<?php echo generateImage(
-							$arrayOfImages["seleniumMonitor"],
+							$arrayOfImages["loadingImg"],
 							$imageConfig = array(
 								"id"		=>	"seleniumMonitorImage",
-								"class"		=>	"menuImage",
-								"height"	=>	"30px"
+								"class"		=>	"menuImage mainMenuImage",
+								"height"	=>	"30px",
+								"data-src"	=>	$arrayOfImages["seleniumMonitor"]
 								)
 							); 
 						?>
@@ -654,24 +433,42 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 				Changelog
 			</li>
 		</ul>
+		<ul id="watchListSubMenu" class="settingsUl fullScreenMenuUL settingsUlSub" style="display: none;">
+			<li class="menuTitle" style="text-align: center;" >
+				Watchlist
+			</li>
+			<li onclick="addFile();" >
+				Add File
+			</li>
+			<li onclick="addFolder();" >
+				Add Folder
+			</li>
+			<li onclick="addOther();" >
+				Add Other
+			</li>
+			<li id="condensedLink" onclick="toggleCondensed(true);" >
+			<?php if($logShowMoreOptions === "false"): ?>
+				Show More Options</li>
+				<style type="text/css">
+					.condensed
+					{
+						display: none;
+					}
+				</style>
+			<?php else: ?>
+				Show Condensed Options</li>
+			<?php endif; ?>
+		</ul>
 		<ul id="settingsSubMenu" class="settingsUl fullScreenMenuUL settingsUlSub" style="display: none;">
 			<li class="menuTitle" style="text-align: center;">
 				Settings
 			</li>
-			<li id="settingsSubMenuWatchlist" onclick="toggleWatchListSubMenu();" class="selected">
-				Watchlist
-			</li>
-			<!--
-			<li id="settingsSubMenuWatchlist" onclick="toggleAddonsSubMenu();">
-				Addons
-			</li>
-			-->
 		</ul>
 		<div id="mainContentFullScreenMenu">
 			<div class="settingsHeader" style="position: fixed;width: 100%;z-index: 10;top: 0; margin: 0; border-bottom: 1px solid white; display: none;top: 46px;" id="fixedPositionMiniMenu" >
 			</div>
 			<div id="fullScreenMenuChangeLog" style="display: none;" >
-				<?php readfile('core/html/changelog.html'); ?>
+				<?php require_once("core/php/template/changelog.php"); ?>
 			</div>
 			<div id="fullScreenMenuWhatsNew" style="display: none;" >
 				<?php
@@ -687,6 +484,13 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 			</div>
 			<div id="fullScreenMenuIFrame" style="display: none;">
 				<iframe style="border: 0;" id="iframeFullScreen" src=""></iframe>
+			</div>
+			<div id="fullScreenMenuWatchList" style="display: none;">
+				<?php
+				$imageUrlModifier = "";
+				require_once('core/php/settingsMainWatchFunctions.php');
+				require_once('core/php/template/settingsMainWatch.php');
+				?>
 			</div>
 		</div>
 	</div>
@@ -707,7 +511,7 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 			}
 			<?php
 		endif;
-		if($levelOfUpdate !== 0 && $configStatic["version"] !== $dontNotifyVersion && $updateNotificationEnabled === "true"): 
+		if($levelOfUpdate !== 0 && $configStatic["version"] !== $dontNotifyVersion && $updateNotificationEnabled === "true"):
 			if($updateNoticeMeter === "every" || $levelOfUpdate > 1):
 				$updateImage = "";
 				if($levelOfUpdate == 1)
@@ -744,15 +548,13 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 					notifications[currentId]["action"] = "toggleFullScreenMenu(); toggleUpdateMenu();";
 					notifications[currentId]["image"] = <?php echo $updateImage; ?>;
 				}
-			<?php endif; 
+			<?php endif;
 		endif;
 		echo "var colorArrayLength = ".count($currentSelectedThemeColorValues).";";
 		echo "var dateOfLastUpdate = '".$configStatic['lastCheck']."';";
 		echo "var daysSinceLastCheck = '".$daysSince."';";
-		echo "var logDisplayArray = ".$logDisplayArray.";";
 		echo "var windowDisplayConfigRowCount = ".$windowDisplayConfig[0].";";
 		echo "var windowDisplayConfigColCount = ".$windowDisplayConfig[1].";";
-		echo "var borderPadding = ".$borderPadding.";";
 		$srcForLoadImage = "core/img/loading.gif";
 		if(isset($arrayOfImages))
 		{
@@ -762,15 +564,22 @@ $logDisplayArray = rtrim($logDisplayArray, ",")."}";
 		var srcForLoadImage = "<?php echo $srcForLoadImage; ?>";
 		var currentVersion = "<?php echo $configStatic['version'];?>";
 		var baseUrl = "<?php echo $baseUrl;?>";
+		var saveVerifyImage = <?php echo json_encode(generateImage(
+			$arrayOfImages["greenCheck"],
+			array(
+				"height"		=>	"50px"
+			)
+		)); ?>
 	</script>
 	<?php require_once('core/php/template/popup.php') ?>
+	<script src="core/js/lazyLoadImg.js?v=<?php echo $cssVersion?>"></script>
 	<script src="core/js/main.js?v=<?php echo $cssVersion?>"></script>
-	<script src="core/js/rightClickJS.js?v=<?php echo $cssVersion?>"></script>	
+	<script src="core/js/format.js?v=<?php echo $cssVersion?>"></script>
+	<script src="core/js/rightClickJS.js?v=<?php echo $cssVersion?>"></script>
 	<script src="core/js/update.js?v=<?php echo $cssVersion?>"></script>
+	<script src="core/js/settings.js?v=<?php echo $cssVersion?>"></script>
 	<nav id="context-menu" class="context-menu">
 	  <ul id="context-menu-items" class="context-menu__items">
 	  </ul>
 	</nav>
-
-
 </body>
