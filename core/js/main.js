@@ -380,6 +380,20 @@ function pollTwoPartTwo(data)
 			updateProgressBar(10, "Generating File Object");
 		}
 		t2 = performance.now();
+		filesNew = Object.keys(data);
+		var backupArrayOfDataMain = arrayOfDataMain;
+		if(arrayOfDataMain !== null)
+		{
+			var arrayOfDataMainKeys = Object.keys(arrayOfDataMain);
+			for (var i = arrayOfDataMainKeys.length - 1; i >= 0; i--) 
+			{
+				if(arrayOfDataMainKeys[i] in data || arrayOfDataMainKeys[i].indexOf("LogHog/Backup") > -1)
+				{
+					continue;
+				}
+				delete arrayOfDataMain[arrayOfDataMainKeys[i]];
+			}
+		}
 
 		//check for all update force
 		var boolForAllUpdateForce = false;
@@ -399,7 +413,6 @@ function pollTwoPartTwo(data)
 			updateAllRefreshCounter("-");
 		}
 
-		filesNew = Object.keys(data);
 		arrayToUpdate = {};
 
 		if(arrayOfData1 === null || boolForAllUpdateForce)
@@ -577,21 +590,6 @@ function pollThree(arrayToUpdate)
 	try
 	{
 		var arrayUpdateKeys = Object.keys(arrayToUpdate);
-		if(arrayOfDataMain !== null)
-		{
-			var arrayOfDataMainKeys = Object.keys(arrayOfDataMain);
-			for (var i = arrayOfDataMainKeys.length - 1; i >= 0; i--) 
-			{
-				if(arrayOfDataMain[arrayOfDataMainKeys[i]] === null)
-				{
-					delete arrayOfDataMain[arrayOfDataMainKeys[i]];
-				}
-				else
-				{
-					arrayOfDataMain[arrayOfDataMainKeys[i]] = null;
-				}
-			}
-		}
 		t3 = performance.now();
 		if (typeof arrayToUpdate !== "undefined" && arrayUpdateKeys.length > 0) 
 		{
@@ -612,7 +610,7 @@ function pollThree(arrayToUpdate)
 					success(data)
 					{
 						arrayOfDataMainDataFilter(data);
-						generalUpdate();
+						update(data);
 					},
 					complete()
 					{
@@ -1878,6 +1876,16 @@ function removeFromMultiLog(idOfName)
 		$("#log"+i).html("");
 		$("#menu ." + idOfName + "Button currentWindowNum").html("");
 	}
+}
+
+function removeArchiveLogFromDisplay(currentLogNum)
+{
+	hideArchiveLog([logDisplayArray[currentLogNum]["id"]]);
+}
+
+function hideLogByLogDisplayArray(currentLogNum)
+{
+	hideLogByName(logDisplayArray[currentLogNum]["id"]);
 }
 
 function hideLogByName(name)
