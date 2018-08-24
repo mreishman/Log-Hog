@@ -73,7 +73,10 @@ function checkForUpdates(urlSend = "../", whatAmIUpdating = "Log-Hog", currentNe
 					if(dontNotifyVersionNotSet === "" || dontNotifyVersionNotSet != data.versionNumber)
 					{
 						dataFromJSON = data;
-						document.getElementById("progressBarText").innerHTML = "Verifying version list file for "+whatAmIUpdating+" "+totalCounter+"/"+verifyCheckCount+"/"+(successVerifyNum+1);
+						if(document.getElementById("progressBarText"))
+						{
+							document.getElementById("progressBarText").innerHTML = "Verifying version list file for "+whatAmIUpdating+" "+totalCounter+"/"+verifyCheckCount+"/"+(successVerifyNum+1);
+						}
 						timeoutVar = setInterval(function(){checkForUpdateTimer(urlSend, whatAmIUpdating);},3000);
 					}
 				}
@@ -216,8 +219,11 @@ function showPopupForUpdate(urlSend,whatAmIUpdating)
 		if(document.getElementById("checkForUpdateButton"))
 		{
 			document.getElementById("checkForUpdateButton").style.display = "inline-block";
-			document.getElementById("progressBarUpdateCheck").style.display = "none";
-			document.getElementById("progressBarText").innerHTML = "";
+			if(document.getElementById("progressBarText"))
+			{
+				document.getElementById("progressBarUpdateCheck").style.display = "none";
+				document.getElementById("progressBarText").innerHTML = "";
+			}
 		}
 
 		//Update needed
