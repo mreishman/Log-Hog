@@ -1880,7 +1880,25 @@ function removeFromMultiLog(idOfName)
 
 function removeArchiveLogFromDisplay(currentLogNum)
 {
-	hideArchiveLog([logDisplayArray[currentLogNum]["id"]]);
+	var archiveLogId = logDisplayArray[currentLogNum]["id"];
+	$("#"+archiveLogId).remove();
+	removeNotificationByLog(archiveLogId);
+	var aodmKeys = Object.keys(arrayOfDataMain);
+	var aodmKeysLength = aodmKeys.length;
+	for(var archiveRemoveCount = 0; archiveRemoveCount < aodmKeysLength; archiveRemoveCount++)
+	{
+		if(aodmKeys[archiveRemoveCount].indexOf("LogHog/Backup") > -1)
+		{
+			if(aodmKeys[archiveRemoveCount].replace(/[^a-z0-9]/g, "") === archiveLogId)
+			{
+				delete arrayOfDataMain[archiveLogId];
+				break;
+			}
+		}
+	}
+	logDisplayArray[currentLogNum] = {id: null, scroll: true, pin: false};
+	selectTabsInOrder(Object.keys(logDisplayArray).length);
+	resize();
 }
 
 function hideLogByLogDisplayArray(currentLogNum)
@@ -2079,6 +2097,11 @@ function showPartThree(e, internalID, currentCurrentSelectWindow)
 		toggleSideBarElements(internalID, currentCurrentSelectWindow);
 		$("#log"+currentCurrentSelectWindow+"load").hide();
 		$("#log"+currentCurrentSelectWindow).show();
+		if(document.getElementById("noLogToDisplay").style.display !== "none")
+		{
+			document.getElementById("noLogToDisplay").style.display = "none";
+			document.getElementById("log").style.display = "block";
+		}
 		scrollToBottom(currentCurrentSelectWindow);
 		toggleNotificationClearButton();
 		removeNotificationByLog(internalID);
@@ -2796,12 +2819,22 @@ function showHistory(data)
 
 function hideArchiveLog(title)
 {
-	archiveLogPopupToggle();
 	var newTitle = "LogHog/"+title.replace(/_DIR_/g, "/");
+	archiveLogPopupToggle();
 	removeNotificationByLog(newTitle.replace(/[^a-z0-9]/g, ""));
 	delete arrayOfDataMain[newTitle];
 	$("#"+newTitle.replace(/[^a-z0-9]/g, "")).remove();
-	generalUpdate();
+	var logDisplayArrayLength = Object.keys(logDisplayArray).length;
+	for(logDisplayArrayCount = 0; logDisplayArrayCount < logDisplayArrayLength; logDisplayArrayCount++)
+	{
+		if(logDisplayArray[logDisplayArrayCount]["id"] === newTitle.replace(/[^a-z0-9]/g, ""))
+		{
+			logDisplayArray[logDisplayArrayCount] = {id: null, scroll: true, pin: false};
+			selectTabsInOrder(logDisplayArrayLength);
+			break;
+		}
+	}
+	resize();
 }
 
 function viewArchiveLog(title)

@@ -61,7 +61,10 @@ elseif($branchSelected == "beta")
 {
   $fileNameForDownload = "versionCheckBeta";
 }
-
+if(file_exists("../../update/downloads/versionCheck/versionCheck.zip"))
+{
+  unlink("../../update/downloads/versionCheck/versionCheck.zip");
+}
 file_put_contents("../../update/downloads/versionCheck/versionCheck.zip",
   file_get_contents($baseUrlUpdate .$fileNameForDownload.".zip")
   );
@@ -155,7 +158,10 @@ if(!is_writable("configStatic.php"))
   echo json_encode(array("version" => -1, "error" => "configStatic is not writeable"));
   exit();
 }
-
+if(file_exists("configStatic.php"))
+{
+  unlink("configStatic.php");
+}
 file_put_contents("configStatic.php", $newInfoForConfig);
 
 rmdir("../../update/downloads/versionCheck/extracted/");
