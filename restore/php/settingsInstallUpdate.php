@@ -9,7 +9,10 @@ function downloadFile($file = null, $update = true, $downloadFrom = 'Log-Hog/arc
 		$arrayForFile = $arrayForFile[$file];
 		$file = $arrayForFile['branchName'];
 	}
-
+	if(file_exists($downloadTo))
+	{
+		unlink($downloadTo);
+	}
 	file_put_contents($downloadTo,
 	file_get_contents("https://github.com/mreishman/".$downloadFrom.$file.".zip")
 	);

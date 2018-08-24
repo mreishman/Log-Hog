@@ -107,6 +107,7 @@ if(is_writable($baseUrl."conf/"))
 {
 	if(file_exists($fileName))
 	{
+		unlink($fileName);
 		if(!is_writable($fileName))
 		{
 			echo json_encode(4);

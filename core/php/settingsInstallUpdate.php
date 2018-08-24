@@ -11,7 +11,10 @@ $"."updateProgress = array(
 ?>";
 
 	$fileToPutContent = $pathToFile.$typeOfProgress;
-
+	if(file_exists($fileToPutContent))
+	{
+		unlink($fileToPutContent);
+	}
 	file_put_contents($fileToPutContent, $writtenTextTofile);
 }
 
@@ -23,7 +26,10 @@ function downloadFile($file = null, $update = true, $downloadFrom = 'Log-Hog/arc
 		require_once('configStatic.php');
 		$file = $configStatic['versionList'][$file]['branchName'];
 	}
-
+	if(file_exists($downloadTo))
+	{
+		unlink($downloadTo);
+	}
 	file_put_contents($downloadTo,
 	file_get_contents("https://github.com/mreishman/".$downloadFrom.$file.".zip")
 	);
@@ -268,6 +274,10 @@ function copyFileToFile($currentFile, $indexToExtracted = "update/downloads/upda
 	$newFile = $directoryPath.$nameOfFile;
 	$fileTransfer = file_get_contents($varToIndexDir.$indexToExtracted.$currentFile);
 	$newFileWithIndexVar = $varToIndexDir.$newFile;
+	if(file_exists($newFileWithIndexVar))
+	{
+		unlink($newFileWithIndexVar);
+	}
 	file_put_contents($newFileWithIndexVar,$fileTransfer);
 	return ($newFileWithIndexVar);
 }
@@ -310,6 +320,10 @@ $"."configStatic = array(
 		".$arrayForVersionList."
 	)
 );";
+if(file_exists("configStatic.php"))
+	{
+		unlink("configStatic.php");
+	}
 	file_put_contents("configStatic.php", $newInfoForConfig);
 }
 

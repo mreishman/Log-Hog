@@ -33,7 +33,10 @@ $fileName = $baseUrl.'Themes/Custom-Theme-'.$_POST["themeNumber"].'/defaultSetti
 		);
 	?>";
 
-
+if(file_exists($fileName))
+{
+	unlink($fileName);
+}
 file_put_contents($fileName, $newInfoForConfig);
 
 echo json_encode(true);
