@@ -306,6 +306,7 @@ $defaultConfig = array(
 	'sendCrashInfoPHP'				=> 'true',
 	'shellOrPhp'					=> 'phpPreferred',
 	'showErrorPhpFileOpen'			=> 'false',
+	'sideBarOnlyIcons'				=> 'true',
 	'sliceSize'						=> 500,
 	'sortTypeFileFolderPopup'		=> 'startsWithAndcontains',
 	'successVerifyNum'				=> 2,

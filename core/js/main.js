@@ -7,6 +7,8 @@ var arrayOfDataMain = null;
 var arrayOfDataSettings = [];
 var arrayOfScrollHeaderUpdate = ["aboutSpanAbout","aboutSpanInfo","aboutSpanGithub"];
 var borderPadding = 0;
+var breakPointOne = 1400;
+var breakPointTwo = 1000;
 var clearingNotifications = false;
 var counterForPoll = 0;
 var counterForPollForceRefreshAll = 0;
@@ -16,7 +18,6 @@ var currentSelectWindow = 0;
 var dataFromUpdateCheck = null;
 var fileData;
 var filesNew;
-var firstBreakPoint = 1250;
 var firstLoad = true;
 var flasher;
 var fullScreenMenuClickCount = 0;
@@ -2443,7 +2444,7 @@ function resize()
 				}
 			}
 		}
-		if(targetWidth < firstBreakPoint)
+		if(sideBarOnlyIcons === "breakpointone" || targetWidth < breakPointOne)
 		{
 			$(".fullScreenMenuText").hide();
 			if(document.getElementById("mainFullScreenMenu").getBoundingClientRect().width !== 52)
@@ -3525,7 +3526,7 @@ function toggleAbout(force = false)
 
 function toggleFullScreenMenuMainContent()
 {
-	if(window.innerWidth < firstBreakPoint)
+	if(sideBarOnlyIcons === "breakpointone" || window.innerWidth < breakPointOne)
 	{
 		if(document.getElementById("mainContentFullScreenMenu").style.left !== "252px")
 		{
@@ -3662,7 +3663,7 @@ function endSettingsPollTimer()
 
 function hideSidebar()
 {
-	if(window.innerWidth < firstBreakPoint)
+	if(sideBarOnlyIcons === "breakpointone" || window.innerWidth < breakPointOne)
 	{
 		if(document.getElementById("mainContentFullScreenMenu").style.left !== "52px")
 		{

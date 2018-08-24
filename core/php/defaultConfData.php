@@ -787,7 +787,27 @@ $defaultConfigMoreData = array(
 					"options"							=>	$trueFalsVars,
 					"type"								=>	"dropdown"
 				)
-			)
+			),
+			14									=>	array(
+				"info"								=>	"1400 Breakpoint shows only images on full screen sidebar, 1000 breakpoint is the same but moves the inner sidebar to the top",
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"sideBarOnlyIcons",
+					"name"								=>	"Full Screen Menu Side Bar Options",
+					"options"							=>	array(
+						0 									=> array(
+							"value" 							=> "true",
+							"name" 								=> "Default"),
+						1 									=> array(
+							"value" 							=> "breakpointone",
+							"name" 								=> "1400 Breakpoint"),
+						2 									=> array(
+							"value" 							=> "breakpointtwo",
+							"name" 								=> "1000 Breakpoint")
+					),
+					"type"								=>	"dropdown"
+				)
+			),
 		)
 	),
 	"multiLogVars"						=>	array(
