@@ -16,6 +16,7 @@ var currentSelectWindow = 0;
 var dataFromUpdateCheck = null;
 var fileData;
 var filesNew;
+var firstBreakPoint = 1250;
 var firstLoad = true;
 var flasher;
 var fullScreenMenuClickCount = 0;
@@ -2442,13 +2443,13 @@ function resize()
 				}
 			}
 		}
-		if(targetWidth < 1200)
+		if(targetWidth < firstBreakPoint)
 		{
 			$(".fullScreenMenuText").hide();
 			if(document.getElementById("mainFullScreenMenu").getBoundingClientRect().width !== 52)
 			{
 				document.getElementById("mainFullScreenMenu").style.width = "51px";
-				document.getElementById("aboutSubMenu").style.left = "52px";
+				$(".settingsUlSub").css("left", "52px");
 				document.getElementById("mainContentFullScreenMenu").style.left = "252px";
 			}
 		}
@@ -2458,7 +2459,7 @@ function resize()
 			if(document.getElementById("mainFullScreenMenu").getBoundingClientRect().width !== 201)
 			{
 				document.getElementById("mainFullScreenMenu").style.width = "200px";
-				document.getElementById("aboutSubMenu").style.left = "201px";
+				$(".settingsUlSub").css("left", "201px");
 				document.getElementById("mainContentFullScreenMenu").style.left = "402px";
 			}
 		}
@@ -3516,10 +3517,28 @@ function toggleAbout(force = false)
 		}
 	}
 	hideMainStuff();
-	document.getElementById("mainContentFullScreenMenu").style.left = ""+402+"px";
+	toggleFullScreenMenuMainContent();
 	document.getElementById("aboutSubMenu").style.display = "block";
 	$("#mainMenuAbout").addClass("selected");
 	toggleAboutLogHog();
+}
+
+function toggleFullScreenMenuMainContent()
+{
+	if(window.innerWidth < firstBreakPoint)
+	{
+		if(document.getElementById("mainContentFullScreenMenu").style.left !== "252px")
+		{
+			document.getElementById("mainContentFullScreenMenu").style.left = "252px";
+		}
+	}
+	else
+	{
+		if(document.getElementById("mainContentFullScreenMenu").style.left !== "402px")
+		{
+			document.getElementById("mainContentFullScreenMenu").style.left = "402px";
+		}
+	}
 }
 
 function toggleAboutLogHog()
@@ -3569,7 +3588,7 @@ function toggleWatchListMenu(force = false)
 	}
 	$(".uniqueClassForAppendSettingsMainWatchNew").html("");
 	$("#loadingSpan").show();
-	document.getElementById("mainContentFullScreenMenu").style.left = ""+402+"px";
+	toggleFullScreenMenuMainContent();
 	loadImgFromData("watchlistImg");
 	hideMainStuff();
 	arrayOfDataSettings = ["settingsMainWatch"];
@@ -3643,7 +3662,20 @@ function endSettingsPollTimer()
 
 function hideSidebar()
 {
-	document.getElementById("mainContentFullScreenMenu").style.left = ""+201+"px";
+	if(window.innerWidth < firstBreakPoint)
+	{
+		if(document.getElementById("mainContentFullScreenMenu").style.left !== "52px")
+		{
+			document.getElementById("mainContentFullScreenMenu").style.left = "52px";
+		}
+	}
+	else
+	{
+		if(document.getElementById("mainContentFullScreenMenu").style.left !== "201px")
+		{
+			document.getElementById("mainContentFullScreenMenu").style.left = "201px";
+		}
+	}
 }
 
 function hideWatchListStuff()
@@ -3691,7 +3723,7 @@ function toggleIframe(locHref, idOfAddon, force = false)
 	hideMainStuff();
 	$("#"+idOfAddon).addClass("selected");
 	document.getElementById("fullScreenMenuIFrame").style.display = "block";
-	document.getElementById("mainContentFullScreenMenu").style.left = ""+201+"px";
+	hideSidebar();
 	$('#iframeFullScreen').prop('src', locHref);
 	var mainContentRect = document.getElementById("mainContentFullScreenMenu").getBoundingClientRect();
 	document.getElementById("iframeFullScreen").style.width = ""+mainContentRect.width+"px";
