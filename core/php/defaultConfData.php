@@ -1184,7 +1184,14 @@ $defaultConfigMoreData = array(
 				"var"								=>	array(
 					"key"								=>	"logShowMoreOptions",
 					"name"								=>	"Default View",
-					"options"							=>	$trueFalsVars,
+					"options"							=>	array(
+						0 									=> array(
+							"value" 							=> "true",
+							"name" 								=> "Expanded"),
+						1 									=> array(
+							"value" 							=> "false",
+							"name" 								=> "Condensed")
+					),
 					"type"								=>	"dropdown"
 				)
 			),
