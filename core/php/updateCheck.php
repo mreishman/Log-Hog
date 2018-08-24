@@ -21,33 +21,35 @@ for($i = 0; $i < $newestVersionCount; $i++)
 {
 	if($i < $versionCount)
 	{
+		$compareTo = intval($newestVersion[$i]);
+		$compareFrom = intval($version[$i]);
 		if($i == 0)
 		{
-			if($newestVersion[$i] > $version[$i])
+			if($compareTo > $compareFrom)
 			{
 				$levelOfUpdate = 3;
 				break;
 			}
-			elseif($newestVersion[$i] < $version[$i])
+			elseif($compareTo < $compareFrom)
 			{
 				break;
 			}
 		}
 		elseif($i == 1)
 		{
-			if($newestVersion[$i] > $version[$i])
+			if($compareTo > $compareFrom)
 			{
 				$levelOfUpdate = 2;
 				break;
 			}
-			elseif($newestVersion[$i] < $version[$i])
+			elseif($compareTo < $compareFrom)
 			{
 				break;
 			}
 		}
 		else
 		{
-			if($newestVersion[$i] > $version[$i])
+			if($compareTo > $compareFrom)
 			{
 				if($updateNoticeMeter == "every")
 				{
@@ -55,7 +57,7 @@ for($i = 0; $i < $newestVersionCount; $i++)
 				}
 				break;
 			}
-			elseif($newestVersion[$i] < $version[$i])
+			elseif($compareTo < $compareFrom)
 			{
 				break;
 			}
