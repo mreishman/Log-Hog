@@ -1,7 +1,7 @@
 <?php
 
 $versionCheckArray = array(
-	'version'		=> '5.0.5',
+	'version'		=> '5.0.6',
 	'versionList'		=> array(
 		'2.0.1'	        => array(
 			'branchName'	=> '2.0.1Update',
@@ -186,6 +186,10 @@ $versionCheckArray = array(
 		'5.0.5'		=> array(
 			'branchName'	=> '5.0.5Update',
 			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed bug with poll update broken in 5.0.4 update</li></ul></li></ul>"
+		),
+		'5.0.6'		=> array(
+			'branchName'	=> '5.0.6Update',
+			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Bug fix with poll logic and content filter</li><li>Possibly decreased save times by reducing the number of failed save checks</li><li>Bugfix for check for update with addons</li><li>Fixed bug with update versions where version is greater than 10</li><li>Style fix for sub files in folders on watchlist</li><li>Fixed bug with possible redirect loop on upgrade theme</li></ul></li></ul>"
 		),
 	)
 );
