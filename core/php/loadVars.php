@@ -595,6 +595,18 @@ else
 			"title"			=>	"Delete",
 			"baseName"		=>	"trashCanSideBar.png"
 		),
+		"updateYellow"		=> array(
+			"alt"			=>	"Update",
+			"src"			=>	"",
+			"title"			=>	"Update",
+			"baseName"		=>	"updateYellow.png"
+		),
+		"updateRed"		=> array(
+			"alt"			=>	"Update",
+			"src"			=>	"",
+			"title"			=>	"Update",
+			"baseName"		=>	"updateRed.png"
+		),
 		"watchList"	=> array(
 			"alt"			=>	"Watch List",
 			"src"			=>	"",

@@ -73,6 +73,23 @@ if($themesEnabled === "false")
 	<?php echo $externalLinkImage; ?>
 </li>
 <li id="mainMenuUpdate" onclick="toggleUpdateMenu();" >
+	<?php
+	$menuUpdateImage = "refresh"; 
+	if($levelOfUpdate !== 0 && $configStatic["version"] !== $dontNotifyVersion && $updateNotificationEnabled === "true")
+	{
+		if($updateNoticeMeter === "every" || $levelOfUpdate > 1)
+		{
+			if($levelOfUpdate == 1)
+			{
+				$menuUpdateImage = "updateYellow"; 
+			}
+			elseif($levelOfUpdate == 2 || $levelOfUpdate == 3)
+			{
+				$menuUpdateImage = "updateRed"; 
+			}
+		}
+	}
+	?>
 	<div class="menuImageDiv">
 		<?php echo generateImage(
 			$arrayOfImages["loadingImg"],
@@ -81,48 +98,12 @@ if($themesEnabled === "false")
 				"class"		=>	"menuImage mainMenuImage",
 				"height"	=>	"30px",
 				"title"		=>	"Update",
-				"data-src"	=>	$arrayOfImages["refresh"]
+				"data-src"	=>	$arrayOfImages[$menuUpdateImage]
 				)
 			);
 		?>
 	</div>
 	<span class="fullScreenMenuText">Update</span>
-	<?php
-	if($levelOfUpdate !== 0 && $configStatic["version"] !== $dontNotifyVersion && $updateNotificationEnabled === "true")
-	{
-		if($updateNoticeMeter === "every" || $levelOfUpdate > 1)
-		{
-			if($levelOfUpdate == 1)
-			{
-				echo generateImage(
-					$arrayOfImages["loadingImg"],
-					$imageConfig = array(
-						"id"		=>	"updateMenuImage",
-						"class"		=>	"menuImage mainMenuImage",
-						"height"	=>	"30px",
-						"title"		=>	"Minor Update",
-						"data-src"	=>	$arrayOfImages["yellowWarning"]
-					)
-				);
-			}
-			elseif($levelOfUpdate == 2 || $levelOfUpdate == 3)
-			{
-				echo "<div class=\"menuImageDiv\">";
-				echo generateImage(
-					$arrayOfImages["loadingImg"],
-					$imageConfig = array(
-						"id"		=>	"updateMenuImage",
-						"class"		=>	"menuImage mainMenuImage",
-						"height"	=>	"30px",
-						"title"		=>	"Major Update",
-						"data-src"	=>	$arrayOfImages["redWarning"]
-					)
-				);
-				echo "</div>";
-			}
-		}
-	}
-	?>
 </li>
 <li id="watchListMenu" onclick="toggleWatchListMenu();" >
 	<div class="menuImageDiv">
