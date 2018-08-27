@@ -2495,6 +2495,10 @@ function scrollToBottom(idNum)
 
 function clearLogInner(title)
 {
+	if(title.indexOf(" | ") > -1)
+	{
+		title = title.split(" | ")[0];
+	}
 	var urlForSend = "core/php/clearLog.php?format=json";
 	title = filterTitle(title);
 	var data = {file: title};
@@ -2622,6 +2626,10 @@ function deleteLog(title)
 {
 	try
 	{
+		if(title.indexOf(" | ") > -1)
+		{
+			title = title.split(" | ")[0];
+		}
 		var urlForSend = "core/php/deleteLog.php?format=json";
 		title = title.replace(/\s/g, "");
 		var data = {file: title};
