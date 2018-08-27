@@ -57,7 +57,7 @@
 					<div id="log" style="height: 278px; overflow: auto;" >
 						<table width="100%" >
 							<?php
-								$log = file_get_contents("example.log");
+								$log = file_get_contents("example.html");
 								$log = explode("\n", $log);
 								foreach ($log as $line)
 								{
