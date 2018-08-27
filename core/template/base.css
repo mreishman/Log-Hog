@@ -341,7 +341,7 @@ div.sidebarLeft {
   -moz-padding-start: 0;
   -moz-margin-before: 0;
   -moz-margin-after: 0;
-  overflow: auto;
+  overflow-y: auto;
   margin: 0;
 }
 

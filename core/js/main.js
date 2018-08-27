@@ -2462,7 +2462,7 @@ function resizeFullScreenMenu()
 		var targetWidth = window.innerWidth;
 		var mainContentFullScreenMenuLeft = "402px";
 		var mainContentFullScreenMenuTop = "46px";
-		if(sideBarOnlyIcons === "breakpointone" || targetWidth < breakPointOne)
+		if(sideBarOnlyIcons === "breakpointone" || targetWidth < breakPointOne || sideBarOnlyIcons === "breakpointtwo")
 		{
 			$(".fullScreenMenuText").hide();
 			if(document.getElementById("mainFullScreenMenu").getBoundingClientRect().width !== 52) //1px border included here
@@ -2482,17 +2482,17 @@ function resizeFullScreenMenu()
 			}
 		}
 
-		if(targetWidth < breakPointTwo)
+		if(targetWidth < breakPointTwo || sideBarOnlyIcons === "breakpointtwo")
 		{
 			mainContentFullScreenMenuLeft = "52px";
 			mainContentFullScreenMenuTop = "82px";
-			$(".settingsUlSub").css("width","auto").css("bottom","auto").css("right","0").css("border-bottom","1px solid white").css("border-right","none");
+			$(".settingsUlSub").css("width","auto").css("bottom","auto").css("right","0").css("border-bottom","1px solid white").css("border-right","none").css("height","35px");
 			$(".settingsUlSub li").css("display","inline-block");
 			$(".menuTitle").not(".menuBreak").hide();
 		}
 		else
 		{
-			$(".settingsUlSub").css("width","200px").css("bottom","0").css("right","auto").css("border-bottom","none").css("border-right","1px solid white");
+			$(".settingsUlSub").css("width","200px").css("bottom","0").css("right","auto").css("border-bottom","none").css("border-right","1px solid white").css("height","auto");
 			$(".settingsUlSub li").css("display","block");
 			$(".menuTitle").not(".fullScreenMenuText").show();
 		}
@@ -3576,7 +3576,7 @@ function toggleFullScreenMenuMainContent()
 {
 	var mainContentFullScreenMenuLeft = "402px";
 	var mainContentFullScreenMenuTop = "46px";
-	if( window.innerWidth < breakPointTwo)
+	if( window.innerWidth < breakPointTwo || sideBarOnlyIcons === "breakpointtwo")
 	{
 		mainContentFullScreenMenuLeft = "52px";
 		mainContentFullScreenMenuTop = "82px";
@@ -3719,7 +3719,7 @@ function endSettingsPollTimer()
 function hideSidebar()
 {
 	var mainContentFullScreenMenuLeft = "201px";
-	if(sideBarOnlyIcons === "breakpointone" || window.innerWidth < breakPointOne)
+	if(sideBarOnlyIcons === "breakpointone" || window.innerWidth < breakPointOne || sideBarOnlyIcons === "breakpointtwo")
 	{
 		mainContentFullScreenMenuLeft = "52px";
 	}
@@ -3916,12 +3916,26 @@ function onScrollShowFixedMiniBar(idsOfForms)
 	for (var i = idsOfForms.length - 1; i >= 0; i--)
 	{
 		var currentPos = document.getElementById(idsOfForms[i]).getBoundingClientRect().top;
-		if(currentPos < 46)
+		var topCheck = 46;
+		if(window.innerWidth < breakPointTwo || sideBarOnlyIcons === "breakpointtwo")
+		{
+			topCheck = 82;
+		}
+		if(currentPos < topCheck)
 		{
 			$("#fixedPositionMiniMenu").html($("#"+idsOfForms[i]+" .settingsHeader").html());
 			if(document.getElementById("fixedPositionMiniMenu").style.display === "none")
 			{
 				document.getElementById("fixedPositionMiniMenu").style.display = "block";
+			}
+			var fixedPositionMiniMenuTop = "46px";
+			if(window.innerWidth < breakPointTwo || sideBarOnlyIcons === "breakpointtwo")
+			{
+				fixedPositionMiniMenuTop = "82px";
+			}
+			if(document.getElementById("fixedPositionMiniMenu").style.top !== fixedPositionMiniMenuTop)
+			{
+				document.getElementById("fixedPositionMiniMenu").style.top = fixedPositionMiniMenuTop;
 			}
 			dis = true;
 			break;
