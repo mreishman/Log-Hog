@@ -46,8 +46,15 @@
 			</li>
 			<li>
 				<span class="settingsBuffer"> Overall Brightness: </span>
-				<input name="overallBrightness" onchange="updateSlider(this.value);" type="range" min="25" max="150" value="<?php echo $overallBrightness; ?>">
-				<span id="sliderShowVal" ><?php echo $overallBrightness; ?>%</span>
+				<div class="selectDiv">
+					<select name="overallBrightness">
+						<?php for ($brightnessPrecent=2; $brightnessPrecent <= 15; $brightnessPrecent++):
+							$brightnessPrecentValue = ($brightnessPrecent * 10);
+							?>
+							<option <?php if($overallBrightness === $brightnessPrecentValue){echo "selected";} ?> value="<?php echo $brightnessPrecentValue; ?>"><?php echo $brightnessPrecentValue; ?>%</option>
+						<?php endfor; ?>
+					</select>
+				</div>
 			</li>
 			<li>
 				<span class="settingsBuffer"> Log Line Padding: </span>
@@ -55,6 +62,18 @@
 					<select name="logLinePadding">
 						<?php for ($logPadCount=0; $logPadCount <= 20; $logPadCount++): ?>
 							<option <?php if($logLinePadding === $logPadCount){echo "selected";} ?> value="<?php echo $logPadCount; ?>"><?php echo $logPadCount; ?>px</option>
+						<?php endfor; ?>
+					</select>
+				</div>
+			</li>
+			<li>
+				<span class="settingsBuffer"> Log Font Size: </span>
+				<div class="selectDiv">
+					<select name="logFontSize">
+						<?php for ($fontSizePercent=5; $fontSizePercent <= 20; $fontSizePercent++):
+							$fontSizePercentValue = ($fontSizePercent * 10);
+							?>
+							<option <?php if($logFontSize === $fontSizePercentValue){echo "selected";} ?> value="<?php echo $fontSizePercentValue; ?>"><?php echo $fontSizePercentValue; ?>%</option>
 						<?php endfor; ?>
 					</select>
 				</div>

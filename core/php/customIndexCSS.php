@@ -24,6 +24,12 @@ $windowDisplayConfig = explode("x", $windowConfig);
 	color: <?php echo $logFontColor; ?>;
 }
 
+
+.log, #firstLoad, .log table tr td
+{
+	font-size: <?php echo $logFontSize; ?>%;
+}
+
 .highlight, .highlight td
 {
 	background-color: <?php echo $highlightColorBG; ?>;

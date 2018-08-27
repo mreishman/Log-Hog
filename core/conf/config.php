@@ -264,6 +264,7 @@ $defaultConfig = array(
 	'locationForSeleniumMonitor'	=> '',
 	'locationForStatus'				=> '',
 	'logFontColor'					=> '#FFFFFF',
+	'logFontSize'					=> 100,
 	'logLinePadding'				=> 4,
 	'logMenuLocation'				=> 'top',
 	'logNameExtension'				=> 'true',
