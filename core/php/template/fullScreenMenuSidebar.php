@@ -121,7 +121,7 @@ if($themesEnabled === "false")
 	</div>
 	<span class="fullScreenMenuText">Watchlist</span>
 </li>
-	<li id="menuOtherApps" class="menuTitle" style="background-color: #999; color: black;
+	<li id="menuOtherApps" class="menuTitle menuBreak" style="background-color: #999; color: black;
 	<?php if(!($locationForMonitorIndex["loc"] || $locationForSearchIndex["loc"] || $locationForSeleniumMonitorIndex["loc"] || $locationForStatusIndex["loc"]))
 		{
 			echo " display: none; ";

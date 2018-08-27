@@ -2444,27 +2444,67 @@ function resize()
 				}
 			}
 		}
+
+		resizeFullScreenMenu();
+
+		updateNotificationCount();
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
+function resizeFullScreenMenu()
+{
+	try
+	{
+		var targetWidth = window.innerWidth;
+		var mainContentFullScreenMenuLeft = "402px";
+		var mainContentFullScreenMenuTop = "46px";
 		if(sideBarOnlyIcons === "breakpointone" || targetWidth < breakPointOne)
 		{
 			$(".fullScreenMenuText").hide();
-			if(document.getElementById("mainFullScreenMenu").getBoundingClientRect().width !== 52)
+			if(document.getElementById("mainFullScreenMenu").getBoundingClientRect().width !== 52) //1px border included here
 			{
 				document.getElementById("mainFullScreenMenu").style.width = "51px";
 				$(".settingsUlSub").css("left", "52px");
-				document.getElementById("mainContentFullScreenMenu").style.left = "252px";
 			}
+			mainContentFullScreenMenuLeft = "252px";
 		}
 		else
 		{
 			$(".fullScreenMenuText").show();
-			if(document.getElementById("mainFullScreenMenu").getBoundingClientRect().width !== 201)
+			if(document.getElementById("mainFullScreenMenu").getBoundingClientRect().width !== 201) //1px border included here
 			{
 				document.getElementById("mainFullScreenMenu").style.width = "200px";
 				$(".settingsUlSub").css("left", "201px");
-				document.getElementById("mainContentFullScreenMenu").style.left = "402px";
 			}
 		}
-		updateNotificationCount();
+
+		if(targetWidth < breakPointTwo)
+		{
+			mainContentFullScreenMenuLeft = "52px";
+			mainContentFullScreenMenuTop = "82px";
+			$(".settingsUlSub").css("width","auto").css("bottom","auto").css("right","0").css("border-bottom","1px solid white").css("border-right","none");
+			$(".settingsUlSub li").css("display","inline-block");
+			$(".menuTitle").not(".menuBreak").hide();
+		}
+		else
+		{
+			$(".settingsUlSub").css("width","200px").css("bottom","0").css("right","auto").css("border-bottom","none").css("border-right","1px solid white");
+			$(".settingsUlSub li").css("display","block");
+			$(".menuTitle").not(".fullScreenMenuText").show();
+		}
+
+		if(document.getElementById("mainContentFullScreenMenu").style.left !== mainContentFullScreenMenuLeft)
+		{
+			document.getElementById("mainContentFullScreenMenu").style.left = mainContentFullScreenMenuLeft;
+		}
+		if(document.getElementById("mainContentFullScreenMenu").style.top !== mainContentFullScreenMenuTop)
+		{
+			document.getElementById("mainContentFullScreenMenu").style.top = mainContentFullScreenMenuTop;
+		}
 	}
 	catch(e)
 	{
@@ -3534,19 +3574,26 @@ function toggleAbout(force = false)
 
 function toggleFullScreenMenuMainContent()
 {
-	if(sideBarOnlyIcons === "breakpointone" || window.innerWidth < breakPointOne)
+	var mainContentFullScreenMenuLeft = "402px";
+	var mainContentFullScreenMenuTop = "46px";
+	if( window.innerWidth < breakPointTwo)
 	{
-		if(document.getElementById("mainContentFullScreenMenu").style.left !== "252px")
-		{
-			document.getElementById("mainContentFullScreenMenu").style.left = "252px";
-		}
+		mainContentFullScreenMenuLeft = "52px";
+		mainContentFullScreenMenuTop = "82px";
 	}
-	else
+	else if(sideBarOnlyIcons === "breakpointone" || window.innerWidth < breakPointOne)
 	{
-		if(document.getElementById("mainContentFullScreenMenu").style.left !== "402px")
-		{
-			document.getElementById("mainContentFullScreenMenu").style.left = "402px";
-		}
+		mainContentFullScreenMenuLeft = "252px";
+	}
+
+	if(document.getElementById("mainContentFullScreenMenu").style.left !== mainContentFullScreenMenuLeft)
+	{
+		document.getElementById("mainContentFullScreenMenu").style.left = mainContentFullScreenMenuLeft;
+	}
+
+	if(document.getElementById("mainContentFullScreenMenu").style.top !== mainContentFullScreenMenuTop)
+	{
+		document.getElementById("mainContentFullScreenMenu").style.top = mainContentFullScreenMenuTop;
 	}
 }
 
@@ -3671,20 +3718,21 @@ function endSettingsPollTimer()
 
 function hideSidebar()
 {
+	var mainContentFullScreenMenuLeft = "201px";
 	if(sideBarOnlyIcons === "breakpointone" || window.innerWidth < breakPointOne)
 	{
-		if(document.getElementById("mainContentFullScreenMenu").style.left !== "52px")
-		{
-			document.getElementById("mainContentFullScreenMenu").style.left = "52px";
-		}
+		mainContentFullScreenMenuLeft = "52px";
 	}
-	else
+
+	if(document.getElementById("mainContentFullScreenMenu").style.left !== mainContentFullScreenMenuLeft)
 	{
-		if(document.getElementById("mainContentFullScreenMenu").style.left !== "201px")
-		{
-			document.getElementById("mainContentFullScreenMenu").style.left = "201px";
-		}
+		document.getElementById("mainContentFullScreenMenu").style.left = mainContentFullScreenMenuLeft;
 	}
+	if(document.getElementById("mainContentFullScreenMenu").style.top !== "46px")
+	{
+		document.getElementById("mainContentFullScreenMenu").style.top = "46px";
+	}
+
 }
 
 function hideWatchListStuff()
