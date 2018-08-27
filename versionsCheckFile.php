@@ -1,7 +1,7 @@
 <?php
 
 $versionCheckArray = array(
-	'version'		=> '4.2.8.1',
+	'version'		=> '5.0.6',
 	'versionList'		=> array(
 		'2.0.1'	        => array(
 			'branchName'	=> '2.0.1Update',
@@ -170,6 +170,34 @@ $versionCheckArray = array(
 		'4.2.8.1'		=> array(
 			'branchName'	=> '4.2.8.1Update',
 			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed bugs with file verification in clear log and delete log functions</li></ul></li></ul>"
+		),
+		'5.0'		=> array(
+			'branchName'	=> '5.0Update',
+			'releaseNotes'	=> "<ul><li>Features<ul><li>Multi-Log<ul><li>View 1 log or up to 9 logs in different arrangements  (i.e. 1x1, 2x1, 2x2, etc)</li><li>Switch between views quickly with multi-log button in menu</li></ul></li><li>Log Layouts<ul><li>Added option to select what log is loaded first</li><li>With multi-log enabled, have up to 3 different layout versions per grid layout (1x1 Layout A, 1x1 Layout B, etc.)</li><li>Switch between layouts in top nav by clicking on MultiLog then Log Layout A B or C.</li></ul></li><li>Added watchlist to main menu (Update watchlist without refresh)</li><li>Reduced initial load times by reducing the transfer ammount on initial load from 697KB to 318KB (with default theme, including 83KB for poll log requests)</li><li>Added option to pin windows when using filter/search</li><li>Added Experimental Log Formatting (in advanced tab)</li><li>Added log line padding options (default 2px, min 0px, max 20px)</li><li>Added option to set fadeout start time for log highlight</li></ul></li><li>Bug Fixes<ul><li>Fixed issue with updating logs sometimes requiring a refresh of index</li><li>Fixed issue with adding folders that are unreadable not generating proper error message</li><li>Fixed bug with search while using groups</li><li>Fixed bug with pause on page load interfering with the pause on unfocus logic.</li><li>Fixed possible bug with remove notification</li><li>Fixed bug with counter if line count changed for log before refresh (sorta)</li></ul></li></ul>"
+		),
+		'5.0.1'		=> array(
+			'branchName'	=> '5.0.1Update',
+			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed bug with main font color for logs not being applied correctly</li><li>Fixed bug with highlight font color for logs not being applied correctly</li><li>Fixed bug with multi log settings still showing up if disabled</li></ul></li></ul>"
+		),
+		'5.0.2'		=> array(
+			'branchName'	=> '5.0.2Update',
+			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed bug with poll not working correctly if no logs on initial load.</li><li>Fixed bug with php file trim breaking poll logic by throwing errors on files that are too big to open.</li><li>Fixed bug with right click on log in menu not respecting right click menu enabled option</li><li>Fixed bug with setup stuff</li></ul></li></ul>"
+		),
+		'5.0.3'		=> array(
+			'branchName'	=> '5.0.3Update',
+			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed bug with temporarily hiding logs showing up when toggling groups</li><li>Fixed possible bug with restore CSS not being versioned</li><li>Fixed bug with groups not updating correctly when changing groups in watchlist (without reload)</li><li>Fixed bug with log names that include groups not updating correctly (without reload)</li><li>Fixed bug with group selector not updating correctly when removing logs (without reload)</li><li>Fixed bug with group selector not updating correctly temporary hiding logs</li><li>Fixed font style issue with some themes and error / no log messages</li></ul></li></ul>"
+		),
+		'5.0.4'		=> array(
+			'branchName'	=> '5.0.4Update',
+			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed flickering of reset button on scroll in settings pages</li><li>Changed load of watchlist buttons until after load</li><li>Fixed bug with watchlist reset and adding after reset</li><li>Fixed small style bug on theme page</li><li>Fixed styling bug with upgrade config and upgrade layout pages</li><li>Shows popup message if an error occurs when trying to clear a log or delete a log</li><li>Fixed display bug with notification count icon with poll notice banner</li><li>Fixed bug with ajax request and closing file list popup too quickly</li><li>Fixed bug with ajax request and update sub files display of folder</li><li>Fixed bug with reset watchlist and default display of expanded / condensed</li><li>Fixed bug with archive / delete log not reflecting until refresh of page</li></ul></li></ul>"
+		),
+		'5.0.5'		=> array(
+			'branchName'	=> '5.0.5Update',
+			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed bug with poll update broken in 5.0.4 update</li></ul></li></ul>"
+		),
+		'5.0.6'		=> array(
+			'branchName'	=> '5.0.6Update',
+			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Bug fix with poll logic and content filter</li><li>Possibly decreased save times by reducing the number of failed save checks</li><li>Bugfix for check for update with addons</li><li>Fixed bug with update versions where version is greater than 10</li><li>Style fix for sub files in folders on watchlist</li><li>Fixed bug with possible redirect loop on upgrade theme</li></ul></li></ul>"
 		),
 	)
 );
