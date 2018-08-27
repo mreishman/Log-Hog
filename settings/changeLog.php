@@ -29,7 +29,9 @@ require_once('../core/php/updateCheck.php');
 <body>
 	<?php require_once('header2.php'); ?>
 	<div id="main">
-		<?php readfile('../core/html/changelog.html') ?>
+		<?php
+			require_once("../core/php/template/changelog.php");
+		?>
 	</div>
 </body>
 <script type="text/javascript">

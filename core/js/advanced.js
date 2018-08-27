@@ -55,7 +55,7 @@ function updateNoNewVersionCheck()
 
 function checkIfChanges()
 {
-	if(checkForChangesArray(["devAdvanced","loggingDisplay","locationOtherApps","advancedConfig","expFeatures"]))
+	if(checkForChangesArray(["loggingDisplay","locationOtherApps","advancedConfig","expFeatures"]))
 	{
 		return true;
 	}
@@ -85,17 +85,13 @@ function showConfigPopup()
 
 				document.getElementById("popupContent").style.width = ""+((window.innerWidth * 0.9).toFixed(2))+"px";
 				document.getElementById("popupContent").style.height = ""+(((window.innerHeight * 0.9)-heightOffset).toFixed(2))+"px";
-				
 				document.getElementById("popupContent").style.left = ""+((window.innerWidth * 0.05).toFixed(2))+"px";
 				document.getElementById("popupContent").style.top = ""+(((window.innerHeight * 0.05)+heightOffset).toFixed(2))+"px";
-
 				document.getElementById("popupContent").style.zIndex = 120;
-
 				document.getElementById("popupContent").style.marginTop = 0;
 				document.getElementById("popupContent").style.marginLeft = 0;
 
 				document.getElementById("popupContentInnerHTMLDiv").innerHTML = popupHtml;
-				
 			}
 			else
 			{
@@ -178,13 +174,13 @@ function verifyNoConfigBackups()
 
 $( document ).ready(function()
 {
-	refreshArrayObjectOfArrays(["devAdvanced","loggingDisplay","locationOtherApps","advancedConfig","expFeatures"]);
+	refreshArrayObjectOfArrays(["loggingDisplay","locationOtherApps","advancedConfig","expFeatures"]);
 
 	document.addEventListener(
 		'scroll',
 		function (event)
 		{
-			onScrollShowFixedMiniBar(["advancedConfig","devAdvanced","loggingDisplay","locationOtherApps","moreAdvancedSpan","expFeatures"]);
+			onScrollShowFixedMiniBar(["advancedConfig","loggingDisplay","locationOtherApps","moreAdvancedSpan","expFeatures"]);
 		},
 		true
 	);

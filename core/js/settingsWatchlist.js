@@ -20,10 +20,12 @@ var selectOptions =
 };
 var staticFileData;
 var staticRowNumber = 1;
-var progressBarWatchList;
+var progressBarWatchList = null;
 var percentWatchList = 0;
 var currentPatternSelect = defaultNewAddPattern;
 var fileFolderList = {};
+var urlModifier = "";
+var toggleCondensedCount = 0;
 
 function generateRow(data)
 {
@@ -77,7 +79,7 @@ function generateRow(data)
 	item = item.replace(/{{AutoDeleteFiles}}/g, data["AutoDeleteFiles"]);
 	item = item.replace(/{{FileInformation}}/g, data["FileInformation"]);
 	item = item.replace('FileInformation" value="', 'FileInformation" value=\'');
-	item = item.replace('"></span></span></ul></div>', '\'></span></span></ul></div>');	
+	item = item.replace('"></span></span></ul></div>', '\'></span></span></ul></div>');
 	item = item.replace(/{{Group}}/g, data["Group"]);
 	item = item.replace(/{{Name}}/g, data["Name"]);
 	item = item.replace(/{{AlertEnabled}}/g, generateTrueFalseSelect(data["AlertEnabled"]));
@@ -234,9 +236,9 @@ function addFile()
 	htmlForPopoup += "<br><div style='width:100%;text-align:center;'> <input onkeyup=\"getCurrentFileFolderInfoKeyPress(false);\" value=\""+defaultNewPathFile+"\" id=\"inputFieldForFileOrFolder\" type=\"text\" style=\"width: 90%;\" > </div>";
 	htmlForPopoup += "<br><div style='width:100%;height:30px;padding-left:20px;' id=\"folderNavUpHolder\"> </div><div id=\"folderFileInfoHolder\" style='margin-right:10px; margin-left: 10px;height:200px;border: 1px solid white;overflow: auto;'> --- </div>";
 	htmlForPopoup += "<div class='link' onclick='addFileFolderAjax(\"file\", document.getElementById(\"inputFieldForFileOrFolder\").value);' style='margin-left:125px; margin-right:50px;margin-top:25px;'>Add</div><div onclick='hidePopup();' class='link'>Cancel</div";
-	document.getElementById('popupContentInnerHTMLDiv').innerHTML = htmlForPopoup;
-	document.getElementById('popupContent').style.height = "400px";
-	document.getElementById('popupContent').style.marginTop = "-200px";
+	document.getElementById("popupContentInnerHTMLDiv").innerHTML = htmlForPopoup;
+	document.getElementById("popupContent").style.height = "400px";
+	document.getElementById("popupContent").style.marginTop = "-200px";
 	updateFileFolderGui(false);
 } 
 
@@ -247,9 +249,9 @@ function addFolder()
 	htmlForPopoup += "<br><div style='width:100%;text-align:center;'> <input onkeyup=\"getCurrentFileFolderInfoKeyPress(true);\" value=\""+defaultNewPathFolder+"\" id=\"inputFieldForFileOrFolder\" type=\"text\" style=\"width: 90%;\" > </div>";
 	htmlForPopoup += "<br><div style='width:100%;height:30px;padding-left:20px;' id=\"folderNavUpHolder\"> </div><div id=\"folderFileInfoHolder\" style='margin-right:20px; margin-left: 20px;height:200px;border: 1px solid white;overflow: auto;'> --- </div>";
 	htmlForPopoup += "<div class='link' onclick='addFileFolderAjax(\"folder\", document.getElementById(\"inputFieldForFileOrFolder\").value);' style='margin-left:110px; margin-right:50px;margin-top:25px;'>Add</div><div onclick='hidePopup();' class='link'>Cancel</div";
-	document.getElementById('popupContentInnerHTMLDiv').innerHTML = htmlForPopoup;
-	document.getElementById('popupContent').style.height = "400px";
-	document.getElementById('popupContent').style.marginTop = "-200px";
+	document.getElementById("popupContentInnerHTMLDiv").innerHTML = htmlForPopoup;
+	document.getElementById("popupContent").style.height = "400px";
+	document.getElementById("popupContent").style.marginTop = "-200px";
 	updateFileFolderGui(true);
 }
 
@@ -257,8 +259,8 @@ function addFileFolderAjax(fileType, sentLocation)
 {
 	currentPatternSelect = defaultNewAddPattern;
 	hidePopup();
-	displayLoadingPopup("../");
-	var urlForSend = "../core/php/getFileFolderData.php?format=json";
+	displayLoadingPopup("");
+	var urlForSend = urlModifier+"core/php/getFileFolderData.php?format=json";
 	var data = {currentFolder: sentLocation, filter: currentPatternSelect};
 	$.ajax({
 		url: urlForSend,
@@ -289,7 +291,7 @@ function updateSubFiles(id)
 {
 	document.getElementById("watchListKey"+id+"LoadingSubFilesIcon").style.display = "inline-block";
 	document.getElementById("watchListKey"+id+"FilesInFolder").style.display = "none";
-	var urlForSend = "../core/php/getFileFolderData.php?format=json";
+	var urlForSend = urlModifier+"core/php/getFileFolderData.php?format=json";
 	var data = {currentFolder: document.getElementsByName("watchListKey"+id+"Location")[0].value, recursive: document.getElementsByName("watchListKey"+id+"Recursive")[0].value, filter:  document.getElementsByName("watchListKey"+id+"Pattern")[0].value};
 	$.ajax({
 		url: urlForSend,
@@ -301,7 +303,15 @@ function updateSubFiles(id)
 			document.getElementById("infoFile"+id).innerHTML = data["fileInfo"];
 			document.getElementById("imageFile"+id).innerHTML = icons[data["img"]];
 			setTimeout(function(){ document.getElementById("watchListKey"+id+"LoadingSubFilesIcon").style.display = "none"; document.getElementById("watchListKey"+id+"FilesInFolder").style.display = "inline-block"; }, 1000);
-			var prevFolderData = JSON.parse(document.getElementsByName("watchListKey"+id+"FileInformation")[0].value);
+			var prevFolderData = {};
+			if(document.getElementsByName("watchListKey"+id+"FileInformation")[0].value !== "")
+			{
+				var response=jQuery.parseJSON(document.getElementsByName("watchListKey"+id+"FileInformation")[0].value);
+				if(typeof response === "object")
+				{
+					prevFolderData = response;
+				}
+			}
 			var htmlReturn = generateSubFiles({fileArray: data["data"], currentNum: id, mainFolder: data["orgPath"], fileData: prevFolderData});
 			$("#watchListKey"+id+"FilesInFolder").html(htmlReturn["html"]);
 			if(htmlReturn["hideSplit"])
@@ -376,13 +386,13 @@ function generateSubFiles(data)
 				}
 			}
 			returnHtml += "<li>"+icons[fileArray[keyTwo]["image"]];
-			returnHtml += "<span style=\"width: 300px; overflow: auto; display: inline-block;\" >"+keyTwo.replace(mainFolder,"")+"</span><input name=\"watchListKey"+currentNum+"FileInFolder\"  type=\"hidden\" value=\""+keyTwo+"\" >";
-			returnHtml += "<span class=\"settingsBuffer\" >Include: <select onchange=\"updateFileInfo("+currentNum+");\" name=\"watchListKey"+currentNum+"FileInFolderInclude\" > "+generateTrueFalseSelect(includeBool)+" </select></span>";
-			returnHtml += "<span class=\"settingsBuffer\" >Exclude Trim: <select onchange=\"updateFileInfo("+currentNum+");\" name=\"watchListKey"+currentNum+"FileInFolderTrim\"> "+generateTrueFalseSelect(excludeTrim)+" </select></span>";
-			returnHtml += "<span class=\"settingsBuffer\" >Exclude Delete: <select onchange=\"updateFileInfo("+currentNum+");\" name=\"watchListKey"+currentNum+"ExcludeDelete\"> "+generateTrueFalseSelect(excludeDelete)+" </select></span>";
-			returnHtml += "<span class=\"settingsBuffer\" >Alert on Update: <select onchange=\"updateFileInfo("+currentNum+");\" name=\"watchListKey"+currentNum+"FileInFolderAlert\"> "+generateTrueFalseSelect(alertOnUpdate)+" </select></span>";
-			returnHtml += "<span class=\"settingsBuffer\" style=\"text-align: right; width: 50px; padding-right:5px; \" >Name:  </span><span class=\"settingsBuffer\" > <input onchange=\"updateFileInfo("+currentNum+");\"  type=\"text\" name=\"watchListKey"+currentNum+"FileInFolderName\" value=\""+name+"\" > </span>";
-			returnHtml += "<span class=\"settingsBuffer\" style=\"text-align: right; width: 75px; padding-right:5px; \" >Filter:  </span><span class=\"settingsBuffer\" > <input onchange=\"updateFileInfo("+currentNum+");\"  type=\"text\" name=\"watchListKey"+currentNum+"GrepFilter\" value=\""+name+"\" > </span>";
+			returnHtml += "<div style=\"display: inline-block; padding: 5px;\" ><span style=\"width: 300px; overflow: auto; display: inline-block;\" >"+keyTwo.replace(mainFolder,"")+"</span><input name=\"watchListKey"+currentNum+"FileInFolder\"  type=\"hidden\" value=\""+keyTwo+"\" ></div>";
+			returnHtml += "<div style=\"display: inline-block; padding: 5px;\" ><span class=\"settingsBuffer\" >Include: <div class=\"selectDiv\" ><select onchange=\"updateFileInfo("+currentNum+");\" name=\"watchListKey"+currentNum+"FileInFolderInclude\" > "+generateTrueFalseSelect(includeBool)+" </select></div></span></div>";
+			returnHtml += "<div style=\"display: inline-block; padding: 5px;\" ><span class=\"settingsBuffer\" >Exclude Trim: <div class=\"selectDiv\" ><select onchange=\"updateFileInfo("+currentNum+");\" name=\"watchListKey"+currentNum+"FileInFolderTrim\"> "+generateTrueFalseSelect(excludeTrim)+" </select></div></span></div>";
+			returnHtml += "<div style=\"display: inline-block; padding: 5px;\" ><span class=\"settingsBuffer\" >Exclude Delete: <div class=\"selectDiv\" ><select onchange=\"updateFileInfo("+currentNum+");\" name=\"watchListKey"+currentNum+"ExcludeDelete\"> "+generateTrueFalseSelect(excludeDelete)+" </select></div></span></div>";
+			returnHtml += "<div style=\"display: inline-block; padding: 5px;\" ><span class=\"settingsBuffer\" >Alert on Update: <div class=\"selectDiv\" ><select onchange=\"updateFileInfo("+currentNum+");\" name=\"watchListKey"+currentNum+"FileInFolderAlert\"> "+generateTrueFalseSelect(alertOnUpdate)+" </select></div></span></div>";
+			returnHtml += "<div style=\"display: inline-block; padding: 5px;\" ><span class=\"settingsBuffer\" style=\"text-align: right; width: 50px; padding-right:5px; \" >Name:  </span><span class=\"settingsBuffer\" > <input onchange=\"updateFileInfo("+currentNum+");\"  type=\"text\" name=\"watchListKey"+currentNum+"FileInFolderName\" value=\""+name+"\" > </span></div>";
+			returnHtml += "<div style=\"display: inline-block; padding: 5px;\" ><span class=\"settingsBuffer\" style=\"text-align: right; width: 75px; padding-right:5px; \" >Filter:  </span><span class=\"settingsBuffer\" > <input onchange=\"updateFileInfo("+currentNum+");\"  type=\"text\" name=\"watchListKey"+currentNum+"GrepFilter\" value=\""+name+"\" > </span></div>";
 			returnHtml += "</li>";
 		}
 	}
@@ -394,8 +404,12 @@ function generateSubFiles(data)
 	return {html: returnHtml, hideSplit};
 }
 
-function toggleCondensed()
+function toggleCondensed(increaseCount)
 {
+	if(increaseCount)
+	{
+		toggleCondensedCount++;
+	}
 	if(getComputedStyle(document.getElementsByClassName("condensed")[0], null).display !== "none")
 	{
 		$(".condensed").hide();
@@ -434,7 +448,7 @@ function setNewFileFolderValue(newValue,hideFiles)
 function expandFileFolderView(newValue, hideFiles)
 {
 	document.getElementById("inputFieldForFileOrFolder").value = newValue;
-	getFileFolderData(newValue, hideFiles,newValue)
+	getFileFolderData(newValue, hideFiles,newValue);
 }
 
 function getCurrentFileFolderMainPage(currentRow)
@@ -477,7 +491,7 @@ function getCurrentDir(currentDir, joinChar)
 function getFileFolderData(currentFolder, hideFiles, orgPath)
 {
 	//make ajax to get file / folder data, return array
-	var urlForSend = "../core/php/getFileFolderData.php?format=json";
+	var urlForSend = urlModifier+"core/php/getFileFolderData.php?format=json";
 	var data = {currentFolder, filter: currentPatternSelect};
 	$.ajax({
 		url: urlForSend,
@@ -487,7 +501,7 @@ function getFileFolderData(currentFolder, hideFiles, orgPath)
 		success(data)
 		{
 			staticFileData = data;
-			if(document.getElementById("inputFieldForFileOrFolder").value == orgPath)
+			if(document.getElementById("inputFieldForFileOrFolder") && document.getElementById("inputFieldForFileOrFolder").value == orgPath)
 			{
 				var joinChar = getJoinChar();
 				getFileFolderSubFunction(data, orgPath, hideFiles, joinChar, false);
@@ -499,7 +513,7 @@ function getFileFolderData(currentFolder, hideFiles, orgPath)
 function getFileFolderDataMain(currentFolder, hideFiles, orgPath, currentRow)
 {
 	//make ajax to get file / folder data, return array
-	var urlForSend = "../core/php/getFileFolderData.php?format=json";
+	var urlForSend = urlModifier+"core/php/getFileFolderData.php?format=json";
 	var data = {currentFolder, filter: document.getElementsByName("watchListKey"+currentRow+"Pattern")[0].value};
 	$.ajax({
 		url: urlForSend,
@@ -563,7 +577,7 @@ function getFileFolderSubFunction(data, orgPath, hideFiles, joinChar, dropdown)
 	{
 		var subData = data["data"][listOfFileOrFolders[i]];
 		var selectButton = "<a class=\"linkSmall\"  onclick=\"setNewFileFolderValue('"+listOfFileOrFolders[i]+"',"+hideFiles+")\" >select</a>";
-		var name = "<span style=\"max-width: 200px; word-break: break-all; display: inline-block; \" >"+subData["filename"]+"</span>"
+		var name = "<span style=\"max-width: 200px; word-break: break-all; display: inline-block; \" >"+subData["filename"]+"</span>";
 		var highlightClass = "";
 		var listKey = "other";
 		if(subData["filename"].indexOf(currentFile) === 0 && currentFile !== "")
@@ -648,7 +662,7 @@ function navUpDir(hideFiles)
 {
 	var lastDir = getLastDir();
 	document.getElementById("inputFieldForFileOrFolder").value = lastDir;
-	getFileFolderData(lastDir, hideFiles,lastDir)
+	getFileFolderData(lastDir, hideFiles,lastDir);
 }
 
 function getLastDir()
@@ -812,8 +826,8 @@ function addRowFunction(data)
 				Location: locationFromData,
 				Pattern: patternFromData,
 				key: "Log "+countOfWatchList,
-				recursive: recursive,
-				excludeTrim: excludeTrim,
+				recursive,
+				excludeTrim,
 				FileType: fileTypeFromData,
 				filesInFolder: filesInFolderFromData,
 				AutoDeleteFiles: autoDeleteFiles,
@@ -829,7 +843,7 @@ function addRowFunction(data)
 			}
 		);
 		$(".uniqueClassForAppendSettingsMainWatchNew").append(item);
-		document.getElementById("numberOfRows").value = countOfWatchList;
+		updateNumberOfRowsValue(countOfWatchList);
 	}
 	catch(e)
 	{
@@ -841,6 +855,10 @@ function splitFilesPopup(currentRow, keyName = "")
 {
 	try
 	{
+		if (typeof popupSettingsArray === "string")
+		{
+			popupSettingsArray = JSON.parse(popupSettingsArray);
+		}
 		if("removeFolder" in popupSettingsArray && popupSettingsArray.removeFolder === "true")
 		{
 			showPopup();
@@ -899,7 +917,7 @@ function updateFileInfo(currentRow)
 			stringToUpdateTo += "}";
 			if(i !== (listOfFilesLength - 1))
 			{
-				stringToUpdateTo += ","
+				stringToUpdateTo += ",";
 			}
 		}
 	}
@@ -926,6 +944,10 @@ function deleteRowFunctionPopup(currentRow, keyName = "")
 {
 	try
 	{
+		if (typeof popupSettingsArray === "string")
+		{
+			popupSettingsArray = JSON.parse(popupSettingsArray);
+		}
 		if("removeFolder" in popupSettingsArray && popupSettingsArray.removeFolder === "true")
 		{
 			showPopup();
@@ -959,7 +981,7 @@ function deleteRowFunction(currentRow)
 			}
 		}
 		newValue--;
-		document.getElementById("numberOfRows").value = newValue;
+		updateNumberOfRowsValue(newValue);
 	}
 	catch(e)
 	{
@@ -971,7 +993,7 @@ function duplicateRow(currentRow)
 {
 	var countOfWatchList = parseInt(document.getElementById("numberOfRows").value);
 	countOfWatchList++;
-	document.getElementById("numberOfRows").value = countOfWatchList;
+	updateNumberOfRowsValue(countOfWatchList);
 	moveRow(currentRow, countOfWatchList, false);
 	document.getElementById("moveDown"+(countOfWatchList-1)).style.display = "inline-block";
 	location.href = "#rowNumber"+countOfWatchList;
@@ -1036,13 +1058,17 @@ function checkWatchList()
 	{
 		var countOfWatchList = parseInt(document.getElementById("numberOfRows").value);
 		var blankValue = false;
-		for (var i = 1; i <= countOfWatchList; i++) 
+		for (var i = 1; i <= countOfWatchList; i++)
 		{
 			if(document.getElementsByName("watchListKey"+i+"Location")[0].value === "")
 			{
 				blankValue = true;
 				break;
 			}
+		}
+		if (typeof popupSettingsArray === 'string')
+		{
+			popupSettingsArray = JSON.parse(popupSettingsArray);
 		}
 		if(blankValue && "blankFolder" in popupSettingsArray && popupSettingsArray.blankFolder === "true")
 		{
@@ -1074,20 +1100,15 @@ function showNoEmptyFolderPopup()
 	}
 }
 
-function checkIfChanges()
-{
-	if(	checkForChangesArray(["settingsMainWatch"]))
-	{
-		return true;
-	}
-	return false;
-}
-
 function resetWatchListVars()
 {
 	try
 	{
 		resetArrayObject("settingsMainWatch");
+		if(toggleCondensedCount % 2 !== 0)
+		{
+			toggleCondensed(false);
+		}
 	}
 	catch(e)
 	{
@@ -1152,7 +1173,7 @@ function getFileFolderList()
 {
 	document.getElementsByClassName("uniqueClassForAppendSettingsMainWatchNew")[0].innerHTML = "";
 	document.getElementsByClassName("uniqueClassForAppendSettingsMainWatchNew")[0].style.display = "none";
-	var urlForSend = "../core/php/getFileFolderList.php?format=json";
+	var urlForSend = urlModifier+"core/php/getFileFolderList.php?format=json";
 	var data = {};
 	$.ajax({
 		url: urlForSend,
@@ -1178,14 +1199,13 @@ function getFileFolderList()
 
 function ajaxAddRowFirstLoad(currentCount)
 {
-	refreshSettingsWatchList();
 	var fileFolderListKeys = Object.keys(fileFolderList);
 	var fileFolderListCount = fileFolderListKeys.length;
 	if(fileFolderListCount > currentCount)
 	{
 		var data = fileFolderList[fileFolderListKeys[currentCount]];
 		updateProgressBarWatchList((90*(1/fileFolderListCount)), data["Location"], "Loading file "+(currentCount+1)+" of "+fileFolderListCount);
-		var urlForSend = "../core/php/getFileFolderData.php?format=json";
+		var urlForSend = urlModifier+"core/php/getFileFolderData.php?format=json";
 		var sendData = {currentFolder: data["Location"], filter: data["Pattern"]};
 		(function(_data){
 			$.ajax({
@@ -1196,25 +1216,26 @@ function ajaxAddRowFirstLoad(currentCount)
 				success(data)
 				{
 					var countOfWatchList = parseInt(document.getElementById("numberOfRows").value);
-					var fileListData = generateSubFiles({fileArray: data["data"], currentNum: (countOfWatchList+1), mainFolder: _data["Location"]});				
+					var fileListData = generateSubFiles({fileArray: data["data"], currentNum: (countOfWatchList+1), mainFolder: _data["Location"]});
 					_data["fileImage"] = icons[data["img"]];
 					_data["filePermsDisplay"] =  data["fileInfo"];
 					_data["filesInFolder"] =  fileListData["html"];
 					_data["hideSplit"] =  fileListData["hideSplit"];
-					addRowFunction(_data)
+					addRowFunction(_data);
 					currentCount++;
 					setTimeout(function(){ajaxAddRowFirstLoad(currentCount);},100);
-					
 				}
-			});	
+			});
 		}(data));
 	}
 	else
 	{
 		//finished
 		document.getElementById("loadingSpan").style.display = "none";
+		$(".settingsMainWatchSaveChangesButton").css("display","inline-block");
 		document.getElementsByClassName("uniqueClassForAppendSettingsMainWatchNew")[0].style.display = "block";
 		refreshSettingsWatchList();
+		startSettingsPollTimer();
 	}
 }
 
@@ -1228,7 +1249,23 @@ function updateProgressBarWatchList(additonalPercent, text, topText = "Loading..
 		$("#progressBarSubInfoWatchList").append(text);
 		$("#progressBarMainInfoWatchList").empty();
 		$("#progressBarMainInfoWatchList").append(topText);
-		
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
+function resetProgressBarWatchList()
+{
+	try
+	{
+		percentWatchList = 0;
+		progressBarWatchList.set(percentWatchList);
+		$("#progressBarSubInfoWatchList").empty();
+		$("#progressBarSubInfoWatchList").append("Loading...");
+		$("#progressBarMainInfoWatchList").empty();
+		$("#progressBarMainInfoWatchList").append("Loading Javascript");
 	}
 	catch(e)
 	{
@@ -1255,23 +1292,29 @@ function toggleSaveGroup(rowNumber)
 	}
 }
 
-$( document ).ready(function() 
+function updateNumberOfRowsValue(newValue)
 {
+	var htmlToUpdateTo = "<input id=\"numberOfRows\" type=\"text\" name=\"numberOfRows\" value=\""+newValue+"\">";
+	$("#hidden").html(htmlToUpdateTo);
+	document.getElementById("numberOfRows").value = newValue;
+}
+
+function loadWatchList()
+{
+	$("#progressBarWatchList").empty();
+	document.getElementById("loadingSpan").style.display = "block";
+	document.getElementsByClassName("uniqueClassForAppendSettingsMainWatchNew")[0].style.display = "none";
+	updateNumberOfRowsValue(0);
 	percentWatchList = 0;
 	progressBarWatchList = new ldBar("#progressBarWatchList");
 	updateProgressBarWatchList(10, "Generating File List");
-	refreshSettingsWatchList();
 	document.addEventListener(
-		'scroll',
+		"scroll",
 		function (event)
 		{
-			onScrollShowFixedMiniBar(["settingsMainWatch"]);
 			moveFileFolderDropdown();
 		},
 		true
 	);
-
-	setInterval(poll, 100);
 	setTimeout(function(){getFileFolderList();},100);
-	
-});
+}

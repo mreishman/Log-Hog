@@ -66,6 +66,42 @@ $countConfig--;
 					</div>
 				</li>
 				<li>
+					<span class="settingsBuffer"> Enable Development Tools:</span>
+					<div class="selectDiv">
+						<select name="developmentTabEnabled">
+  							<option <?php if($developmentTabEnabled == 'true'){echo "selected";} ?> value="true">True</option>
+  							<option <?php if($developmentTabEnabled == 'false'){echo "selected";} ?> value="false">False</option>
+						</select>
+					</div>
+				</li>
+				<li>
+					<span class="settingsBuffer" > Enable Themes: </span>
+					<div class="selectDiv">
+						<select name="themesEnabled">
+							<option <?php if($themesEnabled == 'true'){echo "selected";} ?> value="true">True</option>
+							<option <?php if($themesEnabled == 'false'){echo "selected";} ?> value="false">False</option>
+						</select>
+					</div>
+				</li>
+				<li>
+					<span class="settingsBuffer" > Enable Multi-Log: </span>
+					<div class="selectDiv">
+						<select name="enableMultiLog">
+							<option <?php if($enableMultiLog == 'true'){echo "selected";} ?> value="true">True</option>
+							<option <?php if($enableMultiLog == 'false'){echo "selected";} ?> value="false">False</option>
+						</select>
+					</div>
+				</li>
+				<li>
+					<span class="settingsBuffer" > Right Click Menu Enabled: </span>
+					<div class="selectDiv">
+						<select name="rightClickMenuEnable">
+							<option <?php if($rightClickMenuEnable == 'true'){echo "selected";} ?> value="true">True</option>
+							<option <?php if($rightClickMenuEnable == 'false'){echo "selected";} ?> value="false">False</option>
+						</select>
+					</div>
+				</li>
+				<li>
 					<span class="settingsBuffer"> Number of versions saved:</span>
 					<div class="selectDiv">
 						<select name="backupNumConfig">
@@ -119,28 +155,6 @@ $countConfig--;
 			</ul>
 		</div>
 	</form>
-	<form id="devAdvanced">
-		<div class="settingsHeader">
-			Development  
-			<div class="settingsHeaderButtons">
-				<?php echo addResetButton("devAdvanced"); ?>
-				<a class="linkSmall" onclick="saveAndVerifyMain('devAdvanced');" >Save Changes</a>
-			</div>
-		</div>
-		<div class="settingsDiv" >
-			<ul class="settingsUl">
-				<li>
-					<span class="settingsBuffer"> Enable Development Tools:</span>
-					<div class="selectDiv">
-						<select name="developmentTabEnabled">
-  							<option <?php if($developmentTabEnabled == 'true'){echo "selected";} ?> value="true">True</option>
-  							<option <?php if($developmentTabEnabled == 'false'){echo "selected";} ?> value="false">False</option>
-						</select>
-					</div>
-				</li>
-			</ul>
-		</div>
-	</form>
 	<form id="loggingDisplay">
 		<div class="settingsHeader">
 			Logging Information
@@ -185,7 +199,7 @@ $countConfig--;
 					</div>
 				</li>
 				<li>
-					Send anonymous information about javascript errors/crashes:
+					Send anonymous information about Log-Hog specific javascript errors:
 					<div class="selectDiv">
 						<select name="sendCrashInfoJS">
   							<option <?php if($sendCrashInfoJS == 'true'){echo "selected";} ?> value="true">True</option>
@@ -194,7 +208,7 @@ $countConfig--;
 					</div>
 				</li>
 				<li style="display: none;" >
-					Send anonymous information about php errors/crashes:
+					Send anonymous information about Log-Hog specific php errors:
 					<div class="selectDiv">
 						<select name="sendCrashInfoPHP">
   							<option <?php if($sendCrashInfoPHP == 'true'){echo "selected";} ?> value="true">True</option>
@@ -276,40 +290,33 @@ $countConfig--;
 		<div class="settingsHeader">
 		Experimental Features 
 			<div class="settingsHeaderButtons">
-				<?php echo addResetButton("expFeatures");
-				if ($setupProcess == "preStart" || $setupProcess == "finished"): ?>
-					<a class="linkSmall" onclick="saveAndVerifyMain('expFeatures');" >Save Changes</a>
-				<?php else: ?>
-					<button  onclick="displayLoadingPopup();">Save Changes</button>
-				<?php endif; ?>
+				<a class="linkSmall" onclick="saveAndVerifyMain('expFeatures');" >Save Changes</a>
 			</div>
 		</div>
 		<div class="settingsDiv" >
 			<ul class="settingsUl">
 				<li>
-					Log Layout
-					<?php $arrayOfwindowConfigOptions = array();
-					for ($i=0; $i < 3; $i++)
-					{
-						for ($j=0; $j < 3; $j++)
-						{
-							array_push($arrayOfwindowConfigOptions, "".($i+1)."x".($j+1));
-						}
-					}
-					?>
+					<span class="settingsBuffer"> New Log Formatting:</span>
 					<div class="selectDiv">
-						<select name="windowConfig">
-							<?php foreach ($arrayOfwindowConfigOptions as $value)
-							{
-								$stringToEcho = "<option ";
-								if($value === $windowConfig)
-								{
-									$stringToEcho .= " selected ";
-								}
-								$stringToEcho .= " value=\"".$value."\"> ".$value."</option>";
-								echo $stringToEcho;
-							}
-							?>
+						<select name="expFormatEnabled">
+  							<option <?php if($expFormatEnabled == 'true'){echo "selected";} ?> value="true">True</option>
+  							<option <?php if($expFormatEnabled == 'false'){echo "selected";} ?> value="false">False</option>
+						</select>
+					</div>
+				</li>
+				<li>
+					<span class="settingsBuffer"> Date Text Format:</span>
+					<div class="selectDiv">
+						<select name="dateTextFormat">
+  							<option <?php if($dateTextFormat == 'default'){echo "selected";} ?> value="default">Default</option>
+  							<option <?php if($dateTextFormat == 'hidden'){echo "selected";} ?> value="hidden">Hidden</option>
+  							<option <?php if($dateTextFormat == 'hh:|mm:|ss'){echo "selected";} ?> value="hh:|mm:|ss">hh:mm:ss</option>
+  							<option <?php if($dateTextFormat == 'DD/|MM/|YYYY'){echo "selected";} ?> value="DD/|MM/|YYYY">DD/MM/YYYY</option>
+  							<option <?php if($dateTextFormat == 'MM/|DD/|YYYY'){echo "selected";} ?> value="MM/|DD/|YYYY">MM/DD/YYYY</option>
+  							<option <?php if($dateTextFormat == 'DD/|MM/'){echo "selected";} ?> value="DD/|MM/">DD/MM</option>
+  							<option <?php if($dateTextFormat == 'MM/|DD/|YYYY |hh:|mm:|ss'){echo "selected";} ?> value="MM/|DD/|YYYY |hh:|mm:|ss">MM/DD/YYYY hh:mm:ss</option>
+  							<option <?php if($dateTextFormat == 'DD/|MM/|YYYY |hh:|mm:|ss'){echo "selected";} ?> value="DD/|MM/|YYYY |hh:|mm:|ss">DD/MM/YYYY hh:mm:ss</option>
+  							<option <?php if($dateTextFormat == 'YYYY/|MM/|DD |hh:|mm:|ss'){echo "selected";} ?> value="YYYY/|MM/|DD |hh:|mm:|ss">YYYY/MM/DD hh:mm:ss</option>
 						</select>
 					</div>
 				</li>

@@ -29,7 +29,13 @@ else
 	require_once('../../../core/Themes/'.$currentTheme."/defaultSetting.php");
 }
 require_once('../../../core/php/loadVars.php');
-
+$baseFileVersion = $defaultConfig["themeVersion"];
+$oldFileVersion = $config["themeVersion"];
+if(strval($baseFileVersion) === strval($oldFileVersion))
+{
+	header("Location: "."../../../settings/whatsNew.php", true, 302); /* Redirect browser */
+	exit();
+}
 ?>
 
 <div id="main">
@@ -117,7 +123,6 @@ require_once('../../../core/php/loadVars.php');
 
 	function copyFiles()
 	{
-		console.log("Copy Files");
 		var urlForSend = urlForSendMain0;
 		var dataSend = {};
 		$.ajax({
@@ -127,17 +132,13 @@ require_once('../../../core/php/loadVars.php');
 			type: 'POST',
 			success(data)
 			{
-				console.log(data);
 				verifyFile(data);
 			},
 			failure(data)
 			{
 				verifyFile(false);
 			},
-			complete(data)
-			{
-				console.log("Finished?");
-			}
+			complete(data){}
 		});
 	}
 
