@@ -78,7 +78,7 @@
 			12	=>	array(
 				"Version"		=>	"5.0",
 				"Name"			=>	"Multi-Log",
-				"BP"			=>	array("View more than one log at a time","Save log layout for initial loadt"),
+				"BP"			=>	array("View more than one log at a time","Save log layout for initial load"),
 				"Images"		=>	array("5.0-1.png","5.0-2.png")
 			)
 		);
