@@ -276,12 +276,3 @@ function verifyCopiedFiles()
 		}
 	});
 }
-
-$( document ).ready(function()
-{
-	refreshArrayObjectOfArrays(["settingsColorFolderVars","settingsColorFolderGroupVars"]);
-	document.addEventListener("scroll", function (event) {
-			onScrollShowFixedMiniBar(["themeSpan","settingsColorFolderVars","settingsColorFolderGroupVars"]);
-		}, true);
-	setInterval(poll, 100);
-});

@@ -3506,6 +3506,10 @@ function toggleFullScreenMenu()
 		{
 			$("#menuSeleniumMonitorAddon").click();
 		}
+		else if($("#themeSubMenuMainThemes").hasClass("selected"))
+		{
+			toggleThemesIframeSource(true);
+		}
 		var fullScreenMenuClickCountCurrent = fullScreenMenuClickCount;
 		setTimeout(function() {
 			togglePollSpeedDown(fullScreenMenuClickCountCurrent);
@@ -3514,6 +3518,7 @@ function toggleFullScreenMenu()
 	}
 	else
 	{
+		toggleThemesIframeSource(false);
 		document.getElementById('menu').style.zIndex = "20";
 		hideIframeStuff();
 		document.getElementById("fullScreenMenu").style.display = "none";
@@ -3837,7 +3842,7 @@ function hideThemeStuff()
 function hideIframeStuff()
 {
 	document.getElementById("fullScreenMenuIFrame").style.display = "none";
-	$('#iframeFullScreen').prop('src', "");
+	$('#iframeFullScreen').prop('src', "core/html/iframe.html");
 }
 
 function toggleIframe(locHref, idOfAddon, force = false)
