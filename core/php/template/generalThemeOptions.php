@@ -1,6 +1,6 @@
 <form id="settingsColorFolderVars">
 	<div class="settingsHeader">
-	Main Theme Options
+	Main Theme Options [Refresh Required]
 	<div class="settingsHeaderButtons">
 		<?php echo addResetButton("settingsColorFolderVars"); ?>
 		<a class="linkSmall" onclick="saveAndVerifyMain('settingsColorFolderVars');" >Save Changes</a>

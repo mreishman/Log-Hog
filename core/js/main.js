@@ -3572,6 +3572,49 @@ function toggleAbout(force = false)
 	toggleAboutLogHog();
 }
 
+function toggleThemes(force = false)
+{
+	if(!force)
+	{
+		if(!(goToPageCheck("toggleThemes(true)")))
+		{
+			return false;
+		}
+	}
+	hideMainStuff();
+	toggleFullScreenMenuMainContent();
+	document.getElementById("themeSubMenu").style.display = "block";
+	$("#ThemesLink").addClass("selected");
+	toggleMainThemes();
+}
+
+function toggleMainThemes()
+{
+	hideThemeStuff();
+	$("#themeSubMenuMainThemes").addClass("selected");
+	document.getElementById("fullScreenMenuTheme").style.display = "block";
+	arrayOfScrollHeaderUpdate = [];
+	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
+}
+
+function toggleGeneralThemeStyle()
+{
+	hideThemeStuff();
+	$("#themeSubMenuGeneralStyle").addClass("selected");
+	document.getElementById("fullScreenMenuThemeGeneralStyle").style.display = "block";
+	arrayOfScrollHeaderUpdate = [];
+	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
+}
+
+function toggleThemeColorScheme()
+{
+	hideThemeStuff();
+	$("#themeSubMenuColorScheme").addClass("selected");
+	document.getElementById("fullScreenMenuColorScheme").style.display = "block";
+	arrayOfScrollHeaderUpdate = [];
+	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
+}
+
 function toggleFullScreenMenuMainContent()
 {
 	var mainContentFullScreenMenuLeft = "402px";
@@ -3762,6 +3805,16 @@ function hideAddonStuff()
 	$("#mainMenuAddons").removeClass("selected");
 }
 
+function hideThemeStuff()
+{
+	document.getElementById("fullScreenMenuTheme").style.display = "none";
+	$("#themeSubMenuMainThemes").removeClass("selected");
+	document.getElementById("fullScreenMenuColorScheme").style.display = "none";
+	$("#themeSubMenuGeneralStyle").removeClass("selected");
+	document.getElementById("fullScreenMenuThemeGeneralStyle").style.display = "none";
+	$("#themeSubMenuColorScheme").removeClass("selected");
+}
+
 function hideIframeStuff()
 {
 	document.getElementById("fullScreenMenuIFrame").style.display = "none";
@@ -3798,16 +3851,14 @@ function hideMainStuff()
 	{
 		document.getElementById("aboutSubMenu").style.display = "none";
 		hideAboutStuff();
+		$("#mainMenuAbout").removeClass("selected");
 	}
-
-	$("#mainMenuAbout").removeClass("selected");
 
 	if($("#mainMenuUpdate").hasClass("selected"))
 	{
 		hideUpdateStuff();
+		$("#mainMenuUpdate").removeClass("selected");
 	}
-
-	$("#mainMenuUpdate").removeClass("selected");
 
 
 	if($("#menuStatusAddon").hasClass("selected") || $("#menuMonitorAddon").hasClass("selected") || $("#menuSearchAddon").hasClass("selected") || $("#menuSeleniumMonitorAddon").hasClass("selected"))
@@ -3818,6 +3869,7 @@ function hideMainStuff()
 	if($("#watchListMenu").hasClass("selected"))
 	{
 		hideWatchListStuff();
+		$("#watchListMenu").removeClass("selected");
 	}
 
 	if($("#mainMenuAddons").hasClass("selected"))
@@ -3825,7 +3877,12 @@ function hideMainStuff()
 		 hideAddonStuff();
 	}
 
-	$("#watchListMenu").removeClass("selected");
+	if($("#ThemesLink") && $("#ThemesLink").hasClass("selected"))
+	{
+		document.getElementById("themeSubMenu").style.display = "none";
+		hideThemeStuff();
+		$("#ThemesLink").removeClass("selected");
+	}
 
 	$("#menuStatusAddon").removeClass("selected");
 	$("#menuMonitorAddon").removeClass("selected");

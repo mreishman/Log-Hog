@@ -56,7 +56,7 @@ if($themesEnabled === "false")
 	$themeStyle = "display: none;";
 }
 ?>
-<li id="ThemesLink" style=" <?php echo $themeStyle; ?>" onclick="window.location.href = './settings/themes.php';"  >
+<li id="ThemesLink" style=" <?php echo $themeStyle; ?>" onclick="toggleThemes();"  >
 	<div class="menuImageDiv">
 		<?php echo generateImage(
 			$arrayOfImages["loadingImg"],
@@ -70,7 +70,6 @@ if($themesEnabled === "false")
 		?>
 	</div>
 	<span class="fullScreenMenuText">Themes</span>
-	<?php echo $externalLinkImage; ?>
 </li>
 <li id="mainMenuUpdate" onclick="toggleUpdateMenu();" >
 	<?php

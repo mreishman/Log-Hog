@@ -17,6 +17,20 @@
 		Changelog
 	</li>
 </ul>
+<ul id="themeSubMenu" class="settingsUl fullScreenMenuUL settingsUlSub" style="display: none;">
+	<li class="menuTitle" style="text-align: center;" >
+		Themes
+	</li>
+	<li id="themeSubMenuMainThemes" onclick="toggleMainThemes();" class="selected">
+		Main Themes
+	</li>
+	<li id="themeSubMenuGeneralStyle" onclick="toggleGeneralThemeStyle();">
+		General Styling
+	</li>
+	<li id="themeSubMenuColorScheme" onclick="toggleThemeColorScheme();">
+		Color Scheme
+	</li>
+</ul>
 <ul id="watchListSubMenu" class="settingsUl fullScreenMenuUL settingsUlSub" style="display: none;">
 	<li class="menuTitle" style="text-align: center;" >
 		Watchlist
@@ -83,5 +97,14 @@
 		<div class="settingsDiv" >
 			<?php require_once("innerAddon.php"); ?>
 		</div>
+	</div>
+	<div id="fullScreenMenuTheme" style="display: none;">
+		<?php require_once('core/php/template/themeMain.php'); ?>
+	</div>
+	<div id="fullScreenMenuColorScheme" style="display: none;">
+		<?php require_once('core/php/template/folderGroupColor.php'); ?>
+	</div>
+	<div id="fullScreenMenuThemeGeneralStyle" style="display: none;">
+		<?php require_once('core/php/template/generalThemeOptions.php'); ?>
 	</div>
 </div>
