@@ -1,7 +1,7 @@
 <span id="themeSpan" >
 	<?php require_once(baseUrl().'core/php/themeFunctions.php'); ?>
 	<div id="themeMain" class="settingsHeader">
-	Theme Selector
+	Theme Selector [Refresh Required]
 	</div>
 	<div class="settingsDiv" >
 		<h2>Default</h2>

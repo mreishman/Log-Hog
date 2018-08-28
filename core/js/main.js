@@ -3591,6 +3591,7 @@ function toggleThemes(force = false)
 function toggleMainThemes()
 {
 	hideThemeStuff();
+	toggleThemesIframeSource(true);
 	$("#themeSubMenuMainThemes").addClass("selected");
 	document.getElementById("fullScreenMenuTheme").style.display = "block";
 	arrayOfScrollHeaderUpdate = [];
@@ -3604,6 +3605,23 @@ function toggleGeneralThemeStyle()
 	document.getElementById("fullScreenMenuThemeGeneralStyle").style.display = "block";
 	arrayOfScrollHeaderUpdate = [];
 	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
+}
+
+function toggleThemesIframeSource(showOrHide)
+{
+	var arrayOfIframesForThemes = document.getElementsByClassName("iframeThemes");
+	var lengthOfIframeThemes = arrayOfIframesForThemes.length;
+	for(var counterOfIframeThemes = 0; counterOfIframeThemes < lengthOfIframeThemes; counterOfIframeThemes++)
+	{
+		if(showOrHide)
+		{
+			arrayOfIframesForThemes[counterOfIframeThemes].setAttribute("src",arrayOfIframesForThemes[counterOfIframeThemes].getAttribute("data-src"));
+		}
+		else
+		{
+			arrayOfIframesForThemes[counterOfIframeThemes].setAttribute("src","core/html/iframe.html");
+		}
+	}
 }
 
 function toggleThemeColorScheme()
@@ -3807,6 +3825,7 @@ function hideAddonStuff()
 
 function hideThemeStuff()
 {
+	toggleThemesIframeSource(false);
 	document.getElementById("fullScreenMenuTheme").style.display = "none";
 	$("#themeSubMenuMainThemes").removeClass("selected");
 	document.getElementById("fullScreenMenuColorScheme").style.display = "none";
