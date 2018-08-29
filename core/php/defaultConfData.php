@@ -415,7 +415,7 @@ $defaultConfigMoreData = array(
 		)
 	),
 	"generalThemeOptions"				=>	array(
-		"id"								=>	"settingsColorFolderVars",
+		"id"								=>	"generalThemeOptions",
 		"name"								=>	"Main Theme Options [Refresh Required]",
 		"vars"								=>	array(
 			0									=>	array(

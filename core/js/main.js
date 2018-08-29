@@ -3596,6 +3596,7 @@ function toggleThemes(force = false)
 function toggleMainThemes()
 {
 	hideThemeStuff();
+	endSettingsPollTimer();
 	toggleThemesIframeSource(true);
 	$("#themeSubMenuMainThemes").addClass("selected");
 	document.getElementById("fullScreenMenuTheme").style.display = "block";
@@ -3606,10 +3607,13 @@ function toggleMainThemes()
 function toggleGeneralThemeStyle()
 {
 	hideThemeStuff();
+	endSettingsPollTimer();
 	$("#themeSubMenuGeneralStyle").addClass("selected");
 	document.getElementById("fullScreenMenuThemeGeneralStyle").style.display = "block";
-	arrayOfScrollHeaderUpdate = [];
+	arrayOfScrollHeaderUpdate = ["generalThemeOptions"];
+	arrayOfDataSettings = ["generalThemeOptions"];
 	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
+	startSettingsPollTimer();
 }
 
 function toggleThemesIframeSource(showOrHide)
@@ -3632,10 +3636,13 @@ function toggleThemesIframeSource(showOrHide)
 function toggleThemeColorScheme()
 {
 	hideThemeStuff();
+	endSettingsPollTimer();
 	$("#themeSubMenuColorScheme").addClass("selected");
 	document.getElementById("fullScreenMenuColorScheme").style.display = "block";
-	arrayOfScrollHeaderUpdate = [];
+	arrayOfScrollHeaderUpdate = ["settingsColorFolderGroupVars"];
+	arrayOfDataSettings = ["settingsColorFolderGroupVars"];
 	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
+	startSettingsPollTimer();
 }
 
 function toggleFullScreenMenuMainContent()
@@ -4440,4 +4447,7 @@ $(document).ready(function()
 		},
 		true
 	);
+
+	refreshArrayObject("generalThemeOptions");
+	refreshArrayObject("settingsColorFolderGroupVars");
 });
