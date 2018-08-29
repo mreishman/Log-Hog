@@ -105,6 +105,9 @@
 		<?php require_once('core/php/template/folderGroupColor.php'); ?>
 	</div>
 	<div id="fullScreenMenuThemeGeneralStyle" style="display: none;">
-		<?php require_once('core/php/template/generalThemeOptions.php'); ?>
+		<?php
+		$currentSection = "generalThemeOptions";
+		include('core/php/template/varTemplate.php');
+		?>
 	</div>
 </div>

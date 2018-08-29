@@ -30,6 +30,30 @@ for ($k=0; $k < 3; $k++)
 	}
 }
 
+$fontSizeVars = array();
+$brightessVars = array();
+$logPaddingVars = array();
+for ($m=0; $m < 20; $m++)
+{
+	if($m >= 5)
+	{
+		$fontSizeVars[$m] = array(
+			"value" 					=> ($m*10),
+			"name" 						=> ($m*10)."%");
+	}
+
+	if($m >= 2 && $m <= 15)
+	{
+		$brightessVars[$m] = array(
+			"value" 					=> ($m*10),
+			"name" 						=> ($m*10)."%");
+	}
+
+	$logPaddingVars[$m] = array(
+			"value" 					=> $m,
+			"name" 						=> $m."px");
+}
+
 $branchOptionsArr = array(
 0 					=> array(
 	"value" 			=> "default",
@@ -45,6 +69,48 @@ if($enableDevBranchDownload == 'true')
 	"value" 			=> "dev",
 	"name" 				=> "Dev");
 }
+
+$fontChoices = array(
+	0 			=> 	array(
+		"name" 		=> 'monospace',
+		"value" 	=> 'monospace'),
+	1 			=>	array(
+		"name" 		=>	'sans-serif',
+		"value"		=>	'sans-seri'),
+	2			=>	array(
+		"name"		=>	'Courier',
+		"value"		=>	'Courier'),
+	3			=>	array(
+		"name"		=>	'Monaco',
+		"value"		=>	'Monaco'),
+	4			=>	array(
+		"name" 		=>	'Verdana',
+		"value"		=>	'Verdana'),
+	5			=>	array(
+		"name"		=>	'Geneva',
+		"value"		=>	'Geneva'),
+	6			=>	array(
+		"name"		=>	'Helvetica',
+		"value"		=>	'Helvetica'),
+	7			=>	array(
+		"name"		=>	'Tahoma',
+		"value"		=>	'Tahoma'),
+	8			=>	array(
+		"name"		=>	'Charcoal',
+		"value"		=>	'Charcoal'),
+	9			=>	array(
+		"name"		=>	'Impact',
+		"value"		=>	'Impact'),
+	10			=>	array(
+		"name"		=>	'cursive',
+		"value"		=>	'cursive'),
+	11			=>	array(
+		"name"		=>	'Gadget',
+		"value"		=>	'Gadget'),
+	12			=>	array(
+		"name"		=>	'Arial',
+		"value"		=>	'Arial')
+	);
 
 
 $customForFirstLogSelect = "<span class=\"settingsBuffer\" > First Log Select: </span><span id=\"logSelectedFirstLoad\" >";
@@ -347,6 +413,89 @@ $defaultConfigMoreData = array(
 				)
 			)
 		)
+	),
+	"generalThemeOptions"				=>	array(
+		"id"								=>	"settingsColorFolderVars",
+		"name"								=>	"Main Theme Options [Refresh Required]",
+		"vars"								=>	array(
+			0									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"backgroundColor",
+					"name"								=>	"Background",
+					"type"								=>	"text"
+				)
+			),
+			1									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"fontFamily",
+					"name"								=>	"Font",
+					"options"							=>	$fontChoices,
+					"type"								=>	"dropdown"
+				)
+			),
+			2									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"mainFontColor",
+					"name"								=>	"Main Font Color",
+					"type"								=>	"text"
+				)
+			),
+			3									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"logFontColor",
+					"name"								=>	"Log Font Color",
+					"type"								=>	"text"
+				)
+			),
+			4									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"logFontSize",
+					"name"								=>	"Log Font Size",
+					"options"							=>	$fontSizeVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			5									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"logLinePadding",
+					"name"								=>	"Log Line Padding",
+					"options"							=>	$logPaddingVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			6									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"backgroundHeaderColor",
+					"name"								=>	"Header Background",
+					"type"								=>	"text"
+				)
+			),
+			7									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"invertMenuImages",
+					"name"								=>	"Invert Header Images",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			8									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"overallBrightness",
+					"name"								=>	"Overall Brightness",
+					"options"							=>	$brightessVars,
+					"type"								=>	"dropdown"
+				)
+			),
+		),
 	),
 	"loggingVars"						=>	array(
 		"id"								=>	"loggingDisplay",
