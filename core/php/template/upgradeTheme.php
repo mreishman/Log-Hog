@@ -31,7 +31,7 @@ else
 require_once('../../../core/php/loadVars.php');
 $baseFileVersion = $defaultConfig["themeVersion"];
 $oldFileVersion = $config["themeVersion"];
-if(strval($baseFileVersion) === strval($oldFileVersion))
+if(strval($baseFileVersion) === strval($oldFileVersion) && file_exists("../../../local/".$currentSelectedTheme."/img/info.png"))
 {
 	header("Location: "."../../../settings/whatsNew.php", true, 302); /* Redirect browser */
 	exit();
