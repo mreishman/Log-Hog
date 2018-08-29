@@ -2309,11 +2309,7 @@ function makePretty(id)
 						returnText += " "+customClass+" ";
 					}
 					returnText += " >";
-					// if(bottomBarIndexShow === "true")
-					// {
-					// 	returnText += "<td style=\"width: 31px;\" ></td>";
-					// }
-					var lineToReturn = "<td>"+lineText[j]+"</td>";
+					var lineToReturn = "<td style=\"white-space: pre-wrap;\" >"+lineText[j]+"</td>";
 					if(expFormatEnabled === "true")
 					{
 						lineToReturn = formatLine(lineText[j]);
@@ -3600,7 +3596,7 @@ function toggleMainThemes()
 	toggleThemesIframeSource(true);
 	$("#themeSubMenuMainThemes").addClass("selected");
 	document.getElementById("fullScreenMenuTheme").style.display = "block";
-	arrayOfScrollHeaderUpdate = [];
+	arrayOfScrollHeaderUpdate = ["themeSpan"];
 	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
 }
 

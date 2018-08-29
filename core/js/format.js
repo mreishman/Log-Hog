@@ -49,7 +49,7 @@ var arrOfMonthsLarge = {
 function formatLine(text)
 {
 	var arrayOfText = dateTimeSplit(text);
-	return "<td style=\"white-space:nowrap;width: 1%;\" >" + dateTimeFormat(arrayOfText) + "</td><td >" + arrayOfText[1] + "</td>";
+	return "<td style=\"white-space:nowrap;width: 1%;\" >" + dateTimeFormat(arrayOfText) + "</td><td style=\"white-space: pre-wrap;\" >" + arrayOfText[1] + "</td>";
 }
 
 function dateTimeSplit(text)
