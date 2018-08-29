@@ -17,6 +17,7 @@ var fileData;
 var filesNew;
 var firstLoad = true;
 var flasher;
+var globalForcePageNavigate = false;
 var lastContentSearch = "";
 var lastLogs = {};
 var logDisplayArray = {};
@@ -3157,8 +3158,16 @@ function updateNotificationStuff()
 	showNotifications();
 }
 
-function toggleFullScreenMenu()
+function toggleFullScreenMenu(force = false)
 {
+	if(!force && !globalForcePageNavigate)
+	{
+		if(!(goToPageCheck("toggleFullScreenMenu(true)")))
+		{
+			return false;
+		}
+	}
+	globalForcePageNavigate = false;
 	dirForAjaxSend = "";
 	if(document.getElementById("notifications").style.display === "inline-block")
 	{
@@ -3195,13 +3204,14 @@ function toggleFullScreenMenu()
 
 function toggleUpdateMenu(force = false)
 {
-	if(!force)
+	if(!force && !globalForcePageNavigate)
 	{
 		if(!(goToPageCheck("toggleUpdateMenu(true)")))
 		{
 			return false;
 		}
 	}
+	globalForcePageNavigate = false;
 	loadImgFromData("updateImg");
 	hideMainStuff();
 	hideSidebar();
@@ -3213,13 +3223,14 @@ function toggleUpdateMenu(force = false)
 
 function toggleAbout(force = false)
 {
-	if(!force)
+	if(!force && !globalForcePageNavigate)
 	{
 		if(!(goToPageCheck("toggleAbout(true)")))
 		{
 			return false;
 		}
 	}
+	globalForcePageNavigate = false;
 	hideMainStuff();
 	document.getElementById("mainContentFullScreenMenu").style.left = ""+402+"px";
 	document.getElementById("aboutSubMenu").style.display = "block";
@@ -3257,13 +3268,14 @@ function toggleChangeLog()
 
 function toggleWatchListMenu(force = false)
 {
-	if(!force)
+	if(!force && !globalForcePageNavigate)
 	{
 		if(!(goToPageCheck("toggleWatchListMenu(true)")))
 		{
 			return false;
 		}
 	}
+	globalForcePageNavigate = true;
 	if(typeof loadWatchList !== "function")
 	{
 		script("core/js/settingsWatchlist.js?v="+cssVersion);
@@ -3380,13 +3392,14 @@ function hideIframeStuff()
 
 function toggleIframe(locHref, idOfAddon, force = false)
 {
-	if(!force)
+	if(!force && !globalForcePageNavigate)
 	{
 		if(!(goToPageCheck("toggleIframe(\""+locHref+"\",\""+idOfAddon+"\",true)")))
 		{
 			return false;
 		}
 	}
+	globalForcePageNavigate = false;
 	hideMainStuff();
 	$("#"+idOfAddon).addClass("selected");
 	document.getElementById("fullScreenMenuIFrame").style.display = "block";

@@ -1199,6 +1199,13 @@ function getFileFolderList()
 
 function ajaxAddRowFirstLoad(currentCount)
 {
+	if(typeof globalForcePageNavigate !== 'undefined')
+	{
+		if(globalForcePageNavigate === false)
+		{
+			return;
+		}
+	}
 	var fileFolderListKeys = Object.keys(fileFolderList);
 	var fileFolderListCount = fileFolderListKeys.length;
 	if(fileFolderListCount > currentCount)
@@ -1236,6 +1243,10 @@ function ajaxAddRowFirstLoad(currentCount)
 		document.getElementsByClassName("uniqueClassForAppendSettingsMainWatchNew")[0].style.display = "block";
 		refreshSettingsWatchList();
 		startSettingsPollTimer();
+		if(typeof globalForcePageNavigate !== 'undefined')
+		{
+			globalForcePageNavigate = false;
+		}
 	}
 }
 
