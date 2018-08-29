@@ -2937,10 +2937,18 @@ function possiblyUpdateFromFilter()
 	}
 }
 
-function toggleNotifications()
+function toggleNotifications(force = false)
 {
 	if(document.getElementById("fullScreenMenu").style.display !== "none")
 	{
+		if(!force && !globalForcePageNavigate)
+		{
+			if(!(goToPageCheck("toggleFullScreenMenu(true)")))
+			{
+				return false;
+			}
+		}
+		globalForcePageNavigate = false;
 		toggleFullScreenMenu();
 	}
 	if(document.getElementById("notifications").style.display === "inline-block")
@@ -3160,14 +3168,6 @@ function updateNotificationStuff()
 
 function toggleFullScreenMenu(force = false)
 {
-	if(!force && !globalForcePageNavigate)
-	{
-		if(!(goToPageCheck("toggleFullScreenMenu(true)")))
-		{
-			return false;
-		}
-	}
-	globalForcePageNavigate = false;
 	dirForAjaxSend = "";
 	if(document.getElementById("notifications").style.display === "inline-block")
 	{
@@ -3197,6 +3197,14 @@ function toggleFullScreenMenu(force = false)
 	}
 	else
 	{
+		if(!force && !globalForcePageNavigate)
+		{
+			if(!(goToPageCheck("toggleFullScreenMenu(true)")))
+			{
+				return false;
+			}
+		}
+		globalForcePageNavigate = false;
 		hideIframeStuff();
 		document.getElementById("fullScreenMenu").style.display = "none";
 	}
