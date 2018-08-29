@@ -229,8 +229,22 @@ function togglePatternSelect(rowNumber)
 	setTimeout(function(){ updateSubFiles(rowNumber);  }, 50);
 }
 
+function popupForWaitUntillLoad()
+{
+	showPopup();
+	document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class='settingsHeader' >Please wait...</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Please wait until the watchlist has finished loading.</div><div><div class='link' onclick='hidePopup();' style='margin-left:165px; margin-right:50px;margin-top:35px;'>Ok!</div></div>";
+}
+
 function addFile()
 {
+	if(typeof globalForcePageNavigate !== 'undefined')
+	{
+		if(globalForcePageNavigate === true)
+		{
+			popupForWaitUntillLoad();
+			return;
+		}
+	}
 	showPopup();
 	var htmlForPopoup = "<div class='settingsHeader' id='popupHeaderText' ><span id='popupHeaderText' >Add File</span></div>";
 	htmlForPopoup += "<br><div style='width:100%;text-align:center;'> <input onkeyup=\"getCurrentFileFolderInfoKeyPress(false);\" value=\""+defaultNewPathFile+"\" id=\"inputFieldForFileOrFolder\" type=\"text\" style=\"width: 90%;\" > </div>";
@@ -244,6 +258,14 @@ function addFile()
 
 function addFolder()
 {
+	if(typeof globalForcePageNavigate !== 'undefined')
+	{
+		if(globalForcePageNavigate === true)
+		{
+			popupForWaitUntillLoad();
+			return;
+		}
+	}
 	showPopup();
 	var htmlForPopoup = "<div class='settingsHeader' id='popupHeaderText' ><span id='popupHeaderText' >Add Folder</span></div>";
 	htmlForPopoup += "<br><div style='width:100%;text-align:center;'> <input onkeyup=\"getCurrentFileFolderInfoKeyPress(true);\" value=\""+defaultNewPathFolder+"\" id=\"inputFieldForFileOrFolder\" type=\"text\" style=\"width: 90%;\" > </div>";
@@ -406,6 +428,14 @@ function generateSubFiles(data)
 
 function toggleCondensed(increaseCount)
 {
+	if(typeof globalForcePageNavigate !== 'undefined')
+	{
+		if(globalForcePageNavigate === true)
+		{
+			popupForWaitUntillLoad();
+			return;
+		}
+	}
 	if(increaseCount)
 	{
 		toggleCondensedCount++;
@@ -429,6 +459,14 @@ function updateFileFolderGui(hideFiles)
 
 function addOther()
 {
+	if(typeof globalForcePageNavigate !== 'undefined')
+	{
+		if(globalForcePageNavigate === true)
+		{
+			popupForWaitUntillLoad();
+			return;
+		}
+	}
 	addRowFunction(
 		{
 			FileType: "other",
