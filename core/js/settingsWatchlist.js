@@ -620,7 +620,7 @@ function getFileFolderSubFunction(data, orgPath, hideFiles, joinChar, dropdown)
 		var listKey = "other";
 		if(subData["filename"].indexOf(currentFile) === 0 && currentFile !== "")
 		{
-			highlightClass = "class=\"selected\"";
+			highlightClass = "class=\"selected noInvert\"";
 			if(sortTypeFileFolderPopup === "startsWithAndcontains" || sortTypeFileFolderPopup === "startsWith")
 			{
 				listKey = "startsWith";
@@ -1285,6 +1285,28 @@ function ajaxAddRowFirstLoad(currentCount)
 		{
 			globalForcePageNavigate = false;
 		}
+		$( "#fullScreenMenuWatchList" ).off( "mousemove" );
+		$( "#fullScreenMenuWatchList" ).on( "mousemove", function( event )
+		{
+			checkIfNeedToCloseDropdownFileShow(event);
+		});
+	}
+}
+
+function checkIfNeedToCloseDropdownFileShow(event)
+{
+	if(document.getElementById("fileFolderDropdown").style.display === "block")
+	{
+		var rectDims = document.getElementById("fileFolderDropdown").getBoundingClientRect();
+		if(((rectDims.left - 5) < event.pageX) && ((rectDims.right + 5) > event.pageX))
+		{
+			if(((rectDims.bottom + 5) > event.pageY) && ((rectDims.top - 50) < event.pageY))
+			{
+				return;
+			}
+		}
+		hideTypeDropdown(staticRowNumber);
+		$("rowNumber"+staticRowNumber).click();
 	}
 }
 

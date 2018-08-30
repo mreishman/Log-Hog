@@ -411,7 +411,7 @@
 	color: white;
 }
 
-.fullScreenMenuUL li:not(.menuTitle):hover, #fullScreenMenu .selected
+.fullScreenMenuUL li:not(.menuTitle):hover, #fullScreenMenu .selected:not(.noInvert)
 {
 	filter: invert(100%);
 }

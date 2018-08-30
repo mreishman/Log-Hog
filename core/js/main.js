@@ -3204,6 +3204,7 @@ function toggleFullScreenMenu(force = false)
 				return false;
 			}
 		}
+		$( "#fullScreenMenuWatchList" ).off( "mousemove" );
 		globalForcePageNavigate = false;
 		hideIframeStuff();
 		document.getElementById("fullScreenMenu").style.display = "none";
