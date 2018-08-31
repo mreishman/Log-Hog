@@ -3523,9 +3523,6 @@ function toggleFullScreenMenu(force = false)
 	}
 	else
 	{
-<<<<<<< HEAD
-		toggleThemesIframeSource(false);
-=======
 		if(!force && !globalForcePageNavigate)
 		{
 			if(!(goToPageCheck("toggleFullScreenMenu(true)")))
@@ -3533,9 +3530,9 @@ function toggleFullScreenMenu(force = false)
 				return false;
 			}
 		}
+		toggleThemesIframeSource(false);
 		$( "#fullScreenMenuWatchList" ).off( "mousemove" );
 		globalForcePageNavigate = false;
->>>>>>> 5.1
 		document.getElementById('menu').style.zIndex = "20";
 		hideIframeStuff();
 		document.getElementById("fullScreenMenu").style.display = "none";
