@@ -63,7 +63,7 @@
 	$statusInfo = checkForStatusInstall($locationForStatus, "../../");
 	$configStaticStatus = null;
 
-	if($seleniumMonitorInfo["local"])
+	if($statusInfo["local"])
 	{
 		$configStaticMain = $configStatic;
 		require_once($currentDir.'status/core/php/configStatic.php');
