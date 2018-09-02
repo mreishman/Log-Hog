@@ -1,7 +1,7 @@
 <?php
 
 $versionCheckArray = array(
-	'version'		=> '5.0.6',
+	'version'		=> '5.0.7',
 	'versionList'		=> array(
 		'2.0.1'	        => array(
 			'branchName'	=> '2.0.1Update',
@@ -198,6 +198,10 @@ $versionCheckArray = array(
 		'5.0.6'		=> array(
 			'branchName'	=> '5.0.6Update',
 			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Bug fix with poll logic and content filter</li><li>Possibly decreased save times by reducing the number of failed save checks</li><li>Bugfix for check for update with addons</li><li>Fixed bug with update versions where version is greater than 10</li><li>Style fix for sub files in folders on watchlist</li><li>Fixed bug with possible redirect loop on upgrade theme</li></ul></li></ul>"
+		),
+		'5.0.7'		=> array(
+			'branchName'	=> '5.0.7Update',
+			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed styling issue on logs with spacing</li><li>Fixed bug with restore popup</li><li>Fixed bug with clicking off of watchlist before load ends</li><li>Fixed bug with not checking for save before toggle menu</li><li>Fixed restore downloading wrong branch</li><li>Fixed style issue with watchlist dropdown</li><li>Fixed bug with not being able to select file type selector in watchlist dropdown</li><li>Fixed bug with sub file lists causing errors when recursive is enabled</li></ul></li></ul>"
 		),
 	)
 );
