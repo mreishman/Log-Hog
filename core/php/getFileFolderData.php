@@ -50,7 +50,8 @@ function getFileInfoFromDir($data, $response)
 					$response = getFileInfoFromDir(
 						array(
 							"path"		=>	$fullPath,
-							"recursive"	=>	$recursive
+							"recursive"	=>	$recursive,
+							"filter"	=>	$filter
 						),
 						$response
 					);
