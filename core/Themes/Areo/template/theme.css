@@ -395,7 +395,7 @@
 	color: white;
 }
 
-.fullScreenMenuUL li:not(.menuTitle):hover, #fullScreenMenu .selected
+.fullScreenMenuUL li:not(.menuTitle):hover, #fullScreenMenu .selected:not(.noInvert)
 {
 	background-color: black;
 	filter: invert(100%);

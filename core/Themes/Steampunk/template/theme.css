@@ -360,12 +360,12 @@
 	color: white;
 }
 
-.fullScreenMenuUL li:not(.menuTitle):hover, #fullScreenMenu .selected
+.fullScreenMenuUL li:not(.menuTitle):hover, #fullScreenMenu .selected:not(.noInvert)
 {
 	filter: invert(100%);
 }
 
-.fullScreenMenuUL li:not(.menuTitle):hover .menuImage, #fullScreenMenu .selected .menuImage
+.fullScreenMenuUL li:not(.menuTitle):hover .menuImage, #fullScreenMenu .selected:not(.noInvert) .menuImage
 {
 	filter: invert(100%);
 }

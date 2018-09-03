@@ -1,3 +1,5 @@
+var successVerifyNum = 3;
+
 function startLogic()
 {
 		dotsTimer = setInterval(function() {document.getElementById('innerSettingsText').innerHTML = ' .'+document.getElementById('innerSettingsText').innerHTML;}, '120');
