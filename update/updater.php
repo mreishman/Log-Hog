@@ -409,7 +409,7 @@ if(count($arrayOfVersions) === 0)
 			}
 			else if(action == 'unzipUpdateAndReturnArray')
 			{
-				unzipUpdateAndReturnArray();
+				unzipBranch();
 			}
 			else if(action == 'removeDirUpdate')
 			{
