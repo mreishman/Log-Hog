@@ -1,5 +1,4 @@
 <span id="themeSpan" >
-	<?php require_once(baseUrl().'core/php/themeFunctions.php'); ?>
 	<div id="themeMain" class="settingsHeader">
 	Theme Selector [Refresh Required]
 	</div>
