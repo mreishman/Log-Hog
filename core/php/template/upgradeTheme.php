@@ -32,7 +32,7 @@ require_once('../../../core/php/loadVars.php');
 $baseFileVersion = $defaultConfig["themeVersion"];
 $oldFileVersion = $config["themeVersion"];
 $forceThemeUpdate = false;
-if($_GET["forceThemeUpdate"])
+if(isset($_GET["forceThemeUpdate"]))
 {
 	$forceThemeUpdate = true;
 }
