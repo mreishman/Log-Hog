@@ -31,7 +31,12 @@ else
 require_once('../../../core/php/loadVars.php');
 $baseFileVersion = $defaultConfig["themeVersion"];
 $oldFileVersion = $config["themeVersion"];
-if(strval($baseFileVersion) === strval($oldFileVersion) && file_exists("../../../local/".$currentSelectedTheme."/img/info.png"))
+$forceThemeUpdate = false;
+if(isset($_POST["forceThemeUpdate"]))
+{
+	$forceThemeUpdate = true;
+}
+if((strval($baseFileVersion) === strval($oldFileVersion) && file_exists("../../../local/".$currentSelectedTheme."/img/info.png")) || $forceThemeUpdate)
 {
 	header("Location: "."../../../settings/whatsNew.php", true, 302); /* Redirect browser */
 	exit();
