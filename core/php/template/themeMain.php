@@ -7,13 +7,13 @@
 		<hr>
 		<?php
 		$customThemeCreateNew = false;
-		$directory = 'core/Themes/';
+		$directory = $themeDirMod.'core/Themes/';
 		$scanned_directory = array_diff(scandir($directory), array('..', '.'));
 			include("themeSub.php");
 		?>
 		<br>
 		<?php
-			$directory = 'local/'.$currentSelectedTheme.'/Themes/';
+			$directory = $themeDirMod.'local/'.$currentSelectedTheme.'/Themes/';
 			$scanned_directory = array();
 			$customThemeNum = 1;
 			if(is_dir($directory))

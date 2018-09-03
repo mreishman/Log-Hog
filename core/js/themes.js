@@ -3,7 +3,7 @@ var externalThemeNumber = 1;
 var themeName = "";
 var timeoutVar = null;
 var numberOfStepsForThemeCreate = 12;
-var urlForSendUpdateAction = "../core/php/performSettingsInstallUpdateAction.php?format=json";
+var urlForSendUpdateAction = themeDirMod+"core/php/performSettingsInstallUpdateAction.php?format=json";
 
 function checkIfChanges()
 {
@@ -138,7 +138,7 @@ function createNewFiles()
 	//default settings file
 	document.getElementById("popupHeaderText").innerHTML = "Creating config file (step 5 of "+numberOfStepsForThemeCreate+")";
 	$.ajax({
-		url: "../core/php/saveCustomThemeDefaults.php?format=json",
+		url: themeDirMod+"core/php/saveCustomThemeDefaults.php?format=json",
 		dataType: "json",
 		data: {themeNumber: externalThemeNumber, displayName: themeName},
 		type: "POST",
@@ -244,7 +244,7 @@ function copyFiles()
 	//copy images to new folder, as well as template css to new folder
 	document.getElementById("popupHeaderText").innerHTML = "Copying base images to theme folder (step 11 of "+numberOfStepsForThemeCreate+")";
 	$.ajax({
-		url: "../core/php/copyImagesToNewTheme.php?format=json",
+		url: themeDirMod+"core/php/copyImagesToNewTheme.php?format=json",
 		dataType: "json",
 		data: {themeNumber: externalThemeNumber},
 		type: "POST",

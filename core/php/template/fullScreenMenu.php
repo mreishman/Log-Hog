@@ -99,7 +99,13 @@
 		</div>
 	</div>
 	<div id="fullScreenMenuTheme" style="display: none;">
-		<?php require_once('core/php/template/themeMain.php'); ?>
+		<script type="text/javascript">
+			var themeDirMod = "";
+		</script>
+		<?php
+		$themeDirMod = "";
+		require_once('core/php/template/themeMain.php');
+		?>
 	</div>
 	<div id="fullScreenMenuColorScheme" style="display: none;">
 		<?php require_once('core/php/template/folderGroupColor.php'); ?>
