@@ -119,7 +119,7 @@ function saveVerified()
 
 	if(idForFormMain.includes("themeMainSelection"))
 	{
-		window.location.href = dirForAjaxSend+"core/php/template/upgradeTheme.php";
+		window.location.href = dirForAjaxSend+"core/php/template/upgradeTheme.php?forceThemeUpdate=true";
 	}
 	else if(idForFormMain === "settingsColorFolderGroupVars" || idForFormMain === "settingsColorFolderVars" || idForFormMain === "welcomeForm")
 	{
