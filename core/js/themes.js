@@ -7,7 +7,7 @@ var urlForSendUpdateAction = themeDirMod+"core/php/performSettingsInstallUpdateA
 
 function checkIfChanges()
 {
-	if(	checkForChangesArray(["settingsColorFolderVars","settingsColorFolderGroupVars"]))
+	if(	checkForChangesArray(["settingsColorFolderGroupVars"]))
 	{
 		return true;
 	}
