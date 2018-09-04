@@ -78,4 +78,5 @@ require_once('../core/php/loadVars.php');?>
 </script>
 <script src="../core/js/settings.js?v=<?php echo $cssVersion?>"></script>
 <script src="stepsJavascript.js?v=<?php echo $cssVersion?>"></script>
+<script src="core/js/loghogDownloadJS.js"></script>
 </html>

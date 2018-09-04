@@ -272,7 +272,7 @@ $externalLinkImage = generateImage(
 			var timerForLoadJS = null;
 			var counterForJSLoad = 0;
 			var loadedFile = false;
-			var arrayOfJsFiles = ["jquery.js","visibility.core.js","visibility.fallback.js","visibility.timers.js","loading-bar.min.js","main.js","format.js","rightClickJS.js","update.js","settings.js"];
+			var arrayOfJsFiles = ["jquery.js","visibility.core.js","visibility.fallback.js","visibility.timers.js","loading-bar.min.js","main.js","format.js","rightClickJS.js","update.js","settings.js","loghogDownloadJS.js"];
 			var countForCheck = 1;
 			if(sendCrashInfoJS === "true")
 			{
@@ -337,7 +337,7 @@ $externalLinkImage = generateImage(
 							document.getElementById("initialLoadContentEvenEvenMoreInfo").style.display = "block";
 						}
 					}
-					else if(countForCheck > 1000)
+					if(countForCheck > 1000)
 					{
 						//error
 						clearInterval(timerForLoadJS);
@@ -345,13 +345,11 @@ $externalLinkImage = generateImage(
 					}
 				}
 			}
-
 			document.addEventListener("DOMContentLoaded", function(event) { 
 			  	setTimeout(function() {
 					timerForLoadJS = setInterval(tryLoadJSStuff, 25);
 				}, 25);
 			});
-
 		</script>
 	</span>
 </body>
