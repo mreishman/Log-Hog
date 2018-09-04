@@ -41,5 +41,12 @@ $(document).ready(function()
 {
 	loadImgFromData("updateImg");
 });
-
+var currentVersion = "<?php echo $configStatic['version'];?>";
+var baseUrl = "<?php echo $baseUrl;?>";
+var saveVerifyImage = <?php echo json_encode(generateImage(
+	$arrayOfImages["greenCheck"],
+	array(
+		"height"		=>	"50px"
+	)
+)); ?>
 </script>
