@@ -53,4 +53,3 @@
         document.attachEvent('onfocusout', onBlur);
     }
 })(document);
-loadedFile = true;

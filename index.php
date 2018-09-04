@@ -287,7 +287,11 @@ $externalLinkImage = generateImage(
 					loadedFile = false;
 					timerForLoadJS = setInterval(checkIfJSLoaded, 25);
 					document.getElementById("initialLoadContentMoreInfo").innerHTML = arrayOfJsFiles[counterForJSLoad];
-					script("core/js/"+arrayOfJsFiles[counterForJSLoad]+"?v=<?php echo $cssVersion?>");
+					var nameOfFile = "core/js/"+arrayOfJsFiles[counterForJSLoad]+"?v=<?php echo $cssVersion?>";
+					script(nameOfFile);
+					document.getElementById(nameOfFile.replace(/[^a-z0-9]/g, "")).addEventListener('load', function() {
+				      loadedFile = true;
+				    }, false);
 				}
 			}
 			function checkIfJSLoaded()

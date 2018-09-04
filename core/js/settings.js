@@ -280,4 +280,3 @@ function resetArrayObject(idOfForm)
 		eventThrowException(e);
 	}
 }
-loadedFile = true;

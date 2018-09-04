@@ -4469,5 +4469,3 @@ function mainReady()
 	refreshArrayObject("generalThemeOptions");
 	refreshArrayObject("settingsColorFolderGroupVars");
 }
-
-loadedFile = true;

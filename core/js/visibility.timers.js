@@ -161,4 +161,3 @@
     }
 
 })(window);
-loadedFile = true;

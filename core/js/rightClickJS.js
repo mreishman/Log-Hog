@@ -171,4 +171,3 @@ $( document ).ready(function() {
 
   })();
 });
-loadedFile = true;

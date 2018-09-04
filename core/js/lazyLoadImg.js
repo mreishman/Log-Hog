@@ -29,6 +29,16 @@ function script(url)
     scriptLoad.type = "text/javascript";
     scriptLoad.async = true;
     scriptLoad.src = url;
-    var docEle = document.getElementsByTagName("head")[0];
-    docEle.appendChild(scriptLoad);
+    scriptLoad.id = url.replace(/[^a-z0-9]/g, "");
+    document.getElementsByTagName("head")[0].appendChild(scriptLoad);
+}
+
+function css(url)
+{
+	var fileref = document.createElement("link");
+	fileref.rel = "stylesheet";
+	fileref.type = "text/css";
+	fileref.href = "filename";
+	fileref.id = url.replace(/[^a-z0-9]/g, "");
+	document.getElementsByTagName("head")[0].appendChild(fileref);
 }
