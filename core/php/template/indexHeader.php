@@ -24,37 +24,38 @@
 				);
 			?>
 			<?php echo generateImage(
-				$arrayOfImages["notificationFull"],
+				$arrayOfImages["loadingImg"],
 				$imageConfig = array(
 					"id"		=>	"notificationClicked",
-					"class"		=>	"menuImage",
+					"class"		=>	"menuImage notificationImageClickedForLoad",
 					"height"	=>	"30px",
-					"style"		=>  "display: none;"
+					"style"		=>  "display: none;",
+					"data-src"	=>	$arrayOfImages["notificationFull"]
 					)
 				);
 			?>
 		</div>
-		<?php if ($enableHistory === "true"): ?>
-			<div onclick="archiveLogPopupToggle();" class="menuImageDiv">
-				<?php echo generateImage(
-					$arrayOfImages["history"],
-					$imageConfig = array(
-						"id"		=>	"historyImage",
-						"class"		=>	"menuImage",
-						"height"	=>	"30px"
-						)
-					);
-				?>
-			</div>
-		<?php endif; ?>
+		<div <?php if ($enableHistory !== "true"){echo "style=\"display: none\"";} ?>  onclick="archiveLogPopupToggle();" class="menuImageDiv">
+			<?php echo generateImage(
+				$arrayOfImages["loadingImg"],
+				$imageConfig = array(
+					"id"		=>	"historyImage",
+					"class"		=>	"menuImage historyImageForLoad",
+					"height"	=>	"30px",
+					"data-src"	=>	$arrayOfImages["history"]
+					)
+				);
+			?>
+		</div>
 		<?php if($enableMultiLog === "true" && $multiLogOnIndex === "true"): ?>
 			<div onclick="multiLogPopup();"  class="menuImageDiv">
 				<?php echo generateImage(
-					$arrayOfImages["multiLog"],
+					$arrayOfImages["loadingImg"],
 					$imageConfig = array(
 						"id"		=>	"multiLogImage",
-						"class"		=>	"menuImage",
-						"height"	=>	"30px"
+						"class"		=>	"menuImage multiLogImageForLoad",
+						"height"	=>	"30px",
+						"data-src"	=>	$arrayOfImages["multiLog"]
 						)
 					);
 				?>

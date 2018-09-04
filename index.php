@@ -286,13 +286,21 @@ $externalLinkImage = generateImage(
 				12:  {name: "settings.js", type: "js"},
 				13: {name: "loghogDownloadJS.js", type: "js"},
 				14: {name: "local/default/img/menu.png", type: "img", class:"menuImageForLoad"},
-				15: {name: "local/default/img/notification.png", type: "img", class:"notificationImageForLoad"}
+				15: {name: "local/default/img/notification.png", type: "img", class:"notificationImageForLoad"},
+				16: {name: "local/default/img/notificationFull.png", type: "img", class:"notificationImageClickedForLoad"}
 			};
 			var countForCheck = 1;
 			if(sendCrashInfoJS === "true")
 			{
-				var lengthOfArrayOfJsFiles = Object.keys(arrayOfJsFiles).length;
-				arrayOfJsFiles[lengthOfArrayOfJsFiles] = {name: "Raven.js"};
+				arrayOfJsFiles[Object.keys(arrayOfJsFiles).length] = {name: "Raven.js"};
+			}
+			if(enableMultiLog === "true" && multiLogOnIndex === "true")
+			{
+				arrayOfJsFiles[Object.keys(arrayOfJsFiles).length] = {name: "local/default/img/multiLog.png", type: "img", class:"multiLogImageForLoad"};
+			}
+			if(enableHistory === "true")
+			{
+				arrayOfJsFiles[Object.keys(arrayOfJsFiles).length] = {name: "local/default/img/history.png", type: "img", class:"historyImageForLoad"};
 			}
 			var arrayOfJsFilesKeys = Object.keys(arrayOfJsFiles);
 			var lengthOfArrayOfJsFiles = arrayOfJsFilesKeys.length;
