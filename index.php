@@ -99,7 +99,6 @@ $externalLinkImage = generateImage(
 	<title>Log Hog | Index</title>
 	<?php echo loadCSS("", $baseUrl, $cssVersion);?>
 	<link rel="icon" type="image/png" href="core/img/favicon.png" />
-	<script src="core/js/jquery.js?v=<?php echo $cssVersion?>"></script>
 	<script src="core/js/lazyLoadImg.js?v=<?php echo $cssVersion?>"></script>
 	<?php
 		echo loadSentryData($sendCrashInfoJS, $branchSelected);
@@ -260,8 +259,12 @@ $externalLinkImage = generateImage(
 			<tr>
 				<th>
 					<h2>Loading</h2>
-					<img src="core/img/loading.gif" width="100" height="100">
-					<h4 id="initialLoadContentMoreInfo" >Loading Initial Javascript Files</h4>
+					<p><img id="initialLoadSpinner" src="<?php echo $srcForLoadImage; ?>" width="100" height="100"></p>
+					<h4 id="initialLoadContentInfo" >Loading Javascript Files</h4>
+					<p><progress id="initialLoadProgress" value="0" max="100"></progress></p>
+					<h4 id="initialLoadContentMoreInfo" ></h4>
+					<h5 id="initialLoadContentEvenMoreInfo" >File Check <span id="initialLoadCountCheck" >1</span> of 1000</h5>
+					<h4 style="color: red; display: none;" id="initialLoadContentEvenEvenMoreInfo" >This file looks like it is taking a while to load</h4>
 				</th>
 			</tr>
 		</table>
@@ -269,7 +272,12 @@ $externalLinkImage = generateImage(
 			var timerForLoadJS = null;
 			var counterForJSLoad = 0;
 			var loadedFile = false;
-			var arrayOfJsFiles = ["visibility.core.js","visibility.fallback.js","visibility.timers.js","loading-bar.min.js","main.js","format.js","rightClickJS.js","update.js","settings.js"];
+			var arrayOfJsFiles = ["jquery.js","visibility.core.js","visibility.fallback.js","visibility.timers.js","loading-bar.min.js","main.js","format.js","rightClickJS.js","update.js","settings.js"];
+			var countForCheck = 1;
+			if(sendCrashInfoJS === "true")
+			{
+				arrayOfJsFiles.push("Raven.js");
+			}
 			var lengthOfArrayOfJsFiles = arrayOfJsFiles.length;
 			function tryLoadJSStuff()
 			{
@@ -278,7 +286,7 @@ $externalLinkImage = generateImage(
 					clearInterval(timerForLoadJS);
 					loadedFile = false;
 					timerForLoadJS = setInterval(checkIfJSLoaded, 25);
-					$("#initialLoadContentMoreInfo").html(arrayOfJsFiles[counterForJSLoad]);
+					document.getElementById("initialLoadContentMoreInfo").innerHTML = arrayOfJsFiles[counterForJSLoad];
 					script("core/js/"+arrayOfJsFiles[counterForJSLoad]+"?v=<?php echo $cssVersion?>");
 				}
 			}
@@ -286,11 +294,21 @@ $externalLinkImage = generateImage(
 			{
 				if(loadedFile === true)
 				{
+					if(document.getElementById("initialLoadContentEvenEvenMoreInfo").style.display !== "none")
+					{
+						document.getElementById("initialLoadContentEvenEvenMoreInfo").style.display = "none";
+					}
+					countForCheck = 1;
 					clearInterval(timerForLoadJS);
 					counterForJSLoad++;
+					document.getElementById("initialLoadProgress").value = ((counterForJSLoad/lengthOfArrayOfJsFiles) * 100);
 					if(counterForJSLoad >= lengthOfArrayOfJsFiles)
 					{
 						document.getElementById("mainContent").style.display = "block";
+						if(sendCrashInfoJS === "true")
+						{
+							startSentryStuff();
+						}
 						mainReady();
 						$('#initialLoadContent').addClass("hidden");
 						setTimeout(function()
@@ -308,14 +326,30 @@ $externalLinkImage = generateImage(
 						}, 25);
 					}
 				}
+				else
+				{
+					countForCheck++;
+					document.getElementById("initialLoadCountCheck").innerHTML = countForCheck;
+					if(countForCheck > 100)
+					{
+						if(document.getElementById("initialLoadContentEvenEvenMoreInfo").style.display === "none")
+						{
+							document.getElementById("initialLoadContentEvenEvenMoreInfo").style.display = "block";
+						}
+					}
+					else if(countForCheck > 1000)
+					{
+						//error
+					}
+				}
 			}
 
-			$(document).ready(function()
-			{
-				setTimeout(function() {
+			document.addEventListener("DOMContentLoaded", function(event) { 
+			  	setTimeout(function() {
 					timerForLoadJS = setInterval(tryLoadJSStuff, 25);
 				}, 25);
 			});
+
 		</script>
 	</span>
 </body>
