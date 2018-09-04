@@ -340,6 +340,8 @@ $externalLinkImage = generateImage(
 					else if(countForCheck > 1000)
 					{
 						//error
+						clearInterval(timerForLoadJS);
+						window.location.href = "error.php?error=15&page="+arrayOfJsFiles[counterForJSLoad];
 					}
 				}
 			}
