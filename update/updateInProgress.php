@@ -44,8 +44,8 @@ $cssVersion = rand(1, 999999);
 					Option 2:
 				</h2>
 				<p>
-					Click here to retry an update if previous update failed or was inturrepted: 
-					<a class="link" onclick="window.location.href = '../settings/update.php'"  >
+					Click here to manually go to updater page:
+					<a class="link" onclick="window.location.href = '../update/updater.php'"  >
 						Retry Update
 					</a>
 				</p>
@@ -53,7 +53,16 @@ $cssVersion = rand(1, 999999);
 					Option 3:
 				</h2>
 				<p>
-					Click here to revert back to a previous version 
+					Click here to retry an update if previous update failed or was inturrepted:
+					<a class="link" onclick="window.location.href = '../staticUpdate.php'"  >
+						Retry Update
+					</a>
+				</p>
+				<h2>
+					Option 4:
+				</h2>
+				<p>
+					Click here to revert back to a previous version
 					<a class="link" onclick="window.location=href = '../restore/restore.php'" >
 						Revert to a previous version
 					</a>
@@ -63,9 +72,7 @@ $cssVersion = rand(1, 999999);
 			<div class="settingsHeader">
 			Log Info
 			</div>
-			<div id="innerSettingsText" class="settingsDiv" style="height: 75px; overflow-y: scroll;" >
-				
-			</div>
+			<div id="innerSettingsText" class="settingsDiv" style="height: 75px; overflow-y: scroll;" ></div>
 		</div>
 	</div>
 </div>
