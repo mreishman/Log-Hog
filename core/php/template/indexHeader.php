@@ -2,22 +2,24 @@
 	<div id="menuButtons" style="display: block;">
 		<div onclick="toggleFullScreenMenu();"  class="menuImageDiv">
 			<?php echo generateImage(
-				$arrayOfImages["menu"],
+				$arrayOfImages["loadingImg"],
 				$imageConfig = array(
 					"id"		=>	"menuImage",
-					"class"		=>	"menuImage",
-					"height"	=>	"30px"
+					"class"		=>	"menuImage menuImageForLoad",
+					"height"	=>	"30px",
+					"data-src"	=>	$arrayOfImages["menu"]
 					)
 				);
 			?>
 		</div>
 		<div class="menuImageDiv" id="notificationDiv" onclick="toggleNotifications();" >
 			<?php echo generateImage(
-				$arrayOfImages["notification"],
+				$arrayOfImages["loadingImg"],
 				$imageConfig = array(
 					"id"		=>	"notificationNotClicked",
-					"class"		=>	"menuImage",
-					"height"	=>	"30px"
+					"class"		=>	"menuImage notificationImageForLoad",
+					"height"	=>	"30px",
+					"data-src"	=>	$arrayOfImages["notification"]
 					)
 				);
 			?>

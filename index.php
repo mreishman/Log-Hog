@@ -284,7 +284,9 @@ $externalLinkImage = generateImage(
 				10:  {name: "rightClickJS.js", type: "js"},
 				11:  {name: "update.js", type: "js"},
 				12:  {name: "settings.js", type: "js"},
-				13: {name: "loghogDownloadJS.js", type: "js"}
+				13: {name: "loghogDownloadJS.js", type: "js"},
+				14: {name: "local/default/img/menu.png", type: "img", class:"menuImageForLoad"},
+				15: {name: "local/default/img/notification.png", type: "img", class:"notificationImageForLoad"}
 			};
 			var countForCheck = 1;
 			if(sendCrashInfoJS === "true")
@@ -310,6 +312,13 @@ $externalLinkImage = generateImage(
 						document.getElementById("initialLoadContentInfo").innerHTML = "Loading CSS Files";
 					}
 				}
+				else if(arrayOfJsFiles[arrayOfJsFilesKeys[counterForJSLoad]]["type"] === "img")
+				{
+					if(document.getElementById("initialLoadContentInfo").innerHTML !== "Loading Images")
+					{
+						document.getElementById("initialLoadContentInfo").innerHTML = "Loading Images";
+					}
+				}
 				if(typeof script === "function")
 				{
 					clearInterval(timerForLoadJS);
@@ -322,14 +331,24 @@ $externalLinkImage = generateImage(
 					{
 						nameOfFile = "core/js/"+nameOfFile;
 						script(nameOfFile);
+						document.getElementById(nameOfFile.replace(/[^a-z0-9]/g, "")).addEventListener('load', function() {
+							loadedFile = true;
+						}, false);
 					}
 					else if(arrayOfJsFiles[arrayOfJsFilesKeys[counterForJSLoad]]["type"] === "css")
 					{
 						css(nameOfFile)
+						document.getElementById(nameOfFile.replace(/[^a-z0-9]/g, "")).addEventListener('load', function() {
+							loadedFile = true;
+						}, false);
 					}
-					document.getElementById(nameOfFile.replace(/[^a-z0-9]/g, "")).addEventListener('load', function() {
-				      loadedFile = true;
-				    }, false);
+					else if(arrayOfJsFiles[arrayOfJsFilesKeys[counterForJSLoad]]["type"] === "img")
+					{
+						loadImgFromData(arrayOfJsFiles[arrayOfJsFilesKeys[counterForJSLoad]]["class"]);
+						document.getElementsByClassName(arrayOfJsFiles[arrayOfJsFilesKeys[counterForJSLoad]]["class"])[0].addEventListener('load', function() {
+							loadedFile = true;
+						}, false);
+					}
 				}
 			}
 			function checkIfJSLoaded()
@@ -351,7 +370,7 @@ $externalLinkImage = generateImage(
 						{
 							startSentryStuff();
 						}
-						//mainReady();
+						mainReady();
 						$('#initialLoadContent').addClass("hidden");
 						setTimeout(function()
 						{
