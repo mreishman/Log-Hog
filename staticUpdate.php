@@ -25,6 +25,7 @@ require_once('core/php/loadVars.php');
 	<title>Static Update Page</title>
 	<?php echo loadCSS("",$baseUrl, $cssVersion);?>
 	<script src="core/js/jquery.js"></script>
+	<link rel="icon" type="image/png" href="core/img/favicon.png" />
 </head>
 <body>
 	<div id="main">
