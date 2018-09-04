@@ -255,7 +255,7 @@ $externalLinkImage = generateImage(
 		  </ul>
 		</nav>
 	</span>
-	<span id="initialLoadContent" style="background-color: #222; color: #EEE; -webkit-transition: 1s ease-in-out; -moz-transition: 1s ease-in-out; -ms-transition: 1s ease-in-out; -o-transition: 1s ease-in-out;" >
+	<span id="initialLoadContent" style="background-color: #222; color: #EEE; -webkit-transition: 1s ease-in-out; -moz-transition: 1s ease-in-out; -ms-transition: 1s ease-in-out; -o-transition: 1s ease-in-out; position: absolute; z-index: 1000; left: 0; right: 0; top: 0; bottom: 0;" >
 		<table style="width: 100%; height: 100%;">
 			<tr>
 				<th>
@@ -291,8 +291,15 @@ $externalLinkImage = generateImage(
 					if(counterForJSLoad >= lengthOfArrayOfJsFiles)
 					{
 						document.getElementById("mainContent").style.display = "block";
-						document.getElementById("initialLoadContent").style.display = "none";
 						mainReady();
+						$('#initialLoadContent').addClass("hidden");
+						setTimeout(function()
+						{
+							if($("#initialLoadContent").hasClass("hidden"))
+							{
+								document.getElementById('initialLoadContent').style.display = "none";
+							}
+						}, 1000);
 					}
 					else
 					{
