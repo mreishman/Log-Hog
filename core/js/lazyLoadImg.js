@@ -38,7 +38,7 @@ function css(url)
 	var fileref = document.createElement("link");
 	fileref.rel = "stylesheet";
 	fileref.type = "text/css";
-	fileref.href = "filename";
+	fileref.href = url;
 	fileref.id = url.replace(/[^a-z0-9]/g, "");
 	document.getElementsByTagName("head")[0].appendChild(fileref);
 }

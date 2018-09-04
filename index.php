@@ -97,13 +97,11 @@ $externalLinkImage = generateImage(
 <!doctype html>
 <head>
 	<title>Log Hog | Index</title>
-	<?php echo loadCSS("", $baseUrl, $cssVersion);?>
 	<link rel="icon" type="image/png" href="core/img/favicon.png" />
 	<script src="core/js/lazyLoadImg.js?v=<?php echo $cssVersion?>"></script>
 	<?php
 		echo loadSentryData($sendCrashInfoJS, $branchSelected);
 	?>
-	<link rel="stylesheet" type="text/css" href="core/template/loading-bar.css"/>
 </head>
 <body>
 	<span id="mainContent" style="display: none;" >
@@ -260,7 +258,7 @@ $externalLinkImage = generateImage(
 				<th>
 					<h2>Loading</h2>
 					<p><img id="initialLoadSpinner" src="<?php echo $srcForLoadImage; ?>" width="100" height="100"></p>
-					<h4 id="initialLoadContentInfo" >Loading Javascript Files</h4>
+					<h4 id="initialLoadContentInfo" >Loading CSS Files</h4>
 					<p><progress id="initialLoadProgress" value="0" max="100"></progress></p>
 					<h4 id="initialLoadContentMoreInfo" ></h4>
 					<h5 id="initialLoadContentEvenMoreInfo" >File Check <span id="initialLoadCountCheck" >1</span> of 1000</h5>
@@ -272,23 +270,63 @@ $externalLinkImage = generateImage(
 			var timerForLoadJS = null;
 			var counterForJSLoad = 0;
 			var loadedFile = false;
-			var arrayOfJsFiles = ["jquery.js","visibility.core.js","visibility.fallback.js","visibility.timers.js","loading-bar.min.js","main.js","format.js","rightClickJS.js","update.js","settings.js","loghogDownloadJS.js"];
+			var arrayOfJsFiles = {
+				0:  {name: "core/template/base.css", type: "css"},
+				1:  {name: "core/template/loading-bar.css", type: "css"},
+				2:  {name: "<?php echo $baseUrl; ?>template/theme.css", type: "css"},
+				3:  {name: "jquery.js", type: "js"},
+				4:  {name: "visibility.core.js", type: "js"},
+				5:  {name: "visibility.fallback.js", type: "js"},
+				6:  {name: "visibility.timers.js", type: "js"},
+				7:  {name: "loading-bar.min.js", type: "js"},
+				8:  {name: "main.js", type: "js"},
+				9:  {name: "format.js", type: "js"},
+				10:  {name: "rightClickJS.js", type: "js"},
+				11:  {name: "update.js", type: "js"},
+				12:  {name: "settings.js", type: "js"},
+				13: {name: "loghogDownloadJS.js", type: "js"}
+			};
 			var countForCheck = 1;
 			if(sendCrashInfoJS === "true")
 			{
-				arrayOfJsFiles.push("Raven.js");
+				var lengthOfArrayOfJsFiles = Object.keys(arrayOfJsFiles).length;
+				arrayOfJsFiles[lengthOfArrayOfJsFiles] = {name: "Raven.js"};
 			}
-			var lengthOfArrayOfJsFiles = arrayOfJsFiles.length;
+			var arrayOfJsFilesKeys = Object.keys(arrayOfJsFiles);
+			var lengthOfArrayOfJsFiles = arrayOfJsFilesKeys.length;
 			function tryLoadJSStuff()
 			{
+				if(arrayOfJsFiles[arrayOfJsFilesKeys[counterForJSLoad]]["type"] === "js")
+				{
+					if(document.getElementById("initialLoadContentInfo").innerHTML !== "Loading Javascript Files")
+					{
+						document.getElementById("initialLoadContentInfo").innerHTML = "Loading Javascript Files";
+					}
+				}
+				else if(arrayOfJsFiles[arrayOfJsFilesKeys[counterForJSLoad]]["type"] === "css")
+				{
+					if(document.getElementById("initialLoadContentInfo").innerHTML !== "Loading CSS Files")
+					{
+						document.getElementById("initialLoadContentInfo").innerHTML = "Loading CSS Files";
+					}
+				}
 				if(typeof script === "function")
 				{
 					clearInterval(timerForLoadJS);
 					loadedFile = false;
 					timerForLoadJS = setInterval(checkIfJSLoaded, 25);
-					document.getElementById("initialLoadContentMoreInfo").innerHTML = arrayOfJsFiles[counterForJSLoad];
-					var nameOfFile = "core/js/"+arrayOfJsFiles[counterForJSLoad]+"?v=<?php echo $cssVersion?>";
-					script(nameOfFile);
+					var nameOfCurrentFile = arrayOfJsFiles[arrayOfJsFilesKeys[counterForJSLoad]]["name"];
+					document.getElementById("initialLoadContentMoreInfo").innerHTML = nameOfCurrentFile;
+					var nameOfFile = nameOfCurrentFile+"?v=<?php echo $cssVersion?>";
+					if(arrayOfJsFiles[arrayOfJsFilesKeys[counterForJSLoad]]["type"] === "js")
+					{
+						nameOfFile = "core/js/"+nameOfFile;
+						script(nameOfFile);
+					}
+					else if(arrayOfJsFiles[arrayOfJsFilesKeys[counterForJSLoad]]["type"] === "css")
+					{
+						css(nameOfFile)
+					}
 					document.getElementById(nameOfFile.replace(/[^a-z0-9]/g, "")).addEventListener('load', function() {
 				      loadedFile = true;
 				    }, false);
@@ -313,7 +351,7 @@ $externalLinkImage = generateImage(
 						{
 							startSentryStuff();
 						}
-						mainReady();
+						//mainReady();
 						$('#initialLoadContent').addClass("hidden");
 						setTimeout(function()
 						{
