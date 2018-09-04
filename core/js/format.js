@@ -226,3 +226,4 @@ function dateTimeFormat(dateTextArray)
 
 	return dateText;
 }
+loadedFile = true;

@@ -4409,7 +4409,7 @@ function toggleTopLogNotice()
 	document.getElementById("menu").style.borderTop = "";
 }
 
-$(document).ready(function()
+function mainReady()
 {
 	progressBar = new ldBar("#progressBar");
 	resize();
@@ -4468,4 +4468,6 @@ $(document).ready(function()
 
 	refreshArrayObject("generalThemeOptions");
 	refreshArrayObject("settingsColorFolderGroupVars");
-});
+}
+
+loadedFile = true;

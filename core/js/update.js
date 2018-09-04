@@ -377,3 +377,4 @@ function actuallyInstallUpdates()
 		eventThrowException(e);
 	}
 }
+loadedFile = true;

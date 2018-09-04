@@ -161,3 +161,4 @@
     }
 
 })(window);
+loadedFile = true;

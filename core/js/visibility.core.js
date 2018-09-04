@@ -189,3 +189,4 @@
     }
 
 })(this);
+loadedFile = true;
