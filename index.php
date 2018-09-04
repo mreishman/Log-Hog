@@ -259,7 +259,8 @@ $externalLinkImage = generateImage(
 		7	=>	"format.js",
 		8	=>	"rightClickJS.js",
 		9	=>	"update.js",
-		10	=>	"settings.js"
+		10	=>	"settings.js",
+		11	=>	"loghogDownloadJS.js"
 	);
 	foreach ($jsToLoad as $jsFile): ?>
 		<script src="core/js/<?php echo $jsFile; ?>?v=<?php echo $cssVersion?>"></script>
