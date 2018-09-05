@@ -112,10 +112,12 @@ function generateSaveBlock($data = array(), $arrayOfImages)
 		$localSrcMod = $data["srcModifier"];
 	}
 	$saveBlock .= generateImage(
-		$arrayOfImages["trashCanSideBar"],
+		$arrayOfImages["loadingImg"],
 		array(
 			"height"		=>	"25px",
-			"srcModifier"	=>	$localSrcMod
+			"srcModifier"	=>	$localSrcMod,
+			"class"			=>	"watchlistImg",
+			"data-src"		=>	$arrayOfImages["trashCanSideBar"]
 		)
 	);
 	$saveBlock .= "</a>";

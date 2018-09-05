@@ -2882,6 +2882,7 @@ function hideArchiveLog(title)
 
 function viewArchiveLog(title)
 {
+	loadImgFromData("archiveLogImages");
 	archiveLogPopupToggle();
 	var dataToSend = {file: title};
 	$.ajax({
@@ -3511,7 +3512,7 @@ function toggleFullScreenMenu(force = false)
 		{
 			$("#menuSeleniumMonitorAddon").click();
 		}
-		else if($("#themeSubMenuMainThemes").hasClass("selected"))
+		else if($("#ThemesLink") && $("#ThemesLink").hasClass("selected"))
 		{
 			toggleThemesIframeSource(true);
 		}
@@ -4220,6 +4221,7 @@ function generateWindowDisplay()
 	if(windowDisplayConfigColCount > 1 || windowDisplayConfigRowCount > 1)
 	{
 		$(".pinWindowContainer, .currentWindowNumSelected, .currentWindowNum").show();
+		loadImgFromData("multiLogGreaterThanOne");
 	}
 	else
 	{

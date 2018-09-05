@@ -63,11 +63,12 @@
 		<?php endif; ?>
 		<div onclick="filterSubMenu();" class="menuImageDiv">
 				<?php echo generateImage(
-					$arrayOfImages["filter"],
+					$arrayOfImages["loadingImg"],
 					$imageConfig = array(
 						"id"		=>	"menuImage",
-						"class"		=>	"menuImage",
-						"height"	=>	"30px"
+						"class"		=>	"menuImage filterImageForLoad",
+						"height"	=>	"30px",
+						"data-src"	=>	$arrayOfImages["filter"]
 						)
 					);
 				?>
@@ -80,12 +81,13 @@
 					$styleString = "display: none;";
 				}
 				echo generateImage(
-				$arrayOfImages["play"],
+				$arrayOfImages["loadingImg"],
 				$imageConfig = array(
 					"id"		=>	"playImage",
-					"class"		=>	"menuImage",
+					"class"		=>	"menuImage playImageForLoad",
 					"height"	=>	"30px",
-					"style"		=>	$styleString
+					"style"		=>	$styleString,
+					"data-src"	=>	$arrayOfImages["play"]
 					)
 				);
 
@@ -95,12 +97,13 @@
 					$styleString = "display: none;";
 				}
 				echo generateImage(
-				$arrayOfImages["pause"],
+				$arrayOfImages["loadingImg"],
 				$imageConfig = array(
 					"id"		=>	"pauseImage",
-					"class"		=>	"menuImage",
+					"class"		=>	"menuImage pauseImageForLoad",
 					"height"	=>	"30px",
-					"style"		=>	$styleString
+					"style"		=>	$styleString,
+					"data-src"	=>	$arrayOfImages["pause"]
 					)
 				);
 			?>
@@ -108,11 +111,12 @@
 		<div onclick="refreshAction();" class="menuImageDiv">
 			<?php
 				echo generateImage(
-				$arrayOfImages["refresh"],
+				$arrayOfImages["loadingImg"],
 				$imageConfig = array(
 					"id"		=>	"refreshImage",
-					"class"		=>	"menuImage",
-					"height"	=>	"30px"
+					"class"		=>	"menuImage refreshImageForLoad",
+					"height"	=>	"30px",
+					"data-src"	=>	$arrayOfImages["refresh"]
 					)
 				);
 
@@ -130,11 +134,12 @@
 		<?php if($truncateLog == 'true'): ?>
 			<div onclick="deleteAction();"  class="menuImageDiv">
 				<?php echo generateImage(
-					$arrayOfImages["eraserMulti"],
+					$arrayOfImages["loadingImg"],
 					$imageConfig = array(
 						"id"		=>	"deleteImage",
-						"class"		=>	"menuImage",
-						"height"	=>	"30px"
+						"class"		=>	"menuImage eraserMultiImageForLoad",
+						"height"	=>	"30px",
+						"data-src"	=>	$arrayOfImages["eraserMulti"]
 						)
 					);
 				?>
@@ -142,11 +147,12 @@
 		<?php elseif($truncateLog == 'false'): ?>
 			<div onclick="clearLog(currentSelectWindow);" class="menuImageDiv">
 				<?php echo generateImage(
-					$arrayOfImages["eraser"],
+					$arrayOfImages["loadingImg"],
 					$imageConfig = array(
 						"id"		=>	"deleteImage",
-						"class"		=>	"menuImage",
-						"height"	=>	"30px"
+						"class"		=>	"menuImage eraserForLoad",
+						"height"	=>	"30px",
+						"data-src"	=>	$arrayOfImages["eraser"]
 						)
 					);
 				?>
@@ -155,11 +161,12 @@
 		<span <?php if($hideClearAllNotifications === "true"){ echo "style=\" display: none; \""; }?> >
 			<div  id="clearNotificationsImage" style="display: none;" onclick="removeAllNotifications();" class="menuImageDiv">
 				<?php echo generateImage(
-					$arrayOfImages["notificationClear"],
+					$arrayOfImages["loadingImg"],
 					$imageConfig = array(
 						"id"		=>	"notificationClearImage",
-						"class"		=>	"menuImage",
-						"height"	=>	"30px"
+						"class"		=>	"menuImage notificationClearImageForLoad",
+						"height"	=>	"30px",
+						"data-src"	=>	$arrayOfImages["notificationClear"]
 						)
 					);
 				?>

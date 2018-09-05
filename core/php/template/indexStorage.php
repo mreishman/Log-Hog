@@ -48,11 +48,13 @@
 								</p>
 								<a id="showInfoLink{{counter}}" onclick="showInfo('{{counter}}');" style="cursor: pointer;" >
 									<?php echo generateImage(
-										$arrayOfImages["infoSideBar"],
+										$arrayOfImages["loadingImg"],
 										$imageConfig = array(
 											"height"	=>	"20px",
+											"class"		=>	"infoSideBarImageForLoad",
 											"style"		=>	"margin: 5px;",
-											"title"		=>	"More Info"
+											"title"		=>	"More Info",
+											"data-src"	=>	$arrayOfImages["infoSideBar"]
 											)
 										);
 									?>
@@ -60,49 +62,55 @@
 								<a id="pinWindow{{counter}}" class="pinWindowContainer"  onclick="pinWindow('{{counter}}');" style="cursor: pointer;" >
 									<?php
 										echo generateImage(
-										$arrayOfImages["pin"],
+										$arrayOfImages["loadingImg"],
 										$imageConfig = array(
 											"height"	=>	"20px",
 											"style"		=>	"margin: 5px;",
 											"title"		=>	"Pin Window",
-											"class"		=>	"pinWindow"
+											"class"		=>	"pinWindow pinImageForLoad multiLogGreaterThanOne",
+											"data-src"	=>	$arrayOfImages["pin"]
 											)
 										);
 										echo generateImage(
-										$arrayOfImages["pinPinned"],
+										$arrayOfImages["loadingImg"],
 										$imageConfig = array(
 											"height"	=>	"20px",
 											"style"		=>	"margin: 5px; display: none;",
 											"title"		=>	"Un-Pin Window",
-											"class"		=>	"unPinWindow",
+											"class"		=>	"unPinWindow pinPinnedImageForLoad multiLogGreaterThanOne",
+											"data-src"	=>	$arrayOfImages["pinPinned"]
 											)
 										);
 									?>
 								</a>
 								<a id="clearLogSideBar{{counter}}"  onclick="clearLog('{{counter}}');" style="cursor: pointer;">
 									<?php echo generateImage(
-										$arrayOfImages["eraserSideBar"],
+										$arrayOfImages["loadingImg"],
 										$imageConfig = array(
 											"height"	=>	"20px",
 											"style"		=>	"margin: 5px;",
-											"title"		=>	"Clear Log"
+											"title"		=>	"Clear Log",
+											"class"		=>	"eraserSideBarImageForLoad",
+											"data-src"	=>	$arrayOfImages["eraserSideBar"]
 											)
 										);
 									?>
 								</a>
 								<a id="deleteLogSideBar{{counter}}"  onclick="deleteLogPopup('{{counter}}');" style="cursor: pointer;">
 									<?php echo  generateImage(
-										$arrayOfImages["trashCanSideBar"],
+										$arrayOfImages["loadingImg"],
 										$imageConfig = array(
 											"height"	=>	"20px",
 											"style"		=>	"margin: 5px;",
-											"title"		=>	"Delete Log"
+											"title"		=>	"Delete Log",
+											"class"		=>	"trashCanSideBarImageForLoad",
+											"data-src"	=>	$arrayOfImages["trashCanSideBar"]
 											)
 										);
 									?>
 								</a>
 								<!-- <a onclick="viewBackupFromCurrentLog('{{counter}}');" style="cursor: pointer;">
-									<?php echo generateImage(
+									<?php /*echo generateImage(
 										$arrayOfImages["historySideBar"],
 										$imageConfig = array(
 											"height"	=>	"20px",
@@ -110,25 +118,29 @@
 											"title"		=>	"View Backup"
 											)
 										);
-									?>
+									*/ ?>
 								</a> -->
 								<a onclick="removeArchiveLogFromDisplay('{{counter}}')" id="closeLogSideBar{{counter}}" onclick="#" style="cursor: pointer; display: none;" >
 									<?php echo generateImage(
-										$arrayOfImages["close"],
+										$arrayOfImages["loadingImg"],
 										$imageConfig = array(
 											"height"	=>	"20px",
-											"style"		=>	"margin: 5px;"
+											"style"		=>	"margin: 5px;",
+											"class"		=>	"closeImageForLoad archiveLogImages",
+											"data-src"	=>	$arrayOfImages["close"]
 											)
 										);
 									?>
 								</a>
 								<a onclick="scrollToBottom('{{counter}}');" style="cursor: pointer;" >
 									<?php echo generateImage(
-										$arrayOfImages["downArrowSideBar"],
+										$arrayOfImages["loadingImg"],
 										$imageConfig = array(
 											"height"	=>	"20px",
 											"style"		=>	"margin: 5px;",
-											"title"		=>	"Scroll to Bottom"
+											"title"		=>	"Scroll to Bottom",
+											"class"		=>	"downArrowSideBarImageForLoad",
+											"data-src"	=>	$arrayOfImages["downArrowSideBar"]
 											)
 										);
 									?>

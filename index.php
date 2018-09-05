@@ -87,10 +87,12 @@ $windowDisplayConfig = explode("x", $windowConfig);
 
 /* Used for full screen menu */
 $externalLinkImage = generateImage(
-	$arrayOfImages["externalLink"],
+	$arrayOfImages["loadingImg"],
 	$imageConfig = array(
 		"height"	=>	"15px",
-		"style"		=>	"margin-bottom: -10px;"
+		"class"		=>	"mainMenuImage",
+		"style"		=>	"margin-bottom: -10px;",
+		"data-src"	=>  $arrayOfImages["externalLink"]
 		)
 	);
 ?>
@@ -287,16 +289,41 @@ $externalLinkImage = generateImage(
 				13: {name: "loghogDownloadJS.js", type: "js"},
 				14: {name: "local/default/img/menu.png", type: "img", class:"menuImageForLoad"},
 				15: {name: "local/default/img/notification.png", type: "img", class:"notificationImageForLoad"},
-				16: {name: "local/default/img/notificationFull.png", type: "img", class:"notificationImageClickedForLoad"}
+				16: {name: "local/default/img/notificationFull.png", type: "img", class:"notificationImageClickedForLoad"},
+				17: {name: "local/default/img/filter.png", type: "img", class:"filterImageForLoad"},
+				18: {name: "local/default/img/play.png", type: "img", class:"playImageForLoad"},
+				19: {name: "local/default/img/pause.png", type: "img", class:"pauseImageForLoad"},
+				20: {name: "local/default/img/refresh.png", type: "img", class:"refreshImageForLoad"},
+				21: {name: "local/default/img/infoSideBar.png", type: "img", class:"infoSideBarImageForLoad"},
+				22: {name: "local/default/img/eraserSideBar.png", type: "img", class:"eraserSideBarImageForLoad"},
+				23: {name: "local/default/img/trashCanSideBar.png", type: "img", class:"trashCanSideBarImageForLoad"},
+				24: {name: "local/default/img/downArrowSideBar.png", type: "img", class:"downArrowSideBarImageForLoad"}
 			};
 			var countForCheck = 1;
 			if(sendCrashInfoJS === "true")
 			{
 				arrayOfJsFiles[Object.keys(arrayOfJsFiles).length] = {name: "Raven.js"};
 			}
+			if(truncateLog === "true")
+			{
+				arrayOfJsFiles[Object.keys(arrayOfJsFiles).length] = {name: "local/default/img/eraserMulti.png", type: "img", class:"eraserMultiImageForLoad"};
+			}
+			if(truncateLog === "false")
+			{
+				arrayOfJsFiles[Object.keys(arrayOfJsFiles).length] = {name: "local/default/img/eraser.png", type: "img", class:"eraserForLoad"};
+			}
 			if(enableMultiLog === "true" && multiLogOnIndex === "true")
 			{
 				arrayOfJsFiles[Object.keys(arrayOfJsFiles).length] = {name: "local/default/img/multiLog.png", type: "img", class:"multiLogImageForLoad"};
+			}
+			if(hideClearAllNotifications !== "true")
+			{
+				arrayOfJsFiles[Object.keys(arrayOfJsFiles).length] = {name: "local/default/img/notificationClear.png", type: "img", class:"notificationClearImageForLoad"};
+			}
+			if(windowConfig !== "1x1")
+			{
+				arrayOfJsFiles[Object.keys(arrayOfJsFiles).length] = {name: "local/default/img/pin.png", type: "img", class:"pinImageForLoad"};
+				arrayOfJsFiles[Object.keys(arrayOfJsFiles).length] = {name: "local/default/img/pinPinned.png", type: "img", class:"pinPinnedImageForLoad"};
 			}
 			if(enableHistory === "true")
 			{

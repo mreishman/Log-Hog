@@ -223,11 +223,13 @@
 		<tr>
 			<td colspan="6">
 				<?php echo generateImage(
-					$arrayOfImages["info"],
+					$arrayOfImages["loadingImg"],
 					array(
 						"style"			=>	"margin-bottom: -4px;",
 						"height"		=>	"20px",
-						"srcModifier"	=>	""
+						"class"			=>	"mainMenuImage",
+						"srcModifier"	=>	"",
+						"data-src"		=>	$arrayOfImages["info"]
 					)
 				); ?>
 	  			<i>Make sure you have run through setup before trying to update</i>
