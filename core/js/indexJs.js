@@ -16,17 +16,18 @@ var arrayOfJsFiles = {
 	11:  {name: "update.js", type: "js"},
 	12:  {name: "settings.js", type: "js"},
 	13: {name: "loghogDownloadJS.js", type: "js"},
-	14: {name: "local/default/img/menu.png", type: "img", class:"menuImageForLoad"},
-	15: {name: "local/default/img/notification.png", type: "img", class:"notificationImageForLoad"},
-	16: {name: "local/default/img/notificationFull.png", type: "img", class:"notificationImageClickedForLoad"},
-	17: {name: "local/default/img/filter.png", type: "img", class:"filterImageForLoad"},
-	18: {name: "local/default/img/play.png", type: "img", class:"playImageForLoad"},
-	19: {name: "local/default/img/pause.png", type: "img", class:"pauseImageForLoad"},
-	20: {name: "local/default/img/refresh.png", type: "img", class:"refreshImageForLoad"},
-	21: {name: "local/default/img/infoSideBar.png", type: "img", class:"infoSideBarImageForLoad"},
-	22: {name: "local/default/img/eraserSideBar.png", type: "img", class:"eraserSideBarImageForLoad"},
-	23: {name: "local/default/img/trashCanSideBar.png", type: "img", class:"trashCanSideBarImageForLoad"},
-	24: {name: "local/default/img/downArrowSideBar.png", type: "img", class:"downArrowSideBarImageForLoad"}
+	14: {name: "jscolor.js", type: "js"},
+	15: {name: "local/default/img/menu.png", type: "img", class:"menuImageForLoad"},
+	16: {name: "local/default/img/notification.png", type: "img", class:"notificationImageForLoad"},
+	17: {name: "local/default/img/notificationFull.png", type: "img", class:"notificationImageClickedForLoad"},
+	18: {name: "local/default/img/filter.png", type: "img", class:"filterImageForLoad"},
+	19: {name: "local/default/img/play.png", type: "img", class:"playImageForLoad"},
+	20: {name: "local/default/img/pause.png", type: "img", class:"pauseImageForLoad"},
+	21: {name: "local/default/img/refresh.png", type: "img", class:"refreshImageForLoad"},
+	22: {name: "local/default/img/infoSideBar.png", type: "img", class:"infoSideBarImageForLoad"},
+	23: {name: "local/default/img/eraserSideBar.png", type: "img", class:"eraserSideBarImageForLoad"},
+	24: {name: "local/default/img/trashCanSideBar.png", type: "img", class:"trashCanSideBarImageForLoad"},
+	25: {name: "local/default/img/downArrowSideBar.png", type: "img", class:"downArrowSideBarImageForLoad"}
 };
 var countForCheck = 1;
 var arrayOfJsFilesKeys = Object.keys(arrayOfJsFiles);
@@ -152,8 +153,8 @@ function checkIfJSLoaded()
 		else
 		{
 			setTimeout(function() {
-				timerForLoadJS = setInterval(tryLoadJSStuff, 25);
-			}, 25);
+				timerForLoadJS = setInterval(tryLoadJSStuff, 1);
+			}, 1);
 		}
 	}
 	else
