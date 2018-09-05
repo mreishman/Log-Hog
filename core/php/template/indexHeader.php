@@ -229,35 +229,35 @@
 			</div>
 			Case Insensitive:
 			<div class="selectDiv" >
-				<select onchange=\"changeFilterCase();\" id=\"caseInsensitiveSearch\">
+				<select onchange="changeFilterCase();" id="caseInsensitiveSearch">
 					<option <?php if ($caseInsensitiveSearch === "true"){ echo "selected"; }?> value="true">True</option>
 					<option <?php if ($caseInsensitiveSearch === "false"){ echo "selected"; }?> value="false">False</option>
 				</select>
 			</div>
 			Title Includes Path:
 			<div class="selectDiv" >
-				<select onchange=\"changeFilterTitleIncludePath();\" id=\"filterTitleIncludePath\">
+				<select onchange="changeFilterTitleIncludePath();" id="filterTitleIncludePath">
 					<option <?php if ($filterTitleIncludePath === "true"){ echo "selected"; }?> value="true">True</option>
 					<option <?php if ($filterTitleIncludePath === "false"){ echo "selected"; }?> value="false">False</option>
 				</select>
 			</div>
 			Highlight Content Match:
 			<div class="selectDiv" >
-				<select onchange=\"changeHighlightContentMatch();\" id=\"filterContentHighlight\">
+				<select onchange="changeHighlightContentMatch();" id="filterContentHighlight">
 					<option <?php if ($filterContentHighlight === "true"){ echo "selected"; }?> value="true">True</option>
 					<option <?php if ($filterContentHighlight === "false"){ echo "selected"; }?> value="false">False</option>
 				</select>
 			</div>
 			Filter Content Match:
 			<div class="selectDiv" >
-				<select onchange=\"changeFilterContentMatch();\" id=\"filterContentLimit\">
+				<select onchange="changeFilterContentMatch();" id="filterContentLimit">
 					<option <?php if ($filterContentLimit === "true"){ echo "selected"; }?> value="true">True</option>
 					<option <?php if ($filterContentLimit === "false"){ echo "selected"; }?> value="false">False</option>
 				</select>
 			</div>
 			Line Padding:
 			<div class="selectDiv" >
-				<select onchange=\"changeFilterContentLinePadding();\" id=\"filterContentLinePadding\">
+				<select onchange="changeFilterContentLinePadding();" id="filterContentLinePadding">
 					<?php for($CFC = 0; $CFC < 10; $CFC++): ?>
 						<option <?php if ($filterContentLinePadding === $CFC){ echo "selected"; }?> value="<?php echo $CFC; ?>"><?php echo $CFC; ?></option>
 					<?php endfor; ?>

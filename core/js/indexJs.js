@@ -92,7 +92,6 @@ function tryLoadJSStuff()
 	{
 		clearInterval(timerForLoadJS);
 		loadedFile = false;
-		timerForLoadJS = setInterval(checkIfJSLoaded, 25);
 		var nameOfCurrentFile = arrayOfJsFiles[arrayOfJsFilesKeys[counterForJSLoad]]["name"];
 		document.getElementById("initialLoadContentMoreInfo").innerHTML = nameOfCurrentFile;
 		var nameOfFile = nameOfCurrentFile+"?v="+cssVersion;
@@ -118,6 +117,7 @@ function tryLoadJSStuff()
 				loadedFile = true;
 			}, false);
 		}
+		timerForLoadJS = setInterval(checkIfJSLoaded, 25);
 	}
 }
 function checkIfJSLoaded()
