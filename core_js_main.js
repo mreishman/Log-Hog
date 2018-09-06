@@ -19,6 +19,7 @@ var filesNew;
 var firstLoad = true;
 var flasher;
 var fullScreenMenuClickCount = 0;
+var globalForcePageNavigate = false;
 var hiddenLogUpdatePollBottom = null;
 var hiddenLogUpdatePollTop = null;
 var lastContentSearch = "";
@@ -2315,7 +2316,7 @@ function makePretty(id)
 					// {
 					// 	returnText += "<td style=\"width: 31px;\" ></td>";
 					// }
-					var lineToReturn = "<td>"+lineText[j]+"</td>";
+					var lineToReturn = "<td style=\"white-space: pre-wrap;\" >"+lineText[j]+"</td>";
 					if(expFormatEnabled === "true")
 					{
 						lineToReturn = formatLine(lineText[j]);
@@ -3270,10 +3271,18 @@ function possiblyUpdateFromFilter()
 	}
 }
 
-function toggleNotifications()
+function toggleNotifications(force = false)
 {
 	if(document.getElementById("fullScreenMenu").style.display !== "none")
 	{
+		if(!force && !globalForcePageNavigate)
+		{
+			if(!(goToPageCheck("toggleFullScreenMenu(true)")))
+			{
+				return false;
+			}
+		}
+		globalForcePageNavigate = false;
 		toggleFullScreenMenu();
 	}
 	if(document.getElementById("historyDropdown").style.display === "inline-block")
@@ -3496,7 +3505,7 @@ function updateNotificationStuff()
 	checkForUpdateLogsOffScreen();
 }
 
-function toggleFullScreenMenu()
+function toggleFullScreenMenu(force = false)
 {
 	fullScreenMenuClickCount++;
 	dirForAjaxSend = "";
@@ -3538,6 +3547,15 @@ function toggleFullScreenMenu()
 	}
 	else
 	{
+		if(!force && !globalForcePageNavigate)
+		{
+			if(!(goToPageCheck("toggleFullScreenMenu(true)")))
+			{
+				return false;
+			}
+		}
+		$( "#fullScreenMenuWatchList" ).off( "mousemove" );
+		globalForcePageNavigate = false;
 		document.getElementById('menu').style.zIndex = "20";
 		hideIframeStuff();
 		document.getElementById("fullScreenMenu").style.display = "none";
@@ -3547,13 +3565,14 @@ function toggleFullScreenMenu()
 
 function toggleUpdateMenu(force = false)
 {
-	if(!force)
+	if(!force && !globalForcePageNavigate)
 	{
 		if(!(goToPageCheck("toggleUpdateMenu(true)")))
 		{
 			return false;
 		}
 	}
+	globalForcePageNavigate = false;
 	loadImgFromData("updateImg");
 	hideMainStuff();
 	hideSidebar();
@@ -3582,13 +3601,14 @@ function toggleAddons(force = false)
 
 function toggleAbout(force = false)
 {
-	if(!force)
+	if(!force && !globalForcePageNavigate)
 	{
 		if(!(goToPageCheck("toggleAbout(true)")))
 		{
 			return false;
 		}
 	}
+	globalForcePageNavigate = false;
 	hideMainStuff();
 	document.getElementById("mainContentFullScreenMenu").style.left = ""+402+"px";
 	document.getElementById("aboutSubMenu").style.display = "block";
@@ -3626,13 +3646,14 @@ function toggleChangeLog()
 
 function toggleWatchListMenu(force = false)
 {
-	if(!force)
+	if(!force && !globalForcePageNavigate)
 	{
 		if(!(goToPageCheck("toggleWatchListMenu(true)")))
 		{
 			return false;
 		}
 	}
+	globalForcePageNavigate = true;
 	if(typeof loadWatchList !== "function")
 	{
 		script("core/js/settingsWatchlist.js?v="+cssVersion);
@@ -3755,13 +3776,14 @@ function hideIframeStuff()
 
 function toggleIframe(locHref, idOfAddon, force = false)
 {
-	if(!force)
+	if(!force && !globalForcePageNavigate)
 	{
 		if(!(goToPageCheck("toggleIframe(\""+locHref+"\",\""+idOfAddon+"\",true)")))
 		{
 			return false;
 		}
 	}
+	globalForcePageNavigate = false;
 	hideMainStuff();
 	$("#"+idOfAddon).addClass("selected");
 	document.getElementById("fullScreenMenuIFrame").style.display = "block";

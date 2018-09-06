@@ -588,7 +588,7 @@ function generateRestoreList($configStatic)
 	$versionListText = "";
 	foreach ($versionList as $key => $value)
 	{
-		$versionListText = "<option value='".$value['branchName']."' >".$key."</option>".$versionListText;
+		$versionListText = "<option value='".str_replace("Update", "", $value['branchName'])."' >".$key."</option>".$versionListText;
 	}
 	$returnHtml .= $versionListText."</select></form>";
 	return $returnHtml;

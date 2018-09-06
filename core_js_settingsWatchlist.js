@@ -229,8 +229,22 @@ function togglePatternSelect(rowNumber)
 	setTimeout(function(){ updateSubFiles(rowNumber);  }, 50);
 }
 
+function popupForWaitUntillLoad()
+{
+	showPopup();
+	document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class='settingsHeader' >Please wait...</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Please wait until the watchlist has finished loading.</div><div><div class='link' onclick='hidePopup();' style='margin-left:165px; margin-right:50px;margin-top:35px;'>Ok!</div></div>";
+}
+
 function addFile(filePathSent = false)
 {
+	if(typeof globalForcePageNavigate !== 'undefined')
+	{
+		if(globalForcePageNavigate === true)
+		{
+			popupForWaitUntillLoad();
+			return;
+		}
+	}
 	var filePathLocal = defaultNewPathFile;
 	if(filePathSent !== false)
 	{
@@ -249,6 +263,14 @@ function addFile(filePathSent = false)
 
 function addFolder(folderPathSent = false)
 {
+	if(typeof globalForcePageNavigate !== 'undefined')
+	{
+		if(globalForcePageNavigate === true)
+		{
+			popupForWaitUntillLoad();
+			return;
+		}
+	}
 	var folderPathLocal = defaultNewPathFolder;
 	if(folderPathSent !== false)
 	{
@@ -431,6 +453,14 @@ function generateSubFiles(data)
 
 function toggleCondensed(increaseCount)
 {
+	if(typeof globalForcePageNavigate !== 'undefined')
+	{
+		if(globalForcePageNavigate === true)
+		{
+			popupForWaitUntillLoad();
+			return;
+		}
+	}
 	if(increaseCount)
 	{
 		toggleCondensedCount++;
@@ -454,6 +484,14 @@ function updateFileFolderGui(hideFiles)
 
 function addOther()
 {
+	if(typeof globalForcePageNavigate !== 'undefined')
+	{
+		if(globalForcePageNavigate === true)
+		{
+			popupForWaitUntillLoad();
+			return;
+		}
+	}
 	addRowFunction(
 		{
 			FileType: "other",
@@ -537,9 +575,14 @@ function getFileFolderData(currentFolder, hideFiles, orgPath)
 
 function getFileFolderDataMain(currentFolder, hideFiles, orgPath, currentRow)
 {
+	var localCurrentPatternSelect = document.getElementsByName("watchListKey"+currentRow+"Pattern")[0].value;
+	if(document.getElementById("patternSelectPopup"))
+	{
+		localCurrentPatternSelect = document.getElementById("patternSelectPopup").value;
+	}
 	//make ajax to get file / folder data, return array
 	var urlForSend = urlModifier+"core/php/getFileFolderData.php?format=json";
-	var data = {currentFolder, filter: document.getElementsByName("watchListKey"+currentRow+"Pattern")[0].value};
+	var data = {currentFolder, filter: localCurrentPatternSelect};
 	$.ajax({
 		url: urlForSend,
 		dataType: "json",
@@ -563,9 +606,13 @@ function updateFilterPopup()
 	getCurrentFileFolderInfoKeyPress(false);
 }
 
+function updateDropdownPopup()
+{
+	getCurrentFileFolderMainPage(staticRowNumber);
+}
+
 function getFileFolderSubFunction(data, orgPath, hideFiles, joinChar, dropdown)
 {
-	
 	var htmlSet = "";
 	var currentFile = "";
 	if(orgPath !== joinChar && orgPath !== "")
@@ -588,7 +635,14 @@ function getFileFolderSubFunction(data, orgPath, hideFiles, joinChar, dropdown)
 	}
 	if(!hideFiles && document.getElementById("patternSelectPopup") === null)
 	{
-		document.getElementById("folderNavUpHolder").innerHTML += "<div style=\"float:right; margin-right: 20px\" class=\"selectDiv\"><select onchange=\"updateFilterPopup();\" id=\"patternSelectPopup\"  >"+generatePatternSelectNoOther(currentPatternSelect)+"</select></div>";
+		if(!dropdown)
+		{
+			document.getElementById("folderNavUpHolder").innerHTML += "<div style=\"float:right; margin-right: 20px\" class=\"selectDiv\"><select onchange=\"updateFilterPopup();\" id=\"patternSelectPopup\"  >"+generatePatternSelectNoOther(currentPatternSelect)+"</select></div>";
+		}
+		else
+		{
+			document.getElementById("folderNavUpHolder").innerHTML += "<div style=\"float:right; margin-right: 20px\" class=\"selectDiv\"><select onchange=\"updateDropdownPopup();\" id=\"patternSelectPopup\"  >"+generatePatternSelectNoOther(currentPatternSelect)+"</select></div>";
+		}
 	}
 	var listOfFileOrFolders = Object.keys(data["data"]);
 	var listOfFileOrFoldersCount = listOfFileOrFolders.length;
@@ -607,7 +661,7 @@ function getFileFolderSubFunction(data, orgPath, hideFiles, joinChar, dropdown)
 		var listKey = "other";
 		if(subData["filename"].indexOf(currentFile) === 0 && currentFile !== "")
 		{
-			highlightClass = "class=\"selected\"";
+			highlightClass = "class=\"selected noInvert\"";
 			if(sortTypeFileFolderPopup === "startsWithAndcontains" || sortTypeFileFolderPopup === "startsWith")
 			{
 				listKey = "startsWith";
@@ -1224,6 +1278,13 @@ function getFileFolderList()
 
 function ajaxAddRowFirstLoad(currentCount)
 {
+	if(typeof globalForcePageNavigate !== 'undefined')
+	{
+		if(globalForcePageNavigate === false)
+		{
+			return;
+		}
+	}
 	var fileFolderListKeys = Object.keys(fileFolderList);
 	var fileFolderListCount = fileFolderListKeys.length;
 	if(fileFolderListCount > currentCount)
@@ -1261,6 +1322,32 @@ function ajaxAddRowFirstLoad(currentCount)
 		document.getElementsByClassName("uniqueClassForAppendSettingsMainWatchNew")[0].style.display = "block";
 		refreshSettingsWatchList();
 		startSettingsPollTimer();
+		if(typeof globalForcePageNavigate !== 'undefined')
+		{
+			globalForcePageNavigate = false;
+		}
+		$( "#fullScreenMenuWatchList" ).off( "mousemove" );
+		$( "#fullScreenMenuWatchList" ).on( "mousemove", function( event )
+		{
+			checkIfNeedToCloseDropdownFileShow(event);
+		});
+	}
+}
+
+function checkIfNeedToCloseDropdownFileShow(event)
+{
+	if(document.getElementById("fileFolderDropdown").style.display === "block")
+	{
+		var rectDims = document.getElementById("fileFolderDropdown").getBoundingClientRect();
+		if(((rectDims.left - 5) < event.pageX) && ((rectDims.right + 5) > event.pageX))
+		{
+			if(((rectDims.bottom + 5) > event.pageY) && ((rectDims.top - 50) < event.pageY))
+			{
+				return;
+			}
+		}
+		hideTypeDropdown(staticRowNumber);
+		$("rowNumber"+staticRowNumber).click();
 	}
 }
 
