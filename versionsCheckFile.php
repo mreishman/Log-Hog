@@ -1,7 +1,7 @@
 <?php
 
 $versionCheckArray = array(
-	'version'		=> '5.1.0.1',
+	'version'		=> '5.1.0.2',
 	'versionList'		=> array(
 		'2.0.1'	        => array(
 			'branchName'	=> '2.0.1Update',
@@ -203,7 +203,7 @@ $versionCheckArray = array(
 			'branchName'	=> '5.1Update',
 			'releaseNotes'	=> "<ul><li>Features<ul><li>Added filter icon for a grouped logs drop down in header</li><li>Added option to slow down the poll rate or pause the poll on index when viewing full screen menu</li><li>Added style option for log side bar display</li><li>Moved addons page to full screen menu</li><li>Added more noticeable notification for off screen logs</li><li>Added option to change max height of log tabs area on index</li><li>Added option in watchlist to add new file or folder from a previous file or folder base folder</li><li>Added link to themes in full screen menu</li><li>Added right click clear all notifications on notification button</li><li>When clearing or deleting logs, a temporary version is saved (of the last n lines) in a log-hog folder. These are view-able from the history icon.</li><li>Added new space theme</li><li>Add more than one group to a folder in watchlist, just add spaces!</li></ul></li></ul>"
 		),
-		'5.1.0.1'		=> array(
+		'5.1.0.2'		=> array(
 			'branchName'	=> '5.1Update',
 			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>See Release Notes For 5.0.7</li></ul></li></ul>"
 		),
