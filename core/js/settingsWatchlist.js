@@ -516,6 +516,10 @@ function expandFileFolderView(newValue, hideFiles)
 
 function getCurrentFileFolderMainPage(currentRow)
 {
+	if(document.getElementById("fileFolderDropdown").style.display !== "block")
+	{
+		showTypeDropdown(currentRow);
+	}
 	var currentDir = document.getElementsByName("watchListKey"+currentRow+"Location")[0].value;
 	var hideFiles = false;
 	if(document.getElementsByName("watchListKey"+currentRow+"FileType")[0].value === "folder")
@@ -657,11 +661,11 @@ function getFileFolderSubFunction(data, orgPath, hideFiles, joinChar, dropdown)
 		var subData = data["data"][listOfFileOrFolders[i]];
 		var selectButton = "<a class=\"linkSmall\"  onclick=\"setNewFileFolderValue('"+listOfFileOrFolders[i]+"',"+hideFiles+")\" >select</a>";
 		var name = "<span style=\"max-width: 200px; word-break: break-all; display: inline-block; \" >"+subData["filename"]+"</span>";
-		var highlightClass = "";
+		var highlightClass = "class=\" ";
 		var listKey = "other";
 		if(subData["filename"].indexOf(currentFile) === 0 && currentFile !== "")
 		{
-			highlightClass = "class=\"selected noInvert\"";
+			highlightClass += " selected noInvert ";
 			if(sortTypeFileFolderPopup === "startsWithAndcontains" || sortTypeFileFolderPopup === "startsWith")
 			{
 				listKey = "startsWith";
@@ -682,7 +686,9 @@ function getFileFolderSubFunction(data, orgPath, hideFiles, joinChar, dropdown)
 		if(dropdown)
 		{
 			selectButton = "";
+			highlightClass += " selectDropdown ";
 		}
+		highlightClass += " \"";
 		if(subData["type"] === "folder")
 		{
 			var folderHtml = "";
@@ -691,7 +697,16 @@ function getFileFolderSubFunction(data, orgPath, hideFiles, joinChar, dropdown)
 			{
 				expandButton = "";
 			}
-			folderHtml += "<div "+highlightClass+" style=\"padding: 5px;min-height:30px;\" >"+name+" <span style=\"float:right;\" > ";
+			folderHtml += "<div "+highlightClass+" ";
+			if(dropdown)
+			{
+				folderHtml += " style=\"padding: 5px;min-height:30px;cursor: pointer;\" >";
+			}
+			else
+			{
+				folderHtml += " style=\"padding: 5px;min-height:30px;\" >";
+			}
+			folderHtml += name+" <span style=\"float:right;\" > ";
 			if(hideFiles)
 			{
 				folderHtml += selectButton+" ";
@@ -707,7 +722,16 @@ function getFileFolderSubFunction(data, orgPath, hideFiles, joinChar, dropdown)
 		{
 			if(!hideFiles)
 			{
-				var fileHtml = "<div "+highlightClass+" style=\"padding: 5px;min-height:30px;\" >"+name+" <span style=\"float:right;\" > "+selectButton+" </span> </div>";
+				var fileHtml = "<div "+highlightClass+" ";
+				if(dropdown)
+				{
+					folderHtml += " style=\"padding: 5px;min-height:30px;cursor: pointer;\" >";
+				}
+				else
+				{
+					folderHtml += " style=\"padding: 5px;min-height:30px;\" >";
+				}
+				fileHtml += name+" <span style=\"float:right;\" > "+selectButton+" </span> </div>";
 				fileFolderList[listKey] += fileHtml;
 			}
 		}
@@ -1347,7 +1371,6 @@ function checkIfNeedToCloseDropdownFileShow(event)
 			}
 		}
 		hideTypeDropdown(staticRowNumber);
-		$("rowNumber"+staticRowNumber).click();
 	}
 }
 
