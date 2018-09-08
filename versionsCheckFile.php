@@ -1,7 +1,7 @@
 <?php
 
 $versionCheckArray = array(
-	'version'		=> '5.0.7',
+	'version'		=> '5.0.8',
 	'versionList'		=> array(
 		'2.0.1'	        => array(
 			'branchName'	=> '2.0.1Update',
@@ -202,6 +202,10 @@ $versionCheckArray = array(
 		'5.0.7'		=> array(
 			'branchName'	=> '5.0.7Update',
 			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed styling issue on logs with spacing</li><li>Fixed bug with restore popup</li><li>Fixed bug with clicking off of watchlist before load ends</li><li>Fixed bug with not checking for save before toggle menu</li><li>Fixed restore downloading wrong branch</li><li>Fixed style issue with watchlist dropdown</li><li>Fixed bug with not being able to select file type selector in watchlist dropdown</li><li>Fixed bug with sub file lists causing errors when recursive is enabled</li></ul></li></ul>"
+		),
+		'5.0.8'		=> array(
+			'branchName'	=> '5.0.8Update',
+			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed issue with redirect on theme upgrade not copying over image / css</li><li>Fixed issue with update error with long timeouts for verify unzip file</li><li>Fixed issue with favicon on index page</li><li>Fixed issue on update in progress page not redirecting correctly (also added option to manually redirect to updater)</li><li>Updated some error messages on upgrade config, upgrade theme and download functions</li><li>An error in the main updater will not clear log before showing error message</li></ul></li></ul>"
 		),
 	)
 );
