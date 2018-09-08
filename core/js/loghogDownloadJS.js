@@ -236,5 +236,5 @@ function updateError()
 {
 	//error popup
 	showPopup();
-	document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' id='popupHeaderText' ><span id='popupHeaderText' >Error</span></div><br><br><div style='width:100%;text-align:center;'> Error when trying to modify addon <a class=\"link\" onclick=\"hidePopup();\" >Close</a> </div>";
+	document.getElementById('popupContentInnerHTMLDiv').innerHTML += "<div class='settingsHeader' id='popupHeaderText' ><span id='popupHeaderText' >Error</span></div><br><br><div style='width:100%;text-align:center;'> Error when trying to modify addon <a class=\"link\" onclick=\"hidePopup();\" >Close</a> </div>";
 }
