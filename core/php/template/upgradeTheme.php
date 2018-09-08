@@ -214,7 +214,7 @@ if((strval($baseFileVersion) === strval($oldFileVersion)) && (file_exists("../..
 
 	function updateError()
 	{
-		document.getElementById('innerDisplayUpdate').innerHTML = "<p>An error occured while trying to copy over your selected theme. </p>";
+		document.getElementById('innerDisplayUpdate').innerHTML = "<h1>An error occured while trying to copy over your selected theme. </h1>";
 	}
 
 	function verifyFail()

@@ -186,7 +186,7 @@ $totalUpgradeScripts = floatval($layoutVersionToUpgradeTo) - floatval($layoutVer
 
 	function updateError()
 	{
-		document.getElementById('innerDisplayUpdate').innerHTML = "<p>An error occured while trying to download Monitor. </p>";
+		document.getElementById('innerDisplayUpdate').innerHTML = "<h1>An error occured while trying to upgrade layout file. </h1>";
 	}
 
 	function verifyFail(action)
