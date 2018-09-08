@@ -7,6 +7,7 @@
 </head>
 <body>
 <?php
+require_once('../../../core/php/commonFunctions.php');
 $baseUrl = "../../../core/";
 if(file_exists('../../../local/layout.php'))
 {
@@ -16,37 +17,23 @@ if(file_exists('../../../local/layout.php'))
 	$baseUrl .= $currentSelectedTheme."/";
 }
 require_once($baseUrl.'conf/config.php');
-require_once('../../../core/php/commonFunctions.php');
 require_once('../../../core/conf/config.php');
 require_once('../../../core/php/configStatic.php');
-$currentTheme = loadSpecificVar($defaultConfig, $config, "currentTheme");
-if(is_dir('../../../local/'.$currentSelectedTheme.'/Themes/'.$currentTheme))
-{
-	require_once('../../../local/'.$currentSelectedTheme.'/Themes/'.$currentTheme."/defaultSetting.php");
-}
-else
-{
-	require_once('../../../core/Themes/'.$currentTheme."/defaultSetting.php");
-}
 require_once('../../../core/php/loadVars.php');
-$baseFileVersion = $defaultConfig["themeVersion"];
-$oldFileVersion = $config["themeVersion"];
-$forceThemeUpdate = false;
-if(isset($_GET["forceThemeUpdate"]))
+
+$configVersion = 0;
+if(isset($config['configVersion']))
 {
-	$forceThemeUpdate = true;
+	$configVersion = $config['configVersion'];
 }
-if((strval($baseFileVersion) === strval($oldFileVersion)) && (file_exists("../../../local/".$currentSelectedTheme."/img/info.png")) && !$forceThemeUpdate)
-{
-	header("Location: "."../../../settings/whatsNew.php", true, 302); /* Redirect browser */
-	exit();
-}
+$configVersionToUpgradeTo = $defaultConfig['configVersion'];
+$totalUpgradeScripts = floatval($configVersionToUpgradeTo) - floatval($configVersion);
 ?>
 
 <div id="main">
 	<div class="settingsHeader" style="text-align: center;" >
 		<span id="titleHeader" >
-			<h1>Copying over Theme files to local/<?php echo $currentSelectedTheme; ?>/theme...</h1>
+			<h1>Running Upgrade Scripts for Config...</h1>
 		</span>
 	</div>
 	<div class="settingsDiv" >
@@ -56,55 +43,24 @@ if((strval($baseFileVersion) === strval($oldFileVersion)) && (file_exists("../..
 			<table style="padding: 10px;">
 				<tr>
 					<td style="height: 50px;">
-						<?php echo generateImage(
-							$arrayOfImages["loading"],
-							array(
-								"height"		=>	"30px",
-								"srcModifier"	=>	"../../../",
-								"id"			=>	"runLoad"
-							)
-						); ?>
-						<?php echo generateImage(
-							$arrayOfImages["greenCheck"],
-							array(
-								"height"		=>	"30px",
-								"srcModifier"	=>	"../../../",
-								"id"			=>	"runCheck",
-								"style"			=>	"display: none;"
-							)
-						); ?>
+						<img id="runLoad" src="../../../core/img/loading.gif" height="30px;">
+						<img id="runCheck" style="display: none;" src="../../../core/img/greenCheck.png" height="30px;">
 					</td>
 					<td style="width: 20px;">
 					</td>
 					<td>
-						Copying Images / CSS
-					</td>
+						Running upgrade script <span id="runCount">1</span> of <?php echo $totalUpgradeScripts;?>
+					</td>	
 				</tr>
 				<tr>
 					<td style="height: 50px;">
-						<?php echo generateImage(
-							$arrayOfImages["loading"],
-							array(
-								"height"		=>	"30px",
-								"srcModifier"	=>	"../../../",
-								"id"			=>	"verifyLoad",
-								"style"			=>	"display: none;"
-							)
-						); ?>
-						<?php echo generateImage(
-							$arrayOfImages["greenCheck"],
-							array(
-								"height"		=>	"30px",
-								"srcModifier"	=>	"../../../",
-								"id"			=>	"verifyCheck",
-								"style"			=>	"display: none;"
-							)
-						); ?>
+						<img id="verifyLoad" style="display: none;" src="../../../core/img/loading.gif" height="30px;">
+						<img id="verifyCheck" style="display: none;" src="../../../core/img/greenCheck.png" height="30px;">
 					</td>
 					<td style="width: 20px;">
 					</td>
 					<td>
-						Verifying Copied files
+						Verifying upgrade script <span id="verifyCount">1</span> of <?php echo $totalUpgradeScripts;?>
 					</td>
 				</tr>
 			</table>
@@ -118,32 +74,48 @@ if((strval($baseFileVersion) === strval($oldFileVersion)) && (file_exists("../..
 <script src="../../../core/js/settings.js?v=<?php echo $cssVersion?>"></script>
 <script type="text/javascript"> 
 	var lock = false;
-	var urlForSendMain0 = '../themeChangeLogic.php?format=json';
-	var urlForSendMain1 = '../themeChangeLogicVerify.php?format=json';
+	var urlForSendMain0 = '../../../core/php/checkVersionOfConfig.php?format=json';
+	var urlForSendMain = '../../../core/php/upgradeScript/upgradeConfig-';
+	var urlForSendMain2 = '.php?format=json';
+	var globalVersionBase = 1;
+	<?php
+	echo "var startVersion = ".$configVersion.";";
+	echo "var endVersion = ".$configVersionToUpgradeTo.";";
+	?>
 	var verifyCountSuccess = 0;
 	$( document ).ready(function()
 	{
-		copyFiles();
+		if(endVersion > startVersion)
+		{
+			runScript(startVersion+1);
+		}
+		else
+		{
+			window.location.href = "../../../settings/whatsNew.php";
+		}
 	});
 
-	function copyFiles()
+	function runScript(version)
 	{
-		var urlForSend = urlForSendMain0;
-		var dataSend = {};
+		document.getElementById("runCount").innerHTML = globalVersionBase;
+		document.getElementById("verifyCount").innerHTML = globalVersionBase;
+		document.getElementById('runLoad').style.display = "block";
+		document.getElementById('verifyLoad').style.display = "none";
+		var urlForSend = urlForSendMain+version+urlForSendMain2;
+		var dataSend = {version: version};
 		$.ajax({
 			url: urlForSend,
 			dataType: 'json',
 			data: dataSend,
 			type: 'POST',
-			success(data)
+			success: function(data)
 			{
 				verifyFile(data);
 			},
-			failure(data)
+			failure: function(data)
 			{
-				verifyFile(false);
-			},
-			complete(data){}
+				runScript(startVersion+1);
+			}
 		});
 	}
 
@@ -160,26 +132,26 @@ if((strval($baseFileVersion) === strval($oldFileVersion)) && (file_exists("../..
 
 	function verifyFilePoll(version)
 	{
-		if(lock === false)
+		if(lock == false)
 		{
 			lock = true;
-			var urlForSend = urlForSendMain1;
+			var urlForSend = urlForSendMain0;
 			var data = {version: version};
 			(function(_data){
 				$.ajax({
 					url: urlForSend,
 					dataType: 'json',
-					data,
+					data: data,
 					type: 'POST',
-					success(data)
+					success: function(data)
 					{
-						verifyPostEnd(data);
+						verifyPostEnd(data, _data);
 					},
-					failure(data)
+					failure: function(data)
 					{
-						verifyPostEnd(data);
+						verifyPostEnd(data, _data);
 					},
-					complete()
+					complete: function()
 					{
 						lock = false;
 					}
@@ -188,7 +160,7 @@ if((strval($baseFileVersion) === strval($oldFileVersion)) && (file_exists("../..
 		}
 	}
 
-	function verifyPostEnd(verified)
+	function verifyPostEnd(verified, data)
 	{
 		if(verified == true)
 		{
@@ -197,7 +169,7 @@ if((strval($baseFileVersion) === strval($oldFileVersion)) && (file_exists("../..
 			{
 				verifyCountSuccess = 0;
 				clearInterval(verifyFileTimer);
-				verifySucceded();
+				verifySucceded(data['lastAction']);
 			}
 		}
 		else
@@ -207,25 +179,34 @@ if((strval($baseFileVersion) === strval($oldFileVersion)) && (file_exists("../..
 			if(verifyCount > 29)
 			{
 				clearInterval(verifyFileTimer);
-				verifyFail();
+				verifyFail(data['lastAction']);
 			}
 		}
 	}
 
 	function updateError()
 	{
-		document.getElementById('innerDisplayUpdate').innerHTML = "<h1>An error occured while trying to copy over your selected theme. </h1>";
+		document.getElementById('innerDisplayUpdate').innerHTML = "<h1>An error occured while trying to upgrade config file. </h1>";
 	}
 
-	function verifyFail()
+	function verifyFail(action)
 	{
 		updateError();
 	}
 
-	function verifySucceded()
+	function verifySucceded(action)
 	{
 		retryCount = 0;
-		finishedTmpUpdate();
+		startVersion++;
+		globalVersionBase++;
+		if(endVersion > startVersion)
+		{
+			runScript(startVersion+1);
+		}
+		else
+		{
+			finishedTmpUpdate();
+		}
 	}
 
 	function finishedTmpUpdate()

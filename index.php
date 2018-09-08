@@ -97,7 +97,7 @@ $externalLinkImage = generateImage(
 <head>
 	<title>Log Hog | Index</title>
 	<?php echo loadCSS("", $baseUrl, $cssVersion);?>
-	<link rel="icon" type="image/png" href="<?php echo $baseUrl; ?>img/favicon.png" />
+	<link rel="icon" type="image/png" href="core/img/favicon.png" />
 	<script src="core/js/jquery.js"></script>
 	<?php
 		echo loadSentryData($sendCrashInfoJS, $branchSelected);
@@ -259,7 +259,8 @@ $externalLinkImage = generateImage(
 		7	=>	"format.js",
 		8	=>	"rightClickJS.js",
 		9	=>	"update.js",
-		10	=>	"settings.js"
+		10	=>	"settings.js",
+		11	=>	"loghogDownloadJS.js"
 	);
 	foreach ($jsToLoad as $jsFile): ?>
 		<script src="core/js/<?php echo $jsFile; ?>?v=<?php echo $cssVersion?>"></script>

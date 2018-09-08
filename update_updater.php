@@ -386,7 +386,7 @@ if(count($arrayOfVersions) === 0)
 
 	function updateError()
 	{
-		document.getElementById('innerSettingsText').innerHTML = "<p>An error occured while trying to update Log-Hog. </p>";
+		document.getElementById('innerSettingsText').innerHTML += "<h2>An error occured while trying to update Log-Hog. </h2>";
 	}
 
 	function verifyFail(action)
@@ -407,7 +407,7 @@ if(count($arrayOfVersions) === 0)
 			}
 			else if(action == 'unzipUpdateAndReturnArray')
 			{
-				unzipUpdateAndReturnArray();
+				unzipBranch();
 			}
 			else if(action == 'removeDirUpdate')
 			{

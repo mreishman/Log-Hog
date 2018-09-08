@@ -118,7 +118,6 @@
 	<script type="text/javascript">
 		var listOfAddons = <?php echo json_encode($listOfAddons); ?>;
 	</script>
-	<script src="core/js/loghogDownloadJS.js"></script>
 	<table style="width: 100%;">
 		<tr>
 			<td width="15%">
