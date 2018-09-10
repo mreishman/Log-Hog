@@ -346,7 +346,7 @@ function verifyChange(urlSend)
 				if(data == "finishedUpdate")
 				{
 					verifyCountSuccess++;
-					if(verifyCountSuccess >= successVerifyNum)
+					if(verifyCountSuccess > successVerifyNum)
 					{
 						verifyCountSuccess = 0;
 						clearInterval(timeoutVar);

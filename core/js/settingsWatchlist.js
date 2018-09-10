@@ -700,7 +700,7 @@ function getFileFolderSubFunction(data, orgPath, hideFiles, joinChar, dropdown)
 			folderHtml += "<div "+highlightClass+" ";
 			if(dropdown)
 			{
-				folderHtml += " style=\"padding: 5px;min-height:30px;cursor: pointer;\" >";
+				folderHtml += " onclick=\"addFileFolderToInputSelected('"+subData["filename"]+"');\" style=\"padding: 5px;min-height:30px;cursor: pointer;\" >";
 			}
 			else
 			{
@@ -725,11 +725,11 @@ function getFileFolderSubFunction(data, orgPath, hideFiles, joinChar, dropdown)
 				var fileHtml = "<div "+highlightClass+" ";
 				if(dropdown)
 				{
-					folderHtml += " style=\"padding: 5px;min-height:30px;cursor: pointer;\" >";
+					fileHtml += " onclick=\"addFileFolderToInputSelected('"+subData["filename"]+"');\" style=\"padding: 5px;min-height:30px;cursor: pointer;\" >";
 				}
 				else
 				{
-					folderHtml += " style=\"padding: 5px;min-height:30px;\" >";
+					fileHtml += " style=\"padding: 5px;min-height:30px;\" >";
 				}
 				fileHtml += name+" <span style=\"float:right;\" > "+selectButton+" </span> </div>";
 				fileFolderList[listKey] += fileHtml;
@@ -741,6 +741,14 @@ function getFileFolderSubFunction(data, orgPath, hideFiles, joinChar, dropdown)
 	htmlSet += fileFolderList["contains"];
 	htmlSet += fileFolderList["other"];
 	document.getElementById("folderFileInfoHolder").innerHTML = htmlSet;
+}
+
+function addFileFolderToInputSelected(newValue)
+{
+	var joinChar = getJoinCharMain(staticRowNumber);
+	var newDir = getCurrentDir(document.getElementsByName("watchListKey"+staticRowNumber+"Location")[0].value, joinChar);
+	document.getElementsByName("watchListKey"+staticRowNumber+"Location")[0].value = newDir+joinChar+newValue;
+	hideTypeDropdown(staticRowNumber);
 }
 
 function showTypeDropdown(rowNumber)
