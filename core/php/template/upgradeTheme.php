@@ -31,7 +31,12 @@ else
 require_once('../../../core/php/loadVars.php');
 $baseFileVersion = $defaultConfig["themeVersion"];
 $oldFileVersion = $config["themeVersion"];
-if(strval($baseFileVersion) === strval($oldFileVersion) && file_exists("../../../local/".$currentSelectedTheme."/img/info.png"))
+$forceThemeUpdate = false;
+if(isset($_GET["forceThemeUpdate"]))
+{
+	$forceThemeUpdate = true;
+}
+if((strval($baseFileVersion) === strval($oldFileVersion)) && (file_exists("../../../local/".$currentSelectedTheme."/img/info.png")) && !$forceThemeUpdate)
 {
 	header("Location: "."../../../settings/whatsNew.php", true, 302); /* Redirect browser */
 	exit();
@@ -209,7 +214,7 @@ if(strval($baseFileVersion) === strval($oldFileVersion) && file_exists("../../..
 
 	function updateError()
 	{
-		document.getElementById('innerDisplayUpdate').innerHTML = "<p>An error occured while trying to copy over your selected theme. </p>";
+		document.getElementById('innerDisplayUpdate').innerHTML = "<h1>An error occured while trying to copy over your selected theme. </h1>";
 	}
 
 	function verifyFail()
