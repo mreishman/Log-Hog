@@ -1287,8 +1287,11 @@ function update(data)
 								{
 									logFormatted = makePretty(id);
 								}
-								$("#log"+currentIdPos).html(logFormatted);
-								fadeHighlight(currentIdPos);
+								if(logFormatted !== $("#log"+currentIdPos).html())
+								{
+									$("#log"+currentIdPos).html(logFormatted);
+									fadeHighlight(currentIdPos);
+								}
 								if(document.getElementById(id+"Count").innerHTML !== "")
 								{
 									document.getElementById(id+"Count").innerHTML = "";
