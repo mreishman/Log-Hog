@@ -186,7 +186,7 @@ $totalUpgradeScripts = floatval($configVersionToUpgradeTo) - floatval($configVer
 
 	function updateError()
 	{
-		document.getElementById('innerDisplayUpdate').innerHTML = "<p>An error occured while trying to download Monitor. </p>";
+		document.getElementById('innerDisplayUpdate').innerHTML = "<h1>An error occured while trying to upgrade config file. </h1>";
 	}
 
 	function verifyFail(action)
