@@ -7,6 +7,7 @@ var dataFromJSON = "";
 var verifyCountSuccess = 0;
 var verifyCheckCount = 0;
 var totalCounter = 1;
+var totalCounterInstall = 1;
 var updateCheckFinished = true;
 var checkForUpdatePoll = null;
 var installUpdatePoll = null;
@@ -89,6 +90,7 @@ function checkForUpdates(urlSend = "../", whatAmIUpdating = "Log-Hog", currentNe
 						{
 							document.getElementById("progressBarText").innerHTML = "Verifying version list file for "+whatAmIUpdating+" "+totalCounter+"/"+verifyCheckCount+"/"+(successVerifyNum+1);
 						}
+						totalCounter = 1;
 						checkForUpdatePoll = setInterval(function(){checkForUpdateTimer(urlSend, whatAmIUpdating);},3000);
 					}
 				}
@@ -325,6 +327,7 @@ function installUpdates(urlSend = "../", updateFormIDLocal = "settingsInstallUpd
 		{
 			updateFormIDLocal = updateFormID;
 		}
+		totalCounterInstall = 1;
 		urlSend = urlSend;
 		updateFormID = updateFormIDLocal;
 		displayLoadingPopup(imgLocatin);
@@ -378,6 +381,20 @@ function verifyChange(urlSend)
 				{
 					verifyCountSuccess = 0;
 				}
+			},
+			failure(data)
+			{
+				if(totalCounterInstall > 30)
+				{
+					//error message
+					clearInterval(installUpdatePoll);
+					showPopup();
+					document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class='settingsHeader' >Error</div><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>An error occured while trying to check for updates for "+whatAmIUpdating+". Make sure you are connected to the internet and settingsCheckForUpdate.php has sufficient rights to write / create files. </div><div class='link' onclick='closePopupNoUpdate();' style='margin-left:165px; margin-right:50px;margin-top:5px;'>Okay!</div></div>";
+				}
+			},
+			complete(data)
+			{
+				totalCounterInstall++;
 			}
 		});
 	}
