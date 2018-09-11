@@ -233,6 +233,8 @@ $externalLinkImage = generateImage(
 			echo "var daysSinceLastCheck = '".$daysSince."';";
 			echo "var windowDisplayConfigRowCount = ".$windowDisplayConfig[0].";";
 			echo "var windowDisplayConfigColCount = ".$windowDisplayConfig[1].";";
+			echo "var updateIconYellowSrc = '".$arrayOfImages["updateYellow"]."';";
+			echo "var updateIconRedSrc = '".$arrayOfImages["updateRed"]."';";
 			$srcForLoadImage = "core/img/loading.gif";
 			if(isset($arrayOfImages))
 			{

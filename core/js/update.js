@@ -225,6 +225,18 @@ function showPopupForUpdate(urlSend,whatAmIUpdating)
 				document.getElementById("progressBarText").innerHTML = "";
 			}
 		}
+		if(document.getElementById("update"))
+		{
+			var newSrc = updateIconRedSrc;
+			if(dataFromJSON.version == "1")
+			{
+				newSrc = updateIconYellowSrc;
+			}
+			if(document.getElementById("update").src !== newSrc)
+			{
+				document.getElementById("update").src = newSrc;
+			}
+		}
 
 		//Update needed
 		if(document.getElementById("fullScreenMenu").style.display === "none")
