@@ -187,7 +187,18 @@ function checkForUpdateTimer(urlSend, whatAmIUpdating)
 			{
 				updateCheckFinished = true;
 				clearInterval(checkForUpdatePoll);
-				showPopupForUpdate(urlSend,whatAmIUpdating);
+				if(whatAmIUpdating === "Log-Hog")
+				{
+					showPopupForUpdate(urlSend,whatAmIUpdating);
+				}
+				else
+				{
+					//inner addon update
+					hidePopup();
+					$.get( "core/php/template/innerAddon.php", function( data ) {
+						$("#innerAddonSpanReplace").html(data);
+					});
+				}
 			}
 		}
 		else
