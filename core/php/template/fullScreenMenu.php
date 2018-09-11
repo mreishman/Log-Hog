@@ -30,6 +30,11 @@
 	<li id="themeSubMenuColorScheme" onclick="toggleThemeColorScheme();">
 		Color Scheme
 	</li>
+	<li class="menuTitle" style="text-align: center;" >
+	</li>
+	<li class="subMenuActionsColorScheme" style="display: none;" onclick="" >
+		Add Row
+	</li>
 </ul>
 <ul id="watchListSubMenu" class="settingsUl fullScreenMenuUL settingsUlSub" style="display: none;">
 	<li class="menuTitle" style="text-align: center;" >
