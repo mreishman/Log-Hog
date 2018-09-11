@@ -226,9 +226,7 @@ function verifySucceded(action)
 	updateText("Verified Action");
 	if(action == 'downloadLogHog')
 	{
-		updateProgressBar(10);
-		updateStatusFunc("Extracting Zip Files For ", "");
-		unzipBranch();
+		verifyDownloadDownloaded();
 	}
 	else if(action == 'unzipUpdateAndReturnArray')
 	{
@@ -253,6 +251,42 @@ function verifySucceded(action)
 		postScriptRun();
 		updateStatusFunc("postUpgrade Scripts", "");
 	}
+}
+
+function verifyDownloadDownloaded()
+{
+	var data = {action: 'verifyFileHasStuff', fileLocation: '../../update/downloads/updateFiles/updateFiles.zip'};
+	(function(_data){
+		$.ajax({
+			url: urlForSendMain,
+			dataType: 'json',
+			data: data,
+			type: 'POST',
+			success: function(data)
+			{
+				if(data == true)
+				{
+					updateProgressBar(1);
+					updateStatusFunc("Extracting Zip Files For ", "");
+					unzipBranch();
+				}
+				else
+				{
+					verifyDownloadError();
+				}
+			},
+			failure: function(data)
+			{
+				verifyDownloadError();
+			}
+		});
+	}(data));
+}
+
+function verifyDownloadError()
+{
+	updateStatusFunc("Could not verify download downloaded correctly. Please ensure that there is enough free space on drive to download update. ", "");
+	updateError();
 }
 
 function verifyFileOrDir(action, fileLocation)
