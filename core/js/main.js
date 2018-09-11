@@ -42,6 +42,7 @@ var pollTimer = null;
 var progressBar;
 var refreshing = false;
 var refreshPauseActionVar;
+var sideBarVisible = true;
 var startedPauseOnNonFocus = false;
 var startOfPollLogicRan = false;
 var t0 = performance.now();
@@ -2458,6 +2459,10 @@ function resizeFullScreenMenu()
 	{
 		var targetWidth = window.innerWidth;
 		var mainContentFullScreenMenuLeft = "402px";
+		if(!sideBarVisible)
+		{
+			mainContentFullScreenMenuLeft = "201px";
+		}
 		var mainContentFullScreenMenuTop = "46px";
 		if(sideBarOnlyIcons === "breakpointone" || targetWidth < breakPointOne || sideBarOnlyIcons === "breakpointtwo")
 		{
@@ -2468,6 +2473,10 @@ function resizeFullScreenMenu()
 				$(".settingsUlSub").css("left", "52px");
 			}
 			mainContentFullScreenMenuLeft = "252px";
+			if(!sideBarVisible)
+			{
+				mainContentFullScreenMenuLeft = "52px";
+			}
 		}
 		else
 		{
@@ -3809,6 +3818,7 @@ function endSettingsPollTimer()
 
 function hideSidebar()
 {
+	sideBarVisible = false;
 	var mainContentFullScreenMenuLeft = "201px";
 	if(sideBarOnlyIcons === "breakpointone" || window.innerWidth < breakPointOne || sideBarOnlyIcons === "breakpointtwo")
 	{
@@ -3908,12 +3918,14 @@ function hideMainStuff()
 	{
 		hideUpdateStuff();
 		$("#mainMenuUpdate").removeClass("selected");
+		sideBarVisible = true;
 	}
 
 
 	if($("#menuStatusAddon").hasClass("selected") || $("#menuMonitorAddon").hasClass("selected") || $("#menuSearchAddon").hasClass("selected") || $("#menuSeleniumMonitorAddon").hasClass("selected"))
 	{
 		hideIframeStuff();
+		sideBarVisible = true;
 	}
 
 	if($("#watchListMenu").hasClass("selected"))
@@ -3924,7 +3936,8 @@ function hideMainStuff()
 
 	if($("#mainMenuAddons").hasClass("selected"))
 	{
-		 hideAddonStuff();
+		hideAddonStuff();
+		sideBarVisible = true;
 	}
 
 	if($("#ThemesLink") && $("#ThemesLink").hasClass("selected"))
