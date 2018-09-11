@@ -7,8 +7,14 @@ require_once('../core/php/configStatic.php');
 require_once('../core/php/updateProgressFile.php');
 require_once('../core/php/settingsInstallUpdate.php');
 $redirectUrl = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-$redirectUrl = str_replace("updater.php", "whatsNew.php", $redirectUrl);
-$redirectUrl = str_replace("update", "settings", $redirectUrl);
+if(strpos($redirectUrl, "updater.php") > -1)
+{
+	$redirectUrl = str_replace("updater.php", "whatsNew.php", $redirectUrl);
+}
+if(strpos($redirectUrl, "update") > -1)
+{
+	$redirectUrl = str_replace("update", "settings", $redirectUrl);
+}
 setCookieRedirect($redirectUrl);
 $noUpdateNeeded = true;
 $versionToUpdate = "";
@@ -23,7 +29,6 @@ if($configStatic['newestVersion'] != $configStatic['version'])
 	$noUpdateNeeded = false;
 	foreach ($configStatic['versionList'] as $key => $value)
 	{
-
 		$version = explode('.', $configStatic['version']);
 		$newestVersion = explode('.', $key);
 
@@ -107,7 +112,6 @@ if($levelOfUpdate == 0)
 	$noUpdateNeeded = true;
 }
 
-
 $updateStatus = $updateProgress['currentStep'];
 
 if($updateProgress['currentStep'] == "Finished Updating to ")
@@ -136,75 +140,53 @@ if(count($arrayOfVersions) === 0)
 	<script src="../core/js/jquery.js"></script>
 </head>
 <body>
-
-
-<div id="main">
-	<div class="settingsHeader" style="text-align: center;" >
-		<span id="titleHeader" >
-		<?php if($update):?>
-			<?php if ($configStatic['newestVersion'] == $versionToUpdate): ?>
-				<h1>Updating to version <?php echo $versionToUpdate ; ?></h1>
+	<div id="main">
+		<div class="settingsHeader" style="text-align: center;" >
+			<span id="titleHeader" >
+			<?php if($update):?>
+				<?php if ($configStatic['newestVersion'] == $versionToUpdate): ?>
+					<h1>Updating to version <?php echo $versionToUpdate ; ?></h1>
+				<?php else: ?>
+					<h1>Installing Update <span id="countOfVersions" >1</span> of <?php echo count($arrayOfVersions); ?> ... Updating to version <span id="currentUpdatTo" ><?php echo $versionToUpdate ?></span>/<?php echo $configStatic['newestVersion'];?></h1>
+				<?php endif; ?>
 			<?php else: ?>
-				<h1>Installing Update <span id="countOfVersions" >1</span> of <?php echo count($arrayOfVersions); ?> ... Updating to version <span id="currentUpdatTo" ><?php echo $versionToUpdate ?></span>/<?php echo $configStatic['newestVersion'];?></h1>
+				<h1>There are no updates</h1>
+				<script type="text/javascript">
+					setTimeout(function(){ window.location.href = "../settings/whatsNew.php"; }, 3000);
+				</script>
 			<?php endif; ?>
-		<?php else: ?>
-			<h1>There are no updates</h1>
-			<script type="text/javascript">
-				setTimeout(function(){ window.location.href = "../settings/whatsNew.php"; }, 3000);
-			</script>
-		<?php endif; ?>
-		</span>
-		<div id="menu" style="margin-right: auto; margin-left: auto; position: relative; display: none;">
-			<h2 style="color: white;">If this page doesn't redirect within 10 seconds... click here:</h2>
-			<br>
-			<a onclick="window.location.href = '../settings/update.php'">Back to Log-Hog</a>
+			</span>
+			<div id="menu" style="margin-right: auto; margin-left: auto; position: relative; display: none;">
+				<h2 style="color: white;">If this page doesn't redirect within 10 seconds... click here:</h2>
+				<br>
+				<a onclick="window.location.href = '../index.php'">Back to Log-Hog</a>
+			</div>
 		</div>
-	</div>
-	<div class="settingsDiv" >
-		<div class="updatingDiv">
-			<progress id="progressBar" value="0" max="100" style="width: 95%; margin-top: 10px; margin-bottom: 10px; margin-left: 2.5%; -webkit-appearance: none; appearance: none;" ></progress>
-			<p style="border-bottom: 1px solid white;"></p>
-			<div id="innerDisplayUpdate" style="height: 300px; overflow: auto; max-height: 300px;">
-
-			</div>
-			<p style="border-bottom: 1px solid white;"></p>
-			<div class="settingsHeader">
-			Log Info
-			</div>
-			<div id="innerSettingsText" class="settingsDiv" style="height: 75px; overflow-y: scroll;" >
-				<?php require_once('../core/php/updateProgressLog.php'); ?>
+		<div class="settingsDiv" >
+			<div class="updatingDiv">
+				<progress id="progressBar" value="0" max="100" style="width: 95%; margin-top: 10px; margin-bottom: 10px; margin-left: 2.5%; -webkit-appearance: none; appearance: none;" ></progress>
+				<p style="border-bottom: 1px solid white;"></p>
+				<div id="innerDisplayUpdate" style="height: 300px; overflow: auto; max-height: 300px;"></div>
+				<p style="border-bottom: 1px solid white;"></p>
+				<div class="settingsHeader">Log Info</div>
+				<div id="innerSettingsText" class="settingsDiv" style="height: 75px; overflow-y: scroll;" >
+					<?php require_once('../core/php/updateProgressLog.php'); ?>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
 </body>
 
 <script src="../core/js/settings.js?v=<?php echo $cssVersion?>"></script>
 <script src="../core/js/settingsExt.js?v=<?php echo $cssVersion?>"></script>
 <script src="updater.js?v=<?php echo $cssVersion?>"></script>
-<script type="text/javascript"> 
+<script type="text/javascript">
 	var updateStatus = '<?php echo $updateStatus; ?>'
-	var headerForUpdate = document.getElementById('headerForUpdate');
-	var urlForSendMain = '../core/php/performSettingsInstallUpdateAction.php?format=json';
-	var retryCount = 0;
-	var verifyFileTimer;
 	var versionToUpdateTo = "<?php echo $versionToUpdate; ?>";
-	var percent = 0;
-	var arrayOfFilesExtracted;
-	var lock = false;
 	var settingsForBranchStuff = JSON.parse('<?php echo json_encode($configStatic);?>');
-	var filteredArray = new Array();
-	var preScriptCount = 1;
-	var postScriptCount = 1;
-	var fileCopyCount = 0;
 	var arrayOfVersions = JSON.parse('<?php echo json_encode($arrayOfVersions);?>');
 	<?php echo "var arrayOfVersionsCount = ".count($arrayOfVersions).";";?>
-	var total = 100*arrayOfVersionsCount;
-	var versionCountCurrent = 1;
-	var lastFileCheck = "";
 	var update = "<?php echo $update;?>";
-	var verifyCountSuccess = 0;
-	var successVerifyNum = 4; 
 
 	$( document ).ready(function()
 	{

@@ -1,3 +1,20 @@
+var headerForUpdate = document.getElementById('headerForUpdate');
+var urlForSendMain = '../core/php/performSettingsInstallUpdateAction.php?format=json';
+var retryCount = 0;
+var verifyFileTimer;
+var percent = 0;
+var arrayOfFilesExtracted;
+var lock = false;
+var filteredArray = new Array();
+var preScriptCount = 1;
+var postScriptCount = 1;
+var fileCopyCount = 0;
+var total = 100*arrayOfVersionsCount;
+var versionCountCurrent = 1;
+var lastFileCheck = "";
+var verifyCountSuccess = 0;
+var successVerifyNum = 4;
+
 function updateProgressBar(additonalPercent)
 {
 	percent = percent + additonalPercent;
