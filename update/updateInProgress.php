@@ -6,7 +6,7 @@ require_once($baseUrl.'conf/config.php');
 require_once('../core/php/configStatic.php');
 require_once('../core/php/updateProgressFile.php');
 require_once('../core/php/settingsInstallUpdate.php');
-$cssVersion = rand(1, 999999);
+$cssVersion = date("YmdHis");
 ?>
 <!doctype html>
 <head>
