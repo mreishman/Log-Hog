@@ -8,96 +8,32 @@ $i = 0;
 foreach ($folderColorArrays as $key => $value):
 	$i++ ?>
 	<li>
-		<span class="settingsBuffer" > <input type="radio" name="currentFolderColorTheme" <?php if ($key == $currentFolderColorTheme){echo "checked='checked'";}?> value="<?php echo $key; ?>"> <?php echo $key; ?>: </span>  <input style="display: none;" type="text" name="folderColorThemeNameForPost<?php echo $i;?>" value="<?php echo $key; ?>" >
-
-		Main Colors: 
-		<span class="colorFolderMainWidth" >
-		<?php $j = 0;
-		foreach ($value['main'] as $key2 => $value2):
-			$j++;?>
-		<div class="divAroundColors">
-			<div class="colorSelectorDiv" style="background-color: <?php echo $value2['background']; ?>; border-bottom: 0px;" >
-				<!-- <div class="inner-triangle" ></div> -->
-			</div>
-			<input style="width: 100px; display: none;" type="text" name="folderColorValueMainBackground<?php echo $i; ?>-<?php echo $j;?>" value="<?php echo $value2['background']; ?>" >
-			<div class="colorSelectorDiv" style="background-color: <?php echo $value2['fontColor']; ?>; border-top: 0px;" >
-				<!-- <div class="inner-triangle" ></div> -->
-			</div>
-			<input style="width: 100px; display: none;" type="text" name="folderColorValueMainFont<?php echo $i; ?>-<?php echo $j;?>" value="<?php echo $value2['fontColor']; ?>" >
-		</div>
-		<?php endforeach;
-		if($j > $mainFolderColorMax)
+		<?php $newRow = generateFolderColorRow(array(
+			"key"							=>	$key,
+			"currentFolderColorTheme"		=>	$currentFolderColorTheme,
+			"i"								=>	$i,
+			"value"							=>	$value
+		));
+		echo $newRow["html"];
+		?>
+		<?php
+		if($newRow["newMainMax"] > $mainFolderColorMax)
 		{
-			$mainFolderColorMax = $j;
+			$mainFolderColorMax = $newRow["newMainMax"];
+		}
+		if($newRow["newHighlightMax"] > $highlightFolderColorMax)
+		{
+			$highlightFolderColorMax = $newRow["newHighlightMax"];
+		}
+		if($newRow["newActiveMax"] > $activeFolderColorMax)
+		{
+			$activeFolderColorMax = $newRow["newActiveMax"];
+		}
+		if($newRow["newActiveHighlightMax"] > $activeHighlightFolderColorMax)
+		{
+			$activeHighlightFolderColorMax = $newRow["newActiveHighlightMax"];
 		}
 		?>
-		</span>
-		Highlight:
-		<span class="colorFolderHighlightWidth" >
-		<?php $j = 0;
-		foreach ($value['highlight'] as $key2 => $value2):
-			$j++;?>
-		<div class="divAroundColors">
-			<div class="colorSelectorDiv" style="background-color: <?php echo $value2['background']; ?>; border-bottom: 0px;" >
-				<!-- <div class="inner-triangle" ></div> -->
-			</div>
-			<input style="width: 100px; display: none;" type="text" name="folderColorValueHighlightBackground<?php echo $i; ?>-<?php echo $j;?>" value="<?php echo $value2['background']; ?>" >
-			<div class="colorSelectorDiv" style="background-color: <?php echo $value2['fontColor']; ?>; border-top: 0px;" >
-				<!-- <div class="inner-triangle" ></div> -->
-			</div>
-			<input style="width: 100px; display: none;" type="text" name="folderColorValueHighlightFont<?php echo $i; ?>-<?php echo $j;?>" value="<?php echo $value2['fontColor']; ?>" >
-		</div>
-		<?php endforeach;
-		if($j > $highlightFolderColorMax)
-		{
-			$highlightFolderColorMax = $j;
-		}
-		?>
-		</span>
-		Updated:
-		<span class="colorFolderActiveWidth" >
-		<?php $j = 0;
-		foreach ($value['active'] as $key2 => $value2):
-			$j++;?>
-		<div class="divAroundColors">
-			<div class="colorSelectorDiv" style="background-color: <?php echo $value2['background']; ?>; border-bottom: 0px;" >
-				<!-- <div class="inner-triangle" ></div> -->
-			</div>
-			<input style="width: 100px; display: none;" type="text" name="folderColorValueActiveBackground<?php echo $i; ?>-<?php echo $j;?>" value="<?php echo $value2['background']; ?>" >
-			<div class="colorSelectorDiv" style="background-color: <?php echo $value2['fontColor']; ?>; border-top: 0px;" >
-				<!-- <div class="inner-triangle" ></div> -->
-			</div>
-			<input style="width: 100px; display: none;" type="text" name="folderColorValueActiveFont<?php echo $i; ?>-<?php echo $j;?>" value="<?php echo $value2['fontColor']; ?>" >
-		</div>
-		<?php endforeach;
-		if($j > $activeFolderColorMax)
-		{
-			$activeFolderColorMax = $j;
-		}
-		?>
-		</span>
-		Updated highlight:
-		<span class="colorFolderActiveHighlightWidth" >
-		<?php $j = 0;
-		foreach ($value['highlightActive'] as $key2 => $value2):
-			$j++;?>
-		<div class="divAroundColors">
-			<div class="colorSelectorDiv" style="background-color: <?php echo $value2['background']; ?>; border-bottom: 0px;" >
-				<!-- <div class="inner-triangle" ></div> -->
-			</div>
-			<input style="width: 100px; display: none;" type="text" name="folderColorValueActiveHighlightBackground<?php echo $i; ?>-<?php echo $j;?>" value="<?php echo $value2['background']; ?>" >
-			<div class="colorSelectorDiv" style="background-color: <?php echo $value2['fontColor']; ?>; border-top: 0px;" >
-				<!-- <div class="inner-triangle" ></div> -->
-			</div>
-			<input style="width: 100px; display: none;" type="text" name="folderColorValueActiveHighlightFont<?php echo $i; ?>-<?php echo $j;?>" value="<?php echo $value2['fontColor']; ?>" >
-		</div>
-		<?php endforeach;
-		if($j > $activeHighlightFolderColorMax)
-		{
-			$activeHighlightFolderColorMax = $j;
-		}
-		?>
-		</span>
 	</li>
 <?php endforeach;
 $mainFolderColorMax = 10+($mainFolderColorMax*26);

@@ -1227,3 +1227,164 @@ function getData($loadVarsArray, $confDataValue)
 	}
 	return "";
 }
+
+function generateFolderColorRow($arrFCOdata = array())
+{
+	$key = "{{key}}";
+	$currentFolderColorTheme = "{{currentFolderColorTheme}}";
+	$i = "{{i}}";
+	$value = array();
+
+	if(isset($arrFCOdata["key"]))
+	{
+		$key = $arrFCOdata["key"];
+	}
+	if(isset($arrFCOdata["currentFolderColorTheme"]))
+	{
+		$currentFolderColorTheme = $arrFCOdata["currentFolderColorTheme"];
+	}
+	if(isset($arrFCOdata["i"]))
+	{
+		$i = $arrFCOdata["i"];
+	}
+	if(isset($arrFCOdata["value"]))
+	{
+		$value = $arrFCOdata["value"];
+	}
+
+
+	$newMainMax = 0;
+	$newHighlightMax = 0;
+	$newActiveMax = 0;
+	$newActiveHighlightMax = 0;
+
+	$htmlToReturn = "";
+	$htmlToReturn .= "<span class=\"settingsBuffer\"> <input type=\"radio\" name=\"currentFolderColorTheme\" ";
+	if ($key == $currentFolderColorTheme)
+	{
+		$htmlToReturn .= "checked='checked'";
+	}
+	else
+	{
+
+	}
+	$htmlToReturn .= " value=\"".$key."\"> ".$key.": </span>  <input style=\"display: none;\" type=\"text\" name=\"folderColorThemeNameForPost".$i."\" value=\"".$key."\" > Main Colors: <span class=\"colorFolderMainWidth\" >";
+	if($i !== "{{i}}")
+	{
+		$j = 0;
+		foreach ($value['main'] as $key2 => $value2)
+		{
+			$j++;
+			$htmlToReturn .= generateColorBlock(array(
+				"backgroundColor"			=>	$value2['background'],
+				"fontColor"					=>	$value2['fontColor'],
+				"i"							=>	$i,
+				"j"							=>	$j,
+				"name"						=>	"Main"
+			));
+			$newMainMax = $j;
+		}
+	}
+	$htmlToReturn .= "</span> Highlight: <span class=\"colorFolderHighlightWidth\" >";
+	if($i !== "{{i}}")
+	{
+		$j = 0;
+		foreach ($value['highlight'] as $key2 => $value2)
+		{
+			$j++;
+			$htmlToReturn .= generateColorBlock(array(
+				"backgroundColor"			=>	$value2['background'],
+				"fontColor"					=>	$value2['fontColor'],
+				"i"							=>	$i,
+				"j"							=>	$j,
+				"name"						=>	"Highlight"
+			));
+			$newHighlightMax = $j;
+		}
+	}
+	$htmlToReturn .= "</span> Updated: <span class=\"colorFolderActiveWidth\" >";
+	if($i !== "{{i}}")
+	{
+		$j = 0;
+		foreach ($value['active'] as $key2 => $value2)
+		{
+			$j++;
+			$htmlToReturn .= generateColorBlock(array(
+				"backgroundColor"			=>	$value2['background'],
+				"fontColor"					=>	$value2['fontColor'],
+				"i"							=>	$i,
+				"j"							=>	$j,
+				"name"						=>	"Active"
+			));
+			$newActiveMax = $j;
+		}
+	}
+	$htmlToReturn .= "</span>Updated highlight:	<span class=\"colorFolderActiveHighlightWidth\" >";
+	if($i !== "{{i}}")
+	{
+		$j = 0;
+		foreach ($value['highlightActive'] as $key2 => $value2)
+		{
+			$j++;
+			$htmlToReturn .= generateColorBlock(array(
+				"backgroundColor"			=>	$value2['background'],
+				"fontColor"					=>	$value2['fontColor'],
+				"i"							=>	$i,
+				"j"							=>	$j,
+				"name"						=>	"ActiveHighlight"
+			));
+			$newActiveHighlightMax = $j;
+		}
+	}
+	$htmlToReturn .= "</span>";
+	return array(
+		"html"					=>	$htmlToReturn,
+		"newMainMax"			=>	$newMainMax,
+		"newHighlightMax"		=>	$newHighlightMax,
+		"newActiveMax"			=>	$newActiveMax,
+		"newActiveHighlightMax"	=>	$newActiveHighlightMax
+	);
+}
+
+function generateColorBlock($arrCBdata = array())
+{
+	$backgroundColor = "{{backgroundColor}}";
+	$fontColor = "{{fontColor}}";
+	$i = "{{i}}";
+	$j = "{{j}}";
+	$name = "{{name}}";
+
+	if(isset($arrCBdata["backgroundColor"]))
+	{
+		$backgroundColor = $arrCBdata["backgroundColor"];
+	}
+	if(isset($arrCBdata["fontColor"]))
+	{
+		$fontColor = $arrCBdata["fontColor"];
+	}
+	if(isset($arrCBdata["i"]))
+	{
+		$i = $arrCBdata["i"];
+	}
+	if(isset($arrCBdata["j"]))
+	{
+		$j = $arrCBdata["j"];
+	}
+	if(isset($arrCBdata["name"]))
+	{
+		$name = $arrCBdata["name"];
+	}
+
+	$htmlToReturn = "";
+	$htmlToReturn .= "<div class=\"divAroundColors\">";
+	$htmlToReturn .=	"<div class=\"colorSelectorDiv\" style=\"background-color: ".$backgroundColor."; border-bottom: 0px;\" >";
+			/* <!-- <div class="inner-triangle" ></div> --> */
+	$htmlToReturn .=	"</div>";
+	$htmlToReturn .=	"<input style=\"width: 100px; display: none;\" type=\"text\" name=\"folderColorValue".$name."Background".$i."-".$j."\" value=\"".$backgroundColor."\" >";
+	$htmlToReturn .=	"<div class=\"colorSelectorDiv\" style=\"background-color: ".$fontColor."; ?>; border-top: 0px;\" >";
+			/* <!-- <div class="inner-triangle" ></div> --> */
+	$htmlToReturn .= 	"</div>";
+	$htmlToReturn .=	"<input style=\"width: 100px; display: none;\" type=\"text\" name=\"folderColorValue".$name."Font".$i."-".$j."\" value=\"".$fontColor."\" >";
+	$htmlToReturn .= "</div>";
+	return $htmlToReturn;
+}
