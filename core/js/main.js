@@ -4445,10 +4445,12 @@ function addRowForFolderColorOptions()
 	item = "<li>"+item+"</li>";
 	$("#settingsColorFolderGroupVars .settingsUl").append(item);
 	$("#settingsColorFolderGroupVars [name=\"folderThemeCount\"] ")[0].value = currentMaxRow;
-	var names = ["Main","Highlight","Active","HighlightActive"];
-	for(var nameCount = 0; nameCount < names.length; nameCount++)
+	var names = ["Main","Highlight","Active","ActiveHighlight"];
+	var lengthOfNames = names.length;
+	for(var nameCount = 0; nameCount < lengthOfNames; nameCount++)
 	{
 		new jscolor(document.getElementById("folderColorButton"+names[nameCount]+"Background"+currentMaxRow+"-1"), {valueElement: "folderColorValue"+names[nameCount]+"Background"+currentMaxRow+"-1"});
+		new jscolor(document.getElementById("folderColorButton"+names[nameCount]+"Font"+currentMaxRow+"-1"), {valueElement: "folderColorValue"+names[nameCount]+"Font"+currentMaxRow+"-1"});
 	}
 }
 
