@@ -248,7 +248,6 @@ div.sidebarLeft {
 }
 
 .colorSelectorDiv {
-	border: 1px solid white;
 	width: 20px;
 	height: 20px;
 	display: inline-block;
@@ -262,8 +261,20 @@ div.sidebarLeft {
     position: relative;
     right: 0;
     z-index: 2;
-    top: 12px;
+    top: 7px;
     left: 11px;
+}
+
+.inner-triangle-2{
+    border-left: 5px solid transparent;
+    border-bottom: 5px solid black;
+    height: 0;
+    width: 0;
+    position: relative;
+    right: 0;
+    z-index: 5;
+    top: 14px;
+    left: 13px;
 }
 
 .errorMessageLog{
@@ -370,4 +381,14 @@ div.sidebarLeft {
 {
   display: inline-grid;
   padding: 0 4px;
+}
+
+.backgroundButtonForColor {
+  width: 19px;
+  height: 20px;
+  margin: 0px;
+  position: relative;
+  right: 0px;
+  top: -11px;
+  border: 1px solid white;
 }

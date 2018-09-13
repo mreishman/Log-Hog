@@ -1230,6 +1230,7 @@ function getData($loadVarsArray, $confDataValue)
 
 function generateFolderColorRow($arrFCOdata = array())
 {
+	$edit = false;
 	$key = "{{key}}";
 	$currentFolderColorTheme = "{{currentFolderColorTheme}}";
 	$i = "{{i}}";
@@ -1282,7 +1283,10 @@ function generateFolderColorRow($arrFCOdata = array())
 		$themeName = $arrFCOdata["themeName"];
 	}
 
-
+	if(strpos($key, "theme-default") === -1)
+	{
+		$edit = true;
+	}
 
 	$newMainMax = 0;
 	$newHighlightMax = 0;
@@ -1311,7 +1315,8 @@ function generateFolderColorRow($arrFCOdata = array())
 				"fontColor"					=>	$value2['fontColor'],
 				"i"							=>	$i,
 				"j"							=>	$j,
-				"name"						=>	"Main"
+				"name"						=>	"Main",
+				"edit"						=>	$edit
 			));
 			$newMainMax = $j;
 		}
@@ -1323,7 +1328,8 @@ function generateFolderColorRow($arrFCOdata = array())
 			"fontColor"					=>	$value['main'][0]['fontColor'],
 			"i"							=>	$i,
 			"j"							=>	"{{j}}",
-			"name"						=>	"Main"
+			"name"						=>	"Main",
+			"edit"						=>	true
 		));
 	}
 	$htmlToReturn .= "</span> Highlight: <span class=\"colorFolderHighlightWidth\" >";
@@ -1338,7 +1344,8 @@ function generateFolderColorRow($arrFCOdata = array())
 				"fontColor"					=>	$value2['fontColor'],
 				"i"							=>	$i,
 				"j"							=>	$j,
-				"name"						=>	"Highlight"
+				"name"						=>	"Highlight",
+				"edit"						=>	$edit
 			));
 			$newHighlightMax = $j;
 		}
@@ -1350,7 +1357,8 @@ function generateFolderColorRow($arrFCOdata = array())
 			"fontColor"					=>	$value['highlight'][0]['fontColor'],
 			"i"							=>	$i,
 			"j"							=>	"{{j}}",
-			"name"						=>	"Highlight"
+			"name"						=>	"Highlight",
+			"edit"						=>	true
 		));
 	}
 	$htmlToReturn .= "</span> Updated: <span class=\"colorFolderActiveWidth\" >";
@@ -1365,7 +1373,8 @@ function generateFolderColorRow($arrFCOdata = array())
 				"fontColor"					=>	$value2['fontColor'],
 				"i"							=>	$i,
 				"j"							=>	$j,
-				"name"						=>	"Active"
+				"name"						=>	"Active",
+				"edit"						=>	$edit
 			));
 			$newActiveMax = $j;
 		}
@@ -1377,7 +1386,8 @@ function generateFolderColorRow($arrFCOdata = array())
 			"fontColor"					=>	$value['active'][0]['fontColor'],
 			"i"							=>	$i,
 			"j"							=>	"{{j}}",
-			"name"						=>	"Active"
+			"name"						=>	"Active",
+			"edit"						=>	true
 		));
 	}
 	$htmlToReturn .= "</span>Updated highlight:	<span class=\"colorFolderActiveHighlightWidth\" >";
@@ -1392,7 +1402,8 @@ function generateFolderColorRow($arrFCOdata = array())
 				"fontColor"					=>	$value2['fontColor'],
 				"i"							=>	$i,
 				"j"							=>	$j,
-				"name"						=>	"ActiveHighlight"
+				"name"						=>	"ActiveHighlight",
+				"edit"						=>	$edit
 			));
 			$newActiveHighlightMax = $j;
 		}
@@ -1404,7 +1415,8 @@ function generateFolderColorRow($arrFCOdata = array())
 			"fontColor"					=>	$value['highlightActive'][0]['fontColor'],
 			"i"							=>	$i,
 			"j"							=>	"{{j}}",
-			"name"						=>	"ActiveHighlight"
+			"name"						=>	"ActiveHighlight",
+			"edit"						=>	true
 		));
 	}
 	$htmlToReturn .= "</span>";
@@ -1424,6 +1436,7 @@ function generateColorBlock($arrCBdata = array())
 	$i = "{{i}}";
 	$j = "{{j}}";
 	$name = "{{name}}";
+	$edit = false;
 
 	if(isset($arrCBdata["backgroundColor"]))
 	{
@@ -1445,17 +1458,39 @@ function generateColorBlock($arrCBdata = array())
 	{
 		$name = $arrCBdata["name"];
 	}
+	if(isset($arrCBdata["edit"]))
+	{
+		$edit = $arrCBdata["edit"];
+	}
 
 	$htmlToReturn = "";
 	$htmlToReturn .= "<div class=\"divAroundColors\">";
-	$htmlToReturn .=	"<div class=\"colorSelectorDiv\" style=\"background-color: ".$backgroundColor."; border-bottom: 0px;\" >";
-			/* <!-- <div class="inner-triangle" ></div> --> */
+	if($edit)
+	{
+		$htmlToReturn .= "<div class=\"colorSelectorDiv\" style=\" border-top: 0px;\" >";
+		$htmlToReturn .= "<div class=\"inner-triangle-2\" ></div>";
+		$htmlToReturn .= "<div class=\"inner-triangle\" ></div>";
+		$htmlToReturn .= "<button id=\"folderColorButton".$name."Background".$i."-".$j."\" class=\"backgroundButtonForColor\"></button>";
+	}
+	else
+	{
+		$htmlToReturn .=	"<div class=\"colorSelectorDiv\" style=\"background-color: ".$backgroundColor.";border: 1px solid white;  border-bottom: 0px;\" >";
+	}
 	$htmlToReturn .=	"</div>";
-	$htmlToReturn .=	"<input style=\"width: 100px; display: none;\" type=\"text\" name=\"folderColorValue".$name."Background".$i."-".$j."\" value=\"".$backgroundColor."\" >";
-	$htmlToReturn .=	"<div class=\"colorSelectorDiv\" style=\"background-color: ".$fontColor."; ?>; border-top: 0px;\" >";
-			/* <!-- <div class="inner-triangle" ></div> --> */
+	$htmlToReturn .=	"<input style=\"width: 100px; display: none;\" type=\"text\" id=\"folderColorValue".$name."Background".$i."-".$j."\" name=\"folderColorValue".$name."Background".$i."-".$j."\" value=\"".$backgroundColor."\" >";
+	if($edit)
+	{
+		$htmlToReturn .= "<div class=\"colorSelectorDiv\" style=\" border-top: 0px;\" >";
+		$htmlToReturn .= "<div class=\"inner-triangle-2\" ></div>";
+		$htmlToReturn .= "<div class=\"inner-triangle\" ></div>";
+		$htmlToReturn .= "<button id=\"folderColorButton".$name."Font".$i."-".$j."\" class=\"backgroundButtonForColor\"></button>";
+	}
+	else
+	{
+		$htmlToReturn .=	"<div class=\"colorSelectorDiv\" style=\"background-color: ".$fontColor."; ?>;border: 1px solid white; border-top: 0px;\" >";
+	}
 	$htmlToReturn .= 	"</div>";
-	$htmlToReturn .=	"<input style=\"width: 100px; display: none;\" type=\"text\" name=\"folderColorValue".$name."Font".$i."-".$j."\" value=\"".$fontColor."\" >";
+	$htmlToReturn .=	"<input style=\"width: 100px; display: none;\" type=\"text\" id=\"folderColorValue".$name."Font".$i."-".$j."\" name=\"folderColorValue".$name."Font".$i."-".$j."\" value=\"".$fontColor."\" >";
 	$htmlToReturn .= "</div>";
 	return $htmlToReturn;
 }
