@@ -83,7 +83,19 @@ foreach ($scanned_directory as $key):
 								}
 							}
 							$themeName = $key;
-							include('innerFolderGroupColor.php');
+							$i = 0;
+							foreach ($folderColorArrays as $key => $value)
+							{
+								$i++;
+								echo generateFolderColorRow(array(
+										"key"							=>	$key,
+										"currentFolderColorTheme"		=>	$currentFolderColorTheme,
+										"i"								=>	$i,
+										"value"							=>	$value,
+										"themeName"						=>	$themeName
+									))["html"];
+							}
+							echo "<input style=\"display: none;\" type=\"text\" name=\"folderThemeCount\" value=\"".$i."\">";
 							$folderColorArrays = $tmpfolderColorArrays;
 							$currentFolderColorTheme = $tmpcurrentFolderColorTheme;
 						?>

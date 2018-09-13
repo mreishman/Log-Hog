@@ -43,22 +43,22 @@ $activeFolderColorMax = 10+($activeFolderColorMax*26);
 $activeHighlightFolderColorMax = 10+($activeHighlightFolderColorMax*26);
 ?>
 <style>
-.colorFolderMainWidth<?php echo $themeName; ?>
+.colorFolderMainWidth
 {
 	width: <?php echo $mainFolderColorMax; ?>px;
 	display: inline-block;
 }
-.colorFolderHighlightWidth<?php echo $themeName; ?>
+.colorFolderHighlightWidth
 {
 	width: <?php echo $highlightFolderColorMax; ?>px;
 	display: inline-block;
 }
-.colorFolderActiveWidth<?php echo $themeName; ?>
+.colorFolderActiveWidth
 {
 	width: <?php echo $activeFolderColorMax; ?>px;
 	display: inline-block;
 }
-.colorFolderActiveHighlightWidth<?php echo $themeName; ?>
+.colorFolderActiveHighlightWidth
 {
 	width: <?php echo $activeHighlightFolderColorMax; ?>px;
 	display: inline-block;
@@ -71,3 +71,9 @@ $activeHighlightFolderColorMax = 10+($activeHighlightFolderColorMax*26);
 		<?php echo generateFolderColorRow()["html"]; ?>
 	</span>
 </div>
+<script type="text/javascript">
+	var colorFolderMainWidth = <?php echo $mainFolderColorMax; ?>;
+	var colorFolderHighlightWidth = <?php echo $highlightFolderColorMax; ?>;
+	var colorFolderActiveWidth = <?php echo $activeFolderColorMax; ?>;
+	var colorFolderActiveHighlightWidth = <?php echo $activeHighlightFolderColorMax; ?>;
+</script>
