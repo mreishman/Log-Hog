@@ -32,7 +32,7 @@
 	</li>
 	<li class="menuTitle" style="text-align: center;" >
 	</li>
-	<li class="subMenuActionsColorScheme" style="display: none;" onclick="" >
+	<li class="subMenuActionsColorScheme" style="display: none;" onclick="addRowForFolderColorOptions();" >
 		Add Row
 	</li>
 </ul>

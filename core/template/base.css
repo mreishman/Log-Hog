@@ -365,3 +365,9 @@ div.sidebarLeft {
   -ms-transition: 0.25s ease-in-out;
   -o-transition: 0.25s ease-in-out;
 }
+
+.divAroundColors
+{
+  display: inline-grid;
+  padding: 0 4px;
+}

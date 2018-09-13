@@ -12,7 +12,8 @@ foreach ($folderColorArrays as $key => $value):
 			"key"							=>	$key,
 			"currentFolderColorTheme"		=>	$currentFolderColorTheme,
 			"i"								=>	$i,
-			"value"							=>	$value
+			"value"							=>	$value,
+			"themeName"						=>	$themeName
 		));
 		echo $newRow["html"];
 		?>
@@ -42,26 +43,22 @@ $activeFolderColorMax = 10+($activeFolderColorMax*26);
 $activeHighlightFolderColorMax = 10+($activeHighlightFolderColorMax*26);
 ?>
 <style>
-.divAroundColors
-{
-	display: inline-grid;
-}
-.colorFolderMainWidth
+.colorFolderMainWidth<?php echo $themeName; ?>
 {
 	width: <?php echo $mainFolderColorMax; ?>px;
 	display: inline-block;
 }
-.colorFolderHighlightWidth
+.colorFolderHighlightWidth<?php echo $themeName; ?>
 {
 	width: <?php echo $highlightFolderColorMax; ?>px;
 	display: inline-block;
 }
-.colorFolderActiveWidth
+.colorFolderActiveWidth<?php echo $themeName; ?>
 {
 	width: <?php echo $activeFolderColorMax; ?>px;
 	display: inline-block;
 }
-.colorFolderActiveHighlightWidth
+.colorFolderActiveHighlightWidth<?php echo $themeName; ?>
 {
 	width: <?php echo $activeHighlightFolderColorMax; ?>px;
 	display: inline-block;
@@ -69,3 +66,8 @@ $activeHighlightFolderColorMax = 10+($activeHighlightFolderColorMax*26);
 </style>
 <input style="display: none;" type="text" name="folderThemeCount" value="<?php echo $i; ?>">
 </ul>
+<div style="display: none;" id="holderForFolderColors">
+	<span class="emptyRow" >
+		<?php echo generateFolderColorRow()["html"]; ?>
+	</span>
+</div>

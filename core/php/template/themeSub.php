@@ -82,6 +82,7 @@ foreach ($scanned_directory as $key):
 									$customThemeCreateNew = true;
 								}
 							}
+							$themeName = $key;
 							include('innerFolderGroupColor.php');
 							$folderColorArrays = $tmpfolderColorArrays;
 							$currentFolderColorTheme = $tmpcurrentFolderColorTheme;

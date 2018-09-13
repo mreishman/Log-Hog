@@ -7,6 +7,9 @@
 	</div>
 	</div>
 	<div class="settingsDiv" >
-		<?php include("innerFolderGroupColor.php");?>
+		<?php
+		$themeName = "noTheme";
+		include("innerFolderGroupColor.php");
+		?>
 	</div>
 </form>

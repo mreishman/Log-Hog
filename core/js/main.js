@@ -4427,6 +4427,26 @@ function toggleTopLogNotice()
 	document.getElementById("menu").style.borderTop = "";
 }
 
+function addRowForFolderColorOptions()
+{
+	var currentMaxRow = parseInt($("#settingsColorFolderGroupVars [name=\"folderThemeCount\"] ")[0].value);
+	var counterForDefaults = 1;
+	while($("#settingsColorFolderGroupVars [name=\"folderColorThemeNameForPost"+counterForDefaults+"\"] ")[0] && $("#settingsColorFolderGroupVars [name=\"folderColorThemeNameForPost"+counterForDefaults+"\"] ")[0].value.indexOf("theme-default") > -1)
+	{
+		counterForDefaults++;
+	}
+	counterForDefaults--;
+	currentMaxRow++;
+	var item = $("#holderForFolderColors .emptyRow").html();
+	item = item.replace(/{{themeName}}/g, "noTheme");
+	item = item.replace(/{{j}}/g, "1");
+	item = item.replace(/{{i}}/g, currentMaxRow);
+	item = item.replace(/{{key}}/g, "theme-user-"+(currentMaxRow-counterForDefaults));
+	item = "<li>"+item+"</li>";
+	$("#settingsColorFolderGroupVars .settingsUl").append(item);
+	$("#settingsColorFolderGroupVars [name=\"folderThemeCount\"] ")[0].value = currentMaxRow;
+}
+
 function mainReady()
 {
 	progressBar = new ldBar("#progressBar");
