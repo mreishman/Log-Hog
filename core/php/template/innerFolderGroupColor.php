@@ -1,79 +1,57 @@
 <ul class="settingsUl">
-<?php
-$mainFolderColorMax = 0;
-$highlightFolderColorMax = 0;
-$activeFolderColorMax = 0;
-$activeHighlightFolderColorMax = 0;
-$i = 0;
-foreach ($folderColorArrays as $key => $value):
-	$i++ ?>
 	<li>
-		<?php $newRow = generateFolderColorRow(array(
-			"key"							=>	$key,
-			"currentFolderColorTheme"		=>	$currentFolderColorTheme,
-			"i"								=>	$i,
-			"value"							=>	$value,
-			"themeName"						=>	$themeName
-		));
-		echo $newRow["html"];
-		?>
-		<?php
-		if($newRow["newMainMax"] > $mainFolderColorMax)
-		{
-			$mainFolderColorMax = $newRow["newMainMax"];
-		}
-		if($newRow["newHighlightMax"] > $highlightFolderColorMax)
-		{
-			$highlightFolderColorMax = $newRow["newHighlightMax"];
-		}
-		if($newRow["newActiveMax"] > $activeFolderColorMax)
-		{
-			$activeFolderColorMax = $newRow["newActiveMax"];
-		}
-		if($newRow["newActiveHighlightMax"] > $activeHighlightFolderColorMax)
-		{
-			$activeHighlightFolderColorMax = $newRow["newActiveHighlightMax"];
-		}
-		?>
+		<table id="addNewRowToThisForThemes" >
+			<tbody>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<?php
+				$mainFolderColorMax = 0;
+				$highlightFolderColorMax = 0;
+				$activeFolderColorMax = 0;
+				$activeHighlightFolderColorMax = 0;
+				$i = 0;
+				foreach ($folderColorArrays as $key => $value):
+					$i++ ?>
+					<tr>
+						<?php
+						echo generateFolderColorRow(array(
+							"key"							=>	$key,
+							"currentFolderColorTheme"		=>	$currentFolderColorTheme,
+							"i"								=>	$i,
+							"value"							=>	$value,
+							"themeName"						=>	$themeName
+							))["html"];
+						?>
+					</tr>
+				<?php endforeach; ?>
+			</tbody>
+		</table>
 	</li>
-<?php endforeach;
-$mainFolderColorMax = 10+($mainFolderColorMax*26);
-$highlightFolderColorMax = 10+($highlightFolderColorMax*26);
-$activeFolderColorMax = 10+($activeFolderColorMax*26);
-$activeHighlightFolderColorMax = 10+($activeHighlightFolderColorMax*26);
-?>
-<style>
-.colorFolderMainWidth
-{
-	width: <?php echo $mainFolderColorMax; ?>px;
-	display: inline-block;
-}
-.colorFolderHighlightWidth
-{
-	width: <?php echo $highlightFolderColorMax; ?>px;
-	display: inline-block;
-}
-.colorFolderActiveWidth
-{
-	width: <?php echo $activeFolderColorMax; ?>px;
-	display: inline-block;
-}
-.colorFolderActiveHighlightWidth
-{
-	width: <?php echo $activeHighlightFolderColorMax; ?>px;
-	display: inline-block;
-}
-</style>
 <input style="display: none;" type="text" name="folderThemeCount" value="<?php echo $i; ?>">
 </ul>
+<?php $newBlankRow = generateFolderColorRow(); ?>
 <div style="display: none;" id="holderForFolderColors">
-	<span class="emptyRow" >
-		<?php echo generateFolderColorRow()["html"]; ?>
+	<span class="emptyRow1" >
+		<?php echo $newBlankRow["td1"]; ?>
+	</span>
+	<span class="emptyRow2" >
+		<?php echo $newBlankRow["td2"]; ?>
+	</span>
+	<span class="emptyRow3" >
+		<?php echo $newBlankRow["td3"]; ?>
+	</span>
+	<span class="emptyRow4" >
+		<?php echo $newBlankRow["td4"]; ?>
+	</span>
+	<span class="emptyRow5" >
+		<?php echo $newBlankRow["td5"]; ?>
+	</span>
+	<span class="emptyColorBlock">
+		<?php echo generateColorBlock(); ?>
 	</span>
 </div>
-<script type="text/javascript">
-	var colorFolderMainWidth = <?php echo $mainFolderColorMax; ?>;
-	var colorFolderHighlightWidth = <?php echo $highlightFolderColorMax; ?>;
-	var colorFolderActiveWidth = <?php echo $activeFolderColorMax; ?>;
-	var colorFolderActiveHighlightWidth = <?php echo $activeHighlightFolderColorMax; ?>;
-</script>

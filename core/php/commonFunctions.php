@@ -1287,30 +1287,28 @@ function generateFolderColorRow($arrFCOdata = array())
 	{
 		$edit = true;
 	}
-
-	$newMainMax = 0;
-	$newHighlightMax = 0;
-	$newActiveMax = 0;
-	$newActiveHighlightMax = 0;
-
 	$htmlToReturn = "";
-	$htmlToReturn .= "<span class=\"settingsBuffer\"> <input type=\"radio\" name=\"currentFolderColorTheme\" ";
+	$td1 = "";
+	$td1 .= "<input type=\"radio\" name=\"currentFolderColorTheme\" ";
 	if ($key == $currentFolderColorTheme)
 	{
-		$htmlToReturn .= "checked='checked'";
+		$td1 .= "checked='checked'";
 	}
 	else
 	{
 
 	}
-	$htmlToReturn .= " value=\"".$key."\"> ".$key.": </span>  <input style=\"display: none;\" type=\"text\" name=\"folderColorThemeNameForPost".$i."\" value=\"".$key."\" > Main Colors: <span class=\"colorFolderMainWidth\" >";
+	$td1 .= " value=\"".$key."\"> ".$key.": ";
+	$htmlToReturn .= "<td>".$td1."</td>";
+	$td2 = "";
+	$td2 .= "<input style=\"display: none;\" type=\"text\" name=\"folderColorThemeNameForPost".$i."\" value=\"".$key."\" > Main Colors: <span id=\"folderColorThemeNameForPost".$i."Main\">";
 	if($i !== "{{i}}")
 	{
 		$j = 0;
 		foreach ($value['main'] as $key2 => $value2)
 		{
 			$j++;
-			$htmlToReturn .= generateColorBlock(array(
+			$td2 .= generateColorBlock(array(
 				"backgroundColor"			=>	$value2['background'],
 				"fontColor"					=>	$value2['fontColor'],
 				"i"							=>	$i,
@@ -1318,12 +1316,11 @@ function generateFolderColorRow($arrFCOdata = array())
 				"name"						=>	"Main",
 				"edit"						=>	$edit
 			));
-			$newMainMax = $j;
 		}
 	}
 	else
 	{
-		$htmlToReturn .= generateColorBlock(array(
+		$td2 .= generateColorBlock(array(
 			"backgroundColor"			=>	$value['main'][0]['background'],
 			"fontColor"					=>	$value['main'][0]['fontColor'],
 			"i"							=>	$i,
@@ -1332,14 +1329,25 @@ function generateFolderColorRow($arrFCOdata = array())
 			"edit"						=>	true
 		));
 	}
-	$htmlToReturn .= "</span> Highlight: <span class=\"colorFolderHighlightWidth\" >";
+	$td2 .= "</span> ";
+	if($edit || $i === "{{i}}")
+	{
+		$td2 .= "<div class=\"colorSelectorDiv\" onclick=\"addColorBlock(".$i.")\" style=\"display: inline-block; border: 1px solid white; text-align: center; line-height: 18px; cursor: pointer; \"  >+</div>";
+	}
+	else
+	{
+		$td2 .= "<div style=\"display: inline-block; width: 20px;\"  ></div>";
+	}
+	$htmlToReturn .= "<td>".$td2."</td>";
+	$td3 = "";
+	$td3 .= "Highlight: <span>";
 	if($i !== "{{i}}")
 	{
 		$j = 0;
 		foreach ($value['highlight'] as $key2 => $value2)
 		{
 			$j++;
-			$htmlToReturn .= generateColorBlock(array(
+			$td3 .= generateColorBlock(array(
 				"backgroundColor"			=>	$value2['background'],
 				"fontColor"					=>	$value2['fontColor'],
 				"i"							=>	$i,
@@ -1347,12 +1355,11 @@ function generateFolderColorRow($arrFCOdata = array())
 				"name"						=>	"Highlight",
 				"edit"						=>	$edit
 			));
-			$newHighlightMax = $j;
 		}
 	}
 	else
 	{
-		$htmlToReturn .= generateColorBlock(array(
+		$td3 .= generateColorBlock(array(
 			"backgroundColor"			=>	$value['highlight'][0]['background'],
 			"fontColor"					=>	$value['highlight'][0]['fontColor'],
 			"i"							=>	$i,
@@ -1361,14 +1368,17 @@ function generateFolderColorRow($arrFCOdata = array())
 			"edit"						=>	true
 		));
 	}
-	$htmlToReturn .= "</span> Updated: <span class=\"colorFolderActiveWidth\" >";
+	$td3 .= "</span> ";
+	$htmlToReturn .= "<td>".$td3."</td>";
+	$td4 = "";
+	$td4 .= " Updated: <span >";
 	if($i !== "{{i}}")
 	{
 		$j = 0;
 		foreach ($value['active'] as $key2 => $value2)
 		{
 			$j++;
-			$htmlToReturn .= generateColorBlock(array(
+			$td4 .= generateColorBlock(array(
 				"backgroundColor"			=>	$value2['background'],
 				"fontColor"					=>	$value2['fontColor'],
 				"i"							=>	$i,
@@ -1376,12 +1386,11 @@ function generateFolderColorRow($arrFCOdata = array())
 				"name"						=>	"Active",
 				"edit"						=>	$edit
 			));
-			$newActiveMax = $j;
 		}
 	}
 	else
 	{
-		$htmlToReturn .= generateColorBlock(array(
+		$td4 .= generateColorBlock(array(
 			"backgroundColor"			=>	$value['active'][0]['background'],
 			"fontColor"					=>	$value['active'][0]['fontColor'],
 			"i"							=>	$i,
@@ -1390,14 +1399,17 @@ function generateFolderColorRow($arrFCOdata = array())
 			"edit"						=>	true
 		));
 	}
-	$htmlToReturn .= "</span>Updated highlight:	<span class=\"colorFolderActiveHighlightWidth\" >";
+	$td4 .= "</span> ";
+	$htmlToReturn .= "<td>".$td4."</td>";
+	$td5 = "";
+	$td5 .= " Updated highlight:	<span >";
 	if($i !== "{{i}}")
 	{
 		$j = 0;
 		foreach ($value['highlightActive'] as $key2 => $value2)
 		{
 			$j++;
-			$htmlToReturn .= generateColorBlock(array(
+			$td5 .= generateColorBlock(array(
 				"backgroundColor"			=>	$value2['background'],
 				"fontColor"					=>	$value2['fontColor'],
 				"i"							=>	$i,
@@ -1405,12 +1417,11 @@ function generateFolderColorRow($arrFCOdata = array())
 				"name"						=>	"ActiveHighlight",
 				"edit"						=>	$edit
 			));
-			$newActiveHighlightMax = $j;
 		}
 	}
 	else
 	{
-		$htmlToReturn .= generateColorBlock(array(
+		$td5 .= generateColorBlock(array(
 			"backgroundColor"			=>	$value['highlightActive'][0]['background'],
 			"fontColor"					=>	$value['highlightActive'][0]['fontColor'],
 			"i"							=>	$i,
@@ -1419,13 +1430,15 @@ function generateFolderColorRow($arrFCOdata = array())
 			"edit"						=>	true
 		));
 	}
-	$htmlToReturn .= "</span>";
+	$td5 .= "</span>";
+	$htmlToReturn .= "<td>".$td5."</td>";
 	return array(
 		"html"					=>	$htmlToReturn,
-		"newMainMax"			=>	$newMainMax,
-		"newHighlightMax"		=>	$newHighlightMax,
-		"newActiveMax"			=>	$newActiveMax,
-		"newActiveHighlightMax"	=>	$newActiveHighlightMax
+		"td1"					=>	$td1,
+		"td2"					=>	$td2,
+		"td3"					=>	$td3,
+		"td4"					=>	$td4,
+		"td5"					=>	$td5
 	);
 }
 
@@ -1436,7 +1449,7 @@ function generateColorBlock($arrCBdata = array())
 	$i = "{{i}}";
 	$j = "{{j}}";
 	$name = "{{name}}";
-	$edit = false;
+	$edit = true;
 
 	if(isset($arrCBdata["backgroundColor"]))
 	{

@@ -4437,21 +4437,62 @@ function addRowForFolderColorOptions()
 	}
 	counterForDefaults--;
 	currentMaxRow++;
-	var item = $("#holderForFolderColors .emptyRow").html();
-	item = item.replace(/{{themeName}}/g, "noTheme");
-	item = item.replace(/{{j}}/g, "1");
-	item = item.replace(/{{i}}/g, currentMaxRow);
-	item = item.replace(/{{key}}/g, "theme-user-"+(currentMaxRow-counterForDefaults));
-	item = "<li>"+item+"</li>";
-	$("#settingsColorFolderGroupVars .settingsUl").append(item);
+	var table = document.getElementById("addNewRowToThisForThemes");
+	var row = table.insertRow(currentMaxRow);
+	var cell1 = row.insertCell(0);
+	var cell2 = row.insertCell(1);
+	var cell3 = row.insertCell(2);
+	var cell4 = row.insertCell(3);
+	var cell5 = row.insertCell(4);
+	var cellItem = $("#holderForFolderColors .emptyRow1").html();
+	cell1.innerHTML = replaceStuff(cellItem, currentMaxRow, (currentMaxRow-counterForDefaults));
+	cellItem = $("#holderForFolderColors .emptyRow2").html();
+	cell2.innerHTML = replaceStuff(cellItem, currentMaxRow, (currentMaxRow-counterForDefaults));
+	cellItem = $("#holderForFolderColors .emptyRow3").html();
+	cell3.innerHTML = replaceStuff(cellItem, currentMaxRow, (currentMaxRow-counterForDefaults));
+	cellItem = $("#holderForFolderColors .emptyRow4").html();
+	cell4.innerHTML = replaceStuff(cellItem, currentMaxRow, (currentMaxRow-counterForDefaults));
+	cellItem = $("#holderForFolderColors .emptyRow5").html();
+	cell5.innerHTML = replaceStuff(cellItem, currentMaxRow, (currentMaxRow-counterForDefaults));
 	$("#settingsColorFolderGroupVars [name=\"folderThemeCount\"] ")[0].value = currentMaxRow;
 	var names = ["Main","Highlight","Active","ActiveHighlight"];
 	var lengthOfNames = names.length;
 	for(var nameCount = 0; nameCount < lengthOfNames; nameCount++)
 	{
-		new jscolor(document.getElementById("folderColorButton"+names[nameCount]+"Background"+currentMaxRow+"-1"), {valueElement: "folderColorValue"+names[nameCount]+"Background"+currentMaxRow+"-1"});
-		new jscolor(document.getElementById("folderColorButton"+names[nameCount]+"Font"+currentMaxRow+"-1"), {valueElement: "folderColorValue"+names[nameCount]+"Font"+currentMaxRow+"-1"});
+		addNewFolderColorButtonForThing(names[nameCount], currentMaxRow, 1);
 	}
+}
+
+function replaceStuff(item, currentMax, newTheme)
+{
+	item = item.replace(/{{themeName}}/g, "noTheme");
+	item = item.replace(/{{j}}/g, "1");
+	item = item.replace(/{{i}}/g, currentMax);
+	item = item.replace(/{{key}}/g, "theme-user-"+newTheme);
+	return item;
+}
+
+function addColorBlock(currentRow)
+{
+	var item = $("#holderForFolderColors .emptyColorBlock").html();
+	var newRow = 1;
+	while(document.getElementById("folderColorButtonMainBackground"+currentRow+"-"+newRow))
+	{
+		newRow++;
+	}
+	item = item.replace(/{{backgroundColor}}/g, "#000000");
+	item = item.replace(/{{fontColor}}/g, "#FFFFFF");
+	item = item.replace(/{{name}}/g, "Main");
+	item = item.replace(/{{i}}/g, currentRow);
+	item = item.replace(/{{j}}/g, newRow);
+	$("#folderColorThemeNameForPost"+currentRow+"Main").append(item);
+	addNewFolderColorButtonForThing("Main", currentRow, newRow);
+}
+
+function addNewFolderColorButtonForThing(name, currentRow, currentColumn)
+{
+	new jscolor(document.getElementById("folderColorButton"+name+"Background"+currentRow+"-"+currentColumn), {valueElement: "folderColorValue"+name+"Background"+currentRow+"-"+currentColumn});
+	new jscolor(document.getElementById("folderColorButton"+name+"Font"+currentRow+"-"+currentColumn), {valueElement: "folderColorValue"+name+"Font"+currentRow+"-"+currentColumn});
 }
 
 function mainReady()

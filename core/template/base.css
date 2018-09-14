@@ -391,4 +391,5 @@ div.sidebarLeft {
   right: 0px;
   top: -11px;
   border: 1px solid white;
+  cursor: pointer;
 }
