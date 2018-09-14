@@ -200,23 +200,22 @@ function verifyFileIsThere($file, $notInvert = true)
 		{
 			return false;
 		}
-		else
-		{
-			return true;
-		}
+		return true;
 	}
-	else
+	if($notInvert == false || $notInvert == "false")
 	{
-		if($notInvert == false || $notInvert == "false")
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		return true;
 	}
+	return false;
+}
 
+function verifyFileHasStuff($file)
+{
+	if(is_file($file) && filesize($file))
+	{
+		return true;
+	}
+	return false;
 }
 
 function verifyDirIsThere($file)
@@ -225,10 +224,7 @@ function verifyDirIsThere($file)
 	{
 		return true;
 	}
-	else
-	{
-		return false;
-	}
+	return false;
 }
 
 function verifyDirOrFile($file)
@@ -237,10 +233,7 @@ function verifyDirOrFile($file)
 	{
 		return true;
 	}
-	else
-	{
-		return false;
-	}
+	return false;
 }
 
 function verifyDirIsEmpty($dir)

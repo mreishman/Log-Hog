@@ -1,6 +1,7 @@
 <?php
 require_once('settingsInstallUpdate.php');
 $action = $_POST['action'];
+$response = "ACTION";
 if($action === 'downloadFile')
 {
 	$boolUp = false;
@@ -46,6 +47,10 @@ elseif($action === 'removeDirUpdate')
 elseif($action === 'verifyFileIsThere')
 {
 	$response = verifyFileIsThere($_POST['fileLocation'], $_POST['isThere']);
+}
+elseif($action === 'verifyFileHasStuff')
+{
+	$response = verifyFileHasStuff($_POST['fileLocation']);
 }
 elseif($action === 'verifyDirIsThere')
 {
@@ -135,9 +140,5 @@ elseif($action === 'createFolder')
 		mkdir($newDir);
 	}
 	$response = true;
-}
-else
-{
-	$response = "ACTION";
 }
 echo json_encode($response);
