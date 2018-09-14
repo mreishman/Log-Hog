@@ -201,7 +201,7 @@ var jsc = {
 
 	warn : function (msg) {
 		if (window.console && window.console.warn) {
-			window.console.warn(msg);
+			//window.console.warn(msg);
 		}
 	},
 
