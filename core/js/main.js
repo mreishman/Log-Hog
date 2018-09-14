@@ -20,6 +20,7 @@ var fileData;
 var filesNew;
 var firstLoad = true;
 var flasher;
+var folderColorGroupNames = ["Main","Highlight","Active","ActiveHighlight"];
 var fullScreenMenuClickCount = 0;
 var globalForcePageNavigate = false;
 var hiddenLogUpdatePollBottom = null;
@@ -3671,6 +3672,7 @@ function toggleThemeColorScheme()
 	arrayOfDataSettings = ["settingsColorFolderGroupVars"];
 	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
 	startSettingsPollTimer();
+	reAddJsColorPopupForCustomThemes();
 }
 
 function toggleFullScreenMenuMainContent()
@@ -4455,11 +4457,10 @@ function addRowForFolderColorOptions()
 	cellItem = $("#holderForFolderColors .emptyRow5").html();
 	cell5.innerHTML = replaceStuff(cellItem, currentMaxRow, (currentMaxRow-counterForDefaults));
 	$("#settingsColorFolderGroupVars [name=\"folderThemeCount\"] ")[0].value = currentMaxRow;
-	var names = ["Main","Highlight","Active","ActiveHighlight"];
-	var lengthOfNames = names.length;
+	var lengthOfNames = folderColorGroupNames.length;
 	for(var nameCount = 0; nameCount < lengthOfNames; nameCount++)
 	{
-		addNewFolderColorButtonForThing(names[nameCount], currentMaxRow, 1);
+		addNewFolderColorButtonForThing(folderColorGroupNames[nameCount], currentMaxRow, 1);
 	}
 }
 
@@ -4491,8 +4492,33 @@ function addColorBlock(currentRow)
 
 function addNewFolderColorButtonForThing(name, currentRow, currentColumn)
 {
-	new jscolor(document.getElementById("folderColorButton"+name+"Background"+currentRow+"-"+currentColumn), {valueElement: "folderColorValue"+name+"Background"+currentRow+"-"+currentColumn});
-	new jscolor(document.getElementById("folderColorButton"+name+"Font"+currentRow+"-"+currentColumn), {valueElement: "folderColorValue"+name+"Font"+currentRow+"-"+currentColumn});
+	new jscolor(document.getElementById("folderColorButton"+name+"Background"+currentRow+"-"+currentColumn), {valueElement: "folderColorValue"+name+"Background"+currentRow+"-"+currentColumn, hash:true});
+	new jscolor(document.getElementById("folderColorButton"+name+"Font"+currentRow+"-"+currentColumn), {valueElement: "folderColorValue"+name+"Font"+currentRow+"-"+currentColumn, hash:true});
+}
+
+function reAddJsColorPopupForCustomThemes()
+{
+	var lengthOfNames = folderColorGroupNames.length;
+	var startOfuser = 1;
+	var allFolderCount = 1;
+	while($("#settingsColorFolderGroupVars [name=\"folderColorThemeNameForPost"+allFolderCount+"\"] ")[0])
+	{
+		if($("#settingsColorFolderGroupVars [name=\"folderColorThemeNameForPost"+allFolderCount+"\"] ")[0].value.indexOf("theme-user") > -1)
+		{
+			//this one is custom
+			for(var nameCount = 0; nameCount < lengthOfNames; nameCount++)
+			{
+				var internalCountFolder = 1;
+				while(document.getElementById("folderColorButton"+folderColorGroupNames[nameCount]+"Background"+allFolderCount+"-"+internalCountFolder))
+				{
+					addNewFolderColorButtonForThing(folderColorGroupNames[nameCount], allFolderCount, internalCountFolder);
+					internalCountFolder++;
+				}
+			}
+			startOfuser++;
+		}
+		allFolderCount++;
+	}
 }
 
 function mainReady()

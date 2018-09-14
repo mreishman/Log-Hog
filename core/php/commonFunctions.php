@@ -1283,7 +1283,7 @@ function generateFolderColorRow($arrFCOdata = array())
 		$themeName = $arrFCOdata["themeName"];
 	}
 
-	if(strpos($key, "theme-default") === -1)
+	if(!(strpos($key, "default") > -1))
 	{
 		$edit = true;
 	}
