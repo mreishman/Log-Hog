@@ -697,15 +697,8 @@ function finishedUpdate()
 
 function finishUpdatePollCheck()
 {
-	if(retryCount == 0)
-	{
-		updateText("Verifying Version Change");
-	}
-	else
-	{
-		updateText("Attempt "+(retryCount+1)+" of 3 for Verifying Version Change");
-	}
-	if(retryCount > 3)
+	updateText("Attempt "+(retryCount+1)+" of 30 ( "+verifyCountSuccess+" of "+successVerifyNum+" ) for Verifying Version Change");
+	if(retryCount > 30)
 	{
 		clearInterval(verifyFileTimer);
 		updateError();
@@ -717,6 +710,7 @@ function finishUpdatePollCheck()
 		type: "POST",
 		success: function(data)
 		{
+			retryCount++;
 			if(data === arrayOfVersions[(versionCountCurrent-1)])
 			{
 				verifyCountSuccess++;
@@ -751,15 +745,8 @@ function finishedUpdateAfterAjaxSetToOneHundred()
 
 function finishUpdateOneHundredCheck()
 {
-	if(retryCount == 0)
-	{
-		updateText("Verifying Update Complete");
-	}
-	else
-	{
-		updateText("Attempt "+(retryCount+1)+" of 3 for Verifying Update Complete");
-	}
-	if(retryCount > 3)
+	updateText("Attempt "+(retryCount+1)+" of 30 ( "+verifyCountSuccess+" of "+successVerifyNum+" ) for Verifying Update Complete");
+	if(retryCount > 30)
 	{
 		clearInterval(verifyFileTimer);
 		updateError();
@@ -771,6 +758,7 @@ function finishUpdateOneHundredCheck()
 		type: "POST",
 		success: function(data)
 		{
+			retryCount++;
 			if(data === true)
 			{
 				verifyCountSuccess++;
