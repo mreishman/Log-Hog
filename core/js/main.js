@@ -4532,11 +4532,23 @@ function saveLayoutTo(letter)
 {
 	var currentConfig = getCurrentWindowLayout();
 	var currentConfigArray = currentConfig.split("x");
-	
+	var outerLoop = parseInt(currentConfigArray[0]);
+	var innerLoop = parseInt(currentConfigArray[1]);
+	var currentConterLoopExt = 0;
+	for(var outerLoopCount = 0; outerLoopCount < outerLoop; outerLoopCount++)
+	{
+		for(var innerLoopCount = 0; innerLoopCount < innerLoop; innerLoopCount++)
+		{
+			$("#localLayout [name=\"logLoad"+currentConfig+"-"+currentConterLoopExt+"-"+letter+"\"]")[0].value = filterTitle(titles[logDisplayArray[currentConterLoopExt]["id"]]).trim();
+			currentConterLoopExt++;
+		}
+	}
+	saveAndVerifyMain('localLayout');
 }
 
 function mainReady()
 {
+	dirForAjaxSend = "";
 	progressBar = new ldBar("#progressBar");
 	resize();
 	updateProgressBar(10, "Generating File List");
