@@ -188,6 +188,7 @@ if(count($arrayOfVersions) === 0)
 
 	$( document ).ready(function()
 	{
+		total = 100*arrayOfVersionsCount;
 		if(update === "1")
 		{
 			downloadBranch();

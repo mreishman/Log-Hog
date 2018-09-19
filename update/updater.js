@@ -9,7 +9,7 @@ var filteredArray = new Array();
 var preScriptCount = 1;
 var postScriptCount = 1;
 var fileCopyCount = 0;
-var total = 100*arrayOfVersionsCount;
+var total = 100;
 var versionCountCurrent = 1;
 var lastFileCheck = "";
 var verifyCountSuccess = 0;
@@ -129,7 +129,7 @@ function verifyFilePoll(action, fileLocation,isThere)
 	if(lock == false)
 	{
 		lock = true;
-		updateText('verifying '+(verifyCount+1)+' of 10');
+		updateText('verifying '+(verifyCount+1)+' of 10 , '+(verifyCountSuccess+1)+' of '+successVerifyNum)+" File: "+fileLocation;
 		var data = {action: 'verifyFileIsThere', fileLocation: fileLocation, isThere: isThere , lastAction: action};
 		(function(_data){
 			$.ajax({
@@ -161,8 +161,8 @@ function verifyPostEnd(verified, data)
 		verifyCountSuccess++;
 		if(verifyCountSuccess >= successVerifyNum)
 		{
-			verifyCountSuccess = 0;
 			clearInterval(verifyFileTimer);
+			verifyCountSuccess = 0;
 			verifySucceded(data['lastAction']);
 		}
 	}
@@ -302,7 +302,7 @@ function verifyFileOrDirPoll(action, fileLocation,isThere)
 	if(lock == false)
 	{
 		lock = true;
-		updateText('verifying '+(verifyCount+1)+' of 10');
+		updateText('verifying '+(verifyCount+1)+' of 10'+"  "+(verifyCountSuccess+1)+" of "+successVerifyNum);
 		var data = {action: 'verifyFileOrDirIsThere', locationOfDirOrFile: fileLocation, lastAction: action};
 		(function(_data){
 			$.ajax({

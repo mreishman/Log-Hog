@@ -144,11 +144,6 @@ function checkForUpdates(urlSend = "../", whatAmIUpdating = "Log-Hog", currentNe
 						document.getElementById("checkForUpdateButton").style.display = "inline-block";
 					}
 				}
-				if(updateCheckFinished !== true)
-				{
-					window.location.href = "./error.php?error=43&page=An Unknown Error Occured: Check ajax request response";
-				}
-				updateCheckFinished = false;
 			}
 		});
 	}
