@@ -1,7 +1,7 @@
 <?php
 
 $versionCheckArray = array(
-	'version'		=> '5.0.8',
+	'version'		=> '5.0.9',
 	'versionList'		=> array(
 		'2.0.1'	        => array(
 			'branchName'	=> '2.0.1Update',
@@ -206,6 +206,10 @@ $versionCheckArray = array(
 		'5.0.8'		=> array(
 			'branchName'	=> '5.0.8Update',
 			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed issue with redirect on theme upgrade not copying over image / css</li><li>Fixed issue with update error with long timeouts for verify unzip file</li><li>Fixed issue with favicon on index page</li><li>Fixed issue on update in progress page not redirecting correctly (also added option to manually redirect to updater)</li><li>Updated some error messages on upgrade config, upgrade theme and download functions</li><li>An error in the main updater will not clear log before showing error message</li></ul></li></ul>"
+		),
+		'5.0.9'		=> array(
+			'branchName'	=> '5.0.9Update',
+			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed possible update check errors </li><li>Added popup for if update check is already in progress when trying to check for update (in same window)</li><li>bugfix for possible never ending poll request for verify update check</li><li>bugfix for possible never ending poll request for verify pre-install version change check</li><li>Added check for file size verification on download</li><li>bugfix for possible issue on selecting text on logs</li><li>bugfix for incorrect title being set on window re-focus (if poll background pause is disabled, and flash title is enabled)</li></ul></li></ul>"
 		),
 	)
 );
