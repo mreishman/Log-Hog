@@ -166,6 +166,9 @@ $externalLinkImage = generateImage(
 		</div>
 
 		<form id="settingsInstallUpdate" action="update/updater.php" method="post" style="display: none"></form>
+		<form id="localLayout" style="display: none;" >
+			<?php include("core/php/template/logLayoutInner.php"); ?>
+		</form>
 		<script>
 
 			<?php

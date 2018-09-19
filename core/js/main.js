@@ -1468,7 +1468,7 @@ function unselectLogsInner(boolForType)
 		{
 			if(boolForType || logDisplayArray[h]["id"] !== null)
 			{
-				var currentLayout = document.getElementById("windowConfig").value;
+				var currentLayout = getCurrentWindowLayout();
 				var layoutVersionIndex = document.getElementById("layoutVersionIndex").value;
 				if
 				(
@@ -1533,7 +1533,7 @@ function selectTabsInOrder(targetLength)
 				//show first available log
 				for (var i = 0; i < arrayOfLogsLength; i++)
 				{
-					var currentLayout = document.getElementById("windowConfig").value;
+					var currentLayout = getCurrentWindowLayout();
 					var layoutVersionIndex = document.getElementById("layoutVersionIndex").value;
 					if(logLoadLayout.length !== 0 && logLoadLayout[currentLayout][h][layoutVersionIndex] !== "" && logLoadLayout[currentLayout][h][layoutVersionIndex] in fileData )
 					{
@@ -4183,7 +4183,7 @@ function updateOtherApps()
 
 function generateWindowDisplay()
 {
-	var windowDisplayConfig = document.getElementById("windowConfig").value;
+	var windowDisplayConfig = getCurrentWindowLayout();
 	var windowDisplayConfigArray = windowDisplayConfig.split("x");
 	windowDisplayConfigRowCount = windowDisplayConfigArray[0];
 	windowDisplayConfigColCount = windowDisplayConfigArray[1];
@@ -4521,6 +4521,18 @@ function reAddJsColorPopupForCustomThemes()
 		}
 		allFolderCount++;
 	}
+}
+
+function getCurrentWindowLayout()
+{
+	return document.getElementById("windowConfig").value;
+}
+
+function saveLayoutTo(letter)
+{
+	var currentConfig = getCurrentWindowLayout();
+	var currentConfigArray = currentConfig.split("x");
+	
 }
 
 function mainReady()
