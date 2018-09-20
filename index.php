@@ -107,7 +107,7 @@ $externalLinkImage = generateImage(
 	?>
 </head>
 <body>
-	<span id="mainContent"  >
+	<span id="mainContent" style="display: none;"  >
 		<?php require_once("core/php/customCSS.php");
 		require_once("core/php/customIndexCSS.php");
 		if($enablePollTimeLogging != "false"): ?>
@@ -260,7 +260,7 @@ $externalLinkImage = generateImage(
 		  </ul>
 		</nav>
 	</span>
-	<span id="initialLoadContent" style="background-color: #222; color: #EEE; -webkit-transition: 1s ease-in-out; -moz-transition: 1s ease-in-out; -ms-transition: 1s ease-in-out; -o-transition: 1s ease-in-out; position: absolute; z-index: 1000; left: 0; right: 0; top: 0; bottom: 0; display: none;" >
+	<span id="initialLoadContent" style="background-color: #222; color: #EEE; -webkit-transition: 1s ease-in-out; -moz-transition: 1s ease-in-out; -ms-transition: 1s ease-in-out; -o-transition: 1s ease-in-out; position: absolute; z-index: 1000; left: 0; right: 0; top: 0; bottom: 0;" >
 		<table style="width: 100%; height: 100%;">
 			<tr>
 				<th>
@@ -281,8 +281,8 @@ $externalLinkImage = generateImage(
 				arrayOfJsFilesKeys = Object.keys(arrayOfJsFiles);
 				lengthOfArrayOfJsFiles = arrayOfJsFilesKeys.length;
 			  	setTimeout(function() {
-					timerForLoadJS = setInterval(tryLoadJSStuff, 1);
-				}, 1);
+					timerForLoadJS = setInterval(tryLoadJSStuff, 25);
+				}, 25);
 			});
 		</script>
 	</span>

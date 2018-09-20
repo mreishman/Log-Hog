@@ -153,8 +153,8 @@ function checkIfJSLoaded()
 		else
 		{
 			setTimeout(function() {
-				timerForLoadJS = setInterval(tryLoadJSStuff, 1);
-			}, 1);
+				timerForLoadJS = setInterval(tryLoadJSStuff, 25);
+			}, 25);
 		}
 	}
 	else
