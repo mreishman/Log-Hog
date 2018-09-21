@@ -495,6 +495,15 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
+			9									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"maxHeightLogTabs",
+					"name"								=>	"Max height of log tabs",
+					"postText"							=>	"Pixles",
+					"type"								=>	"number"
+				)
+			),
 		),
 	),
 	"loggingVars"						=>	array(
@@ -919,15 +928,6 @@ $defaultConfigMoreData = array(
 				)
 			),
 			12									=>	array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"maxHeightLogTabs",
-					"name"								=>	"Max height of log tabs",
-					"postText"							=>	"Pixles",
-					"type"								=>	"number"
-				)
-			),
-			13									=>	array(
 				"info"								=>	"If a log tab is not visible (either below of above scroll area), a bar will flash as notification",
 				"type"								=>	"single",
 				"var"								=>	array(
@@ -937,7 +937,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			14									=>	array(
+			13									=>	array(
 				"info"								=>	"1400 Breakpoint shows only images on full screen sidebar, 1000 breakpoint is the same but moves the inner sidebar to the top",
 				"type"								=>	"single",
 				"var"								=>	array(
