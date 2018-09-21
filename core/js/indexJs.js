@@ -37,7 +37,11 @@ function updateCustomLoadImages()
 {
 	if(sendCrashInfoJS === "true")
 	{
-		arrayOfJsFiles[Object.keys(arrayOfJsFiles).length] = {name: "Raven.js"};
+		arrayOfJsFiles[Object.keys(arrayOfJsFiles).length] = {name: "Raven.js", type: "js"};
+	}
+	if(themesEnabled === "true")
+	{
+		arrayOfJsFiles[Object.keys(arrayOfJsFiles).length] = {name: "themes.js", type: "js"};
 	}
 	if(truncateLog === "true")
 	{
