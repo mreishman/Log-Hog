@@ -1,19 +1,14 @@
 <?php
-try 
+try
 {
 	$baseModifier = "../../";
-	if(!is_readable($baseModifier.'local/layout.php'))
-	{
-		echo json_encode("error in file permissions");
-		exit();
-	}
 	require_once($baseModifier.'local/layout.php');
 	$baseUrl = $baseModifier."local/".$currentSelectedTheme."/";
 	require_once($baseUrl.'conf/config.php');
 	require_once($baseModifier.'core/conf/config.php');
 	require_once('configStatic.php');
 	require_once('updateProgressFile.php');
-	require_once('commonFunctions.php');	
+	require_once('commonFunctions.php');
 }
 catch (Exception $e)
 {
@@ -21,12 +16,10 @@ catch (Exception $e)
 	exit();
 }
 
-$varsLoadLite = array("shellOrPhp", "watchList", "lineCountFromJS");
-
-foreach ($varsLoadLite as $varLoadLite)
+foreach (array("shellOrPhp", "watchList", "lineCountFromJS") as $varLoadLite)
 {
 	$$varLoadLite = $defaultConfig[$varLoadLite];
-	if(array_key_exists($varLoadLite, $config))
+	if(isset($config[$varLoadLite]))
 	{
 		$$varLoadLite = $config[$varLoadLite];
 	}
@@ -50,13 +43,12 @@ if($configStatic['version'] != $currentVersionPost)
 	echo json_encode(false);
 	exit();
 }
-
-if(array_key_exists('percent', $updateProgress) && ($updateProgress['percent'] != 0) && $updateProgress['percent'] != 100)
+elseif(isset($updateProgress['percent']) && ($updateProgress['percent'] != 0) && $updateProgress['percent'] != 100)
 {
 	echo json_encode("update in progress");
 	exit();
 }
-
+$currentTime = time();
 $watchListFolder = array();
 foreach($watchList as $key => $value)
 {
@@ -66,12 +58,7 @@ foreach($watchList as $key => $value)
 	}
 	$path = $value["Location"];
 	$filter = $value["Pattern"];
-	$fileData = array();
-	$tmpFileData = json_decode($value["FileInformation"]);
-	if(!is_null($tmpFileData))
-	{
-		$fileData = get_object_vars($tmpFileData);
-	}
+	$fileData = json_decode($value["FileInformation"], true);
 	if(is_dir($path))
 	{
 		$watchListFolder[$key] = getListOfFiles(array(
@@ -89,17 +76,14 @@ foreach($watchList as $key => $value)
 				$boolToDelete = true;
 				if(isset($fileData[$file]))
 				{
-					$dataToUse = get_object_vars($fileData[$file]);
-					if($dataToUse["Delete"] === "true")
+					if($fileData[$file]["Delete"] === "true")
 					{
 						$boolToDelete = false;
 					}
 				}
 				if($boolToDelete)
 				{
-					$diff = time()-filemtime($file);
-					$days = round($diff/86400);
-					if($days > (int)$value["AutoDeleteFiles"])
+					if(round(($currentTime-filemtime($file))/86400) > (int)$value["AutoDeleteFiles"])
 					{
 						unlink($file);
 						$keyInSubArray = array_search($file, $watchListFolder[$key]);
@@ -112,7 +96,7 @@ foreach($watchList as $key => $value)
 	}
 	elseif(file_exists($path))
 	{
-		array_push($responseFilelist, $path);
+		$responseFilelist[] =  $path;
 	}
 }
 
@@ -145,67 +129,51 @@ foreach ($responseFilelist as $file)
 		}
 	}
 
-	if($found)
+	if($found) //this is a file that is set in watchlist, use that info
 	{
-		//this is a file that is set in watchlist, use that info
 		$response[$file]["ExcludeTrim"] = $watchList[$keyFound]["ExcludeTrim"];
 		$response[$file]["Name"] = $watchList[$keyFound]["Name"];
 		$response[$file]["AlertEnabled"] = $watchList[$keyFound]["AlertEnabled"];
 		$response[$file]["Group"] = $watchList[$keyFound]["Group"];
 		$response[$file]["GrepFilter"] = $watchList[$keyFound]["GrepFilter"];
+		continue;
 	}
-	else
+	foreach ($watchListFolder as $key => $value)
 	{
-		foreach ($watchListFolder as $key => $value)
+		$found = false;
+		foreach ($value as $fileInner)
 		{
-			$found = false;
-			foreach ($value as $fileInner)
+			if($fileInner === $file)
 			{
-				if($fileInner === $file)
-				{
-					$found = true;
-					break;
-				}
-			}
-			if($found)
-			{
-				//this file is in that folder, use that info
-				$filesInFolderData = array();
-				$tmpFileData = json_decode($watchList[$key]["FileInformation"]);
-				if(!is_null($tmpFileData))
-				{
-					$filesInFolderData = get_object_vars($tmpFileData);
-				}
-				if(isset($filesInFolderData[$file]))
-				{
-					$dataToUse = get_object_vars($filesInFolderData[$file]);
-					$response[$file]["ExcludeTrim"] = $dataToUse["Trim"];
-					$response[$file]["Name"] = $dataToUse["Name"];
-					$response[$file]["AlertEnabled"] = $watchList[$key]["AlertEnabled"];
-					if($watchList[$key]["AlertEnabled"] !== "false")
-					{
-						$response[$file]["AlertEnabled"] = $dataToUse["Alert"];
-					}
-					$response[$file]["GrepFilter"] = "";
-					if(isset($dataToUse["GrepFilter"]))
-					{
-						$response[$file]["GrepFilter"] = $dataToUse["GrepFilter"];
-					}
-				}
-				else
-				{
-					$response[$file]["ExcludeTrim"] = $watchList[$key]["ExcludeTrim"];
-					$response[$file]["Name"] = "";
-					$response[$file]["AlertEnabled"] = $watchList[$key]["AlertEnabled"];
-					$response[$file]["GrepFilter"] = "";
-				}
-
-				$response[$file]["Group"] = $watchList[$key]["Group"];
+				$found = true;
 				break;
 			}
 		}
+		if($found)
+		{
+			$response[$file]["ExcludeTrim"] = $watchList[$key]["ExcludeTrim"];
+			$response[$file]["Name"] = "";
+			$response[$file]["AlertEnabled"] = $watchList[$key]["AlertEnabled"];
+			$response[$file]["GrepFilter"] = "";
+			$response[$file]["Group"] = $watchList[$key]["Group"];
+
+			$filesInFolderData = json_decode($watchList[$key]["FileInformation"], true);
+			if(isset($filesInFolderData[$file])) //this file is in that folder, use that info
+			{
+				$dataToUse = $filesInFolderData[$file];
+				$response[$file]["ExcludeTrim"] = $dataToUse["Trim"];
+				$response[$file]["Name"] = $dataToUse["Name"];
+				if($watchList[$key]["AlertEnabled"] !== "false")
+				{
+					$response[$file]["AlertEnabled"] = $dataToUse["Alert"];
+				}
+				if(isset($dataToUse["GrepFilter"]))
+				{
+					$response[$file]["GrepFilter"] = $dataToUse["GrepFilter"];
+				}
+			}
+			break;
+		}
 	}
 }
-
 echo json_encode($response);
-exit();

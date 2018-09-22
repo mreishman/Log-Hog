@@ -11,7 +11,6 @@
   	background-image: -o-repeating-linear-gradient(180deg,rgb(240,240,240),rgb(240,240,240) 2.5%, rgb(220,220,220) 2.51%, rgb(220,220,220) 5%);
 	background-image: repeating-linear-gradient(180deg,rgb(240,240,240),rgb(240,240,240) 2.5%, rgb(220,220,220) 2.51%, rgb(220,220,220) 5%);
 	padding: .5em 1em;
-	max-height: 300px;
 	border-bottom: 1px solid white;
 	overflow-y: auto;
 }
@@ -22,7 +21,6 @@
 	z-index: 10;
 	background-color: #ddd;
 	padding: .25em .5em;
-	max-height: 300px;
 	border-bottom: 1px solid white;
 	overflow-y: auto;
 	overflow-x: hidden;
@@ -72,7 +70,7 @@
 	background: linear-gradient(to bottom, rgba(172,197,233,1) 0%, rgba(163,192,242,1) 18%, rgba(97,160,237,1) 39%, rgba(85,163,242,1) 70%, rgba(130,194,241,1) 92%, rgba(154,210,242,1) 100%);
 }
 
-#notificationHolder td, #notificationHolder th
+.dropdownHolder td, .dropdownHolder th
 {
 	color: black;
 }
@@ -81,7 +79,7 @@
   border-bottom: 12px solid white;
 }
 
-#notificationHolder {
+.dropdownHolder {
   color: black;
   background-color: white;
   border: 1px solid black;

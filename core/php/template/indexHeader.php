@@ -32,19 +32,43 @@
 				);
 			?>
 		</div>
+		<?php if ($enableHistory === "true"): ?>
+			<div onclick="archiveLogPopupToggle();" class="menuImageDiv">
+				<?php echo generateImage(
+					$arrayOfImages["history"],
+					$imageConfig = array(
+						"id"		=>	"historyImage",
+						"class"		=>	"menuImage",
+						"height"	=>	"30px"
+						)
+					);
+				?>
+			</div>
+		<?php endif; ?>
 		<?php if($enableMultiLog === "true" && $multiLogOnIndex === "true"): ?>
 			<div onclick="multiLogPopup();"  class="menuImageDiv">
-			<?php echo generateImage(
-				$arrayOfImages["multiLog"],
-				$imageConfig = array(
-					"id"		=>	"multiLogImage",
-					"class"		=>	"menuImage",
-					"height"	=>	"30px"
-					)
-				);
-			?>
-		</div>
+				<?php echo generateImage(
+					$arrayOfImages["multiLog"],
+					$imageConfig = array(
+						"id"		=>	"multiLogImage",
+						"class"		=>	"menuImage",
+						"height"	=>	"30px"
+						)
+					);
+				?>
+			</div>
 		<?php endif; ?>
+		<div onclick="filterSubMenu();" id="selectForGroupDiv" style="display: none;" class="menuImageDiv">
+				<?php echo generateImage(
+					$arrayOfImages["filter"],
+					$imageConfig = array(
+						"id"		=>	"menuImage",
+						"class"		=>	"menuImage",
+						"height"	=>	"30px"
+						)
+					);
+				?>
+		</div>
 		<div onclick="pausePollAction();" class="menuImageDiv">
 			<?php
 				$styleString = "display: inline-block;";
@@ -125,14 +149,6 @@
 				?>
 			</div>
 		<?php endif; ?>
-		<div id="selectForGroupDiv" style="display: none;">
-			Groups:
-			<div class="selectDiv">
-				<select id="selectForGroup" >
-					<option selected="true" value="all" >All</option>
-				</select>
-			</div>
-		</div>
 		<span <?php if($hideClearAllNotifications === "true"){ echo "style=\" display: none; \""; }?> >
 			<div  id="clearNotificationsImage" style="display: none;" onclick="removeAllNotifications();" class="menuImageDiv">
 				<?php echo generateImage(
@@ -204,6 +220,14 @@
 			<input type="hidden" id="layoutVersionIndex" value="A" >
 			|
 			<span onclick="resetSelection();" class="linkSmall">Reset Selection</span>
+		</div>
+		<div id="groupSubMenu" style="display: none;" >
+			Groups:
+			<div class="selectDiv">
+				<select id="selectForGroup" >
+					<option selected="true" value="all" >All</option>
+				</select>
+			</div>
 		</div>
 	</div>
 </div>

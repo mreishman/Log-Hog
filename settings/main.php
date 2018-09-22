@@ -27,19 +27,33 @@ require_once('../core/php/loadVars.php');
 </head>
 <body>
 
-<?php require_once('header.php');?>	
+<?php require_once('header.php');?>
 
 	<div id="main">
-		<?php require_once('../core/php/template/logSettings.php'); ?>
-		<?php require_once('../core/php/template/pollVars.php'); ?>
-		<?php require_once('../core/php/template/filterVars.php'); ?>
-		<?php require_once('../core/php/template/updateVars.php'); ?>
-		<?php require_once('../core/php/template/settingsMenuVars.php'); ?>
-		<?php require_once('../core/php/template/watchlistVars.php'); ?>
-		<?php if($enableMultiLog === "true"): ?>
-			<?php require_once('../core/php/template/multiLogVars.php'); ?>
-		<?php endif; ?>
-		<?php require_once('../core/php/template/mainVars.php'); ?>
+		<?php
+		$currentSection = "logVars";
+		include('../core/php/template/varTemplate.php');
+		$currentSection = "pollVars";
+		include('../core/php/template/varTemplate.php');
+		$currentSection = "filterVars";
+		include('../core/php/template/varTemplate.php');
+		$currentSection = "archive";
+		include('../core/php/template/varTemplate.php');
+		$currentSection = "updateVars";
+		include('../core/php/template/varTemplate.php');
+		$currentSection = "menuVars";
+		include('../core/php/template/varTemplate.php');
+		$currentSection = "watchlistVars";
+		include('../core/php/template/varTemplate.php');
+		if($enableMultiLog === "true")
+		{
+			$currentSection = "multiLogVars";
+			include('../core/php/template/varTemplate.php');
+			require_once('../core/php/template/logLayout.php');
+		}
+		$currentSection = "otherVars";
+		include('../core/php/template/varTemplate.php');
+		?>
 	</div>
 </body>
 <script type="text/javascript">

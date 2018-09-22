@@ -4,7 +4,6 @@
 	z-index: 20;
 	background-color: #2e303f;
 	padding: .5em 1em;
-	max-height: 300px;
 	border-bottom: 1px solid white;
 	overflow-y: auto;
 }
@@ -15,7 +14,6 @@
 	z-index: 10;
 	background-color: #ddd;
 	padding: .25em .5em;
-	max-height: 300px;
 	border-bottom: 1px solid white;
 	overflow-y: auto;
 	overflow-x: hidden;
@@ -48,7 +46,7 @@
 	background-color: white; 
 }
 
-#notificationHolder td, #notificationHolder th
+.dropdownHolder td, .dropdownHolder th
 {
 	color: white;
 }
@@ -57,7 +55,7 @@
   border-bottom: 12px solid black;
 }
 
-#notificationHolder {
+.dropdownHolder {
   color: white;
   background-color: black;
   border: 1px solid white;

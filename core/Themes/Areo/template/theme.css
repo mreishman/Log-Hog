@@ -3,7 +3,6 @@
 	width: 100%;
 	z-index: 20;
 	padding: .5em 1em;
-	max-height: 300px;
 	border-bottom: 1px solid white;
 	overflow-y: auto;
 	background: repeating-linear-gradient(45deg, rgba(25,40,55,0.75) 35%, rgba(65,85,100,0.75) 40%, rgba(65,85,100,0.75) 42%, rgba(25,40,55,0.75) 50%, rgba(25,40,55,0.75) 55%, rgba(70,85,100,0.75) 60%, rgba(70,85,100,0.75) 75%, rgba(25,40,55,0.75) 90%);
@@ -29,7 +28,6 @@
 	z-index: 10;
 	background-color: #ddd;
 	padding: .25em .5em;
-	max-height: 300px;
 	border-bottom: 1px solid white;
 	overflow-y: auto;
 	overflow-x: hidden;
@@ -65,7 +63,7 @@
 	background-color: white ; 
 }
 
-#notificationHolder td, #notificationHolder th
+.dropdownHolder td, .dropdownHolder th
 {
 	color: white;
 }
@@ -74,7 +72,7 @@
   border-bottom: 12px solid black;
 }
 
-#notificationHolder {
+.dropdownHolder {
   color: white;
   background-color: black;
   border: 1px solid white;

@@ -1,4 +1,5 @@
 var alertEnabledArray = {};
+var allLogOneLog = {};
 var arrayToUpdate = {};
 var arrayOfData1 = null;
 var arrayOfData2 = null;
@@ -17,7 +18,10 @@ var fileData;
 var filesNew;
 var firstLoad = true;
 var flasher;
+var fullScreenMenuClickCount = 0;
 var globalForcePageNavigate = false;
+var hiddenLogUpdatePollBottom = null;
+var hiddenLogUpdatePollTop = null;
 var lastContentSearch = "";
 var lastLogs = {};
 var logDisplayArray = {};
@@ -29,6 +33,7 @@ var notifications = new Array();
 var pausePollCurrentSession = false;
 var percent = 0;
 var polling = false;
+var pollingRateBackup = 0;
 var pollRefreshAllBoolStatic = pollRefreshAllBool;
 var pollSkipCounter = 0;
 var pollTimer = null;
@@ -384,7 +389,7 @@ function pollTwoPartTwo(data)
 			var arrayOfDataMainKeys = Object.keys(arrayOfDataMain);
 			for (var i = arrayOfDataMainKeys.length - 1; i >= 0; i--) 
 			{
-				if(arrayOfDataMainKeys[i] in data)
+				if(arrayOfDataMainKeys[i] in data || arrayOfDataMainKeys[i].indexOf("LogHog/Backup") > -1)
 				{
 					continue;
 				}
@@ -422,14 +427,7 @@ function pollTwoPartTwo(data)
 					continue;
 				}
 				arrayToUpdate[filesNew[updateCount]] = data[filesNew[updateCount]];
-				if(!($("#selectForGroup option[value='"+data[filesNew[updateCount]]["Group"]+"']").length > 0) && data[filesNew[updateCount]]["Group"] !== "")
-				{
-					$("#selectForGroup").append("<option value='"+data[filesNew[updateCount]]["Group"]+"'>"+data[filesNew[updateCount]]["Group"]+"</option>");
-					if(document.getElementById("selectForGroupDiv").style.display === "none")
-					{
-						document.getElementById("selectForGroupDiv").style.display = "inline-block";
-					}
-				}
+				addToGroupTab(data[filesNew[updateCount]]["Group"]);
 			}
 		}
 		else
@@ -455,14 +453,7 @@ function pollTwoPartTwo(data)
 					//file is new, add to array
 					arrayToUpdate[filesNew[updateOldCount]] = data[filesNew[updateOldCount]];
 				}
-				if(!($("#selectForGroup option[value='"+data[filesNew[updateOldCount]]["Group"]+"']").length > 0) && data[filesNew[updateOldCount]]["Group"] !== "")
-				{
-					$("#selectForGroup").append("<option value='"+data[filesNew[updateOldCount]]["Group"]+"'>"+data[filesNew[updateOldCount]]["Group"]+"</option>");
-					if(document.getElementById("selectForGroupDiv").style.display === "none")
-					{
-						document.getElementById("selectForGroupDiv").style.display = "inline-block";
-					}
-				}
+				addToGroupTab(data[filesNew[updateOldCount]]["Group"]);
 			}
 
 			for (var oldSwapCount = filesOld.length - 1; oldSwapCount >= 0; oldSwapCount--)
@@ -483,6 +474,23 @@ function pollTwoPartTwo(data)
 	}
 }
 
+function addToGroupTab(newGroups)
+{
+	newGroups = newGroups.split(" ");
+	var newGroupsLength = newGroups.length;
+	for(var NGcount = 0; NGcount < newGroupsLength; NGcount++)
+	{
+		if(!($("#selectForGroup option[value='"+newGroups[NGcount]+"']").length > 0) && newGroups[NGcount] !== "")
+		{
+			$("#selectForGroup").append("<option value='"+newGroups[NGcount]+"'>"+newGroups[NGcount]+"</option>");
+			if(document.getElementById("selectForGroupDiv").style.display === "none")
+			{
+				document.getElementById("selectForGroupDiv").style.display = "inline-block";
+			}
+		}
+	}
+}
+
 function getArrayOfGroups(data)
 {
 	var fileDataKeys = Object.keys(data);
@@ -491,9 +499,14 @@ function getArrayOfGroups(data)
 	for(var OGRcount = 0; OGRcount < fileDataKeysLength; OGRcount++)
 	{
 		var group = data[fileDataKeys[OGRcount]]["Group"];
-		if($.inArray(group, arrayOfGroups) === -1 && $.inArray(fileDataKeys[OGRcount].replace(/[^a-z0-9]/g, ""), logsToHide) === -1)
+		group = group.split(" ");
+		var groupsLength = group.length;
+		for(var CGcount = 0; CGcount < groupsLength; CGcount++)
 		{
-			arrayOfGroups.push(group);
+			if($.inArray(group[CGcount], arrayOfGroups) === -1 && $.inArray(fileDataKeys[OGRcount].replace(/[^a-z0-9]/g, ""), logsToHide) === -1)
+			{
+				arrayOfGroups.push(group[CGcount]);
+			}
 		}
 	}
 	return arrayOfGroups;
@@ -528,6 +541,7 @@ function updateGroupsOnTabs(data, arrayOfGroupsModded)
 						{
 							//group name shows, update if there is one
 							var possibleNewGroup = data[fileDataKeysTwo[UGRcount]]["Group"];
+							possibleNewGroup = possibleNewGroup.split(" ")[0];
 							$("#"+idForTab+"GroupInName").html("");
 							if(possibleNewGroup !== "")
 							{
@@ -546,9 +560,14 @@ function updateGroupsOnTabs(data, arrayOfGroupsModded)
 		if(document.getElementById(idForTab))
 		{
 			var groupSearch = data[fileDataKeysTwo[AGRcount]]["Group"];
-			if(!$("#"+idForTab).hasClass(groupSearch+"Group"))
+			groupSearch = groupSearch.split(" ");
+			var groupSearchLength = groupSearch.length;
+			for(var GScount = 0; GScount < groupSearchLength; GScount++)
 			{
-				$("#"+idForTab).addClass(groupSearch+"Group");
+				if(!$("#"+idForTab).hasClass(groupSearch[GScount]+"Group"))
+				{
+					$("#"+idForTab).addClass(groupSearch[GScount]+"Group");
+				}
 			}
 		}
 	}
@@ -744,7 +763,6 @@ function pollTimeLogEndAction()
 		{
 			document.getElementById("loggingTimerPollRate").style.color = "#ffff00";
 		}
-		
 	}
 	else
 	{
@@ -1039,6 +1057,7 @@ function update(data)
 						}
 
 						logs[id] = logData;
+						titles[id] = name;
 						if(files[i] in fileData)
 						{
 							if(enableLogging !== "false")
@@ -1112,9 +1131,17 @@ function update(data)
 									}
 								}
 							}
-							if(logNameGroup === "true" && fileData[files[i]]["Group"] !== "")
+							if(logNameGroup === "true")
 							{
-								nameForLog = "<span id='"+id+"GroupInName' >"+fileData[files[i]]["Group"]+":</span>"+nameForLog;
+								if(files[i] in fileData && fileData[files[i]]["Group"] !== "")
+								{
+									var newNameGroup = fileData[files[i]]["Group"].split(" ")[0];
+									nameForLog = "<span id='"+id+"GroupInName' >"+newNameGroup+":</span>"+nameForLog;
+								}
+								else if(files[i].indexOf("LogHog/Backup/") === 0)
+								{
+									nameForLog = "Backup:"+nameForLog;
+								}
 							}
 							classInsert = "";
 							item = blank;
@@ -1124,9 +1151,18 @@ function update(data)
 							{
 								classInsert += " buttonColor"+(folderNameCount+1)+" ";
 							}
-							if(fileData[fullPathSearch]["Group"] !== "")
+							if(fullPathSearch in fileData && fileData[fullPathSearch]["Group"] !== "")
 							{
-								classInsert += " "+fileData[files[i]]["Group"]+"Group ";
+								var classNameGroup = fileData[files[i]]["Group"].split(" ");
+								var classNameGroupLength = classNameGroup.length;
+								for(var NCGcount = 0; NCGcount < classNameGroupLength; NCGcount++)
+								{
+									classInsert += " "+classNameGroup[NCGcount]+"Group ";
+								}
+							}
+							else if(files[i].indexOf("LogHog/Backup/") !== 0)
+							{
+								classInsert += " BackupGroup ";
 							}
 							classInsert += " allGroup ";
 							item = item.replace(/{{class}}/g, classInsert);
@@ -1177,7 +1213,7 @@ function update(data)
 
 							if(!firstLoad)
 							{
-								if(!$("#menu a." + id + "Button").hasClass("updated") && fileData[fullPathSearch]["AlertEnabled"] === "true" && (!(id in alertEnabledArray) || (id in alertEnabledArray && alertEnabledArray[id] === "enabled")))
+								if(!$("#menu a." + id + "Button").hasClass("updated") && ( (!(fullPathSearch in fileData)) || fileData[fullPathSearch]["AlertEnabled"] === "true" ) && (!(id in alertEnabledArray) || (id in alertEnabledArray && alertEnabledArray[id] === "enabled")))
 								{
 									$("#menu a." + id + "Button").addClass("updated");
 
@@ -1188,21 +1224,25 @@ function update(data)
 									});
 								}
 							}
-
-							var hideLogAction = {action: "tmpHideLog(\""+id+"\");", name: "Tmp Hide Log"};
-							var clearLogAction = {action: "clearLogInner(titles[\""+id+"\"]);", name: "Clear Log"};
-							var deleteLogAction = {action: "deleteLogPopupInner(titles[\""+id+"\"]);", name: "Delete Log"};
-							var copyNameAction = {action: "copyToClipBoard(\""+shortName+"\");", name: "Copy File Name"};
-							var copyFullPathAction = {action: "copyToClipBoard(titles[\""+id+"\"]);", name: "Copy Filepath"};
-							var alertToggle = {action: "tmpToggleAlerts(\""+id+"\");" ,name: "Enable Alerts"};
-							if(fileData[fullPathSearch]["AlertEnabled"] === "true")
+							var rightClickObjectNew = new Array();
+							if(files[i].indexOf("LogHog/Backup/") !== 0)
 							{
-								alertToggle = {action: "tmpToggleAlerts(\""+id+"\");" ,name: "Disable Alerts"};
+								rightClickObjectNew.push({action: "tmpHideLog(\""+id+"\");", name: "Tmp Hide Log"});
+								rightClickObjectNew.push({action: "clearLogInner(titles[\""+id+"\"]);", name: "Clear Log"});
+								rightClickObjectNew.push({action: "deleteLogPopupInner(titles[\""+id+"\"]);", name: "Delete Log"});
+								var alertToggle = {action: "tmpToggleAlerts(\""+id+"\");" ,name: "Enable Alerts"};
+								if( (!(fullPathSearch in fileData)) || fileData[fullPathSearch]["AlertEnabled"] === "true")
+								{
+									alertToggle = {action: "tmpToggleAlerts(\""+id+"\");" ,name: "Disable Alerts"};
+								}
+								rightClickObjectNew.push(alertToggle);
 							}
+							rightClickObjectNew.push({action: "copyToClipBoard(\""+shortName+"\");", name: "Copy File Name"});
+							rightClickObjectNew.push({action: "copyToClipBoard(titles[\""+id+"\"]);", name: "Copy Filepath"});
 							//add rightclick menu
 							if(rightClickMenuEnable === "true")
 							{
-								menuObjectRightClick[id] = [hideLogAction, clearLogAction,deleteLogAction,copyNameAction,copyFullPathAction,alertToggle];
+								menuObjectRightClick[id] = rightClickObjectNew;
 								Rightclick_ID_list.push(id);
 							}
 						}
@@ -1361,7 +1401,7 @@ function update(data)
 				}
 			}
 		}
-		resize();
+
 		//Check if a tab is active, if none... click on first in array that's visible
 		var targetLength = Object.keys(logDisplayArray).length;
 		var tmpCurrentSelectWindow = currentSelectWindow;
@@ -1385,7 +1425,7 @@ function update(data)
 		updateScrollOnLogs();
 		lastContentSearch = getFilterTextField();
 		refreshLastLogsArray();
-
+		checkForUpdateLogsOffScreen();
 		resize();
 	}
 	catch(e)
@@ -1806,6 +1846,7 @@ function clearNotifications()
 		eventThrowException(e);
 	}
 	clearingNotifications = false;
+	checkForUpdateLogsOffScreen();
 }
 
 function refreshLastLogsArray()
@@ -1844,6 +1885,34 @@ function removeFromMultiLog(idOfName)
 		$("#log"+i).html("");
 		$("#menu ." + idOfName + "Button currentWindowNum").html("");
 	}
+}
+
+function removeArchiveLogFromDisplay(currentLogNum)
+{
+	var archiveLogId = logDisplayArray[currentLogNum]["id"];
+	$("#"+archiveLogId).remove();
+	removeNotificationByLog(archiveLogId);
+	var aodmKeys = Object.keys(arrayOfDataMain);
+	var aodmKeysLength = aodmKeys.length;
+	for(var archiveRemoveCount = 0; archiveRemoveCount < aodmKeysLength; archiveRemoveCount++)
+	{
+		if(aodmKeys[archiveRemoveCount].indexOf("LogHog/Backup") > -1)
+		{
+			if(aodmKeys[archiveRemoveCount].replace(/[^a-z0-9]/g, "") === archiveLogId)
+			{
+				delete arrayOfDataMain[archiveLogId];
+				break;
+			}
+		}
+	}
+	logDisplayArray[currentLogNum] = {id: null, scroll: true, pin: false};
+	selectTabsInOrder(Object.keys(logDisplayArray).length);
+	resize();
+}
+
+function hideLogByLogDisplayArray(currentLogNum)
+{
+	hideLogByName(logDisplayArray[currentLogNum]["id"]);
 }
 
 function hideLogByName(name)
@@ -1996,12 +2065,52 @@ function showPartTwo(e, internalID, currentCurrentSelectWindow)
 	}
 }
 
+function toggleSideBarElements(internalID, currentCurrentSelectWindow)
+{
+	if(internalID.indexOf("ogogackup") === 0)
+	{
+		if(document.getElementById("clearLogSideBar"+currentCurrentSelectWindow).style.display !== "none")
+		{
+			document.getElementById("clearLogSideBar"+currentCurrentSelectWindow).style.display = "none";
+		}
+		if(document.getElementById("deleteLogSideBar"+currentCurrentSelectWindow).style.display !== "none")
+		{
+			document.getElementById("deleteLogSideBar"+currentCurrentSelectWindow).style.display = "none";
+		}
+		if(document.getElementById("closeLogSideBar"+currentCurrentSelectWindow).style.display !== "block")
+		{
+			document.getElementById("closeLogSideBar"+currentCurrentSelectWindow).style.display = "block";
+		}
+	}
+	else
+	{
+		if(document.getElementById("clearLogSideBar"+currentCurrentSelectWindow).style.display === "none")
+		{
+			document.getElementById("clearLogSideBar"+currentCurrentSelectWindow).style.display = "block";
+		}
+		if(document.getElementById("deleteLogSideBar"+currentCurrentSelectWindow).style.display === "none")
+		{
+			document.getElementById("deleteLogSideBar"+currentCurrentSelectWindow).style.display = "block";
+		}
+		if(document.getElementById("closeLogSideBar"+currentCurrentSelectWindow).style.display === "block")
+		{
+			document.getElementById("closeLogSideBar"+currentCurrentSelectWindow).style.display = "none";
+		}
+	}
+}
+
 function showPartThree(e, internalID, currentCurrentSelectWindow)
 {
 	try
 	{
+		toggleSideBarElements(internalID, currentCurrentSelectWindow);
 		$("#log"+currentCurrentSelectWindow+"load").hide();
 		$("#log"+currentCurrentSelectWindow).show();
+		if(document.getElementById("noLogToDisplay").style.display !== "none")
+		{
+			document.getElementById("noLogToDisplay").style.display = "none";
+			document.getElementById("log").style.display = "block";
+		}
 		scrollToBottom(currentCurrentSelectWindow);
 		toggleNotificationClearButton();
 		removeNotificationByLog(internalID);
@@ -2206,8 +2315,17 @@ function makePretty(id)
 					{
 						returnText += " "+customClass+" ";
 					}
-					returnText += " >"+formatLine(lineText[j])+"</tr>";
-					returnText += "<tr height=\""+logLinePadding+"px\" ><td colspan=\"2\"></td></tr>";
+					returnText += " >";
+					// if(bottomBarIndexShow === "true")
+					// {
+					// 	returnText += "<td style=\"width: 31px;\" ></td>";
+					// }
+					var lineToReturn = "<td style=\"white-space: pre-wrap;\" >"+lineText[j]+"</td>";
+					if(expFormatEnabled === "true")
+					{
+						lineToReturn = formatLine(lineText[j]);
+					}
+					returnText += ""+lineToReturn+"</tr><tr height=\""+logLinePadding+"px\" ><td colspan=\"2\"></td></tr>";
 				}
 			}
 		}
@@ -2306,9 +2424,32 @@ function resize()
 		var trElementHeight = ((targetHeight-borderPadding)/windowDisplayConfigRowCount).toFixed(4);
 		if(($(".logTrHeight").outerHeight() !== trElementHeight)|| ($(".logTdWidth").outerWidth() !== tdElementWidth) || ($(".backgroundForSideBarMenu").outerHeight() !== trElementHeight))
 		{
-			$(".logTrHeight").outerHeight(trElementHeight);
-			$(".logTdWidth").outerWidth(tdElementWidth);
-			$(".backgroundForSideBarMenu").outerHeight(trElementHeight);
+			if($(".logTrHeight").outerHeight() !== trElementHeight)
+			{
+				$(".logTrHeight").outerHeight(trElementHeight);
+			}
+			if($(".logTdWidth").outerWidth() !== tdElementWidth)
+			{
+				$(".logTdWidth").outerWidth(tdElementWidth);
+			}
+			if(bottomBarIndexType === "full")
+			{
+				$(".backgroundForSideBarMenu").outerHeight(trElementHeight);
+			}
+			else
+			{
+				if($(".backgroundForSideBarMenu").outerHeight() > $(".logTrHeight").outerHeight())
+				{
+					$(".backgroundForSideBarMenu").outerHeight(trElementHeight);
+				}
+				else
+				{
+					if($(".backgroundForSideBarMenu").css("height") !== "auto")
+					{
+						$(".backgroundForSideBarMenu").css("height","auto");
+					}
+				}
+			}
 		}
 		updateNotificationCount();
 	}
@@ -2390,6 +2531,40 @@ function clearPollTimer()
 		Visibility.stop(pollTimer);
 	}
 	pollTimer = null;
+}
+
+function togglePollSpeedDown(currentClick)
+{
+	if(userPaused || pausePollCurrentSession)
+	{
+		return;
+	}
+	if(currentClick !== fullScreenMenuClickCount)
+	{
+		return;
+	}
+	clearPollTimer();
+	if(fullScreenMenuPollSwitchType === "BGrate")
+	{
+		pollingRateBackup = pollingRate;
+		pollingRate = backgroundPollingRate;
+		startPollTimer();
+	}
+}
+
+function togglePollSpeedUp()
+{
+	if(userPaused || pausePollCurrentSession)
+	{
+		return;
+	}
+	clearPollTimer();
+	if(pollingRateBackup !== 0)
+	{
+		pollingRate = pollingRateBackup;
+	}
+	pollingRateBackup = 0;
+	startPollTimer();
 }
 
 function switchPollType()
@@ -2504,11 +2679,11 @@ function clearLogInner(title)
 	{
 		title = title.split(" | ")[0];
 	}
-	var urlForSend = "core/php/clearLog.php?format=json";
+	archiveAction(title);
 	title = filterTitle(title);
 	var data = {file: title};
 	$.ajax({
-			url: urlForSend,
+			url: "core/php/clearLog.php?format=json",
 			dataType: "json",
 			data,
 			type: "POST",
@@ -2547,6 +2722,164 @@ function clearLog(idNum)
 	}
 }
 
+function archiveAction(title)
+{
+	if(saveTmpLogOnClear === "true" && enableHistory === "true")
+	{
+		var dataToSend = {subFolder: "tmp/loghogBackupHistoryLogs/", key: title, log: arrayOfDataMain[title]["log"]};
+		$.ajax({
+				url: "core/php/saveTmpVersionOfLog.php?format=json",
+				dataType: "json",
+				data: dataToSend,
+				type: "POST",
+		success(data){},
+		});
+	}
+}
+
+function archiveLogPopupToggle()
+{
+	//get list of logs in tmpbackup
+	if(document.getElementById("fullScreenMenu").style.display !== "none")
+	{
+		toggleFullScreenMenu();
+	}
+	if(document.getElementById("notifications").style.display === "inline-block")
+	{
+		toggleNotifications();
+	}
+	if(document.getElementById("historyDropdown").style.display === "inline-block")
+	{
+		document.getElementById("historyDropdown").style.display = "none";
+	}
+	else
+	{
+		getListOfArchiveLogs();
+		document.getElementById("historyDropdown").style.display = "inline-block";
+		document.getElementById("historyDropdown").style.left = (document.getElementById("historyImage").getBoundingClientRect().left-21) + "px";
+		document.getElementById("historyDropdown").style.top = (document.getElementById("historyImage").getBoundingClientRect().top+25) + "px";
+	}
+}
+
+function getListOfArchiveLogs()
+{
+	$.ajax({
+			url: "core/php/getListOfTmpLogs.php?format=json",
+			dataType: "json",
+			data: {},
+			type: "POST",
+	success(data){
+		showHistory(data);
+	}});
+}
+
+function showHistory(data)
+{
+	$("#historyHolder").html('');
+	var htmlForHistory = "No Log History To Display";
+	if(data)
+	{
+		htmlForHistory = "<table style=\"width: 100%;\" ><tr><td width=\"55%\" ></td><td  width=\"45%\" ></td></tr>";
+		var historyKeys = Object.keys(data);
+		var historyKeysLength = historyKeys.length;
+		if(historyKeysLength === 0)
+		{
+			htmlForHistory += "<tr><td colspan=\"2\" >No Log Backups To Display</td></tr>"
+		}
+		else
+		{
+			for(var historyKey = 0; historyKey < historyKeysLength; historyKey++)
+			{
+				var historyName = data[historyKeys[historyKey]].replace(/_DIR_/g, "/").replace("Backup/", "");
+				htmlForHistory += "<tr><td style=\"word-break:break-all\" >"+historyName+"</td><td>";
+				if("LogHog/"+data[historyKeys[historyKey]].replace(/_DIR_/g, "/") in arrayOfDataMain)
+				{
+					htmlForHistory += "<a class=\"linkSmall\" onclick=\"hideArchiveLog('"+data[historyKeys[historyKey]]+"')\" >Hide</a> ";
+				}
+				else
+				{
+					htmlForHistory += "<a class=\"linkSmall\" onclick=\"viewArchiveLog('"+data[historyKeys[historyKey]]+"')\" >View</a> ";
+				}
+				htmlForHistory += " <a onclick=\"deleteArchiveLog('"+data[historyKeys[historyKey]]+"')\" class=\"linkSmall\" >Delete</a></td></tr>";
+			}
+		}
+		htmlForHistory += "</table>";
+	}
+	$("#historyHolder").html(htmlForHistory);
+	$("#historyHolder").append($("#storage .notificationButtons").html());
+}
+
+function hideArchiveLog(title)
+{
+	var newTitle = "LogHog/"+title.replace(/_DIR_/g, "/");
+	archiveLogPopupToggle();
+	removeNotificationByLog(newTitle.replace(/[^a-z0-9]/g, ""));
+	delete arrayOfDataMain[newTitle];
+	$("#"+newTitle.replace(/[^a-z0-9]/g, "")).remove();
+	var logDisplayArrayLength = Object.keys(logDisplayArray).length;
+	for(logDisplayArrayCount = 0; logDisplayArrayCount < logDisplayArrayLength; logDisplayArrayCount++)
+	{
+		if(logDisplayArray[logDisplayArrayCount]["id"] === newTitle.replace(/[^a-z0-9]/g, ""))
+		{
+			logDisplayArray[logDisplayArrayCount] = {id: null, scroll: true, pin: false};
+			selectTabsInOrder(logDisplayArrayLength);
+			break;
+		}
+	}
+	resize();
+}
+
+function viewArchiveLog(title)
+{
+	archiveLogPopupToggle();
+	var dataToSend = {file: title};
+	$.ajax({
+			url: "core/php/getTmpVersionOfLog.php?format=json",
+			dataType: "json",
+			data: dataToSend,
+			type: "POST",
+	success(data){
+		arrayOfDataMain["LogHog/"+title.replace(/_DIR_/g, "/")] = {log: data, data: "", lineCount: "---"};
+		generalUpdate();
+	}});
+}
+
+function deleteArchiveLog(title)
+{
+	archiveLogPopupToggle();
+	var dataToSend = {file: title};
+	$.ajax({
+			url: "core/php/deleteArchiveLog.php?format=json",
+			dataType: "json",
+			data: dataToSend,
+			type: "POST",
+	success(data){
+		delete arrayOfDataMain["LogHog/"+title.replace(/_DIR_/g, "/")];
+		generalUpdate();
+	}});
+}
+
+function clearAllArchiveLogs()
+{
+	archiveLogPopupToggle();
+	$.ajax({
+			url: "core/php/deleteAllArchiveLogs.php?format=json",
+			dataType: "json",
+			data: dataToSend,
+			type: "POST",
+	success(data){
+		var arrayOfDataMainKeys = Object.keys(arrayOfDataMain);
+		var arrayOfDataMainKeysLength = arrayOfDataMainKeys.length;
+		for(var aodkcount = 0; aodkcount < arrayOfDataMainKeysLength; aodkcount++)
+		{
+			if(arrayOfDataMainKeys[aodkcount].indexOf("LogHog/Backup") === 0)
+			{
+				delete arrayOfDataMain[arrayOfDataMainKeys[aodkcount]];
+			}
+		}
+		generalUpdate();
+	}});
+}
 
 function deleteAction()
 {
@@ -2633,6 +2966,7 @@ function deleteLog(title)
 		{
 			title = title.split(" | ")[0];
 		}
+		archiveAction(title);
 		var urlForSend = "core/php/deleteLog.php?format=json";
 		title = title.replace(/\s/g, "");
 		var data = {file: title};
@@ -2953,6 +3287,10 @@ function toggleNotifications(force = false)
 		globalForcePageNavigate = false;
 		toggleFullScreenMenu();
 	}
+	if(document.getElementById("historyDropdown").style.display === "inline-block")
+	{
+		archiveLogPopupToggle()
+	}
 	if(document.getElementById("notifications").style.display === "inline-block")
 	{
 		document.getElementById("notifications").style.display = "none";
@@ -3166,17 +3504,24 @@ function updateNotificationStuff()
 {
 	updateNotificationCount();
 	showNotifications();
+	checkForUpdateLogsOffScreen();
 }
 
 function toggleFullScreenMenu(force = false)
 {
+	fullScreenMenuClickCount++;
 	dirForAjaxSend = "";
 	if(document.getElementById("notifications").style.display === "inline-block")
 	{
 		toggleNotifications();
 	}
+	if(document.getElementById("historyDropdown").style.display === "inline-block")
+	{
+		archiveLogPopupToggle()
+	}
 	if(document.getElementById("fullScreenMenu").style.display === "none")
 	{
+		document.getElementById('menu').style.zIndex = "4";
 		loadImgFromData("mainMenuImage");
 		document.getElementById("fullScreenMenu").style.display = "block";
 		onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
@@ -3196,6 +3541,11 @@ function toggleFullScreenMenu(force = false)
 		{
 			$("#menuSeleniumMonitorAddon").click();
 		}
+		var fullScreenMenuClickCountCurrent = fullScreenMenuClickCount;
+		setTimeout(function() {
+			togglePollSpeedDown(fullScreenMenuClickCountCurrent);
+		}, 1000 * fullScreenMenuPollSwitchDelay);
+
 	}
 	else
 	{
@@ -3208,8 +3558,10 @@ function toggleFullScreenMenu(force = false)
 		}
 		$( "#fullScreenMenuWatchList" ).off( "mousemove" );
 		globalForcePageNavigate = false;
+		document.getElementById('menu').style.zIndex = "20";
 		hideIframeStuff();
 		document.getElementById("fullScreenMenu").style.display = "none";
+		togglePollSpeedUp();
 	}
 }
 
@@ -3229,6 +3581,23 @@ function toggleUpdateMenu(force = false)
 	document.getElementById("fullScreenMenuUpdate").style.display = "block";
 	$("#mainMenuUpdate").addClass("selected");
 	arrayOfScrollHeaderUpdate = ["updateUpdate","updateReleaseNotes"];
+	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
+}
+
+function toggleAddons(force = false)
+{
+	if(!force)
+	{
+		if(!(goToPageCheck("toggleAddons(true)")))
+		{
+			return false;
+		}
+	}
+	hideMainStuff();
+	hideSidebar();
+	document.getElementById("fullScreenMenuAddons").style.display = "block";
+	$("#mainMenuAddons").addClass("selected");
+	arrayOfScrollHeaderUpdate = [];
 	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
 }
 
@@ -3395,6 +3764,12 @@ function hideAboutStuff()
 	$("#aboutSubMenuWhatsNew").removeClass("selected");
 }
 
+function hideAddonStuff()
+{
+	document.getElementById("fullScreenMenuAddons").style.display = "none";
+	$("#mainMenuAddons").removeClass("selected");
+}
+
 function hideIframeStuff()
 {
 	document.getElementById("fullScreenMenuIFrame").style.display = "none";
@@ -3452,6 +3827,11 @@ function hideMainStuff()
 	if($("#watchListMenu").hasClass("selected"))
 	{
 		hideWatchListStuff();
+	}
+
+	if($("#mainMenuAddons").hasClass("selected"))
+	{
+		 hideAddonStuff();
 	}
 
 	$("#watchListMenu").removeClass("selected");
@@ -3586,17 +3966,87 @@ function multiLogPopup()
 {
 	if(document.getElementById("subMenuForGroup").style.display === "none")
 	{
-		//show menu
+		hideSubMenus();
 		document.getElementById("menu2").style.display = "block";
 		document.getElementById("subMenuForGroup").style.display = "block";
 	}
 	else
 	{
-		//hide menu
-		document.getElementById("menu2").style.display = "none";
-		document.getElementById("subMenuForGroup").style.display = "none";
+		hideSubMenus();
 	}
 	resize();
+}
+
+function filterSubMenu()
+{
+	if(document.getElementById("groupSubMenu").style.display === "none")
+	{
+		hideSubMenus();
+		document.getElementById("menu2").style.display = "block";
+		document.getElementById("groupSubMenu").style.display = "block";
+	}
+	else
+	{
+		hideSubMenus();
+	}
+	resize();
+}
+
+function hideSubMenus()
+{
+	if(document.getElementById("subMenuForGroup").style.display !== "none")
+	{
+		document.getElementById("subMenuForGroup").style.display = "none";
+	}
+	if(document.getElementById("subMenuForGroup").style.display !== "none")
+	{
+		document.getElementById("subMenuForGroup").style.display = "none";
+	}
+	if(document.getElementById("groupSubMenu").style.display !== "none")
+	{
+		document.getElementById("groupSubMenu").style.display = "none";
+	}
+	if(document.getElementById("menu2").style.display !== "none")
+	{
+		document.getElementById("menu2").style.display = "none";
+	}
+}
+
+function updateOtherApps()
+{
+	if(typeof listOfAddons === "object")
+	{
+		var listOfAddonsKeys = Object.keys(listOfAddons);
+		var lengthOfAddonKeys = listOfAddonsKeys.length;
+		for(var addonCount = 0; addonCount < lengthOfAddonKeys; addonCount++)
+		{
+			var idForAddon = listOfAddons[listOfAddonsKeys[addonCount]]["id"];
+			$("#"+idForAddon).removeAttr('onclick');
+			var installLocation = listOfAddons[listOfAddonsKeys[addonCount]]["Installed"];
+			if(installLocation !== false)
+			{
+				if(installLocation.indexOf("../../") > -1)
+				{
+					installLocation = installLocation.replace("../../","./");
+				}
+				//it's installed, update icon
+				if(addonsAsIframe)
+				{
+					$("#"+idForAddon).attr("onClick", "toggleIframe('"+installLocation+"','menuStatusAddon');");
+				}
+				else
+				{
+					$("#"+idForAddon).attr("onClick", "window.location.href='"+installLocation+"'");
+				}
+				document.getElementById(idForAddon).style.display = "block";
+			}
+			else
+			{
+				//not installed, hide icon
+				document.getElementById(idForAddon).style.display = "none";
+			}
+		}
+	}
 }
 
 function generateWindowDisplay()
@@ -3722,6 +4172,7 @@ function loadPrevLogContent(arrayOfPrevLogs)
 		$("#log"+arrayOfPrevLogsKeys[countAPLK]).html(arrayOfPrevLogs[arrayOfPrevLogsKeys[countAPLK]]);
 		$("#log"+arrayOfPrevLogsKeys[countAPLK]+"load").hide();
 		scrollToBottom(arrayOfPrevLogsKeys[countAPLK]);
+		toggleSideBarElements(logDisplayArrayOld[arrayOfPrevLogsKeys[countAPLK]]["id"],arrayOfPrevLogsKeys[countAPLK]);
 	}
 }
 
@@ -3769,6 +4220,84 @@ function generalUpdate()
 	update(arrayOfDataMain);
 }
 
+function checkForUpdateLogsOffScreen()
+{
+	if(offscreenLogNotify === "false")
+	{
+		return;
+	}
+	var listOfLogsUpdated = document.getElementsByClassName("updated");
+	var listOfLogsUpdatedKeys = Object.keys(listOfLogsUpdated);
+	var lengthOfListOfLogsUpdatedKeys = listOfLogsUpdatedKeys.length;
+	var topPoll = false;
+	var bottomPoll = false;
+	if(lengthOfListOfLogsUpdatedKeys > 0)
+	{
+		var menuDim = document.getElementById("menu").getBoundingClientRect();
+		//check if any are hidden, then start flash poll to notify user of log offscreen updated
+		for(var counterLLU = 0; counterLLU < lengthOfListOfLogsUpdatedKeys; counterLLU++)
+		{
+			var currentDim = listOfLogsUpdated[listOfLogsUpdatedKeys[counterLLU]].getBoundingClientRect();
+			if(currentDim.y > (menuDim.height + menuDim.y - currentDim.height))
+			{
+				//this is off screen to bottom, start bottom poll.
+				bottomPoll = true;
+				if(hiddenLogUpdatePollBottom === null)
+				{
+					hiddenLogUpdatePollBottom = setInterval(toggleBottomLogNotice, 1000);
+				}
+			}
+			else if((currentDim.y) < menuDim.y)
+			{
+				//this is off screen to top, start top poll
+				topPoll = true;
+				if(hiddenLogUpdatePollTop === null)
+				{
+					hiddenLogUpdatePollTop = setInterval(toggleTopLogNotice, 1000);
+				}
+			}
+		}
+	}
+	if(!bottomPoll)
+	{
+		if(hiddenLogUpdatePollBottom !== null)
+		{
+			clearInterval(hiddenLogUpdatePollBottom);
+			document.getElementById("menu").style.borderBottom = "";
+			hiddenLogUpdatePollBottom = null;
+		}
+	}
+	if(!topPoll)
+	{
+		if(hiddenLogUpdatePollTop !== null)
+		{
+			clearInterval(hiddenLogUpdatePollTop);
+			document.getElementById("menu").style.borderTop = "";
+			hiddenLogUpdatePollTop = null;
+		}
+	}
+}
+
+function toggleBottomLogNotice()
+{
+	if(document.getElementById("menu").style.borderBottom === "")
+	{
+		document.getElementById("menu").style.borderBottom = "5px solid red";
+		return;
+	}
+	document.getElementById("menu").style.borderBottom = "";
+}
+
+function toggleTopLogNotice()
+{
+	if(document.getElementById("menu").style.borderTop === "")
+	{
+		document.getElementById("menu").style.borderTop = "5px solid red";
+		return;
+	}
+	document.getElementById("menu").style.borderTop = "";
+}
+
 $(document).ready(function()
 {
 	progressBar = new ldBar("#progressBar");
@@ -3813,6 +4342,15 @@ $(document).ready(function()
 		function (event)
 		{
 			onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
+		},
+		true
+	);
+
+	document.getElementById("menu").addEventListener(
+		'scroll',
+		function (event)
+		{
+			checkForUpdateLogsOffScreen();
 		},
 		true
 	);

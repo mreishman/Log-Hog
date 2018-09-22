@@ -96,14 +96,20 @@ function saveVerified()
 	{
 		if(document.getElementsByName("themesEnabled")[0].value === "true")
 		{
-			document.getElementById("ThemesLink").style.display = "inline-block";
+			if(document.getElementById("ThemesLink"))
+			{
+				document.getElementById("ThemesLink").style.display = "inline-block";
+			}
 		}
 		else
 		{
-			document.getElementById("ThemesLink").style.display = "none";
+			if(document.getElementById("ThemesLink"))
+			{
+				document.getElementById("ThemesLink").style.display = "none";
+			}
 		}
 	}
-	else if(idForFormMain === "devAdvanced")
+	else if(idForFormMain === "advancedConfig")
 	{
 		if(document.getElementsByName("developmentTabEnabled")[0].value === "true")
 		{

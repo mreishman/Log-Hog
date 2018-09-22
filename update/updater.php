@@ -169,9 +169,7 @@ if(count($arrayOfVersions) === 0)
 				<div id="innerDisplayUpdate" style="height: 300px; overflow: auto; max-height: 300px;"></div>
 				<p style="border-bottom: 1px solid white;"></p>
 				<div class="settingsHeader">Log Info</div>
-				<div id="innerSettingsText" class="settingsDiv" style="height: 75px; overflow-y: scroll;" >
-					<?php require_once('../core/php/updateProgressLog.php'); ?>
-				</div>
+				<div id="innerSettingsText" class="settingsDiv" style="height: 75px; overflow-y: scroll;" ></div>
 			</div>
 		</div>
 	</div>

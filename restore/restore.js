@@ -2,8 +2,8 @@ var successVerifyNum = 3;
 
 function startLogic()
 {
-		dotsTimer = setInterval(function() {document.getElementById('innerSettingsText').innerHTML = ' .'+document.getElementById('innerSettingsText').innerHTML;}, '120');
-	document.getElementById('innerSettingsText').innerHTML = "";
+	dotsTimer = setInterval(function() {document.getElementById("innerSettingsText").innerHTML = " ."+document.getElementById("innerSettingsText").innerHTML;}, "120");
+	document.getElementById("innerSettingsText").innerHTML = "";
 	downloadRestoreVersion();
 }
 
@@ -20,7 +20,7 @@ function goBack()
 
 function updateText(text)
 {
-	document.getElementById('innerSettingsText').innerHTML = "<p>"+text+"</p>"+document.getElementById('innerSettingsText').innerHTML;
+	document.getElementById("innerSettingsText").innerHTML = "<p>"+text+"</p>"+document.getElementById("innerSettingsText").innerHTML;
 }
 
 function downloadRestoreVersion()
@@ -37,39 +37,39 @@ function downloadRestoreVersion()
 	var data = {action: 'downloadFile', file: fileVersionDownload,downloadFrom: 'Log-Hog/archive/', downloadTo: '../../restore/restore.zip'};
 	$.ajax({
 		url: urlForSend,
-		dataType: 'json',
+		dataType: "json",
 		data: data,
-		type: 'POST',
+		type: "POST",
 		complete: function()
 		{
 			//verify if downloaded
 			updateText("Verifying Download");
-			verifyFile('downloadRestoreVersion', '../../restore/restore.zip');
+			verifyFile("downloadRestoreVersion", "../../restore/restore.zip");
 		}
-	});	
+	});
 }
 
 function unzip()
 {
 	var urlForSend = urlForSendMain;
-	var data = {action: 'unzipFile', locationExtractTo: '../../restore/extracted/', locationExtractFrom: '../../restore/restore.zip', tmpCache: '../../'};
+	var data = {action: "unzipFile", locationExtractTo: "../../restore/extracted/", locationExtractFrom: "../../restore/restore.zip", tmpCache: "../../"};
 	$.ajax({
 		url: urlForSend,
-		dataType: 'json',
+		dataType: "json",
 		data: data,
-		type: 'POST',
+		type: "POST",
 		complete: function()
 		{
 			//verify if downloaded
-			verifyFile('unzip', '../../Log-Hog-'+fileVersionDownload+'/index.php');
+			verifyFile("unzip", "../../Log-Hog-"+fileVersionDownload+"/index.php");
 		}
-	});	
+	});
 }
 
 function moveDirUnzipped()
 {
 	var urlForSend = urlForSendMain;
-	var data = {action: 'moveDirUnzipped', version: fileVersionDownload};
+	var data = {action: "moveDirUnzipped", version: fileVersionDownload};
 	$.ajax({
 		url: urlForSend,
 		dataType: 'json',
@@ -192,7 +192,7 @@ function cleanDirectory()
 		{
 			//verify if downloaded
 			updateText("Verifying that the directory is empty");
-			verifyFile('cleanDirectory', '../index.php', false);
+			verifyFile("cleanDirectory", "../index.php", false);
 		}
 	});
 }
@@ -210,15 +210,15 @@ function verifyFilePoll(action, fileLocation,isThere)
 	if(lock == false)
 	{
 		lock = true;
-		updateText('verifying '+(verifyCount+1)+' of 10');
+		updateText("verifying "+(verifyCount+1)+" of 10");
 		var urlForSend = urlForSendMain;
-		var data = {action: 'verifyFileIsThere', fileLocation: fileLocation, isThere: isThere , lastAction: action};
+		var data = {action: "verifyFileIsThere", fileLocation: fileLocation, isThere: isThere , lastAction: action};
 		(function(_data){
 			$.ajax({
 				url: urlForSend,
-				dataType: 'json',
+				dataType: "json",
 				data: data,
-				type: 'POST',
+				type: "POST",
 				success: function(data)
 				{
 					verifyPostEnd(data, _data);
@@ -231,7 +231,7 @@ function verifyFilePoll(action, fileLocation,isThere)
 				{
 					lock = false;
 				}
-			});	
+			});
 		}(data));
 	}
 }
@@ -245,7 +245,7 @@ function verifyPostEnd(verified, data)
 		{
 			verifyCountSuccess = 0;
 			clearInterval(verifyFileTimer);
-			verifySucceded(data['lastAction']);
+			verifySucceded(data["lastAction"]);
 		}
 	}
 	else
@@ -255,7 +255,7 @@ function verifyPostEnd(verified, data)
 		if(verifyCount > 9)
 		{
 			clearInterval(verifyFileTimer);
-			verifyFail(data['lastAction']);
+			verifyFail(data["lastAction"]);
 		}
 	}
 }
@@ -263,5 +263,5 @@ function verifyPostEnd(verified, data)
 function updateError()
 {
 	clearInterval(dotsTimer);
-	document.getElementById('innerSettingsText').innerHTML = "<p>An error occured while trying to restore Log-Hog. </p>";
+	document.getElementById("innerSettingsText").innerHTML = "<p>An error occured while trying to restore Log-Hog. </p>";
 }

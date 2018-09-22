@@ -48,10 +48,6 @@ var arrOfMonthsLarge = {
 
 function formatLine(text)
 {
-	if(expFormatEnabled !== "true")
-	{
-		return "<td style=\"white-space: pre-wrap;\" >"+text+"<td>";
-	}
 	var arrayOfText = dateTimeSplit(text);
 	return "<td style=\"white-space:nowrap;width: 1%;\" >" + dateTimeFormat(arrayOfText) + "</td><td style=\"white-space: pre-wrap;\" >" + arrayOfText[1] + "</td>";
 }

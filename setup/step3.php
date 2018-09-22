@@ -37,7 +37,10 @@ require_once('../core/php/loadVars.php'); ?>
 		<h1>Step 3 of <?php echo $counterSteps; ?></h1>
 	</div>
 	<p style="padding: 10px;">More Settings:</p>
-	<?php require_once('../core/php/template/pollVars.php'); ?>
+	<?php
+	$currentSection = "pollVars";
+	include('../core/php/template/varTemplate.php');
+	?>
 	<table style="width: 100%; padding-left: 20px; padding-right: 20px;" ><tr><th style="text-align: right;" >
 		<span id="setupButtonContinue">
 			<?php if($counterSteps == 3): ?>

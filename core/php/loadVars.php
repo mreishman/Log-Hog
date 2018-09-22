@@ -123,6 +123,7 @@ if(isset($_POST['resetConfigValuesBackToDefault']))
 {
 	$loadCustomConfigVars = false;
 }
+$loadVarsArray = array();
 foreach ($defaultConfig as $key => $value)
 {
 	$$key = $value;
@@ -138,6 +139,7 @@ foreach ($defaultConfig as $key => $value)
 	{
 		$$key = $themeDefaultSettings[$key];
 	}
+	$loadVarsArray[$key] = $$key;
 }
 
 
@@ -353,6 +355,12 @@ else
 			"title"			=>	"Back",
 			"baseName"		=>	"backArrow.png"
 		),
+		"close"				=> array(
+			"alt"			=>	"Close",
+			"src"			=>	"",
+			"title"			=>	"Close",
+			"baseName"		=>	"close.png"
+		),
 		"downArrowSideBar"	=> array(
 			"alt"			=>	"Down",
 			"src"			=>	"",
@@ -401,6 +409,12 @@ else
 			"title"			=>	"File Not Readable",
 			"baseName"		=>	"fileIconNR.png"
 		),
+		"filter"			=> array(
+			"alt"			=>	"Filter",
+			"src"			=>	"",
+			"title"			=>	"Filter",
+			"baseName"		=>	"filter.png"
+		),
 		"folderIcon"		=> array(
 			"alt"			=>	"Folder",
 			"src"			=>	"",
@@ -419,7 +433,7 @@ else
 			"title"			=>	"Folder Not Writeable",
 			"baseName"		=>	"folderIconNW.png"
 		),
-		"gear"		=> array(
+		"gear"				=> array(
 			"alt"			=>	"Settings",
 			"src"			=>	"",
 			"title"			=>	"Settings",
@@ -436,6 +450,18 @@ else
 			"src"			=>	"",
 			"title"			=>	"Ok!",
 			"baseName"		=>	"greenCheck.png"
+		),
+		"history"			=> array(
+			"alt"			=>	"History",
+			"src"			=>	"",
+			"title"			=>	"History",
+			"baseName"		=>	"history.png"
+		),
+		"historySideBar"	=> array(
+			"alt"			=>	"History",
+			"src"			=>	"",
+			"title"			=>	"History",
+			"baseName"		=>	"historySideBar.png"
 		),
 		"info"			=> array(
 			"alt"			=>	"Info",
@@ -545,6 +571,12 @@ else
 			"title"			=>	"TaskManager",
 			"baseName"		=>	"task-manager.png"
 		),
+		"theme"				=> array(
+			"alt"			=>	"Themes",
+			"src"			=>	"",
+			"title"			=>	"Themes",
+			"baseName"		=>	"theme.png"
+		),
 		"trashCan"			=> array(
 			"alt"			=>	"Delete",
 			"src"			=>	"",
@@ -640,6 +672,14 @@ else
 		$loadingBarStyle = "data-type=\"stroke\"  data-stroke=\"data:ldbar/res,bubble(#ffae42,#000,50,2)\" data-stroke-trail=\"#924012\" data-pattern-size=\"20\" ".$loadingBarDefaultWidth;
 	}
 
+	$trueFalsVars = array(
+		0 					=> array(
+			"value" 			=> "true",
+			"name" 				=> "True"),
+		1 					=> array(
+			"value" 			=> "false",
+			"name" 				=> "False")
+	);
 }
 
 $arrayOfCustomConfig = array(

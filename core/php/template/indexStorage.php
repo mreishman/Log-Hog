@@ -15,6 +15,14 @@
 							{
 								echo " width: 31px; ";
 							}
+							if($bottomBarIndexType === "top")
+							{
+								echo " vertical-align: top; ";
+							}
+							elseif($bottomBarIndexType === "bottom")
+							{
+								echo " vertical-align: bottom; ";
+							}
 							?>
 							"
 						>
@@ -71,7 +79,7 @@
 										);
 									?>
 								</a>
-								<a onclick="clearLog('{{counter}}');" style="cursor: pointer;">
+								<a id="clearLogSideBar{{counter}}"  onclick="clearLog('{{counter}}');" style="cursor: pointer;">
 									<?php echo generateImage(
 										$arrayOfImages["eraserSideBar"],
 										$imageConfig = array(
@@ -82,13 +90,34 @@
 										);
 									?>
 								</a>
-								<a onclick="deleteLogPopup('{{counter}}');" style="cursor: pointer;">
+								<a id="deleteLogSideBar{{counter}}"  onclick="deleteLogPopup('{{counter}}');" style="cursor: pointer;">
 									<?php echo  generateImage(
 										$arrayOfImages["trashCanSideBar"],
 										$imageConfig = array(
 											"height"	=>	"20px",
 											"style"		=>	"margin: 5px;",
 											"title"		=>	"Delete Log"
+											)
+										);
+									?>
+								</a>
+								<!-- <a onclick="viewBackupFromCurrentLog('{{counter}}');" style="cursor: pointer;">
+									<?php echo generateImage(
+										$arrayOfImages["historySideBar"],
+										$imageConfig = array(
+											"height"	=>	"20px",
+											"style"		=>	"margin: 5px;",
+											"title"		=>	"View Backup"
+											)
+										);
+									?>
+								</a> -->
+								<a onclick="removeArchiveLogFromDisplay('{{counter}}')" id="closeLogSideBar{{counter}}" onclick="#" style="cursor: pointer; display: none;" >
+									<?php echo generateImage(
+										$arrayOfImages["close"],
+										$imageConfig = array(
+											"height"	=>	"20px",
+											"style"		=>	"margin: 5px;"
 											)
 										);
 									?>

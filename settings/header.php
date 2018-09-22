@@ -2,6 +2,15 @@
 setCookieRedirect();
 require_once('../setup/setupProcessFile.php');
 require_once("../core/php/customCSS.php");
+require_once("../core/php/defaultConfData.php");
+$infoImage = generateImage(
+	$arrayOfImages["info"],
+	array(
+		"style"			=>	"margin-bottom: -4px;",
+		"height"		=>	"20px",
+		"srcModifier"	=>	"../"
+	)
+);
 echo loadSentryData($sendCrashInfoJS, $branchSelected); ?>
 <script src="../core/js/settings.js?v=<?php echo $cssVersion?>"></script>
 <script src="../core/js/settingsExt.js?v=<?php echo $cssVersion?>"></script>
@@ -22,25 +31,10 @@ echo loadSentryData($sendCrashInfoJS, $branchSelected); ?>
 	<?php else: ?>
 		<a id="MainLink" onclick="goToUrl('main.php');" >Main</a>
 	<?php endif; ?>
-	<a id="ThemesLink" style="
-		<?php if($themesEnabled === "false"): ?>
-		display: none;
-		<?php endif; ?>
-		<?php if(strpos($URI, 'themes.php') !== false): ?>
-			cursor: default;" class="active"
-		<?php else: ?>
-			" onclick="goToUrl('themes.php');"
-		<?php endif; ?>
-	>Themes</a>
 	<?php if(strpos($URI, 'advanced.php') !== false): ?>
 		<a style="cursor: default;" class="active" id="AdvancedLink">Advanced</a>
 	<?php else: ?>
 		<a id="AdvancedLink" onclick="goToUrl('advanced.php');">Advanced</a>
-	<?php endif; ?>
-	<?php if(strpos($URI, 'addons.php') !== false): ?>
-		<a style="cursor: default;" class="active" id="addonsLink" >Addons</a>
-	<?php else: ?>
-		<a id="addonsLink" onclick="goToUrl('addons.php');">Addons</a>
 	<?php endif; ?>
 	<a id="DevLink"
 		<?php if(!(($developmentTabEnabled == 'true') || (strpos($URI, 'devTools.php') !== false))):?>
@@ -59,19 +53,15 @@ echo loadSentryData($sendCrashInfoJS, $branchSelected); ?>
 		<a class="link" href="#settingsLogVars" > Logs </a>
 		<a class="link" href="#settingsPollVars" > Poll </a>
 		<a class="link" href="#settingsFilterVars" > Filter </a>
+		<a class="link" href="#archiveConfig" > Archive </a>
 		<a class="link" href="#settingsUpdateVars" > Update </a>
 		<a class="link" href="#settingsMenuVars" > Menu </a>
 		<a class="link" href="#settingsWatchlistVars" > Watchlist </a>
 		<?php if($enableMultiLog === "true"): ?>
 			<a class="link" href="#settingsMultiLogVars" > Multi-Log </a>
+			<a class="link" href="#settingsInitialLoadLayoutVars"> Log Layout</a>
 		<?php endif; ?>
 		<a class="link" href="#settingsMainVars" > Other </a>
-	</div>
-<?php elseif(strpos($URI, 'themes.php') !== false): ?>
-	<div id="menu2">
-		<a class="link" href="#themeMain" > Themes </a>
-		<a class="link" href="#settingsColorFolderVars" > Theme Options </a>
-		<a class="link" href="#settingsColorFolderGroupVars" > Tab Style </a>
 	</div>
 <?php elseif(strpos($URI, 'advanced.php') !== false): ?>
 	<div id="menu2">
@@ -84,8 +74,7 @@ echo loadSentryData($sendCrashInfoJS, $branchSelected); ?>
 <?php endif;
 $baseUrlImages = $localURL;
 ?>
-<div class="settingsHeader" style="position: absolute;width: 100%;z-index: 10;top: 104px; margin: 0; border-bottom: 1px solid white; display: none;" id="fixedPositionMiniMenu" >
-</div>
+<div class="settingsHeader" style="position: absolute;width: 100%;z-index: 10;top: 104px; margin: 0; border-bottom: 1px solid white; display: none;" id="fixedPositionMiniMenu" ></div>
 <script type="text/javascript">
 	var baseUrl = "<?php echo baseURL();?>";
 	var popupSettingsArray = <?php echo $popupSettingsArray ?>;

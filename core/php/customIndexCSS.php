@@ -36,6 +36,11 @@ $windowDisplayConfig = explode("x", $windowConfig);
 	color: <?php echo $highlightNewColorFont; ?>;
 }
 
+#menu, #menu2
+{
+	max-height: <?php echo $maxHeightLogTabs; ?>px;
+}
+
 <?php if($logMenuLocation === "top"):
 
 /* nothing changes */

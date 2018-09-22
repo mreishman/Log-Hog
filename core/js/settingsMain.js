@@ -14,6 +14,20 @@ function showOrHideLogTrimSubWindow()
 	}
 }
 
+function showOrHideSideBarSettings()
+{
+	try
+	{
+		var valueForPopup = document.getElementById("bottomBarIndexShow");
+		var valueForVars = document.getElementById("sidebarContentSettings");
+		showOrHideSubWindow(valueForPopup, valueForVars);
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
 
 function changeDescriptionLineSize()
 {
@@ -24,12 +38,10 @@ function changeDescriptionLineSize()
 		if (valueForDesc === "lines")
 		{
 			document.getElementById("logTrimTypeText").innerHTML = "Lines";
-			document.getElementById("LiForlogTrimSize").style.display = "none";
 		}
 		else if (valueForDesc === "size")
 		{
 			document.getElementById("logTrimTypeText").innerHTML = document.getElementById("TrimSize").value;
-			document.getElementById("LiForlogTrimSize").style.display = "block";
 		}
 	}
 	catch(e)
@@ -150,13 +162,17 @@ function checkIfChanges()
 	{
 		arrayToCheck.push("settingsPollVars");
 	}
-	if(document.getElementById("settingsUpdateVars"))
-	{
-		arrayToCheck.push("settingsUpdateVars");
-	}
 	if(document.getElementById("settingsFilterVars"))
 	{
 		arrayToCheck.push("settingsFilterVars");
+	}
+	if(document.getElementById("archiveConfig"))
+	{
+		arrayToCheck.push("archiveConfig");
+	}
+	if(document.getElementById("settingsUpdateVars"))
+	{
+		arrayToCheck.push("settingsUpdateVars");
 	}
 	if(document.getElementById("settingsWatchlistVars"))
 	{
@@ -166,7 +182,10 @@ function checkIfChanges()
 	{
 		arrayToCheck.push("settingsMultiLogVars");
 	}
-
+	if(document.getElementById("settingsInitialLoadLayoutVars"))
+	{
+		arrayToCheck.push("settingsInitialLoadLayoutVars");
+	}
 	if(	checkForChangesArray(arrayToCheck))
 	{
 		return true;
@@ -175,6 +194,13 @@ function checkIfChanges()
 }
 
 function updateJsonForPopupTheme()
+{
+	setTimeout(function() {
+			updateJsonForPopupThemeInner();
+		}, 2);
+}
+
+function updateJsonForPopupThemeInner()
 {
 	var saveSettingsVar = document.getElementById("popupsaveSettings").value;
 	var blankFolderVar = document.getElementById("popupblankFolder").value;
@@ -247,47 +273,14 @@ function selectLog(locationForNewLogText)
 	hidePopup();
 }
 
+function toggleUpdateDisplayCheck()
+{
+	updateJsonForPopupTheme();
+	showOrHidePopupSubWindow();
+}
+
 $( document ).ready(function()
 {
-	if(document.getElementById("popupSelect"))
-	{
-		$("#popupSelect").on("keydown change", function(){
-			var box = $(this);
-			setTimeout(function() {
-				updateJsonForPopupTheme();
-			}, 2);
-			showOrHidePopupSubWindow();
-		});
-	}
-	if(document.getElementById("settingsSelect"))
-	{
-		document.getElementById("settingsSelect").addEventListener("change", showOrHideUpdateSubWindow, false);
-	}
-	if(document.getElementById("logTrimTypeToggle"))
-	{
-		document.getElementById("logTrimTypeToggle").addEventListener("change", changeDescriptionLineSize, false);
-	}
-	if(document.getElementById("logTrimOn"))
-	{
-		document.getElementById("logTrimOn").addEventListener("change", showOrHideLogTrimSubWindow, false);
-	}
-	if(document.getElementById("filterContentLimit"))
-	{
-		document.getElementById("filterContentLimit").addEventListener("change", showOrHideFilterContentSettings, false);
-	}
-	if(document.getElementById("filterContentHighlight"))
-	{
-		document.getElementById("filterContentHighlight").addEventListener("change", showOrHideFilterHighlightSettings, false);
-	}
-	if (document.getElementById("scrollOnUpdate"))
-	{
-		document.getElementById("scrollOnUpdate").addEventListener("change", showOrHideScrollLogSettings, false);
-	}
-	if (document.getElementById("highlightNew"))
-	{
-		document.getElementById("highlightNew").addEventListener("change", showOrHideHighlightNewLinesSettings, false);
-	}
-
 	var arrayToRefresh = new Array();
 	if(document.getElementById("settingsLogVars"))
 	{
@@ -300,6 +293,10 @@ $( document ).ready(function()
 	if(document.getElementById("settingsFilterVars"))
 	{
 		arrayToRefresh.push("settingsFilterVars");
+	}
+	if(document.getElementById("archiveConfig"))
+	{
+		arrayToRefresh.push("archiveConfig");
 	}
 	if(document.getElementById("settingsUpdateVars"))
 	{
@@ -320,6 +317,10 @@ $( document ).ready(function()
 	if(document.getElementById("settingsMultiLogVars"))
 	{
 		arrayToRefresh.push("settingsMultiLogVars");
+	}
+	if(document.getElementById("settingsInitialLoadLayoutVars"))
+	{
+		arrayToRefresh.push("settingsInitialLoadLayoutVars");
 	}
 	refreshArrayObjectOfArrays(arrayToRefresh);
 

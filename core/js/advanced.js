@@ -172,6 +172,18 @@ function verifyNoConfigBackups()
 	}
 }
 
+function showOrHideVersionSaveConfig()
+{
+	if(document.getElementById("backupNumConfigEnabled").value === "true")
+	{
+		document.getElementById("versionSaveContentSettings").style.display = "block";
+	}
+	else
+	{
+		document.getElementById("versionSaveContentSettings").style.display = "none";
+	}
+}
+
 $( document ).ready(function()
 {
 	refreshArrayObjectOfArrays(["loggingDisplay","locationOtherApps","advancedConfig","expFeatures"]);

@@ -9,11 +9,11 @@ function makeTrueFalseSelect($selectValue)
 				"name"	=>	"True"
 			)
 		),
+		(String)$selectValue,
 		array(
 			"value" => 	"false",
 			"name"	=>	"False"
-		),
-		(String)$selectValue
+		)
 	);
 }
 
@@ -30,11 +30,11 @@ function generateFileTypeSelect($selectValue)
 				"name"	=>	"Folder"
 			)
 		),
+		(String)$selectValue,
 		array(
 			"value" => 	"other",
 			"name"	=>	"Other"
-		),
-		(String)$selectValue
+		)
 	);
 }
 
@@ -42,11 +42,11 @@ function makePatternSelect($selectValue, $selectOptions)
 {
 	return createSelect(
 		$selectOptions,
+		(String)$selectValue,
 		array(
 			"value" => 	"other",
 			"name"	=>	"Other"
-		),
-		(String)$selectValue
+		)
 	);
 }
 
@@ -98,152 +98,6 @@ function generateSaveBlock($data = array(), $arrayOfImages)
 		)
 	);
 
-	if(isset($data["pattern"]))
-	{
-		$patternSelect = $data["pattern"];
-		$foundPattern = false;
-		foreach ($selectOptions as $key2 => $value2)
-		{
-			if($data["pattern"] === $value2["value"])
-			{
-				$foundPattern = true;
-			}
-		}
-		if($foundPattern)
-		{
-			$patternHideInput = "style= \"display: none;\" ";
-		}
-	}
-
-	if(isset($data["hideSplitButton"]))
-	{
-		if($data["hideSplitButton"] === true)
-		{
-			$boolHideSplit = "style=\"display: none;\"";
-		}
-	}
-
-	if(isset($data["Position"]))
-	{
-		if($data["Position"] === "first")
-		{
-			$first = true;
-		}
-		elseif($data["Position"] === "last")
-		{
-			$last = true;
-		}
-	}
-
-	if(isset($data["rowNumber"]))
-	{
-		$rowNumber = $data["rowNumber"];
-	}
-
-	if(isset($data["fileNumber"]))
-	{
-		$fileNumber = $data["fileNumber"];
-		if ($fileNumber < 10)
-		{
-			$fileNumber = "0".$fileNumber;
-		}
-	}
-
-	if(isset($data["filePermsDisplay"]))
-	{
-		$filePermsDisplay = $data["filePermsDisplay"];
-	}
-
-	if(isset($data["fileImage"]))
-	{
-		$fileImage = $data["fileImage"];
-	}
-
-	if(isset($data["location"]))
-	{
-		$location = $data["location"];
-	}
-
-	if(isset($data["pattern"]))
-	{
-		$pattern = $data["pattern"];
-	}
-
-	if(isset($data["key"]))
-	{
-		$key = $data["key"];
-	}
-
-	if(isset($data["recursiveOptions"]))
-	{
-		$recursiveOptions = $data["recursiveOptions"];
-	}
-
-	if(isset($data["excludeTrimOptions"]))
-	{
-		$excludeTrimOptions = $data["excludeTrimOptions"];
-	}
-
-	if(isset($data["FileType"]))
-	{
-		$FileType = $data["FileType"];
-	}
-
-	if(isset($data["filesInFolder"]))
-	{
-		$filesInFolder = $data["filesInFolder"];
-	}
-
-	if(isset($data["AutoDeleteFiles"]))
-	{
-		$AutoDeleteFiles = $data["AutoDeleteFiles"];
-	}
-
-	if(isset($data["Group"]))
-	{
-		$Group = $data["Group"];
-	}
-
-	if(isset($data["FileInformation"]))
-	{
-		$FileInformation = $data["FileInformation"];
-	}
-
-	if(isset($data["Name"]))
-	{
-		$Name = $data["Name"];
-	}
-
-	if(isset($data["AlertEnabled"]))
-	{
-		$AlertEnabled = $data["AlertEnabled"];
-	}
-
-	if(isset($data["typeFolder"]))
-	{
-		if($data["typeFolder"] == true)
-		{
-			$typeFolder = " style=\" display: none; \" ";
-		}
-		else
-		{
-			$typeFolder = "";
-		}
-	}
-
-	if(isset($data["typeFile"]))
-	{
-		if($data["typeFile"] == true)
-		{
-			$typeFile = " style=\" display: none; \" ";
-		}
-		else
-		{
-			$typeFile = "";
-		}
-	}
-
-
 	$saveBlock = "<li class=\"watchRow ".$saveGroupClass." \" id=\"rowNumber".$rowNumber."\" ><div class=\"settingsHeader\" >";
 	$saveBlock .= $fileNumber.":";
 	$saveBlock .= "<div id=\"infoFile".$rowNumber."\" style=\"width: 100px; display: inline-block; text-align: center;\">";
@@ -286,6 +140,8 @@ function generateSaveBlock($data = array(), $arrayOfImages)
 	$saveBlock .= " class=\"linkSmall\" id=\"moveDown".$rowNumber."\" onclick=\"moveDown(".$rowNumber.");\" > Move Down </a>";
 	$saveBlock .= "   <a onclick=\"duplicateRow(".$rowNumber.")\" class=\"linkSmall\"  >Duplicate</a>";
 	$saveBlock .= "   <a id=\"SaveGroup".$rowNumber."\" onclick=\"toggleSaveGroup(".$rowNumber.")\" class=\"linkSmall\" > {{SaveGroupButton}} </a>";
+	$saveBlock .= "   <a onclick=\"addFileFromLocation(".$rowNumber.");\" class=\"linkSmall\"> New file from base</a>";
+	$saveBlock .= "   <a onclick=\"addFolderFromLocation(".$rowNumber.");\" class=\"linkSmall\"> New folder from base</a>";
 	$saveBlock .= "</div><div class=\"settingsDiv\" ><ul class=\"settingsUl\" >";
 	$saveBlock .= "<li><span class=\"settingsBuffer\" >Location: </span><input onkeyup=\"getCurrentFileFolderMainPage(".$rowNumber.")\" onfocusin=\"showTypeDropdown(".$rowNumber.");\" style=\"width: 600px;\" type=\"text\" name=\"watchListKey".$rowNumber."Location\" value=\"".$location."\" ></li>";
 	$saveBlock .= "<li  class=\"typeFile\" ".$typeFile."><span class=\"settingsBuffer\" >Pattern: </span><span class=\"settingsBuffer\" ><div class=\"selectDiv\"><select onchange=\"togglePatternSelect(".$rowNumber.")\" id=\"watchListKey".$rowNumber."PatternSelect\" >";
