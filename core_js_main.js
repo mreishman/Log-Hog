@@ -173,6 +173,7 @@ function updateDocumentTitle(updateText)
 		if(document.title !== "Log Hog | "+updateText)
 		{
 			document.title = "Log Hog | "+updateText;
+			title = updateText;
 		}
 	}
 	catch(e)
@@ -1327,8 +1328,11 @@ function update(data)
 								{
 									logFormatted = makePretty(id);
 								}
-								$("#log"+currentIdPos).html(logFormatted);
-								fadeHighlight(currentIdPos);
+								if(logFormatted !== $("#log"+currentIdPos).html())
+								{
+									$("#log"+currentIdPos).html(logFormatted);
+									fadeHighlight(currentIdPos);
+								}
 								if(document.getElementById(id+"Count").innerHTML !== "")
 								{
 									document.getElementById(id+"Count").innerHTML = "";
@@ -2709,8 +2713,7 @@ function clearLog(idNum)
 	{
 		if(document.getElementById("title"+idNum).textContent !== "")
 		{
-			var title = document.getElementById("title"+idNum).textContent;
-			clearLogInner(title);
+			clearLogInner(document.getElementById("title"+idNum).textContent);
 		}
 	}
 	catch(e)
@@ -2928,8 +2931,7 @@ function deleteLogPopup(idNum)
 {
 	try
 	{
-		var title = document.getElementById("title"+idNum).textContent;
-		deleteLogPopupInner(title);
+		deleteLogPopupInner(document.getElementById("title"+idNum).textContent);
 		
 	}
 	catch(e)

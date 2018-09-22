@@ -2,7 +2,7 @@
 <head>
 	<title>Log Hog | Updater</title>
 	<link rel="stylesheet" type="text/css" href="../../../core/template/theme.css">
-	<link rel="icon" type="image/png" href="../core/img/favicon.png" />
+	<link rel="icon" type="image/png" href="../../../core/img/favicon.png" />
 	<script src="../../../core/js/jquery.js"></script>
 </head>
 <body>

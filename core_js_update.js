@@ -7,12 +7,25 @@ var dataFromJSON = "";
 var verifyCountSuccess = 0;
 var verifyCheckCount = 0;
 var totalCounter = 1;
-var updateCheckFinished = false;
+var totalCounterInstall = 1;
+var updateCheckFinished = true;
+var checkForUpdatePoll = null;
+var installUpdatePoll = null;
 
 function checkForUpdates(urlSend = "../", whatAmIUpdating = "Log-Hog", currentNewVersion = currentVersion, updateFormIDLocal = "settingsInstallUpdate", showPopupForUpdateInner = true, dontNotifyVersionInner = "")
 {
 	try
 	{
+		if(updateCheckFinished)
+		{
+			updateCheckFinished = false;
+		}
+		else
+		{
+			//show popup for update check already in progress
+			showPopup();
+			document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class='settingsHeader' >Update Check in Progress</div><div style='width:100%;text-align:center;padding:10px;'> Log-Hog is already checking for an update. Please wait untill it is finished before trying to check for another udpate. </div><div class='link' onclick='hidePopup();' style='margin-left:165px; margin-right:50px;margin-top:5px;'>Okay!</div></div>";
+		}
 		versionUpdate = currentNewVersion;
 		urlSend = urlSend;
 		whatAmIUpdating = whatAmIUpdating;
@@ -40,9 +53,9 @@ function checkForUpdates(urlSend = "../", whatAmIUpdating = "Log-Hog", currentNe
 			type: "POST",
 			success(data)
 			{
-				updateCheckFinished = true;
 				if(data.version == "-1")
 				{
+					updateCheckFinished = true;
 					//error occured, show that
 					if(whatAmIUpdating === "Log-Hog")
 					{
@@ -77,11 +90,13 @@ function checkForUpdates(urlSend = "../", whatAmIUpdating = "Log-Hog", currentNe
 						{
 							document.getElementById("progressBarText").innerHTML = "Verifying version list file for "+whatAmIUpdating+" "+totalCounter+"/"+verifyCheckCount+"/"+(successVerifyNum+1);
 						}
-						timeoutVar = setInterval(function(){checkForUpdateTimer(urlSend, whatAmIUpdating);},3000);
+						totalCounter = 1;
+						checkForUpdatePoll = setInterval(function(){checkForUpdateTimer(urlSend, whatAmIUpdating);},3000);
 					}
 				}
 				else if (data.version == "0")
 				{
+					updateCheckFinished = true;
 					if(showPopupForUpdateBool)
 					{
 						if(whatAmIUpdating === "Log-Hog")
@@ -98,6 +113,7 @@ function checkForUpdates(urlSend = "../", whatAmIUpdating = "Log-Hog", currentNe
 				}
 				else
 				{
+					updateCheckFinished = true;
 					if(showPopupForUpdateBool)
 					{
 						if(whatAmIUpdating === "Log-Hog")
@@ -128,11 +144,6 @@ function checkForUpdates(urlSend = "../", whatAmIUpdating = "Log-Hog", currentNe
 						document.getElementById("checkForUpdateButton").style.display = "inline-block";
 					}
 				}
-				if(updateCheckFinished !== true)
-				{
-					window.location.href = "./error.php?error=43&page=An Unknown Error Occured: Check ajax request response";
-				}
-				updateCheckFinished = false;
 			}
 		});
 	}
@@ -169,8 +180,20 @@ function checkForUpdateTimer(urlSend, whatAmIUpdating)
 			}
 			if(verifyCheckCount > successVerifyNum)
 			{
-				clearInterval(timeoutVar);
-				showPopupForUpdate(urlSend,whatAmIUpdating);
+				updateCheckFinished = true;
+				clearInterval(checkForUpdatePoll);
+				if(whatAmIUpdating === "Log-Hog")
+				{
+					showPopupForUpdate(urlSend,whatAmIUpdating);
+				}
+				else
+				{
+					//inner addon update
+					hidePopup();
+					$.get( "core/php/template/innerAddon.php", function( data ) {
+						$("#innerAddonSpanReplace").html(data);
+					});
+				}
 			}
 		}
 		else
@@ -180,6 +203,12 @@ function checkForUpdateTimer(urlSend, whatAmIUpdating)
 			{
 				document.getElementById("progressBarText").innerHTML = "Verifying version list file for "+whatAmIUpdating+" "+totalCounter+"/"+verifyCheckCount+"/"+(successVerifyNum+1);
 			}
+		}
+
+		if(totalCounter > 30)
+		{
+			updateCheckFinished = true;
+			clearInterval(checkForUpdatePoll);
 		}
 	});
 }
@@ -304,6 +333,7 @@ function installUpdates(urlSend = "../", updateFormIDLocal = "settingsInstallUpd
 		{
 			updateFormIDLocal = updateFormID;
 		}
+		totalCounterInstall = 1;
 		urlSend = urlSend;
 		updateFormID = updateFormIDLocal;
 		displayLoadingPopup(imgLocatin);
@@ -319,7 +349,7 @@ function installUpdates(urlSend = "../", updateFormIDLocal = "settingsInstallUpd
 			complete(data)
 			{
 				verifyCountSuccess = 0;
-				timeoutVar = setInterval(function(){verifyChange(urlSend);},3000);
+				installUpdatePoll = setInterval(function(){verifyChange(urlSend);},3000);
 			}
 		});
 	}
@@ -349,7 +379,7 @@ function verifyChange(urlSend)
 					if(verifyCountSuccess >= successVerifyNum)
 					{
 						verifyCountSuccess = 0;
-						clearInterval(timeoutVar);
+						clearInterval(installUpdatePoll);
 						actuallyInstallUpdates();
 					}
 				}
@@ -357,6 +387,20 @@ function verifyChange(urlSend)
 				{
 					verifyCountSuccess = 0;
 				}
+			},
+			failure(data)
+			{
+				if(totalCounterInstall > 30)
+				{
+					//error message
+					clearInterval(installUpdatePoll);
+					showPopup();
+					document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class='settingsHeader' >Error</div><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>An error occured while trying to check for updates for "+whatAmIUpdating+". Make sure you are connected to the internet and settingsCheckForUpdate.php has sufficient rights to write / create files. </div><div class='link' onclick='closePopupNoUpdate();' style='margin-left:165px; margin-right:50px;margin-top:5px;'>Okay!</div></div>";
+				}
+			},
+			complete(data)
+			{
+				totalCounterInstall++;
 			}
 		});
 	}
