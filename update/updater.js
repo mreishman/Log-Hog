@@ -408,7 +408,7 @@ function preScriptRun()
 	var fileName = "pre-script-"+preScriptCount+".php";
 	if($.inArray(fileName,arrayOfFilesExtracted) != "-1")
 	{
-		updateText("Running pre upgrade script "+preScriptCount);
+		updateText("Running pre upgrade script "+preScriptCount+" of "+totalCount);
 		ajaxForPreScriptRun(fileName);
 		preScriptCount++;
 	}
@@ -538,7 +538,7 @@ function postScriptRun()
 	var fileName = "post-script-"+postScriptCount+".php";
 	if($.inArray(fileName,arrayOfFilesExtracted) != "-1")
 	{
-		updateText("Running post upgrade script "+postScriptCount);
+		updateText("Running post upgrade script "+postScriptCount+" of "+totalCount);
 		postScriptCount++;
 		ajaxForPostScriptRun(fileName);
 
