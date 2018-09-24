@@ -9,7 +9,7 @@ for ($i=0; $i < 10; $i++)
 }
 
 $saveVerifyArr = array();
-for ($j=0; $j < 5; $j++)
+for ($j=1; $j <= 5; $j++)
 {
 	$saveVerifyArr[$j] = array(
 	"value" 					=> $j,

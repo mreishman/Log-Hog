@@ -88,7 +88,7 @@ function checkForUpdates(urlSend = "../", whatAmIUpdating = "Log-Hog", currentNe
 						dataFromJSON = data;
 						if(document.getElementById("progressBarText"))
 						{
-							document.getElementById("progressBarText").innerHTML = "Verifying version list file for "+whatAmIUpdating+" "+totalCounter+"/"+verifyCheckCount+"/"+(successVerifyNum+1);
+							document.getElementById("progressBarText").innerHTML = "Verifying version list file for "+whatAmIUpdating+" "+totalCounter+"/"+verifyCheckCount+"/"+(successVerifyNum);
 						}
 						totalCounter = 1;
 						checkForUpdatePoll = setInterval(function(){checkForUpdateTimer(urlSend, whatAmIUpdating);},3000);
@@ -168,17 +168,17 @@ function checkForUpdateTimer(urlSend, whatAmIUpdating)
 		totalCounter++;
 		if(showPopupForUpdateBool && whatAmIUpdating === "Log-Hog")
 		{
-			document.getElementById("progressBarText").innerHTML = "Verifying version list file for "+whatAmIUpdating+" "+totalCounter+"/"+verifyCheckCount+"/"+(successVerifyNum+1);
+			document.getElementById("progressBarText").innerHTML = "Verifying version list file for "+whatAmIUpdating+" "+totalCounter+"/"+verifyCheckCount+"/"+(successVerifyNum);
 		}
 		if(versionUpdate != data)
 		{
 			verifyCheckCount++;
 			if(showPopupForUpdateBool && whatAmIUpdating === "Log-Hog")
 			{
-				document.getElementById("progressBarText").innerHTML = "Verifying version list file for "+whatAmIUpdating+" "+totalCounter+"/"+verifyCheckCount+"/"+(successVerifyNum+1);
-				document.getElementById("progressBarUpdateCheckActualBar").value = 50+(50*(verifyCheckCount/(successVerifyNum+2)));
+				document.getElementById("progressBarText").innerHTML = "Verifying version list file for "+whatAmIUpdating+" "+totalCounter+"/"+verifyCheckCount+"/"+(successVerifyNum);
+				document.getElementById("progressBarUpdateCheckActualBar").value = 50+(50*(verifyCheckCount/(successVerifyNum+1)));
 			}
-			if(verifyCheckCount > successVerifyNum)
+			if(verifyCheckCount >= successVerifyNum)
 			{
 				updateCheckFinished = true;
 				clearInterval(checkForUpdatePoll);
@@ -201,7 +201,7 @@ function checkForUpdateTimer(urlSend, whatAmIUpdating)
 			verifyCheckCount = 0;
 			if(showPopupForUpdateBool && whatAmIUpdating === "Log-Hog")
 			{
-				document.getElementById("progressBarText").innerHTML = "Verifying version list file for "+whatAmIUpdating+" "+totalCounter+"/"+verifyCheckCount+"/"+(successVerifyNum+1);
+				document.getElementById("progressBarText").innerHTML = "Verifying version list file for "+whatAmIUpdating+" "+totalCounter+"/"+verifyCheckCount+"/"+(successVerifyNum);
 			}
 		}
 
