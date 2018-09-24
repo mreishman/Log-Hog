@@ -178,9 +178,9 @@ function verifyPostEnd(verified, data)
 	}
 }
 
-function updateError()
+function updateError(addedTextDetails = "")
 {
-	document.getElementById('innerSettingsText').innerHTML += "<h2>An error occured while trying to update Log-Hog. </h2>";
+	document.getElementById('innerSettingsText').innerHTML += "<h2>An error occured while trying to update Log-Hog. </h2><p>"+addedTextDetails+"</p>";
 }
 
 function verifyFail(action)
@@ -190,7 +190,7 @@ function verifyFail(action)
 	if(retryCount >= 3)
 	{
 		//stop trying, give up :c
-		updateError();
+		updateError("Could not verifiy action " + action);
 	}
 	else
 	{
@@ -285,8 +285,9 @@ function verifyDownloadDownloaded()
 
 function verifyDownloadError()
 {
-	updateStatusFunc("Could not verify download downloaded correctly. Please ensure that there is enough free space on drive to download update. ", "");
-	updateError();
+	var downloadErrorMessage = "Could not verify download downloaded correctly. Please ensure that there is enough free space on drive to download update. "
+	updateStatusFunc(downloadErrorMessage, "");
+	updateError(downloadErrorMessage);
 }
 
 function verifyFileOrDir(action, fileLocation)
@@ -372,7 +373,7 @@ function verifyFailTwo(action)
 	if(retryCount >= 3)
 	{
 		//stop trying, give up :c
-		updateError();
+		updateError("Could not verifiy action " + action);
 	}
 	else
 	{
@@ -701,7 +702,7 @@ function finishUpdatePollCheck()
 	if(retryCount > 30)
 	{
 		clearInterval(verifyFileTimer);
-		updateError();
+		updateError("Could not verifiy version change");
 	}
 	$.ajax({
 		url: "../core/php/versionCheck.php",
@@ -749,7 +750,7 @@ function finishUpdateOneHundredCheck()
 	if(retryCount > 30)
 	{
 		clearInterval(verifyFileTimer);
-		updateError();
+		updateError("Could not verifiy update complete");
 	}
 	$.ajax({
 		url: "../core/php/verifyVersionInstallComplete.php",
