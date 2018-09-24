@@ -2432,7 +2432,7 @@ function resize()
 			{
 				$(".logTdWidth").outerWidth(tdElementWidth);
 			}
-				if($(".backgroundForSideBarMenu").outerHeight() > $(".logTrHeight").outerHeight())
+				if($(".backgroundForSideBarMenu").outerHeight() >= $(".logTrHeight").outerHeight())
 				{
 					$(".backgroundForSideBarMenu").outerHeight(trElementHeight);
 				}
