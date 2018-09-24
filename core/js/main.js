@@ -2432,12 +2432,6 @@ function resize()
 			{
 				$(".logTdWidth").outerWidth(tdElementWidth);
 			}
-			if(bottomBarIndexType === "full")
-			{
-				$(".backgroundForSideBarMenu").outerHeight(trElementHeight);
-			}
-			else
-			{
 				if($(".backgroundForSideBarMenu").outerHeight() > $(".logTrHeight").outerHeight())
 				{
 					$(".backgroundForSideBarMenu").outerHeight(trElementHeight);
@@ -2448,8 +2442,14 @@ function resize()
 					{
 						$(".backgroundForSideBarMenu").css("height","auto");
 					}
+					if(bottomBarIndexType === "center")
+					{
+						if($(".backgroundForSideBarMenu").css("top") !== trElementHeight+"px")
+						{
+							$(".backgroundForSideBarMenu").css("top",((trElementHeight / 2) - ($(".backgroundForSideBarMenu").outerHeight() / 2))+"px")
+						}
+					}
 				}
-			}
 		}
 		updateNotificationCount();
 	}

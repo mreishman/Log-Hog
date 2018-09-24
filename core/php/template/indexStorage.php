@@ -1,26 +1,6 @@
 <div>
 	<table cellspacing="0"  style="margin: 0px;padding: 0px; border-spacing: 0px; width:100%;" >
 		<tr class="logTdHolder">
-			<!-- style="padding: 0; -->
-			<?php
-			// if($bottomBarIndexShow == 'false')
-			// {
-			// 	echo " width: 0; ";
-			// }
-			// else
-			// {
-			// 	echo " width: 31px; ";
-			// }
-			// if($bottomBarIndexType === "top")
-			// {
-			// 	echo " vertical-align: top; ";
-			// }
-			// elseif($bottomBarIndexType === "bottom")
-			// {
-			// 	echo " vertical-align: bottom; ";
-			// }
-			?>
-			<!-- " -->
 			<td class="logTdWidth" onclick="changeCurrentSelectWindow('{{counter}}')" style="padding: 0; border: 1px solid white;" >
 				<div
 				class="backgroundForSideBarMenu"
@@ -33,6 +13,18 @@
 					else
 					{
 						echo " display: inline; width: 31px; ";
+					}
+					if($bottomBarIndexType === "top")
+					{
+						echo " top: 0; ";
+					}
+					elseif($bottomBarIndexType === "bottom")
+					{
+						echo " bottom: 0; ";
+					}
+					elseif($bottomBarIndexType === "full")
+					{
+						echo " bottom: 0; top: 0; ";
 					}
 					?>
 					padding: 0px; position: absolute; "
