@@ -265,8 +265,6 @@ $externalLinkImage = generateImage(
 	foreach ($jsToLoad as $jsFile): ?>
 		<script src="core/js/<?php echo $jsFile; ?>?v=<?php echo $cssVersion?>"></script>
 	<?php endforeach; ?>
-
-	?>
 	<nav id="context-menu" class="context-menu">
 	  <ul id="context-menu-items" class="context-menu__items">
 	  </ul>
