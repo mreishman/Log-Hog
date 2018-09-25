@@ -294,14 +294,22 @@ if(file_exists($file))
                     <li>
                         <a onclick="toggleReset();" class="link">Reset Settings back to Default</a>
                     </li>
-                    <div id="popup" style="background-color: #444444; border: 1px solid black; display: none; color: white;">
-                            <div id="popupContentInnerHTMLDiv">
-                            </div>
-                        </div>
-                    </div>
+                <?php
+                endif;
+                if(file_exists("core/php/resetUpdateFilesToDefault.php")):
+                ?>
+                <li>
+                    <a onclick="resetUpdateSettings();" class="link"> Reset Update Progress back to default </a>
+                </li>
                 <?php
                 endif;
                 ?>
+                <li>
+                    <div id="popup" style="background-color: #444444; border: 1px solid black; display: none; color: white;">
+                        <div id="popupContentInnerHTMLDiv">
+                        </div>
+                    </div>
+                </li>
             </ul>
         </td>
         <td width="33%">
@@ -322,6 +330,9 @@ if(file_exists($file))
 </table>
 </body>
 <script type="text/javascript">
+    var verifyCountSuccess = 0;
+    var installUpdatePoll = null;
+    var totalCounterInstall = 0;
     function saveAndVerifyMain(idForForm)
     {
         idForm = "#"+idForForm;
@@ -336,6 +347,72 @@ if(file_exists($file))
                 {
                     window.location.href = "../error.php?error="+data+"&page=core/php/settingsSaveAjax.php";
                 }
+            }
+        });
+    }
+
+    function resetUpdateSettings()
+    {
+        document.getElementById("popup").style.display = "block";
+        document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class='settingsHeader' >Resetting...</div><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'> Resetting Update Settings... Please wait... </div>";
+        var urlForSend = "core/php/resetUpdateFilesToDefault.php?format=json";
+        var data = {status: "" };
+        $.ajax(
+        {
+            url: urlForSend,
+            dataType: "json",
+            data,
+            type: "POST",
+            complete(data)
+            {
+                verifyCountSuccess = 0;
+                installUpdatePoll = setInterval(function(){verifyChange();},3000);
+            }
+        });
+    }
+
+    function verifyChange()
+    {
+        var urlForSend = "update/updateActionCheck.php?format=json";
+        var data = {status: "" };
+        $.ajax(
+        {
+            url: urlForSend,
+            dataType: "json",
+            data,
+            type: "POST",
+            success(data)
+            {
+                if(data == "finishedUpdate")
+                {
+                    verifyCountSuccess++;
+                    if(verifyCountSuccess >= 4)
+                    {
+                        verifyCountSuccess = 0;
+                        clearInterval(installUpdatePoll);
+                        //success popup
+                        document.getElementById("popup").style.display = "block";
+                        document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class='settingsHeader' >Success</div><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'> Update settings successfully reset! </div>";
+                    }
+                }
+                else
+                {
+                    verifyCountSuccess = 0;
+                }
+            },
+            failure(data)
+            {
+                if(totalCounterInstall > 30)
+                {
+                    //error message
+                    clearInterval(installUpdatePoll);
+                    document.getElementById("popup").style.display = "block";
+                    document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class='settingsHeader' >Error</div><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>An Error occured when trying to reset update progress</div>";
+                }
+            },
+            complete(data)
+            {
+                totalCounterInstall++;
             }
         });
     }
