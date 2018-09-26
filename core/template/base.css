@@ -393,3 +393,13 @@ div.sidebarLeft {
   border: 1px solid white;
   cursor: pointer;
 }
+
+.smallBlur{
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+}
+
+.bigBlur{
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}

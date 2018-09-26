@@ -161,7 +161,7 @@ $externalLinkImage = generateImage(
 				require_once('core/php/template/indexStorage.php');
 			?>
 		</div>
-		<div id="fullScreenMenu" style="display: none;">
+		<div id="fullScreenMenu" class="smallBlur" style="display: none;">
 			<?php require_once('core/php/template/fullScreenMenu.php'); ?>
 		</div>
 
