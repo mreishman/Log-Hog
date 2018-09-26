@@ -14,6 +14,8 @@ var versionCountCurrent = 1;
 var lastFileCheck = "";
 var verifyCountSuccess = 0;
 var successVerifyNum = 4;
+var installUpdatePoll = null;
+var totalCounterInstall = 0;
 
 function updateProgressBar(additonalPercent)
 {
@@ -191,6 +193,11 @@ function verifyFail(action)
 	{
 		//stop trying, give up :c
 		updateError("Could not verifiy action " + action);
+		if(action === "downloadLogHog" || action === "unzipUpdateAndReturnArray")
+		{
+			updateError("Could not verifiy action " + action + "<br> Attempting to revert update, please wait...");
+			resetUpdateSettings();
+		}
 	}
 	else
 	{
@@ -287,7 +294,72 @@ function verifyDownloadError()
 {
 	var downloadErrorMessage = "Could not verify download downloaded correctly. Please ensure that there is enough free space on drive to download update. "
 	updateStatusFunc(downloadErrorMessage, "");
-	updateError(downloadErrorMessage);
+	updateError(downloadErrorMessage+"<br> Attempting to reset update, please wait...");
+	resetUpdateSettings();
+}
+
+function resetUpdateSettings()
+{
+    updateText("Resetting Update Settings... Please wait...");
+    var urlForSend = "../core/php/resetUpdateFilesToDefault.php?format=json";
+    var data = {status: "" };
+    $.ajax(
+    {
+        url: urlForSend,
+        dataType: "json",
+        data,
+        type: "POST",
+        complete(data)
+        {
+            verifyCountSuccess = 0;
+            totalCounterInstall = 0;
+            installUpdatePoll = setInterval(function(){verifyResetChange();},3000);
+        }
+    });
+}
+
+function verifyResetChange()
+{
+    var urlForSend = "update/updateActionCheck.php?format=json";
+    var data = {status: "" };
+    $.ajax(
+    {
+        url: urlForSend,
+        dataType: "json",
+        data,
+        type: "POST",
+        success(data)
+        {
+            if(data == "finishedUpdate")
+            {
+                verifyCountSuccess++;
+                if(verifyCountSuccess >= 4)
+                {
+                    verifyCountSuccess = 0;
+                    clearInterval(installUpdatePoll);
+                    //success popup
+                    updateText("Update settings successfully reset!");
+                }
+            }
+            else
+            {
+                verifyCountSuccess = 0;
+            }
+        },
+        failure(data)
+        {
+            if(totalCounterInstall > 30)
+            {
+                //error message
+                clearInterval(installUpdatePoll);
+                updateText("An Error occured when trying to reset update progress");
+            }
+        },
+        complete(data)
+        {
+            totalCounterInstall++;
+        }
+    });
 }
 
 function verifyFileOrDir(action, fileLocation)
