@@ -14,6 +14,8 @@ var versionCountCurrent = 1;
 var lastFileCheck = "";
 var verifyCountSuccess = 0;
 var successVerifyNum = 4;
+var installUpdatePoll = null;
+var totalCounterInstall = 0;
 
 function updateProgressBar(additonalPercent)
 {
@@ -178,9 +180,9 @@ function verifyPostEnd(verified, data)
 	}
 }
 
-function updateError()
+function updateError(addedTextDetails = "")
 {
-	document.getElementById('innerSettingsText').innerHTML += "<h2>An error occured while trying to update Log-Hog. </h2>";
+	document.getElementById('innerSettingsText').innerHTML += "<h2>An error occured while trying to update Log-Hog. </h2><p>"+addedTextDetails+"</p>";
 }
 
 function verifyFail(action)
@@ -190,7 +192,12 @@ function verifyFail(action)
 	if(retryCount >= 3)
 	{
 		//stop trying, give up :c
-		updateError();
+		updateError("Could not verifiy action " + action);
+		if(action === "downloadLogHog" || action === "unzipUpdateAndReturnArray")
+		{
+			updateError("Could not verifiy action " + action + "<br> Attempting to revert update, please wait...");
+			resetUpdateSettings();
+		}
 	}
 	else
 	{
@@ -285,8 +292,74 @@ function verifyDownloadDownloaded()
 
 function verifyDownloadError()
 {
-	updateStatusFunc("Could not verify download downloaded correctly. Please ensure that there is enough free space on drive to download update. ", "");
-	updateError();
+	var downloadErrorMessage = "Could not verify download downloaded correctly. Please ensure that there is enough free space on drive to download update. "
+	updateStatusFunc(downloadErrorMessage, "");
+	updateError(downloadErrorMessage+"<br> Attempting to reset update, please wait...");
+	resetUpdateSettings();
+}
+
+function resetUpdateSettings()
+{
+    updateText("Resetting Update Settings... Please wait...");
+    var urlForSend = "../core/php/resetUpdateFilesToDefault.php?format=json";
+    var data = {status: "" };
+    $.ajax(
+    {
+        url: urlForSend,
+        dataType: "json",
+        data,
+        type: "POST",
+        complete(data)
+        {
+            verifyCountSuccess = 0;
+            totalCounterInstall = 0;
+            installUpdatePoll = setInterval(function(){verifyResetChange();},3000);
+        }
+    });
+}
+
+function verifyResetChange()
+{
+    var urlForSend = "update/updateActionCheck.php?format=json";
+    var data = {status: "" };
+    $.ajax(
+    {
+        url: urlForSend,
+        dataType: "json",
+        data,
+        type: "POST",
+        success(data)
+        {
+            if(data == "finishedUpdate")
+            {
+                verifyCountSuccess++;
+                if(verifyCountSuccess >= 4)
+                {
+                    verifyCountSuccess = 0;
+                    clearInterval(installUpdatePoll);
+                    //success popup
+                    updateText("Update settings successfully reset!");
+                }
+            }
+            else
+            {
+                verifyCountSuccess = 0;
+            }
+        },
+        failure(data)
+        {
+            if(totalCounterInstall > 30)
+            {
+                //error message
+                clearInterval(installUpdatePoll);
+                updateText("An Error occured when trying to reset update progress");
+            }
+        },
+        complete(data)
+        {
+            totalCounterInstall++;
+        }
+    });
 }
 
 function verifyFileOrDir(action, fileLocation)
@@ -372,7 +445,7 @@ function verifyFailTwo(action)
 	if(retryCount >= 3)
 	{
 		//stop trying, give up :c
-		updateError();
+		updateError("Could not verifiy action " + action);
 	}
 	else
 	{
@@ -408,7 +481,7 @@ function preScriptRun()
 	var fileName = "pre-script-"+preScriptCount+".php";
 	if($.inArray(fileName,arrayOfFilesExtracted) != "-1")
 	{
-		updateText("Running pre upgrade script "+preScriptCount);
+		updateText("Running pre upgrade script "+preScriptCount+" of "+totalCount);
 		ajaxForPreScriptRun(fileName);
 		preScriptCount++;
 	}
@@ -538,7 +611,7 @@ function postScriptRun()
 	var fileName = "post-script-"+postScriptCount+".php";
 	if($.inArray(fileName,arrayOfFilesExtracted) != "-1")
 	{
-		updateText("Running post upgrade script "+postScriptCount);
+		updateText("Running post upgrade script "+postScriptCount+" of "+totalCount);
 		postScriptCount++;
 		ajaxForPostScriptRun(fileName);
 
@@ -701,7 +774,7 @@ function finishUpdatePollCheck()
 	if(retryCount > 30)
 	{
 		clearInterval(verifyFileTimer);
-		updateError();
+		updateError("Could not verifiy version change");
 	}
 	$.ajax({
 		url: "../core/php/versionCheck.php",
@@ -749,7 +822,7 @@ function finishUpdateOneHundredCheck()
 	if(retryCount > 30)
 	{
 		clearInterval(verifyFileTimer);
-		updateError();
+		updateError("Could not verifiy update complete");
 	}
 	$.ajax({
 		url: "../core/php/verifyVersionInstallComplete.php",

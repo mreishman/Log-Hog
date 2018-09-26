@@ -143,7 +143,7 @@ $externalLinkImage = generateImage(
 			</div>
 		</div>
 		<div id="main">
-			<table id="log" style="display: none; margin: 0px;padding: 0px; border-spacing: 0px; width: 100%;" >
+			<table id="log" style="display: none; margin: 0px;padding: 0px; border-spacing: 0px; width: 100%;" cellspacing="0" cellpadding="0">
 				<tbody><tr><td></td></tr></tbody>
 			</table>
 			<div id="firstLoad" style="width: 100%; height: 100%;">

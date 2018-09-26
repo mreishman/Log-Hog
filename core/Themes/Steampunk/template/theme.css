@@ -4,7 +4,6 @@
 	z-index: 20;
 	background-color: #2e303f;
 	padding: .5em 1em;
-	border-bottom: 1px solid white;
 	overflow-y: auto;
 }
 
