@@ -1,4 +1,8 @@
 <?php
+if(!function_exists('baseURL'))
+{
+	require_once("commonFunctions.php");
+}
 $baseURLToMain =  baseURL();
 
 $baseUrl = $baseURLToMain."core/";
