@@ -601,7 +601,16 @@ function pollThree(arrayToUpdate)
 		{
 			if(firstLoad)
 			{
-				updateProgressBar(10,arrayUpdateKeys[0],  "Loading file 1 of "+arrayUpdateKeys.length+" <br>  "+formatBytes(fileData[arrayUpdateKeys[0]]["size"]));
+				var currentFileSize = fileData[arrayUpdateKeys[0]]["size"];
+				if(currentFileSize !== "" && currentFileSize >= 0)
+				{
+					currentFileSize = formatBytes(currentFileSize);
+				}
+				else
+				{
+					currentFileSize = "Unknown File Size";
+				}
+				updateProgressBar(10,arrayUpdateKeys[0],  "Loading file 1 of "+arrayUpdateKeys.length+" <br>  "+currentFileSize);
 				getFileSingle(arrayUpdateKeys.length-1, arrayUpdateKeys.length-1);
 			}
 			else
