@@ -70,6 +70,14 @@ function downloadBranch()
 		updateText("Attempt "+(retryCount+1)+" of 3 for downloading Update");
 	}
 	document.getElementById('innerDisplayUpdate').innerHTML = settingsForBranchStuff['versionList'][versionToUpdateTo]['releaseNotes'];
+	if('image' in settingsForBranchStuff['versionList'][versionToUpdateTo])
+	{
+		document.getElementById('innerDisplayPicture').innerHTML = "<img src=\""+settingsForBranchStuff['versionList'][versionToUpdateTo]['image']+"\">";
+	}
+	else
+	{
+		document.getElementById('innerDisplayPicture').innerHTML = "";
+	}
 	var data = {action: 'downloadFile', file: settingsForBranchStuff['versionList'][versionToUpdateTo]['branchName'],downloadFrom: 'Log-Hog/archive/', downloadTo: '../../update/downloads/updateFiles/updateFiles.zip'};
 	$.ajax({
 		url: urlForSendMain,

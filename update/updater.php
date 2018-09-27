@@ -141,7 +141,7 @@ if(count($arrayOfVersions) === 0)
 </head>
 <body>
 	<div id="main">
-		<div class="settingsHeader" style="text-align: center;" >
+		<div class="settingsHeader" style="text-align: center; padding: 5px 1px 1px 1px;" >
 			<span id="titleHeader" >
 			<?php if($update):?>
 				<?php if ($configStatic['newestVersion'] == $versionToUpdate): ?>
@@ -162,16 +162,24 @@ if(count($arrayOfVersions) === 0)
 				<a onclick="window.location.href = '../index.php'">Back to Log-Hog</a>
 			</div>
 		</div>
-		<div class="settingsDiv" >
+		<div class="settingsDiv" style="border: 1px solid transparent; margin-bottom: 0;" >
 			<div class="updatingDiv">
 				<progress id="progressBar" value="0" max="100" style="width: 95%; margin-top: 10px; margin-bottom: 10px; margin-left: 2.5%; -webkit-appearance: none; appearance: none;" ></progress>
-				<p style="border-bottom: 1px solid white;"></p>
-				<div id="innerDisplayUpdate" style="height: 300px; overflow: auto; max-height: 300px;"></div>
-				<p style="border-bottom: 1px solid white;"></p>
-				<div class="settingsHeader">Log Info</div>
-				<div id="innerSettingsText" class="settingsDiv" style="height: 75px; overflow-y: scroll;" ></div>
+				<p style="border-bottom: 1px dashed #777;"></p>
+				<table style="width: 100%;">
+					<tr>
+						<td>
+							<div id="innerDisplayUpdate" style="height: 300px; overflow: auto; max-height: 300px;"></div>
+						</td>
+						<td width="310px;">
+							<div id="innerDisplayPicture" style="height: 300px; width: 300px; max-height: 300px; max-width: 300px; overflow: hidden;" ></div>
+						</td>
+					</tr>
+				</table>
 			</div>
 		</div>
+		<div class="settingsHeader" style="margin-top: 0;">Log Info</div>
+		<div id="innerSettingsText" class="settingsDiv" style="height: 75px; overflow-y: scroll;" ></div>
 	</div>
 </body>
 
