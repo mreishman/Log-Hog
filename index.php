@@ -123,7 +123,7 @@ $externalLinkImage = generateImage(
 			</div>
 		<div style="overflow: hidden; display: block;">
 			<?php require_once("core/php/template/indexHeader.php"); ?>
-			<div class="backgroundForMenus" id="menu" style="position: static;"></div>
+			<div class="backgroundForMenus" id="menu" style="position: absolute;"></div>
 			<span id="stars" style="display: block;" ></span>
 			<span id="stars2" style="display: block;" ></span>
 			<span id="stars3" style="display: block;" ></span>
@@ -143,7 +143,7 @@ $externalLinkImage = generateImage(
 			</div>
 		</div>
 		<div id="main">
-			<table id="log" style="display: none; margin: 0px;padding: 0px; border-spacing: 0px; width: 100%;" >
+			<table id="log" style="display: none; margin: 0px;padding: 0px; border-spacing: 0px; width: 100%;" cellspacing="0" cellpadding="0">
 				<tbody><tr><td></td></tr></tbody>
 			</table>
 			<div id="firstLoad" style="width: 100%; height: 100%;">
@@ -161,7 +161,7 @@ $externalLinkImage = generateImage(
 				require_once('core/php/template/indexStorage.php');
 			?>
 		</div>
-		<div id="fullScreenMenu" style="display: none;">
+		<div id="fullScreenMenu" class="smallBlur" style="display: none;">
 			<?php require_once('core/php/template/fullScreenMenu.php'); ?>
 		</div>
 

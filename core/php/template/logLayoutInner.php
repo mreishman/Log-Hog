@@ -26,7 +26,7 @@
 										<li>
 											Layout <?php echo $letter; ?>:
 											<span id="<?php echo $logID; ?>" >
-												<?php if (isset($logLoadLayout[$value][$counterInternal][$letter])): ?>
+												<?php if (isset($logLoadLayout[$value][$counterInternal][$letter]) && $logLoadLayout[$value][$counterInternal][$letter] !== ""): ?>
 													<?php echo $logLoadLayout[$value][$counterInternal][$letter]; ?>
 												<?php else : ?>
 													No Log Selected
@@ -35,9 +35,15 @@
 											<span onclick="selectLogPopup('<?php echo $logID; ?>')" class="linkSmall" >
 												Select Log
 											</span>
-											<?php if (isset($logLoadLayout[$value][$counterInternal][$letter])): ?>
+											<?php if (isset($logLoadLayout[$value][$counterInternal][$letter]) && $logLoadLayout[$value][$counterInternal][$letter] !== ""): ?>
+												<span id="unselectLogButton<?php echo $logID; ?>" onclick="unselectLog('<?php echo $logID; ?>')" class="linkSmall" >
+													Un-Select Log
+												</span>
 												<input type="hidden" name="<?php echo $logID; ?>" value="<?php echo $logLoadLayout[$value][$counterInternal][$letter]; ?>" >
 											<?php else : ?>
+												<span id="unselectLogButton<?php echo $logID; ?>" style="display: none;" onclick="unselectLog('<?php echo $logID; ?>')" class="linkSmall" >
+													Un-Select Log
+												</span>
 												<input type="hidden" name="<?php echo $logID; ?>" value="" >
 											<?php endif; ?>
 										</li>

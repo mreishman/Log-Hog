@@ -601,7 +601,16 @@ function pollThree(arrayToUpdate)
 		{
 			if(firstLoad)
 			{
-				updateProgressBar(10,arrayUpdateKeys[0],  "Loading file 1 of "+arrayUpdateKeys.length+" <br>  "+formatBytes(fileData[arrayUpdateKeys[0]]["size"]));
+				var currentFileSize = fileData[arrayUpdateKeys[0]]["size"];
+				if(currentFileSize !== "" && currentFileSize >= 0)
+				{
+					currentFileSize = formatBytes(currentFileSize);
+				}
+				else
+				{
+					currentFileSize = "Unknown File Size";
+				}
+				updateProgressBar(10,arrayUpdateKeys[0],  "Loading file 1 of "+arrayUpdateKeys.length+" <br>  "+currentFileSize);
 				getFileSingle(arrayUpdateKeys.length-1, arrayUpdateKeys.length-1);
 			}
 			else
@@ -2228,7 +2237,7 @@ function makePretty(id)
 		{
 			text = text[0].split("\\n");
 		}
-		var returnText = "<table width=\"100%\" style=\"border-spacing: 2px 0;\" >";
+		var returnText = "<table width=\"100%\" style=\"border-spacing: 2px 0; -webkit-border-horizontal-spacing: 0; -moz-border-horizontal-spacing: 0;\" >";
 		var lengthOfTextArray = text.length;
 		var selectListForFilter = document.getElementsByName("searchType")[0];
 		var selectedListFilterType = selectListForFilter.options[selectListForFilter.selectedIndex].value;
@@ -2321,7 +2330,7 @@ function makePretty(id)
 					{
 						lineToReturn = formatLine(lineText[j]);
 					}
-					returnText += ""+lineToReturn+"</tr><tr height=\""+logLinePadding+"px\" ><td colspan=\"2\"></td></tr>";
+					returnText += "<td style=\"width: 31px; padding: 0;\" ></td>"+lineToReturn+"</tr><tr height=\""+logLinePadding+"px\" ><td colspan=\"2\"></td></tr>";
 				}
 			}
 		}
@@ -2428,13 +2437,7 @@ function resize()
 			{
 				$(".logTdWidth").outerWidth(tdElementWidth);
 			}
-			if(bottomBarIndexType === "full")
-			{
-				$(".backgroundForSideBarMenu").outerHeight(trElementHeight);
-			}
-			else
-			{
-				if($(".backgroundForSideBarMenu").outerHeight() > $(".logTrHeight").outerHeight())
+				if($(".backgroundForSideBarMenu").outerHeight() >= $(".logTrHeight").outerHeight())
 				{
 					$(".backgroundForSideBarMenu").outerHeight(trElementHeight);
 				}
@@ -2444,8 +2447,14 @@ function resize()
 					{
 						$(".backgroundForSideBarMenu").css("height","auto");
 					}
+					if(bottomBarIndexType === "center")
+					{
+						if($(".backgroundForSideBarMenu").css("top") !== trElementHeight+"px")
+						{
+							$(".backgroundForSideBarMenu").css("top",((trElementHeight / 2) - ($(".backgroundForSideBarMenu").outerHeight() / 2))+"px")
+						}
+					}
 				}
-			}
 		}
 
 		resizeFullScreenMenu();

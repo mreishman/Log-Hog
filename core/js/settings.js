@@ -274,6 +274,11 @@ function resetArrayObject(idOfForm)
 	{
 		document.getElementById(idOfForm).innerHTML = innerHtmlObject[idOfForm];
 		arrayObject[idOfForm] = $("#"+idOfForm).serializeArray();
+
+		if(idOfForm === "settingsColorFolderGroupVars")
+		{
+			reAddJsColorPopupForCustomThemes();
+		}
 	}
 	catch(e)
 	{
