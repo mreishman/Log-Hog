@@ -86,6 +86,12 @@
 				"Name"			=>	"A Brief History",
 				"BP"			=>	array("View backups of cleared logs","Cleaner menu with groups being in filter icon","Right click to clear all notifications on notification icon","New Space Theme!"),
 				"Images"		=>	array("5.1-1.png","5.1-2.png","5.1-3.png","5.1-4.png")
+			),
+			14	=>	array(
+				"Version"		=>	"5.2",
+				"Name"			=>	"Settings Update 3",
+				"BP"			=>	array("Add new custom folder color schemes","Save current multi-log layouts from header"),
+				"Images"		=>	array("5.2-1.png","5.2-2.png")
 			)
 		);
 		$dataForWhatsNew = array_reverse($dataForWhatsNew);
