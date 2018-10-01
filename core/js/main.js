@@ -2902,7 +2902,7 @@ function deleteAction()
 		}
 		else
 		{
-			deleteLog(title);
+			deleteActionAfter();
 		}
 	}
 	catch(e)
@@ -2916,6 +2916,33 @@ function deleteActionAfter()
 {
 	try
 	{
+		//save tmp versions first
+		if(saveTmpLogOnClear === "true" && enableHistory === "true")
+		{
+			var logSaveTmpKeys = Object.keys(arrayOfDataMain);
+			var logSaveTmpKeysLength = logSaveTmpKeys.length;
+			for(var tmpClearAllCountSaveTmp = 0; tmpClearAllCountSaveTmp < logSaveTmpKeysLength; tmpClearAllCountSaveTmp++)
+			{
+				var currentTitle = logSaveTmpKeys[tmpClearAllCountSaveTmp];
+				if(
+					arrayOfDataMain[currentTitle]["log"] === "This file is empty. This should not be displayed." ||
+					arrayOfDataMain[currentTitle]["log"] === "Error - File does not exist" ||
+					arrayOfDataMain[currentTitle]["log"] === "Error - File is not Readable" ||
+					arrayOfDataMain[currentTitle]["log"] === "Error - Maybe insufficient access to read file?"
+				)
+				{
+					continue;
+				}
+				var dataToSend = {subFolder: "tmp/loghogBackupHistoryLogs/", key: currentTitle, log: arrayOfDataMain[currentTitle]["log"]};
+				$.ajax({
+						url: "core/php/saveTmpVersionOfLog.php?format=json",
+						dataType: "json",
+						data: dataToSend,
+						type: "POST",
+				success(data){},
+				});
+			}
+		}
 		//Clear All Log Function (not delete actual file, just contents)
 		var urlForSend = "core/php/clearAllLogs.php?format=json";
 		var data = "";
