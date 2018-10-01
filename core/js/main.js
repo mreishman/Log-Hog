@@ -1544,14 +1544,14 @@ function selectTabsInOrder(targetLength)
 				{
 					var currentLayout = getCurrentWindowLayout();
 					var layoutVersionIndex = document.getElementById("layoutVersionIndex").value;
-					if(logLoadLayout.length !== 0 && logLoadLayout[currentLayout][h][layoutVersionIndex] !== "" && logLoadLayout[currentLayout][h][layoutVersionIndex] in fileData )
+					if(enableMultiLog === "true" && logLoadLayout.length !== 0 && logLoadLayout[currentLayout][h][layoutVersionIndex] !== "" && logLoadLayout[currentLayout][h][layoutVersionIndex] in fileData )
 					{
 						if(checkNameCont(logLoadLayout[currentLayout][h][layoutVersionIndex].replace(/[^a-z0-9]/g, ""), arrayOfLogs[i]))
 						{
 							continue;
 						}
 					}
-					if(h === 0 && logSelectedFirstLoad !== "" && logSelectedFirstLoad in fileData)
+					else if(h === 0 && logSelectedFirstLoad !== "" && logSelectedFirstLoad in fileData)
 					{
 						if(checkNameCont(logSelectedFirstLoad.replace(/[^a-z0-9]/g, ""), arrayOfLogs[i]))
 						{

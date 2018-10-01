@@ -270,7 +270,10 @@ function selectLog(locationForNewLogText)
 		document.getElementById(locationForNewLogText).innerHTML = document.getElementById("newLogSelectionFromPopup").value;
 	}
 	document.getElementsByName(locationForNewLogText)[0].value = document.getElementById("newLogSelectionFromPopup").value;
-	document.getElementById("unselectLogButton"+locationForNewLogText).style.display = "inline-block";
+	if(document.getElementById("unselectLogButton"+locationForNewLogText))
+	{
+		document.getElementById("unselectLogButton"+locationForNewLogText).style.display = "inline-block";
+	}
 
 	hidePopup();
 }
@@ -279,7 +282,10 @@ function unselectLog(locationForNewLogText)
 {
 	document.getElementById(locationForNewLogText).innerHTML = "No Log Selected";
 	document.getElementsByName(locationForNewLogText)[0].value = "";
-	document.getElementById("unselectLogButton"+locationForNewLogText).style.display = "none";
+	if(document.getElementById("unselectLogButton"+locationForNewLogText))
+	{
+		document.getElementById("unselectLogButton"+locationForNewLogText).style.display = "none";
+	}
 }
 
 function toggleUpdateDisplayCheck()

@@ -122,7 +122,7 @@ else
 {
 	$customForFirstLogSelect .= $logSelectedFirstLoad;
 }
-$customForFirstLogSelect .= "</span>  <span onclick=\"selectLogPopup('logSelectedFirstLoad');\" class=\"link\">Select Log</span>";
+$customForFirstLogSelect .= "</span>  <span onclick=\"selectLogPopup('logSelectedFirstLoad');\" class=\"link\">Select Log</span> <span id=\"unselectLogButtonlogSelectedFirstLoad\" onclick=\"unselectLog('logSelectedFirstLoad')\" class=\"link\" >Un-Select Log</span>";
 if ($logSelectedFirstLoad === "")
 {
 	$customForFirstLogSelect .= "<input type=\"hidden\" name=\"logSelectedFirstLoad\" value=\"\" >";
