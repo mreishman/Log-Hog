@@ -129,9 +129,15 @@ function saveVerified()
 	}
 	else if(idForFormMain === "welcomeForm")
 	{
-		setTimeout(function() {
+		if(document.getElementById("innerDisplayUpdate"))
+		{
+			//update theme, copying images over
+			copyFilesThemeChange();
+		}
+		else
+		{
 			location.reload();
-		}, 2500);
+		}
 	}
 	else if(idForFormMain === "settingsColorFolderGroupVars" || idForFormMain === "settingsColorFolderVars")
 	{
