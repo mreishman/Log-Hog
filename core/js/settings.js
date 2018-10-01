@@ -127,7 +127,13 @@ function saveVerified()
 	{
 		window.location.href = dirForAjaxSend+"core/php/template/upgradeTheme.php?forceThemeUpdate=true";
 	}
-	else if(idForFormMain === "settingsColorFolderGroupVars" || idForFormMain === "settingsColorFolderVars" || idForFormMain === "welcomeForm")
+	else if(idForFormMain === "welcomeForm")
+	{
+		setTimeout(function() {
+			location.reload();
+		}, 2500);
+	}
+	else if(idForFormMain === "settingsColorFolderGroupVars" || idForFormMain === "settingsColorFolderVars")
 	{
 		location.reload();
 	}

@@ -1,5 +1,6 @@
 <?php
 require_once('../core/php/errorCheckFunctions.php');
+require_once('../core/php/commonFunctions.php');
 $currentPage = "welcome.php";
 checkIfFilesExist(
 	array("local/layout.php","setup/setupProcessFile.php","error.php","setup/step1.php","core/template/theme.css","core/js/jquery.js","core/php/template/popup.php","core/php/settingsSaveAjax.php","core/conf/config.php","setup/stepsJavascript.js"),
@@ -9,13 +10,6 @@ checkIfFilesAreReadable(
 	array("local/layout.php","setup/setupProcessFile.php","error.php","setup/step1.php","core/template/theme.css","core/js/jquery.js","core/php/template/popup.php","core/php/settingsSaveAjax.php","core/conf/config.php","setup/stepsJavascript.js"),
 	 "../",
 	 $currentPage);
-
-
-
-function clean_url($url) {
-    $parts = parse_url($url);
-    return $parts['path'];
-}
 
 
 $baseUrl = "../local/";
