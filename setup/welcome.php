@@ -41,6 +41,8 @@ if(file_exists($baseUrl.'conf/config.php'))
 		exit();
 	}
 }
+
+setCookieRedirect();
 ?>
 <!DOCTYPE html>
 <html>
