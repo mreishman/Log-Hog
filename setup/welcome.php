@@ -54,32 +54,6 @@ setCookieRedirect();
 	</div>
 	<div class="settingsDiv" >
 	<p style="min-height: 200px; padding: 10px;">Please follow these steps to complete the setup process or click default to accept default setting</p>
-	<div id="innerDisplayUpdate" style="height: 350px; overflow: auto; max-height: 300px; display: none;">
-		<table style="padding: 10px;">
-			<tr>
-				<td style="height: 50px;">
-					<img src="../core/img/loading.gif" id="runLoad" height="30px">
-					<img src="../core/img/greenCheck.png" id="runCheck" style="display: none;" height="30px">
-				</td>
-				<td style="width: 20px;">
-				</td>
-				<td>
-					Copying Images / CSS
-				</td>
-			</tr>
-			<tr>
-				<td style="height: 50px;">
-					<img src="../core/img/loading.gif" id="verifyLoad" style="display: none;" height="30px">
-					<img src="../core/img/greenCheck.png" id="verifyCheck" style="display: none;" height="30px">
-				</td>
-				<td style="width: 20px;">
-				</td>
-				<td>
-					Verifying Copied files
-				</td>
-			</tr>
-		</table>
-	</div>
 	<table style="width: 100%; padding-left: 20px; padding-right: 20px;" >
 		<tr>
 			<th style="text-align: left;">
@@ -97,7 +71,7 @@ setCookieRedirect();
 </body>
 <form id="welcomeForm"></form>
 <script type="text/javascript">
-	var themeChangeLogicDirModifier = "../";
+	var themeChangeLogicDirModifier = "../core/php/";
 	function defaultSettings()
 	{
 		//change setupProcess to finished
@@ -110,7 +84,12 @@ setCookieRedirect();
 		saveAndVerifyMain("welcomeForm");
 	}
 
-	var saveVerifyImage = "../core/img/greenCheck.png";
+	var saveVerifyImage = "<img src=\"../core/img/greenCheck.png\" height=\"50px;\" >";
+
+	function redirectToLocationFromUpgradeTheme()
+	{
+		window.location.href = "./director.php";
+	}
 </script>
 <script src="../core/js/settings.js?v=<?php echo rand(0,2000); ?>"></script>
 <script src="../core/js/upgradeTheme.js?v=<?php echo rand(0,2000); ?>"></script>

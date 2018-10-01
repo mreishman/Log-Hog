@@ -123,5 +123,9 @@ if((strval($baseFileVersion) === strval($oldFileVersion)) && (file_exists("../..
 		copyFilesThemeChange();
 	});
 
+	function redirectToLocationFromUpgradeTheme()
+	{
+		window.location.href = "<?php echo getCookieRedirect(); ?>";
+	}
 </script>
 </html>

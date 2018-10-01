@@ -132,6 +132,8 @@ function saveVerified()
 		if(document.getElementById("innerDisplayUpdate"))
 		{
 			//update theme, copying images over
+			showPopup();
+			document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<span id=\"innerDisplayUpdate\"><table style=\"padding: 10px;\"><tr><td style=\"height: 50px;\"><img src=\"../core/img/loading.gif\" id=\"runLoad\" height=\"30px\"><img src=\"../core/img/greenCheck.png\" id=\"runCheck\" style=\"display: none;\" height=\"30px\"></td><td style=\"width: 20px;\"></td><td>Copying Images / CSS</td></tr><tr><td style=\"height: 50px;\"><img src=\"../core/img/loading.gif\" id=\"verifyLoad\" style=\"display: none;\" height=\"30px\"><img src=\"../core/img/greenCheck.png\" id=\"verifyCheck\" style=\"display: none;\" height=\"30px\"></td><td style=\"width: 20px;\"></td><td>Verifying Copied files</td></tr></table></span>";
 			copyFilesThemeChange();
 		}
 		else

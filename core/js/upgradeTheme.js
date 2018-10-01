@@ -110,5 +110,5 @@ function finishedTmpUpdate()
 {
 	document.getElementById('verifyCheck').style.display = "block";
 	document.getElementById('verifyLoad').style.display = "none";
-	window.location.href = "<?php echo getCookieRedirect(); ?>";
+	redirectToLocationFromUpgradeTheme();
 }
