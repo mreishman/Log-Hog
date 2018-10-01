@@ -9,7 +9,7 @@ for ($i=0; $i < 10; $i++)
 }
 
 $saveVerifyArr = array();
-for ($j=0; $j < 5; $j++)
+for ($j=1; $j <= 5; $j++)
 {
 	$saveVerifyArr[$j] = array(
 	"value" 					=> $j,
@@ -56,7 +56,7 @@ else
 {
 	$customForFirstLogSelect .= $logSelectedFirstLoad;
 }
-$customForFirstLogSelect .= "</span>  <span onclick=\"selectLogPopup('logSelectedFirstLoad');\" class=\"link\">Select Log</span>";
+$customForFirstLogSelect .= "</span>  <span onclick=\"selectLogPopup('logSelectedFirstLoad');\" class=\"link\">Select Log</span> <span id=\"unselectLogButtonlogSelectedFirstLoad\" onclick=\"unselectLog('logSelectedFirstLoad')\" class=\"link\" >Un-Select Log</span>";
 if ($logSelectedFirstLoad === "")
 {
 	$customForFirstLogSelect .= "<input type=\"hidden\" name=\"logSelectedFirstLoad\" value=\"\" >";
