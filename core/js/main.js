@@ -1544,14 +1544,14 @@ function selectTabsInOrder(targetLength)
 				{
 					var currentLayout = getCurrentWindowLayout();
 					var layoutVersionIndex = document.getElementById("layoutVersionIndex").value;
-					if(logLoadLayout.length !== 0 && logLoadLayout[currentLayout][h][layoutVersionIndex] !== "" && logLoadLayout[currentLayout][h][layoutVersionIndex] in fileData )
+					if(enableMultiLog === "true" && logLoadLayout.length !== 0 && logLoadLayout[currentLayout][h][layoutVersionIndex] !== "" && logLoadLayout[currentLayout][h][layoutVersionIndex] in fileData )
 					{
 						if(checkNameCont(logLoadLayout[currentLayout][h][layoutVersionIndex].replace(/[^a-z0-9]/g, ""), arrayOfLogs[i]))
 						{
 							continue;
 						}
 					}
-					if(h === 0 && logSelectedFirstLoad !== "" && logSelectedFirstLoad in fileData)
+					else if(h === 0 && logSelectedFirstLoad !== "" && logSelectedFirstLoad in fileData)
 					{
 						if(checkNameCont(logSelectedFirstLoad.replace(/[^a-z0-9]/g, ""), arrayOfLogs[i]))
 						{
@@ -4487,11 +4487,7 @@ function replaceStuff(item, currentMax, newTheme)
 function addColorBlock(currentRow)
 {
 	var item = $("#holderForFolderColors .emptyColorBlock").html();
-	var newRow = 1;
-	while(document.getElementById("folderColorButtonMainBackground"+currentRow+"-"+newRow))
-	{
-		newRow++;
-	}
+	var newRow = getLastRowForMainColors(currentRow);
 	item = item.replace(/{{backgroundColor}}/g, "#000000");
 	item = item.replace(/{{fontColor}}/g, "#FFFFFF");
 	item = item.replace(/{{name}}/g, "Main");
@@ -4499,6 +4495,22 @@ function addColorBlock(currentRow)
 	item = item.replace(/{{j}}/g, newRow);
 	$("#folderColorThemeNameForPost"+currentRow+"Main").append(item);
 	addNewFolderColorButtonForThing("Main", currentRow, newRow);
+}
+
+function removeColorBlock(currentRow)
+{
+	var newRow = getLastRowForMainColors(currentRow) -  1;
+	$("folderColorButtonMainBackground"+currentRow+"-"+newRow).parent().parent().remove();
+}
+
+function getLastRowForMainColors(currentRow)
+{
+	var newRow = 1;
+	while(document.getElementById("folderColorButtonMainBackground"+currentRow+"-"+newRow))
+	{
+		newRow++;
+	}
+	return newRow;
 }
 
 function addNewFolderColorButtonForThing(name, currentRow, currentColumn)
