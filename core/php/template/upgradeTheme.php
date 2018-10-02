@@ -116,6 +116,7 @@ if((strval($baseFileVersion) === strval($oldFileVersion)) && (file_exists("../..
 </body>
 
 <script src="../../../core/js/settings.js?v=<?php echo $cssVersion?>"></script>
+<script src="../../../core/js/upgradeTheme.js?v=<?php echo $cssVersion?>"></script>
 <script type="text/javascript">
 	var themeChangeLogicDirModifier = "../";
 	$( document ).ready(function()
