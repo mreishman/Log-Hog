@@ -1,5 +1,6 @@
 <?php
 require_once('../core/php/errorCheckFunctions.php');
+require_once('../core/php/commonFunctions.php');
 $currentPage = "welcome.php";
 checkIfFilesExist(
 	array("local/layout.php","setup/setupProcessFile.php","error.php","setup/step1.php","core/template/theme.css","core/js/jquery.js","core/php/template/popup.php","core/php/settingsSaveAjax.php","core/conf/config.php","setup/stepsJavascript.js"),
@@ -9,13 +10,6 @@ checkIfFilesAreReadable(
 	array("local/layout.php","setup/setupProcessFile.php","error.php","setup/step1.php","core/template/theme.css","core/js/jquery.js","core/php/template/popup.php","core/php/settingsSaveAjax.php","core/conf/config.php","setup/stepsJavascript.js"),
 	 "../",
 	 $currentPage);
-
-
-
-function clean_url($url) {
-    $parts = parse_url($url);
-    return $parts['path'];
-}
 
 
 $baseUrl = "../local/";
@@ -41,6 +35,8 @@ if(file_exists($baseUrl.'conf/config.php'))
 		exit();
 	}
 }
+
+setCookieRedirect();
 ?>
 <!DOCTYPE html>
 <html>
@@ -75,6 +71,7 @@ if(file_exists($baseUrl.'conf/config.php'))
 </body>
 <form id="welcomeForm"></form>
 <script type="text/javascript">
+	var themeChangeLogicDirModifier = "../core/php/";
 	function defaultSettings()
 	{
 		//change setupProcess to finished
@@ -87,8 +84,14 @@ if(file_exists($baseUrl.'conf/config.php'))
 		saveAndVerifyMain("welcomeForm");
 	}
 
-	var saveVerifyImage = "../core/img/greenCheck.png";
+	var saveVerifyImage = "<img src=\"../core/img/greenCheck.png\" height=\"50px;\" >";
+
+	function redirectToLocationFromUpgradeTheme()
+	{
+		window.location.href = "./director.php";
+	}
 </script>
 <script src="../core/js/settings.js?v=<?php echo rand(0,2000); ?>"></script>
+<script src="../core/js/upgradeTheme.js?v=<?php echo rand(0,2000); ?>"></script>
 <script src="stepsJavascript.js?v=<?php echo rand(0,2000); ?>"></script> <!-- Try to remember to manually increment this one? -->
 </html>

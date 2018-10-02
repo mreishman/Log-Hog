@@ -53,61 +53,61 @@ if((strval($baseFileVersion) === strval($oldFileVersion)) && (file_exists("../..
 		<div class="updatingDiv">
 			<p style="border-bottom: 1px solid white;"></p>
 			<div id="innerDisplayUpdate" style="height: 350px; overflow: auto; max-height: 300px;">
-			<table style="padding: 10px;">
-				<tr>
-					<td style="height: 50px;">
-						<?php echo generateImage(
-							$arrayOfImages["loading"],
-							array(
-								"height"		=>	"30px",
-								"srcModifier"	=>	"../../../",
-								"id"			=>	"runLoad"
-							)
-						); ?>
-						<?php echo generateImage(
-							$arrayOfImages["greenCheck"],
-							array(
-								"height"		=>	"30px",
-								"srcModifier"	=>	"../../../",
-								"id"			=>	"runCheck",
-								"style"			=>	"display: none;"
-							)
-						); ?>
-					</td>
-					<td style="width: 20px;">
-					</td>
-					<td>
-						Copying Images / CSS
-					</td>
-				</tr>
-				<tr>
-					<td style="height: 50px;">
-						<?php echo generateImage(
-							$arrayOfImages["loading"],
-							array(
-								"height"		=>	"30px",
-								"srcModifier"	=>	"../../../",
-								"id"			=>	"verifyLoad",
-								"style"			=>	"display: none;"
-							)
-						); ?>
-						<?php echo generateImage(
-							$arrayOfImages["greenCheck"],
-							array(
-								"height"		=>	"30px",
-								"srcModifier"	=>	"../../../",
-								"id"			=>	"verifyCheck",
-								"style"			=>	"display: none;"
-							)
-						); ?>
-					</td>
-					<td style="width: 20px;">
-					</td>
-					<td>
-						Verifying Copied files
-					</td>
-				</tr>
-			</table>
+				<table style="padding: 10px;">
+					<tr>
+						<td style="height: 50px;">
+							<?php echo generateImage(
+								$arrayOfImages["loading"],
+								array(
+									"height"		=>	"30px",
+									"srcModifier"	=>	"../../../",
+									"id"			=>	"runLoad"
+								)
+							); ?>
+							<?php echo generateImage(
+								$arrayOfImages["greenCheck"],
+								array(
+									"height"		=>	"30px",
+									"srcModifier"	=>	"../../../",
+									"id"			=>	"runCheck",
+									"style"			=>	"display: none;"
+								)
+							); ?>
+						</td>
+						<td style="width: 20px;">
+						</td>
+						<td>
+							Copying Images / CSS
+						</td>
+					</tr>
+					<tr>
+						<td style="height: 50px;">
+							<?php echo generateImage(
+								$arrayOfImages["loading"],
+								array(
+									"height"		=>	"30px",
+									"srcModifier"	=>	"../../../",
+									"id"			=>	"verifyLoad",
+									"style"			=>	"display: none;"
+								)
+							); ?>
+							<?php echo generateImage(
+								$arrayOfImages["greenCheck"],
+								array(
+									"height"		=>	"30px",
+									"srcModifier"	=>	"../../../",
+									"id"			=>	"verifyCheck",
+									"style"			=>	"display: none;"
+								)
+							); ?>
+						</td>
+						<td style="width: 20px;">
+						</td>
+						<td>
+							Verifying Copied files
+						</td>
+					</tr>
+				</table>
 			</div>
 			<p style="border-bottom: 1px solid white;"></p>
 		</div>
@@ -116,124 +116,16 @@ if((strval($baseFileVersion) === strval($oldFileVersion)) && (file_exists("../..
 </body>
 
 <script src="../../../core/js/settings.js?v=<?php echo $cssVersion?>"></script>
-<script type="text/javascript"> 
-	var lock = false;
-	var urlForSendMain0 = '../themeChangeLogic.php?format=json';
-	var urlForSendMain1 = '../themeChangeLogicVerify.php?format=json';
-	var verifyCountSuccess = 0;
+<script type="text/javascript">
+	var themeChangeLogicDirModifier = "../";
 	$( document ).ready(function()
 	{
-		copyFiles();
+		copyFilesThemeChange();
 	});
 
-	function copyFiles()
+	function redirectToLocationFromUpgradeTheme()
 	{
-		var urlForSend = urlForSendMain0;
-		var dataSend = {};
-		$.ajax({
-			url: urlForSend,
-			dataType: 'json',
-			data: dataSend,
-			type: 'POST',
-			success(data)
-			{
-				verifyFile(data);
-			},
-			failure(data)
-			{
-				verifyFile(false);
-			},
-			complete(data){}
-		});
-	}
-
-
-	function verifyFile(version)
-	{
-		document.getElementById('runCheck').style.display = "block";
-		document.getElementById('runLoad').style.display = "none";
-		document.getElementById('verifyLoad').style.display = "block";
-		verifyCount = 0;
-		verifyCountSuccess = 0;
-		verifyFileTimer = setInterval(function(){verifyFilePoll(version);},2000);
-	}
-
-	function verifyFilePoll(version)
-	{
-		if(lock === false)
-		{
-			lock = true;
-			var urlForSend = urlForSendMain1;
-			var data = {version: version};
-			(function(_data){
-				$.ajax({
-					url: urlForSend,
-					dataType: 'json',
-					data,
-					type: 'POST',
-					success(data)
-					{
-						verifyPostEnd(data);
-					},
-					failure(data)
-					{
-						verifyPostEnd(data);
-					},
-					complete()
-					{
-						lock = false;
-					}
-				});	
-			}(data));
-		}
-	}
-
-	function verifyPostEnd(verified)
-	{
-		if(verified == true)
-		{
-			verifyCountSuccess++;
-			if(verifyCountSuccess >= successVerifyNum)
-			{
-				verifyCountSuccess = 0;
-				clearInterval(verifyFileTimer);
-				verifySucceded();
-			}
-		}
-		else
-		{
-			verifyCountSuccess = 0;
-			verifyCount++;
-			if(verifyCount > 29)
-			{
-				clearInterval(verifyFileTimer);
-				verifyFail();
-			}
-		}
-	}
-
-	function updateError()
-	{
-		document.getElementById('innerDisplayUpdate').innerHTML = "<h1>An error occured while trying to copy over your selected theme. </h1>";
-	}
-
-	function verifyFail()
-	{
-		updateError();
-	}
-
-	function verifySucceded()
-	{
-		retryCount = 0;
-		finishedTmpUpdate();
-	}
-
-	function finishedTmpUpdate()
-	{
-		document.getElementById('verifyCheck').style.display = "block";
-		document.getElementById('verifyLoad').style.display = "none";
 		window.location.href = "<?php echo getCookieRedirect(); ?>";
 	}
-
-</script> 
+</script>
 </html>
