@@ -70,6 +70,16 @@ $themeDirMod = "../";
 		//change setupProcess to page1
 		location.reload();
 	}
+
+	function checkIfChanges()
+	{
+		if(	checkForChangesArray(["settingsColorFolderGroupVars"]))
+		{
+			return true;
+		}
+		return false;
+	}
+
 	
 	var titleOfPage = "Welcome";
 

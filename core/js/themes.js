@@ -5,15 +5,6 @@ var timeoutVar = null;
 var numberOfStepsForThemeCreate = 12;
 var urlForSendUpdateAction = themeDirMod+"core/php/performSettingsInstallUpdateAction.php?format=json";
 
-function checkIfChanges()
-{
-	if(	checkForChangesArray(["settingsColorFolderGroupVars"]))
-	{
-		return true;
-	}
-	return false;
-}
-
 function deleteTheme(themeName)
 {
 	displayLoadingPopup();
