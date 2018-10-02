@@ -2243,7 +2243,7 @@ function makePretty(id)
 		{
 			text = text[0].split("\\n");
 		}
-		var returnText = "<table width=\"100%\" style=\"border-spacing: 2px 0; -webkit-border-horizontal-spacing: 0; -moz-border-horizontal-spacing: 0;\" >";
+		var returnText = "<table width=\"100%\" style=\"border-spacing: 0;\" >";
 		var lengthOfTextArray = text.length;
 		var selectListForFilter = document.getElementsByName("searchType")[0];
 		var selectedListFilterType = selectListForFilter.options[selectListForFilter.selectedIndex].value;
