@@ -1334,7 +1334,6 @@ function generateFolderColorRow($arrFCOdata = array())
 	{
 		$td2 .= "<div class=\"colorSelectorDiv\" onclick=\"addColorBlock(".$i.")\" style=\"display: inline-block; border: 1px solid white; text-align: center; line-height: 18px; cursor: pointer; \"  >+</div>";
 		$td2 .= "<div class=\"colorSelectorDiv\" onclick=\"removeColorBlock(".$i.")\" style=\"display: inline-block; border: 1px solid white; text-align: center; line-height: 18px; cursor: pointer; \"  >-</div>";
-		
 	}
 	else
 	{

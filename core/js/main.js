@@ -4533,7 +4533,7 @@ function addColorBlock(currentRow)
 function removeColorBlock(currentRow)
 {
 	var newRow = getLastRowForMainColors(currentRow) -  1;
-	$("folderColorButtonMainBackground"+currentRow+"-"+newRow).parent().parent().remove();
+	$("#folderColorButtonMainBackground"+currentRow+"-"+newRow).parent().parent().remove();
 }
 
 function getLastRowForMainColors(currentRow)
