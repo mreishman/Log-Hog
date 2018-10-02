@@ -1548,14 +1548,20 @@ function selectTabsInOrder(targetLength)
 					{
 						if(checkNameCont(logLoadLayout[currentLayout][h][layoutVersionIndex].replace(/[^a-z0-9]/g, ""), arrayOfLogs[i]))
 						{
-							continue;
+							if(arrayOfLogs[i].style.display !== "none")
+							{
+								continue;
+							}
 						}
 					}
 					else if(h === 0 && logSelectedFirstLoad !== "" && logSelectedFirstLoad in fileData)
 					{
 						if(checkNameCont(logSelectedFirstLoad.replace(/[^a-z0-9]/g, ""), arrayOfLogs[i]))
 						{
-							continue;
+							if(arrayOfLogs[i].style.display !== "none")
+							{
+								continue;
+							}
 						}
 					}
 
