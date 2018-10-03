@@ -3,6 +3,8 @@ branches:
   except:
   - gh-pages
 language: php
+addons:
+  chrome: stable
 php:
   - '5.4'
   - '5.6'
@@ -10,6 +12,7 @@ php:
   - '7.2'
   - nightly
 before_script:
+  - git clone https://github.com/mreishman/Log-Hog-Tests.git
   - sudo apt-get update
   - sudo apt-get install apache2 libapache2-mod-fastcgi
   # enable php-fpm
@@ -20,7 +23,7 @@ before_script:
   - sudo chown -R travis:travis /var/lib/apache2/fastcgi
   - ~/.phpenv/versions/$(phpenv version-name)/sbin/php-fpm
   # configure apache virtual hosts
-  - sudo cp -f develop/travis-ci-apache/000-default.conf /etc/apache2/sites-available/000-default.conf
+  - sudo cp -f Log-Hog-Tests/develop/travis-ci-apache/000-default.conf /etc/apache2/sites-available/000-default.conf
   - sudo sed -e "s?%TRAVIS_BUILD_DIR%?$(pwd)?g" --in-place /etc/apache2/sites-available/000-default.conf
   - sudo service apache2 restart
-script: phpunit --configuration develop/phpunit.xml
+script: phpunit --configuration Log-Hog-Tests/develop/phpunit.xml
