@@ -4,7 +4,7 @@ namespace develop\tests\unit;
 
 class testTest
 {
-	public function render();
+	public function render()
 	{
 		return "test";
 	}
