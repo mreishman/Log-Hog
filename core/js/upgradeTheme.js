@@ -10,9 +10,9 @@ function copyFilesThemeChange()
 	var dataSend = {};
 	$.ajax({
 		url: urlForSend,
-		dataType: 'json',
+		dataType: "json",
 		data: dataSend,
-		type: 'POST',
+		type: "POST",
 		success(data)
 		{
 			verifyFileThemeChange(data);
@@ -28,9 +28,9 @@ function copyFilesThemeChange()
 
 function verifyFileThemeChange(version)
 {
-	document.getElementById('runCheck').style.display = "block";
-	document.getElementById('runLoad').style.display = "none";
-	document.getElementById('verifyLoad').style.display = "block";
+	document.getElementById("runCheck").style.display = "block";
+	document.getElementById("runLoad").style.display = "none";
+	document.getElementById("verifyLoad").style.display = "block";
 	verifyCount = 0;
 	verifyCountSuccessThemeChange = 0;
 	verifyFileTimerThemeChange = setInterval(function(){verifyFilePollThemeChange(version);},2000);
@@ -42,7 +42,7 @@ function verifyFilePollThemeChange(version)
 	{
 		lockThemeLogic = true;
 		var urlForSend = themeChangeLogicDirModifier + urlForSendMain1;
-		var data = {version: version};
+		var data = {version};
 		(function(_data){
 			$.ajax({
 				url: urlForSend,
@@ -92,7 +92,7 @@ function verifyPostEndThemeChange(verified)
 
 function updateError()
 {
-	document.getElementById('innerDisplayUpdate').innerHTML = "<h1>An error occured while trying to copy over your selected theme. </h1>";
+	document.getElementById("innerDisplayUpdate").innerHTML = "<h1>An error occured while trying to copy over your selected theme. </h1>";
 }
 
 function verifyFailThemeChange()
@@ -108,7 +108,7 @@ function verifySuccededThemeChange()
 
 function finishedTmpUpdate()
 {
-	document.getElementById('verifyCheck').style.display = "block";
-	document.getElementById('verifyLoad').style.display = "none";
+	document.getElementById("verifyCheck").style.display = "block";
+	document.getElementById("verifyLoad").style.display = "none";
 	redirectToLocationFromUpgradeTheme();
 }
