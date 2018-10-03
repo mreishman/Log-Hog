@@ -11,16 +11,25 @@ php:
   - '7.0'
   - '7.2'
   - nightly
+matrix:
+  include:
+    - php: 5.6
+      env: DIR=FIRST
+    - php: 5.4
+      env: DIR=FIRST
+    - php: 7.0
+      env: DIR=SECOND
+    - php: 7.2
+      env: DIR=SECOND
+    - php: nightly
+      env: DIR=SECOND
 before_script:
   - git clone https://github.com/mreishman/Log-Hog-Tests.git
   - sudo apt-get update
   - sudo apt-get install apache2 libapache2-mod-fastcgi
   # enable php-fpm
-  - if [php = "5.4" || php = "5.6"]; then
-    sudo cp ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf.default ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf;
-    else
-    sudo cp ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.d/www.conf.default ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.d/www.conf;
-    fi'
+  - if [ "$DIR" = "FIRST" ]; then  sudo cp ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf.default ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf; fi
+  - if [ "$DIR" = "SECOND" ]; then  sudo cp ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.d/www.conf.default ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.d/www.conf; fi
   - sudo a2enmod rewrite actions fastcgi alias
   - echo "cgi.fix_pathinfo = 1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - sudo sed -i -e "s,www-data,travis,g" /etc/apache2/envvars
