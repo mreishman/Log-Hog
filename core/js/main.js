@@ -3665,8 +3665,15 @@ function toggleThemes(force = false)
 	$(".subMenuActionsColorScheme").hide();
 }
 
-function toggleMainThemes()
+function toggleMainThemes(force = false)
 {
+	if(!force)
+	{
+		if(!(goToPageCheck("toggleMainThemes(true)")))
+		{
+			return false;
+		}
+	}
 	hideThemeStuff();
 	endSettingsPollTimer();
 	toggleThemesIframeSource(true);
@@ -3676,8 +3683,15 @@ function toggleMainThemes()
 	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
 }
 
-function toggleGeneralThemeStyle()
+function toggleGeneralThemeStyle(force = false)
 {
+	if(!force)
+	{
+		if(!(goToPageCheck("toggleGeneralThemeStyle(true)")))
+		{
+			return false;
+		}
+	}
 	hideThemeStuff();
 	endSettingsPollTimer();
 	$("#themeSubMenuGeneralStyle").addClass("selected");
@@ -3705,8 +3719,15 @@ function toggleThemesIframeSource(showOrHide)
 	}
 }
 
-function toggleThemeColorScheme()
+function toggleThemeColorScheme(force = false)
 {
+	if(!force)
+	{
+		if(!(goToPageCheck("toggleThemeColorScheme(true)")))
+		{
+			return false;
+		}
+	}
 	hideThemeStuff();
 	endSettingsPollTimer();
 	$("#themeSubMenuColorScheme").addClass("selected");
