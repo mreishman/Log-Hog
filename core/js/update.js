@@ -30,6 +30,7 @@ function checkForUpdates(urlSend = "../", whatAmIUpdating = "Log-Hog", currentNe
 		else
 		{
 			updateInProgressPopup();
+			return;
 		}
 		versionUpdate = currentNewVersion;
 		urlSend = urlSend;
