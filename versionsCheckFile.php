@@ -1,7 +1,7 @@
 <?php
 
 $versionCheckArray = array(
-	'version'		=> '5.1.2',
+	'version'		=> '5.1.3',
 	'versionList'		=> array(
 		'2.0.1'	        => array(
 			'branchName'	=> '2.0.1Update',
@@ -214,6 +214,10 @@ $versionCheckArray = array(
 		'5.1.2'		=> array(
 			'branchName'	=> '5.1.2Update',
 			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Added clear selection from log layout for individual files</li><li>Fixed bug after initial save where it would only show no log selected message before initial save</li><li>Fixed bug with double border height on index page for menu</li><li>Added out of counter for upgrade scripts in updater</li><li>Changed minimum save verification number to 1 (previously was 0, but code will always make 1 check)</li><li>Fixed issue with sidebar background colors not extending</li><li>Fixed issues with spacing on log rows in chrome</li><li>Fixed bug with scroll of sidebar for logs for small screens (height)</li><li>Added option on error page to reset update progress files back to default</li><li>For some early update failures (Download, extract), Log-Hog will automatically try to revert changes made in the update process</li><li>Updated loading message for files that are not readable and return file size of NaN</li><li>Bugfix for log menu if not in top mode</li><li>Added unselect log to First Log select</li><li>Fixed bug with conflicting pre selected logs in multilog and initial log select</li></ul></li></ul>"
+		),
+		'5.1.3'		=> array(
+			'branchName'	=> '5.1.3Update',
+			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed bug with clear all action when popup is disabled</li><li>Clear all now properly (if enabled in settings) saves tmp versions of logs</li><li>Fixed bug when filtering logs where it would not auto select a new log if the preset log was hidden</li><li>Fixed issues with highlight row spacing in firefox</li></ul></li></ul>"
 		),
 	)
 );
