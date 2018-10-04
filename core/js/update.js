@@ -226,7 +226,7 @@ function checkForUpdateTimer(urlSend, whatAmIUpdating)
 	});
 }
 
-clearIntervalUpdate()
+function clearIntervalUpdate()
 {
 	clearInterval(checkForUpdatePoll);
 	checkForUpdatePoll = null;

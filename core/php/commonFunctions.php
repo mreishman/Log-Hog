@@ -1230,7 +1230,7 @@ function getData($loadVarsArray, $confDataValue)
 
 function generateFolderColorRow($arrFCOdata = array())
 {
-	$edit = false;
+	$edit = true;
 	$key = "{{key}}";
 	$currentFolderColorTheme = "{{currentFolderColorTheme}}";
 	$i = "{{i}}";
@@ -1283,9 +1283,9 @@ function generateFolderColorRow($arrFCOdata = array())
 		$themeName = $arrFCOdata["themeName"];
 	}
 
-	if(!(strpos($key, "default") > -1))
+	if((strpos($key, "default") > -1))
 	{
-		$edit = true;
+		$edit = false;
 	}
 	$htmlToReturn = "";
 	$td1 = "";
@@ -1300,6 +1300,13 @@ function generateFolderColorRow($arrFCOdata = array())
 	}
 	$td1 .= " value=\"".$key."\"> ".$key.": ";
 	$htmlToReturn .= "<td>".$td1."</td>";
+	$td1p5 = "<td>";
+	if($edit)
+	{
+		$td1p5 .= "<div class=\"linkSmall\" onclick=\"removeRow(".$i.")\" >Remove</div>";
+	}
+	$td1p5 .= "</td>";
+	$htmlToReturn .= $td1p5;
 	$td2 = "";
 	$td2 .= "<input style=\"display: none;\" type=\"text\" name=\"folderColorThemeNameForPost".$i."\" value=\"".$key."\" > Main Colors: <span id=\"folderColorThemeNameForPost".$i."Main\">";
 	if($i !== "{{i}}")
@@ -1436,6 +1443,7 @@ function generateFolderColorRow($arrFCOdata = array())
 	return array(
 		"html"					=>	$htmlToReturn,
 		"td1"					=>	$td1,
+		"td1p5"					=>	$td1p5,
 		"td2"					=>	$td2,
 		"td3"					=>	$td3,
 		"td4"					=>	$td4,

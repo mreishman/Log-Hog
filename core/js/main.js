@@ -4484,14 +4484,17 @@ function addRowForFolderColorOptions()
 	counterForDefaults--;
 	currentMaxRow++;
 	var table = document.getElementById("addNewRowToThisForThemes");
-	var row = table.insertRow(currentMaxRow);
-	var cell1 = row.insertCell(0);
-	var cell2 = row.insertCell(1);
-	var cell3 = row.insertCell(2);
-	var cell4 = row.insertCell(3);
-	var cell5 = row.insertCell(4);
+	var row 	= table.insertRow(currentMaxRow);
+	var cell1 	= row.insertCell(0);
+	var cell1p5 = row.insertCell(1);
+	var cell2 	= row.insertCell(2);
+	var cell3 	= row.insertCell(3);
+	var cell4 	= row.insertCell(4);
+	var cell5 	= row.insertCell(5);
 	var cellItem = $("#holderForFolderColors .emptyRow1").html();
 	cell1.innerHTML = replaceStuff(cellItem, currentMaxRow, (currentMaxRow-counterForDefaults));
+	cellItem = $("#holderForFolderColors .emptyRow1p5").html();
+	cell1p5.innerHTML = replaceStuff(cellItem, currentMaxRow, (currentMaxRow-counterForDefaults));
 	cellItem = $("#holderForFolderColors .emptyRow2").html();
 	cell2.innerHTML = replaceStuff(cellItem, currentMaxRow, (currentMaxRow-counterForDefaults));
 	cellItem = $("#holderForFolderColors .emptyRow3").html();
@@ -4534,6 +4537,19 @@ function removeColorBlock(currentRow)
 {
 	var newRow = getLastRowForMainColors(currentRow) -  1;
 	$("#folderColorButtonMainBackground"+currentRow+"-"+newRow).parent().parent().remove();
+}
+
+function removeRow(currentRow)
+{
+	var currentMaxRow = parseInt($("#settingsColorFolderGroupVars [name=\"folderThemeCount\"] ")[0].value);
+	var table = document.getElementById("addNewRowToThisForThemes");
+	table.deleteRow(currentRow);
+	if(currentRow < currentMaxRow)
+	{
+		//loop to update other rows by -1 to row
+	}
+	currentMaxRow--;
+	$("#settingsColorFolderGroupVars [name=\"folderThemeCount\"] ")[0].value = currentMaxRow;
 }
 
 function getLastRowForMainColors(currentRow)
