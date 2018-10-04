@@ -1548,14 +1548,20 @@ function selectTabsInOrder(targetLength)
 					{
 						if(checkNameCont(logLoadLayout[currentLayout][h][layoutVersionIndex].replace(/[^a-z0-9]/g, ""), arrayOfLogs[i]))
 						{
-							continue;
+							if(arrayOfLogs[i].style.display !== "none")
+							{
+								continue;
+							}
 						}
 					}
 					else if(h === 0 && logSelectedFirstLoad !== "" && logSelectedFirstLoad in fileData)
 					{
 						if(checkNameCont(logSelectedFirstLoad.replace(/[^a-z0-9]/g, ""), arrayOfLogs[i]))
 						{
-							continue;
+							if(arrayOfLogs[i].style.display !== "none")
+							{
+								continue;
+							}
 						}
 					}
 
@@ -2237,7 +2243,7 @@ function makePretty(id)
 		{
 			text = text[0].split("\\n");
 		}
-		var returnText = "<table width=\"100%\" style=\"border-spacing: 2px 0; -webkit-border-horizontal-spacing: 0; -moz-border-horizontal-spacing: 0;\" >";
+		var returnText = "<table width=\"100%\" style=\"border-spacing: 0;\" >";
 		var lengthOfTextArray = text.length;
 		var selectListForFilter = document.getElementsByName("searchType")[0];
 		var selectedListFilterType = selectListForFilter.options[selectListForFilter.selectedIndex].value;
@@ -2902,7 +2908,7 @@ function deleteAction()
 		}
 		else
 		{
-			deleteLog(title);
+			deleteActionAfter();
 		}
 	}
 	catch(e)
@@ -2916,6 +2922,33 @@ function deleteActionAfter()
 {
 	try
 	{
+		//save tmp versions first
+		if(saveTmpLogOnClear === "true" && enableHistory === "true")
+		{
+			var logSaveTmpKeys = Object.keys(arrayOfDataMain);
+			var logSaveTmpKeysLength = logSaveTmpKeys.length;
+			for(var tmpClearAllCountSaveTmp = 0; tmpClearAllCountSaveTmp < logSaveTmpKeysLength; tmpClearAllCountSaveTmp++)
+			{
+				var currentTitle = logSaveTmpKeys[tmpClearAllCountSaveTmp];
+				if(
+					arrayOfDataMain[currentTitle]["log"] === "This file is empty. This should not be displayed." ||
+					arrayOfDataMain[currentTitle]["log"] === "Error - File does not exist" ||
+					arrayOfDataMain[currentTitle]["log"] === "Error - File is not Readable" ||
+					arrayOfDataMain[currentTitle]["log"] === "Error - Maybe insufficient access to read file?"
+				)
+				{
+					continue;
+				}
+				var dataToSend = {subFolder: "tmp/loghogBackupHistoryLogs/", key: currentTitle, log: arrayOfDataMain[currentTitle]["log"]};
+				$.ajax({
+						url: "core/php/saveTmpVersionOfLog.php?format=json",
+						dataType: "json",
+						data: dataToSend,
+						type: "POST",
+				success(data){},
+				});
+			}
+		}
 		//Clear All Log Function (not delete actual file, just contents)
 		var urlForSend = "core/php/clearAllLogs.php?format=json";
 		var data = "";
