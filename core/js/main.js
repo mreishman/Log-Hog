@@ -1548,14 +1548,20 @@ function selectTabsInOrder(targetLength)
 					{
 						if(checkNameCont(logLoadLayout[currentLayout][h][layoutVersionIndex].replace(/[^a-z0-9]/g, ""), arrayOfLogs[i]))
 						{
-							continue;
+							if(arrayOfLogs[i].style.display !== "none")
+							{
+								continue;
+							}
 						}
 					}
 					else if(h === 0 && logSelectedFirstLoad !== "" && logSelectedFirstLoad in fileData)
 					{
 						if(checkNameCont(logSelectedFirstLoad.replace(/[^a-z0-9]/g, ""), arrayOfLogs[i]))
 						{
-							continue;
+							if(arrayOfLogs[i].style.display !== "none")
+							{
+								continue;
+							}
 						}
 					}
 
@@ -2237,7 +2243,7 @@ function makePretty(id)
 		{
 			text = text[0].split("\\n");
 		}
-		var returnText = "<table width=\"100%\" style=\"border-spacing: 2px 0; -webkit-border-horizontal-spacing: 0; -moz-border-horizontal-spacing: 0;\" >";
+		var returnText = "<table width=\"100%\" style=\"border-spacing: 0;\" >";
 		var lengthOfTextArray = text.length;
 		var selectListForFilter = document.getElementsByName("searchType")[0];
 		var selectedListFilterType = selectListForFilter.options[selectListForFilter.selectedIndex].value;
@@ -2967,7 +2973,7 @@ function deleteAction()
 		}
 		else
 		{
-			deleteLog(title);
+			deleteActionAfter();
 		}
 	}
 	catch(e)
@@ -2981,6 +2987,33 @@ function deleteActionAfter()
 {
 	try
 	{
+		//save tmp versions first
+		if(saveTmpLogOnClear === "true" && enableHistory === "true")
+		{
+			var logSaveTmpKeys = Object.keys(arrayOfDataMain);
+			var logSaveTmpKeysLength = logSaveTmpKeys.length;
+			for(var tmpClearAllCountSaveTmp = 0; tmpClearAllCountSaveTmp < logSaveTmpKeysLength; tmpClearAllCountSaveTmp++)
+			{
+				var currentTitle = logSaveTmpKeys[tmpClearAllCountSaveTmp];
+				if(
+					arrayOfDataMain[currentTitle]["log"] === "This file is empty. This should not be displayed." ||
+					arrayOfDataMain[currentTitle]["log"] === "Error - File does not exist" ||
+					arrayOfDataMain[currentTitle]["log"] === "Error - File is not Readable" ||
+					arrayOfDataMain[currentTitle]["log"] === "Error - Maybe insufficient access to read file?"
+				)
+				{
+					continue;
+				}
+				var dataToSend = {subFolder: "tmp/loghogBackupHistoryLogs/", key: currentTitle, log: arrayOfDataMain[currentTitle]["log"]};
+				$.ajax({
+						url: "core/php/saveTmpVersionOfLog.php?format=json",
+						dataType: "json",
+						data: dataToSend,
+						type: "POST",
+				success(data){},
+				});
+			}
+		}
 		//Clear All Log Function (not delete actual file, just contents)
 		var urlForSend = "core/php/clearAllLogs.php?format=json";
 		var data = "";
@@ -3632,8 +3665,15 @@ function toggleThemes(force = false)
 	$(".subMenuActionsColorScheme").hide();
 }
 
-function toggleMainThemes()
+function toggleMainThemes(force = false)
 {
+	if(!force)
+	{
+		if(!(goToPageCheck("toggleMainThemes(true)")))
+		{
+			return false;
+		}
+	}
 	hideThemeStuff();
 	endSettingsPollTimer();
 	toggleThemesIframeSource(true);
@@ -3643,8 +3683,15 @@ function toggleMainThemes()
 	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
 }
 
-function toggleGeneralThemeStyle()
+function toggleGeneralThemeStyle(force = false)
 {
+	if(!force)
+	{
+		if(!(goToPageCheck("toggleGeneralThemeStyle(true)")))
+		{
+			return false;
+		}
+	}
 	hideThemeStuff();
 	endSettingsPollTimer();
 	$("#themeSubMenuGeneralStyle").addClass("selected");
@@ -3672,8 +3719,15 @@ function toggleThemesIframeSource(showOrHide)
 	}
 }
 
-function toggleThemeColorScheme()
+function toggleThemeColorScheme(force = false)
 {
+	if(!force)
+	{
+		if(!(goToPageCheck("toggleThemeColorScheme(true)")))
+		{
+			return false;
+		}
+	}
 	hideThemeStuff();
 	endSettingsPollTimer();
 	$("#themeSubMenuColorScheme").addClass("selected");
@@ -4438,110 +4492,6 @@ function toggleTopLogNotice()
 		return;
 	}
 	document.getElementById("menu").style.borderTop = "";
-}
-
-function addRowForFolderColorOptions()
-{
-	var currentMaxRow = parseInt($("#settingsColorFolderGroupVars [name=\"folderThemeCount\"] ")[0].value);
-	var counterForDefaults = 1;
-	while($("#settingsColorFolderGroupVars [name=\"folderColorThemeNameForPost"+counterForDefaults+"\"] ")[0] && $("#settingsColorFolderGroupVars [name=\"folderColorThemeNameForPost"+counterForDefaults+"\"] ")[0].value.indexOf("theme-default") > -1)
-	{
-		counterForDefaults++;
-	}
-	counterForDefaults--;
-	currentMaxRow++;
-	var table = document.getElementById("addNewRowToThisForThemes");
-	var row = table.insertRow(currentMaxRow);
-	var cell1 = row.insertCell(0);
-	var cell2 = row.insertCell(1);
-	var cell3 = row.insertCell(2);
-	var cell4 = row.insertCell(3);
-	var cell5 = row.insertCell(4);
-	var cellItem = $("#holderForFolderColors .emptyRow1").html();
-	cell1.innerHTML = replaceStuff(cellItem, currentMaxRow, (currentMaxRow-counterForDefaults));
-	cellItem = $("#holderForFolderColors .emptyRow2").html();
-	cell2.innerHTML = replaceStuff(cellItem, currentMaxRow, (currentMaxRow-counterForDefaults));
-	cellItem = $("#holderForFolderColors .emptyRow3").html();
-	cell3.innerHTML = replaceStuff(cellItem, currentMaxRow, (currentMaxRow-counterForDefaults));
-	cellItem = $("#holderForFolderColors .emptyRow4").html();
-	cell4.innerHTML = replaceStuff(cellItem, currentMaxRow, (currentMaxRow-counterForDefaults));
-	cellItem = $("#holderForFolderColors .emptyRow5").html();
-	cell5.innerHTML = replaceStuff(cellItem, currentMaxRow, (currentMaxRow-counterForDefaults));
-	$("#settingsColorFolderGroupVars [name=\"folderThemeCount\"] ")[0].value = currentMaxRow;
-	var lengthOfNames = folderColorGroupNames.length;
-	for(var nameCount = 0; nameCount < lengthOfNames; nameCount++)
-	{
-		addNewFolderColorButtonForThing(folderColorGroupNames[nameCount], currentMaxRow, 1);
-	}
-}
-
-function replaceStuff(item, currentMax, newTheme)
-{
-	item = item.replace(/{{themeName}}/g, "noTheme");
-	item = item.replace(/{{j}}/g, "1");
-	item = item.replace(/{{i}}/g, currentMax);
-	item = item.replace(/{{key}}/g, "theme-user-"+newTheme);
-	return item;
-}
-
-function addColorBlock(currentRow)
-{
-	var item = $("#holderForFolderColors .emptyColorBlock").html();
-	var newRow = getLastRowForMainColors(currentRow);
-	item = item.replace(/{{backgroundColor}}/g, "#000000");
-	item = item.replace(/{{fontColor}}/g, "#FFFFFF");
-	item = item.replace(/{{name}}/g, "Main");
-	item = item.replace(/{{i}}/g, currentRow);
-	item = item.replace(/{{j}}/g, newRow);
-	$("#folderColorThemeNameForPost"+currentRow+"Main").append(item);
-	addNewFolderColorButtonForThing("Main", currentRow, newRow);
-}
-
-function removeColorBlock(currentRow)
-{
-	var newRow = getLastRowForMainColors(currentRow) -  1;
-	$("folderColorButtonMainBackground"+currentRow+"-"+newRow).parent().parent().remove();
-}
-
-function getLastRowForMainColors(currentRow)
-{
-	var newRow = 1;
-	while(document.getElementById("folderColorButtonMainBackground"+currentRow+"-"+newRow))
-	{
-		newRow++;
-	}
-	return newRow;
-}
-
-function addNewFolderColorButtonForThing(name, currentRow, currentColumn)
-{
-	new jscolor(document.getElementById("folderColorButton"+name+"Background"+currentRow+"-"+currentColumn), {valueElement: "folderColorValue"+name+"Background"+currentRow+"-"+currentColumn, hash:true});
-	new jscolor(document.getElementById("folderColorButton"+name+"Font"+currentRow+"-"+currentColumn), {valueElement: "folderColorValue"+name+"Font"+currentRow+"-"+currentColumn, hash:true});
-}
-
-function reAddJsColorPopupForCustomThemes()
-{
-	var lengthOfNames = folderColorGroupNames.length;
-	var startOfuser = 1;
-	var allFolderCount = 1;
-	while($("#settingsColorFolderGroupVars [name=\"folderColorThemeNameForPost"+allFolderCount+"\"] ")[0])
-	{
-		if($("#settingsColorFolderGroupVars [name=\"folderColorThemeNameForPost"+allFolderCount+"\"] ")[0].value.indexOf("theme-user") > -1)
-		{
-			//this one is custom
-			for(var nameCount = 0; nameCount < lengthOfNames; nameCount++)
-			{
-				var internalCountFolder = 1;
-				while(document.getElementById("folderColorButton"+folderColorGroupNames[nameCount]+"Background"+allFolderCount+"-"+internalCountFolder))
-				{
-					addNewFolderColorButtonForThing(folderColorGroupNames[nameCount], allFolderCount, internalCountFolder);
-					internalCountFolder++;
-				}
-			}
-			startOfuser++;
-		}
-		allFolderCount++;
-	}
 }
 
 function getCurrentWindowLayout()

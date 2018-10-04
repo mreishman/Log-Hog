@@ -8,6 +8,7 @@
 					<td></td>
 					<td></td>
 					<td></td>
+					<td></td>
 				</tr>
 				<?php
 				$mainFolderColorMax = 0;
@@ -38,6 +39,9 @@
 <div style="display: none;" id="holderForFolderColors">
 	<span class="emptyRow1" >
 		<?php echo $newBlankRow["td1"]; ?>
+	</span>
+	<span class="emptyRow1p5" >
+		<?php echo $newBlankRow["td1p5"]; ?>
 	</span>
 	<span class="emptyRow2" >
 		<?php echo $newBlankRow["td2"]; ?>

@@ -1230,7 +1230,7 @@ function getData($loadVarsArray, $confDataValue)
 
 function generateFolderColorRow($arrFCOdata = array())
 {
-	$edit = false;
+	$edit = true;
 	$key = "{{key}}";
 	$currentFolderColorTheme = "{{currentFolderColorTheme}}";
 	$i = "{{i}}";
@@ -1283,9 +1283,9 @@ function generateFolderColorRow($arrFCOdata = array())
 		$themeName = $arrFCOdata["themeName"];
 	}
 
-	if(!(strpos($key, "default") > -1))
+	if((strpos($key, "default") > -1))
 	{
-		$edit = true;
+		$edit = false;
 	}
 	$htmlToReturn = "";
 	$td1 = "";
@@ -1300,6 +1300,13 @@ function generateFolderColorRow($arrFCOdata = array())
 	}
 	$td1 .= " value=\"".$key."\"> ".$key.": ";
 	$htmlToReturn .= "<td>".$td1."</td>";
+	$td1p5 = "<td>";
+	if($edit)
+	{
+		$td1p5 .= "<div class=\"linkSmall\" onclick=\"removeRow(".$i.")\" >Remove</div>";
+	}
+	$td1p5 .= "</td>";
+	$htmlToReturn .= $td1p5;
 	$td2 = "";
 	$td2 .= "<input style=\"display: none;\" type=\"text\" name=\"folderColorThemeNameForPost".$i."\" value=\"".$key."\" > Main Colors: <span id=\"folderColorThemeNameForPost".$i."Main\">";
 	if($i !== "{{i}}")
@@ -1321,8 +1328,6 @@ function generateFolderColorRow($arrFCOdata = array())
 	else
 	{
 		$td2 .= generateColorBlock(array(
-			"backgroundColor"			=>	$value['main'][0]['background'],
-			"fontColor"					=>	$value['main'][0]['fontColor'],
 			"i"							=>	$i,
 			"j"							=>	"{{j}}",
 			"name"						=>	"Main",
@@ -1334,7 +1339,6 @@ function generateFolderColorRow($arrFCOdata = array())
 	{
 		$td2 .= "<div class=\"colorSelectorDiv\" onclick=\"addColorBlock(".$i.")\" style=\"display: inline-block; border: 1px solid white; text-align: center; line-height: 18px; cursor: pointer; \"  >+</div>";
 		$td2 .= "<div class=\"colorSelectorDiv\" onclick=\"removeColorBlock(".$i.")\" style=\"display: inline-block; border: 1px solid white; text-align: center; line-height: 18px; cursor: pointer; \"  >-</div>";
-		
 	}
 	else
 	{
@@ -1362,8 +1366,6 @@ function generateFolderColorRow($arrFCOdata = array())
 	else
 	{
 		$td3 .= generateColorBlock(array(
-			"backgroundColor"			=>	$value['highlight'][0]['background'],
-			"fontColor"					=>	$value['highlight'][0]['fontColor'],
 			"i"							=>	$i,
 			"j"							=>	"{{j}}",
 			"name"						=>	"Highlight",
@@ -1393,8 +1395,6 @@ function generateFolderColorRow($arrFCOdata = array())
 	else
 	{
 		$td4 .= generateColorBlock(array(
-			"backgroundColor"			=>	$value['active'][0]['background'],
-			"fontColor"					=>	$value['active'][0]['fontColor'],
 			"i"							=>	$i,
 			"j"							=>	"{{j}}",
 			"name"						=>	"Active",
@@ -1424,8 +1424,6 @@ function generateFolderColorRow($arrFCOdata = array())
 	else
 	{
 		$td5 .= generateColorBlock(array(
-			"backgroundColor"			=>	$value['highlightActive'][0]['background'],
-			"fontColor"					=>	$value['highlightActive'][0]['fontColor'],
 			"i"							=>	$i,
 			"j"							=>	"{{j}}",
 			"name"						=>	"ActiveHighlight",
@@ -1437,6 +1435,7 @@ function generateFolderColorRow($arrFCOdata = array())
 	return array(
 		"html"					=>	$htmlToReturn,
 		"td1"					=>	$td1,
+		"td1p5"					=>	$td1p5,
 		"td2"					=>	$td2,
 		"td3"					=>	$td3,
 		"td4"					=>	$td4,
