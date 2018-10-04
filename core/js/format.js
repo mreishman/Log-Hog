@@ -96,6 +96,10 @@ function dateTimeSplit(text)
 
 function dateTimeFormat(dateTextArray)
 {
+	if(dateTextFormat === "hidden")
+	{
+		return "";
+	}
 	var dateText = dateTextArray[0];
 	var timeFormat = dateTextArray["timeFound"];
 	var justDateText = dateTextArray[2];
@@ -103,22 +107,18 @@ function dateTimeFormat(dateTextArray)
 	{
 		return dateText;
 	}
-	else if(dateTextFormat === "hidden")
-	{
-		return "";
-	}
 
 	var newConfDate = "Invalid Date";
 	if(timeFormat === 0 || timeFormat === 1)
 	{
 		newConfDate = new Date(justDateText);
-		if(String(newConfDate) === "Invalid Date")
+		if(String(newConfDate) === "Invalid Date" || String(newConfDate) === "NaN")
 		{
 			justDateText = justDateText.replace(/[A-Z]/," ");
 			newConfDate = new Date(justDateText);
 		}
 	}
-	if(String(newConfDate) !== "Invalid Date")
+	if(String(newConfDate) !== "Invalid Date" && String(newConfDate) !== "NaN")
 	{
 		var hours = newConfDate.getHours();
 		if(hours < 10)
