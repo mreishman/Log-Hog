@@ -63,7 +63,7 @@
 			{
 				$functionName = $confDataValue["var"]["functionForToggle"];
 			}
-			$boolForFunction = "false";
+			$boolForFunction = "true";
 			if(isset($confDataValue["bool2"]))
 			{
 				$boolForFunction = $confDataValue["bool2"];
