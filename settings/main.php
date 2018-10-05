@@ -33,6 +33,11 @@ require_once('../core/php/loadVars.php');
 		<?php
 		$currentSection = "logVars";
 		include('../core/php/template/varTemplate.php');
+		if($expFormatEnabled === "true")
+		{
+			$currentSection = "logFormatVars";
+			include('../core/php/template/varTemplate.php');
+		}
 		$currentSection = "pollVars";
 		include('../core/php/template/varTemplate.php');
 		$currentSection = "filterVars";

@@ -1,34 +1,5 @@
 var titleOfPage = "Main";
 
-function showOrHideLogTrimSubWindow()
-{
-	try
-	{
-		var valueForPopup = document.getElementById("logTrimOn");
-		var valueForVars = document.getElementById("settingsLogTrimVars");
-		showOrHideSubWindow(valueForPopup, valueForVars);
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
-function showOrHideSideBarSettings()
-{
-	try
-	{
-		var valueForPopup = document.getElementById("bottomBarIndexShow");
-		var valueForVars = document.getElementById("sidebarContentSettings");
-		showOrHideSubWindow(valueForPopup, valueForVars);
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
-
 function changeDescriptionLineSize()
 {
 	try
@@ -50,84 +21,11 @@ function changeDescriptionLineSize()
 	}
 }
 
-function showOrHidePopupSubWindow()
+function showOrHideSubWindow(valueForPopupInner, valueForVarsInner, valueToCompare)
 {
 	try
 	{
-		showOrHideSubWindow(document.getElementById("popupSelect"), document.getElementById("settingsPopupVars"));
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
-function showOrHideUpdateSubWindow()
-{
-	try
-	{
-		showOrHideSubWindow(document.getElementById("settingsSelect"), document.getElementById("settingsAutoCheckVars"));
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
-function showOrHideFilterContentSettings()
-{
-	try
-	{
-		showOrHideSubWindow(document.getElementById("filterContentLimit"), document.getElementById("filterContentSettings"));
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
-function showOrHideFilterHighlightSettings()
-{
-	try
-	{
-		showOrHideSubWindow(document.getElementById("filterContentHighlight"), document.getElementById("highlightContentSettings"));
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
-function showOrHideScrollLogSettings()
-{
-	try
-	{
-		showOrHideSubWindow(document.getElementById("scrollOnUpdate"), document.getElementById("scrollLogOnUpdateSettings"));
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
-function showOrHideHighlightNewLinesSettings()
-{
-	try
-	{
-		showOrHideSubWindow(document.getElementById("highlightNew"), document.getElementById("highlightNewSettings"));
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
-
-function showOrHideSubWindow(valueForPopupInner, valueForVarsInner)
-{
-	try
-	{
-		if((valueForPopupInner.value === "true") || (valueForPopupInner.value === "custom"))
+		if(valueForPopupInner.value === valueToCompare)
 		{
 			valueForVarsInner.style.display = "block";
 		}

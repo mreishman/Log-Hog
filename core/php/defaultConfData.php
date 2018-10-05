@@ -356,6 +356,7 @@ $defaultConfigMoreData = array(
 			),
 			3									=>	array(
 				"bool"								=>	($filterContentHighlight == 'false'),
+				"bool2"								=>	"false",
 				"id"								=>	"highlightContentSettings",
 				"name"								=>	"Filter Highlight Settings",
 				"type"								=>	"grouped",
@@ -388,6 +389,7 @@ $defaultConfigMoreData = array(
 			),
 			4									=>	array(
 				"bool"								=>	($filterContentLimit == 'false'),
+				"bool2"								=>	"false",
 				"info"								=>	"When filtering by content, only show the line (or some sorrounding lines) containing the search content",
 				"id"								=>	"filterContentSettings",
 				"name"								=>	"Filter Content Match Settings",
@@ -506,6 +508,22 @@ $defaultConfigMoreData = array(
 			),
 		),
 	),
+	"logFormatVars"						=>	array(
+		"id"								=>	"settingsLogFormatVars",
+		"name"								=>	"Log Format Settings ",
+		"vars"								=>	array(
+			0									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"info"								=>	"This will increase poll times",
+					"key"								=>	"enableLogging",
+					"name"								=>	"File Info Logging",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			)
+		)
+	),
 	"loggingVars"						=>	array(
 		"id"								=>	"loggingDisplay",
 		"name"								=>	"Log Settings ",
@@ -573,6 +591,7 @@ $defaultConfigMoreData = array(
 			),
 			3									=>	array(
 				"bool"								=>	($scrollOnUpdate == 'false'),
+				"bool2"								=>	"false",
 				"id"								=>	"scrollLogOnUpdateSettings",
 				"name"								=>	"Scroll Log On Update Settings",
 				"type"								=>	"grouped",
@@ -598,6 +617,7 @@ $defaultConfigMoreData = array(
 			),
 			4									=>	array(
 				"bool"								=>	($highlightNew == 'false'),
+				"bool2"								=>	"false",
 				"id"								=>	"highlightNewSettings",
 				"name"								=>	"Highlight New Lines Settings",
 				"type"								=>	"grouped",
@@ -639,6 +659,7 @@ $defaultConfigMoreData = array(
 			),
 			5									=>	array(
 				"bool"								=>	($logTrimOn == 'false'),
+				"bool2"								=>	"false",
 				"id"								=>	"settingsLogTrimVars",
 				"info"								=>	"This could increase poll times by 2x to 4x depending on size of files, file or line trim, etc.",
 				"name"								=>	"Log Trim Settings",
@@ -763,6 +784,7 @@ $defaultConfigMoreData = array(
 			),
 			2									=>	array(
 				"bool"								=>	($bottomBarIndexShow == 'false'),
+				"bool2"								=>	"false",
 				"id"								=>	"sidebarContentSettings",
 				"name"								=>	"Sidebar Settings",
 				"type"								=>	"grouped",
@@ -1019,11 +1041,13 @@ $defaultConfigMoreData = array(
 		"vars"								=> array(
 			0									=> array(
 				"bool"								=>	"($popupWarnings != 'custom')",
+				"bool2"								=>	"custom",
 				"id"								=>	"settingsPopupVars",
 				"name"								=>	"Popup Settings",
 				"type"								=>	"grouped",
 				"var"								=>	array(
 					"function"							=>	"toggleUpdateDisplayCheck",
+					"functionForToggle"					=>	"showOrHidePopupSubWindow",
 					"id"								=>	"popupSelect",
 					"key"								=>	"popupWarnings",
 					"name"								=>	"Popup Warnings",
@@ -1240,6 +1264,7 @@ $defaultConfigMoreData = array(
 			),
 			1									=>	array(
 				"bool"								=>	($autoCheckUpdate == 'false'),
+				"bool2"								=>	"false",
 				"id"								=>	"settingsAutoCheckVars",
 				"name"								=>	"Auto Check Update Settings",
 				"type"								=>	"grouped",

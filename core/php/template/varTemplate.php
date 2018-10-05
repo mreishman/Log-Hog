@@ -58,6 +58,24 @@
 				}
 			}
 			echo "</ul></div></div></li>";
+			$functionName = $confDataValue["var"]["function"];
+			if(isset($confDataValue["var"]["functionForToggle"]))
+			{
+				$functionName = $confDataValue["var"]["functionForToggle"];
+			}
+			echo "<script type=\"text/javascript\">
+				function ".$functionName."()
+				{
+					try
+					{
+						showOrHideSubWindow( document.getElementById(\"".$confDataValue["var"]["id"]."\") , document.getElementById(\"".$confDataValue["id"]."\") , \"".$confDataValue["bool2"]."\" );
+					}
+					catch(e)
+					{
+						eventThrowException(e);
+					}
+				}
+			</script>";
 		}
 		elseif($confDataValue["type"] === "custom")
 		{
