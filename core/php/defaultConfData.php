@@ -196,6 +196,115 @@ foreach ($popupSettingsInArray as $key => $value)
 	$counterPopup++;
 }
 
+$sectionChoices = array(
+	0 			=> 	array(
+		"name" 		=> 'hh',
+		"value" 	=> 'hh'),
+	1 			=>	array(
+		"name" 		=>	'mm',
+		"value"		=>	'mm'),
+	2			=>	array(
+		"name"		=>	'ss',
+		"value"		=>	'ss'),
+	3			=>	array(
+		"name"		=>	'DD',
+		"value"		=>	'DD'),
+	4			=>	array(
+		"name" 		=>	'MM',
+		"value"		=>	'MM'),
+	5			=>	array(
+		"name"		=>	'YYYY',
+		"value"		=>	'YYYY'),
+	6			=>	array(
+		"name"		=>	'PartDay',
+		"value"		=>	'PartDay'),
+	7			=>	array(
+		"name"		=>	'FullDay',
+		"value"		=>	'FullDay'),
+	8			=>	array(
+		"name"		=>	'PartMonth',
+		"value"		=>	'PartMonth'),
+	9			=>	array(
+		"name"		=>	'FullMonth',
+		"value"		=>	'FullMonth'),
+	10			=>	array(
+		"name"		=>	'mili',
+		"value"		=>	'mili')
+	);
+
+$delimiterChoices = array(
+	0 			=> 	array(
+		"name" 		=> 'none',
+		"value" 	=> 'none'),
+	1 			=>	array(
+		"name" 		=>	'/',
+		"value"		=>	'/'),
+	2			=>	array(
+		"name"		=>	'\\',
+		"value"		=>	'forwardSlash'),
+	3			=>	array(
+		"name"		=>	'space',
+		"value"		=>	'space'),
+	4			=>	array(
+		"name" 		=>	'[',
+		"value"		=>	'['),
+	5			=>	array(
+		"name"		=>	']',
+		"value"		=>	']'),
+	6			=>	array(
+		"name"		=>	'(',
+		"value"		=>	'('),
+	7			=>	array(
+		"name"		=>	')',
+		"value"		=>	')'),
+	8			=>	array(
+		"name"		=>	'-',
+		"value"		=>	'-'),
+	9			=>	array(
+		"name"		=>	':',
+		"value"		=>	':'),
+	10			=>	array(
+		"name"		=>	'.',
+		"value"		=>	'.'),
+	11			=>	array(
+		"name"		=>	',',
+		"value"		=>	','),
+	12			=>	array(
+		"name"		=>	'+',
+		"value"		=>	'+')
+	);
+
+$customDateFormatVars = array(
+	0	=> array(
+	"type"								=>	"linked",
+	"vars"								=>	array())
+);
+$CDFVExternalCounter = 0;
+for($CDFVcount = 0; $CDFVcount < 6; $CDFVcount++)
+{
+	$customDateFormatVars[0]["vars"][$CDFVExternalCounter] = array(
+		"key"								=>	"",
+		"name"								=>	"",
+		"options"							=>	$delimiterChoices,
+		"type"								=>	"dropdown"
+	);
+	$CDFVExternalCounter++;
+	$customDateFormatVars[0]["vars"][$CDFVExternalCounter] = array(
+		"key"								=>	"",
+		"name"								=>	"",
+		"options"							=>	$sectionChoices,
+		"type"								=>	"dropdown"
+	);
+	$CDFVExternalCounter++;
+	$customDateFormatVars[0]["vars"][$CDFVExternalCounter] = array(
+		"key"								=>	"",
+		"name"								=>	"",
+		"options"							=>	$delimiterChoices,
+		"type"								=>	"dropdown"
+	);
+	$CDFVExternalCounter++;
+}
+
 $defaultConfigMoreData = array(
 	"archive"							=>	array(
 		"id"								=>	"archiveConfig",
@@ -546,7 +655,7 @@ $defaultConfigMoreData = array(
 			0									=> array(
 				"bool"								=>	"($dateTextFormat != 'custom')",
 				"bool2"								=>	"custom",
-				"id"								=>	"settingsPopupVars",
+				"id"								=>	"dateTextFormatSelector",
 				"name"								=>	"Custom Date Text Format",
 				"type"								=>	"grouped",
 				"var"								=>	array(
@@ -558,7 +667,7 @@ $defaultConfigMoreData = array(
 					"options"							=>	$dateFormatOptions,
 					"type"								=>	"dropdown"
 				),
-				"vars"								=>	$customVarPopup
+				"vars"								=>	$customDateFormatVars
 			),
 			1									=> array(
 				"type"								=>	"single",

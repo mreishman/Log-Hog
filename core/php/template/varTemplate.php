@@ -43,7 +43,7 @@
 						echo generateInfo($infoImage,$confDataInnerValue["info"]);
 					}
 				}
-				elseif($confDataValue["type"] === "linked")
+				elseif($confDataInnerValue["type"] === "linked")
 				{
 					echo "<li>";
 					foreach ($confDataInnerValue["vars"] as $confDataInnerValueTwo)
