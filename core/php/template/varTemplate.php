@@ -63,12 +63,17 @@
 			{
 				$functionName = $confDataValue["var"]["functionForToggle"];
 			}
+			$boolForFunction = "false";
+			if(isset($confDataValue["bool2"]))
+			{
+				$boolForFunction = $confDataValue["bool2"];
+			}
 			echo "<script type=\"text/javascript\">
 				function ".$functionName."()
 				{
 					try
 					{
-						showOrHideSubWindow( document.getElementById(\"".$confDataValue["var"]["id"]."\") , document.getElementById(\"".$confDataValue["id"]."\") , \"".$confDataValue["bool2"]."\" );
+						showOrHideSubWindow( document.getElementById(\"".$confDataValue["var"]["id"]."\") , document.getElementById(\"".$confDataValue["id"]."\") , \"".$boolForFunction."\" );
 					}
 					catch(e)
 					{
