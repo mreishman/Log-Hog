@@ -13,7 +13,12 @@
 	{
 		if($confDataValue["type"] === "single")
 		{
-			echo "<li>".generateGenericType($confDataValue["var"], getData($loadVarsArray, $confDataValue), $confDataValue["var"]["key"])."</li>";
+			echo "<li";
+			if($confDataValue["var"]["type"] === "hidden")
+			{
+				echo " style=\"display: none;\"  ";
+			}
+			echo ">".generateGenericType($confDataValue["var"], getData($loadVarsArray, $confDataValue), $confDataValue["var"]["key"])."</li>";
 		}
 		elseif($confDataValue["type"] === "linked")
 		{
