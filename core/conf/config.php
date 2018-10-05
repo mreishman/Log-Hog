@@ -23,6 +23,7 @@ $defaultConfig = array(
 	'currentTheme'					=> 'Default',
 	'currentThemeBase'				=> 'Default',
 	'dateTextFormat'				=> 'MM/|DD/|YYYY |hh:|mm:|ss',
+	'dateTextFormatCustom'			=> '',
 	'defaultNewAddAlertEnabled'		=>	'true',
 	'defaultNewAddAutoDeleteFiles'	=>	'',
 	'defaultNewAddExcludeTrim'		=>	'false',

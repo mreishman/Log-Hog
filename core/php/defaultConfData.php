@@ -112,6 +112,39 @@ $fontChoices = array(
 		"value"		=>	'Arial')
 	);
 
+$dateFormatOptions = array(
+	0 			=> 	array(
+		"name" 		=> 'Default',
+		"value" 	=> 'default'),
+	1 			=>	array(
+		"name" 		=>	'Hidden',
+		"value"		=>	'hidden'),
+	2			=>	array(
+		"name"		=>	'hh:mm:ss',
+		"value"		=>	'hh:|mm:|ss'),
+	3			=>	array(
+		"name"		=>	'DD/MM/YYYY',
+		"value"		=>	'DD/|MM/|YYYY'),
+	4			=>	array(
+		"name" 		=>	'MM/DD/YYYY',
+		"value"		=>	'MM/|DD/|YYYY'),
+	5			=>	array(
+		"name"		=>	'DD/MM',
+		"value"		=>	'DD/|MM'),
+	6			=>	array(
+		"name"		=>	'MM/DD/YYYY hh:mm:ss',
+		"value"		=>	'MM/|DD/|YYYY |hh:|mm:|ss'),
+	7			=>	array(
+		"name"		=>	'DD/MM/YYYY hh:mm:ss',
+		"value"		=>	'DD/|MM/|YYYY |hh:|mm:|ss'),
+	8			=>	array(
+		"name"		=>	'YYYY/MM/DD hh:mm:ss',
+		"value"		=>	'YYYY/|MM/|DD |hh:|mm:|ss'),
+	9			=>	array(
+		"name"		=>	'Custom',
+		"value"		=>	'custom')
+	);
+
 
 $customForFirstLogSelect = "<span class=\"settingsBuffer\" > First Log Select: </span><span id=\"logSelectedFirstLoad\" >";
 if ($logSelectedFirstLoad === "")
@@ -510,14 +543,29 @@ $defaultConfigMoreData = array(
 		"id"								=>	"settingsLogFormatVars",
 		"name"								=>	"Log Format Settings ",
 		"vars"								=>	array(
-			0									=>	array(
+			0									=> array(
+				"bool"								=>	"($dateTextFormat != 'custom')",
+				"bool2"								=>	"custom",
+				"id"								=>	"settingsPopupVars",
+				"name"								=>	"Custom Date Text Format",
+				"type"								=>	"grouped",
+				"var"								=>	array(
+					"function"							=>	"toggleUpdateLogFormat",
+					"functionForToggle"					=>	"showOrHideLogFormat",
+					"id"								=>	"dateTextFormat",
+					"key"								=>	"dateTextFormat",
+					"name"								=>	"Date Text Format",
+					"options"							=>	$dateFormatOptions,
+					"type"								=>	"dropdown"
+				),
+				"vars"								=>	$customVarPopup
+			),
+			1									=> array(
 				"type"								=>	"single",
 				"var"								=>	array(
-					"info"								=>	"This will increase poll times",
-					"key"								=>	"enableLogging",
-					"name"								=>	"File Info Logging",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
+					"id"								=>	"dateTextFormatCustom",
+					"key"								=>	"dateTextFormatCustom",
+					"type"								=>	"hidden"
 				)
 			)
 		)

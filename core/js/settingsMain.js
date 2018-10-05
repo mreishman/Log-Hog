@@ -192,6 +192,12 @@ function toggleUpdateDisplayCheck()
 	showOrHidePopupSubWindow();
 }
 
+function toggleUpdateLogFormat()
+{
+	//add json update here
+	showOrHideLogFormat();
+}
+
 $( document ).ready(function()
 {
 	var arrayToRefresh = new Array();

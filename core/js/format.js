@@ -17,29 +17,29 @@ var arrOfDaysLarge = {
 	7: "Sunday"
 };
 var arrOfMonthsSmall = {
-	1: "Jan",
-	2: "Feb",
-	3: "Mar",
-	4: "Apr",
-	5: "May",
-	6: "June",
-	7: "July",
-	8: "Aug",
-	9: "Sept",
+	1:  "Jan",
+	2:  "Feb",
+	3:  "Mar",
+	4:  "Apr",
+	5:  "May",
+	6:  "Jun",
+	7:  "Jul",
+	8:  "Aug",
+	9:  "Sep",
 	10: "Oct",
 	11: "Nov",
 	12: "Dec"
 };
 var arrOfMonthsLarge = {
-	1: "January",
-	2: "February",
-	3: "March",
-	4: "April",
-	5: "May",
-	6: "June",
-	7: "July",
-	8: "August",
-	9: "September",
+	1:  "January",
+	2:  "February",
+	3:  "March",
+	4:  "April",
+	5:  "May",
+	6:  "June",
+	7:  "July",
+	8:  "August",
+	9:  "September",
 	10: "October",
 	11: "November",
 	12: "December"
@@ -148,7 +148,12 @@ function dateTimeFormat(dateTextArray)
 		var mili = newConfDate.getMilliseconds();
 		var yearFull = newConfDate.getFullYear();
 		var dayName = newConfDate.getDay(); //1 is monday, 2 tuesday, etc
-		var dateTextFormatArray = dateTextFormat.split("|");
+		var localDateTextFormat = dateTextFormat;
+		if(dateTextFormat === "custom")
+		{
+			localDateTextFormat = dateTextFormatCustom;
+		}
+		var dateTextFormatArray = localDateTextFormat.split("|");
 		var dateTextFormatArrayLength = dateTextFormatArray.length;
 		var stringForNewTime = "";
 		var arrOfOptions = {

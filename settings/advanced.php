@@ -99,22 +99,6 @@ $countConfig--;
 						</select>
 					</div>
 				</li>
-				<li>
-					<span class="settingsBuffer"> Date Text Format:</span>
-					<div class="selectDiv">
-						<select name="dateTextFormat">
-  							<option <?php if($dateTextFormat == 'default'){echo "selected";} ?> value="default">Default</option>
-  							<option <?php if($dateTextFormat == 'hidden'){echo "selected";} ?> value="hidden">Hidden</option>
-  							<option <?php if($dateTextFormat == 'hh:|mm:|ss'){echo "selected";} ?> value="hh:|mm:|ss">hh:mm:ss</option>
-  							<option <?php if($dateTextFormat == 'DD/|MM/|YYYY'){echo "selected";} ?> value="DD/|MM/|YYYY">DD/MM/YYYY</option>
-  							<option <?php if($dateTextFormat == 'MM/|DD/|YYYY'){echo "selected";} ?> value="MM/|DD/|YYYY">MM/DD/YYYY</option>
-  							<option <?php if($dateTextFormat == 'DD/|MM/'){echo "selected";} ?> value="DD/|MM/">DD/MM</option>
-  							<option <?php if($dateTextFormat == 'MM/|DD/|YYYY |hh:|mm:|ss'){echo "selected";} ?> value="MM/|DD/|YYYY |hh:|mm:|ss">MM/DD/YYYY hh:mm:ss</option>
-  							<option <?php if($dateTextFormat == 'DD/|MM/|YYYY |hh:|mm:|ss'){echo "selected";} ?> value="DD/|MM/|YYYY |hh:|mm:|ss">DD/MM/YYYY hh:mm:ss</option>
-  							<option <?php if($dateTextFormat == 'YYYY/|MM/|DD |hh:|mm:|ss'){echo "selected";} ?> value="YYYY/|MM/|DD |hh:|mm:|ss">YYYY/MM/DD hh:mm:ss</option>
-						</select>
-					</div>
-				</li>
 			</ul>
 		</div>
 	</form>
