@@ -130,6 +130,57 @@ function updateJsonForPopupThemeInner()
 	document.getElementById("popupSettingsArray").value = JSON.stringify(objectToSave);
 }
 
+function updateJsonForCustomDateFormat()
+{
+	setTimeout(function() {
+			updateJsonForCustomDateFormatInner();
+		}, 2);
+}
+
+function updateJsonForCustomDateFormatInner()
+{
+	var objectToSave = "";
+	var counterForJsonObjectDate = 0;
+	while(document.getElementById("DateFormat-"+counterForJsonObjectDate+"-M"))
+	{
+		var del1 = document.getElementById("DateFormat-"+counterForJsonObjectDate+"-D1").value;
+		if(del1 === "space")
+		{
+			del1 = " ";
+		}
+		else if(del1 = "none")
+		{
+			del1 = "";
+		}
+		var del2 = document.getElementById("DateFormat-"+counterForJsonObjectDate+"-D2").value;
+		if(del2 === "space")
+		{
+			del2 = " ";
+		}
+		else if(del2 = "none")
+		{
+			del2 = "";
+		}
+		var mainFormatVal = document.getElementById("DateFormat-"+counterForJsonObjectDate+"-M").value;
+		if(mainFormatVal === "none")
+		{
+			mainFormatVal = "";
+		}
+		objectToSave += "" + del1 + "" + mainFormatVal + "" + del2 + "";
+		if(document.getElementById("DateFormat-"+(counterForJsonObjectDate + 1)+"-M"))
+		{
+			objectToSave += "|";
+		}
+		counterForJsonObjectDate++;
+	}
+	if(objectToSave.slice(-1) === "|")
+	{
+		objectToSave = objectToSave.slice(0, -1);
+	}
+
+	document.getElementById("dateTextFormatCustom").value = objectToSave;
+}
+
 function selectLogPopup(locationForNewLogText)
 {
 	displayLoadingPopup();
@@ -195,6 +246,7 @@ function toggleUpdateDisplayCheck()
 function toggleUpdateLogFormat()
 {
 	//add json update here
+	updateJsonForCustomDateFormat();
 	showOrHideLogFormat();
 }
 
