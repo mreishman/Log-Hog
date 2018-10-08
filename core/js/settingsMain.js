@@ -56,6 +56,10 @@ function checkIfChanges()
 	{
 		arrayToCheck.push("settingsLogVars");
 	}
+	if(document.getElementById("settingsLogFormatVars"))
+	{
+		arrayToCheck.push("settingsLogFormatVars");
+	}
 	if(document.getElementById("settingsPollVars"))
 	{
 		arrayToCheck.push("settingsPollVars");
@@ -256,6 +260,10 @@ $( document ).ready(function()
 	if(document.getElementById("settingsLogVars"))
 	{
 		arrayToRefresh.push("settingsLogVars");
+	}
+	if(document.getElementById("settingsLogFormatVars"))
+	{
+		arrayToRefresh.push("settingsLogFormatVars");
 	}
 	if(document.getElementById("settingsPollVars"))
 	{
