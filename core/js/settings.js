@@ -92,7 +92,7 @@ function saveVerified()
 		refreshArrayObject(idForFormMain);
 	}
 
-	if(idForFormMain === "settingsMainVars")
+	if(idForFormMain === "settingsMainVars" && document.getElementsByName("themesEnabled")[0])
 	{
 		if(document.getElementsByName("themesEnabled")[0].value === "true")
 		{

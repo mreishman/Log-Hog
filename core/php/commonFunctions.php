@@ -1209,6 +1209,10 @@ function generateInfo($image, $info)
 
 function getData($loadVarsArray, $confDataValue)
 {
+	if(isset($confDataValue["var"]["value"]))
+	{
+		return $confDataValue["var"]["value"];
+	}
 	$keyVar = "";
 	if(isset($confDataValue["var"]) && isset($confDataValue["var"]["key"]))
 	{
