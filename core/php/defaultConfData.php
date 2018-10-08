@@ -244,7 +244,8 @@ $sectionChoices = array(
 $delimiterChoices = array(
 	0 			=> 	array(
 		"name" 		=> 'none',
-		"value" 	=> 'none'),
+		"value" 	=> 'none',
+		"checkValue"=> ''),
 	1 			=>	array(
 		"name" 		=>	'/',
 		"value"		=>	'/'),
@@ -253,7 +254,8 @@ $delimiterChoices = array(
 		"value"		=>	'~'),
 	3			=>	array(
 		"name"		=>	'space',
-		"value"		=>	'space'),
+		"value"		=>	'space',
+		"value"		=>	' '),
 	4			=>	array(
 		"name" 		=>	'[',
 		"value"		=>	'['),
@@ -283,21 +285,58 @@ $delimiterChoices = array(
 		"value"		=>	'+')
 	);
 
+
 $customDateFormatVars = array(
 	0	=> array(
 	"type"								=>	"linked",
 	"vars"								=>	array())
 );
 $CDFVExternalCounter = 0;
+$dateTextFormatCustomVars = explode("|", $dateTextFormatCustom);
 for($CDFVcount = 0; $CDFVcount < 10; $CDFVcount++)
 {
+	$currentBracket = $dateTextFormatCustomVars[$CDFVcount];
+	$D1Value = "none";
+	$MValue = "none";
+	$D2Value = "none";
+	if(count($currentBracket) > 0)
+	{
+		foreach ($delimiterChoices as $delChoice)
+		{
+			$checkValue = $delChoice["value"];
+			if(isset($delChoice["checkValue"]))
+			{
+				$checkValue = $delChoice["checkValue"];
+			}
+			if(substr($currentBracket, 0, strlen($checkValue)) === $checkValue)
+			{
+				//starts with this
+				$D1Value = $checkValue;
+			}
+			if(substr($currentBracket, -strlen($checkValue)) === $checkValue)
+			{
+				//ends with this
+				$D2Value = $checkValue;
+			}
+		}
+		foreach ($sectionChoices as $secChoices)
+		{
+			$checkValue = $secChoices["value"];
+			if(strpos($currentBracket, $checkValue) > -1)
+			{
+				$MValue = $checkValue;
+				break;
+			}
+		}
+	}
 	$customDateFormatVars[0]["vars"][$CDFVExternalCounter] = array(
 		"key"								=>	"DateFormat-".$CDFVcount."-D1",
 		"name"								=>	"",
 		"function"							=>	"updateJsonForCustomDateFormat",
 		"id"								=>	"DateFormat-".$CDFVcount."-D1",
 		"options"							=>	$delimiterChoices,
-		"type"								=>	"dropdown"
+		"type"								=>	"dropdown",
+		"value"								=>	$D1Value
 	);
 	$CDFVExternalCounter++;
 	$customDateFormatVars[0]["vars"][$CDFVExternalCounter] = array(
@@ -306,7 +345,8 @@ for($CDFVcount = 0; $CDFVcount < 10; $CDFVcount++)
 		"function"							=>	"updateJsonForCustomDateFormat",
 		"id"								=>	"DateFormat-".$CDFVcount."-M",
 		"options"							=>	$sectionChoices,
-		"type"								=>	"dropdown"
+		"type"								=>	"dropdown",
+		"value"								=>	$MValue
 	);
 	$CDFVExternalCounter++;
 	$customDateFormatVars[0]["vars"][$CDFVExternalCounter] = array(
@@ -315,7 +355,8 @@ for($CDFVcount = 0; $CDFVcount < 10; $CDFVcount++)
 		"function"							=>	"updateJsonForCustomDateFormat",
 		"id"								=>	"DateFormat-".$CDFVcount."-D2",
 		"options"							=>	$delimiterChoices,
-		"type"								=>	"dropdown"
+		"type"								=>	"dropdown",
+		"value"								=>	$D2Value
 	);
 	$CDFVExternalCounter++;
 }

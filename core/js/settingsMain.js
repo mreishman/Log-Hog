@@ -177,10 +177,6 @@ function updateJsonForCustomDateFormatInner()
 		}
 		counterForJsonObjectDate++;
 	}
-	if(objectToSave.slice(-1) === "|")
-	{
-		objectToSave = objectToSave.slice(0, -1);
-	}
 
 	document.getElementById("dateTextFormatCustom").value = objectToSave;
 }

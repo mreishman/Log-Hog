@@ -233,8 +233,9 @@ function dateTimeFormat(dateTextArray)
 			var currentSection = dateTextFormatArray[dtfCount];
 			if(currentSection === "" || currentSection.indexOf("none") > -1)
 			{
-				break;
+				continue;
 			}
+			var added = false;
 			for(var optionCount = 0; optionCount < lengthOfOptionKeys; optionCount++)
 			{
 				var currentSearch = arrOfOptions[arrOfOptionsKeys[optionCount]]["search"];
@@ -242,8 +243,13 @@ function dateTimeFormat(dateTextArray)
 				if(currentSection.indexOf(currentSearch) > -1)
 				{
 					stringForNewTime += currentSection.replace(currentSearch, currentReplace);
+					added = true;
 					break;
 				}
+			}
+			if(!added)
+			{
+				stringForNewTime += currentSection;
 			}
 		}
 		if(stringForNewTime !== "" && stringForNewTime.indexOf("NaN") === -1)
