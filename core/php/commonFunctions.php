@@ -1142,13 +1142,14 @@ function generateFullSelect($confDataValue, $selectValue, $varName)
 	{
 		$returnHtml .= "<span class=\"settingsBuffer\" > ".$confDataValue["name"].": </span>";
 	}
-	$returnHtml .= " <div class=\"selectDiv\"><select ".$selectId." name=\"".$varName."\">";
-	$returnHtml .= createSelect($confDataValue["options"], $selectValue);
-	$returnHtml .= "</select></div>";
+	$onChangeFunction = "";
 	if(isset($confDataValue["function"]) && $confDataValue["function"] !== "")
 	{
-		$returnHtml .= "<script>$( document ).ready(function(){document.getElementById(\"".$confDataValue["id"]."\").addEventListener(\"change\", ".$confDataValue["function"].", false);});</script>";
+		$onChangeFunction = "onchange=\"".$confDataValue["function"]."();\"";
 	}
+	$returnHtml .= " <div class=\"selectDiv\"><select ".$selectId." ".$onChangeFunction." name=\"".$varName."\">";
+	$returnHtml .= createSelect($confDataValue["options"], $selectValue);
+	$returnHtml .= "</select></div>";
 	return $returnHtml;
 }
 
