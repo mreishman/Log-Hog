@@ -152,7 +152,7 @@ function updateJsonForCustomDateFormatInner()
 		{
 			del1 = " ";
 		}
-		else if(del1 = "none")
+		else if(del1 === "none")
 		{
 			del1 = "";
 		}
@@ -161,7 +161,7 @@ function updateJsonForCustomDateFormatInner()
 		{
 			del2 = " ";
 		}
-		else if(del2 = "none")
+		else if(del2 === "none")
 		{
 			del2 = "";
 		}

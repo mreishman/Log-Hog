@@ -11,24 +11,23 @@ var arrayOfJsFiles = {
 	6:  {name: "visibility.timers.js", type: "js"},
 	7:  {name: "loading-bar.min.js", type: "js"},
 	8:  {name: "main.js", type: "js"},
-	9:  {name: "format.js", type: "js"},
-	10:  {name: "rightClickJS.js", type: "js"},
-	11:  {name: "update.js", type: "js"},
-	12:  {name: "settings.js", type: "js"},
-	13: {name: "loghogDownloadJS.js", type: "js"},
-	14: {name: "jscolor.js", type: "js"},
-	15:  {name: "colorScheme.js", type: "js"},
-	16: {name: "local/default/img/menu.png", type: "img", class:"menuImageForLoad"},
-	17: {name: "local/default/img/notification.png", type: "img", class:"notificationImageForLoad"},
-	18: {name: "local/default/img/notificationFull.png", type: "img", class:"notificationImageClickedForLoad"},
-	19: {name: "local/default/img/filter.png", type: "img", class:"filterImageForLoad"},
-	20: {name: "local/default/img/play.png", type: "img", class:"playImageForLoad"},
-	21: {name: "local/default/img/pause.png", type: "img", class:"pauseImageForLoad"},
-	22: {name: "local/default/img/refresh.png", type: "img", class:"refreshImageForLoad"},
-	23: {name: "local/default/img/infoSideBar.png", type: "img", class:"infoSideBarImageForLoad"},
-	24: {name: "local/default/img/eraserSideBar.png", type: "img", class:"eraserSideBarImageForLoad"},
-	25: {name: "local/default/img/trashCanSideBar.png", type: "img", class:"trashCanSideBarImageForLoad"},
-	26: {name: "local/default/img/downArrowSideBar.png", type: "img", class:"downArrowSideBarImageForLoad"}
+	9:  {name: "rightClickJS.js", type: "js"},
+	10:  {name: "update.js", type: "js"},
+	11:  {name: "settings.js", type: "js"},
+	12: {name: "loghogDownloadJS.js", type: "js"},
+	13: {name: "jscolor.js", type: "js"},
+	14:  {name: "colorScheme.js", type: "js"},
+	15: {name: "local/default/img/menu.png", type: "img", class:"menuImageForLoad"},
+	16: {name: "local/default/img/notification.png", type: "img", class:"notificationImageForLoad"},
+	17: {name: "local/default/img/notificationFull.png", type: "img", class:"notificationImageClickedForLoad"},
+	18: {name: "local/default/img/filter.png", type: "img", class:"filterImageForLoad"},
+	19: {name: "local/default/img/play.png", type: "img", class:"playImageForLoad"},
+	20: {name: "local/default/img/pause.png", type: "img", class:"pauseImageForLoad"},
+	21: {name: "local/default/img/refresh.png", type: "img", class:"refreshImageForLoad"},
+	22: {name: "local/default/img/infoSideBar.png", type: "img", class:"infoSideBarImageForLoad"},
+	23: {name: "local/default/img/eraserSideBar.png", type: "img", class:"eraserSideBarImageForLoad"},
+	24: {name: "local/default/img/trashCanSideBar.png", type: "img", class:"trashCanSideBarImageForLoad"},
+	25: {name: "local/default/img/downArrowSideBar.png", type: "img", class:"downArrowSideBarImageForLoad"}
 };
 var countForCheck = 1;
 var arrayOfJsFilesKeys = Object.keys(arrayOfJsFiles);
@@ -39,6 +38,11 @@ function updateCustomLoadImages()
 	if(sendCrashInfoJS === "true")
 	{
 		arrayOfJsFiles[Object.keys(arrayOfJsFiles).length] = {name: "Raven.js", type: "js"};
+	}
+	if(expFormatEnabled === "true")
+	{
+		arrayOfJsFiles[Object.keys(arrayOfJsFiles).length] = {name: "format.js", type: "js"};
+		arrayOfJsFiles[Object.keys(arrayOfJsFiles).length] = {name: "dateFormat.min.js", type: "js"};
 	}
 	if(themesEnabled === "true")
 	{

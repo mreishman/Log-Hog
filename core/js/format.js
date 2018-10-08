@@ -114,9 +114,13 @@ function dateTimeFormat(dateTextArray)
 		newConfDate = new Date(justDateText);
 		if(String(newConfDate) === "Invalid Date" || String(newConfDate) === "NaN")
 		{
-			justDateText = justDateText.replace(/[A-Z]/," ");
-			newConfDate = new Date(justDateText);
+			var justDateTextTmp = justDateText.replace(/[A-Z]/," ");
+			newConfDate = new Date(justDateTextTmp);
 		}
+	}
+	if(String(newConfDate) === "Invalid Date" || String(newConfDate) === "NaN")
+	{
+		newConfDate = DateFormat.format(justDateText);
 	}
 	if(String(newConfDate) !== "Invalid Date" && String(newConfDate) !== "NaN")
 	{
@@ -195,11 +199,11 @@ function dateTimeFormat(dateTextArray)
 			},
 			6: {
 				"search" : "PartDay",
-				"replace": arrOfDaysSmall[parseInt(day)]
+				"replace": arrOfDaysSmall[parseInt(dayName)]
 			},
 			7: {
 				"search" : "FullDay",
-				"replace": arrOfDaysLarge[parseInt(day)]
+				"replace": arrOfDaysLarge[parseInt(dayName)]
 			},
 			8: {
 				"search" : "PartMonth",
