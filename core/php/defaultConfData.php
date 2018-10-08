@@ -668,7 +668,7 @@ $defaultConfigMoreData = array(
 		"name"								=>	"Log Format Settings ",
 		"vars"								=>	array(
 			0									=> array(
-				"bool"								=>	"($dateTextFormat != 'custom')",
+				"bool"								=>	($dateTextFormat != 'custom'),
 				"bool2"								=>	"custom",
 				"id"								=>	"dateTextFormatSelector",
 				"name"								=>	"Custom Date Text Format",
@@ -1206,7 +1206,7 @@ $defaultConfigMoreData = array(
 		"name"								=>	"Other Settings",
 		"vars"								=> array(
 			0									=> array(
-				"bool"								=>	"($popupWarnings != 'custom')",
+				"bool"								=>	($popupWarnings != 'custom'),
 				"bool2"								=>	"custom",
 				"id"								=>	"settingsPopupVars",
 				"name"								=>	"Popup Settings",
