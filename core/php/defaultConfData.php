@@ -1018,7 +1018,7 @@ $defaultConfigMoreData = array(
 		"name"								=>	"Other Settings",
 		"vars"								=> array(
 			0									=> array(
-				"bool"								=>	"($popupWarnings != 'custom')",
+				"bool"								=>	($popupWarnings != 'custom'),
 				"id"								=>	"settingsPopupVars",
 				"name"								=>	"Popup Settings",
 				"type"								=>	"grouped",
