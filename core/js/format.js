@@ -121,9 +121,21 @@ function dateTimeFormat(dateTextArray)
 	if(String(newConfDate) !== "Invalid Date" && String(newConfDate) !== "NaN")
 	{
 		var hours = newConfDate.getHours();
+		var hours12 = hours;
+		var ampm = "AM";
 		if(hours < 10)
 		{
 			hours = "0"+hours;
+			hours12 = hours;
+		}
+		else if(hours > 12)
+		{
+			ampm = "PM";
+			hours12 = hours - 12;
+			if(hours12 < 10)
+			{
+				hours12 = hours;
+			}
 		}
 		var min = newConfDate.getMinutes();
 		if(min < 10)
@@ -200,6 +212,14 @@ function dateTimeFormat(dateTextArray)
 			10: {
 				"search" : "mili",
 				"replace": mili
+			},
+			11: {
+				"search" : "hh12",
+				"replace": hours12
+			},
+			12: {
+				"search" : "AMPM",
+				"replace": ampm
 			}
 		};
 		var arrOfOptionsKeys = Object.keys(arrOfOptions);

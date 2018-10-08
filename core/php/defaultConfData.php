@@ -232,7 +232,13 @@ $sectionChoices = array(
 		"value"		=>	'FullMonth'),
 	11			=>	array(
 		"name"		=>	'mili',
-		"value"		=>	'mili')
+		"value"		=>	'mili'),
+	12			=>	array(
+		"name"		=>	'hh-12',
+		"value"		=>	'hh12'),
+	13			=>	array(
+		"name"		=>	'AM/PM',
+		"value"		=>	'AMPM')
 	);
 
 $delimiterChoices = array(
@@ -283,7 +289,7 @@ $customDateFormatVars = array(
 	"vars"								=>	array())
 );
 $CDFVExternalCounter = 0;
-for($CDFVcount = 0; $CDFVcount < 6; $CDFVcount++)
+for($CDFVcount = 0; $CDFVcount < 10; $CDFVcount++)
 {
 	$customDateFormatVars[0]["vars"][$CDFVExternalCounter] = array(
 		"key"								=>	"DateFormat-".$CDFVcount."-D1",
