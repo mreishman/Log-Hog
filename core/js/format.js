@@ -49,7 +49,7 @@ var arrOfMonthsLarge = {
 function formatLine(text)
 {
 	var arrayOfText = dateTimeSplit(text);
-	return "<td style=\"white-space:nowrap;width: 1%;\" >" + dateTimeFormat(arrayOfText) + "</td><td style=\"white-space: pre-wrap;\" >" + arrayOfText[1] + "</td>";
+	return "<td style=\"white-space:nowrap;width: 1%;\" >" + dateTimeFormat(arrayOfText) + "</td><td style=\"white-space: pre-wrap;\" >" + formatMainMessage(arrayOfText) + "</td>";
 }
 
 function dateTimeSplit(text)
@@ -92,6 +92,60 @@ function dateTimeSplit(text)
 	}
 
 	return returnObject;
+}
+
+function formatMainMessage(dateTextArray)
+{
+	var message = dateTextArray[1];
+	if(message.indexOf("{") > -1)
+	{
+		//try to json decode
+		var jsonMessage = message.substring(message.indexOf("{"));
+		var newMessage = jsonDecodeTry(jsonMessage);
+		var excapeHTML = false;
+		if(typeof newMessage !== "object")
+		{
+			newMessage = jsonDecodeTry("" + unescapeHTML(jsonMessage));
+			excapeHTML = true;
+			if(typeof newMessage !== "object")
+			{
+				//console.log(unescapeHTML(jsonMessage));
+				return message;
+			}
+		}
+		var testReturn = "<table width=\"100%\">";
+		testReturn += "<tr><td colspan=\"2\" >"+message.substr(0, message.indexOf('{'))+"</td></tr>";
+		var messageKeys = Object.keys(newMessage);
+		var messageKeysLength = messageKeys.length;
+		for (var messageCount = 0; messageCount < messageKeysLength; messageCount++)
+		{
+			var messageOne = messageKeys[messageCount];
+			var messageTwo = newMessage[messageKeys[messageCount]];
+			if(excapeHTML)
+			{
+				messageOne = escapeHTML(messageOne);
+				messageTwo = escapeHTML(messageTwo);
+			}
+			testReturn += "<tr><td>"+messageOne+"</td><td>"+messageTwo+"</td></tr>";
+		}
+		testReturn += "</table>";
+		return testReturn;
+	}
+	return message;
+}
+
+function jsonDecodeTry(jsonTry)
+{
+	try
+	{
+		var possibleJson = JSON.parse(jsonTry);
+		return possibleJson;
+	}
+	catch(e)
+	{
+		//console.log(e);
+	}
+	return false;
 }
 
 function dateTimeFormat(dateTextArray)

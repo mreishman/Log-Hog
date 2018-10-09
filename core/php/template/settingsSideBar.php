@@ -47,7 +47,7 @@
 	<br>
 <?php endif; ?>
 <h3 style="border-bottom: 1px solid white;">One Log</h3>
-Enable One Log
+Show One Log
 <div class="selectDiv">
 	<select id="windowConfig">
 		<option value="true" >True</option>

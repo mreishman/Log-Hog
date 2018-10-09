@@ -49,6 +49,10 @@ function updateCustomLoadImages()
 	{
 		arrayOfJsFiles[Object.keys(arrayOfJsFiles).length] = {name: "themes.js", type: "js"};
 	}
+	if(oneLogEnable === "true")
+	{
+		arrayOfJsFiles[Object.keys(arrayOfJsFiles).length] = {name: "oneLog.js", type: "js"};
+	}
 	if(truncateLog === "true")
 	{
 		arrayOfJsFiles[Object.keys(arrayOfJsFiles).length] = {name: "local/default/img/eraserMulti.png", type: "img", class:"eraserMultiImageForLoad"};

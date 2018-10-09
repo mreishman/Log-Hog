@@ -993,6 +993,10 @@ function update(data)
 		var initialized = $("#menu a").length !== 0;
 		var folderNamePrev = "?-1";
 		var folderNameCount = -1;
+		if(oneLogEnable === "true")
+		{
+			folderNameCount++;
+		}
 		for(var i = 0; i !== stop; i++)
 		{
 			var name = files[i];
@@ -4516,6 +4520,7 @@ function toggleSettingsSidebar()
 
 function mainReady()
 {
+	addOneLogTab();
 	dirForAjaxSend = "";
 	progressBar = new ldBar("#progressBar");
 	resize();
