@@ -143,6 +143,9 @@ $externalLinkImage = generateImage(
 			</div>
 		</div>
 		<div id="main">
+			<div id="settingsSideBar" style="display: none; position: absolute; width: 200px;">
+				<?php require_once('core/php/template/settingsSideBar.php'); ?>
+			</div>
 			<table id="log" style="display: none; margin: 0px;padding: 0px; border-spacing: 0px; width: 100%;" cellspacing="0" cellpadding="0">
 				<tbody><tr><td></td></tr></tbody>
 			</table>

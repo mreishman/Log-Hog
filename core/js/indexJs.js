@@ -27,7 +27,8 @@ var arrayOfJsFiles = {
 	22: {name: "local/default/img/infoSideBar.png", type: "img", class:"infoSideBarImageForLoad"},
 	23: {name: "local/default/img/eraserSideBar.png", type: "img", class:"eraserSideBarImageForLoad"},
 	24: {name: "local/default/img/trashCanSideBar.png", type: "img", class:"trashCanSideBarImageForLoad"},
-	25: {name: "local/default/img/downArrowSideBar.png", type: "img", class:"downArrowSideBarImageForLoad"}
+	25: {name: "local/default/img/downArrowSideBar.png", type: "img", class:"downArrowSideBarImageForLoad"},
+	26: {name: "local/default/img/gear.png", type: "img", class:"gearImageForLoad"}
 };
 var countForCheck = 1;
 var arrayOfJsFilesKeys = Object.keys(arrayOfJsFiles);

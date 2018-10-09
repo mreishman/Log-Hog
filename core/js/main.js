@@ -4157,21 +4157,6 @@ function pinWindow(windowNum)
 	}
 }
 
-function multiLogPopup()
-{
-	if(document.getElementById("subMenuForGroup").style.display === "none")
-	{
-		hideSubMenus();
-		document.getElementById("menu2").style.display = "block";
-		document.getElementById("subMenuForGroup").style.display = "block";
-	}
-	else
-	{
-		hideSubMenus();
-	}
-	resize();
-}
-
 function filterSubMenu()
 {
 	if(document.getElementById("groupSubMenu").style.display === "none")
@@ -4189,13 +4174,9 @@ function filterSubMenu()
 
 function hideSubMenus()
 {
-	if(document.getElementById("subMenuForGroup").style.display !== "none")
+	if(document.getElementById("settingsSideBar").style.display !== "none")
 	{
-		document.getElementById("subMenuForGroup").style.display = "none";
-	}
-	if(document.getElementById("subMenuForGroup").style.display !== "none")
-	{
-		document.getElementById("subMenuForGroup").style.display = "none";
+		toggleSettingsSidebar();
 	}
 	if(document.getElementById("groupSubMenu").style.display !== "none")
 	{
@@ -4515,6 +4496,22 @@ function saveLayoutTo(letter)
 		}
 	}
 	saveAndVerifyMain('localLayout');
+}
+
+function toggleSettingsSidebar()
+{
+	if(document.getElementById("settingsSideBar").style.display === "none")
+	{
+		document.getElementById("log").style.width = (window.innerWidth - 200)+"px";
+		document.getElementById("log").style.marginLeft = "200px";
+		document.getElementById("settingsSideBar").style.display = "inline-block";
+	}
+	else
+	{
+		document.getElementById("log").style.width = "100%";
+		document.getElementById("log").style.marginLeft = "0px";
+		document.getElementById("settingsSideBar").style.display = "none";
+	}
 }
 
 function mainReady()
