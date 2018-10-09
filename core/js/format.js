@@ -99,40 +99,54 @@ function formatMainMessage(dateTextArray)
 	var message = dateTextArray[1];
 	if(message.indexOf("{") > -1 && message.lastIndexOf("}") > message.indexOf("{"))
 	{
-		//try to json decode
-		var jsonMessage = message.substring(message.indexOf("{"),message.lastIndexOf("}") + 1);
-		var newMessage = jsonDecodeTry(jsonMessage);
-		var excapeHTML = false;
-		if(typeof newMessage !== "object")
-		{
-			newMessage = jsonDecodeTry("" + unescapeHTML(jsonMessage));
-			excapeHTML = true;
-			if(typeof newMessage !== "object")
-			{
-				//console.log(unescapeHTML(jsonMessage));
-				return message;
-			}
-		}
-		var testReturn = "<table>";
-		testReturn += "<tr><td colspan=\"2\" >"+message.substr(0, message.indexOf('{'))+"</td></tr>";
-		var messageKeys = Object.keys(newMessage);
-		var messageKeysLength = messageKeys.length;
-		for (var messageCount = 0; messageCount < messageKeysLength; messageCount++)
-		{
-			var messageOne = messageKeys[messageCount];
-			var messageTwo = newMessage[messageKeys[messageCount]];
-			if(excapeHTML)
-			{
-				messageOne = escapeHTML(messageOne);
-				messageTwo = escapeHTML(messageTwo);
-			}
-			testReturn += "<tr><td style=\"word-break: normal;\" >"+messageOne+"</td><td>"+messageTwo+"</td></tr>";
-		}
-		testReturn += "<tr><td colspan=\"2\" >"+message.substr(message.lastIndexOf('}') + 1)+"</td></tr>";
-		testReturn += "</table>";
-		return testReturn;
+		return formatJsonMessage(message);
 	}
 	return message;
+}
+
+function formatJsonMessage(message)
+{
+	//try to json decode
+	var jsonMessage = message.substring(message.indexOf("{"),message.lastIndexOf("}") + 1);
+	var newMessage = jsonDecodeTry(jsonMessage);
+	var excapeHTML = false;
+	if(typeof newMessage !== "object")
+	{
+		newMessage = jsonDecodeTry("" + unescapeHTML(jsonMessage));
+		excapeHTML = true;
+		if(typeof newMessage !== "object")
+		{
+			//console.log(unescapeHTML(jsonMessage));
+			return message;
+		}
+	}
+	var testReturn = "<table>";
+	testReturn += "<tr><td colspan=\"2\" >"+message.substr(0, message.indexOf('{'))+"</td></tr>";
+	var messageKeys = Object.keys(newMessage);
+	var messageKeysLength = messageKeys.length;
+	for (var messageCount = 0; messageCount < messageKeysLength; messageCount++)
+	{
+		var messageOne = messageKeys[messageCount];
+		var messageTwo = newMessage[messageKeys[messageCount]];
+		var messageTwoIsObject = false;
+		if(typeof messageTwo === "object")
+		{
+			messageTwo = formatJsonMessage(JSON.stringify(messageTwo));
+			messageTwoIsObject = true;
+		}
+		if(excapeHTML)
+		{
+			messageOne = escapeHTML(messageOne);
+			if(!messageTwoIsObject)
+			{
+				messageTwo = escapeHTML(messageTwo);
+			}
+		}
+		testReturn += "<tr><td style=\"word-break: normal;\" >"+messageOne+"</td><td>"+messageTwo+"</td></tr>";
+	}
+	testReturn += "<tr><td colspan=\"2\" >"+message.substr(message.lastIndexOf('}') + 1)+"</td></tr>";
+	testReturn += "</table>";
+	return testReturn;
 }
 
 function jsonDecodeTry(jsonTry)
