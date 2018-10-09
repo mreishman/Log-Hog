@@ -97,10 +97,10 @@ function dateTimeSplit(text)
 function formatMainMessage(dateTextArray)
 {
 	var message = dateTextArray[1];
-	if(message.indexOf("{") > -1)
+	if(message.indexOf("{") > -1 && message.lastIndexOf("}") > message.indexOf("{"))
 	{
 		//try to json decode
-		var jsonMessage = message.substring(message.indexOf("{"));
+		var jsonMessage = message.substring(message.indexOf("{"),message.lastIndexOf("}") + 1);
 		var newMessage = jsonDecodeTry(jsonMessage);
 		var excapeHTML = false;
 		if(typeof newMessage !== "object")
@@ -113,7 +113,7 @@ function formatMainMessage(dateTextArray)
 				return message;
 			}
 		}
-		var testReturn = "<table width=\"100%\">";
+		var testReturn = "<table>";
 		testReturn += "<tr><td colspan=\"2\" >"+message.substr(0, message.indexOf('{'))+"</td></tr>";
 		var messageKeys = Object.keys(newMessage);
 		var messageKeysLength = messageKeys.length;
@@ -126,8 +126,9 @@ function formatMainMessage(dateTextArray)
 				messageOne = escapeHTML(messageOne);
 				messageTwo = escapeHTML(messageTwo);
 			}
-			testReturn += "<tr><td>"+messageOne+"</td><td>"+messageTwo+"</td></tr>";
+			testReturn += "<tr><td style=\"word-break: normal;\" >"+messageOne+"</td><td>"+messageTwo+"</td></tr>";
 		}
+		testReturn += "<tr><td colspan=\"2\" >"+message.substr(message.lastIndexOf('}') + 1)+"</td></tr>";
 		testReturn += "</table>";
 		return testReturn;
 	}
