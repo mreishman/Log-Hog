@@ -37,8 +37,8 @@ $countConfig--;
 	<?php echo loadCSS("../",$baseUrl, $cssVersion);?>
 	<link rel="icon" type="image/png" href="../core/img/favicon.png" />
 	<script src="../core/js/jquery.js"></script>
-	<script src="../core/js/advanced.js?v=<?php echo $cssVersion;?>"></script>
-	<script src="../core/js/resetSettingsJs.js?v=<?php echo $cssVersion;?>"></script>
+	<script src="../core/js/advanced.js?v=<?php echo $jsVersion;?>"></script>
+	<script src="../core/js/resetSettingsJs.js?v=<?php echo $jsVersion;?>"></script>
 </head>
 <body>
 	<?php require_once('header.php'); ?>

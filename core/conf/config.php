@@ -257,6 +257,7 @@ $defaultConfig = array(
 	'highlightNewColorBG'			=> '#FFFF00',
 	'highlightNewColorFont'			=> '#000000',
 	'invertMenuImages'				=> 'false',
+	'jsVersion'						=> 1,
 	'layoutVersion'					=> 1,
 	'lineCountFromJS'				=> "true",
 	'loadingBarVersion'				=> 1,

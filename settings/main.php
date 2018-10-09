@@ -64,4 +64,4 @@ require_once('../core/php/loadVars.php');
 <script type="text/javascript">
 var logTrimType = "<?php echo $logTrimType; ?>";
 </script>
-<script src="../core/js/settingsMain.js?v=<?php echo $cssVersion?>"></script>
+<script src="../core/js/settingsMain.js?v=<?php echo $jsVersion?>"></script>

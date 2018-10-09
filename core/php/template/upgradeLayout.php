@@ -71,7 +71,7 @@ $totalUpgradeScripts = floatval($layoutVersionToUpgradeTo) - floatval($layoutVer
 </div>
 </body>
 
-<script src="../../../core/js/settings.js?v=<?php echo $cssVersion?>"></script>
+<script src="../../../core/js/settings.js?v=<?php echo $jsVersion?>"></script>
 <script type="text/javascript"> 
 	var lock = false;
 	var urlForSendMain0 = '../../../core/php/checkVersionOfLayout.php?format=json';

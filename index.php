@@ -100,8 +100,8 @@ $externalLinkImage = generateImage(
 <head>
 	<title>Log Hog | Index</title>
 	<link rel="icon" type="image/png" href="core/img/favicon.png" />
-	<script src="core/js/lazyLoadImg.js?v=<?php echo $cssVersion?>"></script>
-	<script src="core/js/indexJs.js?v=<?php echo $cssVersion?>"></script>
+	<script src="core/js/lazyLoadImg.js?v=<?php echo $jsVersion?>"></script>
+	<script src="core/js/indexJs.js?v=<?php echo $jsVersion?>"></script>
 	<?php
 		echo loadSentryData($sendCrashInfoJS, $branchSelected);
 	?>

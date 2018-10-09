@@ -77,21 +77,22 @@ function updateCustomLoadImages()
 
 function tryLoadJSStuff()
 {
-	if(arrayOfJsFiles[arrayOfJsFilesKeys[counterForJSLoad]]["type"] === "js")
+	var currentFileType = arrayOfJsFiles[arrayOfJsFilesKeys[counterForJSLoad]]["type"];
+	if(currentFileType === "js")
 	{
 		if(document.getElementById("initialLoadContentInfo").innerHTML !== "Loading Javascript Files")
 		{
 			document.getElementById("initialLoadContentInfo").innerHTML = "Loading Javascript Files";
 		}
 	}
-	else if(arrayOfJsFiles[arrayOfJsFilesKeys[counterForJSLoad]]["type"] === "css")
+	else if(currentFileType === "css")
 	{
 		if(document.getElementById("initialLoadContentInfo").innerHTML !== "Loading CSS Files")
 		{
 			document.getElementById("initialLoadContentInfo").innerHTML = "Loading CSS Files";
 		}
 	}
-	else if(arrayOfJsFiles[arrayOfJsFilesKeys[counterForJSLoad]]["type"] === "img")
+	else if(currentFileType === "img")
 	{
 		if(document.getElementById("initialLoadContentInfo").innerHTML !== "Loading Images")
 		{
@@ -104,8 +105,13 @@ function tryLoadJSStuff()
 		loadedFile = false;
 		var nameOfCurrentFile = arrayOfJsFiles[arrayOfJsFilesKeys[counterForJSLoad]]["name"];
 		document.getElementById("initialLoadContentMoreInfo").innerHTML = nameOfCurrentFile;
-		var nameOfFile = nameOfCurrentFile+"?v="+cssVersion;
-		if(arrayOfJsFiles[arrayOfJsFilesKeys[counterForJSLoad]]["type"] === "js")
+		var versionToAdd = cssVersion;
+		if(currentFileType === "js")
+		{
+			versionToAdd = jsVersion;
+		}
+		var nameOfFile = nameOfCurrentFile+"?v="+versionToAdd;
+		if(currentFileType === "js")
 		{
 			nameOfFile = "core/js/"+nameOfFile;
 			script(nameOfFile);
@@ -113,14 +119,14 @@ function tryLoadJSStuff()
 				loadedFile = true;
 			}, false);
 		}
-		else if(arrayOfJsFiles[arrayOfJsFilesKeys[counterForJSLoad]]["type"] === "css")
+		else if(currentFileType === "css")
 		{
 			css(nameOfFile)
 			document.getElementById(nameOfFile.replace(/[^a-z0-9]/g, "")).addEventListener('load', function() {
 				loadedFile = true;
 			}, false);
 		}
-		else if(arrayOfJsFiles[arrayOfJsFilesKeys[counterForJSLoad]]["type"] === "img")
+		else if(currentFileType === "img")
 		{
 			loadImgFromData(arrayOfJsFiles[arrayOfJsFilesKeys[counterForJSLoad]]["class"]);
 			document.getElementsByClassName(arrayOfJsFiles[arrayOfJsFilesKeys[counterForJSLoad]]["class"])[0].addEventListener('load', function() {

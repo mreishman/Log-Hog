@@ -24,7 +24,7 @@ require_once('../core/php/updateCheck.php');
 	<?php echo loadCSS("../",$baseUrl, $cssVersion);?>
 	<link rel="icon" type="image/png" href="../core/img/favicon.png" />
 	<script src="../core/js/jquery.js"></script>
-	<script src="../core/js/devTools.js?v=<?php echo $cssVersion;?>"></script>
+	<script src="../core/js/devTools.js?v=<?php echo $jsVersion;?>"></script>
 </head>
 <body>
 	<?php require_once('header.php'); ?>
@@ -74,6 +74,9 @@ require_once('../core/php/updateCheck.php');
 				</li>
 				<li>
 					<span class="settingsBuffer" > CSS Version:  </span> <input type="number" pattern="[0-9]*" style="width: 400px;"  name="cssVersion" value="<?php echo $cssVersion;?>" >
+				</li>
+				<li>
+					<span class="settingsBuffer" > JS Version:  </span> <input type="number" pattern="[0-9]*" style="width: 400px;"  name="jsVersion" value="<?php echo $jsVersion;?>" >
 				</li>
 				<li>
 					<span class="settingsBuffer" > Theme Version:  </span> <input type="number" pattern="[0-9]*" style="width: 400px;"  name="themeVersion" value="<?php echo $themeVersion;?>" >

@@ -38,7 +38,7 @@ require_once('../core/php/loadVars.php');
 		?>
 	</div>
 </body>
-<script src="../core/js/lazyLoadImg.js?v=<?php echo $cssVersion?>"></script>
+<script src="../core/js/lazyLoadImg.js?v=<?php echo $jsVersion?>"></script>
 <script type="text/javascript">
 	
 $(document).ready(function()
