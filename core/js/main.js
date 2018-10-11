@@ -1594,7 +1594,7 @@ function checkNameCont(checkName, currentCheck)
 {
 	if(!($("#"+checkName).hasClass("active")))
 	{
-		if(currentCheck.id !== checkName)
+		if(currentCheck.id === checkName)
 		{
 			return true;
 		}
