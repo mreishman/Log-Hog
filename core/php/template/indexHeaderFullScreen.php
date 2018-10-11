@@ -11,16 +11,4 @@
 			);
 		?>
 	</div>
-	<div onclick="toggleNotifications();"  class="menuImageDiv">
-		<?php echo generateImage(
-			$arrayOfImages["loadingImg"],
-			$imageConfig = array(
-				"id"		=>	"notificationNotClicked",
-				"class"		=>	"menuImage notificationImageForLoad",
-				"height"	=>	"30px",
-				"data-src"	=>	$arrayOfImages["notification"]
-				)
-			);
-		?>
-	</div>
 </div>
