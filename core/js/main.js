@@ -730,6 +730,12 @@ function firstLoadEndAction()
 	document.getElementById("searchType").disabled = false;
 	document.getElementById("searchFieldInput").disabled = false;
 	document.getElementById("log").style.display = "table";
+	var targetLength = Object.keys(logDisplayArray).length;
+	if($("#menu .active").length < targetLength)
+	{
+		selectTabsInOrder(targetLength);
+		toggleDisplayOfNoLogs();
+	}
 	var windows = Object.keys(logDisplayArray);
 	var lengthOfWindows = windows.length;
 	for(var i = 0; i < lengthOfWindows; i++)
@@ -1414,14 +1420,10 @@ function update(data)
 		//Check if a tab is active, if none... click on first in array that's visible
 		var targetLength = Object.keys(logDisplayArray).length;
 		var tmpCurrentSelectWindow = currentSelectWindow;
-		if($("#menu .active").length < targetLength)
+		if($("#menu .active").length < targetLength && !firstLoad)
 		{
 			selectTabsInOrder(targetLength);
-
-			if(!firstLoad)
-			{
-				toggleDisplayOfNoLogs();
-			}
+			toggleDisplayOfNoLogs();
 		}
 		else if($("#menu .active").length > targetLength)
 		{
@@ -1528,6 +1530,23 @@ function removeTabsInOrder(targetLength)
 	}
 }
 
+function checkIfLogIsVisible(logToCheck)
+{
+	var arrayOfLogs = $("#menu a");
+	var arrayOfLogsLength = arrayOfLogs.length;
+	for (var lo = 0; lo < arrayOfLogsLength; lo++)
+	{
+		if(checkNameCont(logToCheck.replace(/[^a-z0-9]/g, ""), arrayOfLogs[lo]))
+		{
+			if(arrayOfLogs[lo].style.display !== "none")
+			{
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
 function selectTabsInOrder(targetLength)
 {
 	try
@@ -1546,9 +1565,18 @@ function selectTabsInOrder(targetLength)
 					var layoutVersionIndex = document.getElementById("layoutVersionIndex").value;
 					if(enableMultiLog === "true" && logLoadLayout.length !== 0 && logLoadLayout[currentLayout][h][layoutVersionIndex] !== "" && logLoadLayout[currentLayout][h][layoutVersionIndex] in fileData )
 					{
-						if(checkNameCont(logLoadLayout[currentLayout][h][layoutVersionIndex].replace(/[^a-z0-9]/g, ""), arrayOfLogs[i]))
+						var currentLogCheck = logLoadLayout[currentLayout][h][layoutVersionIndex];
+						if(checkNameCont(currentLogCheck.replace(/[^a-z0-9]/g, ""), arrayOfLogs[i]))
 						{
-							if(arrayOfLogs[i].style.display !== "none")
+							if(arrayOfLogs[i].style.display === "none")
+							{
+								continue;
+							}
+						}
+						else
+						{
+							var isVis = checkIfLogIsVisible(currentLogCheck);
+							if(isVis)
 							{
 								continue;
 							}
@@ -1558,7 +1586,15 @@ function selectTabsInOrder(targetLength)
 					{
 						if(checkNameCont(logSelectedFirstLoad.replace(/[^a-z0-9]/g, ""), arrayOfLogs[i]))
 						{
-							if(arrayOfLogs[i].style.display !== "none")
+							if(arrayOfLogs[i].style.display === "none")
+							{
+								continue;
+							}
+						}
+						else
+						{
+							var isVis = checkIfLogIsVisible(logSelectedFirstLoad);
+							if(isVis)
 							{
 								continue;
 							}
