@@ -295,7 +295,11 @@ $CDFVExternalCounter = 0;
 $dateTextFormatCustomVars = explode("|", $dateTextFormatCustom);
 for($CDFVcount = 0; $CDFVcount < 10; $CDFVcount++)
 {
-	$currentBracket = $dateTextFormatCustomVars[$CDFVcount];
+	$currentBracket = "";
+	if(isset($dateTextFormatCustomVars[$CDFVcount]))
+	{
+		$currentBracket = $dateTextFormatCustomVars[$CDFVcount];
+	}
 	$D1Value = "none";
 	$MValue = "none";
 	$D2Value = "none";
