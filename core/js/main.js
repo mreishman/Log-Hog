@@ -4101,6 +4101,10 @@ function toggleGroupedGroups()
 			}
 		}
 	}
+	if(oneLogEnable === "true")
+	{
+		toggleVisibleOneLog();
+	}
 	//hide empty files if needed
 	if(hideEmptyLog === "true")
 	{
@@ -4556,7 +4560,11 @@ function toggleSettingsSidebar()
 
 function mainReady()
 {
-	addOneLogTab();
+	if(oneLogEnable === "true")
+	{
+		addOneLogTab();
+		toggleVisibleOneLog();
+	}
 	dirForAjaxSend = "";
 	progressBar = new ldBar("#progressBar");
 	resize();
