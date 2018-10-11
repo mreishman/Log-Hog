@@ -34,6 +34,21 @@
 	</div>
 	<span class="fullScreenMenuText">Addons</span>
 </li>
+<li id="mainMenuNotifications" onclick="toggleNotifications();" >
+	<div class="menuImageDiv">
+		<?php echo generateImage(
+			$arrayOfImages["loadingImg"],
+			$imageConfig = array(
+				"id"		=>	"notificationImageMenuTmpId",
+				"class"		=>	"menuImage mainMenuImage",
+				"height"	=>	"30px",
+				"data-src"	=>	$arrayOfImages["notification"]
+				)
+			);
+		?>
+	</div>
+	<span class="fullScreenMenuText">Notifications</span>
+</li>
 <li onclick="window.location.href = './settings/main.php';"  >
 	<div class="menuImageDiv">
 		<?php echo generateImage(

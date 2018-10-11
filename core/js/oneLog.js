@@ -20,3 +20,15 @@ function addOneLogTab()
 		menu.append(item);
 	}
 }
+
+function toggleVisibleOneLog()
+{
+	if(document.getElementById("oneLogVisible").value === "false")
+	{
+		document.getElementById("oneLogTab").style.display = "none";
+	}
+	else
+	{
+		document.getElementById("oneLogTab").style.display = "inline-block";
+	}
+}

@@ -49,8 +49,8 @@
 <h3 style="border-bottom: 1px solid white;">One Log</h3>
 Show One Log
 <div class="selectDiv">
-	<select id="windowConfig">
-		<option value="true" >True</option>
-		<option value="false" >False</option>
+	<select onchange="toggleVisibleOneLog();" id="oneLogVisible">
+		<option <?php if($oneLogVisible === "true"){ echo " selected "; }?>  value="true" >True</option>
+		<option <?php if($oneLogVisible === "false"){ echo " selected "; }?>  value="false" >False</option>
 	</select>
 </div>
