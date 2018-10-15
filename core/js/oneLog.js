@@ -6,7 +6,7 @@ function addOneLogTab()
 	classInsert = "";
 	var item = blank;
 	item = item.replace(/{{title}}/g, nameForLog);
-	item = item.replace(/{{id}}/g, "oneLogTab");
+	item = item.replace(/{{id}}/g, "oneLog");
 	if(groupByColorEnabled === "true")
 	{
 		classInsert += " buttonColor1 ";
@@ -21,14 +21,38 @@ function addOneLogTab()
 	}
 }
 
+function addOneLogData()
+{
+	var logData = {
+		id: "oneLog",
+		logs: [{logName: "", logData: ""}]
+	}
+	arrayOfDataMain["oneLog"] = {data: "", lineCount: "---", log: logData, oneLog: true};
+	logs["oneLog"] = logData;
+	titles["oneLog"] = "oneLog";
+}
+
 function toggleVisibleOneLog()
 {
 	if(document.getElementById("oneLogVisible").value === "false")
 	{
-		document.getElementById("oneLogTab").style.display = "none";
+		document.getElementById("oneLog").style.display = "none";
 	}
 	else
 	{
-		document.getElementById("oneLogTab").style.display = "inline-block";
+		document.getElementById("oneLog").style.display = "inline-block";
+	}
+}
+
+
+function makeOneLogPretty(arrayOfLogs)
+{
+	var htmlToReturn = "";
+	var lengthOfArray = arrayOfLogs.length;
+	for(var i = 0; i < lengthOfArray; i++)
+	{
+		var currentLog = arrayOfLogs[i];
+		htmlToReturn += "<div class=\"settingsHeader\">"+currentLog["logName"]+"</div>";
+		htmlToReturn += "<div class=\".settingsDiv\">"+makePretty(currentLog["logData"])+"</div>";
 	}
 }

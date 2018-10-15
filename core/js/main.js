@@ -393,7 +393,7 @@ function pollTwoPartTwo(data)
 			var arrayOfDataMainKeys = Object.keys(arrayOfDataMain);
 			for (var i = arrayOfDataMainKeys.length - 1; i >= 0; i--) 
 			{
-				if(arrayOfDataMainKeys[i] in data || arrayOfDataMainKeys[i].indexOf("LogHog/Backup") > -1)
+				if(arrayOfDataMainKeys[i] in data || arrayOfDataMainKeys[i].indexOf("LogHog/Backup") > -1 || arrayOfDataMainKeys[i].indexOf("oneLog") > -1 )
 				{
 					continue;
 				}
@@ -726,6 +726,10 @@ function arrayOfDataMainDataFilter(data)
 function firstLoadEndAction()
 {
 	firstLoad = false;
+	if(oneLogEnable === "true")
+	{
+		addOneLogData();
+	}
 	document.getElementById("firstLoad").style.display = "none";
 	document.getElementById("searchType").disabled = false;
 	document.getElementById("searchFieldInput").disabled = false;
@@ -1298,6 +1302,7 @@ function update(data)
 							var currentIdPos = checkIfDisplay(id)["location"];
 
 							var newDiff = getDiffLogAndLastLog(id);
+							var newDiffText = getDifferentText(id, newDiff);
 							var diff = newDiff;
 							var diffMod = "";
 							if(diff !== "")
@@ -2103,7 +2108,11 @@ function showPartTwo(e, internalID, currentCurrentSelectWindow)
 	try
 	{
 		var formattedHtml = "";
-		if(logs[internalID].indexOf("errorMessageLog errorMessageRedBG") > -1 || logs[id].indexOf("errorMessageLog errorMessageGreenBG") > -1)
+		if(typeof logs[internalID] === "object" && "id" in logs[internalID] && logs[internalID]["id"] === "oneLog")
+		{
+			formattedHtml = makeOneLogPretty(logs[internalID]["logs"]);
+		}
+		else if(logs[internalID].indexOf("errorMessageLog errorMessageRedBG") > -1 || logs[id].indexOf("errorMessageLog errorMessageGreenBG") > -1)
 		{
 			formattedHtml = logs[internalID];
 		}
@@ -2185,6 +2194,18 @@ function removeNewHighlights(area)
 {
 	$(area + " div").removeClass("newLine");
 	$(area + " tr").removeClass("newLine");
+}
+
+function getDifferentText(id, diffCount)
+{
+	var tmpTextLog = logs[id].split("\n");
+	var lengthOfArray = tmpTextLog.length;
+	var returnArray = new Array();
+	for (var i = lengthOfArray - 1; i >= (lengthOfArray - diffCount); i--)
+	{
+		returnArray.push(tmpTextLog[i]);
+	}
+	return returnArray.join("\n");
 }
 
 function getDiffLogAndLastLog(id)
