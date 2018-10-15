@@ -2302,6 +2302,18 @@ function makePretty(id)
 		{
 			count = 0;
 		}
+		return makePrettyWithText(text, count);
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
+function makePrettyWithText(text, count)
+{
+	try
+	{
 		text = text.split("\n");
 		if(text.length < 2)
 		{

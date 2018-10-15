@@ -25,8 +25,8 @@ function addOneLogData()
 {
 	var logData = {
 		id: "oneLog",
-		logs: [{logName: "", logData: ""}]
-	}
+		logs: [{logName: "No Logs Updated", logData: "No logs have been updated", logId: "noLogUpdate"}]
+	};
 	arrayOfDataMain["oneLog"] = {data: "", lineCount: "---", log: logData, oneLog: true};
 	logs["oneLog"] = logData;
 	titles["oneLog"] = "oneLog";
@@ -53,6 +53,7 @@ function makeOneLogPretty(arrayOfLogs)
 	{
 		var currentLog = arrayOfLogs[i];
 		htmlToReturn += "<div class=\"settingsHeader\">"+currentLog["logName"]+"</div>";
-		htmlToReturn += "<div class=\".settingsDiv\">"+makePretty(currentLog["logData"])+"</div>";
+		htmlToReturn += "<div class=\"settingsDiv\">"+makePrettyWithText(currentLog["logData"], 0)+"</div>";
 	}
+	return htmlToReturn;
 }
