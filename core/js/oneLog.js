@@ -53,7 +53,7 @@ function makeOneLogPretty(arrayOfLogs)
 	for(var i = 0; i < lengthOfArray; i++)
 	{
 		var currentLog = arrayOfLogs[i];
-		htmlToReturn += "<div class=\"settingsHeader\">"+currentLog["logName"]+"</div>";
+		htmlToReturn += "<div class=\"settingsHeader\" style=\"padding-left: 40px;\" >"+currentLog["logName"]+"</div>";
 		htmlToReturn += "<div class=\"settingsDiv\" style=\"max-height: 200px; overflow: auto;\" >"+makePrettyWithText(currentLog["logData"], 0)+"</div>";
 	}
 	return htmlToReturn;
