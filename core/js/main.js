@@ -1297,7 +1297,9 @@ function update(data)
 							//determine if id is one of the values in the array of open files (use instead of currentPage)
 							var currentIdPos = checkIfDisplay(id)["location"];
 
-							var diff = getDiffLogAndLastLog(id);
+							var newDiff = getDiffLogAndLastLog(id);
+							var diff = newDiff;
+							var diffMod = "";
 							if(diff !== "")
 							{
 								if(document.getElementById(id+"Count").innerHTML !== "" )
@@ -1307,13 +1309,14 @@ function update(data)
 									if(diff > sliceSize)
 									{
 										diff = sliceSize;
+										diffMod = "+";
 									}
 								}
 							}
 							var diffNew = diff;
 							if(diff !== "")
 							{
-								diffNew = "("+diff+")";
+								diffNew = "("+diff+diffMod+")";
 							}
 							if(document.getElementById(id+"CountHidden").innerHTML !== diff)
 							{
