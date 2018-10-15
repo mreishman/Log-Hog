@@ -2096,7 +2096,7 @@ function showPartTwo(e, internalID, currentCurrentSelectWindow)
 	try
 	{
 		var formattedHtml = "";
-		if(logs[internalID].indexOf("errorMessageLog errorMessageRedBG") > -1 || logs[id].indexOf("errorMessageLog errorMessageGreenBG") > -1)
+		if(logs[internalID].indexOf("errorMessageLog errorMessageRedBG") > -1 || logs[internalID].indexOf("errorMessageLog errorMessageGreenBG") > -1)
 		{
 			formattedHtml = logs[internalID];
 		}
