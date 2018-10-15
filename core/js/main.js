@@ -2112,7 +2112,7 @@ function showPartTwo(e, internalID, currentCurrentSelectWindow)
 		{
 			formattedHtml = makeOneLogPretty(logs[internalID]["logs"]);
 		}
-		else if(logs[internalID].indexOf("errorMessageLog errorMessageRedBG") > -1 || logs[id].indexOf("errorMessageLog errorMessageGreenBG") > -1)
+		else if(logs[internalID].indexOf("errorMessageLog errorMessageRedBG") > -1 || logs[internalID].indexOf("errorMessageLog errorMessageGreenBG") > -1)
 		{
 			formattedHtml = logs[internalID];
 		}
