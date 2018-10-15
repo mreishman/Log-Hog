@@ -23,7 +23,7 @@ $windowDisplayConfig = explode("x", $windowConfig);
 ?>
 <style type="text/css">
 
-.log, #firstLoad, .log table tr:not(.highlight):not(.newLine) td:not(.highlight):not(.newLine)
+.log, #firstLoad, .log table tr:not(.highlight):not(.newLine) td:not(.highlight):not(.newLine) , #settingsSideBar
 {
 	color: <?php echo $logFontColor; ?>;
 }
