@@ -1,3 +1,8 @@
+var oneLogLogData = {
+	id: "oneLog",
+	logs: [{logName: "No Logs Updated", logData: "No logs have been updated", logId: "noLogUpdate"}]
+};
+
 function addOneLogTab()
 {
 	var menu = $("#menu");
@@ -23,12 +28,8 @@ function addOneLogTab()
 
 function addOneLogData()
 {
-	var logData = {
-		id: "oneLog",
-		logs: [{logName: "No Logs Updated", logData: "No logs have been updated", logId: "noLogUpdate"}]
-	};
-	arrayOfDataMain["oneLog"] = {data: "", lineCount: "---", log: logData, oneLog: true};
-	logs["oneLog"] = logData;
+	arrayOfDataMain["oneLog"] = {data: "", lineCount: "---", log: oneLogLogData, oneLog: true};
+	logs["oneLog"] = oneLogLogData;
 	titles["oneLog"] = "oneLog";
 }
 
@@ -53,7 +54,15 @@ function makeOneLogPretty(arrayOfLogs)
 	{
 		var currentLog = arrayOfLogs[i];
 		htmlToReturn += "<div class=\"settingsHeader\">"+currentLog["logName"]+"</div>";
-		htmlToReturn += "<div class=\"settingsDiv\">"+makePrettyWithText(currentLog["logData"], 0)+"</div>";
+		htmlToReturn += "<div class=\"settingsDiv\" style=\"max-height: 200px; overflow: auto;\" >"+makePrettyWithText(currentLog["logData"], 0)+"</div>";
 	}
 	return htmlToReturn;
+}
+
+function oneLogInitialLoadCheck()
+{
+	if(oneLogLogData["logs"][0]["logId"] === "noLogUpdate")
+	{
+		oneLogLogData["logs"] = new Array();
+	}
 }

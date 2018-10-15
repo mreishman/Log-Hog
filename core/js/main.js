@@ -1325,10 +1325,32 @@ function update(data)
 							}
 							if(document.getElementById(id+"CountHidden").innerHTML !== diff)
 							{
+								//this has updated, update stuff for counter
 								document.getElementById(id+"CountHidden").innerHTML = diff;
 								if(notificationCountVisible === "true" && diff !== 0)
 								{
 									document.getElementById(id+"Count").innerHTML = diffNew;
+								}
+								//update one log if needed
+								if(oneLogEnable === "true" && !firstLoad)
+								{
+									//check if initial load
+									oneLogInitialLoadCheck();
+									var currentLengthOfOneLogLogs = oneLogLogData["logs"].length - 1;
+									if(currentLengthOfOneLogLogs >= 0 && oneLogLogData["logs"][currentLengthOfOneLogLogs]["logId"] === id)
+									{
+										//add to this one
+										oneLogLogData["logs"][currentLengthOfOneLogLogs]["logId"] += newDiffText
+									}
+									else
+									{
+										//create new entry below
+										oneLogLogData["logs"].push({
+											logName: titles[id],
+											logData: newDiffText,
+											logId: id
+										})
+									}
 								}
 							}
 
@@ -2205,6 +2227,7 @@ function getDifferentText(id, diffCount)
 	{
 		returnArray.push(tmpTextLog[i]);
 	}
+	returnArray = returnArray.reverse();
 	return returnArray.join("\n");
 }
 
