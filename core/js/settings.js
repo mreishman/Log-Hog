@@ -140,7 +140,27 @@ function saveVerified()
 	}
 	else if(idForFormMain === "settingsColorFolderGroupVars" || idForFormMain === "generalThemeOptions")
 	{
-		window.location.href = dirForAjaxSend+"core/php/template/upgradeTheme.php?forceThemeUpdate=true";
+		$.ajax({
+			url: "core/php/customIndexCSS.php?format=json",
+			data: {},
+			type: "POST",
+		success(data)
+		{
+			//add css to bottom of index page
+			$("#initialLoadContent").append(data);
+		},
+		});
+
+		$.ajax({
+			url: "core/php/customCSS.php?format=json",
+			data: {},
+			type: "POST",
+		success(data)
+		{
+			//add css to bottom of index page
+			$("#initialLoadContent").append(data);
+		},
+		});
 	}
 	else
 	{
