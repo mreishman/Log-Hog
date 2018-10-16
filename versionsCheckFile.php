@@ -1,7 +1,7 @@
 <?php
 
 $versionCheckArray = array(
-	'version'		=> '5.1.3',
+	'version'		=> '5.1.4',
 	'versionList'		=> array(
 		'2.0.1'	        => array(
 			'branchName'	=> '2.0.1Update',
@@ -222,6 +222,10 @@ $versionCheckArray = array(
 		'5.1.3'		=> array(
 			'branchName'	=> '5.1.3Update',
 			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed bug with clear all action when popup is disabled</li><li>Clear all now properly (if enabled in settings) saves tmp versions of logs</li><li>Fixed bug when filtering logs where it would not auto select a new log if the preset log was hidden</li><li>Fixed issues with highlight row spacing in firefox</li></ul></li></ul>"
+		),
+		'5.1.4'		=> array(
+			'branchName'	=> '5.1.4Update',
+			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed issue with search by title and initial load log logic</li><li>Fixed small issue that could occur when switching logs</li><li>possible fix for update check errors, main fix in 5.2</li></ul></li></ul>"
 		),
 	)
 );
