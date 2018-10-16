@@ -2549,13 +2549,13 @@ function resizeFullScreenMenu()
 			mainContentFullScreenMenuLeft = "52px";
 			mainContentFullScreenMenuTop = "82px";
 			$(".settingsUlSub").css("width","auto").css("bottom","auto").css("right","0").css("border-bottom","1px solid white").css("border-right","none").css("height","35px");
-			$(".settingsUlSub li").not('subMenuToggle').css("display","inline-block");
+			$(".settingsUlSub li").not('.subMenuToggle').css("display","inline-block");
 			$(".menuTitle").not(".menuBreak").hide();
 		}
 		else
 		{
 			$(".settingsUlSub").css("width","200px").css("bottom","0").css("right","auto").css("border-bottom","none").css("border-right","1px solid white").css("height","auto");
-			$(".settingsUlSub li").not('subMenuToggle').css("display","block");
+			$(".settingsUlSub li").not('.subMenuToggle').css("display","block");
 			$(".menuTitle").not(".fullScreenMenuText").show();
 		}
 
@@ -3768,7 +3768,7 @@ function toggleThemeColorScheme(force = false)
 	endSettingsPollTimer();
 	$("#themeSubMenuColorScheme").addClass("selected");
 	document.getElementById("fullScreenMenuColorScheme").style.display = "block";
-	if(targetWidth < breakPointTwo || sideBarOnlyIcons === "breakpointtwo")
+	if(window.innerWidth < breakPointTwo || sideBarOnlyIcons === "breakpointtwo")
 	{
 		$(".subMenuActionsColorScheme").css("display","inline-block");
 	}
