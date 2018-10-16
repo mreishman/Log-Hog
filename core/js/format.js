@@ -46,10 +46,10 @@ var arrOfMonthsLarge = {
 };
 
 
-function formatLine(text)
+function formatLine(text, extraData)
 {
 	var arrayOfText = dateTimeSplit(text);
-	return "<td style=\"white-space:nowrap;width: 1%;\" >" + dateTimeFormat(arrayOfText) + "</td><td style=\"white-space: pre-wrap;\" >" + formatMainMessage(arrayOfText) + "</td>";
+	return "<td style=\"white-space:nowrap;width: 1%;\" >" + dateTimeFormat(arrayOfText) + "</td><td style=\"white-space: pre-wrap;\" >" + formatMainMessage(arrayOfText, extraData) + "</td>";
 }
 
 function dateTimeSplit(text)
@@ -94,17 +94,17 @@ function dateTimeSplit(text)
 	return returnObject;
 }
 
-function formatMainMessage(dateTextArray)
+function formatMainMessage(dateTextArray, extraData)
 {
 	var message = dateTextArray[1];
 	if(message.indexOf("{") > -1 && message.lastIndexOf("}") > message.indexOf("{"))
 	{
-		return formatJsonMessage(message);
+		return formatJsonMessage(message, extraData);
 	}
 	return message;
 }
 
-function formatJsonMessage(message)
+function formatJsonMessage(message, extraData)
 {
 	//try to json decode
 	var jsonMessage = message.substring(message.indexOf("{"),message.lastIndexOf("}") + 1);
@@ -131,7 +131,12 @@ function formatJsonMessage(message)
 			}
 		}
 		var testReturn = "<table>";
-		testReturn += "<tr><td colspan=\"2\" >"+message.substr(0, message.indexOf('{'))+"</td></tr>";
+		var extraTrClass = "";
+		if(extraData["customClassAdd"])
+		{
+			extraTrClass = extraData["customClass"];
+		}
+		testReturn += "<tr "+extraTrClass+" ><td colspan=\"2\" >"+message.substr(0, message.indexOf('{'))+"</td></tr>";
 		var messageKeys = Object.keys(newMessage);
 		var messageKeysLength = messageKeys.length;
 		for (var messageCount = 0; messageCount < messageKeysLength; messageCount++)
@@ -141,7 +146,7 @@ function formatJsonMessage(message)
 			var messageTwoIsObject = false;
 			if(typeof messageTwo === "object")
 			{
-				messageTwo = formatJsonMessage(JSON.stringify(messageTwo));
+				messageTwo = formatJsonMessage(JSON.stringify(messageTwo), extraData);
 				messageTwoIsObject = true;
 			}
 			if(excapeHTML)
@@ -152,9 +157,9 @@ function formatJsonMessage(message)
 					messageTwo = escapeHTML(messageTwo);
 				}
 			}
-			testReturn += "<tr><td style=\"word-break: normal;\" >"+messageOne+"</td><td>"+messageTwo+"</td></tr>";
+			testReturn += "<tr "+extraTrClass+" ><td style=\"word-break: normal;\" >"+messageOne+"</td><td>"+messageTwo+"</td></tr>";
 		}
-		testReturn += "<tr><td colspan=\"2\" >"+message.substr(message.lastIndexOf('}') + 1)+"</td></tr>";
+		testReturn += "<tr "+extraTrClass+" ><td colspan=\"2\" >"+message.substr(message.lastIndexOf('}') + 1)+"</td></tr>";
 		testReturn += "</table>";
 		return testReturn;
 	}

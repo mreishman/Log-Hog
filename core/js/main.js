@@ -929,7 +929,7 @@ function getFilterData(name, shortName, logData)
 
 	if(caseInsensitiveSearch === "true")
 	{
-		if(filterOffOf !== "")
+		if( typeof filterOffOf === "string" && filterOffOf !== "")
 		{
 			filterOffOf = filterOffOf.toLowerCase();
 		}
@@ -942,7 +942,7 @@ function showFileFromFilter(id, name, shortName, logData)
 	var filterOffOf = getFilterData(name, shortName, logData);
 	if(logsToHide instanceof Array && (logsToHide.length === 0 || $.inArray(id, logsToHide) === -1 ))
 	{
-		if(filterOffOf !== "")
+		if(typeof filterOffOf === "string" && filterOffOf !== "")
 		{
 			var filterTextField = getFilterTextField();
 			if(filterTextField === "" || filterOffOf.indexOf(filterTextField) !== -1)
@@ -2433,7 +2433,10 @@ function makePrettyWithText(text, count)
 					var lineToReturn = "<td style=\"white-space: pre-wrap;\" >"+lineText[j]+"</td>";
 					if(expFormatEnabled === "true")
 					{
-						lineToReturn = formatLine(lineText[j]);
+						lineToReturn = formatLine(lineText[j], {
+							customClass,
+							customClassAdd
+						});
 					}
 					returnText += "<td style=\"width: 31px; padding: 0;\" ></td>"+lineToReturn+"</tr><tr height=\""+logLinePadding+"px\" ><td colspan=\"2\"></td></tr>";
 				}

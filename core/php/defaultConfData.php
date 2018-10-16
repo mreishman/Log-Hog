@@ -618,7 +618,7 @@ $defaultConfigMoreData = array(
 	),
 	"generalThemeOptions"				=>	array(
 		"id"								=>	"generalThemeOptions",
-		"name"								=>	"Main Theme Options [Refresh Required]",
+		"name"								=>	"Main Theme Options",
 		"vars"								=>	array(
 			0									=>	array(
 				"type"								=>	"single",
