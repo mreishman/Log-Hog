@@ -25,6 +25,7 @@ function checkForUpdates(urlSend = "../", whatAmIUpdating = "Log-Hog", currentNe
 			//show popup for update check already in progress
 			showPopup();
 			document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class='settingsHeader' >Update Check in Progress</div><div style='width:100%;text-align:center;padding:10px;'> Log-Hog is already checking for an update. Please wait untill it is finished before trying to check for another udpate. </div><div class='link' onclick='hidePopup();' style='margin-left:165px; margin-right:50px;margin-top:5px;'>Okay!</div></div>";
+			return;
 		}
 		versionUpdate = currentNewVersion;
 		urlSend = urlSend;

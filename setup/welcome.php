@@ -36,6 +36,8 @@ if(file_exists($baseUrl.'conf/config.php'))
 	}
 }
 
+$cssVersion = date("YmdHis");
+
 setCookieRedirect();
 ?>
 <!DOCTYPE html>
@@ -91,7 +93,7 @@ setCookieRedirect();
 		window.location.href = "./director.php";
 	}
 </script>
-<script src="../core/js/settings.js?v=<?php echo rand(0,2000); ?>"></script>
-<script src="../core/js/upgradeTheme.js?v=<?php echo rand(0,2000); ?>"></script>
-<script src="stepsJavascript.js?v=<?php echo rand(0,2000); ?>"></script> <!-- Try to remember to manually increment this one? -->
+<script src="../core/js/settings.js?v=<?php echo $cssVersion; ?>"></script>
+<script src="../core/js/upgradeTheme.js?v=<?php echo $cssVersion; ?>"></script>
+<script src="stepsJavascript.js?v=<?php echo $cssVersion; ?>"></script> <!-- Try to remember to manually increment this one? -->
 </html>
