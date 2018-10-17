@@ -140,32 +140,37 @@ function saveVerified()
 	}
 	else if(idForFormMain === "settingsColorFolderGroupVars" || idForFormMain === "generalThemeOptions")
 	{
-		$.ajax({
-			url: "core/php/customIndexCSS.php?format=json",
-			data: {},
-			type: "POST",
-		success(data)
-		{
-			//add css to bottom of index page
-			$("#initialLoadContent").append(data);
-		},
-		});
-
-		$.ajax({
-			url: "core/php/customCSS.php?format=json",
-			data: {},
-			type: "POST",
-		success(data)
-		{
-			//add css to bottom of index page
-			$("#initialLoadContent").append(data);
-		},
-		});
+		refreshCustomCss();
 	}
 	else
 	{
 		fadeOutPopup();
 	}
+}
+
+function refreshCustomCss()
+{
+	$.ajax({
+		url: "core/php/customIndexCSS.php?format=json",
+		data: {},
+		type: "POST",
+	success(data)
+	{
+		//add css to bottom of index page
+		$("#initialLoadContent").append(data);
+	},
+	});
+
+	$.ajax({
+		url: "core/php/customCSS.php?format=json",
+		data: {},
+		type: "POST",
+	success(data)
+	{
+		//add css to bottom of index page
+		$("#initialLoadContent").append(data);
+	},
+	});
 }
 
 function copyThemeStuffPopup()
