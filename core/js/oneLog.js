@@ -45,7 +45,6 @@ function toggleVisibleOneLog()
 	}
 }
 
-
 function makeOneLogPretty(arrayOfLogs)
 {
 	var htmlToReturn = "";
@@ -65,4 +64,18 @@ function oneLogInitialLoadCheck()
 	{
 		oneLogLogData["logs"] = new Array();
 	}
+}
+
+function isOneLogVisible()
+{
+	var logDisplayArrayKey = Object.keys(logDisplayArray);
+	var logDisplayArrayKeyLength = logDisplayArrayKey.length;
+	for(var logVisInLogDisCount = 0; logVisInLogDisCount < logDisplayArrayKeyLength; logVisInLogDisCount++)
+	{
+		if(logDisplayArray[logDisplayArrayKey[logVisInLogDisCount]]["id"] === "oneLog")
+		{
+			return logVisInLogDisCount;
+		}
+	}
+	return false;
 }

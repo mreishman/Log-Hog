@@ -1011,7 +1011,7 @@ function update(data)
 		{
 			var name = files[i];
 
-			if((!(name in data)) || typeof(data[name]) === "undefined" || data[name] === null)
+			if((!(name in data)) || typeof(data[name]) === "undefined" || data[name] === null || name === "oneLog")
 			{
 				hideLogByName(name);
 				continue;
@@ -1331,27 +1331,6 @@ function update(data)
 								{
 									document.getElementById(id+"Count").innerHTML = diffNew;
 								}
-								//update one log if needed
-								if(oneLogEnable === "true" && !firstLoad)
-								{
-									//check if initial load
-									oneLogInitialLoadCheck();
-									var currentLengthOfOneLogLogs = oneLogLogData["logs"].length - 1;
-									if(currentLengthOfOneLogLogs >= 0 && oneLogLogData["logs"][currentLengthOfOneLogLogs]["logId"] === id)
-									{
-										//add to this one
-										oneLogLogData["logs"][currentLengthOfOneLogLogs]["logId"] += newDiffText
-									}
-									else
-									{
-										//create new entry below
-										oneLogLogData["logs"].push({
-											logName: titles[id],
-											logData: newDiffText,
-											logId: id
-										})
-									}
-								}
 							}
 
 							var updateHtml = true;
@@ -1413,6 +1392,42 @@ function update(data)
 											name: shortName+" Update "+numForNot,
 											action: "$('#"+id+"').click();  toggleNotifications();"
 										});
+									}
+								}
+							}
+
+							//update one log if needed
+							if(oneLogEnable === "true" && !firstLoad)
+							{
+								if(!firstLoad && diffNew !== "(0)")
+								{
+									//check if initial load
+									oneLogInitialLoadCheck();
+									var currentLengthOfOneLogLogs = oneLogLogData["logs"].length - 1;
+									if(currentLengthOfOneLogLogs >= 0 && oneLogLogData["logs"][currentLengthOfOneLogLogs]["logId"] === id)
+									{
+										//add to this one
+										oneLogLogData["logs"][currentLengthOfOneLogLogs]["logId"] += newDiffText
+									}
+									else
+									{
+										var oneLogTitle = titles[id];
+										if(titles[id].indexOf("|") > -1)
+										{
+											oneLogTitle = titles[id].split("|")[0];
+										}
+										oneLogTitle += "("+newDiff+")";
+										//create new entry below
+										oneLogLogData["logs"].push({
+											logName: oneLogTitle,
+											logData: newDiffText,
+											logId: id
+										});
+										var currentPosOfOneLog = isOneLogVisible();
+										if(currentPosOfOneLog !== false)
+										{
+											$("#log"+currentPosOfOneLog).html(makeOneLogPretty(logs["oneLog"]["logs"]));
+										}
 									}
 								}
 							}
