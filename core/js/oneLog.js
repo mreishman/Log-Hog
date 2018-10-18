@@ -41,7 +41,14 @@ function toggleVisibleOneLog()
 	}
 	else
 	{
-		document.getElementById("oneLog").style.display = "inline-block";
+		if(logMenuLocation === "left" || logMenuLocation === "right")
+		{
+			document.getElementById("oneLog").style.display = "block";
+		}
+		else
+		{
+			document.getElementById("oneLog").style.display = "inline-block";
+		}
 	}
 }
 

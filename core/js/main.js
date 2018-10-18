@@ -4630,7 +4630,12 @@ function toggleSettingsSidebar()
 {
 	if(document.getElementById("settingsSideBar").style.display === "none")
 	{
-		document.getElementById("log").style.width = (window.innerWidth - 200)+"px";
+		var newWidth = window.innerWidth - 200;
+		if(logMenuLocation === "left" || logMenuLocation === "right")
+		{
+			newWidth -= document.getElementById("menu").getBoundingClientRect().width;
+		}
+		document.getElementById("log").style.width = newWidth+"px";
 		document.getElementById("log").style.marginLeft = "200px";
 		document.getElementById("settingsSideBar").style.display = "inline-block";
 	}
