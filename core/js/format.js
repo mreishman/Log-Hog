@@ -114,15 +114,28 @@ function formatJsonMessage(message, extraData)
 		var excapeHTML = false;
 		if(typeof newMessage !== "object")
 		{
-			var newerMessage = unescapeHTML(jsonMessage).replace(/\\/g,"\\\\");
+			var newerMessage = unescapeHTML(jsonMessage);
 			if(newerMessage !== "")
 			{
 				newMessage = jsonDecodeTry("" + newerMessage);
 				excapeHTML = true;
 				if(typeof newMessage !== "object")
 				{
-					//console.log(unescapeHTML(jsonMessage));
-					return message;
+					newerMessage = unescapeHTML(jsonMessage).replace(/\\/g,"\\\\");
+					if(newerMessage !== "")
+					{
+						newMessage = jsonDecodeTry("" + newerMessage);
+						excapeHTML = true;
+						if(typeof newMessage !== "object")
+						{
+							//console.log(unescapeHTML(jsonMessage));
+							return message;
+						}
+					}
+					else
+					{
+						return message;
+					}
 				}
 			}
 			else
