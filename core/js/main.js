@@ -1429,6 +1429,7 @@ function update(data)
 											if(currentPosOfOneLog !== false)
 											{
 												$("#log"+currentPosOfOneLog).html(makeOneLogPretty(logs["oneLog"]["logs"]));
+												scrollToBottom(currentPosOfOneLog);
 											}
 										}
 									}
