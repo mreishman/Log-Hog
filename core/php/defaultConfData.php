@@ -424,13 +424,31 @@ $defaultConfigMoreData = array(
 			4									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
+					"key"								=>	"enableHistory",
+					"name"								=>	"Enable History",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			5									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"oneLogEnable",
+					"name"								=>	"Enable One Log",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			6									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
 					"key"								=>	"rightClickMenuEnable",
 					"name"								=>	"Right Click Menu Enabled",
 					"options"							=>	$trueFalsVars,
 					"type"								=>	"dropdown"
 				)
 			),
-			5									=>	array(
+			7									=>	array(
 				"bool"								=>	($backupNumConfigEnabled == 'false'),
 				"id"								=>	"versionSaveContentSettings",
 				"name"								=>	"Backup Config Settings",
@@ -455,22 +473,13 @@ $defaultConfigMoreData = array(
 					)
 				)
 			),
-			6									=>	array(
+			8									=>	array(
 				"info"								=>	"This is for platforms where saving files might not be in sync with containers. Increasing from one will make saves take longer, but it will be more accurate if there is that sync delay",
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"successVerifyNum",
 					"name"								=>	"Save verification number",
 					"options"							=>	$saveVerifyArr,
-					"type"								=>	"dropdown"
-				)
-			),
-			7									=>	array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"enableHistory",
-					"name"								=>	"Enable History",
-					"options"							=>	$trueFalsVars,
 					"type"								=>	"dropdown"
 				)
 			),
