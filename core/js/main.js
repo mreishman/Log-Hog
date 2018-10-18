@@ -2190,6 +2190,17 @@ function toggleSideBarElements(internalID, currentCurrentSelectWindow)
 			document.getElementById("closeLogSideBar"+currentCurrentSelectWindow).style.display = "block";
 		}
 	}
+	else if(internalID === "oneLog")
+	{
+		if(document.getElementById("clearLogSideBar"+currentCurrentSelectWindow).style.display !== "none")
+		{
+			document.getElementById("clearLogSideBar"+currentCurrentSelectWindow).style.display = "none";
+		}
+		if(document.getElementById("deleteLogSideBar"+currentCurrentSelectWindow).style.display !== "none")
+		{
+			document.getElementById("deleteLogSideBar"+currentCurrentSelectWindow).style.display = "none";
+		}
+	}
 	else
 	{
 		if(document.getElementById("clearLogSideBar"+currentCurrentSelectWindow).style.display === "none")
