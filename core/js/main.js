@@ -1399,34 +1399,37 @@ function update(data)
 							//update one log if needed
 							if(oneLogEnable === "true" && !firstLoad)
 							{
-								if(!firstLoad && diffNew !== "(0)")
+								if(fullPathSearch in fileData && fileData[fullPathSearch]["AlertEnabled"] === "true" && (!(id in alertEnabledArray) || (id in alertEnabledArray && alertEnabledArray[id] === "enabled")))
 								{
-									//check if initial load
-									oneLogInitialLoadCheck();
-									var currentLengthOfOneLogLogs = oneLogLogData["logs"].length - 1;
-									if(currentLengthOfOneLogLogs >= 0 && oneLogLogData["logs"][currentLengthOfOneLogLogs]["logId"] === id)
+									if(!firstLoad && diffNew !== "(0)")
 									{
-										//add to this one
-										oneLogLogData["logs"][currentLengthOfOneLogLogs]["logId"] += newDiffText
-									}
-									else
-									{
-										var oneLogTitle = titles[id];
-										if(titles[id].indexOf("|") > -1)
+										//check if initial load
+										oneLogInitialLoadCheck();
+										var currentLengthOfOneLogLogs = oneLogLogData["logs"].length - 1;
+										if(currentLengthOfOneLogLogs >= 0 && oneLogLogData["logs"][currentLengthOfOneLogLogs]["logId"] === id)
 										{
-											oneLogTitle = titles[id].split("|")[0];
+											//add to this one
+											oneLogLogData["logs"][currentLengthOfOneLogLogs]["logId"] += newDiffText
 										}
-										oneLogTitle += "("+newDiff+")";
-										//create new entry below
-										oneLogLogData["logs"].push({
-											logName: oneLogTitle,
-											logData: newDiffText,
-											logId: id
-										});
-										var currentPosOfOneLog = isOneLogVisible();
-										if(currentPosOfOneLog !== false)
+										else
 										{
-											$("#log"+currentPosOfOneLog).html(makeOneLogPretty(logs["oneLog"]["logs"]));
+											var oneLogTitle = titles[id];
+											if(titles[id].indexOf("|") > -1)
+											{
+												oneLogTitle = titles[id].split("|")[0];
+											}
+											oneLogTitle += "("+newDiff+")";
+											//create new entry below
+											oneLogLogData["logs"].push({
+												logName: oneLogTitle,
+												logData: newDiffText,
+												logId: id
+											});
+											var currentPosOfOneLog = isOneLogVisible();
+											if(currentPosOfOneLog !== false)
+											{
+												$("#log"+currentPosOfOneLog).html(makeOneLogPretty(logs["oneLog"]["logs"]));
+											}
 										}
 									}
 								}
