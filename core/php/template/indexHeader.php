@@ -184,19 +184,28 @@
 				?>
 			</div>
 		</span>
+		<?php if ($groupDropdownInHeader === "true"): ?>
+			<div class="selectDiv">
+				<select id="selectForGroup" >
+					<option selected="true" value="all" >All</option>
+				</select>
+			</div>
+		<?php endif; ?>
 		<div style="float: right;">
 			<input disabled id="searchFieldInput" type="search" name="search" placeholder="Filter <?php echo $filterDefault; ?>" style="height: 30px; width: 200px; margin-right: 10px;">
 		</div>
 	</div>
 	<div id="menu2" style="display: none; position: inherit;">
 		<div id="groupSubMenu" style="display: none;" >
-			Groups:
-			<div class="selectDiv">
-				<select id="selectForGroup" >
-					<option selected="true" value="all" >All</option>
-				</select>
-			</div>
-			|
+			<?php if ($groupDropdownInHeader !== "true"): ?>
+				Groups:
+				<div class="selectDiv">
+					<select id="selectForGroup" >
+						<option selected="true" value="all" >All</option>
+					</select>
+				</div>
+				|
+			<?php endif; ?>
 			Search:
 			<div class="selectDiv" >
 				<select id="searchType" disabled name="searchType">

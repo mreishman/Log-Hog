@@ -249,6 +249,7 @@ $defaultConfig = array(
 	'fullScreenMenuPollSwitchType'	=> 'BGrate',
 	'groupByColorEnabled'			=> 'true',
 	'groupByType'					=> 'folder',
+	'groupDropdownInHeader'			=> 'false',
 	'hideClearAllNotifications'		=> 'true',
 	'hideEmptyLog'					=> 'false',
 	'highlightColorBG'				=> '#FFFF00',

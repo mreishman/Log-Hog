@@ -995,6 +995,15 @@ $defaultConfigMoreData = array(
 				)
 			),
 			2									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"groupDropdownInHeader",
+					"name"								=>	"Show Group dropdown in header",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			3									=>	array(
 				"bool"								=>	($bottomBarIndexShow == 'false'),
 				"id"								=>	"sidebarContentSettings",
 				"name"								=>	"Sidebar Settings",
@@ -1032,7 +1041,7 @@ $defaultConfigMoreData = array(
 					)
 				)
 			),
-			3									=> array(
+			4									=> array(
 				"type"								=>	"linked",
 				"vars"								=>	array(
 					0									=>	array(
@@ -1055,7 +1064,7 @@ $defaultConfigMoreData = array(
 					)
 				)
 			),
-			4									=>	array(
+			5									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"hideEmptyLog",
@@ -1064,7 +1073,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			5									=>	array(
+			6									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"notificationCountVisible",
@@ -1073,7 +1082,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			6									=>	array(
+			7									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"logTitle",
@@ -1089,7 +1098,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			7									=>	array(
+			8									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"logMenuLocation",
@@ -1111,7 +1120,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			8									=>	array(
+			9									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"logNameFormat",
@@ -1133,7 +1142,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			9									=>	array(
+			10									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"logNameExtension",
@@ -1142,7 +1151,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			10									=>	array(
+			11									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"logNameGroup",
@@ -1151,7 +1160,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			11									=>	array(
+			12									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"addonsAsIframe",
@@ -1160,7 +1169,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			12									=>	array(
+			13									=>	array(
 				"info"								=>	"If a log tab is not visible (either below of above scroll area), a bar will flash as notification",
 				"type"								=>	"single",
 				"var"								=>	array(
@@ -1170,7 +1179,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			13									=>	array(
+			14									=>	array(
 				"info"								=>	"1400 Breakpoint shows only images on full screen sidebar, 1000 breakpoint is the same but moves the inner sidebar to the top",
 				"type"								=>	"single",
 				"var"								=>	array(
