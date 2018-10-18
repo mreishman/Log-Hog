@@ -114,7 +114,7 @@ function formatJsonMessage(message, extraData)
 		var excapeHTML = false;
 		if(typeof newMessage !== "object")
 		{
-			var newerMessage = unescapeHTML(jsonMessage);
+			var newerMessage = unescapeHTML(jsonMessage).replace(/\\/g,"\\\\");
 			if(newerMessage !== "")
 			{
 				newMessage = jsonDecodeTry("" + newerMessage);
