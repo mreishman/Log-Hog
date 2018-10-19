@@ -1294,6 +1294,15 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
+			2									=> array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"oneLogVisibleDisableUpdate",
+					"name"								=>	"Show Update Notifications if oneLog is open",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
 		)
 	),
 	"otherVars"							=>	array(

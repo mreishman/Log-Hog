@@ -7,7 +7,7 @@ function addOneLogTab()
 {
 	var menu = $("#menu");
 	var blank = $("#storage .menuItem").html();
-	var nameForLog = "New";
+	var nameForLog = "oneLog";
 	classInsert = "";
 	var item = blank;
 	item = item.replace(/{{title}}/g, nameForLog);

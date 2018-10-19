@@ -197,6 +197,7 @@ function selectLogPopup(locationForNewLogText)
 		type: "POST",
 		success(data)
 		{
+			data["oneLog"] = {};
 			var popupFileList = Object.keys(data);
 			var popupFileListLength = popupFileList.length;
 			var htmlForPopup = "";

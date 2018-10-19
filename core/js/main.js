@@ -1369,7 +1369,7 @@ function update(data)
 							}
 							else
 							{
-								if(!firstLoad)
+								if(!firstLoad && (oneLogEnable === "false" || isOneLogVisible() === "false" || oneLogVisibleDisableUpdate === "false"))
 								{
 									if(autoMoveUpdateLog === "true")
 									{

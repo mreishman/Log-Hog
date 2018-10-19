@@ -291,6 +291,7 @@ $defaultConfig = array(
 	'oneLogEnable'					=> 'true',
 	'oneLogMaxLength'				=> 20,
 	'oneLogVisible'					=> 'true',
+	'oneLogVisibleDisableUpdate'	=> 'false',
 	'overallBrightness'				=> 100,
 	'pauseOnNotFocus'				=> 'true',
 	'pausePoll'						=> 'false',
