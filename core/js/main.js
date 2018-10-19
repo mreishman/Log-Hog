@@ -3110,6 +3110,7 @@ function deleteLog(title)
 		{
 			title = title.split(" | ")[0];
 		}
+		title = title.trim();
 		archiveAction(title);
 		var urlForSend = "core/php/deleteLog.php?format=json";
 		title = title.replace(/\s/g, "");
