@@ -80,6 +80,10 @@ function checkIfChanges()
 	{
 		arrayToCheck.push("settingsWatchlistVars");
 	}
+	if(document.getElementById("settingsOneLogVars"))
+	{
+		arrayToCheck.push("settingsOneLogVars");
+	}
 	if(document.getElementById("settingsMultiLogVars"))
 	{
 		arrayToCheck.push("settingsMultiLogVars");
@@ -284,6 +288,10 @@ $( document ).ready(function()
 	if(document.getElementById("settingsWatchlistVars"))
 	{
 		arrayToRefresh.push("settingsWatchlistVars");
+	}
+	if(document.getElementById("settingsOneLogVars"))
+	{
+		arrayToRefresh.push("settingsOneLogVars");
 	}
 	if(document.getElementById("settingsMainVars"))
 	{

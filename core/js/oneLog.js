@@ -86,3 +86,45 @@ function isOneLogVisible()
 	}
 	return false;
 }
+
+function scrollOneLogIfVisible()
+{
+	var currentPosOfOneLog = isOneLogVisible();
+	if(currentPosOfOneLog !== false)
+	{
+		$("#log"+currentPosOfOneLog).html(makeOneLogPretty(logs["oneLog"]["logs"]));
+		scrollToBottom(currentPosOfOneLog);
+	}
+}
+
+function updateOneLogData(id, newDiff, newDiffText)
+{
+	//check if initial load
+	oneLogInitialLoadCheck();
+	var currentLengthOfOneLogLogs = oneLogLogData["logs"].length - 1;
+	if(currentLengthOfOneLogLogs >= oneLogMaxLength)
+	{
+		oneLogLogData["logs"].shift();
+		currentLengthOfOneLogLogs--;
+	}
+	if(currentLengthOfOneLogLogs >= 0 && oneLogLogData["logs"][currentLengthOfOneLogLogs]["logId"] === id)
+	{
+		//add to this one
+		oneLogLogData["logs"][currentLengthOfOneLogLogs]["logId"] += newDiffText
+	}
+	else
+	{
+		var oneLogTitle = titles[id];
+		if(titles[id].indexOf("|") > -1)
+		{
+			oneLogTitle = titles[id].split("|")[0];
+		}
+		oneLogTitle += "("+newDiff+")";
+		//create new entry below
+		oneLogLogData["logs"].push({
+			logName: oneLogTitle,
+			logData: newDiffText,
+			logId: id
+		});
+	}
+}

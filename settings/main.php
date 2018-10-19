@@ -50,6 +50,11 @@ require_once('../core/php/loadVars.php');
 		include('../core/php/template/varTemplate.php');
 		$currentSection = "watchlistVars";
 		include('../core/php/template/varTemplate.php');
+		if($oneLogEnable === "true")
+		{
+			$currentSection = "oneLogVars";
+			include('../core/php/template/varTemplate.php');
+		}
 		if($enableMultiLog === "true")
 		{
 			$currentSection = "multiLogVars";

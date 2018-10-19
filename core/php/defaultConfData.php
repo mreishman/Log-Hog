@@ -33,6 +33,7 @@ for ($k=0; $k < 3; $k++)
 $fontSizeVars = array();
 $brightessVars = array();
 $logPaddingVars = array();
+$oneLogNum = array();
 for ($m=0; $m < 20; $m++)
 {
 	if($m >= 5)
@@ -40,6 +41,13 @@ for ($m=0; $m < 20; $m++)
 		$fontSizeVars[$m] = array(
 			"value" 					=> ($m*10),
 			"name" 						=> ($m*10)."%");
+	}
+
+	if($m >= 1 && $m <= 10)
+	{
+		$oneLogNum[$m] = array(
+			"value" 					=> ($m*10),
+			"name" 						=> ($m*10));
 	}
 
 	if($m >= 2 && $m <= 15)
@@ -1262,6 +1270,30 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			)
+		)
+	),
+	"oneLogVars"						=>	array(
+		"id"								=>	"settingsOneLogVars",
+		"name"								=>	"One Log Settings",
+		"vars"								=> array(
+			0									=> array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"oneLogVisible",
+					"name"								=>	"One Log Visible",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			1									=> array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"oneLogMaxLength",
+					"name"								=>	"Max logs in one log",
+					"options"							=>	$oneLogNum,
+					"type"								=>	"dropdown"
+				)
+			),
 		)
 	),
 	"otherVars"							=>	array(

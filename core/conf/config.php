@@ -289,6 +289,7 @@ $defaultConfig = array(
 	'notificationCountVisible'		=> 'true',
 	'offscreenLogNotify'			=> 'true',
 	'oneLogEnable'					=> 'true',
+	'oneLogMaxLength'				=> 20,
 	'oneLogVisible'					=> 'true',
 	'overallBrightness'				=> 100,
 	'pauseOnNotFocus'				=> 'true',
