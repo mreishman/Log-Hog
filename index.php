@@ -123,7 +123,7 @@ $externalLinkImage = generateImage(
 			</div>
 		<div style="overflow: hidden; display: block;">
 			<?php require_once("core/php/template/indexHeader.php"); ?>
-			<div class="backgroundForMenus" id="menu" style="position: absolute;"></div>
+			<div class="backgroundForMenus" id="menu" style="position: absolute; display: none;"></div>
 			<span id="stars" style="display: block;" ></span>
 			<span id="stars2" style="display: block;" ></span>
 			<span id="stars3" style="display: block;" ></span>
