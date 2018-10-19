@@ -2795,6 +2795,7 @@ function clearLogInner(title)
 	{
 		title = title.split(" | ")[0];
 	}
+	title = title.trim();
 	archiveAction(title);
 	title = filterTitle(title);
 	var data = {file: title};
