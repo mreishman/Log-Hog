@@ -38,19 +38,10 @@ require_once('../core/php/configStatic.php');
 </body>
 <script src="restore.js?v=<?php echo $cssVersion?>"></script>
 <script type="text/javascript">
-
-var retryCount = 0;
-var verifyCount = 0;
-var lock = false;
-var directory = "../../top/";
-var urlForSendMain = './php/performSettingsInstallUpdateAction.php?format=json';
-var verifyFileTimer = null;
-var dotsTimer = null;
 var fileVersionDownload = null;
 <?php if($versionToRestoreTo != 0): ?>
 fileVersionDownload = '<?php echo $versionToRestoreTo; ?>';
 <?php endif ;?>
-var verifyCountSuccess = 0;
 
 $( document ).ready(function() 
 {

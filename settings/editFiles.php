@@ -27,6 +27,7 @@ require_once('../core/php/template/listOfFiles.php');
 	<?php echo loadCSS("../",$baseUrl, $cssVersion);?>
 	<link rel="icon" type="image/png" href="../core/img/favicon.png" />
 	<script src="../core/js/jquery.js"></script>
+	<script src="../core/js/editFiles.js?v=<?php echo $jsVersion?>"></script>
 </head>
 <body>
 	<?php require_once("../core/php/customCSS.php");?>
@@ -68,71 +69,18 @@ require_once('../core/php/template/listOfFiles.php');
 			    	</div>
 				    <table width="100%">
 				    	<tr height="1000px">
-				    		<th>
-				    		</th>
+							<th></th>
 				    	</tr>
 				    </table>
 				</div>
 			</td>
 			<td id="rightCol">
-				<form style="background-color: white;  word-wrap: break-word;" id="document">
-				</form>
+				<form style="background-color: white;  word-wrap: break-word;" id="document"></form>
 			</td>
 		</tr>
 	</table>
 </body>
-<?php
-
-$value = json_encode(highlight_file('../local/'.$currentSelectedTheme.'/conf/config.php', true));
-
-?>
 <script type="text/javascript">
-
-	$(document).ready(function()
-	{
-		var newValue = (<?php echo $value; ?>);
-		showFile(newValue, "LocalConfig");
-
-		var targetHeight = window.innerHeight - $("#fixed").outerHeight() - 10;
-		$("#scrollable").outerHeight(targetHeight);
-
-		var targetWidth = window.innerWidth - $("#leftCol").outerWidth() - 30;
-		$("#rightCol").outerWidth(targetWidth);
-		$("#document").outerWidth(targetWidth);
-	});
-
-	function loadFile(filepath, name)
-	{
-		var urlForSend = "../core/php/returnFileContents.php?format=json";
-		var data = {file: "../../"+filepath};
-		$.ajax(
-		{
-			url: urlForSend,
-			data,
-			name,
-			type: "POST",
-			success(data)
-			{
-				showFile(data, this.name)
-			},
-			error(data, data2)
-			{
-				console.log(data);
-				console.log(data2);
-			},
-			complete()
-			{
-				console.log("Fin");
-			}
-		});
-	}
-
-	function showFile(data, name)
-	{
-		$(".documentLink").removeClass("active");
-		$("#"+name+"Link").addClass("active");
-		document.getElementById("document").innerHTML = data;
-	}
-
+	var newValue = (<?php echo json_encode(highlight_file('../local/'.$currentSelectedTheme.'/conf/config.php', true)); ?>);
 </script>
 </html>
