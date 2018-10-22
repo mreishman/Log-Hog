@@ -66,6 +66,9 @@ for ($m=0; $m < 20; $m++)
 			"value" 					=> (($m*15)+100),
 			"name" 						=> (($m*15)+100)."px");
 }
+$oneLogLogMaxHeight[20] = array(
+			"value" 					=> 400,
+			"name" 						=> "400px");
 
 $branchOptionsArr = array(
 0 					=> array(

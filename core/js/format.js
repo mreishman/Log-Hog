@@ -159,7 +159,7 @@ function formatJsonMessage(message, extraData)
 			var messageTwoIsObject = false;
 			if(typeof messageTwo === "object")
 			{
-				messageTwo = formatJsonMessage(JSON.stringify(messageTwo), extraData);
+				messageTwo = formatMainMessage(JSON.stringify(messageTwo), extraData);
 				messageTwoIsObject = true;
 			}
 			if(excapeHTML)
