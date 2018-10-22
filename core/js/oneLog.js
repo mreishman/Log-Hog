@@ -123,7 +123,7 @@ function updateOneLogData(id, newDiff, newDiffText)
 	if(oneLogMergeLast === "true" && currentLengthOfOneLogLogs >= 0 && oneLogLogData["logs"][currentLengthOfOneLogLogs]["logId"] === id)
 	{
 		//add to this one
-		oneLogLogData["logs"][currentLengthOfOneLogLogs]["logId"] += newDiffText;
+		oneLogLogData["logs"][currentLengthOfOneLogLogs]["logData"] += newDiffText;
 		oneLogLogData["logs"][currentLengthOfOneLogLogs]["new"] = true;
 	}
 	else
