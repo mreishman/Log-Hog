@@ -289,6 +289,7 @@ $defaultConfig = array(
 	'notificationCountVisible'		=> 'true',
 	'offscreenLogNotify'			=> 'true',
 	'oneLogEnable'					=> 'true',
+	'oneLogHighlight'				=> 'titleBar',
 	'oneLogLogMaxHeight'			=> 205,
 	'oneLogMaxLength'				=> 20,
 	'oneLogMergeLast'				=> 'true',

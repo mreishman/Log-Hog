@@ -1328,6 +1328,28 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
+			5									=> array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"oneLogHighlight",
+					"name"								=>	"One Log Highlight",
+					"options"							=>	array(
+							0 									=> array(
+								"value" 							=> "none",
+								"name" 								=> "None"),
+							1 									=> array(
+								"value" 							=> "titleBar",
+								"name" 								=> "Just Title Bar"),
+							2									=> array(
+								"value" 							=> "body",
+								"name" 								=> "Just Body"),
+							3									=> array(
+								"value" 							=> "all",
+								"name" 								=> "All")
+						),
+					"type"								=>	"dropdown"
+				)
+			),
 		)
 	),
 	"otherVars"							=>	array(

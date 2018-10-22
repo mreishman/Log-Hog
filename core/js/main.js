@@ -1405,7 +1405,12 @@ function update(data)
 									if(!firstLoad && diffNew !== "(0)")
 									{
 										updateOneLogData(id, newDiff, newDiffText);
-										scrollOneLogIfVisible();
+										var oneLogPos = isOneLogVisible();
+										if(oneLogPos !== false)
+										{
+											scrollOneLogIfVisible(oneLogPos);
+											fadeHighlight(oneLogPos);
+										}
 									}
 								}
 							}
@@ -2125,7 +2130,7 @@ function showPartTwo(e, internalID, currentCurrentSelectWindow)
 		var formattedHtml = "";
 		if(typeof logs[internalID] === "object" && "id" in logs[internalID] && logs[internalID]["id"] === "oneLog")
 		{
-			formattedHtml = makeOneLogPretty(logs[internalID]["logs"]);
+			formattedHtml = makeOneLogPretty();
 		}
 		else if(logs[internalID].indexOf("errorMessageLog errorMessageRedBG") > -1 || logs[internalID].indexOf("errorMessageLog errorMessageGreenBG") > -1)
 		{

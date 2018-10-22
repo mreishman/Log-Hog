@@ -52,15 +52,32 @@ function toggleVisibleOneLog()
 	}
 }
 
-function makeOneLogPretty(arrayOfLogs)
+function makeOneLogPretty()
 {
 	var htmlToReturn = "";
-	var lengthOfArray = arrayOfLogs.length;
+	var lengthOfArray = logs["oneLog"]["logs"].length;
 	for(var i = 0; i < lengthOfArray; i++)
 	{
-		var currentLog = arrayOfLogs[i];
-		htmlToReturn += "<div class=\"settingsHeader\" style=\"padding-left: 40px;\" >"+currentLog["logName"]+"</div>";
-		htmlToReturn += "<div class=\"settingsDiv\" style=\"max-height: "+oneLogLogMaxHeight+"px; overflow: auto;\" >"+makePrettyWithText(currentLog["logData"], 0)+"</div>";
+		var currentLog = logs["oneLog"]["logs"][i];
+		htmlToReturn += "<div class=\"settingsHeader ";
+		if(logs["oneLog"]["logs"]["new"] === true)
+		{
+			if(highlightNew === "true" && (oneLogHighlight === "titleBar" || oneLogHighlight === "all"))
+			{
+				htmlToReturn += " highlight "
+			}
+		}
+		htmlToReturn += " \" style=\"padding-left: 40px;\" >"+currentLog["logName"]+"</div>";
+		htmlToReturn += "<div class=\"settingsDiv ";
+		if(logs["oneLog"]["logs"]["new"] === true)
+		{
+			logs["oneLog"]["logs"]["new"] = false;
+			if(highlightNew === "true" && (oneLogHighlight === "body" || oneLogHighlight === "all"))
+			{
+				htmlToReturn += " highlight "
+			}
+		}
+		htmlToReturn += " \" style=\"max-height: "+oneLogLogMaxHeight+"px; overflow: auto;\" >"+makePrettyWithText(currentLog["logData"], 0)+"</div>";
 	}
 	return htmlToReturn;
 }
@@ -87,14 +104,10 @@ function isOneLogVisible()
 	return false;
 }
 
-function scrollOneLogIfVisible()
+function scrollOneLogIfVisible(currentPosOfOneLog)
 {
-	var currentPosOfOneLog = isOneLogVisible();
-	if(currentPosOfOneLog !== false)
-	{
-		$("#log"+currentPosOfOneLog).html(makeOneLogPretty(logs["oneLog"]["logs"]));
-		scrollToBottom(currentPosOfOneLog);
-	}
+	$("#log"+currentPosOfOneLog).html(makeOneLogPretty());
+	scrollToBottom(currentPosOfOneLog);
 }
 
 function updateOneLogData(id, newDiff, newDiffText)
@@ -110,7 +123,8 @@ function updateOneLogData(id, newDiff, newDiffText)
 	if(oneLogMergeLast === "true" && currentLengthOfOneLogLogs >= 0 && oneLogLogData["logs"][currentLengthOfOneLogLogs]["logId"] === id)
 	{
 		//add to this one
-		oneLogLogData["logs"][currentLengthOfOneLogLogs]["logId"] += newDiffText
+		oneLogLogData["logs"][currentLengthOfOneLogLogs]["logId"] += newDiffText;
+		oneLogLogData["logs"][currentLengthOfOneLogLogs]["new"] = true;
 	}
 	else
 	{
@@ -124,7 +138,8 @@ function updateOneLogData(id, newDiff, newDiffText)
 		oneLogLogData["logs"].push({
 			logName: oneLogTitle,
 			logData: newDiffText,
-			logId: id
+			logId: id,
+			new: true
 		});
 	}
 }
