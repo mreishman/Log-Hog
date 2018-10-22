@@ -1318,7 +1318,7 @@ $defaultConfigMoreData = array(
 				)
 			),
 			4									=> array(
-				"info"								=>	"when updating, if the last log is the same as the new log, it will merge the new lines into that box"
+				"info"								=>	"when updating, if the last log is the same as the new log, it will merge the new lines into that box",
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"oneLogMergeLast",
