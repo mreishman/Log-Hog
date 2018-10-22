@@ -143,3 +143,17 @@ function updateOneLogData(id, newDiff, newDiffText)
 		});
 	}
 }
+
+function openLogInFull()
+{
+	if(Object.keys(logDisplayArray).length === 1)
+	{
+		//generate window from 1 to 2
+		document.getElementById("windowConfig").value = "1x2";
+		generateWindowDisplay();
+	}
+	else
+	{
+		//already greater than 2, pick either one or two
+	}
+}

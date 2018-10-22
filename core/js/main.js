@@ -1004,6 +1004,7 @@ function update(data)
 		var initialized = $("#menu a").length !== 0;
 		var folderNamePrev = "?-1";
 		var folderNameCount = -1;
+		var atLeastOneLogUpdate = false;
 		if(oneLogEnable === "true")
 		{
 			folderNameCount++;
@@ -1405,12 +1406,7 @@ function update(data)
 									if(!firstLoad && diffNew !== "(0)")
 									{
 										updateOneLogData(id, newDiff, newDiffText);
-										var oneLogPos = isOneLogVisible();
-										if(oneLogPos !== false)
-										{
-											scrollOneLogIfVisible(oneLogPos);
-											fadeHighlight(oneLogPos);
-										}
+										atLeastOneLogUpdate = true;
 									}
 								}
 							}
@@ -1446,6 +1442,16 @@ function update(data)
 						break;
 					}
 				}
+			}
+		}
+
+		if(atLeastOneLogUpdate === true)
+		{
+			var oneLogPos = isOneLogVisible();
+			if(oneLogPos !== false)
+			{
+				scrollOneLogIfVisible(oneLogPos);
+				fadeHighlight(oneLogPos);
 			}
 		}
 
