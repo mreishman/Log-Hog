@@ -4357,6 +4357,53 @@ function updateOtherApps()
 
 function generateWindowDisplay()
 {
+	var localData = generateWindowDisplayInner();
+	var arrayOfPrevLogs = localData["arrayOfPrevLogs"];
+	if(startOfPollLogicRan === false)
+	{
+		startOfPollLogic();
+	}
+	else
+	{
+		if(logSwitchKeepCurrent === "true")
+		{
+			if(arrayOfPrevLogs !== {})
+			{
+				setTimeout(function() {
+					loadPrevLogContent(arrayOfPrevLogs);
+				}, 1);
+			}
+		}
+		else if(logSwitchKeepCurrent === "onlyIfPresetDefined")
+		{
+			//Check for preset before unselect
+			if(logSwitchABCClearAll === "true")
+			{
+				unselectAllLogs();
+			}
+			else
+			{
+				if(arrayOfPrevLogs !== {})
+				{
+					setTimeout(function() {
+						loadPrevLogContent(arrayOfPrevLogs);
+					}, 1);
+				}
+			}
+		}
+		else
+		{
+			//unselect all logs
+			unselectAllLogs();
+		}
+		setTimeout(function() {
+			generalUpdate();
+		}, 2);
+	}
+}
+
+function generateWindowDisplayInner()
+{
 	var windowDisplayConfig = getCurrentWindowLayout();
 	var windowDisplayConfigArray = windowDisplayConfig.split("x");
 	windowDisplayConfigRowCount = windowDisplayConfigArray[0];
@@ -4427,46 +4474,8 @@ function generateWindowDisplay()
 		currentSelectWindow = (Object.keys(logDisplayArray).length -1);
 	}
 	resize();
-	if(startOfPollLogicRan === false)
-	{
-		startOfPollLogic();
-	}
-	else
-	{
-		if(logSwitchKeepCurrent === "true")
-		{
-			if(arrayOfPrevLogs !== {})
-			{
-				setTimeout(function() {
-					loadPrevLogContent(arrayOfPrevLogs);
-				}, 1);
-			}
-		}
-		else if(logSwitchKeepCurrent === "onlyIfPresetDefined")
-		{
-			//Check for preset before unselect
-			if(logSwitchABCClearAll === "true")
-			{
-				unselectAllLogs();
-			}
-			else
-			{
-				if(arrayOfPrevLogs !== {})
-				{
-					setTimeout(function() {
-						loadPrevLogContent(arrayOfPrevLogs);
-					}, 1);
-				}
-			}
-		}
-		else
-		{
-			//unselect all logs
-			unselectAllLogs();
-		}
-		setTimeout(function() {
-			generalUpdate();
-		}, 2);
+	return{
+		"arrayOfPrevLogs" : arrayOfPrevLogs
 	}
 }
 

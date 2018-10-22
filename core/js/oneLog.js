@@ -59,19 +59,29 @@ function makeOneLogPretty()
 	for(var i = 0; i < lengthOfArray; i++)
 	{
 		var currentLog = logs["oneLog"]["logs"][i];
-		htmlToReturn += "<div class=\"settingsHeader ";
-		if(logs["oneLog"]["logs"]["new"] === true)
+		htmlToReturn += "<div ";
+		if(currentLog["logId"] !== "noLogUpdate")
+		{
+			htmlToReturn += "onclick=\"openLogInFull('"+currentLog["logId"]+"')\" ";
+		}
+		htmlToReturn += " class=\"settingsHeader ";
+		if(currentLog["new"] === true)
 		{
 			if(highlightNew === "true" && (oneLogHighlight === "titleBar" || oneLogHighlight === "all"))
 			{
 				htmlToReturn += " highlight "
 			}
 		}
-		htmlToReturn += " \" style=\"padding-left: 40px;\" >"+currentLog["logName"]+"</div>";
+		htmlToReturn += " \" style=\"padding-left: 40px; ";
+		if(currentLog["logId"] !== "noLogUpdate")
+		{
+			htmlToReturn += " cursor: pointer; "
+		}
+		htmlToReturn += " \" >"+currentLog["logName"]+"</div>";
 		htmlToReturn += "<div class=\"settingsDiv ";
 		if(logs["oneLog"]["logs"]["new"] === true)
 		{
-			logs["oneLog"]["logs"]["new"] = false;
+			currentLog["new"] = false;
 			if(highlightNew === "true" && (oneLogHighlight === "body" || oneLogHighlight === "all"))
 			{
 				htmlToReturn += " highlight "
@@ -128,11 +138,7 @@ function updateOneLogData(id, newDiff, newDiffText)
 	}
 	else
 	{
-		var oneLogTitle = titles[id];
-		if(titles[id].indexOf("|") > -1)
-		{
-			oneLogTitle = titles[id].split("|")[0];
-		}
+		var oneLogTitle = filterTitle(titles[id]);
 		oneLogTitle += "("+newDiff+")";
 		//create new entry below
 		oneLogLogData["logs"].push({
@@ -144,16 +150,36 @@ function updateOneLogData(id, newDiff, newDiffText)
 	}
 }
 
-function openLogInFull()
+function openLogInFull(logId)
 {
-	if(Object.keys(logDisplayArray).length === 1)
+	var currentOneLogPosition = isOneLogVisible();
+	if(oneLogNewBlockClick === "true")
 	{
-		//generate window from 1 to 2
-		document.getElementById("windowConfig").value = "1x2";
-		generateWindowDisplay();
+		var firstPosition = 0;
+		var secondPosition = 1;
+		if(Object.keys(logDisplayArray).length === 1)
+		{
+			//generate window from 1 to 2
+			document.getElementById("windowConfig").value = "1x2";
+			generateWindowDisplayInner();
+		}
+		else
+		{
+			//already greater than 2, pick either one or two
+			if(currentOneLogPosition !== 0)
+			{
+				firstPosition = 1;
+				secondPosition = 0;
+			}
+		}
+		changeCurrentSelectWindow(secondPosition);
+		document.getElementById(logId).click();
+		changeCurrentSelectWindow(firstPosition);
+		document.getElementById("oneLog").click();
 	}
 	else
 	{
-		//already greater than 2, pick either one or two
+		changeCurrentSelectWindow(currentOneLogPosition);
+		document.getElementById(logId).click();
 	}
 }
