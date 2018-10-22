@@ -55,10 +55,10 @@ function toggleVisibleOneLog()
 function makeOneLogPretty()
 {
 	var htmlToReturn = "";
-	var lengthOfArray = logs["oneLog"]["logs"].length;
+	var lengthOfArray = oneLogLogData["logs"].length;
 	for(var i = 0; i < lengthOfArray; i++)
 	{
-		var currentLog = logs["oneLog"]["logs"][i];
+		var currentLog = oneLogLogData["logs"][i];
 		htmlToReturn += "<div ";
 		if(currentLog["logId"] !== "noLogUpdate")
 		{
@@ -69,7 +69,7 @@ function makeOneLogPretty()
 		{
 			if(highlightNew === "true" && (oneLogHighlight === "titleBar" || oneLogHighlight === "all"))
 			{
-				htmlToReturn += " highlight "
+				htmlToReturn += " newLine "
 			}
 		}
 		htmlToReturn += " \" style=\"padding-left: 40px; ";
@@ -79,12 +79,12 @@ function makeOneLogPretty()
 		}
 		htmlToReturn += " \" >"+currentLog["logName"]+"</div>";
 		htmlToReturn += "<div class=\"settingsDiv ";
-		if(logs["oneLog"]["logs"]["new"] === true)
+		if(currentLog["new"] === true)
 		{
-			currentLog["new"] = false;
+			oneLogLogData["logs"][i]["new"] = false;
 			if(highlightNew === "true" && (oneLogHighlight === "body" || oneLogHighlight === "all"))
 			{
-				htmlToReturn += " highlight "
+				htmlToReturn += " newLine "
 			}
 		}
 		htmlToReturn += " \" style=\"max-height: "+oneLogLogMaxHeight+"px; overflow: auto;\" >"+makePrettyWithText(currentLog["logData"], 0)+"</div>";
