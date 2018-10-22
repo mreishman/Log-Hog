@@ -1300,10 +1300,11 @@ $defaultConfigMoreData = array(
 				)
 			),
 			2									=> array(
+				"info"								=>	"When one log is visible and open, log updates wont trigger notifactions or highlight the tab."
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"oneLogVisibleDisableUpdate",
-					"name"								=>	"Show Update Notifications if oneLog is open",
+					"name"								=>	"Hide update log notifications if one log visible",
 					"options"							=>	$trueFalsVars,
 					"type"								=>	"dropdown"
 				)
