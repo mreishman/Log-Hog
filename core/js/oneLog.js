@@ -60,7 +60,7 @@ function makeOneLogPretty(arrayOfLogs)
 	{
 		var currentLog = arrayOfLogs[i];
 		htmlToReturn += "<div class=\"settingsHeader\" style=\"padding-left: 40px;\" >"+currentLog["logName"]+"</div>";
-		htmlToReturn += "<div class=\"settingsDiv\" style=\"max-height: 200px; overflow: auto;\" >"+makePrettyWithText(currentLog["logData"], 0)+"</div>";
+		htmlToReturn += "<div class=\"settingsDiv\" style=\"max-height: "+oneLogLogMaxHeight+"px; overflow: auto;\" >"+makePrettyWithText(currentLog["logData"], 0)+"</div>";
 	}
 	return htmlToReturn;
 }
@@ -107,7 +107,7 @@ function updateOneLogData(id, newDiff, newDiffText)
 		oneLogLogData["logs"].shift();
 		currentLengthOfOneLogLogs--;
 	}
-	if(currentLengthOfOneLogLogs >= 0 && oneLogLogData["logs"][currentLengthOfOneLogLogs]["logId"] === id)
+	if(oneLogMergeLast === "true" && currentLengthOfOneLogLogs >= 0 && oneLogLogData["logs"][currentLengthOfOneLogLogs]["logId"] === id)
 	{
 		//add to this one
 		oneLogLogData["logs"][currentLengthOfOneLogLogs]["logId"] += newDiffText

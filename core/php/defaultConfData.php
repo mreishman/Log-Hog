@@ -34,6 +34,7 @@ $fontSizeVars = array();
 $brightessVars = array();
 $logPaddingVars = array();
 $oneLogNum = array();
+$oneLogLogMaxHeight = array();
 for ($m=0; $m < 20; $m++)
 {
 	if($m >= 5)
@@ -60,6 +61,10 @@ for ($m=0; $m < 20; $m++)
 	$logPaddingVars[$m] = array(
 			"value" 					=> $m,
 			"name" 						=> $m."px");
+
+	$oneLogLogMaxHeight[$m] = array(
+			"value" 					=> (($m*15)+100),
+			"name" 						=> (($m*15)+100)."px");
 }
 
 $branchOptionsArr = array(
@@ -1299,6 +1304,25 @@ $defaultConfigMoreData = array(
 				"var"								=>	array(
 					"key"								=>	"oneLogVisibleDisableUpdate",
 					"name"								=>	"Show Update Notifications if oneLog is open",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			3									=> array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"oneLogLogMaxHeight",
+					"name"								=>	"Max height of log",
+					"options"							=>	$oneLogLogMaxHeight,
+					"type"								=>	"dropdown"
+				)
+			),
+			4									=> array(
+				"info"								=>	"when updating, if the last log is the same as the new log, it will merge the new lines into that box"
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"oneLogMergeLast",
+					"name"								=>	"Merge same last log on update",
 					"options"							=>	$trueFalsVars,
 					"type"								=>	"dropdown"
 				)
