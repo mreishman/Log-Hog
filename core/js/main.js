@@ -2291,7 +2291,7 @@ function getDiffLogAndLastLog(id)
 					{
 						returnNewNum = false;
 					}
-					else if(tmpTextLog[j].trim() !== tmpTextLast[lastStart].trim())
+					else if(lastStart in tmpTextLast && tmpTextLog[j].trim() !== tmpTextLast[lastStart].trim())
 					{
 						returnNewNum = false;
 					}
