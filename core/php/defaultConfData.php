@@ -1300,7 +1300,7 @@ $defaultConfigMoreData = array(
 				)
 			),
 			2									=> array(
-				"info"								=>	"When one log is visible and open, log updates wont trigger notifactions or highlight the tab."
+				"info"								=>	"When one log is visible and open, log updates wont trigger notifactions or highlight the tab.",
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"oneLogVisibleDisableUpdate",
