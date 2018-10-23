@@ -2339,6 +2339,10 @@ function makePrettyWithText(text, count)
 {
 	try
 	{
+		if(text === "")
+		{
+			return "";
+		}
 		text = text.split("\n");
 		if(text.length < 2)
 		{

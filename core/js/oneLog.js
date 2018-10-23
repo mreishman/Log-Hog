@@ -147,33 +147,36 @@ function scrollOneLogIfVisible(currentPosOfOneLog)
 
 function updateOneLogData(id, newDiff, newDiffText)
 {
-	//check if initial load
-	oneLogInitialLoadCheck();
-	var currentLengthOfOneLogLogs = oneLogLogData["logs"].length - 1;
-	if(currentLengthOfOneLogLogs >= oneLogMaxLength)
+	if(newDiffText !== "")
 	{
-		oneLogLogData["logs"].shift();
-		currentLengthOfOneLogLogs--;
+		//check if initial load
+		oneLogInitialLoadCheck();
+		var currentLengthOfOneLogLogs = oneLogLogData["logs"].length - 1;
+		if(currentLengthOfOneLogLogs >= oneLogMaxLength)
+		{
+			oneLogLogData["logs"].shift();
+			currentLengthOfOneLogLogs--;
+		}
+		if(oneLogMergeLast === "true" && currentLengthOfOneLogLogs >= 0 && oneLogLogData["logs"][currentLengthOfOneLogLogs]["logId"] === id)
+		{
+			//add to this one
+			oneLogLogData["logs"][currentLengthOfOneLogLogs]["logData"] += newDiffText;
+			oneLogLogData["logs"][currentLengthOfOneLogLogs]["new"] = true;
+		}
+		else
+		{
+			var oneLogTitle = filterTitle(titles[id]);
+			oneLogTitle += "("+newDiff+")";
+			//create new entry below
+			oneLogLogData["logs"].push({
+				logName: oneLogTitle,
+				logData: newDiffText,
+				logId: id,
+				new: true
+			});
+		}
+		logs["oneLog"] = oneLogLogData;
 	}
-	if(oneLogMergeLast === "true" && currentLengthOfOneLogLogs >= 0 && oneLogLogData["logs"][currentLengthOfOneLogLogs]["logId"] === id)
-	{
-		//add to this one
-		oneLogLogData["logs"][currentLengthOfOneLogLogs]["logData"] += newDiffText;
-		oneLogLogData["logs"][currentLengthOfOneLogLogs]["new"] = true;
-	}
-	else
-	{
-		var oneLogTitle = filterTitle(titles[id]);
-		oneLogTitle += "("+newDiff+")";
-		//create new entry below
-		oneLogLogData["logs"].push({
-			logName: oneLogTitle,
-			logData: newDiffText,
-			logId: id,
-			new: true
-		});
-	}
-	logs["oneLog"] = oneLogLogData;
 }
 
 function openLogInFull(logId)
