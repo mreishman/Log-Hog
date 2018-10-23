@@ -2915,7 +2915,7 @@ function clearLog(idNum)
 {
 	try
 	{
-		if(document.getElementById("title"+idNum).textContent !== "")
+		if(document.getElementById("title"+idNum).textContent !== "" && document.getElementById("title"+idNum).textContent !== "oneLog")
 		{
 			clearLogInner(document.getElementById("title"+idNum).textContent);
 		}
