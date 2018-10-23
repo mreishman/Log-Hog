@@ -28,6 +28,10 @@ function addOneLogTab()
 
 function addOneLogData()
 {
+	oneLogLogData = {
+		id: "oneLog",
+		logs: [{logName: "No Logs Updated", logData: "No logs have been updated", logId: "noLogUpdate"}]
+	};
 	arrayOfDataMain["oneLog"] = {data: "", lineCount: "---", log: oneLogLogData, oneLog: true};
 	logs["oneLog"] = oneLogLogData;
 	titles["oneLog"] = "oneLog";
@@ -208,4 +212,19 @@ function openLogInFull(logId)
 		changeCurrentSelectWindow(currentOneLogPosition);
 		document.getElementById(logId).click();
 	}
+}
+
+function possiblyUpdateOneLogVisibleData()
+{
+	var oneLogPos = isOneLogVisible();
+	if(oneLogPos !== false)
+	{
+		$("#log"+oneLogPos).html(makeOneLogPretty());
+	}
+}
+
+function resetOneLogData()
+{
+	addOneLogData();
+	possiblyUpdateOneLogVisibleData();
 }

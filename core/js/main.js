@@ -2180,10 +2180,6 @@ function toggleSideBarElements(internalID, currentCurrentSelectWindow)
 	}
 	else if(internalID === "oneLog")
 	{
-		if(document.getElementById("clearLogSideBar"+currentCurrentSelectWindow).style.display !== "none")
-		{
-			document.getElementById("clearLogSideBar"+currentCurrentSelectWindow).style.display = "none";
-		}
 		if(document.getElementById("deleteLogSideBar"+currentCurrentSelectWindow).style.display !== "none")
 		{
 			document.getElementById("deleteLogSideBar"+currentCurrentSelectWindow).style.display = "none";
@@ -2915,9 +2911,16 @@ function clearLog(idNum)
 {
 	try
 	{
-		if(document.getElementById("title"+idNum).textContent !== "" && document.getElementById("title"+idNum).textContent !== "oneLog")
+		if(document.getElementById("title"+idNum).textContent !== "")
 		{
-			clearLogInner(document.getElementById("title"+idNum).textContent);
+			if(document.getElementById("title"+idNum).textContent === "oneLog")
+			{
+				resetOneLogData();
+			}
+			else
+			{
+				clearLogInner(document.getElementById("title"+idNum).textContent);
+			}
 		}
 	}
 	catch(e)
@@ -3421,10 +3424,9 @@ function possiblyUpdateFromFilter(force)
 	{
 		lastContentSearch = "";
 		generalUpdate();
-		var oneLogPos = isOneLogVisible();
-		if(oneLogPos !== false)
+		if(oneLogEnable === "true")
 		{
-			$("#log"+oneLogPos).html(makeOneLogPretty());
+			possiblyUpdateOneLogVisibleData();
 		}
 	}
 }
