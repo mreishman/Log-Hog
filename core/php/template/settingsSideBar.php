@@ -46,11 +46,20 @@
 	<br>
 	<br>
 <?php endif; ?>
-<h3 style="border-bottom: 1px solid white;">One Log</h3>
+<h3 style="border-bottom: 1px solid white;">Header Bar</h3>
 Show One Log
 <div class="selectDiv">
 	<select onchange="toggleVisibleOneLog();" id="oneLogVisible">
 		<option <?php if($oneLogVisible === "true"){ echo " selected "; }?>  value="true" >True</option>
 		<option <?php if($oneLogVisible === "false"){ echo " selected "; }?>  value="false" >False</option>
+	</select>
+</div>
+<br>
+<br>
+Hide Log Tabs
+<div class="selectDiv">
+	<select onchange="toggleVisibleAllLogs();" id="allLogsVisible">
+		<option <?php if($allLogsVisible === "false"){ echo " selected "; }?>  value="false" >True</option>
+		<option <?php if($allLogsVisible === "true"){ echo " selected "; }?>  value="true" >False</option>
 	</select>
 </div>

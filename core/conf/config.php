@@ -2,6 +2,7 @@
 
 $defaultConfig = array(
 	'addonsAsIframe'				=> 'true',
+	'allLogsVisible'				=> 'true',
 	'autoCheckDaysUpdate'			=>	'7',
 	'autoCheckUpdate' 				=> 'true',
 	'autoMoveUpdateLog'				=> 'false',

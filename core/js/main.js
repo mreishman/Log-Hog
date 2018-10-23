@@ -730,7 +730,10 @@ function firstLoadEndAction()
 	{
 		addOneLogData();
 	}
-	document.getElementById("menu").style.display = "block";
+	if(allLogsVisible === "true")
+	{
+		document.getElementById("menu").style.display = "block";
+	}
 	document.getElementById("firstLoad").style.display = "none";
 	document.getElementById("searchType").disabled = false;
 	document.getElementById("searchFieldInput").disabled = false;
@@ -2520,9 +2523,10 @@ function resize()
 	try
 	{
 		var targetHeight = window.innerHeight - $("#header").outerHeight();
+		var menuHeight = document.getElementById("menu").getBoundingClientRect().height;
 		if(logMenuLocation === "top" || logMenuLocation === "bottom")
 		{
-			targetHeight = targetHeight - $("#menu").outerHeight();
+			targetHeight = targetHeight - menuHeight;
 		}
 		var targetWidth = window.innerWidth;
 		if(enablePollTimeLogging !== "false")
@@ -2539,14 +2543,14 @@ function resize()
 		}
 		if(logMenuLocation === "bottom")
 		{
-			if(document.getElementById("main").style.bottom !== $("#menu").outerHeight())
+			if(document.getElementById("main").style.bottom !== menuHeight)
 			{
-				document.getElementById("main").style.bottom = $("#menu").outerHeight()+"px";
+				document.getElementById("main").style.bottom = menuHeight+"px";
 			}
 		}
 		else if(logMenuLocation === "left" || logMenuLocation === "right")
 		{
-			if($("#menu").outerHeight() !== targetHeight)
+			if(menuHeight !== targetHeight)
 			{
 				$("#menu").outerHeight(targetHeight);
 			}
@@ -4604,22 +4608,28 @@ function checkForUpdateLogsOffScreen()
 
 function toggleBottomLogNotice()
 {
-	if(document.getElementById("menu").style.borderBottom === "")
+	if(document.getElementById("menu").style.display  !== "none")
 	{
-		document.getElementById("menu").style.borderBottom = "5px solid red";
-		return;
+		if(document.getElementById("menu").style.borderBottom === "")
+		{
+			document.getElementById("menu").style.borderBottom = "5px solid red";
+			return;
+		}
+		document.getElementById("menu").style.borderBottom = "";
 	}
-	document.getElementById("menu").style.borderBottom = "";
 }
 
 function toggleTopLogNotice()
 {
-	if(document.getElementById("menu").style.borderTop === "")
+	if(document.getElementById("menu").style.display  !== "none")
 	{
-		document.getElementById("menu").style.borderTop = "5px solid red";
-		return;
+		if(document.getElementById("menu").style.borderTop === "")
+		{
+			document.getElementById("menu").style.borderTop = "5px solid red";
+			return;
+		}
+		document.getElementById("menu").style.borderTop = "";
 	}
-	document.getElementById("menu").style.borderTop = "";
 }
 
 function getCurrentWindowLayout()

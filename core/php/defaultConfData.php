@@ -1224,6 +1224,15 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
+			15									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"allLogsVisible",
+					"name"								=>	"Log tabs visible on load",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
 		)
 	),
 	"multiLogVars"						=>	array(
