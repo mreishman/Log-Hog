@@ -2357,7 +2357,7 @@ function makePrettyWithText(text, count)
 		{
 			text = text[0].split("\\n");
 		}
-		var returnText = "<table width=\"100%\" style=\"border-spacing: 0;\" >";
+		var returnText = "";
 		var lengthOfTextArray = text.length;
 		var selectListForFilter = document.getElementsByName("searchType")[0];
 		var selectedListFilterType = selectListForFilter.options[selectListForFilter.selectedIndex].value;
@@ -2383,8 +2383,8 @@ function makePrettyWithText(text, count)
 				}
 				else
 				{
-					//check for line in next few lines 
-					for (var j = 0; j <= bottomPadding; j++) 
+					//check for line in next few lines
+					for (var j = 0; j <= bottomPadding; j++)
 					{
 						if(lengthOfTextArray > i+j)
 						{
@@ -2457,8 +2457,11 @@ function makePrettyWithText(text, count)
 				}
 			}
 		}
-		returnText += "</table>";
-		return returnText;
+		if(returnText === "")
+		{
+			return "";
+		}
+		return "<table width=\"100%\" style=\"border-spacing: 0;\" >" + returnText + "</table>";
 	}
 	catch(e)
 	{
@@ -3381,39 +3384,44 @@ function showInfo(idNum)
 function changeFilterCase()
 {
 	caseInsensitiveSearch = document.getElementById("caseInsensitiveSearch").value;
-	possiblyUpdateFromFilter();
+	possiblyUpdateFromFilter(false);
 }
 
 function changeHighlightContentMatch()
 {
 	filterContentHighlight = document.getElementById("filterContentHighlight").value;
-	possiblyUpdateFromFilter();
+	possiblyUpdateFromFilter(false);
 }
 
 function changeFilterContentMatch()
 {
 	filterContentLimit = document.getElementById("filterContentLimit").value;
-	possiblyUpdateFromFilter();
+	possiblyUpdateFromFilter(false);
 }
 
 function changeFilterContentLinePadding()
 {
 	filterContentLinePadding = parseInt(document.getElementById("filterContentLinePadding").value);
-	possiblyUpdateFromFilter();
+	possiblyUpdateFromFilter(false);
 }
 
 function changeFilterTitleIncludePath()
 {
 	filterTitleIncludePath = document.getElementById("filterTitleIncludePath").value;
-	possiblyUpdateFromFilter();
+	possiblyUpdateFromFilter(false);
 }
 
-function possiblyUpdateFromFilter()
+function possiblyUpdateFromFilter(force)
 {
-	if(document.getElementById("searchFieldInput").value !== "")
+	if(document.getElementById("searchFieldInput").value !== "" || force)
 	{
 		lastContentSearch = "";
 		generalUpdate();
+		var oneLogPos = isOneLogVisible();
+		if(oneLogPos !== false)
+		{
+			$("#log"+oneLogPos).html(makeOneLogPretty());
+		}
 	}
 }
 
@@ -4677,7 +4685,7 @@ function mainReady()
 
 	$("#searchFieldInput").on("input", function()
 	{
-		generalUpdate();
+		possiblyUpdateFromFilter(true);
 	});
 
 	if(document.getElementById("searchType"))

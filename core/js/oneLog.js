@@ -59,6 +59,11 @@ function makeOneLogPretty()
 	for(var i = 0; i < lengthOfArray; i++)
 	{
 		var currentLog = oneLogLogData["logs"][i];
+		var currentHtmlForLog = makePrettyWithText(currentLog["logData"], 0);
+		if(currentHtmlForLog === "")
+		{
+			continue;
+		}
 		htmlToReturn += "<div ";
 		if(currentLog["logId"] !== "noLogUpdate")
 		{
@@ -87,8 +92,9 @@ function makeOneLogPretty()
 				htmlToReturn += " newLine "
 			}
 		}
-		htmlToReturn += " \" style=\"max-height: "+oneLogLogMaxHeight+"px; overflow: auto;\" >"+makePrettyWithText(currentLog["logData"], 0)+"</div>";
+		htmlToReturn += " \" style=\"max-height: "+oneLogLogMaxHeight+"px; overflow: auto;\" >"+currentHtmlForLog+"</div>";
 	}
+	logs["oneLog"] = oneLogLogData;
 	return htmlToReturn;
 }
 
@@ -148,6 +154,7 @@ function updateOneLogData(id, newDiff, newDiffText)
 			new: true
 		});
 	}
+	logs["oneLog"] = oneLogLogData;
 }
 
 function openLogInFull(logId)
