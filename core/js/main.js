@@ -2163,42 +2163,30 @@ function showPartTwo(e, internalID, currentCurrentSelectWindow)
 
 function toggleSideBarElements(internalID, currentCurrentSelectWindow)
 {
+	var visibleStatusOfClearLogSideBar = "block";
+	var visibleStatusOfDeleteLogSideBar = "block";
+	var visibleStatusOfCloseLogSideBar = "none";
 	if(internalID.indexOf("ogogackup") === 0)
 	{
-		if(document.getElementById("clearLogSideBar"+currentCurrentSelectWindow).style.display !== "none")
-		{
-			document.getElementById("clearLogSideBar"+currentCurrentSelectWindow).style.display = "none";
-		}
-		if(document.getElementById("deleteLogSideBar"+currentCurrentSelectWindow).style.display !== "none")
-		{
-			document.getElementById("deleteLogSideBar"+currentCurrentSelectWindow).style.display = "none";
-		}
-		if(document.getElementById("closeLogSideBar"+currentCurrentSelectWindow).style.display !== "block")
-		{
-			document.getElementById("closeLogSideBar"+currentCurrentSelectWindow).style.display = "block";
-		}
+		visibleStatusOfClearLogSideBar  = "none";
+		visibleStatusOfDeleteLogSideBar = "none";
+		visibleStatusOfCloseLogSideBar  = "block";
 	}
 	else if(internalID === "oneLog")
 	{
-		if(document.getElementById("deleteLogSideBar"+currentCurrentSelectWindow).style.display !== "none")
-		{
-			document.getElementById("deleteLogSideBar"+currentCurrentSelectWindow).style.display = "none";
-		}
+		visibleStatusOfDeleteLogSideBar= "none";
 	}
-	else
+	if(document.getElementById("clearLogSideBar"+currentCurrentSelectWindow).style.display !== visibleStatusOfClearLogSideBar)
 	{
-		if(document.getElementById("clearLogSideBar"+currentCurrentSelectWindow).style.display === "none")
-		{
-			document.getElementById("clearLogSideBar"+currentCurrentSelectWindow).style.display = "block";
-		}
-		if(document.getElementById("deleteLogSideBar"+currentCurrentSelectWindow).style.display === "none")
-		{
-			document.getElementById("deleteLogSideBar"+currentCurrentSelectWindow).style.display = "block";
-		}
-		if(document.getElementById("closeLogSideBar"+currentCurrentSelectWindow).style.display === "block")
-		{
-			document.getElementById("closeLogSideBar"+currentCurrentSelectWindow).style.display = "none";
-		}
+		document.getElementById("clearLogSideBar"+currentCurrentSelectWindow).style.display = visibleStatusOfClearLogSideBar;
+	}
+	if(document.getElementById("deleteLogSideBar"+currentCurrentSelectWindow).style.display === visibleStatusOfDeleteLogSideBar)
+	{
+		document.getElementById("deleteLogSideBar"+currentCurrentSelectWindow).style.display = visibleStatusOfDeleteLogSideBar;
+	}
+	if(document.getElementById("closeLogSideBar"+currentCurrentSelectWindow).style.display === visibleStatusOfCloseLogSideBar)
+	{
+		document.getElementById("closeLogSideBar"+currentCurrentSelectWindow).style.display = visibleStatusOfCloseLogSideBar;
 	}
 }
 
