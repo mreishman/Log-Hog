@@ -179,7 +179,8 @@ function openLogInFull(logId)
 	{
 		var firstPosition = 0;
 		var secondPosition = 1;
-		if(Object.keys(logDisplayArray).length === 1)
+		var boolForGen = (Object.keys(logDisplayArray).length === 1);
+		if(boolForGen)
 		{
 			//generate window from 1 to 2
 			document.getElementById("windowConfig").value = "1x2";
@@ -197,7 +198,10 @@ function openLogInFull(logId)
 		changeCurrentSelectWindow(secondPosition);
 		document.getElementById(logId).click();
 		changeCurrentSelectWindow(firstPosition);
-		document.getElementById("oneLog").click();
+		if(boolForGen)
+		{
+			document.getElementById("oneLog").click();
+		}
 	}
 	else
 	{
