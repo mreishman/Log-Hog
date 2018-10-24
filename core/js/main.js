@@ -2180,11 +2180,11 @@ function toggleSideBarElements(internalID, currentCurrentSelectWindow)
 	{
 		document.getElementById("clearLogSideBar"+currentCurrentSelectWindow).style.display = visibleStatusOfClearLogSideBar;
 	}
-	if(document.getElementById("deleteLogSideBar"+currentCurrentSelectWindow).style.display === visibleStatusOfDeleteLogSideBar)
+	if(document.getElementById("deleteLogSideBar"+currentCurrentSelectWindow).style.display !== visibleStatusOfDeleteLogSideBar)
 	{
 		document.getElementById("deleteLogSideBar"+currentCurrentSelectWindow).style.display = visibleStatusOfDeleteLogSideBar;
 	}
-	if(document.getElementById("closeLogSideBar"+currentCurrentSelectWindow).style.display === visibleStatusOfCloseLogSideBar)
+	if(document.getElementById("closeLogSideBar"+currentCurrentSelectWindow).style.display !== visibleStatusOfCloseLogSideBar)
 	{
 		document.getElementById("closeLogSideBar"+currentCurrentSelectWindow).style.display = visibleStatusOfCloseLogSideBar;
 	}
