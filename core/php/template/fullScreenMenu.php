@@ -66,6 +66,17 @@
 	<li class="menuTitle" style="text-align: center;">
 		Settings
 	</li>
+	<li onclick="window.location.href = './settings/main.php';" >
+		Main <?php echo $externalLinkImage; ?>
+	</li>
+	<li onclick="window.location.href = './settings/advanced.php';" >
+		Advanced <?php echo $externalLinkImage; ?>
+	</li>
+	<?php if($developmentTabEnabled === "true"): ?>
+		<li onclick="window.location.href = './settings/devTools.php';" >
+			Dev <?php echo $externalLinkImage; ?>
+		</li>
+	<?php endif; ?>
 </ul>
 <div id="mainContentFullScreenMenu">
 	<div class="settingsHeader" style="position: fixed;width: 100%;z-index: 10;top: 0; margin: 0; border-bottom: 1px solid white; display: none;top: 46px;" id="fixedPositionMiniMenu" >

@@ -3756,6 +3756,24 @@ function toggleAddons(force = false)
 	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
 }
 
+function toggleSettings(force = false)
+{
+	if(!force && !globalForcePageNavigate)
+	{
+		if(!(goToPageCheck("toggleSettings(true)")))
+		{
+			return false;
+		}
+	}
+	globalForcePageNavigate = false;
+	hideMainStuff();
+	toggleFullScreenMenuMainContent();
+	document.getElementById("settingsSubMenu").style.display = "block";
+	$("#mainMenuSettings").addClass("selected");
+	arrayOfScrollHeaderUpdate = [];
+	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
+}
+
 function toggleAbout(force = false)
 {
 	if(!force && !globalForcePageNavigate)
@@ -4108,6 +4126,12 @@ function toggleIframe(locHref, idOfAddon, force = false)
 function hideMainStuff()
 {
 	endSettingsPollTimer();
+
+	if($("#mainMenuSettings").hasClass("selected"))
+	{
+		document.getElementById("settingsSubMenu").style.display = "none";
+		$("#mainMenuSettings").removeClass("selected");
+	}
 
 	if($("#mainMenuAbout").hasClass("selected"))
 	{
