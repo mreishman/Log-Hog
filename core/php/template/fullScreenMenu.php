@@ -133,6 +133,9 @@
 		?>
 	</div>
 	<div id="notifications" style="display: none;" >
-		<div id="notificationHolder" class="innerContentDropdownMenu dropdownHolder"></div>
+		<div id="notificationHolder" style="display: inline-block;" ></div>
+	</div>
+	<div id="notificationsEmpty" style="display: none;" >
+		<div class="errorMessageLog errorMessageGreenBG" > You have 0 notifications. </div>
 	</div>
 </div>

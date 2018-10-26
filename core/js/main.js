@@ -2943,10 +2943,6 @@ function archiveLogPopupToggle()
 	{
 		toggleFullScreenMenu();
 	}
-	if(document.getElementById("notifications").style.display === "inline-block")
-	{
-		toggleNotifications();
-	}
 	if(document.getElementById("historyDropdown").style.display === "inline-block")
 	{
 		document.getElementById("historyDropdown").style.display = "none";
@@ -3437,10 +3433,19 @@ function toggleNotifications(force = false)
 		}
 	}
 	globalForcePageNavigate = false;
-	showNotifications();
 	hideMainStuff();
 	hideSidebar();
-	document.getElementById("notifications").style.display = "block";
+	if(notifications.length < 1)
+	{
+		document.getElementById("notificationsEmpty").style.display = "block";
+		document.getElementById("notifications").style.display = "none";
+	}
+	else
+	{
+		showNotifications();
+		document.getElementById("notifications").style.display = "block";
+		document.getElementById("notificationsEmpty").style.display = "none";
+	}
 	$("#mainMenuNotifications").addClass("selected");
 	arrayOfScrollHeaderUpdate = [];
 	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
@@ -3448,22 +3453,7 @@ function toggleNotifications(force = false)
 
 function showNotifications()
 {
-	var arrayInternalNotifications = new Array();
-	if(notifications.length < 1)
-	{
-		//no notifications to show
-		arrayInternalNotifications[0] = new Array();
-		arrayInternalNotifications[0]["id"] = 0;
-		arrayInternalNotifications[0]["name"] = "No Notifications";
-		arrayInternalNotifications[0]["time"] = formatAMPM(new Date());
-		arrayInternalNotifications[0]["action"] = "";
-	}
-	else
-	{
-		arrayInternalNotifications = notifications;
-	}
-	displayNotifications(arrayInternalNotifications);
-
+	displayNotifications(notifications);
 }
 
 function clearAllNotifications()
@@ -3647,10 +3637,6 @@ function toggleFullScreenMenu(force = false)
 {
 	fullScreenMenuClickCount++;
 	dirForAjaxSend = "";
-	if(document.getElementById("notifications").style.display === "inline-block")
-	{
-		toggleNotifications();
-	}
 	if(document.getElementById("historyDropdown").style.display === "inline-block")
 	{
 		archiveLogPopupToggle()
@@ -4065,6 +4051,7 @@ function hideAboutStuff()
 function hideNotificationStuff()
 {
 	document.getElementById("notifications").style.display = "none";
+	document.getElementById("notificationsEmpty").style.display = "none";
 }
 
 function hideAddonStuff()
