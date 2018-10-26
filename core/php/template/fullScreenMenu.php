@@ -132,4 +132,7 @@
 		include('core/php/template/varTemplate.php');
 		?>
 	</div>
+	<div id="notifications" style="display: none;" >
+		<div id="notificationHolder" class="innerContentDropdownMenu dropdownHolder"></div>
+	</div>
 </div>

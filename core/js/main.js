@@ -3425,39 +3425,25 @@ function possiblyUpdateFromFilter(force)
 
 function toggleNotifications(force = false)
 {
-	if(document.getElementById("fullScreenMenu").style.display !== "none")
+	if(document.getElementById("fullScreenMenu").style.display === "none")
 	{
-		if(!force && !globalForcePageNavigate)
-		{
-			if(!(goToPageCheck("toggleFullScreenMenu(true)")))
-			{
-				return false;
-			}
-		}
-		globalForcePageNavigate = false;
 		toggleFullScreenMenu();
 	}
-	if(document.getElementById("historyDropdown").style.display === "inline-block")
+	if(!force && !globalForcePageNavigate)
 	{
-		archiveLogPopupToggle()
+		if(!(goToPageCheck("toggleFullScreenMenu(true)")))
+		{
+			return false;
+		}
 	}
-	if(document.getElementById("notifications").style.display === "inline-block")
-	{
-		document.getElementById("notifications").style.display = "none";
-		document.getElementById("notificationNotClicked").style.display = "inline-block";
-		document.getElementById("notificationClicked").style.display = "none";
-		document.getElementById("notificationCount").style.color = "white";
-	}
-	else
-	{
-		showNotifications();
-		document.getElementById("notificationNotClicked").style.display = "none";
-		document.getElementById("notificationClicked").style.display = "inline-block";
-		document.getElementById("notifications").style.display = "inline-block";
-		document.getElementById("notifications").style.left = (document.getElementById("notificationDiv").getBoundingClientRect().left-27) + "px";
-		document.getElementById("notifications").style.top = (document.getElementById("notificationDiv").getBoundingClientRect().top+25) + "px";
-		document.getElementById("notificationCount").style.color = "black";
-	}
+	globalForcePageNavigate = false;
+	showNotifications();
+	hideMainStuff();
+	hideSidebar();
+	document.getElementById("notifications").style.display = "block";
+	$("#mainMenuNotifications").addClass("selected");
+	arrayOfScrollHeaderUpdate = [];
+	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
 }
 
 function showNotifications()
@@ -4076,6 +4062,11 @@ function hideAboutStuff()
 	$("#aboutSubMenuWhatsNew").removeClass("selected");
 }
 
+function hideNotificationStuff()
+{
+	document.getElementById("notifications").style.display = "none";
+}
+
 function hideAddonStuff()
 {
 	document.getElementById("fullScreenMenuAddons").style.display = "none";
@@ -4131,6 +4122,13 @@ function hideMainStuff()
 	{
 		document.getElementById("settingsSubMenu").style.display = "none";
 		$("#mainMenuSettings").removeClass("selected");
+	}
+
+	if($("#mainMenuNotifications").hasClass("selected"))
+	{
+		hideNotificationStuff();
+		$("#mainMenuNotifications").removeClass("selected");
+		sideBarVisible = true;
 	}
 
 	if($("#mainMenuAbout").hasClass("selected"))

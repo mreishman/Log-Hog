@@ -133,10 +133,6 @@ $externalLinkImage = generateImage(
 				<span onclick="toggleNotifications();" id="notificationCount"></span>
 				<span onclick="toggleNotifications();" id="notificationBadge"></span>
 			</div>
-			<div id="notifications" class="dropdownMenu" >
-				<div class="notificationTriangle"></div>
-				<div id="notificationHolder" class="innerContentDropdownMenu dropdownHolder"></div>
-			</div>
 			<div id="historyDropdown" class="dropdownMenu" >
 				<div class="notificationTriangle"></div>
 				<div id="historyHolder" class="innerContentDropdownMenu dropdownHolder"></div>
