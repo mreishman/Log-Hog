@@ -3655,13 +3655,14 @@ function toggleUpdateMenu(force = false)
 
 function toggleAddons(force = false)
 {
-	if(!force)
+	if(!force && !globalForcePageNavigate)
 	{
 		if(!(goToPageCheck("toggleAddons(true)")))
 		{
 			return false;
 		}
 	}
+	globalForcePageNavigate = false;
 	hideMainStuff();
 	hideSidebar();
 	document.getElementById("fullScreenMenuAddons").style.display = "block";
@@ -3689,13 +3690,14 @@ function toggleAbout(force = false)
 
 function toggleThemes(force = false)
 {
-	if(!force)
+	if(!force && !globalForcePageNavigate)
 	{
 		if(!(goToPageCheck("toggleThemes(true)")))
 		{
 			return false;
 		}
 	}
+	globalForcePageNavigate = false;
 	hideMainStuff();
 	toggleFullScreenMenuMainContent();
 	document.getElementById("themeSubMenu").style.display = "block";
