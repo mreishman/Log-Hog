@@ -1,7 +1,7 @@
 <?php
 
 $versionCheckArray = array(
-	'version'		=> '5.1.9',
+	'version'		=> '5.1.4',
 	'versionList'		=> array(
 		'2.0.1'	        => array(
 			'branchName'	=> '2.0.1Update',
@@ -219,10 +219,9 @@ $versionCheckArray = array(
 			'branchName'	=> '5.1.3Update',
 			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed bug with clear all action when popup is disabled</li><li>Clear all now properly (if enabled in settings) saves tmp versions of logs</li><li>Fixed bug when filtering logs where it would not auto select a new log if the preset log was hidden</li><li>Fixed issues with highlight row spacing in firefox</li></ul></li></ul>"
 		),
-		'5.1.9'		=> array(
-			'branchName'	=> '5.2BetaUpdate',
-			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/5.2.png',
-			'releaseNotes'	=> "<ul><li>Features<ul><li>Cleaned up look of top bar by merging group settings and filter settings together</li><li>Moved themes page to main menu</li><li>Customize folder color schemes, add and edit new color schemes for files and folders</li><li>Save current layout as on load layout from index page</li></ul></li><li>Bug Fixes<ul><li>Merged update / update notice icons together for somewhat cleaner look</li><li>Better support for smaller resolution screens in full screen menu</li><li>Changed loading method for javascript, adding in better error detection</li><li>More images now loaded on-demand (less images in initial load, of which some were not needed - determined by custom settings)</li><li>Small style changes to updater</li><li>Fixed bug with updater check, and checking for update when update check in progress</li></ul></li></ul>"
+		'5.1.4'		=> array(
+			'branchName'	=> '5.1.4Update',
+			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed issue with search by title and initial load log logic</li><li>Fixed small issue that could occur when switching logs</li><li>possible fix for update check errors, main fix in 5.2</li></ul></li></ul>"
 		),
 	)
 );
