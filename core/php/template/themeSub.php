@@ -4,7 +4,7 @@ foreach ($scanned_directory as $key):
 			include($directory.$key."/defaultSetting.php");
 			$thisThemeIsSelected = false;
 			?>
-			<div style="width: 600px; height: 400px; display: inline-block; background-color: grey; border: 1px solid white; margin: 20px;">
+			<div style="width: 600px; height: 405px; display: inline-block; background-color: grey; border: 1px solid white; margin: 20px;">
 				<div class="settingsHeader" style="margin: 0px;">
 					<?php echo $themeDefaultSettings['displayName'];?>
 					<div class="settingsHeaderButtons">
@@ -21,32 +21,11 @@ foreach ($scanned_directory as $key):
 						<?php endif;?>
 					</div>
 				</div>
-				<span id="loadingSpinner-<?php echo $key;?>">
-					<?php
-						echo generateImage(
-						$arrayOfImages["loading"],
-						$imageConfig = array(
-							"height"	=>	"60px",
-							"srcModifier"	=>	"../",
-							"style"		=>	"position: relative; height: 60px; top: 170px; left: 270px;"
-							)
-						);
-					?>
-				</span>
-				<span id="htmlContent-<?php echo $key;?>" style="display: none;">
-					<iframe style="width: 598px; border: 0px; height: 373px;" src="../core/Themes/example.php?type=../<?php echo $directory.$key;?>">
+				<span id="htmlContent-<?php echo $key;?>" style="display: block;">
+					<iframe class="iframeThemes" data-src="<?php echo $themeDirMod; ?>core/Themes/example.php?type=<?php echo $key;?>" style="width: 598px; border: 0px; height: 378px;" src="">
 					</iframe>
 				</span>
 				<span style="display: none;">
-					<script type="text/javascript">
-						$( document ).ready(function()
-						{
-							setTimeout(function(){
-								document.getElementById("loadingSpinner-<?php echo $key;?>").style.display = "none";
-								document.getElementById("htmlContent-<?php echo $key;?>").style.display = "block";
-							}, 2000);
-						});
-					</script>
 					<form id="themeMainSelection-<?php echo $key;?>">
 						<?php
 							$arrayOfInputValues = array(
@@ -103,7 +82,20 @@ foreach ($scanned_directory as $key):
 									$customThemeCreateNew = true;
 								}
 							}
-							include('innerFolderGroupColor.php');
+							$themeName = $key;
+							$i = 0;
+							foreach ($folderColorArrays as $key => $value)
+							{
+								$i++;
+								echo generateFolderColorRow(array(
+										"key"							=>	$key,
+										"currentFolderColorTheme"		=>	$currentFolderColorTheme,
+										"i"								=>	$i,
+										"value"							=>	$value,
+										"themeName"						=>	$themeName
+									))["html"];
+							}
+							echo "<input style=\"display: none;\" type=\"text\" name=\"folderThemeCount\" value=\"".$i."\">";
 							$folderColorArrays = $tmpfolderColorArrays;
 							$currentFolderColorTheme = $tmpcurrentFolderColorTheme;
 						?>

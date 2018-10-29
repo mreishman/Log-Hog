@@ -2,69 +2,73 @@
 	<div id="menuButtons" style="display: block;">
 		<div onclick="toggleFullScreenMenu();"  class="menuImageDiv">
 			<?php echo generateImage(
-				$arrayOfImages["menu"],
+				$arrayOfImages["loadingImg"],
 				$imageConfig = array(
 					"id"		=>	"menuImage",
-					"class"		=>	"menuImage",
-					"height"	=>	"30px"
+					"class"		=>	"menuImage menuImageForLoad",
+					"height"	=>	"30px",
+					"data-src"	=>	$arrayOfImages["menu"]
 					)
 				);
 			?>
 		</div>
 		<div class="menuImageDiv" id="notificationDiv" onclick="toggleNotifications();" >
 			<?php echo generateImage(
-				$arrayOfImages["notification"],
+				$arrayOfImages["loadingImg"],
 				$imageConfig = array(
 					"id"		=>	"notificationNotClicked",
-					"class"		=>	"menuImage",
-					"height"	=>	"30px"
+					"class"		=>	"menuImage notificationImageForLoad",
+					"height"	=>	"30px",
+					"data-src"	=>	$arrayOfImages["notification"]
 					)
 				);
 			?>
 			<?php echo generateImage(
-				$arrayOfImages["notificationFull"],
+				$arrayOfImages["loadingImg"],
 				$imageConfig = array(
 					"id"		=>	"notificationClicked",
-					"class"		=>	"menuImage",
+					"class"		=>	"menuImage notificationImageClickedForLoad",
 					"height"	=>	"30px",
-					"style"		=>  "display: none;"
+					"style"		=>  "display: none;",
+					"data-src"	=>	$arrayOfImages["notificationFull"]
 					)
 				);
 			?>
 		</div>
-		<?php if ($enableHistory === "true"): ?>
-			<div onclick="archiveLogPopupToggle();" class="menuImageDiv">
-				<?php echo generateImage(
-					$arrayOfImages["history"],
-					$imageConfig = array(
-						"id"		=>	"historyImage",
-						"class"		=>	"menuImage",
-						"height"	=>	"30px"
-						)
-					);
-				?>
-			</div>
-		<?php endif; ?>
+		<div <?php if ($enableHistory !== "true"){echo "style=\"display: none\"";} ?>  onclick="archiveLogPopupToggle();" class="menuImageDiv">
+			<?php echo generateImage(
+				$arrayOfImages["loadingImg"],
+				$imageConfig = array(
+					"id"		=>	"historyImage",
+					"class"		=>	"menuImage historyImageForLoad",
+					"height"	=>	"30px",
+					"data-src"	=>	$arrayOfImages["history"]
+					)
+				);
+			?>
+		</div>
 		<?php if($enableMultiLog === "true" && $multiLogOnIndex === "true"): ?>
 			<div onclick="multiLogPopup();"  class="menuImageDiv">
 				<?php echo generateImage(
-					$arrayOfImages["multiLog"],
+					$arrayOfImages["loadingImg"],
 					$imageConfig = array(
 						"id"		=>	"multiLogImage",
-						"class"		=>	"menuImage",
-						"height"	=>	"30px"
+						"class"		=>	"menuImage multiLogImageForLoad",
+						"height"	=>	"30px",
+						"data-src"	=>	$arrayOfImages["multiLog"]
 						)
 					);
 				?>
 			</div>
 		<?php endif; ?>
-		<div onclick="filterSubMenu();" id="selectForGroupDiv" style="display: none;" class="menuImageDiv">
+		<div onclick="filterSubMenu();" class="menuImageDiv">
 				<?php echo generateImage(
-					$arrayOfImages["filter"],
+					$arrayOfImages["loadingImg"],
 					$imageConfig = array(
 						"id"		=>	"menuImage",
-						"class"		=>	"menuImage",
-						"height"	=>	"30px"
+						"class"		=>	"menuImage filterImageForLoad",
+						"height"	=>	"30px",
+						"data-src"	=>	$arrayOfImages["filter"]
 						)
 					);
 				?>
@@ -77,12 +81,13 @@
 					$styleString = "display: none;";
 				}
 				echo generateImage(
-				$arrayOfImages["play"],
+				$arrayOfImages["loadingImg"],
 				$imageConfig = array(
 					"id"		=>	"playImage",
-					"class"		=>	"menuImage",
+					"class"		=>	"menuImage playImageForLoad",
 					"height"	=>	"30px",
-					"style"		=>	$styleString
+					"style"		=>	$styleString,
+					"data-src"	=>	$arrayOfImages["play"]
 					)
 				);
 
@@ -92,12 +97,13 @@
 					$styleString = "display: none;";
 				}
 				echo generateImage(
-				$arrayOfImages["pause"],
+				$arrayOfImages["loadingImg"],
 				$imageConfig = array(
 					"id"		=>	"pauseImage",
-					"class"		=>	"menuImage",
+					"class"		=>	"menuImage pauseImageForLoad",
 					"height"	=>	"30px",
-					"style"		=>	$styleString
+					"style"		=>	$styleString,
+					"data-src"	=>	$arrayOfImages["pause"]
 					)
 				);
 			?>
@@ -105,11 +111,12 @@
 		<div onclick="refreshAction();" class="menuImageDiv">
 			<?php
 				echo generateImage(
-				$arrayOfImages["refresh"],
+				$arrayOfImages["loadingImg"],
 				$imageConfig = array(
 					"id"		=>	"refreshImage",
-					"class"		=>	"menuImage",
-					"height"	=>	"30px"
+					"class"		=>	"menuImage refreshImageForLoad",
+					"height"	=>	"30px",
+					"data-src"	=>	$arrayOfImages["refresh"]
 					)
 				);
 
@@ -127,11 +134,12 @@
 		<?php if($truncateLog == 'true'): ?>
 			<div onclick="deleteAction();"  class="menuImageDiv">
 				<?php echo generateImage(
-					$arrayOfImages["eraserMulti"],
+					$arrayOfImages["loadingImg"],
 					$imageConfig = array(
 						"id"		=>	"deleteImage",
-						"class"		=>	"menuImage",
-						"height"	=>	"30px"
+						"class"		=>	"menuImage eraserMultiImageForLoad",
+						"height"	=>	"30px",
+						"data-src"	=>	$arrayOfImages["eraserMulti"]
 						)
 					);
 				?>
@@ -139,11 +147,12 @@
 		<?php elseif($truncateLog == 'false'): ?>
 			<div onclick="clearLog(currentSelectWindow);" class="menuImageDiv">
 				<?php echo generateImage(
-					$arrayOfImages["eraser"],
+					$arrayOfImages["loadingImg"],
 					$imageConfig = array(
 						"id"		=>	"deleteImage",
-						"class"		=>	"menuImage",
-						"height"	=>	"30px"
+						"class"		=>	"menuImage eraserForLoad",
+						"height"	=>	"30px",
+						"data-src"	=>	$arrayOfImages["eraser"]
 						)
 					);
 				?>
@@ -152,54 +161,36 @@
 		<span <?php if($hideClearAllNotifications === "true"){ echo "style=\" display: none; \""; }?> >
 			<div  id="clearNotificationsImage" style="display: none;" onclick="removeAllNotifications();" class="menuImageDiv">
 				<?php echo generateImage(
-					$arrayOfImages["notificationClear"],
+					$arrayOfImages["loadingImg"],
 					$imageConfig = array(
 						"id"		=>	"notificationClearImage",
-						"class"		=>	"menuImage",
-						"height"	=>	"30px"
+						"class"		=>	"menuImage notificationClearImageForLoad",
+						"height"	=>	"30px",
+						"data-src"	=>	$arrayOfImages["notificationClear"]
 						)
 					);
 				?>
 			</div>
 		</span>
 		<div style="float: right;">
-			<div class="selectDiv" >
-				<select id="searchType" disabled name="searchType" style="height: 30px;">
-					<option <?php if ($filterDefault === "title"){echo "selected"; }?> value="title">Title</option>
-					<option <?php if ($filterDefault === "content"){echo "selected"; }?> value="content">Content</option>
-				</select>
-			</div>
-			<input disabled id="searchFieldInput" type="search" name="search" placeholder="Filter <?php echo $filterDefault; ?>" style="height: 30px; width: 200px;">
-			<div onclick="toggleFilterSettingsPopup();" style="display: inline-block; cursor: pointer;">
-				<?php echo generateImage(
-					$arrayOfImages["gear"],
-					$imageConfig = array(
-						"id"		=>	"filterGear",
-						"class"		=>	"menuImage",
-						"height"	=>	"15px",
-						"title"		=>  "Filter Settings",
-						"style"		=>  "margin-top: -15px;"
-						)
-					);
-				?>
-			</div>
+			<input disabled id="searchFieldInput" type="search" name="search" placeholder="Filter <?php echo $filterDefault; ?>" style="height: 30px; width: 200px; margin-right: 10px;">
 		</div>
 	</div>
 	<div id="menu2" style="display: none; position: inherit;">
 		<div id="subMenuForGroup" style="display: none;" >
 			Log Layout
-			<?php $arrayOfwindowConfigOptions = array();
+			<?php $arrayOfwindowConfigOptionsLocal = array();
 			for ($i=0; $i < 3; $i++)
 			{
 				for ($j=0; $j < 3; $j++)
 				{
-					array_push($arrayOfwindowConfigOptions, "".($i+1)."x".($j+1));
+					array_push($arrayOfwindowConfigOptionsLocal, "".($i+1)."x".($j+1));
 				}
 			}
 			?>
 			<div class="selectDiv">
 				<select id="windowConfig">
-					<?php foreach ($arrayOfwindowConfigOptions as $value)
+					<?php foreach ($arrayOfwindowConfigOptionsLocal as $value)
 					{
 						$stringToEcho = "<option ";
 						if($value === $windowConfig)
@@ -218,14 +209,64 @@
 			<span onclick="swapLayoutLetters('B');" class="linkSmall" >B</span>
 			<span onclick="swapLayoutLetters('C');" class="linkSmall" >C</span>
 			<input type="hidden" id="layoutVersionIndex" value="A" >
-			|
-			<span onclick="resetSelection();" class="linkSmall">Reset Selection</span>
+			<span style="float: right;">
+				<span onclick="resetSelection();" class="linkSmall">Reset Selection</span>
+				|
+				Save Current Layout To
+				<span onclick="saveLayoutTo('A');" class="linkSmall" >A</span>
+				<span onclick="saveLayoutTo('B');" class="linkSmall" >B</span>
+				<span onclick="saveLayoutTo('C');" class="linkSmall" >C</span>
+			</span>
 		</div>
 		<div id="groupSubMenu" style="display: none;" >
 			Groups:
 			<div class="selectDiv">
 				<select id="selectForGroup" >
 					<option selected="true" value="all" >All</option>
+				</select>
+			</div>
+			|
+			Search:
+			<div class="selectDiv" >
+				<select id="searchType" disabled name="searchType">
+					<option <?php if ($filterDefault === "title"){echo "selected"; }?> value="title">Title</option>
+					<option <?php if ($filterDefault === "content"){echo "selected"; }?> value="content">Content</option>
+				</select>
+			</div>
+			Case Insensitive:
+			<div class="selectDiv" >
+				<select onchange="changeFilterCase();" id="caseInsensitiveSearch">
+					<option <?php if ($caseInsensitiveSearch === "true"){ echo "selected"; }?> value="true">True</option>
+					<option <?php if ($caseInsensitiveSearch === "false"){ echo "selected"; }?> value="false">False</option>
+				</select>
+			</div>
+			Title Includes Path:
+			<div class="selectDiv" >
+				<select onchange="changeFilterTitleIncludePath();" id="filterTitleIncludePath">
+					<option <?php if ($filterTitleIncludePath === "true"){ echo "selected"; }?> value="true">True</option>
+					<option <?php if ($filterTitleIncludePath === "false"){ echo "selected"; }?> value="false">False</option>
+				</select>
+			</div>
+			Highlight Content Match:
+			<div class="selectDiv" >
+				<select onchange="changeHighlightContentMatch();" id="filterContentHighlight">
+					<option <?php if ($filterContentHighlight === "true"){ echo "selected"; }?> value="true">True</option>
+					<option <?php if ($filterContentHighlight === "false"){ echo "selected"; }?> value="false">False</option>
+				</select>
+			</div>
+			Filter Content Match:
+			<div class="selectDiv" >
+				<select onchange="changeFilterContentMatch();" id="filterContentLimit">
+					<option <?php if ($filterContentLimit === "true"){ echo "selected"; }?> value="true">True</option>
+					<option <?php if ($filterContentLimit === "false"){ echo "selected"; }?> value="false">False</option>
+				</select>
+			</div>
+			Line Padding:
+			<div class="selectDiv" >
+				<select onchange="changeFilterContentLinePadding();" id="filterContentLinePadding">
+					<?php for($CFC = 0; $CFC < 10; $CFC++): ?>
+						<option <?php if ($filterContentLinePadding === $CFC){ echo "selected"; }?> value="<?php echo $CFC; ?>"><?php echo $CFC; ?></option>
+					<?php endfor; ?>
 				</select>
 			</div>
 		</div>

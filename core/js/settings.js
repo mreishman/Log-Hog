@@ -92,7 +92,7 @@ function saveVerified()
 		refreshArrayObject(idForFormMain);
 	}
 
-	if(idForFormMain === "settingsMainVars")
+	if(idForFormMain === "settingsMainVars" && document.getElementsByName("themesEnabled")[0])
 	{
 		if(document.getElementsByName("themesEnabled")[0].value === "true")
 		{
@@ -141,9 +141,9 @@ function saveVerified()
 			location.reload();
 		}
 	}
-	else if(idForFormMain === "settingsColorFolderGroupVars" || idForFormMain === "settingsColorFolderVars")
+	else if(idForFormMain === "settingsColorFolderGroupVars" || idForFormMain === "generalThemeOptions")
 	{
-		location.reload();
+		window.location.href = dirForAjaxSend+"core/php/template/upgradeTheme.php?forceThemeUpdate=true";
 	}
 	else
 	{
@@ -284,6 +284,11 @@ function resetArrayObject(idOfForm)
 	{
 		document.getElementById(idOfForm).innerHTML = innerHtmlObject[idOfForm];
 		arrayObject[idOfForm] = $("#"+idOfForm).serializeArray();
+
+		if(idOfForm === "settingsColorFolderGroupVars")
+		{
+			reAddJsColorPopupForCustomThemes();
+		}
 	}
 	catch(e)
 	{

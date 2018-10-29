@@ -1,5 +1,5 @@
 <?php require_once('indexHeaderFullScreen.php'); ?>
-<ul class="settingsUl settingsUlFS fullScreenMenuUL">
+<ul id="mainFullScreenMenu" class="settingsUl settingsUlFS fullScreenMenuUL">
 	<?php require_once('fullScreenMenuSidebar.php'); ?>
 </ul>
 
@@ -15,6 +15,25 @@
 	</li>
 	<li id="aboutSubMenuChangelog" onclick="toggleChangeLog();">
 		Changelog
+	</li>
+</ul>
+<ul id="themeSubMenu" class="settingsUl fullScreenMenuUL settingsUlSub" style="display: none;">
+	<li class="menuTitle" style="text-align: center;" >
+		Themes
+	</li>
+	<li id="themeSubMenuMainThemes" onclick="toggleMainThemes();" class="selected">
+		Main Themes
+	</li>
+	<li id="themeSubMenuGeneralStyle" onclick="toggleGeneralThemeStyle();">
+		General Styling
+	</li>
+	<li id="themeSubMenuColorScheme" onclick="toggleThemeColorScheme();">
+		Color Scheme
+	</li>
+	<li class="menuTitle" style="text-align: center;" >
+	</li>
+	<li class="subMenuActionsColorScheme subMenuToggle" style="display: none;" onclick="addRowForFolderColorOptions();" >
+		Add Row
 	</li>
 </ul>
 <ul id="watchListSubMenu" class="settingsUl fullScreenMenuUL settingsUlSub" style="display: none;">
@@ -83,5 +102,23 @@
 		<div class="settingsDiv" >
 			<?php require_once("innerAddon.php"); ?>
 		</div>
+	</div>
+	<div id="fullScreenMenuTheme" style="display: none;">
+		<script type="text/javascript">
+			var themeDirMod = "";
+		</script>
+		<?php
+		$themeDirMod = "";
+		require_once('core/php/template/themeMain.php');
+		?>
+	</div>
+	<div id="fullScreenMenuColorScheme" style="display: none;">
+		<?php require_once('core/php/template/folderGroupColor.php'); ?>
+	</div>
+	<div id="fullScreenMenuThemeGeneralStyle" style="display: none;">
+		<?php
+		$currentSection = "generalThemeOptions";
+		include('core/php/template/varTemplate.php');
+		?>
 	</div>
 </div>

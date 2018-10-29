@@ -21,7 +21,12 @@ while(file_exists('step'.$counterSteps.'.php'))
 	$counterSteps++;
 }
 $counterSteps--;
-require_once('../core/php/loadVars.php');?>
+require_once('../core/php/loadVars.php');
+$themeDirMod = "../";
+?>
+<script type="text/javascript">
+	var themeDirMod = "../";
+</script>
 <!DOCTYPE html>
 <html>
 <head>
@@ -65,6 +70,16 @@ require_once('../core/php/loadVars.php');?>
 		//change setupProcess to page1
 		location.reload();
 	}
+
+	function checkIfChanges()
+	{
+		if(	checkForChangesArray(["settingsColorFolderGroupVars"]))
+		{
+			return true;
+		}
+		return false;
+	}
+
 	
 	var titleOfPage = "Welcome";
 

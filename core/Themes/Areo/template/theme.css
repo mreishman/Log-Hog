@@ -192,8 +192,7 @@
 	padding: 5px;
 }
 
-.selected
-{
+.selected , .selectDropdown:hover{
 	background-color: #CCC;
 	color: black;
 }

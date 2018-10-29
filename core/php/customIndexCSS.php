@@ -1,4 +1,8 @@
 <?php
+if(!function_exists('baseURL'))
+{
+	require_once("commonFunctions.php");
+}
 $baseURLToMain =  baseURL();
 
 $baseUrl = $baseURLToMain."core/";
@@ -22,6 +26,12 @@ $windowDisplayConfig = explode("x", $windowConfig);
 .log, #firstLoad, .log table tr:not(.highlight):not(.newLine) td:not(.highlight):not(.newLine)
 {
 	color: <?php echo $logFontColor; ?>;
+}
+
+
+.log, #firstLoad, .log table tr td
+{
+	font-size: <?php echo $logFontSize; ?>%;
 }
 
 .highlight, .highlight td

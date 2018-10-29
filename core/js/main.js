@@ -7,6 +7,8 @@ var arrayOfDataMain = null;
 var arrayOfDataSettings = [];
 var arrayOfScrollHeaderUpdate = ["aboutSpanAbout","aboutSpanInfo","aboutSpanGithub"];
 var borderPadding = 0;
+var breakPointOne = 1400;
+var breakPointTwo = 1000;
 var clearingNotifications = false;
 var counterForPoll = 0;
 var counterForPollForceRefreshAll = 0;
@@ -18,6 +20,7 @@ var fileData;
 var filesNew;
 var firstLoad = true;
 var flasher;
+var folderColorGroupNames = ["Main","Highlight","Active","ActiveHighlight"];
 var fullScreenMenuClickCount = 0;
 var globalForcePageNavigate = false;
 var hiddenLogUpdatePollBottom = null;
@@ -40,6 +43,7 @@ var pollTimer = null;
 var progressBar;
 var refreshing = false;
 var refreshPauseActionVar;
+var sideBarVisible = true;
 var startedPauseOnNonFocus = false;
 var startOfPollLogicRan = false;
 var t0 = performance.now();
@@ -483,10 +487,6 @@ function addToGroupTab(newGroups)
 		if(!($("#selectForGroup option[value='"+newGroups[NGcount]+"']").length > 0) && newGroups[NGcount] !== "")
 		{
 			$("#selectForGroup").append("<option value='"+newGroups[NGcount]+"'>"+newGroups[NGcount]+"</option>");
-			if(document.getElementById("selectForGroupDiv").style.display === "none")
-			{
-				document.getElementById("selectForGroupDiv").style.display = "inline-block";
-			}
 		}
 	}
 }
@@ -726,6 +726,7 @@ function arrayOfDataMainDataFilter(data)
 function firstLoadEndAction()
 {
 	firstLoad = false;
+	document.getElementById("menu").style.display = "block";
 	document.getElementById("firstLoad").style.display = "none";
 	document.getElementById("searchType").disabled = false;
 	document.getElementById("searchFieldInput").disabled = false;
@@ -1479,7 +1480,7 @@ function unselectLogsInner(boolForType)
 		{
 			if(boolForType || logDisplayArray[h]["id"] !== null)
 			{
-				var currentLayout = document.getElementById("windowConfig").value;
+				var currentLayout = getCurrentWindowLayout();
 				var layoutVersionIndex = document.getElementById("layoutVersionIndex").value;
 				if
 				(
@@ -1561,7 +1562,7 @@ function selectTabsInOrder(targetLength)
 				//show first available log
 				for (var i = 0; i < arrayOfLogsLength; i++)
 				{
-					var currentLayout = document.getElementById("windowConfig").value;
+					var currentLayout = getCurrentWindowLayout();
 					var layoutVersionIndex = document.getElementById("layoutVersionIndex").value;
 					if(enableMultiLog === "true" && logLoadLayout.length !== 0 && logLoadLayout[currentLayout][h][layoutVersionIndex] !== "" && logLoadLayout[currentLayout][h][layoutVersionIndex] in fileData )
 					{
@@ -2236,7 +2237,7 @@ function getDiffLogAndLastLog(id)
 					{
 						returnNewNum = false;
 					}
-					else if(tmpTextLog[j].trim() !== tmpTextLast[lastStart].trim())
+					else if(lastStart in tmpTextLast && tmpTextLog[j].trim() !== tmpTextLast[lastStart].trim())
 					{
 						returnNewNum = false;
 					}
@@ -2367,10 +2368,6 @@ function makePretty(id)
 						returnText += " "+customClass+" ";
 					}
 					returnText += " >";
-					// if(bottomBarIndexShow === "true")
-					// {
-					// 	returnText += "<td style=\"width: 31px;\" ></td>";
-					// }
 					var lineToReturn = "<td style=\"white-space: pre-wrap;\" >"+lineText[j]+"</td>";
 					if(expFormatEnabled === "true")
 					{
@@ -2502,7 +2499,75 @@ function resize()
 					}
 				}
 		}
+
+		resizeFullScreenMenu();
+
 		updateNotificationCount();
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
+function resizeFullScreenMenu()
+{
+	try
+	{
+		var targetWidth = window.innerWidth;
+		var mainContentFullScreenMenuLeft = "402px";
+		if(!sideBarVisible)
+		{
+			mainContentFullScreenMenuLeft = "201px";
+		}
+		var mainContentFullScreenMenuTop = "46px";
+		if(sideBarOnlyIcons === "breakpointone" || targetWidth < breakPointOne || sideBarOnlyIcons === "breakpointtwo")
+		{
+			$(".fullScreenMenuText").hide();
+			if(document.getElementById("mainFullScreenMenu").getBoundingClientRect().width !== 52) //1px border included here
+			{
+				document.getElementById("mainFullScreenMenu").style.width = "51px";
+				$(".settingsUlSub").css("left", "52px");
+			}
+			mainContentFullScreenMenuLeft = "252px";
+			if(!sideBarVisible)
+			{
+				mainContentFullScreenMenuLeft = "52px";
+			}
+		}
+		else
+		{
+			$(".fullScreenMenuText").show();
+			if(document.getElementById("mainFullScreenMenu").getBoundingClientRect().width !== 201) //1px border included here
+			{
+				document.getElementById("mainFullScreenMenu").style.width = "200px";
+				$(".settingsUlSub").css("left", "201px");
+			}
+		}
+
+		if(targetWidth < breakPointTwo || sideBarOnlyIcons === "breakpointtwo")
+		{
+			mainContentFullScreenMenuLeft = "52px";
+			mainContentFullScreenMenuTop = "82px";
+			$(".settingsUlSub").css("width","auto").css("bottom","auto").css("right","0").css("border-bottom","1px solid white").css("border-right","none").css("height","35px");
+			$(".settingsUlSub li").not('.subMenuToggle').css("display","inline-block");
+			$(".menuTitle").not(".menuBreak").hide();
+		}
+		else
+		{
+			$(".settingsUlSub").css("width","200px").css("bottom","0").css("right","auto").css("border-bottom","none").css("border-right","1px solid white").css("height","auto");
+			$(".settingsUlSub li").not('.subMenuToggle').css("display","block");
+			$(".menuTitle").not(".fullScreenMenuText").show();
+		}
+
+		if(document.getElementById("mainContentFullScreenMenu").style.left !== mainContentFullScreenMenuLeft)
+		{
+			document.getElementById("mainContentFullScreenMenu").style.left = mainContentFullScreenMenuLeft;
+		}
+		if(document.getElementById("mainContentFullScreenMenu").style.top !== mainContentFullScreenMenuTop)
+		{
+			document.getElementById("mainContentFullScreenMenu").style.top = mainContentFullScreenMenuTop;
+		}
 	}
 	catch(e)
 	{
@@ -2730,6 +2795,7 @@ function clearLogInner(title)
 	{
 		title = title.split(" | ")[0];
 	}
+	title = title.trim();
 	archiveAction(title);
 	title = filterTitle(title);
 	var data = {file: title};
@@ -2882,6 +2948,7 @@ function hideArchiveLog(title)
 
 function viewArchiveLog(title)
 {
+	loadImgFromData("archiveLogImages");
 	archiveLogPopupToggle();
 	var dataToSend = {file: title};
 	$.ajax({
@@ -3044,6 +3111,7 @@ function deleteLog(title)
 		{
 			title = title.split(" | ")[0];
 		}
+		title = title.trim();
 		archiveAction(title);
 		var urlForSend = "core/php/deleteLog.php?format=json";
 		title = title.replace(/\s/g, "");
@@ -3228,88 +3296,6 @@ function showInfo(idNum)
 			document.getElementById("title"+idNum).style.display = "none";
 		}
 	}
-}
-
-function toggleFilterSettingsPopup()
-{
-	showPopup();
-	var innerHtmlForSettings = "<div class='settingsHeader' id='popupHeaderText' ><span id='popupHeaderText' >Local Filter Content Settings</span><a style=\"float: right; margin-top: -3px;\" onclick=\"hidePopup();\" class=\"linkSmall\" >Close</a></div><div style='width:100%;'>";
-	innerHtmlForSettings += "<ul class=\"settingsUl\" ><li><span class=\"settingsBuffer\" > Case Insensitive Search: </span> <div class=\"selectDiv\">";
-	innerHtmlForSettings += "<select onchange=\"changeFilterCase();\" id=\"caseInsensitiveSearch\">";
-	innerHtmlForSettings += "<option";
-	if(caseInsensitiveSearch === "true")
-	{
-		innerHtmlForSettings += " selected ";
-	}
-	innerHtmlForSettings += " value=\"true\">True</option>";
-	innerHtmlForSettings += "<option";
-	if(caseInsensitiveSearch === "false")
-	{
-		innerHtmlForSettings += " selected ";
-	}
-	innerHtmlForSettings += " value=\"false\">False</option>";
-	innerHtmlForSettings += " </select></div></li>";
-	innerHtmlForSettings += "<li><span class=\"settingsBuffer\" > Filter Title Includes Path: </span>";
-	innerHtmlForSettings += " <div class=\"selectDiv\"><select onchange=\"changeFilterTitleIncludePath();\" id=\"filterTitleIncludePath\">";
-	innerHtmlForSettings += "<option ";
-	if(filterTitleIncludePath === "true")
-	{
-		innerHtmlForSettings += " selected ";
-	}
-	innerHtmlForSettings += " value=\"true\">True</option>";
-	innerHtmlForSettings += "<option ";
-	if(filterTitleIncludePath === "false")
-	{
-		innerHtmlForSettings += " selected ";
-	}
-	innerHtmlForSettings += " value=\"false\">False</option>";
-	innerHtmlForSettings += " </select></div></li>";
-	innerHtmlForSettings += "<li><span class=\"settingsBuffer\" > Highlight Content match: </span>";
-	innerHtmlForSettings += " <div class=\"selectDiv\"><select onchange=\"changeHighlightContentMatch();\" id=\"filterContentHighlight\">";
-	innerHtmlForSettings += "<option";
-	if(filterContentHighlight === "true")
-	{
-		innerHtmlForSettings += " selected ";
-	}
-	innerHtmlForSettings += " value=\"true\">True</option>";
-	innerHtmlForSettings += "<option";
-	if(filterContentHighlight === "false")
-	{
-		innerHtmlForSettings += " selected ";
-	}
-	innerHtmlForSettings += " value=\"false\">False</option>";
-	innerHtmlForSettings += " </select></div></li>";
-	innerHtmlForSettings += " <li><span class=\"settingsBuffer\" > Filter Content match: </span>";
-	innerHtmlForSettings += " <div class=\"selectDiv\"><select onchange=\"changeFilterContentMatch();\" id=\"filterContentLimit\">";
-	innerHtmlForSettings += "<option";
-	if(filterContentLimit === "true")
-	{
-		innerHtmlForSettings += " selected ";
-	}
-	innerHtmlForSettings += " value=\"true\">True</option>";
-	innerHtmlForSettings += "<option";
-	if(filterContentLimit === "false")
-	{
-		innerHtmlForSettings += " selected ";
-	}
-	innerHtmlForSettings += " value=\"false\">False</option>";
-	innerHtmlForSettings += "</select></div></li>";
-	innerHtmlForSettings += "<li><span class=\"settingsBuffer\" > Line Padding: </span>";
-	innerHtmlForSettings += " <div class=\"selectDiv\">	<select onchange=\"changeFilterContentLinePadding();\" id=\"filterContentLinePadding\">";
-	for (var i=0; i < 10; i++)
-	{
-		innerHtmlForSettings += "<option ";
-		if(parseInt(filterContentLinePadding) === i)
-		{
-			innerHtmlForSettings += " selected ";
-		}
-		innerHtmlForSettings += " value="+i+">"+i+"</option>";
-	}
-	innerHtmlForSettings += "</select></div></li>";
-	innerHtmlForSettings += "</ul></div>";
-	document.getElementById("popupContentInnerHTMLDiv").innerHTML = innerHtmlForSettings;
-	document.getElementById("popupContent").style.height = "273px";
-	document.getElementById("popupContent").style.marginTop = "-136px";
 }
 
 function changeFilterCase()
@@ -3619,6 +3605,10 @@ function toggleFullScreenMenu(force = false)
 		{
 			$("#menuSeleniumMonitorAddon").click();
 		}
+		else if($("#ThemesLink") && $("#ThemesLink").hasClass("selected"))
+		{
+			toggleThemesIframeSource(true);
+		}
 		var fullScreenMenuClickCountCurrent = fullScreenMenuClickCount;
 		setTimeout(function() {
 			togglePollSpeedDown(fullScreenMenuClickCountCurrent);
@@ -3634,6 +3624,7 @@ function toggleFullScreenMenu(force = false)
 				return false;
 			}
 		}
+		toggleThemesIframeSource(false);
 		$( "#fullScreenMenuWatchList" ).off( "mousemove" );
 		globalForcePageNavigate = false;
 		document.getElementById('menu').style.zIndex = "20";
@@ -3664,13 +3655,14 @@ function toggleUpdateMenu(force = false)
 
 function toggleAddons(force = false)
 {
-	if(!force)
+	if(!force && !globalForcePageNavigate)
 	{
 		if(!(goToPageCheck("toggleAddons(true)")))
 		{
 			return false;
 		}
 	}
+	globalForcePageNavigate = false;
 	hideMainStuff();
 	hideSidebar();
 	document.getElementById("fullScreenMenuAddons").style.display = "block";
@@ -3690,10 +3682,135 @@ function toggleAbout(force = false)
 	}
 	globalForcePageNavigate = false;
 	hideMainStuff();
-	document.getElementById("mainContentFullScreenMenu").style.left = ""+402+"px";
+	toggleFullScreenMenuMainContent();
 	document.getElementById("aboutSubMenu").style.display = "block";
 	$("#mainMenuAbout").addClass("selected");
 	toggleAboutLogHog();
+}
+
+function toggleThemes(force = false)
+{
+	if(!force && !globalForcePageNavigate)
+	{
+		if(!(goToPageCheck("toggleThemes(true)")))
+		{
+			return false;
+		}
+	}
+	globalForcePageNavigate = false;
+	hideMainStuff();
+	toggleFullScreenMenuMainContent();
+	document.getElementById("themeSubMenu").style.display = "block";
+	$("#ThemesLink").addClass("selected");
+	toggleMainThemes();
+	$(".subMenuActionsColorScheme").hide();
+}
+
+function toggleMainThemes(force = false)
+{
+	if(!force)
+	{
+		if(!(goToPageCheck("toggleMainThemes(true)")))
+		{
+			return false;
+		}
+	}
+	hideThemeStuff();
+	endSettingsPollTimer();
+	toggleThemesIframeSource(true);
+	$("#themeSubMenuMainThemes").addClass("selected");
+	document.getElementById("fullScreenMenuTheme").style.display = "block";
+	arrayOfScrollHeaderUpdate = ["themeSpan"];
+	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
+}
+
+function toggleGeneralThemeStyle(force = false)
+{
+	if(!force)
+	{
+		if(!(goToPageCheck("toggleGeneralThemeStyle(true)")))
+		{
+			return false;
+		}
+	}
+	hideThemeStuff();
+	endSettingsPollTimer();
+	$("#themeSubMenuGeneralStyle").addClass("selected");
+	document.getElementById("fullScreenMenuThemeGeneralStyle").style.display = "block";
+	arrayOfScrollHeaderUpdate = ["generalThemeOptions"];
+	arrayOfDataSettings = ["generalThemeOptions"];
+	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
+	startSettingsPollTimer();
+}
+
+function toggleThemesIframeSource(showOrHide)
+{
+	var arrayOfIframesForThemes = document.getElementsByClassName("iframeThemes");
+	var lengthOfIframeThemes = arrayOfIframesForThemes.length;
+	for(var counterOfIframeThemes = 0; counterOfIframeThemes < lengthOfIframeThemes; counterOfIframeThemes++)
+	{
+		if(showOrHide)
+		{
+			arrayOfIframesForThemes[counterOfIframeThemes].setAttribute("src",arrayOfIframesForThemes[counterOfIframeThemes].getAttribute("data-src"));
+		}
+		else
+		{
+			arrayOfIframesForThemes[counterOfIframeThemes].setAttribute("src","core/html/iframe.html");
+		}
+	}
+}
+
+function toggleThemeColorScheme(force = false)
+{
+	if(!force)
+	{
+		if(!(goToPageCheck("toggleThemeColorScheme(true)")))
+		{
+			return false;
+		}
+	}
+	hideThemeStuff();
+	endSettingsPollTimer();
+	$("#themeSubMenuColorScheme").addClass("selected");
+	document.getElementById("fullScreenMenuColorScheme").style.display = "block";
+	if(window.innerWidth < breakPointTwo || sideBarOnlyIcons === "breakpointtwo")
+	{
+		$(".subMenuActionsColorScheme").css("display","inline-block");
+	}
+	else
+	{
+		$(".subMenuActionsColorScheme").css("display","block");
+	}
+	arrayOfScrollHeaderUpdate = ["settingsColorFolderGroupVars"];
+	arrayOfDataSettings = ["settingsColorFolderGroupVars"];
+	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
+	startSettingsPollTimer();
+	reAddJsColorPopupForCustomThemes();
+}
+
+function toggleFullScreenMenuMainContent()
+{
+	var mainContentFullScreenMenuLeft = "402px";
+	var mainContentFullScreenMenuTop = "46px";
+	if( window.innerWidth < breakPointTwo || sideBarOnlyIcons === "breakpointtwo")
+	{
+		mainContentFullScreenMenuLeft = "52px";
+		mainContentFullScreenMenuTop = "82px";
+	}
+	else if(sideBarOnlyIcons === "breakpointone" || window.innerWidth < breakPointOne)
+	{
+		mainContentFullScreenMenuLeft = "252px";
+	}
+
+	if(document.getElementById("mainContentFullScreenMenu").style.left !== mainContentFullScreenMenuLeft)
+	{
+		document.getElementById("mainContentFullScreenMenu").style.left = mainContentFullScreenMenuLeft;
+	}
+
+	if(document.getElementById("mainContentFullScreenMenu").style.top !== mainContentFullScreenMenuTop)
+	{
+		document.getElementById("mainContentFullScreenMenu").style.top = mainContentFullScreenMenuTop;
+	}
 }
 
 function toggleAboutLogHog()
@@ -3744,7 +3861,7 @@ function toggleWatchListMenu(force = false)
 	}
 	$(".uniqueClassForAppendSettingsMainWatchNew").html("");
 	$("#loadingSpan").show();
-	document.getElementById("mainContentFullScreenMenu").style.left = ""+402+"px";
+	toggleFullScreenMenuMainContent();
 	loadImgFromData("watchlistImg");
 	hideMainStuff();
 	arrayOfDataSettings = ["settingsMainWatch"];
@@ -3818,7 +3935,22 @@ function endSettingsPollTimer()
 
 function hideSidebar()
 {
-	document.getElementById("mainContentFullScreenMenu").style.left = ""+201+"px";
+	sideBarVisible = false;
+	var mainContentFullScreenMenuLeft = "201px";
+	if(sideBarOnlyIcons === "breakpointone" || window.innerWidth < breakPointOne || sideBarOnlyIcons === "breakpointtwo")
+	{
+		mainContentFullScreenMenuLeft = "52px";
+	}
+
+	if(document.getElementById("mainContentFullScreenMenu").style.left !== mainContentFullScreenMenuLeft)
+	{
+		document.getElementById("mainContentFullScreenMenu").style.left = mainContentFullScreenMenuLeft;
+	}
+	if(document.getElementById("mainContentFullScreenMenu").style.top !== "46px")
+	{
+		document.getElementById("mainContentFullScreenMenu").style.top = "46px";
+	}
+
 }
 
 function hideWatchListStuff()
@@ -3848,10 +3980,22 @@ function hideAddonStuff()
 	$("#mainMenuAddons").removeClass("selected");
 }
 
+function hideThemeStuff()
+{
+	toggleThemesIframeSource(false);
+	document.getElementById("fullScreenMenuTheme").style.display = "none";
+	$("#themeSubMenuMainThemes").removeClass("selected");
+	document.getElementById("fullScreenMenuColorScheme").style.display = "none";
+	$(".subMenuActionsColorScheme").hide();
+	$("#themeSubMenuGeneralStyle").removeClass("selected");
+	document.getElementById("fullScreenMenuThemeGeneralStyle").style.display = "none";
+	$("#themeSubMenuColorScheme").removeClass("selected");
+}
+
 function hideIframeStuff()
 {
 	document.getElementById("fullScreenMenuIFrame").style.display = "none";
-	$('#iframeFullScreen').prop('src', "");
+	$('#iframeFullScreen').prop('src', "core/html/iframe.html");
 }
 
 function toggleIframe(locHref, idOfAddon, force = false)
@@ -3867,7 +4011,7 @@ function toggleIframe(locHref, idOfAddon, force = false)
 	hideMainStuff();
 	$("#"+idOfAddon).addClass("selected");
 	document.getElementById("fullScreenMenuIFrame").style.display = "block";
-	document.getElementById("mainContentFullScreenMenu").style.left = ""+201+"px";
+	hideSidebar();
 	$('#iframeFullScreen').prop('src', locHref);
 	var mainContentRect = document.getElementById("mainContentFullScreenMenu").getBoundingClientRect();
 	document.getElementById("iframeFullScreen").style.width = ""+mainContentRect.width+"px";
@@ -3885,34 +4029,41 @@ function hideMainStuff()
 	{
 		document.getElementById("aboutSubMenu").style.display = "none";
 		hideAboutStuff();
+		$("#mainMenuAbout").removeClass("selected");
 	}
-
-	$("#mainMenuAbout").removeClass("selected");
 
 	if($("#mainMenuUpdate").hasClass("selected"))
 	{
 		hideUpdateStuff();
+		$("#mainMenuUpdate").removeClass("selected");
+		sideBarVisible = true;
 	}
-
-	$("#mainMenuUpdate").removeClass("selected");
 
 
 	if($("#menuStatusAddon").hasClass("selected") || $("#menuMonitorAddon").hasClass("selected") || $("#menuSearchAddon").hasClass("selected") || $("#menuSeleniumMonitorAddon").hasClass("selected"))
 	{
 		hideIframeStuff();
+		sideBarVisible = true;
 	}
 
 	if($("#watchListMenu").hasClass("selected"))
 	{
 		hideWatchListStuff();
+		$("#watchListMenu").removeClass("selected");
 	}
 
 	if($("#mainMenuAddons").hasClass("selected"))
 	{
-		 hideAddonStuff();
+		hideAddonStuff();
+		sideBarVisible = true;
 	}
 
-	$("#watchListMenu").removeClass("selected");
+	if($("#ThemesLink") && $("#ThemesLink").hasClass("selected"))
+	{
+		document.getElementById("themeSubMenu").style.display = "none";
+		hideThemeStuff();
+		$("#ThemesLink").removeClass("selected");
+	}
 
 	$("#menuStatusAddon").removeClass("selected");
 	$("#menuMonitorAddon").removeClass("selected");
@@ -4003,12 +4154,26 @@ function onScrollShowFixedMiniBar(idsOfForms)
 	for (var i = idsOfForms.length - 1; i >= 0; i--)
 	{
 		var currentPos = document.getElementById(idsOfForms[i]).getBoundingClientRect().top;
-		if(currentPos < 46)
+		var topCheck = 46;
+		if(window.innerWidth < breakPointTwo || sideBarOnlyIcons === "breakpointtwo")
+		{
+			topCheck = 82;
+		}
+		if(currentPos < topCheck)
 		{
 			$("#fixedPositionMiniMenu").html($("#"+idsOfForms[i]+" .settingsHeader").html());
 			if(document.getElementById("fixedPositionMiniMenu").style.display === "none")
 			{
 				document.getElementById("fixedPositionMiniMenu").style.display = "block";
+			}
+			var fixedPositionMiniMenuTop = "46px";
+			if(window.innerWidth < breakPointTwo || sideBarOnlyIcons === "breakpointtwo")
+			{
+				fixedPositionMiniMenuTop = "82px";
+			}
+			if(document.getElementById("fixedPositionMiniMenu").style.top !== fixedPositionMiniMenuTop)
+			{
+				document.getElementById("fixedPositionMiniMenu").style.top = fixedPositionMiniMenuTop;
 			}
 			dis = true;
 			break;
@@ -4129,7 +4294,7 @@ function updateOtherApps()
 
 function generateWindowDisplay()
 {
-	var windowDisplayConfig = document.getElementById("windowConfig").value;
+	var windowDisplayConfig = getCurrentWindowLayout();
 	var windowDisplayConfigArray = windowDisplayConfig.split("x");
 	windowDisplayConfigRowCount = windowDisplayConfigArray[0];
 	windowDisplayConfigColCount = windowDisplayConfigArray[1];
@@ -4187,6 +4352,7 @@ function generateWindowDisplay()
 	if(windowDisplayConfigColCount > 1 || windowDisplayConfigRowCount > 1)
 	{
 		$(".pinWindowContainer, .currentWindowNumSelected, .currentWindowNum").show();
+		loadImgFromData("multiLogGreaterThanOne");
 	}
 	else
 	{
@@ -4376,8 +4542,32 @@ function toggleTopLogNotice()
 	document.getElementById("menu").style.borderTop = "";
 }
 
-$(document).ready(function()
+function getCurrentWindowLayout()
 {
+	return document.getElementById("windowConfig").value;
+}
+
+function saveLayoutTo(letter)
+{
+	var currentConfig = getCurrentWindowLayout();
+	var currentConfigArray = currentConfig.split("x");
+	var outerLoop = parseInt(currentConfigArray[0]);
+	var innerLoop = parseInt(currentConfigArray[1]);
+	var currentConterLoopExt = 0;
+	for(var outerLoopCount = 0; outerLoopCount < outerLoop; outerLoopCount++)
+	{
+		for(var innerLoopCount = 0; innerLoopCount < innerLoop; innerLoopCount++)
+		{
+			$("#localLayout [name=\"logLoad"+currentConfig+"-"+currentConterLoopExt+"-"+letter+"\"]")[0].value = filterTitle(titles[logDisplayArray[currentConterLoopExt]["id"]]).trim();
+			currentConterLoopExt++;
+		}
+	}
+	saveAndVerifyMain('localLayout');
+}
+
+function mainReady()
+{
+	dirForAjaxSend = "";
 	progressBar = new ldBar("#progressBar");
 	resize();
 	updateProgressBar(10, "Generating File List");
@@ -4432,4 +4622,7 @@ $(document).ready(function()
 		},
 		true
 	);
-});
+
+	refreshArrayObject("generalThemeOptions");
+	refreshArrayObject("settingsColorFolderGroupVars");
+}

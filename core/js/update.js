@@ -12,6 +12,13 @@ var updateCheckFinished = true;
 var checkForUpdatePoll = null;
 var installUpdatePoll = null;
 
+function updateInProgressPopup()
+{
+	//show popup for update check already in progress
+	showPopup();
+	document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class='settingsHeader' >Update Check in Progress</div><div style='width:100%;text-align:center;padding:10px;'> Log-Hog is already checking for an update. Please wait untill it is finished before trying to check for another udpate. </div><div class='link' onclick='hidePopup();' style='margin-left:165px; margin-right:50px;margin-top:5px;'>Okay!</div></div>";
+}
+
 function checkForUpdates(urlSend = "../", whatAmIUpdating = "Log-Hog", currentNewVersion = currentVersion, updateFormIDLocal = "settingsInstallUpdate", showPopupForUpdateInner = true, dontNotifyVersionInner = "")
 {
 	try
@@ -22,9 +29,7 @@ function checkForUpdates(urlSend = "../", whatAmIUpdating = "Log-Hog", currentNe
 		}
 		else
 		{
-			//show popup for update check already in progress
-			showPopup();
-			document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class='settingsHeader' >Update Check in Progress</div><div style='width:100%;text-align:center;padding:10px;'> Log-Hog is already checking for an update. Please wait untill it is finished before trying to check for another udpate. </div><div class='link' onclick='hidePopup();' style='margin-left:165px; margin-right:50px;margin-top:5px;'>Okay!</div></div>";
+			updateInProgressPopup();
 			return;
 		}
 		versionUpdate = currentNewVersion;
@@ -54,78 +59,85 @@ function checkForUpdates(urlSend = "../", whatAmIUpdating = "Log-Hog", currentNe
 			type: "POST",
 			success(data)
 			{
-				if(data.version == "-1")
+				if(checkForUpdatePoll !== null)
 				{
-					updateCheckFinished = true;
-					//error occured, show that
-					if(whatAmIUpdating === "Log-Hog")
-					{
-						document.getElementById("progressBarUpdateCheck").style.display = "none";
-					}
-					if(showPopupForUpdateBool)
-					{
-						if(data.error === "configStatic is not writeable")
-						{
-							window.location.href = "./error.php?error=12&page=File Permission Error";
-						}
-						else if(data.error === "could not create folder for tmp versionCheck data")
-						{
-							window.location.href = "./error.php?error=13&page=Folder Create Error";
-						}
-						else if(data.error === "error opening zip")
-						{
-							window.location.href = "./error.php?error=14&page=Error Opening Zip";
-						}
-						else
-						{
-							window.location.href = "./error.php?error=43&page=Update Error";
-						}
-					}
-				}
-				if(data.version == "1" || data.version == "2" | data.version == "3")
-				{
-					if(dontNotifyVersionNotSet === "" || dontNotifyVersionNotSet != data.versionNumber)
-					{
-						dataFromJSON = data;
-						if(document.getElementById("progressBarText"))
-						{
-							document.getElementById("progressBarText").innerHTML = "Verifying version list file for "+whatAmIUpdating+" "+totalCounter+"/"+verifyCheckCount+"/"+(successVerifyNum);
-						}
-						totalCounter = 1;
-						checkForUpdatePoll = setInterval(function(){checkForUpdateTimer(urlSend, whatAmIUpdating);},3000);
-					}
-				}
-				else if (data.version == "0")
-				{
-					updateCheckFinished = true;
-					if(showPopupForUpdateBool)
-					{
-						if(whatAmIUpdating === "Log-Hog")
-						{
-							document.getElementById("checkForUpdateButton").style.display = "inline-block";
-							document.getElementById("progressBarUpdateCheck").style.display = "none";
-							document.getElementById("progressBarText").innerHTML = "No Update For "+whatAmIUpdating;
-						}
-						else
-						{
-							document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class='settingsHeader' >No Update For "+whatAmIUpdating+" </div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>You are on the most current version</div><div class='link' onclick='closePopupNoUpdate();' style='margin-left:165px; margin-right:50px;margin-top:25px;'>Okay!</div></div>";
-						}
-					}
+					updateInProgressPopup();
 				}
 				else
 				{
-					updateCheckFinished = true;
-					if(showPopupForUpdateBool)
+					if(data.version == "-1")
 					{
+						updateCheckFinished = true;
+						//error occured, show that
 						if(whatAmIUpdating === "Log-Hog")
 						{
-							document.getElementById("checkForUpdateButton").style.display = "inline-block";
 							document.getElementById("progressBarUpdateCheck").style.display = "none";
-							document.getElementById("progressBarText").innerHTML = "An error occured while trying to check for updates for "+whatAmIUpdating+". Make sure you are connected to the internet and settingsCheckForUpdateAjax.php has sufficient rights to write / create files.";
 						}
-						else
+						if(showPopupForUpdateBool)
 						{
-							document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class='settingsHeader' >Error</div><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>An error occured while trying to check for updates for "+whatAmIUpdating+". Make sure you are connected to the internet and settingsCheckForUpdateAjax.php has sufficient rights to write / create files. </div><div class='link' onclick='closePopupNoUpdate();' style='margin-left:165px; margin-right:50px;margin-top:5px;'>Okay!</div></div>";
+							if(data.error === "configStatic is not writeable")
+							{
+								window.location.href = "./error.php?error=12&page=File Permission Error";
+							}
+							else if(data.error === "could not create folder for tmp versionCheck data")
+							{
+								window.location.href = "./error.php?error=13&page=Folder Create Error";
+							}
+							else if(data.error === "error opening zip")
+							{
+								window.location.href = "./error.php?error=14&page=Error Opening Zip";
+							}
+							else
+							{
+								window.location.href = "./error.php?error=43&page=Update Error";
+							}
+						}
+					}
+					if(data.version == "1" || data.version == "2" | data.version == "3")
+					{
+						if(dontNotifyVersionNotSet === "" || dontNotifyVersionNotSet != data.versionNumber)
+						{
+							dataFromJSON = data;
+							if(document.getElementById("progressBarText"))
+							{
+								document.getElementById("progressBarText").innerHTML = "Verifying version list file for "+whatAmIUpdating+" "+totalCounter+"/"+verifyCheckCount+"/"+(successVerifyNum);
+							}
+							totalCounter = 1;
+							checkForUpdatePoll = setInterval(function(){checkForUpdateTimer(urlSend, whatAmIUpdating);},3000);
+						}
+					}
+					else if (data.version == "0")
+					{
+						updateCheckFinished = true;
+						if(showPopupForUpdateBool)
+						{
+							if(whatAmIUpdating === "Log-Hog")
+							{
+								document.getElementById("checkForUpdateButton").style.display = "inline-block";
+								document.getElementById("progressBarUpdateCheck").style.display = "none";
+								document.getElementById("progressBarText").innerHTML = "No Update For "+whatAmIUpdating;
+							}
+							else
+							{
+								document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class='settingsHeader' >No Update For "+whatAmIUpdating+" </div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>You are on the most current version</div><div class='link' onclick='closePopupNoUpdate();' style='margin-left:165px; margin-right:50px;margin-top:25px;'>Okay!</div></div>";
+							}
+						}
+					}
+					else
+					{
+						updateCheckFinished = true;
+						if(showPopupForUpdateBool)
+						{
+							if(whatAmIUpdating === "Log-Hog")
+							{
+								document.getElementById("checkForUpdateButton").style.display = "inline-block";
+								document.getElementById("progressBarUpdateCheck").style.display = "none";
+								document.getElementById("progressBarText").innerHTML = "An error occured while trying to check for updates for "+whatAmIUpdating+". Make sure you are connected to the internet and settingsCheckForUpdateAjax.php has sufficient rights to write / create files.";
+							}
+							else
+							{
+								document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class='settingsHeader' >Error</div><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>An error occured while trying to check for updates for "+whatAmIUpdating+". Make sure you are connected to the internet and settingsCheckForUpdateAjax.php has sufficient rights to write / create files. </div><div class='link' onclick='closePopupNoUpdate();' style='margin-left:165px; margin-right:50px;margin-top:5px;'>Okay!</div></div>";
+							}
 						}
 					}
 				}
@@ -182,7 +194,7 @@ function checkForUpdateTimer(urlSend, whatAmIUpdating)
 			if(verifyCheckCount >= successVerifyNum)
 			{
 				updateCheckFinished = true;
-				clearInterval(checkForUpdatePoll);
+				clearIntervalUpdate();
 				if(whatAmIUpdating === "Log-Hog")
 				{
 					showPopupForUpdate(urlSend,whatAmIUpdating);
@@ -209,9 +221,15 @@ function checkForUpdateTimer(urlSend, whatAmIUpdating)
 		if(totalCounter > 30)
 		{
 			updateCheckFinished = true;
-			clearInterval(checkForUpdatePoll);
+			clearIntervalUpdate();
 		}
 	});
+}
+
+function clearIntervalUpdate()
+{
+	clearInterval(checkForUpdatePoll);
+	checkForUpdatePoll = null;
 }
 
 function showPopupForUpdate(urlSend,whatAmIUpdating)
@@ -253,6 +271,18 @@ function showPopupForUpdate(urlSend,whatAmIUpdating)
 			{
 				document.getElementById("progressBarUpdateCheck").style.display = "none";
 				document.getElementById("progressBarText").innerHTML = "";
+			}
+		}
+		if(document.getElementById("update"))
+		{
+			var newSrc = updateIconRedSrc;
+			if(dataFromJSON.version == "1")
+			{
+				newSrc = updateIconYellowSrc;
+			}
+			if(document.getElementById("update").src !== newSrc)
+			{
+				document.getElementById("update").src = newSrc;
 			}
 		}
 
@@ -377,7 +407,7 @@ function verifyChange(urlSend)
 				if(data == "finishedUpdate")
 				{
 					verifyCountSuccess++;
-					if(verifyCountSuccess >= successVerifyNum)
+					if(verifyCountSuccess > successVerifyNum)
 					{
 						verifyCountSuccess = 0;
 						clearInterval(installUpdatePoll);

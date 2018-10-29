@@ -112,10 +112,12 @@ function generateSaveBlock($data = array(), $arrayOfImages)
 		$localSrcMod = $data["srcModifier"];
 	}
 	$saveBlock .= generateImage(
-		$arrayOfImages["trashCanSideBar"],
+		$arrayOfImages["loadingImg"],
 		array(
 			"height"		=>	"25px",
-			"srcModifier"	=>	$localSrcMod
+			"srcModifier"	=>	$localSrcMod,
+			"class"			=>	"watchlistImg",
+			"data-src"		=>	$arrayOfImages["trashCanSideBar"]
 		)
 	);
 	$saveBlock .= "</a>";
@@ -143,7 +145,7 @@ function generateSaveBlock($data = array(), $arrayOfImages)
 	$saveBlock .= "   <a onclick=\"addFileFromLocation(".$rowNumber.");\" class=\"linkSmall\"> New file from base</a>";
 	$saveBlock .= "   <a onclick=\"addFolderFromLocation(".$rowNumber.");\" class=\"linkSmall\"> New folder from base</a>";
 	$saveBlock .= "</div><div class=\"settingsDiv\" ><ul class=\"settingsUl\" >";
-	$saveBlock .= "<li><span class=\"settingsBuffer\" >Location: </span><input onkeyup=\"getCurrentFileFolderMainPage(".$rowNumber.")\" onfocusin=\"showTypeDropdown(".$rowNumber.");\" style=\"width: 600px;\" type=\"text\" name=\"watchListKey".$rowNumber."Location\" value=\"".$location."\" ></li>";
+	$saveBlock .= "<li><span class=\"settingsBuffer\" >Location: </span><input onkeyup=\"getCurrentFileFolderMainPage(".$rowNumber.")\" onclick=\"showTypeDropdown(".$rowNumber.");\" style=\"width: 600px;\" type=\"text\" name=\"watchListKey".$rowNumber."Location\" value=\"".$location."\" ></li>";
 	$saveBlock .= "<li  class=\"typeFile\" ".$typeFile."><span class=\"settingsBuffer\" >Pattern: </span><span class=\"settingsBuffer\" ><div class=\"selectDiv\"><select onchange=\"togglePatternSelect(".$rowNumber.")\" id=\"watchListKey".$rowNumber."PatternSelect\" >";
 	if(isset($data["pattern"]))
 	{

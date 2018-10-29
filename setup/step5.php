@@ -79,4 +79,11 @@ require_once('../core/php/loadVars.php');?>
 <script src="../core/js/settings.js?v=<?php echo $cssVersion?>"></script>
 <script src="stepsJavascript.js?v=<?php echo $cssVersion?>"></script>
 <script src="core/js/loghogDownloadJS.js"></script>
+<script type="text/javascript">
+$(document).ready(function()
+{
+	loadImgFromData("mainMenuImage");
+});
+
+</script>
 </html>
