@@ -455,17 +455,20 @@ background: linear-gradient(to bottom, rgba(233,170,181,1) 0%, rgba(242,166,173,
 	filter: invert(100%);
 }
 
-.fullScreenMenuLeftSidebar div {
+.fullScreenMenuLeftSidebar div, .fullScreenMenuLeftSidebar td {
 	background-color: white;
 	color: black;
-}
-
-.fullScreenMenuLeftSidebar div:hover {
-	background-color: black;
-	color: white;
 }
 
 .fullScreenMenuLeftSidebar {
 	background-color: white;
 	border-right: 1px solid black;
+}
+
+
+.notificationPreviewLog
+{
+	max-height: 100px;
+	overflow-y: auto;
+	border: 1px solid white;
 }

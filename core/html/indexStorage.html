@@ -11,10 +11,13 @@
 		<span style="width: 100%;">
 			<table style="width: 100%; padding-top: 5px; padding-bottom: 5px;" >
 				<tr>
-					<td style="border-right: 1px solid black; width: 75px; cursor: default;"> {{time}} </td>
-					<td style="width: 50px;" > <span class="linkSmall" onclick="removeNotification('{{idNum}}'); {{action}}" >View</span> </td>
-					<td style="width: 75px;" > <span class="linkSmall" onclick="removeNotification('{{idNum}}');" >Remove</span> </td>
-					<td class="notificationText"> {{name}} </td>
+					<td rowspan="2" style="border-right: 1px solid black; width: 75px; cursor: default;"> {{time}} </td>
+					<td rowspan="2" style="width: 50px;" > <span class="linkSmall" onclick="removeNotification('{{idNum}}'); {{action}}" >View</span> </td>
+					<td rowspan="2" style="width: 75px;" > <span class="linkSmall" onclick="removeNotification('{{idNum}}');" >Remove</span> </td>
+					<td class="notificationText"><b> {{name}} </b></td>
+				</tr>
+				<tr>
+					<td><div class="notificationPreviewLog" >{{previewText}}</div></td>
 				</tr>
 			</table>
 		</span>
@@ -25,10 +28,13 @@
 		<span style="width: 100%;">
 			<table style="width: 100%; padding-top: 5px; padding-bottom: 5px;" >
 				<tr>
-					<td style="border-right: 1px solid black; width: 75px; cursor: default;"> {{time}} </td>
-					<td style="width: 50px;" > <span class="linkSmall" onclick="removeNotification('{{idNum}}'); {{action}}" >View</span> </td>
-					<td style="width: 75px;" > <span class="linkSmall" onclick="removeNotification('{{idNum}}');" >Remove</span> </td>
-					<td class="notificationText"> {{image}} {{name}} </td>
+					<td rowspan="2" style="border-right: 1px solid black; width: 75px; cursor: default;"> {{time}} </td>
+					<td rowspan="2" style="width: 50px;" > <span class="linkSmall" onclick="removeNotification('{{idNum}}'); {{action}}" >View</span> </td>
+					<td rowspan="2" style="width: 75px;" > <span class="linkSmall" onclick="removeNotification('{{idNum}}');" >Remove</span> </td>
+					<td class="notificationText"> {{image}} <b>{{name}} </b></td>
+				</tr>
+				<tr>
+					<td><div class="notificationPreviewLog" >{{previewText}}</div></td>
 				</tr>
 			</table>
 		</span>

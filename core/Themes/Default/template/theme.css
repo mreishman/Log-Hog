@@ -367,7 +367,7 @@
 	border-right: 1px solid white;
 }
 
-.fullScreenMenuLeftSidebar div {
+.fullScreenMenuLeftSidebar div, .fullScreenMenuLeftSidebar td {
 	background-color: black;
 	color: white;
 }
@@ -381,4 +381,12 @@
 {
 	background-color: black;
 	border-right: 1px solid white;
+}
+
+
+.notificationPreviewLog
+{
+	max-height: 100px;
+	overflow-y: auto;
+	border: 1px solid white;
 }
