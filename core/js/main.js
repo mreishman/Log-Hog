@@ -3683,6 +3683,10 @@ function toggleFullScreenMenu(force = false)
 		{
 			toggleThemesIframeSource(true);
 		}
+		else if($("#mainMenuNotifications") && $("#mainMenuNotifications").hasClass("selected"))
+		{
+			updateNotificationStuff();
+		}
 		var fullScreenMenuClickCountCurrent = fullScreenMenuClickCount;
 		setTimeout(function() {
 			togglePollSpeedDown(fullScreenMenuClickCountCurrent);

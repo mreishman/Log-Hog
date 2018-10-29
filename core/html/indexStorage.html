@@ -11,10 +11,10 @@
 		<span style="width: 100%;">
 			<table style="width: 100%; padding-top: 5px; padding-bottom: 5px;" >
 				<tr>
-					<td style="border-right: 1px solid black; width: 65px;"> {{time}} </td>
-					<td style="width: 350px;" class="notificationText"> {{name}} </td>
-					<td> <span class="linkSmall" onclick="removeNotification('{{idNum}}'); {{action}}" >View</span> </td>
-					<td style="width: 10px; cursor: pointer; padding: 10px;" onclick="removeNotification('{{idNum}}');" >x</td>
+					<td style="border-right: 1px solid black; width: 75px; cursor: default;"> {{time}} </td>
+					<td style="width: 50px;" > <span class="linkSmall" onclick="removeNotification('{{idNum}}'); {{action}}" >View</span> </td>
+					<td style="width: 75px;" > <span class="linkSmall" onclick="removeNotification('{{idNum}}');" >Remove</span> </td>
+					<td class="notificationText"> {{name}} </td>
 				</tr>
 			</table>
 		</span>
@@ -25,10 +25,10 @@
 		<span style="width: 100%;">
 			<table style="width: 100%; padding-top: 5px; padding-bottom: 5px;" >
 				<tr>
-					<td style="border-right: 1px solid black; width: 65px; cursor: default;"> {{time}} </td>
+					<td style="border-right: 1px solid black; width: 75px; cursor: default;"> {{time}} </td>
+					<td style="width: 50px;" > <span class="linkSmall" onclick="removeNotification('{{idNum}}'); {{action}}" >View</span> </td>
+					<td style="width: 75px;" > <span class="linkSmall" onclick="removeNotification('{{idNum}}');" >Remove</span> </td>
 					<td class="notificationText"> {{image}} {{name}} </td>
-					<td> <span class="linkSmall" onclick="removeNotification('{{idNum}}'); {{action}}" >View</span> </td>
-					<td style="width: 10px; cursor: pointer;" onclick="removeNotification('{{idNum}}');" >x</td>
 				</tr>
 			</table>
 		</span>

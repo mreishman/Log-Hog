@@ -378,11 +378,6 @@
 	color: white;
 }
 
-.fullScreenMenuLeftSidebar div:hover {
-	background-color: white;
-	color: black;
-}
-
 .fullScreenMenuLeftSidebar {
 	background-color: rgba(25,25,100,1);
 	border-right: 1px solid white;

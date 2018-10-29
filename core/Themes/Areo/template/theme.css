@@ -401,11 +401,6 @@
 	color: white;
 }
 
-.fullScreenMenuLeftSidebar div:hover {
-	background-color: white;
-	color: black;
-}
-
 .fullScreenMenuLeftSidebar {
 	background: repeating-linear-gradient(45deg, rgba(25,40,55,0.75) 35%, rgba(65,85,100,0.75) 40%, rgba(65,85,100,0.75) 42%, rgba(25,40,55,0.75) 50%, rgba(25,40,55,0.75) 55%, rgba(70,85,100,0.75) 60%, rgba(70,85,100,0.75) 75%, rgba(25,40,55,0.75) 90%);
 	border-right: 1px solid white;
