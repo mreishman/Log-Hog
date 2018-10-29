@@ -367,6 +367,22 @@
 	border-right: 1px solid white;
 }
 
+
+.fullScreenMenuLeftSidebar div {
+	background-color: black;
+	color: white;
+}
+
+.fullScreenMenuLeftSidebar div:hover {
+	background-color: white;
+	color: black;
+}
+
+.fullScreenMenuLeftSidebar {
+	background-color: black;
+	border-right: 1px solid white;
+}
+
 .settingsUlSub
 {
 	background-color: black;

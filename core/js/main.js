@@ -3629,7 +3629,20 @@ function addNotification(notificationArray)
 function updateNotificationStuff()
 {
 	updateNotificationCount();
-	showNotifications();
+	if(document.getElementById("fullScreenMenu").style.display !== "none" && ($("#mainMenuNotifications") && $("#mainMenuNotifications").hasClass("selected")))
+	{
+		if(notifications.length < 1)
+		{
+			document.getElementById("notificationsEmpty").style.display = "block";
+			document.getElementById("notifications").style.display = "none";
+		}
+		else
+		{
+			showNotifications();
+			document.getElementById("notifications").style.display = "block";
+			document.getElementById("notificationsEmpty").style.display = "none";
+		}
+	}
 	checkForUpdateLogsOffScreen();
 }
 

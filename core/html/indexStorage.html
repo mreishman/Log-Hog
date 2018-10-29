@@ -7,13 +7,14 @@
 	</a>
 </div>
 <div class="notificationContainer">
-	<div id="{{id}}">
+	<div id="{{id}}" class="notificationDiv" >
 		<span style="width: 100%;">
 			<table style="width: 100%; padding-top: 5px; padding-bottom: 5px;" >
 				<tr>
 					<td style="border-right: 1px solid black; width: 65px;"> {{time}} </td>
-					<td onclick="removeNotification('{{idNum}}'); {{action}}" class="notificationText"> {{name}} </td>
-					<td style="width: 10px; cursor: pointer;" onclick="removeNotification('{{idNum}}');" >x</td>
+					<td style="width: 350px;" class="notificationText"> {{name}} </td>
+					<td> <span class="linkSmall" onclick="removeNotification('{{idNum}}'); {{action}}" >View</span> </td>
+					<td style="width: 10px; cursor: pointer; padding: 10px;" onclick="removeNotification('{{idNum}}');" >x</td>
 				</tr>
 			</table>
 		</span>
@@ -24,8 +25,9 @@
 		<span style="width: 100%;">
 			<table style="width: 100%; padding-top: 5px; padding-bottom: 5px;" >
 				<tr>
-					<td style="border-right: 1px solid black; width: 65px;"> {{time}} </td>
-					<td onclick="removeNotification('{{idNum}}'); {{action}}" class="notificationText"> {{image}} {{name}} </td>
+					<td style="border-right: 1px solid black; width: 65px; cursor: default;"> {{time}} </td>
+					<td class="notificationText"> {{image}} {{name}} </td>
+					<td> <span class="linkSmall" onclick="removeNotification('{{idNum}}'); {{action}}" >View</span> </td>
 					<td style="width: 10px; cursor: pointer;" onclick="removeNotification('{{idNum}}');" >x</td>
 				</tr>
 			</table>
@@ -45,12 +47,9 @@
 	</div>
 </div>
 <div class="notificationButtons">
-	<div>
+	<div class="menuTitle" >
 		<table style="width: 100%; border-top: 1px solid #aaa; padding-bottom: 3px; padding-top: 3px;">
 			<tr>
-				<th>
-					<span class="linkSmall" style="cursor: pointer;" onclick="toggleNotifications();">Close</span>
-				</th>
 				<th>
 					<span class="linkSmall" style="cursor: pointer;" onclick="removeAllNotifications(); toggleNotifications();">Clear</span>
 				</th>

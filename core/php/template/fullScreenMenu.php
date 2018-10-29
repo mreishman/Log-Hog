@@ -133,9 +133,17 @@
 		?>
 	</div>
 	<div id="notifications" style="display: none;" >
-		<div id="notificationHolder" style="display: inline-block;" ></div>
+		<div id="notificationHolder" class="fullScreenMenuLeftSidebar" style="display: inline-block; height: 100%; overflow-y: auto;" ></div>
 	</div>
 	<div id="notificationsEmpty" style="display: none;" >
-		<div class="errorMessageLog errorMessageGreenBG" > You have 0 notifications. </div>
+		<table width="100%" style="height: 100%;">
+			<tr>
+				<th valign="center" >
+					<div class="noNotificationsNotification" >
+						You have no new notifications!
+					</div>
+				</th>
+			</tr>
+		</table>
 	</div>
 </div>
