@@ -3476,7 +3476,7 @@ function formatAMPM(date)
 function displayNotifications(notificationsArray)
 {
 	clearAllNotifications();
-	var htmlForNotifications = "<span style=\"overflow: auto; max-height: 300px; display: block;\" >";
+	var htmlForNotifications = "<span style=\"display: block;\" >";
 	for (var i = notificationsArray.length - 1; i >= 0; i--)
 	{
 		var blank;
@@ -3557,34 +3557,32 @@ function updateNotificationCount()
 		{
 			currentCount = "0" + currentCount;
 		}
-		if(document.getElementById("notificationCount").innerHTML == currentCount)
+		if(document.getElementById("notificationBadge").innerHTML == currentCount)
 		{
 			return;
 		}
-		$("#notificationCount").empty();
+		$("#notificationBadge").empty();
 		document.getElementById("notificationIcon").style.display = "block";
-		$("#notificationCount").append(currentCount);
+		$("#notificationBadge").append(currentCount);
 		resizeNotificationCounter();
 	}
 	else
 	{
-		$("#notificationCount").empty();
+		$("#notificationBadge").empty();
 		document.getElementById("notificationIcon").style.display = "none";
 	}
 }
 
 function resizeNotificationCounter()
 {
-	var boundingRectForNotificationDiv = document.getElementById("notificationDiv").getBoundingClientRect();
-	if(document.getElementById("notificationCount").style.left !== (boundingRectForNotificationDiv.left+5) + "px")
+	var boundingRectForNotificationDiv = document.getElementById("mainMenuDiv").getBoundingClientRect();
+	if(document.getElementById("notificationBadge").style.left !== (boundingRectForNotificationDiv.left+11) + "px")
 	{
-		document.getElementById("notificationCount").style.left = (boundingRectForNotificationDiv.left+5) + "px";
-		document.getElementById("notificationBadge").style.left = (boundingRectForNotificationDiv.left-5) + "px";
+		document.getElementById("notificationBadge").style.left = (boundingRectForNotificationDiv.left+11) + "px";
 	}
-	if(document.getElementById("notificationCount").style.top !== (boundingRectForNotificationDiv.top+11) + "px")
+	if(document.getElementById("notificationBadge").style.top !== (boundingRectForNotificationDiv.top+17) + "px")
 	{
-		document.getElementById("notificationCount").style.top = (boundingRectForNotificationDiv.top+11) + "px";
-		document.getElementById("notificationBadge").style.top = (boundingRectForNotificationDiv.top+19) + "px";
+		document.getElementById("notificationBadge").style.top = (boundingRectForNotificationDiv.top+17) + "px";
 	}
 }
 

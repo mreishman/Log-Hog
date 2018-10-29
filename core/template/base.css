@@ -24,27 +24,16 @@ div {
   z-index: 30;
 }
 
-#notificationCount {
-  width: 10px;
-  height: 10px;
-  display: inline-block;
-  margin-left: 5px;
-  position: absolute;
-  top: 16px;
-  font-size: 68%;
-  cursor: pointer;
-}
-
 #notificationBadge {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
+  border-radius: 15%;
   display: inline-block;
   margin-left: 5px;
   position: absolute;
   top: 24px;
   background-color: red;
   cursor: pointer;
+  padding: 2px;
+  font-size: 80%;
 }
 
 .notificationTriangle {
