@@ -253,6 +253,7 @@ $defaultConfig = array(
 	'groupDropdownInHeader'			=> 'false',
 	'hideClearAllNotifications'		=> 'true',
 	'hideEmptyLog'					=> 'false',
+	'hideNotificationIcon'			=> 'true',
 	'highlightColorBG'				=> '#FFFF00',
 	'highlightColorFont'			=> '#000000',
 	'highlightNew'					=> 'true',
