@@ -21,9 +21,9 @@ var doClearAllNotifications = {action: "removeAllNotifications();", name: "Clear
 var deleteMenu = [clearAllLogs,clearCurrentLog,deleteCurrentLog];
 var pauseMenu = [tmpTogglePauseOnUnfocus];
 var notificationMenuHidden = [doClearAllNotifications];
-var notificationMenuClicked = [doToggleClearAllNotifications];
+var notificationMenuBadge = [doToggleClearAllNotifications];
 
-var menuObjectRightClick = {deleteImage: deleteMenu, pauseImage: pauseMenu, notificationNotClicked: notificationMenuHidden, notificationClicked: notificationMenuClicked};
+var menuObjectRightClick = {deleteImage: deleteMenu, pauseImage: pauseMenu, notificationBadge: notificationMenuBadge};
 
 $( document ).ready(function() {
   (function() {

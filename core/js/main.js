@@ -3564,12 +3564,17 @@ function updateNotificationCount()
 		$("#notificationBadge").empty();
 		document.getElementById("notificationIcon").style.display = "block";
 		$("#notificationBadge").append(currentCount);
+		$("#mainMenuNotificationsText").html("Notifications ("+currentCount+")");
 		resizeNotificationCounter();
 	}
 	else
 	{
-		$("#notificationBadge").empty();
-		document.getElementById("notificationIcon").style.display = "none";
+		if($("#notificationBadge").html() !== "")
+		{
+			$("#notificationBadge").empty();
+			$("#mainMenuNotificationsText").html("Notifications");
+			document.getElementById("notificationIcon").style.display = "none";
+		}
 	}
 }
 

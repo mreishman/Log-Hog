@@ -47,7 +47,7 @@
 			);
 		?>
 	</div>
-	<span class="fullScreenMenuText">Notifications</span>
+	<span id="mainMenuNotificationsText" class="fullScreenMenuText">Notifications</span>
 </li>
 <li id="mainMenuSettings" onclick="toggleSettings();"  >
 	<div class="menuImageDiv">
