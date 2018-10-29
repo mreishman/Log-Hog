@@ -1248,7 +1248,7 @@ function update(data)
 									addLogNotification({
 										log: id,
 										name: "New Log "+nameForLog,
-										action: "$('#"+id+"').click();  toggleNotifications();"
+										action: "$('#"+id+"').click();  closeNotificationsAndMainMenu();"
 									});
 								}
 							}
@@ -1395,7 +1395,7 @@ function update(data)
 										addLogNotification({
 											log: id,
 											name: shortName+" Update "+numForNot,
-											action: "$('#"+id+"').click();  toggleNotifications();"
+											action: "$('#"+id+"').click();  closeNotificationsAndMainMenu();"
 										});
 									}
 								}
@@ -3589,6 +3589,12 @@ function resizeNotificationCounter()
 	{
 		document.getElementById("notificationBadge").style.top = (boundingRectForNotificationDiv.top+17) + "px";
 	}
+}
+
+function closeNotificationsAndMainMenu()
+{
+	toggleNotifications();
+	toggleFullScreenMenu();
 }
 
 function addLogNotification(notificationArray)
