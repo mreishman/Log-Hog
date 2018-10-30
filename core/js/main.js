@@ -1258,8 +1258,14 @@ function update(data)
 							//add rightclick menu
 							if(rightClickMenuEnable === "true")
 							{
-								menuObjectRightClick[id] = rightClickObjectNew;
-								Rightclick_ID_list.push(id);
+								var listOfRightClickTargets =["","CurrentWindow","GroupInName","Count"];
+								var listOfRightClickTargetsLength = listOfRightClickTargets.length;
+								for(var rct = 0; rct < listOfRightClickTargetsLength; rct++)
+								{
+									var innerId = id+listOfRightClickTargets[rct];
+									menuObjectRightClick[innerId] = rightClickObjectNew;
+									Rightclick_ID_list.push(innerId);
+								}
 							}
 						}
 
