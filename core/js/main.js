@@ -3453,7 +3453,7 @@ function toggleNotifications(force = false)
 
 function showNotifications()
 {
-	displayNotifications(notifications);
+	displayNotifications();
 }
 
 function clearAllNotifications()
@@ -3473,36 +3473,56 @@ function formatAMPM(date)
   return strTime;
 }
 
-function displayNotifications(notificationsArray)
+function displayNotifications()
 {
 	clearAllNotifications();
 	var htmlForNotifications = "<span style=\"display: block;\" >";
-	for (var i = notificationsArray.length - 1; i >= 0; i--)
+	var unreadNotifications = "";
+	var readNotifications = "";
+	for (var i = notifications.length - 1; i >= 0; i--)
 	{
 		var blank;
-		if("image" in notificationsArray[i])
+		if("image" in notifications[i])
 		{
 			blank = $("#storage .notificationContainerWithImage").html();
-		}
-		else if(notificationsArray[i]["name"] === "No Notifications")
-		{
-			blank = $("#storage .notificationContainerEmpty").html();
 		}
 		else
 		{
 			blank = $("#storage .notificationContainer").html();
 		}
 		var item = blank;
-		item = item.replace(/{{id}}/g, "notification"+notificationsArray[i]['id']);
-		item = item.replace(/{{idNum}}/g, i);
-		item = item.replace(/{{name}}/g, notificationsArray[i]['name']);
-		item = item.replace(/{{time}}/g, notificationsArray[i]['time']);
-		item = item.replace(/{{action}}/g, notificationsArray[i]['action']);
-		if("image" in notificationsArray[i])
+		var viewIndicatorHtml = "<span class=\"led-green\" ></span>";
+		if(notifications[i]["viewed"] === false)
 		{
-			item = item.replace(/{{image}}/g, notificationsArray[i]['image']);
+			viewIndicatorHtml = "<span class=\"led-yellow\" ></span>";
 		}
-		htmlForNotifications += item;
+		item = item.replace(/{{id}}/g, "notification"+notifications[i]['id']);
+		item = item.replace(/{{idNum}}/g, i);
+		item = item.replace(/{{viewIndicator}}/g, viewIndicatorHtml);
+		item = item.replace(/{{name}}/g, notifications[i]['name']);
+		item = item.replace(/{{time}}/g, notifications[i]['time']);
+		item = item.replace(/{{action}}/g, notifications[i]['action']);
+		if("image" in notifications[i])
+		{
+			item = item.replace(/{{image}}/g, notifications[i]['image']);
+		}
+		if(notifications[i]["viewed"] === false)
+		{
+			notifications[i]["viewed"] = true;
+			unreadNotifications += item;
+		}
+		else
+		{
+			readNotifications += item;
+		}
+	}
+	if(unreadNotifications !== "")
+	{
+		htmlForNotifications += "<div class=\"menuTitle\" >Unread</div>" + unreadNotifications;
+	}
+	if(readNotifications !== "")
+	{
+		htmlForNotifications += "<div class=\"menuTitle\" >Read</div>" + readNotifications;
 	}
 	htmlForNotifications += "</span>";
 	$("#notificationHolder").append(htmlForNotifications);
@@ -3627,6 +3647,7 @@ function addNotification(notificationArray)
 	notifications[currentId]["name"] = notificationArray["name"];
 	notifications[currentId]["time"] = formatAMPM(new Date());
 	notifications[currentId]["action"] = notificationArray["action"];
+	notifications[currentId]["viewed"] = false;
 	if("log" in notificationArray)
 	{
 		notifications[currentId]["log"] = notificationArray["log"];

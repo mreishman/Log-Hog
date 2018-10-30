@@ -11,6 +11,7 @@
 		<span style="width: 100%;">
 			<table style="width: 100%; padding-top: 5px; padding-bottom: 5px;" >
 				<tr>
+					<td rowspan="2" style="width: 30px;" >{{viewIndicator}}</td>
 					<td rowspan="2" style="border-right: 1px solid black; width: 75px; cursor: default;"> {{time}} </td>
 					<td rowspan="2" style="width: 50px;" > <span class="linkSmall" onclick="removeNotification('{{idNum}}'); {{action}}" >View</span> </td>
 					<td rowspan="2" style="width: 75px;" > <span class="linkSmall" onclick="removeNotification('{{idNum}}');" >Remove</span> </td>
@@ -28,6 +29,7 @@
 		<span style="width: 100%;">
 			<table style="width: 100%; padding-top: 5px; padding-bottom: 5px;" >
 				<tr>
+					<td rowspan="2" style="width: 30px;" >{{viewIndicator}}</td>
 					<td rowspan="2" style="border-right: 1px solid black; width: 75px; cursor: default;"> {{time}} </td>
 					<td rowspan="2" style="width: 50px;" > <span class="linkSmall" onclick="removeNotification('{{idNum}}'); {{action}}" >View</span> </td>
 					<td rowspan="2" style="width: 75px;" > <span class="linkSmall" onclick="removeNotification('{{idNum}}');" >Remove</span> </td>
@@ -35,18 +37,6 @@
 				</tr>
 				<tr>
 					<td><div class="notificationPreviewLog" >{{previewText}}</div></td>
-				</tr>
-			</table>
-		</span>
-	</div>
-</div>
-<div class="notificationContainerEmpty">
-	<div id="{{id}}">
-		<span style="width: 100%;">
-			<table style="width: 100%; padding-top: 5px; padding-bottom: 5px;" >
-				<tr>
-					<td style="border-right: 1px solid black; width: 65px;"> {{time}} </td>
-					<td class="notificationText"> {{name}} </td>
 				</tr>
 			</table>
 		</span>
