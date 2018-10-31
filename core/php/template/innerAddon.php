@@ -130,7 +130,9 @@
 			</td>
 			<td width="15%">
 			</td>
-			<td width="10%">
+			<td width="5%">
+			</td>
+			<td width="5%">
 			</td>
 		</tr>
 		<?php foreach ($listOfAddons as $key => $value):
@@ -190,8 +192,11 @@
 							</form>
 							<a onclick="addonMonitorAction(<?php echo $key; ?>);" class="link">Remove <?php echo $uppercase; ?></a>
 						</td>
+						<td>
+							<a onclick="window.location.href= '<?php echo $installed; ?>'" class="link">View</a>
+						</td>
 					<?php else: ?>
-						<td colspan="3">
+						<td colspan="4">
 							This is installed, but not within Log-Hog
 						</td>
 						<td>
@@ -199,7 +204,7 @@
 						</td>
 					<?php endif; ?>
 				<?php else: ?>
-					<td colspan="3">
+					<td colspan="4">
 						<progress id="<?php echo $lowercase; ?>DownloadProgressBar" style="width: 100%;" value="0" max="100"></progress>
 					</td>
 					<td>
@@ -216,7 +221,7 @@
 				<?php endif; ?>
 			</tr>
 			<tr style="height: 10px;">
-				<td colspan="6">
+				<td colspan="7">
 				</td>
 			</tr>
 		<?php endforeach; ?>
