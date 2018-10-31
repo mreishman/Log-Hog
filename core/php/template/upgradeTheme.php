@@ -19,7 +19,7 @@ require_once($baseUrl.'conf/config.php');
 require_once('../../../core/php/commonFunctions.php');
 require_once('../../../core/conf/config.php');
 require_once('../../../core/php/configStatic.php');
-$currentTheme = loadSpecificVar($defaultConfig, $config, "currentTheme");
+$currentTheme = loadSpecificVar($defaultConfig, $config, "currentTheme", "jsVersion");
 if(is_dir('../../../local/'.$currentSelectedTheme.'/Themes/'.$currentTheme))
 {
 	require_once('../../../local/'.$currentSelectedTheme.'/Themes/'.$currentTheme."/defaultSetting.php");
