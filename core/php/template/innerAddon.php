@@ -226,7 +226,7 @@
 			</tr>
 		<?php endforeach; ?>
 		<tr>
-			<td colspan="6">
+			<td colspan="7">
 				<?php echo generateImage(
 					$arrayOfImages["loadingImg"],
 					array(

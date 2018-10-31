@@ -415,3 +415,7 @@ div.sidebarLeft {
   text-align: center;
   font-size: 150%;
 }
+
+.notificationPreviewLog{
+  white-space: pre-wrap;
+}

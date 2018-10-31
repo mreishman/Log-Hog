@@ -1395,7 +1395,8 @@ function update(data)
 										addLogNotification({
 											log: id,
 											name: shortName+" Update "+numForNot,
-											action: "$('#"+id+"').click();  closeNotificationsAndMainMenu();"
+											action: "$('#"+id+"').click();  closeNotificationsAndMainMenu();",
+											newText: newDiffText
 										});
 									}
 								}
@@ -3503,6 +3504,14 @@ function displayNotifications()
 		item = item.replace(/{{name}}/g, notifications[i]['name']);
 		item = item.replace(/{{time}}/g, notifications[i]['time']);
 		item = item.replace(/{{action}}/g, notifications[i]['action']);
+		if(notifications[i]["newText"] !== "")
+		{
+			item = item.replace(/{{previewText}}/g, "<div class=\"notificationPreviewLog\" >"+makePrettyWithText(notifications[i]['newText'], 0)+"</div>");
+		}
+		else
+		{
+			item = item.replace(/{{previewText}}/g, "");
+		}
 		if("image" in notifications[i])
 		{
 			item = item.replace(/{{image}}/g, notifications[i]['image']);
@@ -3676,6 +3685,11 @@ function addNotification(notificationArray)
 	notifications[currentId]["time"] = formatAMPM(new Date());
 	notifications[currentId]["action"] = notificationArray["action"];
 	notifications[currentId]["viewed"] = false;
+	notifications[currentId]["newText"] = "";
+	if("newText" in notificationArray)
+	{
+		notifications[currentId]["newText"] = notificationArray["newText"];
+	}
 	if("log" in notificationArray)
 	{
 		notifications[currentId]["log"] = notificationArray["log"];
