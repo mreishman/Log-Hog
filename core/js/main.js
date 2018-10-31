@@ -4567,7 +4567,9 @@ function saveLayoutTo(letter)
 	{
 		for(var innerLoopCount = 0; innerLoopCount < innerLoop; innerLoopCount++)
 		{
-			$("#localLayout [name=\"logLoad"+currentConfig+"-"+currentConterLoopExt+"-"+letter+"\"]")[0].value = filterTitle(titles[logDisplayArray[currentConterLoopExt]["id"]]).trim();
+			var localValue = filterTitle(titles[logDisplayArray[currentConterLoopExt]["id"]]).trim();
+			$("#localLayout [name=\"logLoad"+currentConfig+"-"+currentConterLoopExt+"-"+letter+"\"]")[0].value = localValue;
+			logLoadLayout[currentConfig][currentConterLoopExt][letter] = localValue;
 			currentConterLoopExt++;
 		}
 	}
