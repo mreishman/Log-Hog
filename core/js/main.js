@@ -3445,6 +3445,7 @@ function toggleNotifications(force = false)
 		showNotifications();
 		document.getElementById("notifications").style.display = "block";
 		document.getElementById("notificationsEmpty").style.display = "none";
+		changeNotificationsToViewed();
 	}
 	$("#mainMenuNotifications").addClass("selected");
 	arrayOfScrollHeaderUpdate = [];
@@ -3508,7 +3509,6 @@ function displayNotifications()
 		}
 		if(notifications[i]["viewed"] === false)
 		{
-			notifications[i]["viewed"] = true;
 			unreadNotifications += item;
 		}
 		else
@@ -3551,6 +3551,17 @@ function removeNotificationByLog(logId)
 	}
 }
 
+function changeNotificationsToViewed()
+{
+	for (var i = notifications.length - 1; i >= 0; i--)
+	{
+		if(notifications[i]["viewed"] !== true)
+		{
+			notifications[i]["viewed"] = true;
+		}
+	}
+}
+
 function removeNotification(idToRemove)
 {
 	if(idToRemove in notifications)
@@ -3570,7 +3581,7 @@ function removeNotification(idToRemove)
 
 function updateNotificationCount()
 {
-	var currentCount = notifications.length;
+	var currentCount = getNotificationCount();
 	if(currentCount > 0)
 	{
 		if(currentCount < 10)
@@ -3596,6 +3607,23 @@ function updateNotificationCount()
 			document.getElementById("notificationIcon").style.display = "none";
 		}
 	}
+}
+
+function getNotificationCount()
+{
+	if(notificationCountViewedOnly === "false")
+	{
+		return notifications.length;
+	}
+	newCount = 0;
+	for (var i = notifications.length - 1; i >= 0; i--)
+	{
+		if(notifications[i]["viewed"] !== true)
+		{
+			newCount++;
+		}
+	}
+	return newCount;
 }
 
 function resizeNotificationCounter()

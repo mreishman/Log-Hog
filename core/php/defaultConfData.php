@@ -1102,7 +1102,7 @@ $defaultConfigMoreData = array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"notificationCountVisible",
-					"name"								=>	"Enable Notification Count",
+					"name"								=>	"Enable Log Diff Count",
 					"options"							=>	$trueFalsVars,
 					"type"								=>	"dropdown"
 				)
@@ -1195,16 +1195,6 @@ $defaultConfigMoreData = array(
 				)
 			),
 			13									=>	array(
-				"info"								=>	"If a log tab is not visible (either below of above scroll area), a bar will flash as notification",
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"offscreenLogNotify",
-					"name"								=>	"Show notification for offscreen log tabs",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				)
-			),
-			14									=>	array(
 				"info"								=>	"1400 Breakpoint shows only images on full screen sidebar, 1000 breakpoint is the same but moves the inner sidebar to the top",
 				"type"								=>	"single",
 				"var"								=>	array(
@@ -1224,7 +1214,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			15									=>	array(
+			14									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"allLogsVisible",
@@ -1287,6 +1277,41 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			)
+		)
+	),
+	"notificationVars"					=>	array(
+		"id"								=>	"settingsNotificationVars",
+		"name"								=>	"Notification Settings ",
+		"vars"								=> array(
+			0									=> array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"updateNotificationEnabled",
+					"name"								=>	"Show Update Notification",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			1									=>	array(
+				"info"								=>	"If a log tab is not visible (either below of above scroll area), a bar will flash as notification",
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"offscreenLogNotify",
+					"name"								=>	"Show notification for offscreen log tabs",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			2									=> array(
+				"info"								=>	"Only shows count of notifications that were not viewed",
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"notificationCountViewedOnly",
+					"name"								=>	"Notification Count only unviewed",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
 		)
 	),
 	"oneLogVars"						=>	array(
@@ -1411,6 +1436,47 @@ $defaultConfigMoreData = array(
 					"id"								=>	"popupSettingsArray",
 					"key"								=>	"popupSettingsArray",
 					"type"								=>	"hidden"
+				)
+			),
+			2									=>	array(
+				"bool"								=>	($autoCheckUpdate == 'false'),
+				"id"								=>	"settingsAutoCheckVars",
+				"name"								=>	"Auto Check Update Settings",
+				"type"								=>	"grouped",
+				"var"								=>	array(
+					"function"							=>	"showOrHideUpdateSubWindow",
+					"id"								=>	"settingsSelect",
+					"key"								=>	"autoCheckUpdate",
+					"name"								=>	"Auto Check Update",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				),
+				"vars"								=>	array(
+					0									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"autoCheckDaysUpdate",
+							"name"								=>	"Check for update every",
+							"postText"							=>	"Days",
+							"type"								=>	"number"
+						)
+					),
+					1									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"updateNoticeMeter",
+							"name"								=>	"Notify Updates on",
+							"options"							=>	array(
+								0 									=> array(
+									"value" 							=> "every",
+									"name" 								=> "Every Update"),
+								1 									=> array(
+									"value" 							=> "major",
+									"name" 								=> "Only Major Updates")
+							),
+							"type"								=>	"dropdown"
+						)
+					)
 				)
 			)
 		),
@@ -1584,62 +1650,6 @@ $defaultConfigMoreData = array(
 					"name"								=>	"Show Php errors from file open fails",
 					"options"							=>	$trueFalsVars,
 					"type"								=>	"dropdown"
-				)
-			)
-		)
-	),
-	"updateVars"						=>	array(
-		"id"								=>	"settingsUpdateVars",
-		"name"								=>	"Update Settings ",
-		"vars"								=> array(
-			0									=> array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"updateNotificationEnabled",
-					"name"								=>	"Show Update Notification",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				)
-			),
-			1									=>	array(
-				"bool"								=>	($autoCheckUpdate == 'false'),
-				"id"								=>	"settingsAutoCheckVars",
-				"name"								=>	"Auto Check Update Settings",
-				"type"								=>	"grouped",
-				"var"								=>	array(
-					"function"							=>	"showOrHideUpdateSubWindow",
-					"id"								=>	"settingsSelect",
-					"key"								=>	"autoCheckUpdate",
-					"name"								=>	"Auto Check Update",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				),
-				"vars"								=>	array(
-					0									=> array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"key"								=>	"autoCheckDaysUpdate",
-							"name"								=>	"Check for update every",
-							"postText"							=>	"Days",
-							"type"								=>	"number"
-						)
-					),
-					1									=> array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"key"								=>	"updateNoticeMeter",
-							"name"								=>	"Notify Updates on",
-							"options"							=>	array(
-								0 									=> array(
-									"value" 							=> "every",
-									"name" 								=> "Every Update"),
-								1 									=> array(
-									"value" 							=> "major",
-									"name" 								=> "Only Major Updates")
-							),
-							"type"								=>	"dropdown"
-						)
-					)
 				)
 			)
 		)

@@ -288,6 +288,7 @@ $defaultConfig = array(
 	'mainFontColor'					=> '#FFFFFF',
 	'maxHeightLogTabs'				=> 134,
 	'multiLogOnIndex'				=> 'false',
+	'notificationCountViewedOnly'	=> 'false',
 	'notificationCountVisible'		=> 'true',
 	'offscreenLogNotify'			=> 'true',
 	'oneLogEnable'					=> 'true',
