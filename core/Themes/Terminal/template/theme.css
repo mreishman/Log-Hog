@@ -389,7 +389,5 @@
 
 .notificationPreviewLog
 {
-	max-height: 100px;
-	overflow-y: auto;
 	border: 1px solid white;
 }

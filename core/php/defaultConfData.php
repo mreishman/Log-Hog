@@ -1312,6 +1312,15 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
+			3									=> array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"notificationPreviewHeight",
+					"name"								=>	"Max height of log",
+					"options"							=>	$oneLogLogMaxHeight,
+					"type"								=>	"dropdown"
+				)
+			),
 		)
 	),
 	"oneLogVars"						=>	array(

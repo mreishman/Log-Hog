@@ -290,6 +290,7 @@ $defaultConfig = array(
 	'multiLogOnIndex'				=> 'false',
 	'notificationCountViewedOnly'	=> 'true',
 	'notificationCountVisible'		=> 'true',
+	'notificationPreviewHeight'		=> 100,
 	'offscreenLogNotify'			=> 'true',
 	'oneLogEnable'					=> 'true',
 	'oneLogHighlight'				=> 'titleBar',

@@ -465,10 +465,7 @@ background: linear-gradient(to bottom, rgba(233,170,181,1) 0%, rgba(242,166,173,
 	border-right: 1px solid black;
 }
 
-
 .notificationPreviewLog
 {
-	max-height: 100px;
-	overflow-y: auto;
 	border: 1px solid white;
 }

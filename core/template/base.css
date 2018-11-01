@@ -416,6 +416,8 @@ div.sidebarLeft {
   font-size: 150%;
 }
 
-.notificationPreviewLog{
+.notificationPreviewLog
+{
+  overflow-y: auto;
   white-space: pre-wrap;
 }

@@ -3515,7 +3515,7 @@ function displayNotifications()
 		item = item.replace(/{{action}}/g, notifications[i]['action']);
 		if(notifications[i]["newText"] !== "")
 		{
-			item = item.replace(/{{previewText}}/g, "<div class=\"notificationPreviewLog\" >"+makePrettyWithText(notifications[i]['newText'], 0)+"</div>");
+			item = item.replace(/{{previewText}}/g, "<div style=\"max-height: "+notificationPreviewHeight+"px;\" class=\"notificationPreviewLog\" >"+makePrettyWithText(notifications[i]['newText'], 0)+"</div>");
 		}
 		else
 		{
