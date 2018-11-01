@@ -98,6 +98,12 @@
 				"Name"			=>	"All Together",
 				"BP"			=>	array("New overview panel (shows whats new in logs)"),
 				"Images"		=>	array("6.0-1.png")
+			),
+			15	=>	array(
+				"Version"		=>	"6.1",
+				"Name"			=>	"More Notifications!",
+				"BP"			=>	array("Redesigned Notifications"),
+				"Images"		=>	array("6.1-1.png")
 			)
 		);
 		$dataForWhatsNew = array_reverse($dataForWhatsNew);

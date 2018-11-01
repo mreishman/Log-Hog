@@ -3,7 +3,7 @@ var retryCount = 0;
 var verifyCount = 0;
 var lock = false;
 var directory = "../../top/";
-var urlForSendMain = './php/performSettingsInstallUpdateAction.php?format=json';
+var urlForSendMain = "./php/performSettingsInstallUpdateAction.php?format=json";
 var verifyFileTimer = null;
 var dotsTimer = null;
 var verifyCountSuccess = 0;
@@ -18,7 +18,7 @@ function startLogic()
 function finishedDownload()
 {
 	clearInterval(dotsTimer);
-	document.getElementById('innerSettingsText').innerHTML = "<br> <h1>Finished Restoring Log-Hog<h1><br> <br> <a class='link' onclick='goBack();' >< Back to Settings</a>";
+	document.getElementById("innerSettingsText").innerHTML = "<br> <h1>Finished Restoring Log-Hog<h1><br> <br> <a class='link' onclick='goBack();' >< Back to Settings</a>";
 }
 
 function goBack()
@@ -42,7 +42,7 @@ function downloadRestoreVersion()
 		updateText("Attempt "+(retryCount+1)+" of 3 for downloading Log-Hog");
 	}
 	var urlForSend = urlForSendMain;
-	var data = {action: 'downloadFile', file: fileVersionDownload,downloadFrom: 'Log-Hog/archive/', downloadTo: '../../restore/restore.zip'};
+	var data = {action: "downloadFile", file: fileVersionDownload,downloadFrom: "Log-Hog/archive/", downloadTo: "../../restore/restore.zip"};
 	$.ajax({
 		url: urlForSend,
 		dataType: "json",
@@ -86,9 +86,9 @@ function moveDirUnzipped()
 		complete: function()
 		{
 			//verify if downloaded
-			verifyFile('moveDirUnzipped', '../../restore/extracted/index.php');
+			verifyFile("moveDirUnzipped", "../../restore/extracted/index.php");
 		}
-	});	
+	});
 }
 
 function changeDirUnzipped()
@@ -103,9 +103,9 @@ function changeDirUnzipped()
 		complete: function()
 		{
 			//verify if downloaded
-			verifyFile('changeDirUnzipped', '../../index.php');
+			verifyFile("changeDirUnzipped", "../../index.php");
 		}
-	});	
+	});
 }
 
 
@@ -120,26 +120,26 @@ function verifyFail(action)
 	}
 	else
 	{
-		if(action == 'downloadRestoreVersion')
+		if(action == "downloadRestoreVersion")
 		{
 			updateText("File Could NOT be found");
 			downloadRestoreVersion();
 		}
-		else if(action == 'cleanDirectory')
+		else if(action == "cleanDirectory")
 		{
 			updateText("Could not verify that directory is empty");
 			cleanDirectory();
 		}
-		else if(action == 'unzip')
+		else if(action == "unzip")
 		{
 			updateText("Could not verify that zip file was extracted");
 			unzip();
 		}
-		else if(action == 'moveDirUnzipped')
+		else if(action == "moveDirUnzipped")
 		{
 			moveDirUnzipped();
 		}
-		else if(action == 'changeDirUnzipped')
+		else if(action == "changeDirUnzipped")
 		{
 			changeDirUnzipped();
 		}
@@ -152,26 +152,26 @@ function verifySucceded(action)
 {
 	//downloaded, extract
 	retryCount = 0;
-	if(action == 'downloadRestoreVersion')
+	if(action == "downloadRestoreVersion")
 	{
 		updateText("File Download Verified");
 		cleanDirectory();
 	}
-	else if(action == 'cleanDirectory')
+	else if(action == "cleanDirectory")
 	{
 		//unzip folder
 		unzip();
 	}
-	else if(action == 'unzip')
+	else if(action == "unzip")
 	{
 		moveDirUnzipped();
 	}
-	else if(action == 'moveDirUnzipped')
+	else if(action == "moveDirUnzipped")
 	{
 		//move from unzipped to actual locations
 		changeDirUnzipped();
 	}
-	else if(action == 'changeDirUnzipped')
+	else if(action == "changeDirUnzipped")
 	{
 		finishedDownload();
 	}
@@ -190,12 +190,12 @@ function cleanDirectory()
 		updateText("Attempt "+(retryCount+1)+" of 3 for cleaning directory");
 	}
 	var urlForSend = urlForSendMain;
-	var data = {action: 'removeAllFilesFromLogHogExceptRestore'};
+	var data = {action: "removeAllFilesFromLogHogExceptRestore"};
 	$.ajax({
 		url: urlForSend,
-		dataType: 'json',
+		dataType: "json",
 		data: data,
-		type: 'POST',
+		type: "POST",
 		complete: function()
 		{
 			//verify if downloaded
@@ -209,7 +209,7 @@ function verifyFile(action, fileLocation,isThere = true)
 {
 	verifyCount = 0;
 	verifyCountSuccess = 0;
-	updateText('Verifying '+action+' with'+fileLocation);
+	updateText("Verifying "+action+" with"+fileLocation);
 	verifyFileTimer = setInterval(function(){verifyFilePoll(action,fileLocation,isThere);},6000);
 }
 
