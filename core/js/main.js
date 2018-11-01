@@ -3456,6 +3456,7 @@ function toggleNotifications(force = false)
 		document.getElementById("notifications").style.display = "block";
 		document.getElementById("notificationsEmpty").style.display = "none";
 		changeNotificationsToViewed();
+		regroupNotifications();
 	}
 	$("#mainMenuNotifications").addClass("selected");
 	arrayOfScrollHeaderUpdate = [];
@@ -3513,7 +3514,7 @@ function displayNotifications()
 		item = item.replace(/{{name}}/g, notifications[i]['name']);
 		item = item.replace(/{{time}}/g, notifications[i]['time']);
 		item = item.replace(/{{action}}/g, notifications[i]['action']);
-		if(notifications[i]["newText"] !== "")
+		if(notifications[i]["newText"] !== "" && notificationPreviewShow === "true")
 		{
 			item = item.replace(/{{previewText}}/g, "<div style=\"max-height: "+notificationPreviewHeight+"px;\" class=\"notificationPreviewLog\" >"+makePrettyWithText(notifications[i]['newText'], 0)+"</div>");
 		}
@@ -3578,6 +3579,33 @@ function changeNotificationsToViewed()
 			notifications[i]["viewed"] = true;
 		}
 	}
+}
+
+function regroupNotifications()
+{
+	for (var i = notifications.length - 1; i >= 0; i--)
+	{
+		if("log" in notifications[i])
+		{
+			for (var j = i; j >= 0; j--)
+			{
+				if("log" in notifications[j])
+				{
+					if(notifications[i]["log"] === notifications[j]["log"] )
+					{
+						if(notifications[j]["viewed"] === "true" && notifications[i]["viewed"] === "true" && notificationGroupType === "OnlyRead")
+						{
+							//merge j into i
+							notifications[i]["newText"] += "\n"+notifications[j]["newText"];
+							notifications[j] = null;
+							break;
+						}
+					}
+				}
+			}
+		}
+	}
+	notifications = notifications.filter(function(e){return e});
 }
 
 function removeNotification(idToRemove)
@@ -3665,15 +3693,21 @@ function closeNotificationsAndMainMenu()
 
 function addLogNotification(notificationArray)
 {
-	//check if log notification is already displayed. If so, get ID of that for current ID
-	for (var i = notifications.length - 1; i >= 0; i--)
+	if(notificationGroupType !== "Never")
 	{
-		if("log" in notifications[i])
+		//check if log notification is already displayed. If so, get ID of that for current ID
+		for (var i = notifications.length - 1; i >= 0; i--)
 		{
-			if(notifications[i]["log"] === notificationArray["log"])
+			if("log" in notifications[i])
 			{
-				notificationArray["currentId"] = i;
-				break;
+				if(notifications[i]["log"] === notificationArray["log"])
+				{
+					if((notifications[i]["viewed"] === "false" && notificationGroupType === "OnlyRead") ||  notificationGroupType === "Always")
+					{
+						notificationArray["currentId"] = i;
+						break;
+					}
+				}
 			}
 		}
 	}

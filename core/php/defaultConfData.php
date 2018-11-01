@@ -1315,10 +1315,45 @@ $defaultConfigMoreData = array(
 			3									=> array(
 				"type"								=>	"single",
 				"var"								=>	array(
-					"key"								=>	"notificationPreviewHeight",
-					"name"								=>	"Max height of log",
-					"options"							=>	$oneLogLogMaxHeight,
+					"key"								=>	"notificationGroupType",
+					"name"								=>	"Merge Like Log Notifications",
+					"options"							=>	array(
+						0 									=> array(
+							"value" 							=> "Never",
+							"name" 								=> "Never"),
+						1 									=> array(
+							"value" 							=> "OnlyRead",
+							"name" 								=> "Only Read"),
+						2									=> array(
+							"value" 							=> "Always",
+							"name" 								=> "Always")
+					),
 					"type"								=>	"dropdown"
+				)
+			),
+			4									=>	array(
+				"bool"								=>	($notificationPreviewShow == 'false'),
+				"id"								=>	"notificationPreviewSettings",
+				"name"								=>	"Notification Log Preview Settings",
+				"type"								=>	"grouped",
+				"var"								=>	array(
+					"function"							=>	"showOrHideNotificationPreviewSettings",
+					"id"								=>	"notificationPreviewShow",
+					"key"								=>	"notificationPreviewShow",
+					"name"								=>	"Show Log Preview in Notification",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				),
+				"vars"								=>	array(
+					0									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"notificationPreviewHeight",
+							"name"								=>	"Notification Log Preview Max Height",
+							"options"							=>	$oneLogLogMaxHeight,
+							"type"								=>	"dropdown"
+						)
+					),
 				)
 			),
 		)
