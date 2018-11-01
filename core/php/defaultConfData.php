@@ -1363,6 +1363,14 @@ $defaultConfigMoreData = array(
 							"type"								=>	"dropdown"
 						)
 					),
+					2									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"notificationPreviewLineCount",
+							"name"								=>	"Max line count for log preview",
+							"type"								=>	"number"
+						)
+					)
 				)
 			),
 		)

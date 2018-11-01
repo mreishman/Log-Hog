@@ -3516,7 +3516,19 @@ function displayNotifications()
 		item = item.replace(/{{action}}/g, notifications[i]['action']);
 		if(notifications[i]["newText"] !== "" && notificationPreviewShow === "true")
 		{
-			item = item.replace(/{{previewText}}/g, "<div style=\"max-height: "+notificationPreviewHeight+"px;\" class=\"notificationPreviewLog\" >"+makePrettyWithText(notifications[i]['newText'], 0)+"</div>");
+			var logTextToShow = "";
+			var tmpLogText = notifications[i]['newText'].split("\n");
+			var tmpLogTextLength = tmpLogText.length;
+			var max = notificationPreviewLineCount;
+			if(max > tmpLogTextLength)
+			{
+				max = tmpLogTextLength;
+			}
+			for(var tltc = 0; tltc < max; tltc++)
+			{
+				logTextToShow += "\n"+tmpLogText[tltc];
+			}
+			item = item.replace(/{{previewText}}/g, "<div style=\"max-height: "+notificationPreviewHeight+"px;\" class=\"notificationPreviewLog\" >"+makePrettyWithText(logTextToShow, 0)+"</div>");
 		}
 		else
 		{
