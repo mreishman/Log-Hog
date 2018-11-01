@@ -3537,11 +3537,11 @@ function displayNotifications()
 	}
 	if(unreadNotifications !== "")
 	{
-		htmlForNotifications += "<div class=\"menuTitle\" >Unread</div>" + unreadNotifications;
+		htmlForNotifications += "<div style=\"filter: invert(100%);\" class=\"menuTitle\" >Unread</div>" + unreadNotifications;
 	}
 	if(readNotifications !== "")
 	{
-		htmlForNotifications += "<div class=\"menuTitle\" >Read</div>" + readNotifications;
+		htmlForNotifications += "<div style=\"filter: invert(100%);\" class=\"menuTitle\" >Read</div>" + readNotifications;
 	}
 	htmlForNotifications += "</span>";
 	$("#notificationHolder").append(htmlForNotifications);
@@ -3585,15 +3585,15 @@ function regroupNotifications()
 {
 	for (var i = notifications.length - 1; i >= 0; i--)
 	{
-		if("log" in notifications[i])
+		if(notifications[i] !== null && "log" in notifications[i])
 		{
-			for (var j = i; j >= 0; j--)
+			for (var j = i - 1; j >= 0; j--)
 			{
-				if("log" in notifications[j])
+				if(notifications[j] !== null && "log" in notifications[j])
 				{
 					if(notifications[i]["log"] === notifications[j]["log"] )
 					{
-						if(notifications[j]["viewed"] === "true" && notifications[i]["viewed"] === "true" && notificationGroupType === "OnlyRead")
+						if(notifications[j]["viewed"] === true && notifications[i]["viewed"] === true && notificationGroupType === "OnlyRead")
 						{
 							//merge j into i
 							notifications[i]["newText"] += "\n"+notifications[j]["newText"];
@@ -3702,9 +3702,13 @@ function addLogNotification(notificationArray)
 			{
 				if(notifications[i]["log"] === notificationArray["log"])
 				{
-					if((notifications[i]["viewed"] === "false" && notificationGroupType === "OnlyRead") ||  notificationGroupType === "Always")
+					if((notifications[i]["viewed"] === false && notificationGroupType === "OnlyRead") ||  notificationGroupType === "Always")
 					{
 						notificationArray["currentId"] = i;
+						if(notificationPreviewOnlyNew === "false")
+						{
+							notificationArray["newText"] += notifications[i]["newText"]+"\n"+notificationArray["newText"];
+						}
 						break;
 					}
 				}

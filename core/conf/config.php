@@ -292,6 +292,7 @@ $defaultConfig = array(
 	'notificationCountVisible'		=> 'true',
 	'notificationGroupType'			=> 'OnlyRead',
 	'notificationPreviewHeight'		=> 100,
+	'notificationPreviewOnlyNew'	=> 'false',
 	'notificationPreviewShow'		=> 'true',
 	'offscreenLogNotify'			=> 'true',
 	'oneLogEnable'					=> 'true',
