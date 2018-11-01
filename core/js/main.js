@@ -1108,69 +1108,69 @@ function update(data)
 						var lastLogLine = logs[id].count - 1;
 						var fullPathSearch = filterTitle(titles[id]).trim();
 
+						var nameForLog = shortName;
+						if(fullPathSearch in fileData && "Name" in fileData[fullPathSearch] && fileData[fullPathSearch]["Name"] !== "" && fileData[fullPathSearch]["Name"] !== null)
+						{
+							nameForLog = fileData[fullPathSearch]["Name"];
+						}
+						else
+						{
+							if(logNameFormat !== "default")
+							{
+								//check for other options in displaying name
+								if(logNameFormat === "firstFolder" || logNameFormat === "lastFolder")
+								{
+									var locationOfLast = 1;
+									var newName = "";
+									var splitType = "/";
+									if(fullPathSearch.indexOf("/") > -1)
+									{
+										newName = fullPathSearch.split("/");
+									}
+									else if(fullPathSearch.indexOf("\\") > -1)
+									{
+										newName = fullPathSearch.split("\\");
+										splitType = "\\";
+									}
+									if(logNameFormat === "lastFolder")
+									{
+										locationOfLast = newName.length-2;
+									}
+									if(newName !== "")
+									{
+										nameForLog = newName[locationOfLast]+splitType+shortName;
+									}
+								}
+								else if(logNameFormat === "fullPath")
+								{
+									nameForLog = fullPathSearch;
+								}
+							}
+
+							if(logNameExtension === "false")
+							{
+								if(shortName.indexOf(".") > -1)
+								{
+									var secondNewName = nameForLog.split(".");
+									secondNewName.splice(-1,1);
+									nameForLog = secondNewName.join();
+								}
+							}
+						}
+						if(logNameGroup === "true")
+						{
+							if(files[i] in fileData && fileData[files[i]]["Group"] !== "")
+							{
+								var newNameGroup = fileData[files[i]]["Group"].split(" ")[0];
+								nameForLog = "<span id='"+id+"GroupInName' >"+newNameGroup+":</span>"+nameForLog;
+							}
+							else if(files[i].indexOf("LogHog/Backup/") === 0)
+							{
+								nameForLog = "Backup:"+nameForLog;
+							}
+						}
 						if($("#menu ." + id + "Button").length === 0) 
 						{
-							var nameForLog = shortName;
-							if(fullPathSearch in fileData && "Name" in fileData[fullPathSearch] && fileData[fullPathSearch]["Name"] !== "" && fileData[fullPathSearch]["Name"] !== null)
-							{
-								nameForLog = fileData[fullPathSearch]["Name"];
-							}
-							else
-							{
-								if(logNameFormat !== "default")
-								{
-									//check for other options in displaying name
-									if(logNameFormat === "firstFolder" || logNameFormat === "lastFolder")
-									{
-										var locationOfLast = 1;
-										var newName = "";
-										var splitType = "/";
-										if(fullPathSearch.indexOf("/") > -1)
-										{
-											newName = fullPathSearch.split("/");
-										}
-										else if(fullPathSearch.indexOf("\\") > -1)
-										{
-											newName = fullPathSearch.split("\\");
-											splitType = "\\";
-										}
-										if(logNameFormat === "lastFolder")
-										{
-											locationOfLast = newName.length-2;
-										}
-										if(newName !== "")
-										{
-											nameForLog = newName[locationOfLast]+splitType+shortName;
-										}
-									}
-									else if(logNameFormat === "fullPath")
-									{
-										nameForLog = fullPathSearch;
-									}
-								}
-
-								if(logNameExtension === "false")
-								{
-									if(shortName.indexOf(".") > -1)
-									{
-										var secondNewName = nameForLog.split(".");
-										secondNewName.splice(-1,1);
-										nameForLog = secondNewName.join();
-									}
-								}
-							}
-							if(logNameGroup === "true")
-							{
-								if(files[i] in fileData && fileData[files[i]]["Group"] !== "")
-								{
-									var newNameGroup = fileData[files[i]]["Group"].split(" ")[0];
-									nameForLog = "<span id='"+id+"GroupInName' >"+newNameGroup+":</span>"+nameForLog;
-								}
-								else if(files[i].indexOf("LogHog/Backup/") === 0)
-								{
-									nameForLog = "Backup:"+nameForLog;
-								}
-							}
 							classInsert = "";
 							item = blank;
 							item = item.replace(/{{title}}/g, nameForLog);
@@ -1400,7 +1400,7 @@ function update(data)
 										}
 										addLogNotification({
 											log: id,
-											name: shortName+" Update "+numForNot,
+											name: nameForLog+" Update "+numForNot,
 											action: "$('#"+id+"').click();  closeNotificationsAndMainMenu();",
 											newText: newDiffText
 										});
