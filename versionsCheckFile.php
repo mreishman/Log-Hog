@@ -1,7 +1,7 @@
 <?php
 
 $versionCheckArray = array(
-	'version'		=> '5.2',
+	'version'		=> '5.2.1',
 	'versionList'		=> array(
 		'2.0.1'	        => array(
 			'branchName'	=> '2.0.1Update',
@@ -231,6 +231,11 @@ $versionCheckArray = array(
 			'branchName'	=> '5.2Update',
 			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/5.2.png',
 			'releaseNotes'	=> "<ul><li>Features<ul><li>Cleaned up look of top bar by merging group settings and filter settings together</li><li>Moved themes page to main menu</li><li>Customize folder color schemes, add and edit new color schemes for files and folders </li><li>Save current layout as on load layout from index page</li><li>Merged update / update notice icons together for somewhat cleaner look</li><li>Better support for smaller resolution screens in full screen menu</li><li>Changed loading method for javascript, adding in better error detection</li><li>More images now loaded on-demand (less images in initial load, of which some were not needed - determined by custom settings)</li></ul></li><li>Bug Fixes<ul><li>Small style changes to updater</li><li>Fixed bug with updater check, and checking for update when update check in progress</li><li>Fixed bug that when clicking reset, the on change function stopped working</li><li>Fixed bug when saving popup settings</li><li>Fixed bug with drop-down toggles not showing sometimes on first load (only for custom popup settings)</li><li>Fixed bug with popup custom settings not showing up correctly if set</li><li>Fixed bug with selecting logs before logs loaded causing no log display error</li><li>Fixed bug when trying to delete specific logs</li><li>Fixed bug when trying to clear specific logs</li><li>Possible bugfix for getting update line numbers in js</li></ul></li></ul>"
+		),
+		'5.2.1'		=> array(
+			'branchName'	=> '5.2.1Update',
+			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/5.2.1.png',
+			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed bug with main menu full screen on smaller screens adding padding to height when there is no menu</li><li>Fixed bug with right clicks not always triggering right click menu on log titles in header</li><li>Fixed bug with saving log layouts needing refresh before working</li></ul></li></ul>"
 		),
 	)
 );
