@@ -1258,8 +1258,14 @@ function update(data)
 							//add rightclick menu
 							if(rightClickMenuEnable === "true")
 							{
-								menuObjectRightClick[id] = rightClickObjectNew;
-								Rightclick_ID_list.push(id);
+								var listOfRightClickTargets =["","CurrentWindow","GroupInName","Count"];
+								var listOfRightClickTargetsLength = listOfRightClickTargets.length;
+								for(var rct = 0; rct < listOfRightClickTargetsLength; rct++)
+								{
+									var innerId = id+listOfRightClickTargets[rct];
+									menuObjectRightClick[innerId] = rightClickObjectNew;
+									Rightclick_ID_list.push(innerId);
+								}
 							}
 						}
 
@@ -2548,7 +2554,10 @@ function resizeFullScreenMenu()
 		if(targetWidth < breakPointTwo || sideBarOnlyIcons === "breakpointtwo")
 		{
 			mainContentFullScreenMenuLeft = "52px";
-			mainContentFullScreenMenuTop = "82px";
+			if(sideBarVisible)
+			{
+				mainContentFullScreenMenuTop = "82px";
+			}
 			$(".settingsUlSub").css("width","auto").css("bottom","auto").css("right","0").css("border-bottom","1px solid white").css("border-right","none").css("height","35px");
 			$(".settingsUlSub li").not('.subMenuToggle').css("display","inline-block");
 			$(".menuTitle").not(".menuBreak").hide();
@@ -4558,7 +4567,9 @@ function saveLayoutTo(letter)
 	{
 		for(var innerLoopCount = 0; innerLoopCount < innerLoop; innerLoopCount++)
 		{
-			$("#localLayout [name=\"logLoad"+currentConfig+"-"+currentConterLoopExt+"-"+letter+"\"]")[0].value = filterTitle(titles[logDisplayArray[currentConterLoopExt]["id"]]).trim();
+			var localValue = filterTitle(titles[logDisplayArray[currentConterLoopExt]["id"]]).trim();
+			$("#localLayout [name=\"logLoad"+currentConfig+"-"+currentConterLoopExt+"-"+letter+"\"]")[0].value = localValue;
+			logLoadLayout[currentConfig][currentConterLoopExt][letter] = localValue;
 			currentConterLoopExt++;
 		}
 	}

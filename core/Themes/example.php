@@ -1,6 +1,6 @@
 <?php
 	$theme = $_GET["type"];
-	$cssVersion = rand(0 , 9000000);
+	$cssVersion = date("YmdHis");
 ?>
 <!DOCTYPE html>
 <html>
@@ -18,13 +18,16 @@
 				<img class="menuImage" src="<?php echo $theme; ?>/img/menu.png" height="30px">
 			</div>
 			<div class="menuImageDiv">
-				<img class="menuImage" src="<?php echo $theme; ?>/img/notification.png" height="30px">
+				<img class="menuImage" src="<?php echo $theme; ?>/img/Gear.png" height="30px">
 			</div>
 			<div class="menuImageDiv">
 				<img class="menuImage" src="<?php echo $theme; ?>/img/Pause.png" height="30px">
 			</div>
 			<div class="menuImageDiv">
 				<img class="menuImage" src="<?php echo $theme; ?>/img/Refresh.png" height="30px">
+			</div>
+			<div class="menuImageDiv">
+				<img class="menuImage" src="<?php echo $theme; ?>/img/eraserMulti.png" height="30px">
 			</div>
 			<div style="float: right;">
 				<input type="search" placeholder="Filter Title" style="height: 30px; width: 200px;">
@@ -38,7 +41,7 @@
 		<table style="margin: 0px;padding: 0px; border-spacing: 0px; width:100%; height: 278px; " >
 			<tr>
 				<td style="padding: 0; width: 30px;" >
-					<div class="backgroundForSideBarMenu" style="width: 30px; float: left; display: inline; padding: 0px; height: 100%;">
+					<div class="backgroundForSideBarMenu" style="width: 30px; float: left; display: inline; padding: 0px;">
 						<a style="cursor: pointer;" >
 							<img src="<?php echo $theme; ?>/img/infoSideBar.png" style="padding: 5px;" width="20px;">
 						</a>
