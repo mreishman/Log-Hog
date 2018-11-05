@@ -79,7 +79,7 @@ $cssVersion = date("YmdHis");
 <script src="../core/js/settings.js?v=<?php echo $cssVersion?>"></script>
 <script src="../core/js/updateInProgress.js?v=<?php echo $cssVersion?>"></script>
 <script type="text/javascript">
-<?php echo "var currentPercent = ".$updateProgress['percent'].";";?>
+<?php echo "var currentPercent = parseInt(".$updateProgress['percent'].");";?>
 </script>
 </body>
 </html>

@@ -18,16 +18,18 @@ function checkIfChange()
 		type: "POST",
 		success(data)
 		{
+			var newPercent = parseInt(data);
 			document.getElementById("innerSettingsText").innerHTML = "<br> Current Percent: "+currentPercent+"% ("+counter+")"+document.getElementById("innerSettingsText").innerHTML;
-			if(data == currentPercent)
+			if(newPercent === currentPercent)
 			{
-				counter++
+				counter++;
 				if(counter > 40)
 				{
 					window.location.href = "../settings/update.php";
 				}
-				else if(currentPercent == 100)
+				else if(currentPercent === 100)
 				{
+					document.getElementById("innerSettingsText").innerHTML = "<br> Finished Update";
 					finishedUpdate();
 					clearInterval(counterInt);
 				}
@@ -39,9 +41,9 @@ function checkIfChange()
 			else
 			{
 				counter = 0;
-				document.getElementById("progressBar").value = data;
-				currentPercent = data;
-				if(currentPercent == 100)
+				document.getElementById("progressBar").value = newPercent;
+				currentPercent = newPercent;
+				if(currentPercent === 100)
 				{
 					finishedUpdate();
 					clearInterval(counterInt);
