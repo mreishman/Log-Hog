@@ -2543,7 +2543,7 @@ function resize()
 				document.getElementById("main").style.bottom = menuHeight+"px";
 			}
 		}
-		else if(logMenuLocation === "left" || logMenuLocation === "right")
+		else if((logMenuLocation === "left" || logMenuLocation === "right") && allLogsVisible === "true")
 		{
 			if(menuHeight !== targetHeight)
 			{
@@ -4815,7 +4815,7 @@ function toggleSettingsSidebar()
 	if(document.getElementById("settingsSideBar").style.display === "none")
 	{
 		var newWidth = window.innerWidth - 200;
-		if(logMenuLocation === "left" || logMenuLocation === "right")
+		if((logMenuLocation === "left" || logMenuLocation === "right") && allLogsVisible === "true")
 		{
 			newWidth -= document.getElementById("menu").getBoundingClientRect().width;
 		}
@@ -4829,6 +4829,21 @@ function toggleSettingsSidebar()
 		document.getElementById("log").style.marginLeft = "0px";
 		document.getElementById("settingsSideBar").style.display = "none";
 	}
+}
+
+function toggleVisibleAllLogs()
+{
+	if(document.getElementById("allLogsVisible").value === "false")
+	{
+		document.getElementById("menu").style.display = "none";
+		allLogsVisible = "false";
+	}
+	else
+	{
+		document.getElementById("menu").style.display = "block";
+		allLogsVisible = "true";
+	}
+	resize();
 }
 
 function mainReady()

@@ -56,21 +56,6 @@ function toggleVisibleOneLog()
 	}
 }
 
-function toggleVisibleAllLogs()
-{
-	if(document.getElementById("allLogsVisible").value === "false")
-	{
-		document.getElementById("menu").style.display = "none";
-		allLogsVisible = "false";
-	}
-	else
-	{
-		document.getElementById("menu").style.display = "block";
-		allLogsVisible = "true";
-	}
-	resize();
-}
-
 function makeOneLogPretty()
 {
 	var htmlToReturn = "";
@@ -93,13 +78,13 @@ function makeOneLogPretty()
 		{
 			if(highlightNew === "true" && (oneLogHighlight === "titleBar" || oneLogHighlight === "all"))
 			{
-				htmlToReturn += " newLine "
+				htmlToReturn += " newLine ";
 			}
 		}
 		htmlToReturn += " \" style=\"padding-left: 40px; ";
 		if(currentLog["logId"] !== "noLogUpdate")
 		{
-			htmlToReturn += " cursor: pointer; "
+			htmlToReturn += " cursor: pointer; ";
 		}
 		htmlToReturn += " \" >"+currentLog["logName"]+"</div>";
 		htmlToReturn += "<div class=\"settingsDiv ";

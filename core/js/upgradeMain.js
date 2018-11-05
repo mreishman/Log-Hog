@@ -17,20 +17,20 @@ function runScript(version)
 {
 	document.getElementById("runCount").innerHTML = globalVersionBase;
 	document.getElementById("verifyCount").innerHTML = globalVersionBase;
-	document.getElementById('runLoad').style.display = "block";
-	document.getElementById('verifyLoad').style.display = "none";
+	document.getElementById("runLoad").style.display = "block";
+	document.getElementById("verifyLoad").style.display = "none";
 	var urlForSend = urlForSendMain+version+urlForSendMain2;
 	var dataSend = {version: version};
 	$.ajax({
 		url: urlForSend,
-		dataType: 'json',
+		dataType: "json",
 		data: dataSend,
-		type: 'POST',
-		success: function(data)
+		type: "POST",
+		success(data)
 		{
 			verifyFile(data);
 		},
-		failure: function(data)
+		failure(data)
 		{
 			runScript(startVersion+1);
 		}
@@ -40,9 +40,9 @@ function runScript(version)
 
 function verifyFile(version)
 {
-	document.getElementById('runCheck').style.display = "block";
-	document.getElementById('runLoad').style.display = "none";
-	document.getElementById('verifyLoad').style.display = "block";
+	document.getElementById("runCheck").style.display = "block";
+	document.getElementById("runLoad").style.display = "none";
+	document.getElementById("verifyLoad").style.display = "block";
 	verifyCount = 0;
 	verifyCountSuccess = 0;
 	verifyFileTimer = setInterval(function(){verifyFilePoll(version);},2000);
@@ -50,7 +50,7 @@ function verifyFile(version)
 
 function verifyFilePoll(version)
 {
-	if(lock == false)
+	if(lock === false)
 	{
 		lock = true;
 		var urlForSend = urlForSendMain0;
@@ -58,22 +58,22 @@ function verifyFilePoll(version)
 		(function(_data){
 			$.ajax({
 				url: urlForSend,
-				dataType: 'json',
+				dataType: "json",
 				data: data,
-				type: 'POST',
-				success: function(data)
+				type: "POST",
+				success(data)
 				{
 					verifyPostEnd(data, _data);
 				},
-				failure: function(data)
+				failure(data)
 				{
 					verifyPostEnd(data, _data);
 				},
-				complete: function()
+				complete()
 				{
 					lock = false;
 				}
-			});	
+			});
 		}(data));
 	}
 }
@@ -87,7 +87,7 @@ function verifyPostEnd(verified, data)
 		{
 			verifyCountSuccess = 0;
 			clearInterval(verifyFileTimer);
-			verifySucceded(data['lastAction']);
+			verifySucceded(data["lastAction"]);
 		}
 	}
 	else
@@ -97,14 +97,14 @@ function verifyPostEnd(verified, data)
 		if(verifyCount > 29)
 		{
 			clearInterval(verifyFileTimer);
-			verifyFail(data['lastAction']);
+			verifyFail(data["lastAction"]);
 		}
 	}
 }
 
 function updateError()
 {
-	document.getElementById('innerDisplayUpdate').innerHTML = "<h1>An error occured while trying to upgrade file. </h1>";
+	document.getElementById("innerDisplayUpdate").innerHTML = "<h1>An error occured while trying to upgrade file. </h1>";
 }
 
 function verifyFail(action)

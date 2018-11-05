@@ -22,17 +22,10 @@ function loadFile(filepath, name)
 		type: "POST",
 		success(data)
 		{
-			showFile(data, this.name)
+			showFile(data, this.name);
 		},
-		error(data, data2)
-		{
-			console.log(data);
-			console.log(data2);
-		},
-		complete()
-		{
-			console.log("Fin");
-		}
+		error(data, data2){},
+		complete(){}
 	});
 }
 
