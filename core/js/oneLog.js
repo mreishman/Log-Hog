@@ -56,21 +56,6 @@ function toggleVisibleOneLog()
 	}
 }
 
-function toggleVisibleAllLogs()
-{
-	if(document.getElementById("allLogsVisible").value === "false")
-	{
-		document.getElementById("menu").style.display = "none";
-		allLogsVisible = "false";
-	}
-	else
-	{
-		document.getElementById("menu").style.display = "block";
-		allLogsVisible = "true";
-	}
-	resize();
-}
-
 function makeOneLogPretty()
 {
 	var htmlToReturn = "";
