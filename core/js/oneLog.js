@@ -93,7 +93,7 @@ function makeOneLogPretty()
 			oneLogLogData["logs"][i]["new"] = false;
 			if(highlightNew === "true" && (oneLogHighlight === "body" || oneLogHighlight === "all"))
 			{
-				htmlToReturn += " newLine "
+				htmlToReturn += " newLine ";
 			}
 		}
 		htmlToReturn += " \" style=\"max-height: "+oneLogLogMaxHeight+"px; overflow: auto;\" >"+currentHtmlForLog+"</div>";
