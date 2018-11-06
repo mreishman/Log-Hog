@@ -3776,12 +3776,17 @@ function tryToStartNotificationInlinePoll()
 		inlineNotificationPollArray.length > 0)
 	{
 		//start poll
+		inlineNotificationPollLogic();
 		inlineNotificationPoll = setInterval(inlineNotificationPollLogic, 5000);
 	}
 }
 
 function inlineNotificationPollLogic()
 {
+	if($("#inlineNotifications:hover").length != 0)
+	{
+	    return;
+	}
 	var currentLength = inlineNotificationPollArray.length;
 	if(currentLength > 0)
 	{
