@@ -25,6 +25,8 @@ var fullScreenMenuClickCount = 0;
 var globalForcePageNavigate = false;
 var hiddenLogUpdatePollBottom = null;
 var hiddenLogUpdatePollTop = null;
+var inlineNotificationPoll = null;
+var inlineNotificationPollArray = [];
 var lastContentSearch = "";
 var lastLogs = {};
 var logDisplayArray = {};
@@ -191,6 +193,7 @@ function poll()
 	try
 	{
 		checkForUpdateMaybe();
+		tryToStartNotificationInlinePoll();
 		if(refreshing)
 		{
 			updateDocumentTitle("Refreshing");
@@ -3465,6 +3468,7 @@ function toggleNotifications(force = false)
 
 function showNotifications()
 {
+	//code here later if needed
 	displayNotifications();
 }
 
@@ -3754,7 +3758,63 @@ function addNotification(notificationArray)
 		notifications[currentId]["log"] = notificationArray["log"];
 	}
 
+	inlineNotificationAdd(notifications[currentId]);
+
 	updateNotificationStuff();
+}
+
+function inlineNotificationAdd(notificationArray)
+{
+	inlineNotificationPollArray.push(notificationArray);
+}
+
+function tryToStartNotificationInlinePoll()
+{
+	if(
+		inlineNotificationPoll === null &&
+		document.getElementById("fullScreenMenu").style.display === "none" &&
+		inlineNotificationPollArray.length > 0)
+	{
+		//start poll
+		inlineNotificationPoll = setInterval(inlineNotificationPollLogic, 5000);
+	}
+}
+
+function inlineNotificationPollLogic()
+{
+	var currentLength = inlineNotificationPollArray.length;
+	if(currentLength > 0)
+	{
+		var currentThing = inlineNotificationPollArray[0];
+		inlineNotificationPollArray.shift();
+		//show notification
+		var blank;
+		if("image" in currentThing)
+		{
+			blank = $("#storage .notificationContainerInlineWithImage").html();
+		}
+		else
+		{
+			blank = $("#storage .notificationContainerInline").html();
+		}
+		var item = blank;
+		item = item.replace(/{{name}}/g, currentThing['name']);
+		item = item.replace(/{{time}}/g, currentThing['time']);
+		item = item.replace(/{{action}}/g, currentThing['action']);
+		if("image" in currentThing)
+		{
+			item = item.replace(/{{image}}/g, currentThing['image']);
+		}
+		$("#inlineNotifications").html(item);
+		document.getElementById("inlineNotifications").style.display = "block";
+	}
+	else
+	{
+		document.getElementById("inlineNotifications").style.display = "none";
+		//stop poll
+		clearInterval(inlineNotificationPoll);
+		inlineNotificationPoll = null;
+	}
 }
 
 function updateNotificationStuff()

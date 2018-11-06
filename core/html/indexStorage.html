@@ -25,7 +25,7 @@
 	</div>
 </div>
 <div class="notificationContainerWithImage">
-	<div id="{{id}}">
+	<div id="{{id}}" class="notificationDiv">
 		<span style="width: 100%;">
 			<table style="width: 100%; padding-top: 5px; padding-bottom: 5px;" >
 				<tr>
@@ -37,6 +37,30 @@
 				</tr>
 				<tr>
 					<td>{{previewText}}</td>
+				</tr>
+			</table>
+		</span>
+	</div>
+</div>
+<div class="notificationContainerInline">
+	<div class="notificationDiv" >
+		<span style="width: 100%;">
+			<table style="width: 100%; padding-top: 5px; padding-bottom: 5px;" >
+				<tr>
+					<td style="border-right: 1px solid black; width: 75px; cursor: default;"> {{time}} </td>
+					<td onclick="{{action}}"  class="notificationText"><b> {{name}} </b></td>
+				</tr>
+			</table>
+		</span>
+	</div>
+</div>
+<div class="notificationContainerInlineWithImage">
+	<div class="notificationDiv">
+		<span style="width: 100%;">
+			<table style="width: 100%; padding-top: 5px; padding-bottom: 5px;" >
+				<tr>
+					<td style="border-right: 1px solid black; width: 75px; cursor: default;"> {{time}} </td>
+					<td onclick="{{action}}"  class="notificationText"> {{image}} <b>{{name}} </b></td>
 				</tr>
 			</table>
 		</span>
