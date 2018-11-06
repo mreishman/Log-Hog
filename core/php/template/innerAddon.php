@@ -277,8 +277,14 @@
 			}
 			else
 			{
-				$("."+idToSubmit+"RemoveHideThis").hide();
-				$("."+idToSubmit+"RemoveShowThis").show();
+				if($("."+idToSubmit+"RemoveHideThis"))
+				{
+					$("."+idToSubmit+"RemoveHideThis").hide();
+				}
+				if($("."+idToSubmit+"RemoveShowThis"))
+				{
+					$("."+idToSubmit+"RemoveShowThis").show();
+				}
 				removeFilesFromToppFolder(true);
 			}
 		}
