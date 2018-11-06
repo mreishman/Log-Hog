@@ -1935,12 +1935,12 @@ function removeFromMultiLog(idOfName)
 		{
 			logDisplayArray[i]["id"] = null;
 			windowNum = i;
-			break;	
+			break;
 		}
 	}
 	if(windowNum > -1)
 	{
-		$("#log"+i).html("");
+		$("#log"+windowNum).html("");
 		$("#menu ." + idOfName + "Button currentWindowNum").html("");
 	}
 }
