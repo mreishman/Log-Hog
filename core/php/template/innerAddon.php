@@ -162,18 +162,25 @@
 						</td>
 						<?php if(strpos($URI, 'step') === false): ?>
 							<td>
-								<?php if ($value['ConfigStatic']['version'] !== $value['ConfigStatic']['newestVersion']): ?>
-									Update Available - <?php echo $value['ConfigStatic']['newestVersion']; ?>
-								<?php else: ?>
-									No Update
-								<?php endif; ?>
+								<span class="<?php echo $lowercase; ?>RemoveHideThis" >
+									<?php if ($value['ConfigStatic']['version'] !== $value['ConfigStatic']['newestVersion']): ?>
+										Update Available - <?php echo $value['ConfigStatic']['newestVersion']; ?>
+									<?php else: ?>
+										No Update
+									<?php endif; ?>
+								</span>
 							</td>
 							<td>
-								<?php if ($value['ConfigStatic']['version'] !== $value['ConfigStatic']['newestVersion']): ?>
-									<a class="link" onclick="installUpdates('<?php echo $lowercase; ?>/','<?php echo $lowercase; ?>UpdateForm');">Install <?php echo $value['ConfigStatic']["newestVersion"];?> Update</a>
-								<?php else: ?>
-									<a onclick="checkForUpdates('<?php echo $lowercase; ?>/','<?php echo $uppercase; ?>','<?php echo $value['ConfigStatic']['version'];?>','<?php echo $lowercase; ?>UpdateForm');" class="link">Check For Updates</a>
-								<?php endif; ?>
+								<span class="<?php echo $lowercase; ?>RemoveHideThis" >
+									<?php if ($value['ConfigStatic']['version'] !== $value['ConfigStatic']['newestVersion']): ?>
+										<a class="link" onclick="installUpdates('<?php echo $lowercase; ?>/','<?php echo $lowercase; ?>UpdateForm');">Install <?php echo $value['ConfigStatic']["newestVersion"];?> Update</a>
+									<?php else: ?>
+										<a onclick="checkForUpdates('<?php echo $lowercase; ?>/','<?php echo $uppercase; ?>','<?php echo $value['ConfigStatic']['version'];?>','<?php echo $lowercase; ?>UpdateForm');" class="link">Check For Updates</a>
+									<?php endif; ?>
+								</span>
+								<span class="<?php echo $lowercase; ?>RemoveShowThis" style="display: none;"  >
+									Removing...
+								</span>
 							</td>
 						<?php else: ?>
 							<td colspan="2">
@@ -270,6 +277,8 @@
 			}
 			else
 			{
+				$("."+idToSubmit+"RemoveHideThis").hide();
+				$("."+idToSubmit+"RemoveShowThis").show();
 				removeFilesFromToppFolder(true);
 			}
 		}
