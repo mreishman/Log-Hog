@@ -1373,6 +1373,65 @@ $defaultConfigMoreData = array(
 					)
 				)
 			),
+			5									=>	array(
+				"bool"								=>	($notificationInlineShow == 'false'),
+				"id"								=>	"notificationInlineSettings",
+				"name"								=>	"Notification Inline Settings",
+				"type"								=>	"grouped",
+				"var"								=>	array(
+					"function"							=>	"showOrHideNotificationInlineSettings",
+					"id"								=>	"notificationInlineShow",
+					"key"								=>	"notificationInlineShow",
+					"name"								=>	"Show Notification Dropdown Alert",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				),
+				"vars"								=>	array(
+					0									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"notificationInlineLocation",
+							"name"								=>	"Location of notification",
+							"options"							=>	array(
+								0 									=> array(
+									"value" 							=> "center",
+									"name" 								=> "Center"),
+								1 									=> array(
+									"value" 							=> "topLeft",
+									"name" 								=> "Top Left"),
+								2									=> array(
+									"value" 							=> "topRight",
+									"name" 								=> "Top Right"),
+								3									=> array(
+									"value" 							=> "bottomLeft",
+									"name" 								=> "Bottom Left"),
+								4									=> array(
+									"value" 							=> "bottomRight",
+									"name" 								=> "Bottom Right")
+							),
+							"type"								=>	"dropdown"
+						)
+					),
+					1									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"notificationInlineButtonHover",
+							"name"								=>	"Show action buttons only after hover",
+							"options"							=>	$trueFalsVars,
+							"type"								=>	"dropdown"
+						)
+					),
+					2									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"notificationInlineDisplayTime",
+							"name"								=>	"Show notification for ",
+							"postText"							=>	" seconds",
+							"type"								=>	"number"
+						)
+					)
+				)
+			),
 		)
 	),
 	"oneLogVars"						=>	array(

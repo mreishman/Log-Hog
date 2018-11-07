@@ -105,4 +105,42 @@ elseif($logMenuLocation === "bottom"): ?>
 
 <?php endif; ?>
 
+<?php if ($notificationInlineLocation === "center"): ?>
+#inlineNotifications{
+  left: 50%;
+  margin-left: -250px;
+}
+
+<?php elseif ($notificationInlineLocation === "topLeft"): ?>
+#inlineNotifications{
+  left: 0;
+}
+
+<?php elseif ($notificationInlineLocation === "topRight"): ?>
+#inlineNotifications{
+  right: 0;
+}
+
+<?php elseif ($notificationInlineLocation === "bottomLeft"): ?>
+#inlineNotifications{
+  left: 0;
+  bottom: 0;
+}
+
+<?php elseif ($notificationInlineLocation === "bottomRight"): ?>
+#inlineNotifications{
+  right: 0;
+  bottom: 0;
+}
+
+<?php endif; ?>
+
+@media only screen and (max-width: 500px) {
+    #inlineNotifications{
+    left: 0;
+    right: 0;
+    width: auto;
+  }
+}
+
 </style>

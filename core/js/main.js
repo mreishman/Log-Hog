@@ -193,7 +193,10 @@ function poll()
 	try
 	{
 		checkForUpdateMaybe();
-		tryToStartNotificationInlinePoll();
+		if(notificationInlineShow === "true")
+		{
+			tryToStartNotificationInlinePoll();
+		}
 		if(refreshing)
 		{
 			updateDocumentTitle("Refreshing");
@@ -3757,8 +3760,10 @@ function addNotification(notificationArray)
 	{
 		notifications[currentId]["log"] = notificationArray["log"];
 	}
-
-	inlineNotificationAdd(notifications[currentId]);
+	if(notificationInlineShow === "true")
+	{
+		inlineNotificationAdd(notifications[currentId]);
+	}
 
 	updateNotificationStuff();
 }
@@ -3777,7 +3782,7 @@ function tryToStartNotificationInlinePoll()
 	{
 		//start poll
 		inlineNotificationPollLogic();
-		inlineNotificationPoll = setInterval(inlineNotificationPollLogic, 5000);
+		inlineNotificationPoll = setInterval(inlineNotificationPollLogic, (notificationInlineDisplayTime * 1000));
 	}
 }
 
@@ -3812,13 +3817,20 @@ function inlineNotificationPollLogic(force = false)
 		}
 		$("#inlineNotifications").html(item);
 		document.getElementById("inlineNotifications").style.display = "block";
-		$( "#inlineNotifications" ).hover(
-		  function() {
-		    $( ".notificationContainerInlineButtons" ).css( "display" , "block" );
-		  }, function() {
-		    $( ".notificationContainerInlineButtons" ).css( "display" , "none" );
-		  }
-		);
+		if(notificationInlineButtonHover === "false")
+		{
+			$( "#inlineNotifications" ).hover(
+			  function() {
+			    $( ".notificationContainerInlineButtons" ).css( "display" , "block" );
+			  }, function() {
+			    $( ".notificationContainerInlineButtons" ).css( "display" , "none" );
+			  }
+			);
+		}
+		else
+		{
+			$( ".notificationContainerInlineButtons" ).css( "display" , "block" );
+		}
 	}
 	else
 	{

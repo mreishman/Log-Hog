@@ -433,8 +433,6 @@ div.sidebarLeft {
 #inlineNotifications{
   display: none;
   position: absolute;
-  left: 50%;
-  margin-left: -250px;
   width: 500px;
   padding: 4px;
   z-index: 100;
