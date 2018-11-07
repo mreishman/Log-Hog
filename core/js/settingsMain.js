@@ -237,9 +237,10 @@ function selectLogPopup(locationForNewLogText)
 	var selctor = locationForNewLogText.split("-");
 	var currentWindow = 0;
 	var arrayOfAlreadySelectedLogs = [];
-	while(typeof document.getElementsByName(selctor[0]+"-"+currentWindow+"-"+selector[2])[0] !== "undefined")
+	while(typeof document.getElementsByName(selctor[0]+"-"+currentWindow+"-"+selctor[2])[0] !== "undefined")
 	{
-		arrayOfAlreadySelectedLogs.push(getElementsByName(selctor[0]+"-"+currentWindow+"-"+selector[2])[0].value);
+		arrayOfAlreadySelectedLogs.push(document.getElementsByName(selctor[0]+"-"+currentWindow+"-"+selctor[2])[0].value);
+		currentWindow++;
 	}
 	displayLoadingPopup();
 	var urlForSend = "../core/php/pollCheck.php?format=json";
