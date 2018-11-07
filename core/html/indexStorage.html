@@ -43,24 +43,56 @@
 	</div>
 </div>
 <div class="notificationContainerInline">
-	<div class="notificationDiv" >
+	<div class="inlineNotificationDiv" >
 		<span style="width: 100%;">
 			<table style="width: 100%; padding-top: 5px; padding-bottom: 5px;" >
 				<tr>
 					<td style="border-right: 1px solid black; width: 75px; cursor: default;"> {{time}} </td>
-					<td onclick="{{action}}"  class="notificationText"><b> {{name}} </b></td>
+					<td style="cursor: default;" class="notificationText"><b> {{name}} </b></td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<span style="display: none;" class="notificationContainerInlineButtons">
+							<table  style="width: 100%;">
+								<tr>
+									<th>
+										<span class="linkSmall" onclick="{{action}} inlineNotificationPollLogic(true);" >View</span>
+									</th>
+									<th>
+										<span  class="linkSmall" onclick="inlineNotificationPollLogic(true);" >Close</span>
+									</th>
+								</tr>
+							</table>
+						</span>
+					</td>
 				</tr>
 			</table>
 		</span>
 	</div>
 </div>
 <div class="notificationContainerInlineWithImage">
-	<div class="notificationDiv">
+	<div class="inlineNotificationDiv">
 		<span style="width: 100%;">
 			<table style="width: 100%; padding-top: 5px; padding-bottom: 5px;" >
 				<tr>
 					<td style="border-right: 1px solid black; width: 75px; cursor: default;"> {{time}} </td>
-					<td onclick="{{action}}"  class="notificationText"> {{image}} <b>{{name}} </b></td>
+					<td class="notificationText"> {{image}} <b>{{name}} </b></td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<span style="display: none;" class="notificationContainerInlineButtons">
+							<table  style="width: 100%;">
+								<tr>
+									<th>
+										<span class="linkSmall" onclick="{{action}} inlineNotificationPollLogic();" >View</span>
+									</th>
+									<th>
+										<span  class="linkSmall" onclick="inlineNotificationPollLogic();" >Close</span>
+									</th>
+								</tr>
+							</table>
+						</span>
+					</td>
 				</tr>
 			</table>
 		</span>

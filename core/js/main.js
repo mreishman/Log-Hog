@@ -3781,9 +3781,9 @@ function tryToStartNotificationInlinePoll()
 	}
 }
 
-function inlineNotificationPollLogic()
+function inlineNotificationPollLogic(force = false)
 {
-	if($("#inlineNotifications:hover").length != 0)
+	if($("#inlineNotifications:hover").length != 0 && !force)
 	{
 	    return;
 	}
@@ -3812,6 +3812,13 @@ function inlineNotificationPollLogic()
 		}
 		$("#inlineNotifications").html(item);
 		document.getElementById("inlineNotifications").style.display = "block";
+		$( "#inlineNotifications" ).hover(
+		  function() {
+		    $( ".notificationContainerInlineButtons" ).css( "display" , "block" );
+		  }, function() {
+		    $( ".notificationContainerInlineButtons" ).css( "display" , "none" );
+		  }
+		);
 	}
 	else
 	{

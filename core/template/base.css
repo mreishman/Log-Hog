@@ -411,6 +411,14 @@ div.sidebarLeft {
   padding: 10px 3px;
 }
 
+.inlineNotificationDiv{
+  padding: 5px 3px;
+}
+
+.notificationContainerInlineButtons{
+  margin-top: 5px;
+}
+
 .fullScreenMenuLeftSidebar .menuTitle {
   text-align: center;
   font-size: 150%;
