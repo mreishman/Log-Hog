@@ -121,7 +121,7 @@ $externalLinkImage = generateImage(
 					Warning - <?php echo ($pollForceTrue * 4); ?> poll requests have failed. Please check server connectivity or refresh page.
 				</span>
 			</div>
-		<div id="inlineNotifications" style="border: 1px solid white; border-radius: 5px; background-color: black;" ></div>
+		<div id="inlineNotifications" class="inlineNotificationsClass" ></div>
 		<div style="overflow: hidden; display: block;">
 			<?php require_once("core/php/template/indexHeader.php"); ?>
 			<div class="backgroundForMenus" id="menu" style="position: absolute; display: none;"></div>

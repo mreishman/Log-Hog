@@ -143,4 +143,10 @@ elseif($logMenuLocation === "bottom"): ?>
   }
 }
 
+.inlineNotificationsClass{
+  border: 1px solid <?php echo $notificationInlineFontColor; ?>;
+  background-color: <?php echo $notificationInlineBGColor; ?>;
+  color: <?php echo $notificationInlineFontColor; ?>;
+}
+
 </style>

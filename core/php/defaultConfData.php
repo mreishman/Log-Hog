@@ -1429,7 +1429,23 @@ $defaultConfigMoreData = array(
 							"postText"							=>	" seconds",
 							"type"								=>	"number"
 						)
-					)
+					),
+					3									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"notificationInlineBGColor",
+							"name"								=>	"Background",
+							"type"								=>	"text"
+						)
+					),
+					4									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"notificationInlineFontColor",
+							"name"								=>	"Font",
+							"type"								=>	"text"
+						)
+					),
 				)
 			),
 		)

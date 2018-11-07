@@ -437,3 +437,10 @@ div.sidebarLeft {
   padding: 4px;
   z-index: 100;
 }
+
+.inlineNotificationsClass{
+  border: 1px solid white;
+  border-radius: 5px;
+  background-color: black;
+  color: white;
+}
