@@ -3817,7 +3817,7 @@ function inlineNotificationPollLogic(force = false)
 		}
 		$("#inlineNotifications").html(item);
 		document.getElementById("inlineNotifications").style.display = "block";
-		if(notificationInlineButtonHover === "false")
+		if(notificationInlineButtonHover === "true")
 		{
 			$( "#inlineNotifications" ).hover(
 			  function() {
