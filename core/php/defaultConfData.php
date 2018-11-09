@@ -1292,7 +1292,27 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			1									=>	array(
+			1									=> array(
+				"info"								=>	"Show notifications when logs get updated",
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"notificationNewLine",
+					"name"								=>	"Show New Line Notification",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			2									=> array(
+				"info"								=>	"Show notifications when new logs get added",
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"notificationNewLog",
+					"name"								=>	"Show New Log Notification",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			3									=>	array(
 				"info"								=>	"If a log tab is not visible (either below of above scroll area), a bar will flash as notification",
 				"type"								=>	"single",
 				"var"								=>	array(
@@ -1302,7 +1322,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			2									=> array(
+			4									=> array(
 				"info"								=>	"Only shows count of notifications that were not viewed",
 				"type"								=>	"single",
 				"var"								=>	array(
@@ -1312,7 +1332,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			3									=> array(
+			5									=> array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"notificationGroupType",
@@ -1331,7 +1351,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			4									=>	array(
+			6									=>	array(
 				"bool"								=>	($notificationPreviewShow == 'false'),
 				"id"								=>	"notificationPreviewSettings",
 				"name"								=>	"Notification Log Preview Settings",
@@ -1373,7 +1393,7 @@ $defaultConfigMoreData = array(
 					)
 				)
 			),
-			5									=>	array(
+			7									=>	array(
 				"bool"								=>	($notificationInlineShow == 'false'),
 				"id"								=>	"notificationInlineSettings",
 				"name"								=>	"Notification Inline Settings",

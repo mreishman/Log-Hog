@@ -1250,12 +1250,14 @@ function update(data)
 								if(!$("#menu a." + id + "Button").hasClass("updated") && ( (!(fullPathSearch in fileData)) || fileData[fullPathSearch]["AlertEnabled"] === "true" ) && (!(id in alertEnabledArray) || (id in alertEnabledArray && alertEnabledArray[id] === "enabled")))
 								{
 									$("#menu a." + id + "Button").addClass("updated");
-
-									addLogNotification({
-										log: id,
-										name: "New Log "+nameForLog,
-										action: "$('#"+id+"').click();  closeNotificationsAndMainMenu();"
-									});
+									if(notificationNewLog === "true")
+									{
+										addLogNotification({
+											log: id,
+											name: "New Log "+nameForLog,
+											action: "$('#"+id+"').click();  closeNotificationsAndMainMenu();"
+										});
+									}
 								}
 							}
 							var rightClickObjectNew = new Array();
@@ -1386,7 +1388,7 @@ function update(data)
 							}
 							else
 							{
-								if(!firstLoad && (oneLogEnable === "false" || isOneLogVisible() === "false" || oneLogVisibleDisableUpdate === "false"))
+								if(!firstLoad && notificationNewLine === "true" && (oneLogEnable === "false" || isOneLogVisible() === "false" || oneLogVisibleDisableUpdate === "false"))
 								{
 									if(autoMoveUpdateLog === "true")
 									{
