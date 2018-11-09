@@ -185,6 +185,14 @@ $externalLinkImage = generateImage(
 				{
 					Rightclick_ID_list.push('notificationBadge');
 				}
+				if(document.getElementById("notificationCount"))
+				{
+					Rightclick_ID_list.push('notificationCount');
+				}
+				if(document.getElementById("notificationBadge"))
+				{
+					Rightclick_ID_list.push('notificationBadge');
+				}
 				<?php
 			endif;
 			if($levelOfUpdate !== 0 && $configStatic["version"] !== $dontNotifyVersion && $updateNotificationEnabled === "true"):

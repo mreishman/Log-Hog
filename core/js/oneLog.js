@@ -68,6 +68,7 @@ function makeOneLogPretty()
 		{
 			continue;
 		}
+		currentHtmlForLog = "<table class=\"oneLogTable\" width=\"100%\" style=\"border-spacing: 0;\" >" + currentHtmlForLog + "</table>";
 		htmlToReturn += "<div ";
 		if(currentLog["logId"] !== "noLogUpdate")
 		{
@@ -93,7 +94,7 @@ function makeOneLogPretty()
 			oneLogLogData["logs"][i]["new"] = false;
 			if(highlightNew === "true" && (oneLogHighlight === "body" || oneLogHighlight === "all"))
 			{
-				htmlToReturn += " newLine "
+				htmlToReturn += " newLine ";
 			}
 		}
 		htmlToReturn += " \" style=\"max-height: "+oneLogLogMaxHeight+"px; overflow: auto;\" >"+currentHtmlForLog+"</div>";
