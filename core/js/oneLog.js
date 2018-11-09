@@ -68,6 +68,7 @@ function makeOneLogPretty()
 		{
 			continue;
 		}
+		currentHtmlForLog = "<table class=\"oneLogTable\" width=\"100%\" style=\"border-spacing: 0;\" >" + currentHtmlForLog + "</table>";
 		htmlToReturn += "<div ";
 		if(currentLog["logId"] !== "noLogUpdate")
 		{

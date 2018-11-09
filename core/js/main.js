@@ -2337,7 +2337,12 @@ function makePretty(id)
 		{
 			count = 0;
 		}
-		return makePrettyWithText(text, count);
+		var returnText = makePrettyWithText(text, count);
+		if(returnText !== "")
+		{
+			return "<table width=\"100%\" style=\"border-spacing: 0;\" >" + returnText + "</table>";
+		}
+		return "";
 	}
 	catch(e)
 	{
@@ -2462,7 +2467,7 @@ function makePrettyWithText(text, count)
 		{
 			return "";
 		}
-		return "<table width=\"100%\" style=\"border-spacing: 0;\" >" + returnText + "</table>";
+		return returnText;
 	}
 	catch(e)
 	{
