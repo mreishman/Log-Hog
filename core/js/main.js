@@ -4711,11 +4711,27 @@ function toggleVisibleAllLogs()
 	if(document.getElementById("allLogsVisible").value === "false")
 	{
 		document.getElementById("menu").style.display = "none";
+		if(logMenuLocation === "left")
+		{
+			$("#main").css("padding-left","0px");
+		}
+		else if(logMenuLocation === "right")
+		{
+			$("#main").css("padding-right","0px");
+		}
 		allLogsVisible = "false";
 	}
 	else
 	{
 		document.getElementById("menu").style.display = "block";
+		if(logMenuLocation === "left")
+		{
+			$("#main").css("padding-left","200px");
+		}
+		else if(logMenuLocation === "right")
+		{
+			$("#main").css("padding-right","200px");
+		}
 		allLogsVisible = "true";
 	}
 	resize();
