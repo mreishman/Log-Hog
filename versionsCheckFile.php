@@ -1,7 +1,7 @@
 <?php
 
 $versionCheckArray = array(
-	'version'		=> '5.2.1',
+	'version'		=> '5.2.2',
 	'versionList'		=> array(
 		'2.0.1'	        => array(
 			'branchName'	=> '2.0.1Update',
@@ -236,6 +236,11 @@ $versionCheckArray = array(
 			'branchName'	=> '5.2.1Update',
 			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/5.2.1.png',
 			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed bug with main menu full screen on smaller screens adding padding to height when there is no menu</li><li>Fixed bug with right clicks not always triggering right click menu on log titles in header</li><li>Fixed bug with saving log layouts needing refresh before working</li></ul></li></ul>"
+		),
+		'5.2.2'		=> array(
+			'branchName'	=> '5.2.2Update',
+			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/5.2.2.png',
+			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed bug with remove log from multilog function not working correctly</li><li>Fixed bug with right click accuracy on notification icon with counter</li><li>Fixed bug with removing addons not properly updating text / buttons during the remove action</li><li>Fixed bug for selecting the same log more than once for a log load layout</li><li>Shows correct message when there are no logs to select (in log load layout)</li><li>Fixed bug with save of log load layout not working correctly if nothing was previously saved</li></ul></li></ul>"
 		),
 	)
 );
