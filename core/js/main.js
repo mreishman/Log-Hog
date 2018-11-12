@@ -1935,12 +1935,12 @@ function removeFromMultiLog(idOfName)
 		{
 			logDisplayArray[i]["id"] = null;
 			windowNum = i;
-			break;	
+			break;
 		}
 	}
 	if(windowNum > -1)
 	{
-		$("#log"+i).html("");
+		$("#log"+windowNum).html("");
 		$("#menu ." + idOfName + "Button currentWindowNum").html("");
 	}
 }
@@ -4558,6 +4558,20 @@ function getCurrentWindowLayout()
 
 function saveLayoutTo(letter)
 {
+	if(logLoadLayout.length === 0)
+	{
+		for(var iCount = 1; iCount <= 3; iCount++)
+		{
+			for(var jCount = 1; jCount <= 3; jCount++)
+			{
+				logLoadLayout[""+iCount+"x"+jCount] = [];
+				for(var kCount = 0; kCount < (iCount * jCount); kCount++)
+				{
+					logLoadLayout[""+iCount+"x"+jCount][kCount] = {A: "", B: "", C: ""};
+				}
+			}
+		}
+	}
 	var currentConfig = getCurrentWindowLayout();
 	var currentConfigArray = currentConfig.split("x");
 	var outerLoop = parseInt(currentConfigArray[0]);
