@@ -99,7 +99,7 @@
 				"BP"			=>	array("New overview panel (shows whats new in logs)"),
 				"Images"		=>	array("6.0-1.png")
 			),
-			15	=>	array(
+			16	=>	array(
 				"Version"		=>	"6.1",
 				"Name"			=>	"More Notifications!",
 				"BP"			=>	array("Redesigned Notifications"),
