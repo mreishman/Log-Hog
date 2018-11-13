@@ -653,6 +653,7 @@ else
 
 	echo "<script>";
 	echo "var successVerifyNum = ".$successVerifyNum.";";
+	echo "var arrayOfImages = ".json_encode($arrayOfImages);
 	echo "</script>";
 
 	$loadingBarStyle = "";

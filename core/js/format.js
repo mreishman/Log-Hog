@@ -49,7 +49,7 @@ var arrOfMonthsLarge = {
 function formatLine(text, extraData)
 {
 	var arrayOfText = dateTimeSplit(text);
-	return "<td style=\"white-space:nowrap;width: 1%;\" >" + dateTimeFormat(arrayOfText) + "</td><td style=\"white-space: pre-wrap;\" >" + formatMainMessage(arrayOfText, extraData) + "</td>";
+	return "<td style=\"white-space:nowrap;width: 1%;\" >" + dateTimeFormat(arrayOfText) + "</td><td style=\"white-space: pre-wrap;\" >" + formatMainMessage(arrayOfText[1], extraData) + "</td>";
 }
 
 function dateTimeSplit(text)
@@ -94,14 +94,46 @@ function dateTimeSplit(text)
 	return returnObject;
 }
 
-function formatMainMessage(dateTextArray, extraData)
+function formatMainMessage(message, extraData)
 {
-	var message = dateTextArray[1];
 	if(message.indexOf("{") > -1 && message.lastIndexOf("}") > message.indexOf("{"))
 	{
 		return formatJsonMessage(message, extraData);
 	}
+	else if(message.indexOf("PHP message:") > -1)
+	{
+		return formatPhpMessage(message, extraData);
+	}
 	return message;
+}
+
+function formatPhpMessage(message, extraData)
+{
+	var message = message.split("PHP message:");
+	var severity = arrayOfImages["info"]["src"];
+	if(message[1].indexOf("PHP Notice") > -1)
+	{
+		severity = arrayOfImages["info"]["src"];
+	}
+	else if(message[1].indexOf("PHP Warning") > -1)
+	{
+		severity = arrayOfImages["yellowWarning"]["src"];
+	}
+	else if(message[1].indexOf("PHP Fatal") > -1)
+	{
+		severity = arrayOfImages["redWarning"]["src"];
+	}
+	var restOfMessage = message[1].split(":");
+	var messageWarning = restOfMessage[0];
+	restOfMessage.shift();
+	restOfMessage = restOfMessage.join(":");
+	restOfMessage = formatMainMessage(restOfMessage, extraData);
+	var firstPartOfMessage = message[0];
+	if(firstPartOfMessage !== "")
+	{
+		firstPartOfMessage = formatMainMessage(firstPartOfMessage, extraData);
+	}
+	return firstPartOfMessage+"<table style=\"width=100%;\" ><tr><td style=\"width: 15px;\" ><img src=\""+severity+"\" height=\"15px\" ></td><td>"+messageWarning+"</td></tr><tr><td colspan=\"2\" >"+restOfMessage+"</td></tr></table>";
 }
 
 function formatJsonMessage(message, extraData)
