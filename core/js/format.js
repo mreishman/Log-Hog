@@ -198,7 +198,7 @@ function parseErrorMessage(restOfMessage, extraData)
 			var lowestPos = 0;
 			for(var aodc2 = 1; aodc2 < 7; aodc2++)
 			{
-				if(arrayOfData[arrayOfDataKeys[aodc2]]["position"] < lowest || lowest === -1)
+				if((arrayOfData[arrayOfDataKeys[aodc2]]["position"] < lowest || lowest === -1 ) && arrayOfData[arrayOfDataKeys[aodc2]]["position"] > -1)
 				{
 					atLeastOnePresent = true;
 					lowest = arrayOfData[arrayOfDataKeys[aodc2]]["position"];
