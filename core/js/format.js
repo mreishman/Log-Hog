@@ -64,7 +64,11 @@ var phpYellowWarningArr = {
 function formatLine(text, extraData)
 {
 	var arrayOfText = dateTimeSplit(text);
-	return "<td style=\"white-space:nowrap;width: 1%;\" >" + dateTimeFormat(arrayOfText) + "</td><td style=\"white-space: pre-wrap;\" >" + formatMainMessage(arrayOfText[1], extraData) + "</td>";
+	if(dateTextFormatColumn === "true" || (dateTextFormatColumn === "auto" && window.innerWidth > breakPointTwo))
+	{
+		return "<td style=\"white-space:nowrap;width: 1%;\" >" + dateTimeFormat(arrayOfText) + "</td><td style=\"white-space: pre-wrap;\" >" + formatMainMessage(arrayOfText[1], extraData) + "</td>";
+	}
+	return "<td style=\"white-space: pre-wrap;\" >" + dateTimeFormat(arrayOfText) + formatMainMessage(arrayOfText[1], extraData) + "</td>";
 }
 
 function dateTimeSplit(text)

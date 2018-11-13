@@ -24,6 +24,7 @@ $defaultConfig = array(
 	'currentTheme'					=> 'Default',
 	'currentThemeBase'				=> 'Default',
 	'dateTextFormat'				=> 'MM/|DD/|YYYY |hh:|mm:|ss',
+	'dateTextFormatColumn'			=> 'auto',
 	'dateTextFormatCustom'			=> '',
 	'defaultNewAddAlertEnabled'		=>	'true',
 	'defaultNewAddAutoDeleteFiles'	=>	'',

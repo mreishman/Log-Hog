@@ -761,7 +761,26 @@ $defaultConfigMoreData = array(
 					"key"								=>	"dateTextFormatCustom",
 					"type"								=>	"hidden"
 				)
-			)
+			),
+			2									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"dateTextFormatColumn",
+					"name"								=>	"Show log date / time in seperate column",
+					"options"							=>	array(
+						0 									=> array(
+							"value" 							=> "true",
+							"name" 								=> "Always"),
+						1 									=> array(
+							"value" 							=> "auto",
+							"name" 								=> "On larger screens"),
+						2 									=> array(
+							"value" 							=> "false",
+							"name" 								=> "Never")
+					),
+					"type"								=>	"dropdown"
+				)
+			),
 		)
 	),
 	"loggingVars"						=>	array(
