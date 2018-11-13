@@ -1,3 +1,5 @@
+/* Date Time Arrays */
+
 var arrOfDaysSmall = {
 	1: "Mon",
 	2: "Tue",
@@ -45,6 +47,19 @@ var arrOfMonthsLarge = {
 	12: "December"
 };
 
+/* PHP arrays */
+
+var phpRedWarningArr = {
+	0:"PHP Fatal",
+	1:"PHP Parse error",
+	2:"PHP Syntax error"
+};
+
+var phpYellowWarningArr = {
+	0:"PHP Warning"
+};
+
+/* Start of functions for formatting*/
 
 function formatLine(text, extraData)
 {
@@ -110,19 +125,7 @@ function formatMainMessage(message, extraData)
 function formatPhpMessage(message, extraData)
 {
 	var message = message.split("PHP message:");
-	var severity = arrayOfImages["info"]["src"];
-	if(message[1].indexOf("PHP Notice") > -1)
-	{
-		severity = arrayOfImages["info"]["src"];
-	}
-	else if(message[1].indexOf("PHP Warning") > -1)
-	{
-		severity = arrayOfImages["yellowWarning"]["src"];
-	}
-	else if(message[1].indexOf("PHP Fatal") > -1)
-	{
-		severity = arrayOfImages["redWarning"]["src"];
-	}
+	var severity = getPhpSeverifyLevel(message[1])
 	var restOfMessage = message[1].split(":");
 	var messageWarning = restOfMessage[0];
 	restOfMessage.shift();
@@ -134,6 +137,30 @@ function formatPhpMessage(message, extraData)
 		firstPartOfMessage = formatMainMessage(firstPartOfMessage, extraData);
 	}
 	return firstPartOfMessage+"<table style=\"width=100%;\" ><tr><td style=\"width: 15px;\" ><img src=\""+severity+"\" height=\"15px\" ></td><td>"+messageWarning+"</td></tr><tr><td colspan=\"2\" >"+restOfMessage+"</td></tr></table>";
+}
+
+function getPhpSeverifyLevel(snippit)
+{
+	var phpRedWarningArrKeys = Object.keys(phpRedWarningArr);
+	var phpRedWarningArrLength = phpRedWarningArrKeys.length;
+	for (var rwaCount = 0; rwaCount < phpRedWarningArrLength; rwaCount++)
+	{
+		if(snippit.indexOf(phpRedWarningArr[phpRedWarningArrKeys[rwaCount]]) > -1)
+		{
+			return arrayOfImages["redWarning"]["src"];
+		}
+	}
+	var phpYellowWarningArrKeys = Object.keys(phpYellowWarningArr);
+	var phpYellowWarningArrLength = phpYellowWarningArrKeys.length;
+	for (var rwaCount = 0; rwaCount < phpYellowWarningArrLength; rwaCount++)
+	{
+		if(snippit.indexOf(phpYellowWarningArr[phpYellowWarningArrKeys[rwaCount]]) > -1)
+		{
+			return arrayOfImages["yellowWarning"]["src"];
+		}
+	}
+
+	return arrayOfImages["info"]["src"];
 }
 
 function formatJsonMessage(message, extraData)
