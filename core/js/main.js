@@ -1481,7 +1481,6 @@ function update(data)
 
 		toggleNotificationClearButton();
 		updateScrollOnLogs();
-		lastContentSearch = getFilterTextField();
 		refreshLastLogsArray();
 		checkForUpdateLogsOffScreen();
 		resize();
@@ -3401,43 +3400,43 @@ function showInfo(idNum)
 function changeFilterCase()
 {
 	caseInsensitiveSearch = document.getElementById("caseInsensitiveSearch").value;
-	possiblyUpdateFromFilter(false);
+	possiblyUpdateFromFilter();
 }
 
 function changeHighlightContentMatch()
 {
 	filterContentHighlight = document.getElementById("filterContentHighlight").value;
-	possiblyUpdateFromFilter(false);
+	possiblyUpdateFromFilter();
 }
 
 function changeFilterContentMatch()
 {
 	filterContentLimit = document.getElementById("filterContentLimit").value;
-	possiblyUpdateFromFilter(false);
+	possiblyUpdateFromFilter();
 }
 
 function changeFilterContentLinePadding()
 {
 	filterContentLinePadding = parseInt(document.getElementById("filterContentLinePadding").value);
-	possiblyUpdateFromFilter(false);
+	possiblyUpdateFromFilter();
 }
 
 function changeFilterTitleIncludePath()
 {
 	filterTitleIncludePath = document.getElementById("filterTitleIncludePath").value;
-	possiblyUpdateFromFilter(false);
+	possiblyUpdateFromFilter();
 }
 
-function possiblyUpdateFromFilter(force)
+function possiblyUpdateFromFilter()
 {
-	if(document.getElementById("searchFieldInput").value !== "" || force)
+	if(lastContentSearch !== getFilterTextField())
 	{
-		lastContentSearch = "";
 		generalUpdate();
 		if(oneLogEnable === "true")
 		{
 			possiblyUpdateOneLogVisibleData();
 		}
+		lastContentSearch = getFilterTextField();
 	}
 }
 
@@ -4756,7 +4755,7 @@ function mainReady()
 
 	$("#searchFieldInput").on("input", function()
 	{
-		possiblyUpdateFromFilter(true);
+		possiblyUpdateFromFilter();
 	});
 
 	if(document.getElementById("searchType"))
