@@ -65,7 +65,7 @@ foreach ($currentSelectedThemeColorValues['main'] as $value):
 
 progress
 {
-	background: <?php echo $currentSelectedThemeColorValues['main']['main-1']['background']?>;
+	background-color: <?php echo $currentSelectedThemeColorValues['main']['main-1']['background']?>;
 }
 
 body, #main
@@ -84,14 +84,19 @@ body, #main
 
 /* Firefox */
 progress::-moz-progress-bar
-{ 
-    background: <?php echo $currentSelectedThemeColorValues['main']['main-1']['background']?>;  
+{
+    background: <?php echo $currentSelectedThemeColorValues['main']['main-1']['fontColor']?>;
 }
 
 /* Chrome */
+progress::-webkit-progress-bar
+{
+    background-color: <?php echo $currentSelectedThemeColorValues['main']['main-1']['background']?>;
+}
+
 progress::-webkit-progress-value
 {
-    background: <?php echo $currentSelectedThemeColorValues['main']['main-1']['background']?>;
+    background: <?php echo $currentSelectedThemeColorValues['main']['main-1']['fontColor']?>;
 }
 
 
