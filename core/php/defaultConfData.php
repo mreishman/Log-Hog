@@ -1362,7 +1362,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			5									=> array(
+			6									=> array(
 				"info"								=>	"when clicking on a title in one log, it will attempt to open in a new block, not the same as onelog",
 				"type"								=>	"single",
 				"var"								=>	array(
