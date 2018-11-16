@@ -305,6 +305,7 @@ $defaultConfig = array(
 	'notificationPreviewOnlyNew'	=> 'false',
 	'notificationPreviewShow'		=> 'true',
 	'offscreenLogNotify'			=> 'true',
+	'oneLogAllLogClear'				=> 'false',
 	'oneLogEnable'					=> 'true',
 	'oneLogHighlight'				=> 'titleBar',
 	'oneLogLogMaxHeight'			=> 205,

@@ -1562,12 +1562,22 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			5									=> array(
+			6									=> array(
 				"info"								=>	"when clicking on a title in one log, it will attempt to open in a new block, not the same as onelog",
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"oneLogNewBlockClick",
 					"name"								=>	"New block on log click",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			7									=> array(
+				"info"								=>	"Clears data for one log when clicking clear all logs",
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"oneLogAllLogClear",
+					"name"								=>	"Clear onelog data on all log action",
 					"options"							=>	$trueFalsVars,
 					"type"								=>	"dropdown"
 				)
