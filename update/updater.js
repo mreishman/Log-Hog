@@ -72,7 +72,7 @@ function downloadBranch()
 	document.getElementById('innerDisplayUpdate').innerHTML = settingsForBranchStuff['versionList'][versionToUpdateTo]['releaseNotes'];
 	if('image' in settingsForBranchStuff['versionList'][versionToUpdateTo])
 	{
-		document.getElementById('innerDisplayPicture').innerHTML = "<img src=\""+settingsForBranchStuff['versionList'][versionToUpdateTo]['image']+"\">";
+		document.getElementById('innerDisplayPicture').innerHTML = "<img alt=\"Log in to GitHub to view this image\" src=\""+settingsForBranchStuff['versionList'][versionToUpdateTo]['image']+"\">";
 	}
 	else
 	{
