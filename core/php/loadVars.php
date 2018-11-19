@@ -77,7 +77,7 @@ else
 }
 require_once($varToIndexDir.'core/conf/config.php');
 $URI = $_SERVER['REQUEST_URI'];
-if($boolForUpgrade && (strpos($URI, 'upgradeLayout') === false) && (strpos($URI, 'upgradeConfig') === false) && (strpos($URI, 'core/php/template/upgrade') === false) && (strpos($URI, 'upgradeTheme') === false) && (strpos($URI, 'themeChangeLogic') === false) && (strpos($URI, 'settingsSaveAjax') === false) && (strpos($URI, 'example') === false) && (strpos($URI, 'setup') === false))
+if($boolForUpgrade && (strpos($URI, 'upgradeLayout') === false) && (strpos($URI, 'upgradeConfig') === false) && (strpos($URI, 'core/php/template/upgrade') === false) && (strpos($URI, 'upgradeTheme') === false) && (strpos($URI, 'themeChangeLogic') === false) && (strpos($URI, 'settingsSaveAjax') === false) && (strpos($URI, 'example') === false) && (strpos($URI, 'setup') === false)  && (strpos($URI, 'upgradeDelete') === false))
 {
 	$themeVersion = 0;
 	if(isset($config['themeVersion']))
@@ -115,6 +115,17 @@ if($boolForUpgrade && (strpos($URI, 'upgradeLayout') === false) && (strpos($URI,
 		//redirect to upgrade script for config page
 		header("Location: ".$varToIndexDir."core/php/template/upgradeConfig.php");
 		exit();
+	}
+
+	//check if any files need to be removed
+	require_once($varToIndexDir."core/php/staticDeletedFiles.php");
+	foreach ($arrayOfFilesDeleted as $fileOrFolder)
+	{
+		if(is_file($varToIndexDir.$fileOrFolder["fullPath"]))
+		{
+			header("Location: ".$varToIndexDir."core/php/template/upgradeDelete.php");
+			exit();
+		}
 	}
 }
 //start loading vars
