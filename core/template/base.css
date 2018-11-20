@@ -429,6 +429,7 @@ div.sidebarLeft {
   overflow-y: auto;
   white-space: pre-wrap;
   width: 100%;
+  word-break: break-word;
 }
 
 #inlineNotifications{

@@ -2614,10 +2614,10 @@ function resizeFullScreenMenu()
 	try
 	{
 		var targetWidth = window.innerWidth;
-		var mainContentFullScreenMenuLeft = "402px";
+		var mainContentFullScreenMenuLeft = "402";
 		if(!sideBarVisible)
 		{
-			mainContentFullScreenMenuLeft = "201px";
+			mainContentFullScreenMenuLeft = "201";
 		}
 		var mainContentFullScreenMenuTop = "46px";
 		if(sideBarOnlyIcons === "breakpointone" || targetWidth < breakPointOne || sideBarOnlyIcons === "breakpointtwo")
@@ -2628,10 +2628,10 @@ function resizeFullScreenMenu()
 				document.getElementById("mainFullScreenMenu").style.width = "51px";
 				$(".settingsUlSub").css("left", "52px");
 			}
-			mainContentFullScreenMenuLeft = "252px";
+			mainContentFullScreenMenuLeft = "252";
 			if(!sideBarVisible)
 			{
-				mainContentFullScreenMenuLeft = "52px";
+				mainContentFullScreenMenuLeft = "52";
 			}
 		}
 		else
@@ -2646,14 +2646,14 @@ function resizeFullScreenMenu()
 
 		if(targetWidth < breakPointTwo || sideBarOnlyIcons === "breakpointtwo")
 		{
-			mainContentFullScreenMenuLeft = "52px";
+			mainContentFullScreenMenuLeft = "52";
 			if(sideBarVisible)
 			{
 				mainContentFullScreenMenuTop = "82px";
 			}
 			$(".settingsUlSub").css("width","auto").css("bottom","auto").css("right","0").css("border-bottom","1px solid white").css("border-right","none").css("height","35px");
 			$(".settingsUlSub li").not('.subMenuToggle').css("display","inline-block");
-			$(".menuTitle").not(".menuBreak").hide();
+			$(".menuTitle").not(".menuBreak , .fullScreenNotificationTitle").hide();
 		}
 		else
 		{
@@ -2662,13 +2662,17 @@ function resizeFullScreenMenu()
 			$(".menuTitle").not(".fullScreenMenuText").show();
 		}
 
-		if(document.getElementById("mainContentFullScreenMenu").style.left !== mainContentFullScreenMenuLeft)
+		if(document.getElementById("mainContentFullScreenMenu").style.left !== mainContentFullScreenMenuLeft+"px")
 		{
-			document.getElementById("mainContentFullScreenMenu").style.left = mainContentFullScreenMenuLeft;
+			document.getElementById("mainContentFullScreenMenu").style.left = mainContentFullScreenMenuLeft+"px";
 		}
 		if(document.getElementById("mainContentFullScreenMenu").style.top !== mainContentFullScreenMenuTop)
 		{
 			document.getElementById("mainContentFullScreenMenu").style.top = mainContentFullScreenMenuTop;
+		}
+		if(document.getElementById("notificationHolder").style.maxWidth !== (window.innerWidth - mainContentFullScreenMenuLeft)+"px")
+		{
+			document.getElementById("notificationHolder").style.maxWidth = (window.innerWidth - mainContentFullScreenMenuLeft)+"px";
 		}
 	}
 	catch(e)
@@ -3573,11 +3577,11 @@ function displayNotifications()
 	}
 	if(unreadNotifications !== "")
 	{
-		htmlForNotifications += "<div style=\"filter: invert(100%);\" class=\"menuTitle\" >Unread</div>" + unreadNotifications;
+		htmlForNotifications += "<div style=\"filter: invert(100%);\" class=\"menuTitle fullScreenNotificationTitle\" >Unread</div>" + unreadNotifications;
 	}
 	if(readNotifications !== "")
 	{
-		htmlForNotifications += "<div style=\"filter: invert(100%);\" class=\"menuTitle\" >Read</div>" + readNotifications;
+		htmlForNotifications += "<div style=\"filter: invert(100%);\" class=\"menuTitle fullScreenNotificationTitle\" >Read</div>" + readNotifications;
 	}
 	htmlForNotifications += "</span>";
 	$("#notificationHolder").append(htmlForNotifications);
