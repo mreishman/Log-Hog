@@ -42,6 +42,42 @@
 		</span>
 	</div>
 </div>
+<div class="notificationContainerSmall">
+	<div id="{{id}}" class="notificationDiv" >
+		<span style="width: 100%;">
+			<table style="width: 100%; padding-top: 5px; padding-bottom: 5px;" >
+				<tr>
+					<td style="width: 30px;" >{{viewIndicator}}</td>
+					<td style="border-right: 1px solid black; width: 75px; cursor: default;"> {{time}} </td>
+					<td style="width: 50px;" > <span class="linkSmall" onclick="removeNotification('{{idNum}}'); {{action}}" >View</span> </td>
+					<td style="width: 75px;" > <span class="linkSmall" onclick="removeNotification('{{idNum}}');" >Remove</span> </td>
+					<td class="notificationText"><b> {{name}} </b></td>
+				</tr>
+				<tr>
+					<td colspan="5" >{{previewText}}</td>
+				</tr>
+			</table>
+		</span>
+	</div>
+</div>
+<div class="notificationContainerSmallWithImage">
+	<div id="{{id}}" class="notificationDiv">
+		<span style="width: 100%;">
+			<table style="width: 100%; padding-top: 5px; padding-bottom: 5px;" >
+				<tr>
+					<td style="width: 30px;" >{{viewIndicator}}</td>
+					<td style="border-right: 1px solid black; width: 75px; cursor: default;"> {{time}} </td>
+					<td style="width: 50px;" > <span class="linkSmall" onclick="removeNotification('{{idNum}}'); {{action}}" >View</span> </td>
+					<td style="width: 75px;" > <span class="linkSmall" onclick="removeNotification('{{idNum}}');" >Remove</span> </td>
+					<td class="notificationText"> {{image}} <b>{{name}} </b></td>
+				</tr>
+				<tr>
+					<td colspan="5" >{{previewText}}</td>
+				</tr>
+			</table>
+		</span>
+	</div>
+</div>
 <div class="notificationContainerInline">
 	<div class="inlineNotificationDiv" >
 		<span style="width: 100%;">

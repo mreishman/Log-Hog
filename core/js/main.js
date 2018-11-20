@@ -3516,14 +3516,16 @@ function displayNotifications()
 	for (var i = notifications.length - 1; i >= 0; i--)
 	{
 		var blank;
+		var blankMod = "";
+		if(window.innerWidth < breakPointTwo)
+		{
+			blankMod += "Small";
+		}
 		if("image" in notifications[i])
 		{
-			blank = $("#storage .notificationContainerWithImage").html();
+			blankMod += "WithImage";
 		}
-		else
-		{
-			blank = $("#storage .notificationContainer").html();
-		}
+		blank = $("#storage .notificationContainer"+blankMod).html();
 		var item = blank;
 		var viewIndicatorHtml = "<span class=\"led-green\" ></span>";
 		if(notifications[i]["viewed"] === false)
