@@ -3550,7 +3550,7 @@ function displayNotifications()
 			{
 				logTextToShow += "\n"+tmpLogText[tltc];
 			}
-			item = item.replace(/{{previewText}}/g, "<div style=\"max-height: "+notificationPreviewHeight+"px;\" class=\"notificationPreviewLog\" >"+makePrettyWithText(logTextToShow, 0)+"</div>");
+			item = item.replace(/{{previewText}}/g, "<div style=\"max-height: "+notificationPreviewHeight+"px;\" class=\"notificationPreviewLog\" ><table width=\"100%\" style=\"border-spacing: 0;\" >" + makePrettyWithText(logTextToShow, 0) + "</table></div>");
 		}
 		else
 		{
