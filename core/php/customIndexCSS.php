@@ -51,6 +51,11 @@ $windowDisplayConfig = explode("x", $windowConfig);
 	color: <?php echo $highlightNewColorFont; ?>;
 }
 
+.newLine .settingsDiv{
+	background-color: rgba(0,0,0,0);
+	border: 1px solid <?php echo $highlightColorFont; ?>;
+}
+
 #menu, #menu2
 {
 	max-height: <?php echo $maxHeightLogTabs; ?>px;
