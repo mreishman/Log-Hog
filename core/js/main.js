@@ -3486,6 +3486,7 @@ function toggleNotifications(force = false)
 	$("#mainMenuNotifications").addClass("selected");
 	arrayOfScrollHeaderUpdate = [];
 	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
+	resize();
 }
 
 function showNotifications()
