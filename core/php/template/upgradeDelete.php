@@ -122,12 +122,8 @@ if($totalCountOfFilesToDelete < 1)
 <script src="../../../core/js/settings.js?v=<?php echo $jsVersion?>"></script>
 <script src="../../../core/js/upgradeDelete.js?v=<?php echo $jsVersion?>"></script>
 <script type="text/javascript">
-	var themeChangeLogicDirModifier = "../";
 	var arrayOfFilesToDelete = <?php echo json_encode($arrayOfFilesToDelete); ?>;
-	$( document ).ready(function()
-	{
-		//copyFilesThemeChange();
-	});
+	var totalCountOfFilesToDelete = <?php echo $totalCountOfFilesToDelete; ?>;
 
 	function redirectToLocationFromUpgradeTheme()
 	{
