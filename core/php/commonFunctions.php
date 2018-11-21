@@ -433,7 +433,7 @@ function tail($filename, $sliceSize, $shellOrPhp)
 {
 	if($shellOrPhp === "phpPreferred" || $shellOrPhp ===  "phpOnly")
 	{
-		$data =  trim(tailCustom($filename, $sliceSize));
+		$data =  trim(tailCustom($filename, $sliceSize, true, 0));
 	}
 	else
 	{
@@ -448,7 +448,7 @@ function tail($filename, $sliceSize, $shellOrPhp)
 		}
 		else
 		{
-			$data = trim(tailCustom($filename, $sliceSize));
+			$data = trim(tailCustom($filename, $sliceSize, true, 0));
 		}
 	}
 

@@ -7,7 +7,7 @@ require_once($baseModifier.'core/conf/config.php');
 require_once('configStatic.php');
 require_once('commonFunctions.php');
 
-$varsLoadLite = array("shellOrPhp", "logTrimOn", "logSizeLimit","logTrimMacBSD", "logTrimType","TrimSize","enableLogging","buffer","sliceSize","lineCountFromJS","showErrorPhpFileOpen");
+$varsLoadLite = array("shellOrPhp", "logTrimOn", "logSizeLimit","logTrimMacBSD", "logTrimType","TrimSize","enableLogging","buffer","sliceSize","lineCountFromJS","showErrorPhpFileOpen","expFormatEnabled");
 
 foreach ($varsLoadLite as $varLoadLite)
 {
@@ -82,6 +82,39 @@ if(isset($_POST['arrayToUpdate']))
 				}
 			}
 			$dataVar = htmlentities($dataVar);
+			if($expFormatEnabled === "true")
+			{
+				//try and get file path and file lines
+				$arrayOfFiles = array();
+				$tmpLog = explode(PHP_EOL, $dataVar);
+				foreach ($tmpLog as $tmpLogLine)
+				{
+					//check for line here, add file path to array if there
+					preg_match('/(in )(.?)([\/]+)(.*)(on line|\D:\d)(.?)(\d{1,10})/', $tmpLogLine, $matches);
+					if(count($matches) > 0)
+					{
+						$fileData = "Error - File Not Found";
+						$fileName = trim($matches[3].$matches[4]);
+						if(is_file($fileName))
+						{
+							$fileData = "Error - File Not Readable";
+							if(is_readable($fileName))
+							{
+								$linePadding = 3;
+								$currentLine = intval($matches[7]);
+								//check to see if line is greater than file length
+								$fileData = "TEST";
+							}
+						}
+						//found a match, add to thing
+						$arrayOfFiles[$matches[0]] = array(
+							"pregMatchData"	=>	$matches,
+							"fileData"		=>	$fileData
+						);
+					}
+				}
+				$response[$path]["fileData"] = $arrayOfFiles;
+			}
 			if($lineCount === "---" && $enableLogging != "false")
 			{
 				$lineCount = getLineCount($filename, $shellOrPhp);
