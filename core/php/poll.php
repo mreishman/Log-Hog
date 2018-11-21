@@ -91,7 +91,7 @@ if(isset($_POST['arrayToUpdate']))
 				{
 					//check for line here, add file path to array if there
 					preg_match('/(in )(.?)([\/]+)(.*)(on line|\D:\d)(.?)(\d{1,10})/', $tmpLogLine, $matches);
-					if(count($matches) > 0)
+					if(count($matches) > 0 && !isset($arrayOfFiles[$matches[0]]))
 					{
 						$fileData = "Error - File Not Found";
 						$fileName = trim($matches[3].$matches[4]);
@@ -100,24 +100,33 @@ if(isset($_POST['arrayToUpdate']))
 							$fileData = "Error - File Not Readable";
 							if(is_readable($fileName))
 							{
-								$linePadding = 3;
-								$currentLine = intval($matches[7]);
+								$linePadding = 2;
+								$totalPading = $linePadding * 2;
+								$currentLine = intval($matches[7]) - $linePadding;
+								if($currentLine < 0)
+								{
+									$totalPading = $totalPading + $currentLine;
+									$currentLine = 0;
+								}
+								$totalPading++;
+								$lineCountLocal = getLineCount($fileName, $shellOrPhp);
 								//check to see if line is greater than file length
-								$fileData = "TEST";
+								$fileData = "Error - File Changed, line no longer in file";
+								if($lineCountLocal >= $currentLine)
+								{
+									$fileData = tail($fileName, $totalPading, $shellOrPhp, $currentLine);
+								}
 							}
 						}
 						//found a match, add to thing
 						$arrayOfFiles[$matches[0]] = array(
 							"pregMatchData"	=>	$matches,
-							"fileData"		=>	$fileData
+							"fileData"		=>	$fileData,
+							"fileName"		=>	$fileName
 						);
 					}
 				}
 				$response[$path]["fileData"] = $arrayOfFiles;
-			}
-			if($lineCount === "---" && $enableLogging != "false")
-			{
-				$lineCount = getLineCount($filename, $shellOrPhp);
 			}
 			$response[$path]["data"] = "";
 			if($enableLogging != "false")
@@ -130,7 +139,7 @@ if(isset($_POST['arrayToUpdate']))
 		}
 		catch (Exception $e)
 		{
-			$response[$path]["log"] = "Error - Maybe insufficient access to read file?";
+			$response[$path]["log"] = "Error - ".$e." ";
 			$response[$path]["data"] = " Limit: ".$logSizeLimit."(".($logSizeLimit+$buffer).") ".$modifier." | Line Count: --- | Time: ---";
 			$response[$path]["lineCount"] = "---";
 		}
