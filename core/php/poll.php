@@ -90,7 +90,7 @@ if(isset($_POST['arrayToUpdate']))
 				foreach ($tmpLog as $tmpLogLine)
 				{
 					//check for line here, add file path to array if there
-					preg_match('/(in )(.?)([\/]+)(.*)(on line|\D:\d)(.?)(\d{1,10})/', $tmpLogLine, $matches);
+					preg_match('/(in )(.?)([\/]+)([^&\r\n\t]*)(on line|\D:\d)(.?)(\d{1,10})/', $tmpLogLine, $matches);
 					if(count($matches) > 0 && !isset($arrayOfFiles[$matches[0]]))
 					{
 						$fileData = "Error - File Not Found";

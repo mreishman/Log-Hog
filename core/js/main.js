@@ -5,6 +5,7 @@ var arrayOfData1 = null;
 var arrayOfData2 = null;
 var arrayOfDataMain = null;
 var arrayOfDataSettings = [];
+var arrayOfFileData = [];
 var arrayOfScrollHeaderUpdate = ["aboutSpanAbout","aboutSpanInfo","aboutSpanGithub"];
 var borderPadding = 0;
 var breakPointOne = 1400;
@@ -312,6 +313,7 @@ function pollTwo()
 					}
 					if(firstLoad)
 					{
+						updateFileDataArray(data);
 						firstLoadEndAction();
 					}
 				}
@@ -631,6 +633,7 @@ function pollThree(arrayToUpdate)
 					success(data)
 					{
 						arrayOfDataMainDataFilter(data);
+						updateFileDataArray(data);
 						update(data);
 					},
 					complete()
@@ -648,6 +651,25 @@ function pollThree(arrayToUpdate)
 	catch(e)
 	{
 		eventThrowException(e);
+	}
+}
+
+function updateFileDataArray(newDataArr)
+{
+	var newDataArrKeys = Object.keys(newDataArr);
+	var newDataArrKeysLength=  newDataArrKeys.length;
+	for(var NDACount = 0; NDACount < newDataArrKeysLength; NDACount++)
+	{
+		var fileDataArr = newDataArr[newDataArrKeys[NDACount]]["fileData"];
+		var fileDataArrKeys = Object.keys(fileDataArr);
+		var fileDataArrKeysLength = fileDataArrKeys.length;
+		if(fileDataArrKeysLength > 0)
+		{
+			for(var FDACount = 0; FDACount < fileDataArrKeysLength; FDACount++)
+			{
+				arrayOfFileData[fileDataArrKeys[FDACount]] = fileDataArr[fileDataArrKeys[FDACount]];
+			}
+		}
 	}
 }
 

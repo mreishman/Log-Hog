@@ -123,7 +123,24 @@ function formatMainMessage(message, extraData)
 	{
 		return formatPhpMessage(message, extraData);
 	}
+	//check if message is in arrayOfFileData
+	var arrayOfFileDataKeys = Object.keys(arrayOfFileData);
+	var arrayOfFileDataKeysLength = arrayOfFileDataKeys.length;
+	for(var AOFDCount = 0; AOFDCount < arrayOfFileDataKeysLength; AOFDCount++)
+	{
+		if(message.indexOf(arrayOfFileDataKeys[AOFDCount]) > -1)
+		{
+			//this message matches file data, add this below
+			extraData["fileData"] = arrayOfFileData[arrayOfFileDataKeys[AOFDCount]];
+			return formatMessageFileData(message, extraData);
+		}
+	}
 	return message;
+}
+
+function formatMessageFileData(message, extraData)
+{
+	return "<table style=\"width: 100%;\" ><tr><td>"+message+"</td></tr><tr><td><table style=\"width: 100%;\" >"+makePrettyWithText(escapeHTML(extraData["fileData"]["fileData"]), 0)+"</table></td></tr></table>";
 }
 
 function formatPhpMessage(message, extraData)
