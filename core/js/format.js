@@ -140,7 +140,7 @@ function formatMainMessage(message, extraData)
 
 function formatMessageFileData(message, extraData)
 {
-	return "<table style=\"width: 100%;\" ><tr><td>"+message+"</td></tr><tr><td><table style=\"width: 100%;\" >"+makePrettyWithText(escapeHTML(extraData["fileData"]["fileData"]), 0)+"</table></td></tr></table>";
+	return "<table style=\"width: 100%;\" ><tr><td>"+message+"</td></tr><tr><td><table class=\"logCode\" style=\"width: 100%;\" >"+makePrettyWithText(escapeHTML(extraData["fileData"]["fileData"]), 0)+"</table></td></tr></table>";
 }
 
 function formatPhpMessage(message, extraData)

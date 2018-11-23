@@ -56,6 +56,13 @@ $windowDisplayConfig = explode("x", $windowConfig);
 	border: 1px solid <?php echo $highlightColorFont; ?>;
 }
 
+.logCode{
+	background-color: black;
+	border: 1px solid white;
+	color: white;
+	padding: 10px 0;
+}
+
 #menu, #menu2
 {
 	max-height: <?php echo $maxHeightLogTabs; ?>px;
