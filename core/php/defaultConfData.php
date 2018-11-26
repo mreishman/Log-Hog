@@ -33,6 +33,8 @@ for ($k=0; $k < 3; $k++)
 $fontSizeVars = array();
 $brightessVars = array();
 $logPaddingVars = array();
+$oneLogNum = array();
+$oneLogLogMaxHeight = array();
 for ($m=0; $m < 20; $m++)
 {
 	if($m >= 5)
@@ -40,6 +42,13 @@ for ($m=0; $m < 20; $m++)
 		$fontSizeVars[$m] = array(
 			"value" 					=> ($m*10),
 			"name" 						=> ($m*10)."%");
+	}
+
+	if($m >= 1 && $m <= 10)
+	{
+		$oneLogNum[$m] = array(
+			"value" 					=> ($m*10),
+			"name" 						=> ($m*10));
 	}
 
 	if($m >= 2 && $m <= 15)
@@ -52,7 +61,14 @@ for ($m=0; $m < 20; $m++)
 	$logPaddingVars[$m] = array(
 			"value" 					=> $m,
 			"name" 						=> $m."px");
+
+	$oneLogLogMaxHeight[$m] = array(
+			"value" 					=> (($m*15)+100),
+			"name" 						=> (($m*15)+100)."px");
 }
+$oneLogLogMaxHeight[20] = array(
+			"value" 					=> 400,
+			"name" 						=> "400px");
 
 $branchOptionsArr = array(
 0 					=> array(
@@ -112,6 +128,39 @@ $fontChoices = array(
 		"value"		=>	'Arial')
 	);
 
+$dateFormatOptions = array(
+	0 			=> 	array(
+		"name" 		=> 'Default',
+		"value" 	=> 'default'),
+	1 			=>	array(
+		"name" 		=>	'Hidden',
+		"value"		=>	'hidden'),
+	2			=>	array(
+		"name"		=>	'hh:mm:ss',
+		"value"		=>	'hh:|mm:|ss'),
+	3			=>	array(
+		"name"		=>	'DD/MM/YYYY',
+		"value"		=>	'DD/|MM/|YYYY'),
+	4			=>	array(
+		"name" 		=>	'MM/DD/YYYY',
+		"value"		=>	'MM/|DD/|YYYY'),
+	5			=>	array(
+		"name"		=>	'DD/MM',
+		"value"		=>	'DD/|MM'),
+	6			=>	array(
+		"name"		=>	'MM/DD/YYYY hh:mm:ss',
+		"value"		=>	'MM/|DD/|YYYY |hh:|mm:|ss'),
+	7			=>	array(
+		"name"		=>	'DD/MM/YYYY hh:mm:ss',
+		"value"		=>	'DD/|MM/|YYYY |hh:|mm:|ss'),
+	8			=>	array(
+		"name"		=>	'YYYY/MM/DD hh:mm:ss',
+		"value"		=>	'YYYY/|MM/|DD |hh:|mm:|ss'),
+	9			=>	array(
+		"name"		=>	'Custom',
+		"value"		=>	'custom')
+	);
+
 
 $customForFirstLogSelect = "<span class=\"settingsBuffer\" > First Log Select: </span><span id=\"logSelectedFirstLoad\" >";
 if ($logSelectedFirstLoad === "")
@@ -161,6 +210,175 @@ foreach ($popupSettingsInArray as $key => $value)
 		)
 	);
 	$counterPopup++;
+}
+
+$sectionChoices = array(
+	0 			=> 	array(
+		"name" 		=> 'none',
+		"value" 	=> 'none'),
+	1 			=> 	array(
+		"name" 		=> 'hh',
+		"value" 	=> 'hh'),
+	2 			=>	array(
+		"name" 		=>	'mm',
+		"value"		=>	'mm'),
+	3			=>	array(
+		"name"		=>	'ss',
+		"value"		=>	'ss'),
+	4			=>	array(
+		"name"		=>	'DD',
+		"value"		=>	'DD'),
+	5			=>	array(
+		"name" 		=>	'MM',
+		"value"		=>	'MM'),
+	6			=>	array(
+		"name"		=>	'YYYY',
+		"value"		=>	'YYYY'),
+	7			=>	array(
+		"name"		=>	'PartDay',
+		"value"		=>	'PartDay'),
+	8			=>	array(
+		"name"		=>	'FullDay',
+		"value"		=>	'FullDay'),
+	9			=>	array(
+		"name"		=>	'PartMonth',
+		"value"		=>	'PartMonth'),
+	10			=>	array(
+		"name"		=>	'FullMonth',
+		"value"		=>	'FullMonth'),
+	11			=>	array(
+		"name"		=>	'mili',
+		"value"		=>	'mili'),
+	12			=>	array(
+		"name"		=>	'hh-12',
+		"value"		=>	'hh12'),
+	13			=>	array(
+		"name"		=>	'AM/PM',
+		"value"		=>	'AMPM')
+	);
+
+$delimiterChoices = array(
+	0 			=> 	array(
+		"name" 		=> 'none',
+		"value" 	=> 'none',
+		"checkValue"=> ''),
+	1 			=>	array(
+		"name" 		=>	'/',
+		"value"		=>	'/'),
+	2			=>	array(
+		"name"		=>	'~',
+		"value"		=>	'~'),
+	3			=>	array(
+		"name"		=>	'space',
+		"value"		=>	'space',
+		"value"		=>	' '),
+	4			=>	array(
+		"name" 		=>	'[',
+		"value"		=>	'['),
+	5			=>	array(
+		"name"		=>	']',
+		"value"		=>	']'),
+	6			=>	array(
+		"name"		=>	'(',
+		"value"		=>	'('),
+	7			=>	array(
+		"name"		=>	')',
+		"value"		=>	')'),
+	8			=>	array(
+		"name"		=>	'-',
+		"value"		=>	'-'),
+	9			=>	array(
+		"name"		=>	':',
+		"value"		=>	':'),
+	10			=>	array(
+		"name"		=>	'.',
+		"value"		=>	'.'),
+	11			=>	array(
+		"name"		=>	',',
+		"value"		=>	','),
+	12			=>	array(
+		"name"		=>	'+',
+		"value"		=>	'+')
+	);
+
+
+$customDateFormatVars = array(
+	0	=> array(
+	"type"								=>	"linked",
+	"vars"								=>	array())
+);
+$CDFVExternalCounter = 0;
+$dateTextFormatCustomVars = explode("|", $dateTextFormatCustom);
+for($CDFVcount = 0; $CDFVcount < 10; $CDFVcount++)
+{
+	$currentBracket = "";
+	if(isset($dateTextFormatCustomVars[$CDFVcount]))
+	{
+		$currentBracket = $dateTextFormatCustomVars[$CDFVcount];
+	}
+	$D1Value = "none";
+	$MValue = "none";
+	$D2Value = "none";
+	if(count($currentBracket) > 0)
+	{
+		foreach ($delimiterChoices as $delChoice)
+		{
+			$checkValue = $delChoice["value"];
+			if(isset($delChoice["checkValue"]))
+			{
+				$checkValue = $delChoice["checkValue"];
+			}
+			if(substr($currentBracket, 0, strlen($checkValue)) === $checkValue)
+			{
+				//starts with this
+				$D1Value = $checkValue;
+			}
+			if(substr($currentBracket, -strlen($checkValue)) === $checkValue)
+			{
+				//ends with this
+				$D2Value = $checkValue;
+			}
+		}
+		foreach ($sectionChoices as $secChoices)
+		{
+			$checkValue = $secChoices["value"];
+			if(strpos($currentBracket, $checkValue) > -1)
+			{
+				$MValue = $checkValue;
+				break;
+			}
+		}
+	}
+	$customDateFormatVars[0]["vars"][$CDFVExternalCounter] = array(
+		"key"								=>	"DateFormat-".$CDFVcount."-D1",
+		"name"								=>	"",
+		"function"							=>	"updateJsonForCustomDateFormat",
+		"id"								=>	"DateFormat-".$CDFVcount."-D1",
+		"options"							=>	$delimiterChoices,
+		"type"								=>	"dropdown",
+		"value"								=>	$D1Value
+	);
+	$CDFVExternalCounter++;
+	$customDateFormatVars[0]["vars"][$CDFVExternalCounter] = array(
+		"key"								=>	"DateFormat-".$CDFVcount."-M",
+		"name"								=>	"",
+		"function"							=>	"updateJsonForCustomDateFormat",
+		"id"								=>	"DateFormat-".$CDFVcount."-M",
+		"options"							=>	$sectionChoices,
+		"type"								=>	"dropdown",
+		"value"								=>	$MValue
+	);
+	$CDFVExternalCounter++;
+	$customDateFormatVars[0]["vars"][$CDFVExternalCounter] = array(
+		"key"								=>	"DateFormat-".$CDFVcount."-D2",
+		"name"								=>	"",
+		"function"							=>	"updateJsonForCustomDateFormat",
+		"id"								=>	"DateFormat-".$CDFVcount."-D2",
+		"options"							=>	$delimiterChoices,
+		"type"								=>	"dropdown",
+		"value"								=>	$D2Value
+	);
+	$CDFVExternalCounter++;
 }
 
 $defaultConfigMoreData = array(
@@ -222,13 +440,31 @@ $defaultConfigMoreData = array(
 			4									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
+					"key"								=>	"enableHistory",
+					"name"								=>	"Enable History",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			5									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"oneLogEnable",
+					"name"								=>	"Enable One Log",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			6									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
 					"key"								=>	"rightClickMenuEnable",
 					"name"								=>	"Right Click Menu Enabled",
 					"options"							=>	$trueFalsVars,
 					"type"								=>	"dropdown"
 				)
 			),
-			5									=>	array(
+			7									=>	array(
 				"bool"								=>	($backupNumConfigEnabled == 'false'),
 				"id"								=>	"versionSaveContentSettings",
 				"name"								=>	"Backup Config Settings",
@@ -253,22 +489,13 @@ $defaultConfigMoreData = array(
 					)
 				)
 			),
-			6									=>	array(
+			8									=>	array(
 				"info"								=>	"This is for platforms where saving files might not be in sync with containers. Increasing from one will make saves take longer, but it will be more accurate if there is that sync delay",
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"successVerifyNum",
 					"name"								=>	"Save verification number",
 					"options"							=>	$saveVerifyArr,
-					"type"								=>	"dropdown"
-				)
-			),
-			7									=>	array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"enableHistory",
-					"name"								=>	"Enable History",
-					"options"							=>	$trueFalsVars,
 					"type"								=>	"dropdown"
 				)
 			),
@@ -416,7 +643,7 @@ $defaultConfigMoreData = array(
 	),
 	"generalThemeOptions"				=>	array(
 		"id"								=>	"generalThemeOptions",
-		"name"								=>	"Main Theme Options [Refresh Required]",
+		"name"								=>	"Main Theme Options",
 		"vars"								=>	array(
 			0									=>	array(
 				"type"								=>	"single",
@@ -505,6 +732,37 @@ $defaultConfigMoreData = array(
 				)
 			),
 		),
+	),
+	"logFormatVars"						=>	array(
+		"id"								=>	"settingsLogFormatVars",
+		"name"								=>	"Log Format Settings ",
+		"vars"								=>	array(
+			0									=> array(
+				"bool"								=>	($dateTextFormat != 'custom'),
+				"bool2"								=>	"custom",
+				"id"								=>	"dateTextFormatSelector",
+				"name"								=>	"Custom Date Text Format",
+				"type"								=>	"grouped",
+				"var"								=>	array(
+					"function"							=>	"toggleUpdateLogFormat",
+					"functionForToggle"					=>	"showOrHideLogFormat",
+					"id"								=>	"dateTextFormat",
+					"key"								=>	"dateTextFormat",
+					"name"								=>	"Date Text Format",
+					"options"							=>	$dateFormatOptions,
+					"type"								=>	"dropdown"
+				),
+				"vars"								=>	$customDateFormatVars
+			),
+			1									=> array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"id"								=>	"dateTextFormatCustom",
+					"key"								=>	"dateTextFormatCustom",
+					"type"								=>	"hidden"
+				)
+			)
+		)
 	),
 	"loggingVars"						=>	array(
 		"id"								=>	"loggingDisplay",
@@ -762,6 +1020,15 @@ $defaultConfigMoreData = array(
 				)
 			),
 			2									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"groupDropdownInHeader",
+					"name"								=>	"Show Group dropdown in header",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			3									=>	array(
 				"bool"								=>	($bottomBarIndexShow == 'false'),
 				"id"								=>	"sidebarContentSettings",
 				"name"								=>	"Sidebar Settings",
@@ -799,7 +1066,7 @@ $defaultConfigMoreData = array(
 					)
 				)
 			),
-			3									=> array(
+			4									=> array(
 				"type"								=>	"linked",
 				"vars"								=>	array(
 					0									=>	array(
@@ -822,7 +1089,7 @@ $defaultConfigMoreData = array(
 					)
 				)
 			),
-			4									=>	array(
+			5									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"hideEmptyLog",
@@ -831,7 +1098,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			5									=>	array(
+			6									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"notificationCountVisible",
@@ -840,7 +1107,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			6									=>	array(
+			7									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"logTitle",
@@ -856,7 +1123,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			7									=>	array(
+			8									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"logMenuLocation",
@@ -878,7 +1145,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			8									=>	array(
+			9									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"logNameFormat",
@@ -900,7 +1167,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			9									=>	array(
+			10									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"logNameExtension",
@@ -909,7 +1176,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			10									=>	array(
+			11									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"logNameGroup",
@@ -918,7 +1185,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			11									=>	array(
+			12									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"addonsAsIframe",
@@ -927,7 +1194,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			12									=>	array(
+			13									=>	array(
 				"info"								=>	"If a log tab is not visible (either below of above scroll area), a bar will flash as notification",
 				"type"								=>	"single",
 				"var"								=>	array(
@@ -937,7 +1204,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			13									=>	array(
+			14									=>	array(
 				"info"								=>	"1400 Breakpoint shows only images on full screen sidebar, 1000 breakpoint is the same but moves the inner sidebar to the top",
 				"type"								=>	"single",
 				"var"								=>	array(
@@ -954,6 +1221,15 @@ $defaultConfigMoreData = array(
 							"value" 							=> "breakpointtwo",
 							"name" 								=> "1000 Breakpoint")
 					),
+					"type"								=>	"dropdown"
+				)
+			),
+			15									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"allLogsVisible",
+					"name"								=>	"Log tabs visible on load",
+					"options"							=>	$trueFalsVars,
 					"type"								=>	"dropdown"
 				)
 			),
@@ -1013,17 +1289,104 @@ $defaultConfigMoreData = array(
 			)
 		)
 	),
+	"oneLogVars"						=>	array(
+		"id"								=>	"settingsOneLogVars",
+		"name"								=>	"One Log Settings",
+		"vars"								=> array(
+			0									=> array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"oneLogVisible",
+					"name"								=>	"One Log Visible",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			1									=> array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"oneLogMaxLength",
+					"name"								=>	"Max logs in one log",
+					"options"							=>	$oneLogNum,
+					"type"								=>	"dropdown"
+				)
+			),
+			2									=> array(
+				"info"								=>	"When one log is visible and open, log updates wont trigger notifactions or highlight the tab.",
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"oneLogVisibleDisableUpdate",
+					"name"								=>	"Hide update log notifications if one log visible",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			3									=> array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"oneLogLogMaxHeight",
+					"name"								=>	"Max height of log",
+					"options"							=>	$oneLogLogMaxHeight,
+					"type"								=>	"dropdown"
+				)
+			),
+			4									=> array(
+				"info"								=>	"when updating, if the last log is the same as the new log, it will merge the new lines into that box",
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"oneLogMergeLast",
+					"name"								=>	"Merge same last log on update",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			5									=> array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"oneLogHighlight",
+					"name"								=>	"One Log Highlight",
+					"options"							=>	array(
+							0 									=> array(
+								"value" 							=> "none",
+								"name" 								=> "None"),
+							1 									=> array(
+								"value" 							=> "titleBar",
+								"name" 								=> "Just Title Bar"),
+							2									=> array(
+								"value" 							=> "body",
+								"name" 								=> "Just Body"),
+							3									=> array(
+								"value" 							=> "all",
+								"name" 								=> "All")
+						),
+					"type"								=>	"dropdown"
+				)
+			),
+			6									=> array(
+				"info"								=>	"when clicking on a title in one log, it will attempt to open in a new block, not the same as onelog",
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"oneLogNewBlockClick",
+					"name"								=>	"New block on log click",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+		)
+	),
 	"otherVars"							=>	array(
 		"id"								=>	"settingsMainVars",
 		"name"								=>	"Other Settings",
 		"vars"								=> array(
 			0									=> array(
 				"bool"								=>	($popupWarnings != 'custom'),
+				"bool2"								=>	"custom",
 				"id"								=>	"settingsPopupVars",
 				"name"								=>	"Popup Settings",
 				"type"								=>	"grouped",
 				"var"								=>	array(
 					"function"							=>	"toggleUpdateDisplayCheck",
+					"functionForToggle"					=>	"showOrHidePopupSubWindow",
 					"id"								=>	"popupSelect",
 					"key"								=>	"popupWarnings",
 					"name"								=>	"Popup Warnings",

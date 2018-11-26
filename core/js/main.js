@@ -393,7 +393,7 @@ function pollTwoPartTwo(data)
 			var arrayOfDataMainKeys = Object.keys(arrayOfDataMain);
 			for (var i = arrayOfDataMainKeys.length - 1; i >= 0; i--) 
 			{
-				if(arrayOfDataMainKeys[i] in data || arrayOfDataMainKeys[i].indexOf("LogHog/Backup") > -1)
+				if(arrayOfDataMainKeys[i] in data || arrayOfDataMainKeys[i].indexOf("LogHog/Backup") > -1 || arrayOfDataMainKeys[i].indexOf("oneLog") > -1 )
 				{
 					continue;
 				}
@@ -527,7 +527,7 @@ function updateGroupsOnTabs(data, arrayOfGroupsModded)
 		idForTab = fileDataKeysTwo[UGRcount].replace(/[^a-z0-9]/g, "");
 		if(document.getElementById(idForTab))
 		{
-			var classList = document.getElementById(idForTab).className.split(' ');
+			var classList = document.getElementById(idForTab).className.split(" ");
 			var classListLength = classList.length;
 			for(var classCount = 0; classCount < classListLength; classCount++)
 			{
@@ -576,15 +576,15 @@ function updateGroupsOnTabs(data, arrayOfGroupsModded)
 function removeOldGroups(data, arrayOfGroups)
 {
 	var modCOScount = 0;
-	var currentOptionsSelect = document.getElementById('selectForGroup').options;
+	var currentOptionsSelect = document.getElementById("selectForGroup").options;
 	var currentOptionsSelectLength = currentOptionsSelect.length;
 	for(var COScount = 0; COScount < currentOptionsSelectLength; COScount++)
 	{
 		if(currentOptionsSelect[modCOScount].value !== "all" && $.inArray(currentOptionsSelect[modCOScount].value, arrayOfGroups) === -1)
 		{
 			//remove because not in new array
-			var selectGroupSelector = document.getElementById('selectForGroup');
-			$('#selectForGroup option[value="'+currentOptionsSelect[modCOScount].value+'"]').remove();
+			var selectGroupSelector = document.getElementById("selectForGroup");
+			$("#selectForGroup option[value=\""+currentOptionsSelect[modCOScount].value+"\"]").remove();
 			modCOScount--;
 		}
 		modCOScount++;
@@ -726,7 +726,14 @@ function arrayOfDataMainDataFilter(data)
 function firstLoadEndAction()
 {
 	firstLoad = false;
-	document.getElementById("menu").style.display = "block";
+	if(oneLogEnable === "true")
+	{
+		addOneLogData();
+	}
+	if(allLogsVisible === "true")
+	{
+		document.getElementById("menu").style.display = "block";
+	}
 	document.getElementById("firstLoad").style.display = "none";
 	document.getElementById("searchType").disabled = false;
 	document.getElementById("searchFieldInput").disabled = false;
@@ -926,7 +933,7 @@ function getFilterData(name, shortName, logData)
 
 	if(caseInsensitiveSearch === "true")
 	{
-		if(filterOffOf !== "")
+		if( typeof filterOffOf === "string" && filterOffOf !== "")
 		{
 			filterOffOf = filterOffOf.toLowerCase();
 		}
@@ -939,7 +946,7 @@ function showFileFromFilter(id, name, shortName, logData)
 	var filterOffOf = getFilterData(name, shortName, logData);
 	if(logsToHide instanceof Array && (logsToHide.length === 0 || $.inArray(id, logsToHide) === -1 ))
 	{
-		if(filterOffOf !== "")
+		if(typeof filterOffOf === "string" && filterOffOf !== "")
 		{
 			var filterTextField = getFilterTextField();
 			if(filterTextField === "" || filterOffOf.indexOf(filterTextField) !== -1)
@@ -1000,11 +1007,16 @@ function update(data)
 		var initialized = $("#menu a").length !== 0;
 		var folderNamePrev = "?-1";
 		var folderNameCount = -1;
+		var atLeastOneLogUpdate = false;
+		if(oneLogEnable === "true")
+		{
+			folderNameCount++;
+		}
 		for(var i = 0; i !== stop; i++)
 		{
 			var name = files[i];
 
-			if((!(name in data)) || typeof(data[name]) === "undefined" || data[name] === null)
+			if((!(name in data)) || typeof(data[name]) === "undefined" || data[name] === null || name === "oneLog")
 			{
 				hideLogByName(name);
 				continue;
@@ -1300,7 +1312,10 @@ function update(data)
 							//determine if id is one of the values in the array of open files (use instead of currentPage)
 							var currentIdPos = checkIfDisplay(id)["location"];
 
-							var diff = getDiffLogAndLastLog(id);
+							var newDiff = getDiffLogAndLastLog(id);
+							var newDiffText = getDifferentText(id, newDiff);
+							var diff = newDiff;
+							var diffMod = "";
 							if(diff !== "")
 							{
 								if(document.getElementById(id+"Count").innerHTML !== "" )
@@ -1310,16 +1325,18 @@ function update(data)
 									if(diff > sliceSize)
 									{
 										diff = sliceSize;
+										diffMod = "+";
 									}
 								}
 							}
 							var diffNew = diff;
 							if(diff !== "")
 							{
-								diffNew = "("+diff+")";
+								diffNew = "("+diff+diffMod+")";
 							}
 							if(document.getElementById(id+"CountHidden").innerHTML !== diff)
 							{
+								//this has updated, update stuff for counter
 								document.getElementById(id+"CountHidden").innerHTML = diff;
 								if(notificationCountVisible === "true" && diff !== 0)
 								{
@@ -1363,7 +1380,7 @@ function update(data)
 							}
 							else
 							{
-								if(!firstLoad)
+								if(!firstLoad && (oneLogEnable === "false" || isOneLogVisible() === "false" || oneLogVisibleDisableUpdate === "false"))
 								{
 									if(autoMoveUpdateLog === "true")
 									{
@@ -1386,6 +1403,19 @@ function update(data)
 											name: shortName+" Update "+numForNot,
 											action: "$('#"+id+"').click();  toggleNotifications();"
 										});
+									}
+								}
+							}
+
+							//update one log if needed
+							if(oneLogEnable === "true" && !firstLoad)
+							{
+								if(fullPathSearch in fileData && fileData[fullPathSearch]["AlertEnabled"] === "true" && (!(id in alertEnabledArray) || (id in alertEnabledArray && alertEnabledArray[id] === "enabled")))
+								{
+									if(!firstLoad && diffNew !== "(0)")
+									{
+										updateOneLogData(id, newDiff, newDiffText);
+										atLeastOneLogUpdate = true;
 									}
 								}
 							}
@@ -1424,6 +1454,16 @@ function update(data)
 			}
 		}
 
+		if(atLeastOneLogUpdate === true)
+		{
+			var oneLogPos = isOneLogVisible();
+			if(oneLogPos !== false)
+			{
+				scrollOneLogIfVisible(oneLogPos);
+				fadeHighlight(oneLogPos);
+			}
+		}
+
 		//Check if a tab is active, if none... click on first in array that's visible
 		var targetLength = Object.keys(logDisplayArray).length;
 		var tmpCurrentSelectWindow = currentSelectWindow;
@@ -1441,7 +1481,6 @@ function update(data)
 
 		toggleNotificationClearButton();
 		updateScrollOnLogs();
-		lastContentSearch = getFilterTextField();
 		refreshLastLogsArray();
 		checkForUpdateLogsOffScreen();
 		resize();
@@ -1568,6 +1607,7 @@ function selectTabsInOrder(targetLength)
 				//show first available log
 				for (var i = 0; i < arrayOfLogsLength; i++)
 				{
+					var isVis = false;
 					var currentLayout = getCurrentWindowLayout();
 					var layoutVersionIndex = document.getElementById("layoutVersionIndex").value;
 					if(enableMultiLog === "true" && logLoadLayout.length !== 0 && logLoadLayout[currentLayout][h][layoutVersionIndex] !== "" && logLoadLayout[currentLayout][h][layoutVersionIndex] in fileData )
@@ -1582,7 +1622,7 @@ function selectTabsInOrder(targetLength)
 						}
 						else
 						{
-							var isVis = checkIfLogIsVisible(currentLogCheck);
+							isVis = checkIfLogIsVisible(currentLogCheck);
 							if(isVis)
 							{
 								continue;
@@ -1600,7 +1640,7 @@ function selectTabsInOrder(targetLength)
 						}
 						else
 						{
-							var isVis = checkIfLogIsVisible(logSelectedFirstLoad);
+							isVis = checkIfLogIsVisible(logSelectedFirstLoad);
 							if(isVis)
 							{
 								continue;
@@ -1881,19 +1921,22 @@ function clearNotifications()
 		if($("#menu .updated").length !== 0)
 		{
 			var arrayOfLogs = $("#menu a");
-			for (var clearNotifCountOne = 0; clearNotifCountOne < arrayOfLogs.length; clearNotifCountOne++)
+			var arrayOfLogsLength = arrayOfLogs.length;
+			for (var clearNotifCountOne = 0; clearNotifCountOne < arrayOfLogsLength; clearNotifCountOne++)
 			{
 				arrayOfLogs[clearNotifCountOne].classList.remove("updated");
 			}
 			var arrayOfCounts = $("#menu a .menuCounter");
-			for (var clearNotifCountTwo = 0; clearNotifCountTwo < arrayOfCounts.length; clearNotifCountTwo++)
+			var arrayOfCountsLength = arrayOfCounts.length;
+			for (var clearNotifCountTwo = 0; clearNotifCountTwo < arrayOfCountsLength; clearNotifCountTwo++)
 			{
 				arrayOfCounts[clearNotifCountTwo].innerHTML = "";
 			}
-			var arrayOfCounts = $("#menu a .menuCounterHidden");
-			for (var clearNotifCountTwo = 0; clearNotifCountTwo < arrayOfCounts.length; clearNotifCountTwo++)
+			var arrayOfCountsHidden = $("#menu a .menuCounterHidden");
+			var arrayOfCountsHiddenLength = arrayOfCountsHidden.length;
+			for (var clearNotifCountThree = 0; clearNotifCountThree < arrayOfCountsHiddenLength; clearNotifCountThree++)
 			{
-				arrayOfCounts[clearNotifCountTwo].innerHTML = "";
+				arrayOfCountsHidden[clearNotifCountThree].innerHTML = "";
 			}
 		}
 		refreshLastLogsArray();
@@ -2103,7 +2146,11 @@ function showPartTwo(e, internalID, currentCurrentSelectWindow)
 	try
 	{
 		var formattedHtml = "";
-		if(logs[internalID].indexOf("errorMessageLog errorMessageRedBG") > -1 || logs[internalID].indexOf("errorMessageLog errorMessageGreenBG") > -1)
+		if(typeof logs[internalID] === "object" && "id" in logs[internalID] && logs[internalID]["id"] === "oneLog")
+		{
+			formattedHtml = makeOneLogPretty();
+		}
+		else if(logs[internalID].indexOf("errorMessageLog errorMessageRedBG") > -1 || logs[internalID].indexOf("errorMessageLog errorMessageGreenBG") > -1)
 		{
 			formattedHtml = logs[internalID];
 		}
@@ -2125,35 +2172,30 @@ function showPartTwo(e, internalID, currentCurrentSelectWindow)
 
 function toggleSideBarElements(internalID, currentCurrentSelectWindow)
 {
+	var visibleStatusOfClearLogSideBar = "block";
+	var visibleStatusOfDeleteLogSideBar = "block";
+	var visibleStatusOfCloseLogSideBar = "none";
 	if(internalID.indexOf("ogogackup") === 0)
 	{
-		if(document.getElementById("clearLogSideBar"+currentCurrentSelectWindow).style.display !== "none")
-		{
-			document.getElementById("clearLogSideBar"+currentCurrentSelectWindow).style.display = "none";
-		}
-		if(document.getElementById("deleteLogSideBar"+currentCurrentSelectWindow).style.display !== "none")
-		{
-			document.getElementById("deleteLogSideBar"+currentCurrentSelectWindow).style.display = "none";
-		}
-		if(document.getElementById("closeLogSideBar"+currentCurrentSelectWindow).style.display !== "block")
-		{
-			document.getElementById("closeLogSideBar"+currentCurrentSelectWindow).style.display = "block";
-		}
+		visibleStatusOfClearLogSideBar  = "none";
+		visibleStatusOfDeleteLogSideBar = "none";
+		visibleStatusOfCloseLogSideBar  = "block";
 	}
-	else
+	else if(internalID === "oneLog")
 	{
-		if(document.getElementById("clearLogSideBar"+currentCurrentSelectWindow).style.display === "none")
-		{
-			document.getElementById("clearLogSideBar"+currentCurrentSelectWindow).style.display = "block";
-		}
-		if(document.getElementById("deleteLogSideBar"+currentCurrentSelectWindow).style.display === "none")
-		{
-			document.getElementById("deleteLogSideBar"+currentCurrentSelectWindow).style.display = "block";
-		}
-		if(document.getElementById("closeLogSideBar"+currentCurrentSelectWindow).style.display === "block")
-		{
-			document.getElementById("closeLogSideBar"+currentCurrentSelectWindow).style.display = "none";
-		}
+		visibleStatusOfDeleteLogSideBar= "none";
+	}
+	if(document.getElementById("clearLogSideBar"+currentCurrentSelectWindow).style.display !== visibleStatusOfClearLogSideBar)
+	{
+		document.getElementById("clearLogSideBar"+currentCurrentSelectWindow).style.display = visibleStatusOfClearLogSideBar;
+	}
+	if(document.getElementById("deleteLogSideBar"+currentCurrentSelectWindow).style.display !== visibleStatusOfDeleteLogSideBar)
+	{
+		document.getElementById("deleteLogSideBar"+currentCurrentSelectWindow).style.display = visibleStatusOfDeleteLogSideBar;
+	}
+	if(document.getElementById("closeLogSideBar"+currentCurrentSelectWindow).style.display !== visibleStatusOfCloseLogSideBar)
+	{
+		document.getElementById("closeLogSideBar"+currentCurrentSelectWindow).style.display = visibleStatusOfCloseLogSideBar;
 	}
 }
 
@@ -2185,6 +2227,19 @@ function removeNewHighlights(area)
 {
 	$(area + " div").removeClass("newLine");
 	$(area + " tr").removeClass("newLine");
+}
+
+function getDifferentText(id, diffCount)
+{
+	var tmpTextLog = logs[id].split("\n");
+	var lengthOfArray = tmpTextLog.length;
+	var returnArray = new Array();
+	for (var i = lengthOfArray - 1; i >= (lengthOfArray - diffCount); i--)
+	{
+		returnArray.push(tmpTextLog[i]);
+	}
+	returnArray = returnArray.reverse();
+	return returnArray.join("\n");
 }
 
 function getDiffLogAndLastLog(id)
@@ -2281,12 +2336,33 @@ function makePretty(id)
 		{
 			count = 0;
 		}
+		var returnText = makePrettyWithText(text, count);
+		if(returnText !== "")
+		{
+			return "<table width=\"100%\" style=\"border-spacing: 0;\" >" + returnText + "</table>";
+		}
+		return "";
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
+function makePrettyWithText(text, count)
+{
+	try
+	{
+		if(text === "")
+		{
+			return "";
+		}
 		text = text.split("\n");
 		if(text.length < 2)
 		{
 			text = text[0].split("\\n");
 		}
-		var returnText = "<table width=\"100%\" style=\"border-spacing: 0;\" >";
+		var returnText = "";
 		var lengthOfTextArray = text.length;
 		var selectListForFilter = document.getElementsByName("searchType")[0];
 		var selectedListFilterType = selectListForFilter.options[selectListForFilter.selectedIndex].value;
@@ -2312,8 +2388,8 @@ function makePretty(id)
 				}
 				else
 				{
-					//check for line in next few lines 
-					for (var j = 0; j <= bottomPadding; j++) 
+					//check for line in next few lines
+					for (var j = 0; j <= bottomPadding; j++)
 					{
 						if(lengthOfTextArray > i+j)
 						{
@@ -2377,13 +2453,19 @@ function makePretty(id)
 					var lineToReturn = "<td style=\"white-space: pre-wrap;\" >"+lineText[j]+"</td>";
 					if(expFormatEnabled === "true")
 					{
-						lineToReturn = formatLine(lineText[j]);
+						lineToReturn = formatLine(lineText[j], {
+							customClass,
+							customClassAdd
+						});
 					}
 					returnText += "<td style=\"width: 31px; padding: 0;\" ></td>"+lineToReturn+"</tr><tr height=\""+logLinePadding+"px\" ><td colspan=\"2\"></td></tr>";
 				}
 			}
 		}
-		returnText += "</table>";
+		if(returnText === "")
+		{
+			return "";
+		}
 		return returnText;
 	}
 	catch(e)
@@ -2443,9 +2525,10 @@ function resize()
 	try
 	{
 		var targetHeight = window.innerHeight - $("#header").outerHeight();
+		var menuHeight = document.getElementById("menu").getBoundingClientRect().height;
 		if(logMenuLocation === "top" || logMenuLocation === "bottom")
 		{
-			targetHeight = targetHeight - $("#menu").outerHeight();
+			targetHeight = targetHeight - menuHeight;
 		}
 		var targetWidth = window.innerWidth;
 		if(enablePollTimeLogging !== "false")
@@ -2462,14 +2545,14 @@ function resize()
 		}
 		if(logMenuLocation === "bottom")
 		{
-			if(document.getElementById("main").style.bottom !== $("#menu").outerHeight())
+			if(document.getElementById("main").style.bottom !== menuHeight)
 			{
-				document.getElementById("main").style.bottom = $("#menu").outerHeight()+"px";
+				document.getElementById("main").style.bottom = menuHeight+"px";
 			}
 		}
-		else if(logMenuLocation === "left" || logMenuLocation === "right")
+		else if((logMenuLocation === "left" || logMenuLocation === "right") && allLogsVisible === "true")
 		{
-			if($("#menu").outerHeight() !== targetHeight)
+			if(menuHeight !== targetHeight)
 			{
 				$("#menu").outerHeight(targetHeight);
 			}
@@ -2839,7 +2922,14 @@ function clearLog(idNum)
 	{
 		if(document.getElementById("title"+idNum).textContent !== "")
 		{
-			clearLogInner(document.getElementById("title"+idNum).textContent);
+			if(document.getElementById("title"+idNum).textContent === "oneLog")
+			{
+				resetOneLogData();
+			}
+			else
+			{
+				clearLogInner(document.getElementById("title"+idNum).textContent);
+			}
 		}
 	}
 	catch(e)
@@ -3339,10 +3429,14 @@ function changeFilterTitleIncludePath()
 
 function possiblyUpdateFromFilter()
 {
-	if(document.getElementById("searchFieldInput").value !== "")
+	if(lastContentSearch !== getFilterTextField())
 	{
-		lastContentSearch = "";
 		generalUpdate();
+		if(oneLogEnable === "true")
+		{
+			possiblyUpdateOneLogVisibleData();
+		}
+		lastContentSearch = getFilterTextField();
 	}
 }
 
@@ -3862,7 +3956,7 @@ function toggleWatchListMenu(force = false)
 	globalForcePageNavigate = true;
 	if(typeof loadWatchList !== "function")
 	{
-		script("core/js/settingsWatchlist.js?v="+cssVersion);
+		script("core/js/settingsWatchlist.js?v="+jsVersion);
 	}
 	else
 	{
@@ -4118,6 +4212,10 @@ function toggleGroupedGroups()
 			}
 		}
 	}
+	if(oneLogEnable === "true")
+	{
+		toggleVisibleOneLog();
+	}
 	//hide empty files if needed
 	if(hideEmptyLog === "true")
 	{
@@ -4214,21 +4312,6 @@ function pinWindow(windowNum)
 	}
 }
 
-function multiLogPopup()
-{
-	if(document.getElementById("subMenuForGroup").style.display === "none")
-	{
-		hideSubMenus();
-		document.getElementById("menu2").style.display = "block";
-		document.getElementById("subMenuForGroup").style.display = "block";
-	}
-	else
-	{
-		hideSubMenus();
-	}
-	resize();
-}
-
 function filterSubMenu()
 {
 	if(document.getElementById("groupSubMenu").style.display === "none")
@@ -4246,13 +4329,9 @@ function filterSubMenu()
 
 function hideSubMenus()
 {
-	if(document.getElementById("subMenuForGroup").style.display !== "none")
+	if(document.getElementById("settingsSideBar").style.display !== "none")
 	{
-		document.getElementById("subMenuForGroup").style.display = "none";
-	}
-	if(document.getElementById("subMenuForGroup").style.display !== "none")
-	{
-		document.getElementById("subMenuForGroup").style.display = "none";
+		toggleSettingsSidebar();
 	}
 	if(document.getElementById("groupSubMenu").style.display !== "none")
 	{
@@ -4302,6 +4381,53 @@ function updateOtherApps()
 }
 
 function generateWindowDisplay()
+{
+	var localData = generateWindowDisplayInner();
+	var arrayOfPrevLogs = localData["arrayOfPrevLogs"];
+	if(startOfPollLogicRan === false)
+	{
+		startOfPollLogic();
+	}
+	else
+	{
+		if(logSwitchKeepCurrent === "true")
+		{
+			if(arrayOfPrevLogs !== {})
+			{
+				setTimeout(function() {
+					loadPrevLogContent(arrayOfPrevLogs);
+				}, 1);
+			}
+		}
+		else if(logSwitchKeepCurrent === "onlyIfPresetDefined")
+		{
+			//Check for preset before unselect
+			if(logSwitchABCClearAll === "true")
+			{
+				unselectAllLogs();
+			}
+			else
+			{
+				if(arrayOfPrevLogs !== {})
+				{
+					setTimeout(function() {
+						loadPrevLogContent(arrayOfPrevLogs);
+					}, 1);
+				}
+			}
+		}
+		else
+		{
+			//unselect all logs
+			unselectAllLogs();
+		}
+		setTimeout(function() {
+			generalUpdate();
+		}, 2);
+	}
+}
+
+function generateWindowDisplayInner()
 {
 	var windowDisplayConfig = getCurrentWindowLayout();
 	var windowDisplayConfigArray = windowDisplayConfig.split("x");
@@ -4373,46 +4499,8 @@ function generateWindowDisplay()
 		currentSelectWindow = (Object.keys(logDisplayArray).length -1);
 	}
 	resize();
-	if(startOfPollLogicRan === false)
-	{
-		startOfPollLogic();
-	}
-	else
-	{
-		if(logSwitchKeepCurrent === "true")
-		{
-			if(arrayOfPrevLogs !== {})
-			{
-				setTimeout(function() {
-					loadPrevLogContent(arrayOfPrevLogs);
-				}, 1);
-			}
-		}
-		else if(logSwitchKeepCurrent === "onlyIfPresetDefined")
-		{
-			//Check for preset before unselect
-			if(logSwitchABCClearAll === "true")
-			{
-				unselectAllLogs();
-			}
-			else
-			{
-				if(arrayOfPrevLogs !== {})
-				{
-					setTimeout(function() {
-						loadPrevLogContent(arrayOfPrevLogs);
-					}, 1);
-				}
-			}
-		}
-		else
-		{
-			//unselect all logs
-			unselectAllLogs();
-		}
-		setTimeout(function() {
-			generalUpdate();
-		}, 2);
+	return{
+		"arrayOfPrevLogs" : arrayOfPrevLogs
 	}
 }
 
@@ -4533,22 +4621,28 @@ function checkForUpdateLogsOffScreen()
 
 function toggleBottomLogNotice()
 {
-	if(document.getElementById("menu").style.borderBottom === "")
+	if(document.getElementById("menu").style.display  !== "none")
 	{
-		document.getElementById("menu").style.borderBottom = "5px solid red";
-		return;
+		if(document.getElementById("menu").style.borderBottom === "")
+		{
+			document.getElementById("menu").style.borderBottom = "5px solid red";
+			return;
+		}
+		document.getElementById("menu").style.borderBottom = "";
 	}
-	document.getElementById("menu").style.borderBottom = "";
 }
 
 function toggleTopLogNotice()
 {
-	if(document.getElementById("menu").style.borderTop === "")
+	if(document.getElementById("menu").style.display  !== "none")
 	{
-		document.getElementById("menu").style.borderTop = "5px solid red";
-		return;
+		if(document.getElementById("menu").style.borderTop === "")
+		{
+			document.getElementById("menu").style.borderTop = "5px solid red";
+			return;
+		}
+		document.getElementById("menu").style.borderTop = "";
 	}
-	document.getElementById("menu").style.borderTop = "";
 }
 
 function getCurrentWindowLayout()
@@ -4590,8 +4684,65 @@ function saveLayoutTo(letter)
 	saveAndVerifyMain('localLayout');
 }
 
+function toggleSettingsSidebar()
+{
+	if(document.getElementById("settingsSideBar").style.display === "none")
+	{
+		var newWidth = window.innerWidth - 200;
+		if((logMenuLocation === "left" || logMenuLocation === "right") && allLogsVisible === "true")
+		{
+			newWidth -= document.getElementById("menu").getBoundingClientRect().width;
+		}
+		document.getElementById("log").style.width = newWidth+"px";
+		document.getElementById("log").style.marginLeft = "200px";
+		document.getElementById("settingsSideBar").style.display = "inline-block";
+	}
+	else
+	{
+		document.getElementById("log").style.width = "100%";
+		document.getElementById("log").style.marginLeft = "0px";
+		document.getElementById("settingsSideBar").style.display = "none";
+	}
+}
+
+function toggleVisibleAllLogs()
+{
+	if(document.getElementById("allLogsVisible").value === "false")
+	{
+		document.getElementById("menu").style.display = "none";
+		if(logMenuLocation === "left")
+		{
+			$("#main").css("padding-left","0px");
+		}
+		else if(logMenuLocation === "right")
+		{
+			$("#main").css("padding-right","0px");
+		}
+		allLogsVisible = "false";
+	}
+	else
+	{
+		document.getElementById("menu").style.display = "block";
+		if(logMenuLocation === "left")
+		{
+			$("#main").css("padding-left","200px");
+		}
+		else if(logMenuLocation === "right")
+		{
+			$("#main").css("padding-right","200px");
+		}
+		allLogsVisible = "true";
+	}
+	resize();
+}
+
 function mainReady()
 {
+	if(oneLogEnable === "true")
+	{
+		addOneLogTab();
+		toggleVisibleOneLog();
+	}
 	dirForAjaxSend = "";
 	progressBar = new ldBar("#progressBar");
 	resize();
@@ -4604,7 +4755,7 @@ function mainReady()
 
 	$("#searchFieldInput").on("input", function()
 	{
-		generalUpdate();
+		possiblyUpdateFromFilter();
 	});
 
 	if(document.getElementById("searchType"))

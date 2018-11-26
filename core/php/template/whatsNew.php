@@ -92,6 +92,12 @@
 				"Name"			=>	"Settings Update 3",
 				"BP"			=>	array("Add new custom folder color schemes","Save current multi-log layouts from header"),
 				"Images"		=>	array("5.2-1.png","5.2-2.png")
+			),
+			15	=>	array(
+				"Version"		=>	"6.0",
+				"Name"			=>	"All Together",
+				"BP"			=>	array("New overview panel (shows whats new in logs)"),
+				"Images"		=>	array("6.0-1.png")
 			)
 		);
 		$dataForWhatsNew = array_reverse($dataForWhatsNew);

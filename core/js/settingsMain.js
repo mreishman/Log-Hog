@@ -1,34 +1,5 @@
 var titleOfPage = "Main";
 
-function showOrHideLogTrimSubWindow()
-{
-	try
-	{
-		var valueForPopup = document.getElementById("logTrimOn");
-		var valueForVars = document.getElementById("settingsLogTrimVars");
-		showOrHideSubWindow(valueForPopup, valueForVars);
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
-function showOrHideSideBarSettings()
-{
-	try
-	{
-		var valueForPopup = document.getElementById("bottomBarIndexShow");
-		var valueForVars = document.getElementById("sidebarContentSettings");
-		showOrHideSubWindow(valueForPopup, valueForVars);
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
-
 function changeDescriptionLineSize()
 {
 	try
@@ -50,84 +21,11 @@ function changeDescriptionLineSize()
 	}
 }
 
-function showOrHidePopupSubWindow()
+function showOrHideSubWindow(valueForPopupInner, valueForVarsInner, valueToCompare)
 {
 	try
 	{
-		showOrHideSubWindow(document.getElementById("popupSelect"), document.getElementById("settingsPopupVars"));
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
-function showOrHideUpdateSubWindow()
-{
-	try
-	{
-		showOrHideSubWindow(document.getElementById("settingsSelect"), document.getElementById("settingsAutoCheckVars"));
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
-function showOrHideFilterContentSettings()
-{
-	try
-	{
-		showOrHideSubWindow(document.getElementById("filterContentLimit"), document.getElementById("filterContentSettings"));
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
-function showOrHideFilterHighlightSettings()
-{
-	try
-	{
-		showOrHideSubWindow(document.getElementById("filterContentHighlight"), document.getElementById("highlightContentSettings"));
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
-function showOrHideScrollLogSettings()
-{
-	try
-	{
-		showOrHideSubWindow(document.getElementById("scrollOnUpdate"), document.getElementById("scrollLogOnUpdateSettings"));
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
-function showOrHideHighlightNewLinesSettings()
-{
-	try
-	{
-		showOrHideSubWindow(document.getElementById("highlightNew"), document.getElementById("highlightNewSettings"));
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
-
-function showOrHideSubWindow(valueForPopupInner, valueForVarsInner)
-{
-	try
-	{
-		if((valueForPopupInner.value === "true") || (valueForPopupInner.value === "custom"))
+		if(valueForPopupInner.value === valueToCompare)
 		{
 			valueForVarsInner.style.display = "block";
 		}
@@ -158,6 +56,10 @@ function checkIfChanges()
 	{
 		arrayToCheck.push("settingsLogVars");
 	}
+	if(document.getElementById("settingsLogFormatVars"))
+	{
+		arrayToCheck.push("settingsLogFormatVars");
+	}
 	if(document.getElementById("settingsPollVars"))
 	{
 		arrayToCheck.push("settingsPollVars");
@@ -177,6 +79,10 @@ function checkIfChanges()
 	if(document.getElementById("settingsWatchlistVars"))
 	{
 		arrayToCheck.push("settingsWatchlistVars");
+	}
+	if(document.getElementById("settingsOneLogVars"))
+	{
+		arrayToCheck.push("settingsOneLogVars");
 	}
 	if(document.getElementById("settingsMultiLogVars"))
 	{
@@ -232,6 +138,53 @@ function updateJsonForPopupThemeInner()
 	document.getElementById("popupSettingsArray").value = JSON.stringify(objectToSave);
 }
 
+function updateJsonForCustomDateFormat()
+{
+	setTimeout(function() {
+			updateJsonForCustomDateFormatInner();
+		}, 2);
+}
+
+function updateJsonForCustomDateFormatInner()
+{
+	var objectToSave = "";
+	var counterForJsonObjectDate = 0;
+	while(document.getElementById("DateFormat-"+counterForJsonObjectDate+"-M"))
+	{
+		var del1 = document.getElementById("DateFormat-"+counterForJsonObjectDate+"-D1").value;
+		if(del1 === "space")
+		{
+			del1 = " ";
+		}
+		else if(del1 === "none")
+		{
+			del1 = "";
+		}
+		var del2 = document.getElementById("DateFormat-"+counterForJsonObjectDate+"-D2").value;
+		if(del2 === "space")
+		{
+			del2 = " ";
+		}
+		else if(del2 === "none")
+		{
+			del2 = "";
+		}
+		var mainFormatVal = document.getElementById("DateFormat-"+counterForJsonObjectDate+"-M").value;
+		if(mainFormatVal === "none")
+		{
+			mainFormatVal = "";
+		}
+		objectToSave += "" + del1 + "" + mainFormatVal + "" + del2 + "";
+		if(document.getElementById("DateFormat-"+(counterForJsonObjectDate + 1)+"-M"))
+		{
+			objectToSave += "|";
+		}
+		counterForJsonObjectDate++;
+	}
+
+	document.getElementById("dateTextFormatCustom").value = objectToSave;
+}
+
 function selectLogPopup(locationForNewLogText)
 {
 	var selctor = locationForNewLogText.split("-");
@@ -252,6 +205,7 @@ function selectLogPopup(locationForNewLogText)
 		type: "POST",
 		success(data)
 		{
+			data["oneLog"] = {};
 			var popupFileList = Object.keys(data);
 			var popupFileListLength = popupFileList.length;
 			var htmlForPopup = "";
@@ -311,12 +265,23 @@ function toggleUpdateDisplayCheck()
 	showOrHidePopupSubWindow();
 }
 
+function toggleUpdateLogFormat()
+{
+	//add json update here
+	updateJsonForCustomDateFormat();
+	showOrHideLogFormat();
+}
+
 $( document ).ready(function()
 {
 	var arrayToRefresh = new Array();
 	if(document.getElementById("settingsLogVars"))
 	{
 		arrayToRefresh.push("settingsLogVars");
+	}
+	if(document.getElementById("settingsLogFormatVars"))
+	{
+		arrayToRefresh.push("settingsLogFormatVars");
 	}
 	if(document.getElementById("settingsPollVars"))
 	{
@@ -341,6 +306,10 @@ $( document ).ready(function()
 	if(document.getElementById("settingsWatchlistVars"))
 	{
 		arrayToRefresh.push("settingsWatchlistVars");
+	}
+	if(document.getElementById("settingsOneLogVars"))
+	{
+		arrayToRefresh.push("settingsOneLogVars");
 	}
 	if(document.getElementById("settingsMainVars"))
 	{

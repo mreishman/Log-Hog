@@ -47,8 +47,20 @@
 				);
 			?>
 		</div>
+		<div onclick="toggleSettingsSidebar();"  class="menuImageDiv">
+			<?php echo generateImage(
+				$arrayOfImages["loadingImg"],
+				$imageConfig = array(
+					"id"		=>	"menuImage",
+					"class"		=>	"menuImage gearImageForLoad",
+					"height"	=>	"30px",
+					"data-src"	=>	$arrayOfImages["gear"]
+					)
+				);
+			?>
+		</div>
 		<?php if($enableMultiLog === "true" && $multiLogOnIndex === "true"): ?>
-			<div onclick="multiLogPopup();"  class="menuImageDiv">
+			<div onclick="toggleSettingsSidebar();"  class="menuImageDiv">
 				<?php echo generateImage(
 					$arrayOfImages["loadingImg"],
 					$imageConfig = array(
@@ -172,60 +184,28 @@
 				?>
 			</div>
 		</span>
-		<div style="float: right;">
-			<input disabled id="searchFieldInput" type="search" name="search" placeholder="Filter <?php echo $filterDefault; ?>" style="height: 30px; width: 200px; margin-right: 10px;">
-		</div>
-	</div>
-	<div id="menu2" style="display: none; position: inherit;">
-		<div id="subMenuForGroup" style="display: none;" >
-			Log Layout
-			<?php $arrayOfwindowConfigOptionsLocal = array();
-			for ($i=0; $i < 3; $i++)
-			{
-				for ($j=0; $j < 3; $j++)
-				{
-					array_push($arrayOfwindowConfigOptionsLocal, "".($i+1)."x".($j+1));
-				}
-			}
-			?>
-			<div class="selectDiv">
-				<select id="windowConfig">
-					<?php foreach ($arrayOfwindowConfigOptionsLocal as $value)
-					{
-						$stringToEcho = "<option ";
-						if($value === $windowConfig)
-						{
-							$stringToEcho .= " selected ";
-						}
-						$stringToEcho .= " value=\"".$value."\"> ".$value."</option>";
-						echo $stringToEcho;
-					}
-					?>
-				</select>
-			</div>
-			|
-			Layout Version
-			<span onclick="swapLayoutLetters('A');" class="linkSmall" >A</span>
-			<span onclick="swapLayoutLetters('B');" class="linkSmall" >B</span>
-			<span onclick="swapLayoutLetters('C');" class="linkSmall" >C</span>
-			<input type="hidden" id="layoutVersionIndex" value="A" >
-			<span style="float: right;">
-				<span onclick="resetSelection();" class="linkSmall">Reset Selection</span>
-				|
-				Save Current Layout To
-				<span onclick="saveLayoutTo('A');" class="linkSmall" >A</span>
-				<span onclick="saveLayoutTo('B');" class="linkSmall" >B</span>
-				<span onclick="saveLayoutTo('C');" class="linkSmall" >C</span>
-			</span>
-		</div>
-		<div id="groupSubMenu" style="display: none;" >
-			Groups:
+		<?php if ($groupDropdownInHeader === "true"): ?>
 			<div class="selectDiv">
 				<select id="selectForGroup" >
 					<option selected="true" value="all" >All</option>
 				</select>
 			</div>
-			|
+		<?php endif; ?>
+		<div style="float: right;">
+			<input disabled id="searchFieldInput" type="search" name="search" placeholder="Filter <?php echo $filterDefault; ?>" style="height: 30px; width: 200px; margin-right: 10px;">
+		</div>
+	</div>
+	<div id="menu2" style="display: none; position: inherit;">
+		<div id="groupSubMenu" style="display: none;" >
+			<?php if ($groupDropdownInHeader !== "true"): ?>
+				Groups:
+				<div class="selectDiv">
+					<select id="selectForGroup" >
+						<option selected="true" value="all" >All</option>
+					</select>
+				</div>
+				|
+			<?php endif; ?>
 			Search:
 			<div class="selectDiv" >
 				<select id="searchType" disabled name="searchType">

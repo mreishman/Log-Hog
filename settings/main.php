@@ -33,6 +33,11 @@ require_once('../core/php/loadVars.php');
 		<?php
 		$currentSection = "logVars";
 		include('../core/php/template/varTemplate.php');
+		if($expFormatEnabled === "true")
+		{
+			$currentSection = "logFormatVars";
+			include('../core/php/template/varTemplate.php');
+		}
 		$currentSection = "pollVars";
 		include('../core/php/template/varTemplate.php');
 		$currentSection = "filterVars";
@@ -45,6 +50,11 @@ require_once('../core/php/loadVars.php');
 		include('../core/php/template/varTemplate.php');
 		$currentSection = "watchlistVars";
 		include('../core/php/template/varTemplate.php');
+		if($oneLogEnable === "true")
+		{
+			$currentSection = "oneLogVars";
+			include('../core/php/template/varTemplate.php');
+		}
 		if($enableMultiLog === "true")
 		{
 			$currentSection = "multiLogVars";
@@ -59,4 +69,4 @@ require_once('../core/php/loadVars.php');
 <script type="text/javascript">
 var logTrimType = "<?php echo $logTrimType; ?>";
 </script>
-<script src="../core/js/settingsMain.js?v=<?php echo $cssVersion?>"></script>
+<script src="../core/js/settingsMain.js?v=<?php echo $jsVersion?>"></script>

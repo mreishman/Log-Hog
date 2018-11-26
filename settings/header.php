@@ -12,8 +12,8 @@ $infoImage = generateImage(
 	)
 );
 echo loadSentryData($sendCrashInfoJS, $branchSelected); ?>
-<script src="../core/js/settings.js?v=<?php echo $cssVersion?>"></script>
-<script src="../core/js/settingsExt.js?v=<?php echo $cssVersion?>"></script>
+<script src="../core/js/settings.js?v=<?php echo $jsVersion?>"></script>
+<script src="../core/js/settingsExt.js?v=<?php echo $jsVersion?>"></script>
 <div id="menu">
 	<div onclick="goToUrl('../index.php');" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">
 		<?php echo generateImage(
@@ -51,12 +51,16 @@ echo loadSentryData($sendCrashInfoJS, $branchSelected); ?>
 	<div id="menu2">
 		<span style="color: black;">Settings:</span>
 		<a class="link" href="#settingsLogVars" > Logs </a>
+		<?php if($expFormatEnabled === "true"): ?>
+			<a class="link" href="#settingsLogFormatVars" > Log Format </a>
+		<?php endif; ?>
 		<a class="link" href="#settingsPollVars" > Poll </a>
 		<a class="link" href="#settingsFilterVars" > Filter </a>
 		<a class="link" href="#archiveConfig" > Archive </a>
 		<a class="link" href="#settingsUpdateVars" > Update </a>
 		<a class="link" href="#settingsMenuVars" > Menu </a>
 		<a class="link" href="#settingsWatchlistVars" > Watchlist </a>
+		<a class="link" href="#settingsOneLogVars" > OneLog </a>
 		<?php if($enableMultiLog === "true"): ?>
 			<a class="link" href="#settingsMultiLogVars" > Multi-Log </a>
 			<a class="link" href="#settingsInitialLoadLayoutVars"> Log Layout</a>

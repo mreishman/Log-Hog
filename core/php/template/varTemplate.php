@@ -13,7 +13,12 @@
 	{
 		if($confDataValue["type"] === "single")
 		{
-			echo "<li>".generateGenericType($confDataValue["var"], getData($loadVarsArray, $confDataValue), $confDataValue["var"]["key"])."</li>";
+			echo "<li";
+			if($confDataValue["var"]["type"] === "hidden")
+			{
+				echo " style=\"display: none;\"  ";
+			}
+			echo ">".generateGenericType($confDataValue["var"], getData($loadVarsArray, $confDataValue), $confDataValue["var"]["key"])."</li>";
 		}
 		elseif($confDataValue["type"] === "linked")
 		{
@@ -43,7 +48,7 @@
 						echo generateInfo($infoImage,$confDataInnerValue["info"]);
 					}
 				}
-				elseif($confDataValue["type"] === "linked")
+				elseif($confDataInnerValue["type"] === "linked")
 				{
 					echo "<li>";
 					foreach ($confDataInnerValue["vars"] as $confDataInnerValueTwo)
@@ -58,6 +63,29 @@
 				}
 			}
 			echo "</ul></div></div></li>";
+			$functionName = $confDataValue["var"]["function"];
+			if(isset($confDataValue["var"]["functionForToggle"]))
+			{
+				$functionName = $confDataValue["var"]["functionForToggle"];
+			}
+			$boolForFunction = "true";
+			if(isset($confDataValue["bool2"]))
+			{
+				$boolForFunction = $confDataValue["bool2"];
+			}
+			echo "<script type=\"text/javascript\">
+				function ".$functionName."()
+				{
+					try
+					{
+						showOrHideSubWindow( document.getElementById(\"".$confDataValue["var"]["id"]."\") , document.getElementById(\"".$confDataValue["id"]."\") , \"".$boolForFunction."\" );
+					}
+					catch(e)
+					{
+						eventThrowException(e);
+					}
+				}
+			</script>";
 		}
 		elseif($confDataValue["type"] === "custom")
 		{

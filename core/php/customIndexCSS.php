@@ -23,7 +23,7 @@ $windowDisplayConfig = explode("x", $windowConfig);
 ?>
 <style type="text/css">
 
-.log, #firstLoad, .log table tr:not(.highlight):not(.newLine) td:not(.highlight):not(.newLine)
+.log, #firstLoad, .log table:not(.oneLogTable) tr:not(.highlight):not(.newLine) td:not(.highlight):not(.newLine) , #settingsSideBar
 {
 	color: <?php echo $logFontColor; ?>;
 }
@@ -71,12 +71,12 @@ elseif($logMenuLocation === "bottom"): ?>
 	max-height: none;
 	word-break: break-all;
 }
-
+<?php if ($allLogsVisible === "true"): ?>
 #main
 {
 	padding-left: 200px;
 }
-
+<?php endif; ?>
 #menu a
 {
 	display: block;
@@ -92,12 +92,12 @@ elseif($logMenuLocation === "bottom"): ?>
 	max-height: none;
 	word-break: break-all;
 }
-
+<?php if ($allLogsVisible === "true"): ?>
 #main
 {
 	padding-right: 200px;
 }
-
+<?php endif; ?>
 #menu a
 {
 	display: block;

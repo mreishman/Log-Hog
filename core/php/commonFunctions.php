@@ -392,14 +392,14 @@ function tailWithGrep($filename, $sliceSize, $shellOrPhp, $whatGrepFor)
 		}
 		else
 		{
-			$return = trim(shell_exec('tail -n +' . (($total - $start) - $innerSlice) . ' "' . $filename . '" || head -n ' . $innerSlice . ' "' . $filename . '"'));
+			$return = trim(shell_exec('sed -n "'.$start.','.($start+$innerSlice).'p" "' . $filename . '"'));
 		}
 
 		if(($return === "" || is_null($return)) && ($shellOrPhp === "shellPreferred" || $shellOrPhp === "phpPreferred"))
 		{
 			if($shellOrPhp === "phpPreferred")
 			{
-				$return = trim(shell_exec('tail -n +' . (($total - $start) - $innerSlice) . ' "' . $filename . '" || head -n ' . $innerSlice . ' "' . $filename . '"'));
+				$return = trim(shell_exec('sed -n "'.$start.','.($start+$innerSlice).'p" "' . $filename . '"'));
 			}
 			else
 			{

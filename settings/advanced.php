@@ -37,8 +37,8 @@ $countConfig--;
 	<?php echo loadCSS("../",$baseUrl, $cssVersion);?>
 	<link rel="icon" type="image/png" href="../core/img/favicon.png" />
 	<script src="../core/js/jquery.js"></script>
-	<script src="../core/js/advanced.js?v=<?php echo $cssVersion;?>"></script>
-	<script src="../core/js/resetSettingsJs.js?v=<?php echo $cssVersion;?>"></script>
+	<script src="../core/js/advanced.js?v=<?php echo $jsVersion;?>"></script>
+	<script src="../core/js/resetSettingsJs.js?v=<?php echo $jsVersion;?>"></script>
 </head>
 <body>
 	<?php require_once('header.php'); ?>
@@ -96,22 +96,6 @@ $countConfig--;
 						<select name="expFormatEnabled">
   							<option <?php if($expFormatEnabled == 'true'){echo "selected";} ?> value="true">True</option>
   							<option <?php if($expFormatEnabled == 'false'){echo "selected";} ?> value="false">False</option>
-						</select>
-					</div>
-				</li>
-				<li>
-					<span class="settingsBuffer"> Date Text Format:</span>
-					<div class="selectDiv">
-						<select name="dateTextFormat">
-  							<option <?php if($dateTextFormat == 'default'){echo "selected";} ?> value="default">Default</option>
-  							<option <?php if($dateTextFormat == 'hidden'){echo "selected";} ?> value="hidden">Hidden</option>
-  							<option <?php if($dateTextFormat == 'hh:|mm:|ss'){echo "selected";} ?> value="hh:|mm:|ss">hh:mm:ss</option>
-  							<option <?php if($dateTextFormat == 'DD/|MM/|YYYY'){echo "selected";} ?> value="DD/|MM/|YYYY">DD/MM/YYYY</option>
-  							<option <?php if($dateTextFormat == 'MM/|DD/|YYYY'){echo "selected";} ?> value="MM/|DD/|YYYY">MM/DD/YYYY</option>
-  							<option <?php if($dateTextFormat == 'DD/|MM/'){echo "selected";} ?> value="DD/|MM/">DD/MM</option>
-  							<option <?php if($dateTextFormat == 'MM/|DD/|YYYY |hh:|mm:|ss'){echo "selected";} ?> value="MM/|DD/|YYYY |hh:|mm:|ss">MM/DD/YYYY hh:mm:ss</option>
-  							<option <?php if($dateTextFormat == 'DD/|MM/|YYYY |hh:|mm:|ss'){echo "selected";} ?> value="DD/|MM/|YYYY |hh:|mm:|ss">DD/MM/YYYY hh:mm:ss</option>
-  							<option <?php if($dateTextFormat == 'YYYY/|MM/|DD |hh:|mm:|ss'){echo "selected";} ?> value="YYYY/|MM/|DD |hh:|mm:|ss">YYYY/MM/DD hh:mm:ss</option>
 						</select>
 					</div>
 				</li>

@@ -19,7 +19,7 @@ require_once($baseUrl.'conf/config.php');
 require_once('../../../core/php/commonFunctions.php');
 require_once('../../../core/conf/config.php');
 require_once('../../../core/php/configStatic.php');
-$currentTheme = loadSpecificVar($defaultConfig, $config, "currentTheme");
+$currentTheme = loadSpecificVar($defaultConfig, $config, "currentTheme", "jsVersion");
 if(is_dir('../../../local/'.$currentSelectedTheme.'/Themes/'.$currentTheme))
 {
 	require_once('../../../local/'.$currentSelectedTheme.'/Themes/'.$currentTheme."/defaultSetting.php");
@@ -115,8 +115,8 @@ if((strval($baseFileVersion) === strval($oldFileVersion)) && (file_exists("../..
 </div>
 </body>
 
-<script src="../../../core/js/settings.js?v=<?php echo $cssVersion?>"></script>
-<script src="../../../core/js/upgradeTheme.js?v=<?php echo $cssVersion?>"></script>
+<script src="../../../core/js/settings.js?v=<?php echo $jsVersion?>"></script>
+<script src="../../../core/js/upgradeTheme.js?v=<?php echo $jsVersion?>"></script>
 <script type="text/javascript">
 	var themeChangeLogicDirModifier = "../";
 	$( document ).ready(function()

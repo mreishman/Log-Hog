@@ -11,24 +11,24 @@ var arrayOfJsFiles = {
 	6:  {name: "visibility.timers.js", type: "js"},
 	7:  {name: "loading-bar.min.js", type: "js"},
 	8:  {name: "main.js", type: "js"},
-	9:  {name: "format.js", type: "js"},
-	10:  {name: "rightClickJS.js", type: "js"},
-	11:  {name: "update.js", type: "js"},
-	12:  {name: "settings.js", type: "js"},
-	13: {name: "loghogDownloadJS.js", type: "js"},
-	14: {name: "jscolor.js", type: "js"},
-	15:  {name: "colorScheme.js", type: "js"},
-	16: {name: "local/default/img/menu.png", type: "img", class:"menuImageForLoad"},
-	17: {name: "local/default/img/notification.png", type: "img", class:"notificationImageForLoad"},
-	18: {name: "local/default/img/notificationFull.png", type: "img", class:"notificationImageClickedForLoad"},
-	19: {name: "local/default/img/filter.png", type: "img", class:"filterImageForLoad"},
-	20: {name: "local/default/img/play.png", type: "img", class:"playImageForLoad"},
-	21: {name: "local/default/img/pause.png", type: "img", class:"pauseImageForLoad"},
-	22: {name: "local/default/img/refresh.png", type: "img", class:"refreshImageForLoad"},
-	23: {name: "local/default/img/infoSideBar.png", type: "img", class:"infoSideBarImageForLoad"},
-	24: {name: "local/default/img/eraserSideBar.png", type: "img", class:"eraserSideBarImageForLoad"},
-	25: {name: "local/default/img/trashCanSideBar.png", type: "img", class:"trashCanSideBarImageForLoad"},
-	26: {name: "local/default/img/downArrowSideBar.png", type: "img", class:"downArrowSideBarImageForLoad"}
+	9:  {name: "rightClickJS.js", type: "js"},
+	10:  {name: "update.js", type: "js"},
+	11:  {name: "settings.js", type: "js"},
+	12: {name: "loghogDownloadJS.js", type: "js"},
+	13: {name: "jscolor.js", type: "js"},
+	14:  {name: "colorScheme.js", type: "js"},
+	15: {name: "local/default/img/menu.png", type: "img", class:"menuImageForLoad"},
+	16: {name: "local/default/img/notification.png", type: "img", class:"notificationImageForLoad"},
+	17: {name: "local/default/img/notificationFull.png", type: "img", class:"notificationImageClickedForLoad"},
+	18: {name: "local/default/img/filter.png", type: "img", class:"filterImageForLoad"},
+	19: {name: "local/default/img/play.png", type: "img", class:"playImageForLoad"},
+	20: {name: "local/default/img/pause.png", type: "img", class:"pauseImageForLoad"},
+	21: {name: "local/default/img/refresh.png", type: "img", class:"refreshImageForLoad"},
+	22: {name: "local/default/img/infoSideBar.png", type: "img", class:"infoSideBarImageForLoad"},
+	23: {name: "local/default/img/eraserSideBar.png", type: "img", class:"eraserSideBarImageForLoad"},
+	24: {name: "local/default/img/trashCanSideBar.png", type: "img", class:"trashCanSideBarImageForLoad"},
+	25: {name: "local/default/img/downArrowSideBar.png", type: "img", class:"downArrowSideBarImageForLoad"},
+	26: {name: "local/default/img/gear.png", type: "img", class:"gearImageForLoad"}
 };
 var countForCheck = 1;
 var arrayOfJsFilesKeys = Object.keys(arrayOfJsFiles);
@@ -40,9 +40,18 @@ function updateCustomLoadImages()
 	{
 		arrayOfJsFiles[Object.keys(arrayOfJsFiles).length] = {name: "Raven.js", type: "js"};
 	}
+	if(expFormatEnabled === "true")
+	{
+		arrayOfJsFiles[Object.keys(arrayOfJsFiles).length] = {name: "format.js", type: "js"};
+		arrayOfJsFiles[Object.keys(arrayOfJsFiles).length] = {name: "dateFormat.min.js", type: "js"};
+	}
 	if(themesEnabled === "true")
 	{
 		arrayOfJsFiles[Object.keys(arrayOfJsFiles).length] = {name: "themes.js", type: "js"};
+	}
+	if(oneLogEnable === "true")
+	{
+		arrayOfJsFiles[Object.keys(arrayOfJsFiles).length] = {name: "oneLog.js", type: "js"};
 	}
 	if(truncateLog === "true")
 	{
@@ -73,21 +82,22 @@ function updateCustomLoadImages()
 
 function tryLoadJSStuff()
 {
-	if(arrayOfJsFiles[arrayOfJsFilesKeys[counterForJSLoad]]["type"] === "js")
+	var currentFileType = arrayOfJsFiles[arrayOfJsFilesKeys[counterForJSLoad]]["type"];
+	if(currentFileType === "js")
 	{
 		if(document.getElementById("initialLoadContentInfo").innerHTML !== "Loading Javascript Files")
 		{
 			document.getElementById("initialLoadContentInfo").innerHTML = "Loading Javascript Files";
 		}
 	}
-	else if(arrayOfJsFiles[arrayOfJsFilesKeys[counterForJSLoad]]["type"] === "css")
+	else if(currentFileType === "css")
 	{
 		if(document.getElementById("initialLoadContentInfo").innerHTML !== "Loading CSS Files")
 		{
 			document.getElementById("initialLoadContentInfo").innerHTML = "Loading CSS Files";
 		}
 	}
-	else if(arrayOfJsFiles[arrayOfJsFilesKeys[counterForJSLoad]]["type"] === "img")
+	else if(currentFileType === "img")
 	{
 		if(document.getElementById("initialLoadContentInfo").innerHTML !== "Loading Images")
 		{
@@ -100,8 +110,13 @@ function tryLoadJSStuff()
 		loadedFile = false;
 		var nameOfCurrentFile = arrayOfJsFiles[arrayOfJsFilesKeys[counterForJSLoad]]["name"];
 		document.getElementById("initialLoadContentMoreInfo").innerHTML = nameOfCurrentFile;
-		var nameOfFile = nameOfCurrentFile+"?v="+cssVersion;
-		if(arrayOfJsFiles[arrayOfJsFilesKeys[counterForJSLoad]]["type"] === "js")
+		var versionToAdd = cssVersion;
+		if(currentFileType === "js")
+		{
+			versionToAdd = jsVersion;
+		}
+		var nameOfFile = nameOfCurrentFile+"?v="+versionToAdd;
+		if(currentFileType === "js")
 		{
 			nameOfFile = "core/js/"+nameOfFile;
 			script(nameOfFile);
@@ -109,14 +124,14 @@ function tryLoadJSStuff()
 				loadedFile = true;
 			}, false);
 		}
-		else if(arrayOfJsFiles[arrayOfJsFilesKeys[counterForJSLoad]]["type"] === "css")
+		else if(currentFileType === "css")
 		{
 			css(nameOfFile)
 			document.getElementById(nameOfFile.replace(/[^a-z0-9]/g, "")).addEventListener('load', function() {
 				loadedFile = true;
 			}, false);
 		}
-		else if(arrayOfJsFiles[arrayOfJsFilesKeys[counterForJSLoad]]["type"] === "img")
+		else if(currentFileType === "img")
 		{
 			loadImgFromData(arrayOfJsFiles[arrayOfJsFilesKeys[counterForJSLoad]]["class"]);
 			document.getElementsByClassName(arrayOfJsFiles[arrayOfJsFilesKeys[counterForJSLoad]]["class"])[0].addEventListener('load', function() {
@@ -158,8 +173,8 @@ function checkIfJSLoaded()
 		else
 		{
 			setTimeout(function() {
-				timerForLoadJS = setInterval(tryLoadJSStuff, 1);
-			}, 1);
+				timerForLoadJS = setInterval(tryLoadJSStuff, 25);
+			}, 25);
 		}
 	}
 	else

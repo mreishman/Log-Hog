@@ -1,4 +1,12 @@
 var successVerifyNum = 3;
+var retryCount = 0;
+var verifyCount = 0;
+var lock = false;
+var directory = "../../top/";
+var urlForSendMain = './php/performSettingsInstallUpdateAction.php?format=json';
+var verifyFileTimer = null;
+var dotsTimer = null;
+var verifyCountSuccess = 0;
 
 function startLogic()
 {

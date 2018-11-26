@@ -17,39 +17,39 @@ var arrOfDaysLarge = {
 	7: "Sunday"
 };
 var arrOfMonthsSmall = {
-	1: "Jan",
-	2: "Feb",
-	3: "Mar",
-	4: "Apr",
-	5: "May",
-	6: "June",
-	7: "July",
-	8: "Aug",
-	9: "Sept",
+	1:  "Jan",
+	2:  "Feb",
+	3:  "Mar",
+	4:  "Apr",
+	5:  "May",
+	6:  "Jun",
+	7:  "Jul",
+	8:  "Aug",
+	9:  "Sep",
 	10: "Oct",
 	11: "Nov",
 	12: "Dec"
 };
 var arrOfMonthsLarge = {
-	1: "January",
-	2: "February",
-	3: "March",
-	4: "April",
-	5: "May",
-	6: "June",
-	7: "July",
-	8: "August",
-	9: "September",
+	1:  "January",
+	2:  "February",
+	3:  "March",
+	4:  "April",
+	5:  "May",
+	6:  "June",
+	7:  "July",
+	8:  "August",
+	9:  "September",
 	10: "October",
 	11: "November",
 	12: "December"
 };
 
 
-function formatLine(text)
+function formatLine(text, extraData)
 {
 	var arrayOfText = dateTimeSplit(text);
-	return "<td style=\"white-space:nowrap;width: 1%;\" >" + dateTimeFormat(arrayOfText) + "</td><td style=\"white-space: pre-wrap;\" >" + arrayOfText[1] + "</td>";
+	return "<td style=\"white-space:nowrap;width: 1%;\" >" + dateTimeFormat(arrayOfText) + "</td><td style=\"white-space: pre-wrap;\" >" + formatMainMessage(arrayOfText, extraData) + "</td>";
 }
 
 function dateTimeSplit(text)
@@ -94,8 +94,111 @@ function dateTimeSplit(text)
 	return returnObject;
 }
 
+function formatMainMessage(dateTextArray, extraData)
+{
+	var message = dateTextArray[1];
+	if(message.indexOf("{") > -1 && message.lastIndexOf("}") > message.indexOf("{"))
+	{
+		return formatJsonMessage(message, extraData);
+	}
+	return message;
+}
+
+function formatJsonMessage(message, extraData)
+{
+	//try to json decode
+	var jsonMessage = message.substring(message.indexOf("{"),message.lastIndexOf("}") + 1);
+	if(jsonMessage !== "")
+	{
+		var newMessage = jsonDecodeTry(jsonMessage);
+		var excapeHTML = false;
+		if(typeof newMessage !== "object")
+		{
+			var newerMessage = unescapeHTML(jsonMessage);
+			if(newerMessage !== "")
+			{
+				newMessage = jsonDecodeTry("" + newerMessage);
+				excapeHTML = true;
+				if(typeof newMessage !== "object")
+				{
+					newerMessage = unescapeHTML(jsonMessage).replace(/\\/g,"\\\\");
+					if(newerMessage !== "")
+					{
+						newMessage = jsonDecodeTry("" + newerMessage);
+						excapeHTML = true;
+						if(typeof newMessage !== "object")
+						{
+							//console.log(unescapeHTML(jsonMessage));
+							return message;
+						}
+					}
+					else
+					{
+						return message;
+					}
+				}
+			}
+			else
+			{
+				return message;
+			}
+		}
+		var testReturn = "<table>";
+		var extraTrClass = "";
+		if(extraData["customClassAdd"])
+		{
+			extraTrClass = extraData["customClass"];
+		}
+		testReturn += "<tr "+extraTrClass+" ><td colspan=\"2\" >"+message.substr(0, message.indexOf('{'))+"</td></tr>";
+		var messageKeys = Object.keys(newMessage);
+		var messageKeysLength = messageKeys.length;
+		for (var messageCount = 0; messageCount < messageKeysLength; messageCount++)
+		{
+			var messageOne = messageKeys[messageCount];
+			var messageTwo = newMessage[messageKeys[messageCount]];
+			var messageTwoIsObject = false;
+			if(typeof messageTwo === "object")
+			{
+				messageTwo = formatMainMessage(JSON.stringify(messageTwo), extraData);
+				messageTwoIsObject = true;
+			}
+			if(excapeHTML)
+			{
+				messageOne = escapeHTML(messageOne);
+				if(!messageTwoIsObject)
+				{
+					messageTwo = escapeHTML(messageTwo);
+				}
+			}
+			testReturn += "<tr "+extraTrClass+" ><td style=\"word-break: normal;\" >"+messageOne+"</td><td>"+messageTwo+"</td></tr>";
+		}
+		testReturn += "<tr "+extraTrClass+" ><td colspan=\"2\" >"+message.substr(message.lastIndexOf('}') + 1)+"</td></tr>";
+		testReturn += "</table>";
+		return testReturn;
+	}
+	return message;
+}
+
+function jsonDecodeTry(jsonTry)
+{
+	try
+	{
+		var possibleJson = JSON.parse(jsonTry);
+		return possibleJson;
+	}
+	catch(e)
+	{
+		//console.log(e);
+	}
+	return false;
+}
+
 function dateTimeFormat(dateTextArray)
 {
+	if(dateTextFormat === "hidden")
+	{
+		return "";
+	}
 	var dateText = dateTextArray[0];
 	var timeFormat = dateTextArray["timeFound"];
 	var justDateText = dateTextArray[2];
@@ -103,27 +206,39 @@ function dateTimeFormat(dateTextArray)
 	{
 		return dateText;
 	}
-	else if(dateTextFormat === "hidden")
-	{
-		return "";
-	}
 
 	var newConfDate = "Invalid Date";
 	if(timeFormat === 0 || timeFormat === 1)
 	{
 		newConfDate = new Date(justDateText);
-		if(String(newConfDate) === "Invalid Date")
+		if(String(newConfDate) === "Invalid Date" || String(newConfDate) === "NaN")
 		{
-			justDateText = justDateText.replace(/[A-Z]/," ");
-			newConfDate = new Date(justDateText);
+			var justDateTextTmp = justDateText.replace(/[A-Z]/," ");
+			newConfDate = new Date(justDateTextTmp);
 		}
 	}
-	if(String(newConfDate) !== "Invalid Date")
+	if(String(newConfDate) === "Invalid Date" || String(newConfDate) === "NaN")
+	{
+		newConfDate = DateFormat.format(justDateText);
+	}
+	if(String(newConfDate) !== "Invalid Date" && String(newConfDate) !== "NaN")
 	{
 		var hours = newConfDate.getHours();
+		var hours12 = hours;
+		var ampm = "AM";
 		if(hours < 10)
 		{
 			hours = "0"+hours;
+			hours12 = hours;
+		}
+		else if(hours > 12)
+		{
+			ampm = "PM";
+			hours12 = hours - 12;
+			if(hours12 < 10)
+			{
+				hours12 = hours;
+			}
 		}
 		var min = newConfDate.getMinutes();
 		if(min < 10)
@@ -148,7 +263,12 @@ function dateTimeFormat(dateTextArray)
 		var mili = newConfDate.getMilliseconds();
 		var yearFull = newConfDate.getFullYear();
 		var dayName = newConfDate.getDay(); //1 is monday, 2 tuesday, etc
-		var dateTextFormatArray = dateTextFormat.split("|");
+		var localDateTextFormat = dateTextFormat;
+		if(dateTextFormat === "custom")
+		{
+			localDateTextFormat = dateTextFormatCustom;
+		}
+		var dateTextFormatArray = localDateTextFormat.split("|");
 		var dateTextFormatArrayLength = dateTextFormatArray.length;
 		var stringForNewTime = "";
 		var arrOfOptions = {
@@ -178,11 +298,11 @@ function dateTimeFormat(dateTextArray)
 			},
 			6: {
 				"search" : "PartDay",
-				"replace": arrOfDaysSmall[parseInt(day)]
+				"replace": arrOfDaysSmall[parseInt(dayName)]
 			},
 			7: {
 				"search" : "FullDay",
-				"replace": arrOfDaysLarge[parseInt(day)]
+				"replace": arrOfDaysLarge[parseInt(dayName)]
 			},
 			8: {
 				"search" : "PartMonth",
@@ -195,6 +315,14 @@ function dateTimeFormat(dateTextArray)
 			10: {
 				"search" : "mili",
 				"replace": mili
+			},
+			11: {
+				"search" : "hh12",
+				"replace": hours12
+			},
+			12: {
+				"search" : "AMPM",
+				"replace": ampm
 			}
 		};
 		var arrOfOptionsKeys = Object.keys(arrOfOptions);
@@ -204,8 +332,9 @@ function dateTimeFormat(dateTextArray)
 			var currentSection = dateTextFormatArray[dtfCount];
 			if(currentSection === "" || currentSection.indexOf("none") > -1)
 			{
-				break;
+				continue;
 			}
+			var added = false;
 			for(var optionCount = 0; optionCount < lengthOfOptionKeys; optionCount++)
 			{
 				var currentSearch = arrOfOptions[arrOfOptionsKeys[optionCount]]["search"];
@@ -213,8 +342,13 @@ function dateTimeFormat(dateTextArray)
 				if(currentSection.indexOf(currentSearch) > -1)
 				{
 					stringForNewTime += currentSection.replace(currentSearch, currentReplace);
+					added = true;
 					break;
 				}
+			}
+			if(!added)
+			{
+				stringForNewTime += currentSection;
 			}
 		}
 		if(stringForNewTime !== "" && stringForNewTime.indexOf("NaN") === -1)
