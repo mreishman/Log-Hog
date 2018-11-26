@@ -313,7 +313,6 @@ function pollTwo()
 					}
 					if(firstLoad)
 					{
-						updateFileDataArray(data);
 						firstLoadEndAction();
 					}
 				}
@@ -694,6 +693,7 @@ function getFileSingle(current)
 			type: "POST",
 			success(data)
 			{
+				updateFileDataArray(data);
 				arrayOfDataMainDataFilter(data);
 				generalUpdate();
 			},
@@ -707,7 +707,6 @@ function getFileSingle(current)
 					updateProgressBar(updateBy, arrayUpdateKeys[currentNew-1], "Loading file "+(arrayUpdateKeys.length+1-currentNew)+" of "+arrayUpdateKeys.length+" <br>  "+formatBytes(fileData[arrayUpdateKeys[currentNew-1]]["size"]));
 					currentNew--;
 					setTimeout(function(){ getFileSingle(currentNew); }, 100);
-					
 				}
 				else
 				{
