@@ -1,7 +1,7 @@
 <?php
 
 $versionCheckArray = array(
-	'version'		=> '5.9.1',
+	'version'		=> '6.0',
 	'versionList'		=> array(
 		'2.0.1'	        => array(
 			'branchName'	=> '2.0.1Update',
@@ -260,6 +260,11 @@ $versionCheckArray = array(
 			'branchName'	=> '6.0UpdateBeta2',
 			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/6.0beta2.png',
 			'releaseNotes'	=> "<ul><li>Features<ul><li>Added a new tab for oneLog (grouping of new additions to logs in one log)<ul><li>Have all changes to logs visible in one log like window</li><li>Click on log titles to open up that log in a side by side view</li><li>Can be disabled or hidden in settings</li></ul></li><li>Initial loading looks better (added progress bar to file loading)</li><li>More changes to experimental feature log formatting (For version 7.0)</li><li>Moved multi-log quick settings to sidebar (along with new one log toggle). Changed icon to more generic icon</li><li>Added back option to show groups dropdown in header (and not hidden under filter tab, false by default)</li><li>Added option to show or hide log tabs in main header</li></ul></li><li>Bug Fixes<ul><li>Fixed bug with drop-down toggles showing sub content incorrectly on a value of true when needing a value of custom</li><li>Better versioning for js and css (not same, so versioning js does not require theme update)</li><li>Now shows + in notification count if update is greater than max number of lines shown</li></ul></li></ul>"
+		),
+		'6.0'		=> array(
+			'branchName'	=> '6.0Update',
+			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/6.0.png',
+			'releaseNotes'	=> "<ul><li>Features<ul><li>Added a new tab for oneLog (grouping of new additions to logs in one log)<ul><li>Have all changes to logs visible in one log like window</li><li>Click on log titles to open up that log in a side by side view</li><li>Can be disabled or hidden in settings</li></ul></li><li>Initial loading looks better (added progress bar to file loading)</li><li>More changes to experimental feature log formatting (For version 7.0)</li><li>Moved multi-log quick settings to sidebar (along with new one log toggle). Changed icon to more generic icon</li><li>Added back option to show groups dropdown in header (and not hidden under filter tab, false by default)</li><li>Added option to show or hide log tabs in main header</li></ul></li><li>Bug Fixes<ul><li>Fixed bug with drop-down toggles showing sub content incorrectly on a value of true when needing a value of custom</li><li>Better versioning for js and css (not same, so versioning js does not require theme update)</li><li>Now shows + in notification count if update is greater than max number of lines shown</li><li>Fixed bug with grep in poll logic</li></ul></li></ul>"
 		),
 	)
 );
