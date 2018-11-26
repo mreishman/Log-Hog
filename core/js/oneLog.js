@@ -177,6 +177,10 @@ function openLogInFull(logId)
 		{
 			//generate window from 1 to 2
 			document.getElementById("windowConfig").value = "1x2";
+			if(oneLogNewBlockLocation === "bottom" || (window.innerWidth < breakPointTwo && oneLogNewBlockLocation === "auto"))
+			{
+				document.getElementById("windowConfig").value = "2x1";
+			}
 			generateWindowDisplayInner();
 		}
 		else

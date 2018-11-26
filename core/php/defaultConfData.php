@@ -1562,14 +1562,40 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			6									=> array(
+			6									=>	array(
+				"bool"								=>	($oneLogNewBlockClick == 'false'),
+				"id"								=>	"oneLogNewBlockClickContentSettings",
 				"info"								=>	"when clicking on a title in one log, it will attempt to open in a new block, not the same as onelog",
-				"type"								=>	"single",
+				"name"								=>	"One log open new log options",
+				"type"								=>	"grouped",
 				"var"								=>	array(
+					"function"							=>	"showOrHideOneLogNewBlockClickSettings",
+					"id"								=>	"oneLogNewBlockClick",
 					"key"								=>	"oneLogNewBlockClick",
 					"name"								=>	"New block on log click",
 					"options"							=>	$trueFalsVars,
 					"type"								=>	"dropdown"
+				),
+				"vars"								=>	array(
+					0									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"oneLogNewBlockLocation",
+							"name"								=>	"New Log Position",
+							"options"							=>	array(
+								0 									=> array(
+									"value" 							=> "auto",
+									"name" 								=> "Auto Left/Bottom"),
+								1 									=> array(
+									"value" 							=> "left",
+									"name" 								=> "Always Left"),
+								2 									=> array(
+									"value" 							=> "bottom",
+									"name" 								=> "Always Bottom")
+							),
+							"type"								=>	"dropdown"
+						)
+					)
 				)
 			),
 			7									=> array(

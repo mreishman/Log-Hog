@@ -312,6 +312,7 @@ $defaultConfig = array(
 	'oneLogMaxLength'				=> 20,
 	'oneLogMergeLast'				=> 'true',
 	'oneLogNewBlockClick'			=> 'true',
+	'oneLogNewBlockLocation'		=> 'auto',
 	'oneLogVisible'					=> 'true',
 	'oneLogVisibleDisableUpdate'	=> 'false',
 	'overallBrightness'				=> 100,
