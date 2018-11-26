@@ -88,12 +88,12 @@ elseif($logMenuLocation === "bottom"): ?>
 	max-height: none;
 	word-break: break-all;
 }
-
+<?php if ($allLogsVisible === "true"): ?>
 #main
 {
 	padding-left: 200px;
 }
-
+<?php endif; ?>
 #menu a
 {
 	display: block;
@@ -109,12 +109,12 @@ elseif($logMenuLocation === "bottom"): ?>
 	max-height: none;
 	word-break: break-all;
 }
-
+<?php if ($allLogsVisible === "true"): ?>
 #main
 {
 	padding-right: 200px;
 }
-
+<?php endif; ?>
 #menu a
 {
 	display: block;
