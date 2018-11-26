@@ -656,6 +656,10 @@ function pollThree(arrayToUpdate)
 
 function updateFileDataArray(newDataArr)
 {
+	if(expFormatEnabled !== "true")
+	{
+		return;
+	}
 	var newDataArrKeys = Object.keys(newDataArr);
 	var newDataArrKeysLength=  newDataArrKeys.length;
 	for(var NDACount = 0; NDACount < newDataArrKeysLength; NDACount++)

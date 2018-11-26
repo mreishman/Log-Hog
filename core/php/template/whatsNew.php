@@ -103,7 +103,7 @@
 				"Version"		=>	"6.1",
 				"Name"			=>	"More Notifications!",
 				"BP"			=>	array("Redesigned Notifications"),
-				"Images"		=>	array("6.1-1.png")
+				"Images"		=>	array("6.1-1.png","6.1-2.png")
 			)
 		);
 		$dataForWhatsNew = array_reverse($dataForWhatsNew);
