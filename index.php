@@ -139,7 +139,7 @@ $externalLinkImage = generateImage(
 			</div>
 		</div>
 		<div id="main">
-			<div id="settingsSideBar" class="fullScreenMenuLeftSidebar" style="display: none; position: absolute; width: 200px; height: 100%;">
+			<div id="settingsSideBar" class="fullScreenMenuLeftSidebar" style="display: none; position: absolute; width: 200px; overflow: auto;">
 				<?php require_once('core/php/template/settingsSideBar.php'); ?>
 			</div>
 			<table id="log" style="display: none; margin: 0px;padding: 0px; border-spacing: 0px; width: 100%;" cellspacing="0" cellpadding="0">

@@ -18,15 +18,14 @@ var arrayOfJsFiles = {
 	13: {name: "jscolor.js", type: "js"},
 	14:  {name: "colorScheme.js", type: "js"},
 	15: {name: "local/default/img/menu.png", type: "img", class:"menuImageForLoad"},
-	16: {name: "local/default/img/filter.png", type: "img", class:"filterImageForLoad"},
-	17: {name: "local/default/img/play.png", type: "img", class:"playImageForLoad"},
-	18: {name: "local/default/img/pause.png", type: "img", class:"pauseImageForLoad"},
-	19: {name: "local/default/img/refresh.png", type: "img", class:"refreshImageForLoad"},
-	20: {name: "local/default/img/infoSideBar.png", type: "img", class:"infoSideBarImageForLoad"},
-	21: {name: "local/default/img/eraserSideBar.png", type: "img", class:"eraserSideBarImageForLoad"},
-	22: {name: "local/default/img/trashCanSideBar.png", type: "img", class:"trashCanSideBarImageForLoad"},
-	23: {name: "local/default/img/downArrowSideBar.png", type: "img", class:"downArrowSideBarImageForLoad"},
-	24: {name: "local/default/img/gear.png", type: "img", class:"gearImageForLoad"}
+	16: {name: "local/default/img/play.png", type: "img", class:"playImageForLoad"},
+	17: {name: "local/default/img/pause.png", type: "img", class:"pauseImageForLoad"},
+	18: {name: "local/default/img/refresh.png", type: "img", class:"refreshImageForLoad"},
+	19: {name: "local/default/img/infoSideBar.png", type: "img", class:"infoSideBarImageForLoad"},
+	20: {name: "local/default/img/eraserSideBar.png", type: "img", class:"eraserSideBarImageForLoad"},
+	21: {name: "local/default/img/trashCanSideBar.png", type: "img", class:"trashCanSideBarImageForLoad"},
+	22: {name: "local/default/img/downArrowSideBar.png", type: "img", class:"downArrowSideBarImageForLoad"},
+	23: {name: "local/default/img/gear.png", type: "img", class:"gearImageForLoad"}
 };
 var countForCheck = 1;
 var arrayOfJsFilesKeys = Object.keys(arrayOfJsFiles);

@@ -2577,6 +2577,10 @@ function resize()
 		{
 			$("#main").outerHeight(targetHeight);
 		}
+		if($("#settingsSideBar").outerHeight() !== targetHeight)
+		{
+			$("#settingsSideBar").outerHeight(targetHeight);
+		}
 		if(logMenuLocation === "bottom")
 		{
 			if(document.getElementById("main").style.bottom !== menuHeight)
@@ -4579,37 +4583,6 @@ function pinWindow(windowNum)
 		logDisplayArray[windowNum]["pin"] = true;
 		$("#pinWindow"+windowNum+" .pinWindow").hide();
 		$("#pinWindow"+windowNum+" .unPinWindow").show();
-	}
-}
-
-function filterSubMenu()
-{
-	if(document.getElementById("groupSubMenu").style.display === "none")
-	{
-		hideSubMenus();
-		document.getElementById("menu2").style.display = "block";
-		document.getElementById("groupSubMenu").style.display = "block";
-	}
-	else
-	{
-		hideSubMenus();
-	}
-	resize();
-}
-
-function hideSubMenus()
-{
-	if(document.getElementById("settingsSideBar").style.display !== "none")
-	{
-		toggleSettingsSidebar();
-	}
-	if(document.getElementById("groupSubMenu").style.display !== "none")
-	{
-		document.getElementById("groupSubMenu").style.display = "none";
-	}
-	if(document.getElementById("menu2").style.display !== "none")
-	{
-		document.getElementById("menu2").style.display = "none";
 	}
 }
 
