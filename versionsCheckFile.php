@@ -1,7 +1,7 @@
 <?php
 
 $versionCheckArray = array(
-	'version'		=> '6.0',
+	'version'		=> '6.0.9',
 	'versionList'		=> array(
 		'2.0.1'	        => array(
 			'branchName'	=> '2.0.1Update',
@@ -265,6 +265,10 @@ $versionCheckArray = array(
 			'branchName'	=> '6.0Update',
 			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/6.0.png',
 			'releaseNotes'	=> "<ul><li>Features<ul><li>Added a new tab for oneLog (grouping of new additions to logs in one log)<ul><li>Have all changes to logs visible in one log like window</li><li>Click on log titles to open up that log in a side by side view</li><li>Can be disabled or hidden in settings</li></ul></li><li>Initial loading looks better (added progress bar to file loading)</li><li>More changes to experimental feature log formatting (For version 7.0)</li><li>Moved multi-log quick settings to sidebar (along with new one log toggle). Changed icon to more generic icon</li><li>Added back option to show groups dropdown in header (and not hidden under filter tab, false by default)</li><li>Added option to show or hide log tabs in main header</li></ul></li><li>Bug Fixes<ul><li>Fixed bug with drop-down toggles showing sub content incorrectly on a value of true when needing a value of custom</li><li>Better versioning for js and css (not same, so versioning js does not require theme update)</li><li>Now shows + in notification count if update is greater than max number of lines shown</li><li>Fixed bug with grep in poll logic</li></ul></li></ul>"
+		),
+		'6.0.9'		=> array(
+			'branchName'	=> '6.1UpdateBeta1',
+			'releaseNotes'	=> "<ul><li>Features<ul><li>New notification system<ul><li>Notification screen is now full screen</li><li>Condensed the main menu bar by moving notification counter inside badge and over main menu icon</li><li>Clicking on notification badge opens notification panel (right click for shortcut for clear all notifications)</li><li>Option to hide notification page on main menu (hidden by default)</li><li>Added view status (read / unread notifications)</li><li>Option to only show notification count for unread messages (true by default)</li><li>Separated notifications into groups (read / unread)</li><li>Added notification previews (shows part of log added in notification)</li><li>Added inline notification alerts (with actions to view / close)</li></ul></li><li>Added view button for locally installed addons on addon page </li><li>More changes to experimental feature log formatting (For version 7.0)</li><li>Added option for clear all logs action to also clear data from oneLog</li></ul></li><li>Bug Fixes<ul><li>Notifications now show proper log name (same as log tab) instead of just short name</li><li>Added message to updater image if not loading</li><li>Added logic for deleting old files from past updates</li><li>Passes through try catch exception on poll errors in response</li></ul></li></ul>"
 		),
 	)
 );
