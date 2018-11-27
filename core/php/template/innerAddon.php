@@ -251,7 +251,6 @@
 		var verifyCount = 0;
 		var lock = false;
 		var directory = "../../top/";
-		var urlForSendMain = "core/php/performSettingsInstallUpdateAction.php?format=json";
 		var action = "";
 		var localFolderLocation = "";
 		var repoName = "";
@@ -295,7 +294,10 @@
 			updateText(100);
 			$.get( "core/php/template/innerAddon.php", function( data ) {
 				$("#innerAddonSpanReplace").html(data);
-				updateOtherApps();
+				if(typeof updateOtherApps !== "undefined")
+				{
+					updateOtherApps();
+				}
 			});
 		}
 

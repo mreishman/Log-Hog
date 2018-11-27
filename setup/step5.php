@@ -51,7 +51,7 @@ require_once('../core/php/loadVars.php');?>
 </div>
 </body>
 <script type="text/javascript">
-	
+	var urlForSendMain = "../core/php/performSettingsInstallUpdateAction.php?format=json";
 	var baseUrl = "<?php echo $baseUrlImages;?>";
 
 	function defaultSettings()
