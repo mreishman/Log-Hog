@@ -410,86 +410,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			1									=>	array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"developmentTabEnabled",
-					"name"								=>	"Enable Development Tools",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				)
-			),
 			2									=>	array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"themesEnabled",
-					"name"								=>	"Enable Themes",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				)
-			),
-			3									=>	array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"enableMultiLog",
-					"name"								=>	"Enable Multi-Log",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				)
-			),
-			4									=>	array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"enableHistory",
-					"name"								=>	"Enable History",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				)
-			),
-			5									=>	array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"oneLogEnable",
-					"name"								=>	"Enable One Log",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				)
-			),
-			6									=>	array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"rightClickMenuEnable",
-					"name"								=>	"Right Click Menu Enabled",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				)
-			),
-			7									=>	array(
-				"bool"								=>	($backupNumConfigEnabled == 'false'),
-				"id"								=>	"versionSaveContentSettings",
-				"name"								=>	"Backup Config Settings",
-				"type"								=>	"grouped",
-				"var"								=>	array(
-					"function"							=>	"showOrHideVersionSaveConfig",
-					"id"								=>	"backupNumConfigEnabled",
-					"key"								=>	"backupNumConfigEnabled",
-					"name"								=>	"Enable Backup Config Files",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				),
-				"vars"								=>	array(
-					0									=> array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"key"								=>	"backupNumConfig",
-							"name"								=>	"Number of versions saved",
-							"options"							=>	$oneToTenArr,
-							"type"								=>	"dropdown"
-						)
-					)
-				)
-			),
-			8									=>	array(
 				"info"								=>	"This is for platforms where saving files might not be in sync with containers. Increasing from one will make saves take longer, but it will be more accurate if there is that sync delay",
 				"type"								=>	"single",
 				"var"								=>	array(
@@ -1242,6 +1163,91 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
+		)
+	),
+	"modules"							=>	array(
+		"id"								=>	"modules",
+		"name"								=>	"Modules",
+		"vars"								=>	array(
+			0									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"developmentTabEnabled",
+					"name"								=>	"Enable Development Tools",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			1									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"themesEnabled",
+					"name"								=>	"Enable Themes",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			2									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"enableMultiLog",
+					"name"								=>	"Enable Multi-Log",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			3									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"enableHistory",
+					"name"								=>	"Enable History",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			4									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"oneLogEnable",
+					"name"								=>	"Enable One Log",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			5									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"rightClickMenuEnable",
+					"name"								=>	"Enable Right Click Menu",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			6									=>	array(
+				"bool"								=>	($backupNumConfigEnabled == 'false'),
+				"id"								=>	"versionSaveContentSettings",
+				"name"								=>	"Backup Config Settings",
+				"type"								=>	"grouped",
+				"var"								=>	array(
+					"function"							=>	"showOrHideVersionSaveConfig",
+					"id"								=>	"backupNumConfigEnabled",
+					"key"								=>	"backupNumConfigEnabled",
+					"name"								=>	"Enable Config Backup",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				),
+				"vars"								=>	array(
+					0									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"backupNumConfig",
+							"name"								=>	"Number of versions saved",
+							"options"							=>	$oneToTenArr,
+							"type"								=>	"dropdown"
+						)
+					)
+				)
+			)
 		)
 	),
 	"multiLogVars"						=>	array(

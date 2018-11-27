@@ -46,6 +46,8 @@ $countConfig--;
 	<?php
 	$currentSection = "config";
 	include('../core/php/template/varTemplate.php');
+	$currentSection = "modules";
+	include('../core/php/template/varTemplate.php');
 	$currentSection = "loggingVars";
 	include('../core/php/template/varTemplate.php');
 	$currentSection = "fileLocations";
