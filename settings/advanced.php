@@ -69,12 +69,12 @@ $countConfig--;
 					<?php if($backupNumConfigEnabled == 'true'): ?>
 						<a onclick="showConfigPopup();" class="link">View restore options for config</a>
 						<span> | </span>
-					<?php endif; ?>
-					<?php if($showConfigBackupClear): ?>
-						<span id="showConfigClearButton">
-							<a onclick="clearBackupFiles();" class="link">Clear (<?php echo $countConfig;?>) Backup Config Files</a>
-							<span> | </span>
-						</span>
+						<?php if($showConfigBackupClear): ?>
+							<span id="showConfigClearButton">
+								<a onclick="clearBackupFiles();" class="link">Clear (<?php echo $countConfig;?>) Backup Config Files</a>
+								<span> | </span>
+							</span>
+						<?php endif; ?>
 					<?php endif; ?>
 					<a onclick="resetSettingsPopup();" class="link">Reset Settings back to Default</a>
 				</li>
