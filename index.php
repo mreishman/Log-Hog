@@ -100,6 +100,9 @@ $externalLinkImage = generateImage(
 <head>
 	<title>Log Hog | Index</title>
 	<link rel="icon" type="image/png" href="core/img/favicon.png" />
+	<script type="text/javascript">
+		var baseUrl = "<?php echo $baseUrl;?>";
+	</script>
 	<script src="core/js/lazyLoadImg.js?v=<?php echo $jsVersion?>"></script>
 	<script src="core/js/indexJs.js?v=<?php echo $jsVersion?>"></script>
 	<?php
@@ -257,7 +260,6 @@ $externalLinkImage = generateImage(
 			?>
 			var srcForLoadImage = "<?php echo $srcForLoadImage; ?>";
 			var currentVersion = "<?php echo $configStatic['version'];?>";
-			var baseUrl = "<?php echo $baseUrl;?>";
 			var saveVerifyImage = <?php echo json_encode(generateImage(
 				$arrayOfImages["greenCheck"],
 				array(
