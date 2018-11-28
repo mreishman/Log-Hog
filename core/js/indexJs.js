@@ -12,21 +12,24 @@ var arrayOfJsFiles = {
 	7:  {name: "loading-bar.min.js", type: "js"},
 	8:  {name: "main.js", type: "js"},
 	9:  {name: "rightClickJS.js", type: "js"},
-	10:  {name: "update.js", type: "js"},
-	11:  {name: "settings.js", type: "js"},
+	10: {name: "update.js", type: "js"},
+	11: {name: "settings.js", type: "js"},
 	12: {name: "loghogDownloadJS.js", type: "js"},
 	13: {name: "jscolor.js", type: "js"},
-	14:  {name: "colorScheme.js", type: "js"},
-	15:  {name: "addons.js", type: "js"},
-	16: {name: baseUrl + "img/menu.png", type: "img", class:"menuImageForLoad"},
-	17: {name: baseUrl + "img/play.png", type: "img", class:"playImageForLoad"},
-	18: {name: baseUrl + "img/pause.png", type: "img", class:"pauseImageForLoad"},
-	19: {name: baseUrl + "img/refresh.png", type: "img", class:"refreshImageForLoad"},
-	20: {name: baseUrl + "img/infoSideBar.png", type: "img", class:"infoSideBarImageForLoad"},
-	21: {name: baseUrl + "img/eraserSideBar.png", type: "img", class:"eraserSideBarImageForLoad"},
-	22: {name: baseUrl + "img/trashCanSideBar.png", type: "img", class:"trashCanSideBarImageForLoad"},
-	23: {name: baseUrl + "img/downArrowSideBar.png", type: "img", class:"downArrowSideBarImageForLoad"},
-	24: {name: baseUrl + "img/gear.png", type: "img", class:"gearImageForLoad"}
+	14: {name: "colorScheme.js", type: "js"},
+	15: {name: "addons.js", type: "js"},
+	16: {name: "menu.js", type: "js"},
+	17: {name: "notifications.js", type: "js"},
+	18: {name: "fullscreenMenu.js", type: "js"},
+	19: {name: baseUrl + "img/menu.png", type: "img", class:"menuImageForLoad"},
+	20: {name: baseUrl + "img/play.png", type: "img", class:"playImageForLoad"},
+	21: {name: baseUrl + "img/pause.png", type: "img", class:"pauseImageForLoad"},
+	22: {name: baseUrl + "img/refresh.png", type: "img", class:"refreshImageForLoad"},
+	23: {name: baseUrl + "img/infoSideBar.png", type: "img", class:"infoSideBarImageForLoad"},
+	24: {name: baseUrl + "img/eraserSideBar.png", type: "img", class:"eraserSideBarImageForLoad"},
+	25: {name: baseUrl + "img/trashCanSideBar.png", type: "img", class:"trashCanSideBarImageForLoad"},
+	26: {name: baseUrl + "img/downArrowSideBar.png", type: "img", class:"downArrowSideBarImageForLoad"},
+	27: {name: baseUrl + "img/gear.png", type: "img", class:"gearImageForLoad"}
 };
 var countForCheck = 1;
 var arrayOfJsFilesKeys = Object.keys(arrayOfJsFiles);
@@ -50,6 +53,14 @@ function updateCustomLoadImages()
 	if(oneLogEnable === "true")
 	{
 		arrayOfJsFiles[Object.keys(arrayOfJsFiles).length] = {name: "oneLog.js", type: "js"};
+	}
+	if(enableHistory === "true")
+	{
+		arrayOfJsFiles[Object.keys(arrayOfJsFiles).length] = {name: "archive.js", type: "js"};
+	}
+	if(enableMultiLog === "true")
+	{
+		arrayOfJsFiles[Object.keys(arrayOfJsFiles).length] = {name: "multilog.js", type: "js"};
 	}
 	if(truncateLog === "true")
 	{
