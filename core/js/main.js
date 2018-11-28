@@ -2003,7 +2003,7 @@ function removeArchiveLogFromDisplay(currentLogNum)
 		{
 			if(aodmKeys[archiveRemoveCount].replace(/[^a-z0-9]/g, "") === archiveLogId)
 			{
-				delete arrayOfDataMain[archiveLogId];
+				delete arrayOfDataMain[aodmKeys[archiveRemoveCount]];
 				break;
 			}
 		}
