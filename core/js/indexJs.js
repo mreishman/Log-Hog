@@ -27,7 +27,6 @@ var arrayOfJsFiles = {
 	22: {name: baseUrl + "img/trashCanSideBar.png", type: "img", class:"trashCanSideBarImageForLoad"},
 	23: {name: baseUrl + "img/downArrowSideBar.png", type: "img", class:"downArrowSideBarImageForLoad"},
 	24: {name: baseUrl + "img/gear.png", type: "img", class:"gearImageForLoad"}
->>>>>>> origin/6.1
 };
 var countForCheck = 1;
 var arrayOfJsFilesKeys = Object.keys(arrayOfJsFiles);
