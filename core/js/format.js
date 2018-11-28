@@ -128,7 +128,7 @@ function formatMainMessage(message, extraData)
 	var arrayOfFileDataKeysLength = arrayOfFileDataKeys.length;
 	for(var AOFDCount = 0; AOFDCount < arrayOfFileDataKeysLength; AOFDCount++)
 	{
-		if(message.indexOf(arrayOfFileDataKeys[AOFDCount]) > -1)
+		if(message.indexOf(arrayOfFileDataKeys[AOFDCount]) > -1 && arrayOfFileData[arrayOfFileDataKeys[AOFDCount]]["fileData"] !== "Error - File Not Found")
 		{
 			//this message matches file data, add this below
 			extraData["fileData"] = arrayOfFileData[arrayOfFileDataKeys[AOFDCount]];

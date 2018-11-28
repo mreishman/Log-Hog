@@ -62,6 +62,10 @@ function updateCustomLoadImages()
 	{
 		arrayOfJsFiles[Object.keys(arrayOfJsFiles).length] = {name: "multilog.js", type: "js"};
 	}
+	if(hideEmptyLog === "true")
+	{
+		arrayOfJsFiles[Object.keys(arrayOfJsFiles).length] = {name: "hideEmptyLog.js", type: "js"};
+	}
 	if(truncateLog === "true")
 	{
 		arrayOfJsFiles[Object.keys(arrayOfJsFiles).length] = {name: baseUrl + "img/eraserMulti.png", type: "img", class:"eraserMultiImageForLoad"};
