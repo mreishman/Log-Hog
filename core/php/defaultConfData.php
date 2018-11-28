@@ -1415,6 +1415,15 @@ $defaultConfigMoreData = array(
 							"name"								=>	"Max line count for log preview",
 							"type"								=>	"number"
 						)
+					),
+					3									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"notificationPreviewHideWidth",
+							"name"								=>	"Hide if small screen width",
+							"options"							=>	$trueFalsVars,
+							"type"								=>	"dropdown"
+						)
 					)
 				)
 			),

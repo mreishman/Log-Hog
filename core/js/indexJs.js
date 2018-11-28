@@ -4,7 +4,7 @@ var loadedFile = false;
 var arrayOfJsFiles = {
 	0:  {name: "core/template/base.css", type: "css"},
 	1:  {name: "core/template/loading-bar.css", type: "css"},
-	2:  {name: "local/default/template/theme.css", type: "css"},
+	2:  {name: baseUrl + "template/theme.css", type: "css"},
 	3:  {name: "jquery.js", type: "js"},
 	4:  {name: "visibility.core.js", type: "js"},
 	5:  {name: "visibility.fallback.js", type: "js"},
@@ -18,15 +18,16 @@ var arrayOfJsFiles = {
 	13: {name: "jscolor.js", type: "js"},
 	14:  {name: "colorScheme.js", type: "js"},
 	15:  {name: "addons.js", type: "js"},
-	16: {name: "local/default/img/menu.png", type: "img", class:"menuImageForLoad"},
-	17: {name: "local/default/img/play.png", type: "img", class:"playImageForLoad"},
-	18: {name: "local/default/img/pause.png", type: "img", class:"pauseImageForLoad"},
-	19: {name: "local/default/img/refresh.png", type: "img", class:"refreshImageForLoad"},
-	20: {name: "local/default/img/infoSideBar.png", type: "img", class:"infoSideBarImageForLoad"},
-	21: {name: "local/default/img/eraserSideBar.png", type: "img", class:"eraserSideBarImageForLoad"},
-	22: {name: "local/default/img/trashCanSideBar.png", type: "img", class:"trashCanSideBarImageForLoad"},
-	23: {name: "local/default/img/downArrowSideBar.png", type: "img", class:"downArrowSideBarImageForLoad"},
-	24: {name: "local/default/img/gear.png", type: "img", class:"gearImageForLoad"}
+	16: {name: baseUrl + "img/menu.png", type: "img", class:"menuImageForLoad"},
+	17: {name: baseUrl + "img/play.png", type: "img", class:"playImageForLoad"},
+	18: {name: baseUrl + "img/pause.png", type: "img", class:"pauseImageForLoad"},
+	19: {name: baseUrl + "img/refresh.png", type: "img", class:"refreshImageForLoad"},
+	20: {name: baseUrl + "img/infoSideBar.png", type: "img", class:"infoSideBarImageForLoad"},
+	21: {name: baseUrl + "img/eraserSideBar.png", type: "img", class:"eraserSideBarImageForLoad"},
+	22: {name: baseUrl + "img/trashCanSideBar.png", type: "img", class:"trashCanSideBarImageForLoad"},
+	23: {name: baseUrl + "img/downArrowSideBar.png", type: "img", class:"downArrowSideBarImageForLoad"},
+	24: {name: baseUrl + "img/gear.png", type: "img", class:"gearImageForLoad"}
+>>>>>>> origin/6.1
 };
 var countForCheck = 1;
 var arrayOfJsFilesKeys = Object.keys(arrayOfJsFiles);
@@ -53,19 +54,19 @@ function updateCustomLoadImages()
 	}
 	if(truncateLog === "true")
 	{
-		arrayOfJsFiles[Object.keys(arrayOfJsFiles).length] = {name: "local/default/img/eraserMulti.png", type: "img", class:"eraserMultiImageForLoad"};
+		arrayOfJsFiles[Object.keys(arrayOfJsFiles).length] = {name: baseUrl + "img/eraserMulti.png", type: "img", class:"eraserMultiImageForLoad"};
 	}
 	if(truncateLog === "false")
 	{
-		arrayOfJsFiles[Object.keys(arrayOfJsFiles).length] = {name: "local/default/img/eraser.png", type: "img", class:"eraserForLoad"};
+		arrayOfJsFiles[Object.keys(arrayOfJsFiles).length] = {name: baseUrl + "img/eraser.png", type: "img", class:"eraserForLoad"};
 	}
 	if(enableMultiLog === "true" && multiLogOnIndex === "true")
 	{
-		arrayOfJsFiles[Object.keys(arrayOfJsFiles).length] = {name: "local/default/img/multiLog.png", type: "img", class:"multiLogImageForLoad"};
+		arrayOfJsFiles[Object.keys(arrayOfJsFiles).length] = {name: baseUrl + "img/multiLog.png", type: "img", class:"multiLogImageForLoad"};
 	}
 	if(hideClearAllNotifications !== "true")
 	{
-		arrayOfJsFiles[Object.keys(arrayOfJsFiles).length] = {name: "local/default/img/notificationClear.png", type: "img", class:"notificationClearImageForLoad"};
+		arrayOfJsFiles[Object.keys(arrayOfJsFiles).length] = {name: baseUrl + "img/notificationClear.png", type: "img", class:"notificationClearImageForLoad"};
 	}
 	if(hideNotificationIcon !== "true")
 	{
@@ -73,12 +74,12 @@ function updateCustomLoadImages()
 	}
 	if(windowConfig !== "1x1")
 	{
-		arrayOfJsFiles[Object.keys(arrayOfJsFiles).length] = {name: "local/default/img/pin.png", type: "img", class:"pinImageForLoad"};
-		arrayOfJsFiles[Object.keys(arrayOfJsFiles).length] = {name: "local/default/img/pinPinned.png", type: "img", class:"pinPinnedImageForLoad"};
+		arrayOfJsFiles[Object.keys(arrayOfJsFiles).length] = {name: baseUrl + "img/pin.png", type: "img", class:"pinImageForLoad"};
+		arrayOfJsFiles[Object.keys(arrayOfJsFiles).length] = {name: baseUrl + "img/pinPinned.png", type: "img", class:"pinPinnedImageForLoad"};
 	}
 	if(enableHistory === "true")
 	{
-		arrayOfJsFiles[Object.keys(arrayOfJsFiles).length] = {name: "local/default/img/history.png", type: "img", class:"historyImageForLoad"};
+		arrayOfJsFiles[Object.keys(arrayOfJsFiles).length] = {name: baseUrl + "img/history.png", type: "img", class:"historyImageForLoad"};
 	}
 }
 

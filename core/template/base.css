@@ -446,3 +446,10 @@ div.sidebarLeft {
   background-color: black;
   color: white;
 }
+.currentWindowNumSelected{
+  cursor: default;
+}
+
+.sidebarCurrentWindowNum{
+  cursor: pointer;
+}

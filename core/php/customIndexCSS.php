@@ -169,4 +169,12 @@ elseif($logMenuLocation === "bottom"): ?>
   color: <?php echo $notificationInlineFontColor; ?>;
 }
 
+<?php if($notificationPreviewHideWidth === "true"): ?>
+@media only screen and (max-width: 1000px) {
+	.notificationPreviewLog{
+		display: none;
+	}
+}
+<?php endif; ?>
+
 </style>
