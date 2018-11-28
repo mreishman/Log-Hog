@@ -55,6 +55,7 @@ var timer;
 var timerForSettings;
 var timerForWatchlist;
 var titles = {};
+var urlForAddonSend = "core/php/template/innerAddon.php";
 var urlForSendMain = "core/php/performSettingsInstallUpdateAction.php?format=json";
 var updateFromID = "settingsInstallUpdate";
 var updating = false;

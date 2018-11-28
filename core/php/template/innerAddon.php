@@ -292,7 +292,7 @@
 		{
 			//reload page on finish?
 			updateText(100);
-			$.get( "core/php/template/innerAddon.php", function( data ) {
+			$.get( urlForAddonSend, function( data ) {
 				$("#innerAddonSpanReplace").html(data);
 				if(typeof updateOtherApps !== "undefined")
 				{
