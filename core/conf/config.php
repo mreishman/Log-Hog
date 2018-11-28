@@ -301,6 +301,7 @@ $defaultConfig = array(
 	'notificationNewLine'			=> 'true',
 	'notificationNewLog'			=> 'true',
 	'notificationPreviewHeight'		=> 100,
+	'notificationPreviewHideWidth'	=> 'true',
 	'notificationPreviewLineCount'	=> 50,
 	'notificationPreviewOnlyNew'	=> 'false',
 	'notificationPreviewShow'		=> 'true',

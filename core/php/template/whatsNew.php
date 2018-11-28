@@ -103,7 +103,7 @@
 				"Version"		=>	"6.1",
 				"Name"			=>	"More Notifications!",
 				"BP"			=>	array("Redesigned Notifications"),
-				"Images"		=>	array("6.1-1.png","6.1-2.png")
+				"Images"		=>	array("6.1-1.png","6.1-2.png","6.1-3.png","6.1-4.png")
 			)
 		);
 		$dataForWhatsNew = array_reverse($dataForWhatsNew);
@@ -130,14 +130,14 @@
 				</td>
 				<td>
 					<?php foreach ($value["Images"] as $IMGValue):
-						echo generateImage(
+						echo "<div style=\"display: inline-block;\" >".generateImage(
 							$arrayOfImages["loadingImg"],
 							$imageConfig = array(
 								"class"		=>	"whatsNewImage",
-								"style"		=>	"width: 100%; max-width: 500px;",
+								"style"		=>	"max-width: 500px;",
 								"data-src"	=>	$imageDirModifierAbout."core/img/".$IMGValue
 								)
-							);
+							)."</div>";
 					endforeach; ?>
 				</td>
 			</tr>
