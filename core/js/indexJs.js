@@ -1,101 +1,8 @@
 var timerForLoadJS = null;
 var counterForJSLoad = 0;
 var loadedFile = false;
-var arrayOfJsFiles = {
-	0:  {name: "core/template/base.css", type: "css"},
-	1:  {name: "core/template/loading-bar.css", type: "css"},
-	2:  {name: baseUrl + "template/theme.css", type: "css"},
-	3:  {name: "jquery.js", type: "js"},
-	4:  {name: "visibility.core.js", type: "js"},
-	5:  {name: "visibility.fallback.js", type: "js"},
-	6:  {name: "visibility.timers.js", type: "js"},
-	7:  {name: "loading-bar.min.js", type: "js"},
-	8:  {name: "main.js", type: "js"},
-	9:  {name: "rightClickJS.js", type: "js"},
-	10: {name: "update.js", type: "js"},
-	11: {name: "settings.js", type: "js"},
-	12: {name: "loghogDownloadJS.js", type: "js"},
-	13: {name: "jscolor.js", type: "js"},
-	14: {name: "colorScheme.js", type: "js"},
-	15: {name: "addons.js", type: "js"},
-	16: {name: "menu.js", type: "js"},
-	17: {name: "notifications.js", type: "js"},
-	18: {name: "fullscreenMenu.js", type: "js"},
-	19: {name: baseUrl + "img/menu.png", type: "img", class:"menuImageForLoad"},
-	20: {name: baseUrl + "img/play.png", type: "img", class:"playImageForLoad"},
-	21: {name: baseUrl + "img/pause.png", type: "img", class:"pauseImageForLoad"},
-	22: {name: baseUrl + "img/refresh.png", type: "img", class:"refreshImageForLoad"},
-	23: {name: baseUrl + "img/infoSideBar.png", type: "img", class:"infoSideBarImageForLoad"},
-	24: {name: baseUrl + "img/eraserSideBar.png", type: "img", class:"eraserSideBarImageForLoad"},
-	25: {name: baseUrl + "img/trashCanSideBar.png", type: "img", class:"trashCanSideBarImageForLoad"},
-	26: {name: baseUrl + "img/downArrowSideBar.png", type: "img", class:"downArrowSideBarImageForLoad"},
-	27: {name: baseUrl + "img/gear.png", type: "img", class:"gearImageForLoad"}
-};
+var msDelay = 25;
 var countForCheck = 1;
-var arrayOfJsFilesKeys = Object.keys(arrayOfJsFiles);
-var lengthOfArrayOfJsFiles = arrayOfJsFilesKeys.length;
-
-function updateCustomLoadImages()
-{
-	if(sendCrashInfoJS === "true")
-	{
-		arrayOfJsFiles[Object.keys(arrayOfJsFiles).length] = {name: "Raven.js", type: "js"};
-	}
-	if(expFormatEnabled === "true")
-	{
-		arrayOfJsFiles[Object.keys(arrayOfJsFiles).length] = {name: "format.js", type: "js"};
-		arrayOfJsFiles[Object.keys(arrayOfJsFiles).length] = {name: "dateFormat.min.js", type: "js"};
-	}
-	if(themesEnabled === "true")
-	{
-		arrayOfJsFiles[Object.keys(arrayOfJsFiles).length] = {name: "themes.js", type: "js"};
-	}
-	if(oneLogEnable === "true")
-	{
-		arrayOfJsFiles[Object.keys(arrayOfJsFiles).length] = {name: "oneLog.js", type: "js"};
-	}
-	if(enableHistory === "true")
-	{
-		arrayOfJsFiles[Object.keys(arrayOfJsFiles).length] = {name: "archive.js", type: "js"};
-	}
-	if(enableMultiLog === "true")
-	{
-		arrayOfJsFiles[Object.keys(arrayOfJsFiles).length] = {name: "multilog.js", type: "js"};
-	}
-	if(hideEmptyLog === "true")
-	{
-		arrayOfJsFiles[Object.keys(arrayOfJsFiles).length] = {name: "hideEmptyLog.js", type: "js"};
-	}
-	if(truncateLog === "true")
-	{
-		arrayOfJsFiles[Object.keys(arrayOfJsFiles).length] = {name: baseUrl + "img/eraserMulti.png", type: "img", class:"eraserMultiImageForLoad"};
-	}
-	if(truncateLog === "false")
-	{
-		arrayOfJsFiles[Object.keys(arrayOfJsFiles).length] = {name: baseUrl + "img/eraser.png", type: "img", class:"eraserForLoad"};
-	}
-	if(enableMultiLog === "true" && multiLogOnIndex === "true")
-	{
-		arrayOfJsFiles[Object.keys(arrayOfJsFiles).length] = {name: baseUrl + "img/multiLog.png", type: "img", class:"multiLogImageForLoad"};
-	}
-	if(hideClearAllNotifications !== "true")
-	{
-		arrayOfJsFiles[Object.keys(arrayOfJsFiles).length] = {name: baseUrl + "img/notificationClear.png", type: "img", class:"notificationClearImageForLoad"};
-	}
-	if(hideNotificationIcon !== "true")
-	{
-		arrayOfJsFiles[Object.keys(arrayOfJsFiles).length] = {name: "local/default/img/notification.png", type: "img", class:"notificationImageForLoad"};
-	}
-	if(windowConfig !== "1x1")
-	{
-		arrayOfJsFiles[Object.keys(arrayOfJsFiles).length] = {name: baseUrl + "img/pin.png", type: "img", class:"pinImageForLoad"};
-		arrayOfJsFiles[Object.keys(arrayOfJsFiles).length] = {name: baseUrl + "img/pinPinned.png", type: "img", class:"pinPinnedImageForLoad"};
-	}
-	if(enableHistory === "true")
-	{
-		arrayOfJsFiles[Object.keys(arrayOfJsFiles).length] = {name: baseUrl + "img/history.png", type: "img", class:"historyImageForLoad"};
-	}
-}
 
 function tryLoadJSStuff()
 {
@@ -155,7 +62,7 @@ function tryLoadJSStuff()
 				loadedFile = true;
 			}, false);
 		}
-		timerForLoadJS = setInterval(checkIfJSLoaded, 25);
+		timerForLoadJS = setInterval(checkIfJSLoaded, msDelay);
 	}
 }
 function checkIfJSLoaded()
@@ -190,8 +97,8 @@ function checkIfJSLoaded()
 		else
 		{
 			setTimeout(function() {
-				timerForLoadJS = setInterval(tryLoadJSStuff, 25);
-			}, 25);
+				timerForLoadJS = setInterval(tryLoadJSStuff, msDelay);
+			}, msDelay);
 		}
 	}
 	else

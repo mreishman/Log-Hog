@@ -107,6 +107,7 @@ $externalLinkImage = generateImage(
 	<script src="core/js/indexJs.js?v=<?php echo $jsVersion?>"></script>
 	<?php
 		echo loadSentryData($sendCrashInfoJS, $branchSelected);
+		require_once("core/php/indexJsObjectCreator.php");
 	?>
 </head>
 <body>
@@ -280,7 +281,6 @@ $externalLinkImage = generateImage(
 			</tr>
 		</table>
 		<script type="text/javascript">
-			updateCustomLoadImages();
 			document.addEventListener("DOMContentLoaded", function(event)
 			{
 				arrayOfJsFilesKeys = Object.keys(arrayOfJsFiles);
