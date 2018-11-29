@@ -1311,24 +1311,92 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			1									=> array(
-				"info"								=>	"Show notifications when logs get updated",
-				"type"								=>	"single",
+			1									=>	array(
+				"bool"								=>	($notificationNewLine == 'false'),
+				"id"								=>	"notificationNewLineSettings",
+				"name"								=>	"New Line Notification Settings",
+				"type"								=>	"grouped",
 				"var"								=>	array(
+					"function"							=>	"showOrHidenotificationNewLineSettings",
+					"id"								=>	"notificationNewLine",
 					"key"								=>	"notificationNewLine",
 					"name"								=>	"Show New Line Notification",
 					"options"							=>	$trueFalsVars,
 					"type"								=>	"dropdown"
+				),
+				"vars"								=>	array(
+					0									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"notificationNewLineHighlight",
+							"name"								=>	"Highlight Label",
+							"options"							=>	$trueFalsVars,
+							"type"								=>	"dropdown"
+						)
+					),
+					1									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"notificationNewLineBadge",
+							"name"								=>	"Update Badge",
+							"options"							=>	$trueFalsVars,
+							"type"								=>	"dropdown"
+						)
+					),
+					2									=> array(
+						"info"								=>	"Will be overridden by show dropdown alert setting if false, wont if true",
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"notificationNewLineDropdown",
+							"name"								=>	"Show Dropdown",
+							"options"							=>	$trueFalsVars,
+							"type"								=>	"dropdown"
+						)
+					)
 				)
 			),
-			2									=> array(
-				"info"								=>	"Show notifications when new logs get added",
-				"type"								=>	"single",
+			2									=>	array(
+				"bool"								=>	($notificationNewLog == 'false'),
+				"id"								=>	"notificationNewLogSettings",
+				"name"								=>	"New Log Notification Settings",
+				"type"								=>	"grouped",
 				"var"								=>	array(
+					"function"							=>	"showOrHidenotificationNewLogSettings",
+					"id"								=>	"notificationNewLog",
 					"key"								=>	"notificationNewLog",
 					"name"								=>	"Show New Log Notification",
 					"options"							=>	$trueFalsVars,
 					"type"								=>	"dropdown"
+				),
+				"vars"								=>	array(
+					0									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"notificationNewLogHighlight",
+							"name"								=>	"Highlight Label",
+							"options"							=>	$trueFalsVars,
+							"type"								=>	"dropdown"
+						)
+					),
+					1									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"notificationNewLogBadge",
+							"name"								=>	"Update Badge",
+							"options"							=>	$trueFalsVars,
+							"type"								=>	"dropdown"
+						)
+					),
+					2									=> array(
+						"info"								=>	"Will be overridden by show dropdown alert setting if false, wont if true",
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"notificationNewLogDropdown",
+							"name"								=>	"Show Dropdown",
+							"options"							=>	$trueFalsVars,
+							"type"								=>	"dropdown"
+						)
+					)
 				)
 			),
 			3									=>	array(

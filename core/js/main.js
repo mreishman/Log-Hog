@@ -1274,15 +1274,20 @@ function update(data)
 
 							if(!firstLoad)
 							{
-								if(!$("#menu a." + id + "Button").hasClass("updated") && ( (!(fullPathSearch in fileData)) || fileData[fullPathSearch]["AlertEnabled"] === "true" ) && (!(id in alertEnabledArray) || (id in alertEnabledArray && alertEnabledArray[id] === "enabled")))
+								if(notificationNewLog === "true" && !$("#menu a." + id + "Button").hasClass("updated") && ( (!(fullPathSearch in fileData)) || fileData[fullPathSearch]["AlertEnabled"] === "true" ) && (!(id in alertEnabledArray) || (id in alertEnabledArray && alertEnabledArray[id] === "enabled")))
 								{
-									$("#menu a." + id + "Button").addClass("updated");
-									if(notificationNewLog === "true")
+									if(notificationNewLogHighlight === "true")
+									{
+										$("#menu a." + id + "Button").addClass("updated");
+									}
+									if(notificationNewLogBadge === "true" || notificationNewLogDropdown === "true")
 									{
 										addLogNotification({
 											log: id,
 											name: "New Log "+nameForLog,
-											action: "$('#"+id+"').click();  closeNotificationsAndMainMenu();"
+											action: "$('#"+id+"').click();  closeNotificationsAndMainMenu();",
+											showNotification: notificationNewLineBadge,
+											showDropdown: notificationNewLineDropdown
 										});
 									}
 								}
@@ -1424,21 +1429,29 @@ function update(data)
 									}
 									else
 									{
-										if(!$("#menu a." + id + "Button").hasClass("updated"))
+										if(notificationNewLineHighlight === "true")
 										{
-											$("#menu a." + id + "Button").addClass("updated");
+											if(!$("#menu a." + id + "Button").hasClass("updated"))
+											{
+												$("#menu a." + id + "Button").addClass("updated");
+											}
 										}
-										var numForNot = "";
-										if (diffNew !== "(0)")
+										if(notificationNewLineBadge === "true" || notificationNewLineDropdown === "true")
 										{
-											numForNot = diffNew;
+											var numForNot = "";
+											if (diffNew !== "(0)")
+											{
+												numForNot = diffNew;
+											}
+											addLogNotification({
+												log: id,
+												name: nameForLog+" Update "+numForNot,
+												action: "$('#"+id+"').click();  closeNotificationsAndMainMenu();",
+												newText: newDiffText,
+												showNotification: notificationNewLogBadge,
+												showDropdown: notificationNewLogDropdown
+											});
 										}
-										addLogNotification({
-											log: id,
-											name: nameForLog+" Update "+numForNot,
-											action: "$('#"+id+"').click();  closeNotificationsAndMainMenu();",
-											newText: newDiffText
-										});
 									}
 								}
 							}
@@ -3793,27 +3806,31 @@ function addNotification(notificationArray)
 	{
 		currentId = notificationArray["currentId"];
 	}
-	notifications[currentId] = new Array();
-	notifications[currentId]["id"] = currentId;
-	notifications[currentId]["name"] = notificationArray["name"];
-	notifications[currentId]["time"] = formatAMPM(new Date());
-	notifications[currentId]["action"] = notificationArray["action"];
-	notifications[currentId]["viewed"] = false;
-	notifications[currentId]["newText"] = "";
+	var newNotification = {};
+	newNotification["id"] = currentId;
+	newNotification["name"] = notificationArray["name"];
+	newNotification["time"] = formatAMPM(new Date());
+	newNotification["action"] = notificationArray["action"];
+	newNotification["viewed"] = false;
+	newNotification["newText"] = "";
 	if("newText" in notificationArray)
 	{
-		notifications[currentId]["newText"] = notificationArray["newText"];
+		newNotification["newText"] = notificationArray["newText"];
 	}
 	if("log" in notificationArray)
 	{
-		notifications[currentId]["log"] = notificationArray["log"];
+		newNotification["log"] = notificationArray["log"];
 	}
-	if(notificationInlineShow === "true")
+	if(notificationInlineShow === "true" && notificationArray["notificationNewLogDropdown"] === "true")
 	{
 		inlineNotificationAdd(notifications[currentId]);
 	}
-
-	updateNotificationStuff();
+	if(notificationArray["showNotification"] === "true")
+	{
+		notifications[currentId] = new Array();
+		notifications[currentId] = newNotification;
+		updateNotificationStuff();
+	}
 }
 
 function inlineNotificationAdd(notificationArray)
