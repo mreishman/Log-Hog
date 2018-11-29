@@ -299,28 +299,33 @@ function addNotification(notificationArray)
 	{
 		currentId = notificationArray["currentId"];
 	}
-	notifications[currentId] = new Array();
-	notifications[currentId]["id"] = currentId;
-	notifications[currentId]["name"] = notificationArray["name"];
-	notifications[currentId]["time"] = formatAMPM(new Date());
-	notifications[currentId]["action"] = notificationArray["action"];
-	notifications[currentId]["viewed"] = false;
-	notifications[currentId]["newText"] = "";
+	var newNotification = {};
+	newNotification["id"] = currentId;
+	newNotification["name"] = notificationArray["name"];
+	newNotification["time"] = formatAMPM(new Date());
+	newNotification["action"] = notificationArray["action"];
+	newNotification["viewed"] = false;
+	newNotification["newText"] = "";
 	if("newText" in notificationArray)
 	{
-		notifications[currentId]["newText"] = notificationArray["newText"];
+		newNotification["newText"] = notificationArray["newText"];
 	}
 	if("log" in notificationArray)
 	{
-		notifications[currentId]["log"] = notificationArray["log"];
+		newNotification["log"] = notificationArray["log"];
 	}
-	if(notificationInlineShow === "true")
+	if(notificationInlineShow === "true" && notificationArray["showDropdown"] === "true")
 	{
-		inlineNotificationAdd(notifications[currentId]);
+		inlineNotificationAdd(newNotification);
 	}
-
-	updateNotificationStuff();
+	if(notificationArray["showNotification"] === "true")
+	{
+		notifications[currentId] = new Array();
+		notifications[currentId] = newNotification;
+		updateNotificationStuff();
+	}
 }
+
 
 function inlineNotificationAdd(notificationArray)
 {

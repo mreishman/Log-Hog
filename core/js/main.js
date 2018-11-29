@@ -1274,15 +1274,20 @@ function update(data)
 
 							if(!firstLoad)
 							{
-								if(!$("#menu a." + id + "Button").hasClass("updated") && ( (!(fullPathSearch in fileData)) || fileData[fullPathSearch]["AlertEnabled"] === "true" ) && (!(id in alertEnabledArray) || (id in alertEnabledArray && alertEnabledArray[id] === "enabled")))
+								if(notificationNewLog === "true" && !$("#menu a." + id + "Button").hasClass("updated") && ( (!(fullPathSearch in fileData)) || fileData[fullPathSearch]["AlertEnabled"] === "true" ) && (!(id in alertEnabledArray) || (id in alertEnabledArray && alertEnabledArray[id] === "enabled")))
 								{
-									$("#menu a." + id + "Button").addClass("updated");
-									if(notificationNewLog === "true")
+									if(notificationNewLogHighlight === "true")
+									{
+										$("#menu a." + id + "Button").addClass("updated");
+									}
+									if(notificationNewLogBadge === "true" || notificationNewLogDropdown === "true")
 									{
 										addLogNotification({
 											log: id,
 											name: "New Log "+nameForLog,
-											action: "$('#"+id+"').click();  closeNotificationsAndMainMenu();"
+											action: "$('#"+id+"').click();  closeNotificationsAndMainMenu();",
+											showNotification: notificationNewLineBadge,
+											showDropdown: notificationNewLineDropdown
 										});
 									}
 								}
@@ -1424,21 +1429,29 @@ function update(data)
 									}
 									else
 									{
-										if(!$("#menu a." + id + "Button").hasClass("updated"))
+										if(notificationNewLineHighlight === "true")
 										{
-											$("#menu a." + id + "Button").addClass("updated");
+											if(!$("#menu a." + id + "Button").hasClass("updated"))
+											{
+												$("#menu a." + id + "Button").addClass("updated");
+											}
 										}
-										var numForNot = "";
-										if (diffNew !== "(0)")
+										if(notificationNewLineBadge === "true" || notificationNewLineDropdown === "true")
 										{
-											numForNot = diffNew;
+											var numForNot = "";
+											if (diffNew !== "(0)")
+											{
+												numForNot = diffNew;
+											}
+											addLogNotification({
+												log: id,
+												name: nameForLog+" Update "+numForNot,
+												action: "$('#"+id+"').click();  closeNotificationsAndMainMenu();",
+												newText: newDiffText,
+												showNotification: notificationNewLogBadge,
+												showDropdown: notificationNewLogDropdown
+											});
 										}
-										addLogNotification({
-											log: id,
-											name: nameForLog+" Update "+numForNot,
-											action: "$('#"+id+"').click();  closeNotificationsAndMainMenu();",
-											newText: newDiffText
-										});
 									}
 								}
 							}
