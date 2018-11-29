@@ -3821,9 +3821,9 @@ function addNotification(notificationArray)
 	{
 		newNotification["log"] = notificationArray["log"];
 	}
-	if(notificationInlineShow === "true" && notificationArray["notificationNewLogDropdown"] === "true")
+	if(notificationInlineShow === "true" && notificationArray["showDropdown"] === "true")
 	{
-		inlineNotificationAdd(notifications[currentId]);
+		inlineNotificationAdd(newNotification);
 	}
 	if(notificationArray["showNotification"] === "true")
 	{
