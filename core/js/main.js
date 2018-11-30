@@ -487,119 +487,6 @@ function pollTwoPartTwo(data)
 	}
 }
 
-function addToGroupTab(newGroups)
-{
-	newGroups = newGroups.split(" ");
-	var newGroupsLength = newGroups.length;
-	for(var NGcount = 0; NGcount < newGroupsLength; NGcount++)
-	{
-		if(!($("#selectForGroup option[value='"+newGroups[NGcount]+"']").length > 0) && newGroups[NGcount] !== "")
-		{
-			$("#selectForGroup").append("<option value='"+newGroups[NGcount]+"'>"+newGroups[NGcount]+"</option>");
-		}
-	}
-}
-
-function getArrayOfGroups(data)
-{
-	var fileDataKeys = Object.keys(data);
-	var fileDataKeysLength = fileDataKeys.length;
-	var arrayOfGroups = new Array();
-	for(var OGRcount = 0; OGRcount < fileDataKeysLength; OGRcount++)
-	{
-		var group = data[fileDataKeys[OGRcount]]["Group"];
-		group = group.split(" ");
-		var groupsLength = group.length;
-		for(var CGcount = 0; CGcount < groupsLength; CGcount++)
-		{
-			if($.inArray(group[CGcount], arrayOfGroups) === -1 && $.inArray(fileDataKeys[OGRcount].replace(/[^a-z0-9]/g, ""), logsToHide) === -1)
-			{
-				arrayOfGroups.push(group[CGcount]);
-			}
-		}
-	}
-	return arrayOfGroups;
-}
-
-function updateGroupsOnTabs(data, arrayOfGroupsModded)
-{
-	var arrayOfGroupsLength = arrayOfGroupsModded.length;
-	var fileDataKeysTwo = Object.keys(data);
-	var fileDataKeysLengthTwo = fileDataKeysTwo.length;
-	var idForTab = "";
-	for(var EGRcount = 0; EGRcount < arrayOfGroupsLength; EGRcount++)
-	{
-		arrayOfGroupsModded[EGRcount] = arrayOfGroupsModded[EGRcount] + "Group";
-	}
-	for(var UGRcount = 0; UGRcount < fileDataKeysLengthTwo; UGRcount++)
-	{
-		idForTab = fileDataKeysTwo[UGRcount].replace(/[^a-z0-9]/g, "");
-		if(document.getElementById(idForTab))
-		{
-			var classList = document.getElementById(idForTab).className.split(" ");
-			var classListLength = classList.length;
-			for(var classCount = 0; classCount < classListLength; classCount++)
-			{
-				if(classList[classCount].indexOf("Group") > -1 && classList[classCount] !== "allGroup")
-				{
-					if($.inArray(classList[classCount], arrayOfGroupsModded) === -1)
-					{
-						//class is not in group, remove it from tab
-						$("#"+idForTab).removeClass(classList[classCount]);
-						if($("#"+idForTab+"GroupInName"))
-						{
-							//group name shows, update if there is one
-							var possibleNewGroup = data[fileDataKeysTwo[UGRcount]]["Group"];
-							possibleNewGroup = possibleNewGroup.split(" ")[0];
-							$("#"+idForTab+"GroupInName").html("");
-							if(possibleNewGroup !== "")
-							{
-								$("#"+idForTab+"GroupInName").html(possibleNewGroup+":");
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-
-	for(var AGRcount = 0; AGRcount < fileDataKeysLengthTwo; AGRcount++)
-	{
-		idForTab = fileDataKeysTwo[AGRcount].replace(/[^a-z0-9]/g, "");
-		if(document.getElementById(idForTab))
-		{
-			var groupSearch = data[fileDataKeysTwo[AGRcount]]["Group"];
-			groupSearch = groupSearch.split(" ");
-			var groupSearchLength = groupSearch.length;
-			for(var GScount = 0; GScount < groupSearchLength; GScount++)
-			{
-				if(!$("#"+idForTab).hasClass(groupSearch[GScount]+"Group"))
-				{
-					$("#"+idForTab).addClass(groupSearch[GScount]+"Group");
-				}
-			}
-		}
-	}
-}
-
-function removeOldGroups(data, arrayOfGroups)
-{
-	var modCOScount = 0;
-	var currentOptionsSelect = document.getElementById("selectForGroup").options;
-	var currentOptionsSelectLength = currentOptionsSelect.length;
-	for(var COScount = 0; COScount < currentOptionsSelectLength; COScount++)
-	{
-		if(currentOptionsSelect[modCOScount].value !== "all" && $.inArray(currentOptionsSelect[modCOScount].value, arrayOfGroups) === -1)
-		{
-			//remove because not in new array
-			var selectGroupSelector = document.getElementById("selectForGroup");
-			$("#selectForGroup option[value=\""+currentOptionsSelect[modCOScount].value+"\"]").remove();
-			modCOScount--;
-		}
-		modCOScount++;
-	}
-}
-
 function pollThree(arrayToUpdate)
 {
 	try
@@ -657,24 +544,9 @@ function pollThree(arrayToUpdate)
 
 function updateFileDataArray(newDataArr)
 {
-	if(expFormatEnabled !== "true")
+	if(expFormatEnabled === "true")
 	{
-		return;
-	}
-	var newDataArrKeys = Object.keys(newDataArr);
-	var newDataArrKeysLength=  newDataArrKeys.length;
-	for(var NDACount = 0; NDACount < newDataArrKeysLength; NDACount++)
-	{
-		var fileDataArr = newDataArr[newDataArrKeys[NDACount]]["fileData"];
-		var fileDataArrKeys = Object.keys(fileDataArr);
-		var fileDataArrKeysLength = fileDataArrKeys.length;
-		if(fileDataArrKeysLength > 0)
-		{
-			for(var FDACount = 0; FDACount < fileDataArrKeysLength; FDACount++)
-			{
-				arrayOfFileData[fileDataArrKeys[FDACount]] = fileDataArr[fileDataArrKeys[FDACount]];
-			}
-		}
+		updateFileDataArrayInner(newDataArr);
 	}
 }
 
@@ -864,147 +736,6 @@ function addPaddingToNumber(number, padding = 4)
 	catch(e)
 	{
 		eventThrowException(e);
-	}
-}
-
-function pausePollAction()
-{
-	try
-	{
-		if(pausePollCurrentSession)
-		{
-			userPaused = false;
-			pausePollCurrentSession = false;
-			showPauseButton();
-			if(pollTimer === null)
-			{
-				poll();
-				startPollTimer();
-			}
-			if(!startedPauseOnNonFocus && pauseOnNotFocus === "true")
-			{
-				startPauseOnNotFocus();
-			}
-
-		}
-		else
-		{
-			userPaused = true;
-			pausePollFunction();
-		}
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
-function refreshAction()
-{
-	try
-	{
-		if(pollRefreshAllBoolStatic === "false")
-		{
-			pollRefreshAllBool = "true";
-		}
-		counterForPollForceRefreshAll = 1+pollRefreshAll;
-		showRefreshingButton();
-		refreshing = true;
-		poll();
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
-function endRefreshAction()
-{
-	try
-	{
-		if(pollRefreshAllBoolStatic === "false")
-		{
-			pollRefreshAllBool = "false";
-		}
-		showRefreshButton(); 
-		refreshing = false;
-		if(pausePollCurrentSession)
-		{
-			updateDocumentTitle("Paused");
-		}
-		else
-		{
-			updateDocumentTitle("Index");
-		}
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
-function getFilterData(name, shortName, logData)
-{
-	var selectListForFilter = document.getElementsByName("searchType")[0];
-	var selectedListFilterType = selectListForFilter.options[selectListForFilter.selectedIndex].value;
-	var filterOffOf = "";
-	if(selectedListFilterType === "title")
-	{
-		if(filterTitleIncludePath === "true")
-		{
-			filterOffOf = name;
-		}
-		else
-		{
-			filterOffOf = shortName;
-		}
-	}
-	else if(selectedListFilterType === "content")
-	{
-		filterOffOf = logData;
-	}
-
-	if(caseInsensitiveSearch === "true")
-	{
-		if( typeof filterOffOf === "string" && filterOffOf !== "")
-		{
-			filterOffOf = filterOffOf.toLowerCase();
-		}
-	}
-	return filterOffOf;
-}
-
-function showFileFromFilter(id, name, shortName, logData)
-{
-	var filterOffOf = getFilterData(name, shortName, logData);
-	if(logsToHide instanceof Array && (logsToHide.length === 0 || $.inArray(id, logsToHide) === -1 ))
-	{
-		if(typeof filterOffOf === "string" && filterOffOf !== "")
-		{
-			var filterTextField = getFilterTextField();
-			if(filterTextField === "" || filterOffOf.indexOf(filterTextField) !== -1)
-			{
-				return true;
-			}
-		}
-		else
-		{
-			return true;
-		}
-	}
-	return false;
-}
-
-function showFileFromGroup(id)
-{
-	var groupSelect = document.getElementById("selectForGroup").value;
-	if(groupSelect === "all")
-	{
-		return true;
-	}
-	if($("#"+id).hasClass(groupSelect+"Group"))
-	{
-		return true;
 	}
 }
 
@@ -1469,7 +1200,7 @@ function update(data)
 								}
 							}
 						}
-						if(initialized && updated && $(window).filter(":focus").length === 0) 
+						if(initialized && updated && $(window).filter(":focus").length === 0)
 						{
 							if(flashTitleUpdateLog === "true")
 							{
@@ -1763,39 +1494,6 @@ function toggleDisplayOfNoLogs()
 	}
 }
 
-function tmpToggleAlerts(id)
-{
-	try
-	{
-		var menuObjectLocal = menuObjectRightClick[id];
-		var options = Object.keys(menuObjectLocal);
-		var lengthOfOptions = options.length;
-		for(var i = 0; i < lengthOfOptions; i++)
-		{
-			var currentOption = menuObjectLocal[options[i]];
-			if(currentOption["name"] === "Enable Alerts" || currentOption["name"] === "Disable Alerts")
-			{
-				menuObjectRightClick[id][options[i]]["name"] = "Disable Alerts";
-				if(currentOption["name"] === "Disable Alerts")
-				{
-					menuObjectRightClick[id][options[i]]["name"] = "Enable Alerts";
-				}
-				break;
-			}
-		}
-		alertEnabledArray[id] = "enabled";
-		if(currentOption["name"] === "Disable Alerts")
-		{
-			alertEnabledArray[id] = "disabled";
-			removeNotificationByLog(id);
-		}
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
 function updateScrollOnLogs()
 {
 	try
@@ -1934,69 +1632,6 @@ function tryToInsertAfterLog(innerCount, stop, idCheck, item)
 	{
 		eventThrowException(e);
 	}
-}
-
-function toggleNotificationClearButton()
-{
-	try
-	{
-		if($("#menu .updated").length !== 0)
-		{
-			//there is at least one updated thing, show button for clear all notifications
-			if(document.getElementById("clearNotificationsImage").style.display !== "inline-block")
-			{
-				document.getElementById("clearNotificationsImage").style.display = "inline-block";
-			}
-		}
-		else
-		{
-			if(document.getElementById("clearNotificationsImage").style.display !== "none")
-			{
-				document.getElementById("clearNotificationsImage").style.display = "none";
-			}
-		}
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
-function clearNotifications()
-{
-	clearingNotifications = true;
-	try
-	{
-		if($("#menu .updated").length !== 0)
-		{
-			var arrayOfLogs = $("#menu a");
-			var arrayOfLogsLength = arrayOfLogs.length;
-			for (var clearNotifCountOne = 0; clearNotifCountOne < arrayOfLogsLength; clearNotifCountOne++)
-			{
-				arrayOfLogs[clearNotifCountOne].classList.remove("updated");
-			}
-			var arrayOfCounts = $("#menu a .menuCounter");
-			var arrayOfCountsLength = arrayOfCounts.length;
-			for (var clearNotifCountTwo = 0; clearNotifCountTwo < arrayOfCountsLength; clearNotifCountTwo++)
-			{
-				arrayOfCounts[clearNotifCountTwo].innerHTML = "";
-			}
-			var arrayOfCountsHidden = $("#menu a .menuCounterHidden");
-			var arrayOfCountsHiddenLength = arrayOfCountsHidden.length;
-			for (var clearNotifCountThree = 0; clearNotifCountThree < arrayOfCountsHiddenLength; clearNotifCountThree++)
-			{
-				arrayOfCountsHidden[clearNotifCountThree].innerHTML = "";
-			}
-		}
-		refreshLastLogsArray();
-		document.getElementById("clearNotificationsImage").style.display = "none";
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-	clearingNotifications = false;
-	checkForUpdateLogsOffScreen();
 }
 
 function refreshLastLogsArray()
@@ -2523,52 +2158,6 @@ function makePrettyWithText(text, count)
 	}
 }
 
-function filterContentCheck(textToMatch)
-{
-	var filterTextField = getFilterTextField();
-	if(caseInsensitiveSearch === "true")
-	{
-		textToMatch = textToMatch.toLowerCase();
-	}
-	return (textToMatch.indexOf(filterTextField) !== -1);
-}
-
-function getFilterTextField()
-{
-	var filterTextField = document.getElementsByName("search")[0].value;
-	if(caseInsensitiveSearch === "true")
-	{
-		filterTextField = filterTextField.toLowerCase();
-	}
-	return filterTextField;
-}
-
-function getScrollbarWidth()
-{
-    var outer = document.createElement("div");
-    outer.style.visibility = "hidden";
-    outer.style.width = "100px";
-    outer.style.msOverflowStyle = "scrollbar"; // needed for WinJS apps
-
-    document.body.appendChild(outer);
-
-    var widthNoScroll = outer.offsetWidth;
-    // force scrollbars
-    outer.style.overflow = "scroll";
-
-    // add innerdiv
-    var inner = document.createElement("div");
-    inner.style.width = "100%";
-    outer.appendChild(inner);        
-
-    var widthWithScroll = inner.offsetWidth;
-
-    // remove divs
-    outer.parentNode.removeChild(outer);
-
-    return widthNoScroll - widthWithScroll;
-}
-
 function resize()
 {
 	try
@@ -2650,114 +2239,6 @@ function resize()
 	{
 		eventThrowException(e);
 	}
-}
-
-function resizeFullScreenMenu()
-{
-	try
-	{
-		var targetWidth = window.innerWidth;
-		var mainContentFullScreenMenuLeft = "402";
-		if(!sideBarVisible)
-		{
-			mainContentFullScreenMenuLeft = "201";
-		}
-		var mainContentFullScreenMenuTop = "46px";
-		if(sideBarOnlyIcons === "breakpointone" || targetWidth < breakPointOne || sideBarOnlyIcons === "breakpointtwo")
-		{
-			$(".fullScreenMenuText").hide();
-			if(document.getElementById("mainFullScreenMenu").getBoundingClientRect().width !== 52) //1px border included here
-			{
-				document.getElementById("mainFullScreenMenu").style.width = "51px";
-				$(".settingsUlSub").css("left", "52px");
-			}
-			mainContentFullScreenMenuLeft = "252";
-			if(!sideBarVisible)
-			{
-				mainContentFullScreenMenuLeft = "52";
-			}
-		}
-		else
-		{
-			$(".fullScreenMenuText").show();
-			if(document.getElementById("mainFullScreenMenu").getBoundingClientRect().width !== 201) //1px border included here
-			{
-				document.getElementById("mainFullScreenMenu").style.width = "200px";
-				$(".settingsUlSub").css("left", "201px");
-			}
-		}
-
-		if(targetWidth < breakPointTwo || sideBarOnlyIcons === "breakpointtwo")
-		{
-			mainContentFullScreenMenuLeft = "52";
-			if(sideBarVisible)
-			{
-				mainContentFullScreenMenuTop = "82px";
-			}
-			$(".settingsUlSub").css("width","auto").css("bottom","auto").css("right","0").css("border-bottom","1px solid white").css("border-right","none").css("height","35px");
-			$(".settingsUlSub li").not('.subMenuToggle').css("display","inline-block");
-			$(".menuTitle").not(".menuBreak , .fullScreenNotificationTitle").hide();
-		}
-		else
-		{
-			$(".settingsUlSub").css("width","200px").css("bottom","0").css("right","auto").css("border-bottom","none").css("border-right","1px solid white").css("height","auto");
-			$(".settingsUlSub li").not('.subMenuToggle').css("display","block");
-			$(".menuTitle").not(".fullScreenMenuText").show();
-		}
-
-		if(document.getElementById("mainContentFullScreenMenu").style.left !== mainContentFullScreenMenuLeft+"px")
-		{
-			document.getElementById("mainContentFullScreenMenu").style.left = mainContentFullScreenMenuLeft+"px";
-		}
-		if(document.getElementById("mainContentFullScreenMenu").style.top !== mainContentFullScreenMenuTop)
-		{
-			document.getElementById("mainContentFullScreenMenu").style.top = mainContentFullScreenMenuTop;
-		}
-		if(document.getElementById("notificationHolder").style.maxWidth !== (window.innerWidth - mainContentFullScreenMenuLeft)+"px")
-		{
-			document.getElementById("notificationHolder").style.maxWidth = (window.innerWidth - mainContentFullScreenMenuLeft)+"px";
-		}
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
-function flashTitle() 
-{
-	try
-	{
-		stopFlashTitle();
-		$("title").text("");
-		flasher = setInterval(function() {
-			$("title").text($("title").text() === "" ? title : "");
-		}, 1000);
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-	
-}
-
-function stopFlashTitle() 
-{
-	try
-	{
-		clearInterval(flasher);
-		$("title").text(title);
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-
-}
-
-function focus()
-{
-	stopFlashTitle();
 }
 
 function startPollTimer()
@@ -2890,7 +2371,10 @@ function checkIfPageHidden()
 		{
 			pausePollCurrentSession = false;
 			showPauseButton();
-			stopFlashTitle();
+			if(flashTitleUpdateLog === "true")
+			{
+				stopFlashTitle();
+			}
 			if(pollTimer === null)
 			{
 				poll();
@@ -3201,14 +2685,6 @@ function updateProgressBar(additonalPercent, text, topText = "Loading...")
 	}
 }
 
-function changeSearchplaceholder()
-{
-	var selectListForFilter = document.getElementsByName("searchType")[0];
-	var selectedListFilterType = selectListForFilter.options[selectListForFilter.selectedIndex].value;
-	document.getElementById("searchFieldInput").placeholder = "Filter "+selectedListFilterType;
-	generalUpdate();
-}
-
 function changeCurrentSelectWindow(newSelectWindow)
 {
 	newSelectWindow = parseInt(newSelectWindow);
@@ -3245,49 +2721,6 @@ function showInfo(idNum)
 	}
 }
 
-function changeFilterCase()
-{
-	caseInsensitiveSearch = document.getElementById("caseInsensitiveSearch").value;
-	possiblyUpdateFromFilter();
-}
-
-function changeHighlightContentMatch()
-{
-	filterContentHighlight = document.getElementById("filterContentHighlight").value;
-	possiblyUpdateFromFilter();
-}
-
-function changeFilterContentMatch()
-{
-	filterContentLimit = document.getElementById("filterContentLimit").value;
-	possiblyUpdateFromFilter();
-}
-
-function changeFilterContentLinePadding()
-{
-	filterContentLinePadding = parseInt(document.getElementById("filterContentLinePadding").value);
-	possiblyUpdateFromFilter();
-}
-
-function changeFilterTitleIncludePath()
-{
-	filterTitleIncludePath = document.getElementById("filterTitleIncludePath").value;
-	possiblyUpdateFromFilter();
-}
-
-function possiblyUpdateFromFilter()
-{
-	if(lastContentSearch !== getFilterTextField())
-	{
-		generalUpdate();
-		if(oneLogEnable === "true")
-		{
-			possiblyUpdateOneLogVisibleData();
-		}
-		lastContentSearch = getFilterTextField();
-	}
-}
-
 function formatAMPM(date)
 {
   var hours = date.getHours();
@@ -3298,53 +2731,6 @@ function formatAMPM(date)
   minutes = minutes < 10 ? '0'+minutes : minutes;
   var strTime = hours + ':' + minutes + ' ' + ampm;
   return strTime;
-}
-
-function toggleGroupedGroups()
-{
-	var groupSelect = document.getElementById("selectForGroup").value;
-	var listOfTabs = $("#menu a");
-	var listOfTabsKeys = Object.keys(listOfTabs);
-	var listOfTabsKeysLength = listOfTabsKeys.length;
-	for(var groupCount = 0; groupCount < listOfTabsKeysLength; groupCount++)
-	{
-		var objectTab = listOfTabs[listOfTabsKeys[groupCount]];
-		if(!objectTab)
-		{
-			continue;
-		}
-		var idOfObject = objectTab.id;
-		if($("#"+idOfObject).hasClass("active"))
-		{
-			//show tab if hidden
-			$("#"+idOfObject).show();
-		}
-		else if($.inArray(idOfObject, logsToHide) > -1)
-		{
-			//hide tab if not valid
-			$("#"+idOfObject).hide();
-		}
-		else if(document.getElementById("searchFieldInput").value === "")
-		{
-			if($("#"+idOfObject).hasClass(groupSelect+"Group") || groupSelect === "all")
-			{
-				//show tab if valid
-				$("#"+idOfObject).show();
-			}
-			else
-			{
-				//hide tab if not valid
-				$("#"+idOfObject).hide();
-			}
-		}
-	}
-	if(oneLogEnable === "true")
-	{
-		toggleVisibleOneLog();
-	}
-	//hide empty files if needed
-	hideEmptyLogs();
-	resize();
 }
 
 function hideEmptyLogs()
@@ -3527,26 +2913,6 @@ function startOfPollLogic()
 	}
 }
 
-function swapLayoutLetters(letter)
-{
-	document.getElementById("layoutVersionIndex").value = letter;
-	if(logSwitchABCClearAll === "true")
-	{
-		unselectAllLogs();
-	}
-	else
-	{
-		unselectLogsThatAreInNewLayout();
-	}
-	generalUpdate();
-}
-
-function resetSelection()
-{
-	var currentLayout = document.getElementById("layoutVersionIndex").value;
-	swapLayoutLetters(currentLayout);
-}
-
 function generalUpdate()
 {
 	update(arrayOfDataMain);
@@ -3554,112 +2920,15 @@ function generalUpdate()
 
 function checkForUpdateLogsOffScreen()
 {
-	if(offscreenLogNotify === "false")
+	if(offscreenLogNotify !== "false")
 	{
-		return;
-	}
-	var listOfLogsUpdated = document.getElementsByClassName("updated");
-	var listOfLogsUpdatedKeys = Object.keys(listOfLogsUpdated);
-	var lengthOfListOfLogsUpdatedKeys = listOfLogsUpdatedKeys.length;
-	var topPoll = false;
-	var bottomPoll = false;
-	if(lengthOfListOfLogsUpdatedKeys > 0)
-	{
-		var menuDim = document.getElementById("menu").getBoundingClientRect();
-		//check if any are hidden, then start flash poll to notify user of log offscreen updated
-		for(var counterLLU = 0; counterLLU < lengthOfListOfLogsUpdatedKeys; counterLLU++)
-		{
-			var currentDim = listOfLogsUpdated[listOfLogsUpdatedKeys[counterLLU]].getBoundingClientRect();
-			if(currentDim.y > (menuDim.height + menuDim.y - currentDim.height))
-			{
-				//this is off screen to bottom, start bottom poll.
-				bottomPoll = true;
-				if(hiddenLogUpdatePollBottom === null)
-				{
-					hiddenLogUpdatePollBottom = setInterval(toggleBottomLogNotice, 1000);
-				}
-			}
-			else if((currentDim.y) < menuDim.y)
-			{
-				//this is off screen to top, start top poll
-				topPoll = true;
-				if(hiddenLogUpdatePollTop === null)
-				{
-					hiddenLogUpdatePollTop = setInterval(toggleTopLogNotice, 1000);
-				}
-			}
-		}
-	}
-	if(!bottomPoll)
-	{
-		if(hiddenLogUpdatePollBottom !== null)
-		{
-			clearInterval(hiddenLogUpdatePollBottom);
-			document.getElementById("menu").style.borderBottom = "";
-			hiddenLogUpdatePollBottom = null;
-		}
-	}
-	if(!topPoll)
-	{
-		if(hiddenLogUpdatePollTop !== null)
-		{
-			clearInterval(hiddenLogUpdatePollTop);
-			document.getElementById("menu").style.borderTop = "";
-			hiddenLogUpdatePollTop = null;
-		}
-	}
-}
-
-function toggleBottomLogNotice()
-{
-	if(document.getElementById("menu").style.display  !== "none")
-	{
-		if(document.getElementById("menu").style.borderBottom === "")
-		{
-			document.getElementById("menu").style.borderBottom = "5px solid red";
-			return;
-		}
-		document.getElementById("menu").style.borderBottom = "";
-	}
-}
-
-function toggleTopLogNotice()
-{
-	if(document.getElementById("menu").style.display  !== "none")
-	{
-		if(document.getElementById("menu").style.borderTop === "")
-		{
-			document.getElementById("menu").style.borderTop = "5px solid red";
-			return;
-		}
-		document.getElementById("menu").style.borderTop = "";
+		checkForUpdateLogsOffScreenInner();
 	}
 }
 
 function getCurrentWindowLayout()
 {
 	return document.getElementById("windowConfig").value;
-}
-
-function toggleSettingsSidebar()
-{
-	if(document.getElementById("settingsSideBar").style.display === "none")
-	{
-		var newWidth = window.innerWidth - 200;
-		if((logMenuLocation === "left" || logMenuLocation === "right") && allLogsVisible === "true")
-		{
-			newWidth -= document.getElementById("menu").getBoundingClientRect().width;
-		}
-		document.getElementById("log").style.width = newWidth+"px";
-		document.getElementById("log").style.marginLeft = "200px";
-		document.getElementById("settingsSideBar").style.display = "inline-block";
-	}
-	else
-	{
-		document.getElementById("log").style.width = "100%";
-		document.getElementById("log").style.marginLeft = "0px";
-		document.getElementById("settingsSideBar").style.display = "none";
-	}
 }
 
 function toggleVisibleAllLogs()

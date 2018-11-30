@@ -594,3 +594,74 @@ function onScrollShowFixedMiniBar(idsOfForms)
 	}
 }
 
+function resizeFullScreenMenu()
+{
+	try
+	{
+		var targetWidth = window.innerWidth;
+		var mainContentFullScreenMenuLeft = "402";
+		if(!sideBarVisible)
+		{
+			mainContentFullScreenMenuLeft = "201";
+		}
+		var mainContentFullScreenMenuTop = "46px";
+		if(sideBarOnlyIcons === "breakpointone" || targetWidth < breakPointOne || sideBarOnlyIcons === "breakpointtwo")
+		{
+			$(".fullScreenMenuText").hide();
+			if(document.getElementById("mainFullScreenMenu").getBoundingClientRect().width !== 52) //1px border included here
+			{
+				document.getElementById("mainFullScreenMenu").style.width = "51px";
+				$(".settingsUlSub").css("left", "52px");
+			}
+			mainContentFullScreenMenuLeft = "252";
+			if(!sideBarVisible)
+			{
+				mainContentFullScreenMenuLeft = "52";
+			}
+		}
+		else
+		{
+			$(".fullScreenMenuText").show();
+			if(document.getElementById("mainFullScreenMenu").getBoundingClientRect().width !== 201) //1px border included here
+			{
+				document.getElementById("mainFullScreenMenu").style.width = "200px";
+				$(".settingsUlSub").css("left", "201px");
+			}
+		}
+
+		if(targetWidth < breakPointTwo || sideBarOnlyIcons === "breakpointtwo")
+		{
+			mainContentFullScreenMenuLeft = "52";
+			if(sideBarVisible)
+			{
+				mainContentFullScreenMenuTop = "82px";
+			}
+			$(".settingsUlSub").css("width","auto").css("bottom","auto").css("right","0").css("border-bottom","1px solid white").css("border-right","none").css("height","35px");
+			$(".settingsUlSub li").not('.subMenuToggle').css("display","inline-block");
+			$(".menuTitle").not(".menuBreak , .fullScreenNotificationTitle").hide();
+		}
+		else
+		{
+			$(".settingsUlSub").css("width","200px").css("bottom","0").css("right","auto").css("border-bottom","none").css("border-right","1px solid white").css("height","auto");
+			$(".settingsUlSub li").not('.subMenuToggle').css("display","block");
+			$(".menuTitle").not(".fullScreenMenuText").show();
+		}
+
+		if(document.getElementById("mainContentFullScreenMenu").style.left !== mainContentFullScreenMenuLeft+"px")
+		{
+			document.getElementById("mainContentFullScreenMenu").style.left = mainContentFullScreenMenuLeft+"px";
+		}
+		if(document.getElementById("mainContentFullScreenMenu").style.top !== mainContentFullScreenMenuTop)
+		{
+			document.getElementById("mainContentFullScreenMenu").style.top = mainContentFullScreenMenuTop;
+		}
+		if(document.getElementById("notificationHolder").style.maxWidth !== (window.innerWidth - mainContentFullScreenMenuLeft)+"px")
+		{
+			document.getElementById("notificationHolder").style.maxWidth = (window.innerWidth - mainContentFullScreenMenuLeft)+"px";
+		}
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}

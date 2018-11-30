@@ -419,3 +419,183 @@ function updateNotificationStuff()
 	}
 	checkForUpdateLogsOffScreen();
 }
+
+function toggleNotificationClearButton()
+{
+	try
+	{
+		if($("#menu .updated").length !== 0)
+		{
+			//there is at least one updated thing, show button for clear all notifications
+			if(document.getElementById("clearNotificationsImage").style.display !== "inline-block")
+			{
+				document.getElementById("clearNotificationsImage").style.display = "inline-block";
+			}
+		}
+		else
+		{
+			if(document.getElementById("clearNotificationsImage").style.display !== "none")
+			{
+				document.getElementById("clearNotificationsImage").style.display = "none";
+			}
+		}
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
+function clearNotifications()
+{
+	clearingNotifications = true;
+	try
+	{
+		if($("#menu .updated").length !== 0)
+		{
+			var arrayOfLogs = $("#menu a");
+			var arrayOfLogsLength = arrayOfLogs.length;
+			for (var clearNotifCountOne = 0; clearNotifCountOne < arrayOfLogsLength; clearNotifCountOne++)
+			{
+				arrayOfLogs[clearNotifCountOne].classList.remove("updated");
+			}
+			var arrayOfCounts = $("#menu a .menuCounter");
+			var arrayOfCountsLength = arrayOfCounts.length;
+			for (var clearNotifCountTwo = 0; clearNotifCountTwo < arrayOfCountsLength; clearNotifCountTwo++)
+			{
+				arrayOfCounts[clearNotifCountTwo].innerHTML = "";
+			}
+			var arrayOfCountsHidden = $("#menu a .menuCounterHidden");
+			var arrayOfCountsHiddenLength = arrayOfCountsHidden.length;
+			for (var clearNotifCountThree = 0; clearNotifCountThree < arrayOfCountsHiddenLength; clearNotifCountThree++)
+			{
+				arrayOfCountsHidden[clearNotifCountThree].innerHTML = "";
+			}
+		}
+		refreshLastLogsArray();
+		document.getElementById("clearNotificationsImage").style.display = "none";
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+	clearingNotifications = false;
+	checkForUpdateLogsOffScreen();
+}
+
+function tmpToggleAlerts(id)
+{
+	try
+	{
+		var menuObjectLocal = menuObjectRightClick[id];
+		var options = Object.keys(menuObjectLocal);
+		var lengthOfOptions = options.length;
+		for(var i = 0; i < lengthOfOptions; i++)
+		{
+			var currentOption = menuObjectLocal[options[i]];
+			if(currentOption["name"] === "Enable Alerts" || currentOption["name"] === "Disable Alerts")
+			{
+				menuObjectRightClick[id][options[i]]["name"] = "Disable Alerts";
+				if(currentOption["name"] === "Disable Alerts")
+				{
+					menuObjectRightClick[id][options[i]]["name"] = "Enable Alerts";
+				}
+				break;
+			}
+		}
+		alertEnabledArray[id] = "enabled";
+		if(currentOption["name"] === "Disable Alerts")
+		{
+			alertEnabledArray[id] = "disabled";
+			removeNotificationByLog(id);
+		}
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
+function checkForUpdateLogsOffScreenInner()
+{
+	if(offscreenLogNotify === "false")
+	{
+		return;
+	}
+	var listOfLogsUpdated = document.getElementsByClassName("updated");
+	var listOfLogsUpdatedKeys = Object.keys(listOfLogsUpdated);
+	var lengthOfListOfLogsUpdatedKeys = listOfLogsUpdatedKeys.length;
+	var topPoll = false;
+	var bottomPoll = false;
+	if(lengthOfListOfLogsUpdatedKeys > 0)
+	{
+		var menuDim = document.getElementById("menu").getBoundingClientRect();
+		//check if any are hidden, then start flash poll to notify user of log offscreen updated
+		for(var counterLLU = 0; counterLLU < lengthOfListOfLogsUpdatedKeys; counterLLU++)
+		{
+			var currentDim = listOfLogsUpdated[listOfLogsUpdatedKeys[counterLLU]].getBoundingClientRect();
+			if(currentDim.y > (menuDim.height + menuDim.y - currentDim.height))
+			{
+				//this is off screen to bottom, start bottom poll.
+				bottomPoll = true;
+				if(hiddenLogUpdatePollBottom === null)
+				{
+					hiddenLogUpdatePollBottom = setInterval(toggleBottomLogNotice, 1000);
+				}
+			}
+			else if((currentDim.y) < menuDim.y)
+			{
+				//this is off screen to top, start top poll
+				topPoll = true;
+				if(hiddenLogUpdatePollTop === null)
+				{
+					hiddenLogUpdatePollTop = setInterval(toggleTopLogNotice, 1000);
+				}
+			}
+		}
+	}
+	if(!bottomPoll)
+	{
+		if(hiddenLogUpdatePollBottom !== null)
+		{
+			clearInterval(hiddenLogUpdatePollBottom);
+			document.getElementById("menu").style.borderBottom = "";
+			hiddenLogUpdatePollBottom = null;
+		}
+	}
+	if(!topPoll)
+	{
+		if(hiddenLogUpdatePollTop !== null)
+		{
+			clearInterval(hiddenLogUpdatePollTop);
+			document.getElementById("menu").style.borderTop = "";
+			hiddenLogUpdatePollTop = null;
+		}
+	}
+}
+
+function toggleBottomLogNotice()
+{
+	if(document.getElementById("menu").style.display  !== "none")
+	{
+		if(document.getElementById("menu").style.borderBottom === "")
+		{
+			document.getElementById("menu").style.borderBottom = "5px solid red";
+			return;
+		}
+		document.getElementById("menu").style.borderBottom = "";
+	}
+}
+
+function toggleTopLogNotice()
+{
+	if(document.getElementById("menu").style.display  !== "none")
+	{
+		if(document.getElementById("menu").style.borderTop === "")
+		{
+			document.getElementById("menu").style.borderTop = "5px solid red";
+			return;
+		}
+		document.getElementById("menu").style.borderTop = "";
+	}
+}

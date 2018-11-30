@@ -542,3 +542,22 @@ function dateTimeFormat(dateTextArray)
 
 	return dateText;
 }
+
+function updateFileDataArrayInner(newDataArr)
+{
+	var newDataArrKeys = Object.keys(newDataArr);
+	var newDataArrKeysLength=  newDataArrKeys.length;
+	for(var NDACount = 0; NDACount < newDataArrKeysLength; NDACount++)
+	{
+		var fileDataArr = newDataArr[newDataArrKeys[NDACount]]["fileData"];
+		var fileDataArrKeys = Object.keys(fileDataArr);
+		var fileDataArrKeysLength = fileDataArrKeys.length;
+		if(fileDataArrKeysLength > 0)
+		{
+			for(var FDACount = 0; FDACount < fileDataArrKeysLength; FDACount++)
+			{
+				arrayOfFileData[fileDataArrKeys[FDACount]] = fileDataArr[fileDataArrKeys[FDACount]];
+			}
+		}
+	}
+}

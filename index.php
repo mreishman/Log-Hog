@@ -104,6 +104,7 @@ $externalLinkImage = generateImage(
 		var baseUrl = "<?php echo $baseUrl;?>";
 	</script>
 	<script src="core/js/lazyLoadImg.js?v=<?php echo $jsVersion?>"></script>
+	<script src="core/js/jquery.js?v=<?php echo $jsVersion?>"></script>
 	<script src="core/js/indexJs.js?v=<?php echo $jsVersion?>"></script>
 	<?php
 		echo loadSentryData($sendCrashInfoJS, $branchSelected);
