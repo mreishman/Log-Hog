@@ -520,3 +520,516 @@ function afterPollFunctionComplete()
 		eventThrowException(e);
 	}
 }
+
+function update(data)
+{
+	try
+	{
+		var menu = $("#menu");
+		var blank = $("#storage .menuItem").html();
+		var id, shortName, item, style, folderName, classInsert;
+		var files = Object.keys(data);
+		var stop = files.length;
+		var updated = false;
+		var initialized = $("#menu a").length !== 0;
+		var folderNamePrev = "?-1";
+		var folderNameCount = -1;
+		var atLeastOneLogUpdate = false;
+		if(oneLogEnable === "true")
+		{
+			folderNameCount++;
+		}
+		for(var i = 0; i !== stop; i++)
+		{
+			var name = files[i];
+
+			if((!(name in data)) || typeof(data[name]) === "undefined" || data[name] === null || name === "oneLog")
+			{
+				hideLogByName(name);
+				continue;
+			}
+			var logData = data[name]["log"];
+			var showFile = false;
+			shortName = files[i].replace(/.*\//g, "");
+			id = name.replace(/[^a-z0-9]/g, "");
+
+			if(showFileFromFilter(id, name, shortName, logData) && (showFileFromGroup(id) || $("#"+id).hasClass("active")))
+			{
+				showFile = true;
+			}
+			if(!showFile)
+			{
+				if(showFileFromPinnedWindow(id))
+				{
+					showFile = true;
+				}
+			}
+			if(showFile)
+			{
+				if(!firstLoad &&  document.getElementById("selectForGroup").value === "all")
+				{
+					showLogByName(name);
+				}
+				if(logData === "This file is empty. This should not be displayed." && hideEmptyLog === "true" || logData === "Error - File does not exist")
+				{
+					hideLogByName(name);
+					logs[id] ="<div class='errorMessageLog errorMessageGreenBG' > This file is empty. </div>";
+				}
+				else
+				{
+					if(logData !== null)
+					{
+						folderName = name.substr(0, name.lastIndexOf("/"));
+						if(folderName !== folderNamePrev || i === 0 || groupByType === "file")
+						{
+							folderNameCount++;
+							folderNamePrev = folderName;
+							if(folderNameCount >= colorArrayLength)
+							{
+								folderNameCount = 0;
+							}
+						}
+						var standardMessage = false;
+						if(logData === "")
+						{
+							logData = "<div class='errorMessageLog errorMessageRedBG' >Error - Unknown error? Check file permissions or clear log to fix?</div>";
+							standardMessage = true;
+						}
+						else if(logData === "This file is empty. This should not be displayed.")
+						{
+							logData = "<div class='errorMessageLog errorMessageGreenBG' > This file is empty. </div>";
+							standardMessage = true;
+						}
+						else if((logData === "Error - File is not Readable") || (logData === "Error - Maybe insufficient access to read file?"))
+						{
+							var mainMessage = "Error - Maybe insufficient access to read file?";
+							if(logData === "Error - File is not Readable")
+							{
+								mainMessage = "Error - File is not Readable";
+							}
+							logData = "<div class='errorMessageLog errorMessageRedBG' > "+mainMessage+" <br> <span style='font-size:75%;'> Try entering: <br> chown -R www-data:www-data "+name+" <br> or <br> chmod 664 "+name+" </span> </div>";
+							standardMessage = true;
+						}
+
+						logs[id] = logData;
+						titles[id] = name;
+						if(files[i] in fileData)
+						{
+							if(enableLogging !== "false")
+							{
+								titles[id] = name + " | " + data[name]["data"] + " | Size: " + formatBytes(fileData[files[i]]["size"]);
+							}
+							else
+							{
+								titles[id] = name + " | Size: " + formatBytes(fileData[files[i]]["size"]);
+							}
+						}
+						if(enableLogging !== "false")
+						{
+							if(id === currentPage)
+							{
+								$("#title"+currentSelectWindow).html(titles[id]);
+							}
+						}
+
+						var lastLogLine = logs[id].count - 1;
+						var fullPathSearch = filterTitle(titles[id]).trim();
+
+						var nameForLog = shortName;
+						if(fullPathSearch in fileData && "Name" in fileData[fullPathSearch] && fileData[fullPathSearch]["Name"] !== "" && fileData[fullPathSearch]["Name"] !== null)
+						{
+							nameForLog = fileData[fullPathSearch]["Name"];
+						}
+						else
+						{
+							if(logNameFormat !== "default")
+							{
+								//check for other options in displaying name
+								if(logNameFormat === "firstFolder" || logNameFormat === "lastFolder")
+								{
+									var locationOfLast = 1;
+									var newName = "";
+									var splitType = "/";
+									if(fullPathSearch.indexOf("/") > -1)
+									{
+										newName = fullPathSearch.split("/");
+									}
+									else if(fullPathSearch.indexOf("\\") > -1)
+									{
+										newName = fullPathSearch.split("\\");
+										splitType = "\\";
+									}
+									if(logNameFormat === "lastFolder")
+									{
+										locationOfLast = newName.length-2;
+									}
+									if(newName !== "")
+									{
+										nameForLog = newName[locationOfLast]+splitType+shortName;
+									}
+								}
+								else if(logNameFormat === "fullPath")
+								{
+									nameForLog = fullPathSearch;
+								}
+							}
+
+							if(logNameExtension === "false")
+							{
+								if(shortName.indexOf(".") > -1)
+								{
+									var secondNewName = nameForLog.split(".");
+									secondNewName.splice(-1,1);
+									nameForLog = secondNewName.join();
+								}
+							}
+						}
+						if(logNameGroup === "true")
+						{
+							if(files[i] in fileData && fileData[files[i]]["Group"] !== "")
+							{
+								var newNameGroup = fileData[files[i]]["Group"].split(" ")[0];
+								nameForLog = "<span id='"+id+"GroupInName' >"+newNameGroup+":</span>"+nameForLog;
+							}
+							else if(files[i].indexOf("LogHog/Backup/") === 0)
+							{
+								nameForLog = "Backup:"+nameForLog;
+							}
+						}
+						if($("#menu ." + id + "Button").length === 0) 
+						{
+							classInsert = "";
+							item = blank;
+							item = item.replace(/{{title}}/g, nameForLog);
+							item = item.replace(/{{id}}/g, id);
+							if(groupByColorEnabled === "true")
+							{
+								classInsert += " buttonColor"+(folderNameCount+1)+" ";
+							}
+							if(fullPathSearch in fileData && fileData[fullPathSearch]["Group"] !== "")
+							{
+								var classNameGroup = fileData[files[i]]["Group"].split(" ");
+								var classNameGroupLength = classNameGroup.length;
+								for(var NCGcount = 0; NCGcount < classNameGroupLength; NCGcount++)
+								{
+									classInsert += " "+classNameGroup[NCGcount]+"Group ";
+								}
+							}
+							else if(files[i].indexOf("LogHog/Backup/") !== 0)
+							{
+								classInsert += " BackupGroup ";
+							}
+							classInsert += " allGroup ";
+							item = item.replace(/{{class}}/g, classInsert);
+
+							var itemAdded = false;
+
+							if(!firstLoad)
+							{
+								var moveToFrontOnUpdate = false;
+								var innerCount = i;
+								if(filesNew.length > 0)
+								{
+									for (var innerCountFind = filesNew.length - 1; innerCountFind >= 0; innerCountFind--)
+									{
+										if(filesNew[innerCountFind] === files[i])
+										{
+											innerCount = innerCountFind;
+											break;
+										}
+									}
+								}
+								var innerCountStatic = innerCount;
+								if(typeof files[i] !== "undefined")
+								{
+									var idCheck = files[i].replace(/[^a-z0-9]/g, "");
+									if(innerCountStatic === 0)
+									{
+										itemAdded = tryToInsertBeforeLog(innerCountStatic, stop, idCheck, item);
+										if(!itemAdded)
+										{
+											itemAdded = tryToInsertAfterLog(innerCountStatic, stop, idCheck, item);
+										}
+									}
+									else
+									{
+										itemAdded = tryToInsertAfterLog(innerCountStatic, stop, idCheck, item);
+										if(!itemAdded)
+										{
+											itemAdded = tryToInsertBeforeLog(innerCountStatic, stop, idCheck, item);
+										}
+									}
+								}
+							}
+							if(!itemAdded)
+							{
+								menu.append(item);
+							}
+
+							if(!firstLoad)
+							{
+								if(notificationNewLog === "true" && !$("#menu a." + id + "Button").hasClass("updated") && ( (!(fullPathSearch in fileData)) || fileData[fullPathSearch]["AlertEnabled"] === "true" ) && (!(id in alertEnabledArray) || (id in alertEnabledArray && alertEnabledArray[id] === "enabled")))
+								{
+									if(notificationNewLogHighlight === "true")
+									{
+										$("#menu a." + id + "Button").addClass("updated");
+									}
+									if(notificationNewLogBadge === "true" || notificationNewLogDropdown === "true")
+									{
+										addLogNotification({
+											log: id,
+											name: "New Log "+nameForLog,
+											action: "$('#"+id+"').click();  closeNotificationsAndMainMenu();",
+											showNotification: notificationNewLineBadge,
+											showDropdown: notificationNewLineDropdown
+										});
+									}
+								}
+							}
+							var rightClickObjectNew = new Array();
+							if(files[i].indexOf("LogHog/Backup/") !== 0)
+							{
+								rightClickObjectNew.push({action: "tmpHideLog(\""+id+"\");", name: "Tmp Hide Log"});
+								rightClickObjectNew.push({action: "clearLogInner(titles[\""+id+"\"]);", name: "Clear Log"});
+								rightClickObjectNew.push({action: "deleteLogPopupInner(titles[\""+id+"\"]);", name: "Delete Log"});
+								var alertToggle = {action: "tmpToggleAlerts(\""+id+"\");" ,name: "Enable Alerts"};
+								if( (!(fullPathSearch in fileData)) || fileData[fullPathSearch]["AlertEnabled"] === "true")
+								{
+									alertToggle = {action: "tmpToggleAlerts(\""+id+"\");" ,name: "Disable Alerts"};
+								}
+								rightClickObjectNew.push(alertToggle);
+							}
+							rightClickObjectNew.push({action: "copyToClipBoard(\""+shortName+"\");", name: "Copy File Name"});
+							rightClickObjectNew.push({action: "copyToClipBoard(titles[\""+id+"\"]);", name: "Copy Filepath"});
+							//add rightclick menu
+							if(rightClickMenuEnable === "true")
+							{
+								var listOfRightClickTargets =["","CurrentWindow","GroupInName","Count"];
+								var listOfRightClickTargetsLength = listOfRightClickTargets.length;
+								for(var rct = 0; rct < listOfRightClickTargetsLength; rct++)
+								{
+									var innerId = id+listOfRightClickTargets[rct];
+									menuObjectRightClick[innerId] = rightClickObjectNew;
+									Rightclick_ID_list.push(innerId);
+								}
+							}
+						}
+
+						updated = false;
+						if(fullPathSearch in fileData && fileData[fullPathSearch]["AlertEnabled"] === "true" && (!(id in alertEnabledArray) || (id in alertEnabledArray && alertEnabledArray[id] === "enabled")))
+						{
+							if(!(logs[id] === lastLogs[id]))
+							{
+								updated = true;
+							}
+							else
+							{
+								var selectListForFilter = document.getElementsByName("searchType")[0];
+								var selectedListFilterType = selectListForFilter.options[selectListForFilter.selectedIndex].value;
+								if(selectedListFilterType === "content" && filterContentHighlight === "true")
+								{
+									if(lastContentSearch !== getFilterTextField())
+									{
+										updated = checkIfDisplay(id)["display"];
+									}
+								}
+							}
+						}
+						else
+						{
+							//check if displayed
+							updated = checkIfDisplay(id)["display"];
+						}
+
+						if(updated)
+						{
+							//determine if id is one of the values in the array of open files (use instead of currentPage)
+							var currentIdPos = checkIfDisplay(id)["location"];
+
+							var newDiff = getDiffLogAndLastLog(id);
+							var newDiffText = getDifferentText(id, newDiff);
+							var diff = newDiff;
+							var diffMod = "";
+							if(diff !== "")
+							{
+								if(document.getElementById(id+"Count").innerHTML !== "" )
+								{
+									var count = document.getElementById(id+"CountHidden").innerHTML;
+									diff = parseInt(count) + diff;
+									if(diff > sliceSize)
+									{
+										diff = sliceSize;
+										diffMod = "+";
+									}
+								}
+							}
+							var diffNew = diff;
+							if(diff !== "")
+							{
+								diffNew = "("+diff+diffMod+")";
+							}
+							if(document.getElementById(id+"CountHidden").innerHTML !== diff)
+							{
+								//this has updated, update stuff for counter
+								document.getElementById(id+"CountHidden").innerHTML = diff;
+								if(notificationCountVisible === "true" && diff !== 0)
+								{
+									document.getElementById(id+"Count").innerHTML = diffNew;
+								}
+							}
+
+							var updateHtml = true;
+							if(currentIdPos === -1)
+							{
+								updateHtml = false;
+							}
+							else if(scrollOnUpdate === "true" && scrollEvenIfScrolled === "false")
+							{
+								updateHtml = scrollPauseLogic(currentIdPos);
+								logDisplayArray[currentIdPos]["scroll"] = updateHtml;
+							}
+
+
+							if(updateHtml)
+							{
+								var logFormatted = "";
+								if(standardMessage)
+								{
+									logFormatted = logData;
+								}
+								else
+								{
+									logFormatted = makePretty(id);
+								}
+								if(logFormatted !== $("#log"+currentIdPos).html())
+								{
+									$("#log"+currentIdPos).html(logFormatted);
+									fadeHighlight(currentIdPos);
+								}
+								if(document.getElementById(id+"Count").innerHTML !== "")
+								{
+									document.getElementById(id+"Count").innerHTML = "";
+									document.getElementById(id+"CountHidden").innerHTML = "";
+								}
+							}
+							else
+							{
+								if(!firstLoad && notificationNewLine === "true" && (oneLogEnable === "false" || isOneLogVisible() === "false" || oneLogVisibleDisableUpdate === "false"))
+								{
+									if(autoMoveUpdateLog === "true")
+									{
+										//'click' on log to switch to log
+										$("#menu a." + id + "Button").click();
+									}
+									else
+									{
+										if(notificationNewLineHighlight === "true")
+										{
+											if(!$("#menu a." + id + "Button").hasClass("updated"))
+											{
+												$("#menu a." + id + "Button").addClass("updated");
+											}
+										}
+										if(notificationNewLineBadge === "true" || notificationNewLineDropdown === "true")
+										{
+											var numForNot = "";
+											if (diffNew !== "(0)")
+											{
+												numForNot = diffNew;
+											}
+											addLogNotification({
+												log: id,
+												name: nameForLog+" Update "+numForNot,
+												action: "$('#"+id+"').click();  closeNotificationsAndMainMenu();",
+												newText: newDiffText,
+												showNotification: notificationNewLogBadge,
+												showDropdown: notificationNewLogDropdown
+											});
+										}
+									}
+								}
+							}
+
+							//update one log if needed
+							if(oneLogEnable === "true" && !firstLoad)
+							{
+								if(fullPathSearch in fileData && fileData[fullPathSearch]["AlertEnabled"] === "true" && (!(id in alertEnabledArray) || (id in alertEnabledArray && alertEnabledArray[id] === "enabled")))
+								{
+									if(!firstLoad && diffNew !== "(0)")
+									{
+										updateOneLogData(id, newDiff, newDiffText);
+										atLeastOneLogUpdate = true;
+									}
+								}
+							}
+						}
+						if(initialized && updated && $(window).filter(":focus").length === 0)
+						{
+							if(flashTitleUpdateLog === "true")
+							{
+								flashTitle();
+							}
+						}
+						updateLogTitle(id);
+					}
+					else
+					{
+						removeLogByName(name);
+					}
+				}
+			}
+			else
+			{
+				hideLogByName(name);
+				//remove this log from array of window keys if there
+				var windowKeys = Object.keys(logDisplayArray);
+				var lengthOfWindows = windowKeys.length;
+				for(var j = 0; j < lengthOfWindows; j++)
+				{
+					if(logDisplayArray[windowKeys[j]]["id"] === id)
+					{
+						logDisplayArray[windowKeys[j]]["id"] = null;
+						logDisplayArray[windowKeys[j]]["pin"] = false;
+						logDisplayArray[windowKeys[j]]["scroll"] = true;
+						break;
+					}
+				}
+			}
+		}
+
+		if(atLeastOneLogUpdate === true)
+		{
+			var oneLogPos = isOneLogVisible();
+			if(oneLogPos !== false)
+			{
+				scrollOneLogIfVisible(oneLogPos);
+				fadeHighlight(oneLogPos);
+			}
+		}
+
+		//Check if a tab is active, if none... click on first in array that's visible
+		var targetLength = Object.keys(logDisplayArray).length;
+		var tmpCurrentSelectWindow = currentSelectWindow;
+		if($("#menu .active").length < targetLength && !firstLoad)
+		{
+			selectTabsInOrder(targetLength);
+			toggleDisplayOfNoLogs();
+		}
+		else if($("#menu .active").length > targetLength)
+		{
+			removeTabsInOrder(targetLength);
+		}
+		//below changes the current select window back to what was selected by user (could change by function above)
+		changeCurrentSelectWindow(tmpCurrentSelectWindow);
+
+		toggleNotificationClearButton();
+		updateScrollOnLogs();
+		refreshLastLogsArray();
+		checkForUpdateLogsOffScreen();
+		resize();
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}

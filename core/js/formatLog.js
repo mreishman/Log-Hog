@@ -1,0 +1,151 @@
+function makePretty(id)
+{
+	try
+	{
+		var text = logs[id];
+		var count = document.getElementById(id+"CountHidden").innerHTML;
+		if(count !== "")
+		{
+			count = parseInt(count);
+		}
+		else
+		{
+			count = 0;
+		}
+		var returnText = makePrettyWithText(text, count);
+		if(returnText !== "")
+		{
+			return "<table width=\"100%\" style=\"border-spacing: 0;\" >" + returnText + "</table>";
+		}
+		return "";
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
+function makePrettyWithText(text, count)
+{
+	try
+	{
+		if(text === "")
+		{
+			return "";
+		}
+		text = text.split("\n");
+		if(text.length < 2)
+		{
+			text = text[0].split("\\n");
+		}
+		var returnText = "";
+		var lengthOfTextArray = text.length;
+		var selectListForFilter = document.getElementsByName("searchType")[0];
+		var selectedListFilterType = selectListForFilter.options[selectListForFilter.selectedIndex].value;
+		filterContentLinePadding = parseInt(filterContentLinePadding);
+		var bottomPadding = filterContentLinePadding;
+		var topPadding = filterContentLinePadding;
+		var foundOne = false;
+		var addLine = false;
+		var filterTextField = getFilterTextField();
+		for (var i = 0; i < lengthOfTextArray; i++)
+		{
+			addLine = false;
+			if(selectedListFilterType === "content" && filterContentLimit === "true" && filterTextField !== "")
+			{
+				//check for content on current line
+				if(filterContentCheck(text[i]))
+				{
+					//current line is thing, reset counter.
+					bottomPadding = filterContentLinePadding;
+					topPadding = filterContentLinePadding;
+					addLine = true;
+					foundOne = true;
+				}
+				else
+				{
+					//check for line in next few lines
+					for (var j = 0; j <= bottomPadding; j++)
+					{
+						if(lengthOfTextArray > i+j)
+						{
+							if(filterContentCheck(text[i+j]))
+							{
+								addLine = true;
+								bottomPadding--;
+								break;
+							}
+						}
+					}
+					if(!addLine)
+					{
+						if(topPadding > 0 && foundOne)
+						{
+							addLine = true;
+							topPadding--;
+						}
+						else
+						{
+							foundOne = false;
+						}
+					}
+				}
+			}
+			else
+			{
+				addLine = true;
+			}
+			if(addLine)
+			{
+				var lineText = text[i].split("\\n");
+				var lengthOflineTextArray = lineText.length;
+				for (var j = 0; j < lengthOflineTextArray; j++)
+				{
+					var customClass = " class = '";
+					var customClassAdd = false;
+					if(highlightNew === "true" && ((i + count + 1) > lengthOfTextArray))
+					{
+						customClass += " newLine ";
+						customClassAdd = true;
+					}
+
+					if(selectedListFilterType === "content" && filterContentHighlight === "true" && getFilterTextField() !== "")
+					{
+						//check if match, and if supposed to highlight
+						if(filterContentCheck(lineText[j]))
+						{
+							customClass += " highlight ";
+							customClassAdd = true;
+						}
+					}
+
+					customClass += " '";
+					returnText += "<tr valign=\"top\" ";
+					if(customClassAdd)
+					{
+						returnText += " "+customClass+" ";
+					}
+					returnText += " >";
+					var lineToReturn = "<td style=\"white-space: pre-wrap;\" >"+lineText[j]+"</td>";
+					if(expFormatEnabled === "true")
+					{
+						lineToReturn = formatLine(lineText[j], {
+							customClass,
+							customClassAdd
+						});
+					}
+					returnText += "<td style=\"width: 31px; padding: 0;\" ></td>"+lineToReturn+"</tr><tr height=\""+logLinePadding+"px\" ><td colspan=\"2\"></td></tr>";
+				}
+			}
+		}
+		if(returnText === "")
+		{
+			return "";
+		}
+		return returnText;
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}

@@ -1,7 +1,7 @@
 var timerForLoadJS = null;
 var counterForJSLoad = 0;
 var loadedFile = false;
-var msDelay = 25;
+var msDelay = 20;
 var countForCheck = 1;
 
 function tryLoadJSStuff()

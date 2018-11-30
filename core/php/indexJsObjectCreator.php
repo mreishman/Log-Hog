@@ -61,6 +61,14 @@ $arrayOfFiles = array(
 		"type" =>"js"
 	),
 	array(
+		"name" => "formatLog.js",
+		"type" =>"js"
+	),
+	array(
+		"name" => "showLog.js",
+		"type" =>"js"
+	),
+	array(
 		"name" => "poll.js",
 		"type" =>"js"
 	),
