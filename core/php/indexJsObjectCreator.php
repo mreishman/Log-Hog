@@ -61,6 +61,10 @@ $arrayOfFiles = array(
 		"type" =>"js"
 	),
 	array(
+		"name" => "poll.js",
+		"type" =>"js"
+	),
+	array(
 		"name" => "settingsSideBar.js",
 		"type" =>"js"
 	),
