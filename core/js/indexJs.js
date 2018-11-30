@@ -69,6 +69,10 @@ function checkIfJSLoaded()
 {
 	if(loadedFile === true)
 	{
+		if(document.getElementById("initialLoadContentEvenMoreInfo").style.display !== "none")
+		{
+			document.getElementById("initialLoadContentEvenMoreInfo").style.display = "none";
+		}
 		if(document.getElementById("initialLoadContentEvenEvenMoreInfo").style.display !== "none")
 		{
 			document.getElementById("initialLoadContentEvenEvenMoreInfo").style.display = "none";
@@ -96,6 +100,7 @@ function checkIfJSLoaded()
 		}
 		else
 		{
+			document.getElementById("initialLoadContentCountInfo").innerHTML = "File: "+(counterForJSLoad+1)+"/"+lengthOfArrayOfJsFiles;
 			setTimeout(function() {
 				timerForLoadJS = setInterval(tryLoadJSStuff, msDelay);
 			}, msDelay);
@@ -107,9 +112,13 @@ function checkIfJSLoaded()
 		document.getElementById("initialLoadCountCheck").innerHTML = countForCheck;
 		if(countForCheck > 100)
 		{
-			if(document.getElementById("initialLoadContentEvenEvenMoreInfo").style.display === "none")
+			if(document.getElementById("initialLoadContentEvenEvenMoreInfo").style.display !== "block")
 			{
 				document.getElementById("initialLoadContentEvenEvenMoreInfo").style.display = "block";
+			}
+			if(document.getElementById("initialLoadContentEvenMoreInfo").style.display !== "block")
+			{
+				document.getElementById("initialLoadContentEvenMoreInfo").style.display = "block";
 			}
 		}
 		if(countForCheck > 1000)

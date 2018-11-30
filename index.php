@@ -276,6 +276,7 @@ $externalLinkImage = generateImage(
 					<h4 id="initialLoadContentInfo" >Loading CSS Files</h4>
 					<p><progress id="initialLoadProgress" value="0" max="100"></progress></p>
 					<h4 id="initialLoadContentMoreInfo" ></h4>
+					<h5 id="initialLoadContentCountInfo" ></h5>
 					<h5 id="initialLoadContentEvenMoreInfo" >File Check <span id="initialLoadCountCheck" >1</span> of 1000</h5>
 					<h4 style="color: red; display: none;" id="initialLoadContentEvenEvenMoreInfo" >This file looks like it is taking a while to load</h4>
 				</th>

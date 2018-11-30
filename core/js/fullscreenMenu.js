@@ -665,3 +665,37 @@ function resizeFullScreenMenu()
 		eventThrowException(e);
 	}
 }
+
+function togglePollSpeedDown(currentClick)
+{
+	if(userPaused || pausePollCurrentSession)
+	{
+		return;
+	}
+	if(currentClick !== fullScreenMenuClickCount)
+	{
+		return;
+	}
+	clearPollTimer();
+	if(fullScreenMenuPollSwitchType === "BGrate")
+	{
+		pollingRateBackup = pollingRate;
+		pollingRate = backgroundPollingRate;
+		startPollTimer();
+	}
+}
+
+function togglePollSpeedUp()
+{
+	if(userPaused || pausePollCurrentSession)
+	{
+		return;
+	}
+	clearPollTimer();
+	if(pollingRateBackup !== 0)
+	{
+		pollingRate = pollingRateBackup;
+	}
+	pollingRateBackup = 0;
+	startPollTimer();
+}

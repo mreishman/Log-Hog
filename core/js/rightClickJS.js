@@ -170,3 +170,34 @@ $( document ).ready(function() {
 
   })();
 });
+
+function switchPollType()
+{
+  pollRateCalc = pollingRate;
+  if(pollingRateType === "Seconds")
+  {
+    pollRateCalc *= 1000;
+  }
+  if(pauseOnNotFocus === "true")
+  {
+    clearInterval(pollTimer);
+    pauseOnNotFocus = "false";
+    var bgPollRateCalc = backgroundPollingRate;
+    if(backgroundPollingRateType === "Seconds")
+    {
+      bgPollRateCalc *= 1000;
+    }
+    pollTimer = Visibility.every(pollRateCalc, bgPollRateCalc, function () { poll(); });
+    showPopup();
+    document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class=\"settingsHeader\" >Toggled off!</div><br><div style=\"width:100%;text-align:center;padding-left:10px;padding-right:10px;\">Toggled off auto pause in background</div></div>";
+  }
+  else
+  {
+    Visibility.stop(pollTimer);
+    pauseOnNotFocus = "true";
+    pollTimer = setInterval(poll, pollRateCalc);
+    showPopup();
+    document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class=\"settingsHeader\" >Toggled on!</div><br><div style=\"width:100%;text-align:center;padding-left:10px;padding-right:10px;\">Toggled on auto pause in background</div></div>";
+  }
+  setTimeout(function(){ hidePopup(); }, 500);
+}
