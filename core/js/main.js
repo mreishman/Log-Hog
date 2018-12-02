@@ -2653,7 +2653,10 @@ function resizeFullScreenMenu()
 			$(".settingsUlSub").css("width","200px").css("bottom","0").css("right","auto").css("border-bottom","none").css("border-right","1px solid white").css("height","auto");
 			$(".settingsUlSub li").not('.subMenuToggle').css("display","block");
 			$(".menuTitle").not(".fullScreenMenuText").show();
+			toggleAddonAppsMenuText();
 		}
+
+		
 
 		if(document.getElementById("mainContentFullScreenMenu").style.left !== mainContentFullScreenMenuLeft)
 		{
@@ -2668,6 +2671,35 @@ function resizeFullScreenMenu()
 	{
 		eventThrowException(e);
 	}
+}
+
+function toggleAddonAppsMenuText()
+{
+	if(!checkIfAddonsAreInstalled())
+	{
+		document.getElementById("menuOtherApps").style.display = "none";
+	}
+	else
+	{
+		document.getElementById("menuOtherApps").style.display = "inline-block";
+	}
+}
+
+function checkIfAddonsAreInstalled()
+{
+	if(typeof listOfAddons === "object")
+	{
+		var listOfAddonKeys = Object.keys(listOfAddons);
+		var listOfAddonKeysLength = listOfAddonKeys.length;
+		for(var addCount = 0; addCount < listOfAddonKeysLength; addCount++)
+		{
+			if(listOfAddons[listOfAddonKeys[addCount]]["Installed"] === true)
+			{
+				return true;
+			}
+		}
+	}
+	return false;
 }
 
 function flashTitle() 
@@ -4380,6 +4412,7 @@ function updateOtherApps()
 				document.getElementById(idForAddon).style.display = "none";
 			}
 		}
+		resize();
 	}
 }
 
