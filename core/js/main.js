@@ -3,7 +3,7 @@ var allLogOneLog = {};
 var arrayToUpdate = {};
 var arrayOfData1 = null;
 var arrayOfData2 = null;
-var arrayOfDataMain = null;
+var arrayOfDataMain = {};
 var arrayOfDataSettings = [];
 var arrayOfFileData = [];
 var arrayOfScrollHeaderUpdate = ["aboutSpanAbout","aboutSpanInfo","aboutSpanGithub"];
@@ -309,13 +309,10 @@ function pollTwo()
 				}
 				else if(data === [] || $.isEmptyObject(data))
 				{
-					if(document.getElementById("noLogToDisplay").style.display !== "block")
-					{
-						document.getElementById("noLogToDisplay").style.display = "block";
-					}
+					toggleDisplayOfNoLogs(true);
 					if(firstLoad)
 					{
-						firstLoadEndAction();
+						afterPollFunctionComplete();
 					}
 				}
 				else
@@ -397,10 +394,12 @@ function pollTwoPartTwo(data)
 		t2 = performance.now();
 		filesNew = Object.keys(data);
 		var backupArrayOfDataMain = arrayOfDataMain;
-		if(arrayOfDataMain !== null)
+		
+		var arrayOfDataMainKeys = Object.keys(arrayOfDataMain);
+		var arrayOfDataMainKeysLength = arrayOfDataMainKeys.length;
+		if(arrayOfDataMainKeysLength > 0)
 		{
-			var arrayOfDataMainKeys = Object.keys(arrayOfDataMain);
-			for (var i = arrayOfDataMainKeys.length - 1; i >= 0; i--) 
+			for (var i = arrayOfDataMainKeysLength - 1; i >= 0; i--) 
 			{
 				if(arrayOfDataMainKeys[i] in data || arrayOfDataMainKeys[i].indexOf("LogHog/Backup") > -1 || arrayOfDataMainKeys[i].indexOf("oneLog") > -1 )
 				{
@@ -409,6 +408,7 @@ function pollTwoPartTwo(data)
 				delete arrayOfDataMain[arrayOfDataMainKeys[i]];
 			}
 		}
+		
 
 		//check for all update force
 		var boolForAllUpdateForce = false;
@@ -730,19 +730,14 @@ function arrayOfDataMainDataFilter(data)
 	try
 	{
 		var filesInner = Object.keys(data);
-		if(arrayOfDataMain === null)
+		var filesInnerLength = filesInner.length;
+		for (var dataSwapCount = filesInnerLength - 1; dataSwapCount >= 0; dataSwapCount--)
 		{
-			arrayOfDataMain = data;
+			arrayOfDataMain[filesInner[dataSwapCount]] = data[filesInner[dataSwapCount]];
 		}
-		else
-		{
-			for (var dataSwapCount = filesInner.length - 1; dataSwapCount >= 0; dataSwapCount--)
-			{
-				arrayOfDataMain[filesInner[dataSwapCount]] = data[filesInner[dataSwapCount]];
-			}
-		}
+		
 
-		for (var lineCountUpdateCount = filesInner.length - 1; lineCountUpdateCount >= 0; lineCountUpdateCount--)
+		for (var lineCountUpdateCount = filesInnerLength - 1; lineCountUpdateCount >= 0; lineCountUpdateCount--)
 		{
 			if(data[filesInner[lineCountUpdateCount]]["lineCount"] !== "---")
 			{
@@ -761,7 +756,15 @@ function firstLoadEndAction()
 	firstLoad = false;
 	if(oneLogEnable === "true")
 	{
-		addOneLogData();
+		if(Object.keys(arrayOfDataMain).length < 1)
+		{
+			addOneLogData();
+			document.getElementById("oneLog").style.display = "none";
+		}
+		else
+		{
+			addOneLogData();
+		}
 	}
 	if(allLogsVisible === "true")
 	{
@@ -1734,14 +1737,14 @@ function checkNameCont(checkName, currentCheck)
 	return false;
 }
 
-function toggleDisplayOfNoLogs()
+function toggleDisplayOfNoLogs(force = false)
 {
 	try
 	{
-		if($("#menu .active").length === 0)
+		if($("#menu .active").length === 0 || force === true)
 		{
 			//if still none active, none to display - add popup here
-			if(document.getElementById("noLogToDisplay").style.display !== "block")
+			if(document.getElementById("noLogToDisplay").style.display !== "block" || document.getElementById("log").style.display !== "none")
 			{
 				document.getElementById("noLogToDisplay").style.display = "block";
 				document.getElementById("log").style.display = "none";
@@ -1750,7 +1753,7 @@ function toggleDisplayOfNoLogs()
 		else
 		{
 			//we do not need this, hide popup
-			if(document.getElementById("noLogToDisplay").style.display !== "none")
+			if(document.getElementById("noLogToDisplay").style.display !== "none" || document.getElementById("log").style.display !== "block")
 			{
 				document.getElementById("noLogToDisplay").style.display = "none";
 				document.getElementById("log").style.display = "block";
@@ -2699,15 +2702,16 @@ function resizeFullScreenMenu()
 			$(".settingsUlSub").css("width","200px").css("bottom","0").css("right","auto").css("border-bottom","none").css("border-right","1px solid white").css("height","auto");
 			$(".settingsUlSub li").not('.subMenuToggle').css("display","block");
 			$(".menuTitle").not(".fullScreenMenuText").show();
+			toggleAddonAppsMenuText();
 		}
 
 		if(document.getElementById("mainContentFullScreenMenu").style.left !== mainContentFullScreenMenuLeft+"px")
 		{
 			document.getElementById("mainContentFullScreenMenu").style.left = mainContentFullScreenMenuLeft+"px";
 		}
-		if(document.getElementById("mainContentFullScreenMenu").style.top !== mainContentFullScreenMenuTop)
+		if(document.getElementById("mainContentFullScreenMenu").style.top !== mainContentFullScreenMenuTop+"px")
 		{
-			document.getElementById("mainContentFullScreenMenu").style.top = mainContentFullScreenMenuTop;
+			document.getElementById("mainContentFullScreenMenu").style.top = mainContentFullScreenMenuTop+"px";
 		}
 		if(document.getElementById("notificationHolder").style.maxWidth !== (window.innerWidth - mainContentFullScreenMenuLeft)+"px")
 		{
@@ -2718,6 +2722,35 @@ function resizeFullScreenMenu()
 	{
 		eventThrowException(e);
 	}
+}
+
+function toggleAddonAppsMenuText()
+{
+	if(!checkIfAddonsAreInstalled())
+	{
+		document.getElementById("menuOtherApps").style.display = "none";
+	}
+	else
+	{
+		document.getElementById("menuOtherApps").style.display = "inline-block";
+	}
+}
+
+function checkIfAddonsAreInstalled()
+{
+	if(typeof listOfAddons === "object")
+	{
+		var listOfAddonKeys = Object.keys(listOfAddons);
+		var listOfAddonKeysLength = listOfAddonKeys.length;
+		for(var addCount = 0; addCount < listOfAddonKeysLength; addCount++)
+		{
+			if(listOfAddons[listOfAddonKeys[addCount]]["Installed"] === true)
+			{
+				return true;
+			}
+		}
+	}
+	return false;
 }
 
 function flashTitle() 
@@ -4666,6 +4699,7 @@ function updateOtherApps()
 				document.getElementById(idForAddon).style.display = "none";
 			}
 		}
+		resize();
 	}
 }
 
