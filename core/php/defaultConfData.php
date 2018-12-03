@@ -319,7 +319,7 @@ for($CDFVcount = 0; $CDFVcount < 10; $CDFVcount++)
 	$D1Value = "none";
 	$MValue = "none";
 	$D2Value = "none";
-	if(count($currentBracket) > 0)
+	if($currentBracket !== "" && count($currentBracket) > 0)
 	{
 		foreach ($delimiterChoices as $delChoice)
 		{
