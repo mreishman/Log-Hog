@@ -116,13 +116,10 @@ function pollTwo()
 				}
 				else if(data === [] || $.isEmptyObject(data))
 				{
-					if(document.getElementById("noLogToDisplay").style.display !== "block")
-					{
-						document.getElementById("noLogToDisplay").style.display = "block";
-					}
+					toggleDisplayOfNoLogs(true);
 					if(firstLoad)
 					{
-						firstLoadEndAction();
+						afterPollFunctionComplete();
 					}
 				}
 				else
@@ -163,10 +160,12 @@ function pollTwoPartTwo(data)
 		t2 = performance.now();
 		filesNew = Object.keys(data);
 		var backupArrayOfDataMain = arrayOfDataMain;
-		if(arrayOfDataMain !== null)
+
+		var arrayOfDataMainKeys = Object.keys(arrayOfDataMain);
+		var arrayOfDataMainKeysLength = arrayOfDataMainKeys.length;
+		if(arrayOfDataMainKeysLength > 0)
 		{
-			var arrayOfDataMainKeys = Object.keys(arrayOfDataMain);
-			for (var i = arrayOfDataMainKeys.length - 1; i >= 0; i--) 
+			for (var i = arrayOfDataMainKeysLength - 1; i >= 0; i--)
 			{
 				if(arrayOfDataMainKeys[i] in data || arrayOfDataMainKeys[i].indexOf("LogHog/Backup") > -1 || arrayOfDataMainKeys[i].indexOf("oneLog") > -1 )
 				{
@@ -401,19 +400,13 @@ function arrayOfDataMainDataFilter(data)
 	try
 	{
 		var filesInner = Object.keys(data);
-		if(arrayOfDataMain === null)
+		var filesInnerLength = filesInner.length;
+		for (var dataSwapCount = filesInnerLength - 1; dataSwapCount >= 0; dataSwapCount--)
 		{
-			arrayOfDataMain = data;
-		}
-		else
-		{
-			for (var dataSwapCount = filesInner.length - 1; dataSwapCount >= 0; dataSwapCount--)
-			{
-				arrayOfDataMain[filesInner[dataSwapCount]] = data[filesInner[dataSwapCount]];
-			}
+			arrayOfDataMain[filesInner[dataSwapCount]] = data[filesInner[dataSwapCount]];
 		}
 
-		for (var lineCountUpdateCount = filesInner.length - 1; lineCountUpdateCount >= 0; lineCountUpdateCount--)
+		for (var lineCountUpdateCount = filesInnerLength - 1; lineCountUpdateCount >= 0; lineCountUpdateCount--)
 		{
 			if(data[filesInner[lineCountUpdateCount]]["lineCount"] !== "---")
 			{
@@ -432,7 +425,15 @@ function firstLoadEndAction()
 	firstLoad = false;
 	if(oneLogEnable === "true")
 	{
-		addOneLogData();
+		if(Object.keys(arrayOfDataMain).length < 1)
+		{
+			addOneLogData();
+			document.getElementById("oneLog").style.display = "none";
+		}
+		else
+		{
+			addOneLogData();
+		}
 	}
 	if(allLogsVisible === "true")
 	{

@@ -429,14 +429,14 @@ function checkNameCont(checkName, currentCheck)
 	return false;
 }
 
-function toggleDisplayOfNoLogs()
+function toggleDisplayOfNoLogs(force = false)
 {
 	try
 	{
-		if($("#menu .active").length === 0)
+		if($("#menu .active").length === 0|| force === true)
 		{
 			//if still none active, none to display - add popup here
-			if(document.getElementById("noLogToDisplay").style.display !== "block")
+			if(document.getElementById("noLogToDisplay").style.display !== "block"|| document.getElementById("log").style.display !== "none")
 			{
 				document.getElementById("noLogToDisplay").style.display = "block";
 				document.getElementById("log").style.display = "none";
@@ -445,7 +445,7 @@ function toggleDisplayOfNoLogs()
 		else
 		{
 			//we do not need this, hide popup
-			if(document.getElementById("noLogToDisplay").style.display !== "none")
+			if(document.getElementById("noLogToDisplay").style.display !== "none"|| document.getElementById("log").style.display !== "block")
 			{
 				document.getElementById("noLogToDisplay").style.display = "none";
 				document.getElementById("log").style.display = "block";

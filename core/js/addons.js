@@ -1,3 +1,12 @@
+var retryCount = 0;
+var verifyCount = 0;
+var lock = false;
+var directory = "../../top/";
+var action = "";
+var localFolderLocation = "";
+var repoName = "";
+var idToSubmitStatic = "";
+
 function updateOtherApps()
 {
 	if(typeof listOfAddons === "object")
@@ -34,18 +43,10 @@ function updateOtherApps()
 					document.getElementById(idForAddon).style.display = "none";
 				}
 			}
+			resize();
 		}
 	}
 }
-
-var retryCount = 0;
-var verifyCount = 0;
-var lock = false;
-var directory = "../../top/";
-var action = "";
-var localFolderLocation = "";
-var repoName = "";
-var idToSubmitStatic = "";
 
 function addonMonitorAction(idToSubmit)
 {
