@@ -171,4 +171,30 @@ if(!($windowDisplayConfig[0] > 1 || $windowDisplayConfig[1] > 1)): ?>
 	<?php echo $scrollBarHandleHover; ?>
 }
 
+.addBorder
+{
+	border: 1px solid <?php echo $currentSelectedThemeColorValues['main']['main-1']['fontColor']?>;
+}
+
+.addBorderBottom
+{
+	border-bottom: 1px solid <?php echo $currentSelectedThemeColorValues['main']['main-1']['fontColor']?>;
+}
+
+.addBorderTop
+{
+	border-top: 1px solid <?php echo $currentSelectedThemeColorValues['main']['main-1']['fontColor']?>;
+}
+
+.addBorderLeft
+{
+	border-left: 1px solid <?php echo $currentSelectedThemeColorValues['main']['main-1']['fontColor']?>;
+}
+
+.addBorderRight
+{
+	border-right: 1px solid <?php echo $currentSelectedThemeColorValues['main']['main-1']['fontColor']?>;
+}
+
+
 </style>

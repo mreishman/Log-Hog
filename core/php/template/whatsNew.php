@@ -114,7 +114,7 @@
 					$first = false; ?>
 				<th colspan="2" style="padding: 10px">
 				<?php else: ?>
-				<th colspan="2" style="border-top: 1px solid white; padding: 10px">
+				<th colspan="2" class="addBorderTop" style="padding: 10px">
 				<?php endif; ?>
 					<h1><?php echo $value["Version"]; ?></h1>
 					<h3><?php echo $value["Name"]; ?></h3>

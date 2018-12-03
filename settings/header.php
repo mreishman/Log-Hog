@@ -79,7 +79,7 @@ echo loadSentryData($sendCrashInfoJS, $branchSelected); ?>
 <?php endif;
 $baseUrlImages = $localURL;
 ?>
-<div class="settingsHeader" style="position: absolute;width: 100%;z-index: 10;top: 104px; margin: 0; border-bottom: 1px solid white; display: none;" id="fixedPositionMiniMenu" ></div>
+<div class="settingsHeader addBorderBottom" style="position: absolute;width: 100%;z-index: 10;top: 104px; margin: 0; display: none;" id="fixedPositionMiniMenu" ></div>
 <script type="text/javascript">
 	var baseUrl = "<?php echo baseURL();?>";
 	var popupSettingsArray = <?php echo $popupSettingsArray ?>;

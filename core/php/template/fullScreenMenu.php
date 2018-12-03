@@ -139,7 +139,7 @@
 		<table width="100%" style="height: 100%;">
 			<tr>
 				<th valign="center" >
-					<div class="noNotificationsNotification" >
+					<div class="noNotificationsNotification addBorder" >
 						You have no new notifications!
 					</div>
 				</th>

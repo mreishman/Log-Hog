@@ -58,7 +58,7 @@ $windowDisplayConfig = explode("x", $windowConfig);
 
 .logCode{
 	background-color: black;
-	border: 1px solid white;
+	border: 1px solid <?php echo $logFontColor; ?>;;
 	color: white;
 	padding: 10px 0;
 }

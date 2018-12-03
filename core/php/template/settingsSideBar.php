@@ -1,4 +1,4 @@
-<h3 style="border-bottom: 1px solid white;">Filters</h3>
+<h3 class="addBorderBottom">Filters</h3>
 <?php if ($groupDropdownInHeader !== "true"): ?>
 	Groups:
 	<span class="selectDiv">
@@ -65,7 +65,7 @@ Line Padding:
 <br>
 <br>
 <?php if($enableMultiLog === "true"): ?>
-	<h3 style="border-bottom: 1px solid white;">Multi-Log</h3>
+	<h3 class="addBorderBottom" >Multi-Log</h3>
 	Log Layout
 	<?php $arrayOfwindowConfigOptionsLocal = array();
 	for ($i=0; $i < 3; $i++)
@@ -112,7 +112,7 @@ Line Padding:
 	<br>
 	<br>
 <?php endif; ?>
-<h3 style="border-bottom: 1px solid white;">Header Bar</h3>
+<h3 class="addBorderBottom">Header Bar</h3>
 Show One Log
 <span class="selectDiv">
 	<select onchange="toggleVisibleOneLog();" id="oneLogVisible">
