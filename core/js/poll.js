@@ -647,6 +647,10 @@ function getLineDiffCount(id)
 			document.getElementById(id+"Count").innerHTML = diffNew;
 		}
 	}
+	return {
+		diff: diff,
+		newDiff: newDiff
+	}
 }
 
 function update(data)
