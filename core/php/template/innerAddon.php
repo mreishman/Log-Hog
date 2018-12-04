@@ -200,14 +200,14 @@
 							<a onclick="addonMonitorAction(<?php echo $key; ?>);" class="link">Remove <?php echo $uppercase; ?></a>
 						</td>
 						<td>
-							<a onclick="window.location.href= '<?php echo $installed; ?>'" class="link">View</a>
+							<a target="_blank" onclick="window.location.href= '<?php echo $installed; ?>'" class="link">View</a>
 						</td>
 					<?php else: ?>
 						<td colspan="4">
 							This is installed, but not within Log-Hog
 						</td>
 						<td>
-							<a onclick="window.location.href= '<?php echo $installed; ?>'" class="link">View</a>
+							<a target="_blank" onclick="window.location.href= '<?php echo $installed; ?>'" class="link">View</a>
 						</td>
 					<?php endif; ?>
 				<?php else: ?>
