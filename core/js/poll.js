@@ -649,7 +649,8 @@ function getLineDiffCount(id)
 	}
 	return {
 		diff: diff,
-		newDiff: diffNew
+		newDiff: diffNew,
+		newDiffText: newDiffText
 	}
 }
 
@@ -943,7 +944,7 @@ function update(data)
 												log: id,
 												name: nameForLog+" Update "+numForNot,
 												action: "$('#"+id+"').click();  closeNotificationsAndMainMenu();",
-												newText: newDiffText,
+												newText: diffData["newDiffText"],
 												showNotification: notificationNewLogBadge,
 												showDropdown: notificationNewLogDropdown
 											});
@@ -959,7 +960,7 @@ function update(data)
 								{
 									if(!firstLoad && diffData["diff"] !== 0)
 									{
-										updateOneLogData(id, diffData["newDiff"], newDiffText);
+										updateOneLogData(id, diffData["newDiff"], diffData["newDiffText"]);
 										atLeastOneLogUpdate = true;
 									}
 								}
