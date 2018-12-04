@@ -649,7 +649,7 @@ function getLineDiffCount(id)
 	}
 	return {
 		diff: diff,
-		newDiff: newDiff
+		newDiff: diffNew
 	}
 }
 
@@ -878,8 +878,6 @@ function update(data)
 							var currentIdPos = checkIfDisplay(id)["location"];
 
 							var diffData = getLineDiffCount(id);
-							var diff = diffData["diff"];
-							var newDIff = diffData["newDiff"];
 
 							var updateHtml = true;
 							if(currentIdPos === -1)
@@ -936,9 +934,9 @@ function update(data)
 										if(notificationNewLineBadge === "true" || notificationNewLineDropdown === "true")
 										{
 											var numForNot = "";
-											if (diff !== 0)
+											if (diffData["diff"] !== 0)
 											{
-												numForNot = diffNew;
+												numForNot = diffData["newDiff"];
 											}
 											addLogNotification({
 												log: id,
@@ -958,9 +956,9 @@ function update(data)
 							{
 								if(fullPathSearch in fileData && fileData[fullPathSearch]["AlertEnabled"] === "true" && (!(id in alertEnabledArray) || (id in alertEnabledArray && alertEnabledArray[id] === "enabled")))
 								{
-									if(!firstLoad && diffNew !== "(0)")
+									if(!firstLoad && diffData["diff"] !== 0)
 									{
-										updateOneLogData(id, newDiff, newDiffText);
+										updateOneLogData(id, diffData["newDiff"], newDiffText);
 										atLeastOneLogUpdate = true;
 									}
 								}
