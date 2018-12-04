@@ -66,6 +66,10 @@ var userPaused = false;
 var title = $("title").text();
 var verifyChangeCounter = 0;
 
+function getRndInteger(min, max) {
+    return Math.floor(Math.random() * (max - min) ) + min;
+}
+
 
 function popupSettingsArrayCheck()
 {

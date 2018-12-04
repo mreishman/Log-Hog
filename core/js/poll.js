@@ -702,7 +702,7 @@ function update(data)
 				{
 					showLogByName(name);
 				}
-				if(logData === "This file is empty. This should not be displayed." && hideEmptyLog === "true" || logData === "Error - File does not exist")
+				if((logData === "This file is empty. This should not be displayed." && hideEmptyLog === "true") || logData === "Error - File does not exist")
 				{
 					hideLogByName(name);
 					logs[id] ="<div class='errorMessageLog errorMessageGreenBG' > This file is empty. </div>";
@@ -747,7 +747,7 @@ function update(data)
 						}
 
 						var lastLogLine = logs[id].count - 1;
-						var fullPathSearch = filterTitle(titles[id]).trim();
+						var fullPathSearch = name.trim();
 
 						var nameForLog = getNameForLog(shortName, fullPathSearch, localFile = files[i], id);
 						if($("#menu ." + id + "Button").length === 0)
@@ -781,10 +781,11 @@ function update(data)
 							if(!firstLoad)
 							{
 								var moveToFrontOnUpdate = false;
+								var filesNewLength = filesNew.length;
 								var innerCount = i;
-								if(filesNew.length > 0)
+								if(filesNewLength > 0)
 								{
-									for (var innerCountFind = filesNew.length - 1; innerCountFind >= 0; innerCountFind--)
+									for (var innerCountFind = filesNewLength - 1; innerCountFind >= 0; innerCountFind--)
 									{
 										if(filesNew[innerCountFind] === files[i])
 										{
