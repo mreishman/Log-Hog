@@ -522,6 +522,98 @@ function afterPollFunctionComplete()
 	}
 }
 
+function logCheckForStandardMessage(logData)
+{
+	var standardMessage = false;
+	if(logData === "")
+	{
+		logData = "<div class='errorMessageLog errorMessageRedBG' >Error - Unknown error? Check file permissions or clear log to fix?</div>";
+		standardMessage = true;
+	}
+	else if(logData === "This file is empty. This should not be displayed.")
+	{
+		logData = "<div class='errorMessageLog errorMessageGreenBG' > This file is empty. </div>";
+		standardMessage = true;
+	}
+	else if((logData === "Error - File is not Readable") || (logData === "Error - Maybe insufficient access to read file?"))
+	{
+		var mainMessage = "Error - Maybe insufficient access to read file?";
+		if(logData === "Error - File is not Readable")
+		{
+			mainMessage = "Error - File is not Readable";
+		}
+		logData = "<div class='errorMessageLog errorMessageRedBG' > "+mainMessage+" <br> <span style='font-size:75%;'> Try entering: <br> chown -R www-data:www-data "+name+" <br> or <br> chmod 664 "+name+" </span> </div>";
+		standardMessage = true;
+	}
+	return {standardMessage, logData};
+}
+
+function getNameForLog(shortName, fullPathSearch, localFile, id)
+{
+	var nameForLog = shortName;
+	if(fullPathSearch in fileData && "Name" in fileData[fullPathSearch] && fileData[fullPathSearch]["Name"] !== "" && fileData[fullPathSearch]["Name"] !== null)
+	{
+		nameForLog = fileData[fullPathSearch]["Name"];
+	}
+	else
+	{
+		if(logNameFormat !== "default")
+		{
+			//check for other options in displaying name
+			if(logNameFormat === "firstFolder" || logNameFormat === "lastFolder")
+			{
+				var locationOfLast = 1;
+				var newName = "";
+				var splitType = "/";
+				if(fullPathSearch.indexOf("/") > -1)
+				{
+					newName = fullPathSearch.split("/");
+				}
+				else if(fullPathSearch.indexOf("\\") > -1)
+				{
+					newName = fullPathSearch.split("\\");
+					splitType = "\\";
+				}
+				if(logNameFormat === "lastFolder")
+				{
+					locationOfLast = newName.length-2;
+				}
+				if(newName !== "")
+				{
+					nameForLog = newName[locationOfLast]+splitType+shortName;
+				}
+			}
+			else if(logNameFormat === "fullPath")
+			{
+				nameForLog = fullPathSearch;
+			}
+		}
+
+		if(logNameExtension === "false")
+		{
+			if(shortName.indexOf(".") > -1)
+			{
+				var secondNewName = nameForLog.split(".");
+				secondNewName.splice(-1,1);
+				nameForLog = secondNewName.join();
+			}
+		}
+	}
+	if(logNameGroup === "true")
+	{
+		if(localFile in fileData && fileData[localFile]["Group"] !== "")
+		{
+			var newNameGroup = fileData[localFile]["Group"].split(" ")[0];
+			nameForLog = "<span id='"+id+"GroupInName' >"+newNameGroup+":</span>"+nameForLog;
+		}
+		else if(localFile.indexOf("LogHog/Backup/") === 0)
+		{
+			nameForLog = "Backup:"+nameForLog;
+		}
+	}
+	return nameForLog;
+}
+
 function update(data)
 {
 	try
@@ -590,27 +682,9 @@ function update(data)
 								folderNameCount = 0;
 							}
 						}
-						var standardMessage = false;
-						if(logData === "")
-						{
-							logData = "<div class='errorMessageLog errorMessageRedBG' >Error - Unknown error? Check file permissions or clear log to fix?</div>";
-							standardMessage = true;
-						}
-						else if(logData === "This file is empty. This should not be displayed.")
-						{
-							logData = "<div class='errorMessageLog errorMessageGreenBG' > This file is empty. </div>";
-							standardMessage = true;
-						}
-						else if((logData === "Error - File is not Readable") || (logData === "Error - Maybe insufficient access to read file?"))
-						{
-							var mainMessage = "Error - Maybe insufficient access to read file?";
-							if(logData === "Error - File is not Readable")
-							{
-								mainMessage = "Error - File is not Readable";
-							}
-							logData = "<div class='errorMessageLog errorMessageRedBG' > "+mainMessage+" <br> <span style='font-size:75%;'> Try entering: <br> chown -R www-data:www-data "+name+" <br> or <br> chmod 664 "+name+" </span> </div>";
-							standardMessage = true;
-						}
+						var logStandardCheckData = logCheckForStandardMessage(logData);
+						var standardMessage = logStandardCheckData["standardMessage"];
+						logData = logStandardCheckData["logData"];
 
 						logs[id] = logData;
 						titles[id] = name;
@@ -636,68 +710,8 @@ function update(data)
 						var lastLogLine = logs[id].count - 1;
 						var fullPathSearch = filterTitle(titles[id]).trim();
 
-						var nameForLog = shortName;
-						if(fullPathSearch in fileData && "Name" in fileData[fullPathSearch] && fileData[fullPathSearch]["Name"] !== "" && fileData[fullPathSearch]["Name"] !== null)
-						{
-							nameForLog = fileData[fullPathSearch]["Name"];
-						}
-						else
-						{
-							if(logNameFormat !== "default")
-							{
-								//check for other options in displaying name
-								if(logNameFormat === "firstFolder" || logNameFormat === "lastFolder")
-								{
-									var locationOfLast = 1;
-									var newName = "";
-									var splitType = "/";
-									if(fullPathSearch.indexOf("/") > -1)
-									{
-										newName = fullPathSearch.split("/");
-									}
-									else if(fullPathSearch.indexOf("\\") > -1)
-									{
-										newName = fullPathSearch.split("\\");
-										splitType = "\\";
-									}
-									if(logNameFormat === "lastFolder")
-									{
-										locationOfLast = newName.length-2;
-									}
-									if(newName !== "")
-									{
-										nameForLog = newName[locationOfLast]+splitType+shortName;
-									}
-								}
-								else if(logNameFormat === "fullPath")
-								{
-									nameForLog = fullPathSearch;
-								}
-							}
-
-							if(logNameExtension === "false")
-							{
-								if(shortName.indexOf(".") > -1)
-								{
-									var secondNewName = nameForLog.split(".");
-									secondNewName.splice(-1,1);
-									nameForLog = secondNewName.join();
-								}
-							}
-						}
-						if(logNameGroup === "true")
-						{
-							if(files[i] in fileData && fileData[files[i]]["Group"] !== "")
-							{
-								var newNameGroup = fileData[files[i]]["Group"].split(" ")[0];
-								nameForLog = "<span id='"+id+"GroupInName' >"+newNameGroup+":</span>"+nameForLog;
-							}
-							else if(files[i].indexOf("LogHog/Backup/") === 0)
-							{
-								nameForLog = "Backup:"+nameForLog;
-							}
-						}
-						if($("#menu ." + id + "Button").length === 0) 
+						var nameForLog = getNameForLog(shortName, fullPathSearch, localFile = files[i], id);
+						if($("#menu ." + id + "Button").length === 0)
 						{
 							classInsert = "";
 							item = blank;
@@ -787,32 +801,9 @@ function update(data)
 									}
 								}
 							}
-							var rightClickObjectNew = new Array();
-							if(files[i].indexOf("LogHog/Backup/") !== 0)
-							{
-								rightClickObjectNew.push({action: "tmpHideLog(\""+id+"\");", name: "Tmp Hide Log"});
-								rightClickObjectNew.push({action: "clearLogInner(titles[\""+id+"\"]);", name: "Clear Log"});
-								rightClickObjectNew.push({action: "deleteLogPopupInner(titles[\""+id+"\"]);", name: "Delete Log"});
-								var alertToggle = {action: "tmpToggleAlerts(\""+id+"\");" ,name: "Enable Alerts"};
-								if( (!(fullPathSearch in fileData)) || fileData[fullPathSearch]["AlertEnabled"] === "true")
-								{
-									alertToggle = {action: "tmpToggleAlerts(\""+id+"\");" ,name: "Disable Alerts"};
-								}
-								rightClickObjectNew.push(alertToggle);
-							}
-							rightClickObjectNew.push({action: "copyToClipBoard(\""+shortName+"\");", name: "Copy File Name"});
-							rightClickObjectNew.push({action: "copyToClipBoard(titles[\""+id+"\"]);", name: "Copy Filepath"});
-							//add rightclick menu
 							if(rightClickMenuEnable === "true")
 							{
-								var listOfRightClickTargets =["","CurrentWindow","GroupInName","Count"];
-								var listOfRightClickTargetsLength = listOfRightClickTargets.length;
-								for(var rct = 0; rct < listOfRightClickTargetsLength; rct++)
-								{
-									var innerId = id+listOfRightClickTargets[rct];
-									menuObjectRightClick[innerId] = rightClickObjectNew;
-									Rightclick_ID_list.push(innerId);
-								}
+								addLogToRightClickMenu(files[i], id, fullPathSearch, shortName);
 							}
 						}
 

@@ -201,3 +201,31 @@ function switchPollType()
   }
   setTimeout(function(){ hidePopup(); }, 500);
 }
+
+function addLogToRightClickMenu(localName, id, fullPathSearch, shortName)
+{
+  var rightClickObjectNew = new Array();
+  if(localName.indexOf("LogHog/Backup/") !== 0)
+  {
+    rightClickObjectNew.push({action: "tmpHideLog(\""+id+"\");", name: "Tmp Hide Log"});
+    rightClickObjectNew.push({action: "clearLogInner(titles[\""+id+"\"]);", name: "Clear Log"});
+    rightClickObjectNew.push({action: "deleteLogPopupInner(titles[\""+id+"\"]);", name: "Delete Log"});
+    var alertToggle = {action: "tmpToggleAlerts(\""+id+"\");" ,name: "Enable Alerts"};
+    if( (!(fullPathSearch in fileData)) || fileData[fullPathSearch]["AlertEnabled"] === "true")
+    {
+      alertToggle = {action: "tmpToggleAlerts(\""+id+"\");" ,name: "Disable Alerts"};
+    }
+    rightClickObjectNew.push(alertToggle);
+  }
+  rightClickObjectNew.push({action: "copyToClipBoard(\""+shortName+"\");", name: "Copy File Name"});
+  rightClickObjectNew.push({action: "copyToClipBoard(titles[\""+id+"\"]);", name: "Copy Filepath"});
+  //add rightclick menu
+  var listOfRightClickTargets =["","CurrentWindow","GroupInName","Count"];
+  var listOfRightClickTargetsLength = listOfRightClickTargets.length;
+  for(var rct = 0; rct < listOfRightClickTargetsLength; rct++)
+  {
+    var innerId = id+listOfRightClickTargets[rct];
+    menuObjectRightClick[innerId] = rightClickObjectNew;
+    Rightclick_ID_list.push(innerId);
+  }
+}

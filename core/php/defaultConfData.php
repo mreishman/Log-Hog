@@ -1594,7 +1594,39 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			2									=> array(
+			2									=>	array(
+				"bool"								=>	($oneLogCustomStyle == 'false'),
+				"id"								=>	"oneLogNewBlockClickContentSettings",
+				"name"								=>	"One log open new log options",
+				"type"								=>	"grouped",
+				"var"								=>	array(
+					"function"							=>	"showOrHideOneLogCustomStyleSettings",
+					"id"								=>	"oneLogCustomStyle",
+					"key"								=>	"oneLogCustomStyle",
+					"name"								=>	"Custom Style for OneLog logs",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				),
+				"vars"								=>	array(
+					0									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"oneLogColorBG",
+							"name"								=>	"Background",
+							"type"								=>	"text"
+						)
+					),
+					1									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"oneLogColorFont",
+							"name"								=>	"Font",
+							"type"								=>	"text"
+						)
+					)
+				)
+			),
+			3									=> array(
 				"info"								=>	"When one log is visible and open, log updates wont trigger notifactions or highlight the tab.",
 				"type"								=>	"single",
 				"var"								=>	array(
@@ -1604,7 +1636,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			3									=> array(
+			4									=> array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"oneLogLogMaxHeight",
@@ -1613,7 +1645,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			4									=> array(
+			5									=> array(
 				"info"								=>	"when updating, if the last log is the same as the new log, it will merge the new lines into that box",
 				"type"								=>	"single",
 				"var"								=>	array(
@@ -1623,7 +1655,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			5									=> array(
+			6									=> array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"oneLogHighlight",
@@ -1645,7 +1677,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			6									=>	array(
+			7									=>	array(
 				"bool"								=>	($oneLogNewBlockClick == 'false'),
 				"id"								=>	"oneLogNewBlockClickContentSettings",
 				"info"								=>	"when clicking on a title in one log, it will attempt to open in a new block, not the same as onelog",
@@ -1681,7 +1713,7 @@ $defaultConfigMoreData = array(
 					)
 				)
 			),
-			7									=> array(
+			8									=> array(
 				"info"								=>	"Clears data for one log when clicking clear all logs",
 				"type"								=>	"single",
 				"var"								=>	array(

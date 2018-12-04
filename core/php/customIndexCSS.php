@@ -177,4 +177,14 @@ elseif($logMenuLocation === "bottom"): ?>
 }
 <?php endif; ?>
 
+<?php if($oneLogCustomStyle === "true"): ?>
+	#log .settingsDiv{
+		background-color: <?php echo $oneLogColorBG; ?>;
+	}
+
+	.oneLogTable tr:not(.highlight):not(.newLine) td:not(.highlight):not(.newLine){
+		color: <?php echo $oneLogColorFont; ?>;
+	}
+<?php endif; ?>
+
 </style>
