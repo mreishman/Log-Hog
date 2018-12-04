@@ -614,6 +614,41 @@ function getNameForLog(shortName, fullPathSearch, localFile, id)
 	return nameForLog;
 }
 
+function getLineDiffCount(id)
+{
+	var newDiff = getDiffLogAndLastLog(id);
+	var newDiffText = getDifferentText(id, newDiff);
+	var diff = newDiff;
+	var diffMod = "";
+	if(diff !== "")
+	{
+		if(document.getElementById(id+"Count").innerHTML !== "" )
+		{
+			var count = document.getElementById(id+"CountHidden").innerHTML;
+			diff = parseInt(count) + diff;
+			if(diff > sliceSize)
+			{
+				diff = sliceSize;
+				diffMod = "+";
+			}
+		}
+	}
+	var diffNew = diff;
+	if(diff !== 0)
+	{
+		diffNew = "("+diff+diffMod+")";
+	}
+	if(document.getElementById(id+"CountHidden").innerHTML !== diff)
+	{
+		//this has updated, update stuff for counter
+		document.getElementById(id+"CountHidden").innerHTML = diff;
+		if(notificationCountVisible === "true" && diff !== 0)
+		{
+			document.getElementById(id+"Count").innerHTML = diffNew;
+		}
+	}
+}
+
 function update(data)
 {
 	try
@@ -838,37 +873,9 @@ function update(data)
 							//determine if id is one of the values in the array of open files (use instead of currentPage)
 							var currentIdPos = checkIfDisplay(id)["location"];
 
-							var newDiff = getDiffLogAndLastLog(id);
-							var newDiffText = getDifferentText(id, newDiff);
-							var diff = newDiff;
-							var diffMod = "";
-							if(diff !== "")
-							{
-								if(document.getElementById(id+"Count").innerHTML !== "" )
-								{
-									var count = document.getElementById(id+"CountHidden").innerHTML;
-									diff = parseInt(count) + diff;
-									if(diff > sliceSize)
-									{
-										diff = sliceSize;
-										diffMod = "+";
-									}
-								}
-							}
-							var diffNew = diff;
-							if(diff !== "")
-							{
-								diffNew = "("+diff+diffMod+")";
-							}
-							if(document.getElementById(id+"CountHidden").innerHTML !== diff)
-							{
-								//this has updated, update stuff for counter
-								document.getElementById(id+"CountHidden").innerHTML = diff;
-								if(notificationCountVisible === "true" && diff !== 0)
-								{
-									document.getElementById(id+"Count").innerHTML = diffNew;
-								}
-							}
+							var diffData = getLineDiffCount(id);
+							var diff = diffData["diff"];
+							var newDIff = diffData["newDiff"];
 
 							var updateHtml = true;
 							if(currentIdPos === -1)
@@ -925,7 +932,7 @@ function update(data)
 										if(notificationNewLineBadge === "true" || notificationNewLineDropdown === "true")
 										{
 											var numForNot = "";
-											if (diffNew !== "(0)")
+											if (diff !== 0)
 											{
 												numForNot = diffNew;
 											}
