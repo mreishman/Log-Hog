@@ -268,6 +268,7 @@ $versionCheckArray = array(
 		),
 		'6.0.9'		=> array(
 			'branchName'	=> '6.1UpdateBeta1',
+			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/6.1.png',
 			'releaseNotes'	=> "<ul><li>Features<ul><li>New notification system<ul><li>Notification screen is now full screen</li><li>Condensed the main menu bar by moving notification counter inside badge and over main menu icon</li><li>Clicking on notification badge opens notification panel (right click for shortcut for clear all notifications)</li><li>Option to hide notification page on main menu (hidden by default)</li><li>Added view status (read / unread notifications)</li><li>Option to only show notification count for unread messages (true by default)</li><li>Separated notifications into groups (read / unread)</li><li>Added notification previews (shows part of log added in notification)</li><li>Added inline notification alerts (with actions to view / close)</li></ul></li><li>Added view button for locally installed addons on addon page </li><li>More changes to experimental feature log formatting (For version 7.0)</li><li>Added option for clear all logs action to also clear data from oneLog</li></ul></li><li>Bug Fixes<ul><li>Notifications now show proper log name (same as log tab) instead of just short name</li><li>Added message to updater image if not loading</li><li>Added logic for deleting old files from past updates</li><li>Passes through try catch exception on poll errors in response</li></ul></li></ul>"
 		),
 	)
