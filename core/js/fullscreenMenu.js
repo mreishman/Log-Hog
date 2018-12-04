@@ -636,13 +636,13 @@ function resizeFullScreenMenu()
 			{
 				mainContentFullScreenMenuTop = "82px";
 			}
-			$(".settingsUlSub").css("width","auto").css("bottom","auto").css("right","0").css("border-bottom","1px solid white").css("border-right","none").css("height","35px");
+			$(".settingsUlSub").css("width","auto").css("bottom","auto").css("right","0").addClass("addBorderBottom").removeClass("addBorderRight").css("height","35px");
 			$(".settingsUlSub li").not('.subMenuToggle').css("display","inline-block");
 			$(".menuTitle").not(".menuBreak , .fullScreenNotificationTitle").hide();
 		}
 		else
 		{
-			$(".settingsUlSub").css("width","200px").css("bottom","0").css("right","auto").css("border-bottom","none").css("border-right","1px solid white").css("height","auto");
+			$(".settingsUlSub").css("width","200px").css("bottom","0").css("right","auto").removeClass("addBorderBottom").addClass("addBorderRight").css("height","auto");
 			$(".settingsUlSub li").not('.subMenuToggle').css("display","block");
 			$(".menuTitle").not(".fullScreenMenuText").show();
 			toggleAddonAppsMenuText();

@@ -1,7 +1,7 @@
 <div>
 	<table cellspacing="0"  style="margin: 0px;padding: 0px; border-spacing: 0px; width:100%;" >
 		<tr class="logTdHolder">
-			<td class="logTdWidth" onclick="changeCurrentSelectWindow('{{counter}}')" style="padding: 0; border: 1px solid white;" >
+			<td class="logTdWidth addBorder" onclick="changeCurrentSelectWindow('{{counter}}')" style="padding: 0;" >
 				<div style="display: block; position: relative;height: 0;width: 0;padding: 0;" >
 					<div
 					class="backgroundForSideBarMenu"

@@ -253,7 +253,7 @@ function addFile(filePathSent = false)
 	showPopup();
 	var htmlForPopoup = "<div class='settingsHeader' id='popupHeaderText' ><span id='popupHeaderText' >Add File</span></div>";
 	htmlForPopoup += "<br><div style='width:100%;text-align:center;'> <input onkeyup=\"getCurrentFileFolderInfoKeyPress(false);\" value=\""+filePathLocal+"\" id=\"inputFieldForFileOrFolder\" type=\"text\" style=\"width: 90%;\" > </div>";
-	htmlForPopoup += "<br><div style='width:100%;height:30px;padding-left:20px;' id=\"folderNavUpHolder\"> </div><div id=\"folderFileInfoHolder\" style='margin-right:10px; margin-left: 10px;height:200px;border: 1px solid white;overflow: auto;'> --- </div>";
+	htmlForPopoup += "<br><div style='width:100%;height:30px;padding-left:20px;' id=\"folderNavUpHolder\"> </div><div id=\"folderFileInfoHolder\" class=\"addBorder\" style='margin-right:10px; margin-left: 10px;height:200px;overflow: auto;'> --- </div>";
 	htmlForPopoup += "<div class='link' onclick='addFileFolderAjax(\"file\", document.getElementById(\"inputFieldForFileOrFolder\").value);' style='margin-left:125px; margin-right:50px;margin-top:25px;'>Add</div><div onclick='hidePopup();' class='link'>Cancel</div";
 	document.getElementById("popupContentInnerHTMLDiv").innerHTML = htmlForPopoup;
 	document.getElementById("popupContent").style.height = "400px";
@@ -279,7 +279,7 @@ function addFolder(folderPathSent = false)
 	showPopup();
 	var htmlForPopoup = "<div class='settingsHeader' id='popupHeaderText' ><span id='popupHeaderText' >Add Folder</span></div>";
 	htmlForPopoup += "<br><div style='width:100%;text-align:center;'> <input onkeyup=\"getCurrentFileFolderInfoKeyPress(true);\" value=\""+folderPathLocal+"\" id=\"inputFieldForFileOrFolder\" type=\"text\" style=\"width: 90%;\" > </div>";
-	htmlForPopoup += "<br><div style='width:100%;height:30px;padding-left:20px;' id=\"folderNavUpHolder\"> </div><div id=\"folderFileInfoHolder\" style='margin-right:20px; margin-left: 20px;height:200px;border: 1px solid white;overflow: auto;'> --- </div>";
+	htmlForPopoup += "<br><div style='width:100%;height:30px;padding-left:20px;' id=\"folderNavUpHolder\"> </div><div id=\"folderFileInfoHolder\" class=\"addBorder\" style='margin-right:20px; margin-left: 20px;height:200px;overflow: auto;'> --- </div>";
 	htmlForPopoup += "<div class='link' onclick='addFileFolderAjax(\"folder\", document.getElementById(\"inputFieldForFileOrFolder\").value);' style='margin-left:110px; margin-right:50px;margin-top:25px;'>Add</div><div onclick='hidePopup();' class='link'>Cancel</div";
 	document.getElementById("popupContentInnerHTMLDiv").innerHTML = htmlForPopoup;
 	document.getElementById("popupContent").style.height = "400px";
@@ -757,7 +757,7 @@ function showTypeDropdown(rowNumber)
 	staticRowNumber = rowNumber;
 	moveFileFolderDropdown();
 
-	var htmlForPopoup = "<div id=\"folderNavUpHolder\"> </div><div id=\"folderFileInfoHolder\" style='margin-right:20px; margin-left: 20px;height:200px;border: 1px solid white;overflow: auto;'> --- </div>";
+	var htmlForPopoup = "<div id=\"folderNavUpHolder\"> </div><div id=\"folderFileInfoHolder\" class=\"addBorder\" style='margin-right:20px; margin-left: 20px;height:200px;overflow: auto;'> --- </div>";
 	document.getElementById("fileFolderDropdown").innerHTML = htmlForPopoup;
 	getCurrentFileFolderMainPage(rowNumber);
 }

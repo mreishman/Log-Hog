@@ -4,7 +4,7 @@ foreach ($scanned_directory as $key):
 			include($directory.$key."/defaultSetting.php");
 			$thisThemeIsSelected = false;
 			?>
-			<div style="width: 600px; height: 405px; display: inline-block; background-color: grey; border: 1px solid white; margin: 20px;">
+			<div class="addBorder" style="width: 600px; height: 405px; display: inline-block; background-color: grey; margin: 20px;">
 				<div class="settingsHeader" style="margin: 0px;">
 					<?php echo $themeDefaultSettings['displayName'];?>
 					<div class="settingsHeaderButtons">

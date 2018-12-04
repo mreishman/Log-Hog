@@ -196,5 +196,10 @@ if(!($windowDisplayConfig[0] > 1 || $windowDisplayConfig[1] > 1)): ?>
 	border-right: 1px solid <?php echo $currentSelectedThemeColorValues['main']['main-1']['fontColor']?>;
 }
 
+.addBackground
+{
+	background: <?php echo $currentSelectedThemeColorValues['main']['main-1']['background']?>;
+	color: <?php echo $currentSelectedThemeColorValues['main']['main-1']['fontColor']?>;
+}
 
 </style>
