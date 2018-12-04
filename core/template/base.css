@@ -403,3 +403,11 @@ div.sidebarLeft {
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
 }
+
+.currentWindowNumSelected{
+  cursor: default;
+}
+
+.sidebarCurrentWindowNum{
+  cursor: pointer;
+}

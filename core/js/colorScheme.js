@@ -34,6 +34,10 @@ function addRowForFolderColorOptions()
 	{
 		addNewFolderColorButtonForThing(folderColorGroupNames[nameCount], currentMaxRow, 1);
 	}
+	if(document.getElementById("folderColorThemeNameForPost"+currentMaxRow+"Remove").style.display !== "none")
+	{
+		document.getElementById("folderColorThemeNameForPost"+currentMaxRow+"Remove").style.display = "none";
+	}
 }
 
 function moveRowForFolderColorOptions(newRowLocation)
@@ -73,6 +77,13 @@ function moveRowForFolderColorOptions(newRowLocation)
 			extraColors++;
 		}
 	}
+	else
+	{
+		if(document.getElementById("folderColorThemeNameForPost"+newRowLocation+"Remove").style.display !== "none")
+		{
+			document.getElementById("folderColorThemeNameForPost"+newRowLocation+"Remove").style.display = "none";
+		}
+	}
 	var lengthOfNames = folderColorGroupNames.length;
 	for(var nameCount = 0; nameCount < lengthOfNames; nameCount++)
 	{
@@ -103,12 +114,26 @@ function addColorBlock(currentRow, bgColor = "#000000", fColor = "#FFFFFF")
 	item = item.replace(/{{j}}/g, newRow);
 	$("#folderColorThemeNameForPost"+currentRow+"Main").append(item);
 	addNewFolderColorButtonForThing("Main", currentRow, newRow);
+	if(document.getElementById("folderColorThemeNameForPost"+currentRow+"Remove").style.display !== "inline-block")
+	{
+		document.getElementById("folderColorThemeNameForPost"+currentRow+"Remove").style.display = "inline-block";
+	}
 }
 
 function removeColorBlock(currentRow)
 {
 	var newRow = getLastRowForMainColors(currentRow) -  1;
-	$("#folderColorButtonMainBackground"+currentRow+"-"+newRow).parent().parent().remove();
+	if(newRow !== 1)
+	{
+		$("#folderColorButtonMainBackground"+currentRow+"-"+newRow).parent().parent().remove();
+	}
+	if(newRow === 2)
+	{
+		if(document.getElementById("folderColorThemeNameForPost"+currentRow+"Remove").style.display !== "none")
+		{
+			document.getElementById("folderColorThemeNameForPost"+currentRow+"Remove").style.display = "none";
+		}
+	}
 }
 
 function removeRow(currentRow)
