@@ -175,8 +175,18 @@ if($locationForStatusIndex["loc"])
 			}
 		if($addonsAsIframe === "true"): ?>
 			</span>
+			<?php if ($rightClickMenuEnable): ?>
+				<script type="text/javascript">
+					addAddonToRightClickMenuHref(<?php echo $locationForStatusIndex["loc"]; ?>, "menuStatusAddon");
+				</script>
+			<?php endif; ?>
 		<?php else: ?>
 			</a>
+			<?php if ($rightClickMenuEnable): ?>
+				<script type="text/javascript">
+					addAddonToRightClickMenuIframe(<?php echo $locationForStatusIndex["loc"]; ?>);
+				</script>
+			<?php endif; ?>
 		<?php endif; ?>
 	</li>
 <?php
@@ -211,8 +221,18 @@ if($locationForMonitorIndex["loc"])
 			}
 		if($addonsAsIframe === "true"): ?>
 			</span>
+			<?php if ($rightClickMenuEnable): ?>
+				<script type="text/javascript">
+					addAddonToRightClickMenuHref(<?php echo $locationForMonitorIndex["loc"]; ?>, "menuMonitorAddon");
+				</script>
+			<?php endif; ?>
 		<?php else: ?>
 			</a>
+			<?php if ($rightClickMenuEnable): ?>
+				<script type="text/javascript">
+					addAddonToRightClickMenuIframe(<?php echo $locationForMonitorIndex["loc"]; ?>);
+				</script>
+			<?php endif; ?>
 		<?php endif; ?>
 	</li>
 <?php
@@ -245,11 +265,21 @@ if($locationForSearchIndex["loc"])
 			{
 				echo $externalLinkImage;
 			}
-			if($addonsAsIframe === "true"): ?>
-				</span>
-			<?php else: ?>
-				</a>
+		if($addonsAsIframe === "true"): ?>
+		</span>
+			<?php if ($rightClickMenuEnable): ?>
+				<script type="text/javascript">
+					addAddonToRightClickMenuHref(<?php echo $locationForSearchIndex["loc"]; ?>, "menuSearchAddon");
+				</script>
 			<?php endif; ?>
+		<?php else: ?>
+			</a>
+			<?php if ($rightClickMenuEnable): ?>
+				<script type="text/javascript">
+					addAddonToRightClickMenuIframe(<?php echo $locationForSearchIndex["loc"]; ?>);
+				</script>
+			<?php endif; ?>
+		<?php endif; ?>
 	</li>
 <?php
 $seleniumMonitorDisplay = "display: none;";
@@ -282,8 +312,18 @@ if($locationForSeleniumMonitorIndex["loc"])
 				echo $externalLinkImage;
 			}
 		if($addonsAsIframe === "true"): ?>
-			</span>
+		</span>
+			<?php if ($rightClickMenuEnable): ?>
+				<script type="text/javascript">
+					addAddonToRightClickMenuHref(<?php echo $locationForSeleniumMonitorIndex["loc"]; ?>, "menuSeleniumMonitorAddon");
+				</script>
+			<?php endif; ?>
 		<?php else: ?>
 			</a>
+			<?php if ($rightClickMenuEnable): ?>
+				<script type="text/javascript">
+					addAddonToRightClickMenuIframe(<?php echo $locationForSeleniumMonitorIndex["loc"]; ?>);
+				</script>
+			<?php endif; ?>
 		<?php endif; ?>
 	</li>

@@ -229,3 +229,15 @@ function addLogToRightClickMenu(localName, id, fullPathSearch, shortName)
     Rightclick_ID_list.push(innerId);
   }
 }
+
+function addAddonToRightClickMenuHref(location, id)
+{
+  var rightClickObjectNew = new Array();
+  rightClickObjectNew.push({action: "toggleIframe('"+location+"','"+id+"');", name: "Open in Iframe"});
+}
+
+function addAddonToRightClickMenuIframe(location)
+{
+  var rightClickObjectNew = new Array();
+  rightClickObjectNew.push({action: "window.open('"+location+"')", name: "Open in new tab"});
+}
