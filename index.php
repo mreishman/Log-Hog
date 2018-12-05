@@ -102,6 +102,7 @@ $externalLinkImage = generateImage(
 	<link rel="icon" type="image/png" href="core/img/favicon.png" />
 	<script type="text/javascript">
 		var baseUrl = "<?php echo $baseUrl;?>";
+		var Rightclick_ID_list = [];
 	</script>
 	<script src="core/js/lazyLoadImg.js?v=<?php echo $jsVersion?>"></script>
 	<script src="core/js/jquery.js?v=<?php echo $jsVersion?>"></script>
@@ -177,7 +178,6 @@ $externalLinkImage = generateImage(
 
 			<?php
 			if($rightClickMenuEnable == "true"): ?>
-				var Rightclick_ID_list = [];
 				if(document.getElementById('deleteImage'))
 				{
 					Rightclick_ID_list.push('deleteImage');

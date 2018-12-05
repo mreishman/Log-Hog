@@ -24,6 +24,33 @@ var notificationMenuBadge = [doToggleClearAllNotifications];
 
 var menuObjectRightClick = {deleteImage: deleteMenu, pauseImage: pauseMenu, notificationBadge: notificationMenuBadge};
 
+//check for list of addons addons to add to object
+var listOfAddonsKeys = Object.keys(listOfAddons);
+var listOfAddonsKeysLength = listOfAddonsKeys.length;
+for(var akcount = 0; akcount < listOfAddonsKeysLength; akcount++)
+{
+  if(listOfAddons[listOfAddonsKeys[akcount]]["Installed"] !== false)
+  {
+    //add right click object
+    var listOfRightClickTargets =["Span", "Div", "Image", "Text",addonRightClickIds[listOfAddonsKeys[akcount]]];
+    var listOfRightClickTargetsLength = listOfRightClickTargets.length;
+    for(var rct = 0; rct < listOfRightClickTargetsLength; rct++)
+    {
+      var innerId = listOfAddonsKeys[akcount]+listOfRightClickTargets[rct];
+      if(!document.getElementById(innerId))
+      {
+        innerId = listOfRightClickTargets[rct];
+        if(!document.getElementById(innerId))
+        {
+          continue;
+        }
+      }
+      menuObjectRightClick[innerId] = [addonRightClickObject[listOfAddonsKeys[akcount]]];
+      Rightclick_ID_list.push(innerId);
+    }
+  }
+}
+
 $( document ).ready(function() {
   (function() {
 
@@ -228,16 +255,4 @@ function addLogToRightClickMenu(localName, id, fullPathSearch, shortName)
     menuObjectRightClick[innerId] = rightClickObjectNew;
     Rightclick_ID_list.push(innerId);
   }
-}
-
-function addAddonToRightClickMenuHref(location, id)
-{
-  var rightClickObjectNew = new Array();
-  rightClickObjectNew.push({action: "toggleIframe('"+location+"','"+id+"');", name: "Open in Iframe"});
-}
-
-function addAddonToRightClickMenuIframe(location)
-{
-  var rightClickObjectNew = new Array();
-  rightClickObjectNew.push({action: "window.open('"+location+"')", name: "Open in new tab"});
 }
