@@ -49,10 +49,6 @@ $arrayOfFiles = array(
 		"type" =>"js"
 	),
 	array(
-		"name" => "filter.js",
-		"type" =>"js"
-	),
-	array(
 		"name" => "loghogDownloadJS.js",
 		"type" =>"js"
 	),
@@ -142,7 +138,13 @@ $arrayOfFiles = array(
 		"class" =>"gearImageForLoad"
 	)
 );
-
+if($filterEnabled === "true")
+{
+	$arrayOfFiles[] = array(
+		"name" => "filter.js",
+		"type" =>"js"
+	);
+}
 if($sendCrashInfoJS === "true")
 {
 	$arrayOfFiles[] = array(

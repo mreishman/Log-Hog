@@ -260,6 +260,11 @@ function checkForChanges(idOfObject)
 			if($("."+idOfObject+"ResetButton"))
 			{
 				$("."+idOfObject+"ResetButton").css("display","inline-block");
+				$("."+idOfObject+"NoChangesDetected").css("display","none");
+				if(saveButtonAlwaysVisible !== "true")
+				{
+					$("."+idOfObject+"SaveButton").css("display","inline-block");
+				}
 			}
 			if(document.getElementById("setupButtonContinue"))
 			{
@@ -272,7 +277,12 @@ function checkForChanges(idOfObject)
 
 		if($("."+idOfObject+"ResetButton"))
 		{
+			$("."+idOfObject+"NoChangesDetected").css("display","inline-block");
 			$("."+idOfObject+"ResetButton").css("display","none");
+			if(saveButtonAlwaysVisible !== "true")
+			{
+				$("."+idOfObject+"SaveButton").css("display","none");
+			}
 		}
 		if(document.getElementById("setupButtonContinue"))
 		{

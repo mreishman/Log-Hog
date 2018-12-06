@@ -227,7 +227,7 @@ function findUpdateValue($newestVersionCount, $versionCount, $newestVersion, $ve
 
 function addResetButton($idOfForm)
 {
-	return "<a onclick=\"resetArrayObject('".$idOfForm."');\" style=\"display: none;\" class=\"linkSmall ".$idOfForm."ResetButton\" > Reset Current Changes</a>";
+	return "<a onclick=\"resetArrayObject('".$idOfForm."');\" style=\"display: none;\" class=\"linkSmall ".$idOfForm."ResetButton\" > Reset Current Changes</a><span class=\"".$idOfForm."NoChangesDetected\" >No Changes Detected</span>";
 }
 
 function getFileSize($filename, $shellOrPhp)

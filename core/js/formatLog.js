@@ -47,11 +47,15 @@ function makePrettyWithText(text, count)
 		var topPadding = filterContentLinePadding;
 		var foundOne = false;
 		var addLine = false;
-		var filterTextField = getFilterTextField();
+		var filterTextField = "";
+		if(filterEnabled === "true")
+		{
+			filterTextField = getFilterTextField();
+		}
 		for (var i = 0; i < lengthOfTextArray; i++)
 		{
 			addLine = false;
-			if(selectedListFilterType === "content" && filterContentLimit === "true" && filterTextField !== "")
+			if(filterEnabled === "true" && selectedListFilterType === "content" && filterContentLimit === "true" && filterTextField !== "")
 			{
 				//check for content on current line
 				if(filterContentCheck(text[i]))
@@ -99,6 +103,11 @@ function makePrettyWithText(text, count)
 			{
 				var lineText = text[i].split("\\n");
 				var lengthOflineTextArray = lineText.length;
+				var filterTextField = "";
+				if(filterEnabled === "true")
+				{
+					filterTextField = getFilterTextField();
+				}
 				for (var j = 0; j < lengthOflineTextArray; j++)
 				{
 					var customClass = " class = '";
@@ -109,7 +118,7 @@ function makePrettyWithText(text, count)
 						customClassAdd = true;
 					}
 
-					if(selectedListFilterType === "content" && filterContentHighlight === "true" && getFilterTextField() !== "")
+					if(filterEnabled === "true" && selectedListFilterType === "content" && filterContentHighlight === "true" && filterTextField !== "")
 					{
 						//check if match, and if supposed to highlight
 						if(filterContentCheck(lineText[j]))

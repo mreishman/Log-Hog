@@ -3,7 +3,7 @@
 	Log Layout Settings
 		<div class="settingsHeaderButtons">
 			<?php echo addResetButton("settingsInitialLoadLayoutVars"); ?>
-			<a class="linkSmall" onclick="saveAndVerifyMain('settingsInitialLoadLayoutVars');" >Save Changes</a>
+			<a class="linkSmall settingsInitialLoadLayoutVarsSaveButton" onclick="saveAndVerifyMain('settingsInitialLoadLayoutVars');" >Save Changes</a>
 		</div>
 	</div>
 	<div class="settingsDiv" >

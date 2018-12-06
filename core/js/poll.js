@@ -686,7 +686,7 @@ function update(data)
 			shortName = files[i].replace(/.*\//g, "");
 			id = name.replace(/[^a-z0-9]/g, "");
 
-			if(showFileFromFilter(id, name, shortName, logData) && (showFileFromGroup(id) || $("#"+id).hasClass("active")))
+			if(( filterEnabled === "false" || showFileFromFilter(id, name, shortName, logData)) && (showFileFromGroup(id) || $("#"+id).hasClass("active")))
 			{
 				showFile = true;
 			}
@@ -855,7 +855,7 @@ function update(data)
 							{
 								updated = true;
 							}
-							else
+							else if(filterEnabled === "true")
 							{
 								var selectListForFilter = document.getElementsByName("searchType")[0];
 								var selectedListFilterType = selectListForFilter.options[selectListForFilter.selectedIndex].value;

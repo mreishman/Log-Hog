@@ -168,8 +168,10 @@
 				</select>
 			</div>
 		<?php endif; ?>
-		<div style="float: right;">
-			<input disabled id="searchFieldInput" type="search" name="search" placeholder="Filter <?php echo $filterDefault; ?>" style="height: 30px; width: 200px; margin-right: 10px;">
-		</div>
+		<?php if ($filterSearchInHeader === "true" && $filterEnabled === "true"): ?>
+			<div style="float: right;">
+				<input disabled id="searchFieldInput" type="search" name="search" placeholder="Filter <?php echo $filterDefault; ?>" style="height: 30px; width: 200px; margin-right: 10px;">
+			</div>
+		<?php endif; ?>
 	</div>
 </div>

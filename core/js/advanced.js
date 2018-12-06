@@ -55,7 +55,7 @@ function updateNoNewVersionCheck()
 
 function checkIfChanges()
 {
-	if(checkForChangesArray(["loggingDisplay","locationOtherApps","advancedConfig","expFeatures"]))
+	if(checkForChangesArray(["loggingDisplay","modules","locationOtherApps","advancedConfig","expFeatures"]))
 	{
 		return true;
 	}
@@ -186,13 +186,13 @@ function showOrHideVersionSaveConfig()
 
 $( document ).ready(function()
 {
-	refreshArrayObjectOfArrays(["loggingDisplay","locationOtherApps","advancedConfig","expFeatures"]);
+	refreshArrayObjectOfArrays(["loggingDisplay","modules","locationOtherApps","advancedConfig","expFeatures"]);
 
 	document.addEventListener(
 		'scroll',
 		function (event)
 		{
-			onScrollShowFixedMiniBar(["advancedConfig","loggingDisplay","locationOtherApps","moreAdvancedSpan","expFeatures"]);
+			onScrollShowFixedMiniBar(["advancedConfig","modules","loggingDisplay","locationOtherApps","moreAdvancedSpan","expFeatures"]);
 		},
 		true
 	);

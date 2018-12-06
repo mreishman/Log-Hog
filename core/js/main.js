@@ -1619,15 +1619,17 @@ function mainReady()
 
 	checkForUpdateMaybe();
 	generateWindowDisplay();
-
-	$("#searchFieldInput").on("input", function()
+	if(filterEnabled === "true")
 	{
-		possiblyUpdateFromFilter();
-	});
+		$("#searchFieldInput").on("input", function()
+		{
+			possiblyUpdateFromFilter();
+		});
 
-	if(document.getElementById("searchType"))
-	{
-		document.getElementById("searchType").addEventListener("change", changeSearchplaceholder, false);
+		if(document.getElementById("searchType"))
+		{
+			document.getElementById("searchType").addEventListener("change", changeSearchplaceholder, false);
+		}
 	}
 
 	if (typeof addUpdateNotification == 'function')

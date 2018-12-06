@@ -410,6 +410,15 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
+			1									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"saveButtonAlwaysVisible",
+					"name"								=>	"Force save button visibility",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
 			2									=>	array(
 				"info"								=>	"This is for platforms where saving files might not be in sync with containers. Increasing from one will make saves take longer, but it will be more accurate if there is that sync delay",
 				"type"								=>	"single",
@@ -969,6 +978,15 @@ $defaultConfigMoreData = array(
 				)
 			),
 			3									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"filterSearchInHeader",
+					"name"								=>	"Show filter search in header",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			3									=>	array(
 				"bool"								=>	($bottomBarIndexShow == 'false'),
 				"id"								=>	"sidebarContentSettings",
 				"name"								=>	"Sidebar Settings",
@@ -1217,13 +1235,22 @@ $defaultConfigMoreData = array(
 			5									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
+					"key"								=>	"filterEnabled",
+					"name"								=>	"Enable Filters",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			6									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
 					"key"								=>	"rightClickMenuEnable",
 					"name"								=>	"Enable Right Click Menu",
 					"options"							=>	$trueFalsVars,
 					"type"								=>	"dropdown"
 				)
 			),
-			6									=>	array(
+			7									=>	array(
 				"bool"								=>	($backupNumConfigEnabled == 'false'),
 				"id"								=>	"versionSaveContentSettings",
 				"name"								=>	"Backup Config Settings",
