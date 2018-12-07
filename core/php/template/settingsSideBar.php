@@ -47,15 +47,17 @@
 	<br>
 <?php endif; ?>
 <h3 style="border-bottom: 1px solid white;">Header Bar</h3>
-Show One Log
-<span class="selectDiv">
-	<select onchange="toggleVisibleOneLog();" id="oneLogVisible">
-		<option <?php if($oneLogVisible === "true"){ echo " selected "; }?>  value="true" >True</option>
-		<option <?php if($oneLogVisible === "false"){ echo " selected "; }?>  value="false" >False</option>
-	</select>
-</span>
-<br>
-<br>
+<?php if($oneLogEnable === "true"): ?>
+	Show One Log
+	<span class="selectDiv">
+		<select onchange="toggleVisibleOneLog();" id="oneLogVisible">
+			<option <?php if($oneLogVisible === "true"){ echo " selected "; }?>  value="true" >True</option>
+			<option <?php if($oneLogVisible === "false"){ echo " selected "; }?>  value="false" >False</option>
+		</select>
+	</span>
+	<br>
+	<br>
+<?php endif; ?>
 Hide Log Tabs
 <span class="selectDiv">
 	<select onchange="toggleVisibleAllLogs();" id="allLogsVisible">
