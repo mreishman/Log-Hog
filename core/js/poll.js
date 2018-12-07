@@ -604,7 +604,7 @@ function getNameForLog(shortName, fullPathSearch, localFile, id)
 		if(localFile in fileData && fileData[localFile]["Group"] !== "")
 		{
 			var newNameGroup = fileData[localFile]["Group"].split(" ")[0];
-			nameForLog = "<span id='"+id+"GroupInName' >"+newNameGroup+":</span>"+nameForLog;
+			nameForLog = "<span class='GroupInName' id='"+id+"GroupInName' >"+newNameGroup+":</span>"+nameForLog;
 		}
 		else if(localFile.indexOf("LogHog/Backup/") === 0)
 		{
