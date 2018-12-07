@@ -136,6 +136,20 @@ function removeNotificationByLog(logId)
 		{
 			if(notifications[i]["log"] === logId)
 			{
+				var menuObjectLocal = menuObjectRightClick[logId];
+				var options = Object.keys(menuObjectLocal);
+				var lengthOfOptions = options.length;
+				for(var j = 0; j < lengthOfOptions; j++)
+				{
+					var currentOption = menuObjectLocal[options[j]];
+					if(currentOption["name"] === "Remove Alert")
+					{
+						delete menuObjectRightClick[logId][options[j]];
+					}
+				}
+				menuObjectRightClick[logId] = menuObjectRightClick[logId].filter(function (el) {
+				  return el != null;
+				});
 				removeNotification(i);
 				break;
 			}
@@ -287,6 +301,10 @@ function addLogNotification(notificationArray)
 				}
 			}
 		}
+	}
+	if(rightClickMenuEnable === "true" && "log" in notificationArray)
+	{
+		addClearAlertToRightClickMenu(notificationArray["log"]);
 	}
 	addNotification(notificationArray);
 }
