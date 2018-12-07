@@ -55,7 +55,9 @@ echo loadSentryData($sendCrashInfoJS, $branchSelected); ?>
 			<a class="link" href="#settingsLogFormatVars" > Log Format </a>
 		<?php endif; ?>
 		<a class="link" href="#settingsPollVars" > Poll </a>
-		<a class="link" href="#settingsFilterVars" > Filter </a>
+		<?php if($filterEnabled === "true"): ?>
+			<a class="link" href="#settingsFilterVars" > Filter </a>
+		<?php endif; ?>
 		<a class="link" href="#archiveConfig" > Archive </a>
 		<a class="link" href="#settingsNotificationVars" > Notifications </a>
 		<a class="link" href="#settingsMenuVars" > Menu </a>
