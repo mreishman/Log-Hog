@@ -62,7 +62,9 @@ echo loadSentryData($sendCrashInfoJS, $branchSelected); ?>
 		<a class="link" href="#settingsNotificationVars" > Notifications </a>
 		<a class="link" href="#settingsMenuVars" > Menu </a>
 		<a class="link" href="#settingsWatchlistVars" > Watchlist </a>
-		<a class="link" href="#settingsOneLogVars" > OneLog </a>
+		<?php if($oneLogEnable === "true"): ?>
+			<a class="link" href="#settingsOneLogVars" > OneLog </a>
+		<?php endif; ?>
 		<?php if($enableMultiLog === "true"): ?>
 			<a class="link" href="#settingsMultiLogVars" > Multi-Log </a>
 			<a class="link" href="#settingsInitialLoadLayoutVars"> Log Layout</a>
