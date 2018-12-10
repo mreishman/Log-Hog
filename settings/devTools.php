@@ -31,7 +31,7 @@ require_once('../core/php/updateCheck.php');
 	<div id="main">
 	<form id="devBranch">
 		<div class="settingsHeader">
-			Branch Settings  
+			Branch Settings
 			<div class="settingsHeaderButtons">
 				<?php echo addResetButton("devBranch"); ?>
 				<a class="linkSmall devBranchSaveButton" onclick="saveAndVerifyMain('devBranch');" >Save Changes</a>
