@@ -68,5 +68,6 @@ require_once('../core/php/loadVars.php');
 </body>
 <script type="text/javascript">
 var logTrimType = "<?php echo $logTrimType; ?>";
+var saveButtonAlwaysVisible = "<?php echo $saveButtonAlwaysVisible; ?>";
 </script>
 <script src="../core/js/settingsMain.js?v=<?php echo $jsVersion?>"></script>

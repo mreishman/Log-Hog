@@ -151,8 +151,7 @@ function updateOneLogData(id, newDiff, newDiffText)
 		}
 		else
 		{
-			var oneLogTitle = filterTitle(titles[id]);
-			oneLogTitle += "("+newDiff+")";
+			var oneLogTitle = filterTitle(titles[id]) + newDiff;
 			//create new entry below
 			oneLogLogData["logs"].push({
 				logName: oneLogTitle,

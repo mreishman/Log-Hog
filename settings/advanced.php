@@ -111,4 +111,5 @@ $countConfig--;
 </body>
 <script type="text/javascript">
 	var htmlRestoreOptions = "<?php echo generateRestoreList($configStatic); ?>";
+	var saveButtonAlwaysVisible = "<?php echo $saveButtonAlwaysVisible; ?>";
 </script>
