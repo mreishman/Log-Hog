@@ -172,7 +172,9 @@ function openLogInFull(logId)
 	{
 		var firstPosition = 0;
 		var secondPosition = 1;
-		var boolForGen = (Object.keys(logDisplayArray).length === 1);
+		var logDisplayArrayKey = Object.keys(logDisplayArray);
+		var logDisplayArrayKeyLength = logDisplayArrayKey.length
+		var boolForGen = (logDisplayArrayKey === 1);
 		if(boolForGen)
 		{
 			//generate window from 1 to 2
@@ -182,6 +184,20 @@ function openLogInFull(logId)
 		else
 		{
 			//already greater than 2, pick either one or two
+			//check if already open
+			for(var LDACount = 0; LDACount < logDisplayArrayKeyLength; LDACount++)
+			{
+				if(logId === logDisplayArray[logDisplayArrayKey[LDACount]]["id"])
+				{
+					//already visible
+					$("#log"+LDACount+"Td tr").addClass("highlight");
+					setTimeout(function()
+					{
+						$("#log"+LDACount+"Td tr").removeClass("highlight");
+					}, 250, LDACount);
+					return;
+				}
+			}
 			if(currentOneLogPosition !== 0)
 			{
 				firstPosition = 1;
