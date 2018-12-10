@@ -26,6 +26,7 @@ var fullScreenMenuClickCount = 0;
 var globalForcePageNavigate = false;
 var hiddenLogUpdatePollBottom = null;
 var hiddenLogUpdatePollTop = null;
+var idOfOneLogOpen = "";
 var inlineNotificationPoll = null;
 var inlineNotificationPollArray = [];
 var lastContentSearch = "";
@@ -640,27 +641,14 @@ function removeFromMultiLog(idOfName)
 	}
 }
 
-function removeArchiveLogFromDisplay(currentLogNum)
+function removeLogFromDisplay(currentLogNum)
 {
-	var archiveLogId = logDisplayArray[currentLogNum]["id"];
-	$("#"+archiveLogId).remove();
-	removeNotificationByLog(archiveLogId);
-	var aodmKeys = Object.keys(arrayOfDataMain);
-	var aodmKeysLength = aodmKeys.length;
-	for(var archiveRemoveCount = 0; archiveRemoveCount < aodmKeysLength; archiveRemoveCount++)
+	var internalID = logDisplayArray[currentLogNum]["id"];
+	if(internalID.indexOf("ogogackup") === 0)
 	{
-		if(aodmKeys[archiveRemoveCount].indexOf("LogHog/Backup") > -1)
-		{
-			if(aodmKeys[archiveRemoveCount].replace(/[^a-z0-9]/g, "") === archiveLogId)
-			{
-				delete arrayOfDataMain[aodmKeys[archiveRemoveCount]];
-				break;
-			}
-		}
+		removeArchiveLogFromDisplay(currentLogNum);
+		return;
 	}
-	logDisplayArray[currentLogNum] = {id: null, scroll: true, pin: false};
-	selectTabsInOrder(Object.keys(logDisplayArray).length);
-	resize();
 }
 
 function hideLogByLogDisplayArray(currentLogNum)
@@ -750,6 +738,15 @@ function toggleSideBarElements(internalID, currentCurrentSelectWindow)
 	else if(internalID === "oneLog")
 	{
 		visibleStatusOfDeleteLogSideBar= "none";
+	}
+	else if(internalID === idOfOneLogOpen)
+	{
+		visibleStatusOfCloseLogSideBar  = "block";
+		idOfOneLogOpen = "";
+	}
+	if(visibleStatusOfCloseLogSideBar === "block")
+	{
+		loadImgFromData("closeImageForLoad");
 	}
 	if(document.getElementById("clearLogSideBar"+currentCurrentSelectWindow).style.display !== visibleStatusOfClearLogSideBar)
 	{

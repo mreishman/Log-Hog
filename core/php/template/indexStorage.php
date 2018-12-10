@@ -109,7 +109,7 @@
 								);
 							*/ ?>
 						</a> -->
-						<a onclick="removeArchiveLogFromDisplay('{{counter}}')" id="closeLogSideBar{{counter}}" onclick="#" style="cursor: pointer; display: none;" >
+						<a onclick="removeLogFromDisplay('{{counter}}')" id="closeLogSideBar{{counter}}" onclick="#" style="cursor: pointer; display: none;" >
 							<?php echo generateImage(
 								$arrayOfImages["loadingImg"],
 								$imageConfig = array(

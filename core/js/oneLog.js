@@ -174,6 +174,7 @@ function openLogInFull(logId)
 		var boolForGen = (Object.keys(logDisplayArray).length === 1);
 		if(boolForGen)
 		{
+			idOfOneLogOpen = logId;
 			//generate window from 1 to 2
 			document.getElementById("windowConfig").value = "1x2";
 			if(oneLogNewBlockLocation === "bottom" || (window.innerWidth < breakPointTwo && oneLogNewBlockLocation === "auto"))
@@ -201,6 +202,7 @@ function openLogInFull(logId)
 	}
 	else
 	{
+		idOfOneLogOpen = logId;
 		changeCurrentSelectWindow(currentOneLogPosition);
 		document.getElementById(logId).click();
 	}

@@ -153,3 +153,26 @@ function clearAllArchiveLogs()
 		generalUpdate();
 	}});
 }
+
+function removeArchiveLogFromDisplay(currentLogNum)
+{
+	var archiveLogId = logDisplayArray[currentLogNum]["id"];
+	$("#"+archiveLogId).remove();
+	removeNotificationByLog(archiveLogId);
+	var aodmKeys = Object.keys(arrayOfDataMain);
+	var aodmKeysLength = aodmKeys.length;
+	for(var archiveRemoveCount = 0; archiveRemoveCount < aodmKeysLength; archiveRemoveCount++)
+	{
+		if(aodmKeys[archiveRemoveCount].indexOf("LogHog/Backup") > -1)
+		{
+			if(aodmKeys[archiveRemoveCount].replace(/[^a-z0-9]/g, "") === archiveLogId)
+			{
+				delete arrayOfDataMain[aodmKeys[archiveRemoveCount]];
+				break;
+			}
+		}
+	}
+	logDisplayArray[currentLogNum] = {id: null, scroll: true, pin: false};
+	selectTabsInOrder(Object.keys(logDisplayArray).length);
+	resize();
+}
