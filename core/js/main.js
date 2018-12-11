@@ -745,9 +745,9 @@ function fadeHighlight(id)
 
 function openLogPopup(event,currentCurrentSelectWindow)
 {
+	closeLogPopup();
 	var height = $("#log"+currentCurrentSelectWindow+"Td").outerHeight()/2;
 	var eventData = $(event);
-	$("#popupSelectContainer").html("");
 	var popupHtml = $("#storage .logListPopup").html();
 	var newWindowHtml = $("#menu").html();
 	newWindowHtml = newWindowHtml.replace(/id="/g, "id=\"popup");
@@ -756,7 +756,7 @@ function openLogPopup(event,currentCurrentSelectWindow)
 	popupHtml = popupHtml.replace(/{{maxHeight}}/g, height+"px");
 	$("#popupSelectContainer").html(popupHtml);
 	$("#popupSelectContainer").css("top",((eventData.offset().top-height-20)+"px"));
-	$("#popupSelectContainer").css("left",((eventData.offset().left+50)+"px"));
+	$("#popupSelectContainer").css("left",((eventData.offset().left+40)+"px"));
 	document.getElementById("popupSelectContainer").style.display = "block";
 }
 
@@ -961,10 +961,11 @@ function resize()
 				$("#menu").outerHeight(targetHeight);
 			}
 		}
-		var tdElementWidth = (targetWidth/windowDisplayConfigColCount).toFixed(4);
-		var trElementHeight = ((targetHeight-borderPadding)/windowDisplayConfigRowCount).toFixed(4);
-		if(($(".logTrHeight").outerHeight() !== trElementHeight)|| ($(".logTdWidth").outerWidth() !== tdElementWidth) || ($(".backgroundForSideBarMenu").outerHeight() !== trElementHeight))
+		var tdElementWidth = (targetWidth/windowDisplayConfigColCount).toFixed(0);
+		var trElementHeight = ((targetHeight-borderPadding)/windowDisplayConfigRowCount).toFixed(0);
+		if(($(".logTrHeight").outerHeight().toFixed(0) !== trElementHeight)|| ($(".logTdWidth").outerWidth().toFixed(0) !== tdElementWidth))
 		{
+			closeLogPopup();
 			if($(".logTrHeight").outerHeight() !== trElementHeight)
 			{
 				$(".logTrHeight").outerHeight(trElementHeight);
@@ -973,24 +974,24 @@ function resize()
 			{
 				$(".logTdWidth").outerWidth(tdElementWidth);
 			}
-				if($(".backgroundForSideBarMenu").outerHeight() >= $(".logTrHeight").outerHeight())
+		}
+		if($(".backgroundForSideBarMenu").outerHeight() >= $(".logTrHeight").outerHeight())
+		{
+			$(".backgroundForSideBarMenu").outerHeight(trElementHeight);
+		}
+		else
+		{
+			if($(".backgroundForSideBarMenu").css("height") !== "auto")
+			{
+				$(".backgroundForSideBarMenu").css("height","auto");
+			}
+			if(bottomBarIndexType === "center")
+			{
+				if($(".backgroundForSideBarMenu").css("top") !== trElementHeight+"px")
 				{
-					$(".backgroundForSideBarMenu").outerHeight(trElementHeight);
+					$(".backgroundForSideBarMenu").css("top",((trElementHeight / 2) - ($(".backgroundForSideBarMenu").outerHeight() / 2))+"px")
 				}
-				else
-				{
-					if($(".backgroundForSideBarMenu").css("height") !== "auto")
-					{
-						$(".backgroundForSideBarMenu").css("height","auto");
-					}
-					if(bottomBarIndexType === "center")
-					{
-						if($(".backgroundForSideBarMenu").css("top") !== trElementHeight+"px")
-						{
-							$(".backgroundForSideBarMenu").css("top",((trElementHeight / 2) - ($(".backgroundForSideBarMenu").outerHeight() / 2))+"px")
-						}
-					}
-				}
+			}
 		}
 
 		resizeFullScreenMenu();
