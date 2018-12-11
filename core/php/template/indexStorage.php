@@ -109,6 +109,17 @@
 								);
 							*/ ?>
 						</a> -->
+						<a onclick="openLogPopup(this,'{{counter}}');" style="cursor: pointer;">
+							<?php echo generateImage(
+								$arrayOfImages["historySideBar"],
+								$imageConfig = array(
+									"height"	=>	"20px",
+									"style"		=>	"margin: 5px;",
+									"title"		=>	"View Backup"
+									)
+								);
+							?>
+						</a>
 						<a onclick="removeLogFromDisplay('{{counter}}')" id="closeLogSideBar{{counter}}" onclick="#" style="cursor: pointer; display: none;" >
 							<?php echo generateImage(
 								$arrayOfImages["loadingImg"],

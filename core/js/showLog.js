@@ -2,6 +2,7 @@ function show(e, id)
 {
 	try
 	{
+		closeLogPopup();
 		var internalID = id;
 		var currentCurrentSelectWindow = currentSelectWindow;
 		$("#log"+currentCurrentSelectWindow).hide();

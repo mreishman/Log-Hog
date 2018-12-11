@@ -743,6 +743,46 @@ function fadeHighlight(id)
 	}
 }
 
+function openLogPopup(event,currentCurrentSelectWindow)
+{
+	var height = $("#log"+currentCurrentSelectWindow+"Td").outerHeight()/2;
+	var eventData = $(event);
+	$("#popupSelectContainer").html("");
+	var popupHtml = $("#storage .logListPopup").html();
+	var newWindowHtml = $("#menu").html();
+	newWindowHtml = newWindowHtml.replace(/id="/g, "id=\"popup");
+	newWindowHtml = newWindowHtml.replace(/show\(this,/g, "clickLog(");
+	popupHtml = popupHtml.replace(/{{content}}/g, newWindowHtml);
+	popupHtml = popupHtml.replace(/{{maxHeight}}/g, height+"px");
+	$("#popupSelectContainer").html(popupHtml);
+	$("#popupSelectContainer").css("top",((eventData.offset().top-height-20)+"px"));
+	$("#popupSelectContainer").css("left",((eventData.offset().left+50)+"px"));
+	document.getElementById("popupSelectContainer").style.display = "block";
+}
+
+function clickLog(logId)
+{
+	$("#"+logId).click();
+}
+
+function closeLogPopup()
+{
+	if(isLogPopupOpen())
+	{
+		document.getElementById("popupSelectContainer").style.display = "none";
+		$("#popupSelectContainer").html("");
+	}
+}
+
+function isLogPopupOpen()
+{
+	if(document.getElementById("popupSelectContainer").style.display === "block")
+	{
+		return true;
+	}
+	return false;
+}
+
 function toggleSideBarElements(internalID, currentCurrentSelectWindow)
 {
 	var visibleStatusOfClearLogSideBar = "block";
