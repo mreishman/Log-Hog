@@ -125,6 +125,31 @@ function isOneLogVisible()
 	return false;
 }
 
+function closeToOneLogInFull(currentLogNum, currentOneLogPosition)
+{
+	document.getElementById("windowConfig").value = "1x1";
+	generateWindowDisplayInner();
+	changeCurrentSelectWindow(0);
+	if(currentOneLogPosition === 0)
+	{
+		document.getElementById("oneLog").click();
+	}
+}
+
+function switchBackToOnelog(currentLogNum)
+{
+	var initialPos = currentSelectWindow;
+	if(initialPos !== currentLogNum)
+	{
+		changeCurrentSelectWindow(currentLogNum);
+		document.getElementById("oneLog").click();
+	}
+	if(initialPos !== currentLogNum)
+	{
+		changeCurrentSelectWindow(initialPos);
+	}
+}
+
 function scrollOneLogIfVisible(currentPosOfOneLog)
 {
 	$("#log"+currentPosOfOneLog).html(makeOneLogPretty());

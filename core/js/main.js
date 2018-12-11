@@ -649,6 +649,25 @@ function removeLogFromDisplay(currentLogNum)
 		removeArchiveLogFromDisplay(currentLogNum);
 		return;
 	}
+	//check if oneLog is enabled
+	if(oneLogEnable === "true")
+	{
+		//check if oneLog is open in another block
+		//if not in another block, switch this block to oneLog
+		var currentOneLogPosition = isOneLogVisible();
+		if(currentOneLogPosition === false)
+		{
+			//switch back to onelog
+			switchBackToOnelog(currentLogNum);
+			return;
+		}
+		//else close, and go back to 1x1 window with onelog open
+		if(oneLogEnable === "true")
+		{
+			closeToOneLogInFull(currentLogNum, currentOneLogPosition);
+			return;
+		}
+	}
 }
 
 function hideLogByLogDisplayArray(currentLogNum)
