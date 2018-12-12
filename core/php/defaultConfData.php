@@ -1,21 +1,27 @@
 <?php
 
 $oneToTenArr = array();
+$oneToFiveArr = array();
+$zeroToFiveArr = array();
 for ($i=0; $i < 10; $i++)
 {
 	$oneToTenArr[$i] = array(
 	"value" 					=> $i,
 	"name" 						=> $i);
-}
+	if($i > 0 && $i <= 5)
+	{
+		$oneToFiveArr[$i] = array(
+		"value" 					=> $i,
+		"name" 						=> $i);
+	}
 
-$saveVerifyArr = array();
-for ($j=1; $j <= 5; $j++)
-{
-	$saveVerifyArr[$j] = array(
-	"value" 					=> $j,
-	"name" 						=> $j);
+	if($i <= 5)
+	{
+		$zeroToFiveArr[$i] = array(
+		"value" 					=> $i,
+		"name" 						=> $i);
+	}
 }
-
 
 $arrayOfwindowConfigOptions = array();
 $counter = 0;
@@ -425,7 +431,7 @@ $defaultConfigMoreData = array(
 				"var"								=>	array(
 					"key"								=>	"successVerifyNum",
 					"name"								=>	"Save verification number",
-					"options"							=>	$saveVerifyArr,
+					"options"							=>	$oneToFiveArr,
 					"type"								=>	"dropdown"
 				)
 			),
@@ -709,6 +715,56 @@ $defaultConfigMoreData = array(
 							"name" 								=> "Never")
 					),
 					"type"								=>	"dropdown"
+				)
+			),
+			3									=>	array(
+				"bool"								=>	($logFormatFileEnable == 'false'),
+				"id"								=>	"logFormatFileEnableSettings",
+				"name"								=>	"Log File Link Settings",
+				"type"								=>	"grouped",
+				"var"								=>	array(
+					"function"							=>	"showOrHidelogFormatFileEnableSettings",
+					"id"								=>	"logFormatFileEnable",
+					"key"								=>	"logFormatFileEnable",
+					"name"								=>	"Link files in logs",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				),
+				"vars"								=>	array(
+					0									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"logFormatFileBackground",
+							"name"								=>	"Background",
+							"type"								=>	"text"
+						)
+					),
+					1									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"logFormatFileFontColor",
+							"name"								=>	"Font",
+							"type"								=>	"text"
+						)
+					),
+					2									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"logFormatFileLineCount",
+							"name"								=>	"Show line count",
+							"options"							=>	$trueFalsVars,
+							"type"								=>	"dropdown"
+						)
+					),
+					3									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"logFormatFileLinePadding",
+							"name"								=>	"Line Padding +/-",
+							"options"							=>	$zeroToFiveArr,
+							"type"								=>	"dropdown"
+						)
+					),
 				)
 			),
 		)

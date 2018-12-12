@@ -17,6 +17,7 @@ function toggleSettingsSidebar()
 		document.getElementById("log").style.marginLeft = "0px";
 		document.getElementById("settingsSideBar").style.display = "none";
 	}
+	resize();
 }
 
 function swapLayoutLetters(letter)

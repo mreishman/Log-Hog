@@ -25,10 +25,15 @@ function makePretty(id)
 	}
 }
 
-function makePrettyWithText(text, count)
+function makePrettyWithText(text, count, extraData = {})
 {
 	try
 	{
+		var addLineCount = "false";
+		if("lineDisplay" in extraData && extraData["lineDisplay"] === "true")
+		{
+			addLineCount = "true";
+		}
 		if(text === "")
 		{
 			return "";
@@ -54,6 +59,11 @@ function makePrettyWithText(text, count)
 		}
 		for (var i = 0; i < lengthOfTextArray; i++)
 		{
+			var lineCount = i;
+			if("lineModifier" in extraData)
+			{
+				lineCount += extraData["lineModifier"];
+			}
 			addLine = false;
 			if(filterEnabled === "true" && selectedListFilterType === "content" && filterContentLimit === "true" && filterTextField !== "")
 			{
@@ -140,7 +150,9 @@ function makePrettyWithText(text, count)
 					{
 						lineToReturn = formatLine(lineText[j], {
 							customClass,
-							customClassAdd
+							customClassAdd,
+							lineDisplay : addLineCount,
+							lineCount
 						});
 					}
 					returnText += "<td style=\"width: 31px; padding: 0;\" ></td>"+lineToReturn+"</tr><tr height=\""+logLinePadding+"px\" ><td colspan=\"2\"></td></tr>";

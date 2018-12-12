@@ -431,6 +431,10 @@ div.sidebarLeft {
   word-break: break-word;
 }
 
+.notificationPreviewLog .logCode{
+  display: none;
+}
+
 #inlineNotifications{
   display: none;
   position: absolute;

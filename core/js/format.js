@@ -66,7 +66,15 @@ function formatLine(text, extraData)
 	var arrayOfText = dateTimeSplit(text);
 	if(dateTextFormatColumn === "true" || (dateTextFormatColumn === "auto" && window.innerWidth > breakPointTwo))
 	{
+		if("lineDisplay" in extraData && extraData["lineDisplay"] === "true")
+		{
+			return "<td style=\"white-space:nowrap;width: 1%;\" >" + dateTimeFormat(arrayOfText) + extraData["lineCount"] + "</td><td style=\"white-space: pre-wrap;\" >" + formatMainMessage(arrayOfText[1], extraData) + "</td>";
+		}
 		return "<td style=\"white-space:nowrap;width: 1%;\" >" + dateTimeFormat(arrayOfText) + "</td><td style=\"white-space: pre-wrap;\" >" + formatMainMessage(arrayOfText[1], extraData) + "</td>";
+	}
+	else if("lineDisplay" in extraData && extraData["lineDisplay"] === "true")
+	{
+		return "<td style=\"white-space:nowrap;width: 1%;\" >" + extraData["lineCount"] + "</td><td style=\"white-space: pre-wrap;\" >" + dateTimeFormat(arrayOfText) + formatMainMessage(arrayOfText[1], extraData) + "</td>";
 	}
 	return "<td style=\"white-space: pre-wrap;\" >" + dateTimeFormat(arrayOfText) + formatMainMessage(arrayOfText[1], extraData) + "</td>";
 }
@@ -124,15 +132,21 @@ function formatMainMessage(message, extraData)
 		return formatPhpMessage(message, extraData);
 	}
 	//check if message is in arrayOfFileData
-	var arrayOfFileDataKeys = Object.keys(arrayOfFileData);
-	var arrayOfFileDataKeysLength = arrayOfFileDataKeys.length;
-	for(var AOFDCount = 0; AOFDCount < arrayOfFileDataKeysLength; AOFDCount++)
+	if(logFormatFileEnable === "true")
 	{
-		if(message.indexOf(arrayOfFileDataKeys[AOFDCount]) > -1 && arrayOfFileData[arrayOfFileDataKeys[AOFDCount]]["fileData"] !== "Error - File Not Found")
+		if(/(in )(.?)([\/]+)([^&\r\n\t]*)(on line|\D:\d)(.?)(\d{1,10})/.test(message))
 		{
-			//this message matches file data, add this below
-			extraData["fileData"] = arrayOfFileData[arrayOfFileDataKeys[AOFDCount]];
-			return formatMessageFileData(message, extraData);
+			var arrayOfFileDataKeys = Object.keys(arrayOfFileData);
+			var arrayOfFileDataKeysLength = arrayOfFileDataKeys.length;
+			for(var AOFDCount = 0; AOFDCount < arrayOfFileDataKeysLength; AOFDCount++)
+			{
+				if(message.indexOf(arrayOfFileDataKeys[AOFDCount]) > -1 && arrayOfFileData[arrayOfFileDataKeys[AOFDCount]]["fileData"] !== "Error - File Not Found")
+				{
+					//this message matches file data, add this below
+					extraData["fileData"] = arrayOfFileData[arrayOfFileDataKeys[AOFDCount]];
+					return formatMessageFileData(message, extraData);
+				}
+			}
 		}
 	}
 	return message;
@@ -140,7 +154,14 @@ function formatMainMessage(message, extraData)
 
 function formatMessageFileData(message, extraData)
 {
-	return "<table style=\"width: 100%;\" ><tr><td>"+message+"</td></tr><tr><td><table class=\"logCode\" style=\"width: 100%;\" >"+makePrettyWithText(escapeHTML(extraData["fileData"]["fileData"]), 0)+"</table></td></tr></table>";
+	var lineStart = 0;
+	var pregMatchData = extraData["fileData"]["pregMatchData"];
+	var numForBaseLineStart = parseInt(pregMatchData[(pregMatchData.length - 1)]);
+	if(numForBaseLineStart > 0)
+	{
+		lineStart = numForBaseLineStart - logFormatFileLinePadding;
+	}
+	return "<table style=\"width: 100%;\" ><tr><td>"+message+"</td></tr><tr><td><table class=\"logCode\" style=\"width: 100%;\" >"+makePrettyWithText(escapeHTML(extraData["fileData"]["fileData"]), 0, {lineDisplay: logFormatFileLineCount, lineModifier: lineStart})+"</table></td></tr></table>";
 }
 
 function formatPhpMessage(message, extraData)

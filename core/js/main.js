@@ -198,7 +198,7 @@ function updateDocumentTitle(updateText)
 
 function updateFileDataArray(newDataArr)
 {
-	if(expFormatEnabled === "true")
+	if(expFormatEnabled === "true" && logFormatFileEnable === "true")
 	{
 		updateFileDataArrayInner(newDataArr);
 	}
