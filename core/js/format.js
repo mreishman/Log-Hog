@@ -134,7 +134,7 @@ function formatMainMessage(message, extraData)
 	//check if message is in arrayOfFileData
 	if(logFormatFileEnable === "true")
 	{
-		if(/(in )(.?)([\/]+)([^&\r\n\t]*)(on line|\D:\d)(.?)(\d{1,10})/.test(message))
+		if(/(in|at) (.?)([\/]+)([^&\r\n\t]*)(on line|\D:\d)(.?)(\d{1,10})/.test(message))
 		{
 			var arrayOfFileDataKeys = Object.keys(arrayOfFileData);
 			var arrayOfFileDataKeysLength = arrayOfFileDataKeys.length;

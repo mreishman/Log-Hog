@@ -80,7 +80,6 @@ function popupSettingsArrayCheck()
 	}
 }
 
-
 function escapeHTML(unsafeStr)
 {
 	try
