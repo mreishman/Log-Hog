@@ -91,6 +91,7 @@ function escapeHTML(unsafeStr)
 		.replace(/>/g, "&gt;")
 		.replace(/\"/g, "&quot;")
 		.replace(/\'/g, "&#39;")
+		.replace(/\\/g, "&#x5c;")
 		.replace(/\//g, "&#x2F;");
 	}
 	catch(e)
@@ -109,6 +110,7 @@ function unescapeHTML(unsafeStr)
 		.replace(/&gt;/g, ">")
 		.replace(/&quot;/g, "\"")
 		.replace(/&#39;/g, "\'")
+		.replace(/&#x5c;/g, "\\")
 		.replace(/&#x2F;/g, "\/");
 	}
 	catch(e)
