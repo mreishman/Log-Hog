@@ -257,17 +257,20 @@ function addClearAlertToRightClickMenu(id)
   try
   {
     var menuObjectLocal = menuObjectRightClick[id];
-    var options = Object.keys(menuObjectLocal);
-    var lengthOfOptions = options.length;
-    for(var i = 0; i < lengthOfOptions; i++)
+    if(menuObjectLocal)
     {
-      var currentOption = menuObjectLocal[options[i]];
-      if(currentOption["name"] === "Remove Alert")
+      var options = Object.keys(menuObjectLocal);
+      var lengthOfOptions = options.length;
+      for(var i = 0; i < lengthOfOptions; i++)
       {
-        return;
+        var currentOption = menuObjectLocal[options[i]];
+        if(currentOption["name"] === "Remove Alert")
+        {
+          return;
+        }
       }
+      menuObjectRightClick[id][lengthOfOptions] =  {action: "removeNotificationByLog(\""+id+"\");" ,name: "Remove Alert"};
     }
-    menuObjectRightClick[id][lengthOfOptions] =  {action: "removeNotificationByLog(\""+id+"\");" ,name: "Remove Alert"};
   }
   catch(e)
   {
