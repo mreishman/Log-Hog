@@ -127,9 +127,12 @@ function formatMainMessage(message, extraData)
 	{
 		return formatJsonMessage(message, extraData);
 	}
-	else if(message.indexOf("PHP message:") > -1)
+	if(logFormatPhpEnable === "true")
 	{
-		return formatPhpMessage(message, extraData);
+		if(message.indexOf("PHP message:") > -1)
+		{
+			return formatPhpMessage(message, extraData);
+		}
 	}
 	//check if message is in arrayOfFileData
 	if(logFormatFileEnable === "true")
@@ -175,7 +178,11 @@ function formatPhpMessage(message, extraData)
 	}
 	var restOfMessage = message.split(":");
 	var messageWarning = restOfMessage[0];
-	var severity = getPhpSeverifyLevel(messageWarning);
+	var severity = "";
+	if(logFormatPhpShowImg === "true")
+	{
+		severity = "<img src=\""+getPhpSeverifyLevel(messageWarning)+"\" height=\"15px\" >";
+	}
 	restOfMessage.shift();
 	restOfMessage = restOfMessage.join(":");
 	restOfMessage = parseErrorMessage(restOfMessage, extraData);
@@ -183,7 +190,7 @@ function formatPhpMessage(message, extraData)
 	{
 		firstPartOfMessage = formatMainMessage(firstPartOfMessage, extraData);
 	}
-	return firstPartOfMessage+"<div><img src=\""+severity+"\" height=\"15px\" >"+messageWarning+"</div><div class=\"settingsDiv\" >"+restOfMessage+"</div>";
+	return firstPartOfMessage+"<div>"+severity+messageWarning+"</div><div class=\"settingsDiv\" >"+restOfMessage+"</div>";
 }
 
 function parseErrorMessage(restOfMessage, extraData)
@@ -273,6 +280,10 @@ function parseErrorMessage(restOfMessage, extraData)
 		}
 	}
 	var newHtmlToSend = "";
+	if(logFormatPhpHideExtra !== "false")
+	{
+		return "<div>"+formatMainMessage(arrayOfData[arrayOfDataKeys[0]]["string"].trim(), extraData)+"</div>";
+	}
 	for(var aodc4 = 0; aodc4 < 7; aodc4++)
 	{
 		if(arrayOfData[arrayOfDataKeys[aodc4]]["string"] !== "")

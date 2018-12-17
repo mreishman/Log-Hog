@@ -767,6 +767,40 @@ $defaultConfigMoreData = array(
 					),
 				)
 			),
+			4									=>	array(
+				"bool"								=>	($logFormatPhpEnable == 'false'),
+				"id"								=>	"logFormatPhpEnableSettings",
+				"name"								=>	"Log Php Message Format Settings",
+				"type"								=>	"grouped",
+				"var"								=>	array(
+					"function"							=>	"showOrHidelogFormatPhpEnableSettings",
+					"id"								=>	"logFormatPhpEnable",
+					"key"								=>	"logFormatPhpEnable",
+					"name"								=>	"Format php message errors",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				),
+				"vars"								=>	array(
+					0									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"logFormatPhpHideExtra",
+							"name"								=>	"Only Show Main Error Message",
+							"options"							=>	$trueFalsVars,
+							"type"								=>	"dropdown"
+						)
+					),
+					1									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"logFormatPhpShowImg",
+							"name"								=>	"Show Severify Image",
+							"options"							=>	$trueFalsVars,
+							"type"								=>	"dropdown"
+						)
+					)
+				)
+			),
 		)
 	),
 	"loggingVars"						=>	array(
