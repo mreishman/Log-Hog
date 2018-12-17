@@ -1,0 +1,421 @@
+#menu {
+	position: absolute;
+	width: 100%;
+	z-index: 20;
+	background: $backgroundColor;
+	padding: .5em 1em;
+	overflow-y: auto;
+
+	.index{
+		padding: .5em 0 .5em 1em;
+	}
+
+	a{
+		display: inline-block;
+		margin: .5em 0;
+		background: $linkColor;
+		cursor: pointer;
+
+		.menuCounter{
+			padding-right: 1em;
+			display: inline-block;
+		}
+
+		.updated {
+			background: $updated;
+
+			&:hover {
+				background: $updateHighlight; 
+			}
+		}
+
+		&:not(.index) {
+			padding: .5em 1em;
+		}
+
+		&:hover{
+			color: $mainAltColor;
+			background: $mainColor; 
+		}
+
+		.active{
+			color: $mainAltColor;
+			background: $mainColor; 
+		}
+	}
+}
+
+#menu2 {
+	position: absolute;
+	width: 100%;
+	z-index: 10;
+	background: $backgroundColorTwo;
+	padding: .25em .5em;
+	border-bottom: 1px solid $mainColor;
+	overflow-y: auto;
+	overflow-x: hidden;
+	top: 55px;
+	box-shadow: 0 5px 10px rgba(0,0,0,.5);
+
+	a{
+		display: inline-block;
+		margin: .5em 0;
+		background: $linkColor;
+		cursor: pointer;
+		padding: .5em 1em;
+
+		&:hover{
+			color: $mainAltColor;
+			background: $mainColor; 
+		}
+
+		.active{
+			color: $mainAltColor;
+			background: $mainColor; 
+		}
+	}
+}
+
+.link:hover, .linkSmall:hover{
+	color: $mainAltColor;
+	background: $mainColor; 
+}
+
+.notificationTriangle {
+  border-bottom: 12px solid $mainColor;
+}
+
+.dropdownHolder {
+  	color: $mainAltColor;
+	background: $mainColor; 
+  	border: 1px solid $mainAltColor;
+  	border-bottom: 3px solid $mainAltColor;
+
+  td{
+  	color: $mainAltColor;
+  }
+  th{
+  	color: $mainAltColor;
+  }
+}
+
+.linkSmallHover {
+	display: inline-block;
+	padding: 3px 5px;
+	margin: 1px;
+	cursor: default;
+	line-height: 100%;
+	color: $mainAltColor;
+	background: $mainColor;
+	border: 1px solid $mainAltColor;
+}
+
+.settingsHeaderButtons{
+	float: right;
+	margin-top: -4px;
+}
+
+#log {
+	padding: 1em 0;
+	color: $mainColor;
+}
+
+#titleContainer {
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	color: $mainAltColor;
+	background: $backgroundColorAlt;
+	padding: 0 1em;
+	line-height: 2em;
+}
+
+.backgroundForSideBarMenu {
+	background: $backgroundColorAlt;
+	overflow-y: auto;
+}
+
+.popupForInfo {
+	background: $backgroundColorAlt;
+	z-index: 10;
+	position: absolute;
+	border: 1px solid $mainColor;
+	color: $mainAltColor;
+	width: fit-content;
+	padding: 5px;
+	word-break: break-all;
+}
+
+.currentWindowNum {
+	color: $mainColor;
+}
+
+.backgroundForMenus {
+	background: $backgroundColor;
+}
+
+.sidebarCurrentWindowNum {
+	border-top: 1px solid $mainAltColor;
+	border-bottom: 1px solid $mainAltColor;
+	background: $mainColor;
+	color: $mainAltColor;
+	text-align: center;
+}
+
+.currentWindowNumSelected {
+	color: $mainColor;
+	background: $mainAltColor;
+	border-top: 1px solid $mainAltColor;
+	border-bottom: 1px solid $mainAltColor;
+	text-align: center;
+}
+
+#title{
+	display: inline-block;
+}
+
+.settingsDiv {
+	background: $backgroundColorTwo;
+	border: 1px solid $mainColor;
+	margin: 10px;
+	margin-top: 0;
+}
+
+.settingsHeader {
+	background: $mainColor;
+	margin: 10px;
+	margin-bottom: 0;
+	color: $mainAltColor;
+	padding: 5px;
+
+	.linkSmall:hover{
+		border: 1px solid $mainAltColor;
+	}
+
+	button {
+		display: inline-block;
+		padding: 3px 5px;
+		margin: 1px;
+		background: $linkColor;
+		cursor: pointer;
+		border: solid 1px $mainColor;
+		line-height: 100%;
+		color: $mainColor;
+	}
+
+	button:hover{
+		border: 1px solid $mainAltColor;
+		color: $mainAltColor;
+		background: $mainColor; 
+	}
+}
+
+.selected , .selectDropdown:hover{
+	background: $mainColor;
+	color: $mainAltColor;
+}
+
+.settingsDiv p a {
+	color: $mainColor;
+}
+
+.updatingDiv p {
+	margin: 2px;
+	padding-left: 10px;
+	word-wrap: break-word;
+}
+
+.settingsBuffer {
+	width: 200px;
+	display: inline-block;
+}
+
+.link {
+	display: inline-block;
+	padding: .5em 1em;
+	background: $linkColor;
+	cursor: pointer;
+	border: solid 1px $mainColor;
+	color: $mainColor;
+}
+
+.linkSmall{
+	display: inline-block;
+	padding: 3px 5px;
+	margin: 1px;
+	background: $linkColor;
+	cursor: pointer;
+	border: solid 1px $mainColor;
+	line-height: 100%;
+	color: $mainColor;
+}
+
+.context-menu {
+  display: none;
+  position: absolute;
+  z-index: 30;
+  background: $linkColor;
+  border: 1px solid $mainColor;
+  box-shadow: 0 0 5px $mainAltColor;
+}
+
+.context-menu__items{
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	margin-top: 0;
+}
+
+.context-menu--active {
+  display: block;
+}
+
+.context-menu__item{
+	padding: 5px 3px;
+	cursor: pointer;
+
+	&:hover{
+		background: $mainColor;
+
+		a{
+			color: $mainAltColor;
+		}
+	}
+
+	a{
+		color: $mainColor;
+	}
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background: $linkColor;
+    overflow: auto;
+    border: 1px solid $mainColor;
+ 	box-shadow: 0 0 5px $mainAltColor;
+    z-index: 30;
+    margin-left: 12px;
+    margin-top: -70px;
+
+    a {
+	    color: $mainColor;
+	    padding: 12px 16px;
+	    text-decoration: none;
+	    display: block;
+
+	    &:hover {
+		    color: $mainAltColor;
+		}
+	}
+}
+
+.dropdown-content__items{
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.dropdown-content--active {
+  display: block;
+}
+
+.dropdown-content__item{
+	padding: 5px 3px;
+	cursor: pointer;
+
+	&:hover{
+		background: $mainColor;
+	}
+}
+
+.loadingSpinner{
+	padding: 75px;
+	background: $backgroundColorTwo;
+	border: 1px solid $mainColor;
+}
+
+.selectDiv{
+	background: $linkColor;
+	display: inline-block;
+	padding: 2px;
+	padding-right: 7px;
+	border: 1px solid $mainColor;
+
+	select{
+		color: $mainColor;
+		background: transparent;
+		cursor: pointer;
+		border: none;
+	}
+
+	option{
+		color: $mainAltColor;
+	}
+}
+
+/* width */
+::-webkit-scrollbar {
+	width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+	background: $backgroundColor;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: $backgroundColorAlt;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background: $mainColor;
+}
+
+#fullScreenMenu {
+	background: rgba(0,0,0,.7);
+
+	li {
+		background: $mainAltColor;
+		color: $mainColor;
+	}
+
+	.selected:not(.noInvert) {
+		filter: invert(100%);
+	}
+}
+
+.fullScreenMenuUL {
+	background: $mainAltColor;
+	border-right: 1px solid $mainColor;
+
+	li:not(.menuTitle):hover{
+		filter: invert(100%);
+	}
+}
+
+.fullScreenMenuLeftSidebar {
+	background: $mainAltColor;
+	border-right: 1px solid $mainColor;
+
+	div{
+		background: $mainAltColor;
+		color: $mainColor;
+	}
+	td{
+		background: $mainAltColor;
+		color: $mainColor;
+	}
+}
+
+.settingsUlSub {
+	background: $mainAltColor;
+	border-right: 1px solid $mainColor;
+}
+
+.notificationPreviewLog {
+	border: 1px solid $mainColor;
+}
