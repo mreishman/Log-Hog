@@ -2,7 +2,7 @@
   position: absolute;
   width: 100%;
   z-index: 20;
-  background-color: #2e303f;
+  background: #281b06;
   padding: 0.5em 1em;
   overflow-y: auto;
 }
@@ -12,38 +12,39 @@
 #menu a {
   display: inline-block;
   margin: 0.5em 0;
-  background-color: #684E32;
+  background: #684E32;
   cursor: pointer;
 }
 #menu a .menuCounter {
   padding-right: 1em;
   display: inline-block;
 }
-#menu a .updated {
-  background-color: #FFAE42;
+#menu a.updated {
+  background: #FFAE42;
+  color: black;
 }
-#menu a .updated:hover {
-  background-color: #FFECD3;
+#menu a.updated:hover {
+  background: #FFECD3;
 }
 #menu a:not(.index) {
   padding: 0.5em 1em;
 }
 #menu a:hover {
-  color: white;
-  background-color: black;
+  color: black;
+  background: white;
 }
-#menu a .active {
-  color: white;
-  background-color: black;
+#menu a.active {
+  color: black;
+  background: white;
 }
 
 #menu2 {
   position: absolute;
   width: 100%;
   z-index: 10;
-  background-color: #ddd;
+  background: #44412e;
   padding: 0.25em 0.5em;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid white;
   overflow-y: auto;
   overflow-x: hidden;
   top: 55px;
@@ -52,39 +53,39 @@
 #menu2 a {
   display: inline-block;
   margin: 0.5em 0;
-  background-color: #684E32;
+  background: #684E32;
   cursor: pointer;
   padding: 0.5em 1em;
 }
 #menu2 a:hover {
-  color: white;
-  background-color: black;
+  color: black;
+  background: white;
 }
-#menu2 a .active {
-  color: white;
-  background-color: black;
+#menu2 a.active {
+  color: black;
+  background: white;
 }
 
 .link:hover, .linkSmall:hover {
-  color: white;
-  background-color: black;
+  color: black;
+  background: white;
 }
 
 .notificationTriangle {
-  border-bottom: 12px solid black;
+  border-bottom: 12px solid white;
 }
 
 .dropdownHolder {
-  color: white;
-  background-color: black;
-  border: 1px solid white;
-  border-bottom: 3px solid white;
+  color: black;
+  background: white;
+  border: 1px solid black;
+  border-bottom: 3px solid black;
 }
 .dropdownHolder td {
-  color: white;
+  color: black;
 }
 .dropdownHolder th {
-  color: white;
+  color: black;
 }
 
 .linkSmallHover {
@@ -93,9 +94,9 @@
   margin: 1px;
   cursor: default;
   line-height: 100%;
-  color: white;
-  background-color: black;
-  border: 1px solid white;
+  color: black;
+  background: white;
+  border: 1px solid black;
 }
 
 .settingsHeaderButtons {
@@ -105,7 +106,7 @@
 
 #log {
   padding: 1em 0;
-  color: black;
+  color: white;
 }
 
 #titleContainer {
@@ -113,49 +114,49 @@
   left: 0;
   bottom: 0;
   width: 100%;
-  color: white;
-  background-color: #2e303f;
+  color: black;
+  background: #c4ad89;
   padding: 0 1em;
   line-height: 2em;
 }
 
 .backgroundForSideBarMenu {
-  background-color: #2e303f;
+  background: #c4ad89;
   overflow-y: auto;
 }
 
 .popupForInfo {
-  background-color: #2e303f;
+  background: #c4ad89;
   z-index: 10;
   position: absolute;
-  border: 1px solid black;
-  color: white;
+  border: 1px solid white;
+  color: black;
   width: fit-content;
   padding: 5px;
   word-break: break-all;
 }
 
 .currentWindowNum {
-  color: black;
+  color: white;
 }
 
 .backgroundForMenus {
-  background-color: #2e303f;
+  background: #281b06;
 }
 
 .sidebarCurrentWindowNum {
-  border-top: 1px solid white;
-  border-bottom: 1px solid white;
-  background-color: black;
-  color: white;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  background: white;
+  color: black;
   text-align: center;
 }
 
 .currentWindowNumSelected {
-  color: black;
-  background-color: white;
-  border-top: 1px solid white;
-  border-bottom: 1px solid white;
+  color: white;
+  background: black;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
   text-align: center;
 }
 
@@ -164,45 +165,45 @@
 }
 
 .settingsDiv {
-  background-color: #ddd;
-  border: 1px solid black;
+  background: #44412e;
+  border: 1px solid white;
   margin: 10px;
   margin-top: 0;
 }
 
 .settingsHeader {
-  background-color: black;
+  background: #281b06;
   margin: 10px;
   margin-bottom: 0;
   color: white;
   padding: 5px;
 }
 .settingsHeader .linkSmall:hover {
-  border: 1px solid white;
+  border: 1px solid black;
 }
 .settingsHeader button {
   display: inline-block;
   padding: 3px 5px;
   margin: 1px;
-  background-color: #684E32;
+  background: #684E32;
   cursor: pointer;
-  border: solid 1px black;
+  border: solid 1px white;
   line-height: 100%;
-  color: black;
+  color: white;
 }
 .settingsHeader button:hover {
-  border: 1px solid white;
-  color: white;
-  background-color: black;
+  border: 1px solid black;
+  color: black;
+  background: white;
 }
 
 .selected, .selectDropdown:hover {
-  background-color: black;
-  color: white;
+  background: white;
+  color: black;
 }
 
 .settingsDiv p a {
-  color: black;
+  color: white;
 }
 
 .updatingDiv p {
@@ -219,30 +220,30 @@
 .link {
   display: inline-block;
   padding: 0.5em 1em;
-  background-color: #684E32;
+  background: #684E32;
   cursor: pointer;
-  border: solid 1px black;
-  color: black;
+  border: solid 1px white;
+  color: white;
 }
 
 .linkSmall {
   display: inline-block;
   padding: 3px 5px;
   margin: 1px;
-  background-color: #684E32;
+  background: #684E32;
   cursor: pointer;
-  border: solid 1px black;
+  border: solid 1px white;
   line-height: 100%;
-  color: black;
+  color: white;
 }
 
 .context-menu {
   display: none;
   position: absolute;
   z-index: 30;
-  background-color: #684E32;
-  border: 1px solid black;
-  box-shadow: 0 0 5px white;
+  background: #684E32;
+  border: 1px solid white;
+  box-shadow: 0 0 5px black;
 }
 
 .context-menu__items {
@@ -261,34 +262,34 @@
   cursor: pointer;
 }
 .context-menu__item:hover {
-  background-color: black;
+  background: white;
 }
 .context-menu__item:hover a {
-  color: white;
+  color: black;
 }
 .context-menu__item a {
-  color: black;
+  color: white;
 }
 
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: #684E32;
+  background: #684E32;
   overflow: auto;
-  border: 1px solid black;
-  box-shadow: 0 0 5px white;
+  border: 1px solid white;
+  box-shadow: 0 0 5px black;
   z-index: 30;
   margin-left: 12px;
   margin-top: -70px;
 }
 .dropdown-content a {
-  color: black;
+  color: white;
   padding: 12px 16px;
   text-decoration: none;
   display: block;
 }
 .dropdown-content a:hover {
-  color: white;
+  color: black;
 }
 
 .dropdown-content__items {
@@ -306,30 +307,30 @@
   cursor: pointer;
 }
 .dropdown-content__item:hover {
-  background-color: black;
+  background: white;
 }
 
 .loadingSpinner {
   padding: 75px;
-  background-color: #ddd;
-  border: 1px solid black;
+  background: #44412e;
+  border: 1px solid white;
 }
 
 .selectDiv {
-  background-color: #684E32;
+  background: #684E32;
   display: inline-block;
   padding: 2px;
   padding-right: 7px;
-  border: 1px solid black;
+  border: 1px solid white;
 }
 .selectDiv select {
-  color: black;
-  background-color: transparent;
+  color: white;
+  background: transparent;
   cursor: pointer;
   border: none;
 }
 .selectDiv option {
-  color: white;
+  color: black;
 }
 
 /* width */
@@ -339,58 +340,64 @@
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: #2e303f;
+  background: #281b06;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #2e303f;
+  background: #c4ad89;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: black;
+  background: white;
 }
 
 #fullScreenMenu {
-  background-color: rgba(0, 0, 0, 0.7);
-}
-#fullScreenMenu li {
-  background-color: white;
-  color: black;
+  background: rgba(0, 0, 0, 0.7);
 }
 #fullScreenMenu .selected:not(.noInvert) {
   filter: invert(100%);
 }
 
+.fullScreenMenuUL li {
+  background: black;
+  color: white;
+}
+
 .fullScreenMenuUL {
-  background-color: white;
-  border-right: 1px solid black;
+  background: black;
+  border-right: 1px solid white;
 }
 .fullScreenMenuUL li:not(.menuTitle):hover {
   filter: invert(100%);
 }
 
 .fullScreenMenuLeftSidebar {
-  background-color: white;
-  border-right: 1px solid black;
+  background: black;
+  border-right: 1px solid white;
 }
 .fullScreenMenuLeftSidebar div {
-  background-color: white;
-  color: black;
+  background: black;
+  color: white;
 }
 .fullScreenMenuLeftSidebar td {
-  background-color: white;
-  color: black;
+  background: black;
+  color: white;
 }
 
 .settingsUlSub {
-  background-color: white;
-  border-right: 1px solid black;
+  background: black;
+  border-right: 1px solid white;
 }
 
 .notificationPreviewLog {
-  border: 1px solid black;
+  border: 1px solid white;
+}
+
+.noNotificationsNotification {
+  background-color: #44412e;
+  color: white;
 }
 
 /*# sourceMappingURL=theme.css.map */

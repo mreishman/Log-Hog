@@ -21,11 +21,12 @@
 			display: inline-block;
 		}
 
-		.updated {
+		&.updated {
 			background: $updated;
+			color: $updatedColor;
 
 			&:hover {
-				background: $updateHighlight; 
+				background: $updateHighlight;
 			}
 		}
 
@@ -35,12 +36,12 @@
 
 		&:hover{
 			color: $mainAltColor;
-			background: $mainColor; 
+			background: $mainColor;
 		}
 
-		.active{
+		&.active{
 			color: $mainAltColor;
-			background: $mainColor; 
+			background: $mainColor;
 		}
 	}
 }
@@ -66,19 +67,19 @@
 
 		&:hover{
 			color: $mainAltColor;
-			background: $mainColor; 
+			background: $mainColor;
 		}
 
-		.active{
+		&.active{
 			color: $mainAltColor;
-			background: $mainColor; 
+			background: $mainColor;
 		}
 	}
 }
 
 .link:hover, .linkSmall:hover{
 	color: $mainAltColor;
-	background: $mainColor; 
+	background: $mainColor;
 }
 
 .notificationTriangle {
@@ -87,7 +88,7 @@
 
 .dropdownHolder {
   	color: $mainAltColor;
-	background: $mainColor; 
+	background: $mainColor;
   	border: 1px solid $mainAltColor;
   	border-bottom: 3px solid $mainAltColor;
 
@@ -183,10 +184,10 @@
 }
 
 .settingsHeader {
-	background: $mainColor;
+	background: $backgroundColor;
 	margin: 10px;
 	margin-bottom: 0;
-	color: $mainAltColor;
+	color: $mainColor;
 	padding: 5px;
 
 	.linkSmall:hover{
@@ -378,13 +379,15 @@
 #fullScreenMenu {
 	background: rgba(0,0,0,.7);
 
+	.selected:not(.noInvert) {
+		filter: invert(100%);
+	}
+}
+
+.fullScreenMenuUL {
 	li {
 		background: $mainAltColor;
 		color: $mainColor;
-	}
-
-	.selected:not(.noInvert) {
-		filter: invert(100%);
 	}
 }
 
@@ -418,4 +421,9 @@
 
 .notificationPreviewLog {
 	border: 1px solid $mainColor;
+}
+
+.noNotificationsNotification{
+  background-color: $backgroundColorTwo;
+  color: $mainColor;
 }

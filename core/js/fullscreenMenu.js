@@ -675,7 +675,7 @@ function toggleAddonAppsMenuText()
 	}
 	else
 	{
-		document.getElementById("menuOtherApps").style.display = "inline-block";
+		document.getElementById("menuOtherApps").style.display = "list-item";
 	}
 }
  function checkIfAddonsAreInstalled()
@@ -686,7 +686,7 @@ function toggleAddonAppsMenuText()
 		var listOfAddonKeysLength = listOfAddonKeys.length;
 		for(var addCount = 0; addCount < listOfAddonKeysLength; addCount++)
 		{
-			if(listOfAddons[listOfAddonKeys[addCount]]["Installed"] === true)
+			if(listOfAddons[listOfAddonKeys[addCount]]["Installed"] !== false && listOfAddons[listOfAddonKeys[addCount]]["Installed"] !== "false")
 			{
 				return true;
 			}

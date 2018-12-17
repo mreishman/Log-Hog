@@ -2,7 +2,7 @@
   position: absolute;
   width: 100%;
   z-index: 20;
-  background-color: #111;
+  background: #111;
   padding: 0.5em 1em;
   overflow-y: auto;
 }
@@ -12,36 +12,37 @@
 #menu a {
   display: inline-block;
   margin: 0.5em 0;
-  background-color: #2A912A;
+  background: #2A912A;
   cursor: pointer;
 }
 #menu a .menuCounter {
   padding-right: 1em;
   display: inline-block;
 }
-#menu a .updated {
-  background-color: #1D263B;
+#menu a.updated {
+  background: #1D263B;
+  color: white;
 }
-#menu a .updated:hover {
-  background-color: #5C6784;
+#menu a.updated:hover {
+  background: #5C6784;
 }
 #menu a:not(.index) {
   padding: 0.5em 1em;
 }
 #menu a:hover {
   color: black;
-  background-color: #009900;
+  background: #009900;
 }
-#menu a .active {
+#menu a.active {
   color: black;
-  background-color: #009900;
+  background: #009900;
 }
 
 #menu2 {
   position: absolute;
   width: 100%;
   z-index: 10;
-  background-color: #333;
+  background: #333;
   padding: 0.25em 0.5em;
   border-bottom: 1px solid #009900;
   overflow-y: auto;
@@ -52,22 +53,22 @@
 #menu2 a {
   display: inline-block;
   margin: 0.5em 0;
-  background-color: #2A912A;
+  background: #2A912A;
   cursor: pointer;
   padding: 0.5em 1em;
 }
 #menu2 a:hover {
   color: black;
-  background-color: #009900;
+  background: #009900;
 }
-#menu2 a .active {
+#menu2 a.active {
   color: black;
-  background-color: #009900;
+  background: #009900;
 }
 
 .link:hover, .linkSmall:hover {
   color: black;
-  background-color: #009900;
+  background: #009900;
 }
 
 .notificationTriangle {
@@ -76,7 +77,7 @@
 
 .dropdownHolder {
   color: black;
-  background-color: #009900;
+  background: #009900;
   border: 1px solid black;
   border-bottom: 3px solid black;
 }
@@ -94,7 +95,7 @@
   cursor: default;
   line-height: 100%;
   color: black;
-  background-color: #009900;
+  background: #009900;
   border: 1px solid black;
 }
 
@@ -114,18 +115,18 @@
   bottom: 0;
   width: 100%;
   color: black;
-  background-color: #CCC;
+  background: #CCC;
   padding: 0 1em;
   line-height: 2em;
 }
 
 .backgroundForSideBarMenu {
-  background-color: #CCC;
+  background: #CCC;
   overflow-y: auto;
 }
 
 .popupForInfo {
-  background-color: #CCC;
+  background: #CCC;
   z-index: 10;
   position: absolute;
   border: 1px solid #009900;
@@ -140,20 +141,20 @@
 }
 
 .backgroundForMenus {
-  background-color: #111;
+  background: #111;
 }
 
 .sidebarCurrentWindowNum {
   border-top: 1px solid black;
   border-bottom: 1px solid black;
-  background-color: #009900;
+  background: #009900;
   color: black;
   text-align: center;
 }
 
 .currentWindowNumSelected {
   color: #009900;
-  background-color: black;
+  background: black;
   border-top: 1px solid black;
   border-bottom: 1px solid black;
   text-align: center;
@@ -164,17 +165,17 @@
 }
 
 .settingsDiv {
-  background-color: #333;
+  background: #333;
   border: 1px solid #009900;
   margin: 10px;
   margin-top: 0;
 }
 
 .settingsHeader {
-  background-color: #009900;
+  background: #111;
   margin: 10px;
   margin-bottom: 0;
-  color: black;
+  color: #009900;
   padding: 5px;
 }
 .settingsHeader .linkSmall:hover {
@@ -184,7 +185,7 @@
   display: inline-block;
   padding: 3px 5px;
   margin: 1px;
-  background-color: #2A912A;
+  background: #2A912A;
   cursor: pointer;
   border: solid 1px #009900;
   line-height: 100%;
@@ -193,11 +194,11 @@
 .settingsHeader button:hover {
   border: 1px solid black;
   color: black;
-  background-color: #009900;
+  background: #009900;
 }
 
 .selected, .selectDropdown:hover {
-  background-color: #009900;
+  background: #009900;
   color: black;
 }
 
@@ -219,7 +220,7 @@
 .link {
   display: inline-block;
   padding: 0.5em 1em;
-  background-color: #2A912A;
+  background: #2A912A;
   cursor: pointer;
   border: solid 1px #009900;
   color: #009900;
@@ -229,7 +230,7 @@
   display: inline-block;
   padding: 3px 5px;
   margin: 1px;
-  background-color: #2A912A;
+  background: #2A912A;
   cursor: pointer;
   border: solid 1px #009900;
   line-height: 100%;
@@ -240,7 +241,7 @@
   display: none;
   position: absolute;
   z-index: 30;
-  background-color: #2A912A;
+  background: #2A912A;
   border: 1px solid #009900;
   box-shadow: 0 0 5px black;
 }
@@ -261,7 +262,7 @@
   cursor: pointer;
 }
 .context-menu__item:hover {
-  background-color: #009900;
+  background: #009900;
 }
 .context-menu__item:hover a {
   color: black;
@@ -273,7 +274,7 @@
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: #2A912A;
+  background: #2A912A;
   overflow: auto;
   border: 1px solid #009900;
   box-shadow: 0 0 5px black;
@@ -306,17 +307,17 @@
   cursor: pointer;
 }
 .dropdown-content__item:hover {
-  background-color: #009900;
+  background: #009900;
 }
 
 .loadingSpinner {
   padding: 75px;
-  background-color: #333;
+  background: #333;
   border: 1px solid #009900;
 }
 
 .selectDiv {
-  background-color: #2A912A;
+  background: #2A912A;
   display: inline-block;
   padding: 2px;
   padding-right: 7px;
@@ -324,7 +325,7 @@
 }
 .selectDiv select {
   color: #009900;
-  background-color: transparent;
+  background: transparent;
   cursor: pointer;
   border: none;
 }
@@ -353,18 +354,19 @@
 }
 
 #fullScreenMenu {
-  background-color: rgba(0, 0, 0, 0.7);
-}
-#fullScreenMenu li {
-  background-color: black;
-  color: #009900;
+  background: rgba(0, 0, 0, 0.7);
 }
 #fullScreenMenu .selected:not(.noInvert) {
   filter: invert(100%);
 }
 
+.fullScreenMenuUL li {
+  background: black;
+  color: #009900;
+}
+
 .fullScreenMenuUL {
-  background-color: black;
+  background: black;
   border-right: 1px solid #009900;
 }
 .fullScreenMenuUL li:not(.menuTitle):hover {
@@ -372,25 +374,30 @@
 }
 
 .fullScreenMenuLeftSidebar {
-  background-color: black;
+  background: black;
   border-right: 1px solid #009900;
 }
 .fullScreenMenuLeftSidebar div {
-  background-color: black;
+  background: black;
   color: #009900;
 }
 .fullScreenMenuLeftSidebar td {
-  background-color: black;
+  background: black;
   color: #009900;
 }
 
 .settingsUlSub {
-  background-color: black;
+  background: black;
   border-right: 1px solid #009900;
 }
 
 .notificationPreviewLog {
   border: 1px solid #009900;
+}
+
+.noNotificationsNotification {
+  background-color: #333;
+  color: #009900;
 }
 
 /*# sourceMappingURL=theme.css.map */
