@@ -6,6 +6,7 @@ function toggleFullScreenMenu(force = false)
 	{
 		archiveLogPopupToggle()
 	}
+	closeLogPopup();
 	if(document.getElementById("fullScreenMenu").style.display === "none")
 	{
 		document.getElementById('menu').style.zIndex = "4";

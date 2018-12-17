@@ -1,4 +1,4 @@
-#menu {
+#menu, .menu {
   position: absolute;
   width: 100%;
   z-index: 20;
@@ -6,34 +6,34 @@
   padding: 0.5em 1em;
   overflow-y: auto;
 }
-#menu .index {
+#menu .index, .menu .index {
   padding: 0.5em 0 0.5em 1em;
 }
-#menu a {
+#menu a, .menu a {
   display: inline-block;
   margin: 0.5em 0;
   background: #2A90EF;
   cursor: pointer;
 }
-#menu a .menuCounter {
+#menu a .menuCounter, .menu a .menuCounter {
   padding-right: 1em;
   display: inline-block;
 }
-#menu a.updated {
+#menu a.updated, .menu a.updated {
   background: #912A2C;
   color: white;
 }
-#menu a.updated:hover {
+#menu a.updated:hover, .menu a.updated:hover {
   background: #FFDDFF;
 }
-#menu a:not(.index) {
+#menu a:not(.index), .menu a:not(.index) {
   padding: 0.5em 1em;
 }
-#menu a:hover {
+#menu a:hover, .menu a:hover {
   color: black;
   background: white;
 }
-#menu a.active {
+#menu a.active, .menu a.active {
   color: black;
   background: white;
 }

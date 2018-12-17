@@ -135,7 +135,7 @@ $externalLinkImage = generateImage(
 			<span id="stars2" style="display: block;" ></span>
 			<span id="stars3" style="display: block;" ></span>
 		</div>
-		<div class="backgroundForMenus addBorder"  style="position: fixed;width: 200px; z-index: 99; display: none;" id="popupSelectContainer"></div>
+		<div id="popupSelectContainer" class="backgroundForMenus addBorder menu"  style="position: fixed;width: 200px; z-index: 99; display: none;"></div>
 		<div style="display: inline-block; position: absolute; top: 0; left: 0; z-index: 30;" >
 			<div id="notificationIcon">
 				<span onclick="toggleNotifications();" id="notificationBadge"></span>
@@ -146,7 +146,7 @@ $externalLinkImage = generateImage(
 			</div>
 		</div>
 		<div id="main">
-			<div id="settingsSideBar" class="fullScreenMenuLeftSidebar" style="display: none; position: absolute; width: 200px; overflow: auto; border: none;">
+			<div id="settingsSideBar" class="fullScreenMenuLeftSidebar" style="display: none; position: absolute; width: 200px; overflow-y: auto;overflow-x: hidden; border: none;">
 				<?php require_once('core/php/template/settingsSideBar.php'); ?>
 			</div>
 			<table id="log" style="display: none; margin: 0px;padding: 0px; border-spacing: 0px; width: 100%;" cellspacing="0" cellpadding="0">
