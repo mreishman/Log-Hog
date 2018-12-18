@@ -23,11 +23,10 @@ $windowDisplayConfig = explode("x", $windowConfig);
 ?>
 <style type="text/css">
 
-.log, #firstLoad, .log table:not(.oneLogTable) tr:not(.highlight):not(.newLine) td:not(.highlight):not(.newLine) , #settingsSideBar
+.log, #firstLoad, .log table:not(.oneLogTable):not(.logCode) tr:not(.highlight):not(.newLine) td:not(.highlight):not(.newLine) , #settingsSideBar
 {
 	color: <?php echo $logFontColor; ?>;
 }
-
 
 .log, #firstLoad, .log table tr td
 {
@@ -62,6 +61,12 @@ $windowDisplayConfig = explode("x", $windowConfig);
 	color: <?php echo $logFormatFileFontColor; ?>;
 	padding: 10px 0;
 }
+
+.logCode tr:not(.highlight):not(.newLine) td:not(.highlight):not(.newLine)
+{
+	color: <?php echo $logFormatFileFontColor; ?> !important;
+}
+
 
 #menu, #menu2
 {

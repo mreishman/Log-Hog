@@ -1,70 +1,74 @@
-#menu {
-	position: absolute;
-	width: 100%;
-	z-index: 20;
-	padding: .5em 1em;
-	overflow-y: auto;
-	background: repeating-linear-gradient(45deg, rgba(25,40,55,0.75) 35%, rgba(65,85,100,0.75) 40%, rgba(65,85,100,0.75) 42%, rgba(25,40,55,0.75) 50%, rgba(25,40,55,0.75) 55%, rgba(70,85,100,0.75) 60%, rgba(70,85,100,0.75) 75%, rgba(25,40,55,0.75) 90%);
+#menu, .menu {
+  position: absolute;
+  width: 100%;
+  z-index: 20;
+  background: #698499;
+  padding: 0.5em 1em;
+  overflow-y: auto;
 }
-
-.backgroundForMenus{
-	box-shadow: 0 5px 10px rgba(0,0,0,.5);
-	background: repeating-linear-gradient(45deg, rgba(25,40,55,0.75) 35%, rgba(65,85,100,0.75) 40%, rgba(65,85,100,0.75) 42%, rgba(25,40,55,0.75) 50%, rgba(25,40,55,0.75) 55%, rgba(70,85,100,0.75) 60%, rgba(70,85,100,0.75) 75%, rgba(25,40,55,0.75) 90%);
-	box-shadow: inset 0 0 0 1px rgba(246,246,247,0.92), 0 7px 19px rgba(0,0,0,0.9);
-	background-attachment: fixed;
-	background-clip: padding-box;
-	color: white;
+#menu .index, .menu .index {
+  padding: 0.5em 0 0.5em 1em;
 }
-
-#main
-{
-	background-color: #CCCCCC;
+#menu a, .menu a {
+  display: inline-block;
+  margin: 0.5em 0;
+  background: rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+#menu a .menuCounter, .menu a .menuCounter {
+  padding-right: 1em;
+  display: inline-block;
+}
+#menu a.updated, .menu a.updated {
+  background: #912A2C;
+  color: black;
+}
+#menu a.updated:hover, .menu a.updated:hover {
+  background: #600e0f;
+}
+#menu a:not(.index), .menu a:not(.index) {
+  padding: 0.5em 1em;
+}
+#menu a:hover, .menu a:hover {
+  color: white;
+  background: black;
+}
+#menu a.active, .menu a.active {
+  color: white;
+  background: black;
 }
 
 #menu2 {
-	position: absolute;
-	width: 100%;
-	z-index: 10;
-	background-color: #ddd;
-	padding: .25em .5em;
-	border-bottom: 1px solid white;
-	overflow-y: auto;
-	overflow-x: hidden;
-	top: 55px;
-	box-shadow: 0 5px 10px rgba(0,0,0,.5);
+  position: absolute;
+  width: 100%;
+  z-index: 10;
+  background: #415564;
+  padding: 0.25em 0.5em;
+  border-bottom: 1px solid black;
+  overflow-y: auto;
+  overflow-x: hidden;
+  top: 55px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+}
+#menu2 a {
+  display: inline-block;
+  margin: 0.5em 0;
+  background: rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  padding: 0.5em 1em;
+}
+#menu2 a:hover {
+  color: white;
+  background: black;
+}
+#menu2 a.active {
+  color: white;
+  background: black;
 }
 
-#menu a, #menu2 a {
-	display: inline-block;
-	margin: .5em 0;
-	background-color: rgba(0,0,0,.2);
-	border: 1px solid white;
-	cursor: pointer;
-	border-radius: 3px;
-	box-shadow: 0 2px 4px rgba(0,0,0,.25);
-}
-
-#menu .index{
-	padding: .5em 0 .5em 1em;
-}
-
-#menu2 a, #menu a:not(.index) {
-	padding: .5em 1em;
-}
-
-#menu a .menuCounter{
-	padding-right: 1em;
-	display: inline-block;
-}
-
-#menu a:hover, #menu a.active, #menu2 a:hover, #menu2 a.active, .link:hover, .linkSmall:hover, .settingsHeader button:hover {
-	color: black;
-	background-color: white ; 
-}
-
-.dropdownHolder td, .dropdownHolder th
-{
-	color: white;
+.link:hover, .linkSmall:hover {
+  color: white;
+  background: black;
 }
 
 .notificationTriangle {
@@ -73,341 +77,388 @@
 
 .dropdownHolder {
   color: white;
-  background-color: black;
+  background: black;
   border: 1px solid white;
   border-bottom: 3px solid white;
 }
-
-
-.linkSmallHover
-{
-	display: inline-block;
-	padding: 3px 5px;
-	margin: 1px;
-	cursor: default;
-	line-height: 100%;
-	color: black;
-	background-color: white;
+.dropdownHolder td {
+  color: white;
+}
+.dropdownHolder th {
+  color: white;
 }
 
-.settingsHeader button:hover, .settingsHeader .linkSmall:hover{
-	border: 1px solid black;
+.linkSmallHover {
+  display: inline-block;
+  padding: 3px 5px;
+  margin: 1px;
+  cursor: default;
+  line-height: 100%;
+  color: white;
+  background: black;
+  border: 1px solid white;
 }
 
-.settingsHeaderButtons{
-	float: right;
-	margin-top: -4px;
-}
-
-#menu a.updated {
-	background-color: #912A2C; 
-}
-
-#menu a.updated:hover {
-	background-color: #FFDDFF; 
+.settingsHeaderButtons {
+  float: right;
+  margin-top: -4px;
 }
 
 #log {
-	padding: 1em 0;
-	color: black;
+  padding: 1em 0;
+  color: black;
 }
 
 #titleContainer {
-	position: fixed;
-	left: 0;
-	bottom: 0;
-	width: 100%;
-	color: white;
-	background-color: #ccc;
-	padding: 0 1em;
-	line-height: 2em;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  color: white;
+  background: #1f2830;
+  padding: 0 1em;
+  line-height: 2em;
 }
 
-.backgroundForSideBarMenu
-{
-	box-shadow: 0px 5px 10px rgba(0,0,0,.5);
-	background: repeating-linear-gradient(45deg, rgba(25,40,55,0.75) 35%, rgba(65,85,100,0.75) 40%, rgba(65,85,100,0.75) 42%, rgba(25,40,55,0.75) 50%, rgba(25,40,55,0.75) 55%, rgba(70,85,100,0.75) 60%, rgba(70,85,100,0.75) 75%, rgba(25,40,55,0.75) 90%);
-	box-shadow: inset 0 0 0 1px rgba(246,246,247,0.92), 0 7px 19px rgba(0,0,0,0.9);
-	background-attachment: fixed;
-	background-clip: padding-box;
-	color: white;
-	overflow-y: auto;
+.backgroundForSideBarMenu {
+  background: #1f2830;
+  overflow-y: auto;
 }
 
-.popupForInfo
-{
-	background-color: black;
-  	border: 1px solid white;
-  	box-shadow: 0 0 5px black;
-  	color: white;
-	z-index: 10;
-	position: absolute;
-	width: fit-content;
-	padding: 5px;
-	word-break: break-all;
+.popupForInfo {
+  background: #1f2830;
+  z-index: 10;
+  position: absolute;
+  border: 1px solid black;
+  color: white;
+  width: fit-content;
+  padding: 5px;
+  word-break: break-all;
 }
 
-.currentWindowNum
-{
-	color: white;
+.currentWindowNum {
+  color: black;
 }
 
-.sidebarCurrentWindowNum
-{
-	border-top: 1px solid black;
-	border-bottom: 1px solid black;
-	background-color: white;
-	color: black;
-	text-align: center;
+.backgroundForMenus {
+  background: #698499;
 }
 
-.currentWindowNumSelected
-{
-	color: white;
-	background-color: black;
-	border-top: 1px solid black;
-	border-bottom: 1px solid black;
-	text-align: center;
+.sidebarCurrentWindowNum {
+  border-top: 1px solid white;
+  border-bottom: 1px solid white;
+  background: black;
+  color: white;
+  text-align: center;
 }
 
-#title{
-	display: inline-block;
-	text-shadow: 0 0 2px black, 0 0 5px black, 0 0 9px black, 0 0 14px black, 0 0 20px black;
+.currentWindowNumSelected {
+  color: black;
+  background: white;
+  border-top: 1px solid white;
+  border-bottom: 1px solid white;
+  text-align: center;
 }
 
-.settingsDiv
-{
-	background-color: #444444;
-	border: 1px solid white;
-	margin: 10px;
-	margin-top: 0;
+#title {
+  display: inline-block;
 }
 
-.settingsHeader
-{
-	background-color: #CCC;
-	margin: 10px;
-	margin-bottom: 0;
-	color: black;
-	padding: 5px;
+.settingsDiv {
+  background: #415564;
+  border: 1px solid black;
+  margin: 10px;
+  margin-top: 0;
 }
 
-.selected , .selectDropdown:hover{
-	background-color: #CCC;
-	color: black;
+.settingsHeader {
+  background: #698499;
+  margin: 10px;
+  margin-bottom: 0;
+  color: black;
+  padding: 5px;
+}
+.settingsHeader .linkSmall:hover {
+  border: 1px solid white;
+}
+.settingsHeader button {
+  display: inline-block;
+  padding: 3px 5px;
+  margin: 1px;
+  background: rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  border: solid 1px black;
+  line-height: 100%;
+  color: black;
+}
+.settingsHeader button:hover {
+  border: 1px solid white;
+  color: white;
+  background: black;
 }
 
-.settingsDiv p a
-{
-	color: white;
+.selected, .selectDropdown:hover {
+  background: black;
+  color: white;
 }
 
-.updatingDiv p
-{
-	margin: 2px;
-	padding-left: 10px;
-	word-wrap: break-word;
+.settingsDiv p a {
+  color: black;
 }
 
-.settingsBuffer
-{
-	width: 200px;
-	display: inline-block;
+.updatingDiv p {
+  margin: 2px;
+  padding-left: 10px;
+  word-wrap: break-word;
 }
 
-.link
-{
-	display: inline-block;
-	padding: .5em 1em;
-	background-color: rgba(0,0,0,.2);
-	cursor: pointer;
-	color: white;
-	border-radius: 3px;
-	box-shadow: 0 2px 4px rgba(0,0,0,.25);
+.settingsBuffer {
+  width: 200px;
+  display: inline-block;
 }
 
-.linkSmall, .linkSmall, .settingsHeader button
-{
-	display: inline-block;
-	padding: 3px 5px;
-	margin: 1px;
-	background-color: rgba(0,0,0,.2);
-	cursor: pointer;
-	line-height: 100%;
-	color: white;
-	border-radius: 3px;
-	box-shadow: 0 2px 4px rgba(0,0,0,.25);
+.link {
+  display: inline-block;
+  padding: 0.5em 1em;
+  background: rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  border: solid 1px black;
+  color: black;
+}
+
+.linkSmall {
+  display: inline-block;
+  padding: 3px 5px;
+  margin: 1px;
+  background: rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  border: solid 1px black;
+  line-height: 100%;
+  color: black;
 }
 
 .context-menu {
   display: none;
   position: absolute;
   z-index: 30;
-  background-color: black;
-  border: 1px solid white;
-  box-shadow: 0 0 5px black;
-  color: white;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid black;
+  box-shadow: 0 0 5px white;
 }
 
-.context-menu__items{
-	list-style: none;
-	margin: 0;
-	padding: 0;
-	margin-top: 0;
+.context-menu__items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  margin-top: 0;
 }
 
 .context-menu--active {
   display: block;
 }
 
-.context-menu__item{
-	padding: 5px 3px;
-	cursor: pointer;
+.context-menu__item {
+  padding: 5px 3px;
+  cursor: pointer;
 }
-
-.context-menu__item:hover{
-	background-color: white;
+.context-menu__item:hover {
+  background: black;
 }
-
-.context-menu__item a{
-	color: white;
+.context-menu__item:hover a {
+  color: white;
 }
-
-.context-menu__item:hover a{
-	color: black;
+.context-menu__item a {
+  color: black;
 }
 
 .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: green;
-    overflow: auto;
-    border: 1px solid white;
- 	box-shadow: 0 0 5px black;
-    z-index: 30;
-    margin-left: 12px;
-    margin-top: -70px;
+  display: none;
+  position: absolute;
+  background: rgba(0, 0, 0, 0.2);
+  overflow: auto;
+  border: 1px solid black;
+  box-shadow: 0 0 5px white;
+  z-index: 30;
+  margin-left: 12px;
+  margin-top: -70px;
 }
 .dropdown-content a {
-    color: white;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
 }
 .dropdown-content a:hover {
-    color: black;
+  color: white;
 }
 
-.dropdown-content__items{
-	list-style: none;
-	margin: 0;
-	padding: 0;
-	margin-top: 0;
+.dropdown-content__items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .dropdown-content--active {
   display: block;
 }
 
-.dropdown-content__item{
-	padding: 5px 3px;
-	cursor: pointer;
+.dropdown-content__item {
+  padding: 5px 3px;
+  cursor: pointer;
+}
+.dropdown-content__item:hover {
+  background: black;
 }
 
-.dropdown-content__item:hover{
-	background-color: white;
+.loadingSpinner {
+  padding: 75px;
+  background: #415564;
+  border: 1px solid black;
 }
 
-.loadingSpinner{
-	padding: 75px;
-	background-color: #333;
-	border: 1px solid white;
+.selectDiv {
+  background: rgba(0, 0, 0, 0.2);
+  display: inline-block;
+  padding: 2px;
+  padding-right: 7px;
+  border: 1px solid black;
 }
-
-.selectDiv{
-	background-color: #6B8E23;
-	display: inline-block;
-	padding: 2px;
-	padding-right: 7px;
-	border: 1px solid grey;
-	border-radius: 3px;
+.selectDiv select {
+  color: black;
+  background: transparent;
+  cursor: pointer;
+  border: none;
 }
-
-.selectDiv select{
-	color: white;
-	background-color: transparent;
-	cursor: pointer;
-	border: none;
-}
-
-.selectDiv option{
-	color: black;
+.selectDiv option {
+  color: white;
 }
 
 /* width */
-::-webkit-scrollbar
-{
-	width: 10px;
+::-webkit-scrollbar {
+  width: 10px;
 }
 
 /* Track */
-::-webkit-scrollbar-track
-{
-	background: rgba(65,85,100,1);
+::-webkit-scrollbar-track {
+  background: #698499;
 }
 
 /* Handle */
-::-webkit-scrollbar-thumb
-{
-	background: rgba(255,255,255,1);
-	border-radius: 2px;
+::-webkit-scrollbar-thumb {
+  background: #1f2830;
 }
 
 /* Handle on hover */
-::-webkit-scrollbar-thumb:hover
-{
-	background: rgba(50,50,50,1);
+::-webkit-scrollbar-thumb:hover {
+  background: black;
 }
 
-.fullScreenMenuUL
-{
-	background: repeating-linear-gradient(45deg, rgba(25,40,55,0.75) 35%, rgba(65,85,100,0.75) 40%, rgba(65,85,100,0.75) 42%, rgba(25,40,55,0.75) 50%, rgba(25,40,55,0.75) 55%, rgba(70,85,100,0.75) 60%, rgba(70,85,100,0.75) 75%, rgba(25,40,55,0.75) 90%);
-	border-right: 1px solid white;
+#fullScreenMenu {
+  background: rgba(0, 0, 0, 0.7);
+}
+#fullScreenMenu .selected:not(.noInvert) {
+  filter: invert(100%);
 }
 
-.settingsUlSub
-{
-	background-color: rgba(0,0,0,.25);
-	border-right: 1px solid white;
+.fullScreenMenuUL li {
+  background: white;
+  color: black;
 }
 
-#fullScreenMenu
-{
-	background-color: rgba(0,0,0,.3);
+.fullScreenMenuUL {
+  background: white;
+  border-right: 1px solid black;
 }
-
-.fullScreenMenuUL li
-{
-	color: white;
-}
-
-.fullScreenMenuUL li:not(.menuTitle):hover, #fullScreenMenu .selected:not(.noInvert)
-{
-	background-color: black;
-	filter: invert(100%);
-}
-
-.fullScreenMenuLeftSidebar div, .fullScreenMenuLeftSidebar td {
-	color: white;
+.fullScreenMenuUL li:not(.menuTitle):hover {
+  filter: invert(100%);
 }
 
 .fullScreenMenuLeftSidebar {
-	background: repeating-linear-gradient(45deg, rgba(25,40,55,0.75) 35%, rgba(65,85,100,0.75) 40%, rgba(65,85,100,0.75) 42%, rgba(25,40,55,0.75) 50%, rgba(25,40,55,0.75) 55%, rgba(70,85,100,0.75) 60%, rgba(70,85,100,0.75) 75%, rgba(25,40,55,0.75) 90%);
-	border-right: 1px solid white;
+  background: white;
+  border-right: 1px solid black;
+}
+.fullScreenMenuLeftSidebar div {
+  background: white;
+  color: black;
+}
+.fullScreenMenuLeftSidebar td {
+  background: white;
+  color: black;
 }
 
-
-.notificationPreviewLog
-{
-	border: 1px solid white;
+.settingsUlSub {
+  background: white;
+  border-right: 1px solid black;
 }
+
+.notificationPreviewLog {
+  border: 1px solid black;
+}
+
+.noNotificationsNotification {
+  background-color: #415564;
+  color: black;
+}
+
+body {
+  background-color: #DDD;
+}
+
+#main {
+  background-color: #DDD;
+}
+
+#menu {
+  background: repeating-linear-gradient(45deg, rgba(25, 40, 55, 0.75) 35%, rgba(65, 85, 100, 0.75) 40%, rgba(65, 85, 100, 0.75) 42%, rgba(25, 40, 55, 0.75) 50%, rgba(25, 40, 55, 0.75) 55%, rgba(70, 85, 100, 0.75) 60%, rgba(70, 85, 100, 0.75) 75%, rgba(25, 40, 55, 0.75) 90%);
+}
+
+.backgroundForMenus {
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+  background: repeating-linear-gradient(45deg, rgba(25, 40, 55, 0.75) 35%, rgba(65, 85, 100, 0.75) 40%, rgba(65, 85, 100, 0.75) 42%, rgba(25, 40, 55, 0.75) 50%, rgba(25, 40, 55, 0.75) 55%, rgba(70, 85, 100, 0.75) 60%, rgba(70, 85, 100, 0.75) 75%, rgba(25, 40, 55, 0.75) 90%);
+  box-shadow: inset 0 0 0 1px rgba(246, 246, 247, 0.92), 0 7px 19px rgba(0, 0, 0, 0.9);
+  background-attachment: fixed;
+  background-clip: padding-box;
+}
+
+.backgroundForSideBarMenu {
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
+  background: repeating-linear-gradient(45deg, rgba(25, 40, 55, 0.75) 35%, rgba(65, 85, 100, 0.75) 40%, rgba(65, 85, 100, 0.75) 42%, rgba(25, 40, 55, 0.75) 50%, rgba(25, 40, 55, 0.75) 55%, rgba(70, 85, 100, 0.75) 60%, rgba(70, 85, 100, 0.75) 75%, rgba(25, 40, 55, 0.75) 90%);
+  box-shadow: inset 0 0 0 1px rgba(246, 246, 247, 0.92), 0 7px 19px rgba(0, 0, 0, 0.9);
+  background-attachment: fixed;
+  background-clip: padding-box;
+}
+
+#title {
+  text-shadow: 0 0 2px black, 0 0 5px black, 0 0 9px black, 0 0 14px black, 0 0 20px black;
+}
+
+.fullScreenMenuUL {
+  background: repeating-linear-gradient(45deg, rgba(25, 40, 55, 0.75) 35%, rgba(65, 85, 100, 0.75) 40%, rgba(65, 85, 100, 0.75) 42%, rgba(25, 40, 55, 0.75) 50%, rgba(25, 40, 55, 0.75) 55%, rgba(70, 85, 100, 0.75) 60%, rgba(70, 85, 100, 0.75) 75%, rgba(25, 40, 55, 0.75) 90%);
+}
+
+.fullScreenMenuLeftSidebar {
+  background: repeating-linear-gradient(45deg, rgba(25, 40, 55, 0.75) 35%, rgba(65, 85, 100, 0.75) 40%, rgba(65, 85, 100, 0.75) 42%, rgba(25, 40, 55, 0.75) 50%, rgba(25, 40, 55, 0.75) 55%, rgba(70, 85, 100, 0.75) 60%, rgba(70, 85, 100, 0.75) 75%, rgba(25, 40, 55, 0.75) 90%);
+}
+
+.fullScreenMenuUL li {
+  background-color: rgba(65, 85, 100, 0.5);
+  color: white;
+}
+
+.fullScreenMenuUL {
+  background: repeating-linear-gradient(45deg, rgba(25, 40, 55, 0.75) 35%, rgba(65, 85, 100, 0.75) 40%, rgba(65, 85, 100, 0.75) 42%, rgba(25, 40, 55, 0.75) 50%, rgba(25, 40, 55, 0.75) 55%, rgba(70, 85, 100, 0.75) 60%, rgba(70, 85, 100, 0.75) 75%, rgba(25, 40, 55, 0.75) 90%);
+}
+
+.fullScreenMenuLeftSidebar {
+  background: repeating-linear-gradient(45deg, rgba(25, 40, 55, 0.75) 35%, rgba(65, 85, 100, 0.75) 40%, rgba(65, 85, 100, 0.75) 42%, rgba(25, 40, 55, 0.75) 50%, rgba(25, 40, 55, 0.75) 55%, rgba(70, 85, 100, 0.75) 60%, rgba(70, 85, 100, 0.75) 75%, rgba(25, 40, 55, 0.75) 90%);
+}
+.fullScreenMenuLeftSidebar div {
+  background: repeating-linear-gradient(45deg, rgba(25, 40, 55, 0.75) 35%, rgba(65, 85, 100, 0.75) 40%, rgba(65, 85, 100, 0.75) 42%, rgba(25, 40, 55, 0.75) 50%, rgba(25, 40, 55, 0.75) 55%, rgba(70, 85, 100, 0.75) 60%, rgba(70, 85, 100, 0.75) 75%, rgba(25, 40, 55, 0.75) 90%);
+  color: white;
+}
+.fullScreenMenuLeftSidebar td {
+  background: repeating-linear-gradient(45deg, rgba(25, 40, 55, 0.75) 35%, rgba(65, 85, 100, 0.75) 40%, rgba(65, 85, 100, 0.75) 42%, rgba(25, 40, 55, 0.75) 50%, rgba(25, 40, 55, 0.75) 55%, rgba(70, 85, 100, 0.75) 60%, rgba(70, 85, 100, 0.75) 75%, rgba(25, 40, 55, 0.75) 90%);
+  color: white;
+}
+
+/*# sourceMappingURL=theme.css.map */
