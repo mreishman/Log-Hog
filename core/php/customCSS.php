@@ -110,6 +110,13 @@ progress::-webkit-progress-value
 	color: <?php echo $currentSelectedThemeColorValues['main']['main-1']['fontColor']?>;
 }
 
+.selectDiv select option
+{
+	color: <?php echo $currentSelectedThemeColorValues['main']['main-1']['fontColor']?>;
+	background-color: <?php echo $currentSelectedThemeColorValues['main']['main-1']['background']?>;
+}
+
+
 div.sidebarLeft
 {
 	background: <?php echo $currentSelectedThemeColorValues['main']['main-1']['background']?>;

@@ -400,6 +400,10 @@
   color: white;
 }
 
+.log table:not(.oneLogTable):not(.logCode) tr:not(.highlight):not(.newLine) td:not(.highlight):not(.newLine) div.settingsDiv {
+  color: black;
+}
+
 #menu2 {
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
 }

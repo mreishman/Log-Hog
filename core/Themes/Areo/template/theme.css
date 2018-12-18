@@ -12,7 +12,7 @@
 #menu a, .menu a {
   display: inline-block;
   margin: 0.5em 0;
-  background: rgba(0, 0, 0, 0.2);
+  background: #777;
   cursor: pointer;
 }
 #menu a .menuCounter, .menu a .menuCounter {
@@ -53,7 +53,7 @@
 #menu2 a {
   display: inline-block;
   margin: 0.5em 0;
-  background: rgba(0, 0, 0, 0.2);
+  background: #777;
   cursor: pointer;
   padding: 0.5em 1em;
 }
@@ -185,7 +185,7 @@
   display: inline-block;
   padding: 3px 5px;
   margin: 1px;
-  background: rgba(0, 0, 0, 0.2);
+  background: #777;
   cursor: pointer;
   border: solid 1px black;
   line-height: 100%;
@@ -220,7 +220,7 @@
 .link {
   display: inline-block;
   padding: 0.5em 1em;
-  background: rgba(0, 0, 0, 0.2);
+  background: #777;
   cursor: pointer;
   border: solid 1px black;
   color: black;
@@ -230,7 +230,7 @@
   display: inline-block;
   padding: 3px 5px;
   margin: 1px;
-  background: rgba(0, 0, 0, 0.2);
+  background: #777;
   cursor: pointer;
   border: solid 1px black;
   line-height: 100%;
@@ -241,7 +241,7 @@
   display: none;
   position: absolute;
   z-index: 30;
-  background: rgba(0, 0, 0, 0.2);
+  background: #777;
   border: 1px solid black;
   box-shadow: 0 0 5px white;
 }
@@ -274,7 +274,7 @@
 .dropdown-content {
   display: none;
   position: absolute;
-  background: rgba(0, 0, 0, 0.2);
+  background: #777;
   overflow: auto;
   border: 1px solid black;
   box-shadow: 0 0 5px white;
@@ -317,7 +317,7 @@
 }
 
 .selectDiv {
-  background: rgba(0, 0, 0, 0.2);
+  background: #777;
   display: inline-block;
   padding: 2px;
   padding-right: 7px;
@@ -398,6 +398,10 @@
 .noNotificationsNotification {
   background-color: #415564;
   color: black;
+}
+
+.log table:not(.oneLogTable):not(.logCode) tr:not(.highlight):not(.newLine) td:not(.highlight):not(.newLine) div.settingsDiv {
+  color: white;
 }
 
 body {

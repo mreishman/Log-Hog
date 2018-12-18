@@ -62,9 +62,9 @@ $windowDisplayConfig = explode("x", $windowConfig);
 	padding: 10px 0;
 }
 
-.logCode tr:not(.highlight):not(.newLine) td:not(.highlight):not(.newLine)
+.log table:not(.oneLogTable):not(.logCode) tr:not(.highlight):not(.newLine) td:not(.highlight):not(.newLine) .logCode tr:not(.highlight):not(.newLine) td:not(.highlight):not(.newLine)
 {
-	color: <?php echo $logFormatFileFontColor; ?> !important;
+	color: <?php echo $logFormatFileFontColor; ?>;
 }
 
 

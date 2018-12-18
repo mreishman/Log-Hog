@@ -400,6 +400,10 @@
   color: #8BBEB2;
 }
 
+.log table:not(.oneLogTable):not(.logCode) tr:not(.highlight):not(.newLine) td:not(.highlight):not(.newLine) div.settingsDiv {
+  color: black;
+}
+
 #stars {
   width: 1px;
   height: 1px;
