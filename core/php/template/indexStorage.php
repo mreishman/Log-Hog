@@ -4,7 +4,7 @@
 			<td class="logTdWidth addBorder" onclick="changeCurrentSelectWindow('{{counter}}')" style="padding: 0;" >
 				<div style="display: block; position: relative;height: 0;width: 0;padding: 0;" >
 					<div
-					class="backgroundForSideBarMenu"
+					class="backgroundForSideBarMenu addBorder"
 					style="
 						<?php
 						if($bottomBarIndexShow == 'false')
@@ -28,7 +28,7 @@
 							echo " bottom: 0; top: 0; ";
 						}
 						?>
-						padding: 0px; position: relative; "
+						padding: 0px; position: relative; overflow-x: hidden; "
 					id="titleContainer{{counter}}"
 					>
 						<!-- currentWindowNumSelected OR sidebarCurrentWindowNum -->
