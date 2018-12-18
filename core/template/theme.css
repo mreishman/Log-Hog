@@ -401,7 +401,7 @@
 }
 
 .log table:not(.oneLogTable):not(.logCode) tr:not(.highlight):not(.newLine) td:not(.highlight):not(.newLine) div.settingsDiv {
-  color: black;
+  color: white;
 }
 
 /*# sourceMappingURL=theme.css.map */
