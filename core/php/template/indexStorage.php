@@ -109,13 +109,13 @@
 								);
 							*/ ?>
 						</a> -->
-						<a onclick="openLogPopup(this,'{{counter}}');" style="cursor: pointer;">
+						<a onclick="toggleLogPopup(this,'{{counter}}');" style="cursor: pointer;">
 							<?php echo generateImage(
-								$arrayOfImages["historySideBar"],
+								$arrayOfImages["menu"],
 								$imageConfig = array(
 									"height"	=>	"20px",
 									"style"		=>	"margin: 5px;",
-									"title"		=>	"View Backup"
+									"title"		=>	"Select Log"
 									)
 								);
 							?>

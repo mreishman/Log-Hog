@@ -744,6 +744,18 @@ function fadeHighlight(id)
 	}
 }
 
+function toggleLogPopup(event, currentCurrentSelectWindow)
+{
+	if(isLogPopupOpen())
+	{
+		closeLogPopup();
+	}
+	else
+	{
+		openLogPopup(event,currentCurrentSelectWindow);
+	}
+}
+
 function openLogPopup(event,currentCurrentSelectWindow)
 {
 	closeLogPopup();
