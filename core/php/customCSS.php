@@ -28,12 +28,6 @@ $windowDisplayConfig = explode("x", $windowConfig);
 	color: <?php echo $currentSelectedThemeColorValues['main']['main-1']['fontColor']?>;
 }
 
-#menu2
-{
-	background: <?php echo $currentSelectedThemeColorValues['highlight']['highlight-1']['background']?>;
-	color: <?php echo $currentSelectedThemeColorValues['highlight']['highlight-1']['fontColor']?>;
-}
-
 <?php
 $count = 0;
 foreach ($currentSelectedThemeColorValues['main'] as $value):

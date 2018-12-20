@@ -414,6 +414,10 @@
 	}
 }
 
+.settingsUl {
+color: $mainColor;
+}
+
 .settingsUlSub {
 	background: $mainAltColor;
 	border-right: 1px solid $mainColor;
