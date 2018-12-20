@@ -49,7 +49,7 @@ echo loadSentryData($sendCrashInfoJS, $branchSelected); ?>
 </div>
 <?php if(strpos($URI, 'main.php') !== false): ?>
 	<div id="menu2">
-		<span style="color: black;">Settings:</span>
+		<span>Settings:</span>
 		<a class="link" href="#settingsLogVars" > Logs </a>
 		<?php if($expFormatEnabled === "true"): ?>
 			<a class="link" href="#settingsLogFormatVars" > Log Format </a>
