@@ -60,6 +60,8 @@ $windowDisplayConfig = explode("x", $windowConfig);
 	border: 1px solid <?php echo $logFontColor; ?>;
 	color: <?php echo $logFormatFileFontColor; ?>;
 	padding: 10px 0;
+	max-height: <?php echo $oneLogLogMaxHeight; ?>px;
+	overflow: auto;
 }
 
 .log table:not(.oneLogTable):not(.logCode) tr:not(.highlight):not(.newLine) td:not(.highlight):not(.newLine) .logCode tr:not(.highlight):not(.newLine) td:not(.highlight):not(.newLine)

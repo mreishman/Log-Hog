@@ -765,6 +765,15 @@ $defaultConfigMoreData = array(
 							"type"								=>	"dropdown"
 						)
 					),
+					4									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"logFormatFileMaxHeight",
+							"name"								=>	"Max Height",
+							"options"							=>	$oneLogLogMaxHeight,
+							"type"								=>	"dropdown"
+						)
+					),
 				)
 			),
 			4									=>	array(

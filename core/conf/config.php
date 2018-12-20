@@ -278,6 +278,7 @@ $defaultConfig = array(
 	'logFormatFileFontColor'		=> '#FFFFFF',
 	'logFormatFileLineCount'		=> 'true',
 	'logFormatFileLinePadding'		=> 2,
+	'logFormatFileMaxHeight'		=> 265,
 	'logFormatPhpEnable'			=> 'true',
 	'logFormatPhpHideExtra'			=> 'false',
 	'logFormatPhpShowImg'			=> 'true',
