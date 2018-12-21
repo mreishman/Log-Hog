@@ -40,7 +40,7 @@ $fontSizeVars = array();
 $brightessVars = array();
 $logPaddingVars = array();
 $oneLogNum = array();
-$oneLogLogMaxHeight = array();
+$oneLogLogMaxHeightArr = array();
 for ($m=0; $m < 20; $m++)
 {
 	if($m >= 5)
@@ -68,11 +68,11 @@ for ($m=0; $m < 20; $m++)
 			"value" 					=> $m,
 			"name" 						=> $m."px");
 
-	$oneLogLogMaxHeight[$m] = array(
+	$oneLogLogMaxHeightArr[$m] = array(
 			"value" 					=> (($m*15)+100),
 			"name" 						=> (($m*15)+100)."px");
 }
-$oneLogLogMaxHeight[20] = array(
+$oneLogLogMaxHeightArr[20] = array(
 			"value" 					=> 400,
 			"name" 						=> "400px");
 
@@ -770,7 +770,7 @@ $defaultConfigMoreData = array(
 						"var"								=>	array(
 							"key"								=>	"logFormatFileMaxHeight",
 							"name"								=>	"Max Height",
-							"options"							=>	$oneLogLogMaxHeight,
+							"options"							=>	$oneLogLogMaxHeightArr,
 							"type"								=>	"dropdown"
 						)
 					),
@@ -1589,7 +1589,7 @@ $defaultConfigMoreData = array(
 						"var"								=>	array(
 							"key"								=>	"notificationPreviewHeight",
 							"name"								=>	"Notification Log Preview Max Height",
-							"options"							=>	$oneLogLogMaxHeight,
+							"options"							=>	$oneLogLogMaxHeightArr,
 							"type"								=>	"dropdown"
 						)
 					),
@@ -1767,7 +1767,7 @@ $defaultConfigMoreData = array(
 				"var"								=>	array(
 					"key"								=>	"oneLogLogMaxHeight",
 					"name"								=>	"Max height of log",
-					"options"							=>	$oneLogLogMaxHeight,
+					"options"							=>	$oneLogLogMaxHeightArr,
 					"type"								=>	"dropdown"
 				)
 			),
