@@ -1,7 +1,7 @@
 <?php
 
 $versionCheckArray = array(
-	'version'		=> '6.0.1',
+	'version'		=> '6.1',
 	'versionList'		=> array(
 		'2.0.1'	        => array(
 			'branchName'	=> '2.0.1Update',
@@ -251,6 +251,11 @@ $versionCheckArray = array(
 			'branchName'	=> '6.0.1Update',
 			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/6.0.1.png',
 			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed issue where clear backup files could show up when backup files were disabled</li><li>Fixed issue where theme css was always loading from local/default</li><li>Fixed small style issues with id in multilog sidebar</li><li>Fixed setup page 5 with addon install</li><li>Fixed bug where in color scheme editor</li><li>Fixed bug with history dropdown and show/hide text not switching correctly</li><li>Fixed bug with initial load if no logs visible</li><li>Fixed bug with config file loading incorrectly for time format (from exp features)</li><li>Fixed bug with menu and other apps showing up if none installed</li></ul></li></ul>"
+		),
+		'6.1'		=> array(
+			'branchName'	=> '6.1Update',
+			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/6.1.png',
+			'releaseNotes'	=> "<ul><li>Features<ul><li>New notification system<ul><li>Notification screen is now full screen</li><li>Condensed the main menu bar by moving notification counter inside badge and over main menu icon</li><li>Clicking on notification badge opens notification panel (right click for shortcut for clear all notifications)</li><li>Option to hide notification page on main menu (hidden by default)</li><li>Added view status (read / unread notifications)</li><li>Option to only show notification count for unread messages (true by default)</li><li>Separated notifications into groups (read / unread)</li><li>Added notification previews (shows part of log added in notification)</li><li>Added inline notification alerts (with actions to view / close)</li></ul></li><li>Added view button for locally installed addons on addon page </li><li>Added option for clear all logs action to also clear data from oneLog</li><li>More changes to experimental feature log formatting (For version 7.0)</li></ul></li><li>Bug Fixes<ul><li>Notifications now show proper log name (same as log tab) instead of just short name</li><li>Added message to updater image if not loading</li><li>Added logic for deleting old files from past updates</li><li>Passes through try catch exception on poll errors in response</li><li>Fixed some display issues with images on whats new page</li><li>Onelog references are now hidden on settings page and index settings bar when disabled</li><li>Fixed bug with restore and trying to run updates</li><li>One log opening logs now checks if already visible</li></ul></li></ul>"
 		),
 	)
 );
