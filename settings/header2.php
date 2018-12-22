@@ -1,5 +1,4 @@
 <?php
-setCookieRedirect();
 require_once('../setup/setupProcessFile.php');
 require_once("../core/php/customCSS.php");
 echo loadSentryData($sendCrashInfoJS, $branchSelected); ?>
