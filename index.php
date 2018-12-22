@@ -124,6 +124,7 @@ $externalLinkImage = generateImage(
 					Warning - <?php echo ($pollForceTrue * 4); ?> poll requests have failed. Please check server connectivity or refresh page.
 				</span>
 			</div>
+		<div id="inlineNotifications" class="inlineNotificationsClass" ></div>
 		<div style="overflow: hidden; display: block;">
 			<?php require_once("core/php/template/indexHeader.php"); ?>
 			<div class="backgroundForMenus" id="menu" style="position: absolute; display: none;"></div>
@@ -133,12 +134,7 @@ $externalLinkImage = generateImage(
 		</div>
 		<div style="display: inline-block; position: absolute; top: 0; left: 0; z-index: 30;" >
 			<div id="notificationIcon">
-				<span onclick="toggleNotifications();" id="notificationCount"></span>
 				<span onclick="toggleNotifications();" id="notificationBadge"></span>
-			</div>
-			<div id="notifications" class="dropdownMenu" >
-				<div class="notificationTriangle"></div>
-				<div id="notificationHolder" class="innerContentDropdownMenu dropdownHolder"></div>
 			</div>
 			<div id="historyDropdown" class="dropdownMenu" >
 				<div class="notificationTriangle"></div>
@@ -146,7 +142,7 @@ $externalLinkImage = generateImage(
 			</div>
 		</div>
 		<div id="main">
-			<div id="settingsSideBar" style="display: none; position: absolute; width: 200px;">
+			<div id="settingsSideBar" class="fullScreenMenuLeftSidebar" style="display: none; position: absolute; width: 200px; height: 100%;">
 				<?php require_once('core/php/template/settingsSideBar.php'); ?>
 			</div>
 			<table id="log" style="display: none; margin: 0px;padding: 0px; border-spacing: 0px; width: 100%;" cellspacing="0" cellpadding="0">
@@ -188,13 +184,9 @@ $externalLinkImage = generateImage(
 				{
 					Rightclick_ID_list.push('pauseImage');
 				}
-				if(document.getElementById('notificationNotClicked'))
+				if(document.getElementById('notificationBadge'))
 				{
-					Rightclick_ID_list.push('notificationNotClicked');
-				}
-				if(document.getElementById('notificationClicked'))
-				{
-					Rightclick_ID_list.push('notificationClicked');
+					Rightclick_ID_list.push('notificationBadge');
 				}
 				if(document.getElementById("notificationCount"))
 				{

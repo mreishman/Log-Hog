@@ -9,20 +9,15 @@ var deleteCurrentLog = {action: "deleteLogPopup();", name: "Delete Current Log"}
 
 var tmpTogglePauseOnUnfocus = {action: "switchPollType();", name: "Toggle pause on unfocus"};
 
-//Notification Icon Clicked
+//Notification Icon
 
-var doToggleClearAllNotifications = {action: "removeAllNotifications(); toggleNotifications();", name: "Clear All Notifications"};
-
-//Notification Icon Not Clicked
-
-var doClearAllNotifications = {action: "removeAllNotifications();", name: "Clear All Notifications"};
-
+var doToggleClearAllNotifications = {action: "removeAllNotifications(); ", name: "Clear All Notifications"};
 
 var deleteMenu = [clearAllLogs,clearCurrentLog,deleteCurrentLog];
 var pauseMenu = [tmpTogglePauseOnUnfocus];
-var notificationMenuHidden = [doClearAllNotifications];
+var notificationMenuBadge = [doToggleClearAllNotifications];
 
-var menuObjectRightClick = {deleteImage: deleteMenu, pauseImage: pauseMenu, notificationNotClicked: notificationMenuHidden, notificationClicked: notificationMenuHidden, notificationBadge: notificationMenuHidden , notificationCount: notificationMenuHidden};
+var menuObjectRightClick = {deleteImage: deleteMenu, pauseImage: pauseMenu, notificationBadge: notificationMenuBadge};
 
 $( document ).ready(function() {
   (function() {

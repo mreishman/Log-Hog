@@ -20,6 +20,8 @@ $themeDefaultSettings = array(
 	background: -o-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(219,219,219,1) 50%, rgba(163,163,163,1) 51%, rgba(255,255,255,1) 100%);
 	background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(219,219,219,1) 50%, rgba(163,163,163,1) 51%, rgba(255,255,255,1) 100%);',
 	'scrollBarTrack'				=> 'background: #333;',
+	'notificationInlineFontColor'	=> '#000000',
+	'notificationInlineBGColor'		=> '#FFFFFF',
 	'folderColorArrays'	=> array(
 		'theme-default-1'	=> array(
 			'main' 		=> array(

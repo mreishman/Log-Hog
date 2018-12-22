@@ -429,26 +429,26 @@ function tailWithGrep($filename, $sliceSize, $shellOrPhp, $whatGrepFor)
 	return implode("\n", $data);
 }
 
-function tail($filename, $sliceSize, $shellOrPhp)
+function tail($filename, $sliceSize, $shellOrPhp, $start = 0)
 {
 	if($shellOrPhp === "phpPreferred" || $shellOrPhp ===  "phpOnly")
 	{
-		$data =  trim(tailCustom($filename, $sliceSize));
+		$data =  trim(tailCustom($filename, $sliceSize, true, $start));
 	}
 	else
 	{
-		$data = trim(shell_exec('tail -n ' . $sliceSize . ' "' . $filename . '"'));
+		$data = trim(shell_exec('sed -n "'.$start.','.($start+$sliceSize).'p" "' . $filename . '"'));
 	}
 
 	if(($data === "" || is_null($data)) && ($shellOrPhp === "shellPreferred" || $shellOrPhp === "phpPreferred"))
 	{
 		if($shellOrPhp === "phpPreferred")
 		{
-			$data = trim(shell_exec('tail -n ' . $sliceSize . ' "' . $filename . '"'));
+			$data = trim(shell_exec('sed -n "'.$start.','.($start+$sliceSize).'p" "' . $filename . '"'));
 		}
 		else
 		{
-			$data = trim(tailCustom($filename, $sliceSize));
+			$data = trim(tailCustom($filename, $sliceSize, true, $start));
 		}
 	}
 

@@ -371,8 +371,23 @@
 	border-right: 1px solid white;
 }
 
+.fullScreenMenuLeftSidebar div, .fullScreenMenuLeftSidebar td {
+	background-color: black;
+	color: white;
+}
+
+.fullScreenMenuLeftSidebar {
+	background-color: black;
+	border-right: 1px solid white;
+}
+
 .settingsUlSub
 {
 	background-color: black;
 	border-right: 1px solid white;
+}
+
+.notificationPreviewLog
+{
+	border: 1px solid white;
 }

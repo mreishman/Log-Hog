@@ -1,6 +1,6 @@
 <div class="backgroundForMenus" id="header" >
 	<div id="menuButtons" style="display: block;">
-		<div onclick="toggleFullScreenMenu();"  class="menuImageDiv">
+		<div onclick="toggleFullScreenMenu();"  class="menuImageDiv" id="mainMenuDiv">
 			<?php echo generateImage(
 				$arrayOfImages["loadingImg"],
 				$imageConfig = array(
@@ -12,7 +12,7 @@
 				);
 			?>
 		</div>
-		<div class="menuImageDiv" id="notificationDiv" onclick="toggleNotifications();" >
+		<div <?php if ($hideNotificationIcon === "true"){echo "style=\"display: none\"";} ?> class="menuImageDiv" id="notificationDiv" onclick="toggleNotifications();" >
 			<?php echo generateImage(
 				$arrayOfImages["loadingImg"],
 				$imageConfig = array(
@@ -20,17 +20,6 @@
 					"class"		=>	"menuImage notificationImageForLoad",
 					"height"	=>	"30px",
 					"data-src"	=>	$arrayOfImages["notification"]
-					)
-				);
-			?>
-			<?php echo generateImage(
-				$arrayOfImages["loadingImg"],
-				$imageConfig = array(
-					"id"		=>	"notificationClicked",
-					"class"		=>	"menuImage notificationImageClickedForLoad",
-					"height"	=>	"30px",
-					"style"		=>  "display: none;",
-					"data-src"	=>	$arrayOfImages["notificationFull"]
 					)
 				);
 			?>

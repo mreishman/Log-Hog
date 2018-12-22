@@ -47,9 +47,9 @@
 			);
 		?>
 	</div>
-	<span class="fullScreenMenuText">Notifications</span>
+	<span id="mainMenuNotificationsText" class="fullScreenMenuText">Notifications</span>
 </li>
-<li onclick="window.location.href = './settings/main.php';"  >
+<li id="mainMenuSettings" onclick="toggleSettings();"  >
 	<div class="menuImageDiv">
 		<?php echo generateImage(
 			$arrayOfImages["loadingImg"],
@@ -63,7 +63,6 @@
 		?>
 	</div>
 	<span class="fullScreenMenuText">Settings</span>
-	<?php echo $externalLinkImage; ?>
 </li>
 <?php $themeStyle = "";
 if($themesEnabled === "false")

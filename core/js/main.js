@@ -5,6 +5,7 @@ var arrayOfData1 = null;
 var arrayOfData2 = null;
 var arrayOfDataMain = {};
 var arrayOfDataSettings = [];
+var arrayOfFileData = [];
 var arrayOfScrollHeaderUpdate = ["aboutSpanAbout","aboutSpanInfo","aboutSpanGithub"];
 var borderPadding = 0;
 var breakPointOne = 1400;
@@ -25,6 +26,8 @@ var fullScreenMenuClickCount = 0;
 var globalForcePageNavigate = false;
 var hiddenLogUpdatePollBottom = null;
 var hiddenLogUpdatePollTop = null;
+var inlineNotificationPoll = null;
+var inlineNotificationPollArray = [];
 var lastContentSearch = "";
 var lastLogs = {};
 var logDisplayArray = {};
@@ -193,6 +196,10 @@ function poll()
 	try
 	{
 		checkForUpdateMaybe();
+		if(notificationInlineShow === "true")
+		{
+			tryToStartNotificationInlinePoll();
+		}
 		if(refreshing)
 		{
 			updateDocumentTitle("Refreshing");
@@ -627,6 +634,7 @@ function pollThree(arrayToUpdate)
 					success(data)
 					{
 						arrayOfDataMainDataFilter(data);
+						updateFileDataArray(data);
 						update(data);
 					},
 					complete()
@@ -647,6 +655,29 @@ function pollThree(arrayToUpdate)
 	}
 }
 
+function updateFileDataArray(newDataArr)
+{
+	if(expFormatEnabled !== "true")
+	{
+		return;
+	}
+	var newDataArrKeys = Object.keys(newDataArr);
+	var newDataArrKeysLength=  newDataArrKeys.length;
+	for(var NDACount = 0; NDACount < newDataArrKeysLength; NDACount++)
+	{
+		var fileDataArr = newDataArr[newDataArrKeys[NDACount]]["fileData"];
+		var fileDataArrKeys = Object.keys(fileDataArr);
+		var fileDataArrKeysLength = fileDataArrKeys.length;
+		if(fileDataArrKeysLength > 0)
+		{
+			for(var FDACount = 0; FDACount < fileDataArrKeysLength; FDACount++)
+			{
+				arrayOfFileData[fileDataArrKeys[FDACount]] = fileDataArr[fileDataArrKeys[FDACount]];
+			}
+		}
+	}
+}
+
 function getFileSingle(current)
 {
 	try
@@ -664,6 +695,7 @@ function getFileSingle(current)
 			type: "POST",
 			success(data)
 			{
+				updateFileDataArray(data);
 				arrayOfDataMainDataFilter(data);
 				generalUpdate();
 			},
@@ -677,7 +709,6 @@ function getFileSingle(current)
 					updateProgressBar(updateBy, arrayUpdateKeys[currentNew-1], "Loading file "+(arrayUpdateKeys.length+1-currentNew)+" of "+arrayUpdateKeys.length+" <br>  "+formatBytes(fileData[arrayUpdateKeys[currentNew-1]]["size"]));
 					currentNew--;
 					setTimeout(function(){ getFileSingle(currentNew); }, 100);
-					
 				}
 				else
 				{
@@ -1113,69 +1144,69 @@ function update(data)
 						var lastLogLine = logs[id].count - 1;
 						var fullPathSearch = filterTitle(titles[id]).trim();
 
+						var nameForLog = shortName;
+						if(fullPathSearch in fileData && "Name" in fileData[fullPathSearch] && fileData[fullPathSearch]["Name"] !== "" && fileData[fullPathSearch]["Name"] !== null)
+						{
+							nameForLog = fileData[fullPathSearch]["Name"];
+						}
+						else
+						{
+							if(logNameFormat !== "default")
+							{
+								//check for other options in displaying name
+								if(logNameFormat === "firstFolder" || logNameFormat === "lastFolder")
+								{
+									var locationOfLast = 1;
+									var newName = "";
+									var splitType = "/";
+									if(fullPathSearch.indexOf("/") > -1)
+									{
+										newName = fullPathSearch.split("/");
+									}
+									else if(fullPathSearch.indexOf("\\") > -1)
+									{
+										newName = fullPathSearch.split("\\");
+										splitType = "\\";
+									}
+									if(logNameFormat === "lastFolder")
+									{
+										locationOfLast = newName.length-2;
+									}
+									if(newName !== "")
+									{
+										nameForLog = newName[locationOfLast]+splitType+shortName;
+									}
+								}
+								else if(logNameFormat === "fullPath")
+								{
+									nameForLog = fullPathSearch;
+								}
+							}
+
+							if(logNameExtension === "false")
+							{
+								if(shortName.indexOf(".") > -1)
+								{
+									var secondNewName = nameForLog.split(".");
+									secondNewName.splice(-1,1);
+									nameForLog = secondNewName.join();
+								}
+							}
+						}
+						if(logNameGroup === "true")
+						{
+							if(files[i] in fileData && fileData[files[i]]["Group"] !== "")
+							{
+								var newNameGroup = fileData[files[i]]["Group"].split(" ")[0];
+								nameForLog = "<span id='"+id+"GroupInName' >"+newNameGroup+":</span>"+nameForLog;
+							}
+							else if(files[i].indexOf("LogHog/Backup/") === 0)
+							{
+								nameForLog = "Backup:"+nameForLog;
+							}
+						}
 						if($("#menu ." + id + "Button").length === 0) 
 						{
-							var nameForLog = shortName;
-							if(fullPathSearch in fileData && "Name" in fileData[fullPathSearch] && fileData[fullPathSearch]["Name"] !== "" && fileData[fullPathSearch]["Name"] !== null)
-							{
-								nameForLog = fileData[fullPathSearch]["Name"];
-							}
-							else
-							{
-								if(logNameFormat !== "default")
-								{
-									//check for other options in displaying name
-									if(logNameFormat === "firstFolder" || logNameFormat === "lastFolder")
-									{
-										var locationOfLast = 1;
-										var newName = "";
-										var splitType = "/";
-										if(fullPathSearch.indexOf("/") > -1)
-										{
-											newName = fullPathSearch.split("/");
-										}
-										else if(fullPathSearch.indexOf("\\") > -1)
-										{
-											newName = fullPathSearch.split("\\");
-											splitType = "\\";
-										}
-										if(logNameFormat === "lastFolder")
-										{
-											locationOfLast = newName.length-2;
-										}
-										if(newName !== "")
-										{
-											nameForLog = newName[locationOfLast]+splitType+shortName;
-										}
-									}
-									else if(logNameFormat === "fullPath")
-									{
-										nameForLog = fullPathSearch;
-									}
-								}
-
-								if(logNameExtension === "false")
-								{
-									if(shortName.indexOf(".") > -1)
-									{
-										var secondNewName = nameForLog.split(".");
-										secondNewName.splice(-1,1);
-										nameForLog = secondNewName.join();
-									}
-								}
-							}
-							if(logNameGroup === "true")
-							{
-								if(files[i] in fileData && fileData[files[i]]["Group"] !== "")
-								{
-									var newNameGroup = fileData[files[i]]["Group"].split(" ")[0];
-									nameForLog = "<span id='"+id+"GroupInName' >"+newNameGroup+":</span>"+nameForLog;
-								}
-								else if(files[i].indexOf("LogHog/Backup/") === 0)
-								{
-									nameForLog = "Backup:"+nameForLog;
-								}
-							}
 							classInsert = "";
 							item = blank;
 							item = item.replace(/{{title}}/g, nameForLog);
@@ -1246,15 +1277,22 @@ function update(data)
 
 							if(!firstLoad)
 							{
-								if(!$("#menu a." + id + "Button").hasClass("updated") && ( (!(fullPathSearch in fileData)) || fileData[fullPathSearch]["AlertEnabled"] === "true" ) && (!(id in alertEnabledArray) || (id in alertEnabledArray && alertEnabledArray[id] === "enabled")))
+								if(notificationNewLog === "true" && !$("#menu a." + id + "Button").hasClass("updated") && ( (!(fullPathSearch in fileData)) || fileData[fullPathSearch]["AlertEnabled"] === "true" ) && (!(id in alertEnabledArray) || (id in alertEnabledArray && alertEnabledArray[id] === "enabled")))
 								{
-									$("#menu a." + id + "Button").addClass("updated");
-
-									addLogNotification({
-										log: id,
-										name: "New Log "+nameForLog,
-										action: "$('#"+id+"').click();  toggleNotifications();"
-									});
+									if(notificationNewLogHighlight === "true")
+									{
+										$("#menu a." + id + "Button").addClass("updated");
+									}
+									if(notificationNewLogBadge === "true" || notificationNewLogDropdown === "true")
+									{
+										addLogNotification({
+											log: id,
+											name: "New Log "+nameForLog,
+											action: "$('#"+id+"').click();  closeNotificationsAndMainMenu();",
+											showNotification: notificationNewLineBadge,
+											showDropdown: notificationNewLineDropdown
+										});
+									}
 								}
 							}
 							var rightClickObjectNew = new Array();
@@ -1385,7 +1423,7 @@ function update(data)
 							}
 							else
 							{
-								if(!firstLoad && (oneLogEnable === "false" || isOneLogVisible() === "false" || oneLogVisibleDisableUpdate === "false"))
+								if(!firstLoad && notificationNewLine === "true" && (oneLogEnable === "false" || isOneLogVisible() === "false" || oneLogVisibleDisableUpdate === "false"))
 								{
 									if(autoMoveUpdateLog === "true")
 									{
@@ -1394,20 +1432,29 @@ function update(data)
 									}
 									else
 									{
-										if(!$("#menu a." + id + "Button").hasClass("updated"))
+										if(notificationNewLineHighlight === "true")
 										{
-											$("#menu a." + id + "Button").addClass("updated");
+											if(!$("#menu a." + id + "Button").hasClass("updated"))
+											{
+												$("#menu a." + id + "Button").addClass("updated");
+											}
 										}
-										var numForNot = "";
-										if (diffNew !== "(0)")
+										if(notificationNewLineBadge === "true" || notificationNewLineDropdown === "true")
 										{
-											numForNot = diffNew;
+											var numForNot = "";
+											if (diffNew !== "(0)")
+											{
+												numForNot = diffNew;
+											}
+											addLogNotification({
+												log: id,
+												name: nameForLog+" Update "+numForNot,
+												action: "$('#"+id+"').click();  closeNotificationsAndMainMenu();",
+												newText: newDiffText,
+												showNotification: notificationNewLogBadge,
+												showDropdown: notificationNewLogDropdown
+											});
 										}
-										addLogNotification({
-											log: id,
-											name: shortName+" Update "+numForNot,
-											action: "$('#"+id+"').click();  toggleNotifications();"
-										});
 									}
 								}
 							}
@@ -2609,10 +2656,10 @@ function resizeFullScreenMenu()
 	try
 	{
 		var targetWidth = window.innerWidth;
-		var mainContentFullScreenMenuLeft = "402px";
+		var mainContentFullScreenMenuLeft = "402";
 		if(!sideBarVisible)
 		{
-			mainContentFullScreenMenuLeft = "201px";
+			mainContentFullScreenMenuLeft = "201";
 		}
 		var mainContentFullScreenMenuTop = "46px";
 		if(sideBarOnlyIcons === "breakpointone" || targetWidth < breakPointOne || sideBarOnlyIcons === "breakpointtwo")
@@ -2623,10 +2670,10 @@ function resizeFullScreenMenu()
 				document.getElementById("mainFullScreenMenu").style.width = "51px";
 				$(".settingsUlSub").css("left", "52px");
 			}
-			mainContentFullScreenMenuLeft = "252px";
+			mainContentFullScreenMenuLeft = "252";
 			if(!sideBarVisible)
 			{
-				mainContentFullScreenMenuLeft = "52px";
+				mainContentFullScreenMenuLeft = "52";
 			}
 		}
 		else
@@ -2641,14 +2688,14 @@ function resizeFullScreenMenu()
 
 		if(targetWidth < breakPointTwo || sideBarOnlyIcons === "breakpointtwo")
 		{
-			mainContentFullScreenMenuLeft = "52px";
+			mainContentFullScreenMenuLeft = "52";
 			if(sideBarVisible)
 			{
 				mainContentFullScreenMenuTop = "82px";
 			}
 			$(".settingsUlSub").css("width","auto").css("bottom","auto").css("right","0").css("border-bottom","1px solid white").css("border-right","none").css("height","35px");
 			$(".settingsUlSub li").not('.subMenuToggle').css("display","inline-block");
-			$(".menuTitle").not(".menuBreak").hide();
+			$(".menuTitle").not(".menuBreak , .fullScreenNotificationTitle").hide();
 		}
 		else
 		{
@@ -2658,15 +2705,17 @@ function resizeFullScreenMenu()
 			toggleAddonAppsMenuText();
 		}
 
-		
-
-		if(document.getElementById("mainContentFullScreenMenu").style.left !== mainContentFullScreenMenuLeft)
+		if(document.getElementById("mainContentFullScreenMenu").style.left !== mainContentFullScreenMenuLeft+"px")
 		{
-			document.getElementById("mainContentFullScreenMenu").style.left = mainContentFullScreenMenuLeft;
+			document.getElementById("mainContentFullScreenMenu").style.left = mainContentFullScreenMenuLeft+"px";
 		}
-		if(document.getElementById("mainContentFullScreenMenu").style.top !== mainContentFullScreenMenuTop)
+		if(document.getElementById("mainContentFullScreenMenu").style.top !== mainContentFullScreenMenuTop+"px")
 		{
-			document.getElementById("mainContentFullScreenMenu").style.top = mainContentFullScreenMenuTop;
+			document.getElementById("mainContentFullScreenMenu").style.top = mainContentFullScreenMenuTop+"px";
+		}
+		if(document.getElementById("notificationHolder").style.maxWidth !== (window.innerWidth - mainContentFullScreenMenuLeft)+"px")
+		{
+			document.getElementById("notificationHolder").style.maxWidth = (window.innerWidth - mainContentFullScreenMenuLeft)+"px";
 		}
 	}
 	catch(e)
@@ -2997,10 +3046,6 @@ function archiveLogPopupToggle()
 	{
 		toggleFullScreenMenu();
 	}
-	if(document.getElementById("notifications").style.display === "inline-block")
-	{
-		toggleNotifications();
-	}
 	if(document.getElementById("historyDropdown").style.display === "inline-block")
 	{
 		document.getElementById("historyDropdown").style.display = "none";
@@ -3187,6 +3232,10 @@ function deleteActionAfter()
 				success(data){},
 				});
 			}
+		}
+		if(oneLogEnable === "true" && oneLogAllLogClear === "true")
+		{
+			resetOneLogData();
 		}
 		//Clear All Log Function (not delete actual file, just contents)
 		var urlForSend = "core/php/clearAllLogs.php?format=json";
@@ -3479,59 +3528,43 @@ function possiblyUpdateFromFilter()
 
 function toggleNotifications(force = false)
 {
-	if(document.getElementById("fullScreenMenu").style.display !== "none")
+	if(document.getElementById("fullScreenMenu").style.display === "none")
 	{
-		if(!force && !globalForcePageNavigate)
-		{
-			if(!(goToPageCheck("toggleFullScreenMenu(true)")))
-			{
-				return false;
-			}
-		}
-		globalForcePageNavigate = false;
 		toggleFullScreenMenu();
 	}
-	if(document.getElementById("historyDropdown").style.display === "inline-block")
+	if(!force && !globalForcePageNavigate)
 	{
-		archiveLogPopupToggle()
+		if(!(goToPageCheck("toggleFullScreenMenu(true)")))
+		{
+			return false;
+		}
 	}
-	if(document.getElementById("notifications").style.display === "inline-block")
+	globalForcePageNavigate = false;
+	hideMainStuff();
+	hideSidebar();
+	if(notifications.length < 1)
 	{
+		document.getElementById("notificationsEmpty").style.display = "block";
 		document.getElementById("notifications").style.display = "none";
-		document.getElementById("notificationNotClicked").style.display = "inline-block";
-		document.getElementById("notificationClicked").style.display = "none";
-		document.getElementById("notificationCount").style.color = "white";
 	}
 	else
 	{
 		showNotifications();
-		document.getElementById("notificationNotClicked").style.display = "none";
-		document.getElementById("notificationClicked").style.display = "inline-block";
-		document.getElementById("notifications").style.display = "inline-block";
-		document.getElementById("notifications").style.left = (document.getElementById("notificationDiv").getBoundingClientRect().left-27) + "px";
-		document.getElementById("notifications").style.top = (document.getElementById("notificationDiv").getBoundingClientRect().top+25) + "px";
-		document.getElementById("notificationCount").style.color = "black";
+		document.getElementById("notifications").style.display = "block";
+		document.getElementById("notificationsEmpty").style.display = "none";
+		changeNotificationsToViewed();
+		regroupNotifications();
 	}
+	$("#mainMenuNotifications").addClass("selected");
+	arrayOfScrollHeaderUpdate = [];
+	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
+	resize();
 }
 
 function showNotifications()
 {
-	var arrayInternalNotifications = new Array();
-	if(notifications.length < 1)
-	{
-		//no notifications to show
-		arrayInternalNotifications[0] = new Array();
-		arrayInternalNotifications[0]["id"] = 0;
-		arrayInternalNotifications[0]["name"] = "No Notifications";
-		arrayInternalNotifications[0]["time"] = formatAMPM(new Date());
-		arrayInternalNotifications[0]["action"] = "";
-	}
-	else
-	{
-		arrayInternalNotifications = notifications;
-	}
-	displayNotifications(arrayInternalNotifications);
-
+	//code here later if needed
+	displayNotifications();
 }
 
 function clearAllNotifications()
@@ -3551,36 +3584,77 @@ function formatAMPM(date)
   return strTime;
 }
 
-function displayNotifications(notificationsArray)
+function displayNotifications()
 {
 	clearAllNotifications();
-	var htmlForNotifications = "<span style=\"overflow: auto; max-height: 300px; display: block;\" >";
-	for (var i = notificationsArray.length - 1; i >= 0; i--)
+	var htmlForNotifications = "<span style=\"display: block;\" >";
+	var unreadNotifications = "";
+	var readNotifications = "";
+	for (var i = notifications.length - 1; i >= 0; i--)
 	{
 		var blank;
-		if("image" in notificationsArray[i])
+		var blankMod = "";
+		if(window.innerWidth < breakPointTwo)
 		{
-			blank = $("#storage .notificationContainerWithImage").html();
+			blankMod += "Small";
 		}
-		else if(notificationsArray[i]["name"] === "No Notifications")
+		if("image" in notifications[i])
 		{
-			blank = $("#storage .notificationContainerEmpty").html();
+			blankMod += "WithImage";
+		}
+		blank = $("#storage .notificationContainer"+blankMod).html();
+		var item = blank;
+		var viewIndicatorHtml = "<span class=\"led-green\" ></span>";
+		if(notifications[i]["viewed"] === false)
+		{
+			viewIndicatorHtml = "<span class=\"led-yellow\" ></span>";
+		}
+		item = item.replace(/{{id}}/g, "notification"+notifications[i]['id']);
+		item = item.replace(/{{idNum}}/g, i);
+		item = item.replace(/{{viewIndicator}}/g, viewIndicatorHtml);
+		item = item.replace(/{{name}}/g, notifications[i]['name']);
+		item = item.replace(/{{time}}/g, notifications[i]['time']);
+		item = item.replace(/{{action}}/g, notifications[i]['action']);
+		if(notifications[i]["newText"] !== "" && notificationPreviewShow === "true")
+		{
+			var logTextToShow = "";
+			var tmpLogText = notifications[i]['newText'].split("\n");
+			var tmpLogTextLength = tmpLogText.length;
+			var max = notificationPreviewLineCount;
+			if(max > tmpLogTextLength)
+			{
+				max = tmpLogTextLength;
+			}
+			for(var tltc = 0; tltc < max; tltc++)
+			{
+				logTextToShow += "\n"+tmpLogText[tltc];
+			}
+			item = item.replace(/{{previewText}}/g, "<div style=\"max-height: "+notificationPreviewHeight+"px;\" class=\"notificationPreviewLog\" ><table width=\"100%\" style=\"border-spacing: 0;\" >" + makePrettyWithText(logTextToShow, 0) + "</table></div>");
 		}
 		else
 		{
-			blank = $("#storage .notificationContainer").html();
+			item = item.replace(/{{previewText}}/g, "");
 		}
-		var item = blank;
-		item = item.replace(/{{id}}/g, "notification"+notificationsArray[i]['id']);
-		item = item.replace(/{{idNum}}/g, i);
-		item = item.replace(/{{name}}/g, notificationsArray[i]['name']);
-		item = item.replace(/{{time}}/g, notificationsArray[i]['time']);
-		item = item.replace(/{{action}}/g, notificationsArray[i]['action']);
-		if("image" in notificationsArray[i])
+		if("image" in notifications[i])
 		{
-			item = item.replace(/{{image}}/g, notificationsArray[i]['image']);
+			item = item.replace(/{{image}}/g, notifications[i]['image']);
 		}
-		htmlForNotifications += item;
+		if(notifications[i]["viewed"] === false)
+		{
+			unreadNotifications += item;
+		}
+		else
+		{
+			readNotifications += item;
+		}
+	}
+	if(unreadNotifications !== "")
+	{
+		htmlForNotifications += "<div style=\"filter: invert(100%);\" class=\"menuTitle fullScreenNotificationTitle\" >Unread</div>" + unreadNotifications;
+	}
+	if(readNotifications !== "")
+	{
+		htmlForNotifications += "<div style=\"filter: invert(100%);\" class=\"menuTitle fullScreenNotificationTitle\" >Read</div>" + readNotifications;
 	}
 	htmlForNotifications += "</span>";
 	$("#notificationHolder").append(htmlForNotifications);
@@ -3609,6 +3683,44 @@ function removeNotificationByLog(logId)
 	}
 }
 
+function changeNotificationsToViewed()
+{
+	for (var i = notifications.length - 1; i >= 0; i--)
+	{
+		if(notifications[i]["viewed"] !== true)
+		{
+			notifications[i]["viewed"] = true;
+		}
+	}
+}
+
+function regroupNotifications()
+{
+	for (var i = notifications.length - 1; i >= 0; i--)
+	{
+		if(notifications[i] !== null && "log" in notifications[i])
+		{
+			for (var j = i - 1; j >= 0; j--)
+			{
+				if(notifications[j] !== null && "log" in notifications[j])
+				{
+					if(notifications[i]["log"] === notifications[j]["log"] )
+					{
+						if(notifications[j]["viewed"] === true && notifications[i]["viewed"] === true && notificationGroupType === "OnlyRead")
+						{
+							//merge j into i
+							notifications[i]["newText"] += "\n"+notifications[j]["newText"];
+							notifications[j] = null;
+							break;
+						}
+					}
+				}
+			}
+		}
+	}
+	notifications = notifications.filter(function(e){return e});
+}
+
 function removeNotification(idToRemove)
 {
 	if(idToRemove in notifications)
@@ -3628,55 +3740,91 @@ function removeNotification(idToRemove)
 
 function updateNotificationCount()
 {
-	var currentCount = notifications.length;
+	var currentCount = getNotificationCount();
 	if(currentCount > 0)
 	{
 		if(currentCount < 10)
 		{
 			currentCount = "0" + currentCount;
 		}
-		if(document.getElementById("notificationCount").innerHTML == currentCount)
+		if(document.getElementById("notificationBadge").innerHTML == currentCount)
 		{
 			return;
 		}
-		$("#notificationCount").empty();
+		$("#notificationBadge").empty();
 		document.getElementById("notificationIcon").style.display = "block";
-		$("#notificationCount").append(currentCount);
+		$("#notificationBadge").append(currentCount);
+		$("#mainMenuNotificationsText").html("Notifications ("+currentCount+")");
 		resizeNotificationCounter();
 	}
 	else
 	{
-		$("#notificationCount").empty();
-		document.getElementById("notificationIcon").style.display = "none";
+		if($("#notificationBadge").html() !== "")
+		{
+			$("#notificationBadge").empty();
+			$("#mainMenuNotificationsText").html("Notifications");
+			document.getElementById("notificationIcon").style.display = "none";
+		}
 	}
+}
+
+function getNotificationCount()
+{
+	if(notificationCountViewedOnly === "false")
+	{
+		return notifications.length;
+	}
+	newCount = 0;
+	for (var i = notifications.length - 1; i >= 0; i--)
+	{
+		if(notifications[i]["viewed"] !== true)
+		{
+			newCount++;
+		}
+	}
+	return newCount;
 }
 
 function resizeNotificationCounter()
 {
-	var boundingRectForNotificationDiv = document.getElementById("notificationDiv").getBoundingClientRect();
-	if(document.getElementById("notificationCount").style.left !== (boundingRectForNotificationDiv.left+5) + "px")
+	var boundingRectForNotificationDiv = document.getElementById("mainMenuDiv").getBoundingClientRect();
+	if(document.getElementById("notificationBadge").style.left !== (boundingRectForNotificationDiv.left+11) + "px")
 	{
-		document.getElementById("notificationCount").style.left = (boundingRectForNotificationDiv.left+5) + "px";
-		document.getElementById("notificationBadge").style.left = (boundingRectForNotificationDiv.left-5) + "px";
+		document.getElementById("notificationBadge").style.left = (boundingRectForNotificationDiv.left+11) + "px";
 	}
-	if(document.getElementById("notificationCount").style.top !== (boundingRectForNotificationDiv.top+11) + "px")
+	if(document.getElementById("notificationBadge").style.top !== (boundingRectForNotificationDiv.top+17) + "px")
 	{
-		document.getElementById("notificationCount").style.top = (boundingRectForNotificationDiv.top+11) + "px";
-		document.getElementById("notificationBadge").style.top = (boundingRectForNotificationDiv.top+19) + "px";
+		document.getElementById("notificationBadge").style.top = (boundingRectForNotificationDiv.top+17) + "px";
 	}
+}
+
+function closeNotificationsAndMainMenu()
+{
+	toggleNotifications();
+	toggleFullScreenMenu();
 }
 
 function addLogNotification(notificationArray)
 {
-	//check if log notification is already displayed. If so, get ID of that for current ID
-	for (var i = notifications.length - 1; i >= 0; i--)
+	if(notificationGroupType !== "Never")
 	{
-		if("log" in notifications[i])
+		//check if log notification is already displayed. If so, get ID of that for current ID
+		for (var i = notifications.length - 1; i >= 0; i--)
 		{
-			if(notifications[i]["log"] === notificationArray["log"])
+			if("log" in notifications[i])
 			{
-				notificationArray["currentId"] = i;
-				break;
+				if(notifications[i]["log"] === notificationArray["log"])
+				{
+					if((notifications[i]["viewed"] === false && notificationGroupType === "OnlyRead") ||  notificationGroupType === "Always")
+					{
+						notificationArray["currentId"] = i;
+						if(notificationPreviewOnlyNew === "false")
+						{
+							notificationArray["newText"] += notifications[i]["newText"]+"\n"+notificationArray["newText"];
+						}
+						break;
+					}
+				}
 			}
 		}
 	}
@@ -3691,23 +3839,123 @@ function addNotification(notificationArray)
 	{
 		currentId = notificationArray["currentId"];
 	}
-	notifications[currentId] = new Array();
-	notifications[currentId]["id"] = currentId;
-	notifications[currentId]["name"] = notificationArray["name"];
-	notifications[currentId]["time"] = formatAMPM(new Date());
-	notifications[currentId]["action"] = notificationArray["action"];
+	var newNotification = {};
+	newNotification["id"] = currentId;
+	newNotification["name"] = notificationArray["name"];
+	newNotification["time"] = formatAMPM(new Date());
+	newNotification["action"] = notificationArray["action"];
+	newNotification["viewed"] = false;
+	newNotification["newText"] = "";
+	if("newText" in notificationArray)
+	{
+		newNotification["newText"] = notificationArray["newText"];
+	}
 	if("log" in notificationArray)
 	{
-		notifications[currentId]["log"] = notificationArray["log"];
+		newNotification["log"] = notificationArray["log"];
 	}
+	if(notificationInlineShow === "true" && notificationArray["showDropdown"] === "true")
+	{
+		inlineNotificationAdd(newNotification);
+	}
+	if(notificationArray["showNotification"] === "true")
+	{
+		notifications[currentId] = new Array();
+		notifications[currentId] = newNotification;
+		updateNotificationStuff();
+	}
+}
 
-	updateNotificationStuff();
+function inlineNotificationAdd(notificationArray)
+{
+	inlineNotificationPollArray.push(notificationArray);
+}
+
+function tryToStartNotificationInlinePoll()
+{
+	if(
+		inlineNotificationPoll === null &&
+		document.getElementById("fullScreenMenu").style.display === "none" &&
+		inlineNotificationPollArray.length > 0)
+	{
+		//start poll
+		inlineNotificationPollLogic();
+		inlineNotificationPoll = setInterval(inlineNotificationPollLogic, (notificationInlineDisplayTime * 1000));
+	}
+}
+
+function inlineNotificationPollLogic(force = false)
+{
+	if($("#inlineNotifications:hover").length != 0 && !force)
+	{
+	    return;
+	}
+	var currentLength = inlineNotificationPollArray.length;
+	if(currentLength > 0)
+	{
+		var currentThing = inlineNotificationPollArray[0];
+		inlineNotificationPollArray.shift();
+		//show notification
+		var blank;
+		if("image" in currentThing)
+		{
+			blank = $("#storage .notificationContainerInlineWithImage").html();
+		}
+		else
+		{
+			blank = $("#storage .notificationContainerInline").html();
+		}
+		var item = blank;
+		item = item.replace(/{{name}}/g, currentThing['name']);
+		item = item.replace(/{{time}}/g, currentThing['time']);
+		item = item.replace(/{{action}}/g, currentThing['action']);
+		if("image" in currentThing)
+		{
+			item = item.replace(/{{image}}/g, currentThing['image']);
+		}
+		$("#inlineNotifications").html(item);
+		document.getElementById("inlineNotifications").style.display = "block";
+		if(notificationInlineButtonHover === "true")
+		{
+			$( "#inlineNotifications" ).hover(
+			  function() {
+			    $( ".notificationContainerInlineButtons" ).css( "display" , "block" );
+			  }, function() {
+			    $( ".notificationContainerInlineButtons" ).css( "display" , "none" );
+			  }
+			);
+		}
+		else
+		{
+			$( ".notificationContainerInlineButtons" ).css( "display" , "block" );
+		}
+	}
+	else
+	{
+		document.getElementById("inlineNotifications").style.display = "none";
+		//stop poll
+		clearInterval(inlineNotificationPoll);
+		inlineNotificationPoll = null;
+	}
 }
 
 function updateNotificationStuff()
 {
 	updateNotificationCount();
-	showNotifications();
+	if(document.getElementById("fullScreenMenu").style.display !== "none" && ($("#mainMenuNotifications") && $("#mainMenuNotifications").hasClass("selected")))
+	{
+		if(notifications.length < 1)
+		{
+			document.getElementById("notificationsEmpty").style.display = "block";
+			document.getElementById("notifications").style.display = "none";
+		}
+		else
+		{
+			showNotifications();
+			document.getElementById("notifications").style.display = "block";
+			document.getElementById("notificationsEmpty").style.display = "none";
+		}
+	}
 	checkForUpdateLogsOffScreen();
 }
 
@@ -3715,10 +3963,6 @@ function toggleFullScreenMenu(force = false)
 {
 	fullScreenMenuClickCount++;
 	dirForAjaxSend = "";
-	if(document.getElementById("notifications").style.display === "inline-block")
-	{
-		toggleNotifications();
-	}
 	if(document.getElementById("historyDropdown").style.display === "inline-block")
 	{
 		archiveLogPopupToggle()
@@ -3748,6 +3992,10 @@ function toggleFullScreenMenu(force = false)
 		else if($("#ThemesLink") && $("#ThemesLink").hasClass("selected"))
 		{
 			toggleThemesIframeSource(true);
+		}
+		else if($("#mainMenuNotifications") && $("#mainMenuNotifications").hasClass("selected"))
+		{
+			updateNotificationStuff();
 		}
 		var fullScreenMenuClickCountCurrent = fullScreenMenuClickCount;
 		setTimeout(function() {
@@ -3807,6 +4055,24 @@ function toggleAddons(force = false)
 	hideSidebar();
 	document.getElementById("fullScreenMenuAddons").style.display = "block";
 	$("#mainMenuAddons").addClass("selected");
+	arrayOfScrollHeaderUpdate = [];
+	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
+}
+
+function toggleSettings(force = false)
+{
+	if(!force && !globalForcePageNavigate)
+	{
+		if(!(goToPageCheck("toggleSettings(true)")))
+		{
+			return false;
+		}
+	}
+	globalForcePageNavigate = false;
+	hideMainStuff();
+	toggleFullScreenMenuMainContent();
+	document.getElementById("settingsSubMenu").style.display = "block";
+	$("#mainMenuSettings").addClass("selected");
 	arrayOfScrollHeaderUpdate = [];
 	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
 }
@@ -4114,6 +4380,12 @@ function hideAboutStuff()
 	$("#aboutSubMenuWhatsNew").removeClass("selected");
 }
 
+function hideNotificationStuff()
+{
+	document.getElementById("notifications").style.display = "none";
+	document.getElementById("notificationsEmpty").style.display = "none";
+}
+
 function hideAddonStuff()
 {
 	document.getElementById("fullScreenMenuAddons").style.display = "none";
@@ -4164,6 +4436,19 @@ function toggleIframe(locHref, idOfAddon, force = false)
 function hideMainStuff()
 {
 	endSettingsPollTimer();
+
+	if($("#mainMenuSettings").hasClass("selected"))
+	{
+		document.getElementById("settingsSubMenu").style.display = "none";
+		$("#mainMenuSettings").removeClass("selected");
+	}
+
+	if($("#mainMenuNotifications").hasClass("selected"))
+	{
+		hideNotificationStuff();
+		$("#mainMenuNotifications").removeClass("selected");
+		sideBarVisible = true;
+	}
 
 	if($("#mainMenuAbout").hasClass("selected"))
 	{

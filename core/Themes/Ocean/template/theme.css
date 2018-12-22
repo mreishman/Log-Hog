@@ -372,3 +372,18 @@
 	background-color: rgba(25,25,100,1);
 	border-right: 1px solid white;
 }
+
+.fullScreenMenuLeftSidebar div, .fullScreenMenuLeftSidebar td {
+	background-color: rgba(25,25,100,1);
+	color: white;
+}
+
+.fullScreenMenuLeftSidebar {
+	background-color: rgba(25,25,100,1);
+	border-right: 1px solid white;
+}
+
+.notificationPreviewLog
+{
+	border: 1px solid white;
+}

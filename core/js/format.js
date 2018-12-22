@@ -1,3 +1,5 @@
+/* Date Time Arrays */
+
 var arrOfDaysSmall = {
 	1: "Mon",
 	2: "Tue",
@@ -45,11 +47,28 @@ var arrOfMonthsLarge = {
 	12: "December"
 };
 
+/* PHP arrays */
+
+var phpRedWarningArr = {
+	0:"PHP Fatal",
+	1:"PHP Parse error",
+	2:"PHP Syntax error"
+};
+
+var phpYellowWarningArr = {
+	0:"PHP Warning"
+};
+
+/* Start of functions for formatting*/
 
 function formatLine(text, extraData)
 {
 	var arrayOfText = dateTimeSplit(text);
-	return "<td style=\"white-space:nowrap;width: 1%;\" >" + dateTimeFormat(arrayOfText) + "</td><td style=\"white-space: pre-wrap;\" >" + formatMainMessage(arrayOfText, extraData) + "</td>";
+	if(dateTextFormatColumn === "true" || (dateTextFormatColumn === "auto" && window.innerWidth > breakPointTwo))
+	{
+		return "<td style=\"white-space:nowrap;width: 1%;\" >" + dateTimeFormat(arrayOfText) + "</td><td style=\"white-space: pre-wrap;\" >" + formatMainMessage(arrayOfText[1], extraData) + "</td>";
+	}
+	return "<td style=\"white-space: pre-wrap;\" >" + dateTimeFormat(arrayOfText) + formatMainMessage(arrayOfText[1], extraData) + "</td>";
 }
 
 function dateTimeSplit(text)
@@ -94,14 +113,177 @@ function dateTimeSplit(text)
 	return returnObject;
 }
 
-function formatMainMessage(dateTextArray, extraData)
+function formatMainMessage(message, extraData)
 {
-	var message = dateTextArray[1];
 	if(message.indexOf("{") > -1 && message.lastIndexOf("}") > message.indexOf("{"))
 	{
 		return formatJsonMessage(message, extraData);
 	}
+	else if(message.indexOf("PHP message:") > -1)
+	{
+		return formatPhpMessage(message, extraData);
+	}
+	//check if message is in arrayOfFileData
+	var arrayOfFileDataKeys = Object.keys(arrayOfFileData);
+	var arrayOfFileDataKeysLength = arrayOfFileDataKeys.length;
+	for(var AOFDCount = 0; AOFDCount < arrayOfFileDataKeysLength; AOFDCount++)
+	{
+		if(message.indexOf(arrayOfFileDataKeys[AOFDCount]) > -1)
+		{
+			//this message matches file data, add this below
+			extraData["fileData"] = arrayOfFileData[arrayOfFileDataKeys[AOFDCount]];
+			return formatMessageFileData(message, extraData);
+		}
+	}
 	return message;
+}
+
+function formatMessageFileData(message, extraData)
+{
+	return "<table style=\"width: 100%;\" ><tr><td>"+message+"</td></tr><tr><td><table class=\"logCode\" style=\"width: 100%;\" >"+makePrettyWithText(escapeHTML(extraData["fileData"]["fileData"]), 0)+"</table></td></tr></table>";
+}
+
+function formatPhpMessage(message, extraData)
+{
+	var message = message.split("PHP message:");
+	var firstPartOfMessage = message[0];
+	message.shift();
+	if(typeof message !== "string")
+	{
+		message = message.join("PHP message:");
+	}
+	var restOfMessage = message.split(":");
+	var messageWarning = restOfMessage[0];
+	var severity = getPhpSeverifyLevel(messageWarning);
+	restOfMessage.shift();
+	restOfMessage = restOfMessage.join(":");
+	restOfMessage = parseErrorMessage(restOfMessage, extraData);
+	if(firstPartOfMessage !== "")
+	{
+		firstPartOfMessage = formatMainMessage(firstPartOfMessage, extraData);
+	}
+	return firstPartOfMessage+"<div><img src=\""+severity+"\" height=\"15px\" >"+messageWarning+"</div><div class=\"settingsDiv\" >"+restOfMessage+"</div>";
+}
+
+function parseErrorMessage(restOfMessage, extraData)
+{
+	//check for client and extra data after that
+	//0: main data, 1: client, 2: server, 3: request, 4: upstream, 5: host, 6: referrer
+	var arrayOfData = {
+		0: {
+			"string"	: restOfMessage,
+			"key"		: "",
+			"position"	: -1
+		},
+		1: {
+			"string"	: "",
+			"key"		: "Client:",
+			"position"	: restOfMessage.indexOf(", client:")
+		},
+		2: {
+			"string"	: "",
+			"key"		: "Server:",
+			"position"	: restOfMessage.indexOf(", server:")
+		},
+		3: {
+			"string"	: "",
+			"key"		: "Request:",
+			"position"	: restOfMessage.indexOf(", request:")
+		},
+		4: {
+			"string"	: "",
+			"key"		: "Upstream:",
+			"position"	: restOfMessage.indexOf(", upstream:")
+		},
+		5: {
+			"string"	: "",
+			"key"		: "Host:",
+			"position"	: restOfMessage.indexOf(", host:")
+		},
+		6: {
+			"string"	: "",
+			"key"		: "Referrer:",
+			"position"	: restOfMessage.indexOf(", referrer:")
+		},
+	};
+	var arrayOfDataKeys = Object.keys(arrayOfData);
+	var trimmedMainData = false;
+	var atLeastOnePresent = false;
+	var skipLogic = false;
+	for(var aodc = 1; aodc < 7; aodc++)
+	{
+		if(!skipLogic)
+		{
+			//start filter, get lowest position (ext -1) then trim that out (first lowest to second lowest)
+			var lowest = -1;
+			var lowestPos = 0;
+			for(var aodc2 = 1; aodc2 < 7; aodc2++)
+			{
+				if((arrayOfData[arrayOfDataKeys[aodc2]]["position"] < lowest || lowest === -1 ) && arrayOfData[arrayOfDataKeys[aodc2]]["position"] > -1)
+				{
+					atLeastOnePresent = true;
+					lowest = arrayOfData[arrayOfDataKeys[aodc2]]["position"];
+					lowestPos = aodc2;
+				}
+			}
+			if(lowest !== -1)
+			{
+				//find second lowest, cut out that part anad add to array of data
+				arrayOfData[arrayOfDataKeys[lowestPos]]["position"] = -1;
+				var secondLowest = restOfMessage.length;
+				for(var aodc3 = 1; aodc3 < 7; aodc3++)
+				{
+					if(arrayOfData[arrayOfDataKeys[aodc3]]["position"] < secondLowest && arrayOfData[arrayOfDataKeys[aodc3]]["position"] !== -1)
+					{
+						secondLowest = arrayOfData[arrayOfDataKeys[aodc3]]["position"];
+					}
+				}
+				arrayOfData[arrayOfDataKeys[lowestPos]]["string"] = restOfMessage.substring(lowest + 1, secondLowest);
+				if(!trimmedMainData)
+				{
+					arrayOfData[arrayOfDataKeys[0]]["string"] = restOfMessage.substring(0, lowest);
+					trimmedMainData = true;
+				}
+			}
+			else
+			{
+				skipLogic = true;
+			}
+		}
+	}
+	var newHtmlToSend = "";
+	for(var aodc4 = 0; aodc4 < 7; aodc4++)
+	{
+		if(arrayOfData[arrayOfDataKeys[aodc4]]["string"] !== "")
+		{
+			newHtmlToSend += "<div>"+formatMainMessage(arrayOfData[arrayOfDataKeys[aodc4]]["string"].trim(), extraData)+"</div>";
+		}
+	}
+	return newHtmlToSend;
+}
+
+function getPhpSeverifyLevel(snippit)
+{
+	var phpRedWarningArrKeys = Object.keys(phpRedWarningArr);
+	var phpRedWarningArrLength = phpRedWarningArrKeys.length;
+	for (var rwaCount = 0; rwaCount < phpRedWarningArrLength; rwaCount++)
+	{
+		if(snippit.indexOf(phpRedWarningArr[phpRedWarningArrKeys[rwaCount]]) > -1)
+		{
+			return arrayOfImages["redWarning"]["src"];
+		}
+	}
+	var phpYellowWarningArrKeys = Object.keys(phpYellowWarningArr);
+	var phpYellowWarningArrLength = phpYellowWarningArrKeys.length;
+	for (var rwaCount = 0; rwaCount < phpYellowWarningArrLength; rwaCount++)
+	{
+		if(snippit.indexOf(phpYellowWarningArr[phpYellowWarningArrKeys[rwaCount]]) > -1)
+		{
+			return arrayOfImages["yellowWarning"]["src"];
+		}
+	}
+
+	return arrayOfImages["info"]["src"];
 }
 
 function formatJsonMessage(message, extraData)

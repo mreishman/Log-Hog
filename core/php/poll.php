@@ -7,7 +7,7 @@ require_once($baseModifier.'core/conf/config.php');
 require_once('configStatic.php');
 require_once('commonFunctions.php');
 
-$varsLoadLite = array("shellOrPhp", "logTrimOn", "logSizeLimit","logTrimMacBSD", "logTrimType","TrimSize","enableLogging","buffer","sliceSize","lineCountFromJS","showErrorPhpFileOpen");
+$varsLoadLite = array("shellOrPhp", "logTrimOn", "logSizeLimit","logTrimMacBSD", "logTrimType","TrimSize","enableLogging","buffer","sliceSize","lineCountFromJS","showErrorPhpFileOpen","expFormatEnabled");
 
 foreach ($varsLoadLite as $varLoadLite)
 {
@@ -82,9 +82,51 @@ if(isset($_POST['arrayToUpdate']))
 				}
 			}
 			$dataVar = htmlentities($dataVar);
-			if($lineCount === "---" && $enableLogging != "false")
+			if($expFormatEnabled === "true")
 			{
-				$lineCount = getLineCount($filename, $shellOrPhp);
+				//try and get file path and file lines
+				$arrayOfFiles = array();
+				$tmpLog = explode(PHP_EOL, $dataVar);
+				foreach ($tmpLog as $tmpLogLine)
+				{
+					//check for line here, add file path to array if there
+					preg_match('/(in )(.?)([\/]+)([^&\r\n\t]*)(on line|\D:\d)(.?)(\d{1,10})/', $tmpLogLine, $matches);
+					if(count($matches) > 0 && !isset($arrayOfFiles[$matches[0]]))
+					{
+						$fileData = "Error - File Not Found";
+						$fileName = trim($matches[3].$matches[4]);
+						if(is_file($fileName))
+						{
+							$fileData = "Error - File Not Readable";
+							if(is_readable($fileName))
+							{
+								$linePadding = 2;
+								$totalPading = $linePadding * 2;
+								$currentLine = intval($matches[7]) - $linePadding;
+								if($currentLine < 0)
+								{
+									$totalPading = $totalPading + $currentLine;
+									$currentLine = 0;
+								}
+								$totalPading++;
+								$lineCountLocal = getLineCount($fileName, $shellOrPhp);
+								//check to see if line is greater than file length
+								$fileData = "Error - File Changed, line no longer in file";
+								if($lineCountLocal >= $currentLine)
+								{
+									$fileData = tail($fileName, $totalPading, $shellOrPhp, $currentLine);
+								}
+							}
+						}
+						//found a match, add to thing
+						$arrayOfFiles[$matches[0]] = array(
+							"pregMatchData"	=>	$matches,
+							"fileData"		=>	$fileData,
+							"fileName"		=>	$fileName
+						);
+					}
+				}
+				$response[$path]["fileData"] = $arrayOfFiles;
 			}
 			$response[$path]["data"] = "";
 			if($enableLogging != "false")
@@ -97,7 +139,7 @@ if(isset($_POST['arrayToUpdate']))
 		}
 		catch (Exception $e)
 		{
-			$response[$path]["log"] = "Error - Maybe insufficient access to read file?";
+			$response[$path]["log"] = "Error - ".$e." ";
 			$response[$path]["data"] = " Limit: ".$logSizeLimit."(".($logSizeLimit+$buffer).") ".$modifier." | Line Count: --- | Time: ---";
 			$response[$path]["lineCount"] = "---";
 		}

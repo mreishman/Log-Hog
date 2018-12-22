@@ -72,9 +72,9 @@ function checkIfChanges()
 	{
 		arrayToCheck.push("archiveConfig");
 	}
-	if(document.getElementById("settingsUpdateVars"))
+	if(document.getElementById("settingsNotificationVars"))
 	{
-		arrayToCheck.push("settingsUpdateVars");
+		arrayToCheck.push("settingsNotificationVars");
 	}
 	if(document.getElementById("settingsWatchlistVars"))
 	{
@@ -295,9 +295,9 @@ $( document ).ready(function()
 	{
 		arrayToRefresh.push("archiveConfig");
 	}
-	if(document.getElementById("settingsUpdateVars"))
+	if(document.getElementById("settingsNotificationVars"))
 	{
-		arrayToRefresh.push("settingsUpdateVars");
+		arrayToRefresh.push("settingsNotificationVars");
 	}
 	if(document.getElementById("settingsMenuVars"))
 	{

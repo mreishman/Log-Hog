@@ -34,7 +34,7 @@ $fontSizeVars = array();
 $brightessVars = array();
 $logPaddingVars = array();
 $oneLogNum = array();
-$oneLogLogMaxHeight = array();
+$oneLogLogMaxHeightArr = array();
 for ($m=0; $m < 20; $m++)
 {
 	if($m >= 5)
@@ -62,11 +62,11 @@ for ($m=0; $m < 20; $m++)
 			"value" 					=> $m,
 			"name" 						=> $m."px");
 
-	$oneLogLogMaxHeight[$m] = array(
+	$oneLogLogMaxHeightArr[$m] = array(
 			"value" 					=> (($m*15)+100),
 			"name" 						=> (($m*15)+100)."px");
 }
-$oneLogLogMaxHeight[20] = array(
+$oneLogLogMaxHeightArr[20] = array(
 			"value" 					=> 400,
 			"name" 						=> "400px");
 
@@ -761,7 +761,26 @@ $defaultConfigMoreData = array(
 					"key"								=>	"dateTextFormatCustom",
 					"type"								=>	"hidden"
 				)
-			)
+			),
+			2									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"dateTextFormatColumn",
+					"name"								=>	"Show log date / time in seperate column",
+					"options"							=>	array(
+						0 									=> array(
+							"value" 							=> "true",
+							"name" 								=> "Always"),
+						1 									=> array(
+							"value" 							=> "auto",
+							"name" 								=> "On larger screens"),
+						2 									=> array(
+							"value" 							=> "false",
+							"name" 								=> "Never")
+					),
+					"type"								=>	"dropdown"
+				)
+			),
 		)
 	),
 	"loggingVars"						=>	array(
@@ -1102,7 +1121,7 @@ $defaultConfigMoreData = array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"notificationCountVisible",
-					"name"								=>	"Enable Notification Count",
+					"name"								=>	"Enable Log Diff Count",
 					"options"							=>	$trueFalsVars,
 					"type"								=>	"dropdown"
 				)
@@ -1195,16 +1214,6 @@ $defaultConfigMoreData = array(
 				)
 			),
 			13									=>	array(
-				"info"								=>	"If a log tab is not visible (either below of above scroll area), a bar will flash as notification",
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"offscreenLogNotify",
-					"name"								=>	"Show notification for offscreen log tabs",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				)
-			),
-			14									=>	array(
 				"info"								=>	"1400 Breakpoint shows only images on full screen sidebar, 1000 breakpoint is the same but moves the inner sidebar to the top",
 				"type"								=>	"single",
 				"var"								=>	array(
@@ -1224,7 +1233,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			15									=>	array(
+			14									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"allLogsVisible",
@@ -1289,6 +1298,274 @@ $defaultConfigMoreData = array(
 			)
 		)
 	),
+	"notificationVars"					=>	array(
+		"id"								=>	"settingsNotificationVars",
+		"name"								=>	"Notification Settings ",
+		"vars"								=> array(
+			0									=> array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"updateNotificationEnabled",
+					"name"								=>	"Show Update Notification",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			1									=>	array(
+				"bool"								=>	($notificationNewLine == 'false'),
+				"id"								=>	"notificationNewLineSettings",
+				"name"								=>	"New Line Notification Settings",
+				"type"								=>	"grouped",
+				"var"								=>	array(
+					"function"							=>	"showOrHidenotificationNewLineSettings",
+					"id"								=>	"notificationNewLine",
+					"key"								=>	"notificationNewLine",
+					"name"								=>	"Show New Line Notification",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				),
+				"vars"								=>	array(
+					0									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"notificationNewLineHighlight",
+							"name"								=>	"Highlight Label",
+							"options"							=>	$trueFalsVars,
+							"type"								=>	"dropdown"
+						)
+					),
+					1									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"notificationNewLineBadge",
+							"name"								=>	"Update Badge",
+							"options"							=>	$trueFalsVars,
+							"type"								=>	"dropdown"
+						)
+					),
+					2									=> array(
+						"info"								=>	"Will be overridden by show dropdown alert setting if false, wont if true",
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"notificationNewLineDropdown",
+							"name"								=>	"Show Dropdown",
+							"options"							=>	$trueFalsVars,
+							"type"								=>	"dropdown"
+						)
+					)
+				)
+			),
+			2									=>	array(
+				"bool"								=>	($notificationNewLog == 'false'),
+				"id"								=>	"notificationNewLogSettings",
+				"name"								=>	"New Log Notification Settings",
+				"type"								=>	"grouped",
+				"var"								=>	array(
+					"function"							=>	"showOrHidenotificationNewLogSettings",
+					"id"								=>	"notificationNewLog",
+					"key"								=>	"notificationNewLog",
+					"name"								=>	"Show New Log Notification",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				),
+				"vars"								=>	array(
+					0									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"notificationNewLogHighlight",
+							"name"								=>	"Highlight Label",
+							"options"							=>	$trueFalsVars,
+							"type"								=>	"dropdown"
+						)
+					),
+					1									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"notificationNewLogBadge",
+							"name"								=>	"Update Badge",
+							"options"							=>	$trueFalsVars,
+							"type"								=>	"dropdown"
+						)
+					),
+					2									=> array(
+						"info"								=>	"Will be overridden by show dropdown alert setting if false, wont if true",
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"notificationNewLogDropdown",
+							"name"								=>	"Show Dropdown",
+							"options"							=>	$trueFalsVars,
+							"type"								=>	"dropdown"
+						)
+					)
+				)
+			),
+			3									=>	array(
+				"info"								=>	"If a log tab is not visible (either below of above scroll area), a bar will flash as notification",
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"offscreenLogNotify",
+					"name"								=>	"Show notification for offscreen log tabs",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			4									=> array(
+				"info"								=>	"Only shows count of notifications that were not viewed",
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"notificationCountViewedOnly",
+					"name"								=>	"Notification Count only unviewed",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			5									=> array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"notificationGroupType",
+					"name"								=>	"Merge Like Log Notifications",
+					"options"							=>	array(
+						0 									=> array(
+							"value" 							=> "Never",
+							"name" 								=> "Never"),
+						1 									=> array(
+							"value" 							=> "OnlyRead",
+							"name" 								=> "Only Read"),
+						2									=> array(
+							"value" 							=> "Always",
+							"name" 								=> "Always")
+					),
+					"type"								=>	"dropdown"
+				)
+			),
+			6									=>	array(
+				"bool"								=>	($notificationPreviewShow == 'false'),
+				"id"								=>	"notificationPreviewSettings",
+				"name"								=>	"Notification Log Preview Settings",
+				"type"								=>	"grouped",
+				"var"								=>	array(
+					"function"							=>	"showOrHideNotificationPreviewSettings",
+					"id"								=>	"notificationPreviewShow",
+					"key"								=>	"notificationPreviewShow",
+					"name"								=>	"Show Log Preview in Notification",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				),
+				"vars"								=>	array(
+					0									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"notificationPreviewHeight",
+							"name"								=>	"Notification Log Preview Max Height",
+							"options"							=>	$oneLogLogMaxHeightArr,
+							"type"								=>	"dropdown"
+						)
+					),
+					1									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"notificationPreviewOnlyNew",
+							"name"								=>	"Only show most recent new lines in preview",
+							"options"							=>	$trueFalsVars,
+							"type"								=>	"dropdown"
+						)
+					),
+					2									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"notificationPreviewLineCount",
+							"name"								=>	"Max line count for log preview",
+							"type"								=>	"number"
+						)
+					),
+					3									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"notificationPreviewHideWidth",
+							"name"								=>	"Hide if small screen width",
+							"options"							=>	$trueFalsVars,
+							"type"								=>	"dropdown"
+						)
+					)
+				)
+			),
+			7									=>	array(
+				"bool"								=>	($notificationInlineShow == 'false'),
+				"id"								=>	"notificationInlineSettings",
+				"name"								=>	"Notification Inline Settings",
+				"type"								=>	"grouped",
+				"var"								=>	array(
+					"function"							=>	"showOrHideNotificationInlineSettings",
+					"id"								=>	"notificationInlineShow",
+					"key"								=>	"notificationInlineShow",
+					"name"								=>	"Show Notification Dropdown Alert",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				),
+				"vars"								=>	array(
+					0									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"notificationInlineLocation",
+							"name"								=>	"Location of notification",
+							"options"							=>	array(
+								0 									=> array(
+									"value" 							=> "center",
+									"name" 								=> "Center"),
+								1 									=> array(
+									"value" 							=> "topLeft",
+									"name" 								=> "Top Left"),
+								2									=> array(
+									"value" 							=> "topRight",
+									"name" 								=> "Top Right"),
+								3									=> array(
+									"value" 							=> "bottomLeft",
+									"name" 								=> "Bottom Left"),
+								4									=> array(
+									"value" 							=> "bottomRight",
+									"name" 								=> "Bottom Right")
+							),
+							"type"								=>	"dropdown"
+						)
+					),
+					1									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"notificationInlineButtonHover",
+							"name"								=>	"Show action buttons only after hover",
+							"options"							=>	$trueFalsVars,
+							"type"								=>	"dropdown"
+						)
+					),
+					2									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"notificationInlineDisplayTime",
+							"name"								=>	"Show notification for ",
+							"postText"							=>	" seconds",
+							"type"								=>	"number"
+						)
+					),
+					3									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"notificationInlineBGColor",
+							"name"								=>	"Background",
+							"type"								=>	"text"
+						)
+					),
+					4									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"notificationInlineFontColor",
+							"name"								=>	"Font",
+							"type"								=>	"text"
+						)
+					),
+				)
+			),
+		)
+	),
 	"oneLogVars"						=>	array(
 		"id"								=>	"settingsOneLogVars",
 		"name"								=>	"One Log Settings",
@@ -1326,7 +1603,7 @@ $defaultConfigMoreData = array(
 				"var"								=>	array(
 					"key"								=>	"oneLogLogMaxHeight",
 					"name"								=>	"Max height of log",
-					"options"							=>	$oneLogLogMaxHeight,
+					"options"							=>	$oneLogLogMaxHeightArr,
 					"type"								=>	"dropdown"
 				)
 			),
@@ -1372,6 +1649,16 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
+			7									=> array(
+				"info"								=>	"Clears data for one log when clicking clear all logs",
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"oneLogAllLogClear",
+					"name"								=>	"Clear onelog data on all log action",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
 		)
 	),
 	"otherVars"							=>	array(
@@ -1411,6 +1698,47 @@ $defaultConfigMoreData = array(
 					"id"								=>	"popupSettingsArray",
 					"key"								=>	"popupSettingsArray",
 					"type"								=>	"hidden"
+				)
+			),
+			2									=>	array(
+				"bool"								=>	($autoCheckUpdate == 'false'),
+				"id"								=>	"settingsAutoCheckVars",
+				"name"								=>	"Auto Check Update Settings",
+				"type"								=>	"grouped",
+				"var"								=>	array(
+					"function"							=>	"showOrHideUpdateSubWindow",
+					"id"								=>	"settingsSelect",
+					"key"								=>	"autoCheckUpdate",
+					"name"								=>	"Auto Check Update",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				),
+				"vars"								=>	array(
+					0									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"autoCheckDaysUpdate",
+							"name"								=>	"Check for update every",
+							"postText"							=>	"Days",
+							"type"								=>	"number"
+						)
+					),
+					1									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"updateNoticeMeter",
+							"name"								=>	"Notify Updates on",
+							"options"							=>	array(
+								0 									=> array(
+									"value" 							=> "every",
+									"name" 								=> "Every Update"),
+								1 									=> array(
+									"value" 							=> "major",
+									"name" 								=> "Only Major Updates")
+							),
+							"type"								=>	"dropdown"
+						)
+					)
 				)
 			)
 		),
@@ -1584,62 +1912,6 @@ $defaultConfigMoreData = array(
 					"name"								=>	"Show Php errors from file open fails",
 					"options"							=>	$trueFalsVars,
 					"type"								=>	"dropdown"
-				)
-			)
-		)
-	),
-	"updateVars"						=>	array(
-		"id"								=>	"settingsUpdateVars",
-		"name"								=>	"Update Settings ",
-		"vars"								=> array(
-			0									=> array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"updateNotificationEnabled",
-					"name"								=>	"Show Update Notification",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				)
-			),
-			1									=>	array(
-				"bool"								=>	($autoCheckUpdate == 'false'),
-				"id"								=>	"settingsAutoCheckVars",
-				"name"								=>	"Auto Check Update Settings",
-				"type"								=>	"grouped",
-				"var"								=>	array(
-					"function"							=>	"showOrHideUpdateSubWindow",
-					"id"								=>	"settingsSelect",
-					"key"								=>	"autoCheckUpdate",
-					"name"								=>	"Auto Check Update",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				),
-				"vars"								=>	array(
-					0									=> array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"key"								=>	"autoCheckDaysUpdate",
-							"name"								=>	"Check for update every",
-							"postText"							=>	"Days",
-							"type"								=>	"number"
-						)
-					),
-					1									=> array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"key"								=>	"updateNoticeMeter",
-							"name"								=>	"Notify Updates on",
-							"options"							=>	array(
-								0 									=> array(
-									"value" 							=> "every",
-									"name" 								=> "Every Update"),
-								1 									=> array(
-									"value" 							=> "major",
-									"name" 								=> "Only Major Updates")
-							),
-							"type"								=>	"dropdown"
-						)
-					)
 				)
 			)
 		)

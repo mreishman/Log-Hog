@@ -40,10 +40,27 @@ $windowDisplayConfig = explode("x", $windowConfig);
 	color: <?php echo $highlightColorFont; ?>;
 }
 
+.highlight .settingsDiv{
+	background-color: rgba(0,0,0,0);
+	border: 1px solid <?php echo $highlightColorFont; ?>;
+}
+
 .newLine
 {
 	background-color: <?php echo $highlightNewColorBG; ?>;
 	color: <?php echo $highlightNewColorFont; ?>;
+}
+
+.newLine .settingsDiv{
+	background-color: rgba(0,0,0,0);
+	border: 1px solid <?php echo $highlightColorFont; ?>;
+}
+
+.logCode{
+	background-color: black;
+	border: 1px solid white;
+	color: white;
+	padding: 10px 0;
 }
 
 #menu, #menu2
@@ -103,6 +120,61 @@ elseif($logMenuLocation === "bottom"): ?>
 	display: block;
 }
 
+<?php endif; ?>
+
+<?php if ($notificationInlineLocation === "center"): ?>
+#inlineNotifications{
+  left: 50%;
+  margin-left: -250px;
+}
+
+<?php elseif ($notificationInlineLocation === "topLeft"): ?>
+#inlineNotifications{
+  left: 0;
+}
+
+<?php elseif ($notificationInlineLocation === "topRight"): ?>
+#inlineNotifications{
+  right: 0;
+}
+
+<?php elseif ($notificationInlineLocation === "bottomLeft"): ?>
+#inlineNotifications{
+  left: 0;
+  bottom: 0;
+}
+
+<?php elseif ($notificationInlineLocation === "bottomRight"): ?>
+#inlineNotifications{
+  right: 0;
+  bottom: 0;
+}
+
+<?php endif; ?>
+
+@media only screen and (max-width: 500px) {
+    #inlineNotifications{
+    left: 0;
+    right: 0;
+    width: auto;
+  }
+}
+
+.inlineNotificationsClass{
+  border: 1px solid <?php echo $notificationInlineFontColor; ?>;
+}
+
+.inlineNotificationsClass , .inlineNotificationsClass td{
+  background-color: <?php echo $notificationInlineBGColor; ?>;
+  color: <?php echo $notificationInlineFontColor; ?>;
+}
+
+<?php if($notificationPreviewHideWidth === "true"): ?>
+@media only screen and (max-width: 1000px) {
+	.notificationPreviewLog{
+		display: none;
+	}
+}
 <?php endif; ?>
 
 </style>

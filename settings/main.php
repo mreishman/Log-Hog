@@ -44,7 +44,7 @@ require_once('../core/php/loadVars.php');
 		include('../core/php/template/varTemplate.php');
 		$currentSection = "archive";
 		include('../core/php/template/varTemplate.php');
-		$currentSection = "updateVars";
+		$currentSection = "notificationVars";
 		include('../core/php/template/varTemplate.php');
 		$currentSection = "menuVars";
 		include('../core/php/template/varTemplate.php');

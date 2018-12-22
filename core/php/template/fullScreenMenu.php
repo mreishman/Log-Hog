@@ -66,6 +66,17 @@
 	<li class="menuTitle" style="text-align: center;">
 		Settings
 	</li>
+	<li onclick="window.location.href = './settings/main.php';" >
+		Main <?php echo $externalLinkImage; ?>
+	</li>
+	<li onclick="window.location.href = './settings/advanced.php';" >
+		Advanced <?php echo $externalLinkImage; ?>
+	</li>
+	<?php if($developmentTabEnabled === "true"): ?>
+		<li onclick="window.location.href = './settings/devTools.php';" >
+			Dev <?php echo $externalLinkImage; ?>
+		</li>
+	<?php endif; ?>
 </ul>
 <div id="mainContentFullScreenMenu">
 	<div class="settingsHeader" style="position: fixed;width: 100%;z-index: 10;top: 0; margin: 0; border-bottom: 1px solid white; display: none;top: 46px;" id="fixedPositionMiniMenu" >
@@ -120,5 +131,19 @@
 		$currentSection = "generalThemeOptions";
 		include('core/php/template/varTemplate.php');
 		?>
+	</div>
+	<div id="notifications" style="display: none;" >
+		<div id="notificationHolder" class="fullScreenMenuLeftSidebar" style="display: inline-block; height: 100%; overflow-y: auto;" ></div>
+	</div>
+	<div id="notificationsEmpty" style="display: none;" >
+		<table width="100%" style="height: 100%;">
+			<tr>
+				<th valign="center" >
+					<div class="noNotificationsNotification" >
+						You have no new notifications!
+					</div>
+				</th>
+			</tr>
+		</table>
 	</div>
 </div>
