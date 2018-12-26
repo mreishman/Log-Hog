@@ -136,20 +136,30 @@ function removeNotificationByLog(logId)
 		{
 			if(notifications[i]["log"] === logId)
 			{
-				var menuObjectLocal = menuObjectRightClick[logId];
-				var options = Object.keys(menuObjectLocal);
-				var lengthOfOptions = options.length;
-				for(var j = 0; j < lengthOfOptions; j++)
+				var listOfRightClickTargets =["","CurrentWindow","GroupInName","Count"];
+				var listOfRightClickTargetsLength = listOfRightClickTargets.length;
+				for(var rct = 0; rct < listOfRightClickTargetsLength; rct++)
 				{
-					var currentOption = menuObjectLocal[options[j]];
-					if(currentOption["name"] === "Remove Alert")
+					var innerId = logId+listOfRightClickTargets[rct];
+					var menuObjectLocal = menuObjectRightClick[innerId];
+					var options = Object.keys(menuObjectLocal);
+					var lengthOfOptions = options.length;
+					for(var j = 0; j < lengthOfOptions; j++)
 					{
-						delete menuObjectRightClick[logId][options[j]];
+						var currentOption = menuObjectLocal[options[j]];
+						if(currentOption)
+						{
+							if(currentOption["name"] === "Remove Alert")
+							{
+								menuObjectRightClick[innerId][options[j]] = null;
+								break;
+							}
+						}
 					}
+					menuObjectRightClick[innerId] = menuObjectRightClick[innerId].filter(function (el) {
+					  return el != null;
+					});
 				}
-				menuObjectRightClick[logId] = menuObjectRightClick[logId].filter(function (el) {
-				  return el != null;
-				});
 				removeNotification(i);
 				break;
 			}

@@ -849,6 +849,7 @@ function update(data)
 						}
 
 						updated = false;
+						var displayLocation = checkIfDisplay(id);
 						if(fullPathSearch in fileData && fileData[fullPathSearch]["AlertEnabled"] === "true" && (!(id in alertEnabledArray) || (id in alertEnabledArray && alertEnabledArray[id] === "enabled")))
 						{
 							if(!(logs[id] === lastLogs[id]))
@@ -863,7 +864,7 @@ function update(data)
 								{
 									if(lastContentSearch !== getFilterTextField())
 									{
-										updated = checkIfDisplay(id)["display"];
+										updated = displayLocation["display"];
 									}
 								}
 							}
@@ -871,13 +872,13 @@ function update(data)
 						else
 						{
 							//check if displayed
-							updated = checkIfDisplay(id)["display"];
+							updated = displayLocation["display"];
 						}
 
 						if(updated)
 						{
 							//determine if id is one of the values in the array of open files (use instead of currentPage)
-							var currentIdPos = checkIfDisplay(id)["location"];
+							var currentIdPos = displayLocation["location"];
 
 							var diffData = getLineDiffCount(id);
 
