@@ -70,7 +70,7 @@ $( document ).ready(function() {
         var hideMenu = true;
 
         for (var i =  rightClickIDListLength - 1; i >= 0; i--) {
-          if(document.getElementById(Rightclick_ID_list[i]) == elementClicked)
+          if(Rightclick_ID_list[i] == elementClicked.id)
           {
             var menuIDSelected = Rightclick_ID_list[i];
             hideMenu = false;
@@ -79,9 +79,9 @@ $( document ).ready(function() {
             var rightClickMenuArray = menuObjectRightClick[menuIDSelected];
             var rightClickMenuArrayLength = rightClickMenuArray.length;
             var rightClickMenuHTML = "";
-            for (var i = rightClickMenuArrayLength - 1; i >= 0; i--) 
+            for (var j = rightClickMenuArrayLength - 1; j >= 0; j--)
             {
-              rightClickMenuHTML += "<li onclick='"+rightClickMenuArray[i].action+"' class=\"context-menu__item\"><a class=\"context-menu__link\"> "+rightClickMenuArray[i].name+" </a> </li>";
+              rightClickMenuHTML += "<li onclick='"+rightClickMenuArray[j].action+"' class=\"context-menu__item\"><a class=\"context-menu__link\"> "+rightClickMenuArray[j].name+" </a> </li>";
             }
             document.getElementById("context-menu-items").innerHTML = rightClickMenuHTML;
             positionMenu(e);
@@ -264,6 +264,7 @@ function addClearAlertToRightClickMenu(id)
       var menuObjectLocal = menuObjectRightClick[innerId];
       if(menuObjectLocal)
       {
+        var addToMenu = true;
         var options = Object.keys(menuObjectLocal);
         var lengthOfOptions = options.length;
         for(var i = 0; i < lengthOfOptions; i++)
@@ -271,10 +272,14 @@ function addClearAlertToRightClickMenu(id)
           var currentOption = menuObjectLocal[options[i]];
           if(currentOption["name"] === "Remove Alert")
           {
-            return;
+            addToMenu = false;
+            break;
           }
         }
-        menuObjectRightClick[id][lengthOfOptions] =  {action: "removeNotificationByLog(\""+id+"\");" ,name: "Remove Alert"};
+        if(addToMenu)
+        {
+          menuObjectRightClick[innerId][lengthOfOptions] =  {action: "removeNotificationByLog(\""+id+"\");" ,name: "Remove Alert"};
+        }
       }
     }
   }
