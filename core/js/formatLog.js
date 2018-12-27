@@ -15,7 +15,7 @@ function makePretty(id)
 		var returnText = makePrettyWithText(text, count);
 		if(returnText !== "")
 		{
-			return "<table width=\"100%\" style=\"border-spacing: 0;\" >" + returnText + "</table>";
+			return "<table width=\"100%\" style=\"border-spacing: 0;\">" + returnText + "</table>";
 		}
 		return "";
 	}
@@ -139,13 +139,13 @@ function makePrettyWithText(text, count, extraData = {})
 					}
 
 					customClass += " '";
-					returnText += "<tr valign=\"top\" ";
+					returnText += "<tr valign=\"top\"";
 					if(customClassAdd)
 					{
 						returnText += " "+customClass+" ";
 					}
-					returnText += " >";
-					var lineToReturn = "<td style=\"white-space: pre-wrap;\" >"+lineText[j]+"</td>";
+					returnText += ">";
+					var lineToReturn = "<td style=\"white-space: pre-wrap;\">"+lineText[j]+"</td>";
 					if(expFormatEnabled === "true")
 					{
 						lineToReturn = formatLine(lineText[j], {
@@ -155,7 +155,7 @@ function makePrettyWithText(text, count, extraData = {})
 							lineCount
 						});
 					}
-					returnText += "<td style=\"width: 31px; padding: 0;\" ></td>"+lineToReturn+"</tr><tr height=\""+logLinePadding+"px\" ><td colspan=\"2\"></td></tr>";
+					returnText += "<td style=\"width: 31px; padding: 0;\"></td>"+lineToReturn+"</tr><tr height=\""+logLinePadding+"px\"><td colspan=\"2\"></td></tr>";
 				}
 			}
 		}

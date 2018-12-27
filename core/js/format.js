@@ -68,15 +68,15 @@ function formatLine(text, extraData)
 	{
 		if("lineDisplay" in extraData && extraData["lineDisplay"] === "true")
 		{
-			return "<td style=\"white-space:nowrap;width: 1%;\" >" + dateTimeFormat(arrayOfText) + extraData["lineCount"] + "</td><td style=\"white-space: pre-wrap;\" >" + formatMainMessage(arrayOfText[1], extraData) + "</td>";
+			return "<td style=\"white-space:nowrap;width: 1%;\">" + dateTimeFormat(arrayOfText) + extraData["lineCount"] + "</td><td style=\"white-space: pre-wrap;\">" + formatMainMessage(arrayOfText[1], extraData) + "</td>";
 		}
-		return "<td style=\"white-space:nowrap;width: 1%;\" >" + dateTimeFormat(arrayOfText) + "</td><td style=\"white-space: pre-wrap;\" >" + formatMainMessage(arrayOfText[1], extraData) + "</td>";
+		return "<td style=\"white-space:nowrap;width: 1%;\">" + dateTimeFormat(arrayOfText) + "</td><td style=\"white-space: pre-wrap;\">" + formatMainMessage(arrayOfText[1], extraData) + "</td>";
 	}
 	else if("lineDisplay" in extraData && extraData["lineDisplay"] === "true")
 	{
-		return "<td style=\"white-space:nowrap;width: 1%;\" >" + extraData["lineCount"] + "</td><td style=\"white-space: pre-wrap;\" >" + dateTimeFormat(arrayOfText) + formatMainMessage(arrayOfText[1], extraData) + "</td>";
+		return "<td style=\"white-space:nowrap;width: 1%;\">" + extraData["lineCount"] + "</td><td style=\"white-space: pre-wrap;\">" + dateTimeFormat(arrayOfText) + formatMainMessage(arrayOfText[1], extraData) + "</td>";
 	}
-	return "<td style=\"white-space: pre-wrap;\" >" + dateTimeFormat(arrayOfText) + formatMainMessage(arrayOfText[1], extraData) + "</td>";
+	return "<td style=\"white-space: pre-wrap;\">" + dateTimeFormat(arrayOfText) + formatMainMessage(arrayOfText[1], extraData) + "</td>";
 }
 
 function dateTimeSplit(text)
@@ -164,7 +164,7 @@ function formatMessageFileData(message, extraData)
 	{
 		lineStart = numForBaseLineStart - logFormatFileLinePadding;
 	}
-	return "<table style=\"width: 100%;\" ><tr><td>"+message+"</td></tr><tr><td><table class=\"logCode\" style=\"width: 100%;\" >"+makePrettyWithText(escapeHTML(extraData["fileData"]["fileData"]), 0, {lineDisplay: logFormatFileLineCount, lineModifier: lineStart})+"</table></td></tr></table>";
+	return "<table style=\"width: 100%;\"><tr><td>"+message+"</td></tr><tr><td><table class=\"logCode\" style=\"width: 100%;\">"+makePrettyWithText(escapeHTML(extraData["fileData"]["fileData"]), 0, {lineDisplay: logFormatFileLineCount, lineModifier: lineStart})+"</table></td></tr></table>";
 }
 
 function formatPhpMessage(message, extraData)
@@ -181,7 +181,7 @@ function formatPhpMessage(message, extraData)
 	var severity = "";
 	if(logFormatPhpShowImg === "true")
 	{
-		severity = "<img src=\""+getPhpSeverifyLevel(messageWarning)+"\" height=\"15px\" >";
+		severity = "<img src=\""+getPhpSeverifyLevel(messageWarning)+"\" height=\"15px\">";
 	}
 	restOfMessage.shift();
 	restOfMessage = restOfMessage.join(":");
@@ -190,7 +190,7 @@ function formatPhpMessage(message, extraData)
 	{
 		firstPartOfMessage = formatMainMessage(firstPartOfMessage, extraData);
 	}
-	return firstPartOfMessage+"<div>"+severity+messageWarning+"</div><div class=\"settingsDiv\" >"+restOfMessage+"</div>";
+	return firstPartOfMessage+"<div>"+severity+messageWarning+"</div><div class=\"settingsDiv\">"+restOfMessage+"</div>";
 }
 
 function parseErrorMessage(restOfMessage, extraData)
@@ -363,7 +363,7 @@ function formatJsonMessage(message, extraData)
 		{
 			extraTrClass = extraData["customClass"];
 		}
-		testReturn += "<tr "+extraTrClass+" ><td colspan=\"2\" >"+message.substr(0, message.indexOf('{'))+"</td></tr>";
+		testReturn += "<tr "+extraTrClass+"><td colspan=\"2\">"+message.substr(0, message.indexOf('{'))+"</td></tr>";
 		var messageKeys = Object.keys(newMessage);
 		var messageKeysLength = messageKeys.length;
 		for (var messageCount = 0; messageCount < messageKeysLength; messageCount++)
@@ -384,9 +384,9 @@ function formatJsonMessage(message, extraData)
 					messageTwo = escapeHTML(messageTwo);
 				}
 			}
-			testReturn += "<tr "+extraTrClass+" ><td style=\"word-break: normal;\" >"+messageOne+"</td><td>"+messageTwo+"</td></tr>";
+			testReturn += "<tr "+extraTrClass+"><td style=\"word-break: normal;\">"+messageOne+"</td><td>"+messageTwo+"</td></tr>";
 		}
-		testReturn += "<tr "+extraTrClass+" ><td colspan=\"2\" >"+message.substr(message.lastIndexOf('}') + 1)+"</td></tr>";
+		testReturn += "<tr "+extraTrClass+"><td colspan=\"2\">"+message.substr(message.lastIndexOf('}') + 1)+"</td></tr>";
 		testReturn += "</table>";
 		return testReturn;
 	}

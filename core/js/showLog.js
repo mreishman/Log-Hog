@@ -3,6 +3,16 @@ function show(e, id)
 	try
 	{
 		closeLogPopup();
+		if(logDisplayArray[currentSelectWindow]["id"] === id)
+		{
+			var localCheckHtml = $("#log"+currentSelectWindow).html();
+			localCheckHtml = localCheckHtml.replace(/<tbody>/g,"");
+			localCheckHtml = localCheckHtml.replace(/<\/tbody>/g,"");
+			if(unescapeHTML(localCheckHtml) === unescapeHTML(makePretty(id)))
+			{
+				return;
+			}
+		}
 		var internalID = id;
 		var currentCurrentSelectWindow = currentSelectWindow;
 		$("#log"+currentCurrentSelectWindow).hide();
