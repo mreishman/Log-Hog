@@ -905,7 +905,11 @@ function update(data)
 								{
 									logFormatted = makePretty(id);
 								}
-								if(logFormatted !== $("#log"+currentIdPos).html())
+								//check if equal
+								var localCheckHtml = $("#log"+currentSelectWindow).html();
+								localCheckHtml = localCheckHtml.replace(/<tbody>/g,"");
+								localCheckHtml = localCheckHtml.replace(/<\/tbody>/g,"");
+								if(unescapeHTML(localCheckHtml) !== unescapeHTML(logFormatted))
 								{
 									$("#log"+currentIdPos).html(logFormatted);
 									fadeHighlight(currentIdPos);
