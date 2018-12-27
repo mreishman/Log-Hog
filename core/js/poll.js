@@ -848,33 +848,15 @@ function update(data)
 							}
 						}
 
-						updated = false;
 						var displayLocation = checkIfDisplay(id);
+						updated = displayLocation["display"];
 						if(fullPathSearch in fileData && fileData[fullPathSearch]["AlertEnabled"] === "true" && (!(id in alertEnabledArray) || (id in alertEnabledArray && alertEnabledArray[id] === "enabled")))
 						{
 							if(!(logs[id] === lastLogs[id]))
 							{
 								updated = true;
 							}
-							else if(filterEnabled === "true")
-							{
-								var selectListForFilter = document.getElementsByName("searchType")[0];
-								var selectedListFilterType = selectListForFilter.options[selectListForFilter.selectedIndex].value;
-								if(selectedListFilterType === "content" && filterContentHighlight === "true")
-								{
-									if(lastContentSearch !== getFilterTextField())
-									{
-										updated = displayLocation["display"];
-									}
-								}
-							}
 						}
-						else
-						{
-							//check if displayed
-							updated = displayLocation["display"];
-						}
-
 						if(updated)
 						{
 							//determine if id is one of the values in the array of open files (use instead of currentPage)

@@ -1693,7 +1693,7 @@ function mainReady()
 	{
 		$("#searchFieldInput").on("input", function()
 		{
-			possiblyUpdateFromFilter();
+			possiblyUpdateFromFilter(false);
 		});
 
 		if(document.getElementById("searchType"))

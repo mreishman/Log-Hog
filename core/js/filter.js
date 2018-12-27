@@ -73,36 +73,36 @@ function getFilterTextField()
 function changeFilterCase()
 {
 	caseInsensitiveSearch = document.getElementById("caseInsensitiveSearch").value;
-	possiblyUpdateFromFilter();
+	possiblyUpdateFromFilter(true);
 }
 
 function changeHighlightContentMatch()
 {
 	filterContentHighlight = document.getElementById("filterContentHighlight").value;
-	possiblyUpdateFromFilter();
+	possiblyUpdateFromFilter(true);
 }
 
 function changeFilterContentMatch()
 {
 	filterContentLimit = document.getElementById("filterContentLimit").value;
-	possiblyUpdateFromFilter();
+	possiblyUpdateFromFilter(true);
 }
 
 function changeFilterContentLinePadding()
 {
 	filterContentLinePadding = parseInt(document.getElementById("filterContentLinePadding").value);
-	possiblyUpdateFromFilter();
+	possiblyUpdateFromFilter(true);
 }
 
 function changeFilterTitleIncludePath()
 {
 	filterTitleIncludePath = document.getElementById("filterTitleIncludePath").value;
-	possiblyUpdateFromFilter();
+	possiblyUpdateFromFilter(true);
 }
 
-function possiblyUpdateFromFilter()
+function possiblyUpdateFromFilter(force)
 {
-	if(lastContentSearch !== getFilterTextField())
+	if(force || lastContentSearch !== getFilterTextField())
 	{
 		generalUpdate();
 		if(oneLogEnable === "true")
