@@ -1,6 +1,6 @@
 var currentFile = 1;
 var lock = false;
-var urlForSendMain = '../../../core/php/performSettingsInstallUpdateAction.php?format=json';
+var urlForSendMain = "../../../core/php/performSettingsInstallUpdateAction.php?format=json";
 
 $( document ).ready(function()
 {
@@ -11,44 +11,33 @@ function remove()
 {
 	if(arrayOfFilesToDelete[currentFile-1]["type"] === "file")
 	{
-		removeFile();
+		removeMain({
+			action: "removeZipFile",
+			fileToUnlink: "../../"+arrayOfFilesToDelete[currentFile-1]["fullPath"]
+		});
 	}
 	else
 	{
-		removeFolder();
+		removeMain({
+			action: "removeUnZippedFiles",
+			locationOfFilesThatNeedToBeRemovedRecursivally: "../../"+arrayOfFilesToDelete[currentFile-1]["fullPath"]
+		});
 	}
 }
 
-function removeFile()
+function updateCount()
 {
 	document.getElementById("runCount").innerHTML = currentFile;
 	document.getElementById("verifyCount").innerHTML = currentFile;
 	document.getElementById("runLoad").style.display = "block";
 	document.getElementById("verifyLoad").style.display = "none";
-	var urlForSend = urlForSendMain;
-	var dataSend = {action: "removeZipFile",fileToUnlink: "../../"+arrayOfFilesToDelete[currentFile-1]["fullPath"]};
-	$.ajax({
-		url: urlForSend,
-		dataType: "json",
-		data: dataSend,
-		type: "POST",
-		success(data)
-		{
-			verifyRemoveFile(data);
-		}
-	});
 }
 
-function removeFolder()
+function removeMain(dataSend)
 {
-	document.getElementById("runCount").innerHTML = currentFile;
-	document.getElementById("verifyCount").innerHTML = currentFile;
-	document.getElementById("runLoad").style.display = "block";
-	document.getElementById("verifyLoad").style.display = "none";
-	var urlForSend = urlForSendMain;
-	var dataSend = {action: "removeUnZippedFiles",locationOfFilesThatNeedToBeRemovedRecursivally: "../../"+arrayOfFilesToDelete[currentFile-1]["fullPath"]};
+	updateCount();
 	$.ajax({
-		url: urlForSend,
+		url: urlForSendMain,
 		dataType: "json",
 		data: dataSend,
 		type: "POST",
@@ -74,13 +63,12 @@ function verifyFilePoll(file)
 	if(lock === false)
 	{
 		lock = true;
-		var urlForSend = urlForSendMain;
 		var data = {action: "verifyFileIsThere",fileLocation: file, "isThere" : false};
 		(function(_data){
 			$.ajax({
-				url: urlForSend,
+				url: urlForSendMain,
 				dataType: "json",
-				data: data,
+				data,
 				type: "POST",
 				success(data)
 				{
@@ -149,7 +137,7 @@ function verifySucceded()
 
 function finishedTmpUpdate()
 {
-	document.getElementById('verifyCheck').style.display = "block";
-	document.getElementById('verifyLoad').style.display = "none";
+	document.getElementById("verifyCheck").style.display = "block";
+	document.getElementById("verifyLoad").style.display = "none";
 	redirectToLocationFromUpgradeTheme();
 }
