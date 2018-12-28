@@ -64,9 +64,10 @@ function makePrettyWithText(text, count, extraData = {})
 			{
 				lineCount += extraData["lineModifier"];
 			}
-			addLine = false;
+			addLine = true;
 			if(filterEnabled === "true" && selectedListFilterType === "content" && filterContentLimit === "true" && filterTextField !== "")
 			{
+				addLine = false;
 				//check for content on current line
 				if(filterContentCheck(text[i]))
 				{
@@ -104,10 +105,6 @@ function makePrettyWithText(text, count, extraData = {})
 						}
 					}
 				}
-			}
-			else
-			{
-				addLine = true;
 			}
 			if(addLine)
 			{

@@ -165,7 +165,7 @@ function formatMessageFileData(message, extraData)
 		lineStart = numForBaseLineStart - logFormatFileLinePadding;
 	}
 	let customClass = "";
-	if(extraData["customClassAdd"])
+	if("customClassAdd" in extraData && extraData["customClassAdd"])
 	{
 		customClass = extraData["customClass"];
 	}
@@ -364,7 +364,7 @@ function formatJsonMessage(message, extraData)
 		}
 		var testReturn = "<table>";
 		var extraTrClass = "";
-		if(extraData["customClassAdd"])
+		if("customClassAdd" in extraData && extraData["customClassAdd"])
 		{
 			extraTrClass = extraData["customClass"];
 		}

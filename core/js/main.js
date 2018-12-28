@@ -1436,11 +1436,11 @@ function formatAMPM(date)
 {
   var hours = date.getHours();
   var minutes = date.getMinutes();
-  var ampm = hours >= 12 ? 'pm' : 'am';
+  var ampm = hours >= 12 ? "pm" : "am";
   hours = hours % 12;
   hours = hours ? hours : 12; // the hour '0' should be '12'
-  minutes = minutes < 10 ? '0'+minutes : minutes;
-  var strTime = hours + ':' + minutes + ' ' + ampm;
+  minutes = minutes < 10 ? "0"+minutes : minutes;
+  var strTime = hours + ":" + minutes + " " + ampm;
   return strTime;
 }
 
@@ -1588,8 +1588,8 @@ function generateWindowDisplayInner()
 	}
 	resize();
 	return{
-		"arrayOfPrevLogs" : arrayOfPrevLogs
-	}
+		arrayOfPrevLogs
+	};
 }
 
 function loadPrevLogContent(arrayOfPrevLogs)
@@ -1702,7 +1702,7 @@ function mainReady()
 		}
 	}
 
-	if (typeof addUpdateNotification == 'function')
+	if (typeof addUpdateNotification == "function")
 	{
 		addUpdateNotification();
 	}
@@ -1721,7 +1721,7 @@ function mainReady()
 	});
 
 	document.addEventListener(
-		'scroll',
+		"scroll",
 		function (event)
 		{
 			onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
@@ -1730,7 +1730,7 @@ function mainReady()
 	);
 
 	document.getElementById("menu").addEventListener(
-		'scroll',
+		"scroll",
 		function (event)
 		{
 			checkForUpdateLogsOffScreen();
