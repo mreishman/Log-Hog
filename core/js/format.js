@@ -164,7 +164,12 @@ function formatMessageFileData(message, extraData)
 	{
 		lineStart = numForBaseLineStart - logFormatFileLinePadding;
 	}
-	return "<table style=\"width: 100%;\"><tr><td>"+message+"</td></tr><tr><td><table class=\"logCode\" style=\"width: 100%;\">"+makePrettyWithText(escapeHTML(extraData["fileData"]["fileData"]), 0, {lineDisplay: logFormatFileLineCount, lineModifier: lineStart})+"</table></td></tr></table>";
+	let customClass = "";
+	if(extraData["customClassAdd"])
+	{
+		customClass = extraData["customClass"];
+	}
+	return "<table style=\"width: 100%;\"><tr "+customClass+"><td>"+message+"</td></tr><tr "+customClass+"><td><table class=\"logCode\" style=\"width: 100%;\">"+makePrettyWithText(escapeHTML(extraData["fileData"]["fileData"]), 0, {lineDisplay: logFormatFileLineCount, lineModifier: lineStart})+"</table></td></tr></table>";
 }
 
 function formatPhpMessage(message, extraData)

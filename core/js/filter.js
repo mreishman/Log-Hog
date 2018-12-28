@@ -57,7 +57,8 @@ function filterContentCheck(textToMatch)
 	{
 		textToMatch = textToMatch.toLowerCase();
 	}
-	return (textToMatch.indexOf(filterTextField) !== -1);
+	textToMatch = unescapeHTML(textToMatch);
+	return (textToMatch.indexOf(unescapeHTML(filterTextField)) !== -1);
 }
 
 function getFilterTextField()

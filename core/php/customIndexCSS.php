@@ -26,6 +26,7 @@ $windowDisplayConfig = explode("x", $windowConfig);
 .log, #firstLoad, .log table:not(.oneLogTable):not(.logCode) tr:not(.highlight):not(.newLine) td:not(.highlight):not(.newLine) , #settingsSideBar
 {
 	color: <?php echo $logFontColor; ?>;
+	background-color: rgba(0,0,0,0);
 }
 
 .log, #firstLoad, .log table tr td
@@ -67,6 +68,7 @@ $windowDisplayConfig = explode("x", $windowConfig);
 .log table:not(.oneLogTable):not(.logCode) tr:not(.highlight):not(.newLine) td:not(.highlight):not(.newLine) .logCode tr:not(.highlight):not(.newLine) td:not(.highlight):not(.newLine)
 {
 	color: <?php echo $logFormatFileFontColor; ?>;
+	background-color: rgba(0,0,0,0);
 }
 
 
