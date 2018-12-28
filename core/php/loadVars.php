@@ -496,7 +496,7 @@ else
 			"alt"			=>	"Loading",
 			"src"			=>	"",
 			"title"			=>	"Loading...",
-			"baseName"		=>	"loading.png"
+			"baseName"		=>	"loading.gif"
 		),
 		"menu"	=> array(
 			"alt"			=>	"Menu",
