@@ -111,11 +111,13 @@
 						</a> -->
 						<a onclick="toggleLogPopup(this,'{{counter}}');" style="cursor: pointer;">
 							<?php echo generateImage(
-								$arrayOfImages["menu"],
+								$arrayOfImages["loadingImg"],
 								$imageConfig = array(
 									"height"	=>	"20px",
 									"style"		=>	"margin: 5px;",
-									"title"		=>	"Select Log"
+									"title"		=>	"Select Log",
+									"class"		=>	"menuSideBarImageForLoad",
+									"data-src"	=>	$arrayOfImages["menuSideBar"]
 									)
 								);
 							?>

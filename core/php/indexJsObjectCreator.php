@@ -136,7 +136,12 @@ $arrayOfFiles = array(
 		"name" => $baseUrl . "img/gear.png",
 		"type" =>"img",
 		"class" =>"gearImageForLoad"
-	)
+	),
+	array(
+		"name" => $baseUrl . "img/menuSideBar.png",
+		"type" =>"img",
+		"class" =>"menuSideBarImageForLoad"
+	),
 );
 if($filterEnabled === "true")
 {
