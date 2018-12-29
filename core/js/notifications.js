@@ -75,7 +75,7 @@ function displayNotifications()
 		item = item.replace(/{{name}}/g, notifications[i]['name']);
 		item = item.replace(/{{time}}/g, notifications[i]['time']);
 		item = item.replace(/{{action}}/g, notifications[i]['action']);
-		if(notifications[i]["newText"] !== "" && notificationPreviewShow === "true")
+		if("newText" in notifications[i] && notifications[i]["newText"] !== "" && notificationPreviewShow === "true")
 		{
 			var logTextToShow = "";
 			var tmpLogText = notifications[i]['newText'].split("\n");
