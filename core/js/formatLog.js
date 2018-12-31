@@ -143,7 +143,7 @@ function makePrettyWithText(text, count, extraData = {})
 					}
 					returnText += ">";
 					var lineToReturn = "<td style=\"white-space: pre-wrap;\">"+lineText[j]+"</td>";
-					if(expFormatEnabled === "true")
+					if(advancedLogFormatEnabled === "true")
 					{
 						lineToReturn = formatLine(lineText[j], {
 							customClass,

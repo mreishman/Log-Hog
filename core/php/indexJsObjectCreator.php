@@ -157,7 +157,7 @@ if($sendCrashInfoJS === "true")
 		"type" => "js"
 	);
 }
-if($expFormatEnabled === "true")
+if($advancedLogFormatEnabled === "true")
 {
 	$arrayOfFiles[] =  array(
 		"name" => "format.js",

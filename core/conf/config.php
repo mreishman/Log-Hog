@@ -2,6 +2,7 @@
 
 $defaultConfig = array(
 	'addonsAsIframe'				=> 'true',
+	'advancedLogFormatEnabled'		=> 'true',
 	'allLogsVisible'				=> 'true',
 	'autoCheckDaysUpdate'			=>	'7',
 	'autoCheckUpdate' 				=> 'true',
@@ -42,7 +43,6 @@ $defaultConfig = array(
 	'enableLogging'					=> 'false',
 	'enableMultiLog'				=> 'true',
 	'enablePollTimeLogging'			=> 'false',
-	'expFormatEnabled'				=> 'false',
 	'expSettingsAvail'				=> 'true',
 	'filterContentHighlight'		=> 'true',
 	'filterContentLimit'			=> 'true',

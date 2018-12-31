@@ -1350,6 +1350,15 @@ $defaultConfigMoreData = array(
 				)
 			),
 			7									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"advancedLogFormatEnabled",
+					"name"								=>	"Enable Advanced Log Format Options",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			8									=>	array(
 				"bool"								=>	($backupNumConfigEnabled == 'false'),
 				"id"								=>	"versionSaveContentSettings",
 				"name"								=>	"Backup Config Settings",

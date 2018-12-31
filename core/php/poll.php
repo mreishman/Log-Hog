@@ -7,7 +7,7 @@ require_once($baseModifier.'core/conf/config.php');
 require_once('configStatic.php');
 require_once('commonFunctions.php');
 
-$varsLoadLite = array("shellOrPhp", "logTrimOn", "logSizeLimit","logTrimMacBSD", "logTrimType","TrimSize","enableLogging","buffer","sliceSize","lineCountFromJS","showErrorPhpFileOpen","expFormatEnabled","logFormatFileEnable","logFormatFileLinePadding");
+$varsLoadLite = array("shellOrPhp", "logTrimOn", "logSizeLimit","logTrimMacBSD", "logTrimType","TrimSize","enableLogging","buffer","sliceSize","lineCountFromJS","showErrorPhpFileOpen","advancedLogFormatEnabled","logFormatFileEnable","logFormatFileLinePadding");
 
 foreach ($varsLoadLite as $varLoadLite)
 {
@@ -82,7 +82,7 @@ if(isset($_POST['arrayToUpdate']))
 				}
 			}
 			$dataVar = htmlentities($dataVar);
-			if($expFormatEnabled === "true" && $logFormatFileEnable === "true")
+			if($advancedLogFormatEnabled === "true" && $logFormatFileEnable === "true")
 			{
 				//try and get file path and file lines
 				$arrayOfFiles = array();
