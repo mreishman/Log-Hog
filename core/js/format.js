@@ -125,7 +125,11 @@ function formatMainMessage(message, extraData)
 {
 	if(message.indexOf("{") > -1 && message.lastIndexOf("}") > message.indexOf("{"))
 	{
-		return formatJsonMessage(message, extraData);
+		let messageData = formatJsonMessage(message, extraData);
+		if(messageData["success"] === true)
+		{
+			return messageData["text"];
+		}
 	}
 	if(logFormatPhpEnable === "true")
 	{
@@ -330,6 +334,10 @@ function getPhpSeverifyLevel(snippit)
 
 function formatJsonMessage(message, extraData)
 {
+	let defaultMessage = {
+		text: message,
+		success: false
+	};
 	//try to json decode
 	var jsonMessage = message.substring(message.indexOf("{"),message.lastIndexOf("}") + 1);
 	if(jsonMessage !== "")
@@ -353,18 +361,18 @@ function formatJsonMessage(message, extraData)
 						if(typeof newMessage !== "object")
 						{
 							//console.log(unescapeHTML(jsonMessage));
-							return message;
+							return defaultMessage;
 						}
 					}
 					else
 					{
-						return message;
+						return defaultMessage;
 					}
 				}
 			}
 			else
 			{
-				return message;
+				return defaultMessage;
 			}
 		}
 		var testReturn = "<table>";
@@ -373,7 +381,8 @@ function formatJsonMessage(message, extraData)
 		{
 			extraTrClass = extraData["customClass"];
 		}
-		testReturn += "<tr "+extraTrClass+"><td colspan=\"2\">"+message.substr(0, message.indexOf('{'))+"</td></tr>";
+		let initialMessageText = message.substr(0, message.indexOf('{'));
+		testReturn += "<tr "+extraTrClass+"><td colspan=\"2\">"+formatMainMessage(initialMessageText,extraData)+"</td></tr>";
 		var messageKeys = Object.keys(newMessage);
 		var messageKeysLength = messageKeys.length;
 		for (var messageCount = 0; messageCount < messageKeysLength; messageCount++)
@@ -394,13 +403,17 @@ function formatJsonMessage(message, extraData)
 					messageTwo = escapeHTML(messageTwo);
 				}
 			}
-			testReturn += "<tr "+extraTrClass+"><td style=\"word-break: normal;\">"+messageOne+"</td><td>"+messageTwo+"</td></tr>";
+			testReturn += "<tr "+extraTrClass+"><td style=\"word-break: normal;\">"+formatMainMessage(messageOne,extraData)+"</td><td>"+formatMainMessage(messageTwo,extraData)+"</td></tr>";
 		}
-		testReturn += "<tr "+extraTrClass+"><td colspan=\"2\">"+message.substr(message.lastIndexOf('}') + 1)+"</td></tr>";
+		let lastMessageText = message.substr(message.lastIndexOf('}') + 1);
+		testReturn += "<tr "+extraTrClass+"><td colspan=\"2\">"+formatMainMessage(lastMessageText,extraData)+"</td></tr>";
 		testReturn += "</table>";
-		return testReturn;
+		return {
+			text: testReturn,
+			success: true
+		};
 	}
-	return message;
+	return defaultMessage;
 }
 
 function jsonDecodeTry(jsonTry)
