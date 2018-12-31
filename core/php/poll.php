@@ -7,7 +7,7 @@ require_once($baseModifier.'core/conf/config.php');
 require_once('configStatic.php');
 require_once('commonFunctions.php');
 
-$varsLoadLite = array("shellOrPhp", "logTrimOn", "logSizeLimit","logTrimMacBSD", "logTrimType","TrimSize","enableLogging","buffer","sliceSize","lineCountFromJS","showErrorPhpFileOpen","advancedLogFormatEnabled","logFormatFileEnable","logFormatFileLinePadding");
+$varsLoadLite = array("shellOrPhp", "logTrimOn", "logSizeLimit","logTrimMacBSD", "logTrimType","TrimSize","enableLogging","buffer","sliceSize","lineCountFromJS","showErrorPhpFileOpen","advancedLogFormatEnabled","logFormatFileEnable","logFormatFileLinePadding","logFormatFilePermissions");
 
 foreach ($varsLoadLite as $varLoadLite)
 {
@@ -118,11 +118,17 @@ if(isset($_POST['arrayToUpdate']))
 								}
 							}
 						}
+						$permissions = "";
+						if($logFormatFilePermissions === "always" || ($logFormatFilePermissions === "sometimes" && strpos($fileData, "Permission denied") > -1))
+						{
+							$permissions = filePermsDisplay($fileName);
+						}
 						//found a match, add to thing
 						$arrayOfFiles[$matches[0]] = array(
 							"pregMatchData"	=>	$matches,
 							"fileData"		=>	$fileData,
-							"fileName"		=>	$fileName
+							"fileName"		=>	$fileName,
+							"permissions"	=>	$permissions
 						);
 					}
 				}

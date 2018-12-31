@@ -774,6 +774,25 @@ $defaultConfigMoreData = array(
 							"type"								=>	"dropdown"
 						)
 					),
+					5									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"logFormatFilePermissions",
+							"name"								=>	"Show File Permissions",
+							"options"							=>	array(
+								0 									=> array(
+									"value" 							=> "always",
+									"name" 								=> "Always"),
+								1 									=> array(
+									"value" 							=> "sometimes",
+									"name" 								=> "If warning shown"),
+								2 									=> array(
+									"value" 							=> "never",
+									"name" 								=> "Never")
+							),
+							"type"								=>	"dropdown"
+						)
+					),
 				)
 			),
 			4									=>	array(

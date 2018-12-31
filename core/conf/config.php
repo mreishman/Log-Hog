@@ -279,6 +279,7 @@ $defaultConfig = array(
 	'logFormatFileLineCount'		=> 'true',
 	'logFormatFileLinePadding'		=> 2,
 	'logFormatFileMaxHeight'		=> 265,
+	'logFormatFilePermissions'		=> 'always',
 	'logFormatPhpEnable'			=> 'true',
 	'logFormatPhpHideExtra'			=> 'false',
 	'logFormatPhpShowImg'			=> 'true',

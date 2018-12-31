@@ -169,7 +169,12 @@ function formatMessageFileData(message, extraData)
 	{
 		customClass = extraData["customClass"];
 	}
-	return "<table style=\"width: 100%;\"><tr "+customClass+"><td>"+message+"</td></tr><tr "+customClass+"><td><table class=\"logCode\" style=\"width: 100%;\">"+makePrettyWithText(escapeHTML(extraData["fileData"]["fileData"]), 0, {lineDisplay: logFormatFileLineCount, lineModifier: lineStart})+"</table></td></tr></table>";
+	let filePermissions = "";
+	if(extraData["fileData"]["permissions"] !== "")
+	{
+		filePermissions = " [File Permissions: "+extraData["fileData"]["permissions"]+"]";
+	}
+	return "<table style=\"width: 100%;\"><tr "+customClass+"><td>"+message+filePermissions+"</td></tr><tr "+customClass+"><td><table class=\"logCode\" style=\"width: 100%;\">"+makePrettyWithText(escapeHTML(extraData["fileData"]["fileData"]), 0, {lineDisplay: logFormatFileLineCount, lineModifier: lineStart})+"</table></td></tr></table>";
 }
 
 function formatPhpMessage(message, extraData)
