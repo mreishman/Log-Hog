@@ -104,6 +104,12 @@
 				"Name"			=>	"More Notifications!",
 				"BP"			=>	array("Redesigned Notifications"),
 				"Images"		=>	array("6.1-1.png","6.1-2.png","6.1-3.png","6.1-4.png")
+			),
+			17	=>	array(
+				"Version"		=>	"6.2",
+				"Name"			=>	"Settings Update 4",
+				"BP"			=>	array("Settings Changes"),
+				"Images"		=>	array("6.2-1.png","6.2-2.png")
 			)
 		);
 		$dataForWhatsNew = array_reverse($dataForWhatsNew);
