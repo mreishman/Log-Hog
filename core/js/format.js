@@ -141,17 +141,18 @@ function formatMainMessage(message, extraData)
 	//check if message is in arrayOfFileData
 	if(logFormatFileEnable === "true")
 	{
-		if(/(in|at) (.?)([\/]+)([^&\r\n\t]*)(on line|\D:\d)(.?)(\d{1,10})/.test(message))
+		let localMessage = unescapeHTML(message);
+		if(/(in|at) (.?)([\/]+)([^&\r\n\t]*)(on line|\D:\d)(.?)(\d{1,10})/.test(localMessage))
 		{
 			var arrayOfFileDataKeys = Object.keys(arrayOfFileData);
 			var arrayOfFileDataKeysLength = arrayOfFileDataKeys.length;
 			for(var AOFDCount = 0; AOFDCount < arrayOfFileDataKeysLength; AOFDCount++)
 			{
-				if(message.indexOf(arrayOfFileDataKeys[AOFDCount]) > -1 && arrayOfFileData[arrayOfFileDataKeys[AOFDCount]]["fileData"] !== "Error - File Not Found")
+				if(localMessage.indexOf(arrayOfFileDataKeys[AOFDCount]) > -1 && arrayOfFileData[arrayOfFileDataKeys[AOFDCount]]["fileData"] !== "Error - File Not Found")
 				{
 					//this message matches file data, add this below
 					extraData["fileData"] = arrayOfFileData[arrayOfFileDataKeys[AOFDCount]];
-					return formatMessageFileData(message, extraData);
+					return formatMessageFileData(localMessage, extraData);
 				}
 			}
 		}

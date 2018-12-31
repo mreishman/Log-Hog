@@ -95,7 +95,18 @@ if(isset($_POST['arrayToUpdate']))
 					{
 						$fileData = "Error - File Not Found";
 						$fileName = trim($matches[3].$matches[4]);
-						if(is_file($fileName))
+						//this one is on line match
+						if(!file_exists($fileName))
+						{
+							//this one is \D:\d match
+							$lastPartOfFile = explode(":", $matches[5]);
+							$fileName = trim($matches[3].$matches[4].$lastPartOfFile[0]);
+							if(count($matches) > 1)
+							{
+								$matches[7] = $lastPartOfFile[1].$matches[7];
+							}
+						}
+						if(file_exists($fileName))
 						{
 							$fileData = "Error - File Not Readable";
 							if(is_readable($fileName))
