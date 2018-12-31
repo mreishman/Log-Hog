@@ -101,7 +101,7 @@ if(isset($_POST['arrayToUpdate']))
 							//this one is \D:\d match
 							$lastPartOfFile = explode(":", $matches[5]);
 							$fileName = trim($matches[3].$matches[4].$lastPartOfFile[0]);
-							if(count($matches) > 1)
+							if(count($lastPartOfFile) > 1)
 							{
 								$matches[7] = $lastPartOfFile[1].$matches[7];
 							}
