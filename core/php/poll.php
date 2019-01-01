@@ -95,6 +95,7 @@ if(isset($_POST['arrayToUpdate']))
 					{
 						$fileData = "Error - File Not Found";
 						$fileName = trim($matches[3].$matches[4]);
+						$matches[7] = $matches[6] . $matches[7];
 						//this one is on line match
 						if(!file_exists($fileName))
 						{
