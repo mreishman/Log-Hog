@@ -385,18 +385,21 @@
 }
 
 .fullScreenMenuUL {
-	li {
-		background: $mainAltColor;
-		color: $mainColor;
-	}
-}
-
-.fullScreenMenuUL {
 	background: $mainAltColor;
 	border-right: 1px solid $mainColor;
 
-	li:not(.menuTitle):hover{
-		filter: invert(100%);
+	li {
+		background: $mainAltColor;
+		color: $mainColor;
+
+		&.subMenuTitle{
+			background-color: #999;
+			color: black;
+		}
+
+		&:not(.menuTitle):hover{
+			filter: invert(100%);
+		}
 	}
 }
 

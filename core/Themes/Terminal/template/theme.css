@@ -360,14 +360,17 @@
   filter: invert(100%);
 }
 
+.fullScreenMenuUL {
+  background: black;
+  border-right: 1px solid #009900;
+}
 .fullScreenMenuUL li {
   background: black;
   color: #009900;
 }
-
-.fullScreenMenuUL {
-  background: black;
-  border-right: 1px solid #009900;
+.fullScreenMenuUL li.subMenuTitle {
+  background-color: #999;
+  color: black;
 }
 .fullScreenMenuUL li:not(.menuTitle):hover {
   filter: invert(100%);

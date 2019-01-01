@@ -5,7 +5,7 @@
 <li class="menuTitle fullScreenMenuText" style="text-align: center;" >
 	Log-Hog
 </li>
-<li class="menuTitle fullScreenMenuText" style="background-color: #999; color: black;" >
+<li class="menuTitle fullScreenMenuText subMenuTitle">
 	Main Menu
 </li>
 <li id="mainMenuAbout" class="selected" onclick="toggleAbout();" >
@@ -138,7 +138,7 @@ if($themesEnabled === "false")
 	</div>
 	<span class="fullScreenMenuText">Watchlist</span>
 </li>
-	<li id="menuOtherApps" class="menuTitle menuBreak" style="background-color: #999; color: black;
+	<li id="menuOtherApps" class="menuTitle menuBreak subMenuTitle" style="
 	<?php if(!($locationForMonitorIndex["loc"] || $locationForSearchIndex["loc"] || $locationForSeleniumMonitorIndex["loc"] || $locationForStatusIndex["loc"]))
 		{
 			echo " display: none; ";
