@@ -124,6 +124,7 @@ function displayNotifications()
 function removeAllNotifications()
 {
 	clearNotifications();
+	removeAllRemoveRightClickMenuOptions();
 	notifications = new Array();
 	updateNotificationStuff();
 }
@@ -136,34 +137,66 @@ function removeNotificationByLog(logId)
 		{
 			if(notifications[i]["log"] === logId)
 			{
-				var listOfRightClickTargets =["","CurrentWindow","GroupInName","Count"];
-				var listOfRightClickTargetsLength = listOfRightClickTargets.length;
-				for(var rct = 0; rct < listOfRightClickTargetsLength; rct++)
-				{
-					var innerId = logId+listOfRightClickTargets[rct];
-					var menuObjectLocal = menuObjectRightClick[innerId];
-					var options = Object.keys(menuObjectLocal);
-					var lengthOfOptions = options.length;
-					for(var j = 0; j < lengthOfOptions; j++)
-					{
-						var currentOption = menuObjectLocal[options[j]];
-						if(currentOption)
-						{
-							if(currentOption["name"] === "Remove Alert")
-							{
-								menuObjectRightClick[innerId][options[j]] = null;
-								break;
-							}
-						}
-					}
-					menuObjectRightClick[innerId] = menuObjectRightClick[innerId].filter(function (el) {
-					  return el != null;
-					});
-				}
 				removeNotification(i);
 				break;
 			}
 		}
+	}
+}
+
+function removeAllRemoveRightClickMenuOptions()
+{
+	let menuObjectRightClickKeys = Object.keys(menuObjectRightClick);
+	let menuObjectRightClickKeysLength = menuObjectRightClickKeys.length;
+	for(let orckCount = 0; orckCount < menuObjectRightClickKeysLength; orckCount++)
+	{
+		var localId = menuObjectRightClickKeys[orckCount];
+		var menuObjectLocal = menuObjectRightClick[localId];
+		var options = Object.keys(menuObjectLocal);
+		var lengthOfOptions = options.length;
+		for(let looCount = 0; looCount < lengthOfOptions; looCount++)
+		{
+			var currentOption = menuObjectLocal[options[looCount]];
+			if(currentOption)
+			{
+				if(currentOption["name"] === "Remove Alert")
+				{
+					menuObjectRightClick[localId][options[looCount]] = null;
+					break;
+				}
+			}
+		}
+		menuObjectRightClick[localId] = menuObjectRightClick[localId].filter(function (el) {
+		  return el != null;
+		});
+	}
+}
+
+function removeRemoveAlertRightClickMenuOption(logId)
+{
+	var listOfRightClickTargets =["","CurrentWindow","GroupInName","Count"];
+	var listOfRightClickTargetsLength = listOfRightClickTargets.length;
+	for(var rct = 0; rct < listOfRightClickTargetsLength; rct++)
+	{
+		var innerId = logId+listOfRightClickTargets[rct];
+		var menuObjectLocal = menuObjectRightClick[innerId];
+		var options = Object.keys(menuObjectLocal);
+		var lengthOfOptions = options.length;
+		for(var j = 0; j < lengthOfOptions; j++)
+		{
+			var currentOption = menuObjectLocal[options[j]];
+			if(currentOption)
+			{
+				if(currentOption["name"] === "Remove Alert")
+				{
+					menuObjectRightClick[innerId][options[j]] = null;
+					break;
+				}
+			}
+		}
+		menuObjectRightClick[innerId] = menuObjectRightClick[innerId].filter(function (el) {
+		  return el != null;
+		});
 	}
 }
 
@@ -213,6 +246,7 @@ function removeNotification(idToRemove)
 		if("log" in notifications[idToRemove])
 		{
 			var logId = notifications[idToRemove]["log"];
+			removeRemoveAlertRightClickMenuOption(logId);
 			document.getElementById(logId).classList.remove("updated");
 			document.getElementById(logId+"Count").innerHTML = "";
 			document.getElementById(logId+"CountHidden").innerHTML = "";
