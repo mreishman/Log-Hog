@@ -205,7 +205,13 @@ function formatPhpMessage(message, extraData)
 	{
 		firstPartOfMessage = formatMainMessage(firstPartOfMessage, extraData);
 	}
-	return firstPartOfMessage+"<div>"+severity+messageWarning+"</div><div class=\"settingsDiv\">"+restOfMessage+"</div>";
+	let buttonOfInfo = "<span><span style=\"float:right; margin-top: -3px;\" class=\"linkSmall\" onclick=\"showMoreInfo(this)\" >More Info</span><div style=\"display: none;\" >Info</div></span>"
+	return firstPartOfMessage+"<div>"+severity+messageWarning+buttonOfInfo+"</div><div class=\"settingsDiv\">"+restOfMessage+"</div>";
+}
+
+function showMoreInfo(e)
+{
+	console.log($(e).siblings('div').html());
 }
 
 function parseErrorMessage(restOfMessage, extraData)
