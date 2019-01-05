@@ -1,0 +1,169 @@
+<div class="menuItem">
+	<a title="{{title}}" id="{{id}}" class="{{id}}Button {{class}} index" onclick="show(this, '{{id}}')">
+		<span class="currentWindowNum" id="{{id}}CurrentWindow"></span>
+		{{title}}
+		<span id="{{id}}Count" class="menuCounter"></span>
+		<span id="{{id}}CountHidden" class="menuCounterHidden" style="display: none;"></span>
+	</a>
+</div>
+<div class="notificationContainer">
+	<div id="{{id}}" class="notificationDiv" >
+		<span style="width: 100%;">
+			<table style="width: 100%; padding-top: 5px; padding-bottom: 5px;" >
+				<tr>
+					<td rowspan="2" style="width: 30px;" >{{viewIndicator}}</td>
+					<td rowspan="2" style="border-right: 1px solid black; width: 75px; cursor: default;"> {{time}} </td>
+					<td rowspan="2" style="width: 50px;" > <span class="linkSmall" onclick="removeNotification('{{idNum}}'); {{action}}" >View</span> </td>
+					<td rowspan="2" style="width: 75px;" > <span class="linkSmall" onclick="removeNotification('{{idNum}}');" >Remove</span> </td>
+					<td class="notificationText"><b> {{name}} </b></td>
+				</tr>
+				<tr>
+					<td>{{previewText}}</td>
+				</tr>
+			</table>
+		</span>
+	</div>
+</div>
+<div class="notificationContainerWithImage">
+	<div id="{{id}}" class="notificationDiv">
+		<span style="width: 100%;">
+			<table style="width: 100%; padding-top: 5px; padding-bottom: 5px;" >
+				<tr>
+					<td rowspan="2" style="width: 30px;" >{{viewIndicator}}</td>
+					<td rowspan="2" style="border-right: 1px solid black; width: 75px; cursor: default;"> {{time}} </td>
+					<td rowspan="2" style="width: 50px;" > <span class="linkSmall" onclick="removeNotification('{{idNum}}'); {{action}}" >View</span> </td>
+					<td rowspan="2" style="width: 75px;" > <span class="linkSmall" onclick="removeNotification('{{idNum}}');" >Remove</span> </td>
+					<td class="notificationText"> {{image}} <b>{{name}} </b></td>
+				</tr>
+				<tr>
+					<td>{{previewText}}</td>
+				</tr>
+			</table>
+		</span>
+	</div>
+</div>
+<div class="notificationContainerSmall">
+	<div id="{{id}}" class="notificationDiv" >
+		<span style="width: 100%;">
+			<table style="width: 100%; padding-top: 5px; padding-bottom: 5px;" >
+				<tr>
+					<td style="width: 30px;" >{{viewIndicator}}</td>
+					<td style="border-right: 1px solid black; width: 75px; cursor: default;"> {{time}} </td>
+					<td style="width: 50px;" > <span class="linkSmall" onclick="removeNotification('{{idNum}}'); {{action}}" >View</span> </td>
+					<td style="width: 75px;" > <span class="linkSmall" onclick="removeNotification('{{idNum}}');" >Remove</span> </td>
+					<td class="notificationText"><b> {{name}} </b></td>
+				</tr>
+				<tr>
+					<td colspan="5" >{{previewText}}</td>
+				</tr>
+			</table>
+		</span>
+	</div>
+</div>
+<div class="notificationContainerSmallWithImage">
+	<div id="{{id}}" class="notificationDiv">
+		<span style="width: 100%;">
+			<table style="width: 100%; padding-top: 5px; padding-bottom: 5px;" >
+				<tr>
+					<td style="width: 30px;" >{{viewIndicator}}</td>
+					<td style="border-right: 1px solid black; width: 75px; cursor: default;"> {{time}} </td>
+					<td style="width: 50px;" > <span class="linkSmall" onclick="removeNotification('{{idNum}}'); {{action}}" >View</span> </td>
+					<td style="width: 75px;" > <span class="linkSmall" onclick="removeNotification('{{idNum}}');" >Remove</span> </td>
+					<td class="notificationText"> {{image}} <b>{{name}} </b></td>
+				</tr>
+				<tr>
+					<td colspan="5" >{{previewText}}</td>
+				</tr>
+			</table>
+		</span>
+	</div>
+</div>
+<div class="notificationContainerInline">
+	<div class="inlineNotificationDiv" >
+		<span style="width: 100%;">
+			<table style="width: 100%;" >
+				<tr>
+					<td style="border-right: 1px solid black; width: 75px; cursor: default;"> {{time}} </td>
+					<td style="cursor: default;" class="notificationText"><b> {{name}} </b></td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<span style="display: none;" class="notificationContainerInlineButtons">
+							<table  style="width: 100%;">
+								<tr>
+									<th>
+										<span class="linkSmall" onclick="{{action}} inlineNotificationPollLogic(true);" >View</span>
+									</th>
+									<th>
+										<span  class="linkSmall" onclick="inlineNotificationPollLogic(true);" >Close</span>
+									</th>
+								</tr>
+							</table>
+						</span>
+					</td>
+				</tr>
+			</table>
+		</span>
+	</div>
+</div>
+<div class="notificationContainerInlineWithImage">
+	<div class="inlineNotificationDiv">
+		<span style="width: 100%;">
+			<table style="width: 100%;" >
+				<tr>
+					<td style="border-right: 1px solid black; width: 75px; cursor: default;"> {{time}} </td>
+					<td class="notificationText"> {{image}} <b>{{name}} </b></td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<span style="display: none;" class="notificationContainerInlineButtons">
+							<table  style="width: 100%;">
+								<tr>
+									<th>
+										<span class="linkSmall" onclick="{{action}} inlineNotificationPollLogic();" >View</span>
+									</th>
+									<th>
+										<span  class="linkSmall" onclick="inlineNotificationPollLogic();" >Close</span>
+									</th>
+								</tr>
+							</table>
+						</span>
+					</td>
+				</tr>
+			</table>
+		</span>
+	</div>
+</div>
+<div class="notificationButtons">
+	<div class="menuTitle" >
+		<table style="width: 100%; border-top: 1px solid #aaa; padding-bottom: 3px; padding-top: 3px;">
+			<tr>
+				<th>
+					<span class="linkSmall" style="cursor: pointer;" onclick="removeAllNotifications(); toggleNotifications();">Clear</span>
+				</th>
+			</tr>
+		</table>
+	</div>
+</div>
+<div class="historyButtons">
+	<div>
+		<table style="width: 100%; border-top: 1px solid #aaa; padding-bottom: 3px; padding-top: 3px;">
+			<tr>
+				<th>
+					<span class="linkSmall" style="cursor: pointer;" onclick="archiveLogPopupToggle();">Close</span>
+				</th>
+				<th>
+					<span class="linkSmall" style="cursor: pointer;" onclick="clearAllArchiveLogs();">Delete All</span>
+				</th>
+			</tr>
+		</table>
+	</div>
+</div>
+<div class="logListPopup">
+	<div style="max-height: {{maxHeight}}; overflow: auto;">
+		{{content}}
+	</div>
+	<div style="padding: 5px;" class="addBorderTop">
+		<table width="100%"><tr><th><span class="linkSmall" onclick="closeLogPopup();">Close</span></th></tr></table>
+	</div>
+</div>
