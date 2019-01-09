@@ -59,6 +59,691 @@ var phpYellowWarningArr = {
 	0:"PHP Warning"
 };
 
+var parseTokenWeight = 1;
+
+var phpInfoArr = {
+	0: {
+		syntax: "abstract",
+		target: "T_ABSTRACT",
+		weight: parseTokenWeight
+	},
+	1: {
+		syntax: "&=",
+		target: "T_AND_EQUAL",
+		weight: parseTokenWeight
+	},
+	2: {
+		syntax: "array()",
+		target: "T_ARRAY",
+		weight: parseTokenWeight
+	},
+	3: {
+		syntax: "(array)",
+		target: "T_ARRAY_CAST",
+		weight: parseTokenWeight
+	},
+	4: {
+		syntax: "as",
+		target: "T_AS",
+		weight: parseTokenWeight
+	},
+	5: {
+		syntax: "",
+		target: "T_BAD_CHARACTER",
+		weight: parseTokenWeight
+	},
+	6: {
+		syntax: "&&",
+		target: "T_BOOLEAN_AND",
+		weight: parseTokenWeight
+	},
+	7: {
+		syntax: "||",
+		target: "T_BOOLEAN_OR",
+		weight: parseTokenWeight
+	},
+	8: {
+		syntax: "(bool) or (boolean)",
+		target: "T_BOOL_CAST",
+		weight: parseTokenWeight
+	},
+	9: {
+		syntax: "break",
+		target: "T_BREAK",
+		weight: parseTokenWeight
+	},
+	10: {
+		syntax: "callable",
+		target: "T_CALLABLE",
+		weight: parseTokenWeight
+	},
+	11: {
+		syntax: "case",
+		target: "T_CASE",
+		weight: parseTokenWeight
+	},
+	12: {
+		syntax: "catch",
+		target: "T_CATCH",
+		weight: parseTokenWeight
+	},
+	13: {
+		syntax: "",
+		target: "T_CHARACTER",
+		weight: parseTokenWeight
+	},
+	14: {
+		syntax: "class",
+		target: "T_CLASS",
+		weight: parseTokenWeight
+	},
+	15: {
+		syntax: "__CLASS__",
+		target: "T_CLASS_C",
+		weight: parseTokenWeight
+	},
+	16: {
+		syntax: "clone",
+		target: "T_CLONE",
+		weight: parseTokenWeight
+	},
+	17: {
+		syntax: "?> or %>",
+		target: "T_CLOSE_TAG",
+		weight: parseTokenWeight
+	},
+	18: {
+		syntax: "??",
+		target: "T_COALESCE",
+		weight: parseTokenWeight
+	},
+	19: {
+		syntax: "// or #, and /* */",
+		target: "T_COMMENT",
+		weight: parseTokenWeight
+	},
+	20: {
+		syntax: ".=",
+		target: "T_CONCAT_EQUAL",
+		weight: parseTokenWeight
+	},
+	21: {
+		syntax: "const",
+		target: "T_CONST",
+		weight: parseTokenWeight
+	},
+	22: {
+		syntax: "\"foo\" or \'bar\'	",
+		target: "T_CONSTANT_ENCAPSED_STRING",
+		weight: parseTokenWeight
+	},
+	23: {
+		syntax: "continue",
+		target: "T_CONTINUE",
+		weight: parseTokenWeight
+	},
+	24: {
+		syntax: "{$",
+		target: "T_CURLY_OPEN",
+		weight: parseTokenWeight
+	},
+	25: {
+		syntax: "--",
+		target: "T_DEC",
+		weight: parseTokenWeight
+	},
+	26: {
+		syntax: "declare",
+		target: "T_DECLARE",
+		weight: parseTokenWeight
+	},
+	27: {
+		syntax: "default",
+		target: "T_DEFAULT",
+		weight: parseTokenWeight
+	},
+	28: {
+		syntax: "__DIR__",
+		target: "T_DIR",
+		weight: parseTokenWeight
+	},
+	29: {
+		syntax: "/=",
+		target: "T_DIV_EQUAL",
+		weight: parseTokenWeight
+	},
+	30: {
+		syntax: "0.12, etc.",
+		target: "T_DNUMBER",
+		weight: parseTokenWeight
+	},
+	31: {
+		syntax: "/** */",
+		target: "T_DOC_COMMENT",
+		weight: parseTokenWeight
+	},
+	32: {
+		syntax: "do",
+		target: "T_DO",
+		weight: parseTokenWeight
+	},
+	33: {
+		syntax: "${",
+		target: "T_DOLLAR_OPEN_CURLY_BRACES",
+		weight: parseTokenWeight
+	},
+	34: {
+		syntax: "=>",
+		target: "T_DOUBLE_ARROW",
+		weight: parseTokenWeight
+	},
+	35: {
+		syntax: "(real),(double) or (float)",
+		target: "T_DOUBLE_CAST",
+		weight: parseTokenWeight
+	},
+	36: {
+		syntax: "::",
+		target: "T_DOUBLE_COLON",
+		weight: parseTokenWeight
+	},
+	37: {
+		syntax: "echo",
+		target: "T_ECHO",
+		weight: parseTokenWeight
+	},
+	38: {
+		syntax: "...",
+		target: "T_ELLIPSIS",
+		weight: parseTokenWeight
+	},
+	39: {
+		syntax: "else",
+		target: "T_ELSE",
+		weight: parseTokenWeight
+	},
+	40: {
+		syntax: "elseif",
+		target: "T_ELSEIF",
+		weight: parseTokenWeight
+	},
+	41: {
+		syntax: "empty",
+		target: "T_EMPTY",
+		weight: parseTokenWeight
+	},
+	42: {
+		syntax: "\" $a\"",
+		target: "T_ENCAPSED_AND_WHITESPACE",
+		weight: parseTokenWeight
+	},
+	43: {
+		syntax: "enddeclare",
+		target: "T_ENDDECLARE",
+		weight: parseTokenWeight
+	},
+	44: {
+		syntax: "endfor",
+		target: "T_ENDFOR",
+		weight: parseTokenWeight
+	},
+	45: {
+		syntax: "endforeach",
+		target: "T_ENDFOREACH",
+		weight: parseTokenWeight
+	},
+	46: {
+		syntax: "endif",
+		target: "T_ENDIF",
+		weight: parseTokenWeight
+	},
+	47: {
+		syntax: "endswitch",
+		target: "T_ENDSWITCH",
+		weight: parseTokenWeight
+	},
+	48: {
+		syntax: "endwhile",
+		target: "T_ENDWHILE",
+		weight: parseTokenWeight
+	},
+	49: {
+		syntax: "",
+		target: "T_END_HEREDOC",
+		weight: parseTokenWeight
+	},
+	50: {
+		syntax: "eval()",
+		target: "T_EVAL",
+		weight: parseTokenWeight
+	},
+	51: {
+		syntax: "exit or die",
+		target: "T_EXIT",
+		weight: parseTokenWeight
+	},
+	52: {
+		syntax: "extends",
+		target: "T_EXTENDS",
+		weight: parseTokenWeight
+	},
+	53: {
+		syntax: "__FILE__",
+		target: "T_FILE",
+		weight: parseTokenWeight
+	},
+	54: {
+		syntax: "final",
+		target: "T_FINAL",
+		weight: parseTokenWeight
+	},
+	55: {
+		syntax: "finally",
+		target: "T_FINALLY",
+		weight: parseTokenWeight
+	},
+	56: {
+		syntax: "for",
+		target: "T_FOR",
+		weight: parseTokenWeight
+	},
+	57: {
+		syntax: "foreach",
+		target: "T_FOREACH",
+		weight: parseTokenWeight
+	},
+	58: {
+		syntax: "function or cfunction",
+		target: "T_FUNCTION",
+		weight: parseTokenWeight
+	},
+	59: {
+		syntax: "__FUNCTION__",
+		target: "T_FUNC_C",
+		weight: parseTokenWeight
+	},
+	60: {
+		syntax: "global",
+		target: "T_GLOBAL",
+		weight: parseTokenWeight
+	},
+	61: {
+		syntax: "goto",
+		target: "T_GOTO",
+		weight: parseTokenWeight
+	},
+	62: {
+		syntax: "__halt_compiler()",
+		target: "T_HALT_COMPILER",
+		weight: parseTokenWeight
+	},
+	63: {
+		syntax: "if",
+		target: "T_IF",
+		weight: parseTokenWeight
+	},
+	64: {
+		syntax: "implements",
+		target: "T_IMPLEMENTS",
+		weight: parseTokenWeight
+	},
+	65: {
+		syntax: "++",
+		target: "T_INC",
+		weight: parseTokenWeight
+	},
+	66: {
+		syntax: "include()",
+		target: "T_INCLUDE",
+		weight: parseTokenWeight
+	},
+	67: {
+		syntax: "include_once()",
+		target: "T_INCLUDE_ONCE",
+		weight: parseTokenWeight
+	},
+	68: {
+		syntax: "",
+		target: "T_INLINE_HTML",
+		weight: parseTokenWeight
+	},
+	69: {
+		syntax: "instanceof",
+		target: "T_INSTANCEOF",
+		weight: parseTokenWeight
+	},
+	70: {
+		syntax: "insteadof",
+		target: "T_INSTEADOF",
+		weight: parseTokenWeight
+	},
+	71: {
+		syntax: "(int) or (integer)",
+		target: "T_INT_CAST",
+		weight: parseTokenWeight
+	},
+	72: {
+		syntax: "interface",
+		target: "T_INTERFACE",
+		weight: parseTokenWeight
+	},
+	73: {
+		syntax: "isset()",
+		target: "T_ISSET",
+		weight: parseTokenWeight
+	},
+	74: {
+		syntax: "==",
+		target: "T_IS_EQUAL",
+		weight: parseTokenWeight
+	},
+	75: {
+		syntax: ">=",
+		target: "T_IS_GREATER_OR_EQUAL",
+		weight: parseTokenWeight
+	},
+	76: {
+		syntax: "===",
+		target: "T_IS_IDENTICAL",
+		weight: parseTokenWeight
+	},
+	77: {
+		syntax: "!= ir <>",
+		target: "T_IS_NOT_EQUAL",
+		weight: parseTokenWeight
+	},
+	78: {
+		syntax: "!==",
+		target: "T_IS_NOT_IDENTICAL",
+		weight: parseTokenWeight
+	},
+	79: {
+		syntax: "<=",
+		target: "T_IS_SMALLER_OR_EQUAL",
+		weight: parseTokenWeight
+	},
+	80: {
+		syntax: "<=>",
+		target: "T_SPACESHIP",
+		weight: parseTokenWeight
+	},
+	81: {
+		syntax: "__LINE__",
+		target: "T_LINE",
+		weight: parseTokenWeight
+	},
+	82: {
+		syntax: "list()",
+		target: "T_LIST",
+		weight: parseTokenWeight
+	},
+	83: {
+		syntax: "123, 012, 0x1ac, etc",
+		target: "T_LNUMBER",
+		weight: parseTokenWeight
+	},
+	84: {
+		syntax: "and",
+		target: "T_LOGICAL_AND",
+		weight: parseTokenWeight
+	},
+	85: {
+		syntax: "or",
+		target: "T_LOGICAL_OR",
+		weight: parseTokenWeight
+	},
+	86: {
+		syntax: "xor",
+		target: "T_LOGICAL_XOR",
+		weight: parseTokenWeight
+	},
+	87: {
+		syntax: "__METHOD__",
+		target: "T_METHOD_C",
+		weight: parseTokenWeight
+	},
+	88: {
+		syntax: "-=",
+		target: "T_MINUS_EQUAL",
+		weight: parseTokenWeight
+	},
+	89: {
+		syntax: "%=",
+		target: "T_MOD_EQUAL",
+		weight: parseTokenWeight
+	},
+	90: {
+		syntax: "*=",
+		target: "T_MUL_EQUAL",
+		weight: parseTokenWeight
+	},
+	91: {
+		syntax: "namespace",
+		target: "T_NAMESPACE",
+		weight: parseTokenWeight
+	},
+	92: {
+		syntax: "__NAMESPACE__",
+		target: "T_NS_C",
+		weight: parseTokenWeight
+	},
+	93: {
+		syntax: "\\",
+		target: "T_NS_SEPARATOR",
+		weight: parseTokenWeight
+	},
+	94: {
+		syntax: "new",
+		target: "T_NEW",
+		weight: parseTokenWeight
+	},
+	95: {
+		syntax: "$a[0]",
+		target: "T_NUM_STRING",
+		weight: parseTokenWeight
+	},
+	96: {
+		syntax: "(object)",
+		target: "T_OBJECT_CAST",
+		weight: parseTokenWeight
+	},
+	97: {
+		syntax: "->",
+		target: "T_OBJECT_OPERATOR",
+		weight: parseTokenWeight
+	},
+	98: {
+		syntax: "<?php, <? or <%",
+		target: "T_OPEN_TAG",
+		weight: parseTokenWeight
+	},
+	99: {
+		syntax: "<?= or <%=",
+		target: "T_OPEN_TAG_WITH_ECHO",
+		weight: parseTokenWeight
+	},
+	100: {
+		syntax: "|=",
+		target: "T_OR_EQUAL	",
+		weight: parseTokenWeight
+	},
+	101: {
+		syntax: "::",
+		target: "T_PAAMAYIM_NEKUDOTAYIM",
+		weight: parseTokenWeight
+	},
+	102: {
+		syntax: "+=",
+		target: "T_PLUS_EQUAL",
+		weight: parseTokenWeight
+	},
+	103: {
+		syntax: "**",
+		target: "T_POW",
+		weight: parseTokenWeight
+	},
+	104: {
+		syntax: "**=",
+		target: "T_POW_EQUAL",
+		weight: parseTokenWeight
+	},
+	105: {
+		syntax: "print()",
+		target: "T_PRINT",
+		weight: parseTokenWeight
+	},
+	106: {
+		syntax: "private",
+		target: "T_PRIVATE",
+		weight: parseTokenWeight
+	},
+	107: {
+		syntax: "public",
+		target: "T_PUBLIC",
+		weight: parseTokenWeight
+	},
+	108: {
+		syntax: "protected",
+		target: "T_PROTECTED",
+		weight: parseTokenWeight
+	},
+	109: {
+		syntax: "require()",
+		target: "T_REQUIRE",
+		weight: parseTokenWeight
+	},
+	110: {
+		syntax: "require_once()",
+		target: "T_REQUIRE_ONCE",
+		weight: parseTokenWeight
+	},
+	111: {
+		syntax: "return",
+		target: "T_RETURN",
+		weight: parseTokenWeight
+	},
+	112: {
+		syntax: "<<",
+		target: "T_SL",
+		weight: parseTokenWeight
+	},
+	113: {
+		syntax: "<<=",
+		target: "T_SL_EQUAL",
+		weight: parseTokenWeight
+	},
+	114: {
+		syntax: ">>",
+		target: "T_SR",
+		weight: parseTokenWeight
+	},
+	115: {
+		syntax: ">>=",
+		target: "T_SR_EQUAL",
+		weight: parseTokenWeight
+	},
+	116: {
+		syntax: "<<<",
+		target: "T_START_HEREDOC",
+		weight: parseTokenWeight
+	},
+	117: {
+		syntax: "static",
+		target: "T_STATIC",
+		weight: parseTokenWeight
+	},
+	118: {
+		syntax: "parent, self, etc",
+		target: "T_STRING",
+		weight: parseTokenWeight
+	},
+	119: {
+		syntax: "(string)",
+		target: "T_STRING_CAST",
+		weight: parseTokenWeight
+	},
+	120: {
+		syntax: "\"${a",
+		target: "T_STRING_VARNAME",
+		weight: parseTokenWeight
+	},
+	121: {
+		syntax: "switch",
+		target: "T_SWITCH",
+		weight: parseTokenWeight
+	},
+	122: {
+		syntax: "throw",
+		target: "T_THROW",
+		weight: parseTokenWeight
+	},
+	123: {
+		syntax: "trait",
+		target: "T_TRAIT",
+		weight: parseTokenWeight
+	},
+	124: {
+		syntax: "__TRAIT__",
+		target: "T_TRAIT_C",
+		weight: parseTokenWeight
+	},
+	125: {
+		syntax: "try",
+		target: "T_TRY",
+		weight: parseTokenWeight
+	},
+	126: {
+		syntax: "unset()",
+		target: "T_UNSET",
+		weight: parseTokenWeight
+	},
+	127: {
+		syntax: "(unset)",
+		target: "T_UNSET_CAST",
+		weight: parseTokenWeight
+	},
+	128: {
+		syntax: "use",
+		target: "T_USE",
+		weight: parseTokenWeight
+	},
+	129: {
+		syntax: "var",
+		target: "T_VAR",
+		weight: parseTokenWeight
+	},
+	130: {
+		syntax: "$foo",
+		target: "T_VARIABLE",
+		weight: parseTokenWeight
+	},
+	131: {
+		syntax: "while",
+		target: "T_WHILE",
+		weight: parseTokenWeight
+	},
+	132: {
+		syntax: "\\t \\r\\n",
+		target: "T_WHITESPACE",
+		weight: parseTokenWeight
+	},
+	133: {
+		syntax: "^=",
+		target: "T_XOR_EQUAL",
+		weight: parseTokenWeight
+	},
+	134: {
+		syntax: "yield",
+		target: "T_YIELD",
+		weight: parseTokenWeight
+	},
+	135: {
+		syntax: "yield from",
+		target: "T_YIELD_FROM",
+		weight: parseTokenWeight
+	}
+}
+
 /* Start of functions for formatting*/
 
 function formatLine(text, extraData)
@@ -205,8 +890,47 @@ function formatPhpMessage(message, extraData)
 	{
 		firstPartOfMessage = formatMainMessage(firstPartOfMessage, extraData);
 	}
-	let buttonOfInfo = "<span><span style=\"float:right; margin-top: -3px;\" class=\"linkSmall\" onclick=\"showMoreInfo(this)\" >More Info</span><div style=\"display: none;\" >Info</div></span>"
+	let morePhpInfo = getMorePhpInfo(restOfMessage);
+	let buttonOfInfo = "";
+	if(Object.keys(morePhpInfo).length > 0)
+	{
+		buttonOfInfo = "<span><span style=\"float:right; margin-top: -3px;\" class=\"linkSmall\" onclick=\"showMoreInfo(this)\" >More Info</span><div style=\"display: none;\" >"+formatMoreInfo(morePhpInfo)+"</div></span>"
+	}
 	return firstPartOfMessage+"<div>"+severity+messageWarning+buttonOfInfo+"</div><div class=\"settingsDiv\">"+restOfMessage+"</div>";
+}
+
+function getMorePhpInfo(message)
+{
+	let counterOfHits = 0;
+	let returnInfoObj = {};
+	let phpInfoArrKeys = Object.keys(phpInfoArr);
+	let phpInfoArrKeysLength = phpInfoArrKeys.length;
+	for(let PIAKCount = 0; PIAKCount < phpInfoArrKeysLength; PIAKCount++)
+	{
+		let search = "("+phpInfoArr[phpInfoArrKeys[PIAKCount]]["target"]+")";
+		if(message.indexOf(search) > -1)
+		{
+			returnInfoObj[parseFloat(phpInfoArr[phpInfoArrKeys[PIAKCount]]["target"]+"."+counterOfHits)] = {
+				"hit" : phpInfoArr[phpInfoArrKeys[PIAKCount]]["target"],
+				"info": "Info Goes Here"
+			}
+		}
+	}
+	return returnInfoObj;
+}
+
+function formatMoreInfo(objOfInfo)
+{
+	returnHtml = "<table>";
+	let objOfInfoKeys = Object.keys(objOfInfo);
+	let objOfInfoKeysLength = objOfInfoKeys.length;
+	for(let OOIKCount = 0; OOIKCount < objOfInfoKeysLength; OOIKCount++)
+	{
+		returnHtml += "<tr><td>"+objOfInfo[objOfInfoKeys[OOIKCount]]["hit"]+"</td></tr>";
+		returnHtml += "<tr><td>"+objOfInfo[objOfInfoKeys[OOIKCount]]["info"]+"</td></tr>";
+	}
+	returnHtml += "</table>";
+	return returnHtml;
 }
 
 function showMoreInfo(e)
