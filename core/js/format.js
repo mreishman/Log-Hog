@@ -829,16 +829,28 @@ function formatMainMessage(message, extraData)
 		let localMessage = unescapeHTML(message);
 		if(/(in|at) (.?)([\/]+)([^&\r\n\t]*)(on line|\D:\d)(.?)(\d{1,10})/.test(localMessage))
 		{
+			let stringLengthMatch = -1;
+			let fileData = "";
 			var arrayOfFileDataKeys = Object.keys(arrayOfFileData);
 			var arrayOfFileDataKeysLength = arrayOfFileDataKeys.length;
 			for(var AOFDCount = 0; AOFDCount < arrayOfFileDataKeysLength; AOFDCount++)
 			{
-				if(localMessage.indexOf(arrayOfFileDataKeys[AOFDCount]) > -1 && arrayOfFileData[arrayOfFileDataKeys[AOFDCount]]["fileData"] !== "Error - File Not Found")
+				let localMessageIndex = localMessage.indexOf(arrayOfFileDataKeys[AOFDCount]);
+				if(localMessageIndex > -1 && arrayOfFileData[arrayOfFileDataKeys[AOFDCount]]["fileData"] !== "Error - File Not Found")
 				{
-					//this message matches file data, add this below
-					extraData["fileData"] = arrayOfFileData[arrayOfFileDataKeys[AOFDCount]];
-					return formatMessageFileData(localMessage, extraData);
+					let stringLength = arrayOfFileDataKeys[AOFDCount].length;
+					if(stringLength > stringLengthMatch)
+					{
+						fileData = arrayOfFileData[arrayOfFileDataKeys[AOFDCount]];
+						stringLengthMatch = stringLength;
+					}
 				}
+			}
+			if(stringLengthMatch > -1)
+			{
+				//this message matches file data, add this below
+				extraData["fileData"] = fileData;
+				return formatMessageFileData(localMessage, extraData);
 			}
 		}
 	}
