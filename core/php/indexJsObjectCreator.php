@@ -160,6 +160,10 @@ if($sendCrashInfoJS === "true")
 if($advancedLogFormatEnabled === "true")
 {
 	$arrayOfFiles[] =  array(
+		"name" => "formatPhp.js",
+		"type" => "js"
+	);
+	$arrayOfFiles[] =  array(
 		"name" => "format.js",
 		"type" => "js"
 	);
