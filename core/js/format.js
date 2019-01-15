@@ -225,10 +225,14 @@ function getMorePhpInfo(message)
 		let search = "("+phpInfoArr[phpInfoArrKeys[PIAKCount]]["target"]+")";
 		if(message.indexOf(search) > -1)
 		{
-			returnInfoObj[parseFloat(phpInfoArr[phpInfoArrKeys[PIAKCount]]["target"]+"."+counterOfHits)] = {
+			let linkHtml = "";
+			returnInfoObj[counterOfHits] = {
 				"hit" : phpInfoArr[phpInfoArrKeys[PIAKCount]]["target"],
-				"info": "Info Goes Here"
+				"info": phpInfoArr[phpInfoArrKeys[PIAKCount]]["define"],
+				"moreinfo": phpInfoArr[phpInfoArrKeys[PIAKCount]]["more"],
+				"link" : linkHtml
 			}
+			counterOfHits++;
 		}
 	}
 	return returnInfoObj;
@@ -241,8 +245,9 @@ function formatMoreInfo(objOfInfo)
 	let objOfInfoKeysLength = objOfInfoKeys.length;
 	for(let OOIKCount = 0; OOIKCount < objOfInfoKeysLength; OOIKCount++)
 	{
-		returnHtml += "<tr><td>"+objOfInfo[objOfInfoKeys[OOIKCount]]["hit"]+"</td></tr>";
+		returnHtml += "<tr><td><b>"+objOfInfo[objOfInfoKeys[OOIKCount]]["hit"]+"</b></td></tr>";
 		returnHtml += "<tr><td>"+objOfInfo[objOfInfoKeys[OOIKCount]]["info"]+"</td></tr>";
+		returnHtml += "<tr><td><span style=\"display: none;\" >"+objOfInfo[objOfInfoKeys[OOIKCount]]["moreinfo"]+"</span></td></tr>";
 	}
 	returnHtml += "</table>";
 	return returnHtml;
@@ -250,7 +255,8 @@ function formatMoreInfo(objOfInfo)
 
 function showMoreInfo(e)
 {
-	console.log($(e).siblings('div').html());
+	let htmlForSidebar = $(e).siblings('div').html();
+	console.log(htmlForSidebar);
 }
 
 function parseErrorMessage(restOfMessage, extraData)

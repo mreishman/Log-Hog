@@ -366,38 +366,38 @@ var phpInfoArr = {
 		weight: parseTokenWeight,
 		define: "The declare construct is used to set execution directives for a block of code. enddeclare is used to end a declare statement. ",
 		more: "",
-		link: "http://php.net/manual/en/control-structures.alternative-syntax.php",
-		link2: "http://php.net/manual/en/control-structures.declare.php"
+		link: "php.net/manual/en/control-structures.alternative-syntax.php",
+		link2: "php.net/manual/en/control-structures.declare.php"
 	},
 	44: {
 		syntax: "endfor",
 		target: "T_ENDFOR",
 		weight: parseTokenWeight,
-		define: "",
+		define: "for loops are the most complex loops in PHP. endfor is used to end a statement of a for loop instead of a }. I.E. <pre>for (expr1; expr2; expr3): {{statement}} endfor;</pre>",
 		more: "",
-		link: ""
+		link: "php.net/manual/en/control-structures.for.php"
 	},
 	45: {
 		syntax: "endforeach",
 		target: "T_ENDFOREACH",
 		weight: parseTokenWeight,
-		define: "",
+		define: "The foreach construct provides an easy way to iterate over arrays. foreach works only on arrays and objects, and will issue an error when you try to use it on a variable with a different data type or an uninitialized variable. The endforeach is used at the end of a foreach statement instead of } I.E. <pre>foreach (array() as $value): {{statement}} endforeach;</pre> ",
 		more: "",
-		link: ""
+		link: "php.net/manual/en/control-structures.foreach.php"
 	},
 	46: {
 		syntax: "endif",
 		target: "T_ENDIF",
 		weight: parseTokenWeight,
-		define: "",
+		define: "The if construct is one of the most important features of many languages, PHP included. It allows for conditional execution of code fragments. endif is used at the end of a statement  instead of }.  I.E. <pre>if (expr): {{statement}} endif;</pre> ",
 		more: "",
-		link: ""
+		link: "php.net/manual/en/control-structures.if.php"
 	},
 	47: {
 		syntax: "endswitch",
 		target: "T_ENDSWITCH",
 		weight: parseTokenWeight,
-		define: "",
+		define: "The switch statement is similar to a series of IF statements on the same expression. In many occasions, you may want to compare the same variable (or expression) with many different values, and execute a different piece of code depending on which value it equals to. endswitch is used at the end of a statement instead of }.  I.E. <pre>switch (expr): {{case ... statment}} endswitch;</pre> ",
 		more: "",
 		link: ""
 	},
@@ -405,281 +405,281 @@ var phpInfoArr = {
 		syntax: "endwhile",
 		target: "T_ENDWHILE",
 		weight: parseTokenWeight,
-		define: "",
+		define: "while loops are the simplest type of loop in PHP. The meaning of a while statement is simple. It tells PHP to execute the nested statement(s) repeatedly, as long as the while expression evaluates to TRUE.  endwhite is used at the end of a statement  instead of }. I.E. <pre>while (expr): {{statement}} endwhile;</pre> ",
 		more: "",
-		link: ""
+		link: "php.net/manual/en/control-structures.while.php"
 	},
 	49: {
 		syntax: "",
 		target: "T_END_HEREDOC",
 		weight: parseTokenWeight,
-		define: "",
+		define: "Closing of a heredoc. The closing identifier must begin in the first column of the line. Also, the identifier must follow the same naming rules as any other label in PHP: it must contain only alphanumeric characters and underscores, and must start with a non-digit character or underscore",
 		more: "",
-		link: ""
+		link: "php.net/manual/en/language.types.string.php#language.types.string.syntax.heredoc"
 	},
 	50: {
 		syntax: "eval()",
 		target: "T_EVAL",
 		weight: parseTokenWeight,
-		define: "",
-		more: "",
-		link: ""
+		define: "Evaluate a string as PHP code",
+		more: "The eval() language construct is very dangerous because it allows execution of arbitrary PHP code. Its use thus is discouraged. If you have carefully verified that there is no other option than to use this construct, pay special attention not to pass any user provided data into it without properly validating it beforehand.",
+		link: "php.net/manual/en/function.eval.php"
 	},
 	51: {
-		syntax: "exit or die",
+		syntax: "exit, die",
 		target: "T_EXIT",
 		weight: parseTokenWeight,
-		define: "",
-		more: "",
-		link: ""
+		define: "Output a message and terminate the current script",
+		more: "Terminates execution of the script. Shutdown functions and object destructors will always be executed even if exit is called.exit is a language construct and it can be called without parentheses if no status is passed. f status is a string, this function prints the status just before exiting.If status is an integer, that value will be used as the exit status and not printed",
+		link: "php.net/manual/en/function.exit.php"
 	},
 	52: {
 		syntax: "extends",
 		target: "T_EXTENDS",
 		weight: parseTokenWeight,
-		define: "",
-		more: "",
-		link: ""
+		define: "A class can inherit the methods and properties of another class by using the keyword extends in the class declaration. It is not possible to extend multiple classes; a class can only inherit from one base class.",
+		more: "The inherited methods and properties can be overridden by redeclaring them with the same name defined in the parent class. However, if the parent class has defined a method as final, that method may not be overridden. It is possible to access the overridden methods or static properties by referencing them with parent::.When overriding methods, the parameter signature should remain the same or PHP will generate an E_STRICT level error. This does not apply to the constructor, which allows overriding with different parameters.",
+		link: "php.net/manual/en/language.oop5.basic.php#language.oop5.basic.extends"
 	},
 	53: {
 		syntax: "__FILE__",
 		target: "T_FILE",
 		weight: parseTokenWeight,
-		define: "",
-		more: "",
-		link: ""
+		define: "The full path and filename of the file with symlinks resolved. If used inside an include, the name of the included file is returned.",
+		more: "PHP provides a large number of predefined constants to any script which it runs. Many of these constants, however, are created by various extensions, and will only be present when those extensions are available, either via dynamic loading or because they have been compiled in.",
+		link: "php.net/manual/en/language.constants.predefined.php"
 	},
 	54: {
 		syntax: "final",
 		target: "T_FINAL",
 		weight: parseTokenWeight,
-		define: "",
+		define: "PHP 5 introduces the final keyword, which prevents child classes from overriding a method by prefixing the definition with final. If the class itself is being defined final then it cannot be extended.",
 		more: "",
-		link: ""
+		link: "php.net/manual/en/language.oop5.final.php"
 	},
 	55: {
 		syntax: "finally",
 		target: "T_FINALLY",
 		weight: parseTokenWeight,
-		define: "",
-		more: "",
-		link: ""
+		define: "n PHP 5.5 and later, a finally block may also be specified after or instead of catch blocks. Code within the finally block will always be executed after the try and catch blocks, regardless of whether an exception has been thrown, and before normal execution resumes.",
+		more: "PHP has an exception model similar to that of other programming languages. An exception can be thrown, and caught (\"catched\") within PHP. Code may be surrounded in a try block, to facilitate the catching of potential exceptions. Each try must have at least one corresponding catch or finally block.",
+		link: "php.net/manual/en/language.exceptions.php"
 	},
 	56: {
 		syntax: "for",
 		target: "T_FOR",
 		weight: parseTokenWeight,
-		define: "",
+		define: "for loops are the most complex loops in PHP. They behave like their C counterparts. I.E. <pre>for (expr1; expr2; expr3) { statement } </pre>",
 		more: "",
-		link: ""
+		link: "php.net/manual/en/control-structures.for.php"
 	},
 	57: {
 		syntax: "foreach",
 		target: "T_FOREACH",
 		weight: parseTokenWeight,
-		define: "",
+		define: "The foreach construct provides an easy way to iterate over arrays. foreach works only on arrays and objects, and will issue an error when you try to use it on a variable with a different data type or an uninitialized variable.",
 		more: "",
-		link: ""
+		link: "php.net/manual/en/control-structures.foreach.php"
 	},
 	58: {
 		syntax: "function or cfunction",
 		target: "T_FUNCTION",
 		weight: parseTokenWeight,
-		define: "",
-		more: "",
-		link: ""
+		define: "A function may be defined by <pre> function {{name}}($arg1...) { code } </pre>. Any valid PHP code may appear inside a function, even other functions and class definitions.Function names follow the same rules as other labels in PHP. A valid function name starts with a letter or underscore, followed by any number of letters, numbers, or underscores. As a regular expression, it would be expressed thus: [a-zA-Z_\\x7f-\\xff][a-zA-Z0-9_\\x7f-\\xff]*.",
+		more: "Functions need not be defined before they are referenced, except when a function is conditionally defined. When a function is defined in a conditional manner, its definition must be processed prior to being called. ",
+		link: "php.net/manual/en/language.functions.php"
 	},
 	59: {
 		syntax: "__FUNCTION__",
 		target: "T_FUNC_C",
 		weight: parseTokenWeight,
-		define: "",
-		more: "",
-		link: ""
+		define: "The function name, or {closure} for anonymous functions.",
+		more: "PHP provides a large number of predefined constants to any script which it runs. Many of these constants, however, are created by various extensions, and will only be present when those extensions are available, either via dynamic loading or because they have been compiled in.",
+		link: "php.net/manual/en/language.constants.predefined.php"
 	},
 	60: {
 		syntax: "global",
 		target: "T_GLOBAL",
 		weight: parseTokenWeight,
-		define: "",
-		more: "",
-		link: ""
+		define: "The scope of a variable is the context within which it is defined. For the most part all PHP variables only have a single scope. This single scope spans included and required files as well.",
+		more: "global variables in C are automatically available to functions unless specifically overridden by a local definition. This can cause some problems in that people may inadvertently change a global variable. In PHP global variables must be declared global inside a function if they are going to be used in that function.",
+		link: "php.net/manual/en/language.variables.scope.php"
 	},
 	61: {
 		syntax: "goto",
 		target: "T_GOTO",
 		weight: parseTokenWeight,
-		define: "",
+		define: "The goto operator can be used to jump to another section in the program. The target point is specified by a label followed by a colon, and the instruction is given as goto followed by the desired target label. This is not a full unrestricted goto. The target label must be within the same file and context, meaning that you cannot jump out of a function or method, nor can you jump into one. You also cannot jump into any sort of loop or switch structure. You may jump out of these, and a common use is to use a goto in place of a multi-level break.",
 		more: "",
-		link: ""
+		link: "php.net/manual/en/control-structures.goto.php"
 	},
 	62: {
 		syntax: "__halt_compiler()",
 		target: "T_HALT_COMPILER",
 		weight: parseTokenWeight,
-		define: "",
+		define: "Halts the execution of the compiler. This can be useful to embed data in PHP scripts, like the installation files.",
 		more: "",
-		link: ""
+		link: "php.net/manual/en/function.halt-compiler.php"
 	},
 	63: {
 		syntax: "if",
 		target: "T_IF",
 		weight: parseTokenWeight,
-		define: "",
-		more: "",
-		link: ""
+		define: "The if construct is one of the most important features of many languages, PHP included. It allows for conditional execution of code fragments. ",
+		more: "The expression is evaluated to its Boolean value. If expression evaluates to TRUE, PHP will execute statement, and if it evaluates to FALSE - it'll ignore it. ",
+		link: "php.net/manual/en/control-structures.if.php"
 	},
 	64: {
 		syntax: "implements",
 		target: "T_IMPLEMENTS",
 		weight: parseTokenWeight,
-		define: "",
+		define: "To implement an interface, the implements operator is used. All methods in the interface must be implemented within a class; failure to do so will result in a fatal error. Classes may implement more than one interface if desired by separating each interface with a comma.",
 		more: "",
-		link: ""
+		link: "php.net/manual/en/language.oop5.interfaces.php"
 	},
 	65: {
 		syntax: "++",
 		target: "T_INC",
 		weight: parseTokenWeight,
-		define: "",
+		define: "++$a (Pre-increment): Increments $a by one, then returns $a. $a++ (Post-increment): Returns $a, then increments $a by one.",
 		more: "",
-		link: ""
+		link: "php.net/manual/en/language.operators.increment.php"
 	},
 	66: {
 		syntax: "include()",
 		target: "T_INCLUDE",
 		weight: parseTokenWeight,
-		define: "",
-		more: "",
-		link: ""
+		define: "The include statement includes and evaluates the specified file.",
+		more: "Files are included based on the file path given or, if none is given, the include_path specified. If the file isn't found in the include_path, include will finally check in the calling script's own directory and the current working directory before failing. The include construct will emit a warning if it cannot find a file.",
+		link: "php.net/manual/en/function.include.php"
 	},
 	67: {
 		syntax: "include_once()",
 		target: "T_INCLUDE_ONCE",
 		weight: parseTokenWeight,
-		define: "",
-		more: "",
-		link: ""
+		define: "The include_once statement includes and evaluates the specified file during the execution of the script. This is a behavior similar to the include statement, with the only difference being that if the code from a file has already been included, it will not be included again, and include_once returns TRUE. As the name suggests, the file will be included just once.",
+		more: "include_once may be used in cases where the same file might be included and evaluated more than once during a particular execution of a script, so in this case it may help avoid problems such as function redefinitions, variable value reassignments, etc.",
+		link: "php.net/manual/en/function.include-once.php"
 	},
 	68: {
 		syntax: "",
 		target: "T_INLINE_HTML",
 		weight: parseTokenWeight,
-		define: "",
-		more: "",
-		link: ""
+		define: "Everything outside of a pair of opening and closing tags is ignored by the PHP parser which allows PHP files to have mixed content. This allows PHP to be embedded in HTML documents, for example to create templates.",
+		more: "This works as expected, because when the PHP interpreter hits the ?> closing tags, it simply starts outputting whatever it finds until it hits another opening tag unless in the middle of a conditional statement in which case the interpreter will determine the outcome of the conditional before making a decision of what to skip over",
+		link: "php.net/manual/en/language.basic-syntax.phpmode.php"
 	},
 	69: {
 		syntax: "instanceof",
 		target: "T_INSTANCEOF",
 		weight: parseTokenWeight,
-		define: "",
-		more: "",
-		link: ""
+		define: "instanceof is used to determine whether a PHP variable is an instantiated object of a certain class.",
+		more: "instanceof can also be used to determine whether a variable is an instantiated object of a class that inherits from a parent class",
+		link: "php.net/manual/en/language.operators.type.php"
 	},
 	70: {
 		syntax: "insteadof",
 		target: "T_INSTEADOF",
 		weight: parseTokenWeight,
-		define: "",
+		define: "If two Traits insert a method with the same name, a fatal error is produced, if the conflict is not explicitly resolved.To resolve naming conflicts between Traits used in the same class, the insteadof operator needs to be used to choose exactly one of the conflicting methods.Since this only allows one to exclude methods, the as operator can be used to add an alias to one of the methods. Note the as operator does not rename the method and it does not affect any other method either.",
 		more: "",
-		link: ""
+		link: "php.net/manual/en/language.oop5.traits.php"
 	},
 	71: {
-		syntax: "(int) or (integer)",
+		syntax: "(int), (integer)",
 		target: "T_INT_CAST",
 		weight: parseTokenWeight,
-		define: "",
-		more: "",
-		link: ""
+		define: "Type casting in PHP works much as it does in C: the name of the desired type is written in parentheses before the variable which is to be cast.. (int), (integer) will cast to integer. ",
+		more: "Integers can be specified in decimal (base 10), hexadecimal (base 16), octal (base 8) or binary (base 2) notation. The negation operator can be used to denote a negative integer.",
+		link: "php.net/manual/en/language.types.type-juggling.php#language.types.typecasting"
 	},
 	72: {
 		syntax: "interface",
 		target: "T_INTERFACE",
 		weight: parseTokenWeight,
-		define: "",
-		more: "",
-		link: ""
+		define: "Object interfaces allow you to create code which specifies which methods a class must implement, without having to define how these methods are implemented.",
+		more: "Interfaces are defined in the same way as a class, but with the interface keyword replacing the class keyword and without any of the methods having their contents defined.All methods declared in an interface must be public; this is the nature of an interface.",
+		link: "php.net/manual/en/language.oop5.interfaces.php"
 	},
 	73: {
 		syntax: "isset()",
 		target: "T_ISSET",
 		weight: parseTokenWeight,
-		define: "",
-		more: "",
-		link: ""
+		define: "Determine if a variable is set and is not NULL",
+		more: "If a variable has been unset with unset(), it will no longer be set. isset() will return FALSE if testing a variable that has been set to NULL. Also note that a null character (\"\\0\") is not equivalent to the PHP NULL constant.If multiple parameters are supplied then isset() will return TRUE only if all of the parameters are set. Evaluation goes from left to right and stops as soon as an unset variable is encountered.",
+		link: "php.net/manual/en/function.isset.php"
 	},
 	74: {
 		syntax: "==",
 		target: "T_IS_EQUAL",
 		weight: parseTokenWeight,
-		define: "",
-		more: "",
-		link: ""
+		define: "<pre> $a == $b </pre> TRUE if $a is equal to $b after type juggling.",
+		more: "If you compare a number with a string or the comparison involves numerical strings, then each string is converted to a number and the comparison performed numerically. These rules also apply to the switch statement. The type conversion does not take place when the comparison is === or !== as this involves comparing the type as well as the value.",
+		link: "php.net/manual/en/language.operators.comparison.php"
 	},
 	75: {
 		syntax: ">=",
 		target: "T_IS_GREATER_OR_EQUAL",
 		weight: parseTokenWeight,
-		define: "",
+		define: "<pre> $a >= $b </pre>TRUE if $a is greater than or equal to $b.",
 		more: "",
-		link: ""
+		link: "php.net/manual/en/language.operators.comparison.php"
 	},
 	76: {
 		syntax: "===",
 		target: "T_IS_IDENTICAL",
 		weight: parseTokenWeight,
-		define: "",
-		more: "",
-		link: ""
+		define: "<pre> $a === $b </pre> TRUE if $a is equal to $b, and they are of the same type.",
+		more: "If you compare a number with a string or the comparison involves numerical strings, then each string is converted to a number and the comparison performed numerically. These rules also apply to the switch statement. The type conversion does not take place when the comparison is === or !== as this involves comparing the type as well as the value.",
+		link: "php.net/manual/en/language.operators.comparison.php"
 	},
 	77: {
-		syntax: "!= ir <>",
+		syntax: "!=, <>",
 		target: "T_IS_NOT_EQUAL",
 		weight: parseTokenWeight,
-		define: "",
-		more: "",
-		link: ""
+		define: "<pre> $a != $b </pre> OR <pre> $a <> $b </pre> TRUE if $a is not equal to $b after type juggling.",
+		more: "If you compare a number with a string or the comparison involves numerical strings, then each string is converted to a number and the comparison performed numerically. These rules also apply to the switch statement. The type conversion does not take place when the comparison is === or !== as this involves comparing the type as well as the value.",
+		link: "php.net/manual/en/language.operators.comparison.php"
 	},
 	78: {
 		syntax: "!==",
 		target: "T_IS_NOT_IDENTICAL",
 		weight: parseTokenWeight,
-		define: "",
-		more: "",
-		link: ""
+		define: "<pre> $a !== $b </pre> TRUE if $a is not equal to $b, or they are not of the same type.",
+		more: "If you compare a number with a string or the comparison involves numerical strings, then each string is converted to a number and the comparison performed numerically. These rules also apply to the switch statement. The type conversion does not take place when the comparison is === or !== as this involves comparing the type as well as the value.",
+		link: "php.net/manual/en/language.operators.comparison.php"
 	},
 	79: {
 		syntax: "<=",
 		target: "T_IS_SMALLER_OR_EQUAL",
 		weight: parseTokenWeight,
-		define: "",
+		define: "<pre> $a <= $b </pre> TRUE if $a is less than or equal to $b.",
 		more: "",
-		link: ""
+		link: "php.net/manual/en/language.operators.comparison.php"
 	},
 	80: {
 		syntax: "<=>",
 		target: "T_SPACESHIP",
 		weight: parseTokenWeight,
-		define: "",
+		define: "<pre> $a <=> $b </pre> An integer less than, equal to, or greater than zero when $a is respectively less than, equal to, or greater than $b. Available as of PHP 7.",
 		more: "",
-		link: ""
+		link: "php.net/manual/en/language.operators.comparison.php"
 	},
 	81: {
 		syntax: "__LINE__",
 		target: "T_LINE",
 		weight: parseTokenWeight,
-		define: "",
-		more: "",
-		link: ""
+		define: "The current line number of the file.",
+		more: "PHP provides a large number of predefined constants to any script which it runs. Many of these constants, however, are created by various extensions, and will only be present when those extensions are available, either via dynamic loading or because they have been compiled in.",
+		link: "php.net/manual/en/language.constants.predefined.php"
 	},
 	82: {
 		syntax: "list()",
 		target: "T_LIST",
 		weight: parseTokenWeight,
-		define: "",
+		define: "Like array(), this is not really a function, but a language construct. list() is used to assign a list of variables in one operation.",
 		more: "",
-		link: ""
+		link: "php.net/manual/en/function.list.php"
 	},
 	83: {
 		syntax: "123, 012, 0x1ac, etc",
@@ -828,7 +828,7 @@ var phpInfoArr = {
 	101: {
 		syntax: "::",
 		target: "T_PAAMAYIM_NEKUDOTAYIM",
-		weight: parseTokenWeight
+		weight: parseTokenWeight,
 		define: "The Scope Resolution Operator (also called Paamayim Nekudotayim) or in simpler terms, the double colon, is a token that allows access to static, constant, and overridden properties or methods of a class.",
 		more: "When referencing these items from outside the class definition, use the name of the class. Three special keywords self, parent and static are used to access properties or methods from inside the class definition.",
 		link: "http://php.net/manual/en/language.oop5.paamayim-nekudotayim.php"
