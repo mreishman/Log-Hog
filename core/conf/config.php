@@ -283,6 +283,7 @@ $defaultConfig = array(
 	'logFormatPhpEnable'			=> 'true',
 	'logFormatPhpHideExtra'			=> 'false',
 	'logFormatPhpShowImg'			=> 'true',
+	'logFormatPhpShowMoreButton'	=> 'true',
 	'logLinePadding'				=> 4,
 	'logMenuLocation'				=> 'top',
 	'logNameExtension'				=> 'true',

@@ -685,281 +685,284 @@ var phpInfoArr = {
 		syntax: "123, 012, 0x1ac, etc",
 		target: "T_LNUMBER",
 		weight: parseTokenWeight,
-		define: "",
+		define: "Integers can be specified in decimal (base 10), hexadecimal (base 16), octal (base 8) or binary (base 2) notation. The negation operator can be used to denote a negative integer.",
 		more: "",
-		link: ""
+		link: "php.net/manual/en/language.types.integer.php"
 	},
 	84: {
 		syntax: "and",
 		target: "T_LOGICAL_AND",
 		weight: parseTokenWeight,
-		define: "",
+		define: "<pre> $a and $b </pre> (And): TRUE if both $a and $b are TRUE.",
 		more: "",
-		link: ""
+		link: "php.net/manual/en/language.operators.logical.php"
 	},
 	85: {
 		syntax: "or",
 		target: "T_LOGICAL_OR",
 		weight: parseTokenWeight,
-		define: "",
+		define: "<pre> $a or $b </pre> (Or): TRUE if either $a or $b is TRUE.",
 		more: "",
-		link: ""
+		link: "php.net/manual/en/language.operators.logical.php"
 	},
 	86: {
 		syntax: "xor",
 		target: "T_LOGICAL_XOR",
 		weight: parseTokenWeight,
-		define: "",
+		define: "<pre> $a xor $b </pre> (Xor): TRUE if either $a or $b is TRUE, but not both.",
 		more: "",
-		link: ""
+		link: "php.net/manual/en/language.operators.logical.php"
 	},
 	87: {
 		syntax: "__METHOD__",
 		target: "T_METHOD_C",
 		weight: parseTokenWeight,
-		define: "",
-		more: "",
-		link: ""
+		define: "The class method name.",
+		more: "PHP provides a large number of predefined constants to any script which it runs. Many of these constants, however, are created by various extensions, and will only be present when those extensions are available, either via dynamic loading or because they have been compiled in.",
+		link: "php.net/manual/en/language.constants.predefined.php"
 	},
 	88: {
 		syntax: "-=",
 		target: "T_MINUS_EQUAL",
 		weight: parseTokenWeight,
-		define: "",
+		define: "<pre> $a -= $b </pre> Same as <pre> $a = $a - $b </pre>",
 		more: "",
-		link: ""
+		link: "php.net/manual/en/language.operators.assignment.php"
 	},
 	89: {
 		syntax: "%=",
 		target: "T_MOD_EQUAL",
 		weight: parseTokenWeight,
-		define: "",
+		define: "<pre> $a %= $b </pre> Same as <pre> $a = $a % $b </pre>",
 		more: "",
-		link: ""
+		link: "php.net/manual/en/language.operators.assignment.php"
 	},
 	90: {
 		syntax: "*=",
 		target: "T_MUL_EQUAL",
 		weight: parseTokenWeight,
-		define: "",
+		define: "<pre> $a *= $b </pre> Same as <pre> $a = $a * $b </pre>",
 		more: "",
-		link: ""
+		link: "php.net/manual/en/language.operators.assignment.php"
 	},
 	91: {
 		syntax: "namespace",
 		target: "T_NAMESPACE",
 		weight: parseTokenWeight,
-		define: "",
-		more: "",
-		link: ""
+		define: "Namespaces are a way of encapsulating items. This can be seen as an abstract concept in many places. For example, in any operating system directories serve to group related files, and act as a namespace for the files within them. PHP Namespaces provide a way in which to group related classes, interfaces, functions and constants.",
+		more: "As a concrete example, the file foo.txt can exist in both directory /home/greg and in /home/other, but two copies of foo.txt cannot co-exist in the same directory. In addition, to access the foo.txt file outside of the /home/greg directory, we must prepend the directory name to the file name using the directory separator to get /home/greg/foo.txt. This same principle extends to namespaces in the programming world.",
+		link: "php.net/manual/en/language.namespaces.rationale.php"
 	},
 	92: {
 		syntax: "__NAMESPACE__",
 		target: "T_NS_C",
 		weight: parseTokenWeight,
-		define: "",
-		more: "",
-		link: ""
+		define: "The name of the current namespace. PHP supports two ways of abstractly accessing elements within the current namespace, the __NAMESPACE__ magic constant, and the namespace keyword.",
+		more: "The value of __NAMESPACE__ is a string that contains the current namespace name. In global, un-namespaced code, it contains an empty string.",
+		link: "php.net/manual/en/language.constants.predefined.php",
+		link2: "php.net/manual/en/language.namespaces.nsconstants.php"
 	},
 	93: {
 		syntax: "\\",
 		target: "T_NS_SEPARATOR",
 		weight: parseTokenWeight,
-		define: "",
+		define: "Much like directories and files, PHP namespaces also contain the ability to specify a hierarchy of namespace names. Thus, a namespace name can be defined with sub-levels. I.E. <pre>namespace MyProject\\Sub\\Level;</pre>",
 		more: "",
-		link: ""
+		link: "php.net/manual/en/language.namespaces.nested.php"
 	},
 	94: {
 		syntax: "new",
 		target: "T_NEW",
 		weight: parseTokenWeight,
-		define: "",
-		more: "",
-		link: ""
+		define: "To create an instance of a class, the new keyword must be used. An object will always be created unless the object has a constructor defined that throws an exception on error. Classes should be defined before instantiation (and in some cases this is a requirement).If a string containing the name of a class is used with new, a new instance of that class will be created. If the class is in a namespace, its fully qualified name must be used when doing this.",
+		more: "When assigning an already created instance of a class to a new variable, the new variable will access the same instance as the object that was assigned. This behaviour is the same when passing instances to a function. A copy of an already created object can be made by cloning it.",
+		link: "php.net/manual/en/language.oop5.basic.php"
 	},
 	95: {
 		syntax: "$a[0]",
 		target: "T_NUM_STRING",
 		weight: parseTokenWeight,
-		define: "",
-		more: "",
-		link: ""
+		define: "With array indices, the closing square bracket (]) marks the end of the index. The same rules apply to object properties as to simple variables.",
+		more: "As of PHP 7.1.0 also negative numeric indices are supported.",
+		link: "php.net/manual/en/language.types.string.php#language.types.string.parsing"
 	},
 	96: {
 		syntax: "(object)",
 		target: "T_OBJECT_CAST",
 		weight: parseTokenWeight,
-		define: "",
-		more: "",
-		link: ""
+		define: "cast to object",
+		more: "If an object is converted to an object, it is not modified. If a value of any other type is converted to an object, a new instance of the stdClass built-in class is created. If the value was NULL, the new instance will be empty. An array converts to an object with properties named by keys and corresponding values. Note that in this case before PHP 7.2.0 numeric keys have been inaccessible unless iterated.",
+		link: "php.net/manual/en/language.types.type-juggling.php#language.types.typecasting",
+		link2: "php.net/manual/en/language.types.object.php"
 	},
 	97: {
 		syntax: "->",
 		target: "T_OBJECT_OPERATOR",
 		weight: parseTokenWeight,
-		define: "",
+		define: "Within class methods non-static properties may be accessed by using -> (Object Operator): <pre>$this->property</pre> (where property is the name of the property). Static properties are accessed by using the :: (Double Colon): <pre>self::$property</pre>",
 		more: "",
-		link: ""
+		link: "php.net/manual/en/language.oop5.properties.php"
 	},
 	98: {
 		syntax: "<?php, <? or <%",
 		target: "T_OPEN_TAG",
 		weight: parseTokenWeight,
-		define: "",
+		define: "In PHP 5, there are up to five different pairs of opening and closing tags available in PHP, depending on how PHP is configured. Two of these, <?php ?> and <script language=\"php\"> </script>, are always available. There is also the short echo tag <?= ?>, which is always available in PHP 5.4.0 and later.The other two are short tags and ASP style tags. As such, while some people find short tags and ASP style tags convenient, they are less portable, and generally not recommended.PHP 7 removes support for ASP tags and <script language=\"php\"> tags. As such, we recommend only using <?php ?> and <?= ?> when writing PHP code to maximise compatibility.",
 		more: "",
-		link: ""
+		link: "php.net/manual/en/language.basic-syntax.phpmode.php"
 	},
 	99: {
 		syntax: "<?= or <%=",
 		target: "T_OPEN_TAG_WITH_ECHO",
 		weight: parseTokenWeight,
-		define: "",
+		define: "Shorthand version of <pre><?php echo</pre>",
 		more: "",
-		link: ""
+		link: "php.net/manual/en/language.basic-syntax.phpmode.php"
 	},
 	100: {
 		syntax: "|=",
 		target: "T_OR_EQUAL	",
 		weight: parseTokenWeight,
-		define: "",
+		define: "<pre> $a |= $b </pre> Same as <pre> $a = $a | $b </pre>",
 		more: "",
-		link: ""
+		link: "php.net/manual/en/language.operators.assignment.php"
 	},
 	101: {
 		syntax: "::",
 		target: "T_PAAMAYIM_NEKUDOTAYIM",
 		weight: parseTokenWeight,
-		define: "The Scope Resolution Operator (also called Paamayim Nekudotayim) or in simpler terms, the double colon, is a token that allows access to static, constant, and overridden properties or methods of a class.",
+		define: "The Paamayim Nekudotayim (also called Scope Resolution Operator) or in simpler terms, the double colon, is a token that allows access to static, constant, and overridden properties or methods of a class.",
 		more: "When referencing these items from outside the class definition, use the name of the class. Three special keywords self, parent and static are used to access properties or methods from inside the class definition.",
-		link: "http://php.net/manual/en/language.oop5.paamayim-nekudotayim.php"
+		link: "php.net/manual/en/language.oop5.paamayim-nekudotayim.php"
 	},
 	102: {
 		syntax: "+=",
 		target: "T_PLUS_EQUAL",
 		weight: parseTokenWeight,
-		define: "",
+		define: "<pre> $a += $b </pre> Same as <pre> $a = $a + $b </pre>",
 		more: "",
-		link: ""
+		link: "php.net/manual/en/language.operators.assignment.php"
 	},
 	103: {
 		syntax: "**",
 		target: "T_POW",
 		weight: parseTokenWeight,
-		define: "",
+		define: "<pre> $a ** $b </pre> (Exponentiation): Result of raising $a to the $b'th power. Introduced in PHP 5.6.",
 		more: "",
-		link: ""
+		link: "php.net/manual/en/language.operators.arithmetic.php"
 	},
 	104: {
 		syntax: "**=",
 		target: "T_POW_EQUAL",
 		weight: parseTokenWeight,
-		define: "",
+		define: "<pre> $a **= $b </pre> Same as <pre> $a = $a ** $b </pre>",
 		more: "",
-		link: ""
+		link: "php.net/manual/en/language.operators.arithmetic.php"
 	},
 	105: {
 		syntax: "print()",
 		target: "T_PRINT",
 		weight: parseTokenWeight,
-		define: "",
+		define: "print is not actually a real function (it is a language construct) so you are not required to use parentheses with its argument list.The major differences to echo are that print only accepts a single argument and always returns 1.",
 		more: "",
-		link: ""
+		link: "php.net/manual/en/function.print.php"
 	},
 	106: {
 		syntax: "private",
 		target: "T_PRIVATE",
 		weight: parseTokenWeight,
-		define: "",
+		define: "The visibility of a property, a method or (as of PHP 7.1.0) a constant can be defined by prefixing the declaration with the keywords public, protected or private. Class members declared public can be accessed everywhere. Members declared protected can be accessed only within the class itself and by inheriting and parent classes. Members declared as private may only be accessed by the class that defines the member.",
 		more: "",
-		link: ""
+		link: "php.net/manual/en/language.oop5.visibility.php"
 	},
 	107: {
 		syntax: "public",
 		target: "T_PUBLIC",
 		weight: parseTokenWeight,
-		define: "",
+		define: "The visibility of a property, a method or (as of PHP 7.1.0) a constant can be defined by prefixing the declaration with the keywords public, protected or private. Class members declared public can be accessed everywhere. Members declared protected can be accessed only within the class itself and by inheriting and parent classes. Members declared as private may only be accessed by the class that defines the member.",
 		more: "",
-		link: ""
+		link: "php.net/manual/en/language.oop5.visibility.php"
 	},
 	108: {
 		syntax: "protected",
 		target: "T_PROTECTED",
 		weight: parseTokenWeight,
-		define: "",
+		define: "The visibility of a property, a method or (as of PHP 7.1.0) a constant can be defined by prefixing the declaration with the keywords public, protected or private. Class members declared public can be accessed everywhere. Members declared protected can be accessed only within the class itself and by inheriting and parent classes. Members declared as private may only be accessed by the class that defines the member.",
 		more: "",
-		link: ""
+		link: "php.net/manual/en/language.oop5.visibility.php"
 	},
 	109: {
 		syntax: "require()",
 		target: "T_REQUIRE",
 		weight: parseTokenWeight,
-		define: "",
+		define: "require is identical to include except upon failure it will also produce a fatal E_COMPILE_ERROR level error. In other words, it will halt the script whereas include only emits a warning (E_WARNING) which allows the script to continue.",
 		more: "",
-		link: ""
+		link: "php.net/manual/en/function.require.php"
 	},
 	110: {
 		syntax: "require_once()",
 		target: "T_REQUIRE_ONCE",
 		weight: parseTokenWeight,
-		define: "",
+		define: "The require_once statement is identical to require except PHP will check if the file has already been included, and if so, not include (require) it again.",
 		more: "",
-		link: ""
+		link: "php.net/manual/en/function.require-once.php"
 	},
 	111: {
 		syntax: "return",
 		target: "T_RETURN",
 		weight: parseTokenWeight,
-		define: "",
-		more: "",
-		link: ""
+		define: "Values are returned by using the optional return statement. Any type may be returned, including arrays and objects. This causes the function to end its execution immediately and pass control back to the line from which it was called",
+		more: "If called from within a function, the return statement immediately ends execution of the current function, and returns its argument as the value of the function call. return also ends the execution of an eval() statement or script file.If called from the global scope, then execution of the current script file is ended. If the current script file was included or required, then control is passed back to the calling file. Furthermore, if the current script file was included, then the value given to return will be returned as the value of the include call. If return is called from within the main script file, then script execution ends. If the current script file was named by the auto_prepend_file or auto_append_file configuration options in php.ini, then that script file's execution is ended.",
+		link: "php.net/manual/en/functions.returning-values.php",
+		link2: "php.net/manual/en/function.return.php"
 	},
 	112: {
 		syntax: "<<",
 		target: "T_SL",
 		weight: parseTokenWeight,
-		define: "",
+		define: "<pre> $a << $b </pre> (Shift left): Shift the bits of $a $b steps to the left (each step means \"multiply by two\")",
 		more: "",
-		link: ""
+		link: "php.net/manual/en/language.operators.bitwise.php"
 	},
 	113: {
 		syntax: "<<=",
 		target: "T_SL_EQUAL",
 		weight: parseTokenWeight,
-		define: "",
+		define: "<pre> $a <<= $b </pre> Same as <pre> $a = $a << $b </pre>",
 		more: "",
-		link: ""
+		link: "php.net/manual/en/language.operators.assignment.php"
 	},
 	114: {
 		syntax: ">>",
 		target: "T_SR",
 		weight: parseTokenWeight,
-		define: "",
+		define: "<pre> $a >> $b </pre> (Shift right): hift the bits of $a $b steps to the right (each step means \"divide by two\")",
 		more: "",
-		link: ""
+		link: "php.net/manual/en/language.operators.bitwise.php"
 	},
 	115: {
 		syntax: ">>=",
 		target: "T_SR_EQUAL",
 		weight: parseTokenWeight,
-		define: "",
+		define: "<pre> $a >>= $b </pre> Same as <pre> $a = $a >> $b </pre>",
 		more: "",
-		link: ""
+		link: "php.net/manual/en/language.operators.assignment.php"
 	},
 	116: {
 		syntax: "<<<",
 		target: "T_START_HEREDOC",
 		weight: parseTokenWeight,
-		define: "",
-		more: "",
-		link: ""
+		define: "eredoc syntax: <<<. After this operator, an identifier is provided, then a newline. The string itself follows, and then the same identifier again to close the quotation.",
+		more: "The closing identifier must begin in the first column of the line. Also, the identifier must follow the same naming rules as any other label in PHP: it must contain only alphanumeric characters and underscores, and must start with a non-digit character or underscore.",
+		link: "php.net/manual/en/language.types.string.php#language.types.string.syntax.heredoc"
 	},
 	117: {
 		syntax: "static",
 		target: "T_STATIC",
 		weight: parseTokenWeight,
-		define: "",
+		define: "A static variable exists only in a local function scope, but it does not lose its value when program execution leaves this scope.",
 		more: "",
-		link: ""
+		link: "php.net/manual/en/language.variables.scope.php"
 	},
 	118: {
 		syntax: "parent, self, etc",
@@ -1105,4 +1108,186 @@ var phpInfoArr = {
 		more: "",
 		link: ""
 	}
+}
+
+
+function formatPhpMessage(message, extraData)
+{
+	var message = message.split("PHP message:");
+	var firstPartOfMessage = message[0];
+	message.shift();
+	if(typeof message !== "string")
+	{
+		message = message.join("PHP message:");
+	}
+	var restOfMessage = message.split(":");
+	var messageWarning = restOfMessage[0];
+	var severity = "";
+	if(logFormatPhpShowImg === "true")
+	{
+		severity = "<img src=\""+getPhpSeverifyLevel(messageWarning)+"\" height=\"15px\">";
+	}
+	restOfMessage.shift();
+	restOfMessage = restOfMessage.join(":");
+	restOfMessage = parseErrorMessage(restOfMessage, extraData);
+	if(firstPartOfMessage !== "")
+	{
+		firstPartOfMessage = formatMainMessage(firstPartOfMessage, extraData);
+	}
+	let morePhpInfo = getMorePhpInfo(restOfMessage);
+	let buttonOfInfo = "";
+	if(Object.keys(morePhpInfo).length > 0)
+	{
+		buttonOfInfo = "<span><span style=\"float:right; margin-top: -3px;\" class=\"linkSmall\" onclick=\"showMoreInfo(this)\" >More Info</span><div style=\"display: none;\" >"+formatMoreInfo(morePhpInfo)+"</div></span>"
+	}
+	return firstPartOfMessage+"<div>"+severity+messageWarning+buttonOfInfo+"</div><div class=\"settingsDiv\">"+restOfMessage+"</div>";
+}
+
+function getMorePhpInfo(message)
+{
+	let counterOfHits = 0;
+	let returnInfoObj = {};
+	let phpInfoArrKeys = Object.keys(phpInfoArr);
+	let phpInfoArrKeysLength = phpInfoArrKeys.length;
+	for(let PIAKCount = 0; PIAKCount < phpInfoArrKeysLength; PIAKCount++)
+	{
+		let search = "("+phpInfoArr[phpInfoArrKeys[PIAKCount]]["target"]+")";
+		if(message.indexOf(search) > -1)
+		{
+			let linkHtml = "";
+			returnInfoObj[counterOfHits] = {
+				"hit" : phpInfoArr[phpInfoArrKeys[PIAKCount]]["target"],
+				"info": phpInfoArr[phpInfoArrKeys[PIAKCount]]["define"],
+				"moreinfo": phpInfoArr[phpInfoArrKeys[PIAKCount]]["more"],
+				"link" : linkHtml
+			}
+			counterOfHits++;
+		}
+	}
+	return returnInfoObj;
+}
+
+function parseErrorMessage(restOfMessage, extraData)
+{
+	//check for client and extra data after that
+	//0: main data, 1: client, 2: server, 3: request, 4: upstream, 5: host, 6: referrer
+	var arrayOfData = {
+		0: {
+			"string"	: restOfMessage,
+			"key"		: "",
+			"position"	: -1
+		},
+		1: {
+			"string"	: "",
+			"key"		: "Client:",
+			"position"	: restOfMessage.indexOf(", client:")
+		},
+		2: {
+			"string"	: "",
+			"key"		: "Server:",
+			"position"	: restOfMessage.indexOf(", server:")
+		},
+		3: {
+			"string"	: "",
+			"key"		: "Request:",
+			"position"	: restOfMessage.indexOf(", request:")
+		},
+		4: {
+			"string"	: "",
+			"key"		: "Upstream:",
+			"position"	: restOfMessage.indexOf(", upstream:")
+		},
+		5: {
+			"string"	: "",
+			"key"		: "Host:",
+			"position"	: restOfMessage.indexOf(", host:")
+		},
+		6: {
+			"string"	: "",
+			"key"		: "Referrer:",
+			"position"	: restOfMessage.indexOf(", referrer:")
+		},
+	};
+	var arrayOfDataKeys = Object.keys(arrayOfData);
+	var trimmedMainData = false;
+	var atLeastOnePresent = false;
+	var skipLogic = false;
+	for(var aodc = 1; aodc < 7; aodc++)
+	{
+		if(!skipLogic)
+		{
+			//start filter, get lowest position (ext -1) then trim that out (first lowest to second lowest)
+			var lowest = -1;
+			var lowestPos = 0;
+			for(var aodc2 = 1; aodc2 < 7; aodc2++)
+			{
+				if((arrayOfData[arrayOfDataKeys[aodc2]]["position"] < lowest || lowest === -1 ) && arrayOfData[arrayOfDataKeys[aodc2]]["position"] > -1)
+				{
+					atLeastOnePresent = true;
+					lowest = arrayOfData[arrayOfDataKeys[aodc2]]["position"];
+					lowestPos = aodc2;
+				}
+			}
+			if(lowest !== -1)
+			{
+				//find second lowest, cut out that part anad add to array of data
+				arrayOfData[arrayOfDataKeys[lowestPos]]["position"] = -1;
+				var secondLowest = restOfMessage.length;
+				for(var aodc3 = 1; aodc3 < 7; aodc3++)
+				{
+					if(arrayOfData[arrayOfDataKeys[aodc3]]["position"] < secondLowest && arrayOfData[arrayOfDataKeys[aodc3]]["position"] !== -1)
+					{
+						secondLowest = arrayOfData[arrayOfDataKeys[aodc3]]["position"];
+					}
+				}
+				arrayOfData[arrayOfDataKeys[lowestPos]]["string"] = restOfMessage.substring(lowest + 1, secondLowest);
+				if(!trimmedMainData)
+				{
+					arrayOfData[arrayOfDataKeys[0]]["string"] = restOfMessage.substring(0, lowest);
+					trimmedMainData = true;
+				}
+			}
+			else
+			{
+				skipLogic = true;
+			}
+		}
+	}
+	var newHtmlToSend = "";
+	if(logFormatPhpHideExtra !== "false")
+	{
+		return "<div>"+formatMainMessage(arrayOfData[arrayOfDataKeys[0]]["string"].trim(), extraData)+"</div>";
+	}
+	for(var aodc4 = 0; aodc4 < 7; aodc4++)
+	{
+		if(arrayOfData[arrayOfDataKeys[aodc4]]["string"] !== "")
+		{
+			newHtmlToSend += "<div>"+formatMainMessage(arrayOfData[arrayOfDataKeys[aodc4]]["string"].trim(), extraData)+"</div>";
+		}
+	}
+	return newHtmlToSend;
+}
+
+function getPhpSeverifyLevel(snippit)
+{
+	var phpRedWarningArrKeys = Object.keys(phpRedWarningArr);
+	var phpRedWarningArrLength = phpRedWarningArrKeys.length;
+	for (var rwaCount = 0; rwaCount < phpRedWarningArrLength; rwaCount++)
+	{
+		if(snippit.indexOf(phpRedWarningArr[phpRedWarningArrKeys[rwaCount]]) > -1)
+		{
+			return arrayOfImages["redWarning"]["src"];
+		}
+	}
+	var phpYellowWarningArrKeys = Object.keys(phpYellowWarningArr);
+	var phpYellowWarningArrLength = phpYellowWarningArrKeys.length;
+	for (var rwaCount = 0; rwaCount < phpYellowWarningArrLength; rwaCount++)
+	{
+		if(snippit.indexOf(phpYellowWarningArr[phpYellowWarningArrKeys[rwaCount]]) > -1)
+		{
+			return arrayOfImages["yellowWarning"]["src"];
+		}
+	}
+
+	return arrayOfImages["info"]["src"];
 }
