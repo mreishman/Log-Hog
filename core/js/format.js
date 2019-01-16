@@ -202,9 +202,20 @@ function formatMoreInfo(objOfInfo)
 		if(objOfInfo[objOfInfoKeys[OOIKCount]]["moreinfo"] !== "")
 		{
 			//add show more button with more info
-			returnHtml += "<tr><td style=\"padding-bottom: 5px;\"> <span class=\"linkSmall showMoreEvenMore"+OOIKCount+"\" onclick=\"showEvenMoreInfo("+OOIKCount+");\" >Show More</span></td></tr>";
-			returnHtml += "<tr><td><span style=\"display: none;\" class=\"evenMoreInfo"+OOIKCount+"\" >"+objOfInfo[objOfInfoKeys[OOIKCount]]["moreinfo"]+"</span></td></tr>";
-			returnHtml += "<tr><td><span style=\"display: none;\" class=\"linkSmall hideMoreEvenMore"+OOIKCount+"\" onclick=\"hideEvenMoreInfo("+OOIKCount+");\" >Show Less</span></td></tr>";
+			if(logFormatShowMoreExtraInfo === "false")
+			{
+				returnHtml += "<tr><td style=\"padding-bottom: 5px;\"> <span class=\"linkSmall showMoreEvenMore"+OOIKCount+"\" onclick=\"showEvenMoreInfo("+OOIKCount+");\" >Show More</span></td></tr>";
+			}
+			let styleForMoreMoreInfo = "none";
+			if(logFormatShowMoreExtraInfo === "false")
+			{
+				styleForMoreMoreInfo = "block";
+			}
+			returnHtml += "<tr><td><span style=\"display: "+styleForMoreMoreInfo+";\" class=\"evenMoreInfo"+OOIKCount+"\" >"+objOfInfo[objOfInfoKeys[OOIKCount]]["moreinfo"]+"</span></td></tr>";
+			if(logFormatShowMoreExtraInfo === "false")
+			{
+				returnHtml += "<tr><td><span style=\"display: none;\" class=\"linkSmall hideMoreEvenMore"+OOIKCount+"\" onclick=\"hideEvenMoreInfo("+OOIKCount+");\" >Show Less</span></td></tr>";
+			}
 		}
 		if("" !== objOfInfo[objOfInfoKeys[OOIKCount]]["link"])
 		{

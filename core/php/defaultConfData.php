@@ -829,6 +829,31 @@ $defaultConfigMoreData = array(
 					)
 				)
 			),
+			5									=>	array(
+				"bool"								=>	($logFormatShowMoreButton == 'false'),
+				"id"								=>	"logFormatShowMoreButtonSettings",
+				"name"								=>	"Log Show More Button Settings",
+				"type"								=>	"grouped",
+				"var"								=>	array(
+					"function"							=>	"showOrHidelogFormatShowMoreButtonSettings",
+					"id"								=>	"logFormatShowMoreButton",
+					"key"								=>	"logFormatShowMoreButton",
+					"name"								=>	"Show the Show More Button",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				),
+				"vars"								=>	array(
+					0									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"logFormatShowMoreExtraInfo",
+							"name"								=>	"Always show extra info immediately",
+							"options"							=>	$trueFalsVars,
+							"type"								=>	"dropdown"
+						)
+					)
+				)
+			),
 		)
 	),
 	"loggingVars"						=>	array(

@@ -253,7 +253,7 @@ var phpInfoArr = {
 		weight: parseTokenWeight,
 		define: "<pre>$a /= $b</pre>: Same logic as <pre>$a = $a / $b</pre>",
 		more: "The division operator ("/") returns a float value unless the two operands are integers (or strings that get converted to integers) and the numbers are evenly divisible, in which case an integer value will be returned.",
-		link: "http://www.php.net/manual/en/language.operators.arithmetic.php",
+		link: "www.php.net/manual/en/language.operators.arithmetic.php",
 		link2: "php.net/manual/en/language.operators.assignment.php"
 	},
 	30: {
@@ -976,137 +976,139 @@ var phpInfoArr = {
 		syntax: "(string)",
 		target: "T_STRING_CAST",
 		weight: parseTokenWeight,
-		define: "",
-		more: "",
-		link: ""
+		define: "A value can be converted to a string using the (string) cast or the strval() function. String conversion is automatically done in the scope of an expression where a string is needed. This happens when using the echo or print functions, or when a variable is compared to a string. The sections on Types and Type Juggling will make the following clearer. See also the settype() function.",
+		more: "A boolean TRUE value is converted to the string \"1\". Boolean FALSE is converted to \"\" (the empty string). This allows conversion back and forth between boolean and string values.An integer or float is converted to a string representing the number textually (including the exponent part for floats). Floating point numbers can be converted using exponential notation (4.1E+6). Arrays are always converted to the string \"Array\"; because of this, echo and print can not by themselves show the contents of an array. To view a single element, use a construction such as echo $arr['foo']. See below for tips on viewing the entire contents.In order to convert objects to string magic method __toString must be used.Resources are always converted to strings with the structure \"Resource id #1\", where 1 is the resource number assigned to the resource by PHP at runtime. While the exact structure of this string should not be relied on and is subject to change, it will always be unique for a given resource within the lifetime of a script being executed (ie a Web request or CLI process) and won't be reused. To get a resource's type, use the get_resource_type() function.NULL is always converted to an empty string.As stated above, directly converting an array, object, or resource to a string does not provide any useful information about the value beyond its type. See the functions print_r() and var_dump() for more effective means of inspecting the contents of these types.Most PHP values can also be converted to strings for permanent storage. This method is called serialization, and is performed by the serialize() function. If the PHP engine was built with WDDX support, PHP values can also be serialized as well-formed XML text.",
+		link: "php.net/manual/en/language.types.type-juggling.php#language.types.typecasting",
+		link2: "php.net/manual/en/language.types.string.php"
 	},
 	120: {
 		syntax: "\"${a",
 		target: "T_STRING_VARNAME",
 		weight: parseTokenWeight,
-		define: "",
+		define: "This allows for the use of complex expressions.Any scalar variable, array element or object property with a string representation can be included via this syntax. Simply write the expression the same way as it would appear outside the string, and then wrap it in { and }. Since { can not be escaped, this syntax will only be recognised when the $ immediately follows the {. Use {\\$ to get a literal {$",
 		more: "",
-		link: ""
+		link: "php.net/manual/en/language.types.string.php#language.types.string.parsing.complex"
 	},
 	121: {
 		syntax: "switch",
 		target: "T_SWITCH",
 		weight: parseTokenWeight,
-		define: "",
+		define: "The switch statement is similar to a series of IF statements on the same expression. In many occasions, you may want to compare the same variable (or expression) with many different values, and execute a different piece of code depending on which value it equals to. This is exactly what the switch statement is for.",
 		more: "",
-		link: ""
+		link: "php.net/manual/en/control-structures.switch.php"
 	},
 	122: {
 		syntax: "throw",
 		target: "T_THROW",
 		weight: parseTokenWeight,
-		define: "",
+		define: "PHP has an exception model similar to that of other programming languages. An exception can be thrown, and caught (\"catched\") within PHP. Code may be surrounded in a try block, to facilitate the catching of potential exceptions. Each try must have at least one corresponding catch or finally block.The thrown object must be an instance of the Exception class or a subclass of Exception. Trying to throw an object that is not will result in a PHP Fatal Error.",
 		more: "",
-		link: ""
+		link: "php.net/manual/en/language.exceptions.php"
 	},
 	123: {
 		syntax: "trait",
 		target: "T_TRAIT",
 		weight: parseTokenWeight,
-		define: "",
-		more: "",
-		link: ""
+		define: "Traits are a mechanism for code reuse in single inheritance languages such as PHP. A Trait is intended to reduce some limitations of single inheritance by enabling a developer to reuse sets of methods freely in several independent classes living in different class hierarchies. The semantics of the combination of Traits and classes is defined in a way which reduces complexity, and avoids the typical problems associated with multiple inheritance and Mixins.",
+		more: "A Trait is similar to a class, but only intended to group functionality in a fine-grained and consistent way. It is not possible to instantiate a Trait on its own. It is an addition to traditional inheritance and enables horizontal composition of behavior; that is, the application of class members without requiring inheritance",
+		link: "php.net/manual/en/language.oop5.traits.php"
 	},
 	124: {
 		syntax: "__TRAIT__",
 		target: "T_TRAIT_C",
 		weight: parseTokenWeight,
-		define: "",
+		define: "The trait name. The trait name includes the namespace it was declared in (e.g. Foo\\Bar).",
 		more: "",
-		link: ""
+		link: "php.net/manual/en/language.constants.predefined.php",
+		link2: "php.net/manual/en/language.oop5.traits.php"
 	},
 	125: {
 		syntax: "try",
 		target: "T_TRY",
 		weight: parseTokenWeight,
-		define: "",
+		define: "PHP has an exception model similar to that of other programming languages. An exception can be thrown, and caught (\"catched\") within PHP. Code may be surrounded in a try block, to facilitate the catching of potential exceptions. Each try must have at least one corresponding catch or finally block.The thrown object must be an instance of the Exception class or a subclass of Exception. Trying to throw an object that is not will result in a PHP Fatal Error.",
 		more: "",
-		link: ""
+		link: "php.net/manual/en/language.exceptions.php"
 	},
 	126: {
 		syntax: "unset()",
 		target: "T_UNSET",
 		weight: parseTokenWeight,
-		define: "",
+		define: "The behavior of unset() inside of a function can vary depending on what type of variable you are attempting to destroy.If a globalized variable is unset() inside of a function, only the local variable is destroyed. The variable in the calling environment will retain the same value as before unset() was called.",
 		more: "",
-		link: ""
+		link: "php.net/manual/en/function.unset.php"
 	},
 	127: {
 		syntax: "(unset)",
 		target: "T_UNSET_CAST",
 		weight: parseTokenWeight,
-		define: "",
+		define: "Casting a variable to null using (unset) $var will not remove the variable or unset its value. It will only return a NULL value. The (unset) cast has been deprecated as of PHP 7.2.0. Note that the (unset) cast is the same as assigning the value NULL to the variable or call. The (unset) cast will be removed as of PHP 8.0.0.",
 		more: "",
-		link: ""
+		link: "php.net/manual/en/language.types.type-juggling.php#language.types.typecasting"
 	},
 	128: {
 		syntax: "use",
 		target: "T_USE",
 		weight: parseTokenWeight,
-		define: "",
+		define: "The ability to refer to an external fully qualified name with an alias, or importing, is an important feature of namespaces. This is similar to the ability of unix-based filesystems to create symbolic links to a file or to a directory.All versions of PHP that support namespaces support three kinds of aliasing or importing: aliasing a class name, aliasing an interface name, and aliasing a namespace name. PHP 5.6+ also allows aliasing or importing function and constant names.In PHP, aliasing is accomplished with the use operator",
 		more: "",
-		link: ""
+		link: "php.net/manual/en/language.namespaces.importing.php"
 	},
 	129: {
 		syntax: "var",
 		target: "T_VAR",
 		weight: parseTokenWeight,
-		define: "",
+		define: "Class member variables are called \"properties\". You may also see them referred to using other terms such as \"attributes\" or \"fields\", but for the purposes of this reference we will use \"properties\". They are defined by using one of the keywords public, protected, or private, followed by a normal variable declaration. This declaration may include an initialization, but this initialization must be a constant value--that is, it must be able to be evaluated at compile time and must not depend on run-time information in order to be evaluated.",
 		more: "",
-		link: ""
+		link: "php.net/manual/en/language.oop5.properties.php"
 	},
 	130: {
 		syntax: "$foo",
 		target: "T_VARIABLE",
 		weight: parseTokenWeight,
-		define: "",
+		define: "Variables in PHP are represented by a dollar sign followed by the name of the variable. The variable name is case-sensitive.Variable names follow the same rules as other labels in PHP. A valid variable name starts with a letter or underscore, followed by any number of letters, numbers, or underscores.",
 		more: "",
-		link: ""
+		link: "php.net/manual/en/language.variables.basics.php"
 	},
 	131: {
 		syntax: "while",
 		target: "T_WHILE",
 		weight: parseTokenWeight,
-		define: "",
+		define: "while loops are the simplest type of loop in PHP. They behave just like their C counterparts. The basic form of a while statement is: <pre> while (expr){  statement } </pre> The meaning of a while statement is simple. It tells PHP to execute the nested statement(s) repeatedly, as long as the while expression evaluates to TRUE. The value of the expression is checked each time at the beginning of the loop, so even if this value changes during the execution of the nested statement(s), execution will not stop until the end of the iteration (each time PHP runs the statements in the loop is one iteration). Sometimes, if the while expression evaluates to FALSE from the very beginning, the nested statement(s) won't even be run once.",
 		more: "",
-		link: ""
+		link: "php.net/manual/en/control-structures.while.php"
 	},
 	132: {
 		syntax: "\\t \\r\\n",
 		target: "T_WHITESPACE",
 		weight: parseTokenWeight,
-		define: "",
+		define: "<pre>\\r</pre> = \"return\", <pre>\\n</pre> = \"new line\" and <pre>\\t</pre> = \"tab\"",
 		more: "",
-		link: ""
+		link: "stackoverflow.com/questions/15423001/how-are-r-t-and-n-different-from-one-another"
 	},
 	133: {
 		syntax: "^=",
 		target: "T_XOR_EQUAL",
 		weight: parseTokenWeight,
-		define: "",
+		define: "<pre> $a ^= $b </pre> Same as: <pre> $a = $a ^ $b </pre>",
 		more: "",
-		link: ""
+		link: "php.net/manual/en/language.operators.assignment.php"
 	},
 	134: {
 		syntax: "yield",
 		target: "T_YIELD",
 		weight: parseTokenWeight,
-		define: "",
+		define: "The heart of a generator function is the yield keyword. In its simplest form, a yield statement looks much like a return statement, except that instead of stopping execution of the function and returning, yield instead provides a value to the code looping over the generator and pauses execution of the generator function.",
 		more: "",
-		link: ""
+		link: "php.net/manual/en/language.generators.syntax.php#control-structures.yield"
 	},
 	135: {
 		syntax: "yield from",
 		target: "T_YIELD_FROM",
 		weight: parseTokenWeight,
-		define: "",
+		define: "In PHP 7, generator delegation allows you to yield values from another generator, Traversable object, or array by using the yield from keyword. The outer generator will then yield all values from the inner generator, object, or array until that is no longer valid, after which execution will continue in the outer generator.If a generator is used with yield from, the yield from expression will also return any value returned by the inner generator.",
 		more: "",
-		link: ""
+		link: "php.net/manual/en/language.generators.syntax.php#control-structures.yield.from"
 	}
 }
 
@@ -1134,11 +1136,15 @@ function formatPhpMessage(message, extraData)
 	{
 		firstPartOfMessage = formatMainMessage(firstPartOfMessage, extraData);
 	}
-	let morePhpInfo = getMorePhpInfo(restOfMessage);
-	let buttonOfInfo = "";
-	if(Object.keys(morePhpInfo).length > 0)
+	buttonOfInfo = "";
+	if(logFormatShowMoreButton === "true")
 	{
-		buttonOfInfo = "<span><span style=\"float:right; margin-top: -3px;\" class=\"linkSmall\" onclick=\"showMoreInfo(this)\" >More Info</span><div style=\"display: none;\" >"+formatMoreInfo(morePhpInfo)+"</div></span>"
+		let morePhpInfo = getMorePhpInfo(restOfMessage);
+		let buttonOfInfo = "";
+		if(Object.keys(morePhpInfo).length > 0)
+		{
+			buttonOfInfo = "<span><span style=\"float:right; margin-top: -3px;\" class=\"linkSmall\" onclick=\"showMoreInfo(this)\" >More Info</span><div style=\"display: none;\" >"+formatMoreInfo(morePhpInfo)+"</div></span>"
+		}
 	}
 	return firstPartOfMessage+"<div>"+severity+messageWarning+buttonOfInfo+"</div><div class=\"settingsDiv\">"+restOfMessage+"</div>";
 }
