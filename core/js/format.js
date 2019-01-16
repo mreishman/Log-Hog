@@ -185,13 +185,36 @@ function formatMessageFileData(message, extraData)
 function formatMoreInfo(objOfInfo)
 {
 	returnHtml = "<table>";
+	returnHtml += "<tr><th>More Info: <span onclick=\"toggleInfoSidebar();\" class=\"linkSmall\" >Close</span></th></tr>"
 	let objOfInfoKeys = Object.keys(objOfInfo);
 	let objOfInfoKeysLength = objOfInfoKeys.length;
+	let borderBottomClass = " class=\"addBorderBottom\" style=\"padding-bottom: 3px;\" ";
 	for(let OOIKCount = 0; OOIKCount < objOfInfoKeysLength; OOIKCount++)
 	{
-		returnHtml += "<tr><td><b>"+objOfInfo[objOfInfoKeys[OOIKCount]]["hit"]+"</b></td></tr>";
+		returnHtml += "<tr><td style=\"margin-top: 5px;\" "+borderBottomClass+" ><b>"+objOfInfo[objOfInfoKeys[OOIKCount]]["hit"]+"</b></td></tr>";
+		if("" !== objOfInfo[objOfInfoKeys[OOIKCount]]["syntax"])
+		{
+			returnHtml += "<tr><td "+borderBottomClass+" ><b>Syntax: </b></td></tr>";
+			returnHtml += "<tr><td>"+objOfInfo[objOfInfoKeys[OOIKCount]]["syntax"]+"</td></tr>";
+		}
+		returnHtml += "<tr><td "+borderBottomClass+" ><b>Definition: </b></td></tr>";
 		returnHtml += "<tr><td>"+objOfInfo[objOfInfoKeys[OOIKCount]]["info"]+"</td></tr>";
-		returnHtml += "<tr><td><span style=\"display: none;\" >"+objOfInfo[objOfInfoKeys[OOIKCount]]["moreinfo"]+"</span></td></tr>";
+		if(objOfInfo[objOfInfoKeys[OOIKCount]]["moreinfo"] !== "")
+		{
+			//add show more button with more info
+			returnHtml += "<tr><td style=\"padding-bottom: 5px;\"> <span class=\"linkSmall showMoreEvenMore"+OOIKCount+"\" onclick=\"showEvenMoreInfo("+OOIKCount+");\" >Show More</span></td></tr>";
+			returnHtml += "<tr><td><span style=\"display: none;\" class=\"evenMoreInfo"+OOIKCount+"\" >"+objOfInfo[objOfInfoKeys[OOIKCount]]["moreinfo"]+"</span></td></tr>";
+			returnHtml += "<tr><td><span style=\"display: none;\" class=\"linkSmall hideMoreEvenMore"+OOIKCount+"\" onclick=\"hideEvenMoreInfo("+OOIKCount+");\" >Show Less</span></td></tr>";
+		}
+		if("" !== objOfInfo[objOfInfoKeys[OOIKCount]]["link"])
+		{
+			returnHtml += "<tr><td "+borderBottomClass+" ><b>Link:</b></td></tr>";
+			returnHtml += "<tr><td><a href=\""+objOfInfo[objOfInfoKeys[OOIKCount]]["link"]+"\" target=\"_blank\">"+objOfInfo[objOfInfoKeys[OOIKCount]]["link"]+"</a></td></tr>";
+		}
+		if("" !== objOfInfo[objOfInfoKeys[OOIKCount]]["link2"])
+		{
+			returnHtml += "<tr><td><a href=\""+objOfInfo[objOfInfoKeys[OOIKCount]]["link2"]+"\" target=\"_blank\">"+objOfInfo[objOfInfoKeys[OOIKCount]]["link2"]+"</a></td></tr>";
+		}
 	}
 	returnHtml += "</table>";
 	return returnHtml;
@@ -199,8 +222,23 @@ function formatMoreInfo(objOfInfo)
 
 function showMoreInfo(e)
 {
+	showInfoSidebar();
 	let htmlForSidebar = $(e).siblings('div').html();
-	console.log(htmlForSidebar);
+	$("#moreInfoSideBar").html(htmlForSidebar);
+}
+
+function showEvenMoreInfo(id)
+{
+	$("#moreInfoSideBar .evenMoreInfo"+id).show();
+	$("#moreInfoSideBar .showMoreEvenMore"+id).hide();
+	$("#moreInfoSideBar .hideMoreEvenMore"+id).show();
+}
+
+function hideEvenMoreInfo(id)
+{
+	$("#moreInfoSideBar .evenMoreInfo"+id).hide();
+	$("#moreInfoSideBar .showMoreEvenMore"+id).show();
+	$("#moreInfoSideBar .hideMoreEvenMore"+id).hide();
 }
 
 function formatJsonMessage(message, extraData)
@@ -486,4 +524,63 @@ function updateFileDataArrayInner(newDataArr)
 			}
 		}
 	}
+}
+
+function toggleInfoSidebar()
+{
+	if(document.getElementById("moreInfoSideBar").style.display === "none")
+	{
+		let newWidth = window.innerWidth - 200;
+		newWidth = adjustLogForMenuLocation(newWidth);
+		if(typeof adjustLogForSettingsSideBar !== "undefined")
+		{
+			newWidth = adjustLogForSettingsSideBar(newWidth);
+		}
+		document.getElementById("log").style.width = newWidth+"px";
+		document.getElementById("log").style.marginRight = "200px";
+		document.getElementById("moreInfoSideBar").style.display = "inline-block";
+	}
+	else
+	{
+		let newWidth = "100%";
+		let newWidthTest = window.innerWidth;
+		if(typeof adjustLogForSettingsSideBar !== "undefined")
+		{
+			newWidthTest = adjustLogForSettingsSideBar(newWidthTest);
+		}
+		if(newWidthTest !== window.innerWidth)
+		{
+			newWidthTest = adjustLogForMenuLocation(newWidthTest);
+			newWidth = newWidthTest;
+		}
+		document.getElementById("log").style.width = newWidth;
+		document.getElementById("log").style.marginRight = "0px";
+		document.getElementById("moreInfoSideBar").style.display = "none";
+	}
+	resize();
+}
+
+function showInfoSidebar()
+{
+	if(document.getElementById("moreInfoSideBar").style.display === "none")
+	{
+		toggleInfoSidebar();
+	}
+}
+
+function hideInfoSidebar()
+{
+	if(document.getElementById("moreInfoSideBar").style.display !== "none")
+	{
+		toggleInfoSidebar();
+	}
+}
+
+function adjustLogForInfoSideBar(mainWidth)
+{
+	if(document.getElementById("moreInfoSideBar").style.display !== "none")
+	{
+		mainWidth -= 200;
+	}
+	return mainWidth;
 }

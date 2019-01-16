@@ -2,10 +2,11 @@ function toggleSettingsSidebar()
 {
 	if(document.getElementById("settingsSideBar").style.display === "none")
 	{
-		var newWidth = window.innerWidth - 200;
-		if((logMenuLocation === "left" || logMenuLocation === "right") && allLogsVisible === "true")
+		let newWidth = window.innerWidth - 200;
+		newWidth = adjustLogForMenuLocation(newWidth);
+		if(typeof adjustLogForInfoSideBar !== "undefined")
 		{
-			newWidth -= document.getElementById("menu").getBoundingClientRect().width;
+			newWidth = adjustLogForInfoSideBar(newWidth);
 		}
 		document.getElementById("log").style.width = newWidth+"px";
 		document.getElementById("log").style.marginLeft = "200px";
@@ -13,11 +14,31 @@ function toggleSettingsSidebar()
 	}
 	else
 	{
-		document.getElementById("log").style.width = "100%";
+		let newWidth = "100%";
+		let newWidthTest = window.innerWidth;
+		if(typeof adjustLogForInfoSideBar !== "undefined")
+		{
+			newWidthTest = adjustLogForInfoSideBar(newWidthTest);
+		}
+		if(newWidthTest !== window.innerWidth)
+		{
+			newWidthTest = adjustLogForMenuLocation(newWidthTest);
+			newWidth = newWidthTest;
+		}
+		document.getElementById("log").style.width = newWidth;
 		document.getElementById("log").style.marginLeft = "0px";
 		document.getElementById("settingsSideBar").style.display = "none";
 	}
 	resize();
+}
+
+function adjustLogForSettingsSideBar(mainWidth)
+{
+	if(document.getElementById("settingsSideBar").style.display !== "none")
+	{
+		mainWidth -= 200;
+	}
+	return mainWidth;
 }
 
 function swapLayoutLetters(letter)

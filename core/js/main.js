@@ -933,6 +933,15 @@ function getDiffLogAndLastLog(id)
 	}
 }
 
+function adjustLogForMenuLocation(mainWidth)
+{
+	if((logMenuLocation === "left" || logMenuLocation === "right") && allLogsVisible === "true")
+	{
+		mainWidth -= document.getElementById("menu").getBoundingClientRect().width;
+	}
+	return mainWidth;
+}
+
 function resize()
 {
 	try
@@ -959,6 +968,10 @@ function resize()
 		if($("#settingsSideBar").outerHeight() !== targetHeight)
 		{
 			$("#settingsSideBar").outerHeight(targetHeight);
+		}
+		if($("#moreInfoSideBar").outerHeight() !== targetHeight)
+		{
+			$("#moreInfoSideBar").outerHeight(targetHeight);
 		}
 		if(logMenuLocation === "bottom")
 		{

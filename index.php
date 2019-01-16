@@ -160,6 +160,7 @@ $externalLinkImage = generateImage(
 				<h3 id="progressBarSubInfo" style="margin-right: auto; margin-left: auto; width: 100%; text-align: center;  margin-top: 10px; font-size: 150%;" >Loading Javascript</h3>
 			</div>
 			<div id="noLogToDisplay" class='errorMessageLog errorMessageGreenBG' style="display: none; margin-top: 2%;" > There are currently no logs to display. </div>
+			<div id="moreInfoSideBar" class="fullScreenMenuLeftSidebar" style="display: none; position: absolute; width: 200px; overflow-y: auto;overflow-x: hidden; border: none; right: 0; bottom: 0; word-break: break-word;"></div>
 		</div>
 		<div id="storage">
 			<?php

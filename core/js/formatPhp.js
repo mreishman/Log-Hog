@@ -1154,12 +1154,18 @@ function getMorePhpInfo(message)
 		let search = "("+phpInfoArr[phpInfoArrKeys[PIAKCount]]["target"]+")";
 		if(message.indexOf(search) > -1)
 		{
-			let linkHtml = "";
+			let link2Text = "";
+			if("link2" in phpInfoArr[phpInfoArrKeys[PIAKCount]])
+			{
+				link2Text = phpInfoArr[phpInfoArrKeys[PIAKCount]]["link2"];
+			}
 			returnInfoObj[counterOfHits] = {
 				"hit" : phpInfoArr[phpInfoArrKeys[PIAKCount]]["target"],
 				"info": phpInfoArr[phpInfoArrKeys[PIAKCount]]["define"],
 				"moreinfo": phpInfoArr[phpInfoArrKeys[PIAKCount]]["more"],
-				"link" : linkHtml
+				"link" : phpInfoArr[phpInfoArrKeys[PIAKCount]]["link"],
+				"link2" : link2Text,
+				"syntax" : phpInfoArr[phpInfoArrKeys[PIAKCount]]["syntax"]
 			}
 			counterOfHits++;
 		}

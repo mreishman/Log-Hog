@@ -914,7 +914,7 @@ $defaultConfigMoreData = array(
 						"type"								=>	"single",
 						"var"								=>	array(
 							"key"								=>	"scrollEvenIfScrolled",
-							"name"								=>	"Scroll even if Scrolled:",
+							"name"								=>	"Scroll even if Scrolled",
 							"options"							=>	$trueFalsVars,
 							"type"								=>	"dropdown"
 						)
