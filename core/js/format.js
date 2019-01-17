@@ -63,7 +63,7 @@ function formatLine(text, extraData)
 		arrayOfTextLastLine = dateTimeSplit(extraData["lastLine"]);
 	}
 	let timeFormat = dateTimeFormat(arrayOfText);
-	if(timeFormat === dateTimeFormat(arrayOfTextLastLine))
+	if(dateTextGroup === "true" && timeFormat === dateTimeFormat(arrayOfTextLastLine))
 	{
 		timeFormat = "";
 	}

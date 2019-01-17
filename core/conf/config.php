@@ -27,6 +27,7 @@ $defaultConfig = array(
 	'dateTextFormat'				=> 'MM/|DD/|YYYY |hh:|mm:|ss',
 	'dateTextFormatColumn'			=> 'auto',
 	'dateTextFormatCustom'			=> '',
+	'dateTextGroup'					=> 'true',
 	'defaultNewAddAlertEnabled'		=>	'true',
 	'defaultNewAddAutoDeleteFiles'	=>	'',
 	'defaultNewAddExcludeTrim'		=>	'false',

@@ -718,6 +718,16 @@ $defaultConfigMoreData = array(
 				)
 			),
 			3									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"info"								=>	"Only displays top timestamp when more than one in a row are same",
+					"key"								=>	"dateTextGroup",
+					"name"								=>	"Group Same Timestamps",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			3									=>	array(
 				"bool"								=>	($logFormatFileEnable == 'false'),
 				"id"								=>	"logFormatFileEnableSettings",
 				"name"								=>	"Log File Link Settings",
