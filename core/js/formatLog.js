@@ -34,6 +34,11 @@ function makePrettyWithText(text, count, extraData = {})
 		{
 			addLineCount = "true";
 		}
+		var type = "log";
+		if("type" in extraData && extraData["type"] !== "")
+		{
+			type = extraData["type"];
+		}
 		if(text === "")
 		{
 			return "";
@@ -143,9 +148,20 @@ function makePrettyWithText(text, count, extraData = {})
 					}
 					returnText += ">";
 					var lineToReturn = "<td style=\"white-space: pre-wrap;\">"+lineText[j]+"</td>";
-					if(advancedLogFormatEnabled === "true")
+					if(type === "log" && advancedLogFormatEnabled === "true")
 					{
+						//file formatting specific to logs
 						lineToReturn = formatLine(lineText[j], {
+							customClass,
+							customClassAdd,
+							lineDisplay : addLineCount,
+							lineCount
+						});
+					}
+					else if (type === "file")
+					{
+						//formatting specific to files here
+						lineToReturn = formatFileLine(lineText[j], {
 							customClass,
 							customClassAdd,
 							lineDisplay : addLineCount,

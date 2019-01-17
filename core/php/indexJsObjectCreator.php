@@ -159,10 +159,20 @@ if($sendCrashInfoJS === "true")
 }
 if($advancedLogFormatEnabled === "true")
 {
-	$arrayOfFiles[] =  array(
-		"name" => "formatPhp.js",
-		"type" => "js"
-	);
+	if($logFormatPhpEnable === "true")
+	{
+		$arrayOfFiles[] =  array(
+			"name" => "formatPhp.js",
+			"type" => "js"
+		);
+	}
+	if($logFormatFileEnable === "true")
+	{
+		$arrayOfFiles[] =  array(
+			"name" => "formatFile.js",
+			"type" => "js"
+		);
+	}
 	$arrayOfFiles[] =  array(
 		"name" => "format.js",
 		"type" => "js"
