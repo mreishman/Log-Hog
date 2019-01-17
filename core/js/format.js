@@ -52,19 +52,34 @@ var arrOfMonthsLarge = {
 function formatLine(text, extraData)
 {
 	var arrayOfText = dateTimeSplit(text);
+	var arrayOfTextLastLine = {
+		0: "",
+		1: "",
+		2: "",
+		timeFound: false
+	};
+	if("lastLine" in extraData && extraData["lastLine"] !== "")
+	{
+		arrayOfTextLastLine = dateTimeSplit(extraData["lastLine"]);
+	}
+	let timeFormat = dateTimeFormat(arrayOfText);
+	if(timeFormat === dateTimeFormat(arrayOfTextLastLine))
+	{
+		timeFormat = "";
+	}
 	if(dateTextFormatColumn === "true" || (dateTextFormatColumn === "auto" && window.innerWidth > breakPointTwo))
 	{
 		if("lineDisplay" in extraData && extraData["lineDisplay"] === "true")
 		{
-			return "<td style=\"white-space:nowrap;width: 1%;\">" + dateTimeFormat(arrayOfText) + extraData["lineCount"] + "</td><td style=\"white-space: pre-wrap;\">" + formatMainMessage(arrayOfText[1], extraData) + "</td>";
+			return "<td style=\"white-space:nowrap;width: 1%;\">" + timeFormat + extraData["lineCount"] + "</td><td style=\"white-space: pre-wrap;\">" + formatMainMessage(arrayOfText[1], extraData) + "</td>";
 		}
-		return "<td style=\"white-space:nowrap;width: 1%;\">" + dateTimeFormat(arrayOfText) + "</td><td style=\"white-space: pre-wrap;\">" + formatMainMessage(arrayOfText[1], extraData) + "</td>";
+		return "<td style=\"white-space:nowrap;width: 1%;\">" + timeFormat + "</td><td style=\"white-space: pre-wrap;\">" + formatMainMessage(arrayOfText[1], extraData) + "</td>";
 	}
 	else if("lineDisplay" in extraData && extraData["lineDisplay"] === "true")
 	{
-		return "<td style=\"white-space:nowrap;width: 1%;\">" + extraData["lineCount"] + "</td><td style=\"white-space: pre-wrap;\">" + dateTimeFormat(arrayOfText) + formatMainMessage(arrayOfText[1], extraData) + "</td>";
+		return "<td style=\"white-space:nowrap;width: 1%;\">" + extraData["lineCount"] + "</td><td style=\"white-space: pre-wrap;\">" + timeFormat + formatMainMessage(arrayOfText[1], extraData) + "</td>";
 	}
-	return "<td style=\"white-space: pre-wrap;\">" + dateTimeFormat(arrayOfText) + formatMainMessage(arrayOfText[1], extraData) + "</td>";
+	return "<td style=\"white-space: pre-wrap;\">" + timeFormat + formatMainMessage(arrayOfText[1], extraData) + "</td>";
 }
 
 

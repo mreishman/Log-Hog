@@ -57,6 +57,7 @@ function makePrettyWithText(text, count, extraData = {})
 		var topPadding = filterContentLinePadding;
 		var foundOne = false;
 		var addLine = false;
+		var lastLine = "";
 		var filterTextField = "";
 		if(filterEnabled === "true")
 		{
@@ -155,7 +156,8 @@ function makePrettyWithText(text, count, extraData = {})
 							customClass,
 							customClassAdd,
 							lineDisplay : addLineCount,
-							lineCount
+							lineCount,
+							lastLine
 						});
 					}
 					else if (type === "file")
@@ -168,6 +170,7 @@ function makePrettyWithText(text, count, extraData = {})
 							lineCount
 						});
 					}
+					lastLine = lineText[j];
 					returnText += "<td style=\"width: 31px; padding: 0;\"></td>"+lineToReturn+"</tr><tr height=\""+logLinePadding+"px\"><td colspan=\"2\"></td></tr>";
 				}
 			}
