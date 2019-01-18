@@ -156,12 +156,15 @@ function formatMainMessage(message, extraData)
 			return formatPhpMessage(message, extraData);
 		}
 	}
-	if(message.indexOf("report.") > -1)
+	if(logFormatReportEnable === "true")
 	{
-		found = getTypeOfReportSev(message);
-		if(found !== false)
+		if(message.indexOf("report.") > -1)
 		{
-			return formatReportMessage(message, extraData);
+			found = getTypeOfReportSev(message);
+			if(found !== false)
+			{
+				return formatReportMessage(message, extraData);
+			}
 		}
 	}
 	//check if message is in arrayOfFileData
@@ -259,7 +262,7 @@ function formatReportMessage(message, extraData)
 			lastErrorSame = true;
 		}
 	}
-	if(logFormatPhpShowImg === "true")
+	if(logFormatReportShowImg === "true")
 	{
 		let firstPartArr = firstPart.split(".");
 		severity = "<img src=\""+getReportSeverifyLevel(firstPartArr[1])+"\" height=\"15px\">";

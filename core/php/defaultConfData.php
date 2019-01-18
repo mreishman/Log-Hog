@@ -727,7 +727,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			3									=>	array(
+			4									=>	array(
 				"bool"								=>	($logFormatFileEnable == 'false'),
 				"id"								=>	"logFormatFileEnableSettings",
 				"name"								=>	"Log File Link Settings",
@@ -805,7 +805,7 @@ $defaultConfigMoreData = array(
 					),
 				)
 			),
-			4									=>	array(
+			5									=>	array(
 				"bool"								=>	($logFormatPhpEnable == 'false'),
 				"id"								=>	"logFormatPhpEnableSettings",
 				"name"								=>	"Log Php Message Format Settings",
@@ -839,7 +839,32 @@ $defaultConfigMoreData = array(
 					)
 				)
 			),
-			5									=>	array(
+			6									=>	array(
+				"bool"								=>	($logFormatReportEnable == 'false'),
+				"id"								=>	"logFormatReportEnableSettings",
+				"name"								=>	"Log Report Message Format Settings",
+				"type"								=>	"grouped",
+				"var"								=>	array(
+					"function"							=>	"showOrHidelogFormatReportEnableSettings",
+					"id"								=>	"logFormatReportEnable",
+					"key"								=>	"logFormatReportEnable",
+					"name"								=>	"Format report message errors",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				),
+				"vars"								=>	array(
+					0									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"logFormatReportShowImg",
+							"name"								=>	"Show Severify Image",
+							"options"							=>	$trueFalsVars,
+							"type"								=>	"dropdown"
+						)
+					)
+				)
+			),
+			7									=>	array(
 				"bool"								=>	($logFormatShowMoreButton == 'false'),
 				"id"								=>	"logFormatShowMoreButtonSettings",
 				"name"								=>	"Log Show More Button Settings",
