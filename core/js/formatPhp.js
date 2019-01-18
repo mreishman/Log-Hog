@@ -1282,24 +1282,5 @@ function parseErrorMessage(restOfMessage, extraData)
 
 function getPhpSeverifyLevel(snippit)
 {
-	var phpRedWarningArrKeys = Object.keys(phpRedWarningArr);
-	var phpRedWarningArrLength = phpRedWarningArrKeys.length;
-	for (var rwaCount = 0; rwaCount < phpRedWarningArrLength; rwaCount++)
-	{
-		if(snippit.indexOf(phpRedWarningArr[phpRedWarningArrKeys[rwaCount]]) > -1)
-		{
-			return arrayOfImages["redWarning"]["src"];
-		}
-	}
-	var phpYellowWarningArrKeys = Object.keys(phpYellowWarningArr);
-	var phpYellowWarningArrLength = phpYellowWarningArrKeys.length;
-	for (var rwaCount = 0; rwaCount < phpYellowWarningArrLength; rwaCount++)
-	{
-		if(snippit.indexOf(phpYellowWarningArr[phpYellowWarningArrKeys[rwaCount]]) > -1)
-		{
-			return arrayOfImages["yellowWarning"]["src"];
-		}
-	}
-
-	return arrayOfImages["info"]["src"];
+	return getSeverifyLevel(snippit, phpRedWarningArr, phpYellowWarningArr);
 }
