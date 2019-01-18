@@ -146,14 +146,6 @@ function dateTimeSplit(text)
 
 function formatMainMessage(message, extraData)
 {
-	if(message.indexOf("{") > -1 && message.lastIndexOf("}") > message.indexOf("{"))
-	{
-		let messageData = formatJsonMessage(message, extraData);
-		if(messageData["success"] === true)
-		{
-			return messageData["text"];
-		}
-	}
 	if(logFormatPhpEnable === "true")
 	{
 		if(message.indexOf("PHP message:") > -1)
@@ -170,6 +162,14 @@ function formatMainMessage(message, extraData)
 			{
 				return formatReportMessage(message, extraData);
 			}
+		}
+	}
+	if(message.indexOf("{") > -1 && message.lastIndexOf("}") > message.indexOf("{"))
+	{
+		let messageData = formatJsonMessage(message, extraData);
+		if(messageData["success"] === true)
+		{
+			return messageData["text"];
 		}
 	}
 	//check if message is in arrayOfFileData
@@ -439,8 +439,42 @@ function formatJsonMessage(message, extraData)
 						excapeHTML = true;
 						if(typeof newMessage !== "object")
 						{
-							//console.log(unescapeHTML(jsonMessage));
-							return defaultMessage;
+							//check if in array
+							jsonMessage = message.substring(message.indexOf("["),message.lastIndexOf("]") + 1);
+							newMessage = jsonDecodeTry(jsonMessage);
+							excapeHTML = false;
+							if(typeof newMessage !== "object")
+							{
+								newerMessage = unescapeHTML(jsonMessage);
+								if(newerMessage !== "")
+								{
+									newMessage = jsonDecodeTry("" + newerMessage);
+									excapeHTML = true;
+									if(typeof newMessage !== "object")
+									{
+										newerMessage = unescapeHTML(jsonMessage).replace(/\\/g,"\\\\");
+										if(newerMessage !== "")
+										{
+											newMessage = jsonDecodeTry("" + newerMessage);
+											excapeHTML = true;
+											if(typeof newMessage !== "object")
+											{
+												//console.log(unescapeHTML(jsonMessage));
+												return defaultMessage;
+											}
+										}
+										else
+										{
+											return defaultMessage;
+										}
+									}
+								}
+								else
+								{
+									return defaultMessage;
+								}
+							}
+
 						}
 					}
 					else
