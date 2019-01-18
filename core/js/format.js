@@ -63,20 +63,10 @@ var reportYellowWarningArr = {
 
 function formatLine(text, extraData)
 {
-	extraData["lastLineSame"] = false;
 	var arrayOfText = dateTimeSplit(text);
-	var arrayOfTextLastLine = {
-		0: "",
-		1: "",
-		2: "",
-		timeFound: false
-	};
-	if("lastLine" in extraData && extraData["lastLine"] !== "")
-	{
-		arrayOfTextLastLine = dateTimeSplit(extraData["lastLine"]);
-	}
 	let timeFormat = dateTimeFormat(arrayOfText);
-	extraData["lastLineSame"] = (arrayOfText[0] === arrayOfTextLastLine[0]);
+	extraData["lastLineSame"] = checkIfTimeStampSame(arrayOfText, extraData, "lastLine")
+	extraData["nextLineSame"] = checkIfTimeStampSame(arrayOfText, extraData, "nextLine")
 	if(dateTextGroup === "true" && extraData["lastLineSame"])
 	{
 		timeFormat = "";
@@ -94,6 +84,21 @@ function formatLine(text, extraData)
 		return "<td style=\"white-space:nowrap;width: 1%;\">" + extraData["lineCount"] + "</td><td style=\"white-space: pre-wrap;\">" + timeFormat + formatMainMessage(arrayOfText[1], extraData) + "</td>";
 	}
 	return "<td style=\"white-space: pre-wrap;\">" + timeFormat + formatMainMessage(arrayOfText[1], extraData) + "</td>";
+}
+
+function checkIfTimeStampSame(arrayOfText, extraData, type)
+{
+	var arrayOfTextLastLine = {
+		0: "",
+		1: "",
+		2: "",
+		timeFound: false
+	};
+	if(type in extraData && extraData[type] !== "")
+	{
+		arrayOfTextLastLine = dateTimeSplit(extraData[type]);
+	}
+	return (arrayOfText[0] === arrayOfTextLastLine[0]);
 }
 
 
@@ -262,6 +267,28 @@ function formatReportMessage(message, extraData)
 			lastErrorSame = true;
 		}
 	}
+	//check for same type next line
+	var arrayOfTextNextLine = {
+		0: "",
+		1: "",
+		2: "",
+		timeFound: false
+	};
+	if("nextLine" in extraData && extraData["nextLine"] !== "")
+	{
+		arrayOfTextNextLine = dateTimeSplit(extraData["nextLine"]);
+	}
+	let nextLineFormatError = getTypeOfReportSev(arrayOfTextNextLine[1]);
+	let nextErrorSame = false;
+	if(nextLineFormatError === thisLineFormatError)
+	{
+		//check if time is same as well
+		if(extraData["nextLineSame"])
+		{
+			nextErrorSame = true;
+		}
+	}
+	//other stuff
 	if(logFormatReportShowImg === "true")
 	{
 		let firstPartArr = firstPart.split(".");
@@ -272,7 +299,16 @@ function formatReportMessage(message, extraData)
 	{
 		lineToReturn += "<div>"+severity+firstPart+"</div>";
 	}
-	lineToReturn += "<div class=\"settingsDiv\">"+formatMainMessage(message, extraData)+"</div>";
+	let classToAdd = " settingsDiv ";
+	if(lastErrorSame)
+	{
+		classToAdd += " settingsDivRemoveTop ";
+	}
+	if(nextErrorSame)
+	{
+		classToAdd += " settingsDivRemoveBottom ";
+	}
+	lineToReturn += "<div class=\""+classToAdd+"\">"+formatMainMessage(message, extraData)+"</div>";
 	return lineToReturn;
 }
 
