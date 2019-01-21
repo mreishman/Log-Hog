@@ -390,6 +390,53 @@ function formatMoreInfo(objOfInfo)
 	return returnHtml;
 }
 
+function getMoreInfo(message, type, counterOfHits)
+{
+	let returnInfoObj = {
+		data: {},
+		empty: true
+	};
+	if("strpos" in arrOfMoreInfo && type in arrOfMoreInfo["strpos"])
+	{
+		let phpInfoArr = arrOfMoreInfo["strpos"][type];
+		let phpInfoArrKeys = Object.keys(phpInfoArr);
+		let phpInfoArrKeysLength = phpInfoArrKeys.length;
+		for(let PIAKCount = 0; PIAKCount < phpInfoArrKeysLength; PIAKCount++)
+		{
+			let innerObj = phpInfoArr[phpInfoArrKeys[PIAKCount]];
+			let innerObjKeys = Object.keys(innerObj);
+			let innerObjKeysLength = innerObjKeys.length;
+			for(let IOKCount = 0; IOKCount < innerObjKeysLength; IOKCount++)
+			{
+				let currentSearch = innerObj[innerObjKeys[IOKCount]];
+				let search = "("+currentSearch["target"]+")";
+				if(message.indexOf(search) > -1)
+				{
+					let link2Text = "";
+					if("link2" in currentSearch)
+					{
+						link2Text = currentSearch["link2"];
+					}
+					returnInfoObj["data"][counterOfHits] = {
+						"hit" : currentSearch["target"],
+						"info": currentSearch["define"],
+						"moreinfo": currentSearch["more"],
+						"link" : currentSearch["link"],
+						"link2" : link2Text,
+						"syntax" : currentSearch["syntax"]
+					}
+					if(returnInfoObj["empty"])
+					{
+						returnInfoObj["empty"] = false;
+					}
+					counterOfHits++;
+				}
+			}
+		}
+	}
+	return returnInfoObj;
+}
+
 function showMoreInfo(e)
 {
 	showInfoSidebar();

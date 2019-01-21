@@ -38,52 +38,14 @@ function formatPhpMessage(message, extraData)
 	buttonOfInfo = "";
 	if(logFormatShowMoreButton === "true")
 	{
-		let morePhpInfo = getMorePhpInfo(restOfMessage);
+		let morePhpInfo = getMoreInfo(restOfMessage, "php", 0);
 		let buttonOfInfo = "";
-		if(Object.keys(morePhpInfo).length > 0)
+		if(!morePhpInfo["empty"])
 		{
-			buttonOfInfo = "<span><span style=\"float:right; margin-top: -3px;\" class=\"linkSmall\" onclick=\"showMoreInfo(this)\" >More Info</span><div style=\"display: none;\" >"+formatMoreInfo(morePhpInfo)+"</div></span>"
+			buttonOfInfo = "<span><span style=\"float:right; margin-top: -3px;\" class=\"linkSmall\" onclick=\"showMoreInfo(this)\" >More Info</span><div style=\"display: none;\" >"+formatMoreInfo(morePhpInfo["data"])+"</div></span>"
 		}
 	}
 	return firstPartOfMessage+"<div>"+severity+messageWarning+buttonOfInfo+"</div><div class=\"settingsDiv\">"+restOfMessage+"</div>";
-}
-
-function getMorePhpInfo(message)
-{
-	let phpInfoArr = arrOfMoreInfo["strpos"]["php"];
-	let counterOfHits = 0;
-	let returnInfoObj = {};
-	let phpInfoArrKeys = Object.keys(phpInfoArr);
-	let phpInfoArrKeysLength = phpInfoArrKeys.length;
-	for(let PIAKCount = 0; PIAKCount < phpInfoArrKeysLength; PIAKCount++)
-	{
-		let innerObj = phpInfoArr[phpInfoArrKeys[PIAKCount]];
-		let innerObjKeys = Object.keys(innerObj);
-		let innerObjKeysLength = innerObjKeys.length;
-		for(let IOKCount = 0; IOKCount < innerObjKeysLength; IOKCount++)
-		{
-			let currentSearch = innerObj[innerObjKeys[IOKCount]];
-			let search = "("+currentSearch["target"]+")";
-			if(message.indexOf(search) > -1)
-			{
-				let link2Text = "";
-				if("link2" in currentSearch)
-				{
-					link2Text = currentSearch["link2"];
-				}
-				returnInfoObj[counterOfHits] = {
-					"hit" : currentSearch["target"],
-					"info": currentSearch["define"],
-					"moreinfo": currentSearch["more"],
-					"link" : currentSearch["link"],
-					"link2" : link2Text,
-					"syntax" : currentSearch["syntax"]
-				}
-				counterOfHits++;
-			}
-		}
-	}
-	return returnInfoObj;
 }
 
 function parseErrorMessage(restOfMessage, extraData)
