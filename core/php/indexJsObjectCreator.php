@@ -181,6 +181,13 @@ if($advancedLogFormatEnabled === "true")
 		"name" => "dateFormat.min.js",
 		"type" => "js"
 	);
+	$directory = array_diff(scandir(baseURL()."core/js/formatObjects/"), array('..', '.'));
+	foreach ($directory as $file) {
+		$arrayOfFiles[] =  array(
+			"name" => "formatObjects/".$file,
+			"type" => "js"
+		);
+	}
 }
 if($themesEnabled === "true")
 {
@@ -297,6 +304,7 @@ usort($arrayOfFiles, 'compareByType');
 
 ?>
 <script type="text/javascript">
+	var arrOfMoreInfo = {};
 	var arrayOfJsFiles = <?php echo json_encode($arrayOfFiles); ?>;
 	var arrayOfJsFilesKeys = Object.keys(arrayOfJsFiles);
 	var lengthOfArrayOfJsFiles = arrayOfJsFilesKeys.length;
