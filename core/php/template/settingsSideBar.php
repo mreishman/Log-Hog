@@ -136,3 +136,14 @@ Hide Log Tabs
 		<option <?php if($allLogsVisible === "true"){ echo " selected "; }?>  value="true" >False</option>
 	</select>
 </span>
+<?php if($advancedLogFormatEnabled === "true"): ?>
+	<br>
+	<br>
+	Advanced Log Format
+	<span class="selectDiv">
+		<select onchange="tmpChangeAdvancedLogFormat();" id="advancedLogFormatEnabled">
+			<option <?php if($advancedLogFormatEnabled === "true"){ echo " selected "; }?>  value="true" >Enabled</option>
+			<option <?php if($advancedLogFormatEnabled === "false"){ echo " selected "; }?>  value="false" >Disabled</option>
+		</select>
+	</span>
+<?php endif; ?>

@@ -816,3 +816,13 @@ function adjustLogForInfoSideBar(mainWidth)
 	}
 	return mainWidth;
 }
+
+function tmpChangeAdvancedLogFormat()
+{
+	let currentValue = document.getElementById("advancedLogFormatEnabled").value;
+	if(currentValue !== advancedLogFormatEnabled)
+	{
+		advancedLogFormatEnabled = currentValue;
+		generalUpdate();
+	}
+}
