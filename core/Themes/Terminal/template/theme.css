@@ -388,6 +388,12 @@
   background: black;
   color: #009900;
 }
+.fullScreenMenuLeftSidebar a {
+  color: #009900;
+}
+.fullScreenMenuLeftSidebar a:visited {
+  color: #009900;
+}
 
 .settingsUl {
   color: #009900;

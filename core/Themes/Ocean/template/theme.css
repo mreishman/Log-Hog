@@ -388,6 +388,12 @@
   background: black;
   color: white;
 }
+.fullScreenMenuLeftSidebar a {
+  color: white;
+}
+.fullScreenMenuLeftSidebar a:visited {
+  color: white;
+}
 
 .settingsUl {
   color: white;

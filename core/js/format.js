@@ -365,10 +365,10 @@ function formatMoreInfo(objOfInfo)
 			{
 				returnHtml += "<tr><td style=\"padding-bottom: 5px;\"> <span class=\"linkSmall showMoreEvenMore"+OOIKCount+"\" onclick=\"showEvenMoreInfo("+OOIKCount+");\" >Show More</span></td></tr>";
 			}
-			let styleForMoreMoreInfo = "none";
+			let styleForMoreMoreInfo = "block";
 			if(logFormatShowMoreExtraInfo === "false")
 			{
-				styleForMoreMoreInfo = "block";
+				styleForMoreMoreInfo = "none";
 			}
 			returnHtml += "<tr><td><span style=\"display: "+styleForMoreMoreInfo+";\" class=\"evenMoreInfo"+OOIKCount+"\" >"+objOfInfo[objOfInfoKeys[OOIKCount]]["moreinfo"]+"</span></td></tr>";
 			if(logFormatShowMoreExtraInfo === "false")
@@ -385,6 +385,7 @@ function formatMoreInfo(objOfInfo)
 		{
 			returnHtml += "<tr><td><a href=\""+objOfInfo[objOfInfoKeys[OOIKCount]]["link2"]+"\" target=\"_blank\">"+objOfInfo[objOfInfoKeys[OOIKCount]]["link2"]+"</a></td></tr>";
 		}
+		returnHtml += "<tr style=\"height: 10px;\" ><td></td></tr>";
 	}
 	returnHtml += "</table>";
 	return returnHtml;

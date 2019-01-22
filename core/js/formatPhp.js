@@ -35,11 +35,10 @@ function formatPhpMessage(message, extraData)
 	{
 		firstPartOfMessage = formatMainMessage(firstPartOfMessage, extraData);
 	}
-	buttonOfInfo = "";
+	let buttonOfInfo = "";
 	if(logFormatShowMoreButton === "true")
 	{
 		let morePhpInfo = getMoreInfo(restOfMessage, "php", 0);
-		let buttonOfInfo = "";
 		if(!morePhpInfo["empty"])
 		{
 			buttonOfInfo = "<span><span style=\"float:right; margin-top: -3px;\" class=\"linkSmall\" onclick=\"showMoreInfo(this)\" >More Info</span><div style=\"display: none;\" >"+formatMoreInfo(morePhpInfo["data"])+"</div></span>"
