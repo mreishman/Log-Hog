@@ -1,5 +1,5 @@
 <div class="backgroundForMenus" id="header" >
-	<div id="menuButtons" style="display: block;">
+	<div id="menuButtons" style="display: none;">
 		<div onclick="toggleFullScreenMenu();"  class="menuImageDiv" id="mainMenuDiv">
 			<?php echo generateImage(
 				$arrayOfImages["loadingImg"],

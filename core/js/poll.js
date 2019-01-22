@@ -439,6 +439,7 @@ function firstLoadEndAction()
 	{
 		document.getElementById("menu").style.display = "block";
 	}
+	document.getElementById("menuButtons").style.display = "block";
 	document.getElementById("firstLoad").style.display = "none";
 	document.getElementById("searchType").disabled = false;
 	document.getElementById("searchFieldInput").disabled = false;
