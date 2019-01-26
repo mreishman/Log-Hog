@@ -445,6 +445,10 @@ function toggleDisplayOfNoLogs()
 			if(document.getElementById("noLogToDisplay").style.display !== "block")
 			{
 				document.getElementById("noLogToDisplay").style.display = "block";
+				
+			}
+			if(document.getElementById("log").style.display !== "none")
+			{
 				document.getElementById("log").style.display = "none";
 			}
 		}
@@ -454,6 +458,10 @@ function toggleDisplayOfNoLogs()
 			if(document.getElementById("noLogToDisplay").style.display !== "none")
 			{
 				document.getElementById("noLogToDisplay").style.display = "none";
+				
+			}
+			if(document.getElementById("log").style.display !== "block")
+			{
 				document.getElementById("log").style.display = "block";
 			}
 		}
