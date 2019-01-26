@@ -34,7 +34,7 @@
 					include("themeSub.php");
 				}
 				if($customThemeCreateNew): ?>
-				<div style="width: 600px; height: 400px; display: inline-block; background-color: grey; border: 1px solid white; margin: 20px;">
+				<div class="addBorder" style="width: 600px; height: 400px; display: inline-block; background-color: grey; margin: 20px;">
 					<span onclick="newThemePopup(<?php echo $customThemeNum; ?>)" style="cursor: pointer;" >
 						<h1 style="text-align: center; font-size: 400%" >+</h1>
 						<h1 style="text-align: center;" >Save as New Theme</h1>

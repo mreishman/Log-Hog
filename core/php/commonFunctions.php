@@ -227,7 +227,7 @@ function findUpdateValue($newestVersionCount, $versionCount, $newestVersion, $ve
 
 function addResetButton($idOfForm)
 {
-	return "<a onclick=\"resetArrayObject('".$idOfForm."');\" style=\"display: none;\" class=\"linkSmall ".$idOfForm."ResetButton\" > Reset Current Changes</a>";
+	return "<a onclick=\"resetArrayObject('".$idOfForm."');\" style=\"display: none;\" class=\"linkSmall ".$idOfForm."ResetButton\" > Reset Current Changes</a><span class=\"".$idOfForm."NoChangesDetected\" >No Changes Detected</span>";
 }
 
 function getFileSize($filename, $shellOrPhp)
@@ -1342,8 +1342,8 @@ function generateFolderColorRow($arrFCOdata = array())
 	$td2 .= "</span> ";
 	if($edit || $i === "{{i}}")
 	{
-		$td2 .= "<div class=\"colorSelectorDiv\" id=\"folderColorThemeNameForPost".$i."Add\" onclick=\"addColorBlock(".$i.")\" style=\"display: inline-block; border: 1px solid white; text-align: center; line-height: 18px; cursor: pointer; \"  >+</div>";
-		$td2 .= "<div class=\"colorSelectorDiv\" id=\"folderColorThemeNameForPost".$i."Remove\" onclick=\"removeColorBlock(".$i.")\" style=\"display: inline-block; border: 1px solid white; text-align: center; line-height: 18px; cursor: pointer; \"  >-</div>";
+		$td2 .= "<div class=\"colorSelectorDiv addBorder\" id=\"folderColorThemeNameForPost".$i."Add\" onclick=\"addColorBlock(".$i.")\" style=\"display: inline-block; text-align: center; line-height: 18px; cursor: pointer; \"  >+</div>";
+		$td2 .= "<div class=\"colorSelectorDiv addBorder\" id=\"folderColorThemeNameForPost".$i."Remove\" onclick=\"removeColorBlock(".$i.")\" style=\"display: inline-block; text-align: center; line-height: 18px; cursor: pointer; \"  >-</div>";
 	}
 	else
 	{
@@ -1493,7 +1493,7 @@ function generateColorBlock($arrCBdata = array())
 	}
 	else
 	{
-		$htmlToReturn .=	"<div class=\"colorSelectorDiv\" style=\"background-color: ".$backgroundColor.";border: 1px solid white;  border-bottom: 0px;\" >";
+		$htmlToReturn .=	"<div class=\"colorSelectorDiv addBorder\" style=\"background-color: ".$backgroundColor."; border-bottom: 0px;\" >";
 	}
 	$htmlToReturn .=	"</div>";
 	$htmlToReturn .=	"<input style=\"width: 100px; display: none;\" type=\"text\" id=\"folderColorValue".$name."Background".$i."-".$j."\" name=\"folderColorValue".$name."Background".$i."-".$j."\" value=\"".$backgroundColor."\" >";
@@ -1506,7 +1506,7 @@ function generateColorBlock($arrCBdata = array())
 	}
 	else
 	{
-		$htmlToReturn .=	"<div class=\"colorSelectorDiv\" style=\"background-color: ".$fontColor."; ?>;border: 1px solid white; border-top: 0px;\" >";
+		$htmlToReturn .=	"<div class=\"colorSelectorDiv addBorder\" style=\"background-color: ".$fontColor."; ?>; border-top: 0px;\" >";
 	}
 	$htmlToReturn .= 	"</div>";
 	$htmlToReturn .=	"<input style=\"width: 100px; display: none;\" type=\"text\" id=\"folderColorValue".$name."Font".$i."-".$j."\" name=\"folderColorValue".$name."Font".$i."-".$j."\" value=\"".$fontColor."\" >";

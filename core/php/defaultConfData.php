@@ -1,21 +1,27 @@
 <?php
 
 $oneToTenArr = array();
+$oneToFiveArr = array();
+$zeroToFiveArr = array();
 for ($i=0; $i < 10; $i++)
 {
 	$oneToTenArr[$i] = array(
 	"value" 					=> $i,
 	"name" 						=> $i);
-}
+	if($i > 0 && $i <= 5)
+	{
+		$oneToFiveArr[$i] = array(
+		"value" 					=> $i,
+		"name" 						=> $i);
+	}
 
-$saveVerifyArr = array();
-for ($j=1; $j <= 5; $j++)
-{
-	$saveVerifyArr[$j] = array(
-	"value" 					=> $j,
-	"name" 						=> $j);
+	if($i <= 5)
+	{
+		$zeroToFiveArr[$i] = array(
+		"value" 					=> $i,
+		"name" 						=> $i);
+	}
 }
-
 
 $arrayOfwindowConfigOptions = array();
 $counter = 0;
@@ -413,89 +419,19 @@ $defaultConfigMoreData = array(
 			1									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
-					"key"								=>	"developmentTabEnabled",
-					"name"								=>	"Enable Development Tools",
+					"key"								=>	"saveButtonAlwaysVisible",
+					"name"								=>	"Force save button visibility",
 					"options"							=>	$trueFalsVars,
 					"type"								=>	"dropdown"
 				)
 			),
 			2									=>	array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"themesEnabled",
-					"name"								=>	"Enable Themes",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				)
-			),
-			3									=>	array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"enableMultiLog",
-					"name"								=>	"Enable Multi-Log",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				)
-			),
-			4									=>	array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"enableHistory",
-					"name"								=>	"Enable History",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				)
-			),
-			5									=>	array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"oneLogEnable",
-					"name"								=>	"Enable One Log",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				)
-			),
-			6									=>	array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"rightClickMenuEnable",
-					"name"								=>	"Right Click Menu Enabled",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				)
-			),
-			7									=>	array(
-				"bool"								=>	($backupNumConfigEnabled == 'false'),
-				"id"								=>	"versionSaveContentSettings",
-				"name"								=>	"Backup Config Settings",
-				"type"								=>	"grouped",
-				"var"								=>	array(
-					"function"							=>	"showOrHideVersionSaveConfig",
-					"id"								=>	"backupNumConfigEnabled",
-					"key"								=>	"backupNumConfigEnabled",
-					"name"								=>	"Enable Backup Config Files",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				),
-				"vars"								=>	array(
-					0									=> array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"key"								=>	"backupNumConfig",
-							"name"								=>	"Number of versions saved",
-							"options"							=>	$oneToTenArr,
-							"type"								=>	"dropdown"
-						)
-					)
-				)
-			),
-			8									=>	array(
 				"info"								=>	"This is for platforms where saving files might not be in sync with containers. Increasing from one will make saves take longer, but it will be more accurate if there is that sync delay",
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"successVerifyNum",
 					"name"								=>	"Save verification number",
-					"options"							=>	$saveVerifyArr,
+					"options"							=>	$oneToFiveArr,
 					"type"								=>	"dropdown"
 				)
 			),
@@ -781,6 +717,99 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
+			3									=>	array(
+				"bool"								=>	($logFormatFileEnable == 'false'),
+				"id"								=>	"logFormatFileEnableSettings",
+				"name"								=>	"Log File Link Settings",
+				"type"								=>	"grouped",
+				"var"								=>	array(
+					"function"							=>	"showOrHidelogFormatFileEnableSettings",
+					"id"								=>	"logFormatFileEnable",
+					"key"								=>	"logFormatFileEnable",
+					"name"								=>	"Link files in logs",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				),
+				"vars"								=>	array(
+					0									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"logFormatFileBackground",
+							"name"								=>	"Background",
+							"type"								=>	"text"
+						)
+					),
+					1									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"logFormatFileFontColor",
+							"name"								=>	"Font",
+							"type"								=>	"text"
+						)
+					),
+					2									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"logFormatFileLineCount",
+							"name"								=>	"Show line count",
+							"options"							=>	$trueFalsVars,
+							"type"								=>	"dropdown"
+						)
+					),
+					3									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"logFormatFileLinePadding",
+							"name"								=>	"Line Padding +/-",
+							"options"							=>	$zeroToFiveArr,
+							"type"								=>	"dropdown"
+						)
+					),
+					4									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"logFormatFileMaxHeight",
+							"name"								=>	"Max Height",
+							"options"							=>	$oneLogLogMaxHeightArr,
+							"type"								=>	"dropdown"
+						)
+					),
+				)
+			),
+			4									=>	array(
+				"bool"								=>	($logFormatPhpEnable == 'false'),
+				"id"								=>	"logFormatPhpEnableSettings",
+				"name"								=>	"Log Php Message Format Settings",
+				"type"								=>	"grouped",
+				"var"								=>	array(
+					"function"							=>	"showOrHidelogFormatPhpEnableSettings",
+					"id"								=>	"logFormatPhpEnable",
+					"key"								=>	"logFormatPhpEnable",
+					"name"								=>	"Format php message errors",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				),
+				"vars"								=>	array(
+					0									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"logFormatPhpHideExtra",
+							"name"								=>	"Only Show Main Error Message",
+							"options"							=>	$trueFalsVars,
+							"type"								=>	"dropdown"
+						)
+					),
+					1									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"logFormatPhpShowImg",
+							"name"								=>	"Show Severify Image",
+							"options"							=>	$trueFalsVars,
+							"type"								=>	"dropdown"
+						)
+					)
+				)
+			),
 		)
 	),
 	"loggingVars"						=>	array(
@@ -1048,6 +1077,15 @@ $defaultConfigMoreData = array(
 				)
 			),
 			3									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"filterSearchInHeader",
+					"name"								=>	"Show filter search in header",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			3									=>	array(
 				"bool"								=>	($bottomBarIndexShow == 'false'),
 				"id"								=>	"sidebarContentSettings",
 				"name"								=>	"Sidebar Settings",
@@ -1242,6 +1280,100 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
+		)
+	),
+	"modules"							=>	array(
+		"id"								=>	"modules",
+		"name"								=>	"Modules",
+		"vars"								=>	array(
+			0									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"developmentTabEnabled",
+					"name"								=>	"Enable Development Tools",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			1									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"themesEnabled",
+					"name"								=>	"Enable Themes",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			2									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"enableMultiLog",
+					"name"								=>	"Enable Multi-Log",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			3									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"enableHistory",
+					"name"								=>	"Enable History",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			4									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"oneLogEnable",
+					"name"								=>	"Enable One Log",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			5									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"filterEnabled",
+					"name"								=>	"Enable Filters",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			6									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"rightClickMenuEnable",
+					"name"								=>	"Enable Right Click Menu",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			7									=>	array(
+				"bool"								=>	($backupNumConfigEnabled == 'false'),
+				"id"								=>	"versionSaveContentSettings",
+				"name"								=>	"Backup Config Settings",
+				"type"								=>	"grouped",
+				"var"								=>	array(
+					"function"							=>	"showOrHideVersionSaveConfig",
+					"id"								=>	"backupNumConfigEnabled",
+					"key"								=>	"backupNumConfigEnabled",
+					"name"								=>	"Enable Config Backup",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				),
+				"vars"								=>	array(
+					0									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"backupNumConfig",
+							"name"								=>	"Number of versions saved",
+							"options"							=>	$oneToTenArr,
+							"type"								=>	"dropdown"
+						)
+					)
+				)
+			)
 		)
 	),
 	"multiLogVars"						=>	array(
@@ -1588,7 +1720,39 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			2									=> array(
+			2									=>	array(
+				"bool"								=>	($oneLogCustomStyle == 'false'),
+				"id"								=>	"oneLogNewBlockClickContentSettings",
+				"name"								=>	"One log open new log options",
+				"type"								=>	"grouped",
+				"var"								=>	array(
+					"function"							=>	"showOrHideOneLogCustomStyleSettings",
+					"id"								=>	"oneLogCustomStyle",
+					"key"								=>	"oneLogCustomStyle",
+					"name"								=>	"Custom Style for OneLog logs",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				),
+				"vars"								=>	array(
+					0									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"oneLogColorBG",
+							"name"								=>	"Background",
+							"type"								=>	"text"
+						)
+					),
+					1									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"oneLogColorFont",
+							"name"								=>	"Font",
+							"type"								=>	"text"
+						)
+					)
+				)
+			),
+			3									=> array(
 				"info"								=>	"When one log is visible and open, log updates wont trigger notifactions or highlight the tab.",
 				"type"								=>	"single",
 				"var"								=>	array(
@@ -1598,7 +1762,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			3									=> array(
+			4									=> array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"oneLogLogMaxHeight",
@@ -1607,7 +1771,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			4									=> array(
+			5									=> array(
 				"info"								=>	"when updating, if the last log is the same as the new log, it will merge the new lines into that box",
 				"type"								=>	"single",
 				"var"								=>	array(
@@ -1617,7 +1781,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			5									=> array(
+			6									=> array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"oneLogHighlight",
@@ -1639,17 +1803,43 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			6									=> array(
+			7									=>	array(
+				"bool"								=>	($oneLogNewBlockClick == 'false'),
+				"id"								=>	"oneLogNewBlockClickContentSettings",
 				"info"								=>	"when clicking on a title in one log, it will attempt to open in a new block, not the same as onelog",
-				"type"								=>	"single",
+				"name"								=>	"One log open new log options",
+				"type"								=>	"grouped",
 				"var"								=>	array(
+					"function"							=>	"showOrHideOneLogNewBlockClickSettings",
+					"id"								=>	"oneLogNewBlockClick",
 					"key"								=>	"oneLogNewBlockClick",
 					"name"								=>	"New block on log click",
 					"options"							=>	$trueFalsVars,
 					"type"								=>	"dropdown"
+				),
+				"vars"								=>	array(
+					0									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"oneLogNewBlockLocation",
+							"name"								=>	"New Log Position",
+							"options"							=>	array(
+								0 									=> array(
+									"value" 							=> "auto",
+									"name" 								=> "Auto Left/Bottom"),
+								1 									=> array(
+									"value" 							=> "left",
+									"name" 								=> "Always Left"),
+								2 									=> array(
+									"value" 							=> "bottom",
+									"name" 								=> "Always Bottom")
+							),
+							"type"								=>	"dropdown"
+						)
+					)
 				)
 			),
-			7									=> array(
+			8									=> array(
 				"info"								=>	"Clears data for one log when clicking clear all logs",
 				"type"								=>	"single",
 				"var"								=>	array(

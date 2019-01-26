@@ -1,3 +1,7 @@
+<script type="text/javascript">
+	addonRightClickObject = {};
+	addonRightClickIds = {};
+</script>
 <li class="menuTitle fullScreenMenuText" style="text-align: center;" >
 	Log-Hog
 </li>
@@ -149,30 +153,44 @@ if($locationForStatusIndex["loc"])
 {
 	$statusDisplay = "";
 }?>
+	<li id="menuStatusAddon" style="<?php echo $statusDisplay; ?>" >
 	<?php if($addonsAsIframe === "true"): ?>
-		<li id="menuStatusAddon" style="<?php echo $statusDisplay; ?>" onclick="toggleIframe('<?php echo $locationForStatusIndex["loc"]; ?>','menuStatusAddon');" >
+		<span id="statusSpan" onclick="toggleIframe('<?php echo $locationForStatusIndex["loc"]; ?>','menuStatusAddon');" >
 	<?php else: ?>
-		<li id="menuStatusAddon" style="<?php echo $statusDisplay; ?>" onclick="window.location.href='<?php echo $locationForStatusIndex["loc"]; ?>'" >
+		<a id="statusSpan" href="<?php echo $locationForStatusIndex["loc"]; ?>" target="_blank" >
 	<?php endif; ?>
-		<div class="menuImageDiv">
-			<?php echo generateImage(
-				$arrayOfImages["loadingImg"],
-				$imageConfig = array(
-					"id"		=>	"gitStatusImage",
-					"class"		=>	"menuImage mainMenuImage",
-					"height"	=>	"30px",
-					"data-src"	=>	$arrayOfImages["gitStatus"]
-					)
-				);
-			?>
-		</div>
-		<span class="fullScreenMenuText">gitStatus</span>
-		<?php
-		if($addonsAsIframe !== "true")
-		{
-			echo $externalLinkImage;
-		}
-		?>
+			<div id="statusDiv" class="menuImageDiv">
+				<?php echo generateImage(
+					$arrayOfImages["loadingImg"],
+					$imageConfig = array(
+						"id"		=>	"statusImage",
+						"class"		=>	"menuImage mainMenuImage",
+						"height"	=>	"30px",
+						"data-src"	=>	$arrayOfImages["gitStatus"]
+						)
+					);
+				?>
+			</div>
+			<span id="statusText" class="fullScreenMenuText">gitStatus</span>
+			<?php
+			if($addonsAsIframe !== "true")
+			{
+				echo $externalLinkImage;
+			}
+		if($addonsAsIframe === "true"): ?>
+			</span>
+			<script type="text/javascript">
+				addonRightClickObject["status"] = {action: "window.open(\"<?php echo $locationForStatusIndex["loc"]; ?>\");", name: "Open in new tab"};
+			</script>
+		<?php else: ?>
+			</a>
+			<script type="text/javascript">
+				addonRightClickObject["status"] = {action: "toggleIframe(\"<?php echo $locationForStatusIndex["loc"]; ?>\",\"menuStatusAddon\");", name: "Open in iframe"};
+			</script>
+		<?php endif; ?>
+		<script type="text/javascript">
+			addonRightClickIds["status"] = "menuStatusAddon";
+		</script>
 	</li>
 <?php
 $monitorDisplay = "display: none;";
@@ -180,30 +198,44 @@ if($locationForMonitorIndex["loc"])
 {
 	$monitorDisplay = "";
 }?>
-<?php if($addonsAsIframe === "true"): ?>
-	<li id="menuMonitorAddon" style="<?php echo $monitorDisplay; ?>" onclick="toggleIframe('<?php echo $locationForMonitorIndex["loc"]; ?>','menuMonitorAddon');" >
-<?php else: ?>
-	<li id="menuMonitorAddon" style="<?php echo $monitorDisplay; ?>" onclick="window.location.href='<?php echo $locationForMonitorIndex["loc"]; ?>'" >
-<?php endif; ?>
-		<div class="menuImageDiv">
-			<?php echo generateImage(
-				$arrayOfImages["loadingImg"],
-				$imageConfig = array(
-					"id"		=>	"taskmanagerImage",
-					"class"		=>	"menuImage mainMenuImage",
-					"height"	=>	"30px",
-					"data-src"	=>	$arrayOfImages["taskManager"]
-					)
-				);
-			?>
-		</div>
-		<span class="fullScreenMenuText">Monitor</span>
-		<?php
-		if($addonsAsIframe !== "true")
-		{
-			echo $externalLinkImage;
-		}
-		?>
+	<li id="menuMonitorAddon" style="<?php echo $monitorDisplay; ?>" >
+	<?php if($addonsAsIframe === "true"): ?>
+		<span id="MonitorSpan" onclick="toggleIframe('<?php echo $locationForMonitorIndex["loc"]; ?>','menuMonitorAddon');" >
+	<?php else: ?>
+		<a id="MonitorSpan" href="<?php echo $locationForMonitorIndex["loc"]; ?>" target="_blank" >
+	<?php endif; ?>
+			<div id="MonitorDiv" class="menuImageDiv">
+				<?php echo generateImage(
+					$arrayOfImages["loadingImg"],
+					$imageConfig = array(
+						"id"		=>	"MonitorImage",
+						"class"		=>	"menuImage mainMenuImage",
+						"height"	=>	"30px",
+						"data-src"	=>	$arrayOfImages["taskManager"]
+						)
+					);
+				?>
+			</div>
+			<span id="MonitorText" class="fullScreenMenuText">Monitor</span>
+			<?php
+			if($addonsAsIframe !== "true")
+			{
+				echo $externalLinkImage;
+			}
+		if($addonsAsIframe === "true"): ?>
+			</span>
+			<script type="text/javascript">
+				addonRightClickObject["Monitor"] = {action: "window.open(\"<?php echo $locationForMonitorIndex["loc"]; ?>\");", name: "Open in new tab"};
+			</script>
+		<?php else: ?>
+			</a>
+			<script type="text/javascript">
+				addonRightClickObject["Monitor"] = {action: "toggleIframe(\"<?php echo $locationForMonitorIndex["loc"]; ?>\",\"menuMonitorAddon\");", name: "Open in iframe"};
+			</script>
+		<?php endif; ?>
+		<script type="text/javascript">
+			addonRightClickIds["Monitor"] = "menuMonitorAddon";
+		</script>
 	</li>
 <?php
 $searchDisplay = "display: none;";
@@ -211,30 +243,44 @@ if($locationForSearchIndex["loc"])
 {
 	$searchDisplay = "";
 }?>
+	<li id="menuSearchAddon" style="<?php echo $searchDisplay; ?>">
 	<?php if($addonsAsIframe === "true"): ?>
-		<li id="menuSearchAddon" style="<?php echo $searchDisplay; ?>" onclick="toggleIframe('<?php echo $locationForSearchIndex["loc"]; ?>','menuSearchAddon');" >
+		<span id="SearchSpan" onclick="toggleIframe('<?php echo $locationForSearchIndex["loc"]; ?>','menuSearchAddon');" >
 	<?php else: ?>
-		<li id="menuSearchAddon" style="<?php echo $searchDisplay; ?>" onclick="window.location.href='<?php echo $locationForSearchIndex["loc"]; ?>'" >
+		<a id="SearchSpan" href="<?php echo $locationForSearchIndex["loc"]; ?>" target="_blank" >
 	<?php endif; ?>
-		<div class="menuImageDiv">
-			<?php echo generateImage(
-				$arrayOfImages["loadingImg"],
-				$imageConfig = array(
-					"id"		=>	"searchImage",
-					"class"		=>	"menuImage mainMenuImage",
-					"height"	=>	"30px",
-					"data-src"	=>	$arrayOfImages["search"]
-					)
-				);
-			?>
-		</div>
-		<span class="fullScreenMenuText">Search</span>
-		<?php
-		if($addonsAsIframe !== "true")
-		{
-			echo $externalLinkImage;
-		}
-		?>
+			<div id="SearchDiv" class="menuImageDiv">
+				<?php echo generateImage(
+					$arrayOfImages["loadingImg"],
+					$imageConfig = array(
+						"id"		=>	"SearchImage",
+						"class"		=>	"menuImage mainMenuImage",
+						"height"	=>	"30px",
+						"data-src"	=>	$arrayOfImages["search"]
+						)
+					);
+				?>
+			</div>
+			<span id="SearchText" class="fullScreenMenuText">Search</span>
+			<?php
+			if($addonsAsIframe !== "true")
+			{
+				echo $externalLinkImage;
+			}
+		if($addonsAsIframe === "true"): ?>
+			</span>
+			<script type="text/javascript">
+				addonRightClickObject["Search"] = {action: "window.open(\"<?php echo $locationForSearchIndex["loc"]; ?>\");", name: "Open in new tab"};
+			</script>
+		<?php else: ?>
+			</a>
+			<script type="text/javascript">
+				addonRightClickObject["Search"] = {action: "toggleIframe(\"<?php echo $locationForSearchIndex["loc"]; ?>\",\"menuSearchAddon\");", name: "Open in iframe"};
+			</script>
+		<?php endif; ?>
+		<script type="text/javascript">
+			addonRightClickIds["Search"] = "menuSearchAddon";
+		</script>
 	</li>
 <?php
 $seleniumMonitorDisplay = "display: none;";
@@ -242,28 +288,42 @@ if($locationForSeleniumMonitorIndex["loc"])
 {
 	$seleniumMonitorDisplay = "";
 }?>
+	<li id="menuSeleniumMonitorAddon" style="<?php echo $seleniumMonitorDisplay; ?>">
 	<?php if($addonsAsIframe === "true"): ?>
-		<li id="menuSeleniumMonitorAddon" style="<?php echo $seleniumMonitorDisplay; ?>" onclick="toggleIframe('<?php echo $locationForSeleniumMonitorIndex["loc"]; ?>','menuSeleniumMonitorAddon');" >
+		<span id="seleniumMonitorSpan" onclick="toggleIframe('<?php echo $locationForSeleniumMonitorIndex["loc"]; ?>','menuSeleniumMonitorAddon');" >
 	<?php else: ?>
-		<li id="menuSeleniumMonitorAddon" style="<?php echo $seleniumMonitorDisplay; ?>" onclick="window.location.href='<?php echo $locationForSeleniumMonitorIndex["loc"]; ?>'" >
+		<a  id="seleniumMonitorSpan" href="<?php echo $locationForSeleniumMonitorIndex["loc"]; ?>" target="_blank" >
 	<?php endif; ?>
-		<div class="menuImageDiv">
-			<?php echo generateImage(
-				$arrayOfImages["loadingImg"],
-				$imageConfig = array(
-					"id"		=>	"seleniumMonitorImage",
-					"class"		=>	"menuImage mainMenuImage",
-					"height"	=>	"30px",
-					"data-src"	=>	$arrayOfImages["seleniumMonitor"]
-					)
-				);
-			?>
-		</div>
-		<span class="fullScreenMenuText">Selenium Monitor</span>
-		<?php
-		if($addonsAsIframe !== "true")
-		{
-			echo $externalLinkImage;
-		}
-		?>
+			<div id="seleniumMonitorDiv" class="menuImageDiv">
+				<?php echo generateImage(
+					$arrayOfImages["loadingImg"],
+					$imageConfig = array(
+						"id"		=>	"seleniumMonitorImage",
+						"class"		=>	"menuImage mainMenuImage",
+						"height"	=>	"30px",
+						"data-src"	=>	$arrayOfImages["seleniumMonitor"]
+						)
+					);
+				?>
+			</div>
+			<span id="seleniumMonitorText" class="fullScreenMenuText">Selenium Monitor</span>
+			<?php
+			if($addonsAsIframe !== "true")
+			{
+				echo $externalLinkImage;
+			}
+		if($addonsAsIframe === "true"): ?>
+			</span>
+			<script type="text/javascript">
+				addonRightClickObject["seleniumMonitor"] = {action: "window.open(\"<?php echo $locationForSeleniumMonitorIndex["loc"]; ?>\");", name: "Open in new tab"};
+			</script>
+		<?php else: ?>
+			</a>
+			<script type="text/javascript">
+				addonRightClickObject["seleniumMonitor"] = {action: "toggleIframe(\"<?php echo $locationForSeleniumMonitorIndex["loc"]; ?>\",\"menuSeleniumMonitorAddon\");", name: "Open in iframe"};
+			</script>
+		<?php endif; ?>
+		<script type="text/javascript">
+			addonRightClickIds["seleniumMonitor"] = "menuSeleniumMonitorAddon";
+		</script>
 	</li>

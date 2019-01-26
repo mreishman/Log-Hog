@@ -79,7 +79,7 @@
 	<?php endif; ?>
 </ul>
 <div id="mainContentFullScreenMenu">
-	<div class="settingsHeader" style="position: fixed;width: 100%;z-index: 10;top: 0; margin: 0; border-bottom: 1px solid white; display: none;top: 46px;" id="fixedPositionMiniMenu" >
+	<div class="settingsHeader addBorderBottom" style="position: fixed;width: 100%;z-index: 10;top: 0; margin: 0; display: none;top: 46px;" id="fixedPositionMiniMenu" >
 	</div>
 	<div id="fullScreenMenuChangeLog" style="display: none;" >
 		<?php require_once("changelog.php"); ?>
@@ -139,7 +139,7 @@
 		<table width="100%" style="height: 100%;">
 			<tr>
 				<th valign="center" >
-					<div class="noNotificationsNotification" >
+					<div class="noNotificationsNotification addBorder" >
 						You have no new notifications!
 					</div>
 				</th>

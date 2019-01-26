@@ -102,11 +102,14 @@ $externalLinkImage = generateImage(
 	<link rel="icon" type="image/png" href="core/img/favicon.png" />
 	<script type="text/javascript">
 		var baseUrl = "<?php echo $baseUrl;?>";
+		var Rightclick_ID_list = [];
 	</script>
 	<script src="core/js/lazyLoadImg.js?v=<?php echo $jsVersion?>"></script>
+	<script src="core/js/jquery.js?v=<?php echo $jsVersion?>"></script>
 	<script src="core/js/indexJs.js?v=<?php echo $jsVersion?>"></script>
 	<?php
 		echo loadSentryData($sendCrashInfoJS, $branchSelected);
+		require_once("core/php/indexJsObjectCreator.php");
 	?>
 </head>
 <body>
@@ -132,6 +135,7 @@ $externalLinkImage = generateImage(
 			<span id="stars2" style="display: block;" ></span>
 			<span id="stars3" style="display: block;" ></span>
 		</div>
+		<div id="popupSelectContainer" class="backgroundForMenus addBorder menu"  style="position: fixed;width: 200px; z-index: 99; display: none;"></div>
 		<div style="display: inline-block; position: absolute; top: 0; left: 0; z-index: 30;" >
 			<div id="notificationIcon">
 				<span onclick="toggleNotifications();" id="notificationBadge"></span>
@@ -142,7 +146,7 @@ $externalLinkImage = generateImage(
 			</div>
 		</div>
 		<div id="main">
-			<div id="settingsSideBar" class="fullScreenMenuLeftSidebar" style="display: none; position: absolute; width: 200px; height: 100%;">
+			<div id="settingsSideBar" class="fullScreenMenuLeftSidebar" style="display: none; position: absolute; width: 200px; overflow-y: auto;overflow-x: hidden; border: none;">
 				<?php require_once('core/php/template/settingsSideBar.php'); ?>
 			</div>
 			<table id="log" style="display: none; margin: 0px;padding: 0px; border-spacing: 0px; width: 100%;" cellspacing="0" cellpadding="0">
@@ -175,7 +179,6 @@ $externalLinkImage = generateImage(
 
 			<?php
 			if($rightClickMenuEnable == "true"): ?>
-				var Rightclick_ID_list = [];
 				if(document.getElementById('deleteImage'))
 				{
 					Rightclick_ID_list.push('deleteImage');
@@ -274,13 +277,13 @@ $externalLinkImage = generateImage(
 					<h4 id="initialLoadContentInfo" >Loading CSS Files</h4>
 					<p><progress id="initialLoadProgress" value="0" max="100"></progress></p>
 					<h4 id="initialLoadContentMoreInfo" ></h4>
+					<h5 id="initialLoadContentCountInfo" ></h5>
 					<h5 id="initialLoadContentEvenMoreInfo" >File Check <span id="initialLoadCountCheck" >1</span> of 1000</h5>
 					<h4 style="color: red; display: none;" id="initialLoadContentEvenEvenMoreInfo" >This file looks like it is taking a while to load</h4>
 				</th>
 			</tr>
 		</table>
 		<script type="text/javascript">
-			updateCustomLoadImages();
 			document.addEventListener("DOMContentLoaded", function(event)
 			{
 				arrayOfJsFilesKeys = Object.keys(arrayOfJsFiles);

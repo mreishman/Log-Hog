@@ -66,9 +66,17 @@ function formatLine(text, extraData)
 	var arrayOfText = dateTimeSplit(text);
 	if(dateTextFormatColumn === "true" || (dateTextFormatColumn === "auto" && window.innerWidth > breakPointTwo))
 	{
-		return "<td style=\"white-space:nowrap;width: 1%;\" >" + dateTimeFormat(arrayOfText) + "</td><td style=\"white-space: pre-wrap;\" >" + formatMainMessage(arrayOfText[1], extraData) + "</td>";
+		if("lineDisplay" in extraData && extraData["lineDisplay"] === "true")
+		{
+			return "<td style=\"white-space:nowrap;width: 1%;\">" + dateTimeFormat(arrayOfText) + extraData["lineCount"] + "</td><td style=\"white-space: pre-wrap;\">" + formatMainMessage(arrayOfText[1], extraData) + "</td>";
+		}
+		return "<td style=\"white-space:nowrap;width: 1%;\">" + dateTimeFormat(arrayOfText) + "</td><td style=\"white-space: pre-wrap;\">" + formatMainMessage(arrayOfText[1], extraData) + "</td>";
 	}
-	return "<td style=\"white-space: pre-wrap;\" >" + dateTimeFormat(arrayOfText) + formatMainMessage(arrayOfText[1], extraData) + "</td>";
+	else if("lineDisplay" in extraData && extraData["lineDisplay"] === "true")
+	{
+		return "<td style=\"white-space:nowrap;width: 1%;\">" + extraData["lineCount"] + "</td><td style=\"white-space: pre-wrap;\">" + dateTimeFormat(arrayOfText) + formatMainMessage(arrayOfText[1], extraData) + "</td>";
+	}
+	return "<td style=\"white-space: pre-wrap;\">" + dateTimeFormat(arrayOfText) + formatMainMessage(arrayOfText[1], extraData) + "</td>";
 }
 
 function dateTimeSplit(text)
@@ -119,20 +127,29 @@ function formatMainMessage(message, extraData)
 	{
 		return formatJsonMessage(message, extraData);
 	}
-	else if(message.indexOf("PHP message:") > -1)
+	if(logFormatPhpEnable === "true")
 	{
-		return formatPhpMessage(message, extraData);
+		if(message.indexOf("PHP message:") > -1)
+		{
+			return formatPhpMessage(message, extraData);
+		}
 	}
 	//check if message is in arrayOfFileData
-	var arrayOfFileDataKeys = Object.keys(arrayOfFileData);
-	var arrayOfFileDataKeysLength = arrayOfFileDataKeys.length;
-	for(var AOFDCount = 0; AOFDCount < arrayOfFileDataKeysLength; AOFDCount++)
+	if(logFormatFileEnable === "true")
 	{
-		if(message.indexOf(arrayOfFileDataKeys[AOFDCount]) > -1)
+		if(/(in|at) (.?)([\/]+)([^&\r\n\t]*)(on line|\D:\d)(.?)(\d{1,10})/.test(message))
 		{
-			//this message matches file data, add this below
-			extraData["fileData"] = arrayOfFileData[arrayOfFileDataKeys[AOFDCount]];
-			return formatMessageFileData(message, extraData);
+			var arrayOfFileDataKeys = Object.keys(arrayOfFileData);
+			var arrayOfFileDataKeysLength = arrayOfFileDataKeys.length;
+			for(var AOFDCount = 0; AOFDCount < arrayOfFileDataKeysLength; AOFDCount++)
+			{
+				if(message.indexOf(arrayOfFileDataKeys[AOFDCount]) > -1 && arrayOfFileData[arrayOfFileDataKeys[AOFDCount]]["fileData"] !== "Error - File Not Found")
+				{
+					//this message matches file data, add this below
+					extraData["fileData"] = arrayOfFileData[arrayOfFileDataKeys[AOFDCount]];
+					return formatMessageFileData(message, extraData);
+				}
+			}
 		}
 	}
 	return message;
@@ -140,7 +157,19 @@ function formatMainMessage(message, extraData)
 
 function formatMessageFileData(message, extraData)
 {
-	return "<table style=\"width: 100%;\" ><tr><td>"+message+"</td></tr><tr><td><table class=\"logCode\" style=\"width: 100%;\" >"+makePrettyWithText(escapeHTML(extraData["fileData"]["fileData"]), 0)+"</table></td></tr></table>";
+	var lineStart = 0;
+	var pregMatchData = extraData["fileData"]["pregMatchData"];
+	var numForBaseLineStart = parseInt(pregMatchData[(pregMatchData.length - 1)]);
+	if(numForBaseLineStart > 0)
+	{
+		lineStart = numForBaseLineStart - logFormatFileLinePadding;
+	}
+	let customClass = "";
+	if("customClassAdd" in extraData && extraData["customClassAdd"])
+	{
+		customClass = extraData["customClass"];
+	}
+	return "<table style=\"width: 100%;\"><tr "+customClass+"><td>"+message+"</td></tr><tr "+customClass+"><td><table class=\"logCode\" style=\"width: 100%;\">"+makePrettyWithText(escapeHTML(extraData["fileData"]["fileData"]), 0, {lineDisplay: logFormatFileLineCount, lineModifier: lineStart})+"</table></td></tr></table>";
 }
 
 function formatPhpMessage(message, extraData)
@@ -154,7 +183,11 @@ function formatPhpMessage(message, extraData)
 	}
 	var restOfMessage = message.split(":");
 	var messageWarning = restOfMessage[0];
-	var severity = getPhpSeverifyLevel(messageWarning);
+	var severity = "";
+	if(logFormatPhpShowImg === "true")
+	{
+		severity = "<img src=\""+getPhpSeverifyLevel(messageWarning)+"\" height=\"15px\">";
+	}
 	restOfMessage.shift();
 	restOfMessage = restOfMessage.join(":");
 	restOfMessage = parseErrorMessage(restOfMessage, extraData);
@@ -162,7 +195,7 @@ function formatPhpMessage(message, extraData)
 	{
 		firstPartOfMessage = formatMainMessage(firstPartOfMessage, extraData);
 	}
-	return firstPartOfMessage+"<div><img src=\""+severity+"\" height=\"15px\" >"+messageWarning+"</div><div class=\"settingsDiv\" >"+restOfMessage+"</div>";
+	return firstPartOfMessage+"<div>"+severity+messageWarning+"</div><div class=\"settingsDiv\">"+restOfMessage+"</div>";
 }
 
 function parseErrorMessage(restOfMessage, extraData)
@@ -252,6 +285,10 @@ function parseErrorMessage(restOfMessage, extraData)
 		}
 	}
 	var newHtmlToSend = "";
+	if(logFormatPhpHideExtra !== "false")
+	{
+		return "<div>"+formatMainMessage(arrayOfData[arrayOfDataKeys[0]]["string"].trim(), extraData)+"</div>";
+	}
 	for(var aodc4 = 0; aodc4 < 7; aodc4++)
 	{
 		if(arrayOfData[arrayOfDataKeys[aodc4]]["string"] !== "")
@@ -327,11 +364,11 @@ function formatJsonMessage(message, extraData)
 		}
 		var testReturn = "<table>";
 		var extraTrClass = "";
-		if(extraData["customClassAdd"])
+		if("customClassAdd" in extraData && extraData["customClassAdd"])
 		{
 			extraTrClass = extraData["customClass"];
 		}
-		testReturn += "<tr "+extraTrClass+" ><td colspan=\"2\" >"+message.substr(0, message.indexOf('{'))+"</td></tr>";
+		testReturn += "<tr "+extraTrClass+"><td colspan=\"2\">"+message.substr(0, message.indexOf('{'))+"</td></tr>";
 		var messageKeys = Object.keys(newMessage);
 		var messageKeysLength = messageKeys.length;
 		for (var messageCount = 0; messageCount < messageKeysLength; messageCount++)
@@ -352,9 +389,9 @@ function formatJsonMessage(message, extraData)
 					messageTwo = escapeHTML(messageTwo);
 				}
 			}
-			testReturn += "<tr "+extraTrClass+" ><td style=\"word-break: normal;\" >"+messageOne+"</td><td>"+messageTwo+"</td></tr>";
+			testReturn += "<tr "+extraTrClass+"><td style=\"word-break: normal;\">"+messageOne+"</td><td>"+messageTwo+"</td></tr>";
 		}
-		testReturn += "<tr "+extraTrClass+" ><td colspan=\"2\" >"+message.substr(message.lastIndexOf('}') + 1)+"</td></tr>";
+		testReturn += "<tr "+extraTrClass+"><td colspan=\"2\">"+message.substr(message.lastIndexOf('}') + 1)+"</td></tr>";
 		testReturn += "</table>";
 		return testReturn;
 	}
@@ -541,4 +578,23 @@ function dateTimeFormat(dateTextArray)
 
 
 	return dateText;
+}
+
+function updateFileDataArrayInner(newDataArr)
+{
+	var newDataArrKeys = Object.keys(newDataArr);
+	var newDataArrKeysLength=  newDataArrKeys.length;
+	for(var NDACount = 0; NDACount < newDataArrKeysLength; NDACount++)
+	{
+		var fileDataArr = newDataArr[newDataArrKeys[NDACount]]["fileData"];
+		var fileDataArrKeys = Object.keys(fileDataArr);
+		var fileDataArrKeysLength = fileDataArrKeys.length;
+		if(fileDataArrKeysLength > 0)
+		{
+			for(var FDACount = 0; FDACount < fileDataArrKeysLength; FDACount++)
+			{
+				arrayOfFileData[fileDataArrKeys[FDACount]] = fileDataArr[fileDataArrKeys[FDACount]];
+			}
+		}
+	}
 }

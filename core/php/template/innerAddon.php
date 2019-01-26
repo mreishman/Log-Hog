@@ -200,14 +200,14 @@
 							<a onclick="addonMonitorAction(<?php echo $key; ?>);" class="link">Remove <?php echo $uppercase; ?></a>
 						</td>
 						<td>
-							<a onclick="window.location.href= '<?php echo $installed; ?>'" class="link">View</a>
+							<a target="_blank" onclick="window.location.href= '<?php echo $installed; ?>'" class="link">View</a>
 						</td>
 					<?php else: ?>
 						<td colspan="4">
 							This is installed, but not within Log-Hog
 						</td>
 						<td>
-							<a onclick="window.location.href= '<?php echo $installed; ?>'" class="link">View</a>
+							<a target="_blank" onclick="window.location.href= '<?php echo $installed; ?>'" class="link">View</a>
 						</td>
 					<?php endif; ?>
 				<?php else: ?>
@@ -248,64 +248,4 @@
 			</td>
 		</tr>
 	</table>
-
-
-	<script type="text/javascript">
-
-		var retryCount = 0;
-		var verifyCount = 0;
-		var lock = false;
-		var directory = "../../top/";
-		var action = "";
-		var localFolderLocation = "";
-		var repoName = "";
-		var idToSubmitStatic = "";
-
-		function addonMonitorAction(idToSubmit)
-		{
-			idToSubmitStatic = idToSubmit;
-			var formData = $("#"+idToSubmit).serializeArray();
-			var newObject = {};
-			var keysInfo = Object.keys(formData);
-			var keysInfoLength = keysInfo.length;
-			for(var i = 0; i < keysInfoLength; i++)
-			{
-				newObject[formData[i]["name"]] = formData[i]["value"];
-			}
-			action = newObject["action"];
-			localFolderLocation = newObject["localFolderLocation"];
-			repoName = newObject["repoName"];
-			if(action === "Downloading")
-			{
-				checkIfTopDirIsEmpty();
-			}
-			else
-			{
-				if($("."+idToSubmit+"RemoveHideThis"))
-				{
-					$("."+idToSubmit+"RemoveHideThis").hide();
-				}
-				if($("."+idToSubmit+"RemoveShowThis"))
-				{
-					$("."+idToSubmit+"RemoveShowThis").show();
-				}
-				removeFilesFromToppFolder(true);
-			}
-		}
-
-		function finishedDownload()
-		{
-			//reload page on finish?
-			updateText(100);
-			$.get( urlForAddonSend, function( data ) {
-				$("#innerAddonSpanReplace").html(data);
-				if(typeof updateOtherApps !== "undefined")
-				{
-					updateOtherApps();
-				}
-			});
-		}
-
-		currentVersion = "";
-	</script>
 </span>

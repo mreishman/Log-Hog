@@ -31,10 +31,10 @@ require_once('../core/php/updateCheck.php');
 	<div id="main">
 	<form id="devBranch">
 		<div class="settingsHeader">
-			Branch Settings  
+			Branch Settings
 			<div class="settingsHeaderButtons">
 				<?php echo addResetButton("devBranch"); ?>
-				<a class="linkSmall" onclick="saveAndVerifyMain('devBranch');" >Save Changes</a>
+				<a class="linkSmall devBranchSaveButton" onclick="saveAndVerifyMain('devBranch');" >Save Changes</a>
 			</div>
 		</div>
 		<div class="settingsDiv" >
@@ -87,10 +87,10 @@ require_once('../core/php/updateCheck.php');
 	</form>
 	<form id="devAdvanced2">
 		<div class="settingsHeader">
-			Static Config Settings 
+			Static Config Settings
 			<div class="settingsHeaderButtons">
 				<?php echo addResetButton("devAdvanced2");?>
-				<a class="linkSmall" onclick="saveConfigStatic();" >Save Changes</a>
+				<a class="linkSmall devAdvanced2SaveButton" onclick="saveConfigStatic();" >Save Changes</a>
 			</div>
 		</div>
 		<div class="settingsDiv" >
@@ -102,3 +102,6 @@ require_once('../core/php/updateCheck.php');
 		</div>
 	</form>
 </body>
+<script type="text/javascript">
+	var saveButtonAlwaysVisible = "<?php echo $saveButtonAlwaysVisible; ?>";
+</script>

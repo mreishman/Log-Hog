@@ -1,10 +1,10 @@
 <div>
 	<table cellspacing="0"  style="margin: 0px;padding: 0px; border-spacing: 0px; width:100%;" >
 		<tr class="logTdHolder">
-			<td class="logTdWidth" onclick="changeCurrentSelectWindow('{{counter}}')" style="padding: 0; border: 1px solid white;" >
+			<td class="logTdWidth addBorder" onclick="changeCurrentSelectWindow('{{counter}}')" style="padding: 0;" >
 				<div style="display: block; position: relative;height: 0;width: 0;padding: 0;" >
 					<div
-					class="backgroundForSideBarMenu"
+					class="backgroundForSideBarMenu addBorder"
 					style="
 						<?php
 						if($bottomBarIndexShow == 'false')
@@ -28,7 +28,7 @@
 							echo " bottom: 0; top: 0; ";
 						}
 						?>
-						padding: 0px; position: relative; "
+						padding: 0px; position: relative; overflow-x: hidden; "
 					id="titleContainer{{counter}}"
 					>
 						<!-- currentWindowNumSelected OR sidebarCurrentWindowNum -->
@@ -109,7 +109,20 @@
 								);
 							*/ ?>
 						</a> -->
-						<a onclick="removeArchiveLogFromDisplay('{{counter}}')" id="closeLogSideBar{{counter}}" onclick="#" style="cursor: pointer; display: none;" >
+						<a onclick="toggleLogPopup(this,'{{counter}}');" style="cursor: pointer;">
+							<?php echo generateImage(
+								$arrayOfImages["loadingImg"],
+								$imageConfig = array(
+									"height"	=>	"20px",
+									"style"		=>	"margin: 5px;",
+									"title"		=>	"Select Log",
+									"class"		=>	"menuSideBarImageForLoad",
+									"data-src"	=>	$arrayOfImages["menuSideBar"]
+									)
+								);
+							?>
+						</a>
+						<a onclick="removeLogFromDisplay('{{counter}}')" id="closeLogSideBar{{counter}}" onclick="#" style="cursor: pointer; display: none;" >
 							<?php echo generateImage(
 								$arrayOfImages["loadingImg"],
 								$imageConfig = array(

@@ -496,13 +496,19 @@ else
 			"alt"			=>	"Loading",
 			"src"			=>	"",
 			"title"			=>	"Loading...",
-			"baseName"		=>	"loading.png"
+			"baseName"		=>	"loading.gif"
 		),
 		"menu"	=> array(
 			"alt"			=>	"Menu",
 			"src"			=>	"",
 			"title"			=>	"Menu",
 			"baseName"		=>	"menu.png"
+		),
+		"menuSideBar"	=> array(
+			"alt"			=>	"Menu",
+			"src"			=>	"",
+			"title"			=>	"Menu",
+			"baseName"		=>	"menuSideBar.png"
 		),
 		"multiLog"	=> array(
 			"alt"			=>	"Multi-Log",

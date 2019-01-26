@@ -127,7 +127,7 @@
 		<?php echo generateSaveBlock(array('srcModifier' => $imageUrlModifier), $arrayOfImages); ?>
 	</div>
 </div>
-<div id="fileFolderDropdown" style="width: 600px; background-color: #444; border: 1px solid white; z-index: 120; position: fixed; box-shadow: 0 5px 10px rgba(0,0,0,.5);"  >
+<div id="fileFolderDropdown" class="addBorder addBackground" style="width: 600px; z-index: 120; position: fixed; box-shadow: 0 5px 10px rgba(0,0,0,.5);"  >
 </div>
 <script type="text/javascript">
 	var icons = {};

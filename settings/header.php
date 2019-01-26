@@ -49,13 +49,15 @@ echo loadSentryData($sendCrashInfoJS, $branchSelected); ?>
 </div>
 <?php if(strpos($URI, 'main.php') !== false): ?>
 	<div id="menu2">
-		<span style="color: black;">Settings:</span>
+		<span>Settings:</span>
 		<a class="link" href="#settingsLogVars" > Logs </a>
 		<?php if($expFormatEnabled === "true"): ?>
 			<a class="link" href="#settingsLogFormatVars" > Log Format </a>
 		<?php endif; ?>
 		<a class="link" href="#settingsPollVars" > Poll </a>
-		<a class="link" href="#settingsFilterVars" > Filter </a>
+		<?php if($filterEnabled === "true"): ?>
+			<a class="link" href="#settingsFilterVars" > Filter </a>
+		<?php endif; ?>
 		<a class="link" href="#archiveConfig" > Archive </a>
 		<a class="link" href="#settingsNotificationVars" > Notifications </a>
 		<a class="link" href="#settingsMenuVars" > Menu </a>
@@ -72,6 +74,7 @@ echo loadSentryData($sendCrashInfoJS, $branchSelected); ?>
 <?php elseif(strpos($URI, 'advanced.php') !== false): ?>
 	<div id="menu2">
 		<a class="link" href="#advancedConfig" > Config </a>
+		<a class="link" href="#modules" > Modules </a>
 		<a class="link" href="#loggingDisplay" > Logs </a>
 		<a class="link" href="#locationOtherApps" > Locations </a>
 		<a class="link" href="#moreAdvanced" > Advanced </a>
@@ -80,7 +83,7 @@ echo loadSentryData($sendCrashInfoJS, $branchSelected); ?>
 <?php endif;
 $baseUrlImages = $localURL;
 ?>
-<div class="settingsHeader" style="position: absolute;width: 100%;z-index: 10;top: 104px; margin: 0; border-bottom: 1px solid white; display: none;" id="fixedPositionMiniMenu" ></div>
+<div class="settingsHeader addBorderBottom" style="position: absolute;width: 100%;z-index: 10;top: 104px; margin: 0; display: none;" id="fixedPositionMiniMenu" ></div>
 <script type="text/javascript">
 	var baseUrl = "<?php echo baseURL();?>";
 	var popupSettingsArray = <?php echo $popupSettingsArray ?>;

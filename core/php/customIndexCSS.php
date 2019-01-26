@@ -23,11 +23,11 @@ $windowDisplayConfig = explode("x", $windowConfig);
 ?>
 <style type="text/css">
 
-.log, #firstLoad, .log table:not(.oneLogTable) tr:not(.highlight):not(.newLine) td:not(.highlight):not(.newLine) , #settingsSideBar
+.log, #firstLoad, .log table:not(.oneLogTable):not(.logCode) tr:not(.highlight):not(.newLine) td:not(.highlight):not(.newLine) , #settingsSideBar
 {
 	color: <?php echo $logFontColor; ?>;
+	background-color: rgba(0,0,0,0);
 }
-
 
 .log, #firstLoad, .log table tr td
 {
@@ -57,11 +57,20 @@ $windowDisplayConfig = explode("x", $windowConfig);
 }
 
 .logCode{
-	background-color: black;
-	border: 1px solid white;
-	color: white;
+	background-color: <?php echo $logFormatFileBackground; ?>;
+	border: 1px solid <?php echo $logFontColor; ?>;
+	color: <?php echo $logFormatFileFontColor; ?>;
 	padding: 10px 0;
+	max-height: <?php echo $oneLogLogMaxHeight; ?>px;
+	overflow: auto;
 }
+
+.log table:not(.oneLogTable):not(.logCode) tr:not(.highlight):not(.newLine) td:not(.highlight):not(.newLine) .logCode tr:not(.highlight):not(.newLine) td:not(.highlight):not(.newLine)
+{
+	color: <?php echo $logFormatFileFontColor; ?>;
+	background-color: rgba(0,0,0,0);
+}
+
 
 #menu, #menu2
 {
@@ -175,6 +184,16 @@ elseif($logMenuLocation === "bottom"): ?>
 		display: none;
 	}
 }
+<?php endif; ?>
+
+<?php if($oneLogCustomStyle === "true"): ?>
+	#log .settingsDiv{
+		background-color: <?php echo $oneLogColorBG; ?>;
+	}
+
+	.oneLogTable tr:not(.highlight):not(.newLine) td:not(.highlight):not(.newLine){
+		color: <?php echo $oneLogColorFont; ?>;
+	}
 <?php endif; ?>
 
 </style>

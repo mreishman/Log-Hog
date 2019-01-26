@@ -19,6 +19,33 @@ var notificationMenuBadge = [doToggleClearAllNotifications];
 
 var menuObjectRightClick = {deleteImage: deleteMenu, pauseImage: pauseMenu, notificationBadge: notificationMenuBadge};
 
+//check for list of addons addons to add to object
+var listOfAddonsKeys = Object.keys(listOfAddons);
+var listOfAddonsKeysLength = listOfAddonsKeys.length;
+for(var akcount = 0; akcount < listOfAddonsKeysLength; akcount++)
+{
+  if(listOfAddons[listOfAddonsKeys[akcount]]["Installed"] !== false)
+  {
+    //add right click object
+    var listOfRightClickTargets =["Span", "Div", "Image", "Text",addonRightClickIds[listOfAddonsKeys[akcount]]];
+    var listOfRightClickTargetsLength = listOfRightClickTargets.length;
+    for(var rct = 0; rct < listOfRightClickTargetsLength; rct++)
+    {
+      var innerId = listOfAddonsKeys[akcount]+listOfRightClickTargets[rct];
+      if(!document.getElementById(innerId))
+      {
+        innerId = listOfRightClickTargets[rct];
+        if(!document.getElementById(innerId))
+        {
+          continue;
+        }
+      }
+      menuObjectRightClick[innerId] = [addonRightClickObject[listOfAddonsKeys[akcount]]];
+      Rightclick_ID_list.push(innerId);
+    }
+  }
+}
+
 $( document ).ready(function() {
   (function() {
 
@@ -43,7 +70,7 @@ $( document ).ready(function() {
         var hideMenu = true;
 
         for (var i =  rightClickIDListLength - 1; i >= 0; i--) {
-          if(document.getElementById(Rightclick_ID_list[i]) == elementClicked)
+          if(Rightclick_ID_list[i] == elementClicked.id)
           {
             var menuIDSelected = Rightclick_ID_list[i];
             hideMenu = false;
@@ -52,9 +79,9 @@ $( document ).ready(function() {
             var rightClickMenuArray = menuObjectRightClick[menuIDSelected];
             var rightClickMenuArrayLength = rightClickMenuArray.length;
             var rightClickMenuHTML = "";
-            for (var i = rightClickMenuArrayLength - 1; i >= 0; i--) 
+            for (var j = rightClickMenuArrayLength - 1; j >= 0; j--)
             {
-              rightClickMenuHTML += "<li onclick='"+rightClickMenuArray[i].action+"' class=\"context-menu__item\"><a class=\"context-menu__link\"> "+rightClickMenuArray[i].name+" </a> </li>";
+              rightClickMenuHTML += "<li onclick='"+rightClickMenuArray[j].action+"' class=\"context-menu__item\"><a class=\"context-menu__link\"> "+rightClickMenuArray[j].name+" </a> </li>";
             }
             document.getElementById("context-menu-items").innerHTML = rightClickMenuHTML;
             positionMenu(e);
@@ -165,3 +192,99 @@ $( document ).ready(function() {
 
   })();
 });
+
+function switchPollType()
+{
+  pollRateCalc = pollingRate;
+  if(pollingRateType === "Seconds")
+  {
+    pollRateCalc *= 1000;
+  }
+  if(pauseOnNotFocus === "true")
+  {
+    clearInterval(pollTimer);
+    pauseOnNotFocus = "false";
+    var bgPollRateCalc = backgroundPollingRate;
+    if(backgroundPollingRateType === "Seconds")
+    {
+      bgPollRateCalc *= 1000;
+    }
+    pollTimer = Visibility.every(pollRateCalc, bgPollRateCalc, function () { poll(); });
+    showPopup();
+    document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class=\"settingsHeader\" >Toggled off!</div><br><div style=\"width:100%;text-align:center;padding-left:10px;padding-right:10px;\">Toggled off auto pause in background</div></div>";
+  }
+  else
+  {
+    Visibility.stop(pollTimer);
+    pauseOnNotFocus = "true";
+    pollTimer = setInterval(poll, pollRateCalc);
+    showPopup();
+    document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class=\"settingsHeader\" >Toggled on!</div><br><div style=\"width:100%;text-align:center;padding-left:10px;padding-right:10px;\">Toggled on auto pause in background</div></div>";
+  }
+  setTimeout(function(){ hidePopup(); }, 500);
+}
+
+function addLogToRightClickMenu(localName, id, fullPathSearch, shortName)
+{
+  var rightClickObjectNew = new Array();
+  if(localName.indexOf("LogHog/Backup/") !== 0)
+  {
+    rightClickObjectNew.push({action: "tmpHideLog(\""+id+"\");", name: "Tmp Hide Log"});
+    rightClickObjectNew.push({action: "clearLogInner(titles[\""+id+"\"]);", name: "Clear Log"});
+    rightClickObjectNew.push({action: "deleteLogPopupInner(titles[\""+id+"\"]);", name: "Delete Log"});
+    var alertToggle = {action: "tmpToggleAlerts(\""+id+"\");" ,name: "Enable Alerts"};
+    if( (!(fullPathSearch in fileData)) || fileData[fullPathSearch]["AlertEnabled"] === "true")
+    {
+      alertToggle = {action: "tmpToggleAlerts(\""+id+"\");" ,name: "Disable Alerts"};
+    }
+    rightClickObjectNew.push(alertToggle);
+  }
+  rightClickObjectNew.push({action: "copyToClipBoard(\""+shortName+"\");", name: "Copy File Name"});
+  rightClickObjectNew.push({action: "copyToClipBoard(titles[\""+id+"\"]);", name: "Copy Filepath"});
+  //add rightclick menu
+  var listOfRightClickTargets =["","CurrentWindow","GroupInName","Count"];
+  var listOfRightClickTargetsLength = listOfRightClickTargets.length;
+  for(var rct = 0; rct < listOfRightClickTargetsLength; rct++)
+  {
+    var innerId = id+listOfRightClickTargets[rct];
+    menuObjectRightClick[innerId] = rightClickObjectNew;
+    Rightclick_ID_list.push(innerId);
+  }
+}
+
+function addClearAlertToRightClickMenu(id)
+{
+  try
+  {
+    var listOfRightClickTargets =["","CurrentWindow","GroupInName","Count"];
+    var listOfRightClickTargetsLength = listOfRightClickTargets.length;
+    for(var rct = 0; rct < listOfRightClickTargetsLength; rct++)
+    {
+      var innerId = id+listOfRightClickTargets[rct];
+      var menuObjectLocal = menuObjectRightClick[innerId];
+      if(menuObjectLocal)
+      {
+        var addToMenu = true;
+        var options = Object.keys(menuObjectLocal);
+        var lengthOfOptions = options.length;
+        for(var i = 0; i < lengthOfOptions; i++)
+        {
+          var currentOption = menuObjectLocal[options[i]];
+          if(currentOption["name"] === "Remove Alert")
+          {
+            addToMenu = false;
+            break;
+          }
+        }
+        if(addToMenu)
+        {
+          menuObjectRightClick[innerId][lengthOfOptions] =  {action: "removeNotificationByLog(\""+id+"\");" ,name: "Remove Alert"};
+        }
+      }
+    }
+  }
+  catch(e)
+  {
+    eventThrowException(e);
+  }
+}

@@ -7,7 +7,7 @@ require_once($baseModifier.'core/conf/config.php');
 require_once('configStatic.php');
 require_once('commonFunctions.php');
 
-$varsLoadLite = array("shellOrPhp", "logTrimOn", "logSizeLimit","logTrimMacBSD", "logTrimType","TrimSize","enableLogging","buffer","sliceSize","lineCountFromJS","showErrorPhpFileOpen","expFormatEnabled");
+$varsLoadLite = array("shellOrPhp", "logTrimOn", "logSizeLimit","logTrimMacBSD", "logTrimType","TrimSize","enableLogging","buffer","sliceSize","lineCountFromJS","showErrorPhpFileOpen","expFormatEnabled","logFormatFileEnable","logFormatFileLinePadding");
 
 foreach ($varsLoadLite as $varLoadLite)
 {
@@ -82,7 +82,7 @@ if(isset($_POST['arrayToUpdate']))
 				}
 			}
 			$dataVar = htmlentities($dataVar);
-			if($expFormatEnabled === "true")
+			if($expFormatEnabled === "true" && $logFormatFileEnable === "true")
 			{
 				//try and get file path and file lines
 				$arrayOfFiles = array();
@@ -90,7 +90,7 @@ if(isset($_POST['arrayToUpdate']))
 				foreach ($tmpLog as $tmpLogLine)
 				{
 					//check for line here, add file path to array if there
-					preg_match('/(in )(.?)([\/]+)([^&\r\n\t]*)(on line|\D:\d)(.?)(\d{1,10})/', $tmpLogLine, $matches);
+					preg_match('/(in|at) (.?)([\/]+)([^&\r\n\t]*)(on line|\D:\d)(.?)(\d{1,10})/', $tmpLogLine, $matches);
 					if(count($matches) > 0 && !isset($arrayOfFiles[$matches[0]]))
 					{
 						$fileData = "Error - File Not Found";
@@ -100,7 +100,7 @@ if(isset($_POST['arrayToUpdate']))
 							$fileData = "Error - File Not Readable";
 							if(is_readable($fileName))
 							{
-								$linePadding = 2;
+								$linePadding = $logFormatFileLinePadding;
 								$totalPading = $linePadding * 2;
 								$currentLine = intval($matches[7]) - $linePadding;
 								if($currentLine < 0)

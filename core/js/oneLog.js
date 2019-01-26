@@ -125,6 +125,31 @@ function isOneLogVisible()
 	return false;
 }
 
+function closeToOneLogInFull(currentLogNum, currentOneLogPosition)
+{
+	document.getElementById("windowConfig").value = "1x1";
+	generateWindowDisplayInner();
+	changeCurrentSelectWindow(0);
+	if(currentOneLogPosition === 0)
+	{
+		document.getElementById("oneLog").click();
+	}
+}
+
+function switchBackToOnelog(currentLogNum)
+{
+	var initialPos = currentSelectWindow;
+	if(initialPos !== currentLogNum)
+	{
+		changeCurrentSelectWindow(currentLogNum);
+		document.getElementById("oneLog").click();
+	}
+	if(initialPos !== currentLogNum)
+	{
+		changeCurrentSelectWindow(initialPos);
+	}
+}
+
 function scrollOneLogIfVisible(currentPosOfOneLog)
 {
 	$("#log"+currentPosOfOneLog).html(makeOneLogPretty());
@@ -151,8 +176,7 @@ function updateOneLogData(id, newDiff, newDiffText)
 		}
 		else
 		{
-			var oneLogTitle = filterTitle(titles[id]);
-			oneLogTitle += "("+newDiff+")";
+			var oneLogTitle = filterTitle(titles[id]) + newDiff;
 			//create new entry below
 			oneLogLogData["logs"].push({
 				logName: oneLogTitle,
@@ -177,8 +201,13 @@ function openLogInFull(logId)
 		var boolForGen = (logDisplayArrayKey === 1);
 		if(boolForGen)
 		{
+			idOfOneLogOpen = logId;
 			//generate window from 1 to 2
 			document.getElementById("windowConfig").value = "1x2";
+			if(oneLogNewBlockLocation === "bottom" || (window.innerWidth < breakPointTwo && oneLogNewBlockLocation === "auto"))
+			{
+				document.getElementById("windowConfig").value = "2x1";
+			}
 			generateWindowDisplayInner();
 		}
 		else
@@ -214,6 +243,7 @@ function openLogInFull(logId)
 	}
 	else
 	{
+		idOfOneLogOpen = logId;
 		changeCurrentSelectWindow(currentOneLogPosition);
 		document.getElementById(logId).click();
 	}

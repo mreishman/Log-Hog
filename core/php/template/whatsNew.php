@@ -104,6 +104,12 @@
 				"Name"			=>	"More Notifications!",
 				"BP"			=>	array("Redesigned Notifications"),
 				"Images"		=>	array("6.1-1.png","6.1-2.png","6.1-3.png","6.1-4.png")
+			),
+			17	=>	array(
+				"Version"		=>	"6.2",
+				"Name"			=>	"Settings Update 4",
+				"BP"			=>	array("Settings Changes"),
+				"Images"		=>	array("6.2-1.png","6.2-2.png")
 			)
 		);
 		$dataForWhatsNew = array_reverse($dataForWhatsNew);
@@ -114,7 +120,7 @@
 					$first = false; ?>
 				<th colspan="2" style="padding: 10px">
 				<?php else: ?>
-				<th colspan="2" style="border-top: 1px solid white; padding: 10px">
+				<th colspan="2" class="addBorderTop" style="padding: 10px">
 				<?php endif; ?>
 					<h1><?php echo $value["Version"]; ?></h1>
 					<h3><?php echo $value["Name"]; ?></h3>

@@ -22,16 +22,10 @@ $windowDisplayConfig = explode("x", $windowConfig);
 
 ?>
 <style type="text/css">
-#menu a, #menu2 a, .link, .linkSmall
+#menu a, #menu2 a, .link, .linkSmall, .menu a
 {
 	background: <?php echo $currentSelectedThemeColorValues['main']['main-1']['background']?>;
 	color: <?php echo $currentSelectedThemeColorValues['main']['main-1']['fontColor']?>;
-}
-
-#menu2
-{
-	background: <?php echo $currentSelectedThemeColorValues['highlight']['highlight-1']['background']?>;
-	color: <?php echo $currentSelectedThemeColorValues['highlight']['highlight-1']['fontColor']?>;
 }
 
 <?php
@@ -110,6 +104,13 @@ progress::-webkit-progress-value
 	color: <?php echo $currentSelectedThemeColorValues['main']['main-1']['fontColor']?>;
 }
 
+.selectDiv select option
+{
+	color: <?php echo $currentSelectedThemeColorValues['main']['main-1']['fontColor']?>;
+	background-color: <?php echo $currentSelectedThemeColorValues['main']['main-1']['background']?>;
+}
+
+
 div.sidebarLeft
 {
 	background: <?php echo $currentSelectedThemeColorValues['main']['main-1']['background']?>;
@@ -169,6 +170,37 @@ if(!($windowDisplayConfig[0] > 1 || $windowDisplayConfig[1] > 1)): ?>
 ::-webkit-scrollbar-thumb:hover
 {
 	<?php echo $scrollBarHandleHover; ?>
+}
+
+.addBorder
+{
+	border: 1px solid <?php echo $currentSelectedThemeColorValues['main']['main-1']['fontColor']?>;
+}
+
+.addBorderBottom
+{
+	border-bottom: 1px solid <?php echo $currentSelectedThemeColorValues['main']['main-1']['fontColor']?>;
+}
+
+.addBorderTop
+{
+	border-top: 1px solid <?php echo $currentSelectedThemeColorValues['main']['main-1']['fontColor']?>;
+}
+
+.addBorderLeft
+{
+	border-left: 1px solid <?php echo $currentSelectedThemeColorValues['main']['main-1']['fontColor']?>;
+}
+
+.addBorderRight
+{
+	border-right: 1px solid <?php echo $currentSelectedThemeColorValues['main']['main-1']['fontColor']?>;
+}
+
+.addBackground
+{
+	background: <?php echo $currentSelectedThemeColorValues['main']['main-1']['background']?>;
+	color: <?php echo $currentSelectedThemeColorValues['main']['main-1']['fontColor']?>;
 }
 
 </style>
