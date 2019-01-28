@@ -16,6 +16,7 @@ var counterForPollForceRefreshAll = 0;
 var counterForPollForceRefreshErr = 0;
 var currentPage;
 var currentSelectWindow = 0;
+var currentToggleLogPopup = -1;
 var dataFromUpdateCheck = null;
 var fileData;
 var filesNew;
@@ -445,6 +446,10 @@ function toggleDisplayOfNoLogs()
 			if(document.getElementById("noLogToDisplay").style.display !== "block")
 			{
 				document.getElementById("noLogToDisplay").style.display = "block";
+				
+			}
+			if(document.getElementById("log").style.display !== "none")
+			{
 				document.getElementById("log").style.display = "none";
 			}
 		}
@@ -454,6 +459,10 @@ function toggleDisplayOfNoLogs()
 			if(document.getElementById("noLogToDisplay").style.display !== "none")
 			{
 				document.getElementById("noLogToDisplay").style.display = "none";
+				
+			}
+			if(document.getElementById("log").style.display !== "block")
+			{
 				document.getElementById("log").style.display = "block";
 			}
 		}
@@ -749,11 +758,16 @@ function toggleLogPopup(event, currentCurrentSelectWindow)
 	if(isLogPopupOpen())
 	{
 		closeLogPopup();
+		if(currentToggleLogPopup !== currentCurrentSelectWindow)
+		{
+			openLogPopup(event,currentCurrentSelectWindow);
+		}
 	}
 	else
 	{
 		openLogPopup(event,currentCurrentSelectWindow);
 	}
+	currentToggleLogPopup = currentCurrentSelectWindow;
 }
 
 function openLogPopup(event,currentCurrentSelectWindow)
