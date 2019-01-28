@@ -70,7 +70,7 @@ function makePrettyWithText(text, count, extraData = {})
 			var lineText = formattedLogArr[formattedLogArrKeys[FLAKCount]];
 			var customClass = " class = '";
 			var customClassAdd = false;
-			if(highlightNew === "true" && ((FLAKCount + count + 1) > lengthOfLocalTextArray))
+			if(highlightNew === "true" && ((FLAKCount + count + 1) > formattedLogArrKeysLength))
 			{
 				customClass += " newLine ";
 				customClassAdd = true;
