@@ -10,6 +10,8 @@ function toggleSettingsSidebar()
 		}
 		document.getElementById("log").style.width = newWidth+"px";
 		document.getElementById("log").style.marginLeft = "200px";
+		document.getElementById("noLogToDisplay").style.width = newWidth+"px";
+		document.getElementById("noLogToDisplay").style.marginLeft = "200px";
 		document.getElementById("settingsSideBar").style.display = "inline-block";
 	}
 	else
@@ -27,6 +29,8 @@ function toggleSettingsSidebar()
 		}
 		document.getElementById("log").style.width = newWidth;
 		document.getElementById("log").style.marginLeft = "0px";
+		document.getElementById("noLogToDisplay").style.width = newWidth;
+		document.getElementById("noLogToDisplay").style.marginLeft = "0px";
 		document.getElementById("settingsSideBar").style.display = "none";
 	}
 	resize();

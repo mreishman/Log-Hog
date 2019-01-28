@@ -771,6 +771,8 @@ function toggleInfoSidebar()
 		}
 		document.getElementById("log").style.width = newWidth+"px";
 		document.getElementById("log").style.marginRight = "200px";
+		document.getElementById("noLogToDisplay").style.width = newWidth+"px";
+		document.getElementById("noLogToDisplay").style.marginRight = "200px";
 		document.getElementById("moreInfoSideBar").style.display = "inline-block";
 	}
 	else
@@ -788,6 +790,8 @@ function toggleInfoSidebar()
 		}
 		document.getElementById("log").style.width = newWidth;
 		document.getElementById("log").style.marginRight = "0px";
+		document.getElementById("noLogToDisplay").style.width = newWidth;
+		document.getElementById("noLogToDisplay").style.marginRight = "0px";
 		document.getElementById("moreInfoSideBar").style.display = "none";
 	}
 	resize();
