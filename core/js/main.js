@@ -16,6 +16,7 @@ var counterForPollForceRefreshAll = 0;
 var counterForPollForceRefreshErr = 0;
 var currentPage;
 var currentSelectWindow = 0;
+var currentToggleLogPopup = -1;
 var dataFromUpdateCheck = null;
 var fileData;
 var filesNew;
@@ -757,11 +758,16 @@ function toggleLogPopup(event, currentCurrentSelectWindow)
 	if(isLogPopupOpen())
 	{
 		closeLogPopup();
+		if(currentToggleLogPopup !== currentCurrentSelectWindow)
+		{
+			openLogPopup(event,currentCurrentSelectWindow);
+		}
 	}
 	else
 	{
 		openLogPopup(event,currentCurrentSelectWindow);
 	}
+	currentToggleLogPopup = currentCurrentSelectWindow;
 }
 
 function openLogPopup(event,currentCurrentSelectWindow)
