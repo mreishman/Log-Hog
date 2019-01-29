@@ -235,7 +235,7 @@ $externalLinkImage = generateImage(
 						notifications[currentId]["id"] = currentId;
 						notifications[currentId]["name"] = "New Update: <?php echo $configStatic['newestVersion'];?>";
 						notifications[currentId]["time"] = formatAMPM(new Date());
-						notifications[currentId]["action"] = "toggleFullScreenMenu(); toggleUpdateMenu();";
+						notifications[currentId]["action"] = "toggleUpdateMenu();";
 						notifications[currentId]["image"] = <?php echo $updateImage; ?>;
 					}
 				<?php endif;
