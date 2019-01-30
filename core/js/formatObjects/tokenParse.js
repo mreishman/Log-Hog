@@ -1,3 +1,5 @@
+var parseTokenWeight = 10;
+
 if(!("strpos" in arrOfMoreInfo))
 {
 	arrOfMoreInfo["strpos"] = {};

@@ -10,8 +10,6 @@ var phpYellowWarningArr = {
 	0:"PHP Warning"
 };
 
-var parseTokenWeight = 10;
-
 function formatPhpMessage(message, extraData)
 {
 	var message = message.split("PHP message:");
