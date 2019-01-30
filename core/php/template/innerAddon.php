@@ -120,7 +120,7 @@
 	</script>
 	<table style="width: 100%;">
 		<tr>
-			<td width="15%">
+			<td width="10%">
 			</td>
 			<td width="25%">
 			</td>
@@ -130,7 +130,7 @@
 			</td>
 			<td width="15%">
 			</td>
-			<td width="5%">
+			<td width="15%">
 			</td>
 			<td width="5%">
 			</td>
@@ -197,7 +197,7 @@
 								<input type="hidden" name="repoName" value="<?php echo $repo; ?>">
 								<input type="hidden" name="action" value="Removing">
 							</form>
-							<a onclick="addonMonitorAction(<?php echo $key; ?>);" class="link">Remove <?php echo $uppercase; ?></a>
+							<a onclick="addonMonitorAction(<?php echo $key; ?>);" class="link">Remove</a>
 						</td>
 						<td>
 							<a target="_blank" onclick="window.location.href= '<?php echo $installed; ?>'" class="link">View</a>
@@ -223,7 +223,7 @@
 							<input type="hidden" name="repoName" value="<?php echo $repo; ?>">
 							<input type="hidden" name="action" value="Downloading">
 						</form>
-						<a onclick="addonMonitorAction(<?php echo $key; ?>);" class="link">Download <?php echo $uppercase; ?></a>
+						<a onclick="addonMonitorAction(<?php echo $key; ?>);" class="link">Download</a>
 					</td>
 				<?php endif; ?>
 			</tr>
