@@ -180,6 +180,13 @@ if($advancedLogFormatEnabled === "true")
 			"type" => "js"
 		);
 	}
+	if($logFormatJsObjectEnable === "true")
+	{
+		$arrayOfFiles[] =  array(
+			"name" => "formatJsObject.js",
+			"type" => "js"
+		);
+	}
 	$arrayOfFiles[] =  array(
 		"name" => "format.js",
 		"type" => "js"

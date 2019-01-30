@@ -889,6 +889,31 @@ $defaultConfigMoreData = array(
 					)
 				)
 			),
+			8									=>	array(
+				"bool"								=>	($logFormatJsObjectEnable == 'false'),
+				"id"								=>	"logFormatJsObjectEnableSettings",
+				"name"								=>	"Log JS encoded object Message Format Settings",
+				"type"								=>	"grouped",
+				"var"								=>	array(
+					"function"							=>	"showOrHidelogFormatJsObjectEnableSettings",
+					"id"								=>	"logFormatJsObjectEnable",
+					"key"								=>	"logFormatJsObjectEnable",
+					"name"								=>	"Format js objects",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				),
+				"vars"								=>	array(
+					0									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"logFormatJsObjectArrEnable",
+							"name"								=>	"Also format JS array",
+							"options"							=>	$trueFalsVars,
+							"type"								=>	"dropdown"
+						)
+					)
+				)
+			)
 		)
 	),
 	"loggingVars"						=>	array(
