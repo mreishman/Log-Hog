@@ -55,3 +55,29 @@ function updateFileDataArrayInner(newDataArr)
 		}
 	}
 }
+
+
+function checkIfLineContainsAFile(localMessage)
+{
+	let stringLengthMatch = -1;
+	let fileData = "";
+	var arrayOfFileDataKeys = Object.keys(arrayOfFileData);
+	var arrayOfFileDataKeysLength = arrayOfFileDataKeys.length;
+	for(var AOFDCount = 0; AOFDCount < arrayOfFileDataKeysLength; AOFDCount++)
+	{
+		let localMessageIndex = localMessage.indexOf(arrayOfFileDataKeys[AOFDCount]);
+		if(localMessageIndex > -1 && arrayOfFileData[arrayOfFileDataKeys[AOFDCount]]["fileData"] !== "Error - File Not Found")
+		{
+			let stringLength = arrayOfFileDataKeys[AOFDCount].length;
+			if(stringLength > stringLengthMatch)
+			{
+				fileData = arrayOfFileData[arrayOfFileDataKeys[AOFDCount]];
+				stringLengthMatch = stringLength;
+			}
+		}
+	}
+	return {
+		match: stringLengthMatch,
+		file: fileData
+	};
+}
