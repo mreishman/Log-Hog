@@ -15,6 +15,7 @@
 		margin: .5em 0;
 		background: $linkColor;
 		cursor: pointer;
+		color: $linkFontColor;
 
 		.menuCounter{
 			padding-right: 1em;
@@ -64,6 +65,7 @@
 		background: $linkColor;
 		cursor: pointer;
 		padding: .5em 1em;
+		color: $linkFontColor;
 
 		&:hover{
 			color: $mainAltColor;
