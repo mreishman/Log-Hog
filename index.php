@@ -31,11 +31,6 @@ if(!file_exists($baseUrl.'conf/config.php'))
 			header('Location: ' . $url, true, 302);
 			exit();
 		}
-		else
-		{
-			//setup either errored out, or was incomplete. throw error.
-			//throwSetupError("");
-		}
 	}
 }
 require_once($baseUrl.'conf/config.php');
