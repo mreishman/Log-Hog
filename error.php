@@ -270,6 +270,80 @@ if(file_exists($file))
             <?php echo $errorArray[$error]["secondMessage"]; ?>
             <h2> Version: </h2>
             <?php echo $version; ?>
+            <br>
+            <br>
+            <?php
+                try
+                {
+                    $currentSelectedTheme = "default";
+                    if(is_file("local/layout.php"))
+                    {
+                        @include("local/layout.php");
+                    }
+                    $config = array();
+                    if(is_file("local/".$currentSelectedTheme."/conf/config.php"))
+                    {
+                        @include("local/".$currentSelectedTheme."/conf/config.php");
+                    }
+                    $arrayOfModules = array(
+                        0                                   =>  array(
+                            "key"                               =>  "developmentTabEnabled",
+                            "name"                              =>  "Development Tools",
+                        ),
+                        1                                   =>  array(
+                            "key"                               =>  "themesEnabled",
+                            "name"                              =>  "Themes",
+                        ),
+                        2                                   =>  array(
+                            "key"                               =>  "enableMultiLog",
+                            "name"                              =>  "Multi-Log",
+                        ),
+                        3                                   =>  array(
+                            "key"                               =>  "enableHistory",
+                            "name"                              =>  "History",
+                        ),
+                        4                                   =>  array(
+                            "key"                               =>  "oneLogEnable",
+                            "name"                              =>  "One Log",
+                        ),
+                        5                                   =>  array(
+                            "key"                               =>  "filterEnabled",
+                            "name"                              =>  "Filters",
+                        ),
+                        6                                   =>  array(
+                            "key"                               =>  "rightClickMenuEnable",
+                            "name"                              =>  "Right Click Menu",
+                        ),
+                        7                                   =>  array(
+                            "key"                               =>  "advancedLogFormatEnabled",
+                            "name"                              =>  "Advanced Log Format Options",
+                        ),
+                        8                                   =>  array(
+                            "key"                               =>  "backupNumConfigEnabled",
+                            "name"                              =>  "Config Backup",
+                        )
+                    );
+                    echo "<h3>Modules:</h3><table width=\"100%\" >";
+                    foreach ($arrayOfModules as $value)
+                    {
+                        $enabled = "Enabled?";
+                        if(!empty($config))
+                        {
+                            $enabled = "Enabled";
+                            if(isset($config[$value["key"]]) && $config[$value["key"]] !== "true")
+                            {
+                                $enabled = "Disabled";
+                            }
+                        }
+                        echo "<tr><td> ".$value["name"]." </td><td> ".$enabled."</td>";
+                    }
+                    echo "</table>";
+                }
+                catch (Exception $e)
+                {
+                    echo "Could not load module status";
+                }
+            ?>
         </td>
         <td width="33%">
             <h3> Actions: </h3>
