@@ -290,6 +290,7 @@ $defaultConfig = array(
 	'logFormatReportShowImg'		=> 'true',
 	'logFormatShowMoreButton'		=> 'true',
 	'logFormatShowMoreExtraInfo'	=> 'false',
+	'logLayoutSettingsInfo'			=> 'expandWithValues',
 	'logLinePadding'				=> 4,
 	'logMenuLocation'				=> 'top',
 	'logNameExtension'				=> 'true',

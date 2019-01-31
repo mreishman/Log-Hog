@@ -435,6 +435,28 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
+			3									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"logLayoutSettingsInfo",
+					"name"								=>	"Default show options for log layout settings",
+					"options"							=>	array(
+						0 									=> array(
+							"value" 							=> "all",
+							"name" 								=> "All"),
+						1 									=> array(
+							"value" 							=> "expandWithValues",
+							"name" 								=> "If current window has value"),
+						2 									=> array(
+							"value" 							=> "expandWithValue",
+							"name" 								=> "If any window has value"),
+						3 									=> array(
+							"value" 							=> "none",
+							"name" 								=> "None")
+					),
+					"type"								=>	"dropdown"
+				)
+			),
 		)
 	),
 	"fileLocations"						=>	array(
