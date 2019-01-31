@@ -94,6 +94,7 @@ function makePrettyWithText(text, count, extraData = {})
 			}
 			returnText += ">";
 			var lineToReturn = "<td style=\"white-space: pre-wrap;\">"+lineText+"</td>";
+			var colspan = 2;
 			if(type === "log" && advancedLogFormatEnabled === "true")
 			{
 				let lastLine = "";
@@ -115,6 +116,10 @@ function makePrettyWithText(text, count, extraData = {})
 					lastLine,
 					nextLine
 				});
+				if(dateTextFormatColumn === "true" || (dateTextFormatColumn === "auto" && window.innerWidth > breakPointTwo))
+				{
+					colspan = 3;
+				}
 			}
 			else if (type === "file")
 			{
@@ -126,7 +131,7 @@ function makePrettyWithText(text, count, extraData = {})
 					lineCount
 				});
 			}
-			returnText += "<td style=\"width: 31px; padding: 0;\"></td>"+lineToReturn+"</tr><tr height=\""+logLinePadding+"px\"><td colspan=\"2\"></td></tr>";
+			returnText += "<td style=\"width: 31px; padding: 0;\"></td>"+lineToReturn+"</tr><tr class=\"logLinePaddingHeight\"><td class=\"logLineBorder\" colspan=\""+colspan+"\"></td></tr>";
 		}
 		if(returnText === "")
 		{

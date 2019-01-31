@@ -655,6 +655,40 @@ $defaultConfigMoreData = array(
 				)
 			),
 			6									=>	array(
+				"bool"								=>	($logLineBorder == 'false'),
+				"id"								=>	"logLineBorderSettings",
+				"name"								=>	"Log Line Border Settings",
+				"type"								=>	"grouped",
+				"var"								=>	array(
+					"function"							=>	"showOrHidelogLineBorderSettings",
+					"id"								=>	"logLineBorder",
+					"key"								=>	"logLineBorder",
+					"name"								=>	"Show border between log lines",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				),
+				"vars"								=>	array(
+					0									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"logLineBorderColor",
+							"name"								=>	"Border Color",
+							"type"								=>	"text"
+						)
+					),
+					1									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"logLineBorderHeight",
+							"name"								=>	"Border Height",
+							"options"							=>	$oneToFiveArr,
+							"postText"							=>	" px",
+							"type"								=>	"dropdown"
+						)
+					)
+				)
+			),
+			7									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"backgroundHeaderColor",
@@ -662,7 +696,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"text"
 				)
 			),
-			7									=>	array(
+			8									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"invertMenuImages",
@@ -671,7 +705,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			8									=>	array(
+			9									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"overallBrightness",
@@ -680,7 +714,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			9									=>	array(
+			10									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"maxHeightLogTabs",

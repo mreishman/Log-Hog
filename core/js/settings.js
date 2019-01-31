@@ -8,6 +8,26 @@ var idForm = "";
 var innerHtmlObject = {};
 var pollCheckForUpdate;
 
+function showOrHideSubWindow(valueForPopupInner, valueForVarsInner, valueToCompare)
+{
+	try
+	{
+		if(valueForPopupInner.value === valueToCompare)
+		{
+			valueForVarsInner.style.display = "block";
+		}
+		else
+		{
+			valueForVarsInner.style.display = "none";
+		}
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
+
 function saveAndVerifyMain(idForForm)
 {
 	idForFormMain = idForForm;

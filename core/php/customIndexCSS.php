@@ -196,4 +196,14 @@ elseif($logMenuLocation === "bottom"): ?>
 	}
 <?php endif; ?>
 
+<?php if ($logLineBorder === "true"): ?>
+	.logLineBorder{
+		border-top: <?php echo $logLineBorderHeight; ?>px solid <?php echo $logLineBorderColor; ?>;
+	}
+<?php endif; ?>
+
+	.logLinePaddingHeight{
+		height: <?php echo $logLinePadding; ?>px;
+	}
+
 </style>
