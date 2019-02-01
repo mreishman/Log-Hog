@@ -121,3 +121,18 @@ function changeSearchplaceholder()
 	document.getElementById("searchFieldInput").placeholder = "Filter "+selectedListFilterType;
 	generalUpdate();
 }
+
+function toggleFilterType()
+{
+	if(document.getElementById("searchType").value === "content")
+	{
+		//switch to title
+		document.getElementById("searchType").value = "title";
+	}
+	else
+	{
+		//switch to content
+		document.getElementById("searchType").value = "content"
+	}
+	changeSearchplaceholder();
+}
