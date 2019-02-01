@@ -58,6 +58,15 @@
 	</span>
 	<br>
 	<br>
+	Highlight Line:
+	<span class="selectDiv" >
+		<select onchange="changeHighlightContentMatchLine();" id="filterContentHighlightLine">
+			<option <?php if ($filterContentHighlightLine === "true"){ echo "selected"; }?> value="true">True</option>
+			<option <?php if ($filterContentHighlightLine === "false"){ echo "selected"; }?> value="false">False</option>
+		</select>
+	</span>
+	<br>
+	<br>
 	Filter Content Match:
 	<span class="selectDiv" >
 		<select onchange="changeFilterContentMatch();" id="filterContentLimit">

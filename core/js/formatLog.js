@@ -75,14 +75,18 @@ function makePrettyWithText(text, count, extraData = {})
 				customClass += " newLine ";
 				customClassAdd = true;
 			}
-
+			let filterHighlight = false;
 			if(filterEnabled === "true" && selectedListFilterType === "content" && filterContentHighlight === "true" && filterTextField !== "")
 			{
 				//check if match, and if supposed to highlight
 				if(filterContentCheck(lineText))
 				{
-					customClass += " highlight ";
-					customClassAdd = true;
+					filterHighlight = true;
+					if(filterContentHighlightLine === "true")
+					{
+						customClass += " highlight ";
+						customClassAdd = true;
+					}
 				}
 			}
 
@@ -93,6 +97,10 @@ function makePrettyWithText(text, count, extraData = {})
 				returnText += " "+customClass+" ";
 			}
 			returnText += ">";
+			if(filterContentHighlightLine !== "true" && filterHighlight === true)
+			{
+				//@TODO add function here to get position of all occurences in line, add around those positions
+			}
 			var lineToReturn = "<td style=\"white-space: pre-wrap;\">"+lineText+"</td>";
 			var colspan = 2;
 			if(type === "log" && advancedLogFormatEnabled === "true")

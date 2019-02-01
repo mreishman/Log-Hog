@@ -577,6 +577,15 @@ $defaultConfigMoreData = array(
 							"name"								=>	"Font",
 							"type"								=>	"text"
 						)
+					),
+					2									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"filterContentHighlightLine",
+							"name"								=>	"Hilight Entire Line",
+							"options"							=>	$trueFalsVars,
+							"type"								=>	"dropdown"
+						)
 					)
 				)
 			),

@@ -113,6 +113,12 @@ function changeHighlightContentMatch()
 	possiblyUpdateFromFilter(true);
 }
 
+function changeHighlightContentMatchLine()
+{
+	filterContentHighlightLine = document.getElementById("filterContentHighlightLine").value;
+	possiblyUpdateFromFilter(true);
+}
+
 function changeFilterContentMatch()
 {
 	filterContentLimit = document.getElementById("filterContentLimit").value;

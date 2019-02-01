@@ -46,6 +46,7 @@ $defaultConfig = array(
 	'enablePollTimeLogging'			=> 'false',
 	'expSettingsAvail'				=> 'true',
 	'filterContentHighlight'		=> 'true',
+	'filterContentHighlightLine'	=> 'true',
 	'filterContentLimit'			=> 'true',
 	'filterContentLinePadding'		=> 3,
 	'filterDefault'					=> 'content',
