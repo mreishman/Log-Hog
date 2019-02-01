@@ -533,13 +533,22 @@ $defaultConfigMoreData = array(
 			2									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
+					"key"								=>	"filterInvert",
+					"name"								=>	"Invert Search",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			3									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
 					"key"								=>	"filterTitleIncludePath",
 					"name"								=>	"Filter Title Includes Path",
 					"options"							=>	$trueFalsVars,
 					"type"								=>	"dropdown"
 				)
 			),
-			3									=>	array(
+			4									=>	array(
 				"bool"								=>	($filterContentHighlight == 'false'),
 				"id"								=>	"highlightContentSettings",
 				"name"								=>	"Filter Highlight Settings",
@@ -571,7 +580,7 @@ $defaultConfigMoreData = array(
 					)
 				)
 			),
-			4									=>	array(
+			5									=>	array(
 				"bool"								=>	($filterContentLimit == 'false'),
 				"info"								=>	"When filtering by content, only show the line (or some sorrounding lines) containing the search content",
 				"id"								=>	"filterContentSettings",

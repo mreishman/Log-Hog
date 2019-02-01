@@ -37,7 +37,22 @@ function showFileFromFilter(id, name, shortName, logData)
 		if(typeof filterOffOf === "string" && filterOffOf !== "")
 		{
 			var filterTextField = getFilterTextField();
-			if(filterTextField === "" || filterOffOf.indexOf(filterTextField) !== -1)
+			//search field empty, don't filter
+			if(filterTextField === "")
+			{
+				return true;
+			}
+			//search found in line, show
+			if(filterOffOf.indexOf(filterTextField) !== -1)
+			{
+				if(filterInvert === "true")
+				{
+					return false;
+				}
+				return true;
+			}
+			//search not found, if invert: show
+			if(filterInvert === "true")
 			{
 				return true;
 			}
@@ -53,12 +68,21 @@ function showFileFromFilter(id, name, shortName, logData)
 function filterContentCheck(textToMatch)
 {
 	var filterTextField = getFilterTextField();
+	if(filterTextField === "")
+	{
+		return true;
+	}
 	if(caseInsensitiveSearch === "true")
 	{
 		textToMatch = textToMatch.toLowerCase();
 	}
 	textToMatch = unescapeHTML(textToMatch);
-	return (textToMatch.indexOf(unescapeHTML(filterTextField)) !== -1);
+	let filterResult = (textToMatch.indexOf(unescapeHTML(filterTextField)) !== -1);
+	if(filterInvert === "true")
+	{
+		filterResult = !filterResult;
+	}
+	return filterResult;
 }
 
 function getFilterTextField()
@@ -74,6 +98,12 @@ function getFilterTextField()
 function changeFilterCase()
 {
 	caseInsensitiveSearch = document.getElementById("caseInsensitiveSearch").value;
+	possiblyUpdateFromFilter(true);
+}
+
+function changeFilterInvert()
+{
+	filterInvert = document.getElementById("filterInvert").value;
 	possiblyUpdateFromFilter(true);
 }
 

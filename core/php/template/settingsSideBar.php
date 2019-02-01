@@ -31,6 +31,15 @@
 	</span>
 	<br>
 	<br>
+	Invert:
+	<span class="selectDiv" >
+		<select onchange="changeFilterInvert();" id="filterInvert">
+			<option <?php if ($filterInvert === "true"){ echo "selected"; }?> value="true">True</option>
+			<option <?php if ($filterInvert === "false"){ echo "selected"; }?> value="false">False</option>
+		</select>
+	</span>
+	<br>
+	<br>
 	Title Includes Path:
 	<span class="selectDiv" >
 		<select onchange="changeFilterTitleIncludePath();" id="filterTitleIncludePath">

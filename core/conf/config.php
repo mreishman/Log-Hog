@@ -50,6 +50,7 @@ $defaultConfig = array(
 	'filterContentLinePadding'		=> 3,
 	'filterDefault'					=> 'content',
 	'filterEnabled'					=> 'true',
+	'filterInvert'					=> 'false',
 	'filterSearchInHeader'			=> 'true',
 	'filterTitleIncludePath'		=> 'true',
 	'flashTitleUpdateLog'			=> 'false',
