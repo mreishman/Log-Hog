@@ -110,6 +110,12 @@
 				"Name"			=>	"Settings Update 4",
 				"BP"			=>	array("Settings Changes"),
 				"Images"		=>	array("6.2-1.png","6.2-2.png")
+			),
+			18	=>	array(
+				"Version"		=>	"7.0",
+				"Name"			=>	"Information",
+				"BP"			=>	array("Log Formatting"),
+				"Images"		=>	array("7.0-1.png","7.0-2.png")
 			)
 		);
 		$dataForWhatsNew = array_reverse($dataForWhatsNew);
@@ -138,10 +144,14 @@
 					<?php foreach ($value["Images"] as $IMGValue):
 						echo "<div style=\"display: inline-block;\" >".generateImage(
 							$arrayOfImages["loadingImg"],
-							$imageConfig = array(
+							array(
 								"class"		=>	"whatsNewImage",
 								"style"		=>	"max-width: 500px;",
-								"data-src"	=>	$imageDirModifierAbout."core/img/".$IMGValue
+								"data-src"	=>	array(
+									"src"		=> $imageDirModifierAbout."core/img/".$IMGValue,
+									"alt"		=> $value["Version"]. " Image",
+									"title"		=> $value["Version"]. " Image"
+									)
 								)
 							)."</div>";
 					endforeach; ?>
