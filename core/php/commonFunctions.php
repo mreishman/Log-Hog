@@ -256,7 +256,7 @@ function getFileSizeInner($fileName, $shellOrPhp)
 	return $fileSize;
 }
 
-function trimLogLine($filename, $logSizeLimit,$logTrimMacBSD,$buffer, $shellOrPhp, $showErrorPhpFileOpen)
+function trimLogLine($filename, $logSizeLimit, $logTrimMacBSD, $buffer, $shellOrPhp, $showErrorPhpFileOpen)
 {
 	$lineCount = getLineCount($filename, $shellOrPhp);
 	if($lineCount > ($logSizeLimit+$buffer))
@@ -292,7 +292,7 @@ function trimLogSize($filename, $logSizeLimit,$logTrimMacBSD,$buffer, $shellOrPh
 	}
 }
 
-function trimLogInner($logTrimMacBSD,$filename,$lineEnd, $shellOrPhp, $showErrorPhpFileOpen)
+function trimLogInner($logTrimMacBSD, $filename, $lineEnd, $shellOrPhp, $showErrorPhpFileOpen)
 {
 	if($shellOrPhp === "phpPreferred" || $shellOrPhp ===  "phpOnly")
 	{
@@ -330,7 +330,7 @@ function trimLogInner($logTrimMacBSD,$filename,$lineEnd, $shellOrPhp, $showError
 	}
 }
 
-function trimLogPhp($filename,$lineEnd,$showErrorPhpFileOpen)
+function trimLogPhp($filename, $lineEnd, $showErrorPhpFileOpen)
 {
 	if($showErrorPhpFileOpen === "false")
 	{
@@ -359,7 +359,7 @@ function trimLogPhp($filename,$lineEnd,$showErrorPhpFileOpen)
 	}
 }
 
-function trimLogShell($logTrimMacBSD,$filename,$lineEnd)
+function trimLogShell($logTrimMacBSD, $filename, $lineEnd)
 {
 	if($logTrimMacBSD == "true")
 	{
@@ -440,21 +440,21 @@ function tail($filename, $sliceSize, $shellOrPhp, $start = 0)
 		$data = trim(shell_exec('sed -n "'.$start.','.($start+$sliceSize).'p" "' . $filename . '"'));
 	}
 
-	if(($data === "" || is_null($data)) && ($shellOrPhp === "shellPreferred" || $shellOrPhp === "phpPreferred"))
+	if(($data === "" || is_null($data)))
 	{
 		if($shellOrPhp === "phpPreferred")
 		{
 			$data = trim(shell_exec('sed -n "'.$start.','.($start+$sliceSize).'p" "' . $filename . '"'));
 		}
-		else
+		elseif($shellOrPhp === "shellPreferred")
 		{
 			$data = trim(tailCustom($filename, $sliceSize, true, $start));
 		}
-	}
 
-	if($data === "" || is_null($data))
-	{
-		$data = "Error - Maybe insufficient access to read file?";
+		if($data === "" || is_null($data))
+		{
+			$data = "Error - Maybe insufficient access to read file?";
+		}
 	}
 	return $data;
 }
@@ -474,14 +474,12 @@ function tailCustom($filepath, $lines = 1, $adaptive = true, $startLine = 0)
 	{
 		return false;
 	}
-	if(!$adaptive)
-	{
-		$buffer = 4096;
-	}
-	else
+	$buffer = 4096;
+	if($adaptive)
 	{
 		$buffer = ($lines < 2 ? 64 : ($lines < 10 ? 512 : 4096));
 	}
+
 	fseek($fileOpened, -1, SEEK_END);
 	if(fread($fileOpened, 1) != "\n")
 	{
@@ -611,11 +609,11 @@ function generateImage($imageArray, $customConfig)
 				$image .= $customConfig["srcModifier"];
 			}
 			$image .= $customConfig["data-src"]["src"]."\" ";
-			if(!isset($customConfig["title"]))
+			if(!isset($customConfig["title"]) && isset($customConfig["data-src"]["title"]))
 			{
 				$image .=  " data-title=\"".$customConfig["data-src"]["title"]."\" ";
 			}
-			if(!isset($customConfig["alt"]))
+			if(!isset($customConfig["alt"]) && isset($customConfig["data-src"]["alt"]))
 			{
 				$image .=  " data-alt=\"".$customConfig["data-src"]["alt"]."\" ";
 			}
@@ -1025,7 +1023,7 @@ function getListOfFiles($data)
 		if($scannedDir)
 		{
 			unset($scannedDir[0], $scannedDir[1]);
-			foreach($scannedDir as $k => $filename)
+			foreach($scannedDir as $filename)
 			{
 				$fullPath = $path . DIRECTORY_SEPARATOR . $filename;
 				if($recursive === "true" && is_dir($fullPath))
@@ -1080,7 +1078,7 @@ function sizeFilesInDir($data)
 		$files = array_diff($scannedDir, array('..', '.'));
 		if($files)
 		{
-			foreach($files as $k => $filename)
+			foreach($files as $filename)
 			{
 				$fullPath = $path . DIRECTORY_SEPARATOR . $filename;
 				if(is_dir($fullPath) && $recursive === "true")
@@ -1108,7 +1106,7 @@ function createSelect($options, $selectValue, $defaultOption = false)
 {
 	$selectHtml = "";
 	$selected = false;
-	foreach ($options as $key => $value)
+	foreach ($options as $value)
 	{
 		$selectHtml .= "<option value=\"".$value["value"]."\" ";
 		if($selectValue === $value["value"] && $selected !== true)
@@ -1153,20 +1151,20 @@ function generateFullSelect($confDataValue, $selectValue, $varName)
 	return $returnHtml;
 }
 
-function generateNumber($confDataValue,$numberValue,$varName)
+function generateNumber($confDataValue, $numberValue, $varName)
 {
 	$returnHtml = "<span class=\"settingsBuffer\" > ".$confDataValue["name"].": </span>";
 	$returnHtml .= " <input type=\"number\" pattern=\"[0-9]*\" name=\"".$varName."\" value=\"".$numberValue."\" >";
 	return $returnHtml;
 }
 
-function generateHidden($confDataValue,$numberValue,$varName)
+function generateHidden($confDataValue, $numberValue, $varName)
 {
 	$returnHtml = " <input id=\"".$confDataValue["id"]."\" type=\"hidden\" name=\"".$varName."\" value='".$numberValue."' >";
 	return $returnHtml;
 }
 
-function generateText($confDataValue,$numberValue,$varName)
+function generateText($confDataValue, $numberValue, $varName)
 {
 	$returnHtml = "<span class=\"settingsBuffer\" > ".$confDataValue["name"].": </span>";
 	$returnHtml .= " <input type=\"text\" name=\"".$varName."\" value=\"".$numberValue."\" >";
@@ -1253,7 +1251,7 @@ function generateFolderColorRow($arrFCOdata = array())
 			)
 		),
 		"active"				=>	array(
-			.0						=>	array(
+			0						=>	array(
 				"background"			=>	"#000",
 				"fontColor"				=>	"#fff"
 			)
@@ -1287,24 +1285,18 @@ function generateFolderColorRow($arrFCOdata = array())
 	{
 		$themeName = $arrFCOdata["themeName"];
 	}
-
 	if((strpos($key, "default") > -1))
 	{
 		$edit = false;
 	}
-	$htmlToReturn = "";
-	$td1 = "";
-	$td1 .= "<input type=\"radio\" name=\"currentFolderColorTheme\" ";
+
+	$td1 = "<input type=\"radio\" name=\"currentFolderColorTheme\" ";
 	if ($key == $currentFolderColorTheme)
 	{
 		$td1 .= "checked='checked'";
 	}
-	else
-	{
-
-	}
 	$td1 .= " value=\"".$key."\"> ".$key.": ";
-	$htmlToReturn .= "<td>".$td1."</td>";
+	$htmlToReturn = "<td>".$td1."</td>";
 	$td1p5 = "<td>";
 	if($edit)
 	{
@@ -1312,12 +1304,11 @@ function generateFolderColorRow($arrFCOdata = array())
 	}
 	$td1p5 .= "</td>";
 	$htmlToReturn .= $td1p5;
-	$td2 = "";
-	$td2 .= "<input style=\"display: none;\" type=\"text\" name=\"folderColorThemeNameForPost".$i."\" value=\"".$key."\" > Main Colors: <span id=\"folderColorThemeNameForPost".$i."Main\">";
+	$td2 = "<input style=\"display: none;\" type=\"text\" name=\"folderColorThemeNameForPost".$i."\" value=\"".$key."\" > Main Colors: <span id=\"folderColorThemeNameForPost".$i."Main\">";
 	if($i !== "{{i}}")
 	{
 		$j = 0;
-		foreach ($value['main'] as $key2 => $value2)
+		foreach ($value['main'] as $value2)
 		{
 			$j++;
 			$td2 .= generateColorBlock(array(
@@ -1339,23 +1330,18 @@ function generateFolderColorRow($arrFCOdata = array())
 			"edit"						=>	true
 		));
 	}
-	$td2 .= "</span> ";
+	$td2B = "<div style=\"display: inline-block; width: 20px;\"  ></div>";
 	if($edit || $i === "{{i}}")
 	{
-		$td2 .= "<div class=\"colorSelectorDiv addBorder\" id=\"folderColorThemeNameForPost".$i."Add\" onclick=\"addColorBlock(".$i.")\" style=\"display: inline-block; text-align: center; line-height: 18px; cursor: pointer; \"  >+</div>";
-		$td2 .= "<div class=\"colorSelectorDiv addBorder\" id=\"folderColorThemeNameForPost".$i."Remove\" onclick=\"removeColorBlock(".$i.")\" style=\"display: inline-block; text-align: center; line-height: 18px; cursor: pointer; \"  >-</div>";
+		$td2B = "<div class=\"colorSelectorDiv addBorder\" id=\"folderColorThemeNameForPost".$i."Add\" onclick=\"addColorBlock(".$i.")\" style=\"display: inline-block; text-align: center; line-height: 18px; cursor: pointer; \"  >+</div>";
+		$td2B .= "<div class=\"colorSelectorDiv addBorder\" id=\"folderColorThemeNameForPost".$i."Remove\" onclick=\"removeColorBlock(".$i.")\" style=\"display: inline-block; text-align: center; line-height: 18px; cursor: pointer; \"  >-</div>";
 	}
-	else
-	{
-		$td2 .= "<div style=\"display: inline-block; width: 20px;\"  ></div>";
-	}
-	$htmlToReturn .= "<td>".$td2."</td>";
-	$td3 = "";
-	$td3 .= "Highlight: <span>";
+	$htmlToReturn .= "<td>".$td2."</span> ".$td2B."</td>";
+	$td3 = "Highlight: <span>";
 	if($i !== "{{i}}")
 	{
 		$j = 0;
-		foreach ($value['highlight'] as $key2 => $value2)
+		foreach ($value['highlight'] as $value2)
 		{
 			$j++;
 			$td3 .= generateColorBlock(array(
@@ -1377,14 +1363,12 @@ function generateFolderColorRow($arrFCOdata = array())
 			"edit"						=>	true
 		));
 	}
-	$td3 .= "</span> ";
-	$htmlToReturn .= "<td>".$td3."</td>";
-	$td4 = "";
-	$td4 .= " Updated: <span >";
+	$htmlToReturn .= "<td>".$td3."</span> </td>";
+	$td4 = " Updated: <span >";
 	if($i !== "{{i}}")
 	{
 		$j = 0;
-		foreach ($value['active'] as $key2 => $value2)
+		foreach ($value['active'] as $value2)
 		{
 			$j++;
 			$td4 .= generateColorBlock(array(
@@ -1406,14 +1390,12 @@ function generateFolderColorRow($arrFCOdata = array())
 			"edit"						=>	true
 		));
 	}
-	$td4 .= "</span> ";
-	$htmlToReturn .= "<td>".$td4."</td>";
-	$td5 = "";
-	$td5 .= " Updated highlight:	<span >";
+	$htmlToReturn .= "<td>".$td4."</span> </td>";
+	$td5 = " Updated highlight:	<span >";
 	if($i !== "{{i}}")
 	{
 		$j = 0;
-		foreach ($value['highlightActive'] as $key2 => $value2)
+		foreach ($value['highlightActive'] as $value2)
 		{
 			$j++;
 			$td5 .= generateColorBlock(array(
@@ -1435,8 +1417,7 @@ function generateFolderColorRow($arrFCOdata = array())
 			"edit"						=>	true
 		));
 	}
-	$td5 .= "</span>";
-	$htmlToReturn .= "<td>".$td5."</td>";
+	$htmlToReturn .= "<td>".$td5."</span></td>";
 	return array(
 		"html"					=>	$htmlToReturn,
 		"td1"					=>	$td1,

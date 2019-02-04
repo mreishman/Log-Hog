@@ -91,18 +91,18 @@ if($themesEnabled === "false")
 </li>
 <li id="mainMenuUpdate" onclick="toggleUpdateMenu();" >
 	<?php
-	$menuUpdateImage = "refresh"; 
+	$menuUpdateImage = "refresh";
 	if($levelOfUpdate !== 0 && $configStatic["version"] !== $dontNotifyVersion && $updateNotificationEnabled === "true")
 	{
 		if($updateNoticeMeter === "every" || $levelOfUpdate > 1)
 		{
 			if($levelOfUpdate == 1)
 			{
-				$menuUpdateImage = "updateYellow"; 
+				$menuUpdateImage = "updateYellow";
 			}
 			elseif($levelOfUpdate == 2 || $levelOfUpdate == 3)
 			{
-				$menuUpdateImage = "updateRed"; 
+				$menuUpdateImage = "updateRed";
 			}
 		}
 	}
