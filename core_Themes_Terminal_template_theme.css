@@ -1,0 +1,418 @@
+#menu, .menu {
+  position: absolute;
+  width: 100%;
+  z-index: 20;
+  background: #111;
+  padding: 0.5em 1em;
+  overflow-y: auto;
+}
+#menu .index, .menu .index {
+  padding: 0.5em 0 0.5em 1em;
+}
+#menu a, .menu a {
+  display: inline-block;
+  margin: 0.5em 0;
+  background: #2A912A;
+  cursor: pointer;
+  color: black;
+}
+#menu a .menuCounter, .menu a .menuCounter {
+  padding-right: 1em;
+  display: inline-block;
+}
+#menu a.updated, .menu a.updated {
+  background: #1D263B;
+  color: white;
+}
+#menu a.updated:hover, .menu a.updated:hover {
+  background: #5C6784;
+}
+#menu a:not(.index), .menu a:not(.index) {
+  padding: 0.5em 1em;
+}
+#menu a:hover, .menu a:hover {
+  color: black;
+  background: #009900;
+}
+#menu a.active, .menu a.active {
+  color: black;
+  background: #009900;
+}
+
+#menu2 {
+  position: absolute;
+  width: 100%;
+  z-index: 10;
+  background: #333;
+  padding: 0.25em 0.5em;
+  border-bottom: 1px solid #009900;
+  overflow-y: auto;
+  overflow-x: hidden;
+  top: 55px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+}
+#menu2 a {
+  display: inline-block;
+  margin: 0.5em 0;
+  background: #2A912A;
+  cursor: pointer;
+  padding: 0.5em 1em;
+  color: black;
+}
+#menu2 a:hover {
+  color: black;
+  background: #009900;
+}
+#menu2 a.active {
+  color: black;
+  background: #009900;
+}
+
+.link:hover, .linkSmall:hover {
+  color: black;
+  background: #009900;
+}
+
+.notificationTriangle {
+  border-bottom: 12px solid #009900;
+}
+
+.dropdownHolder {
+  color: black;
+  background: #009900;
+  border: 1px solid black;
+  border-bottom: 3px solid black;
+}
+.dropdownHolder td {
+  color: black;
+}
+.dropdownHolder th {
+  color: black;
+}
+
+.linkSmallHover {
+  display: inline-block;
+  padding: 3px 5px;
+  margin: 1px;
+  cursor: default;
+  line-height: 100%;
+  color: black;
+  background: #009900;
+  border: 1px solid black;
+}
+
+.settingsHeaderButtons {
+  float: right;
+  margin-top: -4px;
+}
+
+#log {
+  padding: 1em 0;
+  color: #009900;
+}
+
+#titleContainer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  color: black;
+  background: #CCC;
+  padding: 0 1em;
+  line-height: 2em;
+}
+
+.backgroundForSideBarMenu {
+  background: #CCC;
+  overflow-y: auto;
+}
+
+.popupForInfo {
+  background: #CCC;
+  z-index: 10;
+  position: absolute;
+  border: 1px solid #009900;
+  color: black;
+  width: fit-content;
+  padding: 5px;
+  word-break: break-all;
+}
+
+.currentWindowNum {
+  color: #009900;
+}
+
+.backgroundForMenus {
+  background: #111;
+}
+
+.sidebarCurrentWindowNum {
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  background: #009900;
+  color: black;
+  text-align: center;
+}
+
+.currentWindowNumSelected {
+  color: #009900;
+  background: black;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  text-align: center;
+}
+
+#title {
+  display: inline-block;
+}
+
+.settingsDiv {
+  background: #333;
+  border: 1px solid #009900;
+  margin: 10px;
+  margin-top: 0;
+}
+
+.settingsHeader {
+  background: #111;
+  margin: 10px;
+  margin-bottom: 0;
+  color: #009900;
+  padding: 5px;
+}
+.settingsHeader .linkSmall:hover {
+  border: 1px solid black;
+}
+.settingsHeader button {
+  display: inline-block;
+  padding: 3px 5px;
+  margin: 1px;
+  background: #2A912A;
+  cursor: pointer;
+  border: solid 1px #009900;
+  line-height: 100%;
+  color: #009900;
+}
+.settingsHeader button:hover {
+  border: 1px solid black;
+  color: black;
+  background: #009900;
+}
+
+.selected, .selectDropdown:hover {
+  background: #009900;
+  color: black;
+}
+
+.settingsDiv p a {
+  color: #009900;
+}
+
+.updatingDiv p {
+  margin: 2px;
+  padding-left: 10px;
+  word-wrap: break-word;
+}
+
+.settingsBuffer {
+  width: 200px;
+  display: inline-block;
+}
+
+.link {
+  display: inline-block;
+  padding: 0.5em 1em;
+  background: #2A912A;
+  cursor: pointer;
+  border: solid 1px #009900;
+  color: #009900;
+}
+
+.linkSmall {
+  display: inline-block;
+  padding: 3px 5px;
+  margin: 1px;
+  background: #2A912A;
+  cursor: pointer;
+  border: solid 1px #009900;
+  line-height: 100%;
+  color: #009900;
+}
+
+.context-menu {
+  display: none;
+  position: absolute;
+  z-index: 30;
+  background: #2A912A;
+  border: 1px solid #009900;
+  box-shadow: 0 0 5px black;
+}
+
+.context-menu__items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  margin-top: 0;
+}
+
+.context-menu--active {
+  display: block;
+}
+
+.context-menu__item {
+  padding: 5px 3px;
+  cursor: pointer;
+}
+.context-menu__item:hover {
+  background: #009900;
+}
+.context-menu__item:hover a {
+  color: black;
+}
+.context-menu__item a {
+  color: #009900;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background: #2A912A;
+  overflow: auto;
+  border: 1px solid #009900;
+  box-shadow: 0 0 5px black;
+  z-index: 30;
+  margin-left: 12px;
+  margin-top: -70px;
+}
+.dropdown-content a {
+  color: #009900;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+.dropdown-content a:hover {
+  color: black;
+}
+
+.dropdown-content__items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.dropdown-content--active {
+  display: block;
+}
+
+.dropdown-content__item {
+  padding: 5px 3px;
+  cursor: pointer;
+}
+.dropdown-content__item:hover {
+  background: #009900;
+}
+
+.loadingSpinner {
+  padding: 75px;
+  background: #333;
+  border: 1px solid #009900;
+}
+
+.selectDiv {
+  background: #2A912A;
+  display: inline-block;
+  padding: 2px;
+  padding-right: 7px;
+  border: 1px solid #009900;
+}
+.selectDiv select {
+  color: #009900;
+  background: transparent;
+  cursor: pointer;
+  border: none;
+}
+.selectDiv option {
+  color: black;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #111;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #CCC;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #009900;
+}
+
+#fullScreenMenu {
+  background: rgba(0, 0, 0, 0.7);
+}
+#fullScreenMenu .selected:not(.noInvert) {
+  filter: invert(100%);
+}
+
+.fullScreenMenuUL {
+  background: black;
+  border-right: 1px solid #009900;
+}
+.fullScreenMenuUL li {
+  background: black;
+  color: #009900;
+}
+.fullScreenMenuUL li.subMenuTitle {
+  background-color: #999;
+  color: black;
+}
+.fullScreenMenuUL li:not(.menuTitle):hover {
+  filter: invert(100%);
+}
+
+.fullScreenMenuLeftSidebar {
+  background: black;
+  border-right: 1px solid #009900;
+}
+.fullScreenMenuLeftSidebar div {
+  background: black;
+  color: #009900;
+}
+.fullScreenMenuLeftSidebar td {
+  background: black;
+  color: #009900;
+}
+.fullScreenMenuLeftSidebar a {
+  color: #009900;
+}
+.fullScreenMenuLeftSidebar a:visited {
+  color: #009900;
+}
+
+.settingsUlSub {
+  background: black;
+  border-right: 1px solid #009900;
+}
+
+.notificationPreviewLog {
+  border: 1px solid #009900;
+}
+
+.noNotificationsNotification {
+  background-color: #333;
+  color: #009900;
+}
+
+.log table:not(.oneLogTable):not(.logCode) tr:not(.highlight):not(.newLine) td:not(.highlight):not(.newLine) div.settingsDiv {
+  color: #009900;
+}
+
+/*# sourceMappingURL=theme.css.map */
