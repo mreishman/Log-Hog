@@ -549,6 +549,15 @@ $defaultConfigMoreData = array(
 				)
 			),
 			4									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"filterTitleIncludeGroup",
+					"name"								=>	"Filter Title Includes Group",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			5									=>	array(
 				"bool"								=>	($filterContentHighlight == 'false'),
 				"id"								=>	"highlightContentSettings",
 				"name"								=>	"Filter Highlight Settings",
@@ -589,7 +598,7 @@ $defaultConfigMoreData = array(
 					)
 				)
 			),
-			5									=>	array(
+			6									=>	array(
 				"bool"								=>	($filterContentLimit == 'false'),
 				"info"								=>	"When filtering by content, only show the line (or some sorrounding lines) containing the search content",
 				"id"								=>	"filterContentSettings",

@@ -53,6 +53,7 @@ $defaultConfig = array(
 	'filterEnabled'					=> 'true',
 	'filterInvert'					=> 'false',
 	'filterSearchInHeader'			=> 'true',
+	'filterTitleIncludeGroup'		=> 'true',
 	'filterTitleIncludePath'		=> 'true',
 	'flashTitleUpdateLog'			=> 'false',
 	'folderColorArrays'	=> array(

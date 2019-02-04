@@ -1,4 +1,4 @@
-function getFilterData(name, shortName, logData)
+function getFilterData(id, name, shortName, logData)
 {
 	var selectListForFilter = document.getElementsByName("searchType")[0];
 	var selectedListFilterType = selectListForFilter.options[selectListForFilter.selectedIndex].value;
@@ -12,6 +12,11 @@ function getFilterData(name, shortName, logData)
 		else
 		{
 			filterOffOf = shortName;
+		}
+
+		if(filterTitleIncludeGroup === "true")
+		{
+			filterOffOf += fileData[name]["Group"];
 		}
 	}
 	else if(selectedListFilterType === "content")
@@ -31,7 +36,7 @@ function getFilterData(name, shortName, logData)
 
 function showFileFromFilter(id, name, shortName, logData)
 {
-	var filterOffOf = getFilterData(name, shortName, logData);
+	var filterOffOf = getFilterData(id, name, shortName, logData);
 	if(logsToHide instanceof Array && (logsToHide.length === 0 || $.inArray(id, logsToHide) === -1 ))
 	{
 		if(typeof filterOffOf === "string" && filterOffOf !== "")
