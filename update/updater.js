@@ -1,5 +1,5 @@
-var headerForUpdate = document.getElementById('headerForUpdate');
-var urlForSendMain = '../core/php/performSettingsInstallUpdateAction.php?format=json';
+var headerForUpdate = document.getElementById("headerForUpdate");
+var urlForSendMain = "../core/php/performSettingsInstallUpdateAction.php?format=json";
 var retryCount = 0;
 var verifyFileTimer;
 var percent = 0;
@@ -24,34 +24,34 @@ function updateProgressBar(additonalPercent)
 	{
 		percent = percent - total;
 	}
-	document.getElementById('progressBar').value = percent/total*100;
+	document.getElementById("progressBar").value = percent/total*100;
 }
 
 function updateText(text)
 {
-	document.getElementById('innerSettingsText').innerHTML = "<p>"+text+"</p>"+document.getElementById('innerSettingsText').innerHTML;
+	document.getElementById("innerSettingsText").innerHTML = "<p>"+text+"</p>"+document.getElementById("innerSettingsText").innerHTML;
 }
 
-function updateStatusFunc(updateStatusInner, actionLocal, percentToSave = (document.getElementById('progressBar').value))
+function updateStatusFunc(updateStatusInner, actionLocal, percentToSave = (document.getElementById("progressBar").value))
 {
-	var data = {action: 'updateProgressFile', status: updateStatusInner, typeOfProgress: "updateProgressFile.php", actionSave: actionLocal, percent: percentToSave, pathToFile: ''};
+	var data = {action: "updateProgressFile", status: updateStatusInner, typeOfProgress: "updateProgressFile.php", actionSave: actionLocal, percent: percentToSave, pathToFile: ""};
 	$.ajax({
 		url: urlForSendMain,
-		dataType: 'json',
+		dataType: "json",
 		data,
-		type: 'POST',
+		type: "POST",
 		complete()
 		{
 
 		}
-	});	
+	});
 
-	data = {action: 'updateProgressFile', status: updateStatusInner, typeOfProgress: "updateProgressFileNext.php", actionSave: actionLocal, percent: percentToSave, pathToFile: ''};
+	data = {action: "updateProgressFile", status: updateStatusInner, typeOfProgress: "updateProgressFileNext.php", actionSave: actionLocal, percent: percentToSave, pathToFile: ""};
 	$.ajax({
 		url: urlForSendMain,
-		dataType: 'json',
+		dataType: "json",
 		data,
-		type: 'POST',
+		type: "POST",
 		complete()
 		{
 
@@ -69,28 +69,28 @@ function downloadBranch()
 	{
 		updateText("Attempt "+(retryCount+1)+" of 3 for downloading Update");
 	}
-	document.getElementById('innerDisplayUpdate').innerHTML = settingsForBranchStuff['versionList'][versionToUpdateTo]['releaseNotes'];
-	if('image' in settingsForBranchStuff['versionList'][versionToUpdateTo])
+	document.getElementById("innerDisplayUpdate").innerHTML = settingsForBranchStuff["versionList"][versionToUpdateTo]["releaseNotes"];
+	if("image" in settingsForBranchStuff["versionList"][versionToUpdateTo])
 	{
-		document.getElementById('innerDisplayPicture').innerHTML = "<img alt=\"Log in to GitHub to view this image\" src=\""+settingsForBranchStuff['versionList'][versionToUpdateTo]['image']+"\">";
+		document.getElementById("innerDisplayPicture").innerHTML = "<img alt=\"Log in to GitHub to view this image\" src=\""+settingsForBranchStuff["versionList"][versionToUpdateTo]["image"]+"\">";
 	}
 	else
 	{
-		document.getElementById('innerDisplayPicture').innerHTML = "";
+		document.getElementById("innerDisplayPicture").innerHTML = "";
 	}
-	var data = {action: 'downloadFile', file: settingsForBranchStuff['versionList'][versionToUpdateTo]['branchName'],downloadFrom: 'Log-Hog/archive/', downloadTo: '../../update/downloads/updateFiles/updateFiles.zip'};
+	var data = {action: "downloadFile", file: settingsForBranchStuff["versionList"][versionToUpdateTo]["branchName"],downloadFrom: "Log-Hog/archive/", downloadTo: "../../update/downloads/updateFiles/updateFiles.zip"};
 	$.ajax({
 		url: urlForSendMain,
-		dataType: 'json',
+		dataType: "json",
 		data: data,
-		type: 'POST',
+		type: "POST",
 		complete: function()
 		{
 			//verify if downloaded
 			updateText("Verifying Download");
-			verifyFile('downloadLogHog', '../../update/downloads/updateFiles/updateFiles.zip');
+			verifyFile("downloadLogHog", "../../update/downloads/updateFiles/updateFiles.zip");
 		}
-	});	
+	});
 
 }
 
@@ -108,15 +108,15 @@ function unzipBranch()
 	}
 	$.ajax({
 		url: urlForSendMain,
-		dataType: 'json',
-		data: {action: 'unzipUpdateAndReturnArray'},
-		type: 'POST',
+		dataType: "json",
+		data: {action: "unzipUpdateAndReturnArray"},
+		type: "POST",
 		success: function(arrayOfFiles)
 		{
 			//verify if downloaded
 			arrayOfFilesExtracted = arrayOfFiles;
 			updateText("Verifying Unzipping");
-			verifyFile('unzipUpdateAndReturnArray', '../../update/downloads/updateFiles/extracted/'+arrayOfFiles[0]);
+			verifyFile("unzipUpdateAndReturnArray", "../../update/downloads/updateFiles/extracted/"+arrayOfFiles[0]);
 		},
 		failure: function(data)
 		{
@@ -130,7 +130,7 @@ function verifyFile(action, fileLocation,isThere = true)
 {
 	verifyCount = 0;
 	verifyCountSuccess = 0;
-	updateText('Verifying '+action+' with '+fileLocation);
+	updateText("Verifying "+action+" with "+fileLocation);
 	verifyFileTimer = setInterval(function(){verifyFilePoll(action,fileLocation,isThere);},2000);
 }
 
@@ -139,14 +139,14 @@ function verifyFilePoll(action, fileLocation,isThere)
 	if(lock == false)
 	{
 		lock = true;
-		updateText('verifying '+(verifyCount+1)+' of 10 , '+(verifyCountSuccess+1)+' of '+successVerifyNum)+" File: "+fileLocation;
-		var data = {action: 'verifyFileIsThere', fileLocation: fileLocation, isThere: isThere , lastAction: action};
+		updateText("verifying "+(verifyCount+1)+" of 10 , "+(verifyCountSuccess+1)+" of "+successVerifyNum)+" File: "+fileLocation;
+		var data = {action: "verifyFileIsThere", fileLocation: fileLocation, isThere: isThere , lastAction: action};
 		(function(_data){
 			$.ajax({
 				url: urlForSendMain,
-				dataType: 'json',
+				dataType: "json",
 				data: data,
-				type: 'POST',
+				type: "POST",
 				success: function(data)
 				{
 					verifyPostEnd(data, _data);
@@ -173,7 +173,7 @@ function verifyPostEnd(verified, data)
 		{
 			clearInterval(verifyFileTimer);
 			verifyCountSuccess = 0;
-			verifySucceded(data['lastAction']);
+			verifySucceded(data["lastAction"]);
 		}
 	}
 	else
@@ -183,14 +183,14 @@ function verifyPostEnd(verified, data)
 		if(verifyCount > 9)
 		{
 			clearInterval(verifyFileTimer);
-			verifyFail(data['lastAction']);
+			verifyFail(data["lastAction"]);
 		}
 	}
 }
 
 function updateError(addedTextDetails = "")
 {
-	document.getElementById('innerSettingsText').innerHTML += "<h2>An error occured while trying to update Log-Hog. </h2><p>"+addedTextDetails+"</p>";
+	document.getElementById("innerSettingsText").innerHTML += "<h2>An error occured while trying to update Log-Hog. </h2><p>"+addedTextDetails+"</p>";
 }
 
 function verifyFail(action)
@@ -210,15 +210,15 @@ function verifyFail(action)
 	else
 	{
 		updateText("Could not verify action was executed");
-		if(action == 'downloadLogHog')
+		if(action == "downloadLogHog")
 		{
 			downloadBranch();
 		}
-		else if(action == 'unzipUpdateAndReturnArray')
+		else if(action == "unzipUpdateAndReturnArray")
 		{
 			unzipBranch();
 		}
-		else if(action == 'removeDirUpdate')
+		else if(action == "removeDirUpdate")
 		{
 			removeExtractedDir();
 		}
@@ -239,29 +239,29 @@ function verifySucceded(action)
 	//downloaded, extract
 	retryCount = 0;
 	updateText("Verified Action");
-	if(action == 'downloadLogHog')
+	if(action == "downloadLogHog")
 	{
 		verifyDownloadDownloaded();
 	}
-	else if(action == 'unzipUpdateAndReturnArray')
+	else if(action == "unzipUpdateAndReturnArray")
 	{
 		updateProgressBar(9);
 		updateStatusFunc("Copying Files", "");
 		filterFilesFromArray();
 	}
-	else if(action == 'removeDirUpdate')
+	else if(action == "removeDirUpdate")
 	{
 		updateProgressBar(10);
 		updateStatusFunc("Removing Extracted Files", "");
 		removeDownloadedZip();
 	}
-	else if(action == 'removeZipFile')
+	else if(action == "removeZipFile")
 	{
 		updateProgressBar(9);
 		updateStatusFunc("Removing Zip File", "");
 		finishedUpdate();
 	}
-	else if(action == 'copyFilesFromArray')
+	else if(action == "copyFilesFromArray")
 	{
 		postScriptRun();
 		updateStatusFunc("postUpgrade Scripts", "");
@@ -270,13 +270,13 @@ function verifySucceded(action)
 
 function verifyDownloadDownloaded()
 {
-	var data = {action: 'verifyFileHasStuff', fileLocation: '../../update/downloads/updateFiles/updateFiles.zip'};
+	var data = {action: "verifyFileHasStuff", fileLocation: "../../update/downloads/updateFiles/updateFiles.zip"};
 	(function(_data){
 		$.ajax({
 			url: urlForSendMain,
-			dataType: 'json',
+			dataType: "json",
 			data: data,
-			type: 'POST',
+			type: "POST",
 			success: function(data)
 			{
 				if(data == true)
@@ -374,7 +374,7 @@ function verifyFileOrDir(action, fileLocation)
 {
 	verifyCount = 0;
 	verifyCountSuccess = 0;
-	updateText('Verifying '+action+' with '+fileLocation);
+	updateText("Verifying "+action+" with "+fileLocation);
 	verifyFileTimer = setInterval(function(){verifyFileOrDirPoll(action,fileLocation);},2000);
 }
 
@@ -383,14 +383,14 @@ function verifyFileOrDirPoll(action, fileLocation,isThere)
 	if(lock == false)
 	{
 		lock = true;
-		updateText('verifying '+(verifyCount+1)+' of 10'+"  "+(verifyCountSuccess+1)+" of "+successVerifyNum);
-		var data = {action: 'verifyFileOrDirIsThere', locationOfDirOrFile: fileLocation, lastAction: action};
+		updateText("verifying "+(verifyCount+1)+" of 10  "+(verifyCountSuccess+1)+" of "+successVerifyNum);
+		var data = {action: "verifyFileOrDirIsThere", locationOfDirOrFile: fileLocation, lastAction: action};
 		(function(_data){
 			$.ajax({
 				url: urlForSendMain,
-				dataType: 'json',
+				dataType: "json",
 				data: data,
-				type: 'POST',
+				type: "POST",
 				success: function(data)
 				{
 					verifyPostEndTwo(data, _data);
@@ -403,7 +403,7 @@ function verifyFileOrDirPoll(action, fileLocation,isThere)
 				{
 					lock = false;
 				}
-			});	
+			});
 		}(data));
 	}
 }
@@ -417,7 +417,7 @@ function verifyPostEndTwo(verified, data)
 		{
 			verifyCountSuccess = 0;
 			clearInterval(verifyFileTimer);
-			verifySuccededTwo(data['lastAction']);
+			verifySuccededTwo(data["lastAction"]);
 		}
 	}
 	else
@@ -427,7 +427,7 @@ function verifyPostEndTwo(verified, data)
 		if(verifyCount > 9)
 		{
 			clearInterval(verifyFileTimer);
-			verifyFailTwo(data['lastAction']);
+			verifyFailTwo(data["lastAction"]);
 		}
 	}
 }
@@ -516,9 +516,9 @@ function ajaxForPreScriptRun(urlForSendAjaxScrip)
 	var data = "";
 	$.ajax({
 		url: "../update/downloads/updateFiles/extracted/"+urlForSendAjaxScrip,
-		dataType: 'json',
+		dataType: "json",
 		data: data,
-		type: 'POST',
+		type: "POST",
 		success: function(data)
 		{
 			if(data !== true)
@@ -562,7 +562,7 @@ function copyFilesFromArray()
 	{
 		updateProgressBar(((1/filteredArray.length)*50));
 	}
-	for (var i = filteredArray.length - 1; i >= 0; i--) 
+	for (var i = filteredArray.length - 1; i >= 0; i--)
 	{
 		if(i == fileCopyCount)
 		{
@@ -576,7 +576,7 @@ function copyFilesFromArray()
 	{
 		updateText("Finished copying files.");
 		fileCopyCount++;
-		verifyFile('copyFilesFromArray', lastFileCheck);
+		verifyFile("copyFilesFromArray", lastFileCheck);
 	}
 }
 
@@ -585,9 +585,9 @@ function copyFileFromArrayAjax(file)
 	updateText("File: "+file);
 	$.ajax({
 		url: urlForSendMain,
-		dataType: 'json',
+		dataType: "json",
 		data: {action: "copyFileToFile", fileCopyFrom: file},
-		type: 'POST',
+		type: "POST",
 		success(fileCopied)
 		{
 			lastFileCheck = fileCopied;
@@ -646,9 +646,9 @@ function ajaxForPostScriptRun(urlForSendAjaxScript)
 	var data = "";
 	$.ajax({
 		url: "../update/downloads/updateFiles/extracted/"+urlForSendAjaxScript,
-		dataType: 'json',
+		dataType: "json",
 		data: data,
-		type: 'POST',
+		type: "POST",
 		success: function(data)
 		{
 			if(data !== true)
@@ -686,9 +686,9 @@ function ajaxForRedirectScript(urlForSendMainRedAjax)
 	(function(_data){
 		$.ajax({
 			url: "../update/downloads/updateFiles/extracted/"+urlForSendMainRedAjax,
-			dataType: 'json',
+			dataType: "json",
 			data: data,
-			type: 'POST',
+			type: "POST",
 			success: function(data)
 			{
 				window.location.href = data;
@@ -713,14 +713,14 @@ function removeExtractedDir()
 	}
 	$.ajax({
 		url: urlForSendMain,
-		dataType: 'json',
-		data: {action: 'removeDirUpdate'},
-		type: 'POST',
+		dataType: "json",
+		data: {action: "removeDirUpdate"},
+		type: "POST",
 		success: function(data)
 		{
 			//verify if downloaded
 			updateText("Verifying that TMP files were removed");
-			verifyFile('removeDirUpdate', '../../update/downloads/updateFiles/extracted/', false);
+			verifyFile("removeDirUpdate", "../../update/downloads/updateFiles/extracted/", false);
 		},
 		failure: function(data)
 		{
@@ -742,14 +742,14 @@ function removeDownloadedZip()
 	}
 	$.ajax({
 		url: urlForSendMain,
-		dataType: 'json',
-		data: {action: 'removeZipFile', fileToUnlink: "../../update/downloads/updateFiles/updateFiles.zip"},
-		type: 'POST',
+		dataType: "json",
+		data: {action: "removeZipFile", fileToUnlink: "../../update/downloads/updateFiles/updateFiles.zip"},
+		type: "POST",
 		success: function(data)
 		{
 			//verify if downloaded
 			updateText("Verifying that TMP files were removed");
-			verifyFile('removeZipFile', '../../update/downloads/updateFiles/updateFiles.zip', false);
+			verifyFile("removeZipFile", "../../update/downloads/updateFiles/updateFiles.zip", false);
 		},
 		failure: function(data)
 		{
@@ -764,9 +764,9 @@ function finishedUpdate()
 	//updateConfigStatic
 	$.ajax({
 		url: urlForSendMain,
-		dataType: 'json',
-		data: {action: 'updateConfigStatic', versionToUpdate: arrayOfVersions[(versionCountCurrent-1)]},
-		type: 'POST',
+		dataType: "json",
+		data: {action: "updateConfigStatic", versionToUpdate: arrayOfVersions[(versionCountCurrent-1)]},
+		type: "POST",
 		complete: function(data)
 		{
 			retryCount = 0;
@@ -870,16 +870,16 @@ function finishedUpdateAfterAjax()
 	if(versionCountCurrent > arrayOfVersionsCount)
 	{
 		//finished update
-		document.getElementById('menu').style.display = "block";
-		document.getElementById('titleHeader').innerHTML = "<h1>Finished Update</h1>";
-		document.getElementById('progressBar').value = 100;
+		document.getElementById("menu").style.display = "block";
+		document.getElementById("titleHeader").innerHTML = "<h1>Finished Update</h1>";
+		document.getElementById("progressBar").value = 100;
 		setTimeout(function(){ window.location.href = "../settings/whatsNew.php"; }, 3000);
 	}
 	else
 	{
 		//update num to match
-		document.getElementById('countOfVersions').innerHTML = versionCountCurrent;
-		document.getElementById('currentUpdatTo').innerHTML = (arrayOfVersions[(versionCountCurrent-1)]);
+		document.getElementById("countOfVersions").innerHTML = versionCountCurrent;
+		document.getElementById("currentUpdatTo").innerHTML = (arrayOfVersions[(versionCountCurrent-1)]);
 		//update version to update to
 		versionToUpdateTo = arrayOfVersions[(versionCountCurrent-1)];
 		//start new download
