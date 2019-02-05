@@ -4,12 +4,12 @@ function toggleFullScreenMenu(force = false)
 	dirForAjaxSend = "";
 	if(document.getElementById("historyDropdown").style.display === "inline-block")
 	{
-		archiveLogPopupToggle()
+		archiveLogPopupToggle();
 	}
 	closeLogPopup();
 	if(document.getElementById("fullScreenMenu").style.display === "none")
 	{
-		document.getElementById('menu').style.zIndex = "4";
+		document.getElementById("menu").style.zIndex = "4";
 		loadImgFromData("mainMenuImage");
 		document.getElementById("fullScreenMenu").style.display = "block";
 		onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
@@ -55,7 +55,7 @@ function toggleFullScreenMenu(force = false)
 		toggleThemesIframeSource(false);
 		$( "#fullScreenMenuWatchList" ).off( "mousemove" );
 		globalForcePageNavigate = false;
-		document.getElementById('menu').style.zIndex = "20";
+		document.getElementById("menu").style.zIndex = "20";
 		hideIframeStuff();
 		document.getElementById("fullScreenMenu").style.display = "none";
 		togglePollSpeedUp();
@@ -208,25 +208,20 @@ function toggleThemesIframeSource(showOrHide)
 
 function toggleThemeColorScheme(force = false)
 {
-	if(!force)
+	if(!force && !(goToPageCheck("toggleThemeColorScheme(true)")))
 	{
-		if(!(goToPageCheck("toggleThemeColorScheme(true)")))
-		{
-			return false;
-		}
+		return false;
 	}
 	hideThemeStuff();
 	endSettingsPollTimer();
 	$("#themeSubMenuColorScheme").addClass("selected");
 	document.getElementById("fullScreenMenuColorScheme").style.display = "block";
+	let subMenuActionDisplay = "block";
 	if(window.innerWidth < breakPointTwo || sideBarOnlyIcons === "breakpointtwo")
 	{
-		$(".subMenuActionsColorScheme").css("display","inline-block");
+		subMenuActionDisplay = "inline-block";
 	}
-	else
-	{
-		$(".subMenuActionsColorScheme").css("display","block");
-	}
+	$(".subMenuActionsColorScheme").css("display",subMenuActionDisplay);
 	arrayOfScrollHeaderUpdate = ["settingsColorFolderGroupVars"];
 	arrayOfDataSettings = ["settingsColorFolderGroupVars"];
 	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
@@ -447,7 +442,7 @@ function hideThemeStuff()
 function hideIframeStuff()
 {
 	document.getElementById("fullScreenMenuIFrame").style.display = "none";
-	$('#iframeFullScreen').prop('src', "core/html/iframe.html");
+	$("#iframeFullScreen").prop("src", "core/html/iframe.html");
 }
 
 function toggleIframe(locHref, idOfAddon, force = false)
@@ -464,7 +459,7 @@ function toggleIframe(locHref, idOfAddon, force = false)
 	$("#"+idOfAddon).addClass("selected");
 	document.getElementById("fullScreenMenuIFrame").style.display = "block";
 	hideSidebar();
-	$('#iframeFullScreen').prop('src', locHref);
+	$("#iframeFullScreen").prop("src", locHref);
 	var mainContentRect = document.getElementById("mainContentFullScreenMenu").getBoundingClientRect();
 	document.getElementById("iframeFullScreen").style.width = ""+mainContentRect.width+"px";
 	document.getElementById("iframeFullScreen").style.height = ""+mainContentRect.height+"px";
@@ -638,13 +633,13 @@ function resizeFullScreenMenu()
 				mainContentFullScreenMenuTop = "82px";
 			}
 			$(".settingsUlSub").css("width","auto").css("bottom","auto").css("right","0").addClass("addBorderBottom").removeClass("addBorderRight").css("height","35px");
-			$(".settingsUlSub li").not('.subMenuToggle').css("display","inline-block");
+			$(".settingsUlSub li").not(".subMenuToggle").css("display","inline-block");
 			$(".menuTitle").not(".menuBreak , .fullScreenNotificationTitle").hide();
 		}
 		else
 		{
 			$(".settingsUlSub").css("width","200px").css("bottom","0").css("right","auto").removeClass("addBorderBottom").addClass("addBorderRight").css("height","auto");
-			$(".settingsUlSub li").not('.subMenuToggle').css("display","block");
+			$(".settingsUlSub li").not(".subMenuToggle").css("display","block");
 			$(".menuTitle").not(".fullScreenMenuText").show();
 			toggleAddonAppsMenuText();
 		}
@@ -679,30 +674,26 @@ function toggleAddonAppsMenuText()
 		document.getElementById("menuOtherApps").style.display = "list-item";
 	}
 }
- function checkIfAddonsAreInstalled()
+function checkIfAddonsAreInstalled()
 {
-	if(typeof listOfAddons === "object")
+	if(typeof listOfAddons !== "object")
 	{
-		var listOfAddonKeys = Object.keys(listOfAddons);
-		var listOfAddonKeysLength = listOfAddonKeys.length;
-		for(var addCount = 0; addCount < listOfAddonKeysLength; addCount++)
+		return false;
+	}
+	let listOfAddonKeys = Object.keys(listOfAddons);
+	let listOfAddonKeysLength = listOfAddonKeys.length;
+	for(let addCount = 0; addCount < listOfAddonKeysLength; addCount++)
+	{
+		if(listOfAddons[listOfAddonKeys[addCount]]["Installed"] !== false && listOfAddons[listOfAddonKeys[addCount]]["Installed"] !== "false")
 		{
-			if(listOfAddons[listOfAddonKeys[addCount]]["Installed"] !== false && listOfAddons[listOfAddonKeys[addCount]]["Installed"] !== "false")
-			{
-				return true;
-			}
+			return true;
 		}
 	}
-	return false;
 }
 
 function togglePollSpeedDown(currentClick)
 {
-	if(userPaused || pausePollCurrentSession)
-	{
-		return;
-	}
-	if(currentClick !== fullScreenMenuClickCount)
+	if(userPaused || pausePollCurrentSession || currentClick !== fullScreenMenuClickCount)
 	{
 		return;
 	}

@@ -69,16 +69,16 @@ function displayNotifications()
 		{
 			viewIndicatorHtml = "<span class=\"led-yellow\" ></span>";
 		}
-		item = item.replace(/{{id}}/g, "notification"+notifications[i]['id']);
+		item = item.replace(/{{id}}/g, "notification"+notifications[i]["id"]);
 		item = item.replace(/{{idNum}}/g, i);
 		item = item.replace(/{{viewIndicator}}/g, viewIndicatorHtml);
-		item = item.replace(/{{name}}/g, notifications[i]['name']);
-		item = item.replace(/{{time}}/g, notifications[i]['time']);
-		item = item.replace(/{{action}}/g, notifications[i]['action']);
+		item = item.replace(/{{name}}/g, notifications[i]["name"]);
+		item = item.replace(/{{time}}/g, notifications[i]["time"]);
+		item = item.replace(/{{action}}/g, notifications[i]["action"]);
 		if("newText" in notifications[i] && notifications[i]["newText"] !== "" && notifications[i]["newText"] !== "undefined" && notificationPreviewShow === "true")
 		{
 			var logTextToShow = "";
-			var tmpLogText = notifications[i]['newText'].split("\n");
+			var tmpLogText = notifications[i]["newText"].split("\n");
 			var tmpLogTextLength = tmpLogText.length;
 			var max = notificationPreviewLineCount;
 			if(max > tmpLogTextLength)
@@ -97,7 +97,7 @@ function displayNotifications()
 		}
 		if("image" in notifications[i])
 		{
-			item = item.replace(/{{image}}/g, notifications[i]['image']);
+			item = item.replace(/{{image}}/g, notifications[i]["image"]);
 		}
 		if(notifications[i]["viewed"] === false)
 		{
@@ -195,7 +195,7 @@ function removeRemoveAlertRightClickMenuOption(logId)
 			}
 		}
 		menuObjectRightClick[innerId] = menuObjectRightClick[innerId].filter(function (el) {
-		  return el != null;
+			return el != null;
 		});
 	}
 }
@@ -235,7 +235,7 @@ function regroupNotifications()
 			}
 		}
 	}
-	notifications = notifications.filter(function(e){return e});
+	notifications = notifications.filter(function(e){return e;});
 }
 
 function removeNotification(idToRemove)
@@ -411,7 +411,7 @@ function inlineNotificationPollLogic(force = false)
 {
 	if($("#inlineNotifications:hover").length != 0 && !force)
 	{
-	    return;
+		return;
 	}
 	var currentLength = inlineNotificationPollArray.length;
 	if(currentLength > 0)
@@ -429,23 +429,23 @@ function inlineNotificationPollLogic(force = false)
 			blank = $("#storage .notificationContainerInline").html();
 		}
 		var item = blank;
-		item = item.replace(/{{name}}/g, currentThing['name']);
-		item = item.replace(/{{time}}/g, currentThing['time']);
-		item = item.replace(/{{action}}/g, currentThing['action']);
+		item = item.replace(/{{name}}/g, currentThing["name"]);
+		item = item.replace(/{{time}}/g, currentThing["time"]);
+		item = item.replace(/{{action}}/g, currentThing["action"]);
 		if("image" in currentThing)
 		{
-			item = item.replace(/{{image}}/g, currentThing['image']);
+			item = item.replace(/{{image}}/g, currentThing["image"]);
 		}
 		$("#inlineNotifications").html(item);
 		document.getElementById("inlineNotifications").style.display = "block";
 		if(notificationInlineButtonHover === "true")
 		{
 			$( "#inlineNotifications" ).hover(
-			  function() {
-			    $( ".notificationContainerInlineButtons" ).css( "display" , "block" );
-			  }, function() {
-			    $( ".notificationContainerInlineButtons" ).css( "display" , "none" );
-			  }
+				function() {
+					$( ".notificationContainerInlineButtons" ).css( "display" , "block" );
+				}, function() {
+					$( ".notificationContainerInlineButtons" ).css( "display" , "none" );
+				}
 			);
 		}
 		else
@@ -552,9 +552,10 @@ function tmpToggleAlerts(id)
 		var menuObjectLocal = menuObjectRightClick[id];
 		var options = Object.keys(menuObjectLocal);
 		var lengthOfOptions = options.length;
+		var currentOption = {};
 		for(var i = 0; i < lengthOfOptions; i++)
 		{
-			var currentOption = menuObjectLocal[options[i]];
+			currentOption = menuObjectLocal[options[i]];
 			if(currentOption["name"] === "Enable Alerts" || currentOption["name"] === "Disable Alerts")
 			{
 				menuObjectRightClick[id][options[i]]["name"] = "Disable Alerts";
