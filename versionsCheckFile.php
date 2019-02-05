@@ -1,7 +1,7 @@
 <?php
 
 $versionCheckArray = array(
-	'version'		=> '6.2.1',
+	'version'		=> '6.9.9',
 	'versionList'		=> array(
 		'2.0.1'	        => array(
 			'branchName'	=> '2.0.1Update',
@@ -295,6 +295,11 @@ $versionCheckArray = array(
 			'branchName'	=> '6.2.1Update',
 			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/6.2.1.png',
 			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed bug with no log display not displaying correctly</li><li>Fixed bug with log menu popup not working correctly when switching between different multi log windows</li><li>Small display change for addon manager page</li><li>Update notification view button works correctly now</li></ul></li></ul>"
+		),
+		'6.2.1'			=> array(
+			'branchName'	=> '7.0Update',
+			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/7.0.png',
+			'releaseNotes'	=> "<ul><li>Features<ul><li>Changes how logs are displayed<ul><li>Toggle added in sidebar temp show/hide format</li><li>Most options below can be enabled / disabled</li></ul></li><li>Log format separates time and content into two columns<ul><li>Format all log times into standard format (with custom options for timestamps)</li><li>Groups same timestamps (only shows first of same timestamp)</li></ul></li><li>Message formatting<ul><li>Auto formats json encoded log content into table display</li><li>Report formatting added</li><li>PHP info messages formated in table display</li></ul></li><li>More Info Button<ul><li>Added more in-depth information for PHP tokens</li></ul></li><li>Linked Files Format<ul><li>When files are referenced in logs, a snippet of that file is displayed below</li><li>Shows file permissions (option to enable / disable)</li></ul></li><li>Small change to settings page for log layouts</li></ul></li><li>Bug Fixes<ul><li>Fixed bug with settings sidebar toggle not displaying correctly for not the main window</li><li>Fixed small bug in updater when version number of update is longer than current version</li><li>Now shows correct on hover text when hovering over images on whats new page</li></ul></li></ul>"
 		),
 	)
 );
