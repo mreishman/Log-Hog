@@ -473,9 +473,9 @@ function verifyFailTwo(action)
 function preScriptRun()
 {
 	updateText("Checking for pre upgrade scripts");
+	var totalCount = 1;
 	if(preScriptCount != 1)
 	{
-		var totalCount = 1;
 		var fileName = "pre-script-"+totalCount+".php";
 		var loop = ($.inArray(fileName,arrayOfFilesExtracted)!== -1);
 		while(loop)
@@ -602,9 +602,9 @@ function copyFileFromArrayAjax(file)
 function postScriptRun()
 {
 	updateText("Checking for post upgrade scripts");
+	var totalCount = 1;
 	if(postScriptCount != 1)
 	{
-		var totalCount = 1;
 		var fileName = "post-script-"+totalCount+".php";
 		var loop = ($.inArray(fileName,arrayOfFilesExtracted)!== -1);
 		while(loop)
