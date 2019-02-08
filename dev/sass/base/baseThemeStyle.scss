@@ -185,6 +185,17 @@
 	margin-top: 0;
 }
 
+/*has to be here to override*/
+.settingsDivRemoveTop{
+  border-top: 0;
+}
+
+.settingsDivRemoveBottom{
+  border-bottom: 0;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
 .settingsHeader {
 	background: $backgroundColor;
 	margin: 10px;
