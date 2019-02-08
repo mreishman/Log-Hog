@@ -347,10 +347,11 @@ function dateTimeFormat(dateTextArray)
 			newConfDate = new Date(justDateTextTmp);
 		}
 	}
-	if(String(newConfDate) === "Invalid Date" || String(newConfDate) === "NaN")
-	{
-		newConfDate = DateFormat.format(justDateText);
-	}
+	// if(String(newConfDate) === "Invalid Date" || String(newConfDate) === "NaN")
+	// {
+	// 	if(typeof DateFormat === "object" && )
+	// 	newConfDate = DateFormat.format(justDateText);
+	// }
 	if(String(newConfDate) !== "Invalid Date" && String(newConfDate) !== "NaN")
 	{
 		var hours = newConfDate.getHours();
