@@ -183,22 +183,25 @@ function formatMainMessage(message, extraData)
 
 function getSeverifyLevel(snippit, redWarningArr, yellowWarningArr)
 {
-	var redWarningArrKeys = Object.keys(redWarningArr);
-	var redWarningArrLength = redWarningArrKeys.length;
-	for (var rwaCount = 0; rwaCount < redWarningArrLength; rwaCount++)
+	if(typeof snippit !== "undefined")
 	{
-		if(snippit.indexOf(redWarningArr[redWarningArrKeys[rwaCount]]) > -1)
+		let redWarningArrKeys = Object.keys(redWarningArr);
+		let redWarningArrLength = redWarningArrKeys.length;
+		for (let rwaCount = 0; rwaCount < redWarningArrLength; rwaCount++)
 		{
-			return arrayOfImages["redWarning"]["src"];
+			if(snippit.indexOf(redWarningArr[redWarningArrKeys[rwaCount]]) > -1)
+			{
+				return arrayOfImages["redWarning"]["src"];
+			}
 		}
-	}
-	var yellowWarningArrKeys = Object.keys(yellowWarningArr);
-	var yellowWarningArrLength = yellowWarningArrKeys.length;
-	for (var rwaCount = 0; rwaCount < yellowWarningArrLength; rwaCount++)
-	{
-		if(snippit.indexOf(yellowWarningArr[yellowWarningArrKeys[rwaCount]]) > -1)
+		let yellowWarningArrKeys = Object.keys(yellowWarningArr);
+		let yellowWarningArrLength = yellowWarningArrKeys.length;
+		for (let rwaCount = 0; rwaCount < yellowWarningArrLength; rwaCount++)
 		{
-			return arrayOfImages["yellowWarning"]["src"];
+			if(snippit.indexOf(yellowWarningArr[yellowWarningArrKeys[rwaCount]]) > -1)
+			{
+				return arrayOfImages["yellowWarning"]["src"];
+			}
 		}
 	}
 
