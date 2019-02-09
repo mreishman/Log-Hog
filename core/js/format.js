@@ -350,11 +350,21 @@ function dateTimeFormat(dateTextArray)
 			newConfDate = new Date(justDateTextTmp);
 		}
 	}
-	// if(String(newConfDate) === "Invalid Date" || String(newConfDate) === "NaN")
-	// {
-	// 	if(typeof DateFormat === "object" && )
-	// 	newConfDate = DateFormat.format(justDateText);
-	// }
+	if(String(newConfDate) === "Invalid Date" || String(newConfDate) === "NaN")
+	{
+		try
+		{
+			if(typeof DateFormat === "object")
+			{
+				newConfDate = DateFormat.format.date(justDateText,"dd/MM/yyyy HH:mm:ss");
+				newConfDate = new Date(newConfDate);
+			}
+		}
+		catch(e)
+		{
+			
+		}
+	}
 	if(String(newConfDate) !== "Invalid Date" && String(newConfDate) !== "NaN")
 	{
 		var hours = newConfDate.getHours();
