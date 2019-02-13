@@ -25,6 +25,58 @@ function makePretty(id)
 	}
 }
 
+function getPositionsOf(stringCheck, find, startBlock, endBlock)
+{
+	let posArr = {};
+	let counter = 0;
+	let base = 0;
+	let findLength = find.length;
+	while(stringCheck.indexOf(find) > -1)
+	{
+		posArr[counter] = {
+			type: true,
+			startBlock,
+			endBlock,
+			position: base + stringCheck.indexOf(find)
+		};
+		counter++;
+		posArr[counter] = {
+			type: false,
+			startBlock,
+			endBlock,
+			position: base + stringCheck.indexOf(find) + findLength
+		};
+		counter++;
+		base += stringCheck.indexOf(find) + findLength;
+		stringCheck = stringCheck.substring(stringCheck.indexOf(find) + findLength);
+	}
+	return posArr;
+}
+
+function updatePositionOfArray(posArrArr, minOuter, minInner, lineToAdd)
+{
+	let posArrArrKeys = Object.keys(posArrArr);
+	let posArrArrKeysLength = posArrArrKeys.length;
+	for(let PAAKCount = 0; PAAKCount < posArrArrKeysLength; PAAKCount++)
+	{
+		if(PAAKCount < minOuter)
+		{
+			continue;
+		}
+		let innerArray = posArrArr[posArrArrKeys[PAAKCount]];
+		let innerKeyCount = Object.keys(innerArray);
+		let innerKeyCountLength = innerKeyCount.length;
+		for(let IKCLCount = 0; IKCLCount < innerKeyCountLength; IKCLCount++)
+		{
+			if(innerArray[innerKeyCount[IKCLCount]]["position"] > minInner)
+			{
+				posArrArr[posArrArrKeys[PAAKCount]][innerKeyCount[IKCLCount]]["position"] += lineToAdd;
+			}
+		}
+	}
+	return posArrArr;
+}
+
 function makePrettyWithText(text, count, extraData = {})
 {
 	try
@@ -97,9 +149,50 @@ function makePrettyWithText(text, count, extraData = {})
 				returnText += " "+customClass+" ";
 			}
 			returnText += ">";
+			let posArrArr = {};
 			if(filterContentHighlightLine !== "true" && filterHighlight === true)
 			{
-				//@TODO add function here to get position of all occurences in line, add around those positions
+				posArrArr[0] = getPositionsOf(lineText, filterTextField, "<div class=\"highlightDiv\" >", "</div>");
+			}
+			let posArrArrKeys = Object.keys(posArrArr);
+			let posArrArrKeysLength = posArrArrKeys.length;
+			if(posArrArrKeysLength > 0)
+			{
+				for(let PAAKCount = 0; PAAKCount < posArrArrKeysLength; PAAKCount++)
+				{
+					let innerArray = posArrArr[posArrArrKeys[PAAKCount]];
+					let innerKeyCount = Object.keys(innerArray);
+					let innerKeyCountLength = innerKeyCount.length;
+					for(let IKCLCount = 0; IKCLCount < innerKeyCountLength; IKCLCount++)
+					{
+						//update array values, length wont change though
+						posArrArrKeys = Object.keys(posArrArr);
+						innerArray = posArrArr[posArrArrKeys[PAAKCount]];
+						innerKeyCount = Object.keys(innerArray);
+						//add text to line
+						let currentKey = innerKeyCount[IKCLCount];
+						let currentAdd = innerArray[currentKey];
+						let currentLinePosition = currentAdd["position"];
+						let newLine = lineText.slice(0, currentLinePosition);
+						let currentType = currentAdd["type"];
+						if(filterInvert === "true")
+						{
+							currentType = !currentType;
+						}
+						let addLine = 0;
+						let lineType = "endBlock";
+						if(currentType)
+						{
+							lineType = "startBlock";
+						}
+						newLine += currentAdd[lineType];
+						addLine = currentAdd[lineType].length;
+						newLine += lineText.slice(currentLinePosition);
+						lineText = newLine;
+						//update other values in array
+						posArrArr = updatePositionOfArray(posArrArr, PAAKCount, currentLinePosition, addLine);
+					}
+				}
 			}
 			var lineToReturn = "<td style=\"white-space: pre-wrap;\">"+lineText+"</td>";
 			var colspan = 2;

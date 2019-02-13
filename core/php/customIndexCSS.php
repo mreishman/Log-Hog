@@ -40,6 +40,14 @@ $windowDisplayConfig = explode("x", $windowConfig);
 	color: <?php echo $highlightColorFont; ?>;
 }
 
+.highlightDiv, #log div.highlightDiv
+{
+	background-color: <?php echo $highlightColorBG; ?>;
+	color: <?php echo $highlightColorFont; ?>;
+	display: inline-block;
+	padding: 0;
+}
+
 .highlight .settingsDiv{
 	background-color: rgba(0,0,0,0);
 	border: 1px solid <?php echo $highlightColorFont; ?>;
