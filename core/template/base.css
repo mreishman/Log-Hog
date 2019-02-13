@@ -459,13 +459,3 @@ div.sidebarLeft {
   word-break: break-all;
   width: 150px;
 }
-
-.settingsDivRemoveTop{
-  border-top: 0;
-}
-
-.settingsDivRemoveBottom{
-  border-bottom: 0;
-  padding-bottom: 0;
-  margin-bottom: 0;
-}
