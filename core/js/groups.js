@@ -113,14 +113,27 @@ function removeOldGroups(data, arrayOfGroups)
 
 function showFileFromGroup(id)
 {
-	var groupSelect = document.getElementById("selectForGroup").value;
-	if(groupSelect === "all")
+	let groupSelect = $("#selectForGroup").val();
+	if(!groupSelect)
 	{
+		document.getElementById("selectForGroup").value = "all"
 		return true;
 	}
-	if($("#"+id).hasClass(groupSelect+"Group"))
+	let groupSelectLength = groupSelect.length;
+	if(groupSelect[0] === "all")
 	{
+		if(groupSelectLength !== 1)
+		{
+			document.getElementById("selectForGroup").value = "all"
+		}
 		return true;
+	}
+	for(let i = 0; i < groupSelectLength; i++)
+	{
+		if($("#"+id).hasClass(groupSelect[i]+"Group"))
+		{
+			return true;
+		}
 	}
 }
 
@@ -150,7 +163,7 @@ function toggleGroupedGroups()
 		}
 		else if(document.getElementById("searchFieldInput").value === "")
 		{
-			if($("#"+idOfObject).hasClass(groupSelect+"Group") || groupSelect === "all")
+			if(showFileFromGroup(idOfObject))
 			{
 				//show tab if valid
 				$("#"+idOfObject).show();

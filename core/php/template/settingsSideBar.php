@@ -5,7 +5,7 @@
 <?php if ($groupDropdownInHeader !== "true"): ?>
 	Groups:
 	<span class="selectDiv">
-		<select id="selectForGroup" >
+		<select multiple="true" id="selectForGroup" >
 			<option selected="true" value="all" >All</option>
 		</select>
 	</span>
