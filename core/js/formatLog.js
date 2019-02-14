@@ -165,6 +165,11 @@ function makePrettyWithText(text, count, extraData = {})
 					let innerKeyCountLength = innerKeyCount.length;
 					for(let IKCLCount = 0; IKCLCount < innerKeyCountLength; IKCLCount++)
 					{
+						let newLine = "";
+						if(filterInvert === "true")
+						{
+							newLine += currentAdd["startBlock"]
+						}
 						//update array values, length wont change though
 						posArrArrKeys = Object.keys(posArrArr);
 						innerArray = posArrArr[posArrArrKeys[PAAKCount]];
@@ -173,7 +178,7 @@ function makePrettyWithText(text, count, extraData = {})
 						let currentKey = innerKeyCount[IKCLCount];
 						let currentAdd = innerArray[currentKey];
 						let currentLinePosition = currentAdd["position"];
-						let newLine = lineText.slice(0, currentLinePosition);
+						newLine += lineText.slice(0, currentLinePosition);
 						let currentType = currentAdd["type"];
 						if(filterInvert === "true")
 						{
@@ -188,6 +193,10 @@ function makePrettyWithText(text, count, extraData = {})
 						newLine += currentAdd[lineType];
 						addLine = currentAdd[lineType].length;
 						newLine += lineText.slice(currentLinePosition);
+						if(filterInvert === "true")
+						{
+							newLine += currentAdd["endBlock"]
+						}
 						lineText = newLine;
 						//update other values in array
 						posArrArr = updatePositionOfArray(posArrArr, PAAKCount, currentLinePosition, addLine);
