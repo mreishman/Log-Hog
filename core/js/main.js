@@ -1771,6 +1771,7 @@ function mainReady()
 
 	$("#selectForGroup").on("keydown change", function(){
 		setTimeout(function() {
+			updateGroupsInSelect();
 			toggleGroupedGroups();
 		}, 2);
 	});

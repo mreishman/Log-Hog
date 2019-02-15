@@ -253,6 +253,12 @@ function addGroupToSelect(event, group)
 		}
 		document.getElementById("selectForGroup").value = group
 	}
+	updateHeaderGroups(groupCheck);
+	toggleGroupedGroups();
+}
+
+function updateHeaderGroups(groupCheck)
+{
 	let listOfOptions = $("#groupsInHeader .linkSmall");
 	let listOfOptionsLength = listOfOptions.length;
 	for(let i = 0; i < listOfOptionsLength; i++)
@@ -263,5 +269,10 @@ function addGroupToSelect(event, group)
 			$($("#groupsInHeader .linkSmall")[i]).addClass("selected");
 		}
 	}
-	toggleGroupedGroups();
+}
+
+function updateGroupsInSelect()
+{
+	let groupCheck = $("#selectForGroup").val();
+	updateHeaderGroups(groupCheck);
 }
