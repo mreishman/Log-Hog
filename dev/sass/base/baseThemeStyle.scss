@@ -225,11 +225,6 @@
 	}
 }
 
-.selected , .selectDropdown:hover{
-	background: $mainColor;
-	color: $mainAltColor;
-}
-
 .settingsDiv p a {
 	color: $mainColor;
 }
@@ -263,6 +258,11 @@
 	border: solid 1px $mainColor;
 	line-height: 100%;
 	color: $mainColor;
+}
+
+.selected , .selectDropdown:hover{
+	background: $mainColor;
+	color: $mainAltColor;
 }
 
 .context-menu {
