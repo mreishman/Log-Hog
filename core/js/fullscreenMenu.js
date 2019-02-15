@@ -676,19 +676,19 @@ function toggleAddonAppsMenuText()
 }
 function checkIfAddonsAreInstalled()
 {
-	if(typeof listOfAddons !== "object")
+	if(typeof listOfAddons === "object")
 	{
-		return false;
-	}
-	let listOfAddonKeys = Object.keys(listOfAddons);
-	let listOfAddonKeysLength = listOfAddonKeys.length;
-	for(let addCount = 0; addCount < listOfAddonKeysLength; addCount++)
-	{
-		if(listOfAddons[listOfAddonKeys[addCount]]["Installed"] !== false && listOfAddons[listOfAddonKeys[addCount]]["Installed"] !== "false")
+		let listOfAddonKeys = Object.keys(listOfAddons);
+		let listOfAddonKeysLength = listOfAddonKeys.length;
+		for(let addCount = 0; addCount < listOfAddonKeysLength; addCount++)
 		{
-			return true;
+			if(listOfAddons[listOfAddonKeys[addCount]]["Installed"] !== false && listOfAddons[listOfAddonKeys[addCount]]["Installed"] !== "false")
+			{
+				return true;
+			}
 		}
 	}
+	return false;
 }
 
 function togglePollSpeedDown(currentClick)

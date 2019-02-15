@@ -1058,6 +1058,11 @@ function resize()
 				}
 			}
 		}
+
+		if(groupDropdownInHeader === "true")
+		{
+			resizeHeaderGroups();
+		}
 	}
 	catch(e)
 	{

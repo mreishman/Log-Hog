@@ -2,16 +2,14 @@
 <?php if ($filterSearchInHeader !== "true" && $filterEnabled === "true"): ?>
 	<input disabled id="searchFieldInput" type="search" name="search" placeholder="Filter <?php echo $filterDefault; ?>" style="height: 30px; width: 180px; margin-right: 10px;">
 <?php endif; ?>
-<?php if ($groupDropdownInHeader !== "true"): ?>
-	Groups:
-	<span class="selectDiv">
-		<select multiple="true" id="selectForGroup" >
-			<option selected="true" value="all" >All</option>
-		</select>
-	</span>
-	<br>
-	<br>
-<?php endif; ?>
+Groups:
+<span class="selectDiv">
+	<select multiple="true" id="selectForGroup" >
+		<option selected="true" value="all" >All</option>
+	</select>
+</span>
+<br>
+<br>
 <?php if ($filterEnabled === "true"): ?>
 	Search:
 	<span class="selectDiv" >

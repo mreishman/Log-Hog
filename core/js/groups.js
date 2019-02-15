@@ -7,6 +7,10 @@ function addToGroupTab(newGroups)
 		if(!($("#selectForGroup option[value='"+newGroups[NGcount]+"']").length > 0) && newGroups[NGcount] !== "")
 		{
 			$("#selectForGroup").append("<option value='"+newGroups[NGcount]+"'>"+newGroups[NGcount]+"</option>");
+			if(groupDropdownInHeader === "true")
+			{
+				$("#groupsInHeader").append("<span class=\"linkSmall\"  onclick=\"addGroupToSelect('"+newGroups[NGcount]+"');\"  >"+newGroups[NGcount]+"</span>")
+			}
 		}
 	}
 }
@@ -105,6 +109,20 @@ function removeOldGroups(data, arrayOfGroups)
 			//remove because not in new array
 			var selectGroupSelector = document.getElementById("selectForGroup");
 			$("#selectForGroup option[value=\""+currentOptionsSelect[modCOScount].value+"\"]").remove();
+			//find in header
+			if(groupDropdownInHeader === "true")
+			{
+				let listOfOptions = $("#groupsInHeader .linkSmall");
+				let listOfOptionsLength = listOfOptions.length;
+				for(let i = 0; i < listOfOptionsLength; i++)
+				{
+					if(listOfOptions[i].textContent === currentOptionsSelect[modCOScount])
+					{
+						$("#groupsInHeader .linkSmall")[i].remove();
+						break;
+					}
+				}
+			}
 			modCOScount--;
 		}
 		modCOScount++;
@@ -182,4 +200,57 @@ function toggleGroupedGroups()
 	//hide empty files if needed
 	hideEmptyLogs();
 	resize();
+}
+
+function resizeHeaderGroups()
+{
+	let leftButtonWidth = 0;
+	if($("#menuButtonLeft"))
+	{
+		leftButtonWidth = $("#menuButtonLeft").width();
+	}
+	let rightButtonWidth = 0;
+	if($("#searchFieldInput"))
+	{
+		rightButtonWidth = $("#searchFieldInput").width();
+	}
+	$("#groupsInHeader").width(window.innerWidth - leftButtonWidth - rightButtonWidth - 90);
+	let newHeight = document.getElementById("groupHeaderAllButton").getBoundingClientRect().height + 2;
+	if(document.getElementById("groupsInHeader").getBoundingClientRect().height !== newHeight)
+	{
+		document.getElementById("groupsInHeader").style.height = newHeight+"px";
+	}
+}
+
+function addGroupToSelect(group)
+{
+	if(group === "all")
+	{
+		document.getElementById("selectForGroup").value = "all"
+	}
+	else
+	{
+		//if not in array, add. If in array remove.
+		let currentGroupsSelected = $("#selectForGroup").val();
+		let currentPos = currentGroupsSelected.indexOf(group);
+		if(currentPos > -1)
+		{
+			//remove from group
+			currentGroupsSelected.splice(currentPos, 1);
+		}
+		else
+		{
+			//add to group
+			currentGroupsSelected.push(group);
+		}
+		//remove all if there
+		currentPos = currentGroupsSelected.indexOf("all");
+		if(currentPos > -1)
+		{
+			//remove from group
+			currentGroupsSelected.splice(currentPos, 1);
+		}
+		$("#selectForGroup").val(currentGroupsSelected);
+	}
+	toggleGroupedGroups();
 }
