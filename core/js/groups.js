@@ -247,10 +247,6 @@ function addGroupToSelect(event, group)
 	}
 	else
 	{
-		if(group === "all")
-		{
-			groupCheck = ["All"];
-		}
 		document.getElementById("selectForGroup").value = group
 	}
 	updateHeaderGroups(groupCheck);
@@ -264,7 +260,12 @@ function updateHeaderGroups(groupCheck)
 	for(let i = 0; i < listOfOptionsLength; i++)
 	{
 		$($("#groupsInHeader .linkSmall")[i]).removeClass("selected")
-		if(groupCheck.indexOf(listOfOptions[i].textContent) > -1)
+		let textCheck = listOfOptions[i].textContent;
+		if(textCheck === "All")
+		{
+			textCheck = "all";
+		}
+		if(groupCheck.indexOf(textCheck) > -1)
 		{
 			$($("#groupsInHeader .linkSmall")[i]).addClass("selected");
 		}
