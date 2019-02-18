@@ -36,12 +36,12 @@ function getFilterData(id, name, shortName, logData)
 
 function showFileFromFilter(id, name, shortName, logData)
 {
-	var filterOffOf = getFilterData(id, name, shortName, logData);
+	let filterOffOf = getFilterData(id, name, shortName, logData);
 	if(logsToHide instanceof Array && (logsToHide.length === 0 || $.inArray(id, logsToHide) === -1 ))
 	{
 		if(typeof filterOffOf === "string" && filterOffOf !== "")
 		{
-			var filterTextField = getFilterTextField();
+			let filterTextField = getFilterTextField();
 			//search field empty, don't filter
 			if(filterTextField === "")
 			{
@@ -72,7 +72,7 @@ function showFileFromFilter(id, name, shortName, logData)
 
 function filterContentCheck(textToMatch)
 {
-	var filterTextField = getFilterTextField();
+	let filterTextField = getFilterTextField();
 	if(filterTextField === "")
 	{
 		return true;
@@ -92,7 +92,7 @@ function filterContentCheck(textToMatch)
 
 function getFilterTextField()
 {
-	var filterTextField = document.getElementsByName("search")[0].value;
+	let filterTextField = document.getElementsByName("search")[0].value;
 	if(caseInsensitiveSearch === "true")
 	{
 		filterTextField = filterTextField.toLowerCase();
