@@ -70,9 +70,8 @@ function showFileFromFilter(id, name, shortName, logData)
 	return false;
 }
 
-function filterContentCheck(textToMatch)
+function filterContentCheck(textToMatch, filterTextField)
 {
-	let filterTextField = getFilterTextField();
 	if(filterTextField === "")
 	{
 		return true;
@@ -90,9 +89,13 @@ function filterContentCheck(textToMatch)
 	return filterResult;
 }
 
-function getFilterTextField()
+function getFilterTextField(windowNum = 0)
 {
-	let filterTextField = document.getElementsByName("search")[0].value;
+	let filterTextField = document.getElementById("searchFieldInput").value;
+	if(document.getElementById("searchFieldInput-"+windowNum) && document.getElementById("searchFieldInput-"+windowNum).value !== "")
+	{
+		filterTextField = document.getElementById("searchFieldInput-"+windowNum).value;
+	}
 	if(caseInsensitiveSearch === "true")
 	{
 		filterTextField = filterTextField.toLowerCase();
@@ -103,55 +106,51 @@ function getFilterTextField()
 function changeFilterCase()
 {
 	caseInsensitiveSearch = document.getElementById("caseInsensitiveSearch").value;
-	possiblyUpdateFromFilter(true);
+	possiblyUpdateFromFilter();
 }
 
 function changeFilterInvert()
 {
 	filterInvert = document.getElementById("filterInvert").value;
-	possiblyUpdateFromFilter(true);
+	possiblyUpdateFromFilter();
 }
 
 function changeHighlightContentMatch()
 {
 	filterContentHighlight = document.getElementById("filterContentHighlight").value;
-	possiblyUpdateFromFilter(true);
+	possiblyUpdateFromFilter();
 }
 
 function changeHighlightContentMatchLine()
 {
 	filterContentHighlightLine = document.getElementById("filterContentHighlightLine").value;
-	possiblyUpdateFromFilter(true);
+	possiblyUpdateFromFilter();
 }
 
 function changeFilterContentMatch()
 {
 	filterContentLimit = document.getElementById("filterContentLimit").value;
-	possiblyUpdateFromFilter(true);
+	possiblyUpdateFromFilter();
 }
 
 function changeFilterContentLinePadding()
 {
 	filterContentLinePadding = parseInt(document.getElementById("filterContentLinePadding").value);
-	possiblyUpdateFromFilter(true);
+	possiblyUpdateFromFilter();
 }
 
 function changeFilterTitleIncludePath()
 {
 	filterTitleIncludePath = document.getElementById("filterTitleIncludePath").value;
-	possiblyUpdateFromFilter(true);
+	possiblyUpdateFromFilter();
 }
 
-function possiblyUpdateFromFilter(force)
+function possiblyUpdateFromFilter()
 {
-	if(force || lastContentSearch !== getFilterTextField())
+	generalUpdate();
+	if(oneLogEnable === "true")
 	{
-		generalUpdate();
-		if(oneLogEnable === "true")
-		{
-			possiblyUpdateOneLogVisibleData();
-		}
-		lastContentSearch = getFilterTextField();
+		possiblyUpdateOneLogVisibleData();
 	}
 }
 

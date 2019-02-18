@@ -131,7 +131,7 @@ function makePrettyWithText(text, count, extraData = {})
 			if(filterEnabled === "true" && selectedListFilterType === "content" && filterContentHighlight === "true" && filterTextField !== "")
 			{
 				//check if match, and if supposed to highlight
-				if(filterContentCheck(lineText))
+				if(filterContentCheck(lineText), filterTextField)
 				{
 					filterHighlight = true;
 					if(filterContentHighlightLine === "true")
@@ -289,7 +289,7 @@ function formatTextIntoArray(text, count, extraData = {})
 		{
 			addLine = false;
 			//check for content on current line
-			if(filterContentCheck(text[i]))
+			if(filterContentCheck(text[i]), filterTextField)
 			{
 				//current line is thing, reset counter.
 				bottomPadding = filterContentLinePadding;
@@ -304,7 +304,7 @@ function formatTextIntoArray(text, count, extraData = {})
 				{
 					if(lengthOfTextArray > i+j)
 					{
-						if(filterContentCheck(text[i+j]))
+						if(filterContentCheck(text[i+j]), filterTextField)
 						{
 							addLine = true;
 							bottomPadding--;
@@ -330,11 +330,6 @@ function formatTextIntoArray(text, count, extraData = {})
 		{
 			var lineText = text[i].split("\\n");
 			var lengthOflineTextArray = lineText.length;
-			var filterTextField = "";
-			if(filterEnabled === "true")
-			{
-				filterTextField = getFilterTextField();
-			}
 			for (var j = 0; j < lengthOflineTextArray; j++)
 			{
 				newLogObject[newLogCounter] = lineText[j];

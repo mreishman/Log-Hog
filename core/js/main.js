@@ -31,7 +31,6 @@ var hiddenLogUpdatePollTop = null;
 var idOfOneLogOpen = "";
 var inlineNotificationPoll = null;
 var inlineNotificationPollArray = [];
-var lastContentSearch = "";
 var lastLogs = {};
 var logDisplayArray = {};
 var logDisplayArrayOld = {};
@@ -1754,7 +1753,7 @@ function mainReady()
 	{
 		$("#searchFieldInput").on("input", function()
 		{
-			possiblyUpdateFromFilter(false);
+			possiblyUpdateFromFilter();
 		});
 
 		if(document.getElementById("searchType"))
