@@ -100,10 +100,10 @@ function makePrettyWithText(text, count, extraData = {})
 		var addLineCount = "false";
 		var selectListForFilter = document.getElementsByName("searchType")[0];
 		var selectedListFilterType = selectListForFilter.options[selectListForFilter.selectedIndex].value;
-		var filterTextField = "";
+		let filterTextFieldLocal = "";
 		if(filterEnabled === "true")
 		{
-			filterTextField = getFilterTextField();
+			filterTextFieldLocal = getFilterTextField(getLogIdFromText(text));
 		}
 		if("lineDisplay" in extraData && extraData["lineDisplay"] === "true")
 		{
@@ -128,10 +128,10 @@ function makePrettyWithText(text, count, extraData = {})
 				customClassAdd = true;
 			}
 			let filterHighlight = false;
-			if(filterEnabled === "true" && selectedListFilterType === "content" && filterContentHighlight === "true" && filterTextField !== "")
+			if(filterEnabled === "true" && selectedListFilterType === "content" && filterContentHighlight === "true" && filterTextFieldLocal !== "")
 			{
 				//check if match, and if supposed to highlight
-				if(filterContentCheck(lineText), filterTextField)
+				if(filterContentCheck(lineText, filterTextFieldLocal))
 				{
 					filterHighlight = true;
 					if(filterContentHighlightLine === "true")
@@ -152,7 +152,7 @@ function makePrettyWithText(text, count, extraData = {})
 			let posArrArr = {};
 			if(filterContentHighlightLine !== "true" && filterHighlight === true)
 			{
-				posArrArr[0] = getPositionsOf(lineText, filterTextField, "<div class=\"highlightDiv\" >", "</div>");
+				posArrArr[0] = getPositionsOf(lineText, filterTextFieldLocal, "<div class=\"highlightDiv\" >", "</div>");
 			}
 			let posArrArrKeys = Object.keys(posArrArr);
 			let posArrArrKeysLength = posArrArrKeys.length;
@@ -277,19 +277,19 @@ function formatTextIntoArray(text, count, extraData = {})
 	var topPadding = filterContentLinePadding;
 	var foundOne = false;
 	var addLine = false;
-	var filterTextField = "";
+	let filterTextFieldLocal = "";
 	if(filterEnabled === "true")
 	{
-		filterTextField = getFilterTextField();
+		filterTextFieldLocal = getFilterTextField(getLogIdFromText(text));
 	}
 	for (var i = 0; i < lengthOfTextArray; i++)
 	{
 		addLine = true;
-		if(filterEnabled === "true" && selectedListFilterType === "content" && filterContentLimit === "true" && filterTextField !== "")
+		if(filterEnabled === "true" && selectedListFilterType === "content" && filterContentLimit === "true" && filterTextFieldLocal !== "")
 		{
 			addLine = false;
 			//check for content on current line
-			if(filterContentCheck(text[i]), filterTextField)
+			if(filterContentCheck(text[i], filterTextFieldLocal))
 			{
 				//current line is thing, reset counter.
 				bottomPadding = filterContentLinePadding;
@@ -304,7 +304,7 @@ function formatTextIntoArray(text, count, extraData = {})
 				{
 					if(lengthOfTextArray > i+j)
 					{
-						if(filterContentCheck(text[i+j]), filterTextField)
+						if(filterContentCheck(text[i+j], filterTextFieldLocal))
 						{
 							addLine = true;
 							bottomPadding--;

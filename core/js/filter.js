@@ -41,7 +41,7 @@ function showFileFromFilter(id, name, shortName, logData)
 	{
 		if(typeof filterOffOf === "string" && filterOffOf !== "")
 		{
-			let filterTextField = getFilterTextField();
+			let filterTextField = getFilterTextField(getPositionOfLogInLogDisplay(id));
 			//search field empty, don't filter
 			if(filterTextField === "")
 			{

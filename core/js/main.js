@@ -226,34 +226,71 @@ function addPaddingToNumber(number, padding = 4)
 function showFileFromPinnedWindow(id)
 {
 	//look for pinned window
-	var windowKeys = Object.keys(logDisplayArray);
-	var lengthOfWindows = windowKeys.length;
-	for(var j = 0; j < lengthOfWindows; j++)
+	let windows = Object.keys(logDisplayArray);
+	let pos = getPositionOfLogInLogDisplay(id);
+	if(pos !== false && logDisplayArray[windows[pos]]["pin"] === true)
 	{
-		if(logDisplayArray[windowKeys[j]]["id"] === id)
-		{
-			if(logDisplayArray[windowKeys[j]]["pin"] === true)
-			{
-				return true;
-			}
-			return false;
-		}
+		return true;
 	}
 	return false;
 }
 
 function checkIfDisplay(id)
 {
-	var windows = Object.keys(logDisplayArray);
-	var lengthOfWindows = windows.length;
-	for(var j = 0; j < lengthOfWindows; j++)
+	let pos = getPositionOfLogInLogDisplay(id);
+	if(pos !== false)
+	{
+		return {display: true, location: pos};
+	}
+	return {display: false, location: -1};
+}
+
+function getPositionOfLogInLogDisplay(id)
+{
+	let windows = Object.keys(logDisplayArray);
+	let lengthOfWindows = windows.length;
+	for(let j = 0; j < lengthOfWindows; j++)
 	{
 		if(logDisplayArray[j]["id"] === id)
 		{
-			return {display: true, location: j};
+			return j;
 		}
 	}
-	return {display: false, location: -1};
+	return false;
+}
+
+function getLogIdFromText(text)
+{
+	//check if text if from a log
+	let arrayOfDataMainKeys = Object.keys(arrayOfDataMain);
+	let arrayOfDataMainKeysLength = arrayOfDataMainKeys.length;
+	for(let i = 0; i < arrayOfDataMainKeysLength; i++)
+	{
+		if(arrayOfDataMain[arrayOfDataMainKeys[i]]["log"] === text)
+		{
+			return arrayOfDataMainKeys[i].replace(/[^a-z0-9]/g, "");
+		}
+		if(advancedLogFormatEnabled === "true" && logFormatFileEnable === "true" && "fileData" in arrayOfDataMain[arrayOfDataMainKeys[i]])
+		{
+			let fileDataLocal = arrayOfDataMain[arrayOfDataMainKeys[i]]["fileData"];
+			if(fileDataLocal)
+			{
+				let fileDataLocalKeys = Object.keys(fileDataLocal);
+				let fileDataLocalKeysLength = fileDataLocalKeys.length;
+				if(fileDataLocalKeysLength > 0)
+				{
+					for(let j = 0; j < fileDataLocalKeysLength; j++)
+					{
+						if(fileDataLocal[fileDataLocalKeys[j]]["fileData"] === text)
+						{
+							return arrayOfDataMainKeys[i].replace(/[^a-z0-9]/g, "");
+						}
+					}
+				}
+			}
+		}
+	}
+	return false;
 }
 
 function unselectAllLogs()
