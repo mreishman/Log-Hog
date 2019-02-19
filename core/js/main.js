@@ -1040,33 +1040,42 @@ function resize()
 		}
 		var tdElementWidth = (targetWidth/windowDisplayConfigColCount).toFixed(0);
 		var trElementHeight = ((targetHeight-borderPadding)/windowDisplayConfigRowCount).toFixed(0);
-		if(($(".logTrHeight").outerHeight().toFixed(0) !== trElementHeight)|| ($(".logTdWidth").outerWidth().toFixed(0) !== tdElementWidth))
+		let logDisplayArrayKeys = Object.keys(logDisplayArray);
+		let logDisplayArrayKeysCount = logDisplayArrayKeys.length;
+		for(let lda = 0; lda < logDisplayArrayKeysCount; lda++)
 		{
-			closeLogPopup();
-			if($(".logTrHeight").outerHeight() !== trElementHeight)
+			let localTdElementWidth = tdElementWidth;
+			let localTrElementHeight = trElementHeight;
+			if(document.getElementById("searchFieldInputOuter-"+lda))
 			{
-				$(".logTrHeight").outerHeight(trElementHeight);
+				localTrElementHeight -= document.getElementById("searchFieldInputOuter-"+lda).getBoundingClientRect().height
 			}
-			if($(".logTdWidth").outerWidth() !== tdElementWidth)
+			if($("#log"+lda+"Td").outerHeight() !== localTrElementHeight)
 			{
-				$(".logTdWidth").outerWidth(tdElementWidth);
+				closeLogPopup();
+				$("#log"+lda+"Td").outerHeight(localTrElementHeight);
 			}
-		}
-		if($(".backgroundForSideBarMenu").outerHeight() >= $(".logTrHeight").outerHeight())
-		{
-			$(".backgroundForSideBarMenu").outerHeight(trElementHeight);
-		}
-		else
-		{
-			if($(".backgroundForSideBarMenu").css("height") !== "auto")
+			if($("#logTd"+lda+"Width").outerWidth() !== localTdElementWidth)
 			{
-				$(".backgroundForSideBarMenu").css("height","auto");
+				closeLogPopup();
+				$("#logTd"+lda+"Width").outerWidth(localTdElementWidth);
 			}
-			if(bottomBarIndexType === "center")
+			if($("#titleContainer"+lda).outerHeight() >= trElementHeight)
 			{
-				if($(".backgroundForSideBarMenu").css("top") !== trElementHeight+"px")
+				$("#titleContainer"+lda).outerHeight(trElementHeight);
+			}
+			else
+			{
+				if($("#titleContainer"+lda).css("height") !== "auto")
 				{
-					$(".backgroundForSideBarMenu").css("top",((trElementHeight / 2) - ($(".backgroundForSideBarMenu").outerHeight() / 2))+"px")
+					$("#titleContainer"+lda).css("height","auto");
+				}
+				if(bottomBarIndexType === "center")
+				{
+					if($("#titleContainer"+lda).css("top") !== trElementHeight+"px")
+					{
+						$("#titleContainer"+lda).css("top",((trElementHeight / 2) - ($("#titleContainer"+lda).outerHeight() / 2))+"px")
+					}
 				}
 			}
 		}

@@ -176,3 +176,17 @@ function toggleFilterType()
 	}
 	changeSearchplaceholder();
 }
+
+function showLogWindowFilter(windowNum)
+{
+	let currentDisplay = document.getElementById("searchFieldInputOuter-"+windowNum).style.display;
+	if(currentDisplay !== "block")
+	{
+		document.getElementById("searchFieldInputOuter-"+windowNum).style.display = "block";
+	}
+	else
+	{
+		document.getElementById("searchFieldInputOuter-"+windowNum).style.display = "none";
+	}
+	resize();
+}

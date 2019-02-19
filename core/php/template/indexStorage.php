@@ -1,7 +1,7 @@
 <div>
 	<table cellspacing="0"  style="margin: 0px;padding: 0px; border-spacing: 0px; width:100%;" >
 		<tr class="logTdHolder">
-			<td class="logTdWidth addBorder" onclick="changeCurrentSelectWindow('{{counter}}')" style="padding: 0;" >
+			<td id="logTd{{counter}}Width" class="logTdWidth addBorder" onclick="changeCurrentSelectWindow('{{counter}}')" style="padding: 0;" >
 				<div style="display: block; position: relative;height: 0;width: 0;padding: 0;" >
 					<div
 					class="backgroundForSideBarMenu addBorder"
@@ -44,6 +44,19 @@
 									"style"		=>	"margin: 5px;",
 									"title"		=>	"More Info",
 									"data-src"	=>	$arrayOfImages["infoSideBar"]
+									)
+								);
+							?>
+						</a>
+						<a id="showLogWindowFilter{{counter}}" onclick="showLogWindowFilter('{{counter}}');" style="cursor: pointer;" >
+							<?php echo generateImage(
+								$arrayOfImages["loadingImg"],
+								$imageConfig = array(
+									"height"	=>	"20px",
+									"class"		=>	"searchSideBarImageForLoad",
+									"style"		=>	"margin: 5px;",
+									"title"		=>	"More Info",
+									"data-src"	=>	$arrayOfImages["search"]
 									)
 								);
 							?>
@@ -149,6 +162,9 @@
 						</a>
 					</div>
 				</div>
+				<span id="searchFieldInputOuter-{{counter}}" class="addBorderBottom" style="padding: 10px; display: none; text-align: center;">
+					<input id="searchFieldInput-{{counter}}" type="search" placeholder="Filter Log Content" style="height: 30px; width: 200px;">
+				</span>
 				<span id="log{{counter}}Td"  class="logTrHeight" style="overflow: auto; display: block; word-break: break-all;" >
 					<div id="log{{counter}}load" {{loadingStyle}} class="errorMessageLog">
 						<?php echo generateImage(

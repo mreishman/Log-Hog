@@ -118,6 +118,11 @@ $arrayOfFiles = array(
 		"class" =>"infoSideBarImageForLoad"
 	),
 	array(
+		"name" => $baseUrl . "img/search.png",
+		"type" =>"img",
+		"class" =>"searchSideBarImageForLoad"
+	),
+	array(
 		"name" => $baseUrl . "img/eraserSideBar.png",
 		"type" =>"img",
 		"class" =>"eraserSideBarImageForLoad"
