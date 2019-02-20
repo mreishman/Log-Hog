@@ -103,7 +103,8 @@ function makePrettyWithText(text, count, extraData = {})
 		let filterTextFieldLocal = "";
 		if(filterEnabled === "true")
 		{
-			filterTextFieldLocal = getFilterTextField(getLogIdFromText(text));
+			let currentLogId = getLogIdFromText(text);
+			filterTextFieldLocal = getFilterTextField(getPositionOfLogInLogDisplay(currentLogId));
 		}
 		if("lineDisplay" in extraData && extraData["lineDisplay"] === "true")
 		{

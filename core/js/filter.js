@@ -41,7 +41,7 @@ function showFileFromFilter(id, name, shortName, logData)
 	{
 		if(typeof filterOffOf === "string" && filterOffOf !== "")
 		{
-			let filterTextField = getFilterTextField(getPositionOfLogInLogDisplay(id));
+			let filterTextField = getFilterTextField(getPositionOfLogInLogDisplay(id)) || getFilterTextField();
 			//search field empty, don't filter
 			if(filterTextField === "")
 			{
@@ -89,7 +89,7 @@ function filterContentCheck(textToMatch, filterTextField)
 	return filterResult;
 }
 
-function getFilterTextField(windowNum = 0)
+function getFilterTextField(windowNum = 'false')
 {
 	let filterTextField = document.getElementById("searchFieldInput").value;
 	if(document.getElementById("searchFieldInput-"+windowNum) && document.getElementById("searchFieldInput-"+windowNum).value !== "")

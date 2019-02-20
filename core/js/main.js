@@ -1669,6 +1669,18 @@ function generateWindowDisplayInner()
 	logDisplayArrayOld = logDisplayArray;
 	logDisplayArray = newLogDisplayArray;
 	document.getElementById("log").innerHTML = ""+logDisplayHtml+"";
+	//add search filters if there
+	let currentLengthOfLogDisplayArray = Object.keys(logDisplayArray).length;
+	if(filterEnabled === "true")
+	{
+		for(let i = 0; i < currentLengthOfLogDisplayArray; i++)
+		{
+			$("#searchFieldInput-"+i).on("input", function()
+			{
+				generalUpdate();
+			});
+		}
+	}
 	//show or hide numbers for windows if needed
 	if(windowDisplayConfigColCount > 1 || windowDisplayConfigRowCount > 1)
 	{
@@ -1680,9 +1692,9 @@ function generateWindowDisplayInner()
 		$(".pinWindowContainer, .currentWindowNumSelected, .currentWindowNum").hide();
 	}
 	//change select if needed
-	if(Object.keys(logDisplayArray).length < (currentSelectWindow + 1))
+	if(currentLengthOfLogDisplayArray < (currentSelectWindow + 1))
 	{
-		currentSelectWindow = (Object.keys(logDisplayArray).length -1);
+		currentSelectWindow = (currentLengthOfLogDisplayArray -1);
 	}
 	resize();
 	return{
