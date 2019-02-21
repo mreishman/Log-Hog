@@ -576,7 +576,7 @@ $defaultConfigMoreData = array(
 						"var"								=>	array(
 							"key"								=>	"highlightColorBG",
 							"name"								=>	"Background",
-							"type"								=>	"text"
+							"type"								=>	"color"
 						)
 					),
 					1									=> array(
@@ -584,7 +584,7 @@ $defaultConfigMoreData = array(
 						"var"								=>	array(
 							"key"								=>	"highlightColorFont",
 							"name"								=>	"Font",
-							"type"								=>	"text"
+							"type"								=>	"color"
 						)
 					),
 					2									=>	array(
@@ -635,7 +635,7 @@ $defaultConfigMoreData = array(
 				"var"								=>	array(
 					"key"								=>	"backgroundColor",
 					"name"								=>	"Background",
-					"type"								=>	"text"
+					"type"								=>	"color"
 				)
 			),
 			1									=>	array(
@@ -652,7 +652,7 @@ $defaultConfigMoreData = array(
 				"var"								=>	array(
 					"key"								=>	"mainFontColor",
 					"name"								=>	"Main Font Color",
-					"type"								=>	"text"
+					"type"								=>	"color"
 				)
 			),
 			3									=>	array(
@@ -660,7 +660,7 @@ $defaultConfigMoreData = array(
 				"var"								=>	array(
 					"key"								=>	"logFontColor",
 					"name"								=>	"Log Font Color",
-					"type"								=>	"text"
+					"type"								=>	"color"
 				)
 			),
 			4									=>	array(
@@ -700,7 +700,7 @@ $defaultConfigMoreData = array(
 						"var"								=>	array(
 							"key"								=>	"logLineBorderColor",
 							"name"								=>	"Border Color",
-							"type"								=>	"text"
+							"type"								=>	"color"
 						)
 					),
 					1									=>	array(
@@ -720,7 +720,7 @@ $defaultConfigMoreData = array(
 				"var"								=>	array(
 					"key"								=>	"backgroundHeaderColor",
 					"name"								=>	"Header Background",
-					"type"								=>	"text"
+					"type"								=>	"color"
 				)
 			),
 			8									=>	array(
@@ -829,7 +829,7 @@ $defaultConfigMoreData = array(
 						"var"								=>	array(
 							"key"								=>	"logFormatFileBackground",
 							"name"								=>	"Background",
-							"type"								=>	"text"
+							"type"								=>	"color"
 						)
 					),
 					1									=> array(
@@ -837,7 +837,7 @@ $defaultConfigMoreData = array(
 						"var"								=>	array(
 							"key"								=>	"logFormatFileFontColor",
 							"name"								=>	"Font",
-							"type"								=>	"text"
+							"type"								=>	"color"
 						)
 					),
 					2									=>	array(
@@ -1108,7 +1108,7 @@ $defaultConfigMoreData = array(
 						"var"								=>	array(
 							"key"								=>	"highlightNewColorBG",
 							"name"								=>	"Background",
-							"type"								=>	"text"
+							"type"								=>	"color"
 						)
 					),
 					1									=> array(
@@ -1116,7 +1116,7 @@ $defaultConfigMoreData = array(
 						"var"								=>	array(
 							"key"								=>	"highlightNewColorFont",
 							"name"								=>	"Font",
-							"type"								=>	"text"
+							"type"								=>	"color"
 						)
 					),
 					2									=> array(
@@ -1879,7 +1879,7 @@ $defaultConfigMoreData = array(
 						"var"								=>	array(
 							"key"								=>	"notificationInlineBGColor",
 							"name"								=>	"Background",
-							"type"								=>	"text"
+							"type"								=>	"color"
 						)
 					),
 					4									=>	array(
@@ -1887,7 +1887,7 @@ $defaultConfigMoreData = array(
 						"var"								=>	array(
 							"key"								=>	"notificationInlineFontColor",
 							"name"								=>	"Font",
-							"type"								=>	"text"
+							"type"								=>	"color"
 						)
 					),
 				)
@@ -1935,7 +1935,7 @@ $defaultConfigMoreData = array(
 						"var"								=>	array(
 							"key"								=>	"oneLogColorBG",
 							"name"								=>	"Background",
-							"type"								=>	"text"
+							"type"								=>	"color"
 						)
 					),
 					1									=> array(
@@ -1943,7 +1943,7 @@ $defaultConfigMoreData = array(
 						"var"								=>	array(
 							"key"								=>	"oneLogColorFont",
 							"name"								=>	"Font",
-							"type"								=>	"text"
+							"type"								=>	"color"
 						)
 					)
 				)

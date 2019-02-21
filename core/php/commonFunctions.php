@@ -1174,6 +1174,50 @@ function generateText($confDataValue, $numberValue, $varName)
 function generateColor($confDataValue, $numberValue, $varName)
 {
 	$returnHtml = "<span class=\"settingsBuffer\" > ".$confDataValue["name"].": </span>";
+	if(strpos($numberValue, "#") === 0 && (strlen($numberValue) === 4 || strlen($numberValue) === 7 ))
+	{
+		$returnHtml .= generateColorBlockInner("colorBlock".$varName, $numberValue);
+		$returnHtml .= "
+		<script type=\"text/javascript\">
+		var timerFor".$varName." = null;
+		$( document ).ready(function() {
+			if(typeof jscolor === \"function\")
+			{
+				trySetColor".$varName."(\"folderColorButtoncolorBlock".$varName."\",\"folderColorValuecolorBlock".$varName."\");
+			}
+			else
+			{
+				setTimeout(function() {
+					timerFor".$varName." = setInterval(function () {
+						trySetColor".$varName."(\"folderColorButtoncolorBlock".$varName."\",\"folderColorValuecolorBlock".$varName."\")}, 1000);
+				}, 250);
+			}
+		});
+
+		function trySetColor".$varName."(buttonId, valueId)
+		{
+			if(typeof jscolor === \"function\")
+			{
+				new jscolor(
+					document.getElementById(buttonId), {
+						valueElement: valueId,
+						hash:true
+					}
+				);
+				if(timerFor".$varName." !== null)
+				{
+					clearInterval(timerFor".$varName.");
+				}
+				timerFor".$varName." = null;
+			}
+		}
+		</script>
+		";
+	}
+	else
+	{
+		$returnHtml .= generateColorBlockInner("colorBlock".$varName, $numberValue, false);
+	}
 	$returnHtml .= " <input type=\"text\" name=\"".$varName."\" value=\"".$numberValue."\" >";
 	return $returnHtml;
 }
@@ -1184,6 +1228,10 @@ function generateGenericType($confDataValue, $confDataKeyValue, $confDataKey)
 	if($confDataValue["type"] === "number")
 	{
 		$returnHtml .= generateNumber($confDataValue,$confDataKeyValue,$confDataKey);
+	}
+	if($confDataValue["type"] === "color")
+	{
+		$returnHtml .= generateColor($confDataValue,$confDataKeyValue,$confDataKey);
 	}
 	else if($confDataValue["type"] === "text")
 	{
@@ -1476,32 +1524,27 @@ function generateColorBlock($arrCBdata = array())
 
 	$htmlToReturn = "";
 	$htmlToReturn .= "<div class=\"divAroundColors\">";
+	$htmlToReturn .= generateColorBlockInner($name."Background".$i."-".$j, $backgroundColor, $edit, "border-bottom: 0px;");
+	$htmlToReturn .= generateColorBlockInner($name."Font".$i."-".$j, $fontColor, $edit, "border-top: 0px;");
+	$htmlToReturn .= "</div>";
+	return $htmlToReturn;
+}
+
+function generateColorBlockInner($buttonID, $color, $edit = true, $style = "")
+{
+	$htmlToReturn = "";
 	if($edit)
 	{
-		$htmlToReturn .= "<div class=\"colorSelectorDiv\" style=\" border-top: 0px;\" >";
+		$htmlToReturn .= "<div class=\"colorSelectorDiv\" style=\"".$style."\" >";
 		$htmlToReturn .= "<div class=\"inner-triangle-2\" ></div>";
 		$htmlToReturn .= "<div class=\"inner-triangle\" ></div>";
-		$htmlToReturn .= "<button id=\"folderColorButton".$name."Background".$i."-".$j."\" class=\"backgroundButtonForColor\"></button>";
+		$htmlToReturn .= "<button id=\"folderColorButton".$buttonID."\" class=\"backgroundButtonForColor\"></button>";
 	}
 	else
 	{
-		$htmlToReturn .=	"<div class=\"colorSelectorDiv addBorder\" style=\"background-color: ".$backgroundColor."; border-bottom: 0px;\" >";
+		$htmlToReturn .=	"<div class=\"colorSelectorDiv addBorder\" style=\"background-color: ".$color."; ".$style."\" >";
 	}
 	$htmlToReturn .=	"</div>";
-	$htmlToReturn .=	"<input style=\"width: 100px; display: none;\" type=\"text\" id=\"folderColorValue".$name."Background".$i."-".$j."\" name=\"folderColorValue".$name."Background".$i."-".$j."\" value=\"".$backgroundColor."\" >";
-	if($edit)
-	{
-		$htmlToReturn .= "<div class=\"colorSelectorDiv\" style=\" border-top: 0px;\" >";
-		$htmlToReturn .= "<div class=\"inner-triangle-2\" ></div>";
-		$htmlToReturn .= "<div class=\"inner-triangle\" ></div>";
-		$htmlToReturn .= "<button id=\"folderColorButton".$name."Font".$i."-".$j."\" class=\"backgroundButtonForColor\"></button>";
-	}
-	else
-	{
-		$htmlToReturn .=	"<div class=\"colorSelectorDiv addBorder\" style=\"background-color: ".$fontColor."; ?>; border-top: 0px;\" >";
-	}
-	$htmlToReturn .= 	"</div>";
-	$htmlToReturn .=	"<input style=\"width: 100px; display: none;\" type=\"text\" id=\"folderColorValue".$name."Font".$i."-".$j."\" name=\"folderColorValue".$name."Font".$i."-".$j."\" value=\"".$fontColor."\" >";
-	$htmlToReturn .= "</div>";
+	$htmlToReturn .=	"<input style=\"width: 100px; display: none;\" type=\"text\" id=\"folderColorValue".$buttonID."\" name=\"folderColorValue".$buttonID."\" value=\"".$color."\" >";
 	return $htmlToReturn;
 }

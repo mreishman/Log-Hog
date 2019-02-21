@@ -253,7 +253,7 @@ div.sidebarLeft {
     position: relative;
     right: 0;
     z-index: 2;
-    top: 7px;
+    top: 22px;
     left: 11px;
 }
 
@@ -265,8 +265,16 @@ div.sidebarLeft {
     position: relative;
     right: 0;
     z-index: 5;
-    top: 14px;
+    top: 30px;
     left: 13px;
+}
+
+.divAroundColors .inner-triangle{
+    top: 7px;
+}
+
+.divAroundColors .inner-triangle-2{
+    top: 14px;
 }
 
 .errorMessageLog{
@@ -381,9 +389,13 @@ div.sidebarLeft {
   margin: 0px;
   position: relative;
   right: 0px;
-  top: -11px;
+  top: 4px;
   border: 1px solid white;
   cursor: pointer;
+}
+
+.divAroundColors .backgroundButtonForColor {
+  top: -11px;
 }
 
 .smallBlur{
