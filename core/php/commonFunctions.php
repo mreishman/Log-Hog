@@ -1171,6 +1171,13 @@ function generateText($confDataValue, $numberValue, $varName)
 	return $returnHtml;
 }
 
+function generateColor($confDataValue, $numberValue, $varName)
+{
+	$returnHtml = "<span class=\"settingsBuffer\" > ".$confDataValue["name"].": </span>";
+	$returnHtml .= " <input type=\"text\" name=\"".$varName."\" value=\"".$numberValue."\" >";
+	return $returnHtml;
+}
+
 function generateGenericType($confDataValue, $confDataKeyValue, $confDataKey)
 {
 	$returnHtml = "";
@@ -1336,7 +1343,8 @@ function generateFolderColorRow($arrFCOdata = array())
 		$td2B = "<div class=\"colorSelectorDiv addBorder\" id=\"folderColorThemeNameForPost".$i."Add\" onclick=\"addColorBlock(".$i.")\" style=\"display: inline-block; text-align: center; line-height: 18px; cursor: pointer; \"  >+</div>";
 		$td2B .= "<div class=\"colorSelectorDiv addBorder\" id=\"folderColorThemeNameForPost".$i."Remove\" onclick=\"removeColorBlock(".$i.")\" style=\"display: inline-block; text-align: center; line-height: 18px; cursor: pointer; \"  >-</div>";
 	}
-	$htmlToReturn .= "<td>".$td2."</span> ".$td2B."</td>";
+	$td2 .= "</span>".$td2B;
+	$htmlToReturn .= "<td>".$td2."</td>";
 	$td3 = "Highlight: <span>";
 	if($i !== "{{i}}")
 	{
@@ -1363,7 +1371,8 @@ function generateFolderColorRow($arrFCOdata = array())
 			"edit"						=>	true
 		));
 	}
-	$htmlToReturn .= "<td>".$td3."</span> </td>";
+	$td3 .= "</span>";
+	$htmlToReturn .= "<td>".$td3."</td>";
 	$td4 = " Updated: <span >";
 	if($i !== "{{i}}")
 	{
@@ -1390,7 +1399,8 @@ function generateFolderColorRow($arrFCOdata = array())
 			"edit"						=>	true
 		));
 	}
-	$htmlToReturn .= "<td>".$td4."</span> </td>";
+	$td4 .="</span>";
+	$htmlToReturn .= "<td>".$td4." </td>";
 	$td5 = " Updated highlight:	<span >";
 	if($i !== "{{i}}")
 	{
@@ -1417,7 +1427,8 @@ function generateFolderColorRow($arrFCOdata = array())
 			"edit"						=>	true
 		));
 	}
-	$htmlToReturn .= "<td>".$td5."</span></td>";
+	$td5 .= "</span>";
+	$htmlToReturn .= "<td>".$td5."</td>";
 	return array(
 		"html"					=>	$htmlToReturn,
 		"td1"					=>	$td1,

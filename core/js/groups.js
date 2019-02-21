@@ -13,6 +13,33 @@ function addToGroupTab(newGroups)
 			}
 		}
 	}
+	showOrHideGroups();
+}
+
+function showOrHideGroups()
+{
+	if($('#selectForGroup option').size() > 1)
+	{
+		if(document.getElementById("groupsSpanSideBar").style.display !== "inline-block")
+		{
+			document.getElementById("groupsSpanSideBar").style.display = "inline-block";
+		}
+		if(document.getElementById("groupsInHeader").style.display !== "inline-block")
+		{
+			document.getElementById("groupsInHeader").style.display = "inline-block";
+		}
+	}
+	else
+	{
+		if(document.getElementById("groupsSpanSideBar").style.display !== "none")
+		{
+			document.getElementById("groupsSpanSideBar").style.display = "none";
+		}
+		if(document.getElementById("groupsInHeader").style.display !== "none")
+		{
+			document.getElementById("groupsInHeader").style.display = "none";
+		}
+	}
 }
 
 function getArrayOfGroups(data)
@@ -127,6 +154,7 @@ function removeOldGroups(data, arrayOfGroups)
 		}
 		modCOScount++;
 	}
+	showOrHideGroups();
 }
 
 function showFileFromGroup(id)

@@ -2,7 +2,7 @@
 <?php if ($filterSearchInHeader !== "true" && $filterEnabled === "true"): ?>
 	<input disabled id="searchFieldInput" type="search" name="search" placeholder="Filter <?php echo $filterDefault; ?>" style="height: 30px; width: 180px; margin-right: 10px;">
 <?php endif; ?>
-<span>
+<span id="groupsSpanSideBar" style="display: none;">
 Groups:
 <span class="selectDiv">
 	<select multiple="true" id="selectForGroup" >
