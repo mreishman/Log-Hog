@@ -467,6 +467,7 @@ function firstLoadEndAction()
 			}
 		}
 	}
+	resize();
 }
 
 function pollTimeLogEndAction()
