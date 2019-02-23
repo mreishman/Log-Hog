@@ -7,7 +7,7 @@ require_once($baseModifier.'core/conf/config.php');
 require_once('configStatic.php');
 require_once('commonFunctions.php');
 
-$varsLoadLite = array("shellOrPhp", "logTrimOn", "logSizeLimit","logTrimMacBSD", "logTrimType","TrimSize","enableLogging","buffer","sliceSize","lineCountFromJS","showErrorPhpFileOpen","expFormatEnabled","logFormatFileEnable","logFormatFileLinePadding");
+$varsLoadLite = array("shellOrPhp", "logTrimOn", "logSizeLimit","logTrimMacBSD", "logTrimType","TrimSize","enableLogging","buffer","sliceSize","lineCountFromJS","showErrorPhpFileOpen","advancedLogFormatEnabled","logFormatFileEnable","logFormatFileLinePadding","logFormatFilePermissions");
 
 foreach ($varsLoadLite as $varLoadLite)
 {
@@ -82,7 +82,7 @@ if(isset($_POST['arrayToUpdate']))
 				}
 			}
 			$dataVar = htmlentities($dataVar);
-			if($expFormatEnabled === "true" && $logFormatFileEnable === "true")
+			if($advancedLogFormatEnabled === "true" && $logFormatFileEnable === "true")
 			{
 				//try and get file path and file lines
 				$arrayOfFiles = array();
@@ -95,7 +95,19 @@ if(isset($_POST['arrayToUpdate']))
 					{
 						$fileData = "Error - File Not Found";
 						$fileName = trim($matches[3].$matches[4]);
-						if(is_file($fileName))
+						$matches[7] = $matches[6] . $matches[7];
+						//this one is on line match
+						if(!file_exists($fileName))
+						{
+							//this one is \D:\d match
+							$lastPartOfFile = explode(":", $matches[5]);
+							$fileName = trim($matches[3].$matches[4].$lastPartOfFile[0]);
+							if(count($lastPartOfFile) > 1)
+							{
+								$matches[7] = $lastPartOfFile[1].$matches[7];
+							}
+						}
+						if(file_exists($fileName))
 						{
 							$fileData = "Error - File Not Readable";
 							if(is_readable($fileName))
@@ -118,11 +130,17 @@ if(isset($_POST['arrayToUpdate']))
 								}
 							}
 						}
+						$permissions = "";
+						if($logFormatFilePermissions === "always" || ($logFormatFilePermissions === "sometimes" && strpos($fileData, "Permission denied") > -1))
+						{
+							$permissions = filePermsDisplay($fileName);
+						}
 						//found a match, add to thing
 						$arrayOfFiles[$matches[0]] = array(
 							"pregMatchData"	=>	$matches,
 							"fileData"		=>	$fileData,
-							"fileName"		=>	$fileName
+							"fileName"		=>	$fileName,
+							"permissions"	=>	$permissions
 						);
 					}
 				}

@@ -39,10 +39,10 @@ if($configStatic['newestVersion'] != $configStatic['version'])
 
 		for($i = 0; $i < $newestVersionCount; $i++)
 		{
-			$compareTo = intval($newestVersion[$i]);
-			$compareFrom = intval($version[$i]);
 			if($i < $versionCount)
 			{
+				$compareTo = intval($newestVersion[$i]);
+				$compareFrom = intval($version[$i]);
 				if($i == 0)
 				{
 					if($compareTo > $compareFrom)

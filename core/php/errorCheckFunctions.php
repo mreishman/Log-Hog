@@ -68,11 +68,6 @@ function fileMissingError($file, $urlPath, $currentFile)
 	echoErrorJavaScript($urlPath, $file." is not accessable from ".$currentFile, 1074);
 }
 
-function throwSetupError($urlPath)
-{
-	echoErrorJavaScript($urlPath, "An error occured durring setup", 2);
-}
-
 function echoErrorJavaScript($urlPath, $mainMessage, $errorNumber)
 {
 	$urlPath = $urlPath."error.php?error=".$errorNumber."&page=".$mainMessage;

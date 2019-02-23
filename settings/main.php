@@ -33,7 +33,7 @@ require_once('../core/php/loadVars.php');
 		<?php
 		$currentSection = "logVars";
 		include('../core/php/template/varTemplate.php');
-		if($expFormatEnabled === "true")
+		if($advancedLogFormatEnabled === "true")
 		{
 			$currentSection = "logFormatVars";
 			include('../core/php/template/varTemplate.php');

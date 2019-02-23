@@ -14,6 +14,7 @@ var clearingNotifications = false;
 var counterForPoll = 0;
 var counterForPollForceRefreshAll = 0;
 var counterForPollForceRefreshErr = 0;
+var currentLogFormat = 0;
 var currentPage;
 var currentSelectWindow = 0;
 var currentToggleLogPopup = -1;
@@ -200,7 +201,7 @@ function updateDocumentTitle(updateText)
 
 function updateFileDataArray(newDataArr)
 {
-	if(expFormatEnabled === "true" && logFormatFileEnable === "true")
+	if(advancedLogFormatEnabled === "true" && logFormatFileEnable === "true")
 	{
 		updateFileDataArrayInner(newDataArr);
 	}
@@ -947,6 +948,15 @@ function getDiffLogAndLastLog(id)
 	}
 }
 
+function adjustLogForMenuLocation(mainWidth)
+{
+	if((logMenuLocation === "left" || logMenuLocation === "right") && allLogsVisible === "true")
+	{
+		mainWidth -= document.getElementById("menu").getBoundingClientRect().width;
+	}
+	return mainWidth;
+}
+
 function resize()
 {
 	try
@@ -973,6 +983,10 @@ function resize()
 		if($("#settingsSideBar").outerHeight() !== targetHeight)
 		{
 			$("#settingsSideBar").outerHeight(targetHeight);
+		}
+		if($("#moreInfoSideBar").outerHeight() !== targetHeight)
+		{
+			$("#moreInfoSideBar").outerHeight(targetHeight);
 		}
 		if(logMenuLocation === "bottom")
 		{
@@ -1024,6 +1038,26 @@ function resize()
 		resizeFullScreenMenu();
 
 		updateNotificationCount();
+
+		if(advancedLogFormatEnabled === "true")
+		{
+			if(dateTextFormatColumn === "true" || (dateTextFormatColumn === "auto" && window.innerWidth > breakPointTwo))
+			{
+				if(currentLogFormat !== 2)
+				{
+					currentLogFormat = 2;
+					generateWindowDisplay();
+				}
+			}
+			else
+			{
+				if(currentLogFormat !== 1)
+				{
+					currentLogFormat = 1;
+					generateWindowDisplay();
+				}
+			}
+		}
 	}
 	catch(e)
 	{
@@ -1689,6 +1723,14 @@ function toggleVisibleAllLogs()
 
 function mainReady()
 {
+	if(window.innerWidth > breakPointTwo)
+	{
+		currentLogFormat = 2;
+	}
+	else
+	{
+		currentLogFormat = 1;
+	}
 	if(oneLogEnable === "true")
 	{
 		addOneLogTab();

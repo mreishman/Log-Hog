@@ -272,6 +272,22 @@ function toggleUpdateLogFormat()
 	showOrHideLogFormat();
 }
 
+function showLayoutOptions(classAdd)
+{
+	$(".logLayoutShowAll"+classAdd).hide();
+	$(".logLayoutHideAll").show();
+	$(".innerWindowDisplayLoadLayout"+classAdd).show();
+	$(".innerWindowDisplayLoadLayoutHidden"+classAdd).hide();
+}
+
+function hideLayoutOptionsAll()
+{
+	$(".logLayoutShowAll").show();
+	$(".logLayoutHideAll").hide();
+	$(".innerWindowDisplayLoadLayout").hide();
+	$(".innerWindowDisplayLoadLayoutHidden").show();
+}
+
 $( document ).ready(function()
 {
 	var arrayToRefresh = new Array();

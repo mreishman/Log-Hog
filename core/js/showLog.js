@@ -2,19 +2,21 @@ function show(e, id)
 {
 	try
 	{
+		var formattedHtml = "";
+		var internalID = id;
+		var currentCurrentSelectWindow = currentSelectWindow;
 		closeLogPopup();
 		if(logDisplayArray[currentSelectWindow]["id"] === id)
 		{
 			var localCheckHtml = $("#log"+currentSelectWindow).html();
 			localCheckHtml = localCheckHtml.replace(/<tbody>/g,"");
 			localCheckHtml = localCheckHtml.replace(/<\/tbody>/g,"");
-			if(unescapeHTML(localCheckHtml) === unescapeHTML(makePretty(id)))
+			formattedHtml = showPartGetFormattedHtml(internalID);
+			if(unescapeHTML(localCheckHtml) === unescapeHTML(formattedHtml))
 			{
 				return;
 			}
 		}
-		var internalID = id;
-		var currentCurrentSelectWindow = currentSelectWindow;
 		$("#log"+currentCurrentSelectWindow).hide();
 		$("#log"+currentCurrentSelectWindow+"load").show();
 		resize();
@@ -57,7 +59,7 @@ function show(e, id)
 		}
 		$("#title"+currentCurrentSelectWindow).html(titles[internalID]);
 		setTimeout(function() {
-			showPartTwo(e, internalID, currentCurrentSelectWindow);
+			showPartTwo(e, internalID, currentCurrentSelectWindow, formattedHtml);
 		}, 2);
 	}
 	catch(e)
@@ -66,22 +68,28 @@ function show(e, id)
 	}
 }
 
-function showPartTwo(e, internalID, currentCurrentSelectWindow)
+function showPartGetFormattedHtml(internalID)
+{
+	if(typeof logs[internalID] === "object" && "id" in logs[internalID] && logs[internalID]["id"] === "oneLog")
+	{
+		return makeOneLogPretty();
+	}
+
+	if(logs[internalID].indexOf("errorMessageLog errorMessageRedBG") > -1 || logs[internalID].indexOf("errorMessageLog errorMessageGreenBG") > -1)
+	{
+		return logs[internalID];
+	}
+
+	return makePretty(internalID);
+}
+
+function showPartTwo(e, internalID, currentCurrentSelectWindow, formattedHtml)
 {
 	try
 	{
-		var formattedHtml = "";
-		if(typeof logs[internalID] === "object" && "id" in logs[internalID] && logs[internalID]["id"] === "oneLog")
+		if(formattedHtml === "")
 		{
-			formattedHtml = makeOneLogPretty();
-		}
-		else if(logs[internalID].indexOf("errorMessageLog errorMessageRedBG") > -1 || logs[internalID].indexOf("errorMessageLog errorMessageGreenBG") > -1)
-		{
-			formattedHtml = logs[internalID];
-		}
-		else
-		{
-			formattedHtml = makePretty(internalID);
+			formattedHtml = showPartGetFormattedHtml(internalID);
 		}
 		$("#log"+currentCurrentSelectWindow).html(formattedHtml);
 		fadeHighlight(currentCurrentSelectWindow);

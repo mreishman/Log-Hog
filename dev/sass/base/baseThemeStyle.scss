@@ -15,6 +15,7 @@
 		margin: .5em 0;
 		background: $linkColor;
 		cursor: pointer;
+		color: $linkFontColor;
 
 		.menuCounter{
 			padding-right: 1em;
@@ -64,6 +65,7 @@
 		background: $linkColor;
 		cursor: pointer;
 		padding: .5em 1em;
+		color: $linkFontColor;
 
 		&:hover{
 			color: $mainAltColor;
@@ -181,6 +183,17 @@
 	border: 1px solid $mainColor;
 	margin: 10px;
 	margin-top: 0;
+}
+
+/*has to be here to override*/
+.settingsDivRemoveTop{
+  border-top: 0;
+}
+
+.settingsDivRemoveBottom{
+  border-bottom: 0;
+  padding-bottom: 0;
+  margin-bottom: 0;
 }
 
 .settingsHeader {
@@ -385,18 +398,21 @@
 }
 
 .fullScreenMenuUL {
-	li {
-		background: $mainAltColor;
-		color: $mainColor;
-	}
-}
-
-.fullScreenMenuUL {
 	background: $mainAltColor;
 	border-right: 1px solid $mainColor;
 
-	li:not(.menuTitle):hover{
-		filter: invert(100%);
+	li {
+		background: $mainAltColor;
+		color: $mainColor;
+
+		&.subMenuTitle{
+			background-color: #999;
+			color: black;
+		}
+
+		&:not(.menuTitle):hover{
+			filter: invert(100%);
+		}
 	}
 }
 
@@ -412,10 +428,12 @@
 		background: $mainAltColor;
 		color: $mainColor;
 	}
-}
-
-.settingsUl {
-color: $mainColor;
+	a{
+		color: $mainColor;
+		&:visited {
+			color: $mainColor;
+		}
+	}
 }
 
 .settingsUlSub {

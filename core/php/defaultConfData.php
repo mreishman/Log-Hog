@@ -435,6 +435,28 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
+			3									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"logLayoutSettingsInfo",
+					"name"								=>	"Default show options for log layout settings",
+					"options"							=>	array(
+						0 									=> array(
+							"value" 							=> "all",
+							"name" 								=> "All"),
+						1 									=> array(
+							"value" 							=> "expandWithValues",
+							"name" 								=> "If current window has value"),
+						2 									=> array(
+							"value" 							=> "expandWithValue",
+							"name" 								=> "If any window has value"),
+						3 									=> array(
+							"value" 							=> "none",
+							"name" 								=> "None")
+					),
+					"type"								=>	"dropdown"
+				)
+			),
 		)
 	),
 	"fileLocations"						=>	array(
@@ -718,6 +740,16 @@ $defaultConfigMoreData = array(
 				)
 			),
 			3									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"info"								=>	"Only displays top timestamp when more than one in a row are same",
+					"key"								=>	"dateTextGroup",
+					"name"								=>	"Group Same Timestamps",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			4									=>	array(
 				"bool"								=>	($logFormatFileEnable == 'false'),
 				"id"								=>	"logFormatFileEnableSettings",
 				"name"								=>	"Log File Link Settings",
@@ -774,9 +806,28 @@ $defaultConfigMoreData = array(
 							"type"								=>	"dropdown"
 						)
 					),
+					5									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"logFormatFilePermissions",
+							"name"								=>	"Show File Permissions",
+							"options"							=>	array(
+								0 									=> array(
+									"value" 							=> "always",
+									"name" 								=> "Always"),
+								1 									=> array(
+									"value" 							=> "sometimes",
+									"name" 								=> "If warning shown"),
+								2 									=> array(
+									"value" 							=> "never",
+									"name" 								=> "Never")
+							),
+							"type"								=>	"dropdown"
+						)
+					),
 				)
 			),
-			4									=>	array(
+			5									=>	array(
 				"bool"								=>	($logFormatPhpEnable == 'false'),
 				"id"								=>	"logFormatPhpEnableSettings",
 				"name"								=>	"Log Php Message Format Settings",
@@ -810,6 +861,81 @@ $defaultConfigMoreData = array(
 					)
 				)
 			),
+			6									=>	array(
+				"bool"								=>	($logFormatReportEnable == 'false'),
+				"id"								=>	"logFormatReportEnableSettings",
+				"name"								=>	"Log Report Message Format Settings",
+				"type"								=>	"grouped",
+				"var"								=>	array(
+					"function"							=>	"showOrHidelogFormatReportEnableSettings",
+					"id"								=>	"logFormatReportEnable",
+					"key"								=>	"logFormatReportEnable",
+					"name"								=>	"Format report message errors",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				),
+				"vars"								=>	array(
+					0									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"logFormatReportShowImg",
+							"name"								=>	"Show Severify Image",
+							"options"							=>	$trueFalsVars,
+							"type"								=>	"dropdown"
+						)
+					)
+				)
+			),
+			7									=>	array(
+				"bool"								=>	($logFormatShowMoreButton == 'false'),
+				"id"								=>	"logFormatShowMoreButtonSettings",
+				"name"								=>	"Log Show More Button Settings",
+				"type"								=>	"grouped",
+				"var"								=>	array(
+					"function"							=>	"showOrHidelogFormatShowMoreButtonSettings",
+					"id"								=>	"logFormatShowMoreButton",
+					"key"								=>	"logFormatShowMoreButton",
+					"name"								=>	"Show the Show More Button",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				),
+				"vars"								=>	array(
+					0									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"logFormatShowMoreExtraInfo",
+							"name"								=>	"Always show extra info immediately",
+							"options"							=>	$trueFalsVars,
+							"type"								=>	"dropdown"
+						)
+					)
+				)
+			),
+			8									=>	array(
+				"bool"								=>	($logFormatJsObjectEnable == 'false'),
+				"id"								=>	"logFormatJsObjectEnableSettings",
+				"name"								=>	"Log JS encoded object Message Format Settings",
+				"type"								=>	"grouped",
+				"var"								=>	array(
+					"function"							=>	"showOrHidelogFormatJsObjectEnableSettings",
+					"id"								=>	"logFormatJsObjectEnable",
+					"key"								=>	"logFormatJsObjectEnable",
+					"name"								=>	"Format js objects",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				),
+				"vars"								=>	array(
+					0									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"logFormatJsObjectArrEnable",
+							"name"								=>	"Also format JS array",
+							"options"							=>	$trueFalsVars,
+							"type"								=>	"dropdown"
+						)
+					)
+				)
+			)
 		)
 	),
 	"loggingVars"						=>	array(
@@ -895,7 +1021,7 @@ $defaultConfigMoreData = array(
 						"type"								=>	"single",
 						"var"								=>	array(
 							"key"								=>	"scrollEvenIfScrolled",
-							"name"								=>	"Scroll even if Scrolled:",
+							"name"								=>	"Scroll even if Scrolled",
 							"options"							=>	$trueFalsVars,
 							"type"								=>	"dropdown"
 						)
@@ -1350,6 +1476,15 @@ $defaultConfigMoreData = array(
 				)
 			),
 			7									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"advancedLogFormatEnabled",
+					"name"								=>	"Enable Advanced Log Format Options",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			8									=>	array(
 				"bool"								=>	($backupNumConfigEnabled == 'false'),
 				"id"								=>	"versionSaveContentSettings",
 				"name"								=>	"Backup Config Settings",

@@ -66,10 +66,69 @@
 	<li class="menuTitle" style="text-align: center;">
 		Settings
 	</li>
-	<li onclick="window.location.href = './settings/main.php';" >
-		Main <?php echo $externalLinkImage; ?>
+	<li class="menuTitle fullScreenMenuText subMenuTitle">
+		Main
 	</li>
-	<li onclick="window.location.href = './settings/advanced.php';" >
+	<li onclick="window.location.href = './settings/main.php#settingsLogVars';" >
+		Logs <?php echo $externalLinkImage; ?>
+	</li>
+	<?php if($advancedLogFormatEnabled === "true"): ?>
+		<li onclick="window.location.href = './settings/main.php#settingsLogFormatVars';" >
+			Log Format <?php echo $externalLinkImage; ?>
+		</li>
+	<?php endif; ?>
+	<li onclick="window.location.href = './settings/main.php#settingsPollVars';" >
+		Poll <?php echo $externalLinkImage; ?>
+	</li>
+	<?php if($filterEnabled === "true"): ?>
+		<li onclick="window.location.href = './settings/main.php#settingsFilterVars';" >
+			Filter <?php echo $externalLinkImage; ?>
+		</li>
+	<?php endif; ?>
+	<li onclick="window.location.href = './settings/main.php#archiveConfig';" >
+		Archive <?php echo $externalLinkImage; ?>
+	</li>
+	<li onclick="window.location.href = './settings/main.php#settingsNotificationVars';" >
+		Notifications <?php echo $externalLinkImage; ?>
+	</li>
+	<li onclick="window.location.href = './settings/main.php#settingsMenuVars';" >
+		Menu <?php echo $externalLinkImage; ?>
+	</li>
+	<li onclick="window.location.href = './settings/main.php#settingsWatchlistVars';" >
+		Watchlist <?php echo $externalLinkImage; ?>
+	</li>
+	<?php if($oneLogEnable === "true"): ?>
+		<li onclick="window.location.href = './settings/main.php#settingsOneLogVars';" >
+			OneLog <?php echo $externalLinkImage; ?>
+		</li>
+	<?php endif; ?>
+	<?php if($enableMultiLog === "true"): ?>
+		<li onclick="window.location.href = './settings/main.php#settingsMultiLogVars';" >
+			Multi-Log <?php echo $externalLinkImage; ?>
+		</li>
+		<li onclick="window.location.href = './settings/main.php#settingsInitialLoadLayoutVars';" >
+			Log Layout <?php echo $externalLinkImage; ?>
+		</li>
+	<?php endif; ?>
+	<li onclick="window.location.href = './settings/main.php#settingsMainVars';" >
+		Other <?php echo $externalLinkImage; ?>
+	</li>
+	<li class="menuTitle fullScreenMenuText subMenuTitle">
+		Advanced
+	</li>
+	<li onclick="window.location.href = './settings/advanced.php#advancedConfig';" >
+		Config <?php echo $externalLinkImage; ?>
+	</li>
+	<li onclick="window.location.href = './settings/advanced.php#modules';" >
+		Modules <?php echo $externalLinkImage; ?>
+	</li>
+	<li onclick="window.location.href = './settings/advanced.php#loggingDisplay';" >
+		Logs <?php echo $externalLinkImage; ?>
+	</li>
+	<li onclick="window.location.href = './settings/advanced.php#locationOtherApps';" >
+		Locations <?php echo $externalLinkImage; ?>
+	</li>
+	<li onclick="window.location.href = './settings/advanced.php#advancedConfig';" >
 		Advanced <?php echo $externalLinkImage; ?>
 	</li>
 	<?php if($developmentTabEnabled === "true"): ?>

@@ -47,37 +47,48 @@ var arrOfMonthsLarge = {
 	12: "December"
 };
 
-/* PHP arrays */
-
-var phpRedWarningArr = {
-	0:"PHP Fatal",
-	1:"PHP Parse error",
-	2:"PHP Syntax error"
-};
-
-var phpYellowWarningArr = {
-	0:"PHP Warning"
-};
-
 /* Start of functions for formatting*/
 
 function formatLine(text, extraData)
 {
 	var arrayOfText = dateTimeSplit(text);
+	let timeFormat = dateTimeFormat(arrayOfText);
+	extraData["lastLineSame"] = checkIfTimeStampSame(arrayOfText, extraData, "lastLine")
+	extraData["nextLineSame"] = checkIfTimeStampSame(arrayOfText, extraData, "nextLine")
+	if(dateTextGroup === "true" && extraData["lastLineSame"])
+	{
+		timeFormat = "";
+	}
 	if(dateTextFormatColumn === "true" || (dateTextFormatColumn === "auto" && window.innerWidth > breakPointTwo))
 	{
 		if("lineDisplay" in extraData && extraData["lineDisplay"] === "true")
 		{
-			return "<td style=\"white-space:nowrap;width: 1%;\">" + dateTimeFormat(arrayOfText) + extraData["lineCount"] + "</td><td style=\"white-space: pre-wrap;\">" + formatMainMessage(arrayOfText[1], extraData) + "</td>";
+			return "<td style=\"white-space:nowrap;width: 1%;\">" + timeFormat + extraData["lineCount"] + "</td><td style=\"white-space: pre-wrap;\">" + formatMainMessage(arrayOfText[1], extraData) + "</td>";
 		}
-		return "<td style=\"white-space:nowrap;width: 1%;\">" + dateTimeFormat(arrayOfText) + "</td><td style=\"white-space: pre-wrap;\">" + formatMainMessage(arrayOfText[1], extraData) + "</td>";
+		return "<td style=\"white-space:nowrap;width: 1%;\">" + timeFormat + "</td><td style=\"white-space: pre-wrap;\">" + formatMainMessage(arrayOfText[1], extraData) + "</td>";
 	}
 	else if("lineDisplay" in extraData && extraData["lineDisplay"] === "true")
 	{
-		return "<td style=\"white-space:nowrap;width: 1%;\">" + extraData["lineCount"] + "</td><td style=\"white-space: pre-wrap;\">" + dateTimeFormat(arrayOfText) + formatMainMessage(arrayOfText[1], extraData) + "</td>";
+		return "<td style=\"white-space:nowrap;width: 1%;\">" + extraData["lineCount"] + "</td><td style=\"white-space: pre-wrap;\">" + timeFormat + formatMainMessage(arrayOfText[1], extraData) + "</td>";
 	}
-	return "<td style=\"white-space: pre-wrap;\">" + dateTimeFormat(arrayOfText) + formatMainMessage(arrayOfText[1], extraData) + "</td>";
+	return "<td style=\"white-space: pre-wrap;\">" + timeFormat + formatMainMessage(arrayOfText[1], extraData) + "</td>";
 }
+
+function checkIfTimeStampSame(arrayOfText, extraData, type)
+{
+	var arrayOfTextLastLine = {
+		0: "",
+		1: "",
+		2: "",
+		timeFound: false
+	};
+	if(type in extraData && extraData[type] !== "")
+	{
+		arrayOfTextLastLine = dateTimeSplit(extraData[type]);
+	}
+	return (arrayOfText[0] === arrayOfTextLastLine[0]);
+}
+
 
 function dateTimeSplit(text)
 {
@@ -123,10 +134,6 @@ function dateTimeSplit(text)
 
 function formatMainMessage(message, extraData)
 {
-	if(message.indexOf("{") > -1 && message.lastIndexOf("}") > message.indexOf("{"))
-	{
-		return formatJsonMessage(message, extraData);
-	}
 	if(logFormatPhpEnable === "true")
 	{
 		if(message.indexOf("PHP message:") > -1)
@@ -134,282 +141,189 @@ function formatMainMessage(message, extraData)
 			return formatPhpMessage(message, extraData);
 		}
 	}
+	if(logFormatReportEnable === "true")
+	{
+		if(message.indexOf("report.") > -1)
+		{
+			found = getTypeOfReportSev(message);
+			if(found !== false)
+			{
+				return formatReportMessage(message, extraData);
+			}
+		}
+	}
+	if(logFormatJsObjectEnable === "true")
+	{
+		if(message.indexOf("{") > -1 && message.lastIndexOf("}") > message.indexOf("{"))
+		{
+			let messageData = formatJsonMessage(message, extraData);
+			if(messageData["success"] === true)
+			{
+				return messageData["text"];
+			}
+		}
+	}
 	//check if message is in arrayOfFileData
 	if(logFormatFileEnable === "true")
 	{
-		if(/(in|at) (.?)([\/]+)([^&\r\n\t]*)(on line|\D:\d)(.?)(\d{1,10})/.test(message))
+		let localMessage = unescapeHTML(message);
+		if(/(in|at) (.?)([\/]+)([^&\r\n\t]*)(on line|\D:\d)(.?)(\d{1,10})/.test(localMessage))
 		{
-			var arrayOfFileDataKeys = Object.keys(arrayOfFileData);
-			var arrayOfFileDataKeysLength = arrayOfFileDataKeys.length;
-			for(var AOFDCount = 0; AOFDCount < arrayOfFileDataKeysLength; AOFDCount++)
+			let lineData = checkIfLineContainsAFile(localMessage);
+			if(lineData["match"] > -1)
 			{
-				if(message.indexOf(arrayOfFileDataKeys[AOFDCount]) > -1 && arrayOfFileData[arrayOfFileDataKeys[AOFDCount]]["fileData"] !== "Error - File Not Found")
-				{
-					//this message matches file data, add this below
-					extraData["fileData"] = arrayOfFileData[arrayOfFileDataKeys[AOFDCount]];
-					return formatMessageFileData(message, extraData);
-				}
+				//this message matches file data, add this below
+				extraData["fileData"] = lineData["file"];
+				return formatMessageFileData(localMessage, extraData);
 			}
 		}
 	}
 	return message;
 }
 
-function formatMessageFileData(message, extraData)
+function getSeverifyLevel(snippit, redWarningArr, yellowWarningArr)
 {
-	var lineStart = 0;
-	var pregMatchData = extraData["fileData"]["pregMatchData"];
-	var numForBaseLineStart = parseInt(pregMatchData[(pregMatchData.length - 1)]);
-	if(numForBaseLineStart > 0)
+	if(typeof snippit !== "undefined")
 	{
-		lineStart = numForBaseLineStart - logFormatFileLinePadding;
-	}
-	let customClass = "";
-	if("customClassAdd" in extraData && extraData["customClassAdd"])
-	{
-		customClass = extraData["customClass"];
-	}
-	return "<table style=\"width: 100%;\"><tr "+customClass+"><td>"+message+"</td></tr><tr "+customClass+"><td><table class=\"logCode\" style=\"width: 100%;\">"+makePrettyWithText(escapeHTML(extraData["fileData"]["fileData"]), 0, {lineDisplay: logFormatFileLineCount, lineModifier: lineStart})+"</table></td></tr></table>";
-}
-
-function formatPhpMessage(message, extraData)
-{
-	var message = message.split("PHP message:");
-	var firstPartOfMessage = message[0];
-	message.shift();
-	if(typeof message !== "string")
-	{
-		message = message.join("PHP message:");
-	}
-	var restOfMessage = message.split(":");
-	var messageWarning = restOfMessage[0];
-	var severity = "";
-	if(logFormatPhpShowImg === "true")
-	{
-		severity = "<img src=\""+getPhpSeverifyLevel(messageWarning)+"\" height=\"15px\">";
-	}
-	restOfMessage.shift();
-	restOfMessage = restOfMessage.join(":");
-	restOfMessage = parseErrorMessage(restOfMessage, extraData);
-	if(firstPartOfMessage !== "")
-	{
-		firstPartOfMessage = formatMainMessage(firstPartOfMessage, extraData);
-	}
-	return firstPartOfMessage+"<div>"+severity+messageWarning+"</div><div class=\"settingsDiv\">"+restOfMessage+"</div>";
-}
-
-function parseErrorMessage(restOfMessage, extraData)
-{
-	//check for client and extra data after that
-	//0: main data, 1: client, 2: server, 3: request, 4: upstream, 5: host, 6: referrer
-	var arrayOfData = {
-		0: {
-			"string"	: restOfMessage,
-			"key"		: "",
-			"position"	: -1
-		},
-		1: {
-			"string"	: "",
-			"key"		: "Client:",
-			"position"	: restOfMessage.indexOf(", client:")
-		},
-		2: {
-			"string"	: "",
-			"key"		: "Server:",
-			"position"	: restOfMessage.indexOf(", server:")
-		},
-		3: {
-			"string"	: "",
-			"key"		: "Request:",
-			"position"	: restOfMessage.indexOf(", request:")
-		},
-		4: {
-			"string"	: "",
-			"key"		: "Upstream:",
-			"position"	: restOfMessage.indexOf(", upstream:")
-		},
-		5: {
-			"string"	: "",
-			"key"		: "Host:",
-			"position"	: restOfMessage.indexOf(", host:")
-		},
-		6: {
-			"string"	: "",
-			"key"		: "Referrer:",
-			"position"	: restOfMessage.indexOf(", referrer:")
-		},
-	};
-	var arrayOfDataKeys = Object.keys(arrayOfData);
-	var trimmedMainData = false;
-	var atLeastOnePresent = false;
-	var skipLogic = false;
-	for(var aodc = 1; aodc < 7; aodc++)
-	{
-		if(!skipLogic)
+		let redWarningArrKeys = Object.keys(redWarningArr);
+		let redWarningArrLength = redWarningArrKeys.length;
+		for (let rwaCount = 0; rwaCount < redWarningArrLength; rwaCount++)
 		{
-			//start filter, get lowest position (ext -1) then trim that out (first lowest to second lowest)
-			var lowest = -1;
-			var lowestPos = 0;
-			for(var aodc2 = 1; aodc2 < 7; aodc2++)
+			if(snippit.indexOf(redWarningArr[redWarningArrKeys[rwaCount]]) > -1)
 			{
-				if((arrayOfData[arrayOfDataKeys[aodc2]]["position"] < lowest || lowest === -1 ) && arrayOfData[arrayOfDataKeys[aodc2]]["position"] > -1)
-				{
-					atLeastOnePresent = true;
-					lowest = arrayOfData[arrayOfDataKeys[aodc2]]["position"];
-					lowestPos = aodc2;
-				}
-			}
-			if(lowest !== -1)
-			{
-				//find second lowest, cut out that part anad add to array of data
-				arrayOfData[arrayOfDataKeys[lowestPos]]["position"] = -1;
-				var secondLowest = restOfMessage.length;
-				for(var aodc3 = 1; aodc3 < 7; aodc3++)
-				{
-					if(arrayOfData[arrayOfDataKeys[aodc3]]["position"] < secondLowest && arrayOfData[arrayOfDataKeys[aodc3]]["position"] !== -1)
-					{
-						secondLowest = arrayOfData[arrayOfDataKeys[aodc3]]["position"];
-					}
-				}
-				arrayOfData[arrayOfDataKeys[lowestPos]]["string"] = restOfMessage.substring(lowest + 1, secondLowest);
-				if(!trimmedMainData)
-				{
-					arrayOfData[arrayOfDataKeys[0]]["string"] = restOfMessage.substring(0, lowest);
-					trimmedMainData = true;
-				}
-			}
-			else
-			{
-				skipLogic = true;
+				return arrayOfImages["redWarning"]["src"];
 			}
 		}
-	}
-	var newHtmlToSend = "";
-	if(logFormatPhpHideExtra !== "false")
-	{
-		return "<div>"+formatMainMessage(arrayOfData[arrayOfDataKeys[0]]["string"].trim(), extraData)+"</div>";
-	}
-	for(var aodc4 = 0; aodc4 < 7; aodc4++)
-	{
-		if(arrayOfData[arrayOfDataKeys[aodc4]]["string"] !== "")
+		let yellowWarningArrKeys = Object.keys(yellowWarningArr);
+		let yellowWarningArrLength = yellowWarningArrKeys.length;
+		for (let rwaCount = 0; rwaCount < yellowWarningArrLength; rwaCount++)
 		{
-			newHtmlToSend += "<div>"+formatMainMessage(arrayOfData[arrayOfDataKeys[aodc4]]["string"].trim(), extraData)+"</div>";
-		}
-	}
-	return newHtmlToSend;
-}
-
-function getPhpSeverifyLevel(snippit)
-{
-	var phpRedWarningArrKeys = Object.keys(phpRedWarningArr);
-	var phpRedWarningArrLength = phpRedWarningArrKeys.length;
-	for (var rwaCount = 0; rwaCount < phpRedWarningArrLength; rwaCount++)
-	{
-		if(snippit.indexOf(phpRedWarningArr[phpRedWarningArrKeys[rwaCount]]) > -1)
-		{
-			return arrayOfImages["redWarning"]["src"];
-		}
-	}
-	var phpYellowWarningArrKeys = Object.keys(phpYellowWarningArr);
-	var phpYellowWarningArrLength = phpYellowWarningArrKeys.length;
-	for (var rwaCount = 0; rwaCount < phpYellowWarningArrLength; rwaCount++)
-	{
-		if(snippit.indexOf(phpYellowWarningArr[phpYellowWarningArrKeys[rwaCount]]) > -1)
-		{
-			return arrayOfImages["yellowWarning"]["src"];
+			if(snippit.indexOf(yellowWarningArr[yellowWarningArrKeys[rwaCount]]) > -1)
+			{
+				return arrayOfImages["yellowWarning"]["src"];
+			}
 		}
 	}
 
 	return arrayOfImages["info"]["src"];
 }
 
-function formatJsonMessage(message, extraData)
+function formatMoreInfo(objOfInfo)
 {
-	//try to json decode
-	var jsonMessage = message.substring(message.indexOf("{"),message.lastIndexOf("}") + 1);
-	if(jsonMessage !== "")
+	returnHtml = "<table>";
+	returnHtml += "<tr><th>More Info: <span onclick=\"toggleInfoSidebar();\" class=\"linkSmall\" >Close</span></th></tr>"
+	let objOfInfoKeys = Object.keys(objOfInfo);
+	let objOfInfoKeysLength = objOfInfoKeys.length;
+	let borderBottomClass = " class=\"addBorderBottom\" style=\"padding-bottom: 3px;\" ";
+	for(let OOIKCount = 0; OOIKCount < objOfInfoKeysLength; OOIKCount++)
 	{
-		var newMessage = jsonDecodeTry(jsonMessage);
-		var excapeHTML = false;
-		if(typeof newMessage !== "object")
+		returnHtml += "<tr><td style=\"margin-top: 5px;\" "+borderBottomClass+" ><b>"+objOfInfo[objOfInfoKeys[OOIKCount]]["hit"]+"</b></td></tr>";
+		if("" !== objOfInfo[objOfInfoKeys[OOIKCount]]["syntax"])
 		{
-			var newerMessage = unescapeHTML(jsonMessage);
-			if(newerMessage !== "")
+			returnHtml += "<tr><td "+borderBottomClass+" ><b>Syntax: </b></td></tr>";
+			returnHtml += "<tr><td>"+objOfInfo[objOfInfoKeys[OOIKCount]]["syntax"]+"</td></tr>";
+		}
+		returnHtml += "<tr><td "+borderBottomClass+" ><b>Definition: </b></td></tr>";
+		returnHtml += "<tr><td>"+objOfInfo[objOfInfoKeys[OOIKCount]]["info"]+"</td></tr>";
+		if(objOfInfo[objOfInfoKeys[OOIKCount]]["moreinfo"] !== "")
+		{
+			//add show more button with more info
+			if(logFormatShowMoreExtraInfo === "false")
 			{
-				newMessage = jsonDecodeTry("" + newerMessage);
-				excapeHTML = true;
-				if(typeof newMessage !== "object")
-				{
-					newerMessage = unescapeHTML(jsonMessage).replace(/\\/g,"\\\\");
-					if(newerMessage !== "")
-					{
-						newMessage = jsonDecodeTry("" + newerMessage);
-						excapeHTML = true;
-						if(typeof newMessage !== "object")
-						{
-							//console.log(unescapeHTML(jsonMessage));
-							return message;
-						}
-					}
-					else
-					{
-						return message;
-					}
-				}
+				returnHtml += "<tr><td style=\"padding-bottom: 5px;\"> <span class=\"linkSmall showMoreEvenMore"+OOIKCount+"\" onclick=\"showEvenMoreInfo("+OOIKCount+");\" >Show More</span></td></tr>";
 			}
-			else
+			let styleForMoreMoreInfo = "block";
+			if(logFormatShowMoreExtraInfo === "false")
 			{
-				return message;
+				styleForMoreMoreInfo = "none";
+			}
+			returnHtml += "<tr><td><span style=\"display: "+styleForMoreMoreInfo+";\" class=\"evenMoreInfo"+OOIKCount+"\" >"+objOfInfo[objOfInfoKeys[OOIKCount]]["moreinfo"]+"</span></td></tr>";
+			if(logFormatShowMoreExtraInfo === "false")
+			{
+				returnHtml += "<tr><td><span style=\"display: none;\" class=\"linkSmall hideMoreEvenMore"+OOIKCount+"\" onclick=\"hideEvenMoreInfo("+OOIKCount+");\" >Show Less</span></td></tr>";
 			}
 		}
-		var testReturn = "<table>";
-		var extraTrClass = "";
-		if("customClassAdd" in extraData && extraData["customClassAdd"])
+		if("" !== objOfInfo[objOfInfoKeys[OOIKCount]]["link"])
 		{
-			extraTrClass = extraData["customClass"];
+			returnHtml += "<tr><td "+borderBottomClass+" ><b>Link:</b></td></tr>";
+			returnHtml += "<tr><td><a href=\""+objOfInfo[objOfInfoKeys[OOIKCount]]["link"]+"\" target=\"_blank\">"+objOfInfo[objOfInfoKeys[OOIKCount]]["link"]+"</a></td></tr>";
 		}
-		testReturn += "<tr "+extraTrClass+"><td colspan=\"2\">"+message.substr(0, message.indexOf('{'))+"</td></tr>";
-		var messageKeys = Object.keys(newMessage);
-		var messageKeysLength = messageKeys.length;
-		for (var messageCount = 0; messageCount < messageKeysLength; messageCount++)
+		if("" !== objOfInfo[objOfInfoKeys[OOIKCount]]["link2"])
 		{
-			var messageOne = messageKeys[messageCount];
-			var messageTwo = newMessage[messageKeys[messageCount]];
-			var messageTwoIsObject = false;
-			if(typeof messageTwo === "object")
-			{
-				messageTwo = formatMainMessage(JSON.stringify(messageTwo), extraData);
-				messageTwoIsObject = true;
-			}
-			if(excapeHTML)
-			{
-				messageOne = escapeHTML(messageOne);
-				if(!messageTwoIsObject)
-				{
-					messageTwo = escapeHTML(messageTwo);
-				}
-			}
-			testReturn += "<tr "+extraTrClass+"><td style=\"word-break: normal;\">"+messageOne+"</td><td>"+messageTwo+"</td></tr>";
+			returnHtml += "<tr><td><a href=\""+objOfInfo[objOfInfoKeys[OOIKCount]]["link2"]+"\" target=\"_blank\">"+objOfInfo[objOfInfoKeys[OOIKCount]]["link2"]+"</a></td></tr>";
 		}
-		testReturn += "<tr "+extraTrClass+"><td colspan=\"2\">"+message.substr(message.lastIndexOf('}') + 1)+"</td></tr>";
-		testReturn += "</table>";
-		return testReturn;
+		returnHtml += "<tr style=\"height: 10px;\" ><td></td></tr>";
 	}
-	return message;
+	returnHtml += "</table>";
+	return returnHtml;
 }
 
-function jsonDecodeTry(jsonTry)
+function getMoreInfo(message, type, counterOfHits)
 {
-	try
+	let returnInfoObj = {
+		data: {},
+		empty: true
+	};
+	if("strpos" in arrOfMoreInfo && type in arrOfMoreInfo["strpos"])
 	{
-		var possibleJson = JSON.parse(jsonTry);
-		return possibleJson;
+		let phpInfoArr = arrOfMoreInfo["strpos"][type];
+		let phpInfoArrKeys = Object.keys(phpInfoArr);
+		let phpInfoArrKeysLength = phpInfoArrKeys.length;
+		for(let PIAKCount = 0; PIAKCount < phpInfoArrKeysLength; PIAKCount++)
+		{
+			let innerObj = phpInfoArr[phpInfoArrKeys[PIAKCount]];
+			let innerObjKeys = Object.keys(innerObj);
+			let innerObjKeysLength = innerObjKeys.length;
+			for(let IOKCount = 0; IOKCount < innerObjKeysLength; IOKCount++)
+			{
+				let currentSearch = innerObj[innerObjKeys[IOKCount]];
+				let search = "("+currentSearch["target"]+")";
+				if(message.indexOf(search) > -1)
+				{
+					let link2Text = "";
+					if("link2" in currentSearch)
+					{
+						link2Text = currentSearch["link2"];
+					}
+					returnInfoObj["data"][counterOfHits] = {
+						"hit" : currentSearch["target"],
+						"info": currentSearch["define"],
+						"moreinfo": currentSearch["more"],
+						"link" : currentSearch["link"],
+						"link2" : link2Text,
+						"syntax" : currentSearch["syntax"]
+					}
+					if(returnInfoObj["empty"])
+					{
+						returnInfoObj["empty"] = false;
+					}
+					counterOfHits++;
+				}
+			}
+		}
 	}
-	catch(e)
-	{
-		//console.log(e);
-	}
-	return false;
+	return returnInfoObj;
+}
+
+function showMoreInfo(e)
+{
+	showInfoSidebar();
+	let htmlForSidebar = $(e).siblings('div').html();
+	$("#moreInfoSideBar").html(htmlForSidebar);
+}
+
+function showEvenMoreInfo(id)
+{
+	$("#moreInfoSideBar .evenMoreInfo"+id).show();
+	$("#moreInfoSideBar .showMoreEvenMore"+id).hide();
+	$("#moreInfoSideBar .hideMoreEvenMore"+id).show();
+}
+
+function hideEvenMoreInfo(id)
+{
+	$("#moreInfoSideBar .evenMoreInfo"+id).hide();
+	$("#moreInfoSideBar .showMoreEvenMore"+id).show();
+	$("#moreInfoSideBar .hideMoreEvenMore"+id).hide();
 }
 
 function dateTimeFormat(dateTextArray)
@@ -438,7 +352,18 @@ function dateTimeFormat(dateTextArray)
 	}
 	if(String(newConfDate) === "Invalid Date" || String(newConfDate) === "NaN")
 	{
-		newConfDate = DateFormat.format(justDateText);
+		try
+		{
+			if(typeof DateFormat === "object")
+			{
+				newConfDate = DateFormat.format.date(justDateText,"dd/MM/yyyy HH:mm:ss");
+				newConfDate = new Date(newConfDate);
+			}
+		}
+		catch(e)
+		{
+			
+		}
 	}
 	if(String(newConfDate) !== "Invalid Date" && String(newConfDate) !== "NaN")
 	{
@@ -580,21 +505,75 @@ function dateTimeFormat(dateTextArray)
 	return dateText;
 }
 
-function updateFileDataArrayInner(newDataArr)
+function toggleInfoSidebar()
 {
-	var newDataArrKeys = Object.keys(newDataArr);
-	var newDataArrKeysLength=  newDataArrKeys.length;
-	for(var NDACount = 0; NDACount < newDataArrKeysLength; NDACount++)
+	if(document.getElementById("moreInfoSideBar").style.display === "none")
 	{
-		var fileDataArr = newDataArr[newDataArrKeys[NDACount]]["fileData"];
-		var fileDataArrKeys = Object.keys(fileDataArr);
-		var fileDataArrKeysLength = fileDataArrKeys.length;
-		if(fileDataArrKeysLength > 0)
+		let newWidth = window.innerWidth - 200;
+		newWidth = adjustLogForMenuLocation(newWidth);
+		if(typeof adjustLogForSettingsSideBar !== "undefined")
 		{
-			for(var FDACount = 0; FDACount < fileDataArrKeysLength; FDACount++)
-			{
-				arrayOfFileData[fileDataArrKeys[FDACount]] = fileDataArr[fileDataArrKeys[FDACount]];
-			}
+			newWidth = adjustLogForSettingsSideBar(newWidth);
 		}
+		document.getElementById("log").style.width = newWidth+"px";
+		document.getElementById("log").style.marginRight = "200px";
+		document.getElementById("noLogToDisplay").style.width = newWidth+"px";
+		document.getElementById("noLogToDisplay").style.marginRight = "200px";
+		document.getElementById("moreInfoSideBar").style.display = "inline-block";
+	}
+	else
+	{
+		let newWidth = "100%";
+		let newWidthTest = window.innerWidth;
+		if(typeof adjustLogForSettingsSideBar !== "undefined")
+		{
+			newWidthTest = adjustLogForSettingsSideBar(newWidthTest);
+		}
+		if(newWidthTest !== window.innerWidth)
+		{
+			newWidthTest = adjustLogForMenuLocation(newWidthTest);
+			newWidth = newWidthTest;
+		}
+		document.getElementById("log").style.width = newWidth;
+		document.getElementById("log").style.marginRight = "0px";
+		document.getElementById("noLogToDisplay").style.width = newWidth;
+		document.getElementById("noLogToDisplay").style.marginRight = "0px";
+		document.getElementById("moreInfoSideBar").style.display = "none";
+	}
+	resize();
+}
+
+function showInfoSidebar()
+{
+	if(document.getElementById("moreInfoSideBar").style.display === "none")
+	{
+		toggleInfoSidebar();
+	}
+}
+
+function hideInfoSidebar()
+{
+	if(document.getElementById("moreInfoSideBar").style.display !== "none")
+	{
+		toggleInfoSidebar();
+	}
+}
+
+function adjustLogForInfoSideBar(mainWidth)
+{
+	if(document.getElementById("moreInfoSideBar").style.display !== "none")
+	{
+		mainWidth -= 200;
+	}
+	return mainWidth;
+}
+
+function tmpChangeAdvancedLogFormat()
+{
+	let currentValue = document.getElementById("advancedLogFormatEnabled").value;
+	if(currentValue !== advancedLogFormatEnabled)
+	{
+		advancedLogFormatEnabled = currentValue;
+		generalUpdate();
 	}
 }

@@ -14,6 +14,7 @@
   margin: 0.5em 0;
   background: #2A912A;
   cursor: pointer;
+  color: black;
 }
 #menu a .menuCounter, .menu a .menuCounter {
   padding-right: 1em;
@@ -56,6 +57,7 @@
   background: #2A912A;
   cursor: pointer;
   padding: 0.5em 1em;
+  color: black;
 }
 #menu2 a:hover {
   color: black;
@@ -169,6 +171,17 @@
   border: 1px solid #009900;
   margin: 10px;
   margin-top: 0;
+}
+
+/*has to be here to override*/
+.settingsDivRemoveTop {
+  border-top: 0;
+}
+
+.settingsDivRemoveBottom {
+  border-bottom: 0;
+  padding-bottom: 0;
+  margin-bottom: 0;
 }
 
 .settingsHeader {
@@ -360,14 +373,17 @@
   filter: invert(100%);
 }
 
+.fullScreenMenuUL {
+  background: black;
+  border-right: 1px solid #009900;
+}
 .fullScreenMenuUL li {
   background: black;
   color: #009900;
 }
-
-.fullScreenMenuUL {
-  background: black;
-  border-right: 1px solid #009900;
+.fullScreenMenuUL li.subMenuTitle {
+  background-color: #999;
+  color: black;
 }
 .fullScreenMenuUL li:not(.menuTitle):hover {
   filter: invert(100%);
@@ -385,8 +401,10 @@
   background: black;
   color: #009900;
 }
-
-.settingsUl {
+.fullScreenMenuLeftSidebar a {
+  color: #009900;
+}
+.fullScreenMenuLeftSidebar a:visited {
   color: #009900;
 }
 
