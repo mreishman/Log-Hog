@@ -1176,7 +1176,7 @@ function generateColor($confDataValue, $numberValue, $varName)
 	$returnHtml = "<span class=\"settingsBuffer\" > ".$confDataValue["name"].": </span>";
 	if(strpos($numberValue, "#") === 0 && (strlen($numberValue) === 4 || strlen($numberValue) === 7 ))
 	{
-		$returnHtml .= generateColorBlockInner("colorBlock".$varName, $numberValue);
+		$returnHtml .= generateColorBlockInner("colorBlock".$varName, $numberValue, array("name" => $varName, "inputDisplay" => "inline-block"));
 		$returnHtml .= "
 		<script type=\"text/javascript\">
 		var timerFor".$varName." = null;
@@ -1216,9 +1216,8 @@ function generateColor($confDataValue, $numberValue, $varName)
 	}
 	else
 	{
-		$returnHtml .= generateColorBlockInner("colorBlock".$varName, $numberValue, false);
+		$returnHtml .= generateColorBlockInner("colorBlock".$varName, $numberValue, array("edit" => false));
 	}
-	$returnHtml .= " <input type=\"text\" name=\"".$varName."\" value=\"".$numberValue."\" >";
 	return $returnHtml;
 }
 
@@ -1524,14 +1523,34 @@ function generateColorBlock($arrCBdata = array())
 
 	$htmlToReturn = "";
 	$htmlToReturn .= "<div class=\"divAroundColors\">";
-	$htmlToReturn .= generateColorBlockInner($name."Background".$i."-".$j, $backgroundColor, $edit, "border-bottom: 0px;");
-	$htmlToReturn .= generateColorBlockInner($name."Font".$i."-".$j, $fontColor, $edit, "border-top: 0px;");
+	$htmlToReturn .= generateColorBlockInner($name."Background".$i."-".$j, $backgroundColor, array("edit" => $edit, "style" => "border-bottom: 0px;"));
+	$htmlToReturn .= generateColorBlockInner($name."Font".$i."-".$j, $fontColor, array("edit" => $edit, "style" => "border-top: 0px;"));
 	$htmlToReturn .= "</div>";
 	return $htmlToReturn;
 }
 
-function generateColorBlockInner($buttonID, $color, $edit = true, $style = "")
+function generateColorBlockInner($buttonID, $color, $data = array())
 {
+	$edit = true;
+	$style = "";
+	$name = "folderColorValue".$buttonID;
+	$inputDisplay = "none";
+	if(isset($data["edit"]))
+	{
+		$edit = $data["edit"];
+	}
+	if(isset($data["style"]))
+	{
+		$style = $data["style"];
+	}
+	if(isset($data["name"]))
+	{
+		$name = $data["name"];
+	}
+	if(isset($data["inputDisplay"]))
+	{
+		$inputDisplay = $data["inputDisplay"];
+	}
 	$htmlToReturn = "";
 	if($edit)
 	{
@@ -1545,6 +1564,6 @@ function generateColorBlockInner($buttonID, $color, $edit = true, $style = "")
 		$htmlToReturn .=	"<div class=\"colorSelectorDiv addBorder\" style=\"background-color: ".$color."; ".$style."\" >";
 	}
 	$htmlToReturn .=	"</div>";
-	$htmlToReturn .=	"<input style=\"width: 100px; display: none;\" type=\"text\" id=\"folderColorValue".$buttonID."\" name=\"folderColorValue".$buttonID."\" value=\"".$color."\" >";
+	$htmlToReturn .=	"<input style=\"width: 100px; display: ".$inputDisplay.";\" type=\"text\" id=\"folderColorValue".$buttonID."\" name=\"".$name."\" value=\"".$color."\" >";
 	return $htmlToReturn;
 }
