@@ -1179,22 +1179,28 @@ function generateColor($confDataValue, $numberValue, $varName)
 		$returnHtml .= generateColorBlockInner("colorBlock".$varName, $numberValue, array("name" => $varName, "inputDisplay" => "inline-block"));
 		$returnHtml .= "
 		<script type=\"text/javascript\">
+		if(typeof colorPickerData !== \"object\")
+		{
+			colorPickerData = {};
+		}
 		var timerFor".$varName." = null;
 		$( document ).ready(function() {
+			colorPickerData[\"timerFor".$varName."\"][\"arg1\"] = \"folderColorButtoncolorBlock".$varName."\";
+			colorPickerData[\"timerFor".$varName."\"][\"arg2\"] = \"folderColorValuecolorBlock".$varName."\";
 			if(typeof jscolor === \"function\")
 			{
-				trySetColor".$varName."(\"folderColorButtoncolorBlock".$varName."\",\"folderColorValuecolorBlock".$varName."\");
+				colorPickerData[\"timerFor".$varName."\"][\"function\"](\"folderColorButtoncolorBlock".$varName."\",\"folderColorValuecolorBlock".$varName."\");
 			}
 			else
 			{
 				setTimeout(function() {
 					timerFor".$varName." = setInterval(function () {
-						trySetColor".$varName."(\"folderColorButtoncolorBlock".$varName."\",\"folderColorValuecolorBlock".$varName."\")}, 1000);
+						colorPickerData[\"timerFor".$varName."\"][\"function\"](\"folderColorButtoncolorBlock".$varName."\",\"folderColorValuecolorBlock".$varName."\")}, 1000);
 				}, 250);
 			}
 		});
-
-		function trySetColor".$varName."(buttonId, valueId)
+		colorPickerData[\"timerFor".$varName."\"] = {};
+		colorPickerData[\"timerFor".$varName."\"][\"function\"] = function trySetColor".$varName."(buttonId, valueId)
 		{
 			if(typeof jscolor === \"function\")
 			{

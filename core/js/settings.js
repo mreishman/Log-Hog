@@ -1,4 +1,5 @@
 var arrayObject = {};
+var colorPickerData = {};
 var countForVerifySave = 0;
 var countForVerifySaveSuccess = 0;
 var data;
@@ -348,6 +349,23 @@ function resetArrayObject(idOfForm)
 		if(idOfForm === "settingsColorFolderGroupVars")
 		{
 			reAddJsColorPopupForCustomThemes();
+		}
+
+		if(innerHtmlObject[idOfForm].indexOf("colorSelectorDiv") > -1)
+		{
+			//reset color popups
+			let colorPickerDataKeys = Object.keys(colorPickerData);
+			let colorPickerDataKeysLength = colorPickerDataKeys.length;
+			for(let i = 0; i < colorPickerDataKeysLength; i++)
+			{
+				if(innerHtmlObject[idOfForm].indexOf(colorPickerDataKeys[i]) > -1)
+				{
+					colorPickerData[colorPickerDataKeys[i]]["function"](
+						colorPickerData[colorPickerDataKeys[i]]["arg1"],
+						colorPickerData[colorPickerDataKeys[i]]["arg2"]
+					);
+				}
+			}
 		}
 	}
 	catch(e)
