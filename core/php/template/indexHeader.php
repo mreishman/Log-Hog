@@ -25,18 +25,6 @@
 					);
 				?>
 			</div>
-			<div <?php if ($enableHistory !== "true"){echo "style=\"display: none\"";} ?>  onclick="archiveLogPopupToggle();" class="menuImageDiv">
-				<?php echo generateImage(
-					$arrayOfImages["loadingImg"],
-					$imageConfig = array(
-						"id"		=>	"historyImage",
-						"class"		=>	"menuImage historyImageForLoad",
-						"height"	=>	"30px",
-						"data-src"	=>	$arrayOfImages["history"]
-						)
-					);
-				?>
-			</div>
 			<div onclick="toggleSettingsSidebar();"  class="menuImageDiv">
 				<?php echo generateImage(
 					$arrayOfImages["loadingImg"],

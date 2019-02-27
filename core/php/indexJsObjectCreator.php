@@ -303,14 +303,6 @@ if($windowConfig !== "1x1")
 		"class" => "pinPinnedImageForLoad"
 	);
 }
-if($enableHistory === "true")
-{
-	$arrayOfFiles[] = array(
-		"name" => $baseUrl . "img/history.png",
-		"type" => "img",
-		"class" => "historyImageForLoad"
-	);
-}
 function compareByName($a, $b) {
   return strcmp($a["name"], $b["name"]);
 }

@@ -38,6 +38,27 @@
 	</div>
 	<span class="fullScreenMenuText">Addons</span>
 </li>
+<?php $historyStyle = "";
+if($enableHistory === "false")
+{
+	$historyStyle = "display: none;";
+}
+?>
+<li id="mainMenuHistory" style=" <?php echo $historyStyle; ?>" onclick="toggleHistory();" >
+	<div class="menuImageDiv">
+		<?php echo generateImage(
+			$arrayOfImages["loadingImg"],
+			$imageConfig = array(
+				"id"		=>	"addonsImage",
+				"class"		=>	"menuImage mainMenuImage",
+				"height"	=>	"30px",
+				"data-src"	=>	$arrayOfImages["history"]
+				)
+			);
+		?>
+	</div>
+	<span class="fullScreenMenuText">History</span>
+</li>
 <li id="mainMenuNotifications" onclick="toggleNotifications();" >
 	<div class="menuImageDiv">
 		<?php echo generateImage(
