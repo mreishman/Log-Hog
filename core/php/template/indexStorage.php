@@ -56,7 +56,7 @@
 									"class"		=>	"searchSideBarImageForLoad",
 									"style"		=>	"margin: 5px;",
 									"title"		=>	"More Info",
-									"data-src"	=>	$arrayOfImages["search"]
+									"data-src"	=>	$arrayOfImages["searchSideBar"]
 									)
 								);
 							?>
