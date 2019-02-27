@@ -1181,7 +1181,7 @@ function generateColor($confDataValue, $numberValue, $varName)
 		<script type=\"text/javascript\">
 		if(typeof colorPickerData !== \"object\")
 		{
-			colorPickerData = {};
+			var colorPickerData = {};
 		}
 		var timerFor".$varName." = null;
 		$( document ).ready(function() {
@@ -1200,7 +1200,7 @@ function generateColor($confDataValue, $numberValue, $varName)
 			}
 		});
 		colorPickerData[\"timerFor".$varName."\"] = {};
-		colorPickerData[\"timerFor".$varName."\"][\"function\"] = function trySetColor".$varName."(buttonId, valueId)
+		colorPickerData[\"timerFor".$varName."\"][\"function\"] = function (buttonId, valueId)
 		{
 			if(typeof jscolor === \"function\")
 			{

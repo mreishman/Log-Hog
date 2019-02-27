@@ -1,5 +1,4 @@
 var arrayObject = {};
-var colorPickerData = {};
 var countForVerifySave = 0;
 var countForVerifySaveSuccess = 0;
 var data;

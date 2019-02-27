@@ -116,6 +116,12 @@
 				"Name"			=>	"Information",
 				"BP"			=>	array("Log Formatting"),
 				"Images"		=>	array("7.0-1.png","7.0-2.png")
+			),
+			19	=>	array(
+				"Version"		=>	"7.1",
+				"Name"			=>	"Filters Part 1",
+				"BP"			=>	array("Select more than one group at a time","Filter content on a per log basis"),
+				"Images"		=>	array("7.1-1.png","7.1-2.png")
 			)
 		);
 		$dataForWhatsNew = array_reverse($dataForWhatsNew);
