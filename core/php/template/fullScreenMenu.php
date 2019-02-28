@@ -167,6 +167,7 @@
 		<span id="historyHolder"></span>
 	</div>
 	<div id="fullScreenMenuArchive" style="display: none;">
+		<span id="archiveHolder"></span>
 	</div>
 	<div id="fullScreenMenuUpdate" style="display: none;">
 		<?php require_once('update.php'); ?>

@@ -111,13 +111,22 @@ function toggleHistory(force = false)
 	$("#mainMenuHistory").addClass("selected");
 	arrayOfScrollHeaderUpdate = [];
 	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
-	toggleTmpSave();
+	toggleTmpSaveHistory();
 }
 
-function toggleTmpSave()
+function toggleTmpSaveHistory()
 {
+	hideHistoryStuff();
 	document.getElementById("fullScreenMenuHistory").style.display = "block";
 	$("#tempSaveHistory").addClass("selected");
+	getListOfTmpHistoryLogs();
+}
+
+function toggleArchiveHistory()
+{
+	hideHistoryStuff();
+	document.getElementById("fullScreenMenuArchive").style.display = "block";
+	$("#archiveHistory").addClass("selected");
 	getListOfArchiveLogs();
 }
 
