@@ -13,26 +13,6 @@ function archiveAction(title)
 	}
 }
 
-function archiveLogPopupToggle()
-{
-	//get list of logs in tmpbackup
-	if(document.getElementById("fullScreenMenu").style.display !== "none")
-	{
-		toggleFullScreenMenu();
-	}
-	if(document.getElementById("historyDropdown").style.display === "inline-block")
-	{
-		document.getElementById("historyDropdown").style.display = "none";
-	}
-	else
-	{
-		getListOfArchiveLogs();
-		document.getElementById("historyDropdown").style.display = "inline-block";
-		document.getElementById("historyDropdown").style.left = (document.getElementById("historyImage").getBoundingClientRect().left-21) + "px";
-		document.getElementById("historyDropdown").style.top = (document.getElementById("historyImage").getBoundingClientRect().top+25) + "px";
-	}
-}
-
 function getListOfArchiveLogs()
 {
 	$.ajax({
@@ -51,7 +31,7 @@ function showHistory(data)
 	var htmlForHistory = "No Log History To Display";
 	if(data)
 	{
-		htmlForHistory = "<table style=\"width: 100%;\" ><tr><td width=\"55%\" ></td><td  width=\"45%\" ></td></tr>";
+		htmlForHistory = "<table><tr><td></td><td></td></tr>";
 		var historyKeys = Object.keys(data);
 		var historyKeysLength = historyKeys.length;
 		if(historyKeysLength === 0)
@@ -78,13 +58,13 @@ function showHistory(data)
 		htmlForHistory += "</table>";
 	}
 	$("#historyHolder").html(htmlForHistory);
-	$("#historyHolder").append($("#storage .notificationButtons").html());
+	$("#historyHolder").append($("#storage .historyButtons").html());
 }
 
 function hideArchiveLog(title)
 {
 	var newTitle = "LogHog/"+title.replace(/_DIR_/g, "/");
-	archiveLogPopupToggle();
+	toggleFullScreenMenu();
 	removeNotificationByLog(newTitle.replace(/[^a-z0-9]/g, ""));
 	delete arrayOfDataMain[newTitle];
 	$("#"+newTitle.replace(/[^a-z0-9]/g, "")).remove();
@@ -104,7 +84,7 @@ function hideArchiveLog(title)
 function viewArchiveLog(title)
 {
 	loadImgFromData("archiveLogImages");
-	archiveLogPopupToggle();
+	toggleFullScreenMenu();
 	var dataToSend = {file: title};
 	$.ajax({
 			url: "core/php/getTmpVersionOfLog.php?format=json",
@@ -119,7 +99,7 @@ function viewArchiveLog(title)
 
 function deleteArchiveLog(title)
 {
-	archiveLogPopupToggle();
+	toggleFullScreenMenu();
 	var dataToSend = {file: title};
 	$.ajax({
 			url: "core/php/deleteArchiveLog.php?format=json",
@@ -134,7 +114,7 @@ function deleteArchiveLog(title)
 
 function clearAllArchiveLogs()
 {
-	archiveLogPopupToggle();
+	toggleFullScreenMenu();
 	$.ajax({
 			url: "core/php/deleteAllArchiveLogs.php?format=json",
 			dataType: "json",

@@ -164,6 +164,7 @@
 		<?php require_once('about.php'); ?>
 	</div>
 	<div id="fullScreenMenuHistory" style="display: none;">
+		<span id="historyHolder"></span>
 	</div>
 	<div id="fullScreenMenuArchive" style="display: none;">
 	</div>

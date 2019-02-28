@@ -111,6 +111,14 @@ function toggleHistory(force = false)
 	$("#mainMenuHistory").addClass("selected");
 	arrayOfScrollHeaderUpdate = [];
 	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
+	toggleTmpSave();
+}
+
+function toggleTmpSave()
+{
+	document.getElementById("fullScreenMenuHistory").style.display = "block";
+	$("#tempSaveHistory").addClass("selected");
+	getListOfArchiveLogs();
 }
 
 function toggleSettings(force = false)

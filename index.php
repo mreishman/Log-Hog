@@ -137,7 +137,6 @@ $externalLinkImage = generateImage(
 			</div>
 			<div id="historyDropdown" class="dropdownMenu" >
 				<div class="notificationTriangle"></div>
-				<div id="historyHolder" class="innerContentDropdownMenu dropdownHolder"></div>
 			</div>
 		</div>
 		<div id="main">
