@@ -117,7 +117,22 @@
 								$imageConfig = array(
 									"height"	=>	"20px",
 									"style"		=>	"margin: 5px;",
-									"title"		=>	"View Backup"
+									"title"		=>	"View Backup",
+									"class"		=>	"historySideBarImageForLoad",
+									"data-src"	=>	$arrayOfImages["historySideBar"]
+									)
+								);
+							?>
+						</a>
+						<a onclick="saveArchivePopup('{{counter}}');" style="cursor: pointer;">
+							<?php echo generateImage(
+								$arrayOfImages["historySideBar"],
+								$imageConfig = array(
+									"height"	=>	"20px",
+									"style"		=>	"margin: 5px;",
+									"title"		=>	"Save Backup",
+									"class"		=>	"historyAddSideBarImageForLoad",
+									"data-src"	=>	$arrayOfImages["historySideBar"]
 									)
 								);
 							?>

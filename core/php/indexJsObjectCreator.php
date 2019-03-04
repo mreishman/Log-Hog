@@ -147,6 +147,16 @@ $arrayOfFiles = array(
 		"type" =>"img",
 		"class" =>"menuSideBarImageForLoad"
 	),
+	array(
+		"name" => $baseUrl . "img/historySideBar.png",
+		"type" =>"img",
+		"class" =>"historySideBarImageForLoad"
+	),
+	// array(
+	// 	"name" => $baseUrl . "img/historyAddSideBar.png",
+	// 	"type" =>"img",
+	// 	"class" =>"historyAddSideBarImageForLoad"
+	// ),
 );
 if($filterEnabled === "true")
 {
