@@ -33,7 +33,6 @@ function checkForUpdates(urlSend = "../", whatAmIUpdating = "Log-Hog", currentNe
 			return;
 		}
 		versionUpdate = currentNewVersion;
-		urlSend = urlSend;
 		whatAmIUpdating = whatAmIUpdating;
 		updateFormID = updateFormIDLocal;
 		showPopupForUpdateBool = showPopupForUpdateInner;
@@ -49,7 +48,7 @@ function checkForUpdates(urlSend = "../", whatAmIUpdating = "Log-Hog", currentNe
 			}
 			else
 			{
-				displayLoadingPopup();
+				displayLoadingPopup(urlSend);
 			}
 		}
 		$.ajax({

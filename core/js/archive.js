@@ -1,8 +1,13 @@
-function archiveAction(title)
+function archiveAction(title, type)
 {
 	if(saveTmpLogOnClear === "true" && enableHistory === "true")
 	{
-		var dataToSend = {subFolder: "tmp/loghogBackupHistoryLogs/", key: title, log: arrayOfDataMain[title]["log"]};
+		let folder = "loghogBackupArchiveLogs";
+		if(type !== "archive")
+		{
+			folder = "loghogBackupHistoryLogs";
+		}
+		var dataToSend = {subFolder: "tmp/"+folder+"/", key: title, log: arrayOfDataMain[title]["log"]};
 		$.ajax({
 				url: "core/php/saveTmpVersionOfLog.php?format=json",
 				dataType: "json",
@@ -30,30 +35,11 @@ function getListOfTmpHistoryLogs()
 function showHistory(data)
 {
 	$("#historyHolder").html('');
-	var htmlForHistory = "<table width=\"100%\" ><tr><td></td><td></td></tr>";
+	let htmlForHistory = "<table width=\"100%\" ><tr><td></td><td></td></tr>";
 	htmlForHistory += "<tr><td style=\"text-align: center;\" colspan=\"2\" ><h2>No Log Backups To Display</h2></td></tr>"
 	if(data)
 	{
-		var historyKeys = Object.keys(data);
-		var historyKeysLength = historyKeys.length;
-		if(historyKeysLength !== 0)
-		{
-			htmlForHistory = "<table><tr><td></td><td></td></tr>";
-			for(var historyKey = 0; historyKey < historyKeysLength; historyKey++)
-			{
-				var historyName = data[historyKeys[historyKey]].replace(/_DIR_/g, "/").replace("Backup/", "");
-				htmlForHistory += "<tr><td style=\"word-break:break-all\" >"+historyName+"</td><td>";
-				if("LogHog/"+data[historyKeys[historyKey]].replace(/_DIR_/g, "/") in arrayOfDataMain)
-				{
-					htmlForHistory += "<a class=\"linkSmall\" onclick=\"hideArchiveLog('"+data[historyKeys[historyKey]]+"')\" >Hide</a> ";
-				}
-				else
-				{
-					htmlForHistory += "<a class=\"linkSmall\" onclick=\"viewArchiveLog('"+data[historyKeys[historyKey]]+"')\" >View</a> ";
-				}
-				htmlForHistory += " <a onclick=\"deleteArchiveLog('"+data[historyKeys[historyKey]]+"')\" class=\"linkSmall\" >Delete</a></td></tr>";
-			}
-		}
+		htmlForHistory = archiveListActions(data, htmlForHistory);
 	}
 	htmlForHistory += "</table>";
 	$("#historyHolder").html(htmlForHistory);
@@ -77,34 +63,40 @@ function getListOfArchiveLogs()
 function showArchive(data)
 {
 	$("#archiveHolder").html('');
-	var htmlForHistory = "<table width=\"100%\" ><tr><td></td><td></td></tr>";
-	htmlForHistory += "<tr><td style=\"text-align: center;\" colspan=\"2\" ><h2>No Log Backups To Display</h2></td></tr>"
+	let htmlForHistory = "<table width=\"100%\" ><tr><td></td><td></td></tr><tr><td style=\"text-align: center;\" colspan=\"2\" ><h2>No Log Backups To Display</h2></td></tr></table>"
 	if(data)
 	{
-		var historyKeys = Object.keys(data);
-		var historyKeysLength = historyKeys.length;
-		if(historyKeysLength !== 0)
-		{
-			htmlForHistory = "<table><tr><td></td><td></td></tr>";
-			for(var historyKey = 0; historyKey < historyKeysLength; historyKey++)
-			{
-				var historyName = data[historyKeys[historyKey]].replace(/_DIR_/g, "/").replace("Backup/", "");
-				htmlForHistory += "<tr><td style=\"word-break:break-all\" >"+historyName+"</td><td>";
-				if("LogHog/"+data[historyKeys[historyKey]].replace(/_DIR_/g, "/") in arrayOfDataMain)
-				{
-					htmlForHistory += "<a class=\"linkSmall\" onclick=\"hideArchiveLog('"+data[historyKeys[historyKey]]+"')\" >Hide</a> ";
-				}
-				else
-				{
-					htmlForHistory += "<a class=\"linkSmall\" onclick=\"viewArchiveLog('"+data[historyKeys[historyKey]]+"')\" >View</a> ";
-				}
-				htmlForHistory += " <a onclick=\"deleteArchiveLog('"+data[historyKeys[historyKey]]+"')\" class=\"linkSmall\" >Delete</a></td></tr>";
-			}
-		}
+		htmlForHistory = archiveListActions(data, htmlForHistory);
 	}
-	htmlForHistory += "</table>";
 	$("#archiveHolder").html(htmlForHistory);
 	$("#archiveHolder").append($("#storage .archiveButtons").html());
+}
+
+function archiveListActions(data, defaultText = "")
+{
+	htmlForActionList = defaultText;
+	let historyKeys = Object.keys(data);
+	let historyKeysLength = historyKeys.length;
+	if(historyKeysLength !== 0)
+	{
+		htmlForActionList = "<table><tr><td></td><td></td></tr>";
+		for(let historyKey = 0; historyKey < historyKeysLength; historyKey++)
+		{
+			let historyName = data[historyKeys[historyKey]].replace(/_DIR_/g, "/").replace("Backup/", "");
+			htmlForActionList += "<tr><td style=\"word-break:break-all\" >"+historyName+"</td><td>";
+			if("LogHog/"+data[historyKeys[historyKey]].replace(/_DIR_/g, "/") in arrayOfDataMain)
+			{
+				htmlForActionList += "<a class=\"linkSmall\" onclick=\"hideArchiveLog('"+data[historyKeys[historyKey]]+"')\" >Hide</a> ";
+			}
+			else
+			{
+				htmlForActionList += "<a class=\"linkSmall\" onclick=\"viewArchiveLog('"+data[historyKeys[historyKey]]+"')\" >View</a> ";
+			}
+			htmlForActionList += " <a onclick=\"deleteArchiveLog('"+data[historyKeys[historyKey]]+"','archive')\" class=\"linkSmall\" >Delete</a></td></tr>";
+		}
+	}
+	htmlForActionList += "</table>";
+	return htmlForActionList;
 }
 
 function hideArchiveLog(title)
@@ -143,10 +135,9 @@ function viewArchiveLog(title)
 	}});
 }
 
-function deleteArchiveLog(title)
+function deleteArchiveLog(title, type)
 {
-	toggleFullScreenMenu();
-	var dataToSend = {file: title};
+	var dataToSend = {file: title, type};
 	$.ajax({
 			url: "core/php/deleteArchiveLog.php?format=json",
 			dataType: "json",
@@ -155,12 +146,19 @@ function deleteArchiveLog(title)
 	success(data){
 		delete arrayOfDataMain["LogHog/"+title.replace(/_DIR_/g, "/")];
 		generalUpdate();
+		if(type !== "archive")
+		{
+			getListOfTmpHistoryLogs();
+		}
+		else
+		{
+			getListOfArchiveLogs();
+		}
 	}});
 }
 
-function clearAllArchiveLogs()
+function clearAllArchiveLogs(type)
 {
-	toggleFullScreenMenu();
 	$.ajax({
 			url: "core/php/deleteAllArchiveLogs.php?format=json",
 			dataType: "json",
@@ -177,6 +175,14 @@ function clearAllArchiveLogs()
 			}
 		}
 		generalUpdate();
+		if(type !== "archive")
+		{
+			getListOfTmpHistoryLogs();
+		}
+		else
+		{
+			getListOfArchiveLogs();
+		}
 	}});
 }
 
@@ -201,4 +207,81 @@ function removeArchiveLogFromDisplay(currentLogNum)
 	logDisplayArray[currentLogNum] = {id: null, scroll: true, pin: false};
 	selectTabsInOrder(Object.keys(logDisplayArray).length);
 	resize();
+}
+
+function viewBackupFromCurrentLog(currentLogNum)
+{
+	displayLoadingPopup('');
+	var logId = logDisplayArray[currentLogNum]["id"];
+	$.ajax({
+			url: "core/php/getListOfTmpLogs.php?format=json",
+			dataType: "json",
+			data: {
+				type: "archive"
+			},
+			type: "POST",
+	success(data){
+		//show popup of no backupg, show list of backup logs found if found
+		var archiveList = filterArrForPopup(data, logId);
+			$.ajax({
+				url: "core/php/getListOfTmpLogs.php?format=json",
+				dataType: "json",
+				data: {
+					type: "tmp"
+				},
+				type: "POST",
+		success(data){
+			//show popup of no backupg, show list of backup logs found if found
+			var archiveList2 = filterArrForPopup(data, logId);
+			if(archiveList.length !== 0 || archiveList2.length !== 0)
+			{
+				let popupHtml = "";
+				if(archiveList2.length !== 0)
+				{
+					//history
+					popupHtml += "<div class='settingsHeader' >History</div><br>";
+					popupHtml += htmlForHistory = archiveListActions(archiveList2);
+				}
+				if(archiveList.length !== 0)
+				{
+					//archive
+					popupHtml += "<div class='settingsHeader' >Archive</div><br>";
+					popupHtml += htmlForHistory = archiveListActions(archiveList);
+				}
+				popupHtml += "<div class='link' onclick='hidePopup();' style='margin-left:163px; margin-top:25px;'>Close</div>";
+				document.getElementById("popupContentInnerHTMLDiv").innerHTML = popupHtml;
+				document.getElementById("popupContent").style.overflow = "auto";
+				document.getElementById("popupContent").style.height = "300px";
+				document.getElementById("popupContent").style.marginTop = "-150px";
+			}
+			else
+			{
+				//show popup for no files
+				document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class='settingsHeader' >History</div><br><br><div style='width:100%;text-align:center;'> No Archived Files</div><div class='link' onclick='hidePopup();' style='margin-left:163px; margin-top:25px;'>Close</div>";
+			}
+		}});
+	}});
+}
+
+function filterArrForPopup(data, logId)
+{
+	let found = []
+	if(data)
+	{
+		let historyKeys = Object.keys(data);
+		let historyKeysLength = historyKeys.length;
+		if(historyKeysLength !== 0)
+		{
+			for(let historyKey = 0; historyKey < historyKeysLength; historyKey++)
+			{
+				//check if this file matches current data
+				let testName = filterIdText(data[historyKeys[historyKey]].split("_DIR_").join(""));
+				if(testName.indexOf(logId) > -1)
+				{
+					found.push(data[historyKeys[historyKey]]);
+				}
+			}
+		}
+	}
+	return found;
 }

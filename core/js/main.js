@@ -72,6 +72,11 @@ function getRndInteger(min, max) {
     return Math.floor(Math.random() * (max - min) ) + min;
 }
 
+function filterIdText(name)
+{
+	return name.replace(/[^a-z0-9]/g, "");
+}
+
 
 function popupSettingsArrayCheck()
 {
@@ -268,7 +273,7 @@ function getLogIdFromText(text)
 	{
 		if(arrayOfDataMain[arrayOfDataMainKeys[i]]["log"] === text)
 		{
-			return arrayOfDataMainKeys[i].replace(/[^a-z0-9]/g, "");
+			return filterIdText(arrayOfDataMainKeys[i])
 		}
 		if(advancedLogFormatEnabled === "true" && logFormatFileEnable === "true" && "fileData" in arrayOfDataMain[arrayOfDataMainKeys[i]])
 		{
@@ -283,7 +288,7 @@ function getLogIdFromText(text)
 					{
 						if(fileDataLocal[fileDataLocalKeys[j]]["fileData"] === text)
 						{
-							return arrayOfDataMainKeys[i].replace(/[^a-z0-9]/g, "");
+							return filterIdText(arrayOfDataMainKeys[i])
 						}
 					}
 				}
@@ -726,7 +731,7 @@ function hideLogByName(name)
 {
 	try
 	{
-		var idOfName = name.replace(/[^a-z0-9]/g, "");
+		var idOfName = filterIdText(name)
 		if($("#menu ." + idOfName + "Button").length !== 0)
 		{
 			if($("#menu ." + idOfName + "Button").hasClass("active"))
@@ -748,7 +753,7 @@ function showLogByName(name)
 {
 	try
 	{
-		var idOfName = name.replace(/[^a-z0-9]/g, "");
+		var idOfName = filterIdText(name)
 		if($("#menu ." + idOfName + "Button").length !== 0)
 		{
 			$("#menu ." + idOfName + "Button").show();
@@ -764,7 +769,7 @@ function removeLogByName(name)
 {
 	try
 	{
-		var idOfName = name.replace(/[^a-z0-9]/g, "");
+		var idOfName = filterIdText(name)
 		if($("#menu ." + idOfName + "Button").length !== 0)
 		{
 			$("#menu ." + idOfName + "Button").remove();
@@ -1238,7 +1243,10 @@ function clearLogInner(title)
 		title = title.split(" | ")[0];
 	}
 	title = title.trim();
-	archiveAction(title);
+	if(enableHistory === "true")
+	{
+		archiveAction(title, "tmp");
+	}
 	title = filterTitle(title);
 	var data = {file: title};
 	$.ajax({
@@ -1404,7 +1412,10 @@ function deleteLog(title)
 			title = title.split(" | ")[0];
 		}
 		title = title.trim();
-		archiveAction(title);
+		if(enableHistory === "true")
+		{
+			archiveAction(title, "tmp");
+		}
 		var urlForSend = "core/php/deleteLog.php?format=json";
 		title = title.replace(/\s/g, "");
 		var data = {file: title};

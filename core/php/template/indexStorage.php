@@ -111,8 +111,8 @@
 								);
 							?>
 						</a>
-						<!-- <a onclick="viewBackupFromCurrentLog('{{counter}}');" style="cursor: pointer;">
-							<?php /* echo generateImage(
+						<a onclick="viewBackupFromCurrentLog('{{counter}}');" style="cursor: pointer;">
+							<?php echo generateImage(
 								$arrayOfImages["historySideBar"],
 								$imageConfig = array(
 									"height"	=>	"20px",
@@ -120,8 +120,8 @@
 									"title"		=>	"View Backup"
 									)
 								);
-							*/ ?>
-						</a> -->
+							?>
+						</a>
 						<a onclick="toggleLogPopup(this,'{{counter}}');" style="cursor: pointer;">
 							<?php echo generateImage(
 								$arrayOfImages["loadingImg"],
