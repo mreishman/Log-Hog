@@ -1,7 +1,7 @@
 <?php
 
 $versionCheckArray = array(
-	'version'		=> '7.0',
+	'version'		=> '7.0.9',
 	'versionList'		=> array(
 		'2.0.1'	        => array(
 			'branchName'	=> '2.0.1Update',
@@ -301,6 +301,11 @@ $versionCheckArray = array(
 			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/7.0.png',
 			'releaseNotes'	=> "<ul><li>Features<ul><li>Changes how logs are displayed<ul><li>Toggle added in sidebar temp show/hide format</li><li>Most options below can be enabled / disabled</li></ul></li><li>Log format separates time and content into two columns<ul><li>Format all log times into standard format (with custom options for timestamps)</li><li>Groups same timestamps (only shows first of same timestamp)</li></ul></li><li>Message formatting<ul><li>Auto formats json encoded log content into table display</li><li>Report formatting added</li><li>PHP info messages formated in table display</li></ul></li><li>More Info Button<ul><li>Added more in-depth information for PHP tokens</li></ul></li><li>Linked Files Format<ul><li>When files are referenced in logs, a snippet of that file is displayed below</li><li>Shows file permissions (option to enable / disable)</li></ul></li><li>Small change to settings page for log layouts</li></ul></li><li>Bug Fixes<ul><li>Fixed bug with settings sidebar toggle not displaying correctly for not the main window</li><li>Fixed small bug in updater when version number of update is longer than current version</li><li>Now shows correct on hover text when hovering over images on whats new page</li></ul></li></ul>"
 		),
+		'7.1'			=> array(
+			'branchName'	=> '7.1Update',
+			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/7.1.png',
+			'releaseNotes'	=> "<ul><li>Features<ul><li>Filters<ul><li>Option to invert search</li><li>Option to only highlight search text and not entire line</li><li>Filter content of individual log windows</li><li>Added right click menu to filter text field for toggle between content and title</li></ul></li><li>Groups<ul><li>You can now select more than one group at a time (defaults to all if none selected)</li><li>Switched default back to showing in header</li></ul></li><li>Added option for adding borders between log lines</li><li>Added module status to error page</li><li>Added color picker for color inputs for settings</li></ul></li><li>Bug Fixes<ul><li>Right click on notification badge should trigger correctly more often</li><li>Counter for upgrade scripts in updater now show total correctly if only one</li><li>Hides group dropdown / selector if no groups</li><li>Fixed button action for history dropdown</li></ul></li></ul>"
+		)
 		
 	)
 );
