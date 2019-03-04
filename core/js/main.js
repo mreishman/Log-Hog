@@ -1238,16 +1238,12 @@ function scrollToBottom(idNum)
 
 function clearLogInner(title)
 {
-	if(title.indexOf(" | ") > -1)
-	{
-		title = title.split(" | ")[0];
-	}
+	title = filterTitle(title);
 	title = title.trim();
 	if(enableHistory === "true")
 	{
 		archiveAction(title, "tmp");
 	}
-	title = filterTitle(title);
 	var data = {file: title};
 	$.ajax({
 			url: "core/php/clearLog.php?format=json",

@@ -13,7 +13,13 @@ function archiveAction(title, type)
 				dataType: "json",
 				data: dataToSend,
 				type: "POST",
-		success(data){},
+		success(data){
+			if(document.getElementById("popupSelectContainer").style.display !== "none")
+			{
+				saveSuccess();
+				fadeOutPopup();
+			}
+		},
 		});
 	}
 }
@@ -284,4 +290,12 @@ function filterArrForPopup(data, logId)
 		}
 	}
 	return found;
+}
+
+function saveArchivePopup(currentLogNum)
+{
+	let title = document.getElementById("title"+currentLogNum).textContent;
+	title = filterTitle(title);
+	displayLoadingPopup('');
+	archiveAction(title, 'archive');
 }
