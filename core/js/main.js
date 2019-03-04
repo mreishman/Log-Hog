@@ -1055,12 +1055,12 @@ function resize()
 			{
 				localTrElementHeight -= document.getElementById("searchFieldInputOuter-"+lda).getBoundingClientRect().height
 			}
-			if($("#log"+lda+"Td").outerHeight() !== localTrElementHeight)
+			if(parseInt($("#log"+lda+"Td").outerHeight()) !== parseInt(localTrElementHeight))
 			{
 				closeLogPopup();
 				$("#log"+lda+"Td").outerHeight(localTrElementHeight);
 			}
-			if($("#logTd"+lda+"Width").outerWidth() !== localTdElementWidth)
+			if(parseInt($("#logTd"+lda+"Width").outerWidth()) !== parseInt(localTdElementWidth))
 			{
 				closeLogPopup();
 				$("#logTd"+lda+"Width").outerWidth(localTdElementWidth);
