@@ -1,4 +1,5 @@
 <?php
+//load config data, check for history enabled / number for both archive & temp
 $location = $_POST['subFolder'];
 $fileName = implode("_DIR_", explode("/", $_POST["key"])).".php";
 $fileContents = "<?php $"."logData = ".json_encode($_POST["log"])."; ?>";

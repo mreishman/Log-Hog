@@ -14,7 +14,7 @@ function archiveAction(title, type)
 				data: dataToSend,
 				type: "POST",
 		success(data){
-			if(document.getElementById("popupSelectContainer").style.display !== "none")
+			if(document.getElementById("popup").style.display !== "none")
 			{
 				saveSuccess();
 				fadeOutPopup();

@@ -1239,7 +1239,6 @@ function scrollToBottom(idNum)
 function clearLogInner(title)
 {
 	title = filterTitle(title);
-	title = title.trim();
 	if(enableHistory === "true")
 	{
 		archiveAction(title, "tmp");
@@ -1454,6 +1453,7 @@ function filterTitle(title)
 		{
 			title = title.substring(0, title.indexOf("|"));
 		}
+		title = title.trim();
 		return title;
 	}
 	catch(e)
