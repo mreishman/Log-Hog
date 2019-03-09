@@ -570,6 +570,12 @@ else
 			"title"			=>	"Refresh",
 			"baseName"		=>	"Refresh.png"
 		),
+		"saveSideBar"		=> array(
+			"alt"			=>	"Save",
+			"src"			=>	"",
+			"title"			=>	"Save",
+			"baseName"		=>	"saveSideBar.png"
+		),
 		"search"			=> array(
 			"alt"			=>	"Search",
 			"src"			=>	"",

@@ -152,11 +152,11 @@ $arrayOfFiles = array(
 		"type" =>"img",
 		"class" =>"historySideBarImageForLoad"
 	),
-	// array(
-	// 	"name" => $baseUrl . "img/historyAddSideBar.png",
-	// 	"type" =>"img",
-	// 	"class" =>"historyAddSideBarImageForLoad"
-	// ),
+	array(
+		"name" => $baseUrl . "img/saveSideBar.png",
+		"type" =>"img",
+		"class" =>"historyAddSideBarImageForLoad"
+	),
 );
 if($filterEnabled === "true")
 {

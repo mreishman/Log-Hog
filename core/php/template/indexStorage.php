@@ -113,7 +113,7 @@
 						</a>
 						<a onclick="viewBackupFromCurrentLog('{{counter}}');" style="cursor: pointer;">
 							<?php echo generateImage(
-								$arrayOfImages["historySideBar"],
+								$arrayOfImages["loadingImg"],
 								$imageConfig = array(
 									"height"	=>	"20px",
 									"style"		=>	"margin: 5px;",
@@ -126,13 +126,13 @@
 						</a>
 						<a onclick="saveArchivePopup('{{counter}}');" style="cursor: pointer;">
 							<?php echo generateImage(
-								$arrayOfImages["historySideBar"],
+								$arrayOfImages["loadingImg"],
 								$imageConfig = array(
 									"height"	=>	"20px",
 									"style"		=>	"margin: 5px;",
 									"title"		=>	"Save Backup",
 									"class"		=>	"historyAddSideBarImageForLoad",
-									"data-src"	=>	$arrayOfImages["historySideBar"]
+									"data-src"	=>	$arrayOfImages["saveSideBar"]
 									)
 								);
 							?>
