@@ -854,18 +854,24 @@ function isLogPopupOpen()
 
 function toggleSideBarElements(internalID, currentCurrentSelectWindow)
 {
-	var visibleStatusOfClearLogSideBar = "block";
-	var visibleStatusOfDeleteLogSideBar = "block";
-	var visibleStatusOfCloseLogSideBar = "none";
+	let visibleStatusOfClearLogSideBar = "block";
+	let visibleStatusOfDeleteLogSideBar = "block";
+	let visibleStatusOfCloseLogSideBar = "none";
+	let visibleStatusOfHistorySideBar = "block";
+	let visibleStatusOfSaveArchiveSideBar = "block";
 	if(internalID.indexOf("ogogackup") === 0)
 	{
 		visibleStatusOfClearLogSideBar  = "none";
 		visibleStatusOfDeleteLogSideBar = "none";
 		visibleStatusOfCloseLogSideBar  = "block";
+		visibleStatusOfHistorySideBar = "none";
+		visibleStatusOfSaveArchiveSideBar = "none";
 	}
 	else if(internalID === "oneLog")
 	{
 		visibleStatusOfDeleteLogSideBar= "none";
+		visibleStatusOfHistorySideBar = "none";
+		visibleStatusOfSaveArchiveSideBar = "none";
 	}
 	else if(internalID === idOfOneLogOpen)
 	{
@@ -887,6 +893,14 @@ function toggleSideBarElements(internalID, currentCurrentSelectWindow)
 	if(document.getElementById("closeLogSideBar"+currentCurrentSelectWindow).style.display !== visibleStatusOfCloseLogSideBar)
 	{
 		document.getElementById("closeLogSideBar"+currentCurrentSelectWindow).style.display = visibleStatusOfCloseLogSideBar;
+	}
+	if(document.getElementById("historySideBar"+currentCurrentSelectWindow).style.display !== visibleStatusOfHistorySideBar)
+	{
+		document.getElementById("historySideBar"+currentCurrentSelectWindow).style.display = visibleStatusOfHistorySideBar;
+	}
+	if(document.getElementById("saveArchiveSideBar"+currentCurrentSelectWindow).style.display !== visibleStatusOfSaveArchiveSideBar)
+	{
+		document.getElementById("saveArchiveSideBar"+currentCurrentSelectWindow).style.display = visibleStatusOfSaveArchiveSideBar;
 	}
 }
 

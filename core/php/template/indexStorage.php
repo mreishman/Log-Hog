@@ -111,7 +111,7 @@
 								);
 							?>
 						</a>
-						<a onclick="viewBackupFromCurrentLog('{{counter}}');" style="cursor: pointer;">
+						<a id="historySideBar{{counter}}" onclick="viewBackupFromCurrentLog('{{counter}}');" style="cursor: pointer;">
 							<?php echo generateImage(
 								$arrayOfImages["loadingImg"],
 								$imageConfig = array(
@@ -124,7 +124,7 @@
 								);
 							?>
 						</a>
-						<a onclick="saveArchivePopup('{{counter}}');" style="cursor: pointer;">
+						<a id="saveArchiveSideBar{{counter}}" onclick="saveArchivePopup('{{counter}}');" style="cursor: pointer;">
 							<?php echo generateImage(
 								$arrayOfImages["loadingImg"],
 								$imageConfig = array(

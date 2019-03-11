@@ -45,7 +45,7 @@ function showHistory(data)
 	htmlForHistory += "<tr><td style=\"text-align: center;\" colspan=\"2\" ><h2>No Log Backups To Display</h2></td></tr>"
 	if(data)
 	{
-		htmlForHistory = archiveListActions(data, htmlForHistory);
+		htmlForHistory = archiveListActions(data, htmlForHistory, "tmp");
 	}
 	htmlForHistory += "</table>";
 	$("#historyHolder").html(htmlForHistory);
@@ -72,13 +72,13 @@ function showArchive(data)
 	let htmlForHistory = "<table width=\"100%\" ><tr><td></td><td></td></tr><tr><td style=\"text-align: center;\" colspan=\"2\" ><h2>No Log Backups To Display</h2></td></tr></table>"
 	if(data)
 	{
-		htmlForHistory = archiveListActions(data, htmlForHistory);
+		htmlForHistory = archiveListActions(data, htmlForHistory, "archive");
 	}
 	$("#archiveHolder").html(htmlForHistory);
 	$("#archiveHolder").append($("#storage .archiveButtons").html());
 }
 
-function archiveListActions(data, defaultText = "")
+function archiveListActions(data, defaultText = "", type)
 {
 	htmlForActionList = defaultText;
 	let historyKeys = Object.keys(data);
@@ -96,7 +96,7 @@ function archiveListActions(data, defaultText = "")
 			}
 			else
 			{
-				htmlForActionList += "<a class=\"linkSmall\" onclick=\"viewArchiveLog('"+data[historyKeys[historyKey]]+"')\" >View</a> ";
+				htmlForActionList += "<a class=\"linkSmall\" onclick=\"viewArchiveLog('"+data[historyKeys[historyKey]]+"', '"+type+"')\" >View</a> ";
 			}
 			htmlForActionList += " <a onclick=\"deleteArchiveLog('"+data[historyKeys[historyKey]]+"','archive')\" class=\"linkSmall\" >Delete</a></td></tr>";
 		}
@@ -125,11 +125,18 @@ function hideArchiveLog(title)
 	resize();
 }
 
-function viewArchiveLog(title)
+function viewArchiveLog(title, type)
 {
 	loadImgFromData("archiveLogImages");
-	toggleFullScreenMenu();
-	var dataToSend = {file: title};
+	if(document.getElementById("fullScreenMenu").style.display !== "none")
+	{
+		toggleFullScreenMenu();
+	}
+	if(document.getElementById("popupContent").style.display !== "none")
+	{
+		fadeOutPopup();
+	}
+	var dataToSend = {file: title, type};
 	$.ajax({
 			url: "core/php/getTmpVersionOfLog.php?format=json",
 			dataType: "json",
@@ -246,13 +253,13 @@ function viewBackupFromCurrentLog(currentLogNum)
 				{
 					//history
 					popupHtml += "<div class='settingsHeader' >History</div><br>";
-					popupHtml += htmlForHistory = archiveListActions(archiveList2);
+					popupHtml += htmlForHistory = archiveListActions(archiveList2, "", "tmp");
 				}
 				if(archiveList.length !== 0)
 				{
 					//archive
 					popupHtml += "<div class='settingsHeader' >Archive</div><br>";
-					popupHtml += htmlForHistory = archiveListActions(archiveList);
+					popupHtml += htmlForHistory = archiveListActions(archiveList, "", "archive");
 				}
 				popupHtml += "<div class='link' onclick='hidePopup();' style='margin-left:163px; margin-top:25px;'>Close</div>";
 				document.getElementById("popupContentInnerHTMLDiv").innerHTML = popupHtml;
