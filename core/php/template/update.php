@@ -9,7 +9,40 @@
 			</li>
 			<?php if(!class_exists('ZipArchive')): ?>
 				Error - you must install ZipArchive to download / check for updates.
-			<?php else: ?>
+			<?php else:
+
+				$changelogHTML = "";
+				$downloadSize = 0;
+				$finalInstallSize = 0;
+				$currentVersionSize = 0;
+
+				if(array_key_exists('versionList', $configStatic))
+				{
+					foreach ($configStatic['versionList'] as $key => $value)
+					{
+						if($configStatic['version'] === $key)
+						{
+							if(isset($value['installSize']))
+							{
+								$currentVersionSize = (int)$value['installSize'];
+							}
+						}
+						$version = explode('.', $configStatic['version']);
+						$newestVersion = explode('.', $key);
+						$levelOfUpdate = findUpdateValue(count($newestVersion), count($version), $newestVersion, $version);
+						if($levelOfUpdate != 0)
+						{
+							$changelogHTML .= "<li><h2>Changelog For ".$key." update</h2></li>";
+							$changelogHTML .=  $value['releaseNotes'];
+							if(isset($value['downloadSize']))
+							{
+								$downloadSize += (int)$value['downloadSize'];
+								$finalInstallSize = (int)$value['installSize'];
+							}
+						}
+					}
+				}
+				?>
 				<li>
 					<h2>You last checked for updates
 						<span id="spanNumOfDaysUpdateSince" >
@@ -118,6 +151,11 @@
 					</h2>
 					<a class="link" onclick="installUpdates('','settingsInstallUpdate','');">Install Update</a>
 				</li>
+				<li id="installData" <?php if($levelOfUpdate == 0){echo "style='display: none;'";} ?> >
+					This will download ~<b id="installDataDownloadSize" ><?php echo formatBytes($downloadSize);?></b> of data <br>
+					The new install will take up an additional ~<b id="installDataTotalChange"><?php echo formatBytes($finalInstallSize - $currentVersionSize);?></b> of space<br>
+					The current drive has <b id="installDataCurrentFree"><?php echo shell_exec("df -h . | tail -1 | awk '{print $4}'"); ?></b> free space
+				</li>
 			<?php endif; ?>
 		</ul>
 	</div>
@@ -128,22 +166,7 @@
 	</div>
 	<div id="releaseNotesBody" <?php if($levelOfUpdate == 0){echo "style='display: none;'";} ?> class="settingsDiv" >
 		<ul class="settingsUl">
-		<?php
-		if(array_key_exists('versionList', $configStatic))
-		{
-			foreach ($configStatic['versionList'] as $key => $value)
-			{
-				$version = explode('.', $configStatic['version']);
-				$newestVersion = explode('.', $key);
-				$levelOfUpdate = findUpdateValue(count($newestVersion), count($version), $newestVersion, $version);
-				if($levelOfUpdate != 0)
-				{
-					echo "<li><h2>Changelog For ".$key." update</h2></li>";
-					echo $value['releaseNotes'];
-				}
-			}
-		}
-		?>
+		<?php echo $changelogHTML; ?>
 		</ul>
 	</div>
 </span>

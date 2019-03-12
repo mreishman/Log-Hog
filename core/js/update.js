@@ -262,6 +262,11 @@ function showPopupForUpdate(urlSend,whatAmIUpdating)
 			document.getElementById("releaseNotesBody").style.display = "block";
 			document.getElementById("releaseNotesBody").innerHTML = dataFromJSON.changeLog;
 			document.getElementById("settingsInstallUpdate").innerHTML = "<a class=\"link\" onclick=\"installUpdates(\""+urlSend+"\");\">Install "+dataFromJSON.versionNumber+" Update</a>";
+
+			document.getElementById("installDataDownloadSize").innerHTML = dataFromJSON.downloadTotal;
+			document.getElementById("installDataCurrentFree").innerHTML = dataFromJSON.currentAmmtFree;
+			document.getElementById("installDataTotalChange").innerHTML = dataFromJSON.totalSizeChange;
+			document.getElementById("installData").style.display = "block";
 		}
 		if(document.getElementById("checkForUpdateButton"))
 		{
