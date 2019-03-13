@@ -224,6 +224,10 @@ if($themesEnabled === "true")
 		"name" => "themes.js",
 		"type" => "js"
 	);
+	$arrayOfFiles[] = array(
+		"name" => "upgradeTheme.js",
+		"type" => "js"
+	);
 }
 if($oneLogEnable === "true")
 {

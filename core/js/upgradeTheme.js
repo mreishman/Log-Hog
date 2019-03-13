@@ -1,12 +1,12 @@
-var urlForSendMain0 = "themeChangeLogic.php?format=json";
-var urlForSendMain1 = "themeChangeLogicVerify.php?format=json";
+var urlForSendMainThemeChange0 = "themeChangeLogic.php?format=json";
+var urlForSendMainThemeChange1 = "themeChangeLogicVerify.php?format=json";
 var verifyCountSuccessThemeChange = 0;
 var verifyFileTimerThemeChange = null;
 var lockThemeLogic = false;
 
 function copyFilesThemeChange()
 {
-	var urlForSend = themeChangeLogicDirModifier+urlForSendMain0;
+	var urlForSend = themeChangeLogicDirModifier+urlForSendMainThemeChange0;
 	var dataSend = {};
 	$.ajax({
 		url: urlForSend,
@@ -41,7 +41,7 @@ function verifyFilePollThemeChange(version)
 	if(lockThemeLogic === false)
 	{
 		lockThemeLogic = true;
-		var urlForSend = themeChangeLogicDirModifier + urlForSendMain1;
+		var urlForSend = themeChangeLogicDirModifier + urlForSendMainThemeChange1;
 		var data = {version};
 		(function(_data){
 			$.ajax({

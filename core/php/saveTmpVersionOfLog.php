@@ -63,6 +63,6 @@ else
 }
 if(is_dir("../../".$location))
 {
-	file_put_contents("../../".$location."Backup".$fileName."-_-TIME-_-".$currentTimeStamp, $fileContents);
+	file_put_contents("../../".$location."Backup".$fileName."-".$currentTimeStamp, $fileContents);
 }
 echo json_encode(true);

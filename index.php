@@ -279,6 +279,11 @@ $externalLinkImage = generateImage(
 			</tr>
 		</table>
 		<script type="text/javascript">
+			var themeChangeLogicDirModifier = "core/php/";
+			function redirectToLocationFromUpgradeTheme()
+			{
+				location.reload();
+			}
 			document.addEventListener("DOMContentLoaded", function(event)
 			{
 				arrayOfJsFilesKeys = Object.keys(arrayOfJsFiles);
