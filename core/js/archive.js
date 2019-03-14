@@ -92,11 +92,11 @@ function archiveListActions(data, defaultText = "", type)
 			htmlForActionList += "<tr><td style=\"word-break:break-all\" >"+historyName+"</td><td>";
 			if("LogHog/"+data[historyKeys[historyKey]].replace(/_DIR_/g, "/") in arrayOfDataMain)
 			{
-				htmlForActionList += "<a class=\"linkSmall\" onclick=\"hideArchiveLog('"+data[historyKeys[historyKey]]+"')\" >Hide</a> ";
+				htmlForActionList += "<a class=\"linkSmall\" onclick=\"hideArchiveLog('"+escapeTheEscapes(data[historyKeys[historyKey]])+"')\" >Hide</a> ";
 			}
 			else
 			{
-				htmlForActionList += "<a class=\"linkSmall\" onclick=\"viewArchiveLog('"+data[historyKeys[historyKey]]+"', '"+type+"')\" >View</a> ";
+				htmlForActionList += "<a class=\"linkSmall\" onclick=\"viewArchiveLog('"+escapeTheEscapes(data[historyKeys[historyKey]])+"', '"+type+"')\" >View</a> ";
 			}
 			htmlForActionList += " <a onclick=\"deleteArchiveLog('"+data[historyKeys[historyKey]]+"','archive')\" class=\"linkSmall\" >Delete</a></td></tr>";
 		}

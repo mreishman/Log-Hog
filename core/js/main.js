@@ -68,6 +68,11 @@ var userPaused = false;
 var title = $("title").text();
 var verifyChangeCounter = 0;
 
+function escapeTheEscapes(keyName)
+{
+	return keyName.split("\\").join("\\\\");
+}
+
 function getRndInteger(min, max) {
     return Math.floor(Math.random() * (max - min) ) + min;
 }
@@ -488,7 +493,7 @@ function toggleDisplayOfNoLogs()
 			if(document.getElementById("noLogToDisplay").style.display !== "block")
 			{
 				document.getElementById("noLogToDisplay").style.display = "block";
-				
+
 			}
 			if(document.getElementById("log").style.display !== "none")
 			{
@@ -501,7 +506,7 @@ function toggleDisplayOfNoLogs()
 			if(document.getElementById("noLogToDisplay").style.display !== "none")
 			{
 				document.getElementById("noLogToDisplay").style.display = "none";
-				
+
 			}
 			if(document.getElementById("log").style.display !== "block")
 			{
@@ -558,7 +563,7 @@ function scrollPauseLogic(id)
 	{
 		var logTdCalc = document.getElementById("log"+id+"Td").getBoundingClientRect();  //const
 		var logCalc = document.getElementById("log"+id).getBoundingClientRect(); //changes
-		//do calc to see if scrolled, if scrolled don't scroll to bottom 
+		//do calc to see if scrolled, if scrolled don't scroll to bottom
 		if(logCalc.bottom > logTdCalc.bottom)
 		{
 			return false;
@@ -609,7 +614,7 @@ function tryToInsertBeforeLog(innerCount, stop, idCheck, item)
 		while(itemToBefore === null && innerCount < stop)
 		{
 			var itemCheck = $("#menu ." + idCheck + "Button");
-			if(itemCheck.length !== 0) 
+			if(itemCheck.length !== 0)
 			{
 				itemToBefore = itemCheck;
 			}
@@ -636,7 +641,7 @@ function tryToInsertAfterLog(innerCount, stop, idCheck, item)
 		while(itemToBefore === null && innerCount > 0)
 		{
 			var itemCheck = $("#menu ." + idCheck + "Button");
-			if(itemCheck.length !== 0) 
+			if(itemCheck.length !== 0)
 			{
 				itemToBefore = itemCheck;
 			}
@@ -1253,6 +1258,7 @@ function scrollToBottom(idNum)
 function clearLogInner(title)
 {
 	title = filterTitle(title);
+	title = escapeTheEscapes(title);
 	if(enableHistory === "true")
 	{
 		archiveAction(title, "tmp");
@@ -1420,6 +1426,7 @@ function deleteLog(title)
 		{
 			title = title.split(" | ")[0];
 		}
+		title = escapeTheEscapes(title);
 		title = title.trim();
 		if(enableHistory === "true")
 		{

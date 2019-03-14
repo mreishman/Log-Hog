@@ -331,7 +331,7 @@ function addFileFolderAjax(fileType, sentLocation)
 			);
 			location.href = "#rowNumber"+countOfWatchList;
 		}
-	});	
+	});
 }
 
 function updateSubFiles(id)
@@ -376,7 +376,7 @@ function updateSubFiles(id)
 				}
 			}
 		}
-	});	
+	});
 }
 
 function generateSubFiles(data)
@@ -404,7 +404,7 @@ function generateSubFiles(data)
 			var alertOnUpdate = defaultdefaultNewAddAlertEnabled;
 			var name = "";
 			var grepFilter = "";
-			
+
 			if(keyTwo in fileData)
 			{
 				if("Name" in fileData[keyTwo])
@@ -504,12 +504,14 @@ function addOther()
 
 function setNewFileFolderValue(newValue,hideFiles)
 {
+	newValue = escapeTheEscapes(newValue);
 	document.getElementById("inputFieldForFileOrFolder").value = newValue;
 	getCurrentFileFolderInfoKeyPress(hideFiles);
 }
 
 function expandFileFolderView(newValue, hideFiles)
 {
+	newValue = escapeTheEscapes(newValue);
 	document.getElementById("inputFieldForFileOrFolder").value = newValue;
 	getFileFolderData(newValue, hideFiles,newValue);
 }
@@ -574,7 +576,7 @@ function getFileFolderData(currentFolder, hideFiles, orgPath)
 				getFileFolderSubFunction(data, orgPath, hideFiles, joinChar, false);
 			}
 		}
-	});	
+	});
 }
 
 function getFileFolderDataMain(currentFolder, hideFiles, orgPath, currentRow)
@@ -601,7 +603,7 @@ function getFileFolderDataMain(currentFolder, hideFiles, orgPath, currentRow)
 				getFileFolderSubFunction(data, orgPath, hideFiles, joinChar, true);
 			}
 		}
-	});	
+	});
 }
 
 function updateFilterPopup()
@@ -639,13 +641,16 @@ function getFileFolderSubFunction(data, orgPath, hideFiles, joinChar, dropdown)
 	}
 	if(!hideFiles && document.getElementById("patternSelectPopup") === null)
 	{
-		if(!dropdown)
+		if(document.getElementById("folderNavUpHolder"))
 		{
-			document.getElementById("folderNavUpHolder").innerHTML += "<div style=\"float:right; margin-right: 20px\" class=\"selectDiv\"><select onchange=\"updateFilterPopup();\" id=\"patternSelectPopup\"  >"+generatePatternSelectNoOther(currentPatternSelect)+"</select></div>";
-		}
-		else
-		{
-			document.getElementById("folderNavUpHolder").innerHTML += "<div style=\"float:right; margin-right: 20px\" class=\"selectDiv\"><select onchange=\"updateDropdownPopup();\" id=\"patternSelectPopup\"  >"+generatePatternSelectNoOther(currentPatternSelect)+"</select></div>";
+			if(!dropdown)
+			{
+				document.getElementById("folderNavUpHolder").innerHTML += "<div style=\"float:right; margin-right: 20px\" class=\"selectDiv\"><select onchange=\"updateFilterPopup();\" id=\"patternSelectPopup\"  >"+generatePatternSelectNoOther(currentPatternSelect)+"</select></div>";
+			}
+			else
+			{
+				document.getElementById("folderNavUpHolder").innerHTML += "<div style=\"float:right; margin-right: 20px\" class=\"selectDiv\"><select onchange=\"updateDropdownPopup();\" id=\"patternSelectPopup\"  >"+generatePatternSelectNoOther(currentPatternSelect)+"</select></div>";
+			}
 		}
 	}
 	var listOfFileOrFolders = Object.keys(data["data"]);
@@ -1012,7 +1017,7 @@ function updateFileInfo(currentRow)
 	var listOfFilesName = document.getElementsByName("watchListKey"+currentRow+"FileInFolderName");
 	var listOfFilesAlert = document.getElementsByName("watchListKey"+currentRow+"FileInFolderAlert");
 	var listOfGrepFilters = document.getElementsByName("watchListKey"+currentRow+"GrepFilter");
-	
+
 	if(listOfFiles)
 	{
 		listOfFilesLength = listOfFiles.length;
@@ -1062,6 +1067,7 @@ function deleteRowFunctionPopup(currentRow, keyName = "")
 		if("removeFolder" in popupSettingsArray && popupSettingsArray.removeFolder === "true")
 		{
 			showPopup();
+			keyName = escapeTheEscapes(keyName);
 			document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class='settingsHeader' >Are you sure you want to remove this entry from your watchlist?</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>"+keyName+"</div><div><div class='link' onclick='deleteRowFunction("+currentRow+");hidePopup();' style='margin-left:125px; margin-right:50px;margin-top:35px;'>Yes</div><div onclick='hidePopup();' class='link'>No</div></div>";
 		}
 		else
@@ -1072,7 +1078,7 @@ function deleteRowFunctionPopup(currentRow, keyName = "")
 	catch(e)
 	{
 		eventThrowException(e);
-	}	
+	}
 }
 
 function deleteRowFunction(currentRow)
@@ -1305,7 +1311,7 @@ function getFileFolderList()
 				//show message for no watchlist info
 			}
 		}
-	});	
+	});
 }
 
 function ajaxAddRowFirstLoad(currentCount)
