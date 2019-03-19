@@ -11,10 +11,27 @@ $infoImage = generateImage(
 		"srcModifier"	=>	"../"
 	)
 );
-echo loadSentryData($sendCrashInfoJS, $branchSelected); ?>
-<script src="../core/js/jscolor.js?v=<?php echo $jsVersion?>"></script>
-<script src="../core/js/settings.js?v=<?php echo $jsVersion?>"></script>
-<script src="../core/js/settingsExt.js?v=<?php echo $jsVersion?>"></script>
+echo loadSentryData($sendCrashInfoJS, $branchSelected);
+getScripts(
+	array(
+		array(
+			"filePath"		=> "../core/js/jscolor.js",
+			"baseFilePath"	=> "core/js/jscolor.js",
+			"default"		=> $configStatic["version"]
+		),
+		array(
+			"filePath"		=> "../core/js/settings.js",
+			"baseFilePath"	=> "core/js/settings.js",
+			"default"		=> $configStatic["version"]
+		),
+		array(
+			"filePath"		=> "../core/js/settingsExt.js",
+			"baseFilePath"	=> "core/js/settingsExt.js",
+			"default"		=> $configStatic["version"]
+		)
+	)
+);
+?>
 <div id="menu">
 	<div onclick="goToUrl('../index.php');" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">
 		<?php echo generateImage(

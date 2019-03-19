@@ -24,13 +24,17 @@ require_once('../core/php/loadVars.php');
 	<title>Settings | Main</title>
 	<?php echo loadCSS("../",$baseUrl, $cssVersion);?>
 	<link rel="icon" type="image/png" href="../core/img/favicon.png" />
-	<script type="text/javascript" src="../core/js/jquery.js"></script>
+	<?php getScript(array(
+		"filePath"		=> "../core/js/jquery.js",
+		"baseFilePath"	=> "core/js/jquery.js",
+		"default"		=> $configStatic["version"]
+	)); ?>
 </head>
 <body>
 
-<?php require_once('header2.php');?>	
+<?php require_once('header2.php');?>
 
-	<div id="main" > 
+	<div id="main" >
 		<h1 style="width: 100%; text-align: center;  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black; " >You are on version <?php echo $configStatic['version'];?>!</h1>
 		<?php
 		$imageDirModifierAbout = "../";
@@ -38,9 +42,13 @@ require_once('../core/php/loadVars.php');
 		?>
 	</div>
 </body>
-<script src="../core/js/lazyLoadImg.js?v=<?php echo $jsVersion?>"></script>
+<?php getScript(array(
+	"filePath"		=> "../core/js/lazyLoadImg.js",
+	"baseFilePath"	=> "core/js/lazyLoadImg.js",
+	"default"		=> $configStatic["version"]
+)); ?>
 <script type="text/javascript">
-	
+
 $(document).ready(function()
 {
 	loadImgFromData("whatsNewImage");

@@ -26,8 +26,20 @@ require_once('../core/php/template/listOfFiles.php');
 	<title>Log-Hog | Edit Files</title>
 	<?php echo loadCSS("../",$baseUrl, $cssVersion);?>
 	<link rel="icon" type="image/png" href="../core/img/favicon.png" />
-	<script src="../core/js/jquery.js"></script>
-	<script src="../core/js/editFiles.js?v=<?php echo $jsVersion?>"></script>
+	<?php getScripts(
+		array(
+			array(
+				"filePath"		=> "../core/js/jquery.js",
+				"baseFilePath"	=> "core/js/jquery.js",
+				"default"		=> $configStatic["version"]
+			),
+			array(
+				"filePath"		=> "../core/js/editFiles.js",
+				"baseFilePath"	=> "core/js/editFiles.js",
+				"default"		=> $configStatic["version"]
+			)
+		)
+	); ?>
 </head>
 <body>
 	<?php require_once("../core/php/customCSS.php");?>
@@ -50,7 +62,7 @@ require_once('../core/php/template/listOfFiles.php');
 	        				?>
 	        				</a>
 	        				Files
-	        			</h2>        
+	        			</h2>
 	    			</div>
 				    <div id="scrollable" style="color:black;">
 				        <table style="font-size:135%" width="100%" align="center">

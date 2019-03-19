@@ -99,10 +99,24 @@ $externalLinkImage = generateImage(
 		var baseUrl = "<?php echo $baseUrl;?>";
 		var Rightclick_ID_list = [];
 	</script>
-	<?php getScript(
-		["core/js/lazyLoadImg.js",
-		"core/js/jquery.js",
-		"core/js/indexJs.js"]
+	<?php getScripts(
+		array(
+			array(
+				"filePath"		=> "core/js/lazyLoadImg.js",
+				"baseFilePath"	=> "core/js/lazyLoadImg.js",
+				"default"		=> $configStatic["version"]
+			),
+			array(
+				"filePath"		=> "core/js/jquery.js",
+				"baseFilePath"	=> "core/js/jquery.js",
+				"default"		=> $configStatic["version"]
+			),
+			array(
+				"filePath"		=> "core/js/indexJs.js",
+				"baseFilePath"	=> "core/js/indexJs.js",
+				"default"		=> $configStatic["version"]
+			)
+		)
 	); ?>
 	<?php
 		echo loadSentryData($sendCrashInfoJS, $branchSelected);

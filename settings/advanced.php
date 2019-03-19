@@ -36,9 +36,25 @@ $countConfig--;
 	<title>Settings | Advanced</title>
 	<?php echo loadCSS("../",$baseUrl, $cssVersion);?>
 	<link rel="icon" type="image/png" href="../core/img/favicon.png" />
-	<script src="../core/js/jquery.js"></script>
-	<script src="../core/js/advanced.js?v=<?php echo $jsVersion;?>"></script>
-	<script src="../core/js/resetSettingsJs.js?v=<?php echo $jsVersion;?>"></script>
+	<?php getScripts(
+		array(
+			array(
+				"filePath"		=> "../core/js/jquery.js",
+				"baseFilePath"	=> "core/js/jquery.js",
+				"default"		=> $configStatic["version"]
+			),
+			array(
+				"filePath"		=> "../core/js/advanced.js",
+				"baseFilePath"	=> "core/js/advanced.js",
+				"default"		=> $configStatic["version"]
+			),
+			array(
+				"filePath"		=> "../core/js/resetSettingsJs.js",
+				"baseFilePath"	=> "core/js/resetSettingsJs.js",
+				"default"		=> $configStatic["version"]
+			)
+		)
+	); ?>
 </head>
 <body>
 	<?php require_once('header.php'); ?>
@@ -100,7 +116,7 @@ $countConfig--;
 	</form>
 	</div>
 	<form id="devAdvanced2" action="../core/php/settingsSaveConfigStatic.php" method="post"> <!-- Reset update notification form -->
-		<input type="hidden" style="width: 400px;"  name="newestVersion" value="<?php echo $configStatic['version'];?>" > 
+		<input type="hidden" style="width: 400px;"  name="newestVersion" value="<?php echo $configStatic['version'];?>" >
 	</form>
 </body>
 <script type="text/javascript">

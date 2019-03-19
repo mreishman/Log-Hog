@@ -23,7 +23,11 @@ require_once('../core/php/loadVars.php');
 	<title>Settings | Main</title>
 	<?php echo loadCSS("../",$baseUrl, $cssVersion);?>
 	<link rel="icon" type="image/png" href="../core/img/favicon.png" />
-	<script src="../core/js/jquery.js"></script>
+	<?php getScript(array(
+		"filePath"		=> "../core/js/jquery.js",
+		"baseFilePath"	=> "core/js/jquery.js",
+		"default"		=> $configStatic["version"]
+	)); ?>
 </head>
 <body>
 
@@ -70,4 +74,8 @@ require_once('../core/php/loadVars.php');
 var logTrimType = "<?php echo $logTrimType; ?>";
 var saveButtonAlwaysVisible = "<?php echo $saveButtonAlwaysVisible; ?>";
 </script>
-<script src="../core/js/settingsMain.js?v=<?php echo $jsVersion?>"></script>
+<?php getScript(array(
+	"filePath"		=> "../core/js/settingsMain.js",
+	"baseFilePath"	=> "core/js/settingsMain.js",
+	"default"		=> $configStatic["version"]
+)); ?>

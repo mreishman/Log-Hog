@@ -333,13 +333,7 @@ foreach ($arrayOfFiles as $key => $value)
 	{
 		$filePath = "core/js/".$filePath;
 	}
-	$version = getFileTime($filePath);
-	if(!$version)
-	{
-		$version = $configStatic["version"];
-	}
-
-	$arrayOfFiles[$key]["ver"] = $version;
+	$arrayOfFiles[$key]["ver"] = getFileTime($filePath, $configStatic["version"]);
 }
 
 ?>

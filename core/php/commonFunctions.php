@@ -1,26 +1,30 @@
 <?php
 
-function getFileTime($filePath)
+function getFileTime($filePath, $default)
 {
 	$basePath = baseURL();
 	if(file_exists($basePath . $filePath))
 	{
-		return filemtime($basePath . $filePath);
+		$returnValue = filemtime($basePath . $filePath);
+		if($returnValue) //can be false
+		{
+			return $returnValue;
+		}
 	}
-	return false;
+	return $default;
 }
 
 function getScript($filePath)
 {
-	if(is_array($filePath))
+	echo "<script src=\"" . $filePath['filePath'] . "?v=" . getFileTime($filePath['baseFilePath'], $filePath['default']) . "\"></script>";
+}
+
+function getScripts($filePathArr)
+{
+	foreach ($filePathArr as $filePath)
 	{
-		foreach ($filePath as $onePath)
-		{
-			echo "<script src=\"" . $onePath . "?v=" . getFileTime($onePath) . "\"></script>";
-		}
-		return;
+		getScript($filePath);
 	}
-	echo "<script src=\"" . $filePath . "?v=" . getFileTime($filePath) . "\"></script>";
 }
 
 function filePermsDisplay($key)

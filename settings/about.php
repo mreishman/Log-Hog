@@ -42,9 +42,13 @@ require_once('../core/php/updateCheck.php');
 		?>
 	</div>
 </body>
-<script src="../core/js/lazyLoadImg.js?v=<?php echo $jsVersion?>"></script>
+<?php getScript(array(
+	"filePath"		=> "../core/js/lazyLoadImg.js",
+	"baseFilePath"	=> "core/js/lazyLoadImg.js",
+	"default"		=> $configStatic["version"]
+)); ?>
 <script type="text/javascript">
-	
+
 $(document).ready(function()
 {
 	loadImgFromData("mainMenuImage");

@@ -23,8 +23,20 @@ require_once('../core/php/updateCheck.php');
 	<title>Settings | Dev</title>
 	<?php echo loadCSS("../",$baseUrl, $cssVersion);?>
 	<link rel="icon" type="image/png" href="../core/img/favicon.png" />
-	<script src="../core/js/jquery.js"></script>
-	<script src="../core/js/devTools.js?v=<?php echo $jsVersion;?>"></script>
+	<?php getScripts(
+		array(
+			array(
+				"filePath"		=> "../core/js/jquery.js",
+				"baseFilePath"	=> "core/js/jquery.js",
+				"default"		=> $configStatic["version"]
+			),
+			array(
+				"filePath"		=> "../core/js/devTools.js",
+				"baseFilePath"	=> "core/js/devTools.js",
+				"default"		=> $configStatic["version"]
+			)
+		)
+	); ?>
 </head>
 <body>
 	<?php require_once('header.php'); ?>
