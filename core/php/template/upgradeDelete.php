@@ -1,11 +1,4 @@
 <!doctype html>
-<head>
-	<title>Log Hog | Updater</title>
-	<link rel="stylesheet" type="text/css" href="../../../core/template/theme.css">
-	<link rel="icon" type="image/png" href="../../../core/img/favicon.png" />
-	<script src="../../../core/js/jquery.js"></script>
-</head>
-<body>
 <?php
 $baseUrl = "../../../core/";
 if(file_exists('../../../local/layout.php'))
@@ -19,7 +12,7 @@ require_once($baseUrl.'conf/config.php');
 require_once('../../../core/php/commonFunctions.php');
 require_once('../../../core/conf/config.php');
 require_once('../../../core/php/configStatic.php');
-$currentTheme = loadSpecificVar($defaultConfig, $config, "currentTheme", "jsVersion");
+$currentTheme = loadSpecificVar($defaultConfig, $config, "currentTheme");
 if(is_dir('../../../local/'.$currentSelectedTheme.'/Themes/'.$currentTheme))
 {
 	require_once('../../../local/'.$currentSelectedTheme.'/Themes/'.$currentTheme."/defaultSetting.php");
@@ -45,7 +38,17 @@ if($totalCountOfFilesToDelete < 1)
 	exit();
 }
 ?>
-
+<head>
+	<title>Log Hog | Updater</title>
+	<link rel="stylesheet" type="text/css" href="../../../core/template/theme.css">
+	<link rel="icon" type="image/png" href="../../../core/img/favicon.png" />
+	<?php getScript(array(
+		"filePath"		=> "../../../core/js/jquery.js",
+		"baseFilePath"	=> "core/js/jquery.js",
+		"default"		=> $configStatic["version"]
+	)); ?>
+</head>
+<body>
 <div id="main">
 	<div class="settingsHeader" style="text-align: center;" >
 		<span id="titleHeader" >
@@ -118,9 +121,19 @@ if($totalCountOfFilesToDelete < 1)
 	</div>
 </div>
 </body>
-
-<script src="../../../core/js/settings.js?v=<?php echo $jsVersion?>"></script>
-<script src="../../../core/js/upgradeDelete.js?v=<?php echo $jsVersion?>"></script>
+<?php getScripts(array(
+		array(
+			"filePath"		=> "../../../core/js/settings.js",
+			"baseFilePath"	=> "core/js/settings.js",
+			"default"		=> $configStatic["version"]
+		),
+		array(
+			"filePath"		=> "../../../core/js/upgradeDelete.js",
+			"baseFilePath"	=> "core/js/upgradeDelete.js",
+			"default"		=> $configStatic["version"]
+		)
+	)
+); ?>
 <script type="text/javascript">
 	var arrayOfFilesToDelete = <?php echo json_encode($arrayOfFilesToDelete); ?>;
 	var totalCountOfFilesToDelete = <?php echo $totalCountOfFilesToDelete; ?>;

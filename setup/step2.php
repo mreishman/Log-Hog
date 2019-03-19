@@ -5,7 +5,7 @@ $baseUrl = "../local/".$currentSelectedTheme."/";
 $baseUrlImages = $baseUrl;
 require_once($baseUrl.'conf/config.php');
 require_once('setupProcessFile.php');
-
+require_once('../core/php/configStatic.php');
 if($setupProcess != "step2")
 {
 	$partOfUrl = clean_url($_SERVER['REQUEST_URI']);
@@ -25,8 +25,20 @@ require_once('../core/php/loadVars.php'); ?>
 <html>
 <head>
 	<title>Welcome!</title>
-	<script src="../core/js/jquery.js"></script>
-	<script src="../core/js/jscolor.js"></script>
+	<?php getScripts(
+		array(
+			array(
+				"filePath"		=> "../core/js/jquery.js",
+				"baseFilePath"	=> "core/js/jquery.js",
+				"default"		=> $configStatic["version"]
+			),
+			array(
+				"filePath"		=> "../core/js/jscolor.js",
+				"baseFilePath"	=> "core/js/jscolor.js",
+				"default"		=> $configStatic["version"]
+			)
+		)
+	); ?>
 	<?php require_once("../core/php/template/popup.php");
 	echo loadCSS("../",$baseUrl, $cssVersion);
 	echo loadSentryData($sendCrashInfoJS, $branchSelected);
@@ -59,7 +71,7 @@ require_once('../core/php/loadVars.php'); ?>
 </div>
 </body>
 <script type="text/javascript">
-	
+
 	var baseUrl = "<?php echo $baseUrlImages;?>";
 
 	function defaultSettings()
@@ -88,7 +100,23 @@ require_once('../core/php/loadVars.php'); ?>
 			)
 		)); ?>
 </script>
-<script src="../core/js/settings.js?v=<?php echo $jsVersion?>"></script>
-<script src="stepsJavascript.js?v=<?php echo $jsVersion?>"></script>
-<script src="../core/js/settingsMain.js?v=<?php echo $jsVersion?>"></script>
+<?php getScripts(
+	array(
+		array(
+			"filePath"		=> "../core/js/settings.js",
+			"baseFilePath"	=> "core/js/settings.js",
+			"default"		=> $configStatic["version"]
+		),
+		array(
+			"filePath"		=> "../core/js/settingsMain.js",
+			"baseFilePath"	=> "core/js/settingsMain.js",
+			"default"		=> $configStatic["version"]
+		),
+		array(
+			"filePath"		=> "stepsJavascript.js",
+			"baseFilePath"	=> "setup/stepsJavascript.js",
+			"default"		=> $configStatic["version"]
+		)
+	)
+); ?>
 </html>

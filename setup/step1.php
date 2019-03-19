@@ -132,8 +132,8 @@ require_once('../core/php/loadVars.php'); ?>
 			"default"		=> $configStatic["version"]
 		),
 		array(
-			"filePath"		=> "../core/js/stepsJavascript.js",
-			"baseFilePath"	=> "core/js/stepsJavascript.js",
+			"filePath"		=> "stepsJavascript.js",
+			"baseFilePath"	=> "setup/stepsJavascript.js",
 			"default"		=> $configStatic["version"]
 		),
 	)
