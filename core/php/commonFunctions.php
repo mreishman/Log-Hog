@@ -1,5 +1,28 @@
 <?php
 
+function getFileTime($filePath)
+{
+	$basePath = baseURL();
+	if(file_exists($basePath . $filePath))
+	{
+		return filemtime($basePath . $filePath);
+	}
+	return false;
+}
+
+function getScript($filePath)
+{
+	if(is_array($filePath))
+	{
+		foreach ($filePath as $onePath)
+		{
+			echo "<script src=\"" . $onePath . "?v=" . getFileTime($onePath) . "\"></script>";
+		}
+		return;
+	}
+	echo "<script src=\"" . $filePath . "?v=" . getFileTime($filePath) . "\"></script>";
+}
+
 function filePermsDisplay($key)
 {
 	$info = "u---------";
