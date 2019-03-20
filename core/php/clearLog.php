@@ -1,5 +1,10 @@
 <?php
-$verifyFile = trim($_POST['file']);
+$verifyFile = false;
+if(isset($_POST['file']))
+{
+	$verifyFile = trim($_POST['file']);
+}
+$type = trim($_POST['type']);
 $returnData = array(
 	"success"	=> "false",
 	"file"		=>	$verifyFile,
@@ -16,29 +21,55 @@ foreach($config['watchList'] as $value){
 	{
 		$path = preg_replace('/\/$/', '', $path);
 		$files = scandir($path);
-		if($files) {
+		if($files)
+		{
 			unset($files[0], $files[1]);
-			foreach($files as $k => $filename) {
+			foreach($files as $k => $filename)
+			{
 				$fullPath = $path . '/' . $filename;
-				if(preg_match('/' . $filter . '/S', $filename) && is_file($fullPath)){
-					if($verifyFile == $fullPath){
+				if(preg_match('/' . $filter . '/S', $filename) && is_file($fullPath))
+				{
+					if($verifyFile == $fullPath || $type === "clearAllLogs")
+					{
 						$returnData["fileFound"] = "true";
-						$command = "truncate -s 0 ".$fullPath;
-						shell_exec($command);
+						if($type === "deleteLog")
+						{
+							unlink($fullPath);
+						}
+						else
+						{
+							$command = "truncate -s 0 ".$fullPath;
+							shell_exec($command);
+						}
 						$returnData["success"] = "true";
-						break;
+						if($type !== "clearAllLogs")
+						{
+							break;
+						}
 					}
 				}
 			}
 		}
 	}
-	elseif(file_exists($path)){
-		if($path == $verifyFile){
+	elseif(file_exists($path))
+	{
+		if($path == $verifyFile || $type === "clearAllLogs")
+		{
 			$returnData["fileFound"] = "true";
-			$command = "truncate -s 0 ".$path;
-			shell_exec($command);
+			if($type === "deleteLog")
+			{
+				unlink($fullPath);
+			}
+			else
+			{
+				$command = "truncate -s 0 ".$path;
+				shell_exec($command);
+			}
 			$returnData["success"] = "true";
-			break;
+			if($type !== "clearAllLogs")
+			{
+				break;
+			}
 		}
 	}
 }

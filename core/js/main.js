@@ -1263,7 +1263,10 @@ function clearLogInner(title)
 	{
 		archiveAction(title, "tmp");
 	}
-	var data = {file: title};
+	var data = {
+		file: title,
+		type: "clearLog"
+	};
 	$.ajax({
 			url: "core/php/clearLog.php?format=json",
 			dataType: "json",
@@ -1369,8 +1372,10 @@ function deleteActionAfter()
 			resetOneLogData();
 		}
 		//Clear All Log Function (not delete actual file, just contents)
-		var urlForSend = "core/php/clearAllLogs.php?format=json";
-		var data = "";
+		var urlForSend = "core/php/clearLog.php?format=json";
+		var data = {
+			type: "clearAllLogs"
+		};
 		$.ajax({
 			url: urlForSend,
 			dataType: "json",
@@ -1432,9 +1437,12 @@ function deleteLog(title)
 		{
 			archiveAction(title, "tmp");
 		}
-		var urlForSend = "core/php/deleteLog.php?format=json";
+		var urlForSend = "core/php/clearLog.php?format=json";
 		title = title.replace(/\s/g, "");
-		var data = {file: title};
+		var data = {
+			file: title,
+			type: "deleteLog"
+		};
 		name = title;
 		$.ajax({
 			url: urlForSend,
