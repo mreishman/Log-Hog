@@ -63,16 +63,8 @@ $locationForSearchIndex = checkForSearchInstall($locationForSearch, "./");
 
 $locationForSeleniumMonitorIndex = checkForSeleniumMonitorInstall($locationForSeleniumMonitor, "./");
 
-/* USED IN ABOUT PAGE (template/about.php) */
-$aboutImage = generateImage(
-	$arrayOfImages["loadingImg"],
-	$imageConfig = array(
-		"class"		=>	"mainMenuImage",
-		"style"		=>	"margin-bottom: -40px;",
-		"data-src"	=>	"core/img/LogHog.png",
-		"width"		=>	"100px"
-	)
-);
+/* USED IN ABOUT PAGE (template/about.php) AND whatsNew (template/whatsNew.php) */
+$otherPageImageModifier = "";
 /* Override window config if multi log is disabled */
 if($enableMultiLog === "false")
 {

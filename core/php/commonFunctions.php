@@ -660,7 +660,12 @@ function generateImage($imageArray, $customConfig)
 		}
 		else
 		{
-			$image .=  " data-src=\"".$customConfig["data-src"]."\" ";
+			$image .=  " data-src=\"";
+			if(isset($customConfig["srcModifier"]))
+			{
+				$image .= $customConfig["srcModifier"];
+			}
+			$image .= $customConfig["data-src"]."\" ";
 		}
 	}
 	if(isset($customConfig["id"]))

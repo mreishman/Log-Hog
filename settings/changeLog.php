@@ -24,7 +24,11 @@ require_once('../core/php/updateCheck.php');
 	<title>Settings | Update</title>
 	<?php echo loadCSS("../",$baseUrl, $cssVersion);?>
 	<link rel="icon" type="image/png" href="../core/img/favicon.png" />
-	<script src="../core/js/jquery.js"></script>
+	<?php getScript(array(
+		"filePath"		=> "../core/js/jquery.js",
+		"baseFilePath"	=> "core/js/jquery.js",
+		"default"		=> $configStatic["version"]
+	)); ?>
 </head>
 <body>
 	<?php require_once('header2.php'); ?>

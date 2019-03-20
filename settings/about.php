@@ -23,21 +23,17 @@ require_once('../core/php/updateCheck.php');
 	<title>Settings | About</title>
 	<?php echo loadCSS("../",$baseUrl, $cssVersion);?>
 	<link rel="icon" type="image/png" href="../core/img/favicon.png" />
-	<script src="../core/js/jquery.js"></script>
+	<?php getScript(array(
+		"filePath"		=> "../core/js/jquery.js",
+		"baseFilePath"	=> "core/js/jquery.js",
+		"default"		=> $configStatic["version"]
+	)); ?>
 </head>
 <body>
 	<?php require_once('header2.php'); ?>
 	<div id="main">
 		<?php
-		$aboutImage = generateImage(
-			$arrayOfImages["loadingImg"],
-			$imageConfig = array(
-				"class"		=>	"mainMenuImage",
-				"style"		=>	"margin-bottom: -40px;",
-				"data-src"	=>	"../core/img/LogHog.png",
-				"width"		=>	"100px"
-			)
-		);
+		$otherPageImageModifier = "../";
 		require_once('../core/php/template/about.php');
 		?>
 	</div>

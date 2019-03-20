@@ -342,4 +342,11 @@ foreach ($arrayOfFiles as $key => $value)
 	var arrayOfJsFiles = <?php echo json_encode($arrayOfFiles); ?>;
 	var arrayOfJsFilesKeys = Object.keys(arrayOfJsFiles);
 	var lengthOfArrayOfJsFiles = arrayOfJsFilesKeys.length;
+	var onLoadJsFiles = {
+		watchlist: {
+			name: "core/js/settingsWatchlist.js",
+			type: "js",
+			ver : <?php echo getFIleTime("core/js/settingsWatchlist.js",$configStatic["version"]); ?>
+		}
+	};
 </script>

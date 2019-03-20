@@ -325,7 +325,8 @@ function toggleWatchListMenu(force = false)
 	globalForcePageNavigate = true;
 	if(typeof loadWatchList !== "function")
 	{
-		script("core/js/settingsWatchlist.js?v="+jsVersion);
+		let scriptToLoad = onLoadJsFiles["watchlist"];
+		script(scriptToLoad["name"] + scriptToLoad["ver"]);
 	}
 	else
 	{

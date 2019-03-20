@@ -155,10 +155,7 @@
 		<?php require_once("changelog.php"); ?>
 	</div>
 	<div id="fullScreenMenuWhatsNew" style="display: none;" >
-		<?php
-		$imageDirModifierAbout = "";
-		require_once('whatsNew.php');
-		?>
+		<?php require_once('whatsNew.php'); ?>
 	</div>
 	<div id="fullScreenMenuAbout" >
 		<?php require_once('about.php'); ?>
