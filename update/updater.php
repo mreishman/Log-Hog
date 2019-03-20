@@ -137,7 +137,11 @@ if(count($arrayOfVersions) === 0)
 	<title>Log Hog | Updater</title>
 	<?php echo loadCSS("../",$baseUrl, $cssVersion);?>
 	<link rel="icon" type="image/png" href="../core/img/favicon.png" />
-	<script src="../core/js/jquery.js"></script>
+	<?php getScript(array(
+		"filePath"		=> "../core/js/jquery.js",
+		"baseFilePath"	=> "core/js/jquery.js",
+		"default"		=> $configStatic["version"]
+	)); ?>
 </head>
 <body>
 	<div id="main">
@@ -182,10 +186,25 @@ if(count($arrayOfVersions) === 0)
 		<div id="innerSettingsText" class="settingsDiv" style="height: 75px; overflow-y: scroll;" ></div>
 	</div>
 </body>
-
-<script src="../core/js/settings.js?v=<?php echo $cssVersion?>"></script>
-<script src="../core/js/settingsExt.js?v=<?php echo $cssVersion?>"></script>
-<script src="updater.js?v=<?php echo $cssVersion?>"></script>
+<?php getScripts(
+	array(
+		array(
+			"filePath"		=> "../core/js/settings.js",
+			"baseFilePath"	=> "core/js/settings.js",
+			"default"		=> $configStatic["version"]
+		),
+		array(
+			"filePath"		=> "../core/js/settingsExt.js",
+			"baseFilePath"	=> "core/js/settingsExt.js",
+			"default"		=> $configStatic["version"]
+		),
+		array(
+			"filePath"		=> "updater.js",
+			"baseFilePath"	=> "update/updater.js",
+			"default"		=> $configStatic["version"]
+		)
+	)
+); ?>
 <script type="text/javascript">
 	var updateStatus = '<?php echo $updateStatus; ?>'
 	var versionToUpdateTo = "<?php echo $versionToUpdate; ?>";

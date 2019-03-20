@@ -202,7 +202,7 @@ if(file_exists($file))
 <html>
 <head>
     <title>Error Page</title>
-    <script src="core/js/jquery.js"></script>
+    <script src="core/js/jquery.js?v=<?php echo rand(5, 15); ?>"></script>
     <style type="text/css">
         .link
         {
@@ -251,7 +251,7 @@ if(file_exists($file))
         }
     </script>
     <?php if($jsForResetToDefaultLoaded): ?>
-        <script type="text/javascript" src="core/js/resetSettingsJs.js" ></script>
+        <script type="text/javascript" src="core/js/resetSettingsJs.js?v=<?php echo rand(5, 15); ?>" ></script>
     <?php endif;?>
 </head>
 <body>
@@ -260,7 +260,7 @@ if(file_exists($file))
     <div style="text-align: center; background-color: black; color: white; padding: 20px; min-height: 100px;" >
         <h1 style="line-height: 60px;"> <img style="vertical-align: middle;" src="core/img/redWarning.png" height="60px"> Error <?php echo $error ?> <img  style="vertical-align: middle;" src="core/img/redWarning.png" height="60px"> </h1>
         <h1> <?php echo $page ?> </h1>
-    </div> 
+    </div>
 <?php endif; ?>
 <table style="width: 100%;" >
     <tr class="tableRow">

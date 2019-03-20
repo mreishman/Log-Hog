@@ -1,5 +1,5 @@
 <?php
-$cssVersion = rand(0 , 9000000);
+$cssVersion = date("YmdHis");
 require_once('core/php/commonFunctions.php');
 
 $currentSelectedTheme = returnCurrentSelectedTheme();
@@ -24,7 +24,11 @@ require_once('core/php/loadVars.php');
 <head>
 	<title>Static Update Page</title>
 	<?php echo loadCSS("",$baseUrl, $cssVersion);?>
-	<script src="core/js/jquery.js"></script>
+	<?php getScript(array(
+		"filePath"		=> "core/js/jquery.js",
+		"baseFilePath"	=> "core/js/jquery.js",
+		"default"		=> $configStatic["version"]
+	)); ?>
 	<link rel="icon" type="image/png" href="core/img/favicon.png" />
 </head>
 <body>
@@ -33,11 +37,27 @@ require_once('core/php/loadVars.php');
 	</div>
 </body>
 </html>
-<script src="core/js/update.js?v=<?php echo $cssVersion?>"></script>
-<script src="core/js/settingsExt.js?v=<?php echo $cssVersion?>"></script>
-<script src="core/js/lazyLoadImg.js?v=<?php echo $cssVersion?>"></script>
+<?php getScripts(
+	array(
+		array(
+			"filePath"		=> "core/js/update.js",
+			"baseFilePath"	=> "core/js/update.js",
+			"default"		=> $configStatic["version"]
+		),
+		array(
+			"filePath"		=> "core/js/settingsExt.js",
+			"baseFilePath"	=> "core/js/settingsExt.js",
+			"default"		=> $configStatic["version"]
+		),
+		array(
+			"filePath"		=> "core/js/lazyLoadImg.js",
+			"baseFilePath"	=> "core/js/lazyLoadImg.js",
+			"default"		=> $configStatic["version"]
+		)
+	)
+); ?>
 <script type="text/javascript">
-	
+
 $(document).ready(function()
 {
 	loadImgFromData("updateImg");

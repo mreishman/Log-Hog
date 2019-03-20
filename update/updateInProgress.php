@@ -13,7 +13,11 @@ $cssVersion = date("YmdHis");
 	<title>Log Hog | Updater</title>
 	<?php echo loadCSS("../",$baseUrl, $cssVersion);?>
 	<link rel="icon" type="image/png" href="../core/img/favicon.png" />
-	<script src="../core/js/jquery.js"></script>
+	<?php getScript(array(
+		"filePath"		=> "../core/js/jquery.js",
+		"baseFilePath"	=> "core/js/jquery.js",
+		"default"		=> $configStatic["version"]
+	)); ?>
 </head>
 <body>
 
@@ -76,8 +80,20 @@ $cssVersion = date("YmdHis");
 		</div>
 	</div>
 </div>
-<script src="../core/js/settings.js?v=<?php echo $cssVersion?>"></script>
-<script src="../core/js/updateInProgress.js?v=<?php echo $cssVersion?>"></script>
+<?php getScripts(
+	array(
+		array(
+			"filePath"		=> "../core/js/settings.js",
+			"baseFilePath"	=> "core/js/settings.js",
+			"default"		=> $configStatic["version"]
+		),
+		array(
+			"filePath"		=> "../core/js/updateInProgress.js",
+			"baseFilePath"	=> "core/js/updateInProgress.js",
+			"default"		=> $configStatic["version"]
+		)
+	)
+); ?>
 <script type="text/javascript">
 <?php echo "var currentPercent = parseInt(".$updateProgress['percent'].");";?>
 </script>
