@@ -1,24 +1,9 @@
 #menu, .menu {
-  position: absolute;
-  width: 100%;
-  z-index: 20;
   background: #191964;
-  padding: 0.5em 1em;
-  overflow-y: auto;
-}
-#menu .index, .menu .index {
-  padding: 0.5em 0 0.5em 1em;
 }
 #menu a, .menu a {
-  display: inline-block;
-  margin: 0.5em 0;
   background: #2A90EF;
-  cursor: pointer;
   color: white;
-}
-#menu a .menuCounter, .menu a .menuCounter {
-  padding-right: 1em;
-  display: inline-block;
 }
 #menu a.updated, .menu a.updated {
   background: #912A2C;
@@ -26,9 +11,6 @@
 }
 #menu a.updated:hover, .menu a.updated:hover {
   background: #FFDDFF;
-}
-#menu a:not(.index), .menu a:not(.index) {
-  padding: 0.5em 1em;
 }
 #menu a:hover, .menu a:hover {
   color: black;
@@ -40,23 +22,12 @@
 }
 
 #menu2 {
-  position: absolute;
-  width: 100%;
-  z-index: 10;
   background: #3a3a8e;
-  padding: 0.25em 0.5em;
   border-bottom: 1px solid white;
-  overflow-y: auto;
-  overflow-x: hidden;
-  top: 55px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
 }
 #menu2 a {
-  display: inline-block;
-  margin: 0.5em 0;
   background: #2A90EF;
-  cursor: pointer;
-  padding: 0.5em 1em;
   color: white;
 }
 #menu2 a:hover {
@@ -91,40 +62,22 @@
 }
 
 .linkSmallHover {
-  display: inline-block;
-  padding: 3px 5px;
-  margin: 1px;
-  cursor: default;
-  line-height: 100%;
   color: black;
   background: white;
   border: 1px solid black;
 }
 
-.settingsHeaderButtons {
-  float: right;
-  margin-top: -4px;
-}
-
 #log {
-  padding: 1em 0;
   color: white;
 }
 
 #titleContainer {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
   color: black;
   background: #CCC;
-  padding: 0 1em;
-  line-height: 2em;
 }
 
 .backgroundForSideBarMenu {
   background: #CCC;
-  overflow-y: auto;
 }
 
 .popupForInfo {
@@ -151,7 +104,6 @@
   border-bottom: 1px solid black;
   background: white;
   color: black;
-  text-align: center;
 }
 
 .currentWindowNumSelected {
@@ -159,11 +111,6 @@
   background: black;
   border-top: 1px solid black;
   border-bottom: 1px solid black;
-  text-align: center;
-}
-
-#title {
-  display: inline-block;
 }
 
 .settingsDiv {

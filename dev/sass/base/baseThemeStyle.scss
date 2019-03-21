@@ -1,26 +1,9 @@
 #menu, .menu {
-	position: absolute;
-	width: 100%;
-	z-index: 20;
 	background: $backgroundColor;
-	padding: .5em 1em;
-	overflow-y: auto;
-
-	.index{
-		padding: .5em 0 .5em 1em;
-	}
 
 	a{
-		display: inline-block;
-		margin: .5em 0;
 		background: $linkColor;
-		cursor: pointer;
 		color: $linkFontColor;
-
-		.menuCounter{
-			padding-right: 1em;
-			display: inline-block;
-		}
 
 		&.updated {
 			background: $updated;
@@ -29,10 +12,6 @@
 			&:hover {
 				background: $updateHighlight;
 			}
-		}
-
-		&:not(.index) {
-			padding: .5em 1em;
 		}
 
 		&:hover{
@@ -48,23 +27,12 @@
 }
 
 #menu2 {
-	position: absolute;
-	width: 100%;
-	z-index: 10;
 	background: $backgroundColorTwo;
-	padding: .25em .5em;
 	border-bottom: 1px solid $mainColor;
-	overflow-y: auto;
-	overflow-x: hidden;
-	top: 55px;
 	box-shadow: 0 5px 10px rgba(0,0,0,.5);
 
 	a{
-		display: inline-block;
-		margin: .5em 0;
 		background: $linkColor;
-		cursor: pointer;
-		padding: .5em 1em;
 		color: $linkFontColor;
 
 		&:hover{
@@ -103,40 +71,22 @@
 }
 
 .linkSmallHover {
-	display: inline-block;
-	padding: 3px 5px;
-	margin: 1px;
-	cursor: default;
-	line-height: 100%;
 	color: $mainAltColor;
 	background: $mainColor;
 	border: 1px solid $mainAltColor;
 }
 
-.settingsHeaderButtons{
-	float: right;
-	margin-top: -4px;
-}
-
 #log {
-	padding: 1em 0;
 	color: $mainColor;
 }
 
 #titleContainer {
-	position: fixed;
-	left: 0;
-	bottom: 0;
-	width: 100%;
 	color: $mainAltColor;
 	background: $backgroundColorAlt;
-	padding: 0 1em;
-	line-height: 2em;
 }
 
 .backgroundForSideBarMenu {
 	background: $backgroundColorAlt;
-	overflow-y: auto;
 }
 
 .popupForInfo {
@@ -163,7 +113,6 @@
 	border-bottom: 1px solid $mainAltColor;
 	background: $mainColor;
 	color: $mainAltColor;
-	text-align: center;
 }
 
 .currentWindowNumSelected {
@@ -171,11 +120,6 @@
 	background: $mainAltColor;
 	border-top: 1px solid $mainAltColor;
 	border-bottom: 1px solid $mainAltColor;
-	text-align: center;
-}
-
-#title{
-	display: inline-block;
 }
 
 .settingsDiv {
@@ -221,7 +165,7 @@
 	button:hover{
 		border: 1px solid $mainAltColor;
 		color: $mainAltColor;
-		background: $mainColor; 
+		background: $mainColor;
 	}
 }
 

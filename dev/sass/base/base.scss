@@ -11,6 +11,57 @@ div {
 	box-sizing: border-box;
 }
 
+#menu, .menu {
+  position: absolute;
+  width: 100%;
+  z-index: 20;
+  padding: .5em 1em;
+  overflow-y: auto;
+
+  .index{
+    padding: .5em 0 .5em 1em;
+  }
+
+  a{
+    display: inline-block;
+    margin: .5em 0;
+    cursor: pointer;
+
+    .menuCounter{
+      padding-right: 1em;
+      display: inline-block;
+    }
+
+    &:not(.index) {
+      padding: .5em 1em;
+    }
+  }
+}
+
+#menu, .backgroundForMenus {
+  -webkit-transition: 0.25s ease-in-out;
+  -moz-transition: 0.25s ease-in-out;
+  -ms-transition: 0.25s ease-in-out;
+  -o-transition: 0.25s ease-in-out;
+}
+
+#menu2 {
+  position: absolute;
+  width: 100%;
+  z-index: 10;
+  padding: .25em .5em;
+  overflow-y: auto;
+  overflow-x: hidden;
+  top: 55px;
+
+  a{
+    display: inline-block;
+    margin: .5em 0;
+    cursor: pointer;
+    padding: .5em 1em;
+  }
+}
+
 .dropdownMenu {
   margin-top: 10px;
   display: none;
@@ -96,8 +147,25 @@ div {
 	overflow: auto;
 }
 
-#log div {
-	padding: .25em 1em;
+.linkSmallHover {
+  display: inline-block;
+  padding: 3px 5px;
+  margin: 1px;
+  cursor: default;
+  line-height: 100%;
+}
+
+.settingsHeaderButtons{
+  float: right;
+  margin-top: -4px;
+}
+
+#log {
+  padding: 1em 0;
+
+  div {
+    padding: .25em 1em;
+  }
 }
 
 .log div , .log tr, .log tr td {
@@ -105,6 +173,19 @@ div {
   -moz-transition: 1s ease-in-out;
   -ms-transition: 1s ease-in-out;
   -o-transition: 1s ease-in-out;
+}
+
+#title{
+  display: inline-block;
+}
+
+#titleContainer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 0 1em;
+  line-height: 2em;
 }
 
 .led-red {
@@ -298,8 +379,12 @@ div.sidebarLeft {
 	cursor: pointer;
 }
 
-.backgroundForSideBarMenu::-webkit-scrollbar {
-	width: 1px;
+.backgroundForSideBarMenu {
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 1px;
+  }
 }
 
 #fullScreenMenu {
@@ -360,13 +445,6 @@ div.sidebarLeft {
 .SaveGroupLog .settingsDiv {
   filter: invert(35%);
   opacity: 0.5;
-}
-
-#menu, .backgroundForMenus {
-  -webkit-transition: 0.25s ease-in-out;
-  -moz-transition: 0.25s ease-in-out;
-  -ms-transition: 0.25s ease-in-out;
-  -o-transition: 0.25s ease-in-out;
 }
 
 .backgroundButtonForColor {
@@ -461,10 +539,12 @@ div.sidebarLeft {
 }
 .currentWindowNumSelected{
   cursor: default;
+  text-align: center;
 }
 
 .sidebarCurrentWindowNum{
   cursor: pointer;
+  text-align: center;
 }
 
 .menu a{
