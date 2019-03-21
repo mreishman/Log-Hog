@@ -1,14 +1,14 @@
 body {
-  color: white;
-  background-color: #191919;
-  font-family: monospace;
-  padding: 0;
-  margin: 0;
+	color: white;
+	background-color: #191919;
+	font-family: monospace;
+	padding: 0;
+	margin: 0;
   height: 100%;
 }
 
 div {
-  box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 .dropdownMenu {
@@ -51,55 +51,56 @@ div {
   padding-bottom: 0;
 }
 
-.notificationText {
+.notificationText{
   padding-left: 5px;
-  word-wrap: break-word;
+  word-wrap:break-word;
   word-break: break-all;
 }
 
 #storage {
-  display: none;
+	display: none;
 }
 
-.noticeBar {
+.noticeBar{
   width: 100%;
   background-color: black;
   text-align: center;
   line-height: 200%;
 }
 
-.menuImage {
-  vertical-align: middle;
-  -webkit-transition: 0.3s ease-in-out;
-  transition: 0.3s ease-in-out;
-  -webkit-transform: scale(1);
-  transform: scale(1);
-}
-.menuImage:hover {
-  -webkit-transform: scale(1.3);
-  transform: scale(1.3);
+.menuImage{
+	vertical-align: middle;
+	-webkit-transition: .3s ease-in-out;
+	transition: .3s ease-in-out;
+	-webkit-transform: scale(1);
+	transform: scale(1);
+
+  &:hover{
+    -webkit-transform: scale(1.3);
+    transform: scale(1.3);
+  }
 }
 
-.menuImageDiv {
-  display: inline-block;
-  cursor: pointer;
-  height: 30px;
-  width: 30px;
+.menuImageDiv{
+	display: inline-block;
+	cursor: pointer;
+	height: 30px;
+	width: 30px;
 }
 
 #main {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  overflow: auto;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	overflow: auto;
 }
 
 #log div {
-  padding: 0.25em 1em;
+	padding: .25em 1em;
 }
 
-.log div, .log tr, .log tr td {
+.log div , .log tr, .log tr td {
   -webkit-transition: 1s ease-in-out;
   -moz-transition: 1s ease-in-out;
   -ms-transition: 1s ease-in-out;
@@ -123,53 +124,26 @@ div {
 }
 
 @-webkit-keyframes blinkRed {
-  from {
-    background-color: #F00;
-  }
-  50% {
-    background-color: #A00;
-    box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px, rgba(255, 0, 0, 0.5) 0 2px 0;
-  }
-  to {
-    background-color: #F00;
-  }
+    from { background-color: #F00; }
+    50% { background-color: #A00; box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px, rgba(255, 0, 0, 0.5) 0 2px 0;}
+    to { background-color: #F00; }
 }
 @-moz-keyframes blinkRed {
-  from {
-    background-color: #F00;
-  }
-  50% {
-    background-color: #A00;
-    box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px, rgba(255, 0, 0, 0.5) 0 2px 0;
-  }
-  to {
-    background-color: #F00;
-  }
+    from { background-color: #F00; }
+    50% { background-color: #A00; box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px, rgba(255, 0, 0, 0.5) 0 2px 0;}
+    to { background-color: #F00; }
 }
 @-o-keyframes blinkRed {
-  from {
-    background-color: #F00;
-  }
-  50% {
-    background-color: #A00;
-    box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px, rgba(255, 0, 0, 0.5) 0 2px 0;
-  }
-  to {
-    background-color: #F00;
-  }
+    from { background-color: #F00; }
+    50% { background-color: #A00; box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px, rgba(255, 0, 0, 0.5) 0 2px 0;}
+    to { background-color: #F00; }
 }
 @keyframes blinkRed {
-  from {
-    background-color: #F00;
-  }
-  50% {
-    background-color: #A00;
-    box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px, rgba(255, 0, 0, 0.5) 0 2px 0;
-  }
-  to {
-    background-color: #F00;
-  }
+    from { background-color: #F00; }
+    50% { background-color: #A00; box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px, rgba(255, 0, 0, 0.5) 0 2px 0;}
+    to { background-color: #F00; }
 }
+
 .led-yellow {
   margin: 0 auto;
   width: 24px;
@@ -187,53 +161,26 @@ div {
 }
 
 @-webkit-keyframes blinkYellow {
-  from {
-    background-color: #FF0;
-  }
-  50% {
-    background-color: #AA0;
-    box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #808002 0 -1px 9px, #FF0 0 2px 0;
-  }
-  to {
-    background-color: #FF0;
-  }
+    from { background-color: #FF0; }
+    50% { background-color: #AA0; box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #808002 0 -1px 9px, #FF0 0 2px 0; }
+    to { background-color: #FF0; }
 }
 @-moz-keyframes blinkYellow {
-  from {
-    background-color: #FF0;
-  }
-  50% {
-    background-color: #AA0;
-    box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #808002 0 -1px 9px, #FF0 0 2px 0;
-  }
-  to {
-    background-color: #FF0;
-  }
+    from { background-color: #FF0; }
+    50% { background-color: #AA0; box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #808002 0 -1px 9px, #FF0 0 2px 0; }
+    to { background-color: #FF0; }
 }
 @-o-keyframes blinkYellow {
-  from {
-    background-color: #FF0;
-  }
-  50% {
-    background-color: #AA0;
-    box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #808002 0 -1px 9px, #FF0 0 2px 0;
-  }
-  to {
-    background-color: #FF0;
-  }
+    from { background-color: #FF0; }
+    50% { background-color: #AA0; box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #808002 0 -1px 9px, #FF0 0 2px 0; }
+    to { background-color: #FF0; }
 }
 @keyframes blinkYellow {
-  from {
-    background-color: #FF0;
-  }
-  50% {
-    background-color: #AA0;
-    box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #808002 0 -1px 9px, #FF0 0 2px 0;
-  }
-  to {
-    background-color: #FF0;
-  }
+    from { background-color: #FF0; }
+    50% { background-color: #AA0; box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #808002 0 -1px 9px, #FF0 0 2px 0; }
+    to { background-color: #FF0; }
 }
+
 .led-green {
   margin: 0 auto;
   width: 24px;
@@ -268,90 +215,91 @@ div {
   transition: visibility 0s 1s, opacity 1s linear;
 }
 
-#menuButtons {
-  display: block;
-  padding: 5px 5px 10px 5px;
+#menuButtons{
+	display: block;
+	padding: 5px 5px 10px 5px;
 }
 
 div#fixed {
-  padding-bottom: 10px;
+    padding-bottom: 10px;
 }
 
 div#scrollable {
-  overflow-y: scroll;
-  height: 80%;
+    overflow-y: scroll;
+	height: 80%;
 }
 
 div.sidebarLeft {
-  padding: 0;
-  padding-bottom: 60px;
-  border: 4px solid #222222;
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
+	padding: 0;
+    padding-bottom: 60px;
+    border: 4px solid  #222222;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
 }
 
 .colorSelectorDiv {
-  width: 20px;
-  height: 20px;
-  display: inline-block;
+	width: 20px;
+	height: 20px;
+	display: inline-block;
 }
 
-.inner-triangle {
-  border-left: 7px solid transparent;
-  border-bottom: 7px solid white;
-  height: 0;
-  width: 0;
-  position: relative;
-  right: 0;
-  z-index: 2;
-  top: 22px;
-  left: 11px;
+.inner-triangle{
+    border-left: 7px solid transparent;
+    border-bottom: 7px solid white;
+    height: 0;
+    width: 0;
+    position: relative;
+    right: 0;
+    z-index: 2;
+    top: 22px;
+    left: 11px;
 }
 
-.inner-triangle-2 {
-  border-left: 5px solid transparent;
-  border-bottom: 5px solid black;
-  height: 0;
-  width: 0;
-  position: relative;
-  right: 0;
-  z-index: 5;
-  top: 30px;
-  left: 13px;
+.inner-triangle-2{
+    border-left: 5px solid transparent;
+    border-bottom: 5px solid black;
+    height: 0;
+    width: 0;
+    position: relative;
+    right: 0;
+    z-index: 5;
+    top: 30px;
+    left: 13px;
 }
 
-.errorMessageLog {
-  font-size: 200%;
-  text-align: center;
-  line-height: 200%;
+.errorMessageLog{
+	font-size: 200%;
+	text-align: center;
+	line-height: 200%;
 }
 
-.errorMessageRedBG {
-  background-color: red;
+.errorMessageRedBG{
+	background-color: red;
   color: black;
 }
 
-.errorMessageGreenBG {
-  background-color: green;
+.errorMessageGreenBG{
+	background-color: green;
   color: black;
 }
 
 .settingsUl {
-  list-style: none;
-}
-.settingsUl li {
-  padding: 10px;
+	list-style: none;
+
+  li {
+    padding: 10px;
+  }
 }
 
-.deleteIconPosition {
-  position: relative;
-  cursor: pointer;
+.deleteIconPosition{
+	position: relative;
+	cursor: pointer;
 }
 
 .backgroundForSideBarMenu::-webkit-scrollbar {
-  width: 1px;
+	width: 1px;
 }
 
 #fullScreenMenu {
@@ -367,7 +315,8 @@ div.sidebarLeft {
   cursor: pointer;
 }
 
-.settingsUlFS {
+.settingsUlFS
+{
   width: 200px;
   position: absolute;
   bottom: 0;
@@ -431,47 +380,51 @@ div.sidebarLeft {
   cursor: pointer;
 }
 
-.divAroundColors {
+.divAroundColors
+{
   display: inline-grid;
   padding: 0 4px;
-}
-.divAroundColors .backgroundButtonForColor {
-  top: -11px;
-}
-.divAroundColors .inner-triangle {
-  top: 7px;
-}
-.divAroundColors .inner-triangle-2 {
-  top: 14px;
+
+  .backgroundButtonForColor {
+    top: -11px;
+  }
+
+  .inner-triangle{
+    top: 7px;
+  }
+
+  .inner-triangle-2{
+    top: 14px;
+  }
 }
 
-.smallBlur {
+.smallBlur{
   -webkit-backdrop-filter: blur(2px);
   backdrop-filter: blur(2px);
 }
 
-.bigBlur {
+.bigBlur{
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
 }
 
-.noNotificationsNotification {
+.noNotificationsNotification{
   padding: 20px;
   display: inline-block;
   border-radius: 5px;
   font-size: 200%;
-  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 5px 5px rgba(0,0,0,.5);
 }
 
-.notificationDiv {
+.notificationDiv{
   padding: 10px 3px;
 }
 
-.inlineNotificationDiv {
+.inlineNotificationDiv{
   padding: 5px 3px;
 }
 
-.notificationContainerInlineButtons {
+.notificationContainerInlineButtons{
   margin-top: 5px;
 }
 
@@ -480,17 +433,19 @@ div.sidebarLeft {
   font-size: 150%;
 }
 
-.notificationPreviewLog {
+.notificationPreviewLog
+{
   overflow-y: auto;
   white-space: pre-wrap;
   width: 100%;
   word-break: break-word;
-}
-.notificationPreviewLog .logCode {
-  display: none;
+
+  .logCode{
+    display: none;
+  }
 }
 
-#inlineNotifications {
+#inlineNotifications{
   display: none;
   position: absolute;
   width: 500px;
@@ -498,33 +453,30 @@ div.sidebarLeft {
   z-index: 100;
 }
 
-.inlineNotificationsClass {
+.inlineNotificationsClass{
   border: 1px solid white;
   border-radius: 5px;
   background-color: black;
   color: white;
 }
-
-.currentWindowNumSelected {
+.currentWindowNumSelected{
   cursor: default;
 }
 
-.sidebarCurrentWindowNum {
+.sidebarCurrentWindowNum{
   cursor: pointer;
 }
 
-.menu a {
+.menu a{
   word-break: break-all;
   width: 150px;
 }
 
-.selectForGroupHeader {
+.selectForGroupHeader{
   height: 16px;
   overflow: hidden;
 }
 
-.selectForGroupHeader option {
+.selectForGroupHeader option{
   display: inline-block;
 }
-
-/*# sourceMappingURL=base.css.map */
