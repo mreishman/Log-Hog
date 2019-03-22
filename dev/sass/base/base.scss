@@ -567,8 +567,11 @@ div.sidebarLeft {
   margin-top: 5px;
 }
 
+.menuTitle {
+   text-align: center;
+}
+
 .fullScreenMenuLeftSidebar .menuTitle {
-  text-align: center;
   font-size: 150%;
 }
 
@@ -704,4 +707,41 @@ div.sidebarLeft {
 /* width */
 ::-webkit-scrollbar {
   width: 10px;
+}
+
+
+.notificationDiv, inlineNotificationDiv {
+  span:not(.linkSmall) {
+    width: 100%;
+
+    table {
+      width: 100%;
+      padding-top: 5px;
+      padding-bottom: 5px;
+
+      .actionView {
+        width: 30px;
+      }
+      .actionTime {
+        border-right: 1px solid black;
+        width: 75px;
+        cursor: default;
+      }
+      .actionLink {
+        width: 50px;
+      }
+      .actionLink2 {
+        width: 75px;
+      }
+      .actionNone {
+        cursor: default;
+      }
+    }
+  }
+}
+
+.buttonTable {
+  width: 100%;
+  padding-bottom: 3px;
+  padding-top: 3px;
 }

@@ -597,8 +597,11 @@ div.sidebarLeft {
   margin-top: 5px;
 }
 
-.fullScreenMenuLeftSidebar .menuTitle {
+.menuTitle {
   text-align: center;
+}
+
+.fullScreenMenuLeftSidebar .menuTitle {
   font-size: 150%;
 }
 
@@ -731,6 +734,38 @@ div.sidebarLeft {
 /* width */
 ::-webkit-scrollbar {
   width: 10px;
+}
+
+.notificationDiv span:not(.linkSmall), inlineNotificationDiv span:not(.linkSmall) {
+  width: 100%;
+}
+.notificationDiv span:not(.linkSmall) table, inlineNotificationDiv span:not(.linkSmall) table {
+  width: 100%;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.notificationDiv span:not(.linkSmall) table .actionView, inlineNotificationDiv span:not(.linkSmall) table .actionView {
+  width: 30px;
+}
+.notificationDiv span:not(.linkSmall) table .actionTime, inlineNotificationDiv span:not(.linkSmall) table .actionTime {
+  border-right: 1px solid black;
+  width: 75px;
+  cursor: default;
+}
+.notificationDiv span:not(.linkSmall) table .actionLink, inlineNotificationDiv span:not(.linkSmall) table .actionLink {
+  width: 50px;
+}
+.notificationDiv span:not(.linkSmall) table .actionLink2, inlineNotificationDiv span:not(.linkSmall) table .actionLink2 {
+  width: 75px;
+}
+.notificationDiv span:not(.linkSmall) table .actionNone, inlineNotificationDiv span:not(.linkSmall) table .actionNone {
+  cursor: default;
+}
+
+.buttonTable {
+  width: 100%;
+  padding-bottom: 3px;
+  padding-top: 3px;
 }
 
 /*# sourceMappingURL=base.css.map */

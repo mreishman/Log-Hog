@@ -4,7 +4,7 @@
 </ul>
 
 <ul id="aboutSubMenu" class="settingsUl fullScreenMenuUL settingsUlSub">
-	<li class="menuTitle" style="text-align: center;" >
+	<li class="menuTitle">
 		About
 	</li>
 	<li id="aboutSubMenuAbout" onclick="toggleAboutLogHog();" class="selected">
@@ -18,7 +18,7 @@
 	</li>
 </ul>
 <ul id="historySubMenu" class="settingsUl fullScreenMenuUL settingsUlSub" style="display: none;">
-	<li class="menuTitle" style="text-align: center;" >
+	<li class="menuTitle">
 		History
 	</li>
 	<li id="tempSaveHistory" onclick="toggleTmpSaveHistory();">
@@ -29,7 +29,7 @@
 	</li>
 </ul>
 <ul id="themeSubMenu" class="settingsUl fullScreenMenuUL settingsUlSub" style="display: none;">
-	<li class="menuTitle" style="text-align: center;" >
+	<li class="menuTitle">
 		Themes
 	</li>
 	<li id="themeSubMenuMainThemes" onclick="toggleMainThemes();" class="selected">
@@ -41,14 +41,14 @@
 	<li id="themeSubMenuColorScheme" onclick="toggleThemeColorScheme();">
 		Color Scheme
 	</li>
-	<li class="menuTitle" style="text-align: center;" >
+	<li class="menuTitle">
 	</li>
 	<li class="subMenuActionsColorScheme subMenuToggle" style="display: none;" onclick="addRowForFolderColorOptions();" >
 		Add Row
 	</li>
 </ul>
 <ul id="watchListSubMenu" class="settingsUl fullScreenMenuUL settingsUlSub" style="display: none;">
-	<li class="menuTitle" style="text-align: center;" >
+	<li class="menuTitle">
 		Watchlist
 	</li>
 	<li onclick="addFile();" >
@@ -74,7 +74,7 @@
 	<?php endif; ?>
 </ul>
 <ul id="settingsSubMenu" class="settingsUl fullScreenMenuUL settingsUlSub" style="display: none;">
-	<li class="menuTitle" style="text-align: center;">
+	<li class="menuTitle">
 		Settings
 	</li>
 	<li class="menuTitle fullScreenMenuText subMenuTitle">
