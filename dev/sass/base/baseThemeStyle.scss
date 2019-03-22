@@ -91,13 +91,8 @@
 
 .popupForInfo {
 	background: $backgroundColorAlt;
-	z-index: 10;
-	position: absolute;
 	border: 1px solid $mainColor;
 	color: $mainAltColor;
-	width: fit-content;
-	padding: 5px;
-	word-break: break-all;
 }
 
 .currentWindowNum {
@@ -125,8 +120,6 @@
 .settingsDiv {
 	background: $backgroundColorTwo;
 	border: 1px solid $mainColor;
-	margin: 10px;
-	margin-top: 0;
 }
 
 /*has to be here to override*/
@@ -142,23 +135,15 @@
 
 .settingsHeader {
 	background: $backgroundColor;
-	margin: 10px;
-	margin-bottom: 0;
 	color: $mainColor;
-	padding: 5px;
 
 	.linkSmall:hover{
 		border: 1px solid $mainAltColor;
 	}
 
 	button {
-		display: inline-block;
-		padding: 3px 5px;
-		margin: 1px;
 		background: $linkColor;
-		cursor: pointer;
 		border: solid 1px $mainColor;
-		line-height: 100%;
 		color: $mainColor;
 	}
 
@@ -173,34 +158,15 @@
 	color: $mainColor;
 }
 
-.updatingDiv p {
-	margin: 2px;
-	padding-left: 10px;
-	word-wrap: break-word;
-}
-
-.settingsBuffer {
-	width: 200px;
-	display: inline-block;
-}
-
 .link {
-	display: inline-block;
-	padding: .5em 1em;
 	background: $linkColor;
-	cursor: pointer;
 	border: solid 1px $mainColor;
 	color: $mainColor;
 }
 
 .linkSmall{
-	display: inline-block;
-	padding: 3px 5px;
-	margin: 1px;
 	background: $linkColor;
-	cursor: pointer;
 	border: solid 1px $mainColor;
-	line-height: 100%;
 	color: $mainColor;
 }
 
@@ -210,28 +176,12 @@
 }
 
 .context-menu {
-  display: none;
-  position: absolute;
-  z-index: 30;
   background: $linkColor;
   border: 1px solid $mainColor;
   box-shadow: 0 0 5px $mainAltColor;
 }
 
-.context-menu__items{
-	list-style: none;
-	margin: 0;
-	padding: 0;
-	margin-top: 0;
-}
-
-.context-menu--active {
-  display: block;
-}
-
 .context-menu__item{
-	padding: 5px 3px;
-	cursor: pointer;
 
 	&:hover{
 		background: $mainColor;
@@ -247,21 +197,12 @@
 }
 
 .dropdown-content {
-    display: none;
-    position: absolute;
     background: $linkColor;
-    overflow: auto;
     border: 1px solid $mainColor;
  	box-shadow: 0 0 5px $mainAltColor;
-    z-index: 30;
-    margin-left: 12px;
-    margin-top: -70px;
 
     a {
 	    color: $mainColor;
-	    padding: 12px 16px;
-	    text-decoration: none;
-	    display: block;
 
 	    &:hover {
 		    color: $mainAltColor;
@@ -269,19 +210,7 @@
 	}
 }
 
-.dropdown-content__items{
-	list-style: none;
-	margin: 0;
-	padding: 0;
-}
-
-.dropdown-content--active {
-  display: block;
-}
-
 .dropdown-content__item{
-	padding: 5px 3px;
-	cursor: pointer;
 
 	&:hover{
 		background: $mainColor;
@@ -289,33 +218,21 @@
 }
 
 .loadingSpinner{
-	padding: 75px;
 	background: $backgroundColorTwo;
 	border: 1px solid $mainColor;
 }
 
 .selectDiv{
 	background: $linkColor;
-	display: inline-block;
-	padding: 2px;
-	padding-right: 7px;
 	border: 1px solid $mainColor;
 
 	select{
 		color: $mainColor;
-		background: transparent;
-		cursor: pointer;
-		border: none;
 	}
 
 	option{
 		color: $mainAltColor;
 	}
-}
-
-/* width */
-::-webkit-scrollbar {
-	width: 10px;
 }
 
 /* Track */
@@ -333,14 +250,6 @@
 	background: $mainColor;
 }
 
-#fullScreenMenu {
-	background: rgba(0,0,0,.7);
-
-	.selected:not(.noInvert) {
-		filter: invert(100%);
-	}
-}
-
 .fullScreenMenuUL {
 	background: $mainAltColor;
 	border-right: 1px solid $mainColor;
@@ -348,15 +257,6 @@
 	li {
 		background: $mainAltColor;
 		color: $mainColor;
-
-		&.subMenuTitle{
-			background-color: #999;
-			color: black;
-		}
-
-		&:not(.menuTitle):hover{
-			filter: invert(100%);
-		}
 	}
 }
 

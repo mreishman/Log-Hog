@@ -141,11 +141,38 @@ div {
   overflow: auto;
 }
 
+.link {
+  display: inline-block;
+  padding: 0.5em 1em;
+  cursor: pointer;
+}
+
+.linkSmall {
+  display: inline-block;
+  padding: 3px 5px;
+  margin: 1px;
+  cursor: pointer;
+  line-height: 100%;
+}
+
 .linkSmallHover {
   display: inline-block;
   padding: 3px 5px;
   margin: 1px;
   cursor: default;
+  line-height: 100%;
+}
+
+.settingsHeader {
+  margin: 10px;
+  margin-bottom: 0;
+  padding: 5px;
+}
+.settingsHeader button {
+  display: inline-block;
+  padding: 3px 5px;
+  margin: 1px;
+  cursor: pointer;
   line-height: 100%;
 }
 
@@ -179,6 +206,14 @@ div {
   width: 100%;
   padding: 0 1em;
   line-height: 2em;
+}
+
+.popupForInfo {
+  z-index: 10;
+  position: absolute;
+  width: fit-content;
+  padding: 5px;
+  word-break: break-all;
 }
 
 .led-red {
@@ -439,10 +474,21 @@ div.sidebarLeft {
   width: 100%;
   height: 100%;
   z-index: 25;
+  background: rgba(0, 0, 0, 0.7);
+}
+#fullScreenMenu .selected:not(.noInvert) {
+  filter: invert(100%);
 }
 
+.fullScreenMenuUL li.subMenuTitle {
+  background-color: #999;
+  color: black;
+}
 .fullScreenMenuUL li:not(.menuTitle) {
   cursor: pointer;
+}
+.fullScreenMenuUL li:not(.menuTitle):hover {
+  filter: invert(100%);
 }
 
 .settingsUlFS {
@@ -484,6 +530,11 @@ div.sidebarLeft {
   left: 402px;
   right: 0;
   overflow: auto;
+}
+
+.settingsDiv {
+  margin: 10px;
+  margin-top: 0;
 }
 
 .SaveGroupLog .settingsDiv {
@@ -598,6 +649,88 @@ div.sidebarLeft {
 
 .selectForGroupHeader option {
   display: inline-block;
+}
+
+.updatingDiv p {
+  margin: 2px;
+  padding-left: 10px;
+  word-wrap: break-word;
+}
+
+.settingsBuffer {
+  width: 200px;
+  display: inline-block;
+}
+
+.context-menu {
+  display: none;
+  position: absolute;
+  z-index: 30;
+}
+
+.context-menu__items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  margin-top: 0;
+}
+
+.context-menu--active {
+  display: block;
+}
+
+.context-menu__item {
+  padding: 5px 3px;
+  cursor: pointer;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  overflow: auto;
+  z-index: 30;
+  margin-left: 12px;
+  margin-top: -70px;
+}
+.dropdown-content a {
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content__items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.dropdown-content--active {
+  display: block;
+}
+
+.dropdown-content__item {
+  padding: 5px 3px;
+  cursor: pointer;
+}
+
+.loadingSpinner {
+  padding: 75px;
+}
+
+.selectDiv {
+  display: inline-block;
+  padding: 2px;
+  padding-right: 7px;
+}
+.selectDiv select {
+  background: transparent;
+  cursor: pointer;
+  border: none;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
 }
 
 /*# sourceMappingURL=base.css.map */
