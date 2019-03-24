@@ -576,6 +576,12 @@ else
 			"title"			=>	"Search",
 			"baseName"		=>	"search.png"
 		),
+		"searchSideBar"		=> array(
+			"alt"			=>	"Search",
+			"src"			=>	"",
+			"title"			=>	"Search",
+			"baseName"		=>	"searchSideBar.png"
+		),
 		"seleniumMonitor"	=> array(
 			"alt"			=>	"Selenium Monitor",
 			"src"			=>	"",

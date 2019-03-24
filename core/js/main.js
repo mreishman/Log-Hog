@@ -31,7 +31,6 @@ var hiddenLogUpdatePollTop = null;
 var idOfOneLogOpen = "";
 var inlineNotificationPoll = null;
 var inlineNotificationPollArray = [];
-var lastContentSearch = "";
 var lastLogs = {};
 var logDisplayArray = {};
 var logDisplayArrayOld = {};
@@ -227,34 +226,71 @@ function addPaddingToNumber(number, padding = 4)
 function showFileFromPinnedWindow(id)
 {
 	//look for pinned window
-	var windowKeys = Object.keys(logDisplayArray);
-	var lengthOfWindows = windowKeys.length;
-	for(var j = 0; j < lengthOfWindows; j++)
+	let windows = Object.keys(logDisplayArray);
+	let pos = getPositionOfLogInLogDisplay(id);
+	if(pos !== false && logDisplayArray[windows[pos]]["pin"] === true)
 	{
-		if(logDisplayArray[windowKeys[j]]["id"] === id)
-		{
-			if(logDisplayArray[windowKeys[j]]["pin"] === true)
-			{
-				return true;
-			}
-			return false;
-		}
+		return true;
 	}
 	return false;
 }
 
 function checkIfDisplay(id)
 {
-	var windows = Object.keys(logDisplayArray);
-	var lengthOfWindows = windows.length;
-	for(var j = 0; j < lengthOfWindows; j++)
+	let pos = getPositionOfLogInLogDisplay(id);
+	if(pos !== false)
+	{
+		return {display: true, location: pos};
+	}
+	return {display: false, location: -1};
+}
+
+function getPositionOfLogInLogDisplay(id)
+{
+	let windows = Object.keys(logDisplayArray);
+	let lengthOfWindows = windows.length;
+	for(let j = 0; j < lengthOfWindows; j++)
 	{
 		if(logDisplayArray[j]["id"] === id)
 		{
-			return {display: true, location: j};
+			return j;
 		}
 	}
-	return {display: false, location: -1};
+	return false;
+}
+
+function getLogIdFromText(text)
+{
+	//check if text if from a log
+	let arrayOfDataMainKeys = Object.keys(arrayOfDataMain);
+	let arrayOfDataMainKeysLength = arrayOfDataMainKeys.length;
+	for(let i = 0; i < arrayOfDataMainKeysLength; i++)
+	{
+		if(arrayOfDataMain[arrayOfDataMainKeys[i]]["log"] === text)
+		{
+			return arrayOfDataMainKeys[i].replace(/[^a-z0-9]/g, "");
+		}
+		if(advancedLogFormatEnabled === "true" && logFormatFileEnable === "true" && "fileData" in arrayOfDataMain[arrayOfDataMainKeys[i]])
+		{
+			let fileDataLocal = arrayOfDataMain[arrayOfDataMainKeys[i]]["fileData"];
+			if(fileDataLocal)
+			{
+				let fileDataLocalKeys = Object.keys(fileDataLocal);
+				let fileDataLocalKeysLength = fileDataLocalKeys.length;
+				if(fileDataLocalKeysLength > 0)
+				{
+					for(let j = 0; j < fileDataLocalKeysLength; j++)
+					{
+						if(fileDataLocal[fileDataLocalKeys[j]]["fileData"] === text)
+						{
+							return arrayOfDataMainKeys[i].replace(/[^a-z0-9]/g, "");
+						}
+					}
+				}
+			}
+		}
+	}
+	return false;
 }
 
 function unselectAllLogs()
@@ -1004,33 +1040,42 @@ function resize()
 		}
 		var tdElementWidth = (targetWidth/windowDisplayConfigColCount).toFixed(0);
 		var trElementHeight = ((targetHeight-borderPadding)/windowDisplayConfigRowCount).toFixed(0);
-		if(($(".logTrHeight").outerHeight().toFixed(0) !== trElementHeight)|| ($(".logTdWidth").outerWidth().toFixed(0) !== tdElementWidth))
+		let logDisplayArrayKeys = Object.keys(logDisplayArray);
+		let logDisplayArrayKeysCount = logDisplayArrayKeys.length;
+		for(let lda = 0; lda < logDisplayArrayKeysCount; lda++)
 		{
-			closeLogPopup();
-			if($(".logTrHeight").outerHeight() !== trElementHeight)
+			let localTdElementWidth = tdElementWidth;
+			let localTrElementHeight = trElementHeight;
+			if(document.getElementById("searchFieldInputOuter-"+lda))
 			{
-				$(".logTrHeight").outerHeight(trElementHeight);
+				localTrElementHeight -= document.getElementById("searchFieldInputOuter-"+lda).getBoundingClientRect().height
 			}
-			if($(".logTdWidth").outerWidth() !== tdElementWidth)
+			if($("#log"+lda+"Td").outerHeight() !== localTrElementHeight)
 			{
-				$(".logTdWidth").outerWidth(tdElementWidth);
+				closeLogPopup();
+				$("#log"+lda+"Td").outerHeight(localTrElementHeight);
 			}
-		}
-		if($(".backgroundForSideBarMenu").outerHeight() >= $(".logTrHeight").outerHeight())
-		{
-			$(".backgroundForSideBarMenu").outerHeight(trElementHeight);
-		}
-		else
-		{
-			if($(".backgroundForSideBarMenu").css("height") !== "auto")
+			if($("#logTd"+lda+"Width").outerWidth() !== localTdElementWidth)
 			{
-				$(".backgroundForSideBarMenu").css("height","auto");
+				closeLogPopup();
+				$("#logTd"+lda+"Width").outerWidth(localTdElementWidth);
 			}
-			if(bottomBarIndexType === "center")
+			if($("#titleContainer"+lda).outerHeight() >= trElementHeight)
 			{
-				if($(".backgroundForSideBarMenu").css("top") !== trElementHeight+"px")
+				$("#titleContainer"+lda).outerHeight(trElementHeight);
+			}
+			else
+			{
+				if($("#titleContainer"+lda).css("height") !== "auto")
 				{
-					$(".backgroundForSideBarMenu").css("top",((trElementHeight / 2) - ($(".backgroundForSideBarMenu").outerHeight() / 2))+"px")
+					$("#titleContainer"+lda).css("height","auto");
+				}
+				if(bottomBarIndexType === "center")
+				{
+					if($("#titleContainer"+lda).css("top") !== trElementHeight+"px")
+					{
+						$("#titleContainer"+lda).css("top",((trElementHeight / 2) - ($("#titleContainer"+lda).outerHeight() / 2))+"px")
+					}
 				}
 			}
 		}
@@ -1057,6 +1102,11 @@ function resize()
 					generateWindowDisplay();
 				}
 			}
+		}
+
+		if(groupDropdownInHeader === "true")
+		{
+			resizeHeaderGroups();
 		}
 	}
 	catch(e)
@@ -1619,6 +1669,18 @@ function generateWindowDisplayInner()
 	logDisplayArrayOld = logDisplayArray;
 	logDisplayArray = newLogDisplayArray;
 	document.getElementById("log").innerHTML = ""+logDisplayHtml+"";
+	//add search filters if there
+	let currentLengthOfLogDisplayArray = Object.keys(logDisplayArray).length;
+	if(filterEnabled === "true")
+	{
+		for(let i = 0; i < currentLengthOfLogDisplayArray; i++)
+		{
+			$("#searchFieldInput-"+i).on("input", function()
+			{
+				generalUpdate();
+			});
+		}
+	}
 	//show or hide numbers for windows if needed
 	if(windowDisplayConfigColCount > 1 || windowDisplayConfigRowCount > 1)
 	{
@@ -1630,9 +1692,9 @@ function generateWindowDisplayInner()
 		$(".pinWindowContainer, .currentWindowNumSelected, .currentWindowNum").hide();
 	}
 	//change select if needed
-	if(Object.keys(logDisplayArray).length < (currentSelectWindow + 1))
+	if(currentLengthOfLogDisplayArray < (currentSelectWindow + 1))
 	{
-		currentSelectWindow = (Object.keys(logDisplayArray).length -1);
+		currentSelectWindow = (currentLengthOfLogDisplayArray -1);
 	}
 	resize();
 	return{
@@ -1749,7 +1811,7 @@ function mainReady()
 	{
 		$("#searchFieldInput").on("input", function()
 		{
-			possiblyUpdateFromFilter(false);
+			possiblyUpdateFromFilter();
 		});
 
 		if(document.getElementById("searchType"))
@@ -1766,6 +1828,7 @@ function mainReady()
 
 	$("#selectForGroup").on("keydown change", function(){
 		setTimeout(function() {
+			updateGroupsInSelect();
 			toggleGroupedGroups();
 		}, 2);
 	});

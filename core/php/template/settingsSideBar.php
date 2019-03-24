@@ -2,16 +2,16 @@
 <?php if ($filterSearchInHeader !== "true" && $filterEnabled === "true"): ?>
 	<input disabled id="searchFieldInput" type="search" name="search" placeholder="Filter <?php echo $filterDefault; ?>" style="height: 30px; width: 180px; margin-right: 10px;">
 <?php endif; ?>
-<?php if ($groupDropdownInHeader !== "true"): ?>
-	Groups:
-	<span class="selectDiv">
-		<select id="selectForGroup" >
-			<option selected="true" value="all" >All</option>
-		</select>
-	</span>
-	<br>
-	<br>
-<?php endif; ?>
+<span id="groupsSpanSideBar" style="display: none;">
+Groups:
+<span class="selectDiv">
+	<select multiple="true" id="selectForGroup" >
+		<option selected="true" value="all" >All</option>
+	</select>
+</span>
+<br>
+<br>
+</span>
 <?php if ($filterEnabled === "true"): ?>
 	Search:
 	<span class="selectDiv" >
@@ -31,6 +31,15 @@
 	</span>
 	<br>
 	<br>
+	Invert:
+	<span class="selectDiv" >
+		<select onchange="changeFilterInvert();" id="filterInvert">
+			<option <?php if ($filterInvert === "true"){ echo "selected"; }?> value="true">True</option>
+			<option <?php if ($filterInvert === "false"){ echo "selected"; }?> value="false">False</option>
+		</select>
+	</span>
+	<br>
+	<br>
 	Title Includes Path:
 	<span class="selectDiv" >
 		<select onchange="changeFilterTitleIncludePath();" id="filterTitleIncludePath">
@@ -45,6 +54,15 @@
 		<select onchange="changeHighlightContentMatch();" id="filterContentHighlight">
 			<option <?php if ($filterContentHighlight === "true"){ echo "selected"; }?> value="true">True</option>
 			<option <?php if ($filterContentHighlight === "false"){ echo "selected"; }?> value="false">False</option>
+		</select>
+	</span>
+	<br>
+	<br>
+	Highlight Entire Line:
+	<span class="selectDiv" >
+		<select onchange="changeHighlightContentMatchLine();" id="filterContentHighlightLine">
+			<option <?php if ($filterContentHighlightLine === "true"){ echo "selected"; }?> value="true">True</option>
+			<option <?php if ($filterContentHighlightLine === "false"){ echo "selected"; }?> value="false">False</option>
 		</select>
 	</span>
 	<br>

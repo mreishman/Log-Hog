@@ -210,11 +210,6 @@
   background: #009900;
 }
 
-.selected, .selectDropdown:hover {
-  background: #009900;
-  color: black;
-}
-
 .settingsDiv p a {
   color: #009900;
 }
@@ -248,6 +243,11 @@
   border: solid 1px #009900;
   line-height: 100%;
   color: #009900;
+}
+
+.selected, .selectDropdown:hover {
+  background: #009900;
+  color: black;
 }
 
 .context-menu {

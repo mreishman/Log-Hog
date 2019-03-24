@@ -7,6 +7,37 @@ function addToGroupTab(newGroups)
 		if(!($("#selectForGroup option[value='"+newGroups[NGcount]+"']").length > 0) && newGroups[NGcount] !== "")
 		{
 			$("#selectForGroup").append("<option value='"+newGroups[NGcount]+"'>"+newGroups[NGcount]+"</option>");
+			if(groupDropdownInHeader === "true")
+			{
+				$("#groupsInHeader").append("<span class=\"linkSmall\"  onclick=\"addGroupToSelect(event, '"+newGroups[NGcount]+"');\"  >"+newGroups[NGcount]+"</span>")
+			}
+		}
+	}
+	showOrHideGroups();
+}
+
+function showOrHideGroups()
+{
+	if($('#selectForGroup option').size() > 1)
+	{
+		if(document.getElementById("groupsSpanSideBar").style.display !== "inline-block")
+		{
+			document.getElementById("groupsSpanSideBar").style.display = "inline-block";
+		}
+		if(document.getElementById("groupsInHeader").style.display !== "inline-block")
+		{
+			document.getElementById("groupsInHeader").style.display = "inline-block";
+		}
+	}
+	else
+	{
+		if(document.getElementById("groupsSpanSideBar").style.display !== "none")
+		{
+			document.getElementById("groupsSpanSideBar").style.display = "none";
+		}
+		if(document.getElementById("groupsInHeader").style.display !== "none")
+		{
+			document.getElementById("groupsInHeader").style.display = "none";
 		}
 	}
 }
@@ -105,22 +136,50 @@ function removeOldGroups(data, arrayOfGroups)
 			//remove because not in new array
 			var selectGroupSelector = document.getElementById("selectForGroup");
 			$("#selectForGroup option[value=\""+currentOptionsSelect[modCOScount].value+"\"]").remove();
+			//find in header
+			if(groupDropdownInHeader === "true")
+			{
+				let listOfOptions = $("#groupsInHeader .linkSmall");
+				let listOfOptionsLength = listOfOptions.length;
+				for(let i = 0; i < listOfOptionsLength; i++)
+				{
+					if(listOfOptions[i].textContent === currentOptionsSelect[modCOScount])
+					{
+						$($("#groupsInHeader .linkSmall")[i]).remove();
+						break;
+					}
+				}
+			}
 			modCOScount--;
 		}
 		modCOScount++;
 	}
+	showOrHideGroups();
 }
 
 function showFileFromGroup(id)
 {
-	var groupSelect = document.getElementById("selectForGroup").value;
-	if(groupSelect === "all")
+	let groupSelect = $("#selectForGroup").val();
+	if(!groupSelect)
 	{
+		document.getElementById("selectForGroup").value = "all"
 		return true;
 	}
-	if($("#"+id).hasClass(groupSelect+"Group"))
+	let groupSelectLength = groupSelect.length;
+	if(groupSelect[0] === "all")
 	{
+		if(groupSelectLength !== 1)
+		{
+			document.getElementById("selectForGroup").value = "all"
+		}
 		return true;
+	}
+	for(let i = 0; i < groupSelectLength; i++)
+	{
+		if($("#"+id).hasClass(groupSelect[i]+"Group"))
+		{
+			return true;
+		}
 	}
 }
 
@@ -150,7 +209,7 @@ function toggleGroupedGroups()
 		}
 		else if(document.getElementById("searchFieldInput").value === "")
 		{
-			if($("#"+idOfObject).hasClass(groupSelect+"Group") || groupSelect === "all")
+			if(showFileFromGroup(idOfObject))
 			{
 				//show tab if valid
 				$("#"+idOfObject).show();
@@ -169,4 +228,80 @@ function toggleGroupedGroups()
 	//hide empty files if needed
 	hideEmptyLogs();
 	resize();
+}
+
+function resizeHeaderGroups()
+{
+	let leftButtonWidth = 0;
+	if($("#menuButtonLeft"))
+	{
+		leftButtonWidth = $("#menuButtonLeft").width();
+	}
+	let rightButtonWidth = 0;
+	if($("#menuButtonRight"))
+	{
+		rightButtonWidth = $("#menuButtonRight").width();
+	}
+	$("#groupsInHeader").width(window.innerWidth - leftButtonWidth - rightButtonWidth - 90);
+	let newHeight = document.getElementById("groupHeaderAllButton").getBoundingClientRect().height + 2;
+	if(document.getElementById("groupsInHeader").getBoundingClientRect().height !== newHeight)
+	{
+		document.getElementById("groupsInHeader").style.height = newHeight+"px";
+	}
+}
+
+function addGroupToSelect(event, group)
+{
+	let groupCheck = [group];
+	if(event.ctrlKey && group !== "all")
+	{
+		let currentGroupsSelected = $("#selectForGroup").val();
+		let currentPos = currentGroupsSelected.indexOf(group);
+		if(currentPos > -1) //remove from group
+		{
+			currentGroupsSelected.splice(currentPos, 1);
+		}
+		else //add to group
+		{
+			currentGroupsSelected.push(group);
+		}
+		currentPos = currentGroupsSelected.indexOf("all");
+		if(currentPos > -1) //remove all if there
+		{
+			currentGroupsSelected.splice(currentPos, 1);
+		}
+		groupCheck = currentGroupsSelected;
+		$("#selectForGroup").val(currentGroupsSelected);
+	}
+	else
+	{
+		document.getElementById("selectForGroup").value = group
+	}
+	updateHeaderGroups(groupCheck);
+	toggleGroupedGroups();
+}
+
+function updateHeaderGroups(groupCheck)
+{
+	let listOfOptions = $("#groupsInHeader .linkSmall");
+	let listOfOptionsLength = listOfOptions.length;
+	for(let i = 0; i < listOfOptionsLength; i++)
+	{
+		$($("#groupsInHeader .linkSmall")[i]).removeClass("selected")
+		let textCheck = listOfOptions[i].textContent;
+		if(textCheck === "All")
+		{
+			textCheck = "all";
+		}
+		if(groupCheck.indexOf(textCheck) > -1)
+		{
+			$($("#groupsInHeader .linkSmall")[i]).addClass("selected");
+		}
+	}
+}
+
+function updateGroupsInSelect()
+{
+	let groupCheck = $("#selectForGroup").val();
+	updateHeaderGroups(groupCheck);
 }

@@ -25,6 +25,58 @@ function makePretty(id)
 	}
 }
 
+function getPositionsOf(stringCheck, find, startBlock, endBlock)
+{
+	let posArr = {};
+	let counter = 0;
+	let base = 0;
+	let findLength = find.length;
+	while(stringCheck.indexOf(find) > -1)
+	{
+		posArr[counter] = {
+			type: true,
+			startBlock,
+			endBlock,
+			position: base + stringCheck.indexOf(find)
+		};
+		counter++;
+		posArr[counter] = {
+			type: false,
+			startBlock,
+			endBlock,
+			position: base + stringCheck.indexOf(find) + findLength
+		};
+		counter++;
+		base += stringCheck.indexOf(find) + findLength;
+		stringCheck = stringCheck.substring(stringCheck.indexOf(find) + findLength);
+	}
+	return posArr;
+}
+
+function updatePositionOfArray(posArrArr, minOuter, minInner, lineToAdd)
+{
+	let posArrArrKeys = Object.keys(posArrArr);
+	let posArrArrKeysLength = posArrArrKeys.length;
+	for(let PAAKCount = 0; PAAKCount < posArrArrKeysLength; PAAKCount++)
+	{
+		if(PAAKCount < minOuter)
+		{
+			continue;
+		}
+		let innerArray = posArrArr[posArrArrKeys[PAAKCount]];
+		let innerKeyCount = Object.keys(innerArray);
+		let innerKeyCountLength = innerKeyCount.length;
+		for(let IKCLCount = 0; IKCLCount < innerKeyCountLength; IKCLCount++)
+		{
+			if(innerArray[innerKeyCount[IKCLCount]]["position"] > minInner)
+			{
+				posArrArr[posArrArrKeys[PAAKCount]][innerKeyCount[IKCLCount]]["position"] += lineToAdd;
+			}
+		}
+	}
+	return posArrArr;
+}
+
 function makePrettyWithText(text, count, extraData = {})
 {
 	try
@@ -48,10 +100,11 @@ function makePrettyWithText(text, count, extraData = {})
 		var addLineCount = "false";
 		var selectListForFilter = document.getElementsByName("searchType")[0];
 		var selectedListFilterType = selectListForFilter.options[selectListForFilter.selectedIndex].value;
-		var filterTextField = "";
+		let filterTextFieldLocal = "";
 		if(filterEnabled === "true")
 		{
-			filterTextField = getFilterTextField();
+			let currentLogId = getLogIdFromText(text);
+			filterTextFieldLocal = getFilterTextField(getPositionOfLogInLogDisplay(currentLogId));
 		}
 		if("lineDisplay" in extraData && extraData["lineDisplay"] === "true")
 		{
@@ -75,14 +128,18 @@ function makePrettyWithText(text, count, extraData = {})
 				customClass += " newLine ";
 				customClassAdd = true;
 			}
-
-			if(filterEnabled === "true" && selectedListFilterType === "content" && filterContentHighlight === "true" && filterTextField !== "")
+			let filterHighlight = false;
+			if(filterEnabled === "true" && selectedListFilterType === "content" && filterContentHighlight === "true" && filterTextFieldLocal !== "")
 			{
 				//check if match, and if supposed to highlight
-				if(filterContentCheck(lineText))
+				if(filterContentCheck(lineText, filterTextFieldLocal))
 				{
-					customClass += " highlight ";
-					customClassAdd = true;
+					filterHighlight = true;
+					if(filterContentHighlightLine === "true")
+					{
+						customClass += " highlight ";
+						customClassAdd = true;
+					}
 				}
 			}
 
@@ -93,7 +150,62 @@ function makePrettyWithText(text, count, extraData = {})
 				returnText += " "+customClass+" ";
 			}
 			returnText += ">";
+			let posArrArr = {};
+			if(filterContentHighlightLine !== "true" && filterHighlight === true)
+			{
+				posArrArr[0] = getPositionsOf(lineText, filterTextFieldLocal, "<div class=\"highlightDiv\" >", "</div>");
+			}
+			let posArrArrKeys = Object.keys(posArrArr);
+			let posArrArrKeysLength = posArrArrKeys.length;
+			if(posArrArrKeysLength > 0)
+			{
+				for(let PAAKCount = 0; PAAKCount < posArrArrKeysLength; PAAKCount++)
+				{
+					let innerArray = posArrArr[posArrArrKeys[PAAKCount]];
+					let innerKeyCount = Object.keys(innerArray);
+					let innerKeyCountLength = innerKeyCount.length;
+					for(let IKCLCount = 0; IKCLCount < innerKeyCountLength; IKCLCount++)
+					{
+						let newLine = "";
+						if(filterInvert === "true")
+						{
+							newLine += currentAdd["startBlock"]
+						}
+						//update array values, length wont change though
+						posArrArrKeys = Object.keys(posArrArr);
+						innerArray = posArrArr[posArrArrKeys[PAAKCount]];
+						innerKeyCount = Object.keys(innerArray);
+						//add text to line
+						let currentKey = innerKeyCount[IKCLCount];
+						let currentAdd = innerArray[currentKey];
+						let currentLinePosition = currentAdd["position"];
+						newLine += lineText.slice(0, currentLinePosition);
+						let currentType = currentAdd["type"];
+						if(filterInvert === "true")
+						{
+							currentType = !currentType;
+						}
+						let addLine = 0;
+						let lineType = "endBlock";
+						if(currentType)
+						{
+							lineType = "startBlock";
+						}
+						newLine += currentAdd[lineType];
+						addLine = currentAdd[lineType].length;
+						newLine += lineText.slice(currentLinePosition);
+						if(filterInvert === "true")
+						{
+							newLine += currentAdd["endBlock"]
+						}
+						lineText = newLine;
+						//update other values in array
+						posArrArr = updatePositionOfArray(posArrArr, PAAKCount, currentLinePosition, addLine);
+					}
+				}
+			}
 			var lineToReturn = "<td style=\"white-space: pre-wrap;\">"+lineText+"</td>";
+			var colspan = 2;
 			if(type === "log" && advancedLogFormatEnabled === "true")
 			{
 				let lastLine = "";
@@ -115,6 +227,10 @@ function makePrettyWithText(text, count, extraData = {})
 					lastLine,
 					nextLine
 				});
+				if(dateTextFormatColumn === "true" || (dateTextFormatColumn === "auto" && window.innerWidth > breakPointTwo))
+				{
+					colspan = 3;
+				}
 			}
 			else if (type === "file")
 			{
@@ -126,7 +242,7 @@ function makePrettyWithText(text, count, extraData = {})
 					lineCount
 				});
 			}
-			returnText += "<td style=\"width: 31px; padding: 0;\"></td>"+lineToReturn+"</tr><tr height=\""+logLinePadding+"px\"><td colspan=\"2\"></td></tr>";
+			returnText += "<td style=\"width: 31px; padding: 0;\"></td>"+lineToReturn+"</tr><tr class=\"logLinePaddingHeight\"><td class=\"logLineBorder\" colspan=\""+colspan+"\"></td></tr>";
 		}
 		if(returnText === "")
 		{
@@ -162,19 +278,19 @@ function formatTextIntoArray(text, count, extraData = {})
 	var topPadding = filterContentLinePadding;
 	var foundOne = false;
 	var addLine = false;
-	var filterTextField = "";
+	let filterTextFieldLocal = "";
 	if(filterEnabled === "true")
 	{
-		filterTextField = getFilterTextField();
+		filterTextFieldLocal = getFilterTextField(getLogIdFromText(text));
 	}
 	for (var i = 0; i < lengthOfTextArray; i++)
 	{
 		addLine = true;
-		if(filterEnabled === "true" && selectedListFilterType === "content" && filterContentLimit === "true" && filterTextField !== "")
+		if(filterEnabled === "true" && selectedListFilterType === "content" && filterContentLimit === "true" && filterTextFieldLocal !== "")
 		{
 			addLine = false;
 			//check for content on current line
-			if(filterContentCheck(text[i]))
+			if(filterContentCheck(text[i], filterTextFieldLocal))
 			{
 				//current line is thing, reset counter.
 				bottomPadding = filterContentLinePadding;
@@ -189,7 +305,7 @@ function formatTextIntoArray(text, count, extraData = {})
 				{
 					if(lengthOfTextArray > i+j)
 					{
-						if(filterContentCheck(text[i+j]))
+						if(filterContentCheck(text[i+j], filterTextFieldLocal))
 						{
 							addLine = true;
 							bottomPadding--;
@@ -215,11 +331,6 @@ function formatTextIntoArray(text, count, extraData = {})
 		{
 			var lineText = text[i].split("\\n");
 			var lengthOflineTextArray = lineText.length;
-			var filterTextField = "";
-			if(filterEnabled === "true")
-			{
-				filterTextField = getFilterTextField();
-			}
 			for (var j = 0; j < lengthOflineTextArray; j++)
 			{
 				newLogObject[newLogCounter] = lineText[j];

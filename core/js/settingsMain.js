@@ -21,26 +21,6 @@ function changeDescriptionLineSize()
 	}
 }
 
-function showOrHideSubWindow(valueForPopupInner, valueForVarsInner, valueToCompare)
-{
-	try
-	{
-		if(valueForPopupInner.value === valueToCompare)
-		{
-			valueForVarsInner.style.display = "block";
-		}
-		else
-		{
-			valueForVarsInner.style.display = "none";
-		}
-	}
-	catch(e)
-	{
-		eventThrowException(e);
-	}
-}
-
-
 function checkIfChanges()
 {
 	var arrayToCheck = new Array();

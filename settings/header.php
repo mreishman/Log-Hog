@@ -12,6 +12,7 @@ $infoImage = generateImage(
 	)
 );
 echo loadSentryData($sendCrashInfoJS, $branchSelected); ?>
+<script src="../core/js/jscolor.js?v=<?php echo $jsVersion?>"></script>
 <script src="../core/js/settings.js?v=<?php echo $jsVersion?>"></script>
 <script src="../core/js/settingsExt.js?v=<?php echo $jsVersion?>"></script>
 <div id="menu">

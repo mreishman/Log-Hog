@@ -533,13 +533,31 @@ $defaultConfigMoreData = array(
 			2									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
+					"key"								=>	"filterInvert",
+					"name"								=>	"Invert Search",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			3									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
 					"key"								=>	"filterTitleIncludePath",
 					"name"								=>	"Filter Title Includes Path",
 					"options"							=>	$trueFalsVars,
 					"type"								=>	"dropdown"
 				)
 			),
-			3									=>	array(
+			4									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"filterTitleIncludeGroup",
+					"name"								=>	"Filter Title Includes Group",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			5									=>	array(
 				"bool"								=>	($filterContentHighlight == 'false'),
 				"id"								=>	"highlightContentSettings",
 				"name"								=>	"Filter Highlight Settings",
@@ -558,7 +576,7 @@ $defaultConfigMoreData = array(
 						"var"								=>	array(
 							"key"								=>	"highlightColorBG",
 							"name"								=>	"Background",
-							"type"								=>	"text"
+							"type"								=>	"color"
 						)
 					),
 					1									=> array(
@@ -566,12 +584,21 @@ $defaultConfigMoreData = array(
 						"var"								=>	array(
 							"key"								=>	"highlightColorFont",
 							"name"								=>	"Font",
-							"type"								=>	"text"
+							"type"								=>	"color"
+						)
+					),
+					2									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"filterContentHighlightLine",
+							"name"								=>	"Hilight Entire Line",
+							"options"							=>	$trueFalsVars,
+							"type"								=>	"dropdown"
 						)
 					)
 				)
 			),
-			4									=>	array(
+			6									=>	array(
 				"bool"								=>	($filterContentLimit == 'false'),
 				"info"								=>	"When filtering by content, only show the line (or some sorrounding lines) containing the search content",
 				"id"								=>	"filterContentSettings",
@@ -608,7 +635,7 @@ $defaultConfigMoreData = array(
 				"var"								=>	array(
 					"key"								=>	"backgroundColor",
 					"name"								=>	"Background",
-					"type"								=>	"text"
+					"type"								=>	"color"
 				)
 			),
 			1									=>	array(
@@ -625,7 +652,7 @@ $defaultConfigMoreData = array(
 				"var"								=>	array(
 					"key"								=>	"mainFontColor",
 					"name"								=>	"Main Font Color",
-					"type"								=>	"text"
+					"type"								=>	"color"
 				)
 			),
 			3									=>	array(
@@ -633,7 +660,7 @@ $defaultConfigMoreData = array(
 				"var"								=>	array(
 					"key"								=>	"logFontColor",
 					"name"								=>	"Log Font Color",
-					"type"								=>	"text"
+					"type"								=>	"color"
 				)
 			),
 			4									=>	array(
@@ -655,14 +682,48 @@ $defaultConfigMoreData = array(
 				)
 			),
 			6									=>	array(
+				"bool"								=>	($logLineBorder == 'false'),
+				"id"								=>	"logLineBorderSettings",
+				"name"								=>	"Log Line Border Settings",
+				"type"								=>	"grouped",
+				"var"								=>	array(
+					"function"							=>	"showOrHidelogLineBorderSettings",
+					"id"								=>	"logLineBorder",
+					"key"								=>	"logLineBorder",
+					"name"								=>	"Show border between log lines",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				),
+				"vars"								=>	array(
+					0									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"logLineBorderColor",
+							"name"								=>	"Border Color",
+							"type"								=>	"color"
+						)
+					),
+					1									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"logLineBorderHeight",
+							"name"								=>	"Border Height",
+							"options"							=>	$oneToFiveArr,
+							"postText"							=>	" px",
+							"type"								=>	"dropdown"
+						)
+					)
+				)
+			),
+			7									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"backgroundHeaderColor",
 					"name"								=>	"Header Background",
-					"type"								=>	"text"
+					"type"								=>	"color"
 				)
 			),
-			7									=>	array(
+			8									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"invertMenuImages",
@@ -671,7 +732,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			8									=>	array(
+			9									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"overallBrightness",
@@ -680,7 +741,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			9									=>	array(
+			10									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"maxHeightLogTabs",
@@ -768,7 +829,7 @@ $defaultConfigMoreData = array(
 						"var"								=>	array(
 							"key"								=>	"logFormatFileBackground",
 							"name"								=>	"Background",
-							"type"								=>	"text"
+							"type"								=>	"color"
 						)
 					),
 					1									=> array(
@@ -776,7 +837,7 @@ $defaultConfigMoreData = array(
 						"var"								=>	array(
 							"key"								=>	"logFormatFileFontColor",
 							"name"								=>	"Font",
-							"type"								=>	"text"
+							"type"								=>	"color"
 						)
 					),
 					2									=>	array(
@@ -1047,7 +1108,7 @@ $defaultConfigMoreData = array(
 						"var"								=>	array(
 							"key"								=>	"highlightNewColorBG",
 							"name"								=>	"Background",
-							"type"								=>	"text"
+							"type"								=>	"color"
 						)
 					),
 					1									=> array(
@@ -1055,7 +1116,7 @@ $defaultConfigMoreData = array(
 						"var"								=>	array(
 							"key"								=>	"highlightNewColorFont",
 							"name"								=>	"Font",
-							"type"								=>	"text"
+							"type"								=>	"color"
 						)
 					),
 					2									=> array(
@@ -1818,7 +1879,7 @@ $defaultConfigMoreData = array(
 						"var"								=>	array(
 							"key"								=>	"notificationInlineBGColor",
 							"name"								=>	"Background",
-							"type"								=>	"text"
+							"type"								=>	"color"
 						)
 					),
 					4									=>	array(
@@ -1826,7 +1887,7 @@ $defaultConfigMoreData = array(
 						"var"								=>	array(
 							"key"								=>	"notificationInlineFontColor",
 							"name"								=>	"Font",
-							"type"								=>	"text"
+							"type"								=>	"color"
 						)
 					),
 				)
@@ -1874,7 +1935,7 @@ $defaultConfigMoreData = array(
 						"var"								=>	array(
 							"key"								=>	"oneLogColorBG",
 							"name"								=>	"Background",
-							"type"								=>	"text"
+							"type"								=>	"color"
 						)
 					),
 					1									=> array(
@@ -1882,7 +1943,7 @@ $defaultConfigMoreData = array(
 						"var"								=>	array(
 							"key"								=>	"oneLogColorFont",
 							"name"								=>	"Font",
-							"type"								=>	"text"
+							"type"								=>	"color"
 						)
 					)
 				)

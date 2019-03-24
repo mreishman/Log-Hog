@@ -32,6 +32,7 @@ $themeDirMod = "../";
 <head>
 	<title>Welcome!</title>
 	<script src="../core/js/jquery.js"></script>
+	<script src="../core/js/jscolor.js"></script>
 	<?php require_once("../core/php/template/popup.php");
 	echo loadCSS("../",$baseUrl, $cssVersion);
 	echo loadSentryData($sendCrashInfoJS, $branchSelected);

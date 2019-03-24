@@ -78,7 +78,7 @@ function showHistory(data)
 		htmlForHistory += "</table>";
 	}
 	$("#historyHolder").html(htmlForHistory);
-	$("#historyHolder").append($("#storage .notificationButtons").html());
+	$("#historyHolder").append($("#storage .historyButtons").html());
 }
 
 function hideArchiveLog(title)

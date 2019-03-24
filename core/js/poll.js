@@ -752,7 +752,7 @@ function update(data)
 						var lastLogLine = logs[id].count - 1;
 						var fullPathSearch = name.trim();
 
-						var nameForLog = getNameForLog(shortName, fullPathSearch, localFile = files[i], id);
+						var nameForLog = getNameForLog(shortName, fullPathSearch, files[i], id);
 						if($("#menu ." + id + "Button").length === 0)
 						{
 							classInsert = "";

@@ -13,11 +13,16 @@ var tmpTogglePauseOnUnfocus = {action: "switchPollType();", name: "Toggle pause 
 
 var doToggleClearAllNotifications = {action: "removeAllNotifications(); ", name: "Clear All Notifications"};
 
+//Search field
+
+var searchFieldToggleSearchType = {action: "toggleFilterType();", name: "Toggle search type"};
+
 var deleteMenu = [clearAllLogs,clearCurrentLog,deleteCurrentLog];
 var pauseMenu = [tmpTogglePauseOnUnfocus];
 var notificationMenuBadge = [doToggleClearAllNotifications];
+var searchFieldInputMenu = [searchFieldToggleSearchType];
 
-var menuObjectRightClick = {deleteImage: deleteMenu, pauseImage: pauseMenu, notificationBadge: notificationMenuBadge};
+var menuObjectRightClick = {deleteImage: deleteMenu, pauseImage: pauseMenu, notificationBadge: notificationMenuBadge, notificationCount: notificationMenuBadge, searchFieldInput: searchFieldInputMenu};
 
 //check for list of addons addons to add to object
 var listOfAddonsKeys = Object.keys(listOfAddons);

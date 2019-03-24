@@ -40,6 +40,14 @@ $windowDisplayConfig = explode("x", $windowConfig);
 	color: <?php echo $highlightColorFont; ?>;
 }
 
+.highlightDiv, #log div.highlightDiv
+{
+	background-color: <?php echo $highlightColorBG; ?>;
+	color: <?php echo $highlightColorFont; ?>;
+	display: inline-block;
+	padding: 0;
+}
+
 .highlight .settingsDiv{
 	background-color: rgba(0,0,0,0);
 	border: 1px solid <?php echo $highlightColorFont; ?>;
@@ -195,5 +203,15 @@ elseif($logMenuLocation === "bottom"): ?>
 		color: <?php echo $oneLogColorFont; ?>;
 	}
 <?php endif; ?>
+
+<?php if ($logLineBorder === "true"): ?>
+	.logLineBorder{
+		border-top: <?php echo $logLineBorderHeight; ?>px solid <?php echo $logLineBorderColor; ?>;
+	}
+<?php endif; ?>
+
+	.logLinePaddingHeight{
+		height: <?php echo $logLinePadding; ?>px;
+	}
 
 </style>

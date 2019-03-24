@@ -191,9 +191,9 @@ $externalLinkImage = generateImage(
 				{
 					Rightclick_ID_list.push('notificationCount');
 				}
-				if(document.getElementById("notificationBadge"))
+				if(document.getElementById("searchFieldInput"))
 				{
-					Rightclick_ID_list.push('notificationBadge');
+					Rightclick_ID_list.push('searchFieldInput');
 				}
 				<?php
 			endif;

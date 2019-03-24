@@ -33,7 +33,7 @@ function updateNoNewVersionCheck()
 {
 	try
 	{
-		$.getJSON("../core/php/configStaticCheck.php", {}, function(data) 
+		$.getJSON("../core/php/configStaticCheck.php", {}, function(data)
 		{
 			if(data["version"] === data["newestVersion"])
 			{
@@ -189,7 +189,7 @@ $( document ).ready(function()
 	refreshArrayObjectOfArrays(["loggingDisplay","modules","locationOtherApps","advancedConfig","expFeatures"]);
 
 	document.addEventListener(
-		'scroll',
+		"scroll",
 		function (event)
 		{
 			onScrollShowFixedMiniBar(["advancedConfig","modules","loggingDisplay","locationOtherApps","moreAdvancedSpan","expFeatures"]);

@@ -22,7 +22,7 @@ $windowDisplayConfig = explode("x", $windowConfig);
 
 ?>
 <style type="text/css">
-#menu a, #menu2 a, .link, .linkSmall, .menu a
+#menu a, #menu2 a, .link:not(.selected), .linkSmall:not(.selected), .menu a
 {
 	background: <?php echo $currentSelectedThemeColorValues['main']['main-1']['background']?>;
 	color: <?php echo $currentSelectedThemeColorValues['main']['main-1']['fontColor']?>;

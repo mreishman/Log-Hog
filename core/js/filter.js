@@ -1,4 +1,4 @@
-function getFilterData(name, shortName, logData)
+function getFilterData(id, name, shortName, logData)
 {
 	var selectListForFilter = document.getElementsByName("searchType")[0];
 	var selectedListFilterType = selectListForFilter.options[selectListForFilter.selectedIndex].value;
@@ -12,6 +12,11 @@ function getFilterData(name, shortName, logData)
 		else
 		{
 			filterOffOf = shortName;
+		}
+
+		if(filterTitleIncludeGroup === "true")
+		{
+			filterOffOf += fileData[name]["Group"];
 		}
 	}
 	else if(selectedListFilterType === "content")
@@ -31,13 +36,28 @@ function getFilterData(name, shortName, logData)
 
 function showFileFromFilter(id, name, shortName, logData)
 {
-	var filterOffOf = getFilterData(name, shortName, logData);
+	let filterOffOf = getFilterData(id, name, shortName, logData);
 	if(logsToHide instanceof Array && (logsToHide.length === 0 || $.inArray(id, logsToHide) === -1 ))
 	{
 		if(typeof filterOffOf === "string" && filterOffOf !== "")
 		{
-			var filterTextField = getFilterTextField();
-			if(filterTextField === "" || filterOffOf.indexOf(filterTextField) !== -1)
+			let filterTextField = getFilterTextField(getPositionOfLogInLogDisplay(id)) || getFilterTextField();
+			//search field empty, don't filter
+			if(filterTextField === "")
+			{
+				return true;
+			}
+			//search found in line, show
+			if(filterOffOf.indexOf(filterTextField) !== -1)
+			{
+				if(filterInvert === "true")
+				{
+					return false;
+				}
+				return true;
+			}
+			//search not found, if invert: show
+			if(filterInvert === "true")
 			{
 				return true;
 			}
@@ -50,20 +70,32 @@ function showFileFromFilter(id, name, shortName, logData)
 	return false;
 }
 
-function filterContentCheck(textToMatch)
+function filterContentCheck(textToMatch, filterTextField)
 {
-	var filterTextField = getFilterTextField();
+	if(filterTextField === "")
+	{
+		return true;
+	}
 	if(caseInsensitiveSearch === "true")
 	{
 		textToMatch = textToMatch.toLowerCase();
 	}
 	textToMatch = unescapeHTML(textToMatch);
-	return (textToMatch.indexOf(unescapeHTML(filterTextField)) !== -1);
+	let filterResult = (textToMatch.indexOf(unescapeHTML(filterTextField)) !== -1);
+	if(filterInvert === "true")
+	{
+		filterResult = !filterResult;
+	}
+	return filterResult;
 }
 
-function getFilterTextField()
+function getFilterTextField(windowNum = 'false')
 {
-	var filterTextField = document.getElementsByName("search")[0].value;
+	let filterTextField = document.getElementById("searchFieldInput").value;
+	if(document.getElementById("searchFieldInput-"+windowNum) && document.getElementById("searchFieldInput-"+windowNum).value !== "")
+	{
+		filterTextField = document.getElementById("searchFieldInput-"+windowNum).value;
+	}
 	if(caseInsensitiveSearch === "true")
 	{
 		filterTextField = filterTextField.toLowerCase();
@@ -74,43 +106,51 @@ function getFilterTextField()
 function changeFilterCase()
 {
 	caseInsensitiveSearch = document.getElementById("caseInsensitiveSearch").value;
-	possiblyUpdateFromFilter(true);
+	possiblyUpdateFromFilter();
+}
+
+function changeFilterInvert()
+{
+	filterInvert = document.getElementById("filterInvert").value;
+	possiblyUpdateFromFilter();
 }
 
 function changeHighlightContentMatch()
 {
 	filterContentHighlight = document.getElementById("filterContentHighlight").value;
-	possiblyUpdateFromFilter(true);
+	possiblyUpdateFromFilter();
+}
+
+function changeHighlightContentMatchLine()
+{
+	filterContentHighlightLine = document.getElementById("filterContentHighlightLine").value;
+	possiblyUpdateFromFilter();
 }
 
 function changeFilterContentMatch()
 {
 	filterContentLimit = document.getElementById("filterContentLimit").value;
-	possiblyUpdateFromFilter(true);
+	possiblyUpdateFromFilter();
 }
 
 function changeFilterContentLinePadding()
 {
 	filterContentLinePadding = parseInt(document.getElementById("filterContentLinePadding").value);
-	possiblyUpdateFromFilter(true);
+	possiblyUpdateFromFilter();
 }
 
 function changeFilterTitleIncludePath()
 {
 	filterTitleIncludePath = document.getElementById("filterTitleIncludePath").value;
-	possiblyUpdateFromFilter(true);
+	possiblyUpdateFromFilter();
 }
 
-function possiblyUpdateFromFilter(force)
+function possiblyUpdateFromFilter()
 {
-	if(force || lastContentSearch !== getFilterTextField())
+	generalUpdate();
+	if(oneLogEnable === "true")
 	{
-		generalUpdate();
-		if(oneLogEnable === "true")
-		{
-			possiblyUpdateOneLogVisibleData();
-		}
-		lastContentSearch = getFilterTextField();
+		possiblyUpdateOneLogVisibleData();
 	}
 }
 
@@ -120,4 +160,33 @@ function changeSearchplaceholder()
 	var selectedListFilterType = selectListForFilter.options[selectListForFilter.selectedIndex].value;
 	document.getElementById("searchFieldInput").placeholder = "Filter "+selectedListFilterType;
 	generalUpdate();
+}
+
+function toggleFilterType()
+{
+	if(document.getElementById("searchType").value === "content")
+	{
+		//switch to title
+		document.getElementById("searchType").value = "title";
+	}
+	else
+	{
+		//switch to content
+		document.getElementById("searchType").value = "content"
+	}
+	changeSearchplaceholder();
+}
+
+function showLogWindowFilter(windowNum)
+{
+	let currentDisplay = document.getElementById("searchFieldInputOuter-"+windowNum).style.display;
+	if(currentDisplay !== "block")
+	{
+		document.getElementById("searchFieldInputOuter-"+windowNum).style.display = "block";
+	}
+	else
+	{
+		document.getElementById("searchFieldInputOuter-"+windowNum).style.display = "none";
+	}
+	resize();
 }
