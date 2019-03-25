@@ -797,58 +797,74 @@ $defaultConfigMoreData = array(
 		"id"								=>	"settingsLogFormatVars",
 		"name"								=>	"Log Format Settings ",
 		"vars"								=>	array(
-			0									=> array(
-				"bool"								=>	($dateTextFormat != 'custom'),
-				"bool2"								=>	"custom",
-				"id"								=>	"dateTextFormatSelector",
-				"name"								=>	"Custom Date Text Format",
+			0									=>	array(
+				"bool"								=>	($dateTextFormatEnable == 'false'),
+				"id"								=>	"dateTextFormatEnableSettings",
+				"name"								=>	"Log Date Text Format Settings",
 				"type"								=>	"grouped",
 				"var"								=>	array(
-					"function"							=>	"toggleUpdateLogFormat",
-					"functionForToggle"					=>	"showOrHideLogFormat",
-					"id"								=>	"dateTextFormat",
-					"key"								=>	"dateTextFormat",
-					"name"								=>	"Date Text Format",
-					"options"							=>	$dateFormatOptions,
-					"type"								=>	"dropdown"
-				),
-				"vars"								=>	$customDateFormatVars
-			),
-			1									=> array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"id"								=>	"dateTextFormatCustom",
-					"key"								=>	"dateTextFormatCustom",
-					"type"								=>	"hidden"
-				)
-			),
-			2									=>	array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"dateTextFormatColumn",
-					"name"								=>	"Show log date / time in seperate column",
-					"options"							=>	array(
-						0 									=> array(
-							"value" 							=> "true",
-							"name" 								=> "Always"),
-						1 									=> array(
-							"value" 							=> "auto",
-							"name" 								=> "On larger screens"),
-						2 									=> array(
-							"value" 							=> "false",
-							"name" 								=> "Never")
-					),
-					"type"								=>	"dropdown"
-				)
-			),
-			3									=>	array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"info"								=>	"Only displays top timestamp when more than one in a row are same",
-					"key"								=>	"dateTextGroup",
-					"name"								=>	"Group Same Timestamps",
+					"function"							=>	"showOrHidedateTextFormatEnableSettings",
+					"id"								=>	"dateTextFormatEnable",
+					"key"								=>	"dateTextFormatEnable",
+					"name"								=>	"Format Date Text",
 					"options"							=>	$trueFalsVars,
 					"type"								=>	"dropdown"
+				),
+				"vars"								=>	array(
+					0									=> array(
+						"bool"								=>	($dateTextFormat != 'custom'),
+						"bool2"								=>	"custom",
+						"id"								=>	"dateTextFormatSelector",
+						"name"								=>	"Custom Date Text Format",
+						"type"								=>	"grouped",
+						"var"								=>	array(
+							"function"							=>	"toggleUpdateLogFormat",
+							"functionForToggle"					=>	"showOrHideLogFormat",
+							"id"								=>	"dateTextFormat",
+							"key"								=>	"dateTextFormat",
+							"name"								=>	"Date Text Format",
+							"options"							=>	$dateFormatOptions,
+							"type"								=>	"dropdown"
+						),
+						"vars"								=>	$customDateFormatVars
+					),
+					1									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"id"								=>	"dateTextFormatCustom",
+							"key"								=>	"dateTextFormatCustom",
+							"type"								=>	"hidden"
+						)
+					),
+					2									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"dateTextFormatColumn",
+							"name"								=>	"Show log date / time in seperate column",
+							"options"							=>	array(
+								0 									=> array(
+									"value" 							=> "true",
+									"name" 								=> "Always"),
+								1 									=> array(
+									"value" 							=> "auto",
+									"name" 								=> "On larger screens"),
+								2 									=> array(
+									"value" 							=> "false",
+									"name" 								=> "Never")
+							),
+							"type"								=>	"dropdown"
+						)
+					),
+					3									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"info"								=>	"Only displays top timestamp when more than one in a row are same",
+							"key"								=>	"dateTextGroup",
+							"name"								=>	"Group Same Timestamps",
+							"options"							=>	$trueFalsVars,
+							"type"								=>	"dropdown"
+						)
+					),
 				)
 			),
 			4									=>	array(

@@ -1302,6 +1302,75 @@ function generateGenericType($confDataValue, $confDataKeyValue, $confDataKey)
 	return $returnHtml;
 }
 
+function varTemplateLogic($confDataValue, $loadVarsArray)
+{
+	if($confDataValue["type"] === "single")
+	{
+		echo "<li";
+		if($confDataValue["var"]["type"] === "hidden")
+		{
+			echo " style=\"display: none;\"  ";
+		}
+		echo ">".generateGenericType($confDataValue["var"], getData($loadVarsArray, $confDataValue), $confDataValue["var"]["key"])."</li>";
+	}
+	elseif($confDataValue["type"] === "linked")
+	{
+		echo "<li>";
+		foreach ($confDataValue["vars"] as $confDataInnerValue)
+		{
+			echo generateGenericType($confDataInnerValue, getData($loadVarsArray, $confDataInnerValue), $confDataInnerValue["key"])." ";
+		}
+		echo "</li>";
+	}
+	elseif($confDataValue["type"] === "grouped")
+	{
+		echo "<li>".generateGenericType($confDataValue["var"], getData($loadVarsArray, $confDataValue), $confDataValue["var"]["key"])."</li>";
+		echo "<li><div id=\"".$confDataValue["id"]."\" style=\" ";
+		if($confDataValue["bool"])
+		{
+			echo 'display: none;';
+		}
+		echo " \" ><div class=\"settingsHeader\">".$confDataValue["name"]."</div><div class=\"settingsDiv\" ><ul class=\"settingsUl\">";
+		foreach ($confDataValue["vars"] as $confDataInnerValue)
+		{
+			varTemplateLogic($confDataInnerValue, $loadVarsArray);
+		}
+		echo "</ul></div></div></li>";
+		$functionName = $confDataValue["var"]["function"];
+		if(isset($confDataValue["var"]["functionForToggle"]))
+		{
+			$functionName = $confDataValue["var"]["functionForToggle"];
+		}
+		$boolForFunction = "true";
+		if(isset($confDataValue["bool2"]))
+		{
+			$boolForFunction = $confDataValue["bool2"];
+		}
+		echo "<script type=\"text/javascript\">
+			function ".$functionName."()
+			{
+				try
+				{
+					showOrHideSubWindow( document.getElementById(\"".$confDataValue["var"]["id"]."\") , document.getElementById(\"".$confDataValue["id"]."\") , \"".$boolForFunction."\" );
+				}
+				catch(e)
+				{
+					eventThrowException(e);
+				}
+			}
+		</script>";
+	}
+	elseif($confDataValue["type"] === "custom")
+	{
+		echo "<li>".$confDataValue["custom"]."</li>";
+	}
+
+	if(isset($confDataValue["info"]) && $confDataValue["info"] !== "")
+	{
+		echo generateInfo($infoImage,$confDataValue["info"]);
+	}
+}
+
 function generateInfo($image, $info)
 {
 	$returnHtml = "<li><span style=\"font-size: 75%;\">";

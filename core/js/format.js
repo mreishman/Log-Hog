@@ -59,7 +59,7 @@ function formatLine(text, extraData)
 	{
 		timeFormat = "";
 	}
-	if(dateTextFormatColumn === "true" || (dateTextFormatColumn === "auto" && window.innerWidth > breakPointTwo))
+	if(dateTextFormat === "true" && (dateTextFormatColumn === "true" || (dateTextFormatColumn === "auto" && window.innerWidth > breakPointTwo)))
 	{
 		if("lineDisplay" in extraData && extraData["lineDisplay"] === "true")
 		{
@@ -328,6 +328,10 @@ function hideEvenMoreInfo(id)
 
 function dateTimeFormat(dateTextArray)
 {
+	if(dateTextFormat !== "true")
+	{
+		return dateText;
+	}
 	if(dateTextFormat === "hidden")
 	{
 		return "";
@@ -362,7 +366,7 @@ function dateTimeFormat(dateTextArray)
 		}
 		catch(e)
 		{
-			
+
 		}
 	}
 	if(String(newConfDate) !== "Invalid Date" && String(newConfDate) !== "NaN")
