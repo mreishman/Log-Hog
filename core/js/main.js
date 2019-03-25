@@ -483,7 +483,7 @@ function toggleDisplayOfNoLogs()
 			if(document.getElementById("noLogToDisplay").style.display !== "block")
 			{
 				document.getElementById("noLogToDisplay").style.display = "block";
-				
+
 			}
 			if(document.getElementById("log").style.display !== "none")
 			{
@@ -496,7 +496,7 @@ function toggleDisplayOfNoLogs()
 			if(document.getElementById("noLogToDisplay").style.display !== "none")
 			{
 				document.getElementById("noLogToDisplay").style.display = "none";
-				
+
 			}
 			if(document.getElementById("log").style.display !== "block")
 			{
@@ -553,7 +553,7 @@ function scrollPauseLogic(id)
 	{
 		var logTdCalc = document.getElementById("log"+id+"Td").getBoundingClientRect();  //const
 		var logCalc = document.getElementById("log"+id).getBoundingClientRect(); //changes
-		//do calc to see if scrolled, if scrolled don't scroll to bottom 
+		//do calc to see if scrolled, if scrolled don't scroll to bottom
 		if(logCalc.bottom > logTdCalc.bottom)
 		{
 			return false;
@@ -604,7 +604,7 @@ function tryToInsertBeforeLog(innerCount, stop, idCheck, item)
 		while(itemToBefore === null && innerCount < stop)
 		{
 			var itemCheck = $("#menu ." + idCheck + "Button");
-			if(itemCheck.length !== 0) 
+			if(itemCheck.length !== 0)
 			{
 				itemToBefore = itemCheck;
 			}
@@ -631,7 +631,7 @@ function tryToInsertAfterLog(innerCount, stop, idCheck, item)
 		while(itemToBefore === null && innerCount > 0)
 		{
 			var itemCheck = $("#menu ." + idCheck + "Button");
-			if(itemCheck.length !== 0) 
+			if(itemCheck.length !== 0)
 			{
 				itemToBefore = itemCheck;
 			}
@@ -1050,12 +1050,12 @@ function resize()
 			{
 				localTrElementHeight -= document.getElementById("searchFieldInputOuter-"+lda).getBoundingClientRect().height
 			}
-			if($("#log"+lda+"Td").outerHeight() !== localTrElementHeight)
+			if(parseInt($("#log"+lda+"Td").outerHeight()) !== parseInt(localTrElementHeight))
 			{
 				closeLogPopup();
 				$("#log"+lda+"Td").outerHeight(localTrElementHeight);
 			}
-			if($("#logTd"+lda+"Width").outerWidth() !== localTdElementWidth)
+			if(parseInt($("#logTd"+lda+"Width").outerWidth()) !== parseInt(localTdElementWidth))
 			{
 				closeLogPopup();
 				$("#logTd"+lda+"Width").outerWidth(localTdElementWidth);
