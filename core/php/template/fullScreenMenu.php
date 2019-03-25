@@ -170,7 +170,7 @@
 		<?php require_once('update.php'); ?>
 	</div>
 	<div id="fullScreenMenuIFrame" style="display: none;">
-		<iframe style="border: 0;" id="iframeFullScreen" src=""></iframe>
+		<iframe id="iframeFullScreen" src=""></iframe>
 	</div>
 	<div id="fullScreenMenuWatchList" style="display: none;">
 		<?php

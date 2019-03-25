@@ -736,6 +736,10 @@ div.sidebarLeft {
   width: 10px;
 }
 
+#iframeFullScreen {
+  border: 0;
+}
+
 .notificationDiv span:not(.linkSmall), inlineNotificationDiv span:not(.linkSmall) {
   width: 100%;
 }
