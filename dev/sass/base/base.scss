@@ -11,6 +11,37 @@ div {
 	box-sizing: border-box;
 }
 
+a {
+  cursor: pointer;
+}
+
+#groupsInHeader {
+  display: inline-block;
+  overflow-y: auto;
+  margin-bottom: -8px;
+  height: 23px;
+}
+
+#searchFieldInput {
+  height: 30px;
+  width: 180px;
+  margin-right: 10px;
+}
+
+.iframeThemes {
+  width: 598px;
+  border: 0px;
+  height: 378px;
+}
+
+.iframeThemeOuter {
+  width: 600px;
+  height: 405px;
+  display: inline-block;
+  background-color: grey;
+  margin: 20px;
+}
+
 #menu, .menu {
   position: absolute;
   width: 100%;

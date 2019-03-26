@@ -35,7 +35,7 @@
 						<p id="numSelectIndecatorForWindow{{counter}}"  class=" {{windowSelect}} " >
 							{{counterPlusOne}}
 						</p>
-						<a id="showInfoLink{{counter}}" onclick="showInfo('{{counter}}');" style="cursor: pointer;" >
+						<a id="showInfoLink{{counter}}" onclick="showInfo('{{counter}}');">
 							<?php echo generateImage(
 								$arrayOfImages["loadingImg"],
 								$imageConfig = array(
@@ -48,7 +48,7 @@
 								);
 							?>
 						</a>
-						<a id="showLogWindowFilter{{counter}}" onclick="showLogWindowFilter('{{counter}}');" style="cursor: pointer;" >
+						<a id="showLogWindowFilter{{counter}}" onclick="showLogWindowFilter('{{counter}}');">
 							<?php echo generateImage(
 								$arrayOfImages["loadingImg"],
 								$imageConfig = array(
@@ -61,7 +61,7 @@
 								);
 							?>
 						</a>
-						<a id="pinWindow{{counter}}" class="pinWindowContainer"  onclick="pinWindow('{{counter}}');" style="cursor: pointer;" >
+						<a id="pinWindow{{counter}}" class="pinWindowContainer"  onclick="pinWindow('{{counter}}');">
 							<?php
 								echo generateImage(
 								$arrayOfImages["loadingImg"],
@@ -85,7 +85,7 @@
 								);
 							?>
 						</a>
-						<a id="clearLogSideBar{{counter}}"  onclick="clearLog('{{counter}}');" style="cursor: pointer;">
+						<a id="clearLogSideBar{{counter}}"  onclick="clearLog('{{counter}}');">
 							<?php echo generateImage(
 								$arrayOfImages["loadingImg"],
 								$imageConfig = array(
@@ -98,7 +98,7 @@
 								);
 							?>
 						</a>
-						<a id="deleteLogSideBar{{counter}}"  onclick="deleteLogPopup('{{counter}}');" style="cursor: pointer;">
+						<a id="deleteLogSideBar{{counter}}"  onclick="deleteLogPopup('{{counter}}');">
 							<?php echo  generateImage(
 								$arrayOfImages["loadingImg"],
 								$imageConfig = array(
@@ -111,7 +111,7 @@
 								);
 							?>
 						</a>
-						<a id="historySideBar{{counter}}" onclick="viewBackupFromCurrentLog('{{counter}}');" style="cursor: pointer;">
+						<a id="historySideBar{{counter}}" onclick="viewBackupFromCurrentLog('{{counter}}');">
 							<?php echo generateImage(
 								$arrayOfImages["loadingImg"],
 								$imageConfig = array(
@@ -124,7 +124,7 @@
 								);
 							?>
 						</a>
-						<a id="saveArchiveSideBar{{counter}}" onclick="saveArchivePopup('{{counter}}');" style="cursor: pointer;">
+						<a id="saveArchiveSideBar{{counter}}" onclick="saveArchivePopup('{{counter}}');">
 							<?php echo generateImage(
 								$arrayOfImages["loadingImg"],
 								$imageConfig = array(
@@ -137,7 +137,7 @@
 								);
 							?>
 						</a>
-						<a onclick="toggleLogPopup(this,'{{counter}}');" style="cursor: pointer;">
+						<a onclick="toggleLogPopup(this,'{{counter}}');">
 							<?php echo generateImage(
 								$arrayOfImages["loadingImg"],
 								$imageConfig = array(
@@ -150,7 +150,7 @@
 								);
 							?>
 						</a>
-						<a onclick="removeLogFromDisplay('{{counter}}')" id="closeLogSideBar{{counter}}" onclick="#" style="cursor: pointer; display: none;" >
+						<a onclick="removeLogFromDisplay('{{counter}}')" id="closeLogSideBar{{counter}}" onclick="#" style="display: none;" >
 							<?php echo generateImage(
 								$arrayOfImages["loadingImg"],
 								$imageConfig = array(
@@ -162,7 +162,7 @@
 								);
 							?>
 						</a>
-						<a onclick="scrollToBottom('{{counter}}');" style="cursor: pointer;" >
+						<a onclick="scrollToBottom('{{counter}}');">
 							<?php echo generateImage(
 								$arrayOfImages["loadingImg"],
 								$imageConfig = array(

@@ -1,6 +1,6 @@
 <h3 class="addBorderBottom">Filters</h3>
 <?php if ($filterSearchInHeader !== "true" && $filterEnabled === "true"): ?>
-	<input disabled id="searchFieldInput" type="search" name="search" placeholder="Filter <?php echo $filterDefault; ?>" style="height: 30px; width: 180px; margin-right: 10px;">
+	<input disabled id="searchFieldInput" type="search" name="search" placeholder="Filter <?php echo $filterDefault; ?>">
 <?php endif; ?>
 <span id="groupsSpanSideBar" style="display: none;">
 Groups:

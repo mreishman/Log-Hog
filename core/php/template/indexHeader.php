@@ -152,11 +152,11 @@
 			</span>
 		</span>
 		<?php if ($groupDropdownInHeader === "true"): ?>
-			<div style="display: inline-block; overflow-y: auto; margin-bottom: -8px; height: 23px;" id="groupsInHeader"><span id="groupHeaderAllButton" class="linkSmall selected" onclick="addGroupToSelect(event, 'all');" >All</span></div>
+			<div id="groupsInHeader"><span id="groupHeaderAllButton" class="linkSmall selected" onclick="addGroupToSelect(event, 'all');" >All</span></div>
 		<?php endif; ?>
 		<?php if ($filterSearchInHeader === "true" && $filterEnabled === "true"): ?>
 			<div id="menuButtonRight" style="float: right;">
-				<input disabled id="searchFieldInput" type="search" name="search" placeholder="Filter <?php echo $filterDefault; ?>" style="height: 30px; width: 200px; margin-right: 10px;">
+				<input disabled id="searchFieldInput" type="search" name="search" placeholder="Filter <?php echo $filterDefault; ?>">
 			</div>
 		<?php endif; ?>
 	</div>

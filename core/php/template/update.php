@@ -46,7 +46,7 @@
 				<li>
 					<h2>You last checked for updates
 						<span id="spanNumOfDaysUpdateSince" >
-							<u onclick="checkForUpdates('');" style="cursor: pointer;" > <?php echo $daysSince;?> Day<?php if($daysSince != 1){ echo "s";} ?></u>
+							<a onclick="checkForUpdates('');"> <?php echo $daysSince;?> Day<?php if($daysSince != 1){ echo "s";} ?></a>
 						</span>
 						 Ago
 					</h2>

@@ -4,7 +4,7 @@ foreach ($scanned_directory as $key):
 			include($directory.$key."/defaultSetting.php");
 			$thisThemeIsSelected = false;
 			?>
-			<div class="addBorder" style="width: 600px; height: 405px; display: inline-block; background-color: grey; margin: 20px;">
+			<div class="addBorder iframeThemeOuter">
 				<div class="settingsHeader" style="margin: 0px;">
 					<?php echo $themeDefaultSettings['displayName'];?>
 					<div class="settingsHeaderButtons">
@@ -22,7 +22,7 @@ foreach ($scanned_directory as $key):
 					</div>
 				</div>
 				<span id="htmlContent-<?php echo $key;?>" style="display: block;">
-					<iframe class="iframeThemes" data-src="<?php echo $themeDirMod; ?>core/Themes/example.php?type=<?php echo $key;?>" style="width: 598px; border: 0px; height: 378px;" src="">
+					<iframe class="iframeThemes" data-src="<?php echo $themeDirMod; ?>core/Themes/example.php?type=<?php echo $key;?>" src="">
 					</iframe>
 				</span>
 				<span style="display: none;">
