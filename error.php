@@ -213,10 +213,10 @@ if(file_exists($file))
 
 <?php if($error != 0): ?>
     <div class="errorMessage" >
-        <h1 style="line-height: 60px;">
-            <img style="vertical-align: middle;" src="core/img/redWarning.png" height="60px">
+        <h1>
+            <img class="warningImage" src="core/img/redWarning.png" height="60px">
             Error <?php echo $error ?>
-            <img style="vertical-align: middle;" src="core/img/redWarning.png" height="60px">
+            <img class="warningImage" ssrc="core/img/redWarning.png" height="60px">
         </h1>
         <h1> <?php echo $page ?> </h1>
     </div>

@@ -2,7 +2,7 @@
 	addonRightClickObject = {};
 	addonRightClickIds = {};
 </script>
-<li class="menuTitle fullScreenMenuText" style="text-align: center;" >
+<li class="menuTitle fullScreenMenuText">
 	Log-Hog
 </li>
 <li class="menuTitle fullScreenMenuText subMenuTitle">

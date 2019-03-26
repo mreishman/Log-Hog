@@ -38,4 +38,12 @@ table {
   color: white;
 }
 
+h1 {
+  line-height: 60px;
+}
+
+.warningImage {
+  vertical-align: middle;
+}
+
 /*# sourceMappingURL=error.css.map */
