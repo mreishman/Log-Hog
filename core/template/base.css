@@ -212,13 +212,6 @@ a {
   margin-top: -4px;
 }
 
-#log {
-  padding: 1em 0;
-}
-#log div {
-  padding: 0.25em 1em;
-}
-
 .log div, .log tr, .log tr td {
   -webkit-transition: 1s ease-in-out;
   -moz-transition: 1s ease-in-out;
@@ -561,11 +554,6 @@ div.sidebarLeft {
   left: 402px;
   right: 0;
   overflow: auto;
-}
-
-.settingsDiv {
-  margin: 10px;
-  margin-top: 0;
 }
 
 .SaveGroupLog .settingsDiv {

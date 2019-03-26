@@ -59,7 +59,7 @@ function formatLine(text, extraData)
 	{
 		timeFormat = "";
 	}
-	if(dateTextFormat === "true" && (dateTextFormatColumn === "true" || (dateTextFormatColumn === "auto" && window.innerWidth > breakPointTwo)))
+	if(dateTextFormatEnable === "true" && (dateTextFormatColumn === "true" || (dateTextFormatColumn === "auto" && window.innerWidth > breakPointTwo)))
 	{
 		if("lineDisplay" in extraData && extraData["lineDisplay"] === "true")
 		{
@@ -328,7 +328,7 @@ function hideEvenMoreInfo(id)
 
 function dateTimeFormat(dateTextArray)
 {
-	if(dateTextFormat !== "true")
+	if(dateTextFormatEnable !== "true")
 	{
 		return dateText;
 	}

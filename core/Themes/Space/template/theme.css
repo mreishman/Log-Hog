@@ -118,12 +118,25 @@
   border-top: 0;
 }
 
+#log {
+  padding: 1em 0;
+}
+#log div {
+  padding: 0.25em 1em;
+}
+
+.settingsDiv {
+  margin: 10px;
+  margin-top: 0;
+}
+
 .settingsDivRemoveBottom {
   border-bottom: 0;
   padding-bottom: 0;
   margin-bottom: 0;
 }
 
+/*end has to be here to override*/
 .settingsHeader {
   background: #090a0f;
   color: #8BBEB2;
