@@ -902,4 +902,10 @@ div.sidebarLeft {
   z-index: 99;
 }
 
+#innerDisplayUpdate {
+  height: 350px;
+  overflow: auto;
+  max-height: 300px;
+}
+
 /*# sourceMappingURL=base.css.map */

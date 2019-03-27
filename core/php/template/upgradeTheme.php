@@ -37,7 +37,9 @@ if((strval($baseFileVersion) === strval($oldFileVersion)) && (file_exists("../..
 ?>
 <head>
 	<title>Log Hog | Updater</title>
+	<link rel="stylesheet" type="text/css" href="../../../core/template/base.css">
 	<link rel="stylesheet" type="text/css" href="../../../core/template/theme.css">
+	<?php require_once("../../../core/php/customCSS.php"); ?>
 	<link rel="icon" type="image/png" href="../../../core/img/favicon.png" />
 	<?php getScript(array(
 		"filePath"		=> "../../../core/js/jquery.js",
@@ -54,8 +56,8 @@ if((strval($baseFileVersion) === strval($oldFileVersion)) && (file_exists("../..
 	</div>
 	<div class="settingsDiv" >
 		<div class="updatingDiv">
-			<p style="border-bottom: 1px solid white;"></p>
-			<div id="innerDisplayUpdate" style="height: 350px; overflow: auto; max-height: 300px;">
+			<p class="addBorderBottom"></p>
+			<div id="innerDisplayUpdate">
 				<table style="padding: 10px;">
 					<tr>
 						<td style="height: 50px;">
@@ -112,7 +114,7 @@ if((strval($baseFileVersion) === strval($oldFileVersion)) && (file_exists("../..
 					</tr>
 				</table>
 			</div>
-			<p style="border-bottom: 1px solid white;"></p>
+			<p class="addBorderBottom"></p>
 		</div>
 	</div>
 </div>

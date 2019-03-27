@@ -13,7 +13,6 @@ require_once($baseUrl.'conf/config.php');
 require_once('../../../core/conf/config.php');
 require_once('../../../core/php/configStatic.php');
 require_once('../../../core/php/loadVars.php');
-
 $configVersion = 0;
 if(isset($config['configVersion']))
 {
@@ -24,7 +23,9 @@ $totalUpgradeScripts = floatval($configVersionToUpgradeTo) - floatval($configVer
 ?>
 <head>
 	<title>Log Hog | Updater</title>
+	<link rel="stylesheet" type="text/css" href="../../../core/template/base.css">
 	<link rel="stylesheet" type="text/css" href="../../../core/template/theme.css">
+	<?php require_once("../../../core/php/customCSS.php"); ?>
 	<link rel="icon" type="image/png" href="../../../core/img/favicon.png" />
 	<?php getScript(array(
 		"filePath"		=> "../../../core/js/jquery.js",
@@ -41,8 +42,8 @@ $totalUpgradeScripts = floatval($configVersionToUpgradeTo) - floatval($configVer
 	</div>
 	<div class="settingsDiv" >
 		<div class="updatingDiv">
-			<p style="border-bottom: 1px solid white;"></p>
-			<div id="innerDisplayUpdate" style="height: 350px; overflow: auto; max-height: 300px;">
+			<p class="addBorderBottom"></p>
+			<div id="innerDisplayUpdate">
 			<table style="padding: 10px;">
 				<tr>
 					<td style="height: 50px;">
@@ -68,7 +69,7 @@ $totalUpgradeScripts = floatval($configVersionToUpgradeTo) - floatval($configVer
 				</tr>
 			</table>
 			</div>
-			<p style="border-bottom: 1px solid white;"></p>
+			<p class="addBorderBottom"></p>
 		</div>
 	</div>
 </div>

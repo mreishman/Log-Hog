@@ -877,3 +877,9 @@ div.sidebarLeft {
   width: 200px;
   z-index: 99;
 }
+
+#innerDisplayUpdate {
+  height: 350px;
+  overflow: auto;
+  max-height: 300px;
+}
