@@ -11,7 +11,7 @@
 	<?php
 	foreach ($defaultConfigMoreData[$currentSection]["vars"] as $confDataValue)
 	{
-		varTemplateLogic($confDataValue, $loadVarsArray);
+		varTemplateLogic($confDataValue, $loadVarsArray, $infoImage);
 	}
 	?>
 </ul>

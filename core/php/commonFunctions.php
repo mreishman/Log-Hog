@@ -1302,7 +1302,7 @@ function generateGenericType($confDataValue, $confDataKeyValue, $confDataKey)
 	return $returnHtml;
 }
 
-function varTemplateLogic($confDataValue, $loadVarsArray)
+function varTemplateLogic($confDataValue, $loadVarsArray, $infoImage)
 {
 	if($confDataValue["type"] === "single")
 	{
@@ -1333,7 +1333,7 @@ function varTemplateLogic($confDataValue, $loadVarsArray)
 		echo " \" ><div class=\"settingsHeader\">".$confDataValue["name"]."</div><div class=\"settingsDiv\" ><ul class=\"settingsUl\">";
 		foreach ($confDataValue["vars"] as $confDataInnerValue)
 		{
-			varTemplateLogic($confDataInnerValue, $loadVarsArray);
+			varTemplateLogic($confDataInnerValue, $loadVarsArray, $infoImage);
 		}
 		echo "</ul></div></div></li>";
 		$functionName = $confDataValue["var"]["function"];
