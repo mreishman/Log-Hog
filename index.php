@@ -123,10 +123,10 @@ $externalLinkImage = generateImage(
 			<div id="loggTimerPollStyle" class="noticeBar"><span id="loggingTimerPollRate" >### MS /<?php echo $pollingRate; ?> MS</span> | <span id="loggSkipCount" >0</span>/<?php echo $pollForceTrue; ?> | <span id="loggAllCount" >0</span>/<?php echo $pollRefreshAll; ?></div>
 		<?php endif; ?>
 			<div id="noticeBar" class="noticeBar" style="display: none;" >
-				<span id="connectionNotice" style="color: yellow;" >
+				<span id="connectionNotice">
 					Notice  - <?php echo ($pollForceTrue * 2); ?> poll requests have failed. Please check server connectivity or refresh page.
 				</span>
-				<span id="connectionWarning" style="color: red;">
+				<span id="connectionWarning">
 					Warning - <?php echo ($pollForceTrue * 4); ?> poll requests have failed. Please check server connectivity or refresh page.
 				</span>
 			</div>
@@ -148,21 +148,21 @@ $externalLinkImage = generateImage(
 			</div>
 		</div>
 		<div id="main">
-			<div id="settingsSideBar" class="fullScreenMenuLeftSidebar" style="display: none; position: absolute; width: 200px; overflow-y: auto;overflow-x: hidden; border: none;">
+			<div id="settingsSideBar" class="fullScreenMenuLeftSidebar">
 				<?php require_once('core/php/template/settingsSideBar.php'); ?>
 			</div>
-			<table id="log" style="display: none; margin: 0px;padding: 0px; border-spacing: 0px; width: 100%;" cellspacing="0" cellpadding="0">
+			<table id="log" cellspacing="0" cellpadding="0">
 				<tbody><tr><td></td></tr></tbody>
 			</table>
-			<div id="firstLoad" style="width: 100%; height: 100%;">
-				<h1 id="progressBarMainInfo" style="margin-right: auto; margin-left: auto; width: 100%; text-align: center;  margin-top: 100px; font-size: 150%;" >Loading...</h1>
-				<div id="divForProgressBar" style="width: 80%; height: 100px; margin-left: auto; margin-right: auto; margin-top: -15px; margin-bottom: -15px;">
-					<div <?php echo $loadingBarStyle; ?> class="ldBar label-center" id="progressBar" data-value="0" style="width: 100%; height: 100%; margin: auto;"></div>
+			<div id="firstLoad">
+				<h1 id="progressBarMainInfo" class="progressBarMainInfo" >Loading...</h1>
+				<div id="divForProgressBar" class="divForProgressBar">
+					<div <?php echo $loadingBarStyle; ?> class="ldBar label-center progressBar" id="progressBar" data-value="0"></div>
 				</div>
-				<h3 id="progressBarSubInfo" style="margin-right: auto; margin-left: auto; width: 100%; text-align: center;  margin-top: 10px; font-size: 150%;" >Loading Javascript</h3>
+				<h3 id="progressBarSubInfo" class="progressBarSubInfo">Loading Javascript</h3>
 			</div>
 			<div id="noLogToDisplay" class='errorMessageLog errorMessageGreenBG' style="display: none; margin-top: 2%;" > There are currently no logs to display. </div>
-			<div id="moreInfoSideBar" class="fullScreenMenuLeftSidebar" style="display: none; position: absolute; width: 200px; overflow-y: auto;overflow-x: hidden; border: none; right: 0; bottom: 0; word-break: break-word;"></div>
+			<div id="moreInfoSideBar" class="fullScreenMenuLeftSidebar" style="display: none;"></div>
 		</div>
 		<div id="storage">
 			<?php

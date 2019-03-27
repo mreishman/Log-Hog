@@ -204,8 +204,9 @@ function makePrettyWithText(text, count, extraData = {})
 					}
 				}
 			}
-			var lineToReturn = "<td style=\"white-space: pre-wrap;\">"+lineText+"</td>";
-			var colspan = 2;
+			let lineToReturn = "<td style=\"white-space: pre-wrap;\">"+lineText+"</td>";
+			let colspan = 2;
+			let addRowPadding = true;
 			if(type === "log" && advancedLogFormatEnabled === "true")
 			{
 				let lastLine = "";
@@ -242,7 +243,11 @@ function makePrettyWithText(text, count, extraData = {})
 					lineCount
 				});
 			}
-			returnText += "<td style=\"width: 31px; padding: 0;\"></td>"+lineToReturn+"</tr><tr class=\"logLinePaddingHeight\"><td class=\"logLineBorder\" colspan=\""+colspan+"\"></td></tr>";
+			returnText += "<td style=\"width: 31px; padding: 0;\"></td>"+lineToReturn+"</tr>";
+			if(addRowPadding)
+			{
+				returnText += "<tr class=\"logLinePaddingHeight\"><td class=\"logLineBorder\" colspan=\""+colspan+"\"></td></tr>";
+			}
 		}
 		if(returnText === "")
 		{

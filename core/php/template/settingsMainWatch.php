@@ -8,13 +8,13 @@
 	</div>
 	<div class="settingsDiv" >
 		<span id="loadingSpan">
-			<h1 id="progressBarMainInfoWatchList" style="margin-right: auto; margin-left: auto; width: 100%; text-align: center;  margin-top: 100px; font-size: 150%;" >Loading...</h1>
-			<div id="divForProgressBarWatchList" style="width: 80%; height: 100px; margin-left: auto; margin-right: auto; margin-top: -15px; margin-bottom: -15px;">
-				<div <?php echo $loadingBarStyle; ?> class="ldBar label-center" id="progressBarWatchList" data-value="0" style="width: 100%; height: 100%; margin: auto;"></div>
+			<h1 id="progressBarMainInfoWatchList" class="progressBarMainInfo">Loading...</h1>
+			<div id="divForProgressBarWatchList" class="divForProgressBar">
+				<div <?php echo $loadingBarStyle; ?> class="ldBar label-center progressBar" id="progressBarWatchList" data-value="0"></div>
 			</div>
-			<h3 id="progressBarSubInfoWatchList" style="margin-right: auto; margin-left: auto; width: 100%; text-align: center;  margin-top: 10px; font-size: 150%;" >Loading Javascript</h3>
+			<h3 id="progressBarSubInfoWatchList" class="progressBarSubInfo">Loading Javascript</h3>
 		</span>
-		<ul class="settingsUl uniqueClassForAppendSettingsMainWatchNew" style=" -webkit-padding-start: 0;" >
+		<ul class="settingsUl uniqueClassForAppendSettingsMainWatchNew">
 		</ul>
 	</div>
 	<div id="hidden" style="display: none">
@@ -127,7 +127,7 @@
 		<?php echo generateSaveBlock(array('srcModifier' => $imageUrlModifier), $arrayOfImages); ?>
 	</div>
 </div>
-<div id="fileFolderDropdown" class="addBorder addBackground" style="width: 600px; z-index: 120; position: fixed; box-shadow: 0 5px 10px rgba(0,0,0,.5); display: none;"  >
+<div id="fileFolderDropdown" class="addBorder addBackground" style="display: none;"  >
 </div>
 <script type="text/javascript">
 	var icons = {};
