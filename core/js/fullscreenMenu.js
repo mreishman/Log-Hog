@@ -326,7 +326,7 @@ function toggleWatchListMenu(force = false)
 	if(typeof loadWatchList !== "function")
 	{
 		let scriptToLoad = onLoadJsFiles["watchlist"];
-		script(scriptToLoad["name"] + scriptToLoad["ver"]);
+		script(scriptToLoad["name"] + "?v=" + scriptToLoad["ver"]);
 	}
 	else
 	{

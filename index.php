@@ -138,7 +138,7 @@ $externalLinkImage = generateImage(
 			<span id="stars2" style="display: block;" ></span>
 			<span id="stars3" style="display: block;" ></span>
 		</div>
-		<div id="popupSelectContainer" class="backgroundForMenus addBorder menu"  style="position: fixed;width: 200px; z-index: 99; display: none;"></div>
+		<div id="popupSelectContainer" class="backgroundForMenus addBorder menu"  style="display: none;"></div>
 		<div style="display: inline-block; position: absolute; top: 0; left: 0; z-index: 30;" >
 			<div id="notificationIcon">
 				<span onclick="toggleNotifications();" id="notificationBadge"></span>
@@ -271,7 +271,7 @@ $externalLinkImage = generateImage(
 		  </ul>
 		</nav>
 	</span>
-	<span id="initialLoadContent" style="background-color: #222; color: #EEE; -webkit-transition: 1s ease-in-out; -moz-transition: 1s ease-in-out; -ms-transition: 1s ease-in-out; -o-transition: 1s ease-in-out; position: absolute; z-index: 1000; left: 0; right: 0; top: 0; bottom: 0;" >
+	<span id="initialLoadContent">
 		<table style="width: 100%; height: 100%;">
 			<tr>
 				<th>
@@ -282,7 +282,7 @@ $externalLinkImage = generateImage(
 					<h4 id="initialLoadContentMoreInfo" ></h4>
 					<h5 id="initialLoadContentCountInfo" ></h5>
 					<h5 id="initialLoadContentEvenMoreInfo" >File Check <span id="initialLoadCountCheck" >1</span> of 1000</h5>
-					<h4 style="color: red; display: none;" id="initialLoadContentEvenEvenMoreInfo" >This file looks like it is taking a while to load</h4>
+					<h4 id="initialLoadContentEvenEvenMoreInfo" >This file looks like it is taking a while to load</h4>
 				</th>
 			</tr>
 		</table>
