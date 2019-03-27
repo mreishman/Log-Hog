@@ -489,6 +489,7 @@ function toggleDisplayOfNoLogs()
 			{
 				document.getElementById("log").style.display = "none";
 			}
+			showOrHideGroups();
 		}
 		else
 		{
