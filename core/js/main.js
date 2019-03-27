@@ -489,6 +489,7 @@ function toggleDisplayOfNoLogs()
 			{
 				document.getElementById("log").style.display = "none";
 			}
+
 		}
 		else
 		{
@@ -503,6 +504,7 @@ function toggleDisplayOfNoLogs()
 				document.getElementById("log").style.display = "block";
 			}
 		}
+		showOrHideGroups();
 	}
 	catch(e)
 	{
