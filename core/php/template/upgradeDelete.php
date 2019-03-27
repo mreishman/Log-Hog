@@ -51,7 +51,7 @@ if($totalCountOfFilesToDelete < 1)
 	)); ?>
 </head>
 <body>
-<div id="main">
+<div id="main" style=" position: relative;">
 	<div class="settingsHeader" style="text-align: center;" >
 		<span id="titleHeader" >
 			<h1>Removing old Log-Hog files...</h1>

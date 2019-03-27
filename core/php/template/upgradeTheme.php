@@ -48,7 +48,7 @@ if((strval($baseFileVersion) === strval($oldFileVersion)) && (file_exists("../..
 	)); ?>
 </head>
 <body>
-<div id="main">
+<div id="main" style=" position: relative;">
 	<div class="settingsHeader" style="text-align: center;" >
 		<span id="titleHeader" >
 			<h1>Copying over Theme files to local/<?php echo $currentSelectedTheme; ?>/theme...</h1>

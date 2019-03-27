@@ -35,7 +35,7 @@ $totalUpgradeScripts = floatval($layoutVersionToUpgradeTo) - floatval($layoutVer
 	)); ?>
 </head>
 <body>
-<div id="main">
+<div id="main" style=" position: relative;">
 	<div class="settingsHeader" style="text-align: center;" >
 		<span id="titleHeader" >
 			<h1>Running Upgrade Scripts for Layout...</h1>
