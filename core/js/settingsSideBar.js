@@ -1,6 +1,6 @@
 function toggleSettingsSidebar()
 {
-	if(document.getElementById("settingsSideBar").style.display === "none")
+	if(document.getElementById("settingsSideBar").style.display === "none" || document.getElementById("settingsSideBar").style.display === "")
 	{
 		let newWidth = window.innerWidth - 200;
 		newWidth = adjustLogForMenuLocation(newWidth);
