@@ -134,6 +134,7 @@ function dateTimeSplit(text)
 
 function formatMainMessage(message, extraData)
 {
+	message = String(message);
 	if(logFormatPhpEnable === "true")
 	{
 		if(message.indexOf("PHP message:") > -1)
@@ -362,7 +363,7 @@ function dateTimeFormat(dateTextArray)
 		}
 		catch(e)
 		{
-			
+
 		}
 	}
 	if(String(newConfDate) !== "Invalid Date" && String(newConfDate) !== "NaN")
