@@ -9,6 +9,14 @@
 <div class="settingsDiv" >
 <ul class="settingsUl">
 	<?php
+	$infoImage = generateImage(
+		$arrayOfImages["info"],
+		array(
+			"style"			=>	"margin-bottom: -4px;",
+			"height"		=>	"20px",
+			"srcModifier"	=>	"../"
+		)
+	);
 	foreach ($defaultConfigMoreData[$currentSection]["vars"] as $confDataValue)
 	{
 		varTemplateLogic($confDataValue, $loadVarsArray, $infoImage);
