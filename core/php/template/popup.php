@@ -65,18 +65,21 @@ function displayLoadingPopup(pathToImg = "../")
 	}
 	?>
 	var srcForImage = "<?php echo $srcForImage; ?>";
-	showPopup();
-	document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' id='popupHeaderText' ><span id='popupHeaderText' >Loading...</span></div><br><br><div style='width:100%;text-align:center;'> <img src='"+pathToImg+srcForImage+"' height='50' width='50'> </div>";
+	displayPopup("Loading...","<img src='"+pathToImg+srcForImage+"' height='50' width='50'>","");
 }
 function displaySavePromptPopup(url)
 {
-	showPopup();
-	document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Changes not Saved!</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Are you sure you want to leave the page without saving changes?</div><div class='link' onclick='window.location.href = "+'"'+url+'"'+";' style='margin-left:125px; margin-right:50px;margin-top:25px;'>Yes</div><div onclick='hidePopup();' class='link'>No</div></div>";
+	displayPopup("Changes not Saved!","Are you sure you want to leave the page without saving changes?","<div class='linkSmall' onclick='window.location.href = "+'"'+url+'"'+";' style='margin-left:125px; margin-right:50px;'>Yes</div><div onclick='hidePopup();' class='linkSmall'>No</div>");
 }
 
 function displaySavePromptPopupIndex(functionName)
 {
+	displayPopup("Changes not Saved!","Are you sure you want to leave the page without saving changes?","<div class='linkSmall' onclick='hidePopup();"+functionName+";' style='margin-left:125px; margin-right:50px;'>Yes</div><div onclick='hidePopup();' class='linkSmall'>No</div>");
+}
+
+function displayPopup(header, content, buttons)
+{
 	showPopup();
-	document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' >Changes not Saved!</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Are you sure you want to leave the page without saving changes?</div><div class='link' onclick='hidePopup();"+functionName+";' style='margin-left:125px; margin-right:50px;margin-top:25px;'>Yes</div><div onclick='hidePopup();' class='link'>No</div></div>";
+	document.getElementById('popupContentInnerHTMLDiv').innerHTML = "<div class='settingsHeader' ><span id='popupHeaderText' >"+header+"</span></div><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px; height: 70px; overflow: auto; margin-top: 5px; margin-bottom: 5px;'>"+content+"</div>"+buttons;
 }
 </script>
