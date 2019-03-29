@@ -28,7 +28,7 @@ $modifier = "lines";
 if($logTrimType == 'size')
 {
 	$modifier = $TrimSize;
-	$logSizeLimit = $core->convertToSize($TrimSize, $logSizeLimit);
+	$logSizeLimit = $poll->convertToSize($TrimSize, $logSizeLimit);
 }
 
 $arrayToUpdate = array();

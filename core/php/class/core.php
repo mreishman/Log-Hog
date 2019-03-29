@@ -94,24 +94,6 @@ class core
 		return $returnString;
 	}
 
-	public function convertToSize($TrimSize, $logSizeLimit)
-	{
-		if($TrimSize == "KB")
-		{
-			return $logSizeLimit * 1024;
-		}
-		elseif($TrimSize == "M")
-		{
-			return $logSizeLimit * (1000 * 1000);
-		}
-		elseif($TrimSize == "MB")
-		{
-			return $logSizeLimit * (1024 * 1024);
-		}
-
-		return $logSizeLimit * 1000;
-	}
-
 	public function getCookieRedirect()
 	{
 		$urlRedirectValue = "";
