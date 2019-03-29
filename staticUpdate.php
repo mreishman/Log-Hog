@@ -1,6 +1,8 @@
 <?php
 $cssVersion = date("YmdHis");
 require_once('core/php/commonFunctions.php');
+require_once("core/php/class/core.php");
+$core = new core();
 
 $currentSelectedTheme = returnCurrentSelectedTheme();
 $baseUrl = "local/".$currentSelectedTheme."/";

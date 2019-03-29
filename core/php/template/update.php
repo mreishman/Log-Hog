@@ -29,7 +29,7 @@
 						}
 						$version = explode('.', $configStatic['version']);
 						$newestVersion = explode('.', $key);
-						$levelOfUpdate = findUpdateValue(count($newestVersion), count($version), $newestVersion, $version);
+						$levelOfUpdate = $core->findUpdateValue(count($newestVersion), count($version), $newestVersion, $version);
 						if($levelOfUpdate != 0)
 						{
 							$changelogHTML .= "<li><h2>Changelog For ".$key." update</h2></li>";

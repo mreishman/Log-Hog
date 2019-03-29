@@ -1,5 +1,7 @@
 <?php
 require_once('../core/php/commonFunctions.php');
+require_once("../core/php/class/core.php");
+$core = new core();
 $currentSelectedTheme = returnCurrentSelectedTheme();
 $baseUrl = "../local/".$currentSelectedTheme."/";
 $localURL = $baseUrl;
@@ -45,7 +47,7 @@ require_once('../core/php/updateCheck.php');
 		<div class="settingsHeader">
 			Branch Settings
 			<div class="settingsHeaderButtons">
-				<?php echo addResetButton("devBranch"); ?>
+				<?php echo $core->addResetButton("devBranch"); ?>
 				<a class="linkSmall devBranchSaveButton" onclick="saveAndVerifyMain('devBranch');" >Save Changes</a>
 			</div>
 		</div>
@@ -98,7 +100,7 @@ require_once('../core/php/updateCheck.php');
 		<div class="settingsHeader">
 			Static Config Settings
 			<div class="settingsHeaderButtons">
-				<?php echo addResetButton("devAdvanced2");?>
+				<?php echo $core->addResetButton("devAdvanced2");?>
 				<a class="linkSmall devAdvanced2SaveButton" onclick="saveConfigStatic();" >Save Changes</a>
 			</div>
 		</div>

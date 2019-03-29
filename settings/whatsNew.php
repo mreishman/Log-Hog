@@ -1,5 +1,7 @@
 <?php
 require_once('../core/php/commonFunctions.php');
+require_once("../core/php/class/core.php");
+$core = new core();
 setCookieRedirect();
 $currentSelectedTheme = returnCurrentSelectedTheme();
 $baseUrl = "../local/".$currentSelectedTheme."/";

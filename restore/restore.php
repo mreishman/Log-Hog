@@ -1,4 +1,7 @@
 <?php
+require_once('../core/php/commonFunctions.php');
+require_once("../core/php/class/core.php");
+$core = new core();
 $baseUrl = "../core/";
 $cssVersion = date("YmdHis");
 $versionToRestoreTo = 0;
@@ -7,7 +10,6 @@ if(isset($_POST['versionRevertTo']))
 	$versionToRestoreTo = $_POST['versionRevertTo'];
 }
 require_once('../core/php/loadVars.php');
-require_once('../core/php/commonFunctions.php');
 require_once('../core/php/configStatic.php');
 ?>
 <!DOCTYPE html>

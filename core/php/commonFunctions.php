@@ -241,35 +241,6 @@ function calcuateDaysSince($lastCheck)
 	return $interval->format('%a');
 }
 
-function findUpdateValue($newestVersionCount, $versionCount, $newestVersion, $version)
-{
-	for($i = 0; $i < $newestVersionCount; $i++)
-	{
-		if($i < $versionCount)
-		{
-			if(isset($newestVersion[$i]) && $newestVersion[$i] !== $version[$i])
-			{
-				if(intval($newestVersion[$i]) > intval($version[$i]))
-				{
-					$calcuation = 3-$i;
-					return max(1, $calcuation);
-				}
-				break;
-			}
-		}
-		else
-		{
-			return 1;
-		}
-	}
-	return 0;
-}
-
-function addResetButton($idOfForm)
-{
-	return "<a onclick=\"resetArrayObject('".$idOfForm."');\" style=\"display: none;\" class=\"linkSmall ".$idOfForm."ResetButton\" > Reset Current Changes</a><span class=\"".$idOfForm."NoChangesDetected\" >No Changes Detected</span>";
-}
-
 /* Duplicate of getFileSizeInner in class/poll.php */
 function getFileSizeInner($fileName, $shellOrPhp)
 {

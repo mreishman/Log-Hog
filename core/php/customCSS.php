@@ -3,6 +3,11 @@ if(!function_exists('baseURL'))
 {
 	require_once("commonFunctions.php");
 }
+if(!isset($core))
+{
+	require_once("class/core.php");
+	$core = new core();
+}
 $baseURLToMain =  baseURL();
 
 $baseUrl = $baseURLToMain."core/";
@@ -49,12 +54,12 @@ foreach ($currentSelectedThemeColorValues['main'] as $value):
 
 #menu a.updated {
 	background: <?php echo $currentSelectedThemeColorValues['active']['active-1']['background']?>;
-	color: <?php echo $currentSelectedThemeColorValues['active']['active-1']['fontColor']?>; 
+	color: <?php echo $currentSelectedThemeColorValues['active']['active-1']['fontColor']?>;
 }
 
 #menu a.updated:hover {
 	background: <?php echo $currentSelectedThemeColorValues['highlightActive']['highlightActive-1']['background']?>;
-	color: <?php echo $currentSelectedThemeColorValues['highlightActive']['highlightActive-1']['fontColor']?>; 
+	color: <?php echo $currentSelectedThemeColorValues['highlightActive']['highlightActive-1']['fontColor']?>;
 }
 
 progress

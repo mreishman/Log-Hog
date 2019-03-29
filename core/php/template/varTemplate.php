@@ -9,7 +9,7 @@ if(!isset($settings))
 <div class="settingsHeader">
 <?php echo $defaultConfigMoreData[$currentSection]["name"]; ?>
 <div class="settingsHeaderButtons">
-	<?php echo addResetButton($defaultConfigMoreData[$currentSection]["id"]);?>
+	<?php echo $core->addResetButton($defaultConfigMoreData[$currentSection]["id"]);?>
 	<a class="linkSmall <?php echo $defaultConfigMoreData[$currentSection]["id"]; ?>SaveButton" onclick="saveAndVerifyMain('<?php echo $defaultConfigMoreData[$currentSection]["id"]; ?>');" >Save Changes</a>
 </div>
 </div>

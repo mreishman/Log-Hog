@@ -43,6 +43,22 @@ if(file_exists($file))
     }
 }
 
+$coreLoaded = false;
+$file = "core/php/class/core.php";
+if(file_exists($file))
+{
+    try {
+        require_once($file);
+        $coreLoaded = true;
+    } catch (Exception $e) {
+
+    }
+    if($coreLoaded)
+    {
+        $core = new core();
+    }
+}
+
 $fileNameArray = array(
     "Error"    =>  array(
         "name"      =>  "Could not load list of files",

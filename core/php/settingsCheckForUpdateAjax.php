@@ -3,6 +3,8 @@ $data = array();
 $data['version'] = -1;
 $data['error'] = "";
 require_once('commonFunctions.php');
+require_once("class/core.php");
+$core = new core();
 //check for previous update, if failed
 $baseUrl = "../../core/";
 if(file_exists('../../local/layout.php'))
@@ -174,7 +176,7 @@ $newestVersion =  explode('.', $versionCheckArray['version']);
 
 $newestVersionCount = count($newestVersion);
 $versionCount = count($version);
-$levelOfUpdate = $levelOfUpdate = findUpdateValue($newestVersionCount, $versionCount, $newestVersion, $version);
+$levelOfUpdate = $levelOfUpdate = $core->findUpdateValue($newestVersionCount, $versionCount, $newestVersion, $version);
 
 $data['version'] = $levelOfUpdate;
 $data['versionNumber'] = $versionCheckArray['version'];
@@ -203,7 +205,7 @@ foreach ($versionCheckArray['versionList'] as $key => $value)
   }
   $newestVersion = explode('.', $key);
   $newestVersionCount = count($newestVersion);
-  $levelOfUpdate = findUpdateValue($newestVersionCount, $versionCount, $newestVersion, $version);
+  $levelOfUpdate = $core->findUpdateValue($newestVersionCount, $versionCount, $newestVersion, $version);
 
   if($levelOfUpdate != 0)
   {

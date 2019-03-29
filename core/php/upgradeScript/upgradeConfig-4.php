@@ -1,5 +1,7 @@
 <?php
 require_once("../commonFunctions.php");
+require_once("../class/core.php");
+$core = new core();
 $baseBaseUrl = baseURL();
 $baseUrl = $baseBaseUrl."local/";
 include($baseUrl.'layout.php');
@@ -56,4 +58,4 @@ if($alreadyRan)
 	);
 }
 upgradeConfig($arrayForNewStuff);
-echo json_encode($_POST['version']); 
+echo json_encode($_POST['version']);

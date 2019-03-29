@@ -3,6 +3,12 @@ if(!function_exists('baseURL'))
 {
 	require_once("commonFunctions.php");
 }
+if(!isset($core))
+{
+	require_once("class/core.php");
+	$core = new core();
+}
+
 $baseURLToMain =  baseURL();
 
 $baseUrl = $baseURLToMain."core/";

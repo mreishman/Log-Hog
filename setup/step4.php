@@ -1,11 +1,12 @@
 <?php
 require_once("../core/php/commonFunctions.php");
+require_once("../core/php/class/core.php");
+$core = new core();
 $currentSelectedTheme = returnCurrentSelectedTheme();
 $baseUrl = "../local/".$currentSelectedTheme."/";
 $baseUrlImages = $baseUrl;
 require_once($baseUrl.'conf/config.php');
 require_once('setupProcessFile.php');
-require_once('../core/php/commonFunctions.php');
 require_once('../core/php/configStatic.php');
 if($setupProcess != "step4")
 {

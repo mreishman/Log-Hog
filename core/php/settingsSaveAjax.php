@@ -1,5 +1,7 @@
 <?php
 require_once("../../core/php/commonFunctions.php");
+require_once("../../core/php/class/core.php");
+$core = new core();
 $baseUrl = "../../local/";
 //there is custom information, use this
 if(!file_exists($baseUrl."layout.php") || !is_readable($baseUrl."layout.php"))
