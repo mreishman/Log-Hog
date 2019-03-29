@@ -945,32 +945,6 @@ function sizeFilesInDir($data)
 	return $response;
 }
 
-function getData($loadVarsArray, $confDataValue)
-{
-	if(isset($confDataValue["var"]["value"]))
-	{
-		return $confDataValue["var"]["value"];
-	}
-	$keyVar = "";
-	if(isset($confDataValue["var"]) && isset($confDataValue["var"]["key"]))
-	{
-		$keyVar = $confDataValue["var"]["key"];
-	}
-	elseif(isset($confDataValue["key"]))
-	{
-		$keyVar = $confDataValue["key"];
-	}
-	if(isset($loadVarsArray[$keyVar]))
-	{
-		return $loadVarsArray[$keyVar];
-	}
-	if(isset($confDataValue["value"]))
-	{
-		return $confDataValue["value"];
-	}
-	return "";
-}
-
 function generateFolderColorRow($arrFCOdata = array())
 {
 	$edit = true;

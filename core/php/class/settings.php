@@ -1,6 +1,33 @@
 <?php
 class settings
 {
+
+	private function getData($loadVarsArray, $confDataValue)
+	{
+		if(isset($confDataValue["var"]["value"]))
+		{
+			return $confDataValue["var"]["value"];
+		}
+		$keyVar = "";
+		if(isset($confDataValue["var"]) && isset($confDataValue["var"]["key"]))
+		{
+			$keyVar = $confDataValue["var"]["key"];
+		}
+		elseif(isset($confDataValue["key"]))
+		{
+			$keyVar = $confDataValue["key"];
+		}
+		if(isset($loadVarsArray[$keyVar]))
+		{
+			return $loadVarsArray[$keyVar];
+		}
+		if(isset($confDataValue["value"]))
+		{
+			return $confDataValue["value"];
+		}
+		return "";
+	}
+
 	public function createSelect($options, $selectValue, $defaultOption = false)
 	{
 		$selectHtml = "";
@@ -165,20 +192,20 @@ class settings
 			{
 				echo " style=\"display: none;\"  ";
 			}
-			echo ">".$this->generateGenericType($confDataValue["var"], getData($loadVarsArray, $confDataValue), $confDataValue["var"]["key"])."</li>";
+			echo ">".$this->generateGenericType($confDataValue["var"], $this->getData($loadVarsArray, $confDataValue), $confDataValue["var"]["key"])."</li>";
 		}
 		elseif($confDataValue["type"] === "linked")
 		{
 			echo "<li>";
 			foreach ($confDataValue["vars"] as $confDataInnerValue)
 			{
-				echo $this->generateGenericType($confDataInnerValue, getData($loadVarsArray, $confDataInnerValue), $confDataInnerValue["key"])." ";
+				echo $this->generateGenericType($confDataInnerValue, $this->getData($loadVarsArray, $confDataInnerValue), $confDataInnerValue["key"])." ";
 			}
 			echo "</li>";
 		}
 		elseif($confDataValue["type"] === "grouped")
 		{
-			echo "<li>".$this->generateGenericType($confDataValue["var"], getData($loadVarsArray, $confDataValue), $confDataValue["var"]["key"])."</li>";
+			echo "<li>".$this->generateGenericType($confDataValue["var"], $this->getData($loadVarsArray, $confDataValue), $confDataValue["var"]["key"])."</li>";
 			echo "<li><div id=\"".$confDataValue["id"]."\" style=\" ";
 			if($confDataValue["bool"])
 			{
