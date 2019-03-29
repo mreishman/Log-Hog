@@ -1,3 +1,10 @@
+<?php
+if(!isset($settings))
+{
+	require_once(baseURL()."core/php/settings.php");
+	$settings = new settings();
+}
+?>
 <form id="<?php echo $defaultConfigMoreData[$currentSection]["id"]; ?>">
 <div class="settingsHeader">
 <?php echo $defaultConfigMoreData[$currentSection]["name"]; ?>
@@ -19,7 +26,7 @@
 	);
 	foreach ($defaultConfigMoreData[$currentSection]["vars"] as $confDataValue)
 	{
-		varTemplateLogic($confDataValue, $loadVarsArray, $infoImage);
+		$settings->varTemplateLogic($confDataValue, $loadVarsArray, $infoImage);
 	}
 	?>
 </ul>

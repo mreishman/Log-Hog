@@ -1,8 +1,8 @@
-<div id="popup" class="hidden" style="z-index: 10; position: fixed; display: none;" >
-	<div onclick='hidePopup();' id="popupBG" class="bigBlur" style="position: fixed; z-index: 100; left: 0; right: 0; top: 0; bottom: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,.50); " >
+<div id="popup" class="hidden" style="display: none;" >
+	<div onclick='hidePopup();' id="popupBG" class="bigBlur">
 	</div>
 
-	<div id="popupContent" class="addBorder addBackground" style="width: 400px; height: 150px; position: fixed; left: 50%; top: 50%; margin-top: -75px; margin-left: -200px; z-index: 120;">
+	<div id="popupContent" class="addBorder addBackground">
 		<div id="popupContentInnerHTMLDiv">
 		</div>
 	</div>

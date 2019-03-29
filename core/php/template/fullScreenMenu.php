@@ -149,7 +149,7 @@
 	<?php endif; ?>
 </ul>
 <div id="mainContentFullScreenMenu">
-	<div class="settingsHeader addBorderBottom" style="position: fixed;width: 100%;z-index: 10;top: 0; margin: 0; display: none;top: 46px;" id="fixedPositionMiniMenu" >
+	<div class="settingsHeader addBorderBottom" style="display: none;" id="fixedPositionMiniMenu" >
 	</div>
 	<div id="fullScreenMenuChangeLog" style="display: none;" >
 		<?php require_once("changelog.php"); ?>
@@ -206,7 +206,7 @@
 		?>
 	</div>
 	<div id="notifications" style="display: none;" >
-		<div id="notificationHolder" class="fullScreenMenuLeftSidebar" style="display: inline-block; height: 100%; overflow-y: auto;" ></div>
+		<div id="notificationHolder" class="fullScreenMenuLeftSidebar"></div>
 	</div>
 	<div id="notificationsEmpty" style="display: none;" >
 		<table width="100%" style="height: 100%;">

@@ -1,8 +1,12 @@
 <?php
-
+if(!isset($settings))
+{
+	require_once(baseURL()."core/php/settings.php");
+	$settings = new settings();
+}
 function makeTrueFalseSelect($selectValue)
 {
-	return createSelect(
+	return $settings->createSelect(
 		array(
 			0		=> array(
 				"value" =>	"true",
@@ -19,7 +23,7 @@ function makeTrueFalseSelect($selectValue)
 
 function generateFileTypeSelect($selectValue)
 {
-	return createSelect(
+	return $settings->createSelect(
 		array(
 			0		=> array(
 				"value" =>	"file",
@@ -40,7 +44,7 @@ function generateFileTypeSelect($selectValue)
 
 function makePatternSelect($selectValue, $selectOptions)
 {
-	return createSelect(
+	return $settings->createSelect(
 		$selectOptions,
 		(String)$selectValue,
 		array(
