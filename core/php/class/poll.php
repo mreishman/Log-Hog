@@ -1,5 +1,5 @@
 <?php
-class pollFunctions
+class poll
 {
 	public function getListOfFiles($data)
 	{

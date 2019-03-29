@@ -9,8 +9,8 @@ try
 	require_once('configStatic.php');
 	require_once('updateProgressFile.php');
 	require_once('commonFunctions.php');
-	require_once('pollFunctions.php');
-	$pollFunctions = new pollFunctions();
+	require_once('class/poll.php');
+	$poll = new poll();
 }
 catch (Exception $e)
 {
@@ -63,7 +63,7 @@ foreach($watchList as $key => $value)
 	$fileData = json_decode($value["FileInformation"], true);
 	if(is_dir($path))
 	{
-		$watchListFolder[$key] = $pollFunctions->getListOfFiles(array(
+		$watchListFolder[$key] = $poll->getListOfFiles(array(
 			"path" 			=> $path,
 			"filter"		=> $filter,
 			"response"		=> array(),

@@ -1,5 +1,5 @@
 <?php
-class addonFunctions
+class addons
 {
 
 	private function baseURL()

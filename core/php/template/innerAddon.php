@@ -1,11 +1,11 @@
 <span id="innerAddonSpanReplace">
 	<?php
 	$currentDir = "";
-	if(!isset($addonFunctions))
+	if(!isset($addons))
 	{
 		require_once('../commonFunctions.php');
-		require_once(baseURL()."core/php/addonFunctions.php");
-		$addonFunctions = new addonFunctions();
+		require_once(baseURL()."core/php/class/addons.php");
+		$addons = new addons();
 		$currentSelectedTheme = returnCurrentSelectedTheme();
 		$baseUrl = "../../../local/".$currentSelectedTheme."/";
 		$localURL = $baseUrl;
@@ -26,7 +26,7 @@
 	}
 
 	//check if monitor is installed
-	$monitorInfo = $addonFunctions->checkForMonitorInstall($locationForMonitor, "../../");
+	$monitorInfo = $addons->checkForMonitorInstall($locationForMonitor, "../../");
 	$configStaticMonitor = null;
 
 	if($monitorInfo["local"])
@@ -38,7 +38,7 @@
 	}
 
 	//check if search is installed
-	$searchInfo = $addonFunctions->checkForSearchInstall($locationForSearch, "../../");
+	$searchInfo = $addons->checkForSearchInstall($locationForSearch, "../../");
 	$configStaticSearch = null;
 
 	if($searchInfo["local"])
@@ -50,7 +50,7 @@
 	}
 
 	//check if seleniumMonitor is installed
-	$seleniumMonitorInfo = $addonFunctions->checkForSeleniumMonitorInstall($locationForSeleniumMonitor, "../../");
+	$seleniumMonitorInfo = $addons->checkForSeleniumMonitorInstall($locationForSeleniumMonitor, "../../");
 	$configStaticSeleniumMonitor = null;
 
 	if($seleniumMonitorInfo["local"])
@@ -62,7 +62,7 @@
 	}
 
 	//check for status install
-	$statusInfo = $addonFunctions->checkForStatusInstall($locationForStatus, "../../");
+	$statusInfo = $addons->checkForStatusInstall($locationForStatus, "../../");
 	$configStaticStatus = null;
 
 	if($statusInfo["local"])

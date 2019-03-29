@@ -2,16 +2,16 @@
 require_once('core/php/errorCheckFunctions.php');
 $currentPage = "index.php";
 checkIfFilesExist(
-	array("core/conf/config.php","core/php/configStatic.php","core/php/loadVars.php","core/php/loadVarsToJs.php","core/php/updateCheck.php","core/js/jquery.js","core/template/loading-bar.css","core/js/loading-bar.min.js","core/php/customCSS.php","core/php/template/popup.php","core/js/main.js","core/js/rightClickJS.js","core/js/update.js","core/php/commonFunctions.php","core/php/addonFunctions.php","setup/setupProcessFile.php","error.php"),
+	array("core/conf/config.php","core/php/configStatic.php","core/php/loadVars.php","core/php/loadVarsToJs.php","core/php/updateCheck.php","core/js/jquery.js","core/template/loading-bar.css","core/js/loading-bar.min.js","core/php/customCSS.php","core/php/template/popup.php","core/js/main.js","core/js/rightClickJS.js","core/js/update.js","core/php/commonFunctions.php","core/php/class/addons.php","setup/setupProcessFile.php","error.php"),
 	 "",
 	 $currentPage);
 checkIfFilesAreReadable(
-	array("core/conf/config.php","core/php/configStatic.php","core/php/loadVars.php","core/php/loadVarsToJs.php","core/php/updateCheck.php","core/js/jquery.js","core/template/loading-bar.css","core/js/loading-bar.min.js","core/php/customCSS.php","core/php/template/popup.php","core/js/main.js","core/js/rightClickJS.js","core/js/update.js","core/php/commonFunctions.php","core/php/addonFunctions.php","setup/setupProcessFile.php","error.php"),
+	array("core/conf/config.php","core/php/configStatic.php","core/php/loadVars.php","core/php/loadVarsToJs.php","core/php/updateCheck.php","core/js/jquery.js","core/template/loading-bar.css","core/js/loading-bar.min.js","core/php/customCSS.php","core/php/template/popup.php","core/js/main.js","core/js/rightClickJS.js","core/js/update.js","core/php/commonFunctions.php","core/php/class/addons.php","setup/setupProcessFile.php","error.php"),
 	 "",
 	 $currentPage);
 require_once('core/php/commonFunctions.php');
-require_once("core/php/addonFunctions.php");
-$addonFunctions = new addonFunctions();
+require_once("core/php/class/addons.php");
+$addons = new addons();
 setCookieRedirect();
 $currentSelectedTheme = returnCurrentSelectedTheme();
 $baseUrl = "local/".$currentSelectedTheme."/";
@@ -56,13 +56,13 @@ if(!class_exists('ZipArchive') && $autoCheckUpdate === "true")
 
 $daysSince = calcuateDaysSince($configStatic['lastCheck']);
 
-$locationForStatusIndex = $addonFunctions->checkForStatusInstall($locationForStatus, "./");
+$locationForStatusIndex = $addons->checkForStatusInstall($locationForStatus, "./");
 
-$locationForMonitorIndex = $addonFunctions->checkForMonitorInstall($locationForMonitor, "./");
+$locationForMonitorIndex = $addons->checkForMonitorInstall($locationForMonitor, "./");
 
-$locationForSearchIndex = $addonFunctions->checkForSearchInstall($locationForSearch, "./");
+$locationForSearchIndex = $addons->checkForSearchInstall($locationForSearch, "./");
 
-$locationForSeleniumMonitorIndex = $addonFunctions->checkForSeleniumMonitorInstall($locationForSeleniumMonitor, "./");
+$locationForSeleniumMonitorIndex = $addons->checkForSeleniumMonitorInstall($locationForSeleniumMonitor, "./");
 
 /* USED IN ABOUT PAGE (template/about.php) AND whatsNew (template/whatsNew.php) */
 $otherPageImageModifier = "";

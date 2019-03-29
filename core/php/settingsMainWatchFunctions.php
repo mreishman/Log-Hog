@@ -1,7 +1,7 @@
 <?php
 if(!isset($settings))
 {
-	require_once(baseURL()."core/php/settings.php");
+	require_once(baseURL()."core/php/class/settings.php");
 	$settings = new settings();
 }
 function makeTrueFalseSelect($selectValue)
