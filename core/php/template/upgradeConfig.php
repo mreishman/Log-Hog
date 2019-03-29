@@ -50,7 +50,7 @@ $totalUpgradeScripts = floatval($configVersionToUpgradeTo) - floatval($configVer
 					</td>
 					<td>
 						Running upgrade script <span id="runCount">1</span> of <?php echo $totalUpgradeScripts;?>
-					</td>	
+					</td>
 				</tr>
 				<tr>
 					<td style="height: 50px;">
@@ -79,7 +79,7 @@ $totalUpgradeScripts = floatval($configVersionToUpgradeTo) - floatval($configVer
 	<?php
 	echo "var startVersion = ".$configVersion.";";
 	echo "var endVersion = ".$configVersionToUpgradeTo.";";
-	echo "var upgradeConfigUrlToRedirectTo = \"getCookieRedirect();\"";
+	echo "var upgradeConfigUrlToRedirectTo = \"".getCookieRedirect()."\"";
 	?>
-</script> 
+</script>
 </html>
