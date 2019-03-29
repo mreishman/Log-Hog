@@ -270,13 +270,7 @@ function addResetButton($idOfForm)
 	return "<a onclick=\"resetArrayObject('".$idOfForm."');\" style=\"display: none;\" class=\"linkSmall ".$idOfForm."ResetButton\" > Reset Current Changes</a><span class=\"".$idOfForm."NoChangesDetected\" >No Changes Detected</span>";
 }
 
-function getFileSize($filename, $shellOrPhp)
-{
-	$filename = preg_replace('/([()"])/S', '$1', $filename);
-	$sof = getFileSizeInner($filename, $shellOrPhp);
-	return htmlentities($sof);
-}
-
+/* Duplicate of getFileSizeInner in class/poll.php */
 function getFileSizeInner($fileName, $shellOrPhp)
 {
 	if($shellOrPhp === "phpPreferred" || $shellOrPhp ===  "phpOnly")
@@ -900,49 +894,6 @@ function getLineCountPhp($fileName)
 	}
 	fclose($handle);
 	return $linecount;
-}
-
-function sizeFilesInDir($data)
-{
-	$path = $data["path"];
-	$filter = $data["filter"];
-	$response = $data["response"];
-	$shellOrPhp = $data["shellOrPhp"];
-	$recursive = $data["recursive"];
-
-	$path = preg_replace('/\/$/', '', $path);
-	if(file_exists($path))
-	{
-		$scannedDir = scandir($path);
-		if(!is_array($scannedDir))
-		{
-			$scannedDir = array($scannedDir);
-		}
-		$files = array_diff($scannedDir, array('..', '.'));
-		if($files)
-		{
-			foreach($files as $filename)
-			{
-				$fullPath = $path . DIRECTORY_SEPARATOR . $filename;
-				if(is_dir($fullPath) && $recursive === "true")
-				{
-					$response = sizeFilesInDir(array(
-						"path" 			=> $fullPath,
-						"filter"		=> $filter,
-						"response"		=> $response,
-						"shellOrPhp"	=> $shellOrPhp,
-						"recursive"		=> "true"
-
-					));
-				}
-				elseif(preg_match('/' . $filter . '/S', $filename) && is_file($fullPath))
-				{
-					$response[$fullPath] = getFileSize($fullPath, $shellOrPhp);
-				}
-			}
-		}
-	}
-	return $response;
 }
 
 function generateFolderColorRow($arrFCOdata = array())

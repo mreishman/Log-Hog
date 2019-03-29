@@ -104,7 +104,7 @@ foreach($watchList as $key => $value)
 
 foreach ($responseFilelist as $file)
 {
-	$currentFileSize = getFileSize($file, $shellOrPhp);
+	$currentFileSize = $poll->getFileSize($file, $shellOrPhp);
 	$response[$file]["size"] = $currentFileSize;
 	$responseFileLineCount = -1;
 	if($lineCountFromJS === "false")
