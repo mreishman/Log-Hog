@@ -2,7 +2,7 @@
 $returnData = array(
 	'backupCopiesPresent' => false,
 );
-require_once('./class.Diff.php');
+require_once('./class/diff.php');
 require_once('../../local/layout.php');
 $baseUrl = "../../local/".$currentSelectedTheme."/";
 if(file_exists($baseUrl."conf/config1.php"))
@@ -19,7 +19,7 @@ if(file_exists($baseUrl."conf/config1.php"))
 		$configBackupFile = $baseUrl."conf/config".$count.".php";
 		if(file_exists($configBackupFile))
 		{
-			array_push($arrayOfDiffs, Diff::toHTML(Diff::compareFiles($baseFile, $configBackupFile)));
+			array_push($arrayOfDiffs, diff::toHTML(diff::compareFiles($baseFile, $configBackupFile)));
 			array_push($arrayOfFiles, $configBackupFile);
 			$count++;
 		}
