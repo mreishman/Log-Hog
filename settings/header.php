@@ -11,7 +11,7 @@ $infoImage = generateImage(
 		"srcModifier"	=>	"../"
 	)
 );
-echo loadSentryData($sendCrashInfoJS, $branchSelected);
+echo $core->loadSentryData($sendCrashInfoJS, $branchSelected, $configStatic);
 getScripts(
 	array(
 		array(

@@ -23,7 +23,7 @@ require_once('../core/php/updateCheck.php');
 <!doctype html>
 <head>
 	<title>Settings | Dev</title>
-	<?php echo loadCSS("../",$baseUrl, $cssVersion);?>
+	<?php echo $core->loadCSS("../",$baseUrl, $cssVersion);?>
 	<link rel="icon" type="image/png" href="../core/img/favicon.png" />
 	<?php getScripts(
 		array(

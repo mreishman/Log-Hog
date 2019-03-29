@@ -158,51 +158,6 @@ function evaluateBool($boolVal, $trueVal, $falseVal)
 	return $falseVal;
 }
 
-function loadSentryData($sendCrashInfoJS, $branchSelected)
-{
-	$returnString = "
-	<script>
-
-		function eventThrowException(e)
-		{
-			//this would send errors, but it is disabled
-			console.log(e);
-		}
-
-	</script>";
-	if($sendCrashInfoJS === "true")
-	{
-		include(baseURL()."core/php/configStatic.php");
-		$versionForSentry = $configStatic["version"];
-		$returnString =  "
-		<script type=\"text/javascript\">
-		function startSentryStuff(){
-		Raven.config(\"https://2e455acb0e7a4f8b964b9b65b60743ed@sentry.io/205980\", {
-		    release: \"".$versionForSentry."\"
-		}).install();
-		}
-		function eventThrowException(e)
-		{
-			Raven.captureException(e);
-			";
-			if($branchSelected === 'beta')
-			{
-				$returnString .= "
-					Raven.showReportDialog();
-				";
-			}
-			if($branchSelected === 'dev' || $branchSelected === 'beta')
-			{
-				$returnString .= "	console.log(e);";
-			}
-
-		$returnString .= "}
-
-		</script>";
-	}
-	return $returnString;
-}
-
 function baseURL()
 {
 	$tmpFuncBaseURL = "";
@@ -219,13 +174,6 @@ function clean_url($url)
 {
     $parts = parse_url($url);
     return $parts['path'];
-}
-
-function loadCSS($base, $baseUrl, $version)
-{
-	$stringToReturn = "<link rel=\"stylesheet\" type=\"text/css\" href=\"".$baseUrl."template/theme.css?v=".$version."\">";
-	$stringToReturn .= "<link rel=\"stylesheet\" type=\"text/css\" href=\"".$base."core/template/base.css?v=".$version."\">";
-	return $stringToReturn;
 }
 
 /* Duplicate of getFileSizeInner in class/poll.php */

@@ -114,7 +114,7 @@ $externalLinkImage = generateImage(
 		)
 	); ?>
 	<?php
-		echo loadSentryData($sendCrashInfoJS, $branchSelected);
+		echo $core->loadSentryData($sendCrashInfoJS, $branchSelected, $configStatic);
 		require_once("core/php/indexJsObjectCreator.php");
 	?>
 </head>
