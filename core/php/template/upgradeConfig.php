@@ -96,7 +96,7 @@ $totalUpgradeScripts = floatval($configVersionToUpgradeTo) - floatval($configVer
 	<?php
 	echo "var startVersion = ".$configVersion.";";
 	echo "var endVersion = ".$configVersionToUpgradeTo.";";
-	echo "var upgradeConfigUrlToRedirectTo = \"getCookieRedirect();\"";
+	echo "var upgradeConfigUrlToRedirectTo = \"".$core->getCookieRedirect()."\"";
 	?>
 </script>
 </html>

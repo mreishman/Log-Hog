@@ -41,7 +41,7 @@ if(file_exists($baseUrl.'conf/config.php'))
 
 $cssVersion = date("YmdHis");
 
-setCookieRedirect();
+$core->setCookieRedirect();
 ?>
 <!DOCTYPE html>
 <html>

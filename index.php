@@ -14,7 +14,7 @@ require_once("core/php/class/core.php");
 $core = new core();
 require_once("core/php/class/addons.php");
 $addons = new addons();
-setCookieRedirect();
+$core->setCookieRedirect();
 $currentSelectedTheme = returnCurrentSelectedTheme();
 $baseUrl = "local/".$currentSelectedTheme."/";
 

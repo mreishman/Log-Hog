@@ -451,56 +451,6 @@ function tailCustom($filepath, $lines = 1, $adaptive = true, $startLine = 0)
 	return trim($output);
 }
 
-function getCookieRedirect()
-{
-	$urlRedirectValue = "";
-	if(isset($_COOKIE["locationRedirectLogHogUpgrade"]) && $_COOKIE["locationRedirectLogHogUpgrade"] !== "")
-	{
-		$urlRedirectValue =  $_COOKIE["locationRedirectLogHogUpgrade"];
-	}
-	if($urlRedirectValue !== null && $urlRedirectValue !== "" && strpos($urlRedirectValue, "settingsSaveAjax"))
-	{
-		return $urlRedirectValue;
-	}
-	if(isset($_SERVER['HTTP_REFERER']))
-	{
-		return $_SERVER['HTTP_REFERER'];
-	}
-
-	$baseUrl = "";
-	$count = 0;
-	while ($count < 20)
-	{
-		$baseUrl .= "../";
-		$count++;
-		if(is_dir($baseUrl."Log-Hog") || is_dir($baseUrl."loghog"))
-		{
-			break;
-		}
-	}
-	$baseRedirect = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]/";
-	if($count < 20)
-	{
-		return $baseRedirect . (is_dir($baseUrl."Log-Hog/") ? "Log-Hog/" : "loghog/");
-	}
-	return $baseRedirect . "Log-Hog/";
-
-}
-
-function setCookieRedirect($customUrl = null)
-{
-	$actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-	if($customUrl !== null)
-	{
-		$actual_link = $customUrl;
-	}
-	if(isset($_COOKIE["locationRedirectLogHogUpgrade"]))
-	{
-		unset($_COOKIE["locationRedirectLogHogUpgrade"]);
-	}
-	setcookie("locationRedirectLogHogUpgrade",$actual_link, time()+3600);
-}
-
 function generateRestoreList($configStatic)
 {
 	$returnHtml = "<form id='revertForm' action='../restore/restore.php'  method='post'  style='display: inline-block;' ><select name='versionRevertTo' >";

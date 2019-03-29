@@ -144,7 +144,7 @@ if($totalCountOfFilesToDelete < 1)
 
 	function redirectToLocationFromUpgradeTheme()
 	{
-		window.location.href = "<?php echo getCookieRedirect(); ?>";
+		window.location.href = "<?php echo $core->getCookieRedirect(); ?>";
 	}
 </script>
 </html>

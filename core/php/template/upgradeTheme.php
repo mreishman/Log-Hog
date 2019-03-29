@@ -143,7 +143,7 @@ if((strval($baseFileVersion) === strval($oldFileVersion)) && (file_exists("../..
 
 	function redirectToLocationFromUpgradeTheme()
 	{
-		window.location.href = "<?php echo getCookieRedirect(); ?>";
+		window.location.href = "<?php echo $core->getCookieRedirect(); ?>";
 	}
 </script>
 </html>

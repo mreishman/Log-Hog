@@ -17,7 +17,7 @@ if(strpos($redirectUrl, "update") > -1)
 {
 	$redirectUrl = str_replace("update", "settings", $redirectUrl);
 }
-setCookieRedirect($redirectUrl);
+$core->setCookieRedirect($redirectUrl);
 $noUpdateNeeded = true;
 $versionToUpdate = "";
 
