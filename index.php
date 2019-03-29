@@ -56,7 +56,7 @@ if(!class_exists('ZipArchive') && $autoCheckUpdate === "true")
 	echoErrorJavaScript("", "ZipArchive is not installed", 11);
 }
 
-$daysSince = calcuateDaysSince($configStatic['lastCheck']);
+$daysSince = $core->calcuateDaysSince($configStatic['lastCheck']);
 
 $locationForStatusIndex = $addons->checkForStatusInstall($locationForStatus, "./");
 

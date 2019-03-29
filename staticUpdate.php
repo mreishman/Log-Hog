@@ -17,7 +17,7 @@ if(is_dir('local/'.$currentSelectedTheme.'/Themes/'.$currentTheme))
 }
 require_once($defaultSettingsDir);
 require_once('core/php/configStatic.php');
-$daysSince = calcuateDaysSince($configStatic['lastCheck']);
+$daysSince = $core->calcuateDaysSince($configStatic['lastCheck']);
 require_once('core/php/updateCheck.php');
 require_once('core/php/loadVars.php');
 ?>
