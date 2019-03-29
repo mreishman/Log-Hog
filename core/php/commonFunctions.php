@@ -451,24 +451,6 @@ function tailCustom($filepath, $lines = 1, $adaptive = true, $startLine = 0)
 	return trim($output);
 }
 
-function convertToSize($TrimSize, $logSizeLimit)
-{
-	if($TrimSize == "KB")
-	{
-		return $logSizeLimit * 1024;
-	}
-	elseif($TrimSize == "M")
-	{
-		return $logSizeLimit * (1000 * 1000);
-	}
-	elseif($TrimSize == "MB")
-	{
-		return $logSizeLimit * (1024 * 1024);
-	}
-
-	return $logSizeLimit * 1000;
-}
-
 function getCookieRedirect()
 {
 	$urlRedirectValue = "";

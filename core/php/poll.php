@@ -8,6 +8,8 @@ require_once('configStatic.php');
 require_once('commonFunctions.php');
 require_once("class/core.php");
 $core = new core();
+require_once('class/poll.php');
+$poll = new poll();
 
 $varsLoadLite = array("shellOrPhp", "logTrimOn", "logSizeLimit","logTrimMacBSD", "logTrimType","TrimSize","enableLogging","buffer","sliceSize","lineCountFromJS","showErrorPhpFileOpen","advancedLogFormatEnabled","logFormatFileEnable","logFormatFileLinePadding","logFormatFilePermissions");
 
@@ -26,7 +28,7 @@ $modifier = "lines";
 if($logTrimType == 'size')
 {
 	$modifier = $TrimSize;
-	$logSizeLimit = convertToSize($TrimSize, $logSizeLimit);
+	$logSizeLimit = $core->convertToSize($TrimSize, $logSizeLimit);
 }
 
 $arrayToUpdate = array();

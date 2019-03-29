@@ -111,7 +111,7 @@ class poll
 		return htmlentities($sof);
 	}
 
-	public function getFileSizeInner($fileName, $shellOrPhp)
+	private function getFileSizeInner($fileName, $shellOrPhp)
 	{
 		if($shellOrPhp === "phpPreferred" || $shellOrPhp ===  "phpOnly")
 		{
