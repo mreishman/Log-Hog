@@ -1,7 +1,7 @@
 <?php
 
 $versionCheckArray = array(
-	'version'		=> '7.1',
+	'version'		=> '7.1.1',
 	'versionList'		=> array(
 		'2.0.1'	        => array(
 			'branchName'	=> '2.0.1Update',
@@ -305,6 +305,11 @@ $versionCheckArray = array(
 			'branchName'	=> '7.1Update',
 			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/7.1.png',
 			'releaseNotes'	=> "<ul><li>Features<ul><li>Filters<ul><li>Option to invert search</li><li>Option to only highlight search text and not entire line</li><li>Filter content of individual log windows</li><li>Added right click menu to filter text field for toggle between content and title</li></ul></li><li>Groups<ul><li>You can now select more than one group at a time (defaults to all if none selected)</li><li>Switched default back to showing in header</li></ul></li><li>Added option for adding borders between log lines</li><li>Added module status to error page</li><li>Added color picker for color inputs for settings</li></ul></li><li>Bug Fixes<ul><li>Right click on notification badge should trigger correctly more often</li><li>Counter for upgrade scripts in updater now show total correctly if only one</li><li>Hides group dropdown / selector if no groups</li><li>Fixed button action for history dropdown</li></ul></li></ul>"
+		),
+		'7.1.1'			=> array(
+			'branchName'	=> '7.1.1Update',
+			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/7.1.1.png',
+			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed bug with log menu popup not staying open</li><li>Hides groups if no logs are visible</li><li>Fixed bug where sometimes log would return undefined after format changes</li><li>Fixed bug that might have caused step 4 / step 5 of setup to error out</li><li>Fixed incorrect redirect url from upgrade config / upgrade layout logic</li></ul></li></ul>"
 		)
 		
 	)
