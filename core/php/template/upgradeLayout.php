@@ -80,7 +80,7 @@ $totalUpgradeScripts = floatval($layoutVersionToUpgradeTo) - floatval($layoutVer
 	<?php
 	echo "var startVersion = ".$layoutVersion.";";
 	echo "var endVersion = ".$layoutVersionToUpgradeTo.";";
-	echo "var upgradeConfigUrlToRedirectTo = \"getCookieRedirect();\"";
+	echo "var upgradeConfigUrlToRedirectTo = \"".getCookieRedirect()."\"";
 	?>
 </script>
 </html>

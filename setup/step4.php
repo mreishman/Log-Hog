@@ -5,7 +5,6 @@ $baseUrl = "../local/".$currentSelectedTheme."/";
 $baseUrlImages = $baseUrl;
 require_once($baseUrl.'conf/config.php');
 require_once('setupProcessFile.php');
-require_once('../core/php/commonFunctions.php');
 
 if($setupProcess != "step4")
 {
@@ -57,7 +56,7 @@ $themeDirMod = "../";
 </div>
 </body>
 <script type="text/javascript">
-	
+
 	var baseUrl = "<?php echo $baseUrlImages;?>";
 
 	function defaultSettings()
@@ -81,7 +80,7 @@ $themeDirMod = "../";
 		return false;
 	}
 
-	
+
 	var titleOfPage = "Welcome";
 
 	var saveVerifyImage = <?php echo json_encode(generateImage(
