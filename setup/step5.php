@@ -5,7 +5,6 @@ $baseUrl = "../local/".$currentSelectedTheme."/";
 $baseUrlImages = $baseUrl;
 require_once($baseUrl.'conf/config.php');
 require_once('setupProcessFile.php');
-require_once('../core/php/commonFunctions.php');
 
 if($setupProcess != "step5")
 {
@@ -67,7 +66,7 @@ require_once('../core/php/loadVars.php');?>
 		//change setupProcess to page1
 		location.reload();
 	}
-	
+
 	var titleOfPage = "Welcome";
 
 	var saveVerifyImage = <?php echo json_encode(generateImage(
