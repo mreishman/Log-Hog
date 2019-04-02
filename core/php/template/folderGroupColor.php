@@ -2,7 +2,7 @@
 	<div class="settingsHeader">
 	Folder Color Options
 	<div class="settingsHeaderButtons">
-		<?php echo $core->addResetButton("settingsColorFolderGroupVars"); ?>
+		<?php echo $settings->addResetButton("settingsColorFolderGroupVars"); ?>
 		<a class="linkSmall" onclick="saveAndVerifyMain('settingsColorFolderGroupVars');" >Save Changes</a>
 	</div>
 	</div>

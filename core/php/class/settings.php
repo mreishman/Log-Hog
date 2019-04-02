@@ -28,6 +28,11 @@ class settings
 		return "";
 	}
 
+	public function addResetButton($idOfForm)
+	{
+		return "<a onclick=\"resetArrayObject('".$idOfForm."');\" style=\"display: none;\" class=\"linkSmall ".$idOfForm."ResetButton\" > Reset Current Changes</a><span class=\"".$idOfForm."NoChangesDetected\" >No Changes Detected</span>";
+	}
+
 	public function createSelect($options, $selectValue, $defaultOption = false)
 	{
 		$selectHtml = "";
