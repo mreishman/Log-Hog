@@ -143,4 +143,37 @@ class core
 		}
 		setcookie("locationRedirectLogHogUpgrade",$actual_link, time()+3600);
 	}
+
+	public function baseURL()
+	{
+		$tmpFuncBaseURL = "";
+		$boolBaseURL = file_exists($tmpFuncBaseURL."error.php");
+		while(!$boolBaseURL)
+		{
+			$tmpFuncBaseURL .= "../";
+			$boolBaseURL = file_exists($tmpFuncBaseURL."error.php");
+		}
+		return $tmpFuncBaseURL;
+	}
+
+	public function returnCurrentSelectedTheme()
+	{
+		$baseBaseUrl = $this->baseURL();
+		if(file_exists($baseBaseUrl.'local/layout.php') && is_readable($baseBaseUrl.'local/layout.php'))
+		{
+			include($baseBaseUrl.'local/layout.php');
+			if(isset($currentSelectedTheme))
+			{
+				return $currentSelectedTheme;
+			}
+			else
+			{
+				echoErrorJavaScript("", "Error when getting current selected theme.", 9);
+			}
+		}
+		else
+		{
+			echoErrorJavaScript("", "Could not find local layout file. Please make sure that local/layout.php is setup correctly.", 7);
+		}
+	}
 }

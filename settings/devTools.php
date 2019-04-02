@@ -2,7 +2,7 @@
 require_once('../core/php/commonFunctions.php');
 require_once("../core/php/class/core.php");
 $core = new core();
-$currentSelectedTheme = returnCurrentSelectedTheme();
+$currentSelectedTheme = $core->returnCurrentSelectedTheme();
 $baseUrl = "../local/".$currentSelectedTheme."/";
 $localURL = $baseUrl;
 require_once($baseUrl.'conf/config.php');

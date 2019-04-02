@@ -2,7 +2,12 @@
 require_once('../core/php/commonFunctions.php');
 require_once("../core/php/class/core.php");
 $core = new core();
-$currentSelectedTheme = returnCurrentSelectedTheme();
+if(!isset($settings))
+{
+	require_once(baseURL()."core/php/class/settings.php");
+	$settings = new settings();
+}
+$currentSelectedTheme = $core->returnCurrentSelectedTheme();
 $baseUrl = "../local/".$currentSelectedTheme."/";
 $localURL = $baseUrl;
 require_once($baseUrl.'conf/config.php');
@@ -122,6 +127,6 @@ $countConfig--;
 	</form>
 </body>
 <script type="text/javascript">
-	var htmlRestoreOptions = "<?php echo generateRestoreList($configStatic); ?>";
+	var htmlRestoreOptions = "<?php echo $settings->generateRestoreList($configStatic); ?>";
 	var saveButtonAlwaysVisible = "<?php echo $saveButtonAlwaysVisible; ?>";
 </script>

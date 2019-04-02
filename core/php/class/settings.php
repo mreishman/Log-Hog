@@ -298,4 +298,18 @@ class settings
 		$htmlToReturn .=	"<input style=\"width: 100px; display: ".$inputDisplay.";\" type=\"text\" id=\"folderColorValue".$buttonID."\" name=\"".$name."\" value=\"".$color."\" >";
 		return $htmlToReturn;
 	}
+
+	public function generateRestoreList($configStatic)
+	{
+		$returnHtml = "<form id='revertForm' action='../restore/restore.php'  method='post'  style='display: inline-block;' ><select name='versionRevertTo' >";
+		$versionList = $configStatic['versionList'];
+		$versionListText = "";
+		foreach ($versionList as $key => $value)
+		{
+			$versionListText = "<option value='".str_replace("Update", "", $value['branchName'])."' >".$key."</option>".$versionListText;
+		}
+		$returnHtml .= $versionListText."</select></form>";
+		return $returnHtml;
+	}
+
 }

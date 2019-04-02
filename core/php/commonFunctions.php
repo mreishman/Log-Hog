@@ -451,19 +451,6 @@ function tailCustom($filepath, $lines = 1, $adaptive = true, $startLine = 0)
 	return trim($output);
 }
 
-function generateRestoreList($configStatic)
-{
-	$returnHtml = "<form id='revertForm' action='../restore/restore.php'  method='post'  style='display: inline-block;' ><select name='versionRevertTo' >";
-	$versionList = $configStatic['versionList'];
-	$versionListText = "";
-	foreach ($versionList as $key => $value)
-	{
-		$versionListText = "<option value='".str_replace("Update", "", $value['branchName'])."' >".$key."</option>".$versionListText;
-	}
-	$returnHtml .= $versionListText."</select></form>";
-	return $returnHtml;
-}
-
 function generateImage($imageArray, $customConfig)
 {
 	$image = "<img ";
@@ -657,27 +644,6 @@ function putIntoCorrectJSFormat($keyKey, $keyValue, $value)
 	}
 
 	return " var ".$keyKey." = ".trim(preg_replace('/\s\s+/', ' ', $keyValue)).";";
-}
-
-function returnCurrentSelectedTheme()
-{
-	$baseBaseUrl = baseURL();
-	if(file_exists($baseBaseUrl.'local/layout.php') && is_readable($baseBaseUrl.'local/layout.php'))
-	{
-		require_once($baseBaseUrl.'local/layout.php');
-		if(isset($currentSelectedTheme))
-		{
-			return $currentSelectedTheme;
-		}
-		else
-		{
-			echoErrorJavaScript("", "Error when getting current selected theme.", 9);
-		}
-	}
-	else
-	{
-		echoErrorJavaScript("", "Could not find local layout file. Please make sure that local/layout.php is setup correctly.", 7);
-	}
 }
 
 function getLineCount($fileName, $shellOrPhp)

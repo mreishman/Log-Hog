@@ -15,7 +15,7 @@ $core = new core();
 require_once("core/php/class/addons.php");
 $addons = new addons();
 $core->setCookieRedirect();
-$currentSelectedTheme = returnCurrentSelectedTheme();
+$currentSelectedTheme = $core->returnCurrentSelectedTheme();
 $baseUrl = "local/".$currentSelectedTheme."/";
 
 if(!file_exists($baseUrl.'conf/config.php'))
