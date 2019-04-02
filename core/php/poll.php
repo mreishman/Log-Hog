@@ -63,26 +63,26 @@ if(isset($_POST['arrayToUpdate']))
 				{
 					if($logTrimType == 'lines')
 					{
-						trimLogLine($filename, $logSizeLimit,$logTrimMacBSD,$buffer, $shellOrPhp, $showErrorPhpFileOpen);
+						$poll->trimLogLine($filename, $logSizeLimit,$logTrimMacBSD,$buffer, $shellOrPhp, $showErrorPhpFileOpen);
 					}
 					elseif($logTrimType == 'size') //compair to trimsize value
 					{
-						trimLogSize($filename, $logSizeLimit,$logTrimMacBSD,$buffer, $shellOrPhp. $showErrorPhpFileOpen);
+						$poll->trimLogSize($filename, $logSizeLimit,$logTrimMacBSD,$buffer, $shellOrPhp. $showErrorPhpFileOpen);
 					}
 
 					if($lineCountFromJS === "false")
 					{
-						$lineCount = getLineCount($filename, $shellOrPhp);
+						$lineCount = $poll->getLineCount($filename, $shellOrPhp);
 					}
 				}
 				//poll logic
 				if($pathData["GrepFilter"] == "")
 				{
-					$dataVar =  tail($filename, $sliceSize, $shellOrPhp);
+					$dataVar =  $poll->tail($filename, $sliceSize, $shellOrPhp);
 				}
 				else
 				{
-					$dataVar = tailWithGrep($filename, $sliceSize, $shellOrPhp, $pathData["GrepFilter"]);
+					$dataVar = $poll->tailWithGrep($filename, $sliceSize, $shellOrPhp, $pathData["GrepFilter"]);
 				}
 			}
 			$dataVar = htmlentities($dataVar);
@@ -125,12 +125,12 @@ if(isset($_POST['arrayToUpdate']))
 									$currentLine = 0;
 								}
 								$totalPading++;
-								$lineCountLocal = getLineCount($fileName, $shellOrPhp);
+								$lineCountLocal = $poll->getLineCount($fileName, $shellOrPhp);
 								//check to see if line is greater than file length
 								$fileData = "Error - File Changed, line no longer in file";
 								if($lineCountLocal >= $currentLine)
 								{
-									$fileData = tail($fileName, $totalPading, $shellOrPhp, $currentLine);
+									$fileData = $poll->tail($fileName, $totalPading, $shellOrPhp, $currentLine);
 								}
 							}
 						}

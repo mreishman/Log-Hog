@@ -117,7 +117,7 @@ foreach ($responseFilelist as $file)
 		}
 		else
 		{
-			$responseFileLineCount = getLineCount($file, $shellOrPhp);
+			$responseFileLineCount = $poll->getLineCount($file, $shellOrPhp);
 		}
 	}
 	$response[$file]["lineCount"] = $responseFileLineCount;
