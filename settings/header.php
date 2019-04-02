@@ -12,7 +12,7 @@ $infoImage = generateImage(
 	)
 );
 echo $core->loadSentryData($sendCrashInfoJS, $branchSelected, $configStatic);
-getScripts(
+$core->getScripts(
 	array(
 		array(
 			"filePath"		=> "../core/js/jscolor.js",

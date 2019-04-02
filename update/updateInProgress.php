@@ -15,7 +15,7 @@ $cssVersion = date("YmdHis");
 	<title>Log Hog | Updater</title>
 	<?php echo $core->loadCSS("../",$baseUrl, $cssVersion);?>
 	<link rel="icon" type="image/png" href="../core/img/favicon.png" />
-	<?php getScript(array(
+	<?php $core->getScript(array(
 		"filePath"		=> "../core/js/jquery.js",
 		"baseFilePath"	=> "core/js/jquery.js",
 		"default"		=> $configStatic["version"]
@@ -82,7 +82,7 @@ $cssVersion = date("YmdHis");
 		</div>
 	</div>
 </div>
-<?php getScripts(
+<?php $core->getScripts(
 	array(
 		array(
 			"filePath"		=> "../core/js/settings.js",

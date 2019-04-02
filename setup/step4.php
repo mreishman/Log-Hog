@@ -32,7 +32,7 @@ $themeDirMod = "../";
 <html>
 <head>
 	<title>Welcome!</title>
-	<?php getScripts(
+	<?php $core->getScripts(
 		array(
 			array(
 				"filePath"		=> "../core/js/jquery.js",
@@ -105,7 +105,7 @@ $themeDirMod = "../";
 			)
 		)); ?>
 </script>
-<?php getScripts(
+<?php $core->getScripts(
 	array(
 		array(
 			"filePath"		=> "../core/js/settings.js",

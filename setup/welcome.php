@@ -49,7 +49,7 @@ $core->setCookieRedirect();
 	<title>Welcome!</title>
 	<link rel="stylesheet" type="text/css" href="../core/template/theme.css">
 	<link rel="stylesheet" type="text/css" href="../core/template/base.css">
-	<?php getScript(array(
+	<?php $core->getScript(array(
 		"filePath"		=> "../core/js/jquery.js",
 		"baseFilePath"	=> "core/js/jquery.js",
 		"default"		=> $configStatic["version"]
@@ -100,7 +100,7 @@ $core->setCookieRedirect();
 		window.location.href = "./director.php";
 	}
 </script>
-<?php getScripts(
+<?php $core->getScripts(
 	array(
 		array(
 			"filePath"		=> "../core/js/settings.js",

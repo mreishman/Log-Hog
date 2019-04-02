@@ -294,4 +294,31 @@ class core
 		}
 		return $falseVal;
 	}
+
+	public function getFileTime($filePath, $default)
+	{
+		$basePath = $this->baseURL();
+		if(file_exists($basePath . $filePath))
+		{
+			$returnValue = filemtime($basePath . $filePath);
+			if($returnValue) //can be false
+			{
+				return $returnValue;
+			}
+		}
+		return $default;
+	}
+
+	public function getScript($filePath)
+	{
+		echo "<script src=\"" . $filePath['filePath'] . "?v=" . $this->getFileTime($filePath['baseFilePath'], $filePath['default']) . "\"></script>";
+	}
+
+	public function getScripts($filePathArr)
+	{
+		foreach ($filePathArr as $filePath)
+		{
+			$this->getScript($filePath);
+		}
+	}
 }

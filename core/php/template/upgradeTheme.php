@@ -43,7 +43,7 @@ if((strval($baseFileVersion) === strval($oldFileVersion)) && (file_exists("../..
 	<link rel="stylesheet" type="text/css" href="../../../core/template/theme.css">
 	<?php require_once("../../../core/php/customCSS.php"); ?>
 	<link rel="icon" type="image/png" href="../../../core/img/favicon.png" />
-	<?php getScript(array(
+	<?php $core->getScript(array(
 		"filePath"		=> "../../../core/js/jquery.js",
 		"baseFilePath"	=> "core/js/jquery.js",
 		"default"		=> $configStatic["version"]
@@ -121,7 +121,7 @@ if((strval($baseFileVersion) === strval($oldFileVersion)) && (file_exists("../..
 	</div>
 </div>
 </body>
-<?php getScripts(array(
+<?php $core->getScripts(array(
 		array(
 			"filePath"		=> "../../../core/js/settings.js",
 			"baseFilePath"	=> "core/js/settings.js",

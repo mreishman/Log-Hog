@@ -1,32 +1,5 @@
 <?php
 
-function getFileTime($filePath, $default)
-{
-	$basePath = baseURL();
-	if(file_exists($basePath . $filePath))
-	{
-		$returnValue = filemtime($basePath . $filePath);
-		if($returnValue) //can be false
-		{
-			return $returnValue;
-		}
-	}
-	return $default;
-}
-
-function getScript($filePath)
-{
-	echo "<script src=\"" . $filePath['filePath'] . "?v=" . getFileTime($filePath['baseFilePath'], $filePath['default']) . "\"></script>";
-}
-
-function getScripts($filePathArr)
-{
-	foreach ($filePathArr as $filePath)
-	{
-		getScript($filePath);
-	}
-}
-
 function formatBytes($bytes,$decimals = 2)
 {
 	if((int)$bytes === 0)

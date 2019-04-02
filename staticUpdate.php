@@ -26,7 +26,7 @@ require_once('core/php/loadVars.php');
 <head>
 	<title>Static Update Page</title>
 	<?php echo $core->loadCSS("",$baseUrl, $cssVersion);?>
-	<?php getScript(array(
+	<?php $core->getScript(array(
 		"filePath"		=> "core/js/jquery.js",
 		"baseFilePath"	=> "core/js/jquery.js",
 		"default"		=> $configStatic["version"]
@@ -39,7 +39,7 @@ require_once('core/php/loadVars.php');
 	</div>
 </body>
 </html>
-<?php getScripts(
+<?php $core->getScripts(
 	array(
 		array(
 			"filePath"		=> "core/js/update.js",

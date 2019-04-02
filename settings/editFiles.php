@@ -28,7 +28,7 @@ require_once('../core/php/template/listOfFiles.php');
 	<title>Log-Hog | Edit Files</title>
 	<?php echo $core->loadCSS("../",$baseUrl, $cssVersion);?>
 	<link rel="icon" type="image/png" href="../core/img/favicon.png" />
-	<?php getScripts(
+	<?php $core->getScripts(
 		array(
 			array(
 				"filePath"		=> "../core/js/jquery.js",

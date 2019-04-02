@@ -27,7 +27,7 @@ require_once('../core/php/loadVars.php'); ?>
 <html>
 <head>
 	<title>Welcome!</title>
-	<?php getScript(array(
+	<?php $core->getScript(array(
 		"filePath"		=> "../core/js/jquery.js",
 		"baseFilePath"	=> "core/js/jquery.js",
 		"default"		=> $configStatic["version"]
@@ -106,7 +106,7 @@ require_once('../core/php/loadVars.php'); ?>
 		)); ?>
 
 </script>
-<?php getScripts(
+<?php $core->getScripts(
 	array(
 		array(
 			"filePath"		=> "../core/js/lazyLoadImg.js",

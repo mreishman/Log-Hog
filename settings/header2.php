@@ -2,7 +2,7 @@
 require_once('../setup/setupProcessFile.php');
 require_once("../core/php/customCSS.php");
 echo $core->loadSentryData($sendCrashInfoJS, $branchSelected, $configStatic);
-getScript(array(
+$core->getScript(array(
 	"filePath"		=> "../core/js/settingsExt.js",
 	"baseFilePath"	=> "core/js/settingsExt.js",
 	"default"		=> $configStatic["version"]

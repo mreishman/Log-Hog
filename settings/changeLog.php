@@ -26,7 +26,7 @@ require_once('../core/php/updateCheck.php');
 	<title>Settings | Update</title>
 	<?php echo $core->loadCSS("../",$baseUrl, $cssVersion);?>
 	<link rel="icon" type="image/png" href="../core/img/favicon.png" />
-	<?php getScript(array(
+	<?php $core->getScript(array(
 		"filePath"		=> "../core/js/jquery.js",
 		"baseFilePath"	=> "core/js/jquery.js",
 		"default"		=> $configStatic["version"]

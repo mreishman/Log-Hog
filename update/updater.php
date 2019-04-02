@@ -139,7 +139,7 @@ if(count($arrayOfVersions) === 0)
 	<title>Log Hog | Updater</title>
 	<?php echo $core->loadCSS("../",$baseUrl, $cssVersion);?>
 	<link rel="icon" type="image/png" href="../core/img/favicon.png" />
-	<?php getScript(array(
+	<?php $core->getScript(array(
 		"filePath"		=> "../core/js/jquery.js",
 		"baseFilePath"	=> "core/js/jquery.js",
 		"default"		=> $configStatic["version"]
@@ -188,7 +188,7 @@ if(count($arrayOfVersions) === 0)
 		<div id="innerSettingsText" class="settingsDiv" style="height: 75px; overflow-y: scroll;" ></div>
 	</div>
 </body>
-<?php getScripts(
+<?php $core->getScripts(
 	array(
 		array(
 			"filePath"		=> "../core/js/settings.js",

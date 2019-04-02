@@ -27,7 +27,7 @@ require_once('../core/php/loadVars.php');?>
 <html>
 <head>
 	<title>Welcome!</title>
-	<?php getScripts(
+	<?php $core->getScripts(
 		array(
 			array(
 				"filePath"		=> "../core/js/jquery.js",
@@ -91,7 +91,7 @@ require_once('../core/php/loadVars.php');?>
 			)
 		)); ?>
 </script>
-<?php getScripts(
+<?php $core->getScripts(
 	array(
 		array(
 			"filePath"		=> "../core/js/settings.js",

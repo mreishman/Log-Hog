@@ -94,7 +94,7 @@ $externalLinkImage = generateImage(
 		var baseUrl = "<?php echo $baseUrl;?>";
 		var Rightclick_ID_list = [];
 	</script>
-	<?php getScripts(
+	<?php $core->getScripts(
 		array(
 			array(
 				"filePath"		=> "core/js/lazyLoadImg.js",
