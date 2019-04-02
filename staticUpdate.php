@@ -3,7 +3,8 @@ $cssVersion = date("YmdHis");
 require_once('core/php/commonFunctions.php');
 require_once("core/php/class/core.php");
 $core = new core();
-
+require_once("core/php/class/update.php");
+$update = new update();
 $currentSelectedTheme = $core->returnCurrentSelectedTheme();
 $baseUrl = "local/".$currentSelectedTheme."/";
 
@@ -17,7 +18,7 @@ if(is_dir('local/'.$currentSelectedTheme.'/Themes/'.$currentTheme))
 }
 require_once($defaultSettingsDir);
 require_once('core/php/configStatic.php');
-$daysSince = $core->calcuateDaysSince($configStatic['lastCheck']);
+$daysSince = $update->calcuateDaysSince($configStatic['lastCheck']);
 require_once('core/php/updateCheck.php');
 require_once('core/php/loadVars.php');
 ?>

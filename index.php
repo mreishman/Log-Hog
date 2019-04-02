@@ -12,6 +12,8 @@ checkIfFilesAreReadable(
 require_once('core/php/commonFunctions.php');
 require_once("core/php/class/core.php");
 $core = new core();
+require_once("core/php/class/update.php");
+$update = new update();
 require_once("core/php/class/addons.php");
 $addons = new addons();
 $core->setCookieRedirect();
@@ -56,7 +58,7 @@ if(!class_exists('ZipArchive') && $autoCheckUpdate === "true")
 	echoErrorJavaScript("", "ZipArchive is not installed", 11);
 }
 
-$daysSince = $core->calcuateDaysSince($configStatic['lastCheck']);
+$daysSince = $update->calcuateDaysSince($configStatic['lastCheck']);
 
 $locationForStatusIndex = $addons->checkForStatusInstall($locationForStatus, "./");
 

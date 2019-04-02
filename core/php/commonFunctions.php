@@ -1,18 +1,5 @@
 <?php
 
-function formatBytes($bytes,$decimals = 2)
-{
-	if((int)$bytes === 0)
-	{
-		return "0 Bytes";
-	}
-	$k = 1024;
-	$dm = $decimals;
-	$sizes = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
-	$i = floor(log($bytes) / log($k));
-	return number_format(($bytes / pow($k, $i)), $dm) + " " . $sizes[$i];
-}
-
 function baseURL()
 {
 	$tmpFuncBaseURL = "";

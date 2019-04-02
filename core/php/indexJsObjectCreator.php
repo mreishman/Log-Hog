@@ -346,7 +346,7 @@ foreach ($arrayOfFiles as $key => $value)
 		watchlist: {
 			name: "core/js/settingsWatchlist.js",
 			type: "js",
-			ver : <?php echo getFIleTime("core/js/settingsWatchlist.js",$configStatic["version"]); ?>
+			ver : <?php echo $core->getFileTime("core/js/settingsWatchlist.js",$configStatic["version"]); ?>
 		}
 	};
 </script>

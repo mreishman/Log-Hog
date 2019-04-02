@@ -29,7 +29,7 @@
 						}
 						$version = explode('.', $configStatic['version']);
 						$newestVersion = explode('.', $key);
-						$levelOfUpdate = $core->findUpdateValue(count($newestVersion), count($version), $newestVersion, $version);
+						$levelOfUpdate = $update->findUpdateValue(count($newestVersion), count($version), $newestVersion, $version);
 						if($levelOfUpdate != 0)
 						{
 							$changelogHTML .= "<li><h2>Changelog For ".$key." update</h2></li>";
@@ -152,8 +152,8 @@
 					<a class="link" onclick="installUpdates('','settingsInstallUpdate','');">Install Update</a>
 				</li>
 				<li id="installData" <?php if($levelOfUpdate == 0){echo "style='display: none;'";} ?> >
-					This will download ~<b id="installDataDownloadSize" ><?php echo formatBytes($downloadSize);?></b> of data <br>
-					The new install will take up an additional ~<b id="installDataTotalChange"><?php echo formatBytes($finalInstallSize - $currentVersionSize);?></b> of space<br>
+					This will download ~<b id="installDataDownloadSize" ><?php echo $update->formatBytes($downloadSize);?></b> of data <br>
+					The new install will take up an additional ~<b id="installDataTotalChange"><?php echo $update->formatBytes($finalInstallSize - $currentVersionSize);?></b> of space<br>
 					The current drive has <b id="installDataCurrentFree"><?php echo shell_exec("df -h . | tail -1 | awk '{print $4}'"); ?></b> free space
 				</li>
 			<?php endif; ?>
