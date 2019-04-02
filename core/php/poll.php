@@ -137,7 +137,7 @@ if(isset($_POST['arrayToUpdate']))
 						$permissions = "";
 						if($logFormatFilePermissions === "always" || ($logFormatFilePermissions === "sometimes" && strpos($fileData, "Permission denied") > -1))
 						{
-							$permissions = filePermsDisplay($fileName);
+							$permissions = $core->filePermsDisplay($fileName);
 						}
 						//found a match, add to thing
 						$arrayOfFiles[$matches[0]] = array(

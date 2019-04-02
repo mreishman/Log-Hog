@@ -85,7 +85,7 @@ function getFileInfoFromDir($data, $response)
 $path = $_POST["currentFolder"];
 $response = array();
 $imageResponse = "defaultRedErrorIcon";
-$info = filePermsDisplay($path);
+$info = $core->filePermsDisplay($path);
 $recursive = false;
 if(isset($_POST["filter"]))
 {

@@ -373,7 +373,7 @@ if(file_exists($file))
                 $info = "";
                 if($commonFunctionsLoaded)
                 {
-                    $info = filePermsDisplay($value["path"]);
+                    $info = $core->filePermsDisplay($value["path"]);
                 }
                 echo "<p>  ".$value["name"]."   -   ".$info."</p>";
             }
