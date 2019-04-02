@@ -1,19 +1,6 @@
 <?php
-class addons
+class addons extends core
 {
-
-	private function baseURL()
-	{
-		$tmpFuncBaseURL = "";
-		$boolBaseURL = file_exists($tmpFuncBaseURL."error.php");
-		while(!$boolBaseURL)
-		{
-			$tmpFuncBaseURL .= "../";
-			$boolBaseURL = file_exists($tmpFuncBaseURL."error.php");
-		}
-		return $tmpFuncBaseURL;
-	}
-
 	public function checkForStatusInstall($manualReturn, $relBase)
 	{
 		$baseBaseUrl = $this->baseURL();

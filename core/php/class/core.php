@@ -1,6 +1,18 @@
 <?php
 class core
 {
+	public function baseURL()
+	{
+		$tmpFuncBaseURL = "";
+		$boolBaseURL = file_exists($tmpFuncBaseURL."error.php");
+		while(!$boolBaseURL)
+		{
+			$tmpFuncBaseURL .= "../";
+			$boolBaseURL = file_exists($tmpFuncBaseURL."error.php");
+		}
+		return $tmpFuncBaseURL;
+	}
+
 	public function addResetButton($idOfForm)
 	{
 		return "<a onclick=\"resetArrayObject('".$idOfForm."');\" style=\"display: none;\" class=\"linkSmall ".$idOfForm."ResetButton\" > Reset Current Changes</a><span class=\"".$idOfForm."NoChangesDetected\" >No Changes Detected</span>";
@@ -105,18 +117,6 @@ class core
 			unset($_COOKIE["locationRedirectLogHogUpgrade"]);
 		}
 		setcookie("locationRedirectLogHogUpgrade",$actual_link, time()+3600);
-	}
-
-	public function baseURL()
-	{
-		$tmpFuncBaseURL = "";
-		$boolBaseURL = file_exists($tmpFuncBaseURL."error.php");
-		while(!$boolBaseURL)
-		{
-			$tmpFuncBaseURL .= "../";
-			$boolBaseURL = file_exists($tmpFuncBaseURL."error.php");
-		}
-		return $tmpFuncBaseURL;
 	}
 
 	public function returnCurrentSelectedTheme()
