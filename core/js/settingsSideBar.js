@@ -38,7 +38,7 @@ function toggleSettingsSidebar()
 
 function adjustLogForSettingsSideBar(mainWidth)
 {
-	if(document.getElementById("settingsSideBar").style.display !== "none")
+	if(!(document.getElementById("settingsSideBar").style.display === "none" || document.getElementById("settingsSideBar").style.display === ""))
 	{
 		mainWidth -= 200;
 	}
