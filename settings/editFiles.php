@@ -53,7 +53,7 @@ require_once('../core/php/template/listOfFiles.php');
 	        			<h2 align="center" style="margin-top:0px;">
 	        				<a onclick="window.location = './devTools.php'" >
 	        				<?php
-	        				echo generateImage(
+	        				echo $core->generateImage(
 									$arrayOfImages["backArrow"],
 									array(
 										"width"		=>	"50px",

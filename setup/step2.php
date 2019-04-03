@@ -94,7 +94,7 @@ require_once('../core/php/loadVars.php'); ?>
 	var locationInsert = "newRowLocationForWatchList";
 	var logTrimType = "<?php echo $logTrimType; ?>";
 
-	var saveVerifyImage = <?php echo json_encode(generateImage(
+	var saveVerifyImage = <?php echo json_encode($core->generateImage(
 			$arrayOfImages["greenCheck"],
 			array(
 				"height"		=>	"50px",

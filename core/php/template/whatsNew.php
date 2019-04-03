@@ -154,7 +154,7 @@
 				</td>
 				<td>
 					<?php foreach ($value["Images"] as $IMGValue):
-						echo "<div style=\"display: inline-block;\" >".generateImage(
+						echo "<div style=\"display: inline-block;\" >".$core->generateImage(
 							$arrayOfImages["loadingImg"],
 							array(
 								"class"			=>	"whatsNewImage",

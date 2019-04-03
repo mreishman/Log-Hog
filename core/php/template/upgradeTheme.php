@@ -63,7 +63,7 @@ if((strval($baseFileVersion) === strval($oldFileVersion)) && (file_exists("../..
 				<table style="padding: 10px;">
 					<tr>
 						<td style="height: 50px;">
-							<?php echo generateImage(
+							<?php echo $core->generateImage(
 								$arrayOfImages["loading"],
 								array(
 									"height"		=>	"30px",
@@ -71,7 +71,7 @@ if((strval($baseFileVersion) === strval($oldFileVersion)) && (file_exists("../..
 									"id"			=>	"runLoad"
 								)
 							); ?>
-							<?php echo generateImage(
+							<?php echo $core->generateImage(
 								$arrayOfImages["greenCheck"],
 								array(
 									"height"		=>	"30px",
@@ -89,7 +89,7 @@ if((strval($baseFileVersion) === strval($oldFileVersion)) && (file_exists("../..
 					</tr>
 					<tr>
 						<td style="height: 50px;">
-							<?php echo generateImage(
+							<?php echo $core->generateImage(
 								$arrayOfImages["loading"],
 								array(
 									"height"		=>	"30px",
@@ -98,7 +98,7 @@ if((strval($baseFileVersion) === strval($oldFileVersion)) && (file_exists("../..
 									"style"			=>	"display: none;"
 								)
 							); ?>
-							<?php echo generateImage(
+							<?php echo $core->generateImage(
 								$arrayOfImages["greenCheck"],
 								array(
 									"height"		=>	"30px",

@@ -69,7 +69,7 @@ require_once('../core/php/updateCheck.php');
 				</li>
 				<li>
 					<span style="font-size: 75%;">
-						<?php echo generateImage(
+						<?php echo $core->generateImage(
 							$arrayOfImages["info"],
 							array(
 								"style"			=>	"margin-bottom: -4px;",

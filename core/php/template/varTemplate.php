@@ -16,7 +16,7 @@ if(!isset($settings))
 <div class="settingsDiv" >
 <ul class="settingsUl">
 	<?php
-	$infoImage = generateImage(
+	$infoImage = $core->generateImage(
 		$arrayOfImages["info"],
 		array(
 			"style"			=>	"margin-bottom: -4px;",

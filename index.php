@@ -78,7 +78,7 @@ if($enableMultiLog === "false")
 $windowDisplayConfig = explode("x", $windowConfig);
 
 /* Used for full screen menu */
-$externalLinkImage = generateImage(
+$externalLinkImage = $core->generateImage(
 	$arrayOfImages["loadingImg"],
 	$imageConfig = array(
 		"height"	=>	"15px",
@@ -214,7 +214,7 @@ $externalLinkImage = generateImage(
 					$updateImage = "";
 					if($levelOfUpdate == 1)
 					{
-						$updateImage = json_encode(generateImage(
+						$updateImage = json_encode($core->generateImage(
 							$arrayOfImages["yellowWarning"],
 							$imageConfig = array(
 								"id"		=>	"updateImage",
@@ -225,7 +225,7 @@ $externalLinkImage = generateImage(
 					}
 					elseif($levelOfUpdate == 2 || $levelOfUpdate == 3)
 					{
-						$updateImage = json_encode(generateImage(
+						$updateImage = json_encode($core->generateImage(
 							$arrayOfImages["redWarning"],
 							$imageConfig = array(
 								"id"		=>	"updateImage",
@@ -263,7 +263,7 @@ $externalLinkImage = generateImage(
 			?>
 			var srcForLoadImage = "<?php echo $srcForLoadImage; ?>";
 			var currentVersion = "<?php echo $configStatic['version'];?>";
-			var saveVerifyImage = <?php echo json_encode(generateImage(
+			var saveVerifyImage = <?php echo json_encode($core->generateImage(
 				$arrayOfImages["greenCheck"],
 				array(
 					"height"		=>	"50px"

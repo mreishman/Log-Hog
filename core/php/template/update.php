@@ -61,7 +61,7 @@
 				</li>
 				<li style="display: none;" id="loadingSpinnerForInstallUpdate">
 					<?php
-						echo generateImage(
+						echo $core->generateImage(
 							$arrayOfImages["loadingImg"],
 							$imageConfig = array(
 								"id"			=>	"statusImage0",
@@ -76,7 +76,7 @@
 				<li id="noUpdate" <?php if($levelOfUpdate != 0){echo "style='display: none;'";} ?> >
 					<h2>
 						<?php
-						echo generateImage(
+						echo $core->generateImage(
 							$arrayOfImages["loadingImg"],
 							$imageConfig = array(
 								"id"			=>	"statusImage1",
@@ -92,7 +92,7 @@
 				<li id="minorUpdate" <?php if($levelOfUpdate != 1){echo "style='display: none;'";} ?> >
 					<h2>
 						<?php
-						echo generateImage(
+						echo $core->generateImage(
 							$arrayOfImages["loadingImg"],
 							$imageConfig = array(
 								"id"			=>	"statusImage2",
@@ -113,7 +113,7 @@
 				<li id="majorUpdate" <?php if($levelOfUpdate != 2){echo "style='display: none;'";} ?> >
 					<h2>
 						<?php
-						echo generateImage(
+						echo $core->generateImage(
 							$arrayOfImages["loadingImg"],
 							$imageConfig = array(
 								"id"			=>	"statusImage3",
@@ -133,7 +133,7 @@
 				<li id="NewXReleaseUpdate" <?php if($levelOfUpdate != 3){echo "style='display: none;'";} ?> >
 					<h2>
 						<?php
-						echo generateImage(
+						echo $core->generateImage(
 							$arrayOfImages["loadingImg"],
 							$imageConfig = array(
 								"id"			=>	"statusImage3",

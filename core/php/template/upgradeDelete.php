@@ -67,7 +67,7 @@ if($totalCountOfFilesToDelete < 1)
 				<table style="padding: 10px;">
 					<tr>
 						<td style="height: 50px;">
-							<?php echo generateImage(
+							<?php echo $core->generateImage(
 								$arrayOfImages["loading"],
 								array(
 									"height"		=>	"30px",
@@ -75,7 +75,7 @@ if($totalCountOfFilesToDelete < 1)
 									"id"			=>	"runLoad"
 								)
 							); ?>
-							<?php echo generateImage(
+							<?php echo $core->generateImage(
 								$arrayOfImages["greenCheck"],
 								array(
 									"height"		=>	"30px",
@@ -93,7 +93,7 @@ if($totalCountOfFilesToDelete < 1)
 					</tr>
 					<tr>
 						<td style="height: 50px;">
-							<?php echo generateImage(
+							<?php echo $core->generateImage(
 								$arrayOfImages["loading"],
 								array(
 									"height"		=>	"30px",
@@ -102,7 +102,7 @@ if($totalCountOfFilesToDelete < 1)
 									"style"			=>	"display: none;"
 								)
 							); ?>
-							<?php echo generateImage(
+							<?php echo $core->generateImage(
 								$arrayOfImages["greenCheck"],
 								array(
 									"height"		=>	"30px",

@@ -9,7 +9,7 @@ $core->getScript(array(
 )); ?>
 <div id="menu">
 	<div onclick="goToUrl('../index.php');" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">
-		<?php echo generateImage(
+		<?php echo $core->generateImage(
 			$arrayOfImages["backArrow"],
 			array(
 				"height"		=>	"30px",
@@ -44,7 +44,7 @@ $baseUrlImages = $localURL;
 	var popupSettingsArray = {};
 	var currentVersion = "<?php echo $configStatic['version']; ?>";
 	var newestVersion = "<?php echo $configStatic['newestVersion']; ?>";
-	var saveVerifyImage = <?php echo json_encode(generateImage(
+	var saveVerifyImage = <?php echo json_encode($core->generateImage(
 			$arrayOfImages["greenCheck"],
 			array(
 				"height"		=>	"50px",

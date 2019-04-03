@@ -67,7 +67,7 @@ $(document).ready(function()
 });
 var currentVersion = "<?php echo $configStatic['version'];?>";
 var baseUrl = "<?php echo $baseUrl;?>";
-var saveVerifyImage = <?php echo json_encode(generateImage(
+var saveVerifyImage = <?php echo json_encode($core->generateImage(
 	$arrayOfImages["greenCheck"],
 	array(
 		"height"		=>	"50px"

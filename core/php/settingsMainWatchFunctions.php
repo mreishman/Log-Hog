@@ -57,6 +57,10 @@ function makePatternSelect($selectValue, $selectOptions)
 
 function generateSaveBlock($data = array(), $arrayOfImages)
 {
+	if(!isset($core))
+	{
+		$core = new core();
+	}
 	$rowNumber = "{{rowNumber}}";
 	$fileNumber = "{{fileNumber}}";
 	$filePermsDisplay = "{{filePermsDisplay}}";
@@ -115,7 +119,7 @@ function generateSaveBlock($data = array(), $arrayOfImages)
 	{
 		$localSrcMod = $data["srcModifier"];
 	}
-	$saveBlock .= generateImage(
+	$saveBlock .= $core->generateImage(
 		$arrayOfImages["loadingImg"],
 		array(
 			"height"		=>	"25px",
@@ -208,7 +212,7 @@ function generateSaveBlock($data = array(), $arrayOfImages)
 	$saveBlock .= "<span class=\"condensed\" ><li class=\"typeFile\" ".$typeFile."><div class=\"settingsHeader\" style=\"margin: 0;\" >Files: ";
 	$saveBlock .= "<div class=\"settingsHeaderButtons\"><span id=\"watchListKey".$rowNumber."SplitFilesLink\" ".$boolHideSplit." ><a class=\"linkSmall\" style=\"margin-right: 10px;\" onclick=\"updateSubFiles(".$rowNumber.");\" >Refresh</a><a class=\"linkSmall\" onclick=\"splitFilesPopup(".$rowNumber.", '".$location."');\"	 >Split Files</a></span></div>";
 	$saveBlock .= "</div> <div class=\"settingsDiv\" style=\"max-height: 150px; display: block; overflow: auto; margin: 0;\" >";
-	$saveBlock .= generateImage(
+	$saveBlock .= $core->generateImage(
 		$arrayOfImages["loading"],
 		array(
 			"width"			=>	"25px",

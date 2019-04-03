@@ -300,4 +300,92 @@ class core
 
 		return " var ".$keyKey." = ".trim(preg_replace('/\s\s+/', ' ', $keyValue)).";";
 	}
+
+	public function generateImage($imageArray, $customConfig)
+	{
+		$image = "<img ";
+		if(isset($customConfig["data-id"]))
+		{
+			$image .=  " data-id=\"".$customConfig["data-id"]."\" ";
+		}
+		if(isset($customConfig["data-src"]))
+		{
+			if(is_array($customConfig["data-src"]))
+			{
+				$image .=  " data-src=\"";
+				if(isset($customConfig["srcModifier"]))
+				{
+					$image .= $customConfig["srcModifier"];
+				}
+				$image .= $customConfig["data-src"]["src"]."\" ";
+				if(!isset($customConfig["title"]) && isset($customConfig["data-src"]["title"]))
+				{
+					$image .=  " data-title=\"".$customConfig["data-src"]["title"]."\" ";
+				}
+				if(!isset($customConfig["alt"]) && isset($customConfig["data-src"]["alt"]))
+				{
+					$image .=  " data-alt=\"".$customConfig["data-src"]["alt"]."\" ";
+				}
+			}
+			else
+			{
+				$image .=  " data-src=\"";
+				if(isset($customConfig["srcModifier"]))
+				{
+					$image .= $customConfig["srcModifier"];
+				}
+				$image .= $customConfig["data-src"]."\" ";
+			}
+		}
+		if(isset($customConfig["id"]))
+		{
+			$image .=  " id=\"".$customConfig["id"]."\" ";
+		}
+		if(isset($customConfig["class"]))
+		{
+			$image .= " class=\"".$customConfig["class"]."\" ";
+		}
+		$image .= " src=\"";
+		if(isset($customConfig["srcModifier"]))
+		{
+			$image .= $customConfig["srcModifier"];
+		}
+		$image .= $imageArray["src"]."\" ";
+		if(isset($customConfig["alt"]))
+		{
+			if($customConfig["alt"] !== null)
+			{
+				$image .= " alt=\"".$customConfig["alt"]."\" ";
+			}
+		}
+		else
+		{
+			$image .= " alt=\"".$imageArray["alt"]."\" ";
+		}
+		if(isset($customConfig["title"]))
+		{
+			if($customConfig["title"] !== null)
+			{
+				$image .= " title=\"".$customConfig["title"]."\" ";
+			}
+		}
+		else
+		{
+			$image .= " title=\"".$imageArray["title"]."\" ";
+		}
+		if(isset($customConfig["style"]))
+		{
+			$image .= " style=\"".$customConfig["style"]."\" ";
+		}
+		if(isset($customConfig["height"]))
+		{
+			$image .= " height=\"".$customConfig["height"]."\" ";
+		}
+		if(isset($customConfig["width"]))
+		{
+			$image .= " width=\"".$customConfig["width"]."\" ";
+		}
+		$image .= " >";
+		return $image;
+	}
 }

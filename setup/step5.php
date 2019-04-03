@@ -83,7 +83,7 @@ require_once('../core/php/loadVars.php');?>
 
 	var titleOfPage = "Welcome";
 
-	var saveVerifyImage = <?php echo json_encode(generateImage(
+	var saveVerifyImage = <?php echo json_encode($core->generateImage(
 			$arrayOfImages["greenCheck"],
 			array(
 				"height"		=>	"50px",

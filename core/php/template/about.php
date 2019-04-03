@@ -6,7 +6,7 @@
 		<ul class="settingsUl">
 			<li>
 				<h2>
-					<?php echo generateImage(
+					<?php echo $core->generateImage(
 						$arrayOfImages["loadingImg"],
 						$imageConfig = array(
 							"class"			=>	"mainMenuImage",

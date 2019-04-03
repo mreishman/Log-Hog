@@ -238,7 +238,7 @@
 		<?php endforeach; ?>
 		<tr>
 			<td colspan="7">
-				<?php echo generateImage(
+				<?php echo $core->generateImage(
 					$arrayOfImages["loadingImg"],
 					array(
 						"style"			=>	"margin-bottom: -4px;",
