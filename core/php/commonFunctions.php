@@ -12,12 +12,6 @@ function baseURL()
 	return $tmpFuncBaseURL;
 }
 
-function clean_url($url)
-{
-    $parts = parse_url($url);
-    return $parts['path'];
-}
-
 function generateImage($imageArray, $customConfig)
 {
 	$image = "<img ";

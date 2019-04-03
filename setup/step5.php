@@ -10,7 +10,7 @@ require_once('setupProcessFile.php');
 require_once('../core/php/configStatic.php');
 if($setupProcess != "step5")
 {
-	$partOfUrl = clean_url($_SERVER['REQUEST_URI']);
+	$partOfUrl = $core->clean_url($_SERVER['REQUEST_URI']);
 	$partOfUrl = substr($partOfUrl, 0, strpos($partOfUrl, 'setup'));
 	$url = "http://" . $_SERVER['HTTP_HOST'] .$partOfUrl ."setup/director.php";
 	header('Location: ' . $url, true, 302);

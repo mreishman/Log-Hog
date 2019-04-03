@@ -27,7 +27,7 @@ if(!file_exists($baseUrl.'conf/config.php'))
 	{
 		if($setupProcess === 'preStart')
 		{
-			$partOfUrl = clean_url($_SERVER['REQUEST_URI']);
+			$partOfUrl = $core->clean_url($_SERVER['REQUEST_URI']);
 			if(strpos($partOfUrl, "index.php") !== false)
 			{
 				$partOfUrl = str_replace("index.php", "", $partOfUrl);

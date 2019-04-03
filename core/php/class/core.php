@@ -1,6 +1,12 @@
 <?php
 class core
 {
+	public function clean_url($url)
+	{
+	    $parts = parse_url($url);
+	    return $parts['path'];
+	}
+
 	public function baseURL()
 	{
 		$tmpFuncBaseURL = "";
