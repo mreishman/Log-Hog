@@ -198,21 +198,6 @@ function putIntoCorrectFormat($keyKey, $keyValue, $value)
 	";
 }
 
-function putIntoCorrectJSFormat($keyKey, $keyValue, $value)
-{
-	if(is_string($value))
-	{
-		return " var ".$keyKey." = '".trim(preg_replace('/\s\s+/', ' ', $keyValue))."';";
-	}
-
-	if(is_array($value))
-	{
-		return " var ".$keyKey." = ".json_encode($keyValue).";";
-	}
-
-	return " var ".$keyKey." = ".trim(preg_replace('/\s\s+/', ' ', $keyValue)).";";
-}
-
 function generateFolderColorRow($arrFCOdata = array())
 {
 	$edit = true;

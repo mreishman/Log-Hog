@@ -279,4 +279,19 @@ class core
 			$this->getScript($filePath);
 		}
 	}
+
+	public function putIntoCorrectJSFormat($keyKey, $keyValue, $value)
+	{
+		if(is_string($value))
+		{
+			return " var ".$keyKey." = '".trim(preg_replace('/\s\s+/', ' ', $keyValue))."';";
+		}
+
+		if(is_array($value))
+		{
+			return " var ".$keyKey." = ".json_encode($keyValue).";";
+		}
+
+		return " var ".$keyKey." = ".trim(preg_replace('/\s\s+/', ' ', $keyValue)).";";
+	}
 }

@@ -3,7 +3,7 @@
 <?php
 foreach ($defaultConfig as $key => $value)
 {
-	echo putIntoCorrectJSFormat($key, $$key, $value);
+	echo $core->putIntoCorrectJSFormat($key, $$key, $value);
 }
 ?>
 </script>
