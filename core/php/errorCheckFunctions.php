@@ -43,29 +43,9 @@ function checkIfFilesExist($arrayOfFiles, $urlPath, $currentFile)
 	{
 		if(!file_exists($cIFATBaseUrl.$file))
 		{
-			fileMissingError($file, $urlPath, $currentFile);
+			echoErrorJavaScript($urlPath, $file." is not accessable from ".$currentFile, 1074);
 		}
 	}
-}
-
-function configFileErrorChecks($config, $urlPath, $currentFile = "")
-{
-	foreach($config['watchList'] as $key => $item)
-	{
-		if(is_array($item))
-		{
-			break;
-		}
-		if(strpos($item, "\\") !== false)
-		{
-			echoErrorJavaScript($urlPath, "Local/.../Config::Watchlist  - ".$currentFile, 1);
-		}
-	}
-}
-
-function fileMissingError($file, $urlPath, $currentFile)
-{
-	echoErrorJavaScript($urlPath, $file." is not accessable from ".$currentFile, 1074);
 }
 
 function echoErrorJavaScript($urlPath, $mainMessage, $errorNumber)
