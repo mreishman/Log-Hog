@@ -168,5 +168,9 @@ $arrayOfFilesDeleted = array(
 	41			=> array(
 		"fullPath"	=>	"core/php/deleteLog.php",
 		"type"		=>	"file"
-	)
+	),
+	42			=> array(
+		"fullPath"	=>	"core/php/commonFunctions.php",
+		"type"		=>	"file"
+	),
 );

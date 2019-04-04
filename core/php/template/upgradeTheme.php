@@ -9,7 +9,6 @@ if(file_exists('../../../local/layout.php'))
 	$baseUrl .= $currentSelectedTheme."/";
 }
 require_once($baseUrl.'conf/config.php');
-require_once('../../../core/php/commonFunctions.php');
 require_once("../../../core/php/class/core.php");
 $core = new core();
 require_once('../../../core/conf/config.php');

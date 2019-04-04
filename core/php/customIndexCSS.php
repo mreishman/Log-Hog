@@ -1,15 +1,11 @@
 <?php
-if(!function_exists('baseURL'))
-{
-	require_once("commonFunctions.php");
-}
 if(!isset($core))
 {
 	require_once("class/core.php");
 	$core = new core();
 }
 
-$baseURLToMain =  baseURL();
+$baseURLToMain =  $core->baseURL();
 
 $baseUrl = $baseURLToMain."core/";
 if(file_exists('local/layout.php'))

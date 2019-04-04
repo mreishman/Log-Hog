@@ -1,6 +1,5 @@
 <!doctype html>
 <?php
-require_once('../../../core/php/commonFunctions.php');
 require_once("../../../core/php/class/core.php");
 $core = new core();
 $baseUrl = "../../../core/";

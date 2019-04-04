@@ -29,9 +29,9 @@ $fileNameArray = array(
         "name"      =>  "Check Version Of Layout",
         "path"      =>  "core/php/checkVersionOfLayout.php"
     ),
-    "commonFunctions"   =>  array(
-        "name"      =>  "Common Functions",
-        "path"      =>  "core/php/commonFunctions.php"
+    "core"   =>  array(
+        "name"      =>  "Core Functions",
+        "path"      =>  "core/php/class/core.php"
     ),
     "configStaticCheck" =>  array(
         "name"      =>  "Config Static Check",

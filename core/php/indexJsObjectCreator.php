@@ -210,7 +210,7 @@ if($advancedLogFormatEnabled === "true")
 		"name" => "dateFormat.min.js",
 		"type" => "js"
 	);
-	$directory = array_diff(scandir(baseURL()."core/js/formatObjects/"), array('..', '.'));
+	$directory = array_diff(scandir($core->baseURL()."core/js/formatObjects/"), array('..', '.'));
 	foreach ($directory as $file) {
 		$arrayOfFiles[] =  array(
 			"name" => "formatObjects/".$file,

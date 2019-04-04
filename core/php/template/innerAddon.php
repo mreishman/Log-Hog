@@ -3,10 +3,9 @@
 	$currentDir = "";
 	if(!isset($addons))
 	{
-		require_once('../commonFunctions.php');
 		require_once("../class/core.php");
 		$core = new core();
-		require_once(baseURL()."core/php/class/addons.php");
+		require_once($core->baseURL()."core/php/class/addons.php");
 		$addons = new addons();
 		$currentSelectedTheme = $core->returnCurrentSelectedTheme();
 		$baseUrl = "../../../local/".$currentSelectedTheme."/";

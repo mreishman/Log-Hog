@@ -1,10 +1,9 @@
 <?php
-require_once('../core/php/commonFunctions.php');
 require_once("../core/php/class/core.php");
 $core = new core();
 if(!isset($settings))
 {
-	require_once(baseURL()."core/php/class/settings.php");
+	require_once($core->baseURL()."core/php/class/settings.php");
 	$settings = new settings();
 }
 $currentSelectedTheme = $core->returnCurrentSelectedTheme();

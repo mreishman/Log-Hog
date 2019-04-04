@@ -28,21 +28,6 @@ if(file_exists($file))
     }
 }
 
-$commonFunctionsLoaded = false;
-$file = 'core/php/commonFunctions.php';
-if(file_exists($file))
-{
-    try
-    {
-        require_once($file);
-        $commonFunctionsLoaded = true;
-    }
-    catch (Exception $e)
-    {
-
-    }
-}
-
 $coreLoaded = false;
 $file = "core/php/class/core.php";
 if(file_exists($file))
@@ -371,7 +356,7 @@ if(file_exists($file))
             foreach ($fileNameArray as $key => $value)
             {
                 $info = "";
-                if($commonFunctionsLoaded)
+                if($coreLoaded)
                 {
                     $info = $core->filePermsDisplay($value["path"]);
                 }

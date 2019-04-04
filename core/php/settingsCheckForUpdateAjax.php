@@ -2,7 +2,6 @@
 $data = array();
 $data['version'] = -1;
 $data['error'] = "";
-require_once('commonFunctions.php');
 require_once("class/core.php");
 $core = new core();
 require_once("class/update.php");

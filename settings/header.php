@@ -103,7 +103,7 @@ $baseUrlImages = $localURL;
 ?>
 <div class="settingsHeader addBorderBottom" style="position: absolute;width: 100%;z-index: 10;top: 104px; margin: 0; display: none;" id="fixedPositionMiniMenu" ></div>
 <script type="text/javascript">
-	var baseUrl = "<?php echo baseURL();?>";
+	var baseUrl = "<?php echo $core->baseURL();?>";
 	var popupSettingsArray = <?php echo $popupSettingsArray ?>;
 	var currentVersion = "<?php echo $configStatic['version']; ?>";
 	var newestVersion = "<?php echo $configStatic['newestVersion']; ?>";

@@ -40,7 +40,7 @@ $core->getScript(array(
 $baseUrlImages = $localURL;
 ?>
 <script type="text/javascript">
-	var baseUrl = "<?php echo baseURL();?>";
+	var baseUrl = "<?php echo $core->baseURL();?>";
 	var popupSettingsArray = {};
 	var currentVersion = "<?php echo $configStatic['version']; ?>";
 	var newestVersion = "<?php echo $configStatic['newestVersion']; ?>";

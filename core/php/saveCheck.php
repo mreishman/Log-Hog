@@ -25,7 +25,6 @@ while($countOfSlash < 20 && !file_exists($varToIndexDir."error.php"))
 {
   $varToIndexDir .= "../";
 }
-require_once($varToIndexDir."core/php/commonFunctions.php");
 require_once($varToIndexDir."core/php/class/core.php");
 $core = new core();
 

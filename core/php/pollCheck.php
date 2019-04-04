@@ -8,7 +8,6 @@ try
 	require_once($baseModifier.'core/conf/config.php');
 	require_once('configStatic.php');
 	require_once('updateProgressFile.php');
-	require_once('commonFunctions.php');
 	require_once("class/core.php");
 	$core = new core();
 	require_once('class/poll.php');
