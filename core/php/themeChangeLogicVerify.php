@@ -8,7 +8,7 @@ require_once($baseUrl.'conf/config.php');
 require_once('../../core/conf/config.php');
 require_once('../../core/php/configStatic.php');
 //get current selected theme directory and settings
-$currentTheme = loadSpecificVar($defaultConfig, $config, "currentTheme");
+$currentTheme = $core->loadSpecificVar($defaultConfig, $config, "currentTheme");
 $directory = "../../core/Themes/".$currentTheme."/";
 if(is_dir('../../local/'.$currentSelectedTheme.'/Themes/'.$currentTheme))
 {

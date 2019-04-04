@@ -16,6 +16,8 @@ require_once("core/php/class/update.php");
 $update = new update();
 require_once("core/php/class/addons.php");
 $addons = new addons();
+require_once("core/php/class/settings.php");
+$settings = new settings();
 $core->setCookieRedirect();
 $currentSelectedTheme = $core->returnCurrentSelectedTheme();
 $baseUrl = "local/".$currentSelectedTheme."/";
@@ -40,7 +42,7 @@ if(!file_exists($baseUrl.'conf/config.php'))
 }
 require_once($baseUrl.'conf/config.php');
 require_once('core/conf/config.php');
-$currentTheme = loadSpecificVar($defaultConfig, $config, "currentTheme");
+$currentTheme = $core->loadSpecificVar($defaultConfig, $config, "currentTheme");
 $defaultSettingsDir = 'core/Themes/'.$currentTheme."/defaultSetting.php";
 if(is_dir('local/'.$currentSelectedTheme.'/Themes/'.$currentTheme))
 {

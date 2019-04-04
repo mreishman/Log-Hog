@@ -19,6 +19,37 @@ class core
 		return $tmpFuncBaseURL;
 	}
 
+	public function loadSpecificVar($default, $custom, $configLookFor)
+	{
+		$currentTheme = $default[$configLookFor];
+		if(isset($custom[$configLookFor]))
+		{
+			$currentTheme = $custom[$configLookFor];
+		}
+		return $currentTheme;
+	}
+
+	public function putIntoCorrectFormat($keyKey, $keyValue, $value)
+	{
+		if(is_string($value))
+		{
+			return "
+			'".$keyKey."' => '".$keyValue."',
+		";
+		}
+
+		if(is_array($value))
+		{
+			return "
+			'".$keyKey."' => array(".$keyValue."),
+		";
+		}
+
+		return "
+			'".$keyKey."' => ".$keyValue.",
+		";
+	}
+
 	public function loadCSS($base, $baseUrl, $version)
 	{
 		$stringToReturn = "<link rel=\"stylesheet\" type=\"text/css\" href=\"".$baseUrl."template/theme.css?v=".$version."\">";

@@ -1,4 +1,9 @@
 <?php
+if(!isset($settings))
+{
+	require_once("core/php/class/settings.php");
+	$settings = new settings();
+}
 foreach ($scanned_directory as $key):
 		if($key != ".DS_Store" && is_dir($directory.$key)):
 			include($directory.$key."/defaultSetting.php");
@@ -87,7 +92,7 @@ foreach ($scanned_directory as $key):
 							foreach ($folderColorArrays as $key => $value)
 							{
 								$i++;
-								echo generateFolderColorRow(array(
+								echo $settings->generateFolderColorRow(array(
 										"key"							=>	$key,
 										"currentFolderColorTheme"		=>	$currentFolderColorTheme,
 										"i"								=>	$i,

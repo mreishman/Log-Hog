@@ -1,3 +1,10 @@
+<?php
+if(!isset($settings))
+{
+	require_once("core/php/class/settings.php");
+	$settings = new settings();
+}
+?>
 <ul class="settingsUl">
 	<li>
 		<table id="addNewRowToThisForThemes" >
@@ -20,7 +27,7 @@
 					$i++ ?>
 					<tr>
 						<?php
-						echo generateFolderColorRow(array(
+						echo $settings->generateFolderColorRow(array(
 							"key"							=>	$key,
 							"currentFolderColorTheme"		=>	$currentFolderColorTheme,
 							"i"								=>	$i,
@@ -35,7 +42,7 @@
 	</li>
 <input style="display: none;" type="text" name="folderThemeCount" value="<?php echo $i; ?>">
 </ul>
-<?php $newBlankRow = generateFolderColorRow(); ?>
+<?php $newBlankRow = $settings->generateFolderColorRow(); ?>
 <div style="display: none;" id="holderForFolderColors">
 	<span class="emptyRow1" >
 		<?php echo $newBlankRow["td1"]; ?>
@@ -56,6 +63,6 @@
 		<?php echo $newBlankRow["td5"]; ?>
 	</span>
 	<span class="emptyColorBlock">
-		<?php echo generateColorBlock(); ?>
+		<?php echo $settings->generateColorBlock(); ?>
 	</span>
 </div>

@@ -7,6 +7,11 @@
 <head>
 	<link rel="stylesheet" type="text/css" href="<?php echo $theme; ?>/template/theme.css?v=<?php echo $cssVersion;?>">
 	<link rel="stylesheet" type="text/css" href="../template/base.css?v=<?php echo $cssVersion;?>">
+	<style type="text/css">
+		#log {
+			display: block;
+		}
+	</style>
 </head>
 <body>
 	<div id="menu" style="position: relative; overflow: hidden; ">

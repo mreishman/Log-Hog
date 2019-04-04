@@ -317,4 +317,287 @@ class settings
 		return $returnHtml;
 	}
 
+	public function generateFolderColorRow($arrFCOdata = array())
+	{
+		$edit = true;
+		$key = "{{key}}";
+		$currentFolderColorTheme = "{{currentFolderColorTheme}}";
+		$i = "{{i}}";
+		$value = 				array(
+			"main"					=>	array(
+				0						=>	array(
+					"background"			=>	"#000",
+					"fontColor"				=>	"#fff"
+				)
+			),
+			"highlight"				=>	array(
+				0						=>	array(
+					"background"			=>	"#000",
+					"fontColor"				=>	"#fff"
+				)
+			),
+			"active"				=>	array(
+				0						=>	array(
+					"background"			=>	"#000",
+					"fontColor"				=>	"#fff"
+				)
+			),
+			"highlightActive"		=>	array(
+				0						=>	array(
+					"background"			=>	"#000",
+					"fontColor"				=>	"#fff"
+				)
+			),
+		);
+		$themeName = "{{themeName}}";
+
+		if(isset($arrFCOdata["key"]))
+		{
+			$key = $arrFCOdata["key"];
+		}
+		if(isset($arrFCOdata["currentFolderColorTheme"]))
+		{
+			$currentFolderColorTheme = $arrFCOdata["currentFolderColorTheme"];
+		}
+		if(isset($arrFCOdata["i"]))
+		{
+			$i = $arrFCOdata["i"];
+		}
+		if(isset($arrFCOdata["value"]))
+		{
+			$value = $arrFCOdata["value"];
+		}
+		if(isset($arrFCOdata["themeName"]))
+		{
+			$themeName = $arrFCOdata["themeName"];
+		}
+		if((strpos($key, "default") > -1))
+		{
+			$edit = false;
+		}
+
+		$td1 = "<input type=\"radio\" name=\"currentFolderColorTheme\" ";
+		if ($key == $currentFolderColorTheme)
+		{
+			$td1 .= "checked='checked'";
+		}
+		$td1 .= " value=\"".$key."\"> ".$key.": ";
+		$htmlToReturn = "<td>".$td1."</td>";
+		$td1p5 = "<td>";
+		if($edit)
+		{
+			$td1p5 .= "<div class=\"linkSmall\" onclick=\"removeRow(".$i.")\" >Remove</div>";
+		}
+		$td1p5 .= "</td>";
+		$htmlToReturn .= $td1p5;
+		$td2 = "<input style=\"display: none;\" type=\"text\" name=\"folderColorThemeNameForPost".$i."\" value=\"".$key."\" > Main Colors: <span id=\"folderColorThemeNameForPost".$i."Main\">";
+		if($i !== "{{i}}")
+		{
+			$j = 0;
+			foreach ($value['main'] as $value2)
+			{
+				$j++;
+				$td2 .= $this->generateColorBlock(array(
+					"backgroundColor"			=>	$value2['background'],
+					"fontColor"					=>	$value2['fontColor'],
+					"i"							=>	$i,
+					"j"							=>	$j,
+					"name"						=>	"Main",
+					"edit"						=>	$edit
+				));
+			}
+		}
+		else
+		{
+			$td2 .= $this->generateColorBlock(array(
+				"i"							=>	$i,
+				"j"							=>	"{{j}}",
+				"name"						=>	"Main",
+				"edit"						=>	true
+			));
+		}
+		$td2B = "<div style=\"display: inline-block; width: 20px;\"  ></div>";
+		if($edit || $i === "{{i}}")
+		{
+			$td2B = "<div class=\"colorSelectorDiv addBorder\" id=\"folderColorThemeNameForPost".$i."Add\" onclick=\"addColorBlock(".$i.")\" style=\"display: inline-block; text-align: center; line-height: 18px; cursor: pointer; \"  >+</div>";
+			$td2B .= "<div class=\"colorSelectorDiv addBorder\" id=\"folderColorThemeNameForPost".$i."Remove\" onclick=\"removeColorBlock(".$i.")\" style=\"display: inline-block; text-align: center; line-height: 18px; cursor: pointer; \"  >-</div>";
+		}
+		$td2 .= "</span>".$td2B;
+		$htmlToReturn .= "<td>".$td2."</td>";
+		$td3 = "Highlight: <span>";
+		if($i !== "{{i}}")
+		{
+			$j = 0;
+			foreach ($value['highlight'] as $value2)
+			{
+				$j++;
+				$td3 .= $this->generateColorBlock(array(
+					"backgroundColor"			=>	$value2['background'],
+					"fontColor"					=>	$value2['fontColor'],
+					"i"							=>	$i,
+					"j"							=>	$j,
+					"name"						=>	"Highlight",
+					"edit"						=>	$edit
+				));
+			}
+		}
+		else
+		{
+			$td3 .= $this->generateColorBlock(array(
+				"i"							=>	$i,
+				"j"							=>	"{{j}}",
+				"name"						=>	"Highlight",
+				"edit"						=>	true
+			));
+		}
+		$td3 .= "</span>";
+		$htmlToReturn .= "<td>".$td3."</td>";
+		$td4 = " Updated: <span >";
+		if($i !== "{{i}}")
+		{
+			$j = 0;
+			foreach ($value['active'] as $value2)
+			{
+				$j++;
+				$td4 .= $this->generateColorBlock(array(
+					"backgroundColor"			=>	$value2['background'],
+					"fontColor"					=>	$value2['fontColor'],
+					"i"							=>	$i,
+					"j"							=>	$j,
+					"name"						=>	"Active",
+					"edit"						=>	$edit
+				));
+			}
+		}
+		else
+		{
+			$td4 .= $this->generateColorBlock(array(
+				"i"							=>	$i,
+				"j"							=>	"{{j}}",
+				"name"						=>	"Active",
+				"edit"						=>	true
+			));
+		}
+		$td4 .="</span>";
+		$htmlToReturn .= "<td>".$td4." </td>";
+		$td5 = " Updated highlight:	<span >";
+		if($i !== "{{i}}")
+		{
+			$j = 0;
+			foreach ($value['highlightActive'] as $value2)
+			{
+				$j++;
+				$td5 .= $this->generateColorBlock(array(
+					"backgroundColor"			=>	$value2['background'],
+					"fontColor"					=>	$value2['fontColor'],
+					"i"							=>	$i,
+					"j"							=>	$j,
+					"name"						=>	"ActiveHighlight",
+					"edit"						=>	$edit
+				));
+			}
+		}
+		else
+		{
+			$td5 .= $this->generateColorBlock(array(
+				"i"							=>	$i,
+				"j"							=>	"{{j}}",
+				"name"						=>	"ActiveHighlight",
+				"edit"						=>	true
+			));
+		}
+		$td5 .= "</span>";
+		$htmlToReturn .= "<td>".$td5."</td>";
+		return array(
+			"html"					=>	$htmlToReturn,
+			"td1"					=>	$td1,
+			"td1p5"					=>	$td1p5,
+			"td2"					=>	$td2,
+			"td3"					=>	$td3,
+			"td4"					=>	$td4,
+			"td5"					=>	$td5
+		);
+	}
+
+	public function generateColorBlock($arrCBdata = array())
+	{
+		$backgroundColor = "{{backgroundColor}}";
+		$fontColor = "{{fontColor}}";
+		$i = "{{i}}";
+		$j = "{{j}}";
+		$name = "{{name}}";
+		$edit = true;
+
+		if(isset($arrCBdata["backgroundColor"]))
+		{
+			$backgroundColor = $arrCBdata["backgroundColor"];
+		}
+		if(isset($arrCBdata["fontColor"]))
+		{
+			$fontColor = $arrCBdata["fontColor"];
+		}
+		if(isset($arrCBdata["i"]))
+		{
+			$i = $arrCBdata["i"];
+		}
+		if(isset($arrCBdata["j"]))
+		{
+			$j = $arrCBdata["j"];
+		}
+		if(isset($arrCBdata["name"]))
+		{
+			$name = $arrCBdata["name"];
+		}
+		if(isset($arrCBdata["edit"]))
+		{
+			$edit = $arrCBdata["edit"];
+		}
+
+		$htmlToReturn = "";
+		$htmlToReturn .= "<div class=\"divAroundColors\">";
+		$htmlToReturn .= $this->generateColorBlockInner($name."Background".$i."-".$j, $backgroundColor, array("edit" => $edit, "style" => "border-bottom: 0px;"));
+		$htmlToReturn .= $this->generateColorBlockInner($name."Font".$i."-".$j, $fontColor, array("edit" => $edit, "style" => "border-top: 0px;"));
+		$htmlToReturn .= "</div>";
+		return $htmlToReturn;
+	}
+
+	private function generateColorBlockInner($buttonID, $color, $data = array())
+	{
+		$edit = true;
+		$style = "";
+		$name = "folderColorValue".$buttonID;
+		$inputDisplay = "none";
+		if(isset($data["edit"]))
+		{
+			$edit = $data["edit"];
+		}
+		if(isset($data["style"]))
+		{
+			$style = $data["style"];
+		}
+		if(isset($data["name"]))
+		{
+			$name = $data["name"];
+		}
+		if(isset($data["inputDisplay"]))
+		{
+			$inputDisplay = $data["inputDisplay"];
+		}
+		$htmlToReturn = "";
+		if($edit)
+		{
+			$htmlToReturn .= "<div class=\"colorSelectorDiv\" style=\"".$style."\" >";
+			$htmlToReturn .= "<div class=\"inner-triangle-2\" ></div>";
+			$htmlToReturn .= "<div class=\"inner-triangle\" ></div>";
+			$htmlToReturn .= "<button id=\"folderColorButton".$buttonID."\" class=\"backgroundButtonForColor\"></button>";
+		}
+		else
+		{
+			$htmlToReturn .=	"<div class=\"colorSelectorDiv addBorder\" style=\"background-color: ".$color."; ".$style."\" >";
+		}
+		$htmlToReturn .=	"</div>";
+		$htmlToReturn .=	"<input style=\"width: 100px; display: ".$inputDisplay.";\" type=\"text\" id=\"folderColorValue".$buttonID."\" name=\"".$name."\" value=\"".$color."\" >";
+		return $htmlToReturn;
+	}
+
 }

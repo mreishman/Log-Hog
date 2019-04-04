@@ -37,7 +37,7 @@ if(!isset($defaultConfig))
 	exit();
 }
 
-$currentTheme = loadSpecificVar($defaultConfig, $config, "currentTheme");
+$currentTheme = $core->loadSpecificVar($defaultConfig, $config, "currentTheme");
 if(is_dir('../../local/'.$currentSelectedTheme.'/Themes/'.$currentTheme))
 {
 	require_once('../../local/'.$currentSelectedTheme.'/Themes/'.$currentTheme."/defaultSetting.php");
@@ -96,7 +96,7 @@ foreach ($defaultConfig as $key => $value)
 		isset($arrayOfCustomConfig[$key])
 	)
 	{
-		$newInfoForConfig .= putIntoCorrectFormat($key, $$key, $value);
+		$newInfoForConfig .= $core->putIntoCorrectFormat($key, $$key, $value);
 	}
 }
 $newInfoForConfig .= "
