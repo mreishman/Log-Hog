@@ -1,13 +1,15 @@
 <?php
 require_once("../core/php/class/core.php");
 $core = new core();
+require_once("../core/php/class/errorCheck.php");
+$errorCheck = new errorCheck();
 require_once('../core/php/configStatic.php');
 $currentPage = "welcome.php";
-checkIfFilesExist(
+$errorCheck->checkIfFilesExist(
 	array("local/layout.php","setup/setupProcessFile.php","error.php","setup/step1.php","core/template/theme.css","core/js/jquery.js","core/php/template/popup.php","core/php/settingsSaveAjax.php","core/conf/config.php","setup/stepsJavascript.js"),
 	 "../",
 	 $currentPage);
-checkIfFilesAreReadable(
+$errorCheck->checkIfFilesAreReadable(
 	array("local/layout.php","setup/setupProcessFile.php","error.php","setup/step1.php","core/template/theme.css","core/js/jquery.js","core/php/template/popup.php","core/php/settingsSaveAjax.php","core/conf/config.php","setup/stepsJavascript.js"),
 	 "../",
 	 $currentPage);
@@ -19,7 +21,7 @@ require_once('../local/layout.php');
 $baseUrl .= $currentSelectedTheme."/";
 
 
-checkIfFilesAreWritable(
+$errorCheck->checkIfFilesAreWritable(
 	array("core/php/settingsSaveAjax.php","local/".$currentSelectedTheme, "setup/setupProcessFile.php"),
 	 "../",
 	 $currentPage);

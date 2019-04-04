@@ -50,6 +50,13 @@ class core
 		";
 	}
 
+	public function echoErrorJavaScript($urlPath, $mainMessage, $errorNumber)
+	{
+		$urlPath = $urlPath."error.php?error=".$errorNumber."&page=".$mainMessage;
+		echo "<script type=\"text/javascript\"> window.location.href = '".$urlPath."'; </script>";
+		exit();
+	}
+
 	public function loadCSS($base, $baseUrl, $version)
 	{
 		$stringToReturn = "<link rel=\"stylesheet\" type=\"text/css\" href=\"".$baseUrl."template/theme.css?v=".$version."\">";
@@ -163,12 +170,12 @@ class core
 			}
 			else
 			{
-				echoErrorJavaScript("", "Error when getting current selected theme.", 9);
+				$this->echoErrorJavaScript("", "Error when getting current selected theme.", 9);
 			}
 		}
 		else
 		{
-			echoErrorJavaScript("", "Could not find local layout file. Please make sure that local/layout.php is setup correctly.", 7);
+			$this->echoErrorJavaScript("", "Could not find local layout file. Please make sure that local/layout.php is setup correctly.", 7);
 		}
 	}
 

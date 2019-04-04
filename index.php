@@ -1,16 +1,17 @@
 <?php
-require_once('core/php/errorCheckFunctions.php');
-$currentPage = "index.php";
-checkIfFilesExist(
-	array("core/conf/config.php","core/php/configStatic.php","core/php/loadVars.php","core/php/loadVarsToJs.php","core/php/updateCheck.php","core/js/jquery.js","core/template/loading-bar.css","core/js/loading-bar.min.js","core/php/customCSS.php","core/php/template/popup.php","core/js/main.js","core/js/rightClickJS.js","core/js/update.js","core/php/class/core.php","core/php/class/addons.php","setup/setupProcessFile.php","error.php"),
-	 "",
-	 $currentPage);
-checkIfFilesAreReadable(
-	array("core/conf/config.php","core/php/configStatic.php","core/php/loadVars.php","core/php/loadVarsToJs.php","core/php/updateCheck.php","core/js/jquery.js","core/template/loading-bar.css","core/js/loading-bar.min.js","core/php/customCSS.php","core/php/template/popup.php","core/js/main.js","core/js/rightClickJS.js","core/js/update.js","core/php/class/core.php","core/php/class/addons.php","setup/setupProcessFile.php","error.php"),
-	 "",
-	 $currentPage);
 require_once("core/php/class/core.php");
 $core = new core();
+require_once("core/php/class/errorCheck.php");
+$errorCheck = new errorCheck();
+$currentPage = "index.php";
+$errorCheck->checkIfFilesExist(
+	array("core/conf/config.php","core/php/configStatic.php","core/php/loadVars.php","core/php/loadVarsToJs.php","core/php/updateCheck.php","core/js/jquery.js","core/template/loading-bar.css","core/js/loading-bar.min.js","core/php/customCSS.php","core/php/template/popup.php","core/js/main.js","core/js/rightClickJS.js","core/js/update.js","core/php/class/addons.php","setup/setupProcessFile.php","error.php"),
+	 "",
+	 $currentPage);
+$errorCheck->checkIfFilesAreReadable(
+	array("core/conf/config.php","core/php/configStatic.php","core/php/loadVars.php","core/php/loadVarsToJs.php","core/php/updateCheck.php","core/js/jquery.js","core/template/loading-bar.css","core/js/loading-bar.min.js","core/php/customCSS.php","core/php/template/popup.php","core/js/main.js","core/js/rightClickJS.js","core/js/update.js","core/php/class/addons.php","setup/setupProcessFile.php","error.php"),
+	 "",
+	 $currentPage);
 require_once("core/php/class/update.php");
 $update = new update();
 require_once("core/php/class/addons.php");
@@ -56,7 +57,7 @@ require_once("core/php/defaultConfData.php");
 
 if(!class_exists('ZipArchive') && $autoCheckUpdate === "true")
 {
-	echoErrorJavaScript("", "ZipArchive is not installed", 11);
+	$core->echoErrorJavaScript("", "ZipArchive is not installed", 11);
 }
 
 $daysSince = $update->calcuateDaysSince($configStatic['lastCheck']);
