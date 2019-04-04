@@ -134,4 +134,11 @@ if(file_exists($path))
 	}
 }
 
-echo json_encode(array("data" => $response, "orgPath" => $_POST["currentFolder"], "img" => $imageResponse, "fileInfo" => $info));
+echo json_encode(
+	array(
+		"data" => $response,
+		"orgPath" => $_POST["currentFolder"],
+		"img" => $imageResponse,
+		"fileInfo" => $info
+	)
+);
