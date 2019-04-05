@@ -17,9 +17,9 @@ function show(e, id)
 				return;
 			}
 		}
-		$("#log"+currentCurrentSelectWindow).hide();
+		//$("#log"+currentCurrentSelectWindow).hide();
+		$("#log"+currentCurrentSelectWindow).empty()
 		$("#log"+currentCurrentSelectWindow+"load").show();
-		resize();
 		$(e).siblings().removeClass("active");
 		var windowNumInTitle = $("#"+internalID+"CurrentWindow").html();
 		if(windowNumInTitle !== "")
@@ -83,6 +83,11 @@ function showPartGetFormattedHtml(internalID)
 	return makePretty(internalID);
 }
 
+function setLogHtmlInWindow(currentCurrentSelectWindow, formattedHtml)
+{
+	$("#log"+currentCurrentSelectWindow).empty().append(formattedHtml);
+}
+
 function showPartTwo(e, internalID, currentCurrentSelectWindow, formattedHtml)
 {
 	try
@@ -91,16 +96,21 @@ function showPartTwo(e, internalID, currentCurrentSelectWindow, formattedHtml)
 		{
 			formattedHtml = showPartGetFormattedHtml(internalID);
 		}
-		$("#log"+currentCurrentSelectWindow).html(formattedHtml);
+		setLogHtmlInWindow(currentCurrentSelectWindow, formattedHtml);
 		fadeHighlight(currentCurrentSelectWindow);
-		setTimeout(function() {
+		//setTimeout(function() {
 			showPartThree(e, internalID, currentCurrentSelectWindow);
-		}, 2);
+		//}, 2);
 	}
 	catch(e)
 	{
 		eventThrowException(e);
 	}
+}
+
+function unhideCurrentLog(currentCurrentSelectWindow)
+{
+	//$("#log"+currentCurrentSelectWindow).show();
 }
 
 function showPartThree(e, internalID, currentCurrentSelectWindow)
@@ -109,7 +119,7 @@ function showPartThree(e, internalID, currentCurrentSelectWindow)
 	{
 		toggleSideBarElements(internalID, currentCurrentSelectWindow);
 		$("#log"+currentCurrentSelectWindow+"load").hide();
-		$("#log"+currentCurrentSelectWindow).show();
+		unhideCurrentLog(currentCurrentSelectWindow);
 		if(document.getElementById("noLogToDisplay").style.display !== "none")
 		{
 			document.getElementById("noLogToDisplay").style.display = "none";

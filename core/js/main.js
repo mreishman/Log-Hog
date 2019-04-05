@@ -1019,17 +1019,42 @@ function adjustLogForMenuLocation(mainWidth)
 	return mainWidth;
 }
 
+function getTargetHeight()
+{
+	return window.innerHeight - 45;
+}
+
+function getMenuHeight()
+{
+	return document.getElementById("menu").getBoundingClientRect().height;
+}
+
+function getMainHeight()
+{
+	return $("#main").outerHeight();
+}
+
+function getSettingsSideBarHeight()
+{
+	return $("#settingsSideBar").outerHeight();
+}
+
+function getMoreInfoSideBarHeight()
+{
+	return $("#moreInfoSideBar").outerHeight();
+}
+
 function resize()
 {
 	try
 	{
-		var targetHeight = window.innerHeight - $("#header").outerHeight();
-		var menuHeight = document.getElementById("menu").getBoundingClientRect().height;
+		let targetHeight = getTargetHeight();
+		let menuHeight = getMenuHeight();
 		if(logMenuLocation === "top" || logMenuLocation === "bottom")
 		{
 			targetHeight = targetHeight - menuHeight;
 		}
-		var targetWidth = window.innerWidth;
+		let targetWidth = window.innerWidth;
 		if(enablePollTimeLogging !== "false")
 		{
 			targetHeight -= 25;
@@ -1038,15 +1063,15 @@ function resize()
 		{
 			targetHeight = targetHeight - $("#noticeBar").outerHeight();
 		}
-		if($("#main").outerHeight() !== targetHeight)
+		if(getMainHeight() !== targetHeight)
 		{
 			$("#main").outerHeight(targetHeight);
 		}
-		if($("#settingsSideBar").outerHeight() !== targetHeight)
+		if(getSettingsSideBarHeight() !== targetHeight)
 		{
 			$("#settingsSideBar").outerHeight(targetHeight);
 		}
-		if($("#moreInfoSideBar").outerHeight() !== targetHeight)
+		if(getMoreInfoSideBarHeight() !== targetHeight)
 		{
 			$("#moreInfoSideBar").outerHeight(targetHeight);
 		}
@@ -1064,8 +1089,8 @@ function resize()
 				$("#menu").outerHeight(targetHeight);
 			}
 		}
-		var tdElementWidth = (targetWidth/windowDisplayConfigColCount).toFixed(0);
-		var trElementHeight = ((targetHeight-borderPadding)/windowDisplayConfigRowCount).toFixed(0);
+		let tdElementWidth = (targetWidth/windowDisplayConfigColCount).toFixed(0);
+		let trElementHeight = ((targetHeight-borderPadding)/windowDisplayConfigRowCount).toFixed(0);
 		let logDisplayArrayKeys = Object.keys(logDisplayArray);
 		let logDisplayArrayKeysCount = logDisplayArrayKeys.length;
 		for(let lda = 0; lda < logDisplayArrayKeysCount; lda++)
@@ -1252,9 +1277,14 @@ function isPageHidden()
 	return document.hidden || document.msHidden || document.webkitHidden || document.mozHidden;
 }
 
+function getHeightOfCurrentLog()
+{
+	return document.getElementById("log0").getBoundingClientRect().height;
+}
+
 function scrollToBottom(idNum)
 {
-	document.getElementById("log"+idNum+"Td").scrollTop = $("#log"+idNum).outerHeight();
+	document.getElementById("log"+idNum+"Td").scrollTop = getHeightOfCurrentLog();
 }
 
 function clearLogInner(title)
