@@ -17,7 +17,6 @@ function show(e, id)
 				return;
 			}
 		}
-		//$("#log"+currentCurrentSelectWindow).hide();
 		$("#log"+currentCurrentSelectWindow).empty()
 		$("#log"+currentCurrentSelectWindow+"load").show();
 		$(e).siblings().removeClass("active");
@@ -108,18 +107,12 @@ function showPartTwo(e, internalID, currentCurrentSelectWindow, formattedHtml)
 	}
 }
 
-function unhideCurrentLog(currentCurrentSelectWindow)
-{
-	//$("#log"+currentCurrentSelectWindow).show();
-}
-
 function showPartThree(e, internalID, currentCurrentSelectWindow)
 {
 	try
 	{
 		toggleSideBarElements(internalID, currentCurrentSelectWindow);
 		$("#log"+currentCurrentSelectWindow+"load").hide();
-		unhideCurrentLog(currentCurrentSelectWindow);
 		if(document.getElementById("noLogToDisplay").style.display !== "none")
 		{
 			document.getElementById("noLogToDisplay").style.display = "none";
