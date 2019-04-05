@@ -175,7 +175,6 @@
 	<div id="fullScreenMenuWatchList" style="display: none;">
 		<?php
 		$imageUrlModifier = "";
-		require_once('core/php/settingsMainWatchFunctions.php');
 		require_once('settingsMainWatch.php');
 		?>
 	</div>

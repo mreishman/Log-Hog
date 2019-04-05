@@ -1,3 +1,15 @@
+<?php
+if(!isset($settings))
+{
+	require_once($core->baseURL()."core/php/class/settings.php");
+	$settings = new settings();
+}
+if(!isset($settingsMainWatch))
+{
+	require_once($core->baseURL()."core/php/class/settingsMainWatch.php");
+	$settingsMainWatch = new settingsMainWatch($settings);
+}
+?>
 <form onsubmit="checkWatchList()" id="settingsMainWatch" >
 	<div class="settingsHeader">
 		WatchList
@@ -124,7 +136,7 @@
 </div>
 <div id="storage">
 	<div class="saveBlock">
-		<?php echo generateSaveBlock(array('srcModifier' => $imageUrlModifier), $arrayOfImages); ?>
+		<?php echo $settingsMainWatch->generateSaveBlock(array('srcModifier' => $imageUrlModifier), $arrayOfImages); ?>
 	</div>
 </div>
 <div id="fileFolderDropdown" class="addBorder addBackground" style="display: none;"  >

@@ -56,7 +56,6 @@ require_once('../core/php/loadVars.php'); ?>
 	</span>
 	<?php
 	$imageUrlModifier = "../";
-	require_once('../core/php/settingsMainWatchFunctions.php');
 	require_once('../core/php/template/settingsMainWatch.php');
 	?>
 	<table style="width: 100%; padding-left: 20px; padding-right: 20px;" ><tr><th style="text-align: right;" >

@@ -177,4 +177,8 @@ $arrayOfFilesDeleted = array(
 		"fullPath"	=>	"core/php/errorCheckFunctions.php",
 		"type"		=>	"file"
 	),
+	44			=> array(
+		"fullPath"	=>	"core/php/settingsMainWatchFunctions.php",
+		"type"		=>	"file"
+	),
 );
