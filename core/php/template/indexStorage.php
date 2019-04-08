@@ -48,6 +48,8 @@
 								);
 							?>
 						</a>
+						<span id="loadLineCountForWindow{{counter}}" style="font-size: 86%;padding: 0;color: black;">
+						</span>
 						<a id="showLogWindowFilter{{counter}}" onclick="showLogWindowFilter('{{counter}}');">
 							<?php echo $core->generateImage(
 								$arrayOfImages["loadingImg"],

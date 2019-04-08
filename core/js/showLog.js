@@ -97,6 +97,7 @@ function showPartTwo(e, internalID, currentCurrentSelectWindow, formattedHtml)
 		}
 		setLogHtmlInWindow(currentCurrentSelectWindow, formattedHtml);
 		fadeHighlight(currentCurrentSelectWindow);
+		scrollToBottom(currentCurrentSelectWindow);
 		//setTimeout(function() {
 			showPartThree(e, internalID, currentCurrentSelectWindow);
 		//}, 2);
@@ -118,7 +119,6 @@ function showPartThree(e, internalID, currentCurrentSelectWindow)
 			document.getElementById("noLogToDisplay").style.display = "none";
 			document.getElementById("log").style.display = "block";
 		}
-		scrollToBottom(currentCurrentSelectWindow);
 		toggleNotificationClearButton();
 		removeNotificationByLog(internalID);
 		//below function does resize

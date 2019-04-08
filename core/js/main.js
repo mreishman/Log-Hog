@@ -1770,20 +1770,50 @@ function generateWindowDisplayInner()
 	};
 }
 
+function unhideAllHidden()
+{
+	let unhidLines = false;
+	let logDisplayArrayKeys = Object.keys(logDisplayArray);
+	let logDisplayArrayKeysCount = logDisplayArrayKeys.length;
+	for(let i = 0; i < logDisplayArrayKeysCount; i++)
+	{
+		let newUnhidLines = unhideHidden(i);
+		if(!unhidLines)
+		{
+			unhidLines = newUnhidLines;
+		}
+	}
+}
+
 function unhideHidden(currentLogId)
 {
+	let lineUnHid = false;
 	let lines = $('.logLineHide'+currentLogId);
 	let linesLength = $('.logLineHide'+currentLogId).length;
 	for(let i = linesLength - 1; i >= 0; i--)
 	{
+		let currentScroll = document.getElementById("log"+currentLogId+"Td").scrollTop;
 		let currentLine = $(lines[i]);
+		if(currentLine.position().top < 0)
+		{
+			//break only if not pre loading, and loading only on scroll
+			break;
+		}
+		if(currentLine.css("display") === "table-row")
+		{
+			continue;
+		}
+		$("#loadLineCountForWindow"+currentLogId).html((linesLength - i)+"<hr>"+linesLength);
 		currentLine.css("display","table-row");
+		lineUnHid = true;
 		if(currentLine.position().top < 0)
 		{
 			break;
 		}
-		scrollToBottom(currentLogId);
+		document.getElementById("log"+currentLogId+"Td").scrollTop = currentScroll + currentLine.height();
 	}
+	//return true or false if a line was un hide or not. Used to stop poll request
+	return lineUnHid;
 }
 
 function loadPrevLogContent(arrayOfPrevLogs)
