@@ -123,6 +123,7 @@ function showPartThree(e, internalID, currentCurrentSelectWindow)
 		removeNotificationByLog(internalID);
 		//below function does resize
 		toggleGroupedGroups();
+		unhideHidden(currentCurrentSelectWindow);
 	}
 	catch(e)
 	{

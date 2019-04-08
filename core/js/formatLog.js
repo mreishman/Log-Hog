@@ -12,7 +12,7 @@ function makePretty(id)
 		{
 			count = 0;
 		}
-		var returnText = makePrettyWithText(text, count);
+		var returnText = makePrettyWithText(text, count, {id: id});
 		if(returnText !== "")
 		{
 			return "<table width=\"100%\" style=\"border-spacing: 0;\">" + returnText + "</table>";
@@ -122,11 +122,11 @@ function makePrettyWithText(text, count, extraData = {})
 			}
 			var lineText = formattedLogArr[formattedLogArrKeys[FLAKCount]];
 			var customClass = " class = '";
-			var customClassAdd = false;
+			var customClassAdd = true;
 			if(highlightNew === "true" && ((FLAKCount + count + 1) > formattedLogArrKeysLength))
 			{
 				customClass += " newLine ";
-				customClassAdd = true;
+				//customClassAdd = true;
 			}
 			let filterHighlight = false;
 			if(filterEnabled === "true" && selectedListFilterType === "content" && filterContentHighlight === "true" && filterTextFieldLocal !== "")
@@ -138,11 +138,25 @@ function makePrettyWithText(text, count, extraData = {})
 					if(filterContentHighlightLine === "true")
 					{
 						customClass += " highlight ";
-						customClassAdd = true;
+						//customClassAdd = true;
 					}
 				}
 			}
-
+			if("id" in extraData)
+			{
+				let currentWindowId = 0;
+				let logDisplayArrayKeys = Object.keys(logDisplayArray);
+				let logDisplayArrayKeysCount = logDisplayArrayKeys.length;
+				for(let i = 0; i < logDisplayArrayKeysCount; i++)
+				{
+					if(logDisplayArray[logDisplayArrayKeys[i]]["id"] === extraData["id"])
+					{
+						currentWindowId = i;
+						break;
+					}
+				}
+				customClass += " logLineHide logLineHide"+currentWindowId+" ";
+			}
 			customClass += " '";
 			returnText += "<tr valign=\"top\"";
 			if(customClassAdd)

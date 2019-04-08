@@ -75,6 +75,11 @@ $windowDisplayConfig = explode("x", $windowConfig);
 	overflow: auto;
 }
 
+.logLineHide {
+	display: none;
+	min-height: 16px;
+}
+
 .log table:not(.oneLogTable):not(.logCode) tr:not(.highlight):not(.newLine) td:not(.highlight):not(.newLine) .logCode tr:not(.highlight):not(.newLine) td:not(.highlight):not(.newLine)
 {
 	color: <?php echo $logFormatFileFontColor; ?>;

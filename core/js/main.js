@@ -1770,6 +1770,22 @@ function generateWindowDisplayInner()
 	};
 }
 
+function unhideHidden(currentLogId)
+{
+	let lines = $('.logLineHide'+currentLogId);
+	let linesLength = $('.logLineHide'+currentLogId).length;
+	for(let i = linesLength - 1; i >= 0; i--)
+	{
+		let currentLine = $(lines[i]);
+		currentLine.css("display","table-row");
+		if(currentLine.position().top < 0)
+		{
+			break;
+		}
+		scrollToBottom(currentLogId);
+	}
+}
+
 function loadPrevLogContent(arrayOfPrevLogs)
 {
 	var arrayOfPrevLogsKeys = Object.keys(arrayOfPrevLogs);

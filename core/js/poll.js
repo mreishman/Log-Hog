@@ -59,7 +59,7 @@ function poll()
 				}
 				else if(counterForPollForceRefreshErr > (2 * pollForceTrue))
 				{
-					//show notice message of no connect in x times 
+					//show notice message of no connect in x times
 					if(document.getElementById("connectionNotice").style.display === "none")
 					{
 						document.getElementById("connectionNotice").style.display = "block";
@@ -258,7 +258,7 @@ function pollThree(arrayToUpdate)
 	{
 		var arrayUpdateKeys = Object.keys(arrayToUpdate);
 		t3 = performance.now();
-		if (typeof arrayToUpdate !== "undefined" && arrayUpdateKeys.length > 0) 
+		if (typeof arrayToUpdate !== "undefined" && arrayUpdateKeys.length > 0)
 		{
 			if(firstLoad)
 			{
@@ -890,13 +890,11 @@ function update(data)
 									logFormatted = makePretty(id);
 								}
 								//check if equal
-								var localCheckHtml = $("#log"+currentSelectWindow).html();
-								localCheckHtml = localCheckHtml.replace(/<tbody>/g,"");
-								localCheckHtml = localCheckHtml.replace(/<\/tbody>/g,"");
-								if(unescapeHTML(localCheckHtml) !== unescapeHTML(logFormatted))
+								if(!(logs[id] === lastLogs[id]))
 								{
 									$("#log"+currentIdPos).html(logFormatted);
 									fadeHighlight(currentIdPos);
+									unhideHidden(currentIdPos);
 								}
 								if(document.getElementById(id+"Count").innerHTML !== "")
 								{
