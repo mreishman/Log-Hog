@@ -2,6 +2,10 @@ function show(e, id)
 {
 	try
 	{
+		if(pollLoadTimer !== null)
+		{
+			clearLoadPollTimer();
+		}
 		var formattedHtml = "";
 		var internalID = id;
 		var currentCurrentSelectWindow = currentSelectWindow;
@@ -124,6 +128,10 @@ function showPartThree(e, internalID, currentCurrentSelectWindow)
 		//below function does resize
 		toggleGroupedGroups();
 		unhideHidden(currentCurrentSelectWindow);
+		if(true)
+		{
+			startLoadPollTimer();
+		}
 	}
 	catch(e)
 	{

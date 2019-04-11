@@ -42,6 +42,7 @@ var pausePollCurrentSession = false;
 var percent = 0;
 var polling = false;
 var pollingRateBackup = 0;
+var pollLoadTimer = null;
 var pollRefreshAllBoolStatic = pollRefreshAllBool;
 var pollSkipCounter = 0;
 var pollTimer = null;
@@ -1166,6 +1167,50 @@ function resize()
 	}
 }
 
+function startLoadPollTimer()
+{
+	/* Dont try catch visibility  */
+	pollRateCalc = 10;
+	// if(pollingRateType === "Seconds")
+	// {
+	// 	pollRateCalc *= 1000;
+	// }
+	if(pauseOnNotFocus === "true")
+	{
+		pollLoadTimer = setInterval(unhideAllPollLogic, pollRateCalc);
+	}
+	else
+	{
+		var bgPollRateCalc = backgroundPollingRate;
+		if(backgroundPollingRateType === "Seconds")
+		{
+			bgPollRateCalc *= 1000;
+		}
+		pollLoadTimer = Visibility.every(pollRateCalc, bgPollRateCalc, function () { unhideAllPollLogic(); });
+	}
+}
+
+function unhideAllPollLogic()
+{
+	if(!unhideAllHidden())
+	{
+		clearLoadPollTimer();
+	}
+}
+
+function clearLoadPollTimer()
+{
+	if(pauseOnNotFocus === "true")
+	{
+		clearInterval(pollLoadTimer);
+	}
+	else
+	{
+		Visibility.stop(pollLoadTimer);
+	}
+	pollLoadTimer = null;
+}
+
 function startPollTimer()
 {
 	/* Dont try catch visibility  */
@@ -1783,6 +1828,7 @@ function unhideAllHidden()
 			unhidLines = newUnhidLines;
 		}
 	}
+	return unhidLines;
 }
 
 function unhideHidden(currentLogId)
@@ -1794,7 +1840,7 @@ function unhideHidden(currentLogId)
 	{
 		let currentScroll = document.getElementById("log"+currentLogId+"Td").scrollTop;
 		let currentLine = $(lines[i]);
-		if(currentLine.position().top < 0)
+		if(false && currentLine.position().top < 0)
 		{
 			//break only if not pre loading, and loading only on scroll
 			break;
