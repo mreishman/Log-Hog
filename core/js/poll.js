@@ -895,6 +895,10 @@ function update(data)
 									$("#log"+currentIdPos).html(logFormatted);
 									fadeHighlight(currentIdPos);
 									unhideHidden(currentIdPos);
+									if(true)
+									{
+										startLoadPollTimer();
+									}
 								}
 								if(document.getElementById(id+"Count").innerHTML !== "")
 								{

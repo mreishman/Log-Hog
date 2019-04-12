@@ -126,7 +126,6 @@ function makePrettyWithText(text, count, extraData = {})
 			if(highlightNew === "true" && ((FLAKCount + count + 1) > formattedLogArrKeysLength))
 			{
 				customClass += " newLine ";
-				//customClassAdd = true;
 			}
 			let filterHighlight = false;
 			if(filterEnabled === "true" && selectedListFilterType === "content" && filterContentHighlight === "true" && filterTextFieldLocal !== "")
@@ -138,7 +137,6 @@ function makePrettyWithText(text, count, extraData = {})
 					if(filterContentHighlightLine === "true")
 					{
 						customClass += " highlight ";
-						//customClassAdd = true;
 					}
 				}
 			}
