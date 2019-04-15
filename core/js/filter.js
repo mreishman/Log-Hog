@@ -42,22 +42,8 @@ function showFileFromFilter(id, name, shortName, logData)
 		if(typeof filterOffOf === "string" && filterOffOf !== "")
 		{
 			let filterTextField = getFilterTextField(getPositionOfLogInLogDisplay(id)) || getFilterTextField();
-			//search field empty, don't filter
-			if(filterTextField === "")
-			{
-				return true;
-			}
-			//search found in line, show
-			if(filterOffOf.indexOf(filterTextField) !== -1)
-			{
-				if(filterInvert === "true")
-				{
-					return false;
-				}
-				return true;
-			}
-			//search not found, if invert: show
-			if(filterInvert === "true")
+			//search found in line || inverted || empty : show
+			if(filterTextField === "" || filterInvert === "true" || filterOffOf.indexOf(filterTextField) !== -1)
 			{
 				return true;
 			}
