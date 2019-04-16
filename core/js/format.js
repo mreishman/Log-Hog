@@ -53,8 +53,8 @@ function formatLine(text, extraData)
 {
 	var arrayOfText = dateTimeSplit(text);
 	let timeFormat = dateTimeFormat(arrayOfText);
-	extraData["lastLineSame"] = checkIfTimeStampSame(arrayOfText, extraData, "lastLine")
-	extraData["nextLineSame"] = checkIfTimeStampSame(arrayOfText, extraData, "nextLine")
+	extraData["lastLineSame"] = checkIfTimeStampSame(arrayOfText, extraData, "lastLine");
+	extraData["nextLineSame"] = checkIfTimeStampSame(arrayOfText, extraData, "nextLine");
 	if(dateTextGroup === "true" && extraData["lastLineSame"])
 	{
 		timeFormat = "";
