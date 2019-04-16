@@ -1,7 +1,7 @@
 <?php
 
 $versionCheckArray = array(
-	'version'		=> '7.1.2',
+	'version'		=> '7.1.1',
 	'versionList'		=> array(
 		'2.0.1'	        => array(
 			'branchName'	=> '2.0.1Update',
@@ -286,11 +286,6 @@ $versionCheckArray = array(
 			'branchName'	=> '7.1.1Update',
 			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/7.1.1.png',
 			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed bug with log menu popup not staying open</li><li>Hides groups if no logs are visible</li><li>Fixed bug where sometimes log would return undefined after format changes</li><li>Fixed bug that might have caused step 4 / step 5 of setup to error out</li><li>Fixed incorrect redirect url from upgrade config / upgrade layout logic</li></ul></li></ul>"
-		),
-		'7.1.2'			=> array(
-			'branchName'	=> '7.1.2Update',
-			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/7.1.2.png',
-			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Changed logic for checking if a local filter is applied</li><li>Linked files in log now filter correctly when searching in current log</li><li>Fixed check for id in text filter when entire row is not highlighted</li><li>Filter invert does not hide logs when match is found</li></ul></li></ul>"
 		)
 	)
 );
