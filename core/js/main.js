@@ -1380,7 +1380,7 @@ function deleteActionAfter()
 			type: "POST",
 			success(data)
 			{
-
+				removeAllNotifications();
 			}
 		});
 	}
