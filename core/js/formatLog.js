@@ -12,7 +12,7 @@ function makePretty(id)
 		{
 			count = 0;
 		}
-		var returnText = makePrettyWithText(text, count);
+		var returnText = makePrettyWithText(text, count, {id:id});
 		if(returnText !== "")
 		{
 			return "<table width=\"100%\" style=\"border-spacing: 0;\">" + returnText + "</table>";
@@ -104,6 +104,10 @@ function makePrettyWithText(text, count, extraData = {})
 		if(filterEnabled === "true")
 		{
 			let currentLogId = getLogIdFromText(text);
+			if("id" in extraData)
+			{
+				currentLogId = extraData["id"];
+			}
 			filterTextFieldLocal = getFilterTextField(getPositionOfLogInLogDisplay(currentLogId));
 		}
 		if("lineDisplay" in extraData && extraData["lineDisplay"] === "true")
@@ -281,7 +285,12 @@ function formatTextIntoArray(text, count, extraData = {})
 	let filterTextFieldLocal = "";
 	if(filterEnabled === "true")
 	{
-		filterTextFieldLocal = getFilterTextField(getLogIdFromText(text));
+		let currentLogId = getLogIdFromText(text);
+		if("id" in extraData)
+		{
+			currentLogId = extraData["id"];
+		}
+		filterTextFieldLocal = getFilterTextField(currentLogId);
 	}
 	for (var i = 0; i < lengthOfTextArray; i++)
 	{

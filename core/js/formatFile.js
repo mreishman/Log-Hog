@@ -34,7 +34,12 @@ function formatMessageFileData(message, extraData)
 	{
 		filePermissions = " [File Permissions: "+extraData["fileData"]["permissions"]+"]";
 	}
-	return "<table style=\"width: 100%;\"><tr "+customClass+"><td>"+message+filePermissions+"</td></tr><tr "+customClass+"><td><table class=\"logCode\" style=\"width: 100%;\">"+makePrettyWithText(escapeHTML(extraData["fileData"]["fileData"]), 0, {lineDisplay: logFormatFileLineCount, lineModifier: lineStart, type: "file"})+"</table></td></tr></table>";
+	let id = 0;
+	if("id" in extraData)
+	{
+		id = extraData["id"];
+	}
+	return "<table style=\"width: 100%;\"><tr "+customClass+"><td>"+message+filePermissions+"</td></tr><tr "+customClass+"><td><table class=\"logCode\" style=\"width: 100%;\">"+makePrettyWithText(escapeHTML(extraData["fileData"]["fileData"]), 0, {lineDisplay: logFormatFileLineCount, lineModifier: lineStart, type: "file", id: id})+"</table></td></tr></table>";
 }
 
 function updateFileDataArrayInner(newDataArr)
