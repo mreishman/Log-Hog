@@ -212,7 +212,7 @@ function getSeverifyLevel(snippit, redWarningArr, yellowWarningArr)
 function formatMoreInfo(objOfInfo)
 {
 	returnHtml = "<table>";
-	returnHtml += "<tr><th>More Info: <span onclick=\"toggleInfoSidebar();\" class=\"linkSmall\" >Close</span></th></tr>"
+	returnHtml += "<tr><th>More Info: <span onclick=\"toggleInfoSidebar();\" class=\"linkSmall\" >Close</span></th></tr>";
 	let objOfInfoKeys = Object.keys(objOfInfo);
 	let objOfInfoKeysLength = objOfInfoKeys.length;
 	let borderBottomClass = " class=\"addBorderBottom\" style=\"padding-bottom: 3px;\" ";
@@ -293,7 +293,7 @@ function getMoreInfo(message, type, counterOfHits)
 						"link" : currentSearch["link"],
 						"link2" : link2Text,
 						"syntax" : currentSearch["syntax"]
-					}
+					};
 					if(returnInfoObj["empty"])
 					{
 						returnInfoObj["empty"] = false;

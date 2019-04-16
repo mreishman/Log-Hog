@@ -1100,7 +1100,7 @@ function resize()
 			let localTrElementHeight = trElementHeight;
 			if(document.getElementById("searchFieldInputOuter-"+lda))
 			{
-				localTrElementHeight -= document.getElementById("searchFieldInputOuter-"+lda).getBoundingClientRect().height
+				localTrElementHeight -= document.getElementById("searchFieldInputOuter-"+lda).getBoundingClientRect().height;
 			}
 			if(parseInt($("#log"+lda+"Td").outerHeight()) !== parseInt(localTrElementHeight))
 			{
@@ -1126,7 +1126,7 @@ function resize()
 				{
 					if($("#titleContainer"+lda).css("top") !== trElementHeight+"px")
 					{
-						$("#titleContainer"+lda).css("top",((trElementHeight / 2) - ($("#titleContainer"+lda).outerHeight() / 2))+"px")
+						$("#titleContainer"+lda).css("top",((trElementHeight / 2) - ($("#titleContainer"+lda).outerHeight() / 2))+"px");
 					}
 				}
 			}

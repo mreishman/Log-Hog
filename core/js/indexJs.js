@@ -46,7 +46,7 @@ function tryLoadJSStuff()
 		}
 		else if(currentFileType === "css")
 		{
-			css(nameOfFile)
+			css(nameOfFile);
 			document.getElementById(nameOfFile.replace(/[^a-z0-9]/g, "")).addEventListener('load', function() {
 				loadedFile = true;
 			}, false);

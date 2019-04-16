@@ -653,7 +653,7 @@ function getLineDiffCount(id)
 		diff: diff,
 		newDiff: diffNew,
 		newDiffText: newDiffText
-	}
+	};
 }
 
 function update(data)

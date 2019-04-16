@@ -185,7 +185,7 @@ function makePrettyWithText(text, count, extraData = {})
 						let newLine = "";
 						if(filterInvert === "true")
 						{
-							newLine += currentAdd["startBlock"]
+							newLine += currentAdd["startBlock"];
 						}
 						//update array values, length wont change though
 						posArrArrKeys = Object.keys(posArrArr);
@@ -212,7 +212,7 @@ function makePrettyWithText(text, count, extraData = {})
 						newLine += lineText.slice(currentLinePosition);
 						if(filterInvert === "true")
 						{
-							newLine += currentAdd["endBlock"]
+							newLine += currentAdd["endBlock"];
 						}
 						lineText = newLine;
 						//update other values in array
