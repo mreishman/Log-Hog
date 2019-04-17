@@ -897,7 +897,7 @@ function update(data)
 									unhideHidden(currentIdPos);
 									if(true)
 									{
-										startLoadPollTimer();
+										startLoadPollTimerDelay();
 									}
 								}
 								if(document.getElementById(id+"Count").innerHTML !== "")

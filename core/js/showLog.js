@@ -102,9 +102,7 @@ function showPartTwo(e, internalID, currentCurrentSelectWindow, formattedHtml)
 		setLogHtmlInWindow(currentCurrentSelectWindow, formattedHtml);
 		fadeHighlight(currentCurrentSelectWindow);
 		scrollToBottom(currentCurrentSelectWindow);
-		//setTimeout(function() {
-			showPartThree(e, internalID, currentCurrentSelectWindow);
-		//}, 2);
+		showPartThree(e, internalID, currentCurrentSelectWindow);
 	}
 	catch(e)
 	{
@@ -130,7 +128,7 @@ function showPartThree(e, internalID, currentCurrentSelectWindow)
 		unhideHidden(currentCurrentSelectWindow);
 		if(true)
 		{
-			startLoadPollTimer();
+			startLoadPollTimerDelay();
 		}
 	}
 	catch(e)

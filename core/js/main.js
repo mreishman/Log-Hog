@@ -1167,6 +1167,13 @@ function resize()
 	}
 }
 
+function startLoadPollTimerDelay()
+{
+	setTimeout(function() {
+		startLoadPollTimer();
+	}, 2);
+}
+
 function startLoadPollTimer()
 {
 	/* Dont try catch visibility  */
