@@ -1176,6 +1176,10 @@ function startLoadPollTimerDelay()
 
 function startLoadPollTimer()
 {
+	if(pollLoadTimer !== null)
+	{
+		return;
+	}
 	/* Dont try catch visibility  */
 	pollRateCalc = 10;
 	// if(pollingRateType === "Seconds")
@@ -1829,10 +1833,9 @@ function unhideAllHidden()
 	let logDisplayArrayKeysCount = logDisplayArrayKeys.length;
 	for(let i = 0; i < logDisplayArrayKeysCount; i++)
 	{
-		let newUnhidLines = unhideHidden(i);
-		if(!unhidLines)
+		if(unhideHidden(i))
 		{
-			unhidLines = newUnhidLines;
+			unhidLines = true;
 		}
 	}
 	return unhidLines;
@@ -1859,11 +1862,11 @@ function unhideHidden(currentLogId)
 		$("#loadLineCountForWindow"+currentLogId).html((linesLength - i)+"<hr>"+linesLength);
 		currentLine.css("display","table-row");
 		lineUnHid = true;
+		document.getElementById("log"+currentLogId+"Td").scrollTop = currentScroll + currentLine.height();
 		if(currentLine.position().top < 0)
 		{
 			break;
 		}
-		document.getElementById("log"+currentLogId+"Td").scrollTop = currentScroll + currentLine.height();
 	}
 	//return true or false if a line was un hide or not. Used to stop poll request
 	return lineUnHid;
