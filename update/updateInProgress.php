@@ -21,7 +21,11 @@ $cssVersion = date("YmdHis");
 	)); ?>
 </head>
 <body>
-
+<style type="text/css">
+	#main {
+		position: inherit;
+	}
+</style>
 
 <div id="main">
 	<div class="settingsHeader" style="text-align: center;" >
