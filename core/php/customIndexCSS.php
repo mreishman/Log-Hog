@@ -221,4 +221,11 @@ elseif($logMenuLocation === "bottom"): ?>
 		height: <?php echo $logLinePadding; ?>px;
 	}
 
+<?php if($logLoadType === "Full"): ?>
+	.loadLineCountForWindow {
+		display: none;
+	}
+<?php endif; ?>
+
 </style>
+
