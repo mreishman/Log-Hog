@@ -895,7 +895,7 @@ function update(data)
 									$("#log"+currentIdPos).html(logFormatted);
 									fadeHighlight(currentIdPos);
 									unhideHidden(currentIdPos);
-									if(true)
+									if(logLoadType === "Visible - Poll")
 									{
 										startLoadPollTimerDelay();
 									}

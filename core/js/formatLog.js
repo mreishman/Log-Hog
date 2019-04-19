@@ -126,10 +126,11 @@ function makePrettyWithText(text, count, extraData = {})
 			}
 			var lineText = formattedLogArr[formattedLogArrKeys[FLAKCount]];
 			var customClass = " class = '";
-			var customClassAdd = true;
+			var customClassAdd = false;
 			if(highlightNew === "true" && ((FLAKCount + count + 1) > formattedLogArrKeysLength))
 			{
 				customClass += " newLine ";
+				customClassAdd = true;
 			}
 			let filterHighlight = false;
 			if(filterEnabled === "true" && selectedListFilterType === "content" && filterContentHighlight === "true" && filterTextFieldLocal !== "")
@@ -141,10 +142,11 @@ function makePrettyWithText(text, count, extraData = {})
 					if(filterContentHighlightLine === "true")
 					{
 						customClass += " highlight ";
+						customClassAdd = true;
 					}
 				}
 			}
-			if("id" in extraData)
+			if("id" in extraData && logLoadType !== "Full")
 			{
 				let currentWindowId = 0;
 				let logDisplayArrayKeys = Object.keys(logDisplayArray);
@@ -158,6 +160,7 @@ function makePrettyWithText(text, count, extraData = {})
 					}
 				}
 				customClass += " logLineHide logLineHide"+currentWindowId+" ";
+				customClassAdd = true;
 			}
 			customClass += " '";
 			returnText += "<tr valign=\"top\"";

@@ -1181,19 +1181,19 @@ function startLoadPollTimer()
 		return;
 	}
 	/* Dont try catch visibility  */
-	pollRateCalc = 10;
-	// if(pollingRateType === "Seconds")
-	// {
-	// 	pollRateCalc *= 1000;
-	// }
-	if(pauseOnNotFocus === "true")
+	pollRateCalc = logLoadPollRate;
+	if(logLoadPollRateType === "Seconds")
+	{
+		pollRateCalc *= 1000;
+	}
+	if(logLoadPauseOnNotFocus === "true")
 	{
 		pollLoadTimer = setInterval(unhideAllPollLogic, pollRateCalc);
 	}
 	else
 	{
-		var bgPollRateCalc = backgroundPollingRate;
-		if(backgroundPollingRateType === "Seconds")
+		var bgPollRateCalc = logLoadPollBackgroundRate;
+		if(logLoadPollBackgroundRateType === "Seconds")
 		{
 			bgPollRateCalc *= 1000;
 		}
@@ -1211,7 +1211,7 @@ function unhideAllPollLogic()
 
 function clearLoadPollTimer()
 {
-	if(pauseOnNotFocus === "true")
+	if(logLoadPauseOnNotFocus === "true")
 	{
 		clearInterval(pollLoadTimer);
 	}
@@ -1850,7 +1850,7 @@ function unhideHidden(currentLogId)
 	{
 		let currentScroll = document.getElementById("log"+currentLogId+"Td").scrollTop;
 		let currentLine = $(lines[i]);
-		if(false && currentLine.position().top < 0)
+		if(logLoadType !== "Visible - Poll" && currentLine.position().top < 0)
 		{
 			//break only if not pre loading, and loading only on scroll
 			break;

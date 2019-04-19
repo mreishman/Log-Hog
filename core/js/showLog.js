@@ -126,7 +126,7 @@ function showPartThree(e, internalID, currentCurrentSelectWindow)
 		//below function does resize
 		toggleGroupedGroups();
 		unhideHidden(currentCurrentSelectWindow);
-		if(true)
+		if(logLoadType === "Visible - Poll")
 		{
 			startLoadPollTimerDelay();
 		}

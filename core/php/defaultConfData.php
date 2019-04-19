@@ -1122,6 +1122,74 @@ $defaultConfigMoreData = array(
 				)
 			),
 			3									=>	array(
+				"bool"								=>	($logLoadType != 'Visible - Poll'),
+				"bool2"								=>	"Visible - Poll",
+				"id"								=>	"logLoadTypeSettings",
+				"name"								=>	"Log Load Type Settings",
+				"type"								=>	"grouped",
+				"var"								=>	array(
+					"function"							=>	"showOrHidelogLoadTypeSettings",
+					"id"								=>	"logLoadType",
+					"key"								=>	"logLoadType",
+					"name"								=>	"Log Load Type",
+					"options"							=>	array(
+								0 									=> array(
+									"value" 							=> "Full",
+									"name" 								=> "Full"),
+								1 									=> array(
+									"value" 							=> "Visible - Poll",
+									"name" 								=> "Visible - Poll")
+							),
+					"type"								=>	"dropdown"
+				),
+				"vars"								=>	array(
+					0									=> array(
+						"type"								=>	"linked",
+						"vars"								=>	array(
+							0									=>	array(
+								"key"								=>	"logLoadPollRate",
+								"name"								=>	"Polling Rate",
+								"type"								=>	"number"
+							),
+							1								=>	array(
+								"key"								=>	"logLoadPollRateType",
+								"options"							=>	array(
+									0 									=> array(
+										"value" 							=> "Milliseconds",
+										"name" 								=> "Milliseconds"),
+									1 									=> array(
+										"value" 							=> "Seconds",
+										"name" 								=> "Seconds")
+								),
+								"type"								=>	"dropdown"
+							)
+						)
+					),
+					1									=> array(
+						"type"								=>	"linked",
+						"vars"								=>	array(
+							0									=>	array(
+								"key"								=>	"logLoadPollBackgroundRate",
+								"name"								=>	"Background Polling Rate",
+								"type"								=>	"number"
+							),
+							1								=>	array(
+								"key"								=>	"logLoadPollBackgroundRateType",
+								"options"							=>	array(
+									0 									=> array(
+										"value" 							=> "Milliseconds",
+										"name" 								=> "Milliseconds"),
+									1 									=> array(
+										"value" 							=> "Seconds",
+										"name" 								=> "Seconds")
+								),
+								"type"								=>	"dropdown"
+							)
+						)
+					)
+				)
+			),
+			4									=>	array(
 				"bool"								=>	($scrollOnUpdate == 'false'),
 				"id"								=>	"scrollLogOnUpdateSettings",
 				"name"								=>	"Scroll Log On Update Settings",
@@ -1146,7 +1214,7 @@ $defaultConfigMoreData = array(
 					)
 				)
 			),
-			4									=>	array(
+			5									=>	array(
 				"bool"								=>	($highlightNew == 'false'),
 				"id"								=>	"highlightNewSettings",
 				"name"								=>	"Highlight New Lines Settings",
@@ -1187,7 +1255,7 @@ $defaultConfigMoreData = array(
 					)
 				)
 			),
-			5									=>	array(
+			6									=>	array(
 				"bool"								=>	($logTrimOn == 'false'),
 				"id"								=>	"settingsLogTrimVars",
 				"info"								=>	"This could increase poll times by 2x to 4x depending on size of files, file or line trim, etc.",
@@ -1272,7 +1340,7 @@ $defaultConfigMoreData = array(
 					),
 				)
 			),
-			6									=>	array(
+			7									=>	array(
 				"custom"							=>	$customForFirstLogSelect,
 				"info"								=>	"If Multi-Log is enabled, and a variable is set for intial load logs there, this var will be overridden",
 				"type"								=>	"custom"
