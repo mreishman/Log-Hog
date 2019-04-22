@@ -1,7 +1,7 @@
 <?php
 
 $versionCheckArray = array(
-	'version'		=> '5.9.0',
+	'version'		=> '7.1.2',
 	'versionList'		=> array(
 		'2.0.1'	        => array(
 			'branchName'	=> '2.0.1Update',
@@ -103,6 +103,10 @@ $versionCheckArray = array(
 			'branchName'	=> '3.3Update',
 			'releaseNotes'	=> "<ul><li>Features<ul><li>Added notification count for tabs</li><li>Added no logs to display message when filtered / or no logs are visible</li><li>Added on hover to tabs to show last line</li><li>Added clear all button for notifications</li><li>Added new ocean theme!</li><li>View some files from Log-Hog (dev tools)</li></ul></li><li>Bug Fixes<ul><li>Cleaned up / grouped settings.</li></ul></li></ul>"
 		),
+		'3.3.1'		=> array(
+			'branchName'	=> '3.3Update',
+			'releaseNotes'	=> "<ul><li>Re-Install of 3.3</li></ul>"
+		),
 		'3.4'		=> array(
 			'branchName'	=> '3.4Update',
 			'releaseNotes'	=> "<ul><li>Features<ul><li>Added content search for logs (ability to toggle between title and content for searching)</li><li>Added option to disable scroll to bottom on update</li><li>Redesigned bottom bar (now sidebar)</li><li>Added more options on how to restore defaults (all, just watchlist...)</li><li>Save custom themes</li></ul></li><li>Bug Fixes<ul><li>Updated right click menu for settings icon for new contents</li><li>Fixed bug with switching dev tools on / off.</li><li>Chaged save logic to only save changed vars</li></ul></li></ul>"
@@ -123,9 +127,9 @@ $versionCheckArray = array(
 			'branchName'	=> '4.0Update',
 			'releaseNotes'	=> "<ul><li>Features<ul><li>New Log Format!<ul><li>Changed format, allowing for more custom options for each entry in watchlist</li><li>Added dropdown option for recursive log finding in a folder</li><li>Option to delete logs in a folder after x days since last modification</li><li>Better visibility of log read/write status</li><li>Added option to ignore some files within folders</li><li>Option to split files in a folder into individual files</li><li>Option to exclude files within a folder from trim logic</li><li>Added option to add custom names for logs</li><li>Added option to change the order of logs in watchlist</li></ul></li><li>New main menu system!<ul><li>New flyout system allows for viewing about pages without reload</li><li>Added names to other apps instead of just icon</li><li>Cleans up visible menu icons on homepage</li></ul></li><li>Grouped Groups!<ul><li>Group logs / folders into groups</li><li>Show / hide groups of logs from select in header</li></ul></li><li>Other<ul><li>Custom options for how log titles display (no extension, last folder in path, etc)</li></ul></li></ul></li><li>Bug Fixes<ul><li>Removes log from display if file does not exist</li><li>Removed save verify from 2nd layer nav (same page nav)</li><li>Fixed small bug with update check.</li><li>Fixed bug with notification dot positioning when height changed</li><li>Fixed bug with redirect of update page after update</li><li>Fixed bug with notification not cleared when log is removed</li></ul></li></ul>"
 		),
-		'4.1'		=> array(
-			'branchName'	=> '4.1Update',
-			'releaseNotes'	=> "<ul><li>Features<ul><li>New folder popup interface! (shows dir tree)</li><li>Changed patern to dropdown select (for easier filtering of folders)</li><li>Update page now included in main menu (no page navigation needed)</li><li>Added right click to tmp enable/disable alerts for specific logs</li></ul></li><li>Bug Fixes<ul><li>Fixed issues with split files button showing up on folders with no files</li><li>Subfiles for folders now show up when adding new files (without needing a reload of the page)</li><li>Fixed issue with menu settings not having reset button</li><li>Fixed bug with default watchlist pattern not showing up in settings</li><li>Fixed issue with when switching groups not hiding currently selected if not in group when switching</li><li>Fixed issue with current window class being replaced each poll request</li><li>Optimized images for web (lower file sizes)</li><li>Added some missing images for themes)</li></ul></li></ul>"
+		'4.1.1'		=> array(
+			'branchName'	=> '4.1.1Update',
+			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed some update issues with new updater</li></ul></li></ul>"
 		),
 		'4.2'		=> array(
 			'branchName'	=> '4.2Update',
@@ -207,8 +211,12 @@ $versionCheckArray = array(
 			'branchName'	=> '5.0.9Update',
 			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed possible update check errors </li><li>Added popup for if update check is already in progress when trying to check for update (in same window)</li><li>bugfix for possible never ending poll request for verify update check</li><li>bugfix for possible never ending poll request for verify pre-install version change check</li><li>Added check for file size verification on download</li><li>bugfix for possible issue on selecting text on logs</li><li>bugfix for incorrect title being set on window re-focus (if poll background pause is disabled, and flash title is enabled)</li></ul></li></ul>"
 		),
-		'5.1'		=> array(
+		'5.1.0.4'		=> array(
 			'branchName'	=> '5.1Update',
+			'releaseNotes'	=> "<ul><li>Features<ul><li>Added filter icon for a grouped logs drop down in header</li><li>Added option to slow down the poll rate or pause the poll on index when viewing full screen menu</li><li>Added style option for log side bar display</li><li>Moved addons page to full screen menu</li><li>Added more noticeable notification for off screen logs</li><li>Added option to change max height of log tabs area on index</li><li>Added option in watchlist to add new file or folder from a previous file or folder base folder</li><li>Added link to themes in full screen menu</li><li>Added right click clear all notifications on notification button</li><li>When clearing or deleting logs, a temporary version is saved (of the last n lines) in a log-hog folder. These are view-able from the history icon.</li><li>Added new space theme</li><li>Add more than one group to a folder in watchlist, just add spaces!</li></ul></li></ul>"
+		),
+		'5.1.1'		=> array(
+			'branchName'	=> '5.1.1Update',
 			'releaseNotes'	=> "<ul><li>Features<ul><li>Added filter icon for a grouped logs drop down in header</li><li>Added option to slow down the poll rate or pause the poll on index when viewing full screen menu</li><li>Added style option for log side bar display</li><li>Moved addons page to full screen menu</li><li>Added more noticeable notification for off screen logs</li><li>Added option to change max height of log tabs area on index</li><li>Added option in watchlist to add new file or folder from a previous file or folder base folder</li><li>Added link to themes in full screen menu</li><li>Added right click clear all notifications on notification button</li><li>When clearing or deleting logs, a temporary version is saved (of the last n lines) in a log-hog folder. These are view-able from the history icon.</li><li>Added new space theme</li><li>Add more than one group to a folder in watchlist, just add spaces!</li></ul></li></ul>"
 		),
 		'5.1.2'		=> array(
@@ -222,6 +230,16 @@ $versionCheckArray = array(
 		'5.1.4'		=> array(
 			'branchName'	=> '5.1.4Update',
 			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed issue with search by title and initial load log logic</li><li>Fixed small issue that could occur when switching logs</li><li>possible fix for update check errors, main fix in 5.2</li></ul></li></ul>"
+		),
+		'5.1.9'		=> array(
+			'branchName'	=> '5.2BetaUpdate',
+			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/5.2.png',
+			'releaseNotes'	=> "<ul><li>Features<ul><li>Cleaned up look of top bar by merging group settings and filter settings together</li><li>Moved themes page to main menu</li><li>Customize folder color schemes, add and edit new color schemes for files and folders</li><li>Save current layout as on load layout from index page</li></ul></li><li>Bug Fixes<ul><li>Merged update / update notice icons together for somewhat cleaner look</li><li>Better support for smaller resolution screens in full screen menu</li><li>Changed loading method for javascript, adding in better error detection</li><li>More images now loaded on-demand (less images in initial load, of which some were not needed - determined by custom settings)</li><li>Small style changes to updater</li><li>Fixed bug with updater check, and checking for update when update check in progress</li></ul></li></ul>"
+		),
+		'5.1.9.1'		=> array(
+			'branchName'	=> '5.2BetaUpdate2',
+			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/5.2.png',
+			'releaseNotes'	=> "<ul><li>Features<ul><li>Cleaned up look of top bar by merging group settings and filter settings together</li><li>Moved themes page to main menu</li><li>Customize folder color schemes, add and edit new color schemes for files and folders</li><li>Save current layout as on load layout from index page</li></ul></li><li>Bug Fixes<ul><li>Merged update / update notice icons together for somewhat cleaner look</li><li>Better support for smaller resolution screens in full screen menu</li><li>Changed loading method for javascript, adding in better error detection</li><li>More images now loaded on-demand (less images in initial load, of which some were not needed - determined by custom settings)</li><li>Small style changes to updater</li><li>Fixed bug with updater check, and checking for update when update check in progress</li></ul></li></ul>"
 		),
 		'5.2'		=> array(
 			'branchName'	=> '5.2Update',
@@ -238,6 +256,67 @@ $versionCheckArray = array(
 			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/6.0.png',
 			'releaseNotes'	=> "<ul><li>Features<ul><li>Added a new tab for oneLog (grouping of new additions to logs in one log)<ul><li>Have all changes to logs visible in one log like window</li><li>Click on log titles to open up that log in a side by side view</li><li>Can be disabled or hidden in settings</li></ul></li><li>Initial loading looks better (added progress bar to file loading)</li><li>More changes to experimental feature log formatting (For version 7.0)</li><li>Moved multi-log quick settings to sidebar (along with new one log toggle). Changed icon to more generic icon</li><li>Added back option to show groups dropdown in header (and not hidden under filter tab, false by default)</li><li>Added option to show or hide log tabs in main header</li></ul></li><li>Bug Fixes<ul><li>Fixed bug with drop-down toggles showing sub content incorrectly on a value of true when needing a value of custom</li><li>Better versioning for js and css (not same, so versioning js does not require theme update)</li><li>Now shows + in notification count if update is greater than max number of lines shown</li></ul></li></ul>"
 		),
+		'5.9.1'		=> array(
+			'branchName'	=> '6.0UpdateBeta2',
+			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/6.0beta2.png',
+			'releaseNotes'	=> "<ul><li>Features<ul><li>Added a new tab for oneLog (grouping of new additions to logs in one log)<ul><li>Have all changes to logs visible in one log like window</li><li>Click on log titles to open up that log in a side by side view</li><li>Can be disabled or hidden in settings</li></ul></li><li>Initial loading looks better (added progress bar to file loading)</li><li>More changes to experimental feature log formatting (For version 7.0)</li><li>Moved multi-log quick settings to sidebar (along with new one log toggle). Changed icon to more generic icon</li><li>Added back option to show groups dropdown in header (and not hidden under filter tab, false by default)</li><li>Added option to show or hide log tabs in main header</li></ul></li><li>Bug Fixes<ul><li>Fixed bug with drop-down toggles showing sub content incorrectly on a value of true when needing a value of custom</li><li>Better versioning for js and css (not same, so versioning js does not require theme update)</li><li>Now shows + in notification count if update is greater than max number of lines shown</li></ul></li></ul>"
+		),
+		'6.0'		=> array(
+			'branchName'	=> '6.0Update',
+			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/6.0.png',
+			'releaseNotes'	=> "<ul><li>Features<ul><li>Added a new tab for oneLog (grouping of new additions to logs in one log)<ul><li>Have all changes to logs visible in one log like window</li><li>Click on log titles to open up that log in a side by side view</li><li>Can be disabled or hidden in settings</li></ul></li><li>Initial loading looks better (added progress bar to file loading)</li><li>More changes to experimental feature log formatting (For version 7.0)</li><li>Moved multi-log quick settings to sidebar (along with new one log toggle). Changed icon to more generic icon</li><li>Added back option to show groups dropdown in header (and not hidden under filter tab, false by default)</li><li>Added option to show or hide log tabs in main header</li></ul></li><li>Bug Fixes<ul><li>Fixed bug with drop-down toggles showing sub content incorrectly on a value of true when needing a value of custom</li><li>Better versioning for js and css (not same, so versioning js does not require theme update)</li><li>Now shows + in notification count if update is greater than max number of lines shown</li><li>Fixed bug with grep in poll logic</li></ul></li></ul>"
+		),
+		'6.0.9'		=> array(
+			'branchName'	=> '6.1UpdateBeta1',
+			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/6.1.png',
+			'releaseNotes'	=> "<ul><li>Features<ul><li>New notification system<ul><li>Notification screen is now full screen</li><li>Condensed the main menu bar by moving notification counter inside badge and over main menu icon</li><li>Clicking on notification badge opens notification panel (right click for shortcut for clear all notifications)</li><li>Option to hide notification page on main menu (hidden by default)</li><li>Added view status (read / unread notifications)</li><li>Option to only show notification count for unread messages (true by default)</li><li>Separated notifications into groups (read / unread)</li><li>Added notification previews (shows part of log added in notification)</li><li>Added inline notification alerts (with actions to view / close)</li></ul></li><li>Added view button for locally installed addons on addon page </li><li>More changes to experimental feature log formatting (For version 7.0)</li><li>Added option for clear all logs action to also clear data from oneLog</li></ul></li><li>Bug Fixes<ul><li>Notifications now show proper log name (same as log tab) instead of just short name</li><li>Added message to updater image if not loading</li><li>Added logic for deleting old files from past updates</li><li>Passes through try catch exception on poll errors in response</li></ul></li></ul>"
+		),
+		'6.0.9.1'		=> array(
+			'branchName'	=> '6.1UpdateBeta2',
+			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/6.1.png',
+			'releaseNotes'	=> "<ul><li>Features<ul><li>New notification system<ul><li>Notification screen is now full screen</li><li>Condensed the main menu bar by moving notification counter inside badge and over main menu icon</li><li>Clicking on notification badge opens notification panel (right click for shortcut for clear all notifications)</li><li>Option to hide notification page on main menu (hidden by default)</li><li>Added view status (read / unread notifications)</li><li>Option to only show notification count for unread messages (true by default)</li><li>Separated notifications into groups (read / unread)</li><li>Added notification previews (shows part of log added in notification)</li><li>Added inline notification alerts (with actions to view / close)</li></ul></li><li>Added view button for locally installed addons on addon page </li><li>More changes to experimental feature log formatting (For version 7.0)</li><li>Added option for clear all logs action to also clear data from oneLog</li></ul></li><li>Bug Fixes<ul><li>Notifications now show proper log name (same as log tab) instead of just short name</li><li>Added message to updater image if not loading</li><li>Added logic for deleting old files from past updates</li><li>Passes through try catch exception on poll errors in response</li></ul></li></ul>"
+		),
+		'6.1'			=> array(
+			'branchName'	=> '6.1Update',
+			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/6.1.png',
+			'releaseNotes'	=> "<ul><li>Features<ul><li>New notification system<ul><li>Notification screen is now full screen</li><li>Condensed the main menu bar by moving notification counter inside badge and over main menu icon</li><li>Clicking on notification badge opens notification panel (right click for shortcut for clear all notifications)</li><li>Option to hide notification page on main menu (hidden by default)</li><li>Added view status (read / unread notifications)</li><li>Option to only show notification count for unread messages (true by default)</li><li>Separated notifications into groups (read / unread)</li><li>Added notification previews (shows part of log added in notification)</li><li>Added inline notification alerts (with actions to view / close)</li></ul></li><li>Added view button for locally installed addons on addon page </li><li>Added option for clear all logs action to also clear data from oneLog</li><li>More changes to experimental feature log formatting (For version 7.0)</li></ul></li><li>Bug Fixes<ul><li>Notifications now show proper log name (same as log tab) instead of just short name</li><li>Added message to updater image if not loading</li><li>Added logic for deleting old files from past updates</li><li>Passes through try catch exception on poll errors in response</li><li>Fixed some display issues with images on whats new page</li><li>Onelog references are now hidden on settings page and index settings bar when disabled</li><li>Fixed bug with restore and trying to run updates</li><li>One log opening logs now checks if already visible</li></ul></li></ul>"
+		),
+		'6.1.1'			=> array(
+			'branchName'	=> '6.1.1Update',
+			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/6.1.1.png',
+			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed bug with notifications not showing correctly after update notification</li></ul></li></ul>"
+		),
+		'6.2'			=> array(
+			'branchName'	=> '6.2Update',
+			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/6.2.png',
+			'releaseNotes'	=> "<ul><li>Features<ul><li>Moved filters to sidebar, cleaning up look of header menu</li><li>Added options for open locations when clicking on logs in oneLog</li><li>Added options to disable filters</li><li>Added right click menu to addons (to either open in new window, or iframe)</li><li>Addons now open in new tab (with view button, or if iframe is disabled)</li><li>Added oneLog style options</li><li>Hides save button if no changes detected (can be turned off in settings)</li><li>Added right click to log tabs to clear alert for specific log</li><li>Added close button to log when clicking log in oneLog if a new window is generated by one log, or the new log replaces oneLog</li><li>Added sidebar menu for selecting logs on a per window basis without top menu bar</li><li>Some small style changes (moved from css to scss for editing styles, updated some theme colors in the process)</li><li>More changes to experimental feature log formatting (For version 7.0)</li></ul></li><li>Bug Fixes<ul><li>Fixes some right click issues with group name in log tab</li><li>Fixes issue with backslash not being escaped properly in log format</li><li>Checks for display log content match before log refresh on manual clicks</li><li>Fixed poll log display logic, updated function to check if content is different</li><li>Fixed issue with display not updating on filter setting change</li><li>Fixed bug with searching for string that include normally html escaped chars</li><li>Fixed issue with main menu not showing other app title bar (separates main menu and addon links)</li></ul></li></ul>"
+		),
+		'6.2.1'			=> array(
+			'branchName'	=> '6.2.1Update',
+			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/6.2.1.png',
+			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed bug with no log display not displaying correctly</li><li>Fixed bug with log menu popup not working correctly when switching between different multi log windows</li><li>Small display change for addon manager page</li><li>Update notification view button works correctly now</li></ul></li></ul>"
+		),
+		'7.0'			=> array(
+			'branchName'	=> '7.0Update',
+			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/7.0.png',
+			'releaseNotes'	=> "<ul><li>Features<ul><li>Changes how logs are displayed<ul><li>Toggle added in sidebar temp show/hide format</li><li>Most options below can be enabled / disabled</li></ul></li><li>Log format separates time and content into two columns<ul><li>Format all log times into standard format (with custom options for timestamps)</li><li>Groups same timestamps (only shows first of same timestamp)</li></ul></li><li>Message formatting<ul><li>Auto formats json encoded log content into table display</li><li>Report formatting added</li><li>PHP info messages formated in table display</li></ul></li><li>More Info Button<ul><li>Added more in-depth information for PHP tokens</li></ul></li><li>Linked Files Format<ul><li>When files are referenced in logs, a snippet of that file is displayed below</li><li>Shows file permissions (option to enable / disable)</li></ul></li><li>Small change to settings page for log layouts</li></ul></li><li>Bug Fixes<ul><li>Fixed bug with settings sidebar toggle not displaying correctly for not the main window</li><li>Fixed small bug in updater when version number of update is longer than current version</li><li>Now shows correct on hover text when hovering over images on whats new page</li></ul></li></ul>"
+		),
+		'7.1'			=> array(
+			'branchName'	=> '7.1Update',
+			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/7.1.png',
+			'releaseNotes'	=> "<ul><li>Features<ul><li>Filters<ul><li>Option to invert search</li><li>Option to only highlight search text and not entire line</li><li>Filter content of individual log windows</li><li>Added right click menu to filter text field for toggle between content and title</li></ul></li><li>Groups<ul><li>You can now select more than one group at a time (defaults to all if none selected)</li><li>Switched default back to showing in header</li></ul></li><li>Added option for adding borders between log lines</li><li>Added module status to error page</li><li>Added color picker for color inputs for settings</li></ul></li><li>Bug Fixes<ul><li>Right click on notification badge should trigger correctly more often</li><li>Counter for upgrade scripts in updater now show total correctly if only one</li><li>Hides group dropdown / selector if no groups</li><li>Fixed button action for history dropdown</li></ul></li></ul>"
+		),
+		'7.1.1'			=> array(
+			'branchName'	=> '7.1.1Update',
+			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/7.1.1.png',
+			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed bug with log menu popup not staying open</li><li>Hides groups if no logs are visible</li><li>Fixed bug where sometimes log would return undefined after format changes</li><li>Fixed bug that might have caused step 4 / step 5 of setup to error out</li><li>Fixed incorrect redirect url from upgrade config / upgrade layout logic</li></ul></li></ul>"
+		),
+		'7.1.2'			=> array(
+			'branchName'	=> '7.1.2Update',
+			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/7.1.2.png',
+			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Changed logic for checking if a local filter is applied</li><li>Linked files in log now filter correctly when searching in current log</li><li>Fixed check for id in text filter when entire row is not highlighted</li><li>Filter invert does not hide logs when match is found</li></ul></li></ul>"
+		)
+		
 	)
 );
 
