@@ -328,7 +328,7 @@ function resetUpdateSettings()
 
 function verifyResetChange()
 {
-    var urlForSend = "update/updateActionCheck.php?format=json";
+    var urlForSend = "../update/updateActionCheck.php?format=json";
     var data = {status: "" };
     $.ajax(
     {
