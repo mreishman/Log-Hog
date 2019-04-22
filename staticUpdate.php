@@ -37,6 +37,7 @@ require_once('core/php/loadVars.php');
 	<div id="main">
 		<?php require_once('core/php/template/update.php'); ?>
 	</div>
+	<?php require_once('core/php/template/popup.php'); ?>
 </body>
 </html>
 <?php $core->getScripts(
