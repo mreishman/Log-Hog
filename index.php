@@ -278,7 +278,7 @@ $externalLinkImage = $core->generateImage(
 		  </ul>
 		</nav>
 	</span>
-	<span id="initialLoadContent">
+	<span id="initialLoadContent" style="width: 50%;height: 50%; top: 25%; left: 25%; border: 1px solid white;">
 		<table style="width: 100%; height: 100%;">
 			<tr>
 				<th>
