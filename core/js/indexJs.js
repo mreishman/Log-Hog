@@ -1,7 +1,7 @@
 var timerForLoadJS = null;
 var counterForJSLoad = 0;
 var loadedFile = false;
-var msDelay = 20;
+var msDelay = 200;
 var countForCheck = 1;
 
 function tryLoadJSStuff()
@@ -34,7 +34,7 @@ function tryLoadJSStuff()
 		loadedFile = false;
 		let nameOfCurrentFile = arrayOfJsFiles[arrayOfJsFilesKeys[counterForJSLoad]]["name"];
 		let versionOfCurrentFile = arrayOfJsFiles[arrayOfJsFilesKeys[counterForJSLoad]]["ver"];
-		document.getElementById("initialLoadContentMoreInfo").innerHTML = nameOfCurrentFile;
+		updatePopupLog(nameOfCurrentFile);
 		var nameOfFile = nameOfCurrentFile+"?v="+versionOfCurrentFile;
 		if(currentFileType === "js")
 		{
@@ -61,6 +61,12 @@ function tryLoadJSStuff()
 		timerForLoadJS = setInterval(checkIfJSLoaded, msDelay);
 	}
 }
+
+function updatePopupLog(newLineText)
+{
+	document.getElementById("initialLoadContentMoreInfo").innerHTML = newLineText + "<br>" + document.getElementById("initialLoadContentMoreInfo").innerHTML;
+}
+
 function checkIfJSLoaded()
 {
 	if(loadedFile === true)
@@ -76,7 +82,7 @@ function checkIfJSLoaded()
 		countForCheck = 1;
 		clearInterval(timerForLoadJS);
 		counterForJSLoad++;
-		document.getElementById("initialLoadProgress").value = ((counterForJSLoad/lengthOfArrayOfJsFiles) * 100);
+		document.getElementById("initialLoadProgress").value = ((counterForJSLoad/lengthOfArrayOfJsFiles) * 100) / 2;
 		if(counterForJSLoad >= lengthOfArrayOfJsFiles)
 		{
 			document.getElementById("mainContent").style.display = "block";
@@ -85,14 +91,6 @@ function checkIfJSLoaded()
 				startSentryStuff();
 			}
 			mainReady();
-			$('#initialLoadContent').addClass("hidden");
-			setTimeout(function()
-			{
-				if($("#initialLoadContent").hasClass("hidden"))
-				{
-					document.getElementById('initialLoadContent').style.display = "none";
-				}
-			}, 1000);
 		}
 		else
 		{

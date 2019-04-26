@@ -161,13 +161,7 @@ $externalLinkImage = $core->generateImage(
 			<table id="log" cellspacing="0" cellpadding="0">
 				<tbody><tr><td></td></tr></tbody>
 			</table>
-			<div id="firstLoad">
-				<h1 id="progressBarMainInfo" class="progressBarMainInfo" >Loading...</h1>
-				<div id="divForProgressBar" class="divForProgressBar">
-					<div <?php echo $loadingBarStyle; ?> class="ldBar label-center progressBar" id="progressBar" data-value="0"></div>
-				</div>
-				<h3 id="progressBarSubInfo" class="progressBarSubInfo">Loading Javascript</h3>
-			</div>
+			<div id="firstLoad"></div>
 			<div id="noLogToDisplay" class='errorMessageLog errorMessageGreenBG' style="display: none; margin-top: 2%;" > There are currently no logs to display. </div>
 			<div id="moreInfoSideBar" class="fullScreenMenuLeftSidebar" style="display: none;"></div>
 		</div>
@@ -278,19 +272,31 @@ $externalLinkImage = $core->generateImage(
 		  </ul>
 		</nav>
 	</span>
-	<span id="initialLoadContent" style="width: 50%;height: 50%; top: 25%; left: 25%; border: 1px solid white;">
-		<table style="width: 100%; height: 100%;">
+	<span id="initialLoadContent">
+		<table style="width: 100%; height: 100%; padding: 25px;">
 			<tr>
-				<th>
-					<h2>Loading</h2>
-					<p><img id="initialLoadSpinner" src="<?php echo $srcForLoadImage; ?>" width="100" height="100"></p>
+				<td>
+					<img src="core/img/LogHog.png" width="100px">
+				</td>
+				<td align="right">
+					<h2>Log-Hog <?php echo $configStatic["version"]; ?></h2>
 					<h4 id="initialLoadContentInfo" >Loading CSS Files</h4>
-					<p><progress id="initialLoadProgress" value="0" max="100"></progress></p>
-					<h4 id="initialLoadContentMoreInfo" ></h4>
-					<h5 id="initialLoadContentCountInfo" ></h5>
-					<h5 id="initialLoadContentEvenMoreInfo" >File Check <span id="initialLoadCountCheck" >1</span> of 1000</h5>
-					<h4 id="initialLoadContentEvenEvenMoreInfo" >This file looks like it is taking a while to load</h4>
+					<h5>
+						<span id="initialLoadContentCountInfo" ></span>
+						<span id="initialLoadContentEvenMoreInfo" >File Check <span id="initialLoadCountCheck" >1</span> of 1000</span>
+					</h5>
+				</td>
+			</tr>
+			<tr>
+				<th colspan="2">
+					<p><progress id="initialLoadProgress" value="0" max="100" style="width: 100%;height: 10px;"></progress></p>
+					<h2 style="display: none;" id="initialLoadContentEvenEvenMoreInfo" >This file looks like it is taking a while to load</h2>
 				</th>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<h4 style="height: 100px; max-height: 100px; overflow: auto; background-color: black; color: white; padding: 10px;" id="initialLoadContentMoreInfo" ></h4>
+				</td>
 			</tr>
 		</table>
 		<script type="text/javascript">

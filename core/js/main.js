@@ -46,7 +46,6 @@ var pollLoadTimer = null;
 var pollRefreshAllBoolStatic = pollRefreshAllBool;
 var pollSkipCounter = 0;
 var pollTimer = null;
-var progressBar;
 var refreshing = false;
 var refreshPauseActionVar;
 var sideBarVisible = true;
@@ -1605,11 +1604,13 @@ function updateProgressBar(additonalPercent, text, topText = "Loading...")
 		if(firstLoad)
 		{
 			percent = percent + additonalPercent;
-			progressBar.set(percent);
-			$("#progressBarSubInfo").empty();
-			$("#progressBarSubInfo").append(text);
-			$("#progressBarMainInfo").empty();
-			$("#progressBarMainInfo").append(topText);
+			document.getElementById("initialLoadProgress").value = (percent / 2) + 50;
+			updatePopupLog(text);
+			if(document.getElementById("initialLoadContentInfo").innerHTML !== "Loading Logs")
+			{
+				document.getElementById("initialLoadContentInfo").innerHTML = "Loading Logs";
+			}
+			document.getElementById("initialLoadContentCountInfo").innerHTML = topText;
 		}
 	}
 	catch(e)
@@ -1969,9 +1970,8 @@ function mainReady()
 		toggleVisibleOneLog();
 	}
 	dirForAjaxSend = "";
-	progressBar = new ldBar("#progressBar");
 	resize();
-	updateProgressBar(10, "Generating File List");
+	updateProgressBar(10, "Generating Log List","Generating Log List");
 	window.addEventListener("resize", resize);
 	window.addEventListener("focus", focus);
 
