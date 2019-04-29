@@ -276,15 +276,15 @@ $externalLinkImage = $core->generateImage(
 		<table style="width: 100%; height: 100%; padding: 25px;">
 			<tr>
 				<td>
-					<img src="core/img/LogHog.png" width="100px">
-				</td>
-				<td align="right">
 					<h2>Log-Hog <?php echo $configStatic["version"]; ?></h2>
 					<h4 id="initialLoadContentInfo" >Loading CSS Files</h4>
 					<h5>
 						<span id="initialLoadContentCountInfo" ></span>
 						<span id="initialLoadContentEvenMoreInfo" >File Check <span id="initialLoadCountCheck" >1</span> of 1000</span>
 					</h5>
+				</td>
+				<td align="right">
+					<img src="core/img/LogHog.png" width="100px">
 				</td>
 			</tr>
 			<tr>
