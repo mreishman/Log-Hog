@@ -1,0 +1,20 @@
+#initialLoadContentEvenEvenMoreInfo {
+  color: red;
+  display: none;
+}
+
+#initialLoadContent {
+  background-color: #222;
+  color: #EEE;
+  -webkit-transition: 1s ease-in-out;
+  -moz-transition: 1s ease-in-out;
+  -ms-transition: 1s ease-in-out;
+  -o-transition: 1s ease-in-out;
+  position: absolute;
+  z-index: 1000;
+  width: 50%;
+  height: 50%;
+  top: 25%;
+  left: 25%;
+  border: 1px solid white;
+}

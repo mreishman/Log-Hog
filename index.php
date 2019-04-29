@@ -94,6 +94,7 @@ $externalLinkImage = $core->generateImage(
 <head>
 	<title>Log Hog | Index</title>
 	<link rel="icon" type="image/png" href="core/img/favicon.png" />
+	<link rel="stylesheet" type="text/css" href="core/template/load.css?v=<?php echo $core->getFileTime("core/template/load.css",$configStatic["version"]);?>">
 	<script type="text/javascript">
 		var baseUrl = "<?php echo $baseUrl;?>";
 		var Rightclick_ID_list = [];
