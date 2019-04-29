@@ -450,6 +450,14 @@ function firstLoadEndAction()
 			document.getElementById('initialLoadContent').style.display = "none";
 		}
 	}, 1000);
+	$('#initialLoadContentBackground').addClass("hidden");
+	setTimeout(function()
+	{
+		if($("#initialLoadContentBackground").hasClass("hidden"))
+		{
+			document.getElementById('initialLoadContentBackground').style.display = "none";
+		}
+	}, 1500);
 
 	document.getElementById("searchType").disabled = false;
 	document.getElementById("searchFieldInput").disabled = false;

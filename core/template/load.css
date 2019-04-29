@@ -19,4 +19,23 @@
   border: 1px solid white;
 }
 
+#initialLoadContentBackground {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 500;
+  background-color: #111115;
+}
+
+@media only screen and (max-width: 600px) {
+  #initialLoadContent {
+    width: 100%;
+    height: 100%;
+    top: 0%;
+    left: 0%;
+  }
+}
+
 /*# sourceMappingURL=load.css.map */

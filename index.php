@@ -300,7 +300,11 @@ $externalLinkImage = $core->generateImage(
 				</td>
 			</tr>
 		</table>
-		<script type="text/javascript">
+	</span>
+	<span id="initialLoadContentBackground">
+
+	</span>
+	<script type="text/javascript">
 			var themeChangeLogicDirModifier = "core/php/";
 			function redirectToLocationFromUpgradeTheme()
 			{
@@ -315,5 +319,4 @@ $externalLinkImage = $core->generateImage(
 				}, 25);
 			});
 		</script>
-	</span>
 </body>
