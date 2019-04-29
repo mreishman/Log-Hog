@@ -2,10 +2,6 @@ function toggleFullScreenMenu(force = false)
 {
 	fullScreenMenuClickCount++;
 	dirForAjaxSend = "";
-	if(document.getElementById("historyDropdown").style.display === "inline-block")
-	{
-		archiveLogPopupToggle();
-	}
 	closeLogPopup();
 	if(document.getElementById("fullScreenMenu").style.display === "none")
 	{
@@ -97,6 +93,41 @@ function toggleAddons(force = false)
 	$("#mainMenuAddons").addClass("selected");
 	arrayOfScrollHeaderUpdate = [];
 	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
+}
+
+function toggleHistory(force = false)
+{
+	if(!force && !globalForcePageNavigate)
+	{
+		if(!(goToPageCheck("toggleHistory(true)")))
+		{
+			return false;
+		}
+	}
+	globalForcePageNavigate = false;
+	hideMainStuff();
+	toggleFullScreenMenuMainContent();
+	document.getElementById("historySubMenu").style.display = "block";
+	$("#mainMenuHistory").addClass("selected");
+	arrayOfScrollHeaderUpdate = [];
+	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
+	toggleTmpSaveHistory();
+}
+
+function toggleTmpSaveHistory()
+{
+	hideHistoryStuff();
+	document.getElementById("fullScreenMenuHistory").style.display = "block";
+	$("#tempSaveHistory").addClass("selected");
+	getListOfTmpHistoryLogs();
+}
+
+function toggleArchiveHistory()
+{
+	hideHistoryStuff();
+	document.getElementById("fullScreenMenuArchive").style.display = "block";
+	$("#archiveHistory").addClass("selected");
+	getListOfArchiveLogs();
 }
 
 function toggleSettings(force = false)
@@ -415,6 +446,14 @@ function hideAboutStuff()
 	$("#aboutSubMenuWhatsNew").removeClass("selected");
 }
 
+function hideHistoryStuff()
+{
+	document.getElementById("fullScreenMenuHistory").style.display = "none";
+	$("#tempSaveHistory").removeClass("selected");
+	document.getElementById("fullScreenMenuArchive").style.display = "none";
+	$("#archiveHistory").removeClass("selected");
+}
+
 function hideNotificationStuff()
 {
 	document.getElementById("notifications").style.display = "none";
@@ -490,6 +529,13 @@ function hideMainStuff()
 		document.getElementById("aboutSubMenu").style.display = "none";
 		hideAboutStuff();
 		$("#mainMenuAbout").removeClass("selected");
+	}
+
+	if($("#mainMenuHistory").hasClass("selected"))
+	{
+		document.getElementById("historySubMenu").style.display = "none";
+		hideHistoryStuff();
+		$("#mainMenuHistory").removeClass("selected");
 	}
 
 	if($("#mainMenuUpdate").hasClass("selected"))

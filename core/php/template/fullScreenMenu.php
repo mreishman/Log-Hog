@@ -17,6 +17,17 @@
 		Changelog
 	</li>
 </ul>
+<ul id="historySubMenu" class="settingsUl fullScreenMenuUL settingsUlSub" style="display: none;">
+	<li class="menuTitle" style="text-align: center;" >
+		History
+	</li>
+	<li id="tempSaveHistory" onclick="toggleTmpSaveHistory();">
+		Temp Saves
+	</li>
+	<li id="archiveHistory" onclick="toggleArchiveHistory();">
+		Archived
+	</li>
+</ul>
 <ul id="themeSubMenu" class="settingsUl fullScreenMenuUL settingsUlSub" style="display: none;">
 	<li class="menuTitle" style="text-align: center;" >
 		Themes
@@ -151,6 +162,12 @@
 	</div>
 	<div id="fullScreenMenuAbout" >
 		<?php require_once('about.php'); ?>
+	</div>
+	<div id="fullScreenMenuHistory" style="display: none;">
+		<span id="historyHolder"></span>
+	</div>
+	<div id="fullScreenMenuArchive" style="display: none;">
+		<span id="archiveHolder"></span>
 	</div>
 	<div id="fullScreenMenuUpdate" style="display: none;">
 		<?php require_once('update.php'); ?>

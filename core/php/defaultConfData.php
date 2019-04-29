@@ -393,12 +393,53 @@ $defaultConfigMoreData = array(
 		"name"								=>	"Archive",
 		"vars"								=>	array(
 			0									=>	array(
-				"type"								=>	"single",
+				"bool"								=>	($saveTmpLogOnClear == 'false'),
+				"id"								=>	"saveTmpLogOnClearSettings",
+				"name"								=>	"Tmp Log Save Settings",
+				"type"								=>	"grouped",
 				"var"								=>	array(
+					"function"							=>	"showOrHidesaveTmpLogOnClearSettings",
+					"id"								=>	"saveTmpLogOnClear",
 					"key"								=>	"saveTmpLogOnClear",
 					"name"								=>	"Save Tmp Log on Clear / Delete",
 					"options"							=>	$trueFalsVars,
 					"type"								=>	"dropdown"
+				),
+				"vars"								=>	array(
+					0									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"saveTmpLogNum",
+							"name"								=>	"Number of backups",
+							"options"							=>	$oneToFiveArr,
+							"type"								=>	"dropdown"
+						)
+					)
+				)
+			),
+			1									=>	array(
+				"bool"								=>	($saveArchiveLogLimit == 'false'),
+				"id"								=>	"saveArchiveLogLimitSettings",
+				"name"								=>	"Archive Log Settings",
+				"type"								=>	"grouped",
+				"var"								=>	array(
+					"function"							=>	"showOrHidesaveArchiveLogLimitSettings",
+					"id"								=>	"saveArchiveLogLimit",
+					"key"								=>	"saveArchiveLogLimit",
+					"name"								=>	"Limit Archive Log Save Count",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				),
+				"vars"								=>	array(
+					0									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"saveArchiveLogNum",
+							"name"								=>	"Number of backups",
+							"options"							=>	$oneToFiveArr,
+							"type"								=>	"dropdown"
+						)
+					)
 				)
 			),
 		)

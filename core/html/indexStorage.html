@@ -150,10 +150,24 @@
 		<table style="width: 100%; border-top: 1px solid #aaa; padding-bottom: 3px; padding-top: 3px;">
 			<tr>
 				<th>
-					<span class="linkSmall" style="cursor: pointer;" onclick="archiveLogPopupToggle();">Close</span>
+					<span class="linkSmall" style="cursor: pointer;" onclick="toggleTmpSaveHistory();">Refresh</span>
 				</th>
 				<th>
-					<span class="linkSmall" style="cursor: pointer;" onclick="clearAllArchiveLogs();">Delete All</span>
+					<span class="linkSmall" style="cursor: pointer;" onclick="clearAllArchiveLogs('tmp');">Delete All</span>
+				</th>
+			</tr>
+		</table>
+	</div>
+</div>
+<div class="archiveButtons">
+	<div>
+		<table style="width: 100%; border-top: 1px solid #aaa; padding-bottom: 3px; padding-top: 3px;">
+			<tr>
+				<th>
+					<span class="linkSmall" style="cursor: pointer;" onclick="toggleArchiveHistory();">Refresh</span>
+				</th>
+				<th>
+					<span class="linkSmall" style="cursor: pointer;" onclick="clearAllArchiveLogs('archive');">Delete All</span>
 				</th>
 			</tr>
 		</table>

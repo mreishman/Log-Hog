@@ -200,7 +200,7 @@ function pollTwoPartTwo(data)
 			arrayOfData1 = data;
 			for (var updateCount = filesNew.length - 1; updateCount >= 0; updateCount--)
 			{
-				if($.inArray(filesNew[updateCount].replace(/[^a-z0-9]/g, ""), logsToHide) !== -1)
+				if($.inArray(filterIdText(filesNew[updateCount]), logsToHide) !== -1)
 				{
 					continue;
 				}
@@ -214,7 +214,7 @@ function pollTwoPartTwo(data)
 			var filesOld = Object.keys(arrayOfData1);
 			for (var updateOldCount = filesNew.length - 1; updateOldCount >= 0; updateOldCount--)
 			{
-				if($.inArray(filesNew[updateOldCount].replace(/[^a-z0-9]/g, ""), logsToHide) !== -1)
+				if($.inArray(filterIdText(filesNew[updateOldCount]), logsToHide) !== -1)
 				{
 					continue;
 				}
@@ -686,7 +686,7 @@ function update(data)
 			var logData = data[name]["log"];
 			var showFile = false;
 			shortName = files[i].replace(/.*\//g, "");
-			id = name.replace(/[^a-z0-9]/g, "");
+			id = filterIdText(name);
 
 			if(( filterEnabled === "false" || showFileFromFilter(id, name, shortName, logData)) && (showFileFromGroup(id) || $("#"+id).hasClass("active")))
 			{
@@ -800,7 +800,7 @@ function update(data)
 								var innerCountStatic = innerCount;
 								if(typeof files[i] !== "undefined")
 								{
-									var idCheck = files[i].replace(/[^a-z0-9]/g, "");
+									var idCheck = filterIdText(files[i]);
 									if(innerCountStatic === 0)
 									{
 										itemAdded = tryToInsertBeforeLog(innerCountStatic, stop, idCheck, item);

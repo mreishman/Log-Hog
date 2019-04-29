@@ -50,6 +50,11 @@ function checkIfShouldLoad($loadCustomConfigVars, $key)
 	return true;
 }
 
+function escapeTheEscapes($stringToEscape)
+{
+	return implode("\\\\", explode("\\", $stringToEscape));
+}
+
 $varToIndexDir = "";
 $countOfSlash = 0;
 while($countOfSlash < 20 && !file_exists($varToIndexDir."error.php"))
@@ -171,12 +176,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 		$baseKeysCount = count($baseKeys);
 		for($i = 1; $i <= $_POST['numberOfRows']; $i++ )
 		{
-			$arrayWatchList .= "'".$_POST['watchListKey'.$i]."' => array(";
+			$arrayWatchList .= "'".escapeTheEscapes($_POST['watchListKey'.$i])."' => array(";
 			$baseKeyCounter = 0;
 			foreach ($baseKeys as $key => $value)
 			{
 				$baseKeyCounter++;
-				$arrayWatchList .= "'".$key."' => '".$_POST['watchListKey'.$i.$key]."'";
+				$arrayWatchList .= "'".$key."' => '".escapeTheEscapes($_POST['watchListKey'.$i.$key])."'";
 				if($baseKeyCounter !== $baseKeysCount)
 				{
 					$arrayWatchList .= ",";
@@ -569,6 +574,12 @@ else
 			"src"			=>	"",
 			"title"			=>	"Refresh",
 			"baseName"		=>	"Refresh.png"
+		),
+		"saveSideBar"		=> array(
+			"alt"			=>	"Save",
+			"src"			=>	"",
+			"title"			=>	"Save",
+			"baseName"		=>	"saveSideBar.png"
 		),
 		"search"			=> array(
 			"alt"			=>	"Search",

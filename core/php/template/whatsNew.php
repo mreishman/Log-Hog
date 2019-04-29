@@ -122,6 +122,12 @@
 				"Name"			=>	"Filters Part 1",
 				"BP"			=>	array("Select more than one group at a time","Filter content on a per log basis"),
 				"Images"		=>	array("7.1-1.png","7.1-2.png")
+			),
+			20	=>	array(
+				"Version"		=>	"7.2",
+				"Name"			=>	"The Archive",
+				"BP"			=>	array("Added archive for logs","Save logs from button on right","Save backup of more than on log (1-5, in settings)"),
+				"Images"		=>	array("7.2-1.png","7.2-2.png","7.2-3.png")
 			)
 		);
 		$dataForWhatsNew = array_reverse($dataForWhatsNew);

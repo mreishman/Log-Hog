@@ -188,16 +188,32 @@ if($levelOfUpdate != 0)
 $version = explode('.', $configStatic['version'] );
 $versionCount = count($version);
 
+$downloadSize = 0;
+$finalInstallSize = 0;
+$currentVersionSize = 0;
+
 foreach ($versionCheckArray['versionList'] as $key => $value)
 {
+  if($configStatic['version'] === $key)
+  {
+    if(isset($value['installSize']))
+    {
+      $currentVersionSize = (int)$value['installSize'];
+    }
+  }
   $newestVersion = explode('.', $key);
   $newestVersionCount = count($newestVersion);
-  $levelOfUpdate = $levelOfUpdate = findUpdateValue($newestVersionCount, $versionCount, $newestVersion, $version);
+  $levelOfUpdate = findUpdateValue($newestVersionCount, $versionCount, $newestVersion, $version);
 
   if($levelOfUpdate != 0)
   {
     $Changelog .= "<li><h2>Changelog For ".$key." update</h2></li>";
     $Changelog .= $value['releaseNotes'];
+    if(isset($value['downloadSize']))
+    {
+      $downloadSize += (int)$value['downloadSize'];
+      $finalInstallSize = (int)$value['installSize'];
+    }
   }
 }
 
@@ -207,5 +223,14 @@ if($levelOfUpdate != 0)
 }
 
 $data['changeLog'] = $Changelog;
+
+//get size of update download
+$data['downloadTotal'] = formatBytes($downloadSize);
+
+//get size of current drive
+$data['currentAmmtFree'] = shell_exec("df -h . | tail -1 | awk '{print $4}'");
+
+//get size of update after finish
+$data['totalSizeChange'] = formatBytes($finalInstallSize - $currentVersionSize);
 
 echo json_encode($data);

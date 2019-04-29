@@ -68,8 +68,18 @@ var userPaused = false;
 var title = $("title").text();
 var verifyChangeCounter = 0;
 
+function escapeTheEscapes(keyName)
+{
+	return keyName.split("\\").join("\\\\");
+}
+
 function getRndInteger(min, max) {
     return Math.floor(Math.random() * (max - min) ) + min;
+}
+
+function filterIdText(name)
+{
+	return name.replace(/[^a-z0-9]/g, "");
 }
 
 
@@ -268,7 +278,7 @@ function getLogIdFromText(text)
 	{
 		if(arrayOfDataMain[arrayOfDataMainKeys[i]]["log"] === text)
 		{
-			return arrayOfDataMainKeys[i].replace(/[^a-z0-9]/g, "");
+			return filterIdText(arrayOfDataMainKeys[i])
 		}
 		if(advancedLogFormatEnabled === "true" && logFormatFileEnable === "true" && "fileData" in arrayOfDataMain[arrayOfDataMainKeys[i]])
 		{
@@ -283,7 +293,7 @@ function getLogIdFromText(text)
 					{
 						if(fileDataLocal[fileDataLocalKeys[j]]["fileData"] === text)
 						{
-							return arrayOfDataMainKeys[i].replace(/[^a-z0-9]/g, "");
+							return filterIdText(arrayOfDataMainKeys[i])
 						}
 					}
 				}
@@ -728,7 +738,7 @@ function hideLogByName(name)
 {
 	try
 	{
-		var idOfName = name.replace(/[^a-z0-9]/g, "");
+		var idOfName = filterIdText(name)
 		if($("#menu ." + idOfName + "Button").length !== 0)
 		{
 			if($("#menu ." + idOfName + "Button").hasClass("active"))
@@ -750,7 +760,7 @@ function showLogByName(name)
 {
 	try
 	{
-		var idOfName = name.replace(/[^a-z0-9]/g, "");
+		var idOfName = filterIdText(name)
 		if($("#menu ." + idOfName + "Button").length !== 0)
 		{
 			$("#menu ." + idOfName + "Button").show();
@@ -766,7 +776,7 @@ function removeLogByName(name)
 {
 	try
 	{
-		var idOfName = name.replace(/[^a-z0-9]/g, "");
+		var idOfName = filterIdText(name)
 		if($("#menu ." + idOfName + "Button").length !== 0)
 		{
 			$("#menu ." + idOfName + "Button").remove();
@@ -851,18 +861,24 @@ function isLogPopupOpen()
 
 function toggleSideBarElements(internalID, currentCurrentSelectWindow)
 {
-	var visibleStatusOfClearLogSideBar = "block";
-	var visibleStatusOfDeleteLogSideBar = "block";
-	var visibleStatusOfCloseLogSideBar = "none";
+	let visibleStatusOfClearLogSideBar = "block";
+	let visibleStatusOfDeleteLogSideBar = "block";
+	let visibleStatusOfCloseLogSideBar = "none";
+	let visibleStatusOfHistorySideBar = "block";
+	let visibleStatusOfSaveArchiveSideBar = "block";
 	if(internalID.indexOf("ogogackup") === 0)
 	{
 		visibleStatusOfClearLogSideBar  = "none";
 		visibleStatusOfDeleteLogSideBar = "none";
 		visibleStatusOfCloseLogSideBar  = "block";
+		visibleStatusOfHistorySideBar = "none";
+		visibleStatusOfSaveArchiveSideBar = "none";
 	}
 	else if(internalID === "oneLog")
 	{
 		visibleStatusOfDeleteLogSideBar= "none";
+		visibleStatusOfHistorySideBar = "none";
+		visibleStatusOfSaveArchiveSideBar = "none";
 	}
 	else if(internalID === idOfOneLogOpen)
 	{
@@ -884,6 +900,14 @@ function toggleSideBarElements(internalID, currentCurrentSelectWindow)
 	if(document.getElementById("closeLogSideBar"+currentCurrentSelectWindow).style.display !== visibleStatusOfCloseLogSideBar)
 	{
 		document.getElementById("closeLogSideBar"+currentCurrentSelectWindow).style.display = visibleStatusOfCloseLogSideBar;
+	}
+	if(document.getElementById("historySideBar"+currentCurrentSelectWindow).style.display !== visibleStatusOfHistorySideBar)
+	{
+		document.getElementById("historySideBar"+currentCurrentSelectWindow).style.display = visibleStatusOfHistorySideBar;
+	}
+	if(document.getElementById("saveArchiveSideBar"+currentCurrentSelectWindow).style.display !== visibleStatusOfSaveArchiveSideBar)
+	{
+		document.getElementById("saveArchiveSideBar"+currentCurrentSelectWindow).style.display = visibleStatusOfSaveArchiveSideBar;
 	}
 }
 
@@ -1235,13 +1259,12 @@ function scrollToBottom(idNum)
 
 function clearLogInner(title)
 {
-	if(title.indexOf(" | ") > -1)
-	{
-		title = title.split(" | ")[0];
-	}
-	title = title.trim();
-	archiveAction(title);
 	title = filterTitle(title);
+	title = escapeTheEscapes(title);
+	if(enableHistory === "true")
+	{
+		archiveAction(title, "tmp");
+	}
 	var data = {file: title};
 	$.ajax({
 			url: "core/php/clearLog.php?format=json",
@@ -1357,7 +1380,7 @@ function deleteActionAfter()
 			type: "POST",
 			success(data)
 			{
-
+				removeAllNotifications();
 			}
 		});
 	}
@@ -1405,8 +1428,12 @@ function deleteLog(title)
 		{
 			title = title.split(" | ")[0];
 		}
+		title = escapeTheEscapes(title);
 		title = title.trim();
-		archiveAction(title);
+		if(enableHistory === "true")
+		{
+			archiveAction(title, "tmp");
+		}
 		var urlForSend = "core/php/deleteLog.php?format=json";
 		title = title.replace(/\s/g, "");
 		var data = {file: title};
@@ -1449,6 +1476,7 @@ function filterTitle(title)
 		{
 			title = title.substring(0, title.indexOf("|"));
 		}
+		title = title.trim();
 		return title;
 	}
 	catch(e)

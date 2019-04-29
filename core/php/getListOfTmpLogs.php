@@ -1,5 +1,11 @@
 <?php
-$scannedDir = scandir("../../tmp/loghogBackupHistoryLogs/");
+$dirType = $_POST['type'];
+$folder = "loghogBackupArchiveLogs";
+if($dirType !== "archive")
+{
+	$folder = "loghogBackupHistoryLogs";
+}
+$scannedDir = scandir("../../tmp/".$folder."/");
 if(!is_array($scannedDir))
 {
 	$scannedDir = array($scannedDir);

@@ -147,6 +147,16 @@ $arrayOfFiles = array(
 		"type" =>"img",
 		"class" =>"menuSideBarImageForLoad"
 	),
+	array(
+		"name" => $baseUrl . "img/historySideBar.png",
+		"type" =>"img",
+		"class" =>"historySideBarImageForLoad"
+	),
+	array(
+		"name" => $baseUrl . "img/saveSideBar.png",
+		"type" =>"img",
+		"class" =>"historyAddSideBarImageForLoad"
+	),
 );
 if($filterEnabled === "true")
 {
@@ -212,6 +222,10 @@ if($themesEnabled === "true")
 {
 	$arrayOfFiles[] = array(
 		"name" => "themes.js",
+		"type" => "js"
+	);
+	$arrayOfFiles[] = array(
+		"name" => "upgradeTheme.js",
 		"type" => "js"
 	);
 }
@@ -301,14 +315,6 @@ if($windowConfig !== "1x1")
 		"name" => $baseUrl . "img/pinPinned.png",
 		"type" => "img",
 		"class" => "pinPinnedImageForLoad"
-	);
-}
-if($enableHistory === "true")
-{
-	$arrayOfFiles[] = array(
-		"name" => $baseUrl . "img/history.png",
-		"type" => "img",
-		"class" => "historyImageForLoad"
 	);
 }
 function compareByName($a, $b) {

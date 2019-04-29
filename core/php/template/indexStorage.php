@@ -111,17 +111,32 @@
 								);
 							?>
 						</a>
-						<!-- <a onclick="viewBackupFromCurrentLog('{{counter}}');" style="cursor: pointer;">
-							<?php /* echo generateImage(
-								$arrayOfImages["historySideBar"],
+						<a id="historySideBar{{counter}}" onclick="viewBackupFromCurrentLog('{{counter}}');" style="cursor: pointer;">
+							<?php echo generateImage(
+								$arrayOfImages["loadingImg"],
 								$imageConfig = array(
 									"height"	=>	"20px",
 									"style"		=>	"margin: 5px;",
-									"title"		=>	"View Backup"
+									"title"		=>	"View Backup",
+									"class"		=>	"historySideBarImageForLoad",
+									"data-src"	=>	$arrayOfImages["historySideBar"]
 									)
 								);
-							*/ ?>
-						</a> -->
+							?>
+						</a>
+						<a id="saveArchiveSideBar{{counter}}" onclick="saveArchivePopup('{{counter}}');" style="cursor: pointer;">
+							<?php echo generateImage(
+								$arrayOfImages["loadingImg"],
+								$imageConfig = array(
+									"height"	=>	"20px",
+									"style"		=>	"margin: 5px;",
+									"title"		=>	"Save Backup",
+									"class"		=>	"historyAddSideBarImageForLoad",
+									"data-src"	=>	$arrayOfImages["saveSideBar"]
+									)
+								);
+							?>
+						</a>
 						<a onclick="toggleLogPopup(this,'{{counter}}');" style="cursor: pointer;">
 							<?php echo generateImage(
 								$arrayOfImages["loadingImg"],

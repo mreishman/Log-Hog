@@ -137,7 +137,6 @@ $externalLinkImage = generateImage(
 			</div>
 			<div id="historyDropdown" class="dropdownMenu" >
 				<div class="notificationTriangle"></div>
-				<div id="historyHolder" class="innerContentDropdownMenu dropdownHolder"></div>
 			</div>
 		</div>
 		<div id="main">
@@ -280,6 +279,11 @@ $externalLinkImage = generateImage(
 			</tr>
 		</table>
 		<script type="text/javascript">
+			var themeChangeLogicDirModifier = "core/php/";
+			function redirectToLocationFromUpgradeTheme()
+			{
+				location.reload();
+			}
 			document.addEventListener("DOMContentLoaded", function(event)
 			{
 				arrayOfJsFilesKeys = Object.keys(arrayOfJsFiles);
