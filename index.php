@@ -274,33 +274,34 @@ $externalLinkImage = $core->generateImage(
 		</nav>
 	</span>
 	<span id="initialLoadContent">
-		<table style="width: 100%; height: 100%; padding: 25px;">
-			<tr>
-				<td>
-					<h2>Log-Hog <?php echo $configStatic["version"]; ?></h2>
-					<h4 id="initialLoadContentInfo" >Loading CSS Files</h4>
-					<h5>
-						<span id="initialLoadContentCountInfo" ></span>
-						<span id="initialLoadContentEvenMoreInfo" >File Check <span id="initialLoadCountCheck" >1</span> of 1000</span>
-					</h5>
-				</td>
-				<td align="right">
-					<img src="core/img/LogHog.png" width="100px">
-				</td>
-			</tr>
-			<tr>
-				<th colspan="2">
-					<p><progress id="initialLoadProgress" value="0" max="100" style="width: 100%;height: 10px;"></progress></p>
-					<h2 style="display: none;" id="initialLoadContentEvenEvenMoreInfo" >This file looks like it is taking a while to load</h2>
-				</th>
-			</tr>
-			<tr>
-				<td colspan="2">
-					<h4 style="height: 100px; max-height: 100px; overflow: auto; background-color: black; color: white; padding: 10px;" id="initialLoadContentMoreInfo" ></h4>
-				</td>
-			</tr>
-		</table>
-	</span>
+		<span id="initialLoadContentContent">
+			<table style="width: 100%; height: 100%; padding: 25px;">
+				<tr>
+					<td>
+						<h1>Log-Hog <?php echo $configStatic["version"]; ?></h1>
+						<h2 id="initialLoadContentInfo" >Loading CSS Files</h2>
+						<h3>
+							<span id="initialLoadContentCountInfo" ></span>
+							<span id="initialLoadContentEvenMoreInfo" >File Check <span id="initialLoadCountCheck" >1</span> of 1000</span>
+						</h3>
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<p><progress id="initialLoadProgress" value="0" max="100" style="width: 100%;height: 10px;"></progress></p>
+						<h2 style="display: none;" id="initialLoadContentEvenEvenMoreInfo" >This file looks like it is taking a while to load</h2>
+					</th>
+				</tr>
+				<tr>
+					<td>
+						<h4 id="initialLoadContentMoreInfo" ></h4>
+					</td>
+				</tr>
+			</table>
+		</span>
+		<span id="initialLoadContentBlurBackground">
+		</span>
+		</span>
 	<span id="initialLoadContentBackground">
 
 	</span>
