@@ -352,6 +352,7 @@ if(file_exists($file))
         </td>
         <td width="33%">
             <h3> File Permissions: </h3>
+            <table>
             <?php
             foreach ($fileNameArray as $key => $value)
             {
@@ -360,9 +361,10 @@ if(file_exists($file))
                 {
                     $info = $core->filePermsDisplay($value["path"]);
                 }
-                echo "<p>  ".$value["name"]."   -   ".$info."</p>";
+                echo "<tr><td>".$value["name"]."</td><td>".$info."</td></tr><tr><td colspan=\"2\">".$value["path"]."</td></tr>";
             }
             ?>
+            </table>
         </td>
     </tr>
 </table>
