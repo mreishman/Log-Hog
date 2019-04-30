@@ -214,12 +214,16 @@ if(file_exists($file))
 
 <?php if($error != 0): ?>
     <div class="errorMessage" >
-        <h1>
-            <img class="warningImage" src="core/img/redWarning.png" height="60px">
-            Error <?php echo $error ?>
-            <img class="warningImage" ssrc="core/img/redWarning.png" height="60px">
-        </h1>
-        <h1> <?php echo $page ?> </h1>
+        <table>
+            <tr>
+                <td rowspan="2"><img class="warningImage" src="core/img/redWarning.png" height="120px"></td>
+                <td><h1>Error <?php echo $error ?></h1></td>
+                <td rowspan="2"><img class="warningImage" src="core/img/redWarning.png" height="120px"></td>
+            </tr>
+            <tr>
+                <td><h3><?php echo $page ?></h3></td>
+            </tr>
+        </table>
     </div>
 <?php endif; ?>
 <table>
