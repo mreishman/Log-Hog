@@ -78,5 +78,10 @@
     left: 0%;
   }
 }
+@media only screen and (min-width: 1920px) {
+  #initialLoadContentBackground {
+    display: none;
+  }
+}
 
 /*# sourceMappingURL=load.css.map */
