@@ -81,52 +81,17 @@
 <div class="notificationContainerInline">
 	<div class="inlineNotificationDiv" >
 		<span>
-			<table>
+			<table style="width: 100%;height: 100%;border-spacing: 0;">
 				<tr>
+					<td class="invert" rowspan="2" >{{image}}</td>
 					<td class="actionTime"> {{time}} </td>
 					<td class="notificationText actionNone"><b> {{name}} </b></td>
+					<td><span  class="closeInlineNotification" onclick="inlineNotificationPollLogic(true);" >X</span></td>
 				</tr>
 				<tr>
-					<td colspan="2">
+					<td colspan="3" align="right">
 						<span style="display: none;" class="notificationContainerInlineButtons">
-							<table>
-								<tr>
-									<th>
-										<span class="linkSmall" onclick="{{action}} inlineNotificationPollLogic(true);" >View</span>
-									</th>
-									<th>
-										<span  class="linkSmall" onclick="inlineNotificationPollLogic(true);" >Close</span>
-									</th>
-								</tr>
-							</table>
-						</span>
-					</td>
-				</tr>
-			</table>
-		</span>
-	</div>
-</div>
-<div class="notificationContainerInlineWithImage">
-	<div class="inlineNotificationDiv">
-		<span>
-			<table>
-				<tr>
-					<td class="actionTime"> {{time}} </td>
-					<td class="notificationText actionNone"><b> {{name}} </b></td>
-				</tr>
-				<tr>
-					<td colspan="2">
-						<span style="display: none;" class="notificationContainerInlineButtons">
-							<table>
-								<tr>
-									<th>
-										<span class="linkSmall" onclick="{{action}} inlineNotificationPollLogic();" >View</span>
-									</th>
-									<th>
-										<span  class="linkSmall" onclick="inlineNotificationPollLogic();" >Close</span>
-									</th>
-								</tr>
-							</table>
+							<span class="linkSmall" onclick="{{action}} inlineNotificationPollLogic(true);" >View</span>
 						</span>
 					</td>
 				</tr>

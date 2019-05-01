@@ -605,10 +605,6 @@ div.sidebarLeft {
   padding: 10px 3px;
 }
 
-.inlineNotificationDiv{
-  padding: 5px 3px;
-}
-
 .notificationContainerInlineButtons{
   margin-top: 5px;
 }
@@ -637,7 +633,6 @@ div.sidebarLeft {
   display: none;
   position: absolute;
   width: 500px;
-  padding: 4px;
   z-index: 100;
 }
 
@@ -913,4 +908,8 @@ div.sidebarLeft {
 
 .inputWidth {
   width: 400px;
+}
+
+.closeInlineNotification {
+    cursor: pointer;
 }

@@ -188,9 +188,15 @@ elseif($logMenuLocation === "bottom"): ?>
   border: 1px solid <?php echo $notificationInlineFontColor; ?>;
 }
 
-.inlineNotificationsClass , .inlineNotificationsClass td{
+.inlineNotificationsClass td{
   background-color: <?php echo $notificationInlineBGColor; ?>;
   color: <?php echo $notificationInlineFontColor; ?>;
+  padding: 5px;
+}
+
+.inlineNotificationsClass td.invert{
+  -webkit-filter: invert(100%); /* Safari */
+  filter: invert(100%);
 }
 
 <?php if($notificationPreviewHideWidth === "true"): ?>

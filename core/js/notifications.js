@@ -419,15 +419,7 @@ function inlineNotificationPollLogic(force = false)
 		var currentThing = inlineNotificationPollArray[0];
 		inlineNotificationPollArray.shift();
 		//show notification
-		var blank;
-		if("image" in currentThing)
-		{
-			blank = $("#storage .notificationContainerInlineWithImage").html();
-		}
-		else
-		{
-			blank = $("#storage .notificationContainerInline").html();
-		}
+		var blank = $("#storage .notificationContainerInline").html();
 		var item = blank;
 		item = item.replace(/{{name}}/g, currentThing["name"]);
 		item = item.replace(/{{time}}/g, currentThing["time"]);
@@ -435,6 +427,10 @@ function inlineNotificationPollLogic(force = false)
 		if("image" in currentThing)
 		{
 			item = item.replace(/{{image}}/g, currentThing["image"]);
+		}
+		else
+		{
+			item = item.replace(/{{image}}/g, "<img src=\""+arrayOfImages["infoSideBar"]["src"]+"\" alt=\""+arrayOfImages["infoSideBar"]["alt"]+"\" title=\""+arrayOfImages["infoSideBar"]["title"]+"\" height=\"20px\">");
 		}
 		$("#inlineNotifications").html(item);
 		document.getElementById("inlineNotifications").style.display = "block";
