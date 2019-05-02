@@ -699,9 +699,9 @@ function resizeFullScreenMenu()
 		{
 			document.getElementById("mainContentFullScreenMenu").style.top = mainContentFullScreenMenuTop;
 		}
-		if(document.getElementById("notificationHolder").style.maxWidth !== (window.innerWidth - mainContentFullScreenMenuLeft)+"px")
+		if(document.getElementById("notificationHolder").style.width !== (window.innerWidth - mainContentFullScreenMenuLeft)+"px")
 		{
-			document.getElementById("notificationHolder").style.maxWidth = (window.innerWidth - mainContentFullScreenMenuLeft)+"px";
+			document.getElementById("notificationHolder").style.width = (window.innerWidth - mainContentFullScreenMenuLeft)+"px";
 		}
 	}
 	catch(e)
