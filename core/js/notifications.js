@@ -54,10 +54,6 @@ function displayNotifications()
 	{
 		var blank;
 		var blankMod = "";
-		if(window.innerWidth < breakPointTwo)
-		{
-			blankMod += "Small";
-		}
 		if("image" in notifications[i])
 		{
 			blankMod += "WithImage";
@@ -110,11 +106,11 @@ function displayNotifications()
 	}
 	if(unreadNotifications !== "")
 	{
-		htmlForNotifications += "<div style=\"filter: invert(100%);\" class=\"menuTitle fullScreenNotificationTitle\" >Unread</div>" + unreadNotifications;
+		htmlForNotifications += unreadNotifications;
 	}
 	if(readNotifications !== "")
 	{
-		htmlForNotifications += "<div style=\"filter: invert(100%);\" class=\"menuTitle fullScreenNotificationTitle\" >Read</div>" + readNotifications;
+		htmlForNotifications += readNotifications;
 	}
 	htmlForNotifications += "</span>";
 	$("#notificationHolder").append(htmlForNotifications);

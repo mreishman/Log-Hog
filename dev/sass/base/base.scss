@@ -601,8 +601,18 @@ div.sidebarLeft {
   box-shadow: 0 5px 5px rgba(0,0,0,.5);
 }
 
+.actionLink2 {
+    cursor: pointer;
+    text-align: right;
+    padding-right: 5px;
+}
+
 .notificationDiv{
   padding: 10px 3px;
+  width: 400px;
+  display: inline-block;
+  border-radius: 5px;
+  margin: 5px;
 }
 
 .notificationContainerInlineButtons{
@@ -770,12 +780,6 @@ div.sidebarLeft {
         border-right: 1px solid black;
         width: 75px;
         cursor: default;
-      }
-      .actionLink {
-        width: 50px;
-      }
-      .actionLink2 {
-        width: 75px;
       }
       .actionNone {
         cursor: default;

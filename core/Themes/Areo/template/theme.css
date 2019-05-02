@@ -285,6 +285,11 @@
   color: black;
 }
 
+.themeDiv {
+  background: white;
+  color: black;
+}
+
 body {
   background-color: #DDD;
 }

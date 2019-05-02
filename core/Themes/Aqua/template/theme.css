@@ -285,6 +285,11 @@
   color: white;
 }
 
+.themeDiv {
+  background: black;
+  color: white;
+}
+
 #menu {
   background: -moz-linear-gradient(top, #eeeeee 0%, #dddddd 25%, #dddddd 75%, #eeeeee 100%);
   /* FF3.6-15 */

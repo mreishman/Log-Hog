@@ -7,72 +7,46 @@
 	</a>
 </div>
 <div class="notificationContainer">
-	<div id="{{id}}" class="notificationDiv" >
+	<div id="{{id}}" class="notificationDiv addBorder themeDiv" >
 		<span>
 			<table>
 				<tr>
 					<td class="actionView" rowspan="2">{{viewIndicator}}</td>
 					<td class="actionTime" rowspan="2"> {{time}} </td>
-					<td class="actionLink" rowspan="2"> <span class="linkSmall" onclick="removeNotification('{{idNum}}'); {{action}}" >View</span> </td>
-					<td class="actionLink2" rowspan="2"> <span class="linkSmall" onclick="removeNotification('{{idNum}}');" >Remove</span> </td>
 					<td class="notificationText"><b> {{name}} </b></td>
+					<td class="actionLink2"> <span onclick="removeNotification('{{idNum}}');" >X</span> </td>
 				</tr>
 				<tr>
-					<td>{{previewText}}</td>
+					<td class="actionLink"> <span class="linkSmall" onclick="removeNotification('{{idNum}}'); {{action}}" >View</span> </td>
+					<td class="actionLink"> <span class="linkSmall" onclick="removeNotification('{{idNum}}'); {{action}}" >Preview</span> </td>
+				</tr>
+				<tr>
+					<td>
+						<span style="display: none;">{{previewText}}</span>
+					</td>
 				</tr>
 			</table>
 		</span>
 	</div>
 </div>
 <div class="notificationContainerWithImage">
-	<div id="{{id}}" class="notificationDiv">
+	<div id="{{id}}" class="notificationDiv addBorder themeDiv">
 		<span>
 			<table>
 				<tr>
 					<td class="actionView" rowspan="2">{{viewIndicator}}</td>
 					<td class="actionTime" rowspan="2"> {{time}} </td>
-					<td class="actionLink" rowspan="2"> <span class="linkSmall" onclick="removeNotification('{{idNum}}'); {{action}}" >View</span> </td>
-					<td class="actionLink2" rowspan="2"> <span class="linkSmall" onclick="removeNotification('{{idNum}}');" >Remove</span> </td>
+					<td class="actionLink2" rowspan="2"> <span onclick="removeNotification('{{idNum}}');" >X</span> </td>
 					<td class="notificationText"><b> {{name}} </b></td>
 				</tr>
 				<tr>
-					<td>{{previewText}}</td>
-				</tr>
-			</table>
-		</span>
-	</div>
-</div>
-<div class="notificationContainerSmall">
-	<div id="{{id}}" class="notificationDiv" >
-		<span>
-			<table>
-				<tr>
-					<td class="actionView">{{viewIndicator}}</td>
-					<td class="actionTime"> {{time}} </td>
 					<td class="actionLink"> <span class="linkSmall" onclick="removeNotification('{{idNum}}'); {{action}}" >View</span> </td>
-					<td class="actionLink2"> <span class="linkSmall" onclick="removeNotification('{{idNum}}');" >Remove</span> </td>
-					<td class="notificationText"><b> {{name}} </b></td>
+					<td class="actionLink"> <span class="linkSmall" onclick="removeNotification('{{idNum}}'); {{action}}" >Preview</span> </td>
 				</tr>
 				<tr>
-					<td colspan="5" >{{previewText}}</td>
-				</tr>
-			</table>
-		</span>
-	</div>
-</div>
-<div class="notificationContainerSmallWithImage">
-	<div id="{{id}}" class="notificationDiv">
-		<span>
-			<table>
-				<tr>
-					<td class="actionView">{{viewIndicator}}</td>
-					<td class="actionTime"> {{time}} </td>
-					<td class="actionLink"> <span class="linkSmall" onclick="removeNotification('{{idNum}}'); {{action}}" >View</span> </td>
-					<td class="actionLink2"> <span class="linkSmall" onclick="removeNotification('{{idNum}}');" >Remove</span> </td>
-					<td class="notificationText"><b> {{name}} </b></td>
-				</tr>
-				<tr>
-					<td colspan="5" >{{previewText}}</td>
+					<td>
+						<span style="display: none;">{{previewText}}</span>
+					</td>
 				</tr>
 			</table>
 		</span>

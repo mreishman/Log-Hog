@@ -205,7 +205,7 @@
 		?>
 	</div>
 	<div id="notifications" style="display: none;" >
-		<div id="notificationHolder" class="fullScreenMenuLeftSidebar"></div>
+		<div id="notificationHolder"></div>
 	</div>
 	<div id="notificationsEmpty" style="display: none;" >
 		<table width="100%" style="height: 100%;">
