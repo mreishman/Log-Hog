@@ -138,6 +138,15 @@ function previewNotification(logId)
 	{
 		//style as one column
 	}
+	$(".closePreviewLogButton").show();
+}
+
+function closePreviewLog()
+{
+	document.getElementById("notificationHolderRight").innerHTML = "";
+	document.getElementById("notificationHolderLeft").style.width = "auto";
+	document.getElementById("notificationHolderLeft").style.display = "block";
+	$(".closePreviewLogButton").hide();
 }
 
 function removeAllNotifications()
