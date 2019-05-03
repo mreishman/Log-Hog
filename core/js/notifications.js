@@ -47,7 +47,7 @@ function clearAllNotifications()
 function displayNotifications()
 {
 	clearAllNotifications();
-	var htmlForNotifications = "<span style=\"display: block;\" >";
+	var htmlForNotifications = "<span id=\"notificationHolderLeft\" style=\"display: block;\" >";
 	var unreadNotifications = "";
 	var readNotifications = "";
 	for (var i = notifications.length - 1; i >= 0; i--)
@@ -71,26 +71,12 @@ function displayNotifications()
 		item = item.replace(/{{name}}/g, notifications[i]["name"]);
 		item = item.replace(/{{time}}/g, notifications[i]["time"]);
 		item = item.replace(/{{action}}/g, notifications[i]["action"]);
-		if("newText" in notifications[i] && notifications[i]["newText"] !== "" && notifications[i]["newText"] !== "undefined" && notificationPreviewShow === "true")
+		let hidePreview = "";
+		if(!("newText" in notifications[i] && notifications[i]["newText"] !== "" && notifications[i]["newText"] !== "undefined" && notificationPreviewShow === "true"))
 		{
-			var logTextToShow = "";
-			var tmpLogText = notifications[i]["newText"].split("\n");
-			var tmpLogTextLength = tmpLogText.length;
-			var max = notificationPreviewLineCount;
-			if(max > tmpLogTextLength)
-			{
-				max = tmpLogTextLength;
-			}
-			for(var tltc = 0; tltc < max; tltc++)
-			{
-				logTextToShow += "\n"+tmpLogText[tltc];
-			}
-			item = item.replace(/{{previewText}}/g, "<div style=\"max-height: "+notificationPreviewHeight+"px;\" class=\"notificationPreviewLog\" ><table width=\"100%\" style=\"border-spacing: 0;\" >" + makePrettyWithText(logTextToShow, 0) + "</table></div>");
+			hidePreview = "style=\"display:none\"";
 		}
-		else
-		{
-			item = item.replace(/{{previewText}}/g, "");
-		}
+		item = item.replace(/{{hidePreview}}/g, hidePreview);
 		if("image" in notifications[i])
 		{
 			item = item.replace(/{{image}}/g, notifications[i]["image"]);
@@ -112,9 +98,46 @@ function displayNotifications()
 	{
 		htmlForNotifications += readNotifications;
 	}
-	htmlForNotifications += "</span>";
+	htmlForNotifications += "</span><span id=\"notificationHolderRight\"></span>";
 	$("#notificationHolder").append(htmlForNotifications);
 	$("#notificationHolder").append($("#storage .notificationButtons").html());
+}
+
+function previewNotification(logId)
+{
+	var logTextToShow = "";
+	var tmpLogText = notifications[logId]["newText"].split("\n");
+	var tmpLogTextLength = tmpLogText.length;
+	var max = notificationPreviewLineCount;
+	if(max > tmpLogTextLength)
+	{
+		max = tmpLogTextLength;
+	}
+	for(var tltc = 0; tltc < max; tltc++)
+	{
+		logTextToShow += "\n"+tmpLogText[tltc];
+	}
+	let modifier = "";
+	if(window.innerWidth < breakPointTwo)
+	{
+		modifier = "style=\"max-height: "+notificationPreviewHeight+"px;\"";
+	}
+	document.getElementById("notificationHolderRight").innerHTML = "<div "+modifier+" class=\"notificationPreviewLog\" ><table width=\"100%\" style=\"border-spacing: 0;\" >" + makePrettyWithText(logTextToShow, 0) + "</table></div>";
+
+	if(window.innerWidth >= breakPointTwo)
+	{
+		//style as two column
+		document.getElementById("notificationHolderLeft").style.width = "450px";
+		document.getElementById("notificationHolderLeft").style.display = "inline-block";
+
+		document.getElementById("notificationHolderRight").style.display = "inline-block";
+		let prevWidth = parseInt(document.getElementById("notificationHolder").style.width.replace(/\D/g,'')) - 450;
+		document.getElementById("notificationHolderRight").style.width = ""+prevWidth+"px";
+	}
+	else
+	{
+		//style as one column
+	}
 }
 
 function removeAllNotifications()
