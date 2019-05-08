@@ -1,0 +1,368 @@
+#menu, .menu {
+  background: #111;
+}
+#menu a, .menu a {
+  background: #379b02;
+  color: white;
+}
+#menu a.updated, .menu a.updated {
+  background: #c21a00;
+  color: black;
+}
+#menu a.updated:hover, .menu a.updated:hover {
+  background: #efbcb3;
+}
+#menu a:hover, .menu a:hover {
+  color: black;
+  background: white;
+}
+#menu a.active, .menu a.active {
+  color: black;
+  background: white;
+}
+
+#menu2 {
+  background: #444;
+  border-bottom: 1px solid white;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+}
+#menu2 a {
+  background: #379b02;
+  color: white;
+}
+#menu2 a:hover {
+  color: black;
+  background: white;
+}
+#menu2 a.active {
+  color: black;
+  background: white;
+}
+
+.link:hover, .linkSmall:hover {
+  color: black;
+  background: white;
+}
+
+.notificationTriangle {
+  border-bottom: 12px solid white;
+}
+
+.dropdownHolder {
+  color: black;
+  background: white;
+  border: 1px solid black;
+  border-bottom: 3px solid black;
+}
+.dropdownHolder td {
+  color: black;
+}
+.dropdownHolder th {
+  color: black;
+}
+
+.linkSmallHover {
+  color: black;
+  background: white;
+  border: 1px solid black;
+}
+
+#log {
+  color: white;
+}
+
+#titleContainer {
+  color: black;
+  background: #CCC;
+}
+
+.backgroundForSideBarMenu {
+  background: #CCC;
+}
+
+.popupForInfo {
+  background: #CCC;
+  border: 1px solid white;
+  color: black;
+}
+
+.currentWindowNum {
+  color: white;
+}
+
+.backgroundForMenus {
+  background: #111;
+}
+
+.sidebarCurrentWindowNum {
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  background: white;
+  color: black;
+}
+
+.currentWindowNumSelected {
+  color: white;
+  background: black;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+.settingsDiv {
+  background: #444;
+  border: 1px solid white;
+}
+
+/*has to be here to override*/
+.settingsDivRemoveTop {
+  border-top: 0;
+}
+
+#log {
+  padding: 1em 0;
+}
+#log div {
+  padding: 0.25em 1em;
+}
+
+.settingsDiv {
+  margin: 10px;
+  margin-top: 0;
+}
+
+.settingsDivRemoveBottom {
+  border-bottom: 0;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
+/*end has to be here to override*/
+.settingsHeader {
+  background: #111;
+  color: white;
+}
+.settingsHeader .linkSmall:hover {
+  border: 1px solid black;
+}
+.settingsHeader button {
+  background: #379b02;
+  border: solid 1px white;
+  color: white;
+}
+.settingsHeader button:hover {
+  border: 1px solid black;
+  color: black;
+  background: white;
+}
+
+.settingsDiv p a {
+  color: white;
+}
+
+.link {
+  background: #379b02;
+  border: solid 1px white;
+  color: white;
+}
+
+.linkSmall {
+  background: #379b02;
+  border: solid 1px white;
+  color: white;
+}
+
+.selected, .selectDropdown:hover {
+  background: white;
+  color: black;
+}
+
+.context-menu {
+  background: #379b02;
+  border: 1px solid white;
+  box-shadow: 0 0 5px black;
+}
+
+.context-menu__item:hover {
+  background: white;
+}
+.context-menu__item:hover a {
+  color: black;
+}
+.context-menu__item a {
+  color: white;
+}
+
+.dropdown-content {
+  background: #379b02;
+  border: 1px solid white;
+  box-shadow: 0 0 5px black;
+}
+.dropdown-content a {
+  color: white;
+}
+.dropdown-content a:hover {
+  color: black;
+}
+
+.dropdown-content__item:hover {
+  background: white;
+}
+
+.loadingSpinner {
+  background: #444;
+  border: 1px solid white;
+}
+
+.selectDiv {
+  background: #379b02;
+  border: 1px solid white;
+}
+.selectDiv select {
+  color: white;
+}
+.selectDiv option {
+  color: black;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #111;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #CCC;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: white;
+}
+
+.fullScreenMenuUL {
+  background: black;
+  border-right: 1px solid white;
+}
+.fullScreenMenuUL li {
+  background: black;
+  color: white;
+}
+
+.fullScreenMenuLeftSidebar {
+  background: black;
+  border-right: 1px solid white;
+}
+.fullScreenMenuLeftSidebar div {
+  background: black;
+  color: white;
+}
+.fullScreenMenuLeftSidebar td {
+  background: black;
+  color: white;
+}
+.fullScreenMenuLeftSidebar a {
+  color: white;
+}
+.fullScreenMenuLeftSidebar a:visited {
+  color: white;
+}
+
+.settingsUlSub {
+  background: black;
+  border-right: 1px solid white;
+}
+
+.notificationPreviewLog {
+  border: 1px solid white;
+}
+
+.noNotificationsNotification {
+  background-color: #444;
+  color: white;
+}
+
+.log table:not(.oneLogTable):not(.logCode) tr:not(.highlight):not(.newLine) td:not(.highlight):not(.newLine) div.settingsDiv {
+  color: white;
+}
+
+#menu2 {
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+#menu a, #menu2 a {
+  background: -moz-linear-gradient(top, #377302 0%, #3e7708 50%, #336402 51%, #336105 71%, #38610a 100%);
+  background: -webkit-gradient(left top, left bottom, color-stop(0%, #377302), color-stop(50%, #3e7708), color-stop(51%, #336402), color-stop(71%, #336105), color-stop(100%, #38610a));
+  background: -webkit-linear-gradient(top, #377302 0%, #3e7708 50%, #336402 51%, #336105 71%, #38610a 100%);
+  background: -o-linear-gradient(top, #377302 0%, #3e7708 50%, #336402 51%, #336105 71%, #38610a 100%);
+  background: -ms-linear-gradient(top, #377302 0%, #3e7708 50%, #336402 51%, #336105 71%, #38610a 100%);
+  background: linear-gradient(to bottom, #377302 0%, #3e7708 50%, #336402 51%, #336105 71%, #38610a 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr="#377302", endColorstr="#38610a", GradientType=0 );
+}
+
+#menu a:hover, #menu a.active, #menu2 a:hover, #menu2 a.active, .link:hover, .linkSmall:hover, .settingsHeader button:hover {
+  background: -moz-linear-gradient(top, white 0%, #dbdbdb 50%, #a3a3a3 51%, white 100%);
+  background: -webkit-gradient(left top, left bottom, color-stop(0%, white), color-stop(50%, #dbdbdb), color-stop(51%, #a3a3a3), color-stop(100%, white));
+  background: -webkit-linear-gradient(top, white 0%, #dbdbdb 50%, #a3a3a3 51%, white 100%);
+  background: -o-linear-gradient(top, white 0%, #dbdbdb 50%, #a3a3a3 51%, white 100%);
+  background: -ms-linear-gradient(top, white 0%, #dbdbdb 50%, #a3a3a3 51%, white 100%);
+}
+
+#menu a.updated {
+  background: -moz-linear-gradient(top, #c21a00 0%, #db1a00 50%, #ad1100 51%, #ad1100 71%, #b30c00 100%);
+  background: -webkit-gradient(left top, left bottom, color-stop(0%, #c21a00), color-stop(50%, #db1a00), color-stop(51%, #ad1100), color-stop(71%, #ad1100), color-stop(100%, #b30c00));
+  background: -webkit-linear-gradient(top, #c21a00 0%, #db1a00 50%, #ad1100 51%, #ad1100 71%, #b30c00 100%);
+  background: -o-linear-gradient(top, #c21a00 0%, #db1a00 50%, #ad1100 51%, #ad1100 71%, #b30c00 100%);
+  background: -ms-linear-gradient(top, #c21a00 0%, #db1a00 50%, #ad1100 51%, #ad1100 71%, #b30c00 100%);
+  background: linear-gradient(to bottom, #c21a00 0%, #db1a00 50%, #ad1100 51%, #ad1100 71%, #b30c00 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr="#c21a00", endColorstr="#b30c00", GradientType=0 );
+}
+
+#menu a.updated:hover {
+  background: -moz-linear-gradient(top, #efbcb3 0%, #f7e2de 50%, #e79388 51%, #e69d94 71%, #e4a19b 100%);
+  background: -webkit-gradient(left top, left bottom, color-stop(0%, #efbcb3), color-stop(50%, #f7e2de), color-stop(51%, #e79388), color-stop(71%, #e69d94), color-stop(100%, #e4a19b));
+  background: -webkit-linear-gradient(top, #efbcb3 0%, #f7e2de 50%, #e79388 51%, #e69d94 71%, #e4a19b 100%);
+  background: -o-linear-gradient(top, #efbcb3 0%, #f7e2de 50%, #e79388 51%, #e69d94 71%, #e4a19b 100%);
+  background: -ms-linear-gradient(top, #efbcb3 0%, #f7e2de 50%, #e79388 51%, #e69d94 71%, #e4a19b 100%);
+  background: linear-gradient(to bottom, #efbcb3 0%, #f7e2de 50%, #e79388 51%, #e69d94 71%, #e4a19b 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr="#efbcb3", endColorstr="#e4a19b", GradientType=0 );
+}
+
+.link {
+  background: -moz-linear-gradient(top, #377302 0%, #3e7708 50%, #336402 51%, #336105 71%, #38610a 100%);
+  background: -webkit-gradient(left top, left bottom, color-stop(0%, #377302), color-stop(50%, #3e7708), color-stop(51%, #336402), color-stop(71%, #336105), color-stop(100%, #38610a));
+  background: -webkit-linear-gradient(top, #377302 0%, #3e7708 50%, #336402 51%, #336105 71%, #38610a 100%);
+  background: -o-linear-gradient(top, #377302 0%, #3e7708 50%, #336402 51%, #336105 71%, #38610a 100%);
+  background: -ms-linear-gradient(top, #377302 0%, #3e7708 50%, #336402 51%, #336105 71%, #38610a 100%);
+  background: linear-gradient(to bottom, #377302 0%, #3e7708 50%, #336402 51%, #336105 71%, #38610a 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr="#377302", endColorstr="#38610a", GradientType=0 );
+}
+
+.linkSmall, .linkSmall, .settingsHeader button {
+  background: -moz-linear-gradient(top, #377302 0%, #3e7708 50%, #336402 51%, #336105 71%, #38610a 100%);
+  background: -webkit-gradient(left top, left bottom, color-stop(0%, #377302), color-stop(50%, #3e7708), color-stop(51%, #336402), color-stop(71%, #336105), color-stop(100%, #38610a));
+  background: -webkit-linear-gradient(top, #377302 0%, #3e7708 50%, #336402 51%, #336105 71%, #38610a 100%);
+  background: -o-linear-gradient(top, #377302 0%, #3e7708 50%, #336402 51%, #336105 71%, #38610a 100%);
+  background: -ms-linear-gradient(top, #377302 0%, #3e7708 50%, #336402 51%, #336105 71%, #38610a 100%);
+  background: linear-gradient(to bottom, #377302 0%, #3e7708 50%, #336402 51%, #336105 71%, #38610a 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr="#377302", endColorstr="#38610a", GradientType=0 );
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: -moz-linear-gradient(top, #c8c8c8 0%, #a4a4a4 50%, #6c6c6c 51%, #c8c8c8 100%);
+  background: -webkit-gradient(left top, left bottom, color-stop(0%, #c8c8c8), color-stop(50%, #a4a4a4), color-stop(51%, #6c6c6c), color-stop(100%, #c8c8c8));
+  background: -webkit-linear-gradient(top, #c8c8c8 0%, #a4a4a4 50%, #6c6c6c 51%, #c8c8c8 100%);
+  background: -o-linear-gradient(top, #c8c8c8 0%, #a4a4a4 50%, #6c6c6c 51%, #c8c8c8 100%);
+  background: -ms-linear-gradient(top, #c8c8c8 0%, #a4a4a4 50%, #6c6c6c 51%, #c8c8c8 100%);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: -moz-linear-gradient(top, white 0%, #dbdbdb 50%, #a3a3a3 51%, white 100%);
+  background: -webkit-gradient(left top, left bottom, color-stop(0%, white), color-stop(50%, #dbdbdb), color-stop(51%, #a3a3a3), color-stop(100%, white));
+  background: -webkit-linear-gradient(top, white 0%, #dbdbdb 50%, #a3a3a3 51%, white 100%);
+  background: -o-linear-gradient(top, white 0%, #dbdbdb 50%, #a3a3a3 51%, white 100%);
+  background: -ms-linear-gradient(top, white 0%, #dbdbdb 50%, #a3a3a3 51%, white 100%);
+}
+
+/*# sourceMappingURL=theme.css.map */

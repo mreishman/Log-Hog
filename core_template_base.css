@@ -1,0 +1,962 @@
+body {
+  color: white;
+  background-color: #191919;
+  font-family: monospace;
+  padding: 0;
+  margin: 0;
+  height: 100%;
+}
+
+div {
+  box-sizing: border-box;
+}
+
+a {
+  cursor: pointer;
+}
+
+#log {
+  display: none;
+  margin: 0px;
+  padding: 0px;
+  border-spacing: 0px;
+  width: 100%;
+}
+
+#settingsSideBar {
+  display: none;
+  position: absolute;
+  width: 200px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border: none;
+}
+
+#moreInfoSideBar {
+  position: absolute;
+  width: 200px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border: none;
+  right: 0;
+  bottom: 0;
+  word-break: break-word;
+}
+
+#groupsInHeader {
+  display: inline-block;
+  overflow-y: auto;
+  margin-bottom: -8px;
+  height: 23px;
+}
+
+#searchFieldInput {
+  height: 30px;
+  width: 180px;
+  margin-right: 10px;
+}
+
+.iframeThemes {
+  width: 598px;
+  border: 0px;
+  height: 378px;
+}
+
+.iframeThemeOuter {
+  width: 600px;
+  height: 405px;
+  display: inline-block;
+  background-color: grey;
+  margin: 20px;
+}
+
+#menu, .menu {
+  position: absolute;
+  width: 100%;
+  z-index: 20;
+  padding: 0.5em 1em;
+  overflow-y: auto;
+}
+#menu .index, .menu .index {
+  padding: 0.5em 0 0.5em 1em;
+}
+#menu a, .menu a {
+  display: inline-block;
+  margin: 0.5em 0;
+  cursor: pointer;
+}
+#menu a .menuCounter, .menu a .menuCounter {
+  padding-right: 1em;
+  display: inline-block;
+}
+#menu a:not(.index), .menu a:not(.index) {
+  padding: 0.5em 1em;
+}
+
+#menu, .backgroundForMenus {
+  -webkit-transition: 0.25s ease-in-out;
+  -moz-transition: 0.25s ease-in-out;
+  -ms-transition: 0.25s ease-in-out;
+  -o-transition: 0.25s ease-in-out;
+}
+
+#menu2 {
+  position: absolute;
+  width: 100%;
+  z-index: 10;
+  padding: 0.25em 0.5em;
+  overflow-y: auto;
+  overflow-x: hidden;
+  top: 55px;
+}
+#menu2 a {
+  display: inline-block;
+  margin: 0.5em 0;
+  cursor: pointer;
+  padding: 0.5em 1em;
+}
+
+.dropdownMenu {
+  margin-top: 10px;
+  display: none;
+  position: absolute;
+  z-index: 30;
+  top: 30px;
+}
+
+#notificationIcon {
+  display: none;
+  z-index: 30;
+}
+
+#notificationBadge {
+  border-radius: 15%;
+  display: inline-block;
+  margin-left: 5px;
+  position: absolute;
+  top: 24px;
+  background-color: red;
+  cursor: pointer;
+  padding: 2px;
+  font-size: 80%;
+}
+
+.notificationTriangle {
+  width: 0;
+  height: 0;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  margin-left: 29px;
+}
+
+.innerContentDropdownMenu {
+  display: block;
+  width: 300px;
+  padding: 10px;
+  padding-bottom: 0;
+}
+
+.notificationText {
+  padding-left: 5px;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
+#storage {
+  display: none;
+}
+
+.noticeBar {
+  width: 100%;
+  background-color: black;
+  text-align: center;
+  line-height: 200%;
+}
+
+.menuImage {
+  vertical-align: middle;
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+  -webkit-transform: scale(1);
+  transform: scale(1);
+}
+.menuImage:hover {
+  -webkit-transform: scale(1.3);
+  transform: scale(1.3);
+}
+
+.menuImageDiv {
+  display: inline-block;
+  cursor: pointer;
+  height: 30px;
+  width: 30px;
+}
+
+#main {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  overflow: auto;
+}
+
+.link {
+  display: inline-block;
+  padding: 0.5em 1em;
+  cursor: pointer;
+}
+
+.linkSmall {
+  display: inline-block;
+  padding: 3px 5px;
+  margin: 1px;
+  cursor: pointer;
+  line-height: 100%;
+}
+
+.linkSmallHover {
+  display: inline-block;
+  padding: 3px 5px;
+  margin: 1px;
+  cursor: default;
+  line-height: 100%;
+}
+
+.settingsHeader {
+  margin: 10px;
+  margin-bottom: 0;
+  padding: 5px;
+}
+.settingsHeader button {
+  display: inline-block;
+  padding: 3px 5px;
+  margin: 1px;
+  cursor: pointer;
+  line-height: 100%;
+}
+
+.settingsHeaderButtons {
+  float: right;
+  margin-top: -4px;
+}
+
+.log div, .log tr, .log tr td {
+  -webkit-transition: 1s ease-in-out;
+  -moz-transition: 1s ease-in-out;
+  -ms-transition: 1s ease-in-out;
+  -o-transition: 1s ease-in-out;
+}
+
+#title {
+  display: inline-block;
+}
+
+#titleContainer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 0 1em;
+  line-height: 2em;
+}
+
+.popupForInfo {
+  z-index: 10;
+  position: absolute;
+  width: fit-content;
+  padding: 5px;
+  word-break: break-all;
+}
+
+.led-red {
+  margin: 0 auto;
+  width: 24px;
+  height: 24px;
+  background-color: #F00;
+  border-radius: 50%;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px, rgba(255, 0, 0, 0.5) 0 2px 12px;
+  -webkit-animation: blinkRed 0.5s infinite;
+  -moz-animation: blinkRed 0.5s infinite;
+  -ms-animation: blinkRed 0.5s infinite;
+  -o-animation: blinkRed 0.5s infinite;
+  animation: blinkRed 0.5s infinite;
+  scale: 0.5 0.5;
+  display: inline-block;
+}
+
+@-webkit-keyframes blinkRed {
+  from {
+    background-color: #F00;
+  }
+  50% {
+    background-color: #A00;
+    box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px, rgba(255, 0, 0, 0.5) 0 2px 0;
+  }
+  to {
+    background-color: #F00;
+  }
+}
+@-moz-keyframes blinkRed {
+  from {
+    background-color: #F00;
+  }
+  50% {
+    background-color: #A00;
+    box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px, rgba(255, 0, 0, 0.5) 0 2px 0;
+  }
+  to {
+    background-color: #F00;
+  }
+}
+@-o-keyframes blinkRed {
+  from {
+    background-color: #F00;
+  }
+  50% {
+    background-color: #A00;
+    box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px, rgba(255, 0, 0, 0.5) 0 2px 0;
+  }
+  to {
+    background-color: #F00;
+  }
+}
+@keyframes blinkRed {
+  from {
+    background-color: #F00;
+  }
+  50% {
+    background-color: #A00;
+    box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px, rgba(255, 0, 0, 0.5) 0 2px 0;
+  }
+  to {
+    background-color: #F00;
+  }
+}
+.led-yellow {
+  margin: 0 auto;
+  width: 24px;
+  height: 24px;
+  background-color: #FF0;
+  border-radius: 50%;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #808002 0 -1px 9px, #FF0 0 2px 12px;
+  -webkit-animation: blinkYellow 1s infinite;
+  -moz-animation: blinkYellow 1s infinite;
+  -ms-animation: blinkYellow 1s infinite;
+  -o-animation: blinkYellow 1s infinite;
+  animation: blinkYellow 1s infinite;
+  scale: 0.5 0.5;
+  display: inline-block;
+}
+
+@-webkit-keyframes blinkYellow {
+  from {
+    background-color: #FF0;
+  }
+  50% {
+    background-color: #AA0;
+    box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #808002 0 -1px 9px, #FF0 0 2px 0;
+  }
+  to {
+    background-color: #FF0;
+  }
+}
+@-moz-keyframes blinkYellow {
+  from {
+    background-color: #FF0;
+  }
+  50% {
+    background-color: #AA0;
+    box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #808002 0 -1px 9px, #FF0 0 2px 0;
+  }
+  to {
+    background-color: #FF0;
+  }
+}
+@-o-keyframes blinkYellow {
+  from {
+    background-color: #FF0;
+  }
+  50% {
+    background-color: #AA0;
+    box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #808002 0 -1px 9px, #FF0 0 2px 0;
+  }
+  to {
+    background-color: #FF0;
+  }
+}
+@keyframes blinkYellow {
+  from {
+    background-color: #FF0;
+  }
+  50% {
+    background-color: #AA0;
+    box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #808002 0 -1px 9px, #FF0 0 2px 0;
+  }
+  to {
+    background-color: #FF0;
+  }
+}
+.led-green {
+  margin: 0 auto;
+  width: 24px;
+  height: 24px;
+  background-color: #ABFF00;
+  border-radius: 50%;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #304701 0 -1px 9px, #89FF00 0 2px 12px;
+  scale: 0.5 0.5;
+  display: inline-block;
+}
+
+.led-blue {
+  margin: 0 auto;
+  width: 24px;
+  height: 24px;
+  background-color: #24E0FF;
+  border-radius: 50%;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #006 0 -1px 9px, #3F8CFF 0 2px 14px;
+  scale: 0.5 0.5;
+  display: inline-block;
+}
+
+.visible {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 1s linear;
+}
+
+.hidden {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s 1s, opacity 1s linear;
+}
+
+#menuButtons {
+  display: block;
+  padding: 5px 5px 10px 5px;
+}
+
+div#fixed {
+  padding-bottom: 10px;
+}
+
+div#scrollable {
+  overflow-y: scroll;
+  height: 80%;
+}
+
+div.sidebarLeft {
+  padding: 0;
+  padding-bottom: 60px;
+  border: 4px solid #222222;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+}
+
+.colorSelectorDiv {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+}
+
+.inner-triangle {
+  border-left: 7px solid transparent;
+  border-bottom: 7px solid white;
+  height: 0;
+  width: 0;
+  position: relative;
+  right: 0;
+  z-index: 2;
+  top: 22px;
+  left: 11px;
+}
+
+.inner-triangle-2 {
+  border-left: 5px solid transparent;
+  border-bottom: 5px solid black;
+  height: 0;
+  width: 0;
+  position: relative;
+  right: 0;
+  z-index: 5;
+  top: 30px;
+  left: 13px;
+}
+
+.errorMessageLog {
+  font-size: 200%;
+  text-align: center;
+  line-height: 200%;
+}
+
+.errorMessageRedBG {
+  background-color: red;
+  color: black;
+}
+
+.errorMessageGreenBG {
+  background-color: green;
+  color: black;
+}
+
+.settingsUl {
+  list-style: none;
+}
+.settingsUl li {
+  padding: 10px;
+}
+
+.deleteIconPosition {
+  position: relative;
+  cursor: pointer;
+}
+
+.backgroundForSideBarMenu {
+  overflow-y: auto;
+}
+.backgroundForSideBarMenu::-webkit-scrollbar {
+  width: 1px;
+}
+
+#fullScreenMenu {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 25;
+  background: rgba(0, 0, 0, 0.7);
+}
+#fullScreenMenu .selected:not(.noInvert) {
+  filter: invert(100%);
+}
+
+.fullScreenMenuUL li.subMenuTitle {
+  background-color: #999;
+  color: black;
+}
+.fullScreenMenuUL li:not(.menuTitle) {
+  cursor: pointer;
+}
+.fullScreenMenuUL li:not(.menuTitle):hover {
+  filter: invert(100%);
+}
+
+.settingsUlFS {
+  width: 200px;
+  position: absolute;
+  bottom: 0;
+  top: 46px;
+  left: 0;
+  -webkit-padding-start: 0;
+  -webkit-margin-before: 0;
+  -webkit-margin-after: 0;
+  -moz-padding-start: 0;
+  -moz-margin-before: 0;
+  -moz-margin-after: 0;
+  overflow: auto;
+  margin: 0;
+}
+
+.settingsUlSub {
+  width: 200px;
+  position: absolute;
+  bottom: 0;
+  top: 46px;
+  left: 201;
+  -webkit-padding-start: 0;
+  -webkit-margin-before: 0;
+  -webkit-margin-after: 0;
+  -moz-padding-start: 0;
+  -moz-margin-before: 0;
+  -moz-margin-after: 0;
+  overflow-y: auto;
+  margin: 0;
+}
+
+#mainContentFullScreenMenu {
+  position: absolute;
+  bottom: 0;
+  top: 46px;
+  left: 402px;
+  right: 0;
+  overflow: auto;
+}
+
+.SaveGroupLog .settingsDiv {
+  filter: invert(35%);
+  opacity: 0.5;
+}
+
+.backgroundButtonForColor {
+  width: 19px;
+  height: 20px;
+  margin: 0px;
+  position: relative;
+  right: 0px;
+  top: 4px;
+  border: 1px solid white;
+  cursor: pointer;
+}
+
+.divAroundColors {
+  display: inline-grid;
+  padding: 0 4px;
+}
+.divAroundColors .backgroundButtonForColor {
+  top: -11px;
+}
+.divAroundColors .inner-triangle {
+  top: 7px;
+}
+.divAroundColors .inner-triangle-2 {
+  top: 14px;
+}
+
+.smallBlur {
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+}
+
+.bigBlur {
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.noNotificationsNotification {
+  padding: 20px;
+  display: inline-block;
+  border-radius: 5px;
+  font-size: 200%;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+}
+
+.notificationDiv {
+  padding: 10px 3px;
+}
+
+.inlineNotificationDiv {
+  padding: 5px 3px;
+}
+
+.notificationContainerInlineButtons {
+  margin-top: 5px;
+}
+
+.menuTitle {
+  text-align: center;
+}
+
+.fullScreenMenuLeftSidebar .menuTitle {
+  font-size: 150%;
+}
+
+.notificationPreviewLog {
+  overflow-y: auto;
+  white-space: pre-wrap;
+  width: 100%;
+  word-break: break-word;
+}
+.notificationPreviewLog .logCode {
+  display: none;
+}
+
+#inlineNotifications {
+  display: none;
+  position: absolute;
+  width: 500px;
+  padding: 4px;
+  z-index: 100;
+}
+
+.inlineNotificationsClass {
+  border: 1px solid white;
+  border-radius: 5px;
+  background-color: black;
+  color: white;
+}
+
+.currentWindowNumSelected {
+  cursor: default;
+  text-align: center;
+}
+
+.sidebarCurrentWindowNum {
+  cursor: pointer;
+  text-align: center;
+}
+
+.menu a {
+  word-break: break-all;
+  width: 150px;
+}
+
+.selectForGroupHeader {
+  height: 16px;
+  overflow: hidden;
+}
+
+.selectForGroupHeader option {
+  display: inline-block;
+}
+
+.updatingDiv p {
+  margin: 2px;
+  padding-left: 10px;
+  word-wrap: break-word;
+}
+
+.settingsBuffer {
+  width: 200px;
+  display: inline-block;
+}
+
+.context-menu {
+  display: none;
+  position: absolute;
+  z-index: 30;
+}
+
+.context-menu__items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  margin-top: 0;
+}
+
+.context-menu--active {
+  display: block;
+}
+
+.context-menu__item {
+  padding: 5px 3px;
+  cursor: pointer;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  overflow: auto;
+  z-index: 30;
+  margin-left: 12px;
+  margin-top: -70px;
+}
+.dropdown-content a {
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content__items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.dropdown-content--active {
+  display: block;
+}
+
+.dropdown-content__item {
+  padding: 5px 3px;
+  cursor: pointer;
+}
+
+.loadingSpinner {
+  padding: 75px;
+}
+
+.selectDiv {
+  display: inline-block;
+  padding: 2px;
+  padding-right: 7px;
+}
+.selectDiv select {
+  background: transparent;
+  cursor: pointer;
+  border: none;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+#iframeFullScreen {
+  border: 0;
+}
+
+.notificationDiv span:not(.linkSmall), inlineNotificationDiv span:not(.linkSmall) {
+  width: 100%;
+}
+.notificationDiv span:not(.linkSmall) table, inlineNotificationDiv span:not(.linkSmall) table {
+  width: 100%;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.notificationDiv span:not(.linkSmall) table .actionView, inlineNotificationDiv span:not(.linkSmall) table .actionView {
+  width: 30px;
+}
+.notificationDiv span:not(.linkSmall) table .actionTime, inlineNotificationDiv span:not(.linkSmall) table .actionTime {
+  border-right: 1px solid black;
+  width: 75px;
+  cursor: default;
+}
+.notificationDiv span:not(.linkSmall) table .actionLink, inlineNotificationDiv span:not(.linkSmall) table .actionLink {
+  width: 50px;
+}
+.notificationDiv span:not(.linkSmall) table .actionLink2, inlineNotificationDiv span:not(.linkSmall) table .actionLink2 {
+  width: 75px;
+}
+.notificationDiv span:not(.linkSmall) table .actionNone, inlineNotificationDiv span:not(.linkSmall) table .actionNone {
+  cursor: default;
+}
+
+.buttonTable {
+  width: 100%;
+  padding-bottom: 3px;
+  padding-top: 3px;
+}
+
+.progressBarMainInfo {
+  margin-right: auto;
+  margin-left: auto;
+  width: 100%;
+  text-align: center;
+  margin-top: 100px;
+  font-size: 150%;
+}
+
+.divForProgressBar {
+  width: 80%;
+  height: 100px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: -15px;
+  margin-bottom: -15px;
+}
+
+.progressBar {
+  width: 100% !important;
+  height: 100% !important;
+  margin: auto;
+}
+
+.progressBarSubInfo {
+  margin-right: auto;
+  margin-left: auto;
+  width: 100%;
+  text-align: center;
+  margin-top: 10px;
+  font-size: 150%;
+}
+
+.uniqueClassForAppendSettingsMainWatchNew {
+  -webkit-padding-start: 0;
+}
+
+#firstLoad {
+  width: 100%;
+  height: 100%;
+}
+
+#fileFolderDropdown {
+  width: 600px;
+  z-index: 120;
+  position: fixed;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+#connectionNotice {
+  color: yellow;
+}
+
+#connectionWarning {
+  color: red;
+}
+
+#initialLoadContentEvenEvenMoreInfo {
+  color: red;
+  display: none;
+}
+
+#initialLoadContent {
+  background-color: #222;
+  color: #EEE;
+  -webkit-transition: 1s ease-in-out;
+  -moz-transition: 1s ease-in-out;
+  -ms-transition: 1s ease-in-out;
+  -o-transition: 1s ease-in-out;
+  position: absolute;
+  z-index: 1000;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+#popup {
+  z-index: 10;
+  position: fixed;
+}
+
+#popupBG {
+  position: fixed;
+  z-index: 100;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+#popupContent {
+  width: 400px;
+  height: 150px;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  margin-top: -75px;
+  margin-left: -200px;
+  z-index: 120;
+}
+
+#popupSelectContainer {
+  position: fixed;
+  width: 200px;
+  z-index: 99;
+}
+
+#innerDisplayUpdate {
+  height: 350px;
+  overflow: auto;
+  max-height: 300px;
+}
+
+#fixedPositionMiniMenu {
+  position: fixed;
+  width: 100%;
+  z-index: 10;
+  top: 0;
+  margin: 0;
+  top: 46px;
+}
+
+#notificationHolder {
+  display: inline-block;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.padding55105 {
+  padding: 5px 5px 10px 5px;
+}
+
+.inputWidth {
+  width: 400px;
+}
+
+/*# sourceMappingURL=base.css.map */

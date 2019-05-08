@@ -1,0 +1,183 @@
+<div class="menuItem">
+	<a title="{{title}}" id="{{id}}" class="{{id}}Button {{class}} index" onclick="show(this, '{{id}}')">
+		<span class="currentWindowNum" id="{{id}}CurrentWindow"></span>
+		{{title}}
+		<span id="{{id}}Count" class="menuCounter"></span>
+		<span id="{{id}}CountHidden" class="menuCounterHidden" style="display: none;"></span>
+	</a>
+</div>
+<div class="notificationContainer">
+	<div id="{{id}}" class="notificationDiv" >
+		<span>
+			<table>
+				<tr>
+					<td class="actionView" rowspan="2">{{viewIndicator}}</td>
+					<td class="actionTime" rowspan="2"> {{time}} </td>
+					<td class="actionLink" rowspan="2"> <span class="linkSmall" onclick="removeNotification('{{idNum}}'); {{action}}" >View</span> </td>
+					<td class="actionLink2" rowspan="2"> <span class="linkSmall" onclick="removeNotification('{{idNum}}');" >Remove</span> </td>
+					<td class="notificationText"><b> {{name}} </b></td>
+				</tr>
+				<tr>
+					<td>{{previewText}}</td>
+				</tr>
+			</table>
+		</span>
+	</div>
+</div>
+<div class="notificationContainerWithImage">
+	<div id="{{id}}" class="notificationDiv">
+		<span>
+			<table>
+				<tr>
+					<td class="actionView" rowspan="2">{{viewIndicator}}</td>
+					<td class="actionTime" rowspan="2"> {{time}} </td>
+					<td class="actionLink" rowspan="2"> <span class="linkSmall" onclick="removeNotification('{{idNum}}'); {{action}}" >View</span> </td>
+					<td class="actionLink2" rowspan="2"> <span class="linkSmall" onclick="removeNotification('{{idNum}}');" >Remove</span> </td>
+					<td class="notificationText"><b> {{name}} </b></td>
+				</tr>
+				<tr>
+					<td>{{previewText}}</td>
+				</tr>
+			</table>
+		</span>
+	</div>
+</div>
+<div class="notificationContainerSmall">
+	<div id="{{id}}" class="notificationDiv" >
+		<span>
+			<table>
+				<tr>
+					<td class="actionView">{{viewIndicator}}</td>
+					<td class="actionTime"> {{time}} </td>
+					<td class="actionLink"> <span class="linkSmall" onclick="removeNotification('{{idNum}}'); {{action}}" >View</span> </td>
+					<td class="actionLink2"> <span class="linkSmall" onclick="removeNotification('{{idNum}}');" >Remove</span> </td>
+					<td class="notificationText"><b> {{name}} </b></td>
+				</tr>
+				<tr>
+					<td colspan="5" >{{previewText}}</td>
+				</tr>
+			</table>
+		</span>
+	</div>
+</div>
+<div class="notificationContainerSmallWithImage">
+	<div id="{{id}}" class="notificationDiv">
+		<span>
+			<table>
+				<tr>
+					<td class="actionView">{{viewIndicator}}</td>
+					<td class="actionTime"> {{time}} </td>
+					<td class="actionLink"> <span class="linkSmall" onclick="removeNotification('{{idNum}}'); {{action}}" >View</span> </td>
+					<td class="actionLink2"> <span class="linkSmall" onclick="removeNotification('{{idNum}}');" >Remove</span> </td>
+					<td class="notificationText"><b> {{name}} </b></td>
+				</tr>
+				<tr>
+					<td colspan="5" >{{previewText}}</td>
+				</tr>
+			</table>
+		</span>
+	</div>
+</div>
+<div class="notificationContainerInline">
+	<div class="inlineNotificationDiv" >
+		<span>
+			<table>
+				<tr>
+					<td class="actionTime"> {{time}} </td>
+					<td class="notificationText actionNone"><b> {{name}} </b></td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<span style="display: none;" class="notificationContainerInlineButtons">
+							<table>
+								<tr>
+									<th>
+										<span class="linkSmall" onclick="{{action}} inlineNotificationPollLogic(true);" >View</span>
+									</th>
+									<th>
+										<span  class="linkSmall" onclick="inlineNotificationPollLogic(true);" >Close</span>
+									</th>
+								</tr>
+							</table>
+						</span>
+					</td>
+				</tr>
+			</table>
+		</span>
+	</div>
+</div>
+<div class="notificationContainerInlineWithImage">
+	<div class="inlineNotificationDiv">
+		<span>
+			<table>
+				<tr>
+					<td class="actionTime"> {{time}} </td>
+					<td class="notificationText actionNone"><b> {{name}} </b></td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<span style="display: none;" class="notificationContainerInlineButtons">
+							<table>
+								<tr>
+									<th>
+										<span class="linkSmall" onclick="{{action}} inlineNotificationPollLogic();" >View</span>
+									</th>
+									<th>
+										<span  class="linkSmall" onclick="inlineNotificationPollLogic();" >Close</span>
+									</th>
+								</tr>
+							</table>
+						</span>
+					</td>
+				</tr>
+			</table>
+		</span>
+	</div>
+</div>
+<div class="notificationButtons">
+	<div class="menuTitle" >
+		<table class="buttonTable addBorderTop">
+			<tr>
+				<th>
+					<span class="linkSmall" onclick="removeAllNotifications(); toggleNotifications();">Clear</span>
+				</th>
+			</tr>
+		</table>
+	</div>
+</div>
+<div class="historyButtons">
+	<div>
+		<table class="buttonTable addBorderTop">
+			<tr>
+				<th>
+					<span class="linkSmall" onclick="toggleTmpSaveHistory();">Refresh</span>
+				</th>
+				<th>
+					<span class="linkSmall" onclick="clearAllArchiveLogs('tmp');">Delete All</span>
+				</th>
+			</tr>
+		</table>
+	</div>
+</div>
+<div class="archiveButtons">
+	<div>
+		<table class="buttonTable addBorderTop">
+			<tr>
+				<th>
+					<span class="linkSmall" onclick="toggleArchiveHistory();">Refresh</span>
+				</th>
+				<th>
+					<span class="linkSmall" onclick="clearAllArchiveLogs('archive');">Delete All</span>
+				</th>
+			</tr>
+		</table>
+	</div>
+</div>
+<div class="logListPopup">
+	<div style="max-height: {{maxHeight}}; overflow: auto;">
+		{{content}}
+	</div>
+	<div style="padding: 5px;" class="addBorderTop">
+		<table width="100%"><tr><th><span class="linkSmall" onclick="closeLogPopup();">Close</span></th></tr></table>
+	</div>
+</div>
