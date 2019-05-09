@@ -253,7 +253,7 @@ function resizeHeaderGroups()
 function addGroupToSelect(event, group)
 {
 	let groupCheck = [group];
-	if(event.ctrlKey && group !== "all")
+	if((event.ctrlKey || event.metaKey) && group !== "all")
 	{
 		let currentGroupsSelected = $("#selectForGroup").val();
 		let currentPos = currentGroupsSelected.indexOf(group);
