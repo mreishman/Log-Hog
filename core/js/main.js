@@ -1333,14 +1333,14 @@ function isPageHidden()
 	return document.hidden || document.msHidden || document.webkitHidden || document.mozHidden;
 }
 
-function getHeightOfCurrentLog()
+function getHeightOfCurrentLog(idNum)
 {
-	return document.getElementById("log0").getBoundingClientRect().height;
+	return document.getElementById("log"+idNum).getBoundingClientRect().height;
 }
 
 function scrollToBottom(idNum)
 {
-	document.getElementById("log"+idNum+"Td").scrollTop = getHeightOfCurrentLog();
+	document.getElementById("log"+idNum+"Td").scrollTop = getHeightOfCurrentLog(idNum);
 }
 
 function clearLogInner(title)
@@ -1862,7 +1862,14 @@ function unhideHidden(currentLogId)
 		$("#loadLineCountForWindow"+currentLogId).html((linesLength - i)+"<hr>"+linesLength);
 		currentLine.css("display","table-row");
 		lineUnHid = true;
-		document.getElementById("log"+currentLogId+"Td").scrollTop = currentScroll + currentLine.height();
+		if(logLoadForceScrollToBot === 'false')
+		{
+			document.getElementById("log"+currentLogId+"Td").scrollTop = currentScroll + currentLine.height();
+		}
+		else
+		{
+			document.getElementById("log"+currentLogId+"Td").scrollTop = document.getElementById("log"+currentLogId).getBoundingClientRect().height;
+		}
 		if(currentLine.position().top < 0)
 		{
 			break;

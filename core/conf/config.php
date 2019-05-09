@@ -298,6 +298,7 @@ $defaultConfig = array(
 	'logLineBorderColor'			=> '#FFFFFF',
 	'logLineBorderHeight'			=> 1,
 	'logLinePadding'				=> 4,
+	'logLoadForceScrollToBot'		=> 'false',
 	'logLoadPauseOnNotFocus'		=> 'false',
 	'logLoadPollBackgroundRate'		=> 100,
 	'logLoadPollBackgroundRateType'	=> 'Milliseconds',
