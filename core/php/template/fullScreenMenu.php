@@ -3,7 +3,7 @@
 	<?php require_once('fullScreenMenuSidebar.php'); ?>
 </ul>
 
-<ul id="aboutSubMenu" class="settingsUl fullScreenMenuUL settingsUlSub">
+<ul id="aboutSubMenu" class="settingsUl fullScreenMenuUL settingsUlSub" style="display: none;">
 	<li class="menuTitle">
 		About
 	</li>
@@ -157,7 +157,7 @@
 	<div id="fullScreenMenuWhatsNew" style="display: none;" >
 		<?php require_once('whatsNew.php'); ?>
 	</div>
-	<div id="fullScreenMenuAbout" >
+	<div id="fullScreenMenuAbout" style="display: none;">
 		<?php require_once('about.php'); ?>
 	</div>
 	<div id="fullScreenMenuHistory" style="display: none;">

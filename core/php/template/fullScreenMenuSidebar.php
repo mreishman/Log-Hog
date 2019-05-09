@@ -8,7 +8,7 @@
 <li class="menuTitle fullScreenMenuText subMenuTitle">
 	Main Menu
 </li>
-<li id="mainMenuAbout" class="selected" onclick="toggleAbout();" >
+<li id="mainMenuAbout" onclick="toggleAbout();" >
 	<div class="menuImageDiv">
 		<?php echo $core->generateImage(
 			$arrayOfImages["loadingImg"],
