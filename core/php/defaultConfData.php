@@ -1601,6 +1601,43 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
+			15									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"fullScreenMenuDefaultPage",
+					"name"								=>	"Full screen menu default page",
+					"options"							=>	array(
+						0 									=> array(
+							"value" 							=> "none",
+							"name" 								=> "None"),
+						1 									=> array(
+							"value" 							=> "about",
+							"name" 								=> "About"),
+						2 									=> array(
+							"value" 							=> "addons",
+							"name" 								=> "Addons"),
+						3 									=> array(
+							"value" 							=> "history",
+							"name" 								=> "History"),
+						4 									=> array(
+							"value" 							=> "notifications",
+							"name" 								=> "Notifications"),
+						5 									=> array(
+							"value" 							=> "settings",
+							"name" 								=> "Settings"),
+						6 									=> array(
+							"value" 							=> "themes",
+							"name" 								=> "Themes"),
+						7 									=> array(
+							"value" 							=> "update",
+							"name" 								=> "Update"),
+						8 									=> array(
+							"value" 							=> "watchlist",
+							"name" 								=> "Watchlist")
+					),
+					"type"								=>	"dropdown"
+				)
+			),
 		)
 	),
 	"modules"							=>	array(

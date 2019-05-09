@@ -33,6 +33,45 @@ function toggleFullScreenMenu(force = false)
 		{
 			updateNotificationStuff();
 		}
+		else if($("#mainFullScreenMenu li.selected").length === 0)
+		{
+			//first load of full screen menu, switch to defined initial page
+			if(fullScreenMenuDefaultPage !== "none")
+			{
+				if(fullScreenMenuDefaultPage === "about")
+				{
+					toggleAbout();
+				}
+				else if(fullScreenMenuDefaultPage === "addons")
+				{
+					toggleAddons();
+				}
+				else if(fullScreenMenuDefaultPage === "history")
+				{
+					toggleHistory();
+				}
+				else if(fullScreenMenuDefaultPage === "notifications")
+				{
+					toggleNotifications();
+				}
+				else if(fullScreenMenuDefaultPage === "settings")
+				{
+					toggleSettings();
+				}
+				else if(fullScreenMenuDefaultPage === "themes")
+				{
+					toggleThemes();
+				}
+				else if(fullScreenMenuDefaultPage === "update")
+				{
+					toggleUpdateMenu();
+				}
+				else if(fullScreenMenuDefaultPage === "watchlist")
+				{
+					toggleWatchListMenu();
+				}
+			}
+		}
 		var fullScreenMenuClickCountCurrent = fullScreenMenuClickCount;
 		setTimeout(function() {
 			togglePollSpeedDown(fullScreenMenuClickCountCurrent);

@@ -254,6 +254,7 @@ $defaultConfig = array(
 			),
 		),
 	'fontFamily'					=> 'monospace',
+	'fullScreenMenuDefaultPage'		=> 'none',
 	'fullScreenMenuPollSwitchDelay'	=> 0,
 	'fullScreenMenuPollSwitchType'	=> 'BGrate',
 	'groupByColorEnabled'			=> 'true',
