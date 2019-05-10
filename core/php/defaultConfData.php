@@ -1444,26 +1444,35 @@ $defaultConfigMoreData = array(
 					)
 				)
 			),
-			4									=> array(
-				"type"								=>	"linked",
+			4									=>	array(
+				"bool"								=>	($groupByColorEnabled == 'false'),
+				"id"								=>	"GroupByColorContentSettings",
+				"name"								=>	"Group By Color Settings",
+				"type"								=>	"grouped",
+				"var"								=>	array(
+					"function"							=>	"showOrHideGroupByColorContentSettings",
+					"id"								=>	"groupByColorEnabled",
+					"key"								=>	"groupByColorEnabled",
+					"name"								=>	"Group By Color",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				),
 				"vars"								=>	array(
 					0									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
 						"key"								=>	"groupByType",
-						"name"								=>	"Group by Color",
-						"options"							=>	array(
-							0 									=> array(
-								"value" 							=> "folder",
-								"name" 								=> "Folder"),
-							1 									=> array(
-								"value" 							=> "file",
-								"name" 								=> "File")
-						),
-						"type"								=>	"dropdown"
-					),
-					1								=>	array(
-						"key"								=>	"groupByColorEnabled",
-						"options"							=>	$trueFalsVars,
-						"type"								=>	"dropdown"
+							"name"								=>	"Group by Color",
+							"options"							=>	array(
+								0 									=> array(
+									"value" 							=> "folder",
+									"name" 								=> "Folder"),
+								1 									=> array(
+									"value" 							=> "file",
+									"name" 								=> "File")
+							),
+							"type"								=>	"dropdown"
+						)
 					)
 				)
 			),
