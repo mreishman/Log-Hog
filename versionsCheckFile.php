@@ -329,4 +329,16 @@ $versionCheckArray = array(
 	)
 );
 
+/*
+
+'7.3'			=> array(
+			'branchName'	=> '7.3Update',
+			'downloadSize'  => 687534,
+			'installSize'   => 9982370,
+			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/7.3.png',
+			'releaseNotes'	=> "<ul><li>Features<ul><li>Faster render times for logs with new format enabled</li></ul></li><li>Bug Fixes<ul><li>Fixed bug in setup where addons would not download correctly</li><li>Fixed bug with loading image on about page / whats new page</li><li>Added easier option to enable or disable date text format for logs</li><li>Fixed window position on update in progress screen</li><li>Fixed bug in update logic when trying to revert changes</li><li>Fixed bug on static update page with popup logic. Should work smoother.</li><li>Small style tweaks / changes</li></ul></li></ul>"
+		),
+
+*/
+
 ?>
