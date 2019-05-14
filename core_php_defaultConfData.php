@@ -1186,7 +1186,16 @@ $defaultConfigMoreData = array(
 								"type"								=>	"dropdown"
 							)
 						)
-					)
+					),
+					2									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"logLoadForceScrollToBot",
+							"name"								=>	"Force log update to scroll to bottom",
+							"options"							=>	$trueFalsVars,
+							"type"								=>	"dropdown"
+						)
+					),
 				)
 			),
 			4									=>	array(
