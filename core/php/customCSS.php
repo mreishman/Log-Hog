@@ -204,4 +204,8 @@ if(!($windowDisplayConfig[0] > 1 || $windowDisplayConfig[1] > 1)): ?>
 	color: <?php echo $currentSelectedThemeColorValues['main']['main-1']['fontColor']?>;
 }
 
+.errorMessageLog {
+	border: 1px solid <?php echo $currentSelectedThemeColorValues['main']['main-1']['fontColor']?>;
+}
+
 </style>
