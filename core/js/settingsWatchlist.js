@@ -306,7 +306,7 @@ function addFileFolderAjax(fileType, sentLocation)
 {
 	currentPatternSelect = defaultNewAddPattern;
 	hidePopup();
-	displayLoadingPopup("");
+	displayLoadingPopup("", "Getting Data");
 	var urlForSend = urlModifier+"core/php/getFileFolderData.php?format=json";
 	var data = {currentFolder: sentLocation, filter: currentPatternSelect};
 	$.ajax({

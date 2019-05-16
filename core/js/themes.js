@@ -7,7 +7,7 @@ var urlForSendUpdateAction = themeDirMod+"core/php/performSettingsInstallUpdateA
 
 function deleteTheme(themeName)
 {
-	displayLoadingPopup();
+	displayLoadingPopup("../","Removing Theme");
 	themeName = themeName;
 	$.ajax({
 		url: urlForSendUpdateAction,
@@ -24,6 +24,7 @@ function deleteTheme(themeName)
 
 function verifyThemeRemoved()
 {
+	displayLoadingPopup("../","verifying Removal");
 	$.ajax({
 		url: urlForSendUpdateAction,
 		dataType: "json",

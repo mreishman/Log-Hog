@@ -55,7 +55,7 @@ function showPopup()
 	document.getElementById('popupContent').style.backgroundColor = "#444444";
 	$('#popup').removeClass("hidden");
 }
-function displayLoadingPopup(pathToImg = "../")
+function displayLoadingPopup(pathToImg = "../", loadingMessage = "Loading...")
 {
 	<?php
 	$srcForImage = "core/img/loading.gif";
@@ -65,7 +65,7 @@ function displayLoadingPopup(pathToImg = "../")
 	}
 	?>
 	var srcForImage = "<?php echo $srcForImage; ?>";
-	displayPopup("Loading...","<img src='"+pathToImg+srcForImage+"' height='50' width='50'>","");
+	displayPopup(loadingMessage,"<img src='"+pathToImg+srcForImage+"' height='50' width='50'>","");
 }
 function displaySavePromptPopup(url)
 {

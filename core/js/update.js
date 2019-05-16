@@ -48,7 +48,7 @@ function checkForUpdates(urlSend = "../", whatAmIUpdating = "Log-Hog", currentNe
 			}
 			else
 			{
-				displayLoadingPopup(urlSend);
+				displayLoadingPopup(urlSend, "Checking For Update");
 			}
 		}
 		$.ajax({
@@ -175,7 +175,7 @@ function checkForUpdateTimer(urlSend, whatAmIUpdating)
 			document.getElementById("progressBarUpdateCheck").style.display = "block";
 		}
 	}
-	$.getJSON(urlSend+"core/php/configStaticCheck.php", {}, function(data) 
+	$.getJSON(urlSend+"core/php/configStaticCheck.php", {}, function(data)
 	{
 		totalCounter++;
 		if(showPopupForUpdateBool && whatAmIUpdating === "Log-Hog")
