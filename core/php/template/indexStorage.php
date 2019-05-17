@@ -183,7 +183,7 @@
 					<input id="searchFieldInput-{{counter}}" type="search" placeholder="Filter Log Content" style="height: 30px; width: 200px;">
 				</span>
 				<span id="log{{counter}}Td"  class="logTrHeight" style="overflow: auto; display: block; word-break: break-all;" >
-					<div id="log{{counter}}load" {{loadingStyle}} class="errorMessageLog">
+					<div id="log{{counter}}load" style="{{loading_style}}" class="errorMessageLog">
 						<?php echo $core->generateImage(
 							$arrayOfImages["loading"],
 							$imageConfig = array(

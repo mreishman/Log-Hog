@@ -1089,7 +1089,7 @@ function resize()
 				$("#menu").outerHeight(targetHeight);
 			}
 		}
-		let tdElementWidth = (targetWidth/windowDisplayConfigColCount).toFixed(0);
+		let tdElementWidth = (targetWidth/windowDisplayConfigColCount).toFixed(0) - (windowDisplayConfigColCount * 4);
 		let trElementHeight = ((targetHeight-borderPadding)/windowDisplayConfigRowCount).toFixed(0);
 		let logDisplayArrayKeys = Object.keys(logDisplayArray);
 		let logDisplayArrayKeysCount = logDisplayArrayKeys.length;
@@ -1769,11 +1769,11 @@ function generateWindowDisplayInner()
 			if(document.getElementById("log"+counterInternal))
 			{
 				arrayOfPrevLogs[counterInternal] = $("#log"+counterInternal).html();
-				newBlock = newBlock.replace(/{{loadingStyle}}/g, "");
+				newBlock = newBlock.replace(/{{loading_style}}/g, "");
 			}
 			else
 			{
-				newBlock = newBlock.replace(/{{loadingStyle}}/g, "style=\"display: none\"");
+				newBlock = newBlock.replace(/{{loading_style}}/g, "display: none");
 			}
 			logDisplayHtml += newBlock;
 			var newPopupHolder = $("#storage .popuopInfoHolder").html();
