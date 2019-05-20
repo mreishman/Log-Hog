@@ -15,6 +15,7 @@
 				$downloadSize = 0;
 				$finalInstallSize = 0;
 				$currentVersionSize = 0;
+				$totalDiff = "";
 
 				if(array_key_exists('versionList', $configStatic))
 				{
@@ -40,6 +41,14 @@
 								$finalInstallSize = (int)$value['installSize'];
 							}
 						}
+					}
+					if($finalInstallSize > $currentVersionSize)
+					{
+					  $totalDiff = "take up an additional ~".$update->formatBytes($finalInstallSize - $currentVersionSize);
+					}
+					else
+					{
+					  $totalDiff = "free up ~".$update->formatBytes($currentVersionSize - $finalInstallSize);
 					}
 				}
 				?>
@@ -153,7 +162,7 @@
 				</li>
 				<li id="installData" <?php if($levelOfUpdate == 0){echo "style='display: none;'";} ?> >
 					This will download ~<b id="installDataDownloadSize" ><?php echo $update->formatBytes($downloadSize);?></b> of data <br>
-					The new install will take up an additional ~<b id="installDataTotalChange"><?php echo $update->formatBytes($finalInstallSize - $currentVersionSize);?></b> of space<br>
+					The new install will <b id="installDataTotalChange"><?php echo $totalDiff;?></b> of space<br>
 					The current drive has <b id="installDataCurrentFree"><?php echo shell_exec("df -h . | tail -1 | awk '{print $4}'"); ?></b> free space
 				</li>
 			<?php endif; ?>
