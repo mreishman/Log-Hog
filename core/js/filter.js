@@ -165,7 +165,6 @@ function toggleFilterType()
 
 function showLogWindowFilter(windowNum)
 {
-	displayLoadingPopup("");
 	let currentDisplay = document.getElementById("searchFieldInputOuter-"+windowNum).style.display;
 	if(currentDisplay !== "block")
 	{
@@ -175,9 +174,6 @@ function showLogWindowFilter(windowNum)
 	{
 		document.getElementById("searchFieldInputOuter-"+windowNum).style.display = "none";
 	}
-	setTimeout(function() {
-			resize();
-			hidePopup();
-		}, 2);
+	resize();
 
 }
