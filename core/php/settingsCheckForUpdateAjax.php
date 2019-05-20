@@ -234,6 +234,13 @@ $data['downloadTotal'] = $update->formatBytes($downloadSize);
 $data['currentAmmtFree'] = shell_exec("df -h . | tail -1 | awk '{print $4}'");
 
 //get size of update after finish
-$data['totalSizeChange'] = $update->formatBytes($finalInstallSize - $currentVersionSize);
+if($finalInstallSize > $currentVersionSize)
+{
+  $data['totalSizeChange'] = "take up an additional ~".formatBytes($finalInstallSize - $currentVersionSize);
+}
+else
+{
+  $data['totalSizeChange'] = "free up ~".formatBytes($currentVersionSize - $finalInstallSize);
+}
 
 echo json_encode($data);
