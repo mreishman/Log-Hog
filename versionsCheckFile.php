@@ -1,7 +1,7 @@
 <?php
 
 $versionCheckArray = array(
-	'version'		=> '7.2',
+	'version'		=> '7.3',
 	'versionList'		=> array(
 		'2.0.1'	        => array(
 			'branchName'	=> '2.0.1Update',
@@ -325,20 +325,15 @@ $versionCheckArray = array(
 			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/7.2.png',
 			'releaseNotes'	=> "<ul><li>Features<ul><li>Archive<ul><li>In main menu, the history tab was added for temporary log saves / archived logs</li><li>Added button in log window to show list of archived / temp history versions of the current selected log</li><li>Added button for saving current logs to archive</li><li>When saving logs (archive or temp) it now keeps backups of the files (up to a user defined limit)</li></ul></li><li>More information shown about updates (file size download, approx install file size)</li><li>Changing themes only refreshes the page once, instead of using a redirect</li></ul></li><li>Bug Fixes<ul><li>Update loading popup should display loading image</li><li>Watchlist file entry dropdown menu positioning fixed on initial load</li><li>Adding a backwards slash to folder names in watchlist now works correctly (and also filters)</li><li>Other various js fixes for file popup</li><li>Fixed bug where clear all logs would not remove notifications</li></ul></li></ul>"
 		),
-		
-	)
-);
-
-/*
-
-'7.3'			=> array(
+		'7.3'			=> array(
 			'branchName'	=> '7.3Update',
 			'downloadSize'  => 687534,
 			'installSize'   => 9982370,
 			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/7.3.png',
 			'releaseNotes'	=> "<ul><li>Features<ul><li>Faster render times for logs with new format enabled</li></ul></li><li>Bug Fixes<ul><li>Fixed bug in setup where addons would not download correctly</li><li>Fixed bug with loading image on about page / whats new page</li><li>Added easier option to enable or disable date text format for logs</li><li>Fixed window position on update in progress screen</li><li>Fixed bug in update logic when trying to revert changes</li><li>Fixed bug on static update page with popup logic. Should work smoother.</li><li>Small style tweaks / changes</li></ul></li></ul>"
 		),
-
-*/
+		
+	)
+);
 
 ?>
