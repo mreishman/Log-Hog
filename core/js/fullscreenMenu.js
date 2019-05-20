@@ -383,6 +383,7 @@ function toggleWatchListMenu(force = false)
 	arrayOfScrollHeaderUpdate = ["settingsMainWatch"];
 	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
 	$(".settingsMainWatchSaveChangesButton").css("display","none");
+	document.getElementById("watchListSubMenu").style.display = "none";
 	if(typeof loadWatchList !== "function")
 	{
 		setTimeout(function() {

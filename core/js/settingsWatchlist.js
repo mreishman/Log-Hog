@@ -1369,6 +1369,7 @@ function ajaxAddRowFirstLoad(currentCount)
 		{
 			checkIfNeedToCloseDropdownFileShow(event);
 		});
+		document.getElementById("watchListSubMenu").style.display = "block";
 	}
 }
 
