@@ -459,8 +459,6 @@ function firstLoadEndAction()
 		}
 	}, 1500);
 
-	document.getElementById("searchType").disabled = false;
-	document.getElementById("searchFieldInput").disabled = false;
 	document.getElementById("log").style.display = "table";
 	var targetLength = Object.keys(logDisplayArray).length;
 	if($("#menu .active").length < targetLength)

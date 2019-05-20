@@ -133,6 +133,10 @@ function changeFilterTitleIncludePath()
 
 function possiblyUpdateFromFilter()
 {
+	if(document.getElementById('searchFieldInput').value === "")
+	{
+		hideFilterTopBar();
+	}
 	generalUpdate();
 	if(oneLogEnable === "true")
 	{
@@ -176,4 +180,18 @@ function showLogWindowFilter(windowNum)
 	}
 	resize();
 
+}
+
+function showFilterTopBar()
+{
+	document.getElementById("searchFieldInput").style.display = "inline-block";
+	document.getElementById("showFilterTopBarButton").style.display = "none";
+	resize();
+}
+
+function hideFilterTopBar()
+{
+	document.getElementById("searchFieldInput").style.display = "none";
+	document.getElementById("showFilterTopBarButton").style.display = "inline-block";
+	resize();
 }
