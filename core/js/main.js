@@ -1089,6 +1089,9 @@ function resize()
 				$("#menu").outerHeight(targetHeight);
 			}
 		}
+		targetWidth -= document.getElementById("settingsSideBar").getBoundingClientRect().width;
+		targetWidth -= document.getElementById("moreInfoSideBar").getBoundingClientRect().width;
+		document.getElementById("log").style.width = "" + targetWidth + "px";
 		let tdElementWidth = (targetWidth/windowDisplayConfigColCount).toFixed(0) - (windowDisplayConfigColCount * 4);
 		let trElementHeight = ((targetHeight-borderPadding)/windowDisplayConfigRowCount).toFixed(0);
 		let logDisplayArrayKeys = Object.keys(logDisplayArray);
