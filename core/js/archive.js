@@ -175,7 +175,7 @@ function clearAllArchiveLogs(type)
 	$.ajax({
 			url: "core/php/deleteAllArchiveLogs.php?format=json",
 			dataType: "json",
-			data: dataToSend,
+			data: {type},
 			type: "POST",
 	success(data){
 		var arrayOfDataMainKeys = Object.keys(arrayOfDataMain);
