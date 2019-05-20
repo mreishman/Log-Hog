@@ -1089,8 +1089,14 @@ function resize()
 				$("#menu").outerHeight(targetHeight);
 			}
 		}
-		targetWidth -= document.getElementById("settingsSideBar").getBoundingClientRect().width;
-		targetWidth -= document.getElementById("moreInfoSideBar").getBoundingClientRect().width;
+		if(document.getElementById("settingsSideBar"))
+		{
+			targetWidth -= document.getElementById("settingsSideBar").getBoundingClientRect().width;
+		}
+		if(document.getElementById("moreInfoSideBar"))
+		{
+			targetWidth -= document.getElementById("moreInfoSideBar").getBoundingClientRect().width;
+		}
 		document.getElementById("log").style.width = "" + targetWidth + "px";
 		let tdElementWidth = (targetWidth/windowDisplayConfigColCount).toFixed(0) - (windowDisplayConfigColCount * 4);
 		let trElementHeight = ((targetHeight-borderPadding)/windowDisplayConfigRowCount).toFixed(0);
