@@ -154,7 +154,7 @@ function deleteArchiveLog(title, type)
 	$.ajax({
 			url: "core/php/deleteArchiveLog.php?format=json",
 			dataType: "json",
-			data: dataToSend,
+			data: {type},
 			type: "POST",
 	success(data){
 		delete arrayOfDataMain["LogHog/"+title.replace(/_DIR_/g, "/")];
