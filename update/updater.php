@@ -181,7 +181,8 @@ if(count($arrayOfVersions) === 0)
 				</tr>
 			</table>
 		</div>
-		<div class="settingsDiv" style="border: 1px solid transparent; margin-bottom: 0;" >
+		<div class="settingsHeader" style="margin-top: 0;">Change Log</div>
+		<div class="settingsDiv" style="margin-bottom: 0;" >
 			<div class="updatingDiv">
 				<table style="width: 100%;">
 					<tr>
@@ -195,8 +196,8 @@ if(count($arrayOfVersions) === 0)
 				</table>
 			</div>
 		</div>
-		<div class="settingsHeader" style="margin-top: 0;">Log Info</div>
-		<div id="innerSettingsText" class="settingsDiv" style="height: 75px; overflow-y: scroll;" ></div>
+		<div class="settingsHeader" style="margin-top: 0;">Update Log</div>
+		<div id="innerSettingsText" class="settingsDiv" style="height: 100px; overflow-y: scroll;" ></div>
 	</div>
 </body>
 <?php $core->getScripts(
