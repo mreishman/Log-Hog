@@ -143,6 +143,9 @@ if($totalCountOfFilesToDelete < 1)
 	{
 		$("body").height(""+window.innerHeight+"px");
 	});
+	$( window ).resize(function() {
+		$("body").height(""+window.innerHeight+"px");
+	});
 	function redirectToLocationFromUpgradeTheme()
 	{
 		window.location.href = "<?php echo $core->getCookieRedirect(); ?>";

@@ -92,6 +92,9 @@ $totalUpgradeScripts = floatval($configVersionToUpgradeTo) - floatval($configVer
 	{
 		$("body").height(""+window.innerHeight+"px");
 	});
+	$( window ).resize(function() {
+		$("body").height(""+window.innerHeight+"px");
+	});
 	var urlForSendMain0 = '../../../core/php/checkVersionOfConfig.php?format=json';
 	var urlForSendMain = '../../../core/php/upgradeScript/upgradeConfig-';
 	var urlForSendMain2 = '.php?format=json';

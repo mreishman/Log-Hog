@@ -139,6 +139,9 @@ if((strval($baseFileVersion) === strval($oldFileVersion)) && (file_exists("../..
 		$("body").height(""+window.innerHeight+"px");
 		copyFilesThemeChange();
 	});
+	$( window ).resize(function() {
+		$("body").height(""+window.innerHeight+"px");
+	});
 
 	function redirectToLocationFromUpgradeTheme()
 	{
