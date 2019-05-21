@@ -45,7 +45,6 @@ $totalUpgradeScripts = floatval($layoutVersionToUpgradeTo) - floatval($layoutVer
 	</div>
 	<div class="settingsDiv" >
 		<div class="updatingDiv">
-			<p class="addBorderBottom"></p>
 			<div id="innerDisplayUpdate">
 			<table style="padding: 10px; height: 100%;">
 				<tr>
@@ -72,7 +71,6 @@ $totalUpgradeScripts = floatval($layoutVersionToUpgradeTo) - floatval($layoutVer
 				</tr>
 			</table>
 			</div>
-			<p class="addBorderBottom"></p>
 		</div>
 	</div>
 </div>

@@ -62,7 +62,6 @@ if($totalCountOfFilesToDelete < 1)
 	</div>
 	<div class="settingsDiv" >
 		<div class="updatingDiv">
-			<p class="addBorderBottom"></p>
 			<div id="innerDisplayUpdate">
 				<table style="padding: 10px; height: 100%;">
 					<tr>
@@ -120,7 +119,6 @@ if($totalCountOfFilesToDelete < 1)
 					</tr>
 				</table>
 			</div>
-			<p class="addBorderBottom"></p>
 		</div>
 	</div>
 </div>
