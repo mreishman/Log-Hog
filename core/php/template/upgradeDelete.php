@@ -43,6 +43,7 @@ if($totalCountOfFilesToDelete < 1)
 	<title>Log Hog | Updater</title>
 	<link rel="stylesheet" type="text/css" href="../../../core/template/base.css">
 	<link rel="stylesheet" type="text/css" href="../../../core/template/theme.css">
+	<link rel="stylesheet" type="text/css" href="../../../core/template/upgrade.css">
 	<?php require_once("../../../core/php/customCSS.php"); ?>
 	<link rel="icon" type="image/png" href="../../../core/img/favicon.png" />
 	<?php $core->getScript(array(
@@ -52,7 +53,7 @@ if($totalCountOfFilesToDelete < 1)
 	)); ?>
 </head>
 <body>
-<div id="main" style=" position: relative;">
+<div id="upgradeStatusPopup">
 	<div class="settingsHeader" style="text-align: center;" >
 		<span id="titleHeader" >
 			<h1>Removing old Log-Hog files...</h1>
@@ -63,7 +64,7 @@ if($totalCountOfFilesToDelete < 1)
 		<div class="updatingDiv">
 			<p class="addBorderBottom"></p>
 			<div id="innerDisplayUpdate">
-				<table style="padding: 10px;">
+				<table style="padding: 10px; height: 100%;">
 					<tr>
 						<td style="height: 50px;">
 							<?php echo $core->generateImage(
@@ -140,7 +141,10 @@ if($totalCountOfFilesToDelete < 1)
 <script type="text/javascript">
 	var arrayOfFilesToDelete = <?php echo json_encode($arrayOfFilesToDelete); ?>;
 	var totalCountOfFilesToDelete = <?php echo $totalCountOfFilesToDelete; ?>;
-
+	$( document ).ready(function()
+	{
+		$("body").height(""+window.innerHeight+"px");
+	});
 	function redirectToLocationFromUpgradeTheme()
 	{
 		window.location.href = "<?php echo $core->getCookieRedirect(); ?>";
