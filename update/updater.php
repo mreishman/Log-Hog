@@ -143,34 +143,46 @@ if(count($arrayOfVersions) === 0)
 		"baseFilePath"	=> "core/js/jquery.js",
 		"default"		=> $configStatic["version"]
 	)); ?>
+	<style type="text/css">
+		#menu {
+			padding: 0;
+		}
+	</style>
 </head>
 <body>
 	<div id="main">
-		<div class="settingsHeader" style="text-align: center; padding: 5px 1px 1px 1px;" >
-			<span id="titleHeader" >
-			<?php if($update):?>
-				<?php if ($configStatic['newestVersion'] == $versionToUpdate): ?>
-					<h1>Updating to version <?php echo $versionToUpdate ; ?></h1>
-				<?php else: ?>
-					<h1>Installing Update <span id="countOfVersions" >1</span> of <?php echo count($arrayOfVersions); ?> ... Updating to version <span id="currentUpdatTo" ><?php echo $versionToUpdate ?></span>/<?php echo $configStatic['newestVersion'];?></h1>
-				<?php endif; ?>
-			<?php else: ?>
-				<h1>There are no updates</h1>
-				<script type="text/javascript">
-					setTimeout(function(){ window.location.href = "../settings/whatsNew.php"; }, 3000);
-				</script>
-			<?php endif; ?>
-			</span>
-			<div id="menu" style="margin-right: auto; margin-left: auto; position: relative; display: none;">
-				<h2 style="color: white;">If this page doesn't redirect within 10 seconds... click here:</h2>
-				<br>
-				<a onclick="window.location.href = '../index.php'">Back to Log-Hog</a>
-			</div>
+		<div class="settingsHeader" style="padding: 5px 1px 1px 1px;" >
+			<table width="100%">
+				<tr>
+					<td>
+						<img width="100%" src="../core/img/favicon.png">
+					</td>
+					<td style="padding-left: 20px;">
+						<span id="titleHeader" >
+						<?php if($update):?>
+							<?php if ($configStatic['newestVersion'] == $versionToUpdate): ?>
+								<h1>Updating to version <?php echo $versionToUpdate ; ?></h1>
+							<?php else: ?>
+								<h1>Installing Update <span id="countOfVersions" >1</span> of <?php echo count($arrayOfVersions); ?> ... Updating to version <span id="currentUpdatTo" ><?php echo $versionToUpdate ?></span>/<?php echo $configStatic['newestVersion'];?></h1>
+							<?php endif; ?>
+						<?php else: ?>
+							<h1>There are no updates</h1>
+							<script type="text/javascript">
+								setTimeout(function(){ window.location.href = "../settings/whatsNew.php"; }, 3000);
+							</script>
+						<?php endif; ?>
+						</span>
+						<progress id="progressBar" value="0" max="100" style="width: 95%; margin-top: 10px; margin-bottom: 10px; -webkit-appearance: none; appearance: none;" ></progress>
+						<div id="menu" style="margin-right: auto; margin-left: auto; position: relative; display: none;">
+							<h2 style="color: white; display: inline-block;">If this page doesn't redirect within 10 seconds... click here:</h2>
+							<a onclick="window.location.href = '../index.php'">Back to Log-Hog</a>
+						</div>
+					</td>
+				</tr>
+			</table>
 		</div>
 		<div class="settingsDiv" style="border: 1px solid transparent; margin-bottom: 0;" >
 			<div class="updatingDiv">
-				<progress id="progressBar" value="0" max="100" style="width: 95%; margin-top: 10px; margin-bottom: 10px; margin-left: 2.5%; -webkit-appearance: none; appearance: none;" ></progress>
-				<p style="border-bottom: 1px dashed #777;"></p>
 				<table style="width: 100%;">
 					<tr>
 						<td>
