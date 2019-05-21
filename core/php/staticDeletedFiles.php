@@ -181,4 +181,8 @@ $arrayOfFilesDeleted = array(
 		"fullPath"	=>	"core/php/settingsMainWatchFunctions.php",
 		"type"		=>	"file"
 	),
+	45			=> array(
+		"fullPath"	=>	"core/img/LogHog.png",
+		"type"		=>	"file"
+	),
 );

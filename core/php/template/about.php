@@ -11,7 +11,7 @@
 						$imageConfig = array(
 							"class"			=>	"mainMenuImage",
 							"style"			=>	"margin-bottom: -40px;",
-							"data-src"		=>	"core/img/LogHog.png",
+							"data-src"		=>	"core/img/favicon.png",
 							"width"			=>	"100px",
 							"srcModifier"	=>	$otherPageImageModifier
 						)
