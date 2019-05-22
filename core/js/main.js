@@ -1843,6 +1843,7 @@ function unhideAllHidden()
 	let logDisplayArrayKeysCount = logDisplayArrayKeys.length;
 	for(let i = 0; i < logDisplayArrayKeysCount; i++)
 	{
+		$("#loadLineCountForWindow"+i).html("");
 		if(unhideHidden(i))
 		{
 			unhidLines = true;
