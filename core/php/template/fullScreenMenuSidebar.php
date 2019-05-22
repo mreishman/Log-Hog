@@ -2,9 +2,6 @@
 	addonRightClickObject = {};
 	addonRightClickIds = {};
 </script>
-<li class="menuTitle fullScreenMenuText">
-	Log-Hog
-</li>
 <li class="menuTitle fullScreenMenuText subMenuTitle">
 	Main Menu
 </li>

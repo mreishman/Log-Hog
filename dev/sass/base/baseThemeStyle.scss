@@ -87,6 +87,11 @@
 
 .backgroundForSideBarMenu {
 	background: $backgroundColorAlt;
+	color: $mainAltColor;
+
+	td {
+		color: $mainAltColor;
+	}
 }
 
 .popupForInfo {

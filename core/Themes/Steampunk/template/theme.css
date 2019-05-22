@@ -78,6 +78,10 @@
 
 .backgroundForSideBarMenu {
   background: #c4ad89;
+  color: black;
+}
+.backgroundForSideBarMenu td {
+  color: black;
 }
 
 .popupForInfo {
