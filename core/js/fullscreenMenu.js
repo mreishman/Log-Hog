@@ -72,6 +72,7 @@ function toggleFullScreenMenu(force = false)
 				}
 			}
 		}
+		resizeFullScreenMenu();
 		var fullScreenMenuClickCountCurrent = fullScreenMenuClickCount;
 		setTimeout(function() {
 			togglePollSpeedDown(fullScreenMenuClickCountCurrent);
@@ -112,8 +113,9 @@ function toggleUpdateMenu(force = false)
 	hideSidebar();
 	document.getElementById("fullScreenMenuUpdate").style.display = "block";
 	$("#mainMenuUpdate").addClass("selected");
-	arrayOfScrollHeaderUpdate = ["updateUpdate","updateReleaseNotes"];
+	arrayOfScrollHeaderUpdate = [];
 	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
+	resizeFullScreenMenu();
 }
 
 function toggleAddons(force = false)
@@ -132,6 +134,7 @@ function toggleAddons(force = false)
 	$("#mainMenuAddons").addClass("selected");
 	arrayOfScrollHeaderUpdate = [];
 	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
+	resizeFullScreenMenu();
 }
 
 function toggleHistory(force = false)
@@ -159,6 +162,7 @@ function toggleTmpSaveHistory()
 	document.getElementById("fullScreenMenuHistory").style.display = "block";
 	$("#tempSaveHistory").addClass("selected");
 	getListOfTmpHistoryLogs();
+	resizeFullScreenMenu();
 }
 
 function toggleArchiveHistory()
@@ -167,6 +171,7 @@ function toggleArchiveHistory()
 	document.getElementById("fullScreenMenuArchive").style.display = "block";
 	$("#archiveHistory").addClass("selected");
 	getListOfArchiveLogs();
+	resizeFullScreenMenu();
 }
 
 function toggleSettings(force = false)
@@ -185,6 +190,7 @@ function toggleSettings(force = false)
 	$("#mainMenuSettings").addClass("selected");
 	arrayOfScrollHeaderUpdate = [];
 	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
+	resizeFullScreenMenu();
 }
 
 function toggleAbout(force = false)
@@ -238,6 +244,7 @@ function toggleMainThemes(force = false)
 	document.getElementById("fullScreenMenuTheme").style.display = "block";
 	arrayOfScrollHeaderUpdate = ["themeSpan"];
 	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
+	resizeFullScreenMenu();
 }
 
 function toggleGeneralThemeStyle(force = false)
@@ -257,6 +264,7 @@ function toggleGeneralThemeStyle(force = false)
 	arrayOfDataSettings = ["generalThemeOptions"];
 	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
 	startSettingsPollTimer();
+	resizeFullScreenMenu();
 }
 
 function toggleThemesIframeSource(showOrHide)
@@ -297,6 +305,7 @@ function toggleThemeColorScheme(force = false)
 	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
 	startSettingsPollTimer();
 	reAddJsColorPopupForCustomThemes();
+	resizeFullScreenMenu();
 }
 
 function toggleFullScreenMenuMainContent()
@@ -331,6 +340,7 @@ function toggleAboutLogHog()
 	$("#aboutSubMenuAbout").addClass("selected");
 	arrayOfScrollHeaderUpdate = ["aboutSpanAbout","aboutSpanInfo","aboutSpanGithub"];
 	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
+	resizeFullScreenMenu();
 }
 
 function toggleWhatsNew()
@@ -341,6 +351,7 @@ function toggleWhatsNew()
 	$("#aboutSubMenuWhatsNew").addClass("selected");
 	arrayOfScrollHeaderUpdate = ["fullScreenMenuWhatsNew"];
 	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
+	resizeFullScreenMenu();
 }
 
 function toggleChangeLog()
@@ -350,6 +361,7 @@ function toggleChangeLog()
 	$("#aboutSubMenuChangelog").addClass("selected");
 	arrayOfScrollHeaderUpdate = ["fullScreenMenuChangeLog"];
 	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
+	resizeFullScreenMenu();
 }
 
 function toggleWatchListMenu(force = false)
@@ -396,6 +408,7 @@ function toggleWatchListMenu(force = false)
 			timerForWatchlist = setInterval(tryLoadWatch, 100);
 		}, 25);
 	}
+	resizeFullScreenMenu();
 }
 
 function tryLoadWatch()
