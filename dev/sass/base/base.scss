@@ -18,8 +18,8 @@ a {
 #log {
   display: none;
   margin: 0px;
-  padding: 0px;
-  border-spacing: 0px;
+  padding: 0;
+  border-spacing: 0;
   width: 100%;
 }
 
@@ -58,7 +58,7 @@ a {
 
 .iframeThemes {
   width: 598px;
-  border: 0px;
+  border: 0;
   height: 378px;
 }
 
@@ -818,10 +818,7 @@ div.sidebarLeft {
 .divForProgressBar {
   width: 80%;
   height: 100px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: -15px;
-  margin-bottom: -15px;
+  margin: -15px auto -15px auto;
 }
 
 .progressBar {
