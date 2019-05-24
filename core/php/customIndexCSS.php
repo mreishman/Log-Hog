@@ -233,5 +233,34 @@ elseif($logMenuLocation === "bottom"): ?>
 	}
 <?php endif; ?>
 
+progress {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  width: 100%;
+  height: 20px;
+}
+
+progress::-webkit-progress-bar {
+  background-color: rgba(0,0,0,.3);
+  width: 100%;
+}
+
+progress{ /* for FF target directly the element */
+  background-color: rgba(0,0,0,.3);
+  width: 100%;
+}
+
+progress::-webkit-progress-value {
+  background-color: #FFF !important;
+  -webkit-transition: all .7s;
+  transition: all .7s;
+}
+
+progress::-moz-progress-bar { /* for FF ::progress-bar is the value bar */
+  background-color: #FFF !important;
+  transition: all .7s;
+}
+
 </style>
 
