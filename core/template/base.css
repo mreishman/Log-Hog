@@ -841,7 +841,7 @@ div.sidebarLeft {
 .divForProgressBar {
   width: 80%;
   height: 100px;
-  margin: -15px auto -15px auto;
+  margin: 0 auto 0 auto;
 }
 
 .progressBar {

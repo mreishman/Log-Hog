@@ -58,11 +58,6 @@ foreach ($currentSelectedThemeColorValues['main'] as $value):
 	color: <?php echo $currentSelectedThemeColorValues['highlightActive']['highlightActive-1']['fontColor']?>;
 }
 
-progress
-{
-	background: <?php echo $currentSelectedThemeColorValues['main']['main-1']['background']?>;
-}
-
 body, #main
 {
 	background: <?php echo $backgroundColor?>;
@@ -77,21 +72,33 @@ body, #main
 	color: <?php echo $mainFontColor; ?>;
 }
 
-/* Firefox */
-progress::-moz-progress-bar
-{
-    background: <?php echo $currentSelectedThemeColorValues['main']['main-1']['fontColor']?>;
+progress {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  width: 100%;
+  height: 20px;
 }
 
-/* Chrome */
-progress::-webkit-progress-bar
-{
-    background: <?php echo $currentSelectedThemeColorValues['main']['main-1']['background']?>;
+progress::-webkit-progress-bar {
+  background-color: <?php echo $currentSelectedThemeColorValues['main']['main-1']['background']?>;
+  width: 100%;
 }
 
-progress::-webkit-progress-value
-{
-    background: <?php echo $currentSelectedThemeColorValues['main']['main-1']['fontColor']?>;
+progress{ /* for FF target directly the element */
+  background-color: <?php echo $currentSelectedThemeColorValues['main']['main-1']['background']?>;
+  width: 100%;
+}
+
+progress::-webkit-progress-value {
+  background-color: <?php echo $currentSelectedThemeColorValues['main']['main-1']['fontColor']?> !important;
+  -webkit-transition: all .7s;
+  transition: all .7s;
+}
+
+progress::-moz-progress-bar { /* for FF ::progress-bar is the value bar */
+  background-color: <?php echo $currentSelectedThemeColorValues['main']['main-1']['fontColor']?> !important;
+  transition: all .7s;
 }
 
 

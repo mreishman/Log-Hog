@@ -20,7 +20,6 @@ var selectOptions =
 };
 var staticFileData;
 var staticRowNumber = 1;
-var progressBarWatchList = null;
 var percentWatchList = 0;
 var currentPatternSelect = defaultNewAddPattern;
 var fileFolderList = {};
@@ -1400,7 +1399,7 @@ function updateProgressBarWatchList(additonalPercent, text, topText = "Loading..
 	try
 	{
 		percentWatchList = percentWatchList + additonalPercent;
-		progressBarWatchList.set(percentWatchList);
+		document.getElementById("progressBarWatchList").value = percentWatchList;
 		$("#progressBarSubInfoWatchList").empty();
 		$("#progressBarSubInfoWatchList").append(text);
 		$("#progressBarMainInfoWatchList").empty();
@@ -1417,7 +1416,7 @@ function resetProgressBarWatchList()
 	try
 	{
 		percentWatchList = 0;
-		progressBarWatchList.set(percentWatchList);
+		document.getElementById("progressBarWatchList").value = percentWatchList;
 		$("#progressBarSubInfoWatchList").empty();
 		$("#progressBarSubInfoWatchList").append("Loading...");
 		$("#progressBarMainInfoWatchList").empty();
@@ -1457,12 +1456,11 @@ function updateNumberOfRowsValue(newValue)
 
 function loadWatchList()
 {
-	$("#progressBarWatchList").empty();
+	resetProgressBarWatchList();
 	document.getElementById("loadingSpan").style.display = "block";
 	document.getElementsByClassName("uniqueClassForAppendSettingsMainWatchNew")[0].style.display = "none";
 	updateNumberOfRowsValue(0);
 	percentWatchList = 0;
-	progressBarWatchList = new ldBar("#progressBarWatchList");
 	updateProgressBarWatchList(10, "Generating File List");
 	document.addEventListener(
 		"scroll",
