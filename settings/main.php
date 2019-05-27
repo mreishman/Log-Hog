@@ -20,6 +20,7 @@ else
 require_once('../core/php/configStatic.php');
 require_once('../core/php/updateCheck.php');
 require_once('../core/php/loadVars.php');
+
 ?>
 <!doctype html>
 <head>

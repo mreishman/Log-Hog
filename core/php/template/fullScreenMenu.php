@@ -80,8 +80,8 @@
 	<li class="menuTitle fullScreenMenuText subMenuTitle">
 		Main
 	</li>
-	<li onclick="window.location.href = './settings/main.php#settingsLogVars';" >
-		Logs <?php echo $externalLinkImage; ?>
+	<li id="settingsMainLogsMenu" onclick="toggleSettingsMainLogs();" >
+		Logs
 	</li>
 	<?php if($advancedLogFormatEnabled === "true"): ?>
 		<li onclick="window.location.href = './settings/main.php#settingsLogFormatVars';" >
@@ -217,5 +217,45 @@
 				</th>
 			</tr>
 		</table>
+	</div>
+	<div id="settingsMainLogs" style="display: none;" >
+		<?php
+		$currentSection = "logVars";
+		include('core/php/template/varTemplate.php');
+		?>
+	</div>
+	<div id="settingsMainLogFormat" style="display: none;" >
+	</div>
+	<div id="settingsMainPoll" style="display: none;" >
+	</div>
+	<div id="settingsMainFilter" style="display: none;" >
+	</div>
+	<div id="settingsMainArchive" style="display: none;" >
+	</div>
+	<div id="settinsgMainNotifications" style="display: none;" >
+	</div>
+	<div id="settingsMainMenu" style="display: none;" >
+	</div>
+	<div id="settingsMainWatchlist" style="display: none;" >
+	</div>
+	<div id="settingsMainOneLog" style="display: none;" >
+	</div>
+	<div id="settingsMainMultiLog" style="display: none;" >
+	</div>
+	<div id="settingsMainLogLayout" style="display: none;" >
+	</div>
+	<div id="settingsMainOther" style="display: none;" >
+	</div>
+	<div id="settingsAdvancedConfig" style="display: none;" >
+	</div>
+	<div id="settingsAdvancedModules" style="display: none;" >
+	</div>
+	<div id="settingsAdvancedLogs" style="display: none;" >
+	</div>
+	<div id="settingsAdvancedLocations" style="display: none;" >
+	</div>
+	<div id="settingsAdvancedAdvanced" style="display: none;" >
+	</div>
+	<div id="settingsAdvancedDev" style="display: none;" >
 	</div>
 </div>

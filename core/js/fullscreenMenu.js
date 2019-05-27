@@ -98,6 +98,26 @@ function toggleFullScreenMenu(force = false)
 	}
 }
 
+function toggleSettingsMainLogs(force = false)
+{
+	if(!force && !globalForcePageNavigate)
+	{
+		if(!(goToPageCheck("toggleSettingsMainLogs(true)")))
+		{
+			return false;
+		}
+	}
+	globalForcePageNavigate = false;
+	hideSettingsStuff();
+	endSettingsPollTimer();
+	document.getElementById("settingsMainLogs").style.display = "block";
+	$("#settingsMainLogsMenu").addClass("selected");
+	arrayOfScrollHeaderUpdate = ['settingsLogVars'];
+	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
+	resizeFullScreenMenu();
+	startSettingsPollTimer();
+}
+
 function toggleUpdateMenu(force = false)
 {
 	if(!force && !globalForcePageNavigate)
@@ -490,6 +510,12 @@ function hideUpdateStuff()
 	document.getElementById("fullScreenMenuUpdate").style.display = "none";
 }
 
+function hideSettingsStuff()
+{
+	document.getElementById("settingsMainLogs").style.display = "none";
+	$("#settingsMainLogsMenu").removeClass("selected");
+}
+
 function hideAboutStuff()
 {
 	document.getElementById("fullScreenMenuAbout").style.display = "none";
@@ -567,6 +593,7 @@ function hideMainStuff()
 
 	if($("#mainMenuSettings").hasClass("selected"))
 	{
+		hideSettingsStuff();
 		document.getElementById("settingsSubMenu").style.display = "none";
 		$("#mainMenuSettings").removeClass("selected");
 	}

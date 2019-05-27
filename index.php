@@ -21,7 +21,7 @@ $settings = new settings();
 $core->setCookieRedirect();
 $currentSelectedTheme = $core->returnCurrentSelectedTheme();
 $baseUrl = "local/".$currentSelectedTheme."/";
-
+$varTemplateSrcModifier = "";
 if(!file_exists($baseUrl.'conf/config.php'))
 {
 	require_once("setup/setupProcessFile.php");
