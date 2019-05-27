@@ -92,8 +92,8 @@
 		Poll
 	</li>
 	<?php if($filterEnabled === "true"): ?>
-		<li onclick="window.location.href = './settings/main.php#settingsFilterVars';" >
-			Filter <?php echo $externalLinkImage; ?>
+		<li id="settingsMainFilterMenu" onclick="togleSettingsMainFilter();" >
+			Filter
 		</li>
 	<?php endif; ?>
 	<li onclick="window.location.href = './settings/main.php#archiveConfig';" >
@@ -237,6 +237,10 @@
 		?>
 	</div>
 	<div id="settingsMainFilter" style="display: none;" >
+		<?php
+		$currentSection = "filterVars";
+		include('core/php/template/varTemplate.php');
+		?>
 	</div>
 	<div id="settingsMainArchive" style="display: none;" >
 	</div>
