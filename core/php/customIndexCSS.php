@@ -253,13 +253,10 @@ elseif($logMenuLocation === "bottom"): ?>
 
 #initialLoadContent progress::-webkit-progress-value {
   background-color: #FFF !important;
-  -webkit-transition: all .7s;
-  transition: all .7s;
 }
 
 #initialLoadContent progress::-moz-progress-bar { /* for FF ::progress-bar is the value bar */
   background-color: #FFF !important;
-  transition: all .7s;
 }
 
 </style>
