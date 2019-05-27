@@ -92,13 +92,10 @@ progress{ /* for FF target directly the element */
 
 progress::-webkit-progress-value {
   background-color: <?php echo $currentSelectedThemeColorValues['main']['main-1']['fontColor']?> !important;
-  -webkit-transition: all .7s;
-  transition: all .7s;
 }
 
 progress::-moz-progress-bar { /* for FF ::progress-bar is the value bar */
   background-color: <?php echo $currentSelectedThemeColorValues['main']['main-1']['fontColor']?> !important;
-  transition: all .7s;
 }
 
 
