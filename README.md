@@ -44,5 +44,4 @@ i.e. /html/Log-Hog/
 
 ## Includes files from the following project:
 
-https://github.com/ai/visibilityjs  
-https://loading.io/progress/
+https://github.com/ai/visibilityjs

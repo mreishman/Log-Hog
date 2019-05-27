@@ -5,10 +5,6 @@ $arrayOfFiles = array(
 		"type" => "css",
 	),
 	array(
-		"name" => "core/template/loading-bar.css",
-		"type" => "css"
-	),
-	array(
 		"name" => $baseUrl . "template/theme.css",
 		"type" => "css"
 	),
@@ -22,10 +18,6 @@ $arrayOfFiles = array(
 	),
 	array(
 		"name" => "visibility.timers.js",
-		"type" =>"js"
-	),
-	array(
-		"name" => "loading-bar.min.js",
 		"type" =>"js"
 	),
 	array(

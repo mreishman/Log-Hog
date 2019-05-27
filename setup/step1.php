@@ -127,11 +127,6 @@ require_once('../core/php/loadVars.php'); ?>
 			"default"		=> $configStatic["version"]
 		),
 		array(
-			"filePath"		=> "../core/js/loading-bar.min.js",
-			"baseFilePath"	=> "core/js/loading-bar.min.js",
-			"default"		=> $configStatic["version"]
-		),
-		array(
 			"filePath"		=> "stepsJavascript.js",
 			"baseFilePath"	=> "setup/stepsJavascript.js",
 			"default"		=> $configStatic["version"]
