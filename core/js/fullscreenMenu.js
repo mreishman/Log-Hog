@@ -118,6 +118,26 @@ function toggleSettingsMainLogs(force = false)
 	startSettingsPollTimer();
 }
 
+function toggleSettingsMainLogFormat(force = false)
+{
+	if(!force && !globalForcePageNavigate)
+	{
+		if(!(goToPageCheck("toggleSettingsMainLogFormat(true)")))
+		{
+			return false;
+		}
+	}
+	globalForcePageNavigate = false;
+	hideSettingsStuff();
+	endSettingsPollTimer();
+	document.getElementById("settingsMainLogFormat").style.display = "block";
+	$("#settingsMainLogFormatMenu").addClass("selected");
+	arrayOfScrollHeaderUpdate = ['settingsLogFormatVars'];
+	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
+	resizeFullScreenMenu();
+	startSettingsPollTimer();
+}
+
 function toggleUpdateMenu(force = false)
 {
 	if(!force && !globalForcePageNavigate)
@@ -514,6 +534,9 @@ function hideSettingsStuff()
 {
 	document.getElementById("settingsMainLogs").style.display = "none";
 	$("#settingsMainLogsMenu").removeClass("selected");
+	document.getElementById("settingsMainLogFormat").style.display = "none";
+	$("#settingsMainLogFormatMenu").removeClass("selected");
+
 }
 
 function hideAboutStuff()

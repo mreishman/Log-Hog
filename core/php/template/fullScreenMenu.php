@@ -84,8 +84,8 @@
 		Logs
 	</li>
 	<?php if($advancedLogFormatEnabled === "true"): ?>
-		<li onclick="window.location.href = './settings/main.php#settingsLogFormatVars';" >
-			Log Format <?php echo $externalLinkImage; ?>
+		<li id="settingsMainLogFormatMenu" onclick="toggleSettingsMainLogFormat();" >
+			Log Format
 		</li>
 	<?php endif; ?>
 	<li onclick="window.location.href = './settings/main.php#settingsPollVars';" >
@@ -225,6 +225,10 @@
 		?>
 	</div>
 	<div id="settingsMainLogFormat" style="display: none;" >
+		<?php
+		$currentSection = "logFormatVars";
+		include('core/php/template/varTemplate.php');
+		?>
 	</div>
 	<div id="settingsMainPoll" style="display: none;" >
 	</div>
