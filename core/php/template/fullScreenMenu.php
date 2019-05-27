@@ -99,8 +99,8 @@
 	<li id="settingsMainArchiveMenu" onclick="toggleSettingsMainArchive();" >
 		Archive
 	</li>
-	<li onclick="window.location.href = './settings/main.php#settingsNotificationVars';" >
-		Notifications <?php echo $externalLinkImage; ?>
+	<li id="settingsMainNotificationsMenu" onclick="toggleSettingsMainNotifications();" >
+		Notifications
 	</li>
 	<li onclick="window.location.href = './settings/main.php#settingsMenuVars';" >
 		Menu <?php echo $externalLinkImage; ?>
@@ -248,7 +248,11 @@
 		include('core/php/template/varTemplate.php');
 		?>
 	</div>
-	<div id="settinsgMainNotifications" style="display: none;" >
+	<div id="settingsMainNotifications" style="display: none;" >
+		<?php
+		$currentSection = "notificationVars";
+		include('core/php/template/varTemplate.php');
+		?>
 	</div>
 	<div id="settingsMainMenu" style="display: none;" >
 	</div>
