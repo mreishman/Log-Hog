@@ -8,13 +8,13 @@
 </div>
 <div class="notificationContainer">
 	<div id="{{id}}" class="notificationDiv" >
-		<span style="width: 100%;">
-			<table style="width: 100%; padding-top: 5px; padding-bottom: 5px;" >
+		<span>
+			<table>
 				<tr>
-					<td rowspan="2" style="width: 30px;" >{{viewIndicator}}</td>
-					<td rowspan="2" style="border-right: 1px solid black; width: 75px; cursor: default;"> {{time}} </td>
-					<td rowspan="2" style="width: 50px;" > <span class="linkSmall" onclick="removeNotification('{{idNum}}'); {{action}}" >View</span> </td>
-					<td rowspan="2" style="width: 75px;" > <span class="linkSmall" onclick="removeNotification('{{idNum}}');" >Remove</span> </td>
+					<td class="actionView" rowspan="2">{{viewIndicator}}</td>
+					<td class="actionTime" rowspan="2"> {{time}} </td>
+					<td class="actionLink" rowspan="2"> <span class="linkSmall" onclick="removeNotification('{{idNum}}'); {{action}}" >View</span> </td>
+					<td class="actionLink2" rowspan="2"> <span class="linkSmall" onclick="removeNotification('{{idNum}}');" >Remove</span> </td>
 					<td class="notificationText"><b> {{name}} </b></td>
 				</tr>
 				<tr>
@@ -26,14 +26,14 @@
 </div>
 <div class="notificationContainerWithImage">
 	<div id="{{id}}" class="notificationDiv">
-		<span style="width: 100%;">
-			<table style="width: 100%; padding-top: 5px; padding-bottom: 5px;" >
+		<span>
+			<table>
 				<tr>
-					<td rowspan="2" style="width: 30px;" >{{viewIndicator}}</td>
-					<td rowspan="2" style="border-right: 1px solid black; width: 75px; cursor: default;"> {{time}} </td>
-					<td rowspan="2" style="width: 50px;" > <span class="linkSmall" onclick="removeNotification('{{idNum}}'); {{action}}" >View</span> </td>
-					<td rowspan="2" style="width: 75px;" > <span class="linkSmall" onclick="removeNotification('{{idNum}}');" >Remove</span> </td>
-					<td class="notificationText"> {{image}} <b>{{name}} </b></td>
+					<td class="actionView" rowspan="2">{{viewIndicator}}</td>
+					<td class="actionTime" rowspan="2"> {{time}} </td>
+					<td class="actionLink" rowspan="2"> <span class="linkSmall" onclick="removeNotification('{{idNum}}'); {{action}}" >View</span> </td>
+					<td class="actionLink2" rowspan="2"> <span class="linkSmall" onclick="removeNotification('{{idNum}}');" >Remove</span> </td>
+					<td class="notificationText"><b> {{name}} </b></td>
 				</tr>
 				<tr>
 					<td>{{previewText}}</td>
@@ -44,13 +44,13 @@
 </div>
 <div class="notificationContainerSmall">
 	<div id="{{id}}" class="notificationDiv" >
-		<span style="width: 100%;">
-			<table style="width: 100%; padding-top: 5px; padding-bottom: 5px;" >
+		<span>
+			<table>
 				<tr>
-					<td style="width: 30px;" >{{viewIndicator}}</td>
-					<td style="border-right: 1px solid black; width: 75px; cursor: default;"> {{time}} </td>
-					<td style="width: 50px;" > <span class="linkSmall" onclick="removeNotification('{{idNum}}'); {{action}}" >View</span> </td>
-					<td style="width: 75px;" > <span class="linkSmall" onclick="removeNotification('{{idNum}}');" >Remove</span> </td>
+					<td class="actionView">{{viewIndicator}}</td>
+					<td class="actionTime"> {{time}} </td>
+					<td class="actionLink"> <span class="linkSmall" onclick="removeNotification('{{idNum}}'); {{action}}" >View</span> </td>
+					<td class="actionLink2"> <span class="linkSmall" onclick="removeNotification('{{idNum}}');" >Remove</span> </td>
 					<td class="notificationText"><b> {{name}} </b></td>
 				</tr>
 				<tr>
@@ -62,14 +62,14 @@
 </div>
 <div class="notificationContainerSmallWithImage">
 	<div id="{{id}}" class="notificationDiv">
-		<span style="width: 100%;">
-			<table style="width: 100%; padding-top: 5px; padding-bottom: 5px;" >
+		<span>
+			<table>
 				<tr>
-					<td style="width: 30px;" >{{viewIndicator}}</td>
-					<td style="border-right: 1px solid black; width: 75px; cursor: default;"> {{time}} </td>
-					<td style="width: 50px;" > <span class="linkSmall" onclick="removeNotification('{{idNum}}'); {{action}}" >View</span> </td>
-					<td style="width: 75px;" > <span class="linkSmall" onclick="removeNotification('{{idNum}}');" >Remove</span> </td>
-					<td class="notificationText"> {{image}} <b>{{name}} </b></td>
+					<td class="actionView">{{viewIndicator}}</td>
+					<td class="actionTime"> {{time}} </td>
+					<td class="actionLink"> <span class="linkSmall" onclick="removeNotification('{{idNum}}'); {{action}}" >View</span> </td>
+					<td class="actionLink2"> <span class="linkSmall" onclick="removeNotification('{{idNum}}');" >Remove</span> </td>
+					<td class="notificationText"><b> {{name}} </b></td>
 				</tr>
 				<tr>
 					<td colspan="5" >{{previewText}}</td>
@@ -80,16 +80,16 @@
 </div>
 <div class="notificationContainerInline">
 	<div class="inlineNotificationDiv" >
-		<span style="width: 100%;">
-			<table style="width: 100%;" >
+		<span>
+			<table>
 				<tr>
-					<td style="border-right: 1px solid black; width: 75px; cursor: default;"> {{time}} </td>
-					<td style="cursor: default;" class="notificationText"><b> {{name}} </b></td>
+					<td class="actionTime"> {{time}} </td>
+					<td class="notificationText actionNone"><b> {{name}} </b></td>
 				</tr>
 				<tr>
 					<td colspan="2">
 						<span style="display: none;" class="notificationContainerInlineButtons">
-							<table  style="width: 100%;">
+							<table>
 								<tr>
 									<th>
 										<span class="linkSmall" onclick="{{action}} inlineNotificationPollLogic(true);" >View</span>
@@ -108,16 +108,16 @@
 </div>
 <div class="notificationContainerInlineWithImage">
 	<div class="inlineNotificationDiv">
-		<span style="width: 100%;">
-			<table style="width: 100%;" >
+		<span>
+			<table>
 				<tr>
-					<td style="border-right: 1px solid black; width: 75px; cursor: default;"> {{time}} </td>
-					<td class="notificationText"> {{image}} <b>{{name}} </b></td>
+					<td class="actionTime"> {{time}} </td>
+					<td class="notificationText actionNone"><b> {{name}} </b></td>
 				</tr>
 				<tr>
 					<td colspan="2">
 						<span style="display: none;" class="notificationContainerInlineButtons">
-							<table  style="width: 100%;">
+							<table>
 								<tr>
 									<th>
 										<span class="linkSmall" onclick="{{action}} inlineNotificationPollLogic();" >View</span>
@@ -136,10 +136,10 @@
 </div>
 <div class="notificationButtons">
 	<div class="menuTitle" >
-		<table style="width: 100%; border-top: 1px solid #aaa; padding-bottom: 3px; padding-top: 3px;">
+		<table class="buttonTable addBorderTop">
 			<tr>
 				<th>
-					<span class="linkSmall" style="cursor: pointer;" onclick="removeAllNotifications(); toggleNotifications();">Clear</span>
+					<span class="linkSmall" onclick="removeAllNotifications(); toggleNotifications();">Clear</span>
 				</th>
 			</tr>
 		</table>
@@ -147,13 +147,13 @@
 </div>
 <div class="historyButtons">
 	<div>
-		<table style="width: 100%; border-top: 1px solid #aaa; padding-bottom: 3px; padding-top: 3px;">
+		<table class="buttonTable addBorderTop">
 			<tr>
 				<th>
-					<span class="linkSmall" style="cursor: pointer;" onclick="toggleTmpSaveHistory();">Refresh</span>
+					<span class="linkSmall" onclick="toggleTmpSaveHistory();">Refresh</span>
 				</th>
 				<th>
-					<span class="linkSmall" style="cursor: pointer;" onclick="clearAllArchiveLogs('tmp');">Delete All</span>
+					<span class="linkSmall" onclick="clearAllArchiveLogs('tmp');">Delete All</span>
 				</th>
 			</tr>
 		</table>
@@ -161,13 +161,13 @@
 </div>
 <div class="archiveButtons">
 	<div>
-		<table style="width: 100%; border-top: 1px solid #aaa; padding-bottom: 3px; padding-top: 3px;">
+		<table class="buttonTable addBorderTop">
 			<tr>
 				<th>
-					<span class="linkSmall" style="cursor: pointer;" onclick="toggleArchiveHistory();">Refresh</span>
+					<span class="linkSmall" onclick="toggleArchiveHistory();">Refresh</span>
 				</th>
 				<th>
-					<span class="linkSmall" style="cursor: pointer;" onclick="clearAllArchiveLogs('archive');">Delete All</span>
+					<span class="linkSmall" onclick="clearAllArchiveLogs('archive');">Delete All</span>
 				</th>
 			</tr>
 		</table>

@@ -1,11 +1,14 @@
 <?php
-require_once('../core/php/commonFunctions.php');
-$currentSelectedTheme = returnCurrentSelectedTheme();
+require_once("../core/php/class/core.php");
+$core = new core();
+require_once("../core/php/class/settings.php");
+$settings = new settings();
+$currentSelectedTheme = $core->returnCurrentSelectedTheme();
 $baseUrl = "../local/".$currentSelectedTheme."/";
 $localURL = $baseUrl;
 require_once($baseUrl.'conf/config.php');
 require_once('../core/conf/config.php');
-$currentTheme = loadSpecificVar($defaultConfig, $config, "currentTheme");
+$currentTheme = $core->loadSpecificVar($defaultConfig, $config, "currentTheme");
 if(is_dir('../local/'.$currentSelectedTheme.'/Themes/'.$currentTheme))
 {
 	require_once('../local/'.$currentSelectedTheme.'/Themes/'.$currentTheme."/defaultSetting.php");
@@ -21,10 +24,22 @@ require_once('../core/php/updateCheck.php');
 <!doctype html>
 <head>
 	<title>Settings | Dev</title>
-	<?php echo loadCSS("../",$baseUrl, $cssVersion);?>
+	<?php echo $core->loadCSS("../",$baseUrl, $cssVersion);?>
 	<link rel="icon" type="image/png" href="../core/img/favicon.png" />
-	<script src="../core/js/jquery.js"></script>
-	<script src="../core/js/devTools.js?v=<?php echo $jsVersion;?>"></script>
+	<?php $core->getScripts(
+		array(
+			array(
+				"filePath"		=> "../core/js/jquery.js",
+				"baseFilePath"	=> "core/js/jquery.js",
+				"default"		=> $configStatic["version"]
+			),
+			array(
+				"filePath"		=> "../core/js/devTools.js",
+				"baseFilePath"	=> "core/js/devTools.js",
+				"default"		=> $configStatic["version"]
+			)
+		)
+	); ?>
 </head>
 <body>
 	<?php require_once('header.php'); ?>
@@ -33,7 +48,7 @@ require_once('../core/php/updateCheck.php');
 		<div class="settingsHeader">
 			Branch Settings
 			<div class="settingsHeaderButtons">
-				<?php echo addResetButton("devBranch"); ?>
+				<?php echo $settings->addResetButton("devBranch"); ?>
 				<a class="linkSmall devBranchSaveButton" onclick="saveAndVerifyMain('devBranch');" >Save Changes</a>
 			</div>
 		</div>
@@ -49,11 +64,11 @@ require_once('../core/php/updateCheck.php');
 					</div>
 				</li>
 				<li>
-					<span class="settingsBuffer" >  Base URL:  </span> <input type="text" style="width: 400px;"  name="baseUrlUpdate" value="<?php echo $baseUrlUpdate;?>" >
+					<span class="settingsBuffer" >  Base URL:  </span> <input type="text" class="inputWidth"  name="baseUrlUpdate" value="<?php echo $baseUrlUpdate;?>" >
 				</li>
 				<li>
 					<span style="font-size: 75%;">
-						<?php echo generateImage(
+						<?php echo $core->generateImage(
 							$arrayOfImages["info"],
 							array(
 								"style"			=>	"margin-bottom: -4px;",
@@ -67,19 +82,16 @@ require_once('../core/php/updateCheck.php');
 					</span>
 				</li>
 				<li>
-					<span class="settingsBuffer" > Config Version:  </span> <input type="number" pattern="[0-9]*" style="width: 400px;"  name="configVersion" value="<?php echo $configVersion;?>" >
+					<span class="settingsBuffer" > Config Version:  </span> <input type="number" pattern="[0-9]*" class="inputWidth" name="configVersion" value="<?php echo $configVersion;?>" >
 				</li>
 				<li>
-					<span class="settingsBuffer" > Layout Version:  </span> <input type="number" pattern="[0-9]*" style="width: 400px;"  name="layoutVersion" value="<?php echo $layoutVersion;?>" >
+					<span class="settingsBuffer" > Layout Version:  </span> <input type="number" pattern="[0-9]*" class="inputWidth"  name="layoutVersion" value="<?php echo $layoutVersion;?>" >
 				</li>
 				<li>
-					<span class="settingsBuffer" > CSS Version:  </span> <input type="number" pattern="[0-9]*" style="width: 400px;"  name="cssVersion" value="<?php echo $cssVersion;?>" >
+					<span class="settingsBuffer" > CSS Version:  </span> <input type="number" pattern="[0-9]*" class="inputWidth"  name="cssVersion" value="<?php echo $cssVersion;?>" >
 				</li>
 				<li>
-					<span class="settingsBuffer" > JS Version:  </span> <input type="number" pattern="[0-9]*" style="width: 400px;"  name="jsVersion" value="<?php echo $jsVersion;?>" >
-				</li>
-				<li>
-					<span class="settingsBuffer" > Theme Version:  </span> <input type="number" pattern="[0-9]*" style="width: 400px;"  name="themeVersion" value="<?php echo $themeVersion;?>" >
+					<span class="settingsBuffer" > Theme Version:  </span> <input type="number" pattern="[0-9]*" class="inputWidth"  name="themeVersion" value="<?php echo $themeVersion;?>" >
 				</li>
 			</ul>
 
@@ -89,14 +101,14 @@ require_once('../core/php/updateCheck.php');
 		<div class="settingsHeader">
 			Static Config Settings
 			<div class="settingsHeaderButtons">
-				<?php echo addResetButton("devAdvanced2");?>
+				<?php echo $settings->addResetButton("devAdvanced2");?>
 				<a class="linkSmall devAdvanced2SaveButton" onclick="saveConfigStatic();" >Save Changes</a>
 			</div>
 		</div>
 		<div class="settingsDiv" >
 			<ul class="settingsUl">
 				<li>
-					<span class="settingsBuffer" >  Version Number:  </span> <input id="versionNumberConfigStaticInput" type="text" style="width: 400px;"  name="version" value="<?php echo $configStatic['version'];?>" >
+					<span class="settingsBuffer" >  Version Number:  </span> <input id="versionNumberConfigStaticInput" type="text" class="inputWidth"  name="version" value="<?php echo $configStatic['version'];?>" >
 				</li>
 			</ul>
 		</div>

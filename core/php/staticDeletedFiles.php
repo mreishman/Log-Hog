@@ -160,5 +160,25 @@ $arrayOfFilesDeleted = array(
 	39			=> array(
 		"fullPath"	=>	"settings/header3.php",
 		"type"		=>	"file"
-	)
+	),
+	40			=> array(
+		"fullPath"	=>	"core/php/clearAllLogs.php",
+		"type"		=>	"file"
+	),
+	41			=> array(
+		"fullPath"	=>	"core/php/deleteLog.php",
+		"type"		=>	"file"
+	),
+	42			=> array(
+		"fullPath"	=>	"core/php/commonFunctions.php",
+		"type"		=>	"file"
+	),
+	43			=> array(
+		"fullPath"	=>	"core/php/errorCheckFunctions.php",
+		"type"		=>	"file"
+	),
+	44			=> array(
+		"fullPath"	=>	"core/php/settingsMainWatchFunctions.php",
+		"type"		=>	"file"
+	),
 );

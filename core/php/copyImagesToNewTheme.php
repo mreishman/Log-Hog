@@ -1,11 +1,12 @@
 <?php
-require_once("../../core/php/commonFunctions.php");
+require_once("../../core/php/class/core.php");
+$core = new core();
 $baseUrl = "../../local/";
 require_once($baseUrl."layout.php");
 $baseUrl .= $currentSelectedTheme."/";
 require_once($baseUrl.'conf/config.php');
 require_once('../../core/conf/config.php');
-$currentTheme = loadSpecificVar($defaultConfig, $config, "currentTheme");
+$currentTheme = $core->loadSpecificVar($defaultConfig, $config, "currentTheme");
 $directory = '../../core/Themes/'.$currentTheme.'/';
 if(is_dir('../../local/'.$currentSelectedTheme.'/Themes/'.$currentTheme))
 {

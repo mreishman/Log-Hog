@@ -1,11 +1,15 @@
 <?php
 require_once('../setup/setupProcessFile.php');
 require_once("../core/php/customCSS.php");
-echo loadSentryData($sendCrashInfoJS, $branchSelected); ?>
-<script src="../core/js/settingsExt.js?v=<?php echo $jsVersion?>"></script>
+echo $core->loadSentryData($sendCrashInfoJS, $branchSelected, $configStatic);
+$core->getScript(array(
+	"filePath"		=> "../core/js/settingsExt.js",
+	"baseFilePath"	=> "core/js/settingsExt.js",
+	"default"		=> $configStatic["version"]
+)); ?>
 <div id="menu">
 	<div onclick="goToUrl('../index.php');" style="display: inline-block; cursor: pointer; height: 30px; width: 30px; ">
-		<?php echo generateImage(
+		<?php echo $core->generateImage(
 			$arrayOfImages["backArrow"],
 			array(
 				"height"		=>	"30px",
@@ -17,7 +21,7 @@ echo loadSentryData($sendCrashInfoJS, $branchSelected); ?>
 	</div>
 	<?php if(strpos($URI, 'about.php') !== false): ?>
 		<a style="cursor: default;" class="active" id="aboutLink" >About</a>
-	<?php else: ?>	
+	<?php else: ?>
 		<a id="aboutLink" onclick="goToUrl('about.php');">About</a>
 	<?php endif; ?>
 	<?php if(strpos($URI, 'whatsNew.php') !== false): ?>
@@ -36,11 +40,11 @@ echo loadSentryData($sendCrashInfoJS, $branchSelected); ?>
 $baseUrlImages = $localURL;
 ?>
 <script type="text/javascript">
-	var baseUrl = "<?php echo baseURL();?>";
+	var baseUrl = "<?php echo $core->baseURL();?>";
 	var popupSettingsArray = {};
 	var currentVersion = "<?php echo $configStatic['version']; ?>";
 	var newestVersion = "<?php echo $configStatic['newestVersion']; ?>";
-	var saveVerifyImage = <?php echo json_encode(generateImage(
+	var saveVerifyImage = <?php echo json_encode($core->generateImage(
 			$arrayOfImages["greenCheck"],
 			array(
 				"height"		=>	"50px",

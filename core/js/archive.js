@@ -42,7 +42,7 @@ function showHistory(data)
 {
 	$("#historyHolder").html('');
 	let htmlForHistory = "<table width=\"100%\" ><tr><td></td><td></td></tr>";
-	htmlForHistory += "<tr><td style=\"text-align: center;\" colspan=\"2\" ><h2>No Log Backups To Display</h2></td></tr>"
+	htmlForHistory += "<tr><td style=\"text-align: center;\" colspan=\"2\" ><h2>No Log Backups To Display</h2></td></tr>";
 	if(data)
 	{
 		htmlForHistory = archiveListActions(data, htmlForHistory, "tmp");
@@ -175,7 +175,7 @@ function clearAllArchiveLogs(type)
 	$.ajax({
 			url: "core/php/deleteAllArchiveLogs.php?format=json",
 			dataType: "json",
-			data: dataToSend,
+			data: {type},
 			type: "POST",
 	success(data){
 		var arrayOfDataMainKeys = Object.keys(arrayOfDataMain);

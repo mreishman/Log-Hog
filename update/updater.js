@@ -159,7 +159,7 @@ function verifyFilePoll(action, fileLocation,isThere)
 				{
 					lock = false;
 				}
-			});	
+			});
 		}(data));
 	}
 }
@@ -300,7 +300,7 @@ function verifyDownloadDownloaded()
 
 function verifyDownloadError()
 {
-	var downloadErrorMessage = "Could not verify download downloaded correctly. Please ensure that there is enough free space on drive to download update. "
+	var downloadErrorMessage = "Could not verify download downloaded correctly. Please ensure that there is enough free space on drive to download update. ";
 	updateStatusFunc(downloadErrorMessage, "");
 	updateError(downloadErrorMessage+"<br> Attempting to reset update, please wait...");
 	resetUpdateSettings();
@@ -328,7 +328,7 @@ function resetUpdateSettings()
 
 function verifyResetChange()
 {
-    var urlForSend = "update/updateActionCheck.php?format=json";
+    var urlForSend = "../update/updateActionCheck.php?format=json";
     var data = {status: "" };
     $.ajax(
     {
@@ -524,7 +524,7 @@ function ajaxForPreScriptRun(urlForSendAjaxScrip)
 			if(data !== true)
 			{
 				//verify data
-				verifyFileOrDir("preScriptRun",data)
+				verifyFileOrDir("preScriptRun",data);
 			}
 			else
 			{
@@ -532,13 +532,13 @@ function ajaxForPreScriptRun(urlForSendAjaxScrip)
 				preScriptRun();
 			}
 		}
-	});	
+	});
 }
 
 function filterFilesFromArray()
 {
 	filteredArray = new Array();
-	for (var i = arrayOfFilesExtracted.length - 1; i >= 0; i--) 
+	for (var i = arrayOfFilesExtracted.length - 1; i >= 0; i--)
 	{
 		var file = arrayOfFilesExtracted[i];
 		var copyFile = true;
@@ -654,7 +654,7 @@ function ajaxForPostScriptRun(urlForSendAjaxScript)
 			if(data !== true)
 			{
 				//verify data
-				verifyFileOrDir("postScriptRun",data)
+				verifyFileOrDir("postScriptRun",data);
 			}
 			else
 			{
@@ -662,7 +662,7 @@ function ajaxForPostScriptRun(urlForSendAjaxScript)
 				postScriptRun();
 			}
 		}
-	});	
+	});
 }
 
 function postScriptRedirect()
@@ -697,7 +697,7 @@ function ajaxForRedirectScript(urlForSendMainRedAjax)
 			{
 				ajaxForRedirectScript();
 			}
-		});	
+		});
 	}(data));
 }
 

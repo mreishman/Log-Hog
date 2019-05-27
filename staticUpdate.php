@@ -1,13 +1,15 @@
 <?php
-$cssVersion = rand(0 , 9000000);
-require_once('core/php/commonFunctions.php');
-
-$currentSelectedTheme = returnCurrentSelectedTheme();
+$cssVersion = date("YmdHis");
+require_once("core/php/class/core.php");
+$core = new core();
+require_once("core/php/class/update.php");
+$update = new update();
+$currentSelectedTheme = $core->returnCurrentSelectedTheme();
 $baseUrl = "local/".$currentSelectedTheme."/";
 
 require_once($baseUrl.'conf/config.php');
 require_once('core/conf/config.php');
-$currentTheme = loadSpecificVar($defaultConfig, $config, "currentTheme");
+$currentTheme = $core->loadSpecificVar($defaultConfig, $config, "currentTheme");
 $defaultSettingsDir = 'core/Themes/'.$currentTheme."/defaultSetting.php";
 if(is_dir('local/'.$currentSelectedTheme.'/Themes/'.$currentTheme))
 {
@@ -15,7 +17,7 @@ if(is_dir('local/'.$currentSelectedTheme.'/Themes/'.$currentTheme))
 }
 require_once($defaultSettingsDir);
 require_once('core/php/configStatic.php');
-$daysSince = calcuateDaysSince($configStatic['lastCheck']);
+$daysSince = $update->calcuateDaysSince($configStatic['lastCheck']);
 require_once('core/php/updateCheck.php');
 require_once('core/php/loadVars.php');
 ?>
@@ -23,28 +25,49 @@ require_once('core/php/loadVars.php');
 <html>
 <head>
 	<title>Static Update Page</title>
-	<?php echo loadCSS("",$baseUrl, $cssVersion);?>
-	<script src="core/js/jquery.js"></script>
+	<?php echo $core->loadCSS("",$baseUrl, $cssVersion);?>
+	<?php $core->getScript(array(
+		"filePath"		=> "core/js/jquery.js",
+		"baseFilePath"	=> "core/js/jquery.js",
+		"default"		=> $configStatic["version"]
+	)); ?>
 	<link rel="icon" type="image/png" href="core/img/favicon.png" />
 </head>
 <body>
 	<div id="main">
 		<?php require_once('core/php/template/update.php'); ?>
 	</div>
+	<?php require_once('core/php/template/popup.php'); ?>
 </body>
 </html>
-<script src="core/js/update.js?v=<?php echo $cssVersion?>"></script>
-<script src="core/js/settingsExt.js?v=<?php echo $cssVersion?>"></script>
-<script src="core/js/lazyLoadImg.js?v=<?php echo $cssVersion?>"></script>
+<?php $core->getScripts(
+	array(
+		array(
+			"filePath"		=> "core/js/update.js",
+			"baseFilePath"	=> "core/js/update.js",
+			"default"		=> $configStatic["version"]
+		),
+		array(
+			"filePath"		=> "core/js/settingsExt.js",
+			"baseFilePath"	=> "core/js/settingsExt.js",
+			"default"		=> $configStatic["version"]
+		),
+		array(
+			"filePath"		=> "core/js/lazyLoadImg.js",
+			"baseFilePath"	=> "core/js/lazyLoadImg.js",
+			"default"		=> $configStatic["version"]
+		)
+	)
+); ?>
 <script type="text/javascript">
-	
+
 $(document).ready(function()
 {
 	loadImgFromData("updateImg");
 });
 var currentVersion = "<?php echo $configStatic['version'];?>";
 var baseUrl = "<?php echo $baseUrl;?>";
-var saveVerifyImage = <?php echo json_encode(generateImage(
+var saveVerifyImage = <?php echo json_encode($core->generateImage(
 	$arrayOfImages["greenCheck"],
 	array(
 		"height"		=>	"50px"

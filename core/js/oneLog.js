@@ -197,7 +197,7 @@ function openLogInFull(logId)
 		var firstPosition = 0;
 		var secondPosition = 1;
 		var logDisplayArrayKey = Object.keys(logDisplayArray);
-		var logDisplayArrayKeyLength = logDisplayArrayKey.length
+		var logDisplayArrayKeyLength = logDisplayArrayKey.length;
 		var boolForGen = (logDisplayArrayKey === 1);
 		if(boolForGen)
 		{

@@ -6,8 +6,8 @@ $baseUrl = $baseModifier."local/".$currentSelectedTheme."/";
 require_once($baseUrl.'conf/config.php');
 require_once($baseModifier.'core/conf/config.php');
 require_once('configStatic.php');
-require_once('commonFunctions.php');
-
+require_once("class/core.php");
+$core = new core();
 $varsLoadLite = array("saveTmpLogNum","saveArchiveLogLimit","saveArchiveLogNum");
 
 foreach ($varsLoadLite as $varLoadLite)

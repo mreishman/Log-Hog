@@ -8,7 +8,10 @@ try
 	require_once($baseModifier.'core/conf/config.php');
 	require_once('configStatic.php');
 	require_once('updateProgressFile.php');
-	require_once('commonFunctions.php');
+	require_once("class/core.php");
+	$core = new core();
+	require_once('class/poll.php');
+	$poll = new poll();
 }
 catch (Exception $e)
 {
@@ -61,7 +64,7 @@ foreach($watchList as $key => $value)
 	$fileData = json_decode($value["FileInformation"], true);
 	if(is_dir($path))
 	{
-		$watchListFolder[$key] = getListOfFiles(array(
+		$watchListFolder[$key] = $poll->getListOfFiles(array(
 			"path" 			=> $path,
 			"filter"		=> $filter,
 			"response"		=> array(),
@@ -102,7 +105,7 @@ foreach($watchList as $key => $value)
 
 foreach ($responseFilelist as $file)
 {
-	$currentFileSize = getFileSize($file, $shellOrPhp);
+	$currentFileSize = $poll->getFileSize($file, $shellOrPhp);
 	$response[$file]["size"] = $currentFileSize;
 	$responseFileLineCount = -1;
 	if($lineCountFromJS === "false")
@@ -113,7 +116,7 @@ foreach ($responseFilelist as $file)
 		}
 		else
 		{
-			$responseFileLineCount = getLineCount($file, $shellOrPhp);
+			$responseFileLineCount = $poll->getLineCount($file, $shellOrPhp);
 		}
 	}
 	$response[$file]["lineCount"] = $responseFileLineCount;

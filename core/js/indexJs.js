@@ -32,14 +32,10 @@ function tryLoadJSStuff()
 	{
 		clearInterval(timerForLoadJS);
 		loadedFile = false;
-		var nameOfCurrentFile = arrayOfJsFiles[arrayOfJsFilesKeys[counterForJSLoad]]["name"];
+		let nameOfCurrentFile = arrayOfJsFiles[arrayOfJsFilesKeys[counterForJSLoad]]["name"];
+		let versionOfCurrentFile = arrayOfJsFiles[arrayOfJsFilesKeys[counterForJSLoad]]["ver"];
 		document.getElementById("initialLoadContentMoreInfo").innerHTML = nameOfCurrentFile;
-		var versionToAdd = cssVersion;
-		if(currentFileType === "js")
-		{
-			versionToAdd = jsVersion;
-		}
-		var nameOfFile = nameOfCurrentFile+"?v="+versionToAdd;
+		var nameOfFile = nameOfCurrentFile+"?v="+versionOfCurrentFile;
 		if(currentFileType === "js")
 		{
 			nameOfFile = "core/js/"+nameOfFile;
@@ -50,7 +46,7 @@ function tryLoadJSStuff()
 		}
 		else if(currentFileType === "css")
 		{
-			css(nameOfFile)
+			css(nameOfFile);
 			document.getElementById(nameOfFile.replace(/[^a-z0-9]/g, "")).addEventListener('load', function() {
 				loadedFile = true;
 			}, false);

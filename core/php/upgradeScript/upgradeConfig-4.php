@@ -1,6 +1,9 @@
 <?php
-require_once("../commonFunctions.php");
-$baseBaseUrl = baseURL();
+require_once("../class/core.php");
+$core = new core();
+require_once("../class/upgrade.php");
+$upgrade = new upgrade();
+$baseBaseUrl = $core->baseURL();
 $baseUrl = $baseBaseUrl."local/";
 include($baseUrl.'layout.php');
 $baseUrl .= $currentSelectedTheme."/";
@@ -55,5 +58,5 @@ if($alreadyRan)
 		"configVersion" => (Int)$_POST['version']
 	);
 }
-upgradeConfig($arrayForNewStuff);
-echo json_encode($_POST['version']); 
+$upgrade->upgradeConfig($arrayForNewStuff);
+echo json_encode($_POST['version']);

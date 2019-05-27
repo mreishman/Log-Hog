@@ -39,7 +39,7 @@ function formatPhpMessage(message, extraData)
 		let morePhpInfo = getMoreInfo(restOfMessage, "php", 0);
 		if(!morePhpInfo["empty"])
 		{
-			buttonOfInfo = "<span><span style=\"float:right; margin-top: -3px;\" class=\"linkSmall\" onclick=\"showMoreInfo(this)\" >More Info</span><div style=\"display: none;\" >"+formatMoreInfo(morePhpInfo["data"])+"</div></span>"
+			buttonOfInfo = "<span><span style=\"float:right; margin-top: -3px;\" class=\"linkSmall\" onclick=\"showMoreInfo(this)\" >More Info</span><div style=\"display: none;\" >"+formatMoreInfo(morePhpInfo["data"])+"</div></span>";
 		}
 	}
 	return firstPartOfMessage+"<div>"+severity+messageWarning+buttonOfInfo+"</div><div class=\"settingsDiv\">"+restOfMessage+"</div>";

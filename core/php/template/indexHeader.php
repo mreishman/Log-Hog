@@ -2,7 +2,7 @@
 	<div id="menuButtons" style="display: none;">
 		<span id="menuButtonLeft">
 			<div onclick="toggleFullScreenMenu();"  class="menuImageDiv" id="mainMenuDiv">
-				<?php echo generateImage(
+				<?php echo $core->generateImage(
 					$arrayOfImages["loadingImg"],
 					$imageConfig = array(
 						"id"		=>	"menuImage",
@@ -14,7 +14,7 @@
 				?>
 			</div>
 			<div <?php if ($hideNotificationIcon === "true"){echo "style=\"display: none\"";} ?> class="menuImageDiv" id="notificationDiv" onclick="toggleNotifications();" >
-				<?php echo generateImage(
+				<?php echo $core->generateImage(
 					$arrayOfImages["loadingImg"],
 					$imageConfig = array(
 						"id"		=>	"notificationNotClicked",
@@ -26,7 +26,7 @@
 				?>
 			</div>
 			<div onclick="toggleSettingsSidebar();"  class="menuImageDiv">
-				<?php echo generateImage(
+				<?php echo $core->generateImage(
 					$arrayOfImages["loadingImg"],
 					$imageConfig = array(
 						"id"		=>	"menuImage",
@@ -39,7 +39,7 @@
 			</div>
 			<?php if($enableMultiLog === "true" && $multiLogOnIndex === "true"): ?>
 				<div onclick="toggleSettingsSidebar();"  class="menuImageDiv">
-					<?php echo generateImage(
+					<?php echo $core->generateImage(
 						$arrayOfImages["loadingImg"],
 						$imageConfig = array(
 							"id"		=>	"multiLogImage",
@@ -58,7 +58,7 @@
 					{
 						$styleString = "display: none;";
 					}
-					echo generateImage(
+					echo $core->generateImage(
 					$arrayOfImages["loadingImg"],
 					$imageConfig = array(
 						"id"		=>	"playImage",
@@ -74,7 +74,7 @@
 					{
 						$styleString = "display: none;";
 					}
-					echo generateImage(
+					echo $core->generateImage(
 					$arrayOfImages["loadingImg"],
 					$imageConfig = array(
 						"id"		=>	"pauseImage",
@@ -88,7 +88,7 @@
 			</div>
 			<div onclick="refreshAction();" class="menuImageDiv">
 				<?php
-					echo generateImage(
+					echo $core->generateImage(
 					$arrayOfImages["loadingImg"],
 					$imageConfig = array(
 						"id"		=>	"refreshImage",
@@ -98,7 +98,7 @@
 						)
 					);
 
-					echo generateImage(
+					echo $core->generateImage(
 					$arrayOfImages["loading"],
 					$imageConfig = array(
 						"id"		=>	"refreshingImage",
@@ -111,7 +111,7 @@
 			</div>
 			<?php if($truncateLog == 'true'): ?>
 				<div onclick="deleteAction();"  class="menuImageDiv">
-					<?php echo generateImage(
+					<?php echo $core->generateImage(
 						$arrayOfImages["loadingImg"],
 						$imageConfig = array(
 							"id"		=>	"deleteImage",
@@ -124,7 +124,7 @@
 				</div>
 			<?php elseif($truncateLog == 'false'): ?>
 				<div onclick="clearLog(currentSelectWindow);" class="menuImageDiv">
-					<?php echo generateImage(
+					<?php echo $core->generateImage(
 						$arrayOfImages["loadingImg"],
 						$imageConfig = array(
 							"id"		=>	"deleteImage",
@@ -138,7 +138,7 @@
 			<?php endif; ?>
 			<span <?php if($hideClearAllNotifications === "true"){ echo "style=\" display: none; \""; }?> >
 				<div  id="clearNotificationsImage" style="display: none;" onclick="removeAllNotifications();" class="menuImageDiv">
-					<?php echo generateImage(
+					<?php echo $core->generateImage(
 						$arrayOfImages["loadingImg"],
 						$imageConfig = array(
 							"id"		=>	"notificationClearImage",
@@ -152,11 +152,11 @@
 			</span>
 		</span>
 		<?php if ($groupDropdownInHeader === "true"): ?>
-			<div style="display: inline-block; overflow-y: auto; margin-bottom: -8px; height: 23px;" id="groupsInHeader"><span id="groupHeaderAllButton" class="linkSmall selected" onclick="addGroupToSelect(event, 'all');" >All</span></div>
+			<div id="groupsInHeader"><span id="groupHeaderAllButton" class="linkSmall selected" onclick="addGroupToSelect(event, 'all');" >All</span></div>
 		<?php endif; ?>
 		<?php if ($filterSearchInHeader === "true" && $filterEnabled === "true"): ?>
 			<div id="menuButtonRight" style="float: right;">
-				<input disabled id="searchFieldInput" type="search" name="search" placeholder="Filter <?php echo $filterDefault; ?>" style="height: 30px; width: 200px; margin-right: 10px;">
+				<input disabled id="searchFieldInput" type="search" name="search" placeholder="Filter <?php echo $filterDefault; ?>">
 			</div>
 		<?php endif; ?>
 	</div>

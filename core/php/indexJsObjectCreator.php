@@ -2,7 +2,7 @@
 $arrayOfFiles = array(
 	array(
 		"name" => "core/template/base.css",
-		"type" => "css"
+		"type" => "css",
 	),
 	array(
 		"name" => "core/template/loading-bar.css",
@@ -98,17 +98,17 @@ $arrayOfFiles = array(
 		"class" =>"menuImageForLoad"
 	),
 	array(
-		"name" => $baseUrl . "img/play.png",
+		"name" => $baseUrl . "img/Play.png",
 		"type" =>"img",
 		"class" =>"playImageForLoad"
 	),
 	array(
-		"name" => $baseUrl . "img/pause.png",
+		"name" => $baseUrl . "img/Pause.png",
 		"type" =>"img",
 		"class" =>"pauseImageForLoad"
 	),
 	array(
-		"name" => $baseUrl . "img/refresh.png",
+		"name" => $baseUrl . "img/Refresh.png",
 		"type" =>"img",
 		"class" =>"refreshImageForLoad"
 	),
@@ -138,7 +138,7 @@ $arrayOfFiles = array(
 		"class" =>"downArrowSideBarImageForLoad"
 	),
 	array(
-		"name" => $baseUrl . "img/gear.png",
+		"name" => $baseUrl . "img/Gear.png",
 		"type" =>"img",
 		"class" =>"gearImageForLoad"
 	),
@@ -210,7 +210,7 @@ if($advancedLogFormatEnabled === "true")
 		"name" => "dateFormat.min.js",
 		"type" => "js"
 	);
-	$directory = array_diff(scandir(baseURL()."core/js/formatObjects/"), array('..', '.'));
+	$directory = array_diff(scandir($core->baseURL()."core/js/formatObjects/"), array('..', '.'));
 	foreach ($directory as $file) {
 		$arrayOfFiles[] =  array(
 			"name" => "formatObjects/".$file,
@@ -326,6 +326,15 @@ function compareByType($a, $b) {
 usort($arrayOfFiles, 'compareByName');
 usort($arrayOfFiles, 'compareByType');
 
+foreach ($arrayOfFiles as $key => $value)
+{
+	$filePath = $value["name"];
+	if($value["type"] === "js")
+	{
+		$filePath = "core/js/".$filePath;
+	}
+	$arrayOfFiles[$key]["ver"] = $core->getFileTime($filePath, $configStatic["version"]);
+}
 
 ?>
 <script type="text/javascript">
@@ -333,4 +342,11 @@ usort($arrayOfFiles, 'compareByType');
 	var arrayOfJsFiles = <?php echo json_encode($arrayOfFiles); ?>;
 	var arrayOfJsFilesKeys = Object.keys(arrayOfJsFiles);
 	var lengthOfArrayOfJsFiles = arrayOfJsFilesKeys.length;
+	var onLoadJsFiles = {
+		watchlist: {
+			name: "core/js/settingsWatchlist.js",
+			type: "js",
+			ver : <?php echo $core->getFileTime("core/js/settingsWatchlist.js",$configStatic["version"]); ?>
+		}
+	};
 </script>

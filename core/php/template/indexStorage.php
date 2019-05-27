@@ -35,8 +35,8 @@
 						<p id="numSelectIndecatorForWindow{{counter}}"  class=" {{windowSelect}} " >
 							{{counterPlusOne}}
 						</p>
-						<a id="showInfoLink{{counter}}" onclick="showInfo('{{counter}}');" style="cursor: pointer;" >
-							<?php echo generateImage(
+						<a id="showInfoLink{{counter}}" onclick="showInfo('{{counter}}');">
+							<?php echo $core->generateImage(
 								$arrayOfImages["loadingImg"],
 								$imageConfig = array(
 									"height"	=>	"20px",
@@ -48,8 +48,10 @@
 								);
 							?>
 						</a>
-						<a id="showLogWindowFilter{{counter}}" onclick="showLogWindowFilter('{{counter}}');" style="cursor: pointer;" >
-							<?php echo generateImage(
+						<span id="loadLineCountForWindow{{counter}}" class="loadLineCountForWindow" style="font-size: 86%;padding: 0;color: black;">
+						</span>
+						<a id="showLogWindowFilter{{counter}}" onclick="showLogWindowFilter('{{counter}}');">
+							<?php echo $core->generateImage(
 								$arrayOfImages["loadingImg"],
 								$imageConfig = array(
 									"height"	=>	"20px",
@@ -61,9 +63,9 @@
 								);
 							?>
 						</a>
-						<a id="pinWindow{{counter}}" class="pinWindowContainer"  onclick="pinWindow('{{counter}}');" style="cursor: pointer;" >
+						<a id="pinWindow{{counter}}" class="pinWindowContainer"  onclick="pinWindow('{{counter}}');">
 							<?php
-								echo generateImage(
+								echo $core->generateImage(
 								$arrayOfImages["loadingImg"],
 								$imageConfig = array(
 									"height"	=>	"20px",
@@ -73,7 +75,7 @@
 									"data-src"	=>	$arrayOfImages["pin"]
 									)
 								);
-								echo generateImage(
+								echo $core->generateImage(
 								$arrayOfImages["loadingImg"],
 								$imageConfig = array(
 									"height"	=>	"20px",
@@ -85,8 +87,8 @@
 								);
 							?>
 						</a>
-						<a id="clearLogSideBar{{counter}}"  onclick="clearLog('{{counter}}');" style="cursor: pointer;">
-							<?php echo generateImage(
+						<a id="clearLogSideBar{{counter}}"  onclick="clearLog('{{counter}}');">
+							<?php echo $core->generateImage(
 								$arrayOfImages["loadingImg"],
 								$imageConfig = array(
 									"height"	=>	"20px",
@@ -98,8 +100,8 @@
 								);
 							?>
 						</a>
-						<a id="deleteLogSideBar{{counter}}"  onclick="deleteLogPopup('{{counter}}');" style="cursor: pointer;">
-							<?php echo  generateImage(
+						<a id="deleteLogSideBar{{counter}}"  onclick="deleteLogPopup('{{counter}}');">
+							<?php echo  $core->generateImage(
 								$arrayOfImages["loadingImg"],
 								$imageConfig = array(
 									"height"	=>	"20px",
@@ -111,8 +113,8 @@
 								);
 							?>
 						</a>
-						<a id="historySideBar{{counter}}" onclick="viewBackupFromCurrentLog('{{counter}}');" style="cursor: pointer;">
-							<?php echo generateImage(
+						<a id="historySideBar{{counter}}" onclick="viewBackupFromCurrentLog('{{counter}}');">
+							<?php echo $core->generateImage(
 								$arrayOfImages["loadingImg"],
 								$imageConfig = array(
 									"height"	=>	"20px",
@@ -124,8 +126,8 @@
 								);
 							?>
 						</a>
-						<a id="saveArchiveSideBar{{counter}}" onclick="saveArchivePopup('{{counter}}');" style="cursor: pointer;">
-							<?php echo generateImage(
+						<a id="saveArchiveSideBar{{counter}}" onclick="saveArchivePopup('{{counter}}');">
+							<?php echo $core->generateImage(
 								$arrayOfImages["loadingImg"],
 								$imageConfig = array(
 									"height"	=>	"20px",
@@ -137,8 +139,8 @@
 								);
 							?>
 						</a>
-						<a onclick="toggleLogPopup(this,'{{counter}}');" style="cursor: pointer;">
-							<?php echo generateImage(
+						<a onclick="toggleLogPopup(this,'{{counter}}');">
+							<?php echo $core->generateImage(
 								$arrayOfImages["loadingImg"],
 								$imageConfig = array(
 									"height"	=>	"20px",
@@ -150,8 +152,8 @@
 								);
 							?>
 						</a>
-						<a onclick="removeLogFromDisplay('{{counter}}')" id="closeLogSideBar{{counter}}" onclick="#" style="cursor: pointer; display: none;" >
-							<?php echo generateImage(
+						<a onclick="removeLogFromDisplay('{{counter}}')" id="closeLogSideBar{{counter}}" onclick="#" style="display: none;" >
+							<?php echo $core->generateImage(
 								$arrayOfImages["loadingImg"],
 								$imageConfig = array(
 									"height"	=>	"20px",
@@ -162,8 +164,8 @@
 								);
 							?>
 						</a>
-						<a onclick="scrollToBottom('{{counter}}');" style="cursor: pointer;" >
-							<?php echo generateImage(
+						<a onclick="scrollToBottom('{{counter}}');">
+							<?php echo $core->generateImage(
 								$arrayOfImages["loadingImg"],
 								$imageConfig = array(
 									"height"	=>	"20px",
@@ -182,7 +184,7 @@
 				</span>
 				<span id="log{{counter}}Td"  class="logTrHeight" style="overflow: auto; display: block; word-break: break-all;" >
 					<div id="log{{counter}}load" {{loadingStyle}} class="errorMessageLog">
-						<?php echo generateImage(
+						<?php echo $core->generateImage(
 							$arrayOfImages["loading"],
 							$imageConfig = array(
 								"height"	=>	"75px",

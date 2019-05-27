@@ -1,11 +1,17 @@
 <?php
-require_once('../core/php/commonFunctions.php');
-$currentSelectedTheme = returnCurrentSelectedTheme();
+require_once("../core/php/class/core.php");
+$core = new core();
+if(!isset($settings))
+{
+	require_once($core->baseURL()."core/php/class/settings.php");
+	$settings = new settings();
+}
+$currentSelectedTheme = $core->returnCurrentSelectedTheme();
 $baseUrl = "../local/".$currentSelectedTheme."/";
 $localURL = $baseUrl;
 require_once($baseUrl.'conf/config.php');
 require_once('../core/conf/config.php');
-$currentTheme = loadSpecificVar($defaultConfig, $config, "currentTheme");
+$currentTheme = $core->loadSpecificVar($defaultConfig, $config, "currentTheme");
 if(is_dir('../local/'.$currentSelectedTheme.'/Themes/'.$currentTheme))
 {
 	require_once('../local/'.$currentSelectedTheme.'/Themes/'.$currentTheme."/defaultSetting.php");
@@ -34,11 +40,27 @@ $countConfig--;
 <!doctype html>
 <head>
 	<title>Settings | Advanced</title>
-	<?php echo loadCSS("../",$baseUrl, $cssVersion);?>
+	<?php echo $core->loadCSS("../",$baseUrl, $cssVersion);?>
 	<link rel="icon" type="image/png" href="../core/img/favicon.png" />
-	<script src="../core/js/jquery.js"></script>
-	<script src="../core/js/advanced.js?v=<?php echo $jsVersion;?>"></script>
-	<script src="../core/js/resetSettingsJs.js?v=<?php echo $jsVersion;?>"></script>
+	<?php $core->getScripts(
+		array(
+			array(
+				"filePath"		=> "../core/js/jquery.js",
+				"baseFilePath"	=> "core/js/jquery.js",
+				"default"		=> $configStatic["version"]
+			),
+			array(
+				"filePath"		=> "../core/js/advanced.js",
+				"baseFilePath"	=> "core/js/advanced.js",
+				"default"		=> $configStatic["version"]
+			),
+			array(
+				"filePath"		=> "../core/js/resetSettingsJs.js",
+				"baseFilePath"	=> "core/js/resetSettingsJs.js",
+				"default"		=> $configStatic["version"]
+			)
+		)
+	); ?>
 </head>
 <body>
 	<?php require_once('header.php'); ?>
@@ -100,10 +122,10 @@ $countConfig--;
 	</form>
 	</div>
 	<form id="devAdvanced2" action="../core/php/settingsSaveConfigStatic.php" method="post"> <!-- Reset update notification form -->
-		<input type="hidden" style="width: 400px;"  name="newestVersion" value="<?php echo $configStatic['version'];?>" > 
+		<input type="hidden" name="newestVersion" value="<?php echo $configStatic['version'];?>" >
 	</form>
 </body>
 <script type="text/javascript">
-	var htmlRestoreOptions = "<?php echo generateRestoreList($configStatic); ?>";
+	var htmlRestoreOptions = "<?php echo $settings->generateRestoreList($configStatic); ?>";
 	var saveButtonAlwaysVisible = "<?php echo $saveButtonAlwaysVisible; ?>";
 </script>

@@ -2,7 +2,10 @@
 $data = array();
 $data['version'] = -1;
 $data['error'] = "";
-require_once('commonFunctions.php');
+require_once("class/core.php");
+$core = new core();
+require_once("class/update.php");
+$update = new update();
 //check for previous update, if failed
 $baseUrl = "../../core/";
 if(file_exists('../../local/layout.php'))
@@ -174,7 +177,7 @@ $newestVersion =  explode('.', $versionCheckArray['version']);
 
 $newestVersionCount = count($newestVersion);
 $versionCount = count($version);
-$levelOfUpdate = $levelOfUpdate = findUpdateValue($newestVersionCount, $versionCount, $newestVersion, $version);
+$levelOfUpdate = $levelOfUpdate = $update->findUpdateValue($newestVersionCount, $versionCount, $newestVersion, $version);
 
 $data['version'] = $levelOfUpdate;
 $data['versionNumber'] = $versionCheckArray['version'];
@@ -203,7 +206,7 @@ foreach ($versionCheckArray['versionList'] as $key => $value)
   }
   $newestVersion = explode('.', $key);
   $newestVersionCount = count($newestVersion);
-  $levelOfUpdate = findUpdateValue($newestVersionCount, $versionCount, $newestVersion, $version);
+  $levelOfUpdate = $update->findUpdateValue($newestVersionCount, $versionCount, $newestVersion, $version);
 
   if($levelOfUpdate != 0)
   {
@@ -225,12 +228,19 @@ if($levelOfUpdate != 0)
 $data['changeLog'] = $Changelog;
 
 //get size of update download
-$data['downloadTotal'] = formatBytes($downloadSize);
+$data['downloadTotal'] = $update->formatBytes($downloadSize);
 
 //get size of current drive
 $data['currentAmmtFree'] = shell_exec("df -h . | tail -1 | awk '{print $4}'");
 
 //get size of update after finish
-$data['totalSizeChange'] = formatBytes($finalInstallSize - $currentVersionSize);
+if($finalInstallSize > $currentVersionSize)
+{
+  $data['totalSizeChange'] = "take up an additional ~".$update->formatBytes($finalInstallSize - $currentVersionSize);
+}
+else
+{
+  $data['totalSizeChange'] = "free up ~".$update->formatBytes($currentVersionSize - $finalInstallSize);
+}
 
 echo json_encode($data);

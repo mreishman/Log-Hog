@@ -28,18 +28,19 @@ if(file_exists($file))
     }
 }
 
-$commonFunctionsLoaded = false;
-$file = 'core/php/commonFunctions.php';
+$coreLoaded = false;
+$file = "core/php/class/core.php";
 if(file_exists($file))
 {
-    try
-    {
+    try {
         require_once($file);
-        $commonFunctionsLoaded = true;
-    }
-    catch (Exception $e)
-    {
+        $coreLoaded = true;
+    } catch (Exception $e) {
 
+    }
+    if($coreLoaded)
+    {
+        $core = new core();
     }
 }
 
@@ -202,67 +203,26 @@ if(file_exists($file))
 <html>
 <head>
     <title>Error Page</title>
-    <script src="core/js/jquery.js"></script>
-    <style type="text/css">
-        .link
-        {
-            text-decoration: none;
-            padding: 5px;
-            background: white;
-            border: 1px solid black;
-            cursor: pointer;
-            color: black;
-        }
-        .list
-        {
-            list-style: none;
-        }
-        .list li
-        {
-            padding: 10px;
-        }
-        .tableRow td
-        {
-            background-color: lightgrey;
-            vertical-align: top;
-        }
-    </style>
-    <script type="text/javascript">
-        function showPopup()
-        {
-            document.getElementById('popup').style.display = "block";
-            document.getElementById('popupContentInnerHTMLDiv').innerHTML = "";
-        }
-        function hidePopup()
-        {
-            document.getElementById('popup').style.display = "none";
-            document.getElementById('popupContentInnerHTMLDiv').innerHTML = "";
-        }
-        function toggleReset()
-        {
-            if(document.getElementById('popup').style.display === "none")
-            {
-                resetSettingsPopup();
-            }
-            else
-            {
-                hidePopup();
-            }
-        }
-    </script>
+    <script src="core/js/jquery.js?v=<?php echo rand(5, 15); ?>"></script>
+    <link rel="stylesheet" type="text/css" href="core/template/error.css?v=<?php echo rand(5, 15); ?>">
+    <script type="text/javascript" src="core/js/error.js?v=<?php echo rand(5, 15); ?>" ></script>
     <?php if($jsForResetToDefaultLoaded): ?>
-        <script type="text/javascript" src="core/js/resetSettingsJs.js" ></script>
+        <script type="text/javascript" src="core/js/resetSettingsJs.js?v=<?php echo rand(5, 15); ?>" ></script>
     <?php endif;?>
 </head>
 <body>
 
 <?php if($error != 0): ?>
-    <div style="text-align: center; background-color: black; color: white; padding: 20px; min-height: 100px;" >
-        <h1 style="line-height: 60px;"> <img style="vertical-align: middle;" src="core/img/redWarning.png" height="60px"> Error <?php echo $error ?> <img  style="vertical-align: middle;" src="core/img/redWarning.png" height="60px"> </h1>
+    <div class="errorMessage" >
+        <h1>
+            <img class="warningImage" src="core/img/redWarning.png" height="60px">
+            Error <?php echo $error ?>
+            <img class="warningImage" ssrc="core/img/redWarning.png" height="60px">
+        </h1>
         <h1> <?php echo $page ?> </h1>
-    </div> 
+    </div>
 <?php endif; ?>
-<table style="width: 100%;" >
+<table>
     <tr class="tableRow">
         <td width="33%">
             <h3> More Info: </h3>
@@ -323,7 +283,7 @@ if(file_exists($file))
                             "name"                              =>  "Config Backup",
                         )
                     );
-                    echo "<h3>Modules:</h3><table width=\"100%\" >";
+                    echo "<h3>Modules:</h3><table>";
                     foreach ($arrayOfModules as $value)
                     {
                         $enabled = "Enabled?";
@@ -383,7 +343,7 @@ if(file_exists($file))
                 endif;
                 ?>
                 <li>
-                    <div id="popup" style="background-color: #444444; border: 1px solid black; display: none; color: white;">
+                    <div id="popup">
                         <div id="popupContentInnerHTMLDiv">
                         </div>
                     </div>
@@ -396,9 +356,9 @@ if(file_exists($file))
             foreach ($fileNameArray as $key => $value)
             {
                 $info = "";
-                if($commonFunctionsLoaded)
+                if($coreLoaded)
                 {
-                    $info = filePermsDisplay($value["path"]);
+                    $info = $core->filePermsDisplay($value["path"]);
                 }
                 echo "<p>  ".$value["name"]."   -   ".$info."</p>";
             }
@@ -407,92 +367,4 @@ if(file_exists($file))
     </tr>
 </table>
 </body>
-<script type="text/javascript">
-    var verifyCountSuccess = 0;
-    var installUpdatePoll = null;
-    var totalCounterInstall = 0;
-    function saveAndVerifyMain(idForForm)
-    {
-        idForm = "#"+idForForm;
-        data = $(idForm).serializeArray();
-        $.ajax({
-            type: "post",
-            url: "core/php/settingsSaveAjax.php",
-            data,
-            success(data)
-            {
-                if(data !== "true")
-                {
-                    window.location.href = "../error.php?error="+data+"&page=core/php/settingsSaveAjax.php";
-                }
-            }
-        });
-    }
-
-    function resetUpdateSettings()
-    {
-        document.getElementById("popup").style.display = "block";
-        document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class='settingsHeader' >Resetting...</div><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'> Resetting Update Settings... Please wait... </div>";
-        var urlForSend = "core/php/resetUpdateFilesToDefault.php?format=json";
-        var data = {status: "" };
-        $.ajax(
-        {
-            url: urlForSend,
-            dataType: "json",
-            data,
-            type: "POST",
-            complete(data)
-            {
-                verifyCountSuccess = 0;
-                installUpdatePoll = setInterval(function(){verifyChange();},3000);
-            }
-        });
-    }
-
-    function verifyChange()
-    {
-        var urlForSend = "update/updateActionCheck.php?format=json";
-        var data = {status: "" };
-        $.ajax(
-        {
-            url: urlForSend,
-            dataType: "json",
-            data,
-            type: "POST",
-            success(data)
-            {
-                if(data == "finishedUpdate")
-                {
-                    verifyCountSuccess++;
-                    if(verifyCountSuccess >= 4)
-                    {
-                        verifyCountSuccess = 0;
-                        clearInterval(installUpdatePoll);
-                        //success popup
-                        document.getElementById("popup").style.display = "block";
-                        document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class='settingsHeader' >Success</div><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'> Update settings successfully reset! </div>";
-                    }
-                }
-                else
-                {
-                    verifyCountSuccess = 0;
-                }
-            },
-            failure(data)
-            {
-                if(totalCounterInstall > 30)
-                {
-                    //error message
-                    clearInterval(installUpdatePoll);
-                    document.getElementById("popup").style.display = "block";
-                    document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class='settingsHeader' >Error</div><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>An Error occured when trying to reset update progress</div>";
-                }
-            },
-            complete(data)
-            {
-                totalCounterInstall++;
-            }
-        });
-    }
-</script>
 </html>

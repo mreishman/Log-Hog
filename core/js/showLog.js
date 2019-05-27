@@ -2,6 +2,10 @@ function show(e, id)
 {
 	try
 	{
+		if(pollLoadTimer !== null)
+		{
+			clearLoadPollTimer();
+		}
 		var formattedHtml = "";
 		var internalID = id;
 		var currentCurrentSelectWindow = currentSelectWindow;
@@ -17,9 +21,8 @@ function show(e, id)
 				return;
 			}
 		}
-		$("#log"+currentCurrentSelectWindow).hide();
+		$("#log"+currentCurrentSelectWindow).empty()
 		$("#log"+currentCurrentSelectWindow+"load").show();
-		resize();
 		$(e).siblings().removeClass("active");
 		var windowNumInTitle = $("#"+internalID+"CurrentWindow").html();
 		if(windowNumInTitle !== "")
@@ -83,6 +86,11 @@ function showPartGetFormattedHtml(internalID)
 	return makePretty(internalID);
 }
 
+function setLogHtmlInWindow(currentCurrentSelectWindow, formattedHtml)
+{
+	$("#log"+currentCurrentSelectWindow).empty().append(formattedHtml);
+}
+
 function showPartTwo(e, internalID, currentCurrentSelectWindow, formattedHtml)
 {
 	try
@@ -91,11 +99,10 @@ function showPartTwo(e, internalID, currentCurrentSelectWindow, formattedHtml)
 		{
 			formattedHtml = showPartGetFormattedHtml(internalID);
 		}
-		$("#log"+currentCurrentSelectWindow).html(formattedHtml);
+		setLogHtmlInWindow(currentCurrentSelectWindow, formattedHtml);
 		fadeHighlight(currentCurrentSelectWindow);
-		setTimeout(function() {
-			showPartThree(e, internalID, currentCurrentSelectWindow);
-		}, 2);
+		scrollToBottom(currentCurrentSelectWindow);
+		showPartThree(e, internalID, currentCurrentSelectWindow);
 	}
 	catch(e)
 	{
@@ -109,17 +116,20 @@ function showPartThree(e, internalID, currentCurrentSelectWindow)
 	{
 		toggleSideBarElements(internalID, currentCurrentSelectWindow);
 		$("#log"+currentCurrentSelectWindow+"load").hide();
-		$("#log"+currentCurrentSelectWindow).show();
 		if(document.getElementById("noLogToDisplay").style.display !== "none")
 		{
 			document.getElementById("noLogToDisplay").style.display = "none";
 			document.getElementById("log").style.display = "block";
 		}
-		scrollToBottom(currentCurrentSelectWindow);
 		toggleNotificationClearButton();
 		removeNotificationByLog(internalID);
 		//below function does resize
 		toggleGroupedGroups();
+		unhideHidden(currentCurrentSelectWindow);
+		if(logLoadType === "Visible - Poll")
+		{
+			startLoadPollTimerDelay();
+		}
 	}
 	catch(e)
 	{

@@ -158,7 +158,7 @@ function toggleFilterType()
 	else
 	{
 		//switch to content
-		document.getElementById("searchType").value = "content"
+		document.getElementById("searchType").value = "content";
 	}
 	changeSearchplaceholder();
 }

@@ -5,7 +5,10 @@ $baseUrl = $baseModifier."local/".$currentSelectedTheme."/";
 require_once($baseUrl.'conf/config.php');
 require_once($baseModifier.'core/conf/config.php');
 require_once('configStatic.php');
-require_once('commonFunctions.php');
+require_once("class/core.php");
+$core = new core();
+require_once('class/poll.php');
+$poll = new poll();
 
 $varsLoadLite = array("shellOrPhp", "logTrimOn", "logSizeLimit","logTrimMacBSD", "logTrimType","TrimSize","enableLogging","buffer","sliceSize","lineCountFromJS","showErrorPhpFileOpen","advancedLogFormatEnabled","logFormatFileEnable","logFormatFileLinePadding","logFormatFilePermissions");
 
@@ -24,7 +27,7 @@ $modifier = "lines";
 if($logTrimType == 'size')
 {
 	$modifier = $TrimSize;
-	$logSizeLimit = convertToSize($TrimSize, $logSizeLimit);
+	$logSizeLimit = $poll->convertToSize($TrimSize, $logSizeLimit);
 }
 
 $arrayToUpdate = array();
@@ -59,26 +62,26 @@ if(isset($_POST['arrayToUpdate']))
 				{
 					if($logTrimType == 'lines')
 					{
-						trimLogLine($filename, $logSizeLimit,$logTrimMacBSD,$buffer, $shellOrPhp, $showErrorPhpFileOpen);
+						$poll->trimLogLine($filename, $logSizeLimit,$logTrimMacBSD,$buffer, $shellOrPhp, $showErrorPhpFileOpen);
 					}
 					elseif($logTrimType == 'size') //compair to trimsize value
 					{
-						trimLogSize($filename, $logSizeLimit,$logTrimMacBSD,$buffer, $shellOrPhp. $showErrorPhpFileOpen);
+						$poll->trimLogSize($filename, $logSizeLimit,$logTrimMacBSD,$buffer, $shellOrPhp. $showErrorPhpFileOpen);
 					}
 
 					if($lineCountFromJS === "false")
 					{
-						$lineCount = getLineCount($filename, $shellOrPhp);
+						$lineCount = $poll->getLineCount($filename, $shellOrPhp);
 					}
 				}
 				//poll logic
 				if($pathData["GrepFilter"] == "")
 				{
-					$dataVar =  tail($filename, $sliceSize, $shellOrPhp);
+					$dataVar =  $poll->tail($filename, $sliceSize, $shellOrPhp);
 				}
 				else
 				{
-					$dataVar = tailWithGrep($filename, $sliceSize, $shellOrPhp, $pathData["GrepFilter"]);
+					$dataVar = $poll->tailWithGrep($filename, $sliceSize, $shellOrPhp, $pathData["GrepFilter"]);
 				}
 			}
 			$dataVar = htmlentities($dataVar);
@@ -121,19 +124,19 @@ if(isset($_POST['arrayToUpdate']))
 									$currentLine = 0;
 								}
 								$totalPading++;
-								$lineCountLocal = getLineCount($fileName, $shellOrPhp);
+								$lineCountLocal = $poll->getLineCount($fileName, $shellOrPhp);
 								//check to see if line is greater than file length
 								$fileData = "Error - File Changed, line no longer in file";
 								if($lineCountLocal >= $currentLine)
 								{
-									$fileData = tail($fileName, $totalPading, $shellOrPhp, $currentLine);
+									$fileData = $poll->tail($fileName, $totalPading, $shellOrPhp, $currentLine);
 								}
 							}
 						}
 						$permissions = "";
 						if($logFormatFilePermissions === "always" || ($logFormatFilePermissions === "sometimes" && strpos($fileData, "Permission denied") > -1))
 						{
-							$permissions = filePermsDisplay($fileName);
+							$permissions = $core->filePermsDisplay($fileName);
 						}
 						//found a match, add to thing
 						$arrayOfFiles[$matches[0]] = array(

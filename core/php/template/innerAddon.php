@@ -1,16 +1,19 @@
 <span id="innerAddonSpanReplace">
 	<?php
 	$currentDir = "";
-	if(!function_exists("checkForMonitorInstall"))
+	if(!isset($addons))
 	{
-		require_once('../commonFunctions.php');
-		$currentSelectedTheme = returnCurrentSelectedTheme();
+		require_once("../class/core.php");
+		$core = new core();
+		require_once($core->baseURL()."core/php/class/addons.php");
+		$addons = new addons();
+		$currentSelectedTheme = $core->returnCurrentSelectedTheme();
 		$baseUrl = "../../../local/".$currentSelectedTheme."/";
 		$localURL = $baseUrl;
 		require_once($baseUrl.'conf/config.php');
 		require_once('../../conf/config.php');
 		require_once('../configStatic.php');
-		$currentTheme = loadSpecificVar($defaultConfig, $config, "currentTheme");
+		$currentTheme = $core->loadSpecificVar($defaultConfig, $config, "currentTheme");
 		if(is_dir('../../../local/'.$currentSelectedTheme.'/Themes/'.$currentTheme))
 		{
 			require_once('../../../local/'.$currentSelectedTheme.'/Themes/'.$currentTheme."/defaultSetting.php");
@@ -24,7 +27,7 @@
 	}
 
 	//check if monitor is installed
-	$monitorInfo = checkForMonitorInstall($locationForMonitor, "../../");
+	$monitorInfo = $addons->checkForMonitorInstall($locationForMonitor, "../../");
 	$configStaticMonitor = null;
 
 	if($monitorInfo["local"])
@@ -36,7 +39,7 @@
 	}
 
 	//check if search is installed
-	$searchInfo = checkForSearchInstall($locationForSearch, "../../");
+	$searchInfo = $addons->checkForSearchInstall($locationForSearch, "../../");
 	$configStaticSearch = null;
 
 	if($searchInfo["local"])
@@ -48,7 +51,7 @@
 	}
 
 	//check if seleniumMonitor is installed
-	$seleniumMonitorInfo = checkForSeleniumMonitorInstall($locationForSeleniumMonitor, "../../");
+	$seleniumMonitorInfo = $addons->checkForSeleniumMonitorInstall($locationForSeleniumMonitor, "../../");
 	$configStaticSeleniumMonitor = null;
 
 	if($seleniumMonitorInfo["local"])
@@ -60,7 +63,7 @@
 	}
 
 	//check for status install
-	$statusInfo = checkForStatusInstall($locationForStatus, "../../");
+	$statusInfo = $addons->checkForStatusInstall($locationForStatus, "../../");
 	$configStaticStatus = null;
 
 	if($statusInfo["local"])
@@ -142,7 +145,7 @@
 		$installed = $value["Installed"];
 		$localInstall = $value["Local"];
 		$description = $value["Description"];
-		?> 
+		?>
 			<tr style="height: 10px;">
 				<td colspan="6">
 					<form id="<?php echo $lowercase; ?>UpdateForm" action="<?php echo $lowercase; ?>/update/updater.php" method="post" ></form>
@@ -193,7 +196,7 @@
 							var <?php echo $key; ?> = "<?php echo $lowercase; ?>Remove"
 							</script>
 							<form id="<?php echo $lowercase; ?>Remove" action="addonAction.php" method="post">
-								<input type="hidden" name="localFolderLocation" value="<?php echo $lowercase; ?>"> 
+								<input type="hidden" name="localFolderLocation" value="<?php echo $lowercase; ?>">
 								<input type="hidden" name="repoName" value="<?php echo $repo; ?>">
 								<input type="hidden" name="action" value="Removing">
 							</form>
@@ -219,7 +222,7 @@
 						var <?php echo $key; ?> = "<?php echo $lowercase; ?>Download"
 						</script>
 						<form id="<?php echo $lowercase; ?>Download">
-							<input type="hidden" name="localFolderLocation" value="<?php echo $lowercase; ?>"> 
+							<input type="hidden" name="localFolderLocation" value="<?php echo $lowercase; ?>">
 							<input type="hidden" name="repoName" value="<?php echo $repo; ?>">
 							<input type="hidden" name="action" value="Downloading">
 						</form>
@@ -234,7 +237,7 @@
 		<?php endforeach; ?>
 		<tr>
 			<td colspan="7">
-				<?php echo generateImage(
+				<?php echo $core->generateImage(
 					$arrayOfImages["loadingImg"],
 					array(
 						"style"			=>	"margin-bottom: -4px;",

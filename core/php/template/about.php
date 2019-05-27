@@ -6,7 +6,16 @@
 		<ul class="settingsUl">
 			<li>
 				<h2>
-					<?php echo $aboutImage; ?>
+					<?php echo $core->generateImage(
+						$arrayOfImages["loadingImg"],
+						$imageConfig = array(
+							"class"			=>	"mainMenuImage",
+							"style"			=>	"margin-bottom: -40px;",
+							"data-src"		=>	"core/img/LogHog.png",
+							"width"			=>	"100px",
+							"srcModifier"	=>	$otherPageImageModifier
+						)
+					); ?>
 					Version - <?php echo $configStatic['version'];?>
 				</h2>
 			</li>
@@ -30,7 +39,7 @@
 			<li>
 				<p>Includes files from the following project: </p>
 
-				<p> <a href="https://github.com/ai/visibilityjs">https://github.com/ai/visibilityjs </a> </p> 
+				<p> <a href="https://github.com/ai/visibilityjs">https://github.com/ai/visibilityjs </a> </p>
 
 				<p> <a href="https://loading.io/progress/">https://loading.io/progress/</a></p>
 			</li>

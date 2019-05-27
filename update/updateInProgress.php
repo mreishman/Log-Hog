@@ -1,6 +1,7 @@
 <?php
-require_once("../core/php/commonFunctions.php");
-$currentSelectedTheme = returnCurrentSelectedTheme();
+require_once("../core/php/class/core.php");
+$core = new core();
+$currentSelectedTheme = $core->returnCurrentSelectedTheme();
 $baseUrl = "../local/".$currentSelectedTheme."/";
 require_once($baseUrl.'conf/config.php');
 require_once('../core/php/configStatic.php');
@@ -11,12 +12,20 @@ $cssVersion = date("YmdHis");
 <!doctype html>
 <head>
 	<title>Log Hog | Updater</title>
-	<?php echo loadCSS("../",$baseUrl, $cssVersion);?>
+	<?php echo $core->loadCSS("../",$baseUrl, $cssVersion);?>
 	<link rel="icon" type="image/png" href="../core/img/favicon.png" />
-	<script src="../core/js/jquery.js"></script>
+	<?php $core->getScript(array(
+		"filePath"		=> "../core/js/jquery.js",
+		"baseFilePath"	=> "core/js/jquery.js",
+		"default"		=> $configStatic["version"]
+	)); ?>
 </head>
 <body>
-
+<style type="text/css">
+	#main {
+		position: inherit;
+	}
+</style>
 
 <div id="main">
 	<div class="settingsHeader" style="text-align: center;" >
@@ -76,8 +85,20 @@ $cssVersion = date("YmdHis");
 		</div>
 	</div>
 </div>
-<script src="../core/js/settings.js?v=<?php echo $cssVersion?>"></script>
-<script src="../core/js/updateInProgress.js?v=<?php echo $cssVersion?>"></script>
+<?php $core->getScripts(
+	array(
+		array(
+			"filePath"		=> "../core/js/settings.js",
+			"baseFilePath"	=> "core/js/settings.js",
+			"default"		=> $configStatic["version"]
+		),
+		array(
+			"filePath"		=> "../core/js/updateInProgress.js",
+			"baseFilePath"	=> "core/js/updateInProgress.js",
+			"default"		=> $configStatic["version"]
+		)
+	)
+); ?>
 <script type="text/javascript">
 <?php echo "var currentPercent = parseInt(".$updateProgress['percent'].");";?>
 </script>

@@ -154,16 +154,17 @@
 				</td>
 				<td>
 					<?php foreach ($value["Images"] as $IMGValue):
-						echo "<div style=\"display: inline-block;\" >".generateImage(
+						echo "<div style=\"display: inline-block;\" >".$core->generateImage(
 							$arrayOfImages["loadingImg"],
 							array(
-								"class"		=>	"whatsNewImage",
-								"style"		=>	"max-width: 500px;",
-								"data-src"	=>	array(
-									"src"		=> $imageDirModifierAbout."core/img/".$IMGValue,
-									"alt"		=> $value["Version"]. " Image",
-									"title"		=> $value["Version"]. " Image"
-									)
+								"class"			=>	"whatsNewImage",
+								"style"			=>	"max-width: 500px;",
+								"data-src"		=>	array(
+									"src"			=> "core/img/".$IMGValue,
+									"alt"			=> $value["Version"]. " Image",
+									"title"			=> $value["Version"]. " Image"
+									),
+								"srcModifier"	=>	$otherPageImageModifier
 								)
 							)."</div>";
 					endforeach; ?>

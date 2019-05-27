@@ -1,5 +1,6 @@
 <?php
-require_once("../../core/php/commonFunctions.php");
+require_once("../../core/php/class/core.php");
+$core = new core();
 $baseUrl = "../../local/";
 //there is custom information, use this
 if(!file_exists($baseUrl."layout.php") || !is_readable($baseUrl."layout.php"))
@@ -35,7 +36,7 @@ if(!isset($defaultConfig))
 	exit();
 }
 
-$currentTheme = loadSpecificVar($defaultConfig, $config, "currentTheme");
+$currentTheme = $core->loadSpecificVar($defaultConfig, $config, "currentTheme");
 if(is_dir('../../local/'.$currentSelectedTheme.'/Themes/'.$currentTheme))
 {
 	require_once('../../local/'.$currentSelectedTheme.'/Themes/'.$currentTheme."/defaultSetting.php");
@@ -94,7 +95,7 @@ foreach ($defaultConfig as $key => $value)
 		isset($arrayOfCustomConfig[$key])
 	)
 	{
-		$newInfoForConfig .= putIntoCorrectFormat($key, $$key, $value);
+		$newInfoForConfig .= $core->putIntoCorrectFormat($key, $$key, $value);
 	}
 }
 $newInfoForConfig .= "

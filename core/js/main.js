@@ -42,6 +42,7 @@ var pausePollCurrentSession = false;
 var percent = 0;
 var polling = false;
 var pollingRateBackup = 0;
+var pollLoadTimer = null;
 var pollRefreshAllBoolStatic = pollRefreshAllBool;
 var pollSkipCounter = 0;
 var pollTimer = null;
@@ -1019,17 +1020,42 @@ function adjustLogForMenuLocation(mainWidth)
 	return mainWidth;
 }
 
+function getTargetHeight()
+{
+	return window.innerHeight - 45;
+}
+
+function getMenuHeight()
+{
+	return document.getElementById("menu").getBoundingClientRect().height;
+}
+
+function getMainHeight()
+{
+	return $("#main").outerHeight();
+}
+
+function getSettingsSideBarHeight()
+{
+	return $("#settingsSideBar").outerHeight();
+}
+
+function getMoreInfoSideBarHeight()
+{
+	return $("#moreInfoSideBar").outerHeight();
+}
+
 function resize()
 {
 	try
 	{
-		var targetHeight = window.innerHeight - $("#header").outerHeight();
-		var menuHeight = document.getElementById("menu").getBoundingClientRect().height;
+		let targetHeight = getTargetHeight();
+		let menuHeight = getMenuHeight();
 		if(logMenuLocation === "top" || logMenuLocation === "bottom")
 		{
 			targetHeight = targetHeight - menuHeight;
 		}
-		var targetWidth = window.innerWidth;
+		let targetWidth = window.innerWidth;
 		if(enablePollTimeLogging !== "false")
 		{
 			targetHeight -= 25;
@@ -1038,15 +1064,15 @@ function resize()
 		{
 			targetHeight = targetHeight - $("#noticeBar").outerHeight();
 		}
-		if($("#main").outerHeight() !== targetHeight)
+		if(getMainHeight() !== targetHeight)
 		{
 			$("#main").outerHeight(targetHeight);
 		}
-		if($("#settingsSideBar").outerHeight() !== targetHeight)
+		if(getSettingsSideBarHeight() !== targetHeight)
 		{
 			$("#settingsSideBar").outerHeight(targetHeight);
 		}
-		if($("#moreInfoSideBar").outerHeight() !== targetHeight)
+		if(getMoreInfoSideBarHeight() !== targetHeight)
 		{
 			$("#moreInfoSideBar").outerHeight(targetHeight);
 		}
@@ -1064,8 +1090,8 @@ function resize()
 				$("#menu").outerHeight(targetHeight);
 			}
 		}
-		var tdElementWidth = (targetWidth/windowDisplayConfigColCount).toFixed(0);
-		var trElementHeight = ((targetHeight-borderPadding)/windowDisplayConfigRowCount).toFixed(0);
+		let tdElementWidth = (targetWidth/windowDisplayConfigColCount).toFixed(0);
+		let trElementHeight = ((targetHeight-borderPadding)/windowDisplayConfigRowCount).toFixed(0);
 		let logDisplayArrayKeys = Object.keys(logDisplayArray);
 		let logDisplayArrayKeysCount = logDisplayArrayKeys.length;
 		for(let lda = 0; lda < logDisplayArrayKeysCount; lda++)
@@ -1074,7 +1100,7 @@ function resize()
 			let localTrElementHeight = trElementHeight;
 			if(document.getElementById("searchFieldInputOuter-"+lda))
 			{
-				localTrElementHeight -= document.getElementById("searchFieldInputOuter-"+lda).getBoundingClientRect().height
+				localTrElementHeight -= document.getElementById("searchFieldInputOuter-"+lda).getBoundingClientRect().height;
 			}
 			if(parseInt($("#log"+lda+"Td").outerHeight()) !== parseInt(localTrElementHeight))
 			{
@@ -1100,7 +1126,7 @@ function resize()
 				{
 					if($("#titleContainer"+lda).css("top") !== trElementHeight+"px")
 					{
-						$("#titleContainer"+lda).css("top",((trElementHeight / 2) - ($("#titleContainer"+lda).outerHeight() / 2))+"px")
+						$("#titleContainer"+lda).css("top",((trElementHeight / 2) - ($("#titleContainer"+lda).outerHeight() / 2))+"px");
 					}
 				}
 			}
@@ -1139,6 +1165,61 @@ function resize()
 	{
 		eventThrowException(e);
 	}
+}
+
+function startLoadPollTimerDelay()
+{
+	setTimeout(function() {
+		startLoadPollTimer();
+	}, 2);
+}
+
+function startLoadPollTimer()
+{
+	if(pollLoadTimer !== null)
+	{
+		return;
+	}
+	/* Dont try catch visibility  */
+	pollRateCalc = logLoadPollRate;
+	if(logLoadPollRateType === "Seconds")
+	{
+		pollRateCalc *= 1000;
+	}
+	if(logLoadPauseOnNotFocus === "true")
+	{
+		pollLoadTimer = setInterval(unhideAllPollLogic, pollRateCalc);
+	}
+	else
+	{
+		var bgPollRateCalc = logLoadPollBackgroundRate;
+		if(logLoadPollBackgroundRateType === "Seconds")
+		{
+			bgPollRateCalc *= 1000;
+		}
+		pollLoadTimer = Visibility.every(pollRateCalc, bgPollRateCalc, function () { unhideAllPollLogic(); });
+	}
+}
+
+function unhideAllPollLogic()
+{
+	if(!unhideAllHidden())
+	{
+		clearLoadPollTimer();
+	}
+}
+
+function clearLoadPollTimer()
+{
+	if(logLoadPauseOnNotFocus === "true")
+	{
+		clearInterval(pollLoadTimer);
+	}
+	else
+	{
+		Visibility.stop(pollLoadTimer);
+	}
+	pollLoadTimer = null;
 }
 
 function startPollTimer()
@@ -1252,9 +1333,14 @@ function isPageHidden()
 	return document.hidden || document.msHidden || document.webkitHidden || document.mozHidden;
 }
 
+function getHeightOfCurrentLog(idNum)
+{
+	return document.getElementById("log"+idNum).getBoundingClientRect().height;
+}
+
 function scrollToBottom(idNum)
 {
-	document.getElementById("log"+idNum+"Td").scrollTop = $("#log"+idNum).outerHeight();
+	document.getElementById("log"+idNum+"Td").scrollTop = getHeightOfCurrentLog(idNum);
 }
 
 function clearLogInner(title)
@@ -1265,7 +1351,10 @@ function clearLogInner(title)
 	{
 		archiveAction(title, "tmp");
 	}
-	var data = {file: title};
+	var data = {
+		file: title,
+		type: "clearLog"
+	};
 	$.ajax({
 			url: "core/php/clearLog.php?format=json",
 			dataType: "json",
@@ -1371,8 +1460,10 @@ function deleteActionAfter()
 			resetOneLogData();
 		}
 		//Clear All Log Function (not delete actual file, just contents)
-		var urlForSend = "core/php/clearAllLogs.php?format=json";
-		var data = "";
+		var urlForSend = "core/php/clearLog.php?format=json";
+		var data = {
+			type: "clearAllLogs"
+		};
 		$.ajax({
 			url: urlForSend,
 			dataType: "json",
@@ -1434,9 +1525,12 @@ function deleteLog(title)
 		{
 			archiveAction(title, "tmp");
 		}
-		var urlForSend = "core/php/deleteLog.php?format=json";
+		var urlForSend = "core/php/clearLog.php?format=json";
 		title = title.replace(/\s/g, "");
-		var data = {file: title};
+		var data = {
+			file: title,
+			type: "deleteLog"
+		};
 		name = title;
 		$.ajax({
 			url: urlForSend,
@@ -1730,6 +1824,59 @@ function generateWindowDisplayInner()
 	return{
 		arrayOfPrevLogs
 	};
+}
+
+function unhideAllHidden()
+{
+	let unhidLines = false;
+	let logDisplayArrayKeys = Object.keys(logDisplayArray);
+	let logDisplayArrayKeysCount = logDisplayArrayKeys.length;
+	for(let i = 0; i < logDisplayArrayKeysCount; i++)
+	{
+		if(unhideHidden(i))
+		{
+			unhidLines = true;
+		}
+	}
+	return unhidLines;
+}
+
+function unhideHidden(currentLogId)
+{
+	let lineUnHid = false;
+	let lines = $('.logLineHide'+currentLogId);
+	let linesLength = $('.logLineHide'+currentLogId).length;
+	for(let i = linesLength - 1; i >= 0; i--)
+	{
+		let currentScroll = document.getElementById("log"+currentLogId+"Td").scrollTop;
+		let currentLine = $(lines[i]);
+		if(logLoadType !== "Visible - Poll" && currentLine.position().top < 0)
+		{
+			//break only if not pre loading, and loading only on scroll
+			break;
+		}
+		if(currentLine.css("display") === "table-row")
+		{
+			continue;
+		}
+		$("#loadLineCountForWindow"+currentLogId).html((linesLength - i)+"<hr>"+linesLength);
+		currentLine.css("display","table-row");
+		lineUnHid = true;
+		if(logLoadForceScrollToBot === 'false')
+		{
+			document.getElementById("log"+currentLogId+"Td").scrollTop = currentScroll + currentLine.height();
+		}
+		else
+		{
+			document.getElementById("log"+currentLogId+"Td").scrollTop = document.getElementById("log"+currentLogId).getBoundingClientRect().height;
+		}
+		if(currentLine.position().top < 0)
+		{
+			break;
+		}
+	}
+	//return true or false if a line was un hide or not. Used to stop poll request
+	return lineUnHid;
 }
 
 function loadPrevLogContent(arrayOfPrevLogs)

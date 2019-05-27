@@ -27,7 +27,7 @@ function checkIfTopDirIsEmpty()
 				removeFilesFromToppFolder();
 			}
 		}
-	});	
+	});
 }
 
 function removeFilesFromToppFolder(skip = false)
@@ -53,7 +53,7 @@ function removeFilesFromToppFolder(skip = false)
 				verifyFile("removeFilesFromToppFolderSkip", "../../"+localFolderLocation+"/",false);
 			}
 		}
-	});	
+	});
 }
 
 function downloadFile()
@@ -75,7 +75,7 @@ function downloadFile()
 			updateText(60);
 			verifyFile("downloadMonitor", "../../tmp.zip");
 		}
-	});	
+	});
 }
 
 function unzipFile()
@@ -92,7 +92,7 @@ function unzipFile()
 			//verify if downloaded
 			verifyFile("unzipFile", "../../"+localFolderLocation+"/index.php");
 		}
-	});	
+	});
 }
 
 function removeZipFile()
@@ -203,7 +203,7 @@ function verifyFilePoll(action, fileLocation,isThere)
 				{
 					lock = false;
 				}
-			});	
+			});
 		}(data));
 	}
 }
@@ -235,6 +235,5 @@ function verifyPostEnd(verified, data)
 function updateError()
 {
 	//error popup
-	showPopup();
-	document.getElementById('popupContentInnerHTMLDiv').innerHTML += "<div class='settingsHeader' id='popupHeaderText' ><span id='popupHeaderText' >Error</span></div><br><br><div style='width:100%;text-align:center;'> Error when trying to modify addon <a class=\"link\" onclick=\"hidePopup();\" >Close</a> </div>";
+	displayPopup("Error","Error when trying to modify addon","<a class=\"link\" onclick=\"hidePopup();\" >Close</a> </div>");
 }

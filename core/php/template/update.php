@@ -15,6 +15,7 @@
 				$downloadSize = 0;
 				$finalInstallSize = 0;
 				$currentVersionSize = 0;
+				$totalDiff = "";
 
 				if(array_key_exists('versionList', $configStatic))
 				{
@@ -29,7 +30,7 @@
 						}
 						$version = explode('.', $configStatic['version']);
 						$newestVersion = explode('.', $key);
-						$levelOfUpdate = findUpdateValue(count($newestVersion), count($version), $newestVersion, $version);
+						$levelOfUpdate = $update->findUpdateValue(count($newestVersion), count($version), $newestVersion, $version);
 						if($levelOfUpdate != 0)
 						{
 							$changelogHTML .= "<li><h2>Changelog For ".$key." update</h2></li>";
@@ -41,12 +42,20 @@
 							}
 						}
 					}
+					if($finalInstallSize > $currentVersionSize)
+					{
+					  $totalDiff = "take up an additional ~".$update->formatBytes($finalInstallSize - $currentVersionSize);
+					}
+					else
+					{
+					  $totalDiff = "free up ~".$update->formatBytes($currentVersionSize - $finalInstallSize);
+					}
 				}
 				?>
 				<li>
 					<h2>You last checked for updates
 						<span id="spanNumOfDaysUpdateSince" >
-							<u onclick="checkForUpdates('');" style="cursor: pointer;" > <?php echo $daysSince;?> Day<?php if($daysSince != 1){ echo "s";} ?></u>
+							<a onclick="checkForUpdates('');"> <?php echo $daysSince;?> Day<?php if($daysSince != 1){ echo "s";} ?></a>
 						</span>
 						 Ago
 					</h2>
@@ -61,7 +70,7 @@
 				</li>
 				<li style="display: none;" id="loadingSpinnerForInstallUpdate">
 					<?php
-						echo generateImage(
+						echo $core->generateImage(
 							$arrayOfImages["loadingImg"],
 							$imageConfig = array(
 								"id"			=>	"statusImage0",
@@ -76,7 +85,7 @@
 				<li id="noUpdate" <?php if($levelOfUpdate != 0){echo "style='display: none;'";} ?> >
 					<h2>
 						<?php
-						echo generateImage(
+						echo $core->generateImage(
 							$arrayOfImages["loadingImg"],
 							$imageConfig = array(
 								"id"			=>	"statusImage1",
@@ -92,7 +101,7 @@
 				<li id="minorUpdate" <?php if($levelOfUpdate != 1){echo "style='display: none;'";} ?> >
 					<h2>
 						<?php
-						echo generateImage(
+						echo $core->generateImage(
 							$arrayOfImages["loadingImg"],
 							$imageConfig = array(
 								"id"			=>	"statusImage2",
@@ -113,7 +122,7 @@
 				<li id="majorUpdate" <?php if($levelOfUpdate != 2){echo "style='display: none;'";} ?> >
 					<h2>
 						<?php
-						echo generateImage(
+						echo $core->generateImage(
 							$arrayOfImages["loadingImg"],
 							$imageConfig = array(
 								"id"			=>	"statusImage3",
@@ -133,7 +142,7 @@
 				<li id="NewXReleaseUpdate" <?php if($levelOfUpdate != 3){echo "style='display: none;'";} ?> >
 					<h2>
 						<?php
-						echo generateImage(
+						echo $core->generateImage(
 							$arrayOfImages["loadingImg"],
 							$imageConfig = array(
 								"id"			=>	"statusImage3",
@@ -152,8 +161,8 @@
 					<a class="link" onclick="installUpdates('','settingsInstallUpdate','');">Install Update</a>
 				</li>
 				<li id="installData" <?php if($levelOfUpdate == 0){echo "style='display: none;'";} ?> >
-					This will download ~<b id="installDataDownloadSize" ><?php echo formatBytes($downloadSize);?></b> of data <br>
-					The new install will take up an additional ~<b id="installDataTotalChange"><?php echo formatBytes($finalInstallSize - $currentVersionSize);?></b> of space<br>
+					This will download ~<b id="installDataDownloadSize" ><?php echo $update->formatBytes($downloadSize);?></b> of data <br>
+					The new install will <b id="installDataTotalChange"><?php echo $totalDiff;?></b> of space<br>
 					The current drive has <b id="installDataCurrentFree"><?php echo shell_exec("df -h . | tail -1 | awk '{print $4}'"); ?></b> free space
 				</li>
 			<?php endif; ?>

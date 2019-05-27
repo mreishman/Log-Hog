@@ -1,0 +1,49 @@
+.link {
+  text-decoration: none;
+  padding: 5px;
+  background: white;
+  border: 1px solid black;
+  cursor: pointer;
+  color: black;
+}
+
+.list {
+  list-style: none;
+}
+.list li {
+  padding: 10px;
+}
+
+.tableRow td {
+  background-color: lightgrey;
+  vertical-align: top;
+}
+
+.errorMessage {
+  text-align: center;
+  background-color: black;
+  color: white;
+  padding: 20px;
+  min-height: 100px;
+}
+
+table {
+  width: 100%;
+}
+
+#popup {
+  background-color: #444444;
+  border: 1px solid black;
+  display: none;
+  color: white;
+}
+
+h1 {
+  line-height: 60px;
+}
+
+.warningImage {
+  vertical-align: middle;
+}
+
+/*# sourceMappingURL=error.css.map */

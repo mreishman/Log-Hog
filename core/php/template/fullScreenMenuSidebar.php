@@ -2,7 +2,7 @@
 	addonRightClickObject = {};
 	addonRightClickIds = {};
 </script>
-<li class="menuTitle fullScreenMenuText" style="text-align: center;" >
+<li class="menuTitle fullScreenMenuText">
 	Log-Hog
 </li>
 <li class="menuTitle fullScreenMenuText subMenuTitle">
@@ -10,7 +10,7 @@
 </li>
 <li id="mainMenuAbout" class="selected" onclick="toggleAbout();" >
 	<div class="menuImageDiv">
-		<?php echo generateImage(
+		<?php echo $core->generateImage(
 			$arrayOfImages["loadingImg"],
 			$imageConfig = array(
 				"id"		=>	"aboutImage",
@@ -25,7 +25,7 @@
 </li>
 <li id="mainMenuAddons" onclick="toggleAddons();" >
 	<div class="menuImageDiv">
-		<?php echo generateImage(
+		<?php echo $core->generateImage(
 			$arrayOfImages["loadingImg"],
 			$imageConfig = array(
 				"id"		=>	"addonsImage",
@@ -46,7 +46,7 @@ if($enableHistory === "false")
 ?>
 <li id="mainMenuHistory" style=" <?php echo $historyStyle; ?>" onclick="toggleHistory();" >
 	<div class="menuImageDiv">
-		<?php echo generateImage(
+		<?php echo $core->generateImage(
 			$arrayOfImages["loadingImg"],
 			$imageConfig = array(
 				"id"		=>	"addonsImage",
@@ -61,7 +61,7 @@ if($enableHistory === "false")
 </li>
 <li id="mainMenuNotifications" onclick="toggleNotifications();" >
 	<div class="menuImageDiv">
-		<?php echo generateImage(
+		<?php echo $core->generateImage(
 			$arrayOfImages["loadingImg"],
 			$imageConfig = array(
 				"id"		=>	"notificationImageMenuTmpId",
@@ -76,7 +76,7 @@ if($enableHistory === "false")
 </li>
 <li id="mainMenuSettings" onclick="toggleSettings();"  >
 	<div class="menuImageDiv">
-		<?php echo generateImage(
+		<?php echo $core->generateImage(
 			$arrayOfImages["loadingImg"],
 			$imageConfig = array(
 				"id"		=>	"gear",
@@ -97,7 +97,7 @@ if($themesEnabled === "false")
 ?>
 <li id="ThemesLink" style=" <?php echo $themeStyle; ?>" onclick="toggleThemes();"  >
 	<div class="menuImageDiv">
-		<?php echo generateImage(
+		<?php echo $core->generateImage(
 			$arrayOfImages["loadingImg"],
 			$imageConfig = array(
 				"id"		=>	"theme",
@@ -129,7 +129,7 @@ if($themesEnabled === "false")
 	}
 	?>
 	<div class="menuImageDiv">
-		<?php echo generateImage(
+		<?php echo $core->generateImage(
 			$arrayOfImages["loadingImg"],
 			$imageConfig = array(
 				"id"		=>	"update",
@@ -145,7 +145,7 @@ if($themesEnabled === "false")
 </li>
 <li id="watchListMenu" onclick="toggleWatchListMenu();" >
 	<div class="menuImageDiv">
-		<?php echo generateImage(
+		<?php echo $core->generateImage(
 			$arrayOfImages["loadingImg"],
 			$imageConfig = array(
 				"id"		=>	"watchList",
@@ -181,7 +181,7 @@ if($locationForStatusIndex["loc"])
 		<a id="statusSpan" href="<?php echo $locationForStatusIndex["loc"]; ?>" target="_blank" >
 	<?php endif; ?>
 			<div id="statusDiv" class="menuImageDiv">
-				<?php echo generateImage(
+				<?php echo $core->generateImage(
 					$arrayOfImages["loadingImg"],
 					$imageConfig = array(
 						"id"		=>	"statusImage",
@@ -226,7 +226,7 @@ if($locationForMonitorIndex["loc"])
 		<a id="MonitorSpan" href="<?php echo $locationForMonitorIndex["loc"]; ?>" target="_blank" >
 	<?php endif; ?>
 			<div id="MonitorDiv" class="menuImageDiv">
-				<?php echo generateImage(
+				<?php echo $core->generateImage(
 					$arrayOfImages["loadingImg"],
 					$imageConfig = array(
 						"id"		=>	"MonitorImage",
@@ -271,7 +271,7 @@ if($locationForSearchIndex["loc"])
 		<a id="SearchSpan" href="<?php echo $locationForSearchIndex["loc"]; ?>" target="_blank" >
 	<?php endif; ?>
 			<div id="SearchDiv" class="menuImageDiv">
-				<?php echo generateImage(
+				<?php echo $core->generateImage(
 					$arrayOfImages["loadingImg"],
 					$imageConfig = array(
 						"id"		=>	"SearchImage",
@@ -316,7 +316,7 @@ if($locationForSeleniumMonitorIndex["loc"])
 		<a  id="seleniumMonitorSpan" href="<?php echo $locationForSeleniumMonitorIndex["loc"]; ?>" target="_blank" >
 	<?php endif; ?>
 			<div id="seleniumMonitorDiv" class="menuImageDiv">
-				<?php echo generateImage(
+				<?php echo $core->generateImage(
 					$arrayOfImages["loadingImg"],
 					$imageConfig = array(
 						"id"		=>	"seleniumMonitorImage",

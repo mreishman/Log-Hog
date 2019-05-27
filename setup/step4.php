@@ -1,14 +1,15 @@
 <?php
-require_once("../core/php/commonFunctions.php");
-$currentSelectedTheme = returnCurrentSelectedTheme();
+require_once("../core/php/class/core.php");
+$core = new core();
+$currentSelectedTheme = $core->returnCurrentSelectedTheme();
 $baseUrl = "../local/".$currentSelectedTheme."/";
 $baseUrlImages = $baseUrl;
 require_once($baseUrl.'conf/config.php');
 require_once('setupProcessFile.php');
-
+require_once('../core/php/configStatic.php');
 if($setupProcess != "step4")
 {
-	$partOfUrl = clean_url($_SERVER['REQUEST_URI']);
+	$partOfUrl = $core->clean_url($_SERVER['REQUEST_URI']);
 	$partOfUrl = substr($partOfUrl, 0, strpos($partOfUrl, 'setup'));
 	$url = "http://" . $_SERVER['HTTP_HOST'] .$partOfUrl ."setup/director.php";
 	header('Location: ' . $url, true, 302);
@@ -30,11 +31,23 @@ $themeDirMod = "../";
 <html>
 <head>
 	<title>Welcome!</title>
-	<script src="../core/js/jquery.js"></script>
-	<script src="../core/js/jscolor.js"></script>
+	<?php $core->getScripts(
+		array(
+			array(
+				"filePath"		=> "../core/js/jquery.js",
+				"baseFilePath"	=> "core/js/jquery.js",
+				"default"		=> $configStatic["version"]
+			),
+			array(
+				"filePath"		=> "../core/js/jscolor.js",
+				"baseFilePath"	=> "core/js/jscolor.js",
+				"default"		=> $configStatic["version"]
+			)
+		)
+	); ?>
 	<?php require_once("../core/php/template/popup.php");
-	echo loadCSS("../",$baseUrl, $cssVersion);
-	echo loadSentryData($sendCrashInfoJS, $branchSelected);
+	echo $core->loadCSS("../",$baseUrl, $cssVersion);
+	echo $core->loadSentryData($sendCrashInfoJS, $branchSelected, $configStatic);
 	require_once("../core/php/customCSS.php");?>
 </head>
 <body>
@@ -83,7 +96,7 @@ $themeDirMod = "../";
 
 	var titleOfPage = "Welcome";
 
-	var saveVerifyImage = <?php echo json_encode(generateImage(
+	var saveVerifyImage = <?php echo json_encode($core->generateImage(
 			$arrayOfImages["greenCheck"],
 			array(
 				"height"		=>	"50px",
@@ -91,6 +104,18 @@ $themeDirMod = "../";
 			)
 		)); ?>
 </script>
-<script src="../core/js/settings.js?v=<?php echo $jsVersion?>"></script>
-<script src="stepsJavascript.js?v=<?php echo $jsVersion?>"></script>
+<?php $core->getScripts(
+	array(
+		array(
+			"filePath"		=> "../core/js/settings.js",
+			"baseFilePath"	=> "core/js/settings.js",
+			"default"		=> $configStatic["version"]
+		),
+		array(
+			"filePath"		=> "stepsJavascript.js",
+			"baseFilePath"	=> "setup/stepsJavascript.js",
+			"default"		=> $configStatic["version"]
+		)
+	)
+); ?>
 </html>

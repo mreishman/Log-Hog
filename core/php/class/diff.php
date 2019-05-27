@@ -2,7 +2,7 @@
 
 /*
 
-class.Diff.php
+diff.php
 
 A class containing a diff implementation
 
@@ -14,7 +14,7 @@ http://creativecommons.org/publicdomain/zero/1.0/legalcode
 */
 
 // A class containing functions for computing diffs and formatting the output.
-class Diff{
+class diff{
 
   // define the constants
   const UNMODIFIED = 0;

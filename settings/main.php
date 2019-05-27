@@ -1,11 +1,14 @@
 <?php
-require_once('../core/php/commonFunctions.php');
-$currentSelectedTheme = returnCurrentSelectedTheme();
+require_once("../core/php/class/core.php");
+$core = new core();
+require_once("../core/php/class/settings.php");
+$settings = new settings();
+$currentSelectedTheme = $core->returnCurrentSelectedTheme();
 $baseUrl = "../local/".$currentSelectedTheme."/";
 $localURL = $baseUrl;
 require_once($baseUrl.'conf/config.php');
 require_once('../core/conf/config.php');
-$currentTheme = loadSpecificVar($defaultConfig, $config, "currentTheme");
+$currentTheme = $core->loadSpecificVar($defaultConfig, $config, "currentTheme");
 if(is_dir('../local/'.$currentSelectedTheme.'/Themes/'.$currentTheme))
 {
 	require_once('../local/'.$currentSelectedTheme.'/Themes/'.$currentTheme."/defaultSetting.php");
@@ -21,9 +24,13 @@ require_once('../core/php/loadVars.php');
 <!doctype html>
 <head>
 	<title>Settings | Main</title>
-	<?php echo loadCSS("../",$baseUrl, $cssVersion);?>
+	<?php echo $core->loadCSS("../",$baseUrl, $cssVersion);?>
 	<link rel="icon" type="image/png" href="../core/img/favicon.png" />
-	<script src="../core/js/jquery.js"></script>
+	<?php $core->getScript(array(
+		"filePath"		=> "../core/js/jquery.js",
+		"baseFilePath"	=> "core/js/jquery.js",
+		"default"		=> $configStatic["version"]
+	)); ?>
 </head>
 <body>
 
@@ -70,4 +77,8 @@ require_once('../core/php/loadVars.php');
 var logTrimType = "<?php echo $logTrimType; ?>";
 var saveButtonAlwaysVisible = "<?php echo $saveButtonAlwaysVisible; ?>";
 </script>
-<script src="../core/js/settingsMain.js?v=<?php echo $jsVersion?>"></script>
+<?php $core->getScript(array(
+	"filePath"		=> "../core/js/settingsMain.js",
+	"baseFilePath"	=> "core/js/settingsMain.js",
+	"default"		=> $configStatic["version"]
+)); ?>

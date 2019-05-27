@@ -1,11 +1,4 @@
 <!doctype html>
-<head>
-	<title>Log Hog | Updater</title>
-	<link rel="stylesheet" type="text/css" href="../../../core/template/theme.css">
-	<link rel="icon" type="image/png" href="../../../core/img/favicon.png" />
-	<script src="../../../core/js/jquery.js"></script>
-</head>
-<body>
 <?php
 $baseUrl = "../../../core/";
 if(file_exists('../../../local/layout.php'))
@@ -16,10 +9,11 @@ if(file_exists('../../../local/layout.php'))
 	$baseUrl .= $currentSelectedTheme."/";
 }
 require_once($baseUrl.'conf/config.php');
-require_once('../../../core/php/commonFunctions.php');
+require_once("../../../core/php/class/core.php");
+$core = new core();
 require_once('../../../core/conf/config.php');
 require_once('../../../core/php/configStatic.php');
-$currentTheme = loadSpecificVar($defaultConfig, $config, "currentTheme", "jsVersion");
+$currentTheme = $core->loadSpecificVar($defaultConfig, $config, "currentTheme");
 if(is_dir('../../../local/'.$currentSelectedTheme.'/Themes/'.$currentTheme))
 {
 	require_once('../../../local/'.$currentSelectedTheme.'/Themes/'.$currentTheme."/defaultSetting.php");
@@ -45,8 +39,20 @@ if($totalCountOfFilesToDelete < 1)
 	exit();
 }
 ?>
-
-<div id="main">
+<head>
+	<title>Log Hog | Updater</title>
+	<link rel="stylesheet" type="text/css" href="../../../core/template/base.css">
+	<link rel="stylesheet" type="text/css" href="../../../core/template/theme.css">
+	<?php require_once("../../../core/php/customCSS.php"); ?>
+	<link rel="icon" type="image/png" href="../../../core/img/favicon.png" />
+	<?php $core->getScript(array(
+		"filePath"		=> "../../../core/js/jquery.js",
+		"baseFilePath"	=> "core/js/jquery.js",
+		"default"		=> $configStatic["version"]
+	)); ?>
+</head>
+<body>
+<div id="main" style=" position: relative;">
 	<div class="settingsHeader" style="text-align: center;" >
 		<span id="titleHeader" >
 			<h1>Removing old Log-Hog files...</h1>
@@ -55,12 +61,12 @@ if($totalCountOfFilesToDelete < 1)
 	</div>
 	<div class="settingsDiv" >
 		<div class="updatingDiv">
-			<p style="border-bottom: 1px solid white;"></p>
-			<div id="innerDisplayUpdate" style="height: 350px; overflow: auto; max-height: 300px;">
+			<p class="addBorderBottom"></p>
+			<div id="innerDisplayUpdate">
 				<table style="padding: 10px;">
 					<tr>
 						<td style="height: 50px;">
-							<?php echo generateImage(
+							<?php echo $core->generateImage(
 								$arrayOfImages["loading"],
 								array(
 									"height"		=>	"30px",
@@ -68,7 +74,7 @@ if($totalCountOfFilesToDelete < 1)
 									"id"			=>	"runLoad"
 								)
 							); ?>
-							<?php echo generateImage(
+							<?php echo $core->generateImage(
 								$arrayOfImages["greenCheck"],
 								array(
 									"height"		=>	"30px",
@@ -86,7 +92,7 @@ if($totalCountOfFilesToDelete < 1)
 					</tr>
 					<tr>
 						<td style="height: 50px;">
-							<?php echo generateImage(
+							<?php echo $core->generateImage(
 								$arrayOfImages["loading"],
 								array(
 									"height"		=>	"30px",
@@ -95,7 +101,7 @@ if($totalCountOfFilesToDelete < 1)
 									"style"			=>	"display: none;"
 								)
 							); ?>
-							<?php echo generateImage(
+							<?php echo $core->generateImage(
 								$arrayOfImages["greenCheck"],
 								array(
 									"height"		=>	"30px",
@@ -113,21 +119,31 @@ if($totalCountOfFilesToDelete < 1)
 					</tr>
 				</table>
 			</div>
-			<p style="border-bottom: 1px solid white;"></p>
+			<p class="addBorderBottom"></p>
 		</div>
 	</div>
 </div>
 </body>
-
-<script src="../../../core/js/settings.js?v=<?php echo $jsVersion?>"></script>
-<script src="../../../core/js/upgradeDelete.js?v=<?php echo $jsVersion?>"></script>
+<?php $core->getScripts(array(
+		array(
+			"filePath"		=> "../../../core/js/settings.js",
+			"baseFilePath"	=> "core/js/settings.js",
+			"default"		=> $configStatic["version"]
+		),
+		array(
+			"filePath"		=> "../../../core/js/upgradeDelete.js",
+			"baseFilePath"	=> "core/js/upgradeDelete.js",
+			"default"		=> $configStatic["version"]
+		)
+	)
+); ?>
 <script type="text/javascript">
 	var arrayOfFilesToDelete = <?php echo json_encode($arrayOfFilesToDelete); ?>;
 	var totalCountOfFilesToDelete = <?php echo $totalCountOfFilesToDelete; ?>;
 
 	function redirectToLocationFromUpgradeTheme()
 	{
-		window.location.href = "<?php echo getCookieRedirect(); ?>";
+		window.location.href = "<?php echo $core->getCookieRedirect(); ?>";
 	}
 </script>
 </html>

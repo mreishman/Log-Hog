@@ -1,24 +1,9 @@
 #menu, .menu {
-  position: absolute;
-  width: 100%;
-  z-index: 20;
   background: #281b06;
-  padding: 0.5em 1em;
-  overflow-y: auto;
-}
-#menu .index, .menu .index {
-  padding: 0.5em 0 0.5em 1em;
 }
 #menu a, .menu a {
-  display: inline-block;
-  margin: 0.5em 0;
   background: #684E32;
-  cursor: pointer;
   color: white;
-}
-#menu a .menuCounter, .menu a .menuCounter {
-  padding-right: 1em;
-  display: inline-block;
 }
 #menu a.updated, .menu a.updated {
   background: #FFAE42;
@@ -26,9 +11,6 @@
 }
 #menu a.updated:hover, .menu a.updated:hover {
   background: #FFECD3;
-}
-#menu a:not(.index), .menu a:not(.index) {
-  padding: 0.5em 1em;
 }
 #menu a:hover, .menu a:hover {
   color: black;
@@ -40,23 +22,12 @@
 }
 
 #menu2 {
-  position: absolute;
-  width: 100%;
-  z-index: 10;
   background: #44412e;
-  padding: 0.25em 0.5em;
   border-bottom: 1px solid white;
-  overflow-y: auto;
-  overflow-x: hidden;
-  top: 55px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
 }
 #menu2 a {
-  display: inline-block;
-  margin: 0.5em 0;
   background: #684E32;
-  cursor: pointer;
-  padding: 0.5em 1em;
   color: white;
 }
 #menu2 a:hover {
@@ -91,51 +62,28 @@
 }
 
 .linkSmallHover {
-  display: inline-block;
-  padding: 3px 5px;
-  margin: 1px;
-  cursor: default;
-  line-height: 100%;
   color: black;
   background: white;
   border: 1px solid black;
 }
 
-.settingsHeaderButtons {
-  float: right;
-  margin-top: -4px;
-}
-
 #log {
-  padding: 1em 0;
   color: white;
 }
 
 #titleContainer {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
   color: black;
   background: #c4ad89;
-  padding: 0 1em;
-  line-height: 2em;
 }
 
 .backgroundForSideBarMenu {
   background: #c4ad89;
-  overflow-y: auto;
 }
 
 .popupForInfo {
   background: #c4ad89;
-  z-index: 10;
-  position: absolute;
   border: 1px solid white;
   color: black;
-  width: fit-content;
-  padding: 5px;
-  word-break: break-all;
 }
 
 .currentWindowNum {
@@ -151,7 +99,6 @@
   border-bottom: 1px solid black;
   background: white;
   color: black;
-  text-align: center;
 }
 
 .currentWindowNumSelected {
@@ -159,23 +106,28 @@
   background: black;
   border-top: 1px solid black;
   border-bottom: 1px solid black;
-  text-align: center;
-}
-
-#title {
-  display: inline-block;
 }
 
 .settingsDiv {
   background: #44412e;
   border: 1px solid white;
-  margin: 10px;
-  margin-top: 0;
 }
 
 /*has to be here to override*/
 .settingsDivRemoveTop {
   border-top: 0;
+}
+
+#log {
+  padding: 1em 0;
+}
+#log div {
+  padding: 0.25em 1em;
+}
+
+.settingsDiv {
+  margin: 10px;
+  margin-top: 0;
 }
 
 .settingsDivRemoveBottom {
@@ -184,24 +136,17 @@
   margin-bottom: 0;
 }
 
+/*end has to be here to override*/
 .settingsHeader {
   background: #281b06;
-  margin: 10px;
-  margin-bottom: 0;
   color: white;
-  padding: 5px;
 }
 .settingsHeader .linkSmall:hover {
   border: 1px solid black;
 }
 .settingsHeader button {
-  display: inline-block;
-  padding: 3px 5px;
-  margin: 1px;
   background: #684E32;
-  cursor: pointer;
   border: solid 1px white;
-  line-height: 100%;
   color: white;
 }
 .settingsHeader button:hover {
@@ -214,34 +159,15 @@
   color: white;
 }
 
-.updatingDiv p {
-  margin: 2px;
-  padding-left: 10px;
-  word-wrap: break-word;
-}
-
-.settingsBuffer {
-  width: 200px;
-  display: inline-block;
-}
-
 .link {
-  display: inline-block;
-  padding: 0.5em 1em;
   background: #684E32;
-  cursor: pointer;
   border: solid 1px white;
   color: white;
 }
 
 .linkSmall {
-  display: inline-block;
-  padding: 3px 5px;
-  margin: 1px;
   background: #684E32;
-  cursor: pointer;
   border: solid 1px white;
-  line-height: 100%;
   color: white;
 }
 
@@ -251,29 +177,11 @@
 }
 
 .context-menu {
-  display: none;
-  position: absolute;
-  z-index: 30;
   background: #684E32;
   border: 1px solid white;
   box-shadow: 0 0 5px black;
 }
 
-.context-menu__items {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  margin-top: 0;
-}
-
-.context-menu--active {
-  display: block;
-}
-
-.context-menu__item {
-  padding: 5px 3px;
-  cursor: pointer;
-}
 .context-menu__item:hover {
   background: white;
 }
@@ -285,70 +193,35 @@
 }
 
 .dropdown-content {
-  display: none;
-  position: absolute;
   background: #684E32;
-  overflow: auto;
   border: 1px solid white;
   box-shadow: 0 0 5px black;
-  z-index: 30;
-  margin-left: 12px;
-  margin-top: -70px;
 }
 .dropdown-content a {
   color: white;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
 }
 .dropdown-content a:hover {
   color: black;
 }
 
-.dropdown-content__items {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.dropdown-content--active {
-  display: block;
-}
-
-.dropdown-content__item {
-  padding: 5px 3px;
-  cursor: pointer;
-}
 .dropdown-content__item:hover {
   background: white;
 }
 
 .loadingSpinner {
-  padding: 75px;
   background: #44412e;
   border: 1px solid white;
 }
 
 .selectDiv {
   background: #684E32;
-  display: inline-block;
-  padding: 2px;
-  padding-right: 7px;
   border: 1px solid white;
 }
 .selectDiv select {
   color: white;
-  background: transparent;
-  cursor: pointer;
-  border: none;
 }
 .selectDiv option {
   color: black;
-}
-
-/* width */
-::-webkit-scrollbar {
-  width: 10px;
 }
 
 /* Track */
@@ -366,13 +239,6 @@
   background: white;
 }
 
-#fullScreenMenu {
-  background: rgba(0, 0, 0, 0.7);
-}
-#fullScreenMenu .selected:not(.noInvert) {
-  filter: invert(100%);
-}
-
 .fullScreenMenuUL {
   background: black;
   border-right: 1px solid white;
@@ -380,13 +246,6 @@
 .fullScreenMenuUL li {
   background: black;
   color: white;
-}
-.fullScreenMenuUL li.subMenuTitle {
-  background-color: #999;
-  color: black;
-}
-.fullScreenMenuUL li:not(.menuTitle):hover {
-  filter: invert(100%);
 }
 
 .fullScreenMenuLeftSidebar {

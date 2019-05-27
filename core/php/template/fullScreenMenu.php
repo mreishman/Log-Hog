@@ -4,7 +4,7 @@
 </ul>
 
 <ul id="aboutSubMenu" class="settingsUl fullScreenMenuUL settingsUlSub">
-	<li class="menuTitle" style="text-align: center;" >
+	<li class="menuTitle">
 		About
 	</li>
 	<li id="aboutSubMenuAbout" onclick="toggleAboutLogHog();" class="selected">
@@ -18,7 +18,7 @@
 	</li>
 </ul>
 <ul id="historySubMenu" class="settingsUl fullScreenMenuUL settingsUlSub" style="display: none;">
-	<li class="menuTitle" style="text-align: center;" >
+	<li class="menuTitle">
 		History
 	</li>
 	<li id="tempSaveHistory" onclick="toggleTmpSaveHistory();">
@@ -29,7 +29,7 @@
 	</li>
 </ul>
 <ul id="themeSubMenu" class="settingsUl fullScreenMenuUL settingsUlSub" style="display: none;">
-	<li class="menuTitle" style="text-align: center;" >
+	<li class="menuTitle">
 		Themes
 	</li>
 	<li id="themeSubMenuMainThemes" onclick="toggleMainThemes();" class="selected">
@@ -41,14 +41,14 @@
 	<li id="themeSubMenuColorScheme" onclick="toggleThemeColorScheme();">
 		Color Scheme
 	</li>
-	<li class="menuTitle" style="text-align: center;" >
+	<li class="menuTitle">
 	</li>
 	<li class="subMenuActionsColorScheme subMenuToggle" style="display: none;" onclick="addRowForFolderColorOptions();" >
 		Add Row
 	</li>
 </ul>
 <ul id="watchListSubMenu" class="settingsUl fullScreenMenuUL settingsUlSub" style="display: none;">
-	<li class="menuTitle" style="text-align: center;" >
+	<li class="menuTitle">
 		Watchlist
 	</li>
 	<li onclick="addFile();" >
@@ -74,7 +74,7 @@
 	<?php endif; ?>
 </ul>
 <ul id="settingsSubMenu" class="settingsUl fullScreenMenuUL settingsUlSub" style="display: none;">
-	<li class="menuTitle" style="text-align: center;">
+	<li class="menuTitle">
 		Settings
 	</li>
 	<li class="menuTitle fullScreenMenuText subMenuTitle">
@@ -149,16 +149,13 @@
 	<?php endif; ?>
 </ul>
 <div id="mainContentFullScreenMenu">
-	<div class="settingsHeader addBorderBottom" style="position: fixed;width: 100%;z-index: 10;top: 0; margin: 0; display: none;top: 46px;" id="fixedPositionMiniMenu" >
+	<div class="settingsHeader addBorderBottom" style="display: none;" id="fixedPositionMiniMenu" >
 	</div>
 	<div id="fullScreenMenuChangeLog" style="display: none;" >
 		<?php require_once("changelog.php"); ?>
 	</div>
 	<div id="fullScreenMenuWhatsNew" style="display: none;" >
-		<?php
-		$imageDirModifierAbout = "";
-		require_once('whatsNew.php');
-		?>
+		<?php require_once('whatsNew.php'); ?>
 	</div>
 	<div id="fullScreenMenuAbout" >
 		<?php require_once('about.php'); ?>
@@ -173,12 +170,11 @@
 		<?php require_once('update.php'); ?>
 	</div>
 	<div id="fullScreenMenuIFrame" style="display: none;">
-		<iframe style="border: 0;" id="iframeFullScreen" src=""></iframe>
+		<iframe id="iframeFullScreen" src=""></iframe>
 	</div>
 	<div id="fullScreenMenuWatchList" style="display: none;">
 		<?php
 		$imageUrlModifier = "";
-		require_once('core/php/settingsMainWatchFunctions.php');
 		require_once('settingsMainWatch.php');
 		?>
 	</div>
@@ -209,7 +205,7 @@
 		?>
 	</div>
 	<div id="notifications" style="display: none;" >
-		<div id="notificationHolder" class="fullScreenMenuLeftSidebar" style="display: inline-block; height: 100%; overflow-y: auto;" ></div>
+		<div id="notificationHolder" class="fullScreenMenuLeftSidebar"></div>
 	</div>
 	<div id="notificationsEmpty" style="display: none;" >
 		<table width="100%" style="height: 100%;">

@@ -9,7 +9,7 @@ function addToGroupTab(newGroups)
 			$("#selectForGroup").append("<option value='"+newGroups[NGcount]+"'>"+newGroups[NGcount]+"</option>");
 			if(groupDropdownInHeader === "true")
 			{
-				$("#groupsInHeader").append("<span class=\"linkSmall\"  onclick=\"addGroupToSelect(event, '"+newGroups[NGcount]+"');\"  >"+newGroups[NGcount]+"</span>")
+				$("#groupsInHeader").append("<span class=\"linkSmall\"  onclick=\"addGroupToSelect(event, '"+newGroups[NGcount]+"');\"  >"+newGroups[NGcount]+"</span>");
 			}
 		}
 	}
@@ -170,7 +170,7 @@ function showFileFromGroup(id)
 	{
 		if(groupSelectLength !== 1)
 		{
-			document.getElementById("selectForGroup").value = "all"
+			document.getElementById("selectForGroup").value = "all";
 		}
 		return true;
 	}
@@ -275,7 +275,7 @@ function addGroupToSelect(event, group)
 	}
 	else
 	{
-		document.getElementById("selectForGroup").value = group
+		document.getElementById("selectForGroup").value = group;
 	}
 	updateHeaderGroups(groupCheck);
 	toggleGroupedGroups();
@@ -287,7 +287,7 @@ function updateHeaderGroups(groupCheck)
 	let listOfOptionsLength = listOfOptions.length;
 	for(let i = 0; i < listOfOptionsLength; i++)
 	{
-		$($("#groupsInHeader .linkSmall")[i]).removeClass("selected")
+		$($("#groupsInHeader .linkSmall")[i]).removeClass("selected");
 		let textCheck = listOfOptions[i].textContent;
 		if(textCheck === "All")
 		{

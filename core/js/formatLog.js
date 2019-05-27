@@ -12,7 +12,7 @@ function makePretty(id)
 		{
 			count = 0;
 		}
-		var returnText = makePrettyWithText(text, count, {id:id});
+		var returnText = makePrettyWithText(text, count, {id: id});
 		if(returnText !== "")
 		{
 			return "<table width=\"100%\" style=\"border-spacing: 0;\">" + returnText + "</table>";
@@ -146,7 +146,22 @@ function makePrettyWithText(text, count, extraData = {})
 					}
 				}
 			}
-
+			if("id" in extraData && logLoadType !== "Full")
+			{
+				let currentWindowId = 0;
+				let logDisplayArrayKeys = Object.keys(logDisplayArray);
+				let logDisplayArrayKeysCount = logDisplayArrayKeys.length;
+				for(let i = 0; i < logDisplayArrayKeysCount; i++)
+				{
+					if(logDisplayArray[logDisplayArrayKeys[i]]["id"] === extraData["id"])
+					{
+						currentWindowId = i;
+						break;
+					}
+				}
+				customClass += " logLineHide logLineHide"+currentWindowId+" ";
+				customClassAdd = true;
+			}
 			customClass += " '";
 			returnText += "<tr valign=\"top\"";
 			if(customClassAdd)
@@ -173,7 +188,7 @@ function makePrettyWithText(text, count, extraData = {})
 						let newLine = "";
 						if(filterInvert === "true")
 						{
-							newLine += currentAdd["startBlock"]
+							newLine += currentAdd["startBlock"];
 						}
 						//update array values, length wont change though
 						posArrArrKeys = Object.keys(posArrArr);
@@ -200,7 +215,7 @@ function makePrettyWithText(text, count, extraData = {})
 						newLine += lineText.slice(currentLinePosition);
 						if(filterInvert === "true")
 						{
-							newLine += currentAdd["endBlock"]
+							newLine += currentAdd["endBlock"];
 						}
 						lineText = newLine;
 						//update other values in array
@@ -208,8 +223,9 @@ function makePrettyWithText(text, count, extraData = {})
 					}
 				}
 			}
-			var lineToReturn = "<td style=\"white-space: pre-wrap;\">"+lineText+"</td>";
-			var colspan = 2;
+			let lineToReturn = "<td style=\"white-space: pre-wrap;\">"+lineText+"</td>";
+			let colspan = 2;
+			let addRowPadding = true;
 			if(type === "log" && advancedLogFormatEnabled === "true")
 			{
 				let lastLine = "";
@@ -246,7 +262,11 @@ function makePrettyWithText(text, count, extraData = {})
 					lineCount
 				});
 			}
-			returnText += "<td style=\"width: 31px; padding: 0;\"></td>"+lineToReturn+"</tr><tr class=\"logLinePaddingHeight\"><td class=\"logLineBorder\" colspan=\""+colspan+"\"></td></tr>";
+			returnText += "<td style=\"width: 31px; padding: 0;\"></td>"+lineToReturn+"</tr>";
+			if(addRowPadding)
+			{
+				returnText += "<tr class=\"logLinePaddingHeight\"><td class=\"logLineBorder\" colspan=\""+colspan+"\"></td></tr>";
+			}
 		}
 		if(returnText === "")
 		{

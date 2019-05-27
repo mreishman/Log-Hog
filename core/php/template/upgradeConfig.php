@@ -1,13 +1,7 @@
 <!doctype html>
-<head>
-	<title>Log Hog | Updater</title>
-	<link rel="stylesheet" type="text/css" href="../../../core/template/theme.css">
-	<link rel="icon" type="image/png" href="../../../core/img/favicon.png" />
-	<script src="../../../core/js/jquery.js"></script>
-</head>
-<body>
 <?php
-require_once('../../../core/php/commonFunctions.php');
+require_once("../../../core/php/class/core.php");
+$core = new core();
 $baseUrl = "../../../core/";
 if(file_exists('../../../local/layout.php'))
 {
@@ -20,7 +14,6 @@ require_once($baseUrl.'conf/config.php');
 require_once('../../../core/conf/config.php');
 require_once('../../../core/php/configStatic.php');
 require_once('../../../core/php/loadVars.php');
-
 $configVersion = 0;
 if(isset($config['configVersion']))
 {
@@ -29,8 +22,20 @@ if(isset($config['configVersion']))
 $configVersionToUpgradeTo = $defaultConfig['configVersion'];
 $totalUpgradeScripts = floatval($configVersionToUpgradeTo) - floatval($configVersion);
 ?>
-
-<div id="main">
+<head>
+	<title>Log Hog | Updater</title>
+	<link rel="stylesheet" type="text/css" href="../../../core/template/base.css">
+	<link rel="stylesheet" type="text/css" href="../../../core/template/theme.css">
+	<?php require_once("../../../core/php/customCSS.php"); ?>
+	<link rel="icon" type="image/png" href="../../../core/img/favicon.png" />
+	<?php $core->getScript(array(
+		"filePath"		=> "../../../core/js/jquery.js",
+		"baseFilePath"	=> "core/js/jquery.js",
+		"default"		=> $configStatic["version"]
+	)); ?>
+</head>
+<body>
+<div id="main" style=" position: relative;">
 	<div class="settingsHeader" style="text-align: center;" >
 		<span id="titleHeader" >
 			<h1>Running Upgrade Scripts for Config...</h1>
@@ -38,8 +43,8 @@ $totalUpgradeScripts = floatval($configVersionToUpgradeTo) - floatval($configVer
 	</div>
 	<div class="settingsDiv" >
 		<div class="updatingDiv">
-			<p style="border-bottom: 1px solid white;"></p>
-			<div id="innerDisplayUpdate" style="height: 350px; overflow: auto; max-height: 300px;">
+			<p class="addBorderBottom"></p>
+			<div id="innerDisplayUpdate">
 			<table style="padding: 10px;">
 				<tr>
 					<td style="height: 50px;">
@@ -65,13 +70,24 @@ $totalUpgradeScripts = floatval($configVersionToUpgradeTo) - floatval($configVer
 				</tr>
 			</table>
 			</div>
-			<p style="border-bottom: 1px solid white;"></p>
+			<p class="addBorderBottom"></p>
 		</div>
 	</div>
 </div>
 </body>
-<script src="../../../core/js/settings.js?v=<?php echo $jsVersion?>"></script>
-<script src="../../../core/js/upgradeMain.js?v=<?php echo $jsVersion?>"></script>
+<?php $core->getScripts(array(
+		array(
+			"filePath"		=> "../../../core/js/settings.js",
+			"baseFilePath"	=> "core/js/settings.js",
+			"default"		=> $configStatic["version"]
+		),
+		array(
+			"filePath"		=> "../../../core/js/upgradeMain.js",
+			"baseFilePath"	=> "core/js/upgradeMain.js",
+			"default"		=> $configStatic["version"]
+		)
+	)
+); ?>
 <script type="text/javascript">
 	var urlForSendMain0 = '../../../core/php/checkVersionOfConfig.php?format=json';
 	var urlForSendMain = '../../../core/php/upgradeScript/upgradeConfig-';
@@ -79,7 +95,7 @@ $totalUpgradeScripts = floatval($configVersionToUpgradeTo) - floatval($configVer
 	<?php
 	echo "var startVersion = ".$configVersion.";";
 	echo "var endVersion = ".$configVersionToUpgradeTo.";";
-	echo "var upgradeConfigUrlToRedirectTo = \"".getCookieRedirect()."\"";
+	echo "var upgradeConfigUrlToRedirectTo = \"".$core->getCookieRedirect()."\"";
 	?>
 </script>
 </html>

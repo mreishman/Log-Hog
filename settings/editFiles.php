@@ -1,11 +1,12 @@
 <?php
-require_once('../core/php/commonFunctions.php');
-$currentSelectedTheme = returnCurrentSelectedTheme();
+require_once("../core/php/class/core.php");
+$core = new core();
+$currentSelectedTheme = $core->returnCurrentSelectedTheme();
 $baseUrl = "../local/".$currentSelectedTheme."/";
 $localURL = $baseUrl;
 require_once($baseUrl.'conf/config.php');
 require_once('../core/conf/config.php');
-$currentTheme = loadSpecificVar($defaultConfig, $config, "currentTheme");
+$currentTheme = $core->loadSpecificVar($defaultConfig, $config, "currentTheme");
 if(is_dir('../local/'.$currentSelectedTheme.'/Themes/'.$currentTheme))
 {
 	require_once('../local/'.$currentSelectedTheme.'/Themes/'.$currentTheme."/defaultSetting.php");
@@ -24,10 +25,22 @@ require_once('../core/php/template/listOfFiles.php');
 <html>
 <head>
 	<title>Log-Hog | Edit Files</title>
-	<?php echo loadCSS("../",$baseUrl, $cssVersion);?>
+	<?php echo $core->loadCSS("../",$baseUrl, $cssVersion);?>
 	<link rel="icon" type="image/png" href="../core/img/favicon.png" />
-	<script src="../core/js/jquery.js"></script>
-	<script src="../core/js/editFiles.js?v=<?php echo $jsVersion?>"></script>
+	<?php $core->getScripts(
+		array(
+			array(
+				"filePath"		=> "../core/js/jquery.js",
+				"baseFilePath"	=> "core/js/jquery.js",
+				"default"		=> $configStatic["version"]
+			),
+			array(
+				"filePath"		=> "../core/js/editFiles.js",
+				"baseFilePath"	=> "core/js/editFiles.js",
+				"default"		=> $configStatic["version"]
+			)
+		)
+	); ?>
 </head>
 <body>
 	<?php require_once("../core/php/customCSS.php");?>
@@ -39,7 +52,7 @@ require_once('../core/php/template/listOfFiles.php');
 	        			<h2 align="center" style="margin-top:0px;">
 	        				<a onclick="window.location = './devTools.php'" >
 	        				<?php
-	        				echo generateImage(
+	        				echo $core->generateImage(
 									$arrayOfImages["backArrow"],
 									array(
 										"width"		=>	"50px",
@@ -50,7 +63,7 @@ require_once('../core/php/template/listOfFiles.php');
 	        				?>
 	        				</a>
 	        				Files
-	        			</h2>        
+	        			</h2>
 	    			</div>
 				    <div id="scrollable" style="color:black;">
 				        <table style="font-size:135%" width="100%" align="center">

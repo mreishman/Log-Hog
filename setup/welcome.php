@@ -1,12 +1,15 @@
 <?php
-require_once('../core/php/errorCheckFunctions.php');
-require_once('../core/php/commonFunctions.php');
+require_once("../core/php/class/core.php");
+$core = new core();
+require_once("../core/php/class/errorCheck.php");
+$errorCheck = new errorCheck();
+require_once('../core/php/configStatic.php');
 $currentPage = "welcome.php";
-checkIfFilesExist(
+$errorCheck->checkIfFilesExist(
 	array("local/layout.php","setup/setupProcessFile.php","error.php","setup/step1.php","core/template/theme.css","core/js/jquery.js","core/php/template/popup.php","core/php/settingsSaveAjax.php","core/conf/config.php","setup/stepsJavascript.js"),
 	 "../",
 	 $currentPage);
-checkIfFilesAreReadable(
+$errorCheck->checkIfFilesAreReadable(
 	array("local/layout.php","setup/setupProcessFile.php","error.php","setup/step1.php","core/template/theme.css","core/js/jquery.js","core/php/template/popup.php","core/php/settingsSaveAjax.php","core/conf/config.php","setup/stepsJavascript.js"),
 	 "../",
 	 $currentPage);
@@ -18,7 +21,7 @@ require_once('../local/layout.php');
 $baseUrl .= $currentSelectedTheme."/";
 
 
-checkIfFilesAreWritable(
+$errorCheck->checkIfFilesAreWritable(
 	array("core/php/settingsSaveAjax.php","local/".$currentSelectedTheme, "setup/setupProcessFile.php"),
 	 "../",
 	 $currentPage);
@@ -28,7 +31,7 @@ if(file_exists($baseUrl.'conf/config.php'))
 {
 	if($setupProcess != "preStart")
 	{
-		$partOfUrl = clean_url($_SERVER['REQUEST_URI']);
+		$partOfUrl = $core->clean_url($_SERVER['REQUEST_URI']);
 		$partOfUrl = substr($partOfUrl, 0, strpos($partOfUrl, 'setup'));
 		$url = "http://" . $_SERVER['HTTP_HOST'] .$partOfUrl ."setup/director.php";
 		header('Location: ' . $url, true, 302);
@@ -38,7 +41,7 @@ if(file_exists($baseUrl.'conf/config.php'))
 
 $cssVersion = date("YmdHis");
 
-setCookieRedirect();
+$core->setCookieRedirect();
 ?>
 <!DOCTYPE html>
 <html>
@@ -46,8 +49,12 @@ setCookieRedirect();
 	<title>Welcome!</title>
 	<link rel="stylesheet" type="text/css" href="../core/template/theme.css">
 	<link rel="stylesheet" type="text/css" href="../core/template/base.css">
-	<script src="../core/js/jquery.js"></script>
-	<?php require_once("../core/php/template/popup.php"); ?>	
+	<?php $core->getScript(array(
+		"filePath"		=> "../core/js/jquery.js",
+		"baseFilePath"	=> "core/js/jquery.js",
+		"default"		=> $configStatic["version"]
+	)); ?>
+	<?php require_once("../core/php/template/popup.php"); ?>
 </head>
 <body>
 <div style="width: 90%; margin: auto; margin-right: auto; margin-left: auto; display: block; height: auto; margin-top: 15px;" >
@@ -93,7 +100,23 @@ setCookieRedirect();
 		window.location.href = "./director.php";
 	}
 </script>
-<script src="../core/js/settings.js?v=<?php echo $cssVersion; ?>"></script>
-<script src="../core/js/upgradeTheme.js?v=<?php echo $cssVersion; ?>"></script>
-<script src="stepsJavascript.js?v=<?php echo $cssVersion; ?>"></script> <!-- Try to remember to manually increment this one? -->
+<?php $core->getScripts(
+	array(
+		array(
+			"filePath"		=> "../core/js/settings.js",
+			"baseFilePath"	=> "core/js/settings.js",
+			"default"		=> $configStatic["version"]
+		),
+		array(
+			"filePath"		=> "../core/js/upgradeTheme.js",
+			"baseFilePath"	=> "core/js/upgradeTheme.js",
+			"default"		=> $configStatic["version"]
+		),
+		array(
+			"filePath"		=> "stepsJavascript.js",
+			"baseFilePath"	=> "setup/stepsJavascript.js",
+			"default"		=> $configStatic["version"]
+		)
+	)
+); ?>
 </html>

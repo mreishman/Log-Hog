@@ -1,5 +1,6 @@
 <?php
-require_once("commonFunctions.php");
+require_once("class/core.php");
+$core = new core();
 
 $filter = "$";
 
@@ -83,7 +84,7 @@ function getFileInfoFromDir($data, $response)
 $path = $_POST["currentFolder"];
 $response = array();
 $imageResponse = "defaultRedErrorIcon";
-$info = filePermsDisplay($path);
+$info = $core->filePermsDisplay($path);
 $recursive = false;
 if(isset($_POST["filter"]))
 {
@@ -133,4 +134,11 @@ if(file_exists($path))
 	}
 }
 
-echo json_encode(array("data" => $response, "orgPath" => $_POST["currentFolder"], "img" => $imageResponse, "fileInfo" => $info));
+echo json_encode(
+	array(
+		"data" => $response,
+		"orgPath" => $_POST["currentFolder"],
+		"img" => $imageResponse,
+		"fileInfo" => $info
+	)
+);

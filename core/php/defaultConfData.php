@@ -797,58 +797,74 @@ $defaultConfigMoreData = array(
 		"id"								=>	"settingsLogFormatVars",
 		"name"								=>	"Log Format Settings ",
 		"vars"								=>	array(
-			0									=> array(
-				"bool"								=>	($dateTextFormat != 'custom'),
-				"bool2"								=>	"custom",
-				"id"								=>	"dateTextFormatSelector",
-				"name"								=>	"Custom Date Text Format",
+			0									=>	array(
+				"bool"								=>	($dateTextFormatEnable == 'false'),
+				"id"								=>	"dateTextFormatEnableSettings",
+				"name"								=>	"Log Date Text Format Settings",
 				"type"								=>	"grouped",
 				"var"								=>	array(
-					"function"							=>	"toggleUpdateLogFormat",
-					"functionForToggle"					=>	"showOrHideLogFormat",
-					"id"								=>	"dateTextFormat",
-					"key"								=>	"dateTextFormat",
-					"name"								=>	"Date Text Format",
-					"options"							=>	$dateFormatOptions,
-					"type"								=>	"dropdown"
-				),
-				"vars"								=>	$customDateFormatVars
-			),
-			1									=> array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"id"								=>	"dateTextFormatCustom",
-					"key"								=>	"dateTextFormatCustom",
-					"type"								=>	"hidden"
-				)
-			),
-			2									=>	array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"dateTextFormatColumn",
-					"name"								=>	"Show log date / time in seperate column",
-					"options"							=>	array(
-						0 									=> array(
-							"value" 							=> "true",
-							"name" 								=> "Always"),
-						1 									=> array(
-							"value" 							=> "auto",
-							"name" 								=> "On larger screens"),
-						2 									=> array(
-							"value" 							=> "false",
-							"name" 								=> "Never")
-					),
-					"type"								=>	"dropdown"
-				)
-			),
-			3									=>	array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"info"								=>	"Only displays top timestamp when more than one in a row are same",
-					"key"								=>	"dateTextGroup",
-					"name"								=>	"Group Same Timestamps",
+					"function"							=>	"showOrHidedateTextFormatEnableSettings",
+					"id"								=>	"dateTextFormatEnable",
+					"key"								=>	"dateTextFormatEnable",
+					"name"								=>	"Format Date Text",
 					"options"							=>	$trueFalsVars,
 					"type"								=>	"dropdown"
+				),
+				"vars"								=>	array(
+					0									=> array(
+						"bool"								=>	($dateTextFormat != 'custom'),
+						"bool2"								=>	"custom",
+						"id"								=>	"dateTextFormatSelector",
+						"name"								=>	"Custom Date Text Format",
+						"type"								=>	"grouped",
+						"var"								=>	array(
+							"function"							=>	"toggleUpdateLogFormat",
+							"functionForToggle"					=>	"showOrHideLogFormat",
+							"id"								=>	"dateTextFormat",
+							"key"								=>	"dateTextFormat",
+							"name"								=>	"Date Text Format",
+							"options"							=>	$dateFormatOptions,
+							"type"								=>	"dropdown"
+						),
+						"vars"								=>	$customDateFormatVars
+					),
+					1									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"id"								=>	"dateTextFormatCustom",
+							"key"								=>	"dateTextFormatCustom",
+							"type"								=>	"hidden"
+						)
+					),
+					2									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"dateTextFormatColumn",
+							"name"								=>	"Show log date / time in seperate column",
+							"options"							=>	array(
+								0 									=> array(
+									"value" 							=> "true",
+									"name" 								=> "Always"),
+								1 									=> array(
+									"value" 							=> "auto",
+									"name" 								=> "On larger screens"),
+								2 									=> array(
+									"value" 							=> "false",
+									"name" 								=> "Never")
+							),
+							"type"								=>	"dropdown"
+						)
+					),
+					3									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"info"								=>	"Only displays top timestamp when more than one in a row are same",
+							"key"								=>	"dateTextGroup",
+							"name"								=>	"Group Same Timestamps",
+							"options"							=>	$trueFalsVars,
+							"type"								=>	"dropdown"
+						)
+					),
 				)
 			),
 			4									=>	array(
@@ -1106,6 +1122,83 @@ $defaultConfigMoreData = array(
 				)
 			),
 			3									=>	array(
+				"bool"								=>	($logLoadType != 'Visible - Poll'),
+				"bool2"								=>	"Visible - Poll",
+				"id"								=>	"logLoadTypeSettings",
+				"name"								=>	"Log Load Type Settings",
+				"type"								=>	"grouped",
+				"var"								=>	array(
+					"function"							=>	"showOrHidelogLoadTypeSettings",
+					"id"								=>	"logLoadType",
+					"key"								=>	"logLoadType",
+					"name"								=>	"Log Load Type",
+					"options"							=>	array(
+								0 									=> array(
+									"value" 							=> "Full",
+									"name" 								=> "Full"),
+								1 									=> array(
+									"value" 							=> "Visible - Poll",
+									"name" 								=> "Visible - Poll")
+							),
+					"type"								=>	"dropdown"
+				),
+				"vars"								=>	array(
+					0									=> array(
+						"type"								=>	"linked",
+						"vars"								=>	array(
+							0									=>	array(
+								"key"								=>	"logLoadPollRate",
+								"name"								=>	"Polling Rate",
+								"type"								=>	"number"
+							),
+							1								=>	array(
+								"key"								=>	"logLoadPollRateType",
+								"options"							=>	array(
+									0 									=> array(
+										"value" 							=> "Milliseconds",
+										"name" 								=> "Milliseconds"),
+									1 									=> array(
+										"value" 							=> "Seconds",
+										"name" 								=> "Seconds")
+								),
+								"type"								=>	"dropdown"
+							)
+						)
+					),
+					1									=> array(
+						"type"								=>	"linked",
+						"vars"								=>	array(
+							0									=>	array(
+								"key"								=>	"logLoadPollBackgroundRate",
+								"name"								=>	"Background Polling Rate",
+								"type"								=>	"number"
+							),
+							1								=>	array(
+								"key"								=>	"logLoadPollBackgroundRateType",
+								"options"							=>	array(
+									0 									=> array(
+										"value" 							=> "Milliseconds",
+										"name" 								=> "Milliseconds"),
+									1 									=> array(
+										"value" 							=> "Seconds",
+										"name" 								=> "Seconds")
+								),
+								"type"								=>	"dropdown"
+							)
+						)
+					),
+					2									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"logLoadForceScrollToBot",
+							"name"								=>	"Force log update to scroll to bottom",
+							"options"							=>	$trueFalsVars,
+							"type"								=>	"dropdown"
+						)
+					),
+				)
+			),
+			4									=>	array(
 				"bool"								=>	($scrollOnUpdate == 'false'),
 				"id"								=>	"scrollLogOnUpdateSettings",
 				"name"								=>	"Scroll Log On Update Settings",
@@ -1130,7 +1223,7 @@ $defaultConfigMoreData = array(
 					)
 				)
 			),
-			4									=>	array(
+			5									=>	array(
 				"bool"								=>	($highlightNew == 'false'),
 				"id"								=>	"highlightNewSettings",
 				"name"								=>	"Highlight New Lines Settings",
@@ -1171,7 +1264,7 @@ $defaultConfigMoreData = array(
 					)
 				)
 			),
-			5									=>	array(
+			6									=>	array(
 				"bool"								=>	($logTrimOn == 'false'),
 				"id"								=>	"settingsLogTrimVars",
 				"info"								=>	"This could increase poll times by 2x to 4x depending on size of files, file or line trim, etc.",
@@ -1256,7 +1349,7 @@ $defaultConfigMoreData = array(
 					),
 				)
 			),
-			6									=>	array(
+			7									=>	array(
 				"custom"							=>	$customForFirstLogSelect,
 				"info"								=>	"If Multi-Log is enabled, and a variable is set for intial load logs there, this var will be overridden",
 				"type"								=>	"custom"

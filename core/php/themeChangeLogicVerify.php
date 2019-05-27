@@ -1,12 +1,13 @@
 <?php
-require_once("../../core/php/commonFunctions.php");
+require_once("../../core/php/class/core.php");
+$core = new core();
 require_once('../../local/layout.php');
 $baseUrl = "../../local/".$currentSelectedTheme."/";
 require_once($baseUrl.'conf/config.php');
 require_once('../../core/conf/config.php');
 require_once('../../core/php/configStatic.php');
 //get current selected theme directory and settings
-$currentTheme = loadSpecificVar($defaultConfig, $config, "currentTheme");
+$currentTheme = $core->loadSpecificVar($defaultConfig, $config, "currentTheme");
 $directory = "../../core/Themes/".$currentTheme."/";
 if(is_dir('../../local/'.$currentSelectedTheme.'/Themes/'.$currentTheme))
 {

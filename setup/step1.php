@@ -1,14 +1,15 @@
 <?php
-require_once("../core/php/commonFunctions.php");
-$currentSelectedTheme = returnCurrentSelectedTheme();
+require_once("../core/php/class/core.php");
+$core = new core();
+$currentSelectedTheme = $core->returnCurrentSelectedTheme();
 $baseUrl = "../local/".$currentSelectedTheme."/";
 $baseUrlImages = $baseUrl;
 require_once($baseUrl.'conf/config.php');
 require_once('setupProcessFile.php');
-
+require_once('../core/php/configStatic.php');
 if($setupProcess != "step1")
 {
-	$partOfUrl = clean_url($_SERVER['REQUEST_URI']);
+	$partOfUrl = $core->clean_url($_SERVER['REQUEST_URI']);
 	$partOfUrl = substr($partOfUrl, 0, strpos($partOfUrl, 'setup'));
 	$url = "http://" . $_SERVER['HTTP_HOST'] .$partOfUrl ."setup/director.php";
 	header('Location: ' . $url, true, 302);
@@ -25,10 +26,14 @@ require_once('../core/php/loadVars.php'); ?>
 <html>
 <head>
 	<title>Welcome!</title>
-	<script src="../core/js/jquery.js"></script>
+	<?php $core->getScript(array(
+		"filePath"		=> "../core/js/jquery.js",
+		"baseFilePath"	=> "core/js/jquery.js",
+		"default"		=> $configStatic["version"]
+	)); ?>
 	<?php require_once("../core/php/template/popup.php");
-	echo loadCSS("../",$baseUrl, $cssVersion);
-	echo loadSentryData($sendCrashInfoJS, $branchSelected);
+	echo $core->loadCSS("../",$baseUrl, $cssVersion);
+	echo $core->loadSentryData($sendCrashInfoJS, $branchSelected, $configStatic);
 	require_once("../core/php/customCSS.php");?>
 </head>
 <body>
@@ -51,7 +56,6 @@ require_once('../core/php/loadVars.php'); ?>
 	</span>
 	<?php
 	$imageUrlModifier = "../";
-	require_once('../core/php/settingsMainWatchFunctions.php');
 	require_once('../core/php/template/settingsMainWatch.php');
 	?>
 	<table style="width: 100%; padding-left: 20px; padding-right: 20px;" ><tr><th style="text-align: right;" >
@@ -71,9 +75,9 @@ require_once('../core/php/loadVars.php'); ?>
 </div>
 </body>
 <script type="text/javascript">
-	
+
 	var baseUrl = "<?php echo $baseUrlImages;?>";
-	
+
 	function defaultSettings()
 	{
 		//change setupProcess to finished
@@ -91,7 +95,7 @@ require_once('../core/php/loadVars.php'); ?>
 	var countOfAddedFiles = 0;
 	var countOfClicks = 0;
 	var locationInsert = "newRowLocationForWatchList";
-	var saveVerifyImage = <?php echo json_encode(generateImage(
+	var saveVerifyImage = <?php echo json_encode($core->generateImage(
 			$arrayOfImages["greenCheck"],
 			array(
 				"height"		=>	"50px",
@@ -100,12 +104,40 @@ require_once('../core/php/loadVars.php'); ?>
 		)); ?>
 
 </script>
-<script src="../core/js/lazyLoadImg.js?v=<?php echo $jsVersion?>"></script>
-<script src="../core/js/settings.js?v=<?php echo $jsVersion?>"></script>
-<script src="../core/js/settingsWatchlist.js?v=<?php echo $jsVersion?>"></script>
-<script src="../core/js/settingsExt.js?v=<?php echo $jsVersion?>"></script>
-<script src="../core/js/loading-bar.min.js?v=<?php echo $jsVersion?>"></script>
-<script src="stepsJavascript.js?v=<?php echo $jsVersion?>"></script>
+<?php $core->getScripts(
+	array(
+		array(
+			"filePath"		=> "../core/js/lazyLoadImg.js",
+			"baseFilePath"	=> "core/js/lazyLoadImg.js",
+			"default"		=> $configStatic["version"]
+		),
+		array(
+			"filePath"		=> "../core/js/settings.js",
+			"baseFilePath"	=> "core/js/settings.js",
+			"default"		=> $configStatic["version"]
+		),
+		array(
+			"filePath"		=> "../core/js/settingsWatchlist.js",
+			"baseFilePath"	=> "core/js/settingsWatchlist.js",
+			"default"		=> $configStatic["version"]
+		),
+		array(
+			"filePath"		=> "../core/js/settingsExt.js",
+			"baseFilePath"	=> "core/js/settingsExt.js",
+			"default"		=> $configStatic["version"]
+		),
+		array(
+			"filePath"		=> "../core/js/loading-bar.min.js",
+			"baseFilePath"	=> "core/js/loading-bar.min.js",
+			"default"		=> $configStatic["version"]
+		),
+		array(
+			"filePath"		=> "stepsJavascript.js",
+			"baseFilePath"	=> "setup/stepsJavascript.js",
+			"default"		=> $configStatic["version"]
+		),
+	)
+); ?>
 <script type="text/javascript">
 $(document).ready(function()
 {

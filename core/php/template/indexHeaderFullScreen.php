@@ -1,6 +1,6 @@
-<div class="addBorderBottom" style="padding: 5px 5px 10px 5px;" >
+<div class="addBorderBottom padding55105" >
 	<div onclick="toggleFullScreenMenu();"  class="menuImageDiv">
-		<?php echo generateImage(
+		<?php echo $core->generateImage(
 			$arrayOfImages["loadingImg"],
 			$imageConfig = array(
 				"id"		=>	"menuImage",
