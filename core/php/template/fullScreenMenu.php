@@ -88,8 +88,8 @@
 			Log Format
 		</li>
 	<?php endif; ?>
-	<li onclick="window.location.href = './settings/main.php#settingsPollVars';" >
-		Poll <?php echo $externalLinkImage; ?>
+	<li id="settingsMainPollMenu" onclick="toggleSettingsMainPoll();" >
+		Poll
 	</li>
 	<?php if($filterEnabled === "true"): ?>
 		<li onclick="window.location.href = './settings/main.php#settingsFilterVars';" >
@@ -231,6 +231,10 @@
 		?>
 	</div>
 	<div id="settingsMainPoll" style="display: none;" >
+		<?php
+		$currentSection = "pollVars";
+		include('core/php/template/varTemplate.php');
+		?>
 	</div>
 	<div id="settingsMainFilter" style="display: none;" >
 	</div>
