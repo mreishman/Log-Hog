@@ -18,7 +18,7 @@
 				</tr>
 				<tr>
 					<td class="actionLink"> <span class="linkSmall" onclick="removeNotification('{{idNum}}'); {{action}}" >View</span> </td>
-					<td class="actionLink"> <span {{hidePreview}} class="linkSmall" onclick="previewNotification('{{idNum}}');" >Preview</span> </td>
+					<td class="actionLink"> <span {{hidePreview}} class="linkSmall previewButtonNotification" onclick="previewNotification('{{idNum}}');" >Preview</span> </td>
 				</tr>
 			</table>
 		</span>
@@ -36,7 +36,7 @@
 				</tr>
 				<tr>
 					<td class="actionLink"> <span class="linkSmall" onclick="removeNotification('{{idNum}}'); {{action}}" >View</span> </td>
-					<td class="actionLink"> <span {{hidePreview}} class="linkSmall" onclick="previewNotification('{{idNum}}');" >Preview</span> </td>
+					<td class="actionLink"> <span {{hidePreview}} class="linkSmall previewButtonNotification" onclick="previewNotification('{{idNum}}');" >Preview</span> </td>
 				</tr>
 			</table>
 		</span>
@@ -64,7 +64,7 @@
 	</div>
 </div>
 <div class="notificationButtons">
-	<div class="menuTitle" >
+	<div>
 		<table class="buttonTable addBorderTop">
 			<tr>
 				<th>
