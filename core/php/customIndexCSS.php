@@ -204,6 +204,9 @@ elseif($logMenuLocation === "bottom"): ?>
 	.notificationPreviewLog{
 		display: none;
 	}
+	.previewButtonNotification {
+		display: none;
+	}
 }
 <?php endif; ?>
 
