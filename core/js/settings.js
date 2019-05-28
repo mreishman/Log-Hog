@@ -320,9 +320,11 @@ function checkForChanges(idOfObject)
 
 function refreshArrayObjectOfArrays(idsOfForms)
 {
-	for (var i = idsOfForms.length - 1; i >= 0; i--)
+	let idsOfFormsKeys = Object.keys(idsOfForms);
+	let idsOfFormsKeysLength = idsOfFormsKeys.length;
+	for(let i = 0; i < idsOfFormsKeysLength; i++)
 	{
-		refreshArrayObject(idsOfForms[i]);
+		refreshArrayObject(idsOfForms[idsOfFormsKeys[i]]);
 	}
 }
 

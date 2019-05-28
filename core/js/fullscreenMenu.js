@@ -112,6 +112,7 @@ function toggleSettingsMainLogs(force = false)
 	endSettingsPollTimer();
 	document.getElementById("settingsMainLogs").style.display = "block";
 	$("#settingsMainLogsMenu").addClass("selected");
+	arrayOfDataSettings = ['settingsLogVars'];
 	arrayOfScrollHeaderUpdate = ['settingsLogVars'];
 	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
 	resizeFullScreenMenu();
@@ -132,6 +133,7 @@ function toggleSettingsMainLogFormat(force = false)
 	endSettingsPollTimer();
 	document.getElementById("settingsMainLogFormat").style.display = "block";
 	$("#settingsMainLogFormatMenu").addClass("selected");
+	arrayOfDataSettings = ['settingsLogFormatVars'];
 	arrayOfScrollHeaderUpdate = ['settingsLogFormatVars'];
 	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
 	resizeFullScreenMenu();
@@ -152,6 +154,7 @@ function toggleSettingsMainPoll(force = false)
 	endSettingsPollTimer();
 	document.getElementById("settingsMainPoll").style.display = "block";
 	$("#settingsMainPollMenu").addClass("selected");
+	arrayOfDataSettings = ['settingsPollVars'];
 	arrayOfScrollHeaderUpdate = ['settingsPollVars'];
 	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
 	resizeFullScreenMenu();
@@ -172,6 +175,7 @@ function togleSettingsMainFilter(force = false)
 	endSettingsPollTimer();
 	document.getElementById("settingsMainFilter").style.display = "block";
 	$("#settingsMainFilterMenu").addClass("selected");
+	arrayOfDataSettings = ['settingsFilterVars'];
 	arrayOfScrollHeaderUpdate = ['settingsFilterVars'];
 	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
 	resizeFullScreenMenu();
@@ -192,6 +196,7 @@ function toggleSettingsMainArchive(force = false)
 	endSettingsPollTimer();
 	document.getElementById("settingsMainArchive").style.display = "block";
 	$("#settingsMainArchiveMenu").addClass("selected");
+	arrayOfDataSettings = ['archiveConfig'];
 	arrayOfScrollHeaderUpdate = ['archiveConfig'];
 	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
 	resizeFullScreenMenu();
@@ -212,6 +217,7 @@ function toggleSettingsMainNotifications(force = false)
 	endSettingsPollTimer();
 	document.getElementById("settingsMainNotifications").style.display = "block";
 	$("#settingsMainNotificationsMenu").addClass("selected");
+	arrayOfDataSettings = ['settingsNotificationVars'];
 	arrayOfScrollHeaderUpdate = ['settingsNotificationVars'];
 	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
 	resizeFullScreenMenu();
@@ -232,6 +238,7 @@ function toggleSettingsMainMenu(force = false)
 	endSettingsPollTimer();
 	document.getElementById("settingsMainMenu").style.display = "block";
 	$("#settingsMainMenuMenu").addClass("selected");
+	arrayOfDataSettings = ['settingsMenuVars'];
 	arrayOfScrollHeaderUpdate = ['settingsMenuVars'];
 	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
 	resizeFullScreenMenu();
@@ -252,7 +259,29 @@ function toggleSettingsMainWatchlist(force = false)
 	endSettingsPollTimer();
 	document.getElementById("settingsMainWatchlist").style.display = "block";
 	$("#settingsMainWatchlistMenu").addClass("selected");
+	arrayOfDataSettings = ['settingsWatchlistVars'];
 	arrayOfScrollHeaderUpdate = ['settingsWatchlistVars'];
+	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
+	resizeFullScreenMenu();
+	startSettingsPollTimer();
+}
+
+function toggleSettingsMainOneLog(force = false)
+{
+	if(!force && !globalForcePageNavigate)
+	{
+		if(!(goToPageCheck("toggleSettingsMainOneLog(true)")))
+		{
+			return false;
+		}
+	}
+	globalForcePageNavigate = false;
+	hideSettingsStuff();
+	endSettingsPollTimer();
+	document.getElementById("settingsMainOneLog").style.display = "block";
+	$("#settingsMainOneLogMenu").addClass("selected");
+	arrayOfDataSettings = ['settingsOneLogVars'];
+	arrayOfScrollHeaderUpdate = ['settingsOneLogVars'];
 	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
 	resizeFullScreenMenu();
 	startSettingsPollTimer();
@@ -668,6 +697,8 @@ function hideSettingsStuff()
 	$("#settingsMainMenuMenu").removeClass("selected");
 	document.getElementById("settingsMainWatchlist").style.display = "none";
 	$("#settingsMainWatchlistMenu").removeClass("selected");
+	document.getElementById("settingsMainOneLog").style.display = "none";
+	$("#settingsMainOneLogMenu").removeClass("selected");
 }
 
 function hideAboutStuff()

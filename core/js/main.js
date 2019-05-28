@@ -2043,7 +2043,28 @@ function mainReady()
 		},
 		true
 	);
-
-	refreshArrayObject("generalThemeOptions");
-	refreshArrayObject("settingsColorFolderGroupVars");
+	let arrOfVarGroups = [];
+	let arrOfPossibleGroups = [
+		"generalThemeOptions",
+		"settingsColorFolderGroupVars",
+		"settingsLogVars",
+		"settingsLogFormatVars",
+		"settingsPollVars",
+		"settingsFilterVars",
+		"archiveConfig",
+		"settingsNotificationVars",
+		"settingsMenuVars",
+		"settingsWatchlistVars",
+		"settingsOneLogVars"
+	];
+	let arrOfPossibleGroupsKeys = Object.keys(arrOfPossibleGroups);
+	let arrOfPossibleGroupsKeysLength = arrOfPossibleGroupsKeys.length;
+	for(let i = 0; i < arrOfPossibleGroupsKeysLength; i++)
+	{
+		if(document.getElementById(arrOfPossibleGroups[arrOfPossibleGroupsKeys[i]]))
+		{
+			arrOfVarGroups.push(arrOfPossibleGroups[arrOfPossibleGroupsKeys[i]]);
+		}
+	}
+	refreshArrayObjectOfArrays(arrOfVarGroups);
 }

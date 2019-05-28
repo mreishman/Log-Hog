@@ -109,8 +109,8 @@
 		Watchlist
 	</li>
 	<?php if($oneLogEnable === "true"): ?>
-		<li onclick="window.location.href = './settings/main.php#settingsOneLogVars';" >
-			OneLog <?php echo $externalLinkImage; ?>
+		<li id="settingsMainOneLogMenu" onclick="toggleSettingsMainOneLog();" >
+			OneLog
 		</li>
 	<?php endif; ?>
 	<?php if($enableMultiLog === "true"): ?>
@@ -267,6 +267,10 @@
 		?>
 	</div>
 	<div id="settingsMainOneLog" style="display: none;" >
+		<?php
+		$currentSection = "oneLogVars";
+		include('core/php/template/varTemplate.php');
+		?>
 	</div>
 	<div id="settingsMainMultiLog" style="display: none;" >
 	</div>
