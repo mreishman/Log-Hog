@@ -2055,7 +2055,8 @@ function mainReady()
 		"settingsNotificationVars",
 		"settingsMenuVars",
 		"settingsWatchlistVars",
-		"settingsOneLogVars"
+		"settingsOneLogVars",
+		"settingsMultiLogVars"
 	];
 	let arrOfPossibleGroupsKeys = Object.keys(arrOfPossibleGroups);
 	let arrOfPossibleGroupsKeysLength = arrOfPossibleGroupsKeys.length;

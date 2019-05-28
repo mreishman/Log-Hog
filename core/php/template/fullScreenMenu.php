@@ -114,8 +114,8 @@
 		</li>
 	<?php endif; ?>
 	<?php if($enableMultiLog === "true"): ?>
-		<li onclick="window.location.href = './settings/main.php#settingsMultiLogVars';" >
-			Multi-Log <?php echo $externalLinkImage; ?>
+		<li id="settingsMainMultiLogMenu" onclick="toggleSettingsMainMultiLog();" >
+			Multi-Log
 		</li>
 		<li onclick="window.location.href = './settings/main.php#settingsInitialLoadLayoutVars';" >
 			Log Layout <?php echo $externalLinkImage; ?>
@@ -273,6 +273,10 @@
 		?>
 	</div>
 	<div id="settingsMainMultiLog" style="display: none;" >
+		<?php
+		$currentSection = "multiLogVars";
+		include('core/php/template/varTemplate.php');
+		?>
 	</div>
 	<div id="settingsMainLogLayout" style="display: none;" >
 	</div>
