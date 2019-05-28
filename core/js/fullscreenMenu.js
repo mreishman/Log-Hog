@@ -308,6 +308,27 @@ function toggleSettingsMainMultiLog(force = false)
 	startSettingsPollTimer();
 }
 
+function toggleSettingsMainLogLayout(force = false)
+{
+	if(!force && !globalForcePageNavigate)
+	{
+		if(!(goToPageCheck("toggleSettingsMainLogLayout(true)")))
+		{
+			return false;
+		}
+	}
+	globalForcePageNavigate = false;
+	hideSettingsStuff();
+	endSettingsPollTimer();
+	document.getElementById("settingsMainLogLayout").style.display = "block";
+	$("#settingsMainLogLayoutMenu").addClass("selected");
+	arrayOfDataSettings = ['settingsInitialLoadLayoutVars'];
+	arrayOfScrollHeaderUpdate = ['settingsInitialLoadLayoutVars'];
+	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
+	resizeFullScreenMenu();
+	startSettingsPollTimer();
+}
+
 function toggleUpdateMenu(force = false)
 {
 	if(!force && !globalForcePageNavigate)
@@ -722,6 +743,8 @@ function hideSettingsStuff()
 	$("#settingsMainOneLogMenu").removeClass("selected");
 	document.getElementById("settingsMainMultiLog").style.display = "none";
 	$("#settingsMainMultiLogMenu").removeClass("selected");
+	document.getElementById("settingsMainLogLayout").style.display = "none";
+	$("#settingsMainLogLayoutMenu").removeClass("selected");
 }
 
 function hideAboutStuff()

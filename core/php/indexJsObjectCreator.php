@@ -25,6 +25,10 @@ $arrayOfFiles = array(
 		"type" =>"js"
 	),
 	array(
+		"name" => "settingsMain.js",
+		"type" =>"js"
+	),
+	array(
 		"name" => "rightClickJS.js",
 		"type" =>"js"
 	),

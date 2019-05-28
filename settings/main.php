@@ -78,8 +78,15 @@ require_once('../core/php/loadVars.php');
 var logTrimType = "<?php echo $logTrimType; ?>";
 var saveButtonAlwaysVisible = "<?php echo $saveButtonAlwaysVisible; ?>";
 </script>
-<?php $core->getScript(array(
-	"filePath"		=> "../core/js/settingsMain.js",
-	"baseFilePath"	=> "core/js/settingsMain.js",
-	"default"		=> $configStatic["version"]
+<?php $core->getScripts(array(
+	array(
+		"filePath"		=> "../core/js/settingsMain.js",
+		"baseFilePath"	=> "core/js/settingsMain.js",
+		"default"		=> $configStatic["version"]
+	),
+	array(
+		"filePath"		=> "../core/js/settingsMainExt.js",
+		"baseFilePath"	=> "core/js/settingsMainExt.js",
+		"default"		=> $configStatic["version"]
+	)
 )); ?>

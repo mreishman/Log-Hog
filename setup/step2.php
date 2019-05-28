@@ -114,6 +114,11 @@ require_once('../core/php/loadVars.php'); ?>
 			"default"		=> $configStatic["version"]
 		),
 		array(
+			"filePath"		=> "../core/js/settingsMainExt.js",
+			"baseFilePath"	=> "core/js/settingsMainExt.js",
+			"default"		=> $configStatic["version"]
+		),
+		array(
 			"filePath"		=> "stepsJavascript.js",
 			"baseFilePath"	=> "setup/stepsJavascript.js",
 			"default"		=> $configStatic["version"]

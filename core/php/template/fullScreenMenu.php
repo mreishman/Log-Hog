@@ -117,8 +117,8 @@
 		<li id="settingsMainMultiLogMenu" onclick="toggleSettingsMainMultiLog();" >
 			Multi-Log
 		</li>
-		<li onclick="window.location.href = './settings/main.php#settingsInitialLoadLayoutVars';" >
-			Log Layout <?php echo $externalLinkImage; ?>
+		<li id="settingsMainLogLayoutMenu" onclick="toggleSettingsMainLogLayout();;" >
+			Log Layout
 		</li>
 	<?php endif; ?>
 	<li onclick="window.location.href = './settings/main.php#settingsMainVars';" >
@@ -279,6 +279,9 @@
 		?>
 	</div>
 	<div id="settingsMainLogLayout" style="display: none;" >
+		<?php
+		require_once('core/php/template/logLayout.php');
+		?>
 	</div>
 	<div id="settingsMainOther" style="display: none;" >
 	</div>
