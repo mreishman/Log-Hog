@@ -55,6 +55,11 @@ $countConfig--;
 				"default"		=> $configStatic["version"]
 			),
 			array(
+				"filePath"		=> "../core/js/advancedExt.js",
+				"baseFilePath"	=> "core/js/advancedExt.js",
+				"default"		=> $configStatic["version"]
+			),
+			array(
 				"filePath"		=> "../core/js/resetSettingsJs.js",
 				"baseFilePath"	=> "core/js/resetSettingsJs.js",
 				"default"		=> $configStatic["version"]
