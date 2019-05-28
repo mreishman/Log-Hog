@@ -29,7 +29,7 @@
 				<?php echo $core->generateImage(
 					$arrayOfImages["loadingImg"],
 					$imageConfig = array(
-						"id"		=>	"menuImage",
+						"id"		=>	"gearImage",
 						"class"		=>	"menuImage gearImageForLoad",
 						"height"	=>	"30px",
 						"data-src"	=>	$arrayOfImages["gear"]

@@ -102,8 +102,8 @@
 	<li id="settingsMainNotificationsMenu" onclick="toggleSettingsMainNotifications();" >
 		Notifications
 	</li>
-	<li onclick="window.location.href = './settings/main.php#settingsMenuVars';" >
-		Menu <?php echo $externalLinkImage; ?>
+	<li id="settingsMainMenuMenu" onclick="toggleSettingsMainMenu();" >
+		Menu
 	</li>
 	<li onclick="window.location.href = './settings/main.php#settingsWatchlistVars';" >
 		Watchlist <?php echo $externalLinkImage; ?>
@@ -255,6 +255,10 @@
 		?>
 	</div>
 	<div id="settingsMainMenu" style="display: none;" >
+		<?php
+		$currentSection = "menuVars";
+		include('core/php/template/varTemplate.php');
+		?>
 	</div>
 	<div id="settingsMainWatchlist" style="display: none;" >
 	</div>
