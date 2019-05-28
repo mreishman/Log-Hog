@@ -2498,6 +2498,7 @@ $defaultConfigMoreData = array(
 			1									=> array(
 				"type"								=>	"single",
 				"var"								=>	array(
+					"info"								=>	"leave blank to not auto delete",
 					"key"								=>	"defaultNewAddAutoDeleteFiles",
 					"name"								=>	"Default AutoDeleteFiles",
 					"postText"							=>	"Days",

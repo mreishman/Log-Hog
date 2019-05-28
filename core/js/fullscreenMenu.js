@@ -138,6 +138,26 @@ function toggleSettingsMainLogFormat(force = false)
 	startSettingsPollTimer();
 }
 
+function toggleSettingsMainPoll(force = false)
+{
+	if(!force && !globalForcePageNavigate)
+	{
+		if(!(goToPageCheck("toggleSettingsMainPoll(true)")))
+		{
+			return false;
+		}
+	}
+	globalForcePageNavigate = false;
+	hideSettingsStuff();
+	endSettingsPollTimer();
+	document.getElementById("settingsMainPoll").style.display = "block";
+	$("#settingsMainPollMenu").addClass("selected");
+	arrayOfScrollHeaderUpdate = ['settingsPollVars'];
+	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
+	resizeFullScreenMenu();
+	startSettingsPollTimer();
+}
+
 function togleSettingsMainFilter(force = false)
 {
 	if(!force && !globalForcePageNavigate)
@@ -218,11 +238,11 @@ function toggleSettingsMainMenu(force = false)
 	startSettingsPollTimer();
 }
 
-function toggleSettingsMainPoll(force = false)
+function toggleSettingsMainWatchlist(force = false)
 {
 	if(!force && !globalForcePageNavigate)
 	{
-		if(!(goToPageCheck("toggleSettingsMainPoll(true)")))
+		if(!(goToPageCheck("toggleSettingsMainWatchlist(true)")))
 		{
 			return false;
 		}
@@ -230,9 +250,9 @@ function toggleSettingsMainPoll(force = false)
 	globalForcePageNavigate = false;
 	hideSettingsStuff();
 	endSettingsPollTimer();
-	document.getElementById("settingsMainPoll").style.display = "block";
-	$("#settingsMainPollMenu").addClass("selected");
-	arrayOfScrollHeaderUpdate = ['settingsPollVars'];
+	document.getElementById("settingsMainWatchlist").style.display = "block";
+	$("#settingsMainWatchlistMenu").addClass("selected");
+	arrayOfScrollHeaderUpdate = ['settingsWatchlistVars'];
 	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
 	resizeFullScreenMenu();
 	startSettingsPollTimer();
@@ -646,6 +666,8 @@ function hideSettingsStuff()
 	$("#settingsMainNotificationsMenu").removeClass("selected");
 	document.getElementById("settingsMainMenu").style.display = "none";
 	$("#settingsMainMenuMenu").removeClass("selected");
+	document.getElementById("settingsMainWatchlist").style.display = "none";
+	$("#settingsMainWatchlistMenu").removeClass("selected");
 }
 
 function hideAboutStuff()

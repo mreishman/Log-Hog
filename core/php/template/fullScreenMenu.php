@@ -105,8 +105,8 @@
 	<li id="settingsMainMenuMenu" onclick="toggleSettingsMainMenu();" >
 		Menu
 	</li>
-	<li onclick="window.location.href = './settings/main.php#settingsWatchlistVars';" >
-		Watchlist <?php echo $externalLinkImage; ?>
+	<li id="settingsMainWatchlistMenu" onclick="toggleSettingsMainWatchlist();" >
+		Watchlist
 	</li>
 	<?php if($oneLogEnable === "true"): ?>
 		<li onclick="window.location.href = './settings/main.php#settingsOneLogVars';" >
@@ -261,6 +261,10 @@
 		?>
 	</div>
 	<div id="settingsMainWatchlist" style="display: none;" >
+		<?php
+		$currentSection = "watchlistVars";
+		include('core/php/template/varTemplate.php');
+		?>
 	</div>
 	<div id="settingsMainOneLog" style="display: none;" >
 	</div>
