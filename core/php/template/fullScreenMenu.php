@@ -117,12 +117,12 @@
 		<li id="settingsMainMultiLogMenu" onclick="toggleSettingsMainMultiLog();" >
 			Multi-Log
 		</li>
-		<li id="settingsMainLogLayoutMenu" onclick="toggleSettingsMainLogLayout();;" >
+		<li id="settingsMainLogLayoutMenu" onclick="toggleSettingsMainLogLayout();" >
 			Log Layout
 		</li>
 	<?php endif; ?>
-	<li onclick="window.location.href = './settings/main.php#settingsMainVars';" >
-		Other <?php echo $externalLinkImage; ?>
+	<li id="settingsMainOtherMenu" onclick="toggleSettingsMainOther();" >
+		Other
 	</li>
 	<li class="menuTitle fullScreenMenuText subMenuTitle">
 		Advanced
@@ -284,6 +284,10 @@
 		?>
 	</div>
 	<div id="settingsMainOther" style="display: none;" >
+		<?php
+		$currentSection = "otherVars";
+		include('core/php/template/varTemplate.php');
+		?>
 	</div>
 	<div id="settingsAdvancedConfig" style="display: none;" >
 	</div>
