@@ -24,7 +24,7 @@ function checkIfChanges()
 	{
 		if(document.getElementById(arrOfPossibleGroups[arrOfPossibleGroupsKeys[i]]))
 		{
-			arrayToRefresh.push(arrOfPossibleGroups[arrOfPossibleGroupsKeys[i]]);
+			arrayToCheck.push(arrOfPossibleGroups[arrOfPossibleGroupsKeys[i]]);
 		}
 	}
 	if(	checkForChangesArray(arrayToCheck))
