@@ -80,48 +80,48 @@
 	<li class="menuTitle fullScreenMenuText subMenuTitle">
 		Main
 	</li>
-	<li id="settingsMainLogsMenu" onclick="toggleSettingsMainLogs();" >
+	<li id="settingsMainLogsMenu" onclick="toggleSettingSection({id: 'settingsMainLogs',formId: 'settingsLogVars'});" >
 		Logs
 	</li>
 	<?php if($advancedLogFormatEnabled === "true"): ?>
-		<li id="settingsMainLogFormatMenu" onclick="toggleSettingsMainLogFormat();" >
+		<li id="settingsMainLogFormatMenu" onclick="toggleSettingSection({id: 'settingsMainLogFormat',formId: 'settingsLogFormatVars'});" >
 			Log Format
 		</li>
 	<?php endif; ?>
-	<li id="settingsMainPollMenu" onclick="toggleSettingsMainPoll();" >
+	<li id="settingsMainPollMenu" onclick="toggleSettingSection({id: 'settingsMainPoll',formId: 'settingsPollVars'});" >
 		Poll
 	</li>
 	<?php if($filterEnabled === "true"): ?>
-		<li id="settingsMainFilterMenu" onclick="togleSettingsMainFilter();" >
+		<li id="settingsMainFilterMenu" onclick="toggleSettingSection({id: 'settingsMainFilter',formId: 'settingsFilterVars'});" >
 			Filter
 		</li>
 	<?php endif; ?>
-	<li id="settingsMainArchiveMenu" onclick="toggleSettingsMainArchive();" >
+	<li id="settingsMainArchiveMenu" onclick="toggleSettingSection({id: 'settingsMainArchive',formId: 'archiveConfig'});" >
 		Archive
 	</li>
-	<li id="settingsMainNotificationsMenu" onclick="toggleSettingsMainNotifications();" >
+	<li id="settingsMainNotificationsMenu" onclick="toggleSettingSection({id: 'settingsMainNotifications',formId: 'settingsNotificationVars'});" >
 		Notifications
 	</li>
-	<li id="settingsMainMenuMenu" onclick="toggleSettingsMainMenu();" >
+	<li id="settingsMainMenuMenu" onclick="toggleSettingSection({id: 'settingsMainMenu',formId: 'settingsMenuVars'});" >
 		Menu
 	</li>
-	<li id="settingsMainWatchlistMenu" onclick="toggleSettingsMainWatchlist();" >
+	<li id="settingsMainWatchlistMenu" onclick="toggleSettingSection({id: 'settingsMainWatchlist',formId: 'settingsWatchlistVars'});" >
 		Watchlist
 	</li>
 	<?php if($oneLogEnable === "true"): ?>
-		<li id="settingsMainOneLogMenu" onclick="toggleSettingsMainOneLog();" >
+		<li id="settingsMainOneLogMenu" onclick="toggleSettingSection({id: 'settingsMainOneLog',formId: 'settingsOneLogVars'});" >
 			OneLog
 		</li>
 	<?php endif; ?>
 	<?php if($enableMultiLog === "true"): ?>
-		<li id="settingsMainMultiLogMenu" onclick="toggleSettingsMainMultiLog();" >
+		<li id="settingsMainMultiLogMenu" onclick="toggleSettingSection({id: 'settingsMainMultiLog',formId: 'settingsMultiLogVars'});" >
 			Multi-Log
 		</li>
-		<li id="settingsMainLogLayoutMenu" onclick="toggleSettingsMainLogLayout();" >
+		<li id="settingsMainLogLayoutMenu" onclick="toggleSettingSection({id: 'settingsMainLogLayout',formId: 'settingsInitialLoadLayoutVars'});" >
 			Log Layout
 		</li>
 	<?php endif; ?>
-	<li id="settingsMainOtherMenu" onclick="toggleSettingsMainOther();" >
+	<li id="settingsMainOtherMenu" onclick="toggleSettingSection({id: 'settingsMainOther',formId: 'settingsMainVars'});" >
 		Other
 	</li>
 	<li class="menuTitle fullScreenMenuText subMenuTitle">
