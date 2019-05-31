@@ -112,8 +112,12 @@ function toggleSettingSection(data, force = false)
 	endSettingsPollTimer();
 	document.getElementById(data.id).style.display = "block";
 	$("#"+data.id+"Menu").addClass("selected");
-	arrayOfDataSettings = [data.formId];
-	arrayOfScrollHeaderUpdate = [data.formId];
+	arrayOfScrollHeaderUpdate = [];
+	if(data.formId != "false")
+	{
+		arrayOfDataSettings = [data.formId];
+		arrayOfScrollHeaderUpdate = [data.formId];
+	}
 	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
 	resizeFullScreenMenu();
 	startSettingsPollTimer();
@@ -546,6 +550,8 @@ function hideSettingsStuff()
 	$("#settingsAdvancedLogsMenu").removeClass("selected");
 	document.getElementById("settingsAdvancedLocations").style.display = "none";
 	$("#settingsAdvancedLocationsMenu").removeClass("selected");
+	document.getElementById("settingsAdvancedAdvanced").style.display = "none";
+	$("#settingsAdvancedAdvancedMenu").removeClass("selected");
 }
 
 function hideAboutStuff()

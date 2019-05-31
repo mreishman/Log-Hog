@@ -139,8 +139,8 @@
 	<li id="settingsAdvancedLocationsMenu" onclick="toggleSettingSection({id: 'settingsAdvancedLocations',formId: 'locationOtherApps'});" >
 		Locations
 	</li>
-	<li onclick="window.location.href = './settings/advanced.php#advancedConfig';" >
-		Advanced <?php echo $externalLinkImage; ?>
+	<li id="settingsAdvancedAdvancedMenu" onclick="toggleSettingSection({id: 'settingsAdvancedAdvanced',formId: 'false'});" >
+		Advanced
 	</li>
 	<?php if($developmentTabEnabled === "true"): ?>
 		<li onclick="window.location.href = './settings/devTools.php';" >
@@ -314,6 +314,11 @@
 		?>
 	</div>
 	<div id="settingsAdvancedAdvanced" style="display: none;" >
+		<?php
+			$settingsUrlModifier = "";
+			$otherSettingsUrlModifier = "settings/";
+			include('core/php/template/advancedActions.php');
+		?>
 	</div>
 	<div id="settingsAdvancedDev" style="display: none;" >
 	</div>
