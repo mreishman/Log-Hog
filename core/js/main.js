@@ -2059,7 +2059,8 @@ function mainReady()
 		"settingsOneLogVars",
 		"settingsMultiLogVars",
 		"settingsInitialLoadLayoutVars",
-		"settingsMainVars"
+		"settingsMainVars",
+		"advancedConfig"
 	];
 	let arrOfPossibleGroupsKeys = Object.keys(arrOfPossibleGroups);
 	let arrOfPossibleGroupsKeysLength = arrOfPossibleGroupsKeys.length;

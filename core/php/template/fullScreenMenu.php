@@ -127,8 +127,8 @@
 	<li class="menuTitle fullScreenMenuText subMenuTitle">
 		Advanced
 	</li>
-	<li onclick="window.location.href = './settings/advanced.php#advancedConfig';" >
-		Config <?php echo $externalLinkImage; ?>
+	<li id="settingsAdvancedConfigMenu" onclick="toggleSettingSection({id: 'settingsAdvancedConfig',formId: 'advancedConfig'});" >
+		Config
 	</li>
 	<li onclick="window.location.href = './settings/advanced.php#modules';" >
 		Modules <?php echo $externalLinkImage; ?>
@@ -290,6 +290,10 @@
 		?>
 	</div>
 	<div id="settingsAdvancedConfig" style="display: none;" >
+		<?php
+		$currentSection = "config";
+		include('core/php/template/varTemplate.php');
+		?>
 	</div>
 	<div id="settingsAdvancedModules" style="display: none;" >
 	</div>

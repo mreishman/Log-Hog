@@ -537,6 +537,9 @@ function hideSettingsStuff()
 	$("#settingsMainLogLayoutMenu").removeClass("selected");
 	document.getElementById("settingsMainOther").style.display = "none";
 	$("#settingsMainOtherMenu").removeClass("selected");
+
+	document.getElementById("settingsAdvancedConfig").style.display = "none";
+	$("#settingsAdvancedConfigMenu").removeClass("selected");
 }
 
 function hideAboutStuff()
