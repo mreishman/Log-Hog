@@ -136,8 +136,8 @@
 	<li id="settingsAdvancedLogsMenu" onclick="toggleSettingSection({id: 'settingsAdvancedLogs',formId: 'loggingDisplay'});" >
 		Logs
 	</li>
-	<li onclick="window.location.href = './settings/advanced.php#locationOtherApps';" >
-		Locations <?php echo $externalLinkImage; ?>
+	<li id="settingsAdvancedLocationsMenu" onclick="toggleSettingSection({id: 'settingsAdvancedLocations',formId: 'locationOtherApps'});" >
+		Locations
 	</li>
 	<li onclick="window.location.href = './settings/advanced.php#advancedConfig';" >
 		Advanced <?php echo $externalLinkImage; ?>
@@ -308,6 +308,10 @@
 		?>
 	</div>
 	<div id="settingsAdvancedLocations" style="display: none;" >
+		<?php
+		$currentSection = "fileLocations";
+		include('core/php/template/varTemplate.php');
+		?>
 	</div>
 	<div id="settingsAdvancedAdvanced" style="display: none;" >
 	</div>
