@@ -83,25 +83,7 @@ $countConfig--;
 	$otherSettingsUrlModifier = "";
 	include('../core/php/template/advancedActions.php');
 	?>
-	<form id="expFeatures">
-		<div class="settingsHeader">
-		Experimental Features
-			<div class="settingsHeaderButtons">
-				<a style="display: none;" class="linkSmall" onclick="saveAndVerifyMain('expFeatures');" >Save Changes</a>
-			</div>
-		</div>
-		<div class="settingsDiv" >
-			<ul class="settingsUl">
-				<li>
-					There are no experimental features available at this time
-				</li>
-			</ul>
-		</div>
-	</form>
 	</div>
-	<form id="devAdvanced2" action="../core/php/settingsSaveConfigStatic.php" method="post"> <!-- Reset update notification form -->
-		<input type="hidden" name="newestVersion" value="<?php echo $configStatic['version'];?>" >
-	</form>
 </body>
 <script type="text/javascript">
 	var htmlRestoreOptions = "<?php echo $settings->generateRestoreList($configStatic); ?>";
