@@ -2061,7 +2061,8 @@ function mainReady()
 		"settingsInitialLoadLayoutVars",
 		"settingsMainVars",
 		"advancedConfig",
-		"modules"
+		"modules",
+		"loggingDisplay"
 	];
 	let arrOfPossibleGroupsKeys = Object.keys(arrOfPossibleGroups);
 	let arrOfPossibleGroupsKeysLength = arrOfPossibleGroupsKeys.length;
