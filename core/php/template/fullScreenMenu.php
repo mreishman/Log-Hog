@@ -130,8 +130,8 @@
 	<li id="settingsAdvancedConfigMenu" onclick="toggleSettingSection({id: 'settingsAdvancedConfig',formId: 'advancedConfig'});" >
 		Config
 	</li>
-	<li onclick="window.location.href = './settings/advanced.php#modules';" >
-		Modules <?php echo $externalLinkImage; ?>
+	<li id="settingsAdvancedModulesMenu" onclick="toggleSettingSection({id: 'settingsAdvancedModules',formId: 'modules'});" >
+		Modules
 	</li>
 	<li onclick="window.location.href = './settings/advanced.php#loggingDisplay';" >
 		Logs <?php echo $externalLinkImage; ?>
@@ -296,6 +296,10 @@
 		?>
 	</div>
 	<div id="settingsAdvancedModules" style="display: none;" >
+		<?php
+		$currentSection = "modules";
+		include('core/php/template/varTemplate.php');
+		?>
 	</div>
 	<div id="settingsAdvancedLogs" style="display: none;" >
 	</div>

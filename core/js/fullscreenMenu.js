@@ -540,6 +540,8 @@ function hideSettingsStuff()
 
 	document.getElementById("settingsAdvancedConfig").style.display = "none";
 	$("#settingsAdvancedConfigMenu").removeClass("selected");
+	document.getElementById("settingsAdvancedModules").style.display = "none";
+	$("#settingsAdvancedModulesMenu").removeClass("selected");
 }
 
 function hideAboutStuff()
