@@ -137,8 +137,8 @@
 	<li <?php if($developmentTabEnabled !== "true"){ echo "style = \"display:none;\"";} ?> class="menuTitle fullScreenMenuText subMenuTitle">
 		Dev
 	</li>
-	<li <?php if($developmentTabEnabled !== "true"){ echo "style = \"display:none;\"";} ?> onclick="window.location.href = './settings/devTools.php';" >
-		Branch <?php echo $externalLinkImage; ?>
+	<li id="settingsAdvancedDevBranchMenu" <?php if($developmentTabEnabled !== "true"){ echo "style = \"display:none;\"";} ?> onclick="toggleSettingSection({id: 'settingsAdvancedDevBranch', formId: 'devBranch'});" >
+		Branch
 	</li>
 	<li <?php if($developmentTabEnabled !== "true"){ echo "style = \"display:none;\"";} ?> onclick="window.location.href = './settings/devTools.php';" >
 		Config <?php echo $externalLinkImage; ?>
@@ -316,6 +316,10 @@
 			include('core/php/template/advancedActions.php');
 		?>
 	</div>
-	<div id="settingsAdvancedDev" style="display: none;" >
+	<div id="settingsAdvancedDevBranch" style="display: none;" >
+		<?php
+			$settingsUrlModifier = "";
+			require_once("core/php/template/devBranch.php");
+		?>
 	</div>
 </div>

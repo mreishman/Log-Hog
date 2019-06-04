@@ -2063,7 +2063,8 @@ function mainReady()
 		"advancedConfig",
 		"modules",
 		"loggingDisplay",
-		"locationOtherApps"
+		"locationOtherApps",
+		"devBranch"
 	];
 	let arrOfPossibleGroupsKeys = Object.keys(arrOfPossibleGroups);
 	let arrOfPossibleGroupsKeysLength = arrOfPossibleGroupsKeys.length;

@@ -27,7 +27,7 @@
 						array(
 							"style"			=>	"margin-bottom: -4px;",
 							"height"		=>	"20px",
-							"srcModifier"	=>	"../"
+							"srcModifier"	=>	$settingsUrlModifier
 						)
 					); ?>
 					<i>

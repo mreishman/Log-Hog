@@ -552,6 +552,9 @@ function hideSettingsStuff()
 	$("#settingsAdvancedLocationsMenu").removeClass("selected");
 	document.getElementById("settingsAdvancedAdvanced").style.display = "none";
 	$("#settingsAdvancedAdvancedMenu").removeClass("selected");
+
+	document.getElementById("settingsAdvancedDevBranch").style.display = "none";
+	$("#settingsAdvancedDevBranchMenu").removeClass("selected");
 }
 
 function hideAboutStuff()
