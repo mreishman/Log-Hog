@@ -23,19 +23,6 @@ else
 require_once('../core/php/configStatic.php');
 require_once('../core/php/loadVars.php');
 require_once('../core/php/updateCheck.php');
-
-/* Check for backup config stuff */
-$countConfig = 1;
-$showConfigBackupClear = false;
-while (file_exists($baseUrl."conf/config".$countConfig.".php"))
-{
-	if(!$showConfigBackupClear)
-	{
-		$showConfigBackupClear = true;
-	}
-	$countConfig++;
-}
-$countConfig--;
 ?>
 <!doctype html>
 <head>
@@ -86,6 +73,5 @@ $countConfig--;
 	</div>
 </body>
 <script type="text/javascript">
-	var htmlRestoreOptions = "<?php echo $settings->generateRestoreList($configStatic); ?>";
 	var saveButtonAlwaysVisible = "<?php echo $saveButtonAlwaysVisible; ?>";
 </script>

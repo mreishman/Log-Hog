@@ -1,3 +1,14 @@
+<?php
+/* Check for backup config stuff */
+$countConfig = 1;
+$showConfigBackupClear = false;
+while (file_exists($core->baseURL()."local/".$currentSelectedTheme."/conf/config".$countConfig.".php"))
+{
+	$showConfigBackupClear = true;
+	$countConfig++;
+}
+$countConfig--;
+?>
 <span id="moreAdvancedSpan">
 	<div id="moreAdvanced" class="settingsHeader">
 		Advanced
@@ -31,3 +42,6 @@
 <form id="devAdvanced2" action="../core/php/settingsSaveConfigStatic.php" method="post"> <!-- Reset update notification form -->
 	<input type="hidden" name="newestVersion" value="<?php echo $configStatic['version'];?>" >
 </form>
+<script type="text/javascript">
+	var htmlRestoreOptions = "<?php echo $settings->generateRestoreList($configStatic); ?>";
+</script>
