@@ -2064,7 +2064,8 @@ function mainReady()
 		"modules",
 		"loggingDisplay",
 		"locationOtherApps",
-		"devBranch"
+		"devBranch",
+		"devConfig"
 	];
 	let arrOfPossibleGroupsKeys = Object.keys(arrOfPossibleGroups);
 	let arrOfPossibleGroupsKeysLength = arrOfPossibleGroupsKeys.length;

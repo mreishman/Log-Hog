@@ -1,13 +1,13 @@
 var devBranchData;
 var savedInnerHtmlDevBranch;
-var savedInnerHtmlDevAdvanced2;
-var devAdvanced2Data;
+var savedInnerHtmldevConfig;
+var devConfigData;
 var titleOfPage = "Dev";
 var timeoutVar;
 
 function checkIfChanges()
 {
-	if(	checkForChangesArray(["devBranch","devAdvanced2"]))
+	if(	checkForChangesArray(["devBranch","devConfig"]))
 	{
 		return true;
 	}
@@ -17,7 +17,7 @@ function checkIfChanges()
 function saveConfigStatic()
 {
 	displayLoadingPopup("../","Saving Confit Static");
-	var data = $("#devAdvanced2").serializeArray();
+	var data = $("#devConfig").serializeArray();
 	$.ajax({
         type: "post",
         url: "../core/php/settingsSaveConfigStatic.php",
@@ -54,13 +54,13 @@ function newVersionNumberCheck()
 
 $( document ).ready(function()
 {
-	refreshArrayObjectOfArrays(["devBranch","devAdvanced2"]);
+	refreshArrayObjectOfArrays(["devBranch","devConfig"]);
 
 	document.addEventListener(
 		'scroll',
 		function (event)
 		{
-			onScrollShowFixedMiniBar(["devBranch","devAdvanced2"]);
+			onScrollShowFixedMiniBar(["devBranch","devConfig"]);
 		},
 		true
 	);

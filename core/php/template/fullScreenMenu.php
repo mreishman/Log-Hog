@@ -140,8 +140,8 @@
 	<li id="settingsAdvancedDevBranchMenu" <?php if($developmentTabEnabled !== "true"){ echo "style = \"display:none;\"";} ?> onclick="toggleSettingSection({id: 'settingsAdvancedDevBranch', formId: 'devBranch'});" >
 		Branch
 	</li>
-	<li <?php if($developmentTabEnabled !== "true"){ echo "style = \"display:none;\"";} ?> onclick="window.location.href = './settings/devTools.php';" >
-		Config <?php echo $externalLinkImage; ?>
+	<li id="settingsAdvancedDevConfigMenu" <?php if($developmentTabEnabled !== "true"){ echo "style = \"display:none;\"";} ?> onclick="toggleSettingSection({id: 'settingsAdvancedDevConfig', formId: 'devConfig'});" >
+		Config
 	</li>
 </ul>
 <div id="mainContentFullScreenMenu">
@@ -320,6 +320,11 @@
 		<?php
 			$settingsUrlModifier = "";
 			require_once("core/php/template/devBranch.php");
+		?>
+	</div>
+	<div id="settingsAdvancedDevConfig" style="display: none;">
+		<?php
+			require_once("core/php/template/devConfigSettings.php");
 		?>
 	</div>
 </div>

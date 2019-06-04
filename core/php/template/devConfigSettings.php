@@ -1,9 +1,9 @@
-<form id="devAdvanced2">
+<form id="devConfig">
 	<div class="settingsHeader">
 		Static Config Settings
 		<div class="settingsHeaderButtons">
-			<?php echo $settings->addResetButton("devAdvanced2");?>
-			<a class="linkSmall devAdvanced2SaveButton" onclick="saveConfigStatic();" >Save Changes</a>
+			<?php echo $settings->addResetButton("devConfig");?>
+			<a class="linkSmall devConfigSaveButton" onclick="saveConfigStatic();" >Save Changes</a>
 		</div>
 	</div>
 	<div class="settingsDiv" >
