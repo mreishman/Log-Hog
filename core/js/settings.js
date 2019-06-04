@@ -167,7 +167,7 @@ function saveVerified()
 	{
 		if($("[name='enablePollTimeLogging']"))
 		{
-			if($("[name='enablePollTimeLogging']").value === "false")
+			if($("[name='enablePollTimeLogging']")[0].value === "false")
 			{
 				$("#loggTimerPollStyle").hide();
 			}
@@ -181,7 +181,7 @@ function saveVerified()
 	{
 		if($("[name='logShowMoreOptions']"))
 		{
-			if($("[name='logShowMoreOptions']").value === "false")
+			if($("[name='logShowMoreOptions']")[0].value === "false")
 			{
 				$(".condensed").hide();
 				document.getElementById("condensedLink").innerHTML = "Show More Options";
@@ -190,6 +190,19 @@ function saveVerified()
 			{
 				$(".condensed").show();
 				document.getElementById("condensedLink").innerHTML = "Show Condensed Options";
+			}
+		}
+	}
+	else if(idForFormMain === "settingsMultiLogVars")
+	{
+		if($("#windowConfig"))
+		{
+			if($("[name='windowConfig']")[0].value !== $("#windowConfig")[0].value)
+			{
+				$("#windowConfig")[0].value = $("[name='windowConfig']")[0].value;
+				setTimeout(function() {
+					generateWindowDisplay();
+				}, 2);
 			}
 		}
 	}
@@ -216,8 +229,12 @@ function saveVerified()
 		refreshCustomCss();
 		fadeOutPopup();
 	}
-	else if(idForFormMain === "loggingDisplay" || idForFormMain === "advancedConfig" || idForFormMain === "settingsWatchlistVars")
-	{
+	else if(
+		idForFormMain === "loggingDisplay" ||
+		idForFormMain === "advancedConfig" ||
+		idForFormMain === "settingsWatchlistVars" ||
+		idForFormMain === "settingsMultiLogVars"
+	) {
 		refreshJsVars();
 		fadeOutPopup();
 	}

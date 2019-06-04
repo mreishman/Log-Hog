@@ -1774,9 +1774,10 @@ $defaultConfigMoreData = array(
 			),
 			1									=> array(
 				"type"								=>	"single",
+				"info"								=>	"Button in header menu. Because this is the same as the settings button, this will be removed at some pont. Requires Refresh",
 				"var"								=>	array(
 					"key"								=>	"multiLogOnIndex",
-					"name"								=>	"Enable tmp Multilog (button in menu)",
+					"name"								=>	"Enable tmp Multilog",
 					"options"							=>	$trueFalsVars,
 					"type"								=>	"dropdown"
 				)

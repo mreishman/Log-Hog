@@ -108,7 +108,7 @@
 		OneLog <?php echo $needRefresh; ?>
 	</li>
 	<li <?php if($enableMultiLog !== "true"){ echo "style = \"display:none;\"";} ?> id="settingsMainMultiLogMenu" onclick="toggleSettingSection({id: 'settingsMainMultiLog',formId: 'settingsMultiLogVars'});" >
-		Multi-Log <?php echo $needRefresh; ?>
+		Multi-Log
 	</li>
 	<li <?php if($enableMultiLog !== "true"){ echo "style = \"display:none;\"";} ?> id="settingsMainLogLayoutMenu" onclick="toggleSettingSection({id: 'settingsMainLogLayout',formId: 'settingsInitialLoadLayoutVars'});" >
 		Log Layout <?php echo $needRefresh; ?>
