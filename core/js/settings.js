@@ -165,13 +165,16 @@ function saveVerified()
 	}
 	else if(idForFormMain === "loggingDisplay")
 	{
-		if($("[name='enablePollTimeLogging']").value === "false")
+		if($("[name='enablePollTimeLogging']"))
 		{
-			$("#loggTimerPollStyle").hide();
-		}
-		else
-		{
-			$("#loggTimerPollStyle").show();
+			if($("[name='enablePollTimeLogging']").value === "false")
+			{
+				$("#loggTimerPollStyle").hide();
+			}
+			else
+			{
+				$("#loggTimerPollStyle").show();
+			}
 		}
 	}
 
@@ -195,6 +198,11 @@ function saveVerified()
 	else if(idForFormMain === "settingsColorFolderGroupVars" || idForFormMain === "generalThemeOptions")
 	{
 		refreshCustomCss();
+		fadeOutPopup();
+	}
+	else if(idForFormMain === "loggingDisplay")
+	{
+		refreshJsVars();
 		fadeOutPopup();
 	}
 	else
