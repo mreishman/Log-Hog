@@ -475,29 +475,7 @@ $defaultConfigMoreData = array(
 					"options"							=>	$oneToFiveArr,
 					"type"								=>	"dropdown"
 				)
-			),
-			3									=>	array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"logLayoutSettingsInfo",
-					"name"								=>	"Default show options for log layout settings",
-					"options"							=>	array(
-						0 									=> array(
-							"value" 							=> "all",
-							"name" 								=> "All"),
-						1 									=> array(
-							"value" 							=> "expandWithValues",
-							"name" 								=> "If current window has value"),
-						2 									=> array(
-							"value" 							=> "expandWithValue",
-							"name" 								=> "If any window has value"),
-						3 									=> array(
-							"value" 							=> "none",
-							"name" 								=> "None")
-					),
-					"type"								=>	"dropdown"
-				)
-			),
+			)
 		)
 	),
 	"fileLocations"						=>	array(
@@ -1672,12 +1650,41 @@ $defaultConfigMoreData = array(
 				)
 			),
 			2									=>	array(
-				"type"								=>	"single",
+				"bool"								=>	($enableMultiLog == 'false'),
+				"id"								=>	"enableMultiLogSettings",
+				"name"								=>	"Multi-Log settings settings",
+				"type"								=>	"grouped",
 				"var"								=>	array(
+					"function"							=>	"showOrHideenableMultiLog",
+					"id"								=>	"enableMultiLog",
 					"key"								=>	"enableMultiLog",
 					"name"								=>	"Enable Multi-Log",
 					"options"							=>	$trueFalsVars,
 					"type"								=>	"dropdown"
+				),
+				"vars"								=>	array(
+					0									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"logLayoutSettingsInfo",
+							"name"								=>	"Default show options for log layout settings",
+							"options"							=>	array(
+								0 									=> array(
+									"value" 							=> "all",
+									"name" 								=> "All"),
+								1 									=> array(
+									"value" 							=> "expandWithValues",
+									"name" 								=> "If current window has value"),
+								2 									=> array(
+									"value" 							=> "expandWithValue",
+									"name" 								=> "If any window has value"),
+								3 									=> array(
+									"value" 							=> "none",
+									"name" 								=> "None")
+							),
+							"type"								=>	"dropdown"
+						)
+					)
 				)
 			),
 			3									=>	array(

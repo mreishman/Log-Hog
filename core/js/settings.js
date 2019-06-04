@@ -200,7 +200,7 @@ function saveVerified()
 		refreshCustomCss();
 		fadeOutPopup();
 	}
-	else if(idForFormMain === "loggingDisplay")
+	else if(idForFormMain === "loggingDisplay" || idForFormMain === "advancedConfig")
 	{
 		refreshJsVars();
 		fadeOutPopup();

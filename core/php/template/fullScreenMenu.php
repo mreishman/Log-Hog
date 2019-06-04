@@ -120,7 +120,7 @@
 		Advanced
 	</li>
 	<li id="settingsAdvancedConfigMenu" onclick="toggleSettingSection({id: 'settingsAdvancedConfig',formId: 'advancedConfig'});" >
-		Config <?php echo $needRefresh; ?>
+		Config
 	</li>
 	<li id="settingsAdvancedModulesMenu" onclick="toggleSettingSection({id: 'settingsAdvancedModules',formId: 'modules'});" >
 		Modules <?php echo $needRefresh; ?>
