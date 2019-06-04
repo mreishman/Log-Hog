@@ -141,6 +141,28 @@ function saveVerified()
 			document.getElementById("DevLink").style.display = "none";
 		}
 	}
+	else if(idForFormMain === "devBranch")
+	{
+		if($("[name='branchSelected']"))
+		{
+			if($("[name='enableDevBranchDownload']")[0].value === "true")
+			{
+				if($("[name='branchSelected']")[0].options.length === 2)
+				{
+					//append
+					$("[name='branchSelected']").append("<option value='dev'>Dev</option>")
+				}
+			}
+			else
+			{
+				if($("[name='branchSelected']")[0].options.length === 3)
+				{
+					//remove
+					$("[name='branchSelected'] option[value='dev']").remove();
+				}
+			}
+		}
+	}
 
 	saveSuccess();
 

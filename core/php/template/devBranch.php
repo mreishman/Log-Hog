@@ -36,13 +36,16 @@
 				</span>
 			</li>
 			<li>
-				<span class="settingsBuffer" > Config Version: [Refresh to run upgrade scripts]  </span> <input type="number" pattern="[0-9]*" class="inputWidth" name="configVersion" value="<?php echo $configVersion;?>" >
+				<span class="settingsBuffer" > Config Version: </span> <input type="number" pattern="[0-9]*" class="inputWidth" name="configVersion" value="<?php echo $configVersion;?>" >
 			</li>
 			<li>
-				<span class="settingsBuffer" > Layout Version: [Refresh to run upgrade scripts]  </span> <input type="number" pattern="[0-9]*" class="inputWidth"  name="layoutVersion" value="<?php echo $layoutVersion;?>" >
+				<span class="settingsBuffer" > Layout Version: </span> <input type="number" pattern="[0-9]*" class="inputWidth"  name="layoutVersion" value="<?php echo $layoutVersion;?>" >
 			</li>
 			<li>
-				<span class="settingsBuffer" > Theme Version: [Refresh to run upgrade scripts]  </span> <input type="number" pattern="[0-9]*" class="inputWidth"  name="themeVersion" value="<?php echo $themeVersion;?>" >
+				<span class="settingsBuffer" > Theme Version: </span> <input type="number" pattern="[0-9]*" class="inputWidth"  name="themeVersion" value="<?php echo $themeVersion;?>" >
+			</li>
+			<li>
+				Refresh to run upgrade scripts
 			</li>
 		</ul>
 
