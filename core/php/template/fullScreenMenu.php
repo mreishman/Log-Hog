@@ -126,7 +126,7 @@
 		Modules <?php echo $needRefresh; ?>
 	</li>
 	<li id="settingsAdvancedLogsMenu" onclick="toggleSettingSection({id: 'settingsAdvancedLogs',formId: 'loggingDisplay'});" >
-		Logs <?php echo $needRefresh; ?>
+		Logs
 	</li>
 	<li id="settingsAdvancedLocationsMenu" onclick="toggleSettingSection({id: 'settingsAdvancedLocations',formId: 'locationOtherApps'});" >
 		Locations <?php echo $needRefresh; ?>

@@ -135,11 +135,13 @@ $needRefresh = $core->generateImage(
 </head>
 <body>
 	<span id="mainContent" style="display: none;"  >
-		<?php require_once("core/php/customCSS.php");
+		<?php
+		require_once("core/php/customCSS.php");
 		require_once("core/php/customIndexCSS.php");
-		if($enablePollTimeLogging != "false"): ?>
-			<div id="loggTimerPollStyle" class="noticeBar"><span id="loggingTimerPollRate" >### MS /<?php echo $pollingRate; ?> MS</span> | <span id="loggSkipCount" >0</span>/<?php echo $pollForceTrue; ?> | <span id="loggAllCount" >0</span>/<?php echo $pollRefreshAll; ?></div>
-		<?php endif; ?>
+		?>
+		<div <?php if($enablePollTimeLogging == "false"){ echo "style = 'display: none;'";} ?> id="loggTimerPollStyle" class="noticeBar">
+			<span id="loggingTimerPollRate" >### MS /<?php echo $pollingRate; ?> MS</span> | <span id="loggSkipCount" >0</span>/<?php echo $pollForceTrue; ?> | <span id="loggAllCount" >0</span>/<?php echo $pollRefreshAll; ?>
+		</div>
 			<div id="noticeBar" class="noticeBar" style="display: none;" >
 				<span id="connectionNotice">
 					Notice  - <?php echo ($pollForceTrue * 2); ?> poll requests have failed. Please check server connectivity or refresh page.
