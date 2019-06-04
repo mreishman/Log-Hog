@@ -177,6 +177,22 @@ function saveVerified()
 			}
 		}
 	}
+	else if(idForFormMain === "settingsWatchlistVars")
+	{
+		if($("[name='logShowMoreOptions']"))
+		{
+			if($("[name='logShowMoreOptions']").value === "false")
+			{
+				$(".condensed").hide();
+				document.getElementById("condensedLink").innerHTML = "Show More Options";
+			}
+			else
+			{
+				$(".condensed").show();
+				document.getElementById("condensedLink").innerHTML = "Show Condensed Options";
+			}
+		}
+	}
 
 	saveSuccess();
 
@@ -200,7 +216,7 @@ function saveVerified()
 		refreshCustomCss();
 		fadeOutPopup();
 	}
-	else if(idForFormMain === "loggingDisplay" || idForFormMain === "advancedConfig")
+	else if(idForFormMain === "loggingDisplay" || idForFormMain === "advancedConfig" || idForFormMain === "settingsWatchlistVars")
 	{
 		refreshJsVars();
 		fadeOutPopup();

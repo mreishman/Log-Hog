@@ -102,7 +102,7 @@
 		Menu <?php echo $needRefresh; ?>
 	</li>
 	<li id="settingsMainWatchlistMenu" onclick="toggleSettingSection({id: 'settingsMainWatchlist',formId: 'settingsWatchlistVars'});" >
-		Watchlist <?php echo $needRefresh; ?>
+		Watchlist
 	</li>
 	<li <?php if($oneLogEnable !== "true"){ echo "style = \"display:none;\"";} ?> id="settingsMainOneLogMenu" onclick="toggleSettingSection({id: 'settingsMainOneLog',formId: 'settingsOneLogVars'});" >
 		OneLog <?php echo $needRefresh; ?>

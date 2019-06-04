@@ -23,3 +23,14 @@ require_once('../../core/php/loadVars.php');
 require_once('../../core/php/loadVarsToJs.php');
 echo $core->loadSentryData($sendCrashInfoJS, $branchSelected, $configStatic);
 ?>
+<script type="text/javascript">
+	var defaultdefaultNewAddAlertEnabled 	= "<?php echo $defaultNewAddAlertEnabled; ?>";
+	var defaultNewAddAutoDeleteFiles 		= "<?php echo $defaultNewAddAutoDeleteFiles; ?>";
+	var defaultNewAddExcludeTrim 			= "<?php echo $defaultNewAddExcludeTrim; ?>";
+	var defaultNewAddPattern 				= "<?php echo $defaultNewAddPattern;?>";
+	var defaultNewAddRecursive 				= "<?php echo $defaultNewAddRecursive;?>";
+	var defaultNewPathFile 					= "<?php echo $defaultNewPathFile; ?>";
+	var defaultNewPathFolder				= "<?php echo $defaultNewPathFolder;?>";
+	var defaultNewPathOther 				= "<?php echo $defaultNewPathOther;?>";
+	var sortTypeFileFolderPopup				= "<?php echo $sortTypeFileFolderPopup; ?>";
+</script>
