@@ -11,6 +11,9 @@
 			<li>
 				<span class="settingsBuffer" >  Version Number:  </span> <input id="versionNumberConfigStaticInput" type="text" class="inputWidth"  name="version" value="<?php echo $configStatic['version'];?>" >
 			</li>
+			<li>
+				Refresh required to run upgrade scripts related to version change
+			</li>
 		</ul>
 	</div>
 </form>

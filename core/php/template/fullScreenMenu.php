@@ -81,55 +81,55 @@
 		Main
 	</li>
 	<li id="settingsMainLogsMenu" onclick="toggleSettingSection({id: 'settingsMainLogs',formId: 'settingsLogVars'});" >
-		Logs
+		Logs <?php echo $needRefresh; ?>
 	</li>
 	<li <?php if($advancedLogFormatEnabled !== "true"){ echo "style = \"display:none;\"";} ?> id="settingsMainLogFormatMenu" onclick="toggleSettingSection({id: 'settingsMainLogFormat',formId: 'settingsLogFormatVars'});" >
-		Log Format
+		Log Format <?php echo $needRefresh; ?>
 	</li>
 	<li id="settingsMainPollMenu" onclick="toggleSettingSection({id: 'settingsMainPoll',formId: 'settingsPollVars'});" >
-		Poll
+		Poll <?php echo $needRefresh; ?>
 	</li>
 	<li <?php if($filterEnabled !== "true"){ echo "style = \"display:none;\"";} ?> id="settingsMainFilterMenu" onclick="toggleSettingSection({id: 'settingsMainFilter',formId: 'settingsFilterVars'});" >
-		Filter
+		Filter <?php echo $needRefresh; ?>
 	</li>
 	<li id="settingsMainArchiveMenu" onclick="toggleSettingSection({id: 'settingsMainArchive',formId: 'archiveConfig'});" >
-		Archive
+		Archive <?php echo $needRefresh; ?>
 	</li>
 	<li id="settingsMainNotificationsMenu" onclick="toggleSettingSection({id: 'settingsMainNotifications',formId: 'settingsNotificationVars'});" >
-		Notifications
+		Notifications <?php echo $needRefresh; ?>
 	</li>
 	<li id="settingsMainMenuMenu" onclick="toggleSettingSection({id: 'settingsMainMenu',formId: 'settingsMenuVars'});" >
-		Menu
+		Menu <?php echo $needRefresh; ?>
 	</li>
 	<li id="settingsMainWatchlistMenu" onclick="toggleSettingSection({id: 'settingsMainWatchlist',formId: 'settingsWatchlistVars'});" >
-		Watchlist
+		Watchlist <?php echo $needRefresh; ?>
 	</li>
 	<li <?php if($oneLogEnable !== "true"){ echo "style = \"display:none;\"";} ?> id="settingsMainOneLogMenu" onclick="toggleSettingSection({id: 'settingsMainOneLog',formId: 'settingsOneLogVars'});" >
-		OneLog
+		OneLog <?php echo $needRefresh; ?>
 	</li>
 	<li <?php if($enableMultiLog !== "true"){ echo "style = \"display:none;\"";} ?> id="settingsMainMultiLogMenu" onclick="toggleSettingSection({id: 'settingsMainMultiLog',formId: 'settingsMultiLogVars'});" >
-		Multi-Log
+		Multi-Log <?php echo $needRefresh; ?>
 	</li>
 	<li <?php if($enableMultiLog !== "true"){ echo "style = \"display:none;\"";} ?> id="settingsMainLogLayoutMenu" onclick="toggleSettingSection({id: 'settingsMainLogLayout',formId: 'settingsInitialLoadLayoutVars'});" >
-		Log Layout
+		Log Layout <?php echo $needRefresh; ?>
 	</li>
 	<li id="settingsMainOtherMenu" onclick="toggleSettingSection({id: 'settingsMainOther',formId: 'settingsMainVars'});" >
-		Other
+		Other <?php echo $needRefresh; ?>
 	</li>
 	<li class="menuTitle fullScreenMenuText subMenuTitle">
 		Advanced
 	</li>
 	<li id="settingsAdvancedConfigMenu" onclick="toggleSettingSection({id: 'settingsAdvancedConfig',formId: 'advancedConfig'});" >
-		Config
+		Config <?php echo $needRefresh; ?>
 	</li>
 	<li id="settingsAdvancedModulesMenu" onclick="toggleSettingSection({id: 'settingsAdvancedModules',formId: 'modules'});" >
-		Modules
+		Modules <?php echo $needRefresh; ?>
 	</li>
 	<li id="settingsAdvancedLogsMenu" onclick="toggleSettingSection({id: 'settingsAdvancedLogs',formId: 'loggingDisplay'});" >
-		Logs
+		Logs <?php echo $needRefresh; ?>
 	</li>
 	<li id="settingsAdvancedLocationsMenu" onclick="toggleSettingSection({id: 'settingsAdvancedLocations',formId: 'locationOtherApps'});" >
-		Locations
+		Locations <?php echo $needRefresh; ?>
 	</li>
 	<li id="settingsAdvancedAdvancedMenu" onclick="toggleSettingSection({id: 'settingsAdvancedAdvanced',formId: 'false'});" >
 		Advanced
@@ -138,10 +138,13 @@
 		Dev
 	</li>
 	<li id="settingsAdvancedDevBranchMenu" <?php if($developmentTabEnabled !== "true"){ echo "style = \"display:none;\"";} ?> onclick="toggleSettingSection({id: 'settingsAdvancedDevBranch', formId: 'devBranch'});" >
-		Branch
+		Branch <?php echo $needRefresh; ?>
 	</li>
 	<li id="settingsAdvancedDevConfigMenu" <?php if($developmentTabEnabled !== "true"){ echo "style = \"display:none;\"";} ?> onclick="toggleSettingSection({id: 'settingsAdvancedDevConfig', formId: 'devConfig'});" >
 		Config
+	</li>
+	<li class="menuTitle fullScreenMenuText">
+		<?php echo $needRefresh; ?> = refresh required
 	</li>
 </ul>
 <div id="mainContentFullScreenMenu">

@@ -89,6 +89,16 @@ $externalLinkImage = $core->generateImage(
 		"data-src"	=>  $arrayOfImages["externalLink"]
 		)
 	);
+$needRefresh = $core->generateImage(
+	$arrayOfImages["loadingImg"],
+	$imageConfig = array(
+		"height"	=>	"15px",
+		"class"		=>	"mainMenuImage",
+		"style"		=>	"margin-bottom: -10px;",
+		"title"		=>	"Refresh Required",
+		"data-src"	=>  $arrayOfImages["refresh"]
+		)
+	);
 ?>
 <!doctype html>
 <head>

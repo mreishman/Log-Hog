@@ -17,23 +17,29 @@ $countConfig--;
 		<ul class="settingsUl">
 			<li>
 				<a style="text-decoration: none;" href="<?php echo $settingsUrlModifier; ?>setup/step1.php" class="link">Re-do Setup</a>
-				<span> | </span>
+			</li>
+			<li>
 				<a onclick="revertPopup();" class="link">Revert Version</a>
-				<span> | </span>
+			</li>
+			<li>
 				<a onclick="resetUpdateNotification();" class="link">Reset Update Notification</a>
-				<span> | </span>
+			</li>
+			<li>
 				<a class="link" href="<?php echo $otherSettingsUrlModifier; ?>editFiles.php" >View Files</a>
-				<span> | </span>
-				<?php if($backupNumConfigEnabled == 'true'): ?>
+			</li>
+			<?php if($backupNumConfigEnabled == 'true'): ?>
+				<li>
 					<a onclick="showConfigPopup();" class="link">View restore options for config</a>
-					<span> | </span>
-					<?php if($showConfigBackupClear): ?>
+				</li>
+				<?php if($showConfigBackupClear): ?>
+					<li>
 						<span id="showConfigClearButton">
 							<a onclick="clearBackupFiles();" class="link">Clear (<?php echo $countConfig;?>) Backup Config Files</a>
-							<span> | </span>
 						</span>
-					<?php endif; ?>
+					</li>
 				<?php endif; ?>
+			<?php endif; ?>
+			<li>
 				<a onclick="resetSettingsPopup();" class="link">Reset Settings back to Default</a>
 			</li>
 		</ul>
