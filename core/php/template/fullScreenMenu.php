@@ -111,7 +111,7 @@
 		Multi-Log
 	</li>
 	<li <?php if($enableMultiLog !== "true"){ echo "style = \"display:none;\"";} ?> id="settingsMainLogLayoutMenu" onclick="toggleSettingSection({id: 'settingsMainLogLayout',formId: 'settingsInitialLoadLayoutVars'});" >
-		Log Layout <?php echo $needRefresh; ?>
+		Log Layout
 	</li>
 	<li id="settingsMainOtherMenu" onclick="toggleSettingSection({id: 'settingsMainOther',formId: 'settingsMainVars'});" >
 		Other <?php echo $needRefresh; ?>
