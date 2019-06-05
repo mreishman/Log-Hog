@@ -1,6 +1,6 @@
 <?php
-if(file_exists('updater.php')){
-copy('updater.php','../../../updater.php');
+if(file_exists('../../update/downloads/versionCheck/extracted/updater.php')){
+copy('../../update/downloads/versionCheck/extracted/updater.php','../../update/updater.php');
 }
 $versionCheckArray = array(
 	'version'		=> '8.0',
