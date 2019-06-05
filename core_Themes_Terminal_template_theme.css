@@ -1,0 +1,294 @@
+#menu, .menu {
+  background: #111;
+}
+#menu a, .menu a {
+  background: #2A912A;
+  color: black;
+}
+#menu a.updated, .menu a.updated {
+  background: #1D263B;
+  color: white;
+}
+#menu a.updated:hover, .menu a.updated:hover {
+  background: #5C6784;
+}
+#menu a:hover, .menu a:hover {
+  color: black;
+  background: #009900;
+}
+#menu a.active, .menu a.active {
+  color: black;
+  background: #009900;
+}
+
+#menu2 {
+  background: #333;
+  border-bottom: 1px solid #009900;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+}
+#menu2 a {
+  background: #2A912A;
+  color: black;
+}
+#menu2 a:hover {
+  color: black;
+  background: #009900;
+}
+#menu2 a.active {
+  color: black;
+  background: #009900;
+}
+
+.link:hover, .linkSmall:hover {
+  color: black;
+  background: #009900;
+}
+
+.notificationTriangle {
+  border-bottom: 12px solid #009900;
+}
+
+.dropdownHolder {
+  color: black;
+  background: #009900;
+  border: 1px solid black;
+  border-bottom: 3px solid black;
+}
+.dropdownHolder td {
+  color: black;
+}
+.dropdownHolder th {
+  color: black;
+}
+
+.linkSmallHover {
+  color: black;
+  background: #009900;
+  border: 1px solid black;
+}
+
+#log {
+  color: #009900;
+}
+
+#titleContainer {
+  color: black;
+  background: #CCC;
+}
+
+.backgroundForSideBarMenu {
+  background: #CCC;
+  color: black;
+}
+.backgroundForSideBarMenu td {
+  color: black;
+}
+
+.popupForInfo {
+  background: #CCC;
+  border: 1px solid #009900;
+  color: black;
+}
+
+.currentWindowNum {
+  color: #009900;
+}
+
+.backgroundForMenus {
+  background: #111;
+}
+
+.sidebarCurrentWindowNum {
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  background: #009900;
+  color: black;
+}
+
+.currentWindowNumSelected {
+  color: #009900;
+  background: black;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+.settingsDiv {
+  background: #333;
+  border: 1px solid #009900;
+}
+
+/*has to be here to override*/
+.settingsDivRemoveTop {
+  border-top: 0;
+}
+
+#log div {
+  padding: 0.25em 1em;
+}
+
+.settingsDiv {
+  margin: 10px;
+  margin-top: 0;
+}
+
+.settingsDivRemoveBottom {
+  border-bottom: 0;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
+/*end has to be here to override*/
+.settingsHeader {
+  background: #111;
+  color: #009900;
+}
+.settingsHeader .linkSmall:hover {
+  border: 1px solid black;
+}
+.settingsHeader button {
+  background: #2A912A;
+  border: solid 1px #009900;
+  color: #009900;
+}
+.settingsHeader button:hover {
+  border: 1px solid black;
+  color: black;
+  background: #009900;
+}
+
+.settingsDiv p a {
+  color: #009900;
+}
+
+.link {
+  background: #2A912A;
+  border: solid 1px #009900;
+  color: #009900;
+}
+
+.linkSmall {
+  background: #2A912A;
+  border: solid 1px #009900;
+  color: #009900;
+}
+
+.selected, .selectDropdown:hover {
+  background: #009900;
+  color: black;
+}
+
+.context-menu {
+  background: #2A912A;
+  border: 1px solid #009900;
+  box-shadow: 0 0 5px black;
+}
+
+.context-menu__item:hover {
+  background: #009900;
+}
+.context-menu__item:hover a {
+  color: black;
+}
+.context-menu__item a {
+  color: #009900;
+}
+
+.dropdown-content {
+  background: #2A912A;
+  border: 1px solid #009900;
+  box-shadow: 0 0 5px black;
+}
+.dropdown-content a {
+  color: #009900;
+}
+.dropdown-content a:hover {
+  color: black;
+}
+
+.dropdown-content__item:hover {
+  background: #009900;
+}
+
+.loadingSpinner {
+  background: #333;
+  border: 1px solid #009900;
+}
+
+.selectDiv {
+  background: #2A912A;
+  border: 1px solid #009900;
+}
+.selectDiv select {
+  color: #009900;
+}
+.selectDiv option {
+  color: black;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #111;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #CCC;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #009900;
+}
+
+.fullScreenMenuUL {
+  background: black;
+  border-right: 1px solid #009900;
+}
+.fullScreenMenuUL li {
+  background: black;
+  color: #009900;
+}
+
+.fullScreenMenuLeftSidebar {
+  background: black;
+  border-right: 1px solid #009900;
+}
+.fullScreenMenuLeftSidebar div {
+  background: black;
+  color: #009900;
+}
+.fullScreenMenuLeftSidebar td {
+  background: black;
+  color: #009900;
+}
+.fullScreenMenuLeftSidebar a {
+  color: #009900;
+}
+.fullScreenMenuLeftSidebar a:visited {
+  color: #009900;
+}
+
+.settingsUlSub {
+  background: black;
+  border-right: 1px solid #009900;
+}
+
+.notificationPreviewLog {
+  border: 1px solid #009900;
+}
+
+.noNotificationsNotification {
+  background-color: #333;
+  color: #009900;
+}
+
+.log table:not(.oneLogTable):not(.logCode) tr:not(.highlight):not(.newLine) td:not(.highlight):not(.newLine) div.settingsDiv {
+  color: #009900;
+}
+
+.themeDiv {
+  background: black;
+  color: #009900;
+}
+
+/*# sourceMappingURL=theme.css.map */

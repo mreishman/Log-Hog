@@ -1,0 +1,355 @@
+#menu, .menu {
+  background: #698499;
+}
+#menu a, .menu a {
+  background: #777;
+  color: white;
+}
+#menu a.updated, .menu a.updated {
+  background: #912A2C;
+  color: black;
+}
+#menu a.updated:hover, .menu a.updated:hover {
+  background: #600e0f;
+}
+#menu a:hover, .menu a:hover {
+  color: white;
+  background: black;
+}
+#menu a.active, .menu a.active {
+  color: white;
+  background: black;
+}
+
+#menu2 {
+  background: #415564;
+  border-bottom: 1px solid black;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+}
+#menu2 a {
+  background: #777;
+  color: white;
+}
+#menu2 a:hover {
+  color: white;
+  background: black;
+}
+#menu2 a.active {
+  color: white;
+  background: black;
+}
+
+.link:hover, .linkSmall:hover {
+  color: white;
+  background: black;
+}
+
+.notificationTriangle {
+  border-bottom: 12px solid black;
+}
+
+.dropdownHolder {
+  color: white;
+  background: black;
+  border: 1px solid white;
+  border-bottom: 3px solid white;
+}
+.dropdownHolder td {
+  color: white;
+}
+.dropdownHolder th {
+  color: white;
+}
+
+.linkSmallHover {
+  color: white;
+  background: black;
+  border: 1px solid white;
+}
+
+#log {
+  color: black;
+}
+
+#titleContainer {
+  color: white;
+  background: #1f2830;
+}
+
+.backgroundForSideBarMenu {
+  background: #1f2830;
+  color: white;
+}
+.backgroundForSideBarMenu td {
+  color: white;
+}
+
+.popupForInfo {
+  background: #1f2830;
+  border: 1px solid black;
+  color: white;
+}
+
+.currentWindowNum {
+  color: black;
+}
+
+.backgroundForMenus {
+  background: #698499;
+}
+
+.sidebarCurrentWindowNum {
+  border-top: 1px solid white;
+  border-bottom: 1px solid white;
+  background: black;
+  color: white;
+}
+
+.currentWindowNumSelected {
+  color: black;
+  background: white;
+  border-top: 1px solid white;
+  border-bottom: 1px solid white;
+}
+
+.settingsDiv {
+  background: #415564;
+  border: 1px solid black;
+}
+
+/*has to be here to override*/
+.settingsDivRemoveTop {
+  border-top: 0;
+}
+
+#log div {
+  padding: 0.25em 1em;
+}
+
+.settingsDiv {
+  margin: 10px;
+  margin-top: 0;
+}
+
+.settingsDivRemoveBottom {
+  border-bottom: 0;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
+/*end has to be here to override*/
+.settingsHeader {
+  background: #698499;
+  color: black;
+}
+.settingsHeader .linkSmall:hover {
+  border: 1px solid white;
+}
+.settingsHeader button {
+  background: #777;
+  border: solid 1px black;
+  color: black;
+}
+.settingsHeader button:hover {
+  border: 1px solid white;
+  color: white;
+  background: black;
+}
+
+.settingsDiv p a {
+  color: black;
+}
+
+.link {
+  background: #777;
+  border: solid 1px black;
+  color: black;
+}
+
+.linkSmall {
+  background: #777;
+  border: solid 1px black;
+  color: black;
+}
+
+.selected, .selectDropdown:hover {
+  background: black;
+  color: white;
+}
+
+.context-menu {
+  background: #777;
+  border: 1px solid black;
+  box-shadow: 0 0 5px white;
+}
+
+.context-menu__item:hover {
+  background: black;
+}
+.context-menu__item:hover a {
+  color: white;
+}
+.context-menu__item a {
+  color: black;
+}
+
+.dropdown-content {
+  background: #777;
+  border: 1px solid black;
+  box-shadow: 0 0 5px white;
+}
+.dropdown-content a {
+  color: black;
+}
+.dropdown-content a:hover {
+  color: white;
+}
+
+.dropdown-content__item:hover {
+  background: black;
+}
+
+.loadingSpinner {
+  background: #415564;
+  border: 1px solid black;
+}
+
+.selectDiv {
+  background: #777;
+  border: 1px solid black;
+}
+.selectDiv select {
+  color: black;
+}
+.selectDiv option {
+  color: white;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #698499;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #1f2830;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: black;
+}
+
+.fullScreenMenuUL {
+  background: white;
+  border-right: 1px solid black;
+}
+.fullScreenMenuUL li {
+  background: white;
+  color: black;
+}
+
+.fullScreenMenuLeftSidebar {
+  background: white;
+  border-right: 1px solid black;
+}
+.fullScreenMenuLeftSidebar div {
+  background: white;
+  color: black;
+}
+.fullScreenMenuLeftSidebar td {
+  background: white;
+  color: black;
+}
+.fullScreenMenuLeftSidebar a {
+  color: black;
+}
+.fullScreenMenuLeftSidebar a:visited {
+  color: black;
+}
+
+.settingsUlSub {
+  background: white;
+  border-right: 1px solid black;
+}
+
+.notificationPreviewLog {
+  border: 1px solid black;
+}
+
+.noNotificationsNotification {
+  background-color: #415564;
+  color: black;
+}
+
+.log table:not(.oneLogTable):not(.logCode) tr:not(.highlight):not(.newLine) td:not(.highlight):not(.newLine) div.settingsDiv {
+  color: black;
+}
+
+.themeDiv {
+  background: white;
+  color: black;
+}
+
+body {
+  background-color: #DDD;
+}
+
+#main {
+  background-color: #DDD;
+}
+
+#menu {
+  background: repeating-linear-gradient(45deg, rgba(25, 40, 55, 0.75) 35%, rgba(65, 85, 100, 0.75) 40%, rgba(65, 85, 100, 0.75) 42%, rgba(25, 40, 55, 0.75) 50%, rgba(25, 40, 55, 0.75) 55%, rgba(70, 85, 100, 0.75) 60%, rgba(70, 85, 100, 0.75) 75%, rgba(25, 40, 55, 0.75) 90%);
+}
+
+.backgroundForMenus {
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+  background: repeating-linear-gradient(45deg, rgba(25, 40, 55, 0.75) 35%, rgba(65, 85, 100, 0.75) 40%, rgba(65, 85, 100, 0.75) 42%, rgba(25, 40, 55, 0.75) 50%, rgba(25, 40, 55, 0.75) 55%, rgba(70, 85, 100, 0.75) 60%, rgba(70, 85, 100, 0.75) 75%, rgba(25, 40, 55, 0.75) 90%);
+  box-shadow: inset 0 0 0 1px rgba(246, 246, 247, 0.92), 0 7px 19px rgba(0, 0, 0, 0.9);
+  background-attachment: fixed;
+  background-clip: padding-box;
+}
+
+.backgroundForSideBarMenu {
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+  background: repeating-linear-gradient(45deg, rgba(25, 40, 55, 0.75) 35%, rgba(65, 85, 100, 0.75) 40%, rgba(65, 85, 100, 0.75) 42%, rgba(25, 40, 55, 0.75) 50%, rgba(25, 40, 55, 0.75) 55%, rgba(70, 85, 100, 0.75) 60%, rgba(70, 85, 100, 0.75) 75%, rgba(25, 40, 55, 0.75) 90%);
+  box-shadow: inset 0 0 0 1px rgba(246, 246, 247, 0.92), 0 7px 19px rgba(0, 0, 0, 0.9);
+  background-attachment: fixed;
+  background-clip: padding-box;
+}
+
+#title {
+  text-shadow: 0 0 2px black, 0 0 5px black, 0 0 9px black, 0 0 14px black, 0 0 20px black;
+}
+
+.fullScreenMenuUL {
+  background: repeating-linear-gradient(45deg, rgba(25, 40, 55, 0.75) 35%, rgba(65, 85, 100, 0.75) 40%, rgba(65, 85, 100, 0.75) 42%, rgba(25, 40, 55, 0.75) 50%, rgba(25, 40, 55, 0.75) 55%, rgba(70, 85, 100, 0.75) 60%, rgba(70, 85, 100, 0.75) 75%, rgba(25, 40, 55, 0.75) 90%);
+}
+
+.fullScreenMenuLeftSidebar {
+  background: repeating-linear-gradient(45deg, rgba(25, 40, 55, 0.75) 35%, rgba(65, 85, 100, 0.75) 40%, rgba(65, 85, 100, 0.75) 42%, rgba(25, 40, 55, 0.75) 50%, rgba(25, 40, 55, 0.75) 55%, rgba(70, 85, 100, 0.75) 60%, rgba(70, 85, 100, 0.75) 75%, rgba(25, 40, 55, 0.75) 90%);
+}
+
+.fullScreenMenuUL li {
+  background-color: rgba(65, 85, 100, 0.5);
+  color: white;
+}
+
+.fullScreenMenuUL {
+  background: repeating-linear-gradient(45deg, rgba(25, 40, 55, 0.75) 35%, rgba(65, 85, 100, 0.75) 40%, rgba(65, 85, 100, 0.75) 42%, rgba(25, 40, 55, 0.75) 50%, rgba(25, 40, 55, 0.75) 55%, rgba(70, 85, 100, 0.75) 60%, rgba(70, 85, 100, 0.75) 75%, rgba(25, 40, 55, 0.75) 90%);
+}
+
+.fullScreenMenuLeftSidebar {
+  background: repeating-linear-gradient(45deg, rgba(25, 40, 55, 0.75) 35%, rgba(65, 85, 100, 0.75) 40%, rgba(65, 85, 100, 0.75) 42%, rgba(25, 40, 55, 0.75) 50%, rgba(25, 40, 55, 0.75) 55%, rgba(70, 85, 100, 0.75) 60%, rgba(70, 85, 100, 0.75) 75%, rgba(25, 40, 55, 0.75) 90%);
+}
+.fullScreenMenuLeftSidebar div {
+  background: repeating-linear-gradient(45deg, rgba(25, 40, 55, 0.75) 35%, rgba(65, 85, 100, 0.75) 40%, rgba(65, 85, 100, 0.75) 42%, rgba(25, 40, 55, 0.75) 50%, rgba(25, 40, 55, 0.75) 55%, rgba(70, 85, 100, 0.75) 60%, rgba(70, 85, 100, 0.75) 75%, rgba(25, 40, 55, 0.75) 90%);
+  color: white;
+}
+.fullScreenMenuLeftSidebar td {
+  background: repeating-linear-gradient(45deg, rgba(25, 40, 55, 0.75) 35%, rgba(65, 85, 100, 0.75) 40%, rgba(65, 85, 100, 0.75) 42%, rgba(25, 40, 55, 0.75) 50%, rgba(25, 40, 55, 0.75) 55%, rgba(70, 85, 100, 0.75) 60%, rgba(70, 85, 100, 0.75) 75%, rgba(25, 40, 55, 0.75) 90%);
+  color: white;
+}
+
+/*# sourceMappingURL=theme.css.map */
