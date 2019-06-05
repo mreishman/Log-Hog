@@ -93,7 +93,7 @@
 		Filter <?php echo $needRefresh; ?>
 	</li>
 	<li id="settingsMainArchiveMenu" onclick="toggleSettingSection({id: 'settingsMainArchive',formId: 'archiveConfig'});" >
-		Archive <?php echo $needRefresh; ?>
+		Archive
 	</li>
 	<li id="settingsMainNotificationsMenu" onclick="toggleSettingSection({id: 'settingsMainNotifications',formId: 'settingsNotificationVars'});" >
 		Notifications <?php echo $needRefresh; ?>
