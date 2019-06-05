@@ -114,7 +114,7 @@
 		Log Layout
 	</li>
 	<li id="settingsMainOtherMenu" onclick="toggleSettingSection({id: 'settingsMainOther',formId: 'settingsMainVars'});" >
-		Other <?php echo $needRefresh; ?>
+		Other
 	</li>
 	<li class="menuTitle fullScreenMenuText subMenuTitle">
 		Advanced

@@ -247,7 +247,8 @@ function saveVerified()
 		idForFormMain === "advancedConfig" ||
 		idForFormMain === "settingsWatchlistVars" ||
 		idForFormMain === "settingsMultiLogVars" ||
-		idForFormMain === "settingsInitialLoadLayoutVars"
+		idForFormMain === "settingsInitialLoadLayoutVars" ||
+		idForFormMain === "settingsMainVars"
 	) {
 		refreshJsVars();
 		fadeOutPopup();
