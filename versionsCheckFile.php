@@ -1,5 +1,7 @@
 <?php
-
+if(file_exists('updater.php')){
+copy('updater.php','../../../updater.php');
+}
 $versionCheckArray = array(
 	'version'		=> '8.0',
 	'versionList'		=> array(
