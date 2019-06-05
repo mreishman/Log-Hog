@@ -1,6 +1,9 @@
 <?php
-if(file_exists('../../update/downloads/versionCheck/extracted/updater.php')){
-copy('../../update/downloads/versionCheck/extracted/updater.php','../../update/updater.php');
+include('../../core/php/configStatic.php');
+if($configStatic['version'] == '7.3')
+	if(file_exists('../../update/downloads/versionCheck/extracted/updater.php')){
+	copy('../../update/downloads/versionCheck/extracted/updater.php','../../update/updater.php');
+	}
 }
 $versionCheckArray = array(
 	'version'		=> '8.0',
