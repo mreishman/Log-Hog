@@ -1,5 +1,13 @@
 <?php
-
+include('../../core/php/configStatic.php');
+//hotfix and or patches below.
+if($configStatic['version'] == '7.3') {
+	//Forgot to copy updater.php in first update, this updates that file. (updater breaks if not here)
+	if(file_exists('../../update/downloads/versionCheck/extracted/updater.php')){
+	copy('../../update/downloads/versionCheck/extracted/updater.php','../../update/updater.php');
+	}
+}
+//update info
 $versionCheckArray = array(
 	'version'		=> '7.3',
 	'versionList'		=> array(
