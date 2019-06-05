@@ -105,7 +105,7 @@
 		Watchlist
 	</li>
 	<li <?php if($oneLogEnable !== "true"){ echo "style = \"display:none;\"";} ?> id="settingsMainOneLogMenu" onclick="toggleSettingSection({id: 'settingsMainOneLog',formId: 'settingsOneLogVars'});" >
-		OneLog <?php echo $needRefresh; ?>
+		OneLog
 	</li>
 	<li <?php if($enableMultiLog !== "true"){ echo "style = \"display:none;\"";} ?> id="settingsMainMultiLogMenu" onclick="toggleSettingSection({id: 'settingsMainMultiLog',formId: 'settingsMultiLogVars'});" >
 		Multi-Log

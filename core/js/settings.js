@@ -206,6 +206,19 @@ function saveVerified()
 			}
 		}
 	}
+	else if(idForFormMain === "settingsOneLogVars")
+	{
+		if($("#oneLogVisible"))
+		{
+			if($("[name='oneLogVisible']")[0].value !== $("#oneLogVisible")[0].value)
+			{
+				$("#oneLogVisible")[0].value = $("[name='oneLogVisible']")[0].value;
+				setTimeout(function() {
+					toggleVisibleOneLog();
+				}, 2);
+			}
+		}
+	}
 
 	saveSuccess();
 
@@ -236,6 +249,12 @@ function saveVerified()
 		idForFormMain === "settingsMultiLogVars" ||
 		idForFormMain === "settingsInitialLoadLayoutVars"
 	) {
+		refreshJsVars();
+		fadeOutPopup();
+	}
+	else if(idForFormMain === "settingsOneLogVars")
+	{
+		refreshCustomCss();
 		refreshJsVars();
 		fadeOutPopup();
 	}

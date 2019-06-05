@@ -2108,6 +2108,7 @@ $defaultConfigMoreData = array(
 				"bool"								=>	($oneLogCustomStyle == 'false'),
 				"id"								=>	"oneLogNewBlockClickContentSettings",
 				"name"								=>	"One log open new log options",
+				"info"								=>  "Refresh Required if change to false",
 				"type"								=>	"grouped",
 				"var"								=>	array(
 					"function"							=>	"showOrHideOneLogCustomStyleSettings",
@@ -2228,7 +2229,7 @@ $defaultConfigMoreData = array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"oneLogAllLogClear",
-					"name"								=>	"Clear onelog data on all log action",
+					"name"								=>	"Clear onelog data on clear all log action",
 					"options"							=>	$trueFalsVars,
 					"type"								=>	"dropdown"
 				)
