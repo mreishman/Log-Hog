@@ -280,7 +280,8 @@ function saveVerified()
 		idForFormMain === "settingsMultiLogVars" ||
 		idForFormMain === "settingsInitialLoadLayoutVars" ||
 		idForFormMain === "settingsMainVars" ||
-		idForFormMain === "archiveConfig"
+		idForFormMain === "archiveConfig" ||
+		idForFormMain === "settingsPollVars"
 	) {
 		refreshJsVars();
 		fadeOutPopup();
@@ -334,6 +335,11 @@ function refreshJsVars()
 	{
 		//add css to bottom of index page
 		$("#initialLoadContent").append(data);
+		if(idForFormMain === "settingsPollVars")
+		{
+			clearPollTimer();
+			startPollTimer();
+		}
 	},
 	});
 }

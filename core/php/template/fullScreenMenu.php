@@ -87,7 +87,7 @@
 		Log Format
 	</li>
 	<li id="settingsMainPollMenu" onclick="toggleSettingSection({id: 'settingsMainPoll',formId: 'settingsPollVars'});" >
-		Poll <?php echo $needRefresh; ?>
+		Poll
 	</li>
 	<li <?php if($filterEnabled !== "true"){ echo "style = \"display:none;\"";} ?> id="settingsMainFilterMenu" onclick="toggleSettingSection({id: 'settingsMainFilter',formId: 'settingsFilterVars'});" >
 		Filter <?php echo $needRefresh; ?>
