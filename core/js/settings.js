@@ -219,6 +219,37 @@ function saveVerified()
 			}
 		}
 	}
+	else if(idForFormMain === "settingsLogFormatVars")
+	{
+		if($("#logFormatFileEnable") && $("#logFormatFileEnable")[0].value === "true")
+		{
+			if(typeof formatFileLine !== 'function')
+			{
+				script("core/js/formatFile.js");
+			}
+		}
+		if($("#logFormatPhpEnable") && $("#logFormatPhpEnable")[0].value === "true")
+		{
+			if(typeof formatPhpMessage !== 'function')
+			{
+				script("core/js/formatPhp.js");
+			}
+		}
+		if($("#logFormatReportEnable") && $("#logFormatReportEnable")[0].value === "true")
+		{
+			if(typeof formatReportMessage !== 'function')
+			{
+				script("core/js/formatReport.js");
+			}
+		}
+		if($("#logFormatJsObjectEnable") && $("#logFormatJsObjectEnable")[0].value === "true")
+		{
+			if(typeof formatJsonMessage !== 'function')
+			{
+				script("core/js/formatJsObject.js");
+			}
+		}
+	}
 
 	saveSuccess();
 
@@ -254,8 +285,10 @@ function saveVerified()
 		refreshJsVars();
 		fadeOutPopup();
 	}
-	else if(idForFormMain === "settingsOneLogVars")
-	{
+	else if(
+		idForFormMain === "settingsOneLogVars" ||
+		idForFormMain === "settingsLogFormatVars"
+	) {
 		refreshCustomCss();
 		refreshJsVars();
 		fadeOutPopup();

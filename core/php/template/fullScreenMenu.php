@@ -84,7 +84,7 @@
 		Logs <?php echo $needRefresh; ?>
 	</li>
 	<li <?php if($advancedLogFormatEnabled !== "true"){ echo "style = \"display:none;\"";} ?> id="settingsMainLogFormatMenu" onclick="toggleSettingSection({id: 'settingsMainLogFormat',formId: 'settingsLogFormatVars'});" >
-		Log Format <?php echo $needRefresh; ?>
+		Log Format
 	</li>
 	<li id="settingsMainPollMenu" onclick="toggleSettingSection({id: 'settingsMainPoll',formId: 'settingsPollVars'});" >
 		Poll <?php echo $needRefresh; ?>

@@ -36,7 +36,7 @@ function getTypeOfReportSev(message)
 	return false;
 }
 
-function formatReportMessage(message, extraData)
+function formatReportMessage(message, extraData) //used for file check
 {
 	message = message.split(":");
 	let firstPart = message[0];

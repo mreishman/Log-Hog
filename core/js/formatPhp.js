@@ -10,7 +10,7 @@ var phpYellowWarningArr = {
 	0:"PHP Warning"
 };
 
-function formatPhpMessage(message, extraData)
+function formatPhpMessage(message, extraData) //used as file load check
 {
 	var message = message.split("PHP message:");
 	var firstPartOfMessage = message[0];
