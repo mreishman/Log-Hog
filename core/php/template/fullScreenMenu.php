@@ -90,7 +90,7 @@
 		Poll
 	</li>
 	<li <?php if($filterEnabled !== "true"){ echo "style = \"display:none;\"";} ?> id="settingsMainFilterMenu" onclick="toggleSettingSection({id: 'settingsMainFilter',formId: 'settingsFilterVars'});" >
-		Filter <?php echo $needRefresh; ?>
+		Filter
 	</li>
 	<li id="settingsMainArchiveMenu" onclick="toggleSettingSection({id: 'settingsMainArchive',formId: 'archiveConfig'});" >
 		Archive

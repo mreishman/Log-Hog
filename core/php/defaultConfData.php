@@ -542,6 +542,7 @@ $defaultConfigMoreData = array(
 			),
 			1									=>	array(
 				"type"								=>	"single",
+				"info"								=>	"Default value, current session is changed in settings sidebar",
 				"var"								=>	array(
 					"key"								=>	"caseInsensitiveSearch",
 					"name"								=>	"Case Insensitive Search",
@@ -551,6 +552,7 @@ $defaultConfigMoreData = array(
 			),
 			2									=>	array(
 				"type"								=>	"single",
+				"info"								=>	"Default value, current session is changed in settings sidebar",
 				"var"								=>	array(
 					"key"								=>	"filterInvert",
 					"name"								=>	"Invert Search",
@@ -560,6 +562,7 @@ $defaultConfigMoreData = array(
 			),
 			3									=>	array(
 				"type"								=>	"single",
+				"info"								=>	"Default value, current session is changed in settings sidebar",
 				"var"								=>	array(
 					"key"								=>	"filterTitleIncludePath",
 					"name"								=>	"Filter Title Includes Path",
@@ -569,6 +572,7 @@ $defaultConfigMoreData = array(
 			),
 			4									=>	array(
 				"type"								=>	"single",
+				"info"								=>	"Default value, current session is changed in settings sidebar",
 				"var"								=>	array(
 					"key"								=>	"filterTitleIncludeGroup",
 					"name"								=>	"Filter Title Includes Group",
@@ -581,6 +585,7 @@ $defaultConfigMoreData = array(
 				"id"								=>	"highlightContentSettings",
 				"name"								=>	"Filter Highlight Settings",
 				"type"								=>	"grouped",
+				"info"								=>	"Default value, current session is changed in settings sidebar",
 				"var"								=>	array(
 					"function"							=>	"showOrHideFilterHighlightSettings",
 					"id"								=>	"filterContentHighlight",
@@ -608,6 +613,7 @@ $defaultConfigMoreData = array(
 					),
 					2									=>	array(
 						"type"								=>	"single",
+						"info"								=>	"Default value, current session is changed in settings sidebar",
 						"var"								=>	array(
 							"key"								=>	"filterContentHighlightLine",
 							"name"								=>	"Hilight Entire Line",
@@ -619,7 +625,7 @@ $defaultConfigMoreData = array(
 			),
 			6									=>	array(
 				"bool"								=>	($filterContentLimit == 'false'),
-				"info"								=>	"When filtering by content, only show the line (or some sorrounding lines) containing the search content",
+				"info"								=>	"When filtering by content, only show the line (or some sorrounding lines) containing the search content. Default value, current session is changed in settings sidebar",
 				"id"								=>	"filterContentSettings",
 				"name"								=>	"Filter Content Match Settings",
 				"type"								=>	"grouped",
@@ -634,6 +640,7 @@ $defaultConfigMoreData = array(
 				"vars"								=>	array(
 					0									=> array(
 						"type"								=>	"single",
+						"info"								=>	"Default value, current session is changed in settings sidebar",
 						"var"								=>	array(
 							"key"								=>	"filterContentLinePadding",
 							"name"								=>	"Line Padding",

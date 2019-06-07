@@ -258,7 +258,7 @@ function saveVerified()
 		refreshAddonLinks();
 		refreshJsVars();
 	}
-	else if(idForFormMain === "settingsColorFolderGroupVars" || idForFormMain === "generalThemeOptions")
+	else if(idForFormMain === "settingsColorFolderGroupVars" || idForFormMain === "generalThemeOptions" || idForFormMain === "settingsFilterVars")
 	{
 		refreshCustomCss();
 	}
