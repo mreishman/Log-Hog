@@ -1112,6 +1112,7 @@ $defaultConfigMoreData = array(
 				"id"								=>	"logLoadTypeSettings",
 				"name"								=>	"Log Load Type Settings",
 				"type"								=>	"grouped",
+				"info"								=>	"When rendering logs, either render entire log on load, or render visible and slowly render rest in background",
 				"var"								=>	array(
 					"function"							=>	"showOrHidelogLoadTypeSettings",
 					"id"								=>	"logLoadType",

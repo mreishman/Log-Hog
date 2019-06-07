@@ -223,31 +223,38 @@ function saveVerified()
 	{
 		if($("#logFormatFileEnable") && $("#logFormatFileEnable")[0].value === "true")
 		{
-			if(typeof formatFileLine !== 'function')
+			if(typeof formatFileLine !== "function")
 			{
 				script("core/js/formatFile.js");
 			}
 		}
 		if($("#logFormatPhpEnable") && $("#logFormatPhpEnable")[0].value === "true")
 		{
-			if(typeof formatPhpMessage !== 'function')
+			if(typeof formatPhpMessage !== "function")
 			{
 				script("core/js/formatPhp.js");
 			}
 		}
 		if($("#logFormatReportEnable") && $("#logFormatReportEnable")[0].value === "true")
 		{
-			if(typeof formatReportMessage !== 'function')
+			if(typeof formatReportMessage !== "function")
 			{
 				script("core/js/formatReport.js");
 			}
 		}
 		if($("#logFormatJsObjectEnable") && $("#logFormatJsObjectEnable")[0].value === "true")
 		{
-			if(typeof formatJsonMessage !== 'function')
+			if(typeof formatJsonMessage !== "function")
 			{
 				script("core/js/formatJsObject.js");
 			}
+		}
+	}
+	else if(idForFormMain === "settingsLogVars")
+	{
+		if(typeof flashTitle !== "function" && $("[name='flashTitleUpdateLog']")[0].value === "true")
+		{
+			script("core/js/titleFlash.js");
 		}
 	}
 
@@ -276,7 +283,8 @@ function saveVerified()
 	}
 	else if(
 		idForFormMain === "settingsOneLogVars" ||
-		idForFormMain === "settingsLogFormatVars"
+		idForFormMain === "settingsLogFormatVars" ||
+		idForFormMain === "settingsLogVars"
 	) {
 		refreshCustomCss();
 		refreshJsVars();
@@ -347,6 +355,11 @@ function refreshJsVars()
 			{
 				clearPollTimer();
 				startPollTimer();
+			}
+			else if(idForFormMain === "settingsLogVars")
+			{
+				clearLoadPollTimer();
+				startLoadPollTimerDelay();
 			}
 		},
 		});

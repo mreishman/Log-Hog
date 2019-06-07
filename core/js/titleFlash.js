@@ -1,4 +1,4 @@
-function flashTitle()
+function flashTitle() //needed for file check
 {
 	try
 	{
