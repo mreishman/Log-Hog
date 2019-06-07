@@ -129,7 +129,7 @@
 		Logs
 	</li>
 	<li id="settingsAdvancedLocationsMenu" onclick="toggleSettingSection({id: 'settingsAdvancedLocations',formId: 'locationOtherApps'});" >
-		Locations <?php echo $needRefresh; ?>
+		Locations
 	</li>
 	<li id="settingsAdvancedAdvancedMenu" onclick="toggleSettingSection({id: 'settingsAdvancedAdvanced',formId: 'false'});" >
 		Advanced

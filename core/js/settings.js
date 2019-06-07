@@ -253,6 +253,35 @@ function saveVerified()
 
 	saveSuccess();
 
+	if(idForFormMain === "locationOtherApps")
+	{
+		refreshAddonLinks();
+		refreshJsVars();
+	}
+	else if(idForFormMain === "settingsColorFolderGroupVars" || idForFormMain === "generalThemeOptions")
+	{
+		refreshCustomCss();
+	}
+	else if(
+		idForFormMain === "loggingDisplay" ||
+		idForFormMain === "advancedConfig" ||
+		idForFormMain === "settingsWatchlistVars" ||
+		idForFormMain === "settingsMultiLogVars" ||
+		idForFormMain === "settingsInitialLoadLayoutVars" ||
+		idForFormMain === "settingsMainVars" ||
+		idForFormMain === "archiveConfig" ||
+		idForFormMain === "settingsPollVars"
+	) {
+		refreshJsVars();
+	}
+	else if(
+		idForFormMain === "settingsOneLogVars" ||
+		idForFormMain === "settingsLogFormatVars"
+	) {
+		refreshCustomCss();
+		refreshJsVars();
+	}
+
 	if(idForFormMain.includes("themeMainSelection"))
 	{
 		copyThemeStuffPopup("");
@@ -267,32 +296,6 @@ function saveVerified()
 		{
 			location.reload();
 		}
-	}
-	else if(idForFormMain === "settingsColorFolderGroupVars" || idForFormMain === "generalThemeOptions")
-	{
-		refreshCustomCss();
-		fadeOutPopup();
-	}
-	else if(
-		idForFormMain === "loggingDisplay" ||
-		idForFormMain === "advancedConfig" ||
-		idForFormMain === "settingsWatchlistVars" ||
-		idForFormMain === "settingsMultiLogVars" ||
-		idForFormMain === "settingsInitialLoadLayoutVars" ||
-		idForFormMain === "settingsMainVars" ||
-		idForFormMain === "archiveConfig" ||
-		idForFormMain === "settingsPollVars"
-	) {
-		refreshJsVars();
-		fadeOutPopup();
-	}
-	else if(
-		idForFormMain === "settingsOneLogVars" ||
-		idForFormMain === "settingsLogFormatVars"
-	) {
-		refreshCustomCss();
-		refreshJsVars();
-		fadeOutPopup();
 	}
 	else
 	{
@@ -340,6 +343,20 @@ function refreshJsVars()
 			clearPollTimer();
 			startPollTimer();
 		}
+	},
+	});
+}
+
+function refreshAddonLinks()
+{
+	$.ajax({
+		url: "core/php/reloadAddonLinks.php?format=json",
+		data: {},
+		type: "POST",
+	success(data)
+	{
+		//add css to bottom of index page
+		$("#menuAddonLinks").html(data);
 	},
 	});
 }
