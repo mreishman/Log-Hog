@@ -105,7 +105,7 @@
 		Menu Logs<?php echo $needRefresh; ?>
 	</li>
 	<li id="settingsMainMenuFullScreenMenu" onclick="toggleSettingSection({id: 'settingsMainMenuFullScreen',formId: 'settingsFullScreenMenuVars'});" >
-		Menu Full Screen<?php echo $needRefresh; ?>
+		Menu Full Screen
 	</li>
 	<li id="settingsMainWatchlistMenu" onclick="toggleSettingSection({id: 'settingsMainWatchlist',formId: 'settingsWatchlistVars'});" >
 		Watchlist
