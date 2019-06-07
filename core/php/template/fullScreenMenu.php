@@ -96,7 +96,7 @@
 		Archive
 	</li>
 	<li id="settingsMainNotificationsMenu" onclick="toggleSettingSection({id: 'settingsMainNotifications',formId: 'settingsNotificationVars'});" >
-		Notifications <?php echo $needRefresh; ?>
+		Notifications
 	</li>
 	<li id="settingsMainMenuMenu" onclick="toggleSettingSection({id: 'settingsMainMenu',formId: 'settingsMenuVars'});" >
 		Menu <?php echo $needRefresh; ?>
