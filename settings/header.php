@@ -78,7 +78,9 @@ $core->getScripts(
 		<?php endif; ?>
 		<a class="link" href="#archiveConfig" > Archive </a>
 		<a class="link" href="#settingsNotificationVars" > Notifications </a>
-		<a class="link" href="#settingsMenuVars" > Menu </a>
+		<a class="link" href="#settingsMenuVars" > Menu Actions </a>
+		<a class="link" href="#settingsMenuLogVars" > Menu Logs </a>
+		<a class="link" href="#settingsFullScreenMenuVars" > Full Screen Menu </a>
 		<a class="link" href="#settingsWatchlistVars" > Watchlist </a>
 		<?php if($oneLogEnable === "true"): ?>
 			<a class="link" href="#settingsOneLogVars" > OneLog </a>

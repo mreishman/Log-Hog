@@ -1344,7 +1344,7 @@ $defaultConfigMoreData = array(
 	),
 	"menuVars"							=>	array(
 		"id"								=>	"settingsMenuVars",
-		"name"								=>	"Menu Settings",
+		"name"								=>	"Menu Actions Settings",
 		"vars"								=>	array(
 			0									=>	array(
 				"type"								=>	"single",
@@ -1392,7 +1392,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			3									=>	array(
+			4									=>	array(
 				"bool"								=>	($bottomBarIndexShow == 'false'),
 				"id"								=>	"sidebarContentSettings",
 				"name"								=>	"Sidebar Settings",
@@ -1429,8 +1429,14 @@ $defaultConfigMoreData = array(
 						)
 					)
 				)
-			),
-			4									=>	array(
+			)
+		)
+	),
+	"menuLogVars"							=>	array(
+		"id"								=>	"settingsMenuLogVars",
+		"name"								=>	"Menu Logs Settings",
+		"vars"								=>	array(
+			0									=>	array(
 				"bool"								=>	($groupByColorEnabled == 'false'),
 				"id"								=>	"GroupByColorContentSettings",
 				"name"								=>	"Group By Color Settings",
@@ -1462,7 +1468,7 @@ $defaultConfigMoreData = array(
 					)
 				)
 			),
-			5									=>	array(
+			1									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"hideEmptyLog",
@@ -1471,7 +1477,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			6									=>	array(
+			2									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"notificationCountVisible",
@@ -1480,7 +1486,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			7									=>	array(
+			3									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"logTitle",
@@ -1496,7 +1502,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			8									=>	array(
+			4									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"logMenuLocation",
@@ -1518,7 +1524,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			9									=>	array(
+			5									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"logNameFormat",
@@ -1540,7 +1546,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			10									=>	array(
+			6									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"logNameExtension",
@@ -1549,7 +1555,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			11									=>	array(
+			7									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"logNameGroup",
@@ -1558,7 +1564,22 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			12									=>	array(
+			8									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"allLogsVisible",
+					"name"								=>	"Log tabs visible on load",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			)
+		)
+	),
+	"menuFullScreenVars"				=>	array(
+		"id"								=>	"settingsFullScreenMenuVars",
+		"name"								=>	"Full Screen Menu Settings",
+		"vars"								=>	array(
+			0									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"addonsAsIframe",
@@ -1567,7 +1588,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			13									=>	array(
+			1									=>	array(
 				"info"								=>	"1400 Breakpoint shows only images on full screen sidebar, 1000 breakpoint is the same but moves the inner sidebar to the top",
 				"type"								=>	"single",
 				"var"								=>	array(
@@ -1587,16 +1608,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			14									=>	array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"allLogsVisible",
-					"name"								=>	"Log tabs visible on load",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				)
-			),
-			15									=>	array(
+			2									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"fullScreenMenuDefaultPage",

@@ -56,6 +56,10 @@ require_once('../core/php/loadVars.php');
 		include('../core/php/template/varTemplate.php');
 		$currentSection = "menuVars";
 		include('../core/php/template/varTemplate.php');
+		$currentSection = "menuLogVars";
+		include('../core/php/template/varTemplate.php');
+		$currentSection = "menuFullScreenVars";
+		include('../core/php/template/varTemplate.php');
 		$currentSection = "watchlistVars";
 		include('../core/php/template/varTemplate.php');
 		if($oneLogEnable === "true")

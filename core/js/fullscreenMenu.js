@@ -529,8 +529,12 @@ function hideSettingsStuff()
 	$("#settingsMainArchiveMenu").removeClass("selected");
 	document.getElementById("settingsMainNotifications").style.display = "none";
 	$("#settingsMainNotificationsMenu").removeClass("selected");
-	document.getElementById("settingsMainMenu").style.display = "none";
-	$("#settingsMainMenuMenu").removeClass("selected");
+	document.getElementById("settingsMainActionMenu").style.display = "none";
+	$("#settingsMainActionMenuMenu").removeClass("selected");
+	document.getElementById("settingsMainMenuLogs").style.display = "none";
+	$("#settingsMainMenuLogsMenu").removeClass("selected");
+	document.getElementById("settingsMainMenuFullScreen").style.display = "none";
+	$("#settingsMainMenuFullScreenMenu").removeClass("selected");
 	document.getElementById("settingsMainWatchlist").style.display = "none";
 	$("#settingsMainWatchlistMenu").removeClass("selected");
 	document.getElementById("settingsMainOneLog").style.display = "none";

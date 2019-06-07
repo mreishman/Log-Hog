@@ -2055,6 +2055,8 @@ function mainReady()
 		"archiveConfig",
 		"settingsNotificationVars",
 		"settingsMenuVars",
+		"settingsMenuLogVars",
+		"settingsFullScreenMenuVars",
 		"settingsWatchlistVars",
 		"settingsOneLogVars",
 		"settingsMultiLogVars",

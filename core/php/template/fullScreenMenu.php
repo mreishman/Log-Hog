@@ -98,8 +98,14 @@
 	<li id="settingsMainNotificationsMenu" onclick="toggleSettingSection({id: 'settingsMainNotifications',formId: 'settingsNotificationVars'});" >
 		Notifications
 	</li>
-	<li id="settingsMainMenuMenu" onclick="toggleSettingSection({id: 'settingsMainMenu',formId: 'settingsMenuVars'});" >
-		Menu <?php echo $needRefresh; ?>
+	<li id="settingsMainActionMenuMenu" onclick="toggleSettingSection({id: 'settingsMainActionMenu',formId: 'settingsMenuVars'});" >
+		Menu Actions <?php echo $needRefresh; ?>
+	</li>
+	<li id="settingsMainMenuLogsMenu" onclick="toggleSettingSection({id: 'settingsMainMenuLogs',formId: 'settingsMenuLogVars'});" >
+		Menu Logs<?php echo $needRefresh; ?>
+	</li>
+	<li id="settingsMainMenuFullScreenMenu" onclick="toggleSettingSection({id: 'settingsMainMenuFullScreen',formId: 'settingsFullScreenMenuVars'});" >
+		Menu Full Screen<?php echo $needRefresh; ?>
 	</li>
 	<li id="settingsMainWatchlistMenu" onclick="toggleSettingSection({id: 'settingsMainWatchlist',formId: 'settingsWatchlistVars'});" >
 		Watchlist
@@ -253,9 +259,21 @@
 		include('core/php/template/varTemplate.php');
 		?>
 	</div>
-	<div id="settingsMainMenu" style="display: none;" >
+	<div id="settingsMainActionMenu" style="display: none;" >
 		<?php
 		$currentSection = "menuVars";
+		include('core/php/template/varTemplate.php');
+		?>
+	</div>
+	<div id="settingsMainMenuLogs" style="display: none;" >
+		<?php
+		$currentSection = "menuLogVars";
+		include('core/php/template/varTemplate.php');
+		?>
+	</div>
+	<div id="settingsMainMenuFullScreen" style="display: none;" >
+		<?php
+		$currentSection = "menuFullScreenVars";
 		include('core/php/template/varTemplate.php');
 		?>
 	</div>
