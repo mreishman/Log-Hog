@@ -305,60 +305,69 @@ function saveVerified()
 
 function refreshCustomCss()
 {
-	$.ajax({
-		url: "core/php/customIndexCSS.php?format=json",
-		data: {},
-		type: "POST",
-	success(data)
+	if($("#initialLoadContent"))
 	{
-		//add css to bottom of index page
-		$("#initialLoadContent").append(data);
-	},
-	});
+		$.ajax({
+			url: "core/php/customIndexCSS.php?format=json",
+			data: {},
+			type: "POST",
+		success(data)
+		{
+			//add css to bottom of index page
+			$("#initialLoadContent").append(data);
+		},
+		});
 
-	$.ajax({
-		url: "core/php/customCSS.php?format=json",
-		data: {},
-		type: "POST",
-	success(data)
-	{
-		//add css to bottom of index page
-		$("#initialLoadContent").append(data);
-	},
-	});
+		$.ajax({
+			url: "core/php/customCSS.php?format=json",
+			data: {},
+			type: "POST",
+		success(data)
+		{
+			//add css to bottom of index page
+			$("#initialLoadContent").append(data);
+		},
+		});
+	}
 }
 
 function refreshJsVars()
 {
-	$.ajax({
-		url: "core/php/reloadJsVars.php?format=json",
-		data: {},
-		type: "POST",
-	success(data)
+	if($("#initialLoadContent"))
 	{
-		//add css to bottom of index page
-		$("#initialLoadContent").append(data);
-		if(idForFormMain === "settingsPollVars")
+		$.ajax({
+			url: "core/php/reloadJsVars.php?format=json",
+			data: {},
+			type: "POST",
+		success(data)
 		{
-			clearPollTimer();
-			startPollTimer();
-		}
-	},
-	});
+			//add css to bottom of index page
+			$("#initialLoadContent").append(data);
+			if(idForFormMain === "settingsPollVars")
+			{
+				clearPollTimer();
+				startPollTimer();
+			}
+		},
+		});
+	}
 }
 
 function refreshAddonLinks()
 {
-	$.ajax({
-		url: "core/php/reloadAddonLinks.php?format=json",
-		data: {},
-		type: "POST",
-	success(data)
+	if($("#menuAddonLinks"))
 	{
-		//add css to bottom of index page
-		$("#menuAddonLinks").html(data);
-	},
-	});
+		$.ajax({
+			url: "core/php/reloadAddonLinks.php?format=json",
+			data: {},
+			type: "POST",
+		success(data)
+		{
+			//add css to bottom of index page
+			$("#menuAddonLinks").html(data);
+		},
+		});
+	}
 }
 
 function copyThemeStuffPopup(fileLoc = "../")
