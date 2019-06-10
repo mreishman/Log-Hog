@@ -1803,7 +1803,7 @@ function generateWindowDisplayInner()
 				newStyle += " bottom: 0; top: 0; ";
 			}
 			newStyle += " padding: 0px; position: relative; overflow-x: hidden; \"";
-			newBlock = newBlock.replace(/{{customSidebarStyle}}/g, newStyle);
+			newBlock = newBlock.replace(/{{customsidebarstyle}}/g, newStyle);
 			//other
 			if(counterInternal === 0)
 			{

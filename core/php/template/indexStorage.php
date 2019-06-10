@@ -4,7 +4,7 @@
 			<td id="logTd{{counter}}Width" class="logTdWidth addBorder" onclick="changeCurrentSelectWindow('{{counter}}')" style="padding: 0;" >
 				<div style="display: block; position: relative;height: 0;width: 0;padding: 0;" >
 					<div
-					class="backgroundForSideBarMenu addBorder" {{customSidebarStyle}} id="titleContainer{{counter}}">
+					class="backgroundForSideBarMenu addBorder" {{customsidebarstyle}} id="titleContainer{{counter}}">
 						<!-- currentWindowNumSelected OR sidebarCurrentWindowNum -->
 						<p id="numSelectIndecatorForWindow{{counter}}"  class=" {{windowSelect}} " >
 							{{counterPlusOne}}
