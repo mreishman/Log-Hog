@@ -281,7 +281,8 @@ function saveVerified()
 		idForFormMain === "settingsInitialLoadLayoutVars" ||
 		idForFormMain === "settingsMainVars" ||
 		idForFormMain === "archiveConfig" ||
-		idForFormMain === "settingsPollVars"
+		idForFormMain === "settingsPollVars" ||
+		idForFormMain === "settingsMenuLogVars"
 	) {
 		refreshJsVars();
 	}
@@ -313,6 +314,17 @@ function saveVerified()
 	{
 		fadeOutPopup();
 	}
+}
+
+function forceLogMenuRefresh()
+{
+	clearPollTimer();
+	$("#menu a").not("#oneLog").remove()
+	forceIgnoreNotifications = true;
+	generalUpdate();
+	firstLoadEndAction();
+	startPollTimer();
+	resetSelection();
 }
 
 function refreshCustomCss()
@@ -364,6 +376,10 @@ function refreshJsVars()
 			{
 				clearLoadPollTimer();
 				startLoadPollTimerDelay();
+			}
+			else if(idForFormMain === "settingsMenuLogVars")
+			{
+				forceLogMenuRefresh();
 			}
 		},
 		});

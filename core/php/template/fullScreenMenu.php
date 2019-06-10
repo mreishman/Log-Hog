@@ -102,7 +102,7 @@
 		Menu Actions <?php echo $needRefresh; ?>
 	</li>
 	<li id="settingsMainMenuLogsMenu" onclick="toggleSettingSection({id: 'settingsMainMenuLogs',formId: 'settingsMenuLogVars'});" >
-		Menu Logs<?php echo $needRefresh; ?>
+		Menu Logs
 	</li>
 	<li id="settingsMainMenuFullScreenMenu" onclick="toggleSettingSection({id: 'settingsMainMenuFullScreen',formId: 'settingsFullScreenMenuVars'});" >
 		Menu Full Screen
