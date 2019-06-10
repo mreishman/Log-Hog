@@ -257,6 +257,61 @@ function saveVerified()
 			script("core/js/titleFlash.js");
 		}
 	}
+	else if(idForFormMain === "settingsMenuVars")
+	{
+		if($("#clearNotificationsImageHolder"))
+		{
+			if($("[name='hideClearAllNotifications']")[0].value === "false")
+			{
+				$("#clearNotificationsImageHolder").show();
+			}
+			else
+			{
+				$("#clearNotificationsImageHolder").hide()
+			}
+		}
+		if($("#groupsInHeader"))
+		{
+			if($("[name='groupDropdownInHeader']")[0].value === "true")
+			{
+				$("#groupsInHeader").show();
+			}
+			else
+			{
+				$("#groupsInHeader").hide()
+			}
+		}
+		if($("#menuButtonRight"))
+		{
+			if($("[name='filterSearchInHeader']")[0].value === "true")
+			{
+				$("#menuButtonRight").show();
+			}
+			else
+			{
+				$("#menuButtonRight").hide()
+			}
+		}
+		if($("#deleteImage"))
+		{
+			if($("[name='truncateLog']")[0].value === "hide")
+			{
+				$("#deleteImage").show();
+			}
+			else if($("[name='truncateLog']")[0].value === "true")
+			{
+				$("#deleteImage").attr("src", arrayOfImages["eraserMulti"]["src"]);
+				$("#deleteImage").attr("alt", arrayOfImages["eraserMulti"]["alt"]);
+				$("#deleteImage").attr("title", arrayOfImages["eraserMulti"]["title"]);
+			}
+			else if($("[name='truncateLog']")[0].value === "false")
+			{
+				$("#deleteImage").attr("src", arrayOfImages["eraser"]["src"]);
+				$("#deleteImage").attr("alt", arrayOfImages["eraser"]["alt"]);
+				$("#deleteImage").attr("title", arrayOfImages["eraser"]["title"]);
+			}
+		}
+	}
 
 	saveSuccess();
 
@@ -282,7 +337,8 @@ function saveVerified()
 		idForFormMain === "settingsMainVars" ||
 		idForFormMain === "archiveConfig" ||
 		idForFormMain === "settingsPollVars" ||
-		idForFormMain === "settingsMenuLogVars"
+		idForFormMain === "settingsMenuLogVars" ||
+		idForFormMain === "settingsMenuVars"
 	) {
 		refreshJsVars();
 	}
@@ -380,6 +436,10 @@ function refreshJsVars()
 			else if(idForFormMain === "settingsMenuLogVars")
 			{
 				forceLogMenuRefresh();
+			}
+			else if(idForFormMain === "settingsMenuVars")
+			{
+				generateWindowDisplay();
 			}
 		},
 		});

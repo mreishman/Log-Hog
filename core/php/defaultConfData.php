@@ -1369,7 +1369,7 @@ $defaultConfigMoreData = array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"hideClearAllNotifications",
-					"name"								=>	"Show Notification Clear Button",
+					"name"								=>	"Hide Notification Clear Button",
 					"options"							=>	$trueFalsVars,
 					"type"								=>	"dropdown"
 				)

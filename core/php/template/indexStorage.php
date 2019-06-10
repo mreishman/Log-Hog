@@ -4,33 +4,7 @@
 			<td id="logTd{{counter}}Width" class="logTdWidth addBorder" onclick="changeCurrentSelectWindow('{{counter}}')" style="padding: 0;" >
 				<div style="display: block; position: relative;height: 0;width: 0;padding: 0;" >
 					<div
-					class="backgroundForSideBarMenu addBorder"
-					style="
-						<?php
-						if($bottomBarIndexShow == 'false')
-						{
-							echo " display: none; width: 0; ";
-						}
-						else
-						{
-							echo " display: inline-block; width: 31px; ";
-						}
-						if($bottomBarIndexType === "top")
-						{
-							echo " top: 0; ";
-						}
-						elseif($bottomBarIndexType === "bottom")
-						{
-							echo " bottom: 0; ";
-						}
-						elseif($bottomBarIndexType === "full")
-						{
-							echo " bottom: 0; top: 0; ";
-						}
-						?>
-						padding: 0px; position: relative; overflow-x: hidden; "
-					id="titleContainer{{counter}}"
-					>
+					class="backgroundForSideBarMenu addBorder" {{customSidebarStyle}} id="titleContainer{{counter}}">
 						<!-- currentWindowNumSelected OR sidebarCurrentWindowNum -->
 						<p id="numSelectIndecatorForWindow{{counter}}"  class=" {{windowSelect}} " >
 							{{counterPlusOne}}

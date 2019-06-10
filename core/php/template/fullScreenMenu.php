@@ -99,7 +99,7 @@
 		Notifications
 	</li>
 	<li id="settingsMainActionMenuMenu" onclick="toggleSettingSection({id: 'settingsMainActionMenu',formId: 'settingsMenuVars'});" >
-		Menu Actions <?php echo $needRefresh; ?>
+		Menu Actions
 	</li>
 	<li id="settingsMainMenuLogsMenu" onclick="toggleSettingSection({id: 'settingsMainMenuLogs',formId: 'settingsMenuLogVars'});" >
 		Menu Logs

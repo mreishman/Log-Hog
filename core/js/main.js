@@ -1701,6 +1701,18 @@ function pinWindow(windowNum)
 	}
 }
 
+function deleteImageAction()
+{
+	if(truncateLog === "true")
+	{
+		deleteAction();
+	}
+	else if(truncateLog === "false")
+	{
+		clearLog(currentSelectWindow);
+	}
+}
+
 function generateWindowDisplay()
 {
 	var localData = generateWindowDisplayInner();
@@ -1768,6 +1780,31 @@ function generateWindowDisplayInner()
 			var counterInternal = j+(i*windowDisplayConfigColCount);
 			newBlock = newBlock.replace(/{{counter}}/g, counterInternal);
 			newBlock = newBlock.replace(/{{counterPlusOne}}/g, (1+counterInternal));
+			//style
+			let newStyle = "style = \"";
+			if(bottomBarIndexShow === "false")
+			{
+				newStyle += " display: none; width: 0; ";
+			}
+			else
+			{
+				newStyle += " display: inline-block; width: 31px; ";
+			}
+			if(bottomBarIndexType === "top")
+			{
+				newStyle += " top: 0; ";
+			}
+			else if(bottomBarIndexType === "bottomn")
+			{
+				newStyle += " bottom: 0; ";
+			}
+			else if(bottomBarIndexType === "full")
+			{
+				newStyle += " bottom: 0; top: 0; ";
+			}
+			newStyle += " padding: 0px; position: relative; overflow-x: hidden; \"";
+			newBlock = newBlock.replace(/{{customSidebarStyle}}/g, newStyle);
+			//other
 			if(counterInternal === 0)
 			{
 				newBlock = newBlock.replace(/{{windowSelect}}/g, "currentWindowNumSelected");

@@ -109,34 +109,32 @@
 					);
 				?>
 			</div>
-			<?php if($truncateLog == 'true'): ?>
-				<div onclick="deleteAction();"  class="menuImageDiv">
-					<?php echo $core->generateImage(
-						$arrayOfImages["loadingImg"],
-						$imageConfig = array(
-							"id"		=>	"deleteImage",
-							"class"		=>	"menuImage eraserMultiImageForLoad",
-							"height"	=>	"30px",
-							"data-src"	=>	$arrayOfImages["eraserMulti"]
-							)
-						);
-					?>
-				</div>
-			<?php elseif($truncateLog == 'false'): ?>
-				<div onclick="clearLog(currentSelectWindow);" class="menuImageDiv">
-					<?php echo $core->generateImage(
-						$arrayOfImages["loadingImg"],
-						$imageConfig = array(
-							"id"		=>	"deleteImage",
-							"class"		=>	"menuImage eraserForLoad",
-							"height"	=>	"30px",
-							"data-src"	=>	$arrayOfImages["eraser"]
-							)
-						);
-					?>
-				</div>
-			<?php endif; ?>
-			<span <?php if($hideClearAllNotifications === "true"){ echo "style=\" display: none; \""; }?> >
+			<?php
+			$imageForClear = $core->generateImage(
+				$arrayOfImages["loadingImg"],
+				$imageConfig = array(
+					"id"		=>	"deleteImage",
+					"class"		=>	"menuImage eraserMultiImageForLoad",
+					"height"	=>	"30px",
+					"data-src"	=>	$arrayOfImages["eraserMulti"]
+					)
+				);
+			if($truncateLog == 'false'):
+				$imageForClear = $core->generateImage(
+					$arrayOfImages["loadingImg"],
+					$imageConfig = array(
+						"id"		=>	"deleteImage",
+						"class"		=>	"menuImage eraserForLoad",
+						"height"	=>	"30px",
+						"data-src"	=>	$arrayOfImages["eraser"]
+						)
+					);
+			endif;?>
+			<div <?php if($truncateLog === 'hide'){echo "style = 'display: none;'";}?> onclick="deleteImageAction();"  class="menuImageDiv">
+				<?php echo $imageForClear;
+				?>
+			</div>
+			<span id="clearNotificationsImageHolder" <?php if($hideClearAllNotifications === "true"){ echo "style=\" display: none; \""; }?> >
 				<div  id="clearNotificationsImage" style="display: none;" onclick="removeAllNotifications();" class="menuImageDiv">
 					<?php echo $core->generateImage(
 						$arrayOfImages["loadingImg"],
