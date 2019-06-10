@@ -1662,6 +1662,7 @@ $defaultConfigMoreData = array(
 			),
 			1									=>	array(
 				"type"								=>	"single",
+				"info"								=>  "Refresh Required",
 				"var"								=>	array(
 					"key"								=>	"themesEnabled",
 					"name"								=>	"Enable Themes",
@@ -1673,6 +1674,7 @@ $defaultConfigMoreData = array(
 				"bool"								=>	($enableMultiLog == 'false'),
 				"id"								=>	"enableMultiLogSettings",
 				"name"								=>	"Multi-Log settings settings",
+				"info"								=>  "Refresh Required",
 				"type"								=>	"grouped",
 				"var"								=>	array(
 					"function"							=>	"showOrHideenableMultiLog",
@@ -1709,6 +1711,7 @@ $defaultConfigMoreData = array(
 			),
 			3									=>	array(
 				"type"								=>	"single",
+				"info"								=>  "Refresh Required",
 				"var"								=>	array(
 					"key"								=>	"enableHistory",
 					"name"								=>	"Enable History",
@@ -1718,6 +1721,7 @@ $defaultConfigMoreData = array(
 			),
 			4									=>	array(
 				"type"								=>	"single",
+				"info"								=>  "Refresh Required",
 				"var"								=>	array(
 					"key"								=>	"oneLogEnable",
 					"name"								=>	"Enable One Log",
@@ -1727,6 +1731,7 @@ $defaultConfigMoreData = array(
 			),
 			5									=>	array(
 				"type"								=>	"single",
+				"info"								=>  "Refresh Required",
 				"var"								=>	array(
 					"key"								=>	"filterEnabled",
 					"name"								=>	"Enable Filters",
@@ -1736,6 +1741,7 @@ $defaultConfigMoreData = array(
 			),
 			6									=>	array(
 				"type"								=>	"single",
+				"info"								=>  "Refresh Required",
 				"var"								=>	array(
 					"key"								=>	"rightClickMenuEnable",
 					"name"								=>	"Enable Right Click Menu",
@@ -1745,6 +1751,7 @@ $defaultConfigMoreData = array(
 			),
 			7									=>	array(
 				"type"								=>	"single",
+				"info"								=>  "Refresh Required",
 				"var"								=>	array(
 					"key"								=>	"advancedLogFormatEnabled",
 					"name"								=>	"Enable Advanced Log Format Options",

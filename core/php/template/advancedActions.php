@@ -1,14 +1,3 @@
-<?php
-/* Check for backup config stuff */
-$countConfig = 1;
-$showConfigBackupClear = false;
-while (file_exists($core->baseURL()."local/".$currentSelectedTheme."/conf/config".$countConfig.".php"))
-{
-	$showConfigBackupClear = true;
-	$countConfig++;
-}
-$countConfig--;
-?>
 <span id="moreAdvancedSpan">
 	<div id="moreAdvanced" class="settingsHeader">
 		Advanced
@@ -27,18 +16,14 @@ $countConfig--;
 			<li>
 				<a class="link" href="<?php echo $otherSettingsUrlModifier; ?>editFiles.php" >View Files</a>
 			</li>
-			<?php if($backupNumConfigEnabled == 'true'): ?>
-				<li>
-					<a onclick="showConfigPopup();" class="link">View restore options for config</a>
-				</li>
-				<?php if($showConfigBackupClear): ?>
-					<li>
-						<span id="showConfigClearButton">
-							<a onclick="clearBackupFiles();" class="link">Clear (<?php echo $countConfig;?>) Backup Config Files</a>
-						</span>
-					</li>
-				<?php endif; ?>
-			<?php endif; ?>
+			<li>
+				<a onclick="showConfigPopup();" class="link">View restore options for config</a>
+			</li>
+			<li>
+				<span id="showConfigClearButton">
+					<a onclick="clearBackupFiles();" class="link">Clear Backup Config Files</a>
+				</span>
+			</li>
 			<li>
 				<a onclick="resetSettingsPopup();" class="link">Reset Settings back to Default</a>
 			</li>

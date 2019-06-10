@@ -54,7 +54,7 @@ $core->getScripts(
 	<?php else: ?>
 		<a id="AdvancedLink" onclick="goToUrl('advanced.php');">Advanced</a>
 	<?php endif; ?>
-	<a id="DevLink"
+	<a class="DevLink"
 		<?php if(!(($developmentTabEnabled == 'true') || (strpos($URI, 'devTools.php') !== false))):?>
 			style="display: none;
 		<?php endif; ?>

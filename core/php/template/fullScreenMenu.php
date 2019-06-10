@@ -129,7 +129,7 @@
 		Config
 	</li>
 	<li id="settingsAdvancedModulesMenu" onclick="toggleSettingSection({id: 'settingsAdvancedModules',formId: 'modules'});" >
-		Modules <?php echo $needRefresh; ?>
+		Modules
 	</li>
 	<li id="settingsAdvancedLogsMenu" onclick="toggleSettingSection({id: 'settingsAdvancedLogs',formId: 'loggingDisplay'});" >
 		Logs
@@ -148,9 +148,6 @@
 	</li>
 	<li id="settingsAdvancedDevConfigMenu" <?php if($developmentTabEnabled !== "true"){ echo "style = \"display:none;\"";} ?> onclick="toggleSettingSection({id: 'settingsAdvancedDevConfig', formId: 'devConfig'});" >
 		Config
-	</li>
-	<li class="menuTitle fullScreenMenuText">
-		<?php echo $needRefresh; ?> = refresh required
 	</li>
 </ul>
 <div id="mainContentFullScreenMenu">

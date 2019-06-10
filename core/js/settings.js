@@ -130,17 +130,6 @@ function saveVerified()
 			}
 		}
 	}
-	else if(idForFormMain === "advancedConfig")
-	{
-		if(document.getElementsByName("developmentTabEnabled")[0].value === "true")
-		{
-			document.getElementById("DevLink").style.display = "inline-block";
-		}
-		else
-		{
-			document.getElementById("DevLink").style.display = "none";
-		}
-	}
 	else if(idForFormMain === "devBranch")
 	{
 		if($("[name='branchSelected']"))
@@ -310,6 +299,17 @@ function saveVerified()
 				$("#deleteImage").attr("alt", arrayOfImages["eraser"]["alt"]);
 				$("#deleteImage").attr("title", arrayOfImages["eraser"]["title"]);
 			}
+		}
+	}
+	else if(idForFormMain ===  "modules")
+	{
+		if($("[name='developmentTabEnabled']")[0].value === "true")
+		{
+			$(".DevLink").show();
+		}
+		else
+		{
+			$(".DevLink").hide()
 		}
 	}
 

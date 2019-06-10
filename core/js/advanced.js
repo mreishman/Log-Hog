@@ -151,7 +151,6 @@ function verifyNoConfigBackups()
 				clearInterval(advancedSettingsTimeoutVar);
 				saveSuccess();
 				fadeOutPopup();
-				document.getElementById("showConfigClearButton").style.display = "none";
 			}
 		});
 	}
