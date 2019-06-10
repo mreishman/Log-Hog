@@ -1711,7 +1711,6 @@ $defaultConfigMoreData = array(
 			),
 			3									=>	array(
 				"type"								=>	"single",
-				"info"								=>  "Refresh Required",
 				"var"								=>	array(
 					"key"								=>	"enableHistory",
 					"name"								=>	"Enable History",

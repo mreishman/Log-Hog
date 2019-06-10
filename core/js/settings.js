@@ -311,6 +311,20 @@ function saveVerified()
 		{
 			$(".DevLink").hide()
 		}
+		if($("[name='enableHistory']")[0].value === "true")
+		{
+			if(typeof archiveAction !== "function")
+			{
+				script("core/js/archive.js");
+			}
+			$("#mainMenuHistory").show();
+			$("#settingsMainArchiveMenu").show();
+		}
+		else
+		{
+			$("#mainMenuHistory").hide();
+			$("#settingsMainArchiveMenu").hide();
+		}
 	}
 
 	saveSuccess();
@@ -345,7 +359,8 @@ function saveVerified()
 	else if(
 		idForFormMain === "settingsOneLogVars" ||
 		idForFormMain === "settingsLogFormatVars" ||
-		idForFormMain === "settingsLogVars"
+		idForFormMain === "settingsLogVars" ||
+		idForFormMain === "modules"
 	) {
 		refreshCustomCss();
 		refreshJsVars();
