@@ -692,7 +692,7 @@ function update(data)
 		{
 			folderNameCount++;
 		}
-		for(var i = stop - 1; i !== 0; i--)
+		for(var i = 0; i !== stop; i++)
 		{
 			var name = files[i];
 
