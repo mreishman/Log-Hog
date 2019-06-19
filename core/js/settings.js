@@ -300,6 +300,19 @@ function saveVerified()
 				$("#deleteImage").attr("title", arrayOfImages["eraser"]["title"]);
 			}
 		}
+		if($("#menuButtonRight"))
+		{
+			if($("[name='filterSearchInHeader']")[0].value === "true")
+			{
+				$("#menuButtonRight").show();
+				$("#filterSettingsSideBar").hide();
+			}
+			else
+			{
+				$("#menuButtonRight").hide();
+				$("#filterSettingsSideBar").show();
+			}
+		}
 	}
 	else if(idForFormMain ===  "modules")
 	{
@@ -332,9 +345,17 @@ function saveVerified()
 				script("core/js/filter.js");
 			}
 			$("#settingsMainFilterMenu").show();
-			$("#menuButtonRight").show();
-			$("#filterSettingsSideBar").show();
 			$(".searchSideBarImageForLoad").show();
+			if($("[name='filterSearchInHeader']")[0].value === "true")
+			{
+				$("#menuButtonRight").show();
+				$("#filterSettingsSideBar").hide();
+			}
+			else
+			{
+				$("#menuButtonRight").hide();
+				$("#filterSettingsSideBar").show();
+			}
 		}
 		else
 		{
