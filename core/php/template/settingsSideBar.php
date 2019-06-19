@@ -134,7 +134,7 @@ Groups:
 	<br>
 <?php endif; ?>
 <h3 class="addBorderBottom">Header Bar</h3>
-<?php if($oneLogEnable === "true"): ?>
+<span id="oneLogSettingsSideBar" <?php if($oneLogEnable !== "true"){ echo "style='display: none;'";} ?>>
 	Show One Log
 	<span class="selectDiv">
 		<select onchange="toggleVisibleOneLog();" id="oneLogVisible">
@@ -144,7 +144,7 @@ Groups:
 	</span>
 	<br>
 	<br>
-<?php endif; ?>
+</span>
 Hide Log Tabs
 <span class="selectDiv">
 	<select onchange="toggleVisibleAllLogs();" id="allLogsVisible">

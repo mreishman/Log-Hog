@@ -1720,7 +1720,6 @@ $defaultConfigMoreData = array(
 			),
 			4									=>	array(
 				"type"								=>	"single",
-				"info"								=>  "Refresh Required",
 				"var"								=>	array(
 					"key"								=>	"oneLogEnable",
 					"name"								=>	"Enable One Log",

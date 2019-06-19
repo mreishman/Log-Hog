@@ -364,6 +364,28 @@ function saveVerified()
 			$("#filterSettingsSideBar").hide();
 			$(".searchSideBarImageForLoad").hide();
 		}
+		if($("[name='oneLogEnable']")[0].value === "true")
+		{
+			if(typeof addOneLogTab !== "function")
+			{
+				script("core/js/oneLog.js");
+			}
+			$("#settingsMainOneLogMenu").show();
+			if($("#oneLog"))
+			{
+				$("#oneLog").show();
+			}
+			$("oneLogSettingsSideBar").show();
+		}
+		else
+		{
+			$("#settingsMainOneLogMenu").hide();
+			if($("#oneLog"))
+			{
+				$("#oneLog").hide();
+			}
+			$("#oneLogSettingsSideBar").hide();
+		}
 	}
 
 	saveSuccess();

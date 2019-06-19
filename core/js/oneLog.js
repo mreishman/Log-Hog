@@ -3,7 +3,7 @@ var oneLogLogData = {
 	logs: [{logName: "No Logs Updated", logData: "No logs have been updated", logId: "noLogUpdate"}]
 };
 
-function addOneLogTab()
+function addOneLogTab() //check for file load
 {
 	var menu = $("#menu");
 	var blank = $("#storage .menuItem").html();
