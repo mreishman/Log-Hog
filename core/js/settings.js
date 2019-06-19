@@ -386,6 +386,19 @@ function saveVerified()
 			}
 			$("#oneLogSettingsSideBar").hide();
 		}
+		if($("[name='themesEnabled']")[0].value === "true")
+		{
+			if(typeof addOneLogTab !== "function")
+			{
+				script("core/js/themes.js");
+				script("core/js/upgradeTheme.js");
+			}
+			$("#ThemesLink").show();
+		}
+		else
+		{
+			$("#ThemesLink").hide();
+		}
 	}
 
 	saveSuccess();

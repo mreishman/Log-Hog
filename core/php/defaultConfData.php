@@ -1662,7 +1662,6 @@ $defaultConfigMoreData = array(
 			),
 			1									=>	array(
 				"type"								=>	"single",
-				"info"								=>  "Refresh Required",
 				"var"								=>	array(
 					"key"								=>	"themesEnabled",
 					"name"								=>	"Enable Themes",
