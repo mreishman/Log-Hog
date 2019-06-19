@@ -24,7 +24,7 @@
 						</a>
 						<span id="loadLineCountForWindow{{counter}}" class="loadLineCountForWindow" style="font-size: 86%;padding: 0;">
 						</span>
-						<a id="showLogWindowFilter{{counter}}" onclick="showLogWindowFilter('{{counter}}');">
+						<a id="showLogWindowFilter{{counter}}" onclick="showLogWindowFilter('{{counter}}');" style="{{customfilterstyle}}" >
 							<?php echo $core->generateImage(
 								$arrayOfImages["loadingImg"],
 								$imageConfig = array(

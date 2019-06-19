@@ -1804,6 +1804,14 @@ function generateWindowDisplayInner()
 			}
 			newStyle += " padding: 0px; position: relative; overflow-x: hidden; \"";
 			newBlock = newBlock.replace(/{{customsidebarstyle}}/g, newStyle);
+			if(filterEnabled === "true")
+			{
+				newBlock = newBlock.replace(/{{customfilterstyle}}/g, "");
+			}
+			else
+			{
+				newBlock = newBlock.replace(/{{customfilterstyle}}/g, "display: none;");
+			}
 			//other
 			if(counterInternal === 0)
 			{
@@ -2036,6 +2044,12 @@ function mainReady()
 	{
 		$("#searchFieldInput").on("input", function()
 		{
+			possiblyUpdateFromFilter();
+		});
+
+		$("#searchFieldInputSideBar").on("input", function()
+		{
+			$("#searchFieldInput").val($("#searchFieldInputSideBar").val());
 			possiblyUpdateFromFilter();
 		});
 

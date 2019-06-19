@@ -1,7 +1,5 @@
 <h3 class="addBorderBottom">Filters</h3>
-<?php if ($filterSearchInHeader !== "true" && $filterEnabled === "true"): ?>
-	<input id="searchFieldInput" type="search" name="search" placeholder="Filter <?php echo $filterDefault; ?>">
-<?php endif; ?>
+<input <?php if (!($filterSearchInHeader !== "true" && $filterEnabled === "true")){ echo "style='display: none;'";} ?> id="searchFieldInputSideBar" type="search" name="search" placeholder="Filter <?php echo $filterDefault; ?>">
 <span id="groupsSpanSideBar" style="display: none;">
 Groups:
 <span class="selectDiv">
@@ -12,7 +10,7 @@ Groups:
 <br>
 <br>
 </span>
-<?php if ($filterEnabled === "true"): ?>
+<span id="filterSettingsSideBar" <?php if ($filterEnabled !== "true"){ echo "style='display: none;'"; } ?> >
 	Search:
 	<span class="selectDiv" >
 		<select id="searchType" name="searchType">
@@ -86,7 +84,7 @@ Groups:
 	</span>
 	<br>
 	<br>
-<?php endif; ?>
+</span>
 <?php if($enableMultiLog === "true"): ?>
 	<h3 class="addBorderBottom" >Multi-Log</h3>
 	Log Layout

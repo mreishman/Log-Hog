@@ -152,22 +152,20 @@
 		<?php if ($groupDropdownInHeader === "true"): ?>
 			<div id="groupsInHeader"><span id="groupHeaderAllButton" class="linkSmall selected" onclick="addGroupToSelect(event, 'all');" >All</span></div>
 		<?php endif; ?>
-		<?php if ($filterSearchInHeader === "true" && $filterEnabled === "true"): ?>
-			<div id="menuButtonRight" style="float: right;">
-				<span id="showFilterTopBarButton" style="cursor: pointer; padding-right: 5px;" onclick="showFilterTopBar()">
-					<?php echo $core->generateImage(
-						$arrayOfImages["loadingImg"],
-						$imageConfig = array(
-							"id"		=>	"showFilterTopBarImage",
-							"class"		=>	"menuImage showFilterTopBarImageForLoad",
-							"height"	=>	"30px",
-							"data-src"	=>	$arrayOfImages["search"]
-							)
-						);
-					?>
-				</span>
-				<input style="display: none;" id="searchFieldInput" type="search" name="search" placeholder="Filter <?php echo $filterDefault; ?>">
-			</div>
-		<?php endif; ?>
+		<div id="menuButtonRight" style="float: right; <?php if (!($filterSearchInHeader === "true" && $filterEnabled === "true")){ echo " display: none; "; }?> ">
+			<span id="showFilterTopBarButton" style="cursor: pointer; padding-right: 5px;" onclick="showFilterTopBar()">
+				<?php echo $core->generateImage(
+					$arrayOfImages["loadingImg"],
+					$imageConfig = array(
+						"id"		=>	"showFilterTopBarImage",
+						"class"		=>	"menuImage showFilterTopBarImageForLoad",
+						"height"	=>	"30px",
+						"data-src"	=>	$arrayOfImages["search"]
+						)
+					);
+				?>
+			</span>
+			<input style="display: none;" id="searchFieldInput" type="search" name="search" placeholder="Filter <?php echo $filterDefault; ?>">
+		</div>
 	</div>
 </div>

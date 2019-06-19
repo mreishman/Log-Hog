@@ -1730,7 +1730,6 @@ $defaultConfigMoreData = array(
 			),
 			5									=>	array(
 				"type"								=>	"single",
-				"info"								=>  "Refresh Required",
 				"var"								=>	array(
 					"key"								=>	"filterEnabled",
 					"name"								=>	"Enable Filters",

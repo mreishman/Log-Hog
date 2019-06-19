@@ -325,6 +325,24 @@ function saveVerified()
 			$("#mainMenuHistory").hide();
 			$("#settingsMainArchiveMenu").hide();
 		}
+		if($("[name='filterEnabled']")[0].value === "true")
+		{
+			if(typeof getFilterData !== "function")
+			{
+				script("core/js/filter.js");
+			}
+			$("#settingsMainFilterMenu").show();
+			$("#menuButtonRight").show();
+			$("#filterSettingsSideBar").show();
+			$(".searchSideBarImageForLoad").show();
+		}
+		else
+		{
+			$("#settingsMainFilterMenu").hide();
+			$("#menuButtonRight").hide();
+			$("#filterSettingsSideBar").hide();
+			$(".searchSideBarImageForLoad").hide();
+		}
 	}
 
 	saveSuccess();
