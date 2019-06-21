@@ -48,13 +48,13 @@
 				<td style="padding: 0; width: 30px;" >
 					<div class="backgroundForSideBarMenu" style="width: 30px; float: left; display: inline; padding: 0px;">
 						<a style="cursor: pointer;" >
-							<img src="<?php echo $theme; ?>/img/infoSideBar.png" style="padding: 5px;" width="20px;">
+							<img src="<?php echo $theme; ?>/img/info.png" style="padding: 5px;" width="20px;">
 						</a>
 						<a style="cursor: pointer;">
-							<img src="<?php echo $theme; ?>/img/eraserSideBar.png" style="padding: 5px;" width="20px;">
+							<img src="<?php echo $theme; ?>/img/eraser.png" style="padding: 5px;" width="20px;">
 						</a>
 						<a style="cursor: pointer;">
-							<img src="<?php echo $theme; ?>/img/trashCanSideBar.png" style="padding: 5px;" width="20px;">
+							<img src="<?php echo $theme; ?>/img/trashCan.png" style="padding: 5px;" width="20px;">
 						</a>
 						<a style="cursor: pointer;">
 							<img src="<?php echo $theme; ?>/img/downArrowSideBar.png" style="padding: 5px;" width="20px;">

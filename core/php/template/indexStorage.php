@@ -14,10 +14,10 @@
 								$arrayOfImages["loadingImg"],
 								$imageConfig = array(
 									"height"	=>	"20px",
-									"class"		=>	"infoSideBarImageForLoad",
+									"class"		=>	"infoSideBarImageForLoad altImage",
 									"style"		=>	"margin: 5px;",
 									"title"		=>	"More Info",
-									"data-src"	=>	$arrayOfImages["infoSideBar"]
+									"data-src"	=>	$arrayOfImages["info"]
 									)
 								);
 							?>
@@ -29,10 +29,10 @@
 								$arrayOfImages["loadingImg"],
 								$imageConfig = array(
 									"height"	=>	"20px",
-									"class"		=>	"searchSideBarImageForLoad",
+									"class"		=>	"searchSideBarImageForLoad altImage",
 									"style"		=>	"margin: 5px;",
 									"title"		=>	"More Info",
-									"data-src"	=>	$arrayOfImages["searchSideBar"]
+									"data-src"	=>	$arrayOfImages["search"]
 									)
 								);
 							?>
@@ -45,7 +45,7 @@
 									"height"	=>	"20px",
 									"style"		=>	"margin: 5px;",
 									"title"		=>	"Pin Window",
-									"class"		=>	"pinWindow pinImageForLoad multiLogGreaterThanOne",
+									"class"		=>	"pinWindow pinImageForLoad multiLogGreaterThanOne altImage",
 									"data-src"	=>	$arrayOfImages["pin"]
 									)
 								);
@@ -55,7 +55,7 @@
 									"height"	=>	"20px",
 									"style"		=>	"margin: 5px; display: none;",
 									"title"		=>	"Un-Pin Window",
-									"class"		=>	"unPinWindow pinPinnedImageForLoad multiLogGreaterThanOne",
+									"class"		=>	"unPinWindow pinPinnedImageForLoad multiLogGreaterThanOne altImage",
 									"data-src"	=>	$arrayOfImages["pinPinned"]
 									)
 								);
@@ -68,8 +68,8 @@
 									"height"	=>	"20px",
 									"style"		=>	"margin: 5px;",
 									"title"		=>	"Clear Log",
-									"class"		=>	"eraserSideBarImageForLoad",
-									"data-src"	=>	$arrayOfImages["eraserSideBar"]
+									"class"		=>	"eraserSideBarImageForLoad altImage",
+									"data-src"	=>	$arrayOfImages["eraser"]
 									)
 								);
 							?>
@@ -81,8 +81,8 @@
 									"height"	=>	"20px",
 									"style"		=>	"margin: 5px;",
 									"title"		=>	"Delete Log",
-									"class"		=>	"trashCanSideBarImageForLoad",
-									"data-src"	=>	$arrayOfImages["trashCanSideBar"]
+									"class"		=>	"trashCanSideBarImageForLoad altImage",
+									"data-src"	=>	$arrayOfImages["trashCan"]
 									)
 								);
 							?>
@@ -94,8 +94,8 @@
 									"height"	=>	"20px",
 									"style"		=>	"margin: 5px;",
 									"title"		=>	"View Backup",
-									"class"		=>	"historySideBarImageForLoad",
-									"data-src"	=>	$arrayOfImages["historySideBar"]
+									"class"		=>	"historySideBarImageForLoad altImage",
+									"data-src"	=>	$arrayOfImages["history"]
 									)
 								);
 							?>
@@ -107,7 +107,7 @@
 									"height"	=>	"20px",
 									"style"		=>	"margin: 5px;",
 									"title"		=>	"Save Backup",
-									"class"		=>	"historyAddSideBarImageForLoad",
+									"class"		=>	"historyAddSideBarImageForLoad altImage",
 									"data-src"	=>	$arrayOfImages["saveSideBar"]
 									)
 								);
@@ -120,8 +120,8 @@
 									"height"	=>	"20px",
 									"style"		=>	"margin: 5px;",
 									"title"		=>	"Select Log",
-									"class"		=>	"menuSideBarImageForLoad",
-									"data-src"	=>	$arrayOfImages["menuSideBar"]
+									"class"		=>	"menuSideBarImageForLoad altImage",
+									"data-src"	=>	$arrayOfImages["menu"]
 									)
 								);
 							?>
@@ -132,7 +132,7 @@
 								$imageConfig = array(
 									"height"	=>	"20px",
 									"style"		=>	"margin: 5px;",
-									"class"		=>	"closeImageForLoad archiveLogImages",
+									"class"		=>	"closeImageForLoad archiveLogImages altImage",
 									"data-src"	=>	$arrayOfImages["close"]
 									)
 								);
@@ -145,7 +145,7 @@
 									"height"	=>	"20px",
 									"style"		=>	"margin: 5px;",
 									"title"		=>	"Scroll to Bottom",
-									"class"		=>	"downArrowSideBarImageForLoad",
+									"class"		=>	"downArrowSideBarImageForLoad altImage",
 									"data-src"	=>	$arrayOfImages["downArrowSideBar"]
 									)
 								);

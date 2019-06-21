@@ -395,12 +395,6 @@ else
 			"title"			=>	"Clear All",
 			"baseName"		=>	"eraserMulti.png"
 		),
-		"eraserSideBar"		=> array(
-			"alt"			=>	"Clear",
-			"src"			=>	"",
-			"title"			=>	"Clear",
-			"baseName"		=>	"eraserSideBar.png"
-		),
 		"externalLink"		=> array(
 			"alt"			=>	"External Link",
 			"src"			=>	"",
@@ -586,12 +580,6 @@ else
 			"src"			=>	"",
 			"title"			=>	"Search",
 			"baseName"		=>	"search.png"
-		),
-		"searchSideBar"		=> array(
-			"alt"			=>	"Search",
-			"src"			=>	"",
-			"title"			=>	"Search",
-			"baseName"		=>	"searchSideBar.png"
 		),
 		"seleniumMonitor"	=> array(
 			"alt"			=>	"Selenium Monitor",
