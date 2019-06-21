@@ -1085,6 +1085,7 @@ function resize()
 		}
 		else if((logMenuLocation === "left" || logMenuLocation === "right") && allLogsVisible === "true")
 		{
+			targetWidth -= $("#menu").outerWidth();
 			if(menuHeight !== targetHeight)
 			{
 				$("#menu").outerHeight(targetHeight);
