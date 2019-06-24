@@ -9,7 +9,7 @@ if($configStatic['version'] == '7.3') {
 }
 //update info
 $versionCheckArray = array(
-	'version'		=> '7.3',
+	'version'		=> '8.0',
 	'versionList'		=> array(
 		'2.0.1'	        => array(
 			'branchName'	=> '2.0.1Update',
@@ -315,6 +315,13 @@ $versionCheckArray = array(
 			'installSize'   => 9982370,
 			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/7.3.png',
 			'releaseNotes'	=> "<ul><li>Features<ul><li>Faster render times for logs with new format enabled</li></ul></li><li>Bug Fixes<ul><li>Fixed bug in setup where addons would not download correctly</li><li>Fixed bug with loading image on about page / whats new page</li><li>Added easier option to enable or disable date text format for logs</li><li>Fixed window position on update in progress screen</li><li>Fixed bug in update logic when trying to revert changes</li><li>Fixed bug on static update page with popup logic. Should work smoother.</li><li>Small style tweaks / changes</li><li>Fixed bug with remove all archive logs button not working</li><li>Updated update notice logic to show difference of install size if less after update</li></ul></li></ul>"
+		),
+		'8.0'			=> array(
+			'branchName'	=> '8.0Update',
+			'downloadSize'  => 1194861,
+			'installSize'   => 10602634,
+			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/8.0.png',
+			'releaseNotes'	=> "<ul><li>Features<ul><li>Visual Changes<ul><li>Combined loading bars for files and logs into one</li><li>Changed look of fullscreen notifications window to show more notifications</li><li>Changed look of inline notifications popup to show more information</li><li>Search is minimized into icon until click (better for smaller resolution screens)</li><li>Changed look of upgrade script / update pages.</li><li>Small visual changes to main menu</li></ul></li><li>Added more info on error page</li><li>Added option to select default initial page opened in full screen menu</li></ul></li><li>Bug Fixes<ul><li>Group select now uses either ctrl or command / meta key</li><li>Log width now resizes properly on window resize.</li><li>Bugfixes to settings watchlist</li><li>Hides log line load counter when finished loading log lines</li><li>Fixed bug with log list sidebar menu staying open with main log menu position of left or right</li></ul></li></ul>"
 		),
 	)
 );
