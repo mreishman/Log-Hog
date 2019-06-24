@@ -26,6 +26,7 @@ $totalUpgradeScripts = floatval($configVersionToUpgradeTo) - floatval($configVer
 	<title>Log Hog | Updater</title>
 	<link rel="stylesheet" type="text/css" href="../../../core/template/base.css">
 	<link rel="stylesheet" type="text/css" href="../../../core/template/theme.css">
+	<link rel="stylesheet" type="text/css" href="../../../core/template/upgrade.css">
 	<?php require_once("../../../core/php/customCSS.php"); ?>
 	<link rel="icon" type="image/png" href="../../../core/img/favicon.png" />
 	<?php $core->getScript(array(
@@ -35,7 +36,7 @@ $totalUpgradeScripts = floatval($configVersionToUpgradeTo) - floatval($configVer
 	)); ?>
 </head>
 <body>
-<div id="main" style=" position: relative;">
+<div id="upgradeStatusPopup">
 	<div class="settingsHeader" style="text-align: center;" >
 		<span id="titleHeader" >
 			<h1>Running Upgrade Scripts for Config...</h1>
@@ -43,9 +44,8 @@ $totalUpgradeScripts = floatval($configVersionToUpgradeTo) - floatval($configVer
 	</div>
 	<div class="settingsDiv" >
 		<div class="updatingDiv">
-			<p class="addBorderBottom"></p>
 			<div id="innerDisplayUpdate">
-			<table style="padding: 10px;">
+			<table style="padding: 10px; height: 100%;">
 				<tr>
 					<td style="height: 50px;">
 						<img id="runLoad" src="../../../core/img/loading.gif" height="30px;">
@@ -70,7 +70,6 @@ $totalUpgradeScripts = floatval($configVersionToUpgradeTo) - floatval($configVer
 				</tr>
 			</table>
 			</div>
-			<p class="addBorderBottom"></p>
 		</div>
 	</div>
 </div>
@@ -89,6 +88,13 @@ $totalUpgradeScripts = floatval($configVersionToUpgradeTo) - floatval($configVer
 	)
 ); ?>
 <script type="text/javascript">
+	$( document ).ready(function()
+	{
+		$("body").height(""+window.innerHeight+"px");
+	});
+	$( window ).resize(function() {
+		$("body").height(""+window.innerHeight+"px");
+	});
 	var urlForSendMain0 = '../../../core/php/checkVersionOfConfig.php?format=json';
 	var urlForSendMain = '../../../core/php/upgradeScript/upgradeConfig-';
 	var urlForSendMain2 = '.php?format=json';

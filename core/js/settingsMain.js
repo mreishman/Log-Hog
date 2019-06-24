@@ -175,7 +175,7 @@ function selectLogPopup(locationForNewLogText)
 		arrayOfAlreadySelectedLogs.push(document.getElementsByName(selctor[0]+"-"+currentWindow+"-"+selctor[2])[0].value);
 		currentWindow++;
 	}
-	displayLoadingPopup();
+	displayLoadingPopup("../" , "Generating List");
 	var urlForSend = "../core/php/pollCheck.php?format=json";
 	var data = {};
 	$.ajax({

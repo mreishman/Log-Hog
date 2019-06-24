@@ -87,6 +87,11 @@
 
 .backgroundForSideBarMenu {
 	background: $backgroundColorAlt;
+	color: $mainAltColor;
+
+	td {
+		color: $mainAltColor;
+	}
 }
 
 .popupForInfo {
@@ -129,7 +134,6 @@
 
 
 #log {
-  padding: 1em 0;
 
   div {
     padding: .25em 1em;
@@ -311,5 +315,10 @@
 }
 
 .log table:not(.oneLogTable):not(.logCode) tr:not(.highlight):not(.newLine) td:not(.highlight):not(.newLine) div.settingsDiv{
+	color: $mainColor;
+}
+
+.themeDiv {
+	background: $mainAltColor;
 	color: $mainColor;
 }

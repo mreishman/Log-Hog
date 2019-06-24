@@ -1,3 +1,9 @@
+body {
+  border: 0;
+  margin: 0;
+  background-color: lightgray;
+}
+
 .link {
   text-decoration: none;
   padding: 5px;
@@ -5,6 +11,11 @@
   border: 1px solid black;
   cursor: pointer;
   color: black;
+}
+
+.link:hover {
+  background: black;
+  color: white;
 }
 
 .list {
@@ -29,6 +40,8 @@
 
 table {
   width: 100%;
+  border: 0;
+  border-spacing: 0;
 }
 
 #popup {

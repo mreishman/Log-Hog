@@ -224,7 +224,7 @@ function removeArchiveLogFromDisplay(currentLogNum)
 
 function viewBackupFromCurrentLog(currentLogNum)
 {
-	displayLoadingPopup('');
+	displayLoadingPopup('','Generating List');
 	var logId = logDisplayArray[currentLogNum]["id"];
 	$.ajax({
 			url: "core/php/getListOfTmpLogs.php?format=json",
@@ -303,6 +303,6 @@ function saveArchivePopup(currentLogNum)
 {
 	let title = document.getElementById("title"+currentLogNum).textContent;
 	title = filterTitle(title);
-	displayLoadingPopup('');
+	displayLoadingPopup('','Saving...');
 	archiveAction(title, 'archive');
 }

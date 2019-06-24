@@ -306,7 +306,7 @@ function addFileFolderAjax(fileType, sentLocation)
 {
 	currentPatternSelect = defaultNewAddPattern;
 	hidePopup();
-	displayLoadingPopup("");
+	displayLoadingPopup("", "Getting Data");
 	var urlForSend = urlModifier+"core/php/getFileFolderData.php?format=json";
 	var data = {currentFolder: sentLocation, filter: currentPatternSelect};
 	$.ajax({
@@ -1309,6 +1309,7 @@ function getFileFolderList()
 			else
 			{
 				//show message for no watchlist info
+				finishLoadWatchlist();
 			}
 		}
 	});
@@ -1355,21 +1356,27 @@ function ajaxAddRowFirstLoad(currentCount)
 	else
 	{
 		//finished
-		document.getElementById("loadingSpan").style.display = "none";
-		$(".settingsMainWatchSaveChangesButton").css("display","inline-block");
-		document.getElementsByClassName("uniqueClassForAppendSettingsMainWatchNew")[0].style.display = "block";
-		refreshSettingsWatchList();
-		startSettingsPollTimer();
-		if(typeof globalForcePageNavigate !== 'undefined')
-		{
-			globalForcePageNavigate = false;
-		}
-		$( "#fullScreenMenuWatchList" ).off( "mousemove" );
-		$( "#fullScreenMenuWatchList" ).on( "mousemove", function( event )
-		{
-			checkIfNeedToCloseDropdownFileShow(event);
-		});
+		finishLoadWatchlist();
 	}
+}
+
+function finishLoadWatchlist()
+{
+	document.getElementById("loadingSpan").style.display = "none";
+	$(".settingsMainWatchSaveChangesButton").css("display","inline-block");
+	document.getElementsByClassName("uniqueClassForAppendSettingsMainWatchNew")[0].style.display = "block";
+	refreshSettingsWatchList();
+	startSettingsPollTimer();
+	if(typeof globalForcePageNavigate !== 'undefined')
+	{
+		globalForcePageNavigate = false;
+	}
+	$( "#fullScreenMenuWatchList" ).off( "mousemove" );
+	$( "#fullScreenMenuWatchList" ).on( "mousemove", function( event )
+	{
+		checkIfNeedToCloseDropdownFileShow(event);
+	});
+	document.getElementById("watchListSubMenu").style.display = "block";
 }
 
 function checkIfNeedToCloseDropdownFileShow(event)

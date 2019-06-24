@@ -1,6 +1,6 @@
 <h3 class="addBorderBottom">Filters</h3>
 <?php if ($filterSearchInHeader !== "true" && $filterEnabled === "true"): ?>
-	<input disabled id="searchFieldInput" type="search" name="search" placeholder="Filter <?php echo $filterDefault; ?>">
+	<input id="searchFieldInput" type="search" name="search" placeholder="Filter <?php echo $filterDefault; ?>">
 <?php endif; ?>
 <span id="groupsSpanSideBar" style="display: none;">
 Groups:
@@ -15,7 +15,7 @@ Groups:
 <?php if ($filterEnabled === "true"): ?>
 	Search:
 	<span class="selectDiv" >
-		<select id="searchType" disabled name="searchType">
+		<select id="searchType" name="searchType">
 			<option <?php if ($filterDefault === "title"){echo "selected"; }?> value="title">Title</option>
 			<option <?php if ($filterDefault === "content"){echo "selected"; }?> value="content">Content</option>
 		</select>

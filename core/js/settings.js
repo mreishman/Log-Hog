@@ -32,7 +32,7 @@ function saveAndVerifyMain(idForForm)
 {
 	idForFormMain = idForForm;
 	idForm = "#"+idForForm;
-	displayLoadingPopup(dirForAjaxSend); //displayLoadingPopup is defined in popup.php
+	displayLoadingPopup(dirForAjaxSend, "Saving...");
 	data = $(idForm).serializeArray();
 	$.ajax({
         type: "post",
@@ -61,6 +61,7 @@ function verifySaveTimer()
 
 function timerVerifySave()
 {
+	displayLoadingPopup(dirForAjaxSend, "Verifying Save...");
 	countForVerifySave++;
 	if(countForVerifySave < 20)
 	{

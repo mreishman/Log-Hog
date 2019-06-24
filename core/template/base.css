@@ -18,8 +18,8 @@ a {
 #log {
   display: none;
   margin: 0px;
-  padding: 0px;
-  border-spacing: 0px;
+  padding: 0;
+  border-spacing: 0;
   width: 100%;
 }
 
@@ -58,7 +58,7 @@ a {
 
 .iframeThemes {
   width: 598px;
-  border: 0px;
+  border: 0;
   height: 378px;
 }
 
@@ -488,8 +488,19 @@ div.sidebarLeft {
   font-size: 200%;
   text-align: center;
   line-height: 200%;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5%;
+  border-radius: 5px;
+  box-shadow: 5px 0 20px rgba(0, 0, 0, 0.5);
 }
 
+@media only screen and (max-width: 600px) {
+  .errorMessageLog {
+    width: 100%;
+  }
+}
 .errorMessageRedBG {
   background-color: red;
   color: black;
@@ -547,7 +558,7 @@ div.sidebarLeft {
   width: 200px;
   position: absolute;
   bottom: 0;
-  top: 46px;
+  top: 52px;
   left: 0;
   -webkit-padding-start: 0;
   -webkit-margin-before: 0;
@@ -563,7 +574,7 @@ div.sidebarLeft {
   width: 200px;
   position: absolute;
   bottom: 0;
-  top: 46px;
+  top: 52px;
   left: 201;
   -webkit-padding-start: 0;
   -webkit-margin-before: 0;
@@ -578,7 +589,7 @@ div.sidebarLeft {
 #mainContentFullScreenMenu {
   position: absolute;
   bottom: 0;
-  top: 46px;
+  top: 52px;
   left: 402px;
   right: 0;
   overflow: auto;
@@ -632,12 +643,18 @@ div.sidebarLeft {
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
 }
 
-.notificationDiv {
-  padding: 10px 3px;
+.actionLink2 {
+  cursor: pointer;
+  text-align: right;
+  padding-right: 5px;
 }
 
-.inlineNotificationDiv {
-  padding: 5px 3px;
+.notificationDiv {
+  padding: 10px 3px;
+  width: 400px;
+  display: inline-block;
+  border-radius: 5px;
+  margin: 5px;
 }
 
 .notificationContainerInlineButtons {
@@ -666,7 +683,6 @@ div.sidebarLeft {
   display: none;
   position: absolute;
   width: 500px;
-  padding: 4px;
   z-index: 100;
 }
 
@@ -803,12 +819,6 @@ div.sidebarLeft {
   width: 75px;
   cursor: default;
 }
-.notificationDiv span:not(.linkSmall) table .actionLink, inlineNotificationDiv span:not(.linkSmall) table .actionLink {
-  width: 50px;
-}
-.notificationDiv span:not(.linkSmall) table .actionLink2, inlineNotificationDiv span:not(.linkSmall) table .actionLink2 {
-  width: 75px;
-}
 .notificationDiv span:not(.linkSmall) table .actionNone, inlineNotificationDiv span:not(.linkSmall) table .actionNone {
   cursor: default;
 }
@@ -831,10 +841,7 @@ div.sidebarLeft {
 .divForProgressBar {
   width: 80%;
   height: 100px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: -15px;
-  margin-bottom: -15px;
+  margin: -15px auto -15px auto;
 }
 
 .progressBar {
@@ -874,26 +881,6 @@ div.sidebarLeft {
 
 #connectionWarning {
   color: red;
-}
-
-#initialLoadContentEvenEvenMoreInfo {
-  color: red;
-  display: none;
-}
-
-#initialLoadContent {
-  background-color: #222;
-  color: #EEE;
-  -webkit-transition: 1s ease-in-out;
-  -moz-transition: 1s ease-in-out;
-  -ms-transition: 1s ease-in-out;
-  -o-transition: 1s ease-in-out;
-  position: absolute;
-  z-index: 1000;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
 }
 
 #popup {
@@ -942,7 +929,7 @@ div.sidebarLeft {
   z-index: 10;
   top: 0;
   margin: 0;
-  top: 46px;
+  top: 52px;
 }
 
 #notificationHolder {
@@ -957,6 +944,10 @@ div.sidebarLeft {
 
 .inputWidth {
   width: 400px;
+}
+
+.closeInlineNotification {
+  cursor: pointer;
 }
 
 /*# sourceMappingURL=base.css.map */

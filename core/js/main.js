@@ -6,7 +6,7 @@ var arrayOfData2 = null;
 var arrayOfDataMain = {};
 var arrayOfDataSettings = [];
 var arrayOfFileData = [];
-var arrayOfScrollHeaderUpdate = ["aboutSpanAbout","aboutSpanInfo","aboutSpanGithub"];
+var arrayOfScrollHeaderUpdate = [];
 var borderPadding = 0;
 var breakPointOne = 1400;
 var breakPointTwo = 1000;
@@ -46,7 +46,6 @@ var pollLoadTimer = null;
 var pollRefreshAllBoolStatic = pollRefreshAllBool;
 var pollSkipCounter = 0;
 var pollTimer = null;
-var progressBar;
 var refreshing = false;
 var refreshPauseActionVar;
 var sideBarVisible = true;
@@ -1090,7 +1089,16 @@ function resize()
 				$("#menu").outerHeight(targetHeight);
 			}
 		}
-		let tdElementWidth = (targetWidth/windowDisplayConfigColCount).toFixed(0);
+		if(document.getElementById("settingsSideBar"))
+		{
+			targetWidth -= document.getElementById("settingsSideBar").getBoundingClientRect().width;
+		}
+		if(document.getElementById("moreInfoSideBar"))
+		{
+			targetWidth -= document.getElementById("moreInfoSideBar").getBoundingClientRect().width;
+		}
+		document.getElementById("log").style.width = "" + targetWidth + "px";
+		let tdElementWidth = (targetWidth/windowDisplayConfigColCount).toFixed(0) - (windowDisplayConfigColCount * 4);
 		let trElementHeight = ((targetHeight-borderPadding)/windowDisplayConfigRowCount).toFixed(0);
 		let logDisplayArrayKeys = Object.keys(logDisplayArray);
 		let logDisplayArrayKeysCount = logDisplayArrayKeys.length;
@@ -1605,11 +1613,13 @@ function updateProgressBar(additonalPercent, text, topText = "Loading...")
 		if(firstLoad)
 		{
 			percent = percent + additonalPercent;
-			progressBar.set(percent);
-			$("#progressBarSubInfo").empty();
-			$("#progressBarSubInfo").append(text);
-			$("#progressBarMainInfo").empty();
-			$("#progressBarMainInfo").append(topText);
+			document.getElementById("initialLoadProgress").value = (percent / 2) + 50;
+			updatePopupLog(text);
+			if(document.getElementById("initialLoadContentInfo").innerHTML !== "Loading Logs")
+			{
+				document.getElementById("initialLoadContentInfo").innerHTML = "Loading Logs";
+			}
+			document.getElementById("initialLoadContentCountInfo").innerHTML = topText;
 		}
 	}
 	catch(e)
@@ -1768,11 +1778,11 @@ function generateWindowDisplayInner()
 			if(document.getElementById("log"+counterInternal))
 			{
 				arrayOfPrevLogs[counterInternal] = $("#log"+counterInternal).html();
-				newBlock = newBlock.replace(/{{loadingStyle}}/g, "");
+				newBlock = newBlock.replace(/{{loading_style}}/g, "");
 			}
 			else
 			{
-				newBlock = newBlock.replace(/{{loadingStyle}}/g, "style=\"display: none\"");
+				newBlock = newBlock.replace(/{{loading_style}}/g, "display: none");
 			}
 			logDisplayHtml += newBlock;
 			var newPopupHolder = $("#storage .popuopInfoHolder").html();
@@ -1833,6 +1843,7 @@ function unhideAllHidden()
 	let logDisplayArrayKeysCount = logDisplayArrayKeys.length;
 	for(let i = 0; i < logDisplayArrayKeysCount; i++)
 	{
+		$("#loadLineCountForWindow"+i).html("");
 		if(unhideHidden(i))
 		{
 			unhidLines = true;
@@ -1976,9 +1987,8 @@ function mainReady()
 		toggleVisibleOneLog();
 	}
 	dirForAjaxSend = "";
-	progressBar = new ldBar("#progressBar");
 	resize();
-	updateProgressBar(10, "Generating File List");
+	updateProgressBar(10, "Generating Log List","Generating Log List");
 	window.addEventListener("resize", resize);
 	window.addEventListener("focus", focus);
 

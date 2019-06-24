@@ -78,6 +78,10 @@
 
 .backgroundForSideBarMenu {
   background: #c4ad89;
+  color: black;
+}
+.backgroundForSideBarMenu td {
+  color: black;
 }
 
 .popupForInfo {
@@ -118,9 +122,6 @@
   border-top: 0;
 }
 
-#log {
-  padding: 1em 0;
-}
 #log div {
   padding: 0.25em 1em;
 }
@@ -282,6 +283,11 @@
 }
 
 .log table:not(.oneLogTable):not(.logCode) tr:not(.highlight):not(.newLine) td:not(.highlight):not(.newLine) div.settingsDiv {
+  color: white;
+}
+
+.themeDiv {
+  background: black;
   color: white;
 }
 

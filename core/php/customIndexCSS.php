@@ -188,14 +188,23 @@ elseif($logMenuLocation === "bottom"): ?>
   border: 1px solid <?php echo $notificationInlineFontColor; ?>;
 }
 
-.inlineNotificationsClass , .inlineNotificationsClass td{
+.inlineNotificationsClass td{
   background-color: <?php echo $notificationInlineBGColor; ?>;
   color: <?php echo $notificationInlineFontColor; ?>;
+  padding: 5px;
+}
+
+.inlineNotificationsClass td.invert{
+  -webkit-filter: invert(100%); /* Safari */
+  filter: invert(100%);
 }
 
 <?php if($notificationPreviewHideWidth === "true"): ?>
 @media only screen and (max-width: 1000px) {
 	.notificationPreviewLog{
+		display: none;
+	}
+	.previewButtonNotification {
 		display: none;
 	}
 }
@@ -226,6 +235,32 @@ elseif($logMenuLocation === "bottom"): ?>
 		display: none;
 	}
 <?php endif; ?>
+
+progress {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  width: 100%;
+  height: 20px;
+}
+
+progress::-webkit-progress-bar {
+  background-color: rgba(0,0,0,.3);
+  width: 100%;
+}
+
+progress{ /* for FF target directly the element */
+  background-color: rgba(0,0,0,.3);
+  width: 100%;
+}
+
+progress::-webkit-progress-value {
+  background-color: #FFF !important;
+}
+
+progress::-moz-progress-bar { /* for FF ::progress-bar is the value bar */
+  background-color: #FFF !important;
+}
 
 </style>
 

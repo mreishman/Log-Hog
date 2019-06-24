@@ -155,7 +155,7 @@ function pollTwoPartTwo(data)
 	{
 		if(firstLoad)
 		{
-			updateProgressBar(10, "Generating File Object");
+			updateProgressBar(10, "Generating File Object","Generating File Object");
 		}
 		t2 = performance.now();
 		filesNew = Object.keys(data);
@@ -271,7 +271,7 @@ function pollThree(arrayToUpdate)
 				{
 					currentFileSize = "Unknown File Size";
 				}
-				updateProgressBar(10,arrayUpdateKeys[0],  "Loading file 1 of "+arrayUpdateKeys.length+" <br>  "+currentFileSize);
+				updateProgressBar(10,arrayUpdateKeys[0] + "(" + currentFileSize + ")",  "Log: 1 of "+arrayUpdateKeys.length);
 				getFileSingle(arrayUpdateKeys.length-1, arrayUpdateKeys.length-1);
 			}
 			else
@@ -373,16 +373,16 @@ function getFileSingle(current)
 			{
 				var arrayUpdateKeys = Object.keys(arrayToUpdate);
 				var currentNew = this.currentFile;
-				var updateBy = (1/arrayUpdateKeys.length)*60;
+				var updateBy = (1/arrayUpdateKeys.length)*70;
 				if(currentNew > 0)
 				{
-					updateProgressBar(updateBy, arrayUpdateKeys[currentNew-1], "Loading file "+(arrayUpdateKeys.length+1-currentNew)+" of "+arrayUpdateKeys.length+" <br>  "+formatBytes(fileData[arrayUpdateKeys[currentNew-1]]["size"]));
+					updateProgressBar(updateBy, arrayUpdateKeys[currentNew-1] + "(" + formatBytes(fileData[arrayUpdateKeys[currentNew-1]]["size"]) + ")", "Log: "+(arrayUpdateKeys.length+1-currentNew)+" of "+arrayUpdateKeys.length);
 					currentNew--;
 					setTimeout(function(){ getFileSingle(currentNew); }, 100);
 				}
 				else
 				{
-					updateProgressBar(updateBy, "", "Finishing loading....");
+					updateProgressBar(updateBy, "Finishing loading....", "Finishing loading");
 					generalUpdate();
 					afterPollFunctionComplete();
 				}
@@ -440,9 +440,25 @@ function firstLoadEndAction()
 		document.getElementById("menu").style.display = "block";
 	}
 	document.getElementById("menuButtons").style.display = "block";
+
 	document.getElementById("firstLoad").style.display = "none";
-	document.getElementById("searchType").disabled = false;
-	document.getElementById("searchFieldInput").disabled = false;
+	$('#initialLoadContent').addClass("hidden");
+	setTimeout(function()
+	{
+		if($("#initialLoadContent").hasClass("hidden"))
+		{
+			document.getElementById('initialLoadContent').style.display = "none";
+		}
+	}, 1000);
+	$('#initialLoadContentBackground').addClass("hidden");
+	setTimeout(function()
+	{
+		if($("#initialLoadContentBackground").hasClass("hidden"))
+		{
+			document.getElementById('initialLoadContentBackground').style.display = "none";
+		}
+	}, 1500);
+
 	document.getElementById("log").style.display = "table";
 	var targetLength = Object.keys(logDisplayArray).length;
 	if($("#menu .active").length < targetLength)

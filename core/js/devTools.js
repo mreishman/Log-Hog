@@ -16,7 +16,7 @@ function checkIfChanges()
 
 function saveConfigStatic()
 {
-	displayLoadingPopup();
+	displayLoadingPopup("../","Saving Confit Static");
 	var data = $("#devAdvanced2").serializeArray();
 	$.ajax({
         type: "post",
@@ -34,7 +34,8 @@ function newVersionNumberCheck()
 {
 	try
 	{
-		$.getJSON("../core/php/configStaticCheck.php", {}, function(data) 
+		displayLoadingPopup("../","Verifying Version");
+		$.getJSON("../core/php/configStaticCheck.php", {}, function(data)
 		{
 			var dataExt = document.getElementById("versionNumberConfigStaticInput").value;
 			if(dataExt === data["version"])
@@ -51,7 +52,7 @@ function newVersionNumberCheck()
 	}
 }
 
-$( document ).ready(function() 
+$( document ).ready(function()
 {
 	refreshArrayObjectOfArrays(["devBranch","devAdvanced2"]);
 

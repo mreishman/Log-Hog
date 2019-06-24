@@ -57,6 +57,10 @@ $fileNameArray = array(
         "name"      =>  "Version Check",
         "path"      =>  "core/php/versionCheck.php"
     ),
+    "Update"   =>  array(
+        "name"      =>  "Update",
+        "path"      =>  "core/php/class/update.php"
+    ),
     "Updater"   =>  array(
         "name"      =>  "Updater",
         "path"      =>  "update/updater.php"
@@ -72,5 +76,9 @@ $fileNameArray = array(
     "updateActionCheck" =>  array(
         "name"      =>  "Update Action Check",
         "path"      =>  "update/updateActionCheck.php"
+    ),
+    "Upgrade"   =>  array(
+        "name"      =>  "Upgrade",
+        "path"      =>  "core/php/class/upgrade.php"
     ),
 );

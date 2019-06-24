@@ -128,6 +128,12 @@
 				"Name"			=>	"The Archive",
 				"BP"			=>	array("Added archive for logs","Save logs from button on right","Save backup of more than on log (1-5, in settings)"),
 				"Images"		=>	array("7.2-1.png","7.2-2.png","7.2-3.png")
+			),
+			21	=>	array(
+				"Version"		=>	"8.0",
+				"Name"			=>	"The Partial Redesign",
+				"BP"			=>	array("Merged both loading bars into one!","Log search is now an icon (click to expand)","Notification Redesign"),
+				"Images"		=>	array("8.0-1.png","8.0-2.png","8.0-3.png")
 			)
 		);
 		$dataForWhatsNew = array_reverse($dataForWhatsNew);

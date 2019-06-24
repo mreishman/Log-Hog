@@ -48,7 +48,7 @@
 								);
 							?>
 						</a>
-						<span id="loadLineCountForWindow{{counter}}" class="loadLineCountForWindow" style="font-size: 86%;padding: 0;color: black;">
+						<span id="loadLineCountForWindow{{counter}}" class="loadLineCountForWindow" style="font-size: 86%;padding: 0;">
 						</span>
 						<a id="showLogWindowFilter{{counter}}" onclick="showLogWindowFilter('{{counter}}');">
 							<?php echo $core->generateImage(
@@ -183,7 +183,7 @@
 					<input id="searchFieldInput-{{counter}}" type="search" placeholder="Filter Log Content" style="height: 30px; width: 200px;">
 				</span>
 				<span id="log{{counter}}Td"  class="logTrHeight" style="overflow: auto; display: block; word-break: break-all;" >
-					<div id="log{{counter}}load" {{loadingStyle}} class="errorMessageLog">
+					<div id="log{{counter}}load" style="{{loading_style}}" class="errorMessageLog">
 						<?php echo $core->generateImage(
 							$arrayOfImages["loading"],
 							$imageConfig = array(

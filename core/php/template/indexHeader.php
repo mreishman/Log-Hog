@@ -156,7 +156,19 @@
 		<?php endif; ?>
 		<?php if ($filterSearchInHeader === "true" && $filterEnabled === "true"): ?>
 			<div id="menuButtonRight" style="float: right;">
-				<input disabled id="searchFieldInput" type="search" name="search" placeholder="Filter <?php echo $filterDefault; ?>">
+				<span id="showFilterTopBarButton" style="cursor: pointer; padding-right: 5px;" onclick="showFilterTopBar()">
+					<?php echo $core->generateImage(
+						$arrayOfImages["loadingImg"],
+						$imageConfig = array(
+							"id"		=>	"showFilterTopBarImage",
+							"class"		=>	"menuImage showFilterTopBarImageForLoad",
+							"height"	=>	"30px",
+							"data-src"	=>	$arrayOfImages["search"]
+							)
+						);
+					?>
+				</span>
+				<input style="display: none;" id="searchFieldInput" type="search" name="search" placeholder="Filter <?php echo $filterDefault; ?>">
 			</div>
 		<?php endif; ?>
 	</div>

@@ -40,6 +40,7 @@ if((strval($baseFileVersion) === strval($oldFileVersion)) && (file_exists("../..
 	<title>Log Hog | Updater</title>
 	<link rel="stylesheet" type="text/css" href="../../../core/template/base.css">
 	<link rel="stylesheet" type="text/css" href="../../../core/template/theme.css">
+	<link rel="stylesheet" type="text/css" href="../../../core/template/upgrade.css">
 	<?php require_once("../../../core/php/customCSS.php"); ?>
 	<link rel="icon" type="image/png" href="../../../core/img/favicon.png" />
 	<?php $core->getScript(array(
@@ -49,76 +50,74 @@ if((strval($baseFileVersion) === strval($oldFileVersion)) && (file_exists("../..
 	)); ?>
 </head>
 <body>
-<div id="main" style=" position: relative;">
-	<div class="settingsHeader" style="text-align: center;" >
-		<span id="titleHeader" >
-			<h1>Copying over Theme files to local/<?php echo $currentSelectedTheme; ?>/theme...</h1>
-		</span>
-	</div>
-	<div class="settingsDiv" >
-		<div class="updatingDiv">
-			<p class="addBorderBottom"></p>
-			<div id="innerDisplayUpdate">
-				<table style="padding: 10px;">
-					<tr>
-						<td style="height: 50px;">
-							<?php echo $core->generateImage(
-								$arrayOfImages["loading"],
-								array(
-									"height"		=>	"30px",
-									"srcModifier"	=>	"../../../",
-									"id"			=>	"runLoad"
-								)
-							); ?>
-							<?php echo $core->generateImage(
-								$arrayOfImages["greenCheck"],
-								array(
-									"height"		=>	"30px",
-									"srcModifier"	=>	"../../../",
-									"id"			=>	"runCheck",
-									"style"			=>	"display: none;"
-								)
-							); ?>
-						</td>
-						<td style="width: 20px;">
-						</td>
-						<td>
-							Copying Images / CSS
-						</td>
-					</tr>
-					<tr>
-						<td style="height: 50px;">
-							<?php echo $core->generateImage(
-								$arrayOfImages["loading"],
-								array(
-									"height"		=>	"30px",
-									"srcModifier"	=>	"../../../",
-									"id"			=>	"verifyLoad",
-									"style"			=>	"display: none;"
-								)
-							); ?>
-							<?php echo $core->generateImage(
-								$arrayOfImages["greenCheck"],
-								array(
-									"height"		=>	"30px",
-									"srcModifier"	=>	"../../../",
-									"id"			=>	"verifyCheck",
-									"style"			=>	"display: none;"
-								)
-							); ?>
-						</td>
-						<td style="width: 20px;">
-						</td>
-						<td>
-							Verifying Copied files
-						</td>
-					</tr>
-				</table>
+	<div id="upgradeStatusPopup">
+		<div class="settingsHeader" style="text-align: center;" >
+			<span id="titleHeader" >
+				<h1>Copying over Theme files to local/<?php echo $currentSelectedTheme; ?>/theme...</h1>
+			</span>
+		</div>
+		<div class="settingsDiv" >
+			<div class="updatingDiv">
+				<div id="innerDisplayUpdate">
+					<table style="padding: 10px; height: 100%;">
+						<tr>
+							<td style="height: 50px;">
+								<?php echo $core->generateImage(
+									$arrayOfImages["loading"],
+									array(
+										"height"		=>	"30px",
+										"srcModifier"	=>	"../../../",
+										"id"			=>	"runLoad"
+									)
+								); ?>
+								<?php echo $core->generateImage(
+									$arrayOfImages["greenCheck"],
+									array(
+										"height"		=>	"30px",
+										"srcModifier"	=>	"../../../",
+										"id"			=>	"runCheck",
+										"style"			=>	"display: none;"
+									)
+								); ?>
+							</td>
+							<td style="width: 20px;">
+							</td>
+							<td>
+								Copying Images / CSS
+							</td>
+						</tr>
+						<tr>
+							<td style="height: 50px;">
+								<?php echo $core->generateImage(
+									$arrayOfImages["loading"],
+									array(
+										"height"		=>	"30px",
+										"srcModifier"	=>	"../../../",
+										"id"			=>	"verifyLoad",
+										"style"			=>	"display: none;"
+									)
+								); ?>
+								<?php echo $core->generateImage(
+									$arrayOfImages["greenCheck"],
+									array(
+										"height"		=>	"30px",
+										"srcModifier"	=>	"../../../",
+										"id"			=>	"verifyCheck",
+										"style"			=>	"display: none;"
+									)
+								); ?>
+							</td>
+							<td style="width: 20px;">
+							</td>
+							<td>
+								Verifying Copied files
+							</td>
+						</tr>
+					</table>
+				</div>
 			</div>
-			<p class="addBorderBottom"></p>
 		</div>
 	</div>
-</div>
 </body>
 <?php $core->getScripts(array(
 		array(
@@ -137,7 +136,11 @@ if((strval($baseFileVersion) === strval($oldFileVersion)) && (file_exists("../..
 	var themeChangeLogicDirModifier = "../";
 	$( document ).ready(function()
 	{
+		$("body").height(""+window.innerHeight+"px");
 		copyFilesThemeChange();
+	});
+	$( window ).resize(function() {
+		$("body").height(""+window.innerHeight+"px");
 	});
 
 	function redirectToLocationFromUpgradeTheme()

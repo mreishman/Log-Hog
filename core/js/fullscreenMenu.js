@@ -33,6 +33,46 @@ function toggleFullScreenMenu(force = false)
 		{
 			updateNotificationStuff();
 		}
+		else if($("#mainFullScreenMenu li.selected").length === 0)
+		{
+			//first load of full screen menu, switch to defined initial page
+			if(fullScreenMenuDefaultPage !== "none")
+			{
+				if(fullScreenMenuDefaultPage === "about")
+				{
+					toggleAbout();
+				}
+				else if(fullScreenMenuDefaultPage === "addons")
+				{
+					toggleAddons();
+				}
+				else if(fullScreenMenuDefaultPage === "history")
+				{
+					toggleHistory();
+				}
+				else if(fullScreenMenuDefaultPage === "notifications")
+				{
+					toggleNotifications();
+				}
+				else if(fullScreenMenuDefaultPage === "settings")
+				{
+					toggleSettings();
+				}
+				else if(fullScreenMenuDefaultPage === "themes")
+				{
+					toggleThemes();
+				}
+				else if(fullScreenMenuDefaultPage === "update")
+				{
+					toggleUpdateMenu();
+				}
+				else if(fullScreenMenuDefaultPage === "watchlist")
+				{
+					toggleWatchListMenu();
+				}
+			}
+		}
+		resizeFullScreenMenu();
 		var fullScreenMenuClickCountCurrent = fullScreenMenuClickCount;
 		setTimeout(function() {
 			togglePollSpeedDown(fullScreenMenuClickCountCurrent);
@@ -73,8 +113,9 @@ function toggleUpdateMenu(force = false)
 	hideSidebar();
 	document.getElementById("fullScreenMenuUpdate").style.display = "block";
 	$("#mainMenuUpdate").addClass("selected");
-	arrayOfScrollHeaderUpdate = ["updateUpdate","updateReleaseNotes"];
+	arrayOfScrollHeaderUpdate = [];
 	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
+	resizeFullScreenMenu();
 }
 
 function toggleAddons(force = false)
@@ -93,6 +134,7 @@ function toggleAddons(force = false)
 	$("#mainMenuAddons").addClass("selected");
 	arrayOfScrollHeaderUpdate = [];
 	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
+	resizeFullScreenMenu();
 }
 
 function toggleHistory(force = false)
@@ -120,6 +162,7 @@ function toggleTmpSaveHistory()
 	document.getElementById("fullScreenMenuHistory").style.display = "block";
 	$("#tempSaveHistory").addClass("selected");
 	getListOfTmpHistoryLogs();
+	resizeFullScreenMenu();
 }
 
 function toggleArchiveHistory()
@@ -128,6 +171,7 @@ function toggleArchiveHistory()
 	document.getElementById("fullScreenMenuArchive").style.display = "block";
 	$("#archiveHistory").addClass("selected");
 	getListOfArchiveLogs();
+	resizeFullScreenMenu();
 }
 
 function toggleSettings(force = false)
@@ -146,6 +190,7 @@ function toggleSettings(force = false)
 	$("#mainMenuSettings").addClass("selected");
 	arrayOfScrollHeaderUpdate = [];
 	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
+	resizeFullScreenMenu();
 }
 
 function toggleAbout(force = false)
@@ -199,6 +244,7 @@ function toggleMainThemes(force = false)
 	document.getElementById("fullScreenMenuTheme").style.display = "block";
 	arrayOfScrollHeaderUpdate = ["themeSpan"];
 	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
+	resizeFullScreenMenu();
 }
 
 function toggleGeneralThemeStyle(force = false)
@@ -218,6 +264,7 @@ function toggleGeneralThemeStyle(force = false)
 	arrayOfDataSettings = ["generalThemeOptions"];
 	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
 	startSettingsPollTimer();
+	resizeFullScreenMenu();
 }
 
 function toggleThemesIframeSource(showOrHide)
@@ -258,6 +305,7 @@ function toggleThemeColorScheme(force = false)
 	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
 	startSettingsPollTimer();
 	reAddJsColorPopupForCustomThemes();
+	resizeFullScreenMenu();
 }
 
 function toggleFullScreenMenuMainContent()
@@ -292,6 +340,7 @@ function toggleAboutLogHog()
 	$("#aboutSubMenuAbout").addClass("selected");
 	arrayOfScrollHeaderUpdate = ["aboutSpanAbout","aboutSpanInfo","aboutSpanGithub"];
 	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
+	resizeFullScreenMenu();
 }
 
 function toggleWhatsNew()
@@ -302,6 +351,7 @@ function toggleWhatsNew()
 	$("#aboutSubMenuWhatsNew").addClass("selected");
 	arrayOfScrollHeaderUpdate = ["fullScreenMenuWhatsNew"];
 	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
+	resizeFullScreenMenu();
 }
 
 function toggleChangeLog()
@@ -311,6 +361,7 @@ function toggleChangeLog()
 	$("#aboutSubMenuChangelog").addClass("selected");
 	arrayOfScrollHeaderUpdate = ["fullScreenMenuChangeLog"];
 	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
+	resizeFullScreenMenu();
 }
 
 function toggleWatchListMenu(force = false)
@@ -344,6 +395,7 @@ function toggleWatchListMenu(force = false)
 	arrayOfScrollHeaderUpdate = ["settingsMainWatch"];
 	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
 	$(".settingsMainWatchSaveChangesButton").css("display","none");
+	document.getElementById("watchListSubMenu").style.display = "none";
 	if(typeof loadWatchList !== "function")
 	{
 		setTimeout(function() {
@@ -356,6 +408,7 @@ function toggleWatchListMenu(force = false)
 			timerForWatchlist = setInterval(tryLoadWatch, 100);
 		}, 25);
 	}
+	resizeFullScreenMenu();
 }
 
 function tryLoadWatch()
@@ -602,10 +655,10 @@ function onScrollShowFixedMiniBar(idsOfForms)
 	for (var i = idsOfForms.length - 1; i >= 0; i--)
 	{
 		var currentPos = document.getElementById(idsOfForms[i]).getBoundingClientRect().top;
-		var topCheck = 46;
+		var topCheck = 52;
 		if(window.innerWidth < breakPointTwo || sideBarOnlyIcons === "breakpointtwo")
 		{
-			topCheck = 82;
+			topCheck = 88;
 		}
 		if(currentPos < topCheck)
 		{
@@ -614,10 +667,10 @@ function onScrollShowFixedMiniBar(idsOfForms)
 			{
 				document.getElementById("fixedPositionMiniMenu").style.display = "block";
 			}
-			var fixedPositionMiniMenuTop = "46px";
+			var fixedPositionMiniMenuTop = "52px";
 			if(window.innerWidth < breakPointTwo || sideBarOnlyIcons === "breakpointtwo")
 			{
-				fixedPositionMiniMenuTop = "82px";
+				fixedPositionMiniMenuTop = "88px";
 			}
 			if(document.getElementById("fixedPositionMiniMenu").style.top !== fixedPositionMiniMenuTop)
 			{
@@ -647,7 +700,7 @@ function resizeFullScreenMenu()
 		{
 			mainContentFullScreenMenuLeft = "201";
 		}
-		var mainContentFullScreenMenuTop = "46px";
+		var mainContentFullScreenMenuTop = "52px";
 		if(sideBarOnlyIcons === "breakpointone" || targetWidth < breakPointOne || sideBarOnlyIcons === "breakpointtwo")
 		{
 			$(".fullScreenMenuText").hide();
@@ -677,7 +730,7 @@ function resizeFullScreenMenu()
 			mainContentFullScreenMenuLeft = "52";
 			if(sideBarVisible)
 			{
-				mainContentFullScreenMenuTop = "82px";
+				mainContentFullScreenMenuTop = "88px";
 			}
 			$(".settingsUlSub").css("width","auto").css("bottom","auto").css("right","0").addClass("addBorderBottom").removeClass("addBorderRight").css("height","35px");
 			$(".settingsUlSub li").not(".subMenuToggle").css("display","inline-block");
@@ -699,9 +752,9 @@ function resizeFullScreenMenu()
 		{
 			document.getElementById("mainContentFullScreenMenu").style.top = mainContentFullScreenMenuTop;
 		}
-		if(document.getElementById("notificationHolder").style.maxWidth !== (window.innerWidth - mainContentFullScreenMenuLeft)+"px")
+		if(document.getElementById("notificationHolder").style.width !== (window.innerWidth - mainContentFullScreenMenuLeft)+"px")
 		{
-			document.getElementById("notificationHolder").style.maxWidth = (window.innerWidth - mainContentFullScreenMenuLeft)+"px";
+			document.getElementById("notificationHolder").style.width = (window.innerWidth - mainContentFullScreenMenuLeft)+"px";
 		}
 	}
 	catch(e)

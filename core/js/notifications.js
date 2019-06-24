@@ -47,17 +47,13 @@ function clearAllNotifications()
 function displayNotifications()
 {
 	clearAllNotifications();
-	var htmlForNotifications = "<span style=\"display: block;\" >";
+	var htmlForNotifications = "<span id=\"notificationHolderLeft\" style=\"display: block;\" >";
 	var unreadNotifications = "";
 	var readNotifications = "";
 	for (var i = notifications.length - 1; i >= 0; i--)
 	{
 		var blank;
 		var blankMod = "";
-		if(window.innerWidth < breakPointTwo)
-		{
-			blankMod += "Small";
-		}
 		if("image" in notifications[i])
 		{
 			blankMod += "WithImage";
@@ -75,26 +71,12 @@ function displayNotifications()
 		item = item.replace(/{{name}}/g, notifications[i]["name"]);
 		item = item.replace(/{{time}}/g, notifications[i]["time"]);
 		item = item.replace(/{{action}}/g, notifications[i]["action"]);
-		if("newText" in notifications[i] && notifications[i]["newText"] !== "" && notifications[i]["newText"] !== "undefined" && notificationPreviewShow === "true")
+		let hidePreview = "";
+		if(!("newText" in notifications[i] && notifications[i]["newText"] !== "" && notifications[i]["newText"] !== "undefined" && notificationPreviewShow === "true"))
 		{
-			var logTextToShow = "";
-			var tmpLogText = notifications[i]["newText"].split("\n");
-			var tmpLogTextLength = tmpLogText.length;
-			var max = notificationPreviewLineCount;
-			if(max > tmpLogTextLength)
-			{
-				max = tmpLogTextLength;
-			}
-			for(var tltc = 0; tltc < max; tltc++)
-			{
-				logTextToShow += "\n"+tmpLogText[tltc];
-			}
-			item = item.replace(/{{previewText}}/g, "<div style=\"max-height: "+notificationPreviewHeight+"px;\" class=\"notificationPreviewLog\" ><table width=\"100%\" style=\"border-spacing: 0;\" >" + makePrettyWithText(logTextToShow, 0) + "</table></div>");
+			hidePreview = "style=\"display:none\"";
 		}
-		else
-		{
-			item = item.replace(/{{previewText}}/g, "");
-		}
+		item = item.replace(/{{hidePreview}}/g, hidePreview);
 		if("image" in notifications[i])
 		{
 			item = item.replace(/{{image}}/g, notifications[i]["image"]);
@@ -110,15 +92,61 @@ function displayNotifications()
 	}
 	if(unreadNotifications !== "")
 	{
-		htmlForNotifications += "<div style=\"filter: invert(100%);\" class=\"menuTitle fullScreenNotificationTitle\" >Unread</div>" + unreadNotifications;
+		htmlForNotifications += unreadNotifications;
 	}
 	if(readNotifications !== "")
 	{
-		htmlForNotifications += "<div style=\"filter: invert(100%);\" class=\"menuTitle fullScreenNotificationTitle\" >Read</div>" + readNotifications;
+		htmlForNotifications += readNotifications;
 	}
-	htmlForNotifications += "</span>";
+	htmlForNotifications += "</span><span id=\"notificationHolderRight\"></span>";
 	$("#notificationHolder").append(htmlForNotifications);
 	$("#notificationHolder").append($("#storage .notificationButtons").html());
+}
+
+function previewNotification(logId)
+{
+	var logTextToShow = "";
+	var tmpLogText = notifications[logId]["newText"].split("\n");
+	var tmpLogTextLength = tmpLogText.length;
+	var max = notificationPreviewLineCount;
+	if(max > tmpLogTextLength)
+	{
+		max = tmpLogTextLength;
+	}
+	for(var tltc = 0; tltc < max; tltc++)
+	{
+		logTextToShow += "\n"+tmpLogText[tltc];
+	}
+	let modifier = "";
+	if(window.innerWidth < breakPointTwo)
+	{
+		modifier = "style=\"max-height: "+notificationPreviewHeight+"px;\"";
+	}
+	document.getElementById("notificationHolderRight").innerHTML = "<div "+modifier+" class=\"notificationPreviewLog\" ><table width=\"100%\" style=\"border-spacing: 0;\" >" + makePrettyWithText(logTextToShow, 0) + "</table></div>";
+
+	if(window.innerWidth >= breakPointTwo)
+	{
+		//style as two column
+		document.getElementById("notificationHolderLeft").style.width = "450px";
+		document.getElementById("notificationHolderLeft").style.display = "inline-block";
+
+		document.getElementById("notificationHolderRight").style.display = "inline-block";
+		let prevWidth = parseInt(document.getElementById("notificationHolder").style.width.replace(/\D/g,'')) - 450;
+		document.getElementById("notificationHolderRight").style.width = ""+prevWidth+"px";
+	}
+	else
+	{
+		//style as one column
+	}
+	$(".closePreviewLogButton").show();
+}
+
+function closePreviewLog()
+{
+	document.getElementById("notificationHolderRight").innerHTML = "";
+	document.getElementById("notificationHolderLeft").style.width = "auto";
+	document.getElementById("notificationHolderLeft").style.display = "block";
+	$(".closePreviewLogButton").hide();
 }
 
 function removeAllNotifications()
@@ -419,15 +447,7 @@ function inlineNotificationPollLogic(force = false)
 		var currentThing = inlineNotificationPollArray[0];
 		inlineNotificationPollArray.shift();
 		//show notification
-		var blank;
-		if("image" in currentThing)
-		{
-			blank = $("#storage .notificationContainerInlineWithImage").html();
-		}
-		else
-		{
-			blank = $("#storage .notificationContainerInline").html();
-		}
+		var blank = $("#storage .notificationContainerInline").html();
 		var item = blank;
 		item = item.replace(/{{name}}/g, currentThing["name"]);
 		item = item.replace(/{{time}}/g, currentThing["time"]);
@@ -435,6 +455,10 @@ function inlineNotificationPollLogic(force = false)
 		if("image" in currentThing)
 		{
 			item = item.replace(/{{image}}/g, currentThing["image"]);
+		}
+		else
+		{
+			item = item.replace(/{{image}}/g, "<img src=\""+arrayOfImages["infoSideBar"]["src"]+"\" alt=\""+arrayOfImages["infoSideBar"]["alt"]+"\" title=\""+arrayOfImages["infoSideBar"]["title"]+"\" height=\"20px\">");
 		}
 		$("#inlineNotifications").html(item);
 		document.getElementById("inlineNotifications").style.display = "block";

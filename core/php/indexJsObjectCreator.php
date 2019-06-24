@@ -317,6 +317,14 @@ if($windowConfig !== "1x1")
 		"class" => "pinPinnedImageForLoad"
 	);
 }
+if ($filterSearchInHeader === "true" && $filterEnabled === "true")
+{
+	$arrayOfFiles[] = array(
+		"name" => $baseUrl . "img/search.png",
+		"type" => "img",
+		"class" => "showFilterTopBarImageForLoad"
+	);
+}
 function compareByName($a, $b) {
   return strcmp($a["name"], $b["name"]);
 }
