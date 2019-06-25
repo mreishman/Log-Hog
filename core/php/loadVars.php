@@ -473,12 +473,6 @@ else
 			"title"			=>	"Info",
 			"baseName"		=>	"info.png"
 		),
-		"infoSideBar"		=> array(
-			"alt"			=>	"Info",
-			"src"			=>	"",
-			"title"			=>	"Info",
-			"baseName"		=>	"infoSideBar.png"
-		),
 		"loading"			=> array(
 			"alt"			=>	"Loading",
 			"src"			=>	"",

@@ -117,7 +117,7 @@ $arrayOfFiles = array(
 		"class" =>"refreshImageForLoad"
 	),
 	array(
-		"name" => $baseUrl . "img/infoSideBar.png",
+		"name" => $baseUrl . "img/info.png",
 		"type" =>"img",
 		"class" =>"infoSideBarImageForLoad"
 	),
