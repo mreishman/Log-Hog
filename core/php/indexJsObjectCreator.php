@@ -132,7 +132,7 @@ $arrayOfFiles = array(
 		"class" =>"eraserSideBarImageForLoad"
 	),
 	array(
-		"name" => $baseUrl . "img/trashCanSideBar.png",
+		"name" => $baseUrl . "img/trashCan.png",
 		"type" =>"img",
 		"class" =>"trashCanSideBarImageForLoad"
 	),
@@ -152,7 +152,7 @@ $arrayOfFiles = array(
 		"class" =>"menuSideBarImageForLoad"
 	),
 	array(
-		"name" => $baseUrl . "img/historySideBar.png",
+		"name" => $baseUrl . "img/history.png",
 		"type" =>"img",
 		"class" =>"historySideBarImageForLoad"
 	),

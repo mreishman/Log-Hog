@@ -467,12 +467,6 @@ else
 			"title"			=>	"History",
 			"baseName"		=>	"history.png"
 		),
-		"historySideBar"	=> array(
-			"alt"			=>	"History",
-			"src"			=>	"",
-			"title"			=>	"History",
-			"baseName"		=>	"historySideBar.png"
-		),
 		"info"			=> array(
 			"alt"			=>	"Info",
 			"src"			=>	"",
@@ -610,12 +604,6 @@ else
 			"src"			=>	"",
 			"title"			=>	"Delete Multiple",
 			"baseName"		=>	"trashCanMulti.png"
-		),
-		"trashCanSideBar"	=> array(
-			"alt"			=>	"Delete",
-			"src"			=>	"",
-			"title"			=>	"Delete",
-			"baseName"		=>	"trashCanSideBar.png"
 		),
 		"updateYellow"		=> array(
 			"alt"			=>	"Update",
