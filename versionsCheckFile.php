@@ -9,7 +9,7 @@ if($configStatic['version'] == '7.3') {
 }
 //update info
 $versionCheckArray = array(
-	'version'		=> '8.0',
+	'version'		=> '8.1',
 	'versionList'		=> array(
 		'2.0.1'	        => array(
 			'branchName'	=> '2.0.1Update',
@@ -346,6 +346,13 @@ $versionCheckArray = array(
 			'installSize'   => 10602634,
 			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/8.0.png',
 			'releaseNotes'	=> "<ul><li>Features<ul><li>Visual Changes<ul><li>Combined loading bars for files and logs into one</li><li>Changed look of fullscreen notifications window to show more notifications</li><li>Changed look of inline notifications popup to show more information</li><li>Search is minimized into icon until click (better for smaller resolution screens)</li><li>Changed look of upgrade script / update pages.</li><li>Small visual changes to main menu</li></ul></li><li>Added more info on error page</li><li>Added option to select default initial page opened in full screen menu</li></ul></li><li>Bug Fixes<ul><li>Group select now uses either ctrl or command / meta key</li><li>Log width now resizes properly on window resize.</li><li>Bugfixes to settings watchlist</li><li>Hides log line load counter when finished loading log lines</li><li>Fixed bug with log list sidebar menu staying open with main log menu position of left or right</li></ul></li></ul>"
+		),
+		'8.1'			=> array(
+			'branchName'	=> '8.1Update',
+			'downloadSize'  => 773325,
+			'installSize'   => 10545145,
+			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/8.1.png',
+			'releaseNotes'	=> "<ul><li>Features<ul><li>Settings pages moved to main menu</li></ul></li><li>Bug Fixes<ul><li>Slightly quicker load times with css because of minification</li><li>Fixed issues with Firefox not using custom progress bar styles on update page</li><li>Saving general theme options or folder group color options now correctly fades out success message popup</li><li>Per window filter now hidden if filters disabled</li><li>Log will properly resize when log menu on left or right</li></ul></li></ul>"
 		),
 		
 	)
