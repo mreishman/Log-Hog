@@ -40,6 +40,11 @@ if(isset($_POST['arrayToUpdate']))
 	{
 		try
 		{
+			$localSliceSize = $sliceSize;
+			if(isset($pathData["sliceSize"]))
+			{
+				$localSliceSize = $pathData["sliceSize"];
+			}
 			$time_start = microtime(true);
 			$lineCount = "---";
 			$filename = preg_replace('/([()"])/S', '$1', $path);
@@ -77,11 +82,11 @@ if(isset($_POST['arrayToUpdate']))
 				//poll logic
 				if($pathData["GrepFilter"] == "")
 				{
-					$dataVar =  $poll->tail($filename, $sliceSize, $shellOrPhp);
+					$dataVar =  $poll->tail($filename, $localSliceSize, $shellOrPhp);
 				}
 				else
 				{
-					$dataVar = $poll->tailWithGrep($filename, $sliceSize, $shellOrPhp, $pathData["GrepFilter"]);
+					$dataVar = $poll->tailWithGrep($filename, $localSliceSize, $shellOrPhp, $pathData["GrepFilter"]);
 				}
 			}
 			$dataVar = htmlentities($dataVar);
