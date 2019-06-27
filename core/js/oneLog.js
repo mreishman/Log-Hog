@@ -254,7 +254,10 @@ function possiblyUpdateOneLogVisibleData()
 	var oneLogPos = isOneLogVisible();
 	if(oneLogPos !== false)
 	{
-		$("#log"+oneLogPos).html(makeOneLogPretty());
+		if(!checkIfCurrentLogIsPaused(oneLogPos))
+		{
+			$("#log"+oneLogPos).html(makeOneLogPretty());
+		}
 	}
 }
 

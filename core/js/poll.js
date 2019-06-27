@@ -895,6 +895,14 @@ function update(data)
 								logDisplayArray[currentIdPos]["scroll"] = updateHtml;
 							}
 
+							if(updateHtml && currentIdPos === -1)
+							{
+								if(checkIfCurrentLogIsPaused(currentIdPos))
+								{
+									updateHtml = false;
+								}
+							}
+
 
 							if(updateHtml)
 							{

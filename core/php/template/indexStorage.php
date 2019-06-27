@@ -24,6 +24,32 @@
 						</a>
 						<span id="loadLineCountForWindow{{counter}}" class="loadLineCountForWindow" style="font-size: 86%;padding: 0;">
 						</span>
+						<a id="pauseSingleLog{{counter}}" onclick="toggleSingleLogPause('{{counter}}');">
+							<?php echo $core->generateImage(
+								$arrayOfImages["loadingImg"],
+								$imageConfig = array(
+									"height"	=>	"20px",
+									"class"		=>	"pauseImageForLoad altImage",
+									"style"		=>	"margin: 5px;",
+									"title"		=>	"Pause",
+									"data-src"	=>	$arrayOfImages["pause"]
+									)
+								);
+							?>
+						</a>
+						<a id="playSingleLog{{counter}}" onclick="toggleSingleLogPause('{{counter}}');" style="display: none;">
+							<?php echo $core->generateImage(
+								$arrayOfImages["loadingImg"],
+								$imageConfig = array(
+									"height"	=>	"20px",
+									"class"		=>	"playImageForLoad altImage",
+									"style"		=>	"margin: 5px;",
+									"title"		=>	"Play",
+									"data-src"	=>	$arrayOfImages["play"]
+									)
+								);
+							?>
+						</a>
 						<a id="showLogWindowFilter{{counter}}" onclick="showLogWindowFilter('{{counter}}');" style="{{customfilterstyle}}" >
 							<?php echo $core->generateImage(
 								$arrayOfImages["loadingImg"],

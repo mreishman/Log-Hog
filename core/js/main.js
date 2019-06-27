@@ -2018,6 +2018,31 @@ function toggleVisibleAllLogs()
 	resize();
 }
 
+function toggleSingleLogPause(currentLogNum)
+{
+	if(document.getElementById("pauseSingleLog"+currentLogNum).style.display === "none")
+	{
+		//currently paused
+		document.getElementById("pauseSingleLog"+currentLogNum).style.display = "inline-block";
+		document.getElementById("playSingleLog"+currentLogNum).style.display = "none";
+	}
+	else
+	{
+		//currently unpaused
+		document.getElementById("pauseSingleLog"+currentLogNum).style.display = "none";
+		document.getElementById("playSingleLog"+currentLogNum).style.display = "inline-block";
+	}
+}
+
+function checkIfCurrentLogIsPaused(currentLogNum)
+{
+	if(document.getElementById("pauseSingleLog"+currentLogNum).style.display === "none")
+	{
+		return true;
+	}
+	return false;
+}
+
 function mainReady()
 {
 	if(window.innerWidth > breakPointTwo)
