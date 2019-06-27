@@ -2025,6 +2025,7 @@ function toggleSingleLogPause(currentLogNum)
 		//currently paused
 		document.getElementById("pauseSingleLog"+currentLogNum).style.display = "inline-block";
 		document.getElementById("playSingleLog"+currentLogNum).style.display = "none";
+		generalUpdate();
 	}
 	else
 	{
