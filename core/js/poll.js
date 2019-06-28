@@ -425,6 +425,8 @@ function getFileSinglePostLoadWithData(data, currentLogNum)
 			{
 				$("#log"+currentLogNum+"load").hide();
 				$("#log"+currentLogNum+"TopButtons").show();
+				$("#singleLogRefreshLoading"+currentLogNum).hide();
+				$("#singleLogRefresh"+currentLogNum).show();
 				polling = false;
 				singleLogRefreshTimerLoad = true;
 			}

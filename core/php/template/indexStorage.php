@@ -50,6 +50,31 @@
 								);
 							?>
 						</a>
+						<a id="singleLogRefresh{{counter}}" onclick="singleLogRefresh('{{counter}}');">
+							<?php echo $core->generateImage(
+								$arrayOfImages["loadingImg"],
+								$imageConfig = array(
+									"height"	=>	"20px",
+									"class"		=>	"refreshImageForLoad altImage",
+									"style"		=>	"margin: 5px;",
+									"title"		=>	"Refresh",
+									"data-src"	=>	$arrayOfImages["refresh"]
+									)
+								);
+							?>
+						</a>
+						<a id="singleLogRefreshLoading{{counter}}" style="display: none; cursor: default;">
+							<?php echo $core->generateImage(
+								$arrayOfImages["loadingImg"],
+								$imageConfig = array(
+									"height"	=>	"20px",
+									"class"		=>	"altImage",
+									"style"		=>	"margin: 5px;",
+									"title"		=>	"Refreshing",
+									)
+								);
+							?>
+						</a>
 						<a id="showLogWindowFilter{{counter}}" onclick="showLogWindowFilter('{{counter}}');" style="{{customfilterstyle}}" >
 							<?php echo $core->generateImage(
 								$arrayOfImages["loadingImg"],

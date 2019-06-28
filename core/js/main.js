@@ -2073,6 +2073,8 @@ function singleLogRefreshInner(currentLogNum, modifiedSliceSize)
 		singleLogRefreshTimerLoad = false;
 		$("#log"+currentLogNum+"load").show();
 		$("#log"+currentLogNum+"TopButtons").hide();
+		$("#singleLogRefreshLoading"+currentLogNum).show();
+		$("#singleLogRefresh"+currentLogNum).hide();
 		singleLogRefreshTimer = setInterval(function() {
 			singleLogRefreshPoll(currentLogNum, modifiedSliceSize);
 		}, 1);
