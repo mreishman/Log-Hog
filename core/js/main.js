@@ -49,6 +49,8 @@ var pollTimer = null;
 var refreshing = false;
 var refreshPauseActionVar;
 var sideBarVisible = true;
+var singleLogRefreshTimer = null;
+var singleLogRefreshTimerLoad = true;
 var startedPauseOnNonFocus = false;
 var startOfPollLogicRan = false;
 var t0 = performance.now();
@@ -268,6 +270,20 @@ function getPositionOfLogInLogDisplay(id)
 		}
 	}
 	return false;
+}
+
+function getFileDataKeyFromLogId(logId)
+{
+	let fileDataKeys = Object.keys(fileData);
+	let fileDataKeysCount = fileDataKeys.length;
+	for(let i = 0; i < fileDataKeysCount; i++)
+	{
+		if(logId === filterIdText(fileDataKeys[i]))
+		{
+			return fileDataKeys[i];
+		}
+	}
+	return "";
 }
 
 function getLogIdFromText(text)
@@ -703,7 +719,7 @@ function removeFromMultiLog(idOfName)
 
 function removeLogFromDisplay(currentLogNum)
 {
-	var internalID = logDisplayArray[currentLogNum]["id"];
+	let internalID = logDisplayArray[currentLogNum]["id"];
 	if(internalID.indexOf("ogogackup") === 0)
 	{
 		removeArchiveLogFromDisplay(currentLogNum);
@@ -2032,6 +2048,51 @@ function toggleSingleLogPause(currentLogNum)
 		//currently unpaused
 		document.getElementById("pauseSingleLog"+currentLogNum).style.display = "none";
 		document.getElementById("playSingleLog"+currentLogNum).style.display = "inline-block";
+	}
+}
+
+function singleLogLoadMore(currentLogNum)
+{
+	let internalID = logDisplayArray[currentLogNum]["id"];
+	let internalKey = getFileDataKeyFromLogId(internalID);
+	let modifiedSliceSize = "" + (sliceSize + parseInt(fileData[internalKey]["sliceSize"]));
+	singleLogRefreshInner(currentLogNum, modifiedSliceSize);
+}
+
+function singleLogRefresh(currentLogNum)
+{
+	let internalID = logDisplayArray[currentLogNum]["id"];
+	let internalKey = getFileDataKeyFromLogId(internalID);
+	singleLogRefreshInner(currentLogNum, fileData[internalKey]["sliceSize"]);
+}
+
+function singleLogRefreshInner(currentLogNum, modifiedSliceSize)
+{
+	if(singleLogRefreshTimer === null && singleLogRefreshTimerLoad)
+	{
+		singleLogRefreshTimerLoad = false;
+		$("#log"+currentLogNum+"load").show();
+		$("#log"+currentLogNum+"TopButtons").hide();
+		singleLogRefreshTimer = setInterval(function() {
+			singleLogRefreshPoll(currentLogNum, modifiedSliceSize);
+		}, 1);
+	}
+}
+
+function singleLogRefreshPoll(currentLogNum, modifiedSliceSize)
+{
+	if(!polling && !clearingNotifications)
+	{
+		clearInterval(singleLogRefreshTimer);
+		singleLogRefreshTimer = null;
+		polling = true;
+		let internalID = logDisplayArray[currentLogNum]["id"];
+		let internalKey = getFileDataKeyFromLogId(internalID);
+		let arraySend = {};
+		fileData[internalKey]["sliceSize"] = modifiedSliceSize;
+		arraySend[internalKey] = fileData[internalKey];
+		let data = {arrayToUpdate: arraySend};
+		getFileSinglePostLoadWithData(data, currentLogNum);
 	}
 }
 

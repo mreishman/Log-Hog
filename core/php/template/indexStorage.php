@@ -192,6 +192,9 @@
 							);
 						?>
 					</div>
+					<div id="log{{counter}}TopButtons" style="text-align: center;">
+						<span onclick="singleLogLoadMore('{{counter}}');" class="link">Load More</span>
+					</div>
 					<div style="padding: 0; white-space: pre-wrap;" id="log{{counter}}" class="log" ></div>
 				</span>
 			</td>

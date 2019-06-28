@@ -397,6 +397,45 @@ function getFileSingle(current)
 	}
 }
 
+function getFileSinglePostLoad(currentLog, currentLogNum)
+{
+	let arraySend = {};
+	arraySend[currentLog] = fileData[currentLog];
+	let data = {arrayToUpdate: arraySend};
+	getFileSinglePostLoadWithData(data, currentLogNum)
+}
+
+function getFileSinglePostLoadWithData(data, currentLogNum)
+{
+	try
+	{
+		$.ajax({
+			url: "core/php/poll.php?format=json",
+			dataType: "json",
+			data,
+			type: "POST",
+			success(data)
+			{
+				updateFileDataArray(data);
+				arrayOfDataMainDataFilter(data);
+				generalUpdate();
+				polling = false;
+			},
+			complete()
+			{
+				$("#log"+currentLogNum+"load").hide();
+				$("#log"+currentLogNum+"TopButtons").show();
+				polling = false;
+				singleLogRefreshTimerLoad = true;
+			}
+		});
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
 function arrayOfDataMainDataFilter(data)
 {
 	try
