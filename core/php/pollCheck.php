@@ -19,7 +19,7 @@ catch (Exception $e)
 	exit();
 }
 
-foreach (array("shellOrPhp", "watchList", "lineCountFromJS") as $varLoadLite)
+foreach (array("shellOrPhp", "watchList", "lineCountFromJS","sliceSize") as $varLoadLite)
 {
 	$$varLoadLite = $defaultConfig[$varLoadLite];
 	if(isset($config[$varLoadLite]))
@@ -120,6 +120,11 @@ foreach ($responseFilelist as $file)
 		}
 	}
 	$response[$file]["lineCount"] = $responseFileLineCount;
+	$response[$file]["sliceSize"] = $sliceSize;
+	if($fileDataPOST !== null && isset($fileDataPOST[$file]) && isset($fileDataPOST[$file]["sliceSize"]))
+	{
+		$response[$file]["sliceSize"] = $fileDataPOST[$file]["sliceSize"];
+	}
 	$found = false;
 	$keyFound = "";
 	foreach ($watchList as $key => $value)

@@ -24,6 +24,57 @@
 						</a>
 						<span id="loadLineCountForWindow{{counter}}" class="loadLineCountForWindow" style="font-size: 86%;padding: 0;">
 						</span>
+						<a id="pauseSingleLog{{counter}}" onclick="toggleSingleLogPause('{{counter}}');">
+							<?php echo $core->generateImage(
+								$arrayOfImages["loadingImg"],
+								$imageConfig = array(
+									"height"	=>	"20px",
+									"class"		=>	"pauseImageForLoad altImage",
+									"style"		=>	"margin: 5px;",
+									"title"		=>	"Pause",
+									"data-src"	=>	$arrayOfImages["pause"]
+									)
+								);
+							?>
+						</a>
+						<a id="playSingleLog{{counter}}" onclick="toggleSingleLogPause('{{counter}}');" style="display: none;">
+							<?php echo $core->generateImage(
+								$arrayOfImages["loadingImg"],
+								$imageConfig = array(
+									"height"	=>	"20px",
+									"class"		=>	"playImageForLoad altImage",
+									"style"		=>	"margin: 5px;",
+									"title"		=>	"Play",
+									"data-src"	=>	$arrayOfImages["play"]
+									)
+								);
+							?>
+						</a>
+						<a id="singleLogRefresh{{counter}}" onclick="singleLogRefresh('{{counter}}');">
+							<?php echo $core->generateImage(
+								$arrayOfImages["loadingImg"],
+								$imageConfig = array(
+									"height"	=>	"20px",
+									"class"		=>	"refreshImageForLoad altImage",
+									"style"		=>	"margin: 5px;",
+									"title"		=>	"Refresh",
+									"data-src"	=>	$arrayOfImages["refresh"]
+									)
+								);
+							?>
+						</a>
+						<a id="singleLogRefreshLoading{{counter}}" style="display: none; cursor: default;">
+							<?php echo $core->generateImage(
+								$arrayOfImages["loadingImg"],
+								$imageConfig = array(
+									"height"	=>	"20px",
+									"class"		=>	"altImage",
+									"style"		=>	"margin: 5px;",
+									"title"		=>	"Refreshing",
+									)
+								);
+							?>
+						</a>
 						<a id="showLogWindowFilter{{counter}}" onclick="showLogWindowFilter('{{counter}}');" style="{{customfilterstyle}}" >
 							<?php echo $core->generateImage(
 								$arrayOfImages["loadingImg"],
@@ -165,6 +216,9 @@
 								)
 							);
 						?>
+					</div>
+					<div id="log{{counter}}TopButtons" style="text-align: center;">
+						<span onclick="singleLogLoadMore('{{counter}}');" class="link">Load More</span>
 					</div>
 					<div style="padding: 0; white-space: pre-wrap;" id="log{{counter}}" class="log" ></div>
 				</span>

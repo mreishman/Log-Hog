@@ -23,6 +23,7 @@ function show(e, id)
 		}
 		$("#log"+currentCurrentSelectWindow).empty()
 		$("#log"+currentCurrentSelectWindow+"load").show();
+		$("#log"+currentCurrentSelectWindow+"TopButtons").hide();
 		$(e).siblings().removeClass("active");
 		var windowNumInTitle = $("#"+internalID+"CurrentWindow").html();
 		if(windowNumInTitle !== "")
@@ -116,6 +117,7 @@ function showPartThree(e, internalID, currentCurrentSelectWindow)
 	{
 		toggleSideBarElements(internalID, currentCurrentSelectWindow);
 		$("#log"+currentCurrentSelectWindow+"load").hide();
+		$("#log"+currentCurrentSelectWindow+"TopButtons").show();
 		if(document.getElementById("noLogToDisplay").style.display !== "none")
 		{
 			document.getElementById("noLogToDisplay").style.display = "none";

@@ -458,7 +458,7 @@ function inlineNotificationPollLogic(force = false)
 		}
 		else
 		{
-			item = item.replace(/{{image}}/g, "<img src=\""+arrayOfImages["infoSideBar"]["src"]+"\" alt=\""+arrayOfImages["infoSideBar"]["alt"]+"\" title=\""+arrayOfImages["infoSideBar"]["title"]+"\" height=\"20px\">");
+			item = item.replace(/{{image}}/g, "<img class=\"altImage\" src=\""+arrayOfImages["info"]["src"]+"\" alt=\""+arrayOfImages["info"]["alt"]+"\" title=\""+arrayOfImages["info"]["title"]+"\" height=\"20px\">");
 		}
 		$("#inlineNotifications").html(item);
 		document.getElementById("inlineNotifications").style.display = "block";
