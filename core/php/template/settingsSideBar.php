@@ -6,7 +6,6 @@
 			<option selected="true" value="all" >All</option>
 		</select>
 	</span>
-	<!--
 	<br>
 	<br>
 	Layout Version
@@ -17,9 +16,6 @@
 	<input type="hidden" id="layoutGroupVersionIndex" value="A" >
 	<br>
 	<br>
-	<span onclick="resetGroupSelection();" class="linkSmall">Reset Selection</span>
-	<br>
-	<br>
 	Save Current Layout To
 	<br>
 	<span onclick="saveGroupLayoutTo('A');" class="linkSmall" >A</span>
@@ -27,7 +23,11 @@
 	<span onclick="saveGroupLayoutTo('C');" class="linkSmall" >C</span>
 	<br>
 	<br>
-	-->
+	<form id="groupLayoutPresetForm">
+		<input type="hidden" name="groupPresetA" id="groupPresetA" value="<?php echo $groupPresetA; ?>" >
+		<input type="hidden" name="groupPresetB" id="groupPresetB" value="<?php echo $groupPresetB; ?>" >
+		<input type="hidden" name="groupPresetC" id="groupPresetC" value="<?php echo $groupPresetC; ?>" >
+	</form>
 </span>
 <h3 class="addBorderBottom">Filters</h3>
 <input <?php if (!($filterSearchInHeader !== "true" && $filterEnabled === "true")){ echo "style='display: none;'";} ?> id="searchFieldInputSideBar" type="search" name="search" placeholder="Filter <?php echo $filterDefault; ?>">

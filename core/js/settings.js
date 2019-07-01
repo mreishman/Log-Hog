@@ -426,7 +426,8 @@ function saveVerified()
 		idForFormMain === "archiveConfig" ||
 		idForFormMain === "settingsPollVars" ||
 		idForFormMain === "settingsMenuLogVars" ||
-		idForFormMain === "settingsMenuVars"
+		idForFormMain === "settingsMenuVars" ||
+		idForFormMain === "groupLayoutPresetForm"
 	) {
 		refreshJsVars();
 	}
