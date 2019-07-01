@@ -409,4 +409,12 @@ $arrayOfFilesDeleted = array(
 		"fullPath"	=>	"core/img/menuSideBar.png",
 		"type"		=>	"file"
 	),
+	102			=> array(
+		"fullPath"	=>	"core/img/exampleErrorJS.png",
+		"type"		=>	"file"
+	),
+	103			=> array(
+		"fullPath"	=>	"core/img/refresh-animated.gif",
+		"type"		=>	"file"
+	),
 );
