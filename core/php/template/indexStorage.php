@@ -171,7 +171,7 @@
 									"height"	=>	"20px",
 									"style"		=>	"margin: 5px;",
 									"title"		=>	"Select Log",
-									"class"		=>	"menuSideBarImageForLoad altImage",
+									"class"		=>	"menuImageForLoad altImage",
 									"data-src"	=>	$arrayOfImages["menu"]
 									)
 								);

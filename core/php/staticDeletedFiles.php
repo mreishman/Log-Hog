@@ -373,4 +373,40 @@ $arrayOfFilesDeleted = array(
 		"fullPath"	=>	"core/img/searchSideBar.png",
 		"type"		=>	"file"
 	),
+	93			=> array(
+		"fullPath"	=>	"core/Themes/Aqua/img/menuSideBar.png",
+		"type"		=>	"file"
+	),
+	94			=> array(
+		"fullPath"	=>	"core/Themes/Areo/img/menuSideBar.png",
+		"type"		=>	"file"
+	),
+	95			=> array(
+		"fullPath"	=>	"core/Themes/Default/img/menuSideBar.png",
+		"type"		=>	"file"
+	),
+	96			=> array(
+		"fullPath"	=>	"core/Themes/Glossy/img/menuSideBar.png",
+		"type"		=>	"file"
+	),
+	97			=> array(
+		"fullPath"	=>	"core/Themes/Ocean/img/menuSideBar.png",
+		"type"		=>	"file"
+	),
+	98			=> array(
+		"fullPath"	=>	"core/Themes/Space/img/menuSideBar.png",
+		"type"		=>	"file"
+	),
+	99			=> array(
+		"fullPath"	=>	"core/Themes/Steampunk/img/menuSideBar.png",
+		"type"		=>	"file"
+	),
+	100			=> array(
+		"fullPath"	=>	"core/Themes/Terminal/img/menuSideBar.png",
+		"type"		=>	"file"
+	),
+	101			=> array(
+		"fullPath"	=>	"core/img/menuSideBar.png",
+		"type"		=>	"file"
+	),
 );

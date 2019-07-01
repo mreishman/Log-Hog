@@ -1,15 +1,36 @@
+<span id="groupsSpanSideBar" style="display: none; width: 100%;">
+	<h3 class="addBorderBottom">Groups</h3>
+	Groups:
+	<span class="selectDiv">
+		<select multiple="true" id="selectForGroup" >
+			<option selected="true" value="all" >All</option>
+		</select>
+	</span>
+	<!--
+	<br>
+	<br>
+	Layout Version
+	<br>
+	<span onclick="swapGroupLayoutLetters('A');" class="linkSmall" >A</span>
+	<span onclick="swapGroupLayoutLetters('B');" class="linkSmall" >B</span>
+	<span onclick="swapGroupLayoutLetters('C');" class="linkSmall" >C</span>
+	<input type="hidden" id="layoutGroupVersionIndex" value="A" >
+	<br>
+	<br>
+	<span onclick="resetGroupSelection();" class="linkSmall">Reset Selection</span>
+	<br>
+	<br>
+	Save Current Layout To
+	<br>
+	<span onclick="saveGroupLayoutTo('A');" class="linkSmall" >A</span>
+	<span onclick="saveGroupLayoutTo('B');" class="linkSmall" >B</span>
+	<span onclick="saveGroupLayoutTo('C');" class="linkSmall" >C</span>
+	<br>
+	<br>
+	-->
+</span>
 <h3 class="addBorderBottom">Filters</h3>
 <input <?php if (!($filterSearchInHeader !== "true" && $filterEnabled === "true")){ echo "style='display: none;'";} ?> id="searchFieldInputSideBar" type="search" name="search" placeholder="Filter <?php echo $filterDefault; ?>">
-<span id="groupsSpanSideBar" style="display: none;">
-Groups:
-<span class="selectDiv">
-	<select multiple="true" id="selectForGroup" >
-		<option selected="true" value="all" >All</option>
-	</select>
-</span>
-<br>
-<br>
-</span>
 <span id="filterSettingsSideBar" <?php if ($filterEnabled !== "true"){ echo "style='display: none;'"; } ?> >
 	Search:
 	<span class="selectDiv" >

@@ -147,11 +147,6 @@ $arrayOfFiles = array(
 		"class" =>"gearImageForLoad"
 	),
 	array(
-		"name" => $baseUrl . "img/menuSideBar.png",
-		"type" =>"img",
-		"class" =>"menuSideBarImageForLoad"
-	),
-	array(
 		"name" => $baseUrl . "img/history.png",
 		"type" =>"img",
 		"class" =>"historySideBarImageForLoad"
