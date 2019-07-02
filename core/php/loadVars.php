@@ -647,6 +647,7 @@ else
 		}
 
 		$arrayOfImages[$key]["src"] = $src;
+		$arrayOfImages[$key]["version"] = $cssVersion;
 	}
 
 	echo "<script>";

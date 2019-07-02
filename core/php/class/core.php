@@ -360,7 +360,7 @@ class core
 				{
 					$image .= $customConfig["srcModifier"];
 				}
-				$image .= $customConfig["data-src"]["src"]."\" ";
+				$image .= $customConfig["data-src"]["src"] . "?v=" . $imageArray["version"]."\" ";
 				if(!isset($customConfig["title"]) && isset($customConfig["data-src"]["title"]))
 				{
 					$image .=  " data-title=\"".$customConfig["data-src"]["title"]."\" ";
@@ -393,7 +393,7 @@ class core
 		{
 			$image .= $customConfig["srcModifier"];
 		}
-		$image .= $imageArray["src"]."\" ";
+		$image .= $imageArray["src"] . "?v=" . $imageArray["version"] . "\" ";
 		if(isset($customConfig["alt"]))
 		{
 			if($customConfig["alt"] !== null)
