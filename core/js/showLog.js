@@ -118,7 +118,14 @@ function showPartThree(e, internalID, currentCurrentSelectWindow)
 	{
 		toggleSideBarElements(internalID, currentCurrentSelectWindow);
 		$("#log"+currentCurrentSelectWindow+"load").hide();
-		$("#log"+currentCurrentSelectWindow+"TopButtons").show();
+		if(typeof logs[internalID] === "object" && "id" in logs[internalID] && logs[internalID]["id"] === "oneLog")
+		{
+			$("#log"+currentCurrentSelectWindow+"TopButtons").hide();
+		}
+		else
+		{
+			$("#log"+currentCurrentSelectWindow+"TopButtons").show();
+		}
 		if(document.getElementById("noLogToDisplay").style.display !== "none")
 		{
 			document.getElementById("noLogToDisplay").style.display = "none";
