@@ -118,7 +118,13 @@ function showPartThree(e, internalID, currentCurrentSelectWindow)
 	{
 		toggleSideBarElements(internalID, currentCurrentSelectWindow);
 		$("#log"+currentCurrentSelectWindow+"load").hide();
-		if(typeof logs[internalID] === "object" && "id" in logs[internalID] && logs[internalID]["id"] === "oneLog")
+		let showButton = true;
+		let currentData = getFileDataKeyFromLogId(internalID);
+		if(logs[internalID].length >= parseInt(fileData["/var/log/nginx/error.log"]["lineCount"]))
+		{
+			showButton = false;
+		}
+		if(!showButton || (typeof logs[internalID] === "object" && "id" in logs[internalID] && logs[internalID]["id"] === "oneLog"))
 		{
 			$("#log"+currentCurrentSelectWindow+"TopButtons").hide();
 		}
