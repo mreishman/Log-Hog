@@ -1348,6 +1348,15 @@ $defaultConfigMoreData = array(
 					"options"							=>	$trueFalsVars,
 					"type"								=>	"dropdown"
 				)
+			),
+			9									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"logDirectionInvert",
+					"name"								=>	"Reverse log text (most recent at top)",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
 			)
 		)
 	),

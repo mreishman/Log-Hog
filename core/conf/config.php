@@ -279,6 +279,7 @@ $defaultConfig = array(
 	'locationForSearch'				=> '',
 	'locationForSeleniumMonitor'	=> '',
 	'locationForStatus'				=> '',
+	'logDirectionInvert'			=> 'false',
 	'logFontColor'					=> '#FFFFFF',
 	'logFontSize'					=> 100,
 	'logFormatFileBackground'		=> '#000000',
