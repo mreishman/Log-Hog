@@ -120,7 +120,7 @@ function showPartThree(e, internalID, currentCurrentSelectWindow)
 		$("#log"+currentCurrentSelectWindow+"load").hide();
 		let showButton = true;
 		let currentData = getFileDataKeyFromLogId(internalID);
-		if(logs[internalID].length >= parseInt(fileData["/var/log/nginx/error.log"]["lineCount"]))
+		if(logs[internalID].split("\n").length >= parseInt(fileData["/var/log/nginx/error.log"]["lineCount"]))
 		{
 			showButton = false;
 		}
