@@ -73,12 +73,18 @@ $locationForSeleniumMonitorIndex = $addons->checkForSeleniumMonitorInstall($loca
 /* USED IN ABOUT PAGE (template/about.php) AND whatsNew (template/whatsNew.php) */
 $otherPageImageModifier = "";
 /* Override window config if multi log is disabled */
+$currentSessionValue = $windowConfig;
+if(isset($_COOKIE["windowConfig"]) && $logLoadPrevious === "true")
+{
+	$cookieData = json_decode($_COOKIE["windowConfig"]);
+	$currentSessionValue = $cookieData;
+}
 if($enableMultiLog === "false")
 {
 	$windowConfig = "1x1";
+	$currentSessionValue = $windowConfig;
 }
-$windowDisplayConfig = explode("x", $windowConfig);
-
+$windowDisplayConfig = explode("x", $currentSessionValue);
 /* Used for full screen menu */
 $externalLinkImage = $core->generateImage(
 	$arrayOfImages["loadingImg"],

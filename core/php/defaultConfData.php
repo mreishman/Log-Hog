@@ -1339,6 +1339,15 @@ $defaultConfigMoreData = array(
 				"custom"							=>	$customForFirstLogSelect,
 				"info"								=>	"If Multi-Log is enabled, and a variable is set for intial load logs there, this var will be overridden",
 				"type"								=>	"custom"
+			),
+			8									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"logLoadPrevious",
+					"name"								=>	"Load last window config on initial load",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
 			)
 		)
 	),

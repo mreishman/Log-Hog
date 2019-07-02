@@ -308,6 +308,7 @@ $defaultConfig = array(
 	'logLoadPollBackgroundRateType'	=> 'Milliseconds',
 	'logLoadPollRate'				=> 10,
 	'logLoadPollRateType'			=> 'Milliseconds',
+	'logLoadPrevious'				=> 'false',
 	'logLoadType'					=> 'Visible - Poll',
 	'logMenuLocation'				=> 'top',
 	'logNameExtension'				=> 'true',

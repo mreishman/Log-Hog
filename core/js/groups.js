@@ -340,4 +340,5 @@ function saveGroupLayoutTo(groupLayout)
 	}
 	document.getElementById("groupPreset" + groupLayout).value = arrOfSelected;
 	saveAndVerifyMain("groupLayoutPresetForm");
+	$("#selectForGroup").val(groupLayout);
 }

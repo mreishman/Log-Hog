@@ -61,6 +61,7 @@ function show(e, id)
 				}
 			}
 		}
+		setLogDisplayArrayCookie();
 		$("#title"+currentCurrentSelectWindow).html(titles[internalID]);
 		setTimeout(function() {
 			showPartTwo(e, internalID, currentCurrentSelectWindow, formattedHtml);

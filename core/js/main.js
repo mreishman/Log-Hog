@@ -1716,6 +1716,7 @@ function pinWindow(windowNum)
 		$("#pinWindow"+windowNum+" .pinWindow").hide();
 		$("#pinWindow"+windowNum+" .unPinWindow").show();
 	}
+	setLogDisplayArrayCookie();
 }
 
 function deleteImageAction()
@@ -1865,6 +1866,7 @@ function generateWindowDisplayInner()
 	borderPadding = newBorderPadding;
 	logDisplayArrayOld = logDisplayArray;
 	logDisplayArray = newLogDisplayArray;
+	setLogDisplayArrayCookie();
 	document.getElementById("log").innerHTML = ""+logDisplayHtml+"";
 	//add search filters if there
 	let currentLengthOfLogDisplayArray = Object.keys(logDisplayArray).length;
@@ -1897,6 +1899,12 @@ function generateWindowDisplayInner()
 	return{
 		arrayOfPrevLogs
 	};
+}
+
+function setLogDisplayArrayCookie()
+{
+	document.cookie = "logDisplayArray="+JSON.stringify(logDisplayArray);
+	document.cookie = "windowConfig="+JSON.stringify(getCurrentWindowLayout());
 }
 
 function unhideAllHidden()
@@ -2000,6 +2008,7 @@ function checkForUpdateLogsOffScreen()
 
 function getCurrentWindowLayout()
 {
+	windowConfig = document.getElementById("windowConfig").value;
 	return document.getElementById("windowConfig").value;
 }
 

@@ -120,10 +120,17 @@
 	?>
 	<span class="selectDiv">
 		<select id="windowConfig">
-			<?php foreach ($arrayOfwindowConfigOptionsLocal as $value)
+			<?php
+			$currentSessionValue = $windowConfig;
+			if(isset($_COOKIE["windowConfig"]) && $logLoadPrevious === "true")
+			{
+				$cookieData = json_decode($_COOKIE["windowConfig"]);
+				$currentSessionValue = $cookieData;
+			}
+			foreach ($arrayOfwindowConfigOptionsLocal as $value)
 			{
 				$stringToEcho = "<option ";
-				if($value === $windowConfig)
+				if($value === $currentSessionValue)
 				{
 					$stringToEcho .= " selected ";
 				}

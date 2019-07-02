@@ -303,7 +303,18 @@ if($hideNotificationIcon !== "true")
 		"class" => "notificationImageForLoad"
 	);
 }
-if($windowConfig !== "1x1")
+$currentSessionValue = $windowConfig;
+if(isset($_COOKIE["windowConfig"]) && $logLoadPrevious === "true")
+{
+	$cookieData = json_decode($_COOKIE["windowConfig"]);
+	$currentSessionValue = $cookieData;
+}
+if($enableMultiLog === "false")
+{
+	$windowConfig = "1x1";
+	$currentSessionValue = $windowConfig;
+}
+if($currentSessionValue !== "1x1")
 {
 	$arrayOfFiles[] = array(
 		"name" => $baseUrl . "img/pin.png",
