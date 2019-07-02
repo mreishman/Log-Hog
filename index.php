@@ -74,9 +74,11 @@ $locationForSeleniumMonitorIndex = $addons->checkForSeleniumMonitorInstall($loca
 $otherPageImageModifier = "";
 /* Override window config if multi log is disabled */
 $currentSessionValue = $windowConfig;
+$lastSessionLogArray = "null";
 if(isset($_COOKIE["windowConfig"]) && $logLoadPrevious === "true")
 {
 	$cookieData = json_decode($_COOKIE["windowConfig"]);
+	$lastSessionLogArray = $_COOKIE["logDisplayArray"];
 	$currentSessionValue = $cookieData;
 }
 if($enableMultiLog === "false")
@@ -114,6 +116,7 @@ $needRefresh = $core->generateImage(
 	<script type="text/javascript">
 		var baseUrl = "<?php echo $baseUrl;?>";
 		var Rightclick_ID_list = [];
+		var lastSessionLogArray = <?php echo $lastSessionLogArray; ?>;
 	</script>
 	<?php $core->getScripts(
 		array(

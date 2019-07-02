@@ -506,6 +506,7 @@ function firstLoadEndAction()
 	var targetLength = Object.keys(logDisplayArray).length;
 	if($("#menu .active").length < targetLength)
 	{
+		selectLastLoadLogs();
 		selectTabsInOrder(targetLength);
 		toggleDisplayOfNoLogs();
 	}

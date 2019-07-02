@@ -408,6 +408,62 @@ function checkIfLogIsVisible(logToCheck)
 	return false;
 }
 
+function selectLastLoadLogs()
+{
+	if(lastSessionLogArray === null || logLoadPrevious !== "true")
+	{
+		return;
+	}
+	let lastSessionLogArrayKeys = Object.keys(lastSessionLogArray);
+	let targetLength = lastSessionLogArrayKeys.length;
+	try
+	{
+		var arrayOfLogs = $("#menu a");
+		var arrayOfLogsLength = arrayOfLogs.length;
+		//this is where on first load, tabs are selected to be visible (see here for issue 312)
+		for(let h = 0; h < targetLength; h++)
+		{
+			let selectThisOne = lastSessionLogArray[lastSessionLogArrayKeys[h]];
+			//show first available log
+			for (let i = 0; i < arrayOfLogsLength; i++)
+			{
+				let currentLogCheck = selectThisOne["id"];
+				if(checkNameCont(currentLogCheck, arrayOfLogs[i]))
+				{
+					if(arrayOfLogs[i].style.display === "none")
+					{
+						continue;
+					}
+				}
+				else
+				{
+					continue;
+				}
+
+				let logIsAlreadyShown = false;
+				for(let j = 0; j < targetLength; j++)
+				{
+					if(logDisplayArray[j]["id"] === arrayOfLogs[i].id)
+					{
+						logIsAlreadyShown = true;
+						break;
+					}
+				}
+				if(arrayOfLogs[i].style.display !== "none" && !logIsAlreadyShown)
+				{
+					changeCurrentSelectWindow(h);
+					arrayOfLogs[i].onclick.apply(arrayOfLogs[i]);
+					break;
+				}
+			}
+		}
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
 function selectTabsInOrder(targetLength)
 {
 	try
