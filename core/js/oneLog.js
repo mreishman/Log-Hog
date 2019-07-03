@@ -60,47 +60,64 @@ function makeOneLogPretty()
 {
 	var htmlToReturn = "";
 	var lengthOfArray = oneLogLogData["logs"].length;
-	for(var i = 0; i < lengthOfArray; i++)
+	if(logDirectionInvert === "false")
 	{
-		var currentLog = oneLogLogData["logs"][i];
-		var currentHtmlForLog = makePrettyWithText(currentLog["logData"], 0);
-		if(currentHtmlForLog === "")
+		for(var i = 0; i < lengthOfArray; i++)
 		{
-			continue;
+			htmlToReturn += makeOneLogPrettyLine(i);
 		}
-		currentHtmlForLog = "<table class=\"oneLogTable\" width=\"100%\" style=\"border-spacing: 0;\" >" + currentHtmlForLog + "</table>";
-		htmlToReturn += "<div ";
-		if(currentLog["logId"] !== "noLogUpdate")
+	}
+	else
+	{
+		for(var i = lengthOfArray - 1; i >= 0; i--)
 		{
-			htmlToReturn += "onclick=\"openLogInFull('"+currentLog["logId"]+"')\" ";
+			htmlToReturn += makeOneLogPrettyLine(i);
 		}
-		htmlToReturn += " class=\"settingsHeader ";
-		if(currentLog["new"] === true)
-		{
-			if(highlightNew === "true" && (oneLogHighlight === "titleBar" || oneLogHighlight === "all"))
-			{
-				htmlToReturn += " newLine ";
-			}
-		}
-		htmlToReturn += " \" style=\"padding-left: 40px; ";
-		if(currentLog["logId"] !== "noLogUpdate")
-		{
-			htmlToReturn += " cursor: pointer; ";
-		}
-		htmlToReturn += " \" >"+currentLog["logName"]+"</div>";
-		htmlToReturn += "<div class=\"settingsDiv ";
-		if(currentLog["new"] === true)
-		{
-			oneLogLogData["logs"][i]["new"] = false;
-			if(highlightNew === "true" && (oneLogHighlight === "body" || oneLogHighlight === "all"))
-			{
-				htmlToReturn += " newLine ";
-			}
-		}
-		htmlToReturn += " \" style=\"max-height: "+oneLogLogMaxHeight+"px; overflow: auto;\" >"+currentHtmlForLog+"</div>";
 	}
 	logs["oneLog"] = oneLogLogData;
 	return htmlToReturn;
+}
+
+function makeOneLogPrettyLine(i)
+{
+	var currentLogHtml = "";
+	var currentLog = oneLogLogData["logs"][i];
+	var currentHtmlForLog = makePrettyWithText(currentLog["logData"], 0);
+	if(currentHtmlForLog === "")
+	{
+		return "";
+	}
+	currentHtmlForLog = "<table class=\"oneLogTable\" width=\"100%\" style=\"border-spacing: 0;\" >" + currentHtmlForLog + "</table>";
+	currentLogHtml += "<div ";
+	if(currentLog["logId"] !== "noLogUpdate")
+	{
+		currentLogHtml += "onclick=\"openLogInFull('"+currentLog["logId"]+"')\" ";
+	}
+	currentLogHtml += " class=\"settingsHeader ";
+	if(currentLog["new"] === true)
+	{
+		if(highlightNew === "true" && (oneLogHighlight === "titleBar" || oneLogHighlight === "all"))
+		{
+			currentLogHtml += " newLine ";
+		}
+	}
+	currentLogHtml += " \" style=\"padding-left: 40px; ";
+	if(currentLog["logId"] !== "noLogUpdate")
+	{
+		currentLogHtml += " cursor: pointer; ";
+	}
+	currentLogHtml += " \" >"+currentLog["logName"]+"</div>";
+	currentLogHtml += "<div class=\"settingsDiv ";
+	if(currentLog["new"] === true)
+	{
+		oneLogLogData["logs"][i]["new"] = false;
+		if(highlightNew === "true" && (oneLogHighlight === "body" || oneLogHighlight === "all"))
+		{
+			currentLogHtml += " newLine ";
+		}
+	}
+	currentLogHtml += " \" style=\"max-height: "+oneLogLogMaxHeight+"px; overflow: auto;\" >"+currentHtmlForLog+"</div>";
+	return currentLogHtml;
 }
 
 function oneLogInitialLoadCheck()
