@@ -24,6 +24,7 @@ function show(e, id)
 		$("#log"+currentCurrentSelectWindow).empty()
 		$("#log"+currentCurrentSelectWindow+"load").show();
 		$("#log"+currentCurrentSelectWindow+"TopButtons").hide();
+		$("#log"+currentCurrentSelectWindow+"BottomButtons").hide();
 		$(e).siblings().removeClass("active");
 		var windowNumInTitle = $("#"+internalID+"CurrentWindow").html();
 		if(windowNumInTitle !== "")
@@ -127,10 +128,18 @@ function showPartThree(e, internalID, currentCurrentSelectWindow)
 		if(!showButton || (typeof logs[internalID] === "object" && "id" in logs[internalID] && logs[internalID]["id"] === "oneLog"))
 		{
 			$("#log"+currentCurrentSelectWindow+"TopButtons").hide();
+			$("#log"+currentCurrentSelectWindow+"BottomButtons").hide();
 		}
 		else
 		{
-			$("#log"+currentCurrentSelectWindow+"TopButtons").show();
+			if(logDirectionInvert !== "true")
+			{
+				$("#log"+currentCurrentSelectWindow+"TopButtons").show();
+			}
+			else
+			{
+				$("#log"+currentCurrentSelectWindow+"BottomButtons").show();
+			}
 		}
 		if(document.getElementById("noLogToDisplay").style.display !== "none")
 		{

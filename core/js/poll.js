@@ -424,7 +424,14 @@ function getFileSinglePostLoadWithData(data, currentLogNum)
 			complete()
 			{
 				$("#log"+currentLogNum+"load").hide();
-				$("#log"+currentLogNum+"TopButtons").show();
+				if(logDirectionInvert !== "true")
+				{
+					$("#log"+currentLogNum+"TopButtons").show();
+				}
+				else
+				{
+					$("#log"+currentLogNum+"BottomButtons").show();
+				}
 				$("#singleLogRefreshLoading"+currentLogNum).hide();
 				$("#singleLogRefresh"+currentLogNum).show();
 				polling = false;
