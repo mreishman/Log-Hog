@@ -156,6 +156,11 @@ $arrayOfFiles = array(
 		"type" =>"img",
 		"class" =>"historyAddSideBarImageForLoad"
 	),
+	array(
+		"name" => $baseUrl . "img/close.png",
+		"type" =>"img",
+		"class" =>"closeImageForLoad"
+	),
 );
 if($filterEnabled === "true")
 {
