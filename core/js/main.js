@@ -2193,6 +2193,11 @@ function checkIfCurrentLogIsPaused(currentLogNum)
 	return false;
 }
 
+function toggleLogDirectionInvert()
+{
+	logDirectionInvert = document.getElementById("logDirectionInvert").value;
+}
+
 function mainReady()
 {
 	if(window.innerWidth > breakPointTwo)

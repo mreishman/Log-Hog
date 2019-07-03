@@ -180,9 +180,8 @@ Hide Log Tabs
 		<option <?php if($allLogsVisible === "true"){ echo " selected "; }?>  value="true" >False</option>
 	</select>
 </span>
+<h3 class="addBorderBottom">Logs</h3>
 <?php if($advancedLogFormatEnabled === "true"): ?>
-	<br>
-	<br>
 	Advanced Log Format
 	<span class="selectDiv">
 		<select onchange="tmpChangeAdvancedLogFormat();" id="advancedLogFormatEnabled">
@@ -190,4 +189,13 @@ Hide Log Tabs
 			<option <?php if($advancedLogFormatEnabled === "false"){ echo " selected "; }?>  value="false" >Disabled</option>
 		</select>
 	</span>
+	<br>
+	<br>
 <?php endif; ?>
+Log Direction Invert
+<span class="selectDiv">
+	<select onchange="toggleLogDirectionInvert();" id="logDirectionInvert">
+		<option <?php if($logDirectionInvert === "true"){ echo " selected "; }?>  value="true" >True</option>
+		<option <?php if($logDirectionInvert === "false"){ echo " selected "; }?>  value="false" >False</option>
+	</select>
+</span>

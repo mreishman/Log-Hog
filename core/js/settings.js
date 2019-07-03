@@ -522,6 +522,11 @@ function refreshJsVars()
 			{
 				clearLoadPollTimer();
 				startLoadPollTimerDelay();
+				if(logDirectionInvert !== document.getElementById("logDirectionInvert").value)
+				{
+					document.getElementById("logDirectionInvert").value = logDirectionInvert;
+					toggleLogDirectionInvert();
+				}
 			}
 			else if(idForFormMain === "settingsMenuLogVars")
 			{
