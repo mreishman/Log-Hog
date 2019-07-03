@@ -522,7 +522,14 @@ function firstLoadEndAction()
 			{
 				if(logDisplayArray[i]["id"] === logsCheck[j])
 				{
-					document.getElementById("log"+i+"Td").scrollTop = $("#log"+i).outerHeight();
+					if(logDirectionInvert === "false")
+					{
+						document.getElementById("log"+i+"Td").scrollTop = $("#log"+i).outerHeight();
+					}
+					else
+					{
+						document.getElementById("log"+i+"Td").scrollTop = 0;
+					}
 				}
 			}
 		}

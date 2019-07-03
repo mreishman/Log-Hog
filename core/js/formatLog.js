@@ -121,7 +121,16 @@ function makePrettyWithText(text, count, extraData = {})
 			var lineText = formattedLogArr[formattedLogArrKeys[FLAKCount]];
 			var customClass = " class = '";
 			var customClassAdd = false;
-			if(highlightNew === "true" && ((FLAKCount + count + 1) > formattedLogArrKeysLength))
+			let addNewLine = false;
+			if(highlightNew === "true")
+			{
+				addNewLine = ((FLAKCount + count + 1) > formattedLogArrKeysLength);
+				if(logDirectionInvert !== "false")
+				{
+					addNewLine = (FLAKCount < count );
+				}
+			}
+			if(addNewLine)
 			{
 				customClass += " newLine ";
 				customClassAdd = true;

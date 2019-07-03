@@ -617,7 +617,14 @@ function updateScrollOnLogs()
 							lastLogs[currentPageId] = logs[currentPageId];
 							if(scrollOnUpdate === "true" && logDisplayArray[i]["scroll"])
 							{
-								document.getElementById("log"+i+"Td").scrollTop = $("#log"+i).outerHeight();
+								if(logDirectionInvert === "false")
+								{
+									document.getElementById("log"+i+"Td").scrollTop = $("#log"+i).outerHeight();
+								}
+								else
+								{
+									document.getElementById("log"+i+"Td").scrollTop = 0;
+								}
 							}
 						}
 						break;
@@ -2002,11 +2009,25 @@ function unhideHidden(currentLogId)
 		lineUnHid = true;
 		if(logLoadForceScrollToBot === 'false')
 		{
-			document.getElementById("log"+currentLogId+"Td").scrollTop = currentScroll + currentLine.height();
+			if(logDirectionInvert === "false")
+			{
+				document.getElementById("log"+currentLogId+"Td").scrollTop = currentScroll + currentLine.height();
+			}
+			else
+			{
+				document.getElementById("log"+currentLogId+"Td").scrollTop = currentScroll - currentLine.height();
+			}
 		}
 		else
 		{
-			document.getElementById("log"+currentLogId+"Td").scrollTop = document.getElementById("log"+currentLogId).getBoundingClientRect().height;
+			if(logDirectionInvert === "false")
+			{
+				document.getElementById("log"+currentLogId+"Td").scrollTop = document.getElementById("log"+currentLogId).getBoundingClientRect().height;
+			}
+			else
+			{
+				document.getElementById("log"+currentLogId+"Td").scrollTop = 0;
+			}
 		}
 		if(currentLine.position().top < 0)
 		{
