@@ -944,7 +944,7 @@ function update(data)
 								logDisplayArray[currentIdPos]["scroll"] = updateHtml;
 							}
 
-							if(updateHtml && currentIdPos === -1)
+							if(updateHtml && currentIdPos !== -1)
 							{
 								if(checkIfCurrentLogIsPaused(currentIdPos))
 								{
@@ -979,6 +979,7 @@ function update(data)
 								{
 									document.getElementById(id+"Count").innerHTML = "";
 									document.getElementById(id+"CountHidden").innerHTML = "";
+									$("#"+id).removeClass("updated");
 								}
 							}
 							else
