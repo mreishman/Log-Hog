@@ -170,7 +170,14 @@ function switchBackToOnelog(currentLogNum)
 function scrollOneLogIfVisible(currentPosOfOneLog)
 {
 	$("#log"+currentPosOfOneLog).html(makeOneLogPretty());
-	scrollToBottom(currentPosOfOneLog);
+	if(logDirectionInvert === "false")
+	{
+		scrollToBottom(currentPosOfOneLog);
+	}
+	else
+	{
+		scrollToTop(currentPosOfOneLog);
+	}
 }
 
 function updateOneLogData(id, newDiff, newDiffText)

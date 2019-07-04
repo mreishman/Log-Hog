@@ -1432,6 +1432,11 @@ function scrollToBottom(idNum)
 	document.getElementById("log"+idNum+"Td").scrollTop = getHeightOfCurrentLog(idNum);
 }
 
+function scrollToTop(idNum)
+{
+	document.getElementById("log"+idNum+"Td").scrollTop = 0;
+}
+
 function clearLogInner(title)
 {
 	title = filterTitle(title);
@@ -2046,7 +2051,14 @@ function loadPrevLogContent(arrayOfPrevLogs)
 	{
 		$("#log"+arrayOfPrevLogsKeys[countAPLK]).html(arrayOfPrevLogs[arrayOfPrevLogsKeys[countAPLK]]);
 		$("#log"+arrayOfPrevLogsKeys[countAPLK]+"load").hide();
-		scrollToBottom(arrayOfPrevLogsKeys[countAPLK]);
+		if(logDirectionInvert === "false")
+		{
+			scrollToBottom(arrayOfPrevLogsKeys[countAPLK]);
+		}
+		else
+		{
+			scrollToTop(arrayOfPrevLogsKeys[countAPLK]);
+		}
 		toggleSideBarElements(logDisplayArrayOld[arrayOfPrevLogsKeys[countAPLK]]["id"],arrayOfPrevLogsKeys[countAPLK]);
 	}
 }

@@ -104,7 +104,14 @@ function showPartTwo(e, internalID, currentCurrentSelectWindow, formattedHtml)
 		}
 		setLogHtmlInWindow(currentCurrentSelectWindow, formattedHtml);
 		fadeHighlight(currentCurrentSelectWindow);
-		scrollToBottom(currentCurrentSelectWindow);
+		if(logDirectionInvert === "false")
+		{
+			scrollToBottom(currentCurrentSelectWindow);
+		}
+		else
+		{
+			scrollToTop(currentCurrentSelectWindow);
+		}
 		showPartThree(e, internalID, currentCurrentSelectWindow);
 	}
 	catch(e)

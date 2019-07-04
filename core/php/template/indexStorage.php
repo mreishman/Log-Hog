@@ -189,6 +189,19 @@
 								);
 							?>
 						</a>
+						<a onclick="scrollToTop('{{counter}}');">
+							<?php echo $core->generateImage(
+								$arrayOfImages["loadingImg"],
+								$imageConfig = array(
+									"height"	=>	"20px",
+									"style"		=>	"margin: 5px; -webkit-transform: rotate(180deg); -moz-transform: rotate(180deg); -o-transform: rotate(180deg); -ms-transform: rotate(180deg); transform: rotate(180deg); ",
+									"title"		=>	"Scroll to Top",
+									"class"		=>	"downArrowSideBarImageForLoad altImage",
+									"data-src"	=>	$arrayOfImages["downArrowSideBar"]
+									)
+								);
+							?>
+						</a>
 						<a onclick="scrollToBottom('{{counter}}');">
 							<?php echo $core->generateImage(
 								$arrayOfImages["loadingImg"],
