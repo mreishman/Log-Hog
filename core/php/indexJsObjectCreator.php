@@ -172,7 +172,7 @@ if($filterEnabled === "true")
 if($sendCrashInfoJS === "true")
 {
 	$arrayOfFiles[] = array(
-		"name" =>"Raven.js",
+		"name" =>"sentry.js",
 		"type" => "js"
 	);
 }

@@ -461,4 +461,8 @@ $arrayOfFilesDeleted = array(
 		"fullPath"	=>	"restore/php/settingsInstallUpdate.php",
 		"type"		=>	"file"
 	),
+	115			=> array(
+		"fullPath"	=>	"core/js/Raven.js",
+		"type"		=>	"file"
+	),
 );

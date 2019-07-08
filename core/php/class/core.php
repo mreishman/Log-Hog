@@ -82,18 +82,16 @@ class core
 			$returnString =  "
 			<script type=\"text/javascript\">
 			function startSentryStuff(){
-			Raven.config(\"https://2e455acb0e7a4f8b964b9b65b60743ed@sentry.io/205980\", {
-			    release: \"".$versionForSentry."\"
-			}).install();
+				Sentry.init({ dsn: 'https://2e455acb0e7a4f8b964b9b65b60743ed@sentry.io/205980' });
 			}
 			function eventThrowException(e)
 			{
-				Raven.captureException(e);
+				Sentry.captureException(new Error(e);
 				";
 				if($branchSelected === 'beta')
 				{
 					$returnString .= "
-						Raven.showReportDialog();
+						Sentry.showReportDialog();
 					";
 				}
 				if($branchSelected === 'dev' || $branchSelected === 'beta')
