@@ -257,6 +257,43 @@ function addLogToRightClickMenu(localName, id, fullPathSearch, shortName)
   }
 }
 
+function addMenuToRightClickMenu(id, link)
+{
+  let newMenuObject = [{action: "window.open(\""+link+"\",\"_blank\");", name: "Open in new window"}];
+  menuObjectRightClick[id] = newMenuObject;
+  Rightclick_ID_list.push(id);
+}
+
+let listOfMenuRightClick = [
+  {id: "settingsMainLogsMenu", link: "./settings/main.php#settingsLogVars"},
+  {id: "settingsMainLogFormatMenu", link: "./settings/main.php#settingsLogFormatVars"},
+  {id: "settingsMainPollMenu", link: "./settings/main.php#settingsPollVars"},
+  {id: "settingsMainFilterMenu", link: "./settings/main.php#settingsFilterVars"},
+  {id: "settingsMainArchiveMenu", link: "./settings/main.php#archiveConfig"},
+  {id: "settingsMainNotificationsMenu", link: "./settings/main.php#settingsNotificationVars"},
+  {id: "settingsMainActionMenuMenu", link: "./settings/main.php#settingsMenuVars"},
+  {id: "settingsMainMenuLogsMenu", link: "./settings/main.php#settingsMenuLogVars"},
+  {id: "settingsMainMenuFullScreenMenu", link: "./settings/main.php#settingsMenuLogVars"},
+  {id: "settingsMainWatchlistMenu", link: "./settings/main.php#settingsWatchlistVars"},
+  {id: "settingsMainOneLogMenu", link: "./settings/main.php#settingsOneLogVars"},
+  {id: "settingsMainMultiLogMenu", link: "./settings/main.php#settingsMultiLogVars"},
+  {id: "settingsMainLogLayoutMenu", link: "./settings/main.php#settingsInitialLoadLayoutVars"},
+  {id: "settingsMainOtherMenu", link: "./settings/main.php#settingsMainVars"},
+  {id: "settingsAdvancedConfigMenu", link: "./settings/advanced.php#advancedConfig"},
+  {id: "settingsAdvancedModulesMenu", link: "./settings/advanced.php#modules"},
+  {id: "settingsAdvancedLogsMenu", link: "./settings/advanced.php#loggingDisplay"},
+  {id: "settingsAdvancedLocationsMenu", link: "./settings/advanced.php#locationOtherApps"},
+  {id: "settingsAdvancedAdvancedMenu", link: "./settings/advanced.php#advancedConfig"},
+  {id: "settingsAdvancedDevBranchMenu", link: "./settings/devTools.php#devBranch"},
+  {id: "settingsAdvancedDevConfigMenu", link: "./settings/devTools.php#devConfig"}
+];
+
+let countOfMenuRightClickObjects = listOfMenuRightClick.length;
+for(let i = 0; i < countOfMenuRightClickObjects; i++)
+{
+  addMenuToRightClickMenu(listOfMenuRightClick[i]["id"],listOfMenuRightClick[i]["link"]);
+}
+
 function addClearAlertToRightClickMenu(id)
 {
   try
