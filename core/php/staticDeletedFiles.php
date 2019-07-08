@@ -453,4 +453,12 @@ $arrayOfFilesDeleted = array(
 		"fullPath"	=>	"core/img/multiLog.png",
 		"type"		=>	"file"
 	),
+	113			=> array(
+		"fullPath"	=>	"core/php/settingsInstallUpdate.php",
+		"type"		=>	"file"
+	),
+	114			=> array(
+		"fullPath"	=>	"restore/php/settingsInstallUpdate.php",
+		"type"		=>	"file"
+	),
 );
