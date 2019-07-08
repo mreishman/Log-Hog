@@ -284,14 +284,6 @@ if($truncateLog === "false")
 		"class" => "eraserForLoad"
 	);
 }
-if($enableMultiLog === "true" && $multiLogOnIndex === "true")
-{
-	$arrayOfFiles[] = array(
-		"name" => $baseUrl . "img/multiLog.png",
-		"type" => "img",
-		"class" => "multiLogImageForLoad"
-	);
-}
 if($hideClearAllNotifications !== "true")
 {
 	$arrayOfFiles[] = array(

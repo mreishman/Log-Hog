@@ -417,4 +417,40 @@ $arrayOfFilesDeleted = array(
 		"fullPath"	=>	"core/img/refresh-animated.gif",
 		"type"		=>	"file"
 	),
+	104			=> array(
+		"fullPath"	=>	"core/Themes/Aqua/img/multiLog.png",
+		"type"		=>	"file"
+	),
+	105			=> array(
+		"fullPath"	=>	"core/Themes/Areo/img/multiLog.png",
+		"type"		=>	"file"
+	),
+	106			=> array(
+		"fullPath"	=>	"core/Themes/Default/img/multiLog.png",
+		"type"		=>	"file"
+	),
+	107			=> array(
+		"fullPath"	=>	"core/Themes/Glossy/img/multiLog.png",
+		"type"		=>	"file"
+	),
+	108			=> array(
+		"fullPath"	=>	"core/Themes/Ocean/img/multiLog.png",
+		"type"		=>	"file"
+	),
+	109			=> array(
+		"fullPath"	=>	"core/Themes/Space/img/multiLog.png",
+		"type"		=>	"file"
+	),
+	110			=> array(
+		"fullPath"	=>	"core/Themes/Steampunk/img/multiLog.png",
+		"type"		=>	"file"
+	),
+	111			=> array(
+		"fullPath"	=>	"core/Themes/Terminal/img/multiLog.png",
+		"type"		=>	"file"
+	),
+	112			=> array(
+		"fullPath"	=>	"core/img/multiLog.png",
+		"type"		=>	"file"
+	),
 );

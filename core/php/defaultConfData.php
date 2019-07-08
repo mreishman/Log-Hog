@@ -1815,16 +1815,6 @@ $defaultConfigMoreData = array(
 			),
 			1									=> array(
 				"type"								=>	"single",
-				"info"								=>	"Button in header menu. Because this is the same as the settings button, this will be removed at some pont. Requires Refresh",
-				"var"								=>	array(
-					"key"								=>	"multiLogOnIndex",
-					"name"								=>	"Enable tmp Multilog",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				)
-			),
-			2									=> array(
-				"type"								=>	"single",
 				"info"								=>	"When switching between layouts, keep current selected windows over config",
 				"var"								=>	array(
 					"key"								=>	"logSwitchKeepCurrent",
@@ -1843,7 +1833,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			3									=> array(
+			2									=> array(
 				"info"								=>	"When switching between A B or C layouts, either clear all windows, OR keep current selected windows IF not defined in config",
 				"type"								=>	"single",
 				"var"								=>	array(

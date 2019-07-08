@@ -491,12 +491,6 @@ else
 			"title"			=>	"Menu",
 			"baseName"		=>	"menu.png"
 		),
-		"multiLog"	=> array(
-			"alt"			=>	"Multi-Log",
-			"src"			=>	"",
-			"title"			=>	"Multi-Log",
-			"baseName"		=>	"multiLog.png"
-		),
 		"notification"	=> array(
 			"alt"			=>	"Notifications",
 			"src"			=>	"",
