@@ -1,24 +1,5 @@
 <?php
 
-function forEachAddVars($variable)
-{
-	$returnText = "array(";
-	foreach ($variable as $key => $value)
-	{
-		$returnText .= " '".$key."' => ";
-		if(is_array($value) || is_object($value))
-		{
-			$returnText .= forEachAddVars($value);
-		}
-		else
-		{
-			$returnText .= "'".$value."',";
-		}
-	}
-	$returnText .= "),";
-	return $returnText;
-}
-
 $varToIndexDir = "";
 $countOfSlash = 0;
 while($countOfSlash < 20 && !file_exists($varToIndexDir."error.php"))
@@ -27,6 +8,8 @@ while($countOfSlash < 20 && !file_exists($varToIndexDir."error.php"))
 }
 require_once($varToIndexDir."core/php/class/core.php");
 $core = new core();
+require_once($varToIndexDir."core/php/class/vars.php");
+$vars = new vars();
 
 $baseUrl = $varToIndexDir."core/";
 if(file_exists($varToIndexDir.'local/layout.php'))
@@ -125,7 +108,7 @@ if(isset($_POST['folderThemeCount']))
 	foreach ($config['folderColorArrays'] as $key => $value)
 	{
 		$folderColorArraysSave .= "'".$key."'	=>	";
-		$folderColorArraysSave .= forEachAddVars($value);
+		$folderColorArraysSave .= $vars->forEachAddVars($value);
 	}
 	$folderColorArrays = $folderColorArraysSave;
 	$folderColorArraysSave = "";

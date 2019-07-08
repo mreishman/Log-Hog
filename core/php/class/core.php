@@ -434,4 +434,81 @@ class core
 		$image .= " >";
 		return $image;
 	}
+
+	public function getFileInfoFromDir($data, $response)
+	{
+		$path = $data["path"];
+		$recursive = $data["recursive"];
+		$filter = $data["filter"];
+		if(!is_readable($path))
+		{
+			return $response;
+		}
+		$scannedDir = scandir($path);
+		if(!is_array($scannedDir))
+		{
+			$scannedDir = array($scannedDir);
+		}
+		$files = array_diff($scannedDir, array('..', '.'));
+		if($files)
+		{
+			foreach($files as $k => $filename)
+			{
+				$fullPath = $path;
+				if($path != "/")
+				{
+					$fullPath .= DIRECTORY_SEPARATOR;
+				}
+				$fullPath .= $filename;
+				if(is_dir($fullPath))
+				{
+					$subImg = "defaultFolderIcon";
+					if(!is_readable($fullPath))
+					{
+						$subImg = "defaultFolderNRIcon";
+					}
+					elseif(!is_writeable($fullPath))
+					{
+						$subImg = "defaultFolderNWIcon";
+					}
+					$response[$fullPath] = array(
+						"type"		=>	"folder",
+						"filename"	=>	$filename,
+						"image"		=>	$subImg,
+						"fullpath"	=>	$fullPath
+					);
+					if($recursive === "true")
+					{
+						$response = $this->getFileInfoFromDir(
+							array(
+								"path"		=>	$fullPath,
+								"recursive"	=>	$recursive,
+								"filter"	=>	$filter
+							),
+							$response
+						);
+					}
+				}
+				elseif(preg_match('/' . $filter . '/S', $filename) && is_file($fullPath))
+				{
+					$subImg = "defaultFileIcon";
+					if(!is_readable($fullPath))
+					{
+						$subImg = "defaultFileNRIcon";
+					}
+					elseif(!is_writeable($fullPath))
+					{
+						$subImg = "defaultFileNWIcon";
+					}
+					$response[$fullPath] = array(
+						"type"		=>	"file",
+						"filename"	=>	$filename,
+						"image"		=>	$subImg,
+						"fullpath"	=>	$fullPath
+					);
+				}
+			}
+		}
+		return $response;
+	}
 }

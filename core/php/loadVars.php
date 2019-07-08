@@ -1,60 +1,5 @@
 <?php
 
-function forEachAddVars($variable)
-{
-	$returnText = "array(";
-	foreach ($variable as $key => $value)
-	{
-		$returnText .= " '".$key."' => ";
-		if(is_array($value) || is_object($value))
-		{
-			$returnText .= forEachAddVars($value);
-		}
-		else
-		{
-			$returnText .= "'".$value."',";
-		}
-	}
-	$returnText .= "),";
-	return $returnText;
-}
-
-function checkIfShouldLoad($loadCustomConfigVars, $key)
-{
-	if(!$loadCustomConfigVars)
-	{
-		$type = $_POST['resetConfigValuesBackToDefault'];
-		if($type === "all")
-		{
-			return false;
-		}
-
-		if($type === "justWatch")
-		{
-			if($key === "watchList")
-			{
-				return false;
-			}
-			return true;
-		}
-
-		if($type === "allButWatch")
-		{
-			if($key !== "watchList")
-			{
-				return false;
-			}
-			return true;
-		}
-	}
-	return true;
-}
-
-function escapeTheEscapes($stringToEscape)
-{
-	return implode("\\\\", explode("\\", $stringToEscape));
-}
-
 $varToIndexDir = "";
 $countOfSlash = 0;
 while($countOfSlash < 20 && !file_exists($varToIndexDir."error.php"))
@@ -80,6 +25,8 @@ else
 	$config = array();
 	$boolForUpgrade = false;
 }
+require_once($varToIndexDir."core/php/class/vars.php");
+$vars = new vars();
 require_once($varToIndexDir.'core/conf/config.php');
 $URI = $_SERVER['REQUEST_URI'];
 if($boolForUpgrade && (strpos($URI, 'upgradeLayout') === false) && (strpos($URI, 'upgradeConfig') === false) && (strpos($URI, 'core/php/template/upgrade') === false) && (strpos($URI, 'upgradeTheme') === false) && (strpos($URI, 'themeChangeLogic') === false) && (strpos($URI, 'settingsSaveAjax') === false) && (strpos($URI, 'example') === false) && (strpos($URI, 'setup') === false)  && (strpos($URI, 'upgradeDelete') === false) && (strpos($URI, 'restore') === false))
@@ -147,7 +94,7 @@ foreach ($defaultConfig as $key => $value)
 	{
 		$$key = $_POST[$key];
 	}
-	elseif(array_key_exists($key, $config) && checkIfShouldLoad($loadCustomConfigVars, $key))
+	elseif(array_key_exists($key, $config) && $vars->checkIfShouldLoad($loadCustomConfigVars, $key))
 	{
 		$$key = $config[$key];
 	}
@@ -176,12 +123,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 		$baseKeysCount = count($baseKeys);
 		for($i = 1; $i <= $_POST['numberOfRows']; $i++ )
 		{
-			$arrayWatchList .= "'".escapeTheEscapes($_POST['watchListKey'.$i])."' => array(";
+			$arrayWatchList .= "'".$vars->escapeTheEscapes($_POST['watchListKey'.$i])."' => array(";
 			$baseKeyCounter = 0;
 			foreach ($baseKeys as $key => $value)
 			{
 				$baseKeyCounter++;
-				$arrayWatchList .= "'".$key."' => '".escapeTheEscapes($_POST['watchListKey'.$i.$key])."'";
+				$arrayWatchList .= "'".$key."' => '".$vars->escapeTheEscapes($_POST['watchListKey'.$i.$key])."'";
 				if($baseKeyCounter !== $baseKeysCount)
 				{
 					$arrayWatchList .= ",";
@@ -305,7 +252,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 		foreach ($folderColorArrays as $key => $value)
 		{
 			$folderColorArraysSave .= "'".$key."'	=>	";
-			$folderColorArraysSave .= forEachAddVars($value);
+			$folderColorArraysSave .= $vars->forEachAddVars($value);
 		}
 	}
 	$folderColorArrays = $folderColorArraysSave;
@@ -349,7 +296,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 		foreach ($logLoadLayout as $key => $value)
 		{
 			$arrayLogLoadLayout .= "'".$key."'	=>	";
-			$arrayLogLoadLayout .= forEachAddVars($value);
+			$arrayLogLoadLayout .= $vars->forEachAddVars($value);
 		}
 	}
 	$logLoadLayout = $arrayLogLoadLayout ;
