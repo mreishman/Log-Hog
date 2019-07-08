@@ -1663,6 +1663,16 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
+			3									=>	array(
+				"info"								=>	"Show settings on same page as index (no redirect). Refresh Required",
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"samePageSettings",
+					"name"								=>	"Same Page Settings",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
 		)
 	),
 	"modules"							=>	array(
