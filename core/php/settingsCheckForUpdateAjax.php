@@ -105,7 +105,11 @@ else
 }
 
 unlink("../../update/downloads/versionCheck/versionCheck.zip");
-
+if(!file_exists("../../update/downloads/versionCheck/extracted/versionsCheckFile.php"))
+{
+  echo json_encode(array("version" => -1, "error" => "empty zip"));
+  exit();
+}
 require_once('../../update/downloads/versionCheck/extracted/versionsCheckFile.php');
 require_once('configStatic.php');
 
