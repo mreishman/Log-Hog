@@ -50,14 +50,15 @@ $fileNameArray = array(
         "path"      =>  ""
     )
 );
-$file = 'core/php/template/listOfFiles.php';
+$file = 'core/json/listOfFiles.json';
 if(file_exists($file))
 {
     if(is_readable($file))
     {
         try
         {
-            require_once($file);
+            $jsonFiles = file_get_contents("core/json/listOfFiles.json");
+            $fileNameArray = json_decode($jsonFiles, true);
         }
         catch (Exception $e)
         {
