@@ -70,7 +70,8 @@ if($boolForUpgrade && (strpos($URI, 'upgradeLayout') === false) && (strpos($URI,
 	}
 
 	//check if any files need to be removed
-	require_once($varToIndexDir."core/php/staticDeletedFiles.php");
+	$jsonFiles = file_get_contents($varToIndexDir."core/json/staticDeletedFiles.json");
+	$arrayOfFilesDeleted = json_decode($jsonFiles, true);
 	foreach ($arrayOfFilesDeleted as $fileOrFolder)
 	{
 		if(is_file($varToIndexDir.$fileOrFolder["fullPath"]))
