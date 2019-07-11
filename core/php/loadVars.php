@@ -313,26 +313,21 @@ else
 	foreach ($arrayOfImages as $key => $value)
 	{
 		$src = "core/img/".$value["baseName"];
-
-		if(file_exists($varToIndexDir."local/".$currentSelectedTheme."/img/".$value["baseName"]))
+		$filePaths = [
+			"local/".$currentSelectedTheme."/img/".$value["baseName"],
+			"local/Themes/".$currentTheme."/img/".$value["baseName"],
+			"core/Themes/".$currentTheme."/img/".$value["baseName"],
+			"local/Themes/".$currentThemeBase."/img/".$value["baseName"],
+			"core/Themes/".$currentThemeBase."/img/".$value["baseName"]
+		];
+		foreach ($filePaths as $filePath)
 		{
-			//check for local version
-			$src = "local/".$currentSelectedTheme."/img/".$value["baseName"];
-		}
-		elseif(file_exists($varToIndexDir."local/Themes/".$currentTheme."/img/".$value["baseName"]))
-		{
-			//check for current theme in local
-			$src = "local/Themes/".$currentTheme."/img/".$value["baseName"];
-		}
-		elseif(file_exists($varToIndexDir."core/Themes/".$currentTheme."/img/".$value["baseName"]))
-		{
-			//check for current theme in core
-			$src = "core/Themes/".$currentTheme."/img/".$value["baseName"];
-		}
-		elseif(file_exists($varToIndexDir."core/Themes/".$currentThemeBase."/img/".$value["baseName"]))
-		{
-			//check for base theme
-			$src = "core/Themes/".$currentThemeBase."/img/".$value["baseName"];
+			if(file_exists($varToIndexDir.$filePath))
+			{
+				//check for local version
+				$src = $filePath;
+				break;
+			}
 		}
 
 		$arrayOfImages[$key]["src"] = $src;
