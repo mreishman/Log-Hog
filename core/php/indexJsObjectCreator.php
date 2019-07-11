@@ -1,220 +1,36 @@
 <?php
-$arrayOfFiles = array(
-	array(
-		"name" => "core/template/base.css",
-		"type" => "css",
-	),
-	array(
-		"name" => "template/theme.css",
-		"type" => "css"
-	),
-	array(
-		"name" => "visibility.core.js",
-		"type" =>"js"
-	),
-	array(
-		"name" => "visibility.fallback.js",
-		"type" =>"js"
-	),
-	array(
-		"name" => "visibility.timers.js",
-		"type" =>"js"
-	),
-	array(
-		"name" => "main.js",
-		"type" =>"js"
-	),
-	array(
-		"name" => "settingsMain.js",
-		"type" =>"js"
-	),
-	array(
-		"name" => "advanced.js",
-		"type" =>"js"
-	),
-	array(
-		"name" => "resetSettingsJs.js",
-		"type" =>"js"
-	),
-	array(
-		"name" => "rightClickJS.js",
-		"type" =>"js"
-	),
-	array(
-		"name" => "update.js",
-		"type" =>"js"
-	),
-	array(
-		"name" => "settings.js",
-		"type" =>"js"
-	),
-	array(
-		"name" => "groups.js",
-		"type" =>"js"
-	),
-	array(
-		"name" => "loghogDownloadJS.js",
-		"type" =>"js"
-	),
-	array(
-		"name" => "jscolor.js",
-		"type" =>"js"
-	),
-	array(
-		"name" => "formatLog.js",
-		"type" =>"js"
-	),
-	array(
-		"name" => "showLog.js",
-		"type" =>"js"
-	),
-	array(
-		"name" => "poll.js",
-		"type" =>"js"
-	),
-	array(
-		"name" => "settingsSideBar.js",
-		"type" =>"js"
-	),
-	array(
-		"name" => "colorScheme.js",
-		"type" =>"js"
-	),
-	array(
-		"name" => "addons.js",
-		"type" =>"js"
-	),
-	array(
-		"name" => "menu.js",
-		"type" =>"js"
-	),
-	array(
-		"name" => "notifications.js",
-		"type" =>"js"
-	),
-	array(
-		"name" => "fullscreenMenu.js",
-		"type" =>"js"
-	),
-	array(
-		"name" => "img/menu.png",
-		"type" =>"img",
-		"class" =>"menuImageForLoad"
-	),
-	array(
-		"name" => "img/Play.png",
-		"type" =>"img",
-		"class" =>"playImageForLoad"
-	),
-	array(
-		"name" => "img/Pause.png",
-		"type" =>"img",
-		"class" =>"pauseImageForLoad"
-	),
-	array(
-		"name" => "img/Refresh.png",
-		"type" =>"img",
-		"class" =>"refreshImageForLoad"
-	),
-	array(
-		"name" => "img/info.png",
-		"type" =>"img",
-		"class" =>"infoSideBarImageForLoad"
-	),
-	array(
-		"name" => "img/search.png",
-		"type" =>"img",
-		"class" =>"searchSideBarImageForLoad"
-	),
-	array(
-		"name" => "img/eraser.png",
-		"type" =>"img",
-		"class" =>"eraserSideBarImageForLoad"
-	),
-	array(
-		"name" => "img/trashCan.png",
-		"type" =>"img",
-		"class" =>"trashCanSideBarImageForLoad"
-	),
-	array(
-		"name" => "img/downArrowSideBar.png",
-		"type" =>"img",
-		"class" =>"downArrowSideBarImageForLoad"
-	),
-	array(
-		"name" => "img/Gear.png",
-		"type" =>"img",
-		"class" =>"gearImageForLoad"
-	),
-	array(
-		"name" => "img/history.png",
-		"type" =>"img",
-		"class" =>"historySideBarImageForLoad"
-	),
-	array(
-		"name" => "img/saveSideBar.png",
-		"type" =>"img",
-		"class" =>"historyAddSideBarImageForLoad"
-	),
-	array(
-		"name" => "img/close.png",
-		"type" =>"img",
-		"class" =>"closeImageForLoad"
-	),
-);
-
+$jsonFiles = file_get_contents($core->baseURL()."core/json/staticFilesRequired.json");
+$arrayOfFiles = json_decode($jsonFiles, true);
+$jsonFiles = file_get_contents($core->baseURL()."core/json/staticFilesOptional.json");
+$arrayOfFilesExtra = json_decode($jsonFiles, true);
 if($filterEnabled === "true")
 {
-	$arrayOfFiles[] = array(
-		"name" => "filter.js",
-		"type" =>"js"
-	);
+	$arrayOfFiles[] = $arrayOfFilesExtra['filter'];
 }
 if($sendCrashInfoJS === "true")
 {
-	$arrayOfFiles[] = array(
-		"name" =>"sentry.js",
-		"type" => "js"
-	);
+	$arrayOfFiles[] = $arrayOfFilesExtra['sentry'];
 }
 if($advancedLogFormatEnabled === "true")
 {
 	if($logFormatPhpEnable === "true")
 	{
-		$arrayOfFiles[] =  array(
-			"name" => "formatPhp.js",
-			"type" => "js"
-		);
+		$arrayOfFiles[] = $arrayOfFilesExtra['formatPhp'];
 	}
 	if($logFormatFileEnable === "true")
 	{
-		$arrayOfFiles[] =  array(
-			"name" => "formatFile.js",
-			"type" => "js"
-		);
+		$arrayOfFiles[] = $arrayOfFilesExtra['formatFile'];
 	}
 	if($logFormatReportEnable === "true")
 	{
-		$arrayOfFiles[] =  array(
-			"name" => "formatReport.js",
-			"type" => "js"
-		);
+		$arrayOfFiles[] = $arrayOfFilesExtra['formatReport'];
 	}
 	if($logFormatJsObjectEnable === "true")
 	{
-		$arrayOfFiles[] =  array(
-			"name" => "formatJsObject.js",
-			"type" => "js"
-		);
+		$arrayOfFiles[] = $arrayOfFilesExtra['formatJsObject'];
 	}
-	$arrayOfFiles[] =  array(
-		"name" => "format.js",
-		"type" => "js"
-	);
-	$arrayOfFiles[] =  array(
-		"name" => "dateFormat.min.js",
-		"type" => "js"
-	);
+	$arrayOfFiles[] = $arrayOfFilesExtra['format'];
+	$arrayOfFiles[] = $arrayOfFilesExtra['dateFormat.min'];
 	$directory = array_diff(scandir($core->baseURL()."core/js/formatObjects/"), array('..', '.'));
 	foreach ($directory as $file) {
 		$arrayOfFiles[] =  array(
@@ -225,81 +41,44 @@ if($advancedLogFormatEnabled === "true")
 }
 if($themesEnabled === "true")
 {
-	$arrayOfFiles[] = array(
-		"name" => "themes.js",
-		"type" => "js"
-	);
-	$arrayOfFiles[] = array(
-		"name" => "upgradeTheme.js",
-		"type" => "js"
-	);
+	$arrayOfFiles[] = $arrayOfFilesExtra['themes'];
+	$arrayOfFiles[] = $arrayOfFilesExtra['upgradeTheme'];
 }
 if($oneLogEnable === "true")
 {
-	$arrayOfFiles[] = array(
-		"name" => "oneLog.js",
-		"type" => "js"
-	);
+	$arrayOfFiles[] = $arrayOfFilesExtra['oneLog'];
 }
 if($flashTitleUpdateLog === "true")
 {
-	$arrayOfFiles[] = array(
-		"name" => "titleFlash.js",
-		"type" => "js"
-	);
+	$arrayOfFiles[] = $arrayOfFilesExtra['titleFlash'];
 }
 if($enableHistory === "true")
 {
-	$arrayOfFiles[] = array(
-		"name" => "archive.js",
-		"type" => "js"
-	);
+	$arrayOfFiles[] = $arrayOfFilesExtra['archive'];
 }
 if($enableMultiLog === "true")
 {
-	$arrayOfFiles[] = array(
-		"name" => "multilog.js",
-		"type" => "js"
-	);
+	$arrayOfFiles[] = $arrayOfFilesExtra['multilog'];
 }
 if($hideEmptyLog === "true")
 {
-	$arrayOfFiles[] = array(
-		"name" => "hideEmptyLog.js",
-		"type" => "js"
-	);
+	$arrayOfFiles[] = $arrayOfFilesExtra['hideEmptyLog'];
 }
 if($truncateLog === "true")
 {
-	$arrayOfFiles[] = array(
-		"name" => "img/eraserMulti.png",
-		"type" => "img",
-		"class" => "eraserMultiImageForLoad"
-	);
+	$arrayOfFiles[] = $arrayOfFilesExtra['eraserMulti'];
 }
 if($truncateLog === "false")
 {
-	$arrayOfFiles[] = array(
-		"name" => "img/eraser.png",
-		"type" => "img",
-		"class" => "eraserForLoad"
-	);
+	$arrayOfFiles[] = $arrayOfFilesExtra['eraser'];
 }
 if($hideClearAllNotifications !== "true")
 {
-	$arrayOfFiles[] = array(
-		"name" => "img/notificationClear.png",
-		"type" => "img",
-		"class" => "notificationClearImageForLoad"
-	);
+	$arrayOfFiles[] = $arrayOfFilesExtra['notificationClear'];
 }
 if($hideNotificationIcon !== "true")
 {
-	$arrayOfFiles[] = array(
-		"name" => "img/notification.png",
-		"type" => "img",
-		"class" => "notificationImageForLoad"
-	);
+	$arrayOfFiles[] = $arrayOfFilesExtra['notification'];
 }
 $currentSessionValue = $windowConfig;
 if(isset($_COOKIE["windowConfig"]) && $logLoadPrevious === "true")
@@ -314,24 +93,12 @@ if($enableMultiLog === "false")
 }
 if($currentSessionValue !== "1x1")
 {
-	$arrayOfFiles[] = array(
-		"name" => "img/pin.png",
-		"type" => "img",
-		"class" => "pinImageForLoad"
-	);
-	$arrayOfFiles[] = array(
-		"name" => "img/pinPinned.png",
-		"type" => "img",
-		"class" => "pinPinnedImageForLoad"
-	);
+	$arrayOfFiles[] = $arrayOfFilesExtra['pin'];
+	$arrayOfFiles[] = $arrayOfFilesExtra['pinPinned'];
 }
 if ($filterSearchInHeader === "true" && $filterEnabled === "true")
 {
-	$arrayOfFiles[] = array(
-		"name" => "img/search.png",
-		"type" => "img",
-		"class" => "showFilterTopBarImageForLoad"
-	);
+	$arrayOfFiles[] = $arrayOfFilesExtra['search'];
 }
 $counter = 0;
 foreach ($arrayOfFiles as $file)
