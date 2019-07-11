@@ -22,7 +22,7 @@ require_once('../core/php/loadVars.php');
 ?>
 <!doctype html>
 <head>
-	<title>Settings | Main</title>
+	<title>Settings | What's New</title>
 	<?php echo $core->loadCSS("../",$baseUrl, $cssVersion);?>
 	<link rel="icon" type="image/png" href="../core/img/favicon.png" />
 	<?php $core->getScript(array(
