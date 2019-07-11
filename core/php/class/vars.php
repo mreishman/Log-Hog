@@ -56,4 +56,17 @@ class vars
 	{
 		return implode("\\\\", explode("\\", $stringToEscape));
 	}
+
+	public function checkIfURIContains($arrayOfChecks)
+	{
+		$URI = $_SERVER['REQUEST_URI'];
+		foreach ($arrayOfChecks as $checkValue)
+		{
+			if(strpos($URI, $checkValue) !== false)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
 }
