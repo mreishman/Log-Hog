@@ -8,7 +8,12 @@
 			<td width="75%"></td>
 		</tr>
 		<?php
-		$jsonFiles = file_get_contents($core->baseURL()."/core/json/whatsNew.json");
+		$modifier = $core->baseURL();
+		if($modifier)
+		{
+			$modifier .= "/";
+		}
+		$jsonFiles = file_get_contents($modifier."core/json/whatsNew.json");
 		$dataForWhatsNew = json_decode($jsonFiles, true);
 		$dataForWhatsNew = array_reverse($dataForWhatsNew);
 		$first = true;
