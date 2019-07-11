@@ -19,13 +19,10 @@ if(file_exists($varToIndexDir.'local/layout.php'))
   require_once($varToIndexDir.'local/layout.php');
   $baseUrl .= $currentSelectedTheme."/";
 }
+$config = array();
 if(file_exists($baseUrl.'conf/config.php'))
 {
 	require_once($baseUrl.'conf/config.php');
-}
-else
-{
-	$config = array();
 }
 require_once($varToIndexDir.'core/conf/config.php');
 

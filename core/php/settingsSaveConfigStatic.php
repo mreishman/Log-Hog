@@ -1,37 +1,23 @@
 <?php
+$fileName = 'configStatic.php';
+require_once($fileName);
 
-
-require_once('configStatic.php');
-
-	$fileName = 'configStatic.php';
-
-	//Don't forget to update Ajax version
-
+$version = $configStatic['version'];
 if(isset($_POST['version']))
 {
 	$version = $_POST['version'];
 }
-else
-{
-	$version = $configStatic['version'];
-}
 
+$lastCheck = $configStatic['lastCheck'];
 if(isset($_POST['lastCheck']))
 {
 	$lastCheck = $_POST['lastCheck'];
 }
-else
-{
-	$lastCheck = $configStatic['lastCheck'];
-}
 
+$newestVersion = $configStatic['newestVersion'];
 if(isset($_POST['newestVersion']))
 {
 	$newestVersion = $_POST['newestVersion'];
-}
-else
-{
-	$newestVersion = $configStatic['newestVersion'];
 }
 
 $arrayForVersionList = "";
@@ -71,11 +57,9 @@ $"."configStatic = array(
 );
 ";
 
-	//Don't forget to update Ajax version
 if(file_exists($fileName))
 {
   unlink($fileName);
 }
-	file_put_contents($fileName, $newInfoForConfig);
-
-	echo json_encode(true);
+file_put_contents($fileName, $newInfoForConfig);
+echo json_encode(true);

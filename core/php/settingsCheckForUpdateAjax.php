@@ -37,25 +37,19 @@ if(file_exists("../../update/downloads/versionCheck/extracted/"))
 
 }
 
+$branchSelected = $defaultConfig['branchSelected'];
 if(array_key_exists('branchSelected', $config))
 {
   $branchSelected = $config['branchSelected'];
 }
-else
-{
-  $branchSelected = $defaultConfig['branchSelected'];
-}
+
+$baseUrlUpdate = $defaultConfig['baseUrlUpdate'];
 if(array_key_exists('baseUrlUpdate', $config))
 {
   $baseUrlUpdate = $config['baseUrlUpdate'];
 }
-else
-{
-  $baseUrlUpdate = $defaultConfig['baseUrlUpdate'];
-}
 
 $fileNameForDownload = "versionCheck";
-
 if($branchSelected === "dev")
 {
   $fileNameForDownload = "versionCheckDev";

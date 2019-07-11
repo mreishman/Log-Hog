@@ -5,7 +5,7 @@ $arrayOfFiles = array(
 		"type" => "css",
 	),
 	array(
-		"name" => $baseUrl . "template/theme.css",
+		"name" => "template/theme.css",
 		"type" => "css"
 	),
 	array(
@@ -97,71 +97,72 @@ $arrayOfFiles = array(
 		"type" =>"js"
 	),
 	array(
-		"name" => $baseUrl . "img/menu.png",
+		"name" => "img/menu.png",
 		"type" =>"img",
 		"class" =>"menuImageForLoad"
 	),
 	array(
-		"name" => $baseUrl . "img/Play.png",
+		"name" => "img/Play.png",
 		"type" =>"img",
 		"class" =>"playImageForLoad"
 	),
 	array(
-		"name" => $baseUrl . "img/Pause.png",
+		"name" => "img/Pause.png",
 		"type" =>"img",
 		"class" =>"pauseImageForLoad"
 	),
 	array(
-		"name" => $baseUrl . "img/Refresh.png",
+		"name" => "img/Refresh.png",
 		"type" =>"img",
 		"class" =>"refreshImageForLoad"
 	),
 	array(
-		"name" => $baseUrl . "img/info.png",
+		"name" => "img/info.png",
 		"type" =>"img",
 		"class" =>"infoSideBarImageForLoad"
 	),
 	array(
-		"name" => $baseUrl . "img/search.png",
+		"name" => "img/search.png",
 		"type" =>"img",
 		"class" =>"searchSideBarImageForLoad"
 	),
 	array(
-		"name" => $baseUrl . "img/eraser.png",
+		"name" => "img/eraser.png",
 		"type" =>"img",
 		"class" =>"eraserSideBarImageForLoad"
 	),
 	array(
-		"name" => $baseUrl . "img/trashCan.png",
+		"name" => "img/trashCan.png",
 		"type" =>"img",
 		"class" =>"trashCanSideBarImageForLoad"
 	),
 	array(
-		"name" => $baseUrl . "img/downArrowSideBar.png",
+		"name" => "img/downArrowSideBar.png",
 		"type" =>"img",
 		"class" =>"downArrowSideBarImageForLoad"
 	),
 	array(
-		"name" => $baseUrl . "img/Gear.png",
+		"name" => "img/Gear.png",
 		"type" =>"img",
 		"class" =>"gearImageForLoad"
 	),
 	array(
-		"name" => $baseUrl . "img/history.png",
+		"name" => "img/history.png",
 		"type" =>"img",
 		"class" =>"historySideBarImageForLoad"
 	),
 	array(
-		"name" => $baseUrl . "img/saveSideBar.png",
+		"name" => "img/saveSideBar.png",
 		"type" =>"img",
 		"class" =>"historyAddSideBarImageForLoad"
 	),
 	array(
-		"name" => $baseUrl . "img/close.png",
+		"name" => "img/close.png",
 		"type" =>"img",
 		"class" =>"closeImageForLoad"
 	),
 );
+
 if($filterEnabled === "true")
 {
 	$arrayOfFiles[] = array(
@@ -271,7 +272,7 @@ if($hideEmptyLog === "true")
 if($truncateLog === "true")
 {
 	$arrayOfFiles[] = array(
-		"name" => $baseUrl . "img/eraserMulti.png",
+		"name" => "img/eraserMulti.png",
 		"type" => "img",
 		"class" => "eraserMultiImageForLoad"
 	);
@@ -279,7 +280,7 @@ if($truncateLog === "true")
 if($truncateLog === "false")
 {
 	$arrayOfFiles[] = array(
-		"name" => $baseUrl . "img/eraser.png",
+		"name" => "img/eraser.png",
 		"type" => "img",
 		"class" => "eraserForLoad"
 	);
@@ -287,7 +288,7 @@ if($truncateLog === "false")
 if($hideClearAllNotifications !== "true")
 {
 	$arrayOfFiles[] = array(
-		"name" => $baseUrl . "img/notificationClear.png",
+		"name" => "img/notificationClear.png",
 		"type" => "img",
 		"class" => "notificationClearImageForLoad"
 	);
@@ -295,7 +296,7 @@ if($hideClearAllNotifications !== "true")
 if($hideNotificationIcon !== "true")
 {
 	$arrayOfFiles[] = array(
-		"name" => $baseUrl . "img/notification.png",
+		"name" => "img/notification.png",
 		"type" => "img",
 		"class" => "notificationImageForLoad"
 	);
@@ -314,12 +315,12 @@ if($enableMultiLog === "false")
 if($currentSessionValue !== "1x1")
 {
 	$arrayOfFiles[] = array(
-		"name" => $baseUrl . "img/pin.png",
+		"name" => "img/pin.png",
 		"type" => "img",
 		"class" => "pinImageForLoad"
 	);
 	$arrayOfFiles[] = array(
-		"name" => $baseUrl . "img/pinPinned.png",
+		"name" => "img/pinPinned.png",
 		"type" => "img",
 		"class" => "pinPinnedImageForLoad"
 	);
@@ -327,11 +328,21 @@ if($currentSessionValue !== "1x1")
 if ($filterSearchInHeader === "true" && $filterEnabled === "true")
 {
 	$arrayOfFiles[] = array(
-		"name" => $baseUrl . "img/search.png",
+		"name" => "img/search.png",
 		"type" => "img",
 		"class" => "showFilterTopBarImageForLoad"
 	);
 }
+$counter = 0;
+foreach ($arrayOfFiles as $file)
+{
+	if($file["type"] !== "js" && strpos($file["name"], "core/") === false)
+	{
+		$arrayOfFiles[$counter]["name"] = $baseUrl . $file["name"];
+	}
+	$counter++;
+}
+
 function compareByName($a, $b) {
   return strcmp($a["name"], $b["name"]);
 }
