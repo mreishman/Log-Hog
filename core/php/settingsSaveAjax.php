@@ -37,14 +37,12 @@ if(!isset($defaultConfig))
 }
 
 $currentTheme = $core->loadSpecificVar($defaultConfig, $config, "currentTheme");
-if(is_dir('../../local/'.$currentSelectedTheme.'/Themes/'.$currentTheme))
+$requireFile = "../../core/Themes/".$currentTheme."/defaultSetting.php";
+if(is_dir("../../local/".$currentSelectedTheme."/Themes/".$currentTheme))
 {
-	require_once('../../local/'.$currentSelectedTheme.'/Themes/'.$currentTheme."/defaultSetting.php");
+	$requireFile = "../../local/".$currentSelectedTheme."/Themes/".$currentTheme."/defaultSetting.php";
 }
-else
-{
-	require_once('../../core/Themes/'.$currentTheme."/defaultSetting.php");
-}
+require_once($requireFile);
 
 require_once('loadVars.php');
 if($backupNumConfigEnabled === "true")

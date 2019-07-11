@@ -92,82 +92,6 @@ if($enableDevBranchDownload == 'true')
 	"name" 				=> "Dev");
 }
 
-$fontChoices = array(
-	0 			=> 	array(
-		"name" 		=> 'monospace',
-		"value" 	=> 'monospace'),
-	1 			=>	array(
-		"name" 		=>	'sans-serif',
-		"value"		=>	'sans-seri'),
-	2			=>	array(
-		"name"		=>	'Courier',
-		"value"		=>	'Courier'),
-	3			=>	array(
-		"name"		=>	'Monaco',
-		"value"		=>	'Monaco'),
-	4			=>	array(
-		"name" 		=>	'Verdana',
-		"value"		=>	'Verdana'),
-	5			=>	array(
-		"name"		=>	'Geneva',
-		"value"		=>	'Geneva'),
-	6			=>	array(
-		"name"		=>	'Helvetica',
-		"value"		=>	'Helvetica'),
-	7			=>	array(
-		"name"		=>	'Tahoma',
-		"value"		=>	'Tahoma'),
-	8			=>	array(
-		"name"		=>	'Charcoal',
-		"value"		=>	'Charcoal'),
-	9			=>	array(
-		"name"		=>	'Impact',
-		"value"		=>	'Impact'),
-	10			=>	array(
-		"name"		=>	'cursive',
-		"value"		=>	'cursive'),
-	11			=>	array(
-		"name"		=>	'Gadget',
-		"value"		=>	'Gadget'),
-	12			=>	array(
-		"name"		=>	'Arial',
-		"value"		=>	'Arial')
-	);
-
-$dateFormatOptions = array(
-	0 			=> 	array(
-		"name" 		=> 'Default',
-		"value" 	=> 'default'),
-	1 			=>	array(
-		"name" 		=>	'Hidden',
-		"value"		=>	'hidden'),
-	2			=>	array(
-		"name"		=>	'hh:mm:ss',
-		"value"		=>	'hh:|mm:|ss'),
-	3			=>	array(
-		"name"		=>	'DD/MM/YYYY',
-		"value"		=>	'DD/|MM/|YYYY'),
-	4			=>	array(
-		"name" 		=>	'MM/DD/YYYY',
-		"value"		=>	'MM/|DD/|YYYY'),
-	5			=>	array(
-		"name"		=>	'DD/MM',
-		"value"		=>	'DD/|MM'),
-	6			=>	array(
-		"name"		=>	'MM/DD/YYYY hh:mm:ss',
-		"value"		=>	'MM/|DD/|YYYY |hh:|mm:|ss'),
-	7			=>	array(
-		"name"		=>	'DD/MM/YYYY hh:mm:ss',
-		"value"		=>	'DD/|MM/|YYYY |hh:|mm:|ss'),
-	8			=>	array(
-		"name"		=>	'YYYY/MM/DD hh:mm:ss',
-		"value"		=>	'YYYY/|MM/|DD |hh:|mm:|ss'),
-	9			=>	array(
-		"name"		=>	'Custom',
-		"value"		=>	'custom')
-	);
-
-
 $customForFirstLogSelect = "<span class=\"settingsBuffer\" > First Log Select: </span><span id=\"logSelectedFirstLoad\" >";
 if ($logSelectedFirstLoad === "")
 {
@@ -669,7 +593,7 @@ $defaultConfigMoreData = array(
 				"var"								=>	array(
 					"key"								=>	"fontFamily",
 					"name"								=>	"Font",
-					"options"							=>	$fontChoices,
+					"options"							=>	json_decode(file_get_contents($core->baseURL()."core/json/fontChoices.json"), true),
 					"type"								=>	"dropdown"
 				)
 			),
@@ -808,7 +732,7 @@ $defaultConfigMoreData = array(
 							"id"								=>	"dateTextFormat",
 							"key"								=>	"dateTextFormat",
 							"name"								=>	"Date Text Format",
-							"options"							=>	$dateFormatOptions,
+							"options"							=>	json_decode(file_get_contents($core->baseURL()."core/json/dateFormatOptions.json"), true),
 							"type"								=>	"dropdown"
 						),
 						"vars"								=>	$customDateFormatVars

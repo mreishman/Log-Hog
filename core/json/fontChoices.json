@@ -1,0 +1,15 @@
+[
+	{"name":"monospace","value":"monospace"},
+	{"name":"sans-serif","value":"sans-seri"},
+	{"name":"Courier","value":"Courier"},
+	{"name":"Monaco","value":"Monaco"},
+	{"name":"Verdana","value":"Verdana"},
+	{"name":"Geneva","value":"Geneva"},
+	{"name":"Helvetica","value":"Helvetica"},
+	{"name":"Tahoma","value":"Tahoma"},
+	{"name":"Charcoal","value":"Charcoal"},
+	{"name":"Impact","value":"Impact"},
+	{"name":"cursive","value":"cursive"},
+	{"name":"Gadget","value":"Gadget"},
+	{"name":"Arial","value":"Arial"}
+]
