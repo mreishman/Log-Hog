@@ -103,7 +103,7 @@ function changeFilterInvert()
 
 function changeHighlightContentMatch()
 {
-	filterContentHighlight = document.getElementById("filterContentHighlight").value;
+	filterContentHighlight = document.getElementById("filterContentHighlightSideBar").value;
 	possiblyUpdateFromFilter();
 }
 
@@ -115,7 +115,7 @@ function changeHighlightContentMatchLine()
 
 function changeFilterContentMatch()
 {
-	filterContentLimit = document.getElementById("filterContentLimit").value;
+	filterContentLimit = document.getElementById("filterContentLimitSideBar").value;
 	possiblyUpdateFromFilter();
 }
 

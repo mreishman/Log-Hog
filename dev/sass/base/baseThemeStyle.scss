@@ -283,11 +283,16 @@
 .fullScreenMenuLeftSidebar {
 	background: $mainAltColor;
 	border-right: 1px solid $mainColor;
+	color: $mainColor;
 
-	div{
-		background: $mainAltColor;
-		color: $mainColor;
+	ul{
+		list-style: none;
+		padding: 0;
+		li{
+			padding-bottom: 10px;
+		}
 	}
+
 	td{
 		background: $mainAltColor;
 		color: $mainColor;
