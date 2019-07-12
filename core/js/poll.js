@@ -712,7 +712,16 @@ function getLineDiffCount(id)
 	var diffNew = diff;
 	if(diff !== 0)
 	{
-		diffNew = "("+diff+diffMod+")";
+		diffNew = "";
+		if(logDiffCountLeftMod !== "none")
+		{
+			diffNew += logDiffCountLeftMod;
+		}
+		diffNew += diff+diffMod;
+		if(logDiffCountRightMod !== "none")
+		{
+			diffNew += logDiffCountRightMod;
+		}
 	}
 	if(document.getElementById(id+"CountHidden").innerHTML !== diff)
 	{

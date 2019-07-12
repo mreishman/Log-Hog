@@ -1333,12 +1333,81 @@ $defaultConfigMoreData = array(
 				)
 			),
 			2									=>	array(
-				"type"								=>	"single",
+				"bool"								=>	($notificationCountVisible == 'false'),
+				"id"								=>	"notificationCountVisibleSettings",
+				"name"								=>	"Notification Count Settings",
+				"type"								=>	"grouped",
 				"var"								=>	array(
+					"function"							=>	"showOrHidenotificationCountVisible",
+					"id"								=>	"notificationCountVisible",
 					"key"								=>	"notificationCountVisible",
 					"name"								=>	"Enable Log Diff Count",
 					"options"							=>	$trueFalsVars,
 					"type"								=>	"dropdown"
+				),
+				"vars"								=>	array(
+					0									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"logDiffCountLeftMod",
+							"name"								=>	"Left Mod",
+							"options"							=>	array(
+								0 									=> array(
+									"value" 							=> "(",
+									"name" 								=> "("),
+								1 									=> array(
+									"value" 							=> "[",
+									"name" 								=> "["),
+								2 									=> array(
+									"value" 							=> "|",
+									"name" 								=> "|"),
+								3 									=> array(
+									"value" 							=> ":",
+									"name" 								=> ":"),
+								4 									=> array(
+									"value" 							=> "::",
+									"name" 								=> "::"),
+								5 									=> array(
+									"value" 							=> " ",
+									"name" 								=> "Space"),
+								6 									=> array(
+									"value" 							=> "none",
+									"name" 								=> "None")
+							),
+							"type"								=>	"dropdown"
+						)
+					),
+					1									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"logDiffCountRightMod",
+							"name"								=>	"Right Mod",
+							"options"							=>	array(
+								0 									=> array(
+									"value" 							=> ")",
+									"name" 								=> ")"),
+								1 									=> array(
+									"value" 							=> "]",
+									"name" 								=> "]"),
+								2 									=> array(
+									"value" 							=> "|",
+									"name" 								=> "|"),
+								3 									=> array(
+									"value" 							=> ":",
+									"name" 								=> ":"),
+								4 									=> array(
+									"value" 							=> "::",
+									"name" 								=> "::"),
+								5 									=> array(
+									"value" 							=> " ",
+									"name" 								=> "Space"),
+								6 									=> array(
+									"value" 							=> "none",
+									"name" 								=> "None")
+							),
+							"type"								=>	"dropdown"
+						)
+					)
 				)
 			),
 			3									=>	array(
