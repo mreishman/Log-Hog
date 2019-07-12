@@ -209,21 +209,41 @@ Hide Log Tabs
 	</select>
 </span>
 <h3 class="addBorderBottom">Logs</h3>
-<?php if($advancedLogFormatEnabled === "true"): ?>
-	Advanced Log Format
-	<span class="selectDiv">
-		<select onchange="tmpChangeAdvancedLogFormat();" id="advancedLogFormatEnabled">
-			<option <?php if($advancedLogFormatEnabled === "true"){ echo " selected "; }?>  value="true" >Enabled</option>
-			<option <?php if($advancedLogFormatEnabled === "false"){ echo " selected "; }?>  value="false" >Disabled</option>
-		</select>
-	</span>
-	<br>
-	<br>
-<?php endif; ?>
-Log Direction Invert
-<span class="selectDiv">
-	<select onchange="toggleLogDirectionInvert();" id="logDirectionInvert">
-		<option <?php if($logDirectionInvert === "true"){ echo " selected "; }?>  value="true" >True</option>
-		<option <?php if($logDirectionInvert === "false"){ echo " selected "; }?>  value="false" >False</option>
-	</select>
-</span>
+<ul>
+<?php if($advancedLogFormatEnabled === "true")
+{
+	$settings->varTemplateLogic(
+		array(
+			"type"								=>	"single",
+			"var"								=>	array(
+				"function"							=>	"tmpChangeAdvancedLogFormat",
+				"hideKeyName"						=>	true,
+				"id"								=>	"advancedLogFormatEnabled",
+				"key"								=>	"advancedLogFormatEnabled",
+				"name"								=>	"Advanced Log Format",
+				"options"							=>	$trueFalsVars,
+				"type"								=>	"dropdown"
+			)
+		)
+		,
+		$loadVarsArray
+	);
+}
+$settings->varTemplateLogic(
+		array(
+			"type"								=>	"single",
+			"var"								=>	array(
+				"function"							=>	"toggleLogDirectionInvert",
+				"hideKeyName"						=>	true,
+				"id"								=>	"logDirectionInvert",
+				"key"								=>	"logDirectionInvert",
+				"name"								=>	"Reverse log text",
+				"options"							=>	$trueFalsVars,
+				"type"								=>	"dropdown"
+			)
+		)
+		,
+		$loadVarsArray
+	);
+?>
+</ul>
