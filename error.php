@@ -239,6 +239,8 @@ if(file_exists($file))
             <?php echo $errorArray[$error]["secondMessage"]; ?>
             <h2> Version: </h2>
             <?php echo $version; ?>
+            <h2> PHP Version: </h2>
+            <?php echo phpversion(); ?>
             <br>
             <br>
             <?php
