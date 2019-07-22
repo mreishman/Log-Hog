@@ -62,9 +62,21 @@ if(file_exists("../../update/downloads/versionCheck/versionCheck.zip"))
 {
   unlink("../../update/downloads/versionCheck/versionCheck.zip");
 }
+$newFile = file_get_contents($baseUrlUpdate .$fileNameForDownload.".zip");
+if(!$newFile || empty($newFile))
+{
+  echo json_encode(array("version" => -1,  "error" => "empty zip"));
+  exit();
+}
 file_put_contents("../../update/downloads/versionCheck/versionCheck.zip",
-  file_get_contents($baseUrlUpdate .$fileNameForDownload.".zip")
+  $newFile
   );
+
+if(!is_file("../../update/downloads/versionCheck/versionCheck.zip") || empty("../../update/downloads/versionCheck/versionCheck.zip"))
+{
+  echo json_encode(array("version" => -1,  "error" => "empty zip"));
+  exit();
+}
 
 if(!is_dir("../../update/downloads/versionCheck/extracted/"))
 {
