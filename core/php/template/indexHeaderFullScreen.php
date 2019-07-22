@@ -7,7 +7,7 @@
 						$arrayOfImages["loadingImg"],
 						$imageConfig = array(
 							"id"		=>	"menuImage",
-							"class"		=>	"menuImage menuImageForLoad",
+							"class"		=>	"menuImage menuImageForLoad altImage",
 							"height"	=>	"30px",
 							"data-src"	=>	$arrayOfImages["close"]
 							)
