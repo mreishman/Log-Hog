@@ -63,6 +63,10 @@ function verifyFilePoll(version)
 				type: "POST",
 				success(data)
 				{
+					if(typeof data === "object"  && "error" in data && data["error"] === 14)
+					{
+						window.location.href = "../../../error.php?error=14&page="+urlForSend;
+					}
 					verifyPostEnd(data, _data);
 				},
 				failure(data)

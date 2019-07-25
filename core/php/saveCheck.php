@@ -1,5 +1,11 @@
 <?php
-
+require_once("class/session.php");
+$session = new session();
+if(!$session->startSession())
+{
+	echo json_encode(array("error" => 14));
+	exit();
+}
 $varToIndexDir = "";
 $countOfSlash = 0;
 while($countOfSlash < 20 && !file_exists($varToIndexDir."error.php"))

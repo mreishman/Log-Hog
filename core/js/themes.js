@@ -136,7 +136,11 @@ function createNewFiles()
 		type: "POST",
 		success(data)
 		{
-			if(data === true)
+			if(typeof data === "object"  && "error" in data && data["error"] === 14)
+            {
+                window.location.href = themeDirMod + "error.php?error=14&page=saveCustomThemeDefaults.php";
+            }
+			else if(data === true)
 			{
 				timeoutVar = setInterval(function(){verifyNewFiles();},3000);
 			}
@@ -242,7 +246,11 @@ function copyFiles()
 		type: "POST",
 		success(data)
 		{
-			if(data === true)
+			if(typeof data === "object"  && "error" in data && data["error"] === 14)
+			{
+				window.location.href = themeDirMod + "error.php?error=14&page=clearLog.php";
+			}
+			else if(data === true)
 			{
 				timeoutVar = setInterval(function(){verifyCopiedFiles();},3000);
 			}

@@ -1,4 +1,14 @@
 <?php
+require_once("class/session.php");
+if(!isset($session))
+{
+	$session = new session();
+}
+if(!$session->startSession())
+{
+	echo json_encode(array("error" => 14));
+	exit();
+}
 $updateNoticeMeter = $defaultConfig['updateNoticeMeter'];
 if(array_key_exists('updateNoticeMeter', $config))
 {

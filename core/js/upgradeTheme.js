@@ -15,7 +15,14 @@ function copyFilesThemeChange()
 		type: "POST",
 		success(data)
 		{
-			verifyFileThemeChange(data);
+			if(typeof data === "object"  && "error" in data && data["error"] === 14)
+            {
+                window.location.href = themeChangeLogicDirModifier + "error.php?error=14&page="+urlForSendMainThemeChange0;
+            }
+            else
+            {
+				verifyFileThemeChange(data);
+			}
 		},
 		failure(data)
 		{
@@ -51,7 +58,14 @@ function verifyFilePollThemeChange(version)
 				type: 'POST',
 				success(data)
 				{
-					verifyPostEndThemeChange(data);
+					if(typeof data === "object"  && "error" in data && data["error"] === 14)
+		            {
+		                window.location.href = themeChangeLogicDirModifier + "error.php?error=14&page="+urlForSendMainThemeChange1;
+		            }
+		            else
+		            {
+						verifyPostEndThemeChange(data);
+					}
 				},
 				failure(data)
 				{
@@ -61,7 +75,7 @@ function verifyFilePollThemeChange(version)
 				{
 					lockThemeLogic = false;
 				}
-			});	
+			});
 		}(data));
 	}
 }

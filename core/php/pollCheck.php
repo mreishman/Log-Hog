@@ -10,6 +10,13 @@ try
 	require_once('updateProgressFile.php');
 	require_once("class/core.php");
 	$core = new core();
+	require_once("class/session.php");
+	$session = new session();
+	if(!$session->startSession())
+	{
+		echo json_encode(array("error" => 14));
+		exit();
+	}
 	require_once('class/poll.php');
 	$poll = new poll();
 }

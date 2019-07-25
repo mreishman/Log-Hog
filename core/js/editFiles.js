@@ -22,7 +22,14 @@ function loadFile(filepath, name)
 		type: "POST",
 		success(data)
 		{
-			showFile(data, this.name);
+			if(typeof data === "object"  && "error" in data && data["error"] === 14)
+            {
+                window.location.href = "../error.php?error=14&page=returnFileContents.php";
+            }
+            else
+            {
+				showFile(data, this.name);
+			}
 		},
 		error(data, data2){},
 		complete(){}

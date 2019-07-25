@@ -62,10 +62,6 @@
 		"name":"Updater",
 		"path":"update\/updater.php"
 	},
-	"updateCheck":{
-		"name":"Update Check",
-		"path":"update\/updateCheck.php"
-	},
 	"updateInProgress":{
 		"name":"Updat In Progress",
 		"path":"update\/updateInProgress.php"

@@ -319,9 +319,16 @@ function resetUpdateSettings()
         type: "POST",
         complete(data)
         {
-            verifyCountSuccess = 0;
-            totalCounterInstall = 0;
-            installUpdatePoll = setInterval(function(){verifyResetChange();},3000);
+        	if(typeof data === "object"  && "error" in data && data["error"] === 14)
+            {
+                window.location.href = "../error.php?error=14&page=resetUpdateFilesToDefault.php";
+            }
+            else
+            {
+            	verifyCountSuccess = 0;
+            	totalCounterInstall = 0;
+            	installUpdatePoll = setInterval(function(){verifyResetChange();},3000);
+            }
         }
     });
 }
@@ -792,7 +799,11 @@ function finishUpdatePollCheck()
 		success: function(data)
 		{
 			retryCount++;
-			if(data === arrayOfVersions[(versionCountCurrent-1)])
+			if(typeof data === "object"  && "error" in data && data["error"] === 14)
+            {
+                window.location.href = "../error.php?error=14&page=versionCheck.php";
+            }
+			else if(data === arrayOfVersions[(versionCountCurrent-1)])
 			{
 				verifyCountSuccess++;
 				if(verifyCountSuccess >= successVerifyNum)
@@ -839,6 +850,11 @@ function finishUpdateOneHundredCheck()
 		type: "POST",
 		success: function(data)
 		{
+			if(typeof data === "object"  && "error" in data && data["error"] === 14)
+            {
+                window.location.href = "../error.php?error=14&page=verifyVersionInstallComplete.php";
+                return;
+            }
 			retryCount++;
 			if(data === true)
 			{

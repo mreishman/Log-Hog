@@ -4,6 +4,12 @@ require_once("core/php/class/core.php");
 $core = new core();
 require_once("core/php/class/update.php");
 $update = new update();
+require_once("core/php/class/session.php");
+$session = new session();
+if(!$session->startSession())
+{
+	$core->echoErrorJavaScript("", "", 17);
+}
 $currentSelectedTheme = $core->returnCurrentSelectedTheme();
 $baseUrl = "local/".$currentSelectedTheme."/";
 

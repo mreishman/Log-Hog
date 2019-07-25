@@ -18,6 +18,10 @@ function checkIfChange()
 		type: "POST",
 		success(data)
 		{
+			if(typeof data === "object"  && "error" in data && data["error"] === 14)
+			{
+				window.location.href = "../error.php?error=14&page=getPercentUpdate.php";
+			}
 			var newPercent = parseInt(data);
 			document.getElementById("innerSettingsText").innerHTML = "<br> Current Percent: "+currentPercent+"% ("+counter+")"+document.getElementById("innerSettingsText").innerHTML;
 			if(newPercent === currentPercent)

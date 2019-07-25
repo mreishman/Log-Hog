@@ -125,6 +125,11 @@ function selectLogPopup(locationForNewLogText)
 		type: "POST",
 		success(data)
 		{
+			if(typeof data === "object"  && "error" in data && data["error"] === 14)
+			{
+				window.location.href =urlModifierForAjax + "error.php?error=14&page=pollCheck.php";
+				return;
+			}
 			data["oneLog"] = {};
 			var popupFileList = Object.keys(data);
 			var popupFileListLength = popupFileList.length;

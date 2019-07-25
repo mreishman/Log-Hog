@@ -1,7 +1,13 @@
 <?php
 require_once("class/core.php");
 $core = new core();
-
+require_once("class/session.php");
+$session = new session();
+if(!$session->startSession())
+{
+	echo json_encode(array("error" => 14));
+	exit();
+}
 $filter = "$";
 $path = $_POST["currentFolder"];
 $response = array();

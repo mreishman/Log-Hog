@@ -58,7 +58,11 @@ function checkForUpdates(urlSend = "../", whatAmIUpdating = "Log-Hog", currentNe
 			type: "POST",
 			success(data)
 			{
-				if(checkForUpdatePoll !== null)
+				if(typeof data === "object"  && "error" in data && data["error"] === 14)
+	            {
+	                window.location.href = urlSend + "error.php?error=14&page=settingsCheckForUpdateAjax.php";
+	            }
+				else if(checkForUpdatePoll !== null)
 				{
 					updateInProgressPopup();
 				}
@@ -84,7 +88,7 @@ function checkForUpdates(urlSend = "../", whatAmIUpdating = "Log-Hog", currentNe
 							}
 							else if(data.error === "error opening zip")
 							{
-								window.location.href = "./error.php?error=14&page=Error Opening Zip";
+								window.location.href = "./error.php?error=17&page=Error Opening Zip";
 							}
 							else if(data.error === "empty zip")
 							{
@@ -181,6 +185,11 @@ function checkForUpdateTimer(urlSend, whatAmIUpdating)
 	}
 	$.getJSON(urlSend+"core/php/configStaticCheck.php", {}, function(data)
 	{
+		if(typeof data === "object"  && "error" in data && data["error"] === 14)
+		{
+			window.location.href = urlSend + "error.php?error=14&page=configStaticCheck.php";
+			return;
+		}
 		totalCounter++;
 		if(showPopupForUpdateBool && whatAmIUpdating === "Log-Hog")
 		{
@@ -335,6 +344,12 @@ function saveSettingFromPopupNoCheckMaybe()
 				dataType: "json",
 				data,
 				type: "POST",
+				success(data){
+					if(typeof data === "object"  && "error" in data && data["error"] === 14)
+		            {
+		                window.location.href = urlSend + "error.php?error=14&page=settingsSaveAjax.php";
+		            }
+				}
 			complete(data){
 				closePopupNoUpdate();
 				},
@@ -387,8 +402,15 @@ function installUpdates(urlSend = "../", updateFormIDLocal = "settingsInstallUpd
 			type: "POST",
 			complete(data)
 			{
-				verifyCountSuccess = 0;
-				installUpdatePoll = setInterval(function(){verifyChange(urlSend);},3000);
+				if(typeof data === "object"  && "error" in data && data["error"] === 14)
+	            {
+	                window.location.href = urlSend + "error.php?error=14&page=resetUpdateFilesToDefault.php";
+	            }
+	            else
+	            {
+					verifyCountSuccess = 0;
+					installUpdatePoll = setInterval(function(){verifyChange(urlSend);},3000);
+				}
 			}
 		});
 	}

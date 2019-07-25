@@ -34,7 +34,11 @@ function saveAndVerifyMain(idForForm)
         data,
         success(data)
         {
-            if(data !== "true")
+            if(typeof data === "object"  && "error" in data && data["error"] === 14)
+            {
+                window.location.href = "../error.php?error=14&page=settingsSaveAjax.php";
+            }
+            else if(data !== "true")
             {
                 window.location.href = "../error.php?error="+data+"&page=core/php/settingsSaveAjax.php";
             }
@@ -56,8 +60,15 @@ function resetUpdateSettings()
         type: "POST",
         complete(data)
         {
-            verifyCountSuccess = 0;
-            installUpdatePoll = setInterval(function(){verifyChange();},3000);
+            if(typeof data === "object"  && "error" in data && data["error"] === 14)
+            {
+                window.location.href = "error.php?error=14&page=resetUpdateFilesToDefault.php";
+            }
+            else
+            {
+                verifyCountSuccess = 0;
+                installUpdatePoll = setInterval(function(){verifyChange();},3000);
+            }
         }
     });
 }

@@ -1,6 +1,12 @@
 <?php
 require_once("../core/php/class/core.php");
 $core = new core();
+require_once("../core/php/class/session.php");
+$session = new session();
+if(!$session->startSession())
+{
+	$core->echoErrorJavaScript("../", "", 17);
+}
 if(!isset($settings))
 {
 	require_once($core->baseURL()."core/php/class/settings.php");

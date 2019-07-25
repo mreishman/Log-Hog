@@ -151,8 +151,8 @@ $errorArray = array(
         "secondMessage"     =>  "When checking for updates, a tmp directory is created under update/downloads/versionCheck/extracted/ to hold the zip file and list of versions.  This process errored out when trying to check for updates, throwing this error. Please check if settingsCheckForUpdateAjax.php has correct write permissions to create a folder, and that the target directory has enough free space."
     ),
     14   =>  array(
-        "firstMessage"      =>  "Update check failed because it could not open the downloaded zip file",
-        "secondMessage"     =>  "When checking for updates, a zip file is download that contains the new version list. An error occured when trying to open the zip file. This could either be due to a permission error or not enough space in the target directory."
+        "firstMessage"      =>  "Session Initialize Error",
+        "secondMessage"     =>  "Session was not initialized, try again?"
     ),
     15   =>  array(
         "firstMessage"      =>  "Could not load JS file when trying to initialize Log-Hog",
@@ -163,8 +163,8 @@ $errorArray = array(
         "secondMessage"     =>  "When checking for updates, a zip file is download that contains the new version list. An error occured when trying to copy files from the zip file. This could either be due to a permission error or not enough space in the target directory."
     ),
     17   =>  array(
-        "firstMessage"      =>  "Session Initialize Error",
-        "secondMessage"     =>  "Session was not initialized, try again?"
+        "firstMessage"      =>  "Update check failed because it could not open the downloaded zip file",
+        "secondMessage"     =>  "When checking for updates, a zip file is download that contains the new version list. An error occured when trying to open the zip file. This could either be due to a permission error or not enough space in the target directory."
     ),
     42   =>  array(
         "firstMessage"      =>  "General Error",

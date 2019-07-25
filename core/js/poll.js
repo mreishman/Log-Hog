@@ -99,8 +99,12 @@ function pollTwo()
 				{
 					document.getElementById("noLogToDisplay").style.display = "none";
 				}
-
-				if(data === "error in file permissions")
+				if(typeof data === "object"  && "error" in data && data["error"] === 14)
+				{
+					clearPollTimer();
+					window.location.href = "error.php?error=14&page=pollCheck.php";
+				}
+				else if(data === "error in file permissions")
 				{
 					clearPollTimer();
 					window.location.href = "error.php?error=550&page=pollCheck.php";
@@ -287,9 +291,16 @@ function pollThree(arrayToUpdate)
 					type: "POST",
 					success(data)
 					{
-						arrayOfDataMainDataFilter(data);
-						updateFileDataArray(data);
-						update(data);
+						if(typeof data === "object"  && "error" in data && data["error"] === 14)
+						{
+							window.location.href = "error.php?error=14&page=poll.php";
+						}
+						else
+						{
+							arrayOfDataMainDataFilter(data);
+							updateFileDataArray(data);
+							update(data);
+						}
 					},
 					complete()
 					{
@@ -367,9 +378,16 @@ function getFileSingle(current)
 			type: "POST",
 			success(data)
 			{
-				updateFileDataArray(data);
-				arrayOfDataMainDataFilter(data);
-				generalUpdate();
+				if(typeof data === "object"  && "error" in data && data["error"] === 14)
+				{
+					window.location.href = "error.php?error=14&page=poll.php";
+				}
+				else
+				{
+					updateFileDataArray(data);
+					arrayOfDataMainDataFilter(data);
+					generalUpdate();
+				}
 			},
 			complete()
 			{
@@ -416,10 +434,17 @@ function getFileSinglePostLoadWithData(data, currentLogNum)
 			type: "POST",
 			success(data)
 			{
-				updateFileDataArray(data);
-				arrayOfDataMainDataFilter(data);
-				generalUpdate();
-				polling = false;
+				if(typeof data === "object"  && "error" in data && data["error"] === 14)
+				{
+					window.location.href = "error.php?error=14&page=poll.php";
+				}
+				else
+				{
+					updateFileDataArray(data);
+					arrayOfDataMainDataFilter(data);
+					generalUpdate();
+					polling = false;
+				}
 			},
 			complete()
 			{

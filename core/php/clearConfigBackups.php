@@ -1,5 +1,11 @@
 <?php
-
+require_once("class/session.php");
+$session = new session();
+if(!$session->startSession())
+{
+	echo json_encode(array("error" => 14));
+	exit();
+}
 $baseUrl = "../../local/";
 //there is custom information, use this
 require_once('../../local/layout.php');

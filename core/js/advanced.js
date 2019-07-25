@@ -19,6 +19,13 @@ function resetUpdateNotification()
         type: "post",
         url: "../core/php/settingsSaveConfigStatic.php",
         data,
+        success(data)
+        {
+        	if(typeof data === "object"  && "error" in data && data["error"] === 14)
+            {
+                window.location.href = "../error.php?error=14&page=settingsSaveConfigStatic.php";
+            }
+        }
         complete()
         {
           //verify saved
@@ -33,7 +40,11 @@ function updateNoNewVersionCheck()
 	{
 		$.getJSON("../core/php/configStaticCheck.php", {}, function(data)
 		{
-			if(data["version"] === data["newestVersion"])
+			if(typeof data === "object"  && "error" in data && data["error"] === 14)
+			{
+				window.location.href = "../error.php?error=14&page=configStaticCheck.php";
+			}
+			else if(data["version"] === data["newestVersion"])
 			{
 				clearInterval(advancedSettingsTimeoutVar);
 				saveSuccess();
@@ -108,8 +119,15 @@ function restoreToVersion(restoreTo)
 		type: "POST",
 		success(data)
 		{
-			saveSuccess();
-			fadeOutPopup();
+			if(typeof data === "object"  && "error" in data && data["error"] === 14)
+            {
+                window.location.href = "../error.php?error=14&page=restoreConfig.php";
+            }
+            else
+            {
+				saveSuccess();
+				fadeOutPopup();
+			}
 		}
 	});
 }
@@ -121,7 +139,11 @@ function clearBackupFiles()
 		displayLoadingPopup();
 		$.getJSON("../core/php/clearConfigBackups.php", {}, function(data)
 		{
-			if(data)
+			if(typeof data === "object"  && "error" in data && data["error"] === 14)
+			{
+				window.location.href = "../error.php?error=14&page=clearConfigBackups.php";
+			}
+			else if(data)
 			{
 				//verify that it was removed
 				advancedSettingsTimeoutVar = setInterval(function(){verifyNoConfigBackups();},3000);

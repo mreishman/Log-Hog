@@ -14,7 +14,11 @@ function archiveAction(title, type) //used to check if file is loaded
 				data: dataToSend,
 				type: "POST",
 		success(data){
-			if(document.getElementById("popup").style.display !== "none")
+			if(typeof data === "object"  && "error" in data && data["error"] === 14)
+            {
+                window.location.href = "error.php?error=14&page=saveTmpVersionOfLog.php";
+            }
+			else if(document.getElementById("popup").style.display !== "none")
 			{
 				saveSuccess();
 				fadeOutPopup();
@@ -34,7 +38,14 @@ function getListOfTmpHistoryLogs()
 			},
 			type: "POST",
 	success(data){
-		showHistory(data);
+		if(typeof data === "object"  && "error" in data && data["error"] === 14)
+		{
+			window.location.href = "error.php?error=14&page=getListOfTmpLogs.php";
+		}
+		else
+		{
+			showHistory(data);
+		}
 	}});
 }
 
@@ -62,7 +73,14 @@ function getListOfArchiveLogs()
 			},
 			type: "POST",
 	success(data){
-		showArchive(data);
+		if(typeof data === "object"  && "error" in data && data["error"] === 14)
+		{
+			window.location.href = "error.php?error=14&page=getListOfTmpLogs.php";
+		}
+		else
+		{
+			showArchive(data);
+		}
 	}});
 }
 
@@ -143,8 +161,15 @@ function viewArchiveLog(title, type)
 			data: dataToSend,
 			type: "POST",
 	success(data){
-		arrayOfDataMain["LogHog/"+title.replace(/_DIR_/g, "/")] = {log: data, data: "", lineCount: "---"};
-		generalUpdate();
+		if(typeof data === "object"  && "error" in data && data["error"] === 14)
+		{
+			window.location.href = "error.php?error=14&page=getTmpVersionOfLog.php";
+		}
+		else
+		{
+			arrayOfDataMain["LogHog/"+title.replace(/_DIR_/g, "/")] = {log: data, data: "", lineCount: "---"};
+			generalUpdate();
+		}
 	}});
 }
 
@@ -157,6 +182,11 @@ function deleteArchiveLog(title, type)
 			data: dataToSend,
 			type: "POST",
 	success(data){
+		if(typeof data === "object"  && "error" in data && data["error"] === 14)
+		{
+			window.location.href = "error.php?error=14&page=deleteArchiveLog.php";
+			return;
+		}
 		delete arrayOfDataMain["LogHog/"+title.replace(/_DIR_/g, "/")];
 		generalUpdate();
 		if(type !== "archive")
@@ -178,6 +208,11 @@ function clearAllArchiveLogs(type)
 			data: {type},
 			type: "POST",
 	success(data){
+		if(typeof data === "object"  && "error" in data && data["error"] === 14)
+		{
+			window.location.href = "error.php?error=14&page=deleteAllArchiveLogs.php";
+			return;
+		}
 		var arrayOfDataMainKeys = Object.keys(arrayOfDataMain);
 		var arrayOfDataMainKeysLength = arrayOfDataMainKeys.length;
 		for(var aodkcount = 0; aodkcount < arrayOfDataMainKeysLength; aodkcount++)
@@ -234,6 +269,11 @@ function viewBackupFromCurrentLog(currentLogNum)
 			},
 			type: "POST",
 	success(data){
+		if(typeof data === "object"  && "error" in data && data["error"] === 14)
+		{
+			window.location.href = "error.php?error=14&page=getListOfTmpLogs.php";
+			return;
+		}
 		//show popup of no backupg, show list of backup logs found if found
 		var archiveList = filterArrForPopup(data, logId);
 			$.ajax({
@@ -244,6 +284,11 @@ function viewBackupFromCurrentLog(currentLogNum)
 				},
 				type: "POST",
 		success(data){
+			if(typeof data === "object"  && "error" in data && data["error"] === 14)
+			{
+				window.location.href = "error.php?error=14&page=getListOfTmpLogs.php";
+				return;
+			}
 			//show popup of no backupg, show list of backup logs found if found
 			var archiveList2 = filterArrForPopup(data, logId);
 			if(archiveList.length !== 0 || archiveList2.length !== 0)

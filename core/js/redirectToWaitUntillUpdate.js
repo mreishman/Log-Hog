@@ -14,7 +14,11 @@ var timer = setInterval(function(){ajaxCheck();},3000);
 				type: "POST",
 				success(data)
 				{
-					if(data == "Finished Running Update Script")
+					if(typeof data === "object"  && "error" in data && data["error"] === 14)
+		            {
+		                window.location.href = "./error.php?error=14&page=updateCheck.php";
+		            }
+					else if(data == "Finished Running Update Script")
 					{
 						clearInterval(timer);
 						window.location.href = "updater.php";
