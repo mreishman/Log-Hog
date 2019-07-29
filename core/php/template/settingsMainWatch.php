@@ -22,7 +22,7 @@ if(!isset($settingsMainWatch))
 		<span id="loadingSpan">
 			<h1 id="progressBarMainInfoWatchList" class="progressBarMainInfo">Loading...</h1>
 			<div id="divForProgressBarWatchList" class="divForProgressBar">
-				<div <?php echo $loadingBarStyle; ?> class="ldBar label-center progressBar" id="progressBarWatchList" data-value="0"></div>
+				<progress id="progressBarWatchList" value="0" max="100" style="width: 100%;height: 10px;margin-top: 10px;"></progress>
 			</div>
 			<h3 id="progressBarSubInfoWatchList" class="progressBarSubInfo">Loading Javascript</h3>
 		</span>

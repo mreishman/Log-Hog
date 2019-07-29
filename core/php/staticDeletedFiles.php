@@ -185,4 +185,12 @@ $arrayOfFilesDeleted = array(
 		"fullPath"	=>	"core/img/LogHog.png",
 		"type"		=>	"file"
 	),
+	46			=> array(
+		"fullPath"	=>	"core/template/loading-bar.css",
+		"type"		=>	"file"
+	),
+	47			=> array(
+		"fullPath"	=>	"core/js/loading-bar.min.js",
+		"type"		=>	"file"
+	),
 );

@@ -16,12 +16,16 @@ if(!isset($settings))
 <div class="settingsDiv" >
 <ul class="settingsUl">
 	<?php
+	if(!isset($varTemplateSrcModifier))
+	{
+		$varTemplateSrcModifier = "../";
+	}
 	$infoImage = $core->generateImage(
 		$arrayOfImages["info"],
 		array(
 			"style"			=>	"margin-bottom: -4px;",
 			"height"		=>	"20px",
-			"srcModifier"	=>	"../"
+			"srcModifier"	=>	$varTemplateSrcModifier
 		)
 	);
 	foreach ($defaultConfigMoreData[$currentSection]["vars"] as $confDataValue)

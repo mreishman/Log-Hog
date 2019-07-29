@@ -1,3 +1,5 @@
+var forceIgnoreNotifications = false;
+
 function poll()
 {
 	try
@@ -840,7 +842,7 @@ function update(data)
 								menu.append(item);
 							}
 
-							if(!firstLoad)
+							if(!firstLoad && !forceIgnoreNotifications)
 							{
 								if(notificationNewLog === "true" && !$("#menu a." + id + "Button").hasClass("updated") && ( (!(fullPathSearch in fileData)) || fileData[fullPathSearch]["AlertEnabled"] === "true" ) && (!(id in alertEnabledArray) || (id in alertEnabledArray && alertEnabledArray[id] === "enabled")))
 								{
@@ -1037,6 +1039,7 @@ function update(data)
 		refreshLastLogsArray();
 		checkForUpdateLogsOffScreen();
 		resize();
+		forceIgnoreNotifications = false;
 	}
 	catch(e)
 	{

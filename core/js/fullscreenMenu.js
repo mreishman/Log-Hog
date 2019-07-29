@@ -98,6 +98,31 @@ function toggleFullScreenMenu(force = false)
 	}
 }
 
+function toggleSettingSection(data, force = false)
+{
+	if(!force && !globalForcePageNavigate)
+	{
+		if(!(goToPageCheck("toggleSettingsMainLogs("+JSON.stringify(data)+", true)")))
+		{
+			return false;
+		}
+	}
+	globalForcePageNavigate = false;
+	hideSettingsStuff();
+	endSettingsPollTimer();
+	document.getElementById(data.id).style.display = "block";
+	$("#"+data.id+"Menu").addClass("selected");
+	arrayOfScrollHeaderUpdate = [];
+	if(data.formId != "false")
+	{
+		arrayOfDataSettings = [data.formId];
+		arrayOfScrollHeaderUpdate = [data.formId];
+	}
+	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
+	resizeFullScreenMenu();
+	startSettingsPollTimer();
+}
+
 function toggleUpdateMenu(force = false)
 {
 	if(!force && !globalForcePageNavigate)
@@ -490,6 +515,54 @@ function hideUpdateStuff()
 	document.getElementById("fullScreenMenuUpdate").style.display = "none";
 }
 
+function hideSettingsStuff()
+{
+	document.getElementById("settingsMainLogs").style.display = "none";
+	$("#settingsMainLogsMenu").removeClass("selected");
+	document.getElementById("settingsMainLogFormat").style.display = "none";
+	$("#settingsMainLogFormatMenu").removeClass("selected");
+	document.getElementById("settingsMainPoll").style.display = "none";
+	$("#settingsMainPollMenu").removeClass("selected");
+	document.getElementById("settingsMainFilter").style.display = "none";
+	$("#settingsMainFilterMenu").removeClass("selected");
+	document.getElementById("settingsMainArchive").style.display = "none";
+	$("#settingsMainArchiveMenu").removeClass("selected");
+	document.getElementById("settingsMainNotifications").style.display = "none";
+	$("#settingsMainNotificationsMenu").removeClass("selected");
+	document.getElementById("settingsMainActionMenu").style.display = "none";
+	$("#settingsMainActionMenuMenu").removeClass("selected");
+	document.getElementById("settingsMainMenuLogs").style.display = "none";
+	$("#settingsMainMenuLogsMenu").removeClass("selected");
+	document.getElementById("settingsMainMenuFullScreen").style.display = "none";
+	$("#settingsMainMenuFullScreenMenu").removeClass("selected");
+	document.getElementById("settingsMainWatchlist").style.display = "none";
+	$("#settingsMainWatchlistMenu").removeClass("selected");
+	document.getElementById("settingsMainOneLog").style.display = "none";
+	$("#settingsMainOneLogMenu").removeClass("selected");
+	document.getElementById("settingsMainMultiLog").style.display = "none";
+	$("#settingsMainMultiLogMenu").removeClass("selected");
+	document.getElementById("settingsMainLogLayout").style.display = "none";
+	$("#settingsMainLogLayoutMenu").removeClass("selected");
+	document.getElementById("settingsMainOther").style.display = "none";
+	$("#settingsMainOtherMenu").removeClass("selected");
+
+	document.getElementById("settingsAdvancedConfig").style.display = "none";
+	$("#settingsAdvancedConfigMenu").removeClass("selected");
+	document.getElementById("settingsAdvancedModules").style.display = "none";
+	$("#settingsAdvancedModulesMenu").removeClass("selected");
+	document.getElementById("settingsAdvancedLogs").style.display = "none";
+	$("#settingsAdvancedLogsMenu").removeClass("selected");
+	document.getElementById("settingsAdvancedLocations").style.display = "none";
+	$("#settingsAdvancedLocationsMenu").removeClass("selected");
+	document.getElementById("settingsAdvancedAdvanced").style.display = "none";
+	$("#settingsAdvancedAdvancedMenu").removeClass("selected");
+
+	document.getElementById("settingsAdvancedDevBranch").style.display = "none";
+	$("#settingsAdvancedDevBranchMenu").removeClass("selected");
+	document.getElementById("settingsAdvancedDevConfig").style.display = "none";
+	$("#settingsAdvancedDevConfigMenu").removeClass("selected");
+}
+
 function hideAboutStuff()
 {
 	document.getElementById("fullScreenMenuAbout").style.display = "none";
@@ -567,6 +640,7 @@ function hideMainStuff()
 
 	if($("#mainMenuSettings").hasClass("selected"))
 	{
+		hideSettingsStuff();
 		document.getElementById("settingsSubMenu").style.display = "none";
 		$("#mainMenuSettings").removeClass("selected");
 	}

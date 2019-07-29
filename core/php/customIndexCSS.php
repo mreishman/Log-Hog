@@ -236,7 +236,7 @@ elseif($logMenuLocation === "bottom"): ?>
 	}
 <?php endif; ?>
 
-progress {
+#initialLoadContent progress {
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
@@ -244,21 +244,21 @@ progress {
   height: 20px;
 }
 
-progress::-webkit-progress-bar {
+#initialLoadContent progress::-webkit-progress-bar {
   background-color: rgba(0,0,0,.3);
   width: 100%;
 }
 
-progress{ /* for FF target directly the element */
+#initialLoadContent progress{ /* for FF target directly the element */
   background-color: rgba(0,0,0,.3);
   width: 100%;
 }
 
-progress::-webkit-progress-value {
+#initialLoadContent progress::-webkit-progress-value {
   background-color: #FFF !important;
 }
 
-progress::-moz-progress-bar { /* for FF ::progress-bar is the value bar */
+#initialLoadContent progress::-moz-progress-bar { /* for FF ::progress-bar is the value bar */
   background-color: #FFF !important;
 }
 

@@ -80,73 +80,75 @@
 	<li class="menuTitle fullScreenMenuText subMenuTitle">
 		Main
 	</li>
-	<li onclick="window.location.href = './settings/main.php#settingsLogVars';" >
-		Logs <?php echo $externalLinkImage; ?>
+	<li id="settingsMainLogsMenu" onclick="toggleSettingSection({id: 'settingsMainLogs',formId: 'settingsLogVars'});" >
+		Logs
 	</li>
-	<?php if($advancedLogFormatEnabled === "true"): ?>
-		<li onclick="window.location.href = './settings/main.php#settingsLogFormatVars';" >
-			Log Format <?php echo $externalLinkImage; ?>
-		</li>
-	<?php endif; ?>
-	<li onclick="window.location.href = './settings/main.php#settingsPollVars';" >
-		Poll <?php echo $externalLinkImage; ?>
+	<li <?php if($advancedLogFormatEnabled !== "true"){ echo "style = \"display:none;\"";} ?> id="settingsMainLogFormatMenu" onclick="toggleSettingSection({id: 'settingsMainLogFormat',formId: 'settingsLogFormatVars'});" >
+		Log Format
 	</li>
-	<?php if($filterEnabled === "true"): ?>
-		<li onclick="window.location.href = './settings/main.php#settingsFilterVars';" >
-			Filter <?php echo $externalLinkImage; ?>
-		</li>
-	<?php endif; ?>
-	<li onclick="window.location.href = './settings/main.php#archiveConfig';" >
-		Archive <?php echo $externalLinkImage; ?>
+	<li id="settingsMainPollMenu" onclick="toggleSettingSection({id: 'settingsMainPoll',formId: 'settingsPollVars'});" >
+		Poll
 	</li>
-	<li onclick="window.location.href = './settings/main.php#settingsNotificationVars';" >
-		Notifications <?php echo $externalLinkImage; ?>
+	<li <?php if($filterEnabled !== "true"){ echo "style = \"display:none;\"";} ?> id="settingsMainFilterMenu" onclick="toggleSettingSection({id: 'settingsMainFilter',formId: 'settingsFilterVars'});" >
+		Filter
 	</li>
-	<li onclick="window.location.href = './settings/main.php#settingsMenuVars';" >
-		Menu <?php echo $externalLinkImage; ?>
+	<li id="settingsMainArchiveMenu" onclick="toggleSettingSection({id: 'settingsMainArchive',formId: 'archiveConfig'});" >
+		Archive
 	</li>
-	<li onclick="window.location.href = './settings/main.php#settingsWatchlistVars';" >
-		Watchlist <?php echo $externalLinkImage; ?>
+	<li id="settingsMainNotificationsMenu" onclick="toggleSettingSection({id: 'settingsMainNotifications',formId: 'settingsNotificationVars'});" >
+		Notifications
 	</li>
-	<?php if($oneLogEnable === "true"): ?>
-		<li onclick="window.location.href = './settings/main.php#settingsOneLogVars';" >
-			OneLog <?php echo $externalLinkImage; ?>
-		</li>
-	<?php endif; ?>
-	<?php if($enableMultiLog === "true"): ?>
-		<li onclick="window.location.href = './settings/main.php#settingsMultiLogVars';" >
-			Multi-Log <?php echo $externalLinkImage; ?>
-		</li>
-		<li onclick="window.location.href = './settings/main.php#settingsInitialLoadLayoutVars';" >
-			Log Layout <?php echo $externalLinkImage; ?>
-		</li>
-	<?php endif; ?>
-	<li onclick="window.location.href = './settings/main.php#settingsMainVars';" >
-		Other <?php echo $externalLinkImage; ?>
+	<li id="settingsMainActionMenuMenu" onclick="toggleSettingSection({id: 'settingsMainActionMenu',formId: 'settingsMenuVars'});" >
+		Menu Actions
+	</li>
+	<li id="settingsMainMenuLogsMenu" onclick="toggleSettingSection({id: 'settingsMainMenuLogs',formId: 'settingsMenuLogVars'});" >
+		Menu Logs
+	</li>
+	<li id="settingsMainMenuFullScreenMenu" onclick="toggleSettingSection({id: 'settingsMainMenuFullScreen',formId: 'settingsFullScreenMenuVars'});" >
+		Menu Full Screen
+	</li>
+	<li id="settingsMainWatchlistMenu" onclick="toggleSettingSection({id: 'settingsMainWatchlist',formId: 'settingsWatchlistVars'});" >
+		Watchlist
+	</li>
+	<li <?php if($oneLogEnable !== "true"){ echo "style = \"display:none;\"";} ?> id="settingsMainOneLogMenu" onclick="toggleSettingSection({id: 'settingsMainOneLog',formId: 'settingsOneLogVars'});" >
+		OneLog
+	</li>
+	<li <?php if($enableMultiLog !== "true"){ echo "style = \"display:none;\"";} ?> id="settingsMainMultiLogMenu" onclick="toggleSettingSection({id: 'settingsMainMultiLog',formId: 'settingsMultiLogVars'});" >
+		Multi-Log
+	</li>
+	<li <?php if($enableMultiLog !== "true"){ echo "style = \"display:none;\"";} ?> id="settingsMainLogLayoutMenu" onclick="toggleSettingSection({id: 'settingsMainLogLayout',formId: 'settingsInitialLoadLayoutVars'});" >
+		Log Layout
+	</li>
+	<li id="settingsMainOtherMenu" onclick="toggleSettingSection({id: 'settingsMainOther',formId: 'settingsMainVars'});" >
+		Other
 	</li>
 	<li class="menuTitle fullScreenMenuText subMenuTitle">
 		Advanced
 	</li>
-	<li onclick="window.location.href = './settings/advanced.php#advancedConfig';" >
-		Config <?php echo $externalLinkImage; ?>
+	<li id="settingsAdvancedConfigMenu" onclick="toggleSettingSection({id: 'settingsAdvancedConfig',formId: 'advancedConfig'});" >
+		Config
 	</li>
-	<li onclick="window.location.href = './settings/advanced.php#modules';" >
-		Modules <?php echo $externalLinkImage; ?>
+	<li id="settingsAdvancedModulesMenu" onclick="toggleSettingSection({id: 'settingsAdvancedModules',formId: 'modules'});" >
+		Modules
 	</li>
-	<li onclick="window.location.href = './settings/advanced.php#loggingDisplay';" >
-		Logs <?php echo $externalLinkImage; ?>
+	<li id="settingsAdvancedLogsMenu" onclick="toggleSettingSection({id: 'settingsAdvancedLogs',formId: 'loggingDisplay'});" >
+		Logs
 	</li>
-	<li onclick="window.location.href = './settings/advanced.php#locationOtherApps';" >
-		Locations <?php echo $externalLinkImage; ?>
+	<li id="settingsAdvancedLocationsMenu" onclick="toggleSettingSection({id: 'settingsAdvancedLocations',formId: 'locationOtherApps'});" >
+		Locations
 	</li>
-	<li onclick="window.location.href = './settings/advanced.php#advancedConfig';" >
-		Advanced <?php echo $externalLinkImage; ?>
+	<li id="settingsAdvancedAdvancedMenu" onclick="toggleSettingSection({id: 'settingsAdvancedAdvanced',formId: 'false'});" >
+		Advanced
 	</li>
-	<?php if($developmentTabEnabled === "true"): ?>
-		<li onclick="window.location.href = './settings/devTools.php';" >
-			Dev <?php echo $externalLinkImage; ?>
-		</li>
-	<?php endif; ?>
+	<li <?php if($developmentTabEnabled !== "true"){ echo "style = \"display:none;\"";} ?> class="menuTitle fullScreenMenuText subMenuTitle">
+		Dev
+	</li>
+	<li id="settingsAdvancedDevBranchMenu" <?php if($developmentTabEnabled !== "true"){ echo "style = \"display:none;\"";} ?> onclick="toggleSettingSection({id: 'settingsAdvancedDevBranch', formId: 'devBranch'});" >
+		Branch
+	</li>
+	<li id="settingsAdvancedDevConfigMenu" <?php if($developmentTabEnabled !== "true"){ echo "style = \"display:none;\"";} ?> onclick="toggleSettingSection({id: 'settingsAdvancedDevConfig', formId: 'devConfig'});" >
+		Config
+	</li>
 </ul>
 <div id="mainContentFullScreenMenu">
 	<div class="settingsHeader addBorderBottom" style="display: none;" id="fixedPositionMiniMenu" >
@@ -217,5 +219,130 @@
 				</th>
 			</tr>
 		</table>
+	</div>
+	<div id="settingsMainLogs" style="display: none;" >
+		<?php
+		$currentSection = "logVars";
+		include('core/php/template/varTemplate.php');
+		?>
+	</div>
+	<div id="settingsMainLogFormat" style="display: none;" >
+		<?php
+		$currentSection = "logFormatVars";
+		include('core/php/template/varTemplate.php');
+		?>
+	</div>
+	<div id="settingsMainPoll" style="display: none;" >
+		<?php
+		$currentSection = "pollVars";
+		include('core/php/template/varTemplate.php');
+		?>
+	</div>
+	<div id="settingsMainFilter" style="display: none;" >
+		<?php
+		$currentSection = "filterVars";
+		include('core/php/template/varTemplate.php');
+		?>
+	</div>
+	<div id="settingsMainArchive" style="display: none;" >
+		<?php
+		$currentSection = "archive";
+		include('core/php/template/varTemplate.php');
+		?>
+	</div>
+	<div id="settingsMainNotifications" style="display: none;" >
+		<?php
+		$currentSection = "notificationVars";
+		include('core/php/template/varTemplate.php');
+		?>
+	</div>
+	<div id="settingsMainActionMenu" style="display: none;" >
+		<?php
+		$currentSection = "menuVars";
+		include('core/php/template/varTemplate.php');
+		?>
+	</div>
+	<div id="settingsMainMenuLogs" style="display: none;" >
+		<?php
+		$currentSection = "menuLogVars";
+		include('core/php/template/varTemplate.php');
+		?>
+	</div>
+	<div id="settingsMainMenuFullScreen" style="display: none;" >
+		<?php
+		$currentSection = "menuFullScreenVars";
+		include('core/php/template/varTemplate.php');
+		?>
+	</div>
+	<div id="settingsMainWatchlist" style="display: none;" >
+		<?php
+		$currentSection = "watchlistVars";
+		include('core/php/template/varTemplate.php');
+		?>
+	</div>
+	<div id="settingsMainOneLog" style="display: none;" >
+		<?php
+		$currentSection = "oneLogVars";
+		include('core/php/template/varTemplate.php');
+		?>
+	</div>
+	<div id="settingsMainMultiLog" style="display: none;" >
+		<?php
+		$currentSection = "multiLogVars";
+		include('core/php/template/varTemplate.php');
+		?>
+	</div>
+	<div id="settingsMainLogLayout" style="display: none;" >
+		<?php
+		require_once('core/php/template/logLayout.php');
+		?>
+	</div>
+	<div id="settingsMainOther" style="display: none;" >
+		<?php
+		$currentSection = "otherVars";
+		include('core/php/template/varTemplate.php');
+		?>
+	</div>
+	<div id="settingsAdvancedConfig" style="display: none;" >
+		<?php
+		$currentSection = "config";
+		include('core/php/template/varTemplate.php');
+		?>
+	</div>
+	<div id="settingsAdvancedModules" style="display: none;" >
+		<?php
+		$currentSection = "modules";
+		include('core/php/template/varTemplate.php');
+		?>
+	</div>
+	<div id="settingsAdvancedLogs" style="display: none;" >
+		<?php
+		$currentSection = "loggingVars";
+		include('core/php/template/varTemplate.php');
+		?>
+	</div>
+	<div id="settingsAdvancedLocations" style="display: none;" >
+		<?php
+		$currentSection = "fileLocations";
+		include('core/php/template/varTemplate.php');
+		?>
+	</div>
+	<div id="settingsAdvancedAdvanced" style="display: none;" >
+		<?php
+			$settingsUrlModifier = "";
+			$otherSettingsUrlModifier = "settings/";
+			include('core/php/template/advancedActions.php');
+		?>
+	</div>
+	<div id="settingsAdvancedDevBranch" style="display: none;" >
+		<?php
+			$settingsUrlModifier = "";
+			require_once("core/php/template/devBranch.php");
+		?>
+	</div>
+	<div id="settingsAdvancedDevConfig" style="display: none;">
+		<?php
+			require_once("core/php/template/devConfigSettings.php");
+		?>
 	</div>
 </div>

@@ -130,19 +130,315 @@ function saveVerified()
 			}
 		}
 	}
-	else if(idForFormMain === "advancedConfig")
+	else if(idForFormMain === "devBranch")
 	{
-		if(document.getElementsByName("developmentTabEnabled")[0].value === "true")
+		if($("[name='branchSelected']"))
 		{
-			document.getElementById("DevLink").style.display = "inline-block";
+			if($("[name='enableDevBranchDownload']")[0].value === "true")
+			{
+				if($("[name='branchSelected']")[0].options.length === 2)
+				{
+					//append
+					$("[name='branchSelected']").append("<option value='dev'>Dev</option>")
+				}
+			}
+			else
+			{
+				if($("[name='branchSelected']")[0].options.length === 3)
+				{
+					//remove
+					$("[name='branchSelected'] option[value='dev']").remove();
+				}
+			}
+		}
+	}
+	else if(idForFormMain === "loggingDisplay")
+	{
+		if($("[name='enablePollTimeLogging']"))
+		{
+			if($("[name='enablePollTimeLogging']")[0].value === "false")
+			{
+				$("#loggTimerPollStyle").hide();
+			}
+			else
+			{
+				$("#loggTimerPollStyle").show();
+			}
+		}
+	}
+	else if(idForFormMain === "settingsWatchlistVars")
+	{
+		if($("[name='logShowMoreOptions']"))
+		{
+			if($("[name='logShowMoreOptions']")[0].value === "false")
+			{
+				$(".condensed").hide();
+				document.getElementById("condensedLink").innerHTML = "Show More Options";
+			}
+			else
+			{
+				$(".condensed").show();
+				document.getElementById("condensedLink").innerHTML = "Show Condensed Options";
+			}
+		}
+	}
+	else if(idForFormMain === "settingsMultiLogVars")
+	{
+		if($("#windowConfig"))
+		{
+			if($("[name='windowConfig']")[0].value !== $("#windowConfig")[0].value)
+			{
+				$("#windowConfig")[0].value = $("[name='windowConfig']")[0].value;
+				setTimeout(function() {
+					generateWindowDisplay();
+				}, 2);
+			}
+		}
+	}
+	else if(idForFormMain === "settingsOneLogVars")
+	{
+		if($("#oneLogVisible"))
+		{
+			if($("[name='oneLogVisible']")[0].value !== $("#oneLogVisible")[0].value)
+			{
+				$("#oneLogVisible")[0].value = $("[name='oneLogVisible']")[0].value;
+				setTimeout(function() {
+					toggleVisibleOneLog();
+				}, 2);
+			}
+		}
+	}
+	else if(idForFormMain === "settingsLogFormatVars")
+	{
+		if($("#logFormatFileEnable") && $("#logFormatFileEnable")[0].value === "true")
+		{
+			if(typeof formatFileLine !== "function")
+			{
+				script("core/js/formatFile.js");
+			}
+		}
+		if($("#logFormatPhpEnable") && $("#logFormatPhpEnable")[0].value === "true")
+		{
+			if(typeof formatPhpMessage !== "function")
+			{
+				script("core/js/formatPhp.js");
+			}
+		}
+		if($("#logFormatReportEnable") && $("#logFormatReportEnable")[0].value === "true")
+		{
+			if(typeof formatReportMessage !== "function")
+			{
+				script("core/js/formatReport.js");
+			}
+		}
+		if($("#logFormatJsObjectEnable") && $("#logFormatJsObjectEnable")[0].value === "true")
+		{
+			if(typeof formatJsonMessage !== "function")
+			{
+				script("core/js/formatJsObject.js");
+			}
+		}
+	}
+	else if(idForFormMain === "settingsLogVars")
+	{
+		if(typeof flashTitle !== "function" && $("[name='flashTitleUpdateLog']")[0].value === "true")
+		{
+			script("core/js/titleFlash.js");
+		}
+	}
+	else if(idForFormMain === "settingsMenuVars")
+	{
+		if($("#clearNotificationsImageHolder"))
+		{
+			if($("[name='hideClearAllNotifications']")[0].value === "false")
+			{
+				$("#clearNotificationsImageHolder").show();
+			}
+			else
+			{
+				$("#clearNotificationsImageHolder").hide()
+			}
+		}
+		if($("#groupsInHeader"))
+		{
+			if($("[name='groupDropdownInHeader']")[0].value === "true")
+			{
+				$("#groupsInHeader").show();
+			}
+			else
+			{
+				$("#groupsInHeader").hide()
+			}
+		}
+		if($("#menuButtonRight"))
+		{
+			if($("[name='filterSearchInHeader']")[0].value === "true")
+			{
+				$("#menuButtonRight").show();
+			}
+			else
+			{
+				$("#menuButtonRight").hide()
+			}
+		}
+		if($("#deleteImage"))
+		{
+			if($("[name='truncateLog']")[0].value === "hide")
+			{
+				$("#deleteImage").show();
+			}
+			else if($("[name='truncateLog']")[0].value === "true")
+			{
+				$("#deleteImage").attr("src", arrayOfImages["eraserMulti"]["src"]);
+				$("#deleteImage").attr("alt", arrayOfImages["eraserMulti"]["alt"]);
+				$("#deleteImage").attr("title", arrayOfImages["eraserMulti"]["title"]);
+			}
+			else if($("[name='truncateLog']")[0].value === "false")
+			{
+				$("#deleteImage").attr("src", arrayOfImages["eraser"]["src"]);
+				$("#deleteImage").attr("alt", arrayOfImages["eraser"]["alt"]);
+				$("#deleteImage").attr("title", arrayOfImages["eraser"]["title"]);
+			}
+		}
+		if($("#menuButtonRight"))
+		{
+			if($("[name='filterSearchInHeader']")[0].value === "true")
+			{
+				$("#menuButtonRight").show();
+				$("#filterSettingsSideBar").hide();
+			}
+			else
+			{
+				$("#menuButtonRight").hide();
+				$("#filterSettingsSideBar").show();
+			}
+		}
+	}
+	else if(idForFormMain ===  "modules")
+	{
+		if($("[name='developmentTabEnabled']")[0].value === "true")
+		{
+			$(".DevLink").show();
 		}
 		else
 		{
-			document.getElementById("DevLink").style.display = "none";
+			$(".DevLink").hide()
+		}
+		if($("[name='enableHistory']")[0].value === "true")
+		{
+			if(typeof archiveAction !== "function")
+			{
+				script("core/js/archive.js");
+			}
+			$("#mainMenuHistory").show();
+			$("#settingsMainArchiveMenu").show();
+		}
+		else
+		{
+			$("#mainMenuHistory").hide();
+			$("#settingsMainArchiveMenu").hide();
+		}
+		if($("[name='filterEnabled']")[0].value === "true")
+		{
+			if(typeof getFilterData !== "function")
+			{
+				script("core/js/filter.js");
+			}
+			$("#settingsMainFilterMenu").show();
+			$(".searchSideBarImageForLoad").show();
+			if($("[name='filterSearchInHeader']")[0].value === "true")
+			{
+				$("#menuButtonRight").show();
+				$("#filterSettingsSideBar").hide();
+			}
+			else
+			{
+				$("#menuButtonRight").hide();
+				$("#filterSettingsSideBar").show();
+			}
+		}
+		else
+		{
+			$("#settingsMainFilterMenu").hide();
+			$("#menuButtonRight").hide();
+			$("#filterSettingsSideBar").hide();
+			$(".searchSideBarImageForLoad").hide();
+		}
+		if($("[name='oneLogEnable']")[0].value === "true")
+		{
+			if(typeof addOneLogTab !== "function")
+			{
+				script("core/js/oneLog.js");
+			}
+			$("#settingsMainOneLogMenu").show();
+			if($("#oneLog"))
+			{
+				$("#oneLog").show();
+			}
+			$("oneLogSettingsSideBar").show();
+		}
+		else
+		{
+			$("#settingsMainOneLogMenu").hide();
+			if($("#oneLog"))
+			{
+				$("#oneLog").hide();
+			}
+			$("#oneLogSettingsSideBar").hide();
+		}
+		if($("[name='themesEnabled']")[0].value === "true")
+		{
+			if(typeof addOneLogTab !== "function")
+			{
+				script("core/js/themes.js");
+				script("core/js/upgradeTheme.js");
+			}
+			$("#ThemesLink").show();
+		}
+		else
+		{
+			$("#ThemesLink").hide();
 		}
 	}
 
 	saveSuccess();
+
+	if(idForFormMain === "locationOtherApps" || idForFormMain === "settingsFullScreenMenuVars")
+	{
+		refreshAddonLinks();
+		refreshJsVars();
+	}
+	else if(
+		idForFormMain === "settingsColorFolderGroupVars" ||
+		idForFormMain === "generalThemeOptions" ||
+		idForFormMain === "settingsFilterVars" ||
+		idForFormMain === "settingsNotificationVars"
+	) {
+		refreshCustomCss();
+	}
+	else if(
+		idForFormMain === "loggingDisplay" ||
+		idForFormMain === "advancedConfig" ||
+		idForFormMain === "settingsWatchlistVars" ||
+		idForFormMain === "settingsMultiLogVars" ||
+		idForFormMain === "settingsInitialLoadLayoutVars" ||
+		idForFormMain === "settingsMainVars" ||
+		idForFormMain === "archiveConfig" ||
+		idForFormMain === "settingsPollVars" ||
+		idForFormMain === "settingsMenuLogVars" ||
+		idForFormMain === "settingsMenuVars"
+	) {
+		refreshJsVars();
+	}
+	else if(
+		idForFormMain === "settingsOneLogVars" ||
+		idForFormMain === "settingsLogFormatVars" ||
+		idForFormMain === "settingsLogVars" ||
+		idForFormMain === "modules"
+	) {
+		refreshCustomCss();
+		refreshJsVars();
+	}
 
 	if(idForFormMain.includes("themeMainSelection"))
 	{
@@ -159,39 +455,101 @@ function saveVerified()
 			location.reload();
 		}
 	}
-	else if(idForFormMain === "settingsColorFolderGroupVars" || idForFormMain === "generalThemeOptions")
-	{
-		refreshCustomCss();
-	}
 	else
 	{
 		fadeOutPopup();
 	}
 }
 
+function forceLogMenuRefresh()
+{
+	clearPollTimer();
+	$("#menu a").not("#oneLog").remove()
+	forceIgnoreNotifications = true;
+	generalUpdate();
+	firstLoadEndAction();
+	startPollTimer();
+	resetSelection();
+}
+
 function refreshCustomCss()
 {
-	$.ajax({
-		url: "core/php/customIndexCSS.php?format=json",
-		data: {},
-		type: "POST",
-	success(data)
+	if($("#initialLoadContent"))
 	{
-		//add css to bottom of index page
-		$("#initialLoadContent").append(data);
-	},
-	});
+		$.ajax({
+			url: "core/php/customIndexCSS.php?format=json",
+			data: {},
+			type: "POST",
+		success(data)
+		{
+			//add css to bottom of index page
+			$("#initialLoadContent").append(data);
+		},
+		});
 
-	$.ajax({
-		url: "core/php/customCSS.php?format=json",
-		data: {},
-		type: "POST",
-	success(data)
+		$.ajax({
+			url: "core/php/customCSS.php?format=json",
+			data: {},
+			type: "POST",
+		success(data)
+		{
+			//add css to bottom of index page
+			$("#initialLoadContent").append(data);
+		},
+		});
+	}
+}
+
+function refreshJsVars()
+{
+	if($("#initialLoadContent"))
 	{
-		//add css to bottom of index page
-		$("#initialLoadContent").append(data);
-	},
-	});
+		$.ajax({
+			url: "core/php/reloadJsVars.php?format=json",
+			data: {},
+			type: "POST",
+		success(data)
+		{
+			//add css to bottom of index page
+			$("#initialLoadContent").append(data);
+			if(idForFormMain === "settingsPollVars")
+			{
+				clearPollTimer();
+				startPollTimer();
+			}
+			else if(idForFormMain === "settingsLogVars")
+			{
+				clearLoadPollTimer();
+				startLoadPollTimerDelay();
+			}
+			else if(idForFormMain === "settingsMenuLogVars")
+			{
+				forceLogMenuRefresh();
+			}
+			else if(idForFormMain === "settingsMenuVars")
+			{
+				generateWindowDisplay();
+			}
+		},
+		});
+	}
+}
+
+function refreshAddonLinks()
+{
+	if($("#menuAddonLinks"))
+	{
+		$.ajax({
+			url: "core/php/reloadAddonLinks.php?format=json",
+			data: {},
+			type: "POST",
+		success(data)
+		{
+			//add css to bottom of index page
+			$("#menuAddonLinks").html(data);
+		},
+		});
+	}
 }
 
 function copyThemeStuffPopup(fileLoc = "../")
@@ -320,9 +678,11 @@ function checkForChanges(idOfObject)
 
 function refreshArrayObjectOfArrays(idsOfForms)
 {
-	for (var i = idsOfForms.length - 1; i >= 0; i--)
+	let idsOfFormsKeys = Object.keys(idsOfForms);
+	let idsOfFormsKeysLength = idsOfFormsKeys.length;
+	for(let i = 0; i < idsOfFormsKeysLength; i++)
 	{
-		refreshArrayObject(idsOfForms[i]);
+		refreshArrayObject(idsOfForms[idsOfFormsKeys[i]]);
 	}
 }
 

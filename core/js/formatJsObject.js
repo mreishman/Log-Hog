@@ -1,4 +1,4 @@
-function formatJsonMessage(message, extraData)
+function formatJsonMessage(message, extraData) //used for file check
 {
 	let defaultMessage = {
 		text: message,

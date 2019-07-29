@@ -1,4 +1,4 @@
-function formatFileLine(text, extraData)
+function formatFileLine(text, extraData) //used to check if file loaded
 {
 	if(dateTextFormatColumn === "auto" && window.innerWidth > breakPointTwo)
 	{

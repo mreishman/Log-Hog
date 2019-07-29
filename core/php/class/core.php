@@ -324,19 +324,24 @@ class core
 		}
 	}
 
-	public function putIntoCorrectJSFormat($keyKey, $keyValue, $value)
+	public function putIntoCorrectJSFormat($keyKey, $keyValue, $value, $defineVar = true)
 	{
+		$stringToReturn = "";
+		if($defineVar)
+		{
+			$stringToReturn .= " var ";
+		}
 		if(is_string($value))
 		{
-			return " var ".$keyKey." = '".trim(preg_replace('/\s\s+/', ' ', $keyValue))."';";
+			return $stringToReturn .$keyKey." = '".trim(preg_replace('/\s\s+/', ' ', $keyValue))."';";
 		}
 
 		if(is_array($value))
 		{
-			return " var ".$keyKey." = ".json_encode($keyValue).";";
+			return $stringToReturn .$keyKey." = ".json_encode($keyValue).";";
 		}
 
-		return " var ".$keyKey." = ".trim(preg_replace('/\s\s+/', ' ', $keyValue)).";";
+		return $stringToReturn .$keyKey." = ".trim(preg_replace('/\s\s+/', ' ', $keyValue)).";";
 	}
 
 	public function generateImage($imageArray, $customConfig)

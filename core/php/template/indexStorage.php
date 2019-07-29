@@ -4,33 +4,7 @@
 			<td id="logTd{{counter}}Width" class="logTdWidth addBorder" onclick="changeCurrentSelectWindow('{{counter}}')" style="padding: 0;" >
 				<div style="display: block; position: relative;height: 0;width: 0;padding: 0;" >
 					<div
-					class="backgroundForSideBarMenu addBorder"
-					style="
-						<?php
-						if($bottomBarIndexShow == 'false')
-						{
-							echo " display: none; width: 0; ";
-						}
-						else
-						{
-							echo " display: inline-block; width: 31px; ";
-						}
-						if($bottomBarIndexType === "top")
-						{
-							echo " top: 0; ";
-						}
-						elseif($bottomBarIndexType === "bottom")
-						{
-							echo " bottom: 0; ";
-						}
-						elseif($bottomBarIndexType === "full")
-						{
-							echo " bottom: 0; top: 0; ";
-						}
-						?>
-						padding: 0px; position: relative; overflow-x: hidden; "
-					id="titleContainer{{counter}}"
-					>
+					class="backgroundForSideBarMenu addBorder" {{customsidebarstyle}} id="titleContainer{{counter}}">
 						<!-- currentWindowNumSelected OR sidebarCurrentWindowNum -->
 						<p id="numSelectIndecatorForWindow{{counter}}"  class=" {{windowSelect}} " >
 							{{counterPlusOne}}
@@ -50,7 +24,7 @@
 						</a>
 						<span id="loadLineCountForWindow{{counter}}" class="loadLineCountForWindow" style="font-size: 86%;padding: 0;">
 						</span>
-						<a id="showLogWindowFilter{{counter}}" onclick="showLogWindowFilter('{{counter}}');">
+						<a id="showLogWindowFilter{{counter}}" onclick="showLogWindowFilter('{{counter}}');" style="{{customfilterstyle}}" >
 							<?php echo $core->generateImage(
 								$arrayOfImages["loadingImg"],
 								$imageConfig = array(

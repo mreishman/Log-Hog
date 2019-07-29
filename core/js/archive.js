@@ -1,4 +1,4 @@
-function archiveAction(title, type)
+function archiveAction(title, type) //used to check if file is loaded
 {
 	if(saveTmpLogOnClear === "true" && enableHistory === "true")
 	{

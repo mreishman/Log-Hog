@@ -5,10 +5,6 @@ $arrayOfFiles = array(
 		"type" => "css",
 	),
 	array(
-		"name" => "core/template/loading-bar.css",
-		"type" => "css"
-	),
-	array(
 		"name" => $baseUrl . "template/theme.css",
 		"type" => "css"
 	),
@@ -25,11 +21,19 @@ $arrayOfFiles = array(
 		"type" =>"js"
 	),
 	array(
-		"name" => "loading-bar.min.js",
+		"name" => "main.js",
 		"type" =>"js"
 	),
 	array(
-		"name" => "main.js",
+		"name" => "settingsMain.js",
+		"type" =>"js"
+	),
+	array(
+		"name" => "advanced.js",
+		"type" =>"js"
+	),
+	array(
+		"name" => "resetSettingsJs.js",
 		"type" =>"js"
 	),
 	array(

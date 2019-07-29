@@ -20,6 +20,7 @@ else
 require_once('../core/php/configStatic.php');
 require_once('../core/php/updateCheck.php');
 require_once('../core/php/loadVars.php');
+
 ?>
 <!doctype html>
 <head>
@@ -55,6 +56,10 @@ require_once('../core/php/loadVars.php');
 		include('../core/php/template/varTemplate.php');
 		$currentSection = "menuVars";
 		include('../core/php/template/varTemplate.php');
+		$currentSection = "menuLogVars";
+		include('../core/php/template/varTemplate.php');
+		$currentSection = "menuFullScreenVars";
+		include('../core/php/template/varTemplate.php');
 		$currentSection = "watchlistVars";
 		include('../core/php/template/varTemplate.php');
 		if($oneLogEnable === "true")
@@ -77,8 +82,15 @@ require_once('../core/php/loadVars.php');
 var logTrimType = "<?php echo $logTrimType; ?>";
 var saveButtonAlwaysVisible = "<?php echo $saveButtonAlwaysVisible; ?>";
 </script>
-<?php $core->getScript(array(
-	"filePath"		=> "../core/js/settingsMain.js",
-	"baseFilePath"	=> "core/js/settingsMain.js",
-	"default"		=> $configStatic["version"]
+<?php $core->getScripts(array(
+	array(
+		"filePath"		=> "../core/js/settingsMain.js",
+		"baseFilePath"	=> "core/js/settingsMain.js",
+		"default"		=> $configStatic["version"]
+	),
+	array(
+		"filePath"		=> "../core/js/settingsMainExt.js",
+		"baseFilePath"	=> "core/js/settingsMainExt.js",
+		"default"		=> $configStatic["version"]
+	)
 )); ?>

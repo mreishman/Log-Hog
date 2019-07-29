@@ -62,6 +62,7 @@ var timerForWatchlist;
 var titles = {};
 var urlForAddonSend = "core/php/template/innerAddon.php";
 var urlForSendMain = "core/php/performSettingsInstallUpdateAction.php?format=json";
+var urlModifierForAjax = "";
 var updateFromID = "settingsInstallUpdate";
 var updating = false;
 var userPaused = false;
@@ -1084,6 +1085,7 @@ function resize()
 		}
 		else if((logMenuLocation === "left" || logMenuLocation === "right") && allLogsVisible === "true")
 		{
+			targetWidth -= $("#menu").outerWidth();
 			if(menuHeight !== targetHeight)
 			{
 				$("#menu").outerHeight(targetHeight);
@@ -1700,6 +1702,18 @@ function pinWindow(windowNum)
 	}
 }
 
+function deleteImageAction()
+{
+	if(truncateLog === "true")
+	{
+		deleteAction();
+	}
+	else if(truncateLog === "false")
+	{
+		clearLog(currentSelectWindow);
+	}
+}
+
 function generateWindowDisplay()
 {
 	var localData = generateWindowDisplayInner();
@@ -1767,6 +1781,39 @@ function generateWindowDisplayInner()
 			var counterInternal = j+(i*windowDisplayConfigColCount);
 			newBlock = newBlock.replace(/{{counter}}/g, counterInternal);
 			newBlock = newBlock.replace(/{{counterPlusOne}}/g, (1+counterInternal));
+			//style
+			let newStyle = "style = \"";
+			if(bottomBarIndexShow === "false")
+			{
+				newStyle += " display: none; width: 0; ";
+			}
+			else
+			{
+				newStyle += " display: inline-block; width: 31px; ";
+			}
+			if(bottomBarIndexType === "top")
+			{
+				newStyle += " top: 0; ";
+			}
+			else if(bottomBarIndexType === "bottomn")
+			{
+				newStyle += " bottom: 0; ";
+			}
+			else if(bottomBarIndexType === "full")
+			{
+				newStyle += " bottom: 0; top: 0; ";
+			}
+			newStyle += " padding: 0px; position: relative; overflow-x: hidden; \"";
+			newBlock = newBlock.replace(/{{customsidebarstyle}}/g, newStyle);
+			if(filterEnabled === "true")
+			{
+				newBlock = newBlock.replace(/{{customfilterstyle}}/g, "");
+			}
+			else
+			{
+				newBlock = newBlock.replace(/{{customfilterstyle}}/g, "display: none;");
+			}
+			//other
 			if(counterInternal === 0)
 			{
 				newBlock = newBlock.replace(/{{windowSelect}}/g, "currentWindowNumSelected");
@@ -2001,6 +2048,12 @@ function mainReady()
 			possiblyUpdateFromFilter();
 		});
 
+		$("#searchFieldInputSideBar").on("input", function()
+		{
+			$("#searchFieldInput").val($("#searchFieldInputSideBar").val());
+			possiblyUpdateFromFilter();
+		});
+
 		if(document.getElementById("searchType"))
 		{
 			document.getElementById("searchType").addEventListener("change", changeSearchplaceholder, false);
@@ -2043,7 +2096,39 @@ function mainReady()
 		},
 		true
 	);
-
-	refreshArrayObject("generalThemeOptions");
-	refreshArrayObject("settingsColorFolderGroupVars");
+	let arrOfVarGroups = [];
+	let arrOfPossibleGroups = [
+		"generalThemeOptions",
+		"settingsColorFolderGroupVars",
+		"settingsLogVars",
+		"settingsLogFormatVars",
+		"settingsPollVars",
+		"settingsFilterVars",
+		"archiveConfig",
+		"settingsNotificationVars",
+		"settingsMenuVars",
+		"settingsMenuLogVars",
+		"settingsFullScreenMenuVars",
+		"settingsWatchlistVars",
+		"settingsOneLogVars",
+		"settingsMultiLogVars",
+		"settingsInitialLoadLayoutVars",
+		"settingsMainVars",
+		"advancedConfig",
+		"modules",
+		"loggingDisplay",
+		"locationOtherApps",
+		"devBranch",
+		"devConfig"
+	];
+	let arrOfPossibleGroupsKeys = Object.keys(arrOfPossibleGroups);
+	let arrOfPossibleGroupsKeysLength = arrOfPossibleGroupsKeys.length;
+	for(let i = 0; i < arrOfPossibleGroupsKeysLength; i++)
+	{
+		if(document.getElementById(arrOfPossibleGroups[arrOfPossibleGroupsKeys[i]]))
+		{
+			arrOfVarGroups.push(arrOfPossibleGroups[arrOfPossibleGroupsKeys[i]]);
+		}
+	}
+	refreshArrayObjectOfArrays(arrOfVarGroups);
 }

@@ -23,19 +23,6 @@ else
 require_once('../core/php/configStatic.php');
 require_once('../core/php/loadVars.php');
 require_once('../core/php/updateCheck.php');
-
-/* Check for backup config stuff */
-$countConfig = 1;
-$showConfigBackupClear = false;
-while (file_exists($baseUrl."conf/config".$countConfig.".php"))
-{
-	if(!$showConfigBackupClear)
-	{
-		$showConfigBackupClear = true;
-	}
-	$countConfig++;
-}
-$countConfig--;
 ?>
 <!doctype html>
 <head>
@@ -52,6 +39,11 @@ $countConfig--;
 			array(
 				"filePath"		=> "../core/js/advanced.js",
 				"baseFilePath"	=> "core/js/advanced.js",
+				"default"		=> $configStatic["version"]
+			),
+			array(
+				"filePath"		=> "../core/js/advancedExt.js",
+				"baseFilePath"	=> "core/js/advancedExt.js",
 				"default"		=> $configStatic["version"]
 			),
 			array(
@@ -74,58 +66,12 @@ $countConfig--;
 	include('../core/php/template/varTemplate.php');
 	$currentSection = "fileLocations";
 	include('../core/php/template/varTemplate.php');
+	$settingsUrlModifier = "../";
+	$otherSettingsUrlModifier = "";
+	include('../core/php/template/advancedActions.php');
 	?>
-	<span id="moreAdvancedSpan">
-		<div id="moreAdvanced" class="settingsHeader">
-			Advanced
-		</div>
-		<div class="settingsDiv" >
-			<ul class="settingsUl">
-				<li>
-					<a style="text-decoration: none;" href="../setup/step1.php" class="link">Re-do Setup</a>
-					<span> | </span>
-					<a onclick="revertPopup();" class="link">Revert Version</a>
-					<span> | </span>
-					<a onclick="resetUpdateNotification();" class="link">Reset Update Notification</a>
-					<span> | </span>
-					<a class="link" href="editFiles.php" >View Files</a>
-					<span> | </span>
-					<?php if($backupNumConfigEnabled == 'true'): ?>
-						<a onclick="showConfigPopup();" class="link">View restore options for config</a>
-						<span> | </span>
-						<?php if($showConfigBackupClear): ?>
-							<span id="showConfigClearButton">
-								<a onclick="clearBackupFiles();" class="link">Clear (<?php echo $countConfig;?>) Backup Config Files</a>
-								<span> | </span>
-							</span>
-						<?php endif; ?>
-					<?php endif; ?>
-					<a onclick="resetSettingsPopup();" class="link">Reset Settings back to Default</a>
-				</li>
-			</ul>
-		</div>
-	</span>
-	<form id="expFeatures">
-		<div class="settingsHeader">
-		Experimental Features
-			<div class="settingsHeaderButtons">
-				<a style="display: none;" class="linkSmall" onclick="saveAndVerifyMain('expFeatures');" >Save Changes</a>
-			</div>
-		</div>
-		<div class="settingsDiv" >
-			<ul class="settingsUl">
-				<li>
-					There are no experimental features available at this time
-				</li>
-			</ul>
-		</div>
-	</form>
 	</div>
-	<form id="devAdvanced2" action="../core/php/settingsSaveConfigStatic.php" method="post"> <!-- Reset update notification form -->
-		<input type="hidden" name="newestVersion" value="<?php echo $configStatic['version'];?>" >
-	</form>
 </body>
 <script type="text/javascript">
-	var htmlRestoreOptions = "<?php echo $settings->generateRestoreList($configStatic); ?>";
 	var saveButtonAlwaysVisible = "<?php echo $saveButtonAlwaysVisible; ?>";
 </script>

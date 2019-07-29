@@ -5,11 +5,11 @@ require_once("core/php/class/errorCheck.php");
 $errorCheck = new errorCheck();
 $currentPage = "index.php";
 $errorCheck->checkIfFilesExist(
-	array("core/conf/config.php","core/php/configStatic.php","core/php/loadVars.php","core/php/loadVarsToJs.php","core/php/updateCheck.php","core/js/jquery.js","core/template/loading-bar.css","core/js/loading-bar.min.js","core/php/customCSS.php","core/php/template/popup.php","core/js/main.js","core/js/rightClickJS.js","core/js/update.js","core/php/class/addons.php","setup/setupProcessFile.php","error.php"),
+	array("core/conf/config.php","core/php/configStatic.php","core/php/loadVars.php","core/php/loadVarsToJs.php","core/php/updateCheck.php","core/js/jquery.js","core/php/customCSS.php","core/php/template/popup.php","core/js/main.js","core/js/rightClickJS.js","core/js/update.js","core/php/class/addons.php","setup/setupProcessFile.php","error.php"),
 	 "",
 	 $currentPage);
 $errorCheck->checkIfFilesAreReadable(
-	array("core/conf/config.php","core/php/configStatic.php","core/php/loadVars.php","core/php/loadVarsToJs.php","core/php/updateCheck.php","core/js/jquery.js","core/template/loading-bar.css","core/js/loading-bar.min.js","core/php/customCSS.php","core/php/template/popup.php","core/js/main.js","core/js/rightClickJS.js","core/js/update.js","core/php/class/addons.php","setup/setupProcessFile.php","error.php"),
+	array("core/conf/config.php","core/php/configStatic.php","core/php/loadVars.php","core/php/loadVarsToJs.php","core/php/updateCheck.php","core/js/jquery.js","core/php/customCSS.php","core/php/template/popup.php","core/js/main.js","core/js/rightClickJS.js","core/js/update.js","core/php/class/addons.php","setup/setupProcessFile.php","error.php"),
 	 "",
 	 $currentPage);
 require_once("core/php/class/update.php");
@@ -21,7 +21,7 @@ $settings = new settings();
 $core->setCookieRedirect();
 $currentSelectedTheme = $core->returnCurrentSelectedTheme();
 $baseUrl = "local/".$currentSelectedTheme."/";
-
+$varTemplateSrcModifier = "";
 if(!file_exists($baseUrl.'conf/config.php'))
 {
 	require_once("setup/setupProcessFile.php");
@@ -89,6 +89,16 @@ $externalLinkImage = $core->generateImage(
 		"data-src"	=>  $arrayOfImages["externalLink"]
 		)
 	);
+$needRefresh = $core->generateImage(
+	$arrayOfImages["loadingImg"],
+	$imageConfig = array(
+		"height"	=>	"15px",
+		"class"		=>	"mainMenuImage",
+		"style"		=>	"margin-bottom: -10px;",
+		"title"		=>	"Refresh Required",
+		"data-src"	=>  $arrayOfImages["refresh"]
+		)
+	);
 ?>
 <!doctype html>
 <head>
@@ -125,11 +135,13 @@ $externalLinkImage = $core->generateImage(
 </head>
 <body>
 	<span id="mainContent" style="display: none;"  >
-		<?php require_once("core/php/customCSS.php");
+		<?php
+		require_once("core/php/customCSS.php");
 		require_once("core/php/customIndexCSS.php");
-		if($enablePollTimeLogging != "false"): ?>
-			<div id="loggTimerPollStyle" class="noticeBar"><span id="loggingTimerPollRate" >### MS /<?php echo $pollingRate; ?> MS</span> | <span id="loggSkipCount" >0</span>/<?php echo $pollForceTrue; ?> | <span id="loggAllCount" >0</span>/<?php echo $pollRefreshAll; ?></div>
-		<?php endif; ?>
+		?>
+		<div <?php if($enablePollTimeLogging == "false"){ echo "style = 'display: none;'";} ?> id="loggTimerPollStyle" class="noticeBar">
+			<span id="loggingTimerPollRate" >### MS /<?php echo $pollingRate; ?> MS</span> | <span id="loggSkipCount" >0</span>/<?php echo $pollForceTrue; ?> | <span id="loggAllCount" >0</span>/<?php echo $pollRefreshAll; ?>
+		</div>
 			<div id="noticeBar" class="noticeBar" style="display: none;" >
 				<span id="connectionNotice">
 					Notice  - <?php echo ($pollForceTrue * 2); ?> poll requests have failed. Please check server connectivity or refresh page.

@@ -1,4 +1,4 @@
-function getFilterData(id, name, shortName, logData)
+function getFilterData(id, name, shortName, logData) //this function is to check if file is loaded
 {
 	var selectListForFilter = document.getElementsByName("searchType")[0];
 	var selectedListFilterType = selectListForFilter.options[selectListForFilter.selectedIndex].value;

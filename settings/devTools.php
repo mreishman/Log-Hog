@@ -20,6 +20,7 @@ else
 require_once('../core/php/configStatic.php');
 require_once('../core/php/loadVars.php');
 require_once('../core/php/updateCheck.php');
+$settingsUrlModifier = "../";
 ?>
 <!doctype html>
 <head>
@@ -44,75 +45,11 @@ require_once('../core/php/updateCheck.php');
 <body>
 	<?php require_once('header.php'); ?>
 	<div id="main">
-	<form id="devBranch">
-		<div class="settingsHeader">
-			Branch Settings
-			<div class="settingsHeaderButtons">
-				<?php echo $settings->addResetButton("devBranch"); ?>
-				<a class="linkSmall devBranchSaveButton" onclick="saveAndVerifyMain('devBranch');" >Save Changes</a>
-			</div>
-		</div>
-		<div class="settingsDiv" >
-			<ul class="settingsUl">
-				<li>
-					<span class="settingsBuffer" >  Enable Development Branch: </span>
-					<div class="selectDiv">
-						<select name="enableDevBranchDownload">
-  							<option <?php if($enableDevBranchDownload == 'true'){echo "selected";} ?> value="true">True</option>
-  							<option <?php if($enableDevBranchDownload == 'false'){echo "selected";} ?> value="false">False</option>
-						</select>
-					</div>
-				</li>
-				<li>
-					<span class="settingsBuffer" >  Base URL:  </span> <input type="text" class="inputWidth"  name="baseUrlUpdate" value="<?php echo $baseUrlUpdate;?>" >
-				</li>
-				<li>
-					<span style="font-size: 75%;">
-						<?php echo $core->generateImage(
-							$arrayOfImages["info"],
-							array(
-								"style"			=>	"margin-bottom: -4px;",
-								"height"		=>	"20px",
-								"srcModifier"	=>	"../"
-							)
-						); ?>
-						<i>
-							Default: https://github.com/mreishman/Log-Hog/archive/
-						</i>
-					</span>
-				</li>
-				<li>
-					<span class="settingsBuffer" > Config Version:  </span> <input type="number" pattern="[0-9]*" class="inputWidth" name="configVersion" value="<?php echo $configVersion;?>" >
-				</li>
-				<li>
-					<span class="settingsBuffer" > Layout Version:  </span> <input type="number" pattern="[0-9]*" class="inputWidth"  name="layoutVersion" value="<?php echo $layoutVersion;?>" >
-				</li>
-				<li>
-					<span class="settingsBuffer" > CSS Version:  </span> <input type="number" pattern="[0-9]*" class="inputWidth"  name="cssVersion" value="<?php echo $cssVersion;?>" >
-				</li>
-				<li>
-					<span class="settingsBuffer" > Theme Version:  </span> <input type="number" pattern="[0-9]*" class="inputWidth"  name="themeVersion" value="<?php echo $themeVersion;?>" >
-				</li>
-			</ul>
-
-		</div>
-	</form>
-	<form id="devAdvanced2">
-		<div class="settingsHeader">
-			Static Config Settings
-			<div class="settingsHeaderButtons">
-				<?php echo $settings->addResetButton("devAdvanced2");?>
-				<a class="linkSmall devAdvanced2SaveButton" onclick="saveConfigStatic();" >Save Changes</a>
-			</div>
-		</div>
-		<div class="settingsDiv" >
-			<ul class="settingsUl">
-				<li>
-					<span class="settingsBuffer" >  Version Number:  </span> <input id="versionNumberConfigStaticInput" type="text" class="inputWidth"  name="version" value="<?php echo $configStatic['version'];?>" >
-				</li>
-			</ul>
-		</div>
-	</form>
+		<?php
+			require_once("../core/php/template/devBranch.php");
+			require_once("../core/php/template/devConfigSettings.php");
+		?>
+	</div>
 </body>
 <script type="text/javascript">
 	var saveButtonAlwaysVisible = "<?php echo $saveButtonAlwaysVisible; ?>";

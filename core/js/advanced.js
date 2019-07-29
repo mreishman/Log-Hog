@@ -1,6 +1,4 @@
-var timeoutVar;
-var titleOfPage = "Advanced";
-var popupHtml = "";
+var advancedSettingsTimeoutVar;
 
 function revertPopup()
 {
@@ -24,7 +22,7 @@ function resetUpdateNotification()
         complete()
         {
           //verify saved
-          timeoutVar = setInterval(function(){updateNoNewVersionCheck();},3000);
+          advancedSettingsTimeoutVar = setInterval(function(){updateNoNewVersionCheck();},3000);
         }
       });
 }
@@ -37,7 +35,7 @@ function updateNoNewVersionCheck()
 		{
 			if(data["version"] === data["newestVersion"])
 			{
-				clearInterval(timeoutVar);
+				clearInterval(advancedSettingsTimeoutVar);
 				saveSuccess();
 				fadeOutPopup();
 				if(document.getElementById("updateNoticeImage"))
@@ -53,27 +51,18 @@ function updateNoNewVersionCheck()
 	}
 }
 
-function checkIfChanges()
-{
-	if(checkForChangesArray(["loggingDisplay","modules","locationOtherApps","advancedConfig","expFeatures"]))
-	{
-		return true;
-	}
-	return false;
-}
-
 function showConfigPopup()
 {
 	try
 	{
 		displayLoadingPopup();
-		$.getJSON("../core/php/configVersionsPopup.php", {}, function(data) 
+		$.getJSON("../core/php/configVersionsPopup.php", {}, function(data)
 		{
 			if(data["backupCopiesPresent"])
 			{
 				var heightOffset = document.getElementById("menu").offsetHeight;
 
-				popupHtml = "<div class='settingsHeader' >Backup List <span><a onclick=\"hidePopup();\" class=\"link\">Close</a></span></div><br><div style='width:100%; height: "+((((window.innerHeight * 0.9)-heightOffset).toFixed(2))-70)+"px; overflow-y: scroll; padding-left:10px;padding-right:10px;'><table style=\"width: 100%;\">";
+				var popupHtml = "<div class='settingsHeader' >Backup List <span><a onclick=\"hidePopup();\" class=\"link\">Close</a></span></div><br><div style='width:100%; height: "+((((window.innerHeight * 0.9)-heightOffset).toFixed(2))-70)+"px; overflow-y: scroll; padding-left:10px;padding-right:10px;'><table style=\"width: 100%;\">";
 				for (var i = 1; i <= data["arrayOfFiles"].length; i++)
 				{
 					popupHtml += "<tr><td class=\"addBorderBottom\" width=\"25%\"><div>Config"+i+"</div>";
@@ -130,12 +119,12 @@ function clearBackupFiles()
 	try
 	{
 		displayLoadingPopup();
-		$.getJSON("../core/php/clearConfigBackups.php", {}, function(data) 
+		$.getJSON("../core/php/clearConfigBackups.php", {}, function(data)
 		{
 			if(data)
 			{
 				//verify that it was removed
-				timeoutVar = setInterval(function(){verifyNoConfigBackups();},3000);
+				advancedSettingsTimeoutVar = setInterval(function(){verifyNoConfigBackups();},3000);
 			}
 			else
 			{
@@ -154,15 +143,14 @@ function verifyNoConfigBackups()
 	try
 	{
 		displayLoadingPopup();
-		$.getJSON("../core/php/configVersionsPopup.php", {}, function(data) 
+		$.getJSON("../core/php/configVersionsPopup.php", {}, function(data)
 		{
 			if(!data["backupCopiesPresent"])
 			{
 				//no backups there to show, current size is file
-				clearInterval(timeoutVar);
+				clearInterval(advancedSettingsTimeoutVar);
 				saveSuccess();
 				fadeOutPopup();
-				document.getElementById("showConfigClearButton").style.display = "none";
 			}
 		});
 	}
@@ -183,19 +171,3 @@ function showOrHideVersionSaveConfig()
 		document.getElementById("versionSaveContentSettings").style.display = "none";
 	}
 }
-
-$( document ).ready(function()
-{
-	refreshArrayObjectOfArrays(["loggingDisplay","modules","locationOtherApps","advancedConfig","expFeatures"]);
-
-	document.addEventListener(
-		"scroll",
-		function (event)
-		{
-			onScrollShowFixedMiniBar(["advancedConfig","modules","loggingDisplay","locationOtherApps","moreAdvancedSpan","expFeatures"]);
-		},
-		true
-	);
-
-	setInterval(poll, 100);
-});
