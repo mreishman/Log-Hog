@@ -41,7 +41,8 @@ class update
 
 	public function formatBytes($bytes,$decimals = 2)
 	{
-		if((int)$bytes === 0)
+		$bytes = (int)$bytes;
+		if($bytes === 0)
 		{
 			return "0 Bytes";
 		}
