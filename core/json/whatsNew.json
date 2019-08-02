@@ -286,5 +286,19 @@
 		"Images":[
 			"8.1-1.png"
 		]
-	}
+	},
+	"23":{
+		"Version":"8.2",
+		"Name":"Control the Log Part 1",
+		"BP":[
+			"More actions for individual logs added",
+			"Load more add to top of logs",
+			"More log settings added"
+		],
+		"Images":[
+			"8.2-1.png",
+			"8.2-2.png",
+			"8.2-3.png"
+		]
+	},
 }
