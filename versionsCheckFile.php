@@ -358,5 +358,15 @@ $versionCheckArray = array(
 	)
 );
 
+/*
+'8.2'			=> array(
+			'branchName'	=> '8.2Update',
+			'downloadSize'  => 679808,
+			'installSize'   => 9838503,
+			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/8.2.png',
+			'releaseNotes'	=> "<ul><li>Features<ul><li>Pause individual logs from log sidebar</li><li>Refresh individual logs from log sidebar</li><li>Added a button at the top of logs allow for loading more lines of the current log (increase line number by current slice size)</li><li>Added sidebar buttons for preset groups (click to auto select a group of groups). Save current selection with save buttons below.</li><li>Added setting to always load last sessions logs / layout on initial load.</li><li>Added setting to invert the direction of logs (top to bottom or bottom to top).</li><li>Added scroll to top button</li></ul></li><li>Bug Fixes<ul><li>Reduced size of Log-Hog install by removing duplicate images and inverting them in css</li><li>Correct images should load on theme change without cache clear</li><li>Added button to close search on index when open</li><li>New error type added to update check download action</li></ul></li></ul>"
+		),
+*/
+
 
 ?>
