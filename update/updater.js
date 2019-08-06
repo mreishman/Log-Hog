@@ -84,6 +84,13 @@ function downloadBranch()
 		dataType: "json",
 		data: data,
 		type: "POST",
+		success(data)
+		{
+			if(typeof data === "object"  && "error" in data && data["error"] === 14)
+            {
+                window.location.href = "../error.php?error=14";
+            }
+		},
 		complete: function()
 		{
 			//verify if downloaded
@@ -113,6 +120,10 @@ function unzipBranch()
 		type: "POST",
 		success: function(arrayOfFiles)
 		{
+			if(typeof arrayOfFiles === "object"  && "error" in arrayOfFiles && arrayOfFiles["error"] === 14)
+            {
+                window.location.href = "../error.php?error=14";
+            }
 			//verify if downloaded
 			arrayOfFilesExtracted = arrayOfFiles;
 			updateText("Verifying Unzipping");
@@ -149,6 +160,10 @@ function verifyFilePoll(action, fileLocation,isThere)
 				type: "POST",
 				success: function(data)
 				{
+					if(typeof data === "object"  && "error" in data && data["error"] === 14)
+		            {
+		                window.location.href = "../error.php?error=14";
+		            }
 					verifyPostEnd(data, _data);
 				},
 				failure: function(data)
@@ -279,7 +294,11 @@ function verifyDownloadDownloaded()
 			type: "POST",
 			success: function(data)
 			{
-				if(data == true)
+				if(typeof data === "object"  && "error" in data && data["error"] === 14)
+	            {
+	                window.location.href = "../error.php?error=14";
+	            }
+				else if(data == true)
 				{
 					updateProgressBar(1);
 					updateStatusFunc("Extracting Zip Files For ", "");
@@ -400,6 +419,10 @@ function verifyFileOrDirPoll(action, fileLocation,isThere)
 				type: "POST",
 				success: function(data)
 				{
+					if(typeof data === "object"  && "error" in data && data["error"] === 14)
+		            {
+		                window.location.href = "../error.php?error=14";
+		            }
 					verifyPostEndTwo(data, _data);
 				},
 				failure: function(data)
@@ -597,6 +620,10 @@ function copyFileFromArrayAjax(file)
 		type: "POST",
 		success(fileCopied)
 		{
+			if(typeof fileCopied === "object"  && "error" in fileCopied && fileCopied["error"] === 14)
+            {
+                window.location.href = "../error.php?error=14";
+            }
 			lastFileCheck = fileCopied;
 		},
 		complete: function(data)
@@ -698,6 +725,10 @@ function ajaxForRedirectScript(urlForSendMainRedAjax)
 			type: "POST",
 			success: function(data)
 			{
+				if(typeof data === "object"  && "error" in data && data["error"] === 14)
+	            {
+	                window.location.href = "../error.php?error=14";
+	            }
 				window.location.href = data;
 			},
 			failure: function(data)
@@ -725,6 +756,10 @@ function removeExtractedDir()
 		type: "POST",
 		success: function(data)
 		{
+			if(typeof data === "object"  && "error" in data && data["error"] === 14)
+            {
+                window.location.href = "../error.php?error=14";
+            }
 			//verify if downloaded
 			updateText("Verifying that TMP files were removed");
 			verifyFile("removeDirUpdate", "../../update/downloads/updateFiles/extracted/", false);
@@ -754,6 +789,10 @@ function removeDownloadedZip()
 		type: "POST",
 		success: function(data)
 		{
+			if(typeof data === "object"  && "error" in data && data["error"] === 14)
+            {
+                window.location.href = "../error.php?error=14";
+            }
 			//verify if downloaded
 			updateText("Verifying that TMP files were removed");
 			verifyFile("removeZipFile", "../../update/downloads/updateFiles/updateFiles.zip", false);
@@ -776,6 +815,10 @@ function finishedUpdate()
 		type: "POST",
 		complete: function(data)
 		{
+			if(typeof data === "object"  && "error" in data && data["error"] === 14)
+            {
+                window.location.href = "../error.php?error=14";
+            }
 			retryCount = 0;
 			verifyCountSuccess = 0;
 			verifyFileTimer = setInterval(function(){finishUpdatePollCheck();},2000);

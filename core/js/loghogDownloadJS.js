@@ -18,6 +18,16 @@ function checkIfTopDirIsEmpty()
 		type: "POST",
 		success(data)
 		{
+			let urlMod = "";
+			let countNum = urlForSendMain.split("../").length - 1;
+			for(let i = 0; i < countNum; i++)
+			{
+				urlMod += "../";
+			}
+			if(typeof data === "object"  && "error" in data && data["error"] === 14)
+            {
+                window.location.href = urlMod + "error.php?error=14";
+            }
 			if(data === true)
 			{
 				downloadFile();
@@ -40,6 +50,19 @@ function removeFilesFromToppFolder(skip = false)
 		dataType: "json",
 		data,
 		type: "POST",
+		success(data)
+		{
+			let urlMod = "";
+			let countNum = urlForSendMain.split("../").length - 1;
+			for(let i = 0; i < countNum; i++)
+			{
+				urlMod += "../";
+			}
+			if(typeof data === "object"  && "error" in data && data["error"] === 14)
+            {
+                window.location.href = urlMod + "error.php?error=14";
+            }
+		},
 		complete()
 		{
 			//verify if downloaded
@@ -69,6 +92,19 @@ function downloadFile()
 		dataType: "json",
 		data,
 		type: "POST",
+		success(data)
+		{
+			let urlMod = "";
+			let countNum = urlForSendMain.split("../").length - 1;
+			for(let i = 0; i < countNum; i++)
+			{
+				urlMod += "../";
+			}
+			if(typeof data === "object"  && "error" in data && data["error"] === 14)
+            {
+                window.location.href = urlMod + "error.php?error=14";
+            }
+		},
 		complete()
 		{
 			//verify if downloaded
@@ -87,6 +123,19 @@ function unzipFile()
 		dataType: "json",
 		data,
 		type: "POST",
+		success(data)
+		{
+			let urlMod = "";
+			let countNum = urlForSendMain.split("../").length - 1;
+			for(let i = 0; i < countNum; i++)
+			{
+				urlMod += "../";
+			}
+			if(typeof data === "object"  && "error" in data && data["error"] === 14)
+            {
+                window.location.href = urlMod + "error.php?error=14";
+            }
+		},
 		complete()
 		{
 			//verify if downloaded
@@ -105,6 +154,19 @@ function removeZipFile()
 		dataType: "json",
 		data,
 		type: "POST",
+		success(data)
+		{
+			let urlMod = "";
+			let countNum = urlForSendMain.split("../").length - 1;
+			for(let i = 0; i < countNum; i++)
+			{
+				urlMod += "../";
+			}
+			if(typeof data === "object"  && "error" in data && data["error"] === 14)
+            {
+                window.location.href = urlMod + "error.php?error=14";
+            }
+		},
 		complete()
 		{
 			//verify if downloaded
@@ -193,6 +255,16 @@ function verifyFilePoll(action, fileLocation,isThere)
 				type: "POST",
 				success(data)
 				{
+					let urlMod = "";
+					let countNum = urlForSendMain.split("../").length - 1;
+					for(let i = 0; i < countNum; i++)
+					{
+						urlMod += "../";
+					}
+					if(typeof data === "object"  && "error" in data && data["error"] === 14)
+		            {
+		                window.location.href = urlMod + "error.php?error=14";
+		            }
 					verifyPostEnd(data, _data);
 				},
 				failure(data)

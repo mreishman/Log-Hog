@@ -19,15 +19,25 @@ function runScript(version)
 	document.getElementById("verifyCount").innerHTML = globalVersionBase;
 	document.getElementById("runLoad").style.display = "block";
 	document.getElementById("verifyLoad").style.display = "none";
-	var urlForSend = urlForSendMain+version+urlForSendMain2;
+	var urlForSendRunScript = urlForSendMain+version+urlForSendMain2;
 	var dataSend = {version: version};
 	$.ajax({
-		url: urlForSend,
+		url: getElementById,
 		dataType: "json",
 		data: dataSend,
 		type: "POST",
 		success(data)
 		{
+			let urlMod = "";
+			let countNum = urlForSendMain.split("../").length - 1;
+			for(let i = 0; i < countNum; i++)
+			{
+				urlMod += "../";
+			}
+			if(typeof data === "object"  && "error" in data && data["error"] === 14)
+            {
+                window.location.href = urlMod + "error.php?error=14";
+            }
 			verifyFile(data);
 		},
 		failure(data)

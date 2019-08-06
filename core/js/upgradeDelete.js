@@ -43,6 +43,16 @@ function removeMain(dataSend)
 		type: "POST",
 		success(data)
 		{
+			let urlMod = "";
+			let countNum = urlForSendMain.split("../").length - 1;
+			for(let i = 0; i < countNum; i++)
+			{
+				urlMod += "../";
+			}
+			if(typeof data === "object"  && "error" in data && data["error"] === 14)
+            {
+                window.location.href = urlMod + "error.php?error=14";
+            }
 			verifyRemoveFile(data);
 		}
 	});
@@ -72,6 +82,16 @@ function verifyFilePoll(file)
 				type: "POST",
 				success(data)
 				{
+					let urlMod = "";
+					let countNum = urlForSendMain.split("../").length - 1;
+					for(let i = 0; i < countNum; i++)
+					{
+						urlMod += "../";
+					}
+					if(typeof data === "object"  && "error" in data && data["error"] === 14)
+		            {
+		                window.location.href = urlMod + "error.php?error=14";
+		            }
 					verifyPostEnd(data, _data);
 				},
 				failure(data)

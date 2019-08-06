@@ -48,6 +48,19 @@ function downloadRestoreVersion()
 		dataType: "json",
 		data: data,
 		type: "POST",
+		success(data)
+		{
+			let urlMod = "";
+			let countNum = urlForSendMain.split("../").length - 1;
+			for(let i = 0; i < countNum; i++)
+			{
+				urlMod += "../";
+			}
+			if(typeof data === "object"  && "error" in data && data["error"] === 14)
+            {
+                window.location.href = urlMod + "error.php?error=14";
+            }
+		},
 		complete: function()
 		{
 			//verify if downloaded
@@ -66,6 +79,19 @@ function unzip()
 		dataType: "json",
 		data: data,
 		type: "POST",
+		success(data)
+		{
+			let urlMod = "";
+			let countNum = urlForSendMain.split("../").length - 1;
+			for(let i = 0; i < countNum; i++)
+			{
+				urlMod += "../";
+			}
+			if(typeof data === "object"  && "error" in data && data["error"] === 14)
+            {
+                window.location.href = urlMod + "error.php?error=14";
+            }
+		},
 		complete: function()
 		{
 			//verify if downloaded
@@ -83,6 +109,19 @@ function moveDirUnzipped()
 		dataType: 'json',
 		data: data,
 		type: 'POST',
+		success(data)
+		{
+			let urlMod = "";
+			let countNum = urlForSendMain.split("../").length - 1;
+			for(let i = 0; i < countNum; i++)
+			{
+				urlMod += "../";
+			}
+			if(typeof data === "object"  && "error" in data && data["error"] === 14)
+            {
+                window.location.href = urlMod + "error.php?error=14";
+            }
+		},
 		complete: function()
 		{
 			//verify if downloaded
@@ -100,6 +139,19 @@ function changeDirUnzipped()
 		dataType: 'json',
 		data: data,
 		type: 'POST',
+		success(data)
+		{
+			let urlMod = "";
+			let countNum = urlForSendMain.split("../").length - 1;
+			for(let i = 0; i < countNum; i++)
+			{
+				urlMod += "../";
+			}
+			if(typeof data === "object"  && "error" in data && data["error"] === 14)
+            {
+                window.location.href = urlMod + "error.php?error=14";
+            }
+		},
 		complete: function()
 		{
 			//verify if downloaded
@@ -143,7 +195,7 @@ function verifyFail(action)
 		{
 			changeDirUnzipped();
 		}
-		
+
 		//run previous ajax
 	}
 }
@@ -175,7 +227,7 @@ function verifySucceded(action)
 	{
 		finishedDownload();
 	}
-	
+
 }
 
 function cleanDirectory()
@@ -196,6 +248,19 @@ function cleanDirectory()
 		dataType: "json",
 		data: data,
 		type: "POST",
+		success(data)
+		{
+			let urlMod = "";
+			let countNum = urlForSendMain.split("../").length - 1;
+			for(let i = 0; i < countNum; i++)
+			{
+				urlMod += "../";
+			}
+			if(typeof data === "object"  && "error" in data && data["error"] === 14)
+            {
+                window.location.href = urlMod + "error.php?error=14";
+            }
+		},
 		complete: function()
 		{
 			//verify if downloaded
@@ -229,6 +294,16 @@ function verifyFilePoll(action, fileLocation,isThere)
 				type: "POST",
 				success: function(data)
 				{
+					let urlMod = "";
+					let countNum = urlForSendMain.split("../").length - 1;
+					for(let i = 0; i < countNum; i++)
+					{
+						urlMod += "../";
+					}
+					if(typeof data === "object"  && "error" in data && data["error"] === 14)
+		            {
+		                window.location.href = urlMod + "error.php?error=14";
+		            }
 					verifyPostEnd(data, _data);
 				},
 				failure: function(data)
