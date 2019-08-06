@@ -15,6 +15,11 @@ class session
     // THE only instance of the class
     private static $instance;
 
+    //Here we store the generated form key
+    private $formKey;
+
+    //Here we store the old form key (more info at step 4)
+    private $old_formKey;
 
     /**
     *    Returns THE instance of 'Session'.
@@ -47,6 +52,17 @@ class session
         if ( $this->sessionState == self::SESSION_NOT_STARTED )
         {
             $this->sessionState = session_start();
+            if(!$this->__isset("form_key"))
+            {
+                $this->resetFormKey();
+            }
+        }
+        else
+        {
+            if($this->__isset("form_key"))
+            {
+                $this->old_formKey = $this->__get("form_key");
+            }
         }
 
         return $this->sessionState;
@@ -114,5 +130,40 @@ class session
         }
 
         return FALSE;
+    }
+
+    //Function to generate the form key
+    private function generateKey()
+    {
+        $ip = $_SERVER['REMOTE_ADDR'];
+        $uniqid = uniqid(mt_rand(), true);
+        return md5($ip . $uniqid);
+    }
+
+    public function resetFormKey()
+    {
+        $this->formKey = $this->generateKey();
+        $this->__set("form_key",$this->formKey);
+    }
+
+    public function outputKey()
+    {
+        return $this->formKey;
+    }
+
+    //Function that validated the form key POST data
+    public function validate()
+    {
+        //We use the old formKey and not the new generated version
+        if($_POST['form_key'] == $this->old_formKey)
+        {
+            //The key is valid, return true.
+            return true;
+        }
+        else
+        {
+            //The key is invalid, return false.
+            return false;
+        }
     }
 }

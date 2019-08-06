@@ -337,7 +337,13 @@ else
 
 	echo "<script>";
 	echo "var successVerifyNum = ".$successVerifyNum.";";
-	echo "var arrayOfImages = ".json_encode($arrayOfImages);
+	echo "var arrayOfImages = ".json_encode($arrayOfImages).";";
+	if(!isset($session))
+	{
+		include($varToIndexDir."core/php/class/session.php");
+		$session->getInstance();
+	}
+	echo "var formKey = \"".$session->outputKey()."\";";
 	echo "</script>";
 
 	$trueFalsVars = array(
