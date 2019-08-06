@@ -349,7 +349,7 @@ function saveSettingFromPopupNoCheckMaybe()
 		            {
 		                window.location.href = urlSend + "error.php?error=14&page=settingsSaveAjax.php";
 		            }
-				}
+				},
 			complete(data){
 				closePopupNoUpdate();
 				},

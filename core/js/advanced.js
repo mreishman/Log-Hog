@@ -25,7 +25,7 @@ function resetUpdateNotification()
             {
                 window.location.href = "../error.php?error=14&page=settingsSaveConfigStatic.php";
             }
-        }
+        },
         complete()
         {
           //verify saved
