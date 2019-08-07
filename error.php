@@ -166,6 +166,10 @@ $errorArray = array(
         "firstMessage"      =>  "Update check failed because it could not open the downloaded zip file",
         "secondMessage"     =>  "When checking for updates, a zip file is download that contains the new version list. An error occured when trying to open the zip file. This could either be due to a permission error or not enough space in the target directory."
     ),
+    18   =>  array(
+        "firstMessage"      =>  "Invalid Form Key",
+        "secondMessage"     =>  "The formkey sent with the post request was invalid. Please try and reload Log-Hog to generate a new session."
+    ),
     42   =>  array(
         "firstMessage"      =>  "General Error",
         "secondMessage"     =>  "A general error occured, or you navigated to this page directly."

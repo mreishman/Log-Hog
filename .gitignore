@@ -6,4 +6,6 @@ local/default/*
 Log-Hog.sublime-project
 Log-Hog.sublime-workspace
 tmp/*
-!tmp/loghogBackupHistoryLogs/placeholder .txt
+!tmp/loghogBackupHistoryLogs/placeholder.txt
+session/*
+!session/.htaccess

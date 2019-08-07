@@ -4,7 +4,7 @@
     Use the static method getInstance to get the object.
 */
 
-class session
+class session extends Core
 {
     const SESSION_STARTED = TRUE;
     const SESSION_NOT_STARTED = FALSE;
@@ -14,9 +14,6 @@ class session
 
     // THE only instance of the class
     private static $instance;
-
-    //Here we store the generated form key
-    private $formKey;
 
     //Here we store the old form key (more info at step 4)
     private $old_formKey;
@@ -49,19 +46,18 @@ class session
 
     public function startSession()
     {
-        if ( $this->sessionState == self::SESSION_NOT_STARTED )
+        $sessionDir = $this->baseURL()."session/";
+        if(!is_dir($sessionDir))
+        {
+            mkdir($sessionDir);
+        }
+        ini_set('session.save_path', $sessionDir);
+        if ($this->sessionState == self::SESSION_NOT_STARTED )
         {
             $this->sessionState = session_start();
             if(!$this->__isset("form_key"))
             {
                 $this->resetFormKey();
-            }
-        }
-        else
-        {
-            if($this->__isset("form_key"))
-            {
-                $this->old_formKey = $this->__get("form_key");
             }
         }
 
@@ -142,20 +138,32 @@ class session
 
     public function resetFormKey()
     {
-        $this->formKey = $this->generateKey();
-        $this->__set("form_key",$this->formKey);
+        $this->__set("form_key",$this->generateKey());
     }
 
     public function outputKey()
     {
-        return $this->formKey;
+        if($this->__isset("form_key"))
+        {
+            return $this->__get("form_key");
+        }
+        return null;
     }
 
     //Function that validated the form key POST data
     public function validate()
     {
         //We use the old formKey and not the new generated version
-        if($_POST['form_key'] == $this->old_formKey)
+        $formKey = false;
+        if(isset($_POST["form_key"]))
+        {
+            $formKey = $_Post["form_key"];
+        }
+        elseif(isset($_POST["formKey"]))
+        {
+            $formKey = $_POST["formKey"];
+        }
+        if($formKey !== false && $formKey == $this->outputKey())
         {
             //The key is valid, return true.
             return true;

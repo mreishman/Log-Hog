@@ -6,6 +6,11 @@ if(!$session->startSession())
 	echo json_encode(array("error" => 14));
 	exit();
 }
+if(!$session->validate())
+{
+	echo json_encode(array("error" => 18));
+	exit();
+}
 $baseUrl = "../../core/";
 if(file_exists('../../local/layout.php'))
 {

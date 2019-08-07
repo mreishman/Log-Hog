@@ -86,7 +86,7 @@ function pollTwo()
 	try
 	{
 		var urlForSend = "core/php/pollCheck.php?format=json";
-		var data = {currentVersion, fileData};
+		var data = {currentVersion, fileData, formKey};
 		$.ajax({
 			url: urlForSend,
 			dataType: "json",
@@ -94,6 +94,10 @@ function pollTwo()
 			type: "POST",
 			success(data)
 			{
+				if(typeof data === "object"  && "error" in data && data["error"] === 18)
+	            {
+	                window.location.href = "error.php?error=18";
+	            }
 				hideNoticeBarIfThere();
 				if(document.getElementById("noLogToDisplay").style.display !== "none" && (!(data === [] || $.isEmptyObject(data))))
 				{
@@ -283,7 +287,7 @@ function pollThree(arrayToUpdate)
 			else
 			{
 				var urlForSend = "core/php/poll.php?format=json";
-				var data = {arrayToUpdate};
+				var data = {arrayToUpdate, formKey};
 				$.ajax({
 					url: urlForSend,
 					dataType: "json",
@@ -291,7 +295,11 @@ function pollThree(arrayToUpdate)
 					type: "POST",
 					success(data)
 					{
-						if(typeof data === "object"  && "error" in data && data["error"] === 14)
+						if(typeof data === "object"  && "error" in data && data["error"] === 18)
+			            {
+			                window.location.href = "error.php?error=18";
+			            }
+						else if(typeof data === "object"  && "error" in data && data["error"] === 14)
 						{
 							window.location.href = "error.php?error=14&page=poll.php";
 						}
@@ -369,7 +377,7 @@ function getFileSingle(current)
 		var arraySend = {};
 		var keyForThis = arrayUpdateKeys[current];
 		arraySend[keyForThis] = arrayToUpdate[keyForThis];
-		var data = {arrayToUpdate: arraySend};
+		var data = {arrayToUpdate: arraySend, formKey};
 		$.ajax({
 			url: "core/php/poll.php?format=json",
 			dataType: "json",
@@ -378,7 +386,11 @@ function getFileSingle(current)
 			type: "POST",
 			success(data)
 			{
-				if(typeof data === "object"  && "error" in data && data["error"] === 14)
+				if(typeof data === "object"  && "error" in data && data["error"] === 18)
+	            {
+	                window.location.href = "error.php?error=18";
+	            }
+				else if(typeof data === "object"  && "error" in data && data["error"] === 14)
 				{
 					window.location.href = "error.php?error=14&page=poll.php";
 				}
@@ -427,6 +439,7 @@ function getFileSinglePostLoadWithData(data, currentLogNum)
 {
 	try
 	{
+		data["formKey"] = formKey;
 		$.ajax({
 			url: "core/php/poll.php?format=json",
 			dataType: "json",
@@ -434,7 +447,11 @@ function getFileSinglePostLoadWithData(data, currentLogNum)
 			type: "POST",
 			success(data)
 			{
-				if(typeof data === "object"  && "error" in data && data["error"] === 14)
+				if(typeof data === "object"  && "error" in data && data["error"] === 18)
+	            {
+	                window.location.href = "error.php?error=18&page=settingsSaveConfigStatic.php";
+	            }
+				else if(typeof data === "object"  && "error" in data && data["error"] === 14)
 				{
 					window.location.href = "error.php?error=14&page=poll.php";
 				}

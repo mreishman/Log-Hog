@@ -10,7 +10,7 @@ function checkIfTopDirIsEmpty()
 {
 	updateText(10);
 	var urlForSend = urlForSendMain;
-	var data = {action: "checkIfDirIsEmpty", dir: "../../"+localFolderLocation+"/"};
+	var data = {action: "checkIfDirIsEmpty", dir: "../../"+localFolderLocation+"/", formKey};
 	$.ajax({
 		url: urlForSend,
 		dataType: "json",
@@ -24,7 +24,11 @@ function checkIfTopDirIsEmpty()
 			{
 				urlMod += "../";
 			}
-			if(typeof data === "object"  && "error" in data && data["error"] === 14)
+			if(typeof data === "object"  && "error" in data && data["error"] === 18)
+            {
+                window.location.href = urlMod + "error.php?error=18";
+            }
+			else if(typeof data === "object"  && "error" in data && data["error"] === 14)
             {
                 window.location.href = urlMod + "error.php?error=14";
             }
@@ -44,7 +48,7 @@ function removeFilesFromToppFolder(skip = false)
 {
 	updateText(20);
 	var urlForSend = urlForSendMain;
-	var data = {action: "removeUnZippedFiles", locationOfFilesThatNeedToBeRemovedRecursivally: "../../"+localFolderLocation+"/",removeDir: true};
+	var data = {action: "removeUnZippedFiles", locationOfFilesThatNeedToBeRemovedRecursivally: "../../"+localFolderLocation+"/",removeDir: true, formKey};
 	$.ajax({
 		url: urlForSend,
 		dataType: "json",
@@ -58,7 +62,11 @@ function removeFilesFromToppFolder(skip = false)
 			{
 				urlMod += "../";
 			}
-			if(typeof data === "object"  && "error" in data && data["error"] === 14)
+			if(typeof data === "object"  && "error" in data && data["error"] === 18)
+            {
+                window.location.href = urlMod + "error.php?error=18";
+            }
+			else if(typeof data === "object"  && "error" in data && data["error"] === 14)
             {
                 window.location.href = urlMod + "error.php?error=14";
             }
@@ -86,7 +94,7 @@ function downloadFile()
 		updateText(40);
 	}
 	var urlForSend = urlForSendMain;
-	var data = {action: "downloadFile", file: "master",downloadFrom: repoName+"/archive/", downloadTo: "../../tmp.zip"};
+	var data = {action: "downloadFile", file: "master",downloadFrom: repoName+"/archive/", downloadTo: "../../tmp.zip", formKey};
 	$.ajax({
 		url: urlForSend,
 		dataType: "json",
@@ -100,7 +108,11 @@ function downloadFile()
 			{
 				urlMod += "../";
 			}
-			if(typeof data === "object"  && "error" in data && data["error"] === 14)
+			if(typeof data === "object"  && "error" in data && data["error"] === 18)
+            {
+                window.location.href = urlMod + "error.php?error=18";
+            }
+			else if(typeof data === "object"  && "error" in data && data["error"] === 14)
             {
                 window.location.href = urlMod + "error.php?error=14";
             }
@@ -117,7 +129,7 @@ function downloadFile()
 function unzipFile()
 {
 	var urlForSend = urlForSendMain;
-	var data = {action: "unzipFile", locationExtractTo: "../../"+localFolderLocation+"/", locationExtractFrom: "../../tmp.zip", tmpCache: "../../"};
+	var data = {action: "unzipFile", locationExtractTo: "../../"+localFolderLocation+"/", locationExtractFrom: "../../tmp.zip", tmpCache: "../../", formKey};
 	$.ajax({
 		url: urlForSend,
 		dataType: "json",
@@ -131,7 +143,11 @@ function unzipFile()
 			{
 				urlMod += "../";
 			}
-			if(typeof data === "object"  && "error" in data && data["error"] === 14)
+			if(typeof data === "object"  && "error" in data && data["error"] === 18)
+            {
+                window.location.href = urlMod + "error.php?error=18";
+            }
+			else if(typeof data === "object"  && "error" in data && data["error"] === 14)
             {
                 window.location.href = urlMod + "error.php?error=14";
             }
@@ -148,7 +164,7 @@ function removeZipFile()
 {
 	updateText(70);
 	var urlForSend = urlForSendMain;
-	var data = {action: "removeZipFile", fileToUnlink: "../../tmp.zip"};
+	var data = {action: "removeZipFile", fileToUnlink: "../../tmp.zip", formKey};
 	$.ajax({
 		url: urlForSend,
 		dataType: "json",
@@ -162,7 +178,11 @@ function removeZipFile()
 			{
 				urlMod += "../";
 			}
-			if(typeof data === "object"  && "error" in data && data["error"] === 14)
+			if(typeof data === "object"  && "error" in data && data["error"] === 18)
+            {
+                window.location.href = urlMod + "error.php?error=18";
+            }
+			else if(typeof data === "object"  && "error" in data && data["error"] === 14)
             {
                 window.location.href = urlMod + "error.php?error=14";
             }
@@ -246,7 +266,7 @@ function verifyFilePoll(action, fileLocation,isThere)
 		lock = true;
 		updateText(90);
 		var urlForSend = urlForSendMain;
-		var data = {action: "verifyFileIsThere", fileLocation, isThere , lastAction: action};
+		var data = {action: "verifyFileIsThere", fileLocation, isThere , lastAction: action, formKey};
 		(function(_data){
 			$.ajax({
 				url: urlForSend,
@@ -261,7 +281,11 @@ function verifyFilePoll(action, fileLocation,isThere)
 					{
 						urlMod += "../";
 					}
-					if(typeof data === "object"  && "error" in data && data["error"] === 14)
+					if(typeof data === "object"  && "error" in data && data["error"] === 18)
+		            {
+		                window.location.href = urlMod + "error.php?error=18";
+		            }
+					else if(typeof data === "object"  && "error" in data && data["error"] === 14)
 		            {
 		                window.location.href = urlMod + "error.php?error=14";
 		            }

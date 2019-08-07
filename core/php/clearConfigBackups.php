@@ -6,6 +6,11 @@ if(!$session->startSession())
 	echo json_encode(array("error" => 14));
 	exit();
 }
+if(!$session->validate())
+{
+	echo json_encode(array("error" => 18));
+	exit();
+}
 $baseUrl = "../../local/";
 //there is custom information, use this
 require_once('../../local/layout.php');

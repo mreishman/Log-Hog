@@ -8,6 +8,11 @@ if(!$session->startSession())
 	echo json_encode(array("error" => 14));
 	exit();
 }
+if(!$session->validate())
+{
+	echo json_encode(array("error" => 18));
+	exit();
+}
 $filter = "$";
 $path = $_POST["currentFolder"];
 $response = array();
