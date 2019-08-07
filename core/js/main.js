@@ -1447,7 +1447,8 @@ function clearLogInner(title)
 	}
 	var data = {
 		file: title,
-		type: "clearLog"
+		type: "clearLog",
+		formKey
 	};
 	$.ajax({
 			url: "core/php/clearLog.php?format=json",
@@ -1456,7 +1457,11 @@ function clearLogInner(title)
 			type: "POST",
 	success(data)
 	{
-		if(typeof data === "object"  && "error" in data && data["error"] === 14)
+		if(typeof data === "object"  && "error" in data && data["error"] === 18)
+		{
+			window.location.href = "error.php?error=18&page=clearLog.php";
+		}
+		else if(typeof data === "object"  && "error" in data && data["error"] === 14)
 		{
 			window.location.href = "error.php?error=14&page=clearLog.php";
 		}
@@ -1543,14 +1548,18 @@ function deleteActionAfter()
 				{
 					continue;
 				}
-				var dataToSend = {subFolder: "tmp/loghogBackupHistoryLogs/", key: currentTitle, log: arrayOfDataMain[currentTitle]["log"]};
+				var dataToSend = {subFolder: "tmp/loghogBackupHistoryLogs/", key: currentTitle, log: arrayOfDataMain[currentTitle]["log"], formKey};
 				$.ajax({
 						url: "core/php/saveTmpVersionOfLog.php?format=json",
 						dataType: "json",
 						data: dataToSend,
 						type: "POST",
 				success(data){
-					if(typeof data === "object"  && "error" in data && data["error"] === 14)
+					if(typeof data === "object"  && "error" in data && data["error"] === 18)
+		            {
+		                window.location.href = "error.php?error=18&page=saveTmpVersionOfLog.php";
+		            }
+					else if(typeof data === "object"  && "error" in data && data["error"] === 14)
 		            {
 		                window.location.href = "error.php?error=14&page=saveTmpVersionOfLog.php";
 		            }
@@ -1565,7 +1574,8 @@ function deleteActionAfter()
 		//Clear All Log Function (not delete actual file, just contents)
 		var urlForSend = "core/php/clearLog.php?format=json";
 		var data = {
-			type: "clearAllLogs"
+			type: "clearAllLogs",
+			formKey
 		};
 		$.ajax({
 			url: urlForSend,
@@ -1574,7 +1584,11 @@ function deleteActionAfter()
 			type: "POST",
 			success(data)
 			{
-				if(typeof data === "object"  && "error" in data && data["error"] === 14)
+				if(typeof data === "object"  && "error" in data && data["error"] === 18)
+				{
+					window.location.href = "error.php?error=14&page=clearLog.php";
+				}
+				else if(typeof data === "object"  && "error" in data && data["error"] === 18)
 				{
 					window.location.href = "error.php?error=14&page=clearLog.php";
 				}
@@ -1639,7 +1653,8 @@ function deleteLog(title)
 		title = title.replace(/\s/g, "");
 		var data = {
 			file: title,
-			type: "deleteLog"
+			type: "deleteLog",
+			formKey
 		};
 		name = title;
 		$.ajax({
@@ -1649,7 +1664,11 @@ function deleteLog(title)
 			type: "POST",
 			success(data)
 			{
-				if(typeof data === "object"  && "error" in data && data["error"] === 14)
+				if(typeof data === "object"  && "error" in data && data["error"] === 18)
+				{
+					window.location.href = "error.php?error=18&page=clearLog.php";
+				}
+				else if(typeof data === "object"  && "error" in data && data["error"] === 14)
 				{
 					window.location.href = "error.php?error=14&page=clearLog.php";
 				}

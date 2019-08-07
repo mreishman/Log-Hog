@@ -7,7 +7,7 @@ var lockThemeLogic = false;
 function copyFilesThemeChange()
 {
 	var urlForSend = themeChangeLogicDirModifier+urlForSendMainThemeChange0;
-	var dataSend = {};
+	var dataSend = {formKey};
 	$.ajax({
 		url: urlForSend,
 		dataType: "json",
@@ -15,7 +15,11 @@ function copyFilesThemeChange()
 		type: "POST",
 		success(data)
 		{
-			if(typeof data === "object"  && "error" in data && data["error"] === 14)
+			if(typeof data === "object"  && "error" in data && data["error"] === 18)
+            {
+                window.location.href = themeChangeLogicDirModifier + "error.php?error=18&page="+urlForSendMainThemeChange0;
+            }
+			else if(typeof data === "object"  && "error" in data && data["error"] === 14)
             {
                 window.location.href = themeChangeLogicDirModifier + "error.php?error=14&page="+urlForSendMainThemeChange0;
             }
@@ -49,7 +53,7 @@ function verifyFilePollThemeChange(version)
 	{
 		lockThemeLogic = true;
 		var urlForSend = themeChangeLogicDirModifier + urlForSendMainThemeChange1;
-		var data = {version};
+		var data = {version, formKey};
 		(function(_data){
 			$.ajax({
 				url: urlForSend,
@@ -58,9 +62,13 @@ function verifyFilePollThemeChange(version)
 				type: 'POST',
 				success(data)
 				{
-					if(typeof data === "object"  && "error" in data && data["error"] === 14)
+					if(typeof data === "object"  && "error" in data && data["error"] === 18)
 		            {
-		                window.location.href = themeChangeLogicDirModifier + "error.php?error=14&page="+urlForSendMainThemeChange1;
+		                window.location.href = themeChangeLogicDirModifier + "error.php?error=18&page="+urlForSendMainThemeChange0;
+		            }
+					else if(typeof data === "object"  && "error" in data && data["error"] === 14)
+		            {
+		                window.location.href = themeChangeLogicDirModifier + "error.php?error=14&page="+urlForSendMainThemeChange0;
 		            }
 		            else
 		            {

@@ -15,13 +15,18 @@ function resetUpdateNotification()
 {
 	displayLoadingPopup();
 	var data = $("#devAdvanced2").serializeArray();
+	data["formKey"] = formKey;
 	$.ajax({
         type: "post",
         url: "../core/php/settingsSaveConfigStatic.php",
         data,
         success(data)
         {
-        	if(typeof data === "object"  && "error" in data && data["error"] === 14)
+        	if(typeof data === "object"  && "error" in data && data["error"] === 18)
+            {
+                window.location.href = "../error.php?error=18&page=settingsSaveConfigStatic.php";
+            }
+			else if(typeof data === "object"  && "error" in data && data["error"] === 14)
             {
                 window.location.href = "../error.php?error=14&page=settingsSaveConfigStatic.php";
             }
@@ -110,7 +115,7 @@ function restoreToVersion(restoreTo)
 {
 	displayLoadingPopup();
 	var urlForSend = "../core/php/restoreConfig.php?format=json";
-	var data = {restoreTo};
+	var data = {restoreTo, formKey};
 	$.ajax(
 	{
 		url: urlForSend,
@@ -119,7 +124,11 @@ function restoreToVersion(restoreTo)
 		type: "POST",
 		success(data)
 		{
-			if(typeof data === "object"  && "error" in data && data["error"] === 14)
+			if(typeof data === "object"  && "error" in data && data["error"] === 18)
+            {
+                window.location.href = "../error.php?error=18&page=restoreConfig.php";
+            }
+			else if(typeof data === "object"  && "error" in data && data["error"] === 14)
             {
                 window.location.href = "../error.php?error=14&page=restoreConfig.php";
             }

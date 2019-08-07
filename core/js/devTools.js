@@ -18,13 +18,18 @@ function saveConfigStatic()
 {
 	displayLoadingPopup("../","Saving Confit Static");
 	var data = $("#devConfig").serializeArray();
+	data["formKey"] = formKey;
 	$.ajax({
         type: "post",
         url: "../core/php/settingsSaveConfigStatic.php",
         data,
         success(data)
         {
-        	if(typeof data === "object"  && "error" in data && data["error"] === 14)
+        	if(typeof data === "object"  && "error" in data && data["error"] === 18)
+            {
+                window.location.href = "../error.php?error=18&page=settingsSaveConfigStatic.php";
+            }
+        	else if(typeof data === "object"  && "error" in data && data["error"] === 14)
             {
                 window.location.href = "../error.php?error=14&page=settingsSaveConfigStatic.php";
             }

@@ -35,6 +35,7 @@ function updateCount()
 
 function removeMain(dataSend)
 {
+	dataSend["formKey"] = formKey;
 	updateCount();
 	$.ajax({
 		url: urlForSendMain,
@@ -49,7 +50,11 @@ function removeMain(dataSend)
 			{
 				urlMod += "../";
 			}
-			if(typeof data === "object"  && "error" in data && data["error"] === 14)
+			if(typeof data === "object"  && "error" in data && data["error"] === 18)
+            {
+                window.location.href = urlMod + "error.php?error=18";
+            }
+			else if(typeof data === "object"  && "error" in data && data["error"] === 14)
             {
                 window.location.href = urlMod + "error.php?error=14";
             }
@@ -73,7 +78,7 @@ function verifyFilePoll(file)
 	if(lock === false)
 	{
 		lock = true;
-		var data = {action: "verifyFileIsThere",fileLocation: file, "isThere" : false};
+		var data = {action: "verifyFileIsThere",fileLocation: file, "isThere" : false, formKey};
 		(function(_data){
 			$.ajax({
 				url: urlForSendMain,
@@ -88,7 +93,11 @@ function verifyFilePoll(file)
 					{
 						urlMod += "../";
 					}
-					if(typeof data === "object"  && "error" in data && data["error"] === 14)
+					if(typeof data === "object"  && "error" in data && data["error"] === 18)
+		            {
+		                window.location.href = urlMod + "error.php?error=18";
+		            }
+					else if(typeof data === "object"  && "error" in data && data["error"] === 14)
 		            {
 		                window.location.href = urlMod + "error.php?error=14";
 		            }

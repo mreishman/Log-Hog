@@ -13,7 +13,7 @@ $(document).ready(function()
 function loadFile(filepath, name)
 {
 	var urlForSend = "../core/php/returnFileContents.php?format=json";
-	var data = {file: "../../"+filepath};
+	var data = {file: "../../"+filepath, formKey};
 	$.ajax(
 	{
 		url: urlForSend,
@@ -22,7 +22,11 @@ function loadFile(filepath, name)
 		type: "POST",
 		success(data)
 		{
-			if(typeof data === "object"  && "error" in data && data["error"] === 14)
+			if(typeof data === "object"  && "error" in data && data["error"] === 18)
+            {
+                window.location.href = "../error.php?error=18&page=returnFileContents.php";
+            }
+			else if(typeof data === "object"  && "error" in data && data["error"] === 14)
             {
                 window.location.href = "../error.php?error=14&page=returnFileContents.php";
             }

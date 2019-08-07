@@ -150,6 +150,11 @@ class session extends Core
         return null;
     }
 
+    public function outputFormKey()
+    {
+        return "var formKey = \"".$this->outputKey()."\";";
+    }
+
     //Function that validated the form key POST data
     public function validate()
     {

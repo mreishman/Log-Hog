@@ -117,7 +117,7 @@ function selectLogPopup(locationForNewLogText)
 	}
 	displayLoadingPopup(urlModifierForAjax , "Generating List");
 	var urlForSend = urlModifierForAjax + "core/php/pollCheck.php?format=json";
-	var data = {};
+	var data = {formKey};
 	$.ajax({
 		url: urlForSend,
 		dataType: "json",
@@ -125,7 +125,12 @@ function selectLogPopup(locationForNewLogText)
 		type: "POST",
 		success(data)
 		{
-			if(typeof data === "object"  && "error" in data && data["error"] === 14)
+			if(typeof data === "object"  && "error" in data && data["error"] === 18)
+			{
+				window.location.href =urlModifierForAjax + "error.php?error=18&page=pollCheck.php";
+				return;
+			}
+			else if(typeof data === "object"  && "error" in data && data["error"] === 14)
 			{
 				window.location.href =urlModifierForAjax + "error.php?error=14&page=pollCheck.php";
 				return;

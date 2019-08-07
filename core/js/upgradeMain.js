@@ -20,7 +20,7 @@ function runScript(version)
 	document.getElementById("runLoad").style.display = "block";
 	document.getElementById("verifyLoad").style.display = "none";
 	var urlForSendRunScript = urlForSendMain+version+urlForSendMain2;
-	var dataSend = {version: version};
+	var dataSend = {version: version, formKey};
 	$.ajax({
 		url: getElementById,
 		dataType: "json",
@@ -34,7 +34,11 @@ function runScript(version)
 			{
 				urlMod += "../";
 			}
-			if(typeof data === "object"  && "error" in data && data["error"] === 14)
+			if(typeof data === "object"  && "error" in data && data["error"] === 18)
+            {
+                window.location.href = urlMod + "error.php?error=18";
+            }
+			else if(typeof data === "object"  && "error" in data && data["error"] === 14)
             {
                 window.location.href = urlMod + "error.php?error=14";
             }
@@ -64,7 +68,7 @@ function verifyFilePoll(version)
 	{
 		lock = true;
 		var urlForSend = urlForSendMain0;
-		var data = {version: version};
+		var data = {version: version, formKey};
 		(function(_data){
 			$.ajax({
 				url: urlForSend,
@@ -73,7 +77,11 @@ function verifyFilePoll(version)
 				type: "POST",
 				success(data)
 				{
-					if(typeof data === "object"  && "error" in data && data["error"] === 14)
+					if(typeof data === "object"  && "error" in data && data["error"] === 18)
+					{
+						window.location.href = "../../../error.php?error=18&page="+urlForSend;
+					}
+					else if(typeof data === "object"  && "error" in data && data["error"] === 14)
 					{
 						window.location.href = "../../../error.php?error=14&page="+urlForSend;
 					}

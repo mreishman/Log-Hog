@@ -10,7 +10,7 @@ $( document ).ready(function()
 function checkIfChange()
 {
 	var urlForSend = "../core/php/getPercentUpdate.php?format=json";
-	var data = {};
+	var data = {formKey};
 	$.ajax({
 		url: urlForSend,
 		dataType: "json",
@@ -18,7 +18,11 @@ function checkIfChange()
 		type: "POST",
 		success(data)
 		{
-			if(typeof data === "object"  && "error" in data && data["error"] === 14)
+			if(typeof data === "object"  && "error" in data && data["error"] === 18)
+			{
+				window.location.href = "../error.php?error=18&page=getPercentUpdate.php";
+			}
+			else if(typeof data === "object"  && "error" in data && data["error"] === 14)
 			{
 				window.location.href = "../error.php?error=14&page=getPercentUpdate.php";
 			}

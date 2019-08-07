@@ -44,6 +44,22 @@ if(file_exists($file))
     }
 }
 
+$sessionLoaded = false;
+$file = "core/php/class/session.php";
+if(file_exists($file))
+{
+    try {
+        require_once($file);
+        $sessionLoaded = true;
+    } catch (Exception $e) {
+
+    }
+    if($sessionLoaded)
+    {
+        $session = new session();
+    }
+}
+
 $fileNameArray = array(
     "Error"    =>  array(
         "name"      =>  "Could not load list of files",
@@ -222,6 +238,9 @@ if(file_exists($file))
     <?php if($jsForResetToDefaultLoaded): ?>
         <script type="text/javascript" src="core/js/resetSettingsJs.js?v=<?php echo rand(5, 15); ?>" ></script>
     <?php endif;?>
+    <?php if($sessionLoaded){
+        echo $session->outputFormKey();
+    }?>
 </head>
 <body>
 
