@@ -326,4 +326,7 @@
 .themeDiv {
 	background: $mainAltColor;
 	color: $mainColor;
+	.notificationText , .actionTime {
+		color: $mainColor;
+	}
 }
