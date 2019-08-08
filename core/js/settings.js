@@ -34,15 +34,16 @@ function saveAndVerifyMain(idForForm)
 	idForm = "#"+idForForm;
 	displayLoadingPopup(dirForAjaxSend, "Saving...");
 	data = $(idForm).serializeArray();
+	data["formKey"] = formKey;
 	$.ajax({
         type: "post",
         url: dirForAjaxSend+"core/php/settingsSaveAjax.php",
         data,
         success(data)
         {
-        	if(typeof data === "object"  && "error" in data && data["error"] === 14)
+        	if(typeof data === "object"  && "error" in data)
             {
-                window.location.href = dirForAjaxSend + "error.php?error=14&page=settingsSaveAjax.php";
+                window.location.href = dirForAjaxSend + "error.php?error="+data["error"]+"&page=settingsSaveAjax.php";
             }
 			else if(data !== "true")
 			{
@@ -70,6 +71,7 @@ function timerVerifySave()
 	if(countForVerifySave < 20)
 	{
 		var urlForSend = dirForAjaxSend+"core/php/saveCheck.php?format=json";
+		data["formKey"] = formKey;
 		$.ajax(
 		{
 			url: urlForSend,
@@ -78,9 +80,9 @@ function timerVerifySave()
 			type: "POST",
 			success(data)
 			{
-				if(typeof data === "object"  && "error" in data && data["error"] === 14)
+				if(typeof data === "object"  && "error" in data)
 				{
-					window.location.href = dirForAjaxSend + "error.php?error=14&page=saveCheck.php";
+					window.location.href = dirForAjaxSend + "error.php?error="+data["error"]+"&page=saveCheck.php";
 				}
 				else if(data === true)
 				{
@@ -487,23 +489,37 @@ function refreshCustomCss()
 	{
 		$.ajax({
 			url: "core/php/customIndexCSS.php?format=json",
-			data: {},
+			data: {formKey},
 			type: "POST",
 		success(data)
 		{
-			//add css to bottom of index page
-			$("#initialLoadContent").append(data);
+			if(typeof data === "object"  && "error" in data)
+            {
+                window.location.href = dirForAjaxSend + "error.php?error="+data["error"]+"&page=settingsSaveAjax.php";
+            }
+            else
+            {
+				//add css to bottom of index page
+				$("#initialLoadContent").append(data);
+			}
 		},
 		});
 
 		$.ajax({
 			url: "core/php/customCSS.php?format=json",
-			data: {},
+			data: {formKey},
 			type: "POST",
 		success(data)
 		{
-			//add css to bottom of index page
-			$("#initialLoadContent").append(data);
+			if(typeof data === "object"  && "error" in data)
+            {
+                window.location.href = dirForAjaxSend + "error.php?error="+data["error"]+"&page=settingsSaveAjax.php";
+            }
+            else
+            {
+				//add css to bottom of index page
+				$("#initialLoadContent").append(data);
+			}
 		},
 		});
 	}
@@ -515,13 +531,13 @@ function refreshJsVars()
 	{
 		$.ajax({
 			url: "core/php/reloadJsVars.php?format=json",
-			data: {},
+			data: {formKey},
 			type: "POST",
 		success(data)
 		{
-			if(typeof data === "object"  && "error" in data && data["error"] === 14)
+			if(typeof data === "object"  && "error" in data)
 			{
-				window.location.href = "error.php?error=14&page=reloadJsVars.php";
+				window.location.href = "error.php?error="+data["error"]+"&page=reloadJsVars.php";
 				return;
 			}
 			//add css to bottom of index page
@@ -560,13 +576,13 @@ function refreshAddonLinks()
 	{
 		$.ajax({
 			url: "core/php/reloadAddonLinks.php?format=json",
-			data: {},
+			data: {formKey},
 			type: "POST",
 		success(data)
 		{
-			if(typeof data === "object"  && "error" in data && data["error"] === 14)
+			if(typeof data === "object"  && "error" in data)
 			{
-				window.location.href = "error.php?error=14&page=reloadAddonLinks.php";
+				window.location.href = "error.php?error="+data["error"]+"&page=reloadAddonLinks.php";
 			}
 			else
 			{

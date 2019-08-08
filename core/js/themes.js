@@ -12,13 +12,13 @@ function deleteTheme(themeName)
 	$.ajax({
 		url: urlForSendUpdateAction,
 		dataType: "json",
-		data: {action: "removeUnZippedFiles", removeDir: true, locationOfFilesThatNeedToBeRemovedRecursivally: themeName},
+		data: {action: "removeUnZippedFiles", removeDir: true, locationOfFilesThatNeedToBeRemovedRecursivally: themeName, formKey},
 		type: "POST",
 		success(data)
 		{
-			if(typeof data === "object"  && "error" in data && data["error"] === 14)
+			if(typeof data === "object"  && "error" in data)
             {
-                window.location.href = themeDirMod + "error.php?error=14";
+                window.location.href = themeDirMod + "error.php?error="+data["error"];
             }
 			//verify folder is removed
 			timeoutVar = setInterval(function(){verifyThemeRemoved();},3000);
@@ -32,13 +32,13 @@ function verifyThemeRemoved()
 	$.ajax({
 		url: urlForSendUpdateAction,
 		dataType: "json",
-		data: {action: "verifyFileIsThere", fileLocation: themeName, isThere: false},
+		data: {action: "verifyFileIsThere", fileLocation: themeName, isThere: false, formKey},
 		type: "POST",
 		success(data)
 		{
-			if(typeof data === "object"  && "error" in data && data["error"] === 14)
+			if(typeof data === "object"  && "error" in data)
             {
-                window.location.href = themeDirMod + "error.php?error=14";
+                window.location.href = themeDirMod + "error.php?error="+data["error"];
             }
 			else if(data === true)
 			{
@@ -62,7 +62,7 @@ function saveCustomTheme()
 	displayLoadingPopup();
 	document.getElementById("popupHeaderText").innerHTML = "creating /Theme/ folder (step 1 of "+numberOfStepsForThemeCreate+")";
 	//create folder
-	var data = {action: "createFolder", newDir: "../../local/"+currentTheme+"/Themes/"};
+	var data = {action: "createFolder", newDir: "../../local/"+currentTheme+"/Themes/", formKey};
 	$.ajax({
 		url: urlForSendUpdateAction,
 		dataType: "json",
@@ -70,9 +70,9 @@ function saveCustomTheme()
 		type: "POST",
 		success()
 		{
-			if(typeof data === "object"  && "error" in data && data["error"] === 14)
+			if(typeof data === "object"  && "error" in data)
             {
-                window.location.href = themeDirMod + "error.php?error=14";
+                window.location.href = themeDirMod + "error.php?error="+data["error"];
             }
 			timeoutVar = setInterval(function(){verifyFolder();},3000);
 		}
@@ -86,13 +86,13 @@ function verifyFolder()
 	$.ajax({
 		url: urlForSendUpdateAction,
 		dataType: "json",
-		data: {action: "verifyDirIsThere", dirLocation: "../../local/"+currentTheme+"/Themes/"},
+		data: {action: "verifyDirIsThere", dirLocation: "../../local/"+currentTheme+"/Themes/", formKey},
 		type: "POST",
 		success(data)
 		{
-			if(typeof data === "object"  && "error" in data && data["error"] === 14)
+			if(typeof data === "object"  && "error" in data)
             {
-                window.location.href = themeDirMod + "error.php?error=14";
+                window.location.href = themeDirMod + "error.php?error="+data["error"];
             }
 			else if(data === true)
 			{
@@ -111,13 +111,13 @@ function saveCustomThemeCustomFolder()
 	$.ajax({
 		url: urlForSendUpdateAction,
 		dataType: "json",
-		data: {action: "createFolder", newDir: "../../local/"+currentTheme+"/Themes/Custom-Theme-"+externalThemeNumber},
+		data: {action: "createFolder", newDir: "../../local/"+currentTheme+"/Themes/Custom-Theme-"+externalThemeNumber, formKey},
 		type: "POST",
 		success()
 		{
-			if(typeof data === "object"  && "error" in data && data["error"] === 14)
+			if(typeof data === "object"  && "error" in data)
             {
-                window.location.href = themeDirMod + "error.php?error=14";
+                window.location.href = themeDirMod + "error.php?error="+data["error"];
             }
 			timeoutVar = setInterval(function(){verifyFolderInFolder();},3000);
 		}
@@ -132,13 +132,13 @@ function verifyFolderInFolder()
 	$.ajax({
 		url: urlForSendUpdateAction,
 		dataType: "json",
-		data: {action: "verifyDirIsThere", dirLocation: "../../local/"+currentTheme+"/Themes/Custom-Theme-"+externalThemeNumber},
+		data: {action: "verifyDirIsThere", dirLocation: "../../local/"+currentTheme+"/Themes/Custom-Theme-"+externalThemeNumber, formKey},
 		type: "POST",
 		success(data)
 		{
-			if(typeof data === "object"  && "error" in data && data["error"] === 14)
+			if(typeof data === "object"  && "error" in data)
             {
-                window.location.href = themeDirMod + "error.php?error=14";
+                window.location.href = themeDirMod + "error.php?error="+data["error"];
             }
 			else if(data === true)
 			{
@@ -156,13 +156,13 @@ function createNewFiles()
 	$.ajax({
 		url: themeDirMod+"core/php/saveCustomThemeDefaults.php?format=json",
 		dataType: "json",
-		data: {themeNumber: externalThemeNumber, displayName: themeName},
+		data: {themeNumber: externalThemeNumber, displayName: themeName, formKey},
 		type: "POST",
 		success(data)
 		{
-			if(typeof data === "object"  && "error" in data && data["error"] === 14)
+			if(typeof data === "object"  && "error" in data)
             {
-                window.location.href = themeDirMod + "error.php?error=14&page=saveCustomThemeDefaults.php";
+                window.location.href = themeDirMod + "error.php?error="+data["error"]+"&page=saveCustomThemeDefaults.php";
             }
 			else if(data === true)
 			{
@@ -178,13 +178,13 @@ function verifyNewFiles()
 	$.ajax({
 		url: urlForSendUpdateAction,
 		dataType: "json",
-		data: {action: "verifyFileIsThere", fileLocation: "../../local/"+currentTheme+"/Themes/Custom-Theme-"+externalThemeNumber+"/defaultSetting.php", isThere: true},
+		data: {action: "verifyFileIsThere", fileLocation: "../../local/"+currentTheme+"/Themes/Custom-Theme-"+externalThemeNumber+"/defaultSetting.php", isThere: true, formKey},
 		type: "POST",
 		success(data)
 		{
-			if(typeof data === "object"  && "error" in data && data["error"] === 14)
+			if(typeof data === "object"  && "error" in data)
             {
-                window.location.href = themeDirMod + "error.php?error=14";
+                window.location.href = themeDirMod + "error.php?error="+data["error"];
             }
 			else if(data === true)
 			{
@@ -201,13 +201,13 @@ function createImageFolder()
 	$.ajax({
 		url: urlForSendUpdateAction,
 		dataType: "json",
-		data: {action: "createFolder", newDir: "../../local/"+currentTheme+"/Themes/Custom-Theme-"+externalThemeNumber+"/img"},
+		data: {action: "createFolder", newDir: "../../local/"+currentTheme+"/Themes/Custom-Theme-"+externalThemeNumber+"/img", formKey},
 		type: "POST",
 		success()
 		{
-			if(typeof data === "object"  && "error" in data && data["error"] === 14)
+			if(typeof data === "object"  && "error" in data)
             {
-                window.location.href = themeDirMod + "error.php?error=14";
+                window.location.href = themeDirMod + "error.php?error="+data["error"];
             }
 			timeoutVar = setInterval(function(){verifyImageFolder();},3000);
 		}
@@ -220,13 +220,13 @@ function verifyImageFolder()
 	$.ajax({
 		url: urlForSendUpdateAction,
 		dataType: "json",
-		data: {action: "verifyDirIsThere", dirLocation: "../../local/"+currentTheme+"/Themes/Custom-Theme-"+externalThemeNumber+"/img"},
+		data: {action: "verifyDirIsThere", dirLocation: "../../local/"+currentTheme+"/Themes/Custom-Theme-"+externalThemeNumber+"/img", formKey},
 		type: "POST",
 		success(data)
 		{
-			if(typeof data === "object"  && "error" in data && data["error"] === 14)
+			if(typeof data === "object"  && "error" in data)
             {
-                window.location.href = themeDirMod + "error.php?error=14";
+                window.location.href = themeDirMod + "error.php?error="+data["error"];
             }
 			else if(data === true)
 			{
@@ -243,13 +243,13 @@ function createTemplateFolder()
 	$.ajax({
 		url: urlForSendUpdateAction,
 		dataType: "json",
-		data: {action: "createFolder", newDir: "../../local/"+currentTheme+"/Themes/Custom-Theme-"+externalThemeNumber+"/template"},
+		data: {action: "createFolder", newDir: "../../local/"+currentTheme+"/Themes/Custom-Theme-"+externalThemeNumber+"/template", formKey},
 		type: "POST",
 		success()
 		{
-			if(typeof data === "object"  && "error" in data && data["error"] === 14)
+			if(typeof data === "object"  && "error" in data)
             {
-                window.location.href = themeDirMod + "error.php?error=14";
+                window.location.href = themeDirMod + "error.php?error="+data["error"];
             }
 			timeoutVar = setInterval(function(){verifyTemplateFolder();},3000);
 		}
@@ -262,13 +262,13 @@ function verifyTemplateFolder()
 	$.ajax({
 		url: urlForSendUpdateAction,
 		dataType: "json",
-		data: {action: "verifyDirIsThere", dirLocation: "../../local/"+currentTheme+"/Themes/Custom-Theme-"+externalThemeNumber+"/template"},
+		data: {action: "verifyDirIsThere", dirLocation: "../../local/"+currentTheme+"/Themes/Custom-Theme-"+externalThemeNumber+"/template", formKey},
 		type: "POST",
 		success(data)
 		{
-			if(typeof data === "object"  && "error" in data && data["error"] === 14)
+			if(typeof data === "object"  && "error" in data)
             {
-                window.location.href = themeDirMod + "error.php?error=14";
+                window.location.href = themeDirMod + "error.php?error="+data["error"];
             }
 			else if(data === true)
 			{
@@ -286,13 +286,13 @@ function copyFiles()
 	$.ajax({
 		url: themeDirMod+"core/php/copyImagesToNewTheme.php?format=json",
 		dataType: "json",
-		data: {themeNumber: externalThemeNumber},
+		data: {themeNumber: externalThemeNumber, formKey},
 		type: "POST",
 		success(data)
 		{
-			if(typeof data === "object"  && "error" in data && data["error"] === 14)
+			if(typeof data === "object"  && "error" in data)
 			{
-				window.location.href = themeDirMod + "error.php?error=14&page=clearLog.php";
+				window.location.href = themeDirMod + "error.php?error="+data["error"]+"&page=copyImagesToNewTheme.php";
 			}
 			else if(data === true)
 			{
@@ -308,13 +308,13 @@ function verifyCopiedFiles()
 	$.ajax({
 		url: urlForSendUpdateAction,
 		dataType: "json",
-		data: {action: "verifyFileIsThere", fileLocation: "../../local/"+currentTheme+"/Themes/Custom-Theme-"+externalThemeNumber+"/img/Gear.png", isThere: true},
+		data: {action: "verifyFileIsThere", fileLocation: "../../local/"+currentTheme+"/Themes/Custom-Theme-"+externalThemeNumber+"/img/Gear.png", isThere: true, formKey},
 		type: "POST",
 		success(data)
 		{
-			if(typeof data === "object"  && "error" in data && data["error"] === 14)
+			if(typeof data === "object"  && "error" in data)
             {
-                window.location.href = themeDirMod + "error.php?error=14";
+                window.location.href = themeDirMod + "error.php?error="+data["error"];
             }
 			else if(data === true)
 			{
