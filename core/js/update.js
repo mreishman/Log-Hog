@@ -406,7 +406,7 @@ function installUpdates(urlSend = "../", updateFormIDLocal = "settingsInstallUpd
 	            {
 	                window.location.href = urlSend + "error.php?error="+data["error"]+"&page=resetUpdateFilesToDefault.php";
 	            }
-			}
+			},
 			complete(data)
 			{
 				verifyCountSuccess = 0;

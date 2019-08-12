@@ -45,6 +45,11 @@ function saveAndVerifyMain(idForForm)
             {
                 window.location.href = dirForAjaxSend + "error.php?error="+data["error"]+"&page=settingsSaveAjax.php";
             }
+            else if(typeof data === "string" && data.indexOf("error:") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = dirForAjaxSend + "error.php?error="+data["error"]+"&page=settingsSaveAjax.php";
+            }
 			else if(data !== "true")
 			{
 				window.location.href = dirForAjaxSend+"error.php?error="+data+"&page=core/php/settingsSaveAjax.php";
