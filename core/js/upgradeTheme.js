@@ -15,13 +15,14 @@ function copyFilesThemeChange()
 		type: "POST",
 		success(data)
 		{
-			if(typeof data === "object"  && "error" in data && data["error"] === 18)
+			if(typeof data === "object"  && "error" in data)
             {
-                window.location.href = themeChangeLogicDirModifier + "error.php?error=18&page="+urlForSendMainThemeChange0;
+                window.location.href = themeChangeLogicDirModifier + "error.php?error="+data["error"]+"&page="+urlForSendMainThemeChange0;
             }
-			else if(typeof data === "object"  && "error" in data && data["error"] === 14)
+            else if(typeof data === "string" && data.indexOf("error:") > -1)
             {
-                window.location.href = themeChangeLogicDirModifier + "error.php?error=14&page="+urlForSendMainThemeChange0;
+            	data = JSON.parse(data);
+            	window.location.href = themeChangeLogicDirModifier + "error.php?error="+data["error"]+"&page="+urlForSendMainThemeChange0;
             }
             else
             {
@@ -62,13 +63,14 @@ function verifyFilePollThemeChange(version)
 				type: 'POST',
 				success(data)
 				{
-					if(typeof data === "object"  && "error" in data && data["error"] === 18)
+					if(typeof data === "object"  && "error" in data)
 		            {
-		                window.location.href = themeChangeLogicDirModifier + "error.php?error=18&page="+urlForSendMainThemeChange0;
+		                window.location.href = themeChangeLogicDirModifier + "error.php?error="+data["error"]+"&page="+urlForSendMainThemeChange0;
 		            }
-					else if(typeof data === "object"  && "error" in data && data["error"] === 14)
+		            else if(typeof data === "string" && data.indexOf("error:") > -1)
 		            {
-		                window.location.href = themeChangeLogicDirModifier + "error.php?error=14&page="+urlForSendMainThemeChange0;
+		            	data = JSON.parse(data);
+		            	window.location.href = themeChangeLogicDirModifier + "error.php?error="+data["error"]+"&page="+urlForSendMainThemeChange0;
 		            }
 		            else
 		            {

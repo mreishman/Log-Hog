@@ -14,13 +14,14 @@ var timer = setInterval(function(){ajaxCheck();},3000);
 				type: "POST",
 				success(data)
 				{
-					if(typeof data === "object"  && "error" in data && data["error"] === 18)
+					if(typeof data === "object"  && "error" in data)
 		            {
-		                window.location.href = "./error.php?error=18";
+		                window.location.href = "./error.php?error="+data["error"];
 		            }
-					else if(typeof data === "object"  && "error" in data && data["error"] === 14)
+		            else if(typeof data === "string" && data.indexOf("error:") > -1)
 		            {
-		                window.location.href = "./error.php?error=14&page=updateCheck.php";
+		            	data = JSON.parse(data);
+		            	window.location.href = "./error.php?error="+data["error"];
 		            }
 					else if(data == "Finished Running Update Script")
 					{

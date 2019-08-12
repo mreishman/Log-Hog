@@ -50,13 +50,14 @@ function removeMain(dataSend)
 			{
 				urlMod += "../";
 			}
-			if(typeof data === "object"  && "error" in data && data["error"] === 18)
+			if(typeof data === "object"  && "error" in data)
             {
-                window.location.href = urlMod + "error.php?error=18";
+                window.location.href = urlMod + "error.php?error="+data["error"];
             }
-			else if(typeof data === "object"  && "error" in data && data["error"] === 14)
+			else if(typeof data === "string" && data.indexOf("error:") > -1)
             {
-                window.location.href = urlMod + "error.php?error=14";
+            	data = JSON.parse(data);
+            	window.location.href = urlMod + "error.php?error="+data["error"];
             }
 			verifyRemoveFile(data);
 		}
@@ -93,13 +94,14 @@ function verifyFilePoll(file)
 					{
 						urlMod += "../";
 					}
-					if(typeof data === "object"  && "error" in data && data["error"] === 18)
+					if(typeof data === "object"  && "error" in data)
 		            {
-		                window.location.href = urlMod + "error.php?error=18";
+		                window.location.href = urlMod + "error.php?error="+data["error"];
 		            }
-					else if(typeof data === "object"  && "error" in data && data["error"] === 14)
+					else if(typeof data === "string" && data.indexOf("error:") > -1)
 		            {
-		                window.location.href = urlMod + "error.php?error=14";
+		            	data = JSON.parse(data);
+		            	window.location.href = urlMod + "error.php?error="+data["error"];
 		            }
 					verifyPostEnd(data, _data);
 				},

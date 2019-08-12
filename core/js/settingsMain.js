@@ -125,16 +125,17 @@ function selectLogPopup(locationForNewLogText)
 		type: "POST",
 		success(data)
 		{
-			if(typeof data === "object"  && "error" in data && data["error"] === 18)
+			if(typeof data === "object"  && "error" in data)
 			{
-				window.location.href =urlModifierForAjax + "error.php?error=18&page=pollCheck.php";
+				window.location.href =urlModifierForAjax + "error.php?error="+data["error"]+"&page=pollCheck.php";
 				return;
 			}
-			else if(typeof data === "object"  && "error" in data && data["error"] === 14)
-			{
-				window.location.href =urlModifierForAjax + "error.php?error=14&page=pollCheck.php";
-				return;
-			}
+			else if(typeof data === "string" && data.indexOf("error:") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = urlModifierForAjax + "error.php?error="+data["error"]+"&page=pollCheck.php";
+            	return;
+            }
 			data["oneLog"] = {};
 			var popupFileList = Object.keys(data);
 			var popupFileListLength = popupFileList.length;

@@ -25,13 +25,14 @@ function saveConfigStatic()
         data,
         success(data)
         {
-        	if(typeof data === "object"  && "error" in data && data["error"] === 18)
+        	if(typeof data === "object"  && "error" in data)
             {
-                window.location.href = "../error.php?error=18&page=settingsSaveConfigStatic.php";
+                window.location.href = "../error.php?error="+data["error"]+"&page=settingsSaveConfigStatic.php";
             }
-        	else if(typeof data === "object"  && "error" in data && data["error"] === 14)
+            else if(typeof data === "string" && data.indexOf("error:") > -1)
             {
-                window.location.href = "../error.php?error=14&page=settingsSaveConfigStatic.php";
+            	data = JSON.parse(data);
+            	window.location.href = "../error.php?error="+data["error"]+"&page=settingsSaveConfigStatic.php";
             }
         },
         complete()
@@ -50,10 +51,15 @@ function newVersionNumberCheck()
 		$.getJSON("../core/php/configStaticCheck.php", {}, function(data)
 		{
 			var dataExt = document.getElementById("versionNumberConfigStaticInput").value;
-			if(typeof data === "object"  && "error" in data && data["error"] === 14)
+			if(typeof data === "object"  && "error" in data)
 			{
-				window.location.href = "../error.php?error=14&page=configStaticCheck.php";
+				window.location.href = "../error.php?error="+data["error"]+"&page=configStaticCheck.php";
 			}
+			else if(typeof data === "string" && data.indexOf("error:") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = "../error.php?error="+data["error"]+"&page=configStaticCheck.php";
+            }
 			else if(dataExt === data["version"])
 			{
 				clearInterval(timeoutVar);

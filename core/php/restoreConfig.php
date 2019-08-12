@@ -1,6 +1,6 @@
 <?php
 require_once("class/core.php");
-$session = new core();
+$core = new core();
 require_once("class/session.php");
 $session = new session();
 if(!$session->startSession())

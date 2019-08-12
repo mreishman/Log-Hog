@@ -22,13 +22,14 @@ function loadFile(filepath, name)
 		type: "POST",
 		success(data)
 		{
-			if(typeof data === "object"  && "error" in data && data["error"] === 18)
+			if(typeof data === "object"  && "error" in data)
             {
-                window.location.href = "../error.php?error=18&page=returnFileContents.php";
+                window.location.href = "../error.php?error="+data["error"]+"&page=returnFileContents.php";
             }
-			else if(typeof data === "object"  && "error" in data && data["error"] === 14)
+            else if(typeof data === "string" && data.indexOf("error:") > -1)
             {
-                window.location.href = "../error.php?error=14&page=returnFileContents.php";
+            	data = JSON.parse(data);
+            	window.location.href = "../error.php?error="+data["error"]+"&page=returnFileContents.php";
             }
             else
             {
