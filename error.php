@@ -48,15 +48,21 @@ $sessionLoaded = false;
 $file = "core/php/class/session.php";
 if(file_exists($file))
 {
-    try {
+    try
+    {
         require_once($file);
         $sessionLoaded = true;
-    } catch (Exception $e) {
-
-    }
+    } catch (Exception $e) {}
     if($sessionLoaded)
     {
         $session = new session();
+        try
+        {
+            if(!$session->startSession())
+            {
+                $sessionLoaded = false;
+            }
+        } catch (Exception $e) {}
     }
 }
 
@@ -238,9 +244,11 @@ if(file_exists($file))
     <?php if($jsForResetToDefaultLoaded): ?>
         <script type="text/javascript" src="core/js/resetSettingsJs.js?v=<?php echo rand(5, 15); ?>" ></script>
     <?php endif;?>
-    <?php if($sessionLoaded){
-        echo $session->outputFormKey();
-    }?>
+    <script type="text/javascript" >
+        <?php if($sessionLoaded){
+            echo $session->outputFormKey();
+        }?>
+    </script>
 </head>
 <body>
 
@@ -268,6 +276,9 @@ if(file_exists($file))
             <?php echo $version; ?>
             <h2> PHP Version: </h2>
             <?php echo phpversion(); ?>
+            <?php if (!$sessionLoaded): ?>
+                <h2>Session NOT loaded</h2>
+            <?php endif; ?>
             <br>
             <br>
             <?php
