@@ -320,6 +320,12 @@ function addFileFolderAjax(fileType, sentLocation)
 				window.location.href = urlModifier + "error.php?error="+data["error"]+"&page=getFileFolderData.php";
 				return;
 			}
+			else if(typeof data === "string" && data.indexOf("error:") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = urlModifier + "error.php?error="+data["error"]+"&page=getFileFolderData.php";
+            	return;
+            }
 			var countOfWatchList = parseInt(document.getElementById("numberOfRows").value);
 			var fileListData = generateSubFiles({fileArray: data["data"], currentNum: (countOfWatchList+1), mainFolder: sentLocation});
 			hidePopup();
@@ -356,6 +362,12 @@ function updateSubFiles(id)
 				window.location.href = urlModifier + "error.php?error="+data["error"]+"&page=getFileFolderData.php";
 				return;
 			}
+			else if(typeof data === "string" && data.indexOf("error:") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = urlModifier + "error.php?error="+data["error"]+"&page=getFileFolderData.php";
+            	return;
+            }
 			document.getElementById("infoFile"+id).innerHTML = data["fileInfo"];
 			document.getElementById("imageFile"+id).innerHTML = icons[data["img"]];
 			setTimeout(function(){ document.getElementById("watchListKey"+id+"LoadingSubFilesIcon").style.display = "none"; document.getElementById("watchListKey"+id+"FilesInFolder").style.display = "inline-block"; }, 1000);
@@ -583,6 +595,12 @@ function getFileFolderData(currentFolder, hideFiles, orgPath)
 				window.location.href = urlModifier + "error.php?error="+data["error"]+"&page=getFileFolderData.php";
 				return;
 			}
+			else if(typeof data === "string" && data.indexOf("error:") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = urlModifier + "error.php?error="+data["error"]+"&page=getFileFolderData.php";
+            	return;
+            }
 			staticFileData = data;
 			if(document.getElementById("inputFieldForFileOrFolder") && document.getElementById("inputFieldForFileOrFolder").value == orgPath)
 			{
@@ -615,6 +633,12 @@ function getFileFolderDataMain(currentFolder, hideFiles, orgPath, currentRow)
 				window.location.href = urlModifier + "error.php?error="+data["error"]+"&page=getFileFolderData.php";
 				return;
 			}
+			else if(typeof data === "string" && data.indexOf("error:") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = urlModifier + "error.php?error="+data["error"]+"&page=getFileFolderData.php";
+            	return;
+            }
 			staticFileData = data;
 			if(document.getElementsByName("watchListKey"+currentRow+"Location")[0].value == orgPath)
 			{
@@ -1323,6 +1347,12 @@ function getFileFolderList()
 				window.location.href = urlModifier + "error.php?error="+data["error"]+"&page=getFileFolderList.php";
 				return;
 			}
+			else if(typeof data === "string" && data.indexOf("error:") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = urlModifier + "error.php?error="+data["error"]+"&page=getFileFolderList.php";
+            	return;
+            }
 			fileFolderList = data;
 			var fileFolderListKeys = Object.keys(data);
 			var fileFolderListCount = fileFolderListKeys.length;
@@ -1369,6 +1399,12 @@ function ajaxAddRowFirstLoad(currentCount)
 						window.location.href = urlModifier + "error.php?error="+data["error"]+"&page=getFileFolderData.php";
 						return;
 					}
+					else if(typeof data === "string" && data.indexOf("error:") > -1)
+		            {
+		            	data = JSON.parse(data);
+		            	window.location.href = urlModifier + "error.php?error="+data["error"]+"&page=getFileFolderData.php";
+		            	return;
+		            }
 					var countOfWatchList = parseInt(document.getElementById("numberOfRows").value);
 					var fileListData = generateSubFiles({fileArray: data["data"], currentNum: (countOfWatchList+1), mainFolder: _data["Location"]});
 					_data["fileImage"] = icons[data["img"]];

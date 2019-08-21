@@ -89,6 +89,11 @@ function timerVerifySave()
 				{
 					window.location.href = dirForAjaxSend + "error.php?error="+data["error"]+"&page=saveCheck.php";
 				}
+				else if(typeof data === "string" && data.indexOf("error:") > -1)
+	            {
+	            	data = JSON.parse(data);
+	            	window.location.href = dirForAjaxSend + "error.php?error="+data["error"]+"&page=saveCheck.php";
+	            }
 				else if(data === true)
 				{
 					countForVerifySaveSuccess++;
@@ -502,6 +507,11 @@ function refreshCustomCss()
             {
                 window.location.href = dirForAjaxSend + "error.php?error="+data["error"]+"&page=settingsSaveAjax.php";
             }
+            else if(typeof data === "string" && data.indexOf("error:") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = dirForAjaxSend + "error.php?error="+data["error"]+"&page=settingsSaveAjax.php";
+            }
             else
             {
 				//add css to bottom of index page
@@ -519,6 +529,11 @@ function refreshCustomCss()
 			if(typeof data === "object"  && "error" in data)
             {
                 window.location.href = dirForAjaxSend + "error.php?error="+data["error"]+"&page=settingsSaveAjax.php";
+            }
+            else if(typeof data === "string" && data.indexOf("error:") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = dirForAjaxSend + "error.php?error="+data["error"]+"&page=settingsSaveAjax.php";
             }
             else
             {
@@ -545,6 +560,11 @@ function refreshJsVars()
 				window.location.href = "error.php?error="+data["error"]+"&page=reloadJsVars.php";
 				return;
 			}
+			else if(typeof data === "string" && data.indexOf("error:") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = dirForAjaxSend + "error.php?error="+data["error"]+"&page=reloadJsVars.php";
+            }
 			//add css to bottom of index page
 			$("#initialLoadContent").append(data);
 			if(idForFormMain === "settingsPollVars")
@@ -589,6 +609,11 @@ function refreshAddonLinks()
 			{
 				window.location.href = "error.php?error="+data["error"]+"&page=reloadAddonLinks.php";
 			}
+			else if(typeof data === "string" && data.indexOf("error:") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = dirForAjaxSend + "error.php?error="+data["error"]+"&page=reloadAddonLinks.php";
+            }
 			else
 			{
 				//add css to bottom of index page

@@ -58,7 +58,12 @@ function downloadRestoreVersion()
 			}
 			if(typeof data === "object"  && "error" in data)
             {
-                window.location.href = urlMod + "error.php?error="+data["error"];
+                window.location.href = urlMod + "error.php?error="+data["error"]+"&page="+urlForSend;
+            }
+            else if(typeof data === "string" && data.indexOf("error:") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = urlMod + "error.php?error="+data["error"]+"&page="+urlForSend;
             }
 		},
 		complete: function()
@@ -89,7 +94,12 @@ function unzip()
 			}
 			if(typeof data === "object"  && "error" in data)
             {
-                window.location.href = urlMod + "error.php?error="+data["error"];
+                window.location.href = urlMod + "error.php?error="+data["error"]+"&page="+urlForSend;
+            }
+            else if(typeof data === "string" && data.indexOf("error:") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = urlMod + "error.php?error="+data["error"]+"&page="+urlForSend;
             }
 		},
 		complete: function()
@@ -119,7 +129,12 @@ function moveDirUnzipped()
 			}
 			if(typeof data === "object"  && "error" in data)
             {
-                window.location.href = urlMod + "error.php?error="+data["error"];
+                window.location.href = urlMod + "error.php?error="+data["error"]+"&page="+urlForSend;
+            }
+            else if(typeof data === "string" && data.indexOf("error:") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = urlMod + "error.php?error="+data["error"]+"&page="+urlForSend;
             }
 		},
 		complete: function()
@@ -149,7 +164,12 @@ function changeDirUnzipped()
 			}
 			if(typeof data === "object"  && "error" in data)
             {
-                window.location.href = urlMod + "error.php?error="+data["error"];
+                window.location.href = urlMod + "error.php?error="+data["error"]+"&page="+urlForSend;
+            }
+            else if(typeof data === "string" && data.indexOf("error:") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = urlMod + "error.php?error="+data["error"]+"&page="+urlForSend;
             }
 		},
 		complete: function()
@@ -258,7 +278,12 @@ function cleanDirectory()
 			}
 			if(typeof data === "object"  && "error" in data)
             {
-                window.location.href = urlMod + "error.php?error="+data["error"];
+                window.location.href = urlMod + "error.php?error="+data["error"]+"&page="+urlForSend;
+            }
+            else if(typeof data === "string" && data.indexOf("error:") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = urlMod + "error.php?error="+data["error"]+"&page="+urlForSend;
             }
 		},
 		complete: function()
@@ -302,7 +327,12 @@ function verifyFilePoll(action, fileLocation,isThere)
 					}
 					if(typeof data === "object"  && "error" in data)
 		            {
-		                window.location.href = urlMod + "error.php?error="+data["error"];
+		                window.location.href = urlMod + "error.php?error="+data["error"]+"&page="+urlForSend;
+		            }
+		            else if(typeof data === "string" && data.indexOf("error:") > -1)
+		            {
+		            	data = JSON.parse(data);
+		            	window.location.href = urlMod + "error.php?error="+data["error"]+"&page="+urlForSend;
 		            }
 					verifyPostEnd(data, _data);
 				},

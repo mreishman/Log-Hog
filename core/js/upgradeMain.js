@@ -34,13 +34,14 @@ function runScript(version)
 			{
 				urlMod += "../";
 			}
-			if(typeof data === "object"  && "error" in data && data["error"] === 18)
+			if(typeof data === "object"  && "error" in data)
             {
-                window.location.href = urlMod + "error.php?error=18";
+                window.location.href = urlMod + "error.php?error="+data["error"];
             }
-			else if(typeof data === "object"  && "error" in data && data["error"] === 14)
+			else if(typeof data === "string" && data.indexOf("error:") > -1)
             {
-                window.location.href = urlMod + "error.php?error=14";
+            	data = JSON.parse(data);
+            	window.location.href = urlMod + "error.php?error="+data["error"];
             }
 			verifyFile(data);
 		},
@@ -77,14 +78,15 @@ function verifyFilePoll(version)
 				type: "POST",
 				success(data)
 				{
-					if(typeof data === "object"  && "error" in data && data["error"] === 18)
-					{
-						window.location.href = "../../../error.php?error=18&page="+urlForSend;
-					}
-					else if(typeof data === "object"  && "error" in data && data["error"] === 14)
-					{
-						window.location.href = "../../../error.php?error=14&page="+urlForSend;
-					}
+					if(typeof data === "object"  && "error" in data)
+		            {
+		                window.location.href = "../../../error.php?error="+data["error"]+"&page="+urlForSend;
+		            }
+					else if(typeof data === "string" && data.indexOf("error:") > -1)
+		            {
+		            	data = JSON.parse(data);
+		            	window.location.href = "../../../error.php?error="+data["error"]+"&page="+urlForSend;
+		            }
 					verifyPostEnd(data, _data);
 				},
 				failure(data)

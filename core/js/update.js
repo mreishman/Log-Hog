@@ -62,6 +62,11 @@ function checkForUpdates(urlSend = "../", whatAmIUpdating = "Log-Hog", currentNe
 	            {
 	                window.location.href = urlSend + "error.php?error="+data["error"]+"&page=settingsCheckForUpdateAjax.php";
 	            }
+	            else if(typeof data === "string" && data.indexOf("error:") > -1)
+	            {
+	            	data = JSON.parse(data);
+	            	window.location.href = urlSend + "error.php?error="+data["error"]+"&page=settingsCheckForUpdateAjax.php";
+	            }
 				else if(checkForUpdatePoll !== null)
 				{
 					updateInProgressPopup();
@@ -185,11 +190,17 @@ function checkForUpdateTimer(urlSend, whatAmIUpdating)
 	}
 	$.getJSON(urlSend+"core/php/configStaticCheck.php", {}, function(data)
 	{
-		if(typeof data === "object"  && "error" in data && data["error"] === 14)
+		if(typeof data === "object"  && "error" in data)
 		{
-			window.location.href = urlSend + "error.php?error=14&page=configStaticCheck.php";
+			window.location.href = urlSend + "error.php?error="+data["error"]+"&page=configStaticCheck.php";
 			return;
 		}
+		else if(typeof data === "string" && data.indexOf("error:") > -1)
+        {
+        	data = JSON.parse(data);
+        	window.location.href = urlSend + "error.php?error="+data["error"]+"&page=configStaticCheck.php";
+        	return;
+        }
 		totalCounter++;
 		if(showPopupForUpdateBool && whatAmIUpdating === "Log-Hog")
 		{
@@ -349,6 +360,11 @@ function saveSettingFromPopupNoCheckMaybe()
 		            {
 		                window.location.href = urlSend + "error.php?error="+data["error"]+"&page=settingsSaveAjax.php";
 		            }
+		            else if(typeof data === "string" && data.indexOf("error:") > -1)
+		            {
+		            	data = JSON.parse(data);
+		            	window.location.href = urlSend + "error.php?error="+data["error"]+"&page=settingsSaveAjax.php";
+		            }
 				},
 			complete(data){
 				closePopupNoUpdate();
@@ -406,6 +422,11 @@ function installUpdates(urlSend = "../", updateFormIDLocal = "settingsInstallUpd
 	            {
 	                window.location.href = urlSend + "error.php?error="+data["error"]+"&page=resetUpdateFilesToDefault.php";
 	            }
+	            else if(typeof data === "string" && data.indexOf("error:") > -1)
+	            {
+	            	data = JSON.parse(data);
+	            	window.location.href = urlSend + "error.php?error="+data["error"]+"&page=resetUpdateFilesToDefault.php";
+	            }
 			},
 			complete(data)
 			{
@@ -437,6 +458,11 @@ function verifyChange(urlSend)
 				if(typeof data === "object"  && "error" in data)
 	            {
 	                window.location.href = urlSend + "error.php?error="+data["error"]+"&page=updateActionCheck.php";
+	            }
+	            else if(typeof data === "string" && data.indexOf("error:") > -1)
+	            {
+	            	data = JSON.parse(data);
+	            	window.location.href = urlSend + "error.php?error="+data["error"]+"&page=updateActionCheck.php";
 	            }
 				else if(data == "finishedUpdate")
 				{

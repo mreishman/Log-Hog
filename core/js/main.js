@@ -1457,14 +1457,15 @@ function clearLogInner(title)
 			type: "POST",
 	success(data)
 	{
-		if(typeof data === "object"  && "error" in data && data["error"] === 18)
+		if(typeof data === "object"  && "error" in data)
 		{
-			window.location.href = "error.php?error=18&page=clearLog.php";
+			window.location.href = "error.php?error="+data["error"]+"&page=clearLog.php";
 		}
-		else if(typeof data === "object"  && "error" in data && data["error"] === 14)
-		{
-			window.location.href = "error.php?error=14&page=clearLog.php";
-		}
+		else if(typeof data === "string" && data.indexOf("error:") > -1)
+        {
+        	data = JSON.parse(data);
+        	window.location.href = "error.php?error="+data["error"]+"&page=clearLog.php";
+        }
 		else if(data["fileFound"] === "false")
 		{
 			showPopup();
@@ -1555,13 +1556,14 @@ function deleteActionAfter()
 						data: dataToSend,
 						type: "POST",
 				success(data){
-					if(typeof data === "object"  && "error" in data && data["error"] === 18)
+					if(typeof data === "object"  && "error" in data)
 		            {
-		                window.location.href = "error.php?error=18&page=saveTmpVersionOfLog.php";
+		                window.location.href = "error.php?error="+data["error"]+"&page=saveTmpVersionOfLog.php";
 		            }
-					else if(typeof data === "object"  && "error" in data && data["error"] === 14)
+					else if(typeof data === "string" && data.indexOf("error:") > -1)
 		            {
-		                window.location.href = "error.php?error=14&page=saveTmpVersionOfLog.php";
+		            	data = JSON.parse(data);
+		            	window.location.href = "../error.php?error="+data["error"]+"&page=saveTmpVersionOfLog.php";
 		            }
 				},
 				});
@@ -1584,14 +1586,15 @@ function deleteActionAfter()
 			type: "POST",
 			success(data)
 			{
-				if(typeof data === "object"  && "error" in data && data["error"] === 18)
+				if(typeof data === "object"  && "error" in data)
 				{
-					window.location.href = "error.php?error=14&page=clearLog.php";
+					window.location.href = "error.php?error="+data["error"]+"&page=clearLog.php";
 				}
-				else if(typeof data === "object"  && "error" in data && data["error"] === 18)
-				{
-					window.location.href = "error.php?error=14&page=clearLog.php";
-				}
+				else if(typeof data === "string" && data.indexOf("error:") > -1)
+	            {
+	            	data = JSON.parse(data);
+	            	window.location.href = "error.php?error="+data["error"]+"&page=clearLog.php";
+	            }
 				else
 				{
 					removeAllNotifications();
@@ -1664,14 +1667,15 @@ function deleteLog(title)
 			type: "POST",
 			success(data)
 			{
-				if(typeof data === "object"  && "error" in data && data["error"] === 18)
+				if(typeof data === "object"  && "error" in data)
 				{
-					window.location.href = "error.php?error=18&page=clearLog.php";
+					window.location.href = "error.php?error="+data["error"]+"&page=clearLog.php";
 				}
-				else if(typeof data === "object"  && "error" in data && data["error"] === 14)
-				{
-					window.location.href = "error.php?error=14&page=clearLog.php";
-				}
+				else if(typeof data === "string" && data.indexOf("error:") > -1)
+	            {
+	            	data = JSON.parse(data);
+	            	window.location.href = "error.php?error="+data["error"]+"&page=clearLog.php";
+	            }
 				else if(data["fileFound"] === "false")
 				{
 					showPopup();

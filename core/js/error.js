@@ -35,13 +35,14 @@ function saveAndVerifyMain(idForForm)
         data,
         success(data)
         {
-            if(typeof data === "object"  && "error" in data && data["error"] === 18)
+            if(typeof data === "object"  && "error" in data)
             {
-                window.location.href = "../error.php?error=18&page=settingsSaveAjax.php";
+                window.location.href = "../error.php?error="+data["error"]+"&page=settingsSaveAjax.php";
             }
-            else if(typeof data === "object"  && "error" in data && data["error"] === 14)
+            else if(typeof data === "string" && data.indexOf("error:") > -1)
             {
-                window.location.href = "../error.php?error=14&page=settingsSaveAjax.php";
+                data = JSON.parse(data);
+                window.location.href = "../error.php?error="+data["error"]+"&page=settingsSaveAjax.php";
             }
             else if(data !== "true")
             {
@@ -65,13 +66,14 @@ function resetUpdateSettings()
         type: "POST",
         complete(data)
         {
-            if(typeof data === "object"  && "error" in data && data["error"] === 18)
+            if(typeof data === "object"  && "error" in data)
             {
-                window.location.href = "../error.php?error=18&page=settingsSaveAjax.php";
+                window.location.href = "../error.php?error="+data["error"]+"&page=settingsSaveAjax.php";
             }
-            else if(typeof data === "object"  && "error" in data && data["error"] === 14)
+            else if(typeof data === "string" && data.indexOf("error:") > -1)
             {
-                window.location.href = "../error.php?error=14&page=settingsSaveAjax.php";
+                data = JSON.parse(data);
+                window.location.href = "../error.php?error="+data["error"]+"&page=settingsSaveAjax.php";
             }
             else
             {
@@ -94,13 +96,14 @@ function verifyChange()
         type: "POST",
         success(data)
         {
-            if(typeof data === "object"  && "error" in data && data["error"] === 18)
+            if(typeof data === "object"  && "error" in data)
             {
-                window.location.href = "../error.php?error=18&page=settingsSaveAjax.php";
+                window.location.href = "../error.php?error="+data["error"]+"&page=settingsSaveAjax.php";
             }
-            else if(typeof data === "object"  && "error" in data && data["error"] === 14)
+            else if(typeof data === "string" && data.indexOf("error:") > -1)
             {
-                window.location.href = "../error.php?error=14&page=settingsSaveAjax.php";
+                data = JSON.parse(data);
+                window.location.href = "../error.php?error="+data["error"]+"&page=settingsSaveAjax.php";
             }
             else if(data == "finishedUpdate")
             {

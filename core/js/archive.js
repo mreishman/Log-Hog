@@ -14,13 +14,14 @@ function archiveAction(title, type) //used to check if file is loaded
 				data: dataToSend,
 				type: "POST",
 		success(data){
-			if(typeof data === "object"  && "error" in data && data["error"] === 18)
+			if(typeof data === "object"  && "error" in data)
             {
-                window.location.href = "error.php?error=18&page=saveTmpVersionOfLog.php";
+                window.location.href = "error.php?error="+data["error"]+"&page=saveTmpVersionOfLog.php";
             }
-			else if(typeof data === "object"  && "error" in data && data["error"] === 14)
+			else if(typeof data === "string" && data.indexOf("error:") > -1)
             {
-                window.location.href = "error.php?error=14&page=saveTmpVersionOfLog.php";
+            	data = JSON.parse(data);
+            	window.location.href = "error.php?error="+data["error"]+"&page=saveTmpVersionOfLog.php";
             }
 			else if(document.getElementById("popup").style.display !== "none")
 			{
@@ -43,14 +44,15 @@ function getListOfTmpHistoryLogs()
 			},
 			type: "POST",
 	success(data){
-		if(typeof data === "object"  && "error" in data && data["error"] === 18)
+		if(typeof data === "object"  && "error" in data)
         {
-            window.location.href = "error.php?error=18&page=getListOfTmpLogs.php";
+            window.location.href = "error.php?error="+data["error"]+"&page=getListOfTmpLogs.php";
         }
-		else if(typeof data === "object"  && "error" in data && data["error"] === 14)
-		{
-			window.location.href = "error.php?error=14&page=getListOfTmpLogs.php";
-		}
+		else if(typeof data === "string" && data.indexOf("error:") > -1)
+        {
+        	data = JSON.parse(data);
+        	window.location.href = "error.php?error="+data["error"]+"&page=getListOfTmpLogs.php";
+        }
 		else
 		{
 			showHistory(data);
@@ -83,14 +85,15 @@ function getListOfArchiveLogs()
 			},
 			type: "POST",
 	success(data){
-		if(typeof data === "object"  && "error" in data && data["error"] === 18)
+		if(typeof data === "object"  && "error" in data)
         {
-            window.location.href = "error.php?error=18&page=getListOfTmpLogs.php";
+            window.location.href = "error.php?error="+data["error"]+"&page=getListOfTmpLogs.php";
         }
-		else if(typeof data === "object"  && "error" in data && data["error"] === 14)
-		{
-			window.location.href = "error.php?error=14&page=getListOfTmpLogs.php";
-		}
+		else if(typeof data === "string" && data.indexOf("error:") > -1)
+        {
+        	data = JSON.parse(data);
+        	window.location.href = "error.php?error="+data["error"]+"&page=getListOfTmpLogs.php";
+        }
 		else
 		{
 			showArchive(data);
@@ -175,14 +178,15 @@ function viewArchiveLog(title, type)
 			data: dataToSend,
 			type: "POST",
 	success(data){
-		if(typeof data === "object"  && "error" in data && data["error"] === 18)
+		if(typeof data === "object"  && "error" in data)
         {
-            window.location.href = "error.php?error=18&page=getTmpVersionOfLog.php";
+            window.location.href = "error.php?error="+data["data"]+"&page=getTmpVersionOfLog.php";
         }
-		else if(typeof data === "object"  && "error" in data && data["error"] === 14)
-		{
-			window.location.href = "error.php?error=14&page=getTmpVersionOfLog.php";
-		}
+		else if(typeof data === "string" && data.indexOf("error:") > -1)
+        {
+        	data = JSON.parse(data);
+        	window.location.href = "error.php?error="+data["error"]+"&page=getTmpVersionOfLog.php";
+        }
 		else
 		{
 			arrayOfDataMain["LogHog/"+title.replace(/_DIR_/g, "/")] = {log: data, data: "", lineCount: "---"};
@@ -200,15 +204,15 @@ function deleteArchiveLog(title, type)
 			data: dataToSend,
 			type: "POST",
 	success(data){
-		if(typeof data === "object"  && "error" in data && data["error"] === 18)
+		if(typeof data === "object"  && "error" in data)
         {
-            window.location.href = "error.php?error=18&page=deleteArchiveLog.php";
+            window.location.href = "error.php?error="+data["error"]+"&page=deleteArchiveLog.php";
         }
-		else if(typeof data === "object"  && "error" in data && data["error"] === 14)
-		{
-			window.location.href = "error.php?error=14&page=deleteArchiveLog.php";
-			return;
-		}
+		else if(typeof data === "string" && data.indexOf("error:") > -1)
+        {
+        	data = JSON.parse(data);
+        	window.location.href = "error.php?error="+data["error"]+"&page=deleteArchiveLog.php";
+        }
 		delete arrayOfDataMain["LogHog/"+title.replace(/_DIR_/g, "/")];
 		generalUpdate();
 		if(type !== "archive")
@@ -230,15 +234,15 @@ function clearAllArchiveLogs(type)
 			data: {type, formKey},
 			type: "POST",
 	success(data){
-		if(typeof data === "object"  && "error" in data && data["error"] === 18)
+		if(typeof data === "object"  && "error" in data)
         {
-            window.location.href = "error.php?error=18&page=deleteAllArchiveLogs.php";
+            window.location.href = "error.php?error="+data["error"]+"&page=deleteAllArchiveLogs.php";
         }
-		else if(typeof data === "object"  && "error" in data && data["error"] === 14)
-		{
-			window.location.href = "error.php?error=14&page=deleteAllArchiveLogs.php";
-			return;
-		}
+		else if(typeof data === "string" && data.indexOf("error:") > -1)
+        {
+        	data = JSON.parse(data);
+        	window.location.href = "error.php?error="+data["error"]+"&page=deleteAllArchiveLogs.php";
+        }
 		var arrayOfDataMainKeys = Object.keys(arrayOfDataMain);
 		var arrayOfDataMainKeysLength = arrayOfDataMainKeys.length;
 		for(var aodkcount = 0; aodkcount < arrayOfDataMainKeysLength; aodkcount++)
@@ -296,15 +300,15 @@ function viewBackupFromCurrentLog(currentLogNum)
 			},
 			type: "POST",
 	success(data){
-		if(typeof data === "object"  && "error" in data && data["error"] === 18)
+		if(typeof data === "object"  && "error" in data)
         {
-            window.location.href = "error.php?error=18&page=getListOfTmpLogs.php";
+            window.location.href = "error.php?error="+data["error"]+"&page=getListOfTmpLogs.php";
         }
-		else if(typeof data === "object"  && "error" in data && data["error"] === 14)
-		{
-			window.location.href = "error.php?error=14&page=getListOfTmpLogs.php";
-			return;
-		}
+		else if(typeof data === "string" && data.indexOf("error:") > -1)
+        {
+        	data = JSON.parse(data);
+        	window.location.href = "error.php?error="+data["error"]+"&page=getListOfTmpLogs.php";
+        }
 		//show popup of no backupg, show list of backup logs found if found
 		var archiveList = filterArrForPopup(data, logId);
 			$.ajax({
@@ -316,15 +320,15 @@ function viewBackupFromCurrentLog(currentLogNum)
 				},
 				type: "POST",
 		success(data){
-			if(typeof data === "object"  && "error" in data && data["error"] === 18)
+			if(typeof data === "object"  && "error" in data)
 	        {
-	            window.location.href = "error.php?error=18&page=getListOfTmpLogs.php";
+	            window.location.href = "error.php?error="+data["error"]+"&page=getListOfTmpLogs.php";
 	        }
-			else if(typeof data === "object"  && "error" in data && data["error"] === 14)
-			{
-				window.location.href = "error.php?error=14&page=getListOfTmpLogs.php";
-				return;
-			}
+			else if(typeof data === "string" && data.indexOf("error:") > -1)
+	        {
+	        	data = JSON.parse(data);
+	        	window.location.href = "error.php?error="+data["error"]+"&page=getListOfTmpLogs.php";
+	        }
 			//show popup of no backupg, show list of backup logs found if found
 			var archiveList2 = filterArrForPopup(data, logId);
 			if(archiveList.length !== 0 || archiveList2.length !== 0)
