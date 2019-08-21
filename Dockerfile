@@ -33,12 +33,15 @@ COPY Docker/php/php.ini /etc/php/7.0/apache2
 
 COPY Docker/apache2/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
+COPY Docker/logrotate.conf /etc/logrotate.conf
+
 RUN apt-get install -y sysstat
 
 COPY . /srv/app
 
 RUN chown -R www-data:www-data /srv/app \
     && a2enmod rewrite \
-    && rm -rf /srv/app/Docker/
+    && rm -rf /srv/app/Docker/ \
+    && chown -R www-data:www-data /var/log/apache2
 
 CMD ["/usr/bin/supervisord"]
