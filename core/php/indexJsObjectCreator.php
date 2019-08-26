@@ -117,7 +117,7 @@ $arrayOfFiles = array(
 		"class" =>"refreshImageForLoad"
 	),
 	array(
-		"name" => $baseUrl . "img/infoSideBar.png",
+		"name" => $baseUrl . "img/info.png",
 		"type" =>"img",
 		"class" =>"infoSideBarImageForLoad"
 	),
@@ -127,12 +127,12 @@ $arrayOfFiles = array(
 		"class" =>"searchSideBarImageForLoad"
 	),
 	array(
-		"name" => $baseUrl . "img/eraserSideBar.png",
+		"name" => $baseUrl . "img/eraser.png",
 		"type" =>"img",
 		"class" =>"eraserSideBarImageForLoad"
 	),
 	array(
-		"name" => $baseUrl . "img/trashCanSideBar.png",
+		"name" => $baseUrl . "img/trashCan.png",
 		"type" =>"img",
 		"class" =>"trashCanSideBarImageForLoad"
 	),
@@ -147,12 +147,7 @@ $arrayOfFiles = array(
 		"class" =>"gearImageForLoad"
 	),
 	array(
-		"name" => $baseUrl . "img/menuSideBar.png",
-		"type" =>"img",
-		"class" =>"menuSideBarImageForLoad"
-	),
-	array(
-		"name" => $baseUrl . "img/historySideBar.png",
+		"name" => $baseUrl . "img/history.png",
 		"type" =>"img",
 		"class" =>"historySideBarImageForLoad"
 	),
@@ -160,6 +155,11 @@ $arrayOfFiles = array(
 		"name" => $baseUrl . "img/saveSideBar.png",
 		"type" =>"img",
 		"class" =>"historyAddSideBarImageForLoad"
+	),
+	array(
+		"name" => $baseUrl . "img/close.png",
+		"type" =>"img",
+		"class" =>"closeImageForLoad"
 	),
 );
 if($filterEnabled === "true")
@@ -308,7 +308,18 @@ if($hideNotificationIcon !== "true")
 		"class" => "notificationImageForLoad"
 	);
 }
-if($windowConfig !== "1x1")
+$currentSessionValue = $windowConfig;
+if(isset($_COOKIE["windowConfig"]) && $logLoadPrevious === "true")
+{
+	$cookieData = json_decode($_COOKIE["windowConfig"]);
+	$currentSessionValue = $cookieData;
+}
+if($enableMultiLog === "false")
+{
+	$windowConfig = "1x1";
+	$currentSessionValue = $windowConfig;
+}
+if($currentSessionValue !== "1x1")
 {
 	$arrayOfFiles[] = array(
 		"name" => $baseUrl . "img/pin.png",

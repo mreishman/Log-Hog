@@ -193,4 +193,228 @@ $arrayOfFilesDeleted = array(
 		"fullPath"	=>	"core/js/loading-bar.min.js",
 		"type"		=>	"file"
 	),
+	48			=> array(
+		"fullPath"	=>	"core/Themes/Aqua/img/eraserSideBar.png",
+		"type"		=>	"file"
+	),
+	49			=> array(
+		"fullPath"	=>	"core/Themes/Aqua/img/historySideBar.png",
+		"type"		=>	"file"
+	),
+	50			=> array(
+		"fullPath"	=>	"core/Themes/Aqua/img/infoSideBar.png",
+		"type"		=>	"file"
+	),
+	51			=> array(
+		"fullPath"	=>	"core/Themes/Aqua/img/trashCanSideBar.png",
+		"type"		=>	"file"
+	),
+	52			=> array(
+		"fullPath"	=>	"core/Themes/Aqua/img/searchSideBar.png",
+		"type"		=>	"file"
+	),
+	53			=> array(
+		"fullPath"	=>	"core/Themes/Areo/img/eraserSideBar.png",
+		"type"		=>	"file"
+	),
+	54			=> array(
+		"fullPath"	=>	"core/Themes/Areo/img/historySideBar.png",
+		"type"		=>	"file"
+	),
+	55			=> array(
+		"fullPath"	=>	"core/Themes/Areo/img/infoSideBar.png",
+		"type"		=>	"file"
+	),
+	56			=> array(
+		"fullPath"	=>	"core/Themes/Areo/img/trashCanSideBar.png",
+		"type"		=>	"file"
+	),
+	57			=> array(
+		"fullPath"	=>	"core/Themes/Areo/img/searchSideBar.png",
+		"type"		=>	"file"
+	),
+	58			=> array(
+		"fullPath"	=>	"core/Themes/Default/img/eraserSideBar.png",
+		"type"		=>	"file"
+	),
+	59			=> array(
+		"fullPath"	=>	"core/Themes/Default/img/historySideBar.png",
+		"type"		=>	"file"
+	),
+	60			=> array(
+		"fullPath"	=>	"core/Themes/Default/img/infoSideBar.png",
+		"type"		=>	"file"
+	),
+	61			=> array(
+		"fullPath"	=>	"core/Themes/Default/img/trashCanSideBar.png",
+		"type"		=>	"file"
+	),
+	62			=> array(
+		"fullPath"	=>	"core/Themes/Default/img/searchSideBar.png",
+		"type"		=>	"file"
+	),
+	63			=> array(
+		"fullPath"	=>	"core/Themes/Glossy/img/eraserSideBar.png",
+		"type"		=>	"file"
+	),
+	64			=> array(
+		"fullPath"	=>	"core/Themes/Glossy/img/historySideBar.png",
+		"type"		=>	"file"
+	),
+	65			=> array(
+		"fullPath"	=>	"core/Themes/Glossy/img/infoSideBar.png",
+		"type"		=>	"file"
+	),
+	66			=> array(
+		"fullPath"	=>	"core/Themes/Glossy/img/trashCanSideBar.png",
+		"type"		=>	"file"
+	),
+	67			=> array(
+		"fullPath"	=>	"core/Themes/Glossy/img/searchSideBar.png",
+		"type"		=>	"file"
+	),
+	68			=> array(
+		"fullPath"	=>	"core/Themes/Ocean/img/eraserSideBar.png",
+		"type"		=>	"file"
+	),
+	69			=> array(
+		"fullPath"	=>	"core/Themes/Ocean/img/historySideBar.png",
+		"type"		=>	"file"
+	),
+	70			=> array(
+		"fullPath"	=>	"core/Themes/Ocean/img/infoSideBar.png",
+		"type"		=>	"file"
+	),
+	71			=> array(
+		"fullPath"	=>	"core/Themes/Ocean/img/trashCanSideBar.png",
+		"type"		=>	"file"
+	),
+	72			=> array(
+		"fullPath"	=>	"core/Themes/Ocean/img/searchSideBar.png",
+		"type"		=>	"file"
+	),
+	73			=> array(
+		"fullPath"	=>	"core/Themes/Space/img/eraserSideBar.png",
+		"type"		=>	"file"
+	),
+	74			=> array(
+		"fullPath"	=>	"core/Themes/Space/img/historySideBar.png",
+		"type"		=>	"file"
+	),
+	75			=> array(
+		"fullPath"	=>	"core/Themes/Space/img/infoSideBar.png",
+		"type"		=>	"file"
+	),
+	76			=> array(
+		"fullPath"	=>	"core/Themes/Space/img/trashCanSideBar.png",
+		"type"		=>	"file"
+	),
+	77			=> array(
+		"fullPath"	=>	"core/Themes/Space/img/searchSideBar.png",
+		"type"		=>	"file"
+	),
+	78			=> array(
+		"fullPath"	=>	"core/Themes/Steampunk/img/eraserSideBar.png",
+		"type"		=>	"file"
+	),
+	79			=> array(
+		"fullPath"	=>	"core/Themes/Steampunk/img/historySideBar.png",
+		"type"		=>	"file"
+	),
+	80			=> array(
+		"fullPath"	=>	"core/Themes/Steampunk/img/infoSideBar.png",
+		"type"		=>	"file"
+	),
+	81			=> array(
+		"fullPath"	=>	"core/Themes/Steampunk/img/trashCanSideBar.png",
+		"type"		=>	"file"
+	),
+	82			=> array(
+		"fullPath"	=>	"core/Themes/Steampunk/img/searchSideBar.png",
+		"type"		=>	"file"
+	),
+	83			=> array(
+		"fullPath"	=>	"core/Themes/Terminal/img/eraserSideBar.png",
+		"type"		=>	"file"
+	),
+	84			=> array(
+		"fullPath"	=>	"core/Themes/Terminal/img/historySideBar.png",
+		"type"		=>	"file"
+	),
+	85			=> array(
+		"fullPath"	=>	"core/Themes/Terminal/img/infoSideBar.png",
+		"type"		=>	"file"
+	),
+	86			=> array(
+		"fullPath"	=>	"core/Themes/Terminal/img/trashCanSideBar.png",
+		"type"		=>	"file"
+	),
+	87			=> array(
+		"fullPath"	=>	"core/Themes/Terminal/img/searchSideBar.png",
+		"type"		=>	"file"
+	),
+	88			=> array(
+		"fullPath"	=>	"core/img/eraserSideBar.png",
+		"type"		=>	"file"
+	),
+	89			=> array(
+		"fullPath"	=>	"core/img/historySideBar.png",
+		"type"		=>	"file"
+	),
+	90			=> array(
+		"fullPath"	=>	"core/img/infoSideBar.png",
+		"type"		=>	"file"
+	),
+	91			=> array(
+		"fullPath"	=>	"core/img/trashCanSideBar.png",
+		"type"		=>	"file"
+	),
+	92			=> array(
+		"fullPath"	=>	"core/img/searchSideBar.png",
+		"type"		=>	"file"
+	),
+	93			=> array(
+		"fullPath"	=>	"core/Themes/Aqua/img/menuSideBar.png",
+		"type"		=>	"file"
+	),
+	94			=> array(
+		"fullPath"	=>	"core/Themes/Areo/img/menuSideBar.png",
+		"type"		=>	"file"
+	),
+	95			=> array(
+		"fullPath"	=>	"core/Themes/Default/img/menuSideBar.png",
+		"type"		=>	"file"
+	),
+	96			=> array(
+		"fullPath"	=>	"core/Themes/Glossy/img/menuSideBar.png",
+		"type"		=>	"file"
+	),
+	97			=> array(
+		"fullPath"	=>	"core/Themes/Ocean/img/menuSideBar.png",
+		"type"		=>	"file"
+	),
+	98			=> array(
+		"fullPath"	=>	"core/Themes/Space/img/menuSideBar.png",
+		"type"		=>	"file"
+	),
+	99			=> array(
+		"fullPath"	=>	"core/Themes/Steampunk/img/menuSideBar.png",
+		"type"		=>	"file"
+	),
+	100			=> array(
+		"fullPath"	=>	"core/Themes/Terminal/img/menuSideBar.png",
+		"type"		=>	"file"
+	),
+	101			=> array(
+		"fullPath"	=>	"core/img/menuSideBar.png",
+		"type"		=>	"file"
+	),
+	102			=> array(
+		"fullPath"	=>	"core/img/exampleErrorJS.png",
+		"type"		=>	"file"
+	),
+	103			=> array(
+		"fullPath"	=>	"core/img/refresh-animated.gif",
+		"type"		=>	"file"
+	),
 );

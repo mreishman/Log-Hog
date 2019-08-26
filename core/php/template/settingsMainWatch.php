@@ -143,7 +143,7 @@ if(!isset($settingsMainWatch))
 </div>
 <script type="text/javascript">
 	var icons = {};
-	var defaultTrashCanIcon 					= <?php echo json_encode($core->generateImage($arrayOfImages["trashCanSideBar"],array("height" => "25px","srcModifier"	=>	$imageUrlModifier)));?>;
+	var defaultTrashCanIcon 					= <?php echo json_encode($core->generateImage($arrayOfImages["trashCan"],array("height" => "25px","srcModifier"	=>	$imageUrlModifier)));?>;
 	icons["defaultRedErrorIcon"]				= <?php echo json_encode($core->generateImage($arrayOfImages["redWarning"],array("width" => "25px","srcModifier"	=>	$imageUrlModifier)));?>;
 	icons["defaultYellowErrorIcon "]			= <?php echo json_encode($core->generateImage($arrayOfImages["yellowWarning"],array("width" => "25px","srcModifier"	=>	$imageUrlModifier))); ?>;
 	icons["defaultFolderIcon"] 					= <?php echo json_encode($core->generateImage($arrayOfImages["folderIcon"],array("width" => "25px","srcModifier"	=>	$imageUrlModifier))); ?>;

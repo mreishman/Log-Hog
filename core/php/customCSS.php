@@ -18,8 +18,18 @@ require_once($baseUrl.'conf/config.php');
 require_once($baseURLToMain.'core/conf/config.php');
 require_once($baseURLToMain.'core/php/configStatic.php');
 require_once($baseURLToMain.'core/php/loadVars.php');
-
-$windowDisplayConfig = explode("x", $windowConfig);
+$currentSessionValue = $windowConfig;
+if(isset($_COOKIE["windowConfig"]) && $logLoadPrevious === "true")
+{
+	$cookieData = json_decode($_COOKIE["windowConfig"]);
+	$currentSessionValue = $cookieData;
+}
+if($enableMultiLog === "false")
+{
+	$windowConfig = "1x1";
+	$currentSessionValue = $windowConfig;
+}
+$windowDisplayConfig = explode("x", $currentSessionValue);
 
 ?>
 <style type="text/css">

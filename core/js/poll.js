@@ -397,6 +397,54 @@ function getFileSingle(current)
 	}
 }
 
+function getFileSinglePostLoad(currentLog, currentLogNum)
+{
+	let arraySend = {};
+	arraySend[currentLog] = fileData[currentLog];
+	let data = {arrayToUpdate: arraySend};
+	getFileSinglePostLoadWithData(data, currentLogNum)
+}
+
+function getFileSinglePostLoadWithData(data, currentLogNum)
+{
+	try
+	{
+		$.ajax({
+			url: "core/php/poll.php?format=json",
+			dataType: "json",
+			data,
+			type: "POST",
+			success(data)
+			{
+				updateFileDataArray(data);
+				arrayOfDataMainDataFilter(data);
+				generalUpdate();
+				polling = false;
+			},
+			complete()
+			{
+				$("#log"+currentLogNum+"load").hide();
+				if(logDirectionInvert !== "true")
+				{
+					$("#log"+currentLogNum+"TopButtons").show();
+				}
+				else
+				{
+					$("#log"+currentLogNum+"BottomButtons").show();
+				}
+				$("#singleLogRefreshLoading"+currentLogNum).hide();
+				$("#singleLogRefresh"+currentLogNum).show();
+				polling = false;
+				singleLogRefreshTimerLoad = true;
+			}
+		});
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
+}
+
 function arrayOfDataMainDataFilter(data)
 {
 	try
@@ -465,6 +513,7 @@ function firstLoadEndAction()
 	var targetLength = Object.keys(logDisplayArray).length;
 	if($("#menu .active").length < targetLength)
 	{
+		selectLastLoadLogs();
 		selectTabsInOrder(targetLength);
 		toggleDisplayOfNoLogs();
 	}
@@ -480,7 +529,14 @@ function firstLoadEndAction()
 			{
 				if(logDisplayArray[i]["id"] === logsCheck[j])
 				{
-					document.getElementById("log"+i+"Td").scrollTop = $("#log"+i).outerHeight();
+					if(logDirectionInvert === "false")
+					{
+						document.getElementById("log"+i+"Td").scrollTop = $("#log"+i).outerHeight();
+					}
+					else
+					{
+						document.getElementById("log"+i+"Td").scrollTop = 0;
+					}
 				}
 			}
 		}
@@ -869,6 +925,7 @@ function update(data)
 						}
 
 						var displayLocation = checkIfDisplay(id);
+						var currentIdPos = displayLocation["location"];
 						updated = displayLocation["display"];
 						if(fullPathSearch in fileData && fileData[fullPathSearch]["AlertEnabled"] === "true" && (!(id in alertEnabledArray) || (id in alertEnabledArray && alertEnabledArray[id] === "enabled")))
 						{
@@ -877,10 +934,16 @@ function update(data)
 								updated = true;
 							}
 						}
+						else
+						{
+							if(currentIdPos !== -1 && checkIfCurrentLogIsPaused(currentIdPos))
+							{
+								updated = false;
+							}
+						}
 						if(updated)
 						{
 							//determine if id is one of the values in the array of open files (use instead of currentPage)
-							var currentIdPos = displayLocation["location"];
 
 							var diffData = getLineDiffCount(id);
 
@@ -922,6 +985,7 @@ function update(data)
 								{
 									document.getElementById(id+"Count").innerHTML = "";
 									document.getElementById(id+"CountHidden").innerHTML = "";
+									$("#"+id).removeClass("updated");
 								}
 							}
 							else

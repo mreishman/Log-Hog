@@ -184,14 +184,14 @@ function showLogWindowFilter(windowNum)
 
 function showFilterTopBar()
 {
-	document.getElementById("searchFieldInput").style.display = "inline-block";
+	document.getElementById("searchFieldGeneral").style.display = "inline-block";
 	document.getElementById("showFilterTopBarButton").style.display = "none";
 	resize();
 }
 
 function hideFilterTopBar()
 {
-	document.getElementById("searchFieldInput").style.display = "none";
+	document.getElementById("searchFieldGeneral").style.display = "none";
 	document.getElementById("showFilterTopBarButton").style.display = "inline-block";
 	resize();
 }

@@ -23,6 +23,8 @@ function show(e, id)
 		}
 		$("#log"+currentCurrentSelectWindow).empty()
 		$("#log"+currentCurrentSelectWindow+"load").show();
+		$("#log"+currentCurrentSelectWindow+"TopButtons").hide();
+		$("#log"+currentCurrentSelectWindow+"BottomButtons").hide();
 		$(e).siblings().removeClass("active");
 		var windowNumInTitle = $("#"+internalID+"CurrentWindow").html();
 		if(windowNumInTitle !== "")
@@ -60,6 +62,7 @@ function show(e, id)
 				}
 			}
 		}
+		setLogDisplayArrayCookie();
 		$("#title"+currentCurrentSelectWindow).html(titles[internalID]);
 		setTimeout(function() {
 			showPartTwo(e, internalID, currentCurrentSelectWindow, formattedHtml);
@@ -101,7 +104,14 @@ function showPartTwo(e, internalID, currentCurrentSelectWindow, formattedHtml)
 		}
 		setLogHtmlInWindow(currentCurrentSelectWindow, formattedHtml);
 		fadeHighlight(currentCurrentSelectWindow);
-		scrollToBottom(currentCurrentSelectWindow);
+		if(logDirectionInvert === "false")
+		{
+			scrollToBottom(currentCurrentSelectWindow);
+		}
+		else
+		{
+			scrollToTop(currentCurrentSelectWindow);
+		}
 		showPartThree(e, internalID, currentCurrentSelectWindow);
 	}
 	catch(e)
@@ -116,6 +126,28 @@ function showPartThree(e, internalID, currentCurrentSelectWindow)
 	{
 		toggleSideBarElements(internalID, currentCurrentSelectWindow);
 		$("#log"+currentCurrentSelectWindow+"load").hide();
+		let showButton = true;
+		let currentData = getFileDataKeyFromLogId(internalID);
+		if(typeof logs[internalID] !== "object" && logs[internalID].split("\n").length >= parseInt(fileData[currentData]["lineCount"]))
+		{
+			showButton = false;
+		}
+		if(!showButton || (typeof logs[internalID] === "object" && "id" in logs[internalID] && logs[internalID]["id"] === "oneLog"))
+		{
+			$("#log"+currentCurrentSelectWindow+"TopButtons").hide();
+			$("#log"+currentCurrentSelectWindow+"BottomButtons").hide();
+		}
+		else
+		{
+			if(logDirectionInvert !== "true")
+			{
+				$("#log"+currentCurrentSelectWindow+"TopButtons").show();
+			}
+			else
+			{
+				$("#log"+currentCurrentSelectWindow+"BottomButtons").show();
+			}
+		}
 		if(document.getElementById("noLogToDisplay").style.display !== "none")
 		{
 			document.getElementById("noLogToDisplay").style.display = "none";

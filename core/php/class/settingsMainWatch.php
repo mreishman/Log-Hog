@@ -126,7 +126,7 @@ class settingsMainWatch extends core
 				"height"		=>	"25px",
 				"srcModifier"	=>	$localSrcMod,
 				"class"			=>	"watchlistImg",
-				"data-src"		=>	$arrayOfImages["trashCanSideBar"]
+				"data-src"		=>	$arrayOfImages["trashCan"]
 			)
 		);
 		$saveBlock .= "</a>";

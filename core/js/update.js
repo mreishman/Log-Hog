@@ -86,6 +86,10 @@ function checkForUpdates(urlSend = "../", whatAmIUpdating = "Log-Hog", currentNe
 							{
 								window.location.href = "./error.php?error=14&page=Error Opening Zip";
 							}
+							else if(data.error === "empty zip")
+							{
+								window.location.href = "./error.php?error=16&page=Error Copying Files From Zip";
+							}
 							else
 							{
 								window.location.href = "./error.php?error=43&page=Update Error";

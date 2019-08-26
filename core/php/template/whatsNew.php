@@ -140,7 +140,13 @@
 				"Name"			=>	"The Menus",
 				"BP"			=>	array("Moved settings menus to index"),
 				"Images"		=>	array("8.1-1.png")
-			)
+			),
+			23	=>	array(
+				"Version"		=>	"8.2",
+				"Name"			=>	"Control the Log Part 1",
+				"BP"			=>	array("More actions for individual logs added","Load more add to top of logs","More log settings added"),
+				"Images"		=>	array("8.2-1.png","8.2-2.png","8.2-3.png")
+			),
 		);
 		$dataForWhatsNew = array_reverse($dataForWhatsNew);
 		$first = true;

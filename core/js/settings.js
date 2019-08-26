@@ -426,7 +426,8 @@ function saveVerified()
 		idForFormMain === "archiveConfig" ||
 		idForFormMain === "settingsPollVars" ||
 		idForFormMain === "settingsMenuLogVars" ||
-		idForFormMain === "settingsMenuVars"
+		idForFormMain === "settingsMenuVars" ||
+		idForFormMain === "groupLayoutPresetForm"
 	) {
 		refreshJsVars();
 	}
@@ -521,6 +522,11 @@ function refreshJsVars()
 			{
 				clearLoadPollTimer();
 				startLoadPollTimerDelay();
+				if(logDirectionInvert !== document.getElementById("logDirectionInvert").value)
+				{
+					document.getElementById("logDirectionInvert").value = logDirectionInvert;
+					toggleLogDirectionInvert();
+				}
 			}
 			else if(idForFormMain === "settingsMenuLogVars")
 			{

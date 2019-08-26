@@ -305,3 +305,40 @@ function updateGroupsInSelect()
 	let groupCheck = $("#selectForGroup").val();
 	updateHeaderGroups(groupCheck);
 }
+
+function swapGroupLayoutLetters(groupLayout)
+{
+	let newGroups = groupPresetA;
+	if(groupLayout === "B")
+	{
+		newGroups = groupPresetB;
+	}
+	else if(groupLayout === "C")
+	{
+		newGroups = groupPresetC;
+	}
+	updateHeaderGroups(newGroups.split(","));
+	toggleGroupedGroups();
+}
+
+function saveGroupLayoutTo(groupLayout)
+{
+	let arrOfSelected = "";
+	let listOfOptions = $("#groupsInHeader .linkSmall");
+	let listOfOptionsLength = listOfOptions.length;
+	for(let i = 0; i < listOfOptionsLength; i++)
+	{
+		if(!$($("#groupsInHeader .linkSmall")[i]).hasClass("selected"))
+		{
+			continue;
+		}
+		if(arrOfSelected !== "")
+		{
+			arrOfSelected += ",";
+		}
+		arrOfSelected += listOfOptions[i].textContent;
+	}
+	document.getElementById("groupPreset" + groupLayout).value = arrOfSelected;
+	saveAndVerifyMain("groupLayoutPresetForm");
+	$("#selectForGroup").val(groupLayout);
+}

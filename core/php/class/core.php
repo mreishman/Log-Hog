@@ -346,6 +346,11 @@ class core
 
 	public function generateImage($imageArray, $customConfig)
 	{
+		$currentImgVersion = strtotime("now");
+		if(isset($imageArray["version"]))
+		{
+			$currentImgVersion = $imageArray["version"];
+		}
 		$image = "<img ";
 		if(isset($customConfig["data-id"]))
 		{
@@ -360,7 +365,7 @@ class core
 				{
 					$image .= $customConfig["srcModifier"];
 				}
-				$image .= $customConfig["data-src"]["src"]."\" ";
+				$image .= $customConfig["data-src"]["src"] . "?v=" . $currentImgVersion."\" ";
 				if(!isset($customConfig["title"]) && isset($customConfig["data-src"]["title"]))
 				{
 					$image .=  " data-title=\"".$customConfig["data-src"]["title"]."\" ";
@@ -393,7 +398,7 @@ class core
 		{
 			$image .= $customConfig["srcModifier"];
 		}
-		$image .= $imageArray["src"]."\" ";
+		$image .= $imageArray["src"] . "?v=" . $currentImgVersion . "\" ";
 		if(isset($customConfig["alt"]))
 		{
 			if($customConfig["alt"] !== null)

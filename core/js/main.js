@@ -49,6 +49,8 @@ var pollTimer = null;
 var refreshing = false;
 var refreshPauseActionVar;
 var sideBarVisible = true;
+var singleLogRefreshTimer = null;
+var singleLogRefreshTimerLoad = true;
 var startedPauseOnNonFocus = false;
 var startOfPollLogicRan = false;
 var t0 = performance.now();
@@ -270,6 +272,20 @@ function getPositionOfLogInLogDisplay(id)
 	return false;
 }
 
+function getFileDataKeyFromLogId(logId)
+{
+	let fileDataKeys = Object.keys(fileData);
+	let fileDataKeysCount = fileDataKeys.length;
+	for(let i = 0; i < fileDataKeysCount; i++)
+	{
+		if(logId === filterIdText(fileDataKeys[i]))
+		{
+			return fileDataKeys[i];
+		}
+	}
+	return "";
+}
+
 function getLogIdFromText(text)
 {
 	//check if text if from a log
@@ -390,6 +406,62 @@ function checkIfLogIsVisible(logToCheck)
 		}
 	}
 	return false;
+}
+
+function selectLastLoadLogs()
+{
+	if(lastSessionLogArray === null || logLoadPrevious !== "true")
+	{
+		return;
+	}
+	let lastSessionLogArrayKeys = Object.keys(lastSessionLogArray);
+	let targetLength = lastSessionLogArrayKeys.length;
+	try
+	{
+		var arrayOfLogs = $("#menu a");
+		var arrayOfLogsLength = arrayOfLogs.length;
+		//this is where on first load, tabs are selected to be visible (see here for issue 312)
+		for(let h = 0; h < targetLength; h++)
+		{
+			let selectThisOne = lastSessionLogArray[lastSessionLogArrayKeys[h]];
+			//show first available log
+			for (let i = 0; i < arrayOfLogsLength; i++)
+			{
+				let currentLogCheck = selectThisOne["id"];
+				if(checkNameCont(currentLogCheck, arrayOfLogs[i]))
+				{
+					if(arrayOfLogs[i].style.display === "none")
+					{
+						continue;
+					}
+				}
+				else
+				{
+					continue;
+				}
+
+				let logIsAlreadyShown = false;
+				for(let j = 0; j < targetLength; j++)
+				{
+					if(logDisplayArray[j]["id"] === arrayOfLogs[i].id)
+					{
+						logIsAlreadyShown = true;
+						break;
+					}
+				}
+				if(arrayOfLogs[i].style.display !== "none" && !logIsAlreadyShown)
+				{
+					changeCurrentSelectWindow(h);
+					arrayOfLogs[i].onclick.apply(arrayOfLogs[i]);
+					break;
+				}
+			}
+		}
+	}
+	catch(e)
+	{
+		eventThrowException(e);
+	}
 }
 
 function selectTabsInOrder(targetLength)
@@ -545,7 +617,14 @@ function updateScrollOnLogs()
 							lastLogs[currentPageId] = logs[currentPageId];
 							if(scrollOnUpdate === "true" && logDisplayArray[i]["scroll"])
 							{
-								document.getElementById("log"+i+"Td").scrollTop = $("#log"+i).outerHeight();
+								if(logDirectionInvert === "false")
+								{
+									document.getElementById("log"+i+"Td").scrollTop = $("#log"+i).outerHeight();
+								}
+								else
+								{
+									document.getElementById("log"+i+"Td").scrollTop = 0;
+								}
 							}
 						}
 						break;
@@ -703,7 +782,7 @@ function removeFromMultiLog(idOfName)
 
 function removeLogFromDisplay(currentLogNum)
 {
-	var internalID = logDisplayArray[currentLogNum]["id"];
+	let internalID = logDisplayArray[currentLogNum]["id"];
 	if(internalID.indexOf("ogogackup") === 0)
 	{
 		removeArchiveLogFromDisplay(currentLogNum);
@@ -1353,6 +1432,11 @@ function scrollToBottom(idNum)
 	document.getElementById("log"+idNum+"Td").scrollTop = getHeightOfCurrentLog(idNum);
 }
 
+function scrollToTop(idNum)
+{
+	document.getElementById("log"+idNum+"Td").scrollTop = 0;
+}
+
 function clearLogInner(title)
 {
 	title = filterTitle(title);
@@ -1700,6 +1784,7 @@ function pinWindow(windowNum)
 		$("#pinWindow"+windowNum+" .pinWindow").hide();
 		$("#pinWindow"+windowNum+" .unPinWindow").show();
 	}
+	setLogDisplayArrayCookie();
 }
 
 function deleteImageAction()
@@ -1849,6 +1934,7 @@ function generateWindowDisplayInner()
 	borderPadding = newBorderPadding;
 	logDisplayArrayOld = logDisplayArray;
 	logDisplayArray = newLogDisplayArray;
+	setLogDisplayArrayCookie();
 	document.getElementById("log").innerHTML = ""+logDisplayHtml+"";
 	//add search filters if there
 	let currentLengthOfLogDisplayArray = Object.keys(logDisplayArray).length;
@@ -1881,6 +1967,12 @@ function generateWindowDisplayInner()
 	return{
 		arrayOfPrevLogs
 	};
+}
+
+function setLogDisplayArrayCookie()
+{
+	document.cookie = "logDisplayArray="+JSON.stringify(logDisplayArray);
+	document.cookie = "windowConfig="+JSON.stringify(getCurrentWindowLayout());
 }
 
 function unhideAllHidden()
@@ -1922,11 +2014,25 @@ function unhideHidden(currentLogId)
 		lineUnHid = true;
 		if(logLoadForceScrollToBot === 'false')
 		{
-			document.getElementById("log"+currentLogId+"Td").scrollTop = currentScroll + currentLine.height();
+			if(logDirectionInvert === "false")
+			{
+				document.getElementById("log"+currentLogId+"Td").scrollTop = currentScroll + currentLine.height();
+			}
+			else
+			{
+				document.getElementById("log"+currentLogId+"Td").scrollTop = currentScroll - currentLine.height();
+			}
 		}
 		else
 		{
-			document.getElementById("log"+currentLogId+"Td").scrollTop = document.getElementById("log"+currentLogId).getBoundingClientRect().height;
+			if(logDirectionInvert === "false")
+			{
+				document.getElementById("log"+currentLogId+"Td").scrollTop = document.getElementById("log"+currentLogId).getBoundingClientRect().height;
+			}
+			else
+			{
+				document.getElementById("log"+currentLogId+"Td").scrollTop = 0;
+			}
 		}
 		if(currentLine.position().top < 0)
 		{
@@ -1945,7 +2051,14 @@ function loadPrevLogContent(arrayOfPrevLogs)
 	{
 		$("#log"+arrayOfPrevLogsKeys[countAPLK]).html(arrayOfPrevLogs[arrayOfPrevLogsKeys[countAPLK]]);
 		$("#log"+arrayOfPrevLogsKeys[countAPLK]+"load").hide();
-		scrollToBottom(arrayOfPrevLogsKeys[countAPLK]);
+		if(logDirectionInvert === "false")
+		{
+			scrollToBottom(arrayOfPrevLogsKeys[countAPLK]);
+		}
+		else
+		{
+			scrollToTop(arrayOfPrevLogsKeys[countAPLK]);
+		}
 		toggleSideBarElements(logDisplayArrayOld[arrayOfPrevLogsKeys[countAPLK]]["id"],arrayOfPrevLogsKeys[countAPLK]);
 	}
 }
@@ -1984,6 +2097,7 @@ function checkForUpdateLogsOffScreen()
 
 function getCurrentWindowLayout()
 {
+	windowConfig = document.getElementById("windowConfig").value;
 	return document.getElementById("windowConfig").value;
 }
 
@@ -2016,6 +2130,85 @@ function toggleVisibleAllLogs()
 		allLogsVisible = "true";
 	}
 	resize();
+}
+
+function toggleSingleLogPause(currentLogNum)
+{
+	if(document.getElementById("pauseSingleLog"+currentLogNum).style.display === "none")
+	{
+		//currently paused
+		document.getElementById("pauseSingleLog"+currentLogNum).style.display = "inline-block";
+		document.getElementById("playSingleLog"+currentLogNum).style.display = "none";
+		generalUpdate();
+	}
+	else
+	{
+		//currently unpaused
+		document.getElementById("pauseSingleLog"+currentLogNum).style.display = "none";
+		document.getElementById("playSingleLog"+currentLogNum).style.display = "inline-block";
+	}
+}
+
+function singleLogLoadMore(currentLogNum)
+{
+	let internalID = logDisplayArray[currentLogNum]["id"];
+	let internalKey = getFileDataKeyFromLogId(internalID);
+	let modifiedSliceSize = "" + (sliceSize + parseInt(fileData[internalKey]["sliceSize"]));
+	singleLogRefreshInner(currentLogNum, modifiedSliceSize);
+}
+
+function singleLogRefresh(currentLogNum)
+{
+	let internalID = logDisplayArray[currentLogNum]["id"];
+	let internalKey = getFileDataKeyFromLogId(internalID);
+	singleLogRefreshInner(currentLogNum, fileData[internalKey]["sliceSize"]);
+}
+
+function singleLogRefreshInner(currentLogNum, modifiedSliceSize)
+{
+	if(singleLogRefreshTimer === null && singleLogRefreshTimerLoad)
+	{
+		singleLogRefreshTimerLoad = false;
+		$("#log"+currentLogNum+"load").show();
+		$("#log"+currentLogNum+"TopButtons").hide();
+		$("#log"+currentLogNum+"BottomButtons").hide();
+		$("#singleLogRefreshLoading"+currentLogNum).show();
+		$("#singleLogRefresh"+currentLogNum).hide();
+		singleLogRefreshTimer = setInterval(function() {
+			singleLogRefreshPoll(currentLogNum, modifiedSliceSize);
+		}, 1);
+	}
+}
+
+function singleLogRefreshPoll(currentLogNum, modifiedSliceSize)
+{
+	if(!polling && !clearingNotifications)
+	{
+		clearInterval(singleLogRefreshTimer);
+		singleLogRefreshTimer = null;
+		polling = true;
+		let internalID = logDisplayArray[currentLogNum]["id"];
+		let internalKey = getFileDataKeyFromLogId(internalID);
+		let arraySend = {};
+		fileData[internalKey]["sliceSize"] = modifiedSliceSize;
+		arraySend[internalKey] = fileData[internalKey];
+		let data = {arrayToUpdate: arraySend};
+		getFileSinglePostLoadWithData(data, currentLogNum);
+	}
+}
+
+function checkIfCurrentLogIsPaused(currentLogNum)
+{
+	if(document.getElementById("pauseSingleLog"+currentLogNum).style.display === "none")
+	{
+		return true;
+	}
+	return false;
+}
+
+function toggleLogDirectionInvert()
+{
+	logDirectionInvert = document.getElementById("logDirectionInvert").value;
 }
 
 function mainReady()

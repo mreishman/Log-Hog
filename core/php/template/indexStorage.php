@@ -14,25 +14,76 @@
 								$arrayOfImages["loadingImg"],
 								$imageConfig = array(
 									"height"	=>	"20px",
-									"class"		=>	"infoSideBarImageForLoad",
+									"class"		=>	"infoSideBarImageForLoad altImage",
 									"style"		=>	"margin: 5px;",
 									"title"		=>	"More Info",
-									"data-src"	=>	$arrayOfImages["infoSideBar"]
+									"data-src"	=>	$arrayOfImages["info"]
 									)
 								);
 							?>
 						</a>
 						<span id="loadLineCountForWindow{{counter}}" class="loadLineCountForWindow" style="font-size: 86%;padding: 0;">
 						</span>
+						<a id="pauseSingleLog{{counter}}" onclick="toggleSingleLogPause('{{counter}}');">
+							<?php echo $core->generateImage(
+								$arrayOfImages["loadingImg"],
+								$imageConfig = array(
+									"height"	=>	"20px",
+									"class"		=>	"pauseImageForLoad altImage",
+									"style"		=>	"margin: 5px;",
+									"title"		=>	"Pause",
+									"data-src"	=>	$arrayOfImages["pause"]
+									)
+								);
+							?>
+						</a>
+						<a id="playSingleLog{{counter}}" onclick="toggleSingleLogPause('{{counter}}');" style="display: none;">
+							<?php echo $core->generateImage(
+								$arrayOfImages["loadingImg"],
+								$imageConfig = array(
+									"height"	=>	"20px",
+									"class"		=>	"playImageForLoad altImage",
+									"style"		=>	"margin: 5px;",
+									"title"		=>	"Play",
+									"data-src"	=>	$arrayOfImages["play"]
+									)
+								);
+							?>
+						</a>
+						<a id="singleLogRefresh{{counter}}" onclick="singleLogRefresh('{{counter}}');">
+							<?php echo $core->generateImage(
+								$arrayOfImages["loadingImg"],
+								$imageConfig = array(
+									"height"	=>	"20px",
+									"class"		=>	"refreshImageForLoad altImage",
+									"style"		=>	"margin: 5px;",
+									"title"		=>	"Refresh",
+									"data-src"	=>	$arrayOfImages["refresh"]
+									)
+								);
+							?>
+						</a>
+						<a id="singleLogRefreshLoading{{counter}}" style="display: none; cursor: default;">
+							<?php echo $core->generateImage(
+								$arrayOfImages["loadingImg"],
+								$imageConfig = array(
+									"height"	=>	"20px",
+									"class"		=>	"altImage",
+									"style"		=>	"margin: 5px;",
+									"title"		=>	"Refreshing",
+									)
+								);
+							?>
+						</a>
 						<a id="showLogWindowFilter{{counter}}" onclick="showLogWindowFilter('{{counter}}');" style="{{customfilterstyle}}" >
 							<?php echo $core->generateImage(
 								$arrayOfImages["loadingImg"],
 								$imageConfig = array(
 									"height"	=>	"20px",
-									"class"		=>	"searchSideBarImageForLoad",
+									"class"		=>	"searchSideBarImageForLoad altImage",
 									"style"		=>	"margin: 5px;",
 									"title"		=>	"More Info",
-									"data-src"	=>	$arrayOfImages["searchSideBar"]
+									"data-src"	=>	$arrayOfImages["search"]
 									)
 								);
 							?>
@@ -45,7 +96,7 @@
 									"height"	=>	"20px",
 									"style"		=>	"margin: 5px;",
 									"title"		=>	"Pin Window",
-									"class"		=>	"pinWindow pinImageForLoad multiLogGreaterThanOne",
+									"class"		=>	"pinWindow pinImageForLoad multiLogGreaterThanOne altImage",
 									"data-src"	=>	$arrayOfImages["pin"]
 									)
 								);
@@ -55,7 +106,7 @@
 									"height"	=>	"20px",
 									"style"		=>	"margin: 5px; display: none;",
 									"title"		=>	"Un-Pin Window",
-									"class"		=>	"unPinWindow pinPinnedImageForLoad multiLogGreaterThanOne",
+									"class"		=>	"unPinWindow pinPinnedImageForLoad multiLogGreaterThanOne altImage",
 									"data-src"	=>	$arrayOfImages["pinPinned"]
 									)
 								);
@@ -68,8 +119,8 @@
 									"height"	=>	"20px",
 									"style"		=>	"margin: 5px;",
 									"title"		=>	"Clear Log",
-									"class"		=>	"eraserSideBarImageForLoad",
-									"data-src"	=>	$arrayOfImages["eraserSideBar"]
+									"class"		=>	"eraserSideBarImageForLoad altImage",
+									"data-src"	=>	$arrayOfImages["eraser"]
 									)
 								);
 							?>
@@ -81,8 +132,8 @@
 									"height"	=>	"20px",
 									"style"		=>	"margin: 5px;",
 									"title"		=>	"Delete Log",
-									"class"		=>	"trashCanSideBarImageForLoad",
-									"data-src"	=>	$arrayOfImages["trashCanSideBar"]
+									"class"		=>	"trashCanSideBarImageForLoad altImage",
+									"data-src"	=>	$arrayOfImages["trashCan"]
 									)
 								);
 							?>
@@ -94,8 +145,8 @@
 									"height"	=>	"20px",
 									"style"		=>	"margin: 5px;",
 									"title"		=>	"View Backup",
-									"class"		=>	"historySideBarImageForLoad",
-									"data-src"	=>	$arrayOfImages["historySideBar"]
+									"class"		=>	"historySideBarImageForLoad altImage",
+									"data-src"	=>	$arrayOfImages["history"]
 									)
 								);
 							?>
@@ -107,7 +158,7 @@
 									"height"	=>	"20px",
 									"style"		=>	"margin: 5px;",
 									"title"		=>	"Save Backup",
-									"class"		=>	"historyAddSideBarImageForLoad",
+									"class"		=>	"historyAddSideBarImageForLoad altImage",
 									"data-src"	=>	$arrayOfImages["saveSideBar"]
 									)
 								);
@@ -120,8 +171,8 @@
 									"height"	=>	"20px",
 									"style"		=>	"margin: 5px;",
 									"title"		=>	"Select Log",
-									"class"		=>	"menuSideBarImageForLoad",
-									"data-src"	=>	$arrayOfImages["menuSideBar"]
+									"class"		=>	"menuImageForLoad altImage",
+									"data-src"	=>	$arrayOfImages["menu"]
 									)
 								);
 							?>
@@ -132,8 +183,21 @@
 								$imageConfig = array(
 									"height"	=>	"20px",
 									"style"		=>	"margin: 5px;",
-									"class"		=>	"closeImageForLoad archiveLogImages",
+									"class"		=>	"closeImageForLoad archiveLogImages altImage",
 									"data-src"	=>	$arrayOfImages["close"]
+									)
+								);
+							?>
+						</a>
+						<a onclick="scrollToTop('{{counter}}');">
+							<?php echo $core->generateImage(
+								$arrayOfImages["loadingImg"],
+								$imageConfig = array(
+									"height"	=>	"20px",
+									"style"		=>	"margin: 5px; -webkit-transform: rotate(180deg); -moz-transform: rotate(180deg); -o-transform: rotate(180deg); -ms-transform: rotate(180deg); transform: rotate(180deg); ",
+									"title"		=>	"Scroll to Top",
+									"class"		=>	"downArrowSideBarImageForLoad altImage",
+									"data-src"	=>	$arrayOfImages["downArrowSideBar"]
 									)
 								);
 							?>
@@ -145,7 +209,7 @@
 									"height"	=>	"20px",
 									"style"		=>	"margin: 5px;",
 									"title"		=>	"Scroll to Bottom",
-									"class"		=>	"downArrowSideBarImageForLoad",
+									"class"		=>	"downArrowSideBarImageForLoad altImage",
 									"data-src"	=>	$arrayOfImages["downArrowSideBar"]
 									)
 								);
@@ -166,7 +230,13 @@
 							);
 						?>
 					</div>
+					<div id="log{{counter}}TopButtons" style="text-align: center; display: none;">
+						<span onclick="singleLogLoadMore('{{counter}}');" class="link">Load More</span>
+					</div>
 					<div style="padding: 0; white-space: pre-wrap;" id="log{{counter}}" class="log" ></div>
+					<div id="log{{counter}}BottomButtons" style="text-align: center; display: none;">
+						<span onclick="singleLogLoadMore('{{counter}}');" class="link">Load More</span>
+					</div>
 				</span>
 			</td>
 		</tr>

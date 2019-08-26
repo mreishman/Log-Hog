@@ -12,7 +12,7 @@ function makePretty(id)
 		{
 			count = 0;
 		}
-		var returnText = makePrettyWithText(text, count, {id: id});
+		var returnText = makePrettyWithText(text, count, {id: id, logDirectionInvert});
 		if(returnText !== "")
 		{
 			return "<table width=\"100%\" style=\"border-spacing: 0;\">" + returnText + "</table>";
@@ -90,13 +90,7 @@ function makePrettyWithText(text, count, extraData = {})
 		{
 			type = extraData["type"];
 		}
-		let localText = text.split("\n");
-		if(localText.length < 2)
-		{
-			localText = localText[0].split("\\n");
-		}
 		var returnText = "";
-		var lengthOfLocalTextArray = localText.length;
 		var addLineCount = "false";
 		var selectListForFilter = document.getElementsByName("searchType")[0];
 		var selectedListFilterType = selectListForFilter.options[selectListForFilter.selectedIndex].value;
@@ -127,7 +121,16 @@ function makePrettyWithText(text, count, extraData = {})
 			var lineText = formattedLogArr[formattedLogArrKeys[FLAKCount]];
 			var customClass = " class = '";
 			var customClassAdd = false;
-			if(highlightNew === "true" && ((FLAKCount + count + 1) > formattedLogArrKeysLength))
+			let addNewLine = false;
+			if(highlightNew === "true")
+			{
+				addNewLine = ((FLAKCount + count + 1) > formattedLogArrKeysLength);
+				if(logDirectionInvert !== "false")
+				{
+					addNewLine = (FLAKCount < count );
+				}
+			}
+			if(addNewLine)
 			{
 				customClass += " newLine ";
 				customClassAdd = true;
@@ -292,6 +295,10 @@ function formatTextIntoArray(text, count, extraData = {})
 	if(text.length < 2)
 	{
 		text = text[0].split("\\n");
+	}
+	if("logDirectionInvert" in extraData && extraData["logDirectionInvert"] === "true")
+	{
+		text = text.reverse();
 	}
 	var returnText = "";
 	var lengthOfTextArray = text.length;

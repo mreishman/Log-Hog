@@ -395,12 +395,6 @@ else
 			"title"			=>	"Clear All",
 			"baseName"		=>	"eraserMulti.png"
 		),
-		"eraserSideBar"		=> array(
-			"alt"			=>	"Clear",
-			"src"			=>	"",
-			"title"			=>	"Clear",
-			"baseName"		=>	"eraserSideBar.png"
-		),
 		"externalLink"		=> array(
 			"alt"			=>	"External Link",
 			"src"			=>	"",
@@ -473,23 +467,11 @@ else
 			"title"			=>	"History",
 			"baseName"		=>	"history.png"
 		),
-		"historySideBar"	=> array(
-			"alt"			=>	"History",
-			"src"			=>	"",
-			"title"			=>	"History",
-			"baseName"		=>	"historySideBar.png"
-		),
 		"info"			=> array(
 			"alt"			=>	"Info",
 			"src"			=>	"",
 			"title"			=>	"Info",
 			"baseName"		=>	"info.png"
-		),
-		"infoSideBar"		=> array(
-			"alt"			=>	"Info",
-			"src"			=>	"",
-			"title"			=>	"Info",
-			"baseName"		=>	"infoSideBar.png"
 		),
 		"loading"			=> array(
 			"alt"			=>	"Loading",
@@ -508,12 +490,6 @@ else
 			"src"			=>	"",
 			"title"			=>	"Menu",
 			"baseName"		=>	"menu.png"
-		),
-		"menuSideBar"	=> array(
-			"alt"			=>	"Menu",
-			"src"			=>	"",
-			"title"			=>	"Menu",
-			"baseName"		=>	"menuSideBar.png"
 		),
 		"multiLog"	=> array(
 			"alt"			=>	"Multi-Log",
@@ -587,12 +563,6 @@ else
 			"title"			=>	"Search",
 			"baseName"		=>	"search.png"
 		),
-		"searchSideBar"		=> array(
-			"alt"			=>	"Search",
-			"src"			=>	"",
-			"title"			=>	"Search",
-			"baseName"		=>	"searchSideBar.png"
-		),
 		"seleniumMonitor"	=> array(
 			"alt"			=>	"Selenium Monitor",
 			"src"			=>	"",
@@ -622,12 +592,6 @@ else
 			"src"			=>	"",
 			"title"			=>	"Delete Multiple",
 			"baseName"		=>	"trashCanMulti.png"
-		),
-		"trashCanSideBar"	=> array(
-			"alt"			=>	"Delete",
-			"src"			=>	"",
-			"title"			=>	"Delete",
-			"baseName"		=>	"trashCanSideBar.png"
 		),
 		"updateYellow"		=> array(
 			"alt"			=>	"Update",
@@ -683,6 +647,7 @@ else
 		}
 
 		$arrayOfImages[$key]["src"] = $src;
+		$arrayOfImages[$key]["version"] = $cssVersion;
 	}
 
 	echo "<script>";

@@ -157,6 +157,10 @@ $errorArray = array(
         "firstMessage"      =>  "Could not load JS file when trying to initialize Log-Hog",
         "secondMessage"     =>  "Please make sure your are connected to the server, and the javascript file is present"
     ),
+    16   =>  array(
+        "firstMessage"      =>  "Update check failed because the downloaded zip file was empty, or the file(s) could not be copied over",
+        "secondMessage"     =>  "When checking for updates, a zip file is download that contains the new version list. An error occured when trying to copy files from the zip file. This could either be due to a permission error or not enough space in the target directory."
+    ),
     42   =>  array(
         "firstMessage"      =>  "General Error",
         "secondMessage"     =>  "A general error occured, or you navigated to this page directly."
