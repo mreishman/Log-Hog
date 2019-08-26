@@ -26,7 +26,7 @@ function loadFile(filepath, name)
             {
                 window.location.href = "../error.php?error="+data["error"]+"&page=returnFileContents.php";
             }
-            else if(typeof data === "string" && data.indexOf("error:") > -1)
+            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
             {
             	data = JSON.parse(data);
             	window.location.href = "../error.php?error="+data["error"]+"&page=returnFileContents.php";

@@ -1,4 +1,6 @@
 <?php
+require_once("../../core/php/class/core.php");
+$core = new core();
 require_once("../../core/php/class/session.php");
 $session = new session();
 if(!$session->startSession())
@@ -11,8 +13,6 @@ if(!$session->validate())
 	echo json_encode(array("error" => 18));
 	exit();
 }
-require_once("../../core/php/class/core.php");
-$core = new core();
 require_once("../../core/php/class/settings.php");
 $settings = new settings();
 $currentSelectedTheme = $core->returnCurrentSelectedTheme();

@@ -18,7 +18,7 @@ function archiveAction(title, type) //used to check if file is loaded
             {
                 window.location.href = "error.php?error="+data["error"]+"&page=saveTmpVersionOfLog.php";
             }
-			else if(typeof data === "string" && data.indexOf("error:") > -1)
+			else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
             {
             	data = JSON.parse(data);
             	window.location.href = "error.php?error="+data["error"]+"&page=saveTmpVersionOfLog.php";
@@ -48,7 +48,7 @@ function getListOfTmpHistoryLogs()
         {
             window.location.href = "error.php?error="+data["error"]+"&page=getListOfTmpLogs.php";
         }
-		else if(typeof data === "string" && data.indexOf("error:") > -1)
+		else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
         {
         	data = JSON.parse(data);
         	window.location.href = "error.php?error="+data["error"]+"&page=getListOfTmpLogs.php";
@@ -89,7 +89,7 @@ function getListOfArchiveLogs()
         {
             window.location.href = "error.php?error="+data["error"]+"&page=getListOfTmpLogs.php";
         }
-		else if(typeof data === "string" && data.indexOf("error:") > -1)
+		else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
         {
         	data = JSON.parse(data);
         	window.location.href = "error.php?error="+data["error"]+"&page=getListOfTmpLogs.php";
@@ -182,7 +182,7 @@ function viewArchiveLog(title, type)
         {
             window.location.href = "error.php?error="+data["data"]+"&page=getTmpVersionOfLog.php";
         }
-		else if(typeof data === "string" && data.indexOf("error:") > -1)
+		else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
         {
         	data = JSON.parse(data);
         	window.location.href = "error.php?error="+data["error"]+"&page=getTmpVersionOfLog.php";
@@ -208,7 +208,7 @@ function deleteArchiveLog(title, type)
         {
             window.location.href = "error.php?error="+data["error"]+"&page=deleteArchiveLog.php";
         }
-		else if(typeof data === "string" && data.indexOf("error:") > -1)
+		else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
         {
         	data = JSON.parse(data);
         	window.location.href = "error.php?error="+data["error"]+"&page=deleteArchiveLog.php";
@@ -238,7 +238,7 @@ function clearAllArchiveLogs(type)
         {
             window.location.href = "error.php?error="+data["error"]+"&page=deleteAllArchiveLogs.php";
         }
-		else if(typeof data === "string" && data.indexOf("error:") > -1)
+		else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
         {
         	data = JSON.parse(data);
         	window.location.href = "error.php?error="+data["error"]+"&page=deleteAllArchiveLogs.php";
@@ -304,7 +304,7 @@ function viewBackupFromCurrentLog(currentLogNum)
         {
             window.location.href = "error.php?error="+data["error"]+"&page=getListOfTmpLogs.php";
         }
-		else if(typeof data === "string" && data.indexOf("error:") > -1)
+		else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
         {
         	data = JSON.parse(data);
         	window.location.href = "error.php?error="+data["error"]+"&page=getListOfTmpLogs.php";
@@ -324,7 +324,7 @@ function viewBackupFromCurrentLog(currentLogNum)
 	        {
 	            window.location.href = "error.php?error="+data["error"]+"&page=getListOfTmpLogs.php";
 	        }
-			else if(typeof data === "string" && data.indexOf("error:") > -1)
+			else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
 	        {
 	        	data = JSON.parse(data);
 	        	window.location.href = "error.php?error="+data["error"]+"&page=getListOfTmpLogs.php";

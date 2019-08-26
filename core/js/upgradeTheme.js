@@ -19,7 +19,7 @@ function copyFilesThemeChange()
             {
                 window.location.href = themeChangeLogicDirModifier + "error.php?error="+data["error"]+"&page="+urlForSendMainThemeChange0;
             }
-            else if(typeof data === "string" && data.indexOf("error:") > -1)
+            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
             {
             	data = JSON.parse(data);
             	window.location.href = themeChangeLogicDirModifier + "error.php?error="+data["error"]+"&page="+urlForSendMainThemeChange0;
@@ -67,7 +67,7 @@ function verifyFilePollThemeChange(version)
 		            {
 		                window.location.href = themeChangeLogicDirModifier + "error.php?error="+data["error"]+"&page="+urlForSendMainThemeChange0;
 		            }
-		            else if(typeof data === "string" && data.indexOf("error:") > -1)
+		            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
 		            {
 		            	data = JSON.parse(data);
 		            	window.location.href = themeChangeLogicDirModifier + "error.php?error="+data["error"]+"&page="+urlForSendMainThemeChange0;

@@ -18,7 +18,7 @@ function saveConfigStatic()
 {
 	displayLoadingPopup("../","Saving Confit Static");
 	var data = $("#devConfig").serializeArray();
-	data["formKey"] = formKey;
+	data.push({name: "formKey", value: formKey});
 	$.ajax({
         type: "post",
         url: "../core/php/settingsSaveConfigStatic.php",
@@ -29,7 +29,7 @@ function saveConfigStatic()
             {
                 window.location.href = "../error.php?error="+data["error"]+"&page=settingsSaveConfigStatic.php";
             }
-            else if(typeof data === "string" && data.indexOf("error:") > -1)
+            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
             {
             	data = JSON.parse(data);
             	window.location.href = "../error.php?error="+data["error"]+"&page=settingsSaveConfigStatic.php";
@@ -55,7 +55,7 @@ function newVersionNumberCheck()
 			{
 				window.location.href = "../error.php?error="+data["error"]+"&page=configStaticCheck.php";
 			}
-			else if(typeof data === "string" && data.indexOf("error:") > -1)
+			else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
             {
             	data = JSON.parse(data);
             	window.location.href = "../error.php?error="+data["error"]+"&page=configStaticCheck.php";

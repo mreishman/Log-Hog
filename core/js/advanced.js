@@ -15,7 +15,7 @@ function resetUpdateNotification()
 {
 	displayLoadingPopup();
 	var data = $("#devAdvanced2").serializeArray();
-	data["formKey"] = formKey;
+	data.push({name: "formKey", value: formKey});
 	$.ajax({
         type: "post",
         url: "../core/php/settingsSaveConfigStatic.php",
@@ -26,7 +26,7 @@ function resetUpdateNotification()
             {
                 window.location.href = "../error.php?error="+data["error"]+"&page=settingsSaveConfigStatic.php";
             }
-            else if(typeof data === "string" && data.indexOf("error:") > -1)
+            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
             {
             	data = JSON.parse(data);
             	window.location.href = "../error.php?error="+data["error"]+"&page=settingsSaveConfigStatic.php";
@@ -50,7 +50,7 @@ function updateNoNewVersionCheck()
 			{
 				window.location.href = "../error.php?error="+data["error"] === 14+"&page=configStaticCheck.php";
 			}
-			else if(typeof data === "string" && data.indexOf("error:") > -1)
+			else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
             {
             	data = JSON.parse(data);
             	window.location.href = "../error.php?error="+data["error"]+"&page=configStaticCheck.php";
@@ -134,7 +134,7 @@ function restoreToVersion(restoreTo)
             {
                 window.location.href = "../error.php?error="+data["error"]+"&page=restoreConfig.php";
             }
-            else if(typeof data === "string" && data.indexOf("error:") > -1)
+            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
             {
             	data = JSON.parse(data);
             	window.location.href = "../error.php?error="+data["error"]+"&page=restoreConfig.php";
@@ -159,7 +159,7 @@ function clearBackupFiles()
 			{
 				window.location.href = "../error.php?error="+data["error"]+"&page=clearConfigBackups.php";
 			}
-			else if(typeof data === "string" && data.indexOf("error:") > -1)
+			else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
             {
             	data = JSON.parse(data);
             	window.location.href = "../error.php?error="+data["error"]+"&page=clearConfigBackups.php";

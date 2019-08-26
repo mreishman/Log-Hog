@@ -62,7 +62,7 @@ function checkForUpdates(urlSend = "../", whatAmIUpdating = "Log-Hog", currentNe
 	            {
 	                window.location.href = urlSend + "error.php?error="+data["error"]+"&page=settingsCheckForUpdateAjax.php";
 	            }
-	            else if(typeof data === "string" && data.indexOf("error:") > -1)
+	            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
 	            {
 	            	data = JSON.parse(data);
 	            	window.location.href = urlSend + "error.php?error="+data["error"]+"&page=settingsCheckForUpdateAjax.php";
@@ -195,7 +195,7 @@ function checkForUpdateTimer(urlSend, whatAmIUpdating)
 			window.location.href = urlSend + "error.php?error="+data["error"]+"&page=configStaticCheck.php";
 			return;
 		}
-		else if(typeof data === "string" && data.indexOf("error:") > -1)
+		else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
         {
         	data = JSON.parse(data);
         	window.location.href = urlSend + "error.php?error="+data["error"]+"&page=configStaticCheck.php";
@@ -360,7 +360,7 @@ function saveSettingFromPopupNoCheckMaybe()
 		            {
 		                window.location.href = urlSend + "error.php?error="+data["error"]+"&page=settingsSaveAjax.php";
 		            }
-		            else if(typeof data === "string" && data.indexOf("error:") > -1)
+		            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
 		            {
 		            	data = JSON.parse(data);
 		            	window.location.href = urlSend + "error.php?error="+data["error"]+"&page=settingsSaveAjax.php";
@@ -422,7 +422,7 @@ function installUpdates(urlSend = "../", updateFormIDLocal = "settingsInstallUpd
 	            {
 	                window.location.href = urlSend + "error.php?error="+data["error"]+"&page=resetUpdateFilesToDefault.php";
 	            }
-	            else if(typeof data === "string" && data.indexOf("error:") > -1)
+	            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
 	            {
 	            	data = JSON.parse(data);
 	            	window.location.href = urlSend + "error.php?error="+data["error"]+"&page=resetUpdateFilesToDefault.php";
@@ -459,7 +459,7 @@ function verifyChange(urlSend)
 	            {
 	                window.location.href = urlSend + "error.php?error="+data["error"]+"&page=updateActionCheck.php";
 	            }
-	            else if(typeof data === "string" && data.indexOf("error:") > -1)
+	            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
 	            {
 	            	data = JSON.parse(data);
 	            	window.location.href = urlSend + "error.php?error="+data["error"]+"&page=updateActionCheck.php";

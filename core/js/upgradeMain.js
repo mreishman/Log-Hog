@@ -38,7 +38,7 @@ function runScript(version)
             {
                 window.location.href = urlMod + "error.php?error="+data["error"];
             }
-			else if(typeof data === "string" && data.indexOf("error:") > -1)
+			else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
             {
             	data = JSON.parse(data);
             	window.location.href = urlMod + "error.php?error="+data["error"];
@@ -82,7 +82,7 @@ function verifyFilePoll(version)
 		            {
 		                window.location.href = "../../../error.php?error="+data["error"]+"&page="+urlForSend;
 		            }
-					else if(typeof data === "string" && data.indexOf("error:") > -1)
+					else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
 		            {
 		            	data = JSON.parse(data);
 		            	window.location.href = "../../../error.php?error="+data["error"]+"&page="+urlForSend;

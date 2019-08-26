@@ -99,7 +99,7 @@ function pollTwo()
 	            	clearPollTimer();
 	                window.location.href = "error.php?error="+data["error"]+"&page=pollCheck.php";
 	            }
-	            else if(typeof data === "string" && data.indexOf("error:") > -1)
+	            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
 	            {
 	            	clearPollTimer();
 	            	data = JSON.parse(data);
@@ -301,7 +301,7 @@ function pollThree(arrayToUpdate)
 			            {
 			                window.location.href = "error.php?error="+data["error"]+"&page=poll.php";
 			            }
-						else if(typeof data === "string" && data.indexOf("error:") > -1)
+						else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
 			            {
 			            	data = JSON.parse(data);
 			            	window.location.href = "error.php?error="+data["error"]+"&page=poll.php";
@@ -393,7 +393,7 @@ function getFileSingle(current)
 	            {
 	                window.location.href = "error.php?error="+data["error"]+"&page=poll.php";
 	            }
-				else if(typeof data === "string" && data.indexOf("error:") > -1)
+				else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
 	            {
 	            	data = JSON.parse(data);
 	            	window.location.href = "error.php?error="+data["error"]+"&page=poll.php";
@@ -455,7 +455,7 @@ function getFileSinglePostLoadWithData(data, currentLogNum)
 	            {
 	                window.location.href = "error.php?error="+data["error"]+"&page=poll.php";
 	            }
-				else if(typeof data === "string" && data.indexOf("error:") > -1)
+				else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
 	            {
 	            	data = JSON.parse(data);
 	            	window.location.href = "error.php?error="+data["error"]+"&page=poll.php";

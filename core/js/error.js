@@ -28,7 +28,7 @@ function saveAndVerifyMain(idForForm)
 {
     idForm = "#"+idForForm;
     data = $(idForm).serializeArray();
-    data['formKey'] = formKey;
+    data.push({name: "formKey", value: formKey});
     $.ajax({
         type: "post",
         url: "core/php/settingsSaveAjax.php",
@@ -39,7 +39,7 @@ function saveAndVerifyMain(idForForm)
             {
                 window.location.href = "../error.php?error="+data["error"]+"&page=settingsSaveAjax.php";
             }
-            else if(typeof data === "string" && data.indexOf("error:") > -1)
+            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
             {
                 data = JSON.parse(data);
                 window.location.href = "../error.php?error="+data["error"]+"&page=settingsSaveAjax.php";
@@ -70,7 +70,7 @@ function resetUpdateSettings()
             {
                 window.location.href = "../error.php?error="+data["error"]+"&page=settingsSaveAjax.php";
             }
-            else if(typeof data === "string" && data.indexOf("error:") > -1)
+            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
             {
                 data = JSON.parse(data);
                 window.location.href = "../error.php?error="+data["error"]+"&page=settingsSaveAjax.php";
@@ -100,7 +100,7 @@ function verifyChange()
             {
                 window.location.href = "../error.php?error="+data["error"]+"&page=settingsSaveAjax.php";
             }
-            else if(typeof data === "string" && data.indexOf("error:") > -1)
+            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
             {
                 data = JSON.parse(data);
                 window.location.href = "../error.php?error="+data["error"]+"&page=settingsSaveAjax.php";

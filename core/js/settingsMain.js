@@ -130,7 +130,7 @@ function selectLogPopup(locationForNewLogText)
 				window.location.href =urlModifierForAjax + "error.php?error="+data["error"]+"&page=pollCheck.php";
 				return;
 			}
-			else if(typeof data === "string" && data.indexOf("error:") > -1)
+			else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
             {
             	data = JSON.parse(data);
             	window.location.href = urlModifierForAjax + "error.php?error="+data["error"]+"&page=pollCheck.php";

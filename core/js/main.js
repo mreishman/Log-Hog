@@ -1461,7 +1461,7 @@ function clearLogInner(title)
 		{
 			window.location.href = "error.php?error="+data["error"]+"&page=clearLog.php";
 		}
-		else if(typeof data === "string" && data.indexOf("error:") > -1)
+		else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
         {
         	data = JSON.parse(data);
         	window.location.href = "error.php?error="+data["error"]+"&page=clearLog.php";
@@ -1560,7 +1560,7 @@ function deleteActionAfter()
 		            {
 		                window.location.href = "error.php?error="+data["error"]+"&page=saveTmpVersionOfLog.php";
 		            }
-					else if(typeof data === "string" && data.indexOf("error:") > -1)
+					else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
 		            {
 		            	data = JSON.parse(data);
 		            	window.location.href = "../error.php?error="+data["error"]+"&page=saveTmpVersionOfLog.php";
@@ -1590,7 +1590,7 @@ function deleteActionAfter()
 				{
 					window.location.href = "error.php?error="+data["error"]+"&page=clearLog.php";
 				}
-				else if(typeof data === "string" && data.indexOf("error:") > -1)
+				else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
 	            {
 	            	data = JSON.parse(data);
 	            	window.location.href = "error.php?error="+data["error"]+"&page=clearLog.php";
@@ -1671,7 +1671,7 @@ function deleteLog(title)
 				{
 					window.location.href = "error.php?error="+data["error"]+"&page=clearLog.php";
 				}
-				else if(typeof data === "string" && data.indexOf("error:") > -1)
+				else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
 	            {
 	            	data = JSON.parse(data);
 	            	window.location.href = "error.php?error="+data["error"]+"&page=clearLog.php";

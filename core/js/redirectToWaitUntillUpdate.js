@@ -18,7 +18,7 @@ var timer = setInterval(function(){ajaxCheck();},3000);
 		            {
 		                window.location.href = "./error.php?error="+data["error"];
 		            }
-		            else if(typeof data === "string" && data.indexOf("error:") > -1)
+		            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
 		            {
 		            	data = JSON.parse(data);
 		            	window.location.href = "./error.php?error="+data["error"];

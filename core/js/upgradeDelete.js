@@ -54,7 +54,7 @@ function removeMain(dataSend)
             {
                 window.location.href = urlMod + "error.php?error="+data["error"];
             }
-			else if(typeof data === "string" && data.indexOf("error:") > -1)
+			else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
             {
             	data = JSON.parse(data);
             	window.location.href = urlMod + "error.php?error="+data["error"];
@@ -98,7 +98,7 @@ function verifyFilePoll(file)
 		            {
 		                window.location.href = urlMod + "error.php?error="+data["error"];
 		            }
-					else if(typeof data === "string" && data.indexOf("error:") > -1)
+					else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
 		            {
 		            	data = JSON.parse(data);
 		            	window.location.href = urlMod + "error.php?error="+data["error"];

@@ -320,7 +320,7 @@ function addFileFolderAjax(fileType, sentLocation)
 				window.location.href = urlModifier + "error.php?error="+data["error"]+"&page=getFileFolderData.php";
 				return;
 			}
-			else if(typeof data === "string" && data.indexOf("error:") > -1)
+			else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
             {
             	data = JSON.parse(data);
             	window.location.href = urlModifier + "error.php?error="+data["error"]+"&page=getFileFolderData.php";
@@ -362,7 +362,7 @@ function updateSubFiles(id)
 				window.location.href = urlModifier + "error.php?error="+data["error"]+"&page=getFileFolderData.php";
 				return;
 			}
-			else if(typeof data === "string" && data.indexOf("error:") > -1)
+			else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
             {
             	data = JSON.parse(data);
             	window.location.href = urlModifier + "error.php?error="+data["error"]+"&page=getFileFolderData.php";
@@ -595,7 +595,7 @@ function getFileFolderData(currentFolder, hideFiles, orgPath)
 				window.location.href = urlModifier + "error.php?error="+data["error"]+"&page=getFileFolderData.php";
 				return;
 			}
-			else if(typeof data === "string" && data.indexOf("error:") > -1)
+			else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
             {
             	data = JSON.parse(data);
             	window.location.href = urlModifier + "error.php?error="+data["error"]+"&page=getFileFolderData.php";
@@ -633,7 +633,7 @@ function getFileFolderDataMain(currentFolder, hideFiles, orgPath, currentRow)
 				window.location.href = urlModifier + "error.php?error="+data["error"]+"&page=getFileFolderData.php";
 				return;
 			}
-			else if(typeof data === "string" && data.indexOf("error:") > -1)
+			else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
             {
             	data = JSON.parse(data);
             	window.location.href = urlModifier + "error.php?error="+data["error"]+"&page=getFileFolderData.php";
@@ -1347,7 +1347,7 @@ function getFileFolderList()
 				window.location.href = urlModifier + "error.php?error="+data["error"]+"&page=getFileFolderList.php";
 				return;
 			}
-			else if(typeof data === "string" && data.indexOf("error:") > -1)
+			else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
             {
             	data = JSON.parse(data);
             	window.location.href = urlModifier + "error.php?error="+data["error"]+"&page=getFileFolderList.php";
@@ -1399,7 +1399,7 @@ function ajaxAddRowFirstLoad(currentCount)
 						window.location.href = urlModifier + "error.php?error="+data["error"]+"&page=getFileFolderData.php";
 						return;
 					}
-					else if(typeof data === "string" && data.indexOf("error:") > -1)
+					else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
 		            {
 		            	data = JSON.parse(data);
 		            	window.location.href = urlModifier + "error.php?error="+data["error"]+"&page=getFileFolderData.php";

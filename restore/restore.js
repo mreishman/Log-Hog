@@ -60,7 +60,7 @@ function downloadRestoreVersion()
             {
                 window.location.href = urlMod + "error.php?error="+data["error"]+"&page="+urlForSend;
             }
-            else if(typeof data === "string" && data.indexOf("error:") > -1)
+            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
             {
             	data = JSON.parse(data);
             	window.location.href = urlMod + "error.php?error="+data["error"]+"&page="+urlForSend;
@@ -96,7 +96,7 @@ function unzip()
             {
                 window.location.href = urlMod + "error.php?error="+data["error"]+"&page="+urlForSend;
             }
-            else if(typeof data === "string" && data.indexOf("error:") > -1)
+            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
             {
             	data = JSON.parse(data);
             	window.location.href = urlMod + "error.php?error="+data["error"]+"&page="+urlForSend;
@@ -131,7 +131,7 @@ function moveDirUnzipped()
             {
                 window.location.href = urlMod + "error.php?error="+data["error"]+"&page="+urlForSend;
             }
-            else if(typeof data === "string" && data.indexOf("error:") > -1)
+            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
             {
             	data = JSON.parse(data);
             	window.location.href = urlMod + "error.php?error="+data["error"]+"&page="+urlForSend;
@@ -166,7 +166,7 @@ function changeDirUnzipped()
             {
                 window.location.href = urlMod + "error.php?error="+data["error"]+"&page="+urlForSend;
             }
-            else if(typeof data === "string" && data.indexOf("error:") > -1)
+            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
             {
             	data = JSON.parse(data);
             	window.location.href = urlMod + "error.php?error="+data["error"]+"&page="+urlForSend;
@@ -280,7 +280,7 @@ function cleanDirectory()
             {
                 window.location.href = urlMod + "error.php?error="+data["error"]+"&page="+urlForSend;
             }
-            else if(typeof data === "string" && data.indexOf("error:") > -1)
+            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
             {
             	data = JSON.parse(data);
             	window.location.href = urlMod + "error.php?error="+data["error"]+"&page="+urlForSend;
@@ -329,7 +329,7 @@ function verifyFilePoll(action, fileLocation,isThere)
 		            {
 		                window.location.href = urlMod + "error.php?error="+data["error"]+"&page="+urlForSend;
 		            }
-		            else if(typeof data === "string" && data.indexOf("error:") > -1)
+		            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
 		            {
 		            	data = JSON.parse(data);
 		            	window.location.href = urlMod + "error.php?error="+data["error"]+"&page="+urlForSend;
