@@ -9,7 +9,7 @@ if($configStatic['version'] == '7.3') {
 }
 //update info
 $versionCheckArray = array(
-	'version'		=> '8.1',
+	'version'		=> '8.2',
 	'versionList'		=> array(
 		'2.0.1'	        => array(
 			'branchName'	=> '2.0.1Update',
@@ -329,6 +329,13 @@ $versionCheckArray = array(
 			'installSize'   => 10545145,
 			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/8.1.png',
 			'releaseNotes'	=> "<ul><li>Features<ul><li>Settings pages moved to main menu</li></ul></li><li>Bug Fixes<ul><li>Slightly quicker load times with css because of minification</li><li>Fixed issues with Firefox not using custom progress bar styles on update page</li><li>Saving general theme options or folder group color options now correctly fades out success message popup</li><li>Per window filter now hidden if filters disabled</li><li>Log will properly resize when log menu on left or right</li></ul></li></ul>"
+		),
+		'8.2'			=> array(
+			'branchName'	=> '8.2Update',
+			'downloadSize'  => 679808,
+			'installSize'   => 9838503,
+			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/8.2.png',
+			'releaseNotes'	=> "<ul><li>Features<ul><li>Pause individual logs from log sidebar</li><li>Refresh individual logs from log sidebar</li><li>Added a button at the top of logs allow for loading more lines of the current log (increase line number by current slice size)</li><li>Added sidebar buttons for preset groups (click to auto select a group of groups). Save current selection with save buttons below.</li><li>Added setting to always load last sessions logs / layout on initial load.</li><li>Added setting to invert the direction of logs (top to bottom or bottom to top).</li><li>Added scroll to top button</li></ul></li><li>Bug Fixes<ul><li>Reduced size of Log-Hog install by removing duplicate images and inverting them in css</li><li>Correct images should load on theme change without cache clear</li><li>Added button to close search on index when open</li><li>New error type added to update check download action</li></ul></li></ul>"
 		),
 	)
 );
