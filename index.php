@@ -7,7 +7,7 @@ require_once("core/php/class/session.php");
 $session = new session();
 if(!$session->startSession())
 {
-	$core->echoErrorJavaScript("", "", 17);
+	$core->echoErrorJavaScript("", "", 14);
 }
 $currentPage = "index.php";
 $errorCheck->checkIfFilesExist(
