@@ -1,18 +1,4 @@
-var devBranchData;
-var savedInnerHtmlDevBranch;
-var savedInnerHtmldevConfig;
-var devConfigData;
-var titleOfPage = "Dev";
-var timeoutVar;
-
-function checkIfChanges()
-{
-	if(	checkForChangesArray(["devBranch","devConfig"]))
-	{
-		return true;
-	}
-	return false;
-}
+var timeoutVarDevToolsSave;
 
 function saveConfigStatic()
 {
@@ -38,7 +24,7 @@ function saveConfigStatic()
         complete()
         {
           //verify saved
-          timeoutVar = setInterval(function(){newVersionNumberCheck();},3000);
+          timeoutVarDevToolsSave = setInterval(function(){newVersionNumberCheck();},3000);
         }
       });
 }
@@ -62,7 +48,7 @@ function newVersionNumberCheck()
             }
 			else if(dataExt === data["version"])
 			{
-				clearInterval(timeoutVar);
+				clearInterval(timeoutVarDevToolsSave);
 				saveSuccess();
 				location.reload();
 			}
@@ -73,19 +59,3 @@ function newVersionNumberCheck()
 		eventThrowException(e);
 	}
 }
-
-$( document ).ready(function()
-{
-	refreshArrayObjectOfArrays(["devBranch","devConfig"]);
-
-	document.addEventListener(
-		'scroll',
-		function (event)
-		{
-			onScrollShowFixedMiniBar(["devBranch","devConfig"]);
-		},
-		true
-	);
-
-	setInterval(poll, 100);
-});

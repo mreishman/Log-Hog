@@ -44,6 +44,11 @@ $settingsUrlModifier = "../";
 				"filePath"		=> "../core/js/devTools.js",
 				"baseFilePath"	=> "core/js/devTools.js",
 				"default"		=> $configStatic["version"]
+			),
+			array(
+				"filePath"		=> "../core/js/devToolsExt.js",
+				"baseFilePath"	=> "core/js/devToolsExt.js",
+				"default"		=> $configStatic["version"]
 			)
 		)
 	); ?>
