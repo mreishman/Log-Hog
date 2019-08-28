@@ -24,13 +24,14 @@ function checkIfTopDirIsEmpty()
 			{
 				urlMod += "../";
 			}
-			if(typeof data === "object"  && "error" in data && data["error"] === 18)
+			if(typeof data === "object"  && "error" in data)
             {
-                window.location.href = urlMod + "error.php?error=18";
+                window.location.href = urlMod + "error.php?error="+data["error"];
             }
-			else if(typeof data === "object"  && "error" in data && data["error"] === 14)
+			else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
             {
-                window.location.href = urlMod + "error.php?error=14";
+            	data = JSON.parse(data);
+            	window.location.href = urlMod + "error.php?error="+data["error"];
             }
 			if(data === true)
 			{
@@ -62,13 +63,14 @@ function removeFilesFromToppFolder(skip = false)
 			{
 				urlMod += "../";
 			}
-			if(typeof data === "object"  && "error" in data && data["error"] === 18)
+			if(typeof data === "object"  && "error" in data)
             {
-                window.location.href = urlMod + "error.php?error=18";
+                window.location.href = urlMod + "error.php?error="+data["error"];
             }
-			else if(typeof data === "object"  && "error" in data && data["error"] === 14)
+			else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
             {
-                window.location.href = urlMod + "error.php?error=14";
+            	data = JSON.parse(data);
+            	window.location.href = urlMod + "error.php?error="+data["error"];
             }
 		},
 		complete()
@@ -108,13 +110,14 @@ function downloadFile()
 			{
 				urlMod += "../";
 			}
-			if(typeof data === "object"  && "error" in data && data["error"] === 18)
+			if(typeof data === "object"  && "error" in data)
             {
-                window.location.href = urlMod + "error.php?error=18";
+                window.location.href = urlMod + "error.php?error="+data["error"];
             }
-			else if(typeof data === "object"  && "error" in data && data["error"] === 14)
+			else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
             {
-                window.location.href = urlMod + "error.php?error=14";
+            	data = JSON.parse(data);
+            	window.location.href = urlMod + "error.php?error="+data["error"];
             }
 		},
 		complete()
@@ -143,13 +146,14 @@ function unzipFile()
 			{
 				urlMod += "../";
 			}
-			if(typeof data === "object"  && "error" in data && data["error"] === 18)
+			if(typeof data === "object"  && "error" in data)
             {
-                window.location.href = urlMod + "error.php?error=18";
+                window.location.href = urlMod + "error.php?error="+data["error"];
             }
-			else if(typeof data === "object"  && "error" in data && data["error"] === 14)
+			else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
             {
-                window.location.href = urlMod + "error.php?error=14";
+            	data = JSON.parse(data);
+            	window.location.href = urlMod + "error.php?error="+data["error"];
             }
 		},
 		complete()
@@ -178,13 +182,14 @@ function removeZipFile()
 			{
 				urlMod += "../";
 			}
-			if(typeof data === "object"  && "error" in data && data["error"] === 18)
+			if(typeof data === "object"  && "error" in data)
             {
-                window.location.href = urlMod + "error.php?error=18";
+                window.location.href = urlMod + "error.php?error="+data["error"];
             }
-			else if(typeof data === "object"  && "error" in data && data["error"] === 14)
+			else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
             {
-                window.location.href = urlMod + "error.php?error=14";
+            	data = JSON.parse(data);
+            	window.location.href = urlMod + "error.php?error="+data["error"];
             }
 		},
 		complete()
@@ -281,13 +286,14 @@ function verifyFilePoll(action, fileLocation,isThere)
 					{
 						urlMod += "../";
 					}
-					if(typeof data === "object"  && "error" in data && data["error"] === 18)
+					if(typeof data === "object"  && "error" in data)
 		            {
-		                window.location.href = urlMod + "error.php?error=18";
+		                window.location.href = urlMod + "error.php?error="+data["error"];
 		            }
-					else if(typeof data === "object"  && "error" in data && data["error"] === 14)
+					else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
 		            {
-		                window.location.href = urlMod + "error.php?error=14";
+		            	data = JSON.parse(data);
+		            	window.location.href = urlMod + "error.php?error="+data["error"];
 		            }
 					verifyPostEnd(data, _data);
 				},

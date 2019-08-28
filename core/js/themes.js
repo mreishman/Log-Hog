@@ -20,6 +20,11 @@ function deleteTheme(themeName)
             {
                 window.location.href = themeDirMod + "error.php?error="+data["error"];
             }
+            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = themeDirMod + "error.php?error="+data["error"];
+            }
 			//verify folder is removed
 			timeoutVar = setInterval(function(){verifyThemeRemoved();},3000);
 		}
@@ -39,6 +44,11 @@ function verifyThemeRemoved()
 			if(typeof data === "object"  && "error" in data)
             {
                 window.location.href = themeDirMod + "error.php?error="+data["error"];
+            }
+            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = themeDirMod + "error.php?error="+data["error"];
             }
 			else if(data === true)
 			{
@@ -74,6 +84,11 @@ function saveCustomTheme()
             {
                 window.location.href = themeDirMod + "error.php?error="+data["error"];
             }
+            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = themeDirMod + "error.php?error="+data["error"];
+            }
 			timeoutVar = setInterval(function(){verifyFolder();},3000);
 		}
 	});
@@ -93,6 +108,11 @@ function verifyFolder()
 			if(typeof data === "object"  && "error" in data)
             {
                 window.location.href = themeDirMod + "error.php?error="+data["error"];
+            }
+            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = themeDirMod + "error.php?error="+data["error"];
             }
 			else if(data === true)
 			{
@@ -119,6 +139,11 @@ function saveCustomThemeCustomFolder()
             {
                 window.location.href = themeDirMod + "error.php?error="+data["error"];
             }
+            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = themeDirMod + "error.php?error="+data["error"];
+            }
 			timeoutVar = setInterval(function(){verifyFolderInFolder();},3000);
 		}
 	});
@@ -139,6 +164,11 @@ function verifyFolderInFolder()
 			if(typeof data === "object"  && "error" in data)
             {
                 window.location.href = themeDirMod + "error.php?error="+data["error"];
+            }
+            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = themeDirMod + "error.php?error="+data["error"];
             }
 			else if(data === true)
 			{
@@ -164,6 +194,11 @@ function createNewFiles()
             {
                 window.location.href = themeDirMod + "error.php?error="+data["error"]+"&page=saveCustomThemeDefaults.php";
             }
+            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = themeDirMod + "error.php?error="+data["error"];
+            }
 			else if(data === true)
 			{
 				timeoutVar = setInterval(function(){verifyNewFiles();},3000);
@@ -185,6 +220,11 @@ function verifyNewFiles()
 			if(typeof data === "object"  && "error" in data)
             {
                 window.location.href = themeDirMod + "error.php?error="+data["error"];
+            }
+            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = themeDirMod + "error.php?error="+data["error"];
             }
 			else if(data === true)
 			{
@@ -209,6 +249,11 @@ function createImageFolder()
             {
                 window.location.href = themeDirMod + "error.php?error="+data["error"];
             }
+            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = themeDirMod + "error.php?error="+data["error"];
+            }
 			timeoutVar = setInterval(function(){verifyImageFolder();},3000);
 		}
 	});
@@ -227,6 +272,11 @@ function verifyImageFolder()
 			if(typeof data === "object"  && "error" in data)
             {
                 window.location.href = themeDirMod + "error.php?error="+data["error"];
+            }
+            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = themeDirMod + "error.php?error="+data["error"];
             }
 			else if(data === true)
 			{
@@ -251,6 +301,11 @@ function createTemplateFolder()
             {
                 window.location.href = themeDirMod + "error.php?error="+data["error"];
             }
+            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = themeDirMod + "error.php?error="+data["error"];
+            }
 			timeoutVar = setInterval(function(){verifyTemplateFolder();},3000);
 		}
 	});
@@ -269,6 +324,11 @@ function verifyTemplateFolder()
 			if(typeof data === "object"  && "error" in data)
             {
                 window.location.href = themeDirMod + "error.php?error="+data["error"];
+            }
+            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = themeDirMod + "error.php?error="+data["error"];
             }
 			else if(data === true)
 			{
@@ -294,6 +354,11 @@ function copyFiles()
 			{
 				window.location.href = themeDirMod + "error.php?error="+data["error"]+"&page=copyImagesToNewTheme.php";
 			}
+			else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = themeDirMod + "error.php?error="+data["error"];
+            }
 			else if(data === true)
 			{
 				timeoutVar = setInterval(function(){verifyCopiedFiles();},3000);
@@ -315,6 +380,11 @@ function verifyCopiedFiles()
 			if(typeof data === "object"  && "error" in data)
             {
                 window.location.href = themeDirMod + "error.php?error="+data["error"];
+            }
+            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = themeDirMod + "error.php?error="+data["error"];
             }
 			else if(data === true)
 			{

@@ -46,6 +46,11 @@ function updateStatusFunc(updateStatusInner, actionLocal, percentToSave = (docum
             {
                 window.location.href = "../error.php?error="+data["error"];
             }
+            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = "../error.php?error="+data["error"];
+            }
 		},
 		complete()
 		{
@@ -64,6 +69,11 @@ function updateStatusFunc(updateStatusInner, actionLocal, percentToSave = (docum
 			if(typeof data === "object"  && "error" in data)
             {
                 window.location.href = "../error.php?error="+data["error"];
+            }
+            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = "../error.php?error="+data["error"];
             }
 		},
 		complete()
@@ -103,6 +113,11 @@ function downloadBranch()
 			if(typeof data === "object"  && "error" in data)
             {
                 window.location.href = "../error.php?error="+data["error"];
+            }
+            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = "../error.php?error="+data["error"];
             }
 		},
 		complete: function()
@@ -178,7 +193,15 @@ function verifyFilePoll(action, fileLocation,isThere)
 		            {
 		                window.location.href = "../error.php?error="+data["error"];
 		            }
-					verifyPostEnd(data, _data);
+		            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+		            {
+		            	data = JSON.parse(data);
+		            	window.location.href = "../error.php?error="+data["error"];
+		            }
+		            else
+		            {
+						verifyPostEnd(data, _data);
+					}
 				},
 				failure: function(data)
 				{
@@ -312,6 +335,11 @@ function verifyDownloadDownloaded()
 	            {
 	                window.location.href = "../error.php?error="+data["error"];
 	            }
+	            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+	            {
+	            	data = JSON.parse(data);
+	            	window.location.href = "../error.php?error="+data["error"];
+	            }
 				else if(data == true)
 				{
 					updateProgressBar(1);
@@ -356,6 +384,11 @@ function resetUpdateSettings()
             {
                 window.location.href = "../error.php?error="+data["error"]+"&page=resetUpdateFilesToDefault.php";
             }
+            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = "../error.php?error="+data["error"]+"&page=resetUpdateFilesToDefault.php";
+            }
             else
             {
             	verifyCountSuccess = 0;
@@ -381,6 +414,11 @@ function verifyResetChange()
         	if(typeof data === "object"  && "error" in data)
             {
                 window.location.href = "../error.php?error="+data["error"];
+            }
+            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = "../error.php?error="+data["error"];
             }
             else if(data == "finishedUpdate")
             {
@@ -441,7 +479,15 @@ function verifyFileOrDirPoll(action, fileLocation,isThere)
 		            {
 		                window.location.href = "../error.php?error="+data["error"];
 		            }
-					verifyPostEndTwo(data, _data);
+		            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+		            {
+		            	data = JSON.parse(data);
+		            	window.location.href = "../error.php?error="+data["error"];
+		            }
+		            else
+		            {
+						verifyPostEndTwo(data, _data);
+					}
 				},
 				failure: function(data)
 				{
@@ -572,6 +618,11 @@ function ajaxForPreScriptRun(urlForSendAjaxScrip)
 			if(typeof data === "object"  && "error" in data)
             {
                 window.location.href = "../error.php?error="+data["error"];
+            }
+            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = "../error.php?error="+data["error"];
             }
 			else if(data !== true)
 			{
@@ -711,6 +762,11 @@ function ajaxForPostScriptRun(urlForSendAjaxScript)
             {
                 window.location.href = "../error.php?error="+data["error"];
             }
+            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = "../error.php?error="+data["error"];
+            }
 			else if(data !== true)
 			{
 				//verify data
@@ -755,6 +811,11 @@ function ajaxForRedirectScript(urlForSendMainRedAjax)
 	            {
 	                window.location.href = "../error.php?error="+data["error"];
 	            }
+	            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+	            {
+	            	data = JSON.parse(data);
+	            	window.location.href = "../error.php?error="+data["error"];
+	            }
 				window.location.href = data;
 			},
 			failure: function(data)
@@ -786,9 +847,17 @@ function removeExtractedDir()
             {
                 window.location.href = "../error.php?error="+data["error"];
             }
-			//verify if downloaded
-			updateText("Verifying that TMP files were removed");
-			verifyFile("removeDirUpdate", "../../update/downloads/updateFiles/extracted/", false);
+            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = "../error.php?error="+data["error"];
+            }
+            else
+            {
+				//verify if downloaded
+				updateText("Verifying that TMP files were removed");
+				verifyFile("removeDirUpdate", "../../update/downloads/updateFiles/extracted/", false);
+			}
 		},
 		failure: function(data)
 		{
@@ -819,9 +888,17 @@ function removeDownloadedZip()
             {
                 window.location.href = "../error.php?error="+data["error"];
             }
-			//verify if downloaded
-			updateText("Verifying that TMP files were removed");
-			verifyFile("removeZipFile", "../../update/downloads/updateFiles/updateFiles.zip", false);
+            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = "../error.php?error="+data["error"];
+            }
+            else
+            {
+				//verify if downloaded
+				updateText("Verifying that TMP files were removed");
+				verifyFile("removeZipFile", "../../update/downloads/updateFiles/updateFiles.zip", false);
+			}
 		},
 		failure: function(data)
 		{
@@ -845,9 +922,17 @@ function finishedUpdate()
             {
                 window.location.href = "../error.php?error="+data["error"];
             }
-			retryCount = 0;
-			verifyCountSuccess = 0;
-			verifyFileTimer = setInterval(function(){finishUpdatePollCheck();},2000);
+            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = "../error.php?error="+data["error"];
+            }
+            else
+            {
+				retryCount = 0;
+				verifyCountSuccess = 0;
+				verifyFileTimer = setInterval(function(){finishUpdatePollCheck();},2000);
+			}
 		}
 	});
 }
@@ -871,6 +956,11 @@ function finishUpdatePollCheck()
 			if(typeof data === "object"  && "error" in data)
             {
                 window.location.href = "../error.php?error="+data["error"]+"&page=versionCheck.php";
+            }
+            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = "../error.php?error="+data["error"];
             }
 			else if(data === arrayOfVersions[(versionCountCurrent-1)])
 			{
@@ -924,21 +1014,29 @@ function finishUpdateOneHundredCheck()
                 window.location.href = "../error.php?error="+data["error"]+"&page=verifyVersionInstallComplete.php";
                 return;
             }
-			retryCount++;
-			if(data === true)
-			{
-				verifyCountSuccess++;
-				if(verifyCountSuccess >= successVerifyNum)
+            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = "../error.php?error="+data["error"];
+            }
+            else
+            {
+				retryCount++;
+				if(data === true)
+				{
+					verifyCountSuccess++;
+					if(verifyCountSuccess >= successVerifyNum)
+					{
+						verifyCountSuccess = 0;
+						retryCount = 0;
+						clearInterval(verifyFileTimer);
+						finishedUpdateAfterAjax();
+					}
+				}
+				else
 				{
 					verifyCountSuccess = 0;
-					retryCount = 0;
-					clearInterval(verifyFileTimer);
-					finishedUpdateAfterAjax();
 				}
-			}
-			else
-			{
-				verifyCountSuccess = 0;
 			}
 		},
 		failure: function(data)
