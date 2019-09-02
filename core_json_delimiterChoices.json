@@ -1,0 +1,15 @@
+[
+	{"name":"none","value":"none","checkValue":""},
+	{"name":"\/","value":"\/"},
+	{"name":"~","value":"~"},
+	{"name":"space","value":" "},
+	{"name":"[","value":"["},
+	{"name":"]","value":"]"},
+	{"name":"(","value":"("},
+	{"name":")","value":")"},
+	{"name":"-","value":"-"},
+	{"name":":","value":":"},
+	{"name":".","value":"."},
+	{"name":",","value":","},
+	{"name":"+","value":"+"}
+]

@@ -1,0 +1,12 @@
+[
+	{"name":"Default","value":"default"},
+	{"name":"Hidden","value":"hidden"},
+	{"name":"hh:mm:ss","value":"hh:|mm:|ss"},
+	{"name":"DD\/MM\/YYYY","value":"DD\/|MM\/|YYYY"},
+	{"name":"MM\/DD\/YYYY","value":"MM\/|DD\/|YYYY"},
+	{"name":"DD\/MM","value":"DD\/|MM"},
+	{"name":"MM\/DD\/YYYY hh:mm:ss","value":"MM\/|DD\/|YYYY |hh:|mm:|ss"},
+	{"name":"DD\/MM\/YYYY hh:mm:ss","value":"DD\/|MM\/|YYYY |hh:|mm:|ss"},
+	{"name":"YYYY\/MM\/DD hh:mm:ss","value":"YYYY\/|MM\/|DD |hh:|mm:|ss"},
+	{"name":"Custom","value":"custom"}
+]
