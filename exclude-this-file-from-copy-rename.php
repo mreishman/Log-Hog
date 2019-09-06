@@ -1,3 +1,3 @@
 <?php
-rename("../../../../core/php/performSettingsInstallActionTmp.php", "../../../../core/php/performSettingsInstallAction.php");
+rename("../../../../core/php/performSettingsInstallUpdateActionTmp.php", "../../../../core/php/performSettingsInstallUpdateAction.php");
 echo json_encode(true);
