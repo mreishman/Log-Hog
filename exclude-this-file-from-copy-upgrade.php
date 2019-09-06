@@ -5,7 +5,7 @@
 	<link rel="stylesheet" type="text/css" href="../../../../core/template/theme.css">
 	<link rel="stylesheet" type="text/css" href="../../../../core/template/upgrade.css">
 	<link rel="icon" type="image/png" href="../../../../core/img/favicon.png" />
-	<script type="text/javascript" src="../../../../core/js/jquery.js" />
+	<script src="../../../../core/js/jquery.js" /></script>
 </head>
 <body>
 <div id="upgradeStatusPopup">
