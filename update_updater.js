@@ -17,6 +17,58 @@ var successVerifyNum = 4;
 var installUpdatePoll = null;
 var totalCounterInstall = 0;
 
+
+function pickNextAction()
+{
+	if(updateStatus == "Downloading Zip Files For ")
+	{
+		downloadBranch();
+	}
+	else if(updateStatus == "Extracting Zip Files For ")
+	{
+		//already downloaded, verify download then extract
+		document.getElementById('innerDisplayUpdate').innerHTML = settingsForBranchStuff['versionList'][versionToUpdateTo]['releaseNotes'];
+		updateProgressBar(10);
+		unzipBranch();
+	}
+	else if(updateStatus == 'preUpgrade Scripts')
+	{
+		document.getElementById('innerDisplayUpdate').innerHTML = settingsForBranchStuff['versionList'][versionToUpdateTo]['releaseNotes'];
+		updateProgressBar(20);
+		preScriptRun();
+	}
+	else if(updateStatus == 'Copying Files')
+	{
+		downloadBranch();
+	}
+	else if(updateStatus == 'postUpgrade Scripts')
+	{
+		document.getElementById('innerDisplayUpdate').innerHTML = settingsForBranchStuff['versionList'][versionToUpdateTo]['releaseNotes'];
+		updateProgressBar(75);
+		postScriptRun();
+	}
+	else if(updateStatus == "Removing Extracted Files")
+	{
+		//remove extracted files
+		document.getElementById('innerDisplayUpdate').innerHTML = settingsForBranchStuff['versionList'][versionToUpdateTo]['releaseNotes'];
+		updateProgressBar(80);
+		removeExtractedDir();
+	}
+	else if(updateStatus == "Removing Zip File")
+	{
+		updateProgressBar(90);
+		document.getElementById('innerDisplayUpdate').innerHTML = settingsForBranchStuff['versionList'][versionToUpdateTo]['releaseNotes'];
+		//remove zip
+		removeDownloadedZip();
+	}
+	else if(updateStatus == "finishedUpdate")
+	{
+		updateProgressBar(98);
+		document.getElementById('innerDisplayUpdate').innerHTML = settingsForBranchStuff['versionList'][versionToUpdateTo]['releaseNotes'];
+		finishedUpdate();
+	}
+}
+
 function updateProgressBar(additonalPercent)
 {
 	percent = percent + additonalPercent;
