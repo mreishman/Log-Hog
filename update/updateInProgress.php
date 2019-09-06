@@ -12,7 +12,8 @@ $baseUrl = "../local/".$currentSelectedTheme."/";
 require_once($baseUrl.'conf/config.php');
 require_once('../core/php/configStatic.php');
 require_once('../core/php/updateProgressFile.php');
-require_once('../core/php/settingsInstallUpdate.php');
+require_once('../core/php/class/settingsInstallUpdate.php');
+$settingsInstallUpdate = new settingsInstallUpdate();
 $cssVersion = date("YmdHis");
 ?>
 <!doctype html>
