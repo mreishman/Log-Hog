@@ -226,6 +226,7 @@ if(count($arrayOfVersions) === 0)
 	)
 ); ?>
 <script type="text/javascript">
+	<?php echo "var formKey = \"".$session->outputKey()."\";"; ?>
 	var updateStatus = '<?php echo $updateStatus; ?>'
 	var versionToUpdateTo = "<?php echo $versionToUpdate; ?>";
 	var settingsForBranchStuff = JSON.parse('<?php echo json_encode($configStatic);?>');
