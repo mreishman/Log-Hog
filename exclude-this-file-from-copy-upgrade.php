@@ -144,7 +144,7 @@
 							$("#step4").show();
 							stepFour();
 						}
-						else if(action === 3)
+						else if(action === 5)
 						{
 							$("#step5").hide();
 							$("#step5Check").show();
@@ -218,7 +218,7 @@
 	}
 	function end()
 	{
-		window.location.href = "../../../Updater.php";
+		window.location.href = "../../../updater.php";
 	}
 </script>
 </html>
