@@ -1,7 +1,7 @@
 <?php
 
 $versionCheckArray = array(
-	'version'		=> '8.2',
+	'version'		=> '8.3',
 	'versionList'		=> array(
 		'2.0.1'	        => array(
 			'branchName'	=> '2.0.1Update',
@@ -352,6 +352,13 @@ $versionCheckArray = array(
 			'installSize'   => 9838503,
 			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/8.2.png',
 			'releaseNotes'	=> "<ul><li>Features<ul><li>Pause individual logs from log sidebar</li><li>Refresh individual logs from log sidebar</li><li>Added a button at the top of logs allow for loading more lines of the current log (increase line number by current slice size)</li><li>Added sidebar buttons for preset groups (click to auto select a group of groups). Save current selection with save buttons below.</li><li>Added setting to always load last sessions logs / layout on initial load.</li><li>Added setting to invert the direction of logs (top to bottom or bottom to top).</li><li>Added scroll to top button</li></ul></li><li>Bug Fixes<ul><li>Reduced size of Log-Hog install by removing duplicate images and inverting them in css</li><li>Correct images should load on theme change without cache clear</li><li>Added button to close search on index when open</li><li>New error type added to update check download action</li></ul></li></ul>"
+		),
+		'8.3'			=> array(
+			'branchName'	=> '8.3Update',
+			'downloadSize'  => ,
+			'installSize'   => ,
+			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/8.2.png',
+			'releaseNotes'	=> "<ul><li>Features<ul><li>Added setting to disable same page settings</li><li>Added open in new tab to right click menu for all settings pages</li><li>Removed more images that were not needed, freeing up some space</li><li>Added option for different styles of log count in log tabs</li><li>Added form keys validation to almost all ajax requests</li></ul></li><li>Bug Fixes<ul><li>Dev tools static page title highlight is now correct</li><li>Added php version to status page</li><li>Fixed bug with int value on update check and file size download</li><li>Fixed bug with notification text color in some themes</li><li>Fixed js bug with devtools and saving on index page menu</li></ul></li></ul>"
 		),
 	)
 );
