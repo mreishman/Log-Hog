@@ -102,8 +102,8 @@
 	{
 		verifyCount = verifyCountLocal;
 		verifyCountSuccess = verifyCountSuccessLocal;
-		$("#checkProgress").value = verifyCountSuccessLocal;
-		$("#checkAll").value = verifyCountLocal;
+		$("#checkProgress").val = verifyCountSuccessLocal;
+		$("#checkAll").val = verifyCountLocal;
 	}
 	function start()
 	{
