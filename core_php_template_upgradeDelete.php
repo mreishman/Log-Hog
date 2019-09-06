@@ -1,5 +1,13 @@
 <!doctype html>
 <?php
+require_once("../../../core/php/class/core.php");
+$core = new core();
+require_once("../../../core/php/class/session.php");
+$session = new session();
+if(!$session->startSession())
+{
+	$core->echoErrorJavaScript("../../../", "", 17);
+}
 $baseUrl = "../../../core/";
 if(file_exists('../../../local/layout.php'))
 {
@@ -9,8 +17,6 @@ if(file_exists('../../../local/layout.php'))
 	$baseUrl .= $currentSelectedTheme."/";
 }
 require_once($baseUrl."conf/config.php");
-require_once("../../../core/php/class/core.php");
-$core = new core();
 require_once("../../../core/conf/config.php");
 require_once("../../../core/php/configStatic.php");
 $currentTheme = $core->loadSpecificVar($defaultConfig, $config, "currentTheme");
