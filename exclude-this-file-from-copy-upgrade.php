@@ -175,7 +175,7 @@
 		$.ajax({
 			url: "exclude-this-file-from-copy-remove.php",
 			dataType: "json",
-			data: dataSend,
+			data: {},
 			type: "POST",
 			success(data)
 			{
@@ -198,7 +198,7 @@
 		$.ajax({
 			url: "exclude-this-file-from-copy-rename.php",
 			dataType: "json",
-			data: dataSend,
+			data: {},
 			type: "POST",
 			success(data)
 			{
