@@ -86,7 +86,7 @@ class core
 			}
 			function eventThrowException(e)
 			{
-				Sentry.captureException(new Error(e);
+				Sentry.captureException(new Error(e));
 				";
 				if($branchSelected === 'beta')
 				{
