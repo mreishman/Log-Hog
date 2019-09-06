@@ -4,7 +4,6 @@
 	<link rel="stylesheet" type="text/css" href="../../../../core/template/base.css">
 	<link rel="stylesheet" type="text/css" href="../../../../core/template/theme.css">
 	<link rel="stylesheet" type="text/css" href="../../../../core/template/upgrade.css">
-	<?php require_once("../../../../core/php/customCSS.php"); ?>
 	<link rel="icon" type="image/png" href="../../../../core/img/favicon.png" />
 	<script type="text/javascript" src="../../../../core/js/jquery.js" />
 </head>
