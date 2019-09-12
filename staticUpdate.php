@@ -80,3 +80,4 @@ var saveVerifyImage = <?php echo json_encode($core->generateImage(
 	)
 )); ?>
 </script>
+<form id="settingsInstallUpdate" action="update/updater.php" method="post" style="display: none"></form>
