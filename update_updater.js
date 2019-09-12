@@ -81,6 +81,7 @@ function updateProgressBar(additonalPercent)
 
 function updateText(text)
 {
+	console.log(text);
 	document.getElementById("innerSettingsText").innerHTML = "<p>"+text+"</p>"+document.getElementById("innerSettingsText").innerHTML;
 }
 
