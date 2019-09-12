@@ -971,14 +971,18 @@ function finishedUpdate()
 		type: "POST",
 		complete: function(data)
 		{
+console.log(data);
 			if(typeof data === "object"  && "error" in data)
             {
-                window.location.href = "../error.php?error="+data["error"];
+console.log('here');
+                //window.location.href = "../error.php?error="+data["error"];
             }
             else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
             {
+console.log('probably here');
             	data = JSON.parse(data);
-            	window.location.href = "../error.php?error="+data["error"];
+console.log(data);
+            	//window.location.href = "../error.php?error="+data["error"];
             }
             else
             {
