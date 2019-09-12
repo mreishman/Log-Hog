@@ -969,19 +969,15 @@ function finishedUpdate()
 		dataType: "json",
 		data: {action: "updateConfigStatic", versionToUpdate: arrayOfVersions[(versionCountCurrent-1)], formKey},
 		type: "POST",
-		complete: function(data)
+		success: function(data)
 		{
-console.log(data);
 			if(typeof data === "object"  && "error" in data)
             {
-console.log('here');
                 //window.location.href = "../error.php?error="+data["error"];
             }
             else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
             {
-console.log('probably here');
             	data = JSON.parse(data);
-console.log(data);
             	//window.location.href = "../error.php?error="+data["error"];
             }
             else
