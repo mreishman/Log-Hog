@@ -80,6 +80,7 @@ function updateProgressBar(additonalPercent)
 
 function updateText(text)
 {
+	console.log(text); //for a better log incase you need it and page redirects
 	document.getElementById("innerSettingsText").innerHTML = "<p>"+text+"</p>"+document.getElementById("innerSettingsText").innerHTML;
 }
 
@@ -967,7 +968,7 @@ function finishedUpdate()
 		dataType: "json",
 		data: {action: "updateConfigStatic", versionToUpdate: arrayOfVersions[(versionCountCurrent-1)], formKey},
 		type: "POST",
-		complete: function(data)
+		success: function(data)
 		{
 			if(typeof data === "object"  && "error" in data)
             {
