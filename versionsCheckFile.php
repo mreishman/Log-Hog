@@ -357,8 +357,8 @@ $versionCheckArray = array(
 			'branchName'	=> '8.3Update',
 			'downloadSize'  => 934308,
 			'installSize'   => 9898409,
-			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/8.2.png',
-			'releaseNotes'	=> "<ul><li>Features<ul><li>Added setting to disable same page settings</li><li>Added open in new tab to right click menu for all settings pages</li><li>Removed more images that were not needed, freeing up some space</li><li>Added option for different styles of log count in log tabs</li><li>Added form keys validation to almost all ajax requests</li></ul></li><li>Bug Fixes<ul><li>Dev tools static page title highlight is now correct</li><li>Added php version to status page</li><li>Fixed bug with int value on update check and file size download</li><li>Fixed bug with notification text color in some themes</li><li>Fixed js bug with devtools and saving on index page menu</li></ul></li></ul>"
+			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/8.3.png',
+			'releaseNotes'	=> "<ul><li>Features<ul><li>Added setting to disable same page settings</li><li>Added open in new tab to right click menu for all settings pages</li><li>Removed more images that were not needed, freeing up some space</li><li>Added option for different styles of log count in log tabs</li><li>Added form keys validation to almost all ajax requests</li></ul></li><li>Bug Fixes<ul><li>Dev tools static page title highlight is now correct</li><li>Added php version to status page</li><li>Fixed bug with int value on update check and file size download</li><li>Fixed bug with notification text color in some themes</li><li>Fixed js bug with devtools and saving on index page menu</li><li>Fixed updater bug where reload of page during update would restart update instead of starting where left off</li><li>Fixed form issue with staticUpdate.php</li></ul></li></ul>"
 		),
 	)
 );
