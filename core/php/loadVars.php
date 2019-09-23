@@ -129,10 +129,6 @@ foreach ($defaultGlobalConfig as $key => $value)
 	}
 	elseif(array_key_exists($key, $config) && $vars->checkIfShouldLoad($loadCustomConfigVars, $key))
 	{
-		$$key = $config[$key];
-	}
-	elseif(array_key_exists($key, $config) && $vars->checkIfShouldLoad($loadCustomConfigVars, $key))
-	{
 		$$key = $globalConfig[$key];
 	}
 
