@@ -79,6 +79,18 @@ if($boolForUpgrade && !$vars->checkIfURIContains($arrayOfUrlsToCheck))
 		exit();
 	}
 
+	$globalConfVersion = 0;
+	if(isset($globalConfig['globalConfVersion']))
+	{
+		$globalConfVersion = $globalConfig['globalConfVersion'];
+	}
+	if($globalConfVersion !== $defaultGlobalConfig['globalConfVersion'])
+	{
+		//redirect to upgrade script for config page
+		header("Location: ".$varToIndexDir."core/php/template/upgradeGlobalConfig.php");
+		exit();
+	}
+
 	//check if any files need to be removed
 	$jsonFiles = file_get_contents($varToIndexDir."core/json/staticDeletedFiles.json");
 	$arrayOfFilesDeleted = json_decode($jsonFiles, true);

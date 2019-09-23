@@ -17,6 +17,8 @@ if(file_exists('local/layout.php'))
 }
 require_once($baseUrl.'conf/config.php');
 require_once($baseURLToMain.'core/conf/config.php');
+require_once($baseURLToMain.'local/conf/globalConfig.php');
+require_once($baseURLToMain.'core/conf/globalConfig.php');
 require_once($baseURLToMain.'core/php/configStatic.php');
 require_once($baseURLToMain.'core/php/loadVars.php');
 ?>
