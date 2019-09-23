@@ -25,9 +25,9 @@ else
 	$config = array();
 	$boolForUpgrade = false;
 }
-if(file_exists($baseUrl.'conf/globalConfig.php'))
+if(file_exists($varToIndexDir.'local/conf/globalConfig.php'))
 {
-	require_once($baseUrl.'conf/globalConfig.php');
+	require_once($varToIndexDir.'local/conf/globalConfig.php');
 }
 else
 {
@@ -381,6 +381,7 @@ else
 	if(!isset($session))
 	{
 		include($varToIndexDir."core/php/class/session.php");
+		$session = new Session();
 		$session->getInstance();
 	}
 	echo "var formKey = \"".$session->outputKey()."\";";
