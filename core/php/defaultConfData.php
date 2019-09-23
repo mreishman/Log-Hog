@@ -288,28 +288,9 @@ $defaultConfigMoreData = array(
 			0									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
-					"key"								=>	"branchSelected",
-					"name"								=>	"Branch",
-					"options"							=>	$branchOptionsArr,
-					"type"								=>	"dropdown"
-				)
-			),
-			1									=>	array(
-				"type"								=>	"single",
-				"var"								=>	array(
 					"key"								=>	"saveButtonAlwaysVisible",
 					"name"								=>	"Force save button visibility",
 					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				)
-			),
-			2									=>	array(
-				"info"								=>	"This is for platforms where saving files might not be in sync with containers. Increasing from one will make saves take longer, but it will be more accurate if there is that sync delay",
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"successVerifyNum",
-					"name"								=>	"Save verification number",
-					"options"							=>	$oneToFiveArr,
 					"type"								=>	"dropdown"
 				)
 			)
@@ -614,6 +595,50 @@ $defaultConfigMoreData = array(
 				)
 			),
 		),
+	),
+	"globalConfig"						=>	array(
+		"id"								=>	"globalAdvanced",
+		"name"								=>	"Global Settings",
+		"vars"								=>	array(
+			0									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"branchSelected",
+					"name"								=>	"Branch",
+					"options"							=>	$branchOptionsArr,
+					"type"								=>	"dropdown"
+				)
+			),
+			1									=>	array(
+				"info"								=>	"This is for platforms where saving files might not be in sync with containers. Increasing from one will make saves take longer, but it will be more accurate if there is that sync delay",
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"successVerifyNum",
+					"name"								=>	"Save verification number",
+					"options"							=>	$oneToFiveArr,
+					"type"								=>	"dropdown"
+				)
+			),
+			2									=> array(
+				"info"								=>	"Base url hit when downloading Log-Hog version list. Default: https://github.com/mreishman/Log-Hog/archive/",
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"baseUrlUpdate",
+					"name"								=>	"Base Update Url",
+					"type"								=>	"text"
+				)
+			),
+			3									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"info"								=>	"Only for development",
+					"key"								=>  "enableDevBranchDownload",
+					"name"								=>	"Enable Dev Branch",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			)
+		)
 	),
 	"logFormatVars"						=>	array(
 		"id"								=>	"settingsLogFormatVars",

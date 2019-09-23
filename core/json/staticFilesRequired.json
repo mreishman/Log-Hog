@@ -8,6 +8,7 @@
 	{"name":"formatLog.js","type":"js"},
 	{"name":"fullscreenMenu.js","type":"js"},
 	{"name":"groups.js","type":"js"},
+	{"name":"globalConfig.js","type":"js"},
 	{"name":"jscolor.js","type":"js"},
 	{"name":"loghogDownloadJS.js","type":"js"},
 	{"name":"main.js","type":"js"},

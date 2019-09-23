@@ -71,9 +71,9 @@ if($enableHistory === "false")
 	</div>
 	<span id="mainMenuNotificationsText" class="fullScreenMenuText">Notifications</span>
 </li>
-<li id="mainMenuProfiles">
+<!-- <li id="mainMenuProfiles">
 	<span id="mainMenuProfilesText" class="fullScreenMenuText">Profiles</span>
-</li>
+</li> -->
 <li id="mainMenuSettings" onclick="toggleSettings();"  >
 	<div class="menuImageDiv">
 		<?php echo $core->generateImage(

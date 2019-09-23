@@ -561,6 +561,9 @@ function hideSettingsStuff()
 	$("#settingsAdvancedDevBranchMenu").removeClass("selected");
 	document.getElementById("settingsAdvancedDevConfig").style.display = "none";
 	$("#settingsAdvancedDevConfigMenu").removeClass("selected");
+
+	document.getElementById("settingsGlobalAdvanced").style.display = "none";
+	$("#settingsGlobalAdvancedMenu").removeClass("selected");
 }
 
 function hideAboutStuff()

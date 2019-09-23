@@ -150,6 +150,12 @@
 		<li id="settingsAdvancedDevConfigMenu" <?php if($developmentTabEnabled !== "true"){ echo "style = \"display:none;\"";} ?> onclick="toggleSettingSection({id: 'settingsAdvancedDevConfig', formId: 'devConfig'});" >
 			Config
 		</li>
+		<li class="menuTitle fullScreenMenuText subMenuTitle">
+			Global Settings
+		</li>
+		<li id="settingsGlobalAdvancedMenu" onclick="toggleSettingSection({id: 'settingsGlobalAdvanced',formId: 'globalAdvanced'});" >
+			Advanced
+		</li>
 	<?php else: ?>
 		<li onclick="window.location.href = './settings/main.php';" >
 		Main <?php echo $externalLinkImage; ?>
@@ -357,6 +363,12 @@
 	<div id="settingsAdvancedDevConfig" style="display: none;">
 		<?php
 			require_once("core/php/template/devConfigSettings.php");
+		?>
+	</div>
+	<div id="settingsGlobalAdvanced" style="display: none;">
+		<?php
+		$currentSection = "globalConfig";
+		include('core/php/template/varTemplate.php');
 		?>
 	</div>
 </div>
