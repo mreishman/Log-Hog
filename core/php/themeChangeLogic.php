@@ -19,6 +19,8 @@ require_once('../../local/layout.php');
 $baseUrl = "../../local/".$currentSelectedTheme."/";
 require_once($baseUrl.'conf/config.php');
 require_once('../../core/conf/config.php');
+require_once('../../local/conf/globalConfig.php');
+require_once('../../core/conf/globalConfig.php');
 require_once('../../core/php/configStatic.php');
 //get current selected theme directory and settings
 $currentTheme = $core->loadSpecificVar($defaultConfig, $config, "currentTheme");

@@ -18,6 +18,8 @@ if(file_exists('../../../local/layout.php'))
 }
 require_once($baseUrl."conf/config.php");
 require_once("../../../core/conf/config.php");
+require_once('../../../local/conf/globalConfig.php');
+require_once('../../../core/conf/globalConfig.php');
 require_once("../../../core/php/configStatic.php");
 $currentTheme = $core->loadSpecificVar($defaultConfig, $config, "currentTheme");
 if(is_dir("../../../local/".$currentSelectedTheme."/Themes/".$currentTheme))
