@@ -179,7 +179,7 @@ $needRefresh = $core->generateImage(
 			<span id="stars3" style="display: block;" ></span>
 		</div>
 		<div id="popupSelectContainer" class="backgroundForMenus addBorder menu"  style="display: none;"></div>
-		<div style="display: inline-block; position: absolute; top: 0; left: 0; z-index: 30;" >
+		<div style="display: inline-block; position: absolute; top: 0; left: 0; z-index: 5;" >
 			<div id="notificationIcon">
 				<span onclick="toggleNotifications();" id="notificationBadge"></span>
 			</div>
