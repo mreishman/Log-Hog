@@ -37,13 +37,20 @@ if(file_exists($baseUrl.'conf/config.php'))
 	// Ok if it doesn't exist, user might have deleted to reset settings or something?
 }
 
-if (!file_exists("../../core/conf/config.php") || !is_readable("../../core/conf/config.php"))
+$globalConfig = array();
+if(file_exists('../../local/conf/globalConfig.php'))
+{
+	require_once('../../local/conf/globalConfig.php');
+	// Ok if it doesn't exist, user might have deleted to reset settings or something?
+}
+
+if (!file_exists("../../core/conf/globalConfig.php") || !is_readable("../../core/conf/globalConfig.php"))
 {
 	echo json_encode(8);
 	exit();
 }
+require_once('../../core/conf/globalConfig.php');
 require_once('../../core/conf/config.php');
-
 if(!isset($defaultConfig))
 {
 	echo json_encode(10);
@@ -68,8 +75,8 @@ if($backupNumConfigEnabled === "true")
 		{
 			$addonNum = $i-1;
 		}
-		$fileNameOld = ''.$baseUrl.'conf/config'.$addonNum.'.php';
-		$fileNameNew = ''.$baseUrl.'conf/config'.$i.'.php';
+		$fileNameOld = '../../local/conf/globalConfig'.$addonNum.'.php';
+		$fileNameNew = '../../local/conf/globalConfig'.$i.'.php';
 		if (file_exists($fileNameOld))
 		{
 			try
@@ -85,28 +92,14 @@ if($backupNumConfigEnabled === "true")
 	}
 }
 
-$fileName = ''.$baseUrl.'conf/config.php';
+$fileName = '../../local/conf/globalConfig.php';
 
 $newInfoForConfig = "<?php
-	$"."config = array(
+	$"."globalConfig = array(
 	";
-foreach ($defaultConfig as $key => $value)
+foreach ($defaultGlobalConfig as $key => $value)
 {
-	if(
-		$$key !== $defaultConfig[$key] &&
-		(
-			!isset($themeDefaultSettings) ||
-			isset($themeDefaultSettings) && !array_key_exists($key, $themeDefaultSettings) ||
-			isset($themeDefaultSettings) && array_key_exists($key, $themeDefaultSettings) && $themeDefaultSettings[$key] !== $$key
-		)
-		||
-		$$key === $defaultConfig[$key] && isset($themeDefaultSettings) && array_key_exists($key, $themeDefaultSettings) && $themeDefaultSettings[$key] !== $$key
-		||
-		isset($arrayOfCustomConfig[$key])
-	)
-	{
-		$newInfoForConfig .= $core->putIntoCorrectFormat($key, $$key, $value);
-	}
+	$newInfoForConfig .= $core->putIntoCorrectFormat($key, $$key, $value);
 }
 $newInfoForConfig .= "
 	);

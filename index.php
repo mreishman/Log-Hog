@@ -48,6 +48,16 @@ if(!file_exists($baseUrl.'conf/config.php'))
 }
 require_once($baseUrl.'conf/config.php');
 require_once('core/conf/config.php');
+require_once('core/conf/globalConfig.php');
+
+if(is_file($baseUrl.'conf/globalConfig.php'))
+{
+	require_once($baseUrl.'conf/globalConfig.php');
+}
+else
+{
+	$globalConfig = array();
+}
 $currentTheme = $core->loadSpecificVar($defaultConfig, $config, "currentTheme");
 $defaultSettingsDir = 'core/Themes/'.$currentTheme."/defaultSetting.php";
 if(is_dir('local/'.$currentSelectedTheme.'/Themes/'.$currentTheme))
@@ -60,11 +70,6 @@ require_once('core/php/loadVars.php');
 require_once('core/php/loadVarsToJs.php');
 require_once('core/php/updateCheck.php');
 require_once("core/php/defaultConfData.php");
-
-if(!class_exists('ZipArchive') && $autoCheckUpdate === "true")
-{
-	$core->echoErrorJavaScript("", "ZipArchive is not installed", 11);
-}
 
 $daysSince = $update->calcuateDaysSince($configStatic['lastCheck']);
 

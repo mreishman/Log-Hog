@@ -25,9 +25,18 @@ else
 	$config = array();
 	$boolForUpgrade = false;
 }
+if(file_exists($baseUrl.'conf/globalConfig.php'))
+{
+	require_once($baseUrl.'conf/globalConfig.php');
+}
+else
+{
+	$globalConfig = array();
+}
 require_once($varToIndexDir."core/php/class/vars.php");
 $vars = new vars();
 require_once($varToIndexDir.'core/conf/config.php');
+require_once($varToIndexDir.'core/conf/globalConfig.php');
 $URI = $_SERVER['REQUEST_URI'];
 $arrayOfUrlsToCheck = array("upgradeLayout","upgradeConfig","core/php/template/upgrade","upgradeTheme","themeChangeLogic","settingsSaveAjax","example","setup","upgradeDelete","restore");
 if($boolForUpgrade && !$vars->checkIfURIContains($arrayOfUrlsToCheck))
@@ -104,6 +113,29 @@ foreach ($defaultConfig as $key => $value)
 	{
 		$$key = $themeDefaultSettings[$key];
 	}
+	elseif(array_key_exists($key, $config) && $vars->checkIfShouldLoad($loadCustomConfigVars, $key))
+	{
+		$$key = $globalConfig[$key];
+	}
+	$loadVarsArray[$key] = $$key;
+}
+
+foreach ($defaultGlobalConfig as $key => $value)
+{
+	$$key = $value;
+	if(isset($_POST[$key]))
+	{
+		$$key = $_POST[$key];
+	}
+	elseif(array_key_exists($key, $config) && $vars->checkIfShouldLoad($loadCustomConfigVars, $key))
+	{
+		$$key = $config[$key];
+	}
+	elseif(array_key_exists($key, $config) && $vars->checkIfShouldLoad($loadCustomConfigVars, $key))
+	{
+		$$key = $globalConfig[$key];
+	}
+
 	$loadVarsArray[$key] = $$key;
 }
 
