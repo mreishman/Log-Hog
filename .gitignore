@@ -9,3 +9,4 @@ tmp/*
 !tmp/loghogBackupHistoryLogs/placeholder.txt
 session/*
 !session/.htaccess
+local/conf/globalConfig*

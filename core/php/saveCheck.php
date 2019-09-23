@@ -39,6 +39,13 @@ if(file_exists($baseUrl.'conf/config.php'))
 }
 require_once($varToIndexDir.'core/conf/config.php');
 
+$globalConfig = array();
+if(file_exists($varToIndexDir.'local/conf/globalConfig.php'))
+{
+	require_once($varToIndexDir.'local/conf/globalConfig.php');
+}
+require_once($varToIndexDir.'core/conf/globalConfig.php');
+
 $currentTheme = $core->loadSpecificVar($defaultConfig, $config, "currentTheme");
 if(is_dir($varToIndexDir.'local/'.$currentSelectedTheme.'/Themes/'.$currentTheme))
 {
