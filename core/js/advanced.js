@@ -14,7 +14,7 @@ function submitRevert()
 
 function resetUpdateNotification()
 {
-	displayLoadingPopup();
+	displayLoadingPopup(dirForAjaxSend, "Reseting Update Notification");
 	var data = $("#devAdvanced2").serializeArray();
 	data.push({name: "formKey", value: formKey});
 	$.ajax({
@@ -78,7 +78,7 @@ function showConfigPopup()
 {
 	try
 	{
-		displayLoadingPopup();
+		displayLoadingPopup(dirForAjaxSend, "Loading Config Versions");
 		$.getJSON(dirForAjaxSend + "core/php/configVersionsPopup.php", {}, function(data)
 		{
 			if(data["backupCopiesPresent"])
@@ -120,7 +120,7 @@ function showConfigPopup()
 
 function restoreToVersion(restoreTo)
 {
-	displayLoadingPopup();
+	displayLoadingPopup(dirForAjaxSend, "Loading Restore Versions");
 	var urlForSend = dirForAjaxSend + "core/php/restoreConfig.php?format=json";
 	var data = {restoreTo, formKey};
 	$.ajax(
@@ -153,7 +153,7 @@ function clearBackupFiles()
 {
 	try
 	{
-		displayLoadingPopup();
+		displayLoadingPopup(dirForAjaxSend, "Clearing Files");
 		$.getJSON(dirForAjaxSend + "core/php/clearConfigBackups.php", {}, function(data)
 		{
 			if(typeof data === "object"  && "error" in data)
@@ -186,7 +186,7 @@ function verifyNoConfigBackups()
 {
 	try
 	{
-		displayLoadingPopup();
+		displayLoadingPopup(dirForAjaxSend, "Verifying...");
 		$.getJSON(dirForAjaxSend + "core/php/configVersionsPopup.php", {}, function(data)
 		{
 			if(!data["backupCopiesPresent"])
