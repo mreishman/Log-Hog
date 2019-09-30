@@ -5,6 +5,14 @@ function toggleFullScreenMenu(force = false)
 	closeLogPopup();
 	if(document.getElementById("fullScreenMenu").style.display === "none")
 	{
+		if(developmentTabEnabled === "true")
+		{
+			$(".DevLink").show();
+		}
+		else
+		{
+			$(".DevLink").hide()
+		}
 		document.getElementById("menu").style.zIndex = "4";
 		loadImgFromData("mainMenuImage");
 		document.getElementById("fullScreenMenu").style.display = "block";
