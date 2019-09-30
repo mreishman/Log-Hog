@@ -40,71 +40,99 @@
 		</select>
 	</span>
 	<br>
-	<br>
-	Case Insensitive:
-	<span class="selectDiv" >
-		<select onchange="changeFilterCase();" id="caseInsensitiveSearch">
-			<option <?php if ($caseInsensitiveSearch === "true"){ echo "selected"; }?> value="true">True</option>
-			<option <?php if ($caseInsensitiveSearch === "false"){ echo "selected"; }?> value="false">False</option>
-		</select>
-	</span>
-	<br>
-	<br>
-	Invert:
-	<span class="selectDiv" >
-		<select onchange="changeFilterInvert();" id="filterInvert">
-			<option <?php if ($filterInvert === "true"){ echo "selected"; }?> value="true">True</option>
-			<option <?php if ($filterInvert === "false"){ echo "selected"; }?> value="false">False</option>
-		</select>
-	</span>
-	<br>
-	<br>
-	Title Includes Path:
-	<span class="selectDiv" >
-		<select onchange="changeFilterTitleIncludePath();" id="filterTitleIncludePath">
-			<option <?php if ($filterTitleIncludePath === "true"){ echo "selected"; }?> value="true">True</option>
-			<option <?php if ($filterTitleIncludePath === "false"){ echo "selected"; }?> value="false">False</option>
-		</select>
-	</span>
-	<br>
-	<br>
-	Highlight Content Match:
-	<span class="selectDiv" >
-		<select onchange="changeHighlightContentMatch();" id="filterContentHighlight">
-			<option <?php if ($filterContentHighlight === "true"){ echo "selected"; }?> value="true">True</option>
-			<option <?php if ($filterContentHighlight === "false"){ echo "selected"; }?> value="false">False</option>
-		</select>
-	</span>
-	<br>
-	<br>
-	Highlight Entire Line:
-	<span class="selectDiv" >
-		<select onchange="changeHighlightContentMatchLine();" id="filterContentHighlightLine">
-			<option <?php if ($filterContentHighlightLine === "true"){ echo "selected"; }?> value="true">True</option>
-			<option <?php if ($filterContentHighlightLine === "false"){ echo "selected"; }?> value="false">False</option>
-		</select>
-	</span>
-	<br>
-	<br>
-	Filter Content Match:
-	<span class="selectDiv" >
-		<select onchange="changeFilterContentMatch();" id="filterContentLimit">
-			<option <?php if ($filterContentLimit === "true"){ echo "selected"; }?> value="true">True</option>
-			<option <?php if ($filterContentLimit === "false"){ echo "selected"; }?> value="false">False</option>
-		</select>
-	</span>
-	<br>
-	<br>
-	Line Padding:
-	<span class="selectDiv" >
-		<select onchange="changeFilterContentLinePadding();" id="filterContentLinePadding">
-			<?php for($CFC = 0; $CFC < 10; $CFC++): ?>
-				<option <?php if ($filterContentLinePadding === $CFC){ echo "selected"; }?> value="<?php echo $CFC; ?>"><?php echo $CFC; ?></option>
-			<?php endfor; ?>
-		</select>
-	</span>
-	<br>
-	<br>
+	<ul>
+	<?php
+	$arrOfVars = array(
+		array(
+			"type"								=>	"single",
+			"var"								=>	array(
+				"function"							=>	"changeFilterCase",
+				"hideKeyName"						=>	true,
+				"id"								=>	"caseInsensitiveSearch",
+				"key"								=>	"caseInsensitiveSearch",
+				"name"								=>	"Case Insensitive Search",
+				"options"							=>	$trueFalsVars,
+				"type"								=>	"dropdown"
+			)
+		),
+		array(
+			"type"								=>	"single",
+			"var"								=>	array(
+				"function"							=>	"changeFilterInvert",
+				"hideKeyName"						=>	true,
+				"id"								=>	"filterInvert",
+				"key"								=>	"filterInvert",
+				"name"								=>	"Invert Search",
+				"options"							=>	$trueFalsVars,
+				"type"								=>	"dropdown"
+			)
+		),
+		array(
+			"type"								=>	"single",
+			"var"								=>	array(
+				"function"							=>	"changeFilterTitleIncludePath",
+				"hideKeyName"						=>	true,
+				"id"								=>	"filterTitleIncludePath",
+				"key"								=>	"filterTitleIncludePath",
+				"name"								=>	"Filter Title Includes Path",
+				"options"							=>	$trueFalsVars,
+				"type"								=>	"dropdown"
+			)
+		),
+		array(
+			"type"								=>	"single",
+			"var"								=>	array(
+				"function"							=>	"changeHighlightContentMatch",
+				"hideKeyName"						=>	true,
+				"id"								=>	"filterContentHighlightSideBar",
+				"key"								=>	"filterContentHighlight",
+				"name"								=>	"Highlight Content match",
+				"options"							=>	$trueFalsVars,
+				"type"								=>	"dropdown"
+			)
+		),
+		array(
+			"type"								=>	"single",
+			"var"								=>	array(
+				"function"							=>	"changeHighlightContentMatchLine",
+				"hideKeyName"						=>	true,
+				"id"								=>	"filterContentHighlightLine",
+				"key"								=>	"filterContentHighlightLine",
+				"name"								=>	"Hilight Entire Line",
+				"options"							=>	$trueFalsVars,
+				"type"								=>	"dropdown"
+			)
+		),
+		array(
+			"type"								=>	"single",
+			"var"								=>	array(
+				"function"							=>	"changeFilterContentMatch",
+				"hideKeyName"						=>	true,
+				"id"								=>	"filterContentLimitSideBar",
+				"key"								=>	"filterContentLimit",
+				"name"								=>	"Filter Content match",
+				"options"							=>	$trueFalsVars,
+				"type"								=>	"dropdown"
+			),
+		),
+		array(
+			"type"								=>	"single",
+			"var"								=>	array(
+				"function"							=>	"changeFilterContentLinePadding",
+				"hideKeyName"						=>	true,
+				"id"								=>	"filterContentLinePadding",
+				"key"								=>	"filterContentLinePadding",
+				"name"								=>	"Line Padding",
+				"options"							=>	$oneToTenArr,
+				"type"								=>	"dropdown"
+			)
+		)
+	);
+	foreach ($arrOfVars as $arrVar)
+	{
+	 	$settings->varTemplateLogic($arrVar, $loadVarsArray);
+	} ?>
+	</ul>
 </span>
 <?php if($enableMultiLog === "true"): ?>
 	<h3 class="addBorderBottom" >Multi-Log</h3>
@@ -181,21 +209,41 @@ Hide Log Tabs
 	</select>
 </span>
 <h3 class="addBorderBottom">Logs</h3>
-<?php if($advancedLogFormatEnabled === "true"): ?>
-	Advanced Log Format
-	<span class="selectDiv">
-		<select onchange="tmpChangeAdvancedLogFormat();" id="advancedLogFormatEnabled">
-			<option <?php if($advancedLogFormatEnabled === "true"){ echo " selected "; }?>  value="true" >Enabled</option>
-			<option <?php if($advancedLogFormatEnabled === "false"){ echo " selected "; }?>  value="false" >Disabled</option>
-		</select>
-	</span>
-	<br>
-	<br>
-<?php endif; ?>
-Log Direction Invert
-<span class="selectDiv">
-	<select onchange="toggleLogDirectionInvert();" id="logDirectionInvert">
-		<option <?php if($logDirectionInvert === "true"){ echo " selected "; }?>  value="true" >True</option>
-		<option <?php if($logDirectionInvert === "false"){ echo " selected "; }?>  value="false" >False</option>
-	</select>
-</span>
+<ul>
+<?php if($advancedLogFormatEnabled === "true")
+{
+	$settings->varTemplateLogic(
+		array(
+			"type"								=>	"single",
+			"var"								=>	array(
+				"function"							=>	"tmpChangeAdvancedLogFormat",
+				"hideKeyName"						=>	true,
+				"id"								=>	"advancedLogFormatEnabled",
+				"key"								=>	"advancedLogFormatEnabled",
+				"name"								=>	"Advanced Log Format",
+				"options"							=>	$trueFalsVars,
+				"type"								=>	"dropdown"
+			)
+		)
+		,
+		$loadVarsArray
+	);
+}
+$settings->varTemplateLogic(
+		array(
+			"type"								=>	"single",
+			"var"								=>	array(
+				"function"							=>	"toggleLogDirectionInvert",
+				"hideKeyName"						=>	true,
+				"id"								=>	"logDirectionInvert",
+				"key"								=>	"logDirectionInvert",
+				"name"								=>	"Reverse log text",
+				"options"							=>	$trueFalsVars,
+				"type"								=>	"dropdown"
+			)
+		)
+		,
+		$loadVarsArray
+	);
+?>
+</ul>

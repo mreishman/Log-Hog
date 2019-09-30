@@ -34,13 +34,23 @@ function saveAndVerifyMain(idForForm)
 	idForm = "#"+idForForm;
 	displayLoadingPopup(dirForAjaxSend, "Saving...");
 	data = $(idForm).serializeArray();
+	data.push({name: "formKey", value: formKey});
 	$.ajax({
         type: "post",
         url: dirForAjaxSend+"core/php/settingsSaveAjax.php",
         data,
         success(data)
         {
-			if(data !== "true")
+        	if(typeof data === "object"  && "error" in data)
+            {
+                window.location.href = dirForAjaxSend + "error.php?error="+data["error"]+"&page=settingsSaveAjax.php";
+            }
+            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = dirForAjaxSend + "error.php?error="+data["error"]+"&page=settingsSaveAjax.php";
+            }
+			else if(data !== "true")
 			{
 				window.location.href = dirForAjaxSend+"error.php?error="+data+"&page=core/php/settingsSaveAjax.php";
 			}
@@ -66,6 +76,7 @@ function timerVerifySave()
 	if(countForVerifySave < 20)
 	{
 		var urlForSend = dirForAjaxSend+"core/php/saveCheck.php?format=json";
+		data["formKey"] = formKey;
 		$.ajax(
 		{
 			url: urlForSend,
@@ -74,7 +85,16 @@ function timerVerifySave()
 			type: "POST",
 			success(data)
 			{
-				if(data === true)
+				if(typeof data === "object"  && "error" in data)
+				{
+					window.location.href = dirForAjaxSend + "error.php?error="+data["error"]+"&page=saveCheck.php";
+				}
+				else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+	            {
+	            	data = JSON.parse(data);
+	            	window.location.href = dirForAjaxSend + "error.php?error="+data["error"]+"&page=saveCheck.php";
+	            }
+				else if(data === true)
 				{
 					countForVerifySaveSuccess++;
 					if(countForVerifySaveSuccess >= successVerifyNum)
@@ -479,23 +499,47 @@ function refreshCustomCss()
 	{
 		$.ajax({
 			url: "core/php/customIndexCSS.php?format=json",
-			data: {},
+			data: {formKey},
 			type: "POST",
 		success(data)
 		{
-			//add css to bottom of index page
-			$("#initialLoadContent").append(data);
+			if(typeof data === "object"  && "error" in data)
+            {
+                window.location.href = dirForAjaxSend + "error.php?error="+data["error"]+"&page=settingsSaveAjax.php";
+            }
+            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = dirForAjaxSend + "error.php?error="+data["error"]+"&page=settingsSaveAjax.php";
+            }
+            else
+            {
+				//add css to bottom of index page
+				$("#initialLoadContent").append(data);
+			}
 		},
 		});
 
 		$.ajax({
 			url: "core/php/customCSS.php?format=json",
-			data: {},
+			data: {formKey},
 			type: "POST",
 		success(data)
 		{
-			//add css to bottom of index page
-			$("#initialLoadContent").append(data);
+			if(typeof data === "object"  && "error" in data)
+            {
+                window.location.href = dirForAjaxSend + "error.php?error="+data["error"]+"&page=settingsSaveAjax.php";
+            }
+            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = dirForAjaxSend + "error.php?error="+data["error"]+"&page=settingsSaveAjax.php";
+            }
+            else
+            {
+				//add css to bottom of index page
+				$("#initialLoadContent").append(data);
+			}
 		},
 		});
 	}
@@ -507,10 +551,20 @@ function refreshJsVars()
 	{
 		$.ajax({
 			url: "core/php/reloadJsVars.php?format=json",
-			data: {},
+			data: {formKey},
 			type: "POST",
 		success(data)
 		{
+			if(typeof data === "object"  && "error" in data)
+			{
+				window.location.href = "error.php?error="+data["error"]+"&page=reloadJsVars.php";
+				return;
+			}
+			else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = dirForAjaxSend + "error.php?error="+data["error"]+"&page=reloadJsVars.php";
+            }
 			//add css to bottom of index page
 			$("#initialLoadContent").append(data);
 			if(idForFormMain === "settingsPollVars")
@@ -547,12 +601,24 @@ function refreshAddonLinks()
 	{
 		$.ajax({
 			url: "core/php/reloadAddonLinks.php?format=json",
-			data: {},
+			data: {formKey},
 			type: "POST",
 		success(data)
 		{
-			//add css to bottom of index page
-			$("#menuAddonLinks").html(data);
+			if(typeof data === "object"  && "error" in data)
+			{
+				window.location.href = "error.php?error="+data["error"]+"&page=reloadAddonLinks.php";
+			}
+			else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = dirForAjaxSend + "error.php?error="+data["error"]+"&page=reloadAddonLinks.php";
+            }
+			else
+			{
+				//add css to bottom of index page
+				$("#menuAddonLinks").html(data);
+			}
 		},
 		});
 	}

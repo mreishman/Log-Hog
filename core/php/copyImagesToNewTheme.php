@@ -1,6 +1,18 @@
 <?php
 require_once("../../core/php/class/core.php");
 $core = new core();
+require_once("../../core/php/class/session.php");
+$session = new session();
+if(!$session->startSession())
+{
+	echo json_encode(array("error" => 14));
+	exit();
+}
+if(!$session->validate())
+{
+	echo json_encode(array("error" => 18));
+	exit();
+}
 $baseUrl = "../../local/";
 require_once($baseUrl."layout.php");
 $baseUrl .= $currentSelectedTheme."/";

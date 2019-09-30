@@ -7,7 +7,7 @@ var lockThemeLogic = false;
 function copyFilesThemeChange()
 {
 	var urlForSend = themeChangeLogicDirModifier+urlForSendMainThemeChange0;
-	var dataSend = {};
+	var dataSend = {formKey};
 	$.ajax({
 		url: urlForSend,
 		dataType: "json",
@@ -15,7 +15,19 @@ function copyFilesThemeChange()
 		type: "POST",
 		success(data)
 		{
-			verifyFileThemeChange(data);
+			if(typeof data === "object"  && "error" in data)
+            {
+                window.location.href = themeChangeLogicDirModifier + "error.php?error="+data["error"]+"&page="+urlForSendMainThemeChange0;
+            }
+            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = themeChangeLogicDirModifier + "error.php?error="+data["error"]+"&page="+urlForSendMainThemeChange0;
+            }
+            else
+            {
+				verifyFileThemeChange(data);
+			}
 		},
 		failure(data)
 		{
@@ -42,7 +54,7 @@ function verifyFilePollThemeChange(version)
 	{
 		lockThemeLogic = true;
 		var urlForSend = themeChangeLogicDirModifier + urlForSendMainThemeChange1;
-		var data = {version};
+		var data = {version, formKey};
 		(function(_data){
 			$.ajax({
 				url: urlForSend,
@@ -51,7 +63,19 @@ function verifyFilePollThemeChange(version)
 				type: 'POST',
 				success(data)
 				{
-					verifyPostEndThemeChange(data);
+					if(typeof data === "object"  && "error" in data)
+		            {
+		                window.location.href = themeChangeLogicDirModifier + "error.php?error="+data["error"]+"&page="+urlForSendMainThemeChange0;
+		            }
+		            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+		            {
+		            	data = JSON.parse(data);
+		            	window.location.href = themeChangeLogicDirModifier + "error.php?error="+data["error"]+"&page="+urlForSendMainThemeChange0;
+		            }
+		            else
+		            {
+						verifyPostEndThemeChange(data);
+					}
 				},
 				failure(data)
 				{
@@ -61,7 +85,7 @@ function verifyFilePollThemeChange(version)
 				{
 					lockThemeLogic = false;
 				}
-			});	
+			});
 		}(data));
 	}
 }

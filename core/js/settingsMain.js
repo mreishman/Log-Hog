@@ -117,7 +117,7 @@ function selectLogPopup(locationForNewLogText)
 	}
 	displayLoadingPopup(urlModifierForAjax , "Generating List");
 	var urlForSend = urlModifierForAjax + "core/php/pollCheck.php?format=json";
-	var data = {};
+	var data = {formKey};
 	$.ajax({
 		url: urlForSend,
 		dataType: "json",
@@ -125,6 +125,17 @@ function selectLogPopup(locationForNewLogText)
 		type: "POST",
 		success(data)
 		{
+			if(typeof data === "object"  && "error" in data)
+			{
+				window.location.href =urlModifierForAjax + "error.php?error="+data["error"]+"&page=pollCheck.php";
+				return;
+			}
+			else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = urlModifierForAjax + "error.php?error="+data["error"]+"&page=pollCheck.php";
+            	return;
+            }
 			data["oneLog"] = {};
 			var popupFileList = Object.keys(data);
 			var popupFileListLength = popupFileList.length;

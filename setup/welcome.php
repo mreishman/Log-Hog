@@ -1,6 +1,12 @@
 <?php
 require_once("../core/php/class/core.php");
 $core = new core();
+require_once("../core/php/class/session.php");
+$session = new session();
+if(!$session->startSession())
+{
+	$core->echoErrorJavaScript("../", "", 17);
+}
 require_once("../core/php/class/errorCheck.php");
 $errorCheck = new errorCheck();
 require_once('../core/php/configStatic.php');
@@ -55,6 +61,7 @@ $core->setCookieRedirect();
 		"default"		=> $configStatic["version"]
 	)); ?>
 	<?php require_once("../core/php/template/popup.php"); ?>
+	<?php echo $session->outputFormKey(); ?>
 </head>
 <body>
 <div style="width: 90%; margin: auto; margin-right: auto; margin-left: auto; display: block; height: auto; margin-top: 15px;" >

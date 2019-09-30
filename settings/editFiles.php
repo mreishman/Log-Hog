@@ -1,6 +1,12 @@
 <?php
 require_once("../core/php/class/core.php");
 $core = new core();
+require_once("../core/php/class/session.php");
+$session = new session();
+if(!$session->startSession())
+{
+	$core->echoErrorJavaScript("../", "", 17);
+}
 $currentSelectedTheme = $core->returnCurrentSelectedTheme();
 $baseUrl = "../local/".$currentSelectedTheme."/";
 $localURL = $baseUrl;
@@ -18,8 +24,6 @@ else
 require_once('../core/php/configStatic.php');
 require_once('../core/php/loadVars.php');
 require_once('../core/php/updateCheck.php');
-require_once('../core/php/template/listOfFiles.php');
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -70,7 +74,10 @@ require_once('../core/php/template/listOfFiles.php');
 					        <tr>
 					        	<tr>
 						            <ul style="list-style: none; cursor: pointer; ">
-						            	<?php foreach ($fileNameArray as $key => $value)
+						            	<?php
+						            	$jsonFiles = file_get_contents("core/json/listOfFiles.json");
+										$fileNameArray = json_decode($jsonFiles, true);
+						            	foreach ($fileNameArray as $key => $value)
 						            	{
 						            		echo "<li style='padding-top: 15px; '><a id='".$key."Link' class='link documentLink' onclick='loadFile(\"".$value['path']."\",\"".$key."\")'>".$value['name']."</a></li>";
 						            	}

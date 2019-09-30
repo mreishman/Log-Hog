@@ -14,7 +14,16 @@ var timer = setInterval(function(){ajaxCheck();},3000);
 				type: "POST",
 				success(data)
 				{
-					if(data == "Finished Running Update Script")
+					if(typeof data === "object"  && "error" in data)
+		            {
+		                window.location.href = "./error.php?error="+data["error"];
+		            }
+		            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+		            {
+		            	data = JSON.parse(data);
+		            	window.location.href = "./error.php?error="+data["error"];
+		            }
+					else if(data == "Finished Running Update Script")
 					{
 						clearInterval(timer);
 						window.location.href = "updater.php";

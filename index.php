@@ -3,6 +3,12 @@ require_once("core/php/class/core.php");
 $core = new core();
 require_once("core/php/class/errorCheck.php");
 $errorCheck = new errorCheck();
+require_once("core/php/class/session.php");
+$session = new session();
+if(!$session->startSession())
+{
+	$core->echoErrorJavaScript("", "", 14);
+}
 $currentPage = "index.php";
 $errorCheck->checkIfFilesExist(
 	array("core/conf/config.php","core/php/configStatic.php","core/php/loadVars.php","core/php/loadVarsToJs.php","core/php/updateCheck.php","core/js/jquery.js","core/php/customCSS.php","core/php/template/popup.php","core/js/main.js","core/js/rightClickJS.js","core/js/update.js","core/php/class/addons.php","setup/setupProcessFile.php","error.php"),

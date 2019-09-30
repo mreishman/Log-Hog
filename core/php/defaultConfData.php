@@ -92,82 +92,6 @@ if($enableDevBranchDownload == 'true')
 	"name" 				=> "Dev");
 }
 
-$fontChoices = array(
-	0 			=> 	array(
-		"name" 		=> 'monospace',
-		"value" 	=> 'monospace'),
-	1 			=>	array(
-		"name" 		=>	'sans-serif',
-		"value"		=>	'sans-seri'),
-	2			=>	array(
-		"name"		=>	'Courier',
-		"value"		=>	'Courier'),
-	3			=>	array(
-		"name"		=>	'Monaco',
-		"value"		=>	'Monaco'),
-	4			=>	array(
-		"name" 		=>	'Verdana',
-		"value"		=>	'Verdana'),
-	5			=>	array(
-		"name"		=>	'Geneva',
-		"value"		=>	'Geneva'),
-	6			=>	array(
-		"name"		=>	'Helvetica',
-		"value"		=>	'Helvetica'),
-	7			=>	array(
-		"name"		=>	'Tahoma',
-		"value"		=>	'Tahoma'),
-	8			=>	array(
-		"name"		=>	'Charcoal',
-		"value"		=>	'Charcoal'),
-	9			=>	array(
-		"name"		=>	'Impact',
-		"value"		=>	'Impact'),
-	10			=>	array(
-		"name"		=>	'cursive',
-		"value"		=>	'cursive'),
-	11			=>	array(
-		"name"		=>	'Gadget',
-		"value"		=>	'Gadget'),
-	12			=>	array(
-		"name"		=>	'Arial',
-		"value"		=>	'Arial')
-	);
-
-$dateFormatOptions = array(
-	0 			=> 	array(
-		"name" 		=> 'Default',
-		"value" 	=> 'default'),
-	1 			=>	array(
-		"name" 		=>	'Hidden',
-		"value"		=>	'hidden'),
-	2			=>	array(
-		"name"		=>	'hh:mm:ss',
-		"value"		=>	'hh:|mm:|ss'),
-	3			=>	array(
-		"name"		=>	'DD/MM/YYYY',
-		"value"		=>	'DD/|MM/|YYYY'),
-	4			=>	array(
-		"name" 		=>	'MM/DD/YYYY',
-		"value"		=>	'MM/|DD/|YYYY'),
-	5			=>	array(
-		"name"		=>	'DD/MM',
-		"value"		=>	'DD/|MM'),
-	6			=>	array(
-		"name"		=>	'MM/DD/YYYY hh:mm:ss',
-		"value"		=>	'MM/|DD/|YYYY |hh:|mm:|ss'),
-	7			=>	array(
-		"name"		=>	'DD/MM/YYYY hh:mm:ss',
-		"value"		=>	'DD/|MM/|YYYY |hh:|mm:|ss'),
-	8			=>	array(
-		"name"		=>	'YYYY/MM/DD hh:mm:ss',
-		"value"		=>	'YYYY/|MM/|DD |hh:|mm:|ss'),
-	9			=>	array(
-		"name"		=>	'Custom',
-		"value"		=>	'custom')
-	);
-
-
 $customForFirstLogSelect = "<span class=\"settingsBuffer\" > First Log Select: </span><span id=\"logSelectedFirstLoad\" >";
 if ($logSelectedFirstLoad === "")
 {
@@ -218,95 +142,8 @@ foreach ($popupSettingsInArray as $key => $value)
 	$counterPopup++;
 }
 
-$sectionChoices = array(
-	0 			=> 	array(
-		"name" 		=> 'none',
-		"value" 	=> 'none'),
-	1 			=> 	array(
-		"name" 		=> 'hh',
-		"value" 	=> 'hh'),
-	2 			=>	array(
-		"name" 		=>	'mm',
-		"value"		=>	'mm'),
-	3			=>	array(
-		"name"		=>	'ss',
-		"value"		=>	'ss'),
-	4			=>	array(
-		"name"		=>	'DD',
-		"value"		=>	'DD'),
-	5			=>	array(
-		"name" 		=>	'MM',
-		"value"		=>	'MM'),
-	6			=>	array(
-		"name"		=>	'YYYY',
-		"value"		=>	'YYYY'),
-	7			=>	array(
-		"name"		=>	'PartDay',
-		"value"		=>	'PartDay'),
-	8			=>	array(
-		"name"		=>	'FullDay',
-		"value"		=>	'FullDay'),
-	9			=>	array(
-		"name"		=>	'PartMonth',
-		"value"		=>	'PartMonth'),
-	10			=>	array(
-		"name"		=>	'FullMonth',
-		"value"		=>	'FullMonth'),
-	11			=>	array(
-		"name"		=>	'mili',
-		"value"		=>	'mili'),
-	12			=>	array(
-		"name"		=>	'hh-12',
-		"value"		=>	'hh12'),
-	13			=>	array(
-		"name"		=>	'AM/PM',
-		"value"		=>	'AMPM')
-	);
-
-$delimiterChoices = array(
-	0 			=> 	array(
-		"name" 		=> 'none',
-		"value" 	=> 'none',
-		"checkValue"=> ''),
-	1 			=>	array(
-		"name" 		=>	'/',
-		"value"		=>	'/'),
-	2			=>	array(
-		"name"		=>	'~',
-		"value"		=>	'~'),
-	3			=>	array(
-		"name"		=>	'space',
-		"value"		=>	'space',
-		"value"		=>	' '),
-	4			=>	array(
-		"name" 		=>	'[',
-		"value"		=>	'['),
-	5			=>	array(
-		"name"		=>	']',
-		"value"		=>	']'),
-	6			=>	array(
-		"name"		=>	'(',
-		"value"		=>	'('),
-	7			=>	array(
-		"name"		=>	')',
-		"value"		=>	')'),
-	8			=>	array(
-		"name"		=>	'-',
-		"value"		=>	'-'),
-	9			=>	array(
-		"name"		=>	':',
-		"value"		=>	':'),
-	10			=>	array(
-		"name"		=>	'.',
-		"value"		=>	'.'),
-	11			=>	array(
-		"name"		=>	',',
-		"value"		=>	','),
-	12			=>	array(
-		"name"		=>	'+',
-		"value"		=>	'+')
-	);
-
+$sectionChoices = json_decode(file_get_contents($core->baseURL()."core/json/sectionChoices.json"), true);
+$delimiterChoices = json_decode(file_get_contents($core->baseURL()."core/json/delimiterChoices.json"), true);
 
 $customDateFormatVars = array(
 	0	=> array(
@@ -669,7 +506,7 @@ $defaultConfigMoreData = array(
 				"var"								=>	array(
 					"key"								=>	"fontFamily",
 					"name"								=>	"Font",
-					"options"							=>	$fontChoices,
+					"options"							=>	json_decode(file_get_contents($core->baseURL()."core/json/fontChoices.json"), true),
 					"type"								=>	"dropdown"
 				)
 			),
@@ -808,7 +645,7 @@ $defaultConfigMoreData = array(
 							"id"								=>	"dateTextFormat",
 							"key"								=>	"dateTextFormat",
 							"name"								=>	"Date Text Format",
-							"options"							=>	$dateFormatOptions,
+							"options"							=>	json_decode(file_get_contents($core->baseURL()."core/json/dateFormatOptions.json"), true),
 							"type"								=>	"dropdown"
 						),
 						"vars"								=>	$customDateFormatVars
@@ -1496,12 +1333,81 @@ $defaultConfigMoreData = array(
 				)
 			),
 			2									=>	array(
-				"type"								=>	"single",
+				"bool"								=>	($notificationCountVisible == 'false'),
+				"id"								=>	"notificationCountVisibleSettings",
+				"name"								=>	"Notification Count Settings",
+				"type"								=>	"grouped",
 				"var"								=>	array(
+					"function"							=>	"showOrHidenotificationCountVisible",
+					"id"								=>	"notificationCountVisible",
 					"key"								=>	"notificationCountVisible",
 					"name"								=>	"Enable Log Diff Count",
 					"options"							=>	$trueFalsVars,
 					"type"								=>	"dropdown"
+				),
+				"vars"								=>	array(
+					0									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"logDiffCountLeftMod",
+							"name"								=>	"Left Mod",
+							"options"							=>	array(
+								0 									=> array(
+									"value" 							=> "(",
+									"name" 								=> "("),
+								1 									=> array(
+									"value" 							=> "[",
+									"name" 								=> "["),
+								2 									=> array(
+									"value" 							=> "|",
+									"name" 								=> "|"),
+								3 									=> array(
+									"value" 							=> ":",
+									"name" 								=> ":"),
+								4 									=> array(
+									"value" 							=> "::",
+									"name" 								=> "::"),
+								5 									=> array(
+									"value" 							=> " ",
+									"name" 								=> "Space"),
+								6 									=> array(
+									"value" 							=> "none",
+									"name" 								=> "None")
+							),
+							"type"								=>	"dropdown"
+						)
+					),
+					1									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"logDiffCountRightMod",
+							"name"								=>	"Right Mod",
+							"options"							=>	array(
+								0 									=> array(
+									"value" 							=> ")",
+									"name" 								=> ")"),
+								1 									=> array(
+									"value" 							=> "]",
+									"name" 								=> "]"),
+								2 									=> array(
+									"value" 							=> "|",
+									"name" 								=> "|"),
+								3 									=> array(
+									"value" 							=> ":",
+									"name" 								=> ":"),
+								4 									=> array(
+									"value" 							=> "::",
+									"name" 								=> "::"),
+								5 									=> array(
+									"value" 							=> " ",
+									"name" 								=> "Space"),
+								6 									=> array(
+									"value" 							=> "none",
+									"name" 								=> "None")
+							),
+							"type"								=>	"dropdown"
+						)
+					)
 				)
 			),
 			3									=>	array(
@@ -1663,6 +1569,16 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
+			3									=>	array(
+				"info"								=>	"Show settings on same page as index (no redirect). Refresh Required",
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"samePageSettings",
+					"name"								=>	"Same Page Settings",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
 		)
 	),
 	"modules"							=>	array(
@@ -1815,16 +1731,6 @@ $defaultConfigMoreData = array(
 			),
 			1									=> array(
 				"type"								=>	"single",
-				"info"								=>	"Button in header menu. Because this is the same as the settings button, this will be removed at some pont. Requires Refresh",
-				"var"								=>	array(
-					"key"								=>	"multiLogOnIndex",
-					"name"								=>	"Enable tmp Multilog",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				)
-			),
-			2									=> array(
-				"type"								=>	"single",
 				"info"								=>	"When switching between layouts, keep current selected windows over config",
 				"var"								=>	array(
 					"key"								=>	"logSwitchKeepCurrent",
@@ -1843,7 +1749,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			3									=> array(
+			2									=> array(
 				"info"								=>	"When switching between A B or C layouts, either clear all windows, OR keep current selected windows IF not defined in config",
 				"type"								=>	"single",
 				"var"								=>	array(

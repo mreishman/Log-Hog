@@ -42,12 +42,35 @@ function downloadRestoreVersion()
 		updateText("Attempt "+(retryCount+1)+" of 3 for downloading Log-Hog");
 	}
 	var urlForSend = urlForSendMain;
-	var data = {action: "downloadFile", file: fileVersionDownload,downloadFrom: "Log-Hog/archive/", downloadTo: "../../restore/restore.zip"};
+	var data = {action: "downloadFile", file: fileVersionDownload,downloadFrom: "Log-Hog/archive/", downloadTo: "../../restore/restore.zip", formKey};
 	$.ajax({
 		url: urlForSend,
 		dataType: "json",
 		data: data,
 		type: "POST",
+		success(data)
+		{
+			let urlMod = "";
+			let countNum = urlForSendMain.split("../").length - 1;
+			for(let i = 0; i < countNum; i++)
+			{
+				urlMod += "../";
+			}
+			if(typeof data === "object"  && "error" in data)
+            {
+                window.location.href = urlMod + "error.php?error="+data["error"]+"&page="+urlForSend;
+            }
+            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = urlMod + "error.php?error="+data["error"]+"&page="+urlForSend;
+            }
+            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = urlMod + "error.php?error="+data["error"]+"&page="+urlForSend;
+            }
+		},
 		complete: function()
 		{
 			//verify if downloaded
@@ -60,12 +83,35 @@ function downloadRestoreVersion()
 function unzip()
 {
 	var urlForSend = urlForSendMain;
-	var data = {action: "unzipFile", locationExtractTo: "../../restore/extracted/", locationExtractFrom: "../../restore/restore.zip", tmpCache: "../../"};
+	var data = {action: "unzipFile", locationExtractTo: "../../restore/extracted/", locationExtractFrom: "../../restore/restore.zip", tmpCache: "../../", formKey};
 	$.ajax({
 		url: urlForSend,
 		dataType: "json",
 		data: data,
 		type: "POST",
+		success(data)
+		{
+			let urlMod = "";
+			let countNum = urlForSendMain.split("../").length - 1;
+			for(let i = 0; i < countNum; i++)
+			{
+				urlMod += "../";
+			}
+			if(typeof data === "object"  && "error" in data)
+            {
+                window.location.href = urlMod + "error.php?error="+data["error"]+"&page="+urlForSend;
+            }
+            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = urlMod + "error.php?error="+data["error"]+"&page="+urlForSend;
+            }
+            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = urlMod + "error.php?error="+data["error"]+"&page="+urlForSend;
+            }
+		},
 		complete: function()
 		{
 			//verify if downloaded
@@ -77,12 +123,35 @@ function unzip()
 function moveDirUnzipped()
 {
 	var urlForSend = urlForSendMain;
-	var data = {action: "moveDirUnzipped", version: fileVersionDownload};
+	var data = {action: "moveDirUnzipped", version: fileVersionDownload, formKey};
 	$.ajax({
 		url: urlForSend,
 		dataType: 'json',
 		data: data,
 		type: 'POST',
+		success(data)
+		{
+			let urlMod = "";
+			let countNum = urlForSendMain.split("../").length - 1;
+			for(let i = 0; i < countNum; i++)
+			{
+				urlMod += "../";
+			}
+			if(typeof data === "object"  && "error" in data)
+            {
+                window.location.href = urlMod + "error.php?error="+data["error"]+"&page="+urlForSend;
+            }
+            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = urlMod + "error.php?error="+data["error"]+"&page="+urlForSend;
+            }
+            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = urlMod + "error.php?error="+data["error"]+"&page="+urlForSend;
+            }
+		},
 		complete: function()
 		{
 			//verify if downloaded
@@ -94,12 +163,35 @@ function moveDirUnzipped()
 function changeDirUnzipped()
 {
 	var urlForSend = urlForSendMain;
-	var data = {action: 'changeDirUnzipped'};
+	var data = {action: 'changeDirUnzipped', formKey};
 	$.ajax({
 		url: urlForSend,
 		dataType: 'json',
 		data: data,
 		type: 'POST',
+		success(data)
+		{
+			let urlMod = "";
+			let countNum = urlForSendMain.split("../").length - 1;
+			for(let i = 0; i < countNum; i++)
+			{
+				urlMod += "../";
+			}
+			if(typeof data === "object"  && "error" in data)
+            {
+                window.location.href = urlMod + "error.php?error="+data["error"]+"&page="+urlForSend;
+            }
+            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = urlMod + "error.php?error="+data["error"]+"&page="+urlForSend;
+            }
+            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = urlMod + "error.php?error="+data["error"]+"&page="+urlForSend;
+            }
+		},
 		complete: function()
 		{
 			//verify if downloaded
@@ -143,7 +235,7 @@ function verifyFail(action)
 		{
 			changeDirUnzipped();
 		}
-		
+
 		//run previous ajax
 	}
 }
@@ -175,7 +267,7 @@ function verifySucceded(action)
 	{
 		finishedDownload();
 	}
-	
+
 }
 
 function cleanDirectory()
@@ -190,12 +282,35 @@ function cleanDirectory()
 		updateText("Attempt "+(retryCount+1)+" of 3 for cleaning directory");
 	}
 	var urlForSend = urlForSendMain;
-	var data = {action: "removeAllFilesFromLogHogExceptRestore"};
+	var data = {action: "removeAllFilesFromLogHogExceptRestore", formKey};
 	$.ajax({
 		url: urlForSend,
 		dataType: "json",
 		data: data,
 		type: "POST",
+		success(data)
+		{
+			let urlMod = "";
+			let countNum = urlForSendMain.split("../").length - 1;
+			for(let i = 0; i < countNum; i++)
+			{
+				urlMod += "../";
+			}
+			if(typeof data === "object"  && "error" in data)
+            {
+                window.location.href = urlMod + "error.php?error="+data["error"]+"&page="+urlForSend;
+            }
+            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = urlMod + "error.php?error="+data["error"]+"&page="+urlForSend;
+            }
+            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = urlMod + "error.php?error="+data["error"]+"&page="+urlForSend;
+            }
+		},
 		complete: function()
 		{
 			//verify if downloaded
@@ -220,7 +335,7 @@ function verifyFilePoll(action, fileLocation,isThere)
 		lock = true;
 		updateText("verifying "+(verifyCount+1)+" of 10");
 		var urlForSend = urlForSendMain;
-		var data = {action: "verifyFileIsThere", fileLocation: fileLocation, isThere: isThere , lastAction: action};
+		var data = {action: "verifyFileIsThere", fileLocation: fileLocation, isThere: isThere , lastAction: action, formKey};
 		(function(_data){
 			$.ajax({
 				url: urlForSend,
@@ -229,6 +344,21 @@ function verifyFilePoll(action, fileLocation,isThere)
 				type: "POST",
 				success: function(data)
 				{
+					let urlMod = "";
+					let countNum = urlForSendMain.split("../").length - 1;
+					for(let i = 0; i < countNum; i++)
+					{
+						urlMod += "../";
+					}
+					if(typeof data === "object"  && "error" in data)
+		            {
+		                window.location.href = urlMod + "error.php?error="+data["error"]+"&page="+urlForSend;
+		            }
+		            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+		            {
+		            	data = JSON.parse(data);
+		            	window.location.href = urlMod + "error.php?error="+data["error"]+"&page="+urlForSend;
+		            }
 					verifyPostEnd(data, _data);
 				},
 				failure: function(data)

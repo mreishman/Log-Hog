@@ -1,5 +1,20 @@
 <?php
-require_once('settingsInstallUpdate.php');
+require_once("class/core.php");
+$core = new core();
+require_once("class/session.php");
+$session = new session();
+if(!$session->startSession())
+{
+	echo json_encode(array("error" => 14));
+	exit();
+}
+if(!$session->validate())
+{
+	echo json_encode(array("error" => 18));
+	exit();
+}
+require_once('class/settingsInstallUpdate.php');
+$settingsInstallUpdate = new settingsInstallUpdate();
 $action = $_POST['action'];
 $response = "ACTION";
 if($action === 'downloadFile')
@@ -12,21 +27,21 @@ if($action === 'downloadFile')
 			$boolUp = true;
 		}
 	}
-	downloadFile($_POST['file'],$boolUp,$_POST['downloadFrom'],$_POST['downloadTo']);
+	$settingsInstallUpdate->downloadFile($_POST['file'],$boolUp,$_POST['downloadFrom'],$_POST['downloadTo']);
 	$response = true;
 }
 elseif($action === 'unzipFile')
 {
-	unzipFileAndSub($_POST['locationExtractFrom'],"",$_POST['locationExtractTo'],"../../");
+	$settingsInstallUpdate->unzipFileAndSub($_POST['locationExtractFrom'],"",$_POST['locationExtractTo'],"../../");
 	$response = true;
 }
 elseif($action === 'unzipUpdateAndReturnArray')
 {
-	$response = unzipFile();
+	$response = $settingsInstallUpdate->unzipFile();
 }
 elseif($action === 'removeZipFile')
 {
-	removeZipFile($_POST['fileToUnlink']);
+	$settingsInstallUpdate->removeZipFile($_POST['fileToUnlink']);
 	$response = true;
 }
 elseif($action === 'removeUnZippedFiles')
@@ -36,33 +51,33 @@ elseif($action === 'removeUnZippedFiles')
 	{
 		$removeDir = $_POST['removeDir'];
 	}
-	rrmdir($_POST['locationOfFilesThatNeedToBeRemovedRecursivally']);
+	$settingsInstallUpdate->rrmdir($_POST['locationOfFilesThatNeedToBeRemovedRecursivally']);
 	$response = true;
 }
 elseif($action === 'removeDirUpdate')
 {
-	removeUnZippedFiles();
+	$settingsInstallUpdate->removeUnZippedFiles();
 	$response = true;
 }
 elseif($action === 'verifyFileIsThere')
 {
-	$response = verifyFileIsThere($_POST['fileLocation'], $_POST['isThere']);
+	$response = $settingsInstallUpdate->verifyFileIsThere($_POST['fileLocation'], $_POST['isThere']);
 }
 elseif($action === 'verifyFileHasStuff')
 {
-	$response = verifyFileHasStuff($_POST['fileLocation']);
+	$response = $settingsInstallUpdate->verifyFileHasStuff($_POST['fileLocation']);
 }
 elseif($action === 'verifyDirIsThere')
 {
-	$response = verifyDirIsThere($_POST['dirLocation']);
+	$response = $settingsInstallUpdate->verifyDirIsThere($_POST['dirLocation']);
 }
 elseif($action === "verifyFileOrDirIsThere")
 {
-	$response = verifyDirOrFile($_POST['locationOfDirOrFile']);
+	$response = $settingsInstallUpdate->verifyDirOrFile($_POST['locationOfDirOrFile']);
 }
 elseif($action === 'checkIfDirIsEmpty')
 {
-	if (verifyDirIsEmpty($_POST['dir']))
+	if ($settingsInstallUpdate->verifyDirIsEmpty($_POST['dir']))
 	{
   		$response = true;
 	}
@@ -81,15 +96,15 @@ elseif($action === 'removeAllFilesFromLogHogExceptRestore')
 			$fileDir = '../../'.$file;
 			if(is_dir($fileDir))
 			{
-				rrmdir($fileDir);
+				$settingsInstallUpdate->rrmdir($fileDir);
 			}
 			else
 			{
-				removeZipFile($fileDir);
+				$settingsInstallUpdate->removeZipFile($fileDir);
 			}
 		}
 	}
-	$response = true; 
+	$response = true;
 }
 elseif($action === "changeDirUnzipped")
 {
@@ -100,12 +115,12 @@ elseif($action === "changeDirUnzipped")
 		$fileDirOld = '../../restore/extracted/'.$file;
 		rename($fileDirOld, $fileDirNew);
 	}
-	$response = true; 
+	$response = true;
 }
 elseif($action === 'moveDirUnzipped')
 {
 	rename("../../Log-Hog-".$_POST['version'], "../../restore/extracted");
-	$response = true; 
+	$response = true;
 }
 elseif($action === 'updateProgressFile')
 {
@@ -114,7 +129,7 @@ elseif($action === 'updateProgressFile')
 	{
 		$percent = $_POST['percent'];
 	}
-	updateProgressFile($_POST['status'], $_POST['pathToFile'], $_POST['typeOfProgress'], $_POST['actionSave'], $percent);
+	$settingsInstallUpdate->updateProgressFile($_POST['status'], $_POST['pathToFile'], $_POST['typeOfProgress'], $_POST['actionSave'], $percent);
 
 	$response = true;
 }
@@ -125,11 +140,11 @@ elseif($action === 'copyFileToFile')
 	{
 		$indexToExtracted = $_POST['fileCopyTo'];
 	}
-	$response = copyFileToFile($_POST['fileCopyFrom'], $indexToExtracted);
+	$response = $settingsInstallUpdate->copyFileToFile($_POST['fileCopyFrom'], $indexToExtracted);
 }
 elseif($action === 'updateConfigStatic')
 {
-	updateConfigStatic($_POST['versionToUpdate']);
+	$settingsInstallUpdate->updateConfigStatic($_POST['versionToUpdate']);
 	$response = true;
 }
 elseif($action === 'createFolder')

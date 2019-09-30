@@ -1,24 +1,18 @@
 <?php
-
-function forEachAddVars($variable)
+require_once("class/core.php");
+$core = new core();
+require_once("class/session.php");
+$session = new session();
+if(!$session->startSession())
 {
-	$returnText = "array(";
-	foreach ($variable as $key => $value)
-	{
-		$returnText .= " '".$key."' => ";
-		if(is_array($value) || is_object($value))
-		{
-			$returnText .= forEachAddVars($value);
-		}
-		else
-		{
-			$returnText .= "'".$value."',";
-		}
-	}
-	$returnText .= "),";
-	return $returnText;
+	echo json_encode(array("error" => 14));
+	exit();
 }
-
+if(!$session->validate())
+{
+	echo json_encode(array("error" => 18));
+	exit();
+}
 $varToIndexDir = "";
 $countOfSlash = 0;
 while($countOfSlash < 20 && !file_exists($varToIndexDir."error.php"))
@@ -27,6 +21,8 @@ while($countOfSlash < 20 && !file_exists($varToIndexDir."error.php"))
 }
 require_once($varToIndexDir."core/php/class/core.php");
 $core = new core();
+require_once($varToIndexDir."core/php/class/vars.php");
+$vars = new vars();
 
 $baseUrl = $varToIndexDir."core/";
 if(file_exists($varToIndexDir.'local/layout.php'))
@@ -36,13 +32,10 @@ if(file_exists($varToIndexDir.'local/layout.php'))
   require_once($varToIndexDir.'local/layout.php');
   $baseUrl .= $currentSelectedTheme."/";
 }
+$config = array();
 if(file_exists($baseUrl.'conf/config.php'))
 {
 	require_once($baseUrl.'conf/config.php');
-}
-else
-{
-	$config = array();
 }
 require_once($varToIndexDir.'core/conf/config.php');
 
@@ -125,7 +118,7 @@ if(isset($_POST['folderThemeCount']))
 	foreach ($config['folderColorArrays'] as $key => $value)
 	{
 		$folderColorArraysSave .= "'".$key."'	=>	";
-		$folderColorArraysSave .= forEachAddVars($value);
+		$folderColorArraysSave .= $vars->forEachAddVars($value);
 	}
 	$folderColorArrays = $folderColorArraysSave;
 	$folderColorArraysSave = "";

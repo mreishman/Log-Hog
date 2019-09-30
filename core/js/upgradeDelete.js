@@ -35,6 +35,7 @@ function updateCount()
 
 function removeMain(dataSend)
 {
+	dataSend["formKey"] = formKey;
 	updateCount();
 	$.ajax({
 		url: urlForSendMain,
@@ -43,6 +44,21 @@ function removeMain(dataSend)
 		type: "POST",
 		success(data)
 		{
+			let urlMod = "";
+			let countNum = urlForSendMain.split("../").length - 1;
+			for(let i = 0; i < countNum; i++)
+			{
+				urlMod += "../";
+			}
+			if(typeof data === "object"  && "error" in data)
+            {
+                window.location.href = urlMod + "error.php?error="+data["error"];
+            }
+			else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = urlMod + "error.php?error="+data["error"];
+            }
 			verifyRemoveFile(data);
 		}
 	});
@@ -63,7 +79,7 @@ function verifyFilePoll(file)
 	if(lock === false)
 	{
 		lock = true;
-		var data = {action: "verifyFileIsThere",fileLocation: file, "isThere" : false};
+		var data = {action: "verifyFileIsThere",fileLocation: file, "isThere" : false, formKey};
 		(function(_data){
 			$.ajax({
 				url: urlForSendMain,
@@ -72,6 +88,21 @@ function verifyFilePoll(file)
 				type: "POST",
 				success(data)
 				{
+					let urlMod = "";
+					let countNum = urlForSendMain.split("../").length - 1;
+					for(let i = 0; i < countNum; i++)
+					{
+						urlMod += "../";
+					}
+					if(typeof data === "object"  && "error" in data)
+		            {
+		                window.location.href = urlMod + "error.php?error="+data["error"];
+		            }
+					else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+		            {
+		            	data = JSON.parse(data);
+		            	window.location.href = urlMod + "error.php?error="+data["error"];
+		            }
 					verifyPostEnd(data, _data);
 				},
 				failure(data)

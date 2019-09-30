@@ -77,78 +77,92 @@
 	<li class="menuTitle">
 		Settings
 	</li>
-	<li class="menuTitle fullScreenMenuText subMenuTitle">
-		Main
-	</li>
-	<li id="settingsMainLogsMenu" onclick="toggleSettingSection({id: 'settingsMainLogs',formId: 'settingsLogVars'});" >
-		Logs
-	</li>
-	<li <?php if($advancedLogFormatEnabled !== "true"){ echo "style = \"display:none;\"";} ?> id="settingsMainLogFormatMenu" onclick="toggleSettingSection({id: 'settingsMainLogFormat',formId: 'settingsLogFormatVars'});" >
-		Log Format
-	</li>
-	<li id="settingsMainPollMenu" onclick="toggleSettingSection({id: 'settingsMainPoll',formId: 'settingsPollVars'});" >
-		Poll
-	</li>
-	<li <?php if($filterEnabled !== "true"){ echo "style = \"display:none;\"";} ?> id="settingsMainFilterMenu" onclick="toggleSettingSection({id: 'settingsMainFilter',formId: 'settingsFilterVars'});" >
-		Filter
-	</li>
-	<li id="settingsMainArchiveMenu" onclick="toggleSettingSection({id: 'settingsMainArchive',formId: 'archiveConfig'});" >
-		Archive
-	</li>
-	<li id="settingsMainNotificationsMenu" onclick="toggleSettingSection({id: 'settingsMainNotifications',formId: 'settingsNotificationVars'});" >
-		Notifications
-	</li>
-	<li id="settingsMainActionMenuMenu" onclick="toggleSettingSection({id: 'settingsMainActionMenu',formId: 'settingsMenuVars'});" >
-		Menu Actions
-	</li>
-	<li id="settingsMainMenuLogsMenu" onclick="toggleSettingSection({id: 'settingsMainMenuLogs',formId: 'settingsMenuLogVars'});" >
-		Menu Logs
-	</li>
-	<li id="settingsMainMenuFullScreenMenu" onclick="toggleSettingSection({id: 'settingsMainMenuFullScreen',formId: 'settingsFullScreenMenuVars'});" >
-		Menu Full Screen
-	</li>
-	<li id="settingsMainWatchlistMenu" onclick="toggleSettingSection({id: 'settingsMainWatchlist',formId: 'settingsWatchlistVars'});" >
-		Watchlist
-	</li>
-	<li <?php if($oneLogEnable !== "true"){ echo "style = \"display:none;\"";} ?> id="settingsMainOneLogMenu" onclick="toggleSettingSection({id: 'settingsMainOneLog',formId: 'settingsOneLogVars'});" >
-		OneLog
-	</li>
-	<li <?php if($enableMultiLog !== "true"){ echo "style = \"display:none;\"";} ?> id="settingsMainMultiLogMenu" onclick="toggleSettingSection({id: 'settingsMainMultiLog',formId: 'settingsMultiLogVars'});" >
-		Multi-Log
-	</li>
-	<li <?php if($enableMultiLog !== "true"){ echo "style = \"display:none;\"";} ?> id="settingsMainLogLayoutMenu" onclick="toggleSettingSection({id: 'settingsMainLogLayout',formId: 'settingsInitialLoadLayoutVars'});" >
-		Log Layout
-	</li>
-	<li id="settingsMainOtherMenu" onclick="toggleSettingSection({id: 'settingsMainOther',formId: 'settingsMainVars'});" >
-		Other
-	</li>
-	<li class="menuTitle fullScreenMenuText subMenuTitle">
-		Advanced
-	</li>
-	<li id="settingsAdvancedConfigMenu" onclick="toggleSettingSection({id: 'settingsAdvancedConfig',formId: 'advancedConfig'});" >
-		Config
-	</li>
-	<li id="settingsAdvancedModulesMenu" onclick="toggleSettingSection({id: 'settingsAdvancedModules',formId: 'modules'});" >
-		Modules
-	</li>
-	<li id="settingsAdvancedLogsMenu" onclick="toggleSettingSection({id: 'settingsAdvancedLogs',formId: 'loggingDisplay'});" >
-		Logs
-	</li>
-	<li id="settingsAdvancedLocationsMenu" onclick="toggleSettingSection({id: 'settingsAdvancedLocations',formId: 'locationOtherApps'});" >
-		Locations
-	</li>
-	<li id="settingsAdvancedAdvancedMenu" onclick="toggleSettingSection({id: 'settingsAdvancedAdvanced',formId: 'false'});" >
-		Advanced
-	</li>
-	<li <?php if($developmentTabEnabled !== "true"){ echo "style = \"display:none;\"";} ?> class="menuTitle fullScreenMenuText subMenuTitle">
-		Dev
-	</li>
-	<li id="settingsAdvancedDevBranchMenu" <?php if($developmentTabEnabled !== "true"){ echo "style = \"display:none;\"";} ?> onclick="toggleSettingSection({id: 'settingsAdvancedDevBranch', formId: 'devBranch'});" >
-		Branch
-	</li>
-	<li id="settingsAdvancedDevConfigMenu" <?php if($developmentTabEnabled !== "true"){ echo "style = \"display:none;\"";} ?> onclick="toggleSettingSection({id: 'settingsAdvancedDevConfig', formId: 'devConfig'});" >
-		Config
-	</li>
+	<?php if($samePageSettings === "true"): ?>
+		<li class="menuTitle fullScreenMenuText subMenuTitle">
+			Main
+		</li>
+		<li id="settingsMainLogsMenu" onclick="toggleSettingSection({id: 'settingsMainLogs',formId: 'settingsLogVars'});" >
+			Logs
+		</li>
+		<li <?php if($advancedLogFormatEnabled !== "true"){ echo "style = \"display:none;\"";} ?> id="settingsMainLogFormatMenu" onclick="toggleSettingSection({id: 'settingsMainLogFormat',formId: 'settingsLogFormatVars'});" >
+			Log Format
+		</li>
+		<li id="settingsMainPollMenu" onclick="toggleSettingSection({id: 'settingsMainPoll',formId: 'settingsPollVars'});" >
+			Poll
+		</li>
+		<li <?php if($filterEnabled !== "true"){ echo "style = \"display:none;\"";} ?> id="settingsMainFilterMenu" onclick="toggleSettingSection({id: 'settingsMainFilter',formId: 'settingsFilterVars'});" >
+			Filter
+		</li>
+		<li id="settingsMainArchiveMenu" onclick="toggleSettingSection({id: 'settingsMainArchive',formId: 'archiveConfig'});" >
+			Archive
+		</li>
+		<li id="settingsMainNotificationsMenu" onclick="toggleSettingSection({id: 'settingsMainNotifications',formId: 'settingsNotificationVars'});" >
+			Notifications
+		</li>
+		<li id="settingsMainActionMenuMenu" onclick="toggleSettingSection({id: 'settingsMainActionMenu',formId: 'settingsMenuVars'});" >
+			Menu Actions
+		</li>
+		<li id="settingsMainMenuLogsMenu" onclick="toggleSettingSection({id: 'settingsMainMenuLogs',formId: 'settingsMenuLogVars'});" >
+			Menu Logs
+		</li>
+		<li id="settingsMainMenuFullScreenMenu" onclick="toggleSettingSection({id: 'settingsMainMenuFullScreen',formId: 'settingsFullScreenMenuVars'});" >
+			Menu Full Screen
+		</li>
+		<li id="settingsMainWatchlistMenu" onclick="toggleSettingSection({id: 'settingsMainWatchlist',formId: 'settingsWatchlistVars'});" >
+			Watchlist
+		</li>
+		<li <?php if($oneLogEnable !== "true"){ echo "style = \"display:none;\"";} ?> id="settingsMainOneLogMenu" onclick="toggleSettingSection({id: 'settingsMainOneLog',formId: 'settingsOneLogVars'});" >
+			OneLog
+		</li>
+		<li <?php if($enableMultiLog !== "true"){ echo "style = \"display:none;\"";} ?> id="settingsMainMultiLogMenu" onclick="toggleSettingSection({id: 'settingsMainMultiLog',formId: 'settingsMultiLogVars'});" >
+			Multi-Log
+		</li>
+		<li <?php if($enableMultiLog !== "true"){ echo "style = \"display:none;\"";} ?> id="settingsMainLogLayoutMenu" onclick="toggleSettingSection({id: 'settingsMainLogLayout',formId: 'settingsInitialLoadLayoutVars'});" >
+			Log Layout
+		</li>
+		<li id="settingsMainOtherMenu" onclick="toggleSettingSection({id: 'settingsMainOther',formId: 'settingsMainVars'});" >
+			Other
+		</li>
+		<li class="menuTitle fullScreenMenuText subMenuTitle">
+			Advanced
+		</li>
+		<li id="settingsAdvancedConfigMenu" onclick="toggleSettingSection({id: 'settingsAdvancedConfig',formId: 'advancedConfig'});" >
+			Config
+		</li>
+		<li id="settingsAdvancedModulesMenu" onclick="toggleSettingSection({id: 'settingsAdvancedModules',formId: 'modules'});" >
+			Modules
+		</li>
+		<li id="settingsAdvancedLogsMenu" onclick="toggleSettingSection({id: 'settingsAdvancedLogs',formId: 'loggingDisplay'});" >
+			Logs
+		</li>
+		<li id="settingsAdvancedLocationsMenu" onclick="toggleSettingSection({id: 'settingsAdvancedLocations',formId: 'locationOtherApps'});" >
+			Locations
+		</li>
+		<li id="settingsAdvancedAdvancedMenu" onclick="toggleSettingSection({id: 'settingsAdvancedAdvanced',formId: 'false'});" >
+			Advanced
+		</li>
+		<li <?php if($developmentTabEnabled !== "true"){ echo "style = \"display:none;\"";} ?> class="menuTitle fullScreenMenuText subMenuTitle">
+			Dev
+		</li>
+		<li id="settingsAdvancedDevBranchMenu" <?php if($developmentTabEnabled !== "true"){ echo "style = \"display:none;\"";} ?> onclick="toggleSettingSection({id: 'settingsAdvancedDevBranch', formId: 'devBranch'});" >
+			Branch
+		</li>
+		<li id="settingsAdvancedDevConfigMenu" <?php if($developmentTabEnabled !== "true"){ echo "style = \"display:none;\"";} ?> onclick="toggleSettingSection({id: 'settingsAdvancedDevConfig', formId: 'devConfig'});" >
+			Config
+		</li>
+	<?php else: ?>
+		<li onclick="window.location.href = './settings/main.php';" >
+		Main <?php echo $externalLinkImage; ?>
+		</li>
+		<li onclick="window.location.href = './settings/advanced.php';" >
+			Advanced <?php echo $externalLinkImage; ?>
+		</li>
+		<?php if($developmentTabEnabled === "true"): ?>
+			<li onclick="window.location.href = './settings/devTools.php';" >
+				Dev <?php echo $externalLinkImage; ?>
+			</li>
+		<?php endif; ?>
+	<?php endif; ?>
 </ul>
 <div id="mainContentFullScreenMenu">
 	<div class="settingsHeader addBorderBottom" style="display: none;" id="fixedPositionMiniMenu" >

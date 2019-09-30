@@ -1,4 +1,13 @@
 <?php
+require_once("class/core.php");
+$core = new core();
+require_once("class/session.php");
+$session = new session();
+if(!$session->startSession())
+{
+  echo json_encode(array("error" => 14));
+  exit();
+}
 $data = array();
 $data['version'] = -1;
 $data['error'] = "";
@@ -37,25 +46,19 @@ if(file_exists("../../update/downloads/versionCheck/extracted/"))
 
 }
 
+$branchSelected = $defaultConfig['branchSelected'];
 if(array_key_exists('branchSelected', $config))
 {
   $branchSelected = $config['branchSelected'];
 }
-else
-{
-  $branchSelected = $defaultConfig['branchSelected'];
-}
+
+$baseUrlUpdate = $defaultConfig['baseUrlUpdate'];
 if(array_key_exists('baseUrlUpdate', $config))
 {
   $baseUrlUpdate = $config['baseUrlUpdate'];
 }
-else
-{
-  $baseUrlUpdate = $defaultConfig['baseUrlUpdate'];
-}
 
 $fileNameForDownload = "versionCheck";
-
 if($branchSelected === "dev")
 {
   $fileNameForDownload = "versionCheckDev";
@@ -68,9 +71,21 @@ if(file_exists("../../update/downloads/versionCheck/versionCheck.zip"))
 {
   unlink("../../update/downloads/versionCheck/versionCheck.zip");
 }
+$newFile = file_get_contents($baseUrlUpdate .$fileNameForDownload.".zip");
+if(!$newFile || empty($newFile))
+{
+  echo json_encode(array("version" => -1,  "error" => "empty zip"));
+  exit();
+}
 file_put_contents("../../update/downloads/versionCheck/versionCheck.zip",
-  file_get_contents($baseUrlUpdate .$fileNameForDownload.".zip")
+  $newFile
   );
+
+if(!is_file("../../update/downloads/versionCheck/versionCheck.zip") || empty("../../update/downloads/versionCheck/versionCheck.zip"))
+{
+  echo json_encode(array("version" => -1,  "error" => "empty zip"));
+  exit();
+}
 
 if(!is_dir("../../update/downloads/versionCheck/extracted/"))
 {

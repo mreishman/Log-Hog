@@ -307,7 +307,7 @@ function addFileFolderAjax(fileType, sentLocation)
 	hidePopup();
 	displayLoadingPopup("", "Getting Data");
 	var urlForSend = urlModifier+"core/php/getFileFolderData.php?format=json";
-	var data = {currentFolder: sentLocation, filter: currentPatternSelect};
+	var data = {currentFolder: sentLocation, filter: currentPatternSelect, formKey};
 	$.ajax({
 		url: urlForSend,
 		dataType: "json",
@@ -315,6 +315,17 @@ function addFileFolderAjax(fileType, sentLocation)
 		type: "POST",
 		success(data)
 		{
+			if(typeof data === "object"  && "error" in data)
+			{
+				window.location.href = urlModifier + "error.php?error="+data["error"]+"&page=getFileFolderData.php";
+				return;
+			}
+			else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = urlModifier + "error.php?error="+data["error"]+"&page=getFileFolderData.php";
+            	return;
+            }
 			var countOfWatchList = parseInt(document.getElementById("numberOfRows").value);
 			var fileListData = generateSubFiles({fileArray: data["data"], currentNum: (countOfWatchList+1), mainFolder: sentLocation});
 			hidePopup();
@@ -338,7 +349,7 @@ function updateSubFiles(id)
 	document.getElementById("watchListKey"+id+"LoadingSubFilesIcon").style.display = "inline-block";
 	document.getElementById("watchListKey"+id+"FilesInFolder").style.display = "none";
 	var urlForSend = urlModifier+"core/php/getFileFolderData.php?format=json";
-	var data = {currentFolder: document.getElementsByName("watchListKey"+id+"Location")[0].value, recursive: document.getElementsByName("watchListKey"+id+"Recursive")[0].value, filter:  document.getElementsByName("watchListKey"+id+"Pattern")[0].value};
+	var data = {currentFolder: document.getElementsByName("watchListKey"+id+"Location")[0].value, recursive: document.getElementsByName("watchListKey"+id+"Recursive")[0].value, filter:  document.getElementsByName("watchListKey"+id+"Pattern")[0].value, formKey};
 	$.ajax({
 		url: urlForSend,
 		dataType: "json",
@@ -346,6 +357,17 @@ function updateSubFiles(id)
 		type: "POST",
 		success(data)
 		{
+			if(typeof data === "object"  && "error" in data)
+			{
+				window.location.href = urlModifier + "error.php?error="+data["error"]+"&page=getFileFolderData.php";
+				return;
+			}
+			else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = urlModifier + "error.php?error="+data["error"]+"&page=getFileFolderData.php";
+            	return;
+            }
 			document.getElementById("infoFile"+id).innerHTML = data["fileInfo"];
 			document.getElementById("imageFile"+id).innerHTML = icons[data["img"]];
 			setTimeout(function(){ document.getElementById("watchListKey"+id+"LoadingSubFilesIcon").style.display = "none"; document.getElementById("watchListKey"+id+"FilesInFolder").style.display = "inline-block"; }, 1000);
@@ -560,7 +582,7 @@ function getFileFolderData(currentFolder, hideFiles, orgPath)
 {
 	//make ajax to get file / folder data, return array
 	var urlForSend = urlModifier+"core/php/getFileFolderData.php?format=json";
-	var data = {currentFolder, filter: currentPatternSelect};
+	var data = {currentFolder, filter: currentPatternSelect, formKey};
 	$.ajax({
 		url: urlForSend,
 		dataType: "json",
@@ -568,6 +590,17 @@ function getFileFolderData(currentFolder, hideFiles, orgPath)
 		type: "POST",
 		success(data)
 		{
+			if(typeof data === "object"  && "error" in data)
+			{
+				window.location.href = urlModifier + "error.php?error="+data["error"]+"&page=getFileFolderData.php";
+				return;
+			}
+			else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = urlModifier + "error.php?error="+data["error"]+"&page=getFileFolderData.php";
+            	return;
+            }
 			staticFileData = data;
 			if(document.getElementById("inputFieldForFileOrFolder") && document.getElementById("inputFieldForFileOrFolder").value == orgPath)
 			{
@@ -587,7 +620,7 @@ function getFileFolderDataMain(currentFolder, hideFiles, orgPath, currentRow)
 	}
 	//make ajax to get file / folder data, return array
 	var urlForSend = urlModifier+"core/php/getFileFolderData.php?format=json";
-	var data = {currentFolder, filter: localCurrentPatternSelect};
+	var data = {currentFolder, filter: localCurrentPatternSelect, formKey};
 	$.ajax({
 		url: urlForSend,
 		dataType: "json",
@@ -595,6 +628,17 @@ function getFileFolderDataMain(currentFolder, hideFiles, orgPath, currentRow)
 		type: "POST",
 		success(data)
 		{
+			if(typeof data === "object"  && "error" in data)
+			{
+				window.location.href = urlModifier + "error.php?error="+data["error"]+"&page=getFileFolderData.php";
+				return;
+			}
+			else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = urlModifier + "error.php?error="+data["error"]+"&page=getFileFolderData.php";
+            	return;
+            }
 			staticFileData = data;
 			if(document.getElementsByName("watchListKey"+currentRow+"Location")[0].value == orgPath)
 			{
@@ -1290,7 +1334,7 @@ function getFileFolderList()
 	document.getElementsByClassName("uniqueClassForAppendSettingsMainWatchNew")[0].innerHTML = "";
 	document.getElementsByClassName("uniqueClassForAppendSettingsMainWatchNew")[0].style.display = "none";
 	var urlForSend = urlModifier+"core/php/getFileFolderList.php?format=json";
-	var data = {};
+	var data = {formKey};
 	$.ajax({
 		url: urlForSend,
 		dataType: "json",
@@ -1298,6 +1342,17 @@ function getFileFolderList()
 		type: "POST",
 		success(data)
 		{
+			if(typeof data === "object"  && "error" in data)
+			{
+				window.location.href = urlModifier + "error.php?error="+data["error"]+"&page=getFileFolderList.php";
+				return;
+			}
+			else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = urlModifier + "error.php?error="+data["error"]+"&page=getFileFolderList.php";
+            	return;
+            }
 			fileFolderList = data;
 			var fileFolderListKeys = Object.keys(data);
 			var fileFolderListCount = fileFolderListKeys.length;
@@ -1330,7 +1385,7 @@ function ajaxAddRowFirstLoad(currentCount)
 		var data = fileFolderList[fileFolderListKeys[currentCount]];
 		updateProgressBarWatchList((90*(1/fileFolderListCount)), data["Location"], "Loading file "+(currentCount+1)+" of "+fileFolderListCount);
 		var urlForSend = urlModifier+"core/php/getFileFolderData.php?format=json";
-		var sendData = {currentFolder: data["Location"], filter: data["Pattern"]};
+		var sendData = {currentFolder: data["Location"], filter: data["Pattern"], formKey};
 		(function(_data){
 			$.ajax({
 				url: urlForSend,
@@ -1339,6 +1394,17 @@ function ajaxAddRowFirstLoad(currentCount)
 				type: "POST",
 				success(data)
 				{
+					if(typeof data === "object"  && "error" in data)
+					{
+						window.location.href = urlModifier + "error.php?error="+data["error"]+"&page=getFileFolderData.php";
+						return;
+					}
+					else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+		            {
+		            	data = JSON.parse(data);
+		            	window.location.href = urlModifier + "error.php?error="+data["error"]+"&page=getFileFolderData.php";
+		            	return;
+		            }
 					var countOfWatchList = parseInt(document.getElementById("numberOfRows").value);
 					var fileListData = generateSubFiles({fileArray: data["data"], currentNum: (countOfWatchList+1), mainFolder: _data["Location"]});
 					_data["fileImage"] = icons[data["img"]];

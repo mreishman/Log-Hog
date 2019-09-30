@@ -9,7 +9,7 @@ function updateStatus(status)
 	statusExt = status;
 	displayLoadingPopup();
 	var urlForSend = "./updateSetupStatus.php?format=json";
-	var data = {status};
+	var data = {status, formKey};
 	$.ajax(
 	{
 		url: urlForSend,
@@ -18,7 +18,19 @@ function updateStatus(status)
 		type: "POST",
 		success(data)
 		{
-			pollCheckForUpdate = setInterval(function(){verifyStatusChange(status);},3000);
+			if(typeof data === "object"  && "error" in data)
+            {
+                window.location.href = "./error.php?error="+data["error"];
+            }
+			else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = "./error.php?error="+data["error"];
+            }
+            else
+            {
+				pollCheckForUpdate = setInterval(function(){verifyStatusChange(status);},3000);
+			}
 		}
 	});
 	return false;
@@ -30,7 +42,7 @@ function verifyStatusChange(status)
 	if(countChecker < 20)
 	{
 		var urlForSend = "./updateSetupCheck.php?format=json";
-		var data = {status};
+		var data = {status, formKey};
 		$.ajax(
 		{
 			url: urlForSend,
@@ -39,7 +51,16 @@ function verifyStatusChange(status)
 			type: "POST",
 			success(data)
 			{
-				if(data === status)
+				if(typeof data === "object"  && "error" in data)
+	            {
+	                window.location.href = "./error.php?error="+data["error"];
+	            }
+				else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+	            {
+	            	data = JSON.parse(data);
+	            	window.location.href = "./error.php?error="+data["error"];
+	            }
+				else if(data === status)
 				{
 					clearInterval(pollCheckForUpdate);
 					if(status === "finished")

@@ -15,10 +15,23 @@ function resetUpdateNotification()
 {
 	displayLoadingPopup();
 	var data = $("#devAdvanced2").serializeArray();
+	data.push({name: "formKey", value: formKey});
 	$.ajax({
         type: "post",
         url: "../core/php/settingsSaveConfigStatic.php",
         data,
+        success(data)
+        {
+        	if(typeof data === "object"  && "error" in data)
+            {
+                window.location.href = "../error.php?error="+data["error"]+"&page=settingsSaveConfigStatic.php";
+            }
+            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = "../error.php?error="+data["error"]+"&page=settingsSaveConfigStatic.php";
+            }
+        },
         complete()
         {
           //verify saved
@@ -33,7 +46,16 @@ function updateNoNewVersionCheck()
 	{
 		$.getJSON("../core/php/configStaticCheck.php", {}, function(data)
 		{
-			if(data["version"] === data["newestVersion"])
+			if(typeof data === "object"  && "error" in data)
+			{
+				window.location.href = "../error.php?error="+data["error"] === 14+"&page=configStaticCheck.php";
+			}
+			else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = "../error.php?error="+data["error"]+"&page=configStaticCheck.php";
+            }
+			else if(data["version"] === data["newestVersion"])
 			{
 				clearInterval(advancedSettingsTimeoutVar);
 				saveSuccess();
@@ -99,7 +121,7 @@ function restoreToVersion(restoreTo)
 {
 	displayLoadingPopup();
 	var urlForSend = "../core/php/restoreConfig.php?format=json";
-	var data = {restoreTo};
+	var data = {restoreTo, formKey};
 	$.ajax(
 	{
 		url: urlForSend,
@@ -108,8 +130,20 @@ function restoreToVersion(restoreTo)
 		type: "POST",
 		success(data)
 		{
-			saveSuccess();
-			fadeOutPopup();
+			if(typeof data === "object"  && "error" in data)
+            {
+                window.location.href = "../error.php?error="+data["error"]+"&page=restoreConfig.php";
+            }
+            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = "../error.php?error="+data["error"]+"&page=restoreConfig.php";
+            }
+            else
+            {
+				saveSuccess();
+				fadeOutPopup();
+			}
 		}
 	});
 }
@@ -121,7 +155,16 @@ function clearBackupFiles()
 		displayLoadingPopup();
 		$.getJSON("../core/php/clearConfigBackups.php", {}, function(data)
 		{
-			if(data)
+			if(typeof data === "object"  && "error" in data)
+			{
+				window.location.href = "../error.php?error="+data["error"]+"&page=clearConfigBackups.php";
+			}
+			else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = "../error.php?error="+data["error"]+"&page=clearConfigBackups.php";
+            }
+			else if(data)
 			{
 				//verify that it was removed
 				advancedSettingsTimeoutVar = setInterval(function(){verifyNoConfigBackups();},3000);

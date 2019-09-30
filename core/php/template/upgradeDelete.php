@@ -1,5 +1,13 @@
 <!doctype html>
 <?php
+require_once("../../../core/php/class/core.php");
+$core = new core();
+require_once("../../../core/php/class/session.php");
+$session = new session();
+if(!$session->startSession())
+{
+	$core->echoErrorJavaScript("../../../", "", 17);
+}
 $baseUrl = "../../../core/";
 if(file_exists('../../../local/layout.php'))
 {
@@ -8,22 +16,21 @@ if(file_exists('../../../local/layout.php'))
 	require_once('../../../local/layout.php');
 	$baseUrl .= $currentSelectedTheme."/";
 }
-require_once($baseUrl.'conf/config.php');
-require_once("../../../core/php/class/core.php");
-$core = new core();
-require_once('../../../core/conf/config.php');
-require_once('../../../core/php/configStatic.php');
+require_once($baseUrl."conf/config.php");
+require_once("../../../core/conf/config.php");
+require_once("../../../core/php/configStatic.php");
 $currentTheme = $core->loadSpecificVar($defaultConfig, $config, "currentTheme");
-if(is_dir('../../../local/'.$currentSelectedTheme.'/Themes/'.$currentTheme))
+if(is_dir("../../../local/".$currentSelectedTheme."/Themes/".$currentTheme))
 {
-	require_once('../../../local/'.$currentSelectedTheme.'/Themes/'.$currentTheme."/defaultSetting.php");
+	require_once("../../../local/".$currentSelectedTheme."/Themes/".$currentTheme."/defaultSetting.php");
 }
 else
 {
-	require_once('../../../core/Themes/'.$currentTheme."/defaultSetting.php");
+	require_once("../../../core/Themes/".$currentTheme."/defaultSetting.php");
 }
-require_once('../../../core/php/loadVars.php');
-require_once('../../../core/php/staticDeletedFiles.php');
+require_once("../../../core/php/loadVars.php");
+$jsonFiles = file_get_contents("../../../core/json/staticDeletedFiles.json");
+$arrayOfFilesDeleted = json_decode($jsonFiles, true);
 $arrayOfFilesToDelete = array();
 foreach ($arrayOfFilesDeleted as $value)
 {

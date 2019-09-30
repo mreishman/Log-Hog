@@ -1,60 +1,5 @@
 <?php
 
-function forEachAddVars($variable)
-{
-	$returnText = "array(";
-	foreach ($variable as $key => $value)
-	{
-		$returnText .= " '".$key."' => ";
-		if(is_array($value) || is_object($value))
-		{
-			$returnText .= forEachAddVars($value);
-		}
-		else
-		{
-			$returnText .= "'".$value."',";
-		}
-	}
-	$returnText .= "),";
-	return $returnText;
-}
-
-function checkIfShouldLoad($loadCustomConfigVars, $key)
-{
-	if(!$loadCustomConfigVars)
-	{
-		$type = $_POST['resetConfigValuesBackToDefault'];
-		if($type === "all")
-		{
-			return false;
-		}
-
-		if($type === "justWatch")
-		{
-			if($key === "watchList")
-			{
-				return false;
-			}
-			return true;
-		}
-
-		if($type === "allButWatch")
-		{
-			if($key !== "watchList")
-			{
-				return false;
-			}
-			return true;
-		}
-	}
-	return true;
-}
-
-function escapeTheEscapes($stringToEscape)
-{
-	return implode("\\\\", explode("\\", $stringToEscape));
-}
-
 $varToIndexDir = "";
 $countOfSlash = 0;
 while($countOfSlash < 20 && !file_exists($varToIndexDir."error.php"))
@@ -80,9 +25,12 @@ else
 	$config = array();
 	$boolForUpgrade = false;
 }
+require_once($varToIndexDir."core/php/class/vars.php");
+$vars = new vars();
 require_once($varToIndexDir.'core/conf/config.php');
 $URI = $_SERVER['REQUEST_URI'];
-if($boolForUpgrade && (strpos($URI, 'upgradeLayout') === false) && (strpos($URI, 'upgradeConfig') === false) && (strpos($URI, 'core/php/template/upgrade') === false) && (strpos($URI, 'upgradeTheme') === false) && (strpos($URI, 'themeChangeLogic') === false) && (strpos($URI, 'settingsSaveAjax') === false) && (strpos($URI, 'example') === false) && (strpos($URI, 'setup') === false)  && (strpos($URI, 'upgradeDelete') === false) && (strpos($URI, 'restore') === false))
+$arrayOfUrlsToCheck = array("upgradeLayout","upgradeConfig","core/php/template/upgrade","upgradeTheme","themeChangeLogic","settingsSaveAjax","example","setup","upgradeDelete","restore");
+if($boolForUpgrade && !$vars->checkIfURIContains($arrayOfUrlsToCheck))
 {
 	$themeVersion = 0;
 	if(isset($config['themeVersion']))
@@ -123,7 +71,8 @@ if($boolForUpgrade && (strpos($URI, 'upgradeLayout') === false) && (strpos($URI,
 	}
 
 	//check if any files need to be removed
-	require_once($varToIndexDir."core/php/staticDeletedFiles.php");
+	$jsonFiles = file_get_contents($varToIndexDir."core/json/staticDeletedFiles.json");
+	$arrayOfFilesDeleted = json_decode($jsonFiles, true);
 	foreach ($arrayOfFilesDeleted as $fileOrFolder)
 	{
 		if(is_file($varToIndexDir.$fileOrFolder["fullPath"]))
@@ -147,7 +96,7 @@ foreach ($defaultConfig as $key => $value)
 	{
 		$$key = $_POST[$key];
 	}
-	elseif(array_key_exists($key, $config) && checkIfShouldLoad($loadCustomConfigVars, $key))
+	elseif(array_key_exists($key, $config) && $vars->checkIfShouldLoad($loadCustomConfigVars, $key))
 	{
 		$$key = $config[$key];
 	}
@@ -176,12 +125,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 		$baseKeysCount = count($baseKeys);
 		for($i = 1; $i <= $_POST['numberOfRows']; $i++ )
 		{
-			$arrayWatchList .= "'".escapeTheEscapes($_POST['watchListKey'.$i])."' => array(";
+			$arrayWatchList .= "'".$vars->escapeTheEscapes($_POST['watchListKey'.$i])."' => array(";
 			$baseKeyCounter = 0;
 			foreach ($baseKeys as $key => $value)
 			{
 				$baseKeyCounter++;
-				$arrayWatchList .= "'".$key."' => '".escapeTheEscapes($_POST['watchListKey'.$i.$key])."'";
+				$arrayWatchList .= "'".$key."' => '".$vars->escapeTheEscapes($_POST['watchListKey'.$i.$key])."'";
 				if($baseKeyCounter !== $baseKeysCount)
 				{
 					$arrayWatchList .= ",";
@@ -305,7 +254,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 		foreach ($folderColorArrays as $key => $value)
 		{
 			$folderColorArraysSave .= "'".$key."'	=>	";
-			$folderColorArraysSave .= forEachAddVars($value);
+			$folderColorArraysSave .= $vars->forEachAddVars($value);
 		}
 	}
 	$folderColorArrays = $folderColorArraysSave;
@@ -349,7 +298,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 		foreach ($logLoadLayout as $key => $value)
 		{
 			$arrayLogLoadLayout .= "'".$key."'	=>	";
-			$arrayLogLoadLayout .= forEachAddVars($value);
+			$arrayLogLoadLayout .= $vars->forEachAddVars($value);
 		}
 	}
 	$logLoadLayout = $arrayLogLoadLayout ;
@@ -358,292 +307,28 @@ else
 {
 	// Image Vars
 
-	$arrayOfImages = array(
-		"addons"			=> array(
-			"alt"			=>	"Addons",
-			"src"			=>	"",
-			"title"			=>	"Addons",
-			"baseName"		=>	"addon.png"
-		),
-		"backArrow"			=> array(
-			"alt"			=>	"Back",
-			"src"			=>	"",
-			"title"			=>	"Back",
-			"baseName"		=>	"backArrow.png"
-		),
-		"close"				=> array(
-			"alt"			=>	"Close",
-			"src"			=>	"",
-			"title"			=>	"Close",
-			"baseName"		=>	"close.png"
-		),
-		"downArrowSideBar"	=> array(
-			"alt"			=>	"Down",
-			"src"			=>	"",
-			"title"			=>	"Scroll To Bottom",
-			"baseName"		=>	"downArrowSideBar.png"
-		),
-		"eraser"			=> array(
-			"alt"			=>	"Clear",
-			"src"			=>	"",
-			"title"			=>	"Clear",
-			"baseName"		=>	"eraser.png"
-		),
-		"eraserMulti"			=> array(
-			"alt"			=>	"Clear All",
-			"src"			=>	"",
-			"title"			=>	"Clear All",
-			"baseName"		=>	"eraserMulti.png"
-		),
-		"externalLink"		=> array(
-			"alt"			=>	"External Link",
-			"src"			=>	"",
-			"title"			=>	"External Link",
-			"baseName"		=>	"externalLink.png"
-		),
-		"fileIcon"			=> array(
-			"alt"			=>	"File",
-			"src"			=>	"",
-			"title"			=>	"File",
-			"baseName"		=>	"fileIcon.png"
-		),
-		"fileIconNW"		=> array(
-			"alt"			=>	"File Not Writeable",
-			"src"			=>	"",
-			"title"			=>	"File Not Writeable",
-			"baseName"		=>	"fileIconNW.png"
-		),
-		"fileIconNR"		=> array(
-			"alt"			=>	"File Not Readable",
-			"src"			=>	"",
-			"title"			=>	"File Not Readable",
-			"baseName"		=>	"fileIconNR.png"
-		),
-		"filter"			=> array(
-			"alt"			=>	"Filter",
-			"src"			=>	"",
-			"title"			=>	"Filter",
-			"baseName"		=>	"filter.png"
-		),
-		"folderIcon"		=> array(
-			"alt"			=>	"Folder",
-			"src"			=>	"",
-			"title"			=>	"Folder",
-			"baseName"		=>	"folderIcon.png"
-		),
-		"folderIconNR"		=> array(
-			"alt"			=>	"Folder Not Readable",
-			"src"			=>	"",
-			"title"			=>	"Folder Not Readable",
-			"baseName"		=>	"folderIconNR.png"
-		),
-		"folderIconNW"		=> array(
-			"alt"			=>	"Folder Not Writeable",
-			"src"			=>	"",
-			"title"			=>	"Folder Not Writeable",
-			"baseName"		=>	"folderIconNW.png"
-		),
-		"gear"				=> array(
-			"alt"			=>	"Settings",
-			"src"			=>	"",
-			"title"			=>	"Settings",
-			"baseName"		=>	"Gear.png"
-		),
-		"gitStatus"			=> array(
-			"alt"			=> "gitStatus",
-			'src'			=> "",
-			"title"			=> "gitStatus",
-			"baseName"		=> 'gitStatus.png'
-		),
-		"greenCheck"		=> array(
-			"alt"			=>	"Ok",
-			"src"			=>	"",
-			"title"			=>	"Ok!",
-			"baseName"		=>	"greenCheck.png"
-		),
-		"history"			=> array(
-			"alt"			=>	"History",
-			"src"			=>	"",
-			"title"			=>	"History",
-			"baseName"		=>	"history.png"
-		),
-		"info"			=> array(
-			"alt"			=>	"Info",
-			"src"			=>	"",
-			"title"			=>	"Info",
-			"baseName"		=>	"info.png"
-		),
-		"loading"			=> array(
-			"alt"			=>	"Loading",
-			"src"			=>	"",
-			"title"			=>	"Loading...",
-			"baseName"		=>	"loading.gif"
-		),
-		"loadingImg"		=> array(
-			"alt"			=>	"Loading",
-			"src"			=>	"",
-			"title"			=>	"Loading...",
-			"baseName"		=>	"loading.gif"
-		),
-		"menu"	=> array(
-			"alt"			=>	"Menu",
-			"src"			=>	"",
-			"title"			=>	"Menu",
-			"baseName"		=>	"menu.png"
-		),
-		"multiLog"	=> array(
-			"alt"			=>	"Multi-Log",
-			"src"			=>	"",
-			"title"			=>	"Multi-Log",
-			"baseName"		=>	"multiLog.png"
-		),
-		"notification"	=> array(
-			"alt"			=>	"Notifications",
-			"src"			=>	"",
-			"title"			=>	"Notifications",
-			"baseName"		=>	"notification.png"
-		),
-		"notificationClear"	=> array(
-			"alt"			=>	"Clear Notifications",
-			"src"			=>	"",
-			"title"			=>	"Clear Notifications",
-			"baseName"		=>	"notificationClear.png"
-		),
-		"notificationFull"	=> array(
-			"alt"			=>	"Notifications",
-			"src"			=>	"",
-			"title"			=>	"Notifications",
-			"baseName"		=>	"notificationFull.png"
-		),
-		"pause"			=> array(
-			"alt"			=>	"Pause",
-			"src"			=>	"",
-			"title"			=>	"Pause",
-			"baseName"		=>	"Pause.png"
-		),
-		"pin"				=> array(
-			"alt"			=>	"Pin",
-			"src"			=>	"",
-			"title"			=>	"Pin",
-			"baseName"		=>	"pin.png"
-		),
-		"pinPinned"			=> array(
-			"alt"			=>	"Pin",
-			"src"			=>	"",
-			"title"			=>	"Pin",
-			"baseName"		=>	"pinPinned.png"
-		),
-		"play"			=> array(
-			"alt"			=>	"Play",
-			"src"			=>	"",
-			"title"			=>	"Play",
-			"baseName"		=>	"Play.png"
-		),
-		"redWarning"		=> array(
-			"alt"			=>	"Warning!",
-			"src"			=>	"",
-			"title"			=>	"Warning!!",
-			"baseName"		=>	"redWarning.png"
-		),
-		"refresh"			=> array(
-			"alt"			=>	"Refresh",
-			"src"			=>	"",
-			"title"			=>	"Refresh",
-			"baseName"		=>	"Refresh.png"
-		),
-		"saveSideBar"		=> array(
-			"alt"			=>	"Save",
-			"src"			=>	"",
-			"title"			=>	"Save",
-			"baseName"		=>	"saveSideBar.png"
-		),
-		"search"			=> array(
-			"alt"			=>	"Search",
-			"src"			=>	"",
-			"title"			=>	"Search",
-			"baseName"		=>	"search.png"
-		),
-		"seleniumMonitor"	=> array(
-			"alt"			=>	"Selenium Monitor",
-			"src"			=>	"",
-			"title"			=>	"Selenium Monitor",
-			"baseName"		=>	"seleniumMonitor.png"
-		),
-		"taskManager"		=> array(
-			"alt"			=>	"TaskManager",
-			"src"			=>	"",
-			"title"			=>	"TaskManager",
-			"baseName"		=>	"task-manager.png"
-		),
-		"theme"				=> array(
-			"alt"			=>	"Themes",
-			"src"			=>	"",
-			"title"			=>	"Themes",
-			"baseName"		=>	"theme.png"
-		),
-		"trashCan"			=> array(
-			"alt"			=>	"Delete",
-			"src"			=>	"",
-			"title"			=>	"Delete",
-			"baseName"		=>	"trashCan.png"
-		),
-		"trashCanMulti"			=> array(
-			"alt"			=>	"Delete Multiple",
-			"src"			=>	"",
-			"title"			=>	"Delete Multiple",
-			"baseName"		=>	"trashCanMulti.png"
-		),
-		"updateYellow"		=> array(
-			"alt"			=>	"Update",
-			"src"			=>	"",
-			"title"			=>	"Update",
-			"baseName"		=>	"updateYellow.png"
-		),
-		"updateRed"		=> array(
-			"alt"			=>	"Update",
-			"src"			=>	"",
-			"title"			=>	"Update",
-			"baseName"		=>	"updateRed.png"
-		),
-		"watchList"	=> array(
-			"alt"			=>	"Watch List",
-			"src"			=>	"",
-			"title"			=>	"WatchList",
-			"baseName"		=>	"watchlist.png"
-		),
-		"yellowWarning"		=> array(
-			"alt"			=>	"Notice",
-			"src"			=>	"",
-			"title"			=>	"Notice!",
-			"baseName"		=>	"yellowWarning.png"
-		)
-	);
-
+	$jsonImages = file_get_contents($varToIndexDir."core/json/images.json");
+	$arrayOfImages = json_decode($jsonImages, true);
 
 
 	foreach ($arrayOfImages as $key => $value)
 	{
 		$src = "core/img/".$value["baseName"];
-
-		if(file_exists($varToIndexDir."local/".$currentSelectedTheme."/img/".$value["baseName"]))
+		$filePaths = [
+			"local/".$currentSelectedTheme."/img/".$value["baseName"],
+			"local/Themes/".$currentTheme."/img/".$value["baseName"],
+			"core/Themes/".$currentTheme."/img/".$value["baseName"],
+			"local/Themes/".$currentThemeBase."/img/".$value["baseName"],
+			"core/Themes/".$currentThemeBase."/img/".$value["baseName"]
+		];
+		foreach ($filePaths as $filePath)
 		{
-			//check for local version
-			$src = "local/".$currentSelectedTheme."/img/".$value["baseName"];
-		}
-		elseif(file_exists($varToIndexDir."local/Themes/".$currentTheme."/img/".$value["baseName"]))
-		{
-			//check for current theme in local
-			$src = "local/Themes/".$currentTheme."/img/".$value["baseName"];
-		}
-		elseif(file_exists($varToIndexDir."core/Themes/".$currentTheme."/img/".$value["baseName"]))
-		{
-			//check for current theme in core
-			$src = "core/Themes/".$currentTheme."/img/".$value["baseName"];
-		}
-		elseif(file_exists($varToIndexDir."core/Themes/".$currentThemeBase."/img/".$value["baseName"]))
-		{
-			//check for base theme
-			$src = "core/Themes/".$currentThemeBase."/img/".$value["baseName"];
+			if(file_exists($varToIndexDir.$filePath))
+			{
+				//check for local version
+				$src = $filePath;
+				break;
+			}
 		}
 
 		$arrayOfImages[$key]["src"] = $src;
@@ -652,37 +337,15 @@ else
 
 	echo "<script>";
 	echo "var successVerifyNum = ".$successVerifyNum.";";
-	echo "var arrayOfImages = ".json_encode($arrayOfImages);
+	echo "var arrayOfImages = ".json_encode($arrayOfImages).";";
+	if(!isset($session))
+	{
+		include($varToIndexDir."core/php/class/session.php");
+		$session = new Session();
+		$session->getInstance();
+	}
+	echo "var formKey = \"".$session->outputKey()."\";";
 	echo "</script>";
-
-	$loadingBarStyle = "";
-
-	$loadingBarDefaultWidth = "data-stroke-width=\"3\" data-stroke-trail-width=\"3\"";
-
-	if($loadingBarVersion === 1)
-	{
-		$loadingBarStyle = "data-type=\"stroke\" data-stroke=\"".$currentSelectedThemeColorValues['main']['main-2']['background']."\" data-stroke-trail=\"".$currentSelectedThemeColorValues['main']['main-1']['background']."\" ".$loadingBarDefaultWidth;
-	}
-	elseif($loadingBarVersion === 2)
-	{
-		$loadingBarStyle = "data-type=\"stroke\" data-stroke=\"data:ldbar/res,stripe(#fff,#4fb3f0,1)\" data-stroke-trail=\"#082a36\" data-pattern-size=\"10\" ".$loadingBarDefaultWidth;
-	}
-	elseif($loadingBarVersion === 3)
-	{
-		$loadingBarStyle = "data-type=\"stroke\" data-stroke=\"data:ldbar/res,gradient(0,1,#3E8486,#A5F1F1)\" data-stroke-trail=\"#082a36\" ".$loadingBarDefaultWidth;
-	}
-	elseif($loadingBarVersion === 4)
-	{
-		$loadingBarStyle = "data-type=\"stroke\"  data-stroke=\"data:ldbar/res,bubble(#248,#fff,50,1)\" data-stroke-trail=\"#082a36\" data-pattern-size=\"10\" ".$loadingBarDefaultWidth;
-	}
-	elseif($loadingBarVersion === 5)
-	{
-		$loadingBarStyle = "data-type=\"stroke\" data-stroke=\"green\" data-stroke-trail=\"#063305\" "."data-stroke-width=\"3\" data-stroke-trail-width=\"1\"";
-	}
-	elseif($loadingBarVersion === 6)
-	{
-		$loadingBarStyle = "data-type=\"stroke\"  data-stroke=\"data:ldbar/res,bubble(#ffae42,#000,50,2)\" data-stroke-trail=\"#924012\" data-pattern-size=\"20\" ".$loadingBarDefaultWidth;
-	}
 
 	$trueFalsVars = array(
 		0 					=> array(

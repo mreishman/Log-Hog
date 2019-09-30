@@ -1447,7 +1447,8 @@ function clearLogInner(title)
 	}
 	var data = {
 		file: title,
-		type: "clearLog"
+		type: "clearLog",
+		formKey
 	};
 	$.ajax({
 			url: "core/php/clearLog.php?format=json",
@@ -1456,7 +1457,16 @@ function clearLogInner(title)
 			type: "POST",
 	success(data)
 	{
-		if(data["fileFound"] === "false")
+		if(typeof data === "object"  && "error" in data)
+		{
+			window.location.href = "error.php?error="+data["error"]+"&page=clearLog.php";
+		}
+		else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+        {
+        	data = JSON.parse(data);
+        	window.location.href = "error.php?error="+data["error"]+"&page=clearLog.php";
+        }
+		else if(data["fileFound"] === "false")
 		{
 			showPopup();
 			document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class=\"settingsHeader\" >An Error Occured when clearing this log</div><br><div style=\"width:100%;text-align:center;padding-left:10px;padding-right:10px;\">The log could not be found.</div><div><div style=\"margin-left: 160px; margin-top: 20px;\" onclick=\"hidePopup();\" class=\"link\">Close</div></div>";
@@ -1539,13 +1549,23 @@ function deleteActionAfter()
 				{
 					continue;
 				}
-				var dataToSend = {subFolder: "tmp/loghogBackupHistoryLogs/", key: currentTitle, log: arrayOfDataMain[currentTitle]["log"]};
+				var dataToSend = {subFolder: "tmp/loghogBackupHistoryLogs/", key: currentTitle, log: arrayOfDataMain[currentTitle]["log"], formKey};
 				$.ajax({
 						url: "core/php/saveTmpVersionOfLog.php?format=json",
 						dataType: "json",
 						data: dataToSend,
 						type: "POST",
-				success(data){},
+				success(data){
+					if(typeof data === "object"  && "error" in data)
+		            {
+		                window.location.href = "error.php?error="+data["error"]+"&page=saveTmpVersionOfLog.php";
+		            }
+					else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+		            {
+		            	data = JSON.parse(data);
+		            	window.location.href = "../error.php?error="+data["error"]+"&page=saveTmpVersionOfLog.php";
+		            }
+				},
 				});
 			}
 		}
@@ -1556,7 +1576,8 @@ function deleteActionAfter()
 		//Clear All Log Function (not delete actual file, just contents)
 		var urlForSend = "core/php/clearLog.php?format=json";
 		var data = {
-			type: "clearAllLogs"
+			type: "clearAllLogs",
+			formKey
 		};
 		$.ajax({
 			url: urlForSend,
@@ -1565,7 +1586,19 @@ function deleteActionAfter()
 			type: "POST",
 			success(data)
 			{
-				removeAllNotifications();
+				if(typeof data === "object"  && "error" in data)
+				{
+					window.location.href = "error.php?error="+data["error"]+"&page=clearLog.php";
+				}
+				else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+	            {
+	            	data = JSON.parse(data);
+	            	window.location.href = "error.php?error="+data["error"]+"&page=clearLog.php";
+	            }
+				else
+				{
+					removeAllNotifications();
+				}
 			}
 		});
 	}
@@ -1623,7 +1656,8 @@ function deleteLog(title)
 		title = title.replace(/\s/g, "");
 		var data = {
 			file: title,
-			type: "deleteLog"
+			type: "deleteLog",
+			formKey
 		};
 		name = title;
 		$.ajax({
@@ -1633,7 +1667,16 @@ function deleteLog(title)
 			type: "POST",
 			success(data)
 			{
-				if(data["fileFound"] === "false")
+				if(typeof data === "object"  && "error" in data)
+				{
+					window.location.href = "error.php?error="+data["error"]+"&page=clearLog.php";
+				}
+				else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+	            {
+	            	data = JSON.parse(data);
+	            	window.location.href = "error.php?error="+data["error"]+"&page=clearLog.php";
+	            }
+				else if(data["fileFound"] === "false")
 				{
 					showPopup();
 					document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class=\"settingsHeader\" >An Error Occured when deleting this log</div><br><div style=\"width:100%;text-align:center;padding-left:10px;padding-right:10px;\">The log could not be found.</div><div><div style=\"margin-left: 160px; margin-top: 20px;\" onclick=\"hidePopup();\" class=\"link\">Close</div></div>";

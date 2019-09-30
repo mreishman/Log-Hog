@@ -19,15 +19,30 @@ function runScript(version)
 	document.getElementById("verifyCount").innerHTML = globalVersionBase;
 	document.getElementById("runLoad").style.display = "block";
 	document.getElementById("verifyLoad").style.display = "none";
-	var urlForSend = urlForSendMain+version+urlForSendMain2;
-	var dataSend = {version: version};
+	var urlForSendRunScript = urlForSendMain+version+urlForSendMain2;
+	var dataSend = {version: version, formKey};
 	$.ajax({
-		url: urlForSend,
+		url: getElementById,
 		dataType: "json",
 		data: dataSend,
 		type: "POST",
 		success(data)
 		{
+			let urlMod = "";
+			let countNum = urlForSendMain.split("../").length - 1;
+			for(let i = 0; i < countNum; i++)
+			{
+				urlMod += "../";
+			}
+			if(typeof data === "object"  && "error" in data)
+            {
+                window.location.href = urlMod + "error.php?error="+data["error"];
+            }
+			else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+            {
+            	data = JSON.parse(data);
+            	window.location.href = urlMod + "error.php?error="+data["error"];
+            }
 			verifyFile(data);
 		},
 		failure(data)
@@ -54,7 +69,7 @@ function verifyFilePoll(version)
 	{
 		lock = true;
 		var urlForSend = urlForSendMain0;
-		var data = {version: version};
+		var data = {version: version, formKey};
 		(function(_data){
 			$.ajax({
 				url: urlForSend,
@@ -63,6 +78,15 @@ function verifyFilePoll(version)
 				type: "POST",
 				success(data)
 				{
+					if(typeof data === "object"  && "error" in data)
+		            {
+		                window.location.href = "../../../error.php?error="+data["error"]+"&page="+urlForSend;
+		            }
+					else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+		            {
+		            	data = JSON.parse(data);
+		            	window.location.href = "../../../error.php?error="+data["error"]+"&page="+urlForSend;
+		            }
 					verifyPostEnd(data, _data);
 				},
 				failure(data)

@@ -1,12 +1,19 @@
 <?php
 require_once("../core/php/class/core.php");
 $core = new core();
+require_once("../core/php/class/session.php");
+$session = new session();
+if(!$session->startSession())
+{
+	$core->echoErrorJavaScript("../", "", 17);
+}
 $currentSelectedTheme = $core->returnCurrentSelectedTheme();
 $baseUrl = "../local/".$currentSelectedTheme."/";
 require_once($baseUrl.'conf/config.php');
 require_once('../core/php/configStatic.php');
 require_once('../core/php/updateProgressFile.php');
-require_once('../core/php/settingsInstallUpdate.php');
+require_once('../core/php/class/settingsInstallUpdate.php');
+$settingsInstallUpdate = new settingsInstallUpdate();
 $redirectUrl = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 if(strpos($redirectUrl, "updater.php") > -1)
 {
@@ -220,6 +227,7 @@ if(count($arrayOfVersions) === 0)
 	)
 ); ?>
 <script type="text/javascript">
+	<?php echo "var formKey = \"".$session->outputKey()."\";"; ?>
 	var updateStatus = '<?php echo $updateStatus; ?>'
 	var versionToUpdateTo = "<?php echo $versionToUpdate; ?>";
 	var settingsForBranchStuff = JSON.parse('<?php echo json_encode($configStatic);?>');
@@ -232,7 +240,7 @@ if(count($arrayOfVersions) === 0)
 		total = 100*arrayOfVersionsCount;
 		if(update === "1")
 		{
-			downloadBranch();
+			pickNextAction();
 		}
 		else
 		{

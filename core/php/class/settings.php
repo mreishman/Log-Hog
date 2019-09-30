@@ -76,7 +76,12 @@ class settings
 		{
 			$onChangeFunction = "onchange=\"".$confDataValue["function"]."();\"";
 		}
-		$returnHtml .= " <div class=\"selectDiv\"><select ".$selectId." ".$onChangeFunction." name=\"".$varName."\">";
+		$varNameHtml = "";
+		if(!isset($confDataValue["hideKeyName"]) || $confDataValue["hideKeyName"] !== true)
+		{
+			$varNameHtml = " name=\"".$varName."\" ";
+		}
+		$returnHtml .= " <div class=\"selectDiv\"><select ".$selectId." ".$onChangeFunction.$varNameHtml.">";
 		$returnHtml .= $this->createSelect($confDataValue["options"], $selectValue);
 		$returnHtml .= "</select></div>";
 		return $returnHtml;
@@ -188,7 +193,7 @@ class settings
 		return $returnHtml;
 	}
 
-	public function varTemplateLogic($confDataValue, $loadVarsArray, $infoImage)
+	public function varTemplateLogic($confDataValue, $loadVarsArray, $infoImage = "")
 	{
 		if($confDataValue["type"] === "single")
 		{

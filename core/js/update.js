@@ -54,11 +54,20 @@ function checkForUpdates(urlSend = "../", whatAmIUpdating = "Log-Hog", currentNe
 		$.ajax({
 			url: urlSend + "core/php/settingsCheckForUpdateAjax.php",
 			dataType: "json",
-			data: {},
+			data: {formKey},
 			type: "POST",
 			success(data)
 			{
-				if(checkForUpdatePoll !== null)
+				if(typeof data === "object"  && "error" in data)
+	            {
+	                window.location.href = urlSend + "error.php?error="+data["error"]+"&page=settingsCheckForUpdateAjax.php";
+	            }
+	            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+	            {
+	            	data = JSON.parse(data);
+	            	window.location.href = urlSend + "error.php?error="+data["error"]+"&page=settingsCheckForUpdateAjax.php";
+	            }
+				else if(checkForUpdatePoll !== null)
 				{
 					updateInProgressPopup();
 				}
@@ -84,7 +93,7 @@ function checkForUpdates(urlSend = "../", whatAmIUpdating = "Log-Hog", currentNe
 							}
 							else if(data.error === "error opening zip")
 							{
-								window.location.href = "./error.php?error=14&page=Error Opening Zip";
+								window.location.href = "./error.php?error=17&page=Error Opening Zip";
 							}
 							else if(data.error === "empty zip")
 							{
@@ -181,6 +190,17 @@ function checkForUpdateTimer(urlSend, whatAmIUpdating)
 	}
 	$.getJSON(urlSend+"core/php/configStaticCheck.php", {}, function(data)
 	{
+		if(typeof data === "object"  && "error" in data)
+		{
+			window.location.href = urlSend + "error.php?error="+data["error"]+"&page=configStaticCheck.php";
+			return;
+		}
+		else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+        {
+        	data = JSON.parse(data);
+        	window.location.href = urlSend + "error.php?error="+data["error"]+"&page=configStaticCheck.php";
+        	return;
+        }
 		totalCounter++;
 		if(showPopupForUpdateBool && whatAmIUpdating === "Log-Hog")
 		{
@@ -329,12 +349,23 @@ function saveSettingFromPopupNoCheckMaybe()
 		if(document.getElementById("dontShowPopuForThisUpdateAgain") && document.getElementById("dontShowPopuForThisUpdateAgain").checked)
 		{
 			var urlForSend = urlSend+"core/php/settingsSaveAjax.php?format=json";
-			var data = {dontNotifyVersion};
+			var data = {dontNotifyVersion, formKey};
 			$.ajax({
 				url: urlForSend,
 				dataType: "json",
 				data,
 				type: "POST",
+				success(data){
+					if(typeof data === "object"  && "error" in data)
+		            {
+		                window.location.href = urlSend + "error.php?error="+data["error"]+"&page=settingsSaveAjax.php";
+		            }
+		            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+		            {
+		            	data = JSON.parse(data);
+		            	window.location.href = urlSend + "error.php?error="+data["error"]+"&page=settingsSaveAjax.php";
+		            }
+				},
 			complete(data){
 				closePopupNoUpdate();
 				},
@@ -378,13 +409,25 @@ function installUpdates(urlSend = "../", updateFormIDLocal = "settingsInstallUpd
 		displayLoadingPopup(imgLocatin);
 		//reset vars in post request
 		var urlForSend = urlSend + "core/php/resetUpdateFilesToDefault.php?format=json";
-		var data = {status: "" };
+		var data = {status: "" , formKey};
 		$.ajax(
 		{
 			url: urlForSend,
 			dataType: "json",
 			data,
 			type: "POST",
+			success(data)
+			{
+				if(typeof data === "object"  && "error" in data)
+	            {
+	                window.location.href = urlSend + "error.php?error="+data["error"]+"&page=resetUpdateFilesToDefault.php";
+	            }
+	            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+	            {
+	            	data = JSON.parse(data);
+	            	window.location.href = urlSend + "error.php?error="+data["error"]+"&page=resetUpdateFilesToDefault.php";
+	            }
+			},
 			complete(data)
 			{
 				verifyCountSuccess = 0;
@@ -403,7 +446,7 @@ function verifyChange(urlSend)
 	try
 	{
 		var urlForSend = urlSend + "update/updateActionCheck.php?format=json";
-		var data = {status: "" };
+		var data = {status: "" , formKey};
 		$.ajax(
 		{
 			url: urlForSend,
@@ -412,7 +455,16 @@ function verifyChange(urlSend)
 			type: "POST",
 			success(data)
 			{
-				if(data == "finishedUpdate")
+				if(typeof data === "object"  && "error" in data)
+	            {
+	                window.location.href = urlSend + "error.php?error="+data["error"]+"&page=updateActionCheck.php";
+	            }
+	            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+	            {
+	            	data = JSON.parse(data);
+	            	window.location.href = urlSend + "error.php?error="+data["error"]+"&page=updateActionCheck.php";
+	            }
+				else if(data == "finishedUpdate")
 				{
 					verifyCountSuccess++;
 					if(verifyCountSuccess > successVerifyNum)

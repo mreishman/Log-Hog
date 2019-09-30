@@ -1,6 +1,12 @@
 <?php
 require_once("../core/php/class/core.php");
 $core = new core();
+require_once("../core/php/class/session.php");
+$session = new session();
+if(!$session->startSession())
+{
+	$core->echoErrorJavaScript("../", "", 17);
+}
 $core->setCookieRedirect();
 $currentSelectedTheme = $core->returnCurrentSelectedTheme();
 $baseUrl = "../local/".$currentSelectedTheme."/";
@@ -22,7 +28,7 @@ require_once('../core/php/loadVars.php');
 ?>
 <!doctype html>
 <head>
-	<title>Settings | Main</title>
+	<title>Settings | What's New</title>
 	<?php echo $core->loadCSS("../",$baseUrl, $cssVersion);?>
 	<link rel="icon" type="image/png" href="../core/img/favicon.png" />
 	<?php $core->getScript(array(

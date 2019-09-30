@@ -1,0 +1,16 @@
+[
+	{"name":"none","value":"none"},
+	{"name":"hh","value":"hh"},
+	{"name":"mm","value":"mm"},
+	{"name":"ss","value":"ss"},
+	{"name":"DD","value":"DD"},
+	{"name":"MM","value":"MM"},
+	{"name":"YYYY","value":"YYYY"},
+	{"name":"PartDay","value":"PartDay"},
+	{"name":"FullDay","value":"FullDay"},
+	{"name":"PartMonth","value":"PartMonth"},
+	{"name":"FullMonth","value":"FullMonth"},
+	{"name":"mili","value":"mili"},
+	{"name":"hh-12","value":"hh12"},
+	{"name":"AM\/PM","value":"AMPM"}
+]

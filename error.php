@@ -44,20 +44,43 @@ if(file_exists($file))
     }
 }
 
+$sessionLoaded = false;
+$file = "core/php/class/session.php";
+if(file_exists($file))
+{
+    try
+    {
+        require_once($file);
+        $sessionLoaded = true;
+    } catch (Exception $e) {}
+    if($sessionLoaded)
+    {
+        $session = new session();
+        try
+        {
+            if(!$session->startSession())
+            {
+                $sessionLoaded = false;
+            }
+        } catch (Exception $e) {}
+    }
+}
+
 $fileNameArray = array(
     "Error"    =>  array(
         "name"      =>  "Could not load list of files",
         "path"      =>  ""
     )
 );
-$file = 'core/php/template/listOfFiles.php';
+$file = 'core/json/listOfFiles.json';
 if(file_exists($file))
 {
     if(is_readable($file))
     {
         try
         {
-            require_once($file);
+            $jsonFiles = file_get_contents("core/json/listOfFiles.json");
+            $fileNameArray = json_decode($jsonFiles, true);
         }
         catch (Exception $e)
         {
@@ -150,8 +173,8 @@ $errorArray = array(
         "secondMessage"     =>  "When checking for updates, a tmp directory is created under update/downloads/versionCheck/extracted/ to hold the zip file and list of versions.  This process errored out when trying to check for updates, throwing this error. Please check if settingsCheckForUpdateAjax.php has correct write permissions to create a folder, and that the target directory has enough free space."
     ),
     14   =>  array(
-        "firstMessage"      =>  "Update check failed because it could not open the downloaded zip file",
-        "secondMessage"     =>  "When checking for updates, a zip file is download that contains the new version list. An error occured when trying to open the zip file. This could either be due to a permission error or not enough space in the target directory."
+        "firstMessage"      =>  "Session Initialize Error",
+        "secondMessage"     =>  "Session was not initialized, try again?"
     ),
     15   =>  array(
         "firstMessage"      =>  "Could not load JS file when trying to initialize Log-Hog",
@@ -160,6 +183,14 @@ $errorArray = array(
     16   =>  array(
         "firstMessage"      =>  "Update check failed because the downloaded zip file was empty, or the file(s) could not be copied over",
         "secondMessage"     =>  "When checking for updates, a zip file is download that contains the new version list. An error occured when trying to copy files from the zip file. This could either be due to a permission error or not enough space in the target directory."
+    ),
+    17   =>  array(
+        "firstMessage"      =>  "Update check failed because it could not open the downloaded zip file",
+        "secondMessage"     =>  "When checking for updates, a zip file is download that contains the new version list. An error occured when trying to open the zip file. This could either be due to a permission error or not enough space in the target directory."
+    ),
+    18   =>  array(
+        "firstMessage"      =>  "Invalid Form Key",
+        "secondMessage"     =>  "The formkey sent with the post request was invalid. Please try and reload Log-Hog to generate a new session."
     ),
     42   =>  array(
         "firstMessage"      =>  "General Error",
@@ -213,6 +244,11 @@ if(file_exists($file))
     <?php if($jsForResetToDefaultLoaded): ?>
         <script type="text/javascript" src="core/js/resetSettingsJs.js?v=<?php echo rand(5, 15); ?>" ></script>
     <?php endif;?>
+    <script type="text/javascript" >
+        <?php if($sessionLoaded){
+            echo $session->outputFormKey();
+        }?>
+    </script>
 </head>
 <body>
 
@@ -238,6 +274,11 @@ if(file_exists($file))
             <?php echo $errorArray[$error]["secondMessage"]; ?>
             <h2> Version: </h2>
             <?php echo $version; ?>
+            <h2> PHP Version: </h2>
+            <?php echo phpversion(); ?>
+            <?php if (!$sessionLoaded): ?>
+                <h2>Session NOT loaded</h2>
+            <?php endif; ?>
             <br>
             <br>
             <?php

@@ -37,20 +37,6 @@
 					);
 				?>
 			</div>
-			<?php if($enableMultiLog === "true" && $multiLogOnIndex === "true"): ?>
-				<div onclick="toggleSettingsSidebar();"  class="menuImageDiv">
-					<?php echo $core->generateImage(
-						$arrayOfImages["loadingImg"],
-						$imageConfig = array(
-							"id"		=>	"multiLogImage",
-							"class"		=>	"menuImage multiLogImageForLoad",
-							"height"	=>	"30px",
-							"data-src"	=>	$arrayOfImages["multiLog"]
-							)
-						);
-					?>
-				</div>
-			<?php endif; ?>
 			<div onclick="pausePollAction();" class="menuImageDiv">
 				<?php
 					$styleString = "display: inline-block;";
