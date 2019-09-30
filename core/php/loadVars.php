@@ -341,6 +341,7 @@ else
 	if(!isset($session))
 	{
 		include($varToIndexDir."core/php/class/session.php");
+		$session = new Session();
 		$session->getInstance();
 	}
 	echo "var formKey = \"".$session->outputKey()."\";";
