@@ -10,7 +10,6 @@ if(!$session->startSession())
 }
 $data = array();
 $data['version'] = -1;
-$data['error'] = "";
 require_once("class/core.php");
 $core = new core();
 require_once("class/update.php");
