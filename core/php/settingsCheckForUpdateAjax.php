@@ -10,7 +10,6 @@ if(!$session->startSession())
 }
 $data = array();
 $data['version'] = -1;
-$data['error'] = "";
 require_once("class/core.php");
 $core = new core();
 require_once("class/update.php");
@@ -26,6 +25,7 @@ if(file_exists('../../local/layout.php'))
 }
 require_once($baseUrl.'conf/config.php');
 require_once('../conf/config.php');
+require_once('../../local/conf/globalConfig.php');
 
 if(file_exists("../../update/downloads/versionCheck/extracted/"))
 {
@@ -47,15 +47,15 @@ if(file_exists("../../update/downloads/versionCheck/extracted/"))
 }
 
 $branchSelected = $defaultConfig['branchSelected'];
-if(array_key_exists('branchSelected', $config))
+if(array_key_exists('branchSelected', $globalConfig))
 {
-  $branchSelected = $config['branchSelected'];
+  $branchSelected = $globalConfig['branchSelected'];
 }
 
 $baseUrlUpdate = $defaultConfig['baseUrlUpdate'];
-if(array_key_exists('baseUrlUpdate', $config))
+if(array_key_exists('baseUrlUpdate', $globalConfig))
 {
-  $baseUrlUpdate = $config['baseUrlUpdate'];
+  $baseUrlUpdate = $globalConfig['baseUrlUpdate'];
 }
 
 $fileNameForDownload = "versionCheck";

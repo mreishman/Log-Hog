@@ -20,6 +20,8 @@ require_once($baseUrl."layout.php");
 $baseUrl .= $currentSelectedTheme."/";
 require_once($baseUrl.'conf/config.php');
 require_once('../../core/conf/config.php');
+require_once('../../local/conf/globalConfig.php');
+require_once('../../core/conf/globalConfig.php');
 $currentTheme = $core->loadSpecificVar($defaultConfig, $config, "currentTheme");
 
 $requireFile = "../../core/Themes/".$currentTheme."/defaultSetting.php";

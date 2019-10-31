@@ -1,5 +1,7 @@
 <!doctype html>
 <?php
+require_once("../../../core/php/class/core.php");
+$core = new core();
 $baseUrl = "../../../core/";
 if(file_exists('../../../local/layout.php'))
 {
@@ -9,21 +11,18 @@ if(file_exists('../../../local/layout.php'))
 	$baseUrl .= $currentSelectedTheme."/";
 }
 require_once($baseUrl.'conf/config.php');
-require_once("../../../core/php/class/core.php");
-$core = new core();
 require_once('../../../core/conf/config.php');
-require_once('../../../local/conf/globalConfig.php');
 require_once('../../../core/conf/globalConfig.php');
+require_once('../../../local/conf/globalConfig.php');
 require_once('../../../core/php/configStatic.php');
 require_once('../../../core/php/loadVars.php');
-
-$layoutVersion = 0;
-if(isset($config['layoutVersion']))
+$globalConfigVersion = 0;
+if(isset($globalConfig['globalConfigVersion']))
 {
-	$layoutVersion = $config['layoutVersion'];
+	$globalConfigVersion = $globalConfig['globalConfigVersion'];
 }
-$layoutVersionToUpgradeTo = $defaultConfig['layoutVersion'];
-$totalUpgradeScripts = floatval($layoutVersionToUpgradeTo) - floatval($layoutVersion) ;
+$globalConfigVersionToUpgradeTo = $defaultGlobalConfig['globalConfigVersion'];
+$totalUpgradeScripts = floatval($globalConfigVersionToUpgradeTo) - floatval($globalConfigVersion);
 ?>
 <head>
 	<title>Log Hog | Updater</title>
@@ -42,7 +41,7 @@ $totalUpgradeScripts = floatval($layoutVersionToUpgradeTo) - floatval($layoutVer
 <div id="upgradeStatusPopup">
 	<div class="settingsHeader" style="text-align: center;" >
 		<span id="titleHeader" >
-			<h1>Running Upgrade Scripts for Layout...</h1>
+			<h1>Running Upgrade Scripts for Config...</h1>
 		</span>
 	</div>
 	<div class="settingsDiv" >
@@ -98,12 +97,12 @@ $totalUpgradeScripts = floatval($layoutVersionToUpgradeTo) - floatval($layoutVer
 	$( window ).resize(function() {
 		$("body").height(""+window.innerHeight+"px");
 	});
-	var urlForSendMain0 = '../../../core/php/checkVersionOfLayout.php?format=json';
-	var urlForSendMain = '../../../core/php/upgradeScript/upgradeLayout-';
+	var urlForSendMain0 = '../../../core/php/checkVersionOfGlobalConfig.php?format=json';
+	var urlForSendMain = '../../../core/php/upgradeScript/upgradeConfig-';
 	var urlForSendMain2 = '.php?format=json';
 	<?php
-	echo "var startVersion = ".$layoutVersion.";";
-	echo "var endVersion = ".$layoutVersionToUpgradeTo.";";
+	echo "var startVersion = ".$globalConfigVersion.";";
+	echo "var endVersion = ".$globalConfigVersionToUpgradeTo.";";
 	echo "var upgradeConfigUrlToRedirectTo = \"".$core->getCookieRedirect()."\"";
 	?>
 </script>

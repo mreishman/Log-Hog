@@ -10,7 +10,11 @@ if(!isset($settings))
 <?php echo $defaultConfigMoreData[$currentSection]["name"]; ?>
 <div class="settingsHeaderButtons">
 	<?php echo $settings->addResetButton($defaultConfigMoreData[$currentSection]["id"]);?>
-	<a class="linkSmall <?php echo $defaultConfigMoreData[$currentSection]["id"]; ?>SaveButton" onclick="saveAndVerifyMain('<?php echo $defaultConfigMoreData[$currentSection]["id"]; ?>');" >Save Changes</a>
+	<?php if ($currentSection === "globalConfig"):?>
+		<a class="linkSmall <?php echo $defaultConfigMoreData[$currentSection]["id"]; ?>SaveButton" onclick="saveAndVerifyGlobalConfigMain('<?php echo $defaultConfigMoreData[$currentSection]["id"]; ?>');" >Save Changes</a>
+	<?php else: ?>
+		<a class="linkSmall <?php echo $defaultConfigMoreData[$currentSection]["id"]; ?>SaveButton" onclick="saveAndVerifyMain('<?php echo $defaultConfigMoreData[$currentSection]["id"]; ?>');" >Save Changes</a>
+	<?php endif; ?>
 </div>
 </div>
 <div class="settingsDiv" >

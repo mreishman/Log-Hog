@@ -5,6 +5,14 @@ function toggleFullScreenMenu(force = false)
 	closeLogPopup();
 	if(document.getElementById("fullScreenMenu").style.display === "none")
 	{
+		if(developmentTabEnabled === "true")
+		{
+			$(".DevLink").show();
+		}
+		else
+		{
+			$(".DevLink").hide()
+		}
 		document.getElementById("menu").style.zIndex = "4";
 		loadImgFromData("mainMenuImage");
 		document.getElementById("fullScreenMenu").style.display = "block";
@@ -561,6 +569,9 @@ function hideSettingsStuff()
 	$("#settingsAdvancedDevBranchMenu").removeClass("selected");
 	document.getElementById("settingsAdvancedDevConfig").style.display = "none";
 	$("#settingsAdvancedDevConfigMenu").removeClass("selected");
+
+	document.getElementById("settingsGlobalAdvanced").style.display = "none";
+	$("#settingsGlobalAdvancedMenu").removeClass("selected");
 }
 
 function hideAboutStuff()

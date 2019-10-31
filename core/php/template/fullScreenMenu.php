@@ -141,14 +141,20 @@
 		<li id="settingsAdvancedAdvancedMenu" onclick="toggleSettingSection({id: 'settingsAdvancedAdvanced',formId: 'false'});" >
 			Advanced
 		</li>
-		<li <?php if($developmentTabEnabled !== "true"){ echo "style = \"display:none;\"";} ?> class="menuTitle fullScreenMenuText subMenuTitle">
+		<li <?php if($developmentTabEnabled !== "true"){ echo "style = \"display:none;\"";} ?> class="menuTitle fullScreenMenuText subMenuTitle DevLink">
 			Dev
 		</li>
-		<li id="settingsAdvancedDevBranchMenu" <?php if($developmentTabEnabled !== "true"){ echo "style = \"display:none;\"";} ?> onclick="toggleSettingSection({id: 'settingsAdvancedDevBranch', formId: 'devBranch'});" >
+		<li id="settingsAdvancedDevBranchMenu" <?php if($developmentTabEnabled !== "true"){ echo "style = \"display:none;\"";} ?> onclick="toggleSettingSection({id: 'settingsAdvancedDevBranch', formId: 'devBranch'});" class="DevLink" >
 			Branch
 		</li>
-		<li id="settingsAdvancedDevConfigMenu" <?php if($developmentTabEnabled !== "true"){ echo "style = \"display:none;\"";} ?> onclick="toggleSettingSection({id: 'settingsAdvancedDevConfig', formId: 'devConfig'});" >
+		<li id="settingsAdvancedDevConfigMenu" <?php if($developmentTabEnabled !== "true"){ echo "style = \"display:none;\"";} ?> onclick="toggleSettingSection({id: 'settingsAdvancedDevConfig', formId: 'devConfig'});" class="DevLink" >
 			Config
+		</li>
+		<li class="menuTitle fullScreenMenuText subMenuTitle">
+			Global Settings
+		</li>
+		<li id="settingsGlobalAdvancedMenu" onclick="toggleSettingSection({id: 'settingsGlobalAdvanced',formId: 'globalAdvanced'});" >
+			Advanced
 		</li>
 	<?php else: ?>
 		<li onclick="window.location.href = './settings/main.php';" >
@@ -357,6 +363,12 @@
 	<div id="settingsAdvancedDevConfig" style="display: none;">
 		<?php
 			require_once("core/php/template/devConfigSettings.php");
+		?>
+	</div>
+	<div id="settingsGlobalAdvanced" style="display: none;">
+		<?php
+		$currentSection = "globalConfig";
+		include('core/php/template/varTemplate.php');
 		?>
 	</div>
 </div>
