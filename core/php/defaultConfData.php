@@ -293,6 +293,33 @@ $defaultConfigMoreData = array(
 					"options"							=>	$trueFalsVars,
 					"type"								=>	"dropdown"
 				)
+			),
+			1									=>	array(
+				"info"								=>	"Refresh to run upgrade scripts",
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"configVersion",
+					"name"								=>	"Config Version",
+					"type"								=>	"number"
+				)
+			),
+			2									=>	array(
+				"info"								=>	"Refresh to run upgrade scripts",
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"layoutVersion",
+					"name"								=>	"Layout Version",
+					"type"								=>	"number"
+				)
+			),
+			3									=>	array(
+				"info"								=>	"Refresh to run upgrade scripts",
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"themeVersion",
+					"name"								=>	"Theme Version",
+					"type"								=>	"number"
+				)
 			)
 		)
 	),

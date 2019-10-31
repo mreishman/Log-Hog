@@ -284,7 +284,6 @@ let listOfMenuRightClick = [
   {id: "settingsAdvancedLogsMenu", link: "./settings/advanced.php#loggingDisplay"},
   {id: "settingsAdvancedLocationsMenu", link: "./settings/advanced.php#locationOtherApps"},
   {id: "settingsAdvancedAdvancedMenu", link: "./settings/advanced.php#advancedConfig"},
-  {id: "settingsAdvancedDevBranchMenu", link: "./settings/devTools.php#devBranch"},
   {id: "settingsAdvancedDevConfigMenu", link: "./settings/devTools.php#devConfig"}
 ];
 
