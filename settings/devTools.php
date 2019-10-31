@@ -60,6 +60,8 @@ $settingsUrlModifier = "../";
 	<div id="main">
 		<?php
 			require_once("../core/php/template/devConfigSettings.php");
+			$currentSection = "globalConfig";
+			include('../core/php/template/varTemplate.php');
 		?>
 	</div>
 	<script type="text/javascript">
