@@ -59,11 +59,11 @@ $settingsUrlModifier = "../";
 	<?php require_once('header.php'); ?>
 	<div id="main">
 		<?php
-			require_once("../core/php/template/devBranch.php");
 			require_once("../core/php/template/devConfigSettings.php");
 		?>
 	</div>
+	<script type="text/javascript">
+		var saveButtonAlwaysVisible = "<?php echo $saveButtonAlwaysVisible; ?>";
+		var dirForAjaxSend = "../";
+	</script>
 </body>
-<script type="text/javascript">
-	var saveButtonAlwaysVisible = "<?php echo $saveButtonAlwaysVisible; ?>";
-</script>

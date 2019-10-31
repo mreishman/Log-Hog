@@ -54,16 +54,11 @@ $core->getScripts(
 	<?php else: ?>
 		<a id="AdvancedLink" onclick="goToUrl('advanced.php');">Advanced</a>
 	<?php endif; ?>
-	<a style="
-		<?php if(!(($developmentTabEnabled == 'true') || (strpos($URI, 'devTools.php') !== false))):?>
-			display: none;
-		<?php endif; ?>
-		<?php if(strpos($URI, 'devTools.php') !== false): ?>
-			cursor: default;" class="DevLink active"
-		<?php else: ?>
-			" class="DevLink" onclick="goToUrl('devTools.php');"
-		<?php endif; ?>
-	> Dev</a>
+	<?php if(strpos($URI, 'devTools.php') !== false): ?>
+		<a style="cursor: default;" class="DevLink active"> Global</a>
+	<?php else: ?>
+		<a class="DevLink" onclick="goToUrl('devTools.php');"> Global</a>
+	<?php endif; ?>
 </div>
 <?php if(strpos($URI, 'main.php') !== false): ?>
 	<div id="menu2">
