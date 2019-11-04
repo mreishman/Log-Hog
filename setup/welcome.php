@@ -90,6 +90,7 @@ $core->setCookieRedirect();
 <form id="welcomeForm"></form>
 <script type="text/javascript">
 	var themeChangeLogicDirModifier = "../core/php/";
+	var themeErrorLogicDirModifier = "../";
 	function defaultSettings()
 	{
 		//change setupProcess to finished

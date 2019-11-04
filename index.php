@@ -339,6 +339,7 @@ $needRefresh = $core->generateImage(
 	</span>
 	<script type="text/javascript">
 			var themeChangeLogicDirModifier = "core/php/";
+			var themeErrorLogicDirModifier = "";
 			function redirectToLocationFromUpgradeTheme()
 			{
 				location.reload();
