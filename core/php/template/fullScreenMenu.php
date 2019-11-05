@@ -157,11 +157,9 @@
 		<li onclick="window.location.href = './settings/advanced.php';" >
 			Advanced <?php echo $externalLinkImage; ?>
 		</li>
-		<?php if($developmentTabEnabled === "true"): ?>
-			<li onclick="window.location.href = './settings/devTools.php';" >
-				Dev <?php echo $externalLinkImage; ?>
-			</li>
-		<?php endif; ?>
+		<li onclick="window.location.href = './settings/devTools.php';" >
+			Global <?php echo $externalLinkImage; ?>
+		</li>
 	<?php endif; ?>
 </ul>
 <div id="mainContentFullScreenMenu">

@@ -41,32 +41,6 @@ $URI = $_SERVER['REQUEST_URI'];
 $arrayOfUrlsToCheck = array("upgradeLayout","upgradeConfig","core/php/template/upgrade","upgradeTheme","themeChangeLogic","settingsSaveAjax","example","setup","upgradeDelete","restore");
 if($boolForUpgrade && !$vars->checkIfURIContains($arrayOfUrlsToCheck))
 {
-	$themeVersion = 0;
-	if(isset($config['themeVersion']))
-	{
-		$themeVersion = $config['themeVersion'];
-	}
-	if($themeVersion !== $defaultConfig['themeVersion'] || !is_file($baseUrl."/template/theme.css"))
-	{
-		//redirect to themeVersion upgrade script (copy over theme files to local)
-		header("Location: ".$varToIndexDir."core/php/template/upgradeTheme.php");
-		exit();
-
-	}
-
-	//check if upgrade script is needed
-	$layoutVersion = 0;
-	if(isset($config['layoutVersion']))
-	{
-		$layoutVersion = $config['layoutVersion'];
-	}
-	if($layoutVersion !== $defaultConfig['layoutVersion'])
-	{
-		//redirect to upgrade script for layoutVersion page
-		header("Location: ".$varToIndexDir."core/php/template/upgradeLayout.php");
-		exit();
-	}
-
 	$configVersion = 0;
 	if(isset($config['configVersion']))
 	{
@@ -88,6 +62,32 @@ if($boolForUpgrade && !$vars->checkIfURIContains($arrayOfUrlsToCheck))
 	{
 		//redirect to upgrade script for config page
 		header("Location: ".$varToIndexDir."core/php/template/upgradeGlobalConfig.php");
+		exit();
+	}
+
+	$themeVersion = 0;
+	if(isset($config['themeVersion']))
+	{
+		$themeVersion = $config['themeVersion'];
+	}
+	if($themeVersion !== $defaultConfig['themeVersion'] || !is_file($baseUrl."/template/theme.css"))
+	{
+		//redirect to themeVersion upgrade script (copy over theme files to local)
+		header("Location: ".$varToIndexDir."core/php/template/upgradeTheme.php");
+		exit();
+
+	}
+
+	//check if upgrade script is needed
+	$layoutVersion = 0;
+	if(isset($globalConfig['layoutVersion']))
+	{
+		$layoutVersion = $globalConfig['layoutVersion'];
+	}
+	if($layoutVersion !== $defaultGlobalConfig['layoutVersion'])
+	{
+		//redirect to upgrade script for layoutVersion page
+		header("Location: ".$varToIndexDir."core/php/template/upgradeLayout.php");
 		exit();
 	}
 
@@ -139,7 +139,7 @@ foreach ($defaultGlobalConfig as $key => $value)
 	{
 		$$key = $_POST[$key];
 	}
-	elseif(array_key_exists($key, $config) && $vars->checkIfShouldLoad($loadCustomConfigVars, $key))
+	elseif(array_key_exists($key, $globalConfig) && $vars->checkIfShouldLoad($loadCustomConfigVars, $key))
 	{
 		$$key = $globalConfig[$key];
 	}
@@ -375,15 +375,15 @@ else
 		$arrayOfImages[$key]["version"] = $cssVersion;
 	}
 
-	echo "<script>";
-	echo "var successVerifyNum = ".$successVerifyNum.";";
-	echo "var arrayOfImages = ".json_encode($arrayOfImages).";";
 	if(!isset($session))
 	{
 		include($varToIndexDir."core/php/class/session.php");
 		$session = new Session();
 		$session->getInstance();
 	}
+	echo "<script>";
+	echo "var successVerifyNum = ".$successVerifyNum.";";
+	echo "var arrayOfImages = ".json_encode($arrayOfImages).";";
 	echo "var formKey = \"".$session->outputKey()."\";";
 	echo "</script>";
 

@@ -98,7 +98,7 @@ $totalUpgradeScripts = floatval($globalConfigVersionToUpgradeTo) - floatval($glo
 		$("body").height(""+window.innerHeight+"px");
 	});
 	var urlForSendMain0 = '../../../core/php/checkVersionOfGlobalConfig.php?format=json';
-	var urlForSendMain = '../../../core/php/upgradeScript/upgradeConfig-';
+	var urlForSendMain = '../../../core/php/upgradeScript/upgradeGlobalConfig-';
 	var urlForSendMain2 = '.php?format=json';
 	<?php
 	echo "var startVersion = ".$globalConfigVersion.";";

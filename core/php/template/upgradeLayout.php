@@ -18,11 +18,11 @@ require_once('../../../core/php/configStatic.php');
 require_once('../../../core/php/loadVars.php');
 
 $layoutVersion = 0;
-if(isset($config['layoutVersion']))
+if(isset($globalConfig['layoutVersion']))
 {
-	$layoutVersion = $config['layoutVersion'];
+	$layoutVersion = $globalConfig['layoutVersion'];
 }
-$layoutVersionToUpgradeTo = $defaultConfig['layoutVersion'];
+$layoutVersionToUpgradeTo = $defaultGlobalConfig['layoutVersion'];
 $totalUpgradeScripts = floatval($layoutVersionToUpgradeTo) - floatval($layoutVersion) ;
 ?>
 <head>
