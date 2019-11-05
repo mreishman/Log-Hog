@@ -21,11 +21,8 @@ $errorCheck->checkIfFilesAreReadable(
 	 $currentPage);
 
 
-$baseUrl = "../local/";
-//there is custom information, use this
-require_once('../local/layout.php');
-$baseUrl .= $currentSelectedTheme."/";
-
+$currentSelectedTheme = $session->returnCurrentSelectedTheme();
+$baseUrl = "../local/".$currentSelectedTheme."/";
 
 $errorCheck->checkIfFilesAreWritable(
 	array("core/php/settingsSaveAjax.php","local/".$currentSelectedTheme, "setup/setupProcessFile.php"),

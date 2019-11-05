@@ -25,7 +25,7 @@ $addons = new addons();
 require_once("core/php/class/settings.php");
 $settings = new settings();
 $core->setCookieRedirect();
-$currentSelectedTheme = $core->returnCurrentSelectedTheme();
+$currentSelectedTheme = $session->returnCurrentSelectedTheme();
 $baseUrl = "local/".$currentSelectedTheme."/";
 $varTemplateSrcModifier = "";
 if(!file_exists($baseUrl.'conf/config.php'))

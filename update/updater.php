@@ -7,7 +7,7 @@ if(!$session->startSession())
 {
 	$core->echoErrorJavaScript("../", "", 17);
 }
-$currentSelectedTheme = $core->returnCurrentSelectedTheme();
+$currentSelectedTheme = $session->returnCurrentSelectedTheme();
 $baseUrl = "../local/".$currentSelectedTheme."/";
 require_once($baseUrl.'conf/config.php');
 require_once('../core/php/configStatic.php');

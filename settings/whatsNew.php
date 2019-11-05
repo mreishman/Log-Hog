@@ -8,7 +8,7 @@ if(!$session->startSession())
 	$core->echoErrorJavaScript("../", "", 17);
 }
 $core->setCookieRedirect();
-$currentSelectedTheme = $core->returnCurrentSelectedTheme();
+$currentSelectedTheme = $session->returnCurrentSelectedTheme();
 $baseUrl = "../local/".$currentSelectedTheme."/";
 $localURL = $baseUrl;
 require_once($baseUrl.'conf/config.php');

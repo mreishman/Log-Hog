@@ -15,7 +15,11 @@ if(!$session->validate())
 }
 require_once("../../core/php/class/settings.php");
 $settings = new settings();
-$currentSelectedTheme = $core->returnCurrentSelectedTheme();
+$currentSelectedTheme = $session->returnCurrentSelectedThemeAjax();
+if(!$currentSelectedTheme)
+{
+	exit();
+}
 $baseUrl = "../../local/".$currentSelectedTheme."/";
 $localURL = $baseUrl;
 require_once($baseUrl.'conf/config.php');

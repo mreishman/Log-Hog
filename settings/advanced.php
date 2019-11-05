@@ -12,7 +12,7 @@ if(!isset($settings))
 	require_once($core->baseURL()."core/php/class/settings.php");
 	$settings = new settings();
 }
-$currentSelectedTheme = $core->returnCurrentSelectedTheme();
+$currentSelectedTheme = $session->returnCurrentSelectedTheme();
 $baseUrl = "../local/".$currentSelectedTheme."/";
 $localURL = $baseUrl;
 require_once($baseUrl.'conf/config.php');

@@ -179,4 +179,50 @@ class session extends Core
             return false;
         }
     }
+
+    public function returnCurrentSelectedTheme()
+    {
+        return $this->returnCurrentSelectedThemeInner(true);
+    }
+
+    public function returnCurrentSelectedThemeAjax()
+    {
+        return $this->returnCurrentSelectedThemeInner(false);
+    }
+
+    public function returnCurrentSelectedThemeInner($jsError)
+    {
+        $baseBaseUrl = $this->baseURL();
+        if(file_exists($baseBaseUrl.'local/layout.php') && is_readable($baseBaseUrl.'local/layout.php'))
+        {
+            include($baseBaseUrl.'local/layout.php');
+            if(isset($currentSelectedTheme))
+            {
+                return $currentSelectedTheme;
+            }
+            else
+            {
+                if($jsError)
+                {
+                    $this->echoErrorJavaScript("", "Error when getting current selected theme.", 9);
+                }
+                else
+                {
+                    echo json_encode(array("error" => 9));
+                }
+            }
+        }
+        else
+        {
+            if($jsError)
+            {
+                $this->echoErrorJavaScript("", "Could not find local layout file. Please make sure that local/layout.php is setup correctly.", 7);
+            }
+            else
+            {
+                echo json_encode(array("error" => 7));
+            }
+        }
+        return false;
+    }
 }

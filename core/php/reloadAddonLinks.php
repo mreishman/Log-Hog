@@ -15,7 +15,11 @@ require_once("../../core/php/class/core.php");
 $core = new core();
 require_once("../../core/php/class/addons.php");
 $addons = new addons();
-$currentSelectedTheme = $core->returnCurrentSelectedTheme();
+$currentSelectedTheme = $session->returnCurrentSelectedThemeAjax();
+if(!$currentSelectedTheme)
+{
+	exit();
+}
 $baseUrl = "../../local/".$currentSelectedTheme."/";
 $localURL = $baseUrl;
 require_once($baseUrl.'conf/config.php');

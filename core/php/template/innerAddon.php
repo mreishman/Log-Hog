@@ -7,7 +7,9 @@
 		$core = new core();
 		require_once($core->baseURL()."core/php/class/addons.php");
 		$addons = new addons();
-		$currentSelectedTheme = $core->returnCurrentSelectedTheme();
+		require_once($core->baseURL()."core/php/class/sessions.php");
+		$sessions = new sessions();
+		$currentSelectedTheme = $session->returnCurrentSelectedTheme();
 		$baseUrl = "../../../local/".$currentSelectedTheme."/";
 		$localURL = $baseUrl;
 		require_once($baseUrl.'conf/config.php');
