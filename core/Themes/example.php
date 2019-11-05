@@ -35,7 +35,7 @@
 				<img class="menuImage" src="<?php echo $theme; ?>/img/eraserMulti.png" height="30px">
 			</div>
 			<div style="float: right;">
-				<input type="search" placeholder="Filter Title" style="height: 30px; width: 200px;">
+				<img class="menuImage" src="<?php echo $theme; ?>/img/search.png" height="30px">
 			</div>
 		</div>
 		<a class="varwwwhtmlvarlogauthnetcimlogButton active" >server_hhvm.log</a>
