@@ -14,8 +14,7 @@ if(!$session->validate())
 	exit();
 }
 $restoreTo = $_POST["restoreTo"];
-
-require_once('../../local/layout.php');
+$currentSelectedTheme = $session->returnCurrentSelectedThemeAjax();
 $baseUrl = "../../local/".$currentSelectedTheme."/";
 
 // Remove files above current restore to (if any)

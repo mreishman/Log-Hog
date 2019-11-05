@@ -1,10 +1,4 @@
 <?php
-$baseModifier = "../../";
-require_once($baseModifier.'local/layout.php');
-$baseUrl = $baseModifier."local/".$currentSelectedTheme."/";
-require_once($baseUrl.'conf/config.php');
-require_once($baseModifier.'core/conf/config.php');
-require_once('configStatic.php');
 require_once("class/core.php");
 $core = new core();
 require_once("class/session.php");
@@ -19,6 +13,12 @@ if(!$session->validate())
 	echo json_encode(array("error" => 18));
 	exit();
 }
+$baseModifier = "../../";
+$currentSelectedTheme = $session->returnCurrentSelectedThemeAjax();
+$baseUrl = $baseModifier."local/".$currentSelectedTheme."/";
+require_once($baseUrl.'conf/config.php');
+require_once($baseModifier.'core/conf/config.php');
+require_once('configStatic.php');
 require_once('class/poll.php');
 $poll = new poll();
 

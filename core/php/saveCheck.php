@@ -24,14 +24,10 @@ $core = new core();
 require_once($varToIndexDir."core/php/class/vars.php");
 $vars = new vars();
 
-$baseUrl = $varToIndexDir."core/";
-if(file_exists($varToIndexDir.'local/layout.php'))
-{
-  $baseUrl = $varToIndexDir."local/";
-  //there is custom information, use this
-  require_once($varToIndexDir.'local/layout.php');
-  $baseUrl .= $currentSelectedTheme."/";
-}
+$baseUrl = $varToIndexDir."local/";
+$currentSelectedTheme = $session->returnCurrentSelectedThemeAjax();
+$baseUrl .= $currentSelectedTheme."/";
+
 $config = array();
 if(file_exists($baseUrl.'conf/config.php'))
 {
