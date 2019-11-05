@@ -209,6 +209,7 @@ class session extends Core
                 else
                 {
                     echo json_encode(array("error" => 9));
+                    exit();
                 }
             }
         }
@@ -221,8 +222,8 @@ class session extends Core
             else
             {
                 echo json_encode(array("error" => 7));
+                exit();
             }
         }
-        return false;
     }
 }

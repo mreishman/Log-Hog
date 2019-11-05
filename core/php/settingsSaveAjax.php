@@ -16,18 +16,7 @@ if(!$session->validate())
 require_once("../../core/php/class/core.php");
 $core = new core();
 $baseUrl = "../../local/";
-//there is custom information, use this
-if(!file_exists($baseUrl."layout.php") || !is_readable($baseUrl."layout.php"))
-{
-	echo json_encode(7);
-	exit();
-}
-require_once($baseUrl."layout.php");
-if(!isset($currentSelectedTheme))
-{
-	echo json_encode(9);
-	exit();
-}
+$currentSelectedTheme = $session->returnCurrentSelectedThemeAjax();
 $baseUrl .= $currentSelectedTheme."/";
 
 $config = array();
