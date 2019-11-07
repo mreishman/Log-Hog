@@ -1,13 +1,17 @@
 <!doctype html>
 <?php
-$baseUrl = "../../../core/";
-if(file_exists('../../../local/layout.php'))
+require_once("../../../core/php/class/core.php");
+$core = new core();
+require_once("../../../core/php/class/session.php");
+$session = new session();
+if(!$session->startSession())
 {
-	$baseUrl = "../../../local/";
-	//there is custom information, use this
-	require_once('../../../local/layout.php');
-	$baseUrl .= $currentSelectedTheme."/";
+	$core->echoErrorJavaScript("", "", 14);
 }
+$baseUrl = "../../../local/";
+$currentSelectedTheme = $session->returnCurrentSelectedTheme();
+$baseUrl .= $currentSelectedTheme."/";
+
 require_once($baseUrl.'conf/config.php');
 require_once("../../../core/php/class/core.php");
 $core = new core();

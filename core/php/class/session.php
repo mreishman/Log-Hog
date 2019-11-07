@@ -198,7 +198,21 @@ class session extends Core
             include($baseBaseUrl.'local/layout.php');
             if(isset($currentSelectedTheme))
             {
-                return $currentSelectedTheme;
+                if(is_dir($baseBaseUrl . 'local/'.$currentSelectedTheme.'/')) {
+                    return $currentSelectedTheme;
+                } elseif(is_dir($baseBaseUrl . 'local/profiles/'.$currentSelectedTheme.'/')) {
+                    return 'profiles/'.$currentSelectedTheme;
+                } else {
+                    if($jsError)
+                    {
+                        $this->echoErrorJavaScript("", "Error when getting current selected theme.", 9);
+                    }
+                    else
+                    {
+                        echo json_encode(array("error" => 9));
+                        exit();
+                    }
+                }
             }
             else
             {
