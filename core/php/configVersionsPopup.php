@@ -3,7 +3,14 @@ $returnData = array(
 	'backupCopiesPresent' => false,
 );
 require_once('./class/diff.php');
-require_once('../../local/layout.php');
+require_once("../../core/php/class/session.php");
+$session = new session();
+if(!$session->startSession())
+{
+	echo json_encode(array("error" => 14));
+	exit();
+}
+$currentSelectedTheme = $session->returnCurrentSelectedThemeAjax();
 $baseUrl = "../../local/".$currentSelectedTheme."/";
 if(file_exists($baseUrl."conf/config1.php"))
 {

@@ -14,7 +14,7 @@ if(!$session->validate())
 	exit();
 }
 $baseModifier = "../../";
-require_once($baseModifier.'local/layout.php');
+$currentSelectedTheme = $session->returnCurrentSelectedThemeAjax();
 $baseUrl = $baseModifier."local/".$currentSelectedTheme."/";
 require_once($baseUrl.'conf/config.php');
 require_once($baseModifier.'core/conf/config.php');

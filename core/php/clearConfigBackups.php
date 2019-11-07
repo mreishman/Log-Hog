@@ -14,8 +14,7 @@ if(!$session->validate())
 	exit();
 }
 $baseUrl = "../../local/";
-//there is custom information, use this
-require_once('../../local/layout.php');
+$currentSelectedTheme = $session->returnCurrentSelectedThemeAjax();
 $baseUrl .= $currentSelectedTheme."/";
 
 /* Check for backup config stuff */

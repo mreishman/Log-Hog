@@ -6,15 +6,22 @@ while($countOfSlash < 20 && !file_exists($varToIndexDir."error.php"))
 {
   $varToIndexDir .= "../";
 }
-
-$baseUrl = $varToIndexDir."core/";
-if(file_exists($varToIndexDir.'local/layout.php'))
+if(!isset($core))
 {
-  $baseUrl = $varToIndexDir."local/";
-  //there is custom information, use this
-  require_once($varToIndexDir.'local/layout.php');
-  $baseUrl .= $currentSelectedTheme."/";
+	require_once($varToIndexDir.'core/php/class/core.php');
+	$core = new core();
 }
+if(!isset($session))
+{
+	require_once($varToIndexDir.'core/php/class/session.php');
+	$session = new session();
+	$session->startSession();
+}
+
+$baseUrl = $varToIndexDir."local/";
+$currentSelectedTheme = $session->returnCurrentSelectedThemeAjax();
+$baseUrl .= $currentSelectedTheme."/";
+
 $boolForUpgrade = true;
 if(file_exists($baseUrl.'conf/config.php'))
 {

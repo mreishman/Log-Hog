@@ -13,14 +13,11 @@ if(!$session->validate())
 	echo json_encode(array("error" => 18));
 	exit();
 }
-$baseUrl = "../../core/";
-if(file_exists('../../local/layout.php'))
-{
-	$baseUrl = "../../local/";
-	//there is custom information, use this
-	require_once('../../local/layout.php');
-	$baseUrl .= $currentSelectedTheme."/";
-}
+
+$baseUrl = "../../local/";
+$currentSelectedTheme = $session->returnCurrentSelectedThemeAjax();
+$baseUrl .= $currentSelectedTheme."/";
+
 require_once($baseUrl.'conf/config.php');
 
 $configVersion = 0;

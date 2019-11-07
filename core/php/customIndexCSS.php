@@ -4,17 +4,17 @@ if(!isset($core))
 	require_once("class/core.php");
 	$core = new core();
 }
-
-$baseURLToMain =  $core->baseURL();
-
-$baseUrl = $baseURLToMain."core/";
-if(file_exists('local/layout.php'))
+if(!isset($session))
 {
-	$baseUrl = $baseURLToMain."local/";
-	//there is custom information, use this
-	require_once($baseURLToMain.'local/layout.php');
-	$baseUrl .= $currentSelectedTheme."/";
+	require_once("class/session.php");
+	$session = new session();
+	$session->startSession();
 }
+$baseURLToMain =  $core->baseURL();
+$baseUrl = $baseURLToMain."local/";
+$currentSelectedTheme = $session->returnCurrentSelectedThemeAjax();
+$baseUrl .= $currentSelectedTheme."/";
+
 require_once($baseUrl.'conf/config.php');
 require_once($baseURLToMain.'core/conf/config.php');
 require_once($baseURLToMain.'local/conf/globalConfig.php');
