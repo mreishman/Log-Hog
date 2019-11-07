@@ -6,16 +6,11 @@ require_once("../../../core/php/class/session.php");
 $session = new session();
 if(!$session->startSession())
 {
-	$core->echoErrorJavaScript("../../../", "", 17);
+	$core->echoErrorJavaScript("", "", 14);
 }
-$baseUrl = "../../../core/";
-if(file_exists('../../../local/layout.php'))
-{
-	$baseUrl = "../../../local/";
-	//there is custom information, use this
-	require_once('../../../local/layout.php');
-	$baseUrl .= $currentSelectedTheme."/";
-}
+$baseUrl = "../../../local/";
+$currentSelectedTheme = $session->returnCurrentSelectedTheme();
+$baseUrl .= $currentSelectedTheme."/";
 require_once($baseUrl."conf/config.php");
 require_once("../../../core/conf/config.php");
 require_once('../../../local/conf/globalConfig.php');

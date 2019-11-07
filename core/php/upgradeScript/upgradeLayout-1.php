@@ -4,7 +4,7 @@ $baseDir = "../../../local/";
 if(!file_exists($baseDir."profiles/")) {
 	mkdir($baseDir."profiles/",0777, true);
 }
-$scanned_directory = array_diff(scandir($baseDir), array('..', '.','conf','profiles'));
+$scanned_directory = array_diff(scandir($baseDir), array('..', '.','conf','profiles','themes'));
 
 foreach ($scanned_directory as $key) {
 	if(is_dir($baseDir . $key)) {

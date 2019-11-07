@@ -13,9 +13,7 @@ if(!$session->validate())
 	echo json_encode(array("error" => 18));
 	exit();
 }
-require_once("../../core/php/class/core.php");
-$core = new core();
-require_once('../../local/layout.php');
+$currentSelectedTheme = $session->returnCurrentSelectedThemeAjax();
 $baseUrl = "../../local/".$currentSelectedTheme."/";
 require_once($baseUrl.'conf/config.php');
 require_once('../../core/conf/config.php');
