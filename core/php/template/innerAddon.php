@@ -16,9 +16,9 @@
 		require_once('../../conf/config.php');
 		require_once('../configStatic.php');
 		$currentTheme = $core->loadSpecificVar($defaultConfig, $config, "currentTheme");
-		if(is_dir('../../../local/'.$currentSelectedTheme.'/Themes/'.$currentTheme))
+		if(is_dir('../../../local/Themes/'.$currentTheme))
 		{
-			require_once('../../../local/'.$currentSelectedTheme.'/Themes/'.$currentTheme."/defaultSetting.php");
+			require_once('../../../local/Themes/'.$currentTheme."/defaultSetting.php");
 		}
 		else
 		{

@@ -48,9 +48,9 @@ if(!isset($defaultConfig))
 
 $currentTheme = $core->loadSpecificVar($defaultConfig, $config, "currentTheme");
 $requireFile = "../../core/Themes/".$currentTheme."/defaultSetting.php";
-if(is_dir("../../local/".$currentSelectedTheme."/Themes/".$currentTheme))
+if(is_dir("../../local/Themes/".$currentTheme))
 {
-	$requireFile = "../../local/".$currentSelectedTheme."/Themes/".$currentTheme."/defaultSetting.php";
+	$requireFile = "../../local/Themes/".$currentTheme."/defaultSetting.php";
 }
 require_once($requireFile);
 

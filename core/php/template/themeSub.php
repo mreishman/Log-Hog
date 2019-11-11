@@ -15,7 +15,7 @@ foreach ($scanned_directory as $key):
 					<div class="settingsHeaderButtons">
 						<?php if($key !== $currentTheme): ?>
 							<?php if(strpos($directory, "local") !== false): ?>
-								<a class="linkSmall" onclick="deleteTheme('<?php echo "../../local/".$currentSelectedTheme."/Themes/".$key; ?>')" >Delete</a>
+								<a class="linkSmall" onclick="deleteTheme('<?php echo "../../local/Themes/".$key; ?>')" >Delete</a>
 							<?php endif; ?>
 							<a class="linkSmall" onclick="saveAndVerifyMain('themeMainSelection-<?php echo $key;?>');" >Select</a>
 						<?php else:

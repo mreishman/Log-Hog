@@ -19,9 +19,9 @@ class upgrade extends core
 		include($baseUrl.'conf/config.php');
 		include($baseBaseUrl.'core/conf/config.php');
 		$currentTheme = $this->loadSpecificVar($defaultConfig, $config, "currentTheme");
-		if(is_dir($baseBaseUrl.'local/'.$currentSelectedTheme.'/Themes/'.$currentTheme))
+		if(is_dir($baseBaseUrl.'local/Themes/'.$currentTheme))
 		{
-			include($baseBaseUrl.'local/'.$currentSelectedTheme.'/Themes/'.$currentTheme."/defaultSetting.php");
+			include($baseBaseUrl.'local/Themes/'.$currentTheme."/defaultSetting.php");
 		}
 		else
 		{
@@ -89,9 +89,9 @@ class upgrade extends core
 		include($baseUrl.'conf/config.php');
 		include($baseBaseUrl.'core/conf/config.php');
 		$currentTheme = $this->loadSpecificVar($defaultConfig, $config, "currentTheme");
-		if(is_dir($baseBaseUrl.'local/'.$currentSelectedTheme.'/Themes/'.$currentTheme))
+		if(is_dir($baseBaseUrl.'local/Themes/'.$currentTheme))
 		{
-			include($baseBaseUrl.'local/'.$currentSelectedTheme.'/Themes/'.$currentTheme."/defaultSetting.php");
+			include($baseBaseUrl.'local/Themes/'.$currentTheme."/defaultSetting.php");
 		}
 		else
 		{

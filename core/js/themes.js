@@ -72,7 +72,7 @@ function saveCustomTheme()
 	displayLoadingPopup();
 	document.getElementById("popupHeaderText").innerHTML = "creating /Theme/ folder (step 1 of "+numberOfStepsForThemeCreate+")";
 	//create folder
-	var data = {action: "createFolder", newDir: "../../local/"+currentTheme+"/Themes/", formKey};
+	var data = {action: "createFolder", newDir: "../../local/Themes/", formKey};
 	$.ajax({
 		url: urlForSendUpdateAction,
 		dataType: "json",
@@ -101,7 +101,7 @@ function verifyFolder()
 	$.ajax({
 		url: urlForSendUpdateAction,
 		dataType: "json",
-		data: {action: "verifyDirIsThere", dirLocation: "../../local/"+currentTheme+"/Themes/", formKey},
+		data: {action: "verifyDirIsThere", dirLocation: "../../local/Themes/", formKey},
 		type: "POST",
 		success(data)
 		{
@@ -131,7 +131,7 @@ function saveCustomThemeCustomFolder()
 	$.ajax({
 		url: urlForSendUpdateAction,
 		dataType: "json",
-		data: {action: "createFolder", newDir: "../../local/"+currentTheme+"/Themes/Custom-Theme-"+externalThemeNumber, formKey},
+		data: {action: "createFolder", newDir: "../../local/Themes/Custom-Theme-"+externalThemeNumber, formKey},
 		type: "POST",
 		success()
 		{
@@ -157,7 +157,7 @@ function verifyFolderInFolder()
 	$.ajax({
 		url: urlForSendUpdateAction,
 		dataType: "json",
-		data: {action: "verifyDirIsThere", dirLocation: "../../local/"+currentTheme+"/Themes/Custom-Theme-"+externalThemeNumber, formKey},
+		data: {action: "verifyDirIsThere", dirLocation: "../../local/Themes/Custom-Theme-"+externalThemeNumber, formKey},
 		type: "POST",
 		success(data)
 		{
@@ -213,7 +213,7 @@ function verifyNewFiles()
 	$.ajax({
 		url: urlForSendUpdateAction,
 		dataType: "json",
-		data: {action: "verifyFileIsThere", fileLocation: "../../local/"+currentTheme+"/Themes/Custom-Theme-"+externalThemeNumber+"/defaultSetting.php", isThere: true, formKey},
+		data: {action: "verifyFileIsThere", fileLocation: "../../local/Themes/Custom-Theme-"+externalThemeNumber+"/defaultSetting.php", isThere: true, formKey},
 		type: "POST",
 		success(data)
 		{
@@ -241,7 +241,7 @@ function createImageFolder()
 	$.ajax({
 		url: urlForSendUpdateAction,
 		dataType: "json",
-		data: {action: "createFolder", newDir: "../../local/"+currentTheme+"/Themes/Custom-Theme-"+externalThemeNumber+"/img", formKey},
+		data: {action: "createFolder", newDir: "../../local/Themes/Custom-Theme-"+externalThemeNumber+"/img", formKey},
 		type: "POST",
 		success()
 		{
@@ -265,7 +265,7 @@ function verifyImageFolder()
 	$.ajax({
 		url: urlForSendUpdateAction,
 		dataType: "json",
-		data: {action: "verifyDirIsThere", dirLocation: "../../local/"+currentTheme+"/Themes/Custom-Theme-"+externalThemeNumber+"/img", formKey},
+		data: {action: "verifyDirIsThere", dirLocation: "../../local/Themes/Custom-Theme-"+externalThemeNumber+"/img", formKey},
 		type: "POST",
 		success(data)
 		{
@@ -293,7 +293,7 @@ function createTemplateFolder()
 	$.ajax({
 		url: urlForSendUpdateAction,
 		dataType: "json",
-		data: {action: "createFolder", newDir: "../../local/"+currentTheme+"/Themes/Custom-Theme-"+externalThemeNumber+"/template", formKey},
+		data: {action: "createFolder", newDir: "../../local/Themes/Custom-Theme-"+externalThemeNumber+"/template", formKey},
 		type: "POST",
 		success()
 		{
@@ -317,7 +317,7 @@ function verifyTemplateFolder()
 	$.ajax({
 		url: urlForSendUpdateAction,
 		dataType: "json",
-		data: {action: "verifyDirIsThere", dirLocation: "../../local/"+currentTheme+"/Themes/Custom-Theme-"+externalThemeNumber+"/template", formKey},
+		data: {action: "verifyDirIsThere", dirLocation: "../../local/Themes/Custom-Theme-"+externalThemeNumber+"/template", formKey},
 		type: "POST",
 		success(data)
 		{
@@ -373,7 +373,7 @@ function verifyCopiedFiles()
 	$.ajax({
 		url: urlForSendUpdateAction,
 		dataType: "json",
-		data: {action: "verifyFileIsThere", fileLocation: "../../local/"+currentTheme+"/Themes/Custom-Theme-"+externalThemeNumber+"/img/Gear.png", isThere: true, formKey},
+		data: {action: "verifyFileIsThere", fileLocation: "../../local/Themes/Custom-Theme-"+externalThemeNumber+"/img/Gear.png", isThere: true, formKey},
 		type: "POST",
 		success(data)
 		{

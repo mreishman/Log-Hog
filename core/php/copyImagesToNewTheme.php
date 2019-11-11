@@ -12,9 +12,9 @@ require_once('../../core/conf/globalConfig.php');
 require_once('../../local/conf/globalConfig.php');
 $currentTheme = $core->loadSpecificVar($defaultConfig, $config, "currentTheme");
 $directory = '../../core/Themes/'.$currentTheme.'/';
-if(is_dir('../../local/'.$currentSelectedTheme.'/Themes/'.$currentTheme))
+if(is_dir('../../local/Themes/'.$currentTheme))
 {
-	$directory = '../../local/'.$currentSelectedTheme.'/Themes/'.$currentTheme.'/';
+	$directory = '../../local/Themes/'.$currentTheme.'/';
 }
 require_once($directory."defaultSetting.php");
 require_once('loadVars.php');
