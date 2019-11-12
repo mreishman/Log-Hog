@@ -112,7 +112,7 @@ class settings
 		$returnHtml = "<span class=\"settingsBuffer\" > ".$confDataValue["name"].": </span>";
 		if(strpos($numberValue, "#") === 0 && (strlen($numberValue) === 4 || strlen($numberValue) === 7 ))
 		{
-			$returnHtml .= $this->generateSettingsColorBlockInner("colorBlock".$varName, $numberValue, array("name" => $varName, "inputDisplay" => "inline-block"));
+			$returnHtml .= $this->generateColorBlockInner("colorBlock".$varName, $numberValue, array("name" => $varName, "inputDisplay" => "inline-block"));
 			$returnHtml .= "
 			<script type=\"text/javascript\">
 			if(typeof colorPickerData !== \"object\")
@@ -158,7 +158,7 @@ class settings
 		}
 		else
 		{
-			$returnHtml .= $this->generateSettingsColorBlockInner("colorBlock".$varName, $numberValue, array("edit" => false));
+			$returnHtml .= $this->generateColorBlockInner("colorBlock".$varName, $numberValue, array("edit" => false));
 		}
 		return $returnHtml;
 	}
@@ -268,45 +268,6 @@ class settings
 		$returnHtml .= $image;
 		$returnHtml .= "  <i>".$info."</i></span></li>";
 		return $returnHtml;
-	}
-
-	private function generateSettingsColorBlockInner($buttonID, $color, $data = array())
-	{
-		$edit = true;
-		$style = "";
-		$name = "folderColorValue".$buttonID;
-		$inputDisplay = "none";
-		if(isset($data["edit"]))
-		{
-			$edit = $data["edit"];
-		}
-		if(isset($data["style"]))
-		{
-			$style = $data["style"];
-		}
-		if(isset($data["name"]))
-		{
-			$name = $data["name"];
-		}
-		if(isset($data["inputDisplay"]))
-		{
-			$inputDisplay = $data["inputDisplay"];
-		}
-		$htmlToReturn = "";
-		if($edit)
-		{
-			$htmlToReturn .= "<div class=\"colorSelectorDiv\" style=\"".$style."\" >";
-			$htmlToReturn .= "<div class=\"inner-triangle-2\" ></div>";
-			$htmlToReturn .= "<div class=\"inner-triangle\" ></div>";
-			$htmlToReturn .= "<button id=\"folderColorButton".$buttonID."\" class=\"backgroundButtonForColor\"></button>";
-		}
-		else
-		{
-			$htmlToReturn .=	"<div class=\"colorSelectorDiv addBorder\" style=\"background-color: ".$color."; ".$style."\" >";
-		}
-		$htmlToReturn .=	"</div>";
-		$htmlToReturn .=	"<input style=\"width: 100px; display: ".$inputDisplay.";\" type=\"text\" id=\"folderColorValue".$buttonID."\" name=\"".$name."\" value=\"".$color."\" >";
-		return $htmlToReturn;
 	}
 
 	public function generateRestoreList($configStatic)
