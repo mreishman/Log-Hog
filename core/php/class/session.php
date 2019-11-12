@@ -182,15 +182,42 @@ class session extends Core
 
     public function returnCurrentSelectedTheme()
     {
-        return $this->returnCurrentSelectedThemeInner(true);
+        return $this->returnCurrentSelectedThemeInner(true, false);
     }
 
     public function returnCurrentSelectedThemeAjax()
     {
-        return $this->returnCurrentSelectedThemeInner(false);
+        return $this->returnCurrentSelectedThemeInner(false, true);
     }
 
-    public function returnCurrentSelectedThemeInner($jsError)
+     public function returnCurrentSelectedThemeNoError()
+    {
+        return $this->returnCurrentSelectedThemeInner(false, false);
+    }
+
+    public function returnCurrentSelectedThemeInner($jsError, $phpError)
+    {
+        return false;
+        if(true)
+        {
+            return $this->getProfileFromFile($jsError, $phpError);
+        }
+        else
+        {
+            return $this->getProfileFromSession($jsError, $phpError);
+        }
+    }
+
+    private function getProfileFromSession($jsError, $phpError)
+    {
+        if($this->__isset("profile"))
+        {
+           return $this->__get("profile");
+        }
+        return false;
+    }
+
+    private function getProfileFromFile($jsError, $phpError)
     {
         $baseBaseUrl = $this->baseURL();
         if(file_exists($baseBaseUrl.'local/layout.php') && is_readable($baseBaseUrl.'local/layout.php'))
@@ -207,7 +234,7 @@ class session extends Core
                     {
                         $this->echoErrorJavaScript("", "Error when getting current selected theme.", 9);
                     }
-                    else
+                    elseif($phpError)
                     {
                         echo json_encode(array("error" => 9));
                         exit();
@@ -220,7 +247,7 @@ class session extends Core
                 {
                     $this->echoErrorJavaScript("", "Error when getting current selected theme.", 9);
                 }
-                else
+                elseif($phpError)
                 {
                     echo json_encode(array("error" => 9));
                     exit();
@@ -233,11 +260,12 @@ class session extends Core
             {
                 $this->echoErrorJavaScript("", "Could not find local layout file. Please make sure that local/layout.php is setup correctly.", 7);
             }
-            else
+            elseif($phpError)
             {
                 echo json_encode(array("error" => 7));
                 exit();
             }
         }
+        return false;
     }
 }

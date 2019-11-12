@@ -490,4 +490,16 @@ class core
 		}
 		return $response;
 	}
+
+	public function goToUrl($remove, $urlPart)
+	{
+		$partOfUrl = $this->clean_url($_SERVER['REQUEST_URI']);
+		if(strpos($partOfUrl, $remove) !== false)
+		{
+			$partOfUrl = str_replace($remove, "", $partOfUrl);
+		}
+		$url = "http://" . $_SERVER['HTTP_HOST'] .$partOfUrl .$urlPart;
+		header('Location: ' . $url, true, 302);
+		exit();
+	}
 }
