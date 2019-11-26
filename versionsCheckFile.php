@@ -10,10 +10,10 @@ if($configStatic['version'] == '7.3') {
 elseif($configStatic['version'] == '8.3.1') {
 	//Fixes for not using global vars and string convert
 	if(file_exists('../../update/downloads/versionCheck/extracted/core_php_class_update.php')){
-	copy('../../update/downloads/versionCheck/extracted/updater.php','../../core/php/class/update.php');
+	copy('../../update/downloads/versionCheck/extracted/core_php_class_update.php','../../core/php/class/update.php');
 	}
 	if(file_exists('../../update/downloads/versionCheck/extracted/core_php_settingsCheckForUpdateAjax.php')){
-	copy('../../update/downloads/versionCheck/extracted/updater.php','../../core/php/settingsCheckForUpdateAjax.php');
+	copy('../../update/downloads/versionCheck/extracted/core_php_settingsCheckForUpdateAjax.php','../../core/php/settingsCheckForUpdateAjax.php');
 	}
 }
 //update info
