@@ -2,7 +2,7 @@ var timeoutVarDevToolsSave;
 
 function saveConfigStatic()
 {
-	displayLoadingPopup(dirForAjaxSend,"Saving Confit Static");
+	displayLoadingPopup(dirForAjaxSend,"Saving Config Static");
 	var data = $("#devConfig").serializeArray();
 	data.push({name: "formKey", value: formKey});
 	$.ajax({
