@@ -18,7 +18,7 @@ elseif($configStatic['version'] == '8.3.1') {
 }
 //update info
 $versionCheckArray = array(
-	'version'		=> '8.3.1',
+	'version'		=> '8.3.2',
 	'versionList'		=> array(
 		'2.0.1'	        => array(
 			'branchName'	=> '2.0.1Update',
@@ -383,6 +383,13 @@ $versionCheckArray = array(
 			'installSize'   => 10028836,
 			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/8.3.png',
 			'releaseNotes'	=> "<ul><li>Features<ul><li>Added new settings tab for global settings</li></ul></li><li>Bug Fixes<ul><li>Fixed advanced actions not working on index</li><li>Fixed zindex of notification badge</li><li>Fixed broken images in some popups</li><li>Fixed dev tools menu showing up when not enabled</li><li>Fixed dev tools not updating with ajax settings on change</li><li>Fixed setup bug with formKey</li><li>Fixed check for update bug with incorrect error redirect</li></ul></li></ul>"
+		),
+		'8.3.2'			=> array(
+			'branchName'	=> '8.3.2Update',
+			'downloadSize'  => 357531,
+			'installSize'   => 10057826,
+			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/8.3.png',
+			'releaseNotes'	=> "<ul><li>Notice<ul><li>If you have any custom themes in local/default/Themes, you will need to manually move those to local/Themes after the install</li></ul></li><li>Features<ul><li>Cleaned up settings menu, removed dev tab</li></ul></li><li>Bug Fixes<ul><li>Fixed bug with config static not saving on index page</li><li>Fixed bug with global config settings not showing up on legacy settings page</li><li>Added check for folder before getting list of tmp logs (archive and tmp history)</li><li>Theme change logic error url now redirects properly</li><li>Global config var save check is now correct</li><li>Cleaned up local folder, moved all profiles into profiles folder</li><li>Fixed bug with theme change logic</li><li>Fixed bug with custom theme save logic</li></ul></li></ul>"
 		),
 	)
 );
