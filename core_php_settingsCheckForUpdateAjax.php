@@ -10,8 +10,6 @@ if(!$session->startSession())
 }
 $data = array();
 $data['version'] = -1;
-require_once("class/core.php");
-$core = new core();
 require_once("class/update.php");
 $update = new update();
 
@@ -22,6 +20,7 @@ $baseUrl .= $currentSelectedTheme."/";
 require_once($baseUrl.'conf/config.php');
 require_once('../conf/config.php');
 require_once('../../local/conf/globalConfig.php');
+require_once('../conf/globalConfig.php');
 
 if(file_exists("../../update/downloads/versionCheck/extracted/"))
 {
@@ -42,13 +41,13 @@ if(file_exists("../../update/downloads/versionCheck/extracted/"))
 
 }
 
-$branchSelected = $defaultConfig['branchSelected'];
+$branchSelected = $defaultGlobalConfig['branchSelected'];
 if(array_key_exists('branchSelected', $globalConfig))
 {
   $branchSelected = $globalConfig['branchSelected'];
 }
 
-$baseUrlUpdate = $defaultConfig['baseUrlUpdate'];
+$baseUrlUpdate = $defaultGlobalConfig['baseUrlUpdate'];
 if(array_key_exists('baseUrlUpdate', $globalConfig))
 {
   $baseUrlUpdate = $globalConfig['baseUrlUpdate'];
