@@ -48,6 +48,6 @@ class update
 		}
 		$sizes = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
 		$i = floor(log($bytes) / log(1024));
-		return number_format(($bytes / pow(1024, $i)), $decimals) + " " . $sizes[$i];
+		return number_format(($bytes / pow(1024, $i)), $decimals) . " " . $sizes[$i];
 	}
 }
