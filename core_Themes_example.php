@@ -1,0 +1,82 @@
+<?php
+	$theme = $_GET["type"];
+	$cssVersion = date("YmdHis");
+?>
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="<?php echo $theme; ?>/template/theme.css?v=<?php echo $cssVersion;?>">
+	<link rel="stylesheet" type="text/css" href="../template/base.css?v=<?php echo $cssVersion;?>">
+	<style type="text/css">
+		#log {
+			display: block;
+		}
+	</style>
+</head>
+<body>
+	<div id="menu" style="position: relative; overflow: hidden; ">
+		<span id="stars" style="display: block;" ></span>
+		<span id="stars2" style="display: block;" ></span>
+		<span id="stars3" style="display: block;" ></span>
+		<div id="menuButtons">
+			<div class="menuImageDiv">
+				<img class="menuImage" src="<?php echo $theme; ?>/img/menu.png" height="30px">
+			</div>
+			<div class="menuImageDiv">
+				<img class="menuImage" src="<?php echo $theme; ?>/img/Gear.png" height="30px">
+			</div>
+			<div class="menuImageDiv">
+				<img class="menuImage" src="<?php echo $theme; ?>/img/Pause.png" height="30px">
+			</div>
+			<div class="menuImageDiv">
+				<img class="menuImage" src="<?php echo $theme; ?>/img/Refresh.png" height="30px">
+			</div>
+			<div class="menuImageDiv">
+				<img class="menuImage" src="<?php echo $theme; ?>/img/eraserMulti.png" height="30px">
+			</div>
+			<div style="float: right;">
+				<img class="menuImage" src="<?php echo $theme; ?>/img/search.png" height="30px">
+			</div>
+		</div>
+		<a class="varwwwhtmlvarlogauthnetcimlogButton active" >server_hhvm.log</a>
+		<a class="varlogapache2errorlogButton" >error.log</a>
+		<a class="varlogalternativeslogButton updated">alternatives.log</a>
+	</div>
+	<div id="main" style="height: 278px; position: inherit;">
+		<table style="margin: 0px;padding: 0px; border-spacing: 0px; width:100%; height: 278px; " >
+			<tr>
+				<td style="padding: 0; width: 30px;" >
+					<div class="backgroundForSideBarMenu" style="width: 30px; float: left; display: inline; padding: 0px;">
+						<a style="cursor: pointer;" >
+							<img class="altImage" src="<?php echo $theme; ?>/img/info.png" style="padding: 5px;" width="20px;">
+						</a>
+						<a style="cursor: pointer;">
+							<img class="altImage" src="<?php echo $theme; ?>/img/eraser.png" style="padding: 5px;" width="20px;">
+						</a>
+						<a style="cursor: pointer;">
+							<img class="altImage" src="<?php echo $theme; ?>/img/trashCan.png" style="padding: 5px;" width="20px;">
+						</a>
+						<a style="cursor: pointer;">
+							<img class="altImage" src="<?php echo $theme; ?>/img/downArrowSideBar.png" style="padding: 5px;" width="20px;">
+						</a>
+					</div>
+				</td>
+				<td style="padding: 0;" >
+					<div id="log" style="height: 278px; overflow: auto;" >
+						<table width="100%" >
+							<?php
+								$log = file_get_contents("example.html");
+								$log = explode("\n", $log);
+								foreach ($log as $line)
+								{
+									echo "<tr valign=\"top\" ><td >".implode("</td><td>", explode("[hphp]", $line))."</td></tr>";
+								}
+							?>
+						</table>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>
