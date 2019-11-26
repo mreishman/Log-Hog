@@ -6,6 +6,15 @@ if($configStatic['version'] == '7.3') {
 	if(file_exists('../../update/downloads/versionCheck/extracted/updater.php')){
 	copy('../../update/downloads/versionCheck/extracted/updater.php','../../update/updater.php');
 	}
+} 
+elseif($configStatic['version'] == '8.3.1') {
+	//Fixes for not using global vars and string convert
+	if(file_exists('../../update/downloads/versionCheck/extracted/core_php_class_update.php')){
+	copy('../../update/downloads/versionCheck/extracted/updater.php','../../core/php/class/update.php');
+	}
+	if(file_exists('../../update/downloads/versionCheck/extracted/core_php_settingsCheckForUpdateAjax.php')){
+	copy('../../update/downloads/versionCheck/extracted/updater.php','../../core/php/settingsCheckForUpdateAjax.php');
+	}
 }
 //update info
 $versionCheckArray = array(
