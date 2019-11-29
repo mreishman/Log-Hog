@@ -24,14 +24,10 @@ $core = new core();
 require_once($varToIndexDir."core/php/class/vars.php");
 $vars = new vars();
 
-$baseUrl = $varToIndexDir."core/";
-if(file_exists($varToIndexDir.'local/layout.php'))
-{
-  $baseUrl = $varToIndexDir."local/";
-  //there is custom information, use this
-  require_once($varToIndexDir.'local/layout.php');
-  $baseUrl .= $currentSelectedTheme."/";
-}
+$baseUrl = $varToIndexDir."local/";
+$currentSelectedTheme = $session->returnCurrentSelectedThemeAjax();
+$baseUrl .= $currentSelectedTheme."/";
+
 $config = array();
 if(file_exists($baseUrl.'conf/config.php'))
 {
@@ -47,9 +43,9 @@ if(file_exists($varToIndexDir.'local/conf/globalConfig.php'))
 require_once($varToIndexDir.'core/conf/globalConfig.php');
 
 $currentTheme = $core->loadSpecificVar($defaultConfig, $config, "currentTheme");
-if(is_dir($varToIndexDir.'local/'.$currentSelectedTheme.'/Themes/'.$currentTheme))
+if(is_dir($varToIndexDir.'local/Themes/'.$currentTheme))
 {
-	require_once($varToIndexDir.'local/'.$currentSelectedTheme.'/Themes/'.$currentTheme."/defaultSetting.php");
+	require_once($varToIndexDir.'local/Themes/'.$currentTheme."/defaultSetting.php");
 }
 else
 {

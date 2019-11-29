@@ -156,27 +156,6 @@ class core
 		setcookie("locationRedirectLogHogUpgrade",$actual_link, time()+3600);
 	}
 
-	public function returnCurrentSelectedTheme()
-	{
-		$baseBaseUrl = $this->baseURL();
-		if(file_exists($baseBaseUrl.'local/layout.php') && is_readable($baseBaseUrl.'local/layout.php'))
-		{
-			include($baseBaseUrl.'local/layout.php');
-			if(isset($currentSelectedTheme))
-			{
-				return $currentSelectedTheme;
-			}
-			else
-			{
-				$this->echoErrorJavaScript("", "Error when getting current selected theme.", 9);
-			}
-		}
-		else
-		{
-			$this->echoErrorJavaScript("", "Could not find local layout file. Please make sure that local/layout.php is setup correctly.", 7);
-		}
-	}
-
 	public function filePermsDisplay($key)
 	{
 		$info = "u---------";

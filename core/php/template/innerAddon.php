@@ -7,16 +7,18 @@
 		$core = new core();
 		require_once($core->baseURL()."core/php/class/addons.php");
 		$addons = new addons();
-		$currentSelectedTheme = $core->returnCurrentSelectedTheme();
+		require_once($core->baseURL()."core/php/class/sessions.php");
+		$sessions = new sessions();
+		$currentSelectedTheme = $session->returnCurrentSelectedTheme();
 		$baseUrl = "../../../local/".$currentSelectedTheme."/";
 		$localURL = $baseUrl;
 		require_once($baseUrl.'conf/config.php');
 		require_once('../../conf/config.php');
 		require_once('../configStatic.php');
 		$currentTheme = $core->loadSpecificVar($defaultConfig, $config, "currentTheme");
-		if(is_dir('../../../local/'.$currentSelectedTheme.'/Themes/'.$currentTheme))
+		if(is_dir('../../../local/Themes/'.$currentTheme))
 		{
-			require_once('../../../local/'.$currentSelectedTheme.'/Themes/'.$currentTheme."/defaultSetting.php");
+			require_once('../../../local/Themes/'.$currentTheme."/defaultSetting.php");
 		}
 		else
 		{

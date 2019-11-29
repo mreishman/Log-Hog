@@ -15,7 +15,7 @@ if(!$session->validate())
 }
 require_once("../../core/php/class/settings.php");
 $settings = new settings();
-$currentSelectedTheme = $core->returnCurrentSelectedTheme();
+$currentSelectedTheme = $session->returnCurrentSelectedThemeAjax();
 $baseUrl = "../../local/".$currentSelectedTheme."/";
 $localURL = $baseUrl;
 require_once($baseUrl.'conf/config.php');
@@ -23,9 +23,9 @@ require_once('../../core/conf/config.php');
 require_once('../../local/conf/globalConfig.php');
 require_once('../../core/conf/globalConfig.php');
 $currentTheme = $core->loadSpecificVar($defaultConfig, $config, "currentTheme");
-if(is_dir('../../local/'.$currentSelectedTheme.'/Themes/'.$currentTheme))
+if(is_dir('../../local/Themes/'.$currentTheme))
 {
-	require_once('../../local/'.$currentSelectedTheme.'/Themes/'.$currentTheme."/defaultSetting.php");
+	require_once('../../local/Themes/'.$currentTheme."/defaultSetting.php");
 }
 else
 {

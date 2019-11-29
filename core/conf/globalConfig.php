@@ -5,5 +5,6 @@ $defaultGlobalConfig = array(
 	'branchSelected'				=> 'default',
 	'enableDevBranchDownload' 		=> 'false',
 	'globalConfVersion'				=> 1,
+	'layoutVersion'					=> 1,
 	'successVerifyNum'				=> 2
 );

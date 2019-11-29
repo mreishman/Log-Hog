@@ -13,7 +13,7 @@
 		?>
 		<br>
 		<?php
-			$directory = $themeDirMod.'local/'.$currentSelectedTheme.'/Themes/';
+			$directory = $themeDirMod.'local/Themes/';
 			$scanned_directory = array();
 			$customThemeNum = 1;
 			if(is_dir($directory))

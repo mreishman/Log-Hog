@@ -336,14 +336,6 @@ function saveVerified()
 	}
 	else if(idForFormMain ===  "modules")
 	{
-		if($("[name='developmentTabEnabled']")[0].value === "true")
-		{
-			$(".DevLink").show();
-		}
-		else
-		{
-			$(".DevLink").hide()
-		}
 		if($("[name='enableHistory']")[0].value === "true")
 		{
 			if(typeof archiveAction !== "function")

@@ -293,6 +293,24 @@ $defaultConfigMoreData = array(
 					"options"							=>	$trueFalsVars,
 					"type"								=>	"dropdown"
 				)
+			),
+			1									=>	array(
+				"info"								=>	"Refresh to run upgrade scripts",
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"configVersion",
+					"name"								=>	"Config Version",
+					"type"								=>	"number"
+				)
+			),
+			2									=>	array(
+				"info"								=>	"Refresh to run upgrade scripts",
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"themeVersion",
+					"name"								=>	"Theme Version",
+					"type"								=>	"number"
+				)
 			)
 		)
 	),
@@ -636,6 +654,15 @@ $defaultConfigMoreData = array(
 					"name"								=>	"Enable Dev Branch",
 					"options"							=>	$trueFalsVars,
 					"type"								=>	"dropdown"
+				)
+			),
+			4									=>	array(
+				"info"								=>	"Refresh to run upgrade scripts",
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"layoutVersion",
+					"name"								=>	"Layout Version",
+					"type"								=>	"number"
 				)
 			)
 		)
@@ -1613,22 +1640,13 @@ $defaultConfigMoreData = array(
 			0									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
-					"key"								=>	"developmentTabEnabled",
-					"name"								=>	"Enable Development Tools",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				)
-			),
-			1									=>	array(
-				"type"								=>	"single",
-				"var"								=>	array(
 					"key"								=>	"themesEnabled",
 					"name"								=>	"Enable Themes",
 					"options"							=>	$trueFalsVars,
 					"type"								=>	"dropdown"
 				)
 			),
-			2									=>	array(
+			1									=>	array(
 				"bool"								=>	($enableMultiLog == 'false'),
 				"id"								=>	"enableMultiLogSettings",
 				"name"								=>	"Multi-Log settings settings",
@@ -1667,7 +1685,7 @@ $defaultConfigMoreData = array(
 					)
 				)
 			),
-			3									=>	array(
+			2									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"enableHistory",
@@ -1676,7 +1694,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			4									=>	array(
+			3									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"oneLogEnable",
@@ -1685,7 +1703,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			5									=>	array(
+			4									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"filterEnabled",
@@ -1694,7 +1712,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			6									=>	array(
+			5									=>	array(
 				"type"								=>	"single",
 				"info"								=>  "Refresh Required",
 				"var"								=>	array(
@@ -1704,7 +1722,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			7									=>	array(
+			6									=>	array(
 				"type"								=>	"single",
 				"info"								=>  "Refresh Required",
 				"var"								=>	array(
@@ -1714,7 +1732,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			8									=>	array(
+			7									=>	array(
 				"bool"								=>	($backupNumConfigEnabled == 'false'),
 				"id"								=>	"versionSaveContentSettings",
 				"name"								=>	"Backup Config Settings",

@@ -19,10 +19,15 @@ if($dirType !== "archive")
 {
 	$folder = "loghogBackupHistoryLogs";
 }
-$scannedDir = scandir("../../tmp/".$folder."/");
-if(!is_array($scannedDir))
+$dirName = "../../tmp/".$folder."/";
+$scandir = [];
+if(is_dir($dirName ))
 {
-	$scannedDir = array($scannedDir);
+	$scannedDir = scandir($dirName );
+	if(!is_array($scannedDir))
+	{
+		$scannedDir = array($scannedDir);
+	}
 }
 $files = array_diff($scannedDir, array('..', '.','placeholder .txt'));
 echo json_encode($files);

@@ -22,7 +22,7 @@ function runScript(version)
 	var urlForSendRunScript = urlForSendMain+version+urlForSendMain2;
 	var dataSend = {version: version, formKey};
 	$.ajax({
-		url: getElementById,
+		url:  urlForSendMain+version+urlForSendMain2,
 		dataType: "json",
 		data: dataSend,
 		type: "POST",

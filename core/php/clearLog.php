@@ -24,7 +24,7 @@ $returnData = array(
 	"file"		=>	$verifyFile,
 	"fileFound"	=>	"false"
 );
-require_once('../../local/layout.php');
+$currentSelectedTheme = $session->returnCurrentSelectedThemeAjax();
 $baseUrl = "../../local/".$currentSelectedTheme."/";
 require_once($baseUrl.'conf/config.php');
 $command = "";

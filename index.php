@@ -25,7 +25,7 @@ $addons = new addons();
 require_once("core/php/class/settings.php");
 $settings = new settings();
 $core->setCookieRedirect();
-$currentSelectedTheme = $core->returnCurrentSelectedTheme();
+$currentSelectedTheme = $session->returnCurrentSelectedTheme();
 $baseUrl = "local/".$currentSelectedTheme."/";
 $varTemplateSrcModifier = "";
 if(!file_exists($baseUrl.'conf/config.php'))
@@ -50,9 +50,9 @@ require_once($baseUrl.'conf/config.php');
 require_once('core/conf/config.php');
 require_once('core/conf/globalConfig.php');
 
-if(is_file($baseUrl.'conf/globalConfig.php'))
+if(is_file('local/conf/globalConfig.php'))
 {
-	require_once($baseUrl.'conf/globalConfig.php');
+	require_once('local/conf/globalConfig.php');
 }
 else
 {
@@ -60,9 +60,9 @@ else
 }
 $currentTheme = $core->loadSpecificVar($defaultConfig, $config, "currentTheme");
 $defaultSettingsDir = 'core/Themes/'.$currentTheme."/defaultSetting.php";
-if(is_dir('local/'.$currentSelectedTheme.'/Themes/'.$currentTheme))
+if(is_dir('local/Themes/'.$currentTheme))
 {
-	$defaultSettingsDir = 'local/'.$currentSelectedTheme.'/Themes/'.$currentTheme."/defaultSetting.php";
+	$defaultSettingsDir = 'local/Themes/'.$currentTheme."/defaultSetting.php";
 }
 require_once($defaultSettingsDir);
 require_once('core/php/configStatic.php');
@@ -339,6 +339,7 @@ $needRefresh = $core->generateImage(
 	</span>
 	<script type="text/javascript">
 			var themeChangeLogicDirModifier = "core/php/";
+			var themeErrorLogicDirModifier = "";
 			function redirectToLocationFromUpgradeTheme()
 			{
 				location.reload();

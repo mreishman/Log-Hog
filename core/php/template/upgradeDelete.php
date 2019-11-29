@@ -6,25 +6,20 @@ require_once("../../../core/php/class/session.php");
 $session = new session();
 if(!$session->startSession())
 {
-	$core->echoErrorJavaScript("../../../", "", 17);
+	$core->echoErrorJavaScript("", "", 14);
 }
-$baseUrl = "../../../core/";
-if(file_exists('../../../local/layout.php'))
-{
-	$baseUrl = "../../../local/";
-	//there is custom information, use this
-	require_once('../../../local/layout.php');
-	$baseUrl .= $currentSelectedTheme."/";
-}
+$baseUrl = "../../../local/";
+$currentSelectedTheme = $session->returnCurrentSelectedTheme();
+$baseUrl .= $currentSelectedTheme."/";
 require_once($baseUrl."conf/config.php");
 require_once("../../../core/conf/config.php");
 require_once('../../../local/conf/globalConfig.php');
 require_once('../../../core/conf/globalConfig.php');
 require_once("../../../core/php/configStatic.php");
 $currentTheme = $core->loadSpecificVar($defaultConfig, $config, "currentTheme");
-if(is_dir("../../../local/".$currentSelectedTheme."/Themes/".$currentTheme))
+if(is_dir("../../../local/Themes/".$currentTheme))
 {
-	require_once("../../../local/".$currentSelectedTheme."/Themes/".$currentTheme."/defaultSetting.php");
+	require_once("../../../local/Themes/".$currentTheme."/defaultSetting.php");
 }
 else
 {

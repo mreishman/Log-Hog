@@ -296,38 +296,34 @@ if(file_exists($file))
                     }
                     $arrayOfModules = array(
                         0                                   =>  array(
-                            "key"                               =>  "developmentTabEnabled",
-                            "name"                              =>  "Development Tools",
-                        ),
-                        1                                   =>  array(
                             "key"                               =>  "themesEnabled",
                             "name"                              =>  "Themes",
                         ),
-                        2                                   =>  array(
+                        1                                   =>  array(
                             "key"                               =>  "enableMultiLog",
                             "name"                              =>  "Multi-Log",
                         ),
-                        3                                   =>  array(
+                        2                                   =>  array(
                             "key"                               =>  "enableHistory",
                             "name"                              =>  "History",
                         ),
-                        4                                   =>  array(
+                        3                                   =>  array(
                             "key"                               =>  "oneLogEnable",
                             "name"                              =>  "One Log",
                         ),
-                        5                                   =>  array(
+                        4                                   =>  array(
                             "key"                               =>  "filterEnabled",
                             "name"                              =>  "Filters",
                         ),
-                        6                                   =>  array(
+                        5                                   =>  array(
                             "key"                               =>  "rightClickMenuEnable",
                             "name"                              =>  "Right Click Menu",
                         ),
-                        7                                   =>  array(
+                        6                                   =>  array(
                             "key"                               =>  "advancedLogFormatEnabled",
                             "name"                              =>  "Advanced Log Format Options",
                         ),
-                        8                                   =>  array(
+                        7                                   =>  array(
                             "key"                               =>  "backupNumConfigEnabled",
                             "name"                              =>  "Config Backup",
                         )

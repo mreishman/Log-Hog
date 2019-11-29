@@ -2,14 +2,15 @@
 <?php
 require_once("../../../core/php/class/core.php");
 $core = new core();
-$baseUrl = "../../../core/";
-if(file_exists('../../../local/layout.php'))
+require_once("../../../core/php/class/session.php");
+$session = new session();
+if(!$session->startSession())
 {
-	$baseUrl = "../../../local/";
-	//there is custom information, use this
-	require_once('../../../local/layout.php');
-	$baseUrl .= $currentSelectedTheme."/";
+	$core->echoErrorJavaScript("", "", 14);
 }
+$baseUrl = "../../../local/";
+$currentSelectedTheme = $session->returnCurrentSelectedTheme();
+$baseUrl .= $currentSelectedTheme."/";
 require_once($baseUrl.'conf/config.php');
 require_once('../../../core/conf/config.php');
 require_once('../../../core/conf/globalConfig.php');
@@ -98,7 +99,7 @@ $totalUpgradeScripts = floatval($globalConfigVersionToUpgradeTo) - floatval($glo
 		$("body").height(""+window.innerHeight+"px");
 	});
 	var urlForSendMain0 = '../../../core/php/checkVersionOfGlobalConfig.php?format=json';
-	var urlForSendMain = '../../../core/php/upgradeScript/upgradeConfig-';
+	var urlForSendMain = '../../../core/php/upgradeScript/upgradeGlobalConfig-';
 	var urlForSendMain2 = '.php?format=json';
 	<?php
 	echo "var startVersion = ".$globalConfigVersion.";";

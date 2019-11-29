@@ -6,7 +6,7 @@ var titleOfPage = "Dev";
 
 function checkIfChanges()
 {
-	if(	checkForChangesArray(["devBranch","devConfig"]))
+	if(	checkForChangesArray(["devConfig","globalAdvanced"]))
 	{
 		return true;
 	}
@@ -15,13 +15,13 @@ function checkIfChanges()
 
 $( document ).ready(function()
 {
-	refreshArrayObjectOfArrays(["devBranch","devConfig"]);
+	refreshArrayObjectOfArrays(["devConfig","globalAdvanced"]);
 
 	document.addEventListener(
 		'scroll',
 		function (event)
 		{
-			onScrollShowFixedMiniBar(["devBranch","devConfig"]);
+			onScrollShowFixedMiniBar(["devConfig","globalAdvanced"]);
 		},
 		true
 	);

@@ -141,20 +141,14 @@
 		<li id="settingsAdvancedAdvancedMenu" onclick="toggleSettingSection({id: 'settingsAdvancedAdvanced',formId: 'false'});" >
 			Advanced
 		</li>
-		<li <?php if($developmentTabEnabled !== "true"){ echo "style = \"display:none;\"";} ?> class="menuTitle fullScreenMenuText subMenuTitle DevLink">
-			Dev
-		</li>
-		<li id="settingsAdvancedDevBranchMenu" <?php if($developmentTabEnabled !== "true"){ echo "style = \"display:none;\"";} ?> onclick="toggleSettingSection({id: 'settingsAdvancedDevBranch', formId: 'devBranch'});" class="DevLink" >
-			Branch
-		</li>
-		<li id="settingsAdvancedDevConfigMenu" <?php if($developmentTabEnabled !== "true"){ echo "style = \"display:none;\"";} ?> onclick="toggleSettingSection({id: 'settingsAdvancedDevConfig', formId: 'devConfig'});" class="DevLink" >
-			Config
-		</li>
 		<li class="menuTitle fullScreenMenuText subMenuTitle">
 			Global Settings
 		</li>
 		<li id="settingsGlobalAdvancedMenu" onclick="toggleSettingSection({id: 'settingsGlobalAdvanced',formId: 'globalAdvanced'});" >
 			Advanced
+		</li>
+		<li id="settingsAdvancedDevConfigMenu" onclick="toggleSettingSection({id: 'settingsAdvancedDevConfig', formId: 'devConfig'});">
+			Config Static
 		</li>
 	<?php else: ?>
 		<li onclick="window.location.href = './settings/main.php';" >
@@ -163,11 +157,9 @@
 		<li onclick="window.location.href = './settings/advanced.php';" >
 			Advanced <?php echo $externalLinkImage; ?>
 		</li>
-		<?php if($developmentTabEnabled === "true"): ?>
-			<li onclick="window.location.href = './settings/devTools.php';" >
-				Dev <?php echo $externalLinkImage; ?>
-			</li>
-		<?php endif; ?>
+		<li onclick="window.location.href = './settings/devTools.php';" >
+			Global <?php echo $externalLinkImage; ?>
+		</li>
 	<?php endif; ?>
 </ul>
 <div id="mainContentFullScreenMenu">
@@ -352,12 +344,6 @@
 			$settingsUrlModifier = "";
 			$otherSettingsUrlModifier = "settings/";
 			include('core/php/template/advancedActions.php');
-		?>
-	</div>
-	<div id="settingsAdvancedDevBranch" style="display: none;" >
-		<?php
-			$settingsUrlModifier = "";
-			require_once("core/php/template/devBranch.php");
 		?>
 	</div>
 	<div id="settingsAdvancedDevConfig" style="display: none;">
