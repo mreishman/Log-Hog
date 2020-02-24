@@ -26,7 +26,13 @@ docker run -td -p 1337:80 --name loghog loghog
 
 Add volumes for logs you want to monitor. I.E.
 ```
-docker run -td -p 1337:80 --name loghog  -v /var/www/:/var/www -v /var/log/nginx/:/var/log/nginx loghog
+docker run -td -p 1337:80 --name loghog -v /var/www/:/var/www -v /var/log/nginx/:/var/log/nginx loghog
+```
+
+Would recommend adding a restart always flag:
+
+```
+docker run -td -p 1337:80 --name loghog --restart always -v /var/www/:/var/www -v /var/log/nginx/:/var/log/nginx loghog
 ```
 
 The url for Log-Hog is set to lan.loghog.com. You will need to edit your hosts file to point the ip address of the host machine to this url.
