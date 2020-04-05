@@ -21,11 +21,11 @@
 	},
 	"checkVersionOfConfig":{
 		"name":"Check Version Of Config",
-		"path":"core\/php\/checkVersionOfConfig.php"
+		"path":"core\/php\/post\/checkVersionOfConfig.php"
 	},
 	"checkVersionOfLayout":{
 		"name":"Check Version Of Layout",
-		"path":"core\/php\/checkVersionOfLayout.php"
+		"path":"core\/php\/post\/checkVersionOfLayout.php"
 	},
 	"core":{"name":"Core Functions",
 		"path":"core\/php\/class\/core.php"

@@ -102,7 +102,7 @@ $totalUpgradeScripts = floatval($layoutVersionToUpgradeTo) - floatval($layoutVer
 	$( window ).resize(function() {
 		$("body").height(""+window.innerHeight+"px");
 	});
-	var urlForSendMain0 = '../../../core/php/checkVersionOfLayout.php?format=json';
+	var urlForSendMain0 = '../../../core/php/post/checkVersionOfLayout.php?format=json';
 	var urlForSendMain = '../../../core/php/upgradeScript/upgradeLayout-';
 	var urlForSendMain2 = '.php?format=json';
 	<?php
