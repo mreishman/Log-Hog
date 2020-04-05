@@ -79,7 +79,7 @@ function showConfigPopup()
 	try
 	{
 		displayLoadingPopup(dirForAjaxSend, "Loading Config Versions");
-		$.getJSON(dirForAjaxSend + "core/php/configVersionsPopup.php", {}, function(data)
+		$.getJSON(dirForAjaxSend + "core/php/post/configVersionsPopup.php", {}, function(data)
 		{
 			if(data["backupCopiesPresent"])
 			{
@@ -187,7 +187,7 @@ function verifyNoConfigBackups()
 	try
 	{
 		displayLoadingPopup(dirForAjaxSend, "Verifying...");
-		$.getJSON(dirForAjaxSend + "core/php/configVersionsPopup.php", {}, function(data)
+		$.getJSON(dirForAjaxSend + "core/php/post/configVersionsPopup.php", {}, function(data)
 		{
 			if(!data["backupCopiesPresent"])
 			{

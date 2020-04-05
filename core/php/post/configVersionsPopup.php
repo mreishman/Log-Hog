@@ -2,8 +2,8 @@
 $returnData = array(
 	'backupCopiesPresent' => false,
 );
-require_once('./class/diff.php');
-require_once("../../core/php/class/session.php");
+require_once('../class/diff.php');
+require_once("../class/session.php");
 $session = new session();
 if(!$session->startSession())
 {
@@ -11,7 +11,7 @@ if(!$session->startSession())
 	exit();
 }
 $currentSelectedTheme = $session->returnCurrentSelectedThemeAjax();
-$baseUrl = "../../local/".$currentSelectedTheme."/";
+$baseUrl = "../../../local/".$currentSelectedTheme."/";
 if(file_exists($baseUrl."conf/config1.php"))
 {
 	/* build popup with files*/
