@@ -154,7 +154,7 @@ function clearBackupFiles()
 	try
 	{
 		displayLoadingPopup(dirForAjaxSend, "Clearing Files");
-		$.getJSON(dirForAjaxSend + "core/php/clearConfigBackups.php", {}, function(data)
+		$.getJSON(dirForAjaxSend + "core/php/post/clearConfigBackups.php", {}, function(data)
 		{
 			if(typeof data === "object"  && "error" in data)
 			{

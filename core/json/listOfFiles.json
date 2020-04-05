@@ -23,6 +23,10 @@
 		"name":"Check Version Of Config",
 		"path":"core\/php\/post\/checkVersionOfConfig.php"
 	},
+	"checkVersionOfGlobalConfig":{
+		"name":"Check Version Of Config",
+		"path":"core\/php\/post\/checkVersionOfGlobalConfig.php"
+	},
 	"checkVersionOfLayout":{
 		"name":"Check Version Of Layout",
 		"path":"core\/php\/post\/checkVersionOfLayout.php"
