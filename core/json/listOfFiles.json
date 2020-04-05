@@ -36,7 +36,7 @@
 	},
 	"configStaticCheck":{
 		"name":"Config Static Check",
-		"path":"core\/php\/configStaticCheck.php"
+		"path":"core\/php\/post\/configStaticCheck.php"
 	},
 	"getPercentUpdate":{
 		"name":"Get Percent Update",

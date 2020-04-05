@@ -45,7 +45,7 @@ function updateNoNewVersionCheck()
 {
 	try
 	{
-		$.getJSON(dirForAjaxSend + "core/php/configStaticCheck.php", {}, function(data)
+		$.getJSON(dirForAjaxSend + "core/php/post/configStaticCheck.php", {}, function(data)
 		{
 			if(typeof data === "object"  && "error" in data)
 			{
