@@ -1451,7 +1451,7 @@ function clearLogInner(title)
 		formKey
 	};
 	$.ajax({
-			url: "core/php/clearLog.php?format=json",
+			url: "core/php/post/clearLog.php?format=json",
 			dataType: "json",
 			data,
 			type: "POST",
@@ -1574,7 +1574,7 @@ function deleteActionAfter()
 			resetOneLogData();
 		}
 		//Clear All Log Function (not delete actual file, just contents)
-		var urlForSend = "core/php/clearLog.php?format=json";
+		var urlForSend = "core/php/post/clearLog.php?format=json";
 		var data = {
 			type: "clearAllLogs",
 			formKey
@@ -1652,7 +1652,7 @@ function deleteLog(title)
 		{
 			archiveAction(title, "tmp");
 		}
-		var urlForSend = "core/php/clearLog.php?format=json";
+		var urlForSend = "core/php/post/clearLog.php?format=json";
 		title = title.replace(/\s/g, "");
 		var data = {
 			file: title,
