@@ -20,7 +20,7 @@ if($dirType !== "archive")
 	$folder = "loghogBackupHistoryLogs";
 }
 $dirName = "../../tmp/".$folder."/";
-$scandir = [];
+$scannedDir = [];
 if(is_dir($dirName ))
 {
 	$scannedDir = scandir($dirName );
