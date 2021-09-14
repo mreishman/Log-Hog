@@ -2,6 +2,8 @@
 $returnData = array(
 	'backupCopiesPresent' => false,
 );
+require_once("../class/core.php");
+$core = new core();
 require_once('../class/diff.php');
 require_once("../class/session.php");
 $session = new session();
