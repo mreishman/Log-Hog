@@ -77,7 +77,7 @@ require_once('../core/php/updateCheck.php');
 					        	<tr>
 						            <ul style="list-style: none; cursor: pointer; ">
 						            	<?php
-						            	$jsonFiles = file_get_contents("core/json/listOfFiles.json");
+						            	$jsonFiles = file_get_contents("../core/json/listOfFiles.json");
 										$fileNameArray = json_decode($jsonFiles, true);
 						            	foreach ($fileNameArray as $key => $value)
 						            	{
