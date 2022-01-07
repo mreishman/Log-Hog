@@ -1,0 +1,9 @@
+version: '3.8'
+services:
+  php-apache-environment:
+    container_name: loghog
+    image: php:7.4-apache
+    volumes:
+      - ./:/var/www/html/
+    ports:
+      - 1337:80
