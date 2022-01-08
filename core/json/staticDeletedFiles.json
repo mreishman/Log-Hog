@@ -116,5 +116,10 @@
 	{"fullPath":"restore\/php\/settingsInstallUpdate.php","type":"file"},
 	{"fullPath":"core\/js\/Raven.js","type":"file"},
 	{"fullPath":"core\/php\/configDiffPresent.php","type":"file"},
-	{"fullPath":"core\/js\/configDiffPresent.php","type":"file"}
+	{"fullPath":"core\/php\/checkVersionOfConfig.php","type":"file"},
+	{"fullPath":"core\/php\/checkVersionOfGlobalConfig.php","type":"file"},
+	{"fullPath":"core\/php\/checkVersionOfLayout.php","type":"file"},
+	{"fullPath":"core\/php\/clearConfigBackups.php","type":"file"},
+	{"fullPath":"core\/php\/clearLog.php","type":"file"},
+	{"fullPath":"core\/php\/configVersionsPopup.php","type":"file"}
 ]
