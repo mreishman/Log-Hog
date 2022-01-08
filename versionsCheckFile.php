@@ -374,6 +374,13 @@ $versionCheckArray = array(
 			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/8.3.png',
 			'releaseNotes'	=> "<ul><li>Notice<ul><li>If you have any custom themes in local/default/Themes, you will need to manually move those to local/Themes after the install</li></ul></li><li>Features<ul><li>Cleaned up settings menu, removed dev tab</li></ul></li><li>Bug Fixes<ul><li>Fixed bug with config static not saving on index page</li><li>Fixed bug with global config settings not showing up on legacy settings page</li><li>Added check for folder before getting list of tmp logs (archive and tmp history)</li><li>Theme change logic error url now redirects properly</li><li>Global config var save check is now correct</li><li>Cleaned up local folder, moved all profiles into profiles folder</li><li>Fixed bug with theme change logic</li><li>Fixed bug with custom theme save logic</li></ul></li></ul>"
 		),
+		'8.3.3'			=> array(
+			'branchName'	=> '8.3.3Update',
+			'downloadSize'  => 357531,
+			'installSize'   => 10057826,
+			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/8.3.png',
+			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Custom Setup works again</li><li>Fixed bug with archive list when empty</li><li>Fixed bug with restore config version popup</li><li>Fixed bug with edit files page</li><li>Fixed some compatibility issues with newer versions of php</li></ul></li></ul>"
+		),
 	)
 );
 
