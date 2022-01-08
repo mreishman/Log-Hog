@@ -1,4 +1,3 @@
-<!doctype html>
 <?php
 require_once("../../../core/php/class/core.php");
 $core = new core();
@@ -25,6 +24,7 @@ if(isset($config['configVersion']))
 $configVersionToUpgradeTo = $defaultConfig['configVersion'];
 $totalUpgradeScripts = floatval($configVersionToUpgradeTo) - floatval($configVersion);
 ?>
+<!doctype html>
 <head>
 	<title>Log Hog | Updater</title>
 	<link rel="stylesheet" type="text/css" href="../../../core/template/base.css">

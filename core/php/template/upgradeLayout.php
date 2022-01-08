@@ -1,4 +1,3 @@
-<!doctype html>
 <?php
 require_once("../../../core/php/class/core.php");
 $core = new core();
@@ -29,6 +28,7 @@ if(isset($globalConfig['layoutVersion']))
 $layoutVersionToUpgradeTo = $defaultGlobalConfig['layoutVersion'];
 $totalUpgradeScripts = floatval($layoutVersionToUpgradeTo) - floatval($layoutVersion) ;
 ?>
+<!doctype html>
 <head>
 	<title>Log Hog | Updater</title>
 	<link rel="stylesheet" type="text/css" href="../../../core/template/base.css">
