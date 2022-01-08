@@ -1,6 +1,7 @@
 <?php
 require_once("../core/php/class/core.php");
 $core = new core();
+$core->setCookieRedirect();
 require_once("../core/php/class/session.php");
 $session = new session();
 if(!$session->startSession())
