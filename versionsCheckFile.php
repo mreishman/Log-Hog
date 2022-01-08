@@ -376,8 +376,8 @@ $versionCheckArray = array(
 		),
 		'8.3.3'			=> array(
 			'branchName'	=> '8.3.3Update',
-			'downloadSize'  => 357531,
-			'installSize'   => 10057826,
+			'downloadSize'  => 323887,
+			'installSize'   => 10071423,
 			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/8.3.png',
 			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Custom Setup works again</li><li>Fixed bug with archive list when empty</li><li>Fixed bug with restore config version popup</li><li>Fixed bug with edit files page</li><li>Fixed some compatibility issues with newer versions of php</li></ul></li></ul>"
 		),
