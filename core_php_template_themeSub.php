@@ -27,7 +27,7 @@ foreach ($scanned_directory as $key):
 					</div>
 				</div>
 				<span id="htmlContent-<?php echo $key;?>" style="display: block;">
-					<?php if ($themeDirMod !== "/"): ?>
+					<?php if ($themeDirMod !== ""): ?>
 						<iframe class="iframeThemes" src="<?php echo $themeDirMod; ?>core/Themes/example.php?type=<?php echo $key;?>"></iframe>
 					<?php else: ?>
 						<iframe class="iframeThemes" data-src="<?php echo $themeDirMod; ?>core/Themes/example.php?type=<?php echo $key;?>" src=""></iframe>
