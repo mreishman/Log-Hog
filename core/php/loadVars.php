@@ -378,7 +378,7 @@ else
 			}
 		}
 
-		$arrayOfImages[$key]["src"] = $src;
+		$arrayOfImages[$key]["src"] = $varToIndexDir.$src;
 		$arrayOfImages[$key]["version"] = $cssVersion;
 	}
 

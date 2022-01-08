@@ -147,5 +147,10 @@ $(document).ready(function()
 	loadWatchList();
 });
 
+function escapeTheEscapes(keyName)
+{
+	return keyName.split("\\").join("\\\\");
+}
+
 </script>
 </html>

@@ -1431,8 +1431,13 @@ function finishLoadWatchlist()
 	$(".settingsMainWatchSaveChangesButton").css("display","inline-block");
 	document.getElementsByClassName("uniqueClassForAppendSettingsMainWatchNew")[0].style.display = "block";
 	refreshSettingsWatchList();
-	startSettingsPollTimer();
-	if(typeof globalForcePageNavigate !== 'undefined')
+	
+	if (typeof startSettingsPollTimer === "function")
+	{
+		startSettingsPollTimer();
+	}
+	
+	if(typeof globalForcePageNavigate !== "undefined")
 	{
 		globalForcePageNavigate = false;
 	}
@@ -1441,7 +1446,10 @@ function finishLoadWatchlist()
 	{
 		checkIfNeedToCloseDropdownFileShow(event);
 	});
-	document.getElementById("watchListSubMenu").style.display = "block";
+	if (document.getElementById("watchListSubMenu"))
+	{
+		document.getElementById("watchListSubMenu").style.display = "block";
+	}
 }
 
 function checkIfNeedToCloseDropdownFileShow(event)
