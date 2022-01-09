@@ -1,4 +1,3 @@
-<!doctype html>
 <?php
 require_once("../../../core/php/class/core.php");
 $core = new core();
@@ -43,6 +42,7 @@ if($totalCountOfFilesToDelete < 1)
 	exit();
 }
 ?>
+<!doctype html>
 <head>
 	<title>Log Hog | Updater</title>
 	<link rel="stylesheet" type="text/css" href="../../../core/template/base.css">

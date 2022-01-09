@@ -60,7 +60,7 @@ class settingsMainWatch extends core
 	}
 
 
-	public function generateSaveBlock($data = array(), $arrayOfImages)
+	public function generateSaveBlock($data, $arrayOfImages)
 	{
 		$rowNumber = "{{rowNumber}}";
 		$fileNumber = "{{fileNumber}}";

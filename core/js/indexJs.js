@@ -86,10 +86,6 @@ function checkIfJSLoaded()
 		if(counterForJSLoad >= lengthOfArrayOfJsFiles)
 		{
 			document.getElementById("mainContent").style.display = "block";
-			if(sendCrashInfoJS === "true")
-			{
-				startSentryStuff();
-			}
 			mainReady();
 		}
 		else

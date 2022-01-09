@@ -7,12 +7,14 @@ if(!$session->startSession())
 {
 	$core->echoErrorJavaScript("../", "", 17);
 }
+require_once("../core/php/class/settings.php");
+$settings = new settings();
 $currentSelectedTheme = $session->returnCurrentSelectedTheme();
 $baseUrl = "../local/".$currentSelectedTheme."/";
 $baseUrlImages = $baseUrl;
-require_once($baseUrl.'conf/config.php');
-require_once('setupProcessFile.php');
-require_once('../core/php/configStatic.php');
+require_once($baseUrl."conf/config.php");
+require_once("setupProcessFile.php");
+require_once("../core/php/configStatic.php");
 if($setupProcess != "step4")
 {
 	$partOfUrl = $core->clean_url($_SERVER['REQUEST_URI']);
@@ -28,6 +30,7 @@ while(file_exists('step'.$counterSteps.'.php'))
 }
 $counterSteps--;
 require_once('../core/php/loadVars.php');
+require_once("../core/php/defaultConfData.php");
 $themeDirMod = "../";
 ?>
 <script type="text/javascript">
@@ -77,6 +80,7 @@ $themeDirMod = "../";
 <script type="text/javascript">
 
 	var baseUrl = "<?php echo $baseUrlImages;?>";
+	var themeChangeLogicDirModifier = "../core/php/"; //used in logic settings.js
 
 	function defaultSettings()
 	{
@@ -99,6 +103,11 @@ $themeDirMod = "../";
 		return false;
 	}
 
+	function redirectToLocationFromUpgradeTheme()
+	{
+		window.location.href = "./director.php";
+	}
+
 
 	var titleOfPage = "Welcome";
 
@@ -115,6 +124,11 @@ $themeDirMod = "../";
 		array(
 			"filePath"		=> "../core/js/settings.js",
 			"baseFilePath"	=> "core/js/settings.js",
+			"default"		=> $configStatic["version"]
+		),
+				array(
+			"filePath"		=> "../core/js/upgradeTheme.js",
+			"baseFilePath"	=> "core/js/upgradeTheme.js",
 			"default"		=> $configStatic["version"]
 		),
 		array(

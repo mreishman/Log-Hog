@@ -3,6 +3,8 @@ require_once("../core/php/class/core.php");
 $core = new core();
 require_once("../core/php/class/session.php");
 $session = new session();
+require_once("../core/php/class/addons.php");
+$addons = new addons();
 if(!$session->startSession())
 {
 	$core->echoErrorJavaScript("../", "", 17);
@@ -106,6 +108,11 @@ require_once('../core/php/loadVars.php');?>
 		array(
 			"filePath"		=> "../core/js/addons.js",
 			"baseFilePath"	=> "core/js/addons.js",
+			"default"		=> $configStatic["version"]
+		),
+		array(
+			"filePath"		=> "../core/js/lazyLoadImg.js",
+			"baseFilePath"	=> "core/js/lazyLoadImg.js",
 			"default"		=> $configStatic["version"]
 		),
 		array(

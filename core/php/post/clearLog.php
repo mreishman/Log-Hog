@@ -1,7 +1,7 @@
 <?php
-require_once("class/core.php");
+require_once("../class/core.php");
 $core = new core();
-require_once("class/session.php");
+require_once("../class/session.php");
 $session = new session();
 if(!$session->startSession())
 {
@@ -25,7 +25,7 @@ $returnData = array(
 	"fileFound"	=>	"false"
 );
 $currentSelectedTheme = $session->returnCurrentSelectedThemeAjax();
-$baseUrl = "../../local/".$currentSelectedTheme."/";
+$baseUrl = "../../../local/".$currentSelectedTheme."/";
 require_once($baseUrl.'conf/config.php');
 $command = "";
 foreach($config['watchList'] as $value){

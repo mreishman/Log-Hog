@@ -34,7 +34,7 @@ function newVersionNumberCheck()
 	try
 	{
 		displayLoadingPopup(dirForAjaxSend,"Verifying Version");
-		$.getJSON(dirForAjaxSend + "core/php/configStaticCheck.php", {}, function(data)
+		$.getJSON(dirForAjaxSend + "core/php/post/configStaticCheck.php", {}, function(data)
 		{
 			var dataExt = document.getElementById("versionNumberConfigStaticInput").value;
 			if(typeof data === "object"  && "error" in data)

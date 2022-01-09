@@ -232,28 +232,28 @@ function saveVerified()
 	{
 		if($("#logFormatFileEnable") && $("#logFormatFileEnable")[0].value === "true")
 		{
-			if(typeof formatFileLine !== "function")
+			if(typeof formatFileLine !== "function" && typeof script === "function")
 			{
 				script("core/js/formatFile.js");
 			}
 		}
 		if($("#logFormatPhpEnable") && $("#logFormatPhpEnable")[0].value === "true")
 		{
-			if(typeof formatPhpMessage !== "function")
+			if(typeof formatPhpMessage !== "function" && typeof script === "function")
 			{
 				script("core/js/formatPhp.js");
 			}
 		}
 		if($("#logFormatReportEnable") && $("#logFormatReportEnable")[0].value === "true")
 		{
-			if(typeof formatReportMessage !== "function")
+			if(typeof formatReportMessage !== "function" && typeof script === "function")
 			{
 				script("core/js/formatReport.js");
 			}
 		}
 		if($("#logFormatJsObjectEnable") && $("#logFormatJsObjectEnable")[0].value === "true")
 		{
-			if(typeof formatJsonMessage !== "function")
+			if(typeof formatJsonMessage !== "function" && typeof script === "function")
 			{
 				script("core/js/formatJsObject.js");
 			}
@@ -261,7 +261,7 @@ function saveVerified()
 	}
 	else if(idForFormMain === "settingsLogVars")
 	{
-		if(typeof flashTitle !== "function" && $("[name='flashTitleUpdateLog']")[0].value === "true")
+		if(typeof flashTitle !== "function"  && typeof script === "function" && $("[name='flashTitleUpdateLog']")[0].value === "true")
 		{
 			script("core/js/titleFlash.js");
 		}
@@ -338,7 +338,7 @@ function saveVerified()
 	{
 		if($("[name='enableHistory']")[0].value === "true")
 		{
-			if(typeof archiveAction !== "function")
+			if(typeof archiveAction !== "function" && typeof script === "function")
 			{
 				script("core/js/archive.js");
 			}
@@ -352,7 +352,7 @@ function saveVerified()
 		}
 		if($("[name='filterEnabled']")[0].value === "true")
 		{
-			if(typeof getFilterData !== "function")
+			if(typeof getFilterData !== "function" && typeof script === "function")
 			{
 				script("core/js/filter.js");
 			}
@@ -378,7 +378,7 @@ function saveVerified()
 		}
 		if($("[name='oneLogEnable']")[0].value === "true")
 		{
-			if(typeof addOneLogTab !== "function")
+			if(typeof addOneLogTab !== "function" && typeof script === "function")
 			{
 				script("core/js/oneLog.js");
 			}
@@ -400,7 +400,7 @@ function saveVerified()
 		}
 		if($("[name='themesEnabled']")[0].value === "true")
 		{
-			if(typeof addOneLogTab !== "function")
+			if(typeof addOneLogTab !== "function" && typeof script === "function")
 			{
 				script("core/js/themes.js");
 				script("core/js/upgradeTheme.js");
@@ -455,7 +455,14 @@ function saveVerified()
 
 	if(idForFormMain.includes("themeMainSelection"))
 	{
-		copyThemeStuffPopup("");
+		if (typeof themeChangeLogicDirModifier !== "undefined" && themeChangeLogicDirModifier === "../core/php/")
+		{
+			copyThemeStuffPopup();
+		}
+		else
+		{
+			copyThemeStuffPopup("");
+		}
 	}
 	else if(idForFormMain === "welcomeForm")
 	{

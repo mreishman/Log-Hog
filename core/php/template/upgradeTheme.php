@@ -1,4 +1,3 @@
-<!doctype html>
 <?php
 require_once("../../../core/php/class/core.php");
 $core = new core();
@@ -39,6 +38,7 @@ if((strval($baseFileVersion) === strval($oldFileVersion)) && (file_exists("../..
 	exit();
 }
 ?>
+<!doctype html>
 <head>
 	<title>Log Hog | Updater</title>
 	<link rel="stylesheet" type="text/css" href="../../../core/template/base.css">

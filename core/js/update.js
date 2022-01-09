@@ -190,7 +190,7 @@ function checkForUpdateTimer(urlSend, whatAmIUpdating)
 			document.getElementById("progressBarUpdateCheck").style.display = "block";
 		}
 	}
-	$.getJSON(urlSendUpdate+"core/php/configStaticCheck.php", {}, function(data)
+	$.getJSON(urlSendUpdate+"core/php/post/configStaticCheck.php", {}, function(data)
 	{
 		if(typeof data === "object"  && "error" in data)
 		{

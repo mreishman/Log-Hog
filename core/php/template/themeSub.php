@@ -27,8 +27,11 @@ foreach ($scanned_directory as $key):
 					</div>
 				</div>
 				<span id="htmlContent-<?php echo $key;?>" style="display: block;">
-					<iframe class="iframeThemes" data-src="<?php echo $themeDirMod; ?>core/Themes/example.php?type=<?php echo $key;?>" src="">
-					</iframe>
+					<?php if ($themeDirMod !== ""): ?>
+						<iframe class="iframeThemes" src="<?php echo $themeDirMod; ?>core/Themes/example.php?type=<?php echo $key;?>"></iframe>
+					<?php else: ?>
+						<iframe class="iframeThemes" data-src="<?php echo $themeDirMod; ?>core/Themes/example.php?type=<?php echo $key;?>" src=""></iframe>
+					<?php endif; ?>
 				</span>
 				<span style="display: none;">
 					<form id="themeMainSelection-<?php echo $key;?>">

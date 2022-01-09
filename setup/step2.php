@@ -10,9 +10,9 @@ if(!$session->startSession())
 $currentSelectedTheme = $session->returnCurrentSelectedTheme();
 $baseUrl = "../local/".$currentSelectedTheme."/";
 $baseUrlImages = $baseUrl;
-require_once($baseUrl.'conf/config.php');
-require_once('setupProcessFile.php');
-require_once('../core/php/configStatic.php');
+require_once($baseUrl."conf/config.php");
+require_once("setupProcessFile.php");
+require_once("../core/php/configStatic.php");
 if($setupProcess != "step2")
 {
 	$partOfUrl = $core->clean_url($_SERVER['REQUEST_URI']);
@@ -27,7 +27,9 @@ while(file_exists('step'.$counterSteps.'.php'))
 	$counterSteps++;
 }
 $counterSteps--;
-require_once('../core/php/loadVars.php'); ?>
+require_once("../core/php/loadVars.php");
+require_once("../core/php/defaultConfData.php");
+?>
 <!DOCTYPE html>
 <html>
 <head>

@@ -45,7 +45,7 @@ function updateNoNewVersionCheck()
 {
 	try
 	{
-		$.getJSON(dirForAjaxSend + "core/php/configStaticCheck.php", {}, function(data)
+		$.getJSON(dirForAjaxSend + "core/php/post/configStaticCheck.php", {}, function(data)
 		{
 			if(typeof data === "object"  && "error" in data)
 			{
@@ -79,7 +79,7 @@ function showConfigPopup()
 	try
 	{
 		displayLoadingPopup(dirForAjaxSend, "Loading Config Versions");
-		$.getJSON(dirForAjaxSend + "core/php/configVersionsPopup.php", {}, function(data)
+		$.getJSON(dirForAjaxSend + "core/php/post/configVersionsPopup.php", {}, function(data)
 		{
 			if(data["backupCopiesPresent"])
 			{
@@ -154,7 +154,7 @@ function clearBackupFiles()
 	try
 	{
 		displayLoadingPopup(dirForAjaxSend, "Clearing Files");
-		$.getJSON(dirForAjaxSend + "core/php/clearConfigBackups.php", {}, function(data)
+		$.getJSON(dirForAjaxSend + "core/php/post/clearConfigBackups.php", {}, function(data)
 		{
 			if(typeof data === "object"  && "error" in data)
 			{
@@ -187,7 +187,7 @@ function verifyNoConfigBackups()
 	try
 	{
 		displayLoadingPopup(dirForAjaxSend, "Verifying...");
-		$.getJSON(dirForAjaxSend + "core/php/configVersionsPopup.php", {}, function(data)
+		$.getJSON(dirForAjaxSend + "core/php/post/configVersionsPopup.php", {}, function(data)
 		{
 			if(!data["backupCopiesPresent"])
 			{

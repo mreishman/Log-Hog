@@ -1,4 +1,3 @@
-<!doctype html>
 <?php
 require_once("../../../core/php/class/core.php");
 $core = new core();
@@ -25,6 +24,7 @@ if(isset($config['configVersion']))
 $configVersionToUpgradeTo = $defaultConfig['configVersion'];
 $totalUpgradeScripts = floatval($configVersionToUpgradeTo) - floatval($configVersion);
 ?>
+<!doctype html>
 <head>
 	<title>Log Hog | Updater</title>
 	<link rel="stylesheet" type="text/css" href="../../../core/template/base.css">
@@ -98,7 +98,7 @@ $totalUpgradeScripts = floatval($configVersionToUpgradeTo) - floatval($configVer
 	$( window ).resize(function() {
 		$("body").height(""+window.innerHeight+"px");
 	});
-	var urlForSendMain0 = '../../../core/php/checkVersionOfConfig.php?format=json';
+	var urlForSendMain0 = '../../../core/php/post/checkVersionOfConfig.php?format=json';
 	var urlForSendMain = '../../../core/php/upgradeScript/upgradeConfig-';
 	var urlForSendMain2 = '.php?format=json';
 	<?php

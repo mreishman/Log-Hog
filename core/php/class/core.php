@@ -76,33 +76,6 @@ class core
 			}
 
 		</script>";
-		if($sendCrashInfoJS === "true")
-		{
-			$versionForSentry = $configStatic["version"];
-			$returnString =  "
-			<script type=\"text/javascript\">
-			function startSentryStuff(){
-				Sentry.init({ dsn: 'https://2e455acb0e7a4f8b964b9b65b60743ed@sentry.io/205980' });
-			}
-			function eventThrowException(e)
-			{
-				Sentry.captureException(new Error(e));
-				";
-				if($branchSelected === 'beta')
-				{
-					$returnString .= "
-						Sentry.showReportDialog();
-					";
-				}
-				if($branchSelected === 'dev' || $branchSelected === 'beta')
-				{
-					$returnString .= "	console.log(e);";
-				}
-
-			$returnString .= "}
-
-			</script>";
-		}
 		return $returnString;
 	}
 

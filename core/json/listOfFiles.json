@@ -21,18 +21,22 @@
 	},
 	"checkVersionOfConfig":{
 		"name":"Check Version Of Config",
-		"path":"core\/php\/checkVersionOfConfig.php"
+		"path":"core\/php\/post\/checkVersionOfConfig.php"
+	},
+	"checkVersionOfGlobalConfig":{
+		"name":"Check Version Of Config",
+		"path":"core\/php\/post\/checkVersionOfGlobalConfig.php"
 	},
 	"checkVersionOfLayout":{
 		"name":"Check Version Of Layout",
-		"path":"core\/php\/checkVersionOfLayout.php"
+		"path":"core\/php\/post\/checkVersionOfLayout.php"
 	},
 	"core":{"name":"Core Functions",
 		"path":"core\/php\/class\/core.php"
 	},
 	"configStaticCheck":{
 		"name":"Config Static Check",
-		"path":"core\/php\/configStaticCheck.php"
+		"path":"core\/php\/post\/configStaticCheck.php"
 	},
 	"getPercentUpdate":{
 		"name":"Get Percent Update",

@@ -70,10 +70,16 @@ $( document ).ready(function()
 		"scroll",
 		function (event)
 		{
-			onScrollShowFixedMiniBar(arrayToRefresh);
+			if (typeof onScrollShowFixedMiniBar === "function")
+			{
+				onScrollShowFixedMiniBar(arrayToRefresh);
+			}
 		},
 		true
 	);
 
-	setInterval(poll, 100);
+	if (typeof poll !== "undefined")
+	{
+		setInterval(poll, 100);
+	}
 });

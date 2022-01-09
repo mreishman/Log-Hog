@@ -1,4 +1,3 @@
-<!doctype html>
 <?php
 require_once("../../../core/php/class/core.php");
 $core = new core();
@@ -25,6 +24,7 @@ if(isset($globalConfig['globalConfigVersion']))
 $globalConfigVersionToUpgradeTo = $defaultGlobalConfig['globalConfigVersion'];
 $totalUpgradeScripts = floatval($globalConfigVersionToUpgradeTo) - floatval($globalConfigVersion);
 ?>
+<!doctype html>
 <head>
 	<title>Log Hog | Updater</title>
 	<link rel="stylesheet" type="text/css" href="../../../core/template/base.css">
@@ -98,7 +98,7 @@ $totalUpgradeScripts = floatval($globalConfigVersionToUpgradeTo) - floatval($glo
 	$( window ).resize(function() {
 		$("body").height(""+window.innerHeight+"px");
 	});
-	var urlForSendMain0 = '../../../core/php/checkVersionOfGlobalConfig.php?format=json';
+	var urlForSendMain0 = '../../../core/php/post/checkVersionOfGlobalConfig.php?format=json';
 	var urlForSendMain = '../../../core/php/upgradeScript/upgradeGlobalConfig-';
 	var urlForSendMain2 = '.php?format=json';
 	<?php

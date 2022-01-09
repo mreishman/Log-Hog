@@ -1,4 +1,3 @@
-<!doctype html>
 <?php
 require_once("../../../core/php/class/core.php");
 $core = new core();
@@ -29,6 +28,7 @@ if(isset($globalConfig['layoutVersion']))
 $layoutVersionToUpgradeTo = $defaultGlobalConfig['layoutVersion'];
 $totalUpgradeScripts = floatval($layoutVersionToUpgradeTo) - floatval($layoutVersion) ;
 ?>
+<!doctype html>
 <head>
 	<title>Log Hog | Updater</title>
 	<link rel="stylesheet" type="text/css" href="../../../core/template/base.css">
@@ -102,7 +102,7 @@ $totalUpgradeScripts = floatval($layoutVersionToUpgradeTo) - floatval($layoutVer
 	$( window ).resize(function() {
 		$("body").height(""+window.innerHeight+"px");
 	});
-	var urlForSendMain0 = '../../../core/php/checkVersionOfLayout.php?format=json';
+	var urlForSendMain0 = '../../../core/php/post/checkVersionOfLayout.php?format=json';
 	var urlForSendMain = '../../../core/php/upgradeScript/upgradeLayout-';
 	var urlForSendMain2 = '.php?format=json';
 	<?php
