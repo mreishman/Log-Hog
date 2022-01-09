@@ -73,6 +73,15 @@ Docker version is currently build using php7.0 and apache to match my dev enviro
 1. Go to main menu (hamburger icon top left)
 2. Click update in left sidebar then either check for update or install
 
+## Notes
+
+### Default docker container doesn't include ability do download, either add this or update via git pull 
+
+apt-get install -y \
+        libzip-dev \
+        zip \
+  && docker-php-ext-install zip
+
 
 ## Includes files from the following project:
 
