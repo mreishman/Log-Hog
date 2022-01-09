@@ -7,10 +7,6 @@ if($filterEnabled === "true")
 {
 	$arrayOfFiles[] = $arrayOfFilesExtra['filter'];
 }
-if($sendCrashInfoJS === "true")
-{
-	$arrayOfFiles[] = $arrayOfFilesExtra['sentry'];
-}
 if($advancedLogFormatEnabled === "true")
 {
 	if($logFormatPhpEnable === "true")

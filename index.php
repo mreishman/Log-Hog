@@ -148,10 +148,7 @@ $needRefresh = $core->generateImage(
 			)
 		)
 	); ?>
-	<?php
-		echo $core->loadSentryData($sendCrashInfoJS, $branchSelected, $configStatic);
-		require_once("core/php/indexJsObjectCreator.php");
-	?>
+	<?php require_once("core/php/indexJsObjectCreator.php"); ?>
 </head>
 <body>
 	<span id="mainContent" style="display: none;"  >

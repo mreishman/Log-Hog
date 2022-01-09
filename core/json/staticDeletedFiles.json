@@ -122,5 +122,6 @@
 	{"fullPath":"core\/php\/clearConfigBackups.php","type":"file"},
 	{"fullPath":"core\/php\/clearLog.php","type":"file"},
 	{"fullPath":"core\/php\/configVersionsPopup.php","type":"file"},
-	{"fullPath":"core\/php\/configStaticCheck.php","type":"file"}
+	{"fullPath":"core\/php\/configStaticCheck.php","type":"file"},
+	{"fullPath":"core\/js\/sentry.js","type":"file"}
 ]

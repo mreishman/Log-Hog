@@ -953,15 +953,6 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			2									=>	array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"sendCrashInfoJS",
-					"name"								=>	"Send anonymous information about Log-Hog specific javascript errors",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				)
-			),
 		)
 	),
 	"logVars"							=>	array(

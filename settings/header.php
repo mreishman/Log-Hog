@@ -10,7 +10,6 @@ $infoImage = $core->generateImage(
 		"srcModifier"	=>	"../"
 	)
 );
-echo $core->loadSentryData($sendCrashInfoJS, $branchSelected, $configStatic);
 $core->getScripts(
 	array(
 		array(

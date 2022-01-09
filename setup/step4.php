@@ -56,7 +56,6 @@ $themeDirMod = "../";
 	); ?>
 	<?php require_once("../core/php/template/popup.php");
 	echo $core->loadCSS("../",$baseUrl, $cssVersion);
-	echo $core->loadSentryData($sendCrashInfoJS, $branchSelected, $configStatic);
 	require_once("../core/php/customCSS.php");?>
 </head>
 <body>

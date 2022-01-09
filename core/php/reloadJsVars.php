@@ -35,7 +35,6 @@ require_once('../../core/php/configStatic.php');
 require_once('../../core/php/updateCheck.php');
 require_once('../../core/php/loadVars.php');
 require_once('../../core/php/loadVarsToJs.php');
-echo $core->loadSentryData($sendCrashInfoJS, $branchSelected, $configStatic);
 ?>
 <script type="text/javascript">
 	var defaultdefaultNewAddAlertEnabled 	= "<?php echo $defaultNewAddAlertEnabled; ?>";

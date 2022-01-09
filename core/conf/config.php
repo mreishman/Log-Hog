@@ -383,7 +383,6 @@ $defaultConfig = array(
 	'scrollBarTrack'				=> 'background: #222;',
 	'scrollOnUpdate'				=> 'true',
 	'scrollEvenIfScrolled'			=> 'true',
-	'sendCrashInfoJS'				=> 'true',
 	'sendCrashInfoPHP'				=> 'true',
 	'shellOrPhp'					=> 'phpPreferred',
 	'showErrorPhpFileOpen'			=> 'false',
