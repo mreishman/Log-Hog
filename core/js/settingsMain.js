@@ -116,7 +116,7 @@ function selectLogPopup(locationForNewLogText)
 		currentWindow++;
 	}
 	displayLoadingPopup(urlModifierForAjax , "Generating List");
-	var urlForSend = urlModifierForAjax + "core/php/pollCheck.php?format=json";
+	var urlForSend = urlModifierForAjax + "core/php/post/pollCheck.php?format=json";
 	var data = {formKey};
 	$.ajax({
 		url: urlForSend,

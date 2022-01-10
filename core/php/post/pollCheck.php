@@ -1,9 +1,9 @@
 <?php
 try
 {
-	require_once("class/core.php");
+	require_once("../class/core.php");
 	$core = new core();
-	require_once("class/session.php");
+	require_once("../class/session.php");
 	$session = new session();
 	if(!$session->startSession())
 	{
@@ -15,16 +15,16 @@ try
 		echo json_encode(array("error" => 18));
 		exit();
 	}
-	$baseModifier = "../../";
+	$baseModifier = "../../../";
 	$currentSelectedTheme = $session->returnCurrentSelectedThemeAjax();
 	$baseUrl = $baseModifier."local/".$currentSelectedTheme."/";
 	require_once($baseUrl.'conf/config.php');
 	require_once($baseModifier.'core/conf/config.php');
 	require_once($baseModifier.'local/conf/globalConfig.php');
 	require_once($baseModifier.'core/conf/globalConfig.php');
-	require_once('configStatic.php');
-	require_once('updateProgressFile.php');
-	require_once('class/poll.php');
+	require_once('../configStatic.php');
+	require_once('../updateProgressFile.php');
+	require_once('../class/poll.php');
 	$poll = new poll();
 }
 catch (Exception $e)

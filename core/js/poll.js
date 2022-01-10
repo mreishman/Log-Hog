@@ -85,7 +85,7 @@ function pollTwo()
 {
 	try
 	{
-		var urlForSend = "core/php/pollCheck.php?format=json";
+		var urlForSend = "core/php/post/pollCheck.php?format=json";
 		var data = {currentVersion, fileData, formKey};
 		$.ajax({
 			url: urlForSend,
