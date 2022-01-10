@@ -288,7 +288,7 @@ function pollThree(arrayToUpdate)
 			}
 			else
 			{
-				var urlForSend = "core/php/poll.php?format=json";
+				var urlForSend = "core/php/post/poll.php?format=json";
 				var data = {arrayToUpdate, formKey};
 				$.ajax({
 					url: urlForSend,
@@ -382,7 +382,7 @@ function getFileSingle(current)
 		arraySend[keyForThis] = arrayToUpdate[keyForThis];
 		var data = {arrayToUpdate: arraySend, formKey};
 		$.ajax({
-			url: "core/php/poll.php?format=json",
+			url: "core/php/post/poll.php?format=json",
 			dataType: "json",
 			currentFile: current,
 			data,
@@ -445,7 +445,7 @@ function getFileSinglePostLoadWithData(data, currentLogNum)
 	{
 		data["formKey"] = formKey;
 		$.ajax({
-			url: "core/php/poll.php?format=json",
+			url: "core/php/post/poll.php?format=json",
 			dataType: "json",
 			data,
 			type: "POST",
