@@ -125,6 +125,7 @@
 	{"fullPath":"core\/php\/configStaticCheck.php","type":"file"},
 	{"fullPath":"core\/php\/poll.php","type":"file"},
 	{"fullPath":"core\/php\/pollCheck.php","type":"file"},
+	{"fullPath":"core\/php\/saveCheck.php","type":"file"},
 	{"fullPath":"core\/js\/sentry.js","type":"file"},
 	{"fullPath":"settings\/addons.php","type":"file"},
 	{"fullPath":"settings\/themes.php","type":"file"},

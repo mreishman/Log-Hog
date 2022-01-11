@@ -75,7 +75,7 @@ function timerVerifySave()
 	countForVerifySave++;
 	if(countForVerifySave < 20)
 	{
-		var urlForSend = dirForAjaxSend+"core/php/saveCheck.php?format=json";
+		var urlForSend = dirForAjaxSend+"core/php/post/saveCheck.php?format=json";
 		data["formKey"] = formKey;
 		$.ajax(
 		{
