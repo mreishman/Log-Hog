@@ -53,7 +53,7 @@ function checkForUpdates(urlSend = "../", whatAmIUpdating = "Log-Hog", currentNe
 			}
 		}
 		$.ajax({
-			url: urlSendUpdate + "core/php/settingsCheckForUpdateAjax.php",
+			url: urlSendUpdate + "core/php/post/settingsCheckForUpdateAjax.php",
 			dataType: "json",
 			data: {formKey},
 			type: "POST",

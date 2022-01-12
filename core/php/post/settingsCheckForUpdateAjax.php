@@ -1,7 +1,7 @@
 <?php
-require_once("class/core.php");
+require_once("../class/core.php");
 $core = new core();
-require_once("class/session.php");
+require_once("../class/session.php");
 $session = new session();
 if(!$session->startSession())
 {
@@ -10,25 +10,25 @@ if(!$session->startSession())
 }
 $data = array();
 $data['version'] = -1;
-require_once("class/update.php");
+require_once("../class/update.php");
 $update = new update();
 
-$baseUrl = "../../local/";
+$baseUrl = "../../../local/";
 $currentSelectedTheme = $session->returnCurrentSelectedThemeAjax();
 $baseUrl .= $currentSelectedTheme."/";
 
 require_once($baseUrl.'conf/config.php');
-require_once('../conf/config.php');
-require_once('../../local/conf/globalConfig.php');
-require_once('../conf/globalConfig.php');
+require_once('../../conf/config.php');
+require_once('../../../local/conf/globalConfig.php');
+require_once('../../conf/globalConfig.php');
 
-if(file_exists("../../update/downloads/versionCheck/extracted/"))
+if(file_exists("../../../update/downloads/versionCheck/extracted/"))
 {
   //dir exists
-  if(file_exists("../../update/downloads/versionCheck/extracted/versionsCheckFile.php"))
+  if(file_exists("../../../update/downloads/versionCheck/extracted/versionsCheckFile.php"))
   {
     //last version check here
-    $files = glob("../../update/downloads/versionCheck/extracted/*"); // get all file names
+    $files = glob("../../../update/downloads/versionCheck/extracted/*"); // get all file names
     foreach($files as $file)
     {
       if(is_file($file))
@@ -36,7 +36,7 @@ if(file_exists("../../update/downloads/versionCheck/extracted/"))
         unlink($file);
       }
     }
-    rmdir("../../update/downloads/versionCheck/extracted/");
+    rmdir("../../../update/downloads/versionCheck/extracted/");
   }
 
 }
@@ -62,9 +62,9 @@ elseif($branchSelected == "beta")
 {
   $fileNameForDownload = "versionCheckBeta";
 }
-if(file_exists("../../update/downloads/versionCheck/versionCheck.zip"))
+if(file_exists("../../../update/downloads/versionCheck/versionCheck.zip"))
 {
-  unlink("../../update/downloads/versionCheck/versionCheck.zip");
+  unlink("../../../update/downloads/versionCheck/versionCheck.zip");
 }
 $newFile = file_get_contents($baseUrlUpdate .$fileNameForDownload.".zip");
 if(!$newFile || empty($newFile))
@@ -72,19 +72,19 @@ if(!$newFile || empty($newFile))
   echo json_encode(array("version" => -1,  "error" => "empty zip"));
   exit();
 }
-file_put_contents("../../update/downloads/versionCheck/versionCheck.zip",
+file_put_contents("../../../update/downloads/versionCheck/versionCheck.zip",
   $newFile
   );
 
-if(!is_file("../../update/downloads/versionCheck/versionCheck.zip") || empty("../../update/downloads/versionCheck/versionCheck.zip"))
+if(!is_file("../../../update/downloads/versionCheck/versionCheck.zip") || empty("../../../update/downloads/versionCheck/versionCheck.zip"))
 {
   echo json_encode(array("version" => -1,  "error" => "empty zip"));
   exit();
 }
 
-if(!is_dir("../../update/downloads/versionCheck/extracted/"))
+if(!is_dir("../../../update/downloads/versionCheck/extracted/"))
 {
-  $dirMade = @mkdir("../../update/downloads/versionCheck/extracted/");
+  $dirMade = @mkdir("../../../update/downloads/versionCheck/extracted/");
   if($dirMade !== true)
   {
     //throw custom error
@@ -93,7 +93,7 @@ if(!is_dir("../../update/downloads/versionCheck/extracted/"))
   }
 }
 $zip = new ZipArchive;
-$path = "../../update/downloads/versionCheck/versionCheck.zip";
+$path = "../../../update/downloads/versionCheck/versionCheck.zip";
 $res = $zip->open($path);
 if ($res === true)
 {
@@ -103,7 +103,7 @@ if ($res === true)
     $fileinfo = pathinfo($filename);
     if (strpos($fileinfo['basename'], '.php') !== false)
     {
-      copy("zip://".$path."#".$filename, "../../update/downloads/versionCheck/extracted/".$fileinfo['basename']);
+      copy("zip://".$path."#".$filename, "../../../update/downloads/versionCheck/extracted/".$fileinfo['basename']);
     }
   }
   $zip->close();
@@ -114,14 +114,14 @@ else
   exit();
 }
 
-unlink("../../update/downloads/versionCheck/versionCheck.zip");
-if(!file_exists("../../update/downloads/versionCheck/extracted/versionsCheckFile.php"))
+unlink("../../../update/downloads/versionCheck/versionCheck.zip");
+if(!file_exists("../../../update/downloads/versionCheck/extracted/versionsCheckFile.php"))
 {
   echo json_encode(array("version" => -1, "error" => "empty zip"));
   exit();
 }
-require_once('../../update/downloads/versionCheck/extracted/versionsCheckFile.php');
-require_once('configStatic.php');
+require_once('../../../update/downloads/versionCheck/extracted/versionsCheckFile.php');
+require_once('../configStatic.php');
 
 $arrayForVersionList = "";
 $countOfArray = count($versionCheckArray['versionList']);
@@ -161,7 +161,7 @@ $"."configStatic = array(
 
 //write new info to version file in core/php/configStatic.php
 
-$files = glob("../../update/downloads/versionCheck/extracted/*");
+$files = glob("../../../update/downloads/versionCheck/extracted/*");
 foreach($files as $file)
 {
   if(is_file($file))
@@ -170,18 +170,18 @@ foreach($files as $file)
   }
 }
 
-if(!is_writable("configStatic.php"))
+if(!is_writable("../configStatic.php"))
 {
   echo json_encode(array("version" => -1, "error" => "configStatic is not writeable"));
   exit();
 }
-if(file_exists("configStatic.php"))
+if(file_exists("../configStatic.php"))
 {
-  unlink("configStatic.php");
+  unlink("../configStatic.php");
 }
-file_put_contents("configStatic.php", $newInfoForConfig);
+file_put_contents("../configStatic.php", $newInfoForConfig);
 
-rmdir("../../update/downloads/versionCheck/extracted/");
+rmdir("../../../update/downloads/versionCheck/extracted/");
 
 $version = $configStatic['version'];
 $newestVersion = $versionCheckArray['version'];
