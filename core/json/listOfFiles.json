@@ -40,7 +40,7 @@
 	},
 	"getPercentUpdate":{
 		"name":"Get Percent Update",
-		"path":"core\/php\/getPercentUpdate.php"
+		"path":"core\/php\/post\/getPercentUpdate.php"
 	},
 	"performSettingsInstallUpdateAction":{
 		"name":"Perform Settings Install Update Action",

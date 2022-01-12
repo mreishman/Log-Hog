@@ -9,7 +9,7 @@ $( document ).ready(function()
 
 function checkIfChange()
 {
-	var urlForSend = "../core/php/getPercentUpdate.php?format=json";
+	var urlForSend = "../core/php/post/getPercentUpdate.php?format=json";
 	var data = {formKey};
 	$.ajax({
 		url: urlForSend,
