@@ -37,7 +37,7 @@ function saveAndVerifyMain(idForForm)
 	data.push({name: "formKey", value: formKey});
 	$.ajax({
         type: "post",
-        url: dirForAjaxSend+"core/php/settingsSaveAjax.php",
+        url: dirForAjaxSend+"core/php/post/settingsSaveAjax.php",
         data,
         success(data)
         {
@@ -52,7 +52,7 @@ function saveAndVerifyMain(idForForm)
             }
 			else if(data !== "true")
 			{
-				window.location.href = dirForAjaxSend+"error.php?error="+data+"&page=core/php/settingsSaveAjax.php";
+				window.location.href = dirForAjaxSend+"error.php?error="+data+"&page=settingsSaveAjax.php";
 			}
 		},
         complete()
