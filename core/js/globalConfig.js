@@ -45,7 +45,7 @@ function timerVerifySaveGlobalConfig()
 	countForVerifySave++;
 	if(countForVerifySave < 20)
 	{
-		var urlForSend = dirForAjaxSend+"core/php/saveCheckGlobalConfig.php?format=json";
+		var urlForSend = dirForAjaxSend+"core/php/post/saveCheckGlobalConfig.php?format=json";
 		data["formKey"] = formKey;
 		$.ajax(
 		{
