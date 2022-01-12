@@ -9,7 +9,7 @@ function archiveAction(title, type) //used to check if file is loaded
 		}
 		var dataToSend = {subFolder: "tmp/"+folder+"/", key: title, log: arrayOfDataMain[title]["log"], formKey};
 		$.ajax({
-				url: "core/php/saveTmpVersionOfLog.php?format=json",
+				url: "core/php/post/saveTmpVersionOfLog.php?format=json",
 				dataType: "json",
 				data: dataToSend,
 				type: "POST",

@@ -1,7 +1,7 @@
 <?php
-require_once("class/core.php");
+require_once("../class/core.php");
 $core = new core();
-require_once("class/session.php");
+require_once("../class/session.php");
 $session = new session();
 if(!$session->startSession())
 {
@@ -13,15 +13,15 @@ if(!$session->validate())
 	echo json_encode(array("error" => 18));
 	exit();
 }
-$baseModifier = "../../";
+$baseModifier = "../../../";
 $currentSelectedTheme = $session->returnCurrentSelectedThemeAjax();
 $baseUrl = $baseModifier."local/".$currentSelectedTheme."/";
 require_once($baseUrl.'conf/config.php');
 require_once($baseModifier.'core/conf/config.php');
 require_once($baseModifier.'local/conf/globalConfig.php');
 require_once($baseModifier.'core/conf/globalConfig.php');
-require_once('configStatic.php');
-require_once("class/core.php");
+require_once('../configStatic.php');
+require_once("../class/core.php");
 $core = new core();
 $varsLoadLite = array("saveTmpLogNum","saveArchiveLogLimit","saveArchiveLogNum");
 
@@ -47,7 +47,7 @@ else
 {
 	//tmp log logic
 	//get list of files in folder that start with fileName.
-	$scannedDir = scandir("../../".$location);
+	$scannedDir = scandir("../../../".$location);
 	if(!is_array($scannedDir))
 	{
 		$scannedDir = array($scannedDir);
@@ -59,7 +59,7 @@ else
 	{
 		if(strpos($file, "Backup".$fileName) === 0)
 		{
-			$listOfMatches[filemtime("../../".$location.$file)] = $file;
+			$listOfMatches[filemtime("../../../".$location.$file)] = $file;
 		}
 	}
 	asort($listOfMatches);
@@ -71,13 +71,13 @@ else
 	while(count($listOfMatches) > $limitSave)
 	{
 		//remove first in list
-		unlink("../../".$location.reset($listOfMatches));
+		unlink("../../../".$location.reset($listOfMatches));
 		array_shift($listOfMatches);
 	}
 
 }
-if(is_dir("../../".$location))
+if(is_dir("../../../".$location))
 {
-	file_put_contents("../../".$location."Backup".$fileName."-".$currentTimeStamp, $fileContents);
+	file_put_contents("../../../".$location."Backup".$fileName."-".$currentTimeStamp, $fileContents);
 }
 echo json_encode(true);

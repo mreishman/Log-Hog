@@ -1551,7 +1551,7 @@ function deleteActionAfter()
 				}
 				var dataToSend = {subFolder: "tmp/loghogBackupHistoryLogs/", key: currentTitle, log: arrayOfDataMain[currentTitle]["log"], formKey};
 				$.ajax({
-						url: "core/php/saveTmpVersionOfLog.php?format=json",
+						url: "core/php/post/saveTmpVersionOfLog.php?format=json",
 						dataType: "json",
 						data: dataToSend,
 						type: "POST",
