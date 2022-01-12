@@ -7,7 +7,7 @@ function saveConfigStatic()
 	data.push({name: "formKey", value: formKey});
 	$.ajax({
         type: "post",
-        url: dirForAjaxSend + "core/php/settingsSaveConfigStatic.php",
+        url: dirForAjaxSend + "core/php/post/settingsSaveConfigStatic.php",
         data,
         success(data)
         {

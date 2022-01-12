@@ -30,7 +30,7 @@
 		</ul>
 	</div>
 </span>
-<form id="devAdvanced2" action="../core/php/settingsSaveConfigStatic.php" method="post"> <!-- Reset update notification form -->
+<form id="devAdvanced2" action="../core/php/post/settingsSaveConfigStatic.php" method="post"> <!-- Reset update notification form -->
 	<input type="hidden" name="newestVersion" value="<?php echo $configStatic['version'];?>" >
 </form>
 <script type="text/javascript">
