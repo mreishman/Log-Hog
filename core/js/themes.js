@@ -184,7 +184,7 @@ function createNewFiles()
 	//default settings file
 	document.getElementById("popupHeaderText").innerHTML = "Creating config file (step 5 of "+numberOfStepsForThemeCreate+")";
 	$.ajax({
-		url: themeDirMod+"core/php/saveCustomThemeDefaults.php?format=json",
+		url: themeDirMod+"core/php/post/saveCustomThemeDefaults.php?format=json",
 		dataType: "json",
 		data: {themeNumber: externalThemeNumber, displayName: themeName, formKey},
 		type: "POST",

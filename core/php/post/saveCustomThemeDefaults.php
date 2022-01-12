@@ -1,7 +1,7 @@
 <?php
-require_once("class/core.php");
+require_once("../class/core.php");
 $core = new core();
-require_once("class/session.php");
+require_once("../class/session.php");
 $session = new session();
 if(!$session->startSession())
 {
@@ -13,24 +13,24 @@ if(!$session->validate())
 	echo json_encode(array("error" => 18));
 	exit();
 }
-$baseUrl = "../../local/";
+$baseUrl = "../../../local/";
 $currentSelectedTheme = $session->returnCurrentSelectedThemeAjax();
 $baseUrl .= $currentSelectedTheme."/";
 require_once($baseUrl.'conf/config.php');
-require_once('../../core/conf/config.php');
-require_once('../../local/conf/globalConfig.php');
-require_once('../../core/conf/globalConfig.php');
+require_once('../../../core/conf/config.php');
+require_once('../../../local/conf/globalConfig.php');
+require_once('../../../core/conf/globalConfig.php');
 $currentTheme = $core->loadSpecificVar($defaultConfig, $config, "currentTheme");
 
-$requireFile = "../../core/Themes/".$currentTheme."/defaultSetting.php";
-if(is_dir("../../local/Themes/".$currentTheme))
+$requireFile = "../../../core/Themes/".$currentTheme."/defaultSetting.php";
+if(is_dir("../../../local/Themes/".$currentTheme))
 {
-	$requireFile = "../../local/Themes/".$currentTheme."/defaultSetting.php";
+	$requireFile = "../../../local/Themes/".$currentTheme."/defaultSetting.php";
 }
 require_once($requireFile);
 
 
-require_once('loadVars.php');
+require_once('../loadVars.php');
 
 $fileName = $baseUrl.'Themes/Custom-Theme-'.$_POST["themeNumber"].'/defaultSetting.php';
 
