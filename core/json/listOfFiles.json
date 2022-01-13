@@ -56,7 +56,7 @@
 	},
 	"versionCheck":{
 		"name":"Version Check",
-		"path":"core\/php\/versionCheck.php"
+		"path":"core\/php\/post\/versionCheck.php"
 	},
 	"Update":{
 		"name":"Update",

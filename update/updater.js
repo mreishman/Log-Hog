@@ -998,7 +998,7 @@ function finishUpdatePollCheck()
 		updateError("Could not verifiy version change");
 	}
 	$.ajax({
-		url: "../core/php/versionCheck.php",
+		url: "../core/php/post/versionCheck.php",
 		dataType: "json",
 		data: {formKey},
 		type: "POST",
