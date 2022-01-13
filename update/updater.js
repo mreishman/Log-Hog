@@ -1055,7 +1055,7 @@ function finishUpdateOneHundredCheck()
 		updateError("Could not verifiy update complete");
 	}
 	$.ajax({
-		url: "../core/php/verifyVersionInstallComplete.php",
+		url: "../core/php/post/verifyVersionInstallComplete.php",
 		dataType: "json",
 		data: {formKey},
 		type: "POST",

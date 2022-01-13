@@ -133,6 +133,7 @@
 	{"fullPath":"core\/php\/settingsSaveAjax.php","type":"file"},
 	{"fullPath":"core\/php\/settingsSaveConfigStatic.php","type":"file"},
 	{"fullPath":"core\/php\/getPercentUpdate.php","type":"file"},
+	{"fullPath":"core\/php\/verifyVersionInstallComplete.php","type":"file"},
 	{"fullPath":"core\/js\/sentry.js","type":"file"},
 	{"fullPath":"settings\/addons.php","type":"file"},
 	{"fullPath":"settings\/themes.php","type":"file"},
