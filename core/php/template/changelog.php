@@ -7,14 +7,21 @@
 			<h2>Changelog</h2>
 		</li>
 		<?php
+		$versionFound = isset($configStatic["versionList"][$configStatic["version"]]);
+		if(!$versionFound):?>
+			<li><h2>Notice: Current version of Log-Hog is not in changelog. Showing all versions in changelog</h2></li>
+		<?php
+		endif;
 		$versionList = array_reverse($configStatic["versionList"]);
-		foreach ($versionList as $versionKey => $versionValue): ?>
+		$found = false;
+		foreach ($versionList as $versionKey => $versionValue): 
+			if(!$found && $configStatic["version"] !== $versionKey && $versionFound) {
+				continue;
+			}
+			$found = true;
+			?>
 			<li>
 				<?php echo $versionKey;
-					if($configStatic["version"] === $versionKey)
-					{
-						echo " [Current Version]";
-					}
 				echo $versionValue["releaseNotes"]; ?>
 			</li>
 		<?php endforeach;?>
