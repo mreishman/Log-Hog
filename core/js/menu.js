@@ -7,7 +7,7 @@ function showPauseButton()
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -20,7 +20,7 @@ function showPlayButton()
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -33,7 +33,7 @@ function showRefreshButton()
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -46,7 +46,7 @@ function showRefreshingButton()
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -78,7 +78,7 @@ function pausePollAction()
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -97,7 +97,7 @@ function refreshAction()
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -122,6 +122,6 @@ function endRefreshAction()
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }

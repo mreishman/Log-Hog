@@ -70,7 +70,7 @@ function show(e, id)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -116,7 +116,7 @@ function showPartTwo(e, internalID, currentCurrentSelectWindow, formattedHtml)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -165,6 +165,6 @@ function showPartThree(e, internalID, currentCurrentSelectWindow)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }

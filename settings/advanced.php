@@ -71,8 +71,6 @@ require_once('../core/php/updateCheck.php');
 	include('../core/php/template/varTemplate.php');
 	$currentSection = "modules";
 	include('../core/php/template/varTemplate.php');
-	$currentSection = "loggingVars";
-	include('../core/php/template/varTemplate.php');
 	$currentSection = "fileLocations";
 	include('../core/php/template/varTemplate.php');
 	$settingsUrlModifier = "../";

@@ -70,7 +70,7 @@ function updateNoNewVersionCheck()
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -114,7 +114,7 @@ function showConfigPopup()
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -178,7 +178,7 @@ function clearBackupFiles()
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -200,7 +200,7 @@ function verifyNoConfigBackups()
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 

@@ -77,7 +77,7 @@ function poll()
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -157,7 +157,7 @@ function pollTwo()
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -260,7 +260,7 @@ function pollTwoPartTwo(data)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -327,7 +327,7 @@ function pollThree(arrayToUpdate)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -427,7 +427,7 @@ function getFileSingle(current)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -488,7 +488,7 @@ function getFileSinglePostLoadWithData(data, currentLogNum)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -513,7 +513,7 @@ function arrayOfDataMainDataFilter(data)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -641,7 +641,7 @@ function afterPollFunctionComplete()
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -1163,6 +1163,6 @@ function update(data)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }

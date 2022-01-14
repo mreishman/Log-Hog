@@ -10,7 +10,7 @@ function flashTitle() //needed for file check
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -23,7 +23,7 @@ function stopFlashTitle()
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 
 }

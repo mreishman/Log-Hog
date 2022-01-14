@@ -88,10 +88,8 @@ $core->getScripts(
 	<div id="menu2">
 		<a class="link" href="#advancedConfig" > Config </a>
 		<a class="link" href="#modules" > Modules </a>
-		<a class="link" href="#loggingDisplay" > Logs </a>
 		<a class="link" href="#locationOtherApps" > Locations </a>
 		<a class="link" href="#moreAdvanced" > Advanced </a>
-		<a class="link" href="#expFeatures" > Experimental </a>
 	</div>
 <?php endif;
 $baseUrlImages = $localURL;

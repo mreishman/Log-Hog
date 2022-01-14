@@ -311,7 +311,26 @@ $defaultConfigMoreData = array(
 					"name"								=>	"Theme Version",
 					"type"								=>	"number"
 				)
-			)
+			),
+			3									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"info"								=>	"This will increase poll times",
+					"key"								=>	"enableLogging",
+					"name"								=>	"File Info Logging",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			4									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"enablePollTimeLogging",
+					"name"								=>	"Poll Time Logging",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
 		)
 	),
 	"fileLocations"						=>	array(
@@ -928,31 +947,6 @@ $defaultConfigMoreData = array(
 					)
 				)
 			)
-		)
-	),
-	"loggingVars"						=>	array(
-		"id"								=>	"loggingDisplay",
-		"name"								=>	"Log Settings ",
-		"vars"								=>	array(
-			0									=>	array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"info"								=>	"This will increase poll times",
-					"key"								=>	"enableLogging",
-					"name"								=>	"File Info Logging",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				)
-			),
-			1									=>	array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"enablePollTimeLogging",
-					"name"								=>	"Poll Time Logging",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				)
-			),
 		)
 	),
 	"logVars"							=>	array(

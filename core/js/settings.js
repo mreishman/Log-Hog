@@ -23,7 +23,7 @@ function showOrHideSubWindow(valueForPopupInner, valueForVarsInner, valueToCompa
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -172,7 +172,7 @@ function saveVerified()
 			}
 		}
 	}
-	else if(idForFormMain === "loggingDisplay")
+	else if(idForFormMain === "advancedConfig")
 	{
 		if($("[name='enablePollTimeLogging']"))
 		{
@@ -429,7 +429,6 @@ function saveVerified()
 		refreshCustomCss();
 	}
 	else if(
-		idForFormMain === "loggingDisplay" ||
 		idForFormMain === "advancedConfig" ||
 		idForFormMain === "settingsWatchlistVars" ||
 		idForFormMain === "settingsMultiLogVars" ||
@@ -662,7 +661,7 @@ function objectsAreSameInner(x, y)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -683,7 +682,7 @@ function objectsAreSame(x, y)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -743,7 +742,7 @@ function checkForChanges(idOfObject)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -766,7 +765,7 @@ function refreshArrayObject(idOfForm)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -801,6 +800,6 @@ function resetArrayObject(idOfForm)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }

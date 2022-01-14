@@ -21,7 +21,7 @@ function makePretty(id)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -279,7 +279,7 @@ function makePrettyWithText(text, count, extraData = {})
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 

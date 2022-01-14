@@ -15,7 +15,7 @@ function changeDescriptionLineSize()
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 

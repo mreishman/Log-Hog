@@ -175,7 +175,7 @@ function checkForUpdates(urlSend = "../", whatAmIUpdating = "Log-Hog", currentNe
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -341,7 +341,7 @@ function showPopupForUpdate(urlSend,whatAmIUpdating)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -381,7 +381,7 @@ function saveSettingFromPopupNoCheckMaybe()
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -440,7 +440,7 @@ function installUpdates(urlSend = "../", updateFormIDLocal = "settingsInstallUpd
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -501,7 +501,7 @@ function verifyChange(urlSend)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -513,6 +513,6 @@ function actuallyInstallUpdates()
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }

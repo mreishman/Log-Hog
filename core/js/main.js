@@ -109,7 +109,7 @@ function escapeHTML(unsafeStr)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -128,7 +128,7 @@ function unescapeHTML(unsafeStr)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -156,7 +156,7 @@ function updateSkipCounterLog(num)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -171,7 +171,7 @@ function updateAllRefreshCounter(num)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -207,7 +207,7 @@ function updateDocumentTitle(updateText)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -232,7 +232,7 @@ function addPaddingToNumber(number, padding = 4)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -369,7 +369,7 @@ function unselectLogsInner(boolForType)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -387,7 +387,7 @@ function removeTabsInOrder(targetLength)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -460,7 +460,7 @@ function selectLastLoadLogs()
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -540,7 +540,7 @@ function selectTabsInOrder(targetLength)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -591,7 +591,7 @@ function toggleDisplayOfNoLogs()
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -635,7 +635,7 @@ function updateScrollOnLogs()
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -654,7 +654,7 @@ function scrollPauseLogic(id)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -668,7 +668,7 @@ function tmpHideLog(name)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -684,7 +684,7 @@ function copyToClipBoard(whatToCopy)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -711,7 +711,7 @@ function tryToInsertBeforeLog(innerCount, stop, idCheck, item)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -738,7 +738,7 @@ function tryToInsertAfterLog(innerCount, stop, idCheck, item)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -756,7 +756,7 @@ function refreshLastLogsArray()
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -832,7 +832,7 @@ function hideLogByName(name)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -848,7 +848,7 @@ function showLogByName(name)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -866,7 +866,7 @@ function removeLogByName(name)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -878,7 +878,7 @@ function fadeHighlight(id)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -1086,7 +1086,7 @@ function getDiffLogAndLastLog(id)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -1252,7 +1252,7 @@ function resize()
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -1395,7 +1395,7 @@ function checkIfPageHidden()
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -1413,7 +1413,7 @@ function pausePollFunction()
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -1502,7 +1502,7 @@ function clearLog(idNum)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -1523,7 +1523,7 @@ function deleteAction()
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -1604,7 +1604,7 @@ function deleteActionAfter()
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -1616,7 +1616,7 @@ function deleteLogPopup(idNum)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -1695,7 +1695,7 @@ function deleteLog(title)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -1712,7 +1712,7 @@ function filterTitle(title)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -1731,7 +1731,7 @@ function checkForUpdateMaybe()
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -1753,7 +1753,7 @@ function updateProgressBar(additonalPercent, text, topText = "Loading...")
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -2352,7 +2352,6 @@ function mainReady()
 		"settingsMainVars",
 		"advancedConfig",
 		"modules",
-		"loggingDisplay",
 		"locationOtherApps",
 		"devBranch",
 		"devConfig",

@@ -281,7 +281,6 @@ let listOfMenuRightClick = [
   {id: "settingsMainOtherMenu", link: "./settings/main.php#settingsMainVars"},
   {id: "settingsAdvancedConfigMenu", link: "./settings/advanced.php#advancedConfig"},
   {id: "settingsAdvancedModulesMenu", link: "./settings/advanced.php#modules"},
-  {id: "settingsAdvancedLogsMenu", link: "./settings/advanced.php#loggingDisplay"},
   {id: "settingsAdvancedLocationsMenu", link: "./settings/advanced.php#locationOtherApps"},
   {id: "settingsAdvancedAdvancedMenu", link: "./settings/advanced.php#advancedConfig"},
   {id: "settingsAdvancedDevConfigMenu", link: "./settings/devTools.php#devConfig"}
@@ -326,6 +325,6 @@ function addClearAlertToRightClickMenu(id)
   }
   catch(e)
   {
-    eventThrowException(e);
+    console.log(e);
   }
 }

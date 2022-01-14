@@ -1006,7 +1006,7 @@ function addRowFunction(data)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -1030,7 +1030,7 @@ function splitFilesPopup(currentRow, keyName = "")
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -1120,7 +1120,7 @@ function deleteRowFunctionPopup(currentRow, keyName = "")
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -1145,7 +1145,7 @@ function deleteRowFunction(currentRow)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -1244,7 +1244,7 @@ function checkWatchList()
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 function showNoEmptyFolderPopup()
@@ -1256,7 +1256,7 @@ function showNoEmptyFolderPopup()
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -1272,7 +1272,7 @@ function resetWatchListVars()
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -1284,7 +1284,7 @@ function refreshSettingsWatchList()
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -1481,7 +1481,7 @@ function updateProgressBarWatchList(additonalPercent, text, topText = "Loading..
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -1498,7 +1498,7 @@ function resetProgressBarWatchList()
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 

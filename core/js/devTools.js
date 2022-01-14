@@ -56,6 +56,6 @@ function newVersionNumberCheck()
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }

@@ -528,7 +528,7 @@ function toggleNotificationClearButton()
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -563,7 +563,7 @@ function clearNotifications()
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 	clearingNotifications = false;
 	checkForUpdateLogsOffScreen();
@@ -599,7 +599,7 @@ function tmpToggleAlerts(id)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 

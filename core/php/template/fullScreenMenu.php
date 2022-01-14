@@ -132,9 +132,6 @@
 		<li id="settingsAdvancedModulesMenu" onclick="toggleSettingSection({id: 'settingsAdvancedModules',formId: 'modules'});" >
 			Modules
 		</li>
-		<li id="settingsAdvancedLogsMenu" onclick="toggleSettingSection({id: 'settingsAdvancedLogs',formId: 'loggingDisplay'});" >
-			Logs
-		</li>
 		<li id="settingsAdvancedLocationsMenu" onclick="toggleSettingSection({id: 'settingsAdvancedLocations',formId: 'locationOtherApps'});" >
 			Locations
 		</li>
@@ -324,12 +321,6 @@
 	<div id="settingsAdvancedModules" style="display: none;" >
 		<?php
 		$currentSection = "modules";
-		include('core/php/template/varTemplate.php');
-		?>
-	</div>
-	<div id="settingsAdvancedLogs" style="display: none;" >
-		<?php
-		$currentSection = "loggingVars";
 		include('core/php/template/varTemplate.php');
 		?>
 	</div>

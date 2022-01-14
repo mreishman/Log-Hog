@@ -3,7 +3,7 @@ var popupHtml = "";
 
 function checkIfChanges()
 {
-	if(checkForChangesArray(["loggingDisplay","modules","locationOtherApps","advancedConfig","expFeatures"]))
+	if(checkForChangesArray(["modules","locationOtherApps","advancedConfig"]))
 	{
 		return true;
 	}
@@ -12,13 +12,13 @@ function checkIfChanges()
 
 $( document ).ready(function()
 {
-	refreshArrayObjectOfArrays(["loggingDisplay","modules","locationOtherApps","advancedConfig","expFeatures"]);
+	refreshArrayObjectOfArrays(["modules","locationOtherApps","advancedConfig"]);
 
 	document.addEventListener(
 		"scroll",
 		function (event)
 		{
-			onScrollShowFixedMiniBar(["advancedConfig","modules","loggingDisplay","locationOtherApps","moreAdvancedSpan","expFeatures"]);
+			onScrollShowFixedMiniBar(["advancedConfig","modules","locationOtherApps","moreAdvancedSpan"]);
 		},
 		true
 	);

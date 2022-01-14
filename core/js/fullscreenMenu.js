@@ -474,7 +474,7 @@ function goToPageCheck(functionName)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -550,8 +550,6 @@ function hideSettingsStuff()
 	$("#settingsAdvancedConfigMenu").removeClass("selected");
 	document.getElementById("settingsAdvancedModules").style.display = "none";
 	$("#settingsAdvancedModulesMenu").removeClass("selected");
-	document.getElementById("settingsAdvancedLogs").style.display = "none";
-	$("#settingsAdvancedLogsMenu").removeClass("selected");
 	document.getElementById("settingsAdvancedLocations").style.display = "none";
 	$("#settingsAdvancedLocationsMenu").removeClass("selected");
 	document.getElementById("settingsAdvancedAdvanced").style.display = "none";
@@ -833,7 +831,7 @@ function resizeFullScreenMenu()
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
