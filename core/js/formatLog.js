@@ -268,7 +268,16 @@ function makePrettyWithText(text, count, extraData = {})
 			returnText += "<td style=\"width: 31px; padding: 0;\"></td>"+lineToReturn+"</tr>";
 			if(addRowPadding)
 			{
-				returnText += "<tr class=\"logLinePaddingHeight\"><td class=\"logLineBorder\" colspan=\""+colspan+"\"></td></tr>";
+				let extraTd = '';
+				if(type === "log" && advancedLogFormatEnabled === "true")
+				{
+					if (lineToReturn.includes('settingsDiv') && lineToReturn.includes('settingsDivRemoveBottom'))
+					{
+						extraTd = "<td style=\"white-space: pre-wrap; padding: 0;\" ><div class=\"settingsDiv  settingsDivRemoveTop  settingsDivRemoveBottom\"></div></td>";
+						colspan--;
+					}
+				}
+				returnText += "<tr class=\"logLinePaddingHeight\"><td class=\"logLineBorder\" colspan=\""+colspan+"\"></td>"+extraTd+"</tr>";
 			}
 		}
 		if(returnText === "")
