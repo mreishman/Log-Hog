@@ -217,7 +217,11 @@
 					<?php endif; ?>
 				<?php else: ?>
 					<td colspan="4">
-						<progress id="<?php echo $lowercase; ?>DownloadProgressBar" style="width: 100%;" value="0" max="100"></progress>
+						<?php if(class_exists('ZipArchive')): ?>
+							<progress id="<?php echo $lowercase; ?>DownloadProgressBar" style="width: 100%;" value="0" max="100"></progress>
+						<?php else: ?>
+							You must install ZipArchive to download.
+						<?php endif; ?>
 					</td>
 					<td>
 						<script type="text/javascript">
@@ -228,7 +232,11 @@
 							<input type="hidden" name="repoName" value="<?php echo $repo; ?>">
 							<input type="hidden" name="action" value="Downloading">
 						</form>
-						<a onclick="addonMonitorAction(<?php echo $key; ?>);" class="link">Download</a>
+						<?php if(class_exists('ZipArchive')): ?>
+							<a onclick="addonMonitorAction(<?php echo $key; ?>);" class="link">Download</a>
+						<?php else: ?>
+							-------
+						<?php endif; ?>
 					</td>
 				<?php endif; ?>
 			</tr>
