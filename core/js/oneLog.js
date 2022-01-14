@@ -222,7 +222,7 @@ function openLogInFull(logId)
 		var secondPosition = 1;
 		var logDisplayArrayKey = Object.keys(logDisplayArray);
 		var logDisplayArrayKeyLength = logDisplayArrayKey.length;
-		var boolForGen = (logDisplayArrayKey === 1);
+		var boolForGen = (logDisplayArrayKeyLength === 1);
 		if(boolForGen)
 		{
 			idOfOneLogOpen = logId;
