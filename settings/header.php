@@ -89,7 +89,7 @@ $core->getScripts(
 		<a class="link" href="#advancedConfig" > Config </a>
 		<a class="link" href="#modules" > Modules </a>
 		<a class="link" href="#locationOtherApps" > Locations </a>
-		<a class="link" href="#moreAdvanced" > Advanced </a>
+		<a class="link" href="#moreAdvanced" > Actions </a>
 	</div>
 <?php endif;
 $baseUrlImages = $localURL;

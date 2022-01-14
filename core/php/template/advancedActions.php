@@ -1,6 +1,6 @@
 <span id="moreAdvancedSpan">
 	<div id="moreAdvanced" class="settingsHeader">
-		Advanced
+		Actions
 	</div>
 	<div class="settingsDiv" >
 		<ul class="settingsUl">
