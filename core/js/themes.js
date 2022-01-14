@@ -344,7 +344,7 @@ function copyFiles()
 	//copy images to new folder, as well as template css to new folder
 	document.getElementById("popupHeaderText").innerHTML = "Copying base images to theme folder (step 11 of "+numberOfStepsForThemeCreate+")";
 	$.ajax({
-		url: themeDirMod+"core/php/copyImagesToNewTheme.php?format=json",
+		url: themeDirMod+"core/php/post/copyImagesToNewTheme.php?format=json",
 		dataType: "json",
 		data: {themeNumber: externalThemeNumber, formKey},
 		type: "POST",
