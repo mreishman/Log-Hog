@@ -8,15 +8,18 @@ var reportYellowWarningArr = {
 	0:"WARNING"
 };
 
+var reportInfoArr = {
+	0: "INFO",
+	1: "NOTICE"
+}
+
 function getTypeOfReportSev(message)
 {
 	//check for info stuff
 	let arrOfArrs = {
 		0: reportRedWarningArr,
 		1: reportYellowWarningArr,
-		2: {
-			0: "INFO"
-		}
+		2: reportInfoArr
 	}
 	let arrOfArrsKeys = Object.keys(arrOfArrs);
 	let arrOfArrsKeysLength = arrOfArrsKeys.length;
