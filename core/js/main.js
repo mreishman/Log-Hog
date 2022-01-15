@@ -1764,6 +1764,10 @@ function changeCurrentSelectWindow(newSelectWindow)
 	{
 		return;
 	}
+	if ($("#numSelectIndecatorForWindow"+newSelectWindow).length < 1)
+	{
+		return; //could be clicked from a window being removed
+	}
 	$(".currentWindowNumSelected").removeClass("currentWindowNumSelected").addClass("sidebarCurrentWindowNum");
 	currentSelectWindow = newSelectWindow;
 	$("#numSelectIndecatorForWindow"+newSelectWindow).removeClass("sidebarCurrentWindowNum").addClass("currentWindowNumSelected");
