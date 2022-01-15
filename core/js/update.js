@@ -166,8 +166,14 @@ function checkForUpdates(urlSend = "../", whatAmIUpdating = "Log-Hog", currentNe
 				{
 					if(dataFromJSON === "")
 					{
-						document.getElementById("progressBarUpdateCheck").style.display = "none";
-						document.getElementById("checkForUpdateButton").style.display = "inline-block";
+						if (document.getElementById("progressBarUpdateCheck")) 
+						{
+							document.getElementById("progressBarUpdateCheck").style.display = "none";
+						}
+						if (document.getElementById("checkForUpdateButton"))
+						{
+							document.getElementById("checkForUpdateButton").style.display = "inline-block";
+						}
 					}
 				}
 			}
