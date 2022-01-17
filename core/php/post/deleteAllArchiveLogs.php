@@ -1,7 +1,7 @@
 <?php
-require_once("class/core.php");
+require_once("../class/core.php");
 $core = new core();
-require_once("class/session.php");
+require_once("../class/session.php");
 $session = new session();
 if(!$session->startSession())
 {
@@ -19,7 +19,7 @@ if($dirType !== "archive")
 {
 	$folder = "loghogBackupHistoryLogs";
 }
-$scannedDir = scandir("../../tmp/".$folder."/");
+$scannedDir = scandir("../../../tmp/".$folder."/");
 if(!is_array($scannedDir))
 {
 	$scannedDir = array($scannedDir);

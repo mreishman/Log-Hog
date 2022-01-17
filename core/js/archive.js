@@ -229,7 +229,7 @@ function deleteArchiveLog(title, type)
 function clearAllArchiveLogs(type)
 {
 	$.ajax({
-			url: "core/php/deleteAllArchiveLogs.php?format=json",
+			url: "core/php/post/deleteAllArchiveLogs.php?format=json",
 			dataType: "json",
 			data: {type, formKey},
 			type: "POST",
