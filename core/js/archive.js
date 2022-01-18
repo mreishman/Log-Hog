@@ -199,7 +199,7 @@ function deleteArchiveLog(title, type)
 {
 	var dataToSend = {file: title, type, formKey};
 	$.ajax({
-			url: "core/php/deleteArchiveLog.php?format=json",
+			url: "core/php/post/deleteArchiveLog.php?format=json",
 			dataType: "json",
 			data: dataToSend,
 			type: "POST",
