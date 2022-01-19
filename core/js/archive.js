@@ -36,7 +36,7 @@ function archiveAction(title, type) //used to check if file is loaded
 function getListOfTmpHistoryLogs()
 {
 	$.ajax({
-			url: "core/php/getListOfTmpLogs.php?format=json",
+			url: "core/php/post/getListOfTmpLogs.php?format=json",
 			dataType: "json",
 			data: {
 				type: "temp",
@@ -77,7 +77,7 @@ function showHistory(data)
 function getListOfArchiveLogs()
 {
 	$.ajax({
-			url: "core/php/getListOfTmpLogs.php?format=json",
+			url: "core/php/post/getListOfTmpLogs.php?format=json",
 			dataType: "json",
 			data: {
 				type: "archive",
@@ -292,7 +292,7 @@ function viewBackupFromCurrentLog(currentLogNum)
 	displayLoadingPopup('','Generating List');
 	var logId = logDisplayArray[currentLogNum]["id"];
 	$.ajax({
-			url: "core/php/getListOfTmpLogs.php?format=json",
+			url: "core/php/post/getListOfTmpLogs.php?format=json",
 			dataType: "json",
 			data: {
 				type: "archive",
@@ -312,7 +312,7 @@ function viewBackupFromCurrentLog(currentLogNum)
 		//show popup of no backupg, show list of backup logs found if found
 		var archiveList = filterArrForPopup(data, logId);
 			$.ajax({
-				url: "core/php/getListOfTmpLogs.php?format=json",
+				url: "core/php/post/getListOfTmpLogs.php?format=json",
 				dataType: "json",
 				data: {
 					type: "tmp",
