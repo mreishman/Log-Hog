@@ -138,6 +138,7 @@
 	{"fullPath":"core\/php\/copyImagesToNewTheme.php","type":"file"},
 	{"fullPath":"core\/php\/deleteAllArchiveLogs.php","type":"file"},
 	{"fullPath":"core\/php\/deleteArchiveLog.php","type":"file"},
+	{"fullPath":"core\/php\/getFileFolderData.php","type":"file"},
 	{"fullPath":"core\/js\/sentry.js","type":"file"},
 	{"fullPath":"settings\/addons.php","type":"file"},
 	{"fullPath":"settings\/themes.php","type":"file"},
