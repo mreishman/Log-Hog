@@ -227,7 +227,7 @@ function makePrettyWithText(text, count, extraData = {})
 				}
 			}
 			let lineToReturn = "<td style=\"white-space: pre-wrap;\">"+lineText+"</td>";
-			let colspan = 2;
+			let colspan = 3;
 			let addRowPadding = true;
 			if(type === "log" && advancedLogFormatEnabled === "true")
 			{
@@ -252,7 +252,7 @@ function makePrettyWithText(text, count, extraData = {})
 				});
 				if(dateTextFormatColumn === "true" || (dateTextFormatColumn === "auto" && window.innerWidth > breakPointTwo))
 				{
-					colspan = 3;
+					colspan = 4;
 				}
 			}
 			else if (type === "file")
