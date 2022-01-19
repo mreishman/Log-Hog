@@ -1333,7 +1333,7 @@ function getFileFolderList()
 {
 	document.getElementsByClassName("uniqueClassForAppendSettingsMainWatchNew")[0].innerHTML = "";
 	document.getElementsByClassName("uniqueClassForAppendSettingsMainWatchNew")[0].style.display = "none";
-	var urlForSend = urlModifier+"core/php/getFileFolderList.php?format=json";
+	var urlForSend = urlModifier+"core/php/post/getFileFolderList.php?format=json";
 	var data = {formKey};
 	$.ajax({
 		url: urlForSend,
