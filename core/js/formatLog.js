@@ -265,7 +265,12 @@ function makePrettyWithText(text, count, extraData = {})
 					lineCount
 				});
 			}
-			returnText += "<td style=\"width: 31px; padding: 0;\"></td>"+lineToReturn+"</tr>";
+			let tdBuffer = "<td style=\"width: 31px; padding: 0;\"></td>";
+			if (type === "file")
+			{
+				tdBuffer = "";
+			}
+			returnText += tdBuffer+lineToReturn+"</tr>";
 			if(addRowPadding)
 			{
 				let extraTd = '';
