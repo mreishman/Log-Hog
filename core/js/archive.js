@@ -173,7 +173,7 @@ function viewArchiveLog(title, type)
 	}
 	var dataToSend = {file: title, type, formKey};
 	$.ajax({
-			url: "core/php/getTmpVersionOfLog.php?format=json",
+			url: "core/php/post/getTmpVersionOfLog.php?format=json",
 			dataType: "json",
 			data: dataToSend,
 			type: "POST",
