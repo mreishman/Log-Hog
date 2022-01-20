@@ -121,7 +121,7 @@ function showConfigPopup()
 function restoreToVersion(restoreTo)
 {
 	displayLoadingPopup(dirForAjaxSend, "Loading Restore Versions");
-	var urlForSend = dirForAjaxSend + "core/php/restoreConfig.php?format=json";
+	var urlForSend = dirForAjaxSend + "core/php/post/restoreConfig.php?format=json";
 	var data = {restoreTo, formKey};
 	$.ajax(
 	{
