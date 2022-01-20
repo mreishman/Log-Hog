@@ -12,8 +12,8 @@ $(document).ready(function()
 
 function loadFile(filepath, name)
 {
-	var urlForSend = "../core/php/returnFileContents.php?format=json";
-	var data = {file: "../../"+filepath, formKey};
+	var urlForSend = "../core/php/post/returnFileContents.php?format=json";
+	var data = {file: "../../../"+filepath, formKey};
 	$.ajax(
 	{
 		url: urlForSend,
