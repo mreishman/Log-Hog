@@ -7,7 +7,7 @@ function saveAndVerifyGlobalConfigMain(idForForm)
 	data.push({name: "formKey", value: formKey});
 	$.ajax({
         type: "post",
-        url: dirForAjaxSend+"core/php/globalConfigSaveAjax.php",
+        url: dirForAjaxSend+"core/php/post/globalConfigSaveAjax.php",
         data,
         success(data)
         {
@@ -22,7 +22,7 @@ function saveAndVerifyGlobalConfigMain(idForForm)
             }
 			else if(data !== "true")
 			{
-				window.location.href = dirForAjaxSend+"error.php?error="+data+"&page=core/php/globalConfigSaveAjax.php";
+				window.location.href = dirForAjaxSend+"error.php?error="+data+"&page=globalConfigSaveAjax.php";
 			}
 		},
         complete()

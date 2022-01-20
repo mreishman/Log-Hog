@@ -12,14 +12,12 @@ function showOrHideSubWindow(valueForPopupInner, valueForVarsInner, valueToCompa
 {
 	try
 	{
+		let display = "none";
 		if(valueForPopupInner.value === valueToCompare)
 		{
-			valueForVarsInner.style.display = "block";
+			display = "block";
 		}
-		else
-		{
-			valueForVarsInner.style.display = "none";
-		}
+		valueForVarsInner.style.display = display;
 	}
 	catch(e)
 	{
