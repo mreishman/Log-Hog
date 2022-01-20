@@ -139,7 +139,7 @@ function saveVerified()
 		{
 			if(document.getElementById("ThemesLink"))
 			{
-				document.getElementById("ThemesLink").style.display = "inline-block";
+				document.getElementById("ThemesLink").style.display = "block";
 			}
 		}
 		else
