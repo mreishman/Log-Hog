@@ -3,6 +3,8 @@ require_once("../class/core.php");
 $core = new core();
 require_once("../class/session.php");
 $session = new session();
+require_once("../class/settingsInstallUpdate.php");
+$settingsInstallUpdate = new settingsInstallUpdate();
 if(!$session->startSession())
 {
 	echo json_encode(array("error" => 14));
@@ -13,32 +15,8 @@ if(!$session->validate())
 	echo json_encode(array("error" => 18));
 	exit();
 }
-$fileName = "../updateProgressFileNext.php";
-$newInfoForConfig = "<?php
-	$"."updateProgress = array(
-  	'currentStep'   => 'Finished Updating to ',
-  	'action' => 'finishedUpdate',
-  	'percent'	=> 0
-	);
-	?>";
-if(file_exists($fileName))
-{
-	unlink($fileName);
-}
-file_put_contents($fileName, $newInfoForConfig);
 
-$fileName = "../updateProgressFile.php";
-$newInfoForConfig = "<?php
-	$"."updateProgress = array(
-  	'currentStep'   => 'Finished Updating to ',
-  	'action' => 'finishedUpdate',
-  	'percent'	=> 0
-	);
-	?>";
-if(file_exists($fileName))
-{
-	unlink($fileName);
-}
-file_put_contents($fileName, $newInfoForConfig);
+$settingsInstallUpdate->updateProgressFile("Finished Updating to ", "../", "updateProgressFileNext.php", "finishedUpdate", 0);
+$settingsInstallUpdate->updateProgressFile("Finished Updating to ", "../", "updateProgressFile.php", "finishedUpdate", 0);
 
 echo json_encode(true);
