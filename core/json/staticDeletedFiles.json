@@ -143,6 +143,7 @@
 	{"fullPath":"core\/php\/getListOfTmpLogs.php","type":"file"},
 	{"fullPath":"core\/php\/getTmpVersionOfLog.php","type":"file"},
 	{"fullPath":"core\/php\/globalConfigSaveAjax.php","type":"file"},
+	{"fullPath":"core\/php\/resetUpdateFilesToDefault.php","type":"file"},
 	{"fullPath":"core\/js\/sentry.js","type":"file"},
 	{"fullPath":"settings\/addons.php","type":"file"},
 	{"fullPath":"settings\/themes.php","type":"file"},

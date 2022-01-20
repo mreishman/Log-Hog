@@ -1,7 +1,7 @@
 <?php
-require_once("class/core.php");
+require_once("../class/core.php");
 $core = new core();
-require_once("class/session.php");
+require_once("../class/session.php");
 $session = new session();
 if(!$session->startSession())
 {
@@ -13,7 +13,7 @@ if(!$session->validate())
 	echo json_encode(array("error" => 18));
 	exit();
 }
-$fileName = "updateProgressFileNext.php";
+$fileName = "../updateProgressFileNext.php";
 $newInfoForConfig = "<?php
 	$"."updateProgress = array(
   	'currentStep'   => 'Finished Updating to ',
@@ -27,7 +27,7 @@ if(file_exists($fileName))
 }
 file_put_contents($fileName, $newInfoForConfig);
 
-$fileName = "updateProgressFile.php";
+$fileName = "../updateProgressFile.php";
 $newInfoForConfig = "<?php
 	$"."updateProgress = array(
   	'currentStep'   => 'Finished Updating to ',

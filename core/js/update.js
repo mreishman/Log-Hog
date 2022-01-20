@@ -417,7 +417,7 @@ function installUpdates(urlSend = "../", updateFormIDLocal = "settingsInstallUpd
 		updateFormID = updateFormIDLocal;
 		displayLoadingPopup(imgLocatin);
 		//reset vars in post request
-		var urlForSend = urlSendUpdate + "core/php/resetUpdateFilesToDefault.php?format=json";
+		var urlForSend = urlSendUpdate + "core/php/post/resetUpdateFilesToDefault.php?format=json";
 		var data = {status: "" , formKey};
 		$.ajax(
 		{

@@ -44,7 +44,7 @@ function resetUpdateSettings()
 {
     document.getElementById("popup").style.display = "block";
     document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class='settingsHeader' >Resetting...</div><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'> Resetting Update Settings... Please wait... </div>";
-    var urlForSend = "core/php/resetUpdateFilesToDefault.php?format=json";
+    var urlForSend = "core/php/post/resetUpdateFilesToDefault.php?format=json";
     var data = {status: "" , formKey};
     $.ajax(
     {

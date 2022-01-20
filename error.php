@@ -380,7 +380,7 @@ if(file_exists($file))
                     </li>
                 <?php
                 endif;
-                if(file_exists("core/php/resetUpdateFilesToDefault.php")):
+                if(file_exists("core/php/post/resetUpdateFilesToDefault.php")):
                 ?>
                 <li>
                     <a onclick="resetUpdateSettings();" class="link"> Reset Update Progress back to default </a>

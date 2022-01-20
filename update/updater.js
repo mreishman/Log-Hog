@@ -422,7 +422,7 @@ function verifyDownloadError()
 function resetUpdateSettings()
 {
     updateText("Resetting Update Settings... Please wait...");
-    var urlForSend = "../core/php/resetUpdateFilesToDefault.php?format=json";
+    var urlForSend = "../core/php/post/resetUpdateFilesToDefault.php?format=json";
     var data = {status: "" , formKey};
     $.ajax(
     {
