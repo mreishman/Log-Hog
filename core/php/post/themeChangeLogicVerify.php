@@ -28,7 +28,7 @@ if(is_dir('../../../local/Themes/'.$currentTheme))
 	$directory = "../../../local/Themes/".$currentTheme."/";
 }
 require_once($directory."defaultSetting.php");
-require_once('../../../../core/php/loadVars.php');
+require_once('../../../core/php/loadVars.php');
 $boolToReturn = true;
 //check if version in current css is equal to default
 if($config['themeVersion'] !== $defaultConfig['themeVersion'])
