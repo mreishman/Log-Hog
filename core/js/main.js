@@ -1457,28 +1457,22 @@ function clearLogInner(title)
 			type: "POST",
 	success(data)
 	{
-		if(typeof data === "object"  && "error" in data)
+		if (!handleError("", data, "clearLog.php"))
 		{
-			window.location.href = "error.php?error="+data["error"]+"&page=clearLog.php";
-		}
-		else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-        {
-        	data = JSON.parse(data);
-        	window.location.href = "error.php?error="+data["error"]+"&page=clearLog.php";
-        }
-		else if(data["fileFound"] === "false")
-		{
-			showPopup();
-			document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class=\"settingsHeader\" >An Error Occured when clearing this log</div><br><div style=\"width:100%;text-align:center;padding-left:10px;padding-right:10px;\">The log could not be found.</div><div><div style=\"margin-left: 160px; margin-top: 20px;\" onclick=\"hidePopup();\" class=\"link\">Close</div></div>";
-		}
-		else if(data["success"] === "false")
-		{
-			showPopup();
-			document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class=\"settingsHeader\" >An Error Occured when clearing this log</div><br><div style=\"width:100%;text-align:center;padding-left:10px;padding-right:10px;\">An unknown error occured when trying to clear this log.</div><div><div style=\"margin-left: 160px; margin-top: 20px;\" onclick=\"hidePopup();\" class=\"link\">Close</div></div>";
-		}
-		else
-		{
-			refreshLastLogsArray();
+			else if(data["fileFound"] === "false")
+			{
+				showPopup();
+				document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class=\"settingsHeader\" >An Error Occured when clearing this log</div><br><div style=\"width:100%;text-align:center;padding-left:10px;padding-right:10px;\">The log could not be found.</div><div><div style=\"margin-left: 160px; margin-top: 20px;\" onclick=\"hidePopup();\" class=\"link\">Close</div></div>";
+			}
+			else if(data["success"] === "false")
+			{
+				showPopup();
+				document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class=\"settingsHeader\" >An Error Occured when clearing this log</div><br><div style=\"width:100%;text-align:center;padding-left:10px;padding-right:10px;\">An unknown error occured when trying to clear this log.</div><div><div style=\"margin-left: 160px; margin-top: 20px;\" onclick=\"hidePopup();\" class=\"link\">Close</div></div>";
+			}
+			else
+			{
+				refreshLastLogsArray();
+			}
 		}
 	},
 	});
@@ -1556,15 +1550,7 @@ function deleteActionAfter()
 						data: dataToSend,
 						type: "POST",
 				success(data){
-					if(typeof data === "object"  && "error" in data)
-		            {
-		                window.location.href = "error.php?error="+data["error"]+"&page=saveTmpVersionOfLog.php";
-		            }
-					else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-		            {
-		            	data = JSON.parse(data);
-		            	window.location.href = "../error.php?error="+data["error"]+"&page=saveTmpVersionOfLog.php";
-		            }
+					handleError("", data, "saveTmpVersionOfLog.php");
 				},
 				});
 			}
@@ -1586,16 +1572,7 @@ function deleteActionAfter()
 			type: "POST",
 			success(data)
 			{
-				if(typeof data === "object"  && "error" in data)
-				{
-					window.location.href = "error.php?error="+data["error"]+"&page=clearLog.php";
-				}
-				else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-	            {
-	            	data = JSON.parse(data);
-	            	window.location.href = "error.php?error="+data["error"]+"&page=clearLog.php";
-	            }
-				else
+				if(!handleError("", data, "clearLog.php"))
 				{
 					removeAllNotifications();
 				}
@@ -1667,28 +1644,22 @@ function deleteLog(title)
 			type: "POST",
 			success(data)
 			{
-				if(typeof data === "object"  && "error" in data)
+				if(!handleError("", data, "clearLog.php"))
 				{
-					window.location.href = "error.php?error="+data["error"]+"&page=clearLog.php";
-				}
-				else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-	            {
-	            	data = JSON.parse(data);
-	            	window.location.href = "error.php?error="+data["error"]+"&page=clearLog.php";
-	            }
-				else if(data["fileFound"] === "false")
-				{
-					showPopup();
-					document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class=\"settingsHeader\" >An Error Occured when deleting this log</div><br><div style=\"width:100%;text-align:center;padding-left:10px;padding-right:10px;\">The log could not be found.</div><div><div style=\"margin-left: 160px; margin-top: 20px;\" onclick=\"hidePopup();\" class=\"link\">Close</div></div>";
-				}
-				else if(data["success"] === "false")
-				{
-					showPopup();
-					document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class=\"settingsHeader\" >An Error Occured when deleting this log</div><br><div style=\"width:100%;text-align:center;padding-left:10px;padding-right:10px;\">An unknown error occured when trying to delete this log.</div><div><div style=\"margin-left: 160px; margin-top: 20px;\" onclick=\"hidePopup();\" class=\"link\">Close</div></div>";
-				}
-				else
-				{
-					removeLogByName(data["file"]);
+					else if(data["fileFound"] === "false")
+					{
+						showPopup();
+						document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class=\"settingsHeader\" >An Error Occured when deleting this log</div><br><div style=\"width:100%;text-align:center;padding-left:10px;padding-right:10px;\">The log could not be found.</div><div><div style=\"margin-left: 160px; margin-top: 20px;\" onclick=\"hidePopup();\" class=\"link\">Close</div></div>";
+					}
+					else if(data["success"] === "false")
+					{
+						showPopup();
+						document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class=\"settingsHeader\" >An Error Occured when deleting this log</div><br><div style=\"width:100%;text-align:center;padding-left:10px;padding-right:10px;\">An unknown error occured when trying to delete this log.</div><div><div style=\"margin-left: 160px; margin-top: 20px;\" onclick=\"hidePopup();\" class=\"link\">Close</div></div>";
+					}
+					else
+					{
+						removeLogByName(data["file"]);
+					}
 				}
 			}
 		});
