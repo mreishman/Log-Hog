@@ -94,17 +94,11 @@ function pollTwo()
 			type: "POST",
 			success(data)
 			{
-				if(typeof data === "object"  && "error" in data)
-	            {
-	            	clearPollTimer();
-	                window.location.href = "error.php?error="+data["error"]+"&page=pollCheck.php";
-	            }
-	            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-	            {
-	            	clearPollTimer();
-	            	data = JSON.parse(data);
-	            	window.location.href = "error.php?error="+data["error"]+"&page=pollCheck.php";
-	            }
+				if(handleError("", data, "pollCheck.php"))
+				{
+					clearPollTimer();
+					return;
+				}
 				hideNoticeBarIfThere();
 				if(document.getElementById("noLogToDisplay").style.display !== "none" && (!(data === [] || $.isEmptyObject(data))))
 				{
@@ -297,16 +291,7 @@ function pollThree(arrayToUpdate)
 					type: "POST",
 					success(data)
 					{
-						if(typeof data === "object"  && "error" in data)
-			            {
-			                window.location.href = "error.php?error="+data["error"]+"&page=poll.php";
-			            }
-						else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-			            {
-			            	data = JSON.parse(data);
-			            	window.location.href = "error.php?error="+data["error"]+"&page=poll.php";
-			            }
-						else
+						if(!handleError("", data, "poll.php"))
 						{
 							arrayOfDataMainDataFilter(data);
 							updateFileDataArray(data);
@@ -389,16 +374,7 @@ function getFileSingle(current)
 			type: "POST",
 			success(data)
 			{
-				if(typeof data === "object"  && "error" in data)
-	            {
-	                window.location.href = "error.php?error="+data["error"]+"&page=poll.php";
-	            }
-				else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-	            {
-	            	data = JSON.parse(data);
-	            	window.location.href = "error.php?error="+data["error"]+"&page=poll.php";
-	            }
-				else
+				if(!handleError("", data, "poll.php"))
 				{
 					updateFileDataArray(data);
 					arrayOfDataMainDataFilter(data);
@@ -451,16 +427,7 @@ function getFileSinglePostLoadWithData(data, currentLogNum)
 			type: "POST",
 			success(data)
 			{
-				if(typeof data === "object"  && "error" in data)
-	            {
-	                window.location.href = "error.php?error="+data["error"]+"&page=poll.php";
-	            }
-				else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-	            {
-	            	data = JSON.parse(data);
-	            	window.location.href = "error.php?error="+data["error"]+"&page=poll.php";
-	            }
-				else
+				if(!handleError("", data, "poll.php"))
 				{
 					updateFileDataArray(data);
 					arrayOfDataMainDataFilter(data);
