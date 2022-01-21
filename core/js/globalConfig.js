@@ -11,19 +11,7 @@ function saveAndVerifyGlobalConfigMain(idForForm)
         data,
         success(data)
         {
-        	if(typeof data === "object"  && "error" in data)
-            {
-                window.location.href = dirForAjaxSend + "error.php?error="+data["error"]+"&page=globalConfigSaveAjax.php";
-            }
-            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-            {
-            	data = JSON.parse(data);
-            	window.location.href = dirForAjaxSend + "error.php?error="+data["error"]+"&page=globalConfigSaveAjax.php";
-            }
-			else if(data !== "true")
-			{
-				window.location.href = dirForAjaxSend+"error.php?error="+data+"&page=globalConfigSaveAjax.php";
-			}
+        	handleErrorWithTruthCheck(dirForAjaxSend, data, "globalConfigSaveAjax.php");
 		},
         complete()
         {
@@ -55,28 +43,22 @@ function timerVerifySaveGlobalConfig()
 			type: "POST",
 			success(data)
 			{
-				if(typeof data === "object"  && "error" in data)
+				if(!handleError(dirForAjaxSend, data, "saveCheckGlobalConfig.php"))
 				{
-					window.location.href = dirForAjaxSend + "error.php?error="+data["error"]+"&page=saveCheckGlobalConfig.php";
-				}
-				else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-	            {
-	            	data = JSON.parse(data);
-	            	window.location.href = dirForAjaxSend + "error.php?error="+data["error"]+"&page=saveCheckGlobalConfig.php";
-	            }
-				else if(data === true)
-				{
-					countForVerifySaveSuccess++;
-					if(countForVerifySaveSuccess >= successVerifyNum)
+					if(data === true)
 					{
-						clearInterval(pollCheckForUpdate);
-						countForVerifySaveSuccess = 0;
-						saveVerifiedGlobalConfig();
+						countForVerifySaveSuccess++;
+						if(countForVerifySaveSuccess >= successVerifyNum)
+						{
+							clearInterval(pollCheckForUpdate);
+							countForVerifySaveSuccess = 0;
+							saveVerifiedGlobalConfig();
+						}
 					}
-				}
-				else
-				{
-					countForVerifySaveSuccess = 0;
+					else
+					{
+						countForVerifySaveSuccess = 0;
+					}
 				}
 			},
 		});

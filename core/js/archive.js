@@ -14,7 +14,7 @@ function archiveAction(title, type) //used to check if file is loaded
 				data: dataToSend,
 				type: "POST",
 		success(data){
-			else if(!handleError("", data, "saveTmpVersionOfLog.php") && document.getElementById("popup").style.display !== "none")
+			if(!handleError("", data, "saveTmpVersionOfLog.php") && document.getElementById("popup").style.display !== "none")
 			{
 				saveSuccess();
 				fadeOutPopup();
