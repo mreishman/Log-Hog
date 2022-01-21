@@ -596,7 +596,7 @@ function refreshAddonLinks()
 	if($("#menuAddonLinks"))
 	{
 		$.ajax({
-			url: "core/php/reloadAddonLinks.php?format=json",
+			url: "core/php/post/reloadAddonLinks.php?format=json",
 			data: {formKey},
 			type: "POST",
 		success(data)
