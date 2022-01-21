@@ -546,7 +546,7 @@ function refreshJsVars()
 	if($("#initialLoadContent"))
 	{
 		$.ajax({
-			url: "core/php/reloadJsVars.php?format=json",
+			url: "core/php/post/reloadJsVars.php?format=json",
 			data: {formKey},
 			type: "POST",
 		success(data)

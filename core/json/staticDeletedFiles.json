@@ -147,6 +147,7 @@
 	{"fullPath":"core\/php\/restoreConfig.php","type":"file"},
 	{"fullPath":"core\/php\/returnFileContents.php","type":"file"},
 	{"fullPath":"core\/php\/reloadAddonLinks.php","type":"file"},
+	{"fullPath":"core\/php\/reloadJsVars.php","type":"file"},
 	{"fullPath":"core\/js\/sentry.js","type":"file"},
 	{"fullPath":"settings\/addons.php","type":"file"},
 	{"fullPath":"settings\/themes.php","type":"file"},

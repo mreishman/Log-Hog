@@ -1,7 +1,7 @@
 <?php
-require_once("../../core/php/class/core.php");
+require_once("../../../core/php/class/core.php");
 $core = new core();
-require_once("../../core/php/class/session.php");
+require_once("../../../core/php/class/session.php");
 $session = new session();
 if(!$session->startSession())
 {
@@ -13,28 +13,28 @@ if(!$session->validate())
 	echo json_encode(array("error" => 18));
 	exit();
 }
-require_once("../../core/php/class/settings.php");
+require_once("../../../core/php/class/settings.php");
 $settings = new settings();
 $currentSelectedTheme = $session->returnCurrentSelectedThemeAjax();
-$baseUrl = "../../local/".$currentSelectedTheme."/";
+$baseUrl = "../../../local/".$currentSelectedTheme."/";
 $localURL = $baseUrl;
 require_once($baseUrl.'conf/config.php');
-require_once('../../core/conf/config.php');
-require_once('../../local/conf/globalConfig.php');
-require_once('../../core/conf/globalConfig.php');
+require_once('../../../core/conf/config.php');
+require_once('../../../local/conf/globalConfig.php');
+require_once('../../../core/conf/globalConfig.php');
 $currentTheme = $core->loadSpecificVar($defaultConfig, $config, "currentTheme");
-if(is_dir('../../local/Themes/'.$currentTheme))
+if(is_dir('../../../local/Themes/'.$currentTheme))
 {
-	require_once('../../local/Themes/'.$currentTheme."/defaultSetting.php");
+	require_once('../../../local/Themes/'.$currentTheme."/defaultSetting.php");
 }
 else
 {
-	require_once('../../core/Themes/'.$currentTheme."/defaultSetting.php");
+	require_once('../../../core/Themes/'.$currentTheme."/defaultSetting.php");
 }
-require_once('../../core/php/configStatic.php');
-require_once('../../core/php/updateCheck.php');
-require_once('../../core/php/loadVars.php');
-require_once('../../core/php/loadVarsToJs.php');
+require_once('../../../core/php/configStatic.php');
+require_once('../../../core/php/updateCheck.php');
+require_once('../../../core/php/loadVars.php');
+require_once('../../../core/php/loadVarsToJs.php');
 ?>
 <script type="text/javascript">
 	var defaultdefaultNewAddAlertEnabled 	= "<?php echo $defaultNewAddAlertEnabled; ?>";
