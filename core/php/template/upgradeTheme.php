@@ -136,7 +136,7 @@ if((strval($baseFileVersion) === strval($oldFileVersion)) && (file_exists("../..
 	)
 ); ?>
 <script type="text/javascript">
-	var themeChangeLogicDirModifier = "../";
+	var themeChangeLogicDirModifier = "../post/";
 	var themeErrorLogicDirModifier = "../../";
 	$( document ).ready(function()
 	{

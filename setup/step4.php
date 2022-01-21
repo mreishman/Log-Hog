@@ -79,7 +79,7 @@ $themeDirMod = "../";
 <script type="text/javascript">
 
 	var baseUrl = "<?php echo $baseUrlImages;?>";
-	var themeChangeLogicDirModifier = "../core/php/"; //used in logic settings.js
+	var themeChangeLogicDirModifier = "../core/php/post/"; //used in logic settings.js
 
 	function defaultSettings()
 	{

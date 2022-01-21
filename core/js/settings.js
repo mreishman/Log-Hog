@@ -452,7 +452,7 @@ function saveVerified()
 
 	if(idForFormMain.includes("themeMainSelection"))
 	{
-		if (typeof themeChangeLogicDirModifier !== "undefined" && themeChangeLogicDirModifier === "../core/php/")
+		if (typeof themeChangeLogicDirModifier !== "undefined" && themeChangeLogicDirModifier === "../core/php/post/")
 		{
 			copyThemeStuffPopup();
 		}
