@@ -16,15 +16,8 @@ function handleError(urlModifier, data, file)
 
 function handleErrorWithTruthCheck(urlModifier, data, file)
 {
-	if(typeof data === "object"  && "error" in data)
+    if(handleError(urlModifier, data, file))
     {
-        window.location.href = urlModifier + "error.php?error="+data["error"]+"&page=" + file;
-        return true;
-    }
-    if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-    {
-        data = JSON.parse(data);
-        window.location.href = urlModifier + "error.php?error="+data["error"]+"&page=" + file;
         return true;
     }
     if(data !== "true")
