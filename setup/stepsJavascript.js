@@ -18,16 +18,7 @@ function updateStatus(status)
 		type: "POST",
 		success(data)
 		{
-			if(typeof data === "object"  && "error" in data)
-            {
-                window.location.href = "./error.php?error="+data["error"];
-            }
-			else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-            {
-            	data = JSON.parse(data);
-            	window.location.href = "./error.php?error="+data["error"];
-            }
-            else
+            if(!handleError("./", data, ""))
             {
 				pollCheckForUpdate = setInterval(function(){verifyStatusChange(status);},3000);
 			}
@@ -51,16 +42,7 @@ function verifyStatusChange(status)
 			type: "POST",
 			success(data)
 			{
-				if(typeof data === "object"  && "error" in data)
-	            {
-	                window.location.href = "./error.php?error="+data["error"];
-	            }
-				else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-	            {
-	            	data = JSON.parse(data);
-	            	window.location.href = "./error.php?error="+data["error"];
-	            }
-				else if(data === status)
+				if(!handleError("./", data, "") && data === status)
 				{
 					clearInterval(pollCheckForUpdate);
 					if(status === "finished")

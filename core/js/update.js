@@ -59,16 +59,12 @@ function checkForUpdates(urlSend = "../", whatAmIUpdating = "Log-Hog", currentNe
 			type: "POST",
 			success(data)
 			{
-				if(typeof data === "object"  && "error" in data)
-	            {
-	                window.location.href = urlSendUpdate + "error.php?error="+data["error"]+"&page=settingsCheckForUpdateAjax.php";
-	            }
-	            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-	            {
-	            	data = JSON.parse(data);
-	            	window.location.href = urlSendUpdate + "error.php?error="+data["error"]+"&page=settingsCheckForUpdateAjax.php";
-	            }
-				else if(checkForUpdatePoll !== null)
+				if(handleError(urlSendUpdate, data, "settingsCheckForUpdateAjax.php"))
+				{
+					return;
+				}
+
+				if(checkForUpdatePoll !== null)
 				{
 					updateInProgressPopup();
 				}
@@ -198,17 +194,11 @@ function checkForUpdateTimer(urlSend, whatAmIUpdating)
 	}
 	$.getJSON(urlSendUpdate+"core/php/post/configStaticCheck.php", {}, function(data)
 	{
-		if(typeof data === "object"  && "error" in data)
+		if(handleError(urlSendUpdate, data, "configStaticCheck.php"))
 		{
-			window.location.href = urlSendUpdate + "error.php?error="+data["error"]+"&page=configStaticCheck.php";
 			return;
 		}
-		else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-        {
-        	data = JSON.parse(data);
-        	window.location.href = urlSendUpdate + "error.php?error="+data["error"]+"&page=configStaticCheck.php";
-        	return;
-        }
+
 		totalCounter++;
 		if(showPopupForUpdateBool && whatAmIUpdating === "Log-Hog")
 		{
@@ -365,15 +355,7 @@ function saveSettingFromPopupNoCheckMaybe()
 				data,
 				type: "POST",
 				success(data){
-					if(typeof data === "object"  && "error" in data)
-		            {
-		                window.location.href = urlSendUpdate + "error.php?error="+data["error"]+"&page=settingsSaveAjax.php";
-		            }
-		            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-		            {
-		            	data = JSON.parse(data);
-		            	window.location.href = urlSendUpdate + "error.php?error="+data["error"]+"&page=settingsSaveAjax.php";
-		            }
+					handleError(urlSendUpdate, data, "settingsSaveAjax.php");
 				},
 			complete(data){
 				closePopupNoUpdate();
@@ -427,15 +409,7 @@ function installUpdates(urlSend = "../", updateFormIDLocal = "settingsInstallUpd
 			type: "POST",
 			success(data)
 			{
-				if(typeof data === "object"  && "error" in data)
-	            {
-	                window.location.href = urlSendUpdate + "error.php?error="+data["error"]+"&page=resetUpdateFilesToDefault.php";
-	            }
-	            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-	            {
-	            	data = JSON.parse(data);
-	            	window.location.href = urlSendUpdate + "error.php?error="+data["error"]+"&page=resetUpdateFilesToDefault.php";
-	            }
+				handleError(urlSendUpdate, data, "resetUpdateFilesToDefault.php");
 			},
 			complete(data)
 			{
@@ -465,28 +439,22 @@ function verifyChange(urlSend)
 			type: "POST",
 			success(data)
 			{
-				if(typeof data === "object"  && "error" in data)
+	            if(handleError(urlSendUpdate, data, "updateActionCheck.php"))
 	            {
-	                window.location.href = urlSendUpdate + "error.php?error="+data["error"]+"&page=updateActionCheck.php";
-	            }
-	            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-	            {
-	            	data = JSON.parse(data);
-	            	window.location.href = urlSendUpdate + "error.php?error="+data["error"]+"&page=updateActionCheck.php";
-	            }
-				else if(data == "finishedUpdate")
-				{
-					verifyCountSuccess++;
-					if(verifyCountSuccess > successVerifyNum)
+					if(data == "finishedUpdate")
+					{
+						verifyCountSuccess++;
+						if(verifyCountSuccess > successVerifyNum)
+						{
+							verifyCountSuccess = 0;
+							clearInterval(installUpdatePoll);
+							actuallyInstallUpdates();
+						}
+					}
+					else
 					{
 						verifyCountSuccess = 0;
-						clearInterval(installUpdatePoll);
-						actuallyInstallUpdates();
 					}
-				}
-				else
-				{
-					verifyCountSuccess = 0;
 				}
 			},
 			failure(data)
