@@ -50,16 +50,11 @@ function removeMain(dataSend)
 			{
 				urlMod += "../";
 			}
-			if(typeof data === "object"  && "error" in data)
+
+            if (!handleError(urlMod, data, "performSettingsInstallUpdateAction.php"))
             {
-                window.location.href = urlMod + "error.php?error="+data["error"];
-            }
-			else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-            {
-            	data = JSON.parse(data);
-            	window.location.href = urlMod + "error.php?error="+data["error"];
-            }
-			verifyRemoveFile(data);
+				verifyRemoveFile(data);
+			}
 		}
 	});
 }
@@ -94,16 +89,11 @@ function verifyFilePoll(file)
 					{
 						urlMod += "../";
 					}
-					if(typeof data === "object"  && "error" in data)
+
+		            if (!handleError(urlMod, data, "performSettingsInstallUpdateAction.php"))
 		            {
-		                window.location.href = urlMod + "error.php?error="+data["error"];
-		            }
-					else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-		            {
-		            	data = JSON.parse(data);
-		            	window.location.href = urlMod + "error.php?error="+data["error"];
-		            }
-					verifyPostEnd(data, _data);
+						verifyPostEnd(data, _data);
+					}
 				},
 				failure(data)
 				{

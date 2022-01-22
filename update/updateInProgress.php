@@ -103,6 +103,11 @@ $cssVersion = date("YmdHis");
 			"filePath"		=> "../core/js/updateInProgress.js",
 			"baseFilePath"	=> "core/js/updateInProgress.js",
 			"default"		=> $configStatic["version"]
+		),
+		array(
+			"filePath"		=> "../core/js/errorHandle.js",
+			"baseFilePath"	=> "core/js/errorHandle.js",
+			"default"		=> $configStatic["version"]
 		)
 	)
 ); ?>

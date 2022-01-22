@@ -416,30 +416,12 @@ function generateSubFiles(data)
 
 			if(keyTwo in fileData)
 			{
-				if("Name" in fileData[keyTwo])
-				{
-					name = fileData[keyTwo]["Name"];
-				}
-				if("Alert" in fileData[keyTwo])
-				{
-					alertOnUpdate = fileData[keyTwo]["Alert"];
-				}
-				if("Delete" in fileData[keyTwo])
-				{
-					excludeDelete = fileData[keyTwo]["Delete"];
-				}
-				if("Trim" in fileData[keyTwo])
-				{
-					excludeTrim = fileData[keyTwo]["Trim"];
-				}
-				if("Include" in fileData[keyTwo])
-				{
-					includeBool = fileData[keyTwo]["Include"];
-				}
-				if("GrepFilter" in fileData[keyTwo])
-				{
-					grepFilter = fileData[keyTwo]["GrepFilter"];
-				}
+				alertOnUpdate	= ("Alert" in fileData[keyTwo]) ? fileData[keyTwo]["Alert"] : alertOnUpdate;
+				excludeDelete	= ("Delete" in fileData[keyTwo]) ? fileData[keyTwo]["Delete"] : excludeDelete;
+				excludeTrim 	= ("Trim" in fileData[keyTwo]) ? fileData[keyTwo]["Trim"] : excludeTrim;
+				grepFilter 		= ("GrepFilter" in fileData[keyTwo]) ? fileData[keyTwo]["GrepFilter"] : grepFilter;
+				includeBool		= ("Include" in fileData[keyTwo]) ? fileData[keyTwo]["Include"] : includeBool;
+				name 			= ("Name" in fileData[keyTwo]) ? fileData[keyTwo]["Name"] : name;
 			}
 			returnHtml += "<li>"+icons[fileArray[keyTwo]["image"]];
 			returnHtml += "<div style=\"display: inline-block; padding: 5px;\" ><span style=\"width: 300px; overflow: auto; display: inline-block;\" >"+keyTwo.replace(mainFolder,"")+"</span><input name=\"watchListKey"+currentNum+"FileInFolder\"  type=\"hidden\" value=\""+keyTwo+"\" ></div>";
