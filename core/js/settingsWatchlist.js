@@ -315,17 +315,11 @@ function addFileFolderAjax(fileType, sentLocation)
 		type: "POST",
 		success(data)
 		{
-			if(typeof data === "object"  && "error" in data)
+			if(handleError(urlModifier, data, "getFileFolderData.php"))
 			{
-				window.location.href = urlModifier + "error.php?error="+data["error"]+"&page=getFileFolderData.php";
 				return;
 			}
-			else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-            {
-            	data = JSON.parse(data);
-            	window.location.href = urlModifier + "error.php?error="+data["error"]+"&page=getFileFolderData.php";
-            	return;
-            }
+
 			var countOfWatchList = parseInt(document.getElementById("numberOfRows").value);
 			var fileListData = generateSubFiles({fileArray: data["data"], currentNum: (countOfWatchList+1), mainFolder: sentLocation});
 			hidePopup();
@@ -357,17 +351,11 @@ function updateSubFiles(id)
 		type: "POST",
 		success(data)
 		{
-			if(typeof data === "object"  && "error" in data)
+			if(handleError(urlModifier, data, "getFileFolderData.php"))
 			{
-				window.location.href = urlModifier + "error.php?error="+data["error"]+"&page=getFileFolderData.php";
 				return;
 			}
-			else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-            {
-            	data = JSON.parse(data);
-            	window.location.href = urlModifier + "error.php?error="+data["error"]+"&page=getFileFolderData.php";
-            	return;
-            }
+
 			document.getElementById("infoFile"+id).innerHTML = data["fileInfo"];
 			document.getElementById("imageFile"+id).innerHTML = icons[data["img"]];
 			setTimeout(function(){ document.getElementById("watchListKey"+id+"LoadingSubFilesIcon").style.display = "none"; document.getElementById("watchListKey"+id+"FilesInFolder").style.display = "inline-block"; }, 1000);
@@ -590,17 +578,11 @@ function getFileFolderData(currentFolder, hideFiles, orgPath)
 		type: "POST",
 		success(data)
 		{
-			if(typeof data === "object"  && "error" in data)
+			if(handleError(urlModifier, data, "getFileFolderData.php"))
 			{
-				window.location.href = urlModifier + "error.php?error="+data["error"]+"&page=getFileFolderData.php";
 				return;
 			}
-			else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-            {
-            	data = JSON.parse(data);
-            	window.location.href = urlModifier + "error.php?error="+data["error"]+"&page=getFileFolderData.php";
-            	return;
-            }
+
 			staticFileData = data;
 			if(document.getElementById("inputFieldForFileOrFolder") && document.getElementById("inputFieldForFileOrFolder").value == orgPath)
 			{
@@ -628,17 +610,11 @@ function getFileFolderDataMain(currentFolder, hideFiles, orgPath, currentRow)
 		type: "POST",
 		success(data)
 		{
-			if(typeof data === "object"  && "error" in data)
+			if(handleError(urlModifier, data, "getFileFolderData.php"))
 			{
-				window.location.href = urlModifier + "error.php?error="+data["error"]+"&page=getFileFolderData.php";
 				return;
 			}
-			else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-            {
-            	data = JSON.parse(data);
-            	window.location.href = urlModifier + "error.php?error="+data["error"]+"&page=getFileFolderData.php";
-            	return;
-            }
+
 			staticFileData = data;
 			if(document.getElementsByName("watchListKey"+currentRow+"Location")[0].value == orgPath)
 			{
@@ -876,104 +852,23 @@ function addRowFunction(data)
 		}
 		countOfWatchList++;
 
-		var fileName = ""+countOfWatchList;
-		if(countOfWatchList < 10)
-		{
-			fileName = "0"+fileName;
-		}
-		var fileTypeFromData = "other";
-		if("FileType" in data)
-		{
-			fileTypeFromData = data["FileType"];
-		}
-		var filesInFolderFromData = "<li>Unknown files in folder</li>";
-		if("filesInFolder" in data)
-		{
-			filesInFolderFromData = data["filesInFolder"];
-		}
-		var locationFromData = "";
-		if("Location" in data)
-		{
-			locationFromData = data["Location"];
-		}
-
-		var patternFromData = defaultNewAddPattern;
-		if("Pattern" in data)
-		{
-			patternFromData = data["Pattern"];
-		}
-
-		var fileImg = "";
-		if("fileImage" in data)
-		{
-			fileImg = data["fileImage"];
-		}
-
-		var filePermsDisplay = "";
-		if("filePermsDisplay" in data)
-		{
-			filePermsDisplay = data["filePermsDisplay"];
-		}
-
-		var hideSplit = false;
-		if("hideSplit" in data)
-		{
-			hideSplit = data["hideSplit"];
-		}
-
-		var alertEnabled = defaultdefaultNewAddAlertEnabled;
-		if("AlertEnabled" in data)
-		{
-			alertEnabled = data["AlertEnabled"];
-		}
-
-		var autoDeleteFiles = defaultNewAddAutoDeleteFiles;
-		if("AutoDeleteFiles" in data)
-		{
-			autoDeleteFiles = data["AutoDeleteFiles"];
-		}
-
-		var excludeTrim = defaultNewAddExcludeTrim;
-		if("ExcludeTrim" in data)
-		{
-			excludeTrim = data["ExcludeTrim"];
-		}
-
-		var fileInformation = "{}";
-		if("FileInformation" in data)
-		{
-			fileInformation = data["FileInformation"];
-		}
-
-		var name = "";
-		if("Name" in data)
-		{
-			name = data["Name"];
-		}
-
-		var group = "";
-		if("Group" in data)
-		{
-			group = data["Group"];
-		}
-
-		var recursive = defaultNewAddRecursive;
-		if("Recursive" in data)
-		{
-			recursive = data["Recursive"];
-		}
-
-		var saveGroup = "false";
-		if("SaveGroup" in data)
-		{
-			saveGroup = data["SaveGroup"];
-		}
-
-		var grepFilter = "";
-		if("GrepFilter" in data)
-		{
-			grepFilter = data["GrepFilter"];
-		}
+		var autoDeleteFiles 		= ("AutoDeleteFiles" in data) ? data["AutoDeleteFiles"] : defaultNewAddAutoDeleteFiles;
+		var alertEnabled 			= ("AlertEnabled" in data) ? data["AlertEnabled"] : defaultdefaultNewAddAlertEnabled;
+		var excludeTrim 			= ("ExcludeTrim" in data) ? data["ExcludeTrim"] : defaultNewAddExcludeTrim;
+		var fileImg 				= ("fileImage" in data) ? data["fileImage"] : "";
+		var fileInformation 		= ("FileInformation" in data) ? data["FileInformation"] : "{}";
+		var fileName 				= (countOfWatchList < 10) ? "0"+countOfWatchList : ""+countOfWatchList;
+		var filePermsDisplay 		= ("filePermsDisplay" in data) ? data["filePermsDisplay"] : "";
+		var fileTypeFromData 		= ("FileType" in data) ? data["FileType"] : "other";
+		var filesInFolderFromData 	= ("filesInFolder" in data) ? data["filesInFolder"] : "<li>Unknown files in folder</li>";
+		var grepFilter 				= ("GrepFilter" in data) ? data["GrepFilter"] : "";
+		var group 					= ("Group" in data) ? data["Group"] : "";
+		var hideSplit 				= ("hideSplit" in data) ? data["hideSplit"] : false;
+		var locationFromData 		= ("Location" in data) ? data["Location"] : "";
+		var name 					= ("Name" in data) ? data["Name"] : "";
+		var patternFromData 		= ("Pattern" in data) ? data["Pattern"] : defaultNewAddPattern;
+		var recursive 				= ("Recursive" in data) ? data["Recursive"] : defaultNewAddRecursive;
+		var saveGroup 				= ("SaveGroup" in data) ? data["SaveGroup"] : "false";
 
 		var item = generateRow(
 			{
@@ -1342,17 +1237,11 @@ function getFileFolderList()
 		type: "POST",
 		success(data)
 		{
-			if(typeof data === "object"  && "error" in data)
+			if(handleError(urlModifier, data, "getFileFolderList.php"))
 			{
-				window.location.href = urlModifier + "error.php?error="+data["error"]+"&page=getFileFolderList.php";
 				return;
 			}
-			else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-            {
-            	data = JSON.parse(data);
-            	window.location.href = urlModifier + "error.php?error="+data["error"]+"&page=getFileFolderList.php";
-            	return;
-            }
+
 			fileFolderList = data;
 			var fileFolderListKeys = Object.keys(data);
 			var fileFolderListCount = fileFolderListKeys.length;
@@ -1394,17 +1283,11 @@ function ajaxAddRowFirstLoad(currentCount)
 				type: "POST",
 				success(data)
 				{
-					if(typeof data === "object"  && "error" in data)
+					if(handleError(urlModifier, data, "getFileFolderData.php"))
 					{
-						window.location.href = urlModifier + "error.php?error="+data["error"]+"&page=getFileFolderData.php";
 						return;
 					}
-					else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-		            {
-		            	data = JSON.parse(data);
-		            	window.location.href = urlModifier + "error.php?error="+data["error"]+"&page=getFileFolderData.php";
-		            	return;
-		            }
+
 					var countOfWatchList = parseInt(document.getElementById("numberOfRows").value);
 					var fileListData = generateSubFiles({fileArray: data["data"], currentNum: (countOfWatchList+1), mainFolder: _data["Location"]});
 					_data["fileImage"] = icons[data["img"]];
