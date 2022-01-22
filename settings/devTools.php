@@ -59,8 +59,8 @@ $settingsUrlModifier = "../";
 				"default"		=> $configStatic["version"]
 			),
 			array(
-				"filePath"		=> "../core/js/devTools.js",
-				"baseFilePath"	=> "core/js/devTools.js",
+				"filePath"		=> "../core/js/errorHandle.js",
+				"baseFilePath"	=> "core/js/errorHandle.js",
 				"default"		=> $configStatic["version"]
 			)
 		)

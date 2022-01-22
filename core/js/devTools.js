@@ -11,22 +11,14 @@ function saveConfigStatic()
         data,
         success(data)
         {
-        	if(typeof data === "object"  && "error" in data)
-            {
-                window.location.href = dirForAjaxSend + "error.php?error="+data["error"]+"&page=settingsSaveConfigStatic.php";
-            }
-            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-            {
-            	data = JSON.parse(data);
-            	window.location.href = dirForAjaxSend + "error.php?error="+data["error"]+"&page=settingsSaveConfigStatic.php";
-            }
+        	handleError(dirForAjaxSend, data, "settingsSaveConfigStatic.php");
         },
         complete()
         {
           //verify saved
           timeoutVarDevToolsSave = setInterval(function(){newVersionNumberCheck();},3000);
         }
-      });
+    });
 }
 
 function newVersionNumberCheck()
@@ -36,17 +28,7 @@ function newVersionNumberCheck()
 		displayLoadingPopup(dirForAjaxSend,"Verifying Version");
 		$.getJSON(dirForAjaxSend + "core/php/post/configStaticCheck.php", {}, function(data)
 		{
-			var dataExt = document.getElementById("versionNumberConfigStaticInput").value;
-			if(typeof data === "object"  && "error" in data)
-			{
-				window.location.href = dirForAjaxSend + "error.php?error="+data["error"]+"&page=configStaticCheck.php";
-			}
-			else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-            {
-            	data = JSON.parse(data);
-            	window.location.href = dirForAjaxSend + "error.php?error="+data["error"]+"&page=configStaticCheck.php";
-            }
-			else if(dataExt === data["version"])
+            if (!handleError(dirForAjaxSend, data, "configStaticCheck.php") && document.getElementById("versionNumberConfigStaticInput").value === data["version"])
 			{
 				clearInterval(timeoutVarDevToolsSave);
 				saveSuccess();
