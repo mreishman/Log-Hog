@@ -154,5 +154,7 @@
 	{"fullPath":"settings\/addons.php","type":"file"},
 	{"fullPath":"settings\/themes.php","type":"file"},
 	{"fullPath":"settings\/watchlist.php","type":"file"},
-	{"fullPath":"core\/js\/expFeatures.js","type":"file"}
+	{"fullPath":"core\/js\/expFeatures.js","type":"file"},
+	{"fullPath":"core\/js\/redirectToWaitUntillUpdate.js","type":"file"},
+	{"fullPath":"update\/redirectToWaitUntillUpdate.php","type":"file"}
 ]

@@ -15,10 +15,9 @@ function saveAndVerifyGlobalConfigMain(idForForm)
 		},
         complete()
         {
-          //verify saved
-          verifySaveTimerGlobalConfig();
+			verifySaveTimerGlobalConfig(); //verify saved
         }
-      });
+    });
 }
 
 function verifySaveTimerGlobalConfig()
@@ -72,7 +71,6 @@ function timerVerifySaveGlobalConfig()
 
 function saveVerifiedGlobalConfig()
 {
-
 	refreshArrayObject(idForFormMain);
 
 	if($("[name='branchSelected']"))
@@ -97,5 +95,4 @@ function saveVerifiedGlobalConfig()
 
 	saveSuccess();
 	fadeOutPopup();
-
 }
