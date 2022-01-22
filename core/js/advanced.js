@@ -23,15 +23,7 @@ function resetUpdateNotification()
         data,
         success(data)
         {
-        	if(typeof data === "object"  && "error" in data)
-            {
-                window.location.href = dirForAjaxSend + "error.php?error="+data["error"]+"&page=settingsSaveConfigStatic.php";
-            }
-            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-            {
-            	data = JSON.parse(data);
-            	window.location.href = dirForAjaxSend + "error.php?error="+data["error"]+"&page=settingsSaveConfigStatic.php";
-            }
+        	handleError(dirForAjaxSend, data, "settingsSaveConfigStatic.php")
         },
         complete()
         {
@@ -47,16 +39,7 @@ function updateNoNewVersionCheck()
 	{
 		$.getJSON(dirForAjaxSend + "core/php/post/configStaticCheck.php", {}, function(data)
 		{
-			if(typeof data === "object"  && "error" in data)
-			{
-				window.location.href = dirForAjaxSend + "error.php?error="+data["error"] === 14+"&page=configStaticCheck.php";
-			}
-			else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-            {
-            	data = JSON.parse(data);
-            	window.location.href = dirForAjaxSend + "error.php?error="+data["error"]+"&page=configStaticCheck.php";
-            }
-			else if(data["version"] === data["newestVersion"])
+			if(!handleError(dirForAjaxSend, data, "configStaticCheck.php") && data["version"] === data["newestVersion"])
 			{
 				clearInterval(advancedSettingsTimeoutVar);
 				saveSuccess();
@@ -131,16 +114,7 @@ function restoreToVersion(restoreTo)
 		type: "POST",
 		success(data)
 		{
-			if(typeof data === "object"  && "error" in data)
-            {
-                window.location.href = dirForAjaxSend + "error.php?error="+data["error"]+"&page=restoreConfig.php";
-            }
-            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-            {
-            	data = JSON.parse(data);
-            	window.location.href = dirForAjaxSend + "error.php?error="+data["error"]+"&page=restoreConfig.php";
-            }
-            else
+            if(!handleError(dirForAjaxSend, data, "restoreConfig.php"))
             {
 				saveSuccess();
 				fadeOutPopup();
@@ -156,23 +130,17 @@ function clearBackupFiles()
 		displayLoadingPopup(dirForAjaxSend, "Clearing Files");
 		$.getJSON(dirForAjaxSend + "core/php/post/clearConfigBackups.php", {}, function(data)
 		{
-			if(typeof data === "object"  && "error" in data)
-			{
-				window.location.href = dirForAjaxSend + "error.php?error="+data["error"]+"&page=clearConfigBackups.php";
-			}
-			else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+            if(!handleError(dirForAjaxSend, data, "clearConfigBackups.php"))
             {
-            	data = JSON.parse(data);
-            	window.location.href = dirForAjaxSend + "error.php?error="+data["error"]+"&page=clearConfigBackups.php";
-            }
-			else if(data)
-			{
-				//verify that it was removed
-				advancedSettingsTimeoutVar = setInterval(function(){verifyNoConfigBackups();},3000);
-			}
-			else
-			{
-				document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class=\"settingsHeader\" >Error</div><br><div style=\"width:100%;text-align:center;padding-left:10px;padding-right:10px;\">There was an error deleting backups. Please ensure that the php folder has correct permissions to remove files</div></div>";
+				if(data)
+				{
+					//verify that it was removed
+					advancedSettingsTimeoutVar = setInterval(function(){verifyNoConfigBackups();},3000);
+				}
+				else
+				{
+					document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class=\"settingsHeader\" >Error</div><br><div style=\"width:100%;text-align:center;padding-left:10px;padding-right:10px;\">There was an error deleting backups. Please ensure that the php folder has correct permissions to remove files</div></div>";
+				}
 			}
 		});
 	}
