@@ -59,11 +59,6 @@ require_once('../core/php/updateCheck.php');
 				"filePath"		=> "../core/js/resetSettingsJs.js",
 				"baseFilePath"	=> "core/js/resetSettingsJs.js",
 				"default"		=> $configStatic["version"]
-			),
-			array(
-				"filePath"		=> "../core/js/errorHandle.js",
-				"baseFilePath"	=> "core/js/errorHandle.js",
-				"default"		=> $configStatic["version"]
 			)
 		)
 	); ?>

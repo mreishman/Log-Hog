@@ -125,7 +125,7 @@ $themeDirMod = "../";
 			"baseFilePath"	=> "core/js/settings.js",
 			"default"		=> $configStatic["version"]
 		),
-				array(
+		array(
 			"filePath"		=> "../core/js/upgradeTheme.js",
 			"baseFilePath"	=> "core/js/upgradeTheme.js",
 			"default"		=> $configStatic["version"]
@@ -133,6 +133,11 @@ $themeDirMod = "../";
 		array(
 			"filePath"		=> "stepsJavascript.js",
 			"baseFilePath"	=> "setup/stepsJavascript.js",
+			"default"		=> $configStatic["version"]
+		),
+		array(
+			"filePath"		=> "../core/js/errorHandle.js",
+			"baseFilePath"	=> "core/js/errorHandle.js",
 			"default"		=> $configStatic["version"]
 		)
 	)

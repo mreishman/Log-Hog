@@ -39,19 +39,7 @@ function saveAndVerifyMain(idForForm)
         data,
         success(data)
         {
-        	if(typeof data === "object"  && "error" in data)
-            {
-                window.location.href = dirForAjaxSend + "error.php?error="+data["error"]+"&page=settingsSaveAjax.php";
-            }
-            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-            {
-            	data = JSON.parse(data);
-            	window.location.href = dirForAjaxSend + "error.php?error="+data["error"]+"&page=settingsSaveAjax.php";
-            }
-			else if(data !== "true")
-			{
-				window.location.href = dirForAjaxSend+"error.php?error="+data+"&page=settingsSaveAjax.php";
-			}
+        	handleErrorWithTruthCheck(dirForAjaxSend, data, "settingsSaveAjax.php");
 		},
         complete()
         {
@@ -83,28 +71,22 @@ function timerVerifySave()
 			type: "POST",
 			success(data)
 			{
-				if(typeof data === "object"  && "error" in data)
-				{
-					window.location.href = dirForAjaxSend + "error.php?error="+data["error"]+"&page=saveCheck.php";
-				}
-				else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+	            if(!handleError(dirForAjaxSend, data, "saveCheck.php"))
 	            {
-	            	data = JSON.parse(data);
-	            	window.location.href = dirForAjaxSend + "error.php?error="+data["error"]+"&page=saveCheck.php";
-	            }
-				else if(data === true)
-				{
-					countForVerifySaveSuccess++;
-					if(countForVerifySaveSuccess >= successVerifyNum)
+					if(data === true)
 					{
-						clearInterval(pollCheckForUpdate);
-						countForVerifySaveSuccess = 0;
-						saveVerified();
+						countForVerifySaveSuccess++;
+						if(countForVerifySaveSuccess >= successVerifyNum)
+						{
+							clearInterval(pollCheckForUpdate);
+							countForVerifySaveSuccess = 0;
+							saveVerified();
+						}
 					}
-				}
-				else
-				{
-					countForVerifySaveSuccess = 0;
+					else
+					{
+						countForVerifySaveSuccess = 0;
+					}
 				}
 			},
 		});
@@ -499,16 +481,7 @@ function refreshCustomCss()
 			type: "POST",
 		success(data)
 		{
-			if(typeof data === "object"  && "error" in data)
-            {
-                window.location.href = dirForAjaxSend + "error.php?error="+data["error"]+"&page=settingsSaveAjax.php";
-            }
-            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-            {
-            	data = JSON.parse(data);
-            	window.location.href = dirForAjaxSend + "error.php?error="+data["error"]+"&page=settingsSaveAjax.php";
-            }
-            else
+            if(!handleError(dirForAjaxSend, data, "settingsSaveAjax.php"))
             {
 				//add css to bottom of index page
 				$("#initialLoadContent").append(data);
@@ -522,16 +495,7 @@ function refreshCustomCss()
 			type: "POST",
 		success(data)
 		{
-			if(typeof data === "object"  && "error" in data)
-            {
-                window.location.href = dirForAjaxSend + "error.php?error="+data["error"]+"&page=settingsSaveAjax.php";
-            }
-            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-            {
-            	data = JSON.parse(data);
-            	window.location.href = dirForAjaxSend + "error.php?error="+data["error"]+"&page=settingsSaveAjax.php";
-            }
-            else
+            if(!handleError(dirForAjaxSend, data, "settingsSaveAjax.php"))
             {
 				//add css to bottom of index page
 				$("#initialLoadContent").append(data);
@@ -551,16 +515,11 @@ function refreshJsVars()
 			type: "POST",
 		success(data)
 		{
-			if(typeof data === "object"  && "error" in data)
-			{
-				window.location.href = "error.php?error="+data["error"]+"&page=reloadJsVars.php";
-				return;
-			}
-			else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+            if(handleError(dirForAjaxSend, data, "reloadJsVars.php"))
             {
-            	data = JSON.parse(data);
-            	window.location.href = dirForAjaxSend + "error.php?error="+data["error"]+"&page=reloadJsVars.php";
+            	return;
             }
+
 			//add css to bottom of index page
 			$("#initialLoadContent").append(data);
 			if(idForFormMain === "settingsPollVars")
@@ -601,16 +560,7 @@ function refreshAddonLinks()
 			type: "POST",
 		success(data)
 		{
-			if(typeof data === "object"  && "error" in data)
-			{
-				window.location.href = "error.php?error="+data["error"]+"&page=reloadAddonLinks.php";
-			}
-			else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-            {
-            	data = JSON.parse(data);
-            	window.location.href = dirForAjaxSend + "error.php?error="+data["error"]+"&page=reloadAddonLinks.php";
-            }
-			else
+			if(!handleError(dirForAjaxSend, data, "reloadAddonLinks.php"))
 			{
 				//add css to bottom of index page
 				$("#menuAddonLinks").html(data);

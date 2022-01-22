@@ -26,6 +26,11 @@ $core->getScripts(
 			"filePath"		=> "../core/js/settingsExt.js",
 			"baseFilePath"	=> "core/js/settingsExt.js",
 			"default"		=> $configStatic["version"]
+		),
+		array(
+			"filePath"		=> "../core/js/errorHandle.js",
+			"baseFilePath"	=> "core/js/errorHandle.js",
+			"default"		=> $configStatic["version"]
 		)
 	)
 );

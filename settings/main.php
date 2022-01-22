@@ -101,10 +101,5 @@ var saveButtonAlwaysVisible = "<?php echo $saveButtonAlwaysVisible; ?>";
 		"filePath"		=> "../core/js/settingsMainExt.js",
 		"baseFilePath"	=> "core/js/settingsMainExt.js",
 		"default"		=> $configStatic["version"]
-	),
-	array(
-		"filePath"		=> "../core/js/errorHandle.js",
-		"baseFilePath"	=> "core/js/errorHandle.js",
-		"default"		=> $configStatic["version"]
 	)
 )); ?>
