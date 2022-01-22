@@ -16,17 +16,11 @@ function deleteTheme(themeName)
 		type: "POST",
 		success(data)
 		{
-			if(typeof data === "object"  && "error" in data)
+            if(!handleError(themeDirMod, data, ""))
             {
-                window.location.href = themeDirMod + "error.php?error="+data["error"];
-            }
-            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-            {
-            	data = JSON.parse(data);
-            	window.location.href = themeDirMod + "error.php?error="+data["error"];
-            }
-			//verify folder is removed
-			timeoutVar = setInterval(function(){verifyThemeRemoved();},3000);
+				//verify folder is removed
+				timeoutVar = setInterval(function(){verifyThemeRemoved();},3000);
+			}
 		}
 	});
 }
@@ -41,16 +35,7 @@ function verifyThemeRemoved()
 		type: "POST",
 		success(data)
 		{
-			if(typeof data === "object"  && "error" in data)
-            {
-                window.location.href = themeDirMod + "error.php?error="+data["error"];
-            }
-            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-            {
-            	data = JSON.parse(data);
-            	window.location.href = themeDirMod + "error.php?error="+data["error"];
-            }
-			else if(data === true)
+			if(!handleError(themeDirMod, data, "") && data === true)
 			{
 				clearInterval(timeoutVar);
 				location.reload();
@@ -80,16 +65,10 @@ function saveCustomTheme()
 		type: "POST",
 		success()
 		{
-			if(typeof data === "object"  && "error" in data)
+            if(!handleError(themeDirMod, data, ""))
             {
-                window.location.href = themeDirMod + "error.php?error="+data["error"];
-            }
-            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-            {
-            	data = JSON.parse(data);
-            	window.location.href = themeDirMod + "error.php?error="+data["error"];
-            }
-			timeoutVar = setInterval(function(){verifyFolder();},3000);
+				timeoutVar = setInterval(function(){verifyFolder();},3000);
+			}
 		}
 	});
 }
@@ -105,16 +84,7 @@ function verifyFolder()
 		type: "POST",
 		success(data)
 		{
-			if(typeof data === "object"  && "error" in data)
-            {
-                window.location.href = themeDirMod + "error.php?error="+data["error"];
-            }
-            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-            {
-            	data = JSON.parse(data);
-            	window.location.href = themeDirMod + "error.php?error="+data["error"];
-            }
-			else if(data === true)
+			if(!handleError(themeDirMod, data, "") && data === true)
 			{
 				clearInterval(timeoutVar);
 				saveCustomThemeCustomFolder();
@@ -135,16 +105,10 @@ function saveCustomThemeCustomFolder()
 		type: "POST",
 		success()
 		{
-			if(typeof data === "object"  && "error" in data)
+            if(!handleError(themeDirMod, data, ""))
             {
-                window.location.href = themeDirMod + "error.php?error="+data["error"];
-            }
-            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-            {
-            	data = JSON.parse(data);
-            	window.location.href = themeDirMod + "error.php?error="+data["error"];
-            }
-			timeoutVar = setInterval(function(){verifyFolderInFolder();},3000);
+				timeoutVar = setInterval(function(){verifyFolderInFolder();},3000);
+			}
 		}
 	});
 }
@@ -161,16 +125,7 @@ function verifyFolderInFolder()
 		type: "POST",
 		success(data)
 		{
-			if(typeof data === "object"  && "error" in data)
-            {
-                window.location.href = themeDirMod + "error.php?error="+data["error"];
-            }
-            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-            {
-            	data = JSON.parse(data);
-            	window.location.href = themeDirMod + "error.php?error="+data["error"];
-            }
-			else if(data === true)
+			if(!handleError(themeDirMod, data, "") && data === true)
 			{
 				clearInterval(timeoutVar);
 				createNewFiles();
@@ -190,16 +145,7 @@ function createNewFiles()
 		type: "POST",
 		success(data)
 		{
-			if(typeof data === "object"  && "error" in data)
-            {
-                window.location.href = themeDirMod + "error.php?error="+data["error"]+"&page=saveCustomThemeDefaults.php";
-            }
-            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-            {
-            	data = JSON.parse(data);
-            	window.location.href = themeDirMod + "error.php?error="+data["error"];
-            }
-			else if(data === true)
+			if(!handleError(themeDirMod, data, "") && data === true)
 			{
 				timeoutVar = setInterval(function(){verifyNewFiles();},3000);
 			}
@@ -217,16 +163,7 @@ function verifyNewFiles()
 		type: "POST",
 		success(data)
 		{
-			if(typeof data === "object"  && "error" in data)
-            {
-                window.location.href = themeDirMod + "error.php?error="+data["error"];
-            }
-            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-            {
-            	data = JSON.parse(data);
-            	window.location.href = themeDirMod + "error.php?error="+data["error"];
-            }
-			else if(data === true)
+			if(!handleError(themeDirMod, data, "") && data === true)
 			{
 				clearInterval(timeoutVar);
 				createImageFolder();
@@ -245,16 +182,10 @@ function createImageFolder()
 		type: "POST",
 		success()
 		{
-			if(typeof data === "object"  && "error" in data)
+            if(!handleError(themeDirMod, data, ""))
             {
-                window.location.href = themeDirMod + "error.php?error="+data["error"];
-            }
-            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-            {
-            	data = JSON.parse(data);
-            	window.location.href = themeDirMod + "error.php?error="+data["error"];
-            }
-			timeoutVar = setInterval(function(){verifyImageFolder();},3000);
+				timeoutVar = setInterval(function(){verifyImageFolder();},3000);
+			}
 		}
 	});
 }
@@ -269,16 +200,7 @@ function verifyImageFolder()
 		type: "POST",
 		success(data)
 		{
-			if(typeof data === "object"  && "error" in data)
-            {
-                window.location.href = themeDirMod + "error.php?error="+data["error"];
-            }
-            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-            {
-            	data = JSON.parse(data);
-            	window.location.href = themeDirMod + "error.php?error="+data["error"];
-            }
-			else if(data === true)
+			if(!handleError(themeDirMod, data, "") && data === true)
 			{
 				clearInterval(timeoutVar);
 				createTemplateFolder();
@@ -297,16 +219,10 @@ function createTemplateFolder()
 		type: "POST",
 		success()
 		{
-			if(typeof data === "object"  && "error" in data)
+            if(!handleError(themeDirMod, data, ""))
             {
-                window.location.href = themeDirMod + "error.php?error="+data["error"];
-            }
-            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-            {
-            	data = JSON.parse(data);
-            	window.location.href = themeDirMod + "error.php?error="+data["error"];
-            }
-			timeoutVar = setInterval(function(){verifyTemplateFolder();},3000);
+				timeoutVar = setInterval(function(){verifyTemplateFolder();},3000);
+			}
 		}
 	});
 }
@@ -321,16 +237,7 @@ function verifyTemplateFolder()
 		type: "POST",
 		success(data)
 		{
-			if(typeof data === "object"  && "error" in data)
-            {
-                window.location.href = themeDirMod + "error.php?error="+data["error"];
-            }
-            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-            {
-            	data = JSON.parse(data);
-            	window.location.href = themeDirMod + "error.php?error="+data["error"];
-            }
-			else if(data === true)
+			if(!handleError(themeDirMod, data, "") && data === true)
 			{
 				clearInterval(timeoutVar);
 				copyFiles();
@@ -350,16 +257,7 @@ function copyFiles()
 		type: "POST",
 		success(data)
 		{
-			if(typeof data === "object"  && "error" in data)
-			{
-				window.location.href = themeDirMod + "error.php?error="+data["error"]+"&page=copyImagesToNewTheme.php";
-			}
-			else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-            {
-            	data = JSON.parse(data);
-            	window.location.href = themeDirMod + "error.php?error="+data["error"];
-            }
-			else if(data === true)
+			if(!handleError(themeDirMod, data, "") && data === true)
 			{
 				timeoutVar = setInterval(function(){verifyCopiedFiles();},3000);
 			}
@@ -377,16 +275,7 @@ function verifyCopiedFiles()
 		type: "POST",
 		success(data)
 		{
-			if(typeof data === "object"  && "error" in data)
-            {
-                window.location.href = themeDirMod + "error.php?error="+data["error"];
-            }
-            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-            {
-            	data = JSON.parse(data);
-            	window.location.href = themeDirMod + "error.php?error="+data["error"];
-            }
-			else if(data === true)
+			if(!handleError(themeDirMod, data, "") && data === true)
 			{
 				clearInterval(timeoutVar);
 				saveAndVerifyMain("themeMainSelectionCustomNew");
