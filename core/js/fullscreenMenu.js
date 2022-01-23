@@ -283,7 +283,7 @@ function toggleGeneralThemeStyle(force = false)
 	}
 	hideThemeStuff();
 	endSettingsPollTimer();
-	$("#themeSubMenuGeneralStyle").addClass("selected");
+	$("#fullScreenMenuThemeGeneralStyleMenu").addClass("selected");
 	document.getElementById("fullScreenMenuThemeGeneralStyle").style.display = "block";
 	arrayOfScrollHeaderUpdate = ["generalThemeOptions"];
 	arrayOfDataSettings = ["generalThemeOptions"];
@@ -517,48 +517,8 @@ function hideUpdateStuff()
 
 function hideSettingsStuff()
 {
-	document.getElementById("settingsMainLogs").style.display = "none";
-	$("#settingsMainLogsMenu").removeClass("selected");
-	document.getElementById("settingsMainLogFormat").style.display = "none";
-	$("#settingsMainLogFormatMenu").removeClass("selected");
-	document.getElementById("settingsMainPoll").style.display = "none";
-	$("#settingsMainPollMenu").removeClass("selected");
-	document.getElementById("settingsMainFilter").style.display = "none";
-	$("#settingsMainFilterMenu").removeClass("selected");
-	document.getElementById("settingsMainArchive").style.display = "none";
-	$("#settingsMainArchiveMenu").removeClass("selected");
-	document.getElementById("settingsMainNotifications").style.display = "none";
-	$("#settingsMainNotificationsMenu").removeClass("selected");
-	document.getElementById("settingsMainActionMenu").style.display = "none";
-	$("#settingsMainActionMenuMenu").removeClass("selected");
-	document.getElementById("settingsMainMenuLogs").style.display = "none";
-	$("#settingsMainMenuLogsMenu").removeClass("selected");
-	document.getElementById("settingsMainMenuFullScreen").style.display = "none";
-	$("#settingsMainMenuFullScreenMenu").removeClass("selected");
-	document.getElementById("settingsMainWatchlist").style.display = "none";
-	$("#settingsMainWatchlistMenu").removeClass("selected");
-	document.getElementById("settingsMainOneLog").style.display = "none";
-	$("#settingsMainOneLogMenu").removeClass("selected");
-	document.getElementById("settingsMainMultiLog").style.display = "none";
-	$("#settingsMainMultiLogMenu").removeClass("selected");
-	document.getElementById("settingsMainLogLayout").style.display = "none";
-	$("#settingsMainLogLayoutMenu").removeClass("selected");
-	document.getElementById("settingsMainOther").style.display = "none";
-	$("#settingsMainOtherMenu").removeClass("selected");
-
-	document.getElementById("settingsAdvancedConfig").style.display = "none";
-	$("#settingsAdvancedConfigMenu").removeClass("selected");
-	document.getElementById("settingsAdvancedModules").style.display = "none";
-	$("#settingsAdvancedModulesMenu").removeClass("selected");
-	document.getElementById("settingsAdvancedLocations").style.display = "none";
-	$("#settingsAdvancedLocationsMenu").removeClass("selected");
-	document.getElementById("settingsAdvancedAdvanced").style.display = "none";
-	$("#settingsAdvancedAdvancedMenu").removeClass("selected");
-
-	document.getElementById("settingsAdvancedDevConfig").style.display = "none";
-    $("#settingsAdvancedDevConfigMenu").removeClass("selected");
-	document.getElementById("settingsGlobalAdvanced").style.display = "none";
-	$("#settingsGlobalAdvancedMenu").removeClass("selected");
+	$(".fullScreenMenuSettingsFormDiv").hide();
+	$(".fullScreenMenuSettingsFormTitle").removeClass("selected");
 }
 
 function hideAboutStuff()
@@ -598,7 +558,7 @@ function hideThemeStuff()
 	$("#themeSubMenuMainThemes").removeClass("selected");
 	document.getElementById("fullScreenMenuColorScheme").style.display = "none";
 	$(".subMenuActionsColorScheme").hide();
-	$("#themeSubMenuGeneralStyle").removeClass("selected");
+	$("#fullScreenMenuThemeGeneralStyleMenu").removeClass("selected");
 	document.getElementById("fullScreenMenuThemeGeneralStyle").style.display = "none";
 	$("#themeSubMenuColorScheme").removeClass("selected");
 }

@@ -35,9 +35,6 @@
 	<li id="themeSubMenuMainThemes" onclick="toggleMainThemes();" class="selected">
 		Main Themes
 	</li>
-	<li id="themeSubMenuGeneralStyle" onclick="toggleGeneralThemeStyle();">
-		General Styling
-	</li>
 	<li id="themeSubMenuColorScheme" onclick="toggleThemeColorScheme();">
 		Color Scheme
 	</li>
@@ -78,78 +75,47 @@
 		Settings
 	</li>
 	<?php if($samePageSettings === "true"): ?>
-		<li class="menuTitle fullScreenMenuText subMenuTitle">
-			Main
-		</li>
-		<li id="settingsMainLogsMenu" onclick="toggleSettingSection({id: 'settingsMainLogs',formId: 'settingsLogVars'});" >
-			Logs
-		</li>
-		<li <?php if($advancedLogFormatEnabled !== "true"){ echo "style = \"display:none;\"";} ?> id="settingsMainLogFormatMenu" onclick="toggleSettingSection({id: 'settingsMainLogFormat',formId: 'settingsLogFormatVars'});" >
-			Log Format
-		</li>
-		<li id="settingsMainPollMenu" onclick="toggleSettingSection({id: 'settingsMainPoll',formId: 'settingsPollVars'});" >
-			Poll
-		</li>
-		<li <?php if($filterEnabled !== "true"){ echo "style = \"display:none;\"";} ?> id="settingsMainFilterMenu" onclick="toggleSettingSection({id: 'settingsMainFilter',formId: 'settingsFilterVars'});" >
-			Filter
-		</li>
-		<li id="settingsMainArchiveMenu" onclick="toggleSettingSection({id: 'settingsMainArchive',formId: 'archiveConfig'});" >
-			Archive
-		</li>
-		<li id="settingsMainNotificationsMenu" onclick="toggleSettingSection({id: 'settingsMainNotifications',formId: 'settingsNotificationVars'});" >
-			Notifications
-		</li>
-		<li id="settingsMainActionMenuMenu" onclick="toggleSettingSection({id: 'settingsMainActionMenu',formId: 'settingsMenuVars'});" >
-			Menu Actions
-		</li>
-		<li id="settingsMainMenuLogsMenu" onclick="toggleSettingSection({id: 'settingsMainMenuLogs',formId: 'settingsMenuLogVars'});" >
-			Menu Logs
-		</li>
-		<li id="settingsMainMenuFullScreenMenu" onclick="toggleSettingSection({id: 'settingsMainMenuFullScreen',formId: 'settingsFullScreenMenuVars'});" >
-			Menu Full Screen
-		</li>
-		<li id="settingsMainWatchlistMenu" onclick="toggleSettingSection({id: 'settingsMainWatchlist',formId: 'settingsWatchlistVars'});" >
-			Watchlist
-		</li>
-		<li <?php if($oneLogEnable !== "true"){ echo "style = \"display:none;\"";} ?> id="settingsMainOneLogMenu" onclick="toggleSettingSection({id: 'settingsMainOneLog',formId: 'settingsOneLogVars'});" >
-			OneLog
-		</li>
-		<li <?php if($enableMultiLog !== "true"){ echo "style = \"display:none;\"";} ?> id="settingsMainMultiLogMenu" onclick="toggleSettingSection({id: 'settingsMainMultiLog',formId: 'settingsMultiLogVars'});" >
-			Multi-Log
-		</li>
-		<li <?php if($enableMultiLog !== "true"){ echo "style = \"display:none;\"";} ?> id="settingsMainLogLayoutMenu" onclick="toggleSettingSection({id: 'settingsMainLogLayout',formId: 'settingsInitialLoadLayoutVars'});" >
-			Log Layout
-		</li>
-		<li id="settingsMainOtherMenu" onclick="toggleSettingSection({id: 'settingsMainOther',formId: 'settingsMainVars'});" >
-			Other
-		</li>
-		<li class="menuTitle fullScreenMenuText subMenuTitle">
-			Advanced
-		</li>
-		<li id="settingsAdvancedConfigMenu" onclick="toggleSettingSection({id: 'settingsAdvancedConfig',formId: 'advancedConfig'});" >
-			Config
-		</li>
-		<li id="settingsAdvancedModulesMenu" onclick="toggleSettingSection({id: 'settingsAdvancedModules',formId: 'modules'});" >
-			Modules
-		</li>
-		<li id="settingsAdvancedLocationsMenu" onclick="toggleSettingSection({id: 'settingsAdvancedLocations',formId: 'locationOtherApps'});" >
-			Locations
-		</li>
-		<li id="settingsAdvancedAdvancedMenu" onclick="toggleSettingSection({id: 'settingsAdvancedAdvanced',formId: 'false'});" >
-			Advanced
-		</li>
-		<li class="menuTitle fullScreenMenuText subMenuTitle">
-			Global Settings
-		</li>
-		<li id="settingsGlobalAdvancedMenu" onclick="toggleSettingSection({id: 'settingsGlobalAdvanced',formId: 'globalAdvanced'});" >
-			Advanced
-		</li>
-		<li id="settingsAdvancedDevConfigMenu" onclick="toggleSettingSection({id: 'settingsAdvancedDevConfig', formId: 'devConfig'});">
-			Config Static
-		</li>
+		<?php foreach($fullScreenMenuGroups as $fsmgKey => $fsmgData):
+			echo "<li class=\"menuTitle fullScreenMenuText subMenuTitle\">" . $fsmgData["name"] . "</li>";
+			foreach($defaultConfigMoreData as $defaultConfigMoreDataRowData)
+			{
+				if([$fsmgKey] !== $defaultConfigMoreDataRowData["menu"]["groups"])
+				{
+					continue;
+				}
+				$stringToEcho = "<li ";
+				if(!$defaultConfigMoreDataRowData["menu"]["display"])
+				{
+					$stringToEcho .= "style = \"display:none;\"";
+				}
+				$stringToEcho .= " id=\"".
+				$defaultConfigMoreDataRowData["menu"]["id"].
+				"Menu\" class=\"fullScreenMenuSettingsFormTitle\" onclick=\"toggleSettingSection({id: '".
+				$defaultConfigMoreDataRowData["menu"]["id"].
+				"',formId: '".
+				$defaultConfigMoreDataRowData["id"].
+				"'});\" >".
+				$defaultConfigMoreDataRowData["name"].
+				"</li>";
+				echo $stringToEcho;
+			}
+			if ($fsmgKey === 'main'): ?>
+				<li <?php if($enableMultiLog !== "true"){ echo "style = \"display:none;\"";} ?> id="settingsMainLogLayoutMenu" class="fullScreenMenuSettingsFormTitle" onclick="toggleSettingSection({id: 'settingsMainLogLayout',formId: 'settingsInitialLoadLayoutVars'});" >
+					Log Layout
+				</li>
+			<?php elseif ($fsmgKey === 'advanced'): ?>
+				<li id="settingsAdvancedAdvancedMenu" class="fullScreenMenuSettingsFormTitle" onclick="toggleSettingSection({id: 'settingsAdvancedAdvanced',formId: 'false'});" >
+					Advanced
+				</li>
+			<?php elseif ($fsmgKey === 'global'): ?>
+				<li id="settingsAdvancedDevConfigMenu" class="fullScreenMenuSettingsFormTitle" onclick="toggleSettingSection({id: 'settingsAdvancedDevConfig', formId: 'devConfig'});">
+					Config Static
+				</li>
+			<?php endif;
+		endforeach; //foreach($fullScreenMenuGroups as $fsmgKey => $fsmgData) ?>
 	<?php else: ?>
 		<li onclick="window.location.href = './settings/main.php';" >
-		Main <?php echo $externalLinkImage; ?>
+			Main <?php echo $externalLinkImage; ?>
 		</li>
 		<li onclick="window.location.href = './settings/advanced.php';" >
 			Advanced <?php echo $externalLinkImage; ?>
@@ -209,12 +175,6 @@
 	<div id="fullScreenMenuColorScheme" style="display: none;">
 		<?php require_once('core/php/template/folderGroupColor.php'); ?>
 	</div>
-	<div id="fullScreenMenuThemeGeneralStyle" style="display: none;">
-		<?php
-		$currentSection = "generalThemeOptions";
-		include('core/php/template/varTemplate.php');
-		?>
-	</div>
 	<div id="notifications" style="display: none;" >
 		<div id="notificationHolder"></div>
 	</div>
@@ -229,123 +189,26 @@
 			</tr>
 		</table>
 	</div>
-	<div id="settingsMainLogs" style="display: none;" >
-		<?php
-		$currentSection = "logVars";
-		include('core/php/template/varTemplate.php');
-		?>
-	</div>
-	<div id="settingsMainLogFormat" style="display: none;" >
-		<?php
-		$currentSection = "logFormatVars";
-		include('core/php/template/varTemplate.php');
-		?>
-	</div>
-	<div id="settingsMainPoll" style="display: none;" >
-		<?php
-		$currentSection = "pollVars";
-		include('core/php/template/varTemplate.php');
-		?>
-	</div>
-	<div id="settingsMainFilter" style="display: none;" >
-		<?php
-		$currentSection = "filterVars";
-		include('core/php/template/varTemplate.php');
-		?>
-	</div>
-	<div id="settingsMainArchive" style="display: none;" >
-		<?php
-		$currentSection = "archive";
-		include('core/php/template/varTemplate.php');
-		?>
-	</div>
-	<div id="settingsMainNotifications" style="display: none;" >
-		<?php
-		$currentSection = "notificationVars";
-		include('core/php/template/varTemplate.php');
-		?>
-	</div>
-	<div id="settingsMainActionMenu" style="display: none;" >
-		<?php
-		$currentSection = "menuVars";
-		include('core/php/template/varTemplate.php');
-		?>
-	</div>
-	<div id="settingsMainMenuLogs" style="display: none;" >
-		<?php
-		$currentSection = "menuLogVars";
-		include('core/php/template/varTemplate.php');
-		?>
-	</div>
-	<div id="settingsMainMenuFullScreen" style="display: none;" >
-		<?php
-		$currentSection = "menuFullScreenVars";
-		include('core/php/template/varTemplate.php');
-		?>
-	</div>
-	<div id="settingsMainWatchlist" style="display: none;" >
-		<?php
-		$currentSection = "watchlistVars";
-		include('core/php/template/varTemplate.php');
-		?>
-	</div>
-	<div id="settingsMainOneLog" style="display: none;" >
-		<?php
-		$currentSection = "oneLogVars";
-		include('core/php/template/varTemplate.php');
-		?>
-	</div>
-	<div id="settingsMainMultiLog" style="display: none;" >
-		<?php
-		$currentSection = "multiLogVars";
-		include('core/php/template/varTemplate.php');
-		?>
-	</div>
-	<div id="settingsMainLogLayout" style="display: none;" >
+	<?php foreach ($defaultConfigMoreData as $currentSection => $configRowData): ?>
+		<div id="<?php echo $configRowData["menu"]["id"]; ?>" class="fullScreenMenuSettingsFormDiv" style="display: none;" >
+			<?php include('core/php/template/varTemplate.php');	?>
+		</div>
+	<?php endforeach; ?>
+	<div id="settingsMainLogLayout" class="fullScreenMenuSettingsFormDiv" style="display: none;" >
 		<?php
 		require_once('core/php/template/logLayout.php');
 		?>
 	</div>
-	<div id="settingsMainOther" style="display: none;" >
-		<?php
-		$currentSection = "otherVars";
-		include('core/php/template/varTemplate.php');
-		?>
-	</div>
-	<div id="settingsAdvancedConfig" style="display: none;" >
-		<?php
-		$currentSection = "config";
-		include('core/php/template/varTemplate.php');
-		?>
-	</div>
-	<div id="settingsAdvancedModules" style="display: none;" >
-		<?php
-		$currentSection = "modules";
-		include('core/php/template/varTemplate.php');
-		?>
-	</div>
-	<div id="settingsAdvancedLocations" style="display: none;" >
-		<?php
-		$currentSection = "fileLocations";
-		include('core/php/template/varTemplate.php');
-		?>
-	</div>
-	<div id="settingsAdvancedAdvanced" style="display: none;" >
+	<div id="settingsAdvancedAdvanced" class="fullScreenMenuSettingsFormDiv" style="display: none;" >
 		<?php
 			$settingsUrlModifier = "";
 			$otherSettingsUrlModifier = "settings/";
 			include('core/php/template/advancedActions.php');
 		?>
 	</div>
-	<div id="settingsAdvancedDevConfig" style="display: none;">
+	<div id="settingsAdvancedDevConfig" class="fullScreenMenuSettingsFormDiv" style="display: none;">
 		<?php
 			require_once("core/php/template/devConfigSettings.php");
-		?>
-	</div>
-	<div id="settingsGlobalAdvanced" style="display: none;">
-		<?php
-		$currentSection = "globalConfig";
-		include('core/php/template/varTemplate.php');
 		?>
 	</div>
 </div>
