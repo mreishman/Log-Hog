@@ -49,6 +49,7 @@ require_once('../core/php/configStatic.php');
 </div>
 </body>
 <script src="restore.js?v=<?php echo $cssVersion?>"></script>
+<script src="../core/js/errorHandle.js?v=<?php echo $cssVersion?>"></script>
 <script type="text/javascript">
 var fileVersionDownload = null;
 <?php if($versionToRestoreTo != 0): ?>
