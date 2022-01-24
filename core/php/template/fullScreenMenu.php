@@ -69,16 +69,68 @@
 	<li class="menuTitle">
 		Settings
 	</li>
-	<?php if($samePageSettings === "true"): ?>
-		<?php foreach($fullScreenMenuGroups as $fsmgKey => $fsmgData):
-			echo "<li class=\"menuTitle fullScreenMenuText subMenuTitle\">" . $fsmgData["name"] . "</li>";
-			foreach($defaultConfigMoreData as $defaultConfigMoreDataRowData)
+	<?php if($samePageSettings === "true"): 
+
+		$customConfigSections = array(
+			"multiLogLogLayout"	=> array(
+				"id"	=> "settingsInitialLoadLayoutVars",
+				"name"	=> "Multi-Log Layout",
+				"menu"								=> 	array(
+					"groups"							=>	array(
+						"main"
+					),
+					"id"								=>	"settingsMainLogLayout",
+					"display"							=>	($enableMultiLog === "true")
+				)
+			),
+			"advancedActions"	=> array(
+				"id"	=> "false",
+				"name"	=> "Advanced",
+				"menu"								=> 	array(
+					"groups"							=>	array(
+						"advanced"
+					),
+					"id"								=>	"settingsAdvancedAdvanced",
+					"display"							=>	true
+				)
+			),
+			"configStatic"	=> array(
+				"id"	=> "devConfig",
+				"name"	=> "Config Static",
+				"menu"								=> 	array(
+					"groups"							=>	array(
+						"global"
+					),
+					"id"								=>	"settingsAdvancedDevConfig",
+					"display"							=>	true
+				)
+			)
+		);
+
+		//sort groups
+		foreach($fullScreenMenuGroups as $fsmgKey => $fsmgData)
+		{
+			$fullScreenMenuGroups[$fsmgKey]["menu_items"] = array();
+			foreach([$defaultConfigMoreData, $customConfigSections] as $settingsSectionsArray)
 			{
-				if([$fsmgKey] !== $defaultConfigMoreDataRowData["menu"]["groups"])
+				foreach($settingsSectionsArray as $settingsSectionKey => $settingsSectionsArrayRowData)
 				{
-					continue;
+					if([$fsmgKey] !== $settingsSectionsArrayRowData["menu"]["groups"])
+					{
+						continue;
+					}
+					$fullScreenMenuGroups[$fsmgKey]["menu_items"][$settingsSectionKey] = $settingsSectionsArrayRowData;
 				}
-				$stringToEcho = "<li ";
+			}
+			ksort($fullScreenMenuGroups[$fsmgKey]["menu_items"]);
+		}
+
+		foreach($fullScreenMenuGroups as $fsmgKey => $fsmgData)
+		{
+			echo "<li class=\"menuTitle fullScreenMenuText subMenuTitle\">" . $fsmgData["name"] . "</li>";
+			foreach($fsmgData["menu_items"] as $defaultConfigMoreDataRowData)
+			{
+				$stringToEcho	 = "<li ";
 				if(!$defaultConfigMoreDataRowData["menu"]["display"])
 				{
 					$stringToEcho .= "style = \"display:none;\"";
@@ -94,20 +146,7 @@
 				"</li>";
 				echo $stringToEcho;
 			}
-			if ($fsmgKey === 'main'): ?>
-				<li <?php if($enableMultiLog !== "true"){ echo "style = \"display:none;\"";} ?> id="settingsMainLogLayoutMenu" class="fullScreenMenuSettingsFormTitle" onclick="toggleSettingSection({id: 'settingsMainLogLayout',formId: 'settingsInitialLoadLayoutVars'});" >
-					Log Layout
-				</li>
-			<?php elseif ($fsmgKey === 'advanced'): ?>
-				<li id="settingsAdvancedAdvancedMenu" class="fullScreenMenuSettingsFormTitle" onclick="toggleSettingSection({id: 'settingsAdvancedAdvanced',formId: 'false'});" >
-					Advanced
-				</li>
-			<?php elseif ($fsmgKey === 'global'): ?>
-				<li id="settingsAdvancedDevConfigMenu" class="fullScreenMenuSettingsFormTitle" onclick="toggleSettingSection({id: 'settingsAdvancedDevConfig', formId: 'devConfig'});">
-					Config Static
-				</li>
-			<?php endif;
-		endforeach; //foreach($fullScreenMenuGroups as $fsmgKey => $fsmgData) ?>
+		} //foreach($fullScreenMenuGroups as $fsmgKey => $fsmgData) ?>
 	<?php else: ?>
 		<li onclick="window.location.href = './settings/main.php';" >
 			Main <?php echo $externalLinkImage; ?>
