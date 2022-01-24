@@ -38,11 +38,6 @@
 	<li id="themeSubMenuColorScheme" onclick="toggleThemeColorScheme();">
 		Color Scheme
 	</li>
-	<li class="menuTitle">
-	</li>
-	<li class="subMenuActionsColorScheme subMenuToggle" style="display: none;" onclick="addRowForFolderColorOptions();" >
-		Add Row
-	</li>
 </ul>
 <ul id="watchListSubMenu" class="settingsUl fullScreenMenuUL settingsUlSub" style="display: none;">
 	<li class="menuTitle">

@@ -1,14 +1,13 @@
 function addRowForFolderColorOptions()
 {
-	var currentMaxRow = parseInt($("#settingsColorFolderGroupVars [name=\"folderThemeCount\"] ")[0].value);
 	var counterForDefaults = 1;
 	while($("#settingsColorFolderGroupVars [name=\"folderColorThemeNameForPost"+counterForDefaults+"\"] ")[0] && $("#settingsColorFolderGroupVars [name=\"folderColorThemeNameForPost"+counterForDefaults+"\"] ")[0].value.indexOf("theme-default") > -1)
 	{
 		counterForDefaults++;
 	}
 	counterForDefaults--;
-	currentMaxRow++;
 	var table = document.getElementById("addNewRowToThisForThemes");
+	var currentMaxRow = table.rows.length;
 	var row 	= table.insertRow(currentMaxRow);
 	var cell1 	= row.insertCell(0);
 	var cell1p5 = row.insertCell(1);
@@ -28,7 +27,6 @@ function addRowForFolderColorOptions()
 	cell4.innerHTML = replaceStuff(cellItem, currentMaxRow, (currentMaxRow-counterForDefaults), "#000000", "#FFFFFF");
 	cellItem = $("#holderForFolderColors .emptyRow5").html();
 	cell5.innerHTML = replaceStuff(cellItem, currentMaxRow, (currentMaxRow-counterForDefaults), "#000000", "#FFFFFF");
-	$("#settingsColorFolderGroupVars [name=\"folderThemeCount\"] ")[0].value = currentMaxRow;
 	var lengthOfNames = folderColorGroupNames.length;
 	for(var nameCount = 0; nameCount < lengthOfNames; nameCount++)
 	{
@@ -138,8 +136,8 @@ function removeColorBlock(currentRow)
 
 function removeRow(currentRow)
 {
-	var currentMaxRow = parseInt($("#settingsColorFolderGroupVars [name=\"folderThemeCount\"] ")[0].value);
 	var table = document.getElementById("addNewRowToThisForThemes");
+	var currentMaxRow = table.rows.length - 1;
 	table.deleteRow(currentRow);
 	if(currentRow < currentMaxRow)
 	{
@@ -149,8 +147,6 @@ function removeRow(currentRow)
 			moveRowForFolderColorOptions(moveRowCount);
 		}
 	}
-	currentMaxRow--;
-	$("#settingsColorFolderGroupVars [name=\"folderThemeCount\"] ")[0].value = currentMaxRow;
 }
 
 function getLastRowForMainColors(currentRow)

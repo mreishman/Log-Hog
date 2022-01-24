@@ -272,26 +272,6 @@ function toggleMainThemes(force = false)
 	resizeFullScreenMenu();
 }
 
-function toggleGeneralThemeStyle(force = false)
-{
-	if(!force)
-	{
-		if(!(goToPageCheck("toggleGeneralThemeStyle(true)")))
-		{
-			return false;
-		}
-	}
-	hideThemeStuff();
-	endSettingsPollTimer();
-	$("#fullScreenMenuThemeGeneralStyleMenu").addClass("selected");
-	document.getElementById("fullScreenMenuThemeGeneralStyle").style.display = "block";
-	arrayOfScrollHeaderUpdate = ["generalThemeOptions"];
-	arrayOfDataSettings = ["generalThemeOptions"];
-	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
-	startSettingsPollTimer();
-	resizeFullScreenMenu();
-}
-
 function toggleThemesIframeSource(showOrHide)
 {
 	var arrayOfIframesForThemes = document.getElementsByClassName("iframeThemes");
@@ -558,8 +538,6 @@ function hideThemeStuff()
 	$("#themeSubMenuMainThemes").removeClass("selected");
 	document.getElementById("fullScreenMenuColorScheme").style.display = "none";
 	$(".subMenuActionsColorScheme").hide();
-	$("#fullScreenMenuThemeGeneralStyleMenu").removeClass("selected");
-	document.getElementById("fullScreenMenuThemeGeneralStyle").style.display = "none";
 	$("#themeSubMenuColorScheme").removeClass("selected");
 }
 
