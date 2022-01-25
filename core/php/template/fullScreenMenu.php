@@ -94,7 +94,7 @@
 				"',formId: '".
 				$defaultConfigMoreDataRowData["id"].
 				"'});\" >".
-				$defaultConfigMoreDataRowData["name"].
+				$defaultConfigMoreDataRowData["menu"]["name"].
 				"</li>";
 				echo $stringToEcho;
 			}

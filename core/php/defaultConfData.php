@@ -252,7 +252,8 @@ $defaultConfigMoreData = array(
 				"main"
 			),
 			"id"								=>	"settingsMainArchive",
-			"display"							=>	true
+			"display"							=>	true,
+			"name"								=>	"Archive"
 		),
 		"vars"								=>	array(
 			0									=>	array(
@@ -315,7 +316,8 @@ $defaultConfigMoreData = array(
 				"advanced"
 			),
 			"id"								=>	"settingsAdvancedConfig",
-			"display"							=>	true
+			"display"							=>	true,
+			"name"								=>	"Config"
 		),
 		"vars"								=>	array(
 			0									=>	array(
@@ -374,7 +376,8 @@ $defaultConfigMoreData = array(
 				"advanced"
 			),
 			"id"								=>	"settingsAdvancedLocations",
-			"display"							=>	true
+			"display"							=>	true,
+			"name"								=>	"File Locations"
 		),
 		"vars"								=>	array(
 			0									=> array(
@@ -423,7 +426,8 @@ $defaultConfigMoreData = array(
 				"main"
 			),
 			"id"								=>	"settingsMainFilter",
-			"display"							=>	($filterEnabled === "true")
+			"display"							=>	($filterEnabled === "true"),
+			"name"								=>	"Filter"
 		),
 		"vars"								=>	array(
 			0									=>	array(
@@ -556,13 +560,14 @@ $defaultConfigMoreData = array(
 	),
 	"generalThemeOptions"				=>	array(
 		"id"								=>	"generalThemeOptions",
-		"name"								=>	"Main Theme Options",
+		"name"								=>	"Main Style Options",
 		"menu"								=> 	array(
 			"groups"							=>	array(
 				"formatting"
 			),
 			"id"								=>	"fullScreenMenuThemeGeneralStyle",
-			"display"							=>	true
+			"display"							=>	true,
+			"name"								=>	"Main Style"
 		),
 		"vars"								=>	array(
 			0									=>	array(
@@ -695,7 +700,8 @@ $defaultConfigMoreData = array(
 				"global"
 			),
 			"id"								=>	"settingsGlobalAdvanced",
-			"display"							=>	true
+			"display"							=>	true,
+			"name"								=>	"Global"
 		),
 		"vars"								=>	array(
 			0									=>	array(
@@ -755,7 +761,8 @@ $defaultConfigMoreData = array(
 				"formatting"
 			),
 			"id"								=>	"settingsMainLogFormat",
-			"display"							=>	($advancedLogFormatEnabled === "true")
+			"display"							=>	($advancedLogFormatEnabled === "true"),
+			"name"								=>	"Log Format"
 		),
 		"vars"								=>	array(
 			0									=>	array(
@@ -1025,7 +1032,8 @@ $defaultConfigMoreData = array(
 				"main"
 			),
 			"id"								=>	"settingsMainLogs",
-			"display"							=>	true
+			"display"							=>	true,
+			"name"								=>	"Log"
 		),
 		"vars"								=>	array(
 			0									=>	array(
@@ -1317,7 +1325,8 @@ $defaultConfigMoreData = array(
 				"main"
 			),
 			"id"								=>	"settingsMainActionMenu",
-			"display"							=>	true
+			"display"							=>	true,
+			"name"								=>	"Menu Actions"
 		),
 		"vars"								=>	array(
 			0									=>	array(
@@ -1414,7 +1423,8 @@ $defaultConfigMoreData = array(
 				"main"
 			),
 			"id"								=>	"settingsMainMenuLogs",
-			"display"							=>	true
+			"display"							=>	true,
+			"name"								=>	"Menu Logs"
 		),
 		"vars"								=>	array(
 			0									=>	array(
@@ -1633,7 +1643,8 @@ $defaultConfigMoreData = array(
 				"main"
 			),
 			"id"								=>	"settingsMainMenuFullScreen",
-			"display"							=>	true
+			"display"							=>	true,
+			"name"								=>	"Full Screen Menu"
 		),
 		"vars"								=>	array(
 			0									=>	array(
@@ -1722,7 +1733,8 @@ $defaultConfigMoreData = array(
 				"main"
 			),
 			"id"								=>	"settingsAdvancedModules",
-			"display"							=>	true
+			"display"							=>	true,
+			"name"								=>	"Modules"
 		),
 		"vars"								=>	array(
 			0									=>	array(
@@ -1855,7 +1867,8 @@ $defaultConfigMoreData = array(
 				"main"
 			),
 			"id"								=>	"settingsMainMultiLog",
-			"display"							=>	($enableMultiLog === "true")
+			"display"							=>	($enableMultiLog === "true"),
+			"name"								=>	"Multi-Log"
 		),
 		"vars"								=> array(
 			0									=> array(
@@ -1907,7 +1920,8 @@ $defaultConfigMoreData = array(
 				"main"
 			),
 			"id"								=>	"settingsMainNotifications",
-			"display"							=>	true
+			"display"							=>	true,
+			"name"								=>	"Notifications"
 		),
 		"vars"								=> array(
 			0									=> array(
@@ -2182,7 +2196,8 @@ $defaultConfigMoreData = array(
 				"main"
 			),
 			"id"								=>	"settingsMainOneLog",
-			"display"							=>	($oneLogEnable === "true")
+			"display"							=>	($oneLogEnable === "true"),
+			"name"								=>	"One Log"
 		),
 		"vars"								=> array(
 			0									=> array(
@@ -2343,7 +2358,8 @@ $defaultConfigMoreData = array(
 				"main"
 			),
 			"id"								=>	"settingsMainOther",
-			"display"							=>	true
+			"display"							=>	true,
+			"name"								=>	"Other"
 		),
 		"vars"								=> array(
 			0									=> array(
@@ -2432,7 +2448,8 @@ $defaultConfigMoreData = array(
 				"main"
 			),
 			"id"								=>	"settingsMainPoll",
-			"display"							=>	true
+			"display"							=>	true,
+			"name"								=>	"Poll"
 		),
 		"vars"								=> array(
 			0									=> array(
@@ -2612,7 +2629,8 @@ $defaultConfigMoreData = array(
 				"main"
 			),
 			"id"								=>	"settingsMainWatchlist",
-			"display"							=>	true
+			"display"							=>	true,
+			"name"								=>	"Watchlist"
 		),
 		"vars"								=> array(
 			0									=> array(
@@ -2709,7 +2727,8 @@ $customConfigSections = array(
 				"advanced"
 			),
 			"id"								=>	"settingsAdvancedAdvanced",
-			"display"							=>	true
+			"display"							=>	true,
+			"name"								=>	"Actions"
 		)
 	),
 	"colorScheme"	=> array(
@@ -2720,7 +2739,8 @@ $customConfigSections = array(
 				"formatting"
 			),
 			"id"								=>	"fullScreenMenuColorScheme",
-			"display"							=>	true
+			"display"							=>	true,
+			"name"								=>	"Log Tabs Colors"
 		)
 	),
 	"configStatic"	=> array(
@@ -2731,7 +2751,8 @@ $customConfigSections = array(
 				"global"
 			),
 			"id"								=>	"settingsAdvancedDevConfig",
-			"display"							=>	true
+			"display"							=>	true,
+			"name"								=>	"Config Static"
 		)
 	),
 	"multiLogLogLayout"	=> array(
@@ -2742,7 +2763,8 @@ $customConfigSections = array(
 				"main"
 			),
 			"id"								=>	"settingsMainLogLayout",
-			"display"							=>	($enableMultiLog === "true")
+			"display"							=>	($enableMultiLog === "true"),
+			"name"								=>	"Multi-Log Layout"
 		)
 	)
 );
