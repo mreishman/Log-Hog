@@ -28,17 +28,6 @@
 		Archived
 	</li>
 </ul>
-<ul id="themeSubMenu" class="settingsUl fullScreenMenuUL settingsUlSub" style="display: none;">
-	<li class="menuTitle">
-		Themes
-	</li>
-	<li id="themeSubMenuMainThemes" onclick="toggleMainThemes();" class="selected">
-		Main Themes
-	</li>
-	<li id="themeSubMenuColorScheme" onclick="toggleThemeColorScheme();">
-		Color Scheme
-	</li>
-</ul>
 <ul id="watchListSubMenu" class="settingsUl fullScreenMenuUL settingsUlSub" style="display: none;">
 	<li class="menuTitle">
 		Watchlist
@@ -69,44 +58,7 @@
 	<li class="menuTitle">
 		Settings
 	</li>
-	<?php if($samePageSettings === "true"): 
-
-		$customConfigSections = array(
-			"multiLogLogLayout"	=> array(
-				"id"	=> "settingsInitialLoadLayoutVars",
-				"name"	=> "Multi-Log Layout",
-				"menu"								=> 	array(
-					"groups"							=>	array(
-						"main"
-					),
-					"id"								=>	"settingsMainLogLayout",
-					"display"							=>	($enableMultiLog === "true")
-				)
-			),
-			"advancedActions"	=> array(
-				"id"	=> "false",
-				"name"	=> "Advanced",
-				"menu"								=> 	array(
-					"groups"							=>	array(
-						"advanced"
-					),
-					"id"								=>	"settingsAdvancedAdvanced",
-					"display"							=>	true
-				)
-			),
-			"configStatic"	=> array(
-				"id"	=> "devConfig",
-				"name"	=> "Config Static",
-				"menu"								=> 	array(
-					"groups"							=>	array(
-						"global"
-					),
-					"id"								=>	"settingsAdvancedDevConfig",
-					"display"							=>	true
-				)
-			)
-		);
-
+	<?php if($samePageSettings === "true"):
 		//sort groups
 		foreach($fullScreenMenuGroups as $fsmgKey => $fsmgData)
 		{
@@ -206,9 +158,6 @@
 		require_once('core/php/template/themeMain.php');
 		?>
 	</div>
-	<div id="fullScreenMenuColorScheme" style="display: none;">
-		<?php require_once('core/php/template/folderGroupColor.php'); ?>
-	</div>
 	<div id="notifications" style="display: none;" >
 		<div id="notificationHolder"></div>
 	</div>
@@ -228,11 +177,7 @@
 			<?php include('core/php/template/varTemplate.php');	?>
 		</div>
 	<?php endforeach; ?>
-	<div id="settingsMainLogLayout" class="fullScreenMenuSettingsFormDiv" style="display: none;" >
-		<?php
-		require_once('core/php/template/logLayout.php');
-		?>
-	</div>
+	<?php //auto generated settings tabs ?>
 	<div id="settingsAdvancedAdvanced" class="fullScreenMenuSettingsFormDiv" style="display: none;" >
 		<?php
 			$settingsUrlModifier = "";
@@ -240,9 +185,18 @@
 			include('core/php/template/advancedActions.php');
 		?>
 	</div>
+	<?php //custom settings tabs ?>
+	<div id="fullScreenMenuColorScheme" class="fullScreenMenuSettingsFormDiv" style="display: none;">
+		<?php require_once('core/php/template/folderGroupColor.php'); ?>
+	</div>
 	<div id="settingsAdvancedDevConfig" class="fullScreenMenuSettingsFormDiv" style="display: none;">
 		<?php
 			require_once("core/php/template/devConfigSettings.php");
+		?>
+	</div>
+	<div id="settingsMainLogLayout" class="fullScreenMenuSettingsFormDiv" style="display: none;" >
+		<?php
+		require_once('core/php/template/logLayout.php');
 		?>
 	</div>
 </div>

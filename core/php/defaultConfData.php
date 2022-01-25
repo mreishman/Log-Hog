@@ -2698,3 +2698,51 @@ $defaultConfigMoreData = array(
 		)
 	)
 );
+
+//Vars just needed for menu and not dynamically created like the above section
+$customConfigSections = array(
+	"advancedActions"	=> array(
+		"id"	=> "false",
+		"name"	=> "Advanced",
+		"menu"								=> 	array(
+			"groups"							=>	array(
+				"advanced"
+			),
+			"id"								=>	"settingsAdvancedAdvanced",
+			"display"							=>	true
+		)
+	),
+	"colorScheme"	=> array(
+		"id"	=> "settingsColorFolderGroupVars",
+		"name"	=> "Log Tabs Color Scheme",
+		"menu"								=> 	array(
+			"groups"							=>	array(
+				"formatting"
+			),
+			"id"								=>	"fullScreenMenuColorScheme",
+			"display"							=>	true
+		)
+	),
+	"configStatic"	=> array(
+		"id"	=> "devConfig",
+		"name"	=> "Config Static",
+		"menu"								=> 	array(
+			"groups"							=>	array(
+				"global"
+			),
+			"id"								=>	"settingsAdvancedDevConfig",
+			"display"							=>	true
+		)
+	),
+	"multiLogLogLayout"	=> array(
+		"id"	=> "settingsInitialLoadLayoutVars",
+		"name"	=> "Multi-Log Layout",
+		"menu"								=> 	array(
+			"groups"							=>	array(
+				"main"
+			),
+			"id"								=>	"settingsMainLogLayout",
+			"display"							=>	($enableMultiLog === "true")
+		)
+	)
+);

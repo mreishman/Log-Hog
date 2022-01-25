@@ -246,11 +246,10 @@ function toggleThemes(force = false)
 	}
 	globalForcePageNavigate = false;
 	hideMainStuff();
+	hideSidebar();
 	toggleFullScreenMenuMainContent();
-	document.getElementById("themeSubMenu").style.display = "block";
 	$("#ThemesLink").addClass("selected");
 	toggleMainThemes();
-	$(".subMenuActionsColorScheme").hide();
 }
 
 function toggleMainThemes(force = false)
@@ -265,7 +264,6 @@ function toggleMainThemes(force = false)
 	hideThemeStuff();
 	endSettingsPollTimer();
 	toggleThemesIframeSource(true);
-	$("#themeSubMenuMainThemes").addClass("selected");
 	document.getElementById("fullScreenMenuTheme").style.display = "block";
 	arrayOfScrollHeaderUpdate = ["themeSpan"];
 	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
@@ -287,30 +285,6 @@ function toggleThemesIframeSource(showOrHide)
 			arrayOfIframesForThemes[counterOfIframeThemes].setAttribute("src","core/html/iframe.html");
 		}
 	}
-}
-
-function toggleThemeColorScheme(force = false)
-{
-	if(!force && !(goToPageCheck("toggleThemeColorScheme(true)")))
-	{
-		return false;
-	}
-	hideThemeStuff();
-	endSettingsPollTimer();
-	$("#themeSubMenuColorScheme").addClass("selected");
-	document.getElementById("fullScreenMenuColorScheme").style.display = "block";
-	let subMenuActionDisplay = "block";
-	if(window.innerWidth < breakPointTwo || sideBarOnlyIcons === "breakpointtwo")
-	{
-		subMenuActionDisplay = "inline-block";
-	}
-	$(".subMenuActionsColorScheme").css("display",subMenuActionDisplay);
-	arrayOfScrollHeaderUpdate = ["settingsColorFolderGroupVars"];
-	arrayOfDataSettings = ["settingsColorFolderGroupVars"];
-	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
-	startSettingsPollTimer();
-	reAddJsColorPopupForCustomThemes();
-	resizeFullScreenMenu();
 }
 
 function toggleFullScreenMenuMainContent()
@@ -535,10 +509,6 @@ function hideThemeStuff()
 {
 	toggleThemesIframeSource(false);
 	document.getElementById("fullScreenMenuTheme").style.display = "none";
-	$("#themeSubMenuMainThemes").removeClass("selected");
-	document.getElementById("fullScreenMenuColorScheme").style.display = "none";
-	$(".subMenuActionsColorScheme").hide();
-	$("#themeSubMenuColorScheme").removeClass("selected");
 }
 
 function hideIframeStuff()
@@ -630,9 +600,9 @@ function hideMainStuff()
 
 	if($("#ThemesLink") && $("#ThemesLink").hasClass("selected"))
 	{
-		document.getElementById("themeSubMenu").style.display = "none";
 		hideThemeStuff();
 		$("#ThemesLink").removeClass("selected");
+		sideBarVisible = true;
 	}
 
 	$("#menuStatusAddon").removeClass("selected");
