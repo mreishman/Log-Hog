@@ -266,7 +266,6 @@ function addMenuToRightClickMenu(id, link)
 
 let listOfMenuRightClick = [
   {id: "settingsMainLogsMenu", link: "./settings/main.php#settingsLogVars"},
-  {id: "settingsMainLogFormatMenu", link: "./settings/main.php#settingsLogFormatVars"},
   {id: "settingsMainPollMenu", link: "./settings/main.php#settingsPollVars"},
   {id: "settingsMainFilterMenu", link: "./settings/main.php#settingsFilterVars"},
   {id: "settingsMainArchiveMenu", link: "./settings/main.php#archiveConfig"},
@@ -279,11 +278,14 @@ let listOfMenuRightClick = [
   {id: "settingsMainMultiLogMenu", link: "./settings/main.php#settingsMultiLogVars"},
   {id: "settingsMainLogLayoutMenu", link: "./settings/main.php#settingsInitialLoadLayoutVars"},
   {id: "settingsMainOtherMenu", link: "./settings/main.php#settingsMainVars"},
+  {id: "fullScreenMenuThemeGeneralStyleMenu", link: "./settings/formatting.php#generalThemeOptions"},
+  {id: "settingsMainLogFormatMenu", link: "./settings/formatting.php#settingsLogFormatVars"},
   {id: "settingsAdvancedConfigMenu", link: "./settings/advanced.php#advancedConfig"},
   {id: "settingsAdvancedModulesMenu", link: "./settings/advanced.php#modules"},
   {id: "settingsAdvancedLocationsMenu", link: "./settings/advanced.php#locationOtherApps"},
   {id: "settingsAdvancedAdvancedMenu", link: "./settings/advanced.php#advancedConfig"},
-  {id: "settingsAdvancedDevConfigMenu", link: "./settings/devTools.php#devConfig"}
+  {id: "settingsAdvancedDevConfigMenu", link: "./settings/devTools.php#devConfig"},
+  {id: "settingsGlobalAdvancedMenu", link: "./settings/devTools.php#globalAdvanced"}
 ];
 
 let countOfMenuRightClickObjects = listOfMenuRightClick.length;
