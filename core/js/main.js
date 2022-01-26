@@ -23,7 +23,6 @@ var fileData;
 var filesNew;
 var firstLoad = true;
 var flasher;
-var folderColorGroupNames = ["Main","Highlight","Active","ActiveHighlight"];
 var fullScreenMenuClickCount = 0;
 var globalForcePageNavigate = false;
 var hiddenLogUpdatePollBottom = null;

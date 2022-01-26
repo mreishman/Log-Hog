@@ -278,6 +278,7 @@ let listOfMenuRightClick = [
   {id: "settingsMainMultiLogMenu", link: "./settings/main.php#settingsMultiLogVars"},
   {id: "settingsMainLogLayoutMenu", link: "./settings/main.php#settingsInitialLoadLayoutVars"},
   {id: "settingsMainOtherMenu", link: "./settings/main.php#settingsMainVars"},
+  {id: "fullScreenMenuColorSchemeMenu", link: "./settings/formatting.php#settingsColorFolderGroupVars"},
   {id: "fullScreenMenuThemeGeneralStyleMenu", link: "./settings/formatting.php#generalThemeOptions"},
   {id: "settingsMainLogFormatMenu", link: "./settings/formatting.php#settingsLogFormatVars"},
   {id: "settingsAdvancedConfigMenu", link: "./settings/advanced.php#advancedConfig"},

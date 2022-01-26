@@ -5,6 +5,7 @@ function checkIfChanges()
 {
 	let arrayToCheck = [];
 	let arrOfPossibleGroups = [
+		"settingsColorFolderGroupVars",
 		"generalThemeOptions",
 		"settingsLogFormatVars"
 		
@@ -29,6 +30,7 @@ $( document ).ready(function()
 {
 	let arrayToRefresh = [];
 	let arrOfPossibleGroups = [
+		"settingsColorFolderGroupVars",
 		"generalThemeOptions",
 		"settingsLogFormatVars"
 

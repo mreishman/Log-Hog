@@ -46,8 +46,9 @@ require_once('../core/php/loadVars.php');
 
 <?php require_once('header.php');?>
 
-	<div id="main">
+	<div id="main">		
 		<?php
+		require_once('../core/php/template/folderGroupColor.php');
 		$currentSection = "generalThemeOptions";
 		include('../core/php/template/varTemplate.php');
 		if($advancedLogFormatEnabled === "true")
@@ -71,6 +72,11 @@ var saveButtonAlwaysVisible = "<?php echo $saveButtonAlwaysVisible; ?>";
 	array(
 		"filePath"		=> "../core/js/settingsFormattingExt.js",
 		"baseFilePath"	=> "core/js/settingsMainExt.js",
+		"default"		=> $configStatic["version"]
+	),
+	array(
+		"filePath"		=> "../core/js/colorScheme.js",
+		"baseFilePath"	=> "core/js/colorScheme.js",
 		"default"		=> $configStatic["version"]
 	)
 )); ?>

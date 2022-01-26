@@ -1,3 +1,5 @@
+var folderColorGroupNames = ["Main","Highlight","Active","ActiveHighlight"];
+
 function addRowForFolderColorOptions()
 {
 	var counterForDefaults = 1;

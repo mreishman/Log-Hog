@@ -92,6 +92,7 @@ $core->getScripts(
 	</div>
 <?php elseif(strpos($URI, 'formatting.php') !== false): ?>
 	<div id="menu2">
+		<a class="link" href="#settingsColorFolderGroupVars" > Log Tab Colors </a>
 		<a class="link" href="#generalThemeOptions" > Main Styles </a>
 		<?php if($advancedLogFormatEnabled === "true"): ?>
 			<a class="link" href="#settingsLogFormatVars" > Log Format </a>
