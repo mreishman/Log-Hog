@@ -123,6 +123,7 @@ foreach ($arrayOfFiles as $key => $value)
 		$filePath = "core/js/".$filePath;
 	}
 	$arrayOfFiles[$key]["ver"] = $core->getFileTime($filePath, $configStatic["version"]);
+	$arrayOfFiles[$key]["size"] = filesize($filePath);
 }
 
 ?>

@@ -38,6 +38,7 @@ $defaultConfig = array(
 	'dontNotifyVersion'				=> '0',
 	'displayName'					=> 'forThemesOnly',
 	'enableHistory'					=> 'true',
+	'enableInitialFileLoadLogging'  => 'false',
 	'enableLogging'					=> 'false',
 	'enableMultiLog'				=> 'true',
 	'enablePollTimeLogging'			=> 'false',

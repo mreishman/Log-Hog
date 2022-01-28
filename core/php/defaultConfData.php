@@ -366,6 +366,15 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
+			5									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"enableInitialFileLoadLogging",
+					"name"								=>	"Index File Load Logging",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
 		)
 	),
 	"fileLocations"						=>	array(
@@ -2768,3 +2777,21 @@ $customConfigSections = array(
 		)
 	)
 );
+
+//sort groups
+foreach($fullScreenMenuGroups as $fsmgKey => $fsmgData)
+{
+	$fullScreenMenuGroups[$fsmgKey]["menu_items"] = array();
+	foreach([$defaultConfigMoreData, $customConfigSections] as $settingsSectionsArray)
+	{
+		foreach($settingsSectionsArray as $settingsSectionKey => $settingsSectionsArrayRowData)
+		{
+			if([$fsmgKey] !== $settingsSectionsArrayRowData["menu"]["groups"])
+			{
+				continue;
+			}
+			$fullScreenMenuGroups[$fsmgKey]["menu_items"][$settingsSectionKey] = $settingsSectionsArrayRowData;
+		}
+	}
+	ksort($fullScreenMenuGroups[$fsmgKey]["menu_items"]);
+}

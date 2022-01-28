@@ -59,24 +59,6 @@
 		Settings
 	</li>
 	<?php if($samePageSettings === "true"):
-		//sort groups
-		foreach($fullScreenMenuGroups as $fsmgKey => $fsmgData)
-		{
-			$fullScreenMenuGroups[$fsmgKey]["menu_items"] = array();
-			foreach([$defaultConfigMoreData, $customConfigSections] as $settingsSectionsArray)
-			{
-				foreach($settingsSectionsArray as $settingsSectionKey => $settingsSectionsArrayRowData)
-				{
-					if([$fsmgKey] !== $settingsSectionsArrayRowData["menu"]["groups"])
-					{
-						continue;
-					}
-					$fullScreenMenuGroups[$fsmgKey]["menu_items"][$settingsSectionKey] = $settingsSectionsArrayRowData;
-				}
-			}
-			ksort($fullScreenMenuGroups[$fsmgKey]["menu_items"]);
-		}
-
 		foreach($fullScreenMenuGroups as $fsmgKey => $fsmgData)
 		{
 			echo "<li class=\"menuTitle fullScreenMenuText subMenuTitle\">" . $fsmgData["name"] . "</li>";
