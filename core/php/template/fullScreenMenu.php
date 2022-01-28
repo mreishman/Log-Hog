@@ -58,9 +58,9 @@
 	<li class="menuTitle">
 		Settings
 	</li>
-	<?php if($samePageSettings === "true")
+	<?php foreach($fullScreenMenuGroups as $fsmgKey => $fsmgData)
 	{
-		foreach($fullScreenMenuGroups as $fsmgKey => $fsmgData)
+		if($samePageSettings === "true")
 		{
 			echo "<li class=\"menuTitle fullScreenMenuText subMenuTitle\">" . $fsmgData["name"] . "</li>";
 			foreach($fsmgData["menu_items"] as $defaultConfigMoreDataRowData)
@@ -82,16 +82,11 @@
 				echo $stringToEcho;
 			}
 		}
-	}
-	else
-	{
-		foreach($fullScreenMenuGroups as $fsmgKey => $fsmgData)
+		else
 		{
-			$stringToEcho = "<li onclick=\"window.location.href = '".$fsmgData["href"]."';\">".
+			echo "<li onclick=\"window.location.href = '".$fsmgData["href"]."';\">".
 			$fsmgData["name"]." ".$externalLinkImage.
 			"</li>";
-			echo $stringToEcho;
-
 		}
 	} ?>
 </ul>
