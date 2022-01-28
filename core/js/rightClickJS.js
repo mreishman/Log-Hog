@@ -264,31 +264,6 @@ function addMenuToRightClickMenu(id, link)
   Rightclick_ID_list.push(id);
 }
 
-let listOfMenuRightClick = [
-  {id: "settingsMainLogsMenu", link: "./settings/main.php#settingsLogVars"},
-  {id: "settingsMainPollMenu", link: "./settings/main.php#settingsPollVars"},
-  {id: "settingsMainFilterMenu", link: "./settings/main.php#settingsFilterVars"},
-  {id: "settingsMainArchiveMenu", link: "./settings/main.php#archiveConfig"},
-  {id: "settingsMainNotificationsMenu", link: "./settings/main.php#settingsNotificationVars"},
-  {id: "settingsMainActionMenuMenu", link: "./settings/main.php#settingsMenuVars"},
-  {id: "settingsMainMenuLogsMenu", link: "./settings/main.php#settingsMenuLogVars"},
-  {id: "settingsMainMenuFullScreenMenu", link: "./settings/main.php#settingsMenuLogVars"},
-  {id: "settingsMainWatchlistMenu", link: "./settings/main.php#settingsWatchlistVars"},
-  {id: "settingsMainOneLogMenu", link: "./settings/main.php#settingsOneLogVars"},
-  {id: "settingsMainMultiLogMenu", link: "./settings/main.php#settingsMultiLogVars"},
-  {id: "settingsMainLogLayoutMenu", link: "./settings/main.php#settingsInitialLoadLayoutVars"},
-  {id: "settingsMainOtherMenu", link: "./settings/main.php#settingsMainVars"},
-  {id: "fullScreenMenuColorSchemeMenu", link: "./settings/formatting.php#settingsColorFolderGroupVars"},
-  {id: "fullScreenMenuThemeGeneralStyleMenu", link: "./settings/formatting.php#generalThemeOptions"},
-  {id: "settingsMainLogFormatMenu", link: "./settings/formatting.php#settingsLogFormatVars"},
-  {id: "settingsAdvancedConfigMenu", link: "./settings/advanced.php#advancedConfig"},
-  {id: "settingsAdvancedModulesMenu", link: "./settings/advanced.php#modules"},
-  {id: "settingsAdvancedLocationsMenu", link: "./settings/advanced.php#locationOtherApps"},
-  {id: "settingsAdvancedAdvancedMenu", link: "./settings/advanced.php#advancedConfig"},
-  {id: "settingsAdvancedDevConfigMenu", link: "./settings/devTools.php#devConfig"},
-  {id: "settingsGlobalAdvancedMenu", link: "./settings/devTools.php#globalAdvanced"}
-];
-
 let countOfMenuRightClickObjects = listOfMenuRightClick.length;
 for(let i = 0; i < countOfMenuRightClickObjects; i++)
 {

@@ -1743,7 +1743,7 @@ $defaultConfigMoreData = array(
 		"name"								=>	"Modules",
 		"menu"								=> 	array(
 			"groups"							=>	array(
-				"main"
+				"advanced"
 			),
 			"id"								=>	"settingsAdvancedModules",
 			"display"							=>	true,
@@ -2733,7 +2733,7 @@ $defaultConfigMoreData = array(
 //Vars just needed for menu and not dynamically created like the above section
 $customConfigSections = array(
 	"advancedActions"	=> array(
-		"id"	=> "false",
+		"id"	=> "moreAdvanced",
 		"name"	=> "Advanced",
 		"menu"								=> 	array(
 			"groups"							=>	array(

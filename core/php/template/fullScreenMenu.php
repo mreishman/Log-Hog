@@ -58,7 +58,9 @@
 	<li class="menuTitle">
 		Settings
 	</li>
-	<?php foreach($fullScreenMenuGroups as $fsmgKey => $fsmgData)
+	<?php 
+	$settingsRightClickMenu = [];
+	foreach($fullScreenMenuGroups as $fsmgKey => $fsmgData)
 	{
 		if($samePageSettings === "true")
 		{
@@ -80,6 +82,10 @@
 				$defaultConfigMoreDataRowData["menu"]["name"].
 				"</li>";
 				echo $stringToEcho;
+				$settingsRightClickMenu[] = [
+					"id"	=> $defaultConfigMoreDataRowData["menu"]["id"] . "Menu",
+					"link"	=> $fsmgData["href"] . "#" . $defaultConfigMoreDataRowData["id"]
+				];
 			}
 		}
 		else
@@ -88,7 +94,11 @@
 			$fsmgData["name"]." ".$externalLinkImage.
 			"</li>";
 		}
-	} ?>
+	}
+	?>
+	<script type="text/javascript">
+		var listOfMenuRightClick = <?php echo json_encode($settingsRightClickMenu); ?>;
+	</script>
 </ul>
 <div id="mainContentFullScreenMenu">
 	<div class="settingsHeader addBorderBottom" style="display: none;" id="fixedPositionMiniMenu" >
