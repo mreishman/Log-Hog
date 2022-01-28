@@ -321,7 +321,7 @@ $needRefresh = $core->generateImage(
 						<h2 style="display: none;" id="initialLoadContentEvenEvenMoreInfo" >This file looks like it is taking a while to load</h2>
 					</th>
 				</tr>
-				<tr>
+				<tr <?php if($enableInitialFileLoadLogging === 'false'): ?> style="display:none;" <?php endif; ?> >
 					<td>
 						<h4 id="initialLoadContentMoreInfo" ></h4>
 					</td>
