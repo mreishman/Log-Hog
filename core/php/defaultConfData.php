@@ -227,18 +227,22 @@ for($CDFVcount = 0; $CDFVcount < 10; $CDFVcount++)
 $fullScreenMenuGroups = array(
 	"main"	=> array (
 		"name"		=> "Main",
+		"href"		=> "./settings/main.php",
 		"subGroups"	=> array()
 	),
 	"formatting"	=> array (
 		"name"		=> "Formatting",
+		"href"		=> "./settings/formatting.php",
 		"subGroups"	=> array()
 	),
 	"advanced"	=> array (
 		"name"		=> "Advanced",
+		"href"		=> "./settings/advanced.php",
 		"subGroups"	=> array()
 	),
 	"global"	=> array (
 		"name"		=> "Global",
+		"href"		=> "./settings/devTools.php",
 		"subGroups"	=> array()
 	)
 );

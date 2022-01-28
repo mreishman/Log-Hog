@@ -58,7 +58,8 @@
 	<li class="menuTitle">
 		Settings
 	</li>
-	<?php if($samePageSettings === "true"):
+	<?php if($samePageSettings === "true")
+	{
 		foreach($fullScreenMenuGroups as $fsmgKey => $fsmgData)
 		{
 			echo "<li class=\"menuTitle fullScreenMenuText subMenuTitle\">" . $fsmgData["name"] . "</li>";
@@ -80,18 +81,19 @@
 				"</li>";
 				echo $stringToEcho;
 			}
-		} //foreach($fullScreenMenuGroups as $fsmgKey => $fsmgData) ?>
-	<?php else: ?>
-		<li onclick="window.location.href = './settings/main.php';" >
-			Main <?php echo $externalLinkImage; ?>
-		</li>
-		<li onclick="window.location.href = './settings/advanced.php';" >
-			Advanced <?php echo $externalLinkImage; ?>
-		</li>
-		<li onclick="window.location.href = './settings/devTools.php';" >
-			Global <?php echo $externalLinkImage; ?>
-		</li>
-	<?php endif; ?>
+		}
+	}
+	else
+	{
+		foreach($fullScreenMenuGroups as $fsmgKey => $fsmgData)
+		{
+			$stringToEcho = "<li onclick=\"window.location.href = '".$fsmgData["href"]."';\">".
+			$fsmgData["name"]." ".$externalLinkImage.
+			"</li>";
+			echo $stringToEcho;
+
+		}
+	} ?>
 </ul>
 <div id="mainContentFullScreenMenu">
 	<div class="settingsHeader addBorderBottom" style="display: none;" id="fixedPositionMiniMenu" >
