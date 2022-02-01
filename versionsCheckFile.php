@@ -1,7 +1,7 @@
 <?php
 
 $versionCheckArray = array(
-	'version'		=> '8.3.3',
+	'version'		=> '8.3.4',
 	'versionList'		=> array(
 		'2.0.1'	        => array(
 			'branchName'	=> '2.0.1Update',
@@ -380,6 +380,13 @@ $versionCheckArray = array(
 			'installSize'   => 10071423,
 			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/8.3.png',
 			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Custom Setup works again</li><li>Fixed bug with archive list when empty</li><li>Fixed bug with restore config version popup</li><li>Fixed bug with edit files page</li><li>Fixed some compatibility issues with newer versions of php</li></ul></li></ul>"
+		),
+		'8.3.4'			=> array(
+			'branchName'	=> '8.3.4Update',
+			'downloadSize'  => 737568,
+			'installSize'   => 9991828,
+			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/8.3.png',
+			'releaseNotes'	=> "<ul><li>Features<ul><li>Removed sentry js error reporting</li><li>Small changes to main menu and loading screen</li><li>Added report.NOTICE to list of reports (plans to make this list user editable in future)</li></ul></li><li>Bug Fixes<ul><li>Fixed style issues with multiline report formatting</li><li>Clicking on a log title in oneLog when multiLog is not currently active now opens and closes as expected</li><li>Removed uneeded padding on files before line number</li><li>Added missing rightclick menu to global config settings tab</li><li>Fixed typo with dev save popup</li><li>Disabled dev branch visiblity in global config</li><li>Fixed bug with changelog possibly showing newer versions of Log-Hog in the change log page after checking for updates</li><li>Added ziparchive check for download of addons (will probably be removing addon support in a future update)</li><li>Fixed style bug when saving specific settings could cause the incorrect hover style of the themes menu icon</li></ul></li></ul>"
 		),
 	)
 );
