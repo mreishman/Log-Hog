@@ -753,6 +753,7 @@ function ajaxForPostScriptRun(urlForSendAjaxScript)
 					//no verify needed
 					postScriptRun();
 				}
+			}
 		}
 	});
 }
