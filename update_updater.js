@@ -217,7 +217,7 @@ function verifyFilePoll(action, fileLocation,isThere)
 				type: "POST",
 				success: function(data)
 				{
-		            if(!handleError("../", data, "");)
+		            if(!handleError("../", data, ""))
 		            {
 						verifyPostEnd(data, _data);
 					}

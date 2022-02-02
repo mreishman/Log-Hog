@@ -439,7 +439,7 @@ function verifyChange(urlSend)
 			type: "POST",
 			success(data)
 			{
-	            if(handleError(urlSendUpdate, data, "updateActionCheck.php"))
+	            if(!handleError(urlSendUpdate, data, "updateActionCheck.php"))
 	            {
 					if(data == "finishedUpdate")
 					{

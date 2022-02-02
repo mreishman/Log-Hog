@@ -23,7 +23,7 @@ function resetUpdateNotification()
         data,
         success(data)
         {
-        	handleError(dirForAjaxSend, data, "settingsSaveConfigStatic.php")
+        	handleError(dirForAjaxSend, data, "settingsSaveConfigStatic.php");
         },
         complete()
         {
