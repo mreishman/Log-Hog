@@ -9,7 +9,7 @@ $( document ).ready(function()
 
 function checkIfChange()
 {
-	var urlForSend = "../core/php/getPercentUpdate.php?format=json";
+	var urlForSend = "../core/php/post/getPercentUpdate.php?format=json";
 	var data = {formKey};
 	$.ajax({
 		url: urlForSend,
@@ -18,15 +18,11 @@ function checkIfChange()
 		type: "POST",
 		success(data)
 		{
-			if(typeof data === "object"  && "error" in data)
+			if(handleError("../", data, "getPercentUpdate.php"))
 			{
-				window.location.href = "../error.php?error="+data["error"]+"&page=getPercentUpdate.php";
+				return;
 			}
-			else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-            {
-            	data = JSON.parse(data);
-            	window.location.href = "../error.php?error="+data["error"]+"&page=getPercentUpdate.php";
-            }
+
 			var newPercent = parseInt(data);
 			document.getElementById("innerSettingsText").innerHTML = "<br> Current Percent: "+currentPercent+"% ("+counter+")"+document.getElementById("innerSettingsText").innerHTML;
 			if(newPercent === currentPercent)

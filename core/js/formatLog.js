@@ -21,7 +21,7 @@ function makePretty(id)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -252,7 +252,7 @@ function makePrettyWithText(text, count, extraData = {})
 				});
 				if(dateTextFormatColumn === "true" || (dateTextFormatColumn === "auto" && window.innerWidth > breakPointTwo))
 				{
-					colspan = 3;
+					colspan = 4;
 				}
 			}
 			else if (type === "file")
@@ -265,10 +265,24 @@ function makePrettyWithText(text, count, extraData = {})
 					lineCount
 				});
 			}
-			returnText += "<td style=\"width: 31px; padding: 0;\"></td>"+lineToReturn+"</tr>";
+			let tdBuffer = "<td style=\"width: 31px; padding: 0;\"></td>";
+			if (type === "file")
+			{
+				tdBuffer = "";
+			}
+			returnText += tdBuffer+lineToReturn+"</tr>";
 			if(addRowPadding)
 			{
-				returnText += "<tr class=\"logLinePaddingHeight\"><td class=\"logLineBorder\" colspan=\""+colspan+"\"></td></tr>";
+				let extraTd = '';
+				if(type === "log" && advancedLogFormatEnabled === "true")
+				{
+					if (lineToReturn.includes('settingsDiv') && lineToReturn.includes('settingsDivRemoveBottom'))
+					{
+						extraTd = "<td style=\"white-space: pre-wrap; padding: 0;\" ><div class=\"settingsDiv  settingsDivRemoveTop  settingsDivRemoveBottom\"></div></td>";
+						colspan--;
+					}
+				}
+				returnText += "<tr class=\"logLinePaddingHeight\"><td class=\"logLineBorder\" colspan=\""+colspan+"\"></td>"+extraTd+"</tr>";
 			}
 		}
 		if(returnText === "")
@@ -279,7 +293,7 @@ function makePrettyWithText(text, count, extraData = {})
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 

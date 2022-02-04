@@ -148,10 +148,7 @@ $needRefresh = $core->generateImage(
 			)
 		)
 	); ?>
-	<?php
-		echo $core->loadSentryData($sendCrashInfoJS, $branchSelected, $configStatic);
-		require_once("core/php/indexJsObjectCreator.php");
-	?>
+	<?php require_once("core/php/indexJsObjectCreator.php"); ?>
 </head>
 <body>
 	<span id="mainContent" style="display: none;"  >
@@ -324,7 +321,7 @@ $needRefresh = $core->generateImage(
 						<h2 style="display: none;" id="initialLoadContentEvenEvenMoreInfo" >This file looks like it is taking a while to load</h2>
 					</th>
 				</tr>
-				<tr>
+				<tr <?php if($enableInitialFileLoadLogging === 'false'): ?> style="display:none;" <?php endif; ?> >
 					<td>
 						<h4 id="initialLoadContentMoreInfo" ></h4>
 					</td>
@@ -338,7 +335,7 @@ $needRefresh = $core->generateImage(
 
 	</span>
 	<script type="text/javascript">
-			var themeChangeLogicDirModifier = "core/php/";
+			var themeChangeLogicDirModifier = "core/php/post/";
 			var themeErrorLogicDirModifier = "";
 			function redirectToLocationFromUpgradeTheme()
 			{

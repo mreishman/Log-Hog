@@ -77,7 +77,7 @@ function poll()
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -85,7 +85,7 @@ function pollTwo()
 {
 	try
 	{
-		var urlForSend = "core/php/pollCheck.php?format=json";
+		var urlForSend = "core/php/post/pollCheck.php?format=json";
 		var data = {currentVersion, fileData, formKey};
 		$.ajax({
 			url: urlForSend,
@@ -94,17 +94,11 @@ function pollTwo()
 			type: "POST",
 			success(data)
 			{
-				if(typeof data === "object"  && "error" in data)
-	            {
-	            	clearPollTimer();
-	                window.location.href = "error.php?error="+data["error"]+"&page=pollCheck.php";
-	            }
-	            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-	            {
-	            	clearPollTimer();
-	            	data = JSON.parse(data);
-	            	window.location.href = "error.php?error="+data["error"]+"&page=pollCheck.php";
-	            }
+				if(handleError("", data, "pollCheck.php"))
+				{
+					clearPollTimer();
+					return;
+				}
 				hideNoticeBarIfThere();
 				if(document.getElementById("noLogToDisplay").style.display !== "none" && (!(data === [] || $.isEmptyObject(data))))
 				{
@@ -157,7 +151,7 @@ function pollTwo()
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -260,7 +254,7 @@ function pollTwoPartTwo(data)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -288,7 +282,7 @@ function pollThree(arrayToUpdate)
 			}
 			else
 			{
-				var urlForSend = "core/php/poll.php?format=json";
+				var urlForSend = "core/php/post/poll.php?format=json";
 				var data = {arrayToUpdate, formKey};
 				$.ajax({
 					url: urlForSend,
@@ -297,16 +291,7 @@ function pollThree(arrayToUpdate)
 					type: "POST",
 					success(data)
 					{
-						if(typeof data === "object"  && "error" in data)
-			            {
-			                window.location.href = "error.php?error="+data["error"]+"&page=poll.php";
-			            }
-						else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-			            {
-			            	data = JSON.parse(data);
-			            	window.location.href = "error.php?error="+data["error"]+"&page=poll.php";
-			            }
-						else
+						if(!handleError("", data, "poll.php"))
 						{
 							arrayOfDataMainDataFilter(data);
 							updateFileDataArray(data);
@@ -327,7 +312,7 @@ function pollThree(arrayToUpdate)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -382,23 +367,14 @@ function getFileSingle(current)
 		arraySend[keyForThis] = arrayToUpdate[keyForThis];
 		var data = {arrayToUpdate: arraySend, formKey};
 		$.ajax({
-			url: "core/php/poll.php?format=json",
+			url: "core/php/post/poll.php?format=json",
 			dataType: "json",
 			currentFile: current,
 			data,
 			type: "POST",
 			success(data)
 			{
-				if(typeof data === "object"  && "error" in data)
-	            {
-	                window.location.href = "error.php?error="+data["error"]+"&page=poll.php";
-	            }
-				else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-	            {
-	            	data = JSON.parse(data);
-	            	window.location.href = "error.php?error="+data["error"]+"&page=poll.php";
-	            }
-				else
+				if(!handleError("", data, "poll.php"))
 				{
 					updateFileDataArray(data);
 					arrayOfDataMainDataFilter(data);
@@ -427,7 +403,7 @@ function getFileSingle(current)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -445,22 +421,13 @@ function getFileSinglePostLoadWithData(data, currentLogNum)
 	{
 		data["formKey"] = formKey;
 		$.ajax({
-			url: "core/php/poll.php?format=json",
+			url: "core/php/post/poll.php?format=json",
 			dataType: "json",
 			data,
 			type: "POST",
 			success(data)
 			{
-				if(typeof data === "object"  && "error" in data)
-	            {
-	                window.location.href = "error.php?error="+data["error"]+"&page=poll.php";
-	            }
-				else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-	            {
-	            	data = JSON.parse(data);
-	            	window.location.href = "error.php?error="+data["error"]+"&page=poll.php";
-	            }
-				else
+				if(!handleError("", data, "poll.php"))
 				{
 					updateFileDataArray(data);
 					arrayOfDataMainDataFilter(data);
@@ -488,7 +455,7 @@ function getFileSinglePostLoadWithData(data, currentLogNum)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -513,7 +480,7 @@ function arrayOfDataMainDataFilter(data)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -641,7 +608,7 @@ function afterPollFunctionComplete()
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -1163,6 +1130,6 @@ function update(data)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }

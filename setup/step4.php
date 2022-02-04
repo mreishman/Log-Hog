@@ -56,7 +56,6 @@ $themeDirMod = "../";
 	); ?>
 	<?php require_once("../core/php/template/popup.php");
 	echo $core->loadCSS("../",$baseUrl, $cssVersion);
-	echo $core->loadSentryData($sendCrashInfoJS, $branchSelected, $configStatic);
 	require_once("../core/php/customCSS.php");?>
 </head>
 <body>
@@ -80,7 +79,7 @@ $themeDirMod = "../";
 <script type="text/javascript">
 
 	var baseUrl = "<?php echo $baseUrlImages;?>";
-	var themeChangeLogicDirModifier = "../core/php/"; //used in logic settings.js
+	var themeChangeLogicDirModifier = "../core/php/post/"; //used in logic settings.js
 
 	function defaultSettings()
 	{
@@ -126,7 +125,7 @@ $themeDirMod = "../";
 			"baseFilePath"	=> "core/js/settings.js",
 			"default"		=> $configStatic["version"]
 		),
-				array(
+		array(
 			"filePath"		=> "../core/js/upgradeTheme.js",
 			"baseFilePath"	=> "core/js/upgradeTheme.js",
 			"default"		=> $configStatic["version"]
@@ -134,6 +133,11 @@ $themeDirMod = "../";
 		array(
 			"filePath"		=> "stepsJavascript.js",
 			"baseFilePath"	=> "setup/stepsJavascript.js",
+			"default"		=> $configStatic["version"]
+		),
+		array(
+			"filePath"		=> "../core/js/errorHandle.js",
+			"baseFilePath"	=> "core/js/errorHandle.js",
 			"default"		=> $configStatic["version"]
 		)
 	)

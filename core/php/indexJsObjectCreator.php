@@ -7,10 +7,6 @@ if($filterEnabled === "true")
 {
 	$arrayOfFiles[] = $arrayOfFilesExtra['filter'];
 }
-if($sendCrashInfoJS === "true")
-{
-	$arrayOfFiles[] = $arrayOfFilesExtra['sentry'];
-}
 if($advancedLogFormatEnabled === "true")
 {
 	if($logFormatPhpEnable === "true")
@@ -127,6 +123,7 @@ foreach ($arrayOfFiles as $key => $value)
 		$filePath = "core/js/".$filePath;
 	}
 	$arrayOfFiles[$key]["ver"] = $core->getFileTime($filePath, $configStatic["version"]);
+	$arrayOfFiles[$key]["size"] = filesize($filePath);
 }
 
 ?>

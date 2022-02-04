@@ -31,23 +31,11 @@ function saveAndVerifyMain(idForForm)
     data.push({name: "formKey", value: formKey});
     $.ajax({
         type: "post",
-        url: "core/php/settingsSaveAjax.php",
+        url: "core/php/post/settingsSaveAjax.php",
         data,
         success(data)
         {
-            if(typeof data === "object"  && "error" in data)
-            {
-                window.location.href = "../error.php?error="+data["error"]+"&page=settingsSaveAjax.php";
-            }
-            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-            {
-                data = JSON.parse(data);
-                window.location.href = "../error.php?error="+data["error"]+"&page=settingsSaveAjax.php";
-            }
-            else if(data !== "true")
-            {
-                window.location.href = "../error.php?error="+data+"&page=core/php/settingsSaveAjax.php";
-            }
+            handleErrorWithTruthCheck("../", data, "settingsSaveAjax.php");
         }
     });
 }
@@ -56,7 +44,7 @@ function resetUpdateSettings()
 {
     document.getElementById("popup").style.display = "block";
     document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class='settingsHeader' >Resetting...</div><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'> Resetting Update Settings... Please wait... </div>";
-    var urlForSend = "core/php/resetUpdateFilesToDefault.php?format=json";
+    var urlForSend = "core/php/post/resetUpdateFilesToDefault.php?format=json";
     var data = {status: "" , formKey};
     $.ajax(
     {
@@ -66,16 +54,7 @@ function resetUpdateSettings()
         type: "POST",
         complete(data)
         {
-            if(typeof data === "object"  && "error" in data)
-            {
-                window.location.href = "../error.php?error="+data["error"]+"&page=settingsSaveAjax.php";
-            }
-            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-            {
-                data = JSON.parse(data);
-                window.location.href = "../error.php?error="+data["error"]+"&page=settingsSaveAjax.php";
-            }
-            else
+            if(!handleError("../", data, "settingsSaveAjax.php"))
             {
                 verifyCountSuccess = 0;
                 installUpdatePoll = setInterval(function(){verifyChange();},3000);
@@ -96,30 +75,24 @@ function verifyChange()
         type: "POST",
         success(data)
         {
-            if(typeof data === "object"  && "error" in data)
+            if(!handleError("../", data, "settingsSaveAjax.php"))
             {
-                window.location.href = "../error.php?error="+data["error"]+"&page=settingsSaveAjax.php";
-            }
-            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-            {
-                data = JSON.parse(data);
-                window.location.href = "../error.php?error="+data["error"]+"&page=settingsSaveAjax.php";
-            }
-            else if(data == "finishedUpdate")
-            {
-                verifyCountSuccess++;
-                if(verifyCountSuccess >= 4)
+                if(data == "finishedUpdate")
+                {
+                    verifyCountSuccess++;
+                    if(verifyCountSuccess >= 4)
+                    {
+                        verifyCountSuccess = 0;
+                        clearInterval(installUpdatePoll);
+                        //success popup
+                        document.getElementById("popup").style.display = "block";
+                        document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class='settingsHeader' >Success</div><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'> Update settings successfully reset! </div>";
+                    }
+                }
+                else
                 {
                     verifyCountSuccess = 0;
-                    clearInterval(installUpdatePoll);
-                    //success popup
-                    document.getElementById("popup").style.display = "block";
-                    document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class='settingsHeader' >Success</div><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'> Update settings successfully reset! </div>";
                 }
-            }
-            else
-            {
-                verifyCountSuccess = 0;
             }
         },
         failure(data)

@@ -23,7 +23,6 @@ var fileData;
 var filesNew;
 var firstLoad = true;
 var flasher;
-var folderColorGroupNames = ["Main","Highlight","Active","ActiveHighlight"];
 var fullScreenMenuClickCount = 0;
 var globalForcePageNavigate = false;
 var hiddenLogUpdatePollBottom = null;
@@ -109,7 +108,7 @@ function escapeHTML(unsafeStr)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -128,7 +127,7 @@ function unescapeHTML(unsafeStr)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -156,7 +155,7 @@ function updateSkipCounterLog(num)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -171,7 +170,7 @@ function updateAllRefreshCounter(num)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -207,7 +206,7 @@ function updateDocumentTitle(updateText)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -232,7 +231,7 @@ function addPaddingToNumber(number, padding = 4)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -369,7 +368,7 @@ function unselectLogsInner(boolForType)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -387,7 +386,7 @@ function removeTabsInOrder(targetLength)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -460,7 +459,7 @@ function selectLastLoadLogs()
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -540,7 +539,7 @@ function selectTabsInOrder(targetLength)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -591,7 +590,7 @@ function toggleDisplayOfNoLogs()
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -635,7 +634,7 @@ function updateScrollOnLogs()
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -654,7 +653,7 @@ function scrollPauseLogic(id)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -668,7 +667,7 @@ function tmpHideLog(name)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -684,7 +683,7 @@ function copyToClipBoard(whatToCopy)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -711,7 +710,7 @@ function tryToInsertBeforeLog(innerCount, stop, idCheck, item)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -738,7 +737,7 @@ function tryToInsertAfterLog(innerCount, stop, idCheck, item)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -756,7 +755,7 @@ function refreshLastLogsArray()
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -832,7 +831,7 @@ function hideLogByName(name)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -848,7 +847,7 @@ function showLogByName(name)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -866,7 +865,7 @@ function removeLogByName(name)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -878,7 +877,7 @@ function fadeHighlight(id)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -1086,7 +1085,7 @@ function getDiffLogAndLastLog(id)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -1252,7 +1251,7 @@ function resize()
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -1395,7 +1394,7 @@ function checkIfPageHidden()
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -1413,7 +1412,7 @@ function pausePollFunction()
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -1457,28 +1456,22 @@ function clearLogInner(title)
 			type: "POST",
 	success(data)
 	{
-		if(typeof data === "object"  && "error" in data)
+		if (!handleError("", data, "clearLog.php"))
 		{
-			window.location.href = "error.php?error="+data["error"]+"&page=clearLog.php";
-		}
-		else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-        {
-        	data = JSON.parse(data);
-        	window.location.href = "error.php?error="+data["error"]+"&page=clearLog.php";
-        }
-		else if(data["fileFound"] === "false")
-		{
-			showPopup();
-			document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class=\"settingsHeader\" >An Error Occured when clearing this log</div><br><div style=\"width:100%;text-align:center;padding-left:10px;padding-right:10px;\">The log could not be found.</div><div><div style=\"margin-left: 160px; margin-top: 20px;\" onclick=\"hidePopup();\" class=\"link\">Close</div></div>";
-		}
-		else if(data["success"] === "false")
-		{
-			showPopup();
-			document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class=\"settingsHeader\" >An Error Occured when clearing this log</div><br><div style=\"width:100%;text-align:center;padding-left:10px;padding-right:10px;\">An unknown error occured when trying to clear this log.</div><div><div style=\"margin-left: 160px; margin-top: 20px;\" onclick=\"hidePopup();\" class=\"link\">Close</div></div>";
-		}
-		else
-		{
-			refreshLastLogsArray();
+			if(data["fileFound"] === "false")
+			{
+				showPopup();
+				document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class=\"settingsHeader\" >An Error Occured when clearing this log</div><br><div style=\"width:100%;text-align:center;padding-left:10px;padding-right:10px;\">The log could not be found.</div><div><div style=\"margin-left: 160px; margin-top: 20px;\" onclick=\"hidePopup();\" class=\"link\">Close</div></div>";
+			}
+			else if(data["success"] === "false")
+			{
+				showPopup();
+				document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class=\"settingsHeader\" >An Error Occured when clearing this log</div><br><div style=\"width:100%;text-align:center;padding-left:10px;padding-right:10px;\">An unknown error occured when trying to clear this log.</div><div><div style=\"margin-left: 160px; margin-top: 20px;\" onclick=\"hidePopup();\" class=\"link\">Close</div></div>";
+			}
+			else
+			{
+				refreshLastLogsArray();
+			}
 		}
 	},
 	});
@@ -1502,7 +1495,7 @@ function clearLog(idNum)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -1523,7 +1516,7 @@ function deleteAction()
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -1551,20 +1544,12 @@ function deleteActionAfter()
 				}
 				var dataToSend = {subFolder: "tmp/loghogBackupHistoryLogs/", key: currentTitle, log: arrayOfDataMain[currentTitle]["log"], formKey};
 				$.ajax({
-						url: "core/php/saveTmpVersionOfLog.php?format=json",
+						url: "core/php/post/saveTmpVersionOfLog.php?format=json",
 						dataType: "json",
 						data: dataToSend,
 						type: "POST",
 				success(data){
-					if(typeof data === "object"  && "error" in data)
-		            {
-		                window.location.href = "error.php?error="+data["error"]+"&page=saveTmpVersionOfLog.php";
-		            }
-					else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-		            {
-		            	data = JSON.parse(data);
-		            	window.location.href = "../error.php?error="+data["error"]+"&page=saveTmpVersionOfLog.php";
-		            }
+					handleError("", data, "saveTmpVersionOfLog.php");
 				},
 				});
 			}
@@ -1586,16 +1571,7 @@ function deleteActionAfter()
 			type: "POST",
 			success(data)
 			{
-				if(typeof data === "object"  && "error" in data)
-				{
-					window.location.href = "error.php?error="+data["error"]+"&page=clearLog.php";
-				}
-				else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-	            {
-	            	data = JSON.parse(data);
-	            	window.location.href = "error.php?error="+data["error"]+"&page=clearLog.php";
-	            }
-				else
+				if(!handleError("", data, "clearLog.php"))
 				{
 					removeAllNotifications();
 				}
@@ -1604,7 +1580,7 @@ function deleteActionAfter()
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -1616,7 +1592,7 @@ function deleteLogPopup(idNum)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -1667,35 +1643,29 @@ function deleteLog(title)
 			type: "POST",
 			success(data)
 			{
-				if(typeof data === "object"  && "error" in data)
+				if(!handleError("", data, "clearLog.php"))
 				{
-					window.location.href = "error.php?error="+data["error"]+"&page=clearLog.php";
-				}
-				else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-	            {
-	            	data = JSON.parse(data);
-	            	window.location.href = "error.php?error="+data["error"]+"&page=clearLog.php";
-	            }
-				else if(data["fileFound"] === "false")
-				{
-					showPopup();
-					document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class=\"settingsHeader\" >An Error Occured when deleting this log</div><br><div style=\"width:100%;text-align:center;padding-left:10px;padding-right:10px;\">The log could not be found.</div><div><div style=\"margin-left: 160px; margin-top: 20px;\" onclick=\"hidePopup();\" class=\"link\">Close</div></div>";
-				}
-				else if(data["success"] === "false")
-				{
-					showPopup();
-					document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class=\"settingsHeader\" >An Error Occured when deleting this log</div><br><div style=\"width:100%;text-align:center;padding-left:10px;padding-right:10px;\">An unknown error occured when trying to delete this log.</div><div><div style=\"margin-left: 160px; margin-top: 20px;\" onclick=\"hidePopup();\" class=\"link\">Close</div></div>";
-				}
-				else
-				{
-					removeLogByName(data["file"]);
+					if(data["fileFound"] === "false")
+					{
+						showPopup();
+						document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class=\"settingsHeader\" >An Error Occured when deleting this log</div><br><div style=\"width:100%;text-align:center;padding-left:10px;padding-right:10px;\">The log could not be found.</div><div><div style=\"margin-left: 160px; margin-top: 20px;\" onclick=\"hidePopup();\" class=\"link\">Close</div></div>";
+					}
+					else if(data["success"] === "false")
+					{
+						showPopup();
+						document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class=\"settingsHeader\" >An Error Occured when deleting this log</div><br><div style=\"width:100%;text-align:center;padding-left:10px;padding-right:10px;\">An unknown error occured when trying to delete this log.</div><div><div style=\"margin-left: 160px; margin-top: 20px;\" onclick=\"hidePopup();\" class=\"link\">Close</div></div>";
+					}
+					else
+					{
+						removeLogByName(data["file"]);
+					}
 				}
 			}
 		});
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -1712,7 +1682,7 @@ function filterTitle(title)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -1731,7 +1701,7 @@ function checkForUpdateMaybe()
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -1753,7 +1723,7 @@ function updateProgressBar(additonalPercent, text, topText = "Loading...")
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -1763,6 +1733,10 @@ function changeCurrentSelectWindow(newSelectWindow)
 	if(currentSelectWindow === newSelectWindow)
 	{
 		return;
+	}
+	if ($("#numSelectIndecatorForWindow"+newSelectWindow).length < 1)
+	{
+		return; //could be clicked from a window being removed
 	}
 	$(".currentWindowNumSelected").removeClass("currentWindowNumSelected").addClass("sidebarCurrentWindowNum");
 	currentSelectWindow = newSelectWindow;
@@ -2352,7 +2326,6 @@ function mainReady()
 		"settingsMainVars",
 		"advancedConfig",
 		"modules",
-		"loggingDisplay",
 		"locationOtherApps",
 		"devBranch",
 		"devConfig",

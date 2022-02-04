@@ -34,16 +34,10 @@ function runScript(version)
 			{
 				urlMod += "../";
 			}
-			if(typeof data === "object"  && "error" in data)
+            if(!handleError(urlMod, data, ""))
             {
-                window.location.href = urlMod + "error.php?error="+data["error"];
-            }
-			else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-            {
-            	data = JSON.parse(data);
-            	window.location.href = urlMod + "error.php?error="+data["error"];
-            }
-			verifyFile(data);
+				verifyFile(data);
+			}
 		},
 		failure(data)
 		{
@@ -78,16 +72,10 @@ function verifyFilePoll(version)
 				type: "POST",
 				success(data)
 				{
-					if(typeof data === "object"  && "error" in data)
+		            if(!handleError("../../../", data, urlForSend))
 		            {
-		                window.location.href = "../../../error.php?error="+data["error"]+"&page="+urlForSend;
-		            }
-					else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-		            {
-		            	data = JSON.parse(data);
-		            	window.location.href = "../../../error.php?error="+data["error"]+"&page="+urlForSend;
-		            }
-					verifyPostEnd(data, _data);
+						verifyPostEnd(data, _data);
+					}
 				},
 				failure(data)
 				{

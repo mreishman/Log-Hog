@@ -64,6 +64,11 @@ require_once('core/php/loadVars.php');
 			"filePath"		=> "core/js/lazyLoadImg.js",
 			"baseFilePath"	=> "core/js/lazyLoadImg.js",
 			"default"		=> $configStatic["version"]
+		),
+		array(
+			"filePath"		=> "core/js/errorHandle.js",
+			"baseFilePath"	=> "core/js/errorHandle.js",
+			"default"		=> $configStatic["version"]
 		)
 	)
 ); ?>

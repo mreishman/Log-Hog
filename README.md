@@ -1,7 +1,5 @@
 # Log-Hog
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/33c02c41a5d348559469717895379db1)](https://www.codacy.com/app/matthew.reishman/Log-Hog?utm_source=github.com&utm_medium=referral&utm_content=mreishman/Log-Hog&utm_campaign=badger)
-
 A simple log monitoring tool that is intended for use on dev boxes.
 
 ![Index Screenshot](https://raw.githubusercontent.com/mreishman/Log-Hog/master/core/img/index.png)

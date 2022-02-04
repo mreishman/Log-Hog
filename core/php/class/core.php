@@ -64,21 +64,6 @@ class core
 		return $stringToReturn;
 	}
 
-	function loadSentryData($sendCrashInfoJS, $branchSelected, $configStatic)
-	{
-		$returnString = "
-		<script>
-
-			function eventThrowException(e)
-			{
-				//this would send errors, but it is disabled
-				console.log(e);
-			}
-
-		</script>";
-		return $returnString;
-	}
-
 	public function getCookieRedirect()
 	{
 		$urlRedirectValue = "";

@@ -15,7 +15,7 @@ function changeDescriptionLineSize()
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -61,8 +61,8 @@ function updateJsonForPopupThemeInner()
 function updateJsonForCustomDateFormat()
 {
 	setTimeout(function() {
-			updateJsonForCustomDateFormatInner();
-		}, 2);
+		updateJsonForCustomDateFormatInner();
+	}, 2);
 }
 
 function updateJsonForCustomDateFormatInner()
@@ -116,7 +116,7 @@ function selectLogPopup(locationForNewLogText)
 		currentWindow++;
 	}
 	displayLoadingPopup(urlModifierForAjax , "Generating List");
-	var urlForSend = urlModifierForAjax + "core/php/pollCheck.php?format=json";
+	var urlForSend = urlModifierForAjax + "core/php/post/pollCheck.php?format=json";
 	var data = {formKey};
 	$.ajax({
 		url: urlForSend,
@@ -125,17 +125,10 @@ function selectLogPopup(locationForNewLogText)
 		type: "POST",
 		success(data)
 		{
-			if(typeof data === "object"  && "error" in data)
+			if (handleError(urlModifierForAjax, data, "pollCheck.php"))
 			{
-				window.location.href =urlModifierForAjax + "error.php?error="+data["error"]+"&page=pollCheck.php";
 				return;
 			}
-			else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-            {
-            	data = JSON.parse(data);
-            	window.location.href = urlModifierForAjax + "error.php?error="+data["error"]+"&page=pollCheck.php";
-            	return;
-            }
 			data["oneLog"] = {};
 			var popupFileList = Object.keys(data);
 			var popupFileListLength = popupFileList.length;
@@ -163,14 +156,13 @@ function selectLogPopup(locationForNewLogText)
 
 function selectLog(locationForNewLogText)
 {
-	if(document.getElementById("newLogSelectionFromPopup").value === "")
+	let selectLogText = "No Log Selected";
+	if(document.getElementById("newLogSelectionFromPopup").value !== "")
 	{
-		document.getElementById(locationForNewLogText).innerHTML = "No Log Selected";
+		selectLogText = document.getElementById("newLogSelectionFromPopup").value;
 	}
-	else
-	{
-		document.getElementById(locationForNewLogText).innerHTML = document.getElementById("newLogSelectionFromPopup").value;
-	}
+	document.getElementById(locationForNewLogText).innerHTML = selectLogText;
+
 	document.getElementsByName(locationForNewLogText)[0].value = document.getElementById("newLogSelectionFromPopup").value;
 	if(document.getElementById("unselectLogButton"+locationForNewLogText))
 	{

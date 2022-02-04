@@ -59,19 +59,24 @@ function formatLine(text, extraData)
 	{
 		timeFormat = "";
 	}
+
+	let timePadding = "<td style=\"width: 2px;\" ></td>";
+	let timeTd = "<td style=\"white-space:nowrap;width: 1%;\">";
+	let lineTd = "<td style=\"white-space: pre-wrap; padding: 0;\">";
+
 	if(dateTextFormatEnable === "true" && (dateTextFormatColumn === "true" || (dateTextFormatColumn === "auto" && window.innerWidth > breakPointTwo)))
 	{
 		if("lineDisplay" in extraData && extraData["lineDisplay"] === "true")
 		{
-			return "<td style=\"white-space:nowrap;width: 1%;\">" + timeFormat + extraData["lineCount"] + "</td><td style=\"white-space: pre-wrap;\">" + formatMainMessage(arrayOfText[1], extraData) + "</td>";
+			return timeTd + timeFormat + extraData["lineCount"] + "</td>" + timePadding + lineTd + formatMainMessage(arrayOfText[1], extraData) + "</td>";
 		}
-		return "<td style=\"white-space:nowrap;width: 1%;\">" + timeFormat + "</td><td style=\"white-space: pre-wrap;\">" + formatMainMessage(arrayOfText[1], extraData) + "</td>";
+		return timeTd + timeFormat + "</td>" + timePadding + lineTd + formatMainMessage(arrayOfText[1], extraData) + "</td>";
 	}
 	else if("lineDisplay" in extraData && extraData["lineDisplay"] === "true")
 	{
-		return "<td style=\"white-space:nowrap;width: 1%;\">" + extraData["lineCount"] + "</td><td style=\"white-space: pre-wrap;\">" + timeFormat + formatMainMessage(arrayOfText[1], extraData) + "</td>";
+		return timeTd + extraData["lineCount"] + "</td>" + timePadding + lineTd + timeFormat + formatMainMessage(arrayOfText[1], extraData) + "</td>";
 	}
-	return "<td style=\"white-space: pre-wrap;\">" + timeFormat + formatMainMessage(arrayOfText[1], extraData) + "</td>";
+	return lineTd + timeFormat + formatMainMessage(arrayOfText[1], extraData) + "</td>";
 }
 
 function checkIfTimeStampSame(arrayOfText, extraData, type)

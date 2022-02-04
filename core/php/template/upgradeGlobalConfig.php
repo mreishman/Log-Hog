@@ -87,6 +87,11 @@ $totalUpgradeScripts = floatval($globalConfigVersionToUpgradeTo) - floatval($glo
 			"filePath"		=> "../../../core/js/upgradeMain.js",
 			"baseFilePath"	=> "core/js/upgradeMain.js",
 			"default"		=> $configStatic["version"]
+		),
+		array(
+			"filePath"		=> "../../../core/js/errorHandle.js",
+			"baseFilePath"	=> "core/js/errorHandle.js",
+			"default"		=> $configStatic["version"]
 		)
 	)
 ); ?>

@@ -94,15 +94,7 @@ function updateStatusFunc(updateStatusInner, actionLocal, percentToSave = (docum
 		type: "POST",
 		success(data)
 		{
-			if(typeof data === "object"  && "error" in data)
-            {
-                window.location.href = "../error.php?error="+data["error"];
-            }
-            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-            {
-            	data = JSON.parse(data);
-            	window.location.href = "../error.php?error="+data["error"];
-            }
+			handleError("../", data, "");
 		},
 		complete()
 		{
@@ -118,15 +110,7 @@ function updateStatusFunc(updateStatusInner, actionLocal, percentToSave = (docum
 		type: "POST",
 		success(data)
 		{
-			if(typeof data === "object"  && "error" in data)
-            {
-                window.location.href = "../error.php?error="+data["error"];
-            }
-            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-            {
-            	data = JSON.parse(data);
-            	window.location.href = "../error.php?error="+data["error"];
-            }
+			handleError("../", data, "");
 		},
 		complete()
 		{
@@ -162,15 +146,7 @@ function downloadBranch()
 		type: "POST",
 		success(data)
 		{
-			if(typeof data === "object"  && "error" in data)
-            {
-                window.location.href = "../error.php?error="+data["error"];
-            }
-            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-            {
-            	data = JSON.parse(data);
-            	window.location.href = "../error.php?error="+data["error"];
-            }
+			handleError("../", data, "");
 		},
 		complete: function()
 		{
@@ -241,16 +217,7 @@ function verifyFilePoll(action, fileLocation,isThere)
 				type: "POST",
 				success: function(data)
 				{
-					if(typeof data === "object"  && "error" in data)
-		            {
-		                window.location.href = "../error.php?error="+data["error"];
-		            }
-		            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-		            {
-		            	data = JSON.parse(data);
-		            	window.location.href = "../error.php?error="+data["error"];
-		            }
-		            else
+		            if(!handleError("../", data, ""))
 		            {
 						verifyPostEnd(data, _data);
 					}
@@ -383,24 +350,18 @@ function verifyDownloadDownloaded()
 			type: "POST",
 			success: function(data)
 			{
-				if(typeof data === "object"  && "error" in data)
+	            if(!handleError("../", data, ""))
 	            {
-	                window.location.href = "../error.php?error="+data["error"];
-	            }
-	            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-	            {
-	            	data = JSON.parse(data);
-	            	window.location.href = "../error.php?error="+data["error"];
-	            }
-				else if(data == true)
-				{
-					updateProgressBar(1);
-					updateStatusFunc("Extracting Zip Files For ", "");
-					unzipBranch();
-				}
-				else
-				{
-					verifyDownloadError();
+					if(data == true)
+					{
+						updateProgressBar(1);
+						updateStatusFunc("Extracting Zip Files For ", "");
+						unzipBranch();
+					}
+					else
+					{
+						verifyDownloadError();
+					}
 				}
 			},
 			failure: function(data)
@@ -422,7 +383,7 @@ function verifyDownloadError()
 function resetUpdateSettings()
 {
     updateText("Resetting Update Settings... Please wait...");
-    var urlForSend = "../core/php/resetUpdateFilesToDefault.php?format=json";
+    var urlForSend = "../core/php/post/resetUpdateFilesToDefault.php?format=json";
     var data = {status: "" , formKey};
     $.ajax(
     {
@@ -432,16 +393,7 @@ function resetUpdateSettings()
         type: "POST",
         complete(data)
         {
-        	if(typeof data === "object"  && "error" in data)
-            {
-                window.location.href = "../error.php?error="+data["error"]+"&page=resetUpdateFilesToDefault.php";
-            }
-            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-            {
-            	data = JSON.parse(data);
-            	window.location.href = "../error.php?error="+data["error"]+"&page=resetUpdateFilesToDefault.php";
-            }
-            else
+            if(!handleError("../", data, "resetUpdateFilesToDefault.php"))
             {
             	verifyCountSuccess = 0;
             	totalCounterInstall = 0;
@@ -463,30 +415,24 @@ function verifyResetChange()
         type: "POST",
         success(data)
         {
-        	if(typeof data === "object"  && "error" in data)
-            {
-                window.location.href = "../error.php?error="+data["error"];
-            }
-            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-            {
-            	data = JSON.parse(data);
-            	window.location.href = "../error.php?error="+data["error"];
-            }
-            else if(data == "finishedUpdate")
-            {
-                verifyCountSuccess++;
-                if(verifyCountSuccess >= 4)
-                {
-                    verifyCountSuccess = 0;
-                    clearInterval(installUpdatePoll);
-                    //success popup
-                    updateText("Update settings successfully reset!");
-                }
-            }
-            else
-            {
-                verifyCountSuccess = 0;
-            }
+        	if(!handleError("../", data, ""))
+        	{
+	            if(data == "finishedUpdate")
+	            {
+	                verifyCountSuccess++;
+	                if(verifyCountSuccess >= 4)
+	                {
+	                    verifyCountSuccess = 0;
+	                    clearInterval(installUpdatePoll);
+	                    //success popup
+	                    updateText("Update settings successfully reset!");
+	                }
+	            }
+	            else
+	            {
+	                verifyCountSuccess = 0;
+	            }
+	        }
         },
         failure(data)
         {
@@ -527,16 +473,7 @@ function verifyFileOrDirPoll(action, fileLocation,isThere)
 				type: "POST",
 				success: function(data)
 				{
-					if(typeof data === "object"  && "error" in data)
-		            {
-		                window.location.href = "../error.php?error="+data["error"];
-		            }
-		            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-		            {
-		            	data = JSON.parse(data);
-		            	window.location.href = "../error.php?error="+data["error"];
-		            }
-		            else
+		            if(!handleError("../", data, ""))
 		            {
 						verifyPostEndTwo(data, _data);
 					}
@@ -667,24 +604,18 @@ function ajaxForPreScriptRun(urlForSendAjaxScrip)
 		type: "POST",
 		success: function(data)
 		{
-			if(typeof data === "object"  && "error" in data)
-            {
-                window.location.href = "../error.php?error="+data["error"];
-            }
-            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-            {
-            	data = JSON.parse(data);
-            	window.location.href = "../error.php?error="+data["error"];
-            }
-			else if(data !== true)
+			if(!handleError("../", data, ""))
 			{
-				//verify data
-				verifyFileOrDir("preScriptRun",data);
-			}
-			else
-			{
-				//no verify needed
-				preScriptRun();
+				if(data !== true)
+				{
+					//verify data
+					verifyFileOrDir("preScriptRun",data);
+				}
+				else
+				{
+					//no verify needed
+					preScriptRun();
+				}
 			}
 		}
 	});
@@ -810,24 +741,18 @@ function ajaxForPostScriptRun(urlForSendAjaxScript)
 		type: "POST",
 		success: function(data)
 		{
-			if(typeof data === "object"  && "error" in data)
-            {
-                window.location.href = "../error.php?error="+data["error"];
-            }
-            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-            {
-            	data = JSON.parse(data);
-            	window.location.href = "../error.php?error="+data["error"];
-            }
-			else if(data !== true)
+			if(!handleError("../", data, ""))
 			{
-				//verify data
-				verifyFileOrDir("postScriptRun",data);
-			}
-			else
-			{
-				//no verify needed
-				postScriptRun();
+				if(data !== true)
+				{
+					//verify data
+					verifyFileOrDir("postScriptRun",data);
+				}
+				else
+				{
+					//no verify needed
+					postScriptRun();
+				}
 			}
 		}
 	});
@@ -859,16 +784,10 @@ function ajaxForRedirectScript(urlForSendMainRedAjax)
 			type: "POST",
 			success: function(data)
 			{
-				if(typeof data === "object"  && "error" in data)
-	            {
-	                window.location.href = "../error.php?error="+data["error"];
-	            }
-	            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-	            {
-	            	data = JSON.parse(data);
-	            	window.location.href = "../error.php?error="+data["error"];
-	            }
-				window.location.href = data;
+				if(!handleError("../", data, ""))
+				{
+					window.location.href = data;
+				}
 			},
 			failure: function(data)
 			{
@@ -895,16 +814,7 @@ function removeExtractedDir()
 		type: "POST",
 		success: function(data)
 		{
-			if(typeof data === "object"  && "error" in data)
-            {
-                window.location.href = "../error.php?error="+data["error"];
-            }
-            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-            {
-            	data = JSON.parse(data);
-            	window.location.href = "../error.php?error="+data["error"];
-            }
-            else
+            if(!handleError("../", data, ""))
             {
 				//verify if downloaded
 				updateText("Verifying that TMP files were removed");
@@ -936,16 +846,7 @@ function removeDownloadedZip()
 		type: "POST",
 		success: function(data)
 		{
-			if(typeof data === "object"  && "error" in data)
-            {
-                window.location.href = "../error.php?error="+data["error"];
-            }
-            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-            {
-            	data = JSON.parse(data);
-            	window.location.href = "../error.php?error="+data["error"];
-            }
-            else
+            if(!handleError("../", data, ""))
             {
 				//verify if downloaded
 				updateText("Verifying that TMP files were removed");
@@ -970,16 +871,7 @@ function finishedUpdate()
 		type: "POST",
 		success: function(data)
 		{
-			if(typeof data === "object"  && "error" in data)
-            {
-                window.location.href = "../error.php?error="+data["error"];
-            }
-            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-            {
-            	data = JSON.parse(data);
-            	window.location.href = "../error.php?error="+data["error"];
-            }
-            else
+            if(!handleError("../", data, ""))
             {
 				retryCount = 0;
 				verifyCountSuccess = 0;
@@ -998,36 +890,30 @@ function finishUpdatePollCheck()
 		updateError("Could not verifiy version change");
 	}
 	$.ajax({
-		url: "../core/php/versionCheck.php",
+		url: "../core/php/post/versionCheck.php",
 		dataType: "json",
 		data: {formKey},
 		type: "POST",
 		success: function(data)
 		{
 			retryCount++;
-			if(typeof data === "object"  && "error" in data)
-            {
-                window.location.href = "../error.php?error="+data["error"]+"&page=versionCheck.php";
-            }
-            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-            {
-            	data = JSON.parse(data);
-            	window.location.href = "../error.php?error="+data["error"];
-            }
-			else if(data === arrayOfVersions[(versionCountCurrent-1)])
+			if(!handleError("../", data, ""))
 			{
-				verifyCountSuccess++;
-				if(verifyCountSuccess >= successVerifyNum)
+				if(data === arrayOfVersions[(versionCountCurrent-1)])
+				{
+					verifyCountSuccess++;
+					if(verifyCountSuccess >= successVerifyNum)
+					{
+						verifyCountSuccess = 0;
+						retryCount = 0;
+						clearInterval(verifyFileTimer);
+						finishedUpdateAfterAjaxSetToOneHundred();
+					}
+				}
+				else
 				{
 					verifyCountSuccess = 0;
-					retryCount = 0;
-					clearInterval(verifyFileTimer);
-					finishedUpdateAfterAjaxSetToOneHundred();
 				}
-			}
-			else
-			{
-				verifyCountSuccess = 0;
 			}
 		},
 		failure: function(data)
@@ -1055,23 +941,13 @@ function finishUpdateOneHundredCheck()
 		updateError("Could not verifiy update complete");
 	}
 	$.ajax({
-		url: "../core/php/verifyVersionInstallComplete.php",
+		url: "../core/php/post/verifyVersionInstallComplete.php",
 		dataType: "json",
 		data: {formKey},
 		type: "POST",
 		success: function(data)
 		{
-			if(typeof data === "object"  && "error" in data)
-            {
-                window.location.href = "../error.php?error="+data["error"]+"&page=verifyVersionInstallComplete.php";
-                return;
-            }
-            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-            {
-            	data = JSON.parse(data);
-            	window.location.href = "../error.php?error="+data["error"];
-            }
-            else
+            if(!handleError("../", data, "verifyVersionInstallComplete.php"))
             {
 				retryCount++;
 				if(data === true)

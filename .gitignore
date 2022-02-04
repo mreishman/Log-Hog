@@ -11,3 +11,5 @@ tmp/*
 session/*
 !session/.htaccess
 local/conf/globalConfig*
+.sass-cache/
+

@@ -223,6 +223,11 @@ if(count($arrayOfVersions) === 0)
 			"filePath"		=> "updater.js",
 			"baseFilePath"	=> "update/updater.js",
 			"default"		=> $configStatic["version"]
+		),
+		array(
+			"filePath"		=> "../core/js/errorHandle.js",
+			"baseFilePath"	=> "core/js/errorHandle.js",
+			"default"		=> $configStatic["version"]
 		)
 	)
 ); ?>

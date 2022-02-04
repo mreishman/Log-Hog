@@ -12,11 +12,11 @@ $errorCheck = new errorCheck();
 require_once('../core/php/configStatic.php');
 $currentPage = "welcome.php";
 $errorCheck->checkIfFilesExist(
-	array("local/layout.php","setup/setupProcessFile.php","error.php","setup/step1.php","core/template/theme.css","core/js/jquery.js","core/php/template/popup.php","core/php/settingsSaveAjax.php","core/conf/config.php","setup/stepsJavascript.js"),
+	array("local/layout.php","setup/setupProcessFile.php","error.php","setup/step1.php","core/template/theme.css","core/js/jquery.js","core/php/template/popup.php","core/php/post/settingsSaveAjax.php","core/conf/config.php","setup/stepsJavascript.js"),
 	 "../",
 	 $currentPage);
 $errorCheck->checkIfFilesAreReadable(
-	array("local/layout.php","setup/setupProcessFile.php","error.php","setup/step1.php","core/template/theme.css","core/js/jquery.js","core/php/template/popup.php","core/php/settingsSaveAjax.php","core/conf/config.php","setup/stepsJavascript.js"),
+	array("local/layout.php","setup/setupProcessFile.php","error.php","setup/step1.php","core/template/theme.css","core/js/jquery.js","core/php/template/popup.php","core/php/post/settingsSaveAjax.php","core/conf/config.php","setup/stepsJavascript.js"),
 	 "../",
 	 $currentPage);
 
@@ -25,7 +25,7 @@ $currentSelectedTheme = $session->returnCurrentSelectedTheme();
 $baseUrl = "../local/".$currentSelectedTheme."/";
 
 $errorCheck->checkIfFilesAreWritable(
-	array("core/php/settingsSaveAjax.php","local/".$currentSelectedTheme, "setup/setupProcessFile.php"),
+	array("core/php/post/settingsSaveAjax.php","local/".$currentSelectedTheme, "setup/setupProcessFile.php"),
 	 "../",
 	 $currentPage);
 
@@ -86,7 +86,7 @@ $core->setCookieRedirect();
 </body>
 <form id="welcomeForm"></form>
 <script type="text/javascript">
-	var themeChangeLogicDirModifier = "../core/php/";
+	var themeChangeLogicDirModifier = "../core/php/post/";
 	var themeErrorLogicDirModifier = "../";
 	function defaultSettings()
 	{
@@ -122,6 +122,11 @@ $core->setCookieRedirect();
 		array(
 			"filePath"		=> "stepsJavascript.js",
 			"baseFilePath"	=> "setup/stepsJavascript.js",
+			"default"		=> $configStatic["version"]
+		),
+		array(
+			"filePath"		=> "../core/js/errorHandle.js",
+			"baseFilePath"	=> "core/js/errorHandle.js",
 			"default"		=> $configStatic["version"]
 		)
 	)

@@ -5,6 +5,7 @@
 	{"name":"advanced.js","type":"js"},
 	{"name":"colorScheme.js","type":"js"},
 	{"name":"devTools.js","type":"js"},
+	{"name":"errorHandle.js","type":"js"},
 	{"name":"formatLog.js","type":"js"},
 	{"name":"fullscreenMenu.js","type":"js"},
 	{"name":"groups.js","type":"js"},

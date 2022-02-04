@@ -12,18 +12,16 @@ function showOrHideSubWindow(valueForPopupInner, valueForVarsInner, valueToCompa
 {
 	try
 	{
+		let display = "none";
 		if(valueForPopupInner.value === valueToCompare)
 		{
-			valueForVarsInner.style.display = "block";
+			display = "block";
 		}
-		else
-		{
-			valueForVarsInner.style.display = "none";
-		}
+		valueForVarsInner.style.display = display;
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -37,23 +35,11 @@ function saveAndVerifyMain(idForForm)
 	data.push({name: "formKey", value: formKey});
 	$.ajax({
         type: "post",
-        url: dirForAjaxSend+"core/php/settingsSaveAjax.php",
+        url: dirForAjaxSend+"core/php/post/settingsSaveAjax.php",
         data,
         success(data)
         {
-        	if(typeof data === "object"  && "error" in data)
-            {
-                window.location.href = dirForAjaxSend + "error.php?error="+data["error"]+"&page=settingsSaveAjax.php";
-            }
-            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-            {
-            	data = JSON.parse(data);
-            	window.location.href = dirForAjaxSend + "error.php?error="+data["error"]+"&page=settingsSaveAjax.php";
-            }
-			else if(data !== "true")
-			{
-				window.location.href = dirForAjaxSend+"error.php?error="+data+"&page=core/php/settingsSaveAjax.php";
-			}
+        	handleErrorWithTruthCheck(dirForAjaxSend, data, "settingsSaveAjax.php");
 		},
         complete()
         {
@@ -75,7 +61,7 @@ function timerVerifySave()
 	countForVerifySave++;
 	if(countForVerifySave < 20)
 	{
-		var urlForSend = dirForAjaxSend+"core/php/saveCheck.php?format=json";
+		var urlForSend = dirForAjaxSend+"core/php/post/saveCheck.php?format=json";
 		data["formKey"] = formKey;
 		$.ajax(
 		{
@@ -85,28 +71,22 @@ function timerVerifySave()
 			type: "POST",
 			success(data)
 			{
-				if(typeof data === "object"  && "error" in data)
-				{
-					window.location.href = dirForAjaxSend + "error.php?error="+data["error"]+"&page=saveCheck.php";
-				}
-				else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+	            if(!handleError(dirForAjaxSend, data, "saveCheck.php"))
 	            {
-	            	data = JSON.parse(data);
-	            	window.location.href = dirForAjaxSend + "error.php?error="+data["error"]+"&page=saveCheck.php";
-	            }
-				else if(data === true)
-				{
-					countForVerifySaveSuccess++;
-					if(countForVerifySaveSuccess >= successVerifyNum)
+					if(data === true)
 					{
-						clearInterval(pollCheckForUpdate);
-						countForVerifySaveSuccess = 0;
-						saveVerified();
+						countForVerifySaveSuccess++;
+						if(countForVerifySaveSuccess >= successVerifyNum)
+						{
+							clearInterval(pollCheckForUpdate);
+							countForVerifySaveSuccess = 0;
+							saveVerified();
+						}
 					}
-				}
-				else
-				{
-					countForVerifySaveSuccess = 0;
+					else
+					{
+						countForVerifySaveSuccess = 0;
+					}
 				}
 			},
 		});
@@ -139,7 +119,7 @@ function saveVerified()
 		{
 			if(document.getElementById("ThemesLink"))
 			{
-				document.getElementById("ThemesLink").style.display = "inline-block";
+				document.getElementById("ThemesLink").style.display = "block";
 			}
 		}
 		else
@@ -172,7 +152,7 @@ function saveVerified()
 			}
 		}
 	}
-	else if(idForFormMain === "loggingDisplay")
+	else if(idForFormMain === "advancedConfig")
 	{
 		if($("[name='enablePollTimeLogging']"))
 		{
@@ -429,7 +409,6 @@ function saveVerified()
 		refreshCustomCss();
 	}
 	else if(
-		idForFormMain === "loggingDisplay" ||
 		idForFormMain === "advancedConfig" ||
 		idForFormMain === "settingsWatchlistVars" ||
 		idForFormMain === "settingsMultiLogVars" ||
@@ -455,7 +434,7 @@ function saveVerified()
 
 	if(idForFormMain.includes("themeMainSelection"))
 	{
-		if (typeof themeChangeLogicDirModifier !== "undefined" && themeChangeLogicDirModifier === "../core/php/")
+		if (typeof themeChangeLogicDirModifier !== "undefined" && themeChangeLogicDirModifier === "../core/php/post/")
 		{
 			copyThemeStuffPopup();
 		}
@@ -502,16 +481,7 @@ function refreshCustomCss()
 			type: "POST",
 		success(data)
 		{
-			if(typeof data === "object"  && "error" in data)
-            {
-                window.location.href = dirForAjaxSend + "error.php?error="+data["error"]+"&page=settingsSaveAjax.php";
-            }
-            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-            {
-            	data = JSON.parse(data);
-            	window.location.href = dirForAjaxSend + "error.php?error="+data["error"]+"&page=settingsSaveAjax.php";
-            }
-            else
+            if(!handleError(dirForAjaxSend, data, "settingsSaveAjax.php"))
             {
 				//add css to bottom of index page
 				$("#initialLoadContent").append(data);
@@ -525,16 +495,7 @@ function refreshCustomCss()
 			type: "POST",
 		success(data)
 		{
-			if(typeof data === "object"  && "error" in data)
-            {
-                window.location.href = dirForAjaxSend + "error.php?error="+data["error"]+"&page=settingsSaveAjax.php";
-            }
-            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-            {
-            	data = JSON.parse(data);
-            	window.location.href = dirForAjaxSend + "error.php?error="+data["error"]+"&page=settingsSaveAjax.php";
-            }
-            else
+            if(!handleError(dirForAjaxSend, data, "settingsSaveAjax.php"))
             {
 				//add css to bottom of index page
 				$("#initialLoadContent").append(data);
@@ -549,21 +510,16 @@ function refreshJsVars()
 	if($("#initialLoadContent"))
 	{
 		$.ajax({
-			url: "core/php/reloadJsVars.php?format=json",
+			url: "core/php/post/reloadJsVars.php?format=json",
 			data: {formKey},
 			type: "POST",
 		success(data)
 		{
-			if(typeof data === "object"  && "error" in data)
-			{
-				window.location.href = "error.php?error="+data["error"]+"&page=reloadJsVars.php";
-				return;
-			}
-			else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
+            if(handleError(dirForAjaxSend, data, "reloadJsVars.php"))
             {
-            	data = JSON.parse(data);
-            	window.location.href = dirForAjaxSend + "error.php?error="+data["error"]+"&page=reloadJsVars.php";
+            	return;
             }
+
 			//add css to bottom of index page
 			$("#initialLoadContent").append(data);
 			if(idForFormMain === "settingsPollVars")
@@ -599,21 +555,12 @@ function refreshAddonLinks()
 	if($("#menuAddonLinks"))
 	{
 		$.ajax({
-			url: "core/php/reloadAddonLinks.php?format=json",
+			url: "core/php/post/reloadAddonLinks.php?format=json",
 			data: {formKey},
 			type: "POST",
 		success(data)
 		{
-			if(typeof data === "object"  && "error" in data)
-			{
-				window.location.href = "error.php?error="+data["error"]+"&page=reloadAddonLinks.php";
-			}
-			else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-            {
-            	data = JSON.parse(data);
-            	window.location.href = dirForAjaxSend + "error.php?error="+data["error"]+"&page=reloadAddonLinks.php";
-            }
-			else
+			if(!handleError(dirForAjaxSend, data, "reloadAddonLinks.php"))
 			{
 				//add css to bottom of index page
 				$("#menuAddonLinks").html(data);
@@ -662,7 +609,7 @@ function objectsAreSameInner(x, y)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -683,7 +630,7 @@ function objectsAreSame(x, y)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -743,7 +690,7 @@ function checkForChanges(idOfObject)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -766,7 +713,7 @@ function refreshArrayObject(idOfForm)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }
 
@@ -801,6 +748,6 @@ function resetArrayObject(idOfForm)
 	}
 	catch(e)
 	{
-		eventThrowException(e);
+		console.log(e);
 	}
 }

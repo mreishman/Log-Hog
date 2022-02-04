@@ -7,30 +7,17 @@ function saveAndVerifyGlobalConfigMain(idForForm)
 	data.push({name: "formKey", value: formKey});
 	$.ajax({
         type: "post",
-        url: dirForAjaxSend+"core/php/globalConfigSaveAjax.php",
+        url: dirForAjaxSend+"core/php/post/globalConfigSaveAjax.php",
         data,
         success(data)
         {
-        	if(typeof data === "object"  && "error" in data)
-            {
-                window.location.href = dirForAjaxSend + "error.php?error="+data["error"]+"&page=globalConfigSaveAjax.php";
-            }
-            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-            {
-            	data = JSON.parse(data);
-            	window.location.href = dirForAjaxSend + "error.php?error="+data["error"]+"&page=globalConfigSaveAjax.php";
-            }
-			else if(data !== "true")
-			{
-				window.location.href = dirForAjaxSend+"error.php?error="+data+"&page=core/php/globalConfigSaveAjax.php";
-			}
+        	handleErrorWithTruthCheck(dirForAjaxSend, data, "globalConfigSaveAjax.php");
 		},
         complete()
         {
-          //verify saved
-          verifySaveTimerGlobalConfig();
+			verifySaveTimerGlobalConfig(); //verify saved
         }
-      });
+    });
 }
 
 function verifySaveTimerGlobalConfig()
@@ -45,7 +32,7 @@ function timerVerifySaveGlobalConfig()
 	countForVerifySave++;
 	if(countForVerifySave < 20)
 	{
-		var urlForSend = dirForAjaxSend+"core/php/saveCheckGlobalConfig.php?format=json";
+		var urlForSend = dirForAjaxSend+"core/php/post/saveCheckGlobalConfig.php?format=json";
 		data["formKey"] = formKey;
 		$.ajax(
 		{
@@ -55,28 +42,22 @@ function timerVerifySaveGlobalConfig()
 			type: "POST",
 			success(data)
 			{
-				if(typeof data === "object"  && "error" in data)
+				if(!handleError(dirForAjaxSend, data, "saveCheckGlobalConfig.php"))
 				{
-					window.location.href = dirForAjaxSend + "error.php?error="+data["error"]+"&page=saveCheckGlobalConfig.php";
-				}
-				else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-	            {
-	            	data = JSON.parse(data);
-	            	window.location.href = dirForAjaxSend + "error.php?error="+data["error"]+"&page=saveCheckGlobalConfig.php";
-	            }
-				else if(data === true)
-				{
-					countForVerifySaveSuccess++;
-					if(countForVerifySaveSuccess >= successVerifyNum)
+					if(data === true)
 					{
-						clearInterval(pollCheckForUpdate);
-						countForVerifySaveSuccess = 0;
-						saveVerifiedGlobalConfig();
+						countForVerifySaveSuccess++;
+						if(countForVerifySaveSuccess >= successVerifyNum)
+						{
+							clearInterval(pollCheckForUpdate);
+							countForVerifySaveSuccess = 0;
+							saveVerifiedGlobalConfig();
+						}
 					}
-				}
-				else
-				{
-					countForVerifySaveSuccess = 0;
+					else
+					{
+						countForVerifySaveSuccess = 0;
+					}
 				}
 			},
 		});
@@ -90,7 +71,6 @@ function timerVerifySaveGlobalConfig()
 
 function saveVerifiedGlobalConfig()
 {
-
 	refreshArrayObject(idForFormMain);
 
 	if($("[name='branchSelected']"))
@@ -115,5 +95,4 @@ function saveVerifiedGlobalConfig()
 
 	saveSuccess();
 	fadeOutPopup();
-
 }

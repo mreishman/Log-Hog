@@ -50,7 +50,6 @@ require_once('../core/php/loadVars.php');?>
 	); ?>
 	<?php require_once("../core/php/template/popup.php");
 	echo $core->loadCSS("../",$baseUrl, $cssVersion);
-	echo $core->loadSentryData($sendCrashInfoJS, $branchSelected, $configStatic);
 	require_once("../core/php/customCSS.php");?>
 </head>
 <body>
@@ -123,6 +122,11 @@ require_once('../core/php/loadVars.php');?>
 		array(
 			"filePath"		=> "../core/js/loghogDownloadJS.js",
 			"baseFilePath"	=> "core/js/loghogDownloadJS.js",
+			"default"		=> $configStatic["version"]
+		),
+		array(
+			"filePath"		=> "../core/js/errorHandle.js",
+			"baseFilePath"	=> "core/js/errorHandle.js",
 			"default"		=> $configStatic["version"]
 		)
 	)

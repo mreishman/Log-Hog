@@ -246,7 +246,7 @@ class settings
 					}
 					catch(e)
 					{
-						eventThrowException(e);
+						console.log(e);
 					}
 				}
 			</script>";

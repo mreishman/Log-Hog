@@ -5,7 +5,7 @@
 		
 			'branchSelected' => 'default',
 		
-			'enableDevBranchDownload' => 'true',
+			'enableDevBranchDownload' => 'false',
 		
 			'globalConfVersion' => 1,
 		

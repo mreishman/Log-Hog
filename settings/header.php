@@ -10,7 +10,6 @@ $infoImage = $core->generateImage(
 		"srcModifier"	=>	"../"
 	)
 );
-echo $core->loadSentryData($sendCrashInfoJS, $branchSelected, $configStatic);
 $core->getScripts(
 	array(
 		array(
@@ -26,6 +25,11 @@ $core->getScripts(
 		array(
 			"filePath"		=> "../core/js/settingsExt.js",
 			"baseFilePath"	=> "core/js/settingsExt.js",
+			"default"		=> $configStatic["version"]
+		),
+		array(
+			"filePath"		=> "../core/js/errorHandle.js",
+			"baseFilePath"	=> "core/js/errorHandle.js",
 			"default"		=> $configStatic["version"]
 		)
 	)
@@ -48,6 +52,11 @@ $core->getScripts(
 	<?php else: ?>
 		<a id="MainLink" onclick="goToUrl('main.php');" >Main</a>
 	<?php endif; ?>
+	<?php if(strpos($URI, 'formatting.php') !== false): ?>
+		<a style="cursor: default;" class="active" id="FormattingLink" >Formatting</a>
+	<?php else: ?>
+		<a id="FormattingLink" onclick="goToUrl('formatting.php');" >Formatting</a>
+	<?php endif; ?>
 	<?php if(strpos($URI, 'advanced.php') !== false): ?>
 		<a style="cursor: default;" class="active" id="AdvancedLink">Advanced</a>
 	<?php else: ?>
@@ -61,11 +70,7 @@ $core->getScripts(
 </div>
 <?php if(strpos($URI, 'main.php') !== false): ?>
 	<div id="menu2">
-		<span>Settings:</span>
 		<a class="link" href="#settingsLogVars" > Logs </a>
-		<?php if($advancedLogFormatEnabled === "true"): ?>
-			<a class="link" href="#settingsLogFormatVars" > Log Format </a>
-		<?php endif; ?>
 		<a class="link" href="#settingsPollVars" > Poll </a>
 		<?php if($filterEnabled === "true"): ?>
 			<a class="link" href="#settingsFilterVars" > Filter </a>
@@ -85,14 +90,20 @@ $core->getScripts(
 		<?php endif; ?>
 		<a class="link" href="#settingsMainVars" > Other </a>
 	</div>
+<?php elseif(strpos($URI, 'formatting.php') !== false): ?>
+	<div id="menu2">
+		<a class="link" href="#settingsColorFolderGroupVars" > Log Tab Colors </a>
+		<a class="link" href="#generalThemeOptions" > Main Styles </a>
+		<?php if($advancedLogFormatEnabled === "true"): ?>
+			<a class="link" href="#settingsLogFormatVars" > Log Format </a>
+		<?php endif; ?>
+	</div>
 <?php elseif(strpos($URI, 'advanced.php') !== false): ?>
 	<div id="menu2">
 		<a class="link" href="#advancedConfig" > Config </a>
 		<a class="link" href="#modules" > Modules </a>
-		<a class="link" href="#loggingDisplay" > Logs </a>
 		<a class="link" href="#locationOtherApps" > Locations </a>
-		<a class="link" href="#moreAdvanced" > Advanced </a>
-		<a class="link" href="#expFeatures" > Experimental </a>
+		<a class="link" href="#moreAdvanced" > Actions </a>
 	</div>
 <?php endif;
 $baseUrlImages = $localURL;

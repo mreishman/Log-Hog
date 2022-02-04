@@ -224,10 +224,41 @@ for($CDFVcount = 0; $CDFVcount < 10; $CDFVcount++)
 	$CDFVExternalCounter++;
 }
 
+$fullScreenMenuGroups = array(
+	"main"	=> array (
+		"name"		=> "Main",
+		"href"		=> "./settings/main.php",
+		"subGroups"	=> array()
+	),
+	"formatting"	=> array (
+		"name"		=> "Formatting",
+		"href"		=> "./settings/formatting.php",
+		"subGroups"	=> array()
+	),
+	"advanced"	=> array (
+		"name"		=> "Advanced",
+		"href"		=> "./settings/advanced.php",
+		"subGroups"	=> array()
+	),
+	"global"	=> array (
+		"name"		=> "Global",
+		"href"		=> "./settings/devTools.php",
+		"subGroups"	=> array()
+	)
+);
+
 $defaultConfigMoreData = array(
 	"archive"							=>	array(
 		"id"								=>	"archiveConfig",
 		"name"								=>	"Archive",
+		"menu"								=> 	array(
+			"groups"							=>	array(
+				"main"
+			),
+			"id"								=>	"settingsMainArchive",
+			"display"							=>	true,
+			"name"								=>	"Archive"
+		),
 		"vars"								=>	array(
 			0									=>	array(
 				"bool"								=>	($saveTmpLogOnClear == 'false'),
@@ -284,6 +315,14 @@ $defaultConfigMoreData = array(
 	"config"							=>	array(
 		"id"								=>	"advancedConfig",
 		"name"								=>	"Config",
+		"menu"								=> 	array(
+			"groups"							=>	array(
+				"advanced"
+			),
+			"id"								=>	"settingsAdvancedConfig",
+			"display"							=>	true,
+			"name"								=>	"Config"
+		),
 		"vars"								=>	array(
 			0									=>	array(
 				"type"								=>	"single",
@@ -311,12 +350,48 @@ $defaultConfigMoreData = array(
 					"name"								=>	"Theme Version",
 					"type"								=>	"number"
 				)
-			)
+			),
+			3									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"info"								=>	"This will increase poll times",
+					"key"								=>	"enableLogging",
+					"name"								=>	"File Info Logging",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			4									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"enablePollTimeLogging",
+					"name"								=>	"Poll Time Logging",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			5									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"enableInitialFileLoadLogging",
+					"name"								=>	"Index File Load Logging",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
 		)
 	),
 	"fileLocations"						=>	array(
 		"id"								=>	"locationOtherApps",
 		"name"								=>	"File Locations",
+		"menu"								=> 	array(
+			"groups"							=>	array(
+				"advanced"
+			),
+			"id"								=>	"settingsAdvancedLocations",
+			"display"							=>	true,
+			"name"								=>	"File Locations"
+		),
 		"vars"								=>	array(
 			0									=> array(
 				"info"								=>	"Default = https://".$_SERVER['SERVER_NAME']."/status",
@@ -359,6 +434,14 @@ $defaultConfigMoreData = array(
 	"filterVars"						=>	array(
 		"id"								=>	"settingsFilterVars",
 		"name"								=>	"Filter Settings",
+		"menu"								=> 	array(
+			"groups"							=>	array(
+				"main"
+			),
+			"id"								=>	"settingsMainFilter",
+			"display"							=>	($filterEnabled === "true"),
+			"name"								=>	"Filter"
+		),
 		"vars"								=>	array(
 			0									=>	array(
 				"type"								=>	"single",
@@ -490,7 +573,15 @@ $defaultConfigMoreData = array(
 	),
 	"generalThemeOptions"				=>	array(
 		"id"								=>	"generalThemeOptions",
-		"name"								=>	"Main Theme Options",
+		"name"								=>	"Main Style Options",
+		"menu"								=> 	array(
+			"groups"							=>	array(
+				"formatting"
+			),
+			"id"								=>	"fullScreenMenuThemeGeneralStyle",
+			"display"							=>	true,
+			"name"								=>	"Main Style"
+		),
 		"vars"								=>	array(
 			0									=>	array(
 				"type"								=>	"single",
@@ -617,6 +708,14 @@ $defaultConfigMoreData = array(
 	"globalConfig"						=>	array(
 		"id"								=>	"globalAdvanced",
 		"name"								=>	"Global Settings",
+		"menu"								=> 	array(
+			"groups"							=>	array(
+				"global"
+			),
+			"id"								=>	"settingsGlobalAdvanced",
+			"display"							=>	true,
+			"name"								=>	"Global"
+		),
 		"vars"								=>	array(
 			0									=>	array(
 				"type"								=>	"single",
@@ -670,6 +769,14 @@ $defaultConfigMoreData = array(
 	"logFormatVars"						=>	array(
 		"id"								=>	"settingsLogFormatVars",
 		"name"								=>	"Log Format Settings ",
+		"menu"								=> 	array(
+			"groups"							=>	array(
+				"formatting"
+			),
+			"id"								=>	"settingsMainLogFormat",
+			"display"							=>	($advancedLogFormatEnabled === "true"),
+			"name"								=>	"Log Format"
+		),
 		"vars"								=>	array(
 			0									=>	array(
 				"bool"								=>	($dateTextFormatEnable == 'false'),
@@ -930,43 +1037,17 @@ $defaultConfigMoreData = array(
 			)
 		)
 	),
-	"loggingVars"						=>	array(
-		"id"								=>	"loggingDisplay",
-		"name"								=>	"Log Settings ",
-		"vars"								=>	array(
-			0									=>	array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"info"								=>	"This will increase poll times",
-					"key"								=>	"enableLogging",
-					"name"								=>	"File Info Logging",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				)
-			),
-			1									=>	array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"enablePollTimeLogging",
-					"name"								=>	"Poll Time Logging",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				)
-			),
-			2									=>	array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"sendCrashInfoJS",
-					"name"								=>	"Send anonymous information about Log-Hog specific javascript errors",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				)
-			),
-		)
-	),
 	"logVars"							=>	array(
 		"id"								=>	"settingsLogVars",
 		"name"								=>	"Log Settings ",
+		"menu"								=> 	array(
+			"groups"							=>	array(
+				"main"
+			),
+			"id"								=>	"settingsMainLogs",
+			"display"							=>	true,
+			"name"								=>	"Log"
+		),
 		"vars"								=>	array(
 			0									=>	array(
 				"type"								=>	"single",
@@ -1252,6 +1333,14 @@ $defaultConfigMoreData = array(
 	"menuVars"							=>	array(
 		"id"								=>	"settingsMenuVars",
 		"name"								=>	"Menu Actions Settings",
+		"menu"								=> 	array(
+			"groups"							=>	array(
+				"main"
+			),
+			"id"								=>	"settingsMainActionMenu",
+			"display"							=>	true,
+			"name"								=>	"Menu Actions"
+		),
 		"vars"								=>	array(
 			0									=>	array(
 				"type"								=>	"single",
@@ -1342,6 +1431,14 @@ $defaultConfigMoreData = array(
 	"menuLogVars"							=>	array(
 		"id"								=>	"settingsMenuLogVars",
 		"name"								=>	"Menu Logs Settings",
+		"menu"								=> 	array(
+			"groups"							=>	array(
+				"main"
+			),
+			"id"								=>	"settingsMainMenuLogs",
+			"display"							=>	true,
+			"name"								=>	"Menu Logs"
+		),
 		"vars"								=>	array(
 			0									=>	array(
 				"bool"								=>	($groupByColorEnabled == 'false'),
@@ -1554,6 +1651,14 @@ $defaultConfigMoreData = array(
 	"menuFullScreenVars"				=>	array(
 		"id"								=>	"settingsFullScreenMenuVars",
 		"name"								=>	"Full Screen Menu Settings",
+		"menu"								=> 	array(
+			"groups"							=>	array(
+				"main"
+			),
+			"id"								=>	"settingsMainMenuFullScreen",
+			"display"							=>	true,
+			"name"								=>	"Full Screen Menu"
+		),
 		"vars"								=>	array(
 			0									=>	array(
 				"type"								=>	"single",
@@ -1636,6 +1741,14 @@ $defaultConfigMoreData = array(
 	"modules"							=>	array(
 		"id"								=>	"modules",
 		"name"								=>	"Modules",
+		"menu"								=> 	array(
+			"groups"							=>	array(
+				"advanced"
+			),
+			"id"								=>	"settingsAdvancedModules",
+			"display"							=>	true,
+			"name"								=>	"Modules"
+		),
 		"vars"								=>	array(
 			0									=>	array(
 				"type"								=>	"single",
@@ -1762,6 +1875,14 @@ $defaultConfigMoreData = array(
 	"multiLogVars"						=>	array(
 		"id"								=>	"settingsMultiLogVars",
 		"name"								=>	"Multi-Log Settings",
+		"menu"								=> 	array(
+			"groups"							=>	array(
+				"main"
+			),
+			"id"								=>	"settingsMainMultiLog",
+			"display"							=>	($enableMultiLog === "true"),
+			"name"								=>	"Multi-Log"
+		),
 		"vars"								=> array(
 			0									=> array(
 				"type"								=>	"single",
@@ -1807,6 +1928,14 @@ $defaultConfigMoreData = array(
 	"notificationVars"					=>	array(
 		"id"								=>	"settingsNotificationVars",
 		"name"								=>	"Notification Settings ",
+		"menu"								=> 	array(
+			"groups"							=>	array(
+				"main"
+			),
+			"id"								=>	"settingsMainNotifications",
+			"display"							=>	true,
+			"name"								=>	"Notifications"
+		),
 		"vars"								=> array(
 			0									=> array(
 				"type"								=>	"single",
@@ -2075,6 +2204,14 @@ $defaultConfigMoreData = array(
 	"oneLogVars"						=>	array(
 		"id"								=>	"settingsOneLogVars",
 		"name"								=>	"One Log Settings",
+		"menu"								=> 	array(
+			"groups"							=>	array(
+				"main"
+			),
+			"id"								=>	"settingsMainOneLog",
+			"display"							=>	($oneLogEnable === "true"),
+			"name"								=>	"One Log"
+		),
 		"vars"								=> array(
 			0									=> array(
 				"type"								=>	"single",
@@ -2229,6 +2366,14 @@ $defaultConfigMoreData = array(
 	"otherVars"							=>	array(
 		"id"								=>	"settingsMainVars",
 		"name"								=>	"Other Settings",
+		"menu"								=> 	array(
+			"groups"							=>	array(
+				"main"
+			),
+			"id"								=>	"settingsMainOther",
+			"display"							=>	true,
+			"name"								=>	"Other"
+		),
 		"vars"								=> array(
 			0									=> array(
 				"bool"								=>	($popupWarnings != 'custom'),
@@ -2311,6 +2456,14 @@ $defaultConfigMoreData = array(
 	"pollVars"							=>	array(
 		"id"								=>	"settingsPollVars",
 		"name"								=>	"Poll Settings",
+		"menu"								=> 	array(
+			"groups"							=>	array(
+				"main"
+			),
+			"id"								=>	"settingsMainPoll",
+			"display"							=>	true,
+			"name"								=>	"Poll"
+		),
 		"vars"								=> array(
 			0									=> array(
 				"type"								=>	"linked",
@@ -2484,6 +2637,14 @@ $defaultConfigMoreData = array(
 	"watchlistVars"						=>	array(
 		"id"								=>	"settingsWatchlistVars",
 		"name"								=>	"Watchlist Settings",
+		"menu"								=> 	array(
+			"groups"							=>	array(
+				"main"
+			),
+			"id"								=>	"settingsMainWatchlist",
+			"display"							=>	true,
+			"name"								=>	"Watchlist"
+		),
 		"vars"								=> array(
 			0									=> array(
 				"type"								=>	"single",
@@ -2568,3 +2729,73 @@ $defaultConfigMoreData = array(
 		)
 	)
 );
+
+//Vars just needed for menu and not dynamically created like the above section
+$customConfigSections = array(
+	"advancedActions"	=> array(
+		"id"	=> "moreAdvanced",
+		"name"	=> "Advanced",
+		"menu"								=> 	array(
+			"groups"							=>	array(
+				"advanced"
+			),
+			"id"								=>	"settingsAdvancedAdvanced",
+			"display"							=>	true,
+			"name"								=>	"Actions"
+		)
+	),
+	"colorScheme"	=> array(
+		"id"	=> "settingsColorFolderGroupVars",
+		"name"	=> "Log Tabs Color Scheme",
+		"menu"								=> 	array(
+			"groups"							=>	array(
+				"formatting"
+			),
+			"id"								=>	"fullScreenMenuColorScheme",
+			"display"							=>	true,
+			"name"								=>	"Log Tabs Colors"
+		)
+	),
+	"configStatic"	=> array(
+		"id"	=> "devConfig",
+		"name"	=> "Config Static",
+		"menu"								=> 	array(
+			"groups"							=>	array(
+				"global"
+			),
+			"id"								=>	"settingsAdvancedDevConfig",
+			"display"							=>	true,
+			"name"								=>	"Config Static"
+		)
+	),
+	"multiLogLogLayout"	=> array(
+		"id"	=> "settingsInitialLoadLayoutVars",
+		"name"	=> "Multi-Log Layout",
+		"menu"								=> 	array(
+			"groups"							=>	array(
+				"main"
+			),
+			"id"								=>	"settingsMainLogLayout",
+			"display"							=>	($enableMultiLog === "true"),
+			"name"								=>	"Multi-Log Layout"
+		)
+	)
+);
+
+//sort groups
+foreach($fullScreenMenuGroups as $fsmgKey => $fsmgData)
+{
+	$fullScreenMenuGroups[$fsmgKey]["menu_items"] = array();
+	foreach([$defaultConfigMoreData, $customConfigSections] as $settingsSectionsArray)
+	{
+		foreach($settingsSectionsArray as $settingsSectionKey => $settingsSectionsArrayRowData)
+		{
+			if([$fsmgKey] !== $settingsSectionsArrayRowData["menu"]["groups"])
+			{
+				continue;
+			}
+			$fullScreenMenuGroups[$fsmgKey]["menu_items"][$settingsSectionKey] = $settingsSectionsArrayRowData;
+		}
+	}
+	ksort($fullScreenMenuGroups[$fsmgKey]["menu_items"]);
+}

@@ -15,16 +15,7 @@ function copyFilesThemeChange()
 		type: "POST",
 		success(data)
 		{
-			if(typeof data === "object"  && "error" in data)
-            {
-                window.location.href = themeErrorLogicDirModifier + "error.php?error="+data["error"]+"&page="+urlForSendMainThemeChange0;
-            }
-            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-            {
-            	data = JSON.parse(data);
-            	window.location.href = themeErrorLogicDirModifier + "error.php?error="+data["error"]+"&page="+urlForSendMainThemeChange0;
-            }
-            else
+            if(!handleError(themeErrorLogicDirModifier, data, urlForSendMainThemeChange0))
             {
 				verifyFileThemeChange(data);
 			}
@@ -63,16 +54,7 @@ function verifyFilePollThemeChange(version)
 				type: 'POST',
 				success(data)
 				{
-					if(typeof data === "object"  && "error" in data)
-		            {
-		                window.location.href = themeErrorLogicDirModifier + "error.php?error="+data["error"]+"&page="+urlForSendMainThemeChange0;
-		            }
-		            else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-		            {
-		            	data = JSON.parse(data);
-		            	window.location.href = themeErrorLogicDirModifier + "error.php?error="+data["error"]+"&page="+urlForSendMainThemeChange0;
-		            }
-		            else
+		            if(!handleError(themeErrorLogicDirModifier, data, urlForSendMainThemeChange0))
 		            {
 						verifyPostEndThemeChange(data);
 					}
