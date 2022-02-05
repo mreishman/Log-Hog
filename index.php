@@ -70,6 +70,7 @@ require_once('core/php/loadVars.php');
 require_once('core/php/loadVarsToJs.php');
 require_once('core/php/updateCheck.php');
 require_once("core/php/defaultConfData.php");
+require_once('core/php/defaultLogSidebarData.php');
 
 $daysSince = $update->calcuateDaysSince($configStatic['lastCheck']);
 
