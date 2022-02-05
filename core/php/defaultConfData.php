@@ -2588,21 +2588,21 @@ $defaultConfigMoreData = array(
 						"var"								=>	array(
 							"key"								=>	"pollRefreshAll",
 							"name"								=>	"Poll refresh all data every",
-							"postText"							=>	"Seconds",
+							"postText"							=>	"poll requests",
 							"type"								=>	"number"
 						)
 					)
 				)
 			),
 			8									=> array(
-				"bool"								=>	($pollForceTrue == 'false'),
+				"bool"								=>	($pollForceTrueBool == 'false'),
 				"id"								=>	"PollForceTrueSettings",
 				"name"								=>	"Poll force refresh",
 				"type"								=>	"grouped",
 				"var"								=>	array(
 					"function"							=>	"showOrHidePollForceSettings",
-					"id"								=>	"pollForceTrue",
-					"key"								=>	"pollForceTrue",
+					"id"								=>	"pollForceTrueBool",
+					"key"								=>	"pollForceTrueBool",
 					"options"							=>	$trueFalsVars,
 					"type"								=>	"dropdown",
 					"name"								=>	"Allow Force poll refresh"
