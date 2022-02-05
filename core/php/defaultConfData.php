@@ -2570,34 +2570,52 @@ $defaultConfigMoreData = array(
 				)
 			),
 			7									=> array(
-				"type"								=>	"linked",
+				"bool"								=>	($pollRefreshAllBool == 'false'),
+				"id"								=>	"pollRefreshAllBoolSettings",
+				"name"								=>	"Poll refresh all data",
+				"type"								=>	"grouped",
+				"var"								=>	array(
+					"function"							=>	"showOrHidePollRefreshAllSettings",
+					"id"								=>	"pollRefreshAllBool",
+					"key"								=>	"pollRefreshAllBool",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown",
+					"name"								=>	"Allow poll refresh all data"
+				),
 				"vars"								=>	array(
 					0									=>	array(
-						"key"								=>	"pollRefreshAll",
-						"name"								=>	"Poll refresh all data every",
-						"postText"							=>	"poll requests",
-						"type"								=>	"number"
-					),
-					1								=>	array(
-						"key"								=>	"pollRefreshAllBool",
-						"options"							=>	$trueFalsVars,
-						"type"								=>	"dropdown"
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"pollRefreshAll",
+							"name"								=>	"Poll refresh all data every",
+							"postText"							=>	"Seconds",
+							"type"								=>	"number"
+						)
 					)
 				)
 			),
 			8									=> array(
-				"type"								=>	"linked",
+				"bool"								=>	($pollForceTrue == 'false'),
+				"id"								=>	"PollForceTrueSettings",
+				"name"								=>	"Poll force refresh",
+				"type"								=>	"grouped",
+				"var"								=>	array(
+					"function"							=>	"showOrHidePollForceSettings",
+					"id"								=>	"pollForceTrue",
+					"key"								=>	"pollForceTrue",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown",
+					"name"								=>	"Allow Force poll refresh"
+				),
 				"vars"								=>	array(
 					0									=>	array(
-						"key"								=>	"pollForceTrue",
-						"name"								=>	"Force poll refresh after",
-						"postText"							=>	"skipped poll requests",
-						"type"								=>	"number"
-					),
-					1								=>	array(
-						"key"								=>	"pollForceTrueBool",
-						"options"							=>	$trueFalsVars,
-						"type"								=>	"dropdown"
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"pollForceTrue",
+							"name"								=>	"Force poll refresh after",
+							"postText"							=>	"skipped poll requests",
+							"type"								=>	"number"
+						)
 					)
 				)
 			),
