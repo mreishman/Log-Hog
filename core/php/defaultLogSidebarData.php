@@ -103,6 +103,166 @@ $defaultLogSidebarConfig = array(
 			)
 		)
 	),
+	"pinWindow"	=> array(
+		"id"		=> "pinWindow{{counter}}",
+		"onClick"	=> "pinWindow('{{counter}}');",
+		"type"		=> "image",
+		"visible"	=> "true",
+		"class"		=> "pinWindowContainer",
+		"position"	=> 40,
+		"image"		=> $core->generateImage(
+			$arrayOfImages["loadingImg"],
+			$imageConfig = array(
+				"height"	=>	"20px",
+				"style"		=>	"margin: 5px;",
+				"title"		=>	"Pin Window",
+				"class"		=>	"pinWindow pinImageForLoad multiLogGreaterThanOne altImage",
+				"data-src"	=>	$arrayOfImages["pin"]
+			)
+		).
+		$core->generateImage(
+			$arrayOfImages["loadingImg"],
+			$imageConfig = array(
+				"height"	=>	"20px",
+				"style"		=>	"margin: 5px; display: none;",
+				"title"		=>	"Un-Pin Window",
+				"class"		=>	"unPinWindow pinPinnedImageForLoad multiLogGreaterThanOne altImage",
+				"data-src"	=>	$arrayOfImages["pinPinned"]
+			)
+		)
+	),
+	"clearLogSideBar"	=> array(
+		"id"		=> "clearLogSideBar{{counter}}",
+		"onClick"	=> "clearLog('{{counter}}');",
+		"type"		=> "image",
+		"visible"	=> "true",
+		"position"	=> 50,
+		"image"		=> $core->generateImage(
+			$arrayOfImages["loadingImg"],
+			$imageConfig = array(
+				"height"	=>	"20px",
+				"style"		=>	"margin: 5px;",
+				"title"		=>	"Clear Log",
+				"class"		=>	"eraserSideBarImageForLoad altImage",
+				"data-src"	=>	$arrayOfImages["eraser"]
+			)
+		)
+	),
+	"deleteLogSideBar"	=> array(
+		"id"		=> "deleteLogSideBar{{counter}}",
+		"onClick"	=> "deleteLogPopup('{{counter}}');",
+		"type"		=> "image",
+		"visible"	=> "true",
+		"position"	=> 60,
+		"image"		=> $core->generateImage(
+			$arrayOfImages["loadingImg"],
+			$imageConfig = array(
+				"height"	=>	"20px",
+				"style"		=>	"margin: 5px;",
+				"title"		=>	"Delete Log",
+				"class"		=>	"trashCanSideBarImageForLoad altImage",
+				"data-src"	=>	$arrayOfImages["trashCan"]
+			)
+		)
+	),
+	"historySideBar"	=> array(
+		"id"		=> "historySideBar{{counter}}",
+		"onClick"	=> "viewBackupFromCurrentLog('{{counter}}');",
+		"type"		=> "image",
+		"visible"	=> "true",
+		"position"	=> 70,
+		"image"		=> $core->generateImage(
+			$arrayOfImages["loadingImg"],
+			$imageConfig = array(
+				"height"	=>	"20px",
+				"style"		=>	"margin: 5px;",
+				"title"		=>	"View Backup",
+				"class"		=>	"historySideBarImageForLoad altImage",
+				"data-src"	=>	$arrayOfImages["history"]
+			)
+		)
+	),
+	"saveArchiveSideBar"	=> array(
+		"id"		=> "saveArchiveSideBar{{counter}}",
+		"onClick"	=> "saveArchivePopup('{{counter}}');",
+		"type"		=> "image",
+		"visible"	=> "true",
+		"position"	=> 80,
+		"image"		=> $core->generateImage(
+			$arrayOfImages["loadingImg"],
+			$imageConfig = array(
+				"height"	=>	"20px",
+				"style"		=>	"margin: 5px;",
+				"title"		=>	"Save Backup",
+				"class"		=>	"historyAddSideBarImageForLoad altImage",
+				"data-src"	=>	$arrayOfImages["saveSideBar"]
+			)
+		)
+	),
+	"logSelector"	=> array(
+		"onClick"	=> "toggleLogPopup(this,'{{counter}}');",
+		"type"		=> "image",
+		"visible"	=> "true",
+		"position"	=> 90,
+		"image"		=> $core->generateImage(
+			$arrayOfImages["loadingImg"],
+			$imageConfig = array(
+				"height"	=>	"20px",
+				"style"		=>	"margin: 5px;",
+				"title"		=>	"Select Log",
+				"class"		=>	"menuImageForLoad altImage",
+				"data-src"	=>	$arrayOfImages["menu"]
+			)
+		)
+	),
+	"removeLogFromDisplay"	=> array(
+		"id"		=> "closeLogSideBar{{counter}}",
+		"onClick"	=> "removeLogFromDisplay('{{counter}}');",
+		"type"		=> "image",
+		"visible"	=> "false",
+		"position"	=> 100,
+		"image"		=> $core->generateImage(
+			$arrayOfImages["loadingImg"],
+			$imageConfig = array(
+				"height"	=>	"20px",
+				"style"		=>	"margin: 5px;",
+				"class"		=>	"closeImageForLoad archiveLogImages altImage",
+				"data-src"	=>	$arrayOfImages["close"]
+			)
+		)
+	),
+	"scrollToTop"	=> array(
+		"onClick"	=> "scrollToTop('{{counter}}');",
+		"type"		=> "image",
+		"visible"	=> "true",
+		"position"	=> 500,
+		"image"		=> $core->generateImage(
+			$arrayOfImages["loadingImg"],
+			$imageConfig = array(
+				"height"	=>	"20px",
+				"style"		=>	"margin: 5px; -webkit-transform: rotate(180deg); -moz-transform: rotate(180deg); -o-transform: rotate(180deg); -ms-transform: rotate(180deg); transform: rotate(180deg); ",
+				"title"		=>	"Scroll to Top",
+				"class"		=>	"downArrowSideBarImageForLoad altImage",
+				"data-src"	=>	$arrayOfImages["downArrowSideBar"]
+			)
+		)
+	),
+	"scrollToBottom"	=> array(
+		"onClick"	=> "scrollToBottom('{{counter}}');",
+		"type"		=> "image",
+		"visible"	=> "true",
+		"position"	=> 500,
+		"image"		=> $core->generateImage(
+			$arrayOfImages["loadingImg"],
+			$imageConfig = array(
+				"height"	=>	"20px",
+				"style"		=>	"margin: 5px;",
+				"title"		=>	"Scroll to Bottom",
+				"class"		=>	"downArrowSideBarImageForLoad altImage",
+				"data-src"	=>	$arrayOfImages["downArrowSideBar"]
+			)
+		)
+	),
 );
 
 $sortedDefaultLogSidebarConfig = array();
