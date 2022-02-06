@@ -35,10 +35,10 @@ $defaultIndexHeaderConfig = array(
 		"id"		=> "mainMenuDiv",
 		"class"		=> "menuImageDiv",
 		"onClick"	=> "toggleFullScreenMenu();",
-		"type"		=> "image",
+		"type"		=> 1,
 		"visible"	=> "true",
 		"position"	=> 1,
-		"image"		=> $core->generateImage(
+		"content"	=> $core->generateImage(
 			$arrayOfImages["loadingImg"],
 			$imageConfig = array(
 				"id"		=>	"menuImage",
@@ -52,10 +52,10 @@ $defaultIndexHeaderConfig = array(
 		"id"		=> "notificationDiv",
 		"class"		=> "menuImageDiv",
 		"onClick"	=> "toggleNotifications();",
-		"type"		=> "image",
-		"visible"	=> !$hideNotificationIcon,
+		"type"		=> 1,
+		"visible"	=> ($hideNotificationIcon === "true") ? "false" : "true",
 		"position"	=> 10,
-		"image"		=> $core->generateImage(
+		"content"	=> $core->generateImage(
 			$arrayOfImages["loadingImg"],
 			$imageConfig = array(
 				"id"		=>	"notificationNotClicked",
@@ -68,10 +68,10 @@ $defaultIndexHeaderConfig = array(
 	"settingsSideBar"	=> array(
 		"class"		=> "menuImageDiv",
 		"onClick"	=> "toggleSettingsSidebar();",
-		"type"		=> "image",
+		"type"		=> 1,
 		"visible"	=> "true",
 		"position"	=> 20,
-		"image"		=> $core->generateImage(
+		"content"	=> $core->generateImage(
 			$arrayOfImages["loadingImg"],
 			$imageConfig = array(
 				"id"		=>	"gearImage",
@@ -84,10 +84,10 @@ $defaultIndexHeaderConfig = array(
 	"pause"	=> array(
 		"class"		=> "menuImageDiv",
 		"onClick"	=> "pausePollAction();",
-		"type"		=> "image",
+		"type"		=> 1,
 		"visible"	=> "true",
 		"position"	=> 30,
-		"image"		=> $core->generateImage(
+		"content"	=> $core->generateImage(
 			$arrayOfImages["loadingImg"],
 			$imageConfig = array(
 				"id"		=>	"playImage",
@@ -111,10 +111,10 @@ $defaultIndexHeaderConfig = array(
 	"refresh"	=> array(
 		"class"		=> "menuImageDiv",
 		"onClick"	=> "refreshAction();",
-		"type"		=> "image",
+		"type"		=> 1,
 		"visible"	=> "true",
 		"position"	=> 40,
-		"image"		=> $core->generateImage(
+		"content"	=> $core->generateImage(
 			$arrayOfImages["loadingImg"],
 			$imageConfig = array(
 				"id"		=>	"refreshImage",
@@ -136,12 +136,31 @@ $defaultIndexHeaderConfig = array(
 	"truncateLog"	=> array(
 		"class"		=> "menuImageDiv",
 		"onClick"	=> "deleteImageAction();",
-		"type"		=> "image",
+		"type"		=> 1,
 		"visible"	=> ($truncateLog === 'hide') ? "false" : "true",
 		"position"	=> 50,
-		"image"		=> $imageForClear
+		"content"	=> $imageForClear
 	),
-);
+	"clearNotifications"	=> array(
+		"id"		=> "clearNotificationsImage",
+		"class"		=> "menuImageDiv",
+		"onClick"	=> "removeAllNotifications();",
+		"type"		=> 2,
+		"visible"	=> "false",
+		"outerId"	=> "clearNotificationsImageHolder",
+		"outerVisible"	=> ($hideClearAllNotifications === "true") ? "false" : "true",
+		"position"	=> 100,
+		"content"	=> $core->generateImage(
+			$arrayOfImages["loadingImg"],
+			$imageConfig = array(
+				"id"		=>	"notificationClearImage",
+				"class"		=>	"menuImage notificationClearImageForLoad",
+				"height"	=>	"30px",
+				"data-src"	=>	$arrayOfImages["notificationClear"]
+			)
+		)
+	),
+);	
 
 
 $sortedIndexHeaderConfig = array();

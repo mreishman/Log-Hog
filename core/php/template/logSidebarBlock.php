@@ -27,8 +27,8 @@ if ($class !== "")
 	$class = "class=\"" . $class . "\"";
 }
 
-if($sidebarItem["type"] === "image"): ?>
+if($sidebarItem["type"] === 1): ?>
 	<a <?php echo $id . " " . $onClick . " " . $style . " " . $class ?> >
-		<?php echo $sidebarItem["image"]; ?>
+		<?php echo $sidebarItem["content"]; ?>
 	</a>
 <?php endif; ?>	

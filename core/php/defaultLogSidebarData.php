@@ -4,10 +4,10 @@ $defaultLogSidebarConfig = array(
 	"info"	=> array(
 		"id"		=> "showInfoLink{{counter}}",
 		"onClick"	=> "showInfo('{{counter}}');",
-		"type"		=> "image",
+		"type"		=> 1,
 		"visible"	=> "true",
 		"position"	=> 1,
-		"image"		=> $core->generateImage(
+		"content"	=> $core->generateImage(
 			$arrayOfImages["loadingImg"],
 			$imageConfig = array(
 				"height"	=>	"20px",
@@ -21,10 +21,10 @@ $defaultLogSidebarConfig = array(
 	"pause"	=> array(
 		"id"		=> "pauseSingleLog{{counter}}",
 		"onClick"	=> "toggleSingleLogPause('{{counter}}');",
-		"type"		=> "image",
+		"type"		=> 1,
 		"visible"	=> "true",
 		"position"	=> 10,
-		"image"		=> $core->generateImage(
+		"content"	=> $core->generateImage(
 			$arrayOfImages["loadingImg"],
 			$imageConfig = array(
 				"height"	=>	"20px",
@@ -38,10 +38,10 @@ $defaultLogSidebarConfig = array(
 	"play"	=> array(
 		"id"		=> "playSingleLog{{counter}}",
 		"onClick"	=> "toggleSingleLogPause('{{counter}}');",
-		"type"		=> "image",
+		"type"		=> 1,
 		"visible"	=> "false",
 		"position"	=> 10,
-		"image"		=> $core->generateImage(
+		"content"	=> $core->generateImage(
 			$arrayOfImages["loadingImg"],
 			$imageConfig = array(
 				"height"	=>	"20px",
@@ -55,10 +55,10 @@ $defaultLogSidebarConfig = array(
 	"refresh"	=> array(
 		"id"		=> "singleLogRefresh{{counter}}",
 		"onClick"	=> "singleLogRefresh('{{counter}}');",
-		"type"		=> "image",
+		"type"		=> 1,
 		"visible"	=> "true",
 		"position"	=> 20,
-		"image"		=> $core->generateImage(
+		"content"	=> $core->generateImage(
 			$arrayOfImages["loadingImg"],
 			$imageConfig = array(
 				"height"	=>	"20px",
@@ -71,11 +71,11 @@ $defaultLogSidebarConfig = array(
 	),
 	"refreshLoading"	=> array(
 		"id"		=> "singleLogRefreshLoading{{counter}}",
-		"type"		=> "image",
+		"type"		=> 1,
 		"visible"	=> "false",
 		"style"		=> "cursor: default;",
 		"position"	=> 20,
-		"image"		=> $core->generateImage(
+		"content"	=> $core->generateImage(
 			$arrayOfImages["loadingImg"],
 			$imageConfig = array(
 				"height"	=>	"20px",
@@ -88,11 +88,11 @@ $defaultLogSidebarConfig = array(
 	"individualFilter"	=> array(
 		"id"		=> "showLogWindowFilter{{counter}}",
 		"onClick"	=> "showLogWindowFilter('{{counter}}');",
-		"type"		=> "image",
+		"type"		=> 1,
 		"visible"	=> "true",
 		"style"		=> "{{customfilterstyle}}",
 		"position"	=> 30,
-		"image"		=> $core->generateImage(
+		"content"	=> $core->generateImage(
 			$arrayOfImages["loadingImg"],
 			$imageConfig = array(
 				"height"	=>	"20px",
@@ -106,11 +106,11 @@ $defaultLogSidebarConfig = array(
 	"pinWindow"	=> array(
 		"id"		=> "pinWindow{{counter}}",
 		"onClick"	=> "pinWindow('{{counter}}');",
-		"type"		=> "image",
+		"type"		=> 1,
 		"visible"	=> "true",
 		"class"		=> "pinWindowContainer",
 		"position"	=> 40,
-		"image"		=> $core->generateImage(
+		"content"	=> $core->generateImage(
 			$arrayOfImages["loadingImg"],
 			$imageConfig = array(
 				"height"	=>	"20px",
@@ -134,10 +134,10 @@ $defaultLogSidebarConfig = array(
 	"clearLogSideBar"	=> array(
 		"id"		=> "clearLogSideBar{{counter}}",
 		"onClick"	=> "clearLog('{{counter}}');",
-		"type"		=> "image",
+		"type"		=> 1,
 		"visible"	=> "true",
 		"position"	=> 50,
-		"image"		=> $core->generateImage(
+		"content"	=> $core->generateImage(
 			$arrayOfImages["loadingImg"],
 			$imageConfig = array(
 				"height"	=>	"20px",
@@ -151,10 +151,10 @@ $defaultLogSidebarConfig = array(
 	"deleteLogSideBar"	=> array(
 		"id"		=> "deleteLogSideBar{{counter}}",
 		"onClick"	=> "deleteLogPopup('{{counter}}');",
-		"type"		=> "image",
+		"type"		=> 1,
 		"visible"	=> "true",
 		"position"	=> 60,
-		"image"		=> $core->generateImage(
+		"content"	=> $core->generateImage(
 			$arrayOfImages["loadingImg"],
 			$imageConfig = array(
 				"height"	=>	"20px",
@@ -168,10 +168,10 @@ $defaultLogSidebarConfig = array(
 	"historySideBar"	=> array(
 		"id"		=> "historySideBar{{counter}}",
 		"onClick"	=> "viewBackupFromCurrentLog('{{counter}}');",
-		"type"		=> "image",
+		"type"		=> 1,
 		"visible"	=> "true",
 		"position"	=> 70,
-		"image"		=> $core->generateImage(
+		"content"	=> $core->generateImage(
 			$arrayOfImages["loadingImg"],
 			$imageConfig = array(
 				"height"	=>	"20px",
@@ -185,10 +185,10 @@ $defaultLogSidebarConfig = array(
 	"saveArchiveSideBar"	=> array(
 		"id"		=> "saveArchiveSideBar{{counter}}",
 		"onClick"	=> "saveArchivePopup('{{counter}}');",
-		"type"		=> "image",
+		"type"		=> 1,
 		"visible"	=> "true",
 		"position"	=> 80,
-		"image"		=> $core->generateImage(
+		"content"	=> $core->generateImage(
 			$arrayOfImages["loadingImg"],
 			$imageConfig = array(
 				"height"	=>	"20px",
@@ -201,10 +201,10 @@ $defaultLogSidebarConfig = array(
 	),
 	"logSelector"	=> array(
 		"onClick"	=> "toggleLogPopup(this,'{{counter}}');",
-		"type"		=> "image",
+		"type"		=> 1,
 		"visible"	=> "true",
 		"position"	=> 90,
-		"image"		=> $core->generateImage(
+		"content"	=> $core->generateImage(
 			$arrayOfImages["loadingImg"],
 			$imageConfig = array(
 				"height"	=>	"20px",
@@ -218,10 +218,10 @@ $defaultLogSidebarConfig = array(
 	"removeLogFromDisplay"	=> array(
 		"id"		=> "closeLogSideBar{{counter}}",
 		"onClick"	=> "removeLogFromDisplay('{{counter}}');",
-		"type"		=> "image",
+		"type"		=> 1,
 		"visible"	=> "false",
 		"position"	=> 100,
-		"image"		=> $core->generateImage(
+		"content"	=> $core->generateImage(
 			$arrayOfImages["loadingImg"],
 			$imageConfig = array(
 				"height"	=>	"20px",
@@ -233,10 +233,10 @@ $defaultLogSidebarConfig = array(
 	),
 	"scrollToTop"	=> array(
 		"onClick"	=> "scrollToTop('{{counter}}');",
-		"type"		=> "image",
+		"type"		=> 1,
 		"visible"	=> "true",
 		"position"	=> 500,
-		"image"		=> $core->generateImage(
+		"content"	=> $core->generateImage(
 			$arrayOfImages["loadingImg"],
 			$imageConfig = array(
 				"height"	=>	"20px",
@@ -249,10 +249,10 @@ $defaultLogSidebarConfig = array(
 	),
 	"scrollToBottom"	=> array(
 		"onClick"	=> "scrollToBottom('{{counter}}');",
-		"type"		=> "image",
+		"type"		=> 1,
 		"visible"	=> "true",
 		"position"	=> 500,
-		"image"		=> $core->generateImage(
+		"content"	=> $core->generateImage(
 			$arrayOfImages["loadingImg"],
 			$imageConfig = array(
 				"height"	=>	"20px",

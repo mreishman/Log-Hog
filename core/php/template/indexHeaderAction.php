@@ -27,8 +27,33 @@ if ($style !== "")
 	$style = "style=\"" . $style . "\"";
 }
 
-if($headerItem["type"] === "image"): ?>
+if($headerItem["type"] === 1): ?>
 	<div <?php echo $onClick . " " . $class . " " . $id . " " . $style; ?> >
-		<?php echo $headerItem["image"];	?>
+		<?php echo $headerItem["content"];	?>
 	</div>
+<?php elseif ($headerItem["type"] === 2): 
+
+	$outerId = $headerItem["outerId"] ?? "";
+	$outerStyle = $headerItem["style"] ?? "";
+	
+	if ($headerItem["outerVisible"] !== "true")
+	{
+		$outerStyle .=" display: none; ";
+	}
+
+	if ($outerId !== "")
+	{
+		$outerId = "id=\"" . $outerId . "\"";
+	}
+	if ($outerStyle !== "")
+	{
+		$outerStyle = "style=\"" . $outerStyle . "\"";
+	}
+
+	?>
+	<span <?php echo $outerId . " " . $outerStyle; ?> >
+		<div <?php echo $onClick . " " . $class . " " . $id . " " . $style; ?> >
+			<?php echo $headerItem["content"];	?>
+		</div>
+	</span>
 <?php endif; ?>	

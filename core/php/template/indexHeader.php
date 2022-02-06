@@ -5,20 +5,6 @@
 			{
 				include("core/php/template/indexHeaderAction.php");
 			}?>
-			<span id="clearNotificationsImageHolder" <?php if($hideClearAllNotifications === "true"){ echo "style=\" display: none; \""; }?> >
-				<div  id="clearNotificationsImage" style="display: none;" onclick="removeAllNotifications();" class="menuImageDiv">
-					<?php echo $core->generateImage(
-						$arrayOfImages["loadingImg"],
-						$imageConfig = array(
-							"id"		=>	"notificationClearImage",
-							"class"		=>	"menuImage notificationClearImageForLoad",
-							"height"	=>	"30px",
-							"data-src"	=>	$arrayOfImages["notificationClear"]
-							)
-						);
-					?>
-				</div>
-			</span>
 		</span>
 		<?php if ($groupDropdownInHeader === "true"): ?>
 			<div id="groupsInHeader"><span id="groupHeaderAllButton" class="linkSmall selected" onclick="addGroupToSelect(event, 'all');" >All</span></div>
