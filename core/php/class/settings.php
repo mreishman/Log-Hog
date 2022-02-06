@@ -285,11 +285,10 @@ class settings
 
 	public function generateFolderColorRow($arrFCOdata = array())
 	{
-		$edit = true;
-		$key = "{{key}}";
-		$currentFolderColorTheme = "{{currentFolderColorTheme}}";
-		$i = "{{i}}";
-		$value = 				array(
+		$key = $arrFCOdata["key"] ?? "{{key}}";
+		$currentFolderColorTheme = $arrFCOdata["currentFolderColorTheme"] ?? "{{currentFolderColorTheme}}";
+		$i = $arrFCOdata["i"] ?? "{{i}}";
+		$value = $arrFCOdata["value"] ?? array(
 			"main"					=>	array(
 				0						=>	array(
 					"background"			=>	"#000",
@@ -315,32 +314,8 @@ class settings
 				)
 			),
 		);
-		$themeName = "{{themeName}}";
-
-		if(isset($arrFCOdata["key"]))
-		{
-			$key = $arrFCOdata["key"];
-		}
-		if(isset($arrFCOdata["currentFolderColorTheme"]))
-		{
-			$currentFolderColorTheme = $arrFCOdata["currentFolderColorTheme"];
-		}
-		if(isset($arrFCOdata["i"]))
-		{
-			$i = $arrFCOdata["i"];
-		}
-		if(isset($arrFCOdata["value"]))
-		{
-			$value = $arrFCOdata["value"];
-		}
-		if(isset($arrFCOdata["themeName"]))
-		{
-			$themeName = $arrFCOdata["themeName"];
-		}
-		if((strpos($key, "default") > -1))
-		{
-			$edit = false;
-		}
+		$themeName = $arrFCOdata["themeName"] ?? "{{themeName}}";
+		$edit = (strpos((string) $key, "default") === false);
 
 		$td1 = "<input type=\"radio\" name=\"currentFolderColorTheme\" ";
 		if ($key == $currentFolderColorTheme)
@@ -487,40 +462,14 @@ class settings
 
 	public function generateColorBlock($arrCBdata = array())
 	{
-		$backgroundColor = "{{backgroundColor}}";
-		$fontColor = "{{fontColor}}";
-		$i = "{{i}}";
-		$j = "{{j}}";
-		$name = "{{name}}";
-		$edit = true;
+		$backgroundColor = $arrCBdata["backgroundColor"] ?? "{{backgroundColor}}";
+		$fontColor = $arrCBdata["fontColor"] ?? "{{fontColor}}";
+		$i = $arrCBdata["i"] ?? "{{i}}";
+		$j = $arrCBdata["j"] ?? "{{j}}";
+		$name = $arrCBdata["name"] ?? "{{name}}";
+		$edit = $arrCBdata["edit"] ?? true;
 
-		if(isset($arrCBdata["backgroundColor"]))
-		{
-			$backgroundColor = $arrCBdata["backgroundColor"];
-		}
-		if(isset($arrCBdata["fontColor"]))
-		{
-			$fontColor = $arrCBdata["fontColor"];
-		}
-		if(isset($arrCBdata["i"]))
-		{
-			$i = $arrCBdata["i"];
-		}
-		if(isset($arrCBdata["j"]))
-		{
-			$j = $arrCBdata["j"];
-		}
-		if(isset($arrCBdata["name"]))
-		{
-			$name = $arrCBdata["name"];
-		}
-		if(isset($arrCBdata["edit"]))
-		{
-			$edit = $arrCBdata["edit"];
-		}
-
-		$htmlToReturn = "";
-		$htmlToReturn .= "<div class=\"divAroundColors\">";
+		$htmlToReturn = "<div class=\"divAroundColors\">";
 		$htmlToReturn .= $this->generateColorBlockInner($name."Background".$i."-".$j, $backgroundColor, array("edit" => $edit, "style" => "border-bottom: 0px;"));
 		$htmlToReturn .= $this->generateColorBlockInner($name."Font".$i."-".$j, $fontColor, array("edit" => $edit, "style" => "border-top: 0px;"));
 		$htmlToReturn .= "</div>";
@@ -529,37 +478,21 @@ class settings
 
 	private function generateColorBlockInner($buttonID, $color, $data = array())
 	{
-		$edit = true;
-		$style = "";
-		$name = "folderColorValue".$buttonID;
-		$inputDisplay = "none";
-		if(isset($data["edit"]))
-		{
-			$edit = $data["edit"];
-		}
-		if(isset($data["style"]))
-		{
-			$style = $data["style"];
-		}
-		if(isset($data["name"]))
-		{
-			$name = $data["name"];
-		}
-		if(isset($data["inputDisplay"]))
-		{
-			$inputDisplay = $data["inputDisplay"];
-		}
-		$htmlToReturn = "";
+		$edit = $data["edit"] ?? true;
+		$style = $data["style"] ?? "";
+		$name = $data["name"] ?? "folderColorValue".$buttonID;
+		$inputDisplay = $data["inputDisplay"] ?? "none";
+
 		if($edit)
 		{
-			$htmlToReturn .= "<div class=\"colorSelectorDiv\" style=\"".$style."\" >";
+			$htmlToReturn = "<div class=\"colorSelectorDiv\" style=\"".$style."\" >";
 			$htmlToReturn .= "<div class=\"inner-triangle-2\" ></div>";
 			$htmlToReturn .= "<div class=\"inner-triangle\" ></div>";
 			$htmlToReturn .= "<button id=\"folderColorButton".$buttonID."\" class=\"backgroundButtonForColor\"></button>";
 		}
 		else
 		{
-			$htmlToReturn .=	"<div class=\"colorSelectorDiv addBorder\" style=\"background-color: ".$color."; ".$style."\" >";
+			$htmlToReturn =	"<div class=\"colorSelectorDiv addBorder\" style=\"background-color: ".$color."; ".$style."\" >";
 		}
 		$htmlToReturn .=	"</div>";
 		$htmlToReturn .=	"<input style=\"width: 100px; display: ".$inputDisplay.";\" type=\"text\" id=\"folderColorValue".$buttonID."\" name=\"".$name."\" value=\"".$color."\" >";

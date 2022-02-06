@@ -115,11 +115,8 @@ class settingsMainWatch extends core
 		$saveBlock .= "<span style=\"width: 50px; display: inline-block;\" id=\"imageFile".$rowNumber."\" >".$fileImage."</span>";
 		$saveBlock .= "<input type=\"hidden\" name=\"watchListKey".$rowNumber."\" value=\"FileOrFolder".$rowNumber."\" >";
 		$saveBlock .= "<a class=\"deleteIconPosition\"	onclick=\"deleteRowFunctionPopup(".$rowNumber.", '".$location."');\"	>";
-		$localSrcMod = "";
-		if(isset($data["srcModifier"]))
-		{
-			$localSrcMod = $data["srcModifier"];
-		}
+		$localSrcMod = $data["srcModifier"] ?? "";
+
 		$saveBlock .= $this->generateImage(
 			$arrayOfImages["loadingImg"],
 			array(
