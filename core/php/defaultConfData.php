@@ -2616,6 +2616,24 @@ $defaultConfigMoreData = array(
 							"postText"							=>	"skipped poll requests",
 							"type"								=>	"number"
 						)
+					),
+					1									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"pollForceTrueNotice",
+							"name"								=>	"Show notice of poll error after",
+							"postText"							=>	"skipped poll requests",
+							"type"								=>	"number"
+						)
+					),
+					2									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"pollForceTrueWarning",
+							"name"								=>	"Show warning of poll error after",
+							"postText"							=>	"skipped poll requests",
+							"type"								=>	"number"
+						)
 					)
 				)
 			),

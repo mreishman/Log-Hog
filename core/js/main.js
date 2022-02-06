@@ -144,36 +144,6 @@ function formatBytes(bytes,decimals)
 	return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i];
 }
 
-function updateSkipCounterLog(num)
-{
-	try
-	{
-		if(enablePollTimeLogging !== "false")
-		{
-			document.getElementById("loggSkipCount").innerHTML = escapeHTML(num);
-		}
-	}
-	catch(e)
-	{
-		console.log(e);
-	}
-}
-
-function updateAllRefreshCounter(num)
-{
-	try
-	{
-		if(enablePollTimeLogging !== "false")
-		{
-			document.getElementById("loggAllCount").innerHTML = escapeHTML(num);
-		}
-	}
-	catch(e)
-	{
-		console.log(e);
-	}
-}
-
 function updateLogTitle(id)
 {
 	var tmpText = "";
