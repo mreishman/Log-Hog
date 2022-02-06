@@ -6,9 +6,12 @@
 				include("core/php/template/indexHeaderAction.php");
 			}?>
 		</span>
-		<?php if ($groupDropdownInHeader === "true"): ?>
-			<div id="groupsInHeader"><span id="groupHeaderAllButton" class="linkSmall selected" onclick="addGroupToSelect(event, 'all');" >All</span></div>
-		<?php endif; ?>
+		<span id="menuButtonMiddle">
+			<?php foreach ($sortedIndexHeaderConfigCenter as $headerItem)
+			{
+				include("core/php/template/indexHeaderAction.php");
+			}?>
+		</span>
 		<div id="menuButtonRight" style="float: right;">
 			<?php foreach ($sortedIndexHeaderConfigRight as $headerItem)
 			{

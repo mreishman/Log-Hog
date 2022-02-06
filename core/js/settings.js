@@ -446,6 +446,7 @@ function saveVerified()
 	else
 	{
 		fadeOutPopup();
+		resize();
 	}
 }
 
@@ -504,11 +505,6 @@ function refreshJsVars()
 			type: "POST",
 		success(data)
 		{
-						if(handleError(dirForAjaxSend, data, "reloadJsVars.php"))
-						{
-							return;
-						}
-
 			//add css to bottom of index page
 			$("#initialLoadContent").append(data);
 			if(idForFormMain === "settingsPollVars")

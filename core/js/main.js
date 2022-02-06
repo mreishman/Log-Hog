@@ -1244,15 +1244,28 @@ function resize()
 			}
 		}
 
-		if(groupDropdownInHeader === "true")
-		{
-			resizeHeaderGroups();
-		}
+		resizeMiddleMenu();
+		resizeHeaderGroups();
 	}
 	catch(e)
 	{
 		console.log(e);
 	}
+}
+
+function resizeMiddleMenu()
+{
+	let leftButtonWidth = 0;
+	if($("#menuButtonLeft"))
+	{
+		leftButtonWidth = $("#menuButtonLeft").width();
+	}
+	let rightButtonWidth = 0;
+	if($("#menuButtonRight"))
+	{
+		rightButtonWidth = $("#menuButtonRight").width();
+	}
+	$("#menuButtonMiddle").width(window.innerWidth - leftButtonWidth - rightButtonWidth - 90);
 }
 
 function startLoadPollTimerDelay()

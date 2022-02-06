@@ -5,6 +5,7 @@ $class = $headerItem["class"] ?? "";
 $id = $headerItem["id"] ?? "";
 $style = $headerItem["style"] ?? "";
 $visible = $headerItem["visible"] ?? "true";
+$type = $headerItem["type"] ?? 1;
 
 $outerClass = $headerItem["outerClass"] ?? "";
 $outerId = $headerItem["outerId"] ?? "";
@@ -46,20 +47,25 @@ if ($outerStyle !== "")
 	$outerStyle = "style=\"" . $outerStyle . "\"";
 }
 
-if($headerItem["type"] === 1): ?>
+$outerType = "span";
+$innerType = "span";
+if ($type === 4 || $type === 5)
+{
+	$outerType = "div";
+}
+if ($type === 2 || $type === 5)
+{
+	$innerType = "div";
+}
+
+if ($type >= 2 && $type <= 5):
+	echo "<" . $outerType . " " . $outerId . " " . $outerStyle. " >";
+		echo "<" . $innerType . " " . $onClick . " " . $class . " " . $id . " " . $style . " >";
+			echo $headerItem["content"];
+		echo "</" . $innerType . ">";
+	echo "</" . $outerType . ">";
+else: ?>
 	<div <?php echo $onClick . " " . $class . " " . $id . " " . $style; ?> >
 		<?php echo $headerItem["content"];	?>
 	</div>
-<?php elseif ($headerItem["type"] === 2): ?>
-	<span <?php echo $outerId . " " . $outerStyle; ?> >
-		<div <?php echo $onClick . " " . $class . " " . $id . " " . $style; ?> >
-			<?php echo $headerItem["content"];	?>
-		</div>
-	</span>
-<?php elseif ($headerItem["type"] === 3): ?>
-	<span <?php echo $outerClass . " " . $outerStyle; ?> >
-		<span <?php echo $onClick . " " . $class . " " . $id . " " . $style; ?> >
-			<?php echo $headerItem["content"];	?>
-		</span>
-	</span> 
 <?php endif; ?>	

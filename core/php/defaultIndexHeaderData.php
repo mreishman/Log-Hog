@@ -41,7 +41,6 @@ $defaultIndexHeaderConfig = array(
 		"id"		=> "mainMenuDiv",
 		"class"		=> "menuImageDiv",
 		"onClick"	=> "toggleFullScreenMenu();",
-		"type"		=> 1,
 		"position"	=> 1,
 		"section"	=> "left",
 		"content"	=> $core->generateImage(
@@ -58,7 +57,6 @@ $defaultIndexHeaderConfig = array(
 		"id"		=> "notificationDiv",
 		"class"		=> "menuImageDiv",
 		"onClick"	=> "toggleNotifications();",
-		"type"		=> 1,
 		"visible"	=> ($hideNotificationIcon === "true") ? "false" : "true",
 		"position"	=> 10,
 		"section"	=> "left",
@@ -75,7 +73,6 @@ $defaultIndexHeaderConfig = array(
 	"settingsSideBar"	=> array(
 		"class"		=> "menuImageDiv",
 		"onClick"	=> "toggleSettingsSidebar();",
-		"type"		=> 1,
 		"position"	=> 20,
 		"section"	=> "left",
 		"content"	=> $core->generateImage(
@@ -91,7 +88,6 @@ $defaultIndexHeaderConfig = array(
 	"pause"	=> array(
 		"class"		=> "menuImageDiv",
 		"onClick"	=> "pausePollAction();",
-		"type"		=> 1,
 		"position"	=> 30,
 		"section"	=> "left",
 		"content"	=> $core->generateImage(
@@ -118,7 +114,6 @@ $defaultIndexHeaderConfig = array(
 	"refresh"	=> array(
 		"class"		=> "menuImageDiv",
 		"onClick"	=> "refreshAction();",
-		"type"		=> 1,
 		"position"	=> 40,
 		"section"	=> "left",
 		"content"	=> $core->generateImage(
@@ -143,7 +138,6 @@ $defaultIndexHeaderConfig = array(
 	"truncateLog"	=> array(
 		"class"		=> "menuImageDiv",
 		"onClick"	=> "deleteImageAction();",
-		"type"		=> 1,
 		"visible"	=> ($truncateLog === 'hide') ? "false" : "true",
 		"position"	=> 50,
 		"section"	=> "left",
@@ -198,19 +192,21 @@ $defaultIndexHeaderConfig = array(
 		"section"	=> "right",
 		"content"	=> $filterHeaderSearchBoxContent
 	),
+	"groupsHeader"	=> array(
+		"id"		=> "groupHeaderAllButton",
+		"class"		=> "linkSmall selected",
+		"onClick"	=> "addGroupToSelect(event, 'all');",
+		"type"		=> 4,
+		"outerId"	=> "groupsInHeader",
+		"outerVisible"	=> $groupDropdownInHeader,
+		"position"	=> 10,
+		"section"	=> "center",
+		"content"	=> "All"
+	),
 );
 
-
-
-
-
-				
-					
-				
-
-
-
 $sortedIndexHeaderConfigLeft = array();
+$sortedIndexHeaderConfigCenter = array();
 $sortedIndexHeaderConfigRight = array();
 
 foreach ($defaultIndexHeaderConfig as $indexHeaderConfigItem)
@@ -230,8 +226,16 @@ foreach ($defaultIndexHeaderConfig as $indexHeaderConfigItem)
 		}
 		$sortedIndexHeaderConfigRight[$key] = $indexHeaderConfigItem;
 	}
+	elseif ($indexHeaderConfigItem["section"] === "center")
+	{
+		while(isset($sortedIndexHeaderConfigCenter[$key])) {
+			$key++;
+		}
+		$sortedIndexHeaderConfigCenter[$key] = $indexHeaderConfigItem;
+	}
 }
 
 
 ksort($sortedIndexHeaderConfigLeft);
 ksort($sortedIndexHeaderConfigRight);
+ksort($sortedIndexHeaderConfigCenter);
