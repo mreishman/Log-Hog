@@ -1,4 +1,5 @@
 <?php
+
 $onClick = $headerItem["onClick"] ?? "";
 $class = $headerItem["class"] ?? "";
 $id = $headerItem["id"] ?? "";
@@ -26,7 +27,8 @@ if ($style !== "")
 	$style = "style=\"" . $style . "\"";
 }
 
-?>
-<div <?php echo $onClick . " " . $class . " " . $id . " " . $style; ?> >
-	<?php echo $headerItem["image"];	?>
-</div>
+if($headerItem["type"] === "image"): ?>
+	<div <?php echo $onClick . " " . $class . " " . $id . " " . $style; ?> >
+		<?php echo $headerItem["image"];	?>
+	</div>
+<?php endif; ?>	

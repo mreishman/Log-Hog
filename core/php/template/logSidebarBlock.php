@@ -29,6 +29,6 @@ if ($class !== "")
 
 if($sidebarItem["type"] === "image"): ?>
 	<a <?php echo $id . " " . $onClick . " " . $style . " " . $class ?> >
-	<?php echo $sidebarItem["image"]; ?>
-</a>
+		<?php echo $sidebarItem["image"]; ?>
+	</a>
 <?php endif; ?>	

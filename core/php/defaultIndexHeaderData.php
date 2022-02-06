@@ -1,5 +1,35 @@
 <?php
 
+$styleStringPlay = "display: inline-block;";
+$styleStringPause = "display: none;";
+if($pausePoll !== 'true')
+{
+	$styleStringPlay = "display: none;";
+	$styleStringPause = "display: inline-block;";
+}
+
+$imageForClear = $core->generateImage(
+	$arrayOfImages["loadingImg"],
+	$imageConfig = array(
+		"id"		=>	"deleteImage",
+		"class"		=>	"menuImage eraserMultiImageForLoad",
+		"height"	=>	"30px",
+		"data-src"	=>	$arrayOfImages["eraserMulti"]
+	)
+);
+if($truncateLog == 'false')
+{
+	$imageForClear = $core->generateImage(
+		$arrayOfImages["loadingImg"],
+		$imageConfig = array(
+			"id"		=>	"deleteImage",
+			"class"		=>	"menuImage eraserForLoad",
+			"height"	=>	"30px",
+			"data-src"	=>	$arrayOfImages["eraser"]
+		)
+	);
+}
+
 $defaultIndexHeaderConfig = array(
 	"mainMenu"	=> array(
 		"id"		=> "mainMenuDiv",
@@ -35,7 +65,7 @@ $defaultIndexHeaderConfig = array(
 			)
 		)
 	),
-	"settingsSIdeBar"	=> array(
+	"settingsSideBar"	=> array(
 		"class"		=> "menuImageDiv",
 		"onClick"	=> "toggleSettingsSidebar();",
 		"type"		=> "image",
@@ -51,7 +81,68 @@ $defaultIndexHeaderConfig = array(
 			)
 		)
 	),
+	"pause"	=> array(
+		"class"		=> "menuImageDiv",
+		"onClick"	=> "pausePollAction();",
+		"type"		=> "image",
+		"visible"	=> "true",
+		"position"	=> 30,
+		"image"		=> $core->generateImage(
+			$arrayOfImages["loadingImg"],
+			$imageConfig = array(
+				"id"		=>	"playImage",
+				"class"		=>	"menuImage playImageForLoad",
+				"height"	=>	"30px",
+				"style"		=>	$styleStringPlay,
+				"data-src"	=>	$arrayOfImages["play"]
+			)
+		).
+		$core->generateImage(
+			$arrayOfImages["loadingImg"],
+			$imageConfig = array(
+				"id"		=>	"pauseImage",
+				"class"		=>	"menuImage pauseImageForLoad",
+				"height"	=>	"30px",
+				"style"		=>	$styleStringPause,
+				"data-src"	=>	$arrayOfImages["pause"]
+			)
+		)
+	),
+	"refresh"	=> array(
+		"class"		=> "menuImageDiv",
+		"onClick"	=> "refreshAction();",
+		"type"		=> "image",
+		"visible"	=> "true",
+		"position"	=> 40,
+		"image"		=> $core->generateImage(
+			$arrayOfImages["loadingImg"],
+			$imageConfig = array(
+				"id"		=>	"refreshImage",
+				"class"		=>	"menuImage refreshImageForLoad",
+				"height"	=>	"30px",
+				"data-src"	=>	$arrayOfImages["refresh"]
+			)
+		).
+		$core->generateImage(
+			$arrayOfImages["loading"],
+			$imageConfig = array(
+				"id"		=>	"refreshingImage",
+				"class"		=>	"menuImage",
+				"height"	=>	"30px",
+				"style"		=>	"display: none;"
+			)
+		)
+	),
+	"truncateLog"	=> array(
+		"class"		=> "menuImageDiv",
+		"onClick"	=> "deleteImageAction();",
+		"type"		=> "image",
+		"visible"	=> ($truncateLog === 'hide') ? "false" : "true",
+		"position"	=> 50,
+		"image"		=> $imageForClear
+	),
 );
+
 
 $sortedIndexHeaderConfig = array();
 
