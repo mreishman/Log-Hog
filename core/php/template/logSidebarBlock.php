@@ -4,8 +4,9 @@ $id = $sidebarItem["id"] ?? "";
 $onClick = $sidebarItem["onClick"] ?? "";
 $style = $sidebarItem["style"] ?? "";
 $class = $sidebarItem["class"] ?? "";
+$visible = $sidebarItem["visible"] ?? "true";
 
-if ($sidebarItem["visible"] !== "true")
+if ($visible !== "true")
 {
 	$style .=" display: none; ";
 }

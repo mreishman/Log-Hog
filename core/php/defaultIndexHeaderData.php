@@ -30,14 +30,20 @@ if($truncateLog == 'false')
 	);
 }
 
+ob_start();
+include("core/php/template/filterHeaderSearchBox.php");
+$filterHeaderSearchBoxContent = ob_get_clean();
+
+/** indexHeaderAction.php */
+
 $defaultIndexHeaderConfig = array(
 	"mainMenu"	=> array(
 		"id"		=> "mainMenuDiv",
 		"class"		=> "menuImageDiv",
 		"onClick"	=> "toggleFullScreenMenu();",
 		"type"		=> 1,
-		"visible"	=> "true",
 		"position"	=> 1,
+		"section"	=> "left",
 		"content"	=> $core->generateImage(
 			$arrayOfImages["loadingImg"],
 			$imageConfig = array(
@@ -55,6 +61,7 @@ $defaultIndexHeaderConfig = array(
 		"type"		=> 1,
 		"visible"	=> ($hideNotificationIcon === "true") ? "false" : "true",
 		"position"	=> 10,
+		"section"	=> "left",
 		"content"	=> $core->generateImage(
 			$arrayOfImages["loadingImg"],
 			$imageConfig = array(
@@ -69,8 +76,8 @@ $defaultIndexHeaderConfig = array(
 		"class"		=> "menuImageDiv",
 		"onClick"	=> "toggleSettingsSidebar();",
 		"type"		=> 1,
-		"visible"	=> "true",
 		"position"	=> 20,
+		"section"	=> "left",
 		"content"	=> $core->generateImage(
 			$arrayOfImages["loadingImg"],
 			$imageConfig = array(
@@ -85,8 +92,8 @@ $defaultIndexHeaderConfig = array(
 		"class"		=> "menuImageDiv",
 		"onClick"	=> "pausePollAction();",
 		"type"		=> 1,
-		"visible"	=> "true",
 		"position"	=> 30,
+		"section"	=> "left",
 		"content"	=> $core->generateImage(
 			$arrayOfImages["loadingImg"],
 			$imageConfig = array(
@@ -112,8 +119,8 @@ $defaultIndexHeaderConfig = array(
 		"class"		=> "menuImageDiv",
 		"onClick"	=> "refreshAction();",
 		"type"		=> 1,
-		"visible"	=> "true",
 		"position"	=> 40,
+		"section"	=> "left",
 		"content"	=> $core->generateImage(
 			$arrayOfImages["loadingImg"],
 			$imageConfig = array(
@@ -139,6 +146,7 @@ $defaultIndexHeaderConfig = array(
 		"type"		=> 1,
 		"visible"	=> ($truncateLog === 'hide') ? "false" : "true",
 		"position"	=> 50,
+		"section"	=> "left",
 		"content"	=> $imageForClear
 	),
 	"clearNotifications"	=> array(
@@ -150,6 +158,7 @@ $defaultIndexHeaderConfig = array(
 		"outerId"	=> "clearNotificationsImageHolder",
 		"outerVisible"	=> ($hideClearAllNotifications === "true") ? "false" : "true",
 		"position"	=> 100,
+		"section"	=> "left",
 		"content"	=> $core->generateImage(
 			$arrayOfImages["loadingImg"],
 			$imageConfig = array(
@@ -160,17 +169,69 @@ $defaultIndexHeaderConfig = array(
 			)
 		)
 	),
-);	
+	"filterHidden"	=> array(
+		"id"		=> "showFilterTopBarButton",
+		"onClick"	=> "showFilterTopBar();",
+		"type"		=> 3,
+		"style"		=> "cursor: pointer; padding-right: 5px;",
+		"outerClass"	=> "indexHeaderFilterGroup",
+		"outerVisible"	=> (!($filterSearchInHeader === "true" && $filterEnabled === "true")) ? "false" : "true",
+		"position"	=> 10,
+		"section"	=> "right",
+		"content"	=> $core->generateImage(
+			$arrayOfImages["loadingImg"],
+			$imageConfig = array(
+				"id"		=>	"showFilterTopBarImage",
+				"class"		=>	"menuImage showFilterTopBarImageForLoad",
+				"height"	=>	"30px",
+				"data-src"	=>	$arrayOfImages["search"]
+			)
+		)
+	),
+	"filterVisible"	=> array(
+		"id"		=> "searchFieldGeneral",
+		"type"		=> 3,
+		"visible"	=> "false",
+		"outerClass"	=> "indexHeaderFilterGroup",
+		"outerVisible"	=> (!($filterSearchInHeader === "true" && $filterEnabled === "true")) ? "false" : "true",
+		"position"	=> 10,
+		"section"	=> "right",
+		"content"	=> $filterHeaderSearchBoxContent
+	),
+);
 
 
-$sortedIndexHeaderConfig = array();
+
+
+
+				
+					
+				
+
+
+
+$sortedIndexHeaderConfigLeft = array();
+$sortedIndexHeaderConfigRight = array();
 
 foreach ($defaultIndexHeaderConfig as $indexHeaderConfigItem)
 {
 	$key = $indexHeaderConfigItem["position"] * 1000000;
-	while(isset($sortedIndexHeaderConfig[$key])) {
-		$key++;
+	if ($indexHeaderConfigItem["section"] === "left")
+	{
+		while(isset($sortedIndexHeaderConfigLeft[$key])) {
+			$key++;
+		}
+		$sortedIndexHeaderConfigLeft[$key] = $indexHeaderConfigItem;
 	}
-	$sortedIndexHeaderConfig[$key] = $indexHeaderConfigItem;
+	elseif ($indexHeaderConfigItem["section"] === "right")
+	{
+		while(isset($sortedIndexHeaderConfigRight[$key])) {
+			$key++;
+		}
+		$sortedIndexHeaderConfigRight[$key] = $indexHeaderConfigItem;
+	}
 }
-ksort($sortedIndexHeaderConfig);
+
+
+ksort($sortedIndexHeaderConfigLeft);
+ksort($sortedIndexHeaderConfigRight);

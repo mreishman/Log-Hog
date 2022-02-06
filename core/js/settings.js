@@ -34,19 +34,19 @@ function saveAndVerifyMain(idForForm)
 	data = $(idForm).serializeArray();
 	data.push({name: "formKey", value: formKey});
 	$.ajax({
-        type: "post",
-        url: dirForAjaxSend+"core/php/post/settingsSaveAjax.php",
-        data,
-        success(data)
-        {
-        	handleErrorWithTruthCheck(dirForAjaxSend, data, "settingsSaveAjax.php");
+				type: "post",
+				url: dirForAjaxSend+"core/php/post/settingsSaveAjax.php",
+				data,
+				success(data)
+				{
+					handleErrorWithTruthCheck(dirForAjaxSend, data, "settingsSaveAjax.php");
 		},
-        complete()
-        {
-          //verify saved
-          verifySaveTimer();
-        }
-      });
+				complete()
+				{
+					//verify saved
+					verifySaveTimer();
+				}
+			});
 }
 
 function verifySaveTimer()
@@ -71,8 +71,8 @@ function timerVerifySave()
 			type: "POST",
 			success(data)
 			{
-	            if(!handleError(dirForAjaxSend, data, "saveCheck.php"))
-	            {
+							if(!handleError(dirForAjaxSend, data, "saveCheck.php"))
+							{
 					if(data === true)
 					{
 						countForVerifySaveSuccess++;
@@ -241,7 +241,7 @@ function saveVerified()
 	}
 	else if(idForFormMain === "settingsLogVars")
 	{
-		if(typeof flashTitle !== "function"  && typeof script === "function" && $("[name='flashTitleUpdateLog']")[0].value === "true")
+		if(typeof flashTitle !== "function"	&& typeof script === "function" && $("[name='flashTitleUpdateLog']")[0].value === "true")
 		{
 			script("core/js/titleFlash.js");
 		}
@@ -270,17 +270,6 @@ function saveVerified()
 				$("#groupsInHeader").hide()
 			}
 		}
-		if($("#menuButtonRight"))
-		{
-			if($("[name='filterSearchInHeader']")[0].value === "true")
-			{
-				$("#menuButtonRight").show();
-			}
-			else
-			{
-				$("#menuButtonRight").hide()
-			}
-		}
 		if($("#deleteImage"))
 		{
 			if($("[name='truncateLog']")[0].value === "hide")
@@ -300,21 +289,21 @@ function saveVerified()
 				$("#deleteImage").attr("title", arrayOfImages["eraser"]["title"]);
 			}
 		}
-		if($("#menuButtonRight"))
+		if($(".indexHeaderFilterGroup"))
 		{
 			if($("[name='filterSearchInHeader']")[0].value === "true")
 			{
-				$("#menuButtonRight").show();
+				$(".indexHeaderFilterGroup").show();
 				$("#filterSettingsSideBar").hide();
 			}
 			else
 			{
-				$("#menuButtonRight").hide();
+				$(".indexHeaderFilterGroup").hide();
 				$("#filterSettingsSideBar").show();
 			}
 		}
 	}
-	else if(idForFormMain ===  "modules")
+	else if(idForFormMain ===	"modules")
 	{
 		if($("[name='enableHistory']")[0].value === "true")
 		{
@@ -340,19 +329,19 @@ function saveVerified()
 			$(".searchSideBarImageForLoad").show();
 			if($("[name='filterSearchInHeader']")[0].value === "true")
 			{
-				$("#menuButtonRight").show();
+				$(".indexHeaderFilterGroup").show();
 				$("#filterSettingsSideBar").hide();
 			}
 			else
 			{
-				$("#menuButtonRight").hide();
+				$(".indexHeaderFilterGroup").hide();
 				$("#filterSettingsSideBar").show();
 			}
 		}
 		else
 		{
 			$("#settingsMainFilterMenu").hide();
-			$("#menuButtonRight").hide();
+			$(".indexHeaderFilterGroup").hide();
 			$("#filterSettingsSideBar").hide();
 			$(".searchSideBarImageForLoad").hide();
 		}
@@ -481,8 +470,8 @@ function refreshCustomCss()
 			type: "POST",
 		success(data)
 		{
-            if(!handleError(dirForAjaxSend, data, "settingsSaveAjax.php"))
-            {
+						if(!handleError(dirForAjaxSend, data, "settingsSaveAjax.php"))
+						{
 				//add css to bottom of index page
 				$("#initialLoadContent").append(data);
 			}
@@ -495,8 +484,8 @@ function refreshCustomCss()
 			type: "POST",
 		success(data)
 		{
-            if(!handleError(dirForAjaxSend, data, "settingsSaveAjax.php"))
-            {
+						if(!handleError(dirForAjaxSend, data, "settingsSaveAjax.php"))
+						{
 				//add css to bottom of index page
 				$("#initialLoadContent").append(data);
 			}
@@ -515,10 +504,10 @@ function refreshJsVars()
 			type: "POST",
 		success(data)
 		{
-            if(handleError(dirForAjaxSend, data, "reloadJsVars.php"))
-            {
-            	return;
-            }
+						if(handleError(dirForAjaxSend, data, "reloadJsVars.php"))
+						{
+							return;
+						}
 
 			//add css to bottom of index page
 			$("#initialLoadContent").append(data);

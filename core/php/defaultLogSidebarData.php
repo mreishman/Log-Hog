@@ -1,11 +1,12 @@
 <?php
 
+/** logSidebarBlock.php */
+
 $defaultLogSidebarConfig = array(
 	"info"	=> array(
 		"id"		=> "showInfoLink{{counter}}",
 		"onClick"	=> "showInfo('{{counter}}');",
 		"type"		=> 1,
-		"visible"	=> "true",
 		"position"	=> 1,
 		"content"	=> $core->generateImage(
 			$arrayOfImages["loadingImg"],
@@ -22,7 +23,6 @@ $defaultLogSidebarConfig = array(
 		"id"		=> "pauseSingleLog{{counter}}",
 		"onClick"	=> "toggleSingleLogPause('{{counter}}');",
 		"type"		=> 1,
-		"visible"	=> "true",
 		"position"	=> 10,
 		"content"	=> $core->generateImage(
 			$arrayOfImages["loadingImg"],
@@ -56,7 +56,6 @@ $defaultLogSidebarConfig = array(
 		"id"		=> "singleLogRefresh{{counter}}",
 		"onClick"	=> "singleLogRefresh('{{counter}}');",
 		"type"		=> 1,
-		"visible"	=> "true",
 		"position"	=> 20,
 		"content"	=> $core->generateImage(
 			$arrayOfImages["loadingImg"],
@@ -89,7 +88,6 @@ $defaultLogSidebarConfig = array(
 		"id"		=> "showLogWindowFilter{{counter}}",
 		"onClick"	=> "showLogWindowFilter('{{counter}}');",
 		"type"		=> 1,
-		"visible"	=> "true",
 		"style"		=> "{{customfilterstyle}}",
 		"position"	=> 30,
 		"content"	=> $core->generateImage(
@@ -107,7 +105,6 @@ $defaultLogSidebarConfig = array(
 		"id"		=> "pinWindow{{counter}}",
 		"onClick"	=> "pinWindow('{{counter}}');",
 		"type"		=> 1,
-		"visible"	=> "true",
 		"class"		=> "pinWindowContainer",
 		"position"	=> 40,
 		"content"	=> $core->generateImage(
@@ -135,7 +132,6 @@ $defaultLogSidebarConfig = array(
 		"id"		=> "clearLogSideBar{{counter}}",
 		"onClick"	=> "clearLog('{{counter}}');",
 		"type"		=> 1,
-		"visible"	=> "true",
 		"position"	=> 50,
 		"content"	=> $core->generateImage(
 			$arrayOfImages["loadingImg"],
@@ -152,7 +148,6 @@ $defaultLogSidebarConfig = array(
 		"id"		=> "deleteLogSideBar{{counter}}",
 		"onClick"	=> "deleteLogPopup('{{counter}}');",
 		"type"		=> 1,
-		"visible"	=> "true",
 		"position"	=> 60,
 		"content"	=> $core->generateImage(
 			$arrayOfImages["loadingImg"],
@@ -169,7 +164,6 @@ $defaultLogSidebarConfig = array(
 		"id"		=> "historySideBar{{counter}}",
 		"onClick"	=> "viewBackupFromCurrentLog('{{counter}}');",
 		"type"		=> 1,
-		"visible"	=> "true",
 		"position"	=> 70,
 		"content"	=> $core->generateImage(
 			$arrayOfImages["loadingImg"],
@@ -186,7 +180,6 @@ $defaultLogSidebarConfig = array(
 		"id"		=> "saveArchiveSideBar{{counter}}",
 		"onClick"	=> "saveArchivePopup('{{counter}}');",
 		"type"		=> 1,
-		"visible"	=> "true",
 		"position"	=> 80,
 		"content"	=> $core->generateImage(
 			$arrayOfImages["loadingImg"],
@@ -202,7 +195,6 @@ $defaultLogSidebarConfig = array(
 	"logSelector"	=> array(
 		"onClick"	=> "toggleLogPopup(this,'{{counter}}');",
 		"type"		=> 1,
-		"visible"	=> "true",
 		"position"	=> 90,
 		"content"	=> $core->generateImage(
 			$arrayOfImages["loadingImg"],
@@ -234,7 +226,6 @@ $defaultLogSidebarConfig = array(
 	"scrollToTop"	=> array(
 		"onClick"	=> "scrollToTop('{{counter}}');",
 		"type"		=> 1,
-		"visible"	=> "true",
 		"position"	=> 500,
 		"content"	=> $core->generateImage(
 			$arrayOfImages["loadingImg"],
@@ -250,7 +241,6 @@ $defaultLogSidebarConfig = array(
 	"scrollToBottom"	=> array(
 		"onClick"	=> "scrollToBottom('{{counter}}');",
 		"type"		=> 1,
-		"visible"	=> "true",
 		"position"	=> 500,
 		"content"	=> $core->generateImage(
 			$arrayOfImages["loadingImg"],
