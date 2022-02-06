@@ -1,11 +1,11 @@
 <?php 
 
-$id = $sidebarItem['id'] ?? "";
-$onClick = $sidebarItem['onClick'] ?? "";
-$style = $sidebarItem['style'] ?? "";
-$class = $sidebarItem['class'] ?? "";
+$id = $sidebarItem["id"] ?? "";
+$onClick = $sidebarItem["onClick"] ?? "";
+$style = $sidebarItem["style"] ?? "";
+$class = $sidebarItem["class"] ?? "";
 
-if ($sidebarItem['visible'] !== 'true')
+if ($sidebarItem["visible"] !== "true")
 {
 	$style .=" display: none; ";
 }
@@ -27,8 +27,8 @@ if ($class !== "")
 	$class = "class=\"" . $class . "\"";
 }
 
-if($sidebarItem['type'] === 'image'): ?>
+if($sidebarItem["type"] === "image"): ?>
 	<a <?php echo $id . " " . $onClick . " " . $style . " " . $class ?> >
-	<?php echo $sidebarItem['image']; ?>
+	<?php echo $sidebarItem["image"]; ?>
 </a>
 <?php endif; ?>	

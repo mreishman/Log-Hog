@@ -1,42 +1,11 @@
 <div class="backgroundForMenus" id="header" >
 	<div id="menuButtons" style="display: none;">
 		<span id="menuButtonLeft">
-			<div onclick="toggleFullScreenMenu();"  class="menuImageDiv" id="mainMenuDiv">
-				<?php echo $core->generateImage(
-					$arrayOfImages["loadingImg"],
-					$imageConfig = array(
-						"id"		=>	"menuImage",
-						"class"		=>	"menuImage menuImageForLoad",
-						"height"	=>	"30px",
-						"data-src"	=>	$arrayOfImages["menu"]
-						)
-					);
-				?>
-			</div>
-			<div <?php if ($hideNotificationIcon === "true"){echo "style=\"display: none\"";} ?> class="menuImageDiv" id="notificationDiv" onclick="toggleNotifications();" >
-				<?php echo $core->generateImage(
-					$arrayOfImages["loadingImg"],
-					$imageConfig = array(
-						"id"		=>	"notificationNotClicked",
-						"class"		=>	"menuImage notificationImageForLoad",
-						"height"	=>	"30px",
-						"data-src"	=>	$arrayOfImages["notification"]
-						)
-					);
-				?>
-			</div>
-			<div onclick="toggleSettingsSidebar();"  class="menuImageDiv">
-				<?php echo $core->generateImage(
-					$arrayOfImages["loadingImg"],
-					$imageConfig = array(
-						"id"		=>	"gearImage",
-						"class"		=>	"menuImage gearImageForLoad",
-						"height"	=>	"30px",
-						"data-src"	=>	$arrayOfImages["gear"]
-						)
-					);
-				?>
-			</div>
+			<?php foreach ($sortedIndexHeaderConfig as $headerItem)
+			{
+				include("core/php/template/indexHeaderAction.php");
+			}
+			?>
 			<div onclick="pausePollAction();" class="menuImageDiv">
 				<?php
 					$styleString = "display: inline-block;";

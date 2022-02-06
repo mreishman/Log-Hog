@@ -71,6 +71,7 @@ require_once('core/php/loadVarsToJs.php');
 require_once('core/php/updateCheck.php');
 require_once("core/php/defaultConfData.php");
 require_once('core/php/defaultLogSidebarData.php');
+require_once('core/php/defaultIndexHeaderData.php');
 
 $daysSince = $update->calcuateDaysSince($configStatic['lastCheck']);
 
