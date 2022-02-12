@@ -77,7 +77,7 @@ require_once('../core/php/loadVars.php');
 			include('../core/php/template/varTemplate.php');
 			require_once('../core/php/template/logLayout.php');
 		}
-		$currentSection = "otherVars";
+		$currentSection = "updateSettings";
 		include('../core/php/template/varTemplate.php');
 		?>
 	</div>

@@ -88,7 +88,7 @@ $core->getScripts(
 			<a class="link" href="#settingsMultiLogVars" > Multi-Log </a>
 			<a class="link" href="#settingsInitialLoadLayoutVars"> Log Layout</a>
 		<?php endif; ?>
-		<a class="link" href="#settingsMainVars" > Other </a>
+		<a class="link" href="#settingsMainVars" > Update </a>
 	</div>
 <?php elseif(strpos($URI, 'formatting.php') !== false): ?>
 	<div id="menu2">

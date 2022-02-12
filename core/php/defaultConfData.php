@@ -324,7 +324,42 @@ $defaultConfigMoreData = array(
 			"name"								=>	"Config"
 		),
 		"vars"								=>	array(
-			0									=>	array(
+			0									=> array(
+				"bool"								=>	($popupWarnings != 'custom'),
+				"bool2"								=>	"custom",
+				"id"								=>	"settingsPopupVars",
+				"name"								=>	"Popup Settings",
+				"type"								=>	"grouped",
+				"var"								=>	array(
+					"function"							=>	"toggleUpdateDisplayCheck",
+					"functionForToggle"					=>	"showOrHidePopupSubWindow",
+					"id"								=>	"popupSelect",
+					"key"								=>	"popupWarnings",
+					"name"								=>	"Popup Warnings",
+					"options"							=>	array(
+							0 									=> array(
+								"value" 							=> "true",
+								"name" 								=> "True"),
+							1 									=> array(
+								"value" 							=> "custom",
+								"name" 								=> "Custom"),
+							2									=> array(
+								"value" 							=> "false",
+								"name" 								=> "False")
+						),
+					"type"								=>	"dropdown"
+				),
+				"vars"								=>	$customVarPopup
+			),
+			1									=> array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"id"								=>	"popupSettingsArray",
+					"key"								=>	"popupSettingsArray",
+					"type"								=>	"hidden"
+				)
+			),
+			2									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"saveButtonAlwaysVisible",
@@ -333,7 +368,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			1									=>	array(
+			3									=>	array(
 				"info"								=>	"Refresh to run upgrade scripts",
 				"type"								=>	"single",
 				"var"								=>	array(
@@ -342,7 +377,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"number"
 				)
 			),
-			2									=>	array(
+			4									=>	array(
 				"info"								=>	"Refresh to run upgrade scripts",
 				"type"								=>	"single",
 				"var"								=>	array(
@@ -351,7 +386,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"number"
 				)
 			),
-			3									=>	array(
+			5									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"info"								=>	"This will increase poll times",
@@ -361,7 +396,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			4									=>	array(
+			6									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"enablePollTimeLogging",
@@ -370,7 +405,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			5									=>	array(
+			7									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"enableInitialFileLoadLogging",
@@ -379,6 +414,47 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
+			8									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"pollForceTrueNotice",
+					"name"								=>	"Show notice of poll error after",
+					"postText"							=>	"skipped poll requests",
+					"type"								=>	"number"
+				)
+			),
+			9									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"pollForceTrueWarning",
+					"name"								=>	"Show warning of poll error after",
+					"postText"							=>	"skipped poll requests",
+					"type"								=>	"number"
+				)
+			),
+			10									=> array(
+				"info"								=>	"Use shell or php for reading logs and files",
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"shellOrPhp",
+					"name"								=>	"Poll function preference",
+					"options"							=>	array(
+						0 									=> array(
+							"value" 							=> "shellPreferred",
+							"name" 								=> "Shell Preferred"),
+						1 									=> array(
+							"value" 							=> "phpPreferred",
+							"name" 								=> "Php Preferred"),
+						2 									=> array(
+							"value" 							=> "shellOnly",
+							"name" 								=> "Shell Only"),
+						3 									=> array(
+							"value" 							=> "phpOnly",
+							"name" 								=> "Php Only"),
+					),
+					"type"								=>	"dropdown"
+				)
+			)
 		)
 	),
 	"fileLocations"						=>	array(
@@ -2363,54 +2439,19 @@ $defaultConfigMoreData = array(
 			),
 		)
 	),
-	"otherVars"							=>	array(
+	"updateSettings"					=>	array(
 		"id"								=>	"settingsMainVars",
-		"name"								=>	"Other Settings",
+		"name"								=>	"Update Settings",
 		"menu"								=> 	array(
 			"groups"							=>	array(
 				"main"
 			),
 			"id"								=>	"settingsMainOther",
 			"display"							=>	true,
-			"name"								=>	"Other"
+			"name"								=>	"Update"
 		),
 		"vars"								=> array(
-			0									=> array(
-				"bool"								=>	($popupWarnings != 'custom'),
-				"bool2"								=>	"custom",
-				"id"								=>	"settingsPopupVars",
-				"name"								=>	"Popup Settings",
-				"type"								=>	"grouped",
-				"var"								=>	array(
-					"function"							=>	"toggleUpdateDisplayCheck",
-					"functionForToggle"					=>	"showOrHidePopupSubWindow",
-					"id"								=>	"popupSelect",
-					"key"								=>	"popupWarnings",
-					"name"								=>	"Popup Warnings",
-					"options"							=>	array(
-							0 									=> array(
-								"value" 							=> "true",
-								"name" 								=> "True"),
-							1 									=> array(
-								"value" 							=> "custom",
-								"name" 								=> "Custom"),
-							2									=> array(
-								"value" 							=> "false",
-								"name" 								=> "False")
-						),
-					"type"								=>	"dropdown"
-				),
-				"vars"								=>	$customVarPopup
-			),
-			1									=> array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"id"								=>	"popupSettingsArray",
-					"key"								=>	"popupSettingsArray",
-					"type"								=>	"hidden"
-				)
-			),
-			2									=>	array(
+			0									=>	array(
 				"bool"								=>	($autoCheckUpdate == 'false'),
 				"id"								=>	"settingsAutoCheckVars",
 				"name"								=>	"Auto Check Update Settings",
@@ -2616,47 +2657,7 @@ $defaultConfigMoreData = array(
 							"postText"							=>	"skipped poll requests",
 							"type"								=>	"number"
 						)
-					),
-					1									=>	array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"key"								=>	"pollForceTrueNotice",
-							"name"								=>	"Show notice of poll error after",
-							"postText"							=>	"skipped poll requests",
-							"type"								=>	"number"
-						)
-					),
-					2									=>	array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"key"								=>	"pollForceTrueWarning",
-							"name"								=>	"Show warning of poll error after",
-							"postText"							=>	"skipped poll requests",
-							"type"								=>	"number"
-						)
 					)
-				)
-			),
-			9									=> array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"shellOrPhp",
-					"name"								=>	"Function preference shell/php",
-					"options"							=>	array(
-						0 									=> array(
-							"value" 							=> "shellPreferred",
-							"name" 								=> "Shell Preferred"),
-						1 									=> array(
-							"value" 							=> "phpPreferred",
-							"name" 								=> "Php Preferred"),
-						2 									=> array(
-							"value" 							=> "shellOnly",
-							"name" 								=> "Shell Only"),
-						3 									=> array(
-							"value" 							=> "phpOnly",
-							"name" 								=> "Php Only"),
-					),
-					"type"								=>	"dropdown"
 				)
 			),
 			10									=> array(
