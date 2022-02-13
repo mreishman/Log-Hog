@@ -12,6 +12,7 @@
 	"oneLog" 			: {"name":"oneLog.js","type":"js"},
 	"themes" 			: {"name":"themes.js","type":"js"},
 	"titleFlash" 		: {"name":"titleFlash.js","type":"js"},
+	"update"			: {"name":"update.js","type":"js"},
 	"upgradeTheme" 		: {"name":"upgradeTheme.js","type":"js"},
 	"eraser"			: {"name":"img\/eraser.png","type":"img","class":"eraserForLoad"},
 	"eraserMulti"		: {"name":"img\/eraserMulti.png","type":"img","class":"eraserMultiImageForLoad"},

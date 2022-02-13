@@ -22,7 +22,6 @@
 	{"name":"settingsMain.js","type":"js"},
 	{"name":"settingsSideBar.js","type":"js"},
 	{"name":"showLog.js","type":"js"},
-	{"name":"update.js","type":"js"},
 	{"name":"visibility.core.js","type":"js"},
 	{"name":"visibility.fallback.js","type":"js"},
 	{"name":"visibility.timers.js","type":"js"},

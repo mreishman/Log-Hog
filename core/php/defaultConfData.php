@@ -1953,7 +1953,16 @@ $defaultConfigMoreData = array(
 						)
 					)
 				)
-			)
+			),
+			8									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"updaterEnabled",
+					"name"								=>	"Enable Updater",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
 		)
 	),
 	"multiLogVars"						=>	array(

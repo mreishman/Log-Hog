@@ -399,6 +399,7 @@ $defaultConfig = array(
 	'truncateLog'					=> 'true',
 	'updateNoticeMeter'				=> 'every',
 	'updateNotificationEnabled'		=> 'true',
+	'updaterEnabled'				=> 'true',
 	'watchList'		=> array(
 		'System Log'	    => array(
 			"AlertEnabled"		=>	"true",

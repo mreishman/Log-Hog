@@ -217,10 +217,12 @@
 					<?php endif; ?>
 				<?php else: ?>
 					<td colspan="4">
-						<?php if(class_exists('ZipArchive')): ?>
-							<progress id="<?php echo $lowercase; ?>DownloadProgressBar" style="width: 100%;" value="0" max="100"></progress>
-						<?php else: ?>
+						<?php if(!class_exists('ZipArchive')): ?>
 							You must install ZipArchive to download.
+						<?php elseif($updaterEnabled !== "true"): ?>
+							You must enable Updates to download (refresh required)
+						<?php else: ?>
+							<progress id="<?php echo $lowercase; ?>DownloadProgressBar" style="width: 100%;" value="0" max="100"></progress>
 						<?php endif; ?>
 					</td>
 					<td>
@@ -232,7 +234,7 @@
 							<input type="hidden" name="repoName" value="<?php echo $repo; ?>">
 							<input type="hidden" name="action" value="Downloading">
 						</form>
-						<?php if(class_exists('ZipArchive')): ?>
+						<?php if(class_exists('ZipArchive') && $updaterEnabled === "true"): ?>
 							<a onclick="addonMonitorAction(<?php echo $key; ?>);" class="link">Download</a>
 						<?php else: ?>
 							-------

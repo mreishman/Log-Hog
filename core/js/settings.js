@@ -380,6 +380,18 @@ function saveVerified()
 		{
 			$("#ThemesLink").hide();
 		}
+		if($("[name='updaterEnabled']")[0].value === "true")
+		{
+			if(typeof checkForUpdates !== "function" && typeof script === "function")
+			{
+				script("core/js/update.js");
+			}
+			$("#mainMenuUpdate").show();
+		}
+		else
+		{
+			$("#mainMenuUpdate").hide();
+		}
 	}
 
 	saveSuccess();
@@ -470,12 +482,10 @@ function refreshCustomCss()
 			data: {formKey},
 			type: "POST",
 		success(data)
-		{
-						if(!handleError(dirForAjaxSend, data, "settingsSaveAjax.php"))
-						{
-				//add css to bottom of index page
-				$("#initialLoadContent").append(data);
-			}
+		{		
+			//add css to bottom of index page
+			$("#initialLoadContent").append(data);
+			
 		},
 		});
 
@@ -484,12 +494,9 @@ function refreshCustomCss()
 			data: {formKey},
 			type: "POST",
 		success(data)
-		{
-						if(!handleError(dirForAjaxSend, data, "settingsSaveAjax.php"))
-						{
-				//add css to bottom of index page
-				$("#initialLoadContent").append(data);
-			}
+		{	
+			//add css to bottom of index page
+			$("#initialLoadContent").append(data);
 		},
 		});
 	}

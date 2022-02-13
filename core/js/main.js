@@ -1673,7 +1673,7 @@ function checkForUpdateMaybe()
 {
 	try
 	{
-		if (autoCheckUpdate === "true")
+		if (updaterEnabled === "true" && autoCheckUpdate === "true")
 		{
 			if(daysSinceLastCheck > (autoCheckDaysUpdate - 1))
 			{

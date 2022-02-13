@@ -3,6 +3,10 @@ $jsonFiles = file_get_contents($core->baseURL()."core/json/staticFilesRequired.j
 $arrayOfFiles = json_decode($jsonFiles, true);
 $jsonFiles = file_get_contents($core->baseURL()."core/json/staticFilesOptional.json");
 $arrayOfFilesExtra = json_decode($jsonFiles, true);
+if($updaterEnabled === "true")
+{
+	$arrayOfFiles[] = $arrayOfFilesExtra['update'];
+}
 if($filterEnabled === "true")
 {
 	$arrayOfFiles[] = $arrayOfFilesExtra['filter'];
