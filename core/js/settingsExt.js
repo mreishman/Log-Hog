@@ -74,6 +74,45 @@ function goToUrl(url)
 	}
 }
 
+function showAboutTab(tabType)
+{
+	if (tabType === 'about')
+	{
+		$("#aboutLink").addClass("active").css("cursor","default");
+		$("#aboutSpanAbout").show();
+		$("#aboutSpanInfo").show();
+		$("#aboutSpanGithub").show();
+	}
+	else
+	{
+		$("#aboutLink").removeClass("active").css("cursor","pointer");
+		$("#aboutSpanAbout").hide();
+		$("#aboutSpanInfo").hide();
+		$("#aboutSpanGithub").hide();
+	}
+	if (tabType === 'changelog')
+	{
+		$("#changeLogLink").addClass("active").css("cursor","default");
+		$("#aboutSpanChangelog").show();
+	}
+	else
+	{
+		$("#changeLogLink").removeClass("active").css("cursor","pointer");
+		$("#aboutSpanChangelog").hide();
+	}
+	if (tabType === 'whatsNew')
+	{
+		$("#whatsNewLink").addClass("active").css("cursor","default");
+		loadImgFromData("whatsNewImage");
+		$("#aboutSpanWhatsNew").show();
+	}
+	else
+	{
+		$("#whatsNewLink").removeClass("active").css("cursor","pointer");
+		$("#aboutSpanWhatsNew").hide();
+	}
+}
+
 function onScrollShowFixedMiniBar(idsOfForms)
 {
 	if(!document.getElementById("fixedPositionMiniMenu"))

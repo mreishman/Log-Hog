@@ -9,7 +9,7 @@ $( document ).ready(function()
 	}
 	else
 	{
-		window.location.href = "../../../settings/whatsNew.php";
+		window.location.href = "../../../settings/about.php?pageType=whatsNew";
 	}
 });
 

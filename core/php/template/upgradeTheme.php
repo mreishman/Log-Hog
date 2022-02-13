@@ -34,7 +34,7 @@ if(isset($_GET["forceThemeUpdate"]))
 }
 if((strval($baseFileVersion) === strval($oldFileVersion)) && (file_exists("../../../local/".$currentSelectedTheme."/img/info.png")) && !$forceThemeUpdate)
 {
-	header("Location: "."../../../settings/whatsNew.php", true, 302); /* Redirect browser */
+	header("Location: "."../../../settings/about.php?pageType=whatsNew", true, 302); /* Redirect browser */
 	exit();
 }
 ?>
