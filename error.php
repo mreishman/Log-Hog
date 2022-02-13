@@ -291,9 +291,9 @@ if(file_exists($file))
                         @include("local/layout.php");
                     }
                     $config = array();
-                    if(is_file("local/".$currentSelectedTheme."/conf/config.php"))
+                    if(is_file("local/profiles/".$currentSelectedTheme."/conf/config.php"))
                     {
-                        @include("local/".$currentSelectedTheme."/conf/config.php");
+                        @include("local/profiles/".$currentSelectedTheme."/conf/config.php");
                     }
                     $arrayOfModules = array(
                         0                                   =>  array(
@@ -327,6 +327,10 @@ if(file_exists($file))
                         7                                   =>  array(
                             "key"                               =>  "backupNumConfigEnabled",
                             "name"                              =>  "Config Backup",
+                        ),
+                        8                                   =>  array(
+                            "key"                               =>  "updaterEnabled",
+                            "name"                              =>  "Update Backup",
                         )
                     );
                     echo "<h3>Modules:</h3><table>";
