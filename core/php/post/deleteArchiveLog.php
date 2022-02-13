@@ -14,11 +14,32 @@ if(!$session->validate())
 	exit();
 }
 $dirType = $_POST['type'];
+$actionType = $_POST['actionType'] ?? "single";
 $folder = "loghogBackupArchiveLogs";
 if($dirType !== "archive")
 {
 	$folder = "loghogBackupHistoryLogs";
 }
-$fileName = $_POST['file'];
-unlink("../../../tmp/".$folder."/".$fileName);
+
+if ($actionType === "single")
+{
+	$fileName = $_POST['file'];
+	unlink("../../../tmp/".$folder."/".$fileName);
+}
+else
+{
+	$scannedDir = scandir("../../../tmp/".$folder."/");
+	if(!is_array($scannedDir))
+	{
+		$scannedDir = array($scannedDir);
+	}
+	$files = array_diff($scannedDir, array('..', '.','placeholder.txt'));
+	foreach ($files as $file)
+	{
+		if(is_file($file))
+		{
+			unlink($file);
+		}
+	}
+}
 echo json_encode(true);

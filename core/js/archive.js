@@ -187,12 +187,12 @@ function deleteArchiveLog(title, type)
 function clearAllArchiveLogs(type)
 {
 	$.ajax({
-			url: "core/php/post/deleteAllArchiveLogs.php?format=json",
+			url: "core/php/post/deleteArchiveLog.php?format=json",
 			dataType: "json",
-			data: {type, formKey},
+			data: {type, formKey, actionType: "all"},
 			type: "POST",
 	success(data){
-		if(!handleError("", data, "deleteAllArchiveLogs.php"))
+		if(!handleError("", data, "deleteArchiveLog.php"))
 		{
 			var arrayOfDataMainKeys = Object.keys(arrayOfDataMain);
 			var arrayOfDataMainKeysLength = arrayOfDataMainKeys.length;

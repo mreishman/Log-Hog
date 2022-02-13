@@ -156,5 +156,6 @@
 	{"fullPath":"settings\/watchlist.php","type":"file"},
 	{"fullPath":"core\/js\/expFeatures.js","type":"file"},
 	{"fullPath":"core\/js\/redirectToWaitUntillUpdate.js","type":"file"},
-	{"fullPath":"update\/redirectToWaitUntillUpdate.php","type":"file"}
+	{"fullPath":"update\/redirectToWaitUntillUpdate.php","type":"file"},
+	{"fullPath":"core\/php\/post\/deleteAllArchiveLogs.php","type":"file"}
 ]
