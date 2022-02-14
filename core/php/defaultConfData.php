@@ -1236,6 +1236,22 @@ $defaultConfigMoreData = array(
 							"type"								=>	"dropdown"
 						)
 					),
+					3									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"LogLoadPollDisplayType",
+							"name"								=>	"Log Loading Poll Display Type",
+							"options"							=>	array(
+									0 									=> array(
+										"value" 							=> "percent",
+										"name" 								=> "Percentage"),
+									1 									=> array(
+										"value" 							=> "linecount",
+										"name" 								=> "Line Count")
+								),
+							"type"								=>	"dropdown"
+						)
+					),
 				)
 			),
 			4									=>	array(

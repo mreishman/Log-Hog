@@ -2009,7 +2009,15 @@ function unhideHidden(currentLogId)
 		{
 			continue;
 		}
-		$("#loadLineCountForWindow"+currentLogId).html((linesLength - i)+"<hr>"+linesLength);
+		if (LogLoadPollDisplayType === "linecount")
+		{
+			$("#loadLineCountForWindow"+currentLogId).html((linesLength - i)+"<hr>"+linesLength);
+		}
+		else
+		{
+			let percentCalc = (Math.round( ((linesLength - i) / linesLength) * 100));
+			$("#loadLineCountForWindow"+currentLogId).html(percentCalc + "%");
+		}
 		currentLine.css("display","table-row");
 		lineUnHid = true;
 		if(logLoadForceScrollToBot === 'false')
