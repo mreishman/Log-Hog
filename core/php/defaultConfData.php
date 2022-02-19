@@ -255,36 +255,6 @@ $fullScreenMenuGroups = array(
 	)
 );
 
-$modArray = array(
-	0 	=> array(
-		"value"	=> "(",
-		"name" 	=> "("),
-	1 	=> array(
-		"value"	=> "[",
-		"name" 	=> "["),
-	2 	=> array(
-		"value"	=> "|",
-		"name" 	=> "|"),
-	3 	=> array(
-		"value"	=> ":",
-		"name" 	=> ":"),
-	4 	=> array(
-		"value"	=> "-",
-		"name" 	=> "-"),
-	5	=> array(
-		"value"	=> "::",
-		"name" 	=> "::"),
-	6	=> array(
-		"value"	=> "@",
-		"name" 	=> "@"),
-	7 	=> array(
-		"value"	=> " ",
-		"name" 	=> "Space"),
-	8 	=> array(
-		"value"	=> "none",
-		"name" 	=> "None")
-);
-
 $defaultConfigMoreData = array(
 	"actions"							=>	array(
 		"id"								=>	"settingsAdvancedAdvanced",
@@ -1694,7 +1664,35 @@ $defaultConfigMoreData = array(
 						"var"								=>	array(
 							"key"								=>	"logDiffCountLeftMod",
 							"name"								=>	"Left Mod",
-							"options"							=>	$modArray,
+							"options"							=>	array(
+								0 									=> array(
+									"value" 							=> "(",
+									"name" 								=> "("),
+								1 									=> array(
+									"value" 							=> "[",
+									"name" 								=> "["),
+								2 									=> array(
+									"value" 							=> "|",
+									"name" 								=> "|"),
+								3 									=> array(
+									"value"								=> ":",
+									"name" 								=> ":"),
+								4 									=> array(
+									"value"								=> "-",
+									"name" 								=> "-"),
+								5									=> array(
+									"value"								=> "::",
+									"name" 								=> "::"),
+								6									=> array(
+									"value"								=> "@",
+									"name" 								=> "@"),
+								7 									=> array(
+									"value"								=> " ",
+									"name" 								=> "Space"),
+								8 									=> array(
+									"value"								=> "none",
+									"name" 								=> "None")
+							),
 							"type"								=>	"dropdown"
 						)
 					),
@@ -1703,7 +1701,35 @@ $defaultConfigMoreData = array(
 						"var"								=>	array(
 							"key"								=>	"logDiffCountRightMod",
 							"name"								=>	"Right Mod",
-							"options"							=>	$modArray,
+							"options"							=>	array(
+								0 									=> array(
+									"value" 							=> ")",
+									"name" 								=> ")"),
+								1 									=> array(
+									"value" 							=> "]",
+									"name" 								=> "]"),
+								2 									=> array(
+									"value" 							=> "|",
+									"name" 								=> "|"),
+								3 									=> array(
+									"value"								=> ":",
+									"name" 								=> ":"),
+								4 									=> array(
+									"value"								=> "-",
+									"name" 								=> "-"),
+								5									=> array(
+									"value"								=> "::",
+									"name" 								=> "::"),
+								6									=> array(
+									"value"								=> "@",
+									"name" 								=> "@"),
+								7 									=> array(
+									"value"								=> " ",
+									"name" 								=> "Space"),
+								8 									=> array(
+									"value"								=> "none",
+									"name" 								=> "None")
+							),
 							"type"								=>	"dropdown"
 						)
 					)
