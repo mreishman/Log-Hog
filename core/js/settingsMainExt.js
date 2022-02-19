@@ -66,17 +66,8 @@ $( document ).ready(function()
 	}
 	refreshArrayObjectOfArrays(arrayToRefresh);
 
-	document.addEventListener(
-		"scroll",
-		function (event)
-		{
-			if (typeof onScrollShowFixedMiniBar === "function")
-			{
-				onScrollShowFixedMiniBar(arrayToRefresh);
-			}
-		},
-		true
-	);
+	document.addEventListener("resize", function() {onScrollShowFixedMiniBar(arrayToRefresh);});
+	$( window ).resize(function() { onScrollShowFixedMiniBar(arrayToRefresh); });
 
 	if (typeof poll !== "undefined")
 	{
