@@ -1374,12 +1374,12 @@ $defaultConfigMoreData = array(
 						)
 					),
 					2									=> array(
-						"info"								=>	"Default 30 ms",
 						"type"								=>	"single",
 						"var"								=>	array(
 							"key"								=>	"timeoutHighlight",
 							"name"								=>	"Timeout for fade",
-							"type"								=>	"number"
+							"type"								=>	"number",
+							"postText"							=>	"ms"
 						)
 					)
 				)
