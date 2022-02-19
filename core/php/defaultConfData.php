@@ -256,6 +256,70 @@ $fullScreenMenuGroups = array(
 );
 
 $defaultConfigMoreData = array(
+	"actions"							=>	array(
+		"id"								=>	"settingsAdvancedAdvanced",
+		"name"								=>	"Actions",
+		"menu"								=> 	array(
+			"groups"							=>	array(
+				"advanced"
+			),
+			"id"								=>	"settingsAdvancedActions",
+			"display"							=>	true,
+			"name"								=>	"Actions"
+		),
+		"vars"								=>	array(
+			1									=>	array(
+				"type"								=>	"action",
+				"var"								=>	array(
+					"name"								=>	"Re-do Setup",
+					"href"								=>	$settingsUrlModifier."setup/step1.php"
+				)
+			),
+			2									=>	array(
+				"type"								=>	"action",
+				"var"								=>	array(
+					"name"								=>	"Revert Version",
+					"onClick"							=>	"revertPopup();"
+				)
+			),
+			3									=>	array(
+				"type"								=>	"action",
+				"var"								=>	array(
+					"name"								=>	"Reset Update Notification",
+					"onClick"							=>	"resetUpdateNotification();"
+				)
+			),
+			4									=>	array(
+				"type"								=>	"action",
+				"var"								=>	array(
+					"name"								=>	"View Files",
+					"href"								=>	$settingsUrlModifier."settings/editFiles.php"
+				)
+			),
+			5									=>	array(
+				"type"								=>	"action",
+				"var"								=>	array(
+					"name"								=>	"View restore options for config",
+					"onClick"							=>	"showConfigPopup();"
+				)
+			),
+			6									=>	array(
+				"type"								=>	"action",
+				"var"								=>	array(
+					"name"								=>	"Clear Backup Config Files",
+					"onClick"							=>	"clearBackupFiles();",
+					"outerId"							=>	"showConfigClearButton"
+				)
+			),
+			7									=>	array(
+				"type"								=>	"action",
+				"var"								=>	array(
+					"name"								=>	"Reset Settings back to Default",
+					"onClick"							=>	"resetSettingsPopup();"
+				)
+			)
+		)
+	),
 	"archive"							=>	array(
 		"id"								=>	"archiveConfig",
 		"name"								=>	"Archive",
@@ -2802,18 +2866,6 @@ $defaultConfigMoreData = array(
 
 //Vars just needed for menu and not dynamically created like the above section
 $customConfigSections = array(
-	"advancedActions"	=> array(
-		"id"	=> "moreAdvanced",
-		"name"	=> "Advanced",
-		"menu"								=> 	array(
-			"groups"							=>	array(
-				"advanced"
-			),
-			"id"								=>	"settingsAdvancedAdvanced",
-			"display"							=>	true,
-			"name"								=>	"Actions"
-		)
-	),
 	"colorScheme"	=> array(
 		"id"	=> "settingsColorFolderGroupVars",
 		"name"	=> "Log Tabs Color Scheme",

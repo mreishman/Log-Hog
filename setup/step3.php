@@ -28,6 +28,7 @@ while(file_exists('step'.$counterSteps.'.php'))
 }
 $counterSteps--;
 require_once("../core/php/loadVars.php");
+$settingsUrlModifier = "../";
 require_once("../core/php/defaultConfData.php");
 ?>
 <!DOCTYPE html>

@@ -163,6 +163,29 @@ class settings
 		return $returnHtml;
 	}
 
+	private function generateButton($confDataValue)
+	{
+		$href = $confDataValue["href"] ?? "";
+		$onClick = $confDataValue["onClick"] ?? "";
+		$spanId = $confDataValue["outerId"] ?? "";
+		
+		if ($href !== "")
+		{
+			$href = "href=\"" . $href . "\"";
+		}
+		if ($onClick !== "")
+		{
+			$onClick = "onclick=\"" . $onClick . "\"";
+		}
+		if ($spanId !== "")
+		{
+			$spanId = "id=\"" . $spanId . "\"";
+		}
+
+		$returnHtml = "<span ".$spanId." > <a ".$href." ".$onClick." style=\"text-decoration: none;\" class=\"link\">".$confDataValue["name"]."</a> </span>";
+		return $returnHtml;
+	}
+
 	private function generateGenericType($confDataValue, $confDataKeyValue, $confDataKey)
 	{
 		$returnHtml = "";
@@ -170,11 +193,11 @@ class settings
 		{
 			$returnHtml .= $this->generateNumber($confDataValue,$confDataKeyValue,$confDataKey);
 		}
-		if($confDataValue["type"] === "color")
+		elseif($confDataValue["type"] === "color")
 		{
 			$returnHtml .= $this->generateColor($confDataValue,$confDataKeyValue,$confDataKey);
 		}
-		else if($confDataValue["type"] === "text")
+		elseif($confDataValue["type"] === "text")
 		{
 			$returnHtml .= $this->generateText($confDataValue,$confDataKeyValue,$confDataKey);
 		}
@@ -195,7 +218,13 @@ class settings
 
 	public function varTemplateLogic($confDataValue, $loadVarsArray, $infoImage = "")
 	{
-		if($confDataValue["type"] === "single")
+		if($confDataValue["type"] === "action")
+		{
+			echo "<li>";
+			echo $this->generateButton($confDataValue["var"]);
+			echo "</li>";
+		}
+		elseif($confDataValue["type"] === "single")
 		{
 			echo "<li";
 			if($confDataValue["var"]["type"] === "hidden")

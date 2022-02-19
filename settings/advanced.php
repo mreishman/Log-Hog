@@ -73,9 +73,8 @@ require_once('../core/php/updateCheck.php');
 	include('../core/php/template/varTemplate.php');
 	$currentSection = "fileLocations";
 	include('../core/php/template/varTemplate.php');
-	$settingsUrlModifier = "../";
-	$otherSettingsUrlModifier = "";
-	include('../core/php/template/advancedActions.php');
+	$currentSection = "actions";
+	include('../core/php/template/varTemplate.php');
 	?>
 	</div>
 </body>

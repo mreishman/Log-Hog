@@ -29,7 +29,6 @@ else
 require_once('../core/php/configStatic.php');
 require_once('../core/php/loadVars.php');
 require_once('../core/php/updateCheck.php');
-$settingsUrlModifier = "../";
 ?>
 <!doctype html>
 <head>

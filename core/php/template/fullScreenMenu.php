@@ -161,19 +161,12 @@
 			</tr>
 		</table>
 	</div>
+	<?php //auto generated settings tabs ?>
 	<?php foreach ($defaultConfigMoreData as $currentSection => $configRowData): ?>
 		<div id="<?php echo $configRowData["menu"]["id"]; ?>" class="fullScreenMenuSettingsFormDiv" style="display: none;" >
 			<?php include('core/php/template/varTemplate.php');	?>
 		</div>
 	<?php endforeach; ?>
-	<?php //auto generated settings tabs ?>
-	<div id="settingsAdvancedAdvanced" class="fullScreenMenuSettingsFormDiv" style="display: none;" >
-		<?php
-			$settingsUrlModifier = "";
-			$otherSettingsUrlModifier = "settings/";
-			include('core/php/template/advancedActions.php');
-		?>
-	</div>
 	<?php //custom settings tabs ?>
 	<div id="fullScreenMenuColorScheme" class="fullScreenMenuSettingsFormDiv" style="display: none;">
 		<?php require_once('core/php/template/folderGroupColor.php'); ?>

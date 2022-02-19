@@ -1,6 +1,7 @@
 <?php
 require_once('../setup/setupProcessFile.php');
 require_once("../core/php/customCSS.php");
+$settingsUrlModifier = "../";
 require_once("../core/php/defaultConfData.php");
 $infoImage = $core->generateImage(
 	$arrayOfImages["info"],
