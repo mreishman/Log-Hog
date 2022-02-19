@@ -283,7 +283,7 @@ $modArray = array(
 	8 	=> array(
 		"value"	=> "none",
 		"name" 	=> "None")
-)
+);
 
 $defaultConfigMoreData = array(
 	"actions"							=>	array(
