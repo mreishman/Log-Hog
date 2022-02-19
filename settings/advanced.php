@@ -80,4 +80,5 @@ require_once('../core/php/updateCheck.php');
 </body>
 <script type="text/javascript">
 	var saveButtonAlwaysVisible = "<?php echo $saveButtonAlwaysVisible; ?>";
+	var htmlRestoreOptions = "<?php echo $settings->generateRestoreList($configStatic); ?>";
 </script>

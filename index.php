@@ -338,19 +338,22 @@ $needRefresh = $core->generateImage(
 
 	</span>
 	<script type="text/javascript">
-			var themeChangeLogicDirModifier = "core/php/post/";
-			var themeErrorLogicDirModifier = "";
-			function redirectToLocationFromUpgradeTheme()
-			{
-				location.reload();
-			}
-			document.addEventListener("DOMContentLoaded", function(event)
-			{
-				arrayOfJsFilesKeys = Object.keys(arrayOfJsFiles);
-				lengthOfArrayOfJsFiles = arrayOfJsFilesKeys.length;
-			  	setTimeout(function() {
-					timerForLoadJS = setInterval(tryLoadJSStuff, 25);
-				}, 25);
-			});
-		</script>
+		var themeChangeLogicDirModifier = "core/php/post/";
+		var themeErrorLogicDirModifier = "";
+		function redirectToLocationFromUpgradeTheme()
+		{
+			location.reload();
+		}
+		document.addEventListener("DOMContentLoaded", function(event)
+		{
+			arrayOfJsFilesKeys = Object.keys(arrayOfJsFiles);
+			lengthOfArrayOfJsFiles = arrayOfJsFilesKeys.length;
+		  	setTimeout(function() {
+				timerForLoadJS = setInterval(tryLoadJSStuff, 25);
+			}, 25);
+		});
+	</script>
+	<script type="text/javascript">
+		var htmlRestoreOptions = "<?php echo $settings->generateRestoreList($configStatic); ?>";
+	</script>
 </body>
