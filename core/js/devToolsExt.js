@@ -17,7 +17,14 @@ $( document ).ready(function()
 {
 	refreshArrayObjectOfArrays(["devConfig","globalAdvanced"]);
 
-	document.addEventListener("resize", function() {onScrollShowFixedMiniBar(["devConfig","globalAdvanced"]);});
+	ddocument.addEventListener(
+		"scroll",
+		function (event)
+		{
+			onScrollShowFixedMiniBar(["devConfig","globalAdvanced"]);
+		},
+		true
+	);
 	$( window ).resize(function() { onScrollShowFixedMiniBar(["devConfig","globalAdvanced"]); });
 
 	setInterval(poll, 100);

@@ -2288,6 +2288,7 @@ function mainReady()
 		},
 		true
 	);
+	$( window ).resize(function() { onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate); });
 
 	document.getElementById("menu").addEventListener(
 		"scroll",

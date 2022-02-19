@@ -46,7 +46,14 @@ $( document ).ready(function()
 	}
 	refreshArrayObjectOfArrays(arrayToRefresh);
 
-	document.addEventListener("resize", function() {onScrollShowFixedMiniBar(arrayToRefresh);});
+	document.addEventListener(
+		"scroll",
+		function (event)
+		{
+			onScrollShowFixedMiniBar(arrayToRefresh);
+		},
+		true
+	);
 	$( window ).resize(function() { onScrollShowFixedMiniBar(arrayToRefresh); });
 
 	if (typeof poll !== "undefined")

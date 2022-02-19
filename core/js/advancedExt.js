@@ -14,7 +14,14 @@ $( document ).ready(function()
 {
 	refreshArrayObjectOfArrays(["modules","locationOtherApps","advancedConfig"]);
 
-	document.addEventListener("resize", function() {onScrollShowFixedMiniBar(["advancedConfig","modules","locationOtherApps","settingsAdvancedAdvanced"]);});
+	document.addEventListener(
+		"scroll",
+		function (event)
+		{
+			onScrollShowFixedMiniBar(["advancedConfig","modules","locationOtherApps","settingsAdvancedAdvanced"]);
+		},
+		true
+	);
 	$( window ).resize(function() { onScrollShowFixedMiniBar(["advancedConfig","modules","locationOtherApps","settingsAdvancedAdvanced"]); });
 
 	setInterval(poll, 100);
