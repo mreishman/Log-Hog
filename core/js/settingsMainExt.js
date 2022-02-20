@@ -1,83 +1,90 @@
-var titleOfPage = "Main";
-var urlModifierForAjax = "../";
+var titleOfPage = "Log-Hog | Settings";
+var urlModifierForAjax = "";
+var arrayOfDataSettings = [];
 
 function checkIfChanges()
 {
-	let arrayToCheck = [];
-	let arrOfPossibleGroups = [
-		"settingsLogVars",
-		"settingsLogFormatVars",
-		"settingsPollVars",
-		"settingsFilterVars",
-		"archiveConfig",
-		"settingsNotificationVars",
-		"settingsMenuVars",
-		"settingsMenuLogVars",
-		"settingsFullScreenMenuVars",
-		"settingsWatchlistVars",
-		"settingsOneLogVars",
-		"settingsMultiLogVars",
-		"settingsInitialLoadLayoutVars",
-		"settingsMainVars"
-	];
-	let arrOfPossibleGroupsKeys = Object.keys(arrOfPossibleGroups);
-	let arrOfPossibleGroupsKeysLength = arrOfPossibleGroupsKeys.length;
-	for(let i = 0; i < arrOfPossibleGroupsKeysLength; i++)
-	{
-		if(document.getElementById(arrOfPossibleGroups[arrOfPossibleGroupsKeys[i]]))
-		{
-			arrayToCheck.push(arrOfPossibleGroups[arrOfPossibleGroupsKeys[i]]);
-		}
-	}
-	if(	checkForChangesArray(arrayToCheck))
+	if(	checkForChangesArray(arrayOfDataSettings))
 	{
 		return true;
 	}
 	return false;
 }
 
+function openTab(className)
+{
+	var goToPage = true;
+	if(typeof checkIfChanges == "function")
+	{
+		goToPage = !checkIfChanges();
+	}
+	if(goToPage || popupSettingsArray.saveSettings == "false")
+	{
+		actuallyOpenTab(className);
+	}
+	else
+	{
+		displaySavePromptPopup(url);
+	}
+}
+
+function actuallyOpenTab(className)
+{
+	$(".mainMenuHeader").removeClass("active");
+	$(".mainMenuHeader." + className).addClass("active");
+	$(".settingsSecondaryHeaders").hide();
+
+	$(".settingsSecondaryHeaders." + className).show();
+	$(".settingsSecondaryHeaders." + className+":first").click();
+}
+
+function toggleSettingSection(data)
+{
+	$(".settingsSecondaryHeaders").removeClass("active");
+	$("#" + data.id + "Menu").addClass("active");
+	$(".fullScreenMenuSettingsFormDiv").hide();
+	document.getElementById(data.id).style.display = "block";
+	if(data.formId != "false")
+	{
+		arrayOfDataSettings = [data.formId];
+		idArrayForHeader = [data.formId];
+	}
+}
+
+function openSettingsSectionFromLink(id, className)
+{
+	$(".mainMenuHeader").removeClass("active");
+	$(".mainMenuHeader." + className).addClass("active");
+	$(".settingsSecondaryHeaders").hide();
+
+	$(".settingsSecondaryHeaders." + className).show();
+	$("#" + id + "Menu").click();
+}
+
+function headerScrollLocal()
+{
+	onScrollShowFixedMiniBar(idArrayForHeader);
+}
+
 $( document ).ready(function()
 {
-	let arrayToRefresh = [];
-	let arrOfPossibleGroups = [
-		"settingsLogVars",
-		"settingsLogFormatVars",
-		"settingsPollVars",
-		"settingsFilterVars",
-		"archiveConfig",
-		"settingsNotificationVars",
-		"settingsMenuVars",
-		"settingsMenuLogVars",
-		"settingsFullScreenMenuVars",
-		"settingsWatchlistVars",
-		"settingsOneLogVars",
-		"settingsMultiLogVars",
-		"settingsInitialLoadLayoutVars",
-		"settingsMainVars"
-	];
-	let arrOfPossibleGroupsKeys = Object.keys(arrOfPossibleGroups);
-	let arrOfPossibleGroupsKeysLength = arrOfPossibleGroupsKeys.length;
-	for(let i = 0; i < arrOfPossibleGroupsKeysLength; i++)
-	{
-		if(document.getElementById(arrOfPossibleGroups[arrOfPossibleGroupsKeys[i]]))
-		{
-			arrayToRefresh.push(arrOfPossibleGroups[arrOfPossibleGroupsKeys[i]]);
-		}
-	}
-	refreshArrayObjectOfArrays(arrayToRefresh);
+	settingsArrayRefresh();
 
 	document.addEventListener(
 		"scroll",
 		function (event)
 		{
-			onScrollShowFixedMiniBar(arrayToRefresh);
+			headerScrollLocal();
 		},
 		true
 	);
-	$( window ).resize(function() { onScrollShowFixedMiniBar(arrayToRefresh); });
+	$( window ).resize(function() { headerScrollLocal(); });
 
 	if (typeof poll !== "undefined")
 	{
 		setInterval(poll, 100);
 	}
+
+	openSettingsSectionFromLink(openTabId, openTabClass)
+	resize();
 });

@@ -157,5 +157,13 @@
 	{"fullPath":"core\/js\/expFeatures.js","type":"file"},
 	{"fullPath":"core\/js\/redirectToWaitUntillUpdate.js","type":"file"},
 	{"fullPath":"update\/redirectToWaitUntillUpdate.php","type":"file"},
-	{"fullPath":"core\/php\/post\/deleteAllArchiveLogs.php","type":"file"}
+	{"fullPath":"core\/php\/post\/deleteAllArchiveLogs.php","type":"file"},
+	{"fullPath":"core\/js\/advancedExt.js","type":"file"},
+	{"fullPath":"core\/js\/devToolsExt.js","type":"file"},
+	{"fullPath":"core\/js\/settingsFormattingExt.js","type":"file"},
+	{"fullPath":"settings\/advanced.php","type":"file"},
+	{"fullPath":"settings\/devTools.php","type":"file"},
+	{"fullPath":"settings\/formatting.php","type":"file"},
+	{"fullPath":"settings\/header.php","type":"file"},
+	{"fullPath":"settings\/main.php","type":"file"}
 ]

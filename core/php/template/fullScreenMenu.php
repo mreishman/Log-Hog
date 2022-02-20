@@ -60,6 +60,7 @@
 	</li>
 	<?php 
 	$settingsRightClickMenu = [];
+	$idArray = []; 
 	foreach($fullScreenMenuGroups as $fsmgKey => $fsmgData)
 	{
 		if($samePageSettings === "true")
@@ -67,6 +68,7 @@
 			echo "<li class=\"menuTitle fullScreenMenuText subMenuTitle\">" . $fsmgData["name"] . "</li>";
 			foreach($fsmgData["menu_items"] as $defaultConfigMoreDataRowData)
 			{
+				$idArray[] = $defaultConfigMoreDataRowData["id"];
 				$stringToEcho	 = "<li ";
 				if(!$defaultConfigMoreDataRowData["menu"]["display"])
 				{
@@ -84,7 +86,7 @@
 				echo $stringToEcho;
 				$settingsRightClickMenu[] = [
 					"id"	=> $defaultConfigMoreDataRowData["menu"]["id"] . "Menu",
-					"link"	=> $fsmgData["href"] . "#" . $defaultConfigMoreDataRowData["id"]
+					"link"	=> "./settings.php?tab=" . $fsmgKey . "&id=" . $defaultConfigMoreDataRowData["menu"]["id"]
 				];
 			}
 		}
@@ -98,6 +100,7 @@
 	?>
 	<script type="text/javascript">
 		var listOfMenuRightClick = <?php echo json_encode($settingsRightClickMenu); ?>;
+		var arrOfPossibleGroups = [<?php echo '"'.implode('","', $idArray).'"'?>];
 	</script>
 </ul>
 <div id="mainContentFullScreenMenu">

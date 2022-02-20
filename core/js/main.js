@@ -2299,30 +2299,6 @@ function mainReady()
 		true
 	);
 	let arrOfVarGroups = [];
-	let arrOfPossibleGroups = [
-		"generalThemeOptions",
-		"settingsColorFolderGroupVars",
-		"settingsLogVars",
-		"settingsLogFormatVars",
-		"settingsPollVars",
-		"settingsFilterVars",
-		"archiveConfig",
-		"settingsNotificationVars",
-		"settingsMenuVars",
-		"settingsMenuLogVars",
-		"settingsFullScreenMenuVars",
-		"settingsWatchlistVars",
-		"settingsOneLogVars",
-		"settingsMultiLogVars",
-		"settingsInitialLoadLayoutVars",
-		"settingsMainVars",
-		"advancedConfig",
-		"modules",
-		"locationOtherApps",
-		"devBranch",
-		"devConfig",
-		"globalAdvanced"
-	];
 	let arrOfPossibleGroupsKeys = Object.keys(arrOfPossibleGroups);
 	let arrOfPossibleGroupsKeysLength = arrOfPossibleGroupsKeys.length;
 	for(let i = 0; i < arrOfPossibleGroupsKeysLength; i++)

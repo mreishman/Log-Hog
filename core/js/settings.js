@@ -686,6 +686,21 @@ function checkForChanges(idOfObject)
 	}
 }
 
+function settingsArrayRefresh()
+{
+	let arrOfVarGroups = [];
+	let arrOfPossibleGroupsKeys = Object.keys(arrOfPossibleGroups);
+	let arrOfPossibleGroupsKeysLength = arrOfPossibleGroupsKeys.length;
+	for(let i = 0; i < arrOfPossibleGroupsKeysLength; i++)
+	{
+		if(document.getElementById(arrOfPossibleGroups[arrOfPossibleGroupsKeys[i]]))
+		{
+			arrOfVarGroups.push(arrOfPossibleGroups[arrOfPossibleGroupsKeys[i]]);
+		}
+	}
+	refreshArrayObjectOfArrays(arrOfVarGroups);
+}
+
 function refreshArrayObjectOfArrays(idsOfForms)
 {
 	let idsOfFormsKeys = Object.keys(idsOfForms);
