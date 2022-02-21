@@ -58,7 +58,14 @@ function openSettingsSectionFromLink(id, className)
 	$(".settingsSecondaryHeaders").hide();
 
 	$(".settingsSecondaryHeaders." + className).show();
-	$("#" + id + "Menu").click();
+	if (id !== "")
+	{
+		$("#" + id + "Menu").click();
+	}
+	else
+	{
+		$(".settingsSecondaryHeaders." + className+":first").click();
+	}
 }
 
 function headerScrollLocal()

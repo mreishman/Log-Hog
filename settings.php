@@ -71,7 +71,7 @@ require_once('core/php/loadVars.php');
 var logTrimType = "<?php echo $logTrimType; ?>";
 var saveButtonAlwaysVisible = "<?php echo $saveButtonAlwaysVisible; ?>";
 var openTabClass = "<?php echo $_GET["tab"] ?? "main"; ?>";
-var openTabId = "<?php echo $_GET["id"] ?? "settingsMainLogs"; ?>";
+var openTabId = "<?php echo $_GET["id"] ?? ""; ?>";
 </script>
 <?php $core->getScripts(array(
 	array(

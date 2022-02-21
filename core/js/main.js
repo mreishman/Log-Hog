@@ -2299,14 +2299,17 @@ function mainReady()
 		true
 	);
 	let arrOfVarGroups = [];
-	let arrOfPossibleGroupsKeys = Object.keys(arrOfPossibleGroups);
-	let arrOfPossibleGroupsKeysLength = arrOfPossibleGroupsKeys.length;
-	for(let i = 0; i < arrOfPossibleGroupsKeysLength; i++)
+	if (arrOfPossibleGroups.length > 0)
 	{
-		if(document.getElementById(arrOfPossibleGroups[arrOfPossibleGroupsKeys[i]]))
+		let arrOfPossibleGroupsKeys = Object.keys(arrOfPossibleGroups);
+		let arrOfPossibleGroupsKeysLength = arrOfPossibleGroupsKeys.length;
+		for(let i = 0; i < arrOfPossibleGroupsKeysLength; i++)
 		{
-			arrOfVarGroups.push(arrOfPossibleGroups[arrOfPossibleGroupsKeys[i]]);
+			if(document.getElementById(arrOfPossibleGroups[arrOfPossibleGroupsKeys[i]]))
+			{
+				arrOfVarGroups.push(arrOfPossibleGroups[arrOfPossibleGroupsKeys[i]]);
+			}
 		}
+		refreshArrayObjectOfArrays(arrOfVarGroups);
 	}
-	refreshArrayObjectOfArrays(arrOfVarGroups);
 }

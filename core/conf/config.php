@@ -377,6 +377,7 @@ $defaultConfig = array(
 	'popupSettingsArray'			=> '{"saveSettings":"true","blankFolder":"true","deleteLog":"true","removeFolder":"true","versionCheck":"true"}',
 	'rightClickMenuEnable'			=> 'true',
 	'samePageSettings'				=> 'true',
+	'samePageSettingsNewTab'		=> 'true',
 	'saveArchiveLogLimit'			=> 'true',
 	'saveArchiveLogNum'				=> 5,
 	'saveButtonAlwaysVisible'		=> 'false',

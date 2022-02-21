@@ -1903,13 +1903,30 @@ $defaultConfigMoreData = array(
 				)
 			),
 			3									=>	array(
+				"bool"								=>	($samePageSettings == 'true'),
+				"bool2"								=>	"false",
+				"id"								=>	"enableMultiLogSettings",
+				"name"								=>	"External Settings Page settings",
 				"info"								=>	"Show settings on same page as index (no redirect). Refresh Required",
-				"type"								=>	"single",
+				"type"								=>	"grouped",
 				"var"								=>	array(
+					"function"							=>	"showOrHidesamePageSettings",
+					"id"								=>	"samePageSettings",
 					"key"								=>	"samePageSettings",
 					"name"								=>	"Same Page Settings",
 					"options"							=>	$trueFalsVars,
 					"type"								=>	"dropdown"
+				),
+				"vars"								=>	array(
+					0									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"samePageSettingsNewTab",
+							"name"								=>	"Settings tabs open in new tab",
+							"options"							=>	$trueFalsVars,
+							"type"								=>	"dropdown"
+						)
+					)
 				)
 			),
 		)
