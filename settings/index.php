@@ -1,3 +1,3 @@
 <?php
-header("Location: "."main.php", true, 302); /* Redirect browser */
+header("Location: "."../settings.php", true, 302); /* Redirect browser */
 exit();
