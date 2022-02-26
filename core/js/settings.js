@@ -629,12 +629,15 @@ function objectsAreSame(x, y)
 function checkForChangesArray(idsOfObjects)
 {
 	var returnValue = false;
-	for (var i = idsOfObjects.length - 1; i >= 0; i--)
+	if (idsOfObjects.length > 0)
 	{
-		var newValue = checkForChanges(idsOfObjects[i]);
-		if(!returnValue)
+		for (var i = idsOfObjects.length - 1; i >= 0; i--)
 		{
-			returnValue = newValue;
+			var newValue = checkForChanges(idsOfObjects[i]);
+			if(!returnValue)
+			{
+				returnValue = newValue;
+			}
 		}
 	}
 	return returnValue;

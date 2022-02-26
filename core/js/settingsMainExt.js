@@ -49,6 +49,13 @@ function toggleSettingSection(data)
 		arrayOfDataSettings = [data.formId];
 		idArrayForHeader = [data.formId];
 	}
+	else
+	{
+		arrayOfDataSettings = [];
+		idArrayForHeader = [];
+	}
+	headerScrollLocal();
+	resize();
 }
 
 function openSettingsSectionFromLink(id, className)
