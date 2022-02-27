@@ -1,0 +1,45 @@
+<?php
+require_once("../class/core.php");
+$core = new core();
+require_once("../class/session.php");
+$session = new session();
+if(!$session->startSession())
+{
+	echo json_encode(array("error" => 14));
+	exit();
+}
+if(!$session->validate())
+{
+	echo json_encode(array("error" => 18));
+	exit();
+}
+$dirType = $_POST['type'];
+$actionType = $_POST['actionType'] ?? "single";
+$folder = "loghogBackupArchiveLogs";
+if($dirType !== "archive")
+{
+	$folder = "loghogBackupHistoryLogs";
+}
+
+if ($actionType === "single")
+{
+	$fileName = $_POST['file'];
+	unlink("../../../tmp/".$folder."/".$fileName);
+}
+else
+{
+	$scannedDir = scandir("../../../tmp/".$folder."/");
+	if(!is_array($scannedDir))
+	{
+		$scannedDir = array($scannedDir);
+	}
+	$files = array_diff($scannedDir, array('..', '.','placeholder.txt'));
+	foreach ($files as $file)
+	{
+		if(is_file($file))
+		{
+			unlink($file);
+		}
+	}
+}
+echo json_encode(true);
