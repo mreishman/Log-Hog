@@ -1,24 +1,25 @@
 <?php
-include('../../core/php/configStatic.php');
+$basePathForFiles = $core->baseURL();
+include($basePathForFiles.'core/php/configStatic.php');
 //hotfix and or patches below.
 if($configStatic['version'] == '7.3') {
 	//Forgot to copy updater.php in first update, this updates that file. (updater breaks if not here)
-	if(file_exists('../../update/downloads/versionCheck/extracted/updater.php')){
-	copy('../../update/downloads/versionCheck/extracted/updater.php','../../update/updater.php');
+	if(file_exists($basePathForFiles.'update/downloads/versionCheck/extracted/updater.php')){
+	copy($basePathForFiles.'update/downloads/versionCheck/extracted/updater.php',$basePathForFiles.'update/updater.php');
 	}
-}
+} 
 elseif($configStatic['version'] == '8.3.1') {
 	//Fixes for not using global vars and string convert
-	if(file_exists('../../update/downloads/versionCheck/extracted/core_php_class_update.php')){
-	copy('../../update/downloads/versionCheck/extracted/core_php_class_update.php','../../core/php/class/update.php');
+	if(file_exists($basePathForFiles.'update/downloads/versionCheck/extracted/core_php_class_update.php')){
+	copy($basePathForFiles.'update/downloads/versionCheck/extracted/core_php_class_update.php',$basePathForFiles.'core/php/class/update.php');
 	}
-	if(file_exists('../../update/downloads/versionCheck/extracted/core_php_settingsCheckForUpdateAjax.php')){
-	copy('../../update/downloads/versionCheck/extracted/core_php_settingsCheckForUpdateAjax.php','../../core/php/settingsCheckForUpdateAjax.php');
+	if(file_exists($basePathForFiles.'update/downloads/versionCheck/extracted/core_php_settingsCheckForUpdateAjax.php')){
+	copy($basePathForFiles.'update/downloads/versionCheck/extracted/core_php_settingsCheckForUpdateAjax.php',$basePathForFiles.'core/php/settingsCheckForUpdateAjax.php');
 	}
 }
 //update info
 $versionCheckArray = array(
-	'version'		=> '8.3.4',
+	'version'		=> '8.3.5',
 	'versionList'		=> array(
 		'2.0.1'	        => array(
 			'branchName'	=> '2.0.1Update',
@@ -380,6 +381,13 @@ $versionCheckArray = array(
 			'installSize'   => 9991828,
 			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/8.3.png',
 			'releaseNotes'	=> "<ul><li>Features<ul><li>Removed sentry js error reporting</li><li>Small changes to main menu and loading screen</li><li>Added report.NOTICE to list of reports (plans to make this list user editable in future)</li></ul></li><li>Bug Fixes<ul><li>Fixed style issues with multiline report formatting</li><li>Clicking on a log title in oneLog when multiLog is not currently active now opens and closes as expected</li><li>Removed uneeded padding on files before line number</li><li>Added missing rightclick menu to global config settings tab</li><li>Fixed typo with dev save popup</li><li>Disabled dev branch visiblity in global config</li><li>Fixed bug with changelog possibly showing newer versions of Log-Hog in the change log page after checking for updates</li><li>Added ziparchive check for download of addons (will probably be removing addon support in a future update)</li><li>Fixed style bug when saving specific settings could cause the incorrect hover style of the themes menu icon</li></ul></li></ul>"
+		),
+		'8.3.5'			=> array(
+			'branchName'	=> '8.3.5Update',
+			'downloadSize'  => 496252,
+			'installSize'   => 9984090,
+			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/8.3.png',
+			'releaseNotes'	=> "<ul><li>Features<ul><li>More settings changes to make for easier readability and small settings added</li><li>Added Update to modue list so it can be disabled or enabled</li><li>If log load type is poll, loading now shows as percentage (with option to keep line count as setting)</li></ul></li><li>Bug Fixes<ul><li>Clearning all notifications also clears notifications out of inline notification queue</li><li>Auto check for update request not updating after initial ajax request</li><li>Padding issue on quick settings panel</li><li>Fixed bug with saving some settings throwing an error when no error occurred</li><li>Changing setting for show group dropdown in header now updates properly without a refresh</li><li>Fixed possible bug with session trying to start twice</li><li>Error page now loads config file correctly</li><li>Restore page load correctly</li><li>Fixed scroll and resize behaviour of form text banner</li><li>Updater now creates folders when needed without using upgrade scripts</li><li>Removed unneeded files from loading if settings is set to be external</li></ul></li></ul>"
 		),
 	)
 );
