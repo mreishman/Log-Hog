@@ -3,6 +3,19 @@ $jsonFiles = file_get_contents($core->baseURL()."core/json/staticFilesRequired.j
 $arrayOfFiles = json_decode($jsonFiles, true);
 $jsonFiles = file_get_contents($core->baseURL()."core/json/staticFilesOptional.json");
 $arrayOfFilesExtra = json_decode($jsonFiles, true);
+if($samePageSettings === "true")
+{
+	$arrayOfFiles[] = $arrayOfFilesExtra['advanced'];
+	$arrayOfFiles[] = $arrayOfFilesExtra['colorScheme'];
+	$arrayOfFiles[] = $arrayOfFilesExtra['devTools'];
+	$arrayOfFiles[] = $arrayOfFilesExtra['globalConfig'];
+	$arrayOfFiles[] = $arrayOfFilesExtra['jsColor'];
+	$arrayOfFiles[] = $arrayOfFilesExtra['resetSettings'];
+}
+if($updaterEnabled === "true")
+{
+	$arrayOfFiles[] = $arrayOfFilesExtra['update'];
+}
 if($filterEnabled === "true")
 {
 	$arrayOfFiles[] = $arrayOfFilesExtra['filter'];

@@ -44,10 +44,10 @@ function poll()
 				updateSkipCounterLog("-");
 			}
 			counterForPollForceRefreshErr++;
-			if(counterForPollForceRefreshErr > (2 * pollForceTrue))
+			if(counterForPollForceRefreshErr > pollForceTrueNotice)
 			{
 				showNoticeBarIfNotThere();
-				if(counterForPollForceRefreshErr > (4 * pollForceTrue))
+				if(counterForPollForceRefreshErr > pollForceTrueWarning)
 				{
 					//show Warning message for no connect in x times
 					if(document.getElementById("connectionWarning").style.display === "none")
@@ -59,7 +59,7 @@ function poll()
 						document.getElementById("connectionNotice").style.display = "none";
 					}
 				}
-				else if(counterForPollForceRefreshErr > (2 * pollForceTrue))
+				else if(counterForPollForceRefreshErr > pollForceTrueNotice)
 				{
 					//show notice message of no connect in x times
 					if(document.getElementById("connectionNotice").style.display === "none")
@@ -1127,6 +1127,36 @@ function update(data)
 		checkForUpdateLogsOffScreen();
 		resize();
 		forceIgnoreNotifications = false;
+	}
+	catch(e)
+	{
+		console.log(e);
+	}
+}
+
+function updateSkipCounterLog(num)
+{
+	try
+	{
+		if(enablePollTimeLogging !== "false")
+		{
+			document.getElementById("loggSkipCount").innerHTML = escapeHTML(num);
+		}
+	}
+	catch(e)
+	{
+		console.log(e);
+	}
+}
+
+function updateAllRefreshCounter(num)
+{
+	try
+	{
+		if(enablePollTimeLogging !== "false")
+		{
+			document.getElementById("loggAllCount").innerHTML = escapeHTML(num);
+		}
 	}
 	catch(e)
 	{

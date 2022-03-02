@@ -144,36 +144,6 @@ function formatBytes(bytes,decimals)
 	return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i];
 }
 
-function updateSkipCounterLog(num)
-{
-	try
-	{
-		if(enablePollTimeLogging !== "false")
-		{
-			document.getElementById("loggSkipCount").innerHTML = escapeHTML(num);
-		}
-	}
-	catch(e)
-	{
-		console.log(e);
-	}
-}
-
-function updateAllRefreshCounter(num)
-{
-	try
-	{
-		if(enablePollTimeLogging !== "false")
-		{
-			document.getElementById("loggAllCount").innerHTML = escapeHTML(num);
-		}
-	}
-	catch(e)
-	{
-		console.log(e);
-	}
-}
-
 function updateLogTitle(id)
 {
 	var tmpText = "";
@@ -1244,15 +1214,28 @@ function resize()
 			}
 		}
 
-		if(groupDropdownInHeader === "true")
-		{
-			resizeHeaderGroups();
-		}
+		resizeMiddleMenu();
+		resizeHeaderGroups();
 	}
 	catch(e)
 	{
 		console.log(e);
 	}
+}
+
+function resizeMiddleMenu()
+{
+	let leftButtonWidth = 0;
+	if($("#menuButtonLeft"))
+	{
+		leftButtonWidth = $("#menuButtonLeft").width();
+	}
+	let rightButtonWidth = 0;
+	if($("#menuButtonRight"))
+	{
+		rightButtonWidth = $("#menuButtonRight").width();
+	}
+	$("#menuButtonMiddle").width(window.innerWidth - leftButtonWidth - rightButtonWidth - 90);
 }
 
 function startLoadPollTimerDelay()
@@ -1690,7 +1673,7 @@ function checkForUpdateMaybe()
 {
 	try
 	{
-		if (autoCheckUpdate === "true")
+		if (updaterEnabled === "true" && autoCheckUpdate === "true")
 		{
 			if(daysSinceLastCheck > (autoCheckDaysUpdate - 1))
 			{
@@ -2026,7 +2009,15 @@ function unhideHidden(currentLogId)
 		{
 			continue;
 		}
-		$("#loadLineCountForWindow"+currentLogId).html((linesLength - i)+"<hr>"+linesLength);
+		if (LogLoadPollDisplayType === "linecount")
+		{
+			$("#loadLineCountForWindow"+currentLogId).html((linesLength - i)+"<hr>"+linesLength);
+		}
+		else
+		{
+			let percentCalc = (Math.round( ((linesLength - i) / linesLength) * 100));
+			$("#loadLineCountForWindow"+currentLogId).html(percentCalc + "%");
+		}
 		currentLine.css("display","table-row");
 		lineUnHid = true;
 		if(logLoadForceScrollToBot === 'false')
@@ -2297,6 +2288,7 @@ function mainReady()
 		},
 		true
 	);
+	$( window ).resize(function() { onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate); });
 
 	document.getElementById("menu").addEventListener(
 		"scroll",
@@ -2307,38 +2299,17 @@ function mainReady()
 		true
 	);
 	let arrOfVarGroups = [];
-	let arrOfPossibleGroups = [
-		"generalThemeOptions",
-		"settingsColorFolderGroupVars",
-		"settingsLogVars",
-		"settingsLogFormatVars",
-		"settingsPollVars",
-		"settingsFilterVars",
-		"archiveConfig",
-		"settingsNotificationVars",
-		"settingsMenuVars",
-		"settingsMenuLogVars",
-		"settingsFullScreenMenuVars",
-		"settingsWatchlistVars",
-		"settingsOneLogVars",
-		"settingsMultiLogVars",
-		"settingsInitialLoadLayoutVars",
-		"settingsMainVars",
-		"advancedConfig",
-		"modules",
-		"locationOtherApps",
-		"devBranch",
-		"devConfig",
-		"globalAdvanced"
-	];
-	let arrOfPossibleGroupsKeys = Object.keys(arrOfPossibleGroups);
-	let arrOfPossibleGroupsKeysLength = arrOfPossibleGroupsKeys.length;
-	for(let i = 0; i < arrOfPossibleGroupsKeysLength; i++)
+	if (arrOfPossibleGroups.length > 0)
 	{
-		if(document.getElementById(arrOfPossibleGroups[arrOfPossibleGroupsKeys[i]]))
+		let arrOfPossibleGroupsKeys = Object.keys(arrOfPossibleGroups);
+		let arrOfPossibleGroupsKeysLength = arrOfPossibleGroupsKeys.length;
+		for(let i = 0; i < arrOfPossibleGroupsKeysLength; i++)
 		{
-			arrOfVarGroups.push(arrOfPossibleGroups[arrOfPossibleGroupsKeys[i]]);
+			if(document.getElementById(arrOfPossibleGroups[arrOfPossibleGroupsKeys[i]]))
+			{
+				arrOfVarGroups.push(arrOfPossibleGroups[arrOfPossibleGroupsKeys[i]]);
+			}
 		}
+		refreshArrayObjectOfArrays(arrOfVarGroups);
 	}
-	refreshArrayObjectOfArrays(arrOfVarGroups);
 }

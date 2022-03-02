@@ -46,14 +46,15 @@ class session extends Core
 
     public function startSession()
     {
-        $sessionDir = $this->baseURL()."session/";
-        if(!is_dir($sessionDir))
-        {
-            mkdir($sessionDir);
-        }
-        ini_set('session.save_path', $sessionDir);
         if ($this->sessionState == self::SESSION_NOT_STARTED )
         {
+            $sessionDir = $this->baseURL()."session/";
+            if(!is_dir($sessionDir))
+            {
+                mkdir($sessionDir);
+            }
+            ini_set('session.save_path', $sessionDir);
+            
             $this->sessionState = session_start();
             if(!$this->__isset("form_key"))
             {

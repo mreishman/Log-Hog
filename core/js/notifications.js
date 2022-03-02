@@ -154,6 +154,10 @@ function removeAllNotifications()
 	clearNotifications();
 	removeAllRemoveRightClickMenuOptions();
 	notifications = new Array();
+
+	stopInlineNotificationPollLogic();
+	inlineNotificationPollArray = new Array();
+	
 	updateNotificationStuff();
 }
 
@@ -479,11 +483,16 @@ function inlineNotificationPollLogic(force = false)
 	}
 	else
 	{
-		document.getElementById("inlineNotifications").style.display = "none";
-		//stop poll
-		clearInterval(inlineNotificationPoll);
-		inlineNotificationPoll = null;
+		stopInlineNotificationPollLogic();
 	}
+}
+
+function stopInlineNotificationPollLogic()
+{
+	document.getElementById("inlineNotifications").style.display = "none";
+	//stop poll
+	clearInterval(inlineNotificationPoll);
+	inlineNotificationPoll = null;
 }
 
 function updateNotificationStuff()

@@ -60,6 +60,7 @@
 	</li>
 	<?php 
 	$settingsRightClickMenu = [];
+	$idArray = []; 
 	foreach($fullScreenMenuGroups as $fsmgKey => $fsmgData)
 	{
 		if($samePageSettings === "true")
@@ -67,6 +68,7 @@
 			echo "<li class=\"menuTitle fullScreenMenuText subMenuTitle\">" . $fsmgData["name"] . "</li>";
 			foreach($fsmgData["menu_items"] as $defaultConfigMoreDataRowData)
 			{
+				$idArray[] = $defaultConfigMoreDataRowData["id"];
 				$stringToEcho	 = "<li ";
 				if(!$defaultConfigMoreDataRowData["menu"]["display"])
 				{
@@ -84,20 +86,33 @@
 				echo $stringToEcho;
 				$settingsRightClickMenu[] = [
 					"id"	=> $defaultConfigMoreDataRowData["menu"]["id"] . "Menu",
-					"link"	=> $fsmgData["href"] . "#" . $defaultConfigMoreDataRowData["id"]
+					"link"	=> "./settings.php?tab=" . $fsmgKey . "&id=" . $defaultConfigMoreDataRowData["menu"]["id"]
 				];
 			}
 		}
 		else
 		{
-			echo "<li onclick=\"window.location.href = '".$fsmgData["href"]."';\">".
-			$fsmgData["name"]." ".$externalLinkImage.
+			if ($samePageSettingsNewTab === "true")
+			{
+				echo "<li onclick=\"window.open('./settings.php?tab=" . $fsmgKey . "');\">";
+			}
+			else
+			{
+				echo "<li onclick=\"window.location.href ='./settings.php?tab=" . $fsmgKey . "';\">";
+			}
+			echo $fsmgData["name"]." ".$externalLinkImage.
 			"</li>";
 		}
+	}
+	$arrOfPossibleGroups = "";
+	if (count($idArray) > 0)
+	{
+		$arrOfPossibleGroups = '"'.implode('","', $idArray).'"';
 	}
 	?>
 	<script type="text/javascript">
 		var listOfMenuRightClick = <?php echo json_encode($settingsRightClickMenu); ?>;
+		var arrOfPossibleGroups = [<?php echo $arrOfPossibleGroups; ?>];
 	</script>
 </ul>
 <div id="mainContentFullScreenMenu">
@@ -161,31 +176,27 @@
 			</tr>
 		</table>
 	</div>
-	<?php foreach ($defaultConfigMoreData as $currentSection => $configRowData): ?>
-		<div id="<?php echo $configRowData["menu"]["id"]; ?>" class="fullScreenMenuSettingsFormDiv" style="display: none;" >
-			<?php include('core/php/template/varTemplate.php');	?>
+	<?php 
+	if($samePageSettings === "true"):
+		//auto generated settings tabs
+		foreach ($defaultConfigMoreData as $currentSection => $configRowData): ?>
+			<div id="<?php echo $configRowData["menu"]["id"]; ?>" class="fullScreenMenuSettingsFormDiv" style="display: none;" >
+				<?php include('core/php/template/varTemplate.php');	?>
+			</div>
+		<?php endforeach; ?>
+		<?php //custom settings tabs ?>
+		<div id="fullScreenMenuColorScheme" class="fullScreenMenuSettingsFormDiv" style="display: none;">
+			<?php require_once('core/php/template/folderGroupColor.php'); ?>
 		</div>
-	<?php endforeach; ?>
-	<?php //auto generated settings tabs ?>
-	<div id="settingsAdvancedAdvanced" class="fullScreenMenuSettingsFormDiv" style="display: none;" >
-		<?php
-			$settingsUrlModifier = "";
-			$otherSettingsUrlModifier = "settings/";
-			include('core/php/template/advancedActions.php');
-		?>
-	</div>
-	<?php //custom settings tabs ?>
-	<div id="fullScreenMenuColorScheme" class="fullScreenMenuSettingsFormDiv" style="display: none;">
-		<?php require_once('core/php/template/folderGroupColor.php'); ?>
-	</div>
-	<div id="settingsAdvancedDevConfig" class="fullScreenMenuSettingsFormDiv" style="display: none;">
-		<?php
-			require_once("core/php/template/devConfigSettings.php");
-		?>
-	</div>
-	<div id="settingsMainLogLayout" class="fullScreenMenuSettingsFormDiv" style="display: none;" >
-		<?php
-		require_once('core/php/template/logLayout.php');
-		?>
-	</div>
+		<div id="settingsAdvancedDevConfig" class="fullScreenMenuSettingsFormDiv" style="display: none;">
+			<?php
+				require_once("core/php/template/devConfigSettings.php");
+			?>
+		</div>
+		<div id="settingsMainLogLayout" class="fullScreenMenuSettingsFormDiv" style="display: none;" >
+			<?php
+			require_once('core/php/template/logLayout.php');
+			?>
+		</div>
+	<?php endif; //$samePageSettings === "true" ?>
 </div>

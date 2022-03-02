@@ -175,7 +175,7 @@ if(count($arrayOfVersions) === 0)
 						<?php else: ?>
 							<h1>There are no updates</h1>
 							<script type="text/javascript">
-								setTimeout(function(){ window.location.href = "../settings/whatsNew.php"; }, 3000);
+								setTimeout(function(){ window.location.href = "../settings/about.php?pageType=whatsNew"; }, 3000);
 							</script>
 						<?php endif; ?>
 						</span>

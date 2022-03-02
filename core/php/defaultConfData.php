@@ -101,7 +101,15 @@ else
 {
 	$customForFirstLogSelect .= $logSelectedFirstLoad;
 }
-$customForFirstLogSelect .= "</span>  <span onclick=\"selectLogPopup('logSelectedFirstLoad');\" class=\"link\">Select Log</span> <span id=\"unselectLogButtonlogSelectedFirstLoad\" onclick=\"unselectLog('logSelectedFirstLoad')\" class=\"link\" >Un-Select Log</span>";
+$customForFirstLogSelect .= "</span>  <span onclick=\"selectLogPopup('logSelectedFirstLoad');\" class=\"link\">Select Log</span>";
+
+$customForFirstLogSelect .= "<span id=\"unselectLogButtonlogSelectedFirstLoad\" onclick=\"unselectLog('logSelectedFirstLoad')\" class=\"link\" ";
+if ($logSelectedFirstLoad === "")
+{
+	$customForFirstLogSelect .= " style=\"display: none;\" ";
+}
+$customForFirstLogSelect .= ">Un-Select Log</span>";
+
 if ($logSelectedFirstLoad === "")
 {
 	$customForFirstLogSelect .= "<input type=\"hidden\" name=\"logSelectedFirstLoad\" value=\"\" >";
@@ -248,6 +256,70 @@ $fullScreenMenuGroups = array(
 );
 
 $defaultConfigMoreData = array(
+	"actions"							=>	array(
+		"id"								=>	"settingsAdvancedAdvanced",
+		"name"								=>	"Actions",
+		"menu"								=> 	array(
+			"groups"							=>	array(
+				"advanced"
+			),
+			"id"								=>	"settingsAdvancedActions",
+			"display"							=>	true,
+			"name"								=>	"Actions"
+		),
+		"vars"								=>	array(
+			1									=>	array(
+				"type"								=>	"action",
+				"var"								=>	array(
+					"name"								=>	"Re-do Setup",
+					"href"								=>	$settingsUrlModifier."setup/step1.php"
+				)
+			),
+			2									=>	array(
+				"type"								=>	"action",
+				"var"								=>	array(
+					"name"								=>	"Revert Version",
+					"onClick"							=>	"revertPopup();"
+				)
+			),
+			3									=>	array(
+				"type"								=>	"action",
+				"var"								=>	array(
+					"name"								=>	"Reset Update Notification",
+					"onClick"							=>	"resetUpdateNotification();"
+				)
+			),
+			4									=>	array(
+				"type"								=>	"action",
+				"var"								=>	array(
+					"name"								=>	"View Files",
+					"href"								=>	$settingsUrlModifier."settings/editFiles.php"
+				)
+			),
+			5									=>	array(
+				"type"								=>	"action",
+				"var"								=>	array(
+					"name"								=>	"View restore options for config",
+					"onClick"							=>	"showConfigPopup();"
+				)
+			),
+			6									=>	array(
+				"type"								=>	"action",
+				"var"								=>	array(
+					"name"								=>	"Clear Backup Config Files",
+					"onClick"							=>	"clearBackupFiles();",
+					"outerId"							=>	"showConfigClearButton"
+				)
+			),
+			7									=>	array(
+				"type"								=>	"action",
+				"var"								=>	array(
+					"name"								=>	"Reset Settings back to Default",
+					"onClick"							=>	"resetSettingsPopup();"
+				)
+			)
+		)
+	),
 	"archive"							=>	array(
 		"id"								=>	"archiveConfig",
 		"name"								=>	"Archive",
@@ -324,7 +396,42 @@ $defaultConfigMoreData = array(
 			"name"								=>	"Config"
 		),
 		"vars"								=>	array(
-			0									=>	array(
+			0									=> array(
+				"bool"								=>	($popupWarnings != 'custom'),
+				"bool2"								=>	"custom",
+				"id"								=>	"settingsPopupVars",
+				"name"								=>	"Popup Settings",
+				"type"								=>	"grouped",
+				"var"								=>	array(
+					"function"							=>	"toggleUpdateDisplayCheck",
+					"functionForToggle"					=>	"showOrHidePopupSubWindow",
+					"id"								=>	"popupSelect",
+					"key"								=>	"popupWarnings",
+					"name"								=>	"Popup Warnings",
+					"options"							=>	array(
+							0 									=> array(
+								"value" 							=> "true",
+								"name" 								=> "True"),
+							1 									=> array(
+								"value" 							=> "custom",
+								"name" 								=> "Custom"),
+							2									=> array(
+								"value" 							=> "false",
+								"name" 								=> "False")
+						),
+					"type"								=>	"dropdown"
+				),
+				"vars"								=>	$customVarPopup
+			),
+			1									=> array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"id"								=>	"popupSettingsArray",
+					"key"								=>	"popupSettingsArray",
+					"type"								=>	"hidden"
+				)
+			),
+			2									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"saveButtonAlwaysVisible",
@@ -333,7 +440,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			1									=>	array(
+			3									=>	array(
 				"info"								=>	"Refresh to run upgrade scripts",
 				"type"								=>	"single",
 				"var"								=>	array(
@@ -342,7 +449,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"number"
 				)
 			),
-			2									=>	array(
+			4									=>	array(
 				"info"								=>	"Refresh to run upgrade scripts",
 				"type"								=>	"single",
 				"var"								=>	array(
@@ -351,7 +458,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"number"
 				)
 			),
-			3									=>	array(
+			5									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"info"								=>	"This will increase poll times",
@@ -361,7 +468,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			4									=>	array(
+			6									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"enablePollTimeLogging",
@@ -370,7 +477,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			5									=>	array(
+			7									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"enableInitialFileLoadLogging",
@@ -379,6 +486,47 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
+			8									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"pollForceTrueNotice",
+					"name"								=>	"Show notice of poll error after",
+					"postText"							=>	"skipped poll requests",
+					"type"								=>	"number"
+				)
+			),
+			9									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"pollForceTrueWarning",
+					"name"								=>	"Show warning of poll error after",
+					"postText"							=>	"skipped poll requests",
+					"type"								=>	"number"
+				)
+			),
+			10									=> array(
+				"info"								=>	"Use shell or php for reading logs and files",
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"shellOrPhp",
+					"name"								=>	"Poll function preference",
+					"options"							=>	array(
+						0 									=> array(
+							"value" 							=> "shellPreferred",
+							"name" 								=> "Shell Preferred"),
+						1 									=> array(
+							"value" 							=> "phpPreferred",
+							"name" 								=> "Php Preferred"),
+						2 									=> array(
+							"value" 							=> "shellOnly",
+							"name" 								=> "Shell Only"),
+						3 									=> array(
+							"value" 							=> "phpOnly",
+							"name" 								=> "Php Only"),
+					),
+					"type"								=>	"dropdown"
+				)
+			)
 		)
 	),
 	"fileLocations"						=>	array(
@@ -1152,6 +1300,22 @@ $defaultConfigMoreData = array(
 							"type"								=>	"dropdown"
 						)
 					),
+					3									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"LogLoadPollDisplayType",
+							"name"								=>	"Log Loading Poll Display Type",
+							"options"							=>	array(
+									0 									=> array(
+										"value" 							=> "percent",
+										"name" 								=> "Percentage"),
+									1 									=> array(
+										"value" 							=> "linecount",
+										"name" 								=> "Line Count")
+								),
+							"type"								=>	"dropdown"
+						)
+					),
 				)
 			),
 			4									=>	array(
@@ -1210,12 +1374,12 @@ $defaultConfigMoreData = array(
 						)
 					),
 					2									=> array(
-						"info"								=>	"Default 30 ms",
 						"type"								=>	"single",
 						"var"								=>	array(
 							"key"								=>	"timeoutHighlight",
 							"name"								=>	"Timeout for fade",
-							"type"								=>	"number"
+							"type"								=>	"number",
+							"postText"							=>	"ms"
 						)
 					)
 				)
@@ -1511,16 +1675,22 @@ $defaultConfigMoreData = array(
 									"value" 							=> "|",
 									"name" 								=> "|"),
 								3 									=> array(
-									"value" 							=> ":",
+									"value"								=> ":",
 									"name" 								=> ":"),
 								4 									=> array(
-									"value" 							=> "::",
+									"value"								=> "-",
+									"name" 								=> "-"),
+								5									=> array(
+									"value"								=> "::",
 									"name" 								=> "::"),
-								5 									=> array(
-									"value" 							=> " ",
+								6									=> array(
+									"value"								=> "@",
+									"name" 								=> "@"),
+								7 									=> array(
+									"value"								=> " ",
 									"name" 								=> "Space"),
-								6 									=> array(
-									"value" 							=> "none",
+								8 									=> array(
+									"value"								=> "none",
 									"name" 								=> "None")
 							),
 							"type"								=>	"dropdown"
@@ -1542,16 +1712,22 @@ $defaultConfigMoreData = array(
 									"value" 							=> "|",
 									"name" 								=> "|"),
 								3 									=> array(
-									"value" 							=> ":",
+									"value"								=> ":",
 									"name" 								=> ":"),
 								4 									=> array(
-									"value" 							=> "::",
+									"value"								=> "-",
+									"name" 								=> "-"),
+								5									=> array(
+									"value"								=> "::",
 									"name" 								=> "::"),
-								5 									=> array(
-									"value" 							=> " ",
+								6									=> array(
+									"value"								=> "@",
+									"name" 								=> "@"),
+								7 									=> array(
+									"value"								=> " ",
 									"name" 								=> "Space"),
-								6 									=> array(
-									"value" 							=> "none",
+								8 									=> array(
+									"value"								=> "none",
 									"name" 								=> "None")
 							),
 							"type"								=>	"dropdown"
@@ -1727,13 +1903,30 @@ $defaultConfigMoreData = array(
 				)
 			),
 			3									=>	array(
+				"bool"								=>	($samePageSettings == 'true'),
+				"bool2"								=>	"false",
+				"id"								=>	"enableMultiLogSettings",
+				"name"								=>	"External Settings Page settings",
 				"info"								=>	"Show settings on same page as index (no redirect). Refresh Required",
-				"type"								=>	"single",
+				"type"								=>	"grouped",
 				"var"								=>	array(
+					"function"							=>	"showOrHidesamePageSettings",
+					"id"								=>	"samePageSettings",
 					"key"								=>	"samePageSettings",
 					"name"								=>	"Same Page Settings",
 					"options"							=>	$trueFalsVars,
 					"type"								=>	"dropdown"
+				),
+				"vars"								=>	array(
+					0									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"samePageSettingsNewTab",
+							"name"								=>	"Settings tabs open in new tab",
+							"options"							=>	$trueFalsVars,
+							"type"								=>	"dropdown"
+						)
+					)
 				)
 			),
 		)
@@ -1869,7 +2062,16 @@ $defaultConfigMoreData = array(
 						)
 					)
 				)
-			)
+			),
+			8									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"updaterEnabled",
+					"name"								=>	"Enable Updater",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
 		)
 	),
 	"multiLogVars"						=>	array(
@@ -2363,54 +2565,19 @@ $defaultConfigMoreData = array(
 			),
 		)
 	),
-	"otherVars"							=>	array(
+	"updateSettings"					=>	array(
 		"id"								=>	"settingsMainVars",
-		"name"								=>	"Other Settings",
+		"name"								=>	"Update Settings",
 		"menu"								=> 	array(
 			"groups"							=>	array(
 				"main"
 			),
 			"id"								=>	"settingsMainOther",
 			"display"							=>	true,
-			"name"								=>	"Other"
+			"name"								=>	"Update"
 		),
 		"vars"								=> array(
-			0									=> array(
-				"bool"								=>	($popupWarnings != 'custom'),
-				"bool2"								=>	"custom",
-				"id"								=>	"settingsPopupVars",
-				"name"								=>	"Popup Settings",
-				"type"								=>	"grouped",
-				"var"								=>	array(
-					"function"							=>	"toggleUpdateDisplayCheck",
-					"functionForToggle"					=>	"showOrHidePopupSubWindow",
-					"id"								=>	"popupSelect",
-					"key"								=>	"popupWarnings",
-					"name"								=>	"Popup Warnings",
-					"options"							=>	array(
-							0 									=> array(
-								"value" 							=> "true",
-								"name" 								=> "True"),
-							1 									=> array(
-								"value" 							=> "custom",
-								"name" 								=> "Custom"),
-							2									=> array(
-								"value" 							=> "false",
-								"name" 								=> "False")
-						),
-					"type"								=>	"dropdown"
-				),
-				"vars"								=>	$customVarPopup
-			),
-			1									=> array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"id"								=>	"popupSettingsArray",
-					"key"								=>	"popupSettingsArray",
-					"type"								=>	"hidden"
-				)
-			),
-			2									=>	array(
+			0									=>	array(
 				"bool"								=>	($autoCheckUpdate == 'false'),
 				"id"								=>	"settingsAutoCheckVars",
 				"name"								=>	"Auto Check Update Settings",
@@ -2570,57 +2737,53 @@ $defaultConfigMoreData = array(
 				)
 			),
 			7									=> array(
-				"type"								=>	"linked",
+				"bool"								=>	($pollRefreshAllBool == 'false'),
+				"id"								=>	"pollRefreshAllBoolSettings",
+				"name"								=>	"Poll refresh all data",
+				"type"								=>	"grouped",
+				"var"								=>	array(
+					"function"							=>	"showOrHidePollRefreshAllSettings",
+					"id"								=>	"pollRefreshAllBool",
+					"key"								=>	"pollRefreshAllBool",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown",
+					"name"								=>	"Allow poll refresh all data"
+				),
 				"vars"								=>	array(
 					0									=>	array(
-						"key"								=>	"pollRefreshAll",
-						"name"								=>	"Poll refresh all data every",
-						"postText"							=>	"poll requests",
-						"type"								=>	"number"
-					),
-					1								=>	array(
-						"key"								=>	"pollRefreshAllBool",
-						"options"							=>	$trueFalsVars,
-						"type"								=>	"dropdown"
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"pollRefreshAll",
+							"name"								=>	"Poll refresh all data every",
+							"postText"							=>	"poll requests",
+							"type"								=>	"number"
+						)
 					)
 				)
 			),
 			8									=> array(
-				"type"								=>	"linked",
+				"bool"								=>	($pollForceTrueBool == 'false'),
+				"id"								=>	"PollForceTrueSettings",
+				"name"								=>	"Poll force refresh",
+				"type"								=>	"grouped",
+				"var"								=>	array(
+					"function"							=>	"showOrHidePollForceSettings",
+					"id"								=>	"pollForceTrueBool",
+					"key"								=>	"pollForceTrueBool",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown",
+					"name"								=>	"Allow Force poll refresh"
+				),
 				"vars"								=>	array(
 					0									=>	array(
-						"key"								=>	"pollForceTrue",
-						"name"								=>	"Force poll refresh after",
-						"postText"							=>	"skipped poll requests",
-						"type"								=>	"number"
-					),
-					1								=>	array(
-						"key"								=>	"pollForceTrueBool",
-						"options"							=>	$trueFalsVars,
-						"type"								=>	"dropdown"
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"pollForceTrue",
+							"name"								=>	"Force poll refresh after",
+							"postText"							=>	"skipped poll requests",
+							"type"								=>	"number"
+						)
 					)
-				)
-			),
-			9									=> array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"shellOrPhp",
-					"name"								=>	"Function preference shell/php",
-					"options"							=>	array(
-						0 									=> array(
-							"value" 							=> "shellPreferred",
-							"name" 								=> "Shell Preferred"),
-						1 									=> array(
-							"value" 							=> "phpPreferred",
-							"name" 								=> "Php Preferred"),
-						2 									=> array(
-							"value" 							=> "shellOnly",
-							"name" 								=> "Shell Only"),
-						3 									=> array(
-							"value" 							=> "phpOnly",
-							"name" 								=> "Php Only"),
-					),
-					"type"								=>	"dropdown"
 				)
 			),
 			10									=> array(
@@ -2732,18 +2895,6 @@ $defaultConfigMoreData = array(
 
 //Vars just needed for menu and not dynamically created like the above section
 $customConfigSections = array(
-	"advancedActions"	=> array(
-		"id"	=> "moreAdvanced",
-		"name"	=> "Advanced",
-		"menu"								=> 	array(
-			"groups"							=>	array(
-				"advanced"
-			),
-			"id"								=>	"settingsAdvancedAdvanced",
-			"display"							=>	true,
-			"name"								=>	"Actions"
-		)
-	),
 	"colorScheme"	=> array(
 		"id"	=> "settingsColorFolderGroupVars",
 		"name"	=> "Log Tabs Color Scheme",

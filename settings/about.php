@@ -44,6 +44,8 @@ require_once('../core/php/updateCheck.php');
 		<?php
 		$otherPageImageModifier = "../";
 		require_once('../core/php/template/about.php');
+		require_once("../core/php/template/changelog.php");
+		require_once('../core/php/template/whatsNew.php');
 		?>
 	</div>
 </body>
@@ -57,6 +59,7 @@ require_once('../core/php/updateCheck.php');
 $(document).ready(function()
 {
 	loadImgFromData("mainMenuImage");
+	showAboutTab("<?php echo $_GET['pageType'] ?? "about"; ?>");
 });
 
 </script>

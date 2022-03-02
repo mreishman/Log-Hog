@@ -110,7 +110,13 @@ if($themesEnabled === "false")
 	</div>
 	<span class="fullScreenMenuText">Themes</span>
 </li>
-<li id="mainMenuUpdate" onclick="toggleUpdateMenu();" >
+<?php $updateStyle = "";
+if($updaterEnabled === "false")
+{
+	$updateStyle = "display: none;";
+}
+?>
+<li id="mainMenuUpdate" style=" <?php echo $updateStyle; ?>" onclick="toggleUpdateMenu();" >
 	<?php
 	$menuUpdateImage = "refresh";
 	if($levelOfUpdate !== 0 && $configStatic["version"] !== $dontNotifyVersion && $updateNotificationEnabled === "true")

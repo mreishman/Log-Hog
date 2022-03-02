@@ -1,6 +1,6 @@
 <?php
-			$globalConfig = array(
-			
+	$globalConfig = array(
+	
 			'baseUrlUpdate' => 'https://github.com/mreishman/Log-Hog/archive/',
 		
 			'branchSelected' => 'default',
@@ -13,5 +13,5 @@
 		
 			'successVerifyNum' => 2,
 		
-			);
-		?>
+	);
+?>

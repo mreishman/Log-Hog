@@ -18,21 +18,9 @@ $core->getScript(array(
 			)
 		); ?>
 	</div>
-	<?php if(strpos($URI, 'about.php') !== false): ?>
-		<a style="cursor: default;" class="active" id="aboutLink" >About</a>
-	<?php else: ?>
-		<a id="aboutLink" onclick="goToUrl('about.php');">About</a>
-	<?php endif; ?>
-	<?php if(strpos($URI, 'whatsNew.php') !== false): ?>
-		<a style="cursor: default;" class="active" id="whatsNewLink">What's New</a>
-	<?php else: ?>
-		<a id="whatsNewLink" onclick="goToUrl('whatsNew.php');">What's New</a>
-	<?php endif; ?>
-	<?php if(strpos($URI, 'changeLog.php') !== false): ?>
-		<a style="cursor: default;" class="active" id="changeLogLink">ChangeLog</a>
-	<?php else: ?>
-		<a id="changeLogLink" onclick="goToUrl('changeLog.php');">ChangeLog</a>
-	<?php endif; ?>
+		<a id="aboutLink" onclick="showAboutTab('about');">About</a>
+		<a id="whatsNewLink" onclick="showAboutTab('whatsNew');">What's New</a>
+		<a id="changeLogLink" onclick="showAboutTab('changelog');">ChangeLog</a>
 </div>
 
 <?php
@@ -49,6 +37,6 @@ $baseUrlImages = $localURL;
 				"height"		=>	"50px",
 				"srcModifier"	=>	"../"
 			)
-		)); ?>
+		)); ?>;
 </script>
 <?php require_once("../core/php/template/popup.php");
