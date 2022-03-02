@@ -1,19 +1,20 @@
 <?php
-include('../../core/php/configStatic.php');
+$basePathForFiles = $core->baseURL();
+include($basePathForFiles.'core/php/configStatic.php');
 //hotfix and or patches below.
 if($configStatic['version'] == '7.3') {
 	//Forgot to copy updater.php in first update, this updates that file. (updater breaks if not here)
-	if(file_exists('../../update/downloads/versionCheck/extracted/updater.php')){
-	copy('../../update/downloads/versionCheck/extracted/updater.php','../../update/updater.php');
+	if(file_exists($basePathForFiles.'update/downloads/versionCheck/extracted/updater.php')){
+	copy($basePathForFiles.'update/downloads/versionCheck/extracted/updater.php',$basePathForFiles.'update/updater.php');
 	}
 } 
 elseif($configStatic['version'] == '8.3.1') {
 	//Fixes for not using global vars and string convert
-	if(file_exists('../../update/downloads/versionCheck/extracted/core_php_class_update.php')){
-	copy('../../update/downloads/versionCheck/extracted/core_php_class_update.php','../../core/php/class/update.php');
+	if(file_exists($basePathForFiles.'update/downloads/versionCheck/extracted/core_php_class_update.php')){
+	copy($basePathForFiles.'update/downloads/versionCheck/extracted/core_php_class_update.php',$basePathForFiles.'core/php/class/update.php');
 	}
-	if(file_exists('../../update/downloads/versionCheck/extracted/core_php_settingsCheckForUpdateAjax.php')){
-	copy('../../update/downloads/versionCheck/extracted/core_php_settingsCheckForUpdateAjax.php','../../core/php/settingsCheckForUpdateAjax.php');
+	if(file_exists($basePathForFiles.'update/downloads/versionCheck/extracted/core_php_settingsCheckForUpdateAjax.php')){
+	copy($basePathForFiles.'update/downloads/versionCheck/extracted/core_php_settingsCheckForUpdateAjax.php',$basePathForFiles.'core/php/settingsCheckForUpdateAjax.php');
 	}
 }
 //update info
