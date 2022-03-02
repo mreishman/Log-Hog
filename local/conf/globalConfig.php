@@ -3,7 +3,7 @@
 	
 			'baseUrlUpdate' => 'https://github.com/mreishman/Log-Hog/archive/',
 		
-			'branchSelected' => 'beta',
+			'branchSelected' => 'default',
 		
 			'enableDevBranchDownload' => 'false',
 		
