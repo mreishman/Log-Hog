@@ -59,7 +59,7 @@ function checkForUpdates(urlSend = "../", whatAmIUpdating = "Log-Hog", currentNe
 			type: "POST",
 			success(data)
 			{
-				if(handleError(urlSendUpdate, data, "settingsCheckForUpdateAjax.php"))
+				if(!handleError(urlSendUpdate, data, "settingsCheckForUpdateAjax.php"))
 				{
 					return;
 				}
