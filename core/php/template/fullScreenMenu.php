@@ -65,7 +65,7 @@
 	{
 		if($samePageSettings === "true")
 		{
-			echo "<li class=\"menuTitle fullScreenMenuText subMenuTitle\">" . $fsmgData["name"] . "</li>";
+			echo "<li class=\"menuTitle fullScreenMenuText subMenuTitle\" id=\"subMenuTitle-" . $fsmgKey . "\">" . $fsmgData["name"] . "</li>";
 			foreach($fsmgData["menu_items"] as $defaultConfigMoreDataRowData)
 			{
 				$idArray[] = $defaultConfigMoreDataRowData["id"];
