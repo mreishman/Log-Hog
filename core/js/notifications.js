@@ -76,7 +76,7 @@ function displayNotifications()
 		{
 			hidePreview = "style=\"display:none\"";
 		}
-		item = item.replace(/{{hidePreview}}/g, hidePreview);
+		item = item.replace(/{{hidepreview}}/g, hidePreview);
 		if("image" in notifications[i])
 		{
 			item = item.replace(/{{image}}/g, notifications[i]["image"]);
