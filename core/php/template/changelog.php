@@ -5,6 +5,7 @@ $arrOfMainVersionNumbers = [];
 $sortedVersions = [];
 
 $versionList = array_reverse($configStatic["versionList"]);
+
 $found = false;
 foreach ($versionList as $versionKey => $versionValue)
 { 
@@ -24,6 +25,32 @@ foreach ($versionList as $versionKey => $versionValue)
 	$sortedVersions[$versionKey] = $versionValue;
 }
 
+$sortedVersions["2.0"] = array(
+	"releaseNotes"	=> "<ul><li>Changed directory structure</li><li>Added settings page</li><li>Added upgrade page</li></ul>",
+	"commits"		=> 49
+);
+
+$sortedVersions["1.3"] = array(
+	"releaseNotes"	=> "<ul><li>Added Un-pause on focus</li><li>Dynamic title of page (reflects status of paused and refreshing)</li></ul>",
+	"idForHeader"	=> "changeLogMainVersionNumber1",
+	"commits"		=> 14
+);
+
+$sortedVersions["1.2"] = array(
+	"releaseNotes"	=> "<ul><li>Added Refresh button</li></ul>",
+	"commits"		=> 10
+);
+
+$sortedVersions["1.1"] = array(
+	"releaseNotes"	=> "<ul><li>Added Pause / Play button</li></ul>",
+	"commits"		=> 7
+);
+
+$sortedVersions["1.0"] = array(
+	"releaseNotes"	=> "<ul><li>Initial Forked version from craig-russell</li></ul>",
+	"commits"		=> 5
+);
+
 
 ?>
 <span id="aboutSpanChangelog">
@@ -38,72 +65,22 @@ foreach ($versionList as $versionKey => $versionValue)
 				<?php endforeach; ?>
 				<a class="link" href="#changeLogMainVersionNumber1">1.X</a>
 			</li>
-			<?php
+		</ul>	
+		<?php if(!$versionFound):?>
+			<li><h2>Notice: Current version of Log-Hog is not in changelog. Showing all versions in changelog</h2></li>
+		<?php
+		endif;
+		foreach ($sortedVersions as $versionKey => $versionValue):
+			$id = "";
+			if (isset($versionValue["idForHeader"])) {
+				$id = "id=\"" . $versionValue["idForHeader"] . "\"";
+			}
+			?>
 			
-			if(!$versionFound):?>
-				<li><h2>Notice: Current version of Log-Hog is not in changelog. Showing all versions in changelog</h2></li>
-			<?php
-			endif;
-			foreach ($sortedVersions as $versionKey => $versionValue):
-				$id = "";
-				if (isset($versionValue["idForHeader"])) {
-					$id = "id=\"" . $versionValue["idForHeader"] . "\"";
-				}
-				?>
-				<li <?php echo $id; ?> >
-					<?php echo $versionKey;
-					echo $versionValue["releaseNotes"]; ?>
-				</li>
-			<?php endforeach;?>
-			<li>
-				2.0:49
-				<ul>
-					<li>
-						Changed directory structure
-					</li>
-					<li>
-						Added settings page
-					</li>
-					<li>
-						Added upgrade page
-					</li>
-				</ul>
-			</li>
-			<li id="changeLogMainVersionNumber1">
-				1.3:14
-				<ul>
-					<li>
-						Added Un-pause on focus
-					</li>
-					<li>
-						Dynamic title of page (reflects status of paused and refreshing)
-					</li>
-				</ul>
-			</li>
-			<li>
-				1.2:10
-				<ul>
-					<li>
-						Added Refresh button
-					</li>
-				</ul>
-			</li>
-			<li>
-				1.1:7
-				<ul>
-					<li>
-						Added Pause / Play button
-					</li>
-				</ul>
-			</li>
-			<li>
-				1.0:5
-				<ul>
-					<li>
-						Initial Forked version from craig-russell
-					</li>
-				</ul>
-			</li>
-		</ul>
+				<div <?php echo $id; ?> class="settingsHeader"><?php echo $versionKey; ?></div>
+				<div class="settingsDiv">
+					<?php echo $versionValue["releaseNotes"]; ?></div>
+			
+		<?php endforeach;?>
 	</div>
 </span>
