@@ -1,3 +1,31 @@
+<?php
+$versionFound = isset($configStatic["versionList"][$configStatic["version"]]);
+
+$arrOfMainVersionNumbers = [];
+$sortedVersions = [];
+
+$versionList = array_reverse($configStatic["versionList"]);
+$found = false;
+foreach ($versionList as $versionKey => $versionValue)
+{ 
+	if(!$found && $configStatic["version"] !== $versionKey && $versionFound)
+	{
+		continue;
+	}
+	$found = true;
+
+	$id = explode(".", $versionKey)[0];
+	if (!in_array($id, $arrOfMainVersionNumbers))
+	{
+		$arrOfMainVersionNumbers[] = $id;
+		$versionValue["idForHeader"] = "changeLogMainVersionNumber".$id;
+	}
+
+	$sortedVersions[$versionKey] = $versionValue;
+}
+
+
+?>
 <span id="aboutSpanChangelog">
 	<div class="settingsHeader">
 		Changelog
@@ -5,23 +33,24 @@
 	<div class="settingsDiv" >
 		<ul class="settingsUl">
 			<li>
-				<h2>Changelog</h2>
+				<?php foreach($arrOfMainVersionNumbers as $versionId): ?>
+					<a class="link" href="#changeLogMainVersionNumber<?php echo $versionId; ?>"><?php echo $versionId; ?>.X</a>
+				<?php endforeach; ?>
+				<a class="link" href="#changeLogMainVersionNumber1">1.X</a>
 			</li>
 			<?php
-			$versionFound = isset($configStatic["versionList"][$configStatic["version"]]);
+			
 			if(!$versionFound):?>
 				<li><h2>Notice: Current version of Log-Hog is not in changelog. Showing all versions in changelog</h2></li>
 			<?php
 			endif;
-			$versionList = array_reverse($configStatic["versionList"]);
-			$found = false;
-			foreach ($versionList as $versionKey => $versionValue): 
-				if(!$found && $configStatic["version"] !== $versionKey && $versionFound) {
-					continue;
+			foreach ($sortedVersions as $versionKey => $versionValue):
+				$id = "";
+				if (isset($versionValue["idForHeader"])) {
+					$id = "id=\"" . $versionValue["idForHeader"] . "\"";
 				}
-				$found = true;
 				?>
-				<li>
+				<li <?php echo $id; ?> >
 					<?php echo $versionKey;
 					echo $versionValue["releaseNotes"]; ?>
 				</li>
@@ -40,7 +69,7 @@
 					</li>
 				</ul>
 			</li>
-			<li>
+			<li id="changeLogMainVersionNumber1">
 				1.3:14
 				<ul>
 					<li>
