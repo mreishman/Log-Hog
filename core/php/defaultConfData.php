@@ -235,22 +235,22 @@ for($CDFVcount = 0; $CDFVcount < 10; $CDFVcount++)
 $fullScreenMenuGroups = array(
 	"main"	=> array (
 		"name"		=> "Main",
-		"href"		=> "./settings/main.php",
 		"subGroups"	=> array()
 	),
 	"formatting"	=> array (
 		"name"		=> "Formatting",
-		"href"		=> "./settings/formatting.php",
+		"subGroups"	=> array()
+	),
+	"multilog"	=> array (
+		"name"		=> "Multi-Log",
 		"subGroups"	=> array()
 	),
 	"advanced"	=> array (
 		"name"		=> "Advanced",
-		"href"		=> "./settings/advanced.php",
 		"subGroups"	=> array()
 	),
 	"global"	=> array (
 		"name"		=> "Global",
-		"href"		=> "./settings/devTools.php",
 		"subGroups"	=> array()
 	)
 );
@@ -2079,7 +2079,7 @@ $defaultConfigMoreData = array(
 		"name"								=>	"Multi-Log Settings",
 		"menu"								=> 	array(
 			"groups"							=>	array(
-				"main"
+				"multilog"
 			),
 			"id"								=>	"settingsMainMultiLog",
 			"display"							=>	($enableMultiLog === "true"),
@@ -2924,7 +2924,7 @@ $customConfigSections = array(
 		"name"	=> "Multi-Log Layout",
 		"menu"								=> 	array(
 			"groups"							=>	array(
-				"main"
+				"multilog"
 			),
 			"id"								=>	"settingsMainLogLayout",
 			"display"							=>	($enableMultiLog === "true"),
