@@ -107,66 +107,98 @@ $versionCheckArray = array(
 		),
 		'3.0'		=> array(
 			'branchName'	=> '3.0Update',
+			'commits'	=> 696,
+			'date'		=> '10/04/2017',
 			'releaseNotes'	=> "<ul><li>Features<ul><li>Loading bar on first load</li><li>Themes!</li><ul><li>More custom style options</li><li>Three new themes!</li></ul><li>Watchlist look improved for settings page</li><li>Added option for background refresh rate (if not using pause on not focus)</li><li>Added option to disable / reset update notifications</li></ul></li><li>Bug Fixes<ul><li>Clicking refresh forces refresh of all information</li><li>Devtab bugfixes</li><li>Tabs on sub-menus are now highlighted</li><li>Fixed issue with resizing the window while in the settings pages</li><li>Added reset changes to more pages when editing vars</li><li>Fixed issue with custom popup settings options not correctly displaying on first switch</li><li>Versioned css / js files (most of them anyway)</li></ul></li></ul>"
 		),
 		'3.0.1'		=> array(
 			'branchName'	=> '3.0.1Update',
+			'commits'	=> 719,
+			'date'		=> '10/05/2017',
 			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed bug with settings for top</li><li>Fixed popup bug with updater</li><li>Fixed rightclick menu bug</li><li>Fixed restore popup</li><li>Fixed some bugs with settings pages</li></ul></li></ul>"
 		),
 		'3.0.2'		=> array(
 			'branchName'	=> '3.0.2Update',
+			'commits'	=> 732,
+			'date'		=> '10/07/2017',
 			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed bug with updating css / js</li><li>Added feedback popup for errors for beta branch users</li><li>Fixed some image issues</li></ul></li></ul>"
 		),
 		'3.0.3'		=> array(
 			'branchName'	=> '3.0.3Update',
+			'commits'	=> 746,
+			'date'		=> '10/23/2017',
 			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed issue with update in progress page</li><li>Fixed bug with download monitor because of version 1.1</li><li>Fixed some style issues with right click menu</li></ul></li></ul>"
 		),
 		'3.0.4'		=> array(
 			'branchName'	=> '3.0.4Update',
+			'commits'	=> 755,
+			'date'		=> '10/27/2017',
 			'releaseNotes'	=> "<ul><li>Features<ul><li>Seperated options for main font color and log font color</li></ul></li><li>Bug Fixes<ul><li>Fixed issues with setup process</li><li>Fixed some css issues</li><li>Small text changes to update page</li></ul></li></ul>"
 		),
 		'3.1'		=> array(
 			'branchName'	=> '3.1Update',
+			'commits'	=> 804,
+			'date'		=> '11/25/2017',
 			'releaseNotes'	=> "<ul><li>Features<ul><li>Search addon added!<ul><li>Use search to visually grep your current repo</li><li>Can be downloaded from the admin page</li></ul></li><li>Added setup access from advanced page</li><li>More theme style options</li></ul></li><li>Bug Fixes<ul><li>Added refresh to more saves that change styles</li><li>Fixed some issues with monitor download from setup</li><li>Added monitor remove to setup (if installed)</li></ul></li></ul>"
 		),
 		'3.1.1'		=> array(
 			'branchName'	=> '3.1.1Update',
+			'commits'	=> 818,
+			'date'		=> '11/25/2017',
 			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed updater in search addon</li><li>Poll logic changes</li><li>First load logic changes</li></ul></li></ul>"
 		),
 		'3.1.2'		=> array(
 			'branchName'	=> '3.1.2Update',
+			'commits'	=> 821,
+			'date'		=> '11/25/2017',
 			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Changed redirects for upgrade files.</li></ul></li></ul>"
 		),
 		'3.2'		=> array(
 			'branchName'	=> '3.2Update',
+			'commits'	=> 911,
+			'date'		=> '12/22/2017',
 			'releaseNotes'	=> "<ul><li>Features<ul><li>Addons page (page for addons)</li><li>Added new font options</li><li>Selenium monitor addon</li><li>Config restore options</li></ul></li><li>Bug Fixes<ul><li>Fixed delay when resetting update notification</li><li>Improved images for areo theme</li></ul></li></ul>"
 		),
 		'3.2.1'		=> array(
 			'branchName'	=> '3.2.1Update',
+			'commits'	=> 915,
+			'date'		=> '12/22/2017',
 			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed possible issue with update validation at end of update</li></ul></li></ul>"
 		),
 		'3.3'		=> array(
 			'branchName'	=> '3.3Update',
+			'commits'	=> 1000,
+			'date'		=> '01/30/2018',
 			'releaseNotes'	=> "<ul><li>Features<ul><li>Added notification count for tabs</li><li>Added no logs to display message when filtered / or no logs are visible</li><li>Added on hover to tabs to show last line</li><li>Added clear all button for notifications</li><li>Added new ocean theme!</li><li>View some files from Log-Hog (dev tools)</li></ul></li><li>Bug Fixes<ul><li>Cleaned up / grouped settings.</li></ul></li></ul>"
 		),
 		'3.3.1'		=> array(
 			'branchName'	=> '3.3Update',
+			'commits'	=> 1000,
+			'date'		=> '01/30/2018',
 			'releaseNotes'	=> "<ul><li>Re-Install of 3.3</li></ul>"
 		),
 		'3.4'		=> array(
 			'branchName'	=> '3.4Update',
+			'commits'	=> 1137,
+			'date'		=> '02/24/2018',
 			'releaseNotes'	=> "<ul><li>Features<ul><li>Added content search for logs (ability to toggle between title and content for searching)</li><li>Added option to disable scroll to bottom on update</li><li>Redesigned bottom bar (now sidebar)</li><li>Added more options on how to restore defaults (all, just watchlist...)</li><li>Save custom themes</li></ul></li><li>Bug Fixes<ul><li>Updated right click menu for settings icon for new contents</li><li>Fixed bug with switching dev tools on / off.</li><li>Chaged save logic to only save changed vars</li></ul></li></ul>"
 		),
 		'3.5'		=> array(
 			'branchName'	=> '3.5Update',
+			'commits'	=> 1252,
+			'date'		=> '03/21/2018',
 			'releaseNotes'	=> "<ul><li>Features<ul><li>Added option to change highlight color (of content filter)</li><li>Added option to change hover content for log titles (last line or full path)</li><li>Added option for php or shell (php by default)</li><li>Highlights new lines of logs (for 1 sec) (with options to change color)</li><li>Added right click menus for log titles and pause icon<ul><li>Adds option to hide log until refresh of page</li><li>Clear / delete log by rightclick</li><li>Copy file name / file path on rightclick</li><li>Toggle auto pause option with rightclick on pause icon</li></ul></li><li>Added file size to loadbar on first load</li><li>Added option to not scroll on update if already scrolled up in log</li><li>Added brightness slider to themes settings page</li><li>Added new theme! (Steampunk)</li></ul></li><li>Bug Fixes<ul><li>Fixed issue with right click clicking not registering sometimes. </li><li>Fixed bug with counter for log showing undefined if log is new</li><li>Fixed some bugs with expermential feature log display</li><li>Fixed bug with pause on unfocus still pausing</li><li>Fixed rare poll js bug</li><li>Added loading icon between switch of logs (although, still to fast to show up)</li><li>Fixed bug where clear notifications would not fully clear notification counter</li><li>Fixed some style issues<ul><li>right click menu / info popup background and font for some themes</li><li>Fixed small style bug with select font</li><li>Fixed issue with load bar for default theme not reflecting correct color</li></ul></li><li>Loading theme preview loads smoother</li></ul></li></ul>"
 		),
 		'3.6'		=> array(
 			'branchName'	=> '3.6Update',
+			'commits'	=> 1336,
+			'date'		=> '04/20/2018',
 			'releaseNotes'	=> "<ul><li>Features<ul><li>Added quick setting change for filter content (changes settings tmp for current window)</li><li>Added addon page to setup</li><li>Notice is shown for connectivity issues on index</li><li>Option to change position of log tabs (top, bottom, left, right)</li><li>New Theme! (Terminal)</li><li>Added internal notifications</li></ul></li><li>Bug Fixes<ul><li>Addon page does not redirect when installing or removing addons</li><li>More fixes for expermential feature log display</li><li>Changed verification counter to check for 2 success verifications in a row</li></ul></li></ul>"
 		),
 		'3.6.2'		=> array(
 			'branchName'	=> '3.6.2Update',
+			'commits'	=> 1252,
+			'date'		=> '03/21/2018',
 			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed issue with setup</li></ul></li></ul>"
 		),
 		'4.0'		=> array(
