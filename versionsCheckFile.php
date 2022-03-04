@@ -53,38 +53,56 @@ $versionCheckArray = array(
 		),
 		'2.2.1'		=> array(
 			'branchName'	=> '2.2.1Update',
+			'commits'	=> 219,
+			'date'		=> '05/30/2017',
 			'releaseNotes'	=> '<ul><li>Features<ul><li>Added D-Bug info (turned off by default)</li><li>Changed check for update form normal to ajax. </li><li>Added right click menu to some icons<ul><li>Settings Icon</li><li>Clear Log(s) Icon</li><li>Update Notice Icon</li></ul></li></ul></li><li>Bug Fixes<ul><li>Slight adjustments to poll logic. Should be faster in some situations.</li><li>Small code changes to menu on settings pages</li><li>Updated error screen with correct files</li><li>Fixed bug with the verify write status action</li></ul></li></ul>'
 		),
 		'2.3'		=> array(
 			'branchName'	=> '2.3Update',
+			'commits'	=> 324,
+			'date'		=> '06/26/2017',
 			'releaseNotes'	=> '<ul><li>Features<ul><li>Process Monitoring tab added. Monitors: <ul><li>CPU usage</li><li>Ram / swap usage</li><li>Disk usage / IO</li><li>PHP User time used / system time used</li><li>Network Interface receive / transmit</li><li>Shows list of processes</li></ul></li><li>Added setting to disable right click menu. </li></ul></li><li>Bug Fixes<ul><li>Fixes bug where the delete log button did not remove the log from the top bar. </li><li>Fixes bug where log files could not be deleted or cleared when seeing poll information. </li><li>Fixes bug where update changelog would sometimes give error depending on version numbering. </li></ul></li></ul>'
 		),
 		'2.3.1'		=> array(
 			'branchName'	=> '2.3.1Update',
+			'commits'	=> 339,
+			'date'		=> '06/27/2017',
 			'releaseNotes'	=> '<ul><li>Features<ul><li>New poll logic added (~ 25% improvement)</li></ul></li><li>Bug Fixes<ul><li>Fixed issue with ram not showing correct information on some servers</li><li>Fixed issue where clear / delete buttons didn not work properly. </li></ul></li></ul>'
 		),
 		'2.3.2'		=> array(
 			'branchName'	=> '2.3.2Update',
+			'commits'	=> 362,
+			'date'		=> '07/11/2017',
 			'releaseNotes'	=> '<ul><li>Features<ul><li>Added setup to first launch</li><li>Added version check to poll logic, popup if version changed</li></ul></li><li>Bug Fixes<ul><li>Fixed compatability issues with php 7</li><li>Updated poll logic again, should be slightly faster.</li><li>Added buffer to trim logic, less trim calls made</li></ul></li></ul>'
 		),
 		'2.3.3'		=> array(
 			'branchName'	=> '2.3.3Update',
+			'commits'	=> 417,
+			'date'		=> '07/25/2017',
 			'releaseNotes'	=> '<ul><li>Features<ul><li>Downloading Monitor is now part of the setup process</li><li>Added reset changes buttons for some settings pages</li><li>Added ability to reset all (non monitor) vars back to default</li></ul></li><li>Bug Fixes<ul><li>Fixed some bugs wih setup process</li><li>Fixed some bugs with the start of update logic</li></ul></li></ul>'
 		),
 		'2.3.4'		=> array(
 			'branchName'	=> '2.3.4Update',
+			'commits'	=> 451,
+			'date'		=> '08/02/2017',
 			'releaseNotes'	=> '<ul><li>Features<ul><li>Added a setting to hide / show bottom bar on index page.</li><li>Added sub menu for main settings page.</li><li>Added ability to customise location of status / monitor</li><li>Added dev setting to change local version number</li><li>Added ability to download / remove monitor after setup process</li><li>Added ability to restore to previous version of Log-Hog</li></ul></li></ul>'
 		),
 		'2.3.5'		=> array(
 			'branchName'	=> '2.3.5Update',
+			'commits'	=> 588,
+			'date'		=> '09/27/2017',
 			'releaseNotes'	=> "<ul><li>Features<ul><li>Reduced poll times by an average of 20ms</li><li>Added advanced poll options</li><li>Updated updater, now with more ajax!</li></ul></li><li>Bug Fixes<ul><li>Saving now does not refresh page, also adds check if save worked</li><li>Checking for update checks if update information was saved</li><li>fixed style issues with process table in monitor</li><li>Fixed bug with poll logic if first poll failed</li><li>Fixed bug with pause icon when loading with pause by default</li><li>Fixed bug with pause on focus not always following settings if disabled</li><li>Fixed bug with some forms not resetting correctly</li><li>Fixed bug with some forms giving false positives for changes in form data</li><li>Fixed issues with ajax update check on index page not waiting for file to refresh contents</li><li>Fixed issues with ajax update check on update page not refreshing install button</li><li>Fixed issues with ajax update check on update page sometimes not display proper changelog</li><li>Fixed bug where deleting file then adding file would result in a save error</li></ul></li></ul>"
 		),
 		'2.3.5.1'		=> array(
 			'branchName'	=> '2.3.5.1Update',
+			'commits'	=> 590,
+			'date'		=> '09/27/2017',
 			'releaseNotes'	=> "<ul><li>Bug Fixes</li></ul>"
 		),
 		'2.3.6'		=> array(
 			'branchName'	=> '2.3.6Update',
+			'commits'	=> 591,
+			'date'		=> '10/02/2017',
 			'releaseNotes'	=> "<ul><li>Added option to switch to beta branch for earlier testing of new features!</li></ul>"
 		),
 		'3.0'		=> array(
