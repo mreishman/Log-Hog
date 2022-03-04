@@ -197,8 +197,8 @@ $versionCheckArray = array(
 		),
 		'3.6.2'		=> array(
 			'branchName'	=> '3.6.2Update',
-			'commits'	=> 1252,
-			'date'		=> '03/21/2018',
+			'commits'	=> 1336,
+			'date'		=> '04/20/2018',
 			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed issue with setup</li></ul></li></ul>"
 		),
 		'4.0'		=> array(
