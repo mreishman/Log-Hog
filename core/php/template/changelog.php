@@ -27,13 +27,17 @@ foreach ($versionList as $versionKey => $versionValue)
 
 $sortedVersions["2.0"] = array(
 	"releaseNotes"	=> "<ul><li>Changed directory structure</li><li>Added settings page</li><li>Added upgrade page</li></ul>",
-	"commits"		=> 49
+	"commits"		=> 49,
+	"date"			=> "03/10/2017",
+	"title"			=> "The Updating Update"
 );
 
 $sortedVersions["1.3"] = array(
 	"releaseNotes"	=> "<ul><li>Added Un-pause on focus</li><li>Dynamic title of page (reflects status of paused and refreshing)</li></ul>",
 	"idForHeader"	=> "changeLogMainVersionNumber1",
-	"commits"		=> 14
+	"commits"		=> 14,
+	"date"			=> "03/06/2017",
+	"title"			=> "Github Release"
 );
 
 $sortedVersions["1.2"] = array(
@@ -74,7 +78,27 @@ $arrOfMainVersionNumbers[] = 1;
 				$id = "id=\"" . $versionValue["idForHeader"] . "\"";
 			}
 			?>
-			<div <?php echo $id; ?> class="settingsHeader"><?php echo $versionKey; ?></div>
+			<div <?php echo $id; ?> class="settingsHeader">
+				<?php echo $versionKey; ?>
+				<?php
+					if (isset($versionValue["title"]))
+					{
+						echo "(" . $versionValue["title"] . ")";
+					}
+					?>
+				<div class="settingsHeaderButtons">
+					<?php
+					if (isset($versionValue["date"]))
+					{
+						echo "Release Date: " . $versionValue["date"] . " ";
+					}
+					if (isset($versionValue["commits"]))
+					{
+						echo "Commit: " . $versionValue["commits"];
+					}
+					?>
+				</div>
+			</div>
 			<div class="settingsDiv"><?php echo $versionValue["releaseNotes"]; ?></div>
 		<?php endforeach;?>
 	</div>
