@@ -197,54 +197,80 @@ $versionCheckArray = array(
 		),
 		'4.0'		=> array(
 			'branchName'	=> '4.0Update',
+			'commits'	=> 1491,
+			'date'		=> '05/26/2018',
 			'releaseNotes'	=> "<ul><li>Features<ul><li>New Log Format!<ul><li>Changed format, allowing for more custom options for each entry in watchlist</li><li>Added dropdown option for recursive log finding in a folder</li><li>Option to delete logs in a folder after x days since last modification</li><li>Better visibility of log read/write status</li><li>Added option to ignore some files within folders</li><li>Option to split files in a folder into individual files</li><li>Option to exclude files within a folder from trim logic</li><li>Added option to add custom names for logs</li><li>Added option to change the order of logs in watchlist</li></ul></li><li>New main menu system!<ul><li>New flyout system allows for viewing about pages without reload</li><li>Added names to other apps instead of just icon</li><li>Cleans up visible menu icons on homepage</li></ul></li><li>Grouped Groups!<ul><li>Group logs / folders into groups</li><li>Show / hide groups of logs from select in header</li></ul></li><li>Other<ul><li>Custom options for how log titles display (no extension, last folder in path, etc)</li></ul></li></ul></li><li>Bug Fixes<ul><li>Removes log from display if file does not exist</li><li>Removed save verify from 2nd layer nav (same page nav)</li><li>Fixed small bug with update check.</li><li>Fixed bug with notification dot positioning when height changed</li><li>Fixed bug with redirect of update page after update</li><li>Fixed bug with notification not cleared when log is removed</li></ul></li></ul>"
 		),
 		'4.1'		=> array(
 			'branchName'	=> '4.1Update',
+			'commits'	=> 1570,
+			'date'		=> '06/25/2018',
 			'releaseNotes'	=> "<ul><li>Features<ul><li>New folder popup interface! (shows dir tree)</li><li>Changed patern to dropdown select (for easier filtering of folders)</li><li>Update page now included in main menu (no page navigation needed)</li><li>Added right click to tmp enable/disable alerts for specific logs</li></ul></li><li>Bug Fixes<ul><li>Fixed issues with split files button showing up on folders with no files</li><li>Subfiles for folders now show up when adding new files (without needing a reload of the page)</li><li>Fixed issue with menu settings not having reset button</li><li>Fixed bug with default watchlist pattern not showing up in settings</li><li>Fixed issue with when switching groups not hiding currently selected if not in group when switching</li><li>Fixed issue with current window class being replaced each poll request</li><li>Optimized images for web (lower file sizes)</li><li>Added some missing images for themes)</li></ul></li></ul>"
 		),
 		'4.1.1'		=> array(
 			'branchName'	=> '4.1.1Update',
+			'commits'	=> 1570,
+			'date'		=> '06/25/2018',
 			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed some update issues with new updater</li></ul></li></ul>"
 		),
 		'4.2'		=> array(
 			'branchName'	=> '4.2Update',
+			'commits'	=> 1633,
+			'date'		=> '07/25/2018',
 			'releaseNotes'	=> "<ul><li>Features<ul><li>Changed how watchlist loads, more visual</li><li>Added file format filter to file popup</li><li>Added option to disable auto check for update on error page</li><li>Moved addons to iframe (option to disable in settings)</li><li>Added archive to watchlist</li><li>Added view options for logs in watchlist (condensed / expanded)</li><li>Added option for filters on logs</li></ul></li><li>Bug Fixes<ul><li>Fixed bug with logs being added after load (new logs)</li><li>Added option for hiding / autoCheckUpdate php file open errors in log (off by default)</li><li>Now shows correct file info when splitting files from folder in watchlist</li><li>Fixed issue with file folder dropdown showign up on initial scroll (not that noticable though)</li><li>Fixed issue with notification count not displaying above full screen menu</li><li>Fixed bug where height of notification list could be off screen, addex max height of 300px</li><li>Fixed bug with popup not being over menu on index page</li><li>Properly shows no logs available when initial load returns empty array</li></ul></li></ul>"
 		),
 		'4.2.1'		=> array(
 			'branchName'	=> '4.2.1Update',
+			'commits'	=> 1635,
+			'date'		=> '07/25/2018',
 			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed issue with dropdown file typing in watchlist</li><li>Fixed bug with formatting on some logs</li><li>Fixed bug with popup settings not loadign correctly with new js loader</li><li>Fixed issue with setup and watchlist</li><li>Fixed possible issue with clearning logs?</li></ul></li></ul>"
 		),
 		'4.2.2'		=> array(
 			'branchName'	=> '4.2.2Update',
+			'commits'	=> 1638,
+			'date'		=> '07/25/2018',
 			'releaseNotes'	=> "<ul><li>Features<ul><li>Added link to watchlist to main menu (in prep for 5.0 release)</li></ul></li><li>Bug Fixes<ul><li>Possibly fixed issue with updater not redirecting correctly?</li><li>Possibly fixed issue with updater not setting percent bar correctly if more than one version in update</li></ul></li></ul>"
 		),
 		'4.2.3'		=> array(
 			'branchName'	=> '4.2.3Update',
+			'commits'	=> 1646,
+			'date'		=> '07/25/2018',
 			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed issue with popup and menu on home page</li><li>Fixed menu style issues with firefox</li><li>Fixed bug with reszie menu bar on delete log</li><li>Fixed bug with viewing individual whats new / changelog / about page.</li><li>Fixed bugs with nested new lines in lines for logs (should fix some display issues)</li><li>Fixed bug with spinner not showing up between switch of logs (need to fix time though)</li></ul></li></ul>"
 		),
 		'4.2.4'		=> array(
 			'branchName'	=> '4.2.4Update',
+			'commits'	=> 1651,
+			'date'		=> '07/26/2018',
 			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed bug in setup (also in 4.1.1.1)</li><li>Fixed issue with some selectors in settings not showing sub content correctly on toggle</li></ul></li></ul>"
 		),
 		'4.2.5'		=> array(
 			'branchName'	=> '4.2.5Update',
+			'commits'	=> 1657,
+			'date'		=> '08/03/2018',
 			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed issue with clear log not hiding after clear</li></ul></li></ul>"
 		),
 		'4.2.6'		=> array(
 			'branchName'	=> '4.2.6Update',
+			'commits'	=> 1658,
+			'date'		=> '08/10/2018',
 			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed issue with setup watchlist</li></ul></li></ul>"
 		),
 		'4.2.7'		=> array(
 			'branchName'	=> '4.2.7Update',
+			'commits'	=> 1665,
+			'date'		=> '08/21/2018',
 			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed bugs with file verification in clear log and delete log functions</li><li>Fixed bug with clear all logs not working correctly</li></ul></li></ul>"
 		),
 		'4.2.8'		=> array(
 			'branchName'	=> '4.2.8Update',
+			'commits'	=> 1666,
+			'date'		=> '08/23/2018',
 			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed bugs with file verification in clear log and delete log functions</li></ul></li></ul>"
 		),
 		'4.2.8.1'		=> array(
 			'branchName'	=> '4.2.8.1Update',
+			'commits'	=> 1668,
+			'date'		=> '08/27/2018',
 			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed bugs with file verification in clear log and delete log functions</li></ul></li></ul>"
 		),
 		'5.0'		=> array(
