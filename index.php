@@ -84,7 +84,7 @@ $locationForSearchIndex = $addons->checkForSearchInstall($locationForSearch, "./
 
 $locationForSeleniumMonitorIndex = $addons->checkForSeleniumMonitorInstall($locationForSeleniumMonitor, "./");
 
-/* USED IN ABOUT PAGE (template/about.php) AND whatsNew (template/whatsNew.php) */
+/* USED IN ABOUT PAGE (template/about.php) */
 $otherPageImageModifier = "";
 /* Override window config if multi log is disabled */
 $currentSessionValue = $windowConfig;

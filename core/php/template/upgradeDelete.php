@@ -38,7 +38,7 @@ foreach ($arrayOfFilesDeleted as $value)
 $totalCountOfFilesToDelete = count($arrayOfFilesToDelete);
 if($totalCountOfFilesToDelete < 1)
 {
-	header("Location: "."../../../settings/about.php?pageType=whatsNew", true, 302); /* Redirect browser */
+	header("Location: "."../../../settings/about.php?pageType=changelog", true, 302); /* Redirect browser */
 	exit();
 }
 ?>

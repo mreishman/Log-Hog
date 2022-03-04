@@ -984,7 +984,7 @@ function finishedUpdateAfterAjax()
 		document.getElementById("menu").style.display = "block";
 		document.getElementById("titleHeader").innerHTML = "<h1>Finished Update</h1>";
 		document.getElementById("progressBar").value = 100;
-		setTimeout(function(){ window.location.href = "../settings/about.php?pageType=whatsNew"; }, 3000);
+		setTimeout(function(){ window.location.href = "../settings/about.php?pageType=changelog"; }, 3000);
 	}
 	else
 	{

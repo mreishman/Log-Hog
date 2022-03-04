@@ -17,7 +17,7 @@ $settingsInstallUpdate = new settingsInstallUpdate();
 $redirectUrl = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 if(strpos($redirectUrl, "updater.php") > -1)
 {
-	$redirectUrl = str_replace("updater.php", "whatsNew.php", $redirectUrl);
+	$redirectUrl = str_replace("updater.php", "about.php", $redirectUrl);
 }
 if(strpos($redirectUrl, "update") > -1)
 {
@@ -175,7 +175,7 @@ if(count($arrayOfVersions) === 0)
 						<?php else: ?>
 							<h1>There are no updates</h1>
 							<script type="text/javascript">
-								setTimeout(function(){ window.location.href = "../settings/about.php?pageType=whatsNew"; }, 3000);
+								setTimeout(function(){ window.location.href = "../settings/about.php?pageType=changelog"; }, 3000);
 							</script>
 						<?php endif; ?>
 						</span>
