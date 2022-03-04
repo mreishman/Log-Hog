@@ -51,21 +51,19 @@ $sortedVersions["1.0"] = array(
 	"commits"		=> 5
 );
 
+$arrOfMainVersionNumbers[] = 1;
 
 ?>
 <span id="aboutSpanChangelog">
 	<div class="settingsHeader">
 		Changelog
+		<div class="settingsHeaderButtons">
+			<?php foreach($arrOfMainVersionNumbers as $versionId): ?>
+				<a class="linkSmall" href="#changeLogMainVersionNumber<?php echo $versionId; ?>"><?php echo $versionId; ?>.X</a>
+			<?php endforeach; ?>
+		</div>
 	</div>
 	<div class="settingsDiv" >
-		<ul class="settingsUl">
-			<li>
-				<?php foreach($arrOfMainVersionNumbers as $versionId): ?>
-					<a class="link" href="#changeLogMainVersionNumber<?php echo $versionId; ?>"><?php echo $versionId; ?>.X</a>
-				<?php endforeach; ?>
-				<a class="link" href="#changeLogMainVersionNumber1">1.X</a>
-			</li>
-		</ul>	
 		<?php if(!$versionFound):?>
 			<li><h2>Notice: Current version of Log-Hog is not in changelog. Showing all versions in changelog</h2></li>
 		<?php
@@ -76,11 +74,8 @@ $sortedVersions["1.0"] = array(
 				$id = "id=\"" . $versionValue["idForHeader"] . "\"";
 			}
 			?>
-			
-				<div <?php echo $id; ?> class="settingsHeader"><?php echo $versionKey; ?></div>
-				<div class="settingsDiv">
-					<?php echo $versionValue["releaseNotes"]; ?></div>
-			
+			<div <?php echo $id; ?> class="settingsHeader"><?php echo $versionKey; ?></div>
+			<div class="settingsDiv"><?php echo $versionValue["releaseNotes"]; ?></div>
 		<?php endforeach;?>
 	</div>
 </span>

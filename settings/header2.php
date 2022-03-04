@@ -22,7 +22,7 @@ $core->getScript(array(
 		<a id="whatsNewLink" onclick="showAboutTab('whatsNew');">What's New</a>
 		<a id="changeLogLink" onclick="showAboutTab('changelog');">ChangeLog</a>
 </div>
-
+<div class="settingsHeader addBorderBottom" style="position: absolute;width: 100%;z-index: 10;top: 104px; margin: 0; display: none;" id="fixedPositionMiniMenu" ></div>
 <?php
 $baseUrlImages = $localURL;
 ?>
