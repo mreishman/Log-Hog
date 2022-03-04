@@ -124,6 +124,13 @@ function previewNotification(logId)
 	}
 	document.getElementById("notificationHolderRight").innerHTML = "<div "+modifier+" class=\"notificationPreviewLog\" ><table width=\"100%\" style=\"border-spacing: 0;\" >" + makePrettyWithText(logTextToShow, 0) + "</table></div>";
 
+	logicForPreviewContent();
+	
+	$(".closePreviewLogButton").show();
+}
+
+function logicForPreviewContent()
+{
 	document.getElementById("notificationHolderLeft").style.display = "inline-block";
 	document.getElementById("notificationHolderRight").style.display = "inline-block";
 
@@ -131,8 +138,6 @@ function previewNotification(logId)
 	document.getElementById("notificationHolderRight").style.overflowY = "scroll";
 
 	resizeNotificationPreview();
-	
-	$(".closePreviewLogButton").show();
 }
 
 function resizeNotificationPreview()
@@ -190,8 +195,10 @@ function closePreviewLog()
 {
 	document.getElementById("notificationHolderRight").innerHTML = "";
 	document.getElementById("notificationHolderLeft").style.width = "auto";
+	document.getElementById("notificationHolderLeft").style.height = "auto";
 	document.getElementById("notificationHolderLeft").style.display = "block";
 	document.getElementById("notificationHolderRight").style.width = "auto";
+	document.getElementById("notificationHolderRight").style.height = "auto";
 	document.getElementById("notificationHolderRight").style.display = "block";
 	$(".closePreviewLogButton").hide();
 }
@@ -554,12 +561,23 @@ function updateNotificationStuff()
 		}
 		else
 		{
+			let previousContent = "";
+			if (document.getElementById("notificationHolderRight"))
+			{
+				previousContent = document.getElementById("notificationHolderRight").innerHTML;
+			}
 			showNotifications();
+			if (previousContent !== "")
+			{
+				document.getElementById("notificationHolderRight").innerHTML = previousContent;
+				logicForPreviewContent();
+			}
 			document.getElementById("notifications").style.display = "block";
 			document.getElementById("notificationsEmpty").style.display = "none";
 		}
 	}
 	checkForUpdateLogsOffScreen();
+	resizeNotificationPreview();
 }
 
 function toggleNotificationClearButton()
