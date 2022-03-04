@@ -10,9 +10,6 @@
 	<li id="aboutSubMenuAbout" onclick="toggleAboutLogHog();" class="selected">
 		About Log-Hog
 	</li>
-	<li id="aboutSubMenuWhatsNew" onclick="toggleWhatsNew();">
-		What's New
-	</li>
 	<li id="aboutSubMenuChangelog" onclick="toggleChangeLog();">
 		Changelog
 	</li>
@@ -120,9 +117,6 @@
 	</div>
 	<div id="fullScreenMenuChangeLog" style="display: none;" >
 		<?php require_once("changelog.php"); ?>
-	</div>
-	<div id="fullScreenMenuWhatsNew" style="display: none;" >
-		<?php require_once('whatsNew.php'); ?>
 	</div>
 	<div id="fullScreenMenuAbout" style="display: none;">
 		<?php require_once('about.php'); ?>

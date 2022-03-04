@@ -1,6 +1,9 @@
 <?php
 $versionFound = isset($configStatic["versionList"][$configStatic["version"]]);
 
+$jsonFiles = file_get_contents($core->baseURL()."core/json/whatsNew.json");
+$dataForImages = json_decode($jsonFiles, true);
+
 $arrOfMainVersionNumbers = [];
 $sortedVersions = [];
 
@@ -20,6 +23,11 @@ foreach ($versionList as $versionKey => $versionValue)
 	{
 		$arrOfMainVersionNumbers[] = $id;
 		$versionValue["idForHeader"] = "changeLogMainVersionNumber".$id;
+	}
+
+	if (isset($dataForImages[$versionKey]))
+	{
+		$versionValue["Images"] = $dataForImages[$versionKey]["Images"];
 	}
 
 	$sortedVersions[$versionKey] = $versionValue;
@@ -95,11 +103,30 @@ $arrOfMainVersionNumbers[] = 1;
 					if (isset($versionValue["commits"]))
 					{
 						echo "Commit: " . $versionValue["commits"];
-					}
-					?>
+					} ?>
 				</div>
 			</div>
-			<div class="settingsDiv"><?php echo $versionValue["releaseNotes"]; ?></div>
+			<div class="settingsDiv">
+				<?php echo $versionValue["releaseNotes"]; ?>
+				<?php if (isset($versionValue["Images"]))
+					{
+						foreach ($versionValue["Images"] as $IMGValue):
+							echo "<div style=\"display: inline-block;\" >".$core->generateImage(
+								$arrayOfImages["loadingImg"],
+								array(
+									"class"			=>	"whatsNewImage",
+									"style"			=>	"max-width: 500px;",
+									"data-src"		=>	array(
+										"src"			=> "core/img/".$IMGValue,
+										"alt"			=> $versionKey. " Image",
+										"title"			=> $versionKey. " Image"
+										),
+									"srcModifier"	=>	$otherPageImageModifier
+									)
+								)."</div>";
+						endforeach;
+					} ?>
+			</div>
 		<?php endforeach;?>
 	</div>
 </span>

@@ -45,7 +45,6 @@ require_once('../core/php/updateCheck.php');
 		$otherPageImageModifier = "../";
 		require_once('../core/php/template/about.php');
 		require_once("../core/php/template/changelog.php");
-		require_once('../core/php/template/whatsNew.php');
 		?>
 	</div>
 </body>

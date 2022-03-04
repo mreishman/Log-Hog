@@ -322,19 +322,9 @@ function toggleAboutLogHog()
 	resizeFullScreenMenu();
 }
 
-function toggleWhatsNew()
-{
-	loadImgFromData("whatsNewImage");
-	hideAboutStuff();
-	document.getElementById("fullScreenMenuWhatsNew").style.display = "block";
-	$("#aboutSubMenuWhatsNew").addClass("selected");
-	arrayOfScrollHeaderUpdate = ["fullScreenMenuWhatsNew"];
-	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
-	resizeFullScreenMenu();
-}
-
 function toggleChangeLog()
 {
+	loadImgFromData("whatsNewImage");
 	hideAboutStuff();
 	document.getElementById("fullScreenMenuChangeLog").style.display = "block";
 	$("#aboutSubMenuChangelog").addClass("selected");
@@ -481,8 +471,6 @@ function hideAboutStuff()
 	$("#aboutSubMenuAbout").removeClass("selected");
 	document.getElementById("fullScreenMenuChangeLog").style.display = "none";
 	$("#aboutSubMenuChangelog").removeClass("selected");
-	document.getElementById("fullScreenMenuWhatsNew").style.display = "none";
-	$("#aboutSubMenuWhatsNew").removeClass("selected");
 }
 
 function hideHistoryStuff()

@@ -166,5 +166,6 @@
 	{"fullPath":"settings\/formatting.php","type":"file"},
 	{"fullPath":"settings\/header.php","type":"file"},
 	{"fullPath":"settings\/main.php","type":"file"},
-	{"fullPath":"settings\/whatsNew.php","type":"file"}
+	{"fullPath":"settings\/whatsNew.php","type":"file"},
+	{"fullPath":"core\/php\/template\/whatsNew.php","type":"file"}
 ]

@@ -96,6 +96,7 @@ function showAboutTab(tabType)
 	if (tabType === 'changelog')
 	{
 		$("#changeLogLink").addClass("active").css("cursor","default");
+		loadImgFromData("whatsNewImage");
 		$("#aboutSpanChangelog").show();
 		arrayOfScrollHeaderUpdate = ["aboutSpanChangelog"];
 	}
@@ -103,18 +104,6 @@ function showAboutTab(tabType)
 	{
 		$("#changeLogLink").removeClass("active").css("cursor","pointer");
 		$("#aboutSpanChangelog").hide();
-	}
-	if (tabType === 'whatsNew')
-	{
-		$("#whatsNewLink").addClass("active").css("cursor","default");
-		loadImgFromData("whatsNewImage");
-		$("#aboutSpanWhatsNew").show();
-		arrayOfScrollHeaderUpdate = ["aboutSpanWhatsNew"];
-	}
-	else
-	{
-		$("#whatsNewLink").removeClass("active").css("cursor","pointer");
-		$("#aboutSpanWhatsNew").hide();
 	}
 	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
 }
