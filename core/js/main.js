@@ -1173,6 +1173,10 @@ function resize()
 			if($("#titleContainer"+lda).outerHeight() >= trElementHeight)
 			{
 				$("#titleContainer"+lda).outerHeight(trElementHeight);
+				if(bottomBarIndexType === "center")
+				{
+					$("#titleContainer"+lda).css("top","0px");
+				}
 			}
 			else
 			{
@@ -1182,10 +1186,17 @@ function resize()
 				}
 				if(bottomBarIndexType === "center")
 				{
-					if($("#titleContainer"+lda).css("top") !== trElementHeight+"px")
+					let titleContainerHeight = $("#titleContainer"+lda).outerHeight();
+					if (titleContainerHeight < 1)
 					{
-						$("#titleContainer"+lda).css("top",((trElementHeight / 2) - ($("#titleContainer"+lda).outerHeight() / 2))+"px");
+						titleContainerHeight = getHiddenElementHeight(document.getElementById("titleContainer"+lda));
 					}
+					let newTop = (localTrElementHeight - titleContainerHeight) / 2;
+					if (newTop < 0)
+					{
+						newTop = 0;
+					}
+					$("#titleContainer"+lda).css("top",""+newTop+"px");
 				}
 			}
 		}
@@ -1221,6 +1232,17 @@ function resize()
 	{
 		console.log(e);
 	}
+}
+
+function getHiddenElementHeight(el)
+{
+  let clone           = el.cloneNode(true);
+  let width           = el.getBoundingClientRect().width;
+  clone.style.cssText = 'position: fixed; top: 0; left: 0; overflow: auto; visibility: hidden; pointer-events: none; height: unset; max-height: unset; width: ' + width + 'px';
+  document.body.append(clone);
+  let height = clone.getBoundingClientRect().height;
+  clone.remove();
+  return height;
 }
 
 function resizeMiddleMenu()
@@ -1880,7 +1902,7 @@ function generateWindowDisplayInner()
 			{
 				newStyle += " top: 0; ";
 			}
-			else if(bottomBarIndexType === "bottomn")
+			else if(bottomBarIndexType === "bottom")
 			{
 				newStyle += " bottom: 0; ";
 			}
