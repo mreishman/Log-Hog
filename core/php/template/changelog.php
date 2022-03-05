@@ -1,4 +1,11 @@
 <?php
+
+if (!isset($gallery))
+{
+	require_once($core->baseURL()."core/php/gallery.php");
+	$gallery = new gallery();
+}
+
 $versionFound = isset($configStatic["versionList"][$configStatic["version"]]);
 
 $dataForImages = json_decode(file_get_contents($core->baseURL()."core/json/whatsNew.json"), true);
@@ -78,14 +85,17 @@ $arrOfMainVersionNumbers[] = 1;
 			</div>
 			<div class="settingsDiv">
 				<?php echo $versionValue["releaseNotes"]; ?>
-				<?php if (isset($versionValue["Images"]))
+				<?php if (isset($versionValue["Images"])): 
+					$imageData = [];
+					foreach ($versionValue["Images"] as $IMGValue)
 					{
-						foreach ($versionValue["Images"] as $IMGValue):
-							echo "<div style=\"display: inline-block;\" >".$core->generateImage(
+						$imageData[] = array(
+							"src"	=> $otherPageImageModifier."core/img/".$IMGValue,
+							"image" => $core->generateImage(
 								$arrayOfImages["loadingImg"],
 								array(
 									"class"			=>	"whatsNewImage",
-									"style"			=>	"max-width: 500px;",
+									"height"		=>  "157px",
 									"data-src"		=>	array(
 										"src"			=> "core/img/".$IMGValue,
 										"alt"			=> $versionKey. " Image",
@@ -93,9 +103,25 @@ $arrOfMainVersionNumbers[] = 1;
 										),
 									"srcModifier"	=>	$otherPageImageModifier
 									)
-								)."</div>";
-						endforeach;
-					} ?>
+								)
+						);
+					}
+
+					?>
+					<div style="overflow:auto;">
+						<table width="440px"  align="left">
+					        <tr>
+					        	<?php echo $gallery->generateGallery(
+					                $imageData,
+					                array(
+					                    "imgHeight" =>  "157",
+					                    "tag"       =>  "th"
+					                )
+					            ); ?>
+					        </tr>
+					    </table>
+					</div>
+				<?php endif; ?>
 			</div>
 		<?php endforeach;?>
 	</div>

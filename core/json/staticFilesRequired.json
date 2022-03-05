@@ -1,5 +1,6 @@
 [
 	{"name":"core\/template\/base.css","type":"css"},
+	{"name":"core\/template\/lightbox.css","type":"css"},
 	{"name":"template\/theme.css","type":"css"},
 	{"name":"addons.js","type":"js"},
 	{"name":"errorHandle.js","type":"js"},

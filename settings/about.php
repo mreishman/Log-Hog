@@ -31,6 +31,7 @@ require_once('../core/php/updateCheck.php');
 <head>
 	<title>Settings | About</title>
 	<?php echo $core->loadCSS("../",$baseUrl, $cssVersion);?>
+	<link rel="stylesheet" type="text/css" href="../core/template/lightbox.css?v=<?php echo $core->getFileTime("core/template/lightbox.css",$configStatic["version"]);?>">
 	<link rel="icon" type="image/png" href="../core/img/favicon.png" />
 	<?php $core->getScript(array(
 		"filePath"		=> "../core/js/jquery.js",

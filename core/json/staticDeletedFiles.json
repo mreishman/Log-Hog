@@ -34,7 +34,6 @@
 	{"fullPath":"core\/php\/template\/watchlistVars.php","type":"file"},
 	{"fullPath":"core\/php\/updateProgressLog.php","type":"file"},
 	{"fullPath":"core\/php\/updateProgressLogHead.php","type":"file"},
-	{"fullPath":"core\/template\/lightbox.css","type":"file"},
 	{"fullPath":"core\/js\/visibility.js","type":"file"},
 	{"fullPath":"core\/php\/template\/generalThemeOptions.php","type":"file"},
 	{"fullPath":"core\/php\/themeFunctions.php","type":"file"},
