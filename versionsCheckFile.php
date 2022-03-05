@@ -422,21 +422,29 @@ $versionCheckArray = array(
 		),
 		'7.0'			=> array(
 			'branchName'	=> '7.0Update',
+			'commits'	=> 2530,
+			'date'		=> '02/23/2019',
 			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/7.0.png',
 			'releaseNotes'	=> "<ul><li>Features<ul><li>Changes how logs are displayed<ul><li>Toggle added in sidebar temp show/hide format</li><li>Most options below can be enabled / disabled</li></ul></li><li>Log format separates time and content into two columns<ul><li>Format all log times into standard format (with custom options for timestamps)</li><li>Groups same timestamps (only shows first of same timestamp)</li></ul></li><li>Message formatting<ul><li>Auto formats json encoded log content into table display</li><li>Report formatting added</li><li>PHP info messages formated in table display</li></ul></li><li>More Info Button<ul><li>Added more in-depth information for PHP tokens</li></ul></li><li>Linked Files Format<ul><li>When files are referenced in logs, a snippet of that file is displayed below</li><li>Shows file permissions (option to enable / disable)</li></ul></li><li>Small change to settings page for log layouts</li></ul></li><li>Bug Fixes<ul><li>Fixed bug with settings sidebar toggle not displaying correctly for not the main window</li><li>Fixed small bug in updater when version number of update is longer than current version</li><li>Now shows correct on hover text when hovering over images on whats new page</li></ul></li></ul>"
 		),
 		'7.1'			=> array(
 			'branchName'	=> '7.1Update',
+			'commits'	=> 2567,
+			'date'		=> '03/24/2019',
 			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/7.1.png',
 			'releaseNotes'	=> "<ul><li>Features<ul><li>Filters<ul><li>Option to invert search</li><li>Option to only highlight search text and not entire line</li><li>Filter content of individual log windows</li><li>Added right click menu to filter text field for toggle between content and title</li></ul></li><li>Groups<ul><li>You can now select more than one group at a time (defaults to all if none selected)</li><li>Switched default back to showing in header</li></ul></li><li>Added option for adding borders between log lines</li><li>Added module status to error page</li><li>Added color picker for color inputs for settings</li></ul></li><li>Bug Fixes<ul><li>Right click on notification badge should trigger correctly more often</li><li>Counter for upgrade scripts in updater now show total correctly if only one</li><li>Hides group dropdown / selector if no groups</li><li>Fixed button action for history dropdown</li></ul></li></ul>"
 		),
 		'7.1.1'			=> array(
 			'branchName'	=> '7.1.1Update',
+			'commits'	=> 2576,
+			'date'		=> '04/01/2019',
 			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/7.1.1.png',
 			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed bug with log menu popup not staying open</li><li>Hides groups if no logs are visible</li><li>Fixed bug where sometimes log would return undefined after format changes</li><li>Fixed bug that might have caused step 4 / step 5 of setup to error out</li><li>Fixed incorrect redirect url from upgrade config / upgrade layout logic</li></ul></li></ul>"
 		),
 		'7.1.2'			=> array(
 			'branchName'	=> '7.1.2Update',
+			'commits'	=> 2581,
+			'date'		=> '04/16/2019',
 			'downloadSize'  => 0,
 			'installSize'   => 11423744,
 			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/7.1.2.png',
@@ -444,6 +452,8 @@ $versionCheckArray = array(
 		),
 		'7.2'			=> array(
 			'branchName'	=> '7.2Update',
+			'commits'	=> 2605,
+			'date'		=> '04/29/2019',
 			'downloadSize'  => 667648,
 			'installSize'   => 11624448,
 			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/7.2.png',
@@ -451,6 +461,8 @@ $versionCheckArray = array(
 		),
 		'7.3'			=> array(
 			'branchName'	=> '7.3Update',
+			'commits'	=> 2687,
+			'date'		=> '05/27/2019',
 			'downloadSize'  => 687534,
 			'installSize'   => 9982370,
 			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/7.3.png',
