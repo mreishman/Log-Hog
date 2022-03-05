@@ -380,31 +380,43 @@ $versionCheckArray = array(
 		),
 		'6.0'		=> array(
 			'branchName'	=> '6.0Update',
+			'commits'	=> 2295,
+			'date'		=> '11/26/2018',
 			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/6.0.png',
 			'releaseNotes'	=> "<ul><li>Features<ul><li>Added a new tab for oneLog (grouping of new additions to logs in one log)<ul><li>Have all changes to logs visible in one log like window</li><li>Click on log titles to open up that log in a side by side view</li><li>Can be disabled or hidden in settings</li></ul></li><li>Initial loading looks better (added progress bar to file loading)</li><li>More changes to experimental feature log formatting (For version 7.0)</li><li>Moved multi-log quick settings to sidebar (along with new one log toggle). Changed icon to more generic icon</li><li>Added back option to show groups dropdown in header (and not hidden under filter tab, false by default)</li><li>Added option to show or hide log tabs in main header</li></ul></li><li>Bug Fixes<ul><li>Fixed bug with drop-down toggles showing sub content incorrectly on a value of true when needing a value of custom</li><li>Better versioning for js and css (not same, so versioning js does not require theme update)</li><li>Now shows + in notification count if update is greater than max number of lines shown</li><li>Fixed bug with grep in poll logic</li></ul></li></ul>"
 		),
 		'6.0.1'		=> array(
 			'branchName'	=> '6.0.1Update',
+			'commits'	=> 2306,
+			'date'		=> '12/03/2018',
 			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/6.0.1.png',
 			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed issue where clear backup files could show up when backup files were disabled</li><li>Fixed issue where theme css was always loading from local/default</li><li>Fixed small style issues with id in multilog sidebar</li><li>Fixed setup page 5 with addon install</li><li>Fixed bug where in color scheme editor</li><li>Fixed bug with history dropdown and show/hide text not switching correctly</li><li>Fixed bug with initial load if no logs visible</li><li>Fixed bug with config file loading incorrectly for time format (from exp features)</li><li>Fixed bug with menu and other apps showing up if none installed</li></ul></li></ul>"
 		),
 		'6.1'		=> array(
 			'branchName'	=> '6.1Update',
+			'commits'	=> 2386,
+			'date'		=> '12/22/2018',
 			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/6.1.png',
 			'releaseNotes'	=> "<ul><li>Features<ul><li>New notification system<ul><li>Notification screen is now full screen</li><li>Condensed the main menu bar by moving notification counter inside badge and over main menu icon</li><li>Clicking on notification badge opens notification panel (right click for shortcut for clear all notifications)</li><li>Option to hide notification page on main menu (hidden by default)</li><li>Added view status (read / unread notifications)</li><li>Option to only show notification count for unread messages (true by default)</li><li>Separated notifications into groups (read / unread)</li><li>Added notification previews (shows part of log added in notification)</li><li>Added inline notification alerts (with actions to view / close)</li></ul></li><li>Added view button for locally installed addons on addon page </li><li>Added option for clear all logs action to also clear data from oneLog</li><li>More changes to experimental feature log formatting (For version 7.0)</li></ul></li><li>Bug Fixes<ul><li>Notifications now show proper log name (same as log tab) instead of just short name</li><li>Added message to updater image if not loading</li><li>Added logic for deleting old files from past updates</li><li>Passes through try catch exception on poll errors in response</li><li>Fixed some display issues with images on whats new page</li><li>Onelog references are now hidden on settings page and index settings bar when disabled</li><li>Fixed bug with restore and trying to run updates</li><li>One log opening logs now checks if already visible</li></ul></li></ul>"
 		),
 		'6.1.1'			=> array(
 			'branchName'	=> '6.1.1Update',
+			'commits'	=> 2390,
+			'date'		=> '12/29/2018',
 			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/6.1.1.png',
 			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed bug with notifications not showing correctly after update notification</li></ul></li></ul>"
 		),
 		'6.2'			=> array(
 			'branchName'	=> '6.2Update',
+			'commits'	=> 2470,
+			'date'		=> '01/26/2019',
 			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/6.2.png',
 			'releaseNotes'	=> "<ul><li>Features<ul><li>Moved filters to sidebar, cleaning up look of header menu</li><li>Added options for open locations when clicking on logs in oneLog</li><li>Added options to disable filters</li><li>Added right click menu to addons (to either open in new window, or iframe)</li><li>Addons now open in new tab (with view button, or if iframe is disabled)</li><li>Added oneLog style options</li><li>Hides save button if no changes detected (can be turned off in settings)</li><li>Added right click to log tabs to clear alert for specific log</li><li>Added close button to log when clicking log in oneLog if a new window is generated by one log, or the new log replaces oneLog</li><li>Added sidebar menu for selecting logs on a per window basis without top menu bar</li><li>Some small style changes (moved from css to scss for editing styles, updated some theme colors in the process)</li><li>More changes to experimental feature log formatting (For version 7.0)</li></ul></li><li>Bug Fixes<ul><li>Fixes some right click issues with group name in log tab</li><li>Fixes issue with backslash not being escaped properly in log format</li><li>Checks for display log content match before log refresh on manual clicks</li><li>Fixed poll log display logic, updated function to check if content is different</li><li>Fixed issue with display not updating on filter setting change</li><li>Fixed bug with searching for string that include normally html escaped chars</li><li>Fixed issue with main menu not showing other app title bar (separates main menu and addon links)</li></ul></li></ul>"
 		),
 		'6.2.1'			=> array(
 			'branchName'	=> '6.2.1Update',
+			'commits'	=> 2478,
+			'date'		=> '01/29/2019',
 			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/6.2.1.png',
 			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed bug with no log display not displaying correctly</li><li>Fixed bug with log menu popup not working correctly when switching between different multi log windows</li><li>Small display change for addon manager page</li><li>Update notification view button works correctly now</li></ul></li></ul>"
 		),
