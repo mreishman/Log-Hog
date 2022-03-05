@@ -275,72 +275,106 @@ $versionCheckArray = array(
 		),
 		'5.0'		=> array(
 			'branchName'	=> '5.0Update',
+			'commits'	=> 1764,
+			'date'		=> '08/27/2018',
 			'releaseNotes'	=> "<ul><li>Features<ul><li>Multi-Log<ul><li>View 1 log or up to 9 logs in different arrangements  (i.e. 1x1, 2x1, 2x2, etc)</li><li>Switch between views quickly with multi-log button in menu</li></ul></li><li>Log Layouts<ul><li>Added option to select what log is loaded first</li><li>With multi-log enabled, have up to 3 different layout versions per grid layout (1x1 Layout A, 1x1 Layout B, etc.)</li><li>Switch between layouts in top nav by clicking on MultiLog then Log Layout A B or C.</li></ul></li><li>Added watchlist to main menu (Update watchlist without refresh)</li><li>Reduced initial load times by reducing the transfer ammount on initial load from 697KB to 318KB (with default theme, including 83KB for poll log requests)</li><li>Added option to pin windows when using filter/search</li><li>Added Experimental Log Formatting (in advanced tab)</li><li>Added log line padding options (default 2px, min 0px, max 20px)</li><li>Added option to set fadeout start time for log highlight</li></ul></li><li>Bug Fixes<ul><li>Fixed issue with updating logs sometimes requiring a refresh of index</li><li>Fixed issue with adding folders that are unreadable not generating proper error message</li><li>Fixed bug with search while using groups</li><li>Fixed bug with pause on page load interfering with the pause on unfocus logic.</li><li>Fixed possible bug with remove notification</li><li>Fixed bug with counter if line count changed for log before refresh (sorta)</li></ul></li></ul>"
 		),
 		'5.0.1'		=> array(
 			'branchName'	=> '5.0.1Update',
+			'commits'	=> 1778,
+			'date'		=> '08/27/2018',
 			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed bug with main font color for logs not being applied correctly</li><li>Fixed bug with highlight font color for logs not being applied correctly</li><li>Fixed bug with multi log settings still showing up if disabled</li></ul></li></ul>"
 		),
 		'5.0.2'		=> array(
 			'branchName'	=> '5.0.2Update',
+			'commits'	=> 1794,
+			'date'		=> '08/27/2018',
 			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed bug with poll not working correctly if no logs on initial load.</li><li>Fixed bug with php file trim breaking poll logic by throwing errors on files that are too big to open.</li><li>Fixed bug with right click on log in menu not respecting right click menu enabled option</li><li>Fixed bug with setup stuff</li></ul></li></ul>"
 		),
 		'5.0.3'		=> array(
 			'branchName'	=> '5.0.3Update',
+			'commits'	=> 1803,
+			'date'		=> '08/27/2018',
 			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed bug with temporarily hiding logs showing up when toggling groups</li><li>Fixed possible bug with restore CSS not being versioned</li><li>Fixed bug with groups not updating correctly when changing groups in watchlist (without reload)</li><li>Fixed bug with log names that include groups not updating correctly (without reload)</li><li>Fixed bug with group selector not updating correctly when removing logs (without reload)</li><li>Fixed bug with group selector not updating correctly temporary hiding logs</li><li>Fixed font style issue with some themes and error / no log messages</li></ul></li></ul>"
 		),
 		'5.0.4'		=> array(
 			'branchName'	=> '5.0.4Update',
+			'commits'	=> 1824,
+			'date'		=> '08/27/2018',
 			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed flickering of reset button on scroll in settings pages</li><li>Changed load of watchlist buttons until after load</li><li>Fixed bug with watchlist reset and adding after reset</li><li>Fixed small style bug on theme page</li><li>Fixed styling bug with upgrade config and upgrade layout pages</li><li>Shows popup message if an error occurs when trying to clear a log or delete a log</li><li>Fixed display bug with notification count icon with poll notice banner</li><li>Fixed bug with ajax request and closing file list popup too quickly</li><li>Fixed bug with ajax request and update sub files display of folder</li><li>Fixed bug with reset watchlist and default display of expanded / condensed</li><li>Fixed bug with archive / delete log not reflecting until refresh of page</li></ul></li></ul>"
 		),
 		'5.0.5'		=> array(
 			'branchName'	=> '5.0.5Update',
+			'commits'	=> 1828,
+			'date'		=> '08/27/2018',
 			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed bug with poll update broken in 5.0.4 update</li></ul></li></ul>"
 		),
 		'5.0.6'		=> array(
 			'branchName'	=> '5.0.6Update',
+			'commits'	=> 1844,
+			'date'		=> '08/27/2018',
 			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Bug fix with poll logic and content filter</li><li>Possibly decreased save times by reducing the number of failed save checks</li><li>Bugfix for check for update with addons</li><li>Fixed bug with update versions where version is greater than 10</li><li>Style fix for sub files in folders on watchlist</li><li>Fixed bug with possible redirect loop on upgrade theme</li></ul></li></ul>"
 		),
 		'5.0.7'		=> array(
 			'branchName'	=> '5.0.7Update',
+			'commits'	=> 1858,
+			'date'		=> '09/03/2018',
 			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed styling issue on logs with spacing</li><li>Fixed bug with restore popup</li><li>Fixed bug with clicking off of watchlist before load ends</li><li>Fixed bug with not checking for save before toggle menu</li><li>Fixed restore downloading wrong branch</li><li>Fixed style issue with watchlist dropdown</li><li>Fixed bug with not being able to select file type selector in watchlist dropdown</li><li>Fixed bug with sub file lists causing errors when recursive is enabled</li></ul></li></ul>"
 		),
 		'5.0.8'		=> array(
 			'branchName'	=> '5.0.8Update',
+			'commits'	=> 1870,
+			'date'		=> '09/10/2018',
 			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed issue with redirect on theme upgrade not copying over image / css</li><li>Fixed issue with update error with long timeouts for verify unzip file</li><li>Fixed issue with favicon on index page</li><li>Fixed issue on update in progress page not redirecting correctly (also added option to manually redirect to updater)</li><li>Updated some error messages on upgrade config, upgrade theme and download functions</li><li>An error in the main updater will not clear log before showing error message</li></ul></li></ul>"
 		),
 		'5.0.9'		=> array(
 			'branchName'	=> '5.0.9Update',
+			'commits'	=> 1883,
+			'date'		=> '09/19/2018',
 			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed possible update check errors </li><li>Added popup for if update check is already in progress when trying to check for update (in same window)</li><li>bugfix for possible never ending poll request for verify update check</li><li>bugfix for possible never ending poll request for verify pre-install version change check</li><li>Added check for file size verification on download</li><li>bugfix for possible issue on selecting text on logs</li><li>bugfix for incorrect title being set on window re-focus (if poll background pause is disabled, and flash title is enabled)</li></ul></li></ul>"
 		),
 		'5.1.1'		=> array(
 			'branchName'	=> '5.1.1Update',
+			'commits'	=> 2019,
+			'date'		=> '09/22/2018',
 			'releaseNotes'	=> "<ul><li>Features<ul><li>Added filter icon for a grouped logs drop down in header</li><li>Added option to slow down the poll rate or pause the poll on index when viewing full screen menu</li><li>Added style option for log side bar display</li><li>Moved addons page to full screen menu</li><li>Added more noticeable notification for off screen logs</li><li>Added option to change max height of log tabs area on index</li><li>Added option in watchlist to add new file or folder from a previous file or folder base folder</li><li>Added link to themes in full screen menu</li><li>Added right click clear all notifications on notification button</li><li>When clearing or deleting logs, a temporary version is saved (of the last n lines) in a log-hog folder. These are view-able from the history icon.</li><li>Added new space theme</li><li>Add more than one group to a folder in watchlist, just add spaces!</li></ul></li></ul>"
 		),
 		'5.1.2'		=> array(
 			'branchName'	=> '5.1.2Update',
+			'commits'	=> 2038,
+			'date'		=> '10/01/2018',
 			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Added clear selection from log layout for individual files</li><li>Fixed bug after initial save where it would only show no log selected message before initial save</li><li>Fixed bug with double border height on index page for menu</li><li>Added out of counter for upgrade scripts in updater</li><li>Changed minimum save verification number to 1 (previously was 0, but code will always make 1 check)</li><li>Fixed issue with sidebar background colors not extending</li><li>Fixed issues with spacing on log rows in chrome</li><li>Fixed bug with scroll of sidebar for logs for small screens (height)</li><li>Added option on error page to reset update progress files back to default</li><li>For some early update failures (Download, extract), Log-Hog will automatically try to revert changes made in the update process</li><li>Updated loading message for files that are not readable and return file size of NaN</li><li>Bugfix for log menu if not in top mode</li><li>Added unselect log to First Log select</li><li>Fixed bug with conflicting pre selected logs in multilog and initial log select</li></ul></li></ul>"
 		),
 		'5.1.3'		=> array(
 			'branchName'	=> '5.1.3Update',
+			'commits'	=> 2054,
+			'date'		=> '10/04/2018',
 			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed bug with clear all action when popup is disabled</li><li>Clear all now properly (if enabled in settings) saves tmp versions of logs</li><li>Fixed bug when filtering logs where it would not auto select a new log if the preset log was hidden</li><li>Fixed issues with highlight row spacing in firefox</li></ul></li></ul>"
 		),
 		'5.1.4'		=> array(
 			'branchName'	=> '5.1.4Update',
+			'commits'	=> 2061,
+			'date'		=> '10/16/2018',
 			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed issue with search by title and initial load log logic</li><li>Fixed small issue that could occur when switching logs</li><li>possible fix for update check errors, main fix in 5.2</li></ul></li></ul>"
 		),
 		'5.2'		=> array(
 			'branchName'	=> '5.2Update',
+			'commits'	=> 2173,
+			'date'		=> '10/29/2018',
 			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/5.2.png',
 			'releaseNotes'	=> "<ul><li>Features<ul><li>Cleaned up look of top bar by merging group settings and filter settings together</li><li>Moved themes page to main menu</li><li>Customize folder color schemes, add and edit new color schemes for files and folders </li><li>Save current layout as on load layout from index page</li><li>Merged update / update notice icons together for somewhat cleaner look</li><li>Better support for smaller resolution screens in full screen menu</li><li>Changed loading method for javascript, adding in better error detection</li><li>More images now loaded on-demand (less images in initial load, of which some were not needed - determined by custom settings)</li></ul></li><li>Bug Fixes<ul><li>Small style changes to updater</li><li>Fixed bug with updater check, and checking for update when update check in progress</li><li>Fixed bug that when clicking reset, the on change function stopped working</li><li>Fixed bug when saving popup settings</li><li>Fixed bug with drop-down toggles not showing sometimes on first load (only for custom popup settings)</li><li>Fixed bug with popup custom settings not showing up correctly if set</li><li>Fixed bug with selecting logs before logs loaded causing no log display error</li><li>Fixed bug when trying to delete specific logs</li><li>Fixed bug when trying to clear specific logs</li><li>Possible bugfix for getting update line numbers in js</li></ul></li></ul>"
 		),
 		'5.2.1'		=> array(
 			'branchName'	=> '5.2.1Update',
+			'commits'	=> 2179,
+			'date'		=> '11/02/2018',
 			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/5.2.1.png',
 			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed bug with main menu full screen on smaller screens adding padding to height when there is no menu</li><li>Fixed bug with right clicks not always triggering right click menu on log titles in header</li><li>Fixed bug with saving log layouts needing refresh before working</li></ul></li></ul>"
 		),
 		'5.2.2'		=> array(
 			'branchName'	=> '5.2.2Update',
+			'commits'	=> 2188,
+			'date'		=> '11/12/2018',
 			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/5.2.2.png',
 			'releaseNotes'	=> "<ul><li>Bug Fixes<ul><li>Fixed bug with remove log from multilog function not working correctly</li><li>Fixed bug with right click accuracy on notification icon with counter</li><li>Fixed bug with removing addons not properly updating text / buttons during the remove action</li><li>Fixed bug for selecting the same log more than once for a log load layout</li><li>Shows correct message when there are no logs to select (in log load layout)</li><li>Fixed bug with save of log load layout not working correctly if nothing was previously saved</li></ul></li></ul>"
 		),
