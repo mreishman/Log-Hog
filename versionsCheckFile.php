@@ -41,12 +41,14 @@ $versionCheckArray = array(
 		),
 		'2.1'		=> array(
 			'branchName'	=> '2.1Update',
+			'title'		=> 'The Clear Log Update',
 			'commits'	=> 124,
 			'date'		=> '04/17/2017',	
 			'releaseNotes' 	=> '<ul><li>Features<ul><li>Added Exp. Features Tab</li><li>Added Clear log button<ul><li>Clear logs button in menu</li><li>Setting to change button in menu to all or single log</li><li>Button at bottom row for single log clear</li></ul></li><li>Added link to gitStatus (if installed)</li><li>Added popup warnings for removing file/folders, save actions and blank folders.</li></ul></li><li>Bug Fixes<ul><li>Added text descriptions to some settings in main.php</li><li>Added stopFlashTitle to unpause on focus</li><li>Adding new file/folder does not overwrite previously non saved folders</li><li>Improved look of buttons for watch list</li><li>Added max height to main log menu</li></ul></li></ul>'
 		),
 		'2.2'		=> array(
 			'branchName'	=> '2.2Update',
+			'title'		=> 'The Settings Update 1',
 			'commits'	=> 170,
 			'date'		=> '05/12/2017',
 			'releaseNotes'	=> '<ul><li>Features<ul><li>Ability to trim log files by default to either set num of lines or file size</li><li>Groups folders by colors<ul><li>Ability to pick color profile for folders</li><li>Buttons match first folder color</li></ul></li><li>Added messages for empty files / unknown error</li><li>Adds ability to hide empty logs</li><li>Adds file permissions to file view</li><li>Ability to switch between ms and s for poll rate</li><li>Added delete log button</li><li>Added popup warnings for removing file/folders, save actions and blank folders.</li></ul></li><li>Bug Fixes<ul><li>Checks for updates every 7 days by default insted of each day</li><li>Adds ability to change github url</li></ul></li></ul>'
@@ -59,6 +61,7 @@ $versionCheckArray = array(
 		),
 		'2.3'		=> array(
 			'branchName'	=> '2.3Update',
+			'title'		=> 'Processes',
 			'commits'	=> 324,
 			'date'		=> '06/26/2017',
 			'releaseNotes'	=> '<ul><li>Features<ul><li>Process Monitoring tab added. Monitors: <ul><li>CPU usage</li><li>Ram / swap usage</li><li>Disk usage / IO</li><li>PHP User time used / system time used</li><li>Network Interface receive / transmit</li><li>Shows list of processes</li></ul></li><li>Added setting to disable right click menu. </li></ul></li><li>Bug Fixes<ul><li>Fixes bug where the delete log button did not remove the log from the top bar. </li><li>Fixes bug where log files could not be deleted or cleared when seeing poll information. </li><li>Fixes bug where update changelog would sometimes give error depending on version numbering. </li></ul></li></ul>'
@@ -89,6 +92,7 @@ $versionCheckArray = array(
 		),
 		'2.3.5'		=> array(
 			'branchName'	=> '2.3.5Update',
+			'title'		=> 'Update to the Updater',
 			'commits'	=> 588,
 			'date'		=> '09/27/2017',
 			'releaseNotes'	=> "<ul><li>Features<ul><li>Reduced poll times by an average of 20ms</li><li>Added advanced poll options</li><li>Updated updater, now with more ajax!</li></ul></li><li>Bug Fixes<ul><li>Saving now does not refresh page, also adds check if save worked</li><li>Checking for update checks if update information was saved</li><li>fixed style issues with process table in monitor</li><li>Fixed bug with poll logic if first poll failed</li><li>Fixed bug with pause icon when loading with pause by default</li><li>Fixed bug with pause on focus not always following settings if disabled</li><li>Fixed bug with some forms not resetting correctly</li><li>Fixed bug with some forms giving false positives for changes in form data</li><li>Fixed issues with ajax update check on index page not waiting for file to refresh contents</li><li>Fixed issues with ajax update check on update page not refreshing install button</li><li>Fixed issues with ajax update check on update page sometimes not display proper changelog</li><li>Fixed bug where deleting file then adding file would result in a save error</li></ul></li></ul>"
@@ -107,6 +111,7 @@ $versionCheckArray = array(
 		),
 		'3.0'		=> array(
 			'branchName'	=> '3.0Update',
+			'title'		=> 'Stylin',
 			'commits'	=> 696,
 			'date'		=> '10/04/2017',
 			'releaseNotes'	=> "<ul><li>Features<ul><li>Loading bar on first load</li><li>Themes!</li><ul><li>More custom style options</li><li>Three new themes!</li></ul><li>Watchlist look improved for settings page</li><li>Added option for background refresh rate (if not using pause on not focus)</li><li>Added option to disable / reset update notifications</li></ul></li><li>Bug Fixes<ul><li>Clicking refresh forces refresh of all information</li><li>Devtab bugfixes</li><li>Tabs on sub-menus are now highlighted</li><li>Fixed issue with resizing the window while in the settings pages</li><li>Added reset changes to more pages when editing vars</li><li>Fixed issue with custom popup settings options not correctly displaying on first switch</li><li>Versioned css / js files (most of them anyway)</li></ul></li></ul>"
@@ -137,6 +142,7 @@ $versionCheckArray = array(
 		),
 		'3.1'		=> array(
 			'branchName'	=> '3.1Update',
+			'title'		=> 'Could not find it',
 			'commits'	=> 804,
 			'date'		=> '11/25/2017',
 			'releaseNotes'	=> "<ul><li>Features<ul><li>Search addon added!<ul><li>Use search to visually grep your current repo</li><li>Can be downloaded from the admin page</li></ul></li><li>Added setup access from advanced page</li><li>More theme style options</li></ul></li><li>Bug Fixes<ul><li>Added refresh to more saves that change styles</li><li>Fixed some issues with monitor download from setup</li><li>Added monitor remove to setup (if installed)</li></ul></li></ul>"
@@ -155,6 +161,7 @@ $versionCheckArray = array(
 		),
 		'3.2'		=> array(
 			'branchName'	=> '3.2Update',
+			'title'		=> 'Found It!',
 			'commits'	=> 911,
 			'date'		=> '12/22/2017',
 			'releaseNotes'	=> "<ul><li>Features<ul><li>Addons page (page for addons)</li><li>Added new font options</li><li>Selenium monitor addon</li><li>Config restore options</li></ul></li><li>Bug Fixes<ul><li>Fixed delay when resetting update notification</li><li>Improved images for areo theme</li></ul></li></ul>"
@@ -167,24 +174,28 @@ $versionCheckArray = array(
 		),
 		'3.3'		=> array(
 			'branchName'	=> '3.3Update',
+			'title'		=> 'I Can Count?',
 			'commits'	=> 1000,
 			'date'		=> '01/30/2018',
 			'releaseNotes'	=> "<ul><li>Features<ul><li>Added notification count for tabs</li><li>Added no logs to display message when filtered / or no logs are visible</li><li>Added on hover to tabs to show last line</li><li>Added clear all button for notifications</li><li>Added new ocean theme!</li><li>View some files from Log-Hog (dev tools)</li></ul></li><li>Bug Fixes<ul><li>Cleaned up / grouped settings.</li></ul></li></ul>"
 		),
 		'3.4'		=> array(
 			'branchName'	=> '3.4Update',
+			'title'		=> 'Still Searchin',
 			'commits'	=> 1137,
 			'date'		=> '02/24/2018',
 			'releaseNotes'	=> "<ul><li>Features<ul><li>Added content search for logs (ability to toggle between title and content for searching)</li><li>Added option to disable scroll to bottom on update</li><li>Redesigned bottom bar (now sidebar)</li><li>Added more options on how to restore defaults (all, just watchlist...)</li><li>Save custom themes</li></ul></li><li>Bug Fixes<ul><li>Updated right click menu for settings icon for new contents</li><li>Fixed bug with switching dev tools on / off.</li><li>Chaged save logic to only save changed vars</li></ul></li></ul>"
 		),
 		'3.5'		=> array(
 			'branchName'	=> '3.5Update',
+			'title'		=> 'Settings Update 2',
 			'commits'	=> 1252,
 			'date'		=> '03/21/2018',
 			'releaseNotes'	=> "<ul><li>Features<ul><li>Added option to change highlight color (of content filter)</li><li>Added option to change hover content for log titles (last line or full path)</li><li>Added option for php or shell (php by default)</li><li>Highlights new lines of logs (for 1 sec) (with options to change color)</li><li>Added right click menus for log titles and pause icon<ul><li>Adds option to hide log until refresh of page</li><li>Clear / delete log by rightclick</li><li>Copy file name / file path on rightclick</li><li>Toggle auto pause option with rightclick on pause icon</li></ul></li><li>Added file size to loadbar on first load</li><li>Added option to not scroll on update if already scrolled up in log</li><li>Added brightness slider to themes settings page</li><li>Added new theme! (Steampunk)</li></ul></li><li>Bug Fixes<ul><li>Fixed issue with right click clicking not registering sometimes. </li><li>Fixed bug with counter for log showing undefined if log is new</li><li>Fixed some bugs with expermential feature log display</li><li>Fixed bug with pause on unfocus still pausing</li><li>Fixed rare poll js bug</li><li>Added loading icon between switch of logs (although, still to fast to show up)</li><li>Fixed bug where clear notifications would not fully clear notification counter</li><li>Fixed some style issues<ul><li>right click menu / info popup background and font for some themes</li><li>Fixed small style bug with select font</li><li>Fixed issue with load bar for default theme not reflecting correct color</li></ul></li><li>Loading theme preview loads smoother</li></ul></li></ul>"
 		),
 		'3.6'		=> array(
 			'branchName'	=> '3.6Update',
+			'title'		=> 'Get Notified?',
 			'commits'	=> 1336,
 			'date'		=> '04/20/2018',
 			'releaseNotes'	=> "<ul><li>Features<ul><li>Added quick setting change for filter content (changes settings tmp for current window)</li><li>Added addon page to setup</li><li>Notice is shown for connectivity issues on index</li><li>Option to change position of log tabs (top, bottom, left, right)</li><li>New Theme! (Terminal)</li><li>Added internal notifications</li></ul></li><li>Bug Fixes<ul><li>Addon page does not redirect when installing or removing addons</li><li>More fixes for expermential feature log display</li><li>Changed verification counter to check for 2 success verifications in a row</li></ul></li></ul>"
@@ -197,12 +208,14 @@ $versionCheckArray = array(
 		),
 		'4.0'		=> array(
 			'branchName'	=> '4.0Update',
+			'title'		=> 'Back to Focus',
 			'commits'	=> 1491,
 			'date'		=> '05/26/2018',
 			'releaseNotes'	=> "<ul><li>Features<ul><li>New Log Format!<ul><li>Changed format, allowing for more custom options for each entry in watchlist</li><li>Added dropdown option for recursive log finding in a folder</li><li>Option to delete logs in a folder after x days since last modification</li><li>Better visibility of log read/write status</li><li>Added option to ignore some files within folders</li><li>Option to split files in a folder into individual files</li><li>Option to exclude files within a folder from trim logic</li><li>Added option to add custom names for logs</li><li>Added option to change the order of logs in watchlist</li></ul></li><li>New main menu system!<ul><li>New flyout system allows for viewing about pages without reload</li><li>Added names to other apps instead of just icon</li><li>Cleans up visible menu icons on homepage</li></ul></li><li>Grouped Groups!<ul><li>Group logs / folders into groups</li><li>Show / hide groups of logs from select in header</li></ul></li><li>Other<ul><li>Custom options for how log titles display (no extension, last folder in path, etc)</li></ul></li></ul></li><li>Bug Fixes<ul><li>Removes log from display if file does not exist</li><li>Removed save verify from 2nd layer nav (same page nav)</li><li>Fixed small bug with update check.</li><li>Fixed bug with notification dot positioning when height changed</li><li>Fixed bug with redirect of update page after update</li><li>Fixed bug with notification not cleared when log is removed</li></ul></li></ul>"
 		),
 		'4.1'		=> array(
 			'branchName'	=> '4.1Update',
+			'title'		=> 'Files/Folders [Side A]',
 			'commits'	=> 1570,
 			'date'		=> '06/25/2018',
 			'releaseNotes'	=> "<ul><li>Features<ul><li>New folder popup interface! (shows dir tree)</li><li>Changed patern to dropdown select (for easier filtering of folders)</li><li>Update page now included in main menu (no page navigation needed)</li><li>Added right click to tmp enable/disable alerts for specific logs</li></ul></li><li>Bug Fixes<ul><li>Fixed issues with split files button showing up on folders with no files</li><li>Subfiles for folders now show up when adding new files (without needing a reload of the page)</li><li>Fixed issue with menu settings not having reset button</li><li>Fixed bug with default watchlist pattern not showing up in settings</li><li>Fixed issue with when switching groups not hiding currently selected if not in group when switching</li><li>Fixed issue with current window class being replaced each poll request</li><li>Optimized images for web (lower file sizes)</li><li>Added some missing images for themes)</li></ul></li></ul>"
@@ -215,6 +228,7 @@ $versionCheckArray = array(
 		),
 		'4.2'		=> array(
 			'branchName'	=> '4.2Update',
+			'title'		=> 'Files/Folders [Side B]',
 			'commits'	=> 1633,
 			'date'		=> '07/25/2018',
 			'releaseNotes'	=> "<ul><li>Features<ul><li>Changed how watchlist loads, more visual</li><li>Added file format filter to file popup</li><li>Added option to disable auto check for update on error page</li><li>Moved addons to iframe (option to disable in settings)</li><li>Added archive to watchlist</li><li>Added view options for logs in watchlist (condensed / expanded)</li><li>Added option for filters on logs</li></ul></li><li>Bug Fixes<ul><li>Fixed bug with logs being added after load (new logs)</li><li>Added option for hiding / autoCheckUpdate php file open errors in log (off by default)</li><li>Now shows correct file info when splitting files from folder in watchlist</li><li>Fixed issue with file folder dropdown showign up on initial scroll (not that noticable though)</li><li>Fixed issue with notification count not displaying above full screen menu</li><li>Fixed bug where height of notification list could be off screen, addex max height of 300px</li><li>Fixed bug with popup not being over menu on index page</li><li>Properly shows no logs available when initial load returns empty array</li></ul></li></ul>"
@@ -275,6 +289,7 @@ $versionCheckArray = array(
 		),
 		'5.0'		=> array(
 			'branchName'	=> '5.0Update',
+			'title'		=> 'Multi-Log',
 			'commits'	=> 1764,
 			'date'		=> '08/27/2018',
 			'releaseNotes'	=> "<ul><li>Features<ul><li>Multi-Log<ul><li>View 1 log or up to 9 logs in different arrangements  (i.e. 1x1, 2x1, 2x2, etc)</li><li>Switch between views quickly with multi-log button in menu</li></ul></li><li>Log Layouts<ul><li>Added option to select what log is loaded first</li><li>With multi-log enabled, have up to 3 different layout versions per grid layout (1x1 Layout A, 1x1 Layout B, etc.)</li><li>Switch between layouts in top nav by clicking on MultiLog then Log Layout A B or C.</li></ul></li><li>Added watchlist to main menu (Update watchlist without refresh)</li><li>Reduced initial load times by reducing the transfer ammount on initial load from 697KB to 318KB (with default theme, including 83KB for poll log requests)</li><li>Added option to pin windows when using filter/search</li><li>Added Experimental Log Formatting (in advanced tab)</li><li>Added log line padding options (default 2px, min 0px, max 20px)</li><li>Added option to set fadeout start time for log highlight</li></ul></li><li>Bug Fixes<ul><li>Fixed issue with updating logs sometimes requiring a refresh of index</li><li>Fixed issue with adding folders that are unreadable not generating proper error message</li><li>Fixed bug with search while using groups</li><li>Fixed bug with pause on page load interfering with the pause on unfocus logic.</li><li>Fixed possible bug with remove notification</li><li>Fixed bug with counter if line count changed for log before refresh (sorta)</li></ul></li></ul>"
@@ -335,6 +350,7 @@ $versionCheckArray = array(
 		),
 		'5.1.1'		=> array(
 			'branchName'	=> '5.1.1Update',
+			'title'		=> 'A Brief History',
 			'commits'	=> 2019,
 			'date'		=> '09/22/2018',
 			'releaseNotes'	=> "<ul><li>Features<ul><li>Added filter icon for a grouped logs drop down in header</li><li>Added option to slow down the poll rate or pause the poll on index when viewing full screen menu</li><li>Added style option for log side bar display</li><li>Moved addons page to full screen menu</li><li>Added more noticeable notification for off screen logs</li><li>Added option to change max height of log tabs area on index</li><li>Added option in watchlist to add new file or folder from a previous file or folder base folder</li><li>Added link to themes in full screen menu</li><li>Added right click clear all notifications on notification button</li><li>When clearing or deleting logs, a temporary version is saved (of the last n lines) in a log-hog folder. These are view-able from the history icon.</li><li>Added new space theme</li><li>Add more than one group to a folder in watchlist, just add spaces!</li></ul></li></ul>"
@@ -359,6 +375,7 @@ $versionCheckArray = array(
 		),
 		'5.2'		=> array(
 			'branchName'	=> '5.2Update',
+			'title'		=> 'Settings Update 3',
 			'commits'	=> 2173,
 			'date'		=> '10/29/2018',
 			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/5.2.png',
@@ -380,6 +397,7 @@ $versionCheckArray = array(
 		),
 		'6.0'		=> array(
 			'branchName'	=> '6.0Update',
+			'title'		=> 'All together',
 			'commits'	=> 2295,
 			'date'		=> '11/26/2018',
 			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/6.0.png',
@@ -394,6 +412,7 @@ $versionCheckArray = array(
 		),
 		'6.1'		=> array(
 			'branchName'	=> '6.1Update',
+			'title'		=> 'More Notifications!',
 			'commits'	=> 2386,
 			'date'		=> '12/22/2018',
 			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/6.1.png',
@@ -408,6 +427,7 @@ $versionCheckArray = array(
 		),
 		'6.2'			=> array(
 			'branchName'	=> '6.2Update',
+			'title'		=> 'Settings Update 4',
 			'commits'	=> 2470,
 			'date'		=> '01/26/2019',
 			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/6.2.png',
@@ -422,6 +442,7 @@ $versionCheckArray = array(
 		),
 		'7.0'			=> array(
 			'branchName'	=> '7.0Update',
+			'title'		=> 'Information',
 			'commits'	=> 2530,
 			'date'		=> '02/23/2019',
 			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/7.0.png',
@@ -429,6 +450,7 @@ $versionCheckArray = array(
 		),
 		'7.1'			=> array(
 			'branchName'	=> '7.1Update',
+			'title'		=> 'Filters Part 1',
 			'commits'	=> 2567,
 			'date'		=> '03/24/2019',
 			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/7.1.png',
@@ -452,6 +474,7 @@ $versionCheckArray = array(
 		),
 		'7.2'			=> array(
 			'branchName'	=> '7.2Update',
+			'title'		=> 'The Archive',
 			'commits'	=> 2605,
 			'date'		=> '04/29/2019',
 			'downloadSize'  => 667648,
@@ -461,6 +484,7 @@ $versionCheckArray = array(
 		),
 		'7.3'			=> array(
 			'branchName'	=> '7.3Update',
+			'title'		=> 'Settings Update 5',
 			'commits'	=> 2687,
 			'date'		=> '05/27/2019',
 			'downloadSize'  => 687534,
@@ -470,6 +494,7 @@ $versionCheckArray = array(
 		),
 		'8.0'			=> array(
 			'branchName'	=> '8.0Update',
+			'title'		=> 'The Partial Redesign',
 			'commits'	=> 2743,
 			'date'		=> '06/24/2019',
 			'downloadSize'  => 1194861,
@@ -479,6 +504,7 @@ $versionCheckArray = array(
 		),
 		'8.1'			=> array(
 			'branchName'	=> '8.1Update',
+			'title'		=> 'The Menus',
 			'commits'	=> 2814,
 			'date'		=> '07/29/2019',
 			'downloadSize'  => 773325,
@@ -488,6 +514,7 @@ $versionCheckArray = array(
 		),
 		'8.2'			=> array(
 			'branchName'	=> '8.2Update',
+			'title'		=> 'Control the Log Part 1',
 			'commits'	=> 2856,
 			'date'		=> '08/26/2019',
 			'downloadSize'  => 679808,
@@ -497,6 +524,7 @@ $versionCheckArray = array(
 		),
 		'8.3'			=> array(
 			'branchName'	=> '8.3Update',
+			'title'		=> 'Settings Update 6',
 			'commits'	=> 2918,
 			'date'		=> '09/30/2019',
 			'downloadSize'  => 934308,
