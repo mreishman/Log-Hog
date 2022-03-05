@@ -1,9 +1,7 @@
 <?php
 $versionFound = isset($configStatic["versionList"][$configStatic["version"]]);
 
-$jsonFiles = file_get_contents($core->baseURL()."core/json/whatsNew.json");
-$dataForImages = json_decode($jsonFiles, true);
-
+$dataForImages = json_decode(file_get_contents($core->baseURL()."core/json/whatsNew.json"), true);
 $arrOfMainVersionNumbers = [];
 $sortedVersions = [];
 
@@ -33,36 +31,8 @@ foreach ($versionList as $versionKey => $versionValue)
 	$sortedVersions[$versionKey] = $versionValue;
 }
 
-$sortedVersions["2.0"] = array(
-	"releaseNotes"	=> "<ul><li>Changed directory structure</li><li>Added settings page</li><li>Added upgrade page</li></ul>",
-	"commits"		=> 49,
-	"date"			=> "03/10/2017",
-	"title"			=> "The Updating Update"
-);
-
-$sortedVersions["1.3"] = array(
-	"releaseNotes"	=> "<ul><li>Added Un-pause on focus</li><li>Dynamic title of page (reflects status of paused and refreshing)</li></ul>",
-	"idForHeader"	=> "changeLogMainVersionNumber1",
-	"commits"		=> 14,
-	"date"			=> "03/06/2017",
-	"title"			=> "Github Release"
-);
-
-$sortedVersions["1.2"] = array(
-	"releaseNotes"	=> "<ul><li>Added Refresh button</li></ul>",
-	"commits"		=> 10
-);
-
-$sortedVersions["1.1"] = array(
-	"releaseNotes"	=> "<ul><li>Added Pause / Play button</li></ul>",
-	"commits"		=> 7
-);
-
-$sortedVersions["1.0"] = array(
-	"releaseNotes"	=> "<ul><li>Initial Forked version from craig-russell</li></ul>",
-	"commits"		=> 5
-);
-
+$oldChangelog = json_decode(file_get_contents($core->baseURL()."core/json/oldChangelog.json"), true);
+$sortedVersions = array_merge($sortedVersions, $oldChangelog);
 $arrOfMainVersionNumbers[] = 1;
 
 ?>
