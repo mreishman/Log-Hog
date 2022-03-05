@@ -492,6 +492,8 @@ $versionCheckArray = array(
 		),
 		'8.0'			=> array(
 			'branchName'	=> '8.0Update',
+			'commits'	=> 2743,
+			'date'		=> '06/24/2019',
 			'downloadSize'  => 1194861,
 			'installSize'   => 10602634,
 			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/8.0.png',
@@ -499,6 +501,8 @@ $versionCheckArray = array(
 		),
 		'8.1'			=> array(
 			'branchName'	=> '8.1Update',
+			'commits'	=> 2814,
+			'date'		=> '07/29/2019',
 			'downloadSize'  => 773325,
 			'installSize'   => 10545145,
 			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/8.1.png',
@@ -506,6 +510,8 @@ $versionCheckArray = array(
 		),
 		'8.2'			=> array(
 			'branchName'	=> '8.2Update',
+			'commits'	=> 2856,
+			'date'		=> '08/26/2019',
 			'downloadSize'  => 679808,
 			'installSize'   => 9838503,
 			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/8.2.png',
@@ -513,6 +519,8 @@ $versionCheckArray = array(
 		),
 		'8.3'			=> array(
 			'branchName'	=> '8.3Update',
+			'commits'	=> 2918,
+			'date'		=> '09/30/2019',
 			'downloadSize'  => 934308,
 			'installSize'   => 9898409,
 			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/8.3.png',
@@ -520,6 +528,8 @@ $versionCheckArray = array(
 		),
 		'8.3.1'			=> array(
 			'branchName'	=> '8.3.1Update',
+			'commits'	=> 2935,
+			'date'		=> '10/31/2019',
 			'downloadSize'  => 353543,
 			'installSize'   => 10028836,
 			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/8.3.png',
@@ -527,6 +537,8 @@ $versionCheckArray = array(
 		),
 		'8.3.2'			=> array(
 			'branchName'	=> '8.3.2Update',
+			'commits'	=> 2957,
+			'date'		=> '11/29/2019',
 			'downloadSize'  => 357531,
 			'installSize'   => 10057826,
 			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/8.3.png',
@@ -534,6 +546,8 @@ $versionCheckArray = array(
 		),
 		'8.3.3'			=> array(
 			'branchName'	=> '8.3.3Update',
+			'commits'	=> 2975,
+			'date'		=> '01/09/2022',
 			'downloadSize'  => 323887,
 			'installSize'   => 10071423,
 			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/8.3.png',
@@ -541,6 +555,8 @@ $versionCheckArray = array(
 		),
 		'8.3.4'			=> array(
 			'branchName'	=> '8.3.4Update',
+			'commits'	=> 3056,
+			'date'		=> '02/03/2022',
 			'downloadSize'  => 737568,
 			'installSize'   => 9991828,
 			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/8.3.png',
@@ -548,6 +564,8 @@ $versionCheckArray = array(
 		),
 		'8.3.5'			=> array(
 			'branchName'	=> '8.3.5Update',
+			'commits'	=> 3098,
+			'date'		=> '03/01/2022',
 			'downloadSize'  => 496252,
 			'installSize'   => 9984090,
 			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/8.3.png',
