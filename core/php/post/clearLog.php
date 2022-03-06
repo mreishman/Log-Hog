@@ -52,16 +52,18 @@ foreach($config['watchList'] as $value){
 							unlink($fullPath);
 							if(file_exists($fullPath))
 							{
-								$returnData["fileFound"] = "false";
+								$returnData["actionSuccess"] = "false";
 							}
 						}
 						else
 						{
 							$command = "truncate -s 0 ".$fullPath;
 							shell_exec($command);
-							if(filesize($fullPath) > 0)
+							$newSize = (int)shell_exec("wc -c ".$fullPath." | awk '{print $1}'");
+							$returnData['extra'] = $newSize;
+							if($newSize > 0)
 							{
-								$returnData["fileFound"] = "false";
+								$returnData["actionSuccess"] = "false";
 							}
 						}
 						$returnData["success"] = "true";
@@ -84,16 +86,18 @@ foreach($config['watchList'] as $value){
 				unlink($path);
 				if(file_exists($path))
 				{
-					$returnData["fileFound"] = "false";
+					$returnData["actionSuccess"] = "false";
 				}
 			}
 			else
 			{
 				$command = "truncate -s 0 ".$path;
 				shell_exec($command);
-				if(filesize($path) > 0)
+				$newSize = (int)shell_exec("wc -c ".$path." | awk '{print $1}'");
+				$returnData['extra'] = $newSize;
+				if($newSize > 0)
 				{
-					$returnData["fileFound"] = "false";
+					$returnData["actionSuccess"] = "false";
 				}
 			}
 			$returnData["success"] = "true";
