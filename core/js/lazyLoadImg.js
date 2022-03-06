@@ -6,7 +6,7 @@ function loadImgFromData(imgClassName)
 	{
 		var currentImg = images[imgCount].src;
 		var newImg = images[imgCount].getAttribute("data-src");
-		if(currentImg !== newImg)
+		if(!currentImg.endsWith(newImg))
 		{
 			images[imgCount].src = newImg;
 			var dataAlt = images[imgCount].getAttribute("data-alt");
