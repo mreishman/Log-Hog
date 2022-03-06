@@ -2,7 +2,7 @@
 	<h3 class="addBorderBottom">Groups</h3>
 	Groups:
 	<span class="selectDiv">
-		<select multiple="true" id="selectForGroup" >
+		<select autocomplete="off" multiple="true" id="selectForGroup" >
 			<option selected="true" value="all" >All</option>
 		</select>
 	</span>
@@ -34,7 +34,7 @@
 <span id="filterSettingsSideBar" <?php if ($filterEnabled !== "true"){ echo "style='display: none;'"; } ?> >
 	Search:
 	<span class="selectDiv" >
-		<select id="searchType" name="searchType">
+		<select autocomplete="off" id="searchType" name="searchType">
 			<option <?php if ($filterDefault === "title"){echo "selected"; }?> value="title">Title</option>
 			<option <?php if ($filterDefault === "content"){echo "selected"; }?> value="content">Content</option>
 		</select>
@@ -147,7 +147,7 @@
 	}
 	?>
 	<span class="selectDiv">
-		<select id="windowConfig">
+		<select autocomplete="off" id="windowConfig">
 			<?php
 			$currentSessionValue = $windowConfig;
 			if(isset($_COOKIE["windowConfig"]) && $logLoadPrevious === "true")
@@ -193,7 +193,7 @@
 <span id="oneLogSettingsSideBar" <?php if($oneLogEnable !== "true"){ echo "style='display: none;'";} ?>>
 	Show One Log
 	<span class="selectDiv">
-		<select onchange="toggleVisibleOneLog();" id="oneLogVisible">
+		<select autocomplete="off" onchange="toggleVisibleOneLog();" id="oneLogVisible">
 			<option <?php if($oneLogVisible === "true"){ echo " selected "; }?>  value="true" >True</option>
 			<option <?php if($oneLogVisible === "false"){ echo " selected "; }?>  value="false" >False</option>
 		</select>
@@ -203,7 +203,7 @@
 </span>
 Hide Log Tabs
 <span class="selectDiv">
-	<select onchange="toggleVisibleAllLogs();" id="allLogsVisible">
+	<select autocomplete="off" onchange="toggleVisibleAllLogs();" id="allLogsVisible">
 		<option <?php if($allLogsVisible === "false"){ echo " selected "; }?>  value="false" >True</option>
 		<option <?php if($allLogsVisible === "true"){ echo " selected "; }?>  value="true" >False</option>
 	</select>

@@ -81,7 +81,7 @@ class settings
 		{
 			$varNameHtml = " name=\"".$varName."\" ";
 		}
-		$returnHtml .= " <div class=\"selectDiv\"><select ".$selectId." ".$onChangeFunction.$varNameHtml.">";
+		$returnHtml .= " <div class=\"selectDiv\"><select autocomplete=\"off\" ".$selectId." ".$onChangeFunction.$varNameHtml.">";
 		$returnHtml .= $this->createSelect($confDataValue["options"], $selectValue);
 		$returnHtml .= "</select></div>";
 		return $returnHtml;
@@ -301,7 +301,7 @@ class settings
 
 	public function generateRestoreList($configStatic)
 	{
-		$returnHtml = "<form id='revertForm' action='../restore/restore.php'  method='post'  style='display: inline-block;' ><select name='versionRevertTo' >";
+		$returnHtml = "<form id='revertForm' action='../restore/restore.php'  method='post'  style='display: inline-block;' ><select autocomplete=\"off\" name='versionRevertTo' >";
 		$versionList = $configStatic['versionList'];
 		$versionListText = "";
 		foreach ($versionList as $key => $value)

@@ -425,10 +425,10 @@ function generateSubFiles(data)
 			}
 			returnHtml += "<li>"+icons[fileArray[keyTwo]["image"]];
 			returnHtml += "<div style=\"display: inline-block; padding: 5px;\" ><span style=\"width: 300px; overflow: auto; display: inline-block;\" >"+keyTwo.replace(mainFolder,"")+"</span><input name=\"watchListKey"+currentNum+"FileInFolder\"  type=\"hidden\" value=\""+keyTwo+"\" ></div>";
-			returnHtml += "<div style=\"display: inline-block; padding: 5px;\" ><span class=\"settingsBuffer\" >Include: <div class=\"selectDiv\" ><select onchange=\"updateFileInfo("+currentNum+");\" name=\"watchListKey"+currentNum+"FileInFolderInclude\" > "+generateTrueFalseSelect(includeBool)+" </select></div></span></div>";
-			returnHtml += "<div style=\"display: inline-block; padding: 5px;\" ><span class=\"settingsBuffer\" >Exclude Trim: <div class=\"selectDiv\" ><select onchange=\"updateFileInfo("+currentNum+");\" name=\"watchListKey"+currentNum+"FileInFolderTrim\"> "+generateTrueFalseSelect(excludeTrim)+" </select></div></span></div>";
-			returnHtml += "<div style=\"display: inline-block; padding: 5px;\" ><span class=\"settingsBuffer\" >Exclude Delete: <div class=\"selectDiv\" ><select onchange=\"updateFileInfo("+currentNum+");\" name=\"watchListKey"+currentNum+"ExcludeDelete\"> "+generateTrueFalseSelect(excludeDelete)+" </select></div></span></div>";
-			returnHtml += "<div style=\"display: inline-block; padding: 5px;\" ><span class=\"settingsBuffer\" >Alert on Update: <div class=\"selectDiv\" ><select onchange=\"updateFileInfo("+currentNum+");\" name=\"watchListKey"+currentNum+"FileInFolderAlert\"> "+generateTrueFalseSelect(alertOnUpdate)+" </select></div></span></div>";
+			returnHtml += "<div style=\"display: inline-block; padding: 5px;\" ><span class=\"settingsBuffer\" >Include: <div class=\"selectDiv\" ><select autocomplete=\"off\" onchange=\"updateFileInfo("+currentNum+");\" name=\"watchListKey"+currentNum+"FileInFolderInclude\" > "+generateTrueFalseSelect(includeBool)+" </select></div></span></div>";
+			returnHtml += "<div style=\"display: inline-block; padding: 5px;\" ><span class=\"settingsBuffer\" >Exclude Trim: <div class=\"selectDiv\" ><select autocomplete=\"off\" onchange=\"updateFileInfo("+currentNum+");\" name=\"watchListKey"+currentNum+"FileInFolderTrim\"> "+generateTrueFalseSelect(excludeTrim)+" </select></div></span></div>";
+			returnHtml += "<div style=\"display: inline-block; padding: 5px;\" ><span class=\"settingsBuffer\" >Exclude Delete: <div class=\"selectDiv\" ><select autocomplete=\"off\" onchange=\"updateFileInfo("+currentNum+");\" name=\"watchListKey"+currentNum+"ExcludeDelete\"> "+generateTrueFalseSelect(excludeDelete)+" </select></div></span></div>";
+			returnHtml += "<div style=\"display: inline-block; padding: 5px;\" ><span class=\"settingsBuffer\" >Alert on Update: <div class=\"selectDiv\" ><select autocomplete=\"off\" onchange=\"updateFileInfo("+currentNum+");\" name=\"watchListKey"+currentNum+"FileInFolderAlert\"> "+generateTrueFalseSelect(alertOnUpdate)+" </select></div></span></div>";
 			returnHtml += "<div style=\"display: inline-block; padding: 5px;\" ><span class=\"settingsBuffer\" style=\"text-align: right; width: 50px; padding-right:5px; \" >Name:  </span><span class=\"settingsBuffer\" > <input onchange=\"updateFileInfo("+currentNum+");\"  type=\"text\" name=\"watchListKey"+currentNum+"FileInFolderName\" value=\""+name+"\" > </span></div>";
 			returnHtml += "<div style=\"display: inline-block; padding: 5px;\" ><span class=\"settingsBuffer\" style=\"text-align: right; width: 75px; padding-right:5px; \" >Filter:  </span><span class=\"settingsBuffer\" > <input onchange=\"updateFileInfo("+currentNum+");\"  type=\"text\" name=\"watchListKey"+currentNum+"GrepFilter\" value=\""+name+"\" > </span></div>";
 			returnHtml += "</li>";
@@ -646,11 +646,11 @@ function getFileFolderSubFunction(data, orgPath, hideFiles, joinChar, dropdown)
 		{
 			if(!dropdown)
 			{
-				document.getElementById("folderNavUpHolder").innerHTML += "<div style=\"float:right; margin-right: 20px\" class=\"selectDiv\"><select onchange=\"updateFilterPopup();\" id=\"patternSelectPopup\"  >"+generatePatternSelectNoOther(currentPatternSelect)+"</select></div>";
+				document.getElementById("folderNavUpHolder").innerHTML += "<div style=\"float:right; margin-right: 20px\" class=\"selectDiv\"><select autocomplete=\"off\" onchange=\"updateFilterPopup();\" id=\"patternSelectPopup\"  >"+generatePatternSelectNoOther(currentPatternSelect)+"</select></div>";
 			}
 			else
 			{
-				document.getElementById("folderNavUpHolder").innerHTML += "<div style=\"float:right; margin-right: 20px\" class=\"selectDiv\"><select onchange=\"updateDropdownPopup();\" id=\"patternSelectPopup\"  >"+generatePatternSelectNoOther(currentPatternSelect)+"</select></div>";
+				document.getElementById("folderNavUpHolder").innerHTML += "<div style=\"float:right; margin-right: 20px\" class=\"selectDiv\"><select autocomplete=\"off\" onchange=\"updateDropdownPopup();\" id=\"patternSelectPopup\"  >"+generatePatternSelectNoOther(currentPatternSelect)+"</select></div>";
 			}
 		}
 	}

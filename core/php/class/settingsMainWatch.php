@@ -152,7 +152,7 @@ class settingsMainWatch extends core
 		$saveBlock .= "   <a onclick=\"addFolderFromLocation(".$rowNumber.");\" class=\"linkSmall\"> New folder from base</a>";
 		$saveBlock .= "</div><div class=\"settingsDiv\" ><ul class=\"settingsUl\" >";
 		$saveBlock .= "<li><span class=\"settingsBuffer\" >Location: </span><input onkeyup=\"getCurrentFileFolderMainPage(".$rowNumber.")\" onclick=\"showTypeDropdown(".$rowNumber.");\" style=\"width: 600px;\" type=\"text\" name=\"watchListKey".$rowNumber."Location\" value=\"".$location."\" ></li>";
-		$saveBlock .= "<li  class=\"typeFile\" ".$typeFile."><span class=\"settingsBuffer\" >Pattern: </span><span class=\"settingsBuffer\" ><div class=\"selectDiv\"><select onchange=\"togglePatternSelect(".$rowNumber.")\" id=\"watchListKey".$rowNumber."PatternSelect\" >";
+		$saveBlock .= "<li  class=\"typeFile\" ".$typeFile."><span class=\"settingsBuffer\" >Pattern: </span><span class=\"settingsBuffer\" ><div class=\"selectDiv\"><select autocomplete=\"off\" onchange=\"togglePatternSelect(".$rowNumber.")\" id=\"watchListKey".$rowNumber."PatternSelect\" >";
 		if(isset($data["pattern"]))
 		{
 			$saveBlock .=  $this->makePatternSelect($patternSelect, $selectOptions);
@@ -163,7 +163,7 @@ class settingsMainWatch extends core
 		}
 		$saveBlock .= "</select></div></span><span class=\"settingsBuffer\" ><input ".$patternHideInput." type=\"text\" onchange=\"updateSubFiles(".$rowNumber.");\"  name=\"watchListKey".$rowNumber."Pattern\" value=\"".$pattern."\" ></span></li>";
 		$saveBlock .= "<input type=\"hidden\" name=\"watchListKey".$rowNumber."SaveGroup\" value=\"{{SaveGroupValue}}\"  >";
-		$saveBlock .= "<span class=\"condensed\" ><li class=\"typeFile\" ".$typeFile."><span class=\"settingsBuffer\" >Recursive: </span><span class=\"settingsBuffer\" ><div class=\"selectDiv\"><select onchange=\"updateSubFiles(".$rowNumber.");\" name=\"watchListKey".$rowNumber."Recursive\" >";
+		$saveBlock .= "<span class=\"condensed\" ><li class=\"typeFile\" ".$typeFile."><span class=\"settingsBuffer\" >Recursive: </span><span class=\"settingsBuffer\" ><div class=\"selectDiv\"><select autocomplete=\"off\" onchange=\"updateSubFiles(".$rowNumber.");\" name=\"watchListKey".$rowNumber."Recursive\" >";
 		if(isset($data["recursiveOptions"]))
 		{
 			$saveBlock .=  $this->makeTrueFalseSelect($recursiveOptions);
@@ -177,7 +177,7 @@ class settingsMainWatch extends core
 		$saveBlock .= "<span class=\"condensed\" ><li  class=\"typeFolder\" ".$typeFolder."><span class=\"settingsBuffer\" >Name: </span><span class=\"settingsBuffer\" ><input type=\"text\" name=\"watchListKey".$rowNumber."Name\" value=\"".$Name."\" > </span><span class=\"settingsBuffer\" >Filter: </span><span class=\"settingsBuffer\" ><input type=\"text\" name=\"watchListKey".$rowNumber."GrepFilter\" value=\"".$GrepFilter."\" > </span></li></span>";
 		$saveBlock .= "<li>";
 		$saveBlock .= "<span class=\"settingsBuffer\" >Group: </span><span class=\"settingsBuffer\" ><input type=\"text\" name=\"watchListKey".$rowNumber."Group\" value=\"".$Group."\" ></span>";
-		$saveBlock .= "<span class=\"settingsBuffer\" >FileType: </span><span class=\"settingsBuffer\" ><div class=\"selectDiv\"><select onchange=\"toggleTypeFolderFile(".$rowNumber.")\" name=\"watchListKey".$rowNumber."FileType\" >";
+		$saveBlock .= "<span class=\"settingsBuffer\" >FileType: </span><span class=\"settingsBuffer\" ><div class=\"selectDiv\"><select autocomplete=\"off\" onchange=\"toggleTypeFolderFile(".$rowNumber.")\" name=\"watchListKey".$rowNumber."FileType\" >";
 		if(isset($data["FileType"]))
 		{
 			$saveBlock .= $this->generateFileTypeSelect($FileType);
@@ -187,7 +187,7 @@ class settingsMainWatch extends core
 			$saveBlock .=  $FileType;
 		}
 		$saveBlock .= "</select></div></span></li>";
-		$saveBlock .= "<span class=\"condensed\" ><li ><span class=\"settingsBuffer\" >Exclude Trim: </span><span class=\"settingsBuffer\" ><div class=\"selectDiv\"><select name=\"watchListKey".$rowNumber."ExcludeTrim\" >";
+		$saveBlock .= "<span class=\"condensed\" ><li ><span class=\"settingsBuffer\" >Exclude Trim: </span><span class=\"settingsBuffer\" ><div class=\"selectDiv\"><select autocomplete=\"off\" name=\"watchListKey".$rowNumber."ExcludeTrim\" >";
 		if(isset($data["excludeTrimOptions"]))
 		{
 			$saveBlock .=   $this->makeTrueFalseSelect($excludeTrimOptions);
@@ -197,7 +197,7 @@ class settingsMainWatch extends core
 			$saveBlock .=  $excludeTrimOptions;
 		}
 		$saveBlock .= "</select></div></span>";
-		$saveBlock .= "<span class=\"settingsBuffer\" >Alert on Update: </span><span class=\"settingsBuffer\" ><div class=\"selectDiv\"><select name=\"watchListKey".$rowNumber."AlertEnabled\" >";
+		$saveBlock .= "<span class=\"settingsBuffer\" >Alert on Update: </span><span class=\"settingsBuffer\" ><div class=\"selectDiv\"><select autocomplete=\"off\" name=\"watchListKey".$rowNumber."AlertEnabled\" >";
 		if(isset($data["AlertEnabled"]))
 		{
 			$saveBlock .=   $this->makeTrueFalseSelect($AlertEnabled);
