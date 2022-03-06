@@ -301,7 +301,7 @@ class settings
 
 	public function generateRestoreList($configStatic)
 	{
-		$returnHtml = "<form id='revertForm' action='../restore/restore.php'  method='post'  style='display: inline-block;' ><select autocomplete=\"off\" name='versionRevertTo' >";
+		$returnHtml = "<form id='revertForm' action='../restore/restore.php'  method='post'  style='display: inline-block;' ><select autocomplete='off' name='versionRevertTo' >";
 		$versionList = $configStatic['versionList'];
 		$versionListText = "";
 		foreach ($versionList as $key => $value)
