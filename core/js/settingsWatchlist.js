@@ -250,10 +250,10 @@ function addFile(filePathSent = false)
 		filePathLocal = filePathSent;
 	}
 	showPopup();
-	var htmlForPopoup = "<div class='settingsHeader' id='popupHeaderText' ><span id='popupHeaderText' >Add File</span></div>";
+	var htmlForPopoup = "<div class='settingsHeader'><span id='popupHeaderText' >Add File</span></div>";
 	htmlForPopoup += "<br><div style='width:100%;text-align:center;'> <input autocomplete=\"off\" onkeyup=\"getCurrentFileFolderInfoKeyPress(false);\" value=\""+filePathLocal+"\" id=\"inputFieldForFileOrFolder\" type=\"text\" style=\"width: 90%;\" > </div>";
 	htmlForPopoup += "<br><div style='width:100%;height:30px;padding-left:20px;' id=\"folderNavUpHolder\"> </div><div id=\"folderFileInfoHolder\" class=\"addBorder\" style='margin-right:10px; margin-left: 10px;height:200px;overflow: auto;'> --- </div>";
-	htmlForPopoup += "<div class='link' onclick='addFileFolderAjax(\"file\", document.getElementById(\"inputFieldForFileOrFolder\").value);' style='margin-left:125px; margin-right:50px;margin-top:25px;'>Add</div><div onclick='hidePopup();' class='link'>Cancel</div";
+	htmlForPopoup += "<div style='margin-left:125px; margin-top:25px;' ><div class='link' id='addFileFolderButton' onclick='addFileFolderAjax(\"file\", document.getElementById(\"inputFieldForFileOrFolder\").value);' style='margin-right:50px;' >Add</div><div onclick='hidePopup();' class='link'>Cancel</div</div>";
 	document.getElementById("popupContentInnerHTMLDiv").innerHTML = htmlForPopoup;
 	document.getElementById("popupContent").style.height = "400px";
 	document.getElementById("popupContent").style.marginTop = "-200px";
@@ -276,10 +276,10 @@ function addFolder(folderPathSent = false)
 		folderPathLocal = folderPathSent;
 	}
 	showPopup();
-	var htmlForPopoup = "<div class='settingsHeader' id='popupHeaderText' ><span id='popupHeaderText' >Add Folder</span></div>";
+	var htmlForPopoup = "<div class='settingsHeader'><span id='popupHeaderText' >Add Folder</span></div>";
 	htmlForPopoup += "<br><div style='width:100%;text-align:center;'> <input autocomplete=\"off\" onkeyup=\"getCurrentFileFolderInfoKeyPress(true);\" value=\""+folderPathLocal+"\" id=\"inputFieldForFileOrFolder\" type=\"text\" style=\"width: 90%;\" > </div>";
 	htmlForPopoup += "<br><div style='width:100%;height:30px;padding-left:20px;' id=\"folderNavUpHolder\"> </div><div id=\"folderFileInfoHolder\" class=\"addBorder\" style='margin-right:20px; margin-left: 20px;height:200px;overflow: auto;'> --- </div>";
-	htmlForPopoup += "<div class='link' onclick='addFileFolderAjax(\"folder\", document.getElementById(\"inputFieldForFileOrFolder\").value);' style='margin-left:110px; margin-right:50px;margin-top:25px;'>Add</div><div onclick='hidePopup();' class='link'>Cancel</div";
+	htmlForPopoup += "<div class='link' id='addFileFolderButton' onclick='addFileFolderAjax(\"folder\", document.getElementById(\"inputFieldForFileOrFolder\").value);' style='margin-left:110px; margin-right:50px;margin-top:25px;'>Add</div><div onclick='hidePopup();' class='link'>Cancel</div";
 	document.getElementById("popupContentInnerHTMLDiv").innerHTML = htmlForPopoup;
 	document.getElementById("popupContent").style.height = "400px";
 	document.getElementById("popupContent").style.marginTop = "-200px";
@@ -695,6 +695,9 @@ function getFileFolderSubFunction(data, orgPath, hideFiles, joinChar, dropdown)
 			highlightClass += " selectDropdown ";
 		}
 		highlightClass += " \"";
+
+		let lineStyle = "padding: 5px;min-height:30px; border-bottom: 1px solid";
+
 		if(subData["type"] === "folder")
 		{
 			var folderHtml = "";
@@ -706,11 +709,11 @@ function getFileFolderSubFunction(data, orgPath, hideFiles, joinChar, dropdown)
 			folderHtml += "<div "+highlightClass+" ";
 			if(dropdown)
 			{
-				folderHtml += " onclick=\"addFileFolderToInputSelected('"+subData["filename"]+"');\" style=\"padding: 5px;min-height:30px;cursor: pointer;\" >";
+				folderHtml += " onclick=\"addFileFolderToInputSelected('"+subData["filename"]+"');\" style=\"cursor: pointer;"+lineStyle+"\" >";
 			}
 			else
 			{
-				folderHtml += " style=\"padding: 5px;min-height:30px;\" >";
+				folderHtml += " style=\""+lineStyle+"\" >";
 			}
 			folderHtml += name+" <span style=\"float:right;\" > ";
 			if(hideFiles)
@@ -731,11 +734,11 @@ function getFileFolderSubFunction(data, orgPath, hideFiles, joinChar, dropdown)
 				var fileHtml = "<div "+highlightClass+" ";
 				if(dropdown)
 				{
-					fileHtml += " onclick=\"addFileFolderToInputSelected('"+subData["filename"]+"');\" style=\"padding: 5px;min-height:30px;cursor: pointer;\" >";
+					fileHtml += " onclick=\"addFileFolderToInputSelected('"+subData["filename"]+"');\" style=\"cursor: pointer;"+lineStyle+"\" >";
 				}
 				else
 				{
-					fileHtml += " style=\"padding: 5px;min-height:30px;\" >";
+					fileHtml += " style=\""+lineStyle+"\" >";
 				}
 				fileHtml += name+" <span style=\"float:right;\" > "+selectButton+" </span> </div>";
 				fileFolderList[listKey] += fileHtml;
@@ -747,6 +750,41 @@ function getFileFolderSubFunction(data, orgPath, hideFiles, joinChar, dropdown)
 	htmlSet += fileFolderList["contains"];
 	htmlSet += fileFolderList["other"];
 	document.getElementById("folderFileInfoHolder").innerHTML = htmlSet;
+	if(!dropdown)
+	{
+		let display = "none";
+		let patchCheck = data["orgPath"];
+		let currentSelectedDirOrFile = document.getElementById("inputFieldForFileOrFolder").value;
+		let type = data["type"];
+		if (patchCheck !== currentSelectedDirOrFile)
+		{
+			//check if path is in data
+			let possibleData = data["data"][currentSelectedDirOrFile];
+			console.log(possibleData);
+			if (possibleData !== undefined)
+			{
+				type = possibleData["type"];
+			}
+		}
+
+		if (document.getElementById('popupHeaderText').innerHTML === "Add File")
+		{
+			//type file, only show add if file
+			if(type === "file")
+			{
+				display = "inline-block";
+			}
+		}
+		else
+		{
+			//type folder, only show if folder
+			if(type === "folder")
+			{
+				display = "inline-block";
+			}
+		}
+		document.getElementById('addFileFolderButton').style.display = display;
+	}
 }
 
 function addFileFolderToInputSelected(newValue)
