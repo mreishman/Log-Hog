@@ -1470,15 +1470,24 @@ function clearLogInner(title)
 	{
 		if (!handleError("", data, "clearLog.php"))
 		{
+			let errorText = "";
 			if(data["fileFound"] === "false")
 			{
-				showPopup();
-				document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class=\"settingsHeader\" >An Error Occured when clearing this log</div><br><div style=\"width:100%;text-align:center;padding-left:10px;padding-right:10px;\">The log could not be found.</div><div><div style=\"margin-left: 160px; margin-top: 20px;\" onclick=\"hidePopup();\" class=\"link\">Close</div></div>";
+				errorText = "The log could not be found.";
 			}
 			else if(data["success"] === "false")
 			{
+				errorText = "An Error Occured when clearing this log";
+			}
+			else if(data["actionSuccess"] === "false")
+			{
+				errorText = "Log could not be cleared. Please check file permissions to verify this file can be written to.";
+			}
+
+			if (errorText !== "")
+			{
 				showPopup();
-				document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class=\"settingsHeader\" >An Error Occured when clearing this log</div><br><div style=\"width:100%;text-align:center;padding-left:10px;padding-right:10px;\">An unknown error occured when trying to clear this log.</div><div><div style=\"margin-left: 160px; margin-top: 20px;\" onclick=\"hidePopup();\" class=\"link\">Close</div></div>";
+				document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class=\"settingsHeader\" >An Error Occured when clearing this file</div><br><div style=\"width:100%;text-align:center;padding-left:10px;padding-right:10px;\">"+errorText+"</div><div><div style=\"margin-left: 160px; margin-top: 20px;\" onclick=\"hidePopup();\" class=\"link\">Close</div></div>";
 			}
 			else
 			{
@@ -1657,15 +1666,24 @@ function deleteLog(title)
 			{
 				if(!handleError("", data, "clearLog.php"))
 				{
+					let errorText = "";
 					if(data["fileFound"] === "false")
 					{
-						showPopup();
-						document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class=\"settingsHeader\" >An Error Occured when deleting this log</div><br><div style=\"width:100%;text-align:center;padding-left:10px;padding-right:10px;\">The log could not be found.</div><div><div style=\"margin-left: 160px; margin-top: 20px;\" onclick=\"hidePopup();\" class=\"link\">Close</div></div>";
+						errorText = "The log could not be found.";
 					}
 					else if(data["success"] === "false")
 					{
+						errorText = "An Error Occured when deleting this log";
+					}
+					else if(data["actionSuccess"] === "false")
+					{
+						errorText = "Log could not be deleted. Please check file permissions to verify this file can be written to.";
+					}
+
+					if (errorText !== "")
+					{
 						showPopup();
-						document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class=\"settingsHeader\" >An Error Occured when deleting this log</div><br><div style=\"width:100%;text-align:center;padding-left:10px;padding-right:10px;\">An unknown error occured when trying to delete this log.</div><div><div style=\"margin-left: 160px; margin-top: 20px;\" onclick=\"hidePopup();\" class=\"link\">Close</div></div>";
+						document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class=\"settingsHeader\" >An Error Occured when deleting this file</div><br><div style=\"width:100%;text-align:center;padding-left:10px;padding-right:10px;\">"+errorText+"</div><div><div style=\"margin-left: 160px; margin-top: 20px;\" onclick=\"hidePopup();\" class=\"link\">Close</div></div>";
 					}
 					else
 					{
