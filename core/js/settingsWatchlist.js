@@ -760,7 +760,6 @@ function getFileFolderSubFunction(data, orgPath, hideFiles, joinChar, dropdown)
 		{
 			//check if path is in data
 			let possibleData = data["data"][currentSelectedDirOrFile];
-			console.log(possibleData);
 			if (possibleData !== undefined)
 			{
 				type = possibleData["type"];
