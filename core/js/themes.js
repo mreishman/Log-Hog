@@ -48,7 +48,7 @@ function newThemePopup(themeNum)
 {
 	externalThemeNumber = themeNum;
 	showPopup();
-	document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class=\"settingsHeader\" >Save custom theme ("+themeNum+")</div><br><div style=\"width:100%;text-align:center;\"> Insert name for new custom theme: <br> <input id=\"newCustomThemeName\" type=\"text\" value=\"Custom-Theme-"+themeNum+"\"> <br> <div class=\"link\" onclick=\"saveCustomTheme();\" style=\"margin-right:50px;margin-top:25px;\">Save</div><div onclick=\"hidePopup();\" class=\"link\">Cancel</div> </div>";
+	document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class=\"settingsHeader\" >Save custom theme ("+themeNum+")</div><br><div style=\"width:100%;text-align:center;\"> Insert name for new custom theme: <br> <input autocomplete=\"off\" id=\"newCustomThemeName\" type=\"text\" value=\"Custom-Theme-"+themeNum+"\"> <br> <div class=\"link\" onclick=\"saveCustomTheme();\" style=\"margin-right:50px;margin-top:25px;\">Save</div><div onclick=\"hidePopup();\" class=\"link\">Cancel</div> </div>";
 }
 
 function saveCustomTheme()

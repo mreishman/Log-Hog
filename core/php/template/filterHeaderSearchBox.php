@@ -10,4 +10,4 @@
 		);
 	?>
 </span>
-<input id="searchFieldInput" type="search" name="search" placeholder="Filter <?php echo $filterDefault; ?>">
+<input autocomplete="off" id="searchFieldInput" type="search" name="search" placeholder="Filter <?php echo $filterDefault; ?>">

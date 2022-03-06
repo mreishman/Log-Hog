@@ -41,7 +41,7 @@
 					</span>
 				</div>
 				<form id="themeMainSelectionCustomNew">
-					<input type="hidden" name="currentTheme" value="Custom-Theme-<?php echo $customThemeNum; ?>" >
+					<input autocomplete="off" type="hidden" name="currentTheme" value="Custom-Theme-<?php echo $customThemeNum; ?>" >
 				</form>
 			<?php endif;
 			endif; ?>

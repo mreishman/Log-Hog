@@ -40,7 +40,7 @@ if(!isset($settings))
 			</tbody>
 		</table>
 	</li>
-<input style="display: none;" type="text" name="folderThemeCount" value="<?php echo $i; ?>">
+<input autocomplete="off" style="display: none;" type="text" name="folderThemeCount" value="<?php echo $i; ?>">
 </ul>
 <?php $newBlankRow = $settings->generateFolderColorRow(); ?>
 <div style="display: none;" id="holderForFolderColors">

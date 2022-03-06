@@ -320,7 +320,7 @@ function showPopupForUpdate(urlSend,whatAmIUpdating)
 			var innerHtmlPopup = "<div class='settingsHeader' >New Version of "+whatAmIUpdating+" Available!</div><br><div style='width:100%;text-align:center;padding-left:10px;padding-right:10px;'>Version "+dataFromJSON.versionNumber+" is now available!<br><br><div class='link' onclick='installUpdates(\""+urlSendUpdate+"\");'>Update Now</div>";
 			if(dontNotifyVersionNotSet !== "")
 			{
-				innerHtmlPopup += "</div><br><input id='dontShowPopuForThisUpdateAgain'";
+				innerHtmlPopup += "</div><br><input autocomplete=\"off\" id='dontShowPopuForThisUpdateAgain'";
 				if(dontNotifyVersion == dataFromJSON.versionNumber)
 				{
 					innerHtmlPopup += " checked ";

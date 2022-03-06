@@ -112,11 +112,11 @@ $customForFirstLogSelect .= ">Un-Select Log</span>";
 
 if ($logSelectedFirstLoad === "")
 {
-	$customForFirstLogSelect .= "<input type=\"hidden\" name=\"logSelectedFirstLoad\" value=\"\" >";
+	$customForFirstLogSelect .= "<input autocomplete=\"off\" type=\"hidden\" name=\"logSelectedFirstLoad\" value=\"\" >";
 }
 else
 {
-	$customForFirstLogSelect .= "<input type=\"hidden\" name=\"logSelectedFirstLoad\" value=\"".$logSelectedFirstLoad."\" >";
+	$customForFirstLogSelect .= "<input autocomplete=\"off\" type=\"hidden\" name=\"logSelectedFirstLoad\" value=\"".$logSelectedFirstLoad."\" >";
 }
 
 $customPostTextLogSize = "<span id=\"logTrimTypeText\" >";
