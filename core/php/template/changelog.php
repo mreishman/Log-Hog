@@ -115,7 +115,8 @@ $arrOfMainVersionNumbers[] = 1;
 					                $imageData,
 					                array(
 					                    "imgHeight" =>  "157",
-					                    "tag"       =>  "th"
+					                    "tag"       =>  "th",
+					                    "class" => "whatsNewImage"
 					                )
 					            ); ?>
 					        </tr>

@@ -25,6 +25,7 @@ var firstLoad = true;
 var flasher;
 var fullScreenMenuClickCount = 0;
 var globalForcePageNavigate = false;
+var hiddenElementHeightCache = [];
 var hiddenLogUpdatePollBottom = null;
 var hiddenLogUpdatePollTop = null;
 var idOfOneLogOpen = "";
@@ -1189,7 +1190,7 @@ function resize()
 					let titleContainerHeight = $("#titleContainer"+lda).outerHeight();
 					if (titleContainerHeight < 1)
 					{
-						titleContainerHeight = getHiddenElementHeight(document.getElementById("titleContainer"+lda));
+						titleContainerHeight = getHiddenElementHeight("titleContainer"+lda, document.getElementById("titleContainer"+lda));
 					}
 					let newTop = (localTrElementHeight - titleContainerHeight) / 2;
 					if (newTop < 0)
@@ -1234,15 +1235,21 @@ function resize()
 	}
 }
 
-function getHiddenElementHeight(el)
+function getHiddenElementHeight(elId, el)
 {
-  let clone           = el.cloneNode(true);
-  let width           = el.getBoundingClientRect().width;
-  clone.style.cssText = 'position: fixed; top: 0; left: 0; overflow: auto; visibility: hidden; pointer-events: none; height: unset; max-height: unset; width: ' + width + 'px';
-  document.body.append(clone);
-  let height = clone.getBoundingClientRect().height;
-  clone.remove();
-  return height;
+	let id = elId + window.innerWidth + window.innerHeight;
+	if (hiddenElementHeightCache.elId !== undefined)
+	{
+		return hiddenElementHeightCache.elId;
+	}
+	let clone           = el.cloneNode(true);
+	let width           = el.getBoundingClientRect().width;
+	clone.style.cssText = 'position: fixed; top: 0; left: 0; overflow: auto; visibility: hidden; pointer-events: none; height: unset; max-height: unset; width: ' + width + 'px';
+	document.body.append(clone);
+	let height = clone.getBoundingClientRect().height;
+	clone.remove();
+	hiddenElementHeightCache.elId = height;
+	return height;
 }
 
 function resizeMiddleMenu()

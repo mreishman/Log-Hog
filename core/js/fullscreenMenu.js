@@ -276,13 +276,20 @@ function toggleThemesIframeSource(showOrHide)
 	var lengthOfIframeThemes = arrayOfIframesForThemes.length;
 	for(var counterOfIframeThemes = 0; counterOfIframeThemes < lengthOfIframeThemes; counterOfIframeThemes++)
 	{
+		let newSrc = "core/html/iframe.html";
+		let oldSrc = arrayOfIframesForThemes[counterOfIframeThemes].getAttribute("src");
+		if (!oldSrc)
+		{
+			continue;
+		}
 		if(showOrHide)
 		{
-			arrayOfIframesForThemes[counterOfIframeThemes].setAttribute("src",arrayOfIframesForThemes[counterOfIframeThemes].getAttribute("data-src"));
+			newSrc = arrayOfIframesForThemes[counterOfIframeThemes].getAttribute("data-src");
 		}
-		else
+
+		if(!oldSrc.endsWith(newSrc))
 		{
-			arrayOfIframesForThemes[counterOfIframeThemes].setAttribute("src","core/html/iframe.html");
+			arrayOfIframesForThemes[counterOfIframeThemes].setAttribute("src",newSrc);
 		}
 	}
 }
@@ -502,7 +509,16 @@ function hideThemeStuff()
 function hideIframeStuff()
 {
 	document.getElementById("fullScreenMenuIFrame").style.display = "none";
-	$("#iframeFullScreen").prop("src", "core/html/iframe.html");
+	let newSrc = "core/html/iframe.html";
+	let oldSrc = $("#iframeFullScreen").prop("src");
+	if (!oldSrc)
+	{
+		return;
+	}
+	if(!oldSrc.endsWith(newSrc))
+	{
+		$("#iframeFullScreen").prop("src", newSrc);
+	}
 }
 
 function toggleIframe(locHref, idOfAddon, force = false)

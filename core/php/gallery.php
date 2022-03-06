@@ -22,6 +22,7 @@ class gallery
 		$galleryThumbWidth = "50";
 		$galleryThumbHeight = "auto";
 		$galleryThumbs = true;
+		$imageClass = "";
 		//Check for custom settings
 		if(isset($config["tag"]))
 		{
@@ -50,6 +51,10 @@ class gallery
 		if(isset($config["galleryThumbs"]))
 		{
 			$galleryThumbs = $config["galleryThumbs"];
+		}
+		if(isset($config["class"]))
+		{
+			$imageClass = $config["class"];
 		}
 		$arrayOfImagesCount = count($arrayOfImages);
 		$arrayOfImagesCounter = 0;
@@ -114,7 +119,7 @@ class gallery
 						<a href=\"#".$this->getDefaultId($arrayOfImagesGen[$arrayOfImagesCounter-1])."\" class=\"arrow left lightboxLeft\" ></a>";
 				}
 				$htmlToReturn .= "
-						<img src=\"".$image."\">";
+						<img class=\"".$imageClass."\" data-src=\"".$image."\">";
 				if($arrows && ($arrayOfImagesCounter + 1) < $arrayOfImagesCount)
 				{
 					$htmlToReturn .= "
@@ -145,7 +150,7 @@ class gallery
 							}
 							$leftThumbHtml .= "
 							<a href=\"".$link2 ."\" >
-								<img class=\"galleryFSThumb\" width=\"".$galleryThumbWidth."px\" height=\"".$galleryThumbHeight."\" style=\"max-height: ".($galleryThumbWidth*2)."px\" src=\"".$thumb2."\">
+								<img class=\"galleryFSThumb ".$imageClass."\" width=\"".$galleryThumbWidth."px\" height=\"".$galleryThumbHeight."\" style=\"max-height: ".($galleryThumbWidth*2)."px\" data-src=\"".$thumb2."\">
 							</a>
 							";
 							$newCounter++;
@@ -156,7 +161,7 @@ class gallery
 						$htmlToReturn .= "</div>";
 					}
 					$htmlToReturn .= "
-						<img style=\"margin-left:-".($galleryThumbWidth/2)."px\" class=\"galleryFullScreenThumbCenter galleryFSThumb currentThumb\" width=\"".$galleryThumbWidth."px\" height=\"".$galleryThumbHeight."\" src=\"".$thumb."\">";
+						<img style=\"margin-left:-".($galleryThumbWidth/2)."px\" class=\"galleryFullScreenThumbCenter galleryFSThumb currentThumb ".$imageClass."\" width=\"".$galleryThumbWidth."px\" height=\"".$galleryThumbHeight."\" data-src=\"".$thumb."\">";
 					if(($arrayOfImagesCounter + 1) < $arrayOfImagesCount)
 					{
 						$leftThumbHtml = "";
@@ -178,7 +183,7 @@ class gallery
 							}
 							$leftThumbHtml .= "
 							<a href=\"".$link2 ."\" >
-								<img class=\"galleryFSThumb\" width=\"".$galleryThumbWidth."px\" height=\"".$galleryThumbHeight."\" src=\"".$thumb2."\">
+								<img class=\"galleryFSThumb ".$imageClass."\" width=\"".$galleryThumbWidth."px\" height=\"".$galleryThumbHeight."\" data-src=\"".$thumb2."\">
 							</a>
 							";
 							$imageCounter++;
