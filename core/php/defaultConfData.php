@@ -1829,7 +1829,7 @@ $defaultConfigMoreData = array(
 		"name"								=>	"Full Screen Menu Settings",
 		"menu"								=> 	array(
 			"groups"							=>	array(
-				"main"
+				"advanced"
 			),
 			"id"								=>	"settingsMainMenuFullScreen",
 			"display"							=>	true,
@@ -2802,7 +2802,7 @@ $defaultConfigMoreData = array(
 		"name"								=>	"Watchlist Settings",
 		"menu"								=> 	array(
 			"groups"							=>	array(
-				"main"
+				"advanced"
 			),
 			"id"								=>	"settingsMainWatchlist",
 			"display"							=>	true,
