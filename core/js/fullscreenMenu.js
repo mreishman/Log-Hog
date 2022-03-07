@@ -62,7 +62,7 @@ function toggleFullScreenMenu(force = false)
 				{
 					toggleThemes();
 				}
-				else if(fullScreenMenuDefaultPage === "update")
+				else if(fullScreenMenuDefaultPage === "update" && updaterEnabled !== "false")
 				{
 					toggleUpdateMenu();
 				}
