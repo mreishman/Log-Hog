@@ -102,7 +102,7 @@ function toggleSettingSection(data, force = false)
 {
 	if(!force && !globalForcePageNavigate)
 	{
-		if(!(goToPageCheck("toggleSettingsMainLogs("+JSON.stringify(data)+", true)")))
+		if(!(goToPageCheck("toggleSettingSection("+JSON.stringify(data)+", true)")))
 		{
 			return false;
 		}

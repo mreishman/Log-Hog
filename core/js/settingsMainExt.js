@@ -24,7 +24,7 @@ function openTab(className)
 	}
 	else
 	{
-		displaySavePromptPopup(url);
+		displaySavePromptPopupIndex("actuallyOpenTab(\""+className+"\");");
 	}
 }
 
