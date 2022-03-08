@@ -303,7 +303,7 @@ function saveVerified()
 			}
 		}
 	}
-	else if(idForFormMain ===	"modules")
+	else if(idForFormMain === "modules")
 	{
 		if($("[name='enableHistory']")[0].value === "true")
 		{
@@ -386,11 +386,23 @@ function saveVerified()
 			{
 				script("core/js/update.js");
 			}
-			$("#mainMenuUpdate").show();
+			$("#mainMenuUpdate, #settingsMainOtherMenu").show().removeClass("hiddenMenu");
 		}
 		else
 		{
-			$("#mainMenuUpdate").hide();
+			$("#mainMenuUpdate, #settingsMainOtherMenu").hide().addClass("hiddenMenu");
+		}
+		if($("[name='enableMultiLog']")[0].value === "true")
+		{
+			if(typeof getMultiLogWindowConfig !== "function" && typeof script === "function")
+			{
+				script("core/js/multilog.js");
+			}
+			$("#subMenuTitle-multilog, #settingsMainLogLayoutMenu, #settingsMainMultiLogMenu, .mainMenuHeader.multilog").show().removeClass("hiddenMenu");
+		}
+		else
+		{
+			$("#subMenuTitle-multilog, #settingsMainLogLayoutMenu, #settingsMainMultiLogMenu, .mainMenuHeader.multilog").hide().addClass("hiddenMenu");
 		}
 	}
 

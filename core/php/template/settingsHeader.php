@@ -52,7 +52,13 @@ $core->getScripts(
 	<?php
 	foreach($fullScreenMenuGroups as $fsmgKey => $fsmgData)
 	{
-		echo "<a class=\"mainMenuHeader ".$fsmgKey."\" onclick=\"openTab('".$fsmgKey."')\">" . $fsmgData["name"] . "</a>" . PHP_EOL;
+		$extraClass = "";
+		$style = "";
+		if (!$fsmgData["display"]) {
+			$extraClass = "hiddenMenu";
+			$style = "style=\"display:none;\"";
+		}
+		echo "<a class=\"mainMenuHeader ".$extraClass." ".$fsmgKey."\" ".$style." onclick=\"openTab('".$fsmgKey."')\">" . $fsmgData["name"] . "</a>" . PHP_EOL;
 	}
 	?>
 </div>
@@ -63,15 +69,24 @@ $core->getScripts(
 	{
 		foreach($fsmgData["menu_items"] as $defaultConfigMoreDataRowData)
 		{
-			$idArray[] = $defaultConfigMoreDataRowData["id"];
-			$stringToEcho	 = "<a ";
+
+			$style = "";
+			$extraClass = "";
+			$id = "id=\"". $defaultConfigMoreDataRowData["menu"]["id"]. "Menu\"";
+
 			if(!$defaultConfigMoreDataRowData["menu"]["display"])
 			{
-				$stringToEcho .= "style = \"display:none;\"";
+				$style = "style=\"display:none;\"";
+				$extraClass = "hiddenMenu";
 			}
-			$stringToEcho .= " id=\"".
-			$defaultConfigMoreDataRowData["menu"]["id"].
-			"Menu\" class=\"link settingsSecondaryHeaders ".$fsmgKey."\" onclick=\"toggleSettingSection({id: '".
+
+			$idArray[] = $defaultConfigMoreDataRowData["id"];
+			$stringToEcho	 = "<a ".$style." ".$id." class=\"link settingsSecondaryHeaders ".$extraClass." ".$fsmgKey."\" ";
+			if(!$defaultConfigMoreDataRowData["menu"]["display"])
+			{
+				$stringToEcho .= "style=\"display: none;\"";
+			}
+			$stringToEcho .= " onclick=\"toggleSettingSection({id: '".
 			$defaultConfigMoreDataRowData["menu"]["id"].
 			"',formId: '".
 			$defaultConfigMoreDataRowData["id"].

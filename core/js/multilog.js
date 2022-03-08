@@ -31,3 +31,20 @@ function saveLayoutTo(letter)
 	}
 	saveAndVerifyMain('localLayout');
 }
+
+function setMultiLogListener()
+{
+	if ($("#windowConfig").length > 0)
+	{
+		$("#windowConfig").on("keydown change", function(){
+			setTimeout(function() {
+				generateWindowDisplay();
+			}, 2);
+		});
+	}
+}
+
+function getMultiLogWindowConfig()
+{
+	return document.getElementById("windowConfig").value;
+}

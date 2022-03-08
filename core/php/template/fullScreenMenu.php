@@ -62,18 +62,28 @@
 	{
 		if($samePageSettings === "true")
 		{
-			echo "<li class=\"menuTitle fullScreenMenuText subMenuTitle\" id=\"subMenuTitle-" . $fsmgKey . "\">" . $fsmgData["name"] . "</li>";
+			$extraClass = "";
+			$style = "";
+			if (!$fsmgData["display"]) {
+				$extraClass = "hiddenMenu";
+				$style = "style=\"display:none;\"";
+			}
+			echo "<li class=\"menuTitle fullScreenMenuText ".$extraClass." subMenuTitle\" ".$style." id=\"subMenuTitle-" . $fsmgKey . "\">" . $fsmgData["name"] . "</li>";
 			foreach($fsmgData["menu_items"] as $defaultConfigMoreDataRowData)
 			{
 				$idArray[] = $defaultConfigMoreDataRowData["id"];
-				$stringToEcho	 = "<li ";
+
+				$style = "";
+				$extraClass = "";
+				$id = "id=\"". $defaultConfigMoreDataRowData["menu"]["id"]. "Menu\"";
+
 				if(!$defaultConfigMoreDataRowData["menu"]["display"])
 				{
-					$stringToEcho .= "style = \"display:none;\"";
+					$style = "style=\"display:none;\"";
+					$extraClass = "hiddenMenu";
 				}
-				$stringToEcho .= " id=\"".
-				$defaultConfigMoreDataRowData["menu"]["id"].
-				"Menu\" class=\"fullScreenMenuSettingsFormTitle\" onclick=\"toggleSettingSection({id: '".
+
+				$stringToEcho	 = "<li ".$style." ".$id." class=\"fullScreenMenuSettingsFormTitle ".$extraClass."\" onclick=\"toggleSettingSection({id: '".
 				$defaultConfigMoreDataRowData["menu"]["id"].
 				"',formId: '".
 				$defaultConfigMoreDataRowData["id"].

@@ -2152,8 +2152,15 @@ function checkForUpdateLogsOffScreen()
 
 function getCurrentWindowLayout()
 {
-	windowConfig = document.getElementById("windowConfig").value;
-	return document.getElementById("windowConfig").value;
+	if (typeof getMultiLogWindowConfig === "function")
+	{
+		windowConfig = getMultiLogWindowConfig();
+	}
+	else
+	{
+		windowConfig = "1x1";
+	}
+	return windowConfig;
 }
 
 function toggleVisibleAllLogs()
@@ -2321,11 +2328,10 @@ function mainReady()
 		}, 2);
 	});
 
-	$("#windowConfig").on("keydown change", function(){
-		setTimeout(function() {
-			generateWindowDisplay();
-		}, 2);
-	});
+	if (typeof setMultiLogListener === "function")
+	{
+		setMultiLogListener();
+	}
 
 	document.addEventListener(
 		"scroll",

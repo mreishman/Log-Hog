@@ -34,7 +34,7 @@ function actuallyOpenTab(className)
 	$(".mainMenuHeader." + className).addClass("active");
 	$(".settingsSecondaryHeaders").hide();
 
-	$(".settingsSecondaryHeaders." + className).show();
+	$(".settingsSecondaryHeaders." + className).not(".hiddenMenu").show();
 	$(".settingsSecondaryHeaders." + className+":first").click();
 }
 

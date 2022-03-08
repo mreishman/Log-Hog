@@ -701,7 +701,7 @@ function resizeFullScreenMenu()
 		}
 		else
 		{
-			$(".fullScreenMenuText").show();
+			$(".fullScreenMenuText").not(".hiddenMenu").show();
 			if(document.getElementById("mainFullScreenMenu").getBoundingClientRect().width !== 201) //1px border included here
 			{
 				document.getElementById("mainFullScreenMenu").style.width = "200px";
@@ -717,14 +717,14 @@ function resizeFullScreenMenu()
 				mainContentFullScreenMenuTop = "88px";
 			}
 			$(".settingsUlSub").css("width","auto").css("bottom","auto").css("right","0").addClass("addBorderBottom").removeClass("addBorderRight").css("height","35px");
-			$(".settingsUlSub li").not(".subMenuToggle").css("display","inline-block");
+			$(".settingsUlSub li").not(".subMenuToggle, .hiddenMenu").css("display","inline-block");
 			$(".menuTitle").not(".menuBreak , .fullScreenNotificationTitle").hide();
 		}
 		else
 		{
 			$(".settingsUlSub").css("width","200px").css("bottom","0").css("right","auto").removeClass("addBorderBottom").addClass("addBorderRight").css("height","auto");
-			$(".settingsUlSub li").not(".subMenuToggle").css("display","block");
-			$(".menuTitle").not(".fullScreenMenuText").show();
+			$(".settingsUlSub li").not(".subMenuToggle, .hiddenMenu").css("display","block");
+			$(".menuTitle").not(".fullScreenMenuText, .hiddenMenu").show();
 			toggleAddonAppsMenuText();
 		}
 

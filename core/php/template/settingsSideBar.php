@@ -134,7 +134,7 @@
 	} ?>
 	</ul>
 </span>
-<?php if($enableMultiLog === "true"): ?>
+<span id="sideBarMultiLogSettings" <?php if($enableMultiLog !== "true"):?> style="display: none;" <?php endif; ?>>
 	<h3 class="addBorderBottom" >Multi-Log</h3>
 	Log Layout
 	<?php $arrayOfwindowConfigOptionsLocal = array();
@@ -188,7 +188,7 @@
 	<span onclick="saveLayoutTo('C');" class="linkSmall" >C</span>
 	<br>
 	<br>
-<?php endif; ?>
+</span>
 <h3 class="addBorderBottom">Header Bar</h3>
 <span id="oneLogSettingsSideBar" <?php if($oneLogEnable !== "true"){ echo "style='display: none;'";} ?>>
 	Show One Log

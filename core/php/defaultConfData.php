@@ -235,22 +235,32 @@ for($CDFVcount = 0; $CDFVcount < 10; $CDFVcount++)
 $fullScreenMenuGroups = array(
 	"main"	=> array (
 		"name"		=> "Main",
+		"display"	=>	true,
+		"subGroups"	=> array()
+	),
+	"logs"	=> array (
+		"name"		=> "Logs",
+		"display"	=>	true,
 		"subGroups"	=> array()
 	),
 	"formatting"	=> array (
 		"name"		=> "Formatting",
+		"display"	=>	true,
 		"subGroups"	=> array()
 	),
 	"multilog"	=> array (
 		"name"		=> "Multi-Log",
+		"display"	=>	($enableMultiLog === "true"),
 		"subGroups"	=> array()
 	),
 	"advanced"	=> array (
 		"name"		=> "Advanced",
+		"display"	=>	true,
 		"subGroups"	=> array()
 	),
 	"global"	=> array (
 		"name"		=> "Global",
+		"display"	=>	true,
 		"subGroups"	=> array()
 	)
 );
@@ -1187,14 +1197,14 @@ $defaultConfigMoreData = array(
 	),
 	"logVars"							=>	array(
 		"id"								=>	"settingsLogVars",
-		"name"								=>	"Log Settings ",
+		"name"								=>	"General Log Settings ",
 		"menu"								=> 	array(
 			"groups"							=>	array(
-				"main"
+				"logs"
 			),
 			"id"								=>	"settingsMainLogs",
 			"display"							=>	true,
-			"name"								=>	"Log"
+			"name"								=>	"General"
 		),
 		"vars"								=>	array(
 			0									=>	array(
@@ -1597,7 +1607,7 @@ $defaultConfigMoreData = array(
 		"name"								=>	"Menu Logs Settings",
 		"menu"								=> 	array(
 			"groups"							=>	array(
-				"main"
+				"logs"
 			),
 			"id"								=>	"settingsMainMenuLogs",
 			"display"							=>	true,
@@ -2573,7 +2583,7 @@ $defaultConfigMoreData = array(
 				"main"
 			),
 			"id"								=>	"settingsMainOther",
-			"display"							=>	true,
+			"display"							=>	($updaterEnabled === 'true'),
 			"name"								=>	"Update"
 		),
 		"vars"								=> array(
