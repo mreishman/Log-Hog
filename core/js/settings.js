@@ -312,12 +312,12 @@ function saveVerified()
 				script("core/js/archive.js");
 			}
 			$("#mainMenuHistory").show();
-			$("#settingsMainArchiveMenu").show();
+			$("#settingsMainArchiveMenu").show().removeClass("hiddenMenu");;
 		}
 		else
 		{
 			$("#mainMenuHistory").hide();
-			$("#settingsMainArchiveMenu").hide();
+			$("#settingsMainArchiveMenu").hide().addClass("hiddenMenu");;
 		}
 		if($("[name='filterEnabled']")[0].value === "true")
 		{
@@ -325,7 +325,7 @@ function saveVerified()
 			{
 				script("core/js/filter.js");
 			}
-			$("#settingsMainFilterMenu").show();
+			$("#settingsMainFilterMenu").show().removeClass("hiddenMenu");;
 			$(".searchSideBarImageForLoad").show();
 			if($("[name='filterSearchInHeader']")[0].value === "true")
 			{
@@ -340,7 +340,7 @@ function saveVerified()
 		}
 		else
 		{
-			$("#settingsMainFilterMenu").hide();
+			$("#settingsMainFilterMenu").hide().addClass("hiddenMenu");;
 			$(".indexHeaderFilterGroup").hide();
 			$("#filterSettingsSideBar").hide();
 			$(".searchSideBarImageForLoad").hide();
@@ -351,7 +351,7 @@ function saveVerified()
 			{
 				script("core/js/oneLog.js");
 			}
-			$("#settingsMainOneLogMenu").show();
+			$("#settingsMainOneLogMenu").show().removeClass("hiddenMenu");;
 			if($("#oneLog"))
 			{
 				$("#oneLog").show();
@@ -360,7 +360,7 @@ function saveVerified()
 		}
 		else
 		{
-			$("#settingsMainOneLogMenu").hide();
+			$("#settingsMainOneLogMenu").hide().addClass("hiddenMenu");;
 			if($("#oneLog"))
 			{
 				$("#oneLog").hide();
