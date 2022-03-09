@@ -43,8 +43,3 @@ function setMultiLogListener()
 		});
 	}
 }
-
-function getMultiLogWindowConfig()
-{
-	return document.getElementById("windowConfig").value;
-}

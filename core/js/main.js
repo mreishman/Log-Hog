@@ -2151,14 +2151,7 @@ function checkForUpdateLogsOffScreen()
 
 function getCurrentWindowLayout()
 {
-	if (typeof getMultiLogWindowConfig === "function")
-	{
-		windowConfig = getMultiLogWindowConfig();
-	}
-	else
-	{
-		windowConfig = "1x1";
-	}
+	windowConfig = return document.getElementById("windowConfig").value;
 	return windowConfig;
 }
 
