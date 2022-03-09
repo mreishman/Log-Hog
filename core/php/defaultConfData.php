@@ -1216,25 +1216,6 @@ $defaultConfigMoreData = array(
 				)
 			),
 			1									=>	array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"flashTitleUpdateLog",
-					"name"								=>	"Flash title on log update",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				)
-			),
-			2									=>	array(
-				"info"								=>	"If a log updates, when the above value is true it will automatically switch to that log in the main view",
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"autoMoveUpdateLog",
-					"name"								=>	"Auto show log on update",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				)
-			),
-			3									=>	array(
 				"bool"								=>	($logLoadType != 'Visible - Poll'),
 				"bool2"								=>	"Visible - Poll",
 				"id"								=>	"logLoadTypeSettings",
@@ -1328,73 +1309,7 @@ $defaultConfigMoreData = array(
 					),
 				)
 			),
-			4									=>	array(
-				"bool"								=>	($scrollOnUpdate == 'false'),
-				"id"								=>	"scrollLogOnUpdateSettings",
-				"name"								=>	"Scroll Log On Update Settings",
-				"type"								=>	"grouped",
-				"var"								=>	array(
-					"function"							=>	"showOrHideScrollLogSettings",
-					"id"								=>	"scrollOnUpdate",
-					"key"								=>	"scrollOnUpdate",
-					"name"								=>	"Scroll Log on update",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				),
-				"vars"								=>	array(
-					0									=> array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"key"								=>	"scrollEvenIfScrolled",
-							"name"								=>	"Scroll even if Scrolled",
-							"options"							=>	$trueFalsVars,
-							"type"								=>	"dropdown"
-						)
-					)
-				)
-			),
-			5									=>	array(
-				"bool"								=>	($highlightNew == 'false'),
-				"id"								=>	"highlightNewSettings",
-				"name"								=>	"Highlight New Lines Settings",
-				"type"								=>	"grouped",
-				"var"								=>	array(
-					"function"							=>	"showOrHideHighlightNewLinesSettings",
-					"id"								=>	"highlightNew",
-					"key"								=>	"highlightNew",
-					"name"								=>	"Temp Highlight New Lines",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				),
-				"vars"								=>	array(
-					0									=> array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"key"								=>	"highlightNewColorBG",
-							"name"								=>	"Background",
-							"type"								=>	"color"
-						)
-					),
-					1									=> array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"key"								=>	"highlightNewColorFont",
-							"name"								=>	"Font",
-							"type"								=>	"color"
-						)
-					),
-					2									=> array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"key"								=>	"timeoutHighlight",
-							"name"								=>	"Timeout for fade",
-							"type"								=>	"number",
-							"postText"							=>	"ms"
-						)
-					)
-				)
-			),
-			6									=>	array(
+			2									=>	array(
 				"bool"								=>	($logTrimOn == 'false'),
 				"id"								=>	"settingsLogTrimVars",
 				"info"								=>	"This could increase poll times by 2x to 4x depending on size of files, file or line trim, etc.",
@@ -1479,12 +1394,12 @@ $defaultConfigMoreData = array(
 					),
 				)
 			),
-			7									=>	array(
+			3									=>	array(
 				"custom"							=>	$customForFirstLogSelect,
 				"info"								=>	"If Multi-Log is enabled, and a variable is set for intial load logs there, this var will be overridden",
 				"type"								=>	"custom"
 			),
-			8									=>	array(
+			4									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"logLoadPrevious",
@@ -1493,13 +1408,112 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			9									=>	array(
+			5									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"logDirectionInvert",
 					"name"								=>	"Reverse log text (most recent at top)",
 					"options"							=>	$trueFalsVars,
 					"type"								=>	"dropdown"
+				)
+			)
+		)
+	),
+	"logVarsOnUpdate"					=>	array(
+		"id"								=>	"settingsLogOnUpdateVars",
+		"name"								=>	"On Log Update Settings",
+		"menu"								=> 	array(
+			"groups"							=>	array(
+				"logs"
+			),
+			"id"								=>	"settingsLogsOnUpdate",
+			"display"							=>	true,
+			"name"								=>	"On Update"
+		),
+		"vars"								=>	array(
+			0									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"flashTitleUpdateLog",
+					"name"								=>	"Flash title on log update",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			1									=>	array(
+				"info"								=>	"If a log updates, when the above value is true it will automatically switch to that log in the main view",
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"autoMoveUpdateLog",
+					"name"								=>	"Auto show log on update",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			2									=>	array(
+				"bool"								=>	($scrollOnUpdate == 'false'),
+				"id"								=>	"scrollLogOnUpdateSettings",
+				"name"								=>	"Scroll Log On Update Settings",
+				"type"								=>	"grouped",
+				"var"								=>	array(
+					"function"							=>	"showOrHideScrollLogSettings",
+					"id"								=>	"scrollOnUpdate",
+					"key"								=>	"scrollOnUpdate",
+					"name"								=>	"Scroll Log on update",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				),
+				"vars"								=>	array(
+					0									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"scrollEvenIfScrolled",
+							"name"								=>	"Scroll even if Scrolled",
+							"options"							=>	$trueFalsVars,
+							"type"								=>	"dropdown"
+						)
+					)
+				)
+			),
+			3									=>	array(
+				"bool"								=>	($highlightNew == 'false'),
+				"id"								=>	"highlightNewSettings",
+				"name"								=>	"Highlight New Lines Settings",
+				"type"								=>	"grouped",
+				"var"								=>	array(
+					"function"							=>	"showOrHideHighlightNewLinesSettings",
+					"id"								=>	"highlightNew",
+					"key"								=>	"highlightNew",
+					"name"								=>	"Temp Highlight New Lines",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				),
+				"vars"								=>	array(
+					0									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"highlightNewColorBG",
+							"name"								=>	"Background",
+							"type"								=>	"color"
+						)
+					),
+					1									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"highlightNewColorFont",
+							"name"								=>	"Font",
+							"type"								=>	"color"
+						)
+					),
+					2									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"timeoutHighlight",
+							"name"								=>	"Timeout for fade",
+							"type"								=>	"number",
+							"postText"							=>	"ms"
+						)
+					)
 				)
 			)
 		)
