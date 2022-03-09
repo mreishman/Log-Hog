@@ -2151,7 +2151,7 @@ function checkForUpdateLogsOffScreen()
 
 function getCurrentWindowLayout()
 {
-	windowConfig = return document.getElementById("windowConfig").value;
+	windowConfig = document.getElementById("windowConfig").value;
 	return windowConfig;
 }
 
