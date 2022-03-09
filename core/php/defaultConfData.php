@@ -2446,7 +2446,7 @@ $defaultConfigMoreData = array(
 			2									=>	array(
 				"bool"								=>	($oneLogCustomStyle == 'false'),
 				"id"								=>	"oneLogNewBlockClickContentSettings",
-				"name"								=>	"One log open new log options",
+				"name"								=>	"Custom Style for OneLog logs Settings",
 				"info"								=>  "Refresh Required if change to false",
 				"type"								=>	"grouped",
 				"var"								=>	array(
