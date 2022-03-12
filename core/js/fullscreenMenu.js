@@ -278,14 +278,16 @@ function toggleThemesIframeSource(showOrHide)
 	{
 		let newSrc = "core/html/iframe.html";
 		let oldSrc = arrayOfIframesForThemes[counterOfIframeThemes].getAttribute("src");
-		if (!oldSrc)
-		{
-			continue;
-		}
+
 		if(showOrHide)
 		{
 			newSrc = arrayOfIframesForThemes[counterOfIframeThemes].getAttribute("data-src");
 		}
+		else if (!oldSrc)
+		{
+			continue;
+		}
+		
 
 		if(!oldSrc.endsWith(newSrc))
 		{
