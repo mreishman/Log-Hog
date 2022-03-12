@@ -93,7 +93,7 @@ function showAboutTab(tabType)
 		$("#aboutSpanInfo").hide();
 		$("#aboutSpanGithub").hide();
 	}
-	if (tabType === 'changelog')
+	if (tabType === 'changelog' || tabType === 'whatsNew')
 	{
 		$("#changeLogLink").addClass("active").css("cursor","default");
 		loadImgFromData("whatsNewImage");
