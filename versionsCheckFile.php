@@ -397,6 +397,8 @@ $versionCheckArray = array(
 		),
 		'8.3.6'			=> array(
 			'branchName'	=> '8.3.6Update',
+			'commits'	=> 3137,
+			'date'		=> '03/12/2022',
 			'downloadSize'  => 530253,
 			'installSize'   => 10004231,
 			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/8.3.png',
