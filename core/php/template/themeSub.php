@@ -76,7 +76,7 @@ foreach ($scanned_directory as $key):
 								}
 
 								?>
-								<input type="<?php echo $type; ?>" name="<?php echo $inputKey; ?>" value="<?php echo $inputArrayValue['value']; ?>" >
+								<input autocomplete="off" type="<?php echo $type; ?>" name="<?php echo $inputKey; ?>" value="<?php echo $inputArrayValue['value']; ?>" >
 							<?php endforeach;
 
 							$tmpcurrentFolderColorTheme = $currentFolderColorTheme;
@@ -103,7 +103,7 @@ foreach ($scanned_directory as $key):
 										"themeName"						=>	$themeName
 									))["html"];
 							}
-							echo "<input style=\"display: none;\" type=\"text\" name=\"folderThemeCount\" value=\"".$i."\">";
+							echo "<input autocomplete=\"off\" style=\"display: none;\" type=\"text\" name=\"folderThemeCount\" value=\"".$i."\">";
 							$folderColorArrays = $tmpfolderColorArrays;
 							$currentFolderColorTheme = $tmpcurrentFolderColorTheme;
 						?>

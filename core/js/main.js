@@ -22,9 +22,9 @@ var dataFromUpdateCheck = null;
 var fileData;
 var filesNew;
 var firstLoad = true;
-var flasher;
 var fullScreenMenuClickCount = 0;
 var globalForcePageNavigate = false;
+var hiddenElementHeightCache = [];
 var hiddenLogUpdatePollBottom = null;
 var hiddenLogUpdatePollTop = null;
 var idOfOneLogOpen = "";
@@ -1173,6 +1173,10 @@ function resize()
 			if($("#titleContainer"+lda).outerHeight() >= trElementHeight)
 			{
 				$("#titleContainer"+lda).outerHeight(trElementHeight);
+				if(bottomBarIndexType === "center")
+				{
+					$("#titleContainer"+lda).css("top","0px");
+				}
 			}
 			else
 			{
@@ -1182,10 +1186,17 @@ function resize()
 				}
 				if(bottomBarIndexType === "center")
 				{
-					if($("#titleContainer"+lda).css("top") !== trElementHeight+"px")
+					let titleContainerHeight = $("#titleContainer"+lda).outerHeight();
+					if (titleContainerHeight < 1)
 					{
-						$("#titleContainer"+lda).css("top",((trElementHeight / 2) - ($("#titleContainer"+lda).outerHeight() / 2))+"px");
+						titleContainerHeight = getHiddenElementHeight("titleContainer"+lda, document.getElementById("titleContainer"+lda));
 					}
+					let newTop = (localTrElementHeight - titleContainerHeight) / 2;
+					if (newTop < 0)
+					{
+						newTop = 0;
+					}
+					$("#titleContainer"+lda).css("top",""+newTop+"px");
 				}
 			}
 		}
@@ -1221,6 +1232,23 @@ function resize()
 	{
 		console.log(e);
 	}
+}
+
+function getHiddenElementHeight(elId, el)
+{
+	let id = elId + window.innerWidth + window.innerHeight;
+	if (hiddenElementHeightCache.elId !== undefined)
+	{
+		return hiddenElementHeightCache.elId;
+	}
+	let clone           = el.cloneNode(true);
+	let width           = el.getBoundingClientRect().width;
+	clone.style.cssText = 'position: fixed; top: 0; left: 0; overflow: auto; visibility: hidden; pointer-events: none; height: unset; max-height: unset; width: ' + width + 'px';
+	document.body.append(clone);
+	let height = clone.getBoundingClientRect().height;
+	clone.remove();
+	hiddenElementHeightCache.elId = height;
+	return height;
 }
 
 function resizeMiddleMenu()
@@ -1441,15 +1469,24 @@ function clearLogInner(title)
 	{
 		if (!handleError("", data, "clearLog.php"))
 		{
+			let errorText = "";
 			if(data["fileFound"] === "false")
 			{
-				showPopup();
-				document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class=\"settingsHeader\" >An Error Occured when clearing this log</div><br><div style=\"width:100%;text-align:center;padding-left:10px;padding-right:10px;\">The log could not be found.</div><div><div style=\"margin-left: 160px; margin-top: 20px;\" onclick=\"hidePopup();\" class=\"link\">Close</div></div>";
+				errorText = "The log could not be found.";
 			}
 			else if(data["success"] === "false")
 			{
+				errorText = "An Error Occured when clearing this log";
+			}
+			else if(data["actionSuccess"] === "false")
+			{
+				errorText = "Log could not be cleared. Please check file permissions to verify this file can be written to.";
+			}
+
+			if (errorText !== "")
+			{
 				showPopup();
-				document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class=\"settingsHeader\" >An Error Occured when clearing this log</div><br><div style=\"width:100%;text-align:center;padding-left:10px;padding-right:10px;\">An unknown error occured when trying to clear this log.</div><div><div style=\"margin-left: 160px; margin-top: 20px;\" onclick=\"hidePopup();\" class=\"link\">Close</div></div>";
+				document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class=\"settingsHeader\" >An Error Occured when clearing this file</div><br><div style=\"width:100%;text-align:center;padding-left:10px;padding-right:10px;\">"+errorText+"</div><div><div style=\"margin-left: 160px; margin-top: 20px;\" onclick=\"hidePopup();\" class=\"link\">Close</div></div>";
 			}
 			else
 			{
@@ -1628,15 +1665,24 @@ function deleteLog(title)
 			{
 				if(!handleError("", data, "clearLog.php"))
 				{
+					let errorText = "";
 					if(data["fileFound"] === "false")
 					{
-						showPopup();
-						document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class=\"settingsHeader\" >An Error Occured when deleting this log</div><br><div style=\"width:100%;text-align:center;padding-left:10px;padding-right:10px;\">The log could not be found.</div><div><div style=\"margin-left: 160px; margin-top: 20px;\" onclick=\"hidePopup();\" class=\"link\">Close</div></div>";
+						errorText = "The log could not be found.";
 					}
 					else if(data["success"] === "false")
 					{
+						errorText = "An Error Occured when deleting this log";
+					}
+					else if(data["actionSuccess"] === "false")
+					{
+						errorText = "Log could not be deleted. Please check file permissions to verify this file can be written to.";
+					}
+
+					if (errorText !== "")
+					{
 						showPopup();
-						document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class=\"settingsHeader\" >An Error Occured when deleting this log</div><br><div style=\"width:100%;text-align:center;padding-left:10px;padding-right:10px;\">An unknown error occured when trying to delete this log.</div><div><div style=\"margin-left: 160px; margin-top: 20px;\" onclick=\"hidePopup();\" class=\"link\">Close</div></div>";
+						document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class=\"settingsHeader\" >An Error Occured when deleting this file</div><br><div style=\"width:100%;text-align:center;padding-left:10px;padding-right:10px;\">"+errorText+"</div><div><div style=\"margin-left: 160px; margin-top: 20px;\" onclick=\"hidePopup();\" class=\"link\">Close</div></div>";
 					}
 					else
 					{
@@ -1880,7 +1926,7 @@ function generateWindowDisplayInner()
 			{
 				newStyle += " top: 0; ";
 			}
-			else if(bottomBarIndexType === "bottomn")
+			else if(bottomBarIndexType === "bottom")
 			{
 				newStyle += " bottom: 0; ";
 			}
@@ -2106,7 +2152,7 @@ function checkForUpdateLogsOffScreen()
 function getCurrentWindowLayout()
 {
 	windowConfig = document.getElementById("windowConfig").value;
-	return document.getElementById("windowConfig").value;
+	return windowConfig;
 }
 
 function toggleVisibleAllLogs()
@@ -2274,11 +2320,10 @@ function mainReady()
 		}, 2);
 	});
 
-	$("#windowConfig").on("keydown change", function(){
-		setTimeout(function() {
-			generateWindowDisplay();
-		}, 2);
-	});
+	if (typeof setMultiLogListener === "function")
+	{
+		setMultiLogListener();
+	}
 
 	document.addEventListener(
 		"scroll",

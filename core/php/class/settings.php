@@ -81,7 +81,7 @@ class settings
 		{
 			$varNameHtml = " name=\"".$varName."\" ";
 		}
-		$returnHtml .= " <div class=\"selectDiv\"><select ".$selectId." ".$onChangeFunction.$varNameHtml.">";
+		$returnHtml .= " <div class=\"selectDiv\"><select autocomplete=\"off\" ".$selectId." ".$onChangeFunction.$varNameHtml.">";
 		$returnHtml .= $this->createSelect($confDataValue["options"], $selectValue);
 		$returnHtml .= "</select></div>";
 		return $returnHtml;
@@ -90,20 +90,20 @@ class settings
 	private function generateNumber($confDataValue, $numberValue, $varName)
 	{
 		$returnHtml = "<span class=\"settingsBuffer\" > ".$confDataValue["name"].": </span>";
-		$returnHtml .= " <input type=\"number\" pattern=\"[0-9]*\" name=\"".$varName."\" value=\"".$numberValue."\" >";
+		$returnHtml .= " <input autocomplete=\"off\" type=\"number\" pattern=\"[0-9]*\" name=\"".$varName."\" value=\"".$numberValue."\" >";
 		return $returnHtml;
 	}
 
 	private function generateHidden($confDataValue, $numberValue, $varName)
 	{
-		$returnHtml = " <input id=\"".$confDataValue["id"]."\" type=\"hidden\" name=\"".$varName."\" value='".$numberValue."' >";
+		$returnHtml = " <input autocomplete=\"off\" id=\"".$confDataValue["id"]."\" type=\"hidden\" name=\"".$varName."\" value='".$numberValue."' >";
 		return $returnHtml;
 	}
 
 	private function generateText($confDataValue, $numberValue, $varName)
 	{
 		$returnHtml = "<span class=\"settingsBuffer\" > ".$confDataValue["name"].": </span>";
-		$returnHtml .= " <input type=\"text\" name=\"".$varName."\" value=\"".$numberValue."\" >";
+		$returnHtml .= " <input autocomplete=\"off\" type=\"text\" name=\"".$varName."\" value=\"".$numberValue."\" >";
 		return $returnHtml;
 	}
 
@@ -301,7 +301,7 @@ class settings
 
 	public function generateRestoreList($configStatic)
 	{
-		$returnHtml = "<form id='revertForm' action='../restore/restore.php'  method='post'  style='display: inline-block;' ><select name='versionRevertTo' >";
+		$returnHtml = "<form id='revertForm' action='../restore/restore.php'  method='post'  style='display: inline-block;' ><select autocomplete='off' name='versionRevertTo' >";
 		$versionList = $configStatic['versionList'];
 		$versionListText = "";
 		foreach ($versionList as $key => $value)
@@ -346,7 +346,7 @@ class settings
 		$themeName = $arrFCOdata["themeName"] ?? "{{themeName}}";
 		$edit = (strpos((string) $key, "default") === false);
 
-		$td1 = "<input type=\"radio\" name=\"currentFolderColorTheme\" ";
+		$td1 = "<input autocomplete=\"off\" type=\"radio\" name=\"currentFolderColorTheme\" ";
 		if ($key == $currentFolderColorTheme)
 		{
 			$td1 .= "checked='checked'";
@@ -360,7 +360,7 @@ class settings
 		}
 		$td1p5 .= "</td>";
 		$htmlToReturn .= $td1p5;
-		$td2 = "<input style=\"display: none;\" type=\"text\" name=\"folderColorThemeNameForPost".$i."\" value=\"".$key."\" > Main Colors: <span id=\"folderColorThemeNameForPost".$i."Main\">";
+		$td2 = "<input autocomplete=\"off\" style=\"display: none;\" type=\"text\" name=\"folderColorThemeNameForPost".$i."\" value=\"".$key."\" > Main Colors: <span id=\"folderColorThemeNameForPost".$i."Main\">";
 		if($i !== "{{i}}")
 		{
 			$j = 0;
@@ -524,7 +524,7 @@ class settings
 			$htmlToReturn =	"<div class=\"colorSelectorDiv addBorder\" style=\"background-color: ".$color."; ".$style."\" >";
 		}
 		$htmlToReturn .=	"</div>";
-		$htmlToReturn .=	"<input style=\"width: 100px; display: ".$inputDisplay.";\" type=\"text\" id=\"folderColorValue".$buttonID."\" name=\"".$name."\" value=\"".$color."\" >";
+		$htmlToReturn .=	"<input autocomplete=\"off\" style=\"width: 100px; display: ".$inputDisplay.";\" type=\"text\" id=\"folderColorValue".$buttonID."\" name=\"".$name."\" value=\"".$color."\" >";
 		return $htmlToReturn;
 	}
 

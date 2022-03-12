@@ -53,12 +53,12 @@ foreach ($arrayOfwindowConfigOptions as $key => $valueOuter):
 												<span id="unselectLogButton<?php echo $logID; ?>" onclick="unselectLog('<?php echo $logID; ?>')" class="linkSmall" >
 													Un-Select Log
 												</span>
-												<input type="hidden" name="<?php echo $logID; ?>" value="<?php echo $logLoadLayout[$value][$counterInternal][$letter]; ?>" >
+												<input autocomplete="off" type="hidden" name="<?php echo $logID; ?>" value="<?php echo $logLoadLayout[$value][$counterInternal][$letter]; ?>" >
 											<?php else : ?>
 												<span id="unselectLogButton<?php echo $logID; ?>" style="display: none;" onclick="unselectLog('<?php echo $logID; ?>')" class="linkSmall" >
 													Un-Select Log
 												</span>
-												<input type="hidden" name="<?php echo $logID; ?>" value="" >
+												<input autocomplete="off" type="hidden" name="<?php echo $logID; ?>" value="" >
 											<?php endif; ?>
 										</li>
 									<?php

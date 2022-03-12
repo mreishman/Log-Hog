@@ -1,28 +1,11 @@
 {
-	"1":{
-		"Version":"2.3",
-		"Name":"Processes",
-		"BP":[
-			"CPU usage",
-			"Ram \/ swap usage",
-			"Disk usage \/ IO",
-			"PHP User time used \/ system time used",
-			"Network Interface receive \/ transmit",
-			"Shows list of processes"
-		],
+	"2.3":{
 		"Images":[
 			"2.3-1.png",
 			"2.3-2.png"
 		]
 	},
-	"2":{
-		"Version":"3.0",
-		"Name":"Stylin'",
-		"BP":[
-			"Change how Log-Hog looks by going to settings, then themes",
-			"3 new main themes",
-			"New customizability of the current and new themes."
-		],
+	"3.0":{
 		"Images":[
 			"3.0-1.png",
 			"3.0-2.png",
@@ -30,25 +13,13 @@
 			"3.0-4.png"
 		]
 	},
-	"3":{
-		"Version":"3.1",
-		"Name":"Couldn't find it",
-		"BP":[
-			"Run visual grep's from the new search addon"
-		],
+	"3.1":{
 		"Images":[
 			"3.1-1.png",
 			"3.1-2.png"
 		]
 	},
-	"4":{
-		"Version":"3.2",
-		"Name":"Found it!",
-		"BP":[
-			"Monitor your selenium grid, and run new tests from a web interface",
-			"Filter logs by title \/ path",
-			"Restore versions of config."
-		],
+	"3.2":{
 		"Images":[
 			"3.2-1.png",
 			"3.2-2.png",
@@ -56,41 +27,19 @@
 			"3.2-4.png"
 		]
 	},
-	"5":{
-		"Version":"3.3",
-		"Name":"I Can Count?",
-		"BP":[
-			"New ocean theme!",
-			"Notification count",
-			"Clear all notifications button",
-			"Last line shown on name hover"
-		],
+	"3.3":{
 		"Images":[
 			"3.3-1.png",
 			"3.3-3.png","3.3-4.png"
 		]
 	},
-	"6":{
-		"Version":"3.4",
-		"Name":"Still Searching",
-		"BP":[
-			"Content filter for logs! (search and highlight content of logs)",
-			"Save custom themes!"
-		],
+	"3.4":{
 		"Images":[
 			"3.4-1.png",
 			"3.4-2.png"
 		]
 	},
-	"7":{
-		"Version":"3.5",
-		"Name":"Settings Update 2",
-		"BP":[
-			"New Theme! (Steampunk)",
-			"On hover option to change to full path for log titles",
-			"Highlights new lines of logs (for 1 sec) (with options to change color)",
-			"Added right click menus for log titles and pause icon"
-		],
+	"3.5":{
 		"Images":[
 			"3.5-1.png",
 			"3.5-2.png",
@@ -98,14 +47,7 @@
 			"3.5-4.png"
 		]
 	},
-	"8":{
-		"Version":"3.6",
-		"Name":"Get Notified?",
-		"BP":[
-			"Content filter quick settings",
-			"Internal Notifications",
-			"New Theme! (Terminal)"
-		],
+	"3.6":{
 		"Images":[
 			"3.6-3.png",
 			"3.6-2.png",
@@ -113,15 +55,7 @@
 			"3.6-4.png"
 		]
 	},
-	"9":{
-		"Version":"4.0",
-		"Name":"Back to focus",
-		"BP":[
-			"New save log format",
-			"New menu system",
-			"More log title display options",
-			"Grouped groups!"
-		],
+	"4.0":{
 		"Images":[
 			"4.0-1.png",
 			"4.0-2.png",
@@ -129,50 +63,24 @@
 			"4.0-4.png"
 		]
 	},
-	"10":{
-		"Version":"4.1",
-		"Name":"Files\/Folders [Side A]",
-		"BP":[
-			"New add file \/ folder popup",
-			"See dir while editing previous entries"
-		],
+	"4.1":{
 		"Images":[
 			"4.1-1.png",
 			"4.1-2.png"
 		]
 	},
-	"11":{
-		"Version":"4.2",
-		"Name":"Files\/Folders [Side B]",
-		"BP":[
-			"Added condensed mode for watch list files",
-			"Added archive button to watchlist"
-		],
+	"4.2":{
 		"Images":[
 			"4.2-1.png"
 		]
 	},
-	"12":{
-		"Version":"5.0",
-		"Name":"Multi-Log",
-		"BP":[
-			"View more than one log at a time",
-			"Save log layout for initial load"
-		],
+	"5.0":{
 		"Images":[
 			"5.0-1.png",
 			"5.0-2.png"
 		]
 	},
-	"13":{
-		"Version":"5.1",
-		"Name":"A Brief History",
-		"BP":[
-			"View backups of cleared logs",
-			"Cleaner menu with groups being in filter icon",
-			"Right click to clear all notifications on notification icon",
-			"New Space Theme!"
-		],
+	"5.1.1":{
 		"Images":[
 			"5.1-1.png",
 			"5.1-2.png",
@@ -180,34 +88,18 @@
 			"5.1-4.png"
 		]
 	},
-	"14":{
-		"Version":"5.2",
-		"Name":"Settings Update 3",
-		"BP":[
-			"Add new custom folder color schemes",
-			"Save current multi-log layouts from header"
-		],
+	"5.2":{
 		"Images":[
 			"5.2-1.png",
 			"5.2-2.png"
 		]
 	},
-	"15":{
-		"Version":"6.0",
-		"Name":"All Together",
-		"BP":[
-			"New overview panel (shows whats new in logs)"
-		],
+	"6.0":{
 		"Images":[
 			"6.0-1.png"
 		]
 	},
-	"16":{
-		"Version":"6.1",
-		"Name":"More Notifications!",
-		"BP":[
-			"Redesigned Notifications"
-		],
+	"6.1":{
 		"Images":[
 			"6.1-1.png",
 			"6.1-2.png",
@@ -215,86 +107,44 @@
 			"6.1-4.png"
 		]
 	},
-	"17":{
-		"Version":"6.2",
-		"Name":"Settings Update 4",
-		"BP":[
-			"Settings Changes"
-		],
+	"6.2":{
 		"Images":[
 			"6.2-1.png",
 			"6.2-2.png"
 		]
 	},
-	"18":{
-		"Version":"7.0",
-		"Name":"Information",
-		"BP":[
-			"Log Formatting"
-		],
+	"7.0":{
 		"Images":[
 			"7.0-1.png",
 			"7.0-2.png"
 		]
 	},
-	"19":{
-		"Version":"7.1",
-		"Name":"Filters Part 1",
-		"BP":[
-			"Select more than one group at a time",
-			"Filter content on a per log basis"
-		],
+	"7.1":{
 		"Images":[
 			"7.1-1.png",
 			"7.1-2.png"
 		]
 	},
-	"20":{
-		"Version":"7.2",
-		"Name":"The Archive",
-		"BP":[
-			"Added archive for logs",
-			"Save logs from button on right",
-			"Save backup of more than on log (1-5, in settings)"
-		],
+	"7.2":{
 		"Images":[
 			"7.2-1.png",
 			"7.2-2.png",
 			"7.2-3.png"
 		]
 	},
-	"21":{
-		"Version":"8.0",
-		"Name":"The Partial Redesign",
-		"BP":[
-			"Merged both loading bars into one!",
-			"Log search is now an icon (click to expand)",
-			"Notification Redesign"
-		],
+	"8.0":{
 		"Images":[
 			"8.0-1.png",
 			"8.0-2.png",
 			"8.0-3.png"
 		]
 	},
-	"22":{
-		"Version":"8.1",
-		"Name":"The Menus",
-		"BP":[
-			"Moved settings menus to index"
-		],
+	"8.1":{
 		"Images":[
 			"8.1-1.png"
 		]
 	},
-	"23":{
-		"Version":"8.2",
-		"Name":"Control the Log Part 1",
-		"BP":[
-			"More actions for individual logs added",
-			"Load more add to top of logs",
-			"More log settings added"
-		],
+	"8.2":{
 		"Images":[
 			"8.2-1.png",
 			"8.2-2.png",

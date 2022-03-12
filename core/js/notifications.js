@@ -76,7 +76,7 @@ function displayNotifications()
 		{
 			hidePreview = "style=\"display:none\"";
 		}
-		item = item.replace(/{{hidePreview}}/g, hidePreview);
+		item = item.replace(/{{hidepreview}}/g, hidePreview);
 		if("image" in notifications[i])
 		{
 			item = item.replace(/{{image}}/g, notifications[i]["image"]);
@@ -124,28 +124,82 @@ function previewNotification(logId)
 	}
 	document.getElementById("notificationHolderRight").innerHTML = "<div "+modifier+" class=\"notificationPreviewLog\" ><table width=\"100%\" style=\"border-spacing: 0;\" >" + makePrettyWithText(logTextToShow, 0) + "</table></div>";
 
+	logicForPreviewContent();
+	
+	$(".closePreviewLogButton").show();
+}
+
+function logicForPreviewContent()
+{
+	document.getElementById("notificationHolderLeft").style.display = "inline-block";
+	document.getElementById("notificationHolderRight").style.display = "inline-block";
+
+	document.getElementById("notificationHolderLeft").style.overflowY = "scroll";
+	document.getElementById("notificationHolderRight").style.overflowY = "scroll";
+
+	resizeNotificationPreview();
+}
+
+function resizeNotificationPreview()
+{
+	if (!document.getElementById("notificationHolderLeft"))
+	{
+		return;
+	}
+
+	let height = "" + ($( window ).height() - 52 - $("#notificationHolder .buttonTable").outerHeight()) + "px";
+	if(window.innerWidth < breakPointTwo)
+	{
+		if (notificationPreviewHideWidth == 'true')
+		{
+			closePreviewLog();
+		}
+		else
+		{
+			height = "" + (($( window ).height()/2) - 52 - $("#notificationHolder .buttonTable").outerHeight()) + "px";
+		}
+	}
+
+	if (document.getElementById("notificationHolderLeft").style.height !== height)
+	{
+		document.getElementById("notificationHolderLeft").style.height = height;
+	}
+
+	if (!document.getElementById("notificationHolderLeft") || document.getElementById("notificationHolderRight").style.display !== "inline-block")
+	{
+		return;
+	}
+	if (document.getElementById("notificationHolderRight").style.height !== height)
+	{
+		document.getElementById("notificationHolderRight").style.height = height;
+	}
+
 	if(window.innerWidth >= breakPointTwo)
 	{
 		//style as two column
 		document.getElementById("notificationHolderLeft").style.width = "450px";
-		document.getElementById("notificationHolderLeft").style.display = "inline-block";
-
-		document.getElementById("notificationHolderRight").style.display = "inline-block";
-		let prevWidth = parseInt(document.getElementById("notificationHolder").style.width.replace(/\D/g,'')) - 450;
+		
+		let prevWidth = document.getElementById("notificationHolder").offsetWidth - document.getElementById("notificationHolderLeft").offsetWidth - 20;
 		document.getElementById("notificationHolderRight").style.width = ""+prevWidth+"px";
 	}
 	else
 	{
 		//style as one column
+		let prevWidth = document.getElementById("notificationHolder").offsetWidth - 20;
+		document.getElementById("notificationHolderRight").style.width = ""+prevWidth+"px";
+		document.getElementById("notificationHolderLeft").style.width = ""+prevWidth+"px";
 	}
-	$(".closePreviewLogButton").show();
 }
 
 function closePreviewLog()
 {
 	document.getElementById("notificationHolderRight").innerHTML = "";
 	document.getElementById("notificationHolderLeft").style.width = "auto";
+	document.getElementById("notificationHolderLeft").style.height = "auto";
 	document.getElementById("notificationHolderLeft").style.display = "block";
+	document.getElementById("notificationHolderRight").style.width = "auto";
+	document.getElementById("notificationHolderRight").style.height = "auto";
+	document.getElementById("notificationHolderRight").style.display = "block";
 	$(".closePreviewLogButton").hide();
 }
 
@@ -507,12 +561,23 @@ function updateNotificationStuff()
 		}
 		else
 		{
+			let previousContent = "";
+			if (document.getElementById("notificationHolderRight"))
+			{
+				previousContent = document.getElementById("notificationHolderRight").innerHTML;
+			}
 			showNotifications();
+			if (previousContent !== "")
+			{
+				document.getElementById("notificationHolderRight").innerHTML = previousContent;
+				logicForPreviewContent();
+			}
 			document.getElementById("notifications").style.display = "block";
 			document.getElementById("notificationsEmpty").style.display = "none";
 		}
 	}
 	checkForUpdateLogsOffScreen();
+	resizeNotificationPreview();
 }
 
 function toggleNotificationClearButton()
@@ -695,3 +760,9 @@ function toggleTopLogNotice()
 		document.getElementById("menu").style.borderTop = "";
 	}
 }
+
+$(document).ready(function()
+{
+	$( window ).resize(function() { resizeNotificationPreview(); });
+
+});

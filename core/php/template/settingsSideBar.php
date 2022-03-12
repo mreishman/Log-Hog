@@ -2,7 +2,7 @@
 	<h3 class="addBorderBottom">Groups</h3>
 	Groups:
 	<span class="selectDiv">
-		<select multiple="true" id="selectForGroup" >
+		<select autocomplete="off" multiple="true" id="selectForGroup" >
 			<option selected="true" value="all" >All</option>
 		</select>
 	</span>
@@ -13,7 +13,7 @@
 	<span onclick="swapGroupLayoutLetters('A');" class="linkSmall" >A</span>
 	<span onclick="swapGroupLayoutLetters('B');" class="linkSmall" >B</span>
 	<span onclick="swapGroupLayoutLetters('C');" class="linkSmall" >C</span>
-	<input type="hidden" id="layoutGroupVersionIndex" value="A" >
+	<input autocomplete="off" type="hidden" id="layoutGroupVersionIndex" value="A" >
 	<br>
 	<br>
 	Save Current Layout To
@@ -24,17 +24,17 @@
 	<br>
 	<br>
 	<form id="groupLayoutPresetForm">
-		<input type="hidden" name="groupPresetA" id="groupPresetA" value="<?php echo $groupPresetA; ?>" >
-		<input type="hidden" name="groupPresetB" id="groupPresetB" value="<?php echo $groupPresetB; ?>" >
-		<input type="hidden" name="groupPresetC" id="groupPresetC" value="<?php echo $groupPresetC; ?>" >
+		<input autocomplete="off" type="hidden" name="groupPresetA" id="groupPresetA" value="<?php echo $groupPresetA; ?>" >
+		<input autocomplete="off" type="hidden" name="groupPresetB" id="groupPresetB" value="<?php echo $groupPresetB; ?>" >
+		<input autocomplete="off" type="hidden" name="groupPresetC" id="groupPresetC" value="<?php echo $groupPresetC; ?>" >
 	</form>
 </span>
 <h3 class="addBorderBottom">Filters</h3>
-<input <?php if (!($filterSearchInHeader !== "true" && $filterEnabled === "true")){ echo "style='display: none;'";} ?> id="searchFieldInputSideBar" type="search" name="search" placeholder="Filter <?php echo $filterDefault; ?>">
+<input autocomplete="off" <?php if (!($filterSearchInHeader !== "true" && $filterEnabled === "true")){ echo "style='display: none;'";} ?> id="searchFieldInputSideBar" type="search" name="search" placeholder="Filter <?php echo $filterDefault; ?>">
 <span id="filterSettingsSideBar" <?php if ($filterEnabled !== "true"){ echo "style='display: none;'"; } ?> >
 	Search:
 	<span class="selectDiv" >
-		<select id="searchType" name="searchType">
+		<select autocomplete="off" id="searchType" name="searchType">
 			<option <?php if ($filterDefault === "title"){echo "selected"; }?> value="title">Title</option>
 			<option <?php if ($filterDefault === "content"){echo "selected"; }?> value="content">Content</option>
 		</select>
@@ -134,7 +134,7 @@
 	} ?>
 	</ul>
 </span>
-<?php if($enableMultiLog === "true"): ?>
+<span id="sideBarMultiLogSettings" <?php if($enableMultiLog !== "true"):?> style="display: none;" <?php endif; ?>>
 	<h3 class="addBorderBottom" >Multi-Log</h3>
 	Log Layout
 	<?php $arrayOfwindowConfigOptionsLocal = array();
@@ -147,7 +147,7 @@
 	}
 	?>
 	<span class="selectDiv">
-		<select id="windowConfig">
+		<select autocomplete="off" id="windowConfig">
 			<?php
 			$currentSessionValue = $windowConfig;
 			if(isset($_COOKIE["windowConfig"]) && $logLoadPrevious === "true")
@@ -175,7 +175,7 @@
 	<span onclick="swapLayoutLetters('A');" class="linkSmall" >A</span>
 	<span onclick="swapLayoutLetters('B');" class="linkSmall" >B</span>
 	<span onclick="swapLayoutLetters('C');" class="linkSmall" >C</span>
-	<input type="hidden" id="layoutVersionIndex" value="A" >
+	<input autocomplete="off" type="hidden" id="layoutVersionIndex" value="A" >
 	<br>
 	<br>
 	<span onclick="resetSelection();" class="linkSmall">Reset Selection</span>
@@ -188,12 +188,12 @@
 	<span onclick="saveLayoutTo('C');" class="linkSmall" >C</span>
 	<br>
 	<br>
-<?php endif; ?>
+</span>
 <h3 class="addBorderBottom">Header Bar</h3>
 <span id="oneLogSettingsSideBar" <?php if($oneLogEnable !== "true"){ echo "style='display: none;'";} ?>>
 	Show One Log
 	<span class="selectDiv">
-		<select onchange="toggleVisibleOneLog();" id="oneLogVisible">
+		<select autocomplete="off" onchange="toggleVisibleOneLog();" id="oneLogVisible">
 			<option <?php if($oneLogVisible === "true"){ echo " selected "; }?>  value="true" >True</option>
 			<option <?php if($oneLogVisible === "false"){ echo " selected "; }?>  value="false" >False</option>
 		</select>
@@ -203,7 +203,7 @@
 </span>
 Hide Log Tabs
 <span class="selectDiv">
-	<select onchange="toggleVisibleAllLogs();" id="allLogsVisible">
+	<select autocomplete="off" onchange="toggleVisibleAllLogs();" id="allLogsVisible">
 		<option <?php if($allLogsVisible === "false"){ echo " selected "; }?>  value="false" >True</option>
 		<option <?php if($allLogsVisible === "true"){ echo " selected "; }?>  value="true" >False</option>
 	</select>

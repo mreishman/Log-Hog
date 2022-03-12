@@ -1,5 +1,11 @@
+var flasher = null;
+
 function flashTitle() //needed for file check
 {
+	if (flasher !== null || firstLoad === true)
+	{
+		return;
+	}
 	try
 	{
 		stopFlashTitle();
@@ -19,7 +25,8 @@ function stopFlashTitle()
 	try
 	{
 		clearInterval(flasher);
-		$("title").text(title);
+		flasher = null;
+		$("title").text("Log Hog | "+title);
 	}
 	catch(e)
 	{

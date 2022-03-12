@@ -30,7 +30,7 @@ if(!isset($settingsMainWatch))
 		</ul>
 	</div>
 	<div id="hidden" style="display: none">
-		<input id="numberOfRows" type="text" name="numberOfRows" value="0">
+		<input autocomplete="off" id="numberOfRows" type="text" name="numberOfRows" value="0">
 	</div>
 </form>
 <div class="settingsHeader" id="watchKey" >

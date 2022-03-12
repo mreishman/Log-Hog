@@ -1,0 +1,145 @@
+.lightbox {
+    display: none;
+
+    position: fixed;
+    z-index: 999;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    top: 0;
+    left: 0;
+}
+
+.lightboxBackground {
+    position: fixed;
+    z-index: 888;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,0.8);
+    cursor: default;
+}
+
+.lightboxForeground {
+	position: relative;
+	z-index: 999;
+}
+
+.lightbox img:not(.galleryFSThumb) {
+    max-width: 90%;
+    max-height: 80%;
+    margin-top: 2%;
+    z-index: 999;
+}
+
+.lightbox a{
+	text-decoration: none;
+}
+
+.lightbox:target {
+    outline: none;
+    display: block;
+}
+
+.arrow {
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 25px;
+}
+
+.right {
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}
+
+.left {
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+}
+
+.up {
+  transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+}
+
+.down {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
+
+.lightboxLeft{
+	position: fixed;
+	left: 5%;
+	top: 50%;
+}
+
+.lightboxRight{
+	position: fixed;
+	right: 5%;
+	top: 50%;
+}
+
+.lightbox-icon-bar-top {
+  display: block;
+  width: 50px;
+  height: 3px;
+  border-radius: 1px;
+  background-color: #FFFFFF;
+  margin-top: 4px;
+  -ms-transform: rotate(-45deg);
+  /* IE 9 */
+  -webkit-transform: rotate(-45deg);
+  /* Chrome, Safari, Opera */
+  transform: rotate(-45deg);
+  margin-top: 9px;
+}
+
+.lightbox-icon-bar-bot {
+  display: block;
+  width: 50px;
+  height: 3px;
+  border-radius: 1px;
+  background-color: #FFFFFF;
+  margin-top: 4px;
+  -ms-transform: rotate(45deg);
+  /* IE 9 */
+  -webkit-transform: rotate(45deg);
+  /* Chrome, Safari, Opera */
+  transform: rotate(45deg);
+  margin-top: -2px;
+}
+
+.lightboxClose {
+	position: fixed;
+	right: 5%;
+	top: 5%;
+}
+
+.galleryFullScreenThumbCenter{
+	position: fixed;
+    bottom: 5%;
+    left: 50%;
+}
+
+.galleryFSThumb{
+	margin: 5px;
+}
+
+.galleryThumbsLeft{
+	position: fixed;
+	bottom: 5%;
+	right: 50%;
+}
+
+.galleryThumbsRight{
+	position: fixed;
+	bottom: 5%;
+	left: 50%;
+}
+
+.currentThumb{
+	border: 2px solid white;
+}

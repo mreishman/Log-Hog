@@ -198,9 +198,9 @@
 							var <?php echo $key; ?> = "<?php echo $lowercase; ?>Remove"
 							</script>
 							<form id="<?php echo $lowercase; ?>Remove" action="addonAction.php" method="post">
-								<input type="hidden" name="localFolderLocation" value="<?php echo $lowercase; ?>">
-								<input type="hidden" name="repoName" value="<?php echo $repo; ?>">
-								<input type="hidden" name="action" value="Removing">
+								<input autocomplete="off" type="hidden" name="localFolderLocation" value="<?php echo $lowercase; ?>">
+								<input autocomplete="off" type="hidden" name="repoName" value="<?php echo $repo; ?>">
+								<input autocomplete="off" type="hidden" name="action" value="Removing">
 							</form>
 							<a onclick="addonMonitorAction(<?php echo $key; ?>);" class="link">Remove</a>
 						</td>
@@ -230,9 +230,9 @@
 						var <?php echo $key; ?> = "<?php echo $lowercase; ?>Download"
 						</script>
 						<form id="<?php echo $lowercase; ?>Download">
-							<input type="hidden" name="localFolderLocation" value="<?php echo $lowercase; ?>">
-							<input type="hidden" name="repoName" value="<?php echo $repo; ?>">
-							<input type="hidden" name="action" value="Downloading">
+							<input autocomplete="off" type="hidden" name="localFolderLocation" value="<?php echo $lowercase; ?>">
+							<input autocomplete="off" type="hidden" name="repoName" value="<?php echo $repo; ?>">
+							<input autocomplete="off" type="hidden" name="action" value="Downloading">
 						</form>
 						<?php if(class_exists('ZipArchive') && $updaterEnabled === "true"): ?>
 							<a onclick="addonMonitorAction(<?php echo $key; ?>);" class="link">Download</a>

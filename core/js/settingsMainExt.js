@@ -1,6 +1,7 @@
 var titleOfPage = "Log-Hog | Settings";
 var urlModifierForAjax = "";
 var arrayOfDataSettings = [];
+var globalForcePageNavigate = false;
 
 function checkIfChanges()
 {
@@ -24,22 +25,41 @@ function openTab(className)
 	}
 	else
 	{
-		displaySavePromptPopup(url);
+		displaySavePromptPopupIndex("actuallyOpenTab(\""+className+"\");");
 	}
 }
 
 function actuallyOpenTab(className)
 {
+	globalForcePageNavigate = true;
 	$(".mainMenuHeader").removeClass("active");
 	$(".mainMenuHeader." + className).addClass("active");
 	$(".settingsSecondaryHeaders").hide();
 
-	$(".settingsSecondaryHeaders." + className).show();
+	$(".settingsSecondaryHeaders." + className).not(".hiddenMenu").show();
 	$(".settingsSecondaryHeaders." + className+":first").click();
 }
 
 function toggleSettingSection(data)
 {
+	var goToPage = true;
+	if(typeof checkIfChanges == "function")
+	{
+		goToPage = !checkIfChanges();
+	}
+	if(globalForcePageNavigate || goToPage || popupSettingsArray.saveSettings == "false")
+	{
+		actuallyToggleSettingsSection(data);
+	}
+	else
+	{
+		displaySavePromptPopupIndex("actuallyToggleSettingsSection("+JSON.stringify(data)+");");
+	}
+}
+
+function actuallyToggleSettingsSection(data)
+{
+	globalForcePageNavigate = false;
 	$(".settingsSecondaryHeaders").removeClass("active");
 	$("#" + data.id + "Menu").addClass("active");
 	$(".fullScreenMenuSettingsFormDiv").hide();

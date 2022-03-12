@@ -303,7 +303,7 @@ function saveVerified()
 			}
 		}
 	}
-	else if(idForFormMain ===	"modules")
+	else if(idForFormMain === "modules")
 	{
 		if($("[name='enableHistory']")[0].value === "true")
 		{
@@ -312,12 +312,12 @@ function saveVerified()
 				script("core/js/archive.js");
 			}
 			$("#mainMenuHistory").show();
-			$("#settingsMainArchiveMenu").show();
+			$("#settingsMainArchiveMenu").show().removeClass("hiddenMenu");;
 		}
 		else
 		{
 			$("#mainMenuHistory").hide();
-			$("#settingsMainArchiveMenu").hide();
+			$("#settingsMainArchiveMenu").hide().addClass("hiddenMenu");;
 		}
 		if($("[name='filterEnabled']")[0].value === "true")
 		{
@@ -325,7 +325,7 @@ function saveVerified()
 			{
 				script("core/js/filter.js");
 			}
-			$("#settingsMainFilterMenu").show();
+			$("#settingsMainFilterMenu").show().removeClass("hiddenMenu");;
 			$(".searchSideBarImageForLoad").show();
 			if($("[name='filterSearchInHeader']")[0].value === "true")
 			{
@@ -340,7 +340,7 @@ function saveVerified()
 		}
 		else
 		{
-			$("#settingsMainFilterMenu").hide();
+			$("#settingsMainFilterMenu").hide().addClass("hiddenMenu");;
 			$(".indexHeaderFilterGroup").hide();
 			$("#filterSettingsSideBar").hide();
 			$(".searchSideBarImageForLoad").hide();
@@ -351,7 +351,7 @@ function saveVerified()
 			{
 				script("core/js/oneLog.js");
 			}
-			$("#settingsMainOneLogMenu").show();
+			$("#settingsMainOneLogMenu").show().removeClass("hiddenMenu");;
 			if($("#oneLog"))
 			{
 				$("#oneLog").show();
@@ -360,7 +360,7 @@ function saveVerified()
 		}
 		else
 		{
-			$("#settingsMainOneLogMenu").hide();
+			$("#settingsMainOneLogMenu").hide().addClass("hiddenMenu");;
 			if($("#oneLog"))
 			{
 				$("#oneLog").hide();
@@ -386,11 +386,23 @@ function saveVerified()
 			{
 				script("core/js/update.js");
 			}
-			$("#mainMenuUpdate").show();
+			$("#mainMenuUpdate, #settingsMainOtherMenu").show().removeClass("hiddenMenu");
 		}
 		else
 		{
-			$("#mainMenuUpdate").hide();
+			$("#mainMenuUpdate, #settingsMainOtherMenu").hide().addClass("hiddenMenu");
+		}
+		if($("[name='enableMultiLog']")[0].value === "true")
+		{
+			if(typeof getMultiLogWindowConfig !== "function" && typeof script === "function")
+			{
+				script("core/js/multilog.js");
+			}
+			$("#subMenuTitle-multilog, #settingsMainLogLayoutMenu, #settingsMainMultiLogMenu, .mainMenuHeader.multilog").show().removeClass("hiddenMenu");
+		}
+		else
+		{
+			$("#subMenuTitle-multilog, #settingsMainLogLayoutMenu, #settingsMainMultiLogMenu, .mainMenuHeader.multilog").hide().addClass("hiddenMenu");
 		}
 	}
 

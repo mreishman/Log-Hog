@@ -250,10 +250,10 @@ function addFile(filePathSent = false)
 		filePathLocal = filePathSent;
 	}
 	showPopup();
-	var htmlForPopoup = "<div class='settingsHeader' id='popupHeaderText' ><span id='popupHeaderText' >Add File</span></div>";
-	htmlForPopoup += "<br><div style='width:100%;text-align:center;'> <input onkeyup=\"getCurrentFileFolderInfoKeyPress(false);\" value=\""+filePathLocal+"\" id=\"inputFieldForFileOrFolder\" type=\"text\" style=\"width: 90%;\" > </div>";
+	var htmlForPopoup = "<div class='settingsHeader'><span id='popupHeaderText' >Add File</span></div>";
+	htmlForPopoup += "<br><div style='width:100%;text-align:center;'> <input autocomplete=\"off\" onkeyup=\"getCurrentFileFolderInfoKeyPress(false);\" value=\""+filePathLocal+"\" id=\"inputFieldForFileOrFolder\" type=\"text\" style=\"width: 90%;\" > </div>";
 	htmlForPopoup += "<br><div style='width:100%;height:30px;padding-left:20px;' id=\"folderNavUpHolder\"> </div><div id=\"folderFileInfoHolder\" class=\"addBorder\" style='margin-right:10px; margin-left: 10px;height:200px;overflow: auto;'> --- </div>";
-	htmlForPopoup += "<div class='link' onclick='addFileFolderAjax(\"file\", document.getElementById(\"inputFieldForFileOrFolder\").value);' style='margin-left:125px; margin-right:50px;margin-top:25px;'>Add</div><div onclick='hidePopup();' class='link'>Cancel</div";
+	htmlForPopoup += "<div style='margin-left:125px; margin-top:25px;' ><div class='link' id='addFileFolderButton' onclick='addFileFolderAjax(\"file\", document.getElementById(\"inputFieldForFileOrFolder\").value);' style='margin-right:50px;' >Add</div><div onclick='hidePopup();' class='link'>Cancel</div</div>";
 	document.getElementById("popupContentInnerHTMLDiv").innerHTML = htmlForPopoup;
 	document.getElementById("popupContent").style.height = "400px";
 	document.getElementById("popupContent").style.marginTop = "-200px";
@@ -276,10 +276,10 @@ function addFolder(folderPathSent = false)
 		folderPathLocal = folderPathSent;
 	}
 	showPopup();
-	var htmlForPopoup = "<div class='settingsHeader' id='popupHeaderText' ><span id='popupHeaderText' >Add Folder</span></div>";
-	htmlForPopoup += "<br><div style='width:100%;text-align:center;'> <input onkeyup=\"getCurrentFileFolderInfoKeyPress(true);\" value=\""+folderPathLocal+"\" id=\"inputFieldForFileOrFolder\" type=\"text\" style=\"width: 90%;\" > </div>";
+	var htmlForPopoup = "<div class='settingsHeader'><span id='popupHeaderText' >Add Folder</span></div>";
+	htmlForPopoup += "<br><div style='width:100%;text-align:center;'> <input autocomplete=\"off\" onkeyup=\"getCurrentFileFolderInfoKeyPress(true);\" value=\""+folderPathLocal+"\" id=\"inputFieldForFileOrFolder\" type=\"text\" style=\"width: 90%;\" > </div>";
 	htmlForPopoup += "<br><div style='width:100%;height:30px;padding-left:20px;' id=\"folderNavUpHolder\"> </div><div id=\"folderFileInfoHolder\" class=\"addBorder\" style='margin-right:20px; margin-left: 20px;height:200px;overflow: auto;'> --- </div>";
-	htmlForPopoup += "<div class='link' onclick='addFileFolderAjax(\"folder\", document.getElementById(\"inputFieldForFileOrFolder\").value);' style='margin-left:110px; margin-right:50px;margin-top:25px;'>Add</div><div onclick='hidePopup();' class='link'>Cancel</div";
+	htmlForPopoup += "<div class='link' id='addFileFolderButton' onclick='addFileFolderAjax(\"folder\", document.getElementById(\"inputFieldForFileOrFolder\").value);' style='margin-left:110px; margin-right:50px;margin-top:25px;'>Add</div><div onclick='hidePopup();' class='link'>Cancel</div";
 	document.getElementById("popupContentInnerHTMLDiv").innerHTML = htmlForPopoup;
 	document.getElementById("popupContent").style.height = "400px";
 	document.getElementById("popupContent").style.marginTop = "-200px";
@@ -424,13 +424,13 @@ function generateSubFiles(data)
 				name 			= ("Name" in fileData[keyTwo]) ? fileData[keyTwo]["Name"] : name;
 			}
 			returnHtml += "<li>"+icons[fileArray[keyTwo]["image"]];
-			returnHtml += "<div style=\"display: inline-block; padding: 5px;\" ><span style=\"width: 300px; overflow: auto; display: inline-block;\" >"+keyTwo.replace(mainFolder,"")+"</span><input name=\"watchListKey"+currentNum+"FileInFolder\"  type=\"hidden\" value=\""+keyTwo+"\" ></div>";
-			returnHtml += "<div style=\"display: inline-block; padding: 5px;\" ><span class=\"settingsBuffer\" >Include: <div class=\"selectDiv\" ><select onchange=\"updateFileInfo("+currentNum+");\" name=\"watchListKey"+currentNum+"FileInFolderInclude\" > "+generateTrueFalseSelect(includeBool)+" </select></div></span></div>";
-			returnHtml += "<div style=\"display: inline-block; padding: 5px;\" ><span class=\"settingsBuffer\" >Exclude Trim: <div class=\"selectDiv\" ><select onchange=\"updateFileInfo("+currentNum+");\" name=\"watchListKey"+currentNum+"FileInFolderTrim\"> "+generateTrueFalseSelect(excludeTrim)+" </select></div></span></div>";
-			returnHtml += "<div style=\"display: inline-block; padding: 5px;\" ><span class=\"settingsBuffer\" >Exclude Delete: <div class=\"selectDiv\" ><select onchange=\"updateFileInfo("+currentNum+");\" name=\"watchListKey"+currentNum+"ExcludeDelete\"> "+generateTrueFalseSelect(excludeDelete)+" </select></div></span></div>";
-			returnHtml += "<div style=\"display: inline-block; padding: 5px;\" ><span class=\"settingsBuffer\" >Alert on Update: <div class=\"selectDiv\" ><select onchange=\"updateFileInfo("+currentNum+");\" name=\"watchListKey"+currentNum+"FileInFolderAlert\"> "+generateTrueFalseSelect(alertOnUpdate)+" </select></div></span></div>";
-			returnHtml += "<div style=\"display: inline-block; padding: 5px;\" ><span class=\"settingsBuffer\" style=\"text-align: right; width: 50px; padding-right:5px; \" >Name:  </span><span class=\"settingsBuffer\" > <input onchange=\"updateFileInfo("+currentNum+");\"  type=\"text\" name=\"watchListKey"+currentNum+"FileInFolderName\" value=\""+name+"\" > </span></div>";
-			returnHtml += "<div style=\"display: inline-block; padding: 5px;\" ><span class=\"settingsBuffer\" style=\"text-align: right; width: 75px; padding-right:5px; \" >Filter:  </span><span class=\"settingsBuffer\" > <input onchange=\"updateFileInfo("+currentNum+");\"  type=\"text\" name=\"watchListKey"+currentNum+"GrepFilter\" value=\""+name+"\" > </span></div>";
+			returnHtml += "<div style=\"display: inline-block; padding: 5px;\" ><span style=\"width: 300px; overflow: auto; display: inline-block;\" >"+keyTwo.replace(mainFolder,"")+"</span><input autocomplete=\"off\" name=\"watchListKey"+currentNum+"FileInFolder\"  type=\"hidden\" value=\""+keyTwo+"\" ></div>";
+			returnHtml += "<div style=\"display: inline-block; padding: 5px;\" ><span class=\"settingsBuffer\" >Include: <div class=\"selectDiv\" ><select autocomplete=\"off\" onchange=\"updateFileInfo("+currentNum+");\" name=\"watchListKey"+currentNum+"FileInFolderInclude\" > "+generateTrueFalseSelect(includeBool)+" </select></div></span></div>";
+			returnHtml += "<div style=\"display: inline-block; padding: 5px;\" ><span class=\"settingsBuffer\" >Exclude Trim: <div class=\"selectDiv\" ><select autocomplete=\"off\" onchange=\"updateFileInfo("+currentNum+");\" name=\"watchListKey"+currentNum+"FileInFolderTrim\"> "+generateTrueFalseSelect(excludeTrim)+" </select></div></span></div>";
+			returnHtml += "<div style=\"display: inline-block; padding: 5px;\" ><span class=\"settingsBuffer\" >Exclude Delete: <div class=\"selectDiv\" ><select autocomplete=\"off\" onchange=\"updateFileInfo("+currentNum+");\" name=\"watchListKey"+currentNum+"ExcludeDelete\"> "+generateTrueFalseSelect(excludeDelete)+" </select></div></span></div>";
+			returnHtml += "<div style=\"display: inline-block; padding: 5px;\" ><span class=\"settingsBuffer\" >Alert on Update: <div class=\"selectDiv\" ><select autocomplete=\"off\" onchange=\"updateFileInfo("+currentNum+");\" name=\"watchListKey"+currentNum+"FileInFolderAlert\"> "+generateTrueFalseSelect(alertOnUpdate)+" </select></div></span></div>";
+			returnHtml += "<div style=\"display: inline-block; padding: 5px;\" ><span class=\"settingsBuffer\" style=\"text-align: right; width: 50px; padding-right:5px; \" >Name:  </span><span class=\"settingsBuffer\" > <input autocomplete=\"off\" onchange=\"updateFileInfo("+currentNum+");\"  type=\"text\" name=\"watchListKey"+currentNum+"FileInFolderName\" value=\""+name+"\" > </span></div>";
+			returnHtml += "<div style=\"display: inline-block; padding: 5px;\" ><span class=\"settingsBuffer\" style=\"text-align: right; width: 75px; padding-right:5px; \" >Filter:  </span><span class=\"settingsBuffer\" > <input autocomplete=\"off\" onchange=\"updateFileInfo("+currentNum+");\"  type=\"text\" name=\"watchListKey"+currentNum+"GrepFilter\" value=\""+name+"\" > </span></div>";
 			returnHtml += "</li>";
 		}
 	}
@@ -646,11 +646,11 @@ function getFileFolderSubFunction(data, orgPath, hideFiles, joinChar, dropdown)
 		{
 			if(!dropdown)
 			{
-				document.getElementById("folderNavUpHolder").innerHTML += "<div style=\"float:right; margin-right: 20px\" class=\"selectDiv\"><select onchange=\"updateFilterPopup();\" id=\"patternSelectPopup\"  >"+generatePatternSelectNoOther(currentPatternSelect)+"</select></div>";
+				document.getElementById("folderNavUpHolder").innerHTML += "<div style=\"float:right; margin-right: 20px\" class=\"selectDiv\"><select autocomplete=\"off\" onchange=\"updateFilterPopup();\" id=\"patternSelectPopup\"  >"+generatePatternSelectNoOther(currentPatternSelect)+"</select></div>";
 			}
 			else
 			{
-				document.getElementById("folderNavUpHolder").innerHTML += "<div style=\"float:right; margin-right: 20px\" class=\"selectDiv\"><select onchange=\"updateDropdownPopup();\" id=\"patternSelectPopup\"  >"+generatePatternSelectNoOther(currentPatternSelect)+"</select></div>";
+				document.getElementById("folderNavUpHolder").innerHTML += "<div style=\"float:right; margin-right: 20px\" class=\"selectDiv\"><select autocomplete=\"off\" onchange=\"updateDropdownPopup();\" id=\"patternSelectPopup\"  >"+generatePatternSelectNoOther(currentPatternSelect)+"</select></div>";
 			}
 		}
 	}
@@ -695,6 +695,9 @@ function getFileFolderSubFunction(data, orgPath, hideFiles, joinChar, dropdown)
 			highlightClass += " selectDropdown ";
 		}
 		highlightClass += " \"";
+
+		let lineStyle = "padding: 5px;min-height:30px; border-bottom: 1px solid";
+
 		if(subData["type"] === "folder")
 		{
 			var folderHtml = "";
@@ -706,11 +709,11 @@ function getFileFolderSubFunction(data, orgPath, hideFiles, joinChar, dropdown)
 			folderHtml += "<div "+highlightClass+" ";
 			if(dropdown)
 			{
-				folderHtml += " onclick=\"addFileFolderToInputSelected('"+subData["filename"]+"');\" style=\"padding: 5px;min-height:30px;cursor: pointer;\" >";
+				folderHtml += " onclick=\"addFileFolderToInputSelected('"+subData["filename"]+"');\" style=\"cursor: pointer;"+lineStyle+"\" >";
 			}
 			else
 			{
-				folderHtml += " style=\"padding: 5px;min-height:30px;\" >";
+				folderHtml += " style=\""+lineStyle+"\" >";
 			}
 			folderHtml += name+" <span style=\"float:right;\" > ";
 			if(hideFiles)
@@ -731,11 +734,11 @@ function getFileFolderSubFunction(data, orgPath, hideFiles, joinChar, dropdown)
 				var fileHtml = "<div "+highlightClass+" ";
 				if(dropdown)
 				{
-					fileHtml += " onclick=\"addFileFolderToInputSelected('"+subData["filename"]+"');\" style=\"padding: 5px;min-height:30px;cursor: pointer;\" >";
+					fileHtml += " onclick=\"addFileFolderToInputSelected('"+subData["filename"]+"');\" style=\"cursor: pointer;"+lineStyle+"\" >";
 				}
 				else
 				{
-					fileHtml += " style=\"padding: 5px;min-height:30px;\" >";
+					fileHtml += " style=\""+lineStyle+"\" >";
 				}
 				fileHtml += name+" <span style=\"float:right;\" > "+selectButton+" </span> </div>";
 				fileFolderList[listKey] += fileHtml;
@@ -747,6 +750,40 @@ function getFileFolderSubFunction(data, orgPath, hideFiles, joinChar, dropdown)
 	htmlSet += fileFolderList["contains"];
 	htmlSet += fileFolderList["other"];
 	document.getElementById("folderFileInfoHolder").innerHTML = htmlSet;
+	if(!dropdown)
+	{
+		let display = "none";
+		let patchCheck = data["orgPath"];
+		let currentSelectedDirOrFile = document.getElementById("inputFieldForFileOrFolder").value;
+		let type = data["type"];
+		if (patchCheck !== currentSelectedDirOrFile)
+		{
+			//check if path is in data
+			let possibleData = data["data"][currentSelectedDirOrFile];
+			if (possibleData !== undefined)
+			{
+				type = possibleData["type"];
+			}
+		}
+
+		if (document.getElementById('popupHeaderText').innerHTML === "Add File")
+		{
+			//type file, only show add if file
+			if(type === "file")
+			{
+				display = "inline-block";
+			}
+		}
+		else
+		{
+			//type folder, only show if folder
+			if(type === "folder")
+			{
+				display = "inline-block";
+			}
+		}
+		document.getElementById('addFileFolderButton').style.display = display;
+	}
 }
 
 function addFileFolderToInputSelected(newValue)
@@ -1388,7 +1425,7 @@ function toggleSaveGroup(rowNumber)
 
 function updateNumberOfRowsValue(newValue)
 {
-	var htmlToUpdateTo = "<input id=\"numberOfRows\" type=\"text\" name=\"numberOfRows\" value=\""+newValue+"\">";
+	var htmlToUpdateTo = "<input autocomplete=\"off\" id=\"numberOfRows\" type=\"text\" name=\"numberOfRows\" value=\""+newValue+"\">";
 	$("#hidden").html(htmlToUpdateTo);
 	document.getElementById("numberOfRows").value = newValue;
 }

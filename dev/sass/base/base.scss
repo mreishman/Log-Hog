@@ -290,6 +290,7 @@ a {
   animation: blinkRed 0.5s infinite;
   scale: 0.5 0.5;
   display: inline-block;
+  transform: scale(0.5);
 }
 
 @-webkit-keyframes blinkRed {
@@ -327,6 +328,7 @@ a {
   animation: blinkYellow 1s infinite;
   scale: 0.5 0.5;
   display: inline-block;
+  transform: scale(0.5);
 }
 
 @-webkit-keyframes blinkYellow {
@@ -359,6 +361,7 @@ a {
   box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #304701 0 -1px 9px, #89FF00 0 2px 12px;
   scale: 0.5 0.5;
   display: inline-block;
+  transform: scale(0.5);
 }
 
 .led-blue {
@@ -370,6 +373,7 @@ a {
   box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #006 0 -1px 9px, #3F8CFF 0 2px 14px;
   scale: 0.5 0.5;
   display: inline-block;
+  transform: scale(0.5);
 }
 
 .visible {
@@ -481,6 +485,7 @@ div.sidebarLeft {
 
 .backgroundForSideBarMenu {
   overflow-y: auto;
+  scrollbar-width: thin;
 
   &::-webkit-scrollbar {
     width: 1px;

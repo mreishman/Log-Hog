@@ -31,19 +31,13 @@ if($path !== "/")
 {
 	$path = preg_replace('/\/$/', '', $path);
 }
+$type = "none";
 if(file_exists($path))
 {
+	$type = "File";
 	if(is_dir($path))
 	{
-		$imageResponse = "defaultFolderIcon";
-		if(!is_readable($path))
-		{
-			$imageResponse = "defaultFolderNRIcon";
-		}
-		elseif(!is_writeable($path))
-		{
-			$imageResponse = "defaultFolderNWIcon";
-		}
+		$type = "Folder";
 		$response = $core->getFileInfoFromDir(
 			array(
 				"path"			=>	$path,
@@ -53,17 +47,15 @@ if(file_exists($path))
 			$response
 		);
 	}
-	else
+
+	$imageResponse = "default".$type."Icon";
+	if(!is_readable($path))
 	{
-		$imageResponse = "defaultFileIcon";
-		if(!is_readable($path))
-		{
-			$imageResponse = "defaultFileNRIcon";
-		}
-		elseif(!is_writeable($path))
-		{
-			$imageResponse = "defaultFileNWIcon";
-		}
+		$imageResponse = "default".$type."NRIcon";
+	}
+	elseif(!is_writeable($path))
+	{
+		$imageResponse = "default".$type."NWIcon";
 	}
 }
 
@@ -72,6 +64,7 @@ echo json_encode(
 		"data" => $response,
 		"orgPath" => $_POST["currentFolder"],
 		"img" => $imageResponse,
+		"type" => strtolower($type),
 		"fileInfo" => $info
 	)
 );

@@ -134,7 +134,7 @@ function selectLogPopup(locationForNewLogText)
 			var popupFileListLength = popupFileList.length;
 			var htmlForPopup = "";
 			var counter = 0;
-			htmlForPopup += "<div class=\"selectDiv\"><select id=\"newLogSelectionFromPopup\" ><option value=\"\" >None</option>";
+			htmlForPopup += "<div class=\"selectDiv\"><select autocomplete=\"off\" id=\"newLogSelectionFromPopup\" ><option value=\"\" >None</option>";
 			for(var i = 0; i < popupFileListLength; i++)
 			{
 				if(arrayOfAlreadySelectedLogs.indexOf(popupFileList[i]) === -1)

@@ -19,7 +19,7 @@
 					</div>
 				</div>
 				<span id="searchFieldInputOuter-{{counter}}" class="addBorderBottom" style="padding: 10px; display: none; text-align: center;">
-					<input id="searchFieldInput-{{counter}}" type="search" placeholder="Filter Log Content" style="height: 30px; width: 200px;">
+					<input autocomplete="off" id="searchFieldInput-{{counter}}" type="search" placeholder="Filter Log Content" style="height: 30px; width: 200px;">
 				</span>
 				<span id="log{{counter}}Td"  class="logTrHeight" style="overflow: auto; display: block; word-break: break-all;" >
 					<div id="log{{counter}}load" style="{{loading_style}}" class="errorMessageLog">

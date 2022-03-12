@@ -113,7 +113,7 @@ class settingsMainWatch extends core
 		$saveBlock .= $filePermsDisplay;
 		$saveBlock .= "</div>";
 		$saveBlock .= "<span style=\"width: 50px; display: inline-block;\" id=\"imageFile".$rowNumber."\" >".$fileImage."</span>";
-		$saveBlock .= "<input type=\"hidden\" name=\"watchListKey".$rowNumber."\" value=\"FileOrFolder".$rowNumber."\" >";
+		$saveBlock .= "<input autocomplete=\"off\" type=\"hidden\" name=\"watchListKey".$rowNumber."\" value=\"FileOrFolder".$rowNumber."\" >";
 		$saveBlock .= "<a class=\"deleteIconPosition\"	onclick=\"deleteRowFunctionPopup(".$rowNumber.", '".$location."');\"	>";
 		$localSrcMod = $data["srcModifier"] ?? "";
 
@@ -151,8 +151,8 @@ class settingsMainWatch extends core
 		$saveBlock .= "   <a onclick=\"addFileFromLocation(".$rowNumber.");\" class=\"linkSmall\"> New file from base</a>";
 		$saveBlock .= "   <a onclick=\"addFolderFromLocation(".$rowNumber.");\" class=\"linkSmall\"> New folder from base</a>";
 		$saveBlock .= "</div><div class=\"settingsDiv\" ><ul class=\"settingsUl\" >";
-		$saveBlock .= "<li><span class=\"settingsBuffer\" >Location: </span><input onkeyup=\"getCurrentFileFolderMainPage(".$rowNumber.")\" onclick=\"showTypeDropdown(".$rowNumber.");\" style=\"width: 600px;\" type=\"text\" name=\"watchListKey".$rowNumber."Location\" value=\"".$location."\" ></li>";
-		$saveBlock .= "<li  class=\"typeFile\" ".$typeFile."><span class=\"settingsBuffer\" >Pattern: </span><span class=\"settingsBuffer\" ><div class=\"selectDiv\"><select onchange=\"togglePatternSelect(".$rowNumber.")\" id=\"watchListKey".$rowNumber."PatternSelect\" >";
+		$saveBlock .= "<li><span class=\"settingsBuffer\" >Location: </span><input autocomplete=\"off\" onkeyup=\"getCurrentFileFolderMainPage(".$rowNumber.")\" onclick=\"showTypeDropdown(".$rowNumber.");\" style=\"width: 600px;\" type=\"text\" name=\"watchListKey".$rowNumber."Location\" value=\"".$location."\" ></li>";
+		$saveBlock .= "<li  class=\"typeFile\" ".$typeFile."><span class=\"settingsBuffer\" >Pattern: </span><span class=\"settingsBuffer\" ><div class=\"selectDiv\"><select autocomplete=\"off\" onchange=\"togglePatternSelect(".$rowNumber.")\" id=\"watchListKey".$rowNumber."PatternSelect\" >";
 		if(isset($data["pattern"]))
 		{
 			$saveBlock .=  $this->makePatternSelect($patternSelect, $selectOptions);
@@ -161,9 +161,9 @@ class settingsMainWatch extends core
 		{
 			$saveBlock .=  $patternSelect;
 		}
-		$saveBlock .= "</select></div></span><span class=\"settingsBuffer\" ><input ".$patternHideInput." type=\"text\" onchange=\"updateSubFiles(".$rowNumber.");\"  name=\"watchListKey".$rowNumber."Pattern\" value=\"".$pattern."\" ></span></li>";
-		$saveBlock .= "<input type=\"hidden\" name=\"watchListKey".$rowNumber."SaveGroup\" value=\"{{SaveGroupValue}}\"  >";
-		$saveBlock .= "<span class=\"condensed\" ><li class=\"typeFile\" ".$typeFile."><span class=\"settingsBuffer\" >Recursive: </span><span class=\"settingsBuffer\" ><div class=\"selectDiv\"><select onchange=\"updateSubFiles(".$rowNumber.");\" name=\"watchListKey".$rowNumber."Recursive\" >";
+		$saveBlock .= "</select></div></span><span class=\"settingsBuffer\" ><input autocomplete=\"off\" ".$patternHideInput." type=\"text\" onchange=\"updateSubFiles(".$rowNumber.");\"  name=\"watchListKey".$rowNumber."Pattern\" value=\"".$pattern."\" ></span></li>";
+		$saveBlock .= "<input autocomplete=\"off\" type=\"hidden\" name=\"watchListKey".$rowNumber."SaveGroup\" value=\"{{SaveGroupValue}}\"  >";
+		$saveBlock .= "<span class=\"condensed\" ><li class=\"typeFile\" ".$typeFile."><span class=\"settingsBuffer\" >Recursive: </span><span class=\"settingsBuffer\" ><div class=\"selectDiv\"><select autocomplete=\"off\" onchange=\"updateSubFiles(".$rowNumber.");\" name=\"watchListKey".$rowNumber."Recursive\" >";
 		if(isset($data["recursiveOptions"]))
 		{
 			$saveBlock .=  $this->makeTrueFalseSelect($recursiveOptions);
@@ -173,11 +173,11 @@ class settingsMainWatch extends core
 			$saveBlock .=  $recursiveOptions;
 		}
 		$saveBlock .= "</select></div></span>";
-		$saveBlock .= "<span class=\"settingsBuffer\" >Auto Delete Files After: </span><span class=\"settingsBuffer\" ><input style=\"width: 56px;\" type=\"text\" name=\"watchListKey".$rowNumber."AutoDeleteFiles\" value=\"".$AutoDeleteFiles."\" > Days No Change</span></li></span>";
-		$saveBlock .= "<span class=\"condensed\" ><li  class=\"typeFolder\" ".$typeFolder."><span class=\"settingsBuffer\" >Name: </span><span class=\"settingsBuffer\" ><input type=\"text\" name=\"watchListKey".$rowNumber."Name\" value=\"".$Name."\" > </span><span class=\"settingsBuffer\" >Filter: </span><span class=\"settingsBuffer\" ><input type=\"text\" name=\"watchListKey".$rowNumber."GrepFilter\" value=\"".$GrepFilter."\" > </span></li></span>";
+		$saveBlock .= "<span class=\"settingsBuffer\" >Auto Delete Files After: </span><span class=\"settingsBuffer\" ><input autocomplete=\"off\" style=\"width: 56px;\" type=\"text\" name=\"watchListKey".$rowNumber."AutoDeleteFiles\" value=\"".$AutoDeleteFiles."\" > Days No Change</span></li></span>";
+		$saveBlock .= "<span class=\"condensed\" ><li  class=\"typeFolder\" ".$typeFolder."><span class=\"settingsBuffer\" >Name: </span><span class=\"settingsBuffer\" ><input autocomplete=\"off\" type=\"text\" name=\"watchListKey".$rowNumber."Name\" value=\"".$Name."\" > </span><span class=\"settingsBuffer\" >Filter: </span><span class=\"settingsBuffer\" ><input autocomplete=\"off\"type=\"text\" name=\"watchListKey".$rowNumber."GrepFilter\" value=\"".$GrepFilter."\" > </span></li></span>";
 		$saveBlock .= "<li>";
-		$saveBlock .= "<span class=\"settingsBuffer\" >Group: </span><span class=\"settingsBuffer\" ><input type=\"text\" name=\"watchListKey".$rowNumber."Group\" value=\"".$Group."\" ></span>";
-		$saveBlock .= "<span class=\"settingsBuffer\" >FileType: </span><span class=\"settingsBuffer\" ><div class=\"selectDiv\"><select onchange=\"toggleTypeFolderFile(".$rowNumber.")\" name=\"watchListKey".$rowNumber."FileType\" >";
+		$saveBlock .= "<span class=\"settingsBuffer\" >Group: </span><span class=\"settingsBuffer\" ><input autocomplete=\"off\" type=\"text\" name=\"watchListKey".$rowNumber."Group\" value=\"".$Group."\" ></span>";
+		$saveBlock .= "<span class=\"settingsBuffer\" >FileType: </span><span class=\"settingsBuffer\" ><div class=\"selectDiv\"><select autocomplete=\"off\" onchange=\"toggleTypeFolderFile(".$rowNumber.")\" name=\"watchListKey".$rowNumber."FileType\" >";
 		if(isset($data["FileType"]))
 		{
 			$saveBlock .= $this->generateFileTypeSelect($FileType);
@@ -187,7 +187,7 @@ class settingsMainWatch extends core
 			$saveBlock .=  $FileType;
 		}
 		$saveBlock .= "</select></div></span></li>";
-		$saveBlock .= "<span class=\"condensed\" ><li ><span class=\"settingsBuffer\" >Exclude Trim: </span><span class=\"settingsBuffer\" ><div class=\"selectDiv\"><select name=\"watchListKey".$rowNumber."ExcludeTrim\" >";
+		$saveBlock .= "<span class=\"condensed\" ><li ><span class=\"settingsBuffer\" >Exclude Trim: </span><span class=\"settingsBuffer\" ><div class=\"selectDiv\"><select autocomplete=\"off\" name=\"watchListKey".$rowNumber."ExcludeTrim\" >";
 		if(isset($data["excludeTrimOptions"]))
 		{
 			$saveBlock .=   $this->makeTrueFalseSelect($excludeTrimOptions);
@@ -197,7 +197,7 @@ class settingsMainWatch extends core
 			$saveBlock .=  $excludeTrimOptions;
 		}
 		$saveBlock .= "</select></div></span>";
-		$saveBlock .= "<span class=\"settingsBuffer\" >Alert on Update: </span><span class=\"settingsBuffer\" ><div class=\"selectDiv\"><select name=\"watchListKey".$rowNumber."AlertEnabled\" >";
+		$saveBlock .= "<span class=\"settingsBuffer\" >Alert on Update: </span><span class=\"settingsBuffer\" ><div class=\"selectDiv\"><select autocomplete=\"off\" name=\"watchListKey".$rowNumber."AlertEnabled\" >";
 		if(isset($data["AlertEnabled"]))
 		{
 			$saveBlock .=   $this->makeTrueFalseSelect($AlertEnabled);
@@ -219,7 +219,7 @@ class settingsMainWatch extends core
 			)
 		);
 		$saveBlock .= "<ul id=\"watchListKey".$rowNumber."FilesInFolder\" class=\"settingsUl\" style=\"-webkit-padding-start: 0;\" >".$filesInFolder."</ul></div></li></span>";
-		$saveBlock .= "<input type=\"hidden\"   name=\"watchListKey".$rowNumber."FileInformation\" value='".$FileInformation."' >";
+		$saveBlock .= "<input autocomplete=\"off\" type=\"hidden\"   name=\"watchListKey".$rowNumber."FileInformation\" value='".$FileInformation."' >";
 		$saveBlock .= "</span></span></ul></div></li>";
 
 		return $saveBlock;

@@ -1,3 +1,5 @@
+var arrayOfScrollHeaderUpdate = [];
+
 function resize()
 {
 	if(document.getElementById("main"))
@@ -82,6 +84,7 @@ function showAboutTab(tabType)
 		$("#aboutSpanAbout").show();
 		$("#aboutSpanInfo").show();
 		$("#aboutSpanGithub").show();
+		arrayOfScrollHeaderUpdate = ["aboutSpanAbout","aboutSpanInfo","aboutSpanGithub"];
 	}
 	else
 	{
@@ -90,27 +93,19 @@ function showAboutTab(tabType)
 		$("#aboutSpanInfo").hide();
 		$("#aboutSpanGithub").hide();
 	}
-	if (tabType === 'changelog')
+	if (tabType === 'changelog' || tabType === 'whatsNew')
 	{
 		$("#changeLogLink").addClass("active").css("cursor","default");
+		loadImgFromData("whatsNewImage");
 		$("#aboutSpanChangelog").show();
+		arrayOfScrollHeaderUpdate = ["aboutSpanChangelog"];
 	}
 	else
 	{
 		$("#changeLogLink").removeClass("active").css("cursor","pointer");
 		$("#aboutSpanChangelog").hide();
 	}
-	if (tabType === 'whatsNew')
-	{
-		$("#whatsNewLink").addClass("active").css("cursor","default");
-		loadImgFromData("whatsNewImage");
-		$("#aboutSpanWhatsNew").show();
-	}
-	else
-	{
-		$("#whatsNewLink").removeClass("active").css("cursor","pointer");
-		$("#aboutSpanWhatsNew").hide();
-	}
+	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
 }
 
 function onScrollShowFixedMiniBar(idsOfForms)
@@ -119,10 +114,10 @@ function onScrollShowFixedMiniBar(idsOfForms)
 	{
 		return;
 	}
-	var heightOne = 55;
+	var heightOne = document.getElementById("menu").offsetHeight;
 	if(document.getElementById("menu2") !== null)
 	{
-		heightOne = 55 + document.getElementById("menu2").offsetHeight;
+		heightOne = heightOne + document.getElementById("menu2").offsetHeight;
 	}
 	if(document.getElementById("fixedPositionMiniMenu").style.top !== ""+heightOne+"px")
 	{
@@ -163,5 +158,15 @@ $(document).ready(function()
 {
 	resize();
 	window.onresize = resize;
+
+	document.addEventListener(
+		"scroll",
+		function (event)
+		{
+			onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
+		},
+		true
+	);
+	$( window ).resize(function() { onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate); });
 
 });

@@ -62,7 +62,7 @@ function toggleFullScreenMenu(force = false)
 				{
 					toggleThemes();
 				}
-				else if(fullScreenMenuDefaultPage === "update")
+				else if(fullScreenMenuDefaultPage === "update" && updaterEnabled !== "false")
 				{
 					toggleUpdateMenu();
 				}
@@ -102,7 +102,7 @@ function toggleSettingSection(data, force = false)
 {
 	if(!force && !globalForcePageNavigate)
 	{
-		if(!(goToPageCheck("toggleSettingsMainLogs("+JSON.stringify(data)+", true)")))
+		if(!(goToPageCheck("toggleSettingSection("+JSON.stringify(data)+", true)")))
 		{
 			return false;
 		}
@@ -276,13 +276,20 @@ function toggleThemesIframeSource(showOrHide)
 	var lengthOfIframeThemes = arrayOfIframesForThemes.length;
 	for(var counterOfIframeThemes = 0; counterOfIframeThemes < lengthOfIframeThemes; counterOfIframeThemes++)
 	{
+		let newSrc = "core/html/iframe.html";
+		let oldSrc = arrayOfIframesForThemes[counterOfIframeThemes].getAttribute("src");
+		if (!oldSrc)
+		{
+			continue;
+		}
 		if(showOrHide)
 		{
-			arrayOfIframesForThemes[counterOfIframeThemes].setAttribute("src",arrayOfIframesForThemes[counterOfIframeThemes].getAttribute("data-src"));
+			newSrc = arrayOfIframesForThemes[counterOfIframeThemes].getAttribute("data-src");
 		}
-		else
+
+		if(!oldSrc.endsWith(newSrc))
 		{
-			arrayOfIframesForThemes[counterOfIframeThemes].setAttribute("src","core/html/iframe.html");
+			arrayOfIframesForThemes[counterOfIframeThemes].setAttribute("src",newSrc);
 		}
 	}
 }
@@ -322,19 +329,9 @@ function toggleAboutLogHog()
 	resizeFullScreenMenu();
 }
 
-function toggleWhatsNew()
-{
-	loadImgFromData("whatsNewImage");
-	hideAboutStuff();
-	document.getElementById("fullScreenMenuWhatsNew").style.display = "block";
-	$("#aboutSubMenuWhatsNew").addClass("selected");
-	arrayOfScrollHeaderUpdate = ["fullScreenMenuWhatsNew"];
-	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
-	resizeFullScreenMenu();
-}
-
 function toggleChangeLog()
 {
+	loadImgFromData("whatsNewImage");
 	hideAboutStuff();
 	document.getElementById("fullScreenMenuChangeLog").style.display = "block";
 	$("#aboutSubMenuChangelog").addClass("selected");
@@ -481,8 +478,6 @@ function hideAboutStuff()
 	$("#aboutSubMenuAbout").removeClass("selected");
 	document.getElementById("fullScreenMenuChangeLog").style.display = "none";
 	$("#aboutSubMenuChangelog").removeClass("selected");
-	document.getElementById("fullScreenMenuWhatsNew").style.display = "none";
-	$("#aboutSubMenuWhatsNew").removeClass("selected");
 }
 
 function hideHistoryStuff()
@@ -514,7 +509,16 @@ function hideThemeStuff()
 function hideIframeStuff()
 {
 	document.getElementById("fullScreenMenuIFrame").style.display = "none";
-	$("#iframeFullScreen").prop("src", "core/html/iframe.html");
+	let newSrc = "core/html/iframe.html";
+	let oldSrc = $("#iframeFullScreen").prop("src");
+	if (!oldSrc)
+	{
+		return;
+	}
+	if(!oldSrc.endsWith(newSrc))
+	{
+		$("#iframeFullScreen").prop("src", newSrc);
+	}
 }
 
 function toggleIframe(locHref, idOfAddon, force = false)
@@ -697,7 +701,7 @@ function resizeFullScreenMenu()
 		}
 		else
 		{
-			$(".fullScreenMenuText").show();
+			$(".fullScreenMenuText").not(".hiddenMenu").show();
 			if(document.getElementById("mainFullScreenMenu").getBoundingClientRect().width !== 201) //1px border included here
 			{
 				document.getElementById("mainFullScreenMenu").style.width = "200px";
@@ -713,14 +717,14 @@ function resizeFullScreenMenu()
 				mainContentFullScreenMenuTop = "88px";
 			}
 			$(".settingsUlSub").css("width","auto").css("bottom","auto").css("right","0").addClass("addBorderBottom").removeClass("addBorderRight").css("height","35px");
-			$(".settingsUlSub li").not(".subMenuToggle").css("display","inline-block");
+			$(".settingsUlSub li").not(".subMenuToggle, .hiddenMenu").css("display","inline-block");
 			$(".menuTitle").not(".menuBreak , .fullScreenNotificationTitle").hide();
 		}
 		else
 		{
 			$(".settingsUlSub").css("width","200px").css("bottom","0").css("right","auto").removeClass("addBorderBottom").addClass("addBorderRight").css("height","auto");
-			$(".settingsUlSub li").not(".subMenuToggle").css("display","block");
-			$(".menuTitle").not(".fullScreenMenuText").show();
+			$(".settingsUlSub li").not(".subMenuToggle, .hiddenMenu").css("display","block");
+			$(".menuTitle").not(".fullScreenMenuText, .hiddenMenu").show();
 			toggleAddonAppsMenuText();
 		}
 

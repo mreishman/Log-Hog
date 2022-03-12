@@ -20,9 +20,10 @@ if(isset($_POST['file']))
 }
 $type = trim($_POST['type']);
 $returnData = array(
-	"success"	=> "false",
-	"file"		=>	$verifyFile,
-	"fileFound"	=>	"false"
+	"success"		=> "false",
+	"file"			=>	$verifyFile,
+	"fileFound"		=>	"false",
+	"actionSuccess"	=>	"true"
 );
 $currentSelectedTheme = $session->returnCurrentSelectedThemeAjax();
 $baseUrl = "../../../local/".$currentSelectedTheme."/";
@@ -49,11 +50,21 @@ foreach($config['watchList'] as $value){
 						if($type === "deleteLog")
 						{
 							unlink($fullPath);
+							if(file_exists($fullPath))
+							{
+								$returnData["actionSuccess"] = "false";
+							}
 						}
 						else
 						{
 							$command = "truncate -s 0 ".$fullPath;
 							shell_exec($command);
+							$newSize = (int)shell_exec("wc -c ".$fullPath." | awk '{print $1}'");
+							$returnData['extra'] = $newSize;
+							if($newSize > 0)
+							{
+								$returnData["actionSuccess"] = "false";
+							}
 						}
 						$returnData["success"] = "true";
 						if($type !== "clearAllLogs")
@@ -72,12 +83,22 @@ foreach($config['watchList'] as $value){
 			$returnData["fileFound"] = "true";
 			if($type === "deleteLog")
 			{
-				unlink($fullPath);
+				unlink($path);
+				if(file_exists($path))
+				{
+					$returnData["actionSuccess"] = "false";
+				}
 			}
 			else
 			{
 				$command = "truncate -s 0 ".$path;
 				shell_exec($command);
+				$newSize = (int)shell_exec("wc -c ".$path." | awk '{print $1}'");
+				$returnData['extra'] = $newSize;
+				if($newSize > 0)
+				{
+					$returnData["actionSuccess"] = "false";
+				}
 			}
 			$returnData["success"] = "true";
 			if($type !== "clearAllLogs")
