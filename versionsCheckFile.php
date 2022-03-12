@@ -1,7 +1,7 @@
 <?php
 
 $versionCheckArray = array(
-	'version'		=> '8.3.5',
+	'version'		=> '8.3.6',
 	'versionList'		=> array(
 		'2.0.1'	        => array(
 			'branchName'	=> '2.0.1Update',
@@ -394,6 +394,13 @@ $versionCheckArray = array(
 			'installSize'   => 9984090,
 			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/8.3.png',
 			'releaseNotes'	=> "<ul><li>Features<ul><li>More settings changes to make for easier readability and small settings added</li><li>Added Update to modue list so it can be disabled or enabled</li><li>If log load type is poll, loading now shows as percentage (with option to keep line count as setting)</li></ul></li><li>Bug Fixes<ul><li>Clearning all notifications also clears notifications out of inline notification queue</li><li>Auto check for update request not updating after initial ajax request</li><li>Padding issue on quick settings panel</li><li>Fixed bug with saving some settings throwing an error when no error occurred</li><li>Changing setting for show group dropdown in header now updates properly without a refresh</li><li>Fixed possible bug with session trying to start twice</li><li>Error page now loads config file correctly</li><li>Restore page load correctly</li><li>Fixed scroll and resize behaviour of form text banner</li><li>Updater now creates folders when needed without using upgrade scripts</li><li>Removed unneeded files from loading if settings is set to be external</li></ul></li></ul>"
+		),
+		'8.3.6'			=> array(
+			'branchName'	=> '8.3.6Update',
+			'downloadSize'  => 496252,
+			'installSize'   => 9984090,
+			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/8.3.png',
+			'releaseNotes'	=> "<ul><li>Features<ul><li>Changes to changelog display</li><li>More minor changes to settings</li></ul></li><li>Bug Fixes<ul><li>Notifications<ul><li>Removed preview link from update notificaion</li><li>Fixed style issues on notification fullscreen page</li><li>Full screen notification page resize correctly closes notification preview</li><li>New notifications will not close out of the notification preview window if open</li></ul></li><li>Multi-Log<ul><li>Fixed loading issue when multi-log is disabled</li><li>Firefox scrollbar width is now better for log sidebar menu</li><li>Fixed issue with log sidebar menu when set to display at bottom</li><li>Fixed issue with log sidebar display on load when using multi-log on firefox</li><li>Fixed issue with resizing window and the position of the log sidebar menu</li><li>Fixed firefox bug where it would ignore user setting for loading last window layout on reload</li></ul></li><li>Settings<ul><li>Fixed firefox bug with refreshing settings pages keeping previous values</li><li>Fixed bug where update page in full-screen menu could still be accessed when updater is disabled by setting full-screen menu default page to be the update page </li><li>Fixed a bug where settings tabs were still visible when the parent module was disabled</li><li>Switching between settings tabs in the full-screen menu, the changes not saved popup functions correctly when clicking the yes option</li><li>Switching between settings tabs on the external settings page now works and shows popup when there are changes</li></ul></li><li>About headers on external page now scroll like on index</li><li>Fixed bug where lazy load images could try to load more than once</li><li>Fixed bug where iframes src would change unnecessarily</li><li>Fixed a bug where it was possible to add a watchlist item of type folder when in the add file popup</li><li>Added a better popup error message when clearing / deleting a log fails because of permissions</li><li>Individual file delete action should now work as expected</li><li>Title flash ignores initial loading of logs and only starts after Log-Hog is fully loaded</li></ul></li></ul>"
 		),
 	)
 );
