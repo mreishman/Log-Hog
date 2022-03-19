@@ -11,7 +11,14 @@ function poll()
 		}
 		if(refreshing)
 		{
-			updateDocumentTitle("Refreshing");
+			if(firstLoad)
+			{
+				updateDocumentTitle("Loading Logs");
+			}
+			else
+			{
+				updateDocumentTitle("Refreshing");
+			}
 		}
 		else
 		{
@@ -1060,13 +1067,6 @@ function update(data)
 										atLeastOneLogUpdate = true;
 									}
 								}
-							}
-						}
-						if(initialized && updated && $(window).filter(":focus").length === 0)
-						{
-							if(flashTitleUpdateLog === "true")
-							{
-								flashTitle();
 							}
 						}
 						updateLogTitle(id);

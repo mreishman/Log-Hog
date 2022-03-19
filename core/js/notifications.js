@@ -358,19 +358,32 @@ function updateNotificationCount()
 		{
 			return;
 		}
+
 		$("#notificationBadge").empty();
 		document.getElementById("notificationIcon").style.display = "block";
 		$("#notificationBadge").append(currentCount);
 		$("#mainMenuNotificationsText").html("Notifications ("+currentCount+")");
 		resizeNotificationCounter();
+		updateDocumentTitle(false);
+		if(flashTitleUpdateLog === "true" && typeof flashTitle === 'function')
+		{
+			flashTitle();
+		}
 	}
 	else
 	{
-		if($("#notificationBadge").html() !== "")
+		if($("#notificationBadge").html() === "")
 		{
-			$("#notificationBadge").empty();
-			$("#mainMenuNotificationsText").html("Notifications");
-			document.getElementById("notificationIcon").style.display = "none";
+			return;
+		}
+
+		$("#notificationBadge").empty();
+		$("#mainMenuNotificationsText").html("Notifications");
+		document.getElementById("notificationIcon").style.display = "none";
+		updateDocumentTitle(false);
+		if(flashTitleUpdateLog === "true" && typeof flashTitle === 'function')
+		{
+			stopFlashTitle();
 		}
 	}
 }
