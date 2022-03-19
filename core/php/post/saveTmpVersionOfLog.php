@@ -47,6 +47,11 @@ else
 {
 	//tmp log logic
 	//get list of files in folder that start with fileName.
+	if (!is_dir("../../../".$location))
+	{
+		mkdir("../../../".$location, 0777, true);
+	}
+
 	$scannedDir = scandir("../../../".$location);
 	if(!is_array($scannedDir))
 	{

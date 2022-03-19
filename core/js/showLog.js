@@ -128,7 +128,7 @@ function showPartThree(e, internalID, currentCurrentSelectWindow)
 		$("#log"+currentCurrentSelectWindow+"load").hide();
 		let showButton = true;
 		let currentData = getFileDataKeyFromLogId(internalID);
-		if(typeof logs[internalID] !== "object" && logs[internalID].split("\n").length >= parseInt(fileData[currentData]["lineCount"]))
+		if(fileData[currentData] === undefined || (typeof logs[internalID] !== "object" && logs[internalID].split("\n").length >= parseInt(fileData[currentData]["lineCount"])))
 		{
 			showButton = false;
 		}
