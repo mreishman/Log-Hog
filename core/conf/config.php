@@ -344,7 +344,6 @@ $defaultConfig = array(
 	'notificationNewLogHighlight'	=> 'true',
 	'notificationNewLogBadge'		=> 'true',
 	'notificationNewLogDropdown'	=> 'true',
-	'notificationPreviewHeight'		=> 100,
 	'notificationPreviewHideWidth'	=> 'true',
 	'notificationPreviewLineCount'	=> 50,
 	'notificationPreviewOnlyNew'	=> 'false',

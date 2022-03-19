@@ -117,12 +117,7 @@ function previewNotification(logId)
 	{
 		logTextToShow += "\n"+tmpLogText[tltc];
 	}
-	let modifier = "";
-	if(window.innerWidth < breakPointTwo)
-	{
-		modifier = "style=\"max-height: "+notificationPreviewHeight+"px;\"";
-	}
-	document.getElementById("notificationHolderRight").innerHTML = "<div "+modifier+" class=\"notificationPreviewLog\" ><table width=\"100%\" style=\"border-spacing: 0;\" >" + makePrettyWithText(logTextToShow, 0) + "</table></div>";
+	document.getElementById("notificationHolderRight").innerHTML = "<div class=\"notificationPreviewLog\" ><table width=\"100%\" style=\"border-spacing: 0;\" >" + makePrettyWithText(logTextToShow, 0) + "</table></div>";
 
 	logicForPreviewContent();
 	

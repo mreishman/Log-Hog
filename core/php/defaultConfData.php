@@ -2354,22 +2354,13 @@ $defaultConfigMoreData = array(
 					0									=> array(
 						"type"								=>	"single",
 						"var"								=>	array(
-							"key"								=>	"notificationPreviewHeight",
-							"name"								=>	"Notification Log Preview Max Height",
-							"options"							=>	$oneLogLogMaxHeightArr,
-							"type"								=>	"dropdown"
-						)
-					),
-					1									=> array(
-						"type"								=>	"single",
-						"var"								=>	array(
 							"key"								=>	"notificationPreviewOnlyNew",
 							"name"								=>	"Only show most recent new lines in preview",
 							"options"							=>	$trueFalsVars,
 							"type"								=>	"dropdown"
 						)
 					),
-					2									=> array(
+					1									=> array(
 						"type"								=>	"single",
 						"var"								=>	array(
 							"key"								=>	"notificationPreviewLineCount",
@@ -2377,7 +2368,7 @@ $defaultConfigMoreData = array(
 							"type"								=>	"number"
 						)
 					),
-					3									=> array(
+					2									=> array(
 						"type"								=>	"single",
 						"var"								=>	array(
 							"key"								=>	"notificationPreviewHideWidth",
