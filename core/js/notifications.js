@@ -333,9 +333,12 @@ function removeNotification(idToRemove)
 		{
 			var logId = notifications[idToRemove]["log"];
 			removeRemoveAlertRightClickMenuOption(logId);
-			document.getElementById(logId).classList.remove("updated");
-			document.getElementById(logId+"Count").innerHTML = "";
-			document.getElementById(logId+"CountHidden").innerHTML = "";
+			if(document.getElementById(logId))
+			{
+				document.getElementById(logId).classList.remove("updated");
+				document.getElementById(logId+"Count").innerHTML = "";
+				document.getElementById(logId+"CountHidden").innerHTML = "";
+			}
 		}
 		notifications.splice(idToRemove, 1);
 	}
