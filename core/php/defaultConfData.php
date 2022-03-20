@@ -313,6 +313,11 @@ $fullScreenMenuGroups = array(
 		"display"	=>	($enableMultiLog === "true"),
 		"subGroups"	=> array()
 	),
+	"notifications"	=> array (
+		"name"		=> "Notifications",
+		"display"	=>	true,
+		"subGroups"	=> array()
+	),
 	"advanced"	=> array (
 		"name"		=> "Advanced",
 		"display"	=>	true,
@@ -2144,11 +2149,11 @@ $defaultConfigMoreData = array(
 		"name"								=>	"Notification Settings ",
 		"menu"								=> 	array(
 			"groups"							=>	array(
-				"main"
+				"notifications"
 			),
 			"id"								=>	"settingsMainNotifications",
 			"display"							=>	true,
-			"name"								=>	"Notifications"
+			"name"								=>	"General"
 		),
 		"vars"								=> array(
 			0									=>	array(
@@ -2195,113 +2200,6 @@ $defaultConfigMoreData = array(
 				)
 			),
 			2									=> array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"updateNotificationEnabled",
-					"name"								=>	"Show Update Notification",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				)
-			),
-			3									=>	array(
-				"bool"								=>	($notificationNewLine == 'false'),
-				"id"								=>	"notificationNewLineSettings",
-				"name"								=>	"New Line Notification Settings",
-				"type"								=>	"grouped",
-				"var"								=>	array(
-					"function"							=>	"showOrHidenotificationNewLineSettings",
-					"id"								=>	"notificationNewLine",
-					"key"								=>	"notificationNewLine",
-					"name"								=>	"Show New Line Notification",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				),
-				"vars"								=>	array(
-					0									=> array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"key"								=>	"notificationNewLineHighlight",
-							"name"								=>	"Highlight Label",
-							"options"							=>	$trueFalsVars,
-							"type"								=>	"dropdown"
-						)
-					),
-					1									=> array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"key"								=>	"notificationNewLineBadge",
-							"name"								=>	"Update Badge",
-							"options"							=>	$trueFalsVars,
-							"type"								=>	"dropdown"
-						)
-					),
-					2									=> array(
-						"info"								=>	"Will be overridden by show dropdown alert setting if false, wont if true",
-						"type"								=>	"single",
-						"var"								=>	array(
-							"key"								=>	"notificationNewLineDropdown",
-							"name"								=>	"Show Dropdown",
-							"options"							=>	$trueFalsVars,
-							"type"								=>	"dropdown"
-						)
-					)
-				)
-			),
-			4									=>	array(
-				"bool"								=>	($notificationNewLog == 'false'),
-				"id"								=>	"notificationNewLogSettings",
-				"name"								=>	"New Log Notification Settings",
-				"type"								=>	"grouped",
-				"var"								=>	array(
-					"function"							=>	"showOrHidenotificationNewLogSettings",
-					"id"								=>	"notificationNewLog",
-					"key"								=>	"notificationNewLog",
-					"name"								=>	"Show New Log Notification",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				),
-				"vars"								=>	array(
-					0									=> array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"key"								=>	"notificationNewLogHighlight",
-							"name"								=>	"Highlight Label",
-							"options"							=>	$trueFalsVars,
-							"type"								=>	"dropdown"
-						)
-					),
-					1									=> array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"key"								=>	"notificationNewLogBadge",
-							"name"								=>	"Update Badge",
-							"options"							=>	$trueFalsVars,
-							"type"								=>	"dropdown"
-						)
-					),
-					2									=> array(
-						"info"								=>	"Will be overridden by show dropdown alert setting if false, wont if true",
-						"type"								=>	"single",
-						"var"								=>	array(
-							"key"								=>	"notificationNewLogDropdown",
-							"name"								=>	"Show Dropdown",
-							"options"							=>	$trueFalsVars,
-							"type"								=>	"dropdown"
-						)
-					)
-				)
-			),
-			5									=>	array(
-				"info"								=>	"If a log tab is not visible (either below of above scroll area), a bar will flash as notification",
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"offscreenLogNotify",
-					"name"								=>	"Show notification for offscreen log tabs",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				)
-			),
-			6									=> array(
 				"info"								=>	"Only shows count of notifications that were not viewed",
 				"type"								=>	"single",
 				"var"								=>	array(
@@ -2311,7 +2209,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			7									=> array(
+			3									=> array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"notificationGroupType",
@@ -2330,7 +2228,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			8									=>	array(
+			4									=>	array(
 				"bool"								=>	($notificationPreviewShow == 'false'),
 				"id"								=>	"notificationPreviewSettings",
 				"name"								=>	"Notification Log Preview Settings",
@@ -2372,7 +2270,7 @@ $defaultConfigMoreData = array(
 					)
 				)
 			),
-			9									=>	array(
+			5									=>	array(
 				"bool"								=>	($notificationInlineShow == 'false'),
 				"id"								=>	"notificationInlineSettings",
 				"name"								=>	"Notification Inline Settings",
@@ -2447,6 +2345,127 @@ $defaultConfigMoreData = array(
 					),
 				)
 			),
+		)
+	),
+"notificationTypes"					=>	array(
+		"id"								=>	"settingsNotificationTypes",
+		"name"								=>	"Notification Type Settings ",
+		"menu"								=> 	array(
+			"groups"							=>	array(
+				"notifications"
+			),
+			"id"								=>	"settingsTypeNotifications",
+			"display"							=>	true,
+			"name"								=>	"Types"
+		),
+		"vars"								=> array(
+			0									=> array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"updateNotificationEnabled",
+					"name"								=>	"Show Update Notification",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			1									=>	array(
+				"bool"								=>	($notificationNewLine == 'false'),
+				"id"								=>	"notificationNewLineSettings",
+				"name"								=>	"New Line Notification Settings",
+				"type"								=>	"grouped",
+				"var"								=>	array(
+					"function"							=>	"showOrHidenotificationNewLineSettings",
+					"id"								=>	"notificationNewLine",
+					"key"								=>	"notificationNewLine",
+					"name"								=>	"Show New Line Notification",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				),
+				"vars"								=>	array(
+					0									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"notificationNewLineHighlight",
+							"name"								=>	"Highlight Label",
+							"options"							=>	$trueFalsVars,
+							"type"								=>	"dropdown"
+						)
+					),
+					1									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"notificationNewLineBadge",
+							"name"								=>	"Update Badge",
+							"options"							=>	$trueFalsVars,
+							"type"								=>	"dropdown"
+						)
+					),
+					2									=> array(
+						"info"								=>	"Will be overridden by show dropdown alert setting if false, wont if true",
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"notificationNewLineDropdown",
+							"name"								=>	"Show Dropdown",
+							"options"							=>	$trueFalsVars,
+							"type"								=>	"dropdown"
+						)
+					)
+				)
+			),
+			2									=>	array(
+				"bool"								=>	($notificationNewLog == 'false'),
+				"id"								=>	"notificationNewLogSettings",
+				"name"								=>	"New Log Notification Settings",
+				"type"								=>	"grouped",
+				"var"								=>	array(
+					"function"							=>	"showOrHidenotificationNewLogSettings",
+					"id"								=>	"notificationNewLog",
+					"key"								=>	"notificationNewLog",
+					"name"								=>	"Show New Log Notification",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				),
+				"vars"								=>	array(
+					0									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"notificationNewLogHighlight",
+							"name"								=>	"Highlight Label",
+							"options"							=>	$trueFalsVars,
+							"type"								=>	"dropdown"
+						)
+					),
+					1									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"notificationNewLogBadge",
+							"name"								=>	"Update Badge",
+							"options"							=>	$trueFalsVars,
+							"type"								=>	"dropdown"
+						)
+					),
+					2									=> array(
+						"info"								=>	"Will be overridden by show dropdown alert setting if false, wont if true",
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"notificationNewLogDropdown",
+							"name"								=>	"Show Dropdown",
+							"options"							=>	$trueFalsVars,
+							"type"								=>	"dropdown"
+						)
+					)
+				)
+			),
+			3									=>	array(
+				"info"								=>	"If a log tab is not visible (either below of above scroll area), a bar will flash as notification",
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"offscreenLogNotify",
+					"name"								=>	"Show notification for offscreen log tabs",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			)
 		)
 	),
 	"oneLogVars"						=>	array(
