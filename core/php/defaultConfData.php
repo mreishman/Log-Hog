@@ -1140,6 +1140,24 @@ $defaultConfigMoreData = array(
 							"type"								=>	"dropdown"
 						)
 					),
+					6									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"logFormatFileHideError",
+							"name"								=>	"Hide Error if line is no longer in file",
+							"options"							=>	$trueFalsVars,
+							"type"								=>	"dropdown"
+						)
+					),
+					7									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"logFormatFileHideReadError",
+							"name"								=>	"Hide Error if file is present but not readable",
+							"options"							=>	$trueFalsVars,
+							"type"								=>	"dropdown"
+						)
+					),
 				)
 			),
 			5									=>	array(
