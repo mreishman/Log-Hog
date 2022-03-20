@@ -2237,7 +2237,7 @@ $defaultConfigMoreData = array(
 					"function"							=>	"showOrHideNotificationPreviewSettings",
 					"id"								=>	"notificationPreviewShow",
 					"key"								=>	"notificationPreviewShow",
-					"name"								=>	"Show Log Preview in Notification",
+					"name"								=>	"Show Log Preview Action in Notification",
 					"options"							=>	$trueFalsVars,
 					"type"								=>	"dropdown"
 				),
