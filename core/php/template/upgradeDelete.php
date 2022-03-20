@@ -62,6 +62,7 @@ if($totalCountOfFilesToDelete < 1)
 		<span id="titleHeader" >
 			<h1>Removing old Log-Hog files...</h1>
 			<p>This may take a few min</p>
+			<progress id="progressBar" value="0" max="100"></progress>
 		</span>
 	</div>
 	<div class="settingsDiv" >

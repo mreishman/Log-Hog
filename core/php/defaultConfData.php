@@ -362,18 +362,11 @@ $defaultConfigMoreData = array(
 			4									=>	array(
 				"type"								=>	"action",
 				"var"								=>	array(
-					"name"								=>	"View Files",
-					"href"								=>	$settingsUrlModifier."settings/editFiles.php"
-				)
-			),
-			5									=>	array(
-				"type"								=>	"action",
-				"var"								=>	array(
 					"name"								=>	"View restore options for config",
 					"onClick"							=>	"showConfigPopup();"
 				)
 			),
-			6									=>	array(
+			5									=>	array(
 				"type"								=>	"action",
 				"var"								=>	array(
 					"name"								=>	"Clear Backup Config Files",
@@ -381,7 +374,7 @@ $defaultConfigMoreData = array(
 					"outerId"							=>	"showConfigClearButton"
 				)
 			),
-			7									=>	array(
+			6									=>	array(
 				"type"								=>	"action",
 				"var"								=>	array(
 					"name"								=>	"Reset Settings back to Default",

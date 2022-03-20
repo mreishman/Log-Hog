@@ -31,6 +31,7 @@ function updateCount()
 	document.getElementById("verifyCount").innerHTML = currentFile;
 	document.getElementById("runLoad").style.display = "block";
 	document.getElementById("verifyLoad").style.display = "none";
+	document.getElementById("progressBar").value = (currentFile/(totalCountOfFilesToDelete + 1)) * 100;
 }
 
 function removeMain(dataSend)
