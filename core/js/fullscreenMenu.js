@@ -716,7 +716,7 @@ function resizeFullScreenMenu()
 			mainContentFullScreenMenuLeft = "52";
 			if(sideBarVisible)
 			{
-				mainContentFullScreenMenuTop = "88px";
+				mainContentFullScreenMenuTop = "158px";
 			}
 			$(".settingsUlSub").css("width","auto").css("bottom","auto").css("right","0").addClass("addBorderBottom").removeClass("addBorderRight").css("height","105px");
 			$(".settingsUlSub li").not(".subMenuToggle, .hiddenMenu").css("display","inline-block");
