@@ -257,7 +257,11 @@ class settingsInstallUpdate
 
 		for($i = 0; $i < $sizeCurrentFileArray - 1; $i++)
 		{
-		  $directoryPath .= $currentFileArray[$i]."/";
+			$directoryPath .= $currentFileArray[$i]."/";
+			if (!file_exists($varToIndexDir.$directoryPath))
+			{
+				mkdir($varToIndexDir.$directoryPath, 0777, true);
+			}
 		}
 
 		$newFile = $directoryPath.$nameOfFile;
