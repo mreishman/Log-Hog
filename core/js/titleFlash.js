@@ -2,13 +2,12 @@ var flasher = null;
 
 function flashTitle() //needed for file check
 {
-	if (flasher !== null || firstLoad === true)
+	if (flasher !== null)
 	{
 		return;
 	}
 	try
 	{
-		stopFlashTitle();
 		$("title").text("");
 		flasher = setInterval(function() {
 			$("title").text($("title").text() === "" ? title : "");

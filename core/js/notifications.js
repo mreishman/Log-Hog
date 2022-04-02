@@ -117,12 +117,7 @@ function previewNotification(logId)
 	{
 		logTextToShow += "\n"+tmpLogText[tltc];
 	}
-	let modifier = "";
-	if(window.innerWidth < breakPointTwo)
-	{
-		modifier = "style=\"max-height: "+notificationPreviewHeight+"px;\"";
-	}
-	document.getElementById("notificationHolderRight").innerHTML = "<div "+modifier+" class=\"notificationPreviewLog\" ><table width=\"100%\" style=\"border-spacing: 0;\" >" + makePrettyWithText(logTextToShow, 0) + "</table></div>";
+	document.getElementById("notificationHolderRight").innerHTML = "<div class=\"notificationPreviewLog\" ><table width=\"100%\" style=\"border-spacing: 0;\" >" + makePrettyWithText(logTextToShow, 0) + "</table></div>";
 
 	logicForPreviewContent();
 	
@@ -333,9 +328,12 @@ function removeNotification(idToRemove)
 		{
 			var logId = notifications[idToRemove]["log"];
 			removeRemoveAlertRightClickMenuOption(logId);
-			document.getElementById(logId).classList.remove("updated");
-			document.getElementById(logId+"Count").innerHTML = "";
-			document.getElementById(logId+"CountHidden").innerHTML = "";
+			if(document.getElementById(logId))
+			{
+				document.getElementById(logId).classList.remove("updated");
+				document.getElementById(logId+"Count").innerHTML = "";
+				document.getElementById(logId+"CountHidden").innerHTML = "";
+			}
 		}
 		notifications.splice(idToRemove, 1);
 	}
@@ -355,19 +353,32 @@ function updateNotificationCount()
 		{
 			return;
 		}
+
 		$("#notificationBadge").empty();
 		document.getElementById("notificationIcon").style.display = "block";
 		$("#notificationBadge").append(currentCount);
 		$("#mainMenuNotificationsText").html("Notifications ("+currentCount+")");
 		resizeNotificationCounter();
+		updateDocumentTitle(false);
+		if(flashTitleUpdateLog === "true" && typeof flashTitle === 'function')
+		{
+			flashTitle();
+		}
 	}
 	else
 	{
-		if($("#notificationBadge").html() !== "")
+		if($("#notificationBadge").html() === "")
 		{
-			$("#notificationBadge").empty();
-			$("#mainMenuNotificationsText").html("Notifications");
-			document.getElementById("notificationIcon").style.display = "none";
+			return;
+		}
+
+		$("#notificationBadge").empty();
+		$("#mainMenuNotificationsText").html("Notifications");
+		document.getElementById("notificationIcon").style.display = "none";
+		updateDocumentTitle(false);
+		if(flashTitleUpdateLog === "true" && typeof flashTitle === 'function')
+		{
+			stopFlashTitle();
 		}
 	}
 }

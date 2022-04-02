@@ -106,7 +106,7 @@ function archiveListActions(data, defaultText = "", type)
 			{
 				htmlForActionList += "<a class=\"linkSmall\" onclick=\"viewArchiveLog('"+escapeTheEscapes(data[historyKeys[historyKey]])+"', '"+type+"')\" >View</a> ";
 			}
-			htmlForActionList += " <a onclick=\"deleteArchiveLog('"+data[historyKeys[historyKey]]+"','archive')\" class=\"linkSmall\" >Delete</a></td></tr>";
+			htmlForActionList += " <a onclick=\"deleteArchiveLog('"+data[historyKeys[historyKey]]+"','"+type+"')\" class=\"linkSmall\" >Delete</a></td></tr>";
 		}
 	}
 	htmlForActionList += "</table>";

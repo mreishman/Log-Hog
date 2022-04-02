@@ -20,5 +20,17 @@ if($dirType !== "archive")
 	$folder = "loghogBackupHistoryLogs";
 }
 $fileName = $_POST['file'];
-require_once("../../../tmp/".$folder."/".$fileName);
-echo json_encode($logData);
+if (strpos($fileName, "../") || strpos($fileName, "..\\"))
+{
+	echo json_encode(array("error" => 18));
+	exit();
+}
+if (strpos($fileName, ".php"))
+{
+	require_once("../../../tmp/".$folder."/".$fileName);
+	echo json_encode($logData);
+}
+else
+{
+	echo file_get_contents("../../../tmp/".$folder."/".$fileName);
+}

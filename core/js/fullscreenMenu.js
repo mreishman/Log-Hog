@@ -278,14 +278,16 @@ function toggleThemesIframeSource(showOrHide)
 	{
 		let newSrc = "core/html/iframe.html";
 		let oldSrc = arrayOfIframesForThemes[counterOfIframeThemes].getAttribute("src");
-		if (!oldSrc)
-		{
-			continue;
-		}
+
 		if(showOrHide)
 		{
 			newSrc = arrayOfIframesForThemes[counterOfIframeThemes].getAttribute("data-src");
 		}
+		else if (!oldSrc)
+		{
+			continue;
+		}
+		
 
 		if(!oldSrc.endsWith(newSrc))
 		{
@@ -714,17 +716,18 @@ function resizeFullScreenMenu()
 			mainContentFullScreenMenuLeft = "52";
 			if(sideBarVisible)
 			{
-				mainContentFullScreenMenuTop = "88px";
+				mainContentFullScreenMenuTop = "158px";
 			}
-			$(".settingsUlSub").css("width","auto").css("bottom","auto").css("right","0").addClass("addBorderBottom").removeClass("addBorderRight").css("height","35px");
+			$(".settingsUlSub").css("width","auto").css("bottom","auto").css("right","0").addClass("addBorderBottom").removeClass("addBorderRight").css("height","105px");
 			$(".settingsUlSub li").not(".subMenuToggle, .hiddenMenu").css("display","inline-block");
-			$(".menuTitle").not(".menuBreak , .fullScreenNotificationTitle").hide();
+			$("#settingsSubMenu .menuTitle").not(".menuBreak , .fullScreenNotificationTitle").css("display","block");
+			$("#settingsSubMenu .menuTitle").not(".menuBreak , .fullScreenNotificationTitle , .subMenuTitle").hide();
 		}
 		else
 		{
 			$(".settingsUlSub").css("width","200px").css("bottom","0").css("right","auto").removeClass("addBorderBottom").addClass("addBorderRight").css("height","auto");
 			$(".settingsUlSub li").not(".subMenuToggle, .hiddenMenu").css("display","block");
-			$(".menuTitle").not(".fullScreenMenuText, .hiddenMenu").show();
+			$("#settingsSubMenu .menuTitle").not(".fullScreenMenuText, .hiddenMenu").css("display","block");
 			toggleAddonAppsMenuText();
 		}
 

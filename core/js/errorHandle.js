@@ -7,9 +7,16 @@ function handleError(urlModifier, data, file)
     }
     if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
     {
-        data = JSON.parse(data);
-        window.location.href = urlModifier + "error.php?error="+data["error"]+"&page=" + file;
-        return true;
+        try
+        {
+            data = JSON.parse(data);
+            window.location.href = urlModifier + "error.php?error="+data["error"]+"&page=" + file;
+            return true;
+        }
+        catch (error)
+        {
+            console.log(error);
+        }
     }
     return false;
 }

@@ -232,6 +232,66 @@ for($CDFVcount = 0; $CDFVcount < 10; $CDFVcount++)
 	$CDFVExternalCounter++;
 }
 
+$leftMod = array(
+	0 									=> array(
+		"value" 							=> "(",
+		"name" 								=> "("),
+	1 									=> array(
+		"value" 							=> "[",
+		"name" 								=> "["),
+	2 									=> array(
+		"value" 							=> "|",
+		"name" 								=> "|"),
+	3 									=> array(
+		"value"								=> ":",
+		"name" 								=> ":"),
+	4 									=> array(
+		"value"								=> "-",
+		"name" 								=> "-"),
+	5									=> array(
+		"value"								=> "::",
+		"name" 								=> "::"),
+	6									=> array(
+		"value"								=> "@",
+		"name" 								=> "@"),
+	7 									=> array(
+		"value"								=> " ",
+		"name" 								=> "Space"),
+	8 									=> array(
+		"value"								=> "none",
+		"name" 								=> "None")
+);
+
+$rightMod = array(
+	0 									=> array(
+		"value" 							=> ")",
+		"name" 								=> ")"),
+	1 									=> array(
+		"value" 							=> "]",
+		"name" 								=> "]"),
+	2 									=> array(
+		"value" 							=> "|",
+		"name" 								=> "|"),
+	3 									=> array(
+		"value"								=> ":",
+		"name" 								=> ":"),
+	4 									=> array(
+		"value"								=> "-",
+		"name" 								=> "-"),
+	5									=> array(
+		"value"								=> "::",
+		"name" 								=> "::"),
+	6									=> array(
+		"value"								=> "@",
+		"name" 								=> "@"),
+	7 									=> array(
+		"value"								=> " ",
+		"name" 								=> "Space"),
+	8 									=> array(
+		"value"								=> "none",
+		"name" 								=> "None")
+);
+
 $fullScreenMenuGroups = array(
 	"main"	=> array (
 		"name"		=> "Main",
@@ -251,6 +311,11 @@ $fullScreenMenuGroups = array(
 	"multilog"	=> array (
 		"name"		=> "Multi-Log",
 		"display"	=>	($enableMultiLog === "true"),
+		"subGroups"	=> array()
+	),
+	"notifications"	=> array (
+		"name"		=> "Notifications",
+		"display"	=>	true,
 		"subGroups"	=> array()
 	),
 	"advanced"	=> array (
@@ -302,18 +367,11 @@ $defaultConfigMoreData = array(
 			4									=>	array(
 				"type"								=>	"action",
 				"var"								=>	array(
-					"name"								=>	"View Files",
-					"href"								=>	$settingsUrlModifier."settings/editFiles.php"
-				)
-			),
-			5									=>	array(
-				"type"								=>	"action",
-				"var"								=>	array(
 					"name"								=>	"View restore options for config",
 					"onClick"							=>	"showConfigPopup();"
 				)
 			),
-			6									=>	array(
+			5									=>	array(
 				"type"								=>	"action",
 				"var"								=>	array(
 					"name"								=>	"Clear Backup Config Files",
@@ -321,7 +379,7 @@ $defaultConfigMoreData = array(
 					"outerId"							=>	"showConfigClearButton"
 				)
 			),
-			7									=>	array(
+			6									=>	array(
 				"type"								=>	"action",
 				"var"								=>	array(
 					"name"								=>	"Reset Settings back to Default",
@@ -1082,6 +1140,24 @@ $defaultConfigMoreData = array(
 							"type"								=>	"dropdown"
 						)
 					),
+					6									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"logFormatFileHideError",
+							"name"								=>	"Hide Error if line is no longer in file",
+							"options"							=>	$trueFalsVars,
+							"type"								=>	"dropdown"
+						)
+					),
+					7									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"logFormatFileHideReadError",
+							"name"								=>	"Hide Error if file is present but not readable",
+							"options"							=>	$trueFalsVars,
+							"type"								=>	"dropdown"
+						)
+					),
 				)
 			),
 			5									=>	array(
@@ -1432,15 +1508,6 @@ $defaultConfigMoreData = array(
 		),
 		"vars"								=>	array(
 			0									=>	array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"flashTitleUpdateLog",
-					"name"								=>	"Flash title on log update",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				)
-			),
-			1									=>	array(
 				"info"								=>	"If a log updates, when the above value is true it will automatically switch to that log in the main view",
 				"type"								=>	"single",
 				"var"								=>	array(
@@ -1450,7 +1517,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			2									=>	array(
+			1									=>	array(
 				"bool"								=>	($scrollOnUpdate == 'false'),
 				"id"								=>	"scrollLogOnUpdateSettings",
 				"name"								=>	"Scroll Log On Update Settings",
@@ -1475,7 +1542,7 @@ $defaultConfigMoreData = array(
 					)
 				)
 			),
-			3									=>	array(
+			2									=>	array(
 				"bool"								=>	($highlightNew == 'false'),
 				"id"								=>	"highlightNewSettings",
 				"name"								=>	"Highlight New Lines Settings",
@@ -1688,35 +1755,7 @@ $defaultConfigMoreData = array(
 						"var"								=>	array(
 							"key"								=>	"logDiffCountLeftMod",
 							"name"								=>	"Left Mod",
-							"options"							=>	array(
-								0 									=> array(
-									"value" 							=> "(",
-									"name" 								=> "("),
-								1 									=> array(
-									"value" 							=> "[",
-									"name" 								=> "["),
-								2 									=> array(
-									"value" 							=> "|",
-									"name" 								=> "|"),
-								3 									=> array(
-									"value"								=> ":",
-									"name" 								=> ":"),
-								4 									=> array(
-									"value"								=> "-",
-									"name" 								=> "-"),
-								5									=> array(
-									"value"								=> "::",
-									"name" 								=> "::"),
-								6									=> array(
-									"value"								=> "@",
-									"name" 								=> "@"),
-								7 									=> array(
-									"value"								=> " ",
-									"name" 								=> "Space"),
-								8 									=> array(
-									"value"								=> "none",
-									"name" 								=> "None")
-							),
+							"options"							=>	$leftMod,
 							"type"								=>	"dropdown"
 						)
 					),
@@ -1725,35 +1764,7 @@ $defaultConfigMoreData = array(
 						"var"								=>	array(
 							"key"								=>	"logDiffCountRightMod",
 							"name"								=>	"Right Mod",
-							"options"							=>	array(
-								0 									=> array(
-									"value" 							=> ")",
-									"name" 								=> ")"),
-								1 									=> array(
-									"value" 							=> "]",
-									"name" 								=> "]"),
-								2 									=> array(
-									"value" 							=> "|",
-									"name" 								=> "|"),
-								3 									=> array(
-									"value"								=> ":",
-									"name" 								=> ":"),
-								4 									=> array(
-									"value"								=> "-",
-									"name" 								=> "-"),
-								5									=> array(
-									"value"								=> "::",
-									"name" 								=> "::"),
-								6									=> array(
-									"value"								=> "@",
-									"name" 								=> "@"),
-								7 									=> array(
-									"value"								=> " ",
-									"name" 								=> "Space"),
-								8 									=> array(
-									"value"								=> "none",
-									"name" 								=> "None")
-							),
+							"options"							=>	$rightMod,
 							"type"								=>	"dropdown"
 						)
 					)
@@ -2156,11 +2167,214 @@ $defaultConfigMoreData = array(
 		"name"								=>	"Notification Settings ",
 		"menu"								=> 	array(
 			"groups"							=>	array(
-				"main"
+				"notifications"
 			),
 			"id"								=>	"settingsMainNotifications",
 			"display"							=>	true,
-			"name"								=>	"Notifications"
+			"name"								=>	"General"
+		),
+		"vars"								=> array(
+			0									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"flashTitleUpdateLog",
+					"name"								=>	"Flash title when notifications",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			1									=>	array(
+				"bool"								=>	($notificationCountVisibleTitle == 'false'),
+				"id"								=>	"notificationCountVisibleTitleSettings",
+				"name"								=>	"Notification Window Title Count Settings",
+				"type"								=>	"grouped",
+				"var"								=>	array(
+					"function"							=>	"showOrHidenotificationCountVisible",
+					"id"								=>	"notificationCountVisibleTitle",
+					"key"								=>	"notificationCountVisibleTitle",
+					"name"								=>	"Show notification count in title of web page",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				),
+				"vars"								=>	array(
+					0									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"notificationTitleCountLeftMod",
+							"name"								=>	"Left Mod",
+							"options"							=>	$leftMod,
+							"type"								=>	"dropdown"
+						)
+					),
+					1									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"notificationTitleCountRightMod",
+							"name"								=>	"Right Mod",
+							"options"							=>	$rightMod,
+							"type"								=>	"dropdown"
+						)
+					)
+				)
+			),
+			2									=> array(
+				"info"								=>	"Only shows count of notifications that were not viewed",
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"notificationCountViewedOnly",
+					"name"								=>	"Notification Count only unviewed",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			3									=> array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"notificationGroupType",
+					"name"								=>	"Merge Like Log Notifications",
+					"options"							=>	array(
+						0 									=> array(
+							"value" 							=> "Never",
+							"name" 								=> "Never"),
+						1 									=> array(
+							"value" 							=> "OnlyRead",
+							"name" 								=> "Only Read"),
+						2									=> array(
+							"value" 							=> "Always",
+							"name" 								=> "Always")
+					),
+					"type"								=>	"dropdown"
+				)
+			),
+			4									=>	array(
+				"bool"								=>	($notificationPreviewShow == 'false'),
+				"id"								=>	"notificationPreviewSettings",
+				"name"								=>	"Notification Log Preview Settings",
+				"type"								=>	"grouped",
+				"var"								=>	array(
+					"function"							=>	"showOrHideNotificationPreviewSettings",
+					"id"								=>	"notificationPreviewShow",
+					"key"								=>	"notificationPreviewShow",
+					"name"								=>	"Show Log Preview Action in Notification",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				),
+				"vars"								=>	array(
+					0									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"notificationPreviewOnlyNew",
+							"name"								=>	"Only show most recent new lines in preview",
+							"options"							=>	$trueFalsVars,
+							"type"								=>	"dropdown"
+						)
+					),
+					1									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"notificationPreviewLineCount",
+							"name"								=>	"Max line count for log preview",
+							"type"								=>	"number"
+						)
+					),
+					2									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"notificationPreviewHideWidth",
+							"name"								=>	"Hide if small screen width",
+							"options"							=>	$trueFalsVars,
+							"type"								=>	"dropdown"
+						)
+					)
+				)
+			),
+			5									=>	array(
+				"bool"								=>	($notificationInlineShow == 'false'),
+				"id"								=>	"notificationInlineSettings",
+				"name"								=>	"Notification Inline Settings",
+				"type"								=>	"grouped",
+				"var"								=>	array(
+					"function"							=>	"showOrHideNotificationInlineSettings",
+					"id"								=>	"notificationInlineShow",
+					"key"								=>	"notificationInlineShow",
+					"name"								=>	"Show Notification Dropdown Alert",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				),
+				"vars"								=>	array(
+					0									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"notificationInlineLocation",
+							"name"								=>	"Location of notification",
+							"options"							=>	array(
+								0 									=> array(
+									"value" 							=> "center",
+									"name" 								=> "Center"),
+								1 									=> array(
+									"value" 							=> "topLeft",
+									"name" 								=> "Top Left"),
+								2									=> array(
+									"value" 							=> "topRight",
+									"name" 								=> "Top Right"),
+								3									=> array(
+									"value" 							=> "bottomLeft",
+									"name" 								=> "Bottom Left"),
+								4									=> array(
+									"value" 							=> "bottomRight",
+									"name" 								=> "Bottom Right")
+							),
+							"type"								=>	"dropdown"
+						)
+					),
+					1									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"notificationInlineButtonHover",
+							"name"								=>	"Show action buttons only after hover",
+							"options"							=>	$trueFalsVars,
+							"type"								=>	"dropdown"
+						)
+					),
+					2									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"notificationInlineDisplayTime",
+							"name"								=>	"Show notification for ",
+							"postText"							=>	" seconds",
+							"type"								=>	"number"
+						)
+					),
+					3									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"notificationInlineBGColor",
+							"name"								=>	"Background",
+							"type"								=>	"color"
+						)
+					),
+					4									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"notificationInlineFontColor",
+							"name"								=>	"Font",
+							"type"								=>	"color"
+						)
+					),
+				)
+			),
+		)
+	),
+"notificationTypes"					=>	array(
+		"id"								=>	"settingsNotificationTypes",
+		"name"								=>	"Notification Type Settings ",
+		"menu"								=> 	array(
+			"groups"							=>	array(
+				"notifications"
+			),
+			"id"								=>	"settingsTypeNotifications",
+			"display"							=>	true,
+			"name"								=>	"Types"
 		),
 		"vars"								=> array(
 			0									=> array(
@@ -2269,162 +2483,7 @@ $defaultConfigMoreData = array(
 					"options"							=>	$trueFalsVars,
 					"type"								=>	"dropdown"
 				)
-			),
-			4									=> array(
-				"info"								=>	"Only shows count of notifications that were not viewed",
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"notificationCountViewedOnly",
-					"name"								=>	"Notification Count only unviewed",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				)
-			),
-			5									=> array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"notificationGroupType",
-					"name"								=>	"Merge Like Log Notifications",
-					"options"							=>	array(
-						0 									=> array(
-							"value" 							=> "Never",
-							"name" 								=> "Never"),
-						1 									=> array(
-							"value" 							=> "OnlyRead",
-							"name" 								=> "Only Read"),
-						2									=> array(
-							"value" 							=> "Always",
-							"name" 								=> "Always")
-					),
-					"type"								=>	"dropdown"
-				)
-			),
-			6									=>	array(
-				"bool"								=>	($notificationPreviewShow == 'false'),
-				"id"								=>	"notificationPreviewSettings",
-				"name"								=>	"Notification Log Preview Settings",
-				"type"								=>	"grouped",
-				"var"								=>	array(
-					"function"							=>	"showOrHideNotificationPreviewSettings",
-					"id"								=>	"notificationPreviewShow",
-					"key"								=>	"notificationPreviewShow",
-					"name"								=>	"Show Log Preview in Notification",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				),
-				"vars"								=>	array(
-					0									=> array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"key"								=>	"notificationPreviewHeight",
-							"name"								=>	"Notification Log Preview Max Height",
-							"options"							=>	$oneLogLogMaxHeightArr,
-							"type"								=>	"dropdown"
-						)
-					),
-					1									=> array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"key"								=>	"notificationPreviewOnlyNew",
-							"name"								=>	"Only show most recent new lines in preview",
-							"options"							=>	$trueFalsVars,
-							"type"								=>	"dropdown"
-						)
-					),
-					2									=> array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"key"								=>	"notificationPreviewLineCount",
-							"name"								=>	"Max line count for log preview",
-							"type"								=>	"number"
-						)
-					),
-					3									=> array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"key"								=>	"notificationPreviewHideWidth",
-							"name"								=>	"Hide if small screen width",
-							"options"							=>	$trueFalsVars,
-							"type"								=>	"dropdown"
-						)
-					)
-				)
-			),
-			7									=>	array(
-				"bool"								=>	($notificationInlineShow == 'false'),
-				"id"								=>	"notificationInlineSettings",
-				"name"								=>	"Notification Inline Settings",
-				"type"								=>	"grouped",
-				"var"								=>	array(
-					"function"							=>	"showOrHideNotificationInlineSettings",
-					"id"								=>	"notificationInlineShow",
-					"key"								=>	"notificationInlineShow",
-					"name"								=>	"Show Notification Dropdown Alert",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				),
-				"vars"								=>	array(
-					0									=> array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"key"								=>	"notificationInlineLocation",
-							"name"								=>	"Location of notification",
-							"options"							=>	array(
-								0 									=> array(
-									"value" 							=> "center",
-									"name" 								=> "Center"),
-								1 									=> array(
-									"value" 							=> "topLeft",
-									"name" 								=> "Top Left"),
-								2									=> array(
-									"value" 							=> "topRight",
-									"name" 								=> "Top Right"),
-								3									=> array(
-									"value" 							=> "bottomLeft",
-									"name" 								=> "Bottom Left"),
-								4									=> array(
-									"value" 							=> "bottomRight",
-									"name" 								=> "Bottom Right")
-							),
-							"type"								=>	"dropdown"
-						)
-					),
-					1									=> array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"key"								=>	"notificationInlineButtonHover",
-							"name"								=>	"Show action buttons only after hover",
-							"options"							=>	$trueFalsVars,
-							"type"								=>	"dropdown"
-						)
-					),
-					2									=> array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"key"								=>	"notificationInlineDisplayTime",
-							"name"								=>	"Show notification for ",
-							"postText"							=>	" seconds",
-							"type"								=>	"number"
-						)
-					),
-					3									=>	array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"key"								=>	"notificationInlineBGColor",
-							"name"								=>	"Background",
-							"type"								=>	"color"
-						)
-					),
-					4									=>	array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"key"								=>	"notificationInlineFontColor",
-							"name"								=>	"Font",
-							"type"								=>	"color"
-						)
-					),
-				)
-			),
+			)
 		)
 	),
 	"oneLogVars"						=>	array(

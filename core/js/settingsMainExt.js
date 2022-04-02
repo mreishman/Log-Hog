@@ -84,7 +84,7 @@ function openSettingsSectionFromLink(id, className)
 	$(".mainMenuHeader." + className).addClass("active");
 	$(".settingsSecondaryHeaders").hide();
 
-	$(".settingsSecondaryHeaders." + className).show();
+	$(".settingsSecondaryHeaders." + className).not(".hiddenMenu").show();
 	if (id !== "")
 	{
 		$("#" + id + "Menu").click();

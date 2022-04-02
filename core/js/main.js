@@ -166,11 +166,25 @@ function updateLogTitle(id)
 
 function updateDocumentTitle(updateText)
 {
+	if (!updateText)
+	{
+		updateText = title;
+	}
 	try
 	{
-		if(document.title !== "Log Hog | "+updateText)
+		let notificationCount = getNotificationCount();
+		if(notificationCount > 0)
 		{
-			document.title = "Log Hog | "+updateText;
+			notificationCount = notificationTitleCountLeftMod + notificationCount + notificationTitleCountRightMod + " ";
+		}
+		else
+		{
+			notificationCount = "";
+		}
+		let newTitle = notificationCount + "Log Hog | "+updateText;
+		if(document.title !== newTitle)
+		{
+			document.title = newTitle;
 			title = updateText;
 		}
 	}
@@ -1386,10 +1400,6 @@ function checkIfPageHidden()
 		{
 			pausePollCurrentSession = false;
 			showPauseButton();
-			if(flashTitleUpdateLog === "true")
-			{
-				stopFlashTitle();
-			}
 			if(pollTimer === null)
 			{
 				poll();

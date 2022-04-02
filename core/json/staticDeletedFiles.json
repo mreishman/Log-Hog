@@ -166,5 +166,8 @@
 	{"fullPath":"settings\/header.php","type":"file"},
 	{"fullPath":"settings\/main.php","type":"file"},
 	{"fullPath":"settings\/whatsNew.php","type":"file"},
-	{"fullPath":"core\/php\/template\/whatsNew.php","type":"file"}
+	{"fullPath":"core\/php\/template\/whatsNew.php","type":"file"},
+	{"fullPath":"settings\/editFiles.php","type":"file"},
+	{"fullPath":"core\/js\/editFiles.js","type":"file"},
+	{"fullPath":"core\/php\/post\/returnFileContents.php","type":"file"}
 ]

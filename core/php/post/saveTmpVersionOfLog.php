@@ -36,8 +36,8 @@ foreach ($varsLoadLite as $varLoadLite)
 
 //load config data, check for history enabled / number for both archive & temp
 $location = $_POST['subFolder'];
-$fileName = implode("_DIR_", explode("/", $_POST["key"])).".php";
-$fileContents = "<?php $"."logData = ".json_encode($_POST["log"])."; ?>";
+$fileName = implode("_DIR_", explode("/", $_POST["key"])).".json";
+$fileContents = json_encode($_POST["log"]);
 $currentTimeStamp = date("Y-m-d-H-i-s");
 if($location === "loghogBackupArchiveLogs" && $saveArchiveLogLimit === "false")
 {
@@ -47,6 +47,11 @@ else
 {
 	//tmp log logic
 	//get list of files in folder that start with fileName.
+	if (!is_dir("../../../".$location))
+	{
+		mkdir("../../../".$location, 0777, true);
+	}
+
 	$scannedDir = scandir("../../../".$location);
 	if(!is_array($scannedDir))
 	{
