@@ -232,65 +232,8 @@ for($CDFVcount = 0; $CDFVcount < 10; $CDFVcount++)
 	$CDFVExternalCounter++;
 }
 
-$leftMod = array(
-	0 									=> array(
-		"value" 							=> "(",
-		"name" 								=> "("),
-	1 									=> array(
-		"value" 							=> "[",
-		"name" 								=> "["),
-	2 									=> array(
-		"value" 							=> "|",
-		"name" 								=> "|"),
-	3 									=> array(
-		"value"								=> ":",
-		"name" 								=> ":"),
-	4 									=> array(
-		"value"								=> "-",
-		"name" 								=> "-"),
-	5									=> array(
-		"value"								=> "::",
-		"name" 								=> "::"),
-	6									=> array(
-		"value"								=> "@",
-		"name" 								=> "@"),
-	7 									=> array(
-		"value"								=> " ",
-		"name" 								=> "Space"),
-	8 									=> array(
-		"value"								=> "none",
-		"name" 								=> "None")
-);
-
-$rightMod = array(
-	0 									=> array(
-		"value" 							=> ")",
-		"name" 								=> ")"),
-	1 									=> array(
-		"value" 							=> "]",
-		"name" 								=> "]"),
-	2 									=> array(
-		"value" 							=> "|",
-		"name" 								=> "|"),
-	3 									=> array(
-		"value"								=> ":",
-		"name" 								=> ":"),
-	4 									=> array(
-		"value"								=> "-",
-		"name" 								=> "-"),
-	5									=> array(
-		"value"								=> "::",
-		"name" 								=> "::"),
-	6									=> array(
-		"value"								=> "@",
-		"name" 								=> "@"),
-	7 									=> array(
-		"value"								=> " ",
-		"name" 								=> "Space"),
-	8 									=> array(
-		"value"								=> "none",
-		"name" 								=> "None")
-);
+$leftMod = json_decode(file_get_contents($core->baseURL()."core/json/leftMod.json"), true);
+$rightMod = json_decode(file_get_contents($core->baseURL()."core/json/rightMod.json"), true);
 
 $fullScreenMenuGroups = array(
 	"main"	=> array (
