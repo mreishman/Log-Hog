@@ -19,7 +19,7 @@ elseif($configStatic['version'] == '8.3.1') {
 }
 //update info
 $versionCheckArray = array(
-	'version'		=> '8.3.6',
+	'version'		=> '8.3.7',
 	'versionList'		=> array(
 		'2.0.1'	        => array(
 			'branchName'	=> '2.0.1Update',
@@ -607,6 +607,15 @@ $versionCheckArray = array(
 			'installSize'   => 10004231,
 			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/8.3.png',
 			'releaseNotes'	=> "<ul><li>Features<ul><li>Changes to changelog display</li><li>More minor changes to settings</li></ul></li><li>Bug Fixes<ul><li>Notifications<ul><li>Removed preview link from update notificaion</li><li>Fixed style issues on notification fullscreen page</li><li>Full screen notification page resize correctly closes notification preview</li><li>New notifications will not close out of the notification preview window if open</li></ul></li><li>Multi-Log<ul><li>Fixed loading issue when multi-log is disabled</li><li>Firefox scrollbar width is now better for log sidebar menu</li><li>Fixed issue with log sidebar menu when set to display at bottom</li><li>Fixed issue with log sidebar display on load when using multi-log on firefox</li><li>Fixed issue with resizing window and the position of the log sidebar menu</li><li>Fixed firefox bug where it would ignore user setting for loading last window layout on reload</li></ul></li><li>Settings<ul><li>Fixed firefox bug with refreshing settings pages keeping previous values</li><li>Fixed bug where update page in full-screen menu could still be accessed when updater is disabled by setting full-screen menu default page to be the update page </li><li>Fixed a bug where settings tabs were still visible when the parent module was disabled</li><li>Switching between settings tabs in the full-screen menu, the changes not saved popup functions correctly when clicking the yes option</li><li>Switching between settings tabs on the external settings page now works and shows popup when there are changes</li></ul></li><li>About headers on external page now scroll like on index</li><li>Fixed bug where lazy load images could try to load more than once</li><li>Fixed bug where iframes src would change unnecessarily</li><li>Fixed a bug where it was possible to add a watchlist item of type folder when in the add file popup</li><li>Added a better popup error message when clearing / deleting a log fails because of permissions</li><li>Individual file delete action should now work as expected</li><li>Title flash ignores initial loading of logs and only starts after Log-Hog is fully loaded</li></ul></li></ul>"
+		),
+		'8.3.7'			=> array(
+			'branchName'	=> '8.3.7Update',
+			'commits'	=> 3153,
+			'date'		=> '04/02/2022',
+			'downloadSize'  => 292640,
+			'installSize'   => 10005071,
+			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/8.3.png',
+			'releaseNotes'	=> "<ul><li>Features<ul><li>Added setting for notification count in browser window title</li><li>Added options to hide or show file link errors</li><li>Removed view files advanced action</li><li>Added progress bar to the delete old files page</li><li>More small settings changes</li></ul></li><li>Bug Fixes<ul><li>Archive<ul><li>Fixed a bug caused by trying to open some archived logs by changing save format to json</li><li>Delete of tmp saved archived logs works correctly now</li><li>Save log action now will create a dir if not already created</li><li>Fixed possible bug that happened when removing notifications for archived logs</li></ul></li><li>Fixed theme preview windows not loading correctly</li><li>Moved title flash to notifications section. Will flash title when notification is present fixing issue with previous logic</li><li>removed unused setting for max preview height</li><li>Fixed grouping display of settings in mobile view</li><li>File errors should not show line count anymore</li><li>Fixed bug where external settings page would show settings tabs that were disabled on initial load</li></ul></li></ul>"
 		),
 	)
 );
