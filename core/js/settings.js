@@ -773,3 +773,25 @@ function resetArrayObject(idOfForm)
 		console.log(e);
 	}
 }
+
+function generateExampleLogForStyle()
+{
+	let html = "<table style=\" background: " + $("#generalThemeOptions input[name=backgroundColor]").val() + "; \" >";
+	let length = exampleLogForCustomStyle.length;
+	for(let i = 0; i < length; i++)
+	{
+		html += "<tr><td style=\"font-family: " +
+		$("#generalThemeOptions select[name=fontFamily]").val() + 
+		"; color: "+
+		$("#generalThemeOptions input[name=logFontColor]").val() +
+		"; \" >" + exampleLogForCustomStyle[i] + "</td></tr>";
+	}
+	html += "</table>";
+	$("#exampleStyleLogSpan").html(html);
+}
+
+generateExampleLogForStyle();
+
+$("#generalThemeOptions input, #generalThemeOptions select").on("change", function() {
+	generateExampleLogForStyle();
+})

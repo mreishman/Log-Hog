@@ -235,6 +235,15 @@ for($CDFVcount = 0; $CDFVcount < 10; $CDFVcount++)
 $leftMod = json_decode(file_get_contents($core->baseURL()."core/json/leftMod.json"), true);
 $rightMod = json_decode(file_get_contents($core->baseURL()."core/json/rightMod.json"), true);
 
+$exampleLog = json_encode(explode("\n", file_get_contents($core->baseURL()."core/Themes/example.html")));
+
+$customStyleSectionLogs = "
+<div class=\"settingsHeader\">Example:</div>
+<div class=\"settingsDiv\"><div style=\"max-height: 300px; overflow: auto;\" id=\"exampleStyleLogSpan\"></span></div>
+<script>var exampleLogForCustomStyle = ".$exampleLog.";</script>
+";
+
+
 $fullScreenMenuGroups = array(
 	"main"	=> array (
 		"name"		=> "Main",
@@ -743,6 +752,10 @@ $defaultConfigMoreData = array(
 		),
 		"vars"								=>	array(
 			0									=>	array(
+				"custom"							=>	$customStyleSectionLogs,
+				"type"								=>	"custom"
+			),
+			1									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"backgroundColor",
@@ -750,21 +763,13 @@ $defaultConfigMoreData = array(
 					"type"								=>	"color"
 				)
 			),
-			1									=>	array(
+			2									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"fontFamily",
 					"name"								=>	"Font",
 					"options"							=>	json_decode(file_get_contents($core->baseURL()."core/json/fontChoices.json"), true),
 					"type"								=>	"dropdown"
-				)
-			),
-			2									=>	array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"mainFontColor",
-					"name"								=>	"Main Font Color",
-					"type"								=>	"color"
 				)
 			),
 			3									=>	array(
@@ -830,12 +835,20 @@ $defaultConfigMoreData = array(
 			7									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
+					"key"								=>	"mainFontColor",
+					"name"								=>	"Main Font Color",
+					"type"								=>	"color"
+				)
+			),
+			8									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
 					"key"								=>	"backgroundHeaderColor",
 					"name"								=>	"Header Background",
 					"type"								=>	"color"
 				)
 			),
-			8									=>	array(
+			9									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"invertMenuImages",
@@ -844,7 +857,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			9									=>	array(
+			10									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"overallBrightness",
@@ -853,7 +866,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			10									=>	array(
+			11									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"maxHeightLogTabs",
