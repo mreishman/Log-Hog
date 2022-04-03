@@ -43,7 +43,7 @@ $oneLogNum = array();
 $oneLogLogMaxHeightArr = array();
 for ($m=0; $m < 40; $m++)
 {
-	if($m >= 5)
+	if($m >= 5 && $m < 31)
 	{
 		$fontSizeVars[$m] = array(
 			"value" 					=> ($m*10),
@@ -1017,6 +1017,15 @@ $defaultConfigMoreData = array(
 							"info"								=>	"Only displays top timestamp when more than one in a row are same",
 							"key"								=>	"dateTextGroup",
 							"name"								=>	"Group Same Timestamps",
+							"options"							=>	$trueFalsVars,
+							"type"								=>	"dropdown"
+						)
+					),
+					4									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"dateTextBold",
+							"name"								=>	"Bold Timestamps",
 							"options"							=>	$trueFalsVars,
 							"type"								=>	"dropdown"
 						)

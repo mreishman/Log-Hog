@@ -59,6 +59,10 @@ function formatLine(text, extraData)
 	{
 		timeFormat = "";
 	}
+	else if (dateTextBold === "true")
+	{
+		timeFormat = "<b>" + timeFormat + "</b>";
+	}
 
 	let timePadding = "<td style=\"width: 2px;\" ></td>";
 	let timeTd = "<td style=\"white-space:nowrap;width: 1%;\">";

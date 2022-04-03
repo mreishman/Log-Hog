@@ -22,6 +22,7 @@ $defaultConfig = array(
 	'currentFolderColorTheme'		=> 'theme-default-2',
 	'currentTheme'					=> 'Default',
 	'currentThemeBase'				=> 'Default',
+	'dateTextBold'					=> 'true',
 	'dateTextFormat'				=> 'MM/|DD/|YYYY |hh:|mm:|ss',
 	'dateTextFormatColumn'			=> 'auto',
 	'dateTextFormatCustom'			=> '',
