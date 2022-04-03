@@ -6,89 +6,6 @@ function updateText(newValue)
 	document.getElementById(idToSubmitStatic+"ProgressBar").value = newValue;
 }
 
-function checkIfTopDirIsEmpty()
-{
-	updateText(10);
-	var urlForSend = urlForSendMain;
-	var data = {action: "checkIfDirIsEmpty", dir: "../../"+localFolderLocation+"/", formKey};
-	$.ajax({
-		url: urlForSend,
-		dataType: "json",
-		data,
-		type: "POST",
-		success(data)
-		{
-			let urlMod = "";
-			let countNum = urlForSendMain.split("../").length - 1;
-			for(let i = 0; i < countNum; i++)
-			{
-				urlMod += "../";
-			}
-			if(typeof data === "object"  && "error" in data)
-            {
-                window.location.href = urlMod + "error.php?error="+data["error"];
-            }
-			else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-            {
-            	data = JSON.parse(data);
-            	window.location.href = urlMod + "error.php?error="+data["error"];
-            }
-			if(data === true)
-			{
-				downloadFile();
-			}
-			else if(data === false)
-			{
-				removeFilesFromToppFolder();
-			}
-		}
-	});
-}
-
-function removeFilesFromToppFolder(skip = false)
-{
-	updateText(20);
-	var urlForSend = urlForSendMain;
-	var data = {action: "removeUnZippedFiles", locationOfFilesThatNeedToBeRemovedRecursivally: "../../"+localFolderLocation+"/",removeDir: true, formKey};
-	$.ajax({
-		url: urlForSend,
-		dataType: "json",
-		data,
-		type: "POST",
-		success(data)
-		{
-			let urlMod = "";
-			let countNum = urlForSendMain.split("../").length - 1;
-			for(let i = 0; i < countNum; i++)
-			{
-				urlMod += "../";
-			}
-			if(typeof data === "object"  && "error" in data)
-            {
-                window.location.href = urlMod + "error.php?error="+data["error"];
-            }
-			else if(typeof data === "string" && data.indexOf("error") > -1 && data.indexOf("{") > -1 && data.indexOf("}") > -1)
-            {
-            	data = JSON.parse(data);
-            	window.location.href = urlMod + "error.php?error="+data["error"];
-            }
-		},
-		complete()
-		{
-			//verify if downloaded
-			if(!skip)
-			{
-				downloadFile();
-			}
-			else
-			{
-				//re-add folder / one file
-				verifyFile("removeFilesFromToppFolderSkip", "../../"+localFolderLocation+"/",false);
-			}
-		}
-	});
-}
-
 function downloadFile()
 {
 	if(retryCount === 0)
@@ -229,10 +146,6 @@ function verifyFailAction(action)
 	{
 		removeZipFile();
 	}
-	else if(action === "removeFilesFromToppFolderSkip")
-	{
-		removeFilesFromToppFolder(true);
-	}
 }
 
 function verifySucceded(action)
@@ -248,10 +161,6 @@ function verifySucceded(action)
 		removeZipFile();
 	}
 	else if(action === "removeZipFile")
-	{
-		finishedDownload();
-	}
-	else if(action === "removeFilesFromToppFolderSkip")
 	{
 		finishedDownload();
 	}

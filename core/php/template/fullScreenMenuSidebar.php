@@ -20,21 +20,6 @@
 	</div>
 	<span class="fullScreenMenuText">About</span>
 </li>
-<li id="mainMenuAddons" onclick="toggleAddons();" >
-	<div class="menuImageDiv">
-		<?php echo $core->generateImage(
-			$arrayOfImages["loadingImg"],
-			$imageConfig = array(
-				"id"		=>	"addonsImage",
-				"class"		=>	"menuImage mainMenuImage",
-				"height"	=>	"30px",
-				"data-src"	=>	$arrayOfImages["addons"]
-				)
-			);
-		?>
-	</div>
-	<span class="fullScreenMenuText">Addons</span>
-</li>
 <?php $historyStyle = "";
 if($enableHistory === "false")
 {
@@ -165,6 +150,3 @@ if($updaterEnabled === "false")
 	</div>
 	<span class="fullScreenMenuText">Watchlist</span>
 </li>
-<span id="menuAddonLinks">
-	<?php require_once("addonLinksSideBar.php"); ?>
-</span>

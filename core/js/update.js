@@ -224,9 +224,6 @@ function checkForUpdateTimer(urlSend, whatAmIUpdating)
 				{
 					//inner addon update
 					hidePopup();
-					$.get( "core/php/template/innerAddon.php", function( data ) {
-						$("#innerAddonSpanReplace").html(data);
-					});
 				}
 			}
 		}

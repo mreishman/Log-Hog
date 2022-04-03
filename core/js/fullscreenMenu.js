@@ -42,10 +42,6 @@ function toggleFullScreenMenu(force = false)
 				{
 					toggleAbout();
 				}
-				else if(fullScreenMenuDefaultPage === "addons")
-				{
-					toggleAddons();
-				}
 				else if(fullScreenMenuDefaultPage === "history")
 				{
 					toggleHistory();
@@ -138,25 +134,6 @@ function toggleUpdateMenu(force = false)
 	hideSidebar();
 	document.getElementById("fullScreenMenuUpdate").style.display = "block";
 	$("#mainMenuUpdate").addClass("selected");
-	arrayOfScrollHeaderUpdate = [];
-	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
-	resizeFullScreenMenu();
-}
-
-function toggleAddons(force = false)
-{
-	if(!force && !globalForcePageNavigate)
-	{
-		if(!(goToPageCheck("toggleAddons(true)")))
-		{
-			return false;
-		}
-	}
-	globalForcePageNavigate = false;
-	hideMainStuff();
-	hideSidebar();
-	document.getElementById("fullScreenMenuAddons").style.display = "block";
-	$("#mainMenuAddons").addClass("selected");
 	arrayOfScrollHeaderUpdate = [];
 	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
 	resizeFullScreenMenu();
@@ -496,12 +473,6 @@ function hideNotificationStuff()
 	document.getElementById("notificationsEmpty").style.display = "none";
 }
 
-function hideAddonStuff()
-{
-	document.getElementById("fullScreenMenuAddons").style.display = "none";
-	$("#mainMenuAddons").removeClass("selected");
-}
-
 function hideThemeStuff()
 {
 	toggleThemesIframeSource(false);
@@ -596,12 +567,6 @@ function hideMainStuff()
 	{
 		hideWatchListStuff();
 		$("#watchListMenu").removeClass("selected");
-	}
-
-	if($("#mainMenuAddons").hasClass("selected"))
-	{
-		hideAddonStuff();
-		sideBarVisible = true;
 	}
 
 	if($("#ThemesLink") && $("#ThemesLink").hasClass("selected"))

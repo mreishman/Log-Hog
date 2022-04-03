@@ -149,14 +149,6 @@
 		require_once('settingsMainWatch.php');
 		?>
 	</div>
-	<div id="fullScreenMenuAddons" style="display: none;" >
-		<div class="settingsHeader">
-			Addons
-		</div>
-		<div class="settingsDiv" >
-			<?php require_once("innerAddon.php"); ?>
-		</div>
-	</div>
 	<div id="fullScreenMenuTheme" style="display: none;">
 		<script type="text/javascript">
 			var themeDirMod = "";
