@@ -64,7 +64,7 @@ function formatLine(text, extraData)
 		timeFormat = "<b>" + timeFormat + "</b>";
 	}
 
-	let timePadding = "<td style=\"width: 2px;\" ></td>";
+	let timePadding = "<td style=\"width: "+dateTimePadding+"px;\" ></td>";
 	let timeTd = "<td style=\"white-space:nowrap;width: 1%;\">";
 	let lineTd = "<td style=\"white-space: pre-wrap; padding: 0;\">";
 

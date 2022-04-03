@@ -980,6 +980,15 @@ $defaultConfigMoreData = array(
 							"type"								=>	"dropdown"
 						)
 					),
+					5									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"dateTimePadding",
+							"name"								=>	"Timestamp Padding",
+							"options"							=>	$logPaddingVars,
+							"type"								=>	"dropdown"
+						)
+					),
 				)
 			),
 			4									=>	array(
