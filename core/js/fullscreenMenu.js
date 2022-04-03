@@ -9,23 +9,7 @@ function toggleFullScreenMenu(force = false)
 		loadImgFromData("mainMenuImage");
 		document.getElementById("fullScreenMenu").style.display = "block";
 		onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
-		if($("#menuStatusAddon").hasClass("selected"))
-		{
-			$("#menuStatusAddon").click();
-		}
-		else if($("#menuMonitorAddon").hasClass("selected"))
-		{
-			$("#menuMonitorAddon").click();
-		}
-		else if ($("#menuSearchAddon").hasClass("selected"))
-		{
-			$("#menuSearchAddon").click();
-		}
-		else if ($("#menuSeleniumMonitorAddon").hasClass("selected"))
-		{
-			$("#menuSeleniumMonitorAddon").click();
-		}
-		else if($("#ThemesLink") && $("#ThemesLink").hasClass("selected"))
+		if($("#ThemesLink") && $("#ThemesLink").hasClass("selected"))
 		{
 			toggleThemesIframeSource(true);
 		}
@@ -494,29 +478,6 @@ function hideIframeStuff()
 	}
 }
 
-function toggleIframe(locHref, idOfAddon, force = false)
-{
-	if(!force && !globalForcePageNavigate)
-	{
-		if(!(goToPageCheck("toggleIframe(\""+locHref+"\",\""+idOfAddon+"\",true)")))
-		{
-			return false;
-		}
-	}
-	globalForcePageNavigate = false;
-	hideMainStuff();
-	$("#"+idOfAddon).addClass("selected");
-	document.getElementById("fullScreenMenuIFrame").style.display = "block";
-	hideSidebar();
-	$("#iframeFullScreen").prop("src", locHref);
-	var mainContentRect = document.getElementById("mainContentFullScreenMenu").getBoundingClientRect();
-	document.getElementById("iframeFullScreen").style.width = ""+mainContentRect.width+"px";
-	document.getElementById("iframeFullScreen").style.height = ""+mainContentRect.height+"px";
-	arrayOfScrollHeaderUpdate = [];
-	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
-	return false;
-}
-
 function hideMainStuff()
 {
 	endSettingsPollTimer();
@@ -556,13 +517,6 @@ function hideMainStuff()
 		sideBarVisible = true;
 	}
 
-
-	if($("#menuStatusAddon").hasClass("selected") || $("#menuMonitorAddon").hasClass("selected") || $("#menuSearchAddon").hasClass("selected") || $("#menuSeleniumMonitorAddon").hasClass("selected"))
-	{
-		hideIframeStuff();
-		sideBarVisible = true;
-	}
-
 	if($("#watchListMenu").hasClass("selected"))
 	{
 		hideWatchListStuff();
@@ -575,11 +529,6 @@ function hideMainStuff()
 		$("#ThemesLink").removeClass("selected");
 		sideBarVisible = true;
 	}
-
-	$("#menuStatusAddon").removeClass("selected");
-	$("#menuMonitorAddon").removeClass("selected");
-	$("#menuSearchAddon").removeClass("selected");
-	$("#menuSeleniumMonitorAddon").removeClass("selected");
 }
 
 function onScrollShowFixedMiniBar(idsOfForms)
@@ -693,7 +642,6 @@ function resizeFullScreenMenu()
 			$(".settingsUlSub").css("width","200px").css("bottom","0").css("right","auto").removeClass("addBorderBottom").addClass("addBorderRight").css("height","auto");
 			$(".settingsUlSub li").not(".subMenuToggle, .hiddenMenu").css("display","block");
 			$("#settingsSubMenu .menuTitle").not(".fullScreenMenuText, .hiddenMenu").css("display","block");
-			toggleAddonAppsMenuText();
 		}
 
 		if(document.getElementById("mainContentFullScreenMenu").style.left !== mainContentFullScreenMenuLeft+"px")
@@ -713,34 +661,6 @@ function resizeFullScreenMenu()
 	{
 		console.log(e);
 	}
-}
-
-function toggleAddonAppsMenuText()
-{
-	if(!checkIfAddonsAreInstalled())
-	{
-		document.getElementById("menuOtherApps").style.display = "none";
-	}
-	else
-	{
-		document.getElementById("menuOtherApps").style.display = "list-item";
-	}
-}
-function checkIfAddonsAreInstalled()
-{
-	if(typeof listOfAddons === "object")
-	{
-		let listOfAddonKeys = Object.keys(listOfAddons);
-		let listOfAddonKeysLength = listOfAddonKeys.length;
-		for(let addCount = 0; addCount < listOfAddonKeysLength; addCount++)
-		{
-			if(listOfAddons[listOfAddonKeys[addCount]]["Installed"] !== false && listOfAddons[listOfAddonKeys[addCount]]["Installed"] !== "false")
-			{
-				return true;
-			}
-		}
-	}
-	return false;
 }
 
 function togglePollSpeedDown(currentClick)

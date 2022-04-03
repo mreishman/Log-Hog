@@ -1,7 +1,6 @@
 <?php
 
 $defaultConfig = array(
-	'addonsAsIframe'				=> 'true',
 	'advancedLogFormatEnabled'		=> 'true',
 	'allLogsVisible'				=> 'true',
 	'autoCheckDaysUpdate'			=>	'7',
@@ -272,10 +271,6 @@ $defaultConfig = array(
 	'invertMenuImages'				=> 'false',
 	'lineCountFromJS'				=> "true",
 	'loadingBarVersion'				=> 1,
-	'locationForMonitor'			=> '',
-	'locationForSearch'				=> '',
-	'locationForSeleniumMonitor'	=> '',
-	'locationForStatus'				=> '',
 	'logDiffCountLeftMod'			=> '(',
 	'logDiffCountRightMod'			=> ')',
 	'logDirectionInvert'			=> 'false',

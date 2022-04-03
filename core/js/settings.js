@@ -408,7 +408,7 @@ function saveVerified()
 
 	saveSuccess();
 
-	if(idForFormMain === "locationOtherApps" || idForFormMain === "settingsFullScreenMenuVars")
+	if(idForFormMain === "settingsFullScreenMenuVars")
 	{
 		refreshAddonLinks();
 		refreshJsVars();

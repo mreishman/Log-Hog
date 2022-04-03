@@ -552,56 +552,6 @@ $defaultConfigMoreData = array(
 			)
 		)
 	),
-	"fileLocations"						=>	array(
-		"id"								=>	"locationOtherApps",
-		"name"								=>	"File Locations",
-		"menu"								=> 	array(
-			"groups"							=>	array(
-				"advanced"
-			),
-			"id"								=>	"settingsAdvancedLocations",
-			"display"							=>	true,
-			"name"								=>	"File Locations"
-		),
-		"vars"								=>	array(
-			0									=> array(
-				"info"								=>	"Default = https://".$_SERVER['SERVER_NAME']."/status",
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"locationForStatus",
-					"name"								=>	"Status Location",
-					"type"								=>	"text"
-				)
-			),
-			1									=> array(
-				"info"								=>	"Default = https://".$_SERVER['SERVER_NAME']."/monitor",
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"locationForMonitor",
-					"name"								=>	"Monitor Location",
-					"type"								=>	"text"
-				)
-			),
-			2									=> array(
-				"info"								=>	"Default = https://".$_SERVER['SERVER_NAME']."/search",
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"locationForSearch",
-					"name"								=>	"Search Location",
-					"type"								=>	"text"
-				)
-			),
-			3									=> array(
-				"info"								=>	"Default = https://".$_SERVER['SERVER_NAME']."/seleniumMonitor",
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"locationForSeleniumMonitor",
-					"name"								=>	"Selenium Monitor Location",
-					"type"								=>	"text"
-				)
-			),
-		)
-	),
 	"filterVars"						=>	array(
 		"id"								=>	"settingsFilterVars",
 		"name"								=>	"Filter Settings",
@@ -1840,15 +1790,6 @@ $defaultConfigMoreData = array(
 		),
 		"vars"								=>	array(
 			0									=>	array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"addonsAsIframe",
-					"name"								=>	"Addons as Iframe",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				)
-			),
-			1									=>	array(
 				"info"								=>	"1400 Breakpoint shows only images on full screen sidebar, 1000 breakpoint is the same but moves the inner sidebar to the top",
 				"type"								=>	"single",
 				"var"								=>	array(
@@ -1868,7 +1809,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			2									=>	array(
+			1									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"fullScreenMenuDefaultPage",
@@ -1881,31 +1822,28 @@ $defaultConfigMoreData = array(
 							"value" 							=> "about",
 							"name" 								=> "About"),
 						2 									=> array(
-							"value" 							=> "addons",
-							"name" 								=> "Addons"),
-						3 									=> array(
 							"value" 							=> "history",
 							"name" 								=> "History"),
-						4 									=> array(
+						3 									=> array(
 							"value" 							=> "notifications",
 							"name" 								=> "Notifications"),
-						5 									=> array(
+						4 									=> array(
 							"value" 							=> "settings",
 							"name" 								=> "Settings"),
-						6 									=> array(
+						5 									=> array(
 							"value" 							=> "themes",
 							"name" 								=> "Themes"),
-						7 									=> array(
+						6 									=> array(
 							"value" 							=> "update",
 							"name" 								=> "Update"),
-						8 									=> array(
+						7 									=> array(
 							"value" 							=> "watchlist",
 							"name" 								=> "Watchlist")
 					),
 					"type"								=>	"dropdown"
 				)
 			),
-			3									=>	array(
+			2									=>	array(
 				"bool"								=>	($samePageSettings == 'true'),
 				"bool2"								=>	"false",
 				"id"								=>	"enableMultiLogSettings",
