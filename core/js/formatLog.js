@@ -282,7 +282,7 @@ function makePrettyWithText(text, count, extraData = {})
 						colspan--;
 					}
 				}
-				returnText += "<tr class=\"logLinePaddingHeight\"><td class=\"logLineBorder\" colspan=\""+colspan+"\"></td>"+extraTd+"</tr>";
+				returnText += "<tr class=\"logLinePaddingHeight\"><td class=\"logLineBorder\" style=\"padding: 0;\" colspan=\""+colspan+"\"></td>"+extraTd+"</tr>";
 			}
 		}
 		if(returnText === "")

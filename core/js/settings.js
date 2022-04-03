@@ -750,6 +750,10 @@ function resetArrayObject(idOfForm)
 		{
 			reAddJsColorPopupForCustomThemes();
 		}
+		else if(idOfForm === "generalThemeOptions")
+		{
+			logStyleListeners();
+		}
 
 		if(innerHtmlObject[idOfForm].indexOf("colorSelectorDiv") > -1)
 		{
@@ -780,18 +784,30 @@ function generateExampleLogForStyle()
 	let length = exampleLogForCustomStyle.length;
 	for(let i = 0; i < length; i++)
 	{
-		html += "<tr><td style=\"font-family: " +
+		html += "<tr style=\"border-spacing: 0; \"><td style=\"padding: 0; font-family: " +
 		$("#generalThemeOptions select[name=fontFamily]").val() + 
 		"; color: "+
 		$("#generalThemeOptions input[name=logFontColor]").val() +
-		"; \" >" + exampleLogForCustomStyle[i] + "</td></tr>";
+		"; font-size: " +
+		$("#generalThemeOptions select[name=logFontSize]").val() +
+		"%; \" >" + exampleLogForCustomStyle[i] + "</td></tr>";
+		if (i !== (length - 1))
+		{
+			html += "<tr style=\"border-spacing: 0; height: " +
+			$("#generalThemeOptions select[name=logLinePadding]").val() +
+			"px;\" ><td style=\"padding: 0;\"></td></tr>";
+		}
 	}
 	html += "</table>";
 	$("#exampleStyleLogSpan").html(html);
 }
 
-generateExampleLogForStyle();
-
-$("#generalThemeOptions input, #generalThemeOptions select").on("change", function() {
+function logStyleListeners()
+{
 	generateExampleLogForStyle();
-})
+	$("#generalThemeOptions input, #generalThemeOptions select").on("change", function() {
+		generateExampleLogForStyle();
+	})
+}
+
+logStyleListeners();
