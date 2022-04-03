@@ -793,9 +793,18 @@ function generateExampleLogForStyle()
 		"%; \" >" + exampleLogForCustomStyle[i] + "</td></tr>";
 		if (i !== (length - 1))
 		{
+			let lineBorder = "";
+			if ($("#generalThemeOptions select[name=logLineBorder]").val() === 'true')
+			{
+				lineBorder = "border-top: " + 
+				$("#generalThemeOptions select[name=logLineBorderHeight]").val() + 
+				"px solid " +
+				$("#generalThemeOptions input[name=logLineBorderColor]").val() + 
+				";";
+			}
 			html += "<tr style=\"border-spacing: 0; height: " +
 			$("#generalThemeOptions select[name=logLinePadding]").val() +
-			"px;\" ><td style=\"padding: 0;\"></td></tr>";
+			"px;\" ><td style=\"padding: 0; "+lineBorder+" \"></td></tr>";
 		}
 	}
 	html += "</table>";

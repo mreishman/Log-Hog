@@ -41,7 +41,7 @@ $brightessVars = array();
 $logPaddingVars = array();
 $oneLogNum = array();
 $oneLogLogMaxHeightArr = array();
-for ($m=0; $m < 20; $m++)
+for ($m=0; $m < 40; $m++)
 {
 	if($m >= 5)
 	{
@@ -68,9 +68,12 @@ for ($m=0; $m < 20; $m++)
 			"value" 					=> $m,
 			"name" 						=> $m."px");
 
-	$oneLogLogMaxHeightArr[$m] = array(
+	if ($m < 21)
+	{
+		$oneLogLogMaxHeightArr[$m] = array(
 			"value" 					=> (($m*15)+100),
 			"name" 						=> (($m*15)+100)."px");
+	}
 }
 $oneLogLogMaxHeightArr[20] = array(
 			"value" 					=> 400,
