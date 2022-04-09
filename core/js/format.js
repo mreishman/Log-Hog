@@ -65,20 +65,32 @@ function formatLine(text, extraData)
 	}
 
 	let timePadding = "<td style=\"width: "+dateTimePadding+"px;\" ></td>";
+	let timePaddingAlternative = "<span style=\"width: 5px; display: inline-block;\" ></span>";
 	let timeTd = "<td style=\"white-space:nowrap;width: 1%;\">";
 	let lineTd = "<td style=\"white-space: pre-wrap; padding: 0;\">";
 
-	if(dateTextFormatEnable === "true" && (dateTextFormatColumn === "true" || (dateTextFormatColumn === "auto" && window.innerWidth > breakPointTwo)))
+	if(dateTextFormatEnable === "true" && dateTextFormatColumn !== "false")
 	{
-		if("lineDisplay" in extraData && extraData["lineDisplay"] === "true")
+		if((dateTextFormatColumn === "true" || (dateTextFormatColumn === "auto" && window.innerWidth > breakPointTwo)))
 		{
-			return timeTd + timeFormat + extraData["lineCount"] + "</td>" + timePadding + lineTd + formatMainMessage(arrayOfText[1], extraData) + "</td>";
+			if("lineDisplay" in extraData && extraData["lineDisplay"] === "true")
+			{
+				return timeTd + timeFormat + extraData["lineCount"] + "</td>" + timePadding + lineTd + formatMainMessage(arrayOfText[1], extraData) + "</td>";
+			}
+			return timeTd + timeFormat + "</td>" + timePadding + lineTd + formatMainMessage(arrayOfText[1], extraData) + "</td>";
 		}
-		return timeTd + timeFormat + "</td>" + timePadding + lineTd + formatMainMessage(arrayOfText[1], extraData) + "</td>";
+		else
+		{
+			if("lineDisplay" in extraData && extraData["lineDisplay"] === "true")
+			{
+				return timeTd + extraData["lineCount"] + "</td>" + lineTd + timeFormat + timePaddingAlternative + formatMainMessage(arrayOfText[1], extraData) + "</td>";
+			}
+			return lineTd + timeFormat + timePaddingAlternative + formatMainMessage(arrayOfText[1], extraData) + "</td>";
+		}
 	}
 	else if("lineDisplay" in extraData && extraData["lineDisplay"] === "true")
 	{
-		return timeTd + extraData["lineCount"] + "</td>" + timePadding + lineTd + timeFormat + formatMainMessage(arrayOfText[1], extraData) + "</td>";
+		return timeTd + extraData["lineCount"] + "</td>" + lineTd + timeFormat + formatMainMessage(arrayOfText[1], extraData) + "</td>";
 	}
 	return lineTd + timeFormat + formatMainMessage(arrayOfText[1], extraData) + "</td>";
 }
@@ -379,142 +391,143 @@ function dateTimeFormat(dateTextArray)
 
 		}
 	}
-	if(String(newConfDate) !== "Invalid Date" && String(newConfDate) !== "NaN")
+	if(String(newConfDate) === "Invalid Date" || String(newConfDate) === "NaN")
 	{
-		var hours = newConfDate.getHours();
-		var hours12 = hours;
-		var ampm = "AM";
-		if(hours < 10)
-		{
-			hours = "0"+hours;
-			hours12 = hours;
-		}
-		else if(hours > 12)
-		{
-			ampm = "PM";
-			hours12 = hours - 12;
-			if(hours12 < 10)
-			{
-				hours12 = hours;
-			}
-		}
-		var min = newConfDate.getMinutes();
-		if(min < 10)
-		{
-			min = "0"+min;
-		}
-		var sec = newConfDate.getSeconds();
-		if(sec < 10)
-		{
-			sec = "0"+sec;
-		}
-		var day = newConfDate.getDate();
-		if(day < 10)
-		{
-			day = "0"+day;
-		}
-		var month = newConfDate.getMonth()+1; //January is 0!
-		if(month < 10)
-		{
-			month = "0"+month;
-		}
-		var mili = newConfDate.getMilliseconds();
-		var yearFull = newConfDate.getFullYear();
-		var dayName = newConfDate.getDay(); //1 is monday, 2 tuesday, etc
-		var localDateTextFormat = dateTextFormat;
-		if(dateTextFormat === "custom")
-		{
-			localDateTextFormat = dateTextFormatCustom;
-		}
-		var dateTextFormatArray = localDateTextFormat.split("|");
-		var dateTextFormatArrayLength = dateTextFormatArray.length;
-		var stringForNewTime = "";
-		var arrOfOptions = {
-			0: {
-				"search" : "hh",
-				"replace": hours
-			},
-			1: {
-				"search" : "mm",
-				"replace": min
-			},
-			2: {
-				"search" : "ss",
-				"replace": sec
-			},
-			3: {
-				"search" : "DD",
-				"replace": day
-			},
-			4: {
-				"search" : "MM",
-				"replace": month
-			},
-			5: {
-				"search" : "YYYY",
-				"replace": yearFull
-			},
-			6: {
-				"search" : "PartDay",
-				"replace": arrOfDaysSmall[parseInt(dayName)]
-			},
-			7: {
-				"search" : "FullDay",
-				"replace": arrOfDaysLarge[parseInt(dayName)]
-			},
-			8: {
-				"search" : "PartMonth",
-				"replace": arrOfMonthsSmall[parseInt(month)]
-			},
-			9: {
-				"search" : "FullMonth",
-				"replace": arrOfMonthsLarge[parseInt(month)]
-			},
-			10: {
-				"search" : "mili",
-				"replace": mili
-			},
-			11: {
-				"search" : "hh12",
-				"replace": hours12
-			},
-			12: {
-				"search" : "AMPM",
-				"replace": ampm
-			}
-		};
-		var arrOfOptionsKeys = Object.keys(arrOfOptions);
-		var lengthOfOptionKeys = arrOfOptionsKeys.length;
-		for(var dtfCount = 0; dtfCount < dateTextFormatArrayLength; dtfCount++)
-		{
-			var currentSection = dateTextFormatArray[dtfCount];
-			if(currentSection === "" || currentSection.indexOf("none") > -1)
-			{
-				continue;
-			}
-			var added = false;
-			for(var optionCount = 0; optionCount < lengthOfOptionKeys; optionCount++)
-			{
-				var currentSearch = arrOfOptions[arrOfOptionsKeys[optionCount]]["search"];
-				var currentReplace = arrOfOptions[arrOfOptionsKeys[optionCount]]["replace"];
-				if(currentSection.indexOf(currentSearch) > -1)
-				{
-					stringForNewTime += currentSection.replace(currentSearch, currentReplace);
-					added = true;
-					break;
-				}
-			}
-			if(!added)
-			{
-				stringForNewTime += currentSection;
-			}
-		}
-		if(stringForNewTime !== "" && stringForNewTime.indexOf("NaN") === -1)
-		{
-			return stringForNewTime;
-		}
+		return dateText;
 	}
 
+	var hours = newConfDate.getHours();
+	var hours12 = hours;
+	var ampm = "AM";
+	if(hours < 10)
+	{
+		hours = "0"+hours;
+		hours12 = hours;
+	}
+	else if(hours > 12)
+	{
+		ampm = "PM";
+		hours12 = hours - 12;
+		if(hours12 < 10)
+		{
+			hours12 = hours;
+		}
+	}
+	var min = newConfDate.getMinutes();
+	if(min < 10)
+	{
+		min = "0"+min;
+	}
+	var sec = newConfDate.getSeconds();
+	if(sec < 10)
+	{
+		sec = "0"+sec;
+	}
+	var day = newConfDate.getDate();
+	if(day < 10)
+	{
+		day = "0"+day;
+	}
+	var month = newConfDate.getMonth()+1; //January is 0!
+	if(month < 10)
+	{
+		month = "0"+month;
+	}
+	var mili = newConfDate.getMilliseconds();
+	var yearFull = newConfDate.getFullYear();
+	var dayName = newConfDate.getDay(); //1 is monday, 2 tuesday, etc
+	var localDateTextFormat = dateTextFormat;
+	if(dateTextFormat === "custom")
+	{
+		localDateTextFormat = dateTextFormatCustom;
+	}
+	var dateTextFormatArray = localDateTextFormat.split("|");
+	var dateTextFormatArrayLength = dateTextFormatArray.length;
+	var stringForNewTime = "";
+	var arrOfOptions = {
+		0: {
+			"search" : "hh",
+			"replace": hours
+		},
+		1: {
+			"search" : "mm",
+			"replace": min
+		},
+		2: {
+			"search" : "ss",
+			"replace": sec
+		},
+		3: {
+			"search" : "DD",
+			"replace": day
+		},
+		4: {
+			"search" : "MM",
+			"replace": month
+		},
+		5: {
+			"search" : "YYYY",
+			"replace": yearFull
+		},
+		6: {
+			"search" : "PartDay",
+			"replace": arrOfDaysSmall[parseInt(dayName)]
+		},
+		7: {
+			"search" : "FullDay",
+			"replace": arrOfDaysLarge[parseInt(dayName)]
+		},
+		8: {
+			"search" : "PartMonth",
+			"replace": arrOfMonthsSmall[parseInt(month)]
+		},
+		9: {
+			"search" : "FullMonth",
+			"replace": arrOfMonthsLarge[parseInt(month)]
+		},
+		10: {
+			"search" : "mili",
+			"replace": mili
+		},
+		11: {
+			"search" : "hh12",
+			"replace": hours12
+		},
+		12: {
+			"search" : "AMPM",
+			"replace": ampm
+		}
+	};
+	var arrOfOptionsKeys = Object.keys(arrOfOptions);
+	var lengthOfOptionKeys = arrOfOptionsKeys.length;
+	for(var dtfCount = 0; dtfCount < dateTextFormatArrayLength; dtfCount++)
+	{
+		var currentSection = dateTextFormatArray[dtfCount];
+		if(currentSection === "" || currentSection.indexOf("none") > -1)
+		{
+			continue;
+		}
+		var added = false;
+		for(var optionCount = 0; optionCount < lengthOfOptionKeys; optionCount++)
+		{
+			var currentSearch = arrOfOptions[arrOfOptionsKeys[optionCount]]["search"];
+			var currentReplace = arrOfOptions[arrOfOptionsKeys[optionCount]]["replace"];
+			if(currentSection.indexOf(currentSearch) > -1)
+			{
+				stringForNewTime += currentSection.replace(currentSearch, currentReplace);
+				added = true;
+				break;
+			}
+		}
+		if(!added)
+		{
+			stringForNewTime += currentSection;
+		}
+	}
+	if(stringForNewTime !== "" && stringForNewTime.indexOf("NaN") === -1)
+	{
+		return stringForNewTime;
+	}
 
 	return dateText;
 }
