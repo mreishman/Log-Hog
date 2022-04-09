@@ -408,8 +408,8 @@ function dateTimeFormat(dateTextArray, static)
 		return dateText;
 	}
 
-	var hours = newConfDate.getHours();
-	var hours12 = hours;
+	var hours = parseInt(newConfDate.getHours());
+	var hours12 = parseInt(hours);
 	var ampm = "AM";
 	if(hours < 10)
 	{
@@ -422,9 +422,11 @@ function dateTimeFormat(dateTextArray, static)
 		hours12 = hours - 12;
 		if(hours12 < 10)
 		{
-			hours12 = hours;
+			hours12 = "0"+hours12;
 		}
 	}
+	hours = hours.toString();
+	hours12 = hours12.toString();
 	var min = newConfDate.getMinutes();
 	if(min < 10)
 	{
@@ -458,56 +460,56 @@ function dateTimeFormat(dateTextArray, static)
 	var stringForNewTime = "";
 	var arrOfOptions = {
 		0: {
-			"search" : "hh",
-			"replace": hours
-		},
-		1: {
 			"search" : "mm",
 			"replace": min
 		},
-		2: {
+		1: {
 			"search" : "ss",
 			"replace": sec
 		},
-		3: {
+		2: {
 			"search" : "DD",
 			"replace": day
 		},
-		4: {
+		3: {
 			"search" : "MM",
 			"replace": month
 		},
-		5: {
+		4: {
 			"search" : "YYYY",
 			"replace": yearFull
 		},
-		6: {
+		5: {
 			"search" : "PartDay",
 			"replace": arrOfDaysSmall[parseInt(dayName)]
 		},
-		7: {
+		6: {
 			"search" : "FullDay",
 			"replace": arrOfDaysLarge[parseInt(dayName)]
 		},
-		8: {
+		7: {
 			"search" : "PartMonth",
 			"replace": arrOfMonthsSmall[parseInt(month)]
 		},
-		9: {
+		8: {
 			"search" : "FullMonth",
 			"replace": arrOfMonthsLarge[parseInt(month)]
 		},
-		10: {
+		9: {
 			"search" : "mili",
 			"replace": mili
 		},
-		11: {
+		10: {
 			"search" : "hh12",
 			"replace": hours12
 		},
-		12: {
+		11: {
 			"search" : "AMPM",
 			"replace": ampm
+		},
+		12: {
+			"search" : "hh",
+			"replace": hours
 		}
 	};
 	var arrOfOptionsKeys = Object.keys(arrOfOptions);
