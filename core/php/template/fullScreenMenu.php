@@ -1,4 +1,7 @@
-<?php require_once('indexHeaderFullScreen.php'); ?>
+<?php
+$settingsRightClickMenu = [];
+require_once('indexHeaderFullScreen.php');
+?>
 <ul id="mainFullScreenMenu" class="settingsUl settingsUlFS fullScreenMenuUL">
 	<?php require_once('fullScreenMenuSidebar.php'); ?>
 </ul>
@@ -9,9 +12,21 @@
 	</li>
 	<li id="aboutSubMenuAbout" onclick="toggleAboutLogHog();" class="selected">
 		About Log-Hog
+		<?php
+		$settingsRightClickMenu[] = [
+					"id"	=> "aboutSubMenuAbout",
+					"link"	=> "./settings/about.php?pageType=about"
+				];
+		?>
 	</li>
 	<li id="aboutSubMenuChangelog" onclick="toggleChangeLog();">
 		Changelog
+		<?php
+		$settingsRightClickMenu[] = [
+					"id"	=> "aboutSubMenuChangelog",
+					"link"	=> "./settings/about.php?pageType=changelog"
+				];
+		?>
 	</li>
 </ul>
 <ul id="historySubMenu" class="settingsUl fullScreenMenuUL settingsUlSub" style="display: none;">
@@ -56,7 +71,6 @@
 		Settings
 	</li>
 	<?php 
-	$settingsRightClickMenu = [];
 	$idArray = []; 
 	foreach($fullScreenMenuGroups as $fsmgKey => $fsmgData)
 	{
