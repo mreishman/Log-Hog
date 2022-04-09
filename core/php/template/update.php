@@ -161,6 +161,7 @@
 					<a class="link" onclick="installUpdates('','settingsInstallUpdate','');">Install Update</a>
 				</li>
 				<li id="installData" <?php if($levelOfUpdate == 0){echo "style='display: none;'";} ?> >
+					<span id="installDataDownloadRecommendedSpaceError" style="display: none;"><h2>Warning: There might not be enough free space to install this update</h2></span>
 					This will download ~<b id="installDataDownloadSize" ><?php echo $update->formatBytes($downloadSize);?></b> of data <br>
 					The new install will <b id="installDataTotalChange"><?php echo $totalDiff;?></b> of space<br>
 					The current drive has <b id="installDataCurrentFree"><?php echo shell_exec("df -h . | tail -1 | awk '{print $4}'"); ?></b> free space
