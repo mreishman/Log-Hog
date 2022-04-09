@@ -18,9 +18,9 @@ $baseUrl = "../../../";
 require_once($baseUrl.'local/conf/globalConfig.php');
 
 $globalConfigVersion = 0;
-if(isset($globalConfig['globalConfigVersion']))
+if(isset($globalConfig['globalConfVersion']))
 {
-	$globalConfigVersion = $globalConfig['globalConfigVersion'];
+	$globalConfigVersion = $globalConfig['globalConfVersion'];
 }
 
 $value = false;
