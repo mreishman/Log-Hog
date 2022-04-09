@@ -108,5 +108,10 @@ var openTabId = "<?php echo $_GET["id"] ?? ""; ?>";
 		"filePath"		=> "core/js/colorScheme.js",
 		"baseFilePath"	=> "core/js/colorScheme.js",
 		"default"		=> $configStatic["version"]
+	),
+	array(
+		"filePath"		=> "core/js/format.js",
+		"baseFilePath"	=> "core/js/format.js",
+		"default"		=> $configStatic["version"]
 	)
 )); ?>

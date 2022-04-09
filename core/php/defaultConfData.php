@@ -246,6 +246,12 @@ $customStyleSectionLogs = "
 <script>var exampleLogForCustomStyle = ".$exampleLog.";</script>
 ";
 
+$customStyleSectionTimestamp = "
+<div class=\"settingsHeader\">Example:</div>
+<div class=\"settingsDiv\"><div style=\"max-height: 300px; overflow: auto;\" id=\"exampleStyleTimestampSpan\"></span></div>
+<script>var exampleLineForTimestampStyle = '2021-10-18T20:22:18+00:00 : [hphp] [29] all servers started';</script>
+";
+
 
 $fullScreenMenuGroups = array(
 	"main"	=> array (
@@ -917,7 +923,11 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				),
 				"vars"								=>	array(
-					0									=> array(
+					0									=>	array(
+						"custom"							=>	$customStyleSectionTimestamp,
+						"type"								=>	"custom"
+					),
+					1									=> array(
 						"bool"								=>	($dateTextFormat != 'custom'),
 						"bool2"								=>	"custom",
 						"id"								=>	"dateTextFormatSelector",
@@ -934,7 +944,7 @@ $defaultConfigMoreData = array(
 						),
 						"vars"								=>	$customDateFormatVars
 					),
-					1									=> array(
+					2									=> array(
 						"type"								=>	"single",
 						"var"								=>	array(
 							"id"								=>	"dateTextFormatCustom",
@@ -942,7 +952,7 @@ $defaultConfigMoreData = array(
 							"type"								=>	"hidden"
 						)
 					),
-					2									=>	array(
+					3									=>	array(
 						"type"								=>	"single",
 						"var"								=>	array(
 							"key"								=>	"dateTextFormatColumn",
@@ -961,7 +971,7 @@ $defaultConfigMoreData = array(
 							"type"								=>	"dropdown"
 						)
 					),
-					3									=>	array(
+					4									=>	array(
 						"type"								=>	"single",
 						"var"								=>	array(
 							"info"								=>	"Only displays top timestamp when more than one in a row are same",
@@ -971,7 +981,7 @@ $defaultConfigMoreData = array(
 							"type"								=>	"dropdown"
 						)
 					),
-					4									=>	array(
+					5									=>	array(
 						"type"								=>	"single",
 						"var"								=>	array(
 							"key"								=>	"dateTextBold",
@@ -980,7 +990,7 @@ $defaultConfigMoreData = array(
 							"type"								=>	"dropdown"
 						)
 					),
-					5									=>	array(
+					6									=>	array(
 						"type"								=>	"single",
 						"var"								=>	array(
 							"key"								=>	"dateTimePadding",

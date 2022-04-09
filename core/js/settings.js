@@ -811,6 +811,48 @@ function generateExampleLogForStyle()
 	$("#exampleStyleLogSpan").html(html);
 }
 
+function generateTimestampExample()
+{
+	let line = exampleLineForTimestampStyle;
+	let arrayOfText = dateTimeSplit(line);
+	let timeFormat = dateTimeFormat(arrayOfText, false); 
+	if ($("#dateTextFormatEnableSettings select[name=dateTextBold]").val() === "true")
+	{
+		timeFormat = "<b>" + timeFormat + "</b>";
+	}
+	let timePadding = "<td style=\"width: "+$("#dateTextFormatEnableSettings select[name=dateTimePadding]").val()+"px;\" ></td>";
+
+	if($("#dateTextFormatEnableSettings select[name=dateTextFormatColumn]").val() !== "false")
+	{
+		line = "<td style=\"padding: 0; font-family: " +
+		$("#generalThemeOptions select[name=fontFamily]").val() + 
+		"; color: "+
+		$("#generalThemeOptions input[name=logFontColor]").val() +
+		"; font-size: " +
+		$("#generalThemeOptions select[name=logFontSize]").val() +
+		"%; \" >" + timeFormat + "</td>" + timePadding + "<td style=\"padding: 0; font-family: " +
+		$("#generalThemeOptions select[name=fontFamily]").val() + 
+		"; color: "+
+		$("#generalThemeOptions input[name=logFontColor]").val() +
+		"; font-size: " +
+		$("#generalThemeOptions select[name=logFontSize]").val() +
+		"%; \" >" + arrayOfText[1]
+	}
+	else
+	{
+		line = "<td style=\"padding: 0; font-family: " +
+		$("#generalThemeOptions select[name=fontFamily]").val() + 
+		"; color: "+
+		$("#generalThemeOptions input[name=logFontColor]").val() +
+		"; font-size: " +
+		$("#generalThemeOptions select[name=logFontSize]").val() +
+		"%; \" >" + timeFormat + arrayOfText[1]
+	}
+
+	let html = "<table><tr style=\"border-spacing: 0; \">" + line + "</td></tr></table>";
+	$("#exampleStyleTimestampSpan").html(html);
+}
+
 function logStyleListeners()
 {
 	generateExampleLogForStyle();
@@ -819,4 +861,15 @@ function logStyleListeners()
 	})
 }
 
-logStyleListeners();
+function timestampStyleListeners()
+{
+	generateTimestampExample();
+	$("#dateTextFormatEnableSettings input, #dateTextFormatEnableSettings select").on("change", function() {
+		generateTimestampExample();
+	})
+}
+
+$( document ).ready(function() {
+    logStyleListeners();
+    timestampStyleListeners();
+});

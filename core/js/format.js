@@ -52,7 +52,7 @@ var arrOfMonthsLarge = {
 function formatLine(text, extraData)
 {
 	var arrayOfText = dateTimeSplit(text);
-	let timeFormat = dateTimeFormat(arrayOfText);
+	let timeFormat = dateTimeFormat(arrayOfText, true);
 	extraData["lastLineSame"] = checkIfTimeStampSame(arrayOfText, extraData, "lastLine");
 	extraData["nextLineSame"] = checkIfTimeStampSame(arrayOfText, extraData, "nextLine");
 	if(dateTextGroup === "true" && extraData["lastLineSame"])
@@ -348,20 +348,32 @@ function hideEvenMoreInfo(id)
 	$("#moreInfoSideBar .hideMoreEvenMore"+id).hide();
 }
 
-function dateTimeFormat(dateTextArray)
+function dateTimeFormat(dateTextArray, static)
 {
-	if(dateTextFormatEnable !== "true")
+	let localdateTextFormatEnable = dateTextFormatEnable;
+	let localdateTextFormat = dateTextFormat;
+	let localdateTextFormatCustom= dateTextFormatCustom;
+
+	if(!static)
+	{
+		localdateTextFormatEnable = $("#settingsLogFormatVars #dateTextFormatEnable").val();
+		localdateTextFormat = $("#settingsLogFormatVars #dateTextFormat").val();
+		localdateTextFormatCustom = $("#settingsLogFormatVars #dateTextFormatCustom").val();
+	}
+
+	var dateText = dateTextArray[0];
+
+	if(localdateTextFormatEnable !== "true")
 	{
 		return dateText;
 	}
-	if(dateTextFormat === "hidden")
+	if(localdateTextFormat === "hidden")
 	{
 		return "";
 	}
-	var dateText = dateTextArray[0];
 	var timeFormat = dateTextArray["timeFound"];
 	var justDateText = dateTextArray[2];
-	if(dateText === "" || dateTextFormat === "default")
+	if(dateText === "" || localdateTextFormat === "default")
 	{
 		return dateText;
 	}
@@ -436,10 +448,10 @@ function dateTimeFormat(dateTextArray)
 	var mili = newConfDate.getMilliseconds();
 	var yearFull = newConfDate.getFullYear();
 	var dayName = newConfDate.getDay(); //1 is monday, 2 tuesday, etc
-	var localDateTextFormat = dateTextFormat;
-	if(dateTextFormat === "custom")
+	var localDateTextFormat = localdateTextFormat;
+	if(localdateTextFormat === "custom")
 	{
-		localDateTextFormat = dateTextFormatCustom;
+		localDateTextFormat = localdateTextFormatCustom;
 	}
 	var dateTextFormatArray = localDateTextFormat.split("|");
 	var dateTextFormatArrayLength = dateTextFormatArray.length;
