@@ -22,7 +22,10 @@ function poll()
 		}
 		else
 		{
-			updateDocumentTitle("Index");
+			if(document.getElementById("fullScreenMenu").style.display === "none")
+			{
+				updateDocumentTitle("Index");
+			}
 		}
 		counterForPoll++;
 		if(!polling && !clearingNotifications)

@@ -61,6 +61,7 @@ function toggleFullScreenMenu(force = false)
 	}
 	else
 	{
+		updateDocumentTitle('Index');
 		if(!force && !globalForcePageNavigate)
 		{
 			if(!(goToPageCheck("toggleFullScreenMenu(true)")))
@@ -73,6 +74,8 @@ function toggleFullScreenMenu(force = false)
 		globalForcePageNavigate = false;
 		document.getElementById("menu").style.zIndex = "20";
 		hideIframeStuff();
+		hideMainStuff();
+		arrayOfScrollHeaderUpdate = [];
 		document.getElementById("fullScreenMenu").style.display = "none";
 		togglePollSpeedUp();
 	}
@@ -112,6 +115,7 @@ function toggleUpdateMenu(force = false)
 			return false;
 		}
 	}
+	updateDocumentTitle("Update");
 	globalForcePageNavigate = false;
 	loadImgFromData("updateImg");
 	hideMainStuff();
@@ -132,6 +136,7 @@ function toggleHistory(force = false)
 			return false;
 		}
 	}
+	updateDocumentTitle('History');
 	globalForcePageNavigate = false;
 	hideMainStuff();
 	toggleFullScreenMenuMainContent();
@@ -169,6 +174,7 @@ function toggleSettings(force = false)
 			return false;
 		}
 	}
+	updateDocumentTitle("Settings");
 	globalForcePageNavigate = false;
 	hideMainStuff();
 	toggleFullScreenMenuMainContent();
@@ -188,6 +194,7 @@ function toggleAbout(force = false)
 			return false;
 		}
 	}
+	updateDocumentTitle('About');
 	globalForcePageNavigate = false;
 	hideMainStuff();
 	toggleFullScreenMenuMainContent();
@@ -205,6 +212,7 @@ function toggleThemes(force = false)
 			return false;
 		}
 	}
+	updateDocumentTitle("Themes");
 	globalForcePageNavigate = false;
 	hideMainStuff();
 	hideSidebar();
@@ -312,6 +320,7 @@ function toggleWatchListMenu(force = false)
 			return false;
 		}
 	}
+	updateDocumentTitle("Watchlsit");
 	globalForcePageNavigate = true;
 	if(typeof loadWatchList !== "function")
 	{
