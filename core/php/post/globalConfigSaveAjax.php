@@ -29,7 +29,7 @@ if(file_exists($baseUrl.'conf/config.php'))
 $globalConfig = array();
 if(file_exists('../../../local/conf/globalConfig.php'))
 {
-	require_once('../../../local/conf/globalConfig.php');
+	include('../../../local/conf/globalConfig.php');
 	// Ok if it doesn't exist, user might have deleted to reset settings or something?
 }
 
@@ -38,7 +38,7 @@ if (!file_exists("../../../core/conf/globalConfig.php") || !is_readable("../../.
 	echo json_encode(8);
 	exit();
 }
-require_once('../../../core/conf/globalConfig.php');
+include('../../../core/conf/globalConfig.php');
 require_once('../../../core/conf/config.php');
 if(!isset($defaultConfig))
 {

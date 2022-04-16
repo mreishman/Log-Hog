@@ -34,7 +34,7 @@ else
 }
 if(file_exists($varToIndexDir.'local/conf/globalConfig.php'))
 {
-	require_once($varToIndexDir.'local/conf/globalConfig.php');
+	include($varToIndexDir.'local/conf/globalConfig.php');
 }
 else
 {
@@ -43,7 +43,7 @@ else
 require_once($varToIndexDir."core/php/class/vars.php");
 $vars = new vars();
 require_once($varToIndexDir.'core/conf/config.php');
-require_once($varToIndexDir.'core/conf/globalConfig.php');
+include($varToIndexDir.'core/conf/globalConfig.php');
 $URI = $_SERVER['REQUEST_URI'];
 $arrayOfUrlsToCheck = array("upgradeLayout","upgradeConfig","core/php/template/upgrade","upgradeTheme","themeChangeLogic","settingsSaveAjax","example","setup","upgradeDelete","restore");
 if($boolForUpgrade && !$vars->checkIfURIContains($arrayOfUrlsToCheck))

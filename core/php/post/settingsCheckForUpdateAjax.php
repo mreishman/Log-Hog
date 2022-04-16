@@ -19,8 +19,8 @@ $baseUrl .= $currentSelectedTheme."/";
 
 require_once($baseUrl.'conf/config.php');
 require_once('../../conf/config.php');
-require_once('../../../local/conf/globalConfig.php');
-require_once('../../conf/globalConfig.php');
+include('../../../local/conf/globalConfig.php');
+include('../../conf/globalConfig.php');
 
 if(file_exists("../../../update/downloads/versionCheck/extracted/"))
 {

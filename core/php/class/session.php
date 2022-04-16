@@ -48,6 +48,7 @@ class session extends Core
     {
         if ($this->sessionState == self::SESSION_NOT_STARTED )
         {
+            $this->checkIpWhitelist();
             $sessionDir = $this->baseURL()."session/";
             if(!is_dir($sessionDir))
             {
@@ -63,6 +64,58 @@ class session extends Core
         }
 
         return $this->sessionState;
+    }
+
+    protected function checkIpWhitelist()
+    {
+        $filePath = $this->baseURL().'local/conf/globalConfig.php';
+        if(!is_file($filePath))
+        {
+            return true;
+        }
+
+        include($filePath);
+        $whitelist = $globalConfig['ipWhitelist'] ?? false;
+        if(!$whitelist) 
+        {
+            return true;
+        }
+
+        $ipFoundInWhitelist = false;
+        $yourIp = explode(".", $_SERVER['REMOTE_ADDR']);
+        $ips = explode(",", $whitelist);
+        foreach($ips as $ip)
+        {
+            $sections = explode(".", $ip);
+            if(count($sections) !== 4)
+            {
+                continue;
+            }
+
+            $match = true;
+            for($i = 0; $i < 4; $i++)
+            {
+                if($sections[$i] === "*" || $sections[$i] === $yourIp[$i])
+                {
+                    continue;
+                }
+                $match = false;
+                break;
+            }
+
+            if($match !== false)
+            {
+                //this ip is in whitelist
+                $ipFoundInWhitelist = true;
+                break;
+            }
+        }
+
+        if(!$ipFoundInWhitelist)
+        {
+            header('HTTP/1.0 403 Forbidden');
+            die('Forbidden');
+        }
     }
 
 

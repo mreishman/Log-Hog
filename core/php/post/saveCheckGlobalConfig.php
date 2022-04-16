@@ -23,9 +23,9 @@ $vars = new vars();
 $globalConfig = array();
 if(file_exists($varToIndexDir.'local/conf/globalConfig.php'))
 {
-	require_once($varToIndexDir.'local/conf/globalConfig.php');
+	include($varToIndexDir.'local/conf/globalConfig.php');
 }
-require_once($varToIndexDir.'core/conf/globalConfig.php');
+include($varToIndexDir.'core/conf/globalConfig.php');
 
 $response = true;
 

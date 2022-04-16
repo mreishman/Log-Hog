@@ -13,5 +13,7 @@
 		
 			'successVerifyNum' => 2,
 		
+			'ipWhitelist' => '192.168.*.*',
+		
 	);
 ?>

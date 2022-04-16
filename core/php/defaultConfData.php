@@ -894,6 +894,15 @@ $defaultConfigMoreData = array(
 					"name"								=>	"Layout Version",
 					"type"								=>	"number"
 				)
+			),
+			5									=> array(
+				"info"								=>	"Comma seperated list of ips (wild cards valid like 192.168.*.*",
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"ipWhitelist",
+					"name"								=>	"Whitelist ips",
+					"type"								=>	"text"
+				)
 			)
 		)
 	),

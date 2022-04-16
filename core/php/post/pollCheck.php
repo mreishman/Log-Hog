@@ -20,8 +20,8 @@ try
 	$baseUrl = $baseModifier."local/".$currentSelectedTheme."/";
 	require_once($baseUrl.'conf/config.php');
 	require_once($baseModifier.'core/conf/config.php');
-	require_once($baseModifier.'local/conf/globalConfig.php');
-	require_once($baseModifier.'core/conf/globalConfig.php');
+	include($baseModifier.'local/conf/globalConfig.php');
+	include($baseModifier.'core/conf/globalConfig.php');
 	require_once('../configStatic.php');
 	require_once('../updateProgressFile.php');
 	require_once('../class/poll.php');

@@ -46,11 +46,11 @@ if(!file_exists($baseUrl.'conf/config.php'))
 }
 require_once($baseUrl.'conf/config.php');
 require_once('core/conf/config.php');
-require_once('core/conf/globalConfig.php');
+include('core/conf/globalConfig.php');
 
 if(is_file('local/conf/globalConfig.php'))
 {
-	require_once('local/conf/globalConfig.php');
+	include('local/conf/globalConfig.php');
 }
 else
 {

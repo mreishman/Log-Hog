@@ -73,7 +73,7 @@ class upgrade extends core
 		$globalConfig = array();
 		if(file_exists($baseBaseUrl .'local/conf/globalConfig.php'))
 		{
-			require_once($baseBaseUrl .'local/conf/globalConfig.php');
+			include($baseBaseUrl .'local/conf/globalConfig.php');
 			// Ok if it doesn't exist, user might have deleted to reset settings or something?
 		}
 
@@ -82,7 +82,7 @@ class upgrade extends core
 			echo json_encode(8);
 			exit();
 		}
-		require_once($baseBaseUrl .'core/conf/globalConfig.php');
+		include($baseBaseUrl .'core/conf/globalConfig.php');
 		$baseUrl = $baseBaseUrl."local/";
 		$currentSelectedTheme = $session->returnCurrentSelectedTheme();
 		$baseUrl .= $currentSelectedTheme."/";
