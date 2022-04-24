@@ -123,7 +123,7 @@ function dateTimeSplit(text)
 	//check for start of time stamp. Could be: ( [ or just a number
 	var regExLoop = {
 		0: {
-			regex: /[0-9]{1,4}(\D[0-9]{1,2}){5}(\D?AM|\D?PM)?(\D[0-9]{1,2}){0,2}/i
+			regex: /[0-9]{1,4}(\D[0-9]{1,2}){5}(\D?AM|\D?PM)?(\D[0-9]{1,20}){0,3}/i
 		},
 		1: {
 			regex: /(\w{3} ){2}[0-9]{1,2}(.[0-9]{2}){3}(.[0-9]{6})?.[0-9]{4}/i
