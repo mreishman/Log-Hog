@@ -113,7 +113,11 @@ function formatReportMessage(message, extraData) //used for file check
 	{
 		classToAdd += " settingsDivRemoveBottom ";
 	}
-	lineToReturn += "<div class=\""+classToAdd+"\">"+formatMainMessage(message, extraData)+"</div>";
+	let mainMessage = formatMainMessage(message, extraData);
+	if(mainMessage)
+	{
+		lineToReturn += "<div class=\""+classToAdd+"\">"+mainMessage+"</div>";
+	}
 	return lineToReturn;
 }
 
