@@ -55,7 +55,7 @@ function formatLine(text, extraData)
 	let timeFormat = dateTimeFormat(arrayOfText, true);
 	extraData["lastLineSame"] = checkIfTimeStampSame(arrayOfText, extraData, "lastLine");
 	extraData["nextLineSame"] = checkIfTimeStampSame(arrayOfText, extraData, "nextLine");
-	if(dateTextGroup === "true" && extraData["lastLineSame"])
+	if(dateTextGroup !== "false" && extraData["lastLineSame"])
 	{
 		timeFormat = "";
 	}
@@ -106,6 +106,10 @@ function checkIfTimeStampSame(arrayOfText, extraData, type)
 	if(type in extraData && extraData[type] !== "")
 	{
 		arrayOfTextLastLine = dateTimeSplit(extraData[type]);
+	}
+	if(dateTextGroup === "true")
+	{
+		return (dateTimeFormat(arrayOfText, true) === dateTimeFormat(arrayOfTextLastLine, true));
 	}
 	return (arrayOfText[0] === arrayOfTextLastLine[0]);
 }

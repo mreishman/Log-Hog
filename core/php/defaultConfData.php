@@ -986,7 +986,17 @@ $defaultConfigMoreData = array(
 							"info"								=>	"Only displays top timestamp when more than one in a row are same",
 							"key"								=>	"dateTextGroup",
 							"name"								=>	"Group Same Timestamps",
-							"options"							=>	$trueFalsVars,
+							"options"							=>	array(
+								0 									=> array(
+									"value" 							=> "true",
+									"name" 								=> "Group by formatted time stamp"),
+								1 									=> array(
+									"value" 							=> "preFormat",
+									"name" 								=> "Group by pre format timestamp"),
+								2 									=> array(
+									"value" 							=> "false",
+									"name" 								=> "False")
+							),
 							"type"								=>	"dropdown"
 						)
 					),
