@@ -780,6 +780,9 @@ function resetArrayObject(idOfForm)
 
 function generateExampleLogForStyle()
 {
+	if(typeof exampleLogForCusotmStyle === "undefined") {
+		return;
+	}
 	let html = "<table style=\" background: " + $("#generalThemeOptions input[name=backgroundColor]").val() + "; \" >";
 	let length = exampleLogForCustomStyle.length;
 	for(let i = 0; i < length; i++)
@@ -813,6 +816,9 @@ function generateExampleLogForStyle()
 
 function generateTimestampExample()
 {
+	if(typeof exampleLineForTimestampStyle === "undefined") {
+		return;
+	}
 	let line = exampleLineForTimestampStyle;
 	let arrayOfText = dateTimeSplit(line);
 	let timeFormat = dateTimeFormat(arrayOfText, false); 
