@@ -224,9 +224,6 @@ function checkForUpdateTimer(urlSend, whatAmIUpdating)
 				{
 					//inner addon update
 					hidePopup();
-					$.get( "core/php/template/innerAddon.php", function( data ) {
-						$("#innerAddonSpanReplace").html(data);
-					});
 				}
 			}
 		}
@@ -289,6 +286,14 @@ function showPopupForUpdate(urlSend,whatAmIUpdating)
 			document.getElementById("installDataDownloadSize").innerHTML = dataFromJSON.downloadTotal;
 			document.getElementById("installDataCurrentFree").innerHTML = dataFromJSON.currentAmmtFree;
 			document.getElementById("installDataTotalChange").innerHTML = dataFromJSON.totalSizeChange;
+			if (dataFromJSON.downloadTotalUnformatted !== 0 && (dataFromJSON.downloadTotalUnformatted * 2) > dataFromJSON.currentAmmtFreeUnformatted)
+			{
+				document.getElementById("installDataDownloadRecommendedSpaceError").style.display = "block";
+			}
+			else
+			{
+				document.getElementById("installDataDownloadRecommendedSpaceError").style.display = "none";
+			}
 			document.getElementById("installData").style.display = "block";
 		}
 		if(document.getElementById("checkForUpdateButton"))

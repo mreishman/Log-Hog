@@ -408,7 +408,7 @@ function saveVerified()
 
 	saveSuccess();
 
-	if(idForFormMain === "locationOtherApps" || idForFormMain === "settingsFullScreenMenuVars")
+	if(idForFormMain === "settingsFullScreenMenuVars")
 	{
 		refreshAddonLinks();
 		refreshJsVars();
@@ -750,6 +750,10 @@ function resetArrayObject(idOfForm)
 		{
 			reAddJsColorPopupForCustomThemes();
 		}
+		else if(idOfForm === "generalThemeOptions")
+		{
+			logStyleListeners();
+		}
 
 		if(innerHtmlObject[idOfForm].indexOf("colorSelectorDiv") > -1)
 		{
@@ -773,3 +777,105 @@ function resetArrayObject(idOfForm)
 		console.log(e);
 	}
 }
+
+function generateExampleLogForStyle()
+{
+	if(typeof exampleLogForCusotmStyle === "undefined") {
+		return;
+	}
+	let html = "<table style=\" background: " + $("#generalThemeOptions input[name=backgroundColor]").val() + "; \" >";
+	let length = exampleLogForCustomStyle.length;
+	for(let i = 0; i < length; i++)
+	{
+		html += "<tr style=\"border-spacing: 0; \"><td style=\"padding: 0; font-family: " +
+		$("#generalThemeOptions select[name=fontFamily]").val() + 
+		"; color: "+
+		$("#generalThemeOptions input[name=logFontColor]").val() +
+		"; font-size: " +
+		$("#generalThemeOptions select[name=logFontSize]").val() +
+		"%; \" >" + exampleLogForCustomStyle[i] + "</td></tr>";
+		if (i !== (length - 1))
+		{
+			let lineBorder = "";
+			if ($("#generalThemeOptions select[name=logLineBorder]").val() === 'true')
+			{
+				lineBorder = "border-top: " + 
+				$("#generalThemeOptions select[name=logLineBorderHeight]").val() + 
+				"px solid " +
+				$("#generalThemeOptions input[name=logLineBorderColor]").val() + 
+				";";
+			}
+			html += "<tr style=\"border-spacing: 0; height: " +
+			$("#generalThemeOptions select[name=logLinePadding]").val() +
+			"px;\" ><td style=\"padding: 0; "+lineBorder+" \"></td></tr>";
+		}
+	}
+	html += "</table>";
+	$("#exampleStyleLogSpan").html(html);
+}
+
+function generateTimestampExample()
+{
+	if(typeof exampleLineForTimestampStyle === "undefined") {
+		return;
+	}
+	let line = exampleLineForTimestampStyle;
+	let arrayOfText = dateTimeSplit(line);
+	let timeFormat = dateTimeFormat(arrayOfText, false); 
+	if ($("#dateTextFormatEnableSettings select[name=dateTextBold]").val() === "true")
+	{
+		timeFormat = "<b>" + timeFormat + "</b>";
+	}
+	let timePadding = "<td style=\"width: "+$("#dateTextFormatEnableSettings select[name=dateTimePadding]").val()+"px;\" ></td>";
+
+	if($("#dateTextFormatEnableSettings select[name=dateTextFormatColumn]").val() !== "false")
+	{
+		line = "<td style=\"padding: 0; font-family: " +
+		$("#generalThemeOptions select[name=fontFamily]").val() + 
+		"; color: "+
+		$("#generalThemeOptions input[name=logFontColor]").val() +
+		"; font-size: " +
+		$("#generalThemeOptions select[name=logFontSize]").val() +
+		"%; \" >" + timeFormat + "</td>" + timePadding + "<td style=\"padding: 0; font-family: " +
+		$("#generalThemeOptions select[name=fontFamily]").val() + 
+		"; color: "+
+		$("#generalThemeOptions input[name=logFontColor]").val() +
+		"; font-size: " +
+		$("#generalThemeOptions select[name=logFontSize]").val() +
+		"%; \" >" + arrayOfText[1]
+	}
+	else
+	{
+		line = "<td style=\"padding: 0; font-family: " +
+		$("#generalThemeOptions select[name=fontFamily]").val() + 
+		"; color: "+
+		$("#generalThemeOptions input[name=logFontColor]").val() +
+		"; font-size: " +
+		$("#generalThemeOptions select[name=logFontSize]").val() +
+		"%; \" >" + timeFormat + arrayOfText[1]
+	}
+
+	let html = "<table><tr style=\"border-spacing: 0; \">" + line + "</td></tr></table>";
+	$("#exampleStyleTimestampSpan").html(html);
+}
+
+function logStyleListeners()
+{
+	generateExampleLogForStyle();
+	$("#generalThemeOptions input, #generalThemeOptions select").on("change", function() {
+		generateExampleLogForStyle();
+	})
+}
+
+function timestampStyleListeners()
+{
+	generateTimestampExample();
+	$("#dateTextFormatEnableSettings input, #dateTextFormatEnableSettings select").on("change", function() {
+		generateTimestampExample();
+	})
+}
+
+$( document ).ready(function() {
+    logStyleListeners();
+    timestampStyleListeners();
+});

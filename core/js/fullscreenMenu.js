@@ -9,23 +9,7 @@ function toggleFullScreenMenu(force = false)
 		loadImgFromData("mainMenuImage");
 		document.getElementById("fullScreenMenu").style.display = "block";
 		onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
-		if($("#menuStatusAddon").hasClass("selected"))
-		{
-			$("#menuStatusAddon").click();
-		}
-		else if($("#menuMonitorAddon").hasClass("selected"))
-		{
-			$("#menuMonitorAddon").click();
-		}
-		else if ($("#menuSearchAddon").hasClass("selected"))
-		{
-			$("#menuSearchAddon").click();
-		}
-		else if ($("#menuSeleniumMonitorAddon").hasClass("selected"))
-		{
-			$("#menuSeleniumMonitorAddon").click();
-		}
-		else if($("#ThemesLink") && $("#ThemesLink").hasClass("selected"))
+		if($("#ThemesLink") && $("#ThemesLink").hasClass("selected"))
 		{
 			toggleThemesIframeSource(true);
 		}
@@ -41,10 +25,6 @@ function toggleFullScreenMenu(force = false)
 				if(fullScreenMenuDefaultPage === "about")
 				{
 					toggleAbout();
-				}
-				else if(fullScreenMenuDefaultPage === "addons")
-				{
-					toggleAddons();
 				}
 				else if(fullScreenMenuDefaultPage === "history")
 				{
@@ -81,6 +61,7 @@ function toggleFullScreenMenu(force = false)
 	}
 	else
 	{
+		updateDocumentTitle('Index');
 		if(!force && !globalForcePageNavigate)
 		{
 			if(!(goToPageCheck("toggleFullScreenMenu(true)")))
@@ -93,6 +74,8 @@ function toggleFullScreenMenu(force = false)
 		globalForcePageNavigate = false;
 		document.getElementById("menu").style.zIndex = "20";
 		hideIframeStuff();
+		hideMainStuff();
+		arrayOfScrollHeaderUpdate = [];
 		document.getElementById("fullScreenMenu").style.display = "none";
 		togglePollSpeedUp();
 	}
@@ -132,31 +115,13 @@ function toggleUpdateMenu(force = false)
 			return false;
 		}
 	}
+	updateDocumentTitle("Update");
 	globalForcePageNavigate = false;
 	loadImgFromData("updateImg");
 	hideMainStuff();
 	hideSidebar();
 	document.getElementById("fullScreenMenuUpdate").style.display = "block";
 	$("#mainMenuUpdate").addClass("selected");
-	arrayOfScrollHeaderUpdate = [];
-	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
-	resizeFullScreenMenu();
-}
-
-function toggleAddons(force = false)
-{
-	if(!force && !globalForcePageNavigate)
-	{
-		if(!(goToPageCheck("toggleAddons(true)")))
-		{
-			return false;
-		}
-	}
-	globalForcePageNavigate = false;
-	hideMainStuff();
-	hideSidebar();
-	document.getElementById("fullScreenMenuAddons").style.display = "block";
-	$("#mainMenuAddons").addClass("selected");
 	arrayOfScrollHeaderUpdate = [];
 	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
 	resizeFullScreenMenu();
@@ -171,6 +136,7 @@ function toggleHistory(force = false)
 			return false;
 		}
 	}
+	updateDocumentTitle('History');
 	globalForcePageNavigate = false;
 	hideMainStuff();
 	toggleFullScreenMenuMainContent();
@@ -208,6 +174,7 @@ function toggleSettings(force = false)
 			return false;
 		}
 	}
+	updateDocumentTitle("Settings");
 	globalForcePageNavigate = false;
 	hideMainStuff();
 	toggleFullScreenMenuMainContent();
@@ -227,6 +194,7 @@ function toggleAbout(force = false)
 			return false;
 		}
 	}
+	updateDocumentTitle('About');
 	globalForcePageNavigate = false;
 	hideMainStuff();
 	toggleFullScreenMenuMainContent();
@@ -244,6 +212,7 @@ function toggleThemes(force = false)
 			return false;
 		}
 	}
+	updateDocumentTitle("Themes");
 	globalForcePageNavigate = false;
 	hideMainStuff();
 	hideSidebar();
@@ -351,6 +320,7 @@ function toggleWatchListMenu(force = false)
 			return false;
 		}
 	}
+	updateDocumentTitle("Watchlsit");
 	globalForcePageNavigate = true;
 	if(typeof loadWatchList !== "function")
 	{
@@ -496,12 +466,6 @@ function hideNotificationStuff()
 	document.getElementById("notificationsEmpty").style.display = "none";
 }
 
-function hideAddonStuff()
-{
-	document.getElementById("fullScreenMenuAddons").style.display = "none";
-	$("#mainMenuAddons").removeClass("selected");
-}
-
 function hideThemeStuff()
 {
 	toggleThemesIframeSource(false);
@@ -521,29 +485,6 @@ function hideIframeStuff()
 	{
 		$("#iframeFullScreen").prop("src", newSrc);
 	}
-}
-
-function toggleIframe(locHref, idOfAddon, force = false)
-{
-	if(!force && !globalForcePageNavigate)
-	{
-		if(!(goToPageCheck("toggleIframe(\""+locHref+"\",\""+idOfAddon+"\",true)")))
-		{
-			return false;
-		}
-	}
-	globalForcePageNavigate = false;
-	hideMainStuff();
-	$("#"+idOfAddon).addClass("selected");
-	document.getElementById("fullScreenMenuIFrame").style.display = "block";
-	hideSidebar();
-	$("#iframeFullScreen").prop("src", locHref);
-	var mainContentRect = document.getElementById("mainContentFullScreenMenu").getBoundingClientRect();
-	document.getElementById("iframeFullScreen").style.width = ""+mainContentRect.width+"px";
-	document.getElementById("iframeFullScreen").style.height = ""+mainContentRect.height+"px";
-	arrayOfScrollHeaderUpdate = [];
-	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
-	return false;
 }
 
 function hideMainStuff()
@@ -585,23 +526,10 @@ function hideMainStuff()
 		sideBarVisible = true;
 	}
 
-
-	if($("#menuStatusAddon").hasClass("selected") || $("#menuMonitorAddon").hasClass("selected") || $("#menuSearchAddon").hasClass("selected") || $("#menuSeleniumMonitorAddon").hasClass("selected"))
-	{
-		hideIframeStuff();
-		sideBarVisible = true;
-	}
-
 	if($("#watchListMenu").hasClass("selected"))
 	{
 		hideWatchListStuff();
 		$("#watchListMenu").removeClass("selected");
-	}
-
-	if($("#mainMenuAddons").hasClass("selected"))
-	{
-		hideAddonStuff();
-		sideBarVisible = true;
 	}
 
 	if($("#ThemesLink") && $("#ThemesLink").hasClass("selected"))
@@ -610,11 +538,6 @@ function hideMainStuff()
 		$("#ThemesLink").removeClass("selected");
 		sideBarVisible = true;
 	}
-
-	$("#menuStatusAddon").removeClass("selected");
-	$("#menuMonitorAddon").removeClass("selected");
-	$("#menuSearchAddon").removeClass("selected");
-	$("#menuSeleniumMonitorAddon").removeClass("selected");
 }
 
 function onScrollShowFixedMiniBar(idsOfForms)
@@ -728,7 +651,6 @@ function resizeFullScreenMenu()
 			$(".settingsUlSub").css("width","200px").css("bottom","0").css("right","auto").removeClass("addBorderBottom").addClass("addBorderRight").css("height","auto");
 			$(".settingsUlSub li").not(".subMenuToggle, .hiddenMenu").css("display","block");
 			$("#settingsSubMenu .menuTitle").not(".fullScreenMenuText, .hiddenMenu").css("display","block");
-			toggleAddonAppsMenuText();
 		}
 
 		if(document.getElementById("mainContentFullScreenMenu").style.left !== mainContentFullScreenMenuLeft+"px")
@@ -748,34 +670,6 @@ function resizeFullScreenMenu()
 	{
 		console.log(e);
 	}
-}
-
-function toggleAddonAppsMenuText()
-{
-	if(!checkIfAddonsAreInstalled())
-	{
-		document.getElementById("menuOtherApps").style.display = "none";
-	}
-	else
-	{
-		document.getElementById("menuOtherApps").style.display = "list-item";
-	}
-}
-function checkIfAddonsAreInstalled()
-{
-	if(typeof listOfAddons === "object")
-	{
-		let listOfAddonKeys = Object.keys(listOfAddons);
-		let listOfAddonKeysLength = listOfAddonKeys.length;
-		for(let addCount = 0; addCount < listOfAddonKeysLength; addCount++)
-		{
-			if(listOfAddons[listOfAddonKeys[addCount]]["Installed"] !== false && listOfAddons[listOfAddonKeys[addCount]]["Installed"] !== "false")
-			{
-				return true;
-			}
-		}
-	}
-	return false;
 }
 
 function togglePollSpeedDown(currentClick)

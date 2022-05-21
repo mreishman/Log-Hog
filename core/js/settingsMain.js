@@ -103,6 +103,9 @@ function updateJsonForCustomDateFormatInner()
 	}
 
 	document.getElementById("dateTextFormatCustom").value = objectToSave;
+	setTimeout(function() {
+		generateTimestampExample();
+	}, 2);
 }
 
 function selectLogPopup(locationForNewLogText)

@@ -12,16 +12,16 @@ $currentSelectedTheme = $session->returnCurrentSelectedTheme();
 $baseUrl .= $currentSelectedTheme."/";
 require_once($baseUrl.'conf/config.php');
 require_once('../../../core/conf/config.php');
-require_once('../../../core/conf/globalConfig.php');
-require_once('../../../local/conf/globalConfig.php');
+include('../../../core/conf/globalConfig.php');
+include('../../../local/conf/globalConfig.php');
 require_once('../../../core/php/configStatic.php');
 require_once('../../../core/php/loadVars.php');
 $globalConfigVersion = 0;
-if(isset($globalConfig['globalConfigVersion']))
+if(isset($globalConfig['globalConfVersion']))
 {
-	$globalConfigVersion = $globalConfig['globalConfigVersion'];
+	$globalConfigVersion = $globalConfig['globalConfVersion'];
 }
-$globalConfigVersionToUpgradeTo = $defaultGlobalConfig['globalConfigVersion'];
+$globalConfigVersionToUpgradeTo = $defaultGlobalConfig['globalConfVersion'];
 $totalUpgradeScripts = floatval($globalConfigVersionToUpgradeTo) - floatval($globalConfigVersion);
 ?>
 <!doctype html>

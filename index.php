@@ -11,17 +11,15 @@ if(!$session->startSession())
 }
 $currentPage = "index.php";
 $errorCheck->checkIfFilesExist(
-	array("core/conf/config.php","core/php/configStatic.php","core/php/loadVars.php","core/php/loadVarsToJs.php","core/php/updateCheck.php","core/js/jquery.js","core/php/customCSS.php","core/php/template/popup.php","core/js/main.js","core/js/rightClickJS.js","core/js/update.js","core/php/class/addons.php","setup/setupProcessFile.php","error.php"),
+	array("core/conf/config.php","core/php/configStatic.php","core/php/loadVars.php","core/php/loadVarsToJs.php","core/php/updateCheck.php","core/js/jquery.js","core/php/customCSS.php","core/php/template/popup.php","core/js/main.js","core/js/rightClickJS.js","core/js/update.js","setup/setupProcessFile.php","error.php"),
 	 "",
 	 $currentPage);
 $errorCheck->checkIfFilesAreReadable(
-	array("core/conf/config.php","core/php/configStatic.php","core/php/loadVars.php","core/php/loadVarsToJs.php","core/php/updateCheck.php","core/js/jquery.js","core/php/customCSS.php","core/php/template/popup.php","core/js/main.js","core/js/rightClickJS.js","core/js/update.js","core/php/class/addons.php","setup/setupProcessFile.php","error.php"),
+	array("core/conf/config.php","core/php/configStatic.php","core/php/loadVars.php","core/php/loadVarsToJs.php","core/php/updateCheck.php","core/js/jquery.js","core/php/customCSS.php","core/php/template/popup.php","core/js/main.js","core/js/rightClickJS.js","core/js/update.js","setup/setupProcessFile.php","error.php"),
 	 "",
 	 $currentPage);
 require_once("core/php/class/update.php");
 $update = new update();
-require_once("core/php/class/addons.php");
-$addons = new addons();
 require_once("core/php/class/settings.php");
 $settings = new settings();
 $core->setCookieRedirect();
@@ -48,11 +46,11 @@ if(!file_exists($baseUrl.'conf/config.php'))
 }
 require_once($baseUrl.'conf/config.php');
 require_once('core/conf/config.php');
-require_once('core/conf/globalConfig.php');
+include('core/conf/globalConfig.php');
 
 if(is_file('local/conf/globalConfig.php'))
 {
-	require_once('local/conf/globalConfig.php');
+	include('local/conf/globalConfig.php');
 }
 else
 {
@@ -75,14 +73,6 @@ require_once('core/php/defaultLogSidebarData.php');
 require_once('core/php/defaultIndexHeaderData.php');
 
 $daysSince = $update->calcuateDaysSince($configStatic['lastCheck']);
-
-$locationForStatusIndex = $addons->checkForStatusInstall($locationForStatus, "./");
-
-$locationForMonitorIndex = $addons->checkForMonitorInstall($locationForMonitor, "./");
-
-$locationForSearchIndex = $addons->checkForSearchInstall($locationForSearch, "./");
-
-$locationForSeleniumMonitorIndex = $addons->checkForSeleniumMonitorInstall($locationForSeleniumMonitor, "./");
 
 /* USED IN ABOUT PAGE (template/about.php) */
 $otherPageImageModifier = "";

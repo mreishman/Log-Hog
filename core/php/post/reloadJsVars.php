@@ -20,8 +20,8 @@ $baseUrl = "../../../local/".$currentSelectedTheme."/";
 $localURL = $baseUrl;
 require_once($baseUrl.'conf/config.php');
 require_once('../../../core/conf/config.php');
-require_once('../../../local/conf/globalConfig.php');
-require_once('../../../core/conf/globalConfig.php');
+include('../../../local/conf/globalConfig.php');
+include('../../../core/conf/globalConfig.php');
 $currentTheme = $core->loadSpecificVar($defaultConfig, $config, "currentTheme");
 if(is_dir('../../../local/Themes/'.$currentTheme))
 {

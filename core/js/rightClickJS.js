@@ -24,33 +24,6 @@ var searchFieldInputMenu = [searchFieldToggleSearchType];
 
 var menuObjectRightClick = {deleteImage: deleteMenu, pauseImage: pauseMenu, notificationBadge: notificationMenuBadge, notificationCount: notificationMenuBadge, searchFieldInput: searchFieldInputMenu};
 
-//check for list of addons addons to add to object
-var listOfAddonsKeys = Object.keys(listOfAddons);
-var listOfAddonsKeysLength = listOfAddonsKeys.length;
-for(var akcount = 0; akcount < listOfAddonsKeysLength; akcount++)
-{
-  if(listOfAddons[listOfAddonsKeys[akcount]]["Installed"] !== false)
-  {
-    //add right click object
-    var listOfRightClickTargets =["Span", "Div", "Image", "Text",addonRightClickIds[listOfAddonsKeys[akcount]]];
-    var listOfRightClickTargetsLength = listOfRightClickTargets.length;
-    for(var rct = 0; rct < listOfRightClickTargetsLength; rct++)
-    {
-      var innerId = listOfAddonsKeys[akcount]+listOfRightClickTargets[rct];
-      if(!document.getElementById(innerId))
-      {
-        innerId = listOfRightClickTargets[rct];
-        if(!document.getElementById(innerId))
-        {
-          continue;
-        }
-      }
-      menuObjectRightClick[innerId] = [addonRightClickObject[listOfAddonsKeys[akcount]]];
-      Rightclick_ID_list.push(innerId);
-    }
-  }
-}
-
 $( document ).ready(function() {
   (function() {
 

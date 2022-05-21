@@ -41,9 +41,9 @@ $brightessVars = array();
 $logPaddingVars = array();
 $oneLogNum = array();
 $oneLogLogMaxHeightArr = array();
-for ($m=0; $m < 20; $m++)
+for ($m=0; $m < 40; $m++)
 {
-	if($m >= 5)
+	if($m >= 5 && $m < 31)
 	{
 		$fontSizeVars[$m] = array(
 			"value" 					=> ($m*10),
@@ -68,9 +68,12 @@ for ($m=0; $m < 20; $m++)
 			"value" 					=> $m,
 			"name" 						=> $m."px");
 
-	$oneLogLogMaxHeightArr[$m] = array(
+	if ($m < 21)
+	{
+		$oneLogLogMaxHeightArr[$m] = array(
 			"value" 					=> (($m*15)+100),
 			"name" 						=> (($m*15)+100)."px");
+	}
 }
 $oneLogLogMaxHeightArr[20] = array(
 			"value" 					=> 400,
@@ -170,7 +173,7 @@ for($CDFVcount = 0; $CDFVcount < 10; $CDFVcount++)
 	$D1Value = "none";
 	$MValue = "none";
 	$D2Value = "none";
-	if($currentBracket !== "" && count($currentBracket) > 0)
+	if($currentBracket !== "" && strlen($currentBracket) > 0)
 	{
 		foreach ($delimiterChoices as $delChoice)
 		{
@@ -232,65 +235,23 @@ for($CDFVcount = 0; $CDFVcount < 10; $CDFVcount++)
 	$CDFVExternalCounter++;
 }
 
-$leftMod = array(
-	0 									=> array(
-		"value" 							=> "(",
-		"name" 								=> "("),
-	1 									=> array(
-		"value" 							=> "[",
-		"name" 								=> "["),
-	2 									=> array(
-		"value" 							=> "|",
-		"name" 								=> "|"),
-	3 									=> array(
-		"value"								=> ":",
-		"name" 								=> ":"),
-	4 									=> array(
-		"value"								=> "-",
-		"name" 								=> "-"),
-	5									=> array(
-		"value"								=> "::",
-		"name" 								=> "::"),
-	6									=> array(
-		"value"								=> "@",
-		"name" 								=> "@"),
-	7 									=> array(
-		"value"								=> " ",
-		"name" 								=> "Space"),
-	8 									=> array(
-		"value"								=> "none",
-		"name" 								=> "None")
-);
+$leftMod = json_decode(file_get_contents($core->baseURL()."core/json/leftMod.json"), true);
+$rightMod = json_decode(file_get_contents($core->baseURL()."core/json/rightMod.json"), true);
 
-$rightMod = array(
-	0 									=> array(
-		"value" 							=> ")",
-		"name" 								=> ")"),
-	1 									=> array(
-		"value" 							=> "]",
-		"name" 								=> "]"),
-	2 									=> array(
-		"value" 							=> "|",
-		"name" 								=> "|"),
-	3 									=> array(
-		"value"								=> ":",
-		"name" 								=> ":"),
-	4 									=> array(
-		"value"								=> "-",
-		"name" 								=> "-"),
-	5									=> array(
-		"value"								=> "::",
-		"name" 								=> "::"),
-	6									=> array(
-		"value"								=> "@",
-		"name" 								=> "@"),
-	7 									=> array(
-		"value"								=> " ",
-		"name" 								=> "Space"),
-	8 									=> array(
-		"value"								=> "none",
-		"name" 								=> "None")
-);
+$exampleLog = json_encode(explode("\n", file_get_contents($core->baseURL()."core/Themes/example.html")));
+
+$customStyleSectionLogs = "
+<div class=\"settingsHeader\">Example:</div>
+<div class=\"settingsDiv\"><div style=\"max-height: 300px; overflow: auto;\" id=\"exampleStyleLogSpan\"></span></div>
+<script>var exampleLogForCustomStyle = ".$exampleLog.";</script>
+";
+
+$customStyleSectionTimestamp = "
+<div class=\"settingsHeader\">Example:</div>
+<div class=\"settingsDiv\"><div style=\"max-height: 300px; overflow: auto;\" id=\"exampleStyleTimestampSpan\"></span></div>
+<script>var exampleLineForTimestampStyle = '2021-10-18T20:22:18+00:00 : [hphp] [29] all servers started';</script>
+";
+
 
 $fullScreenMenuGroups = array(
 	"main"	=> array (
@@ -597,56 +558,6 @@ $defaultConfigMoreData = array(
 			)
 		)
 	),
-	"fileLocations"						=>	array(
-		"id"								=>	"locationOtherApps",
-		"name"								=>	"File Locations",
-		"menu"								=> 	array(
-			"groups"							=>	array(
-				"advanced"
-			),
-			"id"								=>	"settingsAdvancedLocations",
-			"display"							=>	true,
-			"name"								=>	"File Locations"
-		),
-		"vars"								=>	array(
-			0									=> array(
-				"info"								=>	"Default = https://".$_SERVER['SERVER_NAME']."/status",
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"locationForStatus",
-					"name"								=>	"Status Location",
-					"type"								=>	"text"
-				)
-			),
-			1									=> array(
-				"info"								=>	"Default = https://".$_SERVER['SERVER_NAME']."/monitor",
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"locationForMonitor",
-					"name"								=>	"Monitor Location",
-					"type"								=>	"text"
-				)
-			),
-			2									=> array(
-				"info"								=>	"Default = https://".$_SERVER['SERVER_NAME']."/search",
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"locationForSearch",
-					"name"								=>	"Search Location",
-					"type"								=>	"text"
-				)
-			),
-			3									=> array(
-				"info"								=>	"Default = https://".$_SERVER['SERVER_NAME']."/seleniumMonitor",
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"locationForSeleniumMonitor",
-					"name"								=>	"Selenium Monitor Location",
-					"type"								=>	"text"
-				)
-			),
-		)
-	),
 	"filterVars"						=>	array(
 		"id"								=>	"settingsFilterVars",
 		"name"								=>	"Filter Settings",
@@ -800,6 +711,10 @@ $defaultConfigMoreData = array(
 		),
 		"vars"								=>	array(
 			0									=>	array(
+				"custom"							=>	$customStyleSectionLogs,
+				"type"								=>	"custom"
+			),
+			1									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"backgroundColor",
@@ -807,21 +722,13 @@ $defaultConfigMoreData = array(
 					"type"								=>	"color"
 				)
 			),
-			1									=>	array(
+			2									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"fontFamily",
 					"name"								=>	"Font",
 					"options"							=>	json_decode(file_get_contents($core->baseURL()."core/json/fontChoices.json"), true),
 					"type"								=>	"dropdown"
-				)
-			),
-			2									=>	array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"mainFontColor",
-					"name"								=>	"Main Font Color",
-					"type"								=>	"color"
 				)
 			),
 			3									=>	array(
@@ -887,12 +794,20 @@ $defaultConfigMoreData = array(
 			7									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
+					"key"								=>	"mainFontColor",
+					"name"								=>	"Main Font Color",
+					"type"								=>	"color"
+				)
+			),
+			8									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
 					"key"								=>	"backgroundHeaderColor",
 					"name"								=>	"Header Background",
 					"type"								=>	"color"
 				)
 			),
-			8									=>	array(
+			9									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"invertMenuImages",
@@ -901,7 +816,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			9									=>	array(
+			10									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"overallBrightness",
@@ -910,7 +825,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			10									=>	array(
+			11									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"maxHeightLogTabs",
@@ -979,6 +894,15 @@ $defaultConfigMoreData = array(
 					"name"								=>	"Layout Version",
 					"type"								=>	"number"
 				)
+			),
+			5									=> array(
+				"info"								=>	"Comma seperated list of ips (wild cards valid like 192.168.*.*",
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"ipWhitelist",
+					"name"								=>	"Whitelist ips",
+					"type"								=>	"text"
+				)
 			)
 		)
 	),
@@ -1008,7 +932,11 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				),
 				"vars"								=>	array(
-					0									=> array(
+					0									=>	array(
+						"custom"							=>	$customStyleSectionTimestamp,
+						"type"								=>	"custom"
+					),
+					1									=> array(
 						"bool"								=>	($dateTextFormat != 'custom'),
 						"bool2"								=>	"custom",
 						"id"								=>	"dateTextFormatSelector",
@@ -1025,7 +953,7 @@ $defaultConfigMoreData = array(
 						),
 						"vars"								=>	$customDateFormatVars
 					),
-					1									=> array(
+					2									=> array(
 						"type"								=>	"single",
 						"var"								=>	array(
 							"id"								=>	"dateTextFormatCustom",
@@ -1033,7 +961,7 @@ $defaultConfigMoreData = array(
 							"type"								=>	"hidden"
 						)
 					),
-					2									=>	array(
+					3									=>	array(
 						"type"								=>	"single",
 						"var"								=>	array(
 							"key"								=>	"dateTextFormatColumn",
@@ -1052,13 +980,41 @@ $defaultConfigMoreData = array(
 							"type"								=>	"dropdown"
 						)
 					),
-					3									=>	array(
+					4									=>	array(
 						"type"								=>	"single",
 						"var"								=>	array(
 							"info"								=>	"Only displays top timestamp when more than one in a row are same",
 							"key"								=>	"dateTextGroup",
 							"name"								=>	"Group Same Timestamps",
+							"options"							=>	array(
+								0 									=> array(
+									"value" 							=> "true",
+									"name" 								=> "Group by formatted time stamp"),
+								1 									=> array(
+									"value" 							=> "preFormat",
+									"name" 								=> "Group by pre format timestamp"),
+								2 									=> array(
+									"value" 							=> "false",
+									"name" 								=> "False")
+							),
+							"type"								=>	"dropdown"
+						)
+					),
+					5									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"dateTextBold",
+							"name"								=>	"Bold Timestamps",
 							"options"							=>	$trueFalsVars,
+							"type"								=>	"dropdown"
+						)
+					),
+					6									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"dateTimePadding",
+							"name"								=>	"Timestamp Padding",
+							"options"							=>	$logPaddingVars,
 							"type"								=>	"dropdown"
 						)
 					),
@@ -1872,15 +1828,6 @@ $defaultConfigMoreData = array(
 		),
 		"vars"								=>	array(
 			0									=>	array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"addonsAsIframe",
-					"name"								=>	"Addons as Iframe",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				)
-			),
-			1									=>	array(
 				"info"								=>	"1400 Breakpoint shows only images on full screen sidebar, 1000 breakpoint is the same but moves the inner sidebar to the top",
 				"type"								=>	"single",
 				"var"								=>	array(
@@ -1900,7 +1847,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			2									=>	array(
+			1									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"fullScreenMenuDefaultPage",
@@ -1913,31 +1860,28 @@ $defaultConfigMoreData = array(
 							"value" 							=> "about",
 							"name" 								=> "About"),
 						2 									=> array(
-							"value" 							=> "addons",
-							"name" 								=> "Addons"),
-						3 									=> array(
 							"value" 							=> "history",
 							"name" 								=> "History"),
-						4 									=> array(
+						3 									=> array(
 							"value" 							=> "notifications",
 							"name" 								=> "Notifications"),
-						5 									=> array(
+						4 									=> array(
 							"value" 							=> "settings",
 							"name" 								=> "Settings"),
-						6 									=> array(
+						5 									=> array(
 							"value" 							=> "themes",
 							"name" 								=> "Themes"),
-						7 									=> array(
+						6 									=> array(
 							"value" 							=> "update",
 							"name" 								=> "Update"),
-						8 									=> array(
+						7 									=> array(
 							"value" 							=> "watchlist",
 							"name" 								=> "Watchlist")
 					),
 					"type"								=>	"dropdown"
 				)
 			),
-			3									=>	array(
+			2									=>	array(
 				"bool"								=>	($samePageSettings == 'true'),
 				"bool2"								=>	"false",
 				"id"								=>	"enableMultiLogSettings",

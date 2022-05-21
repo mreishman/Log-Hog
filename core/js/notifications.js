@@ -11,6 +11,7 @@ function toggleNotifications(force = false)
 			return false;
 		}
 	}
+	updateDocumentTitle("Notifications");
 	globalForcePageNavigate = false;
 	hideMainStuff();
 	hideSidebar();

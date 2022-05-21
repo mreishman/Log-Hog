@@ -169,5 +169,11 @@
 	{"fullPath":"core\/php\/template\/whatsNew.php","type":"file"},
 	{"fullPath":"settings\/editFiles.php","type":"file"},
 	{"fullPath":"core\/js\/editFiles.js","type":"file"},
-	{"fullPath":"core\/php\/post\/returnFileContents.php","type":"file"}
+	{"fullPath":"core\/php\/post\/returnFileContents.php","type":"file"},
+	{"fullPath":"core\/js\/addons.js","type":"file"},
+	{"fullPath":"setup\/step5.php","type":"file"},
+	{"fullPath":"core\/php\/template\/addonLinksSideBar.php","type":"file"},
+	{"fullPath":"core\/php\/template\/innerAddon.php","type":"file"},
+	{"fullPath":"core\/php\/post\/reloadAddonLinks.php","type":"file"},
+	{"fullPath":"core\/php\/class\/addons.php","type":"file"}
 ]

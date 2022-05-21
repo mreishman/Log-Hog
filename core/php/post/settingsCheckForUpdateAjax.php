@@ -19,8 +19,8 @@ $baseUrl .= $currentSelectedTheme."/";
 
 require_once($baseUrl.'conf/config.php');
 require_once('../../conf/config.php');
-require_once('../../../local/conf/globalConfig.php');
-require_once('../../conf/globalConfig.php');
+include('../../../local/conf/globalConfig.php');
+include('../../conf/globalConfig.php');
 
 if(file_exists("../../../update/downloads/versionCheck/extracted/"))
 {
@@ -243,9 +243,11 @@ $data['changeLog'] = $Changelog;
 
 //get size of update download
 $data['downloadTotal'] = $update->formatBytes($downloadSize);
+$data['downloadTotalUnformatted'] = (int)$downloadSize;
 
 //get size of current drive
 $data['currentAmmtFree'] = shell_exec("df -h . | tail -1 | awk '{print $4}'");
+$data['currentAmmtFreeUnformatted'] = (int)shell_exec("df . | tail -1 | awk '{print $4}'");
 
 //get size of update after finish
 if($finalInstallSize > $currentVersionSize)

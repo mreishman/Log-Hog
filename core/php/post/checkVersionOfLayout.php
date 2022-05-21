@@ -13,8 +13,8 @@ if(!$session->validate())
 	echo json_encode(array("error" => 18));
 	exit();
 }
-require_once('../../../local/conf/globalConfig.php');
-require_once('../../../core/conf/globalConfig.php');
+include('../../../local/conf/globalConfig.php');
+include('../../../core/conf/globalConfig.php');
 
 $layoutVersion = 0;
 if(isset($globalConfig['layoutVersion']))
