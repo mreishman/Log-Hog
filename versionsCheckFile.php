@@ -1,7 +1,7 @@
 <?php
 
 $versionCheckArray = array(
-	'version'		=> '8.3.7',
+	'version'		=> '8.4',
 	'versionList'		=> array(
 		'2.0.1'	        => array(
 			'branchName'	=> '2.0.1Update',
@@ -412,6 +412,15 @@ $versionCheckArray = array(
 			'installSize'   => 10005071,
 			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/8.3.png',
 			'releaseNotes'	=> "<ul><li>Features<ul><li>Added setting for notification count in browser window title</li><li>Added options to hide or show file link errors</li><li>Removed view files advanced action</li><li>Added progress bar to the delete old files page</li><li>More small settings changes</li></ul></li><li>Bug Fixes<ul><li>Archive<ul><li>Fixed a bug caused by trying to open some archived logs by changing save format to json</li><li>Delete of tmp saved archived logs works correctly now</li><li>Save log action now will create a dir if not already created</li><li>Fixed possible bug that happened when removing notifications for archived logs</li></ul></li><li>Fixed theme preview windows not loading correctly</li><li>Moved title flash to notifications section. Will flash title when notification is present fixing issue with previous logic</li><li>removed unused setting for max preview height</li><li>Fixed grouping display of settings in mobile view</li><li>File errors should not show line count anymore</li><li>Fixed bug where external settings page would show settings tabs that were disabled on initial load</li></ul></li></ul>"
+		),
+		'8.4'			=> array(
+			'branchName'	=> '8.4Update',
+			'commits'	=> 3175,
+			'date'		=> '05/21/2022',
+			'downloadSize'  => 613664,
+			'installSize'   => 9985132,
+			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/8.4.png',
+			'releaseNotes'	=> ""
 		),
 	)
 );
