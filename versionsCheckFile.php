@@ -19,7 +19,7 @@ elseif($configStatic['version'] == '8.3.1') {
 }
 //update info
 $versionCheckArray = array(
-	'version'		=> '8.3.7',
+	'version'		=> '8.4',
 	'versionList'		=> array(
 		'2.0.1'	        => array(
 			'branchName'	=> '2.0.1Update',
@@ -616,6 +616,15 @@ $versionCheckArray = array(
 			'installSize'   => 10005071,
 			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/8.3.png',
 			'releaseNotes'	=> "<ul><li>Features<ul><li>Added setting for notification count in browser window title</li><li>Added options to hide or show file link errors</li><li>Removed view files advanced action</li><li>Added progress bar to the delete old files page</li><li>More small settings changes</li></ul></li><li>Bug Fixes<ul><li>Archive<ul><li>Fixed a bug caused by trying to open some archived logs by changing save format to json</li><li>Delete of tmp saved archived logs works correctly now</li><li>Save log action now will create a dir if not already created</li><li>Fixed possible bug that happened when removing notifications for archived logs</li></ul></li><li>Fixed theme preview windows not loading correctly</li><li>Moved title flash to notifications section. Will flash title when notification is present fixing issue with previous logic</li><li>removed unused setting for max preview height</li><li>Fixed grouping display of settings in mobile view</li><li>File errors should not show line count anymore</li><li>Fixed bug where external settings page would show settings tabs that were disabled on initial load</li></ul></li></ul>"
+		),
+		'8.4'			=> array(
+			'branchName'	=> '8.4Update',
+			'commits'	=> 3175,
+			'date'		=> '05/21/2022',
+			'downloadSize'  => 613664,
+			'installSize'   => 9985132,
+			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/8.4.png',
+			'releaseNotes'	=> "<ul><li>Features<ul><li>Removed Addons</li><li>Settings<ul><li>Added example log in settings to see style changes in real time for main style changes</li><li>Added example timestamp in settings to see style changes in real time for log date text format settings</li><li>Added option to bold timestamps in logs</li><li>Added option to change right padding of timestamps in logs</li><li>Added right click links to about page to match settings</li><li>Added global ip whitelist setting</li></ul></li></ul></li><li>Bug Fixes<ul><li>Log Formatting<ul><li>Fixed timestamp bug with magento 2.4 default logs having nanoseconds and timezone modifier</li><li>Fixed style bug where log line padding had a minimum height of 2</li><li>Fixed style bug where timestamp padding was not being applied on lower resolutions below the breakpoint</li><li>Fixed bug with 12 hour format in timestamp custom formatting</li><li>Fixed bug where if date text format was disabled it would return undefined</li><li>Fixed bug where blank links in report would be incorrectly formatted</li><li>Fixed a bug where timestamps would be grouped pre-format making it look like it was not working. Added setting to use old logic if prefered</li></ul><li>Proper warning message for if not enough space to install update</li><li>Fixed bug with global config update logic</li><li>Fixed a bug where closing out of full screen menu would not close out of currently open menu for next re open</li></ul></li></ul>"
 		),
 	)
 );
