@@ -780,7 +780,7 @@ function resetArrayObject(idOfForm)
 
 function generateExampleLogForStyle()
 {
-	if(typeof exampleLogForCusotmStyle === "undefined") {
+	if(typeof exampleLogForCustomStyle === "undefined") {
 		return;
 	}
 	let html = "<table style=\" background: " + $("#generalThemeOptions input[name=backgroundColor]").val() + "; \" >";
