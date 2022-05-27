@@ -278,7 +278,7 @@ function makePrettyWithText(text, count, extraData = {})
 				{
 					if (lineToReturn.includes('settingsDiv') && lineToReturn.includes('settingsDivRemoveBottom'))
 					{
-						extraTd = "<td style=\"white-space: pre-wrap; padding: 0;\" ><div class=\"settingsDiv  settingsDivRemoveTop  settingsDivRemoveBottom\"></div></td>";
+						extraTd = "<td style=\"white-space: pre-wrap; padding: 0;\" ><div class=\"logLinePaddingHeight settingsDiv  settingsDivRemoveTop  settingsDivRemoveBottom\"></div></td>";
 						colspan--;
 					}
 				}
