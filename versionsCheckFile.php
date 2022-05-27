@@ -597,6 +597,7 @@ $versionCheckArray = array(
 		),
 		'8.4'			=> array(
 			'branchName'	=> '8.4Update',
+			'title'		=> 'Settings Update 7',
 			'commits'	=> 3175,
 			'date'		=> '05/21/2022',
 			'downloadSize'  => 613664,
