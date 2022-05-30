@@ -951,99 +951,16 @@ $defaultConfigMoreData = array(
 				)
 			),
 			1									=>	array(
-				"bool"								=>	($logFormatFileEnable == 'false'),
 				"id"								=>	"logFormatFileEnableSettings",
 				"name"								=>	"Log File Link Settings",
-				"type"								=>	"grouped",
+				"type"								=>	"single",
 				"var"								=>	array(
-					"function"							=>	"showOrHidelogFormatFileEnableSettings",
+					"function"							=>	"showOrHidelogLinkedFileSettings",
 					"id"								=>	"logFormatFileEnable",
 					"key"								=>	"logFormatFileEnable",
 					"name"								=>	"Link files in logs",
 					"options"							=>	$trueFalsVars,
 					"type"								=>	"dropdown"
-				),
-				"vars"								=>	array(
-					0									=> array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"key"								=>	"logFormatFileBackground",
-							"name"								=>	"Background",
-							"type"								=>	"color"
-						)
-					),
-					1									=> array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"key"								=>	"logFormatFileFontColor",
-							"name"								=>	"Font",
-							"type"								=>	"color"
-						)
-					),
-					2									=>	array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"key"								=>	"logFormatFileLineCount",
-							"name"								=>	"Show line count",
-							"options"							=>	$trueFalsVars,
-							"type"								=>	"dropdown"
-						)
-					),
-					3									=>	array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"key"								=>	"logFormatFileLinePadding",
-							"name"								=>	"Line Padding +/-",
-							"options"							=>	$zeroToFiveArr,
-							"type"								=>	"dropdown"
-						)
-					),
-					4									=>	array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"key"								=>	"logFormatFileMaxHeight",
-							"name"								=>	"Max Height",
-							"options"							=>	$oneLogLogMaxHeightArr,
-							"type"								=>	"dropdown"
-						)
-					),
-					5									=>	array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"key"								=>	"logFormatFilePermissions",
-							"name"								=>	"Show File Permissions",
-							"options"							=>	array(
-								0 									=> array(
-									"value" 							=> "always",
-									"name" 								=> "Always"),
-								1 									=> array(
-									"value" 							=> "sometimes",
-									"name" 								=> "If warning shown"),
-								2 									=> array(
-									"value" 							=> "never",
-									"name" 								=> "Never")
-							),
-							"type"								=>	"dropdown"
-						)
-					),
-					6									=>	array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"key"								=>	"logFormatFileHideError",
-							"name"								=>	"Hide Error if line is no longer in file",
-							"options"							=>	$trueFalsVars,
-							"type"								=>	"dropdown"
-						)
-					),
-					7									=>	array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"key"								=>	"logFormatFileHideReadError",
-							"name"								=>	"Hide Error if file is present but not readable",
-							"options"							=>	$trueFalsVars,
-							"type"								=>	"dropdown"
-						)
-					),
 				)
 			),
 			2									=>	array(
@@ -1252,6 +1169,102 @@ $defaultConfigMoreData = array(
 					"key"								=>	"dateTimePadding",
 					"name"								=>	"Timestamp Padding",
 					"options"							=>	$logPaddingVars,
+					"type"								=>	"dropdown"
+				)
+			),
+		)
+	),
+	"logFormatVarsLinkedFiles"			=>	array(
+		"id"								=>	"settingsLogLinkedFilesVars",
+		"name"								=>	"Linked Files Settings ",
+		"menu"								=> 	array(
+			"groups"							=>	array(
+				"formatting"
+			),
+			"id"								=>	"settingsLinkedLogLogFormat",
+			"display"							=>	($advancedLogFormatEnabled === "true" && $logFormatFileEnable == "true"),
+			"name"								=>	"Linked Files"
+		),
+		"vars"								=>	array(
+			
+				
+			0									=> array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"logFormatFileBackground",
+					"name"								=>	"Background",
+					"type"								=>	"color"
+				)
+			),
+			1									=> array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"logFormatFileFontColor",
+					"name"								=>	"Font",
+					"type"								=>	"color"
+				)
+			),
+			2									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"logFormatFileLineCount",
+					"name"								=>	"Show line count",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			3									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"logFormatFileLinePadding",
+					"name"								=>	"Line Padding +/-",
+					"options"							=>	$zeroToFiveArr,
+					"type"								=>	"dropdown"
+				)
+			),
+			4									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"logFormatFileMaxHeight",
+					"name"								=>	"Max Height",
+					"options"							=>	$oneLogLogMaxHeightArr,
+					"type"								=>	"dropdown"
+				)
+			),
+			5									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"logFormatFilePermissions",
+					"name"								=>	"Show File Permissions",
+					"options"							=>	array(
+						0 									=> array(
+							"value" 							=> "always",
+							"name" 								=> "Always"),
+						1 									=> array(
+							"value" 							=> "sometimes",
+							"name" 								=> "If warning shown"),
+						2 									=> array(
+							"value" 							=> "never",
+							"name" 								=> "Never")
+					),
+					"type"								=>	"dropdown"
+				)
+			),
+			6									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"logFormatFileHideError",
+					"name"								=>	"Hide Error if line is no longer in file",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			7									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"logFormatFileHideReadError",
+					"name"								=>	"Hide Error if file is present but not readable",
+					"options"							=>	$trueFalsVars,
 					"type"								=>	"dropdown"
 				)
 			),

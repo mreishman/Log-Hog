@@ -889,6 +889,18 @@ function showOrHideLogTimestamp()
 	}
 }
 
+function showOrHidelogLinkedFileSettings()
+{
+	if($("#logFormatFileEnable").val() === "true")
+	{
+		$("#settingsLinkedLogLogFormatMenu").show();
+	}
+	else
+	{
+		$("#settingsLinkedLogLogFormatMenu").hide();
+	}
+}
+
 $( document ).ready(function() {
     logStyleListeners();
     timestampStyleListeners();
