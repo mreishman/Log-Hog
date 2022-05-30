@@ -532,10 +532,6 @@ function dateTimeFormat(dateTextArray, static)
 			var currentReplace = arrOfOptions[arrOfOptionsKeys[optionCount]]["replace"];
 			if(currentSection.indexOf(currentSearch) > -1)
 			{
-				console.log('--------');
-				console.log(currentSection);
-				console.log(currentSearch);
-				console.log(currentReplace);
 				stringForNewTime += currentSection.replace(currentSearch, currentReplace);
 				added = true;
 				break;
