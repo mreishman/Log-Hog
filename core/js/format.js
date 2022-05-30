@@ -360,9 +360,9 @@ function dateTimeFormat(dateTextArray, static)
 
 	if(!static)
 	{
-		localdateTextFormatEnable = $("#settingsLogFormatVars #dateTextFormatEnable").val();
-		localdateTextFormat = $("#settingsLogFormatVars #dateTextFormat").val();
-		localdateTextFormatCustom = $("#settingsLogFormatVars #dateTextFormatCustom").val();
+		localdateTextFormatEnable = $("#settingsLogFormatVarsDateTime #dateTextFormatEnable").val();
+		localdateTextFormat = $("#settingsLogFormatVarsDateTime #dateTextFormat").val();
+		localdateTextFormatCustom = $("#settingsLogFormatVarsDateTime #dateTextFormatCustom").val();
 	}
 
 	var dateText = dateTextArray[0];
@@ -532,6 +532,10 @@ function dateTimeFormat(dateTextArray, static)
 			var currentReplace = arrOfOptions[arrOfOptionsKeys[optionCount]]["replace"];
 			if(currentSection.indexOf(currentSearch) > -1)
 			{
+				console.log('--------');
+				console.log(currentSection);
+				console.log(currentSearch);
+				console.log(currentReplace);
 				stringForNewTime += currentSection.replace(currentSearch, currentReplace);
 				added = true;
 				break;

@@ -270,8 +270,8 @@ $fullScreenMenuGroups = array(
 		"subGroups"	=> array()
 	),
 	"formatting"	=> array (
-		"name"		=> "Formatting",
-		"display"	=>	true,
+		"name"		=> "Log Format",
+		"display"	=>	($advancedLogFormatEnabled === "true"),
 		"subGroups"	=> array()
 	),
 	"multilog"	=> array (
@@ -934,7 +934,226 @@ $defaultConfigMoreData = array(
 			),
 			"id"								=>	"settingsMainLogFormat",
 			"display"							=>	($advancedLogFormatEnabled === "true"),
-			"name"								=>	"Log Format"
+			"name"								=>	"General"
+		),
+		"vars"								=>	array(
+			0									=>	array(
+				"bool"								=>	($logFormatFileEnable == 'false'),
+				"id"								=>	"logFormatFileEnableSettings",
+				"name"								=>	"Log File Link Settings",
+				"type"								=>	"grouped",
+				"var"								=>	array(
+					"function"							=>	"showOrHidelogFormatFileEnableSettings",
+					"id"								=>	"logFormatFileEnable",
+					"key"								=>	"logFormatFileEnable",
+					"name"								=>	"Link files in logs",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				),
+				"vars"								=>	array(
+					0									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"logFormatFileBackground",
+							"name"								=>	"Background",
+							"type"								=>	"color"
+						)
+					),
+					1									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"logFormatFileFontColor",
+							"name"								=>	"Font",
+							"type"								=>	"color"
+						)
+					),
+					2									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"logFormatFileLineCount",
+							"name"								=>	"Show line count",
+							"options"							=>	$trueFalsVars,
+							"type"								=>	"dropdown"
+						)
+					),
+					3									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"logFormatFileLinePadding",
+							"name"								=>	"Line Padding +/-",
+							"options"							=>	$zeroToFiveArr,
+							"type"								=>	"dropdown"
+						)
+					),
+					4									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"logFormatFileMaxHeight",
+							"name"								=>	"Max Height",
+							"options"							=>	$oneLogLogMaxHeightArr,
+							"type"								=>	"dropdown"
+						)
+					),
+					5									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"logFormatFilePermissions",
+							"name"								=>	"Show File Permissions",
+							"options"							=>	array(
+								0 									=> array(
+									"value" 							=> "always",
+									"name" 								=> "Always"),
+								1 									=> array(
+									"value" 							=> "sometimes",
+									"name" 								=> "If warning shown"),
+								2 									=> array(
+									"value" 							=> "never",
+									"name" 								=> "Never")
+							),
+							"type"								=>	"dropdown"
+						)
+					),
+					6									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"logFormatFileHideError",
+							"name"								=>	"Hide Error if line is no longer in file",
+							"options"							=>	$trueFalsVars,
+							"type"								=>	"dropdown"
+						)
+					),
+					7									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"logFormatFileHideReadError",
+							"name"								=>	"Hide Error if file is present but not readable",
+							"options"							=>	$trueFalsVars,
+							"type"								=>	"dropdown"
+						)
+					),
+				)
+			),
+			1									=>	array(
+				"bool"								=>	($logFormatPhpEnable == 'false'),
+				"id"								=>	"logFormatPhpEnableSettings",
+				"name"								=>	"Log Php Message Format Settings",
+				"type"								=>	"grouped",
+				"var"								=>	array(
+					"function"							=>	"showOrHidelogFormatPhpEnableSettings",
+					"id"								=>	"logFormatPhpEnable",
+					"key"								=>	"logFormatPhpEnable",
+					"name"								=>	"Format php message errors",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				),
+				"vars"								=>	array(
+					0									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"logFormatPhpHideExtra",
+							"name"								=>	"Only Show Main Error Message",
+							"options"							=>	$trueFalsVars,
+							"type"								=>	"dropdown"
+						)
+					),
+					1									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"logFormatPhpShowImg",
+							"name"								=>	"Show Severify Image",
+							"options"							=>	$trueFalsVars,
+							"type"								=>	"dropdown"
+						)
+					)
+				)
+			),
+			2									=>	array(
+				"bool"								=>	($logFormatReportEnable == 'false'),
+				"id"								=>	"logFormatReportEnableSettings",
+				"name"								=>	"Log Report Message Format Settings",
+				"type"								=>	"grouped",
+				"var"								=>	array(
+					"function"							=>	"showOrHidelogFormatReportEnableSettings",
+					"id"								=>	"logFormatReportEnable",
+					"key"								=>	"logFormatReportEnable",
+					"name"								=>	"Format report message errors",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				),
+				"vars"								=>	array(
+					0									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"logFormatReportShowImg",
+							"name"								=>	"Show Severify Image",
+							"options"							=>	$trueFalsVars,
+							"type"								=>	"dropdown"
+						)
+					)
+				)
+			),
+			3									=>	array(
+				"bool"								=>	($logFormatShowMoreButton == 'false'),
+				"id"								=>	"logFormatShowMoreButtonSettings",
+				"name"								=>	"Log Show More Button Settings",
+				"type"								=>	"grouped",
+				"var"								=>	array(
+					"function"							=>	"showOrHidelogFormatShowMoreButtonSettings",
+					"id"								=>	"logFormatShowMoreButton",
+					"key"								=>	"logFormatShowMoreButton",
+					"name"								=>	"Show the Show More Button",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				),
+				"vars"								=>	array(
+					0									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"logFormatShowMoreExtraInfo",
+							"name"								=>	"Always show extra info immediately",
+							"options"							=>	$trueFalsVars,
+							"type"								=>	"dropdown"
+						)
+					)
+				)
+			),
+			4									=>	array(
+				"bool"								=>	($logFormatJsObjectEnable == 'false'),
+				"id"								=>	"logFormatJsObjectEnableSettings",
+				"name"								=>	"Log JS encoded object Message Format Settings",
+				"type"								=>	"grouped",
+				"var"								=>	array(
+					"function"							=>	"showOrHidelogFormatJsObjectEnableSettings",
+					"id"								=>	"logFormatJsObjectEnable",
+					"key"								=>	"logFormatJsObjectEnable",
+					"name"								=>	"Format js objects",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				),
+				"vars"								=>	array(
+					0									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"logFormatJsObjectArrEnable",
+							"name"								=>	"Also format JS array",
+							"options"							=>	$trueFalsVars,
+							"type"								=>	"dropdown"
+						)
+					)
+				)
+			)
+		)
+	),
+	"logFormatVarsDateTime"				=>	array(
+		"id"								=>	"settingsLogFormatVarsDateTime",
+		"name"								=>	"Log Date Time Settings ",
+		"menu"								=> 	array(
+			"groups"							=>	array(
+				"formatting"
+			),
+			"id"								=>	"settingsMainLogDateTimeFormat",
+			"display"							=>	($advancedLogFormatEnabled === "true"),
+			"name"								=>	"Timestamp"
 		),
 		"vars"								=>	array(
 			0									=>	array(
@@ -1039,211 +1258,6 @@ $defaultConfigMoreData = array(
 					),
 				)
 			),
-			4									=>	array(
-				"bool"								=>	($logFormatFileEnable == 'false'),
-				"id"								=>	"logFormatFileEnableSettings",
-				"name"								=>	"Log File Link Settings",
-				"type"								=>	"grouped",
-				"var"								=>	array(
-					"function"							=>	"showOrHidelogFormatFileEnableSettings",
-					"id"								=>	"logFormatFileEnable",
-					"key"								=>	"logFormatFileEnable",
-					"name"								=>	"Link files in logs",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				),
-				"vars"								=>	array(
-					0									=> array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"key"								=>	"logFormatFileBackground",
-							"name"								=>	"Background",
-							"type"								=>	"color"
-						)
-					),
-					1									=> array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"key"								=>	"logFormatFileFontColor",
-							"name"								=>	"Font",
-							"type"								=>	"color"
-						)
-					),
-					2									=>	array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"key"								=>	"logFormatFileLineCount",
-							"name"								=>	"Show line count",
-							"options"							=>	$trueFalsVars,
-							"type"								=>	"dropdown"
-						)
-					),
-					3									=>	array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"key"								=>	"logFormatFileLinePadding",
-							"name"								=>	"Line Padding +/-",
-							"options"							=>	$zeroToFiveArr,
-							"type"								=>	"dropdown"
-						)
-					),
-					4									=>	array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"key"								=>	"logFormatFileMaxHeight",
-							"name"								=>	"Max Height",
-							"options"							=>	$oneLogLogMaxHeightArr,
-							"type"								=>	"dropdown"
-						)
-					),
-					5									=>	array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"key"								=>	"logFormatFilePermissions",
-							"name"								=>	"Show File Permissions",
-							"options"							=>	array(
-								0 									=> array(
-									"value" 							=> "always",
-									"name" 								=> "Always"),
-								1 									=> array(
-									"value" 							=> "sometimes",
-									"name" 								=> "If warning shown"),
-								2 									=> array(
-									"value" 							=> "never",
-									"name" 								=> "Never")
-							),
-							"type"								=>	"dropdown"
-						)
-					),
-					6									=>	array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"key"								=>	"logFormatFileHideError",
-							"name"								=>	"Hide Error if line is no longer in file",
-							"options"							=>	$trueFalsVars,
-							"type"								=>	"dropdown"
-						)
-					),
-					7									=>	array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"key"								=>	"logFormatFileHideReadError",
-							"name"								=>	"Hide Error if file is present but not readable",
-							"options"							=>	$trueFalsVars,
-							"type"								=>	"dropdown"
-						)
-					),
-				)
-			),
-			5									=>	array(
-				"bool"								=>	($logFormatPhpEnable == 'false'),
-				"id"								=>	"logFormatPhpEnableSettings",
-				"name"								=>	"Log Php Message Format Settings",
-				"type"								=>	"grouped",
-				"var"								=>	array(
-					"function"							=>	"showOrHidelogFormatPhpEnableSettings",
-					"id"								=>	"logFormatPhpEnable",
-					"key"								=>	"logFormatPhpEnable",
-					"name"								=>	"Format php message errors",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				),
-				"vars"								=>	array(
-					0									=>	array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"key"								=>	"logFormatPhpHideExtra",
-							"name"								=>	"Only Show Main Error Message",
-							"options"							=>	$trueFalsVars,
-							"type"								=>	"dropdown"
-						)
-					),
-					1									=>	array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"key"								=>	"logFormatPhpShowImg",
-							"name"								=>	"Show Severify Image",
-							"options"							=>	$trueFalsVars,
-							"type"								=>	"dropdown"
-						)
-					)
-				)
-			),
-			6									=>	array(
-				"bool"								=>	($logFormatReportEnable == 'false'),
-				"id"								=>	"logFormatReportEnableSettings",
-				"name"								=>	"Log Report Message Format Settings",
-				"type"								=>	"grouped",
-				"var"								=>	array(
-					"function"							=>	"showOrHidelogFormatReportEnableSettings",
-					"id"								=>	"logFormatReportEnable",
-					"key"								=>	"logFormatReportEnable",
-					"name"								=>	"Format report message errors",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				),
-				"vars"								=>	array(
-					0									=>	array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"key"								=>	"logFormatReportShowImg",
-							"name"								=>	"Show Severify Image",
-							"options"							=>	$trueFalsVars,
-							"type"								=>	"dropdown"
-						)
-					)
-				)
-			),
-			7									=>	array(
-				"bool"								=>	($logFormatShowMoreButton == 'false'),
-				"id"								=>	"logFormatShowMoreButtonSettings",
-				"name"								=>	"Log Show More Button Settings",
-				"type"								=>	"grouped",
-				"var"								=>	array(
-					"function"							=>	"showOrHidelogFormatShowMoreButtonSettings",
-					"id"								=>	"logFormatShowMoreButton",
-					"key"								=>	"logFormatShowMoreButton",
-					"name"								=>	"Show the Show More Button",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				),
-				"vars"								=>	array(
-					0									=>	array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"key"								=>	"logFormatShowMoreExtraInfo",
-							"name"								=>	"Always show extra info immediately",
-							"options"							=>	$trueFalsVars,
-							"type"								=>	"dropdown"
-						)
-					)
-				)
-			),
-			8									=>	array(
-				"bool"								=>	($logFormatJsObjectEnable == 'false'),
-				"id"								=>	"logFormatJsObjectEnableSettings",
-				"name"								=>	"Log JS encoded object Message Format Settings",
-				"type"								=>	"grouped",
-				"var"								=>	array(
-					"function"							=>	"showOrHidelogFormatJsObjectEnableSettings",
-					"id"								=>	"logFormatJsObjectEnable",
-					"key"								=>	"logFormatJsObjectEnable",
-					"name"								=>	"Format js objects",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				),
-				"vars"								=>	array(
-					0									=>	array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"key"								=>	"logFormatJsObjectArrEnable",
-							"name"								=>	"Also format JS array",
-							"options"							=>	$trueFalsVars,
-							"type"								=>	"dropdown"
-						)
-					)
-				)
-			)
 		)
 	),
 	"logVars"							=>	array(

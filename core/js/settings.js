@@ -439,6 +439,7 @@ function saveVerified()
 	else if(
 		idForFormMain === "settingsOneLogVars" ||
 		idForFormMain === "settingsLogFormatVars" ||
+		idForFormMain === "settingsLogFormatVarsDateTime" ||
 		idForFormMain === "settingsLogVars" ||
 		idForFormMain === "modules"
 	) {
