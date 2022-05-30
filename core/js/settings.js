@@ -824,13 +824,13 @@ function generateTimestampExample()
 	let line = exampleLineForTimestampStyle;
 	let arrayOfText = dateTimeSplit(line);
 	let timeFormat = dateTimeFormat(arrayOfText, false); 
-	if ($("#dateTextFormatEnableSettings select[name=dateTextBold]").val() === "true")
+	if ($("#settingsLogFormatVarsDateTime select[name=dateTextBold]").val() === "true")
 	{
 		timeFormat = "<b>" + timeFormat + "</b>";
 	}
-	let timePadding = "<td style=\"width: "+$("#dateTextFormatEnableSettings select[name=dateTimePadding]").val()+"px;\" ></td>";
+	let timePadding = "<td style=\"width: "+$("#settingsLogFormatVarsDateTime select[name=dateTimePadding]").val()+"px;\" ></td>";
 
-	if($("#dateTextFormatEnableSettings select[name=dateTextFormatColumn]").val() !== "false")
+	if($("#settingsLogFormatVarsDateTime select[name=dateTextFormatColumn]").val() !== "false")
 	{
 		line = "<td style=\"padding: 0; font-family: " +
 		$("#logStyle select[name=fontFamily]").val() + 
@@ -872,9 +872,21 @@ function logStyleListeners()
 function timestampStyleListeners()
 {
 	generateTimestampExample();
-	$("#dateTextFormatEnableSettings input, #dateTextFormatEnableSettings select").on("change", function() {
+	$("#settingsLogFormatVarsDateTime input, #settingsLogFormatVarsDateTime select").on("change", function() {
 		generateTimestampExample();
 	})
+}
+
+function showOrHideLogTimestamp()
+{
+	if($("#dateTextFormatEnable").val() === "true")
+	{
+		$("#settingsMainLogDateTimeFormatMenu").show();
+	}
+	else
+	{
+		$("#settingsMainLogDateTimeFormatMenu").hide();
+	}
 }
 
 $( document ).ready(function() {

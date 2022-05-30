@@ -360,7 +360,7 @@ function dateTimeFormat(dateTextArray, static)
 
 	if(!static)
 	{
-		localdateTextFormatEnable = $("#settingsLogFormatVarsDateTime #dateTextFormatEnable").val();
+		localdateTextFormatEnable = $("#settingsMainLogFormat #dateTextFormatEnable").val();
 		localdateTextFormat = $("#settingsLogFormatVarsDateTime #dateTextFormat").val();
 		localdateTextFormatCustom = $("#settingsLogFormatVarsDateTime #dateTextFormatCustom").val();
 	}

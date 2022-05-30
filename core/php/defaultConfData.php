@@ -938,6 +938,19 @@ $defaultConfigMoreData = array(
 		),
 		"vars"								=>	array(
 			0									=>	array(
+				"id"								=>	"dateTextFormatEnableSettings",
+				"name"								=>	"Log Date Text Format Settings",
+				"type"								=>	"single",
+				"var"								=>	array(
+					"function"							=>	"showOrHideLogTimestamp",
+					"id"								=>	"dateTextFormatEnable",
+					"key"								=>	"dateTextFormatEnable",
+					"name"								=>	"Format Timestamps",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			1									=>	array(
 				"bool"								=>	($logFormatFileEnable == 'false'),
 				"id"								=>	"logFormatFileEnableSettings",
 				"name"								=>	"Log File Link Settings",
@@ -1033,7 +1046,7 @@ $defaultConfigMoreData = array(
 					),
 				)
 			),
-			1									=>	array(
+			2									=>	array(
 				"bool"								=>	($logFormatPhpEnable == 'false'),
 				"id"								=>	"logFormatPhpEnableSettings",
 				"name"								=>	"Log Php Message Format Settings",
@@ -1067,7 +1080,7 @@ $defaultConfigMoreData = array(
 					)
 				)
 			),
-			2									=>	array(
+			3									=>	array(
 				"bool"								=>	($logFormatReportEnable == 'false'),
 				"id"								=>	"logFormatReportEnableSettings",
 				"name"								=>	"Log Report Message Format Settings",
@@ -1092,7 +1105,7 @@ $defaultConfigMoreData = array(
 					)
 				)
 			),
-			3									=>	array(
+			4									=>	array(
 				"bool"								=>	($logFormatShowMoreButton == 'false'),
 				"id"								=>	"logFormatShowMoreButtonSettings",
 				"name"								=>	"Log Show More Button Settings",
@@ -1117,7 +1130,7 @@ $defaultConfigMoreData = array(
 					)
 				)
 			),
-			4									=>	array(
+			5									=>	array(
 				"bool"								=>	($logFormatJsObjectEnable == 'false'),
 				"id"								=>	"logFormatJsObjectEnableSettings",
 				"name"								=>	"Log JS encoded object Message Format Settings",
@@ -1152,110 +1165,94 @@ $defaultConfigMoreData = array(
 				"formatting"
 			),
 			"id"								=>	"settingsMainLogDateTimeFormat",
-			"display"							=>	($advancedLogFormatEnabled === "true"),
+			"display"							=>	($advancedLogFormatEnabled === "true" && $dateTextFormatEnable == 'true'),
 			"name"								=>	"Timestamp"
 		),
 		"vars"								=>	array(
 			0									=>	array(
-				"bool"								=>	($dateTextFormatEnable == 'false'),
-				"id"								=>	"dateTextFormatEnableSettings",
-				"name"								=>	"Log Date Text Format Settings",
+				"custom"							=>	$customStyleSectionTimestamp,
+				"type"								=>	"custom"
+			),
+			1									=> array(
+				"bool"								=>	($dateTextFormat != 'custom'),
+				"bool2"								=>	"custom",
+				"id"								=>	"dateTextFormatSelector",
+				"name"								=>	"Custom Date Text Format",
 				"type"								=>	"grouped",
 				"var"								=>	array(
-					"function"							=>	"showOrHidedateTextFormatEnableSettings",
-					"id"								=>	"dateTextFormatEnable",
-					"key"								=>	"dateTextFormatEnable",
-					"name"								=>	"Format Date Text",
-					"options"							=>	$trueFalsVars,
+					"function"							=>	"toggleUpdateLogFormat",
+					"functionForToggle"					=>	"showOrHideLogFormat",
+					"id"								=>	"dateTextFormat",
+					"key"								=>	"dateTextFormat",
+					"name"								=>	"Date Text Format",
+					"options"							=>	json_decode(file_get_contents($core->baseURL()."core/json/dateFormatOptions.json"), true),
 					"type"								=>	"dropdown"
 				),
-				"vars"								=>	array(
-					0									=>	array(
-						"custom"							=>	$customStyleSectionTimestamp,
-						"type"								=>	"custom"
+				"vars"								=>	$customDateFormatVars
+			),
+			2									=> array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"id"								=>	"dateTextFormatCustom",
+					"key"								=>	"dateTextFormatCustom",
+					"type"								=>	"hidden"
+				)
+			),
+			3									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"dateTextFormatColumn",
+					"name"								=>	"Show log date / time in seperate column",
+					"options"							=>	array(
+						0 									=> array(
+							"value" 							=> "true",
+							"name" 								=> "Always"),
+						1 									=> array(
+							"value" 							=> "auto",
+							"name" 								=> "On larger screens"),
+						2 									=> array(
+							"value" 							=> "false",
+							"name" 								=> "Never")
 					),
-					1									=> array(
-						"bool"								=>	($dateTextFormat != 'custom'),
-						"bool2"								=>	"custom",
-						"id"								=>	"dateTextFormatSelector",
-						"name"								=>	"Custom Date Text Format",
-						"type"								=>	"grouped",
-						"var"								=>	array(
-							"function"							=>	"toggleUpdateLogFormat",
-							"functionForToggle"					=>	"showOrHideLogFormat",
-							"id"								=>	"dateTextFormat",
-							"key"								=>	"dateTextFormat",
-							"name"								=>	"Date Text Format",
-							"options"							=>	json_decode(file_get_contents($core->baseURL()."core/json/dateFormatOptions.json"), true),
-							"type"								=>	"dropdown"
-						),
-						"vars"								=>	$customDateFormatVars
+					"type"								=>	"dropdown"
+				)
+			),
+			4									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"info"								=>	"Only displays top timestamp when more than one in a row are same",
+					"key"								=>	"dateTextGroup",
+					"name"								=>	"Group Same Timestamps",
+					"options"							=>	array(
+						0 									=> array(
+							"value" 							=> "true",
+							"name" 								=> "Group by formatted time stamp"),
+						1 									=> array(
+							"value" 							=> "preFormat",
+							"name" 								=> "Group by pre format timestamp"),
+						2 									=> array(
+							"value" 							=> "false",
+							"name" 								=> "False")
 					),
-					2									=> array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"id"								=>	"dateTextFormatCustom",
-							"key"								=>	"dateTextFormatCustom",
-							"type"								=>	"hidden"
-						)
-					),
-					3									=>	array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"key"								=>	"dateTextFormatColumn",
-							"name"								=>	"Show log date / time in seperate column",
-							"options"							=>	array(
-								0 									=> array(
-									"value" 							=> "true",
-									"name" 								=> "Always"),
-								1 									=> array(
-									"value" 							=> "auto",
-									"name" 								=> "On larger screens"),
-								2 									=> array(
-									"value" 							=> "false",
-									"name" 								=> "Never")
-							),
-							"type"								=>	"dropdown"
-						)
-					),
-					4									=>	array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"info"								=>	"Only displays top timestamp when more than one in a row are same",
-							"key"								=>	"dateTextGroup",
-							"name"								=>	"Group Same Timestamps",
-							"options"							=>	array(
-								0 									=> array(
-									"value" 							=> "true",
-									"name" 								=> "Group by formatted time stamp"),
-								1 									=> array(
-									"value" 							=> "preFormat",
-									"name" 								=> "Group by pre format timestamp"),
-								2 									=> array(
-									"value" 							=> "false",
-									"name" 								=> "False")
-							),
-							"type"								=>	"dropdown"
-						)
-					),
-					5									=>	array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"key"								=>	"dateTextBold",
-							"name"								=>	"Bold Timestamps",
-							"options"							=>	$trueFalsVars,
-							"type"								=>	"dropdown"
-						)
-					),
-					6									=>	array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"key"								=>	"dateTimePadding",
-							"name"								=>	"Timestamp Padding",
-							"options"							=>	$logPaddingVars,
-							"type"								=>	"dropdown"
-						)
-					),
+					"type"								=>	"dropdown"
+				)
+			),
+			5									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"dateTextBold",
+					"name"								=>	"Bold Timestamps",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			6									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"dateTimePadding",
+					"name"								=>	"Timestamp Padding",
+					"options"							=>	$logPaddingVars,
+					"type"								=>	"dropdown"
 				)
 			),
 		)
