@@ -264,6 +264,11 @@ $fullScreenMenuGroups = array(
 		"display"	=>	true,
 		"subGroups"	=> array()
 	),
+	"style"	=> array (
+		"name"		=> "Style",
+		"display"	=>	true,
+		"subGroups"	=> array()
+	),
 	"formatting"	=> array (
 		"name"		=> "Formatting",
 		"display"	=>	true,
@@ -703,7 +708,7 @@ $defaultConfigMoreData = array(
 		"name"								=>	"Main Style Options",
 		"menu"								=> 	array(
 			"groups"							=>	array(
-				"formatting"
+				"style"
 			),
 			"id"								=>	"fullScreenMenuThemeGeneralStyle",
 			"display"							=>	true,
@@ -830,7 +835,7 @@ $defaultConfigMoreData = array(
 		"name"								=>	"Log Style Options",
 		"menu"								=> 	array(
 			"groups"							=>	array(
-				"formatting"
+				"style"
 			),
 			"id"								=>	"fullScreenMenuLogStyle",
 			"display"							=>	true,
@@ -2941,7 +2946,7 @@ $customConfigSections = array(
 		"name"	=> "Log Tabs Color Scheme",
 		"menu"								=> 	array(
 			"groups"							=>	array(
-				"formatting"
+				"style"
 			),
 			"id"								=>	"fullScreenMenuColorScheme",
 			"display"							=>	true,
