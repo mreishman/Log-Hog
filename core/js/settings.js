@@ -416,6 +416,7 @@ function saveVerified()
 	else if(
 		idForFormMain === "settingsColorFolderGroupVars" ||
 		idForFormMain === "generalThemeOptions" ||
+		idForFormMain === "logStyle" ||
 		idForFormMain === "settingsFilterVars" ||
 		idForFormMain === "settingsNotificationVars"
 	) {
@@ -750,7 +751,7 @@ function resetArrayObject(idOfForm)
 		{
 			reAddJsColorPopupForCustomThemes();
 		}
-		else if(idOfForm === "generalThemeOptions")
+		else if(idOfForm === "logStyle")
 		{
 			logStyleListeners();
 		}
@@ -783,30 +784,30 @@ function generateExampleLogForStyle()
 	if(typeof exampleLogForCustomStyle === "undefined") {
 		return;
 	}
-	let html = "<table style=\" background: " + $("#generalThemeOptions input[name=backgroundColor]").val() + "; \" >";
+	let html = "<table style=\" background: " + $("#logStyle input[name=backgroundColor]").val() + "; \" >";
 	let length = exampleLogForCustomStyle.length;
 	for(let i = 0; i < length; i++)
 	{
 		html += "<tr style=\"border-spacing: 0; \"><td style=\"padding: 0; font-family: " +
-		$("#generalThemeOptions select[name=fontFamily]").val() + 
+		$("#logStyle select[name=fontFamily]").val() + 
 		"; color: "+
-		$("#generalThemeOptions input[name=logFontColor]").val() +
+		$("#logStyle input[name=logFontColor]").val() +
 		"; font-size: " +
-		$("#generalThemeOptions select[name=logFontSize]").val() +
+		$("#logStyle select[name=logFontSize]").val() +
 		"%; \" >" + exampleLogForCustomStyle[i] + "</td></tr>";
 		if (i !== (length - 1))
 		{
 			let lineBorder = "";
-			if ($("#generalThemeOptions select[name=logLineBorder]").val() === 'true')
+			if ($("#logStyle select[name=logLineBorder]").val() === 'true')
 			{
 				lineBorder = "border-top: " + 
-				$("#generalThemeOptions select[name=logLineBorderHeight]").val() + 
+				$("#logStyle select[name=logLineBorderHeight]").val() + 
 				"px solid " +
-				$("#generalThemeOptions input[name=logLineBorderColor]").val() + 
+				$("#logStyle input[name=logLineBorderColor]").val() + 
 				";";
 			}
 			html += "<tr style=\"border-spacing: 0; height: " +
-			$("#generalThemeOptions select[name=logLinePadding]").val() +
+			$("#logStyle select[name=logLinePadding]").val() +
 			"px;\" ><td style=\"padding: 0; "+lineBorder+" \"></td></tr>";
 		}
 	}
@@ -831,27 +832,27 @@ function generateTimestampExample()
 	if($("#dateTextFormatEnableSettings select[name=dateTextFormatColumn]").val() !== "false")
 	{
 		line = "<td style=\"padding: 0; font-family: " +
-		$("#generalThemeOptions select[name=fontFamily]").val() + 
+		$("#logStyle select[name=fontFamily]").val() + 
 		"; color: "+
-		$("#generalThemeOptions input[name=logFontColor]").val() +
+		$("#logStyle input[name=logFontColor]").val() +
 		"; font-size: " +
-		$("#generalThemeOptions select[name=logFontSize]").val() +
+		$("#logStyle select[name=logFontSize]").val() +
 		"%; \" >" + timeFormat + "</td>" + timePadding + "<td style=\"padding: 0; font-family: " +
-		$("#generalThemeOptions select[name=fontFamily]").val() + 
+		$("#logStyle select[name=fontFamily]").val() + 
 		"; color: "+
-		$("#generalThemeOptions input[name=logFontColor]").val() +
+		$("#logStyle input[name=logFontColor]").val() +
 		"; font-size: " +
-		$("#generalThemeOptions select[name=logFontSize]").val() +
+		$("#logStyle select[name=logFontSize]").val() +
 		"%; \" >" + arrayOfText[1]
 	}
 	else
 	{
 		line = "<td style=\"padding: 0; font-family: " +
-		$("#generalThemeOptions select[name=fontFamily]").val() + 
+		$("#logStyle select[name=fontFamily]").val() + 
 		"; color: "+
-		$("#generalThemeOptions input[name=logFontColor]").val() +
+		$("#logStyle input[name=logFontColor]").val() +
 		"; font-size: " +
-		$("#generalThemeOptions select[name=logFontSize]").val() +
+		$("#logStyle select[name=logFontSize]").val() +
 		"%; \" >" + timeFormat + arrayOfText[1]
 	}
 
@@ -862,7 +863,7 @@ function generateTimestampExample()
 function logStyleListeners()
 {
 	generateExampleLogForStyle();
-	$("#generalThemeOptions input, #generalThemeOptions select").on("change", function() {
+	$("#logStyle input, #logStyle select").on("change", function() {
 		generateExampleLogForStyle();
 	})
 }

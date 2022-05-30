@@ -711,87 +711,6 @@ $defaultConfigMoreData = array(
 		),
 		"vars"								=>	array(
 			0									=>	array(
-				"custom"							=>	$customStyleSectionLogs,
-				"type"								=>	"custom"
-			),
-			1									=>	array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"backgroundColor",
-					"name"								=>	"Background",
-					"type"								=>	"color"
-				)
-			),
-			2									=>	array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"fontFamily",
-					"name"								=>	"Font",
-					"options"							=>	json_decode(file_get_contents($core->baseURL()."core/json/fontChoices.json"), true),
-					"type"								=>	"dropdown"
-				)
-			),
-			3									=>	array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"logFontColor",
-					"name"								=>	"Log Font Color",
-					"type"								=>	"color"
-				)
-			),
-			4									=>	array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"logFontSize",
-					"name"								=>	"Log Font Size",
-					"options"							=>	$fontSizeVars,
-					"type"								=>	"dropdown"
-				)
-			),
-			5									=>	array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"logLinePadding",
-					"name"								=>	"Log Line Padding",
-					"options"							=>	$logPaddingVars,
-					"type"								=>	"dropdown"
-				)
-			),
-			6									=>	array(
-				"bool"								=>	($logLineBorder == 'false'),
-				"id"								=>	"logLineBorderSettings",
-				"name"								=>	"Log Line Border Settings",
-				"type"								=>	"grouped",
-				"var"								=>	array(
-					"function"							=>	"showOrHidelogLineBorderSettings",
-					"id"								=>	"logLineBorder",
-					"key"								=>	"logLineBorder",
-					"name"								=>	"Show border between log lines",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				),
-				"vars"								=>	array(
-					0									=>	array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"key"								=>	"logLineBorderColor",
-							"name"								=>	"Border Color",
-							"type"								=>	"color"
-						)
-					),
-					1									=>	array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"key"								=>	"logLineBorderHeight",
-							"name"								=>	"Border Height",
-							"options"							=>	$oneToFiveArr,
-							"postText"							=>	" px",
-							"type"								=>	"dropdown"
-						)
-					)
-				)
-			),
-			7									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"mainFontColor",
@@ -799,7 +718,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"color"
 				)
 			),
-			8									=>	array(
+			1									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"backgroundHeaderColor",
@@ -807,7 +726,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"color"
 				)
 			),
-			9									=>	array(
+			2									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"invertMenuImages",
@@ -816,7 +735,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			10									=>	array(
+			3									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"overallBrightness",
@@ -825,7 +744,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			11									=>	array(
+			4									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"maxHeightLogTabs",
@@ -906,7 +825,102 @@ $defaultConfigMoreData = array(
 			)
 		)
 	),
-	"logFormatVars"						=>	array(
+	"logFormatVars"				=>	array(
+		"id"								=>	"logStyle",
+		"name"								=>	"Log Style Options",
+		"menu"								=> 	array(
+			"groups"							=>	array(
+				"formatting"
+			),
+			"id"								=>	"fullScreenMenuLogStyle",
+			"display"							=>	true,
+			"name"								=>	"Log Style"
+		),
+		"vars"								=>	array(
+			0									=>	array(
+				"custom"							=>	$customStyleSectionLogs,
+				"type"								=>	"custom"
+			),
+			1									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"backgroundColor",
+					"name"								=>	"Background",
+					"type"								=>	"color"
+				)
+			),
+			2									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"fontFamily",
+					"name"								=>	"Font",
+					"options"							=>	json_decode(file_get_contents($core->baseURL()."core/json/fontChoices.json"), true),
+					"type"								=>	"dropdown"
+				)
+			),
+			3									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"logFontColor",
+					"name"								=>	"Log Font Color",
+					"type"								=>	"color"
+				)
+			),
+			4									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"logFontSize",
+					"name"								=>	"Log Font Size",
+					"options"							=>	$fontSizeVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			5									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"logLinePadding",
+					"name"								=>	"Log Line Padding",
+					"options"							=>	$logPaddingVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			6									=>	array(
+				"bool"								=>	($logLineBorder == 'false'),
+				"id"								=>	"logLineBorderSettings",
+				"name"								=>	"Log Line Border Settings",
+				"type"								=>	"grouped",
+				"var"								=>	array(
+					"function"							=>	"showOrHidelogLineBorderSettings",
+					"id"								=>	"logLineBorder",
+					"key"								=>	"logLineBorder",
+					"name"								=>	"Show border between log lines",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				),
+				"vars"								=>	array(
+					0									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"logLineBorderColor",
+							"name"								=>	"Border Color",
+							"type"								=>	"color"
+						)
+					),
+					1									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"logLineBorderHeight",
+							"name"								=>	"Border Height",
+							"options"							=>	$oneToFiveArr,
+							"postText"							=>	" px",
+							"type"								=>	"dropdown"
+						)
+					)
+				)
+			)
+		),
+	),
+	"logFormatVarsAdvanced"				=>	array(
 		"id"								=>	"settingsLogFormatVars",
 		"name"								=>	"Log Format Settings ",
 		"menu"								=> 	array(
