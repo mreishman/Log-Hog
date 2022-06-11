@@ -700,7 +700,16 @@ $defaultConfigMoreData = array(
 						)
 					)
 				)
-			)
+			),
+			7									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"clearFilterValueOnClose",
+					"name"								=>	"Clear filter value on close",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
 		)
 	),
 	"generalThemeOptions"				=>	array(

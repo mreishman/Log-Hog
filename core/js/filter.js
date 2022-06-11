@@ -193,5 +193,15 @@ function hideFilterTopBar()
 {
 	document.getElementById("searchFieldGeneral").style.display = "none";
 	document.getElementById("showFilterTopBarButton").style.display = "inline-block";
+	if(clearFilterValueOnClose === "true")
+	{
+		$("#searchFieldInput").val("");
+		generalUpdate();
+		if(oneLogEnable === "true")
+		{
+			possiblyUpdateOneLogVisibleData();
+		}
+	}
+
 	resize();
 }
