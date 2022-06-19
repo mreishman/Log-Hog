@@ -19,7 +19,7 @@ elseif($configStatic['version'] == '8.3.1') {
 }
 //update info
 $versionCheckArray = array(
-	'version'		=> '8.4',
+	'version'		=> '8.4.1',
 	'versionList'		=> array(
 		'2.0.1'	        => array(
 			'branchName'	=> '2.0.1Update',
@@ -626,6 +626,15 @@ $versionCheckArray = array(
 			'installSize'   => 9985132,
 			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/8.4.png',
 			'releaseNotes'	=> "<ul><li>Features<ul><li>Removed Addons</li><li>Settings<ul><li>Added example log in settings to see style changes in real time for main style changes</li><li>Added example timestamp in settings to see style changes in real time for log date text format settings</li><li>Added option to bold timestamps in logs</li><li>Added option to change right padding of timestamps in logs</li><li>Added right click links to about page to match settings</li><li>Added global ip whitelist setting</li></ul></li></ul></li><li>Bug Fixes<ul><li>Log Formatting<ul><li>Fixed timestamp bug with magento 2.4 default logs having nanoseconds and timezone modifier</li><li>Fixed style bug where log line padding had a minimum height of 2</li><li>Fixed style bug where timestamp padding was not being applied on lower resolutions below the breakpoint</li><li>Fixed bug with 12 hour format in timestamp custom formatting</li><li>Fixed bug where if date text format was disabled it would return undefined</li><li>Fixed bug where blank links in report would be incorrectly formatted</li><li>Fixed a bug where timestamps would be grouped pre-format making it look like it was not working. Added setting to use old logic if prefered</li></ul><li>Proper warning message for if not enough space to install update</li><li>Fixed bug with global config update logic</li><li>Fixed a bug where closing out of full screen menu would not close out of currently open menu for next re open</li></ul></li></ul>"
+		),
+		'8.4.1'			=> array(
+			'branchName'	=> '8.4.1Update',
+			'commits'	=> 3185,
+			'date'		=> '06/19/2022',
+			'downloadSize'  => 613664,
+			'installSize'   => 9988623,
+			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/8.4.png',
+			'releaseNotes'	=> "<ul><li>Features<ul><li>Small settings layout changes</li></ul></li><li>Bug Fixes<ul><li>Notifications<ul><li>Report spacing in notification preview fixed</li><li>New lines being added to a previous notification would duplicate old notification content </li><li>Incorrect formatting for some reports in newly merged notifications</li></ul></li><li>Filters<ul><li>Closing out of filter in main nav will clear filter text (option to not clear in settings)</li></ul></li><li>Settings<ul><li>Fixed bug causing example of main styles not to show up</li><li>Fixed a bug where hh12 would show up as hh in custom timestamp settings on initial page load</li><li>Fixed update of timestamp in settings not updating for some options</li></ul></li></ul></li></ul>"
 		),
 	)
 );
