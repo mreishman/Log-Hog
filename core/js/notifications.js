@@ -436,7 +436,7 @@ function addLogNotification(notificationArray)
 						notificationArray["currentId"] = i;
 						if(notificationPreviewOnlyNew === "false")
 						{
-							notificationArray["newText"] += notifications[i]["newText"]+"\n"+notificationArray["newText"];
+							notificationArray["newText"] = notifications[i]["newText"]+"\n"+notificationArray["newText"];
 						}
 						break;
 					}

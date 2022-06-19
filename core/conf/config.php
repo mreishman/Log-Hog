@@ -16,6 +16,7 @@ $defaultConfig = array(
 	'bottomBarIndexType'			=> 'center',
 	'buffer'						=> 500,
 	'caseInsensitiveSearch'			=> 'true',
+	'clearFilterValueOnClose'		=> 'true',
 	'configVersion'					=> 4,
 	'cssVersion'					=> 1,
 	'currentFolderColorTheme'		=> 'theme-default-2',

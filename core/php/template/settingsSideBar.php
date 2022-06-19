@@ -1,4 +1,5 @@
 <span id="groupsSpanSideBar" style="display: none; width: 100%;">
+	<h2>Local Session Settings:</h2>
 	<h3 class="addBorderBottom">Groups</h3>
 	Groups:
 	<span class="selectDiv">

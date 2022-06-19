@@ -264,9 +264,14 @@ $fullScreenMenuGroups = array(
 		"display"	=>	true,
 		"subGroups"	=> array()
 	),
-	"formatting"	=> array (
-		"name"		=> "Formatting",
+	"style"	=> array (
+		"name"		=> "Style",
 		"display"	=>	true,
+		"subGroups"	=> array()
+	),
+	"formatting"	=> array (
+		"name"		=> "Log Format",
+		"display"	=>	($advancedLogFormatEnabled === "true"),
 		"subGroups"	=> array()
 	),
 	"multilog"	=> array (
@@ -695,7 +700,16 @@ $defaultConfigMoreData = array(
 						)
 					)
 				)
-			)
+			),
+			7									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"clearFilterValueOnClose",
+					"name"								=>	"Clear filter value on close",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
 		)
 	),
 	"generalThemeOptions"				=>	array(
@@ -703,11 +717,138 @@ $defaultConfigMoreData = array(
 		"name"								=>	"Main Style Options",
 		"menu"								=> 	array(
 			"groups"							=>	array(
-				"formatting"
+				"style"
 			),
 			"id"								=>	"fullScreenMenuThemeGeneralStyle",
 			"display"							=>	true,
 			"name"								=>	"Main Style"
+		),
+		"vars"								=>	array(
+			0									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"mainFontColor",
+					"name"								=>	"Main Font Color",
+					"type"								=>	"color"
+				)
+			),
+			1									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"backgroundHeaderColor",
+					"name"								=>	"Header Background",
+					"type"								=>	"color"
+				)
+			),
+			2									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"invertMenuImages",
+					"name"								=>	"Invert Header Images",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			3									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"overallBrightness",
+					"name"								=>	"Overall Brightness",
+					"options"							=>	$brightessVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			4									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"maxHeightLogTabs",
+					"name"								=>	"Max height of log tabs",
+					"postText"							=>	"Pixles",
+					"type"								=>	"number"
+				)
+			),
+		),
+	),
+	"globalConfig"						=>	array(
+		"id"								=>	"globalAdvanced",
+		"name"								=>	"Global Settings",
+		"menu"								=> 	array(
+			"groups"							=>	array(
+				"global"
+			),
+			"id"								=>	"settingsGlobalAdvanced",
+			"display"							=>	true,
+			"name"								=>	"Global"
+		),
+		"vars"								=>	array(
+			0									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"branchSelected",
+					"name"								=>	"Branch",
+					"options"							=>	$branchOptionsArr,
+					"type"								=>	"dropdown"
+				)
+			),
+			1									=>	array(
+				"info"								=>	"This is for platforms where saving files might not be in sync with containers. Increasing from one will make saves take longer, but it will be more accurate if there is that sync delay",
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"successVerifyNum",
+					"name"								=>	"Save verification number",
+					"options"							=>	$oneToFiveArr,
+					"type"								=>	"dropdown"
+				)
+			),
+			2									=> array(
+				"info"								=>	"Base url hit when downloading Log-Hog version list. Default: https://github.com/mreishman/Log-Hog/archive/",
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"baseUrlUpdate",
+					"name"								=>	"Base Update Url",
+					"type"								=>	"text"
+				)
+			),
+			3									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"info"								=>	"Only for development",
+					"key"								=>  "enableDevBranchDownload",
+					"name"								=>	"Enable Dev Branch",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			4									=>	array(
+				"info"								=>	"Refresh to run upgrade scripts",
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"layoutVersion",
+					"name"								=>	"Layout Version",
+					"type"								=>	"number"
+				)
+			),
+			5									=> array(
+				"info"								=>	"Comma seperated list of ips (wild cards valid like 192.168.*.*",
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"ipWhitelist",
+					"name"								=>	"Whitelist ips",
+					"type"								=>	"text"
+				)
+			)
+		)
+	),
+	"logFormatVars"				=>	array(
+		"id"								=>	"logStyle",
+		"name"								=>	"Log Style Options",
+		"menu"								=> 	array(
+			"groups"							=>	array(
+				"style"
+			),
+			"id"								=>	"fullScreenMenuLogStyle",
+			"display"							=>	true,
+			"name"								=>	"Log Style"
 		),
 		"vars"								=>	array(
 			0									=>	array(
@@ -790,123 +931,10 @@ $defaultConfigMoreData = array(
 						)
 					)
 				)
-			),
-			7									=>	array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"mainFontColor",
-					"name"								=>	"Main Font Color",
-					"type"								=>	"color"
-				)
-			),
-			8									=>	array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"backgroundHeaderColor",
-					"name"								=>	"Header Background",
-					"type"								=>	"color"
-				)
-			),
-			9									=>	array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"invertMenuImages",
-					"name"								=>	"Invert Header Images",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				)
-			),
-			10									=>	array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"overallBrightness",
-					"name"								=>	"Overall Brightness",
-					"options"							=>	$brightessVars,
-					"type"								=>	"dropdown"
-				)
-			),
-			11									=>	array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"maxHeightLogTabs",
-					"name"								=>	"Max height of log tabs",
-					"postText"							=>	"Pixles",
-					"type"								=>	"number"
-				)
-			),
-		),
-	),
-	"globalConfig"						=>	array(
-		"id"								=>	"globalAdvanced",
-		"name"								=>	"Global Settings",
-		"menu"								=> 	array(
-			"groups"							=>	array(
-				"global"
-			),
-			"id"								=>	"settingsGlobalAdvanced",
-			"display"							=>	true,
-			"name"								=>	"Global"
-		),
-		"vars"								=>	array(
-			0									=>	array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"branchSelected",
-					"name"								=>	"Branch",
-					"options"							=>	$branchOptionsArr,
-					"type"								=>	"dropdown"
-				)
-			),
-			1									=>	array(
-				"info"								=>	"This is for platforms where saving files might not be in sync with containers. Increasing from one will make saves take longer, but it will be more accurate if there is that sync delay",
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"successVerifyNum",
-					"name"								=>	"Save verification number",
-					"options"							=>	$oneToFiveArr,
-					"type"								=>	"dropdown"
-				)
-			),
-			2									=> array(
-				"info"								=>	"Base url hit when downloading Log-Hog version list. Default: https://github.com/mreishman/Log-Hog/archive/",
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"baseUrlUpdate",
-					"name"								=>	"Base Update Url",
-					"type"								=>	"text"
-				)
-			),
-			3									=>	array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"info"								=>	"Only for development",
-					"key"								=>  "enableDevBranchDownload",
-					"name"								=>	"Enable Dev Branch",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				)
-			),
-			4									=>	array(
-				"info"								=>	"Refresh to run upgrade scripts",
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"layoutVersion",
-					"name"								=>	"Layout Version",
-					"type"								=>	"number"
-				)
-			),
-			5									=> array(
-				"info"								=>	"Comma seperated list of ips (wild cards valid like 192.168.*.*",
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"ipWhitelist",
-					"name"								=>	"Whitelist ips",
-					"type"								=>	"text"
-				)
 			)
-		)
+		),
 	),
-	"logFormatVars"						=>	array(
+	"logFormatVarsAdvanced"				=>	array(
 		"id"								=>	"settingsLogFormatVars",
 		"name"								=>	"Log Format Settings ",
 		"menu"								=> 	array(
@@ -915,208 +943,36 @@ $defaultConfigMoreData = array(
 			),
 			"id"								=>	"settingsMainLogFormat",
 			"display"							=>	($advancedLogFormatEnabled === "true"),
-			"name"								=>	"Log Format"
+			"name"								=>	"General"
 		),
 		"vars"								=>	array(
 			0									=>	array(
-				"bool"								=>	($dateTextFormatEnable == 'false'),
 				"id"								=>	"dateTextFormatEnableSettings",
 				"name"								=>	"Log Date Text Format Settings",
-				"type"								=>	"grouped",
+				"type"								=>	"single",
 				"var"								=>	array(
-					"function"							=>	"showOrHidedateTextFormatEnableSettings",
+					"function"							=>	"showOrHideLogTimestamp",
 					"id"								=>	"dateTextFormatEnable",
 					"key"								=>	"dateTextFormatEnable",
-					"name"								=>	"Format Date Text",
+					"name"								=>	"Format Timestamps",
 					"options"							=>	$trueFalsVars,
 					"type"								=>	"dropdown"
-				),
-				"vars"								=>	array(
-					0									=>	array(
-						"custom"							=>	$customStyleSectionTimestamp,
-						"type"								=>	"custom"
-					),
-					1									=> array(
-						"bool"								=>	($dateTextFormat != 'custom'),
-						"bool2"								=>	"custom",
-						"id"								=>	"dateTextFormatSelector",
-						"name"								=>	"Custom Date Text Format",
-						"type"								=>	"grouped",
-						"var"								=>	array(
-							"function"							=>	"toggleUpdateLogFormat",
-							"functionForToggle"					=>	"showOrHideLogFormat",
-							"id"								=>	"dateTextFormat",
-							"key"								=>	"dateTextFormat",
-							"name"								=>	"Date Text Format",
-							"options"							=>	json_decode(file_get_contents($core->baseURL()."core/json/dateFormatOptions.json"), true),
-							"type"								=>	"dropdown"
-						),
-						"vars"								=>	$customDateFormatVars
-					),
-					2									=> array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"id"								=>	"dateTextFormatCustom",
-							"key"								=>	"dateTextFormatCustom",
-							"type"								=>	"hidden"
-						)
-					),
-					3									=>	array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"key"								=>	"dateTextFormatColumn",
-							"name"								=>	"Show log date / time in seperate column",
-							"options"							=>	array(
-								0 									=> array(
-									"value" 							=> "true",
-									"name" 								=> "Always"),
-								1 									=> array(
-									"value" 							=> "auto",
-									"name" 								=> "On larger screens"),
-								2 									=> array(
-									"value" 							=> "false",
-									"name" 								=> "Never")
-							),
-							"type"								=>	"dropdown"
-						)
-					),
-					4									=>	array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"info"								=>	"Only displays top timestamp when more than one in a row are same",
-							"key"								=>	"dateTextGroup",
-							"name"								=>	"Group Same Timestamps",
-							"options"							=>	array(
-								0 									=> array(
-									"value" 							=> "true",
-									"name" 								=> "Group by formatted time stamp"),
-								1 									=> array(
-									"value" 							=> "preFormat",
-									"name" 								=> "Group by pre format timestamp"),
-								2 									=> array(
-									"value" 							=> "false",
-									"name" 								=> "False")
-							),
-							"type"								=>	"dropdown"
-						)
-					),
-					5									=>	array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"key"								=>	"dateTextBold",
-							"name"								=>	"Bold Timestamps",
-							"options"							=>	$trueFalsVars,
-							"type"								=>	"dropdown"
-						)
-					),
-					6									=>	array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"key"								=>	"dateTimePadding",
-							"name"								=>	"Timestamp Padding",
-							"options"							=>	$logPaddingVars,
-							"type"								=>	"dropdown"
-						)
-					),
 				)
 			),
-			4									=>	array(
-				"bool"								=>	($logFormatFileEnable == 'false'),
+			1									=>	array(
 				"id"								=>	"logFormatFileEnableSettings",
 				"name"								=>	"Log File Link Settings",
-				"type"								=>	"grouped",
+				"type"								=>	"single",
 				"var"								=>	array(
-					"function"							=>	"showOrHidelogFormatFileEnableSettings",
+					"function"							=>	"showOrHidelogLinkedFileSettings",
 					"id"								=>	"logFormatFileEnable",
 					"key"								=>	"logFormatFileEnable",
 					"name"								=>	"Link files in logs",
 					"options"							=>	$trueFalsVars,
 					"type"								=>	"dropdown"
-				),
-				"vars"								=>	array(
-					0									=> array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"key"								=>	"logFormatFileBackground",
-							"name"								=>	"Background",
-							"type"								=>	"color"
-						)
-					),
-					1									=> array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"key"								=>	"logFormatFileFontColor",
-							"name"								=>	"Font",
-							"type"								=>	"color"
-						)
-					),
-					2									=>	array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"key"								=>	"logFormatFileLineCount",
-							"name"								=>	"Show line count",
-							"options"							=>	$trueFalsVars,
-							"type"								=>	"dropdown"
-						)
-					),
-					3									=>	array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"key"								=>	"logFormatFileLinePadding",
-							"name"								=>	"Line Padding +/-",
-							"options"							=>	$zeroToFiveArr,
-							"type"								=>	"dropdown"
-						)
-					),
-					4									=>	array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"key"								=>	"logFormatFileMaxHeight",
-							"name"								=>	"Max Height",
-							"options"							=>	$oneLogLogMaxHeightArr,
-							"type"								=>	"dropdown"
-						)
-					),
-					5									=>	array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"key"								=>	"logFormatFilePermissions",
-							"name"								=>	"Show File Permissions",
-							"options"							=>	array(
-								0 									=> array(
-									"value" 							=> "always",
-									"name" 								=> "Always"),
-								1 									=> array(
-									"value" 							=> "sometimes",
-									"name" 								=> "If warning shown"),
-								2 									=> array(
-									"value" 							=> "never",
-									"name" 								=> "Never")
-							),
-							"type"								=>	"dropdown"
-						)
-					),
-					6									=>	array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"key"								=>	"logFormatFileHideError",
-							"name"								=>	"Hide Error if line is no longer in file",
-							"options"							=>	$trueFalsVars,
-							"type"								=>	"dropdown"
-						)
-					),
-					7									=>	array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"key"								=>	"logFormatFileHideReadError",
-							"name"								=>	"Hide Error if file is present but not readable",
-							"options"							=>	$trueFalsVars,
-							"type"								=>	"dropdown"
-						)
-					),
 				)
 			),
-			5									=>	array(
+			2									=>	array(
 				"bool"								=>	($logFormatPhpEnable == 'false'),
 				"id"								=>	"logFormatPhpEnableSettings",
 				"name"								=>	"Log Php Message Format Settings",
@@ -1150,7 +1006,7 @@ $defaultConfigMoreData = array(
 					)
 				)
 			),
-			6									=>	array(
+			3									=>	array(
 				"bool"								=>	($logFormatReportEnable == 'false'),
 				"id"								=>	"logFormatReportEnableSettings",
 				"name"								=>	"Log Report Message Format Settings",
@@ -1175,7 +1031,7 @@ $defaultConfigMoreData = array(
 					)
 				)
 			),
-			7									=>	array(
+			4									=>	array(
 				"bool"								=>	($logFormatShowMoreButton == 'false'),
 				"id"								=>	"logFormatShowMoreButtonSettings",
 				"name"								=>	"Log Show More Button Settings",
@@ -1200,7 +1056,7 @@ $defaultConfigMoreData = array(
 					)
 				)
 			),
-			8									=>	array(
+			5									=>	array(
 				"bool"								=>	($logFormatJsObjectEnable == 'false'),
 				"id"								=>	"logFormatJsObjectEnableSettings",
 				"name"								=>	"Log JS encoded object Message Format Settings",
@@ -1225,6 +1081,202 @@ $defaultConfigMoreData = array(
 					)
 				)
 			)
+		)
+	),
+	"logFormatVarsDateTime"				=>	array(
+		"id"								=>	"settingsLogFormatVarsDateTime",
+		"name"								=>	"Log Date Time Settings ",
+		"menu"								=> 	array(
+			"groups"							=>	array(
+				"formatting"
+			),
+			"id"								=>	"settingsMainLogDateTimeFormat",
+			"display"							=>	($advancedLogFormatEnabled === "true" && $dateTextFormatEnable == 'true'),
+			"name"								=>	"Timestamp"
+		),
+		"vars"								=>	array(
+			0									=>	array(
+				"custom"							=>	$customStyleSectionTimestamp,
+				"type"								=>	"custom"
+			),
+			1									=> array(
+				"bool"								=>	($dateTextFormat != 'custom'),
+				"bool2"								=>	"custom",
+				"id"								=>	"dateTextFormatSelector",
+				"name"								=>	"Custom Date Text Format",
+				"type"								=>	"grouped",
+				"var"								=>	array(
+					"function"							=>	"toggleUpdateLogFormat",
+					"functionForToggle"					=>	"showOrHideLogFormat",
+					"id"								=>	"dateTextFormat",
+					"key"								=>	"dateTextFormat",
+					"name"								=>	"Date Text Format",
+					"options"							=>	json_decode(file_get_contents($core->baseURL()."core/json/dateFormatOptions.json"), true),
+					"type"								=>	"dropdown"
+				),
+				"vars"								=>	$customDateFormatVars
+			),
+			2									=> array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"id"								=>	"dateTextFormatCustom",
+					"key"								=>	"dateTextFormatCustom",
+					"type"								=>	"hidden"
+				)
+			),
+			3									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"dateTextFormatColumn",
+					"name"								=>	"Show log date / time in seperate column",
+					"options"							=>	array(
+						0 									=> array(
+							"value" 							=> "true",
+							"name" 								=> "Always"),
+						1 									=> array(
+							"value" 							=> "auto",
+							"name" 								=> "On larger screens"),
+						2 									=> array(
+							"value" 							=> "false",
+							"name" 								=> "Never")
+					),
+					"type"								=>	"dropdown"
+				)
+			),
+			4									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"info"								=>	"Only displays top timestamp when more than one in a row are same",
+					"key"								=>	"dateTextGroup",
+					"name"								=>	"Group Same Timestamps",
+					"options"							=>	array(
+						0 									=> array(
+							"value" 							=> "true",
+							"name" 								=> "Group by formatted time stamp"),
+						1 									=> array(
+							"value" 							=> "preFormat",
+							"name" 								=> "Group by pre format timestamp"),
+						2 									=> array(
+							"value" 							=> "false",
+							"name" 								=> "False")
+					),
+					"type"								=>	"dropdown"
+				)
+			),
+			5									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"dateTextBold",
+					"name"								=>	"Bold Timestamps",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			6									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"dateTimePadding",
+					"name"								=>	"Timestamp Padding",
+					"options"							=>	$logPaddingVars,
+					"type"								=>	"dropdown"
+				)
+			),
+		)
+	),
+	"logFormatVarsLinkedFiles"			=>	array(
+		"id"								=>	"settingsLogLinkedFilesVars",
+		"name"								=>	"Linked Files Settings ",
+		"menu"								=> 	array(
+			"groups"							=>	array(
+				"formatting"
+			),
+			"id"								=>	"settingsLinkedLogLogFormat",
+			"display"							=>	($advancedLogFormatEnabled === "true" && $logFormatFileEnable == "true"),
+			"name"								=>	"Linked Files"
+		),
+		"vars"								=>	array(
+			
+				
+			0									=> array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"logFormatFileBackground",
+					"name"								=>	"Background",
+					"type"								=>	"color"
+				)
+			),
+			1									=> array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"logFormatFileFontColor",
+					"name"								=>	"Font",
+					"type"								=>	"color"
+				)
+			),
+			2									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"logFormatFileLineCount",
+					"name"								=>	"Show line count",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			3									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"logFormatFileLinePadding",
+					"name"								=>	"Line Padding +/-",
+					"options"							=>	$zeroToFiveArr,
+					"type"								=>	"dropdown"
+				)
+			),
+			4									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"logFormatFileMaxHeight",
+					"name"								=>	"Max Height",
+					"options"							=>	$oneLogLogMaxHeightArr,
+					"type"								=>	"dropdown"
+				)
+			),
+			5									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"logFormatFilePermissions",
+					"name"								=>	"Show File Permissions",
+					"options"							=>	array(
+						0 									=> array(
+							"value" 							=> "always",
+							"name" 								=> "Always"),
+						1 									=> array(
+							"value" 							=> "sometimes",
+							"name" 								=> "If warning shown"),
+						2 									=> array(
+							"value" 							=> "never",
+							"name" 								=> "Never")
+					),
+					"type"								=>	"dropdown"
+				)
+			),
+			6									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"logFormatFileHideError",
+					"name"								=>	"Hide Error if line is no longer in file",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			7									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"logFormatFileHideReadError",
+					"name"								=>	"Hide Error if file is present but not readable",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
 		)
 	),
 	"logVars"							=>	array(
@@ -2927,7 +2979,7 @@ $customConfigSections = array(
 		"name"	=> "Log Tabs Color Scheme",
 		"menu"								=> 	array(
 			"groups"							=>	array(
-				"formatting"
+				"style"
 			),
 			"id"								=>	"fullScreenMenuColorScheme",
 			"display"							=>	true,
