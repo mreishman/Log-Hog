@@ -1378,7 +1378,7 @@ $defaultConfigMoreData = array(
 					3									=> array(
 						"type"								=>	"single",
 						"var"								=>	array(
-							"key"								=>	"LogLoadPollDisplayType",
+							"key"								=>	"logLoadPollDisplayType",
 							"name"								=>	"Log Loading Poll Display Type",
 							"options"							=>	array(
 									0 									=> array(
@@ -1389,6 +1389,14 @@ $defaultConfigMoreData = array(
 										"name" 								=> "Line Count")
 								),
 							"type"								=>	"dropdown"
+						)
+					),
+					4									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"logLoadPollLineSize",
+							"name"								=>	"Number of lines to unhide per poll",
+							"type"								=>	"number"
 						)
 					),
 				)

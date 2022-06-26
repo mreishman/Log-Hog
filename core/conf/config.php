@@ -307,6 +307,7 @@ $defaultConfig = array(
 	'logLoadPollBackgroundRate'		=> 100,
 	'logLoadPollBackgroundRateType'	=> 'Milliseconds',
 	'LogLoadPollDisplayType'		=> 'percent',
+	'logLoadPollLineSize'			=> 20,
 	'logLoadPollRate'				=> 10,
 	'logLoadPollRateType'			=> 'Milliseconds',
 	'logLoadPrevious'				=> 'false',
