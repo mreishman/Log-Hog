@@ -213,3 +213,67 @@ function hideLayoutOptionsAll()
 	$(".innerWindowDisplayLoadLayout").hide();
 	$(".innerWindowDisplayLoadLayoutHidden").show();
 }
+
+function addNewFilePathAlternativeRow(newRowPos, originalValue, newValue)
+{
+	let newRow = "<tr class=\"generatedRow\" >"+$("#filePathAlternativeSettings .settingsTemplateHolder tr").html()+"</tr>";
+	if(newRowPos === -1)
+	{
+		newRowPos = $('#addNewRowToThisForFilePathAlternatives tr').length;
+	}
+	newRow = newRow.replace(/{{i}}/g, newRowPos);
+	newRow = newRow.replace(/{{original_value}}/g, originalValue);
+	newRow = newRow.replace(/{{new_value}}/g, newValue);
+	$('#addNewRowToThisForFilePathAlternatives tr:last').after(newRow);
+	updateJsonStringOfFilePathAlternatives();
+}
+
+function removeFilePathAlternativeRow(rowNumber)
+{
+	//remove from table
+	$("#addNewRowToThisForFilePathAlternatives .generatedRow").remove();
+	//remove from json (generate new json array)
+	let values = JSON.parse($("#filePathAlternatives").val());
+	let newValues = [];
+	let valuesLength = values.length;
+	let minusOne = false;
+	for(i = 0; i < valuesLength; i++)
+	{
+		let locVal = values[i];
+		let rowICheck = Math.ceil((i+1)/2);
+		let oCheck = "path["+rowNumber+"][original]";
+		let nCheck = "path["+rowNumber+"][new]";
+		if(locVal["name"] === oCheck || locVal["name"] === nCheck)
+		{
+			minusOne = true;
+			continue;
+		}
+		if(minusOne)
+		{
+			//reduce number by 1
+			locVal["name"] = locVal["name"].replace("["+rowICheck+"]", "["+(rowICheck - 1)+"]");
+		}
+		newValues.push(locVal)
+	}
+
+	if(newValues.length > 0)
+	{
+		//rebuild display table
+		let newValuesLength = newValues.length;
+		for(i = 0; i < newValuesLength; i = i + 2)
+		{
+			let rowICheck = Math.ceil((i+1)/2);
+			addNewFilePathAlternativeRow(rowICheck, newValues[i]["value"], newValues[(i+1)]["value"]);
+		}
+		updateJsonStringOfFilePathAlternatives();
+	}
+	else
+	{
+		$("#filePathAlternatives").val("");
+	}
+}
+
+function updateJsonStringOfFilePathAlternatives()
+{
+	$("#filePathAlternatives").val(JSON.stringify($("#addNewRowToThisForFilePathAlternatives input").serializeArray()));
+}

@@ -252,6 +252,29 @@ $customStyleSectionTimestamp = "
 <script>var exampleLineForTimestampStyle = '2021-10-18T20:22:18+00:00 : [hphp] [29] all servers started';</script>
 ";
 
+$filePathAlternativeSettingsHtml = file_get_contents($core->baseUrl()."core/html/filePathAlternativesSettings.html");
+$jsonArray = json_decode($filePathAlternatives, true);
+$onLoadContent = "";
+if(!empty($jsonArray))
+{
+	$startOfTag = true;
+	foreach($jsonArray as $jsonData)
+	{
+		$i = explode("]", explode("[", $jsonData["name"])[1])[0];
+		if($startOfTag)
+		{
+			$onLoadContent .= "<tr class=\"generatedRow\"><td>".$i."</td>";
+		}
+		$onLoadContent .= "<td><input value=\"".$jsonData["value"]."\" onchange=\"updateJsonStringOfFilePathAlternatives();\" type=\"text\" name=\"".$jsonData["name"]."\"></td>";
+		if(!$startOfTag)
+		{
+			$onLoadContent .= "<td><span class=\"linkSmall\" onclick=\"removeFilePathAlternativeRow(".$i.");\">Remove Row</span></td></tr>";
+		}
+		$startOfTag = !$startOfTag;
+	}
+}
+$filePathAlternativeSettingsHtml = implode($onLoadContent, explode("{{onLoadTableContent}}", $filePathAlternativeSettingsHtml));
+
 
 $fullScreenMenuGroups = array(
 	"main"	=> array (
@@ -1276,6 +1299,18 @@ $defaultConfigMoreData = array(
 					"options"							=>	$trueFalsVars,
 					"type"								=>	"dropdown"
 				)
+			),
+			8									=> array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"id"								=>	"filePathAlternatives",
+					"key"								=>	"filePathAlternatives",
+					"type"								=>	"hidden"
+				)
+			),
+			9									=>	array(
+				"custom"							=>	$filePathAlternativeSettingsHtml,
+				"type"								=>	"custom"
 			),
 		)
 	),

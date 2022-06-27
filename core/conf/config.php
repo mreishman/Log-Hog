@@ -45,6 +45,7 @@ $defaultConfig = array(
 	'enableMultiLog'				=> 'true',
 	'enablePollTimeLogging'			=> 'false',
 	'expSettingsAvail'				=> 'true',
+	'filePathAlternatives'			=> '',
 	'filterContentHighlight'		=> 'true',
 	'filterContentHighlightLine'	=> 'true',
 	'filterContentLimit'			=> 'true',

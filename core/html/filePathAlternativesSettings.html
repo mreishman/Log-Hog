@@ -1,0 +1,45 @@
+<div id="filePathAlternativeSettings">
+	<div class="settingsHeader">
+		File Path Alternatives
+		<a class="linkSmall" onclick="addNewFilePathAlternativeRow(-1, '', '');" style="display: inline-block;">
+			Add New Row
+		</a>
+	</div>
+	<div class="settingsDiv">
+		<ul class="settingsUl">
+			<li>
+				<table id="addNewRowToThisForFilePathAlternatives">
+					<tr>
+						<th width="50px;">
+						</th>
+						<th width="200px;">
+							Original File Path
+						</th>
+						<th width="200px;">
+							New File Path
+						</th>
+					</tr>
+					{{onLoadTableContent}}
+				</table>
+			</li>
+		</ul>
+	</div>
+	<div class="settingsTemplateHolder" style="display: none;">
+		<table>
+			<tr>
+				<td>
+					{{i}}
+				</td>
+				<td>
+					<input value="{{original_value}}" onchange="updateJsonStringOfFilePathAlternatives();" type="text" name="path[{{i}}][original]">
+				</td>
+				<td>
+					<input value="{{new_value}}" onchange="updateJsonStringOfFilePathAlternatives();" type="text" name="path[{{i}}][new]">
+				</td>
+				<td>
+					<span class="linkSmall" onclick="removeFilePathAlternativeRow({{i}});">Remove Row</span>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>
