@@ -45,7 +45,7 @@ if($logTrimType == 'size')
 $filePathAlternativesArray = json_decode($filePathAlternatives, true);
 $sortedFilePathAlternativesArray = [];
 $arrayToAdd = [];
-$toggle = true;
+$toggle = false;
 foreach($filePathAlternativesArray as $jsonData)
 {
 	$arrayToAdd[] = $jsonData["value"];
@@ -137,7 +137,7 @@ if(isset($_POST['arrayToUpdate']))
 							//try one of the alternitive paths
 							if(!empty($sortedFilePathAlternativesArray))
 							{
-								foreach($sortedFilePathAlternativesArray as $pathGroups)
+								foreach($sortedFilePathAlternativesArray as $pathToTest)
 								{
 									if(strpos($fileName, $pathToTest[0]) !== false)
 									{
@@ -165,7 +165,7 @@ if(isset($_POST['arrayToUpdate']))
 							//try one of the alternitive paths
 							if(!empty($sortedFilePathAlternativesArray))
 							{
-								foreach($sortedFilePathAlternativesArray as $pathGroups)
+								foreach($sortedFilePathAlternativesArray as $pathToTest)
 								{
 									if(strpos($fileName, $pathToTest[0]) !== false)
 									{
