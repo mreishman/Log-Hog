@@ -22,7 +22,7 @@ require_once('../configStatic.php');
 require_once('../class/poll.php');
 $poll = new poll();
 
-$varsLoadLite = array("shellOrPhp", "logTrimOn", "logSizeLimit","logTrimMacBSD", "logTrimType","TrimSize","enableLogging","buffer","sliceSize","lineCountFromJS","showErrorPhpFileOpen","advancedLogFormatEnabled","logFormatFileEnable","logFormatFileLinePadding","logFormatFilePermissions");
+$varsLoadLite = array("shellOrPhp", "logTrimOn", "logSizeLimit","logTrimMacBSD", "logTrimType","TrimSize","enableLogging","buffer","sliceSize","lineCountFromJS","showErrorPhpFileOpen","advancedLogFormatEnabled","logFormatFileEnable","logFormatFileLinePadding","logFormatFilePermissions","filePathAlternatives");
 
 foreach ($varsLoadLite as $varLoadLite)
 {
@@ -40,6 +40,21 @@ if($logTrimType == 'size')
 {
 	$modifier = $TrimSize;
 	$logSizeLimit = $poll->convertToSize($TrimSize, $logSizeLimit);
+}
+
+$filePathAlternativesArray = json_decode($filePathAlternatives, true);
+$sortedFilePathAlternativesArray = [];
+$arrayToAdd = [];
+$toggle = true;
+foreach($filePathAlternativesArray as $jsonData)
+{
+	$arrayToAdd[] = $jsonData["value"];
+	if($toggle)
+	{
+		$sortedFilePathAlternativesArray[] = $arrayToAdd;
+		$arrayToAdd = [];
+	}
+	$toggle = !$toggle;
 }
 
 $arrayToUpdate = array();
@@ -119,12 +134,48 @@ if(isset($_POST['arrayToUpdate']))
 						//this one is on line match
 						if(!file_exists($fileName))
 						{
+							//try one of the alternitive paths
+							if(!empty($sortedFilePathAlternativesArray))
+							{
+								foreach($sortedFilePathAlternativesArray as $pathGroups)
+								{
+									if(strpos($fileName, $pathToTest[0]) !== false)
+									{
+										$possibleNewPath = str_replace($pathToTest[0], $pathToTest[1], $fileName);
+										if(file_exists($fileName))
+										{
+											$fileName = $possibleNewPath;
+										}
+									}
+								}
+							}
+						}
+						if(!file_exists($fileName))
+						{
 							//this one is \D:\d match
 							$lastPartOfFile = explode(":", $matches[5]);
 							$fileName = trim($matches[3].$matches[4].$lastPartOfFile[0]);
 							if(count($lastPartOfFile) > 1)
 							{
 								$matches[7] = $lastPartOfFile[1].$matches[7];
+							}
+						}
+						if(!file_exists($fileName))
+						{
+							//try one of the alternitive paths
+							if(!empty($sortedFilePathAlternativesArray))
+							{
+								foreach($sortedFilePathAlternativesArray as $pathGroups)
+								{
+									if(strpos($fileName, $pathToTest[0]) !== false)
+									{
+										$possibleNewPath = str_replace($pathToTest[0], $pathToTest[1], $fileName);
+										if(file_exists($fileName))
+										{
+											$fileName = $possibleNewPath;
+										}
+									}
+								}
 							}
 						}
 						if(file_exists($fileName))
