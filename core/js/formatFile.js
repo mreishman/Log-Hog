@@ -56,11 +56,11 @@ function formatMessageFileData(message, extraData)
 	if(true)
 	{
 		fileName = extraData["fileData"]["fileName"];
-		fileName = "<tr style=\"background-color: white;\"><td style\"color: black; padding: 5px;\">" + fileName + filePermissions + "</td></tr>";
+		fileName = "<tr style=\"background-color: white;\"><td style=\"color: black; padding: 5px;\">" + fileName + filePermissions + "</td></tr>";
 		tdStyle = "style=\"padding-bottom: 5px;\"";
 		messageFilePermission = "";
 	}
-	return "<table style=\"width: 100%; border-spacing: 0;\"><tr "+customClass+"><td "+tdStyle+" >"+message+messageFilePermission+"</td></tr>"+fileName+"<tr "+customClass+"><td><table class=\"logCode\" style=\"width: 100%;\">"+makePrettyWithText(escapeHTML(extraData["fileData"]["fileData"]), 0, {lineDisplay: logFormatFileLineCount, lineModifier: lineStart, type: "file", id: id})+"</table></td></tr></table>";
+	return "<table style=\"width: 100%; border-spacing: 0;\"><tr "+customClass+"><td "+tdStyle+" >"+message+messageFilePermission+"</td></tr>"+fileName+"<tr "+customClass+"><td style=\"padding: 0;\" ><table class=\"logCode\" style=\"width: 100%;\">"+makePrettyWithText(escapeHTML(extraData["fileData"]["fileData"]), 0, {lineDisplay: logFormatFileLineCount, lineModifier: lineStart, type: "file", id: id})+"</table></td></tr></table>";
 }
 
 function updateFileDataArrayInner(newDataArr)
