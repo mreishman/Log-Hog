@@ -288,6 +288,7 @@ $defaultConfig = array(
 	'logFormatFileLinePadding'		=> 2,
 	'logFormatFileMaxHeight'		=> 265,
 	'logFormatFilePermissions'		=> 'always',
+	'logFormatFileTitleSeperateLine'=> 'true',
 	'logFormatJsObjectEnable'		=> 'true',
 	'logFormatJsObjectArrEnable'	=> 'true',
 	'logFormatPhpEnable'			=> 'true',

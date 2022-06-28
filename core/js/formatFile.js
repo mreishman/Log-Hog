@@ -38,7 +38,7 @@ function formatMessageFileData(message, extraData)
 	{
 		
 		filePermissions = " [File Permissions: "+extraData["fileData"]["permissions"]+"]";
-		if(true)
+		if(logFormatFileTitleSeperateLine === "true")
 		{
 			filePermissions = "<span style=\"float: right;\" >" + filePermissions + "</span>";
 		}
@@ -53,7 +53,7 @@ function formatMessageFileData(message, extraData)
 	let fileName = "";
 	let tdStyle = "";
 	let messageFilePermission = filePermissions;
-	if(true)
+	if(logFormatFileTitleSeperateLine === "true")
 	{
 		fileName = extraData["fileData"]["fileName"];
 		fileName = "<tr style=\"background-color: white;\"><td style=\"color: black; padding: 5px;\">" + fileName + filePermissions + "</td></tr>";

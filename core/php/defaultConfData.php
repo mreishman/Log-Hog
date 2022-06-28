@@ -1300,7 +1300,16 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			8									=> array(
+			8									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"logFormatFileTitleSeperateLine",
+					"name"								=>	"Show File as a seperate line in log",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			9									=> array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"id"								=>	"filePathAlternatives",
@@ -1308,7 +1317,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"hidden"
 				)
 			),
-			9									=>	array(
+			10									=>	array(
 				"custom"							=>	$filePathAlternativeSettingsHtml,
 				"type"								=>	"custom"
 			),
