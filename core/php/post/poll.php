@@ -142,7 +142,7 @@ if(isset($_POST['arrayToUpdate']))
 									if(strpos($fileName, $pathToTest[0]) !== false)
 									{
 										$possibleNewPath = str_replace($pathToTest[0], $pathToTest[1], $fileName);
-										if(file_exists($fileName))
+										if(file_exists($possibleNewPath))
 										{
 											$fileName = $possibleNewPath;
 										}
@@ -170,7 +170,7 @@ if(isset($_POST['arrayToUpdate']))
 									if(strpos($fileName, $pathToTest[0]) !== false)
 									{
 										$possibleNewPath = str_replace($pathToTest[0], $pathToTest[1], $fileName);
-										if(file_exists($fileName))
+										if(file_exists($possibleNewPath))
 										{
 											$fileName = $possibleNewPath;
 										}
