@@ -50,7 +50,7 @@ function formatMessageFileData(message, extraData)
 		id = extraData["id"];
 	}
 
-	let fileName = "":
+	let fileName = "";
 	let tdStyle = "";
 	let messageFilePermission = filePermissions;
 	if(true)
