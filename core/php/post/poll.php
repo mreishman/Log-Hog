@@ -125,98 +125,114 @@ if(isset($_POST['arrayToUpdate']))
 				foreach ($tmpLog as $tmpLogLine)
 				{
 					//check for line here, add file path to array if there
-					preg_match('/(in|at) (.?)([\/]+)((([^&\r\n\t:]*)(on line))|(([^&\r\n\t]*)(\D:\d)))(.?)(\d{1,10})/', $tmpLogLine, $matches);
+					preg_match_all('/(in|at) (.?)([\/]+)((([^&\r\n\t:]*)(on line))|(([^&\r\n\t]*)(\D:\d)))(.?)(\d{1,10})/', $tmpLogLine, $matches);
 					if(count($matches) > 0)
 					{
-						foreach($matches as $match)
+						foreach($matches as $filePaths)
 						{
-							if(!isset($arrayOfFiles[$match[0]]))
+							if(!isset($filePaths[0]))
 							{
-								$fileData = "Error - File Not Found";
-								$fileName = trim($match[3].$match[4]);
-								$match[7] = $match[6] . $match[7];
-								//this one is on line match
-								if(!file_exists($fileName))
+								continue;
+							}
+							foreach($filePaths as $filePath)
+							{
+								preg_match_all('/(in|at) (.?)([\/]+)(([^&\r\n\t]*)(\D:\d))(.?)(\d{1,10})/', $tmpLogLine, $match);
+								if(count($matches) < 1)
 								{
-									//try one of the alternitive paths
-									if(!empty($sortedFilePathAlternativesArray))
+									preg_match_all('/(in|at) (.?)([\/]+)(([^&\r\n\t:]*)(on line))(.?)(\d{1,10})/', $tmpLogLine, $match);
+								}
+								if(count($matches) < 1)
+								{
+									continue;
+								}
+								if(!isset($arrayOfFiles[$match[0]]))
+								{
+									$fileData = "Error - File Not Found";
+									$fileName = trim($match[3].$match[4]);
+									$match[7] = $match[6] . $match[7];
+									//this one is on line match
+									if(!file_exists($fileName))
 									{
-										foreach($sortedFilePathAlternativesArray as $pathToTest)
+										//try one of the alternitive paths
+										if(!empty($sortedFilePathAlternativesArray))
 										{
-											if(strpos($fileName, $pathToTest[0]) !== false)
+											foreach($sortedFilePathAlternativesArray as $pathToTest)
 											{
-												$possibleNewPath = str_replace($pathToTest[0], $pathToTest[1], $fileName);
-												if(file_exists($possibleNewPath))
+												if(strpos($fileName, $pathToTest[0]) !== false)
 												{
-													$fileName = $possibleNewPath;
+													$possibleNewPath = str_replace($pathToTest[0], $pathToTest[1], $fileName);
+													if(file_exists($possibleNewPath))
+													{
+														$fileName = $possibleNewPath;
+													}
 												}
 											}
 										}
 									}
-								}
-								if(!file_exists($fileName))
-								{
-									//this one is \D:\d match
-									$lastPartOfFile = explode(":", $match[5]);
-									$fileName = trim($match[3].$match[4].$lastPartOfFile[0]);
-									if(count($lastPartOfFile) > 1)
+									if(!file_exists($fileName))
 									{
-										$match[7] = $lastPartOfFile[1].$match[7];
-									}
-								}
-								if(!file_exists($fileName))
-								{
-									//try one of the alternitive paths
-									if(!empty($sortedFilePathAlternativesArray))
-									{
-										foreach($sortedFilePathAlternativesArray as $pathToTest)
+										//this one is \D:\d match
+										$lastPartOfFile = explode(":", $match[5]);
+										$fileName = trim($match[3].$match[4].$lastPartOfFile[0]);
+										if(count($lastPartOfFile) > 1)
 										{
-											if(strpos($fileName, $pathToTest[0]) !== false)
+											$match[7] = $lastPartOfFile[1].$match[7];
+										}
+									}
+									if(!file_exists($fileName))
+									{
+										//try one of the alternitive paths
+										if(!empty($sortedFilePathAlternativesArray))
+										{
+											foreach($sortedFilePathAlternativesArray as $pathToTest)
 											{
-												$possibleNewPath = str_replace($pathToTest[0], $pathToTest[1], $fileName);
-												if(file_exists($possibleNewPath))
+												if(strpos($fileName, $pathToTest[0]) !== false)
 												{
-													$fileName = $possibleNewPath;
+													$possibleNewPath = str_replace($pathToTest[0], $pathToTest[1], $fileName);
+													if(file_exists($possibleNewPath))
+													{
+														$fileName = $possibleNewPath;
+													}
 												}
 											}
 										}
 									}
-								}
-								if(file_exists($fileName))
-								{
-									$fileData = "Error - File Not Readable";
-									if(is_readable($fileName))
+									if(file_exists($fileName))
 									{
-										$linePadding = $logFormatFileLinePadding;
-										$totalPading = $linePadding * 2;
-										$currentLine = intval($match[7]) - $linePadding;
-										if($currentLine < 0)
+										$fileData = "Error - File Not Readable";
+										if(is_readable($fileName))
 										{
-											$totalPading = $totalPading + $currentLine;
-											$currentLine = 0;
-										}
-										$totalPading++;
-										$lineCountLocal = $poll->getLineCount($fileName, $shellOrPhp);
-										//check to see if line is greater than file length
-										$fileData = "Error - File Changed, line no longer in file";
-										if($lineCountLocal >= $currentLine)
-										{
-											$fileData = $poll->tail($fileName, $totalPading, $shellOrPhp, $currentLine);
+											$linePadding = $logFormatFileLinePadding;
+											$totalPading = $linePadding * 2;
+											$currentLine = intval($match[7]) - $linePadding;
+											if($currentLine < 0)
+											{
+												$totalPading = $totalPading + $currentLine;
+												$currentLine = 0;
+											}
+											$totalPading++;
+											$lineCountLocal = $poll->getLineCount($fileName, $shellOrPhp);
+											//check to see if line is greater than file length
+											$fileData = "Error - File Changed, line no longer in file";
+											if($lineCountLocal >= $currentLine)
+											{
+												$fileData = $poll->tail($fileName, $totalPading, $shellOrPhp, $currentLine);
+											}
 										}
 									}
+									$permissions = "";
+									if($logFormatFilePermissions === "always" || ($logFormatFilePermissions === "sometimes" && strpos($fileData, "Permission denied") > -1))
+									{
+										$permissions = $core->filePermsDisplay($fileName);
+									}
+									//found a match, add to thing
+									$arrayOfFiles[$match[0]] = array(
+										"pregMatchData"	=>	$match,
+										"fileData"		=>	$fileData,
+										"fileName"		=>	$fileName,
+										"permissions"	=>	$permissions
+									);
 								}
-								$permissions = "";
-								if($logFormatFilePermissions === "always" || ($logFormatFilePermissions === "sometimes" && strpos($fileData, "Permission denied") > -1))
-								{
-									$permissions = $core->filePermsDisplay($fileName);
-								}
-								//found a match, add to thing
-								$arrayOfFiles[$match[0]] = array(
-									"pregMatchData"	=>	$match,
-									"fileData"		=>	$fileData,
-									"fileName"		=>	$fileName,
-									"permissions"	=>	$permissions
-								);
 							}
 						}	
 					}
