@@ -149,6 +149,7 @@ if(isset($_POST['arrayToUpdate']))
 								{
 									$fileData = "Error - File Not Found";
 									$fileName = trim($match[3].$match[4]);
+									$originalFileName = $fileName;
 									$match[7] = $match[6] . $match[7];
 									//this one is on line match
 									if(!file_exists($fileName))
@@ -229,7 +230,7 @@ if(isset($_POST['arrayToUpdate']))
 									$arrayOfFiles[$match[0]] = array(
 										"pregMatchData"	=>	$match,
 										"fileData"		=>	$fileData,
-										"fileName"		=>	$fileName,
+										"fileName"		=>	$originalFileName,
 										"permissions"	=>	$permissions
 									);
 								}
