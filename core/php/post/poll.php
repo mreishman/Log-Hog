@@ -136,10 +136,10 @@ if(isset($_POST['arrayToUpdate']))
 							}
 							foreach($filePaths as $filePath)
 							{
-								preg_match_all('/(in|at) (.?)([\/]+)(([^&\r\n\t]*)(\D:\d))(.?)(\d{1,10})/', $tmpLogLine, $match);
-								if(count($matches) < 1)
+								preg_match('/(in|at) (.?)([\/]+)(([^&\r\n\t]*)(\D:\d))(.?)(\d{1,10})/', $tmpLogLine, $match);
+								if(count($match) < 1)
 								{
-									preg_match_all('/(in|at) (.?)([\/]+)(([^&\r\n\t:]*)(on line))(.?)(\d{1,10})/', $tmpLogLine, $match);
+									preg_match('/(in|at) (.?)([\/]+)(([^&\r\n\t:]*)(on line))(.?)(\d{1,10})/', $tmpLogLine, $match);
 								}
 								if(count($match) < 1)
 								{
