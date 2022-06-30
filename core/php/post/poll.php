@@ -141,7 +141,7 @@ if(isset($_POST['arrayToUpdate']))
 								{
 									preg_match_all('/(in|at) (.?)([\/]+)(([^&\r\n\t:]*)(on line))(.?)(\d{1,10})/', $tmpLogLine, $match);
 								}
-								if(count($matches) < 1)
+								if(count($match) < 1)
 								{
 									continue;
 								}
