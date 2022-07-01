@@ -199,7 +199,7 @@ function formatMainMessage(message, extraData)
 			if(lineData["match"] > -1)
 			{
 				//this message matches file data, add this below
-				extraData["fileData"] = lineData["file"];
+				extraData["fileData"] = lineData["files"];
 				return formatMessageFileData(localMessage, extraData);
 			}
 		}
