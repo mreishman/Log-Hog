@@ -137,9 +137,11 @@ if(isset($_POST['arrayToUpdate']))
 							foreach($filePaths as $filePath)
 							{
 								preg_match('/(in|at) (.?)([\/]+)([^&\r\n\t]*)(\D:\d)(.?)(\d{1,10})/', $filePath, $match);
+								$type = 1;
 								if(count($match) < 1)
 								{
 									preg_match('/(in|at) (.?)([\/]+)([^&\r\n\t:]*)(on line)(.?)(\d{1,10})/', $filePath, $match);
+									$type = 2;
 								}
 								if(count($match) < 1)
 								{
@@ -148,38 +150,24 @@ if(isset($_POST['arrayToUpdate']))
 								if(!isset($arrayOfFiles[$match[0]]))
 								{
 									$fileData = "Error - File Not Found";
-									$fileName = trim($match[3].$match[4]);
-									$originalFileName = $fileName;
-									$match[7] = $match[6] . $match[7];
-									//this one is on line match
-									if(!file_exists($fileName))
+									if($type === 1)
 									{
-										//try one of the alternitive paths
-										if(!empty($sortedFilePathAlternativesArray))
-										{
-											foreach($sortedFilePathAlternativesArray as $pathToTest)
-											{
-												if(strpos($fileName, $pathToTest[0]) !== false)
-												{
-													$possibleNewPath = str_replace($pathToTest[0], $pathToTest[1], $fileName);
-													if(file_exists($possibleNewPath))
-													{
-														$fileName = $possibleNewPath;
-													}
-												}
-											}
-										}
+										$fileName = trim($match[3].$match[4]);
+										$match[7] = $match[6] . $match[7];
 									}
-									if(!file_exists($fileName))
+									else
 									{
 										//this one is \D:\d match
 										$lastPartOfFile = explode(":", $match[5]);
 										$fileName = trim($match[3].$match[4].$lastPartOfFile[0]);
+										$match[7] = $match[6] . $match[7];
 										if(count($lastPartOfFile) > 1)
 										{
 											$match[7] = $lastPartOfFile[1].$match[7];
 										}
 									}
+									$originalFileName = $fileName;
+									//this one is on line match
 									if(!file_exists($fileName))
 									{
 										//try one of the alternitive paths
