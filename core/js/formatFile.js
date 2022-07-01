@@ -33,8 +33,9 @@ function formatMessageFileData(message, extraData)
 	let filesLength = files.length;
 	for(let i = 0; i < filesLength; i++)
 	{
+		let file = extraData["fileData"][i];
 		var lineStart = 0;
-		var pregMatchData = extraData["fileData"]["pregMatchData"];
+		var pregMatchData = file["pregMatchData"];
 		var numForBaseLineStart = parseInt(pregMatchData[(pregMatchData.length - 1)]);
 		if(numForBaseLineStart > 0)
 		{
@@ -42,10 +43,10 @@ function formatMessageFileData(message, extraData)
 		}
 		
 		let filePermissions = "";
-		if(extraData["fileData"]["permissions"] !== "")
+		if(file["permissions"] !== "")
 		{
 			
-			filePermissions = " [File Permissions: "+extraData["fileData"]["permissions"]+"]";
+			filePermissions = " [File Permissions: "+file["permissions"]+"]";
 			if(logFormatFileTitleSeperateLine === "true")
 			{
 				filePermissions = "<span style=\"float: right;\" >" + filePermissions + "</span>";
@@ -63,15 +64,15 @@ function formatMessageFileData(message, extraData)
 		let tdStyle = "";
 		if(logFormatFileTitleSeperateLine === "true")
 		{
-			fileName = extraData["fileData"]["fileName"];
+			fileName = file["fileName"];
 			fileTable += "<tr style=\"background-color: white;\"><td style=\"color: black; padding: 5px;\">" + fileName + filePermissions + "</td></tr>";
 			tdStyle = "style=\"padding-bottom: 5px;\"";
 		}
 		else
 		{
-			message = message.replace(extraData["fileData"]["fileName"], " " + filePermissions + " " + extraData["fileData"]["fileName"]);
+			message = message.replace(file["fileName"], " " + filePermissions + " " + file["fileName"]);
 		}
-		fileTable += "<tr "+customClass+"><td style=\"padding: 0;\" ><table class=\"logCode\" style=\"width: 100%;\">"+makePrettyWithText(escapeHTML(extraData["fileData"]["fileData"]), 0, {lineDisplay: logFormatFileLineCount, lineModifier: lineStart, type: "file", id: id})+"</table></td></tr>";
+		fileTable += "<tr "+customClass+"><td style=\"padding: 0;\" ><table class=\"logCode\" style=\"width: 100%;\">"+makePrettyWithText(escapeHTML(file["fileData"]), 0, {lineDisplay: logFormatFileLineCount, lineModifier: lineStart, type: "file", id: id})+"</table></td></tr>";
 
 	}
 	return "<table style=\"width: 100%; border-spacing: 0;\"><tr "+customClass+"><td "+tdStyle+" >"+message + "</td></tr>" + fileTable + "</table>";
