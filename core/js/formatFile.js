@@ -64,7 +64,8 @@ function formatMessageFileData(message, extraData)
 		if(logFormatFileTitleSeperateLine === "true")
 		{
 			fileName = file["fileName"];
-			fileTable += "<tr style=\"background-color: white;\"><td style=\"color: black; padding: 5px;\">" + fileName + filePermissions + "</td></tr>";
+			let action = "<span class=\"linkSmall\" onclick=\"copyFilePathToClipboard('"+fileName+"')\" >Copy File Path</span>";
+			fileTable += "<tr style=\"background-color: white;\"><td style=\"color: black; padding: 5px;\">" + action + fileName + filePermissions + "</td></tr>";
 		}
 		else
 		{
@@ -145,4 +146,9 @@ function checkIfTextIsError(textToCheck)
 		return 1;
 	}
 	return -1;
+}
+
+function copyFilePathToClipboard(filename)
+{
+	navigator.clipboard.writeText(filename);
 }
