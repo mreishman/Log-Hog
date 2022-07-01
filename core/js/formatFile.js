@@ -61,12 +61,10 @@ function formatMessageFileData(message, extraData)
 		}
 
 		let fileName = "";
-		let tdStyle = "";
 		if(logFormatFileTitleSeperateLine === "true")
 		{
 			fileName = file["fileName"];
 			fileTable += "<tr style=\"background-color: white;\"><td style=\"color: black; padding: 5px;\">" + fileName + filePermissions + "</td></tr>";
-			tdStyle = "style=\"padding-bottom: 5px;\"";
 		}
 		else
 		{
@@ -74,6 +72,11 @@ function formatMessageFileData(message, extraData)
 		}
 		fileTable += "<tr "+customClass+"><td style=\"padding: 0;\" ><table class=\"logCode\" style=\"width: 100%;\">"+makePrettyWithText(escapeHTML(file["fileData"]), 0, {lineDisplay: logFormatFileLineCount, lineModifier: lineStart, type: "file", id: id})+"</table></td></tr>";
 
+	}
+	let tdStyle = "";
+	if(logFormatFileTitleSeperateLine === "true")
+	{
+		tdStyle = "style=\"padding-bottom: 5px;\"";
 	}
 	return "<table style=\"width: 100%; border-spacing: 0;\"><tr "+customClass+"><td "+tdStyle+" >"+message + "</td></tr>" + fileTable + "</table>";
 }
