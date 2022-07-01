@@ -64,7 +64,11 @@ function formatMessageFileData(message, extraData)
 		if(logFormatFileTitleSeperateLine === "true")
 		{
 			fileName = file["fileName"];
-			let action = "<span class=\"linkSmall\" onclick=\"copyFilePathToClipboard('"+fileName+"')\" >Copy File Path</span>";
+			let action = "";
+			if(window.isSecureContext)
+			{
+				action = "<span class=\"linkSmall\" onclick=\"copyFilePathToClipboard('"+fileName+"')\" >Copy File Path</span>";
+			}
 			fileTable += "<tr style=\"background-color: white;\"><td style=\"color: black; padding: 5px;\">" + action + fileName + filePermissions + "</td></tr>";
 		}
 		else
