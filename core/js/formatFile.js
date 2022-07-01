@@ -103,7 +103,7 @@ function updateFileDataArrayInner(newDataArr)
 
 function checkIfLineContainsAFile(localMessage)
 {
-	let stringLengthMatch = -1;
+	let fileMatch = false;
 	let fileData = [];
 	var arrayOfFileDataKeys = Object.keys(arrayOfFileData);
 	var arrayOfFileDataKeysLength = arrayOfFileDataKeys.length;
@@ -115,12 +115,8 @@ function checkIfLineContainsAFile(localMessage)
 		{
 			if (checkIfTextIsError(arrayOfFileData[dataKeyData]["fileData"]) === -1)
 			{
-				let stringLength = dataKeyData.length;
-				if(stringLength > stringLengthMatch)
-				{
-					fileData.push(arrayOfFileData[dataKeyData]);
-					stringLengthMatch = stringLength;
-				}
+				fileData.push(arrayOfFileData[dataKeyData]);
+				fileMatch = true;
 			}
 			else if (
 				(checkIfTextIsError(arrayOfFileData[dataKeyData]["fileData"]) === 1 && logFormatFileHideError !== "true") ||
@@ -128,12 +124,12 @@ function checkIfLineContainsAFile(localMessage)
 				)
 			{
 				fileData.push(arrayOfFileData[dataKeyData]);
-				stringLengthMatch = 1;
+				fileMatch = true;
 			}
 		}
 	}
 	return {
-		match: stringLengthMatch,
+		match: fileMatch,
 		files: fileData
 	};
 }
