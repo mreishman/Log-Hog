@@ -152,11 +152,6 @@ if(isset($_POST['arrayToUpdate']))
 									$fileData = "Error - File Not Found";
 									if($type === 1)
 									{
-										$fileName = trim($match[3].$match[4]);
-										$match[7] = $match[6] . $match[7];
-									}
-									else
-									{
 										//this one is \D:\d match
 										$lastPartOfFile = explode(":", $match[5]);
 										$fileName = trim($match[3].$match[4].$lastPartOfFile[0]);
@@ -165,6 +160,11 @@ if(isset($_POST['arrayToUpdate']))
 										{
 											$match[7] = $lastPartOfFile[1].$match[7];
 										}
+									}
+									else
+									{
+										$fileName = trim($match[3].$match[4]);
+										$match[7] = $match[6] . $match[7];
 									}
 									$originalFileName = $fileName;
 									//this one is on line match
