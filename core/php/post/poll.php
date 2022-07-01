@@ -205,7 +205,7 @@ if(isset($_POST['arrayToUpdate']))
 											$fileData = "Error - File Changed, line no longer in file";
 											if($lineCountLocal >= $currentLine)
 											{
-												$fileData = $poll->tail($fileName, $totalPading, $shellOrPhp, $currentLine);
+												$fileData = $poll->tail($fileName, $totalPading, $shellOrPhp, $currentLine, false);
 											}
 										}
 									}
