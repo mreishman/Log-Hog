@@ -69,7 +69,7 @@ function formatMessageFileData(message, extraData)
 			{
 				action = "<span class=\"linkSmall\" onclick=\"copyFilePathToClipboard('"+fileName+"')\" >Copy File Path</span>";
 			}
-			fileTable += "<tr style=\"background-color: white;\"><td style=\"color: black; padding: 5px;\">" + action + fileName + filePermissions + "</td></tr>";
+			fileTable += "<tr style=\"background-color: "+logFormatTitleBackground+";\"><td style=\"color: "+logFormatTitleFontColor+"; padding: 5px;\">" + action + fileName + filePermissions + "</td></tr>";
 		}
 		else
 		{

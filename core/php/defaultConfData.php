@@ -1301,12 +1301,35 @@ $defaultConfigMoreData = array(
 				)
 			),
 			8									=>	array(
-				"type"								=>	"single",
+				"bool"								=>	($logTrimOn == 'false'),
+				"id"								=>	"settingsLogFormatFileTitleSeperateLine",
+				"name"								=>	"Linked Log Header Settings",
+				"type"								=>	"grouped",
 				"var"								=>	array(
+					"function"							=>	"showOrHideLogFormatFileTitleSeperateLine",
+					"id"								=>	"logFormatFileTitleSeperateLine",
 					"key"								=>	"logFormatFileTitleSeperateLine",
 					"name"								=>	"Show File as a seperate line in log",
 					"options"							=>	$trueFalsVars,
 					"type"								=>	"dropdown"
+				),
+				"vars"								=>	array(
+					0									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"logFormatTitleBackground",
+							"name"								=>	"Background",
+							"type"								=>	"color"
+						)
+					),
+					1									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"logFormatTitleFontColor",
+							"name"								=>	"Font",
+							"type"								=>	"color"
+						)
+					)
 				)
 			),
 			9									=> array(
