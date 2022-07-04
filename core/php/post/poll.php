@@ -22,7 +22,7 @@ require_once('../configStatic.php');
 require_once('../class/poll.php');
 $poll = new poll();
 
-$varsLoadLite = array("shellOrPhp", "logTrimOn", "logSizeLimit","logTrimMacBSD", "logTrimType","TrimSize","enableLogging","buffer","sliceSize","lineCountFromJS","showErrorPhpFileOpen","advancedLogFormatEnabled","logFormatFileEnable","logFormatFileLinePadding","logFormatFilePermissions","filePathAlternatives");
+$varsLoadLite = array("shellOrPhp", "logTrimOn", "logSizeLimit","logTrimMacBSD", "logTrimType","TrimSize","enableLogging","buffer","sliceSize","lineCountFromJS","showErrorPhpFileOpen","advancedLogFormatEnabled","logFormatFileEnable","logFormatFileLinePadding","logFormatFilePermissions","filePathAlternatives","filePathViewAlternatives");
 
 foreach ($varsLoadLite as $varLoadLite)
 {
