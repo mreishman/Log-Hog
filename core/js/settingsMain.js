@@ -216,24 +216,56 @@ function hideLayoutOptionsAll()
 
 function addNewFilePathAlternativeRow(newRowPos, originalValue, newValue)
 {
-	let newRow = "<tr class=\"generatedRow\" >"+$("#filePathAlternativeSettings .settingsTemplateHolder tr").html()+"</tr>";
+	let groupId = 'filePathAlternativeSettings';
+	let tableId = 'addNewRowToThisForFilePathAlternatives';
+	let inputId = 'filePathAlternatives';
+	addNewFilePathAlternativeRowBase(newRowPos, originalValue, newValue, groupId, tableId, inputId);
+}
+
+function addNewFilePathViewAlternativeRow(newRowPos, originalValue, newValue)
+{
+	let groupId = 'filePathViewAlternativeSettings';
+	let tableId = 'addNewRowToThisForFilePathViewAlternatives';
+	let inputId = 'filePathViewAlternatives';
+	addNewFilePathAlternativeRowBase(newRowPos, originalValue, newValue, groupId, tableId, inputId);
+}
+
+function addNewFilePathAlternativeRowBase(newRowPos, originalValue, newValue, groupId, tableId, inputId)
+{
+	let newRow = "<tr class=\"generatedRow\" >"+$("#"+groupId+" .settingsTemplateHolder tr").html()+"</tr>";
 	if(newRowPos === -1)
 	{
-		newRowPos = $('#addNewRowToThisForFilePathAlternatives tr').length;
+		newRowPos = $('#'+tableId+' tr').length;
 	}
 	newRow = newRow.replace(/{{i}}/g, newRowPos);
 	newRow = newRow.replace(/{{original_value}}/g, originalValue);
 	newRow = newRow.replace(/{{new_value}}/g, newValue);
-	$('#addNewRowToThisForFilePathAlternatives tr:last').after(newRow);
-	updateJsonStringOfFilePathAlternatives();
+	$('#'+tableId+' tr:last').after(newRow);
+	updateJsonStringOfFilePathAlternativesMain(inputId, tableId);
 }
 
 function removeFilePathAlternativeRow(rowNumber)
 {
+	let groupId = 'filePathAlternativeSettings';
+	let tableId = 'addNewRowToThisForFilePathAlternatives';
+	let inputId = 'filePathAlternatives';
+	removeFilePathAlternativeRowBase(rowNumber, groupId, tableId, inputId);
+}
+
+function removeFilePathViewAlternativeRow(rowNumber)
+{
+	let groupId = 'filePathViewAlternativeSettings';
+	let tableId = 'addNewRowToThisForFilePathViewAlternatives';
+	let inputId = 'filePathViewAlternatives';
+	removeFilePathAlternativeRowBase(rowNumber, groupId, tableId, inputId);
+}
+
+function removeFilePathAlternativeRowBase(rowNumber, groupId, tableId, inputId)
+{
 	//remove from table
-	$("#addNewRowToThisForFilePathAlternatives .generatedRow").remove();
+	$("#"+tableId+" .generatedRow").remove();
 	//remove from json (generate new json array)
-	let values = JSON.parse($("#filePathAlternatives").val());
+	let values = JSON.parse($("#"+inputId).val());
 	let newValues = [];
 	let valuesLength = values.length;
 	let minusOne = false;
@@ -256,24 +288,34 @@ function removeFilePathAlternativeRow(rowNumber)
 		newValues.push(locVal)
 	}
 
-	if(newValues.length > 0)
+	let newValuesLength = newValues.length;
+	if(newValuesLength > 0)
 	{
 		//rebuild display table
-		let newValuesLength = newValues.length;
 		for(i = 0; i < newValuesLength; i = i + 2)
 		{
 			let rowICheck = Math.ceil((i+1)/2);
-			addNewFilePathAlternativeRow(rowICheck, newValues[i]["value"], newValues[(i+1)]["value"]);
+			addNewFilePathAlternativeRowBase(rowICheck, newValues[i]["value"], newValues[(i+1)]["value"], groupId, tableId, inputId)
 		}
-		updateJsonStringOfFilePathAlternatives();
+		updateJsonStringOfFilePathAlternativesMain(inputId, tableId);
 	}
 	else
 	{
-		$("#filePathAlternatives").val("");
+		$("#"+inputId).val("");
 	}
 }
 
 function updateJsonStringOfFilePathAlternatives()
 {
-	$("#filePathAlternatives").val(JSON.stringify($("#addNewRowToThisForFilePathAlternatives input").serializeArray()));
+	updateJsonStringOfFilePathAlternativesMain('filePathAlternatives', 'addNewRowToThisForFilePathAlternatives');
+}
+
+function updateJsonStringOfFilePathViewAlternatives()
+{
+	updateJsonStringOfFilePathAlternativesMain('filePathViewAlternatives', 'addNewRowToThisForFilePathViewAlternatives');
+}
+
+function updateJsonStringOfFilePathAlternativesMain(inputId, tableId)
+{
+	$("#"+inputId).val(JSON.stringify($("#"+tableId+" input").serializeArray()));
 }

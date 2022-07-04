@@ -253,27 +253,46 @@ $customStyleSectionTimestamp = "
 ";
 
 $filePathAlternativeSettingsHtml = file_get_contents($core->baseUrl()."core/html/filePathAlternativesSettings.html");
-$jsonArray = json_decode($filePathAlternatives, true);
-$onLoadContent = "";
-if(!empty($jsonArray))
+
+
+$arraysToDecode = array(
+	"onLoadTableContent"		=> array(
+		"data"		=> $filePathAlternatives,
+		"onchange"	=> 'updateJsonStringOfFilePathAlternatives();',
+		"delete"	=> 'removeFilePathAlternativeRow(',	
+	),
+	"onLoadTableContentView"	=> array(
+		"data"		=> $filePathViewAlternatives,
+		"onchange"	=> 'updateJsonStringOfFilePathViewAlternatives();',
+		"delete"	=> 'removeFilePathViewAlternativeRow(',	
+	)
+);
+foreach($arraysToDecode as $replaceKey => $arrayValue)
 {
-	$startOfTag = true;
-	foreach($jsonArray as $jsonData)
+	$jsonArray = json_decode($arrayValue["data"], true);
+
+	$onLoadContent = "";
+	if(!empty($jsonArray))
 	{
-		$i = explode("]", explode("[", $jsonData["name"])[1])[0];
-		if($startOfTag)
+		$startOfTag = true;
+		foreach($jsonArray as $jsonData)
 		{
-			$onLoadContent .= "<tr class=\"generatedRow\"><td>".$i."</td>";
+			$i = explode("]", explode("[", $jsonData["name"])[1])[0];
+			if($startOfTag)
+			{
+				$onLoadContent .= "<tr class=\"generatedRow\"><td>".$i."</td>";
+			}
+			$onLoadContent .= "<td><input value=\"".$jsonData["value"]."\" onchange=\"".$arrayValue["onchange"]."\" type=\"text\" name=\"".$jsonData["name"]."\"></td>";
+			if(!$startOfTag)
+			{
+				$onLoadContent .= "<td><span class=\"linkSmall\" onclick=\"".$arrayValue["delete"].$i.");\">Remove Row</span></td></tr>";
+			}
+			$startOfTag = !$startOfTag;
 		}
-		$onLoadContent .= "<td><input value=\"".$jsonData["value"]."\" onchange=\"updateJsonStringOfFilePathAlternatives();\" type=\"text\" name=\"".$jsonData["name"]."\"></td>";
-		if(!$startOfTag)
-		{
-			$onLoadContent .= "<td><span class=\"linkSmall\" onclick=\"removeFilePathAlternativeRow(".$i.");\">Remove Row</span></td></tr>";
-		}
-		$startOfTag = !$startOfTag;
 	}
+	$filePathAlternativeSettingsHtml = implode($onLoadContent, explode("{{".$replaceKey."}}", $filePathAlternativeSettingsHtml));
 }
-$filePathAlternativeSettingsHtml = implode($onLoadContent, explode("{{onLoadTableContent}}", $filePathAlternativeSettingsHtml));
+
 
 
 $fullScreenMenuGroups = array(
@@ -1340,7 +1359,15 @@ $defaultConfigMoreData = array(
 					"type"								=>	"hidden"
 				)
 			),
-			10									=>	array(
+			10									=> array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"id"								=>	"filePathViewAlternatives",
+					"key"								=>	"filePathViewAlternatives",
+					"type"								=>	"hidden"
+				)
+			),
+			11									=>	array(
 				"custom"							=>	$filePathAlternativeSettingsHtml,
 				"type"								=>	"custom"
 			),

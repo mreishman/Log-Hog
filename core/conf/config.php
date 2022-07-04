@@ -46,6 +46,7 @@ $defaultConfig = array(
 	'enablePollTimeLogging'			=> 'false',
 	'expSettingsAvail'				=> 'true',
 	'filePathAlternatives'			=> '',
+	'filePathViewAlternatives'		=> '',
 	'filterContentHighlight'		=> 'true',
 	'filterContentHighlightLine'	=> 'true',
 	'filterContentLimit'			=> 'true',
