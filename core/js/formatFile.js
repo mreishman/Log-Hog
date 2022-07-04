@@ -60,10 +60,9 @@ function formatMessageFileData(message, extraData)
 			id = extraData["id"];
 		}
 
-		let fileName = "";
 		if(logFormatFileTitleSeperateLine === "true")
 		{
-			fileName = file["fileName"];
+			let fileName = file["visibleFileName"];
 			let action = "";
 			if(window.isSecureContext)
 			{
@@ -73,7 +72,7 @@ function formatMessageFileData(message, extraData)
 		}
 		else
 		{
-			message = message.replace(file["fileName"], " " + filePermissions + " " + file["fileName"]);
+			message = message.replace(file["fileName"], " " + filePermissions + " " + file["visibleFileName"]);
 		}
 		fileTable += "<tr "+customClass+"><td style=\"padding: 0;\" ><table class=\"logCode\" style=\"width: 100%;\">"+makePrettyWithText(escapeHTML(file["fileData"]), 0, {lineDisplay: logFormatFileLineCount, lineModifier: lineStart, type: "file", id: id})+"</table></td></tr>";
 

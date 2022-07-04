@@ -57,6 +57,21 @@ foreach($filePathAlternativesArray as $jsonData)
 	$toggle = !$toggle;
 }
 
+$filePathViewAlternativesArray = json_decode($filePathViewAlternatives, true);
+$sortedFilePathViewAlternativesArray = [];
+$arrayToAdd = [];
+$toggle = false;
+foreach($filePathViewAlternativesArray as $jsonData)
+{
+	$arrayToAdd[] = $jsonData["value"];
+	if($toggle)
+	{
+		$sortedFilePathViewAlternativesArray[] = $arrayToAdd;
+		$arrayToAdd = [];
+	}
+	$toggle = !$toggle;
+}
+
 $arrayToUpdate = array();
 $response = array();
 
@@ -214,12 +229,27 @@ if(isset($_POST['arrayToUpdate']))
 									{
 										$permissions = $core->filePermsDisplay($fileName);
 									}
+
+									$visibleFileName = $originalFileName;
+									if(!empty($sortedFilePathViewAlternativesArray))
+									{
+										foreach($sortedFilePathViewAlternativesArray as $pathToTest)
+										{
+											if(strpos($originalFileName, $pathToTest[0]) !== false)
+											{
+												$visibleFileName = str_replace($pathToTest[0], $pathToTest[1], $originalFileName);
+												break;
+											}
+										}
+									}
+
 									//found a match, add to thing
 									$arrayOfFiles[$match[0]] = array(
-										"pregMatchData"	=>	$match,
-										"fileData"		=>	$fileData,
-										"fileName"		=>	$originalFileName,
-										"permissions"	=>	$permissions
+										"pregMatchData"		=>	$match,
+										"fileData"			=>	$fileData,
+										"fileName"			=>	$originalFileName,
+										"visibleFileName"	=>	$visibleFileName,
+										"permissions"		=>	$permissions
 									);
 								}
 							}
