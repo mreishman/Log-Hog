@@ -45,31 +45,37 @@ if($logTrimType == 'size')
 $filePathAlternativesArray = json_decode($filePathAlternatives, true);
 $sortedFilePathAlternativesArray = [];
 $arrayToAdd = [];
-$toggle = false;
-foreach($filePathAlternativesArray as $jsonData)
+if(is_array($filePathAlternativesArray) && !empty($filePathAlternativesArray))
 {
-	$arrayToAdd[] = $jsonData["value"];
-	if($toggle)
+	$toggle = false;
+	foreach($filePathAlternativesArray as $jsonData)
 	{
-		$sortedFilePathAlternativesArray[] = $arrayToAdd;
-		$arrayToAdd = [];
+		$arrayToAdd[] = $jsonData["value"];
+		if($toggle)
+		{
+			$sortedFilePathAlternativesArray[] = $arrayToAdd;
+			$arrayToAdd = [];
+		}
+		$toggle = !$toggle;
 	}
-	$toggle = !$toggle;
 }
 
 $filePathViewAlternativesArray = json_decode($filePathViewAlternatives, true);
 $sortedFilePathViewAlternativesArray = [];
 $arrayToAdd = [];
-$toggle = false;
-foreach($filePathViewAlternativesArray as $jsonData)
+if(is_array($filePathViewAlternativesArray) && !empty($filePathViewAlternativesArray))
 {
-	$arrayToAdd[] = $jsonData["value"];
-	if($toggle)
+	$toggle = false;
+	foreach($filePathViewAlternativesArray as $jsonData)
 	{
-		$sortedFilePathViewAlternativesArray[] = $arrayToAdd;
-		$arrayToAdd = [];
+		$arrayToAdd[] = $jsonData["value"];
+		if($toggle)
+		{
+			$sortedFilePathViewAlternativesArray[] = $arrayToAdd;
+			$arrayToAdd = [];
+		}
+		$toggle = !$toggle;
 	}
-	$toggle = !$toggle;
 }
 
 $arrayToUpdate = array();
