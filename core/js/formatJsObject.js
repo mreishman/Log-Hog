@@ -87,9 +87,10 @@ function formatJsonMessage(message, extraData) //used for file check
 				let messageTwoIsObject = false;
 				if(typeof messageTwo === "object")
 				{
-					messageTwo = formatMainMessage(JSON.stringify(messageTwo), extraData);
+					messageTwo = JSON.stringify(messageTwo);
 					messageTwoIsObject = true;
 				}
+
 				if(excapeHTML)
 				{
 					messageOne = escapeHTML(messageOne);
@@ -98,12 +99,13 @@ function formatJsonMessage(message, extraData) //used for file check
 						messageTwo = escapeHTML(messageTwo);
 					}
 				}
+
 				testReturn += "<tr "+extraTrClass+"><td style=\"word-break: normal;\">"+formatMainMessage(messageOne,extraData)+"</td><td>"+formatMainMessage(messageTwo,extraData)+"</td></tr>";
 			}
 		testReturn += "</table></td></tr>";
 		testReturn += "<tr><td colspan=\"2\"><table style=\"display: none;\" class=\"unformattedJson jsonTableData\" >";
 			testReturn += "<tr><td><span class=\"linkSmall\" onclick=\"toggleFormattedJson(event);\" >View Formatted</span> JSON Unformatted:</td></tr>";
-			testReturn += "<tr><td>"+originalJsonMessage+"</td></tr>";
+			testReturn += "<tr><td style=\"word-break: normal;\" >"+originalJsonMessage+"</td></tr>";
 		testReturn += "</table></td></tr>";
 
 		let lastMessageText = message.substr(message.lastIndexOf('}') + 1);
