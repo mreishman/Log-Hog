@@ -5,15 +5,15 @@ function formatJsonMessage(message, extraData) //used for file check
 		success: false
 	};
 	//try to json decode
-	var jsonMessage = message.substring(message.indexOf("{"),message.lastIndexOf("}") + 1);
-	var originalJsonMessage = jsonMessage;
+	let jsonMessage = message.substring(message.indexOf("{"),message.lastIndexOf("}") + 1);
+	let originalJsonMessage = jsonMessage;
 	if(jsonMessage !== "")
 	{
-		var newMessage = jsonDecodeTry(jsonMessage);
-		var excapeHTML = false;
+		let newMessage = jsonDecodeTry(jsonMessage);
+		let excapeHTML = false;
 		if(typeof newMessage !== "object")
 		{
-			var newerMessage = unescapeHTML(jsonMessage);
+			let newerMessage = unescapeHTML(jsonMessage);
 			if(newerMessage === "")
 			{
 				return defaultMessage;
@@ -68,8 +68,8 @@ function formatJsonMessage(message, extraData) //used for file check
 				}
 			}
 		}
-		var testReturn = "<table>";
-		var extraTrClass = "";
+		let testReturn = "<table>";
+		let extraTrClass = "";
 		if("customClassAdd" in extraData && extraData["customClassAdd"])
 		{
 			extraTrClass = extraData["customClass"];
@@ -78,13 +78,13 @@ function formatJsonMessage(message, extraData) //used for file check
 		testReturn += "<tr "+extraTrClass+"><td colspan=\"2\">"+formatMainMessage(initialMessageText,extraData)+"</td></tr>";
 		testReturn += "<tr><td colspan=\"2\"><table class=\"formattedJson jsonTableData\" >";
 			testReturn += "<tr><td><span class=\"linkSmall\" onclick=\"toggleUnformattedJson(event);\" >View Unformatted</span> JSON Formatted:</td></tr>";
-			var messageKeys = Object.keys(newMessage);
-			var messageKeysLength = messageKeys.length;
-			for (var messageCount = 0; messageCount < messageKeysLength; messageCount++)
+			let messageKeys = Object.keys(newMessage);
+			let messageKeysLength = messageKeys.length;
+			for (let messageCount = 0; messageCount < messageKeysLength; messageCount++)
 			{
-				var messageOne = messageKeys[messageCount];
-				var messageTwo = newMessage[messageKeys[messageCount]];
-				var messageTwoIsObject = false;
+				let messageOne = messageKeys[messageCount];
+				let messageTwo = newMessage[messageKeys[messageCount]];
+				let messageTwoIsObject = false;
 				if(typeof messageTwo === "object")
 				{
 					messageTwo = formatMainMessage(JSON.stringify(messageTwo), extraData);
@@ -100,13 +100,14 @@ function formatJsonMessage(message, extraData) //used for file check
 				}
 				testReturn += "<tr "+extraTrClass+"><td style=\"word-break: normal;\">"+formatMainMessage(messageOne,extraData)+"</td><td>"+formatMainMessage(messageTwo,extraData)+"</td></tr>";
 			}
-			let lastMessageText = message.substr(message.lastIndexOf('}') + 1);
-			testReturn += "<tr "+extraTrClass+"><td colspan=\"2\">"+formatMainMessage(lastMessageText,extraData)+"</td></tr>";
-			testReturn += "</table></td></tr>";
-			testReturn += "<tr><td colspan=\"2\"><table style=\"display: none;\" class=\"unformattedJson jsonTableData\" >";
-				testReturn += "<tr><td><span class=\"linkSmall\" onclick=\"toggleFormattedJson(event);\" >View Formatted</span> JSON Unformatted:</td></tr>";
-				testReturn += "<tr><td>"+originalJsonMessage+"</td></tr>";
-			testReturn += "</table></td></tr>";
+		testReturn += "</table></td></tr>";
+		testReturn += "<tr><td colspan=\"2\"><table style=\"display: none;\" class=\"unformattedJson jsonTableData\" >";
+			testReturn += "<tr><td><span class=\"linkSmall\" onclick=\"toggleFormattedJson(event);\" >View Formatted</span> JSON Unformatted:</td></tr>";
+			testReturn += "<tr><td>"+originalJsonMessage+"</td></tr>";
+		testReturn += "</table></td></tr>";
+
+		let lastMessageText = message.substr(message.lastIndexOf('}') + 1);
+		testReturn += "<tr "+extraTrClass+"><td colspan=\"2\">"+formatMainMessage(lastMessageText,extraData)+"</td></tr>";
 		testReturn += "</table>";
 		return {
 			text: testReturn,
@@ -120,7 +121,7 @@ function jsonDecodeTry(jsonTry)
 {
 	try
 	{
-		var possibleJson = JSON.parse(jsonTry);
+		let possibleJson = JSON.parse(jsonTry);
 		return possibleJson;
 	}
 	catch(e)
