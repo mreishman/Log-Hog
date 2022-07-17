@@ -1120,6 +1120,15 @@ $defaultConfigMoreData = array(
 							"options"							=>	$trueFalsVars,
 							"type"								=>	"dropdown"
 						)
+					),
+					1									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"logFormatJsDefaultUnformatted",
+							"name"								=>	"Show unformatted by default",
+							"options"							=>	$trueFalsVars,
+							"type"								=>	"dropdown"
+						)
 					)
 				)
 			)

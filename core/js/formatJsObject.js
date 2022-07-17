@@ -4,6 +4,15 @@ function formatJsonMessage(message, extraData) //used for file check
 		text: message,
 		success: false
 	};
+
+	let unformattedStyle = "";
+	let formattedStyle = "style=\"display: none;\"";
+	if(logFormatJsDefaultUnformatted === 'false')
+	{
+		unformattedStyle = "style=\"display: none;\"";
+		formattedStyle = "";
+	}
+
 	//try to json decode
 	let jsonMessage = message.substring(message.indexOf("{"),message.lastIndexOf("}") + 1);
 	let originalJsonMessage = jsonMessage;
@@ -76,7 +85,7 @@ function formatJsonMessage(message, extraData) //used for file check
 		}
 		let initialMessageText = message.substr(0, message.indexOf('{'));
 		testReturn += "<tr "+extraTrClass+"><td colspan=\"2\">"+formatMainMessage(initialMessageText,extraData)+"</td></tr>";
-		testReturn += "<tr><td colspan=\"2\"><table class=\"formattedJson jsonTableData\" >";
+		testReturn += "<tr><td colspan=\"2\"><table "+formattedStyle+" class=\"formattedJson jsonTableData\" >";
 			testReturn += "<tr><td colspan=\"2\" ><span class=\"linkSmall\" onclick=\"toggleUnformattedJson(event);\" >View Unformatted</span> JSON Formatted:</td></tr>";
 			let messageKeys = Object.keys(newMessage);
 			let messageKeysLength = messageKeys.length;
@@ -103,7 +112,7 @@ function formatJsonMessage(message, extraData) //used for file check
 				testReturn += "<tr "+extraTrClass+"><td style=\"word-break: normal;\">"+formatMainMessage(messageOne,extraData)+"</td><td>"+formatMainMessage(messageTwo,extraData)+"</td></tr>";
 			}
 		testReturn += "</table></td></tr>";
-		testReturn += "<tr><td colspan=\"2\"><table style=\"display: none;\" class=\"unformattedJson jsonTableData\" >";
+		testReturn += "<tr><td colspan=\"2\"><table "+unformattedStyle+" class=\"unformattedJson jsonTableData\" >";
 			testReturn += "<tr><td><span class=\"linkSmall\" onclick=\"toggleFormattedJson(event);\" >View Formatted</span> JSON Unformatted:</td></tr>";
 			testReturn += "<tr><td style=\"word-break: break-all;\" >"+originalJsonMessage+"</td></tr>";
 		testReturn += "</table></td></tr>";
