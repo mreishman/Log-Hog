@@ -77,7 +77,7 @@ function formatJsonMessage(message, extraData) //used for file check
 		let initialMessageText = message.substr(0, message.indexOf('{'));
 		testReturn += "<tr "+extraTrClass+"><td colspan=\"2\">"+formatMainMessage(initialMessageText,extraData)+"</td></tr>";
 		testReturn += "<tr><td colspan=\"2\"><table class=\"formattedJson jsonTableData\" >";
-			testReturn += "<tr><td><span class=\"linkSmall\" onclick=\"toggleUnformattedJson(event);\" >View Unformatted</span> JSON Formatted:</td></tr>";
+			testReturn += "<tr><td colspan=\"2\" ><span class=\"linkSmall\" onclick=\"toggleUnformattedJson(event);\" >View Unformatted</span> JSON Formatted:</td></tr>";
 			let messageKeys = Object.keys(newMessage);
 			let messageKeysLength = messageKeys.length;
 			for (let messageCount = 0; messageCount < messageKeysLength; messageCount++)
@@ -105,7 +105,7 @@ function formatJsonMessage(message, extraData) //used for file check
 		testReturn += "</table></td></tr>";
 		testReturn += "<tr><td colspan=\"2\"><table style=\"display: none;\" class=\"unformattedJson jsonTableData\" >";
 			testReturn += "<tr><td><span class=\"linkSmall\" onclick=\"toggleFormattedJson(event);\" >View Formatted</span> JSON Unformatted:</td></tr>";
-			testReturn += "<tr><td style=\"word-break: normal;\" >"+originalJsonMessage+"</td></tr>";
+			testReturn += "<tr><td style=\"word-break: break-all;\" >"+originalJsonMessage+"</td></tr>";
 		testReturn += "</table></td></tr>";
 
 		let lastMessageText = message.substr(message.lastIndexOf('}') + 1);
