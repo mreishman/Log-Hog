@@ -196,10 +196,10 @@ function formatMainMessage(message, extraData)
 		if(/(in|at) (.?)([\/]+)([^&\r\n\t]*)(on line|\D:\d)(.?)(\d{1,10})/.test(localMessage))
 		{
 			let lineData = checkIfLineContainsAFile(localMessage);
-			if(lineData["match"] > -1)
+			if(lineData["match"] === true)
 			{
 				//this message matches file data, add this below
-				extraData["fileData"] = lineData["file"];
+				extraData["fileData"] = lineData["files"];
 				return formatMessageFileData(localMessage, extraData);
 			}
 		}

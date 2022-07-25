@@ -2051,6 +2051,8 @@ function unhideHidden(currentLogId)
 	let lineUnHid = false;
 	let lines = $('.logLineHide'+currentLogId);
 	let linesLength = $('.logLineHide'+currentLogId).length;
+	let numberOfMaxLines = parseInt(logLoadPollLineSize);
+	let numOfCurrentUnHiddenLines = 0;
 	for(let i = linesLength - 1; i >= 0; i--)
 	{
 		let currentScroll = document.getElementById("log"+currentLogId+"Td").scrollTop;
@@ -2075,6 +2077,7 @@ function unhideHidden(currentLogId)
 		}
 		currentLine.css("display","table-row");
 		lineUnHid = true;
+		numOfCurrentUnHiddenLines++;
 		if(logLoadForceScrollToBot === 'false')
 		{
 			if(logDirectionInvert === "false")
@@ -2099,7 +2102,10 @@ function unhideHidden(currentLogId)
 		}
 		if(currentLine.position().top < 0)
 		{
-			break;
+			if(numOfCurrentUnHiddenLines >= numberOfMaxLines)
+			{
+				break;
+			}
 		}
 	}
 	//return true or false if a line was un hide or not. Used to stop poll request

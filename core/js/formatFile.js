@@ -21,29 +21,68 @@ function formatFileLine(text, extraData) //used to check if file loaded
 
 function formatMessageFileData(message, extraData)
 {
-	var lineStart = 0;
-	var pregMatchData = extraData["fileData"]["pregMatchData"];
-	var numForBaseLineStart = parseInt(pregMatchData[(pregMatchData.length - 1)]);
-	if(numForBaseLineStart > 0)
-	{
-		lineStart = numForBaseLineStart - logFormatFileLinePadding;
-	}
 	let customClass = "";
 	if("customClassAdd" in extraData && extraData["customClassAdd"])
 	{
 		customClass = extraData["customClass"];
 	}
-	let filePermissions = "";
-	if(extraData["fileData"]["permissions"] !== "")
+
+	let fileTable = "";
+
+	let files = extraData["fileData"];
+	let filesLength = files.length;
+	for(let i = 0; i < filesLength; i++)
 	{
-		filePermissions = " [File Permissions: "+extraData["fileData"]["permissions"]+"]";
+		let file = extraData["fileData"][i];
+		var lineStart = 0;
+		var pregMatchData = file["pregMatchData"];
+		var numForBaseLineStart = parseInt(pregMatchData[(pregMatchData.length - 1)]);
+		if(numForBaseLineStart > 0)
+		{
+			lineStart = numForBaseLineStart - logFormatFileLinePadding;
+		}
+		
+		let filePermissions = "";
+		if(file["permissions"] !== "")
+		{
+			
+			filePermissions = " [File Permissions: "+file["permissions"]+"]";
+			if(logFormatFileTitleSeperateLine === "true")
+			{
+				filePermissions = "<span style=\"float: right;\" >" + filePermissions + "</span>";
+			}
+			
+		}
+
+		let id = 0;
+		if("id" in extraData)
+		{
+			id = extraData["id"];
+		}
+
+		if(logFormatFileTitleSeperateLine === "true")
+		{
+			let fileName = file["visibleFileName"];
+			let action = "";
+			if(window.isSecureContext)
+			{
+				action = "<span class=\"linkSmall\" onclick=\"copyFilePathToClipboard('"+fileName+"')\" >Copy File Path</span>";
+			}
+			fileTable += "<tr style=\"background-color: "+logFormatTitleBackground+";\"><td style=\"color: "+logFormatTitleFontColor+"; padding: 5px;\">" + action + fileName + filePermissions + "</td></tr>";
+		}
+		else
+		{
+			message = message.replace(file["fileName"], " " + filePermissions + " " + file["visibleFileName"]);
+		}
+		fileTable += "<tr "+customClass+"><td style=\"padding: 0;\" ><table class=\"logCode\" style=\"width: 100%;\">"+makePrettyWithText(escapeHTML(file["fileData"]), 0, {lineDisplay: logFormatFileLineCount, lineModifier: lineStart, type: "file", id: id})+"</table></td></tr>";
+
 	}
-	let id = 0;
-	if("id" in extraData)
+	let tdStyle = "";
+	if(logFormatFileTitleSeperateLine === "true")
 	{
-		id = extraData["id"];
+		tdStyle = "style=\"padding-bottom: 5px;\"";
 	}
-	return "<table style=\"width: 100%;\"><tr "+customClass+"><td>"+message+filePermissions+"</td></tr><tr "+customClass+"><td><table class=\"logCode\" style=\"width: 100%;\">"+makePrettyWithText(escapeHTML(extraData["fileData"]["fileData"]), 0, {lineDisplay: logFormatFileLineCount, lineModifier: lineStart, type: "file", id: id})+"</table></td></tr></table>";
+	return "<table style=\"width: 100%; border-spacing: 0;\"><tr "+customClass+"><td "+tdStyle+" >"+message + "</td></tr>" + fileTable + "</table>";
 }
 
 function updateFileDataArrayInner(newDataArr)
@@ -68,8 +107,8 @@ function updateFileDataArrayInner(newDataArr)
 
 function checkIfLineContainsAFile(localMessage)
 {
-	let stringLengthMatch = -1;
-	let fileData = "";
+	let fileMatch = false;
+	let fileData = [];
 	var arrayOfFileDataKeys = Object.keys(arrayOfFileData);
 	var arrayOfFileDataKeysLength = arrayOfFileDataKeys.length;
 	for(var AOFDCount = 0; AOFDCount < arrayOfFileDataKeysLength; AOFDCount++)
@@ -80,26 +119,22 @@ function checkIfLineContainsAFile(localMessage)
 		{
 			if (checkIfTextIsError(arrayOfFileData[dataKeyData]["fileData"]) === -1)
 			{
-				let stringLength = dataKeyData.length;
-				if(stringLength > stringLengthMatch)
-				{
-					fileData = arrayOfFileData[dataKeyData];
-					stringLengthMatch = stringLength;
-				}
+				fileData.push(arrayOfFileData[dataKeyData]);
+				fileMatch = true;
 			}
 			else if (
 				(checkIfTextIsError(arrayOfFileData[dataKeyData]["fileData"]) === 1 && logFormatFileHideError !== "true") ||
 				(checkIfTextIsError(arrayOfFileData[dataKeyData]["fileData"]) === 0 && logFormatFileHideReadError !== "true")
 				)
 			{
-				fileData = arrayOfFileData[dataKeyData];
-				stringLengthMatch = 1;
+				fileData.push(arrayOfFileData[dataKeyData]);
+				fileMatch = true;
 			}
 		}
 	}
 	return {
-		match: stringLengthMatch,
-		file: fileData
+		match: fileMatch,
+		files: fileData
 	};
 }
 
@@ -114,4 +149,9 @@ function checkIfTextIsError(textToCheck)
 		return 1;
 	}
 	return -1;
+}
+
+function copyFilePathToClipboard(filename)
+{
+	navigator.clipboard.writeText(filename);
 }

@@ -321,26 +321,34 @@ class poll
 		return implode("\n", $data);
 	}
 
-	public function tail($filename, $sliceSize, $shellOrPhp, $start = 0)
+	public function tail($filename, $sliceSize, $shellOrPhp, $start = 0, $trim = true)
 	{
 		if($shellOrPhp === "phpPreferred" || $shellOrPhp ===  "phpOnly")
 		{
-			$data =  trim($this->tailCustom($filename, $sliceSize, true, $start));
+			$data = $this->tailCustom($filename, $sliceSize, true, $start);
 		}
 		else
 		{
-			$data = trim(shell_exec('sed -n "'.$start.','.($start+$sliceSize).'p" "' . $filename . '"'));
+			$data = shell_exec('sed -n "'.$start.','.($start+$sliceSize).'p" "' . $filename . '"');
+		}
+		if($trim)
+		{
+			$data = trim($data);
 		}
 
 		if(($data === "" || is_null($data)))
 		{
 			if($shellOrPhp === "phpPreferred")
 			{
-				$data = trim(shell_exec('sed -n "'.$start.','.($start+$sliceSize).'p" "' . $filename . '"'));
+				$data = shell_exec('sed -n "'.$start.','.($start+$sliceSize).'p" "' . $filename . '"');
 			}
 			elseif($shellOrPhp === "shellPreferred")
 			{
-				$data = trim($this->tailCustom($filename, $sliceSize, true, $start));
+				$data = $this->tailCustom($filename, $sliceSize, true, $start);
+			}
+			if($trim)
+			{
+				$data = trim($data);
 			}
 
 			if($data === "" || is_null($data))

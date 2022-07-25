@@ -252,6 +252,48 @@ $customStyleSectionTimestamp = "
 <script>var exampleLineForTimestampStyle = '2021-10-18T20:22:18+00:00 : [hphp] [29] all servers started';</script>
 ";
 
+$filePathAlternativeSettingsHtml = file_get_contents($core->baseUrl()."core/html/filePathAlternativesSettings.html");
+
+
+$arraysToDecode = array(
+	"onLoadTableContent"		=> array(
+		"data"		=> $filePathAlternatives,
+		"onchange"	=> 'updateJsonStringOfFilePathAlternatives();',
+		"delete"	=> 'removeFilePathAlternativeRow(',	
+	),
+	"onLoadTableContentView"	=> array(
+		"data"		=> $filePathViewAlternatives,
+		"onchange"	=> 'updateJsonStringOfFilePathViewAlternatives();',
+		"delete"	=> 'removeFilePathViewAlternativeRow(',	
+	)
+);
+foreach($arraysToDecode as $replaceKey => $arrayValue)
+{
+	$jsonArray = json_decode($arrayValue["data"], true);
+
+	$onLoadContent = "";
+	if(!empty($jsonArray))
+	{
+		$startOfTag = true;
+		foreach($jsonArray as $jsonData)
+		{
+			$i = explode("]", explode("[", $jsonData["name"])[1])[0];
+			if($startOfTag)
+			{
+				$onLoadContent .= "<tr class=\"generatedRow\"><td>".$i."</td>";
+			}
+			$onLoadContent .= "<td><input value=\"".$jsonData["value"]."\" onchange=\"".$arrayValue["onchange"]."\" type=\"text\" name=\"".$jsonData["name"]."\"></td>";
+			if(!$startOfTag)
+			{
+				$onLoadContent .= "<td><span class=\"linkSmall\" onclick=\"".$arrayValue["delete"].$i.");\">Remove Row</span></td></tr>";
+			}
+			$startOfTag = !$startOfTag;
+		}
+	}
+	$filePathAlternativeSettingsHtml = implode($onLoadContent, explode("{{".$replaceKey."}}", $filePathAlternativeSettingsHtml));
+}
+
+
 
 $fullScreenMenuGroups = array(
 	"main"	=> array (
@@ -1078,6 +1120,15 @@ $defaultConfigMoreData = array(
 							"options"							=>	$trueFalsVars,
 							"type"								=>	"dropdown"
 						)
+					),
+					1									=>	array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"logFormatJsDefaultUnformatted",
+							"name"								=>	"Show unformatted by default",
+							"options"							=>	$trueFalsVars,
+							"type"								=>	"dropdown"
+						)
 					)
 				)
 			)
@@ -1277,6 +1328,58 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
+			8									=>	array(
+				"bool"								=>	($logTrimOn == 'false'),
+				"id"								=>	"settingsLogFormatFileTitleSeperateLine",
+				"name"								=>	"Linked Log Header Settings",
+				"type"								=>	"grouped",
+				"var"								=>	array(
+					"function"							=>	"showOrHideLogFormatFileTitleSeperateLine",
+					"id"								=>	"logFormatFileTitleSeperateLine",
+					"key"								=>	"logFormatFileTitleSeperateLine",
+					"name"								=>	"Show File as a seperate line in log",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				),
+				"vars"								=>	array(
+					0									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"logFormatTitleBackground",
+							"name"								=>	"Background",
+							"type"								=>	"color"
+						)
+					),
+					1									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"logFormatTitleFontColor",
+							"name"								=>	"Font",
+							"type"								=>	"color"
+						)
+					)
+				)
+			),
+			9									=> array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"id"								=>	"filePathAlternatives",
+					"key"								=>	"filePathAlternatives",
+					"type"								=>	"hidden"
+				)
+			),
+			10									=> array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"id"								=>	"filePathViewAlternatives",
+					"key"								=>	"filePathViewAlternatives",
+					"type"								=>	"hidden"
+				)
+			),
+			11									=>	array(
+				"custom"							=>	$filePathAlternativeSettingsHtml,
+				"type"								=>	"custom"
+			),
 		)
 	),
 	"logVars"							=>	array(
@@ -1378,7 +1481,7 @@ $defaultConfigMoreData = array(
 					3									=> array(
 						"type"								=>	"single",
 						"var"								=>	array(
-							"key"								=>	"LogLoadPollDisplayType",
+							"key"								=>	"logLoadPollDisplayType",
 							"name"								=>	"Log Loading Poll Display Type",
 							"options"							=>	array(
 									0 									=> array(
@@ -1389,6 +1492,14 @@ $defaultConfigMoreData = array(
 										"name" 								=> "Line Count")
 								),
 							"type"								=>	"dropdown"
+						)
+					),
+					4									=> array(
+						"type"								=>	"single",
+						"var"								=>	array(
+							"key"								=>	"logLoadPollLineSize",
+							"name"								=>	"Number of lines to unhide per poll",
+							"type"								=>	"number"
 						)
 					),
 				)

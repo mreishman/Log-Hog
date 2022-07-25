@@ -22,7 +22,7 @@ require_once('../configStatic.php');
 require_once('../class/poll.php');
 $poll = new poll();
 
-$varsLoadLite = array("shellOrPhp", "logTrimOn", "logSizeLimit","logTrimMacBSD", "logTrimType","TrimSize","enableLogging","buffer","sliceSize","lineCountFromJS","showErrorPhpFileOpen","advancedLogFormatEnabled","logFormatFileEnable","logFormatFileLinePadding","logFormatFilePermissions");
+$varsLoadLite = array("shellOrPhp", "logTrimOn", "logSizeLimit","logTrimMacBSD", "logTrimType","TrimSize","enableLogging","buffer","sliceSize","lineCountFromJS","showErrorPhpFileOpen","advancedLogFormatEnabled","logFormatFileEnable","logFormatFileLinePadding","logFormatFilePermissions","filePathAlternatives","filePathViewAlternatives");
 
 foreach ($varsLoadLite as $varLoadLite)
 {
@@ -40,6 +40,42 @@ if($logTrimType == 'size')
 {
 	$modifier = $TrimSize;
 	$logSizeLimit = $poll->convertToSize($TrimSize, $logSizeLimit);
+}
+
+$filePathAlternativesArray = json_decode($filePathAlternatives, true);
+$sortedFilePathAlternativesArray = [];
+$arrayToAdd = [];
+if(is_array($filePathAlternativesArray) && !empty($filePathAlternativesArray))
+{
+	$toggle = false;
+	foreach($filePathAlternativesArray as $jsonData)
+	{
+		$arrayToAdd[] = $jsonData["value"];
+		if($toggle)
+		{
+			$sortedFilePathAlternativesArray[] = $arrayToAdd;
+			$arrayToAdd = [];
+		}
+		$toggle = !$toggle;
+	}
+}
+
+$filePathViewAlternativesArray = json_decode($filePathViewAlternatives, true);
+$sortedFilePathViewAlternativesArray = [];
+$arrayToAdd = [];
+if(is_array($filePathViewAlternativesArray) && !empty($filePathViewAlternativesArray))
+{
+	$toggle = false;
+	foreach($filePathViewAlternativesArray as $jsonData)
+	{
+		$arrayToAdd[] = $jsonData["value"];
+		if($toggle)
+		{
+			$sortedFilePathViewAlternativesArray[] = $arrayToAdd;
+			$arrayToAdd = [];
+		}
+		$toggle = !$toggle;
+	}
 }
 
 $arrayToUpdate = array();
@@ -110,59 +146,122 @@ if(isset($_POST['arrayToUpdate']))
 				foreach ($tmpLog as $tmpLogLine)
 				{
 					//check for line here, add file path to array if there
-					preg_match('/(in|at) (.?)([\/]+)([^&\r\n\t]*)(on line|\D:\d)(.?)(\d{1,10})/', $tmpLogLine, $matches);
-					if(count($matches) > 0 && !isset($arrayOfFiles[$matches[0]]))
+					preg_match_all('/(in|at) (.?)([\/]+)((([^&\r\n\t:]*)(on line))|(([^&\r\n\t]*)(\D:\d)))(.?)(\d{1,10})/', $tmpLogLine, $matches);
+					if(count($matches) > 0)
 					{
-						$fileData = "Error - File Not Found";
-						$fileName = trim($matches[3].$matches[4]);
-						$matches[7] = $matches[6] . $matches[7];
-						//this one is on line match
-						if(!file_exists($fileName))
+						foreach($matches as $filePaths)
 						{
-							//this one is \D:\d match
-							$lastPartOfFile = explode(":", $matches[5]);
-							$fileName = trim($matches[3].$matches[4].$lastPartOfFile[0]);
-							if(count($lastPartOfFile) > 1)
+							if(!isset($filePaths[0]))
 							{
-								$matches[7] = $lastPartOfFile[1].$matches[7];
+								continue;
 							}
-						}
-						if(file_exists($fileName))
-						{
-							$fileData = "Error - File Not Readable";
-							if(is_readable($fileName))
+							foreach($filePaths as $filePath)
 							{
-								$linePadding = $logFormatFileLinePadding;
-								$totalPading = $linePadding * 2;
-								$currentLine = intval($matches[7]) - $linePadding;
-								if($currentLine < 0)
+								preg_match('/(in|at) (.?)([\/]+)([^&\r\n\t]*)(\D:\d)(.?)(\d{1,10})/', $filePath, $match);
+								$type = 1;
+								if(count($match) < 1)
 								{
-									$totalPading = $totalPading + $currentLine;
-									$currentLine = 0;
+									preg_match('/(in|at) (.?)([\/]+)([^&\r\n\t:]*)(on line)(.?)(\d{1,10})/', $filePath, $match);
+									$type = 2;
 								}
-								$totalPading++;
-								$lineCountLocal = $poll->getLineCount($fileName, $shellOrPhp);
-								//check to see if line is greater than file length
-								$fileData = "Error - File Changed, line no longer in file";
-								if($lineCountLocal >= $currentLine)
+								if(count($match) < 1)
 								{
-									$fileData = $poll->tail($fileName, $totalPading, $shellOrPhp, $currentLine);
+									continue;
+								}
+								if(!isset($arrayOfFiles[$match[0]]))
+								{
+									$fileData = "Error - File Not Found";
+									if($type === 1)
+									{
+										//this one is \D:\d match
+										$lastPartOfFile = explode(":", $match[5]);
+										$fileName = trim($match[3].$match[4].$lastPartOfFile[0]);
+										$match[7] = $match[6] . $match[7];
+										if(count($lastPartOfFile) > 1)
+										{
+											$match[7] = $lastPartOfFile[1].$match[7];
+										}
+									}
+									else
+									{
+										$fileName = trim($match[3].$match[4]);
+										$match[7] = $match[6] . $match[7];
+									}
+									$originalFileName = $fileName;
+									//this one is on line match
+									if(!file_exists($fileName))
+									{
+										//try one of the alternitive paths
+										if(!empty($sortedFilePathAlternativesArray))
+										{
+											foreach($sortedFilePathAlternativesArray as $pathToTest)
+											{
+												if(strpos($fileName, $pathToTest[0]) !== false)
+												{
+													$possibleNewPath = str_replace($pathToTest[0], $pathToTest[1], $fileName);
+													if(file_exists($possibleNewPath))
+													{
+														$fileName = $possibleNewPath;
+													}
+												}
+											}
+										}
+									}
+									if(file_exists($fileName))
+									{
+										$fileData = "Error - File Not Readable";
+										if(is_readable($fileName))
+										{
+											$linePadding = $logFormatFileLinePadding;
+											$totalPading = $linePadding * 2;
+											$currentLine = intval($match[7]) - $linePadding;
+											if($currentLine < 0)
+											{
+												$totalPading = $totalPading + $currentLine;
+												$currentLine = 0;
+											}
+											$totalPading++;
+											$lineCountLocal = $poll->getLineCount($fileName, $shellOrPhp);
+											//check to see if line is greater than file length
+											$fileData = "Error - File Changed, line no longer in file";
+											if($lineCountLocal >= $currentLine)
+											{
+												$fileData = $poll->tail($fileName, $totalPading, $shellOrPhp, $currentLine, false);
+											}
+										}
+									}
+									$permissions = "";
+									if($logFormatFilePermissions === "always" || ($logFormatFilePermissions === "sometimes" && strpos($fileData, "Permission denied") > -1))
+									{
+										$permissions = $core->filePermsDisplay($fileName);
+									}
+
+									$visibleFileName = $originalFileName;
+									if(!empty($sortedFilePathViewAlternativesArray))
+									{
+										foreach($sortedFilePathViewAlternativesArray as $pathToTest)
+										{
+											if(strpos($originalFileName, $pathToTest[0]) !== false)
+											{
+												$visibleFileName = str_replace($pathToTest[0], $pathToTest[1], $originalFileName);
+												break;
+											}
+										}
+									}
+
+									//found a match, add to thing
+									$arrayOfFiles[$match[0]] = array(
+										"pregMatchData"		=>	$match,
+										"fileData"			=>	$fileData,
+										"fileName"			=>	$originalFileName,
+										"visibleFileName"	=>	$visibleFileName,
+										"permissions"		=>	$permissions
+									);
 								}
 							}
-						}
-						$permissions = "";
-						if($logFormatFilePermissions === "always" || ($logFormatFilePermissions === "sometimes" && strpos($fileData, "Permission denied") > -1))
-						{
-							$permissions = $core->filePermsDisplay($fileName);
-						}
-						//found a match, add to thing
-						$arrayOfFiles[$matches[0]] = array(
-							"pregMatchData"	=>	$matches,
-							"fileData"		=>	$fileData,
-							"fileName"		=>	$fileName,
-							"permissions"	=>	$permissions
-						);
+						}	
 					}
+					
 				}
 				$response[$path]["fileData"] = $arrayOfFiles;
 			}
