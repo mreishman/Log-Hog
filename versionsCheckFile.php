@@ -19,7 +19,7 @@ elseif($configStatic['version'] == '8.3.1') {
 }
 //update info
 $versionCheckArray = array(
-	'version'		=> '8.4.1',
+	'version'		=> '8.5',
 	'versionList'		=> array(
 		'2.0.1'	        => array(
 			'branchName'	=> '2.0.1Update',
@@ -635,6 +635,15 @@ $versionCheckArray = array(
 			'installSize'   => 9988623,
 			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/8.4.png',
 			'releaseNotes'	=> "<ul><li>Features<ul><li>Small settings layout changes</li></ul></li><li>Bug Fixes<ul><li>Notifications<ul><li>Report spacing in notification preview fixed</li><li>New lines being added to a previous notification would duplicate old notification content </li><li>Incorrect formatting for some reports in newly merged notifications</li></ul></li><li>Filters<ul><li>Closing out of filter in main nav will clear filter text (option to not clear in settings)</li></ul></li><li>Settings<ul><li>Fixed bug causing example of main styles not to show up</li><li>Fixed a bug where hh12 would show up as hh in custom timestamp settings on initial page load</li><li>Fixed update of timestamp in settings not updating for some options</li></ul></li></ul></li></ul>"
+		),
+		'8.5'			=> array(
+			'branchName'	=> '8.5Update',
+			'commits'	=> 3222,
+			'date'		=> '07/24/2022',
+			'downloadSize'  => 297245,
+			'installSize'   => 10004778,
+			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/8.4.png',
+			'releaseNotes'	=> "<ul><li>Features<ul><li>Log Formatting<ul><li>Linked Files<ul><li>Added settings for file path alternatives. I.E. if the file path in the log does not match the file path mounted in the loghog container</li><li>Added second setting for display of alternitive file paths in logs to match external paths</li><li>File path is now on a seperate line above file content with option to keep original settings</li><li>Copy button to quickly copy file path (only works if in secure mode)</li></ul></li><li>Json Formatting<ul><li>Button to show unformatted version of json</li></ul></li></ul></li><li>Settings<ul><li>Added option to speed up visible loading of logs by adding number of lines to unhide per poll.</li></ul></li></ul></li><li>Bug Fixes<ul><li>Linked Files<ul><li>Lines where there are multiple file references per line now show linked files correctly</li><li>Fixed bug where first line of linked files would have incorrect padding</li></ul></li><li>Settings<ul><li>Log Loading Poll Display Type settings save issue fixed</li></ul></li></ul></li></ul>"
 		),
 	)
 );
