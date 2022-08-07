@@ -191,7 +191,7 @@
 	<br>
 </span>
 <h3 class="addBorderBottom">Header Bar</h3>
-<span id="oneLogSettingsSideBar" <?php if($oneLogEnable !== "true"){ echo "style='display: none;'";} ?>>
+<span id="oneLogSettingsSideBar" <?php if((in_array('oneLogEnable', $arrayOfDisabledModules))){ echo "style='display: none;'";} ?>>
 	Show One Log
 	<span class="selectDiv">
 		<select autocomplete="off" onchange="toggleVisibleOneLog();" id="oneLogVisible">

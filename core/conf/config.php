@@ -361,7 +361,6 @@ $defaultConfig = array(
 	'oneLogColorBG'					=> '#444444',
 	'oneLogColorFont'				=> '#FFFFFF',
 	'oneLogCustomStyle'				=> 'false',
-	'oneLogEnable'					=> 'true',
 	'oneLogHighlight'				=> 'titleBar',
 	'oneLogLogMaxHeight'			=> 205,
 	'oneLogMaxLength'				=> 20,

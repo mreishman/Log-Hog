@@ -2575,7 +2575,7 @@ $defaultConfigMoreData = array(
 				"main"
 			),
 			"id"								=>	"settingsMainOneLog",
-			"display"							=>	($oneLogEnable === "true"),
+			"display"							=>	(!(in_array('oneLogEnable', $arrayOfDisabledModules))),
 			"name"								=>	"One Log"
 		),
 		"vars"								=> array(

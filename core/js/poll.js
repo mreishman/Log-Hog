@@ -497,7 +497,7 @@ function arrayOfDataMainDataFilter(data)
 function firstLoadEndAction()
 {
 	firstLoad = false;
-	if(oneLogEnable === "true")
+	if(!($.inArray("oneLogEnable", JSON.parse(moduleDisabledList))))
 	{
 		if(Object.keys(arrayOfDataMain).length < 1)
 		{
@@ -777,7 +777,7 @@ function update(data)
 		var folderNamePrev = "?-1";
 		var folderNameCount = -1;
 		var atLeastOneLogUpdate = false;
-		if(oneLogEnable === "true")
+		if(!($.inArray("oneLogEnable", JSON.parse(moduleDisabledList))))
 		{
 			folderNameCount++;
 		}
@@ -1023,7 +1023,7 @@ function update(data)
 							}
 							else
 							{
-								if(!firstLoad && notificationNewLine === "true" && (oneLogEnable === "false" || isOneLogVisible() === "false" || oneLogVisibleDisableUpdate === "false"))
+								if(!firstLoad && notificationNewLine === "true" && (!($.inArray("oneLogEnable", JSON.parse(moduleDisabledList))) || isOneLogVisible() === "false" || oneLogVisibleDisableUpdate === "false"))
 								{
 									if(autoMoveUpdateLog === "true")
 									{
@@ -1060,7 +1060,7 @@ function update(data)
 							}
 
 							//update one log if needed
-							if(oneLogEnable === "true" && !firstLoad)
+							if(!($.inArray("oneLogEnable", JSON.parse(moduleDisabledList))) && !firstLoad)
 							{
 								if(fullPathSearch in fileData && fileData[fullPathSearch]["AlertEnabled"] === "true" && (!(id in alertEnabledArray) || (id in alertEnabledArray && alertEnabledArray[id] === "enabled")))
 								{

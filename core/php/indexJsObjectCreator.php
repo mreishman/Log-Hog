@@ -53,7 +53,7 @@ if(in_array('themesEnabled', $arrayOfDisabledModules))
 	$arrayOfFiles[] = $arrayOfFilesExtra['themes'];
 	$arrayOfFiles[] = $arrayOfFilesExtra['upgradeTheme'];
 }
-if($oneLogEnable === "true")
+if(!(in_array('oneLogEnable', $arrayOfDisabledModules)))
 {
 	$arrayOfFiles[] = $arrayOfFilesExtra['oneLog'];
 }

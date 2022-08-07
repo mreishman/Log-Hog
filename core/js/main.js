@@ -771,7 +771,7 @@ function removeLogFromDisplay(currentLogNum)
 		return;
 	}
 	//check if oneLog is enabled
-	if(oneLogEnable === "true")
+	if(!($.inArray("oneLogEnable", JSON.parse(moduleDisabledList))))
 	{
 		//check if oneLog is open in another block
 		//if not in another block, switch this block to oneLog
@@ -783,7 +783,7 @@ function removeLogFromDisplay(currentLogNum)
 			return;
 		}
 		//else close, and go back to 1x1 window with onelog open
-		if(oneLogEnable === "true")
+		if(!($.inArray("oneLogEnable", JSON.parse(moduleDisabledList))))
 		{
 			closeToOneLogInFull(currentLogNum, currentOneLogPosition);
 			return;
@@ -2290,7 +2290,7 @@ function mainReady()
 	{
 		currentLogFormat = 1;
 	}
-	if(oneLogEnable === "true")
+	if(!($.inArray("oneLogEnable", JSON.parse(moduleDisabledList))))
 	{
 		addOneLogTab();
 		toggleVisibleOneLog();

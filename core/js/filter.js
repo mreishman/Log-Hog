@@ -138,7 +138,7 @@ function possiblyUpdateFromFilter()
 		hideFilterTopBar();
 	}
 	generalUpdate();
-	if(oneLogEnable === "true")
+	if(!($.inArray("oneLogEnable", JSON.parse(moduleDisabledList))))
 	{
 		possiblyUpdateOneLogVisibleData();
 	}
@@ -197,7 +197,7 @@ function hideFilterTopBar()
 	{
 		$("#searchFieldInput").val("");
 		generalUpdate();
-		if(oneLogEnable === "true")
+		if(!($.inArray("oneLogEnable", JSON.parse(moduleDisabledList))))
 		{
 			possiblyUpdateOneLogVisibleData();
 		}
