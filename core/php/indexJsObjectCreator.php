@@ -16,7 +16,7 @@ if($updaterEnabled === "true")
 {
 	$arrayOfFiles[] = $arrayOfFilesExtra['update'];
 }
-if($filterEnabled === "true")
+if(!(in_array('filterEnabled', $arrayOfDisabledModules)))
 {
 	$arrayOfFiles[] = $arrayOfFilesExtra['filter'];
 }
@@ -105,7 +105,7 @@ if($currentSessionValue !== "1x1")
 	$arrayOfFiles[] = $arrayOfFilesExtra['pin'];
 	$arrayOfFiles[] = $arrayOfFilesExtra['pinPinned'];
 }
-if ($filterSearchInHeader === "true" && $filterEnabled === "true")
+if ($filterSearchInHeader === "true" && !(in_array('filterEnabled', $arrayOfDisabledModules)))
 {
 	$arrayOfFiles[] = $arrayOfFilesExtra['search'];
 }

@@ -795,7 +795,7 @@ function update(data)
 			shortName = files[i].replace(/.*\//g, "");
 			id = filterIdText(name);
 
-			if(( filterEnabled === "false" || showFileFromFilter(id, name, shortName, logData)) && (showFileFromGroup(id) || $("#"+id).hasClass("active")))
+			if(( !($.inArray("filterEnabled", JSON.parse(moduleDisabledList))) || showFileFromFilter(id, name, shortName, logData)) && (showFileFromGroup(id) || $("#"+id).hasClass("active")))
 			{
 				showFile = true;
 			}

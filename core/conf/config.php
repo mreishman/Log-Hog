@@ -50,7 +50,6 @@ $defaultConfig = array(
 	'filterContentLimit'			=> 'true',
 	'filterContentLinePadding'		=> 3,
 	'filterDefault'					=> 'content',
-	'filterEnabled'					=> 'true',
 	'filterInvert'					=> 'false',
 	'filterSearchInHeader'			=> 'true',
 	'filterTitleIncludeGroup'		=> 'true',

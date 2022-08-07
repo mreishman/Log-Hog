@@ -1945,7 +1945,7 @@ function generateWindowDisplayInner()
 			}
 			newStyle += " padding: 0px; position: relative; overflow-x: hidden; \"";
 			newBlock = newBlock.replace(/{{customsidebarstyle}}/g, newStyle);
-			if(filterEnabled === "true")
+			if(!($.inArray("filterEnabled", JSON.parse(moduleDisabledList))))
 			{
 				newBlock = newBlock.replace(/{{customfilterstyle}}/g, "");
 			}
@@ -1993,7 +1993,7 @@ function generateWindowDisplayInner()
 	document.getElementById("log").innerHTML = ""+logDisplayHtml+"";
 	//add search filters if there
 	let currentLengthOfLogDisplayArray = Object.keys(logDisplayArray).length;
-	if(filterEnabled === "true")
+	if(!($.inArray("filterEnabled", JSON.parse(moduleDisabledList))))
 	{
 		for(let i = 0; i < currentLengthOfLogDisplayArray; i++)
 		{
@@ -2303,7 +2303,7 @@ function mainReady()
 
 	checkForUpdateMaybe();
 	generateWindowDisplay();
-	if(filterEnabled === "true")
+	if(!($.inArray("filterEnabled", JSON.parse(moduleDisabledList))))
 	{
 		$("#searchFieldInput").on("input", function()
 		{

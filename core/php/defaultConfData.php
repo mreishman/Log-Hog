@@ -717,7 +717,7 @@ $defaultConfigMoreData = array(
 				"main"
 			),
 			"id"								=>	"settingsMainFilter",
-			"display"							=>	($filterEnabled === "true"),
+			"display"							=>	!(in_array('filterEnabled', $arrayOfDisabledModules)),
 			"name"								=>	"Filter"
 		),
 		"vars"								=>	array(

@@ -31,8 +31,8 @@
 	</form>
 </span>
 <h3 class="addBorderBottom">Filters</h3>
-<input autocomplete="off" <?php if (!($filterSearchInHeader !== "true" && $filterEnabled === "true")){ echo "style='display: none;'";} ?> id="searchFieldInputSideBar" type="search" name="search" placeholder="Filter <?php echo $filterDefault; ?>">
-<span id="filterSettingsSideBar" <?php if ($filterEnabled !== "true"){ echo "style='display: none;'"; } ?> >
+<input autocomplete="off" <?php if (!($filterSearchInHeader !== "true" && !(in_array('filterEnabled', $arrayOfDisabledModules)))){ echo "style='display: none;'";} ?> id="searchFieldInputSideBar" type="search" name="search" placeholder="Filter <?php echo $filterDefault; ?>">
+<span id="filterSettingsSideBar" <?php if (in_array('filterEnabled', $arrayOfDisabledModules)){ echo "style='display: none;'"; } ?> >
 	Search:
 	<span class="selectDiv" >
 		<select autocomplete="off" id="searchType" name="searchType">

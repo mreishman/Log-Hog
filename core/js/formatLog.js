@@ -95,7 +95,7 @@ function makePrettyWithText(text, count, extraData = {})
 		var selectListForFilter = document.getElementsByName("searchType")[0];
 		var selectedListFilterType = selectListForFilter.options[selectListForFilter.selectedIndex].value;
 		let filterTextFieldLocal = "";
-		if(filterEnabled === "true")
+		if(!($.inArray("filterEnabled", JSON.parse(moduleDisabledList))))
 		{
 			let currentLogId = getLogIdFromText(text);
 			if("id" in extraData)
@@ -136,7 +136,7 @@ function makePrettyWithText(text, count, extraData = {})
 				customClassAdd = true;
 			}
 			let filterHighlight = false;
-			if(filterEnabled === "true" && selectedListFilterType === "content" && filterContentHighlight === "true" && filterTextFieldLocal !== "")
+			if(!($.inArray("filterEnabled", JSON.parse(moduleDisabledList))) && selectedListFilterType === "content" && filterContentHighlight === "true" && filterTextFieldLocal !== "")
 			{
 				//check if match, and if supposed to highlight
 				if(filterContentCheck(lineText, filterTextFieldLocal))
@@ -324,7 +324,7 @@ function formatTextIntoArray(text, count, extraData = {})
 	var foundOne = false;
 	var addLine = false;
 	let filterTextFieldLocal = "";
-	if(filterEnabled === "true")
+	if(!($.inArray("filterEnabled", JSON.parse(moduleDisabledList))))
 	{
 		let currentLogId = getLogIdFromText(text);
 		if("id" in extraData)
@@ -336,7 +336,7 @@ function formatTextIntoArray(text, count, extraData = {})
 	for (var i = 0; i < lengthOfTextArray; i++)
 	{
 		addLine = true;
-		if(filterEnabled === "true" && selectedListFilterType === "content" && filterContentLimit === "true" && filterTextFieldLocal !== "")
+		if(!($.inArray("filterEnabled", JSON.parse(moduleDisabledList))) && selectedListFilterType === "content" && filterContentLimit === "true" && filterTextFieldLocal !== "")
 		{
 			addLine = false;
 			//check for content on current line
