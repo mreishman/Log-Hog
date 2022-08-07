@@ -85,7 +85,7 @@ if(isset($_COOKIE["windowConfig"]) && $logLoadPrevious === "true")
 	$lastSessionLogArray = $_COOKIE["logDisplayArray"];
 	$currentSessionValue = $cookieData;
 }
-if($enableMultiLog === "false")
+if(in_array('enableMultiLog', $arrayOfDisabledModules))
 {
 	$windowConfig = "1x1";
 	$currentSessionValue = $windowConfig;

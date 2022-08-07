@@ -410,3 +410,5 @@ $arrayOfCustomConfig = array(
 	'cssVersion'	=> 1,
 	'configVersion'	=> 1
 );
+
+$arrayOfDisabledModules = json_decode($moduleDisabledList, true);

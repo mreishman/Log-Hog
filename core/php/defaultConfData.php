@@ -391,7 +391,7 @@ $fullScreenMenuGroups = array(
 	),
 	"multilog"	=> array (
 		"name"		=> "Multi-Log",
-		"display"	=>	($enableMultiLog === "true"),
+		"display"	=>	!(in_array('enableMultiLog', $arrayOfDisabledModules)),
 		"subGroups"	=> array()
 	),
 	"notifications"	=> array (
@@ -2198,7 +2198,7 @@ $defaultConfigMoreData = array(
 				"multilog"
 			),
 			"id"								=>	"settingsMainMultiLog",
-			"display"							=>	($enableMultiLog === "true"),
+			"display"							=>	!(in_array('enableMultiLog', $arrayOfDisabledModules)),
 			"name"								=>	"Multi-Log"
 		),
 		"vars"								=> array(
@@ -3091,7 +3091,7 @@ $customConfigSections = array(
 				"multilog"
 			),
 			"id"								=>	"settingsMainLogLayout",
-			"display"							=>	($enableMultiLog === "true"),
+			"display"							=>	!(in_array('enableMultiLog', $arrayOfDisabledModules)),
 			"name"								=>	"Multi-Log Layout"
 		)
 	)

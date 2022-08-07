@@ -135,7 +135,7 @@
 	} ?>
 	</ul>
 </span>
-<span id="sideBarMultiLogSettings" <?php if($enableMultiLog !== "true"):?> style="display: none;" <?php endif; ?>>
+<span id="sideBarMultiLogSettings" <?php if(in_array('enableMultiLog', $arrayOfDisabledModules)):?> style="display: none;" <?php endif; ?>>
 	<h3 class="addBorderBottom" >Multi-Log</h3>
 	Log Layout
 	<?php $arrayOfwindowConfigOptionsLocal = array();

@@ -48,7 +48,7 @@ if($advancedLogFormatEnabled === "true")
 		);
 	}
 }
-if($themesEnabled === "true")
+if(in_array('themesEnabled', $arrayOfDisabledModules))
 {
 	$arrayOfFiles[] = $arrayOfFilesExtra['themes'];
 	$arrayOfFiles[] = $arrayOfFilesExtra['upgradeTheme'];
@@ -61,11 +61,11 @@ if($flashTitleUpdateLog === "true")
 {
 	$arrayOfFiles[] = $arrayOfFilesExtra['titleFlash'];
 }
-if($enableHistory === "true")
+if(!in_array('enableHistory', $arrayOfDisabledModules))
 {
 	$arrayOfFiles[] = $arrayOfFilesExtra['archive'];
 }
-if($enableMultiLog === "true")
+if(!(in_array('enableMultiLog', $arrayOfDisabledModules)))
 {
 	$arrayOfFiles[] = $arrayOfFilesExtra['multilog'];
 }
@@ -95,7 +95,7 @@ if(isset($_COOKIE["windowConfig"]) && $logLoadPrevious === "true")
 	$cookieData = json_decode($_COOKIE["windowConfig"]);
 	$currentSessionValue = $cookieData;
 }
-if($enableMultiLog === "false")
+if(in_array('enableMultiLog', $arrayOfDisabledModules))
 {
 	$windowConfig = "1x1";
 	$currentSessionValue = $windowConfig;

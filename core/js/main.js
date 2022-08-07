@@ -463,7 +463,7 @@ function selectTabsInOrder(targetLength)
 					var isVis = false;
 					var currentLayout = getCurrentWindowLayout();
 					var layoutVersionIndex = document.getElementById("layoutVersionIndex").value;
-					if(enableMultiLog === "true" && logLoadLayout.length !== 0 && logLoadLayout[currentLayout][h][layoutVersionIndex] !== "" && logLoadLayout[currentLayout][h][layoutVersionIndex] in fileData )
+					if(!($.inArray("enableMultiLog", JSON.parse(moduleDisabledList))) && logLoadLayout.length !== 0 && logLoadLayout[currentLayout][h][layoutVersionIndex] !== "" && logLoadLayout[currentLayout][h][layoutVersionIndex] in fileData )
 					{
 						var currentLogCheck = logLoadLayout[currentLayout][h][layoutVersionIndex];
 						if(checkNameCont(currentLogCheck.replace(/[^a-z0-9]/g, ""), arrayOfLogs[i]))
@@ -1460,7 +1460,7 @@ function clearLogInner(title)
 {
 	title = filterTitle(title);
 	title = escapeTheEscapes(title);
-	if(enableHistory === "true")
+	if(!($.inArray("enableHistory", JSON.parse(moduleDisabledList))))
 	{
 		archiveAction(title, "tmp");
 	}
@@ -1555,7 +1555,7 @@ function deleteActionAfter()
 	try
 	{
 		//save tmp versions first
-		if(saveTmpLogOnClear === "true" && enableHistory === "true")
+		if(saveTmpLogOnClear === "true" && !($.inArray("enableHistory", JSON.parse(moduleDisabledList))))
 		{
 			var logSaveTmpKeys = Object.keys(arrayOfDataMain);
 			var logSaveTmpKeysLength = logSaveTmpKeys.length;
@@ -1653,7 +1653,7 @@ function deleteLog(title)
 		}
 		title = escapeTheEscapes(title);
 		title = title.trim();
-		if(enableHistory === "true")
+		if(!($.inArray("enableHistory", JSON.parse(moduleDisabledList))))
 		{
 			archiveAction(title, "tmp");
 		}
