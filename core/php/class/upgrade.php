@@ -2,6 +2,8 @@
 
 class upgrade extends core
 {
+	protected $session = null;
+
 	function upgradeConfig($newSaveStuff = array())
 	{
 		if(!is_array($newSaveStuff))
@@ -11,10 +13,13 @@ class upgrade extends core
 			);
 		}
 		$baseBaseUrl = $this->baseURL();
-		include($baseBaseUrl.'core/php/class/session.php');
-		$session = new session();
+		if($this->session === null)
+		{
+			include($baseBaseUrl.'core/php/class/session.php');
+			$this->session = new session();
+		}
 		$baseUrl = $baseBaseUrl."local/";
-		$currentSelectedTheme = $session->returnCurrentSelectedTheme();
+		$currentSelectedTheme = $this->session->returnCurrentSelectedTheme();
 		$baseUrl .= $currentSelectedTheme."/";
 		include($baseUrl.'conf/config.php');
 		include($baseBaseUrl.'core/conf/config.php');
@@ -68,8 +73,11 @@ class upgrade extends core
 	public function globalConfig($newSaveStuff = array()) {
 
 		$baseBaseUrl = $this->baseURL();
-		include($baseBaseUrl.'core/php/class/session.php');
-		$session = new session();
+		if($this->session === null)
+		{
+			include($baseBaseUrl.'core/php/class/session.php');
+			$this->session = new session();
+		}
 		$globalConfig = array();
 		if(file_exists($baseBaseUrl .'local/conf/globalConfig.php'))
 		{
@@ -84,7 +92,7 @@ class upgrade extends core
 		}
 		include($baseBaseUrl .'core/conf/globalConfig.php');
 		$baseUrl = $baseBaseUrl."local/";
-		$currentSelectedTheme = $session->returnCurrentSelectedTheme();
+		$currentSelectedTheme = $this->session->returnCurrentSelectedTheme();
 		$baseUrl .= $currentSelectedTheme."/";
 		include($baseUrl.'conf/config.php');
 		include($baseBaseUrl.'core/conf/config.php');
@@ -124,5 +132,16 @@ class upgrade extends core
 		}
 		file_put_contents($fileName, $newInfoForConfig);
 
+	}
+
+	public function getCurrentSelectedTheme()
+	{
+		if($this->session === null)
+		{
+			$baseBaseUrl = $this->baseURL();
+			include($baseBaseUrl.'core/php/class/session.php');
+			$this->session = new session();
+		}
+		return $this->session->returnCurrentSelectedThemeAjax();
 	}
 }

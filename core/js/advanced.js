@@ -172,14 +172,19 @@ function verifyNoConfigBackups()
 	}
 }
 
-function showOrHideVersionSaveConfig()
+function updateListOfDisabledModules()
 {
-	if(document.getElementById("backupNumConfigEnabled").value === "true")
+	let arrayOfModules = $("#modules select").serializeArray();
+	let arrayOfModulesLength = arrayOfModules.length;
+	let disabledArray = [];
+	for(let i = 0; i < arrayOfModulesLength; i++)
 	{
-		document.getElementById("versionSaveContentSettings").style.display = "block";
+		let module = arrayOfModules[i];
+		if(module.value === 'false')
+		{
+			disabledArray.push(module.name);
+		}
 	}
-	else
-	{
-		document.getElementById("versionSaveContentSettings").style.display = "none";
-	}
+	$("#moduleDisabledList").val(JSON.stringify(disabledArray));
 }
+

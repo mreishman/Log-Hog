@@ -296,41 +296,41 @@ foreach($arraysToDecode as $replaceKey => $arrayValue)
 $modulesList = array(
 	0 => array (
 		"key"								=>	"themesEnabled",
-		"name"								=>	"Enable Themes",
+		"name"								=>	"Themes",
 	),
 	1 => array (
 		"id"								=>	"enableMultiLog",
 		"key"								=>	"enableMultiLog",
-		"name"								=>	"Enable Multi-Log",
+		"name"								=>	"Multi-Log",
 	),
 	2 => array (
 		"key"								=>	"enableHistory",
-		"name"								=>	"Enable History",
+		"name"								=>	"History",
 	),
 	3 => array (
 		"key"								=>	"oneLogEnable",
-		"name"								=>	"Enable One Log",
+		"name"								=>	"One Log",
 	),
 	4 => array (
 		"key"								=>	"filterEnabled",
-		"name"								=>	"Enable Filters",
+		"name"								=>	"Filters",
 	),
 	5 => array (
 		"key"								=>	"rightClickMenuEnable",
-		"name"								=>	"Enable Right Click Menu",
+		"name"								=>	"Right Click Menu",
 	),
 	6 => array (
 		"key"								=>	"advancedLogFormatEnabled",
-		"name"								=>	"Enable Advanced Log Format Options",
+		"name"								=>	"Advanced Log Format Options",
 	),
 	7 => array (
 		"id"								=>	"backupNumConfigEnabled",
 		"key"								=>	"backupNumConfigEnabled",
-		"name"								=>	"Enable Config Backup",
+		"name"								=>	"Config Backup",
 	),
 	8 => array (
 		"key"								=>	"updaterEnabled",
-		"name"								=>	"Enable Updater",
+		"name"								=>	"Updater",
 	)
 );
 
@@ -351,8 +351,16 @@ foreach ($modulesList as $moduleEntry)
 		array(
 			"type"								=>	"single",
 			"var"								=>	array_merge($moduleEntry, array(
-				"options"							=>	$trueFalsVars,
-				"type"								=>	"dropdown"
+				"options"							=> array(
+					0 					=> array(
+						"value" 			=> "true",
+						"name" 				=> "Enabled"),
+					1 					=> array(
+						"value" 			=> "false",
+						"name" 				=> "Disabled")
+				),
+				"type"								=> "dropdown",
+				"function"							=> "updateListOfDisabledModules"
 			))
 		)
 	);
