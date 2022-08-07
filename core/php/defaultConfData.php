@@ -293,6 +293,71 @@ foreach($arraysToDecode as $replaceKey => $arrayValue)
 	$filePathAlternativeSettingsHtml = implode($onLoadContent, explode("{{".$replaceKey."}}", $filePathAlternativeSettingsHtml));
 }
 
+$modulesList = array(
+	0 => array (
+		"key"								=>	"themesEnabled",
+		"name"								=>	"Enable Themes",
+	),
+	1 => array (
+		"id"								=>	"enableMultiLog",
+		"key"								=>	"enableMultiLog",
+		"name"								=>	"Enable Multi-Log",
+	),
+	2 => array (
+		"key"								=>	"enableHistory",
+		"name"								=>	"Enable History",
+	),
+	3 => array (
+		"key"								=>	"oneLogEnable",
+		"name"								=>	"Enable One Log",
+	),
+	4 => array (
+		"key"								=>	"filterEnabled",
+		"name"								=>	"Enable Filters",
+	),
+	5 => array (
+		"key"								=>	"rightClickMenuEnable",
+		"name"								=>	"Enable Right Click Menu",
+	),
+	6 => array (
+		"key"								=>	"advancedLogFormatEnabled",
+		"name"								=>	"Enable Advanced Log Format Options",
+	),
+	7 => array (
+		"id"								=>	"backupNumConfigEnabled",
+		"key"								=>	"backupNumConfigEnabled",
+		"name"								=>	"Enable Config Backup",
+	),
+	8 => array (
+		"key"								=>	"updaterEnabled",
+		"name"								=>	"Enable Updater",
+	)
+);
+
+$dynamicModuleList = array (
+	0									=>	array(
+		"type"								=>	"single",
+		"var"								=>	array(
+			"id"								=>	"moduleDisabledList",
+			"key"								=>	"moduleDisabledList",
+			"type"								=>	"hidden"
+		)
+	)
+);
+
+foreach ($modulesList as $moduleEntry)
+{
+	array_push($dynamicModuleList,
+		array(
+			"type"								=>	"single",
+			"var"								=>	array_merge($moduleEntry, array(
+				"options"							=>	$trueFalsVars,
+				"type"								=>	"dropdown"
+			))
+		)
+	);
+}
+
 
 
 $fullScreenMenuGroups = array(
@@ -2115,91 +2180,7 @@ $defaultConfigMoreData = array(
 			"display"							=>	true,
 			"name"								=>	"Modules"
 		),
-		"vars"								=>	array(
-			0									=>	array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"themesEnabled",
-					"name"								=>	"Enable Themes",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				)
-			),
-			1									=>	array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"id"								=>	"enableMultiLog",
-					"key"								=>	"enableMultiLog",
-					"name"								=>	"Enable Multi-Log",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				)
-			),
-			2									=>	array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"enableHistory",
-					"name"								=>	"Enable History",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				)
-			),
-			3									=>	array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"oneLogEnable",
-					"name"								=>	"Enable One Log",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				)
-			),
-			4									=>	array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"filterEnabled",
-					"name"								=>	"Enable Filters",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				)
-			),
-			5									=>	array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"rightClickMenuEnable",
-					"name"								=>	"Enable Right Click Menu",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				)
-			),
-			6									=>	array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"advancedLogFormatEnabled",
-					"name"								=>	"Enable Advanced Log Format Options",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				)
-			),
-			7									=>	array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"id"								=>	"backupNumConfigEnabled",
-					"key"								=>	"backupNumConfigEnabled",
-					"name"								=>	"Enable Config Backup",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				)
-			),
-			8									=>	array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"updaterEnabled",
-					"name"								=>	"Enable Updater",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				)
-			),
-		)
+		"vars"								=>	$dynamicModuleList
 	),
 	"multiLogVars"						=>	array(
 		"id"								=>	"settingsMultiLogVars",
