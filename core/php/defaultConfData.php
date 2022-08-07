@@ -602,6 +602,37 @@ $defaultConfigMoreData = array(
 					),
 					"type"								=>	"dropdown"
 				)
+			),
+			11									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"logLayoutSettingsInfo",
+					"name"								=>	"Default show options for multi-log layout settings",
+					"options"							=>	array(
+						0 									=> array(
+							"value" 							=> "all",
+							"name" 								=> "All"),
+						1 									=> array(
+							"value" 							=> "expandWithValues",
+							"name" 								=> "If current window has value"),
+						2 									=> array(
+							"value" 							=> "expandWithValue",
+							"name" 								=> "If any window has value"),
+						3 									=> array(
+							"value" 							=> "none",
+							"name" 								=> "None")
+					),
+					"type"								=>	"dropdown"
+				)
+			),
+			12									=> array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"backupNumConfig",
+					"name"								=>	"Number of config backup versions saved",
+					"options"							=>	$oneToTenArr,
+					"type"								=>	"dropdown"
+				)
 			)
 		)
 	),
@@ -2095,42 +2126,13 @@ $defaultConfigMoreData = array(
 				)
 			),
 			1									=>	array(
-				"bool"								=>	($enableMultiLog == 'false'),
-				"id"								=>	"enableMultiLogSettings",
-				"name"								=>	"Multi-Log settings settings",
-				"info"								=>  "Refresh Required",
-				"type"								=>	"grouped",
+				"type"								=>	"single",
 				"var"								=>	array(
-					"function"							=>	"showOrHideenableMultiLog",
 					"id"								=>	"enableMultiLog",
 					"key"								=>	"enableMultiLog",
 					"name"								=>	"Enable Multi-Log",
 					"options"							=>	$trueFalsVars,
 					"type"								=>	"dropdown"
-				),
-				"vars"								=>	array(
-					0									=>	array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"key"								=>	"logLayoutSettingsInfo",
-							"name"								=>	"Default show options for log layout settings",
-							"options"							=>	array(
-								0 									=> array(
-									"value" 							=> "all",
-									"name" 								=> "All"),
-								1 									=> array(
-									"value" 							=> "expandWithValues",
-									"name" 								=> "If current window has value"),
-								2 									=> array(
-									"value" 							=> "expandWithValue",
-									"name" 								=> "If any window has value"),
-								3 									=> array(
-									"value" 							=> "none",
-									"name" 								=> "None")
-							),
-							"type"								=>	"dropdown"
-						)
-					)
 				)
 			),
 			2									=>	array(
@@ -2162,7 +2164,6 @@ $defaultConfigMoreData = array(
 			),
 			5									=>	array(
 				"type"								=>	"single",
-				"info"								=>  "Refresh Required",
 				"var"								=>	array(
 					"key"								=>	"rightClickMenuEnable",
 					"name"								=>	"Enable Right Click Menu",
@@ -2172,7 +2173,6 @@ $defaultConfigMoreData = array(
 			),
 			6									=>	array(
 				"type"								=>	"single",
-				"info"								=>  "Refresh Required",
 				"var"								=>	array(
 					"key"								=>	"advancedLogFormatEnabled",
 					"name"								=>	"Enable Advanced Log Format Options",
@@ -2181,28 +2181,13 @@ $defaultConfigMoreData = array(
 				)
 			),
 			7									=>	array(
-				"bool"								=>	($backupNumConfigEnabled == 'false'),
-				"id"								=>	"versionSaveContentSettings",
-				"name"								=>	"Backup Config Settings",
-				"type"								=>	"grouped",
+				"type"								=>	"single",
 				"var"								=>	array(
-					"function"							=>	"showOrHideVersionSaveConfig",
 					"id"								=>	"backupNumConfigEnabled",
 					"key"								=>	"backupNumConfigEnabled",
 					"name"								=>	"Enable Config Backup",
 					"options"							=>	$trueFalsVars,
 					"type"								=>	"dropdown"
-				),
-				"vars"								=>	array(
-					0									=> array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"key"								=>	"backupNumConfig",
-							"name"								=>	"Number of versions saved",
-							"options"							=>	$oneToTenArr,
-							"type"								=>	"dropdown"
-						)
-					)
 				)
 			),
 			8									=>	array(
