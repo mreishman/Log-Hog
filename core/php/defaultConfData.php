@@ -2737,7 +2737,7 @@ $defaultConfigMoreData = array(
 				"main"
 			),
 			"id"								=>	"settingsMainOther",
-			"display"							=>	($updaterEnabled === 'true'),
+			"display"							=>	(!(in_array('updaterEnabled', $arrayOfDisabledModules))),
 			"name"								=>	"Update"
 		),
 		"vars"								=> array(

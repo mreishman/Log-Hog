@@ -96,7 +96,7 @@ if(in_array('themesEnabled', $arrayOfDisabledModules))
 	<span class="fullScreenMenuText">Themes</span>
 </li>
 <?php $updateStyle = "";
-if($updaterEnabled === "false")
+if((in_array('updaterEnabled', $arrayOfDisabledModules)))
 {
 	$updateStyle = "display: none;";
 }

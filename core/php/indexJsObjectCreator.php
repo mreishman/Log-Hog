@@ -12,7 +12,7 @@ if($samePageSettings === "true")
 	$arrayOfFiles[] = $arrayOfFilesExtra['jsColor'];
 	$arrayOfFiles[] = $arrayOfFilesExtra['resetSettings'];
 }
-if($updaterEnabled === "true")
+if(!(in_array('updaterEnabled', $arrayOfDisabledModules)))
 {
 	$arrayOfFiles[] = $arrayOfFilesExtra['update'];
 }

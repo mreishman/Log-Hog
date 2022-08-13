@@ -1728,7 +1728,7 @@ function checkForUpdateMaybe()
 {
 	try
 	{
-		if (updaterEnabled === "true" && autoCheckUpdate === "true")
+		if (!($.inArray("updaterEnabled", JSON.parse(moduleDisabledList))) && autoCheckUpdate === "true")
 		{
 			if(daysSinceLastCheck > (autoCheckDaysUpdate - 1))
 			{
