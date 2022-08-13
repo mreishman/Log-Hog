@@ -229,7 +229,7 @@ function makePrettyWithText(text, count, extraData = {})
 			let lineToReturn = "<td style=\"white-space: pre-wrap;\">"+lineText+"</td>";
 			let colspan = 2;
 			let addRowPadding = true;
-			if(type === "log" && advancedLogFormatEnabled === "true")
+			if(type === "log" && !($.inArray("advancedLogFormatEnabled", JSON.parse(moduleDisabledList))))
 			{
 				let lastLine = "";
 				let nextLine = "";
@@ -274,7 +274,7 @@ function makePrettyWithText(text, count, extraData = {})
 			if(addRowPadding)
 			{
 				let extraTd = '';
-				if(type === "log" && advancedLogFormatEnabled === "true")
+				if(type === "log" && !($.inArray("advancedLogFormatEnabled", JSON.parse(moduleDisabledList))))
 				{
 					if (lineToReturn.includes('settingsDiv') && lineToReturn.includes('settingsDivRemoveBottom'))
 					{

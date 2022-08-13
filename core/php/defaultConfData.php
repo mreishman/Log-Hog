@@ -386,7 +386,7 @@ $fullScreenMenuGroups = array(
 	),
 	"formatting"	=> array (
 		"name"		=> "Log Format",
-		"display"	=>	($advancedLogFormatEnabled === "true"),
+		"display"	=>	(!in_array('advancedLogFormatEnabled', $arrayOfDisabledModules)),
 		"subGroups"	=> array()
 	),
 	"multilog"	=> array (
@@ -1088,7 +1088,7 @@ $defaultConfigMoreData = array(
 				"formatting"
 			),
 			"id"								=>	"settingsMainLogFormat",
-			"display"							=>	($advancedLogFormatEnabled === "true"),
+			"display"							=>	(!in_array('advancedLogFormatEnabled', $arrayOfDisabledModules)),
 			"name"								=>	"General"
 		),
 		"vars"								=>	array(
@@ -1246,7 +1246,7 @@ $defaultConfigMoreData = array(
 				"formatting"
 			),
 			"id"								=>	"settingsMainLogDateTimeFormat",
-			"display"							=>	($advancedLogFormatEnabled === "true" && $dateTextFormatEnable == 'true'),
+			"display"							=>	(!in_array('advancedLogFormatEnabled', $arrayOfDisabledModules) && $dateTextFormatEnable == 'true'),
 			"name"								=>	"Timestamp"
 		),
 		"vars"								=>	array(
@@ -1346,7 +1346,7 @@ $defaultConfigMoreData = array(
 				"formatting"
 			),
 			"id"								=>	"settingsLinkedLogLogFormat",
-			"display"							=>	($advancedLogFormatEnabled === "true" && $logFormatFileEnable == "true"),
+			"display"							=>	(!in_array('advancedLogFormatEnabled', $arrayOfDisabledModules) && $logFormatFileEnable == "true"),
 			"name"								=>	"Linked Files"
 		),
 		"vars"								=>	array(

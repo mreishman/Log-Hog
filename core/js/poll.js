@@ -951,7 +951,7 @@ function update(data)
 									}
 								}
 							}
-							if(rightClickMenuEnable === "true")
+							if(!($.inArray("rightClickMenuEnable", JSON.parse(moduleDisabledList))))
 							{
 								addLogToRightClickMenu(files[i], id, fullPathSearch, shortName);
 							}

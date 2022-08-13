@@ -195,7 +195,7 @@ function updateDocumentTitle(updateText)
 
 function updateFileDataArray(newDataArr)
 {
-	if(advancedLogFormatEnabled === "true" && logFormatFileEnable === "true")
+	if(!($.inArray("advancedLogFormatEnabled", JSON.parse(moduleDisabledList))) && logFormatFileEnable === "true")
 	{
 		updateFileDataArrayInner(newDataArr);
 	}
@@ -279,7 +279,7 @@ function getLogIdFromText(text)
 		{
 			return filterIdText(arrayOfDataMainKeys[i])
 		}
-		if(advancedLogFormatEnabled === "true" && logFormatFileEnable === "true" && "fileData" in arrayOfDataMain[arrayOfDataMainKeys[i]])
+		if(!($.inArray("advancedLogFormatEnabled", JSON.parse(moduleDisabledList))) && logFormatFileEnable === "true" && "fileData" in arrayOfDataMain[arrayOfDataMainKeys[i]])
 		{
 			let fileDataLocal = arrayOfDataMain[arrayOfDataMainKeys[i]]["fileData"];
 			if(fileDataLocal)
@@ -1218,7 +1218,7 @@ function resize()
 
 		updateNotificationCount();
 
-		if(advancedLogFormatEnabled === "true")
+		if(!($.inArray("advancedLogFormatEnabled", JSON.parse(moduleDisabledList))))
 		{
 			if(dateTextFormatColumn === "true" || (dateTextFormatColumn === "auto" && window.innerWidth > breakPointTwo))
 			{

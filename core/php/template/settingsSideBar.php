@@ -211,7 +211,7 @@ Hide Log Tabs
 </span>
 <h3 class="addBorderBottom">Logs</h3>
 <ul>
-<?php if($advancedLogFormatEnabled === "true")
+<?php if(!in_array('advancedLogFormatEnabled', $arrayOfDisabledModules))
 {
 	$settings->varTemplateLogic(
 		array(

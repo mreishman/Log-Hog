@@ -20,7 +20,7 @@ if(!(in_array('filterEnabled', $arrayOfDisabledModules)))
 {
 	$arrayOfFiles[] = $arrayOfFilesExtra['filter'];
 }
-if($advancedLogFormatEnabled === "true")
+if(!in_array('advancedLogFormatEnabled', $arrayOfDisabledModules))
 {
 	if($logFormatPhpEnable === "true")
 	{

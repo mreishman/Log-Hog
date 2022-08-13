@@ -204,8 +204,8 @@ $needRefresh = $core->generateImage(
 		</form>
 		<script>
 
-			<?php
-			if($rightClickMenuEnable == "true"): ?>
+			<?php //needs to be moved out of index at some point
+			if(!(in_array('rightClickMenuEnable', $arrayOfDisabledModules))): ?>
 				if(document.getElementById('deleteImage'))
 				{
 					Rightclick_ID_list.push('deleteImage');

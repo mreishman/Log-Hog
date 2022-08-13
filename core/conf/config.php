@@ -1,7 +1,6 @@
 <?php
 
 $defaultConfig = array(
-	'advancedLogFormatEnabled'		=> 'true',
 	'allLogsVisible'				=> 'true',
 	'autoCheckDaysUpdate'			=>	'7',
 	'autoCheckUpdate' 				=> 'true',
@@ -381,7 +380,6 @@ $defaultConfig = array(
 	'pollRefreshAllBool'			=> 'true',
 	'popupWarnings'					=> 'all',
 	'popupSettingsArray'			=> '{"saveSettings":"true","blankFolder":"true","deleteLog":"true","removeFolder":"true","versionCheck":"true"}',
-	'rightClickMenuEnable'			=> 'true',
 	'samePageSettings'				=> 'true',
 	'samePageSettingsNewTab'		=> 'true',
 	'saveArchiveLogLimit'			=> 'true',

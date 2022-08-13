@@ -616,9 +616,34 @@ function adjustLogForInfoSideBar(mainWidth)
 function tmpChangeAdvancedLogFormat()
 {
 	let currentValue = document.getElementById("advancedLogFormatEnabled").value;
-	if(currentValue !== advancedLogFormatEnabled)
+	let changed = false;
+	let moduleListArr = JSON.parse(moduleDisabledList);
+
+	if(currentValue === "true")
 	{
-		advancedLogFormatEnabled = currentValue;
+		if(($.inArray("advancedLogFormatEnabled", moduleListArr)))
+		{
+			//remove from array
+			moduleListArr = jQuery.grep(y, function(value) {
+			  return value != "advancedLogFormatEnabled";
+			});
+			moduleDisabledList = JSON.stringify(moduleDisabledList);
+			changed = true;
+		}
+	}
+	else
+	{
+		if(!($.inArray("advancedLogFormatEnabled", moduleListArr)))
+		{
+			//add to array
+			moduleListArr.push("advancedLogFormatEnabled");
+			moduleDisabledList = JSON.stringify(moduleDisabledList);
+			changed = true;
+		}
+	}
+
+	if(changed)
+	{
 		generalUpdate();
 	}
 }
