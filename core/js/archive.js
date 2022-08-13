@@ -1,6 +1,6 @@
 function archiveAction(title, type) //used to check if file is loaded
 {
-	if(saveTmpLogOnClear === "true" && !($.inArray("enableHistory", JSON.parse(moduleDisabledList))))
+	if(saveTmpLogOnClear === "true" && ($.inArray("enableHistory", JSON.parse(moduleDisabledList)) < 0))
 	{
 		let folder = "loghogBackupArchiveLogs";
 		if(type !== "archive")

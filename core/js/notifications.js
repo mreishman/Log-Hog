@@ -444,7 +444,7 @@ function addLogNotification(notificationArray)
 			}
 		}
 	}
-	if(!($.inArray("rightClickMenuEnable", JSON.parse(moduleDisabledList))) && "log" in notificationArray)
+	if(($.inArray("rightClickMenuEnable", JSON.parse(moduleDisabledList)) < 0) && "log" in notificationArray)
 	{
 		addClearAlertToRightClickMenu(notificationArray["log"]);
 	}

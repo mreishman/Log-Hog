@@ -42,7 +42,7 @@ function toggleFullScreenMenu(force = false)
 				{
 					toggleThemes();
 				}
-				else if(fullScreenMenuDefaultPage === "update" && !($.inArray("updaterEnabled", JSON.parse(moduleDisabledList))))
+				else if(fullScreenMenuDefaultPage === "update" && ($.inArray("updaterEnabled", JSON.parse(moduleDisabledList)) < 0))
 				{
 					toggleUpdateMenu();
 				}

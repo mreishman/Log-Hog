@@ -225,7 +225,7 @@ function toggleGroupedGroups()
 			}
 		}
 	}
-	if(!($.inArray("oneLogEnable", JSON.parse(moduleDisabledList))))
+	if(($.inArray("oneLogEnable", JSON.parse(moduleDisabledList))) < 0)
 	{
 		toggleVisibleOneLog();
 	}
