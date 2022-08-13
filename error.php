@@ -295,44 +295,27 @@ if(file_exists($file))
                     {
                         @include("local/profiles/".$currentSelectedTheme."/conf/config.php");
                     }
-                    $arrayOfModules = array(
-                        0                                   =>  array(
-                            "key"                               =>  "themesEnabled",
-                            "name"                              =>  "Themes",
-                        ),
-                        1                                   =>  array(
-                            "key"                               =>  "enableMultiLog",
-                            "name"                              =>  "Multi-Log",
-                        ),
-                        2                                   =>  array(
-                            "key"                               =>  "enableHistory",
-                            "name"                              =>  "History",
-                        ),
-                        3                                   =>  array(
-                            "key"                               =>  "oneLogEnable",
-                            "name"                              =>  "One Log",
-                        ),
-                        4                                   =>  array(
-                            "key"                               =>  "filterEnabled",
-                            "name"                              =>  "Filters",
-                        ),
-                        5                                   =>  array(
-                            "key"                               =>  "rightClickMenuEnable",
-                            "name"                              =>  "Right Click Menu",
-                        ),
-                        6                                   =>  array(
-                            "key"                               =>  "advancedLogFormatEnabled",
-                            "name"                              =>  "Advanced Log Format Options",
-                        ),
-                        7                                   =>  array(
-                            "key"                               =>  "backupNumConfigEnabled",
-                            "name"                              =>  "Config Backup",
-                        ),
-                        8                                   =>  array(
-                            "key"                               =>  "updaterEnabled",
-                            "name"                              =>  "Update Backup",
-                        )
-                    );
+                    $arrayOfModules = array();
+
+                    $moduleFolders = array_diff(scandir("Modules/"), array('..', '.'));
+                    foreach($moduleFolders as $moduleFolder)
+                    {
+                        $moduleDir = "Modules/" . $moduleFolder;
+                        if(is_dir($moduleDir))
+                        {
+                            $filePath = $moduleDir . "/module.json";
+                            if(file_exists($filePath))
+                            {
+                                $moduleData =  json_decode(file_get_contents($filePath), true);
+                                $arrayOfModules[] = array(
+                                    "key" => $moduleData["key"],
+                                    "name" => $moduleData["name"],
+                                    "id" => $moduleData["key"]
+                                );
+                            }
+                        }
+                    }
+
                     echo "<h3>Modules:</h3><table>";
                     foreach ($arrayOfModules as $value)
                     {

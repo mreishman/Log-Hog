@@ -293,47 +293,6 @@ foreach($arraysToDecode as $replaceKey => $arrayValue)
 	$filePathAlternativeSettingsHtml = implode($onLoadContent, explode("{{".$replaceKey."}}", $filePathAlternativeSettingsHtml));
 }
 
-$modulesList = array(
-	0 => array (
-		"key"								=>	"themesEnabled",
-		"name"								=>	"Themes",
-	),
-	1 => array (
-		"id"								=>	"enableMultiLog",
-		"key"								=>	"enableMultiLog",
-		"name"								=>	"Multi-Log",
-	),
-	2 => array (
-		"key"								=>	"enableHistory",
-		"name"								=>	"History",
-	),
-	3 => array (
-		"key"								=>	"oneLogEnable",
-		"name"								=>	"One Log",
-	),
-	4 => array (
-		"key"								=>	"filterEnabled",
-		"name"								=>	"Filters",
-	),
-	5 => array (
-		"key"								=>	"rightClickMenuEnable",
-		"name"								=>	"Right Click Menu",
-	),
-	6 => array (
-		"key"								=>	"advancedLogFormatEnabled",
-		"name"								=>	"Advanced Log Format Options",
-	),
-	7 => array (
-		"id"								=>	"backupNumConfigEnabled",
-		"key"								=>	"backupNumConfigEnabled",
-		"name"								=>	"Config Backup",
-	),
-	8 => array (
-		"key"								=>	"updaterEnabled",
-		"name"								=>	"Updater",
-	)
-);
-
 $dynamicModuleList = array (
 	0									=>	array(
 		"type"								=>	"single",
