@@ -336,16 +336,20 @@ if(file_exists($file))
                     echo "<h3>Modules:</h3><table>";
                     foreach ($arrayOfModules as $value)
                     {
-                        $enabled = "Enabled?";
+                        $status = "Enabled?";
                         if(!empty($config))
                         {
-                            $enabled = "Enabled";
-                            if(isset($config[$value["key"]]) && $config[$value["key"]] !== "true")
+                            $status = "Enabled";
+                            if(isset($config["moduleDisabledList"]))
                             {
-                                $enabled = "Disabled";
+                                $modules = json_decode($config["moduleDisabledList"], true);
+                                if(in_array($value["key"], $modules))
+                                {
+                                    $status = "Disabled";
+                                }
                             }
                         }
-                        echo "<tr><td> ".$value["name"]." </td><td> ".$enabled."</td>";
+                        echo "<tr><td> ".$value["name"]." </td><td> ".$status."</td>";
                     }
                     echo "</table>";
                 }
