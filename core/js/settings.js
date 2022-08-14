@@ -349,7 +349,7 @@ function saveVerified()
 		{
 			if(typeof addOneLogTab !== "function" && typeof script === "function")
 			{
-				script("core/js/oneLog.js");
+				script("Modules/OneLog/oneLog.js");
 			}
 			$("#settingsMainOneLogMenu").show().removeClass("hiddenMenu");;
 			if($("#oneLog"))

@@ -14,7 +14,7 @@
 	"hideEmptyLog"		: {"name":"core\/js\/hideEmptyLog.js","type":"js"},
 	"jsColor"			: {"name":"core\/js\/jscolor.js","type":"js"},
 	"multilog" 			: {"name":"core\/js\/multilog.js","type":"js"},
-	"oneLog" 			: {"name":"core\/js\/oneLog.js","type":"js"},
+	"oneLog" 			: {"name":"Modules\/OneLog\/js\/oneLog.js","type":"js"},
 	"resetSettings"		: {"name":"core\/js\/resetSettingsJs.js","type":"js"},
 	"themes" 			: {"name":"Modules\/Themes\/js\/themes.js","type":"js_module"},
 	"titleFlash" 		: {"name":"core\/js\/titleFlash.js","type":"js"},

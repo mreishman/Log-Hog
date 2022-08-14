@@ -178,5 +178,6 @@
 	{"fullPath":"core\/php\/class\/addons.php","type":"file"},
 	{"fullPath":"core\/js\/themes.js","type":"file"},
 	{"fullPath":"core\/js\/upgradeTheme.js","type":"file"},
-	{"fullPath":"core\/js\/update.js","type":"file"}
+	{"fullPath":"core\/js\/update.js","type":"file"},
+	{"fullPath":"core\/js\/oneLog.js","type":"file"}
 ]
