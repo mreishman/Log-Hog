@@ -18,7 +18,7 @@
 	"resetSettings"		: {"name":"core\/js\/resetSettingsJs.js","type":"js"},
 	"themes" 			: {"name":"Modules\/Themes\/js\/themes.js","type":"js_module"},
 	"titleFlash" 		: {"name":"core\/js\/titleFlash.js","type":"js"},
-	"update"			: {"name":"core\/js\/update.js","type":"js"},
+	"update"			: {"name":"Modules\/Updater\/js\/update.js","type":"js_module"},
 	"upgradeTheme" 		: {"name":"Modules\/Themes\/js\/upgradeTheme.js","type":"js_module"},
 	"eraser"			: {"name":"img\/eraser.png","type":"img","class":"eraserForLoad"},
 	"eraserMulti"		: {"name":"img\/eraserMulti.png","type":"img","class":"eraserMultiImageForLoad"},

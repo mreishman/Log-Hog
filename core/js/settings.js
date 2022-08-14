@@ -384,7 +384,7 @@ function saveVerified()
 		{
 			if(typeof checkForUpdates !== "function" && typeof script === "function")
 			{
-				script("core/js/update.js");
+				script("Modules/Updater/js/update.js");
 			}
 			$("#mainMenuUpdate, #settingsMainOtherMenu").show().removeClass("hiddenMenu");
 		}
