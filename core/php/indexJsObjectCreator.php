@@ -43,7 +43,7 @@ if(!in_array('advancedLogFormatEnabled', $arrayOfDisabledModules))
 	$directory = array_diff(scandir($core->baseURL()."core/js/formatObjects/"), array('..', '.'));
 	foreach ($directory as $file) {
 		$arrayOfFiles[] =  array(
-			"name" => "formatObjects/".$file,
+			"name" => "core/js/formatObjects/".$file,
 			"type" => "js"
 		);
 	}
@@ -131,10 +131,6 @@ usort($arrayOfFiles, 'compareByType');
 foreach ($arrayOfFiles as $key => $value)
 {
 	$filePath = $value["name"];
-	if($value["type"] === "js")
-	{
-		$filePath = "core/js/".$filePath;
-	}
 	$arrayOfFiles[$key]["ver"] = $core->getFileTime($filePath, $configStatic["version"]);
 	$arrayOfFiles[$key]["size"] = filesize($filePath);
 }

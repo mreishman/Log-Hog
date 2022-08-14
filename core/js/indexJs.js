@@ -44,7 +44,6 @@ function tryLoadJSStuff()
 		loadTimeStart = performance.now();
 		if(currentFileType === "js")
 		{
-			nameOfFile = "core/js/"+nameOfFile;
 			script(nameOfFile);
 			document.getElementById(nameOfFile.replace(/[^a-z0-9]/g, "")).addEventListener('load', function() {
 				loadTimeEnd = performance.now();
@@ -147,7 +146,7 @@ function checkIfJSLoaded()
 		{
 			//error
 			clearInterval(timerForLoadJS);
-			window.location.href = "error.php?error=15&page="+arrayOfJsFiles[counterForJSLoad];
+			window.location.href = "error.php?error=15&page="+arrayOfJsFiles[counterForJSLoad]["name"];
 		}
 	}
 }
