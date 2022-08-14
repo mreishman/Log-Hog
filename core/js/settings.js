@@ -396,7 +396,7 @@ function saveVerified()
 		{
 			if(typeof getMultiLogWindowConfig !== "function" && typeof script === "function")
 			{
-				script("core/js/multilog.js");
+				script("Modules/MultiLog/js/multilog.js");
 			}
 			$("#subMenuTitle-multilog, #settingsMainLogLayoutMenu, #settingsMainMultiLogMenu, .mainMenuHeader.multilog").show().removeClass("hiddenMenu");
 		}
