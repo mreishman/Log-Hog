@@ -371,8 +371,8 @@ function saveVerified()
 		{
 			if(typeof addOneLogTab !== "function" && typeof script === "function")
 			{
-				script("core/js/themes.js");
-				script("core/js/upgradeTheme.js");
+				script("Modules/Themes/js/themes.js");
+				script("Modules/Themes/js/upgradeTheme.js");
 			}
 			$("#ThemesLink").show();
 		}

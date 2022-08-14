@@ -14,9 +14,16 @@ function tryLoadJSStuff()
 	var currentFileType = arrayOfJsFiles[arrayOfJsFilesKeys[counterForJSLoad]]["type"];
 	if(currentFileType === "js")
 	{
-		if(document.getElementById("initialLoadContentInfo").innerHTML !== "Loading Javascript Files")
+		if(document.getElementById("initialLoadContentInfo").innerHTML !== "Loading Core Javascript Files")
 		{
-			document.getElementById("initialLoadContentInfo").innerHTML = "Loading Javascript Files";
+			document.getElementById("initialLoadContentInfo").innerHTML = "Loading Core Javascript Files";
+		}
+	}
+	else if(currentFileType === "js_module")
+	{
+		if(document.getElementById("initialLoadContentInfo").innerHTML !== "Loading Module Javascript Files")
+		{
+			document.getElementById("initialLoadContentInfo").innerHTML = "Loading Module Javascript Files";
 		}
 	}
 	else if(currentFileType === "css")
@@ -42,7 +49,7 @@ function tryLoadJSStuff()
 		updatePopupLog(nameOfCurrentFile + "(" + formatLoadFileSize(arrayOfJsFiles[arrayOfJsFilesKeys[counterForJSLoad]]["size"]) + ")");
 		var nameOfFile = nameOfCurrentFile+"?v="+versionOfCurrentFile;
 		loadTimeStart = performance.now();
-		if(currentFileType === "js")
+		if(currentFileType === "js" || currentFileType === "js_module")
 		{
 			script(nameOfFile);
 			document.getElementById(nameOfFile.replace(/[^a-z0-9]/g, "")).addEventListener('load', function() {

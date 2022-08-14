@@ -48,7 +48,7 @@ if(!in_array('advancedLogFormatEnabled', $arrayOfDisabledModules))
 		);
 	}
 }
-if(in_array('themesEnabled', $arrayOfDisabledModules))
+if(!in_array('themesEnabled', $arrayOfDisabledModules))
 {
 	$arrayOfFiles[] = $arrayOfFilesExtra['themes'];
 	$arrayOfFiles[] = $arrayOfFilesExtra['upgradeTheme'];
@@ -112,7 +112,7 @@ if ($filterSearchInHeader === "true" && !(in_array('filterEnabled', $arrayOfDisa
 $counter = 0;
 foreach ($arrayOfFiles as $file)
 {
-	if($file["type"] !== "js" && strpos($file["name"], "core/") === false)
+	if($file["type"] !== "js" && $file["type"] !== "js_module" && strpos($file["name"], "core/") === false)
 	{
 		$arrayOfFiles[$counter]["name"] = $baseUrl . $file["name"];
 	}
