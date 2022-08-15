@@ -323,7 +323,7 @@ function saveVerified()
 		{
 			if(typeof getFilterData !== "function" && typeof script === "function")
 			{
-				script("core/js/filter.js");
+				script("Modules/Filters/js/filter.js");
 			}
 			$("#settingsMainFilterMenu").show().removeClass("hiddenMenu");;
 			$(".searchSideBarImageForLoad").show();

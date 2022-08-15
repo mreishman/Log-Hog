@@ -181,5 +181,6 @@
 	{"fullPath":"core\/js\/update.js","type":"file"},
 	{"fullPath":"core\/js\/oneLog.js","type":"file"},
 	{"fullPath":"core\/js\/multilog.js","type":"file"},
-	{"fullPath":"core\/js\/archive.js","type":"file"}
+	{"fullPath":"core\/js\/archive.js","type":"file"},
+	{"fullPath":"core\/js\/filter.js","type":"file"}
 ]
