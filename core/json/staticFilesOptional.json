@@ -1,5 +1,5 @@
 {
-	"archive" 			: {"name":"core\/js\/archive.js","type":"js"},
+	"archive" 			: {"name":"Modules\/History\/js\/archive.js","type":"js"},
 	"advanced"			: {"name":"core\/js\/advanced.js","type":"js"},
 	"colorScheme"		: {"name":"core\/js\/colorScheme.js","type":"js"},
 	"dateFormat.min"	: {"name":"core\/js\/dateFormat.min.js","type":"js"},

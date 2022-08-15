@@ -309,7 +309,7 @@ function saveVerified()
 		{
 			if(typeof archiveAction !== "function" && typeof script === "function")
 			{
-				script("core/js/archive.js");
+				script("Modules/History/js/archive.js");
 			}
 			$("#mainMenuHistory").show();
 			$("#settingsMainArchiveMenu").show().removeClass("hiddenMenu");;
