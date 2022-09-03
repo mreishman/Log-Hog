@@ -182,5 +182,11 @@
 	{"fullPath":"core\/js\/oneLog.js","type":"file"},
 	{"fullPath":"core\/js\/multilog.js","type":"file"},
 	{"fullPath":"core\/js\/archive.js","type":"file"},
-	{"fullPath":"core\/js\/filter.js","type":"file"}
+	{"fullPath":"core\/js\/filter.js","type":"file"},
+	{"fullPath":"core\/js\/format.js","type":"file"},
+	{"fullPath":"core\/js\/formatFile.js","type":"file"},
+	{"fullPath":"core\/js\/formatPhp.js","type":"file"},
+	{"fullPath":"core\/js\/formatJsObject.js","type":"file"},
+	{"fullPath":"core\/js\/formatReport.js","type":"file"},
+	{"fullPath":"core\/js\/formatObjects\/tokenParse.js","type":"file"}
 ]

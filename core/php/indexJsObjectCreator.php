@@ -39,12 +39,13 @@ if(!in_array('advancedLogFormatEnabled', $arrayOfDisabledModules))
 		$arrayOfFiles[] = $arrayOfFilesExtra['formatJsObject'];
 	}
 	$arrayOfFiles[] = $arrayOfFilesExtra['format'];
+	$arrayOfFiles[] = $arrayOfFilesExtra['formatSettings'];
 	$arrayOfFiles[] = $arrayOfFilesExtra['dateFormat.min'];
-	$directory = array_diff(scandir($core->baseURL()."core/js/formatObjects/"), array('..', '.'));
+	$directory = array_diff(scandir($core->baseURL()."Modules/AdvancedLogFormatOptions/js/formatObjects/"), array('..', '.'));
 	foreach ($directory as $file) {
 		$arrayOfFiles[] =  array(
-			"name" => "core/js/formatObjects/".$file,
-			"type" => "js"
+			"name" => "Modules/AdvancedLogFormatOptions/js/formatObjects/".$file,
+			"type" => "js_module"
 		);
 	}
 }
