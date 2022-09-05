@@ -188,5 +188,6 @@
 	{"fullPath":"core\/js\/formatPhp.js","type":"file"},
 	{"fullPath":"core\/js\/formatJsObject.js","type":"file"},
 	{"fullPath":"core\/js\/formatReport.js","type":"file"},
-	{"fullPath":"core\/js\/formatObjects\/tokenParse.js","type":"file"}
+	{"fullPath":"core\/js\/formatObjects\/tokenParse.js","type":"file"},
+	{"fullPath":"core\/js\/rightClickJS.js","type":"file"}
 ]

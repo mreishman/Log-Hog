@@ -11,11 +11,11 @@ if(!$session->startSession())
 }
 $currentPage = "index.php";
 $errorCheck->checkIfFilesExist(
-	array("core/conf/config.php","core/php/configStatic.php","core/php/loadVars.php","core/php/loadVarsToJs.php","core/php/updateCheck.php","core/js/jquery.js","core/php/customCSS.php","core/php/template/popup.php","core/js/main.js","core/js/rightClickJS.js","setup/setupProcessFile.php","error.php"),
+	array("core/conf/config.php","core/php/configStatic.php","core/php/loadVars.php","core/php/loadVarsToJs.php","core/php/updateCheck.php","core/js/jquery.js","core/php/customCSS.php","core/php/template/popup.php","core/js/main.js","Modules/RightClickMenu/js/rightClickJS.js","setup/setupProcessFile.php","error.php"),
 	 "",
 	 $currentPage);
 $errorCheck->checkIfFilesAreReadable(
-	array("core/conf/config.php","core/php/configStatic.php","core/php/loadVars.php","core/php/loadVarsToJs.php","core/php/updateCheck.php","core/js/jquery.js","core/php/customCSS.php","core/php/template/popup.php","core/js/main.js","core/js/rightClickJS.js","setup/setupProcessFile.php","error.php"),
+	array("core/conf/config.php","core/php/configStatic.php","core/php/loadVars.php","core/php/loadVarsToJs.php","core/php/updateCheck.php","core/js/jquery.js","core/php/customCSS.php","core/php/template/popup.php","core/js/main.js","Modules/RightClickMenu/js/rightClickJS.js","setup/setupProcessFile.php","error.php"),
 	 "",
 	 $currentPage);
 require_once("core/php/class/update.php");
