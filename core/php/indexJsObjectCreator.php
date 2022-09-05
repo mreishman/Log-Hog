@@ -21,10 +21,6 @@ if(!in_array('themesEnabled', $arrayOfDisabledModules))
 	$arrayOfFiles[] = $arrayOfFilesExtra['themes'];
 	$arrayOfFiles[] = $arrayOfFilesExtra['upgradeTheme'];
 }
-if(!(in_array('oneLogEnable', $arrayOfDisabledModules)))
-{
-	$arrayOfFiles[] = $arrayOfFilesExtra['oneLog'];
-}
 if($flashTitleUpdateLog === "true")
 {
 	$arrayOfFiles[] = $arrayOfFilesExtra['titleFlash'];
@@ -61,11 +57,6 @@ if(in_array('enableMultiLog', $arrayOfDisabledModules))
 {
 	$windowConfig = "1x1";
 	$currentSessionValue = $windowConfig;
-}
-if($currentSessionValue !== "1x1")
-{
-	$arrayOfFiles[] = $arrayOfFilesExtra['pin'];
-	$arrayOfFiles[] = $arrayOfFilesExtra['pinPinned'];
 }
 
 

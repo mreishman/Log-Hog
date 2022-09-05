@@ -5,7 +5,6 @@
 	"globalConfig"		: {"name":"core\/js\/globalConfig.js","type":"js"},
 	"hideEmptyLog"		: {"name":"core\/js\/hideEmptyLog.js","type":"js"},
 	"jsColor"			: {"name":"core\/js\/jscolor.js","type":"js"},
-	"oneLog" 			: {"name":"Modules\/OneLog\/js\/oneLog.js","type":"js_module"},
 	"resetSettings"		: {"name":"core\/js\/resetSettingsJs.js","type":"js"},
 	"themes" 			: {"name":"Modules\/Themes\/js\/themes.js","type":"js_module"},
 	"titleFlash" 		: {"name":"core\/js\/titleFlash.js","type":"js"},
@@ -14,7 +13,5 @@
 	"eraser"			: {"name":"img\/eraser.png","type":"img","class":"eraserForLoad"},
 	"eraserMulti"		: {"name":"img\/eraserMulti.png","type":"img","class":"eraserMultiImageForLoad"},
 	"notification"		: {"name":"img\/notification.png","type":"img","class":"notificationImageForLoad"},
-	"notificationClear"	: {"name":"img\/notificationClear.png","type":"img","class":"notificationClearImageForLoad"},
-	"pin"				: {"name":"img\/pin.png","type":"img","class":"pinImageForLoad"},
-	"pinPinned"			: {"name":"img\/pinPinned.png","type":"img","class":"pinPinnedImageForLoad"}
+	"notificationClear"	: {"name":"img\/notificationClear.png","type":"img","class":"notificationClearImageForLoad"}
 }

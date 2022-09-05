@@ -1,3 +1,5 @@
 {
-	"multilog" 			: {"name":"Modules\/MultiLog\/js\/multilog.js","type":"js_module"}
+	"multilog" 			: {"name":"Modules\/MultiLog\/js\/multilog.js","type":"js_module"},
+	"pin"				: {"name":"img\/pin.png","type":"img","class":"pinImageForLoad"},
+	"pinPinned"			: {"name":"img\/pinPinned.png","type":"img","class":"pinPinnedImageForLoad"}
 }
