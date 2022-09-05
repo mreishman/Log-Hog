@@ -1,13 +1,10 @@
 {
-	"archive" 			: {"name":"Modules\/History\/js\/archive.js","type":"js_module"},
 	"advanced"			: {"name":"core\/js\/advanced.js","type":"js"},
 	"colorScheme"		: {"name":"core\/js\/colorScheme.js","type":"js"},
 	"devTools"			: {"name":"core\/js\/devTools.js","type":"js"},
-	"filter" 			: {"name":"Modules\/Filters\/js\/filter.js","type":"js_module"},
 	"globalConfig"		: {"name":"core\/js\/globalConfig.js","type":"js"},
 	"hideEmptyLog"		: {"name":"core\/js\/hideEmptyLog.js","type":"js"},
 	"jsColor"			: {"name":"core\/js\/jscolor.js","type":"js"},
-	"multilog" 			: {"name":"Modules\/MultiLog\/js\/multilog.js","type":"js_module"},
 	"oneLog" 			: {"name":"Modules\/OneLog\/js\/oneLog.js","type":"js_module"},
 	"resetSettings"		: {"name":"core\/js\/resetSettingsJs.js","type":"js"},
 	"themes" 			: {"name":"Modules\/Themes\/js\/themes.js","type":"js_module"},
@@ -19,6 +16,5 @@
 	"notification"		: {"name":"img\/notification.png","type":"img","class":"notificationImageForLoad"},
 	"notificationClear"	: {"name":"img\/notificationClear.png","type":"img","class":"notificationClearImageForLoad"},
 	"pin"				: {"name":"img\/pin.png","type":"img","class":"pinImageForLoad"},
-	"pinPinned"			: {"name":"img\/pinPinned.png","type":"img","class":"pinPinnedImageForLoad"},
-	"search"			: {"name":"img\/search.png","type":"img","class":"showFilterTopBarImageForLoad"}
+	"pinPinned"			: {"name":"img\/pinPinned.png","type":"img","class":"pinPinnedImageForLoad"}
 }

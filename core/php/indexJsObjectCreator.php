@@ -16,10 +16,6 @@ if(!(in_array('updaterEnabled', $arrayOfDisabledModules)))
 {
 	$arrayOfFiles[] = $arrayOfFilesExtra['update'];
 }
-if(!(in_array('filterEnabled', $arrayOfDisabledModules)))
-{
-	$arrayOfFiles[] = $arrayOfFilesExtra['filter'];
-}
 if(!in_array('themesEnabled', $arrayOfDisabledModules))
 {
 	$arrayOfFiles[] = $arrayOfFilesExtra['themes'];
@@ -32,14 +28,6 @@ if(!(in_array('oneLogEnable', $arrayOfDisabledModules)))
 if($flashTitleUpdateLog === "true")
 {
 	$arrayOfFiles[] = $arrayOfFilesExtra['titleFlash'];
-}
-if(!in_array('enableHistory', $arrayOfDisabledModules))
-{
-	$arrayOfFiles[] = $arrayOfFilesExtra['archive'];
-}
-if(!(in_array('enableMultiLog', $arrayOfDisabledModules)))
-{
-	$arrayOfFiles[] = $arrayOfFilesExtra['multilog'];
 }
 if($hideEmptyLog === "true")
 {
@@ -61,6 +49,8 @@ if($hideNotificationIcon !== "true")
 {
 	$arrayOfFiles[] = $arrayOfFilesExtra['notification'];
 }
+
+
 $currentSessionValue = $windowConfig;
 if(isset($_COOKIE["windowConfig"]) && $logLoadPrevious === "true")
 {
@@ -76,10 +66,6 @@ if($currentSessionValue !== "1x1")
 {
 	$arrayOfFiles[] = $arrayOfFilesExtra['pin'];
 	$arrayOfFiles[] = $arrayOfFilesExtra['pinPinned'];
-}
-if ($filterSearchInHeader === "true" && !(in_array('filterEnabled', $arrayOfDisabledModules)))
-{
-	$arrayOfFiles[] = $arrayOfFilesExtra['search'];
 }
 
 
