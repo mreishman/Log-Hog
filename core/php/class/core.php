@@ -451,12 +451,14 @@ class core
 		return $response;
 	}
 
-	public function getModules()
+	public function getModules($moduleDisabledList)
 	{
 		if(!empty($this->moduleList))
 		{
 			return $this->moduleList;
 		}
+
+		$arrayOfDisabledModules = json_decode($moduleDisabledList, true);
 
 		$modulesList = [];
 		$baseUrl = $this->baseURL();
@@ -471,9 +473,11 @@ class core
 				{
 					$moduleData =  json_decode(file_get_contents($filePath), true);
 					$modulesList[] = array(
-						"key" => $moduleData["key"],
-						"name" => $moduleData["name"],
-						"id" => $moduleData["key"]
+						"key"		=> $moduleData["key"],
+						"name"		=> $moduleData["name"],
+						"id"		=> $moduleData["key"],
+						"enabled"	=> (!in_array($moduleData["key"], $arrayOfDisabledModules)),
+						"path"		=> $moduleDir
 					);
 				}
 			}

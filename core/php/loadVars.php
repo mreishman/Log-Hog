@@ -412,6 +412,6 @@ $arrayOfCustomConfig = array(
 );
 
 
-$modulesList = $core->getModules();
+$modulesList = $core->getModules($moduleDisabledList);
 
 $arrayOfDisabledModules = json_decode($moduleDisabledList, true);
