@@ -12,15 +12,6 @@ if($samePageSettings === "true")
 	$arrayOfFiles[] = $arrayOfFilesExtra['jsColor'];
 	$arrayOfFiles[] = $arrayOfFilesExtra['resetSettings'];
 }
-if(!(in_array('updaterEnabled', $arrayOfDisabledModules)))
-{
-	$arrayOfFiles[] = $arrayOfFilesExtra['update'];
-}
-if(!in_array('themesEnabled', $arrayOfDisabledModules))
-{
-	$arrayOfFiles[] = $arrayOfFilesExtra['themes'];
-	$arrayOfFiles[] = $arrayOfFilesExtra['upgradeTheme'];
-}
 if($flashTitleUpdateLog === "true")
 {
 	$arrayOfFiles[] = $arrayOfFilesExtra['titleFlash'];
