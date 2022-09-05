@@ -412,25 +412,6 @@ $arrayOfCustomConfig = array(
 );
 
 
-$modulesList = array();
-
-$moduleFolders = array_diff(scandir($core->baseURL() . "Modules/"), array('..', '.'));
-foreach($moduleFolders as $moduleFolder)
-{
-	$moduleDir = $core->baseURL() . "Modules/" . $moduleFolder;
-	if(is_dir($moduleDir))
-	{
-		$filePath = $moduleDir . "/module.json";
-		if(file_exists($filePath))
-		{
-			$moduleData =  json_decode(file_get_contents($filePath), true);
-			$modulesList[] = array(
-				"key" => $moduleData["key"],
-				"name" => $moduleData["name"],
-				"id" => $moduleData["key"]
-			);
-		}
-	}
-}
+$modulesList = $core->getModules();
 
 $arrayOfDisabledModules = json_decode($moduleDisabledList, true);

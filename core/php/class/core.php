@@ -1,6 +1,8 @@
 <?php
 class core
 {
+	protected $moduleList = [];
+
 	public function clean_url($url)
 	{
 	    $parts = parse_url($url);
@@ -447,5 +449,37 @@ class core
 			}
 		}
 		return $response;
+	}
+
+	public function getModules()
+	{
+		if(!empty($this->moduleList))
+		{
+			return $this->moduleList;
+		}
+
+		$modulesList = [];
+		$baseUrl = $this->baseURL();
+		$moduleFolders = array_diff(scandir($baseUrl . "Modules/"), array('..', '.'));
+		foreach($moduleFolders as $moduleFolder)
+		{
+			$moduleDir = $baseUrl . "Modules/" . $moduleFolder;
+			if(is_dir($moduleDir))
+			{
+				$filePath = $moduleDir . "/module.json";
+				if(file_exists($filePath))
+				{
+					$moduleData =  json_decode(file_get_contents($filePath), true);
+					$modulesList[] = array(
+						"key" => $moduleData["key"],
+						"name" => $moduleData["name"],
+						"id" => $moduleData["key"]
+					);
+				}
+			}
+		}
+
+		$this->moduleList = $modulesList;
+		return $this->moduleList;
 	}
 }
