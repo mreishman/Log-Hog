@@ -477,7 +477,7 @@ class core
 						"name"		=> $moduleData["name"],
 						"id"		=> $moduleData["key"],
 						"enabled"	=> (!in_array($moduleData["key"], $arrayOfDisabledModules)),
-						"path"		=> $moduleDir
+						"path"		=> "Modules/" . $moduleFolder
 					);
 				}
 			}

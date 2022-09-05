@@ -11,7 +11,7 @@
 	{"name":"core\/js\/menu.js","type":"js"},
 	{"name":"core\/js\/notifications.js","type":"js"},
 	{"name":"core\/js\/poll.js","type":"js"},
-	{"name":"Modules\/RightClickMenu\/js\/rightClickJS.js","type":"js"},
+	{"name":"Modules\/RightClickMenu\/js\/rightClickJS.js","type":"js_module"},
 	{"name":"core\/js\/settings.js","type":"js"},
 	{"name":"core\/js\/settingsMain.js","type":"js"},
 	{"name":"core\/js\/settingsSideBar.js","type":"js"},

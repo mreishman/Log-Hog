@@ -20,35 +20,6 @@ if(!(in_array('filterEnabled', $arrayOfDisabledModules)))
 {
 	$arrayOfFiles[] = $arrayOfFilesExtra['filter'];
 }
-if(!in_array('advancedLogFormatEnabled', $arrayOfDisabledModules))
-{
-	if($logFormatPhpEnable === "true")
-	{
-		$arrayOfFiles[] = $arrayOfFilesExtra['formatPhp'];
-	}
-	if($logFormatFileEnable === "true")
-	{
-		$arrayOfFiles[] = $arrayOfFilesExtra['formatFile'];
-	}
-	if($logFormatReportEnable === "true")
-	{
-		$arrayOfFiles[] = $arrayOfFilesExtra['formatReport'];
-	}
-	if($logFormatJsObjectEnable === "true")
-	{
-		$arrayOfFiles[] = $arrayOfFilesExtra['formatJsObject'];
-	}
-	$arrayOfFiles[] = $arrayOfFilesExtra['format'];
-	$arrayOfFiles[] = $arrayOfFilesExtra['formatSettings'];
-	$arrayOfFiles[] = $arrayOfFilesExtra['dateFormat.min'];
-	$directory = array_diff(scandir($core->baseURL()."Modules/AdvancedLogFormatOptions/js/formatObjects/"), array('..', '.'));
-	foreach ($directory as $file) {
-		$arrayOfFiles[] =  array(
-			"name" => "Modules/AdvancedLogFormatOptions/js/formatObjects/".$file,
-			"type" => "js_module"
-		);
-	}
-}
 if(!in_array('themesEnabled', $arrayOfDisabledModules))
 {
 	$arrayOfFiles[] = $arrayOfFilesExtra['themes'];
@@ -110,6 +81,34 @@ if ($filterSearchInHeader === "true" && !(in_array('filterEnabled', $arrayOfDisa
 {
 	$arrayOfFiles[] = $arrayOfFilesExtra['search'];
 }
+
+
+/* Modules */
+foreach($modulesList as $module)
+{
+	if($module["enabled"])
+	{
+		$file = $core->baseURL() . $module["path"] . "/json/index/links.json";
+		if(file_exists($file))
+		{
+			$files = json_decode(file_get_contents($file), true);
+			foreach($files as $file)
+			{
+				$includeFile = true;
+				if(isset($file["condition"]))
+				{
+					$condition = $file["condition"];
+					$includeFile = $$condition;
+				}
+				if($includeFile)
+				{
+					$arrayOfFiles[] = $file;
+				}
+			}
+		}
+	}
+}
+
 $counter = 0;
 foreach ($arrayOfFiles as $file)
 {
