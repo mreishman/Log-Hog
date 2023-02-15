@@ -10,7 +10,7 @@ function apitofile_startPollTimer()
 	}
 	if(apiToFilePauseOnNotFocus === "true")
 	{
-		apitofile_pollTimer = setInterval(apitofile_poll, apiToFile_pollRateCalc);
+		apitofile_pollTimer = setInterval(apitofile_checkIfPageHidden, apiToFile_pollRateCalc);
 	}
 	else
 	{
@@ -19,7 +19,7 @@ function apitofile_startPollTimer()
 		{
 			apiToFile_bgPollRateCalc *= 1000;
 		}
-		apitofile_pollTimer = Visibility.every(apiToFile_pollRateCalc, apiToFile_bgPollRateCalc, function () { apitofile_poll(); });
+		apitofile_pollTimer = Visibility.every(apiToFile_pollRateCalc, apiToFile_bgPollRateCalc, function () { apitofile_checkIfPageHidden(); });
 	}
 }
 
