@@ -2,6 +2,11 @@
 
 $defaultConfig = array(
 	'allLogsVisible'				=> 'true',
+	'apiToFilePauseOnNotFocus'		=> 'true',
+	'apiToFilePollBackgroundRate'	=> 120,
+	'apiToFilePollBackgroundType'	=> 'Seconds',
+	'apiToFilePollRate'				=> 30,
+	'apiToFilePollRateType'			=> 'Seconds',
 	'autoCheckDaysUpdate'			=>	'7',
 	'autoCheckUpdate' 				=> 'true',
 	'autoMoveUpdateLog'				=> 'false',

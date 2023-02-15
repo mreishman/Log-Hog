@@ -363,6 +363,11 @@ $fullScreenMenuGroups = array(
 		"display"	=>	true,
 		"subGroups"	=> array()
 	),
+	"apiToFile"	=> array (
+		"name"		=> "Api to File",
+		"display"	=>	(!in_array('ApiToFileEnabled', $arrayOfDisabledModules)),
+		"subGroups"	=> array()
+	),
 	"global"	=> array (
 		"name"		=> "Global",
 		"display"	=>	true,
@@ -488,6 +493,73 @@ $defaultConfigMoreData = array(
 							"type"								=>	"dropdown"
 						)
 					)
+				)
+			),
+		)
+	),
+	"apiToFile"							=>	array(
+		"id"								=>	"apiToFile",
+		"name"								=>	"General",
+		"menu"								=> 	array(
+			"groups"							=>	array(
+				"apiToFile"
+			),
+			"id"								=>	"apiToFile",
+			"display"							=>	(!in_array('ApiToFileEnabled', $arrayOfDisabledModules)),
+			"name"								=>	"General",
+		),
+		"vars"								=>	array(
+			0									=> array(
+				"type"								=>	"linked",
+				"vars"								=>	array(
+					0									=>	array(
+						"key"								=>	"apiToFilePollRate",
+						"name"								=>	"Polling Rate",
+						"type"								=>	"number"
+					),
+					1								=>	array(
+						"key"								=>	"apiToFilePollRateType",
+						"options"							=>	array(
+							0 									=> array(
+								"value" 							=> "Milliseconds",
+								"name" 								=> "Milliseconds"),
+							1 									=> array(
+								"value" 							=> "Seconds",
+								"name" 								=> "Seconds")
+						),
+						"type"								=>	"dropdown"
+					)
+				)
+			),
+			1									=> array(
+				"type"								=>	"linked",
+				"vars"								=>	array(
+					0									=>	array(
+						"key"								=>	"apiToFilePollBackgroundRate",
+						"name"								=>	"Background Polling Rate",
+						"type"								=>	"number"
+					),
+					1								=>	array(
+						"key"								=>	"apiToFilePollBackgroundType",
+						"options"							=>	array(
+							0 									=> array(
+								"value" 							=> "Milliseconds",
+								"name" 								=> "Milliseconds"),
+							1 									=> array(
+								"value" 							=> "Seconds",
+								"name" 								=> "Seconds")
+						),
+						"type"								=>	"dropdown"
+					)
+				)
+			),
+			2									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"apiToFilePauseOnNotFocus",
+					"name"								=>	"Pause On Not Focus",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
 				)
 			),
 		)
