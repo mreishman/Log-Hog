@@ -3,6 +3,7 @@
 $defaultConfig = array(
 	'allLogsVisible'				=> 'true',
 	'apiToFilePauseOnNotFocus'		=> 'true',
+	'apiToFilePauseWithLogs'		=> 'true',
 	'apiToFilePollBackgroundRate'	=> 120,
 	'apiToFilePollBackgroundType'	=> 'Seconds',
 	'apiToFilePollRate'				=> 30,

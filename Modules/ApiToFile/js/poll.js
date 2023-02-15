@@ -42,7 +42,7 @@ function apitofile_checkIfPageHidden()
 {
 	try
 	{
-		if(isPageHidden() && apiToFilePauseOnNotFocus === "true")
+		if(isPageHidden() && apiToFilePauseOnNotFocus === "true" || userPaused)
 		{
 			//hidden
 			apitofile_pausePollFunction();

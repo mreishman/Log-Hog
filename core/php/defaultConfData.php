@@ -504,7 +504,7 @@ $defaultConfigMoreData = array(
 			"groups"							=>	array(
 				"apiToFile"
 			),
-			"id"								=>	"apiToFile",
+			"id"								=>	"settingsApiToFile",
 			"display"							=>	(!in_array('ApiToFileEnabled', $arrayOfDisabledModules)),
 			"name"								=>	"General",
 		),
@@ -558,6 +558,15 @@ $defaultConfigMoreData = array(
 				"var"								=>	array(
 					"key"								=>	"apiToFilePauseOnNotFocus",
 					"name"								=>	"Pause On Not Focus",
+					"options"							=>	$trueFalsVars,
+					"type"								=>	"dropdown"
+				)
+			),
+			2									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"apiToFilePauseWithLogs",
+					"name"								=>	"Pause On Log Pause",
 					"options"							=>	$trueFalsVars,
 					"type"								=>	"dropdown"
 				)
