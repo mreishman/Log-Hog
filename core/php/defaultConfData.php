@@ -270,8 +270,8 @@ $arraysToDecode = array(
 		"delete"	=> 'removeFilePathViewAlternativeRow(',	
 		"html"		=> 'filePathAlternativeSettingsHtml'
 	),
-	"apiToFileInnerSettings"	=> array(
-		"data"		=> $apiToFileInnerSettings,
+	"apiToFileInnerSettingsBC"	=> array(
+		"data"		=> $apiToFileInnerSettingsBC,
 		"onchange"	=> 'updateJsonStringOfApiToFileSettings();',
 		"delete"	=> 'removeRequestApiToFileSettingsRow(',	
 		"html"		=> 'apiToFilesSettingsHtml'
@@ -591,8 +591,8 @@ $defaultConfigMoreData = array(
 			4									=> array(
 				"type"								=>	"single",
 				"var"								=>	array(
-					"id"								=>	"apiToFileInnerSettings",
-					"key"								=>	"apiToFileInnerSettings",
+					"id"								=>	"apiToFileInnerSettingsBC",
+					"key"								=>	"apiToFileInnerSettingsBC",
 					"type"								=>	"hidden"
 				)
 			),

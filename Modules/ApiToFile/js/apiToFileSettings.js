@@ -1,13 +1,13 @@
 function updateJsonStringOfApiToFileSettings()
 {
-	updateJsonStringOfFilePathAlternativesMain('apiToFileInnerSettings', 'addNewRowToThisForApiToFiles');
+	updateJsonStringOfFilePathAlternativesMain('apiToFileInnerSettingsBC', 'addNewRowToThisForApiToFiles');
 }
 
 function addNewRequestApiToFileSettings()
 {
 	let groupId = 'apiToFileSettingsGroup';
 	let tableId = 'addNewRowToThisForApiToFiles';
-	let inputId = 'apiToFileInnerSettings';
+	let inputId = 'apiToFileInnerSettingsBC';
 	let values = [
 		{type: "store_hash", val: ""},
 		{type: "auth_token", val: ""},
@@ -21,6 +21,6 @@ function removeRequestApiToFileSettingsRow(rowNumber)
 {
 	let groupId = 'apiToFileSettingsGroup';
 	let tableId = 'addNewRowToThisForApiToFiles';
-	let inputId = 'apiToFileInnerSettings';
+	let inputId = 'apiToFileInnerSettingsBC';
 	removeFilePathAlternativeRowBase(rowNumber, groupId, tableId, inputId);
 }

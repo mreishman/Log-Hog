@@ -2,7 +2,7 @@
 
 $defaultConfig = array(
 	'allLogsVisible'				=> 'true',
-	'apiToFileInnerSettings'		=> '',
+	'apiToFileInnerSettingsBC'		=> '',
 	'apiToFilePauseOnNotFocus'		=> 'true',
 	'apiToFilePauseWithLogs'		=> 'true',
 	'apiToFilePollBackgroundRate'	=> 120,
