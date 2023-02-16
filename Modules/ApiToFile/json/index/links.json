@@ -1,3 +1,4 @@
 {
-    "poll"	: {"name":"Modules\/ApiToFile\/js\/poll.js","type":"js_module"}
+    "poll"                  : {"name":"Modules\/ApiToFile\/js\/poll.js","type":"js_module"},
+    "apiToFileSettings"     : {"name":"Modules\/ApiToFile\/js\/apiToFileSettings.js","type":"js_module"}
 }

@@ -1,0 +1,58 @@
+<span class="settingsBuffer"> Api Files: </span>
+<div id="apiToFileSettingsGroup">
+	<div class="settingsHeader">
+		BigCommerce Api
+		<a class="linkSmall" onclick="addNewRequestApiToFileSettings();" style="display: inline-block;">
+			Add New Row
+		</a>
+	</div>
+	<div class="settingsDiv">
+		<ul class="settingsUl">
+			<li>
+				<table id="addNewRowToThisForApiToFiles">
+					<tr>
+						<th width="50px;">
+						</th>
+						<th width="100px;">
+							Store Hash
+						</th>
+						<th width="100px;">
+							Auth Token
+						</th>
+						<th width="100px;">
+							Severity
+						</th>
+						<th width="100px;">
+							Output
+						</th>
+					</tr>
+					{{apiToFileInnerSettings}}
+				</table>
+			</li>
+		</ul>
+	</div>
+	<div class="settingsTemplateHolder" style="display: none;">
+		<table>
+			<tr>
+				<td>
+					{{i}}
+				</td>
+				<td>
+					<input value="{{store_hash_value}}" onchange="updateJsonStringOfApiToFileSettings();" type="text" name="path[{{i}}][store_hash]">
+				</td>
+				<td>
+					<input value="{{auth_token_value}}" onchange="updateJsonStringOfApiToFileSettings();" type="text" name="path[{{i}}][auth_token]">
+				</td>
+				<td>
+					<input value="{{severity_value}}" onchange="updateJsonStringOfApiToFileSettings();" type="text" name="path[{{i}}][severity]">
+				</td>
+				<td>
+					<input value="{{output_value}}" onchange="updateJsonStringOfApiToFileSettings();" type="text" name="path[{{i}}][output]">
+				</td>
+				<td>
+					<span class="linkSmall" onclick="removeRequestApiToFileSettingsRow({{i}});">Remove Row</span>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>

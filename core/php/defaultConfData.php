@@ -254,17 +254,27 @@ $customStyleSectionTimestamp = "
 
 $filePathAlternativeSettingsHtml = file_get_contents($core->baseUrl()."core/html/filePathAlternativesSettings.html");
 
+$apiToFilesSettingsHtml = file_get_contents($core->baseUrl()."core/html/apiToFilesettings.html");
+
 
 $arraysToDecode = array(
 	"onLoadTableContent"		=> array(
 		"data"		=> $filePathAlternatives,
 		"onchange"	=> 'updateJsonStringOfFilePathAlternatives();',
-		"delete"	=> 'removeFilePathAlternativeRow(',	
+		"delete"	=> 'removeFilePathAlternativeRow(',
+		"html"		=> 'filePathAlternativeSettingsHtml'
 	),
 	"onLoadTableContentView"	=> array(
 		"data"		=> $filePathViewAlternatives,
 		"onchange"	=> 'updateJsonStringOfFilePathViewAlternatives();',
 		"delete"	=> 'removeFilePathViewAlternativeRow(',	
+		"html"		=> 'filePathAlternativeSettingsHtml'
+	),
+	"apiToFileInnerSettings"	=> array(
+		"data"		=> $apiToFileInnerSettings,
+		"onchange"	=> 'updateJsonStringOfApiToFileSettings();',
+		"delete"	=> 'removeRequestApiToFileSettingsRow(',	
+		"html"		=> 'apiToFilesSettingsHtml'
 	)
 );
 foreach($arraysToDecode as $replaceKey => $arrayValue)
@@ -290,7 +300,14 @@ foreach($arraysToDecode as $replaceKey => $arrayValue)
 			$startOfTag = !$startOfTag;
 		}
 	}
-	$filePathAlternativeSettingsHtml = implode($onLoadContent, explode("{{".$replaceKey."}}", $filePathAlternativeSettingsHtml));
+	if($arrayValue["html"] === "filePathAlternativeSettingsHtml")
+	{
+		$filePathAlternativeSettingsHtml = implode($onLoadContent, explode("{{".$replaceKey."}}", $filePathAlternativeSettingsHtml));
+	}
+	elseif($arrayValue["html"] === "apiToFilesSettingsHtml")
+	{
+		$apiToFilesSettingsHtml = implode($onLoadContent, explode("{{".$replaceKey."}}", $apiToFilesSettingsHtml));
+	}
 }
 
 $dynamicModuleList = array (
@@ -562,7 +579,7 @@ $defaultConfigMoreData = array(
 					"type"								=>	"dropdown"
 				)
 			),
-			2									=>	array(
+			3									=>	array(
 				"type"								=>	"single",
 				"var"								=>	array(
 					"key"								=>	"apiToFilePauseWithLogs",
@@ -570,6 +587,18 @@ $defaultConfigMoreData = array(
 					"options"							=>	$trueFalsVars,
 					"type"								=>	"dropdown"
 				)
+			),
+			4									=> array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"id"								=>	"apiToFileInnerSettings",
+					"key"								=>	"apiToFileInnerSettings",
+					"type"								=>	"hidden"
+				)
+			),
+			5									=>	array(
+				"custom"							=>	$apiToFilesSettingsHtml,
+				"type"								=>	"custom"
 			),
 		)
 	),

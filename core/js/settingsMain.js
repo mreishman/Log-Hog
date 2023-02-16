@@ -214,23 +214,25 @@ function hideLayoutOptionsAll()
 	$(".innerWindowDisplayLoadLayoutHidden").show();
 }
 
-function addNewFilePathAlternativeRow(newRowPos, originalValue, newValue)
+function addNewFilePathAlternativeRow()
 {
 	let groupId = 'filePathAlternativeSettings';
 	let tableId = 'addNewRowToThisForFilePathAlternatives';
 	let inputId = 'filePathAlternatives';
-	addNewFilePathAlternativeRowBase(newRowPos, originalValue, newValue, groupId, tableId, inputId);
+	let values = [{type: "original", val: ""},{type: "new", val: ""}];
+	addNewFilePathAlternativeRowBase(-1, values, groupId, tableId, inputId);
 }
 
-function addNewFilePathViewAlternativeRow(newRowPos, originalValue, newValue)
+function addNewFilePathViewAlternativeRow()
 {
 	let groupId = 'filePathViewAlternativeSettings';
 	let tableId = 'addNewRowToThisForFilePathViewAlternatives';
 	let inputId = 'filePathViewAlternatives';
-	addNewFilePathAlternativeRowBase(newRowPos, originalValue, newValue, groupId, tableId, inputId);
+	let values = [{type: "original", val: ""},{type: "new", val: ""}];
+	addNewFilePathAlternativeRowBase(-1, values, groupId, tableId, inputId);
 }
 
-function addNewFilePathAlternativeRowBase(newRowPos, originalValue, newValue, groupId, tableId, inputId)
+function addNewFilePathAlternativeRowBase(newRowPos, newValues, groupId, tableId, inputId)
 {
 	let newRow = "<tr class=\"generatedRow\" >"+$("#"+groupId+" .settingsTemplateHolder tr").html()+"</tr>";
 	if(newRowPos === -1)
@@ -238,8 +240,15 @@ function addNewFilePathAlternativeRowBase(newRowPos, originalValue, newValue, gr
 		newRowPos = $('#'+tableId+' tr').length;
 	}
 	newRow = newRow.replace(/{{i}}/g, newRowPos);
-	newRow = newRow.replace(/{{original_value}}/g, originalValue);
-	newRow = newRow.replace(/{{new_value}}/g, newValue);
+
+	const newValuesLength = newValues.length;
+
+	for(let i = 0; i < newValues.length; i++)
+	{
+		const regex = new RegExp(`{{${newValues[i]["type"]}_value}}`, "g");
+		newRow = newRow.replace(regex, newValues[i]["val"]);
+	}
+
 	$('#'+tableId+' tr:last').after(newRow);
 	updateJsonStringOfFilePathAlternativesMain(inputId, tableId);
 }
@@ -269,33 +278,46 @@ function removeFilePathAlternativeRowBase(rowNumber, groupId, tableId, inputId)
 	let newValues = [];
 	let valuesLength = values.length;
 	let minusOne = false;
+
+	let grouped = [];
+
 	for(i = 0; i < valuesLength; i++)
 	{
 		let locVal = values[i];
-		let rowICheck = Math.ceil((i+1)/2);
-		let oCheck = "path["+rowNumber+"][original]";
-		let nCheck = "path["+rowNumber+"][new]";
-		if(locVal["name"] === oCheck || locVal["name"] === nCheck)
+		const matches = locVal.name.match(/path\[(\d+)\]\[(\w+)\]/);
+		let currentRowNumber = matches[1];
+		const type = matches[2];
+
+		if(currentRowNumber == rowNumber)
 		{
 			minusOne = true;
 			continue;
 		}
+
 		if(minusOne)
 		{
-			//reduce number by 1
-			locVal["name"] = locVal["name"].replace("["+rowICheck+"]", "["+(rowICheck - 1)+"]");
+			currentRowNumber = currentRowNumber - 1;
 		}
-		newValues.push(locVal)
-	}
+		
+		if (!grouped[currentRowNumber]) {
+			grouped[currentRowNumber] = [];
+	    }
 
-	let newValuesLength = newValues.length;
-	if(newValuesLength > 0)
+	    // Add the value to the array for the current row number and type
+	    grouped[currentRowNumber].push({type: type, val: locVal["value"]});
+	}
+	let groupedKeys = grouped.keys();
+	let groupedKeysLength = grouped.length;
+	if(groupedKeysLength > 0)
 	{
 		//rebuild display table
-		for(i = 0; i < newValuesLength; i = i + 2)
+		for (let key of groupedKeys)
 		{
-			let rowICheck = Math.ceil((i+1)/2);
-			addNewFilePathAlternativeRowBase(rowICheck, newValues[i]["value"], newValues[(i+1)]["value"], groupId, tableId, inputId)
+			if(typeof grouped[key] === 'undefined')
+			{
+				continue;
+			}
+			addNewFilePathAlternativeRowBase(key, grouped[key], groupId, tableId, inputId)
 		}
 		updateJsonStringOfFilePathAlternativesMain(inputId, tableId);
 	}
