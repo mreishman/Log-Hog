@@ -284,20 +284,24 @@ foreach($arraysToDecode as $replaceKey => $arrayValue)
 	$onLoadContent = "";
 	if(!empty($jsonArray))
 	{
-		$startOfTag = true;
+		$prevI = "";
 		foreach($jsonArray as $jsonData)
 		{
 			$i = explode("]", explode("[", $jsonData["name"])[1])[0];
-			if($startOfTag)
+			if($i !== $prevI)
 			{
+				if($onLoadContent !== "")
+				{
+					$onLoadContent .= "<td><span class=\"linkSmall\" onclick=\"".$arrayValue["delete"].$i.");\">Remove Row</span></td></tr>";
+				}
 				$onLoadContent .= "<tr class=\"generatedRow\"><td>".$i."</td>";
+				$prevI = $i;
 			}
 			$onLoadContent .= "<td><input value=\"".$jsonData["value"]."\" onchange=\"".$arrayValue["onchange"]."\" type=\"text\" name=\"".$jsonData["name"]."\"></td>";
-			if(!$startOfTag)
-			{
-				$onLoadContent .= "<td><span class=\"linkSmall\" onclick=\"".$arrayValue["delete"].$i.");\">Remove Row</span></td></tr>";
-			}
-			$startOfTag = !$startOfTag;
+		}
+		if($onLoadContent !== "")
+		{
+			$onLoadContent .= "<td><span class=\"linkSmall\" onclick=\"".$arrayValue["delete"].$i.");\">Remove Row</span></td></tr>";
 		}
 	}
 	if($arrayValue["html"] === "filePathAlternativeSettingsHtml")

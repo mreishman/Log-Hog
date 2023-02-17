@@ -46,7 +46,15 @@ $returnData = array(
 try
 {
 	$apiToFileInnerSettingsBC = json_decode($apiToFileInnerSettingsBC, true);
-	foreach ($apiToFileInnerSettingsBC as $apiData)
+	$grouped = [];
+	foreach ($apiToFileInnerSettingsBC as $jsonData)
+	{
+		$i = explode("]", explode("[", $jsonData["name"])[1])[0];
+		$name = $i = explode("]", explode("[", $jsonData["name"])[2])[0];
+		$grouped[$i][$name] = $jsonData["value"];
+
+	}
+	foreach($grouped as $apiData)
 	{
 		$curl = curl_init();
 
@@ -65,12 +73,22 @@ try
 			),
 		));
 
-		$response = curl_exec($curl);
+		$response = json_decode(curl_exec($curl), true);
+
+		$text = "";
+
+		foreach($response["data"] as $line)
+		{
+			$text .= $line["date_created"] . " ";
+			unset($line["id"]);
+			unset($line["date_created"]);
+			$text .= json_encode($line) . PHP_EOL;
+		}
 
 		curl_close($curl);
-		file_put_contents($apiData["output"], $response['data']);
+		file_put_contents($apiData["output"], $text);
 	}
-
+}
 catch (Exception $e)
 {
 	$response[$path]["log"] = "Error - ".$e." ";
