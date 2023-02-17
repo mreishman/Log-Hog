@@ -91,9 +91,8 @@ try
 }
 catch (Exception $e)
 {
-	$response[$path]["log"] = "Error - ".$e." ";
-	$response[$path]["data"] = " Limit: ".$logSizeLimit."(".($logSizeLimit+$buffer).") ".$modifier." | Line Count: --- | Time: ---";
-	$response[$path]["lineCount"] = "---";
+	$returnData["error"] = "Error - ".$e." ";
+	$returnData["success"] = false;
 }
 
 
