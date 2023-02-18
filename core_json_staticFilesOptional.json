@@ -1,0 +1,14 @@
+{
+	"advanced"			: {"name":"core\/js\/advanced.js","type":"js"},
+	"colorScheme"		: {"name":"core\/js\/colorScheme.js","type":"js"},
+	"devTools"			: {"name":"core\/js\/devTools.js","type":"js"},
+	"globalConfig"		: {"name":"core\/js\/globalConfig.js","type":"js"},
+	"hideEmptyLog"		: {"name":"core\/js\/hideEmptyLog.js","type":"js"},
+	"jsColor"			: {"name":"core\/js\/jscolor.js","type":"js"},
+	"resetSettings"		: {"name":"core\/js\/resetSettingsJs.js","type":"js"},
+	"titleFlash" 		: {"name":"core\/js\/titleFlash.js","type":"js"},
+	"eraser"			: {"name":"img\/eraser.png","type":"img","class":"eraserForLoad"},
+	"eraserMulti"		: {"name":"img\/eraserMulti.png","type":"img","class":"eraserMultiImageForLoad"},
+	"notification"		: {"name":"img\/notification.png","type":"img","class":"notificationImageForLoad"},
+	"notificationClear"	: {"name":"img\/notificationClear.png","type":"img","class":"notificationClearImageForLoad"}
+}

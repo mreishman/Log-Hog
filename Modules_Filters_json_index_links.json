@@ -1,0 +1,4 @@
+{
+	"filter" 			: {"name":"Modules\/Filters\/js\/filter.js","type":"js_module"},
+	"search"			: {"name":"img\/search.png","type":"img","class":"showFilterTopBarImageForLoad","condition":"filterSearchInHeader"}
+}
