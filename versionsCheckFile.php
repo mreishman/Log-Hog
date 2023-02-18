@@ -19,7 +19,7 @@ elseif($configStatic['version'] == '8.3.1') {
 }
 //update info
 $versionCheckArray = array(
-	'version'		=> '8.5',
+	'version'		=> '8.5.1',
 	'versionList'		=> array(
 		'2.0.1'	        => array(
 			'branchName'	=> '2.0.1Update',
