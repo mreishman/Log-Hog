@@ -1,0 +1,4 @@
+{
+	"themes" 			: {"name":"Modules\/Themes\/js\/themes.js","type":"js_module"},
+	"upgradeTheme" 		: {"name":"Modules\/Themes\/js\/upgradeTheme.js","type":"js_module"}
+}

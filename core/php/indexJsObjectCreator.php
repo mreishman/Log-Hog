@@ -12,62 +12,9 @@ if($samePageSettings === "true")
 	$arrayOfFiles[] = $arrayOfFilesExtra['jsColor'];
 	$arrayOfFiles[] = $arrayOfFilesExtra['resetSettings'];
 }
-if($updaterEnabled === "true")
-{
-	$arrayOfFiles[] = $arrayOfFilesExtra['update'];
-}
-if($filterEnabled === "true")
-{
-	$arrayOfFiles[] = $arrayOfFilesExtra['filter'];
-}
-if($advancedLogFormatEnabled === "true")
-{
-	if($logFormatPhpEnable === "true")
-	{
-		$arrayOfFiles[] = $arrayOfFilesExtra['formatPhp'];
-	}
-	if($logFormatFileEnable === "true")
-	{
-		$arrayOfFiles[] = $arrayOfFilesExtra['formatFile'];
-	}
-	if($logFormatReportEnable === "true")
-	{
-		$arrayOfFiles[] = $arrayOfFilesExtra['formatReport'];
-	}
-	if($logFormatJsObjectEnable === "true")
-	{
-		$arrayOfFiles[] = $arrayOfFilesExtra['formatJsObject'];
-	}
-	$arrayOfFiles[] = $arrayOfFilesExtra['format'];
-	$arrayOfFiles[] = $arrayOfFilesExtra['dateFormat.min'];
-	$directory = array_diff(scandir($core->baseURL()."core/js/formatObjects/"), array('..', '.'));
-	foreach ($directory as $file) {
-		$arrayOfFiles[] =  array(
-			"name" => "formatObjects/".$file,
-			"type" => "js"
-		);
-	}
-}
-if($themesEnabled === "true")
-{
-	$arrayOfFiles[] = $arrayOfFilesExtra['themes'];
-	$arrayOfFiles[] = $arrayOfFilesExtra['upgradeTheme'];
-}
-if($oneLogEnable === "true")
-{
-	$arrayOfFiles[] = $arrayOfFilesExtra['oneLog'];
-}
 if($flashTitleUpdateLog === "true")
 {
 	$arrayOfFiles[] = $arrayOfFilesExtra['titleFlash'];
-}
-if($enableHistory === "true")
-{
-	$arrayOfFiles[] = $arrayOfFilesExtra['archive'];
-}
-if($enableMultiLog === "true")
-{
-	$arrayOfFiles[] = $arrayOfFilesExtra['multilog'];
 }
 if($hideEmptyLog === "true")
 {
@@ -89,30 +36,51 @@ if($hideNotificationIcon !== "true")
 {
 	$arrayOfFiles[] = $arrayOfFilesExtra['notification'];
 }
+
+
 $currentSessionValue = $windowConfig;
 if(isset($_COOKIE["windowConfig"]) && $logLoadPrevious === "true")
 {
 	$cookieData = json_decode($_COOKIE["windowConfig"]);
 	$currentSessionValue = $cookieData;
 }
-if($enableMultiLog === "false")
+if(in_array('enableMultiLog', $arrayOfDisabledModules))
 {
 	$windowConfig = "1x1";
 	$currentSessionValue = $windowConfig;
 }
-if($currentSessionValue !== "1x1")
+
+
+/* Modules */
+foreach($modulesList as $module)
 {
-	$arrayOfFiles[] = $arrayOfFilesExtra['pin'];
-	$arrayOfFiles[] = $arrayOfFilesExtra['pinPinned'];
+	if($module["enabled"])
+	{
+		$file = $core->baseURL() . $module["path"] . "/json/index/links.json";
+		if(file_exists($file))
+		{
+			$files = json_decode(file_get_contents($file), true);
+			foreach($files as $file)
+			{
+				$includeFile = true;
+				if(isset($file["condition"]))
+				{
+					$condition = $file["condition"];
+					$includeFile = $$condition;
+				}
+				if($includeFile)
+				{
+					$arrayOfFiles[] = $file;
+				}
+			}
+		}
+	}
 }
-if ($filterSearchInHeader === "true" && $filterEnabled === "true")
-{
-	$arrayOfFiles[] = $arrayOfFilesExtra['search'];
-}
+
 $counter = 0;
 foreach ($arrayOfFiles as $file)
 {
-	if($file["type"] !== "js" && strpos($file["name"], "core/") === false)
+	if($file["type"] !== "js" && $file["type"] !== "js_module" && strpos($file["name"], "core/") === false)
 	{
 		$arrayOfFiles[$counter]["name"] = $baseUrl . $file["name"];
 	}
@@ -131,10 +99,6 @@ usort($arrayOfFiles, 'compareByType');
 foreach ($arrayOfFiles as $key => $value)
 {
 	$filePath = $value["name"];
-	if($value["type"] === "js")
-	{
-		$filePath = "core/js/".$filePath;
-	}
 	$arrayOfFiles[$key]["ver"] = $core->getFileTime($filePath, $configStatic["version"]);
 	$arrayOfFiles[$key]["size"] = filesize($filePath);
 }

@@ -1,0 +1,10 @@
+{
+	"dateFormat.min"	: {"name":"Modules\/AdvancedLogFormatOptions\/js\/dateFormat.min.js","type":"js_module"},
+	"format"		: {"name":"Modules\/AdvancedLogFormatOptions\/js\/format.js","type":"js_module"},
+	"formatSettings"	: {"name":"Modules\/AdvancedLogFormatOptions\/js\/formatSettings.js","type":"js_module"},
+	"format_tokenParse"	: {"name":"Modules\/AdvancedLogFormatOptions\/js\/formatObjects\/tokenParse.js","type":"js_module"},
+	"formatFile"		: {"name":"Modules\/AdvancedLogFormatOptions\/js\/formatFile.js","type":"js_module","condition":"logFormatFileEnable"},
+	"formatPhp" 		: {"name":"Modules\/AdvancedLogFormatOptions\/js\/formatPhp.js","type":"js_module","condition":"logFormatPhpEnable"},
+	"formatJsObject"	: {"name":"Modules\/AdvancedLogFormatOptions\/js\/formatJsObject.js","type":"js_module","condition":"logFormatJsObjectEnable"},
+	"formatReport"		: {"name":"Modules\/AdvancedLogFormatOptions\/js\/formatReport.js","type":"js_module","condition":"logFormatReportEnable"}
+}

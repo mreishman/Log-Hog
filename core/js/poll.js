@@ -497,7 +497,7 @@ function arrayOfDataMainDataFilter(data)
 function firstLoadEndAction()
 {
 	firstLoad = false;
-	if(oneLogEnable === "true")
+	if(($.inArray("oneLogEnable", JSON.parse(moduleDisabledList))) < 0)
 	{
 		if(Object.keys(arrayOfDataMain).length < 1)
 		{
@@ -777,7 +777,7 @@ function update(data)
 		var folderNamePrev = "?-1";
 		var folderNameCount = -1;
 		var atLeastOneLogUpdate = false;
-		if(oneLogEnable === "true")
+		if(($.inArray("oneLogEnable", JSON.parse(moduleDisabledList))) < 0)
 		{
 			folderNameCount++;
 		}
@@ -795,7 +795,7 @@ function update(data)
 			shortName = files[i].replace(/.*\//g, "");
 			id = filterIdText(name);
 
-			if(( filterEnabled === "false" || showFileFromFilter(id, name, shortName, logData)) && (showFileFromGroup(id) || $("#"+id).hasClass("active")))
+			if(( ($.inArray("filterEnabled", JSON.parse(moduleDisabledList)) < 0) || showFileFromFilter(id, name, shortName, logData)) && (showFileFromGroup(id) || $("#"+id).hasClass("active")))
 			{
 				showFile = true;
 			}
@@ -951,7 +951,7 @@ function update(data)
 									}
 								}
 							}
-							if(rightClickMenuEnable === "true")
+							if(($.inArray("rightClickMenuEnable", JSON.parse(moduleDisabledList))) < 0)
 							{
 								addLogToRightClickMenu(files[i], id, fullPathSearch, shortName);
 							}
@@ -1023,7 +1023,7 @@ function update(data)
 							}
 							else
 							{
-								if(!firstLoad && notificationNewLine === "true" && (oneLogEnable === "false" || isOneLogVisible() === "false" || oneLogVisibleDisableUpdate === "false"))
+								if(!firstLoad && notificationNewLine === "true" && (($.inArray("oneLogEnable", JSON.parse(moduleDisabledList)) < 0) || isOneLogVisible() === "false" || oneLogVisibleDisableUpdate === "false"))
 								{
 									if(autoMoveUpdateLog === "true")
 									{
@@ -1060,7 +1060,7 @@ function update(data)
 							}
 
 							//update one log if needed
-							if(oneLogEnable === "true" && !firstLoad)
+							if(($.inArray("oneLogEnable", JSON.parse(moduleDisabledList)) < 0) && !firstLoad)
 							{
 								if(fullPathSearch in fileData && fileData[fullPathSearch]["AlertEnabled"] === "true" && (!(id in alertEnabledArray) || (id in alertEnabledArray && alertEnabledArray[id] === "enabled")))
 								{

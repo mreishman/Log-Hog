@@ -195,7 +195,7 @@ function updateDocumentTitle(updateText)
 
 function updateFileDataArray(newDataArr)
 {
-	if(advancedLogFormatEnabled === "true" && logFormatFileEnable === "true")
+	if(($.inArray("advancedLogFormatEnabled", JSON.parse(moduleDisabledList)) < 0) && logFormatFileEnable === "true")
 	{
 		updateFileDataArrayInner(newDataArr);
 	}
@@ -279,7 +279,7 @@ function getLogIdFromText(text)
 		{
 			return filterIdText(arrayOfDataMainKeys[i])
 		}
-		if(advancedLogFormatEnabled === "true" && logFormatFileEnable === "true" && "fileData" in arrayOfDataMain[arrayOfDataMainKeys[i]])
+		if(($.inArray("advancedLogFormatEnabled", JSON.parse(moduleDisabledList)) < 0) && logFormatFileEnable === "true" && "fileData" in arrayOfDataMain[arrayOfDataMainKeys[i]])
 		{
 			let fileDataLocal = arrayOfDataMain[arrayOfDataMainKeys[i]]["fileData"];
 			if(fileDataLocal)
@@ -463,7 +463,7 @@ function selectTabsInOrder(targetLength)
 					var isVis = false;
 					var currentLayout = getCurrentWindowLayout();
 					var layoutVersionIndex = document.getElementById("layoutVersionIndex").value;
-					if(enableMultiLog === "true" && logLoadLayout.length !== 0 && logLoadLayout[currentLayout][h][layoutVersionIndex] !== "" && logLoadLayout[currentLayout][h][layoutVersionIndex] in fileData )
+					if(($.inArray("enableMultiLog", JSON.parse(moduleDisabledList)) < 0) && logLoadLayout.length !== 0 && logLoadLayout[currentLayout][h][layoutVersionIndex] !== "" && logLoadLayout[currentLayout][h][layoutVersionIndex] in fileData )
 					{
 						var currentLogCheck = logLoadLayout[currentLayout][h][layoutVersionIndex];
 						if(checkNameCont(currentLogCheck.replace(/[^a-z0-9]/g, ""), arrayOfLogs[i]))
@@ -771,7 +771,7 @@ function removeLogFromDisplay(currentLogNum)
 		return;
 	}
 	//check if oneLog is enabled
-	if(oneLogEnable === "true")
+	if(($.inArray("oneLogEnable", JSON.parse(moduleDisabledList))) < 0)
 	{
 		//check if oneLog is open in another block
 		//if not in another block, switch this block to oneLog
@@ -783,7 +783,7 @@ function removeLogFromDisplay(currentLogNum)
 			return;
 		}
 		//else close, and go back to 1x1 window with onelog open
-		if(oneLogEnable === "true")
+		if(($.inArray("oneLogEnable", JSON.parse(moduleDisabledList))) < 0)
 		{
 			closeToOneLogInFull(currentLogNum, currentOneLogPosition);
 			return;
@@ -1218,7 +1218,7 @@ function resize()
 
 		updateNotificationCount();
 
-		if(advancedLogFormatEnabled === "true")
+		if(($.inArray("advancedLogFormatEnabled", JSON.parse(moduleDisabledList))) < 0)
 		{
 			if(dateTextFormatColumn === "true" || (dateTextFormatColumn === "auto" && window.innerWidth > breakPointTwo))
 			{
@@ -1460,7 +1460,7 @@ function clearLogInner(title)
 {
 	title = filterTitle(title);
 	title = escapeTheEscapes(title);
-	if(enableHistory === "true")
+	if(($.inArray("enableHistory", JSON.parse(moduleDisabledList))) < 0)
 	{
 		archiveAction(title, "tmp");
 	}
@@ -1555,7 +1555,7 @@ function deleteActionAfter()
 	try
 	{
 		//save tmp versions first
-		if(saveTmpLogOnClear === "true" && enableHistory === "true")
+		if(saveTmpLogOnClear === "true" && ($.inArray("enableHistory", JSON.parse(moduleDisabledList)) < 0))
 		{
 			var logSaveTmpKeys = Object.keys(arrayOfDataMain);
 			var logSaveTmpKeysLength = logSaveTmpKeys.length;
@@ -1653,7 +1653,7 @@ function deleteLog(title)
 		}
 		title = escapeTheEscapes(title);
 		title = title.trim();
-		if(enableHistory === "true")
+		if(($.inArray("enableHistory", JSON.parse(moduleDisabledList))) < 0)
 		{
 			archiveAction(title, "tmp");
 		}
@@ -1728,7 +1728,7 @@ function checkForUpdateMaybe()
 {
 	try
 	{
-		if (updaterEnabled === "true" && autoCheckUpdate === "true")
+		if (($.inArray("updaterEnabled", JSON.parse(moduleDisabledList)) < 0) && autoCheckUpdate === "true")
 		{
 			if(daysSinceLastCheck > (autoCheckDaysUpdate - 1))
 			{
@@ -1945,7 +1945,7 @@ function generateWindowDisplayInner()
 			}
 			newStyle += " padding: 0px; position: relative; overflow-x: hidden; \"";
 			newBlock = newBlock.replace(/{{customsidebarstyle}}/g, newStyle);
-			if(filterEnabled === "true")
+			if(($.inArray("filterEnabled", JSON.parse(moduleDisabledList))) < 0)
 			{
 				newBlock = newBlock.replace(/{{customfilterstyle}}/g, "");
 			}
@@ -1993,7 +1993,7 @@ function generateWindowDisplayInner()
 	document.getElementById("log").innerHTML = ""+logDisplayHtml+"";
 	//add search filters if there
 	let currentLengthOfLogDisplayArray = Object.keys(logDisplayArray).length;
-	if(filterEnabled === "true")
+	if(($.inArray("filterEnabled", JSON.parse(moduleDisabledList))) < 0)
 	{
 		for(let i = 0; i < currentLengthOfLogDisplayArray; i++)
 		{
@@ -2290,7 +2290,7 @@ function mainReady()
 	{
 		currentLogFormat = 1;
 	}
-	if(oneLogEnable === "true")
+	if(($.inArray("oneLogEnable", JSON.parse(moduleDisabledList))) < 0)
 	{
 		addOneLogTab();
 		toggleVisibleOneLog();
@@ -2303,7 +2303,7 @@ function mainReady()
 
 	checkForUpdateMaybe();
 	generateWindowDisplay();
-	if(filterEnabled === "true")
+	if(($.inArray("filterEnabled", JSON.parse(moduleDisabledList))) < 0)
 	{
 		$("#searchFieldInput").on("input", function()
 		{

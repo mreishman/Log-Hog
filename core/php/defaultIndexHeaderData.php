@@ -169,7 +169,7 @@ $defaultIndexHeaderConfig = array(
 		"type"		=> 3,
 		"style"		=> "cursor: pointer; padding-right: 5px;",
 		"outerClass"	=> "indexHeaderFilterGroup",
-		"outerVisible"	=> (!($filterSearchInHeader === "true" && $filterEnabled === "true")) ? "false" : "true",
+		"outerVisible"	=> (!($filterSearchInHeader === "true" && !(in_array('filterEnabled', $arrayOfDisabledModules)))) ? "false" : "true",
 		"position"	=> 10,
 		"section"	=> "right",
 		"content"	=> $core->generateImage(
@@ -187,7 +187,7 @@ $defaultIndexHeaderConfig = array(
 		"type"		=> 3,
 		"visible"	=> "false",
 		"outerClass"	=> "indexHeaderFilterGroup",
-		"outerVisible"	=> (!($filterSearchInHeader === "true" && $filterEnabled === "true")) ? "false" : "true",
+		"outerVisible"	=> (!($filterSearchInHeader === "true" && !(in_array('filterEnabled', $arrayOfDisabledModules)))) ? "false" : "true",
 		"position"	=> 10,
 		"section"	=> "right",
 		"content"	=> $filterHeaderSearchBoxContent

@@ -110,8 +110,13 @@ var openTabId = "<?php echo $_GET["id"] ?? ""; ?>";
 		"default"		=> $configStatic["version"]
 	),
 	array(
-		"filePath"		=> "core/js/format.js",
-		"baseFilePath"	=> "core/js/format.js",
+		"filePath"		=> "Modules/AdvancedLogFormatOptions/js/format.js",
+		"baseFilePath"	=> "Modules/AdvancedLogFormatOptions/js/format.js",
+		"default"		=> $configStatic["version"]
+	),
+	array(
+		"filePath"		=> "Modules/AdvancedLogFormatOptions/js/formatSettings.js",
+		"baseFilePath"	=> "Modules/AdvancedLogFormatOptions/js/formatSettings.js",
 		"default"		=> $configStatic["version"]
 	)
 )); ?>

@@ -172,14 +172,43 @@ function verifyNoConfigBackups()
 	}
 }
 
-function showOrHideVersionSaveConfig()
+function updateListOfDisabledModules()
 {
-	if(document.getElementById("backupNumConfigEnabled").value === "true")
+	let arrayOfModules = $("#modules select").serializeArray();
+	let arrayOfModulesLength = arrayOfModules.length;
+	let disabledArray = [];
+	for(let i = 0; i < arrayOfModulesLength; i++)
 	{
-		document.getElementById("versionSaveContentSettings").style.display = "block";
+		let module = arrayOfModules[i];
+		if(module.value === 'false')
+		{
+			disabledArray.push(module.name);
+		}
 	}
-	else
+	$("#moduleDisabledList").val(JSON.stringify(disabledArray));
+}
+
+function selectDisabledModules()
+{
+	let arrayOfModules = $("#modules select").serializeArray();
+	let arrayOfModulesLength = arrayOfModules.length;
+	let savedArray = JSON.parse($("#moduleDisabledList").val());
+
+	for(let i = 0; i < arrayOfModulesLength; i++)
 	{
-		document.getElementById("versionSaveContentSettings").style.display = "none";
+		let module = arrayOfModules[i];
+		if($.inArray( module.name, savedArray ) > -1)
+		{
+			$("#modules [name='" + module.name + "']").val('false');
+		}
+		else
+		{
+			$("#modules [name='" + module.name + "']").val('true');
+		}
 	}
 }
+
+
+$( document ).ready(function() {
+    selectDisabledModules();
+});

@@ -11,11 +11,11 @@ if(!$session->startSession())
 }
 $currentPage = "index.php";
 $errorCheck->checkIfFilesExist(
-	array("core/conf/config.php","core/php/configStatic.php","core/php/loadVars.php","core/php/loadVarsToJs.php","core/php/updateCheck.php","core/js/jquery.js","core/php/customCSS.php","core/php/template/popup.php","core/js/main.js","core/js/rightClickJS.js","core/js/update.js","setup/setupProcessFile.php","error.php"),
+	array("core/conf/config.php","core/php/configStatic.php","core/php/loadVars.php","core/php/loadVarsToJs.php","core/php/updateCheck.php","core/js/jquery.js","core/php/customCSS.php","core/php/template/popup.php","core/js/main.js","setup/setupProcessFile.php","error.php"),
 	 "",
 	 $currentPage);
 $errorCheck->checkIfFilesAreReadable(
-	array("core/conf/config.php","core/php/configStatic.php","core/php/loadVars.php","core/php/loadVarsToJs.php","core/php/updateCheck.php","core/js/jquery.js","core/php/customCSS.php","core/php/template/popup.php","core/js/main.js","core/js/rightClickJS.js","core/js/update.js","setup/setupProcessFile.php","error.php"),
+	array("core/conf/config.php","core/php/configStatic.php","core/php/loadVars.php","core/php/loadVarsToJs.php","core/php/updateCheck.php","core/js/jquery.js","core/php/customCSS.php","core/php/template/popup.php","core/js/main.js","setup/setupProcessFile.php","error.php"),
 	 "",
 	 $currentPage);
 require_once("core/php/class/update.php");
@@ -85,7 +85,7 @@ if(isset($_COOKIE["windowConfig"]) && $logLoadPrevious === "true")
 	$lastSessionLogArray = $_COOKIE["logDisplayArray"];
 	$currentSessionValue = $cookieData;
 }
-if($enableMultiLog === "false")
+if(in_array('enableMultiLog', $arrayOfDisabledModules))
 {
 	$windowConfig = "1x1";
 	$currentSessionValue = $windowConfig;
@@ -204,8 +204,8 @@ $needRefresh = $core->generateImage(
 		</form>
 		<script>
 
-			<?php
-			if($rightClickMenuEnable == "true"): ?>
+			<?php //needs to be moved out of index at some point
+			if(!(in_array('rightClickMenuEnable', $arrayOfDisabledModules))): ?>
 				if(document.getElementById('deleteImage'))
 				{
 					Rightclick_ID_list.push('deleteImage');

@@ -22,7 +22,7 @@ require_once('../configStatic.php');
 require_once('../class/poll.php');
 $poll = new poll();
 
-$varsLoadLite = array("shellOrPhp", "logTrimOn", "logSizeLimit","logTrimMacBSD", "logTrimType","TrimSize","enableLogging","buffer","sliceSize","lineCountFromJS","showErrorPhpFileOpen","advancedLogFormatEnabled","logFormatFileEnable","logFormatFileLinePadding","logFormatFilePermissions","filePathAlternatives","filePathViewAlternatives");
+$varsLoadLite = array("shellOrPhp", "logTrimOn", "logSizeLimit","logTrimMacBSD", "logTrimType","TrimSize","enableLogging","buffer","sliceSize","lineCountFromJS","showErrorPhpFileOpen","moduleDisabledList","logFormatFileEnable","logFormatFileLinePadding","logFormatFilePermissions","filePathAlternatives","filePathViewAlternatives");
 
 foreach ($varsLoadLite as $varLoadLite)
 {
@@ -32,6 +32,8 @@ foreach ($varsLoadLite as $varLoadLite)
 		$$varLoadLite = $config[$varLoadLite];
 	}
 }
+
+$arrayOfDisabledModules = json_decode($moduleDisabledList, true);
 
 $logSizeLimit = intval($logSizeLimit);
 
@@ -138,7 +140,7 @@ if(isset($_POST['arrayToUpdate']))
 				}
 			}
 			$dataVar = htmlentities($dataVar);
-			if($advancedLogFormatEnabled === "true" && $logFormatFileEnable === "true")
+			if(!in_array('advancedLogFormatEnabled', $arrayOfDisabledModules) && $logFormatFileEnable === "true")
 			{
 				//try and get file path and file lines
 				$arrayOfFiles = array();

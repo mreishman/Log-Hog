@@ -21,7 +21,7 @@
 	<span class="fullScreenMenuText">About</span>
 </li>
 <?php $historyStyle = "";
-if($enableHistory === "false")
+if(in_array('enableHistory', $arrayOfDisabledModules))
 {
 	$historyStyle = "display: none;";
 }
@@ -75,7 +75,7 @@ if($enableHistory === "false")
 	<span class="fullScreenMenuText">Settings</span>
 </li>
 <?php $themeStyle = "";
-if($themesEnabled === "false")
+if(in_array('themesEnabled', $arrayOfDisabledModules))
 {
 	$themeStyle = "display: none;";
 }
@@ -96,7 +96,7 @@ if($themesEnabled === "false")
 	<span class="fullScreenMenuText">Themes</span>
 </li>
 <?php $updateStyle = "";
-if($updaterEnabled === "false")
+if((in_array('updaterEnabled', $arrayOfDisabledModules)))
 {
 	$updateStyle = "display: none;";
 }

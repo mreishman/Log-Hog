@@ -51,8 +51,8 @@ require_once('core/php/loadVars.php');
 <?php $core->getScripts(
 	array(
 		array(
-			"filePath"		=> "core/js/update.js",
-			"baseFilePath"	=> "core/js/update.js",
+			"filePath"		=> "Modules/Updater/js/update.js",
+			"baseFilePath"	=> "Modules/Updater/js/update.js",
 			"default"		=> $configStatic["version"]
 		),
 		array(

@@ -31,8 +31,8 @@
 	</form>
 </span>
 <h3 class="addBorderBottom">Filters</h3>
-<input autocomplete="off" <?php if (!($filterSearchInHeader !== "true" && $filterEnabled === "true")){ echo "style='display: none;'";} ?> id="searchFieldInputSideBar" type="search" name="search" placeholder="Filter <?php echo $filterDefault; ?>">
-<span id="filterSettingsSideBar" <?php if ($filterEnabled !== "true"){ echo "style='display: none;'"; } ?> >
+<input autocomplete="off" <?php if (!($filterSearchInHeader !== "true" && !(in_array('filterEnabled', $arrayOfDisabledModules)))){ echo "style='display: none;'";} ?> id="searchFieldInputSideBar" type="search" name="search" placeholder="Filter <?php echo $filterDefault; ?>">
+<span id="filterSettingsSideBar" <?php if (in_array('filterEnabled', $arrayOfDisabledModules)){ echo "style='display: none;'"; } ?> >
 	Search:
 	<span class="selectDiv" >
 		<select autocomplete="off" id="searchType" name="searchType">
@@ -135,7 +135,7 @@
 	} ?>
 	</ul>
 </span>
-<span id="sideBarMultiLogSettings" <?php if($enableMultiLog !== "true"):?> style="display: none;" <?php endif; ?>>
+<span id="sideBarMultiLogSettings" <?php if(in_array('enableMultiLog', $arrayOfDisabledModules)):?> style="display: none;" <?php endif; ?>>
 	<h3 class="addBorderBottom" >Multi-Log</h3>
 	Log Layout
 	<?php $arrayOfwindowConfigOptionsLocal = array();
@@ -191,7 +191,7 @@
 	<br>
 </span>
 <h3 class="addBorderBottom">Header Bar</h3>
-<span id="oneLogSettingsSideBar" <?php if($oneLogEnable !== "true"){ echo "style='display: none;'";} ?>>
+<span id="oneLogSettingsSideBar" <?php if((in_array('oneLogEnable', $arrayOfDisabledModules))){ echo "style='display: none;'";} ?>>
 	Show One Log
 	<span class="selectDiv">
 		<select autocomplete="off" onchange="toggleVisibleOneLog();" id="oneLogVisible">
@@ -211,7 +211,7 @@ Hide Log Tabs
 </span>
 <h3 class="addBorderBottom">Logs</h3>
 <ul>
-<?php if($advancedLogFormatEnabled === "true")
+<?php if(!in_array('advancedLogFormatEnabled', $arrayOfDisabledModules))
 {
 	$settings->varTemplateLogic(
 		array(

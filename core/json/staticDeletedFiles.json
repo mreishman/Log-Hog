@@ -175,5 +175,19 @@
 	{"fullPath":"core\/php\/template\/addonLinksSideBar.php","type":"file"},
 	{"fullPath":"core\/php\/template\/innerAddon.php","type":"file"},
 	{"fullPath":"core\/php\/post\/reloadAddonLinks.php","type":"file"},
-	{"fullPath":"core\/php\/class\/addons.php","type":"file"}
+	{"fullPath":"core\/php\/class\/addons.php","type":"file"},
+	{"fullPath":"core\/js\/themes.js","type":"file"},
+	{"fullPath":"core\/js\/upgradeTheme.js","type":"file"},
+	{"fullPath":"core\/js\/update.js","type":"file"},
+	{"fullPath":"core\/js\/oneLog.js","type":"file"},
+	{"fullPath":"core\/js\/multilog.js","type":"file"},
+	{"fullPath":"core\/js\/archive.js","type":"file"},
+	{"fullPath":"core\/js\/filter.js","type":"file"},
+	{"fullPath":"core\/js\/format.js","type":"file"},
+	{"fullPath":"core\/js\/formatFile.js","type":"file"},
+	{"fullPath":"core\/js\/formatPhp.js","type":"file"},
+	{"fullPath":"core\/js\/formatJsObject.js","type":"file"},
+	{"fullPath":"core\/js\/formatReport.js","type":"file"},
+	{"fullPath":"core\/js\/formatObjects\/tokenParse.js","type":"file"},
+	{"fullPath":"core\/js\/rightClickJS.js","type":"file"}
 ]

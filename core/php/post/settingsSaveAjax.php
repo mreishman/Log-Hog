@@ -48,7 +48,7 @@ if(is_dir("../../../local/Themes/".$currentTheme))
 require_once($requireFile);
 
 require_once('../loadVars.php');
-if($backupNumConfigEnabled === "true")
+if(!(in_array('backupNumConfigEnabled', $arrayOfDisabledModules)))
 {
 	for ($i=$backupNumConfig; $i > 0; $i--)
 	{

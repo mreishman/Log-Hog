@@ -293,6 +293,38 @@ foreach($arraysToDecode as $replaceKey => $arrayValue)
 	$filePathAlternativeSettingsHtml = implode($onLoadContent, explode("{{".$replaceKey."}}", $filePathAlternativeSettingsHtml));
 }
 
+$dynamicModuleList = array (
+	0									=>	array(
+		"type"								=>	"single",
+		"var"								=>	array(
+			"id"								=>	"moduleDisabledList",
+			"key"								=>	"moduleDisabledList",
+			"type"								=>	"hidden"
+		)
+	)
+);
+
+foreach ($modulesList as $moduleEntry)
+{
+	array_push($dynamicModuleList,
+		array(
+			"type"								=>	"single",
+			"var"								=>	array_merge($moduleEntry, array(
+				"options"							=> array(
+					0 					=> array(
+						"value" 			=> "true",
+						"name" 				=> "Enabled"),
+					1 					=> array(
+						"value" 			=> "false",
+						"name" 				=> "Disabled")
+				),
+				"type"								=> "dropdown",
+				"function"							=> "updateListOfDisabledModules"
+			))
+		)
+	);
+}
+
 
 
 $fullScreenMenuGroups = array(
@@ -313,12 +345,12 @@ $fullScreenMenuGroups = array(
 	),
 	"formatting"	=> array (
 		"name"		=> "Log Format",
-		"display"	=>	($advancedLogFormatEnabled === "true"),
+		"display"	=>	(!in_array('advancedLogFormatEnabled', $arrayOfDisabledModules)),
 		"subGroups"	=> array()
 	),
 	"multilog"	=> array (
 		"name"		=> "Multi-Log",
-		"display"	=>	($enableMultiLog === "true"),
+		"display"	=>	!(in_array('enableMultiLog', $arrayOfDisabledModules)),
 		"subGroups"	=> array()
 	),
 	"notifications"	=> array (
@@ -602,6 +634,37 @@ $defaultConfigMoreData = array(
 					),
 					"type"								=>	"dropdown"
 				)
+			),
+			11									=>	array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"logLayoutSettingsInfo",
+					"name"								=>	"Default show options for multi-log layout settings",
+					"options"							=>	array(
+						0 									=> array(
+							"value" 							=> "all",
+							"name" 								=> "All"),
+						1 									=> array(
+							"value" 							=> "expandWithValues",
+							"name" 								=> "If current window has value"),
+						2 									=> array(
+							"value" 							=> "expandWithValue",
+							"name" 								=> "If any window has value"),
+						3 									=> array(
+							"value" 							=> "none",
+							"name" 								=> "None")
+					),
+					"type"								=>	"dropdown"
+				)
+			),
+			12									=> array(
+				"type"								=>	"single",
+				"var"								=>	array(
+					"key"								=>	"backupNumConfig",
+					"name"								=>	"Number of config backup versions saved",
+					"options"							=>	$oneToTenArr,
+					"type"								=>	"dropdown"
+				)
 			)
 		)
 	),
@@ -613,7 +676,7 @@ $defaultConfigMoreData = array(
 				"main"
 			),
 			"id"								=>	"settingsMainFilter",
-			"display"							=>	($filterEnabled === "true"),
+			"display"							=>	!(in_array('filterEnabled', $arrayOfDisabledModules)),
 			"name"								=>	"Filter"
 		),
 		"vars"								=>	array(
@@ -984,7 +1047,7 @@ $defaultConfigMoreData = array(
 				"formatting"
 			),
 			"id"								=>	"settingsMainLogFormat",
-			"display"							=>	($advancedLogFormatEnabled === "true"),
+			"display"							=>	(!in_array('advancedLogFormatEnabled', $arrayOfDisabledModules)),
 			"name"								=>	"General"
 		),
 		"vars"								=>	array(
@@ -1142,7 +1205,7 @@ $defaultConfigMoreData = array(
 				"formatting"
 			),
 			"id"								=>	"settingsMainLogDateTimeFormat",
-			"display"							=>	($advancedLogFormatEnabled === "true" && $dateTextFormatEnable == 'true'),
+			"display"							=>	(!in_array('advancedLogFormatEnabled', $arrayOfDisabledModules) && $dateTextFormatEnable == 'true'),
 			"name"								=>	"Timestamp"
 		),
 		"vars"								=>	array(
@@ -1242,7 +1305,7 @@ $defaultConfigMoreData = array(
 				"formatting"
 			),
 			"id"								=>	"settingsLinkedLogLogFormat",
-			"display"							=>	($advancedLogFormatEnabled === "true" && $logFormatFileEnable == "true"),
+			"display"							=>	(!in_array('advancedLogFormatEnabled', $arrayOfDisabledModules) && $logFormatFileEnable == "true"),
 			"name"								=>	"Linked Files"
 		),
 		"vars"								=>	array(
@@ -2084,137 +2147,7 @@ $defaultConfigMoreData = array(
 			"display"							=>	true,
 			"name"								=>	"Modules"
 		),
-		"vars"								=>	array(
-			0									=>	array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"themesEnabled",
-					"name"								=>	"Enable Themes",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				)
-			),
-			1									=>	array(
-				"bool"								=>	($enableMultiLog == 'false'),
-				"id"								=>	"enableMultiLogSettings",
-				"name"								=>	"Multi-Log settings settings",
-				"info"								=>  "Refresh Required",
-				"type"								=>	"grouped",
-				"var"								=>	array(
-					"function"							=>	"showOrHideenableMultiLog",
-					"id"								=>	"enableMultiLog",
-					"key"								=>	"enableMultiLog",
-					"name"								=>	"Enable Multi-Log",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				),
-				"vars"								=>	array(
-					0									=>	array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"key"								=>	"logLayoutSettingsInfo",
-							"name"								=>	"Default show options for log layout settings",
-							"options"							=>	array(
-								0 									=> array(
-									"value" 							=> "all",
-									"name" 								=> "All"),
-								1 									=> array(
-									"value" 							=> "expandWithValues",
-									"name" 								=> "If current window has value"),
-								2 									=> array(
-									"value" 							=> "expandWithValue",
-									"name" 								=> "If any window has value"),
-								3 									=> array(
-									"value" 							=> "none",
-									"name" 								=> "None")
-							),
-							"type"								=>	"dropdown"
-						)
-					)
-				)
-			),
-			2									=>	array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"enableHistory",
-					"name"								=>	"Enable History",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				)
-			),
-			3									=>	array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"oneLogEnable",
-					"name"								=>	"Enable One Log",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				)
-			),
-			4									=>	array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"filterEnabled",
-					"name"								=>	"Enable Filters",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				)
-			),
-			5									=>	array(
-				"type"								=>	"single",
-				"info"								=>  "Refresh Required",
-				"var"								=>	array(
-					"key"								=>	"rightClickMenuEnable",
-					"name"								=>	"Enable Right Click Menu",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				)
-			),
-			6									=>	array(
-				"type"								=>	"single",
-				"info"								=>  "Refresh Required",
-				"var"								=>	array(
-					"key"								=>	"advancedLogFormatEnabled",
-					"name"								=>	"Enable Advanced Log Format Options",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				)
-			),
-			7									=>	array(
-				"bool"								=>	($backupNumConfigEnabled == 'false'),
-				"id"								=>	"versionSaveContentSettings",
-				"name"								=>	"Backup Config Settings",
-				"type"								=>	"grouped",
-				"var"								=>	array(
-					"function"							=>	"showOrHideVersionSaveConfig",
-					"id"								=>	"backupNumConfigEnabled",
-					"key"								=>	"backupNumConfigEnabled",
-					"name"								=>	"Enable Config Backup",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				),
-				"vars"								=>	array(
-					0									=> array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"key"								=>	"backupNumConfig",
-							"name"								=>	"Number of versions saved",
-							"options"							=>	$oneToTenArr,
-							"type"								=>	"dropdown"
-						)
-					)
-				)
-			),
-			8									=>	array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"updaterEnabled",
-					"name"								=>	"Enable Updater",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				)
-			),
-		)
+		"vars"								=>	$dynamicModuleList
 	),
 	"multiLogVars"						=>	array(
 		"id"								=>	"settingsMultiLogVars",
@@ -2224,7 +2157,7 @@ $defaultConfigMoreData = array(
 				"multilog"
 			),
 			"id"								=>	"settingsMainMultiLog",
-			"display"							=>	($enableMultiLog === "true"),
+			"display"							=>	!(in_array('enableMultiLog', $arrayOfDisabledModules)),
 			"name"								=>	"Multi-Log"
 		),
 		"vars"								=> array(
@@ -2601,7 +2534,7 @@ $defaultConfigMoreData = array(
 				"main"
 			),
 			"id"								=>	"settingsMainOneLog",
-			"display"							=>	($oneLogEnable === "true"),
+			"display"							=>	(!(in_array('oneLogEnable', $arrayOfDisabledModules))),
 			"name"								=>	"One Log"
 		),
 		"vars"								=> array(
@@ -2763,7 +2696,7 @@ $defaultConfigMoreData = array(
 				"main"
 			),
 			"id"								=>	"settingsMainOther",
-			"display"							=>	($updaterEnabled === 'true'),
+			"display"							=>	(!(in_array('updaterEnabled', $arrayOfDisabledModules))),
 			"name"								=>	"Update"
 		),
 		"vars"								=> array(
@@ -3117,7 +3050,7 @@ $customConfigSections = array(
 				"multilog"
 			),
 			"id"								=>	"settingsMainLogLayout",
-			"display"							=>	($enableMultiLog === "true"),
+			"display"							=>	!(in_array('enableMultiLog', $arrayOfDisabledModules)),
 			"name"								=>	"Multi-Log Layout"
 		)
 	)
