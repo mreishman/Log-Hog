@@ -928,24 +928,27 @@ function toggleSideBarElements(internalID, currentCurrentSelectWindow)
 	let visibleStatusOfCloseLogSideBar = "none";
 	let visibleStatusOfHistorySideBar = "block";
 	let visibleStatusOfSaveArchiveSideBar = "block";
-	if(internalID.indexOf("ogogackup") === 0)
+	if(internalID)
 	{
-		visibleStatusOfClearLogSideBar  = "none";
-		visibleStatusOfDeleteLogSideBar = "none";
-		visibleStatusOfCloseLogSideBar  = "block";
-		visibleStatusOfHistorySideBar = "none";
-		visibleStatusOfSaveArchiveSideBar = "none";
-	}
-	else if(internalID === "oneLog")
-	{
-		visibleStatusOfDeleteLogSideBar= "none";
-		visibleStatusOfHistorySideBar = "none";
-		visibleStatusOfSaveArchiveSideBar = "none";
-	}
-	else if(internalID === idOfOneLogOpen)
-	{
-		visibleStatusOfCloseLogSideBar  = "block";
-		idOfOneLogOpen = "";
+		if(internalID.indexOf("ogogackup") === 0)
+		{
+			visibleStatusOfClearLogSideBar  = "none";
+			visibleStatusOfDeleteLogSideBar = "none";
+			visibleStatusOfCloseLogSideBar  = "block";
+			visibleStatusOfHistorySideBar = "none";
+			visibleStatusOfSaveArchiveSideBar = "none";
+		}
+		else if(internalID === "oneLog")
+		{
+			visibleStatusOfDeleteLogSideBar= "none";
+			visibleStatusOfHistorySideBar = "none";
+			visibleStatusOfSaveArchiveSideBar = "none";
+		}
+		else if(internalID === idOfOneLogOpen)
+		{
+			visibleStatusOfCloseLogSideBar  = "block";
+			idOfOneLogOpen = "";
+		}
 	}
 	if(visibleStatusOfCloseLogSideBar === "block")
 	{
