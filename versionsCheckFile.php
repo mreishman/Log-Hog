@@ -630,7 +630,7 @@ $versionCheckArray = array(
 			'downloadSize'  => 768218,
 			'installSize'   => 10153926,
 			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/8.4.png',
-			'releaseNotes'	=> "<ul><li>Starting change in backend code to more modular approach</li></ul>"
+			'releaseNotes'	=> "<ul><li>Features<ul><li>Changes to logic for modules</li></ul></li><li>Bug Fixes<ul><li>Fixed upgrade config files</li><li>Fixed bug with error page redirect when js file does not load on index correctly</li></ul></li></ul>"
 		),
 	)
 );
