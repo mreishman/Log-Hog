@@ -645,6 +645,15 @@ $versionCheckArray = array(
 			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/8.4.png',
 			'releaseNotes'	=> "<ul><li>Features<ul><li>Log Formatting<ul><li>Linked Files<ul><li>Added settings for file path alternatives. I.E. if the file path in the log does not match the file path mounted in the loghog container</li><li>Added second setting for display of alternitive file paths in logs to match external paths</li><li>File path is now on a seperate line above file content with option to keep original settings</li><li>Copy button to quickly copy file path (only works if in secure mode)</li></ul></li><li>Json Formatting<ul><li>Button to show unformatted version of json</li></ul></li></ul></li><li>Settings<ul><li>Added option to speed up visible loading of logs by adding number of lines to unhide per poll.</li></ul></li></ul></li><li>Bug Fixes<ul><li>Linked Files<ul><li>Lines where there are multiple file references per line now show linked files correctly</li><li>Fixed bug where first line of linked files would have incorrect padding</li></ul></li><li>Settings<ul><li>Log Loading Poll Display Type settings save issue fixed</li></ul></li></ul></li></ul>"
 		),
+		'8.5.1'			=> array(
+			'branchName'	=> '8.5.1Update',
+			'commits'	=> 3252,
+			'date'		=> '02/18/2023',
+			'downloadSize'  => 594137,
+			'installSize'   => 10153926,
+			'image'		=> 'https://raw.githubusercontent.com/mreishman/Log-Hog/updateImages/8.4.png',
+			'releaseNotes'	=> "<ul><li>Starting change in backend code to more modular approach</li></ul>"
+		),
 	)
 );
 
