@@ -1,81 +1,38 @@
 {
-	"CoreConfig":{
-		"name":"Core Config",
-		"path":"core\/conf\/config.php"
+	"CoreConfig": {
+		"name": "Core Config",
+		"path": "core/conf/config.php"
 	},
-	"ConfigStatic":{
-		"name":"Config Static",
-		"path":"core\/php\/configStatic.php"
+	"ConfigStatic": {
+		"name": "Config Static",
+		"path": "core/php/configStatic.php"
 	},
-	"loadVars":{
-		"name":"Load Vars",
-		"path":"core\/php\/loadVars.php"
+	"loadVars": {
+		"name": "Load Vars",
+		"path": "core/php/loadVars.php"
 	},
-	"loadVarsToJS":{
-		"name":"Convert PHP vars to JS vars",
-		"path":"core\/php\/loadVarsToJs.php"
+	"loadVarsToJS": {
+		"name": "Convert PHP vars to JS vars",
+		"path": "core/php/loadVarsToJs.php"
 	},
-	"UpdateCheck":{
-		"name":"Update Check",
-		"path":"core\/php\/updateCheck.php"
+	"checkVersionOfConfig": {
+		"name": "Check Version Of Config",
+		"path": "core/php/post/checkVersionOfConfig.php"
 	},
-	"checkVersionOfConfig":{
-		"name":"Check Version Of Config",
-		"path":"core\/php\/post\/checkVersionOfConfig.php"
+	"checkVersionOfGlobalConfig": {
+		"name": "Check Version Of Config",
+		"path": "core/php/post/checkVersionOfGlobalConfig.php"
 	},
-	"checkVersionOfGlobalConfig":{
-		"name":"Check Version Of Config",
-		"path":"core\/php\/post\/checkVersionOfGlobalConfig.php"
+	"checkVersionOfLayout": {
+		"name": "Check Version Of Layout",
+		"path": "core/php/post/checkVersionOfLayout.php"
 	},
-	"checkVersionOfLayout":{
-		"name":"Check Version Of Layout",
-		"path":"core\/php\/post\/checkVersionOfLayout.php"
+	"core": {
+		"name": "Core Functions",
+		"path": "core/php/class/core.php"
 	},
-	"core":{"name":"Core Functions",
-		"path":"core\/php\/class\/core.php"
-	},
-	"configStaticCheck":{
-		"name":"Config Static Check",
-		"path":"core\/php\/post\/configStaticCheck.php"
-	},
-	"getPercentUpdate":{
-		"name":"Get Percent Update",
-		"path":"core\/php\/post\/getPercentUpdate.php"
-	},
-	"performSettingsInstallUpdateAction":{
-		"name":"Perform Settings Install Update Action",
-		"path":"core\/php\/performSettingsInstallUpdateAction.php"
-	},
-	"updateProgressFile":{
-		"name":"Update Progress File",
-		"path":"core\/php\/updateProgressFile.php"
-	},
-	"updateProgressFileNext":{
-		"name":"Update Progress File Next",
-		"path":"core\/php\/updateProgressFileNext.php"
-	},
-	"versionCheck":{
-		"name":"Version Check",
-		"path":"core\/php\/post\/versionCheck.php"
-	},
-	"Update":{
-		"name":"Update",
-		"path":"core\/php\/class\/update.php"
-	},
-	"Updater":{
-		"name":"Updater",
-		"path":"update\/updater.php"
-	},
-	"updateInProgress":{
-		"name":"Updat In Progress",
-		"path":"update\/updateInProgress.php"
-	},
-	"updateActionCheck":{
-		"name":"Update Action Check",
-		"path":"update\/updateActionCheck.php"
-	},
-	"Upgrade":{
-		"name":"Upgrade",
-		"path":"core\/php\/class\/upgrade.php"
+	"Upgrade": {
+		"name": "Upgrade",
+		"path": "core/php/class/upgrade.php"
 	}
 }

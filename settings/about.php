@@ -25,7 +25,6 @@ else
 	require_once('../core/Themes/'.$currentTheme."/defaultSetting.php");
 }
 require_once('../core/php/loadVars.php');
-require_once('../core/php/updateCheck.php');
 ?>
 <!doctype html>
 <head>

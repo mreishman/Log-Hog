@@ -109,7 +109,6 @@ $core->getScripts(
 	var baseUrl = "<?php echo $core->baseURL();?>";
 	var popupSettingsArray = <?php echo $popupSettingsArray ?>;
 	var currentVersion = "<?php echo $configStatic['version']; ?>";
-	var newestVersion = "<?php echo $configStatic['newestVersion']; ?>";
 	var saveVerifyImage = <?php echo json_encode($core->generateImage(
 			$arrayOfImages["greenCheck"],
 			array(

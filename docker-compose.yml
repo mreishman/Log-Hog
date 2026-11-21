@@ -1,10 +1,14 @@
-version: '3.8'
 services:
-  php-apache-environment:
-    container_name: loghog
-    image: php:8.1-apache
-    volumes:
-      - ./:/var/www/html/
-      - /var/www/logs/:/var/www/logs/
+  loghog:
+    build: .
+    image: loghog:local
     ports:
-      - 1337:80
+      - "1337:80"
+    volumes:
+      - loghog-local:/var/www/html/local
+      - loghog-history:/var/www/html/tmp
+      - ${LOGHOG_LOG_DIR:-/var/www/logs}:/var/www/logs:ro
+
+volumes:
+  loghog-local:
+  loghog-history:

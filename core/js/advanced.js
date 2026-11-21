@@ -1,62 +1,6 @@
 var advancedSettingsTimeoutVar;
 var dirForAjaxSend = "../";
 
-function revertPopup()
-{
-	showPopup();
-	document.getElementById("popupContentInnerHTMLDiv").innerHTML = "<div class=\"settingsHeader\" >Go back to previous version?</div><div style=\"width:100%;text-align:center;padding-left:10px;padding-right:10px;\">Are you sure you want to revert back to a previous version? Version: "+htmlRestoreOptions+" </div><div class=\"link\" onclick=\"submitRevert();\" style=\"margin-left:125px; margin-right:50px;margin-top:25px;\">Yes</div><div onclick=\"hidePopup();\" class=\"link\">No</div></div>";
-}
-
-function submitRevert()
-{
-	document.getElementById("revertForm").submit();
-}
-
-function resetUpdateNotification()
-{
-	displayLoadingPopup(dirForAjaxSend, "Reseting Update Notification");
-	var data = $("#devAdvanced2").serializeArray();
-	data.push({name: "formKey", value: formKey});
-	$.ajax({
-        type: "post",
-        url: dirForAjaxSend + "core/php/post/settingsSaveConfigStatic.php",
-        data,
-        success(data)
-        {
-        	handleError(dirForAjaxSend, data, "settingsSaveConfigStatic.php");
-        },
-        complete()
-        {
-          //verify saved
-          advancedSettingsTimeoutVar = setInterval(function(){updateNoNewVersionCheck();},3000);
-        }
-      });
-}
-
-function updateNoNewVersionCheck()
-{
-	try
-	{
-		$.getJSON(dirForAjaxSend + "core/php/post/configStaticCheck.php", {}, function(data)
-		{
-			if(!handleError(dirForAjaxSend, data, "configStaticCheck.php") && data["version"] === data["newestVersion"])
-			{
-				clearInterval(advancedSettingsTimeoutVar);
-				saveSuccess();
-				fadeOutPopup();
-				if(document.getElementById("updateNoticeImage"))
-				{
-					document.getElementById("updateNoticeImage").style.display = "none";
-				}
-			}
-		});
-	}
-	catch(e)
-	{
-		console.log(e);
-	}
-}
-
 function showConfigPopup()
 {
 	try

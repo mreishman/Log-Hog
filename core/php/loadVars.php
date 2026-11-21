@@ -5,6 +5,7 @@ $countOfSlash = 0;
 while($countOfSlash < 20 && !file_exists($varToIndexDir."error.php"))
 {
   $varToIndexDir .= "../";
+  $countOfSlash++;
 }
 if(!isset($core))
 {
@@ -45,7 +46,7 @@ $vars = new vars();
 require_once($varToIndexDir.'core/conf/config.php');
 include($varToIndexDir.'core/conf/globalConfig.php');
 $URI = $_SERVER['REQUEST_URI'];
-$arrayOfUrlsToCheck = array("upgradeLayout","upgradeConfig","core/php/template/upgrade","upgradeTheme","themeChangeLogic","settingsSaveAjax","example","setup","upgradeDelete","restore");
+$arrayOfUrlsToCheck = array("upgradeLayout","upgradeConfig","core/php/template/upgrade","upgradeTheme","themeChangeLogic","settingsSaveAjax","example","setup");
 if($boolForUpgrade && !$vars->checkIfURIContains($arrayOfUrlsToCheck))
 {
 	$configVersion = 0;
@@ -98,17 +99,6 @@ if($boolForUpgrade && !$vars->checkIfURIContains($arrayOfUrlsToCheck))
 		exit();
 	}
 
-	//check if any files need to be removed
-	$jsonFiles = file_get_contents($varToIndexDir."core/json/staticDeletedFiles.json");
-	$arrayOfFilesDeleted = json_decode($jsonFiles, true);
-	foreach ($arrayOfFilesDeleted as $fileOrFolder)
-	{
-		if(is_file($varToIndexDir.$fileOrFolder["fullPath"]))
-		{
-			header("Location: ".$varToIndexDir."core/php/template/upgradeDelete.php");
-			exit();
-		}
-	}
 }
 //start loading vars
 $loadCustomConfigVars = true;

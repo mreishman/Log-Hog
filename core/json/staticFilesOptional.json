@@ -1,7 +1,6 @@
 {
 	"advanced"			: {"name":"core\/js\/advanced.js","type":"js"},
 	"colorScheme"		: {"name":"core\/js\/colorScheme.js","type":"js"},
-	"devTools"			: {"name":"core\/js\/devTools.js","type":"js"},
 	"globalConfig"		: {"name":"core\/js\/globalConfig.js","type":"js"},
 	"hideEmptyLog"		: {"name":"core\/js\/hideEmptyLog.js","type":"js"},
 	"jsColor"			: {"name":"core\/js\/jscolor.js","type":"js"},

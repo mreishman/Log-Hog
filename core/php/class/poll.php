@@ -401,7 +401,7 @@ class poll
 			{
 				$startLine--;
 			}
-			fseek($fileOpened, -mb_strlen($chunk, '8bit'), SEEK_CUR);
+			fseek($fileOpened, -strlen($chunk), SEEK_CUR);
 		}
 		while ($lines++ < 0)
 		{

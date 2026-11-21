@@ -27,7 +27,6 @@ else
 	require_once('core/Themes/'.$currentTheme."/defaultSetting.php");
 }
 require_once('core/php/configStatic.php');
-require_once('core/php/updateCheck.php');
 require_once('core/php/loadVars.php');
 
 ?>
@@ -54,11 +53,6 @@ require_once('core/php/loadVars.php');
 		<?php //custom settings tabs ?>
 		<div id="fullScreenMenuColorScheme" class="fullScreenMenuSettingsFormDiv" style="display: none;">
 			<?php require_once('core/php/template/folderGroupColor.php'); ?>
-		</div>
-		<div id="settingsAdvancedDevConfig" class="fullScreenMenuSettingsFormDiv" style="display: none;">
-			<?php
-				require_once("core/php/template/devConfigSettings.php");
-			?>
 		</div>
 		<div id="settingsMainLogLayout" class="fullScreenMenuSettingsFormDiv" style="display: none;" >
 			<?php
@@ -92,11 +86,6 @@ var openTabId = "<?php echo $_GET["id"] ?? ""; ?>";
 	array(
 		"filePath"		=> "core/js/resetSettingsJs.js",
 		"baseFilePath"	=> "core/js/resetSettingsJs.js",
-		"default"		=> $configStatic["version"]
-	),
-	array(
-		"filePath"		=> "core/js/devTools.js",
-		"baseFilePath"	=> "core/js/devTools.js",
 		"default"		=> $configStatic["version"]
 	),
 	array(

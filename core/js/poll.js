@@ -4,7 +4,6 @@ function poll()
 {
 	try
 	{
-		checkForUpdateMaybe();
 		if(notificationInlineShow === "true")
 		{
 			tryToStartNotificationInlinePoll();
@@ -118,11 +117,6 @@ function pollTwo()
 				{
 					clearPollTimer();
 					window.location.href = "error.php?error=550&page=pollCheck.php";
-				}
-				else if(data === "update in progress")
-				{
-					clearPollTimer();
-					window.location.href = "update/updateInProgress.php";
 				}
 				else if(data === false)
 				{

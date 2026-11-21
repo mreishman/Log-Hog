@@ -29,7 +29,6 @@ $baseUrlImages = $localURL;
 	var baseUrl = "<?php echo $core->baseURL();?>";
 	var popupSettingsArray = {};
 	var currentVersion = "<?php echo $configStatic['version']; ?>";
-	var newestVersion = "<?php echo $configStatic['newestVersion']; ?>";
 	var saveVerifyImage = <?php echo json_encode($core->generateImage(
 			$arrayOfImages["greenCheck"],
 			array(

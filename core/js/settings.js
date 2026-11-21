@@ -130,28 +130,6 @@ function saveVerified()
 			}
 		}
 	}
-	else if(idForFormMain === "devBranch")
-	{
-		if($("[name='branchSelected']"))
-		{
-			if($("[name='enableDevBranchDownload']")[0].value === "true")
-			{
-				if($("[name='branchSelected']")[0].options.length === 2)
-				{
-					//append
-					$("[name='branchSelected']").append("<option value='dev'>Dev</option>")
-				}
-			}
-			else
-			{
-				if($("[name='branchSelected']")[0].options.length === 3)
-				{
-					//remove
-					$("[name='branchSelected'] option[value='dev']").remove();
-				}
-			}
-		}
-	}
 	else if(idForFormMain === "advancedConfig")
 	{
 		if($("[name='enablePollTimeLogging']"))
@@ -379,18 +357,6 @@ function saveVerified()
 		else
 		{
 			$("#ThemesLink").hide();
-		}
-		if($("[name='updaterEnabled']")[0].value === "true")
-		{
-			if(typeof checkForUpdates !== "function" && typeof script === "function")
-			{
-				script("Modules/Updater/js/update.js");
-			}
-			$("#mainMenuUpdate, #settingsMainOtherMenu").show().removeClass("hiddenMenu");
-		}
-		else
-		{
-			$("#mainMenuUpdate, #settingsMainOtherMenu").hide().addClass("hiddenMenu");
 		}
 		if($("[name='enableMultiLog']")[0].value === "true")
 		{
