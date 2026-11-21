@@ -7,7 +7,6 @@ if($samePageSettings === "true")
 {
 	$arrayOfFiles[] = $arrayOfFilesExtra['advanced'];
 	$arrayOfFiles[] = $arrayOfFilesExtra['colorScheme'];
-	$arrayOfFiles[] = $arrayOfFilesExtra['devTools'];
 	$arrayOfFiles[] = $arrayOfFilesExtra['globalConfig'];
 	$arrayOfFiles[] = $arrayOfFilesExtra['jsColor'];
 	$arrayOfFiles[] = $arrayOfFilesExtra['resetSettings'];

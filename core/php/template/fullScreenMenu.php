@@ -151,9 +151,6 @@ require_once('indexHeaderFullScreen.php');
 	<div id="fullScreenMenuArchive" style="display: none;">
 		<span id="archiveHolder"></span>
 	</div>
-	<div id="fullScreenMenuUpdate" style="display: none;">
-		<?php require_once('update.php'); ?>
-	</div>
 	<div id="fullScreenMenuIFrame" style="display: none;">
 		<iframe id="iframeFullScreen" src=""></iframe>
 	</div>
@@ -197,11 +194,6 @@ require_once('indexHeaderFullScreen.php');
 		<?php //custom settings tabs ?>
 		<div id="fullScreenMenuColorScheme" class="fullScreenMenuSettingsFormDiv" style="display: none;">
 			<?php require_once('core/php/template/folderGroupColor.php'); ?>
-		</div>
-		<div id="settingsAdvancedDevConfig" class="fullScreenMenuSettingsFormDiv" style="display: none;">
-			<?php
-				require_once("core/php/template/devConfigSettings.php");
-			?>
 		</div>
 		<div id="settingsMainLogLayout" class="fullScreenMenuSettingsFormDiv" style="display: none;" >
 			<?php

@@ -6,7 +6,6 @@
 	{"name":"core\/js\/formatLog.js","type":"js"},
 	{"name":"core\/js\/fullscreenMenu.js","type":"js"},
 	{"name":"core\/js\/groups.js","type":"js"},
-	{"name":"core\/js\/loghogDownloadJS.js","type":"js"},
 	{"name":"core\/js\/main.js","type":"js"},
 	{"name":"core\/js\/menu.js","type":"js"},
 	{"name":"core\/js\/notifications.js","type":"js"},

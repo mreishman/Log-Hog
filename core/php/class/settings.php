@@ -299,19 +299,6 @@ class settings
 		return $returnHtml;
 	}
 
-	public function generateRestoreList($configStatic)
-	{
-		$returnHtml = "<form id='revertForm' action='../restore/restore.php'  method='post'  style='display: inline-block;' ><select autocomplete='off' name='versionRevertTo' >";
-		$versionList = $configStatic['versionList'];
-		$versionListText = "";
-		foreach ($versionList as $key => $value)
-		{
-			$versionListText = "<option value='".str_replace("Update", "", $value['branchName'])."' >".$key."</option>".$versionListText;
-		}
-		$returnHtml .= $versionListText."</select></form>";
-		return $returnHtml;
-	}
-
 	public function generateFolderColorRow($arrFCOdata = array())
 	{
 		$key = $arrFCOdata["key"] ?? "{{key}}";

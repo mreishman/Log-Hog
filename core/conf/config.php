@@ -2,8 +2,6 @@
 
 $defaultConfig = array(
 	'allLogsVisible'				=> 'true',
-	'autoCheckDaysUpdate'			=>	'7',
-	'autoCheckUpdate' 				=> 'true',
 	'autoMoveUpdateLog'				=> 'false',
 	'backgroundColor'				=> "#292929",
 	'backgroundHeaderColor'			=> "#222222",
@@ -35,7 +33,6 @@ $defaultConfig = array(
 	'defaultNewPathFile'			=>	'/var/',
 	'defaultNewPathFolder'			=>	'/var/',
 	'defaultNewPathOther'			=>	'/var/',
-	'dontNotifyVersion'				=> '0',
 	'displayName'					=> 'forThemesOnly',
 	'enableInitialFileLoadLogging'  => 'false',
 	'enableLogging'					=> 'false',
@@ -401,8 +398,6 @@ $defaultConfig = array(
 	'timeoutHighlight'				=> 30,
 	'TrimSize'						=> 'K',
 	'truncateLog'					=> 'true',
-	'updateNoticeMeter'				=> 'every',
-	'updateNotificationEnabled'		=> 'true',
 	'watchList'		=> array(
 		'System Log'	    => array(
 			"AlertEnabled"		=>	"true",

@@ -25,7 +25,7 @@ $currentSelectedTheme = $session->returnCurrentSelectedTheme();
 $baseUrl = "../local/".$currentSelectedTheme."/";
 
 $errorCheck->checkIfFilesAreWritable(
-	array("core/php/post/settingsSaveAjax.php","local/".$currentSelectedTheme, "setup/setupProcessFile.php"),
+	array("local", "local/".$currentSelectedTheme),
 	 "../",
 	 $currentPage);
 
@@ -115,8 +115,8 @@ $core->setCookieRedirect();
 			"default"		=> $configStatic["version"]
 		),
 		array(
-			"filePath"		=> "../core/js/upgradeTheme.js",
-			"baseFilePath"	=> "core/js/upgradeTheme.js",
+			"filePath"		=> "../Modules/Themes/js/upgradeTheme.js",
+			"baseFilePath"	=> "Modules/Themes/js/upgradeTheme.js",
 			"default"		=> $configStatic["version"]
 		),
 		array(

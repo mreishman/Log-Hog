@@ -42,10 +42,6 @@ function toggleFullScreenMenu(force = false)
 				{
 					toggleThemes();
 				}
-				else if(fullScreenMenuDefaultPage === "update" && ($.inArray("updaterEnabled", JSON.parse(moduleDisabledList)) < 0))
-				{
-					toggleUpdateMenu();
-				}
 				else if(fullScreenMenuDefaultPage === "watchlist")
 				{
 					toggleWatchListMenu();
@@ -104,27 +100,6 @@ function toggleSettingSection(data, force = false)
 	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
 	resizeFullScreenMenu();
 	startSettingsPollTimer();
-}
-
-function toggleUpdateMenu(force = false)
-{
-	if(!force && !globalForcePageNavigate)
-	{
-		if(!(goToPageCheck("toggleUpdateMenu(true)")))
-		{
-			return false;
-		}
-	}
-	updateDocumentTitle("Update");
-	globalForcePageNavigate = false;
-	loadImgFromData("updateImg");
-	hideMainStuff();
-	hideSidebar();
-	document.getElementById("fullScreenMenuUpdate").style.display = "block";
-	$("#mainMenuUpdate").addClass("selected");
-	arrayOfScrollHeaderUpdate = [];
-	onScrollShowFixedMiniBar(arrayOfScrollHeaderUpdate);
-	resizeFullScreenMenu();
 }
 
 function toggleHistory(force = false)
@@ -435,7 +410,6 @@ function hideWatchListStuff()
 
 function hideUpdateStuff()
 {
-	document.getElementById("fullScreenMenuUpdate").style.display = "none";
 }
 
 function hideSettingsStuff()

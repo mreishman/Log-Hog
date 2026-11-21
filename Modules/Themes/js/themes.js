@@ -3,16 +3,16 @@ var externalThemeNumber = 1;
 var themeName = "";
 var timeoutVar = null;
 var numberOfStepsForThemeCreate = 12;
-var urlForSendUpdateAction = themeDirMod+"core/php/performSettingsInstallUpdateAction.php?format=json";
+var themeFilesUrl = themeDirMod+"core/php/post/customThemeFiles.php?format=json";
 
-function deleteTheme(themeName)
+function deleteTheme(path)
 {
 	displayLoadingPopup("../","Removing Theme");
-	themeName = themeName;
+	themeName = path;
 	$.ajax({
-		url: urlForSendUpdateAction,
+		url: themeFilesUrl,
 		dataType: "json",
-		data: {action: "removeUnZippedFiles", removeDir: true, locationOfFilesThatNeedToBeRemovedRecursivally: themeName, formKey},
+		data: {action: "deleteTheme", path: themeName, formKey},
 		type: "POST",
 		success(data)
 		{
@@ -29,9 +29,9 @@ function verifyThemeRemoved()
 {
 	displayLoadingPopup("../","verifying Removal");
 	$.ajax({
-		url: urlForSendUpdateAction,
+		url: themeFilesUrl,
 		dataType: "json",
-		data: {action: "verifyFileIsThere", fileLocation: themeName, isThere: false, formKey},
+		data: {action: "verifyFileIsThere", path: themeName, isThere: false, formKey},
 		type: "POST",
 		success(data)
 		{
@@ -57,13 +57,13 @@ function saveCustomTheme()
 	displayLoadingPopup();
 	document.getElementById("popupHeaderText").innerHTML = "creating /Theme/ folder (step 1 of "+numberOfStepsForThemeCreate+")";
 	//create folder
-	var data = {action: "createFolder", newDir: "../../local/Themes/", formKey};
+	var data = {action: "createFolder", path: "../../local/Themes/", formKey};
 	$.ajax({
-		url: urlForSendUpdateAction,
+		url: themeFilesUrl,
 		dataType: "json",
 		data,
 		type: "POST",
-		success()
+		success(data)
 		{
             if(!handleError(themeDirMod, data, ""))
             {
@@ -78,9 +78,9 @@ function verifyFolder()
 	//verify folder
 	document.getElementById("popupHeaderText").innerHTML = "verifying /Theme/ folder (step 2 of "+numberOfStepsForThemeCreate+")";
 	$.ajax({
-		url: urlForSendUpdateAction,
+		url: themeFilesUrl,
 		dataType: "json",
-		data: {action: "verifyDirIsThere", dirLocation: "../../local/Themes/", formKey},
+		data: {action: "verifyDirIsThere", path: "../../local/Themes/", formKey},
 		type: "POST",
 		success(data)
 		{
@@ -99,11 +99,11 @@ function saveCustomThemeCustomFolder()
 	//create folder
 	document.getElementById("popupHeaderText").innerHTML = "creating new folder (step 3 of "+numberOfStepsForThemeCreate+")";
 	$.ajax({
-		url: urlForSendUpdateAction,
+		url: themeFilesUrl,
 		dataType: "json",
-		data: {action: "createFolder", newDir: "../../local/Themes/Custom-Theme-"+externalThemeNumber, formKey},
+		data: {action: "createFolder", path: "../../local/Themes/Custom-Theme-"+externalThemeNumber, formKey},
 		type: "POST",
-		success()
+		success(data)
 		{
             if(!handleError(themeDirMod, data, ""))
             {
@@ -119,9 +119,9 @@ function verifyFolderInFolder()
 	//verify folder
 	document.getElementById("popupHeaderText").innerHTML = "verifying new folder (step 4 of "+numberOfStepsForThemeCreate+")";
 	$.ajax({
-		url: urlForSendUpdateAction,
+		url: themeFilesUrl,
 		dataType: "json",
-		data: {action: "verifyDirIsThere", dirLocation: "../../local/Themes/Custom-Theme-"+externalThemeNumber, formKey},
+		data: {action: "verifyDirIsThere", path: "../../local/Themes/Custom-Theme-"+externalThemeNumber, formKey},
 		type: "POST",
 		success(data)
 		{
@@ -157,9 +157,9 @@ function verifyNewFiles()
 {
 	document.getElementById("popupHeaderText").innerHTML = "verifying config file (step 6 of "+numberOfStepsForThemeCreate+")";
 	$.ajax({
-		url: urlForSendUpdateAction,
+		url: themeFilesUrl,
 		dataType: "json",
-		data: {action: "verifyFileIsThere", fileLocation: "../../local/Themes/Custom-Theme-"+externalThemeNumber+"/defaultSetting.php", isThere: true, formKey},
+		data: {action: "verifyFileIsThere", path: "../../local/Themes/Custom-Theme-"+externalThemeNumber+"/defaultSetting.php", isThere: true, formKey},
 		type: "POST",
 		success(data)
 		{
@@ -176,11 +176,11 @@ function createImageFolder()
 {
 	document.getElementById("popupHeaderText").innerHTML = "creating new image folder (step 7 of "+numberOfStepsForThemeCreate+")";
 	$.ajax({
-		url: urlForSendUpdateAction,
+		url: themeFilesUrl,
 		dataType: "json",
-		data: {action: "createFolder", newDir: "../../local/Themes/Custom-Theme-"+externalThemeNumber+"/img", formKey},
+		data: {action: "createFolder", path: "../../local/Themes/Custom-Theme-"+externalThemeNumber+"/img", formKey},
 		type: "POST",
-		success()
+		success(data)
 		{
             if(!handleError(themeDirMod, data, ""))
             {
@@ -194,9 +194,9 @@ function verifyImageFolder()
 {
 	document.getElementById("popupHeaderText").innerHTML = "verifying /img/ folder (step 8 of "+numberOfStepsForThemeCreate+")";
 	$.ajax({
-		url: urlForSendUpdateAction,
+		url: themeFilesUrl,
 		dataType: "json",
-		data: {action: "verifyDirIsThere", dirLocation: "../../local/Themes/Custom-Theme-"+externalThemeNumber+"/img", formKey},
+		data: {action: "verifyDirIsThere", path: "../../local/Themes/Custom-Theme-"+externalThemeNumber+"/img", formKey},
 		type: "POST",
 		success(data)
 		{
@@ -213,11 +213,11 @@ function createTemplateFolder()
 {
 	document.getElementById("popupHeaderText").innerHTML = "creating new template folder (step 9 of "+numberOfStepsForThemeCreate+")";
 	$.ajax({
-		url: urlForSendUpdateAction,
+		url: themeFilesUrl,
 		dataType: "json",
-		data: {action: "createFolder", newDir: "../../local/Themes/Custom-Theme-"+externalThemeNumber+"/template", formKey},
+		data: {action: "createFolder", path: "../../local/Themes/Custom-Theme-"+externalThemeNumber+"/template", formKey},
 		type: "POST",
-		success()
+		success(data)
 		{
             if(!handleError(themeDirMod, data, ""))
             {
@@ -231,9 +231,9 @@ function verifyTemplateFolder()
 {
 	document.getElementById("popupHeaderText").innerHTML = "verifying /template/ folder (step 10 of "+numberOfStepsForThemeCreate+")";
 	$.ajax({
-		url: urlForSendUpdateAction,
+		url: themeFilesUrl,
 		dataType: "json",
-		data: {action: "verifyDirIsThere", dirLocation: "../../local/Themes/Custom-Theme-"+externalThemeNumber+"/template", formKey},
+		data: {action: "verifyDirIsThere", path: "../../local/Themes/Custom-Theme-"+externalThemeNumber+"/template", formKey},
 		type: "POST",
 		success(data)
 		{
@@ -269,9 +269,9 @@ function verifyCopiedFiles()
 {
 	document.getElementById("popupHeaderText").innerHTML = "verifying config file (step 12 of "+numberOfStepsForThemeCreate+")";
 	$.ajax({
-		url: urlForSendUpdateAction,
+		url: themeFilesUrl,
 		dataType: "json",
-		data: {action: "verifyFileIsThere", fileLocation: "../../local/Themes/Custom-Theme-"+externalThemeNumber+"/img/Gear.png", isThere: true, formKey},
+		data: {action: "verifyFileIsThere", path: "../../local/Themes/Custom-Theme-"+externalThemeNumber+"/img/Gear.png", isThere: true, formKey},
 		type: "POST",
 		success(data)
 		{

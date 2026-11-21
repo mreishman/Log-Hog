@@ -18,7 +18,7 @@ var currentLogFormat = 0;
 var currentPage;
 var currentSelectWindow = 0;
 var currentToggleLogPopup = -1;
-var dataFromUpdateCheck = null;
+
 var fileData;
 var filesNew;
 var firstLoad = true;
@@ -61,9 +61,9 @@ var timer;
 var timerForSettings;
 var timerForWatchlist;
 var titles = {};
-var urlForSendMain = "core/php/performSettingsInstallUpdateAction.php?format=json";
+
 var urlModifierForAjax = "";
-var updateFromID = "settingsInstallUpdate";
+
 var updating = false;
 var userPaused = false;
 var title = $("title").text();
@@ -1724,25 +1724,6 @@ function filterTitle(title)
 	}
 }
 
-function checkForUpdateMaybe()
-{
-	try
-	{
-		if (($.inArray("updaterEnabled", JSON.parse(moduleDisabledList)) < 0) && autoCheckUpdate === "true")
-		{
-			if(daysSinceLastCheck > (autoCheckDaysUpdate - 1))
-			{
-				daysSinceLastCheck = -1;
-				checkForUpdates("","Log-Hog", currentVersion, "settingsInstallUpdate", false, dontNotifyVersion);
-			}
-		}
-	}
-	catch(e)
-	{
-		console.log(e);
-	}
-}
-
 function updateProgressBar(additonalPercent, text, topText = "Loading...")
 {
 	try
@@ -2301,7 +2282,6 @@ function mainReady()
 	window.addEventListener("resize", resize);
 	window.addEventListener("focus", focus);
 
-	checkForUpdateMaybe();
 	generateWindowDisplay();
 	if(($.inArray("filterEnabled", JSON.parse(moduleDisabledList))) < 0)
 	{
