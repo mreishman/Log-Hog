@@ -1,0 +1,42 @@
+name: Tests
+
+on: [push, pull_request]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Check JavaScript and JSON syntax
+        run: |
+          git ls-files -z -- '*.js' '*.mjs' | xargs -0 -r -n1 node --check
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          import subprocess
+
+          for name in subprocess.check_output(['git', 'ls-files', '-z', '--', '*.json']).split(b'\0'):
+              if name:
+                  path = Path(name.decode())
+                  try:
+                      json.loads(path.read_text(encoding='utf-8-sig'))
+                  except ValueError as error:
+                      raise SystemExit(f'{path}: {error}')
+          PY
+      - name: Validate Compose and build Log-Hog
+        run: |
+          docker compose config --quiet
+          docker build -t loghog:test .
+      - name: Check Apache configuration and lint PHP
+        run: docker run --rm loghog:test sh -ec 'apache2ctl -t; find . -name "*.php" -print0 | xargs -0 -n1 php -l'
+      - name: HTTP, browser, and regression tests
+        run: python3 -B -m unittest discover -s tests -v

@@ -1,5 +1,7 @@
 .git
 .gitignore
+.github
+tests
 .agents
 .codex
 .aws
