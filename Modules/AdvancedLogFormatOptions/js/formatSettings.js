@@ -41,6 +41,7 @@ function generateTimestampExample()
 
 	let html = "<table><tr style=\"border-spacing: 0; \">" + line + "</td></tr></table>";
 	$("#exampleStyleTimestampSpan").html(html);
+	$("#exampleStyleTimestampSpan").css("background-color", $("#logStyle input[name=backgroundColor]").val());
 }
 
 function timestampStyleListeners()

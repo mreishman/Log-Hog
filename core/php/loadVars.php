@@ -54,7 +54,7 @@ if($boolForUpgrade && !$vars->checkIfURIContains($arrayOfUrlsToCheck))
 	{
 		$configVersion = $config['configVersion'];
 	}
-	if($configVersion !== $defaultConfig['configVersion'])
+	if((int)$configVersion < (int)$defaultConfig['configVersion'])
 	{
 		//redirect to upgrade script for config page
 		header("Location: ".$varToIndexDir."core/php/template/upgradeConfig.php");
@@ -66,7 +66,7 @@ if($boolForUpgrade && !$vars->checkIfURIContains($arrayOfUrlsToCheck))
 	{
 		$globalConfVersion = $globalConfig['globalConfVersion'];
 	}
-	if($globalConfVersion !== $defaultGlobalConfig['globalConfVersion'])
+	if((int)$globalConfVersion < (int)$defaultGlobalConfig['globalConfVersion'])
 	{
 		//redirect to upgrade script for config page
 		header("Location: ".$varToIndexDir."core/php/template/upgradeGlobalConfig.php");
@@ -78,7 +78,7 @@ if($boolForUpgrade && !$vars->checkIfURIContains($arrayOfUrlsToCheck))
 	{
 		$themeVersion = $config['themeVersion'];
 	}
-	if($themeVersion !== $defaultConfig['themeVersion'] || !is_file($baseUrl."/template/theme.css"))
+	if((int)$themeVersion < (int)$defaultConfig['themeVersion'] || !is_file($baseUrl."/template/theme.css"))
 	{
 		//redirect to themeVersion upgrade script (copy over theme files to local)
 		header("Location: ".$varToIndexDir."core/php/template/upgradeTheme.php");
@@ -92,7 +92,7 @@ if($boolForUpgrade && !$vars->checkIfURIContains($arrayOfUrlsToCheck))
 	{
 		$layoutVersion = $globalConfig['layoutVersion'];
 	}
-	if($layoutVersion !== $defaultGlobalConfig['layoutVersion'])
+	if((int)$layoutVersion < (int)$defaultGlobalConfig['layoutVersion'])
 	{
 		//redirect to upgrade script for layoutVersion page
 		header("Location: ".$varToIndexDir."core/php/template/upgradeLayout.php");
