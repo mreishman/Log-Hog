@@ -23,7 +23,6 @@ try
 	include($baseModifier.'local/conf/globalConfig.php');
 	include($baseModifier.'core/conf/globalConfig.php');
 	require_once('../configStatic.php');
-	require_once('../updateProgressFile.php');
 	require_once('../class/poll.php');
 	$poll = new poll();
 }
@@ -58,11 +57,6 @@ if(isset($_POST["fileData"]))
 if($configStatic['version'] != $currentVersionPost)
 {
 	echo json_encode(false);
-	exit();
-}
-elseif(isset($updateProgress['percent']) && ($updateProgress['percent'] != 0) && $updateProgress['percent'] != 100)
-{
-	echo json_encode("update in progress");
 	exit();
 }
 $currentTime = time();

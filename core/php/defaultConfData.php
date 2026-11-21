@@ -79,21 +79,6 @@ $oneLogLogMaxHeightArr[20] = array(
 			"value" 					=> 400,
 			"name" 						=> "400px");
 
-$branchOptionsArr = array(
-0 					=> array(
-	"value" 			=> "default",
-	"name" 				=> "Stable"),
-1 					=> array(
-	"value" 			=> "beta",
-	"name" 				=> "Beta")
-);
-
-if($enableDevBranchDownload == 'true')
-{
-	$branchOptionsArr[2] = array(
-	"value" 			=> "dev",
-	"name" 				=> "Dev");
-}
 
 $customForFirstLogSelect = "<span class=\"settingsBuffer\" > First Log Select: </span><span id=\"logSelectedFirstLoad\" >";
 if ($logSelectedFirstLoad === "")
@@ -388,20 +373,6 @@ $defaultConfigMoreData = array(
 				"var"								=>	array(
 					"name"								=>	"Re-do Setup",
 					"href"								=>	$settingsUrlModifier."setup/step1.php"
-				)
-			),
-			2									=>	array(
-				"type"								=>	"action",
-				"var"								=>	array(
-					"name"								=>	"Revert Version",
-					"onClick"							=>	"revertPopup();"
-				)
-			),
-			3									=>	array(
-				"type"								=>	"action",
-				"var"								=>	array(
-					"name"								=>	"Reset Update Notification",
-					"onClick"							=>	"resetUpdateNotification();"
 				)
 			),
 			4									=>	array(
@@ -886,15 +857,6 @@ $defaultConfigMoreData = array(
 			"name"								=>	"Global"
 		),
 		"vars"								=>	array(
-			0									=>	array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"branchSelected",
-					"name"								=>	"Branch",
-					"options"							=>	$branchOptionsArr,
-					"type"								=>	"dropdown"
-				)
-			),
 			1									=>	array(
 				"info"								=>	"This is for platforms where saving files might not be in sync with containers. Increasing from one will make saves take longer, but it will be more accurate if there is that sync delay",
 				"type"								=>	"single",
@@ -902,25 +864,6 @@ $defaultConfigMoreData = array(
 					"key"								=>	"successVerifyNum",
 					"name"								=>	"Save verification number",
 					"options"							=>	$oneToFiveArr,
-					"type"								=>	"dropdown"
-				)
-			),
-			2									=> array(
-				"info"								=>	"Base url hit when downloading Log-Hog version list. Default: https://github.com/mreishman/Log-Hog/archive/",
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"baseUrlUpdate",
-					"name"								=>	"Base Update Url",
-					"type"								=>	"text"
-				)
-			),
-			3									=>	array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"info"								=>	"Only for development",
-					"key"								=>  "enableDevBranchDownload",
-					"name"								=>	"Enable Dev Branch",
-					"options"							=>	$trueFalsVars,
 					"type"								=>	"dropdown"
 				)
 			),
@@ -2097,9 +2040,6 @@ $defaultConfigMoreData = array(
 						5 									=> array(
 							"value" 							=> "themes",
 							"name" 								=> "Themes"),
-						6 									=> array(
-							"value" 							=> "update",
-							"name" 								=> "Update"),
 						7 									=> array(
 							"value" 							=> "watchlist",
 							"name" 								=> "Watchlist")
@@ -2417,15 +2357,6 @@ $defaultConfigMoreData = array(
 			"name"								=>	"Types"
 		),
 		"vars"								=> array(
-			0									=> array(
-				"type"								=>	"single",
-				"var"								=>	array(
-					"key"								=>	"updateNotificationEnabled",
-					"name"								=>	"Show Update Notification",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				)
-			),
 			1									=>	array(
 				"bool"								=>	($notificationNewLine == 'false'),
 				"id"								=>	"notificationNewLineSettings",
@@ -2687,61 +2618,6 @@ $defaultConfigMoreData = array(
 				)
 			),
 		)
-	),
-	"updateSettings"					=>	array(
-		"id"								=>	"settingsMainVars",
-		"name"								=>	"Update Settings",
-		"menu"								=> 	array(
-			"groups"							=>	array(
-				"main"
-			),
-			"id"								=>	"settingsMainOther",
-			"display"							=>	(!(in_array('updaterEnabled', $arrayOfDisabledModules))),
-			"name"								=>	"Update"
-		),
-		"vars"								=> array(
-			0									=>	array(
-				"bool"								=>	($autoCheckUpdate == 'false'),
-				"id"								=>	"settingsAutoCheckVars",
-				"name"								=>	"Auto Check Update Settings",
-				"type"								=>	"grouped",
-				"var"								=>	array(
-					"function"							=>	"showOrHideUpdateSubWindow",
-					"id"								=>	"settingsSelect",
-					"key"								=>	"autoCheckUpdate",
-					"name"								=>	"Auto Check Update",
-					"options"							=>	$trueFalsVars,
-					"type"								=>	"dropdown"
-				),
-				"vars"								=>	array(
-					0									=> array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"key"								=>	"autoCheckDaysUpdate",
-							"name"								=>	"Check for update every",
-							"postText"							=>	"Days",
-							"type"								=>	"number"
-						)
-					),
-					1									=> array(
-						"type"								=>	"single",
-						"var"								=>	array(
-							"key"								=>	"updateNoticeMeter",
-							"name"								=>	"Notify Updates on",
-							"options"							=>	array(
-								0 									=> array(
-									"value" 							=> "every",
-									"name" 								=> "Every Update"),
-								1 									=> array(
-									"value" 							=> "major",
-									"name" 								=> "Only Major Updates")
-							),
-							"type"								=>	"dropdown"
-						)
-					)
-				)
-			)
-		),
 	),
 	"pollVars"							=>	array(
 		"id"								=>	"settingsPollVars",
@@ -3028,18 +2904,6 @@ $customConfigSections = array(
 			"id"								=>	"fullScreenMenuColorScheme",
 			"display"							=>	true,
 			"name"								=>	"Log Tabs Colors"
-		)
-	),
-	"configStatic"	=> array(
-		"id"	=> "devConfig",
-		"name"	=> "Config Static",
-		"menu"								=> 	array(
-			"groups"							=>	array(
-				"global"
-			),
-			"id"								=>	"settingsAdvancedDevConfig",
-			"display"							=>	true,
-			"name"								=>	"Config Static"
 		)
 	),
 	"multiLogLogLayout"	=> array(

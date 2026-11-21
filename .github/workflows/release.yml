@@ -1,0 +1,153 @@
+name: Release Log-Hog
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to validate on the selected ref, without v'
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: loghog-release
+  cancel-in-progress: false
+
+env:
+  GHCR_IMAGE: ghcr.io/mreishman/log-hog
+  HUB_IMAGE: docker.io/mreishman/loghog
+
+jobs:
+  metadata:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+      revision: ${{ steps.version.outputs.revision }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Verify release version and notes
+        id: version
+        env:
+          MANUAL_VERSION: ${{ inputs.version }}
+        run: |
+          if [[ "$GITHUB_EVENT_NAME" == workflow_dispatch ]]; then
+            version="$MANUAL_VERSION"
+          else
+            version="${GITHUB_REF_NAME#v}"
+          fi
+          python3 -B scripts/release_notes.py check "$version"
+          printf 'version=%s\nrevision=%s\n' "$version" "$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+  tests:
+    needs: metadata
+    uses: ./.github/workflows/tests.yml
+
+  candidate:
+    needs: metadata
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - arch: amd64
+            runner: ubuntu-24.04
+          - arch: arm64
+            runner: ubuntu-24.04-arm
+    env:
+      ARCH: ${{ matrix.arch }}
+      VERSION: ${{ needs.metadata.outputs.version }}
+      REVISION: ${{ needs.metadata.outputs.revision }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Build and smoke-test the release image
+        run: |
+          image="loghog:release-$ARCH"
+          docker build --platform "linux/$ARCH" \
+            --label "org.opencontainers.image.version=$VERSION" \
+            --label "org.opencontainers.image.revision=$REVISION" \
+            --label "org.opencontainers.image.source=$GITHUB_SERVER_URL/$GITHUB_REPOSITORY" \
+            -t "$image" .
+          docker run --rm "$image" apache2ctl -t
+          actual=$(docker run --rm "$image" php -r 'require "core/php/configStatic.php"; echo $configStatic["version"];')
+          test "$actual" = "$VERSION"
+          LOGHOG_TEST_IMAGE="$image" PYTHONPATH=tests python3 -B -m unittest -v \
+            test_docker.DockerTests.test_setup_log_poll_and_recreation \
+            test_docker.DockerTests.test_protected_paths_and_retired_updater
+          if [[ "$GITHUB_EVENT_NAME" == push ]]; then
+            docker image save "$image" | gzip > "loghog-$ARCH.tar.gz"
+          fi
+      - name: Save the exact tested image
+        if: github.event_name == 'push'
+        uses: actions/upload-artifact@v4
+        with:
+          name: loghog-${{ matrix.arch }}
+          path: loghog-${{ matrix.arch }}.tar.gz
+          compression-level: 0
+          retention-days: 7
+
+  publish:
+    if: github.event_name == 'push' && github.ref_type == 'tag'
+    needs: [metadata, tests, candidate]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    environment: release
+    permissions:
+      contents: write
+      packages: write
+    env:
+      VERSION: ${{ needs.metadata.outputs.version }}
+      REVISION: ${{ needs.metadata.outputs.revision }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: loghog-*
+          merge-multiple: true
+      - name: Install registry copy tool
+        run: |
+          if ! command -v skopeo >/dev/null; then
+            sudo apt-get update
+            sudo apt-get install -y skopeo
+          fi
+      - name: Sign in to both registries
+        env:
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+        run: |
+          : "${DOCKERHUB_USERNAME:?Set the Docker Hub username in the release environment}"
+          : "${DOCKERHUB_TOKEN:?Set the Docker Hub write token in the release environment}"
+          printf '%s' "$GH_TOKEN" | docker login ghcr.io -u "$GITHUB_ACTOR" --password-stdin
+          printf '%s' "$DOCKERHUB_TOKEN" | docker login docker.io -u "$DOCKERHUB_USERNAME" --password-stdin
+      - name: Publish multi-platform images
+        id: images
+        run: bash scripts/publish_images.sh
+      - name: Create the GitHub Release
+        env:
+          DIGEST: ${{ steps.images.outputs.digest }}
+        run: |
+          if gh release view "$GITHUB_REF_NAME" --json isDraft --jq 'select(.isDraft == false)' | grep -q .; then
+            echo "Release already published for $GITHUB_REF_NAME"
+            exit 0
+          fi
+          notes="$RUNNER_TEMP/loghog-release-notes.md"
+          cat "release-notes/$VERSION.md" > "$notes"
+          printf '\n## Docker images\n\n    docker pull %s:%s\n    docker pull %s:%s\n\nImage digest %s\n' \
+            "$HUB_IMAGE" "$VERSION" "$GHCR_IMAGE" "$VERSION" "$DIGEST" >> "$notes"
+          printf '\nBack up configuration and log history before upgrading. Recreate the container with the same data volumes and container-side log paths.\n' >> "$notes"
+          if gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then
+            gh release edit "$GITHUB_REF_NAME" --draft=false --notes-file "$notes"
+          else
+            gh release create "$GITHUB_REF_NAME" --verify-tag --title "Log-Hog $VERSION" --notes-file "$notes"
+          fi

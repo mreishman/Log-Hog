@@ -5,6 +5,7 @@ $countOfSlash = 0;
 while($countOfSlash < 20 && !file_exists($varToIndexDir."error.php"))
 {
   $varToIndexDir .= "../";
+  $countOfSlash++;
 }
 if(!isset($core))
 {
@@ -45,7 +46,7 @@ $vars = new vars();
 require_once($varToIndexDir.'core/conf/config.php');
 include($varToIndexDir.'core/conf/globalConfig.php');
 $URI = $_SERVER['REQUEST_URI'];
-$arrayOfUrlsToCheck = array("upgradeLayout","upgradeConfig","core/php/template/upgrade","upgradeTheme","themeChangeLogic","settingsSaveAjax","example","setup","upgradeDelete","restore");
+$arrayOfUrlsToCheck = array("upgradeLayout","upgradeConfig","core/php/template/upgrade","upgradeTheme","themeChangeLogic","settingsSaveAjax","example","setup");
 if($boolForUpgrade && !$vars->checkIfURIContains($arrayOfUrlsToCheck))
 {
 	$configVersion = 0;
@@ -53,7 +54,7 @@ if($boolForUpgrade && !$vars->checkIfURIContains($arrayOfUrlsToCheck))
 	{
 		$configVersion = $config['configVersion'];
 	}
-	if($configVersion !== $defaultConfig['configVersion'])
+	if((int)$configVersion < (int)$defaultConfig['configVersion'])
 	{
 		//redirect to upgrade script for config page
 		header("Location: ".$varToIndexDir."core/php/template/upgradeConfig.php");
@@ -65,7 +66,7 @@ if($boolForUpgrade && !$vars->checkIfURIContains($arrayOfUrlsToCheck))
 	{
 		$globalConfVersion = $globalConfig['globalConfVersion'];
 	}
-	if($globalConfVersion !== $defaultGlobalConfig['globalConfVersion'])
+	if((int)$globalConfVersion < (int)$defaultGlobalConfig['globalConfVersion'])
 	{
 		//redirect to upgrade script for config page
 		header("Location: ".$varToIndexDir."core/php/template/upgradeGlobalConfig.php");
@@ -77,7 +78,7 @@ if($boolForUpgrade && !$vars->checkIfURIContains($arrayOfUrlsToCheck))
 	{
 		$themeVersion = $config['themeVersion'];
 	}
-	if($themeVersion !== $defaultConfig['themeVersion'] || !is_file($baseUrl."/template/theme.css"))
+	if((int)$themeVersion < (int)$defaultConfig['themeVersion'] || !is_file($baseUrl."/template/theme.css"))
 	{
 		//redirect to themeVersion upgrade script (copy over theme files to local)
 		header("Location: ".$varToIndexDir."core/php/template/upgradeTheme.php");
@@ -91,24 +92,13 @@ if($boolForUpgrade && !$vars->checkIfURIContains($arrayOfUrlsToCheck))
 	{
 		$layoutVersion = $globalConfig['layoutVersion'];
 	}
-	if($layoutVersion !== $defaultGlobalConfig['layoutVersion'])
+	if((int)$layoutVersion < (int)$defaultGlobalConfig['layoutVersion'])
 	{
 		//redirect to upgrade script for layoutVersion page
 		header("Location: ".$varToIndexDir."core/php/template/upgradeLayout.php");
 		exit();
 	}
 
-	//check if any files need to be removed
-	$jsonFiles = file_get_contents($varToIndexDir."core/json/staticDeletedFiles.json");
-	$arrayOfFilesDeleted = json_decode($jsonFiles, true);
-	foreach ($arrayOfFilesDeleted as $fileOrFolder)
-	{
-		if(is_file($varToIndexDir.$fileOrFolder["fullPath"]))
-		{
-			header("Location: ".$varToIndexDir."core/php/template/upgradeDelete.php");
-			exit();
-		}
-	}
 }
 //start loading vars
 $loadCustomConfigVars = true;

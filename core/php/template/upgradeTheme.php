@@ -129,8 +129,8 @@ if((strval($baseFileVersion) === strval($oldFileVersion)) && (file_exists("../..
 			"default"		=> $configStatic["version"]
 		),
 		array(
-			"filePath"		=> "../../../core/js/upgradeTheme.js",
-			"baseFilePath"	=> "core/js/upgradeTheme.js",
+			"filePath"		=> "../../../Modules/Themes/js/upgradeTheme.js",
+			"baseFilePath"	=> "Modules/Themes/js/upgradeTheme.js",
 			"default"		=> $configStatic["version"]
 		),
 		array(

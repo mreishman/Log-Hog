@@ -11,15 +11,13 @@ if(!$session->startSession())
 }
 $currentPage = "index.php";
 $errorCheck->checkIfFilesExist(
-	array("core/conf/config.php","core/php/configStatic.php","core/php/loadVars.php","core/php/loadVarsToJs.php","core/php/updateCheck.php","core/js/jquery.js","core/php/customCSS.php","core/php/template/popup.php","core/js/main.js","setup/setupProcessFile.php","error.php"),
+	array("core/conf/config.php","core/php/configStatic.php","core/php/loadVars.php","core/php/loadVarsToJs.php","core/js/jquery.js","core/php/customCSS.php","core/php/template/popup.php","core/js/main.js","setup/setupProcessFile.php","error.php"),
 	 "",
 	 $currentPage);
 $errorCheck->checkIfFilesAreReadable(
-	array("core/conf/config.php","core/php/configStatic.php","core/php/loadVars.php","core/php/loadVarsToJs.php","core/php/updateCheck.php","core/js/jquery.js","core/php/customCSS.php","core/php/template/popup.php","core/js/main.js","setup/setupProcessFile.php","error.php"),
+	array("core/conf/config.php","core/php/configStatic.php","core/php/loadVars.php","core/php/loadVarsToJs.php","core/js/jquery.js","core/php/customCSS.php","core/php/template/popup.php","core/js/main.js","setup/setupProcessFile.php","error.php"),
 	 "",
 	 $currentPage);
-require_once("core/php/class/update.php");
-$update = new update();
 require_once("core/php/class/settings.php");
 $settings = new settings();
 $core->setCookieRedirect();
@@ -66,13 +64,10 @@ require_once($defaultSettingsDir);
 require_once('core/php/configStatic.php');
 require_once('core/php/loadVars.php');
 require_once('core/php/loadVarsToJs.php');
-require_once('core/php/updateCheck.php');
 $settingsUrlModifier = "";
 require_once("core/php/defaultConfData.php");
 require_once('core/php/defaultLogSidebarData.php');
 require_once('core/php/defaultIndexHeaderData.php');
-
-$daysSince = $update->calcuateDaysSince($configStatic['lastCheck']);
 
 /* USED IN ABOUT PAGE (template/about.php) */
 $otherPageImageModifier = "";
@@ -198,7 +193,6 @@ $needRefresh = $core->generateImage(
 			<?php require_once('core/php/template/fullScreenMenu.php'); ?>
 		</div>
 
-		<form id="settingsInstallUpdate" action="update/updater.php" method="post" style="display: none"></form>
 		<form id="localLayout" style="display: none;" >
 			<?php include("core/php/template/logLayoutInner.php"); ?>
 		</form>
@@ -228,52 +222,9 @@ $needRefresh = $core->generateImage(
 				}
 				<?php
 			endif;
-			if($levelOfUpdate !== 0 && $configStatic["version"] !== $dontNotifyVersion && $updateNotificationEnabled === "true"):
-				if($updateNoticeMeter === "every" || $levelOfUpdate > 1):
-					$updateImage = "";
-					if($levelOfUpdate == 1)
-					{
-						$updateImage = json_encode($core->generateImage(
-							$arrayOfImages["yellowWarning"],
-							$imageConfig = array(
-								"id"		=>	"updateImage",
-								"class"		=>	"menuImage",
-								"height"	=>	"15px"
-							)
-						));
-					}
-					elseif($levelOfUpdate == 2 || $levelOfUpdate == 3)
-					{
-						$updateImage = json_encode($core->generateImage(
-							$arrayOfImages["redWarning"],
-							$imageConfig = array(
-								"id"		=>	"updateImage",
-								"class"		=>	"menuImage",
-								"height"	=>	"15px"
-							)
-						));
-					}
-
-					?>
-					function addUpdateNotification()
-					{
-						var currentId = notifications.length;
-						notifications[currentId] = new Array();
-						notifications[currentId]["id"] = currentId;
-						notifications[currentId]["name"] = "New Update: <?php echo $configStatic['newestVersion'];?>";
-						notifications[currentId]["time"] = formatAMPM(new Date());
-						notifications[currentId]["action"] = "toggleUpdateMenu();";
-						notifications[currentId]["image"] = <?php echo $updateImage; ?>;
-					}
-				<?php endif;
-			endif;
 			echo "var colorArrayLength = ".count($currentSelectedThemeColorValues).";";
-			echo "var dateOfLastUpdate = '".$configStatic['lastCheck']."';";
-			echo "var daysSinceLastCheck = '".$daysSince."';";
 			echo "var windowDisplayConfigRowCount = ".$windowDisplayConfig[0].";";
 			echo "var windowDisplayConfigColCount = ".$windowDisplayConfig[1].";";
-			echo "var updateIconYellowSrc = '".$arrayOfImages["updateYellow"]["src"]."';";
-			echo "var updateIconRedSrc = '".$arrayOfImages["updateRed"]["src"]."';";
 			$srcForLoadImage = "core/img/loading.gif";
 			if(isset($arrayOfImages))
 			{
@@ -342,8 +293,5 @@ $needRefresh = $core->generateImage(
 				timerForLoadJS = setInterval(tryLoadJSStuff, 25);
 			}, 25);
 		});
-	</script>
-	<script type="text/javascript">
-		var htmlRestoreOptions = "<?php echo $settings->generateRestoreList($configStatic); ?>";
 	</script>
 </body>

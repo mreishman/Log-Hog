@@ -95,45 +95,6 @@ if(in_array('themesEnabled', $arrayOfDisabledModules))
 	</div>
 	<span class="fullScreenMenuText">Themes</span>
 </li>
-<?php $updateStyle = "";
-if((in_array('updaterEnabled', $arrayOfDisabledModules)))
-{
-	$updateStyle = "display: none;";
-}
-?>
-<li id="mainMenuUpdate" style=" <?php echo $updateStyle; ?>" onclick="toggleUpdateMenu();" >
-	<?php
-	$menuUpdateImage = "refresh";
-	if($levelOfUpdate !== 0 && $configStatic["version"] !== $dontNotifyVersion && $updateNotificationEnabled === "true")
-	{
-		if($updateNoticeMeter === "every" || $levelOfUpdate > 1)
-		{
-			if($levelOfUpdate == 1)
-			{
-				$menuUpdateImage = "updateYellow";
-			}
-			elseif($levelOfUpdate == 2 || $levelOfUpdate == 3)
-			{
-				$menuUpdateImage = "updateRed";
-			}
-		}
-	}
-	?>
-	<div class="menuImageDiv">
-		<?php echo $core->generateImage(
-			$arrayOfImages["loadingImg"],
-			$imageConfig = array(
-				"id"		=>	"update",
-				"class"		=>	"menuImage mainMenuImage",
-				"height"	=>	"30px",
-				"title"		=>	"Update",
-				"data-src"	=>	$arrayOfImages[$menuUpdateImage]
-				)
-			);
-		?>
-	</div>
-	<span class="fullScreenMenuText">Update</span>
-</li>
 <li id="watchListMenu" onclick="toggleWatchListMenu();" >
 	<div class="menuImageDiv">
 		<?php echo $core->generateImage(
