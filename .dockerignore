@@ -2,6 +2,8 @@
 .gitignore
 .github
 tests
+scripts
+release-notes
 .agents
 .codex
 .aws
