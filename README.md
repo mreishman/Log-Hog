@@ -203,16 +203,18 @@ python3 -B -m unittest discover -s tests -v
 
 ## Cut a release
 
-The release workflow publishes the same tested Linux `amd64` and `arm64` image to Docker Hub (`mreishman/loghog`) and GitHub Container Registry (`ghcr.io/mreishman/log-hog`). After publishing both versioned images, it updates `latest` and publishes the notes on [GitHub Releases](https://github.com/mreishman/Log-Hog/releases).
+The release workflow publishes the same Linux `amd64` and `arm64` images to Docker Hub (`mreishman/loghog`) and GitHub Container Registry (`ghcr.io/mreishman/log-hog`). After publishing both versioned images, it updates `latest` and publishes the notes on [GitHub Releases](https://github.com/mreishman/Log-Hog/releases). Automated tests run on branch pushes and pull requests.
 
 In the repository's GitHub Actions `release` environment, configure `DOCKERHUB_USERNAME` and `DOCKERHUB_TOKEN` with write access to the Docker Hub repository. GHCR and GitHub Releases use the workflow's built-in token. Make the GHCR package public if users should be able to pull it without signing in.
 
 1. Add `release-notes/<version>.md` with a title followed by plain-text bullets. Use `##` headings to group bullets into sections. Use two or three version components to match the project's tag format, such as `9.0` or `9.0.1`.
 2. Run `python3 scripts/release_notes.py prepare 9.0` and commit the notes and generated in-app changelog. Substitute `python` on Windows if needed. The preparation command keeps the previous in-app release entries.
-3. Once the workflow is on the default branch, run **Release Log-Hog** manually on the intended ref with version `9.0`. The run validates the notes, runs the full test suite, and builds and smoke-tests both platforms without publishing.
+3. Once the workflow is on the default branch, run **Release Log-Hog** manually on the intended ref with version `9.0` to validate the notes and build both platforms without publishing.
 4. When ready, tag the tested commit and push the tag.
 
-   ```sh
+   ```powershell
+   git switch 9.0
+   git pull --ff-only origin 9.0
    git tag -a v9.0 -m "Log-Hog 9.0"
    git push origin refs/tags/v9.0
    ```

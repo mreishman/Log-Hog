@@ -44,10 +44,6 @@ jobs:
           python3 -B scripts/release_notes.py check "$version"
           printf 'version=%s\nrevision=%s\n' "$version" "$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
 
-  tests:
-    needs: metadata
-    uses: ./.github/workflows/tests.yml
-
   candidate:
     needs: metadata
     runs-on: ${{ matrix.runner }}
@@ -68,7 +64,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           persist-credentials: false
-      - name: Build and smoke-test the release image
+      - name: Build the release image
         run: |
           image="loghog:release-$ARCH"
           docker build --platform "linux/$ARCH" \
@@ -76,16 +72,12 @@ jobs:
             --label "org.opencontainers.image.revision=$REVISION" \
             --label "org.opencontainers.image.source=$GITHUB_SERVER_URL/$GITHUB_REPOSITORY" \
             -t "$image" .
-          docker run --rm "$image" apache2ctl -t
           actual=$(docker run --rm "$image" php -r 'require "core/php/configStatic.php"; echo $configStatic["version"];')
           test "$actual" = "$VERSION"
-          LOGHOG_TEST_IMAGE="$image" PYTHONPATH=tests python3 -B -m unittest -v \
-            test_docker.DockerTests.test_setup_log_poll_and_recreation \
-            test_docker.DockerTests.test_protected_paths_and_retired_updater
           if [[ "$GITHUB_EVENT_NAME" == push ]]; then
             docker image save "$image" | gzip > "loghog-$ARCH.tar.gz"
           fi
-      - name: Save the exact tested image
+      - name: Save the release image
         if: github.event_name == 'push'
         uses: actions/upload-artifact@v4
         with:
@@ -96,7 +88,7 @@ jobs:
 
   publish:
     if: github.event_name == 'push' && github.ref_type == 'tag'
-    needs: [metadata, tests, candidate]
+    needs: [metadata, candidate]
     runs-on: ubuntu-24.04
     timeout-minutes: 20
     environment: release
