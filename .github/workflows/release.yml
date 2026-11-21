@@ -48,23 +48,6 @@ jobs:
     needs: metadata
     uses: ./.github/workflows/tests.yml
 
-  wiki-preview:
-    if: github.event_name == 'workflow_dispatch'
-    needs: metadata
-    runs-on: ubuntu-latest
-    env:
-      VERSION: ${{ needs.metadata.outputs.version }}
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          persist-credentials: false
-      - name: Preview the wiki change without pushing
-        run: |
-          wiki="$RUNNER_TEMP/loghog-wiki-preview"
-          git clone --depth 1 https://github.com/mreishman/Log-Hog.wiki.git "$wiki"
-          python3 -B scripts/release_notes.py wiki "$VERSION" --wiki-file "$wiki/Change-Log---Release-Notes.md"
-          git -C "$wiki" diff -- Change-Log---Release-Notes.md
-
   candidate:
     needs: metadata
     runs-on: ${{ matrix.runner }}
@@ -168,9 +151,3 @@ jobs:
           else
             gh release create "$GITHUB_REF_NAME" --verify-tag --title "Log-Hog $VERSION" --notes-file "$notes"
           fi
-
-  wiki:
-    needs: [metadata, publish]
-    uses: ./.github/workflows/release-wiki.yml
-    with:
-      tag: ${{ github.ref_name }}

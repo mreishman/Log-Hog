@@ -9,11 +9,8 @@ $configStatic = array(
       'title' => 'PHP and Docker maintenance',
       'releaseNotes' =>
         '<ul>'
-        . '<li>Upgraded to PHP 8.6.0 and standardized Docker and Compose on the official PHP Apache image.</li>'
-        . '<li>Docker Compose keeps settings, profiles, custom themes, and log history in named volumes so they survive container replacement.</li>'
-        . '<li>Removed in-app update checks, installation, and rollback. Upgrade Docker installations by rebuilding and recreating the container with the same data volumes. Configuration, layout, and theme migrations still run as needed.</li>'
-        . '<li>Updated the README with Docker Desktop and Compose setup, multiple log mounts, backup and migration steps, and screenshots with sample logs.</li>'
-        . '<li>Added automated tests for all 256 saved module combinations and browser workflows including live logs, background polling, unsaved changes, and theme switching.</li>'
+        . '<li>Maintenance<ul><li>Upgraded to PHP 8.6.0 and standardized Docker and Compose on the official PHP Apache image.</li><li>Docker Compose keeps settings, profiles, custom themes, and log history in named volumes so they survive container replacement.</li><li>Removed in-app update checks, installation, and rollback. Upgrade Docker installations by rebuilding and recreating the container with the same data volumes. Configuration, layout, and theme migrations still run as needed.</li><li>Updated the README with Docker Desktop and Compose setup, multiple log mounts, backup and migration steps, and screenshots with sample logs.</li><li>Added automated tests for all 256 saved module combinations and browser workflows including live logs, background polling, unsaved changes, and theme switching.</li></ul></li>'
+        . '<li>Bug Fixes<ul><li>Fixed js error on resize when no logs are present</li><li>Upgrade script negative number causing an error when going back a version. Still causes config issues depending on changes, and reverting versions is not fully supported if the local config file is not deleted first</li><li>Timestamp background in settings now has the correct background color</li></ul></li>'
         . '</ul>',
     ),
     // END CURRENT RELEASE NOTES

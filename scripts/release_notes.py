@@ -19,18 +19,38 @@ def read_notes(version):
     notes = (ROOT / "release-notes" / f"{version}.md").read_text(encoding="utf-8")
     lines = notes.strip().splitlines()
     if (len(lines) < 3 or not lines[0].startswith("# ") or not lines[0][2:].strip()
-            or lines[1] != "" or any(not re.fullmatch(r"- \S.*", line) for line in lines[2:])):
-        raise ValueError("Release notes need a title, blank line, and one plain-text bullet per line")
-    return lines[0][2:], [line[2:] for line in lines[2:]]
+            or lines[1] != ""):
+        raise ValueError("Release notes need a title followed by a blank line")
+    sections = re.split(r"(?m)^## (\S[^\n]*)\n", "\n".join(lines[2:]))
+    bullets = []
+    if sections[0].strip():
+        bullets.extend(read_bullets(sections[0]))
+    for heading, body in zip(sections[1::2], sections[2::2]):
+        bullets.append((heading.rstrip(), read_bullets(body)))
+    return lines[0][2:], bullets
+
+
+def read_bullets(body):
+    lines = body.strip("\n").splitlines()
+    if not lines or any(not re.fullmatch(r"- \S.*", line) for line in lines):
+        raise ValueError("Each release notes section needs one plain-text bullet per line")
+    return [line[2:] for line in lines]
 
 
 def php_string(value):
     return "'" + value.replace("\\", "\\\\").replace("'", "\\'") + "'"
 
 
+def render_item(item):
+    if isinstance(item, str):
+        return "<li>" + html.escape(item) + "</li>"
+    heading, bullets = item
+    return "<li>" + html.escape(heading) + "<ul>" + "".join(map(render_item, bullets)) + "</ul></li>"
+
+
 def render_entry(version, title, bullets):
     items = "".join(
-        "        . " + php_string("<li>" + html.escape(item) + "</li>") + "\n"
+        "        . " + php_string(render_item(item)) + "\n"
         for item in bullets
     )
     return (
@@ -62,7 +82,15 @@ def expected_config(source, version, title, bullets):
 def update_wiki(source, version, title, bullets):
     heading = "##" if version.count(".") == 1 else "###"
     section = f"{heading} {version}\n\n**{title}**\n\n"
-    section += "\n".join(f"- {item}" for item in bullets)
+    lines = []
+    for item in bullets:
+        if isinstance(item, str):
+            lines.append(f"- {item}")
+        else:
+            label, items = item
+            lines.append(f"- {label}")
+            lines.extend(f"  - {bullet}" for bullet in items)
+    section += "\n".join(lines)
     matches = list(WIKI_HEADING.finditer(source))
     existing = [index for index, match in enumerate(matches) if match[1] == version]
     if len(existing) > 1:
