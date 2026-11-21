@@ -356,13 +356,17 @@ try {
         const failures = [];
         for (const section of sections) {
             try {
-                for (const [index, path] of configs.entries()) fixture('cp "$1" "$2"', `/tmp/guard-baseline-${index}`, path);
+                for (const [index, path] of configs.entries()) {
+                    fixture('cp "$1" "$2.fixture"; mv -f "$2.fixture" "$2"', `/tmp/guard-baseline-${index}`, path);
+                }
                 await openSection(section);
                 const edit = await evaluate(`(() => {
                     const form = document.getElementById(${JSON.stringify(section.form)});
                     const special = {
                         settingsMainWatch: ['watchListKey1Location', '/tmp/loghog-fixtures/nested'],
                         settingsInitialLoadLayoutVars: ['logLoad1x1-0-A', '/tmp/loghog-fixtures/web.log'],
+                        // Keep the Timestamp and Linked Files menus available to the next case.
+                        settingsLogFormatVars: ['logFormatPhpHideExtra', 'true'],
                         modules: ['rightClickMenuEnable', 'false'],
                         globalAdvanced: ['successVerifyNum', '2'],
                     }[form.id];
@@ -592,14 +596,16 @@ try {
             mutate('printf "%s\\n" "$2" > "$1"', path, previous);
             await readLog(path, previous);
             for (const [action, command, marker] of [
-                ['overwrite', 'printf "%s\\n" "$2" > "$1"', `${label} same-size record B`],
-                ['rotation', 'mv "$1" "$1.rotated"; printf "%s\\n" "$2" > "$1"', `${label} same-size record C`],
+                // Keep the watched path present and the size unchanged throughout each operation.
+                ['overwrite', 'printf "%s\\n" "$2" | dd of="$1" conv=notrunc status=none', `${label} same-size record B`],
+                ['rotation', 'cp "$1" "$1.rotated"; printf "%s\\n" "$2" > "$1.pending"; mv -f "$1.pending" "$1"', `${label} same-size record C`],
             ]) {
                 assert.equal(marker.length, previous.length);
                 mutate(command, path, marker);
                 await waitForPolls();
-                if (!await textVisible(marker)) {
-                    assert.equal(await textVisible(lastVisible), true, `${label} retained its previous contents`);
+                const rendered = await evaluate('document.body.innerText');
+                if (!rendered.includes(marker)) {
+                    assert.ok(rendered.includes(lastVisible), `${label} same-size ${action} displayed neither record`);
                     console.log(`LH-009: ${label} same-size ${action} was not detected by polling`);
                     await click('refreshImage');
                     await readLog(path, marker);
