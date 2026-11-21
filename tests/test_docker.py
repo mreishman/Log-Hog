@@ -367,19 +367,12 @@ file_put_contents($file, '<?php $config = '.var_export($config, true).';');
         catalog = dict(module_catalog())
         self.assertEqual(len(catalog), 8, "Update the module coverage when the module catalog changes")
         checked_assets = set()
-        rejected_saves = 0
-        self.php("<?php copy('local/profiles/default/conf/config.php', '/tmp/loghog-module-profile.php');")
         for mask in range(1 << len(catalog)):
             disabled = [name for index, name in enumerate(catalog) if mask & (1 << index)]
             with self.subTest(mask=mask, disabled=disabled):
                 settings = {"moduleDisabledList": json.dumps(disabled, separators=(",", ":"))}
                 saved = self.post(POST_DIR + "settingsSaveAjax.php", key, **settings)
-                if type(saved) is int and saved == 4 and "backupNumConfigEnabled" in disabled:
-                    rejected_saves += 1
-                    # LH-005: Seed the saved state to still exercise this configuration's dashboard.
-                    self.seed_module_profile(disabled)
-                else:
-                    self.assertIs(saved, True)
+                self.assertIs(saved, True)
                 self.assertIs(self.post(POST_DIR + "saveCheck.php", key, **settings), True)
                 url, page = self.request("/")
                 self.assertEqual(url, "/")
@@ -399,16 +392,12 @@ file_put_contents($file, '<?php $config = '.var_export($config, true).';');
                     with self.browser.open(self.base_url + "/" + asset, timeout=3) as response:
                         self.assertEqual(response.status, 200, asset)
                     checked_assets.add(asset)
-        if rejected_saves:
-            print(f"\nLH-005: seeded {rejected_saves} rejected saves to finish the module matrix", flush=True)
 
     def test_disabling_backups_preserves_profile(self):
         key = self.complete_setup()
         saved = self.post(POST_DIR + "settingsSaveAjax.php", key, moduleDisabledList='["backupNumConfigEnabled"]')
-        if type(saved) is int and saved == 4:
-            self.assertEqual(self.php("<?php echo is_file('local/profiles/default/conf/config.php') ? 'present' : 'missing';"), "missing")
-            self.skipTest("Known bug LH-005: disabling config backups can remove the active profile")
         self.assertIs(saved, True)
+        self.assertEqual(self.php("<?php echo is_file('local/profiles/default/conf/config.php') ? 'present' : 'missing';"), "present")
         self.assertEqual(self.request("/")[0], "/")
 
     def test_watch_entry_grep_filters_log_lines(self):

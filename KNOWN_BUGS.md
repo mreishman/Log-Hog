@@ -20,10 +20,6 @@ The global configuration version endpoint returns `false` when the saved version
 
 Creating a custom theme can report success even though its stylesheet and icons are missing. The test creates the theme directories and invokes the copy endpoint, then checks for `img/Gear.png` in the new theme. The copy endpoint targets a profile-relative `Themes` directory while creation and verification use `local/Themes`.
 
-## LH-005 Disabling config backups can remove the active profile
-
-Saving the Modules form with **Config Backup** disabled can return Error 4 and leave `config.php` missing. The settings handler removes the old profile file and checks whether that now-missing file is writable before creating the replacement. The regression check records that exact outcome. The module matrix uses a disposable saved profile for affected cases so it can still verify that those configurations load.
-
 ## LH-006 A watch entry's grep filter can return HTTP 500
 
 Polling a dummy log with the per-watch grep filter set to `WARN` returns HTTP 500 on PHP 8.6. The handler passes an array to `explode()` during line counting. The regression test tolerates only the HTTP 500 paired with that type error.

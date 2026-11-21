@@ -63,7 +63,13 @@ if(!(in_array('backupNumConfigEnabled', $arrayOfDisabledModules)))
 		{
 			try
 			{
-				rename($fileNameOld, $fileNameNew);
+				// Keep the active profile available until the replacement is ready.
+				$backedUp = $i === 1 ? copy($fileNameOld, $fileNameNew) : rename($fileNameOld, $fileNameNew);
+				if(!$backedUp)
+				{
+					echo json_encode(6);
+					exit();
+				}
 			}
 			catch (Exception $e)
 			{
@@ -103,21 +109,23 @@ $newInfoForConfig .= "
 
 if(is_writable($baseUrl."conf/"))
 {
-	if(file_exists($fileName))
+	if(file_exists($fileName) && !is_writable($fileName))
 	{
-		unlink($fileName);
-		if(!is_writable($fileName))
-		{
-			echo json_encode(4);
-			exit();
-		}
+		echo json_encode(4);
+		exit();
 	}
-	try
+	$pendingFile = $baseUrl.'conf/config-'.bin2hex(random_bytes(16)).'.php';
+	$pending = fopen($pendingFile, 'xb');
+	if($pending === false)
 	{
-		file_put_contents($fileName, $newInfoForConfig);
+		echo json_encode(5);
+		exit();
 	}
-	catch (Exception $e)
+	$written = fwrite($pending, $newInfoForConfig);
+	$closed = fclose($pending);
+	if($written !== strlen($newInfoForConfig) || !$closed || !rename($pendingFile, $fileName))
 	{
+		unlink($pendingFile);
 		echo json_encode(5);
 		exit();
 	}

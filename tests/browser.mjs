@@ -127,10 +127,6 @@ try {
                 if (error !== null) return { error };
                 return JSON.stringify(await state()) === JSON.stringify(sorted) && { saved: true };
             }, 'saved module settings ' + JSON.stringify(sorted));
-            if (outcome.error === '4' && sorted.includes(backupModule)) {
-                console.log('LH-005: module save returned Error 4');
-                return false;
-            }
             assert.equal(outcome.saved, true, 'Unexpected settings error ' + outcome.error);
             await waitFor(async () => !await visible('popup'), 'module save popup to close');
             return true;
@@ -150,10 +146,9 @@ try {
                 assert.equal(await save([]), true);
             }
             await setSwitch(backupModule, false);
-            if (await save([backupModule])) {
-                await setSwitch(backupModule, true);
-                assert.equal(await save([]), true);
-            }
+            assert.equal(await save([backupModule]), true);
+            await setSwitch(backupModule, true);
+            assert.equal(await save([]), true);
             console.log('Completed individual module toggles');
             return;
         }
@@ -607,8 +602,12 @@ try {
                 if (!rendered.includes(marker)) {
                     assert.ok(rendered.includes(lastVisible), `${label} same-size ${action} displayed neither record`);
                     console.log(`LH-009: ${label} same-size ${action} was not detected by polling`);
-                    await click('refreshImage');
-                    await readLog(path, marker);
+                    await waitFor(() => evaluate(`(() => {
+                        if (polling || clearingNotifications || refreshing) return false;
+                        document.getElementById('refreshImage').click();
+                        return true;
+                    })()`), 'manual refresh to start between polls');
+                    await expectLine(path, marker);
                 }
                 lastVisible = marker;
             }
