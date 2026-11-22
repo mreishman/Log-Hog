@@ -382,7 +382,7 @@ try {
                             if (!control.max || value <= Number(control.max)) return { name: control.name, value: String(value) };
                         }
                         if (control.type === 'text') {
-                            const value = /color/i.test(control.name) ? '123456' : control.value + ' Fixture';
+                            const value = /color/i.test(control.name) ? '#123456' : control.value + ' Fixture';
                             return { name: control.name, value };
                         }
                     }
