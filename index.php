@@ -24,7 +24,7 @@ $core->setCookieRedirect();
 $currentSelectedTheme = $session->returnCurrentSelectedTheme();
 $baseUrl = "local/".$currentSelectedTheme."/";
 $varTemplateSrcModifier = "";
-if(!file_exists($baseUrl.'conf/config.php'))
+if(!settingsData::exists($baseUrl.'conf/config.json'))
 {
 	require_once("setup/setupProcessFile.php");
 	if($setupProcess !== "finished")
@@ -42,25 +42,25 @@ if(!file_exists($baseUrl.'conf/config.php'))
 		}
 	}
 }
-require_once($baseUrl.'conf/config.php');
-require_once('core/conf/config.php');
-include('core/conf/globalConfig.php');
+$config = settingsData::read($baseUrl.'conf/config.json', 'config');
+$defaultConfig = settingsData::defaults('config');
+$defaultGlobalConfig = settingsData::defaults('globalConfig');
 
-if(is_file('local/conf/globalConfig.php'))
+if(settingsData::exists('local/conf/globalConfig.json'))
 {
-	include('local/conf/globalConfig.php');
+	$globalConfig = settingsData::read('local/conf/globalConfig.json', 'globalConfig');
 }
 else
 {
 	$globalConfig = array();
 }
 $currentTheme = $core->loadSpecificVar($defaultConfig, $config, "currentTheme");
-$defaultSettingsDir = 'core/Themes/'.$currentTheme."/defaultSetting.php";
+$defaultSettingsDir = 'core/Themes/'.$currentTheme."/defaultSetting.json";
 if(is_dir('local/Themes/'.$currentTheme))
 {
-	$defaultSettingsDir = 'local/Themes/'.$currentTheme."/defaultSetting.php";
+	$defaultSettingsDir = 'local/Themes/'.$currentTheme."/defaultSetting.json";
 }
-require_once($defaultSettingsDir);
+$themeDefaultSettings = settingsData::read($defaultSettingsDir, 'themeDefaultSettings');
 require_once('core/php/configStatic.php');
 require_once('core/php/loadVars.php');
 require_once('core/php/loadVarsToJs.php');

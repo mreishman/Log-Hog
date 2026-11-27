@@ -2,25 +2,6 @@
 
 class vars
 {
-	public function forEachAddVars($variable)
-	{
-		$returnText = "array(";
-		foreach ($variable as $key => $value)
-		{
-			$returnText .= " '".$key."' => ";
-			if(is_array($value) || is_object($value))
-			{
-				$returnText .= $this->forEachAddVars($value);
-			}
-			else
-			{
-				$returnText .= "'".$value."',";
-			}
-		}
-		$returnText .= "),";
-		return $returnText;
-	}
-
 	public function checkIfShouldLoad($loadCustomConfigVars, $key)
 	{
 		if(!$loadCustomConfigVars)
@@ -50,11 +31,6 @@ class vars
 			}
 		}
 		return true;
-	}
-
-	public function escapeTheEscapes($stringToEscape)
-	{
-		return implode("\\\\", explode("\\", $stringToEscape));
 	}
 
 	public function checkIfURIContains($arrayOfChecks)

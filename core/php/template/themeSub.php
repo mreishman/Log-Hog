@@ -6,7 +6,7 @@ if(!isset($settings))
 }
 foreach ($scanned_directory as $key):
 		if($key != ".DS_Store" && is_dir($directory.$key)):
-			include($directory.$key."/defaultSetting.php");
+			$themeDefaultSettings = settingsData::read($directory.$key."/defaultSetting.json", 'themeDefaultSettings');
 			$thisThemeIsSelected = false;
 			?>
 			<div class="addBorder iframeThemeOuter">

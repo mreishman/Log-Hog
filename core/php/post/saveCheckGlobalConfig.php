@@ -21,11 +21,11 @@ $vars = new vars();
 
 
 $globalConfig = array();
-if(file_exists($varToIndexDir.'local/conf/globalConfig.php'))
+if(settingsData::exists($varToIndexDir.'local/conf/globalConfig.json'))
 {
-	include($varToIndexDir.'local/conf/globalConfig.php');
+	$globalConfig = settingsData::read($varToIndexDir.'local/conf/globalConfig.json', 'globalConfig');
 }
-include($varToIndexDir.'core/conf/globalConfig.php');
+$defaultGlobalConfig = settingsData::defaults('globalConfig');
 
 $response = true;
 

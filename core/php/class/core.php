@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/settingsData.php';
 class core
 {
 	protected $moduleList = [];
@@ -29,27 +30,6 @@ class core
 			$currentTheme = $custom[$configLookFor];
 		}
 		return $currentTheme;
-	}
-
-	public function putIntoCorrectFormat($keyKey, $keyValue, $value)
-	{
-		if(is_string($value))
-		{
-			return "
-			'".$keyKey."' => '".$keyValue."',
-		";
-		}
-
-		if(is_array($value))
-		{
-			return "
-			'".$keyKey."' => array(".$keyValue."),
-		";
-		}
-
-		return "
-			'".$keyKey."' => ".$keyValue.",
-		";
 	}
 
 	public function echoErrorJavaScript($urlPath, $mainMessage, $errorNumber)

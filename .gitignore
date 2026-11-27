@@ -11,5 +11,8 @@ tmp/*
 session/*
 !session/.htaccess
 local/conf/globalConfig*
+local/conf/.settings-lock
+local/layout.json
+local/Themes/*/defaultSetting.json
 .sass-cache/
 local/.setup-status

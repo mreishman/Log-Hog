@@ -12,11 +12,11 @@ $errorCheck = new errorCheck();
 require_once('../core/php/configStatic.php');
 $currentPage = "welcome.php";
 $errorCheck->checkIfFilesExist(
-	array("local/layout.php","setup/setupProcessFile.php","error.php","setup/step1.php","core/template/theme.css","core/js/jquery.js","core/php/template/popup.php","core/php/post/settingsSaveAjax.php","core/conf/config.php","setup/stepsJavascript.js"),
+	array("setup/setupProcessFile.php","error.php","setup/step1.php","core/template/theme.css","core/js/jquery.js","core/php/template/popup.php","core/php/post/settingsSaveAjax.php","core/conf/config.php","setup/stepsJavascript.js"),
 	 "../",
 	 $currentPage);
 $errorCheck->checkIfFilesAreReadable(
-	array("local/layout.php","setup/setupProcessFile.php","error.php","setup/step1.php","core/template/theme.css","core/js/jquery.js","core/php/template/popup.php","core/php/post/settingsSaveAjax.php","core/conf/config.php","setup/stepsJavascript.js"),
+	array("setup/setupProcessFile.php","error.php","setup/step1.php","core/template/theme.css","core/js/jquery.js","core/php/template/popup.php","core/php/post/settingsSaveAjax.php","core/conf/config.php","setup/stepsJavascript.js"),
 	 "../",
 	 $currentPage);
 
@@ -30,7 +30,7 @@ $errorCheck->checkIfFilesAreWritable(
 	 $currentPage);
 
 require_once('setupProcessFile.php');
-if(file_exists($baseUrl.'conf/config.php'))
+if(settingsData::exists($baseUrl.'conf/config.json'))
 {
 	if($setupProcess != "preStart")
 	{

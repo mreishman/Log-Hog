@@ -19,17 +19,18 @@ $baseUrl = "../../../local/";
 $currentSelectedTheme = $session->returnCurrentSelectedThemeAjax();
 $baseUrl .= $currentSelectedTheme."/";
 
+$settingsLock = settingsData::lock("../../../local/conf");
 $config = array();
-if(file_exists($baseUrl.'conf/config.php'))
+if(settingsData::exists($baseUrl.'conf/config.json'))
 {
-	require_once($baseUrl.'conf/config.php');
+	$config = settingsData::read($baseUrl.'conf/config.json', 'config');
 	// Ok if it doesn't exist, user might have deleted to reset settings or something?
 }
 
 $globalConfig = array();
-if(file_exists('../../../local/conf/globalConfig.php'))
+if(settingsData::exists('../../../local/conf/globalConfig.json'))
 {
-	include('../../../local/conf/globalConfig.php');
+	$globalConfig = settingsData::read('../../../local/conf/globalConfig.json', 'globalConfig');
 	// Ok if it doesn't exist, user might have deleted to reset settings or something?
 }
 
@@ -38,8 +39,8 @@ if (!file_exists("../../../core/conf/globalConfig.php") || !is_readable("../../.
 	echo json_encode(8);
 	exit();
 }
-include('../../../core/conf/globalConfig.php');
-require_once('../../../core/conf/config.php');
+$defaultGlobalConfig = settingsData::defaults('globalConfig');
+$defaultConfig = settingsData::defaults('config');
 if(!isset($defaultConfig))
 {
 	echo json_encode(10);
@@ -47,76 +48,28 @@ if(!isset($defaultConfig))
 }
 
 $currentTheme = $core->loadSpecificVar($defaultConfig, $config, "currentTheme");
-$requireFile = "../../../core/Themes/".$currentTheme."/defaultSetting.php";
+$requireFile = "../../../core/Themes/".$currentTheme."/defaultSetting.json";
 if(is_dir("../../../local/Themes/".$currentTheme))
 {
-	$requireFile = "../../../local/Themes/".$currentTheme."/defaultSetting.php";
+	$requireFile = "../../../local/Themes/".$currentTheme."/defaultSetting.json";
 }
-require_once($requireFile);
+$themeDefaultSettings = settingsData::read($requireFile, 'themeDefaultSettings');
 
 require_once('../loadVars.php');
-if(!(in_array('backupNumConfigEnabled', $arrayOfDisabledModules)))
+if (!in_array('backupNumConfigEnabled', $arrayOfDisabledModules)
+    && !settingsData::backup("../../../local/conf/globalConfig", 'globalConfig', $backupNumConfig))
 {
-	for ($i=$backupNumConfig; $i > 0; $i--)
-	{
-		$addonNum = "";
-		if($i !== 1)
-		{
-			$addonNum = $i-1;
-		}
-		$fileNameOld = '../../../local/conf/globalConfig'.$addonNum.'.php';
-		$fileNameNew = '../../../local/conf/globalConfig'.$i.'.php';
-		if (file_exists($fileNameOld))
-		{
-			try
-			{
-				rename($fileNameOld, $fileNameNew);
-			}
-			catch (Exception $e)
-			{
-				echo json_encode(6);
-				exit();
-			}
-		}
-	}
-}
-
-$fileName = '../../../local/conf/globalConfig.php';
-
-$newInfoForConfig = "<?php
-	$"."globalConfig = array(
-	";
-foreach ($defaultGlobalConfig as $key => $value)
-{
-	$newInfoForConfig .= $core->putIntoCorrectFormat($key, $$key, $value);
-}
-$newInfoForConfig .= "
-	);
-?>";
-
-if(is_writable($baseUrl."conf/"))
-{
-	if(file_exists($fileName))
-	{
-		unlink($fileName);
-		if(!is_writable($fileName))
-		{
-			echo json_encode(4);
-			exit();
-		}
-	}
-	try
-	{
-		file_put_contents($fileName, $newInfoForConfig);
-	}
-	catch (Exception $e)
-	{
-		echo json_encode(5);
-		exit();
-	}
-
-	echo json_encode(true);
+	echo json_encode(6);
 	exit();
 }
-echo json_encode(3);
-exit();
+
+$fileName = '../../../local/conf/globalConfig.json';
+
+$newInfoForConfig = [];
+foreach ($defaultGlobalConfig as $key => $value)
+{
+	$newInfoForConfig[$key] = $$key;
+}
+
+
+echo json_encode(settingsData::write($fileName, $newInfoForConfig) ? true : 5);

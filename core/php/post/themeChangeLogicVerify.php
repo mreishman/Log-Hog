@@ -15,10 +15,10 @@ if(!$session->validate())
 }
 $currentSelectedTheme = $session->returnCurrentSelectedThemeAjax();
 $baseUrl = "../../../local/".$currentSelectedTheme."/";
-require_once($baseUrl.'conf/config.php');
-require_once('../../../core/conf/config.php');
-include('../../../local/conf/globalConfig.php');
-include('../../../core/conf/globalConfig.php');
+$config = settingsData::read($baseUrl.'conf/config.json', 'config');
+$defaultConfig = settingsData::defaults('config');
+$globalConfig = settingsData::read('../../../local/conf/globalConfig.json', 'globalConfig');
+$defaultGlobalConfig = settingsData::defaults('globalConfig');
 require_once('../../../core/php/configStatic.php');
 //get current selected theme directory and settings
 $currentTheme = $core->loadSpecificVar($defaultConfig, $config, "currentTheme");
@@ -27,7 +27,7 @@ if(is_dir('../../../local/Themes/'.$currentTheme))
 {
 	$directory = "../../../local/Themes/".$currentTheme."/";
 }
-require_once($directory."defaultSetting.php");
+$themeDefaultSettings = settingsData::read($directory."defaultSetting.json", 'themeDefaultSettings');
 require_once('../../../core/php/loadVars.php');
 $boolToReturn = true;
 //check if version in current css is equal to default

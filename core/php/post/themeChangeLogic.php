@@ -15,10 +15,11 @@ if(!$session->validate())
 }
 $currentSelectedTheme = $session->returnCurrentSelectedThemeAjax();
 $baseUrl = "../../../local/".$currentSelectedTheme."/";
-require_once($baseUrl.'conf/config.php');
-require_once('../../../core/conf/config.php');
-include('../../../local/conf/globalConfig.php');
-include('../../../core/conf/globalConfig.php');
+$settingsLock = settingsData::lock($baseUrl."conf");
+$config = settingsData::read($baseUrl.'conf/config.json', 'config');
+$defaultConfig = settingsData::defaults('config');
+$globalConfig = settingsData::read('../../../local/conf/globalConfig.json', 'globalConfig');
+$defaultGlobalConfig = settingsData::defaults('globalConfig');
 require_once('../../../core/php/configStatic.php');
 //get current selected theme directory and settings
 $currentTheme = $core->loadSpecificVar($defaultConfig, $config, "currentTheme");
@@ -27,7 +28,7 @@ if(is_dir('../../../local/Themes/'.$currentTheme))
 {
 	$directory = "../../../local/Themes/".$currentTheme."/";
 }
-require_once($directory."defaultSetting.php");
+$themeDefaultSettings = settingsData::read($directory."defaultSetting.json", 'themeDefaultSettings');
 require_once('../../../core/php/loadVars.php');
 //Copy over CSS HERE
 $scanned_directory = array_diff(scandir($directory."template/"), array('..', '.'));
@@ -43,11 +44,9 @@ foreach ($scanned_directory as $key)
 }
 //Set var to new one here
 $themeVersion = $defaultConfig['themeVersion'];
-$fileName = ''.$baseUrl.'conf/config.php';
+$fileName = ''.$baseUrl.'conf/config.json';
 $cssVersion = $cssVersion + 1;
-$newInfoForConfig = "<?php
-	$"."config = array(
-	";
+$newInfoForConfig = [];
 foreach ($defaultConfig as $key => $value)
 {
 	if(
@@ -63,17 +62,9 @@ foreach ($defaultConfig as $key => $value)
 		isset($arrayOfCustomConfig[$key])
 	)
 	{
-		$newInfoForConfig .= $core->putIntoCorrectFormat($key, $$key, $value);
+		$newInfoForConfig[$key] = $$key;
 	}
 }
-$newInfoForConfig .= "
-	);
-?>";
 
-if(file_exists($fileName))
-{
-	unlink($fileName);
-}
 
-file_put_contents($fileName, $newInfoForConfig);
-echo json_encode(true);
+echo json_encode(settingsData::write($fileName, $newInfoForConfig) ? true : 5);

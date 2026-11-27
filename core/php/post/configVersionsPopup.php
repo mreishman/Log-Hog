@@ -14,7 +14,8 @@ if(!$session->startSession())
 }
 $currentSelectedTheme = $session->returnCurrentSelectedThemeAjax();
 $baseUrl = "../../../local/".$currentSelectedTheme."/";
-if(file_exists($baseUrl."conf/config1.php"))
+$settingsLock = settingsData::lock($baseUrl."conf");
+if(settingsData::exists($baseUrl."conf/config1.json"))
 {
 	/* build popup with files*/
 	$returnData['backupCopiesPresent'] = true;
@@ -24,11 +25,14 @@ if(file_exists($baseUrl."conf/config1.php"))
 	$arrayOfDiffs = array();
 	while($boolVarForLoop)
 	{
-		$baseFile = $baseUrl."conf/config.php";
-		$configBackupFile = $baseUrl."conf/config".$count.".php";
-		if(file_exists($configBackupFile))
+		$baseFile = $baseUrl."conf/config.json";
+		$configBackupFile = $baseUrl."conf/config".$count.".json";
+		if(settingsData::exists($configBackupFile))
 		{
-			array_push($arrayOfDiffs, diff::toHTML(diff::compareFiles($baseFile, $configBackupFile)));
+			array_push($arrayOfDiffs, diff::toHTML(diff::compare(
+				settingsData::encode(settingsData::read($baseFile, 'config')),
+				settingsData::encode(settingsData::read($configBackupFile, 'config'))
+			)));
 			array_push($arrayOfFiles, $configBackupFile);
 			$count++;
 		}

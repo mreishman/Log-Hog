@@ -122,11 +122,11 @@ $errorArray = array(
     ),
     1   =>  array(
         "firstMessage"      =>  "Watch-List Config Error",
-        "secondMessage"     =>  "Please remove all reference of double backslash (\\\\) from the watchList var in config.php (Local/default/conf/config.php)"
+        "secondMessage"     =>  "Check the saved watch list in the active profile’s config.json."
     ),
     2   =>  array(
         "firstMessage"      =>  "Setup Error",
-        "secondMessage"     =>  "An error occured when trying to complete the setup process. Please check that the save file has correct access to write to and create a local config file.  If that doesn't work: Copy core/conf/config.php to local/default/conf/config.php and change defaultConfig to config."
+        "secondMessage"     =>  "Setup could not save the profile. Check that the web server can write to the profile conf directory."
     ),
     3   =>  array(
         "firstMessage"      =>  "Config Folder Save Error",
@@ -134,11 +134,11 @@ $errorArray = array(
     ),
     4   =>  array(
         "firstMessage"      =>  "Config File Save Error",
-        "secondMessage"     =>  "An error occured when SettingsSaveAjax tried to save the config file. This file does not have write access to the specific file (Local/default/conf/config.php) to save the updated config file. Please give the correct write access to settingsSaveAjax to save and update the config with the new values."
+        "secondMessage"     =>  "Check that the web server can update config.json in the active profile."
     ),
     5   =>  array(
         "firstMessage"      =>  "Config Save Error",
-        "secondMessage"     =>  "An unknown error occured when SettingsSaveAjax tried to save the config file. This file  (Local/default/conf/config.php) could not be updated with the new values."
+        "secondMessage"     =>  "The active profile could not be saved to config.json."
     ),
     6   =>  array(
         "firstMessage"      =>  "Config Backup Error",
@@ -146,7 +146,7 @@ $errorArray = array(
     ),
     7   =>  array(
         "firstMessage"      =>  "Local Layout File Error",
-        "secondMessage"     =>  "An error occured when trying to locate the local layout file. Please make sure the file is readable and in the correct folder (local/layout.php)"
+        "secondMessage"     =>  "Check that local/layout.json or the legacy local/layout.php is present and readable."
     ),
     8   =>  array(
         "firstMessage"      =>  "Core Config File Error",
@@ -154,7 +154,7 @@ $errorArray = array(
     ),
     9   =>  array(
         "firstMessage"      =>  "Local Layout File Error",
-        "secondMessage"     =>  "An error occured when loading the layout file. The file loaded does not contain the expected variable. Please check that the local layout file contains the currentSelectedTheme variable, and is defined (probably default) (local/layout.php)"
+        "secondMessage"     =>  "Check that the local layout identifies an existing profile in currentSelectedTheme."
     ),
     10   =>  array(
         "firstMessage"      =>  "Core Config File Error",
@@ -266,14 +266,14 @@ if(file_exists($file))
                 try
                 {
                     $currentSelectedTheme = "default";
-                    if(is_file("local/layout.php"))
+                    if(settingsData::exists("local/layout.json"))
                     {
-                        @include("local/layout.php");
+                        $currentSelectedTheme = settingsData::read('local/layout.json', 'layout')['currentSelectedTheme'] ?? null;
                     }
                     $config = array();
-                    if(is_file("local/profiles/".$currentSelectedTheme."/conf/config.php"))
+                    if(settingsData::exists("local/profiles/".$currentSelectedTheme."/conf/config.json"))
                     {
-                        @include("local/profiles/".$currentSelectedTheme."/conf/config.php");
+                        $config = settingsData::read("local/profiles/".$currentSelectedTheme."/conf/config.json", 'config');
                     }
                     $arrayOfModules = array();
 

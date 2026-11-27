@@ -159,7 +159,7 @@ function verifyNewFiles()
 	$.ajax({
 		url: themeFilesUrl,
 		dataType: "json",
-		data: {action: "verifyFileIsThere", path: "../../local/Themes/Custom-Theme-"+externalThemeNumber+"/defaultSetting.php", isThere: true, formKey},
+		data: {action: "verifyFileIsThere", path: "../../local/Themes/Custom-Theme-"+externalThemeNumber+"/defaultSetting.json", isThere: true, formKey},
 		type: "POST",
 		success(data)
 		{

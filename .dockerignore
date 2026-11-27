@@ -28,6 +28,7 @@ local/Themes/**
 local/conf/**
 !local/conf/globalConfig.php
 local/.setup-status
+local/layout.json
 session/**
 !session/.htaccess
 tmp/**

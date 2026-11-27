@@ -10,19 +10,19 @@ if(!$session->startSession())
 $currentSelectedTheme = $session->returnCurrentSelectedTheme();
 $baseUrl = "../local/".$currentSelectedTheme."/";
 $localURL = $baseUrl;
-require_once($baseUrl.'conf/config.php');
-require_once('../core/conf/config.php');
+$config = settingsData::read($baseUrl.'conf/config.json', 'config');
+$defaultConfig = settingsData::defaults('config');
 require_once('../core/php/configStatic.php');
-include('../core/conf/globalConfig.php');
-include('../local/conf/globalConfig.php');
+$defaultGlobalConfig = settingsData::defaults('globalConfig');
+$globalConfig = settingsData::read('../local/conf/globalConfig.json', 'globalConfig');
 $currentTheme = $core->loadSpecificVar($defaultConfig, $config, "currentTheme");
 if(is_dir('../local/Themes/'.$currentTheme))
 {
-	require_once('../local/Themes/'.$currentTheme."/defaultSetting.php");
+	$themeDefaultSettings = settingsData::read('../local/Themes/'.$currentTheme."/defaultSetting.json", 'themeDefaultSettings');
 }
 else
 {
-	require_once('../core/Themes/'.$currentTheme."/defaultSetting.php");
+	$themeDefaultSettings = settingsData::read('../core/Themes/'.$currentTheme."/defaultSetting.json", 'themeDefaultSettings');
 }
 require_once('../core/php/loadVars.php');
 ?>

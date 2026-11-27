@@ -7,8 +7,8 @@ $baseBaseUrl = $core->baseURL();
 $baseUrl = $baseBaseUrl."local/";
 $currentSelectedTheme = $upgrade->getCurrentSelectedTheme();
 $baseUrl .= $currentSelectedTheme."/";
-include($baseUrl.'conf/config.php');
-include($baseBaseUrl.'core/conf/config.php');
+$config = settingsData::read($baseUrl.'conf/config.json', 'config');
+$defaultConfig = settingsData::defaults('config');
 $watchlist = $defaultConfig["watchList"];
 $arrayForNewStuff = array(
 	"configVersion" => (Int)$_POST['version']

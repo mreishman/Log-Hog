@@ -7,56 +7,31 @@ $baseBaseUrl = $core->baseURL();
 $baseUrl = $baseBaseUrl."local/";
 $currentSelectedTheme = $upgrade->getCurrentSelectedTheme();
 $baseUrl .= $currentSelectedTheme."/";
-include($baseUrl.'conf/config.php');
-include($baseBaseUrl.'core/conf/config.php');
+$config = settingsData::read($baseUrl.'conf/config.json', 'config');
+$defaultConfig = settingsData::defaults('config');
 $watchlist = $defaultConfig["watchList"];
 $arrayForNewStuff = array(
 	"configVersion" => (Int)$_POST['version']
 );
-$alreadyRan = false;
-if (isset($config["watchList"]))
+
+if (isset($config['watchList']) && is_array($config['watchList']))
 {
-	$watchlist = $config["watchList"];
-	$arrayWatchList = "";
-	$countOfWatchlist = count($watchlist);
-	$count = 0;
-	foreach ($watchlist as $key => $value)
+	$watchList = [];
+	foreach ($config['watchList'] as $key => $value)
 	{
-		$count++;
-		if(!isset($value["grepFilter"]))
+		$defaults = $defaultConfig['watchList']['HHVM'];
+		if (is_array($value))
 		{
-			$arrayWatchList .= "'".$key."' => array(";
-			$arrayWatchList .= "'AlertEnabled' => '".$value["AlertEnabled"]."',";
-			$arrayWatchList .= "'AutoDeleteFiles' => '".$value["AutoDeleteFiles"]."',";
-			$arrayWatchList .= "'ExcludeTrim' => '".$value["ExcludeTrim"]."',";
-			$arrayWatchList .= "'FileInformation' => '".$value["FileInformation"]."',";
-			$arrayWatchList .= "'FileType' => '".$value["FileType"]."',";
-			$arrayWatchList .= "'GrepFilter' => '',";
-			$arrayWatchList .= "'Group' => '".$value["Group"]."',";
-			$arrayWatchList .= "'Location' => '".$value["Location"]."',";
-			$arrayWatchList .= "'Name' => '".$value["Name"]."',";
-			$arrayWatchList .= "'Pattern' => '".$value["Pattern"]."',";
-			$arrayWatchList .= "'Recursive' => '".$value["Recursive"]."',";
-			$arrayWatchList .= "'SaveGroup' => 'false',";
-			$arrayWatchList .= ")";
-			if($count != $countOfWatchlist)
-			{
-				$arrayWatchList .= ",";
-			}
+			$watchList[$key] = array_replace($defaults, $value);
 		}
 		else
 		{
-			$alreadyRan = true;
-			break;
+			$watchList[$key] = array_replace($defaults, [
+				'FileType' => 'auto', 'Location' => (string)$key, 'Pattern' => (string)$value,
+			]);
 		}
 	}
-	$arrayForNewStuff["watchList"] = $arrayWatchList;
-}
-if($alreadyRan)
-{
-	$arrayForNewStuff = array(
-		"configVersion" => (Int)$_POST['version']
-	);
+	$arrayForNewStuff['watchList'] = $watchList;
 }
 $upgrade->upgradeConfig($arrayForNewStuff);
 echo json_encode($_POST['version']);

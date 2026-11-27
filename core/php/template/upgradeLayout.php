@@ -11,12 +11,12 @@ $baseUrl = "../../../local/";
 $currentSelectedTheme = $session->returnCurrentSelectedTheme();
 $baseUrl .= $currentSelectedTheme."/";
 
-require_once($baseUrl.'conf/config.php');
+$config = settingsData::read($baseUrl.'conf/config.json', 'config');
 require_once("../../../core/php/class/core.php");
 $core = new core();
-require_once('../../../core/conf/config.php');
-include('../../../local/conf/globalConfig.php');
-include('../../../core/conf/globalConfig.php');
+$defaultConfig = settingsData::defaults('config');
+$globalConfig = settingsData::read('../../../local/conf/globalConfig.json', 'globalConfig');
+$defaultGlobalConfig = settingsData::defaults('globalConfig');
 require_once('../../../core/php/configStatic.php');
 require_once('../../../core/php/loadVars.php');
 
