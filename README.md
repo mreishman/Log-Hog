@@ -79,7 +79,7 @@ docker cp "${seed}:/var/www/html/tmp" C:/LogHogData/history
 docker rm $seed
 ```
 
-For an existing installation, use your backed-up `local` and `tmp` directories instead. The `local` host folder must contain the complete profile tree and `layout.php`. An empty folder mounted there hides the image's starter files.
+For an existing installation, use your backed-up `local` and `tmp` directories instead. The `local` host folder must contain the complete profile tree and either `layout.json` or the legacy `layout.php`. An empty folder mounted there hides the image's starter files.
 
 1. In Docker Desktop, open **Images**, find `loghog:local`, select **Run**, and expand **Optional settings**.
 2. Set **Container name** to `loghog-desktop`. In **Ports**, enter `1337` as the **Host port** for `80/tcp`. Choose an unused port such as `1338` if Compose is already using `1337`.
@@ -152,11 +152,13 @@ docker compose cp loghog:/var/www/html/tmp ./loghog-backup/tmp
 docker compose start loghog
 ```
 
-If you want live configuration files in a host folder, back up the `local` volume first. Replace its mount entry with a writable bind mount of the copied `local` directory at `/var/www/html/local`. Use a directory containing the full backup, including `layout.php`, `conf/`, and `profiles/`. A bind mount hides the files already at its container destination. Verify that `www-data` can write to the mounted directory before resuming normal use. [Docker bind mounts](https://docs.docker.com/engine/storage/bind-mounts/)
+If you want live configuration files in a host folder, back up the `local` volume first. Replace its mount entry with a writable bind mount of the copied `local` directory at `/var/www/html/local`. Use the full backup, including the layout file, `conf/`, and `profiles/`. A bind mount hides the files already at its container destination. Verify that `www-data` can write to the mounted directory before resuming normal use. [Docker bind mounts](https://docs.docker.com/engine/storage/bind-mounts/)
 
 ### Upgrade or migrate
 
 For upgrades with the current Compose layout, back up both volumes, check out the desired Log-Hog version, and run `docker compose up -d --build` from the same Compose project. Log-Hog applies configuration, layout, and theme migrations as needed. To roll back, rebuild the previous version and restore the corresponding data backup if migrations changed it.
+
+Starting in 9.0.1, Log-Hog saves profile settings, global settings, configuration backups, and custom theme defaults as JSON. On first use, it reads legacy PHP settings as literal data and creates a JSON copy. The JSON file takes precedence on later requests. Legacy files containing function calls, expressions, or other executable content are rejected. If a hand-edited file fails migration, restore a trusted backup or convert its settings to a JSON object manually.
 
 To rebuild after pulling updates to branch `9.0` and fetch the latest image for the base tag pinned in the Dockerfile, run:
 

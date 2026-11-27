@@ -16,24 +16,15 @@ if(!$session->validate())
 $baseUrl = "../../../local/";
 $currentSelectedTheme = $session->returnCurrentSelectedThemeAjax();
 $baseUrl .= $currentSelectedTheme."/";
+$settingsLock = settingsData::lock($baseUrl."conf");
 
-/* Check for backup config stuff */
-$count = 1;
-$showConfigBackupClear = false;
-$arrayOfFiles = array();
-while (file_exists($baseUrl."conf/config".$count.".php"))
+for ($index = 1; settingsData::exists($file = $baseUrl.'conf/config'.$index.'.json'); $index++)
 {
-	array_push($arrayOfFiles, $baseUrl."conf/config".$count.".php");
-	if(!$showConfigBackupClear)
+	if (!settingsData::remove($file))
 	{
-		$showConfigBackupClear = true;
+		echo json_encode(false);
+		exit();
 	}
-	$count++;
-}
-
-foreach ($arrayOfFiles as $file)
-{
-	unlink($file);
 }
 
 echo json_encode(true);

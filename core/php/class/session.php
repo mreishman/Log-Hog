@@ -68,13 +68,13 @@ class session extends Core
 
     protected function checkIpWhitelist()
     {
-        $filePath = $this->baseURL().'local/conf/globalConfig.php';
-        if(!is_file($filePath))
+        $filePath = $this->baseURL().'local/conf/globalConfig.json';
+        if(!settingsData::exists($filePath))
         {
             return true;
         }
 
-        include($filePath);
+        $globalConfig = settingsData::read($filePath, 'globalConfig');
         $whitelist = $globalConfig['ipWhitelist'] ?? false;
         if(!$whitelist) 
         {
@@ -247,9 +247,10 @@ class session extends Core
     public function returnCurrentSelectedThemeInner($jsError)
     {
         $baseBaseUrl = $this->baseURL();
-        if(file_exists($baseBaseUrl.'local/layout.php') && is_readable($baseBaseUrl.'local/layout.php'))
+        if(settingsData::exists($baseBaseUrl.'local/layout.json'))
         {
-            include($baseBaseUrl.'local/layout.php');
+            $layout = settingsData::read($baseBaseUrl.'local/layout.json', 'layout');
+            $currentSelectedTheme = $layout['currentSelectedTheme'] ?? null;
             if(isset($currentSelectedTheme))
             {
                 if(is_dir($baseBaseUrl . 'local/'.$currentSelectedTheme.'/')) {

@@ -13,8 +13,8 @@ if(!$session->validate())
 	echo json_encode(array("error" => 18));
 	exit();
 }
-include('../../../local/conf/globalConfig.php');
-include('../../../core/conf/globalConfig.php');
+$globalConfig = settingsData::read('../../../local/conf/globalConfig.json', 'globalConfig');
+$defaultGlobalConfig = settingsData::defaults('globalConfig');
 
 $layoutVersion = 0;
 if(isset($globalConfig['layoutVersion']))

@@ -18,11 +18,12 @@ $core = new core();
 $baseUrl = "../../../local/";
 $currentSelectedTheme = $session->returnCurrentSelectedThemeAjax();
 $baseUrl .= $currentSelectedTheme."/";
+$settingsLock = settingsData::lock($baseUrl."conf");
 
 $config = array();
-if(file_exists($baseUrl.'conf/config.php'))
+if(settingsData::exists($baseUrl.'conf/config.json'))
 {
-	require_once($baseUrl.'conf/config.php');
+	$config = settingsData::read($baseUrl.'conf/config.json', 'config');
 	// Ok if it doesn't exist, user might have deleted to reset settings or something?
 }
 
@@ -31,7 +32,7 @@ if (!file_exists("../../../core/conf/config.php") || !is_readable("../../../core
 	echo json_encode(8);
 	exit();
 }
-require_once('../../../core/conf/config.php');
+$defaultConfig = settingsData::defaults('config');
 
 if(!isset($defaultConfig))
 {
@@ -40,51 +41,24 @@ if(!isset($defaultConfig))
 }
 
 $currentTheme = $core->loadSpecificVar($defaultConfig, $config, "currentTheme");
-$requireFile = "../../../core/Themes/".$currentTheme."/defaultSetting.php";
+$requireFile = "../../../core/Themes/".$currentTheme."/defaultSetting.json";
 if(is_dir("../../../local/Themes/".$currentTheme))
 {
-	$requireFile = "../../../local/Themes/".$currentTheme."/defaultSetting.php";
+	$requireFile = "../../../local/Themes/".$currentTheme."/defaultSetting.json";
 }
-require_once($requireFile);
+$themeDefaultSettings = settingsData::read($requireFile, 'themeDefaultSettings');
 
 require_once('../loadVars.php');
-if(!(in_array('backupNumConfigEnabled', $arrayOfDisabledModules)))
+if (!in_array('backupNumConfigEnabled', $arrayOfDisabledModules)
+    && !settingsData::backup($baseUrl."conf/config", 'config', $backupNumConfig))
 {
-	for ($i=$backupNumConfig; $i > 0; $i--)
-	{
-		$addonNum = "";
-		if($i !== 1)
-		{
-			$addonNum = $i-1;
-		}
-		$fileNameOld = ''.$baseUrl.'conf/config'.$addonNum.'.php';
-		$fileNameNew = ''.$baseUrl.'conf/config'.$i.'.php';
-		if (file_exists($fileNameOld))
-		{
-			try
-			{
-				// Keep the active profile available until the replacement is ready.
-				$backedUp = $i === 1 ? copy($fileNameOld, $fileNameNew) : rename($fileNameOld, $fileNameNew);
-				if(!$backedUp)
-				{
-					echo json_encode(6);
-					exit();
-				}
-			}
-			catch (Exception $e)
-			{
-				echo json_encode(6);
-				exit();
-			}
-		}
-	}
+	echo json_encode(6);
+	exit();
 }
 
-$fileName = ''.$baseUrl.'conf/config.php';
+$fileName = ''.$baseUrl.'conf/config.json';
 
-$newInfoForConfig = "<?php
-	$"."config = array(
-	";
+$newInfoForConfig = [];
 foreach ($defaultConfig as $key => $value)
 {
 	if(
@@ -100,12 +74,10 @@ foreach ($defaultConfig as $key => $value)
 		isset($arrayOfCustomConfig[$key])
 	)
 	{
-		$newInfoForConfig .= $core->putIntoCorrectFormat($key, $$key, $value);
+		$newInfoForConfig[$key] = $$key;
 	}
 }
-$newInfoForConfig .= "
-	);
-?>";
+
 
 if(is_writable($baseUrl."conf/"))
 {
@@ -114,18 +86,8 @@ if(is_writable($baseUrl."conf/"))
 		echo json_encode(4);
 		exit();
 	}
-	$pendingFile = $baseUrl.'conf/config-'.bin2hex(random_bytes(16)).'.php';
-	$pending = fopen($pendingFile, 'xb');
-	if($pending === false)
+	if (!settingsData::write($fileName, $newInfoForConfig))
 	{
-		echo json_encode(5);
-		exit();
-	}
-	$written = fwrite($pending, $newInfoForConfig);
-	$closed = fclose($pending);
-	if($written !== strlen($newInfoForConfig) || !$closed || !rename($pendingFile, $fileName))
-	{
-		unlink($pendingFile);
 		echo json_encode(5);
 		exit();
 	}

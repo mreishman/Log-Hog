@@ -15,7 +15,7 @@ function addToGroupTab(newGroups)
 
 function showOrHideGroups()
 {
-	if($('#selectForGroup option').size() > 1)
+	if($('#selectForGroup option').length > 1)
 	{
 		if(document.getElementById("groupsSpanSideBar").style.display !== "inline-block")
 		{

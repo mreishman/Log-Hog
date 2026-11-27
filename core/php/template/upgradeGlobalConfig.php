@@ -10,10 +10,10 @@ if(!$session->startSession())
 $baseUrl = "../../../local/";
 $currentSelectedTheme = $session->returnCurrentSelectedTheme();
 $baseUrl .= $currentSelectedTheme."/";
-require_once($baseUrl.'conf/config.php');
-require_once('../../../core/conf/config.php');
-include('../../../core/conf/globalConfig.php');
-include('../../../local/conf/globalConfig.php');
+$config = settingsData::read($baseUrl.'conf/config.json', 'config');
+$defaultConfig = settingsData::defaults('config');
+$defaultGlobalConfig = settingsData::defaults('globalConfig');
+$globalConfig = settingsData::read('../../../local/conf/globalConfig.json', 'globalConfig');
 require_once('../../../core/php/configStatic.php');
 require_once('../../../core/php/loadVars.php');
 $globalConfigVersion = 0;

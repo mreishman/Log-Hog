@@ -27,7 +27,7 @@ $returnData = array(
 );
 $currentSelectedTheme = $session->returnCurrentSelectedThemeAjax();
 $baseUrl = "../../../local/".$currentSelectedTheme."/";
-require_once($baseUrl.'conf/config.php');
+$config = settingsData::read($baseUrl.'conf/config.json', 'config');
 $command = "";
 foreach($config['watchList'] as $value){
 	$path = $value["Location"];

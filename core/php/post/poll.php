@@ -16,8 +16,8 @@ if(!$session->validate())
 $baseModifier = "../../../";
 $currentSelectedTheme = $session->returnCurrentSelectedThemeAjax();
 $baseUrl = $baseModifier."local/".$currentSelectedTheme."/";
-require_once($baseUrl.'conf/config.php');
-require_once($baseModifier.'core/conf/config.php');
+$config = settingsData::read($baseUrl.'conf/config.json', 'config');
+$defaultConfig = settingsData::defaults('config');
 require_once('../configStatic.php');
 require_once('../class/poll.php');
 $poll = new poll();

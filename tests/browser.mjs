@@ -211,6 +211,7 @@ try {
         await click('menuImage');
         await click('mainMenuAbout');
         await click('aboutSubMenuChangelog');
+        await waitFor(() => textVisible('Settings and jQuery security update'), '9.0.1 release notes');
         await waitFor(() => textVisible('PHP and Docker maintenance'), '9.0 release notes');
         await click('mainMenuNotifications');
         await click('mainMenuHistory');
@@ -279,8 +280,8 @@ try {
 
     async function testUnsavedChanges(inline) {
         await send('Runtime.enable');
-        const profileConfig = 'local/profiles/default/conf/config.php';
-        const globalConfig = 'local/conf/globalConfig.php';
+        const profileConfig = 'local/profiles/default/conf/config.json';
+        const globalConfig = 'local/conf/globalConfig.json';
         const configs = [profileConfig, globalConfig];
         function fixture(command, ...args) {
             return execFileSync('docker', ['exec', '-u', 'www-data', process.argv[3],

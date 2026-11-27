@@ -16,10 +16,10 @@ if(!$session->validate())
 $baseModifier = "../../../";
 $currentSelectedTheme = $session->returnCurrentSelectedThemeAjax();
 $baseUrl = $baseModifier."local/".$currentSelectedTheme."/";
-require_once($baseUrl.'conf/config.php');
-require_once($baseModifier.'core/conf/config.php');
-include($baseModifier.'local/conf/globalConfig.php');
-include($baseModifier.'core/conf/globalConfig.php');
+$config = settingsData::read($baseUrl.'conf/config.json', 'config');
+$defaultConfig = settingsData::defaults('config');
+$globalConfig = settingsData::read($baseModifier.'local/conf/globalConfig.json', 'globalConfig');
+$defaultGlobalConfig = settingsData::defaults('globalConfig');
 
 $varsLoadLite = array("watchList");
 foreach ($varsLoadLite as $varLoadLite)

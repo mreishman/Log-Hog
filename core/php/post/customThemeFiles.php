@@ -18,7 +18,7 @@ if (!is_string($path) || !str_starts_with($path, $prefix))
 }
 
 $relativePath = substr($path, strlen($prefix));
-if (!preg_match('~\A(?:Custom-Theme-[1-9][0-9]*(?:/(?:img(?:/Gear\.png)?|template|defaultSetting\.php))?)?\z~', $relativePath))
+if (!preg_match('~\A(?:Custom-Theme-[1-9][0-9]*(?:/(?:img(?:/Gear\.png)?|template|defaultSetting\.json))?)?\z~', $relativePath))
 {
     echo json_encode(false);
     exit;
@@ -39,7 +39,7 @@ foreach (explode('/', $relativePath) as $part)
 }
 
 $result = match ($_POST['action'] ?? '') {
-    'createFolder' => !str_ends_with($path, '.php') && !str_ends_with($path, '.png')
+    'createFolder' => !str_ends_with($path, '.json') && !str_ends_with($path, '.png')
         && (is_dir($path) || mkdir($path)),
     'verifyDirIsThere' => is_dir($path),
     'verifyFileIsThere' => file_exists($path) === (($_POST['isThere'] ?? '') === 'true'),

@@ -15,7 +15,7 @@ if(!$session->validate())
 }
 $baseUrl = "../../../";
 
-include($baseUrl.'local/conf/globalConfig.php');
+$globalConfig = settingsData::read($baseUrl.'local/conf/globalConfig.json', 'globalConfig');
 
 $globalConfigVersion = 0;
 if(isset($globalConfig['globalConfVersion']))
@@ -24,7 +24,7 @@ if(isset($globalConfig['globalConfVersion']))
 }
 
 $value = false;
-if((string)$configVersion === (string)$_POST['version'])
+if((string)$globalConfigVersion === (string)($_POST['version'] ?? ''))
 {
 	$value = true;
 }

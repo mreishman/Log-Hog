@@ -24,18 +24,18 @@ $currentSelectedTheme = $session->returnCurrentSelectedThemeAjax();
 $baseUrl .= $currentSelectedTheme."/";
 
 $boolForUpgrade = true;
-if(file_exists($baseUrl.'conf/config.php'))
+if(settingsData::exists($baseUrl.'conf/config.json'))
 {
-	require_once($baseUrl.'conf/config.php');
+	$config = settingsData::read($baseUrl.'conf/config.json', 'config');
 }
 else
 {
 	$config = array();
 	$boolForUpgrade = false;
 }
-if(file_exists($varToIndexDir.'local/conf/globalConfig.php'))
+if(settingsData::exists($varToIndexDir.'local/conf/globalConfig.json'))
 {
-	include($varToIndexDir.'local/conf/globalConfig.php');
+	$globalConfig = settingsData::read($varToIndexDir.'local/conf/globalConfig.json', 'globalConfig');
 }
 else
 {
@@ -43,8 +43,8 @@ else
 }
 require_once($varToIndexDir."core/php/class/vars.php");
 $vars = new vars();
-require_once($varToIndexDir.'core/conf/config.php');
-include($varToIndexDir.'core/conf/globalConfig.php');
+$defaultConfig = settingsData::defaults('config');
+$defaultGlobalConfig = settingsData::defaults('globalConfig');
 $URI = $_SERVER['REQUEST_URI'];
 $arrayOfUrlsToCheck = array("upgradeLayout","upgradeConfig","core/php/template/upgrade","upgradeTheme","themeChangeLogic","settingsSaveAjax","example","setup");
 if($boolForUpgrade && !$vars->checkIfURIContains($arrayOfUrlsToCheck))
@@ -112,7 +112,7 @@ foreach ($defaultConfig as $key => $value)
 	$$key = $value;
 	if(isset($_POST[$key]))
 	{
-		$$key = $_POST[$key];
+		$$key = settingsData::input($_POST[$key], $value, $key);
 	}
 	elseif(array_key_exists($key, $config) && $vars->checkIfShouldLoad($loadCustomConfigVars, $key))
 	{
@@ -134,7 +134,7 @@ foreach ($defaultGlobalConfig as $key => $value)
 	$$key = $value;
 	if(isset($_POST[$key]))
 	{
-		$$key = $_POST[$key];
+		$$key = settingsData::input($_POST[$key], $value, $key);
 	}
 	elseif(array_key_exists($key, $globalConfig) && $vars->checkIfShouldLoad($loadCustomConfigVars, $key))
 	{
@@ -153,192 +153,12 @@ foreach ($folderColorArrays as $key => $value)
 	}
 }
 
-if($_SERVER['REQUEST_METHOD'] == 'POST')
+if ($_SERVER['REQUEST_METHOD'] === 'POST')
 {
-	$arrayWatchList = "";
-	if(isset($_POST['numberOfRows']))
+	foreach (settingsData::structuredInput($_POST, $defaultConfig) as $key => $value)
 	{
-		$baseKeys = $defaultConfig["watchList"]["HHVM"];
-		$baseKeysCount = count($baseKeys);
-		for($i = 1; $i <= $_POST['numberOfRows']; $i++ )
-		{
-			$arrayWatchList .= "'".$vars->escapeTheEscapes($_POST['watchListKey'.$i])."' => array(";
-			$baseKeyCounter = 0;
-			foreach ($baseKeys as $key => $value)
-			{
-				$baseKeyCounter++;
-				$arrayWatchList .= "'".$key."' => '".$vars->escapeTheEscapes($_POST['watchListKey'.$i.$key])."'";
-				if($baseKeyCounter !== $baseKeysCount)
-				{
-					$arrayWatchList .= ",";
-				}
-			}
-			$arrayWatchList .= ")";
-			if($i != $_POST['numberOfRows'])
-			{
-				$arrayWatchList .= ",";
-			}
-		}
+		$$key = $value;
 	}
-	else
-	{
-		$numberOfRows = count($watchList);
-		$i = 0;
-		foreach ($watchList as $key => $value)
-		{
-			$i++;
-			if(is_array($value))
-			{
-				$arrayWatchList .= "'".$key."' => array(";
-				$numberOfRows2 = count($value);
-				$j = 0;
-				foreach ($value as $key2 => $value2)
-				{
-					$j++;
-					$arrayWatchList .= "'".$key2."' => '".$value2."'";
-					if($j != $numberOfRows2)
-					{
-						$arrayWatchList .= ",";
-					}
-				}
-				$arrayWatchList .= ")";
-			}
-			else
-			{
-				$arrayWatchList .= "'".$key."' => '".$value."'";
-			}
-			if($i != $numberOfRows)
-			{
-				$arrayWatchList .= ",";
-			}
-		}
-	}
-	$watchList = $arrayWatchList;
-
-	$folderColorArraysSave = "";
-	if(isset($_POST['folderThemeCount']))
-	{
-		$intFolderThemeCount = intval($_POST['folderThemeCount']);
-		for($i = 0; $i < $intFolderThemeCount; $i++ )
-		{
-			$folderColorArraysSave .= "'".$_POST['folderColorThemeNameForPost'.($i+1)]."'	=>	array(";
-
-				//main
-				$folderColorArraysSave .= " 'main' => array(";
-
-					$colorCount = 0;
-					while (isset($_POST['folderColorValueMainBackground'.($i+1).'-'.($colorCount+1)]))
-					{
-						$colorCount++;
-						$folderColorArraysSave .= " 'main-".($colorCount)."' => array(";
-						$folderColorArraysSave .= " 'background' => '".$_POST['folderColorValueMainBackground'.($i+1).'-'.($colorCount)]."',";
-						$folderColorArraysSave .= " 'fontColor' => '".$_POST['folderColorValueMainFont'.($i+1).'-'.($colorCount)]."',";
-						$folderColorArraysSave .= "),";
-					}
-
-				$folderColorArraysSave .= "),";
-
-				//highlight
-				$folderColorArraysSave .= " 'highlight' => array(";
-
-					$colorCount = 0;
-					while (isset($_POST['folderColorValueHighlightBackground'.($i+1).'-'.($colorCount+1)]))
-					{
-						$colorCount++;
-						$folderColorArraysSave .= " 'highlight-".($colorCount)."' => array(";
-						$folderColorArraysSave .= " 'background' => '".$_POST['folderColorValueHighlightBackground'.($i+1).'-'.($colorCount)]."',";
-						$folderColorArraysSave .= " 'fontColor' => '".$_POST['folderColorValueHighlightFont'.($i+1).'-'.($colorCount)]."',";
-						$folderColorArraysSave .= "),";
-					}
-
-				$folderColorArraysSave .= "),";
-
-				//active
-				$folderColorArraysSave .= " 'active' => array(";
-
-					$colorCount = 0;
-					while (isset($_POST['folderColorValueActiveBackground'.($i+1).'-'.($colorCount+1)]))
-					{
-						$colorCount++;
-						$folderColorArraysSave .= " 'active-".($colorCount)."' => array(";
-						$folderColorArraysSave .= " 'background' => '".$_POST['folderColorValueActiveBackground'.($i+1).'-'.($colorCount)]."',";
-						$folderColorArraysSave .= " 'fontColor' => '".$_POST['folderColorValueActiveFont'.($i+1).'-'.($colorCount)]."',";
-						$folderColorArraysSave .= "),";
-					}
-
-				$folderColorArraysSave .= "),";
-
-				//highlightActive
-				$folderColorArraysSave .= " 'highlightActive' => array(";
-
-					$colorCount = 0;
-					while (isset($_POST['folderColorValueActiveHighlightBackground'.($i+1).'-'.($colorCount+1)]))
-					{
-						$colorCount++;
-						$folderColorArraysSave .= " 'highlightActive-".($colorCount)."' => array(";
-						$folderColorArraysSave .= " 'background' => '".$_POST['folderColorValueActiveHighlightBackground'.($i+1).'-'.($colorCount)]."',";
-						$folderColorArraysSave .= " 'fontColor' => '".$_POST['folderColorValueActiveHighlightFont'.($i+1).'-'.($colorCount)]."',";
-						$folderColorArraysSave .= "),";
-					}
-
-				$folderColorArraysSave .= "),";
-
-			$folderColorArraysSave .= "),";
-		}
-	}
-	else
-	{
-		foreach ($folderColorArrays as $key => $value)
-		{
-			$folderColorArraysSave .= "'".$key."'	=>	";
-			$folderColorArraysSave .= $vars->forEachAddVars($value);
-		}
-	}
-	$folderColorArrays = $folderColorArraysSave;
-
-
-	$arrayLogLoadLayout = "";
-	if(isset($_POST['logLoad1x1-0-A']))
-	{
-		$counterOne = 1;
-		$counterTwo = 1;
-		$windowCounter = 0;
-		$arrayOfLetters = array(1 => "A", 2 => "B", 3 => "C", 4 => "D", 5 => "E", 6 => "F", 7 => "G");
-		$letterCounter = 1;
-		while (isset($_POST["logLoad".$counterOne."x".$counterTwo."-".$windowCounter."-".$arrayOfLetters[$letterCounter]]))
-		{
-			while (isset($_POST["logLoad".$counterOne."x".$counterTwo."-".$windowCounter."-".$arrayOfLetters[$letterCounter]]))
-			{
-				$arrayLogLoadLayout .= "'".$counterOne."x".$counterTwo."' => array(";
-				while (isset($_POST["logLoad".$counterOne."x".$counterTwo."-".$windowCounter."-".$arrayOfLetters[$letterCounter]]))
-				{
-					$arrayLogLoadLayout .= "".$windowCounter." => array(";
-					while (isset($_POST["logLoad".$counterOne."x".$counterTwo."-".$windowCounter."-".$arrayOfLetters[$letterCounter]]))
-					{
-						$arrayLogLoadLayout .= "'".$arrayOfLetters[$letterCounter]."' => '".$_POST["logLoad".$counterOne."x".$counterTwo."-".$windowCounter."-".$arrayOfLetters[$letterCounter]]."',";
-						$letterCounter++;
-					}
-					$arrayLogLoadLayout .= "),";
-					$letterCounter = 1;
-					$windowCounter++;
-				}
-				$arrayLogLoadLayout .= "),";
-				$windowCounter = 0;
-				$counterTwo++;
-			}
-			$counterTwo = 1;
-			$counterOne++;
-		}
-	}
-	else
-	{
-		foreach ($logLoadLayout as $key => $value)
-		{
-			$arrayLogLoadLayout .= "'".$key."'	=>	";
-			$arrayLogLoadLayout .= $vars->forEachAddVars($value);
-		}
-	}
-	$logLoadLayout = $arrayLogLoadLayout ;
 }
 else
 {

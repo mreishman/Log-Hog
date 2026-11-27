@@ -112,13 +112,13 @@ class DockerTests(unittest.TestCase):
             "exec", "-i", "-u", "www-data", self.name, "php",
             input_text="""<?php
 require 'core/conf/config.php';
-require 'local/profiles/default/conf/config.php';
+$config = json_decode(file_get_contents('local/profiles/default/conf/config.json'), true);
 $path = '/tmp/loghog-fixture.log';
 file_put_contents($path, 'INFO sample log line'.chr(10));
 $config['watchList'] = ['Fixture' => array_replace(
     $defaultConfig['watchList']['HHVM'], ['Location' => $path, 'Name' => 'Fixture']
 )];
-file_put_contents('local/profiles/default/conf/config.php', '<?php $config = '.var_export($config, true).';');
+file_put_contents('local/profiles/default/conf/config.json', json_encode($config));
 """,
         )
         logs = self.post(POST_DIR + "pollCheck.php", key)
@@ -138,7 +138,8 @@ file_put_contents('local/profiles/default/conf/config.php', '<?php $config = '.v
         history = self.post(POST_DIR + "getListOfTmpLogs.php", key, type="history")
         filenames = history.values() if isinstance(history, dict) else history
         self.assertTrue(any(name.startswith("Backupfixture.json-") for name in filenames))
-        docker("exec", self.name, "grep", "-qF", LOG_PATH, "local/profiles/default/conf/config.php")
+        config = json.loads(docker("exec", self.name, "cat", "local/profiles/default/conf/config.json"))
+        self.assertEqual(config["watchList"]["Fixture"]["Location"], LOG_PATH)
 
 
     def install_fixtures(self, key):
@@ -213,11 +214,11 @@ file_put_contents($root.'/empty.log', '');
         self.assertTrue(backup["backupCopiesPresent"])
         self.assertTrue(backup["arrayOfDiffs"])
         self.assertIs(self.post(POST_DIR + "restoreConfig.php", key, restoreTo=1), True)
-        self.assertEqual(self.php("<?php require 'local/profiles/default/conf/config.php'; echo $config['sliceSize'];"), "40")
+        self.assertEqual(self.php("<?php $config = json_decode(file_get_contents('local/profiles/default/conf/config.json'), true); echo $config['sliceSize'];"), "40")
         self.post(POST_DIR + "clearConfigBackups.php", key)
         self.assertFalse(self.post(POST_DIR + "configVersionsPopup.php", key)["backupCopiesPresent"])
         self.assertIs(self.post(POST_DIR + "globalConfigSaveAjax.php", key, successVerifyNum="3"), True)
-        self.assertEqual(self.php("<?php require 'local/conf/globalConfig.php'; echo $globalConfig['successVerifyNum'];"), "3")
+        self.assertEqual(self.php("<?php $globalConfig = json_decode(file_get_contents('local/conf/globalConfig.json'), true); echo $globalConfig['successVerifyNum'];"), "3")
 
     def test_history_round_trip(self):
         key = self.complete_setup()
@@ -245,12 +246,13 @@ file_put_contents($root.'/empty.log', '');
         self.assertIs(self.post(
             POST_DIR + "saveCustomThemeDefaults.php", key, themeNumber="1", displayName="Demo Theme",
         ), True)
+        self.assertIs(self.post(
+            endpoint, key, action="verifyFileIsThere", path=theme + "/defaultSetting.json", isThere="true",
+        ), True)
         self.assertIs(self.post(POST_DIR + "copyImagesToNewTheme.php", key, themeNumber="1"), True)
         assets = self.post(endpoint, key, action="verifyFileIsThere", path=theme + "/img/Gear.png", isThere="true")
         self.assertIs(self.post(endpoint, key, action="deleteTheme", path=theme), True)
         self.assertIs(self.post(endpoint, key, action="verifyDirIsThere", path=theme), False)
-        if assets is False:
-            self.skipTest("Known bug LH-004: custom theme copy reports success but leaves assets missing")
         self.assertIs(assets, True)
 
     def test_pages_and_form_validation(self):
@@ -268,13 +270,13 @@ file_put_contents($root.'/empty.log', '');
         self.install_fixtures(key)
         self.php("""<?php
 require 'core/conf/config.php';
-$file = 'local/profiles/default/conf/config.php';
-require $file;
+$file = 'local/profiles/default/conf/config.json';
+$config = json_decode(file_get_contents($file), true);
 $config['watchList']['Example folder']['Recursive'] = 'false';
 $config['watchList']['Worker'] = array_replace($defaultConfig['watchList']['HHVM'], [
     'Location' => '/tmp/loghog-fixtures/nested/worker.log', 'Name' => 'Worker',
 ]);
-file_put_contents($file, '<?php $config = '.var_export($config, true).';');
+file_put_contents($file, json_encode($config));
 """)
         subprocess.run(
             ["node", "tests/browser.mjs", self.base_url, self.name], check=True, timeout=65,
@@ -305,11 +307,11 @@ file_put_contents($file, '<?php $config = '.var_export($config, true).';');
         self.install_fixtures(key)
         self.php("""<?php
 require 'core/conf/config.php';
-$file = 'local/profiles/default/conf/config.php';
-require $file;
+$file = 'local/profiles/default/conf/config.json';
+$config = json_decode(file_get_contents($file), true);
 $config['folderColorArrays'] = $defaultConfig['folderColorArrays'];
 $config['folderColorArrays']['theme-user-1'] = $defaultConfig['folderColorArrays']['theme-default-1'];
-file_put_contents($file, '<?php $config = '.var_export($config, true).';');
+file_put_contents($file, json_encode($config));
 """)
         self.assertIs(self.post(
             POST_DIR + "globalConfigSaveAjax.php", key, successVerifyNum="1",
@@ -341,8 +343,8 @@ file_put_contents($file, '<?php $config = '.var_export($config, true).';');
         self.install_fixtures(key)
         self.php("""<?php
 require 'core/conf/config.php';
-$file = 'local/profiles/default/conf/config.php';
-require $file;
+$file = 'local/profiles/default/conf/config.json';
+$config = json_decode(file_get_contents($file), true);
 $root = '/tmp/loghog-fixtures';
 $config['watchList']['Example folder']['Recursive'] = 'false';
 $config['notificationNewLog'] = 'false';
@@ -355,7 +357,7 @@ foreach (['direct.log', 'late.log'] as $name) {
     ]);
 }
 file_put_contents($root.'/nested/direct.log', 'DIRECT original record'.chr(10));
-file_put_contents($file, '<?php $config = '.var_export($config, true).';');
+file_put_contents($file, json_encode($config));
 """)
         subprocess.run(
             ["node", "tests/browser.mjs", self.base_url, self.name, "log-lifecycle"],
@@ -397,7 +399,7 @@ file_put_contents($file, '<?php $config = '.var_export($config, true).';');
         key = self.complete_setup()
         saved = self.post(POST_DIR + "settingsSaveAjax.php", key, moduleDisabledList='["backupNumConfigEnabled"]')
         self.assertIs(saved, True)
-        self.assertEqual(self.php("<?php echo is_file('local/profiles/default/conf/config.php') ? 'present' : 'missing';"), "present")
+        self.assertEqual(self.php("<?php echo is_file('local/profiles/default/conf/config.json') ? 'present' : 'missing';"), "present")
         self.assertEqual(self.request("/")[0], "/")
 
     def test_watch_entry_grep_filters_log_lines(self):
@@ -424,7 +426,7 @@ file_put_contents($file, '<?php $config = '.var_export($config, true).';');
         key = self.complete_setup()
         self.install_fixtures(key)
         self.assertIs(self.post(POST_DIR + "globalConfigSaveAjax.php", key, successVerifyNum="1"), True)
-        self.php("<?php copy('local/profiles/default/conf/config.php', '/tmp/loghog-module-profile.php');")
+        self.php("<?php copy('local/profiles/default/conf/config.json', '/tmp/loghog-module-profile.json');")
         individual = subprocess.run(
             ["node", "tests/browser.mjs", self.base_url, self.name, "modules"],
             check=True, timeout=180, stdout=subprocess.PIPE, text=True,
@@ -440,10 +442,10 @@ file_put_contents($file, '<?php $config = '.var_export($config, true).';');
 
     def seed_module_profile(self, disabled):
         settings = json.dumps(disabled, separators=(",", ":"))
-        self.php("<?php require '/tmp/loghog-module-profile.php'; "
+        self.php("<?php $config = json_decode(file_get_contents('/tmp/loghog-module-profile.json'), true); "
                  f"$config['moduleDisabledList'] = '{settings}'; "
-                 "if (!file_put_contents('local/profiles/default/conf/config.php', "
-                 "'<?php $config = '.var_export($config, true).';')) exit(1);")
+                 "if (!file_put_contents('local/profiles/default/conf/config.json', "
+                 "json_encode($config))) exit(1);")
 
     def test_recursive_poll_reports_nested_log(self):
         key = self.complete_setup()
@@ -468,32 +470,49 @@ file_put_contents($root.'/new/late.log', 'new nested fixture'.chr(10));
 
     def test_global_config_version_matches(self):
         key = self.complete_setup()
-        self.assertEqual(self.php("<?php require 'local/conf/globalConfig.php'; echo $globalConfig['globalConfVersion'];"), "1")
+        self.assertEqual(self.php("<?php $globalConfig = json_decode(file_get_contents('local/conf/globalConfig.json'), true); echo $globalConfig['globalConfVersion'];"), "1")
         result = self.post(POST_DIR + "checkVersionOfGlobalConfig.php", key, version=1)
-        if result is False:
-            self.skipTest("Known bug LH-003: a matching global config version reports false")
         self.assertIs(result, True)
 
     def test_legacy_profile_migration(self):
         self.complete_setup()
         self.php("""<?php
-$file = 'local/profiles/default/conf/config.php';
-require $file;
+$file = 'local/profiles/default/conf/config.json';
+$config = json_decode(file_get_contents($file), true);
 $config['configVersion'] = 4;
 $config['sliceSize'] = 73;
-file_put_contents($file, '<?php $config = '.var_export($config, true).';');
+$config['watchList']['Legacy'] = ['Location' => 'C:'.chr(92).'logs'.chr(92)."O'Reilly.log"];
+file_put_contents(substr($file, 0, -5).'.php', '<?php $config = '.var_export($config, true).';');
+unlink($file);
 """)
         path, page = self.request("/")
         self.assertEqual(path, "/core/php/template/upgradeConfig.php")
         key = self.form_key(page)
         self.assertEqual(self.post("/core/php/upgradeScript/upgradeConfig-5.php", key, version=5), "5")
         self.assertIs(self.post(POST_DIR + "checkVersionOfConfig.php", key, version=5), True)
-        self.assertEqual(self.php("<?php require 'local/profiles/default/conf/config.php'; echo $config['sliceSize'];"), "73")
+        self.assertEqual(self.php("<?php $config = json_decode(file_get_contents('local/profiles/default/conf/config.json'), true); echo $config['sliceSize'];"), "73")
+        self.assertEqual(self.php("""<?php
+$config = json_decode(file_get_contents('local/profiles/default/conf/config.json'), true);
+echo $config['watchList']['Legacy']['Location'];
+"""), r"C:\logs\O'Reilly.log")
         self.assertEqual(self.request("/")[0], "/")
+
+    def test_legacy_settings_reject_nonliteral_values(self):
+        result = self.php("""<?php
+require 'core/php/class/settingsData.php';
+$file = '/tmp/nonliteral-settings';
+file_put_contents($file.'.php', '<?php $config = array("sliceSize" => 40 + 2);');
+try {
+    settingsData::read($file.'.json', 'config');
+} catch (UnexpectedValueException $error) {
+    echo is_file($file.'.json') ? 'migrated' : 'rejected';
+}
+""")
+        self.assertEqual(result, "rejected")
 
     def test_protected_paths_and_retired_updater(self):
         for status, paths in (
-            (403, ("/local/conf/globalConfig.php", "/session/.htaccess")),
+            (403, ("/local/conf/globalConfig.json", "/local/conf/globalConfig.php", "/local/layout.php", "/session/.htaccess")),
             (404, ("/update/updater.php", "/staticUpdate.php", "/restore/restore.php",
                    "/core/php/performSettingsInstallUpdateAction.php")),
         ):

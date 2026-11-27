@@ -12,14 +12,6 @@ A folder with recursion enabled can show nested logs in the folder picker while 
 
 The poll regression also appends to the nested log and creates a fresh log inside a newly created subdirectory. Both remain missing from the recursive poll results.
 
-## LH-003 Global configuration version check rejects a matching version
-
-The global configuration version endpoint returns `false` when the saved version and requested version are both `1`. It reads the saved version but compares the request against a different variable, which can prevent the migration screen from confirming completion.
-
-## LH-004 Custom theme creation leaves assets missing
-
-Creating a custom theme can report success even though its stylesheet and icons are missing. The test creates the theme directories and invokes the copy endpoint, then checks for `img/Gear.png` in the new theme. The copy endpoint targets a profile-relative `Themes` directory while creation and verification use `local/Themes`.
-
 ## LH-006 A watch entry's grep filter can return HTTP 500
 
 Polling a dummy log with the per-watch grep filter set to `WARN` returns HTTP 500 on PHP 8.6. The handler passes an array to `explode()` during line counting. The regression test tolerates only the HTTP 500 paired with that type error.

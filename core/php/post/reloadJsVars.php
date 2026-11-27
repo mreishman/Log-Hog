@@ -18,18 +18,18 @@ $settings = new settings();
 $currentSelectedTheme = $session->returnCurrentSelectedThemeAjax();
 $baseUrl = "../../../local/".$currentSelectedTheme."/";
 $localURL = $baseUrl;
-require_once($baseUrl.'conf/config.php');
-require_once('../../../core/conf/config.php');
-include('../../../local/conf/globalConfig.php');
-include('../../../core/conf/globalConfig.php');
+$config = settingsData::read($baseUrl.'conf/config.json', 'config');
+$defaultConfig = settingsData::defaults('config');
+$globalConfig = settingsData::read('../../../local/conf/globalConfig.json', 'globalConfig');
+$defaultGlobalConfig = settingsData::defaults('globalConfig');
 $currentTheme = $core->loadSpecificVar($defaultConfig, $config, "currentTheme");
 if(is_dir('../../../local/Themes/'.$currentTheme))
 {
-	require_once('../../../local/Themes/'.$currentTheme."/defaultSetting.php");
+	$themeDefaultSettings = settingsData::read('../../../local/Themes/'.$currentTheme."/defaultSetting.json", 'themeDefaultSettings');
 }
 else
 {
-	require_once('../../../core/Themes/'.$currentTheme."/defaultSetting.php");
+	$themeDefaultSettings = settingsData::read('../../../core/Themes/'.$currentTheme."/defaultSetting.json", 'themeDefaultSettings');
 }
 require_once('../../../core/php/configStatic.php');
 require_once('../../../core/php/loadVars.php');

@@ -15,10 +15,10 @@ $baseUrl = $baseURLToMain."local/";
 $currentSelectedTheme = $session->returnCurrentSelectedThemeAjax();
 $baseUrl .= $currentSelectedTheme."/";
 
-require_once($baseUrl.'conf/config.php');
-require_once($baseURLToMain.'core/conf/config.php');
-include($baseURLToMain.'local/conf/globalConfig.php');
-include($baseURLToMain.'core/conf/globalConfig.php');
+$config = settingsData::read($baseUrl.'conf/config.json', 'config');
+$defaultConfig = settingsData::defaults('config');
+$globalConfig = settingsData::read($baseURLToMain.'local/conf/globalConfig.json', 'globalConfig');
+$defaultGlobalConfig = settingsData::defaults('globalConfig');
 require_once($baseURLToMain.'core/php/configStatic.php');
 require_once($baseURLToMain.'core/php/loadVars.php');
 ?>

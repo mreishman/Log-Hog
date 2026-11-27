@@ -21,28 +21,26 @@ class upgrade extends core
 		$baseUrl = $baseBaseUrl."local/";
 		$currentSelectedTheme = $this->session->returnCurrentSelectedTheme();
 		$baseUrl .= $currentSelectedTheme."/";
-		include($baseUrl.'conf/config.php');
-		include($baseBaseUrl.'core/conf/config.php');
+		$config = settingsData::read($baseUrl.'conf/config.json', 'config');
+		$defaultConfig = settingsData::defaults('config');
 		$currentTheme = $this->loadSpecificVar($defaultConfig, $config, "currentTheme");
 		if(is_dir($baseBaseUrl.'local/Themes/'.$currentTheme))
 		{
-			include($baseBaseUrl.'local/Themes/'.$currentTheme."/defaultSetting.php");
+			$themeDefaultSettings = settingsData::read($baseBaseUrl.'local/Themes/'.$currentTheme."/defaultSetting.json", 'themeDefaultSettings');
 		}
 		else
 		{
-			include($baseBaseUrl.'core/Themes/'.$currentTheme."/defaultSetting.php");
+			$themeDefaultSettings = settingsData::read($baseBaseUrl.'core/Themes/'.$currentTheme."/defaultSetting.json", 'themeDefaultSettings');
 		}
 		include($baseBaseUrl.'core/php/loadVars.php');
 
-		$fileName = ''.$baseUrl.'conf/config.php';
-		$newInfoForConfig = "<?php
-			$"."config = array(
-			";
+		$fileName = ''.$baseUrl.'conf/config.json';
+		$newInfoForConfig = [];
 		foreach ($defaultConfig as $key => $value)
 		{
 			if(isset($newSaveStuff[$key]))
 			{
-				$newInfoForConfig .= $this->putIntoCorrectFormat($key, $newSaveStuff[$key], $value);
+				$newInfoForConfig[$key] = $newSaveStuff[$key];
 			}
 			elseif(
 				$$key !== $defaultConfig[$key] &&
@@ -57,17 +55,13 @@ class upgrade extends core
 				isset($arrayOfCustomConfig[$key])
 			)
 			{
-				$newInfoForConfig .= $this->putIntoCorrectFormat($key, $$key, $value);
+				$newInfoForConfig[$key] = $$key;
 			}
 		}
-		$newInfoForConfig .= "
-			);
-		?>";
-		if(file_exists($fileName))
-		{
-			unlink($fileName);
+
+		if (!settingsData::write($fileName, $newInfoForConfig)) {
+			throw new RuntimeException("Could not save upgraded settings");
 		}
-		file_put_contents($fileName, $newInfoForConfig);
 	}
 
 	public function globalConfig($newSaveStuff = array()) {
@@ -79,9 +73,9 @@ class upgrade extends core
 			$this->session = new session();
 		}
 		$globalConfig = array();
-		if(file_exists($baseBaseUrl .'local/conf/globalConfig.php'))
+		if(settingsData::exists($baseBaseUrl .'local/conf/globalConfig.json'))
 		{
-			include($baseBaseUrl .'local/conf/globalConfig.php');
+			$globalConfig = settingsData::read($baseBaseUrl .'local/conf/globalConfig.json', 'globalConfig');
 			// Ok if it doesn't exist, user might have deleted to reset settings or something?
 		}
 
@@ -90,47 +84,41 @@ class upgrade extends core
 			echo json_encode(8);
 			exit();
 		}
-		include($baseBaseUrl .'core/conf/globalConfig.php');
+		$defaultGlobalConfig = settingsData::defaults('globalConfig');
 		$baseUrl = $baseBaseUrl."local/";
 		$currentSelectedTheme = $this->session->returnCurrentSelectedTheme();
 		$baseUrl .= $currentSelectedTheme."/";
-		include($baseUrl.'conf/config.php');
-		include($baseBaseUrl.'core/conf/config.php');
+		$config = settingsData::read($baseUrl.'conf/config.json', 'config');
+		$defaultConfig = settingsData::defaults('config');
 		$currentTheme = $this->loadSpecificVar($defaultConfig, $config, "currentTheme");
 		if(is_dir($baseBaseUrl.'local/Themes/'.$currentTheme))
 		{
-			include($baseBaseUrl.'local/Themes/'.$currentTheme."/defaultSetting.php");
+			$themeDefaultSettings = settingsData::read($baseBaseUrl.'local/Themes/'.$currentTheme."/defaultSetting.json", 'themeDefaultSettings');
 		}
 		else
 		{
-			include($baseBaseUrl.'core/Themes/'.$currentTheme."/defaultSetting.php");
+			$themeDefaultSettings = settingsData::read($baseBaseUrl.'core/Themes/'.$currentTheme."/defaultSetting.json", 'themeDefaultSettings');
 		}
 		include($baseBaseUrl.'core/php/loadVars.php');
 
-		$fileName = $baseBaseUrl .'local/conf/globalConfig.php';
+		$fileName = $baseBaseUrl .'local/conf/globalConfig.json';
 
-		$newInfoForConfig = "<?php
-			$"."globalConfig = array(
-			";
+		$newInfoForConfig = [];
 		foreach ($defaultGlobalConfig as $key => $value)
 		{
 			if(isset($newSaveStuff[$key]))
 			{
-				$newInfoForConfig .= $this->putIntoCorrectFormat($key, $newSaveStuff[$key], $value);
+				$newInfoForConfig[$key] = $newSaveStuff[$key];
 			}
 			else
 			{
-				$newInfoForConfig .= $this->putIntoCorrectFormat($key, $$key, $value);
+				$newInfoForConfig[$key] = $$key;
 			}
 		}
-		$newInfoForConfig .= "
-			);
-		?>";
-		if(file_exists($fileName))
-		{
-			unlink($fileName);
+
+		if (!settingsData::write($fileName, $newInfoForConfig)) {
+			throw new RuntimeException("Could not save upgraded settings");
 		}
-		file_put_contents($fileName, $newInfoForConfig);
 
 	}
 

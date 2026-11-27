@@ -16,42 +16,31 @@ if(!$session->validate())
 $baseUrl = "../../../local/";
 $currentSelectedTheme = $session->returnCurrentSelectedThemeAjax();
 $baseUrl .= $currentSelectedTheme."/";
-require_once($baseUrl.'conf/config.php');
-require_once('../../../core/conf/config.php');
-include('../../../local/conf/globalConfig.php');
-include('../../../core/conf/globalConfig.php');
+$config = settingsData::read($baseUrl.'conf/config.json', 'config');
+$defaultConfig = settingsData::defaults('config');
+$globalConfig = settingsData::read('../../../local/conf/globalConfig.json', 'globalConfig');
+$defaultGlobalConfig = settingsData::defaults('globalConfig');
 $currentTheme = $core->loadSpecificVar($defaultConfig, $config, "currentTheme");
 
-$requireFile = "../../../core/Themes/".$currentTheme."/defaultSetting.php";
+$requireFile = "../../../core/Themes/".$currentTheme."/defaultSetting.json";
 if(is_dir("../../../local/Themes/".$currentTheme))
 {
-	$requireFile = "../../../local/Themes/".$currentTheme."/defaultSetting.php";
+	$requireFile = "../../../local/Themes/".$currentTheme."/defaultSetting.json";
 }
-require_once($requireFile);
-
-
+$themeDefaultSettings = settingsData::read($requireFile, 'themeDefaultSettings');
 require_once('../loadVars.php');
 
-$fileName = $baseUrl.'Themes/Custom-Theme-'.$_POST["themeNumber"].'/defaultSetting.php';
-
-	//Don't forget to update Normal version
-
-	$newInfoForConfig = "<?php
-		$"."themeDefaultSettings = array(
-		";
-	foreach ($themeDefaultSettings as $key => $value)
-	{
-		$newInfoForConfig .= $core->putIntoCorrectFormat($key, $$key, $value);
-	}
-	$newInfoForConfig .= "
-		);
-	?>";
-
-if(file_exists($fileName))
-{
-	unlink($fileName);
+$themeNumber = settingsData::input($_POST["themeNumber"] ?? null, 0);
+if ($themeNumber < 1) {
+    echo json_encode(5);
+    exit();
 }
-file_put_contents($fileName, $newInfoForConfig);
+$fileName = '../../../local/Themes/Custom-Theme-'.$themeNumber.'/defaultSetting.json';
 
-echo json_encode(true);
-exit();
+$newInfoForConfig = [];
+foreach ($themeDefaultSettings as $key => $value)
+{
+	$newInfoForConfig[$key] = $$key ?? $value;
+}
+
+echo json_encode(settingsData::write($fileName, $newInfoForConfig) ? true : 5);

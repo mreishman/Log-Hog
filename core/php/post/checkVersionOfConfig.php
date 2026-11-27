@@ -18,7 +18,7 @@ $baseUrl = "../../../local/";
 $currentSelectedTheme = $session->returnCurrentSelectedThemeAjax();
 $baseUrl .= $currentSelectedTheme."/";
 
-require_once($baseUrl.'conf/config.php');
+$config = settingsData::read($baseUrl.'conf/config.json', 'config');
 
 $configVersion = 0;
 if(isset($config['configVersion']))

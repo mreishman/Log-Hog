@@ -12,7 +12,7 @@ $settings = new settings();
 $currentSelectedTheme = $session->returnCurrentSelectedTheme();
 $baseUrl = "../local/".$currentSelectedTheme."/";
 $baseUrlImages = $baseUrl;
-require_once($baseUrl."conf/config.php");
+$config = settingsData::read($baseUrl."conf/config.json", 'config');
 require_once("setupProcessFile.php");
 require_once("../core/php/configStatic.php");
 if($setupProcess != "step4")

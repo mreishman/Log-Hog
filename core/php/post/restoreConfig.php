@@ -13,41 +13,46 @@ if(!$session->validate())
 	echo json_encode(array("error" => 18));
 	exit();
 }
-$restoreTo = $_POST["restoreTo"];
+$restoreTo = settingsData::input($_POST["restoreTo"] ?? null, 0);
 $currentSelectedTheme = $session->returnCurrentSelectedThemeAjax();
 $baseUrl = "../../../local/".$currentSelectedTheme."/";
+$settingsLock = settingsData::lock($baseUrl."conf");
 
-// Remove files above current restore to (if any)
-
-if($restoreTo > 1)
+$stem = $baseUrl.'conf/config';
+$target = $stem.$restoreTo.'.json';
+if ($restoreTo < 1 || !settingsData::exists($target))
 {
-	for ($i=1; $i < $restoreTo; $i++)
+	echo json_encode(false);
+	exit();
+}
+$current = settingsData::read($stem.'.json', 'config');
+$restored = settingsData::read($target, 'config');
+
+$backups = [$current];
+for ($index = $restoreTo + 1; settingsData::exists($file = $stem.$index.'.json'); $index++)
+{
+	$backups[] = settingsData::read($file, 'config');
+}
+foreach ($backups as $index => $backup)
+{
+	if (!settingsData::write($stem.($index + 1).'.json', $backup))
 	{
-		unlink($baseUrl."conf/config".$i.".php");
+		echo json_encode(false);
+		exit();
 	}
 }
-
-//move current restore to to tmp file
-
-rename($baseUrl."conf/config".$restoreTo.".php", $baseUrl."conf/configTmp.php");
-
-//Copy current config to config-1
-
-rename($baseUrl."conf/config.php", $baseUrl."conf/config1.php");
-
-//move current tmp file (current restore) to main config
-
-rename($baseUrl."conf/configTmp.php", $baseUrl."conf/config.php");
-
-//move files after current restore (if any) back up to below previous restore to
-
-$newCount = 1;
-$boolForLoop = file_exists($baseUrl."conf/config".($restoreTo+$newCount).".php");
-while ($boolForLoop)
+if (!settingsData::write($stem.'.json', $restored))
 {
-	rename($baseUrl."conf/config".($restoreTo+$newCount).".php", $baseUrl."conf/config".$newCount.".php");
-	$newCount++;
-	$boolForLoop = file_exists($baseUrl."conf/config".($restoreTo+$newCount).".php");
+	echo json_encode(false);
+	exit();
+}
+for ($index = count($backups) + 1; settingsData::exists($file = $stem.$index.'.json'); $index++)
+{
+	if (!settingsData::remove($file))
+	{
+		echo json_encode(false);
+		exit();
+	}
 }
 
 echo json_encode(true);
